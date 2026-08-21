@@ -1,159 +1,141 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E05F3C2774;
-	Fri, 21 Aug 2026 12:34:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A5B448D0E
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 12:36:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787315690; cv=none; b=Z1qiNHxX0pisPcxju2FPsN15p3id6H+PIsdZBFKy7J0vxL1xXT7c7qFJQEL/eVVU49A1Ow4aNPsZLaeSc9u0pg3nh7kABCAuyaVOAH8IrrtmTqtLEoQ33dzkZBsiE06lJXDNsDADHYSHUm0IAsGcb4o8jylo3J97SdhqL/AMZVE=
+	t=1787315779; cv=none; b=pYCiw2sbFTXv975eIvCw9BbMB/XGNESohwLNME6Z690NdAak+FwRb8OaKgBWzD0uKEO4RJL9hcDE8hnrJAJp7JRWNektvG/o3R0D+wAF3onS4wHEOYZPFddesyAcPTdq54yunembPylw/MfFEwRdvJVkOIB6aczwymbWL4lR3xQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787315690; c=relaxed/simple;
-	bh=2kkKHBkv88IKU+xYcF4WPa4D6oErpPyRc/r+4J+1E/Y=;
+	s=arc-20240116; t=1787315779; c=relaxed/simple;
+	bh=mLM6FGzN9PN+9rIWyrpr8ZKkRYMcCve0OQfyNT49n48=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=q0r+KH6Ti+KeKsiVgZhwa5DO4n4pZl3NiWNNW0CjPVWiSUAbZBUU5BgCbhMnKqgOEdRPnWsYm2HLKIZbVzpECQN6ZhEFVHitBFRx7S7GJs1EG8xu9Vn5qzPK2ZaySjMjvEXzM9k6qaWK6UXmiY7GITpThNO/xsA93PR2OqALZMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cIC/lNBv; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=hLLnKlkNJvr+Vb4VmjhTmkRxteqMoWdPL3QNQ2spqOYsyaElvcF+O30BZIKJ5of93zs/wgv32+AO1ULuFIS1aGhjEBD7TKA/F2j9eAzD+VyZKd+BmuNihm4AhuxqRUQD7Ziv+nVGmCbalyH8J9Xdpz8hJRQrb2aMiwJfEtdlGbQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T0mBOhso; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cIC/lNBv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A67271F00A3A;
-	Fri, 21 Aug 2026 12:34:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T0mBOhso"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 273DE1F000E9;
+	Fri, 21 Aug 2026 12:36:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787315689;
-	bh=7AFkhrMCThyIII9/q9rulOXS6WokpvNvCXDBg9oxukc=;
+	s=k20260515; t=1787315778;
+	bh=xJNzJ+XliiBOCfYhtcK6908cqv+j+MXm5PEnIqP4u9I=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cIC/lNBvl8Xmx/GpOhS9FclS86DpwvrYQf9wwzljsCfUVO1U0EgjA4aHnqTOQcCrE
-	 KvgRUtPPaRgrQ70A5Id14V5r3Ng21aYPK5rOF3giyZyTXovK89bL5f4AEyoUNYTFny
-	 WuAIEfIaNgwVvXNQrk+TAs/O88MZiIcdkm+MM3BlnH2iuaET9AQB9u4Jat4EqggF0z
-	 NThlonjJoFtgQQl2yqscQm4UGs0w3QUHy7b5q9BoonaVEM/iQ6ovY4XiXGPedN5fDS
-	 xxWY9Oar1nYXOpDp1374e93YJl+VfKiSQyDL5G6UCmwwKKhkxayhEz+iIf4gJbKKhZ
-	 YR8bcHFhiYGYg==
+	b=T0mBOhsodXsQ4v3qPp2KjCKn3bbgvnrPAkmqfIU7Z0yc74912G9lM00gnmQkG9mua
+	 KGlSrhT1ED9abwo5komvWJz8QDhW/5XYfV19ADxSNCerJH5CcWMwf/Pq6qBdTMo7pg
+	 shGZf6pOQEyVMspM2C9PH00ei09d3HPQesAS0iixMN1iCM+mnFTCdZQ1OMwzA6Na2/
+	 gyE4Fq9RW9HlmPMQFt8FcmdalafNT4mzQ7R1M+vrnraoYGqQQ/+wDAvAzpKREt76zg
+	 S/8FKjC6KoDgy3iZGnwi1AG/nukWxek9zH+hHtrO9Im34vhPoKtKwD1eU9LXa4LHiY
+	 /WhZyZ0qfEe1Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 3/3] ARM: dts: imx7d: add Variscite MX7CustomBoard
- support
+Subject: Re: [PATCH v4 5/7] arm64: dts: qcom: Add LeEco Le2
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <af43fd35a6ccbcf633966a9b18f21832e8f44366.1787314780.git.stefano.r@variscite.com>
-References: <cover.1787314780.git.stefano.r@variscite.com>
- <af43fd35a6ccbcf633966a9b18f21832e8f44366.1787314780.git.stefano.r@variscite.com>
+To: "Adam Skladowski" <a39.skl@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260821-next-patches-v4-5-7ab02c0d4eb9@gmail.com>
+References: <20260821-next-patches-v4-0-7ab02c0d4eb9@gmail.com>
+ <20260821-next-patches-v4-5-7ab02c0d4eb9@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 21 Aug 2026 12:34:48 +0000
-Message-Id: <20260821123448.A67271F00A3A@smtp.kernel.org>
+Date: Fri, 21 Aug 2026 12:36:17 +0000
+Message-Id: <20260821123618.273DE1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-
-New issues:
-- [Medium] The V2 hardware revision variants with the WM8731 codec are miss=
-ing, despite the commit message claiming to support them.
-
-Pre-existing issues:
-- [Medium] The `assigned-clock-rates` property is defined twice in the `&sa=
-i1` node.
+- [High] The `vdd_l9_l10_l13_l14_l15_l18` property in `qcom,rpm-pm8950-regu=
+lators` is missing the mandatory `-supply` suffix.
+- [High] The `&otg` node configures an `extcon` but lacks `status =3D "okay=
+";`, meaning USB will remain disabled.
+- [Low] The Synaptics RMI4 touchscreen `reset-gpios` is incorrectly specifi=
+ed as active-high (`GPIO_ACTIVE_HIGH`), contradicting the hardware's active=
+-low requirement.
 --
 
---- Patch [3]: [PATCH v1 3/3] ARM: dts: imx7d: add Variscite MX7CustomBoard=
- support ---
-commit 453bab576a5d3f561e4803a647eb9654e584d623
-Author: Stefano Radaelli <stefano.r@variscite.com>
+--- Patch [5]: [PATCH v4 5/7] arm64: dts: qcom: Add LeEco Le2 ---
+commit c3c3413469ad8891e9f97013b16ab8831b5677fe
+Author: Adam Skladowski <a39.skl@gmail.com>
 
-ARM: dts: imx7d: add Variscite MX7CustomBoard support
+arm64: dts: qcom: Add LeEco Le2
 
-Add device tree support for the Variscite MX7CustomBoard carrier board with
-the VAR-SOM-MX7 system on module. This includes supported board configurati=
-ons
-for both VAR-SOM-MX7 hardware revisions (eMMC, NAND, and WM8731 variants),
-and adds the resulting DTBs to the i.MX7D device tree Makefile.
+This patch adds a devicetree for the LeEco Le2 smartphone based on the
+Eldarion/MSM8976 SoC. It includes initial support for I2C peripherals,
+regulators, WLED, remoteprocs, and GPU.
 
-Link: https://www.variscite.com/carrier-boards/var-mx7customboard/
+> diff --git a/arch/arm64/boot/dts/qcom/msm8976-leeco-s2.dts b/arch/arm64/b=
+oot/dts/qcom/msm8976-leeco-s2.dts
+> new file mode 100644
+> index 0000000000000..e64335162c34b
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/msm8976-leeco-s2.dts
+[ ... ]
+> +&blsp1_i2c4 {
+> +	status =3D "okay";
+> +
+> +	touchscreen@4b {
+> +		compatible =3D "syna,rmi4-i2c";
+> +		reg =3D <0x4b>;
+> +		interrupts-extended =3D <&tlmm 65 IRQ_TYPE_EDGE_FALLING>;
+> +
+> +		pinctrl-0 =3D <&touch_default_state>;
+> +		pinctrl-names =3D "default";
+> +
+> +		reset-gpios =3D <&tlmm 64 GPIO_ACTIVE_HIGH>;
 
-> diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/i=
-mx/Makefile
-> index 1a2539fa19b44..37da667f9ffb0 100644
-> --- a/arch/arm/boot/dts/nxp/imx/Makefile
-> +++ b/arch/arm/boot/dts/nxp/imx/Makefile
-> @@ -444,6 +444,12 @@ dtb-$(CONFIG_SOC_IMX7D) +=3D \
->  	imx7d-sdb-reva.dtb \
->  	imx7d-sdb-sht11.dtb \
->  	imx7d-smegw01.dtb \
-> +	imx7d-var-som-emmc-mx7customboard.dtb \
-> +	imx7d-var-som-emmc-wm8731-mx7customboard.dtb \
-> +	imx7d-var-som-nand-mx7customboard.dtb \
-> +	imx7d-var-som-nand-wm8731-mx7customboard.dtb \
-> +	imx7d-var-som-v2-emmc-mx7customboard.dtb \
-> +	imx7d-var-som-v2-nand-mx7customboard.dtb \
+[Severity: Low]
+Is the reset-gpios polarity correct here?=20
 
-[Severity: Medium]
-Are the V2 hardware revision variants with the WM8731 codec missing here?
-
-The commit message states that configurations for both hardware revisions
-include the WM8731 variants, but it seems there are no dtb targets (nor
-source dts files) added for V2 with WM8731.
+Looking further down in the patch at touch_default_state, a bias-pull-up is
+defined for this pin. This suggests the inactive state is physically high,
+which would mean the reset should be active-low. While the syna,rmi4-i2c
+driver may ignore this property currently, if driver support is added later,
+the GPIO framework might drive the pin low when de-asserting it, keeping
+the device permanently in reset.
 
 [ ... ]
-
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc-wm8731-mx7custo=
-mboard.dts b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc-wm8731-mx7customb=
-oard.dts
-> new file mode 100644
-> index 0000000000000..94c4b1fa5d6c3
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc-wm8731-mx7customboard.=
-dts
-> @@ -0,0 +1,23 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-> +/*
-> + * VAR-MX7CustomBoard for VAR-SOM-MX7 with eMMC and WM8731
-> + *
-> + * Link: https://variscite.com/carrier-boards/var-mx7customboard/
-> + *
-> + * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com/
-> + *
-> + */
+> +&mdss_dsi0_phy {
+> +	vddio-supply =3D <&pm8950_l6>;
+> +};
 > +
-> +/dts-v1/;
-> +
-> +#include "imx7d-var-som.dtsi"
-> +#include "imx7d-var-som-emmc.dtsi"
-> +#include "imx7d-var-som-wm8731.dtsi"
-
-[Severity: Medium]
-This is a pre-existing issue, but does the included imx7d-var-som-wm8731.dt=
-si
-file define the assigned-clock-rates property twice?
-
-Looking at &sai1 in arch/arm/boot/dts/nxp/imx/imx7d-var-som-wm8731.dtsi:
-
-&sai1 {
-	assigned-clock-rates =3D <0>, <36864000>;
-	assigned-clocks =3D <&clks IMX7D_AUDIO_MCLK_ROOT_SRC>,
-			  <&clks IMX7D_AUDIO_MCLK_ROOT_DIV>;
-	assigned-clock-parents =3D <&clks IMX7D_PLL_AUDIO_POST_DIV>;
-	assigned-clock-rates =3D <0>, <12288000>;
-	/delete-property/ fsl,sai-mclk-direction-output;
-};
-
-The assigned-clock-rates property is defined twice, which causes a device
-tree compiler warning and ambiguity about which clock rates are intended.
-
-Could this lead to incorrect clock configuration and non-working audio
-when this file is included?
-
-> +#include "imx7d-var-som-mx7customboard.dtsi"
-> +
-> +/ {
-> +	model =3D "Variscite VAR-SOM-MX7 with eMMC & WM8731 on VAR-MX7CustomBoa=
-rd";
-> +	compatible =3D "variscite,var-som-imx7d-emmc-wm8731-mx7customboard",
-> +		     "variscite,var-som-imx7d",
-> +		     "fsl,imx7d";
+> +&otg {
+> +	extcon =3D <&tiusb320>;
 > +};
 
+[Severity: High]
+Should this node include a status =3D "okay" property?=20
+
+Without it, the OTG port will remain in the disabled state defined by the
+base SoC inclusion, which prevents the USB controller driver from probing
+and leaves USB/OTG functionality broken.
+
+[ ... ]
+> +&rpm_requests {
+> +	regulators {
+> +		compatible =3D "qcom,rpm-pm8950-regulators";
+> +
+> +		vdd_s1-supply =3D <&vph_pwr>;
+> +		vdd_s2-supply =3D <&vph_pwr>;
+> +		vdd_s3-supply =3D <&vph_pwr>;
+> +		vdd_s4-supply =3D <&vph_pwr>;
+> +		vdd_s6-supply =3D <&vph_pwr>;
+> +		vdd_l1_l19-supply =3D <&pm8950_s3>;
+> +		vdd_l2_l23-supply =3D <&pm8950_s3>;
+> +		vdd_l3-supply =3D <&pm8950_s3>;
+> +		vdd_l5_l6_l7_l16-supply =3D <&pm8950_s4>;
+> +		vdd_l8_l11_l12_l17_l22-supply =3D <&vph_pwr>;
+> +		vdd_l9_l10_l13_l14_l15_l18 =3D <&vph_pwr>;
+
+[Severity: High]
+Is this property missing the mandatory -supply suffix?
+
+The regulator framework relies on the -supply suffix to establish parent-ch=
+ild
+relationships. Without it, the framework will fail to resolve the parent
+supply, leaving regulators L9, L10, L13, L14, L15, and L18 unmapped.
+
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1787314780.gi=
-t.stefano.r@variscite.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821-next-patch=
+es-v4-0-7ab02c0d4eb9@gmail.com?part=3D5
