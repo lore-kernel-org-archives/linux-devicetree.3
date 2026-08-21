@@ -1,246 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 879CE1DDC37;
-	Fri, 21 Aug 2026 12:41:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B44181DDC37;
+	Fri, 21 Aug 2026 12:41:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787316069; cv=none; b=tTWbeLynkTaghn6W9jmUf5GqLwTnBjPMOT6rVDliJhLIkbY+cSF5wvsNYsMKTDiGy4kGUq+puzDVY4tSxN7RJYAJkSn3J86C9JklZ3D/ihzsojDA20l6r1gQSTPFp1lehcOiVZNoPR/QNP6k8BJNDtGCGsV4UxFWW5d6xSoAAMs=
+	t=1787316117; cv=none; b=t6ctHKX5Z3tROoixSNTGvN8BcIJR8T5dmo4+Ao4ROCoAUdKOAvPBSuChCD3uVdIodBifmV4rr7ZYOpswmSrS1azPA3MBEJ0XR3y3i78A+sm6BSb346P86wy1bJMHyzhlO0SpMMMVsXuK9SC0UFVhGmkDE0uPkiO3jXgHkvee3a0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787316069; c=relaxed/simple;
-	bh=jSfkbJwvr5Lvh2CXUluZ5wdA39/BKoUXbeuTHiJXQXg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OrPu6OBAkl4Cci5X8Nxgw1WJVKAlmNkqPQXLbxnKUjqnMN7LT4fgOymtZ7UUFkeA4yn4ognz2e4wuXtefoelgWeRTFbjvpn46D/OqBzIPBBfSmbfrlXyeDpoeXrHEw+3CBED+E24VIx21eNHPOgBTdZ2maSGVCtHkf7NMtTd09I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WhCWLvGF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787316117; c=relaxed/simple;
+	bh=ItdycJ0ClGLmGAAxgcnNOFaBBg4+WVmTrXEZmhqOJa4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sV8MUNu/ACBR0KUgHp/QKsWhOTtRNuvxvyaGpPjsLX2qJAOuub7S4JSqn4OXq+ko5/S3hGW8xymTKRiZ64gp5sGbVOEg9WAR2JA0GZkDyWfjk2q900pyVwXbog+tyCkawpPO/myXBh0XsFQRfeaiGQtQDv9HRsIx47BHDnmDYOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=m0iFc3kw; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WhCWLvGF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA5971F000E9;
-	Fri, 21 Aug 2026 12:41:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787316068;
-	bh=x8fZVUD+VLPFYzy/zOla+LFds2QmZK25F7ld8li6UC0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WhCWLvGFpFhUj779R0kdSKuSdvLH5S5iJlpnlx7g6LimXhWNH7k7dI6aYbrXlprzx
-	 PGghi9TFlMecurk5f3UrFwx/QwlhgXHFeR3ss2lKNMGyQITPrR9QxoGrJUJXnpsdfL
-	 YWDsQlfmkpfTjTCwt7TehGlsQplrpS77TaSP2kuOQ1dBnoYy8DnlDeupw28yCWvjzi
-	 xw+Dx03rMXlcLNM2pFya0N6a3B9wofYwhG12LU8NRs7o8hdDVndrr2FhhtXHhlhe2z
-	 eei4dWm+xojX8M3noR5ZfXbDaj4yKNGCHz22AAd7Od0rb5WnKyKCPnsfnO0rU8gzOV
-	 BgWsB7RYhiodQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 2/3] ARM: dts: imx7d: add Variscite VAR-SOM-MX7
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
-Cc: conor+dt@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <d709664186f2a85b6c3173b5e5a8a297464fd7f7.1787314780.git.stefano.r@variscite.com>
-References: <cover.1787314780.git.stefano.r@variscite.com>
- <d709664186f2a85b6c3173b5e5a8a297464fd7f7.1787314780.git.stefano.r@variscite.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 21 Aug 2026 12:41:07 +0000
-Message-Id: <20260821124107.DA5971F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="m0iFc3kw"
+Received: from [172.16.124.192] (ip-78-44-13-22.bb.vodafone.cz [78.44.13.22])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 9F6A253401CE;
+	Fri, 21 Aug 2026 14:41:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1787316107;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=opLLXtL6IndG/zAcxQ0YK5eXgU6TXGyQYECW5sFzucE=;
+	b=m0iFc3kwOK0vrh5GavBCd2/xCO86rdkW6iqtm8XHHl4wNPdWRSiY7OV8LuvTJ79GU0Go0b
+	/rO4jF02GT+IBPECDu6dxpR3uq16YRf4BczMMeWbM32T0MjroCSY1zs7b31vbBZZvvQjA5
+	DcCNecUdo/dIbitfW2l1pJ+yElFuEvE=
+Message-ID: <e01a7430-1670-4aed-bb2d-3e505218d07a@ixit.cz>
+Date: Fri, 21 Aug 2026 14:41:46 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] arm64: dts: qcom: sm7225-fairphone-fp4: Enable
+ touchscreen
+To: Luca Weiss <luca.weiss@fairphone.com>, Job Noorman <job@noorman.info>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: phone-devel@vger.kernel.org, linux-input@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+References: <20260821-fp4-hx83112a-v1-0-474941bd8860@fairphone.com>
+ <20260821-fp4-hx83112a-v1-3-474941bd8860@fairphone.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20260821-fp4-hx83112a-v1-3-474941bd8860@fairphone.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] The Ethernet PHY reset pin for `ethphy1` is muxed on the `fec2` no=
-de instead of `fec1`, causing PHY detection to fail during MDIO bus probe.
-- [Medium] Use of `IRQ_TYPE_NONE` (0) for touchscreen controller interrupts.
-- [Low] Duplicate `assigned-clock-rates` property in the `&sai1` node.
-- [Low] Attempting to delete a non-existent child node `bcrmf@1` instead of=
- `wifi@1`.
-- [Low] Missing required `color` property in the GPIO LED definition.
-- [Low] Use of deprecated `reset-gpio` property instead of `reset-gpios` in=
- the PCIe node.
---
-
---- Patch [2]: [PATCH v1 2/3] ARM: dts: imx7d: add Variscite VAR-SOM-MX7 su=
-pport ---
-commit 910d1859fce3905900b424cb29918719c63275b0
-Author: Stefano Radaelli <stefano.r@variscite.com>
-
-ARM: dts: imx7d: add Variscite VAR-SOM-MX7 support
-
-This commit adds device tree support for the Variscite VAR-SOM-MX7 system on
-module. It provides the common SoM description along with configurations for
-eMMC, NAND, WM8731 audio codec, and the V2 hardware revision.
-
-Link: https://variscite.com/system-on-module-som/i-mx-7/var-som-mx7/
-
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-var-som-mx7customboard.dtsi =
-b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-mx7customboard.dtsi
-> index 0000000000000..82814535fb93e 100644
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-mx7customboard.dtsi
-> @@ -0,0 +1,378 @@
-[ ... ]
-> +	leds {
-> +		compatible =3D "gpio-leds";
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&pinctrl_gpio_leds>;
+On 21/08/2026 09:12, Luca Weiss wrote:
+> Add a node and pinctrl for the Himax HX83112A touchscreen found on this
+> phone.
+> 
+> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+> ---
+>   arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts | 21 ++++++++++++++++++++-
+>   1 file changed, 20 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+> index 23f950067a08..ff609f7e1796 100644
+> --- a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+> +++ b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+> @@ -626,7 +626,19 @@ &i2c8 {
+>   	clock-frequency = <400000>;
+>   	status = "okay";
+>   
+> -	/* HX83112A touchscreen @ 48 */
+> +	touchscreen@48 {
+> +		compatible = "himax,hx83112a";
+> +		reg = <0x48>;
 > +
-> +		led-d10 {
-> +			function =3D LED_FUNCTION_STATUS;
-> +			gpios =3D <&gpio1 13 GPIO_ACTIVE_HIGH>;
-> +			linux,default-trigger =3D "heartbeat";
-> +		};
+> +		interrupts-extended = <&tlmm 22 IRQ_TYPE_EDGE_FALLING>;
+> +		reset-gpios = <&tlmm 21 GPIO_ACTIVE_LOW>;
+> +
+> +		touchscreen-size-x = <1080>;
+> +		touchscreen-size-y = <2340>;
+> +
+> +		pinctrl-0 = <&touchscreen_default>;
+> +		pinctrl-names = "default";
 > +	};
+>   };
+>   
+>   &i2c10 {
+> @@ -1117,6 +1129,13 @@ platform {
+>   &tlmm {
+>   	gpio-reserved-ranges = <13 4>, <56 2>;
+>   
+> +	touchscreen_default: touchscreen-default-state {
+> +		pins = "gpio21", "gpio22";
 
-[Severity: Low]
-Does this led-d10 node also need a color property? When function is
-specified, modern LED bindings generally require the color property to form
-sysfs directories in the format color:function.
+I guess you could use here irq-pins {}, reset-pins {},
 
-[ ... ]
-> +&i2c4 {
-> +	clock-frequency =3D <100000>;
-> +	pinctrl-names =3D "default", "gpio";
-> +	pinctrl-0 =3D <&pinctrl_i2c4>;
-> +	pinctrl-1 =3D <&pinctrl_i2c4_gpio>;
-> +	scl-gpios =3D <&gpio4 14 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-> +	sda-gpios =3D <&gpio4 15 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-> +	status =3D "okay";
-> +
-> +	ft5x06_ts: touchscreen@38 {
-> +		compatible =3D "edt,edt-ft5206";
-> +		reg =3D <0x38>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&pinctrl_touch>;
-> +		interrupt-parent =3D <&gpio2>;
-> +		interrupts =3D <30 0>;
+but with or without change,
 
-[Severity: Medium]
-Is it intentional to use 0 (IRQ_TYPE_NONE) for the touchscreen interrupt
-trigger type here? This can cause the interrupt to be unconfigured or
-incorrectly configured by default, which may lead to missed touch events or
-an interrupt storm.
+Reviewed-by: David Heidelberg <david@ixit.cz>
 
-[ ... ]
-> +&pcie {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&pinctrl_pcie>;
-> +	reset-gpio =3D <&gpio2 31 GPIO_ACTIVE_LOW>;
-
-[Severity: Low]
-Could this use the standard reset-gpios property instead? The reset-gpio
-property is deprecated, and dtbs_check validation may emit warnings for it.
-
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-var-som-v2.dtsi b/arch/arm/b=
-oot/dts/nxp/imx/imx7d-var-som-v2.dtsi
-> index 0000000000000..724aa6fb36de2 100644
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-v2.dtsi
-> @@ -0,0 +1,64 @@
-[ ... ]
-> +/* WiFi */
-> +&usdhc2 {
-> +	mmc-pwrseq =3D <&wifi_pwrseq>;
-> +	/delete-node/ bcrmf@1;
-> +};
-
-[Severity: Low]
-Is there a typo in the node name here? The node defined in the base dtsi is
-wifi@1 (with the label brcmf). Trying to delete bcrmf@1 will cause the
-device tree compiler to fail since the node doesn't exist.
-
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-var-som-wm8731.dtsi b/arch/a=
-rm/boot/dts/nxp/imx/imx7d-var-som-wm8731.dtsi
-> index 0000000000000..5fab164a64820 100644
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-wm8731.dtsi
-> @@ -0,0 +1,65 @@
-[ ... ]
-> +&sai1 {
-> +	assigned-clock-rates =3D <0>, <36864000>;
-> +	assigned-clocks =3D <&clks IMX7D_AUDIO_MCLK_ROOT_SRC>,
-> +			  <&clks IMX7D_AUDIO_MCLK_ROOT_DIV>;
-> +	assigned-clock-parents =3D <&clks IMX7D_PLL_AUDIO_POST_DIV>;
-> +	assigned-clock-rates =3D <0>, <12288000>;
-
-[Severity: Low]
-Does this node intend to duplicate the assigned-clock-rates property? The
-second definition (<0>, <12288000>) will silently overwrite the first one
-(<0>, <36864000>), which will cause DTC to emit a duplicate property warning
-and the intended 36.864MHz clock rate configuration to be lost.
-
-> +	/delete-property/ fsl,sai-mclk-direction-output;
-> +};
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-var-som.dtsi b/arch/arm/boot=
-/dts/nxp/imx/imx7d-var-som.dtsi
-> index 0000000000000..cbd6252bd18f3 100644
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/nxp/imx/imx7d-var-som.dtsi
-> @@ -0,0 +1,633 @@
-[ ... ]
-> +&ecspi1 {
-> +	pinctrl-names =3D "default", "sleep";
-> +	pinctrl-0 =3D <&pinctrl_ecspi1>;
-> +	pinctrl-1 =3D <&pinctrl_ecspi1_sleep>;
-> +	cs-gpios =3D <&gpio4 19 GPIO_ACTIVE_LOW>;
-> +	status =3D "okay";
-> +
-> +	/* Resistive touch controller */
-> +	ads7846_ts: ads7846@0 {
-> +		reg =3D <0>;
-> +		compatible =3D "ti,ads7846";
-> +		pinctrl-names =3D"default";
-> +		pinctrl-0 =3D <&pinctrl_restouch>;
-> +		interrupt-parent =3D <&gpio1>;
-> +		interrupts =3D <9 0>;
-
-[Severity: Medium]
-Is it intentional to use 0 (IRQ_TYPE_NONE) for this touch controller interr=
-upt
-trigger type? This might result in the interrupt being unconfigured by defa=
-ult.
-
-[ ... ]
-> +&fec1 {
-> +	pinctrl-names =3D "default","sleep";
-> +	pinctrl-0 =3D <&pinctrl_enet1>, <&pinctrl_enet1_rst>;
-[ ... ]
-> +	mdio {
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +
-> +		ethphy0: ethernet-phy@0 {
-> +			compatible =3D "ethernet-phy-ieee802.3-c22";
-> +			reg =3D <0>;
-> +			reset-gpios =3D <&gpio5 11 GPIO_ACTIVE_LOW>;
-> +			reset-assert-us =3D <20000>;
-> +			reset-deassert-us =3D <80000>;
-> +			vddio-supply =3D <&reg_phy_vddio>;
-> +		};
-> +
-> +		ethphy1: ethernet-phy@1 {
-> +			compatible =3D "ethernet-phy-ieee802.3-c22";
-> +			reg =3D <1>;
-> +			reset-gpios =3D <&gpio4 3 GPIO_ACTIVE_LOW>;
-> +			reset-assert-us =3D <20000>;
-> +			reset-deassert-us =3D <80000>;
-> +			vddio-supply =3D <&reg_phy_vddio>;
-> +		};
+> +		function = "gpio";
+> +		drive-strength = <8>;
+> +		bias-pull-up;
 > +	};
-> +};
 > +
-> +&fec2 {
-> +	pinctrl-names =3D "default","sleep";
-> +	pinctrl-0 =3D <&pinctrl_enet2>, <&pinctrl_enet2_rst>;
+>   	qup_uart1_sleep_cts: qup-uart1-sleep-cts-state {
+>   		pins = "gpio61";
+>   		function = "gpio";
+> 
 
-[Severity: High]
-Does ethphy1 fail to reset during the MDIO bus probe on fec1?
-
-Since ethphy1 is a child of the fec1 MDIO bus, fec1 will attempt to toggle
-its reset GPIO (&gpio4 3) when it probes. However, the pinctrl for this GPIO
-(&pinctrl_enet2_rst) is attached to fec2 instead of fec1. Since fec2 has
-not probed yet, the reset pin may not be muxed properly, preventing the res=
-et
-toggle from reaching the PHY and causing detection to fail.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1787314780.gi=
-t.stefano.r@variscite.com?part=3D2
