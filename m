@@ -1,117 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2E704582CB;
-	Fri, 21 Aug 2026 09:45:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3C053DDAED;
+	Fri, 21 Aug 2026 09:46:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787305558; cv=none; b=kzshoirDAz1aoUcVoywt/+eYRc5IKX0mx/MUPt75Uv1qZj22XlXgpAsLPuk9gFHbzd3S5z9b8BmNRO+3lLC6vO8kJbx+WtxPW82ZVaS4rtnU3Q75NngBYNSrNgeZW5Xf4X1d7ufujAto0Fyglo3uXW7VOH8rasJnykHP+wTgLtY=
+	t=1787305630; cv=none; b=TlZE3bnH9toNAkQ3XWYZrF0pSkNfKCCSE12sAAfSacZTNyBKPQB5wHUBTcFKqk5vGlUswQIa6/gtvpOEIEMD4COioYhduNMdzc/7M41DfORIfBznXAQxLof7T1qFCAG40HS0uwXIieT3dKUuHyCt7Umx7oFPTLIsod8MZ+/XCJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787305558; c=relaxed/simple;
-	bh=kzqR1WdKbSlmyw7IJ21T0FUlTB4r/ex5U5annYpzBwM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AEjEd5BYFBDxWXd/y1XiQBQL41U+cceY4iIYyYZyLE63yZ4knz7lxwM8sgsJZRAfw8ZRTe9KAz0mf83MOcoTkk+5aBTKw5za69WQ0zrZRm6KKxq8ynSdo1qA4zIyB2Tv5pzWZrO7FXxJ4hKbrbgZNZYiiSPI+mMbhDIXKGudrG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IrUi1wjB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787305630; c=relaxed/simple;
+	bh=t8v2/ogFndfgh8m90+gQPp4REVawnYyCxxkJjTJIox8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JQqbI61dO5pm4+lQshPUkIG23DppzruDdXElAsHY4W/rIs72aqL+5sVR+VdbScewChCfHUkpAl8HVKsP12tufnDWXHM3t3Cju4xgEg0Grq4BsVi+atmVrRAbSTgiSB2LyngXVXnDSxarvHX/fln0VJL75WpU/V2VLEHgfFwaZDw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GlCLy6Hv; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IrUi1wjB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEF811F000E9;
-	Fri, 21 Aug 2026 09:45:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787305550;
-	bh=lcX1HcIioN6RDOu7kJFmuhD+cDaBL4tzsJMwf2OP5DE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=IrUi1wjBqYEnizRjndZOGvVP/lwYsj9xPGf/RV7kVw5jIuU6Hw8sOmOpH4D5mYhlm
-	 vaKbUogJjRjRPMmf0Wm2xMT1ZeomLp8/XQ++X+rm46BkYlMXNVmIINvSYtzqhvMQAr
-	 2X15Pun5aYZbcUYo+bXBIcJZx86r7fdI7jPw5MEXfKs2Ki31Dh4O7xWigsM+Qxk+6C
-	 6qsrqZQupJgk5H014Dn5EE5jwuKVFcK61025lrEgXbeTVEBNf3RQ4Qd3nv8fSA5wvk
-	 uNVQm+muMoFuiHzDF3nEcGs8YdCy7gZZZDNQpJoetgZFJwmLZ+hb0WgiMIa/0n1NWp
-	 l0e186Z/KwRnw==
-Message-ID: <4af6ebe2-c476-4251-829b-2d41239da7ff@kernel.org>
-Date: Fri, 21 Aug 2026 11:45:42 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GlCLy6Hv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787305625; x=1818841625;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=t8v2/ogFndfgh8m90+gQPp4REVawnYyCxxkJjTJIox8=;
+  b=GlCLy6HvH/L09TDE8dUxKne6kVld2IpAeUx6PYNggY7nLcD7HRdeeuFr
+   DrpLW6jTPy4vniat6jhFr8HCRBlXL5uO6nhsDXDZalX9Eo6RsfpleK5hN
+   BEMMXFgwPPrtB9VvfP9YSw7/4MjUFS0Z4BX1OdaJo18X8bO/tlHQOvTK5
+   7QqGVqvcRiv6kX6FaLr8/zV44X2HYM4dKGIMU6tkgvkHl/zTBajVyaE9p
+   ZU/cKio0N/10Gy1p7rszTi4lQNtUvZKOrGLSNrHt/IFuwG6eDcoBct466
+   ig5ug2/2jGRlIzNM908r74HUWk//ZAy5uc/T1obkD0XtLRadvR7GxQeah
+   g==;
+X-CSE-ConnectionGUID: 0jHhaKYwTYCwNr5d8yq9mg==
+X-CSE-MsgGUID: YjBIosrnTxq1OM7mVbpZDQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11881"; a="87621798"
+X-IronPort-AV: E=Sophos;i="6.25,234,1779174000"; 
+   d="scan'208";a="87621798"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 02:46:55 -0700
+X-CSE-ConnectionGUID: YY5c0jAQQ7CiuzwVDXO3EQ==
+X-CSE-MsgGUID: ++tW1p51QbGSL2QypOxziw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,234,1779174000"; 
+   d="scan'208";a="270114138"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.241])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 02:46:49 -0700
+Date: Fri, 21 Aug 2026 12:46:46 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Janani Sunil <janani.sunil@analog.com>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Mark Brown <broonie@kernel.org>,
+	Marius Cristea <marius.cristea@microchip.com>,
+	Marcus Folkesson <marcus.folkesson@gmail.com>,
+	Kent Gustavsson <kent@minoris.se>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Daire McNamara <daire.mcnamara@microchip.com>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	Janani Sunil <jan.sun97@gmail.com>, linux-spi@vger.kernel.org,
+	Kent Gustavsson <nedo80@gmail.com>, linux-riscv@lists.infradead.org
+Subject: Re: [PATCH v9 3/3] iio: dac: Add AD5529R DAC driver support
+Message-ID: <aogehm5B7hoqmnKo@ashevche-desk.local>
+References: <20260820-ad5529r-driver-v9-0-ba62e0b2a816@analog.com>
+ <20260820-ad5529r-driver-v9-3-ba62e0b2a816@analog.com>
+ <20260821024503.592fabc1@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/6] arm64: dts: axera: add AX650 Demo initial support
-To: Leng Honglin <lenghonglin@axera-tech.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Shi Zhicheng <shizhicheng@axera-tech.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev
-References: <20260821-ax650-v1-v1-0-e1b013938e6b@axera-tech.com>
- <20260821-ax650-v1-v1-5-e1b013938e6b@axera-tech.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260821-ax650-v1-v1-5-e1b013938e6b@axera-tech.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260821024503.592fabc1@jic23-huawei>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 21/08/2026 11:30, Leng Honglin wrote:
-> Add initial device tree support for the Axera AX650 SoC and Demo board.
+On Fri, Aug 21, 2026 at 02:45:03AM +0100, Jonathan Cameron wrote:
+> On Thu, 20 Aug 2026 09:08:23 +0200
+> Janani Sunil <janani.sunil@analog.com> wrote:
 > 
-> Reviewed-by: Shi Zhicheng <shizhicheng@axera-tech.com>
+> > Add support for AD5529R 16-channel, 12/16 bit Digital to Analog Converter
+> > from Analog Devices.
+> > 
+> > The device communicates over SPI and supports per-channel output range
+> > configuration. An optional external 4.096V reference can be used in
+> > place of the internal reference.
 
-I have more doubts, looks more like automated acking.
+> Sashiko calls out that dependency should be on CONFIG_SPI.
+> 
+> I didn't check it's reasoning but I believe the conclusion is correct.
+> If that's all that comes up, I can tweak whilst applying.
+
+Interestingly we have the following statistics (might be a few cases missing):
+
+$ git grep -n 'depends on.*[[:space:]\(]SPI_MASTER' | wc -l
+156
+$ git grep -n 'depends on.*[[:space:]\(]SPI\([^_]*\)\?$' | wc -l
+299
+
+But reading the Kconfig I tend to agree that what we need is SPI_MASTER.
+SPI might be enabled for SPI_SLAVE only, would it mean we have a usable
+HW on such a configuration / platform?
+
+> Looks good to me, but I'll leave it on list for a little longer
+> as we aren't in a rush and others may well want to review.
 
 ...
 
-> +	/* GIC-400 block base; register frames start at offset 0x1000. */
-> +	gic: interrupt-controller@4900000 {
+> > +config AD5529R
+> > +	tristate "Analog Devices AD5529R High Voltage DAC driver"
+> > +	depends on SPI_MASTER
+> 
+> depends on SPI
+> 
+> > +	select REGMAP_SPI
 
-MMIO nodes are not placed in top level and your internal review should
-have tell you that.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Also, entire file looks like failing on dt-style-check.
 
-Best regards,
-Krzysztof
