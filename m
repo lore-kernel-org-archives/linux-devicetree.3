@@ -1,120 +1,228 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B08549362C
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 16:27:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C0E249363C
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 16:29:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787329646; cv=none; b=obgGoXDGydDpH7uc4h+neGa7RIQaOCEkoVvObOsMD0/VZ7sRPAQQ3fJDlYuCC6Zc2fSYWgPBVeoAokQs4vIeYlABBj4WzyVYwUW3cD141/EltIYaEomPmuQMmp6NCf5IYPpNDiBqcdVTknX9hIFI/KmYvmV5GnB5321srFTwkT0=
+	t=1787329780; cv=none; b=JfrY+1ANkCL6aAPqKvoW0RJDWoSV+T5RO2j8pPFpI4g5QeQV5ocuN2MWN/nz3ErOmkAgg3xF5TsO6NcChhcTWqQLKAeHlX7HSJq19CDm9jmjbZY6Y9QdCtnso9bk2qZY20U5F5Y3uft9XiKEEBimSx3J4B8iv2clIMPsqv9o2d0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787329646; c=relaxed/simple;
-	bh=ng59kkrYSyvGQ2UHtwXg6HAg0JtQS7FlY2qFbbH5XDE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=V7sQggrvaSEC4cYID2OGaOznEq73Ezwj8CgzqYY9aYAP1H+SckA5eai9L1bOD59Vrwr/RUyWHW04K9dLEPHpNdsbmqSwiOg3cKw3b/beJnjjXiDrsX03TSCQSHfSv/Xsh24OmkpZA9ke4yQmcBNncrqIgGckRmz/WjQEpwLFG1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FyMwO77P; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787329780; c=relaxed/simple;
+	bh=vXZYcqQZ9G9e42lPAVUa4zO9S++Ew89E3Yen0oSCoIs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uFhH05iuGaehJrgmMHsdb32KS0G7a/6EXsH4/0Gh5i0O3HpS7vbRXiQsBhuJqS0YlUVSmT9QXqZWJi6P9ESmayvofvVHCbk/BwMV+W8u6O3khupsYDKu+q5CO6Re2FmuhAj+iaoit+f5VGKdInGglXvZvi7SD8Tq/ILyNAH5c5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DnVFdtSW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jEfW0KoR; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FyMwO77P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63A2B1F000E9;
-	Fri, 21 Aug 2026 16:27:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787329644;
-	bh=Ulf1GDo4AdVTzbJocdEwvi2Zu0oHZKg0ae9ZG/qS9KY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FyMwO77P/x+SGFb7Nv/xWt/Lr2BladV5ubLk77yHHstyfiix/LJRW5j7z7y28SmPk
-	 CNix/KN+92zyfxXcQL5HxUIYmqQvL+KFdPpoW/SXwRzMNb37pM9b/5ySr9VTVKjIuQ
-	 9Xkj0edco8xnJGAkwY1TVKcggVB7awHMCfQkST/6pWhcFTQdjzOzg2jxlwJy9y4Xxt
-	 51RI1EhvS5sRlDNrN6VtetaMmDnz++nZIhLDlMqjMNGIWramBHjPyESIcwLYaAGwaQ
-	 8zsBS737Zfe0xcZhEjRtEFmncAEZ/DNnx9xxBLZRo1ZEbcG4u7oY0q1+kwUnjUtnoe
-	 MDuxgQBWZT68g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] usb: typec: hd3ss3220: Add support for supply
- regulators
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alexey Charkov" <alchark@flipper.net>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260821-hd3ss3220-regulators-v1-2-405e5c4fb306@flipper.net>
-References: <20260821-hd3ss3220-regulators-v1-0-405e5c4fb306@flipper.net>
- <20260821-hd3ss3220-regulators-v1-2-405e5c4fb306@flipper.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 21 Aug 2026 16:27:23 +0000
-Message-Id: <20260821162724.63A2B1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DnVFdtSW";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jEfW0KoR"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67LFmWsG1641191
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 16:29:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	DFhFJP/IVjFFdhwkyRYn3nHcZ9DDbQ4DU++GQypzBxc=; b=DnVFdtSWrIC5Rfut
+	N+aZ9krtfc7J5XCZZThi1NTJzZ04Q6hGJWFZSgAhV2EBfJGJY49ptTfOEnwc5ifi
+	OQiTqMc/FdaHgScsptGPd2oHTVcgIKmmRWYBnw8QcEmycGSQ0EB6rOLb4vIHvTgx
+	E9R1metkVKVlDDZ7/o44EiNi1nFGpf1rrvXOdYe30yqUQKordhGNOhj8O1h1XZ6C
+	REiaXEKL28pCk7fmy3R9gHCT55Yv+Gz3/pJYnESWnKQW5PMBoy71IST/8rXLmo0o
+	vpgBDmbmAhTeaLsent2m9+yOJT+UzEG6WB4obSQchFFgoTxjpkEpJEz+LB6h9R/f
+	gvX3sQ==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g6ebutwdm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 16:29:37 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-52d827597fbso14714101cf.0
+        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 09:29:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787329776; x=1787934576; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DFhFJP/IVjFFdhwkyRYn3nHcZ9DDbQ4DU++GQypzBxc=;
+        b=jEfW0KoRftKx6GZI3xWFHAHG1dQS51bR8NtXK6fM4DAlx7HdC4oOoNWKcUuA1fRdPt
+         50OZ8WxiQ3xlGvUqVMwgc1ZKIlarOCS3ucfX3nC6AZqQ48OehGCg2+S8iOc1lgRZNTtP
+         zaacijHyQ0V1UpJsz2acv8hg8itfyswhWq2LNRmUGB3ul5yR6ZQkAhe3Xs1orj29rxVn
+         bCB4CteP75P1Fu1l9YA+Jqrjns1NqwhoIrA3TcdUOyNmgmGsLtUiDWmyz/QTREhGOgUE
+         1xqVTkHCNqL1361nCxYwJ0pe9x2/SkVFXvC9p2WZN2LeTslAgfv5YCSN6dsiseG0uN60
+         7VMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787329776; x=1787934576;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DFhFJP/IVjFFdhwkyRYn3nHcZ9DDbQ4DU++GQypzBxc=;
+        b=bdSZdSFCkAh5MCWEbS0cGMqphWzwb7Vi/N5JQMcDEB9/BFwAzNQL2bLDRGwUcACswF
+         APDOxm+Yq2pxFit3TeJAPYszzSraghY9hseXPLR6A68keUDfCxpcMnjRu4ynVoBwuHzY
+         B7KdT4Kyy6SDUmorytKDa5dK8HOpvlQwbz2skDZkQPKtyT2PL42CJrKXLbDlQCOp92ci
+         jEey2CGm8YpT6D4Stk70KoouTfiEbe29/Dj5xJsZKfkYFUGXenWEG9mpowovNALUSD7j
+         TNzor+Ar7/Dzx3qa5T/lHwiWjGyXfjqAKvfvIkFP2nD7HBgVR1I4XUW0Dop2a3kuTEie
+         gFcQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrmrkCWghaseu3v1gwZnwrKeanKuHKrpDWvSNL+FpyT1t0C4oVLgWDeI2BBGlGtThBCAxnOhwuiy+Dy@vger.kernel.org
+X-Gm-Message-State: AOJu0YwyKCVte+widaS3HQszkTeWAXEhtBw1DsToyrAn4BXwfxY3Na3Z
+	RlDlMBRslcibdSzzX6CEKnN/YrfFUkAEQHuFgfVVBRa0QJtK8IJXRY3P81oitkN7UbNlZQ6pAvZ
+	jEY7e8NswfpFEjWYph4/99Cgs569QzmnCStT5EJ56CgXt8ZsOapJK9isOxziqugk3
+X-Gm-Gg: AR+sD13Y5eO3hS/dKutz9DZphcZY6lxPnHqm7leAlCEbA8KtrWUpQwGOEuxr5Jmub1F
+	S4DmByt3o7kPa36yEO6BB1ykb0zG+v7qmLnse8a7YlCU5OqxtfpYqvKbbadLE9oETDtMWqhUUsz
+	wxnstshdL6wTQMFZa6rXVy3TJknWomU7YS+lzTr72E+DNHYxqIQlAWrNwK6cJvMvIEHPSHaR0s5
+	wLtdnj1pEPC5KVqXltj3R5zN30KCAz9MYrJhRWiw5DTq7qtZgnThmmVQqyu9r29e7lMK8WWv8ex
+	cuo0XPemvrF4gDfWm3mbSOJHDUaIRRECh8kJG4hvlY/hDG+uksazYDF6UUzU7AxzvYE064hl/jq
+	+Q7d02MGf4SO0hdp/MdF2oP99wDImmDqJ
+X-Received: by 2002:ac8:5805:0:b0:52d:9c92:d558 with SMTP id d75a77b69052e-52df5a07540mr72188551cf.23.1787329776274;
+        Fri, 21 Aug 2026 09:29:36 -0700 (PDT)
+X-Received: by 2002:ac8:5805:0:b0:52d:9c92:d558 with SMTP id d75a77b69052e-52df5a07540mr72188021cf.23.1787329775827;
+        Fri, 21 Aug 2026 09:29:35 -0700 (PDT)
+Received: from [192.168.1.2] ([122.171.20.211])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90c5eec1f31sm66561536d6.13.2026.08.21.09.29.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 21 Aug 2026 09:29:35 -0700 (PDT)
+Message-ID: <3f92d72a-9f3e-4149-b37b-e138bdd86050@oss.qualcomm.com>
+Date: Fri, 21 Aug 2026 21:59:24 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 06/15] dt-bindings: interconnect: Add Qualcomm Kuno NoC
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Taniya Das <quic_tdas@quicinc.com>, Georgi Djakov <djakov@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+        Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>,
+        Guru Das Srinagesh <linux@gurudas.dev>, linux-arm-msm@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
+        linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org
+References: <20260814-kuno-soc-support-v2-0-3079794f0f73@oss.qualcomm.com>
+ <20260814-kuno-soc-support-v2-6-3079794f0f73@oss.qualcomm.com>
+ <20260817-benevolent-nyala-from-valhalla-46cbbc@quoll>
+Content-Language: en-US
+From: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+In-Reply-To: <20260817-benevolent-nyala-from-valhalla-46cbbc@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: oP2aG66WtWvf_1B5OUXyvXK5xv-4GtbY
+X-Proofpoint-ORIG-GUID: oP2aG66WtWvf_1B5OUXyvXK5xv-4GtbY
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODIxMDEyOSBTYWx0ZWRfX8yELB88lSWQP
+ DK8U6URKKqlHTQFJdBGT3DiqNRO/C/+0wBfuUguB+oJ6Z5PTRTMfWhN6mx2eao6RRtTq3/VEnK5
+ dBBziggi1AA2uGnR5/UTcZx3ZR7e4vo=
+X-Authority-Analysis: v=2.4 cv=QJlYgALL c=1 sm=1 tr=0 ts=6a887cf1 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=+KmVXPE0btiop/5qwQKk0Q==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=gEfo2CItAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=acOcqc2iJ3WRxsWVYcEA:9
+ a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIxMDEyOSBTYWx0ZWRfXzbQ/fTdHKYbt
+ a2ssImWRlEdCJasHwSCX7hksgHUP9fhbCVHFZsi/tWr6IRKfMDj82Eo0KL7I2fSDthkXXxUCuM1
+ OkCwg0d8oc5KFfj/+vkzhllExO0k6HxX8q4gazI9zFTHxi15NMnH41ZCKsuaU2kZtG07X95hSCZ
+ A1cQkMGHmKnTHV7TDsjWfUOzlth1xr6jVnV1QgwTKbE5UtBf6B0iOw4BUIr74WYcchXB7eoe8nA
+ 3NM8b3S6qp/NkH1s1uXkofWprdDLs4WMb5N5mOIeSIp6YdLh/SBQD09sMVnOEXRWQd37swfWsya
+ idlyNmWbvDj22qEKtCZ3/lG0LqFwSonZZCxm1BQFaodenfJCOqfROjOe4XxjYZGbhJLVmrIRcwV
+ q7S7MYn+F/4oZBYlESgt6g2kspy+VU1hJjcePLg1GY6e2lHlDKtkg5PEX7EcX1gcNPhc+BJ3wF/
+ 4MsrGYciJJBsnhfBlvw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-21_05,2026-08-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 bulkscore=0 suspectscore=0 impostorscore=0 clxscore=1015
+ priorityscore=1501 spamscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608210129
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [High] The device interrupt `client->irq` is managed via `devm_request_th=
-readed_irq()` and can fire while manual cleanup is performed in `hd3ss3220_=
-remove()` and the `probe()` error paths, leading to a use-after-free.
---
+On 8/17/2026 12:58 PM, Krzysztof Kozlowski wrote:
+> On Fri, Aug 14, 2026 at 01:01:37PM +0530, Hardeep Sharma wrote:
+>> Document the RPMh-based Network-on-Chip interconnect providers and
+>> associated node-ID definitions for the Qualcomm Kuno SoC.
+>>
+>> Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+>> ---
+>>   .../bindings/interconnect/qcom,kuno-rpmh.yaml      | 82 ++++++++++++++++++++
+>>   include/dt-bindings/interconnect/qcom,kuno.h       | 89 ++++++++++++++++++++++
+>>   2 files changed, 171 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/interconnect/qcom,kuno-rpmh.yaml b/Documentation/devicetree/bindings/interconnect/qcom,kuno-rpmh.yaml
+>> new file mode 100644
+>> index 000000000000..ffbf14356f12
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/interconnect/qcom,kuno-rpmh.yaml
+>> @@ -0,0 +1,82 @@
+>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/interconnect/qcom,kuno-rpmh.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Qualcomm RPMh Network-On-Chip Interconnect on Kuno SoC
+>> +
+>> +maintainers:
+>> +  - Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+>> +
+>> +description: |
+>> +  RPMh interconnect providers support system bandwidth requirements through
+>> +  RPMh hardware accelerators known as Bus Clock Manager (BCM). The provider is
+>> +  able to communicate with the BCM through the Resource State Coordinator (RSC)
+>> +  associated with each execution environment. Provider nodes must point to at
+>> +  least one RPMh device child node pertaining to their RSC and each provider
+>> +  can map to multiple RPMh resources.
+>> +
+>> +  See also: include/dt-bindings/interconnect/qcom,kuno.h
+>> +
+>> +properties:
+>> +  compatible:
+>> +    enum:
+>> +      - qcom,kuno-aggre-noc
+>> +      - qcom,kuno-clk-virt
+>> +      - qcom,kuno-cnoc-main
+>> +      - qcom,kuno-dc-noc
+>> +      - qcom,kuno-mc-virt
+>> +      - qcom,kuno-mem-noc
+>> +      - qcom,kuno-pcie-anoc
+>> +      - qcom,kuno-system-noc
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  clocks:
+>> +    minItems: 1
+>> +    maxItems: 4
+>> +
+>> +  clock-names:
+>> +    minItems: 1
+>> +    maxItems: 4
+> Why are these flexible?
+>
+> Look at other bindings how this is done.
+>
+> Best regards,
+> Krzysztof
 
---- Patch [2]: [PATCH 2/2] usb: typec: hd3ss3220: Add support for supply re=
-gulators ---
-commit 1452abf55fe5c07be0afe4c56142e011df996897
-Author: Alexey Charkov <alchark@flipper.net>
+Thanks for review.
 
-usb: typec: hd3ss3220: Add support for supply regulators
+You're right.
 
-This commit adds support for supply regulators for the HD3SS3220. It ensures
-VDD5 is enabled 2ms before VCC33 is applied to prevent the device from being
-backpowered and wedging the I2C bus.
+In v3 I've made the clocks fixed per compatible rather than a flexible 
+range, following the sdx75/glymur interconnect bindings.
 
-> diff --git a/drivers/usb/typec/hd3ss3220.c b/drivers/usb/typec/hd3ss3220.c
-> index d0de5a2488f95..b53455abc0480 100644
-> --- a/drivers/usb/typec/hd3ss3220.c
-> +++ b/drivers/usb/typec/hd3ss3220.c
+v3 : 
+https://lore.kernel.org/all/20260821-kuno-soc-support-v3-0-196e2b306368@oss.qualcomm.com/
 
-[ ... ]
+Best Wishes
 
-> @@ -379,6 +407,10 @@ static int hd3ss3220_probe(struct i2c_client *client)
->  	if (IS_ERR(hd3ss3220->regmap))
->  		return PTR_ERR(hd3ss3220->regmap);
-> =20
-> +	ret =3D hd3ss3220_power_up(hd3ss3220->dev);
-> +	if (ret)
-> +		return ret;
-> +
->  	/* For backward compatibility check the connector child node first */
->  	connector =3D device_get_named_child_node(hd3ss3220->dev, "connector");
->  	if (connector) {
+Hardeep Sharma
 
-[Severity: High]
-This is a pre-existing issue, but could the manual resource cleanup in the
-error paths and remove function cause a use-after-free?
-
-The device interrupt client->irq is managed via devm_request_threaded_irq().
-Devres resources are destroyed by the core after the remove callback return=
-s,
-or after probe returns an error.
-
-However, typec_unregister_port() and usb_role_switch_put() are called
-manually inside hd3ss3220_remove() and the probe error path before the
-interrupt is disabled by devres:
-
-drivers/usb/typec/hd3ss3220.c:hd3ss3220_probe() {
-    ...
-err_unreg_port:
-    typec_unregister_port(hd3ss3220->port);
-err_put_role:
-    usb_role_switch_put(hd3ss3220->role_sw);
-    ...
-}
-
-If an interrupt fires concurrently during this window,
-hd3ss3220_irq_handler() will call hd3ss3220_set_role(), which dereferences
-hd3ss3220->port and hd3ss3220->role_sw after they have been freed.
-
-Does the interrupt need to be explicitly disabled, or should the port and r=
-ole
-switch cleanup be handled via devm_add_action_or_reset() to ensure correct
-ordering?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821-hd3ss3220-=
-regulators-v1-0-405e5c4fb306@flipper.net?part=3D2
