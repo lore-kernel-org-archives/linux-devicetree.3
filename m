@@ -1,62 +1,64 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA3936494F
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 21:10:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DDEB3002DD
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 21:10:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787346648; cv=none; b=rfpSb//JwxZ3IfCb3M8uOeeHau/SVO/LHQ0kMxWem7+u8mVfgu2YUoX/NRUA847C81bU3Crtxu53GetOpULXpRkAHgHuXtenAAkeeuj+bP8uOHUqgIrMOodY2iO3MCMmIadJ+faTpt+uEqQZBCnWpuDVigxauE/M8QhpLyzWCgo=
+	t=1787346655; cv=none; b=GPOev0dZZH2qZ0hB/864dUvp0eYxGQpRX/sUvlhQfY++nWNiN/wfLP+89lTLF9uozxh83bVAJbeEDOObrwKhlzdBeMB7h/ZRzgjv2rsSQDBpz7a4F++eg0pyr0Qw5j0S9DK95MFQKj4YW2mowGFLqHqOAObc5QIAq8xHoqj8VlA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787346648; c=relaxed/simple;
-	bh=EMceISQQR3TXbTd9em81YjXZYjPC9ENRztR73avuZU0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U8IkjcEnprPn2o8YBDpLytt4FeUzgOcUYTTwRxnXbw2ESqdSR6nR5VEFA81XlUoPjagHu1xWaks6uOYu6k2rj4mEoFAGBPbM+9nc4+Tba01rKkTlv5rbu3esJNmihpDIGYGB7nVgCX5CHuL3TcOC5GkPGwdvWTQaU5n+K8OwEBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l1ROBJ3U; arc=none smtp.client-ip=209.85.214.179
+	s=arc-20240116; t=1787346655; c=relaxed/simple;
+	bh=yCAVOIE++bw4Ie0FV54LDXmsp6naqMKl9wiNs7eJ4Dc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=e+ggl45EvNOFkMRf2/oYAthqpwakRY6Zje5a53eeneJas+Via1vuml/B7V3W+T9WwRb9gR5rndBukF90s/yz7iapkPmqk2bSIABxtKN85x0JaZsfyX7s+hVwNudyYkcBtgfy8T1nnwQcUTi3uEMi8J8qp86pcl0jrq6OQVG4HAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GJFZtTAD; arc=none smtp.client-ip=209.85.214.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l1ROBJ3U"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2d5655cc850so18542595ad.3
-        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 14:10:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GJFZtTAD"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2cca0c5799eso13916425ad.0
+        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 14:10:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787346646; x=1787951446; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eH1PdMyWZxJGgwaNLBlqd6pxOyFz86/WZ6+VDJYAAdo=;
-        b=l1ROBJ3U9g3/6EC9TQuy1mp9rmn0/MXbyTagogE3lLqSB4f2cf6BUuY03smzYRQs3m
-         flasQRfRZ6e7tQw8Ri7I66SQ2v88D1TJ5CETmh0D0ki/jUCU4uYF/YrROYcX3+b7GWfC
-         d4XeazmBeeQcLwmR7Z8iNAVGNFNblgOgx22TZ6PfBkVOKWYwHjnh3wqWwcntw7g6+7aD
-         lfBXeBGLOlN+Uso4+XXkGCJWBs6H4SK1hiBw6VNl1phRjh3nuvA11CzxL3q8MY26gVSo
-         LLv+wuBCcc5f62jHdKIxV0EZ57odOZOoQe9r7DMtlfQFd3EF4XmNnSG8/+f3e1TKH9aP
-         YZaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787346646; x=1787951446;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1787346653; x=1787951453; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=eH1PdMyWZxJGgwaNLBlqd6pxOyFz86/WZ6+VDJYAAdo=;
-        b=F2WhGrU3dq+mvQHLvH41qciyx47KKoUmFxwhcgLNURIPQdjSVr/s0YBzqhklk/MbdV
-         UH25Rm1EPZN0hAywPG2zg+3KJOSKcMYSwuttx3IKQdMBIBea+kqid3k8xaZlKwvEUCuj
-         kwxKOVfPbJhqruSWgnYTp5EOpfLhmbHStXryEs07V0Kdtf7nCvPATeIu2Q05nn+n0NIf
-         MKOO4x5gyTPDyagJ70C9CzHfcRORgW/PI3yLNt4a94Lp/2LSFH+MEUtggeFBkHmUp/Fy
-         wg/3cf0nBFrz1Fv3HEAFh/s204P7lIDn2zH6EdmCTqD2/G5nL8l/f6ZPWW/pV2kjQ5Zi
-         DxLQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoUalGho3WTeJkjQyOPc1ezMui8uoIPxdWLmHaph1svwV5H3isQ2efM8M5vxHyeRsd5rZKl7x5xdKDm@vger.kernel.org
-X-Gm-Message-State: AFuF++n6XwCKCbnKSxUtJ6ORm1Rb8ukvWUOpxwRCCfdVd40XUfIoNH5l
-	mWEaCT5di4FEX81kOw2pJgk6j9LZKaa33HvJNfaoJPvFwXELKEnikcYk
-X-Gm-Gg: AR+sD12Y1/5FtxOznKo9OTvAxzlrSQoNb0hJQxrP1y9O1PPAJBfVgxRlbu0UW2giGG+
-	uIq/FPzkInwfCCzpMO6PeCFFiObbJiX1eZFAMVoejzpvZBjfsxDWfuOqKfGzx6YfloKEfX+lvbv
-	jvHu9vn8XNp17edAReuonuxH7PDoTcSQ1DFLZfKfBPPVFar049Fx96MtDmvA//lTo0BmpvRmSBy
-	4G0Be0MY1ct4CL7QuLwZ/zbb3gCDeNM43J5uzeDjzsSuHsW/hpYwWPZ3oeVFEKe0MRqjida+pcB
-	Y9F5Oo5IAKoMzT0AeDf30uiRgQFQun/pzg3lqOV5+WgBc/RacfMwZia4lZ7IBC5r3YHTkojOj4A
-	TQwkLp6mZp5rOe3/Mt5rJ6oByRBPGerWvcBbU8esHvNsTpPGmkKkAAqQ1gqBKMsvBRpsg8uz2wL
-	PpcZWM4QGD5a/ofcyP9ayXFmdGxOzDsovrZtI7oS1wWFxp2whBMgIGoH1idulz0Sp/E6JPp0gJU
-	bEGVOdsbgCla6PRDjbaSiLe5VU+0Igl2qdu26eo8NX8gEastO59nXHJTfR1GtP1dG0ckUJY
-X-Received: by 2002:a17:903:1b23:b0:2cc:f5aa:9513 with SMTP id d9443c01a7336-2d64b036caamr189046405ad.10.1787346646380;
-        Fri, 21 Aug 2026 14:10:46 -0700 (PDT)
+        bh=LnRzPupI/2uu/oLvh9jVLVDDJ3EE4OAdAA4PYQ0nS8U=;
+        b=GJFZtTADDVfDzAC7QXPleU/IrdeHoefBg/xEZ7As8zCsT/xnwj5Hzni81lRVHgbqpy
+         grRmJAExEz9bt2WjBQluC0olHNo7bzQ0gdRf6IicSkQNkyyhZX3kN9wSpZhpPPooHsUr
+         2sw5eBgS2dDfDz9JMOJxnAxS1mkY1djabtgQjLULMVozQmDXIPTjkvWVAnymICX/zBm6
+         iavZ2SHhf9qILre4Fc7LFfl6Gx3vCP87WSVPwKBinA7I2BJT7Gog/3tUKVjTPabGpLqy
+         MZ2qWxemeseljwwchzBshWdHR8JB3ksEi7toqf2KlNO6XMCi295tc9I9UbT5P5iG7w87
+         0Trg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787346653; x=1787951453;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LnRzPupI/2uu/oLvh9jVLVDDJ3EE4OAdAA4PYQ0nS8U=;
+        b=MfEInCLzv3M2+leKMXOarpUmGnED3GYGMvBMublpXEsefx3+RcKb11dCfzL0//Ks7p
+         spyECgZ8ro1odF4z+efE0IULCeZA6N5cdSo/PjFPsLK/5H3FYVzdPGKekYCACFkWR0Xe
+         ZtD9YdXgrniVMD82JiEivgmdhuWOkyy+9UM4xiCo4yWOwCSokpL36S7hBdj6JJdoG0YV
+         GbaY9kaG+Cf17bTUjKbsQjytBuqDo2aMyOXxnvE+ltdgIQDS750NAAx3JxqsyhW83O1G
+         yXGQhrs/TOG23mbOskgB5Ta4p8fpuVYGgewSQkicrzPHLn0h/sTYccUR9mimwFSpERt4
+         W8tw==
+X-Forwarded-Encrypted: i=1; AHgh+RrK7F7JN3rNpQ9UiIhzEzVNjmXnH8fsj4u+tqvY3l+eKeMguwbmVkMcj10M2KcakMzNwDoAW1+cwCcp@vger.kernel.org
+X-Gm-Message-State: AFuF++nsySBy+aFBOfpGS+rv92vwVnHEtZP/BVzL/b02qdbZf+ZKc3rT
+	Vh3rvW1Vjof0qQbTgmz0holrrFY9259yD/PkQEYVE/OnFNc1Qw0w96Hg
+X-Gm-Gg: AR+sD11oHd07Dzps5RZ2x4hy2yD0KMawMIKJCBUy3tA0s79kQSctdCiecg31v5REESm
+	b32/g1LzbSQeEQrK/3XvBEf2dUTdki4DRKZh4nVJ/KBjYraxftiakRKnLYFVxyv2y8ViHMgpwEC
+	kCe1FMA/ZU+sJr0iPkRlj+CxOjWfxfmom/mJVoVYA6Olho0CiC+pHSSgEAE8vTUdlwlKwq4bYdY
+	T2ZDEPziBUPsDzELlUpg0cvOyNhsQKNyA+Mwnm1caRYjr661AlvLl0bJn9iLMKeGHkXNyqp1dNz
+	zGMvOJmpUc+Z0iaGRYnaFCtS9nh8TWyN039U6BpGWnkUa9/owU9Q4ZSX4YGhWGuqoPMAv+oXZ+K
+	0kWZj3rAXQSn9VRNlOY85sZV5tDcbh6hcHvcU0mL6gUjuju/ylMGFhTFFuU9NrnNiOqUsEoNzFi
+	MUuYyz8P8DcHr4SPCJvzgK8gIV1ljxKjJSVg8zSkme3ehMdEMinQDcOACYm2Vrayr8PSpoCfoC3
+	YxzVHMspL1nWyqjU53Z/OFCyXQpnmafK/vMbZ0QoQlkrX0HSmvkOJ+c2/pD1d8rCbLTT/Qg
+X-Received: by 2002:a17:903:b4b:b0:2c9:e846:a57e with SMTP id d9443c01a7336-2d64a9a1b03mr185088355ad.0.1787346653386;
+        Fri, 21 Aug 2026 14:10:53 -0700 (PDT)
 Received: from iku.. ([2401:4900:1c07:194c:dba4:ea1e:d7d1:affe])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bf175399sm49755257eec.26.2026.08.21.14.10.40
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bf175399sm49755257eec.26.2026.08.21.14.10.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 21 Aug 2026 14:10:45 -0700 (PDT)
+        Fri, 21 Aug 2026 14:10:52 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
@@ -74,11 +76,14 @@ Cc: linux-rtc@vger.kernel.org,
 	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
 	Biju Das <biju.das.jz@bp.renesas.com>,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v6 00/17] Add RTC support for Renesas RZ/T2H and RZ/N2H SoCs
-Date: Fri, 21 Aug 2026 22:10:15 +0100
-Message-ID: <20260821211032.13554-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v6 01/17] dt-bindings: rtc: renesas,rzn1-rtc: Add RZ/T2H and RZ/N2H support
+Date: Fri, 21 Aug 2026 22:10:16 +0100
+Message-ID: <20260821211032.13554-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260821211032.13554-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260821211032.13554-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,111 +94,100 @@ Content-Transfer-Encoding: 8bit
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Hi all,
+Add compatible strings for the RTC block found on the Renesas RZ/T2H
+(R9A09G077) and RZ/N2H (R9A09G087) SoCs.
 
-This series adds support for the RTC IP found on the Renesas RZ/T2H and
-RZ/N2H SoCs.
+These SoCs integrate a closely related variant of the RZ/N1 RTC IP.
+Unlike RZ/N1, they do not implement the RTCA0SUBU register. This is
+not a limitation for Linux support, as these registers are not used
+when the RTC operates in "scmp" clock mode, which is required on
+RZ/T2H and RZ/N2H due to their 195.3 kHz input clock.
 
-The RTC block is closely related to the RZ/N1 implementation and can
-reuse the existing driver infrastructure when operating in SCMP mode,
-which is required on these SoCs due to their 195.3 kHz RTC input clock.
-
-While the RZ/T2H and RZ/N2H variants do not implement the RTCA0SUBU
-register present on RZ/N1, this register is not accessed by the driver
-in SCMP mode, allowing support to be added with minimal changes.
-
-The RZ/T2H RTC variant also supports a 1 Hz output signal on the
+The RZ/T2H RTC variant also supports a 1Hz output signal on the
 RTCAT1HZ pin, controlled by the RTCA0CTL1[RTCA01HZE] bit. This bit is
-marked as reserved in the RZ/N1 hardware manual, making RZ/T2H a
-distinct RTC variant despite its overall compatibility with the RZ/N1
-implementation.
+marked as reserved in the RZ/N1 hardware manual.
 
-Patches have been rebased on top of rtc-next commit 78acddfde751.
+Update the binding schema to require the additional clock inputs used by
+these SoCs.
 
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+---
 v5->v6:
-- Dropped the output log from commit message.
-- Added missing sentinel comment
-- Collected Reviewed-by and Tested-by tags from Wolfram
+- No changes.
 
 v4->v5:
-- Collected Reviewed-by and Tested-by tags from Wolfram
-- Added Suggested-by tag from Wolfram.
-- Added a new patch to disable interrupts when arming a new alarm
-- Added a new patch to handle unset alarm weekday in
-  rzn1_rtc_read_alarm()
-- Shuffled the pm_runtime_put_sync() patch to be applied before the patch
-  that replaces the .remove() callback with devm_add_action_or_reset()
-- Renamed rzn1_data to rzn1_rtc_rzn1_data
-- Added a print message to indicate that SUBU mode is not supported
-  on the variant.
-- Added a comment to indicate that the xtal clock is NULL when SUBU
-  mode is not supported.
-- Renamed rzt2h_data to rzn1_rtc_rzt2h_data
+- No changes.
 
 v3->v4:
-- Added Reviewed-by tags from Wolfram.
-- Made use of tm->tm_wday directly instead of recalculating the weekday
-  from the day-of-month.
-- Updated commit message in patch #3
-- Shortened the comment describing the calculation of RTC_PCLK.
-- Updated usleep_range() value to use 2 * rtc->sync_time.
-- Added new patch to gate SUBU register access based on OF match data.
-- Added new patch to make use of pm_runtime_put_sync() in
-  rzn1_rtc_disable_hardware().
-- Added new patch to drop trailing comma from OF match table sentinel.
-- Added OF rzt2h_data for OF data
-- Updated commit message for patch #15
+- No changes.
 
 v2->v3:
-- Added new patch to fix weekday underflow when alarm crosses month
-  boundary.
-- Make use of devm_add_action_or_reset() to simplify driver teardown
-  and remove the .remove() callback.
+- No changes
 
 v1->v2:
-- Dropped wakeup capability support patch.
-- Dropped header sort patch as it was already fixed upstream.
 - Updated commit message to drop reference about RTCA0TCR register.
 - Added Acked-by and Reviewed-by tags.
-- Updated Kconfig help text to keep it generic and not specific to
-  RZ/N1 SoCs.
-- Initialized rate variable to 32768 to avoid timeout_us of 0.
-- Made use of RZN1_RTC_SUBU_RTCA0FX mask for SUBU register access
-  instead of 0x3F.
+---
+ .../bindings/rtc/renesas,rzn1-rtc.yaml        | 35 +++++++++++++++----
+ 1 file changed, 28 insertions(+), 7 deletions(-)
 
-v1: https://lore.kernel.org/all/20260615154805.1619693-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
-
-Cheers,
-Prabhakar
-
-Lad Prabhakar (17):
-  dt-bindings: rtc: renesas,rzn1-rtc: Add RZ/T2H and RZ/N2H support
-  rtc: rzn1: Handle EPROBE_DEFER for optional pps interrupt
-  rtc: rzn1: Fix weekday underflow when alarm crosses month boundary
-  rtc: rzn1: Handle unset alarm weekday in rzn1_rtc_read_alarm
-  rtc: rzn1: Fix alarm range check truncation on 32-bit systems
-  rtc: rzn1: Disable alarm interrupt before reprogramming alarm
-    registers
-  rtc: rzn1: Fix malformed MODULE_AUTHOR string
-  rtc: Kconfig: Broaden RTC_DRV_RZN1 dependency to ARCH_RENESAS
-  rtc: rzn1: Use pm_runtime_put_sync()
-  rtc: rzn1: Replace remove callback with devm_add_action_or_reset()
-  rtc: rzn1: Dynamically calculate synchronization delay based on clock
-    rate
-  rtc: rzn1: Use temporary variable for struct device
-  rtc: rzn1: Consistently use dev_err_probe()
-  rtc: rzn1: use FIELD_PREP/FIELD_GET and GENMASK for register access
-  rtc: rzn1: Add OF match data to gate SUBU register access
-  rtc: rzn1: Drop trailing comma from OF match table sentinel
-  rtc: rzn1: Add support for Renesas RZ/T2H and RZ/N2H SoCs
-
- .../bindings/rtc/renesas,rzn1-rtc.yaml        |  35 +++-
- drivers/rtc/Kconfig                           |   5 +-
- drivers/rtc/rtc-rzn1.c                        | 197 +++++++++++-------
- 3 files changed, 147 insertions(+), 90 deletions(-)
-
-
-base-commit: 78acddfde75177a27000f076e3e828743e38877e
+diff --git a/Documentation/devicetree/bindings/rtc/renesas,rzn1-rtc.yaml b/Documentation/devicetree/bindings/rtc/renesas,rzn1-rtc.yaml
+index 1860f0e4c31a..ea7b039a91e7 100644
+--- a/Documentation/devicetree/bindings/rtc/renesas,rzn1-rtc.yaml
++++ b/Documentation/devicetree/bindings/rtc/renesas,rzn1-rtc.yaml
+@@ -9,15 +9,19 @@ title: Renesas RZ/N1 SoCs Real-Time Clock
+ maintainers:
+   - Miquel Raynal <miquel.raynal@bootlin.com>
+ 
+-allOf:
+-  - $ref: rtc.yaml#
+-
+ properties:
+   compatible:
+-    items:
+-      - enum:
+-          - renesas,r9a06g032-rtc
+-      - const: renesas,rzn1-rtc
++    oneOf:
++      - items:
++          - enum:
++              - renesas,r9a06g032-rtc
++          - const: renesas,rzn1-rtc
++
++      - const: renesas,r9a09g077-rtc
++
++      - items:
++          - const: renesas,r9a09g087-rtc
++          - const: renesas,r9a09g077-rtc
+ 
+   reg:
+     maxItems: 1
+@@ -54,6 +58,23 @@ required:
+   - clock-names
+   - power-domains
+ 
++allOf:
++  - $ref: rtc.yaml#
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - renesas,r9a09g077-rtc
++              - renesas,r9a09g087-rtc
++    then:
++      properties:
++        clocks:
++          minItems: 2
++        clock-names:
++          minItems: 2
++
+ unevaluatedProperties: false
+ 
+ examples:
 -- 
 2.43.0
 
