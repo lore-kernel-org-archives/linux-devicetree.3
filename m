@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F1D02F5A2D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4EB4486648;
 	Fri, 21 Aug 2026 12:02:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787313755; cv=none; b=JNvV8MLMJJvGiYtwLyOHoBUJgn7a5uZzDduDxQYo5oWIOJiwKHn7kLVejZ0mSl31AszQz2jbi3yFISinZYfPU3Xo2JoIkS9Z+rVOZcZCbx1kP7zr5Berq2W2durAT9j4OPi1IMAla1JuUkK/IXQhcxDgKNYUQp8gTJwAXggqwXU=
+	t=1787313755; cv=none; b=k0s/GWTlSmp9RP4JxG0LUWZmYCgbqYZA28Tsk1tm8Kr2uISl1ffbWcgIAVJvePLuphaJ/eCQNz6n1WgeYKITyNJxoaHQGommNrvY+2e0wCiOFhmRV1vmNyLd5mtdfVipB+AxXBpMf5ton0RpYFNlmOCLROnyv1pRpC9BAvkfWok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787313755; c=relaxed/simple;
-	bh=Y1C3qRn442xlluBhCAz1HPQxJgAgw1FEMP66Vz9gg1o=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=swFce4/k24yA14IJbCviO7qx49puXaQaLbzqPHGoB012FMTocvepyaaR1rg8XWinQIb9jqI388BESQftSqZfzMvJvZ3nzAw4lSx0SIBwLymaYeCl9WfYJUXZkvGc5O3crorv96173qB8QICtZML42fVS5+AAkMRUBhz5HvGaVdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aYq4U7bx; arc=none smtp.client-ip=10.30.226.201
+	bh=7wJCJfN4pMWX9++KJykYlazzN3vmq3alpryAcGcQgv8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=NH8s61pd0T5/Dud5E5vcrYCS6/Al1WvTE13GrhldM53XZyaRupGnsIO99hdLw5EpSDwom2QJpx3A7d99MGLor0T8yyZu8OUxaulgMlfkuKt6gl72d5Wyxz7F3BmXvpDBIlp0hiS/MBCNDLwutSEVNCW/5p65vYgMvr+LGpT0ETw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=r6F2DXKV; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aYq4U7bx"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3932FC19425;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="r6F2DXKV"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6F9A6C2BCB3;
 	Fri, 21 Aug 2026 12:02:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1787313755;
-	bh=Y1C3qRn442xlluBhCAz1HPQxJgAgw1FEMP66Vz9gg1o=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=aYq4U7bxwjkD3GqDJZyNMTXOcEsm7BnuJ+S849n6CZlXIah0iZE9hhF1/CmQhGo+c
-	 Hfvt6op6J7/sHXt3fb4DlyFOsNoAXvfvVY+mgjSXWksoz+HjdRUTIAzC6iZSQ/Ij7v
-	 9+GavYsRxHeadqfZ4MV7Hzs7jARAp95qqZlI31EVigZ4JtNlRB9xlP4J4FSb4slt+x
-	 rp2uGzXurtds5w4kE/GoAEIsmWpPspgik1YDlbGwwhuoKoPBzdF1TLBdlJatUHGksu
-	 Wz+Lcpc42gKbhpSX5So6dn5pZvGDU/FuXAJTBrMR2mv9igFD9A16tP/bmgsc5J0KIt
-	 Uyu5lh3jnLIEg==
+	bh=7wJCJfN4pMWX9++KJykYlazzN3vmq3alpryAcGcQgv8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=r6F2DXKVZHScJMmdTC3oEPfRertr+qgZlEzikRXkEDoIomjcbKPvasQjziwl+tGBQ
+	 Mlz151reb0G3CdzxYBgccWYDGv/9WpnSAsWWHYkVK9mnMsROC4ukTPfz0H3FoCwb6f
+	 2r7bNf9Hmhbju7PxJlpDKUuWQwKemNTFSdmfWvC8wRD/K3W/C6Mkd0o0U+FchTYL1y
+	 pbSP4q3I8x/Y1kH0By1PgqhLU020k7xZtotC9xTmgGoCoYjPep13OisO/3CqI7AY9v
+	 uSRMFrMspPWiVelxxv4oXEzKTzEUiuFnJ0q1UF/Fo1FHqXGdN1c5HWxpXyz4s0/ubD
+	 5QK7VpAHtpqiQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D292C5DF7D;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5CD24C5DF7D;
 	Fri, 21 Aug 2026 12:02:35 +0000 (UTC)
 From: Jason Yang via B4 Relay <devnull+jason98166.gmail.com@kernel.org>
-Subject: [PATCH v4 0/7] phy: rockchip-samsung-dcphy: Add the MIPI D-PHY
- receiver
-Date: Fri, 21 Aug 2026 20:02:28 +0800
-Message-Id: <20260821-dcphy-rx-v1-v4-0-f1797634233d@gmail.com>
+Date: Fri, 21 Aug 2026 20:02:30 +0800
+Subject: [PATCH v4 2/7] dt-bindings: phy: rockchip,rk3588-mipi-dcphy: Allow
+ DSI and CSI consumers
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,10 +41,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAFQ+iGoC/23MywrDIBCF4VcJrmvRMTe76nuULmTURGguaJGEk
- HevyaZJKczmDHz/QoLxzgRyyxbiTXTBDX0a+SUj2Kq+MdTptAkwKFkFnGoc25n6iUZOpbJFZYX
- RVkuSxOiNddNeezzTbl14D37e45Fv3/+ddIzmFmuBDFGhvDedcq8rDh3ZOhGOtjxbSBatRBS5y
- jmoXyu+tubsbEWyCjQUCFJpi0e7rusHhOPeqh4BAAA=
+Message-Id: <20260821-dcphy-rx-v1-v4-2-f1797634233d@gmail.com>
+References: <20260821-dcphy-rx-v1-v4-0-f1797634233d@gmail.com>
+In-Reply-To: <20260821-dcphy-rx-v1-v4-0-f1797634233d@gmail.com>
 To: Vinod Koul <vkoul@kernel.org>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -58,11 +57,11 @@ Cc: Michael Riesch <michael.riesch@collabora.com>,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  linux-kernel@vger.kernel.org, Jason Yang <jason98166@gmail.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787313753; l=6334;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787313753; l=2834;
  i=jason98166@gmail.com; s=20260721; h=from:subject:message-id;
- bh=Y1C3qRn442xlluBhCAz1HPQxJgAgw1FEMP66Vz9gg1o=;
- b=CIyaWHObjUNlaWJQaZx3DaWxkSdnktoEQptoWPbrZ4JDwn4adguEg+GOeI3zmYbj31WeSdo2Z
- RVb8tO0UFC/DLSe24SIYvzDd7U5F9fhKV0XIUcoTfuzcRxzVg/WXWm1
+ bh=0WXE/NlokgeSzl3fI3FkObkaA99tQXSoViMQEwXn3Mg=;
+ b=3fWLRGuGuybNGBytIyM/G6LIROaQhrm/OnU6jbpr61L/vqpD0BxsqQjQbLKj7ESlidWA1ofMj
+ WHjKv6jee5gBN9kUaAFSAyTOjjemDaF2a8QehcS5jjweyzVlkUv3vrs
 X-Developer-Key: i=jason98166@gmail.com; a=ed25519;
  pk=xQmD001Q/ooHl39PxyQtusbUQmgbOsSfpFryRVWZ/k4=
 X-Endpoint-Received: by B4 Relay for jason98166@gmail.com/20260721 with
@@ -70,139 +69,84 @@ X-Endpoint-Received: by B4 Relay for jason98166@gmail.com/20260721 with
 X-Original-From: Jason Yang <jason98166@gmail.com>
 Reply-To: jason98166@gmail.com
 
+From: Jason Yang <jason98166@gmail.com>
+
 The Samsung MIPI D-/C-PHY block on RK3588 and RK3576 has a transmitter
 (DSI) and a receiver (CSI) on the same PHY, and two drivers can use them
-at the same time.
+at the same time. The single cell this binding has selects the mode, so
+it cannot tell whether a consumer wants the transmitter or the receiver.
 
-Mainline models the block as a single struct phy. The PHY core refcounts
-power_on() per struct phy, so the two cannot be powered independently,
-and the single devicetree cell selects the mode, so it cannot tell
-whether a consumer wants the transmitter or the receiver.
+Allow a second cell that selects the transmitter or the receiver. With
+D-PHY:
 
-This series registers a struct phy for each of them, adds generic
-PHY_TYPE_DSI and PHY_TYPE_CSI constants so that the devicetree can
-select between them, and implements the receiver.
+	/* the MIPI DSI host, driving the transmitter */
+	phys = <&mipidcphy0 PHY_TYPE_DPHY PHY_TYPE_DSI>;
 
-  1/7  adds PHY_TYPE_DSI and PHY_TYPE_CSI to the generic header
-  2/7  allows a second cell in this binding to select the transmitter
-       or the receiver
-  3/7  moves the block-level setup to runtime resume
-  4/7  names the transmitter helpers and ops (no functional change)
-  5/7  factors the transmitter teardown into a helper (no functional
-       change)
-  6/7  registers the receiver's struct phy and takes the second cell
-       in of_xlate()
-  7/7  implements the receiver bring-up
+	/* the MIPI CSI-2 host, driving the receiver */
+	phys = <&mipidcphy0 PHY_TYPE_DPHY PHY_TYPE_CSI>;
 
-First, my apologies for the quality of v3. I sent it too hastily, 
-and much of it had not been thought through before it went to
-the list.
+and with C-PHY:
 
-I have removed the Assisted-by tags from 1/7, 2/7, 3/7 and 5/7. Writing this
-code and the commit messages of those patches don't need AI; I only
-used an AI to catch typos and to smooth my words(same as this letter).
+	phys = <&mipidcphy0 PHY_TYPE_CPHY PHY_TYPE_DSI>;
+	phys = <&mipidcphy0 PHY_TYPE_CPHY PHY_TYPE_CSI>;
 
-On the points Krzysztof and Sebastian raised, I have rewritten the
-commit messages of 1/7 and 2/7 and the binding text, and the binding
-now lists all four combinations, so that it is clear how the mode and
-the choice of transmitter or receiver go together. A single cell still
-means the transmitter, so existing device trees are unaffected.
+The transmitter and the receiver cannot operate in different modes [1],
+so the first cell must match in both consumers.
 
-On the D-PHY / C-PHY mixing Michael asked about earlier: at the end of
-TRM section 22.1 I found the sentence "The TX and RX only support
-operate in the same PHY mode." So DSI and CSI can run at the same
-time, but both have to be in the same mode. 2/7 says so in the binding
-text and in its commit message, and 6/7 rejects one D-PHY consumer 
-next to one C-PHY consumer in of_xlate().
+A board that wires up both sets '#phy-cells = <2>'. A board that only
+wires up the transmitter keeps '#phy-cells = <1>', so existing device
+trees are unaffected.
 
-Because of that, and because the list pointed out that this is a combo
-PHY, I treat the block as one transmitter PHY and one receiver PHY,
-each of which can run in D-PHY or C-PHY mode. The transmitter and the
-receiver therefore register their own phy_ops, and power_on() only has
-to work out which mode the block is in, rather than working out both
-the mode and which of the two it is being called for. C-PHY still
-returns -EOPNOTSUPP throughout.
+[1] RK3588 TRM: section 22.1 (overview): "The TX and RX only support
+    operate in the same PHY mode."
 
-I have also moved the block-level setup into runtime resume, so that
-the runtime PM usage count does the counting and I do not have to add
-a refcount and a lock to protect that count. That needs the point at which
-probe enables runtime PM to be fixed first, which I do not think
-belongs in this series, so it is sent separately for review: [1]
-
-[1] https://lore.kernel.org/r/20260821-dcphy-rpm-v1-v1-1-a7db728b2539@gmail.com
-
-My apologies again to everyone who spent time on the earlier versions. 
-I will look over my own code more carefully before sending from now on, and
-take responsibility for it. Thank you.
-
-Testing
-=======
-
-Tested on an RK3588 board with two devicetree configurations, one boot
-each.
-
-With #phy-cells = <2>, DCPHY0 drives a DSI panel from its transmitter
-while an IMX219 camera feeds its receiver; DCPHY1 drives a second DSI
-panel through an unchanged single PHY_TYPE_DPHY cell.
-
-  - both panels light from boot; the camera then joins and streams
-    with GStreamer, so the transmitter and the receiver run at the
-    same time on DCPHY0
-  - the transmitter then leaves and rejoins mid-stream: the panel goes
-    off and comes back while the capture keeps running
-  - no WARNING, underflow, "Internal error" or Oops in dmesg
-
-With dsi0 disabled, DCPHY0 has no transmitter consumer at all for the
-whole boot, and the camera still brings the block up and streams. That
-path only works because 3/7 moved the block-level setup to runtime
-resume.
-
-Not covered: RK3576, which this driver and binding also describe, and
-the 3- and 4-lane receiver paths.
-
-The DSI panels only light with the U-Boot SPLL fix [2] applied:
-without it the bootloader leaves the SPLL at its 351 MHz bootrom
-default while the devicetree describes it as a 702 MHz fixed clock,
-halving the rate of both DSI hosts. The receiver path is unaffected;
-the camera captures exercise it independently.
-
-[2] https://lore.kernel.org/u-boot/20260804002643.2308515-3-jonas@kwiboo.se/
-
+Signed-off-by: Jason Yang <jason98166@gmail.com>
 ---
-Changes in v4:
-- Put the second cell back: the first cell selects the mode, the
-  second the transmitter or the receiver.
-- Drop the private use count and mutex; the runtime PM usage count
-  does the same job.
-- New patch 3/7: move the block-level setup to runtime resume.
-- Split v3's 3/5 into 4/7 and 5/7.
-- of_xlate() rejects a mix of D-PHY and C-PHY consumers.
-- The runtime PM probe-order fix is now a separate patch [1] that this
-  series applies on top of.
-- Bryan O'Donoghue's Reviewed-by from v2 is not carried over; that
-  patch was rewritten.
-- Link to v3: https://lore.kernel.org/r/20260810-dcphy-rx-v1-v3-0-a2d25c29adfc@gmail.com
+ .../bindings/phy/rockchip,rk3588-mipi-dcphy.yaml     | 20 +++++++++++++++++---
+ 1 file changed, 17 insertions(+), 3 deletions(-)
 
----
-Jason Yang (7):
-      dt-bindings: phy: Add PHY_TYPE_DSI and PHY_TYPE_CSI definitions
-      dt-bindings: phy: rockchip,rk3588-mipi-dcphy: Allow DSI and CSI consumers
-      phy: rockchip-samsung-dcphy: Move block-level setup to runtime resume
-      phy: rockchip-samsung-dcphy: Name the transmitter helpers and ops
-      phy: rockchip-samsung-dcphy: Factor the transmitter teardown into a helper
-      phy: rockchip-samsung-dcphy: Add a second PHY for the receiver
-      phy: rockchip-samsung-dcphy: Add MIPI D-PHY receiver support
+diff --git a/Documentation/devicetree/bindings/phy/rockchip,rk3588-mipi-dcphy.yaml b/Documentation/devicetree/bindings/phy/rockchip,rk3588-mipi-dcphy.yaml
+index c8ff5ba22a86..595a71a51ee6 100644
+--- a/Documentation/devicetree/bindings/phy/rockchip,rk3588-mipi-dcphy.yaml
++++ b/Documentation/devicetree/bindings/phy/rockchip,rk3588-mipi-dcphy.yaml
+@@ -20,11 +20,25 @@ properties:
+     maxItems: 1
+ 
+   "#phy-cells":
+-    const: 1
++    enum: [1, 2]
+     description: |
+-      Argument is mode to operate in. Supported modes are:
++      A single cell selects the mode to operate in and refers to the
++      transmitter:
+         - PHY_TYPE_DPHY
+         - PHY_TYPE_CPHY
++
++      Two cells select the mode and then the transmitter (DSI) or the
++      receiver (CSI), so that both can be described as independent
++      consumers of the same PHY:
++        - PHY_TYPE_DPHY PHY_TYPE_DSI
++        - PHY_TYPE_DPHY PHY_TYPE_CSI
++        - PHY_TYPE_CPHY PHY_TYPE_DSI
++        - PHY_TYPE_CPHY PHY_TYPE_CSI
++
++      The transmitter (DSI) and the receiver (CSI) cannot operate in
++      different modes, so when both are described, the first cell must
++      match in both consumers.
++
+       See include/dt-bindings/phy/phy.h for constants.
+ 
+   clocks:
+@@ -82,6 +96,6 @@ examples:
+                  <&cru SRST_S_MIPI_DCPHY0>;
+         reset-names = "m_phy", "apb", "grf", "s_phy";
+         rockchip,grf = <&mipidcphy0_grf>;
+-        #phy-cells = <1>;
++        #phy-cells = <2>;
+       };
+     };
 
- .../bindings/phy/rockchip,rk3588-mipi-dcphy.yaml   |  20 +-
- drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c  | 552 ++++++++++++++++++---
- include/dt-bindings/phy/phy.h                      |   2 +
- 3 files changed, 515 insertions(+), 59 deletions(-)
----
-base-commit: b828e5a7fb47aa434b8b20636de5d47356314322
-change-id: 20260721-dcphy-rx-v1-9af57f3edfd9
-
-Best regards,
 -- 
-Jason Yang <jason98166@gmail.com>
+2.43.0
 
 
