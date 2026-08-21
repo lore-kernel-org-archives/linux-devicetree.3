@@ -1,103 +1,114 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 908F34BCADD
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 14:23:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 591A04BC02C
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 14:25:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787322211; cv=none; b=dHw24IleTLQ7yW76gLqfTexzUIMku/JNH2XclgGGH272FnKlz7bhhH1WDd846hekiqffKfJ5wUuxBGzSwf5kqpFgR9Agk4dLiC0oOtAQhd9sMbQFSJ66pNwGSDb6coLcZAK/AhNA43/CD0U9G1odaZGNbhaATfWHZ3hSwyaftgA=
+	t=1787322359; cv=none; b=dUH06DNuaH9u1Z/n4jGmXWSMpELZLibTYLxKBuhyCSrVdZScNwr96jfuBbDNYuuuP8Y94Dbh16UvQPJrRhK7QnPa213uKjapGbqk95c5COV552cTDA0dMg0a5NVtzI29ahhKHGQOOdeAoV3UUU3lMVOGq0OPZnG3VNK/MbyONEs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787322211; c=relaxed/simple;
-	bh=iJ5zjD2EWw2yDJ5z4MSpVjmW6V+stFF2dP8kSOQKY70=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DJY2wqXdOGyN0y0rNr8JcjMW3NzN/B5Rph9WBbFOHON8DYvRpffx+15vcCBrFGuVJlgYx9rjhrNtmjIVvigYbO6vb5iZ6CMQjUxCCFNaOPb3OrGn6DsP+pDSrpW3+d55oNKxFHPAvldIQ8CuwGe8Tv+CUZDqY8eok6p+Og6rAKQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yier4Xh9; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787322359; c=relaxed/simple;
+	bh=WLlwHc7QdE0NSK7tOXOFqh4x2N5Mk9D8AaFvpUagJHs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=f7uWpPT5QZTiisCakRHSDxF0YZO2KKOUiTExX+lw+2amjkbgUH/ONAK0Uj/rOaTkaVHk3FGOhBMy/zI1aIPPmt+ghj0q/C53LxG83kfVK3grVYM4Q/z1Ed7v7nfoQfPTOeJlla4FPfHSdbBKoHllcZ54MhmbLLeSrOxLEV9c3Dg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=om6K7hDT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yier4Xh9"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-382ef647e20so1012379a91.1
-        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 07:23:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787322207; x=1787927007; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=QEFJejdXEP132PW639xF3lV8S0Gso+8wMOBeJk4UlZM=;
-        b=Yier4Xh9iCsVEqGjmTOw6EdbngSngoMSzx7lKN8F37EN659bLub3ys3S91kbPbPOiX
-         Yu2g97TOmN4I9inCUBHfwYtrPJqcKFp0O8qUNg+TA62unGw9VJHUKWqZPqRdnjfbfslF
-         qDSIMOBiMaWuXCSf2RIwHuBIZwmEc5Oi3RrJm+fM6yZWo/nzTjnOyuX7a5qpkxyLwx1C
-         qLbtHtvsBdMkgc5kJhU7g+l+SCaMcM5wkXgX1vFhWC75NP9m8ht5oZXobfktWUfric65
-         ohmKUXGBVEJ68gn0ajCYm3x1SKFs7af4juAPH+pcCcnJEtxOVmYyOVccWBqhAqhGeBD8
-         0mTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787322207; x=1787927007;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QEFJejdXEP132PW639xF3lV8S0Gso+8wMOBeJk4UlZM=;
-        b=FLQAJisdafsmTZT8imkCEfvEdeO6Zl9YNMmSx3eGMyOgWuZDJ6vGkIXI3+SiTuOS6Q
-         XEqQtgbQBSu4y/JKs3TNdXwUROzITYW5EJYDdE40IfloDyO55KTEDiUob4BxYQ6uoE61
-         05hFfyDdh4q3rcR17ZfEPRQnZjrNBwAbfHo6tz76RqZ800UY0Lslb2BGxE7mIDq6QswF
-         LgxpWD201AL8YLlHeRttISng5tgoV4YdVCjQIe1USUdeNDQQ8oGU/DL1oTCVfqiB1Blu
-         QzYQM1tQ7KxFRHyEP20dYQvpnDJ2ss9LawQhfijZIxd4lZD8dEy3Tkmswaa1Ry+1zuxT
-         oz4w==
-X-Forwarded-Encrypted: i=1; AHgh+RqvrG2Fa5v9O/z+TW+rOKtE6XPN3GsGmo2e5MmgmkFrPxj5IfRUMytxQccA0VpVvpx+NPGqFisZcOD2@vger.kernel.org
-X-Gm-Message-State: AFuF++lsuXBWdB2bGXPGFQXOWf7M3LlOQU+UGdqnRbvpDNB3u3xe3o7k
-	nTt/jJLvhuco868JWV0Ehs10sISzT0vaieCnlQ6PqmruyuEg+9FHjhU46wx55g==
-X-Gm-Gg: AR+sD10LF4Gc0tx04cSD2fARXu1yC7b2jNZ/xBazXf/hPes7mZ4bleMEfbWcNCKFvIY
-	s+tcIuEksTlLdxOrQlXgVSmsSv9mAP9E6B3TJVY8ubWBe0FzipTunOPBbfpL/G9dqIaDwtgEKdQ
-	z7zz8eyzMW1NIR+RCdhsuxpf3gNCEsfKlYxYprXBR6aDSaj1BCxqyiy2BN2xOXx1+vTQix8Calo
-	+9RtKc6JKFT4785cZbABXfPDbja6OeH2su2BNFBcs6gDmdS99COVmkiJis7mv1c+dn9w0mET6WP
-	OVSllx4csOqAIl+BqyAMXJU98ocxVJWgxXSrWj7/T23JC8focD5Y6a9JJuPZ7eGwXWS/DpHVKSI
-	qw0MWHaP8vNRR2uXnCAP885OytWAxSbJxYVNuCcQEzAOJguq3+P3WfzeVLl2N3pQi3p1UBygkRJ
-	ekAkwOiWqCBxgSF5nELMSecB+Cls72fh015V05xiGwilwLYtphc6hSkG3dBKzJ90Fxc6S8xcuS5
-	Q==
-X-Received: by 2002:a17:90b:394b:b0:381:9028:5945 with SMTP id 98e67ed59e1d1-395c384d95bmr12901407a91.14.1787322207392;
-        Fri, 21 Aug 2026 07:23:27 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1416aea2429sm25714380c88.15.2026.08.21.07.23.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 21 Aug 2026 07:23:26 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Fri, 21 Aug 2026 07:23:25 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Alessandro Zini <alessandro.zini@siemens.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] hwmon: (sht4x): Add support for Sensirion STS4x
- temperature sensors
-Message-ID: <e081c728-92e5-493b-ac28-9473eade7e82@roeck-us.net>
-References: <20260821091924.18975-1-alessandro.zini@siemens.com>
- <20260821091924.18975-3-alessandro.zini@siemens.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="om6K7hDT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F4091F000E9;
+	Fri, 21 Aug 2026 14:25:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787322357;
+	bh=WvFNDJiwYFDo8sQo9vlvZhuGz420RrLM73P0NJ4FTMc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=om6K7hDTTCw7WZLFKiyF/5kYjPSBxSuay0AqMcnTmGkqSLdMcQZA9fR6j18b11dsK
+	 TRYJ73f1Wp7+TlyxHO6+x+eQ7B8SoyagTHgejE3GXFUZK85yeAHZzBSLKYtXGh1ByX
+	 oUq5zYVPNn3Hx0wQpSLXgJwaVp8Oq2I+QqS7r82wnBWGV6MbvDhDn8POowVts9gpoQ
+	 3c95iYcb2dpMoWPmECQsfSMaMQ0tf0wsHyAYJyl/e93i1A+usPugHazZIGy3nAYLP6
+	 CcH1naug7PzA1rGbWGKDHdhPrBtC5fEz3jDiG/c/1CFNCXE461Rh1j8JuRm/DHOCK3
+	 sq7+S5u9QG3hQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH net-next v2 1/2] dt-bindings: net: pse-pd: Add
+ bindings for LTC4266 PSE Controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kyle Swenson" <kyle.swenson@est.tech>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260820142429.2285172-2-kyle.swenson@est.tech>
+References: <20260820142429.2285172-1-kyle.swenson@est.tech>
+ <20260820142429.2285172-2-kyle.swenson@est.tech>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 21 Aug 2026 14:25:56 +0000
+Message-Id: <20260821142557.5F4091F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260821091924.18975-3-alessandro.zini@siemens.com>
 
-On Fri, Aug 21, 2026 at 11:19:24AM +0200, Alessandro Zini wrote:
-> The Sensirion STS4x series is the temperature-only variant of the
-> SHT4x family. It shares the same I2C command set, conversion formulas,
-> CRC checksum, and timing with the SHT4x, but only returns temperature
-> data (3 bytes: 2 data bytes + 1 CRC byte).
-> 
-> Add support for the STS4x series by dynamically adjusting the read
-> response length, suppressing humidity channel attributes when probed
-> as STS4x, and omitting heater sysfs attributes.
-> 
-> Link: https://sensirion.com/resource/datasheet/sts4x
-> Signed-off-by: Alessandro Zini <alessandro.zini@siemens.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The child node definition `^pse-pi@[0-3]$` is missing `unevaluatedP=
+roperties: false`.
+--
 
-Applied. I'll send patches fixing the pre-existing issues reported by
-Sashiko later today.
+--- Patch [1]: [RFC PATCH net-next v2 1/2] dt-bindings: net: pse-pd: Add bi=
+ndings for LTC4266 PSE Controller ---
+commit 1f8974966417493a9b12a4f2599002b08898882c
+Author: Kyle Swenson <kyle.swenson@est.tech>
 
-Thanks,
-Guenter
+dt-bindings: net: pse-pd: Add bindings for LTC4266 PSE Controller
+   =20
+Add the LTC4266 Power Sourcing Equipment controller device tree bindings
+documentation.
+
+> diff --git a/Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.ya=
+ml b/Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.yaml
+> new file mode 100644
+> index 0000000000000..b3da8fea0b07a
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.yaml
+[ ... ]
+> +  pse-pis:
+> +    type: object
+> +    additionalProperties: false
+> +
+> +    properties:
+> +      '#address-cells':
+> +        const: 1
+> +
+> +      '#size-cells':
+> +        const: 0
+> +
+> +    patternProperties:
+> +      '^pse-pi@[0-3]$':
+> +        type: object
+> +        properties:
+> +          pairsets:
+
+[Severity: Low]
+Is it possible to add unevaluatedProperties: false to this object?
+
+The Device Tree schema meta-schema strictly requires that any node defined =
+as
+type: object must specify either additionalProperties: false or
+unevaluatedProperties: false.=20
+
+Omitting this on the ^pse-pi@[0-3]$ node causes the schema to silently allow
+any undocumented or misspelled property inside the pse-pi@X nodes, which
+defeats the purpose of dt-schema validation. Since this node relies on
+properties defined in the referenced pse-controller.yaml, using
+unevaluatedProperties: false seems to be needed here.
+
+> +            description: The LTC4266 delivers power to a PI over a single
+> +              pairset, driven by one of the controller's four channels. =
+There
+> +              is no 4-pair mode spreading a PI over two channels, so exa=
+ctly
+> +              one channel phandle is expected.
+> +            maxItems: 1
+> +          pairset-names:
+> +            maxItems: 1
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260820142429.2285=
+172-1-kyle.swenson@est.tech?part=3D1
