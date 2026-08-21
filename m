@@ -1,206 +1,225 @@
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 106C02F616B
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 06:48:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787294927; cv=pass; b=VC2ghkP4OU41mJxYOp+VBnoRNQnOTulZI+1vjOIIUd69cqPMNt0xLtCJlIgXBr8K7+CzI44Jz5h9/YN5kzFiVjsn1GjAP/Xm3pWLFT+qVm/VLGN8kPMsuEAg1cOpOq0JeK8kHdYfELemRLhXdw3iD2Cq34XB5Ksn9/LtUh38Jk8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787294927; c=relaxed/simple;
-	bh=RTViPFoJlknzBdTZe5oQ+ExhGFDjG4WdUKnM3LA4GVM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DGNVUzYvX4mhl5STe0tTgL0FdnmAgJWAPxTS7yr1P1Ngy9ipW18POdij3mVCVuH16q5fhbdoX98Cr/o4u5YOGOK45/0+3sHpsurPcLXxgnQb/6kXIqMjfpcjEVOMmYgL2QHbOzLtI5mteValU8MbZfBSdQEjByyHLf7ESiDP3no=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OYNGvz8Z; arc=pass smtp.client-ip=209.85.208.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FCFD38E8BF;
+	Fri, 21 Aug 2026 06:51:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787295070; cv=none; b=JK0BBKKaF4hS59Tt1sAvqp37U/BdOmU6ZYE82YxCsWoxsKECInoG2UYvpqWEvrDUzGKysrv+SgzLeXzL3QCaS7ugSDxYRWmhZwSokhp7EPHcKifwVGVI1JyhfNJKV/D3KShnnRCMAOnEa5hR3PFbKEvsdvuhpQLhEu0X9eiRJ/Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787295070; c=relaxed/simple;
+	bh=m3193OZFBal0WsEyZHzaF6/vy0omLw97GZP0jJP+5ek=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iuggalqUnUrSUSHbDmHDuEfPodcr5G7UkotN2N6cqEIQFgWh8d8lwEhsnYOkz/dEfWkrpF8zG7J2fhdwrdb9ptkcJzqRo9yGBif/kjVQwxpKN6G1fQbfF+3YY9IB6fXs7R/Pd5wPMGFl1l0nnaHO8nzo9sz9NgKitoZTdpXZLKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lOWDkQe0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OYNGvz8Z"
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-39c74722e27so8959981fa.0
-        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 23:48:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787294924; cv=none;
-        d=google.com; s=arc-20260327;
-        b=AnbGXomgMyMvIGI/nOTYoe507TNoyGPNlouU5JZeBMHfwfJqdsykz1sni+BoHAaM6U
-         KzaWr6JhzqQHukU4GFRtSdsNisDzPclnqHuVQTrYspC73KIgEhCuIa1Z6DYcw+I85mtw
-         kw92Oyoy5QmzgrVWiU24cyIquWPHj9R3lB8eL8ifyF+29wmCLFeIfOOvcXFmt2CLuZYT
-         UN7f45C6dHTnGP/Fgwdr5Th218OibiF7zG/YSf6d0nXUSnHJrNJJR6UQDXU8Yd6SldFK
-         j5NlvB/kcgDAG1l5EJpjfln9D5wdEPJZXeFedjxnixVAqQPJ85TEJuDiZavF4keRanra
-         X3jQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ZZV2eo8l44i659VRpU6Jc0rPYdN+/WIVgMkUx/EFXO4=;
-        fh=CrFpeN82h5htB90GYJYLt3SnQjJ3pkeHP7KH5FHS/zY=;
-        b=en3Ticaj0mGEV1tMyKLbzOL0wqJs65SOiJI9AbRdE2mRVESv+OZ3STwUZEP10n29C+
-         eSGeISfBZEkmzNssRqD+rjoTzbocldbzTL0VTqLh1oCfV91xTC0YOGm0KuKyVWzeGt9z
-         Z6NUp9DV5GFSHNKm8jLJJziWLSibC2oT/DGK8EdTwkzqSfABA0RvCOK9eEF69UB9ZKiA
-         j3JGG+dHvWI0qoZ1jh0y+s8X58xUFdB4Nke6ix+MDGjJfjAydiQVXAfZDw+XZmZfAZUR
-         vR2DQ2C2Ay0gN1bXdgKia3sVSM9sJfEgvJn1YG9CbELwi6k4xqVr1JAy0Hb83o6elas0
-         hqHg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787294924; x=1787899724; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZZV2eo8l44i659VRpU6Jc0rPYdN+/WIVgMkUx/EFXO4=;
-        b=OYNGvz8ZdDrp6EoYQxeYuuoK38DenM8HFORbEVYM2zwqi8P60M0fGssITKHRUwfunD
-         AFrLAfCbgGGe4VgOiAaI8Hjuy0Y3AtEEJHXS669B5fVhWrhoiOsxnWeUw6t5zJ9+U9oj
-         n9IKodj6hbK4c5rDTb5QJ18rXuvynWU1WFLzIozc+340k6ctDmFu8Lp7wKcFwJVPIKWY
-         fm3dcDpYeS3zr5rM6CySOLhBv1dFHs9NNdrtNwsNJ/hGwjmNGs+IwJ0O/O899wHTBu3G
-         4Q+KyaBpYg1sqg3v8MRR/mgTnhqapJbs74qkqcl/FMxnvEcjkb6SVgdycKUXuqIhx7Qh
-         0W0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787294924; x=1787899724;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZZV2eo8l44i659VRpU6Jc0rPYdN+/WIVgMkUx/EFXO4=;
-        b=jC1vL0qYjU3sde12v5Ev0LnlowU1bSfi81GNYMZSN6WEkJc/My598liVP02Cab63DW
-         zl8dlrcofmNd8mDxog6A+e/s9nHtRjze5WzIH8jK2Ci/n9U/+xIF2CO6syknhbGX/CTZ
-         XRADPHV5oicNmFmOKAUB1WuVPf6hRBl95YcodecIsFfhK1hUYGMHgB1rlWLix3QcOigN
-         UA7T1LOKGBF+zDyEOYHq3wZMpH9xAp7OiifqDXHGLP1O7YxSsHmq1+qNtRNF9sjzi59c
-         FmZ66WkVm37JhwjlJ4YwqEU7q8SLW/HscUTIoZPhVWkMDShbiNc5On0qQ7Rb3wiXESg5
-         QZvQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqpkDX5sYrDxqjyGZdI7lb4cfGxsueiS+QaEi9hHh5B+RjZs5u0qLh+SYSbo+Jfm7c+JGI/nrbs3vf5@vger.kernel.org
-X-Gm-Message-State: AFuF++nXwuapJFK8JHn0xLbsMnat/Ok2/GDex3BBpev0zvT4pMHf0Mid
-	98v0nydxcr1o71JEMQaSkNkHv5THOupQ+YLoyi5fwtcPWGh6frIjmdrD7R+NIFZmGbybl6Rsabc
-	xpaO8B7wSNaA4Ig/x28xtM4KZosefdas=
-X-Gm-Gg: AR+sD12GsY9ba4Plyfg0W82INO3sxd0VXdQQJGaoS88+9wBkMQ7P1w3a3Q0/EJm1ZRk
-	gljKhlVrnOFgli2aEUwhcgZBj9g1KSgHcgKQg3tXW40F94zOsYszQ18w0Asm+amy3MnHwbobxxW
-	YmIjmjJt0Jg+Zj43whJFiF9/IuAbBXDaxMqdkAF6Swziz/xXZJ+Y6FOgVIbWTRY6plKm1X0uIBi
-	zDieLS742n/TCmcmOdOt1kgbK7wfU/5/oKLBrCQtBZf3otb5vLVukHYspM5qltmvmPcUiurvBQF
-	vRPYkxVZukfDcsr5wxbu7cFOwtMFS3UhcDqwHyZmz7mjOA==
-X-Received: by 2002:a05:651c:222b:b0:3a1:8dd6:aada with SMTP id
- 38308e7fff4ca-3a1b0e134edmr3994451fa.4.1787294924052; Thu, 20 Aug 2026
- 23:48:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lOWDkQe0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13C931F000E9;
+	Fri, 21 Aug 2026 06:50:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787295068;
+	bh=cNce5NTp3bzmktGv/kwxmMrsz/kWQy7fuPujgbA0jpY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=lOWDkQe0ThtRfw5LTSHUWMJF1Cg4m1Na/jFGjAR2smnFs3nVn1DmG1SnAGT2rD3pD
+	 tQ0BnnkkOouH0tyPIMZnvx7gGSvTf+bz+iuvaeu/6pGwrIll1b3woRotSn3XpLKNX8
+	 PxWiwQU7a7Vl3/+P8UChuXWn8/9RIN/e0dE0Ij+r5hqy4pIN3ksNfRn5m+7SjVG9aA
+	 fmHf6wIXvfVJZJ62nDl1SwCIA21l0msOqTCH9zKVTI6IHNfKkiNJ6jaFAi+e2IBFkp
+	 aaSWL8gBmnV9UD2lS0lkd69UfeCfZHxM+MFp7ORdqESWpF3Sbuy3uAnWeFeP4T64u3
+	 uPrCk57oE5dEw==
+Message-ID: <d6685094-b241-415e-9e56-d2fba75f3269@kernel.org>
+Date: Fri, 21 Aug 2026 08:50:56 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260727-ventura2_initial_dts-v9-0-504c0ec68039@gmail.com>
- <20260727-ventura2_initial_dts-v9-2-504c0ec68039@gmail.com>
- <178724902712.20555.7009712214570349708.b4-review@b4> <CAF7HswN1ZzwjfXjG2hV5tEkVZkZYp0CiVNSo_9A4m3tsqQp_Bg@mail.gmail.com>
-In-Reply-To: <CAF7HswN1ZzwjfXjG2hV5tEkVZkZYp0CiVNSo_9A4m3tsqQp_Bg@mail.gmail.com>
-From: Kyle Hsieh <kylehsieh1995@gmail.com>
-Date: Fri, 21 Aug 2026 14:51:47 +0800
-X-Gm-Features: AcwNN1U6V2Do82rvIt74ZZ-aX7aerlDnXhaA1qYUWN10XHuS2TwjSTUhQfWOomU
-Message-ID: <CAF7HswMpfibMRysJQYrkA4EC2Ks3C_20nZkhpVPP3w-J4BoxQA@mail.gmail.com>
-Subject: Re: [PATCH v9 2/2] ARM: dts: aspeed: ventura2: Add Meta ventura2 BMC
-To: Andrew Jeffery <andrew@codeconstruct.com.au>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, 
-	linux-kernel@vger.kernel.org, Tan Siewert <tan.siewert@9elements.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/5] arm64: dts: google: Add initial dts for
+ frankel/blazer/mustang
+To: Doug Anderson <dianders@chromium.org>
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?=
+ <andre.draszik@linaro.org>, Tudor Ambarus <tudor.ambarus@linaro.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Catalin Marinas
+ <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>,
+ Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-serial@vger.kernel.org,
+ soc@lists.linux.dev, Juan Yescas <jyescas@google.com>,
+ RD Babiera <rdbabiera@google.com>, Brian Norris <briannorris@google.com>,
+ William McVicker <willmcvicker@google.com>, kernel-team@android.com
+References: <20260722-contrib-pg-pixel10-initial-dts-v2-0-3abae9717feb@linaro.org>
+ <20260722-contrib-pg-pixel10-initial-dts-v2-4-3abae9717feb@linaro.org>
+ <20260724-dancing-skunk-of-novelty-72c1b8@quoll>
+ <CAD=FV=U0HUdjPcg+5Vx8_ag0zLd3CZx5w5SFr38p+YwRnC_G6w@mail.gmail.com>
+ <CAD=FV=V2+D1m5L-0d81W3E_ih2us-SrddeBUAJtMybpQons7Ww@mail.gmail.com>
+ <c0657108-1958-4c4c-b5f5-0eb24e81b2b4@kernel.org>
+ <CAD=FV=VY4AeAf=TMZfJYRo6C0iSqmL-P0GzxRvZHfnNsf+GnYQ@mail.gmail.com>
+ <56db332f-a18e-4a9e-be9d-67d2e25c3666@kernel.org>
+ <CAD=FV=WUMKGRUbAyd7XFFc-NGoJEKRwu4MaUnEQUDB9Mq6YYXA@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CAD=FV=WUMKGRUbAyd7XFFc-NGoJEKRwu4MaUnEQUDB9Mq6YYXA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Andrew,
+On 21/08/2026 01:40, Doug Anderson wrote:
+> Hi,
+> 
+> On Wed, Aug 19, 2026 at 11:03 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>
+>>> I'm happy to document. Can you please point to how / where I would
+>>
+>> Description of:
+>> Documentation/devicetree/bindings/ufs/ufs-common.yaml
+> 
+> Got it.
+> 
+> If you tell me that the patch won't be instantly NAKed I'd be happy to
+> post an addition to this file saying:
+> 
+> If this UFS controller has a well-known ID <N>, a "ufsN" alias may be
+> created in the "aliases" node. If this UFS controller is a singleton
+> (no other UFS controllers in the system), a "ufs0" alias may be
+> created in the "aliases" node.
+> 
+> 
+>> And obviously, as with every binding/ABI, you also need open-source,
+>> upstream user of this.
+> 
+> As I understand it, this isn't truly policy. I know DT folks often
+> want to look at an open-source driver to ensure the hardware is
+> described correctly. I also know that a badly written but
+> "open-source" driver doesn't justify landing your bindings. ...but in
+> this case, it doesn't feel like there is any complexity understanding
+> what's going on.
 
-On Fri, Aug 21, 2026 at 2:31=E2=80=AFPM Kyle Hsieh <kylehsieh1995@gmail.com=
-> wrote:
->
-> Hi Tan,
->
-> Thanks for the review.
->
-> On Fri, Aug 21, 2026 at 2:04=E2=80=AFAM Tan Siewert <tan.siewert@9element=
-s.com> wrote:
-> >
-> > Hi Kyle,
-> >
-> > > Ventura2 is a Rack Management Controller. It is a modular
-> > > device designed to manage liquid cooling systems and monitor hardware
-> > > states within an IT rack. The system uses an AST2600 BMC for manageme=
-nt.
-> > >
-> > > RMCv2 serves several critical roles:
-> > > - Detects liquid leakage at both tray and rack levels.
-> > > - Communicates with and controls liquid cooling equipment.
-> > > - Manages leakage events and executes system recovery protocols.
-> > >
-> > > Key hardware features include:
-> > > - An extensive I2C and IO expander topology to support comprehensive
-> > >   sensor monitoring and backward compatibility with legacy trays.
-> > > - MCTP over I2C support for asynchronous device communications.
-> > > - A dual-flash design for BMC firmware redundancy.
-> > >
-> > > Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
-> >
-> > *snip*
-> >
-> > > diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dt=
-s b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts
-> > > new file mode 100644
-> > > index 000000000000..f1273ca31bf8
-> > > --- /dev/null
-> > > +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts
-> > > @@ -0,0 +1,3005 @@
-> > > +// SPDX-License-Identifier: GPL-2.0
-> > > +// Copyright (c) 2023 Facebook Inc.
-> > > +/dts-v1/;
-> > > +
-> > > +#include "aspeed-g6.dtsi"
-> > > +#include <dt-bindings/i2c/i2c.h>
-> > > +#include <dt-bindings/gpio/aspeed-gpio.h>
-> > > +
-> > > +/ {
-> > > +     compatible =3D "facebook,ventura2-rmc", "aspeed,ast2600";
-> > > +     model =3D "Facebook Ventura2 RMC";
-> > > +
-> > > +     aliases {
-> > > +             /*
-> > > +             * Pre-allocate I2C bus aliases for userspace predictabi=
-lity.
-> > > +             * Several I2C channels are intentionally left empty in =
-this
-> > > +             * DTS as they are strictly reserved for future hardware
-> > > +             * feature expansions and add-on boards that will interf=
-ace
-> > > +             * with these busses.
-> > > +             */
-> > > +             /*
-> > > +             * i2c switch 0-0077, pca9548, 8 child channels assigned
-> > > +             * with bus number 16-23.
-> > > +             */
-> >
-> > This alignment is one of the things that seem to be a false-positive fo=
-r
-> > dt-check-style in strict mode (value-whitespace). See [0] where Krzyszt=
-of said
-> > that it may report false-positives, and "Review and investigate warning=
-s from
-> > 'strict' mode, but do not fix them automatically without thinking".
-> >
-> > @Krzysztof wdyt about this one?
->
-> You're right, and this is a regression I introduced in v9. In v8 these co=
-mment
-> blocks used the standard kernel style. While running dt-check-style, I ap=
-plied
-> the strict-mode output too mechanically and dropped the space before '*' =
-in all
-> 38 comment blocks in the file. I will restore to the standard style in v1=
-0.
+It is a policy. We do not take unused bindings. Also we do not take
+bindings for downstream, because then we would have to take a ton of crap.
 
-This is the part I'd like your input on, since it goes against your v8
-review where you asked me to fix the 49 mixed-indent-chars reported in
-relaxed mode.
+> 
+> 
+>>> document this? As far as I can tell, no aliases are documented today,
+>>
+>> git grep disagrees with you, e.g. second paragraph of serial.yaml.
+> 
+> Ah, I see! I was looking for something more formal. Something like a
+> list of allowed aliases or something that would automatically validate
+> which aliases are permitted. You're just saying to document this in
+> prose.
+> 
+> Thank you for clarifying. I didn't understand this based on your
+> previous emails.
+> 
+> 
+>>> I think I've presened my problem fairly concretely [1]. If you hate
+>>
+>> There is no description of the problem at [1], except "bootloader adds
+>> the same type of calibration data".
+>>
+>> So I repeat my questions: to every UFS node? To every node? To one UFS
+>> node (but how do you guarantee that?)?
+> 
+> I'm sure it's not what you want to hear, but I guess my answer would
+> be "for these boards".
 
-Looking at the output again, all 52 hits on the current file are on comment
-lines. The standard kernel comment style '\t * ' is a tab followed by a
-space, so the tool flags every correctly formatted multi-line comment. The
-49 you saw in v8 were the same thing. [property-order] on the spi node
-behaves the same way - it wants #address-cells and #size-cells split apart,
-which is what Tan asked me to change back.
+No, the question is how many aliases you need. Devices might have more
+than one UFS storage, e.g. ExynosAuto.
 
-So I can either restore the kernel comment style and note these as false
-positives in the cover letter, or keep the v9 form that satisfies the tool.
-Which would you prefer for v10?
+And then someone might need to calibrate UFS and SPI NOR storage? And MMC?
 
-Thanks,
-Kyle Hsieh
+> 
+> In my opinion, this would be fine as an ABI contract between the
+> device trees intended to run on Pixel 10 phones and the Pixel 10
+> bootloader. While I'm still of the opinion that people should be
+
+Unfortunately no, because you are coming with a generic property so it
+has to be treated as generic one.
+
+> allowed to include UFS aliases in general and it would be handy if
+> that affected the "dev/ufsN" node created in Linux, I know that's not
+> a popular opinion among DT maintainers. If upstream would allow a less
+> "generic" sounding alias "google,ufs = <&xyz>" I could do that, but I
+> doubt that would make you any happier.
+> 
+> 
+>> I gave you two solutions, depending on actual upstream need of this. If
+>> you have the second case - so not the boot device - then you basically
+>> want to re-implement overlays which you cannot. Use overlays, which
+>> gives you nice stable and build-time verifiable label/phandle.
+> 
+> I'm not quite clear on the "overlay" suggestion here. You're saying
+> that we should require the base device tree to be compiled with "-@"?
+> ...and not because we necessarily have any overlays upstream, but
+> because the bootloader will generate an overlay dynamically? Compiling
+> with "-@" would mean we could give a "ufs:" label to the UFS node and
+> with "-@" that would be preserved. The bootloader could then use the
+> "ufs:" label to find the node. When compiling with "-@", the exposed
+> labels are essentially ABI. Did I get that right?
+
+I am saying that if you cannot answer my questions earlier (and you did
+not), thus this should be treated as adding calibration to multiple
+random nodes, then essentially you are reimplementing overlays and this
+won't be accepted. Instead you should use overlays.
+
+"-@" will give you the labels in __symbols__ section, but it won't be
+treated as ABI because it is not feasible. No one would remember which
+boards have @ and which don't thus which labels are needed externally.
+Only a comment in DTS code would prevent it from being changed.
+
+Well, same for aliases honestly. There is no tool which would guard that
+ABI.
+
+Best regards,
+Krzysztof
