@@ -1,68 +1,68 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98C0E4D8D98
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 16:16:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 678354D8D80
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 16:16:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787329018; cv=none; b=JYrDjOhrWq6teRrHKANmuUB6K1xtYbUsZTT9fXUUUXVx9E++YW0j39F4+yLZX7JLrZh92dgU/pXj3uoM8INjKpWxboozv/k6ILuisqPZiEorr9TuC3vREkEp2wBRcCS8tTLBmYRnVdp+hwbMLFCUY8zokHPy7QKkPr7OrffYDGI=
+	t=1787329019; cv=none; b=IUtDZEC8PseqaGrvUs4uL9hZ4OAzFqVzfBz+XBpzVbBK3iLNfa8R+qqExYfdIXB55xEQq/GeLN1rDtfHITM9EM/Ievdkaaavl/+P7fN2IIunP1oR/geyjHl6xvUzlwm4GFPVhOJ9rX4OUyCji78Eq1655dvE07gJWvI5Bnh6zJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787329018; c=relaxed/simple;
-	bh=1P6RDhvtSiDFXb71Q8qA5o6thf2dYrqwTXxVWaBRO0Y=;
+	s=arc-20240116; t=1787329019; c=relaxed/simple;
+	bh=9e0v/qAvMLuCDj8b/dk5D37lly7cVklfqGCzOodeUxg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rY2A0HyXejV32UixddABaHbf/FpbIenFqidSUHhZ2OStU5BIBym94fnLQr4Zh13IiQOv3Mnzhmuy3cw7cx0V6z73cWjtRV2GkJKxGr3AIL+15ZcedMCOwIQkrwIv6EW7/tCUAdXjFSfryrDjwlr1F5JOifK+KC170DewfDoJpTg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=ImLx9AMY; arc=none smtp.client-ip=209.85.128.54
+	 In-Reply-To:To:Cc; b=l/P/JBBbXsTlHXy7RVfcKTI+MjK4BQ+lELhMWARKqtnwsKWp3KtZmhyCIrxDpFA3xb3cVRinYlBqIhc0vOrrJDAR3uhjbNUAWabRTtQ8scSdhMckhcnnfF5yKhxkkC1ixmKSsf7shDe2qdZJzl8ld5HUqHHKFxvBw1epnAwqlU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=eqCnFwT7; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="ImLx9AMY"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49800c6a846so11193815e9.3
-        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 09:16:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="eqCnFwT7"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-496bb7cdf51so11199445e9.2
+        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 09:16:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1787329014; x=1787933814; darn=vger.kernel.org;
+        d=flipper.net; s=google; t=1787329016; x=1787933816; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=X+zNPBGZnzCFSe3FXKrZanJvr+O9PoiberfFLnMHO0A=;
-        b=ImLx9AMYTs4T/IiV2rmYDLrIi0zkk86sVK4jMXFHulI9StSab6FDF7JRwmUPDdLMnb
-         /UKM/CDsP7F2nfg4CZRaYeXY89rIBHMyhcxksjoL0+ppXR127fXQeYOxb7dh23+ym3yK
-         p0gZwWF38HKAD8MtMDQ6+Ccw2beO4qQkRbOkrBPcUIMG0lJ3H1P3ReSnVh6dE84OJX2R
-         VB6QFk/2pNUBC5JOCeDfV8o3w5jqZmhWM+K/mz+D4a8mApb2VfgCuMCglVYNa0ee8v+Z
-         06gxloE9JLv8kGst/cDm9LKucF/l0ojXJxiwaOWAfzpfd7Qoor6EGDflOnWRl3VMlMxD
-         z36w==
+        bh=4vNa8/pFwons02qqZoxti7YnDUxSaegLDxkgxCs0WgE=;
+        b=eqCnFwT7DZzJo/i56OqYEUN7wrmziUUeMavOCZR4oEnfyxtCmDvlKXoTGSGeFjY98T
+         zmwLLk+HIExXLwAEqVhukDZcqbeUafQr+zC3cShyQJiS+3P4mJ+ijprMdsf7AdIhorO1
+         JIPjKNf7tIth9TJ2XDshplS/WkW+ZCDfWn4eEkfhxQVmAQpLh4n6+PnNBPV/1u5X4nQa
+         D69Yoe6Qbit9DNnTvgmD6FhmQr/s4P2pJRJBg/J7k6Nke2RmRoMIS+FGNR45JxhO617t
+         4qR2qK2IuzPmIVAo6Wcmue2ep5h/tLE+yWkFcC17Dt8efq8z4EvmeDyUdEcGaiawjgO3
+         vsig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787329014; x=1787933814;
+        d=1e100.net; s=20251104; t=1787329016; x=1787933816;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=X+zNPBGZnzCFSe3FXKrZanJvr+O9PoiberfFLnMHO0A=;
-        b=BIOwG5YZ/iaWjYWoXDM7hZoSAvdoaQoRDdY0CDo0nUyjGSGZ16JqASBoEkqE/RnyCo
-         uWzV5Tr9HBC8FvXR02Yt0SD6SXvgNd9TKQSyJKeoRD0OFVKoA+4M91v6fUIw+LIX3nag
-         gMCPEEds4HuVYiSv0J9CiHdCtCRzTilk84ovfYW2D3NYnElAGYozM7uOKR5oJI9mhNmO
-         h41XD3t6X33H7BXfRKmC9lIIjyU6E3kesq714Sir9r9D9GIlayLBu5X9EtR/CTXWY+Tg
-         Zz5t8JJJ8oNii/xFL+Miliqf3FRQxGmoneorZGzdLsOwtELGgQdJfii93TyWHenuXCkl
-         1S6g==
-X-Forwarded-Encrypted: i=1; AHgh+RpybZ8UAlototFE9rSgVffRYG82nGh/QobYcS7bQlfVKQzoRkSrOAEgHoyiozQjJjSzw3tkYPt+O13v@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxh02KTyER+RE0c7JIakZFVJo0TQ0fRGuMohlNOTVk4mDdEXdcB
-	9ZU6fbYC0Bi2/oOytWmufkntCMbmI4r5UnfUiQdYYY5aefgbBwbp9VTSO7xxCwYfe0g=
-X-Gm-Gg: AR+sD119PetgIhTegttFiSR+ChGvvZ6PkMBuoKYZyWcbjdWEkmK7+GFo5sMv9WOi3VF
-	eyImxzwcubUOzJaHtBmfyh5VO6w4psy2iLmAtrkdDEhZM3kOD1CwJvC2nmwZPtWKHwhJYTtzgl6
-	PqqpQ6X63Dxszzw3EnvRIxGoCkf7QfB4moCZEle/RXn0MB8wEnypJsCDPXSjUJAK0vRvYBPGHOm
-	q+eDKujNqRXzuI+I5ovxLmc9YfsafvF8MTVjtldv10OmLLA7ZfsM1iu0qZKxwwgyswPud1uJqtd
-	q2lWEArl01g5IOPM3DuJLwkW5/sI4sCCsPJ7x5n/Bq8V3MA/Cy4eJeu9SVx2J/NsIfT2BYpThsf
-	P9gmZl4xRrhGNBbOoKiWIThzpPN2lhdD5QWpAbjPBZ+xoKgNzGAuojLYoQf83lwWkHrB/fsK7CU
-	jUaYEyaIRgPyQb/+fpz7WoqRtAyyhFcT7qHudT+TlsI5JG5QTHtKt/R0itdafALEwGjtKbes0j8
-	5ansFJKRjuPPxuDs2THE2KPfM7e4fE5jOQJYL1Hfw==
-X-Received: by 2002:a05:600c:6217:b0:499:8ae1:b900 with SMTP id 5b1f17b1804b1-499b8460e7fmr126925575e9.12.1787329013587;
-        Fri, 21 Aug 2026 09:16:53 -0700 (PDT)
+        bh=4vNa8/pFwons02qqZoxti7YnDUxSaegLDxkgxCs0WgE=;
+        b=R1OHpSb6Uri1ZUkYhg6Nf1Tgh3G2DlQyv2Nv84/5ZxKnUWwka5ZMAYDB0m2V9YPpts
+         dLytW/c5jXtRodN2mrOUpfHVpYbaQBUUsRaJ8akGoP7nTk4S8/k+ad8kQQ97uqIAII1c
+         t5CLTN8RfZXcBhz00X54NaNhItLfbIfwrqCv6dXQKsXX+jbjFzyK2ipYmnzhM8pKirlS
+         QD3qNjTTKo08TeGwKiSvHvBNcupiVwTJZBLsoM1j+B23ZtofT1yArtaTNJib4DdVwOUJ
+         /e0x5wBLnL7QMk1Pzoey4rysmCbuYippJyGBHl3+htFQzKdWYkXMH6CjVg4LObtD11IV
+         kmYw==
+X-Forwarded-Encrypted: i=1; AHgh+Rr15nWirQX0OU/TkVaI4F61B+J37Xhw69B5qochDRzX3H1t+LpE9mCqnZKRSvktF5Llv42FOv9xDM9d@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy/QfOYhF+gUh/4BZR7+umXAnqFQ9GgEC2rVn0LdG9xVvOw1u13
+	rrb34vxjfYKhsfJsZ+x5r5RC+bwZhHCa72sc9/qJ/NeUSTY6l/6gFRWeynXydKOt4sU=
+X-Gm-Gg: AR+sD10PbOU8hWhQa+52/Mn2wqkc0WC4gpkGOibqL22MoeXkoXAxAG2dqvjLDHT+KOn
+	BlVXOYxg65vKR84nQGI1H+ZbwybIjFE1fYAabfoDcP5YyMKbBD4xb6WPV8jk4f6nM5/JILdFf4Z
+	70NGpdqfWOVvnBizJqK0F6Ww7DEYcANO0/IpPi8jeodjCAxGX3FpwxC/YNK8xbdtnfpW5q8GPyL
+	r1cMHo91/Bftxdwdn1HGsS168h7yGYBLcsQATnDAF6UTKEQ+AE/Fpw1ImGNyenRpc/3Tj0ucoss
+	fojvaXABg1bEj2y5gJ31Rh4X8TNY/k57RYAyf/mHCjE/RZG9UobgknT0Q9am5znltpK/sCv4wxZ
+	pIfAdy6W8uxtJ188h0W8eWfEWye4hALEZvZvAEbkG4DOQBkW/25ELEOaJh11Yxl1M0hiKVr+ZsH
+	OksdXplRQO8QDzOIZAR+NCiYcJjxOyVQnM3nRyUxQJJ+81JU3/0T5raRWlZkhaOOfOjrxWTSObA
+	/csjZCJDXWaRJK8AJvQOMpylYmhJYsyOB7cRnLsk+wyjHEU5yAASw==
+X-Received: by 2002:a05:600c:e549:20b0:499:b65e:49c9 with SMTP id 5b1f17b1804b1-499b8343decmr91734895e9.10.1787329015693;
+        Fri, 21 Aug 2026 09:16:55 -0700 (PDT)
 Received: from alchark-surface.localdomain (bba-86-98-192-94.alshamil.net.ae. [86.98.192.94])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499bd581a49sm10245235e9.1.2026.08.21.09.16.51
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499bd581a49sm10245235e9.1.2026.08.21.09.16.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 21 Aug 2026 09:16:53 -0700 (PDT)
+        Fri, 21 Aug 2026 09:16:55 -0700 (PDT)
 From: Alexey Charkov <alchark@flipper.net>
-Date: Fri, 21 Aug 2026 20:16:34 +0400
-Subject: [PATCH 1/2] dt-bindings: usb: ti,hd3ss3220: Add support for supply
+Date: Fri, 21 Aug 2026 20:16:35 +0400
+Subject: [PATCH 2/2] usb: typec: hd3ss3220: Add support for supply
  regulators
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260821-hd3ss3220-regulators-v1-1-405e5c4fb306@flipper.net>
+Message-Id: <20260821-hd3ss3220-regulators-v1-2-405e5c4fb306@flipper.net>
 References: <20260821-hd3ss3220-regulators-v1-0-405e5c4fb306@flipper.net>
 In-Reply-To: <20260821-hd3ss3220-regulators-v1-0-405e5c4fb306@flipper.net>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -82,56 +82,83 @@ To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Alexey Charkov <alchark@flipper.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1627; i=alchark@flipper.net;
- h=from:subject:message-id; bh=1P6RDhvtSiDFXb71Q8qA5o6thf2dYrqwTXxVWaBRO0Y=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWR1VL5eOUtJWqxvPeuseqXGhYbFEz69njVza92FmVOVV
- gdFv05Q7pjIwiDGxWAppsgy99sS26lGfLN2eXh8hZnDygQyRFqkgQEIWBj4chPzSo10jPRMtQ31
- DI10jHWMGLg4BWCqteYwMmzqDRS4oOJ2o1HNLJT3a6PX6ogylfhriYJ6vgvPsnc+OM7wk7FWOnz
- KTJ5+c/sZ/eaXODRWTZeS61+r3ue6bIHragVNXgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2415; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=9e0v/qAvMLuCDj8b/dk5D37lly7cVklfqGCzOodeUxg=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWR1VL4uX+nFxbnzVYiVpUhSu4m40qnT/SeuzxVeXfd2f
+ WN5nGRZx0QWBjEuBksxRZa535bYTjXim7XLw+MrzBxWJpAh0iINDEDAwsCXm5hXaqRjpGeqbahn
+ aKRjrGPEwMUpAFO9cSrDX9mLB/VbF6TY9l2YpjBzTcEG9wLDTatVP3VM+XbZ7ItXzmyGP1yuczg
+ CG54mX5Ba/6f3nn5gktRbiyX/2j+xqj/SZDnuwg4A
 X-Developer-Key: i=alchark@flipper.net; a=openpgp;
  fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-HD3SS3220 requires two supply regulators to operate. It also strictly
-requires that 5V is present before 3.3V, otherwise it gets backpowered
-in a non-functional state through the 3.3V rail and kills the I2C bus.
+HD3SS3220 requires VDD5 input to be present 2ms before VCC33 is applied,
+or else it gets backpowered via the 3.3V rail in a non-functional state
+and wedges the I2C bus, bringing down all devices on it.
 
-Add both supply regulators to enable their explicit description in board
-device trees.
+Enable both regulators in the datasheet prescribed sequence if provided.
 
 Signed-off-by: Alexey Charkov <alchark@flipper.net>
 ---
- Documentation/devicetree/bindings/usb/ti,hd3ss3220.yaml | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ drivers/usb/typec/hd3ss3220.c | 32 ++++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/usb/ti,hd3ss3220.yaml b/Documentation/devicetree/bindings/usb/ti,hd3ss3220.yaml
-index 06099e93c6c3..654a982666dd 100644
---- a/Documentation/devicetree/bindings/usb/ti,hd3ss3220.yaml
-+++ b/Documentation/devicetree/bindings/usb/ti,hd3ss3220.yaml
-@@ -25,6 +25,15 @@ properties:
-   interrupts:
-     maxItems: 1
+diff --git a/drivers/usb/typec/hd3ss3220.c b/drivers/usb/typec/hd3ss3220.c
+index d0de5a2488f9..b53455abc048 100644
+--- a/drivers/usb/typec/hd3ss3220.c
++++ b/drivers/usb/typec/hd3ss3220.c
+@@ -49,6 +49,9 @@
+ #define HD3SS3220_REG_GEN_CTRL_MODE_SELECT_UFP		BIT(4)
+ #define HD3SS3220_REG_GEN_CTRL_MODE_SELECT_DRP		(BIT(5) | BIT(4))
  
-+  vcc33-supply:
-+    description: 3.3V supply (VCC33 pin), powering the SuperSpeed 2:1 MUX.
++/* Minimum time VDD5 has to be stable before VCC33 starts ramping up */
++#define HD3SS3220_TVDD5V_PG_US				2000
 +
-+  vdd5-supply:
-+    description:
-+      5V supply (VDD5 pin), powering the CC controller and sourcing VCONN.
-+      VDD5 has to be stable for at least tVDD5V_PG (2ms) before VCC33 starts
-+      ramping up, unless ENn_CC is held high while both rails ramp up.
-+
-   id-gpios:
-     description:
-       An input gpio for USB ID pin. Upon detecting a UFP device, HD3SS3220
-@@ -68,6 +77,8 @@ examples:
-             reg = <0x47>;
-             interrupt-parent = <&gpio6>;
-             interrupts = <3>;
-+            vcc33-supply = <&vcc3v3_control>;
-+            vdd5-supply = <&vcc5v0_device_s0>;
+ struct hd3ss3220 {
+ 	struct device *dev;
+ 	struct regmap *regmap;
+@@ -358,6 +361,31 @@ static irqreturn_t hd3ss3220_id_isr(int irq, void *dev_id)
+ 	return IRQ_HANDLED;
+ }
  
-             ports {
-                 #address-cells = <1>;
++/*
++ * Bring both supplies up in the order the datasheet asks for. Powering VCC33
++ * first can back-power the device in a non-functioning state, which grounds
++ * the I2C bus and takes both this device and any others on the same bus down
++ */
++static int hd3ss3220_power_up(struct device *dev)
++{
++	int ret;
++
++	ret = devm_regulator_get_enable(dev, "vdd5");
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to enable VDD5\n");
++
++	/* Nothing to stagger against unless the board describes both rails */
++	if (device_property_present(dev, "vdd5-supply") &&
++	    device_property_present(dev, "vcc33-supply"))
++		fsleep(HD3SS3220_TVDD5V_PG_US);
++
++	ret = devm_regulator_get_enable(dev, "vcc33");
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to enable VCC33\n");
++
++	return 0;
++}
++
+ static int hd3ss3220_probe(struct i2c_client *client)
+ {
+ 	struct typec_capability typec_cap = { };
+@@ -379,6 +407,10 @@ static int hd3ss3220_probe(struct i2c_client *client)
+ 	if (IS_ERR(hd3ss3220->regmap))
+ 		return PTR_ERR(hd3ss3220->regmap);
+ 
++	ret = hd3ss3220_power_up(hd3ss3220->dev);
++	if (ret)
++		return ret;
++
+ 	/* For backward compatibility check the connector child node first */
+ 	connector = device_get_named_child_node(hd3ss3220->dev, "connector");
+ 	if (connector) {
 
 -- 
 2.54.0
