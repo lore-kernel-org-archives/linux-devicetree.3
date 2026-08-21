@@ -1,300 +1,123 @@
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA36946AF2F
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 09:28:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6019644C66C;
+	Fri, 21 Aug 2026 09:29:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787304519; cv=none; b=EKlxr8t2PhNgZmn4GphfljPbYNd+lPkqnav1bO+2j8Gy7oSq+DKegMf7GpyM8mUMRZG/Khv0HuwH/ZX3kXocFASiuEsGJafxxFw5D3taZ5harWrj/MH6g4lHENTNO2OApf2QJNii8TD3+1Bw7P+/23VVdIvbLyKYIDU2StNah2k=
+	t=1787304599; cv=none; b=Hg2tma4wDni2xkdVoZEOdi6CzaLwbahtuCK4qHxmFj+MSzulkyzp8Kg0reV14IPdYZyD/zpezqDvej6IlxOQQ4jF3KvDB6jilung5RoIH4Qb2NfpUWHrEZ3r9/HcIsvkzwh8qFRqgdtAft936t3q+XLqXMKJOfyH7sxPTOCHNvU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787304519; c=relaxed/simple;
-	bh=WAufh72lblmlbrc/jJjjNeihtv2Y1ow86BPrCYh8M/o=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=miyOAnCkCPt49+OmVkHdscCe+DBCHocZiqfuAAm/dpHsyHL81ANDgObBnWhsTmxUTOqw7P9/IHKeVCP7gTnOCXo/kSVqH1FW/65dxWSRYxZC7dUfQomrSN/gznKVHsKg2Y5uCeXVL+zblu4M5U1VoReOVM2O5vStzDGNA6DqZ10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=eglJmDfM; arc=none smtp.client-ip=209.85.218.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1787304599; c=relaxed/simple;
+	bh=3GEY+wenFAYW3xgfA92zFSmBS14gORvcX9UMqsG1Zh8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=nJY3ORSdX9yccGZHVnkG+rMcRzFYsWOi9XRmR+ngPVrgpF8/v8fA0+2x1Mkw0+rLRK/XkV/PvML7oZoyZP/WT5jgWilqLgfIvKQaywOSeStaoTa6+73cAmfzg2VzO8ooMSFUqWmxn6lwhWko0Qr22DUH9wWa+95cKMeWHzBrt3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q3qQhA5U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="eglJmDfM"
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c20ce3c118aso144494966b.0
-        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 02:28:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1787304504; x=1787909304; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=q5vpbeop/A9Sj3kOt1ydYSMTNnRoxXgWkRv8uWD/3es=;
-        b=eglJmDfMIAJtqTtXJgPsupbJqigrC7M7YH2H+f3x63Hdefm9pClDMrKI6k66FpX9hw
-         Jeke288jQvfp7nVAVcKopnZXg86vD3NaF1BQEpMrHG1nCZt+dAUCabMu/tKJVZDkBBp1
-         OQrMEdxuQYPfkx/j+bVvnLNmWwGSMG0CtelZJgPOc6WaHGA99Yh93rcehlyP5Ac6EZrU
-         4yt1AwOl/aum/FS9yBJodwhMruEQtRHQRKuBuPNHcg7XyozbXr6c5Hik5rq8AwUYZuxt
-         sJgWXjmFrfMiOIdkzJCOx/tIbnxGBudYVLdL+ZFE7ySfPSXS7AML//L5nMlM+R1Q19CB
-         9QgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787304504; x=1787909304;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=q5vpbeop/A9Sj3kOt1ydYSMTNnRoxXgWkRv8uWD/3es=;
-        b=dksW0mRFazcOAH6WVp+msF+KNX27kEopU6eP7Wq2Nx6tPeeSTGZnZhMHgh3NUka68S
-         1MdaLr3TQ7l9jZZ/iU9Lgf2FnJODJRpFwtbg/YfYwDHk3IN+62FQSE7T94zDhq5g/uWH
-         R6V5rlgfz+Auppq20UtfFloDnSXQs26HyRzg9+3cdpXat8jQww31fwpcvJswRUJEXmEc
-         wJt0+nFCsRhJotNRRqPMxKo8Q5+GqP0upMo5bMO+pFCLQIV2cCPS6GSfKwA4Zj8Gt6Xw
-         OE/OAR97uG9plmsIKPssE0EsIB89/ii/aJeL/HY0Gw8STY72MuhjjMoRSLN/5lWaqWwX
-         FAqQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrH8SjblXvCxyONAWwTHhFyleZI4rh3rz45smwhrRlOOQjoKfoR0JSMeHJfWTK39m+f6E1L+zET9/14@vger.kernel.org
-X-Gm-Message-State: AFuF++nUTjjPRJVCFkVmXPW64VsT0RAYO64GR8MvgFXcM8/ob4/gtCsn
-	BEMSTuBgoDxU10Qc+PCuKfdXOiTNT1MkhQZ0INlji+LnU3Y6x81LhQnPHNMB3vBIjmE=
-X-Gm-Gg: AR+sD12U54PRafw6VT17vCidRZfdvwhVYwZhqPKlreLR8U+Gu+u6Noxq8/wfUIxA+qr
-	X50WJ1uDyZ9olIzqOgwRaoWI89Nvovbc+46c/9DRh9x3F4SJU+HWX44MMQWIhr9gSCwwKMytmMY
-	vQsgtqlPBjxQOWnexmuNgFL9ESG9H1vTvSiPqyc8GcHvapNVP0ScK8CjGwyE+GAdoxKv2es27ec
-	JcM5PXywsKf/qGRxuJoIgyeNMLng5nnjjF22xVWg1ySeZDHgUCHgJ8t5khCfXfHBaIycsr4Zwv3
-	ycNlDTA2oCZaYgXlyp7cJD9z2uZWK2ICzcKmphrPBrHXkhaVMOkw6v0NV629UIamP4aPrjKr9ns
-	hFj2a50PfD0mV/7i+YdcrHy8aLggSACgyI1AUiu2eEi6aC+UReFJ9c9cy+5pf7/RlkZSmOkhlFE
-	3BKAs5Uahd9hV3iPNFaU2j0cnnUKJshJqJ0m15r8fQ/FsSeNapl8ME+iCuL1XkE6Yb0UFwGIywZ
-	xZz6r4owiAlGC5ffUiJSbP5M8hO1+BU6g==
-X-Received: by 2002:a17:906:fe0e:b0:c15:c323:36e5 with SMTP id a640c23a62f3a-c244d7194bfmr930680866b.10.1787304503694;
-        Fri, 21 Aug 2026 02:28:23 -0700 (PDT)
-Received: from localhost (144-178-202-138.static.ef-service.nl. [144.178.202.138])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2458b096d9sm442131366b.20.2026.08.21.02.28.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 21 Aug 2026 02:28:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q3qQhA5U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB1511F000E9;
+	Fri, 21 Aug 2026 09:29:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787304588;
+	bh=GDato5UJMlqV6pekRDM2rry3PV0Hd7Xdxyz7lHSwjms=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Q3qQhA5UsbptCgJYstoS13JNMKMCqvAk4LMRwdL4K6uNELZ5ca5uQUwLRvxgzX1lG
+	 6T9J9jHw1PlxQOfMlJtMG5Ne9JY2PQqgFH6l/x1UAqQqIsfL6t8/bEmWB8c+g/frWR
+	 p+d/3Oed68+0axfgvkj7Wd9cLxXRGNWzGPniy7vssetwJRlUIQyWTBF16q62LW7OIk
+	 rgA81tto6IQ3YV8Nr3CsRQzsvXte0Z5pLwDET2ski82nJJhDCpw31FATLNZ8ox0hpI
+	 h+NyCrGncjiYLKPOW8E2ad6gTis3FYUeQ3NIHnnLvlBbH7CqL8eUmnUbi0aG27Ci9W
+	 sYEnB2IwU4plQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] hwmon: (sht4x): Add support for Sensirion STS4x
+ temperature sensors
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Alessandro Zini" <alessandro.zini@siemens.com>
+Cc: linux-hwmon@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260821091924.18975-3-alessandro.zini@siemens.com>
+References: <20260821091924.18975-1-alessandro.zini@siemens.com>
+ <20260821091924.18975-3-alessandro.zini@siemens.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 21 Aug 2026 09:29:47 +0000
+Message-Id: <20260821092947.CB1511F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 21 Aug 2026 11:28:22 +0200
-Message-Id: <DKUIKHDS44LA.10CHEGZHLQSNS@fairphone.com>
-Cc: "Krzysztof Kozlowski" <krzk@kernel.org>, "Luca Weiss"
- <luca.weiss@fairphone.com>, "Dmitry Baryshkov"
- <dmitry.baryshkov@oss.qualcomm.com>, <oe-linux-nfc@lists.linux.dev>,
- <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>
-Subject: Re: [PATCH v3 0/3] nfc: st-nci: Fairphone 5 NFC bring-up (ST21NFCD)
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Kristian Brox" <isyourbrainfoss@proton.me>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260820-fp5-st21nfcd-v3-v3-0-5ee0a7f44d04@proton.me>
-In-Reply-To: <20260820-fp5-st21nfcd-v3-v3-0-5ee0a7f44d04@proton.me>
 
-Hi Kristian,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-On Thu Aug 20, 2026 at 10:56 PM CEST, Kristian Brox wrote:
-> This adds NFC on the Fairphone 5 (qcm6490). The board uses an ST21NFCD
-> on I2C. That part speaks raw NCI; the current st-nci driver always
-> wraps NDLC, so using st,st21nfcb-i2c leaves the adapter unusable.
->
-> The series adds a st,st21nfcd compatible for the raw-NCI path and the
-> Fairphone 5 DT node. Boards that already use st21nfcb / st21nfcc keep
-> the NDLC path.
->
-> Patches are against linux-nfc/for-next (v7.2-rc7). Hardware test was on
-> a Fairphone 5 running postmarketOS, with these changes as modules on a
-> 7.1.2 sc7280 kernel:
->
-> - nfctool: Powered: Yes
-> - initiator poll / neard: NTAG 215, NDEF URI read OK
->
-> ese-present and uicc-present follow the public schematic (NFC_SWP1/SWP2:
-> SWP_SE to SIM1, SWP_UICC to SIM2). SE/HCE is not tested.
->
-> CLK_REQ (GPIO 39) is omitted, as on Fairphone 6 NFC. VBAT and VDD_TX sit
-> on VPH_PWR and are not modelled. VCC_UICC_IN (L4C) is not modelled;
-> UICC SWP is untested.
+Pre-existing issues:
+- [High] Sysfs heater attributes registered via extra_groups lack required =
+hwmon locking, causing data races and I2C command interleaving.
+- [High] `heater_enable_store` incorrectly returns 0 on success, triggering=
+ user-space write loops and false `-EBUSY` errors.
+--
 
-Thanks for working on NFC!
+--- Patch [2]: [PATCH v2 2/2] hwmon: (sht4x): Add support for Sensirion STS=
+4x temperature sensors ---
+commit 19dd0dd408d1f2465639b63b05819b57f722bbcb
+Author: Alessandro Zini <alessandro.zini@siemens.com>
 
-Unfortunately it doesn't really seem to work for me, based on v7.2
-kernel.
+hwmon: (sht4x): Add support for Sensirion STS4x temperature sensors
 
-When running "sudo nfctool -d nfc0 -1 -p", the dmesg gets a bunch of
-spam:
+The Sensirion STS4x series is the temperature-only variant of the SHT4x
+family. It shares the same I2C command set, conversion formulas, CRC
+checksum, and timing with the SHT4x, but only returns temperature data.
+Add support for the STS4x series by dynamically adjusting the read
+response length and suppressing humidity and heater sysfs attributes.
 
-[   29.097978] ndlc: 00000000: 20 00 01 01
-[   29.100953] ndlc: 00000000: 60 00 1f 01 01 20 02 1a 04 04 01 20 92 80 02=
- 03
-[   29.100969] ndlc: 00000010: 01 59 c0 cf fd 59 c0 89 7f 00 00 00 01 00 00=
- 6d
-[   29.100974] ndlc: 00000020: 3b 02
-[   29.103348] ndlc: 00000000: 6f 02 0c 11 20 00 07 07 02 cf fd 00 00 01 03
-[   29.103470] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   29.104136] ndlc: 00000000: 40 00 01 00
-[   29.104308] ndlc: 00000000: 20 01 02 00 00
-[   29.107831] ndlc: 00000000: 60 00 1f 02 01 20 02 1a 04 04 01 20 92 80 02=
- 03
-[   29.107866] ndlc: 00000010: 01 59 c0 cf fd 59 c0 89 7f 00 00 00 01 00 00=
- 6d
-[   29.107871] ndlc: 00000020: 3b 02
-[   29.110353] ndlc: 00000000: 6f 02 0c 11 20 00 07 07 02 cf fd 00 00 4b 6b
-[   29.110474] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   29.113292] ndlc: 00000000: 40 01 18 00 1a 7e 06 00 02 00 02 ff ff 00 0c=
- 01
-[   29.113307] ndlc: 00000010: 05 01 00 02 00 03 00 00 00 90 00
-[   29.113471] ndlc: 00000000: 21 00 01 00
-[   29.114311] ndlc: 00000000: 60 06 03 01 01 01
-[   29.115856] ndlc: 00000000: 41 00 01 00
-[   29.115937] ndlc: 00000000: 22 00 01 01
-[   29.117507] ndlc: 00000000: 42 00 02 00 02
-[   29.117599] ndlc: 00000000: 20 02 14 01 29 11 46 66 6d 01 01 11 04 01 96=
- 03
-[   29.117603] ndlc: 00000010: 02 00 01 02 02 07 ff
-[   29.118976] ndlc: 00000000: 62 00 08 81 01 00 01 03 01 02 00
-[   29.122709] ndlc: 00000000: 62 00 08 83 01 00 01 03 01 02 00
-[   29.123604] ndlc: 00000000: 40 02 02 00 00
-[   29.124294] ndlc: 00000000: 20 02 14 01 61 11 46 66 6d 01 01 11 04 01 96=
- 03
-[   29.124305] ndlc: 00000010: 02 00 01 02 02 07 ff
-[   29.127697] ndlc: 00000000: 40 02 02 00 00
-[   29.128139] ndlc: 00000000: 21 03 09 04 00 01 01 01 02 01 06 01
-[   29.130378] ndlc: 00000000: 41 03 01 00
-[   29.133173] ndlc: 00000000: 6f 02 09 11 20 00 16 04 00 00 63 6b
-[   29.133247] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   29.143965] ndlc: 00000000: 6f 02 13 11 20 00 12 04 00 00 65 5b 0a 08 01=
- 00
-[   29.143989] ndlc: 00000010: 01 52 00 00 6a 6d
-[   29.144936] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   29.153545] ndlc: 00000000: 6f 02 0f 11 20 00 0a 0a 07 00 03 05 00 08 00=
- 00
-[   29.153634] ndlc: 00000010: 70 74
-[   29.154439] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   29.182777] ndlc: 00000000: 6f 02 11 11 20 00 0a 0c 19 00 05 00 ff ff 00=
- 03
-[   29.182801] ndlc: 00000010: 00 00 8f 10
-[   29.182868] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   29.196213] ndlc: 00000000: 6f 02 0a 11 20 00 0a 05 0a 00 00 9b 4b
-[   29.196414] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   29.206067] ndlc: 00000000: 6f 02 09 11 20 00 13 04 00 00 9d 47
-[   29.206740] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   29.586059] dw9719 17-000e: Error writing reg 0x0002: -6
-[   30.100584] ndlc: 00000000: 6f 02 09 11 20 00 12 04 00 03 a7 f5
-[   30.100662] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   30.110815] ndlc: 00000000: 6f 02 0d 11 20 00 0a 08 01 00 01 52 00 03 ad=
- 07
-[   30.111019] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   30.120807] ndlc: 00000000: 6f 02 0f 11 20 00 0a 0a 07 00 03 05 00 08 00=
- 03
-[   30.120828] ndlc: 00000010: b3 0d
-[   30.120899] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   30.149554] ndlc: 00000000: 6f 02 11 11 20 00 0a 0c 19 00 05 00 ff ff 00=
- 03
-[   30.149574] ndlc: 00000010: 00 03 d1 a8
-[   30.149649] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   30.163030] ndlc: 00000000: 6f 02 0a 11 20 00 0a 05 0a 00 03 dd e2
-[   30.163100] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   30.172938] ndlc: 00000000: 6f 02 09 11 20 00 13 04 00 03 df df
-[   30.172998] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   31.065969] ndlc: 00000000: 6f 02 09 11 20 00 12 04 00 06 e9 b2
-[   31.066050] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   31.076104] ndlc: 00000000: 6f 02 0d 11 20 00 0a 08 01 00 01 52 00 06 ee=
- c4
-[   31.076513] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   31.086223] ndlc: 00000000: 6f 02 0f 11 20 00 0a 0a 07 00 03 05 00 08 00=
- 06
-[   31.086273] ndlc: 00000010: f4 cb
-[   31.086933] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   31.114930] ndlc: 00000000: 6f 02 11 11 20 00 0a 0c 19 00 05 00 ff ff 00=
- 03
-[   31.114962] ndlc: 00000010: 00 07 13 69
-[   31.115044] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   31.128340] ndlc: 00000000: 6f 02 0a 11 20 00 0a 05 0a 00 07 1f a4
-[   31.128410] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   31.138209] ndlc: 00000000: 6f 02 09 11 20 00 13 04 00 07 21 a0
-[   31.138278] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   32.031735] ndlc: 00000000: 6f 02 09 11 20 00 12 04 00 0a 2a cf
-[   32.032139] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   32.041357] ndlc: 00000000: 6f 02 0d 11 20 00 0a 08 01 00 01 52 00 0a 2f=
- e1
-[   32.041713] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   32.051198] ndlc: 00000000: 6f 02 0f 11 20 00 0a 0a 07 00 03 05 00 08 00=
- 0a
-[   32.051227] ndlc: 00000010: 35 e7
-[   32.051575] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   32.080201] ndlc: 00000000: 6f 02 11 11 20 00 0a 0c 19 00 05 00 ff ff 00=
- 03
-[   32.080221] ndlc: 00000010: 00 0a 54 88
-[   32.080603] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   32.093508] ndlc: 00000000: 6f 02 0a 11 20 00 0a 05 0a 00 0a 60 c4
-[   32.093893] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   32.103180] ndlc: 00000000: 6f 02 09 11 20 00 13 04 00 0a 62 c0
-[   32.103507] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   32.995129] ndlc: 00000000: 6f 02 09 11 20 00 12 04 00 0d 6b f2
-[   32.995544] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   33.005468] ndlc: 00000000: 6f 02 0d 11 20 00 0a 08 01 00 01 52 00 0d 71=
- 04
-[   33.005574] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   33.015571] ndlc: 00000000: 6f 02 0f 11 20 00 0a 0a 07 00 03 05 00 08 00=
- 0d
-[   33.015591] ndlc: 00000010: 77 0a
-[   33.015684] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   33.044216] ndlc: 00000000: 6f 02 11 11 20 00 0a 0c 19 00 05 00 ff ff 00=
- 03
-[   33.044237] ndlc: 00000010: 00 0d 95 ac
-[   33.044606] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   33.057961] ndlc: 00000000: 6f 02 0a 11 20 00 0a 05 0a 00 0d a1 e8
-[   33.058351] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   33.067653] ndlc: 00000000: 6f 02 09 11 20 00 13 04 00 0d a3 e4
-[   33.068030] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
-[   33.476119] ndlc: 00000000: 21 06 01 00
-[   33.479380] ndlc: 00000000: 41 06 01 00
-[   33.481131] ndlc: 00000000: 6f 02 09 11 20 00 17 04 00 0f 0e e1
-[   33.481217] nci: nci_ntf_packet: unsupported ntf opcode 0xf02
+Link: https://sensirion.com/resource/datasheet/sts4x
 
-Sometimes my simple NFC tag seems to be detected, but it sometimes takes
-quite a while. And starting and stopping (Ctrl-C) the nfctool process
-doesn't make it any better, it quickly gets into an error state.
+> diff --git a/drivers/hwmon/sht4x.c b/drivers/hwmon/sht4x.c
+> index 9cace0e8acdab..daca24cfbcd52 100644
+> --- a/drivers/hwmon/sht4x.c
+> +++ b/drivers/hwmon/sht4x.c
+[ ... ]
+> @@ -418,19 +444,21 @@ static int sht4x_probe(struct i2c_client *client)
+>  							 client->name,
+>  							 data,
+>  							 &sht4x_chip_info,
+> -							 sht4x_groups);
+> +							 groups);
+> =20
+>  	return PTR_ERR_OR_ZERO(hwmon_dev);
+>  }
 
-Can you please confirm how you tested this on your side, and if I'm
-maybe missing some parts?
+[Severity: High]
+This is a pre-existing issue, but registering heater attributes via
+extra_groups here escapes the hwmon core serialization.
 
-Regards
-Luca
+Are the heater sysfs callbacks (heater_enable_store, heater_power_store,
+and heater_time_store) exposed to data races without the hwmon lock?
 
-> To/Cc from scripts/get_maintainer.pl via b4 prep --auto-to-cc on this tre=
-e.
->
-> Changes in v3:
-> - Binding: new compatible is a different ST part (not a driver-sharing no=
-te)
-> - Binding: drop NDLC/raw-NCI description on compatible
-> - Binding example uses interrupts-extended
-> - DTS: one nfc_default pinctrl group, pins sorted, no output-high
-> - No In-Reply-To; To/Cc from get_maintainer.pl on linux-nfc/for-next
->
-> Changes in v2:
-> - Compatible is st,st21nfcd (no -i2c suffix)
-> - Sent without PGP/MIME
-> - DTS: interrupts-extended and pinctrl for IRQ/reset
-> - DTS: ese-present / uicc-present (schematic)
-> - DTS: SYS_CLK from LN_BB_CLK2, VPS_IO from L18B
-> - Binding: optional clocks and vdd-io-supply
-> - Driver: optional clk / vdd-io enable
->
-> Signed-off-by: Kristian Brox <isyourbrainfoss@proton.me>
-> ---
-> Kristian Brox (3):
->       dt-bindings: net: nfc: add st,st21nfcd
->       nfc: st-nci: add raw NCI path for ST21NFCD
->       arm64: dts: qcom: qcm6490-fairphone-fp5: add ST21NFCD NFC
->
->  .../devicetree/bindings/net/nfc/st,st-nci.yaml     | 31 ++++++++
->  arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 34 ++++++++-
->  drivers/nfc/st-nci/core.c                          |  5 ++
->  drivers/nfc/st-nci/i2c.c                           | 87 ++++++++++++++++=
-+++---
->  drivers/nfc/st-nci/ndlc.c                          | 23 ++++--
->  drivers/nfc/st-nci/ndlc.h                          |  2 +
->  drivers/nfc/st-nci/se.c                            |  3 +
->  7 files changed, 166 insertions(+), 19 deletions(-)
-> ---
-> base-commit: 9f69d05b5a85c417c73fa2d5c7a2d507ac81cf4b
-> change-id: 20260820-fp5-st21nfcd-v3-bde6c248beed
->
-> Best regards,
-> -- =20
-> Kristian Brox <isyourbrainfoss@proton.me>
+If a user-space process reads hwmon data while another process enables
+the heater, heater_enable_store() executes without holding
+hwmon_lock(dev). This can interleave I2C commands and mutate shared
+state (data->heating_complete and data->data_pending) concurrently
+with sht4x_read_values(), leading to corrupted I2C sequences.
 
+[Severity: High]
+This is also a pre-existing issue, but could the return value in
+heater_enable_store() cause an unexpected write failure in user-space?
+
+When the heater is successfully enabled, the function returns 0
+instead of count:
+
+drivers/hwmon/sht4x.c:heater_enable_store() {
+    ...
+    data->heating_complete =3D jiffies + msecs_to_jiffies(heating_time_boun=
+d);
+    data->data_pending =3D true;
+    return 0;
+}
+
+Returning 0 signals to VFS that no bytes were processed. Standard
+user-space tools will retry the write with the remaining bytes. On the
+retry, time_before(jiffies, data->heating_complete) evaluates to true,
+and the function immediately fails with -EBUSY.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821091924.1897=
+5-1-alessandro.zini@siemens.com?part=3D2
