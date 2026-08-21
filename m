@@ -1,223 +1,221 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013069.outbound.protection.outlook.com [40.107.162.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DCBD4908B5;
-	Fri, 21 Aug 2026 13:09:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.69
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787317762; cv=fail; b=RlAao13jVmAK4atHmAj8zp5P4zYgoJ9Uk3Q1BdKyujAAqfi/iH3xSGVcIVhQyxq/rsyt54M96i83NsYRkeq4LqRS7j9rMp21haW+bnzBCQwTZp8kMZMYJ013NnTNmmC82zJb3PhM+e09xrxc/wnbSN0DDJCbBNb7gvGs1Ohu5Cc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787317762; c=relaxed/simple;
-	bh=oZQvScyA1zqJV4CC6foAQh/CAQe4pGeAga38F8pulH4=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=BdpcqcVaNNPlCCMvM6zDoWPul0qhpeNz1Y6rM6G4SbULT35uGgJcglRXGKd5wzakPnz0LmX2PDY6wZei+oR+J3WhR3odkjqwqoKAKwKEMrd21n6oBDlFPeB4rqwcZgef1vpXi//qv+cmREYlBT2jvlIm0FspUDXfaaxRKOURlnk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=iKiXbNYw; arc=fail smtp.client-ip=40.107.162.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C3D537DEB2
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 13:10:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787317863; cv=none; b=u4UYM4dlWyTq/V4vyosh7MnNHilsGU2ryunGMC0IK19Hmbf/9NqOPWgHk+p0wKrbeBLA9f7pw6sNtKD1qFnOpTjLPVCRB2861ltcwOF2lRb2oCOWV5OqbPuQjF6nHAx5qaEZdrb1WLVy8WqEdmc8u/LBFoguCy39T07U2Hs6e4Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787317863; c=relaxed/simple;
+	bh=ND4t+afKTeWJNKvkfd+bkaxZPQtRVRH6YSMWkHeH59w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=fkF6UgDZFsobhBzrDgcDfLc/qL28mY6GeoZqCwc7CdzypJFpnfJc0p/36Qg/ZMH1oaHRJ1HgxKETuMNh/bTT03TLc7Qb0OCGuEqPhW6FuzdOtLWdAhMyWgbm04YOTFP0HInDsdLbpu+YILatd8S281HT9JQDV1TaM9yWKZYbyKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DeROmTH3; arc=none smtp.client-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="iKiXbNYw"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dvt4VONrHuWercTqgDK1UPQenLUMejP1cZJcIjcLPeYWN7AubRfsSB8nGb+1wJijJak5G/A9WmcJjTflnq7+yPbzZO2L0sHwGFYn60mWq+7aHZggM4D/32HmEIC4y+REYNVFxVXe2AH/Hx69JIE/eH1KtHQvBCaHanFOTk2724rRwZLVb3kfVcAh9KKL7yrazu3ivKZslAONdUBftSC8YuFj1tCjYHXYZEpN4L/44P9tHmsElwdabDDXkKJdinLEAamYYDiqsxop8t4Y65/ig13jqn4kXcum/K9XLhSGvut/AOGXO+pSIIqyhk4JKwYT20w8l2ZNiKMUrVITOVF8Ew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/T28Dv7KzFFE9nxv/81pMJDpMBM2QOQ+wFzcBBIp92M=;
- b=NHoikT6MXjkF5hY0932pXKVHhERaaPIS5xXgdFugojbF6Byl8IkhI7oUVDq3BOPrSgFES4OP9v/ebi6bbgqbFX9GOS75efLQKkZbOpW7pftqDTxtALFUf6QR+q4OtmKTpruxrMJXMZxRZfwZw6IuAxtF4c2UQtu3NWfSN+7s5hAF10hlhABwfqVXa226yXZJYJK45rbFs+1uMByvOSlvVM6Ds7B60Wbyr6vuRPplDntmbhAihE1/a8PUXRQJ+uBtUgJFXm/+Ioeh5jFDhUzeRooQfNvkgZwLPRjmRv1ZfBCAmoCuYyWxBI4sYRxlNOlYBhH0uVwd/Rdh1O0dR835oA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/T28Dv7KzFFE9nxv/81pMJDpMBM2QOQ+wFzcBBIp92M=;
- b=iKiXbNYw0zrpukZTIV5RcNuOZ6120WMg633eMphhaevIN9/2DFQjrRT8OFcOdinhDUQTc42VuL4UwrslLEo5gUugqhswRK/pmNcbIh2M0RNUxGj1sQfkJvy1SY6CBjPaQxayOujVnmQMzVzb4jLbE02y5uh4sSYIiDME27c37bh0hBdnWx/K5yCrgg1hZJ5RnC8Xj3efVGyOWbWBYPajgBUIvyMpU42eESzRar5C1tFh8Ldr2lPZq1Y2mZ9goanoBzgsDqvrEH5h0E7298NE0AaX40W1cJ/8c1y2I6OqABcxR1PflVrW2xw2hQ6/fViziHbMqPRSroATfU8IIq4AQQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM9PR04MB8469.eurprd04.prod.outlook.com (2603:10a6:20b:414::15)
- by AMZPR04MB191951.eurprd04.prod.outlook.com (2603:10a6:20b:7c5::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Fri, 21 Aug
- 2026 13:08:16 +0000
-Received: from AM9PR04MB8469.eurprd04.prod.outlook.com
- ([fe80::1f31:d3d0:6150:b49c]) by AM9PR04MB8469.eurprd04.prod.outlook.com
- ([fe80::1f31:d3d0:6150:b49c%3]) with mapi id 15.21.0339.010; Fri, 21 Aug 2026
- 13:08:16 +0000
-From: pankaj.gupta@oss.nxp.com
-Date: Sat, 22 Aug 2026 00:06:14 +0530
-Subject: [PATCH v40 7/7] arm64: dts: imx8ulp: add reserved memory for
- EdgeLock Enclave
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260822-imx-se-if-v40-7-74fbce2f2f95@nxp.com>
-References: <20260822-imx-se-if-v40-0-74fbce2f2f95@nxp.com>
-In-Reply-To: <20260822-imx-se-if-v40-0-74fbce2f2f95@nxp.com>
-To: Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Pankaj Gupta <pankaj.gupta@nxp.com>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787337485; l=2461;
- i=pankaj.gupta@nxp.com; s=20260817; h=from:subject:message-id;
- bh=8LTJ7dQk+ZmHVQUVQ7z2QFEU98qQ6ZendsUWTwEehrU=;
- b=P2p5qBfhcatMvNMB24Ia+I3YSqLnIrzeL0xYc0wPUqvGKODX+4TWCmrqKtL+HYlQUmoCWk0xM
- +jKIF2aPd/aCxvQizAZDzgYlJkcRqk41/miVDWNZcSEUG/i6gbOuh0M
-X-Developer-Key: i=pankaj.gupta@nxp.com; a=ed25519;
- pk=g4ZgzIWbpXnSxRsoH+l6PWLP78a+Mzpl8e6RQe74d5Y=
-X-ClientProxiedBy: SI1PR02CA0038.apcprd02.prod.outlook.com
- (2603:1096:4:1f6::15) To AM9PR04MB8469.eurprd04.prod.outlook.com
- (2603:10a6:20b:414::15)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DeROmTH3"
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c214321dc32so194592866b.0
+        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 06:10:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787317851; x=1787922651; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HSblcr0CCEdB1oJUM1Wum0cFSHQwfMNAeMnxc8Z942I=;
+        b=DeROmTH3mhek7zKY/W4TO8o9ycL+iWZ4KYO/55JbK3NQkef9AEOdm+fUFKl+jqpFgC
+         smCnKSwjJO5AXQfWe33EeQVmp1n1uKmScMmpw3uaFYSNM5HTF45ybfq8SqA7EZ4Hz4WD
+         EkKDd231PYGjHTSMHsNXM6phiOug97WR5AR0tQX3j6JuV0ocGmmBvZnUnje6ekO9BWk3
+         AKROKGYyTR5Kd4AkXXo2PYV/CFfg8rtiKKHLMpwMX0FMDgYKtb2BT6V6FtrgDtobHnGO
+         IURDFynWa1zpxqv3DxHnRd/TyFIhGya75v3+4IpJahWnIEhYcpoWQWPiouy9LcF53VSj
+         NSAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787317851; x=1787922651;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HSblcr0CCEdB1oJUM1Wum0cFSHQwfMNAeMnxc8Z942I=;
+        b=rpD6TTt//nPLsApzgqoK9KJMcygQqVhKiF5X8uj2T2VGuLN6PBIf55CuJrD8w8K4c4
+         YFUzJR5ahQa66GSr950OI5cx0RDJOUYpAUmfpNKAvPsw1VwOfiKSZNq5DaFI9+k5ziRe
+         3oMwi9m0gGSjc6lc176kTze3a1ki6A9MTmKBI5RjooQXpN47WDR4gkr14lF1apaTjK7M
+         GDcJ8AdlpSGpvnwBK5m7QQtzrk68P354hVMmbn3VJk2O76ctbRc0hTqauESkbsAZ26p1
+         8dCDacIncfe4vt+RdmfVksXC0ZQopAuvCrEGs5SiYm3pOwdcIlUgCGRy7sw/kMNyxwDF
+         EGxQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rreh1hIBukXuyGiLP2k5bAZZ74kYqUAonLICLr90RQnA+r1n8PRgZSe9H//uZXxOAXdd204aeID56+M@vger.kernel.org
+X-Gm-Message-State: AFuF++mjf0m95caNnVyi2ci5qfvnIwy6u/T+vSMHgulwkjEE9hULJuFI
+	Iqa4idU3Ssh3SYbW0sWrCYVAMLIpSvrJLUPDJL+OfP9mpR6R/OTuqsCM
+X-Gm-Gg: AR+sD12m4JRCk3vVLO1u4SP0Ra/VhTMyUdddOftdsBRnewHnw0FlzL6b3vcRtACwpjq
+	DiwS7gqcnBVPVOn2yOWVdlR+jf5pkrMQSPhzC5r/NH9t8CzilpbRlRvZQHtS0OXjdaiqjG38s0k
+	n7bCzjY3Je/5TjqsrvTFSNmuuBWKW0WTA9zQY1ZOc/u61fD2Kb1ppjsWvif3655opHDyEgBchjA
+	bhvS+9EyIxq6XIMAE0mCvMb/ZbSdHscQBYtVaIC2uX8XkRaQnyC5B2kFOUpvuPO/icdUegqqc5o
+	XmZ0g3vbpRZWUCzudDgpbXL/oJKNQgIMyI7d6SQXwmBBdpqspntmnECfA2adHNNv6Sq6jxKrx/O
+	kQyKOQCIKms7pcUWwVUqpT9d+q6c57cm6g1nx8iyUDfoCQvlL+WtsNaiJrHH1VvPtdeXsVoFaIf
+	0vd0AqQiUgrgkZqmhNsd1VitlR33DfRpiMN7OerbYlHhqN0+uBA3qtKWTYOJaDFCL3br+hNGvUD
+	PE6cyKH8uhx8yDzz20jkGjt21rkyNJSXyymJCOORlC65xcRPefFO3yHU3X4OAyZquqCeF5cvkK1
+	1wDpe0X9+1JLmBevMcm/njca0RnJ7M4W/oHe/YjgXIPVpFjFkIPM6IFQYrKMXoGgR8Inak49wzY
+	ECdyKqA==
+X-Received: by 2002:a17:907:9603:b0:c07:43ed:1b3e with SMTP id a640c23a62f3a-c2469f9a365mr727120166b.0.1787317850935;
+        Fri, 21 Aug 2026 06:10:50 -0700 (PDT)
+Received: from workstation ([85.186.165.159])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2459197cc9sm468761466b.31.2026.08.21.06.10.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 21 Aug 2026 06:10:50 -0700 (PDT)
+From: =?UTF-8?q?=C8=98tefan=20Ghe=C8=9Bu?= <stefanghetu9@gmail.com>
+To: =?UTF-8?q?Mika=20Penttil=C3=A4?= <mpenttil@redhat.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-input@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?=C8=98tefan=20Ghe=C8=9Bu?= <stefanghetu9@gmail.com>
+Subject: [PATCH] dt-bindings: input: touchscreen: convert sis_i2c to DT schema
+Date: Fri, 21 Aug 2026 16:10:39 +0300
+Message-ID: <20260821131039.37525-1-stefanghetu9@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR04MB8469:EE_|AMZPR04MB191951:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4f4bd3af-369a-4ba1-372d-08deff8543b0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|366016|376014|7416014|1800799024|10067099003|56012099006|11063799006|22082099003|921020|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	CFHCW0YiLsbyf/iNcdJ/hZvChgawoIxnCd8VR11TPQNNzxY/t4YDWtwfBOCenKUU/JglQKzvS7M08FkA5LO5RkBMDApDAAhxxhkvUFx5ySEPi3ks/38qHXt1Wq1+159J4MVS9fHYgsX6W+lElwe49XS5xf+/XndSUVgfE+KsM7iIpa/JVisg/Uk3a1GRa3g8M7QbUtvBn7mP0ZzLThVwP+dwhnPmTRxtCan9bfQC+2pmN1aU9Th63s/Ri10yP2lTxiwnQtVvRmTpLXVuIf3fuPfbdqkVS7jYfJXK6/oxaPuA8u/Y+DBu/P2NNTqN8U30/d2frqdno0MyzzmfkdIz+p3/bAbn6ufaTiPdXVvztTjO6EYSRa8knNaMff5CN34UZC7GsQwHiqv+SUkW4yUpNSyZphXvgKv5T7hwJlzyjOkLFnsqmH9ADhg5MZcL5gL4wfIcg+2o6FGyPS8vLJ6YlWrBNjxCCnXTtdKgfOInyvjN2FvMyA+7l+y1FFj7wCwPJgU475G1VbyUZmq6Z/p7nowNXopex0ve70tjd7La1NOBsAI+U9ZXF/sKsZjcGJ3yWawnzkGabPGeHdnYxn141bim5U14rAOh1/G4P/jInqfiVtY5yYZ4oDHRPBEzJlcobR9DaJS/k53JDiYHMJ5FFSMJ26qNCpo/Duk/snxA3bQqSOwKic4Gf30dqZr+r4HOzC0eiKgwppdA1qqsqHqzYQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR04MB8469.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(366016)(376014)(7416014)(1800799024)(10067099003)(56012099006)(11063799006)(22082099003)(921020)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YVczV0JaTThFcG83WjAvbzZtN2RPVllrd2NTVGx2dGVoNlI1eGkvbDhaNVNY?=
- =?utf-8?B?QUgyMzdOd1lxWjRaSW93TG5WQUhmRkxyTGRUdlFJTVFDZGVTU1FZQVNzeXpI?=
- =?utf-8?B?U1c3cENCS3gvR1o2LzR3WjdHTUN1aUNGSzRQNDNwaVlpVUd1NnNtNFNTaGFh?=
- =?utf-8?B?QnpwZ2dLeDhqT1NBUlhESG5IQkpDMDl2ZHcwa0JZNG5COFE0UVFvWUJQeEJs?=
- =?utf-8?B?U3RIQ0dxUFJOQUVDM1BNVFA5b2tQNUUvZktrSXhXTXE0MWdlNFRIL0ZyQUNB?=
- =?utf-8?B?dkxReWR4dmNGdnhoSXlIMVZ0bFdXdTE5c1pqZW4zYTkvTWpRclQzN0Y1SHBr?=
- =?utf-8?B?K2Y5a2hBcmVCZlE1U1huWWNsMUdWQzJoZTRySUI0aEkxdDU2NTU2bllEL21V?=
- =?utf-8?B?R0xsWGMyM055KzZ6WUJUNTNaamNMakhuNGR3cDhEVkFiOFVpSXJXb0FCS3pk?=
- =?utf-8?B?RGhpVCt0MGZCL0tvLzVRSzQxVzlZdHFTdjVwZEt2b2FpMllrOEhTMjdtd3Nx?=
- =?utf-8?B?T294SDQrMmYxRGhDT0oreTZXUmVZMU4vQVZHbUkzcGJEL0ZueEMxbjVNZzA0?=
- =?utf-8?B?bzAyK0FrUnpqbEZ6bnVTNW05Q1p6RFBhellMVms4ZUx2R3lQMXpzT0Fmdk40?=
- =?utf-8?B?NHROR0x1OFYrUWJKalJoVGZ4UHBCbUZKZDkwclpyRnpiM0thVmk2OEFMTWNu?=
- =?utf-8?B?NmpLbk1mK2ZEbm9nKzBLb282eVpEejlHZFdKWXNmL21NMDJzdmZQeGNFbTRu?=
- =?utf-8?B?QlZad0hkck5QbmJvUDM0Z0hJU2FGRnJONUJkcVQ2b0VjNTU3eisrNmVHYmU3?=
- =?utf-8?B?MktQeVQ2VlUwM3c2NVNZRC9wb3p2bDhNSGxGdlRJMFhSdlFRQ0hya2tKR2ZL?=
- =?utf-8?B?T1V5bm9vTXdYWGNFUWVIS2dCbDBEa0JEWVk2U00zVVlGQlJZZU0yL1ZZc2FE?=
- =?utf-8?B?TXczRGkyYUJvSzZhdm50TzFSNjdWckx0aVNiRGE2dVJjV3lnYndLblBvTjcw?=
- =?utf-8?B?ODBxSlZraks4bWh6K0psZkppMEdXNGdib0JmWDZsQUV4dlE2ZFZhQkY2aEZ4?=
- =?utf-8?B?aVlLa2FDTWFVWTNhdlphdk5pUzQxR0VTbmo4L202eHJDblppMGczZDRtdkJN?=
- =?utf-8?B?aTJpSDFOU09Na0lIZGMxRjdoWVNNRXJmTGthVHFISU43b3lIL3JVS1ZlaEVh?=
- =?utf-8?B?aWNyR1VkajRYWkFhNEQ4Y2p2WWRYN2tjL05LakY3NmJPdUhjUTdVazBYVFB3?=
- =?utf-8?B?VGFvaGNkdGRMRmNKVEdYaGhoWElZOTEyeElPKzlvdlB3YmdRWmZzd1dMZk4x?=
- =?utf-8?B?ZmNrMzlKTzFkakhkeVgvTlNMUlZDZTlCeUdxOU9RK1BLMW1tYmQ1c0VpQ2tr?=
- =?utf-8?B?QWZLb2VhOWZSTjZxanhxMklkWEJtSUVzbDU1bi9qdkVYbVJiKzk3RkJyR3Qv?=
- =?utf-8?B?VkRmbDZPbjYzQ3lzNC9hVFJObFVMTklYV2lTM2NxL2FRa1E1QmZ4TDZ6SWNS?=
- =?utf-8?B?VnMvdDZjRnlDbHdzS2EvRHBrN3BXMUk1NFNYVllwdlNsckJraTBGeFlDdWdv?=
- =?utf-8?B?R2ZmTGZaRkcyRTRKL3FvUkRFb0RmRi9MRkhtRzlDM3JZbmhFSjRZa05ld0V0?=
- =?utf-8?B?d1F4aW5DaHdQTUhlRXB6OFp2NXdLWXdvMW40MTJHYlFHcmdHUWdzcXM0WW5v?=
- =?utf-8?B?enF5empNR1ZHdElRWFA3cEFUOUFKRzV3SFhQdkJwY0I1NmtWRit0QmFvVVFa?=
- =?utf-8?B?eEZPb1FJazkwYWdZYjhhSkpkWWNucGdEQWFiMGZEWFNCTkxPRWxuY05OelF2?=
- =?utf-8?B?NEdaeUlST0M0TzN1Y0QvdDA1REd1U3J4QzU2eFpCUDlGVGJ3RnJha3RLTUV3?=
- =?utf-8?B?bi9ZQy9xWnFHcGJvSXAvcS8vS25DU2tSaFdFR3ZieUcxeWpNTndzQ3dOYXFS?=
- =?utf-8?B?L3pSZ3ZhV0x1Y2R2WXFrNmVtMXdPaWZDMXpUUk9XTS9aUTYvUEJiaEpDcGtS?=
- =?utf-8?B?N3NKSWF4RTdKQ3lJMFdsOGc1WFpvRDFUZmVJZXJUOWtVSUtadkVOekpUKzN6?=
- =?utf-8?B?c0xqTWFyS2UrVElnUmtTenY5UWk3NTB6eEV5S1FyY3ZPdTJZd3hoUnlIMFUr?=
- =?utf-8?B?TnpKdHhOUDR0ak9wcDdNbVBJNU9TclJCMXBFZnJaSlNXT3FTSGJkSnE3Z3pC?=
- =?utf-8?B?UHRUUXNUSTcvZTdVVnZPY0c4U09KQk5WamgzWlFOcCtvbkgzL3BkbHczL3d4?=
- =?utf-8?B?Q1Bxb3E2K01MTk0xbE5YdFM1bjdFZ2FvNG9mTUdSL09nbjg3bmlqeG9TRmFr?=
- =?utf-8?B?NlRxeTJhYjdTWnhOekwvb2NEMkYvL0gvSjN4Y3BlMWpRdjkvR1JiOExMMzJ1?=
- =?utf-8?Q?vMU5FfuAWmTmN9C0TuQKZMs4iTp8K1155Z5GE?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4f4bd3af-369a-4ba1-372d-08deff8543b0
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8469.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 13:08:16.7334
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mQOvjSKqRpn8fltGjbDKAhaZT/+DZgcYQeYOPmqbk+DjeWMekIqmREb69yozp7Vk9RMhDGhbqU90wchQE+Hf2xDjQMPn2h+dy6CHfkwvD4u0lpHWGOnK5hvnrDjel1Qy
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMZPR04MB191951
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Pankaj Gupta <pankaj.gupta@nxp.com>
+Convert the SiS 9200 family I2C touchscreen binding from free-form
+text to DT schema format.
 
-Reserve 1MB of DDR for the EdgeLock Enclave. The enclave hardware can only
-access DDR in the 0x80000000 - 0xafffffff window, so constrain the pool to
-that range with alloc-ranges and let the kernel choose the placement rather
-than hardcoding an address.
+While at it, fix the example which referenced a non-existent
+"irq-gpios" property; the driver looks up "attn" via
+devm_gpiod_get_optional(), so the correct property is "attn-gpios".
 
-Provide this as a shared imx8ulp-firmware.dtsi that also enables the hsm0
-node and wires up its memory-region, so every i.MX8ULP board can bring up
-the enclave with a single include instead of duplicating the reserved
-memory node. Include it from imx8ulp-evk.
-
-Signed-off-by: Pankaj Gupta <pankaj.gupta@nxp.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Ștefan Ghețu <stefanghetu9@gmail.com>
 ---
- arch/arm64/boot/dts/freescale/imx8ulp-evk.dts      |  3 ++-
- .../arm64/boot/dts/freescale/imx8ulp-firmware.dtsi | 31 ++++++++++++++++++++++
- 2 files changed, 33 insertions(+), 1 deletion(-)
+ .../input/touchscreen/sis,9200-ts.yaml        | 61 +++++++++++++++++++
+ .../bindings/input/touchscreen/sis_i2c.txt    | 31 ----------
+ MAINTAINERS                                   |  2 +-
+ 3 files changed, 62 insertions(+), 32 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/input/touchscreen/sis,9200-ts.yaml
+ delete mode 100644 Documentation/devicetree/bindings/input/touchscreen/sis_i2c.txt
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts b/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts
-index 5dea66c1e7aa..885242fd07ce 100644
---- a/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts
-@@ -1,11 +1,12 @@
- // SPDX-License-Identifier: (GPL-2.0+ OR MIT)
- /*
-- * Copyright 2021 NXP
-+ * Copyright 2021, 2025 NXP
-  */
- 
- /dts-v1/;
- 
- #include "imx8ulp.dtsi"
-+#include "imx8ulp-firmware.dtsi"
- 
- / {
- 	model = "NXP i.MX8ULP EVK";
-diff --git a/arch/arm64/boot/dts/freescale/imx8ulp-firmware.dtsi b/arch/arm64/boot/dts/freescale/imx8ulp-firmware.dtsi
+diff --git a/Documentation/devicetree/bindings/input/touchscreen/sis,9200-ts.yaml b/Documentation/devicetree/bindings/input/touchscreen/sis,9200-ts.yaml
 new file mode 100644
-index 000000000000..e4bc352f68af
+index 000000000..5c4806348
 --- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8ulp-firmware.dtsi
-@@ -0,0 +1,31 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright 2025 NXP
-+ *
-+ * Default reserved memory and EdgeLock Enclave (ELE) enablement shared by
-+ * i.MX8ULP boards. Include this from a board dts to bring up the secure
-+ * enclave without having to duplicate the reserved-memory node. The ELE
-+ * hardware can only access DDR in the 0x80000000 - 0xafffffff window, so the
-+ * pool is constrained to that range with alloc-ranges and the kernel is left
-+ * to place the 1 MiB region.
-+ */
++++ b/Documentation/devicetree/bindings/input/touchscreen/sis,9200-ts.yaml
+@@ -0,0 +1,61 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/input/touchscreen/sis,9200-ts.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+/ {
-+	reserved-memory {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
++title: SiS 9200 Family I2C Touchscreen Controller
 +
-+		ele_reserved: ele-reserved {
-+			compatible = "shared-dma-pool";
-+			alloc-ranges = <0 0x80000000 0 0x30000000>;
-+			size = <0 0x100000>;
-+			no-map;
-+		};
-+	};
-+};
++maintainers:
++  - Mika Penttilä <mpenttil@redhat.com>
 +
-+&hsm0 {
-+	memory-region = <&ele_reserved>;
-+	status = "okay";
-+};
-
++allOf:
++  - $ref: touchscreen.yaml#
++
++properties:
++  compatible:
++    const: sis,9200-ts
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  attn-gpios:
++    maxItems: 1
++    description: GPIO pin used as the attention line
++
++  reset-gpios:
++    maxItems: 1
++    description: GPIO pin used to reset the controller
++
++  wakeup-source: true
++
++required:
++  - compatible
++  - reg
++  - interrupts
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        touchscreen@5c {
++            compatible = "sis,9200-ts";
++            reg = <0x5c>;
++            pinctrl-names = "default";
++            pinctrl-0 = <&pinctrl_sis>;
++            interrupt-parent = <&gpio3>;
++            interrupts = <19 IRQ_TYPE_EDGE_FALLING>;
++            attn-gpios = <&gpio3 19 GPIO_ACTIVE_LOW>;
++            reset-gpios = <&gpio2 30 GPIO_ACTIVE_LOW>;
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/input/touchscreen/sis_i2c.txt b/Documentation/devicetree/bindings/input/touchscreen/sis_i2c.txt
+deleted file mode 100644
+index 8f5322e01..000000000
+--- a/Documentation/devicetree/bindings/input/touchscreen/sis_i2c.txt
++++ /dev/null
+@@ -1,31 +0,0 @@
+-* SiS I2C Multiple Touch Controller
+-
+-Required properties:
+-- compatible: must be "sis,9200-ts"
+-- reg: i2c slave address
+-- interrupts: touch controller interrupt (see interrupt
+-  binding [0])
+-
+-Optional properties:
+-- pinctrl-names: should be "default" (see pinctrl binding [1]).
+-- pinctrl-0: a phandle pointing to the pin settings for the
+-  device (see pinctrl binding [1]).
+-- attn-gpios: the gpio pin used as attention line
+-- reset-gpios: the gpio pin used to reset the controller
+-- wakeup-source: touchscreen can be used as a wakeup source
+-
+-[0]: Documentation/devicetree/bindings/interrupt-controller/interrupts.txt
+-[1]: Documentation/devicetree/bindings/pinctrl/pinctrl-bindings.txt
+-
+-Example:
+-
+-	sis9255@5c  {
+-		compatible = "sis,9200-ts";
+-		reg = <0x5c>;
+-		pinctrl-names = "default";
+-		pinctrl-0 = <&pinctrl_sis>;
+-		interrupt-parent = <&gpio3>;
+-		interrupts = <19 IRQ_TYPE_EDGE_FALLING>;
+-		irq-gpios = <&gpio3 19 GPIO_ACTIVE_LOW>;
+-		reset-gpios = <&gpio2 30 GPIO_ACTIVE_LOW>;
+-	};
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 8014b9f82..88d0cb1d8 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -24866,7 +24866,7 @@ SIS I2C TOUCHSCREEN DRIVER
+ M:	Mika Penttilä <mpenttil@redhat.com>
+ L:	linux-input@vger.kernel.org
+ S:	Maintained
+-F:	Documentation/devicetree/bindings/input/touchscreen/sis_i2c.txt
++F:	Documentation/devicetree/bindings/input/touchscreen/sis,9200-ts.yaml
+ F:	drivers/input/touchscreen/sis_i2c.c
+ 
+ SIS USB2VGA DRIVER
 -- 
-2.43.0
+2.53.0
 
