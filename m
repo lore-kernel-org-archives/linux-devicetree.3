@@ -1,175 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90D3F34A78E;
-	Fri, 21 Aug 2026 02:47:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA1771DE894;
+	Fri, 21 Aug 2026 03:02:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787280476; cv=none; b=tcrVCtohZ8x41d4WM6U9faIUgvBTi7H4FVrKwLs7VBs+wSvMtjYOL5OhEaQHP/q01US8a/Pnb0q4XtCu9hB+ae7Yev8OYpdSjXDdw6Mf+fPWXOjoAr6e6GBr4kfDs+GYlgEtxRo0tJvYbj4/ckhcWO3O0qTnYTzK2YlNLnYMako=
+	t=1787281344; cv=none; b=ssNqHwGg33OyKUEvyrsBxOWZjLSAKlM49QZV2GSIn0CA0udhV/zUFBhFrc7O7KfkZ0MPYJ/rZEm6qBBoMVd/+UtXTI3r0FAjOCgFdRIE1Hk36HnqiEZ17J2RIOybcbR95dPOwe8Em595E6vKbkKHw9FjQIf7u94hnLdpKgY74Sc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787280476; c=relaxed/simple;
-	bh=cLMvOab7VCT935nwNYZArRxMbEGpQZ+qA8E03/h4q+I=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SvInAqNpd/B2tzhgT+IISBvgd/i8p/wW8B8faoxbLCS3A8LVXo6K8xmw8UxpJUitpkprT4PbgM426wrwtXvTF5UlFmVqKznM6Ol/Aq1RyQlck/Br6hofIbNjnz1fv/N1ueBFQM16LjtS4LZ0Ap2WHMtjwoPe5WAF5hvvgjp3QSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G70x7bJT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787281344; c=relaxed/simple;
+	bh=qnqaRB7nNdgSA026ZY1qQ1hUcjrdu7pE8LsbynHbof4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qgV1bnyJWW+URqMVaqShCvKKUi2M2Elucotk7kViP4O/CXmNTK5KcpalM0kG7+SVbgGcoIUJCKsHFlGkzq2EJfQbumcau6cybh/q3i7m7FXo8TgQcYhnOh8LRiiGl5qsUBXCwGTfCfK2mr42QCZBfxf62Bc5UdgwMZ8qzaIzTN4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MP9irSsN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G70x7bJT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2D2E1F000E9;
-	Fri, 21 Aug 2026 02:47:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MP9irSsN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 746601F000E9;
+	Fri, 21 Aug 2026 03:02:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787280475;
-	bh=HhDcVF3YLSOQzbVQVYStJysYCm3wmpe/klfl+CQCWDs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=G70x7bJTIC5v+ArcUEmwyt1GpL7g4bmijl5SmaJsJDyk2VpsvFj10yBWRI62VVtiU
-	 Kd4RYGplUN7QW94JCdeocc6NRZMGNq1ipzYLXre3JaUBOJfZdC/djuX+KCI/QJP+pI
-	 w7a0vfSwOIw4iYGwF7EE0RdCr4vTVtvw1K2Pu5sn5HNMrnPOdd/sEWrE61c61GTU38
-	 Hqk0yGbZ0UHwx/2YP6l78L3osktij8fka+hQOxafuX3w4sVBP2RD4v7sQ7g01zbF8L
-	 izxavCk3om2TLNyvODAeoUUxvWxVvY5DxZxA9KCpbxlv600wyzVIsqvbj9AVS239nj
-	 TVlJ5IfE5zoRw==
-Date: Fri, 21 Aug 2026 03:47:48 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Jinseob Kim <kimjinseob88@gmail.com>
-Cc: linux-iio@vger.kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
- andy@kernel.org, linux-kernel@vger.kernel.org, rdunlap@infradead.org,
- joshua.crofts1@gmail.com, u.kleine-koenig@baylibre.com,
- julianbraha@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, grondon@gmail.com, devicetree@vger.kernel.org,
- corbet@lwn.net, skhan@linuxfoundation.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v8 4/5] iio: osf: add authenticated stream parser
-Message-ID: <20260821034748.5049aca0@jic23-huawei>
-In-Reply-To: <20260820050608.5440-5-kimjinseob88@gmail.com>
-References: <20260820050608.5440-1-kimjinseob88@gmail.com>
-	<20260820050608.5440-5-kimjinseob88@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1787281343;
+	bh=yQqHSIqNyc4PHFpn1E8swdiluWKo1xy24GDFNbPwmeo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MP9irSsN3zeZh1NcD69E76Ew8ShhQayETkEzOukVzCZfudsZ1bJxfK0LXIpbASuiP
+	 x73X6fMDiHrqmVlK2LfoItQL78CQGndj0mYndDGT7WLtlcUDmhhWFbuypd1UMyGeLt
+	 82WXvljmZ2wXOqwZ//OAcXUgReIMm/y+cY8ny+esgSZh6iJDhfFWcBYTgwnaHfldLl
+	 4MTVUilGX0jioIluHW5EXTflyXIYk+wUggILHpzsPXKLQFCmUe9oRfo3azOjhFv8Wt
+	 4KRR0ms6zT3sKokQD3O2blhgc/QyfvK0vagwJei9Rtxg5LYgd8afeYcS0SGwVO8fYx
+	 dS+NRcmgz3Alw==
+Date: Thu, 20 Aug 2026 20:00:18 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Ayush Singh <ayush@beagleboard.org>
+Cc: Jason Kridner <jkridner@beagleboard.org>, robertcnelson@gmail.com,
+	Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Ayush Singh <ayush@beagleboard.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, greybus-dev@lists.linaro.org,
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	linux-crypto@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 3/7] rust: crc_ccitt: add CRC-CCITT abstraction
+Message-ID: <20260821030018.GA1961@sol>
+References: <20260820-gb-uart-transport-v1-0-282da14ab7b7@beagleboard.org>
+ <20260820-gb-uart-transport-v1-3-282da14ab7b7@beagleboard.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260820-gb-uart-transport-v1-3-282da14ab7b7@beagleboard.org>
 
-On Thu, 20 Aug 2026 14:06:07 +0900
-Jinseob Kim <kimjinseob88@gmail.com> wrote:
+On Thu, Aug 20, 2026 at 02:55:45PM +0530, Ayush Singh wrote:
+> The module is gated behind the new RUST_CRC_CCITT_ABSTRACTIONS Kconfig
+> symbol, which selects CRC_CCITT, so the C library is only built when a
+> Rust user actually needs it.
+> 
+> Signed-off-by: Ayush Singh <ayush@beagleboard.org>
+> ---
+>  MAINTAINERS                     |  1 +
+>  lib/crc/Kconfig                 |  7 +++++++
+>  rust/bindings/bindings_helper.h |  1 +
+>  rust/kernel/crc_ccitt.rs        | 26 ++++++++++++++++++++++++++
+>  rust/kernel/lib.rs              |  2 ++
+>  5 files changed, 37 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 6008f16ae2ca..1e3b42eff741 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -6921,6 +6921,7 @@ T:	git https://git.kernel.org/pub/scm/linux/kernel/git/ebiggers/linux.git crc-ne
+>  F:	Documentation/staging/crc*
+>  F:	include/linux/crc*
+>  F:	lib/crc/
+> +F:	rust/kernel/crc*
+>  F:	scripts/gen-crc-consts.py
+>  
+>  CREATIVE SB0540
+> diff --git a/lib/crc/Kconfig b/lib/crc/Kconfig
+> index 927fc6a6b2b9..aceb8fe8f0ed 100644
+> --- a/lib/crc/Kconfig
+> +++ b/lib/crc/Kconfig
+> @@ -32,6 +32,13 @@ config CRC_CCITT
+>  	  The CRC-CCITT library functions.  Select this if your module uses any
+>  	  of the functions from <linux/crc-ccitt.h>.
+>  
+> +config RUST_CRC_CCITT_ABSTRACTIONS
+> +	bool "Rust CRC-CCITT abstractions"
+> +	depends on RUST
+> +	select CRC_CCITT
+> +	help
+> +	  This enables the Rust abstraction for the CRC-CCITT API.
 
-> Add a UART byte-stream parser for Open Sensor Fusion frames.
-> 
-> The parser searches for the OSF0 wire magic, keeps partial frames
-> buffered, checks header length and payload bounds, and passes complete
-> candidate frames to a registered frame callback.
-> 
-> Candidates rejected before authentication drop only the current head
-> byte before resynchronizing, so a corrupted unauthenticated payload length
-> cannot make the parser skip later valid frames. CRC-valid authenticated
-> frames are consumed in full and classified as handled, ignored, or
-> rejected.
-> 
-> Use a direct callback member with an opaque context and keep explicit
-> statistics for authenticated outcomes and framing failures.
-> 
-> Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
+Like the other library kconfig symbols, this shouldn't have a prompt.
+It should just be selected by the other symbols that need it.
 
-One really trivial thing inline.  Please check to see if other areas
-of code alignment would benefit from a bit of a reorg.
-
-> diff --git a/drivers/iio/opensensorfusion/osf_stream.c b/drivers/iio/opensensorfusion/osf_stream.c
+> diff --git a/rust/kernel/crc_ccitt.rs b/rust/kernel/crc_ccitt.rs
 > new file mode 100644
-> index 000000000000..7ce45e631648
+> index 000000000000..6042ada16967
 > --- /dev/null
-> +++ b/drivers/iio/opensensorfusion/osf_stream.c
-...
+> +++ b/rust/kernel/crc_ccitt.rs
 
-> +
-> +static int osf_stream_process(struct osf_stream *stream)
-> +{
-> +	size_t discarded;
-> +	size_t frame_len;
-> +	u32 payload_len;
-> +	int frame_result;
-> +	int first_err = 0;
-> +
-> +	while (stream->len) {
-> +		discarded = osf_stream_discard_to_magic(stream);
-> +		if (discarded) {
-> +			stream->stats.bad_magic_resyncs++;
-> +			stream->stats.dropped_bytes += discarded;
-> +			if (!first_err)
-> +				first_err = -EPROTO;
-> +		}
-> +
-> +		if (!stream->len)
-> +			break;
-> +
-> +		if (stream->len < OSF_FRAME_HEADER_LEN)
-> +			break;
-> +
-> +		if (get_unaligned_le16(stream->buf + 6) != OSF_FRAME_HEADER_LEN) {
-> +			stream->stats.dropped_bytes++;
-> +			osf_stream_drop_invalid_head(stream);
-> +			if (!first_err)
-> +				first_err = -EPROTO;
-> +			continue;
-> +		}
-> +
-> +		payload_len = get_unaligned_le32(stream->buf + 10);
-> +		if (payload_len > OSF_STREAM_MAX_PAYLOAD_LEN) {
-> +			stream->stats.dropped_bytes++;
-> +			osf_stream_drop_invalid_head(stream);
-> +			if (!first_err)
-> +				first_err = -EMSGSIZE;
-> +			continue;
-> +		}
-> +
-> +		frame_len = OSF_FRAME_HEADER_LEN + payload_len + OSF_FRAME_CRC_LEN;
-> +		if (stream->len < frame_len)
-> +			break;
-> +
-> +		frame_result = stream->receive_frame(stream->frame_context,
-> +					     stream->buf, frame_len);
+Is there a reason why the kconfig symbol is being put in lib/crc/ but
+the actual code is being put in rust/kernel/?  It seems inconsistent.
 
-Align after (
-
-> +		if (frame_result < 0) {
-> +			if (frame_result == -EBADMSG)
-> +				stream->stats.bad_crc_frames++;
-> +
-> +			/*
-> +			 * Decoding failed before the frame was authenticated;
-> +			 * payload_len is still untrusted. Drop only the current
-> +			 * head and resynchronize.
-> +			 */
-> +			stream->stats.dropped_bytes++;
-> +			osf_stream_drop_invalid_head(stream);
-> +			if (!first_err)
-> +				first_err = frame_result;
-> +			continue;
-> +		}
-> +
-> +		/* Count exactly one outcome for every authenticated frame. */
-> +		stream->stats.authenticated_frames++;
-> +		switch (frame_result) {
-> +		case OSF_STREAM_FRAME_HANDLED:
-> +			stream->stats.handled_frames++;
-> +			break;
-> +		case OSF_STREAM_FRAME_IGNORED:
-> +			stream->stats.ignored_frames++;
-> +			break;
-> +		case OSF_STREAM_FRAME_REJECTED:
-> +			stream->stats.rejected_frames++;
-> +			break;
-> +		default:
-> +			/*
-> +			 * Preserve the authenticated boundary without scanning the
-> +			 * payload for another magic value.
-> +			 */
-> +			stream->stats.rejected_frames++;
-> +			if (!first_err)
-> +				first_err = -EPROTO;
-> +			break;
-> +		}
-> +		osf_stream_discard(stream, frame_len);
-> +	}
-> +
-> +	return first_err;
-> +}
+- Eric
