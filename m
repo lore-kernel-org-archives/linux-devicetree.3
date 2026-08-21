@@ -1,123 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.zlab.su (mail.zlab.su [109.73.193.145])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6019644C66C;
-	Fri, 21 Aug 2026 09:29:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA0BD36729C;
+	Fri, 21 Aug 2026 09:30:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.73.193.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787304599; cv=none; b=Hg2tma4wDni2xkdVoZEOdi6CzaLwbahtuCK4qHxmFj+MSzulkyzp8Kg0reV14IPdYZyD/zpezqDvej6IlxOQQ4jF3KvDB6jilung5RoIH4Qb2NfpUWHrEZ3r9/HcIsvkzwh8qFRqgdtAft936t3q+XLqXMKJOfyH7sxPTOCHNvU=
+	t=1787304614; cv=none; b=DSInWbVzHygr+i6gIUEwWLDpS1n+1KZ6rwDOAqDxAAg/cV1NS2ZIHZkCDLqB4ab/A2R4KEAEi+3i3X1oW001M7RIDCH3COiop6jfOq102yTBoPNmsSBFkRAbUczalweTfziEdVTcCNhfWGbsbee60SE7OB54Tp48eBrD9wfr0VY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787304599; c=relaxed/simple;
-	bh=3GEY+wenFAYW3xgfA92zFSmBS14gORvcX9UMqsG1Zh8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nJY3ORSdX9yccGZHVnkG+rMcRzFYsWOi9XRmR+ngPVrgpF8/v8fA0+2x1Mkw0+rLRK/XkV/PvML7oZoyZP/WT5jgWilqLgfIvKQaywOSeStaoTa6+73cAmfzg2VzO8ooMSFUqWmxn6lwhWko0Qr22DUH9wWa+95cKMeWHzBrt3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q3qQhA5U; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787304614; c=relaxed/simple;
+	bh=2BlwCIRPj878eYNyHhUDHzHUc9xUQe10Kfy/KIZKvHQ=;
+	h=From:In-Reply-To:Content-Type:References:Date:Cc:To:MIME-Version:
+	 Message-ID:Subject; b=pgE2RagrNn6ODboqVWbIpJSdJoXQHX9fo5djz9WobtxudoO62aYO2mKr4T8LpVxjD1KSnFJX99ljCCDMAR9RJZtG1wao6SysufQq83PuWACsQIidQDFa1aVrpon+DV79leIG/tmEpdJOksjy/7Yb9APGLBkpKi5let5T6a5Dg/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zlab.su; spf=pass smtp.mailfrom=zlab.su; dkim=pass (2048-bit key) header.d=zlab.su header.i=@zlab.su header.b=m/RN7abP; arc=none smtp.client-ip=109.73.193.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zlab.su
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zlab.su
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q3qQhA5U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB1511F000E9;
-	Fri, 21 Aug 2026 09:29:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787304588;
-	bh=GDato5UJMlqV6pekRDM2rry3PV0Hd7Xdxyz7lHSwjms=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Q3qQhA5UsbptCgJYstoS13JNMKMCqvAk4LMRwdL4K6uNELZ5ca5uQUwLRvxgzX1lG
-	 6T9J9jHw1PlxQOfMlJtMG5Ne9JY2PQqgFH6l/x1UAqQqIsfL6t8/bEmWB8c+g/frWR
-	 p+d/3Oed68+0axfgvkj7Wd9cLxXRGNWzGPniy7vssetwJRlUIQyWTBF16q62LW7OIk
-	 rgA81tto6IQ3YV8Nr3CsRQzsvXte0Z5pLwDET2ski82nJJhDCpw31FATLNZ8ox0hpI
-	 h+NyCrGncjiYLKPOW8E2ad6gTis3FYUeQ3NIHnnLvlBbH7CqL8eUmnUbi0aG27Ci9W
-	 sYEnB2IwU4plQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] hwmon: (sht4x): Add support for Sensirion STS4x
- temperature sensors
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alessandro Zini" <alessandro.zini@siemens.com>
-Cc: linux-hwmon@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260821091924.18975-3-alessandro.zini@siemens.com>
-References: <20260821091924.18975-1-alessandro.zini@siemens.com>
- <20260821091924.18975-3-alessandro.zini@siemens.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 21 Aug 2026 09:29:47 +0000
-Message-Id: <20260821092947.CB1511F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=zlab.su header.i=@zlab.su header.b="m/RN7abP"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPA id 466D7C03D9;
+	Fri, 21 Aug 2026 12:30:00 +0300 (MSK)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zlab.su; s=dkim;
+	t=1787304604; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=+UDivxkzUWm8jCVEzWimvw5QQQKBgJN2rUad2RA1A+g=;
+	b=m/RN7abP1i3juYX1BEYCFHZNhP77sGhYzJVe8mgEF64OgNjrVjZ0IqEvVloMx/3LYZqf33
+	W4K8qbuJDw/so2cdCrFwUZLx7HHFFbsD3ZimrzGHNn+qOpX4EcOTWijB6xp2vIbYA810dg
+	OSu7DAgJOpLaDBZKzIm+xZDDaYreq+ztL7PEP9/3kkOJTYUp3U+l7uwgQfZqUnP34TcnoP
+	ejXETsBjhFWPaYLidqzETMu4IIvEgzWj6DcvFspAPNBJ5wQpLvwqDav9tfjns/xp6rYLeu
+	4ai+Mu+s0S9ctAK0wc7tVE00o5NyRPGPc3Rli3PIj0BX8PJrc+XXrOgCnLYCRQ==
+From: "Vladislav Leonov" <vlad@zlab.su>
+In-Reply-To: <20260821-bouncy-sticky-dalmatian-4f72c2@quoll>
+Content-Type: text/plain; charset="utf-8"
+References: <20260816113636.33635-1-vlad@zlab.su> <20260821-bouncy-sticky-dalmatian-4f72c2@quoll>
+Date: Fri, 21 Aug 2026 12:30:00 +0300
+Cc: "Jonathan Cameron" <jic23@kernel.org>, "Heiko Stuebner" <heiko@sntech.de>, "Andy Shevchenko" <andy@kernel.org>, "David Lechner" <dlechner@baylibre.com>, "Conor Dooley" <conor+dt@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Rob Herring" <robh@kernel.org>, "Jonas Karlman" <jonas@kwiboo.se>, "Simon Glass" <sjg@chromium.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, =?utf-8?q?=D0=92=D0=BB=D0=B0=D0=B4=D0=B8=D1=81=D0=BB=D0=B0=D0=B2_=D0=9B=D0=B5=D0=BE=D0=BD=D0=BE=D0=B2?= <vlad@zlab.su>
+To: "Krzysztof Kozlowski" <krzk@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Message-ID: <9425cd59-7b78-7e0e-5d7f-aaff876ce8d6@zlab.su>
+Subject: =?utf-8?q?Re=3A?= [PATCH] =?utf-8?q?dt-bindings=3A?==?utf-8?q?_iio=3A?=
+ =?utf-8?q?_adc=3A?==?utf-8?q?_rockchip-saradc=3A?= Fix RV1106 compatible
+User-Agent: SOGoMail 5.12.8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: None
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Friday, August 21, 2026 10:27 MSK, Krzysztof Kozlowski <krzk@kernel.=
+org> wrote:
 
-Pre-existing issues:
-- [High] Sysfs heater attributes registered via extra_groups lack required =
-hwmon locking, causing data races and I2C command interleaving.
-- [High] `heater_enable_store` incorrectly returns 0 on success, triggering=
- user-space write loops and false `-EBUSY` errors.
---
+> On Sun, Aug 16, 2026 at 02:36:36PM +0300, Vladislav Leonov wrote:
+> > rockchip,rv1106-saradc was folded into the fallback enum together
+> > with rockchip,rk3576-saradc, falling back to rockchip,rk3588-saradc=
+.
+> > The two IP blocks are not equivalent, though: per the RV1106 TRM v0=
+.3,
+> > chapter 20 (SAR-ADC), RV1106 only has 2 channels at 10-bit resoluti=
+on,
+> > versus 8 channels at 12-bit on RK3588. Documenting it as falling ba=
+ck
+> > to rk3588-saradc allows device trees that would bind against the wr=
+ong
+> > channel table and report an incorrect voltage scale.
+> >=20
+> > Remove rockchip,rv1106-saradc from the RK3588 fallback enum and giv=
+e
+> > it its own standalone compatible entry, matching the dedicated matc=
+h
+> > table entry added by the driver patch.
+> >=20
+> > Fixes: bdba14f6122c ("dt-bindings: iio: adc: rockchip-saradc: Add R=
+V1106 compatible")
+> > Link: https://lore.kernel.org/all/20260810090826.146758-1-vlad@zlab=
+.su
+> > Signed-off-by: Vladislav Leonov <vlad@zlab.su>
+> > ---
+> >  .../devicetree/bindings/iio/adc/rockchip-saradc.yaml         | 5 +=
++---
+> >  1 file changed, 2 insertions(+), 3 deletions(-)
+> >=20
+> > diff --git a/Documentation/devicetree/bindings/iio/adc/rockchip-sar=
+adc.yaml b/Documentation/devicetree/bindings/iio/adc/rockchip-saradc.ya=
+ml
+> > index f0551d665916..dc56855527b8 100644
+> > --- a/Documentation/devicetree/bindings/iio/adc/rockchip-saradc.yam=
+l
+> > +++ b/Documentation/devicetree/bindings/iio/adc/rockchip-saradc.yam=
+l
+> > @@ -22,9 +22,7 @@ properties:
+> >        - const: rockchip,rk3562-saradc
+> >        - const: rockchip,rk3588-saradc
+> >        - items:
+> > -          - enum:
+> > -              - rockchip,rk3576-saradc
+> > -              - rockchip,rv1106-saradc
+> > +          - const: rockchip,rk3576-saradc
+> >            - const: rockchip,rk3588-saradc
+> >        - items:
+> >            - enum:
+> > @@ -35,6 +33,7 @@ properties:
+> >                - rockchip,rv1108-saradc
+> >                - rockchip,rv1126-saradc
+> >            - const: rockchip,rk3399-saradc
+> > +      - const: rockchip,rv1106-saradc
+>=20
+> So this goes to an enum with all the other single-entries.
+>=20
+> Anyway, where is a driver binding to above compatible (see DT submitt=
+ing
+> patches). git grep on a week old next gave me nothing.
+>=20
+> Best regards,
+> Krzysztof
+>=20
 
---- Patch [2]: [PATCH v2 2/2] hwmon: (sht4x): Add support for Sensirion STS=
-4x temperature sensors ---
-commit 19dd0dd408d1f2465639b63b05819b57f722bbcb
-Author: Alessandro Zini <alessandro.zini@siemens.com>
+Hi Krzysztof,
 
-hwmon: (sht4x): Add support for Sensirion STS4x temperature sensors
+I will combine it into a single enum in v2.
 
-The Sensirion STS4x series is the temperature-only variant of the SHT4x
-family. It shares the same I2C command set, conversion formulas, CRC
-checksum, and timing with the SHT4x, but only returns temperature data.
-Add support for the STS4x series by dynamically adjusting the read
-response length and suppressing humidity and heater sysfs attributes.
-
-Link: https://sensirion.com/resource/datasheet/sts4x
-
-> diff --git a/drivers/hwmon/sht4x.c b/drivers/hwmon/sht4x.c
-> index 9cace0e8acdab..daca24cfbcd52 100644
-> --- a/drivers/hwmon/sht4x.c
-> +++ b/drivers/hwmon/sht4x.c
-[ ... ]
-> @@ -418,19 +444,21 @@ static int sht4x_probe(struct i2c_client *client)
->  							 client->name,
->  							 data,
->  							 &sht4x_chip_info,
-> -							 sht4x_groups);
-> +							 groups);
-> =20
->  	return PTR_ERR_OR_ZERO(hwmon_dev);
->  }
-
-[Severity: High]
-This is a pre-existing issue, but registering heater attributes via
-extra_groups here escapes the hwmon core serialization.
-
-Are the heater sysfs callbacks (heater_enable_store, heater_power_store,
-and heater_time_store) exposed to data races without the hwmon lock?
-
-If a user-space process reads hwmon data while another process enables
-the heater, heater_enable_store() executes without holding
-hwmon_lock(dev). This can interleave I2C commands and mutate shared
-state (data->heating_complete and data->data_pending) concurrently
-with sht4x_read_values(), leading to corrupted I2C sequences.
-
-[Severity: High]
-This is also a pre-existing issue, but could the return value in
-heater_enable_store() cause an unexpected write failure in user-space?
-
-When the heater is successfully enabled, the function returns 0
-instead of count:
-
-drivers/hwmon/sht4x.c:heater_enable_store() {
-    ...
-    data->heating_complete =3D jiffies + msecs_to_jiffies(heating_time_boun=
-d);
-    data->data_pending =3D true;
-    return 0;
-}
-
-Returning 0 signals to VFS that no bytes were processed. Standard
-user-space tools will retry the write with the remaining bytes. On the
-retry, time_before(jiffies, data->heating_complete) evaluates to true,
-and the function immediately fails with -EBUSY.
+The driver patch adding this compatible has been sent but is not merged=
+ yet:
+Link: https://lore.kernel.org/all/20260810090826.146758-1-vlad@zlab.su
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821091924.1897=
-5-1-alessandro.zini@siemens.com?part=3D2
+Regards,
+Vladislav
+
