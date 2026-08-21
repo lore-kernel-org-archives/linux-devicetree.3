@@ -1,223 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42199377560;
-	Fri, 21 Aug 2026 03:31:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787283068; cv=none; b=qBi1pq+7yWTN7Qck0ad45FhWO+McPdGtgJCfFBSHXmns3fri1nMlcroim3n7Hd3G8Brpg/eto8vEinHmlNx6OkzD+4MAj70n4V683mloIS8z7Xl4nZ2oDMg5Jgnr5Pxi1CIVY+jQCuIN4LCrD7q9Ija//4A0RtyVkf1bxLeF97Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787283068; c=relaxed/simple;
-	bh=eYSdKbt07b9TDl/1ErzZZ8w530i/UE6i4kIXD7euols=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=n67UDnczNarOGMqisnNTehFHp1mviabQFGoe7ylsZI6hoPxv/0iVTgB1+tzbEthVmV1EcUF7Dc7XtSaeN43ihM1XRnPxKvJwz4iHM7YwDKKLlx5B3t3ONL3TRxFTRfWV+mR2Wlj1e+aKfQJP5cd0XxfvfDvN44eb8BtSrnim/PU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sFAjQXdd; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CBC825B0A4
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 03:34:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787283295; cv=pass; b=six+dzeqlsVasTHG+bg479l65dDradtifeXKWKrQtUr1cflumSX/QyHX7h0FTtECiosUUP9LtmJGKIUmecH1ZgsMthTvUQbYUj3Z+0thIqqXo33i/M1v5bODlr7bV0P9PuHjsX//uMVjFoHG3dMLvrb0oCbMR5kvpGeTUSvcsms=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787283295; c=relaxed/simple;
+	bh=R6zTZuf9kfoU7qSR3weAndpd4l5VqXSimXgA67uEyLc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qjqgF1OvgwzIfeuwCar+NV3qxPhgk3+Az/9bBbt6fPHcuhqR/W7JuC5HG3CISDaiTh28MQhMMBGtyan99TZYRlFYhxNALjOmwKId0yNXXSa2tIcu82k8DK6yVcWh37kNZROZLsfsTUq9h6z+AE2N5Szj4oD6Zq6/YYJDJNWqUQ8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AA+wdo1Y; arc=pass smtp.client-ip=209.85.208.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sFAjQXdd"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8CD31C4AF0B;
-	Fri, 21 Aug 2026 03:31:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1787283067;
-	bh=eYSdKbt07b9TDl/1ErzZZ8w530i/UE6i4kIXD7euols=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=sFAjQXdd20k+VpeusDsO2hXwxOpQW7xC2ujC4F7rwJY+Ju4ozZBM0wMbVq68cYDbe
-	 qG74irLGNobwcohJgOgKhO1sQzRRMGIOtnjR/6kUzwhayH6ex2kbhIMCqn6j6+pmsL
-	 XyEQptHpHLKccztysTKGBwrRtB2wCBb5R7FElD8bJ33MNYCn3837uq4PYuPFPAUBw9
-	 20KAD31dpRrU2m35oCsZ69eVFEMv7UnRLLsHR2Co1RI6UpR+OkujyiHUp7uQm+uQih
-	 wyuP4VQ1D9xWlbvVWlj1+OGSoW1sbEo6kd0i2QUVQsyBVN+bHrh7stOZ6fBqb7KcDz
-	 Dk/bSn6NOuxWQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6CFAFC5DF8F;
-	Fri, 21 Aug 2026 03:31:07 +0000 (UTC)
-From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Date: Thu, 20 Aug 2026 22:30:48 -0500
-Subject: [PATCH v2 3/4] arm64: dts: qcom: Add Retroid Pocket 6
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AA+wdo1Y"
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-39c953950dfso5999501fa.1
+        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 20:34:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787283292; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IhOWGBpRjx5MkylUq8gFYXnu4SPVOvE8c0kqNq05SnwSJvfFDexXvK7/Z4E7lFDyq7
+         fmZMnpwJPQDSWVItFjkiz8zHzj+VDgCpUlGjkZQVPtXHD9cCmTBWwXYwwHhUNrcG9JNB
+         R9RW6QU4rcJc+ow9RNSpwSRuXNkLbtTMeqhOSCiXHehrRjMpkgJhHWDsAPApCp+A9p39
+         PUX8D9/yXrA1KgSvGqKsy2URbA9NemEuQIucp3hOdo5B7gpdKW8W5w/W7Ll6SYdYfRV5
+         dbMIfD8b5JdwNnAknjzuk/wgSJBlEfomhb50aTKcmuqDX8zMkjhkeDSgAeB0dvvrLJqn
+         uVWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=R6zTZuf9kfoU7qSR3weAndpd4l5VqXSimXgA67uEyLc=;
+        fh=dx/fERJPuBorTbQ1IqeuysC1Tnk9EgdThi7Uw3ByoxQ=;
+        b=GkZhjmO9nwjKXeqUQoNB0B9aCeX9D6fVj5l19bDXKbyaAjJac1pb7cy7BqlEIuycYF
+         oYT1vuXX/0uGzN13oIl+M+Flx63QYyg9y5gPAOFb5UdT/FB/X8mkYj+TBOzi4PJE5o5j
+         puLZECs8BZI3EqqKHhF859FHsImSXlrCodxYrZL5GAYp1TgpIRE5V2nv2w1CcKbHWP+Z
+         d2eyPylmSxIop5kx9iDA21djWgdokIndwnwxZ0s1qmPdcnYy9RdXjzFMdQtky4Y9VphT
+         MvQL7YDfFsyEiTE83lGDXYwCYTJQpCOW4VZZ3w8Zcqnimupd9So5ywM4Nh2j9XtavuWT
+         QHTw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787283292; x=1787888092; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=R6zTZuf9kfoU7qSR3weAndpd4l5VqXSimXgA67uEyLc=;
+        b=AA+wdo1YJo+ySQ7xUcBNyBe67CFI+PJherWEH/dkCBREh17063qCIi6uTOMycn9hTs
+         KURNsj6/gCU5633qBW6g8cXLFJAGJqTFTWPBBxa89wdiUT77PgykCCJoBIiiB0zrAKCq
+         qjcNzfMNXk9HrwUlVSES6LKGrMUOGvvJFtsJybFHw41d1t8QhRCLOFaQFv69LeeGu1Qc
+         AUD9Kyy5yAiwU8faVPTTkLA+87RAEt0I2hN8dq9XAlHXNU8N9JzCUpmT+rYTbMZ+8cf9
+         4st54hKpEjfCMQvwYpCl2RB/NekGIYxod0DgCgwkMB+H/AZgGAgPccVV7fsLnTMN+dWG
+         PyrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787283292; x=1787888092;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=R6zTZuf9kfoU7qSR3weAndpd4l5VqXSimXgA67uEyLc=;
+        b=Dm1cFDoo0CQhqXIT9666q0TSakEfDnBBoLZms7LhwCXSADx+HyQDYQXv1ztelQ5DHT
+         mgFYFzClgW0zHFEub7VsIv43P35WjTiffBtgei7jlaMysiOiIH9Ne/RUMV+NqJEHLcfY
+         x9H3wZ7LlvamJUyEk8cBTMxYO4B1S2oLrwYtFebIMylbW+cjYT8jf+CYvXVlZHU4AklQ
+         sqIim3Fcw1kFOPIdQxaacicWBIZj9ifMqlDItBdM/xzz95K9WAfM+yPeES4CxMJJBq1D
+         HjZylRd2VAoAAVfAVUaVZiBnHJ+s2HYRkVimLp2oH+9L/9gCuuW0PrtPkgW33DGAYOkP
+         Zebg==
+X-Forwarded-Encrypted: i=1; AHgh+RoSz8Rd7BNepMtGp8Sm48RNLVlyjBamFEJB/y8365HwagYGs87agIZ5FKRbseoVcT/l8vh/1+9XWaKR@vger.kernel.org
+X-Gm-Message-State: AFuF++kk3XX+iE0VHgy6cWYOi6O080ma79asMKlefeWBOXPQ8xkZBSoc
+	b6tva/+Rr+5QO5Zo4lNZss+ehTF9Fc65uy5XgfFfIWmr/AZrXbyXWKG2B3cff1YdLKv4+Frev2d
+	AAlehrE9iponCn1tV+YgP40cBKyc27WM=
+X-Gm-Gg: AR+sD10HI5g1hdWAaHHNCoB7oEccSee4CBIIIf7n1TUa3E9SlD7NFwYadYKYW0SoLBU
+	dIqUJdZgTZ48wJMW2aVoGlPi38WExQiGMJf2BIrpYSbjDdn/fADJa1RDmpOAv0ZLM7QqZsvckth
+	ZFKCJ+2084Z3gEyw5IcQC7+G8sFQzJ6VooW0yTyByoh4FdfelL5ehnFuIjPxFyKUn2pPwz/be2i
+	ECPOAPr2l2hMYh7932lQrDBa9NUBRNuuoCmgGDUagPcoWyPjJ+hsG3g4tFQrysquxYyAYzM4+Js
+	srkY5jYx9EC90EVi6UCDOQ9xFk3XBStespsxW3mdSOxTvg==
+X-Received: by 2002:a05:651c:b29:b0:39b:2757:c1d3 with SMTP id
+ 38308e7fff4ca-3a1aec08881mr7351981fa.9.1787283291995; Thu, 20 Aug 2026
+ 20:34:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260820-rp-qcs8550-v2-3-d4ce78fe9385@gmail.com>
-References: <20260820-rp-qcs8550-v2-0-d4ce78fe9385@gmail.com>
-In-Reply-To: <20260820-rp-qcs8550-v2-0-d4ce78fe9385@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787283066; l=4456;
- i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=LmZQ8nOveAr+U0f0RMqqZ45YvwkD1uBenTQZ+ADIRS4=;
- b=+5zTUrbuqjjlXNRQjVgXNIBXUmGPDd0HVXqpzdEogNoPoL1qeykkVjKodqCha5zEXL2r70JBH
- nBPR5n7oixCDa8SOa3+PgVlwnTL/1aIqpQe4kelJHPq/Jt5bgG9pYwW
-X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
- pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
-X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
- auth_id=342
-X-Original-From: Aaron Kling <webgeek1234@gmail.com>
-Reply-To: webgeek1234@gmail.com
+References: <20260820-ti-ads112c04-driver-v6-0-0e8f0aacce9b@gmail.com> <20260821022554.5382aa7b@jic23-huawei>
+In-Reply-To: <20260821022554.5382aa7b@jic23-huawei>
+From: Kyle Hsieh <kylehsieh1995@gmail.com>
+Date: Fri, 21 Aug 2026 11:37:57 +0800
+X-Gm-Features: AcwNN1UVNIit8ce4OqAMK9uy7buk3YHHYSF3ZQJ_6XiKomuXk4JwNTyOvMAkDPw
+Message-ID: <CAF7HswO-K3-g9ki366BTEY1pkf-Vvb4ohQCEM7oS3XhWXG00aw@mail.gmail.com>
+Subject: Re: [PATCH v6 0/2] iio: adc: Add support for Texas Instruments ADS112C04
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Conor Dooley <conor.dooley@microchip.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Aaron Kling <webgeek1234@gmail.com>
+On Fri, Aug 21, 2026 at 9:25=E2=80=AFAM Jonathan Cameron <jic23@kernel.org>=
+ wrote:
+>
+> On Thu, 20 Aug 2026 15:51:50 +0800
+> Kyle Hsieh <kylehsieh1995@gmail.com> wrote:
+>
+> > This patch series introduces support for the Texas Instruments ADS112C0=
+4
+> > Analog-to-Digital Converters.
+> >
+> > The ADS112C04 (16-bit) is precision, low-power, delta-sigma ADCs with
+> > an I2C interface. They feature a flexible input multiplexer supporting
+> > single-ended and differential measurements, a programmable gain amplifi=
+er,
+> > and an internal voltage reference.
+> >
+> > Note: While this chip shares similarities with the ADS112C14 (currently
+> > being upstreamed by David Lechner), the register maps and feature sets
+> > are sufficiently different to warrant a separate driver. However, the
+> > DT bindings and channel parsing logic have been aligned with the
+> > ADS112C14 conventions.
+> >
+> > This initial submission provides a minimal feature set (single-shot
+> > conversions and basic DRDY interrupt) covering current use cases.
+> >
+> > Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
+>
+> Sashiko had some feedback on the interrupt - if you are respinning for
+> other reasons it might be good to add a comment in the dt-binding about
+> it being an edge interrupt. From a quick look at the datasheet a level
+> interrupt would not make much sense.
+>
+Makes sense. Since DRDY is a pulse, an edge trigger is indeed the right
+choice. I'll add the note to the binding if I respin, or send it as a
+follow-up patch.
 
-The Retroid Pocket 6 is a high-performance Android-based handheld gaming
-console powered by the Qualcomm Snapdragon 8 Gen 2 processor featuring a
-5.5-inch AMOLED touchscreen.
+Thanks for the review.
 
-This is based on the support by ROCKNIX, however their history does not
-show who the original author was, so direct attribution cannot be given.
-
-Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
----
- arch/arm64/boot/dts/qcom/Makefile                  |   1 +
- .../boot/dts/qcom/qcs8550-retroidpocket-rp6.dts    | 122 +++++++++++++++++++++
- 2 files changed, 123 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index a7b0fb759099e..09b3c5b2d9dab 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -196,6 +196,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-aim300-aiot.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-ayntec-odin2mini.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-ayntec-odin2portal.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-ayntec-thor.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-retroidpocket-rp6.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-rb5gen2.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs9100-ride.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs9100-ride-r3.dtb
-diff --git a/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-rp6.dts b/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-rp6.dts
-new file mode 100644
-index 0000000000000..82a42c9697575
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-rp6.dts
-@@ -0,0 +1,122 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (C) 2026-present ROCKNIX (https://github.com/ROCKNIX).
-+ */
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include "qcs8550-ayntec-common.dtsi"
-+
-+&{/} {
-+	model = "Retroid Pocket 6";
-+	compatible = "retroidpocket,rp6", "qcom,qcs8550", "qcom,sm8550";
-+
-+	backlight: backlight {
-+		compatible = "pwm-backlight";
-+		pwms = <&pmk8550_pwm 0 860000>;
-+		brightness-levels = <1023 0>;
-+		num-interpolated-steps = <1023>;
-+		default-brightness-level = <600>;
-+		power-supply = <&vph_pwr>;
-+		enable-gpios = <&pmk8550_gpios 5 GPIO_ACTIVE_HIGH>;
-+		pinctrl-0 = <&pwm_backlight_default>;
-+		pinctrl-names = "default";
-+
-+		status = "okay";
-+	};
-+
-+	vdd_disp_1v8: regulator-vdd-disp-1v8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vdd_disp_1v8";
-+
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+
-+		gpio = <&tlmm 70 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	vdd_disp_2v8: regulator-vdd-disp-2v8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vdd_disp_2v8";
-+
-+		regulator-min-microvolt = <2800000>;
-+		regulator-max-microvolt = <2800000>;
-+
-+		gpio = <&tlmm 142 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	ts_avdd_3v0: regulator-ts-avdd-3v0 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "ts_avdd_3v0";
-+
-+		regulator-min-microvolt = <3000000>;
-+		regulator-max-microvolt = <3000000>;
-+
-+		gpio = <&tlmm 144 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	ts_vddio_1v8: regulator-ts-vddio-1v8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "ts_vddio_1v8";
-+
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+
-+		gpio = <&tlmm 102 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
-+&i2c_hub_3 {
-+	clock-frequency = <100000>;
-+
-+	status = "okay";
-+
-+	touchscreen@38 {
-+		compatible = "focaltech,ft5426";
-+		reg = <0x38>;
-+
-+		interrupt-parent = <&tlmm>;
-+		interrupts = <15 IRQ_TYPE_EDGE_FALLING>;
-+		reset-gpios = <&tlmm 14 GPIO_ACTIVE_LOW>;
-+
-+		vcc-supply = <&ts_avdd_3v0>;
-+		iovcc-supply = <&ts_vddio_1v8>;
-+
-+		pinctrl-0 = <&ts_p_rst_default>, <&ts_p_int_default>;
-+		pinctrl-1 = <&ts_p_rst_sleep>, <&ts_p_int_sleep>;
-+		pinctrl-names = "default", "sleep";
-+
-+		touchscreen-size-x = <1080>;
-+		touchscreen-size-y = <1920>;
-+		touchscreen-swapped-x-y;
-+	};
-+};
-+
-+&mdss_dsi1 {
-+	status = "disabled";
-+};
-+
-+&pmk8550_pwm {
-+	status = "okay";
-+};
-+
-+&remoteproc_adsp {
-+	firmware-name = "qcom/sm8550/retroidpocket/rp6/adsp.mbn",
-+			"qcom/sm8550/retroidpocket/rp6/adsp_dtb.mbn";
-+
-+	status = "okay";
-+};
-+
-+&spk_amp_l {
-+	firmware-name = "qcom/sm8550/retroidpocket/rp6/aw883xx_acf.bin";
-+};
-+
-+&spk_amp_r {
-+	firmware-name = "qcom/sm8550/retroidpocket/rp6/aw883xx_acf.bin";
-+};
-
--- 
-2.54.0
-
-
+Kyle Hsieh
