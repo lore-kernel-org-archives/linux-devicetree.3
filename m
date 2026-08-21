@@ -1,141 +1,139 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC597358372
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 03:25:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B44B376A01;
+	Fri, 21 Aug 2026 03:29:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787282748; cv=none; b=smLoztZ1DGcEEwj1J/69R03LDqaYuGDSp0gChDLfOOk+olq+mj8etAhiE/ixv+TEfj1tv7JiJlDvvmeIYc9PFn8RlO7uu90PHOm+uP5sqDWepxK+j2xO5UbH4UAXoAI3r7jw2yQ9DtjspwECju44D88tLf9ANKEViaMalLdSNp8=
+	t=1787282973; cv=none; b=py5DOG16Ffo3I6x5Td6vKUQyGYupSHjp52QL42Bet1I7xt3k8zrwolNwZWpaxzaIZWGqcEMv+58qfZYQRdYjMZN4/ly+CHLRDEA8ENHiG/roqtv57mroKU7fBKvcfJYJPcK537ID812sC1C/Urg4y66DSXxE47Br+elcA59+wII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787282748; c=relaxed/simple;
-	bh=rTKRF6vf9ERjKXH2kWeSUEnOuoEvK9n2OVJj1+dwk5Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MMPB1HVmms1ELJxeO1Np8Nb20ECCCMAXEVj/RwEX/cJxIaz3evGwcBuVcQ/RWczsH+8tTpZYMrZ0WVv0DGiESsoOjxu2z1ft8sMOvIgUoKslLmaI5BnHPc6MfZx4rF5Ot5ZSLTv/TwuRqeGJBHvakc6p/LbWaYJjFF5+xf17OUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mswin.me; spf=none smtp.mailfrom=mswin.me; dkim=pass (2048-bit key) header.d=mswin-me.20251104.gappssmtp.com header.i=@mswin-me.20251104.gappssmtp.com header.b=OJ/0mm8N; arc=none smtp.client-ip=209.85.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mswin.me
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mswin.me
+	s=arc-20240116; t=1787282973; c=relaxed/simple;
+	bh=U/cGNHox8hNLjM/kKyuRE3aeBcDnK0CplWtNnSP3hfk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QJZVUKJ7+KcJnI7SmUBo6LU7RCEF0FtPW44Th+hrpgbQuD65b3IL6laaaxJZ/XjrkZm9FzTTQrzKP29hX5unNjg83jhlDF19Vk15vG67fONkkKXL8mjLivYiWKJG6j+KKc3YmTy0BRkbsYrBx6w7qpkozVzObpwz5EBRLVTCTm4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=gyrV8u71; arc=none smtp.client-ip=54.254.200.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mswin-me.20251104.gappssmtp.com header.i=@mswin-me.20251104.gappssmtp.com header.b="OJ/0mm8N"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6a10d02ff43so1261937a12.0
-        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 20:25:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mswin-me.20251104.gappssmtp.com; s=20251104; t=1787282745; x=1787887545; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xBrYAs25F1BMwhNxYWXrzzIRZUTRoKOsBihavlqCIAc=;
-        b=OJ/0mm8N7QawBJb3JhgM6HN7n6j3q19dTqoKGXWHe/Za4dJOaZCdrJM5Q1cBKPKakL
-         Wls2lFcEfgraXHCPSPGFI3xuKrrlsGigWgdvavmsaKIszRCojTjtsbCVg5lJ5O+IrekL
-         I8sWgIirubW83HuMVgQjbZB0upcFjYiQfhavZolTTAtGQ6Nxsdl8ObUinNzTtq4CgJ5G
-         I1ZkwCHL4yAY41G97Sgms+NkXDXlEr3SRU2wcCHQ0gDdv/gi3kIrqTHNQGrVOqm3m9fg
-         KxFMUtXKHRIrbKYs75RW4ilHzu4OjPyTDGIAXFe8zxrb1EzUNEJUqPNX3hSgXLzYirgy
-         /0DA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787282745; x=1787887545;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xBrYAs25F1BMwhNxYWXrzzIRZUTRoKOsBihavlqCIAc=;
-        b=jrqMTYEoBZ6o1xd73EQeDOh+h786ByhH+TSdU2wgYtYvdYJMA14KfmmA2ixTkVxNbh
-         3hvrnwECZ2pBY8pSOaKOsrlaZtq7Q9z+S6GnDwnH8JIJoFKE9IxIOjNtd5sxRlAfI+S3
-         Tck/OPipGor4dneq0SbmEPZLvE1E2adtCa/Vu7j97yujf7FrOkOChqqJAQxO+Nk9j8Du
-         W284Ekqh6JBf0edgrGl93wqqRGyAJD0u9iROZUVVnLkjzbb5XNfWRkp1JxFUn4pNAFdw
-         A44cLsb9DVjqjtK/PzwIpWUVmY8X+rg/00CExtUHxnYAtxjmLpx4Viw8kLaRlDA+1IpY
-         EIag==
-X-Forwarded-Encrypted: i=1; AHgh+RobVmBsoEYsZ1cS2fzNnnm290mvJwsgtb4mHwjy79ADJUXb1FmsDLxL00iOSF0URKgmNzJxBawtnpKM@vger.kernel.org
-X-Gm-Message-State: AFuF++k+eTqx2yeFAelSSAFcmnXP43twnUUwsrGZwM9194mNjdmokba2
-	8ycOKNrSUKVhWjQnxs5qP1aHXzJ8T12Dc5YmBts32fg47WpLz5ePyHoQ02JVheFq9MI=
-X-Gm-Gg: AR+sD11EyRCpmRBha1Bwvi/ZYGQN6KeaEhTkXO7m4hMbN3huubc/SfEdAy/apLXzkWN
-	5WsvD3mnDub03LoB0Qo/to+ugl5xPmoHS5dgYGCDQDCx0nzTDc26GQXAF8jZy8Ww5un8rqkD03W
-	NxskxnMatDr7jGiLCao9gA4wqSQCY4D19lcAukhC2TBzm9JfA/LznMf1lj99GmbXQeRSPXIYbQ8
-	PioSlkDJzq2eSGQAaFwpJi6/F1sNCUo7WeW4q6nODpzuGypl47jR6a3NheZnanoIzp7DPt/UxsU
-	BGLc6tpTvgsCyoAzjtRXVt6iIlnSRGXSXGMiNtD+DGmfV0xo8cFQWllMSMO234iwR9RAk01g4fh
-	FJengrbOKj9BlVgpRoQNAlDDXkdKVaBUIoRW+L3zFoDib5zAVQ2GEpfyPQ4gS6RB6Gd6C03jtkf
-	QwhC24ywmJc7i1Ct8NiDN0LL5+8uYQTYIc7yTs6qjjgUnxWRjlUTP5tYxLjMJqAHwDD3CCPdwy/
-	U95
-X-Received: by 2002:a05:6402:1ecb:b0:6a1:f95b:8ced with SMTP id 4fb4d7f45d1cf-6a42f153920mr3334475a12.4.1787282744913;
-        Thu, 20 Aug 2026 20:25:44 -0700 (PDT)
-Received: from zephyr.int.serkovo.ru ([85.17.200.167])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a3ff177b1esm4217194a12.29.2026.08.20.20.25.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Aug 2026 20:25:43 -0700 (PDT)
-From: Roman Linev <admin@mswin.me>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: =?UTF-8?q?Barnab=C3=A1s=20Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Roman Linev <admin@mswin.me>
-Subject: [PATCH] arm64: dts: qcom: sm6125-xiaomi-laurel-sprout: reserve firmware-owned DRAM
-Date: Fri, 21 Aug 2026 06:25:41 +0300
-Message-ID: <20260821032541.1856299-1-admin@mswin.me>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="gyrV8u71"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1787282910;
+	bh=MqvDMYNRoQ9Kvbf05t/LQl0jO/ECi4yY7MVQ0wbLx6A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From;
+	b=gyrV8u71pw7wClzmaAsML0U2GUs10wncYh0xJ4ybmFkXx4MiPw17lfoM2TBMTBaWQ
+	 NNUD1C+IVBtD/whRrlrqXhJloEGuob6PnEMsTgn1/L4eQ4/yfSOOXCFLGQOH4hsjvr
+	 IxVyiiRWEHMlEGrSeGk7kxe/ThbA7MTmEcjM5wCw=
+X-QQ-mid: esmtpgz12t1787282903tf28c3db0
+X-QQ-Originating-IP: NlXF3mMygcC+J74M1XWNyNNgFr5bOU6a3BbADdOj6j4=
+Received: from [192.168.1.100] ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 21 Aug 2026 11:28:18 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 16746857706120519191
+EX-QQ-RecipientCnt: 21
+Message-ID: <A048E078785BB086+381938ba-e0ab-4764-a5c4-9d2434d0abe3@linux.spacemit.com>
+Date: Fri, 21 Aug 2026 11:28:18 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/6] Add SpacemiT K1 USB2.0 controllers support
+To: Ze Huang <huang.ze@linux.dev>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+ Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>,
+ Peter Chen <peter.chen@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+ spacemit@lists.linux.dev, Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+ linux-riscv <linux-riscv-bounces@lists.infradead.org>
+References: <20260812-b4-spacemit-k1-usb2-v1-0-f28cf29e522b@linux.spacemit.com>
+ <DKU91NS0JNRS.SLSXQO6JHRLM@linux.dev>
+Content-Language: en-US
+From: Junzhong Pan <panjunzhong@linux.spacemit.com>
+In-Reply-To: <DKU91NS0JNRS.SLSXQO6JHRLM@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
+X-QQ-XMAILINFO: MDErF8Q7k85n440dv14bzAy9yyaNt8kV2QcY4DevVACjFCN7EU1lX9Sg
+	RSFMiePZ5iOZRq2rxJrXi7w85bwXsCpOeqn7Fekgjpf/3iHhU14Ve2CWnk5F79/uZ2xMFpt
+	qKS7lNcl/2ouYZhOyp9/jFpvTIyyDtxEm3BzhxIxr6XmIbIzodPEA05h/MZJddmd4YCTLpT
+	blFb8XtxNQ/iYjCq/x4ehM6izc4beFihbi2jd/wt8yaeJnml4wUhF0mHpaWNyVFYwDzBlMN
+	3GJBp3zWZ2esQa01PKYAAs2J3drVRJGWh6ZENui6AAebIefBoUdB4+OtW0HTacSn2Jr00vt
+	ld1HR2zE7SktUxnq4MI02jLY8xvTxDlaukmS7roRQEsZHLg8gqjudkAapeIKReziiq8gytu
+	Co9ONMIeoi+DOtkobeE6brUyiI54vnavKsu64Q9lc48kyxmqhgYH+9jIDwz5snKdEesJw4M
+	sB0TUjSiPPIY4efafzWANbRCUM3W0DAOGBDVHLMURYfd33jEAPKuWdTXzWXz/7T+NaslX2a
+	p6zFk6dseDmpQRcbVoUCLZN9c68JMqYWC+kkM9/5kGjcGD9tMIvSii4GHgQ6R9MJHjeO7ik
+	3FqLbNcimS2QCGVPFRjRlf+sURMoNzrhlqmIZj5xKiMXnsAvErltP08xo90qONPEZGRudyX
+	n2hLQooON9nHWz0Bz0JM5nfRHWtXafjU5N8xJR1Pp48/hQt19EmPb7Sd4LBb6rtNXN/M3bq
+	v5tJTtv4hi5ZsqjlN0mXcP0ZoErIx4Cklt+HAG1Nllis/BgXetKxcuLKY0LWkqU7j+VDduA
+	65uw0MwRDM09ZP8xk39DREJaHKwOgxKSLqJKlBYT8iMdbR9xGT/e581QZRCW01UBQq5u2pI
+	nXOWloN2uIZxIkt5iHqRtHxwIzlOnywafNTwXqJ9nn/8+i1CWYolg8+bWK6uq/V3br6M5hh
+	h5PGyi2srUql2XxM2j/nCrdTaSk9eRvNzEletzEQDFcdyJx7ovGamWLU3nT67d6EgBPTWQa
+	ViL9Iy0amwCTvG2z2FdI1NlWHEZGPrO222DZTH7xzbLXZdWoi5l7hxLiYPtbp3Hv3npn1c1
+	mgWgRJJdIpc954nPSg07Wo=
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
-sm6125.dtsi sizes reserved_mem1@46200000 at 0x2d00000 (45 MiB), so it ends
-at 0x48f00000. On laurel-sprout the firmware owns 0x4900000 (73 MiB) at
-that base: the downstream device tree overrides the SoC region with
+On 8/21/2026 10:00 AM, Ze Huang wrote:
+> On Wed Aug 12, 2026 at 5:26 PM CST, Junzhong Pan wrote:
+>> The SpacemiT K1 SoC has two USB2.0 controllers, one has Dual-Role
+>> support, but the hardware has no internal OTG registers, the other is
+>> Host only. These controllers are compatible with Chipidea USB2 driver
+>> with some flags set and reset control support.
+>>
+>> This series is based on 7.2-rc1 and has been tested on Banana Pi F3
+>> development board.
+>>
+>> A self-powered USB device/hub is needed to test the host function of the
+>> dual-role controller on Banana Pi F3, a MINI-PCIe USB2.0 module (a
+>> cellular module e.g.) is needed to test the host only controller.
+>>
+>> Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
+> 
+> Tested on OrangePi RV2.
+> 
+> To use USB2.0 Type-A port as host on this board, usb2_0 needs:
+>   - dr_mode = "host"
+>   - a vbus-supply regulator driving gpio126
+> 
+> Tested-by: Ze Huang <huang.ze@linux.dev>
+> 
 
-	removed_region@46200000 { reg = <0 0x46200000 0 0x4900000>; };
+Thanks, then I'll add rv2 dts node in the next version. Can you
+test again later ?
 
-which ends exactly at 0x4ab00000, where mainline places camera_mem. The
-28 MiB between 0x48f00000 and 0x4ab00000 is therefore firmware-owned on
-this board while mainline leaves it as free System RAM and hands it to the
-page allocator.
+Thanks
 
-On Qualcomm a "removed_region" is XPU-protected, so this is not a matter of
-reading stale data: the region is not the kernel's to allocate.
-
-The observed symptom is hard lockups under sustained buffered reads, where
-page-cache pressure eventually reaches the disputed range. Before this
-change the device wedged at a rate of roughly one lockup per 59 MiB of
-buffered reads from the SD card, reproducibly enough to fire on demand.
-With the region reserved, the same workload has run 691 GiB of buffered
-reads with zero lockups.
-
-Reserve the delta as a board-level region abutting camera_mem rather than
-resizing the SoC-level reserved_mem1, since other SM6125 boards may
-legitimately have a different split; sm6125-xiaomi-ginkgo, for instance,
-has its own corrected reserved-memory layout.
-
-Signed-off-by: Roman Linev <admin@mswin.me>
----
- .../boot/dts/qcom/sm6125-xiaomi-laurel-sprout.dts  | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/sm6125-xiaomi-laurel-sprout.dts b/arch/arm64/boot/dts/qcom/sm6125-xiaomi-laurel-sprout.dts
-index 139f2b401..a6ee6ee80 100644
---- a/arch/arm64/boot/dts/qcom/sm6125-xiaomi-laurel-sprout.dts
-+++ b/arch/arm64/boot/dts/qcom/sm6125-xiaomi-laurel-sprout.dts
-@@ -37,6 +37,20 @@ framebuffer0: framebuffer@5c000000 {
- 	};
- 
- 	reserved-memory {
-+		/*
-+		 * The SoC dtsi sizes reserved_mem1 at 0x2d00000 (45 MiB), ending
-+		 * at 0x48f00000. This device's firmware owns 0x4900000 (73 MiB)
-+		 * there -- downstream laurel_sprout carves out
-+		 * removed_region@46200000 with that size, ending exactly at
-+		 * camera_mem's 0x4ab00000. The 28 MiB in between is XPU-owned
-+		 * on this board and mainline currently hands it to the buddy
-+		 * allocator.
-+		 */
-+		reserved_mem1_laurel: memory@48f00000 {
-+			reg = <0x0 0x48f00000 0x0 0x1c00000>;
-+			no-map;
-+		};
-+
- 		debug_mem: debug@ffb00000 {
- 			reg = <0x0 0xffb00000 0x0 0xc0000>;
- 			no-map;
--- 
-2.55.0
-
+>> ---
+>> Junzhong Pan (6):
+>>       dt-bindings: usb: ci-hdrc-usb2: add spacemit,k1-usb2 compatible
+>>       usb: chipidea: usb2: add optional reset support
+>>       usb: chipidea: usb2: add SpacemiT K1 support
+>>       riscv: dts: spacemit: add USB2.0 controller nodes for K1
+>>       riscv: dts: spacemit: enable USB2.0 controllers on BananaPi F3
+>>       riscv: defconfig: enable ChipIdea USB controller support
+>>
+>>  .../devicetree/bindings/usb/ci-hdrc-usb2.yaml      |  1 +
+>>  arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts    | 16 +++++++++
+>>  arch/riscv/boot/dts/spacemit/k1.dtsi               | 40 ++++++++++++++++++++++
+>>  arch/riscv/configs/defconfig                       |  4 +++
+>>  drivers/usb/chipidea/ci_hdrc_usb2.c                | 16 +++++++++
+>>  5 files changed, 77 insertions(+)
+>> ---
+>> base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+>> change-id: 20260812-b4-spacemit-k1-usb2-97adfc283d58
+>>
+>> Best regards,
+> 
+> 
+> 
+Best regards
