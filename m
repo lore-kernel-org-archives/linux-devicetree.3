@@ -1,95 +1,158 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E113AFD1E;
-	Fri, 21 Aug 2026 07:40:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92E063A9DB9;
+	Fri, 21 Aug 2026 07:41:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787298054; cv=none; b=Kx3AmUNJQQNTDmqK24fKPF48PryAE3U1UcZ47r0fp+abSmICoFFPWQLQDqIh92jdbDo0evJbciEcK9WJkgPfJy3Mtp64Ec8fTrrub/snrYdIRbqdFaP84fbWyEZEZVpDkNEjbf4khL9RuRe6s15hRiJiLwBo8ybltuR6WS/ZSXQ=
+	t=1787298083; cv=none; b=fqmWAWGFttnZUmIKzYZw3tGECkRsmjF0Mi2xflnjMfY5RCWRZVL8fYUvEvKFnpGW+U/7NJzqwiB99mkOyPfepnILIkz3ydS4sNfIWTDpqeEvQhjQYaC56yeP0i7VcyqXvzIVHyAeoz/pT2luWnE/tsr2/e7SMiE5NFyf5duCa3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787298054; c=relaxed/simple;
-	bh=ZOmKBcp+8qo0woe0GcjF/FnI3/Iwp8Fm9wr9rCoYIUM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=P/J62lzwKANZvxHLYtRT9QbCabw3NCoOGdLW0Fxb3IoRYwtEKdK6XajAuMm4oQ1Sva/mqkBefoM4mSOVjdXvtEkOu393X2p5ELnmRRHKpgg5K9xHG9fQOv3g3ISDYsr90WHShlhR9gCl1YkZaaKKTrlJxwx3ozrATPe76bUATTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HbYfN9td; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787298083; c=relaxed/simple;
+	bh=eP1Mrc9TQ1UWFBi0K1ewJfVrBz3ImRVNztXcPG1oBuw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gx9XzeOatVIRWG1d3wv4MkWkNXxnstMRyoVQ4R4jP+TM3oOCB7tyBmQbdTVwiIaziXqjpJ/DJ3tQ0KqSosp/E+QoDaqZ7GIfKG9JuWy5BrH0Z6yHKi0Pm4r1SPDp7s4JGXINvVR4crt1fdp4bhlLPHIM7k8HJXCPZ1hp7+ZfeBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jZc6U6O2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HbYfN9td"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD6291F000E9;
-	Fri, 21 Aug 2026 07:40:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jZc6U6O2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79C7F1F00A3A;
+	Fri, 21 Aug 2026 07:41:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787298051;
-	bh=ChGbeIGIuU4Atrx5XN6+0G2w2V0kTtii0cikiiW+19o=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HbYfN9tdQ3k3RrhVpgw6S9UU+cluGGrUUnswZai5+mm/RpN9NVB2o4PyFD2pUtwMC
-	 T2bvGp+vp0V/+PdYiDniff4KM7Udsm7KqZ8RJBLCnEKsTkyRz7rNWaiW2r+5p4A5px
-	 KbHjqyqp4iYHlblEWbYwCZTwk9pD2pQeVNlZLKr9trzMwbmUfsAREu45P2rg9GM7o5
-	 phExDLf78p7fSNAHL6ybJSAh1NXk08gGknqnEQ/7O0aYnpx/sIXieW5IuLyQ+qeScQ
-	 IIvMrrGpHpUqbEMVVt3XwLTVyVRV2zmi/z3lkxWKAb4jWodEPd02irf5y2sTYMrfYJ
-	 2sgkPNp9qOeOw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v39 6/7] arm64: dts: imx8ulp: add secure enclave node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: pankaj.gupta@oss.nxp.com
-Cc: Frank.Li@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, conor+dt@kernel.org
-In-Reply-To: <20260821-imx-se-if-v39-6-41e4257c2afc@nxp.com>
-References: <20260821-imx-se-if-v39-0-41e4257c2afc@nxp.com>
- <20260821-imx-se-if-v39-6-41e4257c2afc@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 21 Aug 2026 07:40:50 +0000
-Message-Id: <20260821074050.BD6291F000E9@smtp.kernel.org>
+	s=k20260515; t=1787298077;
+	bh=ei+B8ocDD8dYcFQzb2AT0WGx2IPkB//7Ko8mka3Bc/I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jZc6U6O2lQzWmS5s+LLmj/Gi/1BmdrFqSe5tbnWw3zjZJeqwfUXu8ymjBpDaS62wP
+	 t8wonbpR8B4UK08unCgqNsjyV0Y6TSA/84NeEVE/b3PRRpaWisweinjBKE+JwIs0+0
+	 6BL243QSHh+mALBxe3+shcHOOvwGdQ8YatAfRZ+Jk2y9qhMAdL4QzYPQ/sCu7Hym6i
+	 sf2u8F5S1t0iBQNHvExFkWQWqA9mAwAbJn+eRjcgTqZFzO66tkzQchUXqcw+TNUNUL
+	 EXgT4NicoPCIORRz2BRR8HDKk0oiRq7jhmBr/fc+5DRWL1ucyr612bZREAk0e79MtM
+	 j3xPUGe3KBc0w==
+Date: Fri, 21 Aug 2026 09:41:13 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
+Cc: Krutik Shah <krutikshah@axiado.com>, 
+	Prasad Bolisetty <pbolisetty@axiado.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Tzu-Hao Wei <twei@axiado.com>, 
+	Karthikeyan Mitran <kmitran@axiado.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: usb: gadget: udc: add Axiado AX3000
+ and AX3005 UDC
+Message-ID: <20260821-woodoo-enlightened-bobcat-9315cb@quoll>
+References: <20260817-axiado-ax3000-usb-device-controller-v2-0-0ef033dd0a68@axiado.com>
+ <20260817-axiado-ax3000-usb-device-controller-v2-1-0ef033dd0a68@axiado.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260817-axiado-ax3000-usb-device-controller-v2-1-0ef033dd0a68@axiado.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The `hsm0` node added to `imx8ulp.dtsi` lacks the `memory-region` p=
-roperty, which will cause `dtbs_check` schema validation to fail for any bo=
-ard that leaves the node disabled.
---
-
---- Patch [6]: [PATCH v39 6/7] arm64: dts: imx8ulp: add secure enclave node=
- ---
-commit 2df947c02e3ec38b8653aed8492f9d709b178160
-Author: Pankaj Gupta <pankaj.gupta@nxp.com>
-
-arm64: dts: imx8ulp: add secure enclave node
-
-This commit adds the EdgeLock Enclave (ELE) secure-enclave node to the
-i.MX8ULP SoC dtsi. The node is kept disabled by default so it doesn't impose
-a reserved-memory requirement on every board.
-
-> diff --git a/arch/arm64/boot/dts/freescale/imx8ulp.dtsi b/arch/arm64/boot=
-/dts/freescale/imx8ulp.dtsi
-> --- a/arch/arm64/boot/dts/freescale/imx8ulp.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx8ulp.dtsi
-[ ... ]
-> @@ -185,6 +185,14 @@ scmi_sensor: protocol@15 {
->  				#thermal-sensor-cells =3D <1>;
->  			};
->  		};
+On Mon, Aug 17, 2026 at 10:57:13PM -0700, Naveen Kumar Rajgiri Bassappa wrote:
+> +title: Axiado AX3000/AX3005 USB Device Controller
 > +
-> +		hsm0: secure-enclave {
-> +			compatible =3D "fsl,imx8ulp-se-ele-hsm";
-> +			mbox-names =3D "tx", "rx";
-> +			mboxes =3D <&s4muap 0 0>, <&s4muap 1 0>;
-> +			sram =3D <&sram0>;
-> +			status =3D "disabled";
-> +		};
+> +maintainers:
+> +  - Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
+> +  - Krutik Shah <krutikshah@axiado.com>
+> +  - Prasad Bolisetty <pbolisetty@axiado.com>
+> +
+> +description:
+> +  Axiado USB Device Controller (UDC) is used on the AX3000 and AX3005
+> +  SoCs. This controller is based on a Corigine USB IP core and provides
+> +  SuperSpeed (5 Gb/s) or High-Speed (480 Mb/s) operation, selected by the
+> +  maximum-speed property. It supports control, bulk, interrupt, and
+> +  isochronous transfer types across multiple configurable endpoints. The
+> +  node describes the memory-mapped register region, interrupt line, and
+> +  other required properties for the UDC hardware.
 
-[Severity: Low]
-Will this missing memory-region property cause dtbs_check schema validation
-to fail for boards that leave the node disabled?
+Did you implement my comment?
 
-The DT schema fsl,imx-se.yaml requires the memory-region property for the
-fsl,imx8ulp-se-ele-hsm compatible unconditionally. Because dt-validate
-evaluates all nodes in the resulting DTB, including those with
-status =3D "disabled", any board including imx8ulp.dtsi that does not enable
-the enclave and provide a memory-region will trigger a validation warning.
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - const: axiado,ax3000-udc
+> +      - items:
+> +          - const: axiado,ax3005-udc
+> +          - const: axiado,ax3000-udc
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +  phys:
+> +    maxItems: 1
+> +
+> +  maximum-speed:
+> +    enum: [super-speed, high-speed]
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821-imx-se-if-=
-v39-0-41e4257c2afc@nxp.com?part=3D6
+You miss referencing proper schema to get such property or you should
+not come with own generic properties. IOW, look at other bindings how
+they define a proper UDC device schema.
+
+
+I also do not see a need for this, compatible defines max speed.
+
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
+> +    soc {
+> +        #address-cells = <2>;
+> +        #size-cells = <2>;
+> +
+> +        usb@81200000 {
+> +            compatible = "axiado,ax3000-udc";
+> +            reg = <0x0 0x81200000 0x0 0x00100000>;
+> +            interrupt-parent = <&gic500>;
+> +            interrupts = <GIC_SPI 21 IRQ_TYPE_LEVEL_HIGH>;
+
+resets, phys. Make example complete.
+
+> +            maximum-speed = "high-speed";
+> +        };
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index a674e36529f7..36af69fb965b 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -4468,6 +4468,14 @@ F:	Documentation/devicetree/bindings/spi/axiado,ax3000-spi.yaml
+>  F:	drivers/spi/spi-axiado.c
+>  F:	drivers/spi/spi-axiado.h
+>  
+> +AXIADO USB UDC DRIVER
+> +M:	Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
+> +M:	Krutik Shah <krutikshah@axiado.com>
+> +M:	Prasad Bolisetty <pbolisetty@axiado.com>
+> +L:	linux-usb@vger.kernel.org
+> +S:	Supported
+> +F:	Documentation/devicetree/bindings/usb/axiado,ax3000-udc.yaml
+> +
+>  AYANEO PLATFORM EC DRIVER
+>  M:	Antheas Kapenekakis <lkml@antheas.dev>
+>  L:	platform-driver-x86@vger.kernel.org
+> 
+> -- 
+> 2.34.1
+> 
