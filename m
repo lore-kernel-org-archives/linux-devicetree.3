@@ -1,233 +1,192 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010048.outbound.protection.outlook.com [52.101.201.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAC24351C22;
-	Fri, 21 Aug 2026 04:37:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787287026; cv=fail; b=XQNcir3Txcbk2hqS9XROVGOk0GQUWxB0pP7SyLaF71k4QKy/RW3QvYK0Cg5EbdP7XQ7Z2od08hGvfKaSfLVeenRNilFgXAMMCtRx+Qij6oBN9ivNzrY91I9Hb56iTFnXjt9ohRWTNHG3t5qXWF6/Oyi9KgQEs3H7RoOfQc8k+Z4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787287026; c=relaxed/simple;
-	bh=+otythzThWO3X2jmpBdaB4baMyJmy3ZqoYgJxIG0ZgM=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=LADFN+VoGrkWiWyX2adRgLUOllZIx7gfjAkwCVn5/cWLukVaxwoYdIqy/aQKGLrKyvdat0TlmGUbe9gxu1QVZ4XwNEmvzvzY5HvadaIyxqN9PGZvSYqO+sACtwffFJnLwsUlSYnCF3m2X8Y8mWMHWVfxMEXp5UycNLnEM5oCeZs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=2cNPV0KV; arc=fail smtp.client-ip=52.101.201.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAAE3370AE1
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 04:39:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787287202; cv=none; b=TjyjUZDY3B4d75vHaJlb9yJd2qDCLdZR25ktfqQwnkujdR3mHKX/J6rLt6+UtXToXTl/yWI25McooWJ/k5nOGTyeqebd0pmq8gOqQwTVXftYV4OgEZCnVk/2GVGzK13PsJXqpl3RM70mIVBAUxQzYtaX0v42xh46+U6Q1i88rPw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787287202; c=relaxed/simple;
+	bh=qRHSC5phIZPW5Ca8Ib2JUQTlHTEXOPJIKe1HckYWaEw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=cr9tSDqUIhcAIB2T1iqzbh5eNpMyoKpd8PX6+2UJSqeTZ2aazDAst98kCa7NXlFHkcc5n2facG7CNMkXy2rrOqyHLVsD/mjq7fYR/1gJfdjxgvFHb6fiu7PLIPqdLHRAoI3O3fHv65PfgrdqqNnbieE0iFPW5Ojo0ymeU81f87s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=asseily.com; spf=pass smtp.mailfrom=asseily.com; dkim=pass (2048-bit key) header.d=asseily.com header.i=@asseily.com header.b=hs1WvdIn; arc=none smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=asseily.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asseily.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="2cNPV0KV"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V6FuLObCoo9S/RE51MAMoVGrn+CPkDtmtWPlQNbptNPscgzql06NRP6gcIIKbO/VD4RUaZxB4XM71NdHjSBlJd/YkEbJr2DT2o/kTNF/d50EBHe+5TjSM5ViXWdHilTED3g3lCpVnCSzgyKNPkOr31oxhszCmqnLHbVahnS0JktWszNdVmmBUOW0sSYTF0BD3lL+98yLcFJMLB5rVAZTBHyhf8ZFyrcjyfs2r4cSppFacjrx4mX+79PsHuACO5Kl8RjwGfay5Vvy3Z/Ew7bSz64jvZsYZsIE93pFUd+23AVlCqn9t/Mke5TVZAYq9Nq7209ZTUx2jWelMQHCLo4O9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=43wavXFd2W0yCmQfZPP8z9f1TJ6ckUJTrKkUig5dr6s=;
- b=eW/KA/sPkAPEmHxiOwynMgWm/YQWTw33sKPzS1LWjDDLsQGpfulS6TlUS5Os776O60S55iMgHTWsdInyddHSrEfNY5kPMKMeVSRE4LHHOE03lR7UmeMrG5/Rz602IAeFHBnYBySEOiHkG8UOlnAxCehAE3BJMybLkZeTVHVMFxJkGG/7vLCJn5Ym2bBJSUIYoSdiNzgnJ7CSBYojXNh4rFcddOI74L4wpkAMQsl7zhfiLRuRHNekIRDnEEG25J9FELnywcuqrnp/eUauptfWNLpcKm4yFAzSX91TNU6t9RlMOHD6qMSfj9KeGbfLUHigMdSzXRgFz32Sv1biPD/HRQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=43wavXFd2W0yCmQfZPP8z9f1TJ6ckUJTrKkUig5dr6s=;
- b=2cNPV0KVlqA3iAW45naFT9AZ4TzeESFZDdqqqDKlotAhVyovFS1PW+v/97+eiqlcuNo3vHEZfkZaTDlh4mMLlgYT5bn+qblqx+eIaB/ys0SEXNuNU3k+a4nq7UkKO7oSn6ZR07rHALyt9JZa0gFKbMZeSYHHHTdWgF/UgNxr918=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS4PR12MB999075.namprd12.prod.outlook.com (2603:10b6:8:2fc::20)
- by CH2PR12MB4245.namprd12.prod.outlook.com (2603:10b6:610:af::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Fri, 21 Aug
- 2026 04:37:00 +0000
-Received: from DS4PR12MB999075.namprd12.prod.outlook.com
- ([fe80::4c9d:851d:3f44:800f]) by DS4PR12MB999075.namprd12.prod.outlook.com
- ([fe80::4c9d:851d:3f44:800f%6]) with mapi id 15.21.0339.008; Fri, 21 Aug 2026
- 04:36:59 +0000
-Message-ID: <f3b91b66-238b-41bf-9c11-4b27314807d8@amd.com>
-Date: Fri, 21 Aug 2026 10:06:52 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V3 4/6] dt-bindings: dma: xlnx,zynqmp-dma: Add Versal Net
- compatible support
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: vkoul@kernel.org, Frank.Li@kernel.org, michal.simek@amd.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, rafael@kernel.org,
- git@amd.com, dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org
-References: <20260810100452.426320-1-nagendra.golla@amd.com>
- <20260810100452.426320-5-nagendra.golla@amd.com>
- <20260812-benevolent-ammonite-of-mathematics-5dcafc@quoll>
-Content-Language: en-US
-From: "Golla, Nagendra" <Nagendra.Golla@amd.com>
-In-Reply-To: <20260812-benevolent-ammonite-of-mathematics-5dcafc@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0232.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1f4::6) To DS4PR12MB999075.namprd12.prod.outlook.com
- (2603:10b6:8:2fc::20)
+	dkim=pass (2048-bit key) header.d=asseily.com header.i=@asseily.com header.b="hs1WvdIn"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c15c42a45adso285719866b.0
+        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 21:39:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=asseily.com; s=google; t=1787287198; x=1787891998; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=65OzRDOw6tie8Aix12tqjxniJ5oDLhGIyjGq0d/QKfs=;
+        b=hs1WvdInSxlG3LlFJFS6MbvNoiGh41xPdrBKK6KsVIUxG/tCUXQzyJrsH/fz5kVYLH
+         3rCa8CzkZLDcoi+LXZptdusYWtDbE2j2XAqHcMCEI4aZp1jRIx9qTFGomAGwslfUuex1
+         FgSNkDvgWc/3SkvqVVgIBHtfecXZX7j3u4beijKWpGSmW3+QK8NaKXqzor9jNO8yQRh5
+         RHMMaLBABIskqcpftYK00vsSvi1raGgQtDznF/ofXrw4Cl82cR5CNdkNJEl9/eDJVWRu
+         KXBrMWiV9pu190/NciPkRINIRiK1VlY/Lpr9wrk0AMmw7JQEwgEmOHwuk+eQ6UXHbobB
+         UtGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787287198; x=1787891998;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=65OzRDOw6tie8Aix12tqjxniJ5oDLhGIyjGq0d/QKfs=;
+        b=YAkBiXhkT8ZdUbPRC3blSU9W6x++pbcFoJb8BAO8ZWz6i/3lm9Tg8KOAyGuflrJnyy
+         6V/8nShu1j/VFxvZg1difHCydeI7BVi0bQyAZEbZcM8aLesVMTou6HD915kCeSCL0XJp
+         GYJA6spJKu8rRhj2LuL05gK4FP6k+DGrmCeoeqwX7qUWolrlMw3qUCZ3hVU+dxsIRwOm
+         LcH+GUtXR8eZQJc/bEx4ZDVPJlk35ys2lPgXJpabPlK1m3PlwHke7n21ik1i2I+ATUPm
+         UlFLi4KoLi/2XN5aTQKBOXzg8qPrho1ggrXbtWBxIjQ+53nM0jRGjwE/INtAz/iO7g+A
+         B2AQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqtT/92DtDNq1VEoPd5Rqemwv8jyPjM83UgZ5XdsbNjzswIiuKHMbs/gfZXjO0NF0MP4MiWSg+JV5AM@vger.kernel.org
+X-Gm-Message-State: AOJu0YzALTgd1ZXwtmjTJ2qQ/CwJdtaGRY5yy3akVHWq5+oKfZbsDL/Y
+	P+8QEVZa7WOvDijDNiwW100mKwIeYZ/zSQ+/ioKe/kMHxnaP3Jf0OYnzbj/NZ9CbrX/SRlecw72
+	T6NKINwk=
+X-Gm-Gg: AR+sD10poLKz9IVsO/ef+mR0gBjRP6jEQYHb6TypsIpiCaxd8BVU1bv2Amioi/oq2Vz
+	eIV97TKtQl32dFKCmOmuAUUmFEyWNJRelPlx30ZYrdWbfmnc5eiwS4nBJwQ8jf5Pfn2RYtOXtME
+	F7tJWteSWF+M9ujLdazy76yKDei3FeQbZ3F9Xjqj/lAKZ4HANQCT98SSn35ACm/cuauFtQJj1Rv
+	TV3mpFfYWSoahxnM0BNvx+macK5bTUo1Ms75c9u3x/qtiCChkpFS6ALfiO+wdW+mmdSBO/SRpFb
+	n0+o1lKME6UxRcS6eTQaySrWozCPlD0hnvjovPadGOkNIH/9gNiBqw9USmmVj/ezJNfV/1FFf3C
+	boIaZhrZGNzF4eSEj5TGrmywmbZTN5Lc8bakfIbcjdxn6C0piYuEt6zC/Dh0uyNY99HIm7aMQro
+	iPhqC/m8/WQ1swutdZ3ZQ8VGWmHK+oM+V9o0jgDlOKo7WG2Bc4N7/lFkiwtUqxNwdtL45iQLaI3
+	rs=
+X-Received: by 2002:a17:907:9345:b0:c24:6382:2648 with SMTP id a640c23a62f3a-c246d633d8amr246738866b.5.1787287197824;
+        Thu, 20 Aug 2026 21:39:57 -0700 (PDT)
+Received: from Behemoth.triland.local ([178.135.16.43])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2458b5d438sm268182266b.27.2026.08.20.21.39.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 20 Aug 2026 21:39:57 -0700 (PDT)
+From: Karl Asseily <karl@asseily.com>
+To: broonie@kernel.org,
+	lgirdwood@gmail.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com
+Cc: linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Karl Asseily <karl@asseily.com>
+Subject: [PATCH v2 0/4] ASoC: add ESS Technology ES9039Q2M codec driver
+Date: Fri, 21 Aug 2026 07:38:55 +0300
+Message-Id: <20260821043859.171871-1-karl@asseily.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4PR12MB999075:EE_|CH2PR12MB4245:EE_
-X-MS-Office365-Filtering-Correlation-Id: b24fbbe9-c535-4375-675a-08deff3dd6ed
-X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|7416014|22082099003|56012099006|18002099003|3023799007|6133799003|4143699003|10067099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	ckz0XftzmfMuU4e4r/htf2Pm/aKLupxKI2HJeUX/tzJ+CmoU8nmYBf0hKObkgtkfSqlaCfVVASTZ6NwdUnNtDta6j3E18DrrnQZv6lV7doHyWuuDLtBclHxKWjun4DMquJibCOf8D96BFMp1ffd+CesvApVXez/2HIkApWhQ1kJCcRJWO9cWDYU+ZrOhFI9vFS3Xg8r+zcczXIT6gmGylAOp9eYlm0YkC4YJqDaNSrib4qIvp1Kkgxil8NFemzv6aISO/Bkz+X9zYtqksfBubbpxeD72IQ+WHx5gzIPI8pcCNJGnz9wJ8+oL2+kc5gufG2JwQ1+MSq6WlwAkAYi9VdfQ6CBKCItiYiaMH2h7qOudbhXoHNOD6WqAoqPD6dx6AwyqbruEZ9HjbzX4yxJSEaDEAospvRYH0Hy/gKlPTUoeiSNySCGgym7rDyxGIXhlX2Oq1KpBf0CmRltAmO3E5MUIYAfHXhtyW9W9LpCrz6BKcPJR5ykZQC0ZdX0Pc49opDeYAPZLkTlH5evXL1ZaqFXcfS5veenUWwBhShPEhvjvvJYPHp3jJbEDNvgEr9DicxU597R8Xn2EEBmfYM3aFVUKo9OCYAhiNXZ9OcLEvJgCr6j+mAwyQ8B4h6Dvq8wvJx3nUhlVOZ08cLgS65OIrv70prWuH4O/yiXFnzEEASE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PR12MB999075.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(22082099003)(56012099006)(18002099003)(3023799007)(6133799003)(4143699003)(10067099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?anBmMGQ4NUhPekVPK09sQmFJTkxST3IvYU5Ucm9DSXZpVkU0RWo3aUQrOXNQ?=
- =?utf-8?B?Uk1CTVdVYzZIbXV3eWR1ZTJOUjNkUldaM3ltTGFGV0dXa05KY0RkUkNWOWdL?=
- =?utf-8?B?cWxmNkdrZDVvcDVyZ0YyUEhkTDhOWmhwcVBFaHJxNXdDN3dNaC9FWTQ4cFJn?=
- =?utf-8?B?NG9ibll2RlN4SG5aSUZLdTZSeG9SZFZlS1dkTllORkcxTmVYUkxyTDBiM3JC?=
- =?utf-8?B?Qnl6djZvZ0RESXVLcmo0RzFmdlY1aDYyNTVSanJyYSs0Y1VCNnVVTm5lMWVl?=
- =?utf-8?B?RldWQnhuT3Y3cGtDUTNZWG5nbzFZTzdyZXh1a2ZpejhBUkpVc2JLT3dJeTlW?=
- =?utf-8?B?b0J1WFJSSWtuYTdBaTh6akZWT1RkN25ISzVYYldwcERCQ1VhM2hsMkZ2czgv?=
- =?utf-8?B?OHFCb3BsUk9HVmEzaFU3b3NmUWpqVmxoVHBLWXE2K2YwWkhiWVBVQXhvUjBC?=
- =?utf-8?B?N2UrMWRMOUxhRXlURjhsS1ZJaDF4RjFCNVhPNVVGTHQxOUxVQkFXVmE1NS80?=
- =?utf-8?B?R21QUXhnMFZRTERsejNmZHRoYlltMldTVUthMlltY1YwWStZSTlBZkF1SGpT?=
- =?utf-8?B?UUJNcnhDeXBxTTByT05WWlBVQmNYS3pxcVBiZGtPbGlsSGdmRFhBdEptOHk1?=
- =?utf-8?B?MUlXenRTelpubDlVcVFBbDYyb1FYeDdRQlpkRUh0SkhCT0h5V1dtWWc3QTZL?=
- =?utf-8?B?NUdmT2ZxZlRGMit4U2tUSi9LZ3JTT3p0ZkZTeFNCM3ZZMGRiQlNISkI1TlRV?=
- =?utf-8?B?c0hzUkpSZ3c4RnNPYUYzK1VKeXNtUDg5SWV3S0R1eU1SU3V3RG5CUFh3ajQ2?=
- =?utf-8?B?enJ6NGFud0I1LzdLZG40ZVJtbXBmN2dkMTJPNXV3b2ZaSWZPRGNSWE1tdTlL?=
- =?utf-8?B?aWd5eFhpd3ZGWEdmd0lJNkp0L2RIYWFnSFVXcHBjeWE1VUdpNGV1M0NDeTBI?=
- =?utf-8?B?Q2RCMVhaS1lqRHl1bjNENWt4S0ZMVnd1YUVoNWJZS0pNaXZ0cjh1elM2dk1i?=
- =?utf-8?B?K3hFMlBSOXhlZU5lQW5OKzhMUW5rZ0hhaGdnQU1uQWZidkFOR3k5VTc5WUJt?=
- =?utf-8?B?MzlnMWpaNVREMjVYMkpGS0NPem9WYTNrR01nY01YSm9TRDB2YkFiYk5PVFd4?=
- =?utf-8?B?TDNiQWdPRjI4cTNha1k4YlE5Zi9uYm1SV2kvRWtROVN3cE1uS3NHb3hnU3VL?=
- =?utf-8?B?RDJBUmtmMjVVcDJXV1ZRUjFXSG4zVUFTTitCTG1aSGtVTVNiRkpZUm50OW5n?=
- =?utf-8?B?aEQxRFZGSDQ3MlVGNE5JVFRiZi83dzlIVWFWTlJJVXN3dGo3N3Q5L1lJTUpM?=
- =?utf-8?B?dkV3Y0FMVTJMa0ZiVUMzSlJvaDN1K0JuaHl3bzVGekFidXc3WVJFTUhOSm4r?=
- =?utf-8?B?MytjRTNpdVI3ZEQ2UmMzbXVMa3ovUTlLbW5JdEhEMnBKb2hJU0NPRlhxTWcw?=
- =?utf-8?B?S3NqOEd5akNINXd3WWIybWR1cmdNKzB2OUs2L3RqbUdHWm5OY2xTcUZ2MUJR?=
- =?utf-8?B?djBST2wzME11V0xnOWR3dDFhcmlYNWJ4Q29xU05keUt0ZFVhOUw2cWlZQ3Rj?=
- =?utf-8?B?WCtOU0treit6eTBUemJMbzhiUnlCR2Q2emNSc256a1dqRWZOYmdNTk9hTjFE?=
- =?utf-8?B?RkRVc3BaRE5NZGlCSWxDT0lUZW9vNG52OXpNRU1kREpJSS80SEtNZWRTZlg2?=
- =?utf-8?B?NnhlWXRMRlZpY0ljajJWdXNkeTJic2JZMWdLWUsvNjJGLzVPQlh1TW5xcTFM?=
- =?utf-8?B?bGx4SlcwTk51L1NvSE5rKzN6dXcyN3JxWXRjSjVDTTUrVDhtZitqaVE4aGFM?=
- =?utf-8?B?N2szTFh5OUNCMThXMUdVK1YvZm53aW9HNG1ZL2pIMWZjQ2wrK0FiZG1YNUEv?=
- =?utf-8?B?cjRmd3lSVUhRRjhQK3BTOWVJS0hlV0llUnZ4Z29pcDliL2E2N1A0eVRka0Ew?=
- =?utf-8?B?dmlJU0orMURCU096a3pEUUQ0R0ZpLy82ZU5KSkl3MVM3dVhFVUYxZ1UwYTIr?=
- =?utf-8?B?MmRnNmdXTG1YR3FXek5hanMrSlhXSHlCazluYnVtWEdldHhKR0hFaDFzaDFE?=
- =?utf-8?B?dEJZelR0MGd4OXdZYjN5YUJTaTVUS0h6RE9NdU5uRzVPdVBjUlpiVnhOYklP?=
- =?utf-8?B?Y3NRY1pMUGd0NTllYUpEMDEvNlVxbGNSL2JreENnNjYxbWwvd3ZEUnBSWDJK?=
- =?utf-8?B?ckhRWTVZTjFnRWRBRXFadHJ5Tm8zWW1uUytBOFhJRU13ejNRb0hlUk02dWp6?=
- =?utf-8?B?dVZWaXZtUjJFNlVQS0Vta0JTRXJyeUk1cEU4cnJqbHhOa3BqS3JqUlpIM3NO?=
- =?utf-8?B?blB1c2FSWGxQaTc2M2ZpY3ZINjhhRU0zaXAvL0dnU29JejJlOHd2Zz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b24fbbe9-c535-4375-675a-08deff3dd6ed
-X-MS-Exchange-CrossTenant-AuthSource: DS4PR12MB999075.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 04:36:59.8142
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uDmbVQsB58t46KIxLLbPHcT1bYjj+W+VwxJtEHmKzRFaNrZPbYqAwCotEuedD1jAyHz8mwhoewlKhgohKQDnuQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4245
+Content-Transfer-Encoding: 8bit
 
-Hi Krzysztof
+This series adds support for the ESS Technology ES9039Q2M, a 32-bit
+two-channel audio DAC with an asynchronous sample rate converter,
+controlled over I2C. The part also has a hardware mode strapped by
+HW0/HW1/HW2 with no control bus at all; this driver implements the
+software mode that MODE = GND selects.
 
-On 8/12/2026 4:13 PM, Krzysztof Kozlowski wrote:
-> On Mon, Aug 10, 2026 at 03:34:50PM +0530, Golla Nagendra wrote:
->> From: Jay Buddhabhatti <jay.buddhabhatti@amd.com>
->>
->> Introduce a new compatible string amd,versal-net-dma-1.0 for
->> Versal Net ZDMA.The new compatible requires xlnx,zynqmp-dma-1.0 as a
->> fallback.
->>
->> Add a reset property to describe the per-channel reset line exposed
->> on Versal Gen2 and Versal Net. Mark the resets property as required
->> for both Versal Gen2 and Versal Net, and not applicable for other
->> platforms.
-> 
-> I cannot find previous discussion in my inbox and cover letter has no
-> links to previous versions (when finally will you start using b4?), so
-> you might get the same review over and over.
+Two things about the part shape the driver:
 
-Thanks for the review
+ - Selecting an input format takes two registers, not one. INPUT_SEL
+   chooses the port; SYS MODE CONFIG enables the matching decoder, and at
+   reset only ENABLE_TDM_DECODE is set. Selecting DoP without also
+   enabling ENABLE_DOP_DECODE leaves the part hunting for a marker with
+   the marker decoder switched off, so it finds nothing and mutes. The
+   driver writes both.
 
-Please fin the previous version lore links below
-https://lore.kernel.org/all/20260525105042.2249542-2-nagendra.golla@amd.com/
+ - Several registers have non-zero reserved defaults - register 88 reads
+   0xb8 at reset - so every write is read-modify-write.
 
-https://lore.kernel.org/all/20260618071056.2024286-2-nagendra.golla@amd.com/
-> 
->>
->> Note that making resets required for Versal Gen2 results in an ABI
->> break but this is unavoidable. When DMA is used by two software components
->> back to back (e.g., firmware before Linux boot), DMA functionality fails
->> due to configuration differences or the DMA being left in a bad state by
->> the previous user. The channel can only be cleanly re-configured after
->> a DMA channel reset,making it essential.
-> 
-> So this was never working? What exactly is unavoidable?
+The programmable FIR coefficient controls are write-only by design.
+PROG_COEFF_OUT is documented as a coefficient readback but is not a RAM
+read port: it returns the last coefficient written, whatever address is
+selected in PROG_COEFF_ADDR. Measured with the driver out of the path,
+five sequences, ten reads, all returning the same value. A get() built on
+that register would return something with the shape of data and none of
+its meaning, so there is none.
 
-It does work in many scenarios when there was no other FW using the DMA 
-prior to Linux boot. But there's no guarantee that the channel is left 
-in a clean state and we have observed error scenarios where a reset is 
-necessary before Linux can reconfigure the IP. We added the reset to fix 
-this and hence making it a required property is unavoidable. We are only 
-doing this for Versal Gen2 and Versal Net where this provision is 
-available. We are unable to enforce this for older devices because there 
-is no per-channel reset there.
+Every control has been verified against the silicon rather than against
+the driver's own read-back - written through ALSA, then read over raw I2C
+- and DSD, DoP and S/PDIF input are all implemented and tested on
+hardware.
 
-Thanks,
-Nagendra
+ESS Technology has no bindings in the tree today, so the series also adds
+the vendor prefix, taken from the company's domain esstech.com.
 
-> 
->>
->> Signed-off-by: Jay Buddhabhatti <jay.buddhabhatti@amd.com>
->> Co-developed-by: Golla Nagendra <nagendra.golla@amd.com>
->> Signed-off-by: Golla Nagendra <nagendra.golla@amd.com>
->> ---
->> Changes in V3:
->> - Use allOf:if:then: to restrict the resets property per-compatible,
->>    making it required for amd,versal2-dma-1.0 and amd,versal-net-dma-1.0
->>    and explicitly setting resets: false for all other platforms
->> - Add amd,versal-net-dma-1.0 compatible string with xlnx,zynqmp-dma-1.0
->>    as fallback
->> - Switch compatible from enum to oneOf to accommodate the new multi-item
->>    entry for Versal Net
->> - Add ABI break justification
->> ---
->>   .../dma/xilinx/xlnx,zynqmp-dma-1.0.yaml       | 25 ++++++++++++++++---
->>   1 file changed, 22 insertions(+), 3 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/dma/xilinx/xlnx,zynqmp-dma-1.0.yaml b/Documentation/devicetree/bindings/dma/xilinx/xlnx,zynqmp-dma-1.0.yaml
->> index 2da86037ad79..87c65aef5c7d 100644
->> --- a/Documentation/devicetree/bindings/dma/xilinx/xlnx,zynqmp-dma-1.0.yaml
->> +++ b/Documentation/devicetree/bindings/dma/xilinx/xlnx,zynqmp-dma-1.0.yaml
->> @@ -18,15 +18,31 @@ maintainers:
->>   
->>   allOf:
->>     - $ref: ../dma-controller.yaml#
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            enum:
->> +              - amd,versal2-dma-1.0
->> +              - amd,versal-net-dma-1.0
-> 
->> +    then:
->> +      required:
->> +        - resets
->> +    else:
->> +      properties:
->> +        resets: false
-> 
-> Entire allOf goes after "required:" block, by convention, see
-> example-schema.
-> 
-> Best regards,
-> Krzysztof
-> 
+Link to v1: https://lore.kernel.org/r/20260820062626.39218-1-karl@asseily.com
+
+Changes in v2:
+
+ - Accept SND_SOC_DAIFMT_CBP_CFP rather than requiring CBC_CFC. v1
+   rejected every provider mode but consumer, which was one board's choice
+   written into the driver. CBP_CFP now programs PCM_MASTER_MODE,
+   hw_params() calls clk_set_rate() to pull MCLK to a multiple of the
+   sample rate where the clock allows it, and the datasheet's two MCLK
+   floors are applied separately - 128 x Fs synchronous, 130 x Fs
+   asynchronous - instead of 130 x Fs unconditionally, which had been
+   refusing 192 kHz on synchronous boards that can carry it.
+
+ - ES9039_DECODE_MASK did not cover ENABLE_SPDIF_DECODE. hw_params() uses
+   that mask to enable one decoder and clear the rest, so the S/PDIF
+   decoder stayed enabled alongside whichever decoder was selected.
+
+ - mute_stream() and the "Master Playback Switch" control both wrote
+   ES9039_DAC_MUTE and overwrote each other. Each now records its own
+   intent and the register is written from the union of the two.
+
+ - The DoP control returns -EBUSY while a stream is open rather than
+   half-applying a change hw_params() will not re-run, and both halves of
+   automatic DoP detection go through one helper under a mutex, so
+   AUTO_INPUT_SEL and ENABLE_DOP_DECODE can no longer disagree.
+
+ - Status controls use the symbolic source-bit names rather than bare
+   BIT() values. Doing so found a bug: "Clock Fault" read bit 7 of
+   register 235, which is reserved, rather than BCK_WS_FAIL_SOURCE in
+   register 234, and could never have reported a fault.
+
+ - The volume put() raises VOLUME_HOLD around the pair of channel writes
+   and drops it afterwards, which is what the bit is for. A stereo change
+   previously left the channels briefly at different levels.
+
+ - Rename the vendor prefix from "ess" to "esstech", after Krzysztof
+   Kozlowski pointed out that ESS Technology's domain is esstech.com. The
+   binding file, its $id and the compatible string follow.
+
+ - The harmonic correction controls keep their names rather than gaining a
+   "Volume" suffix. The justification in the comment was wrong - TLV data
+   is not what decides - but they cancel distortion rather than set a
+   level, so the name stands and the comment now says why.
+
+ - Style: the header block is one C++ comment, and the "return ret ? ret :
+   1" ternaries are plain conditionals.
+
+ - Add the Assisted-by tag that
+   Documentation/process/coding-assistants.rst asks for, which v1 omitted.
+   This driver was developed with AI assistance. The board it was written
+   against, the register-level measurements quoted above, and the
+   responsibility for what is in it, are mine.
+
+v2 has had a run on the board the driver was written for.
+
+Karl Asseily (4):
+  dt-bindings: vendor-prefixes: add ESS Technology
+  ASoC: dt-bindings: add ESS Technology ES9039Q2M
+  ASoC: es9039q2m: add ESS Technology ES9039Q2M codec driver
+  MAINTAINERS: add entry for the ES9039Q2M codec driver
+
+ .../bindings/sound/esstech,es9039q2m.yaml     |   61 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |    2 +
+ MAINTAINERS                                   |    7 +
+ sound/soc/codecs/Kconfig                      |   14 +
+ sound/soc/codecs/Makefile                     |    2 +
+ sound/soc/codecs/es9039q2m.c                  | 1621 +++++++++++++++++
+ 6 files changed, 1707 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/esstech,es9039q2m.yaml
+ create mode 100644 sound/soc/codecs/es9039q2m.c
+
+-- 
+2.34.1
 
