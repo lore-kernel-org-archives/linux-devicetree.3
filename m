@@ -1,133 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-190.mta1.migadu.com [95.215.58.190])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CEBC352027;
-	Fri, 21 Aug 2026 01:45:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AFCC1A724C
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 02:00:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.190
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787276713; cv=none; b=TlZ4H5LlFR+f9x1SHEhwHYLwPMOu25ApMu7yyx7mpTgfjD4MFzBK7ZSCYNqgEwPfaHNYJ3fO1gm8ixhlrlxzUgQmPhhBbPF+MdmMwNjp9A4a8ZJhgJj49DM9wSZqSUnvJx8ckPCfojXEvVboHXnWcPzbRZoK/lpRlTNsvIlDT98=
+	t=1787277645; cv=none; b=ohtAdHPK4va2N5z0UiyThS9+tcsadmNKFuNdowH6vN5SmI5QSm9kWI8ASa/RV/EyOFhKTgrJA8AtZv345H4vJloXxzoFGxjwg1/c5L1xMTzpJ5o0M1/JWo2GQ0K85fuL0Om8wH3C/yncghTEqrjbpi3LCNGA68UQzoeIESBKkmo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787276713; c=relaxed/simple;
-	bh=PXiw9K4AFbnDESdurcXExOBFyKCXQyrWUDtldgXv7/w=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oiHu6oapdtO4SLwkUe9YDS6r9amhf8FNVbg59cWKcqWYJrxTpBLZkAmoWKmohiS7h+uZcDQsqpLBWce+bFN7YJNrZCJW2mXFujLuSAPRLTmQobHc7jKtca/V9AKuA5afnmVb2Y8HfC2WywOUS4CkkjjbrgOPwsLwARfJO2k9a6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EMcY7emr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787277645; c=relaxed/simple;
+	bh=9ac753xghRJn/27tVS9JoobeWsB8lFA3MSTyYxuV/EI=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=pGJqeycbavCZ5/p/CFTeDySaz4WkJo8qstat2x2uqdK2bRZ/MGIWn0grJJ4KfE/F4qCmyG8ojiCrM6UsU+iWwS0TkKckvDKhR+iJVq8D2Lfr4HECO/q5BqyKozSQZBMwcp4CPJb6g+B5bhyWVSRxYMoPdeSwfekZ4TUPNVPPprk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FcW9iiIG; arc=none smtp.client-ip=95.215.58.190
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EMcY7emr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56E931F000E9;
-	Fri, 21 Aug 2026 01:45:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787276711;
-	bh=EytWCRbUnZTggNNvhZbYX0Ci1gaj4r9l+nuPXwpNRxU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=EMcY7emrBcx15ZBTZ9TyK2MNPtpanSb+MnUMIopeyZQcYhyTLsHpuigLAJUQwo7FM
-	 F2qdP4ym5yj4H2OkwR74YGulydlBbmWsQbisAo1Lg073q9qvTFNJEuWkEd8sF6dRcI
-	 aAbONeH74vvBPwUG9wQ35Hn9CASAEdCPaNeKDFK4ePSCHBpS1MIcBGXndg/5mFBzIp
-	 Lw6phJWkQVCzV8Nju3i6P9k5kWuQSSDHOAO8iQ5IPyyldY5t5AyZsvsfZInb/YxX2T
-	 8/athXNG1bCGTDhb5o6JEiYSli5CjGCrrwB5diUDx8ggSJbPvu7sFTTIyLQJ+1dnjZ
-	 4HFIUzpC5lyVQ==
-Date: Fri, 21 Aug 2026 02:45:03 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich
- <Michael.Hennerich@analog.com>, "David Lechner" <dlechner@baylibre.com>,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp Zabel
- <p.zabel@pengutronix.de>, "Jonathan Corbet" <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, Mark Brown <broonie@kernel.org>, Marius
- Cristea <marius.cristea@microchip.com>, "Marcus Folkesson"
- <marcus.folkesson@gmail.com>, Kent Gustavsson <kent@minoris.se>, Conor
- Dooley <conor.dooley@microchip.com>, Daire McNamara
- <daire.mcnamara@microchip.com>, Paul Walmsley <pjw@kernel.org>, "Palmer
- Dabbelt" <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- "Alexandre Ghiti" <alex@ghiti.fr>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-doc@vger.kernel.org>, Janani Sunil <jan.sun97@gmail.com>,
- <linux-spi@vger.kernel.org>, Kent Gustavsson <nedo80@gmail.com>,
- <linux-riscv@lists.infradead.org>
-Subject: Re: [PATCH v9 3/3] iio: dac: Add AD5529R DAC driver support
-Message-ID: <20260821024503.592fabc1@jic23-huawei>
-In-Reply-To: <20260820-ad5529r-driver-v9-3-ba62e0b2a816@analog.com>
-References: <20260820-ad5529r-driver-v9-0-ba62e0b2a816@analog.com>
-	<20260820-ad5529r-driver-v9-3-ba62e0b2a816@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FcW9iiIG"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=9ac753xghRJn/27tVS9JoobeWsB8lFA3MSTyYxuV/EI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787277640; v=1; x=1787882440;
+ b=FcW9iiIGHzYl31nZDMkmvL/8BBgE4iH2G4x3Hn44KuOl0mZ/S1yAqHnuWBMnqLGvju955qOo
+ lqspBEgAmAGpvFmlTWDJLHgegGLyUwPIVIpeS2YQPu/6tK4dU1ZcMUNCAEMvbUrnIZ5VTX99tzf
+ lkihv4PBg+asFcGN48d/R6tc=
+X-Envelope-To: devicetree@vger.kernel.org
+Received: from localhost (114.94.8.21)
+	by smtp.migadu.com with ESMTPS id d136abca33384d49;
+	Fri, 21 Aug 2026 02:00:40 +0000
+X-Mizu-Trace-ID: d136abca33384d49
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 21 Aug 2026 10:00:37 +0800
+Message-Id: <DKU91NS0JNRS.SLSXQO6JHRLM@linux.dev>
+Subject: Re: [PATCH 0/6] Add SpacemiT K1 USB2.0 controllers support
+From: "Ze Huang" <huang.ze@linux.dev>
+To: "Junzhong Pan" <panjunzhong@linux.spacemit.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Yixun Lan" <dlan@kernel.org>, "Xu Yang" <xu.yang_2@nxp.com>, "Peng Fan"
+ <peng.fan@nxp.com>, "Peter Chen" <peter.chen@kernel.org>, "Philipp Zabel"
+ <p.zabel@pengutronix.de>, "Paul Walmsley" <pjw@kernel.org>, "Palmer
+ Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
+ "Alexandre Ghiti" <alex@ghiti.fr>
+Cc: <linux-usb@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>, "Troy Mitchell"
+ <troy.mitchell@linux.spacemit.com>, "linux-riscv"
+ <linux-riscv-bounces@lists.infradead.org>
+X-Mailer: aerc 0.21.0-146-gb5c16ebe1835
+References: <20260812-b4-spacemit-k1-usb2-v1-0-f28cf29e522b@linux.spacemit.com>
+In-Reply-To: <20260812-b4-spacemit-k1-usb2-v1-0-f28cf29e522b@linux.spacemit.com>
 
-On Thu, 20 Aug 2026 09:08:23 +0200
-Janani Sunil <janani.sunil@analog.com> wrote:
+On Wed Aug 12, 2026 at 5:26 PM CST, Junzhong Pan wrote:
+> The SpacemiT K1 SoC has two USB2.0 controllers, one has Dual-Role
+> support, but the hardware has no internal OTG registers, the other is
+> Host only. These controllers are compatible with Chipidea USB2 driver
+> with some flags set and reset control support.
+>
+> This series is based on 7.2-rc1 and has been tested on Banana Pi F3
+> development board.
+>
+> A self-powered USB device/hub is needed to test the host function of the
+> dual-role controller on Banana Pi F3, a MINI-PCIe USB2.0 module (a
+> cellular module e.g.) is needed to test the host only controller.
+>
+> Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
 
-> Add support for AD5529R 16-channel, 12/16 bit Digital to Analog Converter
-> from Analog Devices.
-> 
-> The device communicates over SPI and supports per-channel output range
-> configuration. An optional external 4.096V reference can be used in
-> place of the internal reference.
-> 
-> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
-Sashiko calls out that dependency should be on CONFIG_SPI.
+Tested on OrangePi RV2.
 
-I didn't check it's reasoning but I believe the conclusion is correct.
-If that's all that comes up, I can tweak whilst applying.
+To use USB2.0 Type-A port as host on this board, usb2_0 needs:
+  - dr_mode =3D "host"
+  - a vbus-supply regulator driving gpio126
 
-Looks good to me, but I'll leave it on list for a little longer
-as we aren't in a rush and others may well want to review.
-
-Thanks,
-
-Jonathan
+Tested-by: Ze Huang <huang.ze@linux.dev>
 
 > ---
->  MAINTAINERS               |   1 +
->  drivers/iio/dac/Kconfig   |  16 ++
->  drivers/iio/dac/Makefile  |   1 +
->  drivers/iio/dac/ad5529r.c | 538 ++++++++++++++++++++++++++++++++++++++++++++++
->  4 files changed, 556 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 320e84765ce6..143714e27d51 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -1513,6 +1513,7 @@ L:	linux-iio@vger.kernel.org
->  S:	Supported
->  W:	https://ez.analog.com/linux-software-drivers
->  F:	Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml
-> +F:	drivers/iio/dac/ad5529r.c
->  
->  ANALOG DEVICES INC AD5706R DRIVER
->  M:	Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
-> diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
-> index 657c68e75542..6a7109f42f2a 100644
-> --- a/drivers/iio/dac/Kconfig
-> +++ b/drivers/iio/dac/Kconfig
-> @@ -134,6 +134,22 @@ config AD5449
->  	  To compile this driver as a module, choose M here: the
->  	  module will be called ad5449.
->  
-> +config AD5529R
-> +	tristate "Analog Devices AD5529R High Voltage DAC driver"
-> +	depends on SPI_MASTER
+> Junzhong Pan (6):
+>       dt-bindings: usb: ci-hdrc-usb2: add spacemit,k1-usb2 compatible
+>       usb: chipidea: usb2: add optional reset support
+>       usb: chipidea: usb2: add SpacemiT K1 support
+>       riscv: dts: spacemit: add USB2.0 controller nodes for K1
+>       riscv: dts: spacemit: enable USB2.0 controllers on BananaPi F3
+>       riscv: defconfig: enable ChipIdea USB controller support
+>
+>  .../devicetree/bindings/usb/ci-hdrc-usb2.yaml      |  1 +
+>  arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts    | 16 +++++++++
+>  arch/riscv/boot/dts/spacemit/k1.dtsi               | 40 ++++++++++++++++=
+++++++
+>  arch/riscv/configs/defconfig                       |  4 +++
+>  drivers/usb/chipidea/ci_hdrc_usb2.c                | 16 +++++++++
+>  5 files changed, 77 insertions(+)
+> ---
+> base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+> change-id: 20260812-b4-spacemit-k1-usb2-97adfc283d58
+>
+> Best regards,
 
-depends on SPI
-
-> +	select REGMAP_SPI
-> +	help
-> +	  Say yes here to build support for Analog Devices AD5529R 16-Channel,
-> +	  12-Bit/16-Bit, 40V High Voltage Precision Digital to Analog Converter.
-> +
-> +	  The device features multiple output voltage ranges from -20V to +20V,
-> +	  built-in 4.096V voltage reference, and digital functions including
-> +	  toggle, dither, and ramp modes. Supports both 12-bit and 16-bit
-> +	  resolution variants.
-> +
-> +	  To compile this driver as a module, choose M here: the
-> +	  module will be called ad5529r.
-> +
 
