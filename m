@@ -1,260 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB9638399E
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 08:01:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C550641F5D7
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 08:11:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787299296; cv=none; b=B/hMrPYrD9rblRkPA4TVYLps1zZkMsvIJtl6SXZT88XIp+hrbRT17Pm3R5V1JSkKS1tkZrN0far/cX0ctjLw32eF8bB3ZP5IvxxKUpZzdNlx4Y+AJKmdlGbvkV1NjcqF5LuygunbALtQm/8wwYdgX2OrbtxGQbsxzaMn1DsSV20=
+	t=1787299915; cv=none; b=dIYJP2/pDZh9mSP4lyKViLQeacj7NJWu5ZQ/lvf+hW8JAwYx9THtBB0v+CV6DXx+0zoG9NZP2LxGhcwy5p0Nlc99yU4jTxrlS98j5WLUOHNO483/p80HKx033diwXlCmsBuDu8GwUD4LJd2YIJxP9lSyy4RrCrohiZGW4oD8Zoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787299296; c=relaxed/simple;
-	bh=LI+FbMTcYSaZVKaGSL436lepaMEZbMMVs9BQFRFSYnE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TaVxGHgzD7P41JmU7O/g8dS47/KuEYL8opBWtF30q731OliJaNk/QaOP0FM6Txub+4b+uqjOohuCOyRKg2mJZRrGEDu/AcpcWvPgEhFDTVB/4EPErA9qnUNve2lLxmMYQ6Nd4d9xMPD2rokVZMvDXD6B0qdkf/rc9LgYF0xsVw8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZrTP+2bN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787299915; c=relaxed/simple;
+	bh=SYh8JVjyrgiYGMhi3isk6b1wRA3skDP673AgZxWg3b8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ftAaspBSpigGz6xlJ1HwLuz6LIZKjR1Oz+99hViHL55pSgPucRcMgaefOv8vS1pAa41t6L/OPz4JOaPD4ppJLlTsjWQ1dweu4wMTm7CEFx/M35XEf0dQiTk+iPkQpLh7eXIStu9CreHFHeQoaAWPoOAsSEvvWbuggDYSF7XVF0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DngY1SOK; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZrTP+2bN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCE241F000E9;
-	Fri, 21 Aug 2026 08:01:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787299295;
-	bh=Wxcfc0Xy+0drgrEfKuXXYeAtb2OXgOmyhpjt81d2okI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZrTP+2bNOiUrsEVTMdW45IA+9R18eHAmU7kanVrTAU3pbv/3ZgYFHhHr9VMT64nG+
-	 saahe01bwVOKrrX+/fL+9MAaPWFIiW7WyQ5jQD1fGXeOeXiJ6GsS/mL68O8CAgdgX1
-	 4x4+4vEYxt/T95h2iH1Y30+jNKuqtMJsGgA//CHdz/ZHQDHTujoAQEUMXZ3cXbu9Km
-	 ylgdozUxDSDK/mR8HrwO46tuvbicJwC3TILDgaDq2X34U5bWsdNAWKtSa14voWwFjZ
-	 9GE96QTkjOVbvxatmyj8ZePyKpd2zcPVTNE1d6i8A0GeSTcz5wuxBtUnBN0tyIjwzJ
-	 +skQWZVJVgmTg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] thermal: amlogic: Add support for A9 thermal
- controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Xianwei Zhao" <xianwei.zhao@amlogic.com>
-Cc: linux-amlogic@lists.infradead.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20260821-a9-thermal-v3-2-0e7abf3941e3@amlogic.com>
-References: <20260821-a9-thermal-v3-0-0e7abf3941e3@amlogic.com>
- <20260821-a9-thermal-v3-2-0e7abf3941e3@amlogic.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 21 Aug 2026 08:01:34 +0000
-Message-Id: <20260821080134.CCE241F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DngY1SOK"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso511720a91.1
+        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 01:11:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787299913; x=1787904713; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hgK4vPUxcbiUBUoyhR1t55G5/yt5ox/a4is866kaVjE=;
+        b=DngY1SOK9yu7crPzhG0VC5Q5i+bxpDrZIKRT+2E/QrvdtqQo8aMY+07EOZ4WBvEs9z
+         QXvWV5qjkndiSpsr+8IEb7LogdmroOMTT2ZKPixuDTWjDwKeYvA7VnheEveJvEcY2o0v
+         h4m0qIzhDr7TNQ1nRuWbpVUSr/jMdzAhm+sZju0lsnFw+3+8UvGdGNCjQQsTK+DnPqkk
+         rzzx9/BWx75aGvdyTyQtKB43hunD9+zuMzjInmU8zu1/UFi85icg6ZTPPfm3ZcmpfAfm
+         gvZ4mNYi205PmZkVgdLynOCk0iWJjRI9xwa3qvm3cxub5hlL1W+izniL3srFCuA2d+Rl
+         vl4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787299913; x=1787904713;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hgK4vPUxcbiUBUoyhR1t55G5/yt5ox/a4is866kaVjE=;
+        b=Zlzm1IvmrAUkXiMp6rkwCdIy0ErZT9NLmMMF8gpJA+M01GJVCb0SjbREI3Il3f8+bG
+         MVB2g6OOu2hoDop8l3o+AgMoXYrqnvmDDh1Ut6Ma2h1XQSFXk6f4xxb2tX7jPYqynofO
+         775LrUDe+wzzRsrv1cykg1HladM2wnHpu2mIAP2FuwN8Pu5fysXPMRlO1rRaaHAFvSMe
+         jFBDnwhdSuYsfy7mpWeHZQ9REatd34rQApotmIcDO0V9nPD4wN1eB1zyNZueCUsddyIS
+         Nhq046qvb8JwXhOSs2fPFJJmMQgOfIa2l5AXufuAdw5Pvj7zE5hoboGPs5EyMAuVUH3D
+         FNoA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq9/5tHjiY9tGD/+Sx7LxsQEQ0rj/aAsSViGuwINpj+Jam41Zu5RpNtm7Xx/ZkJzEoW+iG3hGGFIM0k@vger.kernel.org
+X-Gm-Message-State: AFuF++nH3e3uluncZUsrezQTSFEekxjDTZj1KbLMTkj9pAm+S+Do5OOA
+	kFiw7ALrQ9SdJeLUnT+JPuEnR7Pf1FgpzbzOKFwsgnzL+UUUO8uHWjQD
+X-Gm-Gg: AR+sD11hWDDi0VAk2y1QuX1vlgihONPpy62Rz2xOiFceiZwJVppfcd1CpbB/5eTjIuq
+	y0S6IpJJL7U7SwZDmo22QbWs+shftSxoADTjYbE9EE/Agl+FgHVk577xN8ZiTOFPDp0ImWznFZs
+	Dw9vbCj6ttKCoRgfVcgtoLS+73b9opxxkFaWyufm6QntKyEtiwKjW03zJo1D+DAyONyJp8luw+7
+	xvxP6fum7lwIdVLVcjvaePJNpc+mH5jYiHYQ+59rLjlbAnMW23mapwKhHJXfmbzqYjMtd4I1pGm
+	/TvFQNkAXdIymrCUPDXk90Mkb3PkDL1vRFhdfyMRbnKkc4A+jxWoSG9MyLFkjbz4KlRfInvVC8J
+	pLNC46lTvhg0s4gE042nCIek1xOB5mhVwUO1CHjN+RqtOCdNqaVvxdHw4Yy+wFuzPQFmpUGdSwl
+	O9evEwlVVnVIuawfWew1X1v1uyEKC7ovGjiWrOd3+dZttYULxO9ZtO72M7vnPnYT4C5MjRkosCK
+	Hwv1t0z/HaM
+X-Received: by 2002:a17:90b:33c2:b0:38e:c232:9d3f with SMTP id 98e67ed59e1d1-395c3597c56mr7524714a91.5.1787299912888;
+        Fri, 21 Aug 2026 01:11:52 -0700 (PDT)
+Received: from localhost.localdomain ([152.58.217.163])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1416ae48761sm22040786c88.12.2026.08.21.01.11.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 21 Aug 2026 01:11:52 -0700 (PDT)
+From: Sreeshankar K <sreeshankar0910@gmail.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andersson@kernel.org,
+	mturquette@baylibre.com,
+	sboyd@kernel.org,
+	rafael@kernel.org,
+	viresh.kumar@linaro.org,
+	konradybcio@kernel.org,
+	tglx@kernel.org,
+	ulfh@kernel.org
+Cc: bmasney@redhat.com,
+	radu@rendec.net,
+	abel.vesa@oss.qualcomm.com,
+	lpieralisi@kernel.org,
+	quic_tdas@quicinc.com,
+	danila@mainlining.org,
+	davidwronek@gmail.com,
+	mani@kernel.org,
+	robimarko@gmail.com,
+	linux@gurudas.dev,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	Sreeshankar K <sreeshankar0910@gmail.com>
+Subject: [PATCH v3 00/13] Add initial support for Qualcomm SM7250 SoC
+Date: Fri, 21 Aug 2026 08:11:12 +0000
+Message-ID: <20260821081125.4522-1-sreeshankar0910@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
+This patchset introduces foundational upstream support for the Qualcomm SM7250
+SoC (internally codenamed Lito).
 
-New issues:
-- [Critical] Hardware reset registers are unconditionally accessed before t=
-he peripheral clock is enabled, causing a bus fault or system hang on legac=
-y SoCs.
-- [High] The hardware over-temperature reset mechanism is unconditionally e=
-nabled for all SoCs, contradicting the commit message and potentially causi=
-ng undefined behavior on unsupported platforms.
-- [High] The return value of `clk_prepare_enable()` for `sysclk` is ignored=
- in `amlogic_thermal_resume()`, potentially leading to unclocked hardware a=
-ccesses and clock state leaks.
-- [High] The fallback logic for a zero divisor (`!uptat`) in temperature ca=
-lculation produces a code that overflows the 12-bit hardware register mask,=
- silently setting the reboot threshold to 0.
+SM7250 is an ARMv8.2-A platform manufactured on a 7nm process, featuring an
+octa-core Kryo 475 CPU configuration (1x Prime Cortex-A77, 1x Gold Cortex-A77,
+and 6x Silver Cortex-A55) and Adreno 620 GPU.
 
-Pre-existing issues:
-- [High] The calculation of `uefuse` incorrectly zero-extends a 32-bit bitw=
-ise NOT result on 32-bit platforms, turning a negative calibration offset i=
-nto a massive positive value.
-- [High] The thermal zone and hwmon sysfs interfaces are exposed to userspa=
-ce and the thermal core before hardware initialization completes, allowing =
-unclocked register accesses.
---
+This patchset is organized as follows:
+> Document relevant device tree bindings (SoC ID, Kryo 475 CPUs, SCM, PDC,
+RPMh clocks/power domains, GCC and cpufreq hardware).
+> Add driver support for SM7250 in socinfo, rpmh-clk, rpmhpd, and GCC.
+> Add the base SoC DTSI (sm7250.dtsi) defining the cpus, PSCI,
+interrupt controllers, clock providers, power domains, and reserved memory.
 
---- Patch [2]: [PATCH v3 2/2] thermal: amlogic: Add support for A9 thermal =
-controller ---
-commit a95f34d366c7ca1c65ce5aec6e86688c00a990a8
-Author: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Dependencies:
+This patchset depends on the following patch:
+> [PATCH] dt-bindings: clock: qcom,sm6375-gcc: Merge SM7150 into SM6375
+Link: https://lore.kernel.org/linux-arm-msm/20260817082457.64797-2-krzysztof.kozlowski@oss.qualcomm.com
 
-thermal: amlogic: Add support for A9 thermal controller
-   =20
-Add support for the Amlogic A9 thermal controller. The A9 thermal controller
-uses different calibration parameters, requires separate core and bus clock=
-s,
-and supports a hardware over-temperature reset mechanism, and restore the
-hardware reset configuration after resume.
+[PATCH v2] Link: https://lore.kernel.org/linux-arm-msm/20260819152545.3934-1-sreeshankar0910@gmail.com
 
-> diff --git a/drivers/thermal/amlogic_thermal.c b/drivers/thermal/amlogic_=
-thermal.c
-> index a0b530624b60c..ff8a8b1525367 100644
-> --- a/drivers/thermal/amlogic_thermal.c
-> +++ b/drivers/thermal/amlogic_thermal.c
+Changes in [PATCH v3]:
+1. Updated the way of registering critical clocks.
+2. Made some more clock critical.
+	GCC_VIDEO_XO_CLK
+	GCC_CAMERA_XO_CLK
+	GCC_DISP_XO_CLK
+	GCC_NPU_CFG_AHB_CLK
+	GCC_CPUSS_AHB_CLK
+	GCC_NPU_BWMON_CFG_AHB_CLK
+These clocks are flagged as critical in gcc-lito.c
 
-[ ... ]
+Sreeshankar K (13):
+  dt-bindings: arm: qcom,ids: Add SoC ID for SM7250
+  soc: qcom: socinfo: Add SM7250 SoC ID
+  dt-bindings: clock: Add SM7250 global clock controller
+  clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
+  dt-bindings: clock: qcom,rpmhcc: Document RPMHCC compatible for SM7250
+  clk: qcom: rpmh: Add SM7250 rpmh clocks
+  dt-bindings: power: qcom,rpmhpd: Document RPMh power domain for SM7250
+  pmdomain: qcom: rpmhpd: Add RMPh power domains for SM7250
+  dt-bindings: arm: cpus: Document Kryo 475 CPUs
+  dt-bindings: firmware: qcom,scm: Document SM7250 SCM
+  dt-bindings: interrupt-controller: qcom,pdc: Document SM7250 PDC
+  dt-bindings: cpufreq: qcom-hw: Document SM7250 cpufreq hardware
+  arm64: dts: qcom: Add SM7250 devicetree file
 
-> @@ -138,6 +157,49 @@ static int amlogic_thermal_code_to_millicelsius(stru=
-ct amlogic_thermal *pdata,
->  	return temp;
->  }
-> =20
-> +/*
-> + * Calculate a temperature code from a temperature value .
-> + * The unit of the temperature is degree milliCelsius.
-> + */
-> +static u32 amlogic_thermal_millicelsius_to_code(struct amlogic_thermal *=
-pdata, int millicelsius)
-> +{
-> +	const struct amlogic_thermal_soc_calib_data *param =3D
-> +					pdata->data->calibration_parameters;
-> +	s64 factor, uptat, uefuse;
-> +	u32 temp_code;
-> +
-> +	uefuse =3D pdata->trim_info & TSENSOR_TRIM_SIGN_MASK ?
-> +			     ~(pdata->trim_info & TSENSOR_TRIM_TEMP_MASK) + 1 :
-> +			     (pdata->trim_info & TSENSOR_TRIM_TEMP_MASK);
+ .../devicetree/bindings/arm/cpus.yaml         |    1 +
+ .../bindings/clock/qcom,rpmhcc.yaml           |    1 +
+ .../bindings/clock/qcom,sm6375-gcc.yaml       |    4 +-
+ .../bindings/cpufreq/cpufreq-qcom-hw.yaml     |    1 +
+ .../bindings/firmware/qcom,scm.yaml           |    1 +
+ .../interrupt-controller/qcom,pdc.yaml        |    1 +
+ .../devicetree/bindings/power/qcom,rpmpd.yaml |    1 +
+ arch/arm64/boot/dts/qcom/sm7250.dtsi          |  612 +++++
+ drivers/clk/qcom/Kconfig                      |    9 +
+ drivers/clk/qcom/Makefile                     |    1 +
+ drivers/clk/qcom/clk-rpmh.c                   |   24 +
+ drivers/clk/qcom/gcc-sm7250.c                 | 2269 +++++++++++++++++
+ drivers/pmdomain/qcom/rpmhpd.c                |   19 +
+ drivers/soc/qcom/socinfo.c                    |    1 +
+ include/dt-bindings/arm/qcom,ids.h            |    1 +
+ include/dt-bindings/clock/qcom,sm7250-gcc.h   |  163 ++
+ 16 files changed, 3108 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm64/boot/dts/qcom/sm7250.dtsi
+ create mode 100644 drivers/clk/qcom/gcc-sm7250.c
+ create mode 100644 include/dt-bindings/clock/qcom,sm7250-gcc.h
 
-[Severity: High]
-This is a pre-existing issue that was copied into this new function, but do=
-es
-this calculation correctly handle negative calibration offsets on 32-bit
-platforms?
+-- 
+2.43.0
 
-The expression ~(pdata->trim_info & TSENSOR_TRIM_TEMP_MASK) + 1 evaluates t=
-o a
-32-bit unsigned integer since TSENSOR_TRIM_TEMP_MASK is generated by GENMAS=
-K.
-When assigned to the s64 uefuse variable, it is zero-extended instead of
-sign-extended, turning a negative offset into a massive positive value.
-
-> +
-> +	factor =3D param->B + div_s64(millicelsius, 100);
-> +	factor =3D BIT(16) * factor;
-> +	factor =3D div_s64(factor, param->A);
-> +	factor =3D factor - uefuse;
-> +
-> +	uptat =3D param->n * factor;
-> +	uptat =3D div_s64(uptat, BIT(16));
-> +	uptat =3D param->m - uptat;
-> +
-> +	factor =3D factor * 100;
-> +	if (!uptat)
-> +		factor =3D TSENSOR_TEMP_MASK << 0x4;
-> +	else
-> +		factor =3D div_s64(factor, uptat);
-> +
-> +	temp_code =3D ((factor >> 0x4) & TSENSOR_TEMP_MASK) + TSENSOR_TEMP_CAL;
-
-[Severity: High]
-If the division-by-zero fallback (!uptat) triggers, factor is set to 0xFFF0.
-Does this result in a temp_code of 0x1000 here, which exceeds the 12-bit
-TSENSOR_TEMP_MASK?
-
-Later in amlogic_tsensor_setup_hw_reset(), this 0x1000 is shifted left by 4=
- to
-produce 0x10000. When written to TSENSOR_CFG_REG2 with the GENMASK(15, 4) m=
-ask,
-it truncates to 0. Could this accidentally set the hardware reboot threshol=
-d to
-0 and cause an unexpected reboot?
-
-> +
-> +	return temp_code;
-> +}
-> +
-> +static void amlogic_tsensor_setup_hw_reset(struct amlogic_thermal *data)
-> +{
-> +	regmap_update_bits(data->regmap, TSENSOR_CFG_REG2, TSENSOR_CFG_REG2_REB=
-OOT_CODE,
-> +			   data->temp_code << 0x4);
-> +	regmap_update_bits(data->regmap, TSENSOR_CFG_REG2,
-> +			   TSENSOR_CFG_REG2_ENABLE, TSENSOR_CFG_REG2_ENABLE);
-> +}
-
-[ ... ]
-
-> @@ -346,6 +437,17 @@ static int amlogic_thermal_probe(struct platform_dev=
-ice *pdev)
-> =20
->  	devm_thermal_add_hwmon_sysfs(&pdev->dev, pdata->tzd);
-
-[Severity: High]
-This is a pre-existing issue, but does registering the thermal zone and hwm=
-on
-sysfs interfaces here expose them to userspace before hardware initializati=
-on
-completes?
-
-Since devm_thermal_of_zone_register() and devm_thermal_add_hwmon_sysfs() are
-called before amlogic_thermal_enable() starts the device clock, a thermal
-core or sysfs read could invoke amlogic_thermal_get_temp() concurrently,
-accessing TSENSOR_STAT0 while the clock is gated, which could cause a bus
-hang.
-
-> +	if (pdata->data->reset_temp) {
-> +		reset_temp =3D pdata->data->reset_temp;
-> +	} else {
-> +		dev_dbg(dev, "using default hardware reset temperature\n");
-> +		reset_temp =3D TSENSOR_HW_RESET_DEFAULT_TEMP;
-> +	}
-
-[Severity: High]
-The commit message states the hardware over-temperature reset is an A9
-thermal controller feature.
-
-However, doesn't this unconditionally fall back to the default reset
-temperature and enable the hardware reboot feature for all SoCs? Older
-platforms might not support this register or the hardware reboot feature.
-
-> +
-> +	pdata->temp_code =3D amlogic_thermal_millicelsius_to_code(pdata, reset_=
-temp);
-> +
-> +	amlogic_tsensor_setup_hw_reset(pdata);
-> +
-> +	ret =3D amlogic_thermal_enable(pdata);
-
-[Severity: Critical]
-Does amlogic_tsensor_setup_hw_reset() access TSENSOR_CFG_REG2 before
-amlogic_thermal_enable() starts the device clock?
-
-On older SoCs like G12A, there is no separate sysclk, so the hardware is
-completely unclocked during this MMIO write. Could this cause a bus fault
-or system hang during boot?
-
->  	return ret;
->  }
-
-[ ... ]
-
-> @@ -371,6 +475,9 @@ static int amlogic_thermal_resume(struct device *dev)
->  {
->  	struct amlogic_thermal *data =3D dev_get_drvdata(dev);
-> =20
-> +	if (data->data->has_sysclk)
-> +		clk_prepare_enable(data->sysclk);
-
-[Severity: High]
-Should the return value of clk_prepare_enable() be checked here?
-
-If it fails, the driver continues to access the hardware in
-amlogic_tsensor_setup_hw_reset(), causing a bus hang. If it succeeds but the
-subsequent amlogic_thermal_enable() fails, the clock reference count could =
-be
-left imbalanced.
-
-> +	amlogic_tsensor_setup_hw_reset(data);
-> +	return amlogic_thermal_enable(data);
-
-[Severity: Critical]
-Similar to the issue in amlogic_thermal_probe(), does this perform an
-unclocked hardware register access during device resume on legacy platforms?
-
-amlogic_tsensor_setup_hw_reset() accesses TSENSOR_CFG_REG2 before
-amlogic_thermal_enable() starts the main device clock, which could cause a
-bus hang on older SoCs that lack a separate sysclk.
-
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821-a9-thermal=
--v3-0-0e7abf3941e3@amlogic.com?part=3D2
