@@ -1,64 +1,64 @@
 Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C682415F23
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 21:11:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B01D5414DF6
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 21:11:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787346710; cv=none; b=aKSpot+exK8th6+pITba9eGYhFVLnk3HjrnpsFrU5OkX9ukR0ygn/gnbwwQxwXAXi9dSohcTwTMQyjTVqNWjYg3tDuLWFmnxrR4e7ohB1XM14NlquzqHr9Zvpx4nymeDhT7XfdSGhiUQi+7Zv99Tx0zR7fDyocQcbEHGQLvMdv4=
+	t=1787346717; cv=none; b=WFsv+PoqOM21MK0Xg1JitbF26Lo6+NCwbQbm7qG8nWSpiLtSYt5Xtx75t5TLFsXaN1UPoNaRVojwDtlZEDXUJ3mvSfP4aqZE2MWxUcKK/+2j1NlgK14rZmVsZBRBZ5qIns/itqTxBUGuWjPnB0ArB3X0H8ZxDeee8ALJvqx7bPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787346710; c=relaxed/simple;
-	bh=5VW0bECDsMauSvaKs56MCVCbEPQcV05TjHG5C7nHTk8=;
+	s=arc-20240116; t=1787346717; c=relaxed/simple;
+	bh=d2UnVodaVm/N8lN47MQEhAtOqQObzsirhygSI9irOJM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ubHoWkeySbu4694OV8OtW5/F2Jm9eSoBgNJXhimEgQKJiQcen9wjlSJtUy7SstsqvmIuqqhpo7x5YS+olwDsbPerol7ZtecC1BwK0fUFOhR0odMuKSEaDQAYIPJZo1aqJbD3Yl5evuAqUoyUG9drZaLzCixzuclH5tSGCMljjU4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=koQvz4wY; arc=none smtp.client-ip=209.85.215.176
+	 MIME-Version; b=aNeAxw/+j2zAoWBmqzQY27xhueijC9Oy6552HRqZCZF5nt9AJW5HQDZOSmWHHPNZybLlvGAnNoAKHsa8OKbH3E09ywKLSik1RaubxdG3H0e0xmlj/wJqE8jN//FGij2ShIO7K3bTdIrIhTWO2ph6x6xLYt03BIPee797FJ7l3Pg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b7tgj6cS; arc=none smtp.client-ip=209.85.215.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="koQvz4wY"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-c9b373d5af0so1144092a12.2
-        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 14:11:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b7tgj6cS"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-c998fd549a8so1114728a12.2
+        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 14:11:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787346708; x=1787951508; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787346715; x=1787951515; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5/9L56pVAtDYTQEB8I2wsSse1txCSpY+BJszOWMEp7w=;
-        b=koQvz4wYI6FmDM0fvgvnH9OtC2PSIU/zi9xPdTT4FEfKN3bIeg01iDRIRFLC/Wsd8i
-         EMp3DsZ/Xpm9WLt1CAKlP+666CC6HdDqeSQScP+j++xvqUGAF1zL0NtlIkcsj9raoCpe
-         4AHmz9ATUpMas3QfPQ88MneuPBfO2tEy0yNt6HGFfLVdMRJ2udkQwZbVrTJQa/NbQW5c
-         a5JsV5cf/a414DvqKROmWzSvGbdRTTIPDhd0ymAWxFX8NuN1hpdDblsvMX4uvO8DfZVD
-         tm52yaEULW3EmlZ9T8z/b4lnMpGhxktPnUY+32cNPZXwONPe9NFETjxaU16K8u9i33Mp
-         /WTQ==
+        bh=Os1dA2r+cmzBxD6OAoS0KdmNVaKSS6rJQ9hDdA7As9E=;
+        b=b7tgj6cSuYFsr1UjVkQ7jii/OaDU5B6VZOPl1CUinsNF2FSrETN0vWxrYvEZfvvIv1
+         h2VqNL5qDze46v/JTZuhDGH6qAQnf3GwNyvoY/oZaVyvk4kT/dprZaD5McSWXXjKHXgg
+         zT0jn+c9EquF4YnIxzfZKa2eieTEXimmCAP8BLDe/FauUJ1hrKf0EJZ9paoUznIp+Xz0
+         7gwwLf7/LTDKofGR1gD8LbE65KS1Nsrjxskp6BYDMSAhSMlJTPghc6eQXZuo/H+ecOVT
+         60g3jtggO5cY+2eZ/HPOEdb3Iyqiwxw5e9DS/59MMnc+FX94pmi319z4kMGjK3Pk3Alg
+         7hbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787346708; x=1787951508;
+        d=1e100.net; s=20251104; t=1787346715; x=1787951515;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5/9L56pVAtDYTQEB8I2wsSse1txCSpY+BJszOWMEp7w=;
-        b=DvONcKLJp5lQBFyOnoK9i8/t6bTh9aQvGtyg/6A1xiMnUrQUoyZLDCY7w9pTufb8c7
-         JpwM5FJrg69et54KzfvYGtQwPZ9mWhX5iWzv7I70wK1cTpk9tU+F8F4sMr0B5H6+cdM5
-         rymhsG8wR+cBvAi3XUIfHk8yjixI2z/vlnG6x1iFiFHZbK5PVFiGUo6yXRS02Kdtciev
-         Q1oKXJFpuykqFaIm92hwqzZ3JYVsla7ZfUo7D43PsFe69diXpJ84utvECn8KgbeQGKHg
-         EM8fxq4ICr/kgi0RgGdKUf9tKrITpGZX+TGZotPFDOLIZkfdu0gAYVWopW6tgoa2icDj
-         /PUg==
-X-Forwarded-Encrypted: i=1; AHgh+Rom8+CLWMOaljhOg0hwxcix0sbiJh6i6BzzQOF5XO9zW7jkqoXWVGCeLkBrcrjx7QMxMavJIs0/vPOz@vger.kernel.org
-X-Gm-Message-State: AFuF++mtA6mDhe/4MnQAq1LF+AEmsqX/n+Mcg6Oi560KLNTtsmeo8zuG
-	6gUrMocUVsUlzGkt36ALqlm5OBVdLsbnYFtjXiFxohJkXbKAXIOd58+q
-X-Gm-Gg: AR+sD12l61dbQIRjYQ2KrqpKU2WA/RlyQfUYmegI3Y4y6OiF/f6GjGEQxBvq6FQ/Nsz
-	kXfw7h5tvgW+k2tBbYi/VLA1xR57k9NHqX+RLmXH+p25WrYBmpIKT1yOIIJpP9AF4sLQNv2EU+a
-	Daldgtdo8MEN4Pn99kAsTQQk8DHSFzR/LC2UynlPR5vbKlMCaTdVn2ORIGv7IjmedfXjgMrup6b
-	FbE/bBzoWGWsFGwIhuX85heR/9CUhNt94Wv1pyXlKriPRxX7vPbxXjjC7roqmrAF7+gGVaIq/VE
-	76xX+K5f3e+ex1XJuvsxHUIWO2t0B8R2JUkvG9GLmvep6NTtSMr0H6Ci3bWrBIzY4uxtjh+uz4L
-	vhjlHJeeRx3WcfL6GuArPBqvAuzWlu/3mbBTbWLzLd5z25ksb8GjvLNRlzeUApQ9W6QuMolAtZS
-	kJsEpK1cZeWLzC1QuzXQOk4Rmyn57FUjXoAsAKQZvfTBRy6Vs4y6RRTqa8hIwyonijM+pyQ3fEE
-	hWrZEPpn5NcWC/JhSZExafCYQOqKo43i8G/B3sbONy66K+U3Rrn3uR4B9E+2E03jnwRICnr
-X-Received: by 2002:a05:6a20:1eb0:b0:3c3:8c91:5da0 with SMTP id adf61e73a8af0-3cd4bbef78bmr2989189637.15.1787346708460;
-        Fri, 21 Aug 2026 14:11:48 -0700 (PDT)
+        bh=Os1dA2r+cmzBxD6OAoS0KdmNVaKSS6rJQ9hDdA7As9E=;
+        b=r3rPUCbfkv/YJgp1xCCVcBZPYJRFaUe0/HZFBe6SyifKo/5Rvet2Ibaqjk74UQz+bB
+         714y1RgcxDXWPUJeYRPhmLXtp3bYFl5XL8f+TgYXsNfcqcl2Ppe7xJHH9Tz7elvAxatx
+         k82I+PagOLX0ukTVnMlZwpbJKfuljzfwEebVegP/IIZvpgiWwB1ObXBaWsMNE4XFkC4d
+         dSRBGN/H5yspckBpYjesfmuSvh/5jYzblVVkEAERO7aH3/RcIcutoghrE9GX1F5sB1tF
+         gAm6aq0hLmTWVjr6Ih27buQvKj6tdImKfpJpdFx2fNH1NWW6T77fcaA6BL0j3sWNTNYL
+         MUVA==
+X-Forwarded-Encrypted: i=1; AHgh+RpAdeDDoXIiqLW59Z7D5BthPAjmB6Brr32it3JNpzP/xdBFIT4vUdagVhPmpEvn5eMhQAbyqwU5uDn4@vger.kernel.org
+X-Gm-Message-State: AFuF++nTCzmPgiLWX3F11NAqf70Umf5/KC7qUzxJ+NpFpJbhSR/h8qbz
+	DfNmnyCUmZWMmxprnMaXQtC3mAdBJwjQb2xbCMrhQWycqtIgwpJ/JqWK
+X-Gm-Gg: AR+sD13D+edmVB1CQcvQUrRYrtR5l/Mo5HP53Q3Tfo6jhb4Ooblodb4BKuYSVeUcLpz
+	7MPcJcHqrWPgSKDJ5T1w1T52Shyv/uZ985jZwp4IOEOJz0uVmBvh+vTPZETuH3+dZiWcJgHfJmS
+	cf2qHjzyd2RHG46T56MjZM43Hxs3L71/iUV5lJi50N7CoAm9abaD4amICZnzbiNPEuMkxnNe+Nh
+	R8J4mKTMy8Elk6lP/blCNUV5R6uf25D6uvLIKvqYoLoN1qIyDEmnYc+YWmvSeYWXqIDWFfouz2S
+	ogBb4s2TLEBaGnSK9bCXLMqhOOMi0S44D4AQ9KvaYusHuOn4P0lD23vlPZZiT3c8C3eLS8Epgt/
+	WSNH7UoYqtlDiiNJLde9F7YzbnsavpxYLEtehTc3FgB373QgIimBByhOEOXdl9tYqe+n5J6dJl0
+	PO+JhOGlATiu1IrRuHAxTjwlvf2gczFLwmY1f2GmULsA1wT2biet2P3tJ9D1SYMRxITxj4XL/VY
+	nIAJuMUWrab4MsZudoFBh7rNPcpZDAzdMNUdmFe2ZKWDeoAVZgziIPVEJCkjk9NDlRL66p6
+X-Received: by 2002:a05:6a20:7f92:b0:3c4:1c9f:d81 with SMTP id adf61e73a8af0-3cd4ba456b5mr2824576637.7.1787346714895;
+        Fri, 21 Aug 2026 14:11:54 -0700 (PDT)
 Received: from iku.. ([2401:4900:1c07:194c:dba4:ea1e:d7d1:affe])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bf175399sm49755257eec.26.2026.08.21.14.11.42
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bf175399sm49755257eec.26.2026.08.21.14.11.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 21 Aug 2026 14:11:48 -0700 (PDT)
+        Fri, 21 Aug 2026 14:11:54 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
@@ -77,9 +77,9 @@ Cc: linux-rtc@vger.kernel.org,
 	Biju Das <biju.das.jz@bp.renesas.com>,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v6 09/17] rtc: rzn1: Use pm_runtime_put_sync()
-Date: Fri, 21 Aug 2026 22:10:24 +0100
-Message-ID: <20260821211032.13554-10-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v6 10/17] rtc: rzn1: Replace remove callback with devm_add_action_or_reset()
+Date: Fri, 21 Aug 2026 22:10:25 +0100
+Message-ID: <20260821211032.13554-11-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260821211032.13554-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 References: <20260821211032.13554-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
@@ -93,52 +93,141 @@ Content-Transfer-Encoding: 8bit
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-pm_runtime_put() may trigger the idle check after pm_runtime_disable()
-is run as part of devm_pm_runtime_enable()'s cleanup action, leaving
-runtime PM active.
-
-Use pm_runtime_put_sync() to ensure the idle check runs synchronously.
+Simplify the driver teardown by registering a managed cleanup action with
+devm_add_action_or_reset(). This eliminates the explicit probe error path
+and allows the .remove() callback to be dropped.
 
 Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 ---
 v5->v6:
-- Added Reviewed-by and Tested-by tags from Wolfram
+- No changes.
 
 v4->v5:
-- Updated commit message
-- Moved the patch prior to the patch that replaces the .remove() callback
-  with devm_add_action_or_reset() 
+- Fixed conflict due to moving the pm_runtime_put_sync() patch prior to this one.
+- Added Tested-by tag from Wolfram.
 
 v3->v4:
-- New patch
+- Added Reviewed-by tag from Wolfram.
+
+v2->v3:
+- New patch to replace the remove callback with devm_add_action_or_reset().
 ---
- drivers/rtc/rtc-rzn1.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/rtc/rtc-rzn1.c | 56 +++++++++++++++++-------------------------
+ 1 file changed, 23 insertions(+), 33 deletions(-)
 
 diff --git a/drivers/rtc/rtc-rzn1.c b/drivers/rtc/rtc-rzn1.c
-index 12c52003a7dc..84ec8dc397e5 100644
+index 84ec8dc397e5..f90785827945 100644
 --- a/drivers/rtc/rtc-rzn1.c
 +++ b/drivers/rtc/rtc-rzn1.c
-@@ -493,7 +493,7 @@ static int rzn1_rtc_probe(struct platform_device *pdev)
- 	return 0;
+@@ -385,6 +385,17 @@ static const struct rtc_class_ops rzn1_rtc_ops_scmp = {
+ 	.alarm_irq_enable = rzn1_rtc_alarm_irq_enable,
+ };
  
- dis_runtime_pm:
--	pm_runtime_put(&pdev->dev);
-+	pm_runtime_put_sync(&pdev->dev);
++static void rzn1_rtc_disable_hardware(void *data)
++{
++	struct device *dev = data;
++	struct rzn1_rtc *rtc = dev_get_drvdata(dev);
++
++	/* Disable all interrupts */
++	writel(0, rtc->base + RZN1_RTC_CTL1);
++
++	pm_runtime_put_sync(dev);
++}
++
+ static int rzn1_rtc_probe(struct platform_device *pdev)
+ {
+ 	struct rzn1_rtc *rtc;
+@@ -422,18 +433,19 @@ static int rzn1_rtc_probe(struct platform_device *pdev)
+ 	if (ret < 0)
+ 		return ret;
  
- 	return ret;
- }
-@@ -505,7 +505,7 @@ static void rzn1_rtc_remove(struct platform_device *pdev)
- 	/* Disable all interrupts */
- 	writel(0, rtc->base + RZN1_RTC_CTL1);
++	ret = devm_add_action_or_reset(&pdev->dev, rzn1_rtc_disable_hardware, &pdev->dev);
++	if (ret)
++		return ret;
++
+ 	/* Only switch to scmp if we have an xtal clock with a valid rate and != 32768 */
+ 	xtal = devm_clk_get_optional(&pdev->dev, "xtal");
+ 	if (IS_ERR(xtal)) {
+-		ret = PTR_ERR(xtal);
+-		goto dis_runtime_pm;
++		return PTR_ERR(xtal);
+ 	} else if (xtal) {
+ 		rate = clk_get_rate(xtal);
  
--	pm_runtime_put(&pdev->dev);
-+	pm_runtime_put_sync(&pdev->dev);
+-		if (rate < 32000 || rate > BIT(22)) {
+-			ret = -EOPNOTSUPP;
+-			goto dis_runtime_pm;
+-		}
++		if (rate < 32000 || rate > BIT(22))
++			return -EOPNOTSUPP;
+ 
+ 		if (rate != 32768)
+ 			scmp_val = RZN1_RTC_CTL0_SLSB_SCMP;
+@@ -446,7 +458,7 @@ static int rzn1_rtc_probe(struct platform_device *pdev)
+ 	ret = readl_poll_timeout(rtc->base + RZN1_RTC_CTL0, val,
+ 				 !(val & RZN1_RTC_CTL0_CEST), 62, 123);
+ 	if (ret)
+-		goto dis_runtime_pm;
++		return ret;
+ 
+ 	/* Set desired modes leaving the controller disabled */
+ 	writel(RZN1_RTC_CTL0_AMPM | scmp_val, rtc->base + RZN1_RTC_CTL0);
+@@ -469,14 +481,12 @@ static int rzn1_rtc_probe(struct platform_device *pdev)
+ 	ret = devm_request_irq(&pdev->dev, irq, rzn1_rtc_alarm_irq, 0, "RZN1 RTC Alarm", rtc);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "RTC alarm interrupt not available\n");
+-		goto dis_runtime_pm;
++		return ret;
+ 	}
+ 
+ 	irq = platform_get_irq_byname_optional(pdev, "pps");
+-	if (irq == -EPROBE_DEFER) {
+-		ret = irq;
+-		goto dis_runtime_pm;
+-	}
++	if (irq == -EPROBE_DEFER)
++		return irq;
+ 	if (irq >= 0)
+ 		ret = devm_request_irq(&pdev->dev, irq, rzn1_rtc_1s_irq, 0, "RZN1 RTC 1s", rtc);
+ 
+@@ -486,26 +496,7 @@ static int rzn1_rtc_probe(struct platform_device *pdev)
+ 		dev_warn(&pdev->dev, "RTC pps interrupt not available. Alarm has only minute accuracy\n");
+ 	}
+ 
+-	ret = devm_rtc_register_device(rtc->rtcdev);
+-	if (ret)
+-		goto dis_runtime_pm;
+-
+-	return 0;
+-
+-dis_runtime_pm:
+-	pm_runtime_put_sync(&pdev->dev);
+-
+-	return ret;
+-}
+-
+-static void rzn1_rtc_remove(struct platform_device *pdev)
+-{
+-	struct rzn1_rtc *rtc = platform_get_drvdata(pdev);
+-
+-	/* Disable all interrupts */
+-	writel(0, rtc->base + RZN1_RTC_CTL1);
+-
+-	pm_runtime_put_sync(&pdev->dev);
++	return devm_rtc_register_device(rtc->rtcdev);
  }
  
  static const struct of_device_id rzn1_rtc_of_match[] = {
+@@ -516,7 +507,6 @@ MODULE_DEVICE_TABLE(of, rzn1_rtc_of_match);
+ 
+ static struct platform_driver rzn1_rtc_driver = {
+ 	.probe = rzn1_rtc_probe,
+-	.remove = rzn1_rtc_remove,
+ 	.driver = {
+ 		.name	= "rzn1-rtc",
+ 		.of_match_table = rzn1_rtc_of_match,
 -- 
 2.43.0
 
