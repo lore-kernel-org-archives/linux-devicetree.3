@@ -1,43 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67E4C48F85E;
-	Fri, 21 Aug 2026 13:23:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 756F3288505
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 13:31:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787318620; cv=none; b=LiWxnlke4c0P0fmssp/Y/U9eE7u6idM0Wo/JDsi7X4GcpLDLg6VgGUWxHlUwiTK9eanAOw4yk55Y3W2ihiKBWciqJNXHwGVMEVJuHpaUGcvdgObfMYtIWyT+xXvfDS2bsa03VphOl0MximZahIZVax/udqHoAziqB1gNLPUNnKI=
+	t=1787319068; cv=none; b=hEsJnQklLWLfvzXhxU3uB2N3DqAC8dqM+F/wrDgGzBU97Yi2HP3WfbnRVpR+rYuHqrXHPreyoe4+91Im1kvDqysXRNfgs2PIghrm1i6tbgAGdSiFyx8jfNgH7x2+2fu7nMdJk5rCmRA2ovDk57iqRzpOh4jNMXOGhjJdvBUeRBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787318620; c=relaxed/simple;
-	bh=eIN7qQx0gCoZyXciN+J32cP2bAGhSqnSq8ru7Ag/TJU=;
+	s=arc-20240116; t=1787319068; c=relaxed/simple;
+	bh=6AUWG531ITdJiyXHcGrQZ9uZ3z30PZIV9tkEMhAjlGg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DPJFdWNPFeFA/kGjy0ON5LXTzEd4jS9n0MzNwRLHgVkedcMXMG6+5WynkeVQtvOgTK+qa2p/1QYmbzFHfHvIBcXKNoOgyIxhS6J85AkbDufQy6RbN0dWKIVbGMxf3GsGjvWU5w2rVygVfZ2ff8461wYwAP8yaQcRXNdFn6kU3jQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jyoskVxD; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Ucj4Dh0i/PcoCkmABgajeXDUptJZJ7eU7Iqa3+s1J5lmytCcyp37kUyhE2RwERdc7g8wLsCqSNn5QYtzN/89h3ytmDsNIZVbvdMILecXQSZE5rIarxPMCSnot2+aKRLvS0Gl2ZUfbmbLrXDfRnw5bVLtMSPXPQEdmFlArYFg2NY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b9U397Ch; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jyoskVxD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 672201F000E9;
-	Fri, 21 Aug 2026 13:23:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b9U397Ch"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DDAD1F000E9;
+	Fri, 21 Aug 2026 13:31:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787318608;
-	bh=FkZ1DBbehygR0DUnqE/5kLPx2SnF7CPjHsuBDNe8M6k=;
+	s=k20260515; t=1787319067;
+	bh=B35MIrfWj3Wm46Am+VNmewD9onDeHMdrltFqeGvmlh8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jyoskVxDSnsPKlByUsfs7YymYJWTIakwEPZZjGbVJLhR6tXbq6cg+OScxYlfO8vxw
-	 mg1h848LYIeTr3JmulnEMaZ1oZ2RL+k1XHi4oXaM2gr5k2FRl6K8+CfnA68cnh7NDT
-	 jTNmDczsZb3sNJwaClHUsx5Ns0QanF4DwG5VlEBAqPBm68fKl9eVoUVhnTRobuPB/J
-	 Ay9nZCT5KrfFzQzrqfHu5D/9gb1z7wTHthAaHt7ArJ0nTtESbYaD06PJUkCq1W4mxs
-	 DZvSF4rMTIQCTDAYgRm4oTo4t2M+QhbPleOCYFtI90q+lGOubdpaLR8+tuNnNIflMb
-	 NbO19KE15c5Uw==
+	b=b9U397Cht6rulZNnP46wHuk1jf598ymSCBGFunITtfSWNNDcNwUmolUxO/yjhsMcb
+	 Pal1O8gz4qZNsL3UtxaCd7NFekpS2EZHeE811xDkhWPLMwBujDoZO7IAwmv6szA00P
+	 TSfu8WLGriZ/4tRp5q4qnshV5LcciGuQXI1W9cC+wmVxnB+FO4gGeBmadQb8FzDd3H
+	 +udIgcuEOZnVUSXD3VAHp7BYDrOPnxDPYUQi/SxIVkBKDVhERDmIPvPk0XTQ7cAqUO
+	 QCIBBbluXfxCzWUtN1e9V7ZbjT7RX4fZE1pROwRubEEE2tCat3XYmWf7youZHa3Bnz
+	 a7aRDbJlGrzhA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v40 5/7] firmware: imx: adds miscdev
+Subject: Re: [PATCH v8 11/18] spi: cadence-quadspi: enable PHY for direct
+ reads
 Reply-To: sashiko-reviews@lists.linux.dev
-To: pankaj.gupta@oss.nxp.com
-Cc: imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20260822-imx-se-if-v40-5-74fbce2f2f95@nxp.com>
-References: <20260822-imx-se-if-v40-0-74fbce2f2f95@nxp.com>
- <20260822-imx-se-if-v40-5-74fbce2f2f95@nxp.com>
+To: "Santhosh Kumar K" <s-k6@ti.com>
+Cc: devicetree@vger.kernel.org, "Michael Walle" <mwalle@kernel.org>, "Pratyush
+ Yadav" <pratyush@kernel.org>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Richard
+ Weinberger" <richard@nod.at>, "Miquel Raynal" <miquel.raynal@bootlin.com>, "Takahiro
+ Kuwano" <takahiro.kuwano@infineon.com>, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260821114822.4040338-12-s-k6@ti.com>
+References: <20260821114822.4040338-1-s-k6@ti.com>
+ <20260821114822.4040338-12-s-k6@ti.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 21 Aug 2026 13:23:27 +0000
-Message-Id: <20260821132328.672201F000E9@smtp.kernel.org>
+Date: Fri, 21 Aug 2026 13:31:06 +0000
+Message-Id: <20260821133106.9DDAD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,139 +50,182 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] API Contract Violation: SE_IOCTL_ENABLE_CMD_RCV_STATUS ioctl uncon=
-ditionally fails with -ENOMEM.
-- [High] Race Condition / Security Isolation: TOCTOU race in ELE_STORAGE_OP=
-EN_REQ allows bypassing receiver uniqueness.
-- [High] Race Condition / Use-After-Free: `se_if_fops_read` accesses `dev_c=
-tx->devname` without `fops_lock` during error handling.
-- [Low] Code Quality / Documentation Mismatch: Missing `__func__` in error =
-logs.
+
+New issues:
+- [High] The error path in `cqspi_tune_phy` (when `enable` is true) fails t=
+o restore the `CQSPI_REG_READCAPTURE` register, leaving the controller in a=
+ corrupted state for subsequent non-PHY reads.
+- [High] `cqspi_tune_phy` (enable=3Dfalse) bails out early on idle wait tim=
+eout, leaving the PHY permanently enabled, and its return value is ignored =
+by callers, masking the failure.
+- [High] A failed DLL resync leaves `CQSPI_REG_PHY_CONFIG` updated, causing=
+ subsequent retries to skip the resync and use an unlocked PHY.
+
+Pre-existing issues:
+- [High] The PIO fallback path in `cqspi_memcpy_fromio()` causes data corru=
+ption on big-endian architectures due to mismatched I/O accessors.
 --
 
---- Patch [5]: [PATCH v40 5/7] firmware: imx: adds miscdev ---
-commit 823b871a16858b528f46321987d0641124095c4f
-Author: Pankaj Gupta <pankaj.gupta@nxp.com>
+--- Patch [11]: [PATCH v8 11/18] spi: cadence-quadspi: enable PHY for direc=
+t reads ---
+commit b1257269b9ef8a064e84e36b6359dd1d26e31e0d
+Author: Santhosh Kumar K <s-k6@ti.com>
+Subject: spi: cadence-quadspi: enable PHY for direct reads
 
-firmware: imx: adds miscdev
+This patch adds support for toggling the PHY mode around direct DMA reads in
+the Cadence QSPI driver. It introduces cqspi_tune_phy() to configure and
+enable the PHY pipeline and reprogram the DLL if necessary. It also adds a
+predicate to ensure PHY is only used when the operation frequency matches t=
+he
+tuned frequency and the transfer is 16-byte aligned.
 
-This commit adds a miscdev interface to exchange messages with NXP secure
-enclaves from userspace. It provides an ioctl interface and file operations
-for memory management, getting info, and command/response handling.
-
-Closes: https://sashiko.dev/#/patchset/20260821-imx-se-if-v39-0-41e4257c2af=
-c@nxp.com?part=3D5
-
-> - Fix dev_err format specifier from %ld to %d for the err variable and
->   add __func__ to CMD-Receiver registration failure messages.
-
-[Severity: Low]
-The commit message states that __func__ was added to the CMD-Receiver
-registration failure messages. Looking at the code in fw_api_specific_ops(),
-the dev_err() call for registration failure doesn't appear to include
-__func__. Did this change get missed in the final version of the patch?
-
-> diff --git a/drivers/firmware/imx/ele_fw_api.c b/drivers/firmware/imx/ele=
-_fw_api.c
-> --- /dev/null
-> +++ b/drivers/firmware/imx/ele_fw_api.c
-[ ... ]
-> +int ele_uapi_allowed_fw_cmd(struct se_if_device_ctx *dev_ctx, struct se_=
-msg_hdr *header,
-> +			    u32 tx_msg_sz, u32 rx_msg_sz)
+> diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-=
+quadspi.c
+> index 99a0ec0e769c5..8903b4cf4f6f5 100644
+> --- a/drivers/spi/spi-cadence-quadspi.c
+> +++ b/drivers/spi/spi-cadence-quadspi.c
+> @@ -1074,6 +1074,102 @@ static int cqspi_resync_dll(struct cqspi_st *cqsp=
+i)
+>  	return ret;
+>  }
+> =20
+> +static int cqspi_tune_phy(struct cqspi_flash_pdata *f_pdata, bool enable)
 > +{
+> +	struct cqspi_st *cqspi =3D f_pdata->cqspi;
+> +	void __iomem *reg_base =3D cqspi->iobase;
+> +	u32 reg;
+> +	u8 dummy;
+> +	int ret;
+> +
+> +	ret =3D cqspi_wait_idle(cqspi);
+> +	if (ret)
+> +		return ret;
+
+[Severity: High]
+If this cqspi_wait_idle() times out when enable is false, the function retu=
+rns
+early without clearing CQSPI_REG_CONFIG_PHY_EN or restoring the read capture
+settings. Does this leave the SPI controller permanently stuck in PHY mode,
+which would break subsequent non-PHY communication with the flash?
+
+> +
+> +	if (enable) {
+
 [ ... ]
-> +	case ELE_STORAGE_OPEN_REQ:
-> +		/* Might be cleared as part of tear down. */
-> +		if (dev_ctx->strg_hdl) {
-> +			ret =3D -EEXIST;
-> +			break;
+
+> +		reg =3D readl(reg_base + CQSPI_REG_PHY_CONFIG);
+> +		if (((reg >> CQSPI_REG_PHY_CONFIG_RX_DEL_LSB) &
+> +		     CQSPI_REG_PHY_CONFIG_RX_DEL_MASK) !=3D f_pdata->phy_setting.rx ||
+> +		    ((reg >> CQSPI_REG_PHY_CONFIG_TX_DEL_LSB) &
+> +		     CQSPI_REG_PHY_CONFIG_TX_DEL_MASK) !=3D f_pdata->phy_setting.tx) {
+> +			cqspi_set_dll(reg_base, f_pdata->phy_setting.rx,
+> +				      f_pdata->phy_setting.tx);
+> +			ret =3D cqspi_resync_dll(cqspi);
+> +			if (ret)
+> +				return ret;
+
+[Severity: High]
+If cqspi_resync_dll() fails, the hardware register CQSPI_REG_PHY_CONFIG
+still retains the new settings written by cqspi_set_dll(). On a subsequent
+retry, the initial check above will see that the register matches the devic=
+e's
+settings, skipping the resync entirely. Can this lead to operating the PHY
+with an unsynced or unlocked DLL?
+
 > +		}
-> +		/*
-> +		 * Reject the storage-open request when another context is
-> +		 * already registered as the command receiver.
+> +
+> +		cqspi_readdata_capture(cqspi, !f_pdata->use_dqs, f_pdata->use_dqs,
+> +				       f_pdata->phy_setting.read_delay);
+> +
+> +		reg =3D readl(reg_base + CQSPI_REG_CONFIG);
+> +		reg |=3D CQSPI_REG_CONFIG_PHY_EN | CQSPI_REG_CONFIG_PHY_PIPELINE;
+> +		writel(reg, reg_base + CQSPI_REG_CONFIG);
+> +
+
 [ ... ]
-> +		scoped_guard(mutex, &priv->modify_lock)
-> +			if (priv->cmd_receiver_clbk_hdl.dev_ctx &&
-> +			    priv->cmd_receiver_clbk_hdl.dev_ctx !=3D dev_ctx)
-> +				ret =3D -EBUSY;
-> +		if (rx_msg_sz < ELE_STORAGE_OPEN_RSP_SZ)
-> +			ret =3D -EINVAL;
-> +		break;
+
+> +		ret =3D cqspi_wait_idle(cqspi);
+> +		if (ret) {
+> +			reg =3D readl(reg_base + CQSPI_REG_CONFIG);
+> +			reg &=3D ~(CQSPI_REG_CONFIG_PHY_EN |
+> +				 CQSPI_REG_CONFIG_PHY_PIPELINE);
+> +			writel(reg, reg_base + CQSPI_REG_CONFIG);
+> +			reg =3D readl(reg_base + CQSPI_REG_RD_INSTR);
+> +			reg &=3D ~(CQSPI_REG_RD_INSTR_DUMMY_MASK
+> +				 << CQSPI_REG_RD_INSTR_DUMMY_LSB);
+> +			reg |=3D FIELD_PREP(CQSPI_REG_RD_INSTR_DUMMY_MASK
+> +						  << CQSPI_REG_RD_INSTR_DUMMY_LSB,
+> +					  cqspi->phy_saved_dummy);
+> +			writel(reg, reg_base + CQSPI_REG_RD_INSTR);
+> +		}
+> +		return ret;
 
 [Severity: High]
-Could this check be vulnerable to a race condition? Since the global
-se_if_cmd_lock is not held during this validation, two concurrent threads
-issuing an ELE_STORAGE_OPEN_REQ could potentially both pass this check.
+This error path rolls back CQSPI_REG_CONFIG and CQSPI_REG_RD_INSTR, but it
+seems to miss reverting CQSPI_REG_READCAPTURE, which was modified earlier
+via cqspi_readdata_capture(). Since cqspi_configure() optimizes out
+READCAPTURE updates unless the clock frequency or chip-select changes, could
+this cause subsequent standard reads to use incorrect PHY capture settings =
+and
+corrupt data?
 
-If that happens, thread A would acquire the lock, send its command, and
-register as the receiver. Thread B would then acquire the lock, send its
-command, allocate a second handle, but fail registration in
-fw_api_specific_ops(). Because that failure is only logged and ignored,
-does thread B successfully open storage but have its callbacks silently
-routed to thread A?
-
-> diff --git a/drivers/firmware/imx/se_ctrl.c b/drivers/firmware/imx/se_ctr=
-l.c
-> --- a/drivers/firmware/imx/se_ctrl.c
-> +++ b/drivers/firmware/imx/se_ctrl.c
-[ ... ]
-> +int set_dev_ctx_as_command_receiver(struct se_if_device_ctx *dev_ctx, bo=
-ol is_ioctl)
-> +{
-> +	struct se_if_priv *priv =3D dev_ctx->priv;
-> +	struct se_api_msg *new_rx_msg =3D NULL;
-> +	struct se_clbk_handle *se_clbk_hdl;
-> +	unsigned long flags;
-> +
-> +	se_clbk_hdl =3D &priv->cmd_receiver_clbk_hdl;
-> +	guard(mutex)(&priv->modify_lock);
-> +	if (se_clbk_hdl->dev_ctx =3D=3D dev_ctx)
-> +		return 0;
-> +
-> +	if (se_clbk_hdl->dev_ctx)
-> +		return -EBUSY;
-> +
-> +	if (!dev_ctx->strg_hdl)
-> +		return -EINVAL;
-> +
-> +	if (is_ioctl)
-> +		return -ENOMEM;
-
-[Severity: High]
-Is this intended to unconditionally fail the ioctl with an out-of-memory
-error?
-
-When the SE_IOCTL_ENABLE_CMD_RCV_STATUS ioctl is invoked in se_ioctl(), it
-calls this function with is_ioctl set to true, which will immediately return
--ENOMEM. Does this make it impossible for userspace to register as a
-command receiver via the documented ioctl?
-
-[ ... ]
-> +static ssize_t se_if_fops_read(struct file *fp, char __user *buf, size_t=
- size,
-> +			       loff_t *ppos)
-> +{
-> +	struct se_if_device_ctx *dev_ctx =3D fp->private_data;
-[ ... ]
-> +	err =3D ele_msg_rcv(dev_ctx, &priv->cmd_receiver_clbk_hdl);
-> +	if (err < 0) {
-> +		if (err !=3D -ERESTARTSYS)
-> +			dev_err(priv->dev,
-> +				"%s: Er[0x%x]: Signal Interrupted. Current act-dev-ctx count: %d.",
-> +				dev_ctx->devname, err, dev_ctx->priv->active_devctx_count);
-> +		return err;
 > +	}
 
-[Severity: High]
-Could accessing dev_ctx->devname here lead to a use-after-free?
+[ ... ]
 
-The fops_lock is explicitly dropped before calling ele_msg_rcv() above. If
-a concurrent unbind occurs and tears down the context, cleanup_dev_ctx()
-could run, acquire fops_lock, and free dev_ctx->devname. If ele_msg_rcv()
-then returns an error, this error path will execute without fops_lock and
-dereference the potentially freed dev_ctx->devname pointer.
+> @@ -1629,6 +1733,7 @@ static int cqspi_direct_read_execute(struct cqspi_f=
+lash_pdata *f_pdata,
+>  	loff_t from =3D op->addr.val;
+>  	size_t len =3D op->data.nbytes;
+>  	u_char *buf =3D op->data.buf.in;
+> +	int ret;
+> =20
+>  	if (!cqspi->rx_chan || !virt_addr_valid(buf) ||
+>  	    len < CQSPI_PHY_MIN_DIRECT_READ_LEN) {
+
+[ ... ]
+
+> +	ret =3D cqspi_tune_phy(f_pdata, true);
+> +	if (ret)
+> +		return ret;
+> +	ret =3D cqspi_direct_read_dma(f_pdata, buf, from, len);
+> +	cqspi_tune_phy(f_pdata, false);
+> +
+> +	return ret;
+>  }
+
+[Severity: High]
+Is it possible this hides a hardware failure from the SPI subsystem since
+the return value is still 0 from the DMA read? The return value of
+cqspi_tune_phy(f_pdata, false) is ignored here, so if the DMA read succeeds
+but disabling the PHY times out during cqspi_wait_idle(), the operation is
+reported as a success despite the controller being left in a broken state.
+
+
+While reviewing this, I also noticed a pre-existing issue in the driver.
+
+[Severity: High]
+This is a pre-existing issue, but the PIO fallback path in
+cqspi_memcpy_fromio() appears to mix accessors in a way that breaks
+big-endian systems:
+
+drivers/spi/spi-cadence-quadspi.c:cqspi_memcpy_fromio() {
+    ...
+    while (count >=3D 4) {
+        put_unaligned_le32(__raw_readl(from), to);
+        from +=3D 4;
+        to +=3D 4;
+        count -=3D 4;
+    }
+    ...
+}
+
+The __raw_readl() performs a native load without byte-swapping, but
+put_unaligned_le32() will apply a byteswap before storing on big-endian
+hardware. Can this incorrectly reverse the byte order of the stream in 4-by=
+te
+chunks during unaligned DMA transfers that fallback to PIO?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260822-imx-se-if-=
-v40-0-74fbce2f2f95@nxp.com?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821114822.4040=
+338-1-s-k6@ti.com?part=3D11
