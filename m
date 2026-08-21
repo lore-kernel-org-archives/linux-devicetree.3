@@ -1,206 +1,164 @@
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F392FFDFC
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 04:43:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787287388; cv=pass; b=UuGz+w+tsZ64nqGOiwxhcFIbH/YGOx5mdhqNNGDDsCMvRJIDwwwbgP+BqtP3of4MDJcXaASUhNQSAyu7DWRMmNh/dk0qgwUuRndwxxMc+BoJIbKqwbnFf4zd5I9Bzag1jFou7WgXsGfIwosglgItK71yfDaun/YSB9DHB/K6THk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787287388; c=relaxed/simple;
-	bh=IWrtzlK9+m6CsprOG7cYz4IHxZYiNRb4WbjXdKwQPSo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qB9yDhBKGfam/qZf7rr9y8fFe6rXLNNqzcML2Z7HlkLB3ZtV+A0h1Ap1zpxH0O/oOke/bFnKOaa9E2xHP9KArtDAQUiYskOEyQPxIrv45HbpobNATx7ov8KGT95COmmh8uW8//fgY0lI3DO7q9/FkQAh2104FVBhY6gvdBeIavw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=asseily.com; spf=pass smtp.mailfrom=asseily.com; dkim=pass (2048-bit key) header.d=asseily.com header.i=@asseily.com header.b=JaXDlXM/; arc=pass smtp.client-ip=209.85.128.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=asseily.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asseily.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79E9137C93F
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 04:50:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787287833; cv=none; b=PDp05hoRrBe7c4+8B9B7bVVpf0akn5cFv3YdA/WjBSVGAbbp18+KF54KWoet9Wfq5/XptfIv3eGIUkW55inPa5iEpO+T58FlI0LnM0Ov/5Gha43z7zCuDE2lavLhrJ/GT+dNya2bBEguK7Gzb76RpHG/4wJXWLQw2xJrWbaPDzk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787287833; c=relaxed/simple;
+	bh=0r/EmojD7gcfdYa4N2je+oMNOKZRm3t8fk/caPZyvcA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=NEqonqm6VwNtfPQuXmAHgOCH2bGCCDZAPtz7XnZ38DDm9xbh7XEBSCHu0rFOt/NA3OqbvTypQTAFFicvMdEbkgyqpUNo4jT2uJuHwN3gpYaB/l/1VWGPP2t4ipLdTUWAHTb2LCvVIqMIlW6SfdiVn69EScNuX5Ft8eRmZnor07o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OHjBfaFM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asseily.com header.i=@asseily.com header.b="JaXDlXM/"
-Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-81dfdbd86d1so9387267b3.1
-        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 21:43:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787287386; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZgcchlCKxGwOVvGBdYbsy+kEklUwJLA9xaK1xJ38i/qlm1JtYDs4Mf+5K+akVHaSpF
-         tQ1PtofcrgkdIiaay4JOjGcmZepLPccPj7r6b4bodkmRnECzIArK3cG+/hpgUeQl422l
-         Z8GruA+WK042/kDNuesnpFGBGsYt8X1xxl2/AX2YzDJBC03+ZbxEQkv97iMHgYani7/g
-         w+0x1cTmyoR0cpmbiwT22xOML0Y+rlpI2b260ZcCd9uRDx4t50sfgWdnYsTNPEyUksY/
-         8MoyJJJT5c8SQvzRMnGTLkufDCIwqebhwpvCqEOXBMAW+eVj6LEU3CziC/9HxgqrFYJZ
-         5F6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=FETm0h70P5hMYOSgzVLQJCmMzyH1hkq8Vh3JEXc8Xk0=;
-        fh=PkWIqQWDlihyDAV1XikX6IuXPCwN+Gkw2ryRKJdQndE=;
-        b=ki5IOnT2mz5k2T/xowqunRdHtpXbL+2dk1Yy2XSlDHmMdlR9nyrHuSXXtMGkubSUzF
-         rs3bbbVYVtAl62Bp3zQ12sTWEc1dqIoxyKbNoWJcimd94MEqIgLmFwEmOIoa9P7n4vp7
-         F9hhKTlVpCoOrtRMK4QATJqBrOspnLUXwvu7rUCur/93W0SBwlxuRcfYmvqDOCPGwOE7
-         t890qmTkU4lfFOmaQftwNR6zjcx5i38AK0gqKCw07jrzDUFVCF6vOYtCaK5n8ZxtKVuf
-         HWX/yzDBy0USlgi3F2JdAqbwtLZeXGyJ+d5NrBVOaKjP5OPoA+rsdc6sEv994bG0/lV1
-         pC7A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asseily.com; s=google; t=1787287386; x=1787892186; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FETm0h70P5hMYOSgzVLQJCmMzyH1hkq8Vh3JEXc8Xk0=;
-        b=JaXDlXM/oQ4Z0Q3TCDwvLPgecoLL3qYyYcXhv4hBsbDUxH7hzmh5CGSTWgVCY8fabs
-         tOmPHZc/X7jL+ujQp5pxiw5o/Yfe/RanxWiFMB2g+u+gh8vLHa6o4HM/uCgfbnc3miSH
-         IajCfdbHFwTJd5W0Tw6OGjyLFAWiQ+u06YVyKvjzjPoDA/Jn5W9DYEDksevAnhcVXS35
-         WP2q1CHtkFFvQIg66fED4GTdbiAiLjDglNe8OeQa7EyeJn+DCKQt7gMKc9RjxWx+fth+
-         5zuDfFaEDIEAemhzFvyvI5NqarG1Uzr8Y0sYLrLYzWSTT2LXmhitYuba9fVauTvuRoVL
-         Ga4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787287386; x=1787892186;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=FETm0h70P5hMYOSgzVLQJCmMzyH1hkq8Vh3JEXc8Xk0=;
-        b=OZogSYcAulz5EzpVUezB92UPZV+oqu/xlTDR9KZrrHRRZ1Uu63DzsajHGVam/rF+t/
-         3yJBQfbWZRhJ2qHTaozLY1IulvMwfyeQR7qlckDq3/0eqLMujDKK5UNrDDE+dTk67CD1
-         itsqZth/Vcx18XpnBw+U+kC8Zfqc3CQjhxRBEdSspDFuMQc06vSxqTZAenhPwNaH69O4
-         +XLDphnEEoC3QdDPmA1cqzggbpokBQcXIA9Sxa62RIpCW9l9FEZiEbHZ0//QJre52S17
-         Y/h/1mT816PNr9snS0utMIPwNn/9mLGHljHD/ZP5Eekh22JJ7slETd+rAZaWfiv9BDOM
-         658w==
-X-Forwarded-Encrypted: i=1; AHgh+Roemi+yk06i6tt/EZM/3oxsc21KAcACAHQmJHYqrMUICLbUiNpAAvtDczQEg4f4j3NGR2gKH1G6i3y5@vger.kernel.org
-X-Gm-Message-State: AFuF++kEhj4jWd4UudhKYOeXyyAv8pj3hre6N/SMMneFQ5HoI8nE3Mns
-	W1/pndFmxo1WxcASOnVuNfeN/ZB0DWofjw6zoGrjmdtJliaDUwzw0ClnLc34vRdFjLTtWKSiv5B
-	nABNL2fa4faUkXl5LVRX+lSh4w9xGWUV2+s5yrnSw9xzz+FxMUR7YrMFZ8w==
-X-Gm-Gg: AR+sD1041WCmpfSe65iZIeXZb8rAfVvUGi/aB3nLxWY5UPZtnSzEorDb9jtSNfyC/d2
-	MW1e3zUAt/mqpRDWIg+evF7Z/hNGt5MA1fNVjEd5E195y15ZaZEh7ZmwKcFdcJpLZYF+MYhOMHM
-	QIoNZT/0998drDcLuAhd6uZDF2RdFaMCA87bhrZ7Aqt8ejgqpc1QxO8W7VSw7WW91u2rkrzYedz
-	QL72NPfdJRQSHElJXjaiLRkXSZ/YYLQny7ylHfRk3w7MTnH/vOCGpwI5eme3mBR5ctPb5tsedqW
-	2Xz+NhmyJH4NGYctUmM22EBVFpXX7pLl+yoH9CJIOxBoGBbT22oL/7p92qdZOdmXWukhLMb59Ne
-	ZK24frKb7taE=
-X-Received: by 2002:a05:690c:e146:b0:81d:5806:ecc7 with SMTP id
- 00721157ae682-849f18a6320mr9895447b3.1.1787287385646; Thu, 20 Aug 2026
- 21:43:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OHjBfaFM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEAC71F000E9;
+	Fri, 21 Aug 2026 04:50:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787287832;
+	bh=GQM8Eo2UAn9U7dgBfOWBka1NK+pdZEjuC7OI7BtK2R0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=OHjBfaFM6QxON1Jf2finMnQ3WrpQdG3A1j86tyVb8yp+Ho1zUBFHwt3hWLnHjJpLj
+	 s1NWQ6LOiRV/bBBJweIrxnbAfbswkfh+7da6P5ZrkWj9yABjiIUnF6jtjYq6EJAq2K
+	 KNMk4tG1BxdPbP/NIoOp3eHORkxvSg/8aiZeE5oYK1RIAiKJQSymkDBdmEL/xq8Yle
+	 WgKtYfn/YdSsPSujJbmVsUSlR1Vcc1X7VxW2ptaPoQm7w8Luk1g2i8i6WyQrzD3uxY
+	 GHL+YvVe+bSJ+IYvcIRccAPlliEiSwjMXhmaR7IScq6cbDbL0Zom52lkfWBMaBHvNP
+	 aoI6X79l8ztcg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/4] ASoC: es9039q2m: add ESS Technology ES9039Q2M
+ codec driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Karl Asseily" <karl@asseily.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260821043859.171871-4-karl@asseily.com>
+References: <20260821043859.171871-1-karl@asseily.com>
+ <20260821043859.171871-4-karl@asseily.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 21 Aug 2026 04:50:31 +0000
+Message-Id: <20260821045031.CEAC71F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260820062626.39218-1-karl@asseily.com> <20260820062626.39218-4-karl@asseily.com>
- <7f2e051a-1e77-49e0-bec8-e178855295b0@sirena.org.uk>
-In-Reply-To: <7f2e051a-1e77-49e0-bec8-e178855295b0@sirena.org.uk>
-From: Karl Asseily <karl@asseily.com>
-Date: Fri, 21 Aug 2026 07:42:54 +0300
-X-Gm-Features: AcwNN1XgCOQeDiOAB3AUALMp8inueSr4538fLSusILn9jRhYFV7UX-hMyrlRAuA
-Message-ID: <CA+gvwbr4gUSU3w3PxDjSeKQ1oyXR_psScTZ1ecHTb7boZsK=2g@mail.gmail.com>
-Subject: Re: [PATCH 3/4] ASoC: es9039q2m: add ESS Technology ES9039Q2M codec driver
-To: Mark Brown <broonie@kernel.org>
-Cc: lgirdwood@gmail.com, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, perex@perex.cz, tiwai@suse.com, 
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Aug 20, 2026 at 07:52:48PM +0100, Mark Brown wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Clock setup unconditionally requests 256x MCLK and checks a hardco=
+ded 128x minimum, violating hardware limits and breaking 64FS mode for high=
+ sample rates (e.g., 768kHz).
+- [Medium] Internal software states (`priv->mute_user`, `priv->dop_auto`) a=
+re mutated before the hardware write succeeds, causing permanent desynchron=
+ization on I2C errors.
+--
 
-> Please make the entire comment block a C++ one so things look more
-> intentional.
+--- Patch [3]: [PATCH v2 3/4] ASoC: es9039q2m: add ESS Technology ES9039Q2M=
+ codec driver ---
+commit d6078d6a073963832dc02c18cb1b239c05eaaf57
+Author: Karl Asseily <karl@asseily.com>
 
-Done.
+ASoC: es9039q2m: add ESS Technology ES9039Q2M codec driver
 
-> _DECODE_MASK doesn't cover S/PDIF.
+This commit adds a new ALSA SoC driver for the ESS Technology ES9039Q2M
+32-bit 2-channel audio DAC. It provides support for PCM, DSD, DoP, and
+S/PDIF input formats, handling software mode over I2C.
 
-Fixed, and it was a real bug rather than a naming one - the mask is what
-hw_params() uses to enable one decoder and clear the rest, so the S/PDIF
-decoder was being left enabled alongside whichever one was selected.
+> diff --git a/sound/soc/codecs/es9039q2m.c b/sound/soc/codecs/es9039q2m.c
+> new file mode 100644
+> index 0000000000000..bd09e230f9a3e
+> --- /dev/null
+> +++ b/sound/soc/codecs/es9039q2m.c
 
-> Please write normal conditional expressions rather than ternary ones for
-> improved legibility.
+[ ... ]
 
-Done.
+> @@ -821,11 +821,11 @@ static int es9039_mute_put(struct snd_kcontrol *kco=
+ntrol,
+>  	if (val =3D=3D priv->mute_user)
+>  		return 0;
+> =20
+>  	priv->mute_user =3D val;
+> =20
+>  	ret =3D es9039_apply_mute(priv);
+>  	if (ret)
+>  		return ret;
 
-> If a stream is already running then the handling in hw_params() won't
-> have a chance to kick in - should this return an error in that case, or
-> try to do some reconfiguration?
+[Severity: Medium]
+Does this leave the cached state out of sync with the hardware?
 
-It now returns -EBUSY while a stream is open. Reconfiguring live would mean
-redoing the decoder and input selection underneath a running stream, and I
-have no way to test that the part tolerates it; refusing is honest and the
-control is a setup-time thing in practice.
+If es9039_apply_mute() fails (e.g., due to an I2C error), priv->mute_user
+has already been updated. Since the function returns early without reverting
+the state, subsequent attempts by the user to set the intended value will be
+short-circuited by the `if (val =3D=3D priv->mute_user)` equality check. Th=
+is
+could leave the hardware permanently out of sync until a different value
+is toggled.
 
-> Volume controls don't *need* TLV data or dB scales, it's more about
-> their intended effect.
+[ ... ]
 
-Fair - the TLV reasoning was wrong and I have replaced it. I do not think
-these are volume controls by intended effect either, though: they are signed
-correction coefficients for the second and third harmonic, they cancel
-distortion contributed by the analogue stage, and turning one up does not
-make anything louder. I have kept the names and fixed the comment to say
-that instead. Happy to rename if you still read them as level controls.
+> @@ -857,11 +857,11 @@ static int es9039_dop_put(struct snd_kcontrol *kcon=
+trol,
+>  	if (priv->stream_rate)
+>  		return -EBUSY;
+> =20
+>  	priv->dop_auto =3D on;
+> =20
+>  	ret =3D es9039_apply_dop(priv, on);
+>  	if (ret)
+>  		return ret;
 
-> There was a symbolic name for WS_FAIL, and there's TDM_VALID as well.
-> It feels like this should be able to use the defines, especially since
-> it's a driver local control type.
+[Severity: Medium]
+Similar to the mute control above, if es9039_apply_dop() fails, does this
+leave priv->dop_auto permanently out of sync with the hardware?
 
-Agreed, and using the define turned up a bug: the control read
-ES9039_IRQ_SOURCES + 1 with BIT(7), which is bit 15 of a 16-bit word and
-reserved, so it could never have reported a fault. It now reads
-ES9039_SRC_BCK_WS_FAIL from the correct byte. The other status controls use
-their defines already.
+[ ... ]
 
-> This means that if MCLK is specified but syncronous we'll reject things
-> that could be supported, that doesn't seem ideal.  We should have some
-> mechanism for specifying if the clock is actually async.
+> @@ -1108,18 +1108,18 @@ static int es9039_setup_clocking(struct es9039q2m=
+_priv *priv,
+>  	ratio =3D priv->bclk_ratio ? priv->bclk_ratio : 64;
+> =20
+>  	if (!priv->mclk_fixed) {
+>  		/*
+>  		 * 256 * FS is the usual choice and clears both the 128 and 130
+>  		 * floors with room to spare. Take whatever the clock actually
+>  		 * settles on rather than assuming the request was honoured.
+>  		 */
+>  		ret =3D clk_set_rate(priv->mclk, 256 * rate);
+>  		if (ret)
+>  			return ret;
 
-> That seems odd - usually an ASRC is a workaround for mismatched clocks,
-> not a goal.  It is very common for the CODEC to drive clocks on the
-> audio bus from a high quality MCLK.
+[Severity: High]
+For high sample rates like 768kHz (which the driver advertises support for),
+will this request a clock rate of 196.6 MHz?
 
-> As per the above comments on driving the clocks from the CODEC it'd be
-> pretty standard to use clk_set_rate() to configure the MCLK to be a
-> suitable multiple of the sample rate and get everything nice and
-> synchronous.
+The ES9039Q2M maximum MCLK is documented as 50 MHz. Should this limit the
+requested clock multiplier based on the sample rate so it doesn't violate
+the physical limits of the chip?
 
-Taking these three together, because they were one mistake: I had written a
-board policy into the driver. v2:
+> =20
+>  		priv->mclk_rate =3D clk_get_rate(priv->mclk);
+>  	}
+> =20
+>  	if (es9039_is_sync(priv))
+>  		min_mult =3D ES9039_SYNC_MIN_MCLK_FS;
+>  	else
+>  		min_mult =3D ES9039_ASYNC_MIN_MCLK_FS;
+> =20
+>  	if (priv->mclk_rate < min_mult * rate) {
+>  		dev_err(dai->dev,
 
- - accepts SND_SOC_DAIFMT_CBP_CFP and programs PCM_MASTER_MODE, with
-   MASTER_BCK_DIV computed from MCLK and the frame size. The part drives
-   both clocks or neither, so CBP_CFC and CBC_CFP are still rejected.
+[Severity: High]
+If the clock provider safely clamps the requested clock to the 50 MHz limit
+for a 768kHz stream, will this check unconditionally fail?
 
- - calls clk_set_rate() for 256 * FS in hw_params() when the clock can be
-   retuned, and uses the rate the clock actually settles on.
+The 768kHz rate requires 64FS mode (which is handled later in
+es9039q2m_hw_params()), but min_mult here is hardcoded to 128 or 130, meani=
+ng
+50M < 128 * 768k. Could this prevent 768kHz streams from being played at al=
+l?
 
- - derives synchronous rather than being told it: the part is synchronous
-   when it drives the clocks, or when MCLK could be retuned to suit the
-   rate. Only a fixed oscillator feeding a consumer-mode part is genuinely
-   asynchronous. That is detected at probe by asking clk_round_rate() for a
-   different rate and seeing whether the clock offers one.
-
- - applies the datasheet's two floors rather than one: MCLK >= 128 * FS
-   synchronous, >= 130 * FS asynchronous (Table 7, note 1). That difference
-   is not academic - with a 24.576 MHz clock, 128 * FS makes 192 kHz exactly
-   legal while 130 * FS caps at 189 kHz, so v1 was refusing a rate that
-   works.
-
-The startup() constraint now only applies when the clock is genuinely fixed;
-with a retunable one hw_params() raises MCLK and fails cleanly if it cannot.
-
-For context rather than argument: the board I wrote this on feeds the part a
-fixed 24.576 MHz oscillator and runs it as a clock consumer, which is why I
-had the async case in front of me and the synchronous one not. That is a
-board choice and it stays in the board's DT, not in the driver.
-
-> This is shared with the user visible mute control, they're going to
-> fight and be buggy.  The register needs to be owned by one of them or
-> they need to coordinate.
-
-Fixed. Both now record what they want in the driver and the register is
-written from the union, so a user unmute cannot unmute a stopped stream and
-a stream start cannot override a user mute. The control reports the user's
-own setting rather than the register, since the register also carries the
-stream mute.
-
-v2 is on the list, with all of the above on hardware:
-
-  https://lore.kernel.org/r/20260821043859.171871-1-karl@asseily.com
-
-Thanks for the review.
-
-Karl
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821043859.1718=
+71-1-karl@asseily.com?part=3D3
