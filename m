@@ -1,64 +1,65 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E619314A98
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 21:11:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 253C93BE652
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 21:11:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787346676; cv=none; b=L+9p4MYRMy9Yi/u5NDrBtlF8RZRU+n3HpS5gQ0nwSCnuMXVC9byiK5SzEfPc6vCfL9wr9YVPoklI1IzKNRDDlXRhstBaYlUsEV0Zm8SecIZMS0EfmWhKDr24KaWZJsjTKMNktRwtmJ3u6/I8Ro5D/Z/SH+yQi+mc/sx66Y6/1IA=
+	t=1787346683; cv=none; b=pGX8N3m27a0YiltpLdWMZGoo3xqEEQ9qkZdATvjdkmM+aqqK9evbd+BIUj4tHDKFUQGYKa5nK420tbPE+XvzPoxY09GBHBn2WhFp6WXPviAT7LwhJXuoWfNeiZCvzMH8NvRyGtPXiMOxMAbXMt4vTBNpD/DcMXi+gWN5T/dmvJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787346676; c=relaxed/simple;
-	bh=2otbn34nfGVAQWDoW3kygwVPRAZNy6bTzKDAgEDbuA4=;
+	s=arc-20240116; t=1787346683; c=relaxed/simple;
+	bh=4qPzU1qyixVbSt/2x/vRlwNrYljQ8mnf/LV2SZCpJyg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PTsm3HAg2fOuyci3j9H7izjPsjzrp+A4hDpxRYqITuhRGRf/ITl2+niYCmlcLP9qKnJSJJFe3LGgrwvA1oKh8aQRMIn1o2IlCp6dHjNeCz+h3pSDxtO9MZPr0YufkJ48bM2H+/i/CuVBuSz2g8/etqAJhig6SvuIidyPg0nkCvY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=owohuVT+; arc=none smtp.client-ip=209.85.214.170
+	 MIME-Version; b=o+VfxRDJOo4AXUXWb8mANt8ZkRxTq0ZHp597VRxuhXA2oZI9PSzxQW/s7OP/NWYpNIhtD5Duezv8PnSwzi+tEHQzKRSAQ1p3aiEBYBsvrX/BQcx6pBnmMtuTJUgLRsXKUUsZPAvWBJ7rczZXlmxVw0v8kcQZ6HHWFbaJRRAe1TI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s5zR8mai; arc=none smtp.client-ip=209.85.214.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="owohuVT+"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d01663d816so13370315ad.1
-        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 14:11:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s5zR8mai"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d53197d8b5so15668715ad.3
+        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 14:11:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787346674; x=1787951474; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787346680; x=1787951480; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9sCsIOnwlsCxJXPIRVBkV12bzXwBoxzZvCo61RvGv4w=;
-        b=owohuVT+66KwR1dYuxvUunOIPP6jS6bnC6CHQ7uCrTSeKG5pGd9NBkEmGvaeOoIn0x
-         EQw85R1sLBzPBd6EvlaLsOaQPQER+2tn6pexbWokjSRINw6qC7DgVUSh59svgwWZC4Iw
-         gfT2/ENf5OZB8oK4hCqCGhNw/M0/f3Zn3UKUBIK+1VkcG7+s5QNnpLSj0ScqPuNl4XRx
-         8HAhP1KMMw8ctALf65FC8/M8/cNgAK8ws0rgNRaiDVINCzTFad1ocdL8NOOdfGCGvdDC
-         dZqhIVi1jUvoMkx2ZFYX/dV7Vb3Nni1okAnVUN9rn0HyFfKFe+X6Ni0d/b9SIB2+Rjty
-         vRPQ==
+        bh=yn9Flz79IoiVRVBjWq6xrtU5CbtD7DazplXOHiCs9RY=;
+        b=s5zR8maipP+0MMv0lyPDQXbcWWrvQokpqP8HaTs8t8mlphvkOyTK4h+9XnHnkguFXc
+         dD0zrMCz5FyKGsYywOnPcAdTgvkux1rDDegMEKC80p3Sil0DO6ua1YPdXqyGYDuyDXQR
+         N1OJx4Z+F9N3kDbb8c39LGhbbO1bV9oxhVKYLaqK4cmPBMmmKdrrGcqhRefhmWrPXS1U
+         7FcVURB1jj2rki6XnDM/wUa9C5mkkXWHOrl9z9c17HiQQPeyU6UcycfjAjtDOQYHPUI2
+         mMLJ2+RC1i6AnQ0Wvk0piwlS66vZnRJEMvA996XFQV5zj1Aqua7cLgiYnG0sG9J6QSrJ
+         cbjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787346674; x=1787951474;
+        d=1e100.net; s=20251104; t=1787346680; x=1787951480;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9sCsIOnwlsCxJXPIRVBkV12bzXwBoxzZvCo61RvGv4w=;
-        b=JTGzYbWjeiNI/y/iBGZetYVHoSGkjFjtDjxTJ9IEJKPQ0iyi1HJu51Q8sLJdcHrQbq
-         RVoAsXlxUUC0pMMjrSRiCnKr+Zr6pB8X8aDSMa6IeIrRKL4f72hk7Ik2+kjIeoLZssZf
-         6D1JKzbRVYtsfpvfM01QigLtkDGdkLuZJqkpgNiAlx5wbhsTX3Z3PpPV+y7dXFD+N8/6
-         +n4ULcNSWWm+ZCL+O3o3oa9dmJFc8xFtpKzmmHvg9+F5DQ8WQVmY0Je5YIKZaZj16kmI
-         jivuwi1XoaiDMt3oxzozJjFXunrqsATcTYirAItLwWV9MDhH6edgzFBdBiDdgpeOhY+Y
-         ai5w==
-X-Forwarded-Encrypted: i=1; AHgh+RpAvNjSLFWRuaH584oD8Z/k1+n6v6Ie/xmmEfhLZ5vx/paBMW8gTo0Uqs38ji6iq4fVIr9YLKv2huD0@vger.kernel.org
-X-Gm-Message-State: AFuF++kdDlVGVeRA3e2X9yoS+0DdxHnyIwIYR0ZLjm02/n2wC4hi/R17
-	vvASerGX0wcYfMTwBmQrEUECystqProAMxMclpH67qE9TVF4aB/0Cpr2
-X-Gm-Gg: AR+sD12YVq1qgWxYqK1acvIVBh54D8YKOAK7zeotF+ivxlZyMK8v96v4DkUnFcDIlmI
-	RgOX7CSfA6VhJL3nJcWsGS7UZDhl2JVNVxxZ+0CFjMd7JlJ9QsKkvj4c2rZBgbh3y3vpQRaVfxW
-	ZOkFyTQOQLBDvmJr7G+Ij1aQ8Tv5VFH+tqSG6qdk154CCn5AG/SrmCVY7NZnjAFwzSIXDCpO5sM
-	8pFtxK/f7StDgvN4qsQDdXceBV1UF7TQwa4oHkHb7GzbDrd+B9BeACVjH3lQ2XAiT/+BDPL9qor
-	klWCvwahlfAopy7cyPxFFXcKqY7k0Svy2zVHuyxWDZO9/scdEUDzCIr3HakFAnmn3T2h/rWyG5Z
-	r2Y3DbbChgK4Gc/E3FOC5JcQi4kI4WqXu0QZDAWtsX5HSXbJBSKIJPFT7HFwnZ29vhnEHD2PQW7
-	tJTBt/rG82I1hYuO6VLmEvNhfGgybCPtD1yHrHdVR/7Hwisfbn/LlWC8Sxu4CEqqNLtuO5xZ1Ss
-	uxUpQrpNQEuiajK9DoOd32qQDYAB4m/gvI+pnEOdx79UP6u8ydzCRW0YG2OLCS8CngI2FDt
-X-Received: by 2002:a17:90b:2c87:b0:392:7f74:58c9 with SMTP id 98e67ed59e1d1-395c3a43766mr18539447a91.15.1787346673939;
-        Fri, 21 Aug 2026 14:11:13 -0700 (PDT)
+        bh=yn9Flz79IoiVRVBjWq6xrtU5CbtD7DazplXOHiCs9RY=;
+        b=qpQL1hh/GMLuyskz6P1pmH07PzL0ZXKSNoTSBOQRcRhbauSQv8OaGygRqMbvspZ/Ik
+         Jkcd8EXky7G2Z1AWQH8KbC/+j5hCPc08BDnufCgZ4tjFaLVqDT8sMLIppflQf73G6Y1a
+         r1HmOKi4sCjOZUMeZnVDQhu99nx3WiM0f8fhkZdNJIWkwehZMCTcwrfXo/7S8y8Ab98s
+         /RJwFjvDvEkwrH2Ce6cIKBvzg3y+SbmJEV7kwQ6B8f2ZX/3ZegOGlf1owMa8LJ/yqWwD
+         XGlS5dmVNTkJ11E7qnyqTiqPOKC+QDf90ds43mN7u5E7W9lUm+5Zie2pEnp+Y0TEp8p5
+         T0Kg==
+X-Forwarded-Encrypted: i=1; AHgh+RqErWZzbVoLVbcQjfK2zFUL0XixibONKDiwI197zGjvF6Ufo0WtVkorZwJST4UJqU+Yi/uzEqZ4UWfl@vger.kernel.org
+X-Gm-Message-State: AFuF++kPc5xBZbg6X2bGtmxtGGYMtN/tUOrbnDWhfuaFNAF9Q7zR+KRI
+	HAoofw7aV0Q/odN7gAv+SJDg4kwszKyet2/EzmpDKJPP1p/cjCOesO+I
+X-Gm-Gg: AR+sD11/tJRTrYhYKQ/yEJ0pc45RSMJS4BwWaCev7Q4fgr/HwecG7DeNiF2y6E8v4z/
+	rPNUY/NUcbD3bGAtDBmsTHHILMMybL1FrwyaaHd+tyBv+403VAJx4rvt2Gs1oFfKOGWLSMMclfH
+	xB/2royU2j7Qjh4kOvRyIYCOrwyrrXyZTP5PEw9eDIEqIsHn0cpRbWHD1u1jqm2VGUNZb4tcg56
+	3UHY6GusIAv0dS3QMkQeXdLmQGtecalF4uE885QxiBBhnUldA2Ox6OdUMAXoQu/qZWasy8zn7fd
+	dWgNag/uC79+1FbqT2v9+7036jSKiZT+7DTkPXF2vDE1RkVWGSs1IEwoS9uG7rZXAMfuhPGDAmX
+	+P5uYPIqjaM8jGv3ZCZ9yd//YlpwL6GEZrotUMnvg4TPWKJlgPhyKqdq1f2a0QBY9+9j6cAW87n
+	kAiPVBMhUJv2qivtM7v5Ew1RdK2jhtiQ1AFiIE4gthNAGWW9hlYm1lZdIj/5d/maeh3KnCbOOG5
+	l0NFLnzbpRQHhkTn0LOaOpXX5Z+2wBjyPU2BNGWiGstEl6gTJlKqwXjGB/dGmSFR6uaPRR/wiIW
+	QCWqxkJdHj4g
+X-Received: by 2002:a17:903:354b:b0:2d3:2e86:647a with SMTP id d9443c01a7336-2d64af6f896mr181704325ad.5.1787346680507;
+        Fri, 21 Aug 2026 14:11:20 -0700 (PDT)
 Received: from iku.. ([2401:4900:1c07:194c:dba4:ea1e:d7d1:affe])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bf175399sm49755257eec.26.2026.08.21.14.11.07
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bf175399sm49755257eec.26.2026.08.21.14.11.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 21 Aug 2026 14:11:13 -0700 (PDT)
+        Fri, 21 Aug 2026 14:11:19 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
@@ -76,11 +77,10 @@ Cc: linux-rtc@vger.kernel.org,
 	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
 	Biju Das <biju.das.jz@bp.renesas.com>,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v6 04/17] rtc: rzn1: Handle unset alarm weekday in rzn1_rtc_read_alarm
-Date: Fri, 21 Aug 2026 22:10:19 +0100
-Message-ID: <20260821211032.13554-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v6 05/17] rtc: rzn1: Fix alarm range check truncation on 32-bit systems
+Date: Fri, 21 Aug 2026 22:10:20 +0100
+Message-ID: <20260821211032.13554-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260821211032.13554-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 References: <20260821211032.13554-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
@@ -94,77 +94,60 @@ Content-Transfer-Encoding: 8bit
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-RZN1_RTC_ALW is a weekday bitmask where bit N represents weekday N.
-When no alarm has been configured, the register has its power-on-reset
-value of zero.
+alarm and farest were declared as unsigned long, but
+rtc_tm_to_time64() returns time64_t (s64). On 32-bit systems where
+unsigned long is 32 bits, the assignment silently truncates the upper
+32 bits of the timestamp.
 
-rzn1_rtc_read_alarm() uses fls() to convert the weekday bitmask into a
-weekday number. When RZN1_RTC_ALW is zero, fls(0) returns zero and
-fls(wday) - 1 evaluates to -1. This invalid weekday is then used to
-calculate the alarm date and can either leave tm_wday set to -1 or
-produce a fabricated alarm date.
+Fix by declaring alarm and farest as time64_t and replacing
+time_after() with a direct signed comparison, which is correct for
+time64_t values that will never realistically overflow.
 
-Treat a zero RZN1_RTC_ALW value as an unset alarm weekday and return
-without calculating the alarm date. Move reading RZN1_RTC_CTL1 before
-this check so that alrm->enabled is updated for both configured and
-unconfigured alarms.
-
-Fixes: b5ad1bf00d2c4 ("rtc: rzn1: Add alarm support")
-Cc: stable@vger.kernel.org
 Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 ---
 v5->v6:
-- Dropped the output log from commit message.
-- Added Reviewed-by and Tested-by tags from Wolfram.
+- No changes.
 
 v4->v5:
-- New patch
+- Added Tested-by tag from Wolfram.
+
+v3->v4:
+- Added Reviewed-by tag from Wolfram.
+
+v2->v3:
+- No changes.
+
+v1->v2:
+- Added Reviewed-by tag.
 ---
- drivers/rtc/rtc-rzn1.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+ drivers/rtc/rtc-rzn1.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/rtc/rtc-rzn1.c b/drivers/rtc/rtc-rzn1.c
-index 56284a4320ae..d4cba0d415b6 100644
+index d4cba0d415b6..f3268655fd37 100644
 --- a/drivers/rtc/rtc-rzn1.c
 +++ b/drivers/rtc/rtc-rzn1.c
-@@ -235,13 +235,24 @@ static int rzn1_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alrm)
- 	if (ret)
- 		return ret;
+@@ -268,7 +268,7 @@ static int rzn1_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alrm)
+ {
+ 	struct rzn1_rtc *rtc = dev_get_drvdata(dev);
+ 	struct rtc_time *tm = &alrm->time, tm_now;
+-	unsigned long alarm, farest;
++	time64_t alarm, farest;
+ 	int ret;
  
-+	ctl1 = readl(rtc->base + RZN1_RTC_CTL1);
-+	alrm->enabled = !!(ctl1 & (RZN1_RTC_CTL1_ALME | RZN1_RTC_CTL1_1SE));
-+
- 	min = readl(rtc->base + RZN1_RTC_ALM);
- 	hour = readl(rtc->base + RZN1_RTC_ALH);
--	wday = readl(rtc->base + RZN1_RTC_ALW);
+ 	ret = rzn1_rtc_read_time(dev, &tm_now);
+@@ -278,7 +278,7 @@ static int rzn1_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alrm)
+ 	/* We cannot set alarms more than one week ahead */
+ 	farest = rtc_tm_to_time64(&tm_now) + rtc->rtcdev->alarm_offset_max;
+ 	alarm = rtc_tm_to_time64(tm);
+-	if (time_after(alarm, farest))
++	if (alarm > farest)
+ 		return -ERANGE;
  
- 	tm->tm_sec = 0;
- 	tm->tm_min = bcd2bin(min);
- 	tm->tm_hour = bcd2bin(hour);
-+
-+	/*
-+	 * If wday is zero, no bit is set in RZN1_RTC_ALW. This is the
-+	 * register's power-on reset value.
-+	 */
-+	wday = readl(rtc->base + RZN1_RTC_ALW);
-+	if (!wday)
-+		return 0;
-+
- 	delta_days = ((fls(wday) - 1) - tm->tm_wday + 7) % 7;
- 	tm->tm_wday = fls(wday) - 1;
- 
-@@ -250,9 +261,6 @@ static int rzn1_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alrm)
- 		rtc_time64_to_tm(alarm, tm);
- 	}
- 
--	ctl1 = readl(rtc->base + RZN1_RTC_CTL1);
--	alrm->enabled = !!(ctl1 & (RZN1_RTC_CTL1_ALME | RZN1_RTC_CTL1_1SE));
--
- 	return 0;
- }
- 
+ 	writel(bin2bcd(tm->tm_min), rtc->base + RZN1_RTC_ALM);
 -- 
 2.43.0
 
