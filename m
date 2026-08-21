@@ -1,128 +1,136 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B7DD499F2B
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 13:58:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ABB2499F0E
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 13:58:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787320694; cv=none; b=VWyQrPM9Q5ICRD54A8xONp2mAKrgioGyxiHEHnP9ogWPRNa0dFxij+LIVT3eY2fBSHn9YXMTppPb2Q573SWF8Wo8GbShGvPw2ugucJX8AKOZQUrSHoa/7E2cNOI62x+ni1GbLpuT6o3z/ufIqoMZA39BNk+ZNeY+teyhwtapiqY=
+	t=1787320699; cv=none; b=fqq6QknKb2+prGsyrH011aM9KcknusTKTDBt1WmBwwULBC17ZmkFK3BJb6gCx3/vfbt7TVf86LRTT4PBrMrdMaSbW3ts/oVQP+GyzFqjHFZKfxPHpLsaiP5xjCWDz/DFZrSZ5YsNLPZd3tWFh+kHCv1dxyYbS7UEFZZqJrJ2m3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787320694; c=relaxed/simple;
-	bh=04GCmteGIux4olAHeskFAacFufwWGnwkFW1GWc2dsNk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sxJ3WRd8r+2jkxMkGaMg6jSVaTsT8MNCqsynZ0f64V89cYpH2KhgAQetLS9PwD/7/d/x/d1y+gTygWn06G3qBc89dNdN6xoanC6LheZPqFESPShD1HGoLlSqvlFG1yQIgTXvtzS92zrMlUd4w9eWK/7KiU0hpvfEl201d8OmHCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gk3YzsBB; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787320699; c=relaxed/simple;
+	bh=3U8J7HMMLE1EZZfZ4k0UixVcadC/oYhD2fVsc+CE9CI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=WRBgK0ympCEN3buEoREu9Todx7dObk4Nhiib2qm2M18LNw20yjZ8797dqLk2HiZ5ej8jwh8jliUZ8EYl8tMRe5N2P5RAcnPwzfadKtR7GInmnZZzaJd46RqLH4rKx5gdgUnJupMINDOFYNnyLJKRxVHGr6m6gMrUjnC93sThilA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lWan1o/g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gk3YzsBB"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38e3efab7e0so703004a91.0
-        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 06:58:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787320692; x=1787925492; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NwGs2ndQ+fjxjLIqK9oi+yaLvoYinheEb0GyyG+r0eg=;
-        b=gk3YzsBBhccMwhwaXya8roFyFS0OtV07f62bDiN6vdNaXwW1vJ7afYyYqHlR5ode1x
-         5xdGMT8w7dO1Wl/B8lZYB6x7ro0LLkesFhMLP5rGKB+3VO2EQy96PFk3G7DrCeJ5rkMK
-         f/8T4AZ3wOCFoGXIBjl+zrsfRHEmyX9aoEU11yB4b+SLVUsL8XtBx8LbNZYsadJ787ij
-         ffwHCodjlbhz/eMsr5ds4ZUoBlTR3ZEQA86IS4a4b8tXDboGfEF8EpX8YULfPDKEuhPa
-         2ZpPJxnog6voiJOnozWyMYCKV91EOjvQsH0fk+QljJMXdMpxdwPucEG5uqggs4CVYwaE
-         UUSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787320692; x=1787925492;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NwGs2ndQ+fjxjLIqK9oi+yaLvoYinheEb0GyyG+r0eg=;
-        b=Ss/x8p7kIGH5G/1VaxdYDdTNCrFbACQpnC0+ap3JcRa9GblT5pA5v6z2GBwqDG+3i6
-         NRAqfAbN8ZtKhczz+ZWKeQivaMXyJUDla+t+sJDALuqb/ed7hWiuGHXq2x9UV4MmxB5c
-         IeMcGzy203SYXpiF8sL00gon95KXiH3B98eHAJJD72B2f9p5c/F1h5ZmKkns0N6/D5xK
-         hv0sDoiVP+K7TCKeoFytfghXSvQRC1NPJPxueww/0r/7FoHtKFywGr3O8ZGVfSN4IDY8
-         YO+VM0Iuvjav0IgrmG/U8yNmKrdKu0FDaIBqk4ZneoKWBfBQeXR0hJtdk2K5QBEQ2v8j
-         Td9A==
-X-Forwarded-Encrypted: i=1; AHgh+RrZt5rfKYp4LWeasLqSDbaeNpCjxEHC+UfNCuOPzN3YbHqZsbUp7yMkqj3waBO1TSE+9Q53En9swK2S@vger.kernel.org
-X-Gm-Message-State: AFuF++mgbjsUbrVtojN524JQQrP/DcuzUAWbbSnwzI0Ud/M5Eo38ZiVU
-	09qXjon5YlWxLijY+L9yh+YVasBvGh2Mf17+YNYD/F6mQ/K+dbTfyM1Q
-X-Gm-Gg: AR+sD13+sLS+wO6romkSbZTb4+7iNCOWtHkFGhOfUVgl2G0NYXRA9B6xzJa6eS2bmSw
-	x9JFZtynWrcAuwlL7ejMbaJs6WxcRVzSSVW3cByLyLIV419JrQks7QowH8fQr+GbzuA7NoEMoUT
-	Ei7ASEGUnJJlc2YrDFgJxMUUSy/RR4sV788MigW4/TMGqwsDYquRfFtdL5fNZzfnws2OS0Oqomr
-	CLf9j7o82DrPBNmGkxoxv8mDNyoE7W2rhEeNg1Vxze12IubmkYYJkWkcGqDbvwyNP+jMDh/F5MQ
-	eEC5+ZDZCKHTXHDOFTQJj44oRQyXbgcK/ZBFCyWeKXcO/K368N/4QX9nORjcqcLwh1Vq7TTac0O
-	IFbAgi+FWoerZAYafpgCh0B8aJT9CskTsl+qwb7YS4KWHRNLGT85vu5F8GQ7IwGdS2MiOca3y6u
-	Mi2+PVT9ItkRneiJmj+tPUDD/5Dhu3ulkmBDxdkmrBkHXOTG430mGd1FZAgFIYf2rY1xcC/RaHS
-	VI7RcmAFN1MHYoyLTULGA559wV3vBNgb+AMayIQQtDWs3VtBKFnUO5ZSrfK2UDHefsnyQDSfb6P
-	5OnlCHlr3g==
-X-Received: by 2002:a17:90b:2d0b:b0:38e:9784:dd47 with SMTP id 98e67ed59e1d1-395a044f2c1mr18208312a91.1.1787320692568;
-        Fri, 21 Aug 2026 06:58:12 -0700 (PDT)
-Received: from iku.example.org ([2401:4900:1c07:efb3:773c:1c8c:24ea:eff6])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327d01ff056sm19972277eec.19.2026.08.21.06.58.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 21 Aug 2026 06:58:12 -0700 (PDT)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: linux-rtc@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v5 16/17] rtc: rzn1: Drop trailing comma from OF match table sentinel
-Date: Fri, 21 Aug 2026 14:56:07 +0100
-Message-ID: <20260821135608.275233-17-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260821135608.275233-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260821135608.275233-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lWan1o/g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84A591F000E9;
+	Fri, 21 Aug 2026 13:58:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787320697;
+	bh=8RwJtKUzfWDycsUBvjF7PlDEQQb3jNLsT4BHRbuUlUA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=lWan1o/gtOYGkfHeWdmWSJqB6HtCFJ+MDpxUJNuAUYzizRtehi4pppiw7mWgjnN/U
+	 O9BIftFaj3DFko1XuokwJvq5p+eMW8mqg1+2zr91wAqJuOiKWAWo3GqOZaqrGlby4w
+	 J1D2cSoRC3QG4IvDuOw+9BeiBpOIkk2DDrQ7a5RY9tuwC1PyQQ4NE3cCCd5bzNdOPK
+	 1NX6x+wWpKc8NjBaqVJhhgAqw2unnq15PpSrKD6Ex6zO8avdI07Rxqtp1JOzNh2LXU
+	 9JIYcWwFPNWSv4SZRKJtITfBdTWnvIB9tXvq+aG1+6MS4AgCMa5oNsY+0WoFY3+1na
+	 iTTIJ6xfT1seA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 14/18] spi: cadence-quadspi: reprogram PHY DLL on
+ runtime resume
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Santhosh Kumar K" <s-k6@ti.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, "Takahiro Kuwano" <takahiro.kuwano@infineon.com>, "Pratyush
+ Yadav" <pratyush@kernel.org>, "Michael Walle" <mwalle@kernel.org>, "Miquel
+ Raynal" <miquel.raynal@bootlin.com>, devicetree@vger.kernel.org, "Richard
+ Weinberger" <richard@nod.at>, "Vignesh Raghavendra" <vigneshr@ti.com>
+In-Reply-To: <20260821114822.4040338-15-s-k6@ti.com>
+References: <20260821114822.4040338-1-s-k6@ti.com>
+ <20260821114822.4040338-15-s-k6@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 21 Aug 2026 13:58:17 +0000
+Message-Id: <20260821135817.84A591F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Missing fallback to non-PHY mode when DLL resync fails during resu=
+me, breaking subsequent SPI transfers and causing silent data corruption.
+--
 
-Drop the trailing comma from the final empty entry in the RZN1 RTC OF
-match table and mark it explicitly as the sentinel.
+--- Patch [14]: [PATCH v8 14/18] spi: cadence-quadspi: reprogram PHY DLL on=
+ runtime resume ---
+commit d9e9d29f6693cbe5e675d990e2acc004b9dd86eb
+Author: Santhosh Kumar K <s-k6@ti.com>
 
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
----
-v4->v5:
-- Added Reviewed-by and Tested-by tag from Wolfram.
+spi: cadence-quadspi: reprogram PHY DLL on runtime resume
 
-v3->v4:
-- New patch
----
- drivers/rtc/rtc-rzn1.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This commit reprograms the PHY DLL and relocks it during runtime resume
+for all calibrated chip selects. It treats a DLL resync failure as a
+non-fatal warning so the system can theoretically degrade to non-PHY speed
+without blocking the resume path.
 
-diff --git a/drivers/rtc/rtc-rzn1.c b/drivers/rtc/rtc-rzn1.c
-index 35770bff129f..75713e7b045b 100644
---- a/drivers/rtc/rtc-rzn1.c
-+++ b/drivers/rtc/rtc-rzn1.c
-@@ -528,7 +528,7 @@ static const struct rzn1_rtc_data rzn1_rtc_rzn1_data = {
- 
- static const struct of_device_id rzn1_rtc_of_match[] = {
- 	{ .compatible	= "renesas,rzn1-rtc", .data = &rzn1_rtc_rzn1_data },
--	{},
-+	{}
- };
- MODULE_DEVICE_TABLE(of, rzn1_rtc_of_match);
- 
--- 
-2.43.0
+> diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-=
+quadspi.c
+> index d4181b501d8df..c78d4ce1c930a 100644
+> --- a/drivers/spi/spi-cadence-quadspi.c
+> +++ b/drivers/spi/spi-cadence-quadspi.c
 
+[ ... ]
+
+> @@ -4030,6 +4030,23 @@ static int cqspi_runtime_resume(struct device *dev)
+> =20
+>  	cqspi->current_cs =3D -1;
+>  	cqspi->sclk =3D 0;
+> +
+> +	for (cs =3D 0; cs < CQSPI_MAX_CHIPSELECT; cs++) {
+> +		struct cqspi_flash_pdata *f_pdata =3D &cqspi->f_pdata[cs];
+> +
+> +		if (!f_pdata->use_tuned_phy)
+> +			continue;
+> +
+> +		cqspi_phy_set_dll_master(cqspi);
+> +
+> +		cqspi_set_dll(cqspi->iobase, f_pdata->phy_setting.rx,
+> +			      f_pdata->phy_setting.tx);
+> +		ret =3D cqspi_resync_dll(cqspi);
+> +		if (ret)
+> +			dev_warn(dev, "cs%d: PHY DLL resync failed on resume: %d\n",
+> +				 cs, ret);
+[Severity: High]
+If cqspi_resync_dll() fails, should this also set f_pdata->use_tuned_phy
+to false?
+
+The commit message mentions that on failure the system degrades to non-PHY
+speed, but without explicitly disabling use_tuned_phy, subsequent transfers
+will still attempt to use the PHY.
+
+Because cqspi_set_dll() updates the CQSPI_REG_PHY_CONFIG register, the
+global hardware state now matches f_pdata->phy_setting. During the next
+transfer, cqspi_tune_phy() will see that the hardware registers match the
+desired values and bypass its own cqspi_resync_dll() call:
+
+drivers/spi/spi-cadence-quadspi.c:cqspi_tune_phy() {
+    ...
+	reg =3D readl(reg_base + CQSPI_REG_PHY_CONFIG);
+	if (((reg >> CQSPI_REG_PHY_CONFIG_RX_DEL_LSB) &
+	     CQSPI_REG_PHY_CONFIG_RX_DEL_MASK) !=3D f_pdata->phy_setting.rx ||
+	    ((reg >> CQSPI_REG_PHY_CONFIG_TX_DEL_LSB) &
+	     CQSPI_REG_PHY_CONFIG_TX_DEL_MASK) !=3D f_pdata->phy_setting.tx) {
+		cqspi_set_dll(reg_base, f_pdata->phy_setting.rx,
+			      f_pdata->phy_setting.tx);
+		ret =3D cqspi_resync_dll(cqspi);
+		if (ret)
+			return ret;
+	}
+    ...
+}
+
+Could this cause cqspi_tune_phy() to incorrectly proceed and enable the PHY
+with an unlocked DLL, leading to data corruption?
+
+> +	}
+> +
+>  	return 0;
+>  }
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821114822.4040=
+338-1-s-k6@ti.com?part=3D14
