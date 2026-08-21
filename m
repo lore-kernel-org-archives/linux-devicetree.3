@@ -1,116 +1,156 @@
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC83733B97D
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 13:39:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787319590; cv=pass; b=L+Nxusmtt9KS+UllTXwtw7ukcpDpFrKGwHCfj/hl5GqtHlbG3yN3IUNB+3z1vPsexHhTlj0kVsA5mvJfbAIN2f68zPXmg0RnN9kEp0OSqfNhtVCp9MkTC0IVkz3LxJbm+YK5e+n15DZ7T2VB89l4fUE/PkUBnYE3zDKaRHJVu7c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787319590; c=relaxed/simple;
-	bh=t+HdcbZ+oYnxqa233Sx9hBRsHHzyCOKwYq7ffek24z0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Qtf29edslaXMGPBMF0z4SsnhwOJm5H9Z908umxSqMTWadElsCDnIGTZp8/tz5DzcmB0s9iIkTUXxb0HkQ7S+j8Cwbeo5uZnovDiSVs3yB6X/lHqfeueY/uf3YxNQqERHQcB6xVjLisWnfCmztugA4Cn597aTWnBHa3VS2pd3I5Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=asseily.com; spf=pass smtp.mailfrom=asseily.com; dkim=pass (2048-bit key) header.d=asseily.com header.i=@asseily.com header.b=j1D2Kkqq; arc=pass smtp.client-ip=209.85.128.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=asseily.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asseily.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 474DD494819
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 13:43:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787319794; cv=none; b=gD9+Z9LwvOYN/e1G0Q2oWjtpkTTJkqP8Lzz26UrA5syvlVisvngmwwbqGNgwcnepQ0KIuMsRNq4dnBsIW1EJVSUsYLcH4BouT+WVAALxLJGdD3AiP7Jk2dXpwaz1BxqsLhTTCx+gDEszAlpDh2E91FpJb9vSUAC0+k382HppYYc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787319794; c=relaxed/simple;
+	bh=KGL19xcHivd/EJwx/HD/B968rmne2qRowxX7KCtoXmo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=iqrOrWo5YyJz1ABJZrFv2lNXPwSny2aWenzbSb55XE3o5JHvfsJNYYom2M3e6p7kLxEJI7RDq9Y3OF5C1rmdKtWOqkFQxzYAlmnA6gQ3CU+mgB88yQJYdouSTR0MCHPFQML3KbWdEV8ou3ZskglqtZWIwLmsMHhe+OmkpGiq+Ig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S/xkuu5v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asseily.com header.i=@asseily.com header.b="j1D2Kkqq"
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8111c0c7561so15448197b3.3
-        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 06:39:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787319587; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RMB50T074nCqyWqJnX89tvCEn+IhZplF11x75sqg4FJHiJV+op/B+c7vZxfSQCcKuC
-         lfgvjfcQ+SQsKRYXs70Sx6yG1wLk4DSpI9P2y2qUnp/0jhiIvfq04EfLh4M+kmzXox1p
-         CrECAuUyq8FQE6FMFvxsNu+JD/Rbydrsm8hgjbRAhdthm//vVE2gNUhRjBbilmDHYBAF
-         zjdD12Tn08yyr1AkSw2TRWJhOIJ7qZM209911zNQiUQvP0zi3V+foZlLnGRZVLmzpOhH
-         s59r9DO7bxjmSFpVw5YOkMjqOV9NqanKXmMl81SMihh6HTBtzueZaonGfwcjOaeBzyl0
-         8/NQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=8fx9EwVxpWHXqzotlrMOOBGlJybxpxQagNiOTJaiuZk=;
-        fh=ciYQFzBU3IXbXz71SwhFPTNKiHmh3FBNsOxxbrPokbs=;
-        b=sULGqoF0WQhmRS5243IEPzk7UGq7xkOo6pPC0yGc3OlmNA+0aVSTgERaQXc1wYsFaq
-         eg/Gw856n68xLtnhqIsPy7bEDn+ndbBgai6NplHuuyuEnIsytERcaKnj7lsSN3U20TKk
-         2LaHk37qryZrNh+ymqNOk/OERTTED2swsnsv80ASYAbHpCq4pmgHux9Sfpr15Sb00UUL
-         WxBGMqj0izqZWNB7XLOMZh7OWEWm7tqb2uCFqP/+w4ZnSiiPnrK3/C1JaVUbgdCYxI3Z
-         Z0gxvfwT8zsKqUOH31PfIhVde9+nG46evpzqonXjAG9zx4DOMph8Cbgg+Z6du2QpRDpx
-         +Q3g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asseily.com; s=google; t=1787319587; x=1787924387; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8fx9EwVxpWHXqzotlrMOOBGlJybxpxQagNiOTJaiuZk=;
-        b=j1D2KkqqXGfMq7L3EQXv5rbabkUl9ftzBa7kYoDJvP/uDlIJc/x3ZFReyu2oHAdjyM
-         PhLDC5ndnRo1hHv8lqkRxzrSNTXX27DTg9DiT3FmOyQk/JUqMLVjCTFlJEFZeMmwRhj9
-         sIJIbR/v9Ofd6PfxUUce2fOuoSQ4WURqX14e53XXzmdaLSg6dKGp4mnQdRMpef+CwlWT
-         k9ZLlQJBavnc23xS9Q0ctrukjS6gDwssOWqqMD31PY/KO5mhfHP/s2EU0pIztvOu1g4g
-         qVmzT/NjcbGJi7o6n2gweGmsnJftaoadHrUDYcZJSOcCup6wPsIPgokQjXMIATk7J0a7
-         HtgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787319587; x=1787924387;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=8fx9EwVxpWHXqzotlrMOOBGlJybxpxQagNiOTJaiuZk=;
-        b=Afh94FhAxlkx5yx7YB038ag+KkpUlwqNa4VxwbeAhY4pWtPdl5JLvpKZO+7uP1Saua
-         /IFbay71d4tpHuhwqmLwW1WxVJ4qmQ83O2zVx9cAMBCMD+mlRTRYS7e13kd/4408Zlmo
-         G280cnXqBFpIOqT651zA7XcuTKhHCI/kRLRRvR0/H0zLiSqIycXH44WaV9SwwJx1YIqm
-         MWRnYN6/GBbgN1Nr5L0YhIEVJ8c6nleb8AZwuajXH//XVWc/WDeGp4fHkDVDdw8pQyPk
-         SYWSRT+bzesoNCp60OB5y+3mf2a4qalf3QAQ5GBHOfnC5/ztGSibKl6T0Z0xO1HY2zuV
-         4QQw==
-X-Forwarded-Encrypted: i=1; AHgh+RoZaekIPYcToIfIJTbjLoQCpYgN3qM/fPRxuHVw3QCH29scPDX553MfXI2t86zakq0PngNp5skO2dqL@vger.kernel.org
-X-Gm-Message-State: AFuF++n1u8iOA6IcjjAR9srdAxC5mrMtNZ6qepZtdm3DivHCYE5mDfr3
-	bSf506hA+re1xkzgp2IKfkOBL1UB1gp65hoH0dSlLq740uNzfSAx7O7TjomhZ6W8GQaFbMxn3pQ
-	Uq0iedXCLZZ9teredJsYkx5yJQijNURvTPwInDoOrHA==
-X-Gm-Gg: AR+sD11u0Uwl+d5RfSczMIoO1XIr9CjWmoEn4+b8jIFhEaTZON8Dy4+e9An8hcxlQbz
-	5Bt+7k4ZqhHZ8vxkgqghazL+alSH0ZOjoY4GiTqBjRKMbHqkZjA8oVrTQr/zXFLx9oaSbHquhmP
-	Rs5c9JR5h9/+RPkM1+1oO9Wm5qPYREDTbrRXKJ74Gxw0W00eLHlHx7/9AnwSRTqO0ECeuMJEeng
-	z8/MbLkqlBM+Odu4rnx+2Y6RBka5WxCgEVEBUmouQ8Qd+KFmQ1f4w2708sAJ/p8Yo4ralRquNzz
-	gMHUBXZzYe7K3LNivzMv0wGhc+rExstqhGfGUJzVGBITJqyoYGcVhCUd07hsy2C7ePGIPouiwuF
-	2YfI=
-X-Received: by 2002:a05:690c:c61a:b0:809:fd83:a88b with SMTP id
- 00721157ae682-849f090e374mr21903827b3.3.1787319587532; Fri, 21 Aug 2026
- 06:39:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S/xkuu5v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 886C81F000E9;
+	Fri, 21 Aug 2026 13:43:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787319785;
+	bh=iyyLIHuEOXnshyuG4QL/dq5m5qA3/IGMMJ6DjTIxriY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=S/xkuu5vYbKPJkZgZqTIAGyRTtrmwt1SLwlPV8acpsYTNa6a8033exeItMcz2aEAn
+	 XnDbf1UU8c1A3hAc+2CryDpJ3a3+xZDWwmLWypwl5JrrTW4QugYcJ4SjySK6yMZEYu
+	 XMyB25WOyacfDzSohMYaWt86Qcb5uZvdiJeFRLHYMKXsZiOGZOlDhRCJ42GHelb+X0
+	 HwpUT2GoBmNFitrPJ4Dn2yRsipRz+MWU9CzlWDwcQxo0DH1sbq7lfCqdnJlcGADZCn
+	 5uAa5N25C26F/l4qD1G6zrCPkAln9QCP/S5DyzaihD9iI/9mzIhYzmwB7ESAwaS1VV
+	 QXG/J8I3qNVDA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 12/18] spi: cadence-quadspi: enable PHY for indirect
+ writes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Santhosh Kumar K" <s-k6@ti.com>
+Cc: "Richard Weinberger" <richard@nod.at>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Miquel
+ Raynal" <miquel.raynal@bootlin.com>, "Takahiro Kuwano" <takahiro.kuwano@infineon.com>, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, "Pratyush
+ Yadav" <pratyush@kernel.org>, "Michael Walle" <mwalle@kernel.org>
+In-Reply-To: <20260821114822.4040338-13-s-k6@ti.com>
+References: <20260821114822.4040338-1-s-k6@ti.com>
+ <20260821114822.4040338-13-s-k6@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 21 Aug 2026 13:43:04 +0000
+Message-Id: <20260821134304.886C81F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260821043859.171871-1-karl@asseily.com>
-In-Reply-To: <20260821043859.171871-1-karl@asseily.com>
-From: Karl Asseily <karl@asseily.com>
-Date: Fri, 21 Aug 2026 16:39:36 +0300
-X-Gm-Features: AcwNN1XnB_07CHskhgE2GtNqX7QkrB6ibl28GsQFbygwH8zOqjiTmcBWKkGttJQ
-Message-ID: <CA+gvwbomK1Vr4nXnFYa-g8PgVCisoQG8fJB_QpSHKU=GVDZa9A@mail.gmail.com>
-Subject: Re: [PATCH v2 0/4] ASoC: add ESS Technology ES9039Q2M codec driver
-To: Mark Brown <broonie@kernel.org>, lgirdwood@gmail.com, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, perex@perex.cz, tiwai@suse.com
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-Two problems in the clocking rework, both flagged by the Sashiko review
-bot on the devicetree side of this thread and both correct, so please do
-not apply the series as it stands.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] PHY is enabled for indirect writes without verifying the operation=
+'s actual frequency, causing PHY timing mismatch at lower frequencies.
+- [High] Ignoring the return value of `cqspi_wait_idle()` on the success pa=
+th leaves the PHY enabled if a timeout occurs.
+--
 
-  - es9039_setup_clocking() calls clk_set_rate() for 256 * FS
-    unconditionally. That is above the part's 50 MHz MCLK maximum for
-    anything over 192 kHz, and the rate clk_get_rate() returns is not
-    re-checked against it.
+--- Patch [12]: [PATCH v8 12/18] spi: cadence-quadspi: enable PHY for indir=
+ect writes ---
+commit 573d2ac8c7923def59b134920cd9dc6bde273f1c
+Author: Santhosh Kumar K <s-k6@ti.com>
 
-  - The 128 * FS floor is applied regardless of 64FS mode, which the
-    datasheet puts at 64 * FS. Since 128 * 768000 is 98.304 MHz, the
-    768 kHz advertised in SNDRV_PCM_RATE_8000_768000 cannot be reached
-    at all.
+spi: cadence-quadspi: enable PHY for indirect writes
 
-Both are fixed in my tree, along with the mute and DoP controls moving their
-shadow state before the I2C write rather than after it. I will hold v3
-until the binding has had a review rather than resending straight away.
+This commit enables PHY for indirect writes larger than a minimum length
+to amortize PHY enable/disable overhead. It threads post_config_max_speed_hz
+into the indirect write execution path and attempts to safely disable the
+PHY even if the write fails.
 
-Karl
+> diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-=
+quadspi.c
+> --- a/drivers/spi/spi-cadence-quadspi.c
+> +++ b/drivers/spi/spi-cadence-quadspi.c
+[ ... ]
+> @@ -1362,18 +1364,32 @@ static int cqspi_write_setup(struct cqspi_flash_p=
+data *f_pdata,
+> =20
+>  static int cqspi_indirect_write_execute(struct cqspi_flash_pdata *f_pdat=
+a,
+>  					loff_t to_addr, const u8 *txbuf,
+> -					const size_t n_tx)
+> +					const size_t n_tx,
+> +					u32 post_config_max_speed_hz)
+>  {
+>  	struct cqspi_st *cqspi =3D f_pdata->cqspi;
+>  	struct device *dev =3D &cqspi->pdev->dev;
+>  	void __iomem *reg_base =3D cqspi->iobase;
+>  	unsigned int remaining =3D n_tx;
+>  	unsigned int write_bytes;
+> +	bool use_tuned_phy_write;
+>  	int ret;
+> =20
+>  	if (!refcount_read(&cqspi->refcount))
+>  		return -ENODEV;
+> =20
+> +	/* Use PHY only for large writes at the calibrated rate */
+> +	use_tuned_phy_write =3D n_tx >=3D CQSPI_PHY_MIN_INDIRECT_WRITE_LEN &&
+> +			      f_pdata->use_tuned_phy &&
+> +			      f_pdata->phy_write_op.max_freq =3D=3D
+> +				      post_config_max_speed_hz;
+
+[Severity: High]
+Will this apply high-frequency DLL calibrations to lower frequency operatio=
+ns?
+
+The driver dynamically configures the clock frequency per operation via
+cqspi_configure() using op->max_freq. However, this condition checks if the
+calibrated maximum frequency matches the post-configuration maximum speed,
+rather than checking the current operation's actual frequency.
+
+If an indirect write executes at a lower frequency than the calibrated
+maximum, wouldn't this condition still evaluate to true and corrupt data
+by applying mismatched PHY timing?
+
+> +
+> +	if (use_tuned_phy_write) {
+> +		ret =3D cqspi_tune_phy(f_pdata, true);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+>  	writel(to_addr, reg_base + CQSPI_REG_INDIRECTWRSTARTADDR);
+>  	writel(remaining, reg_base + CQSPI_REG_INDIRECTWRBYTES);
+[ ... ]
+> @@ -1452,15 +1468,26 @@ static int cqspi_indirect_write_execute(struct cq=
+spi_flash_pdata *f_pdata,
+> =20
+>  	cqspi_wait_idle(cqspi);
+> =20
+> +	if (use_tuned_phy_write)
+> +		cqspi_tune_phy(f_pdata, false);
+> +
+>  	return 0;
+
+[Severity: High]
+If cqspi_wait_idle() times out here, does it leak the enabled PHY state?
+
+The return value of cqspi_wait_idle() is ignored on this success path. If
+a timeout occurs, the subsequent call to cqspi_tune_phy(f_pdata, false)
+will immediately fail its internal idle check and fail to disable the PHY.
+
+Since this function still returns 0 (success) in that scenario, the caller
+is unaware of the failure, and subsequent non-PHY operations (like polling
+the status register) will execute with the PHY unexpectedly active.
+
+Should the return value of cqspi_wait_idle() be checked, or the error
+properly handled so the PHY is successfully disabled?
+
+> =20
+>  failwr:
+>  	/* Disable interrupt. */
+>  	writel(0, reg_base + CQSPI_REG_IRQMASK);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821114822.4040=
+338-1-s-k6@ti.com?part=3D12
