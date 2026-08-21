@@ -1,64 +1,64 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B03353DB63F
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 10:25:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A2AB46EC66
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 10:25:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787307925; cv=none; b=hDvVw30p+8YQXh07+sP6/hu2f5Ke3rdOztFrRXbsw5L269ReRZfn1eotdprNrZbw6ZC0k83iQaZgeaAGHezD4RrX4c9O7G+dEeb1ZWm4FsPuTRriP7ezVL8fVS7uRLrCN6SMJLoOx7anQV+522v+ARwJ9ezHzoiFE5TR20DZyC0=
+	t=1787307925; cv=none; b=bykMgvtVY0SfEkHlGoR+1vQPj2h6O6mb29BC6O6S6oJw0YcNoZavjU7xzEKbcRl8HJKwj8lREERYsDAX6TbU+Hxf9pbfIhh3bHfpHjiBSJwIfM+JevX4B1m78O+4yARl96bpOJEYhinWEu3mOp3fjLOM5Tdq/57dvCKI7kvB458=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787307925; c=relaxed/simple;
-	bh=HCZVOF8T9m7E1Gm3Iq+tZImcQ0gw7AQRtwevkDBWDd0=;
+	bh=qh4p6NiaYYKZWRo5SdC+29bJh1njzkmd5IdAQaiKg10=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LO3ASXgEvQgj47ZhesZhOSr6fV8eOm3ry56mcVzmfP/QTPDflAicfjQ2Mv90FfmocNcYAKq5TAtUvqRycj5cTHZ1B5zDzfjNyDXb5VdipoWrxoXHkYL/o3iel9q4RFvS54cWWSVhhuVcV1ZSUoK4lJi6jMFPBgtEKSk1LM8nlGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UtHLc+OU; arc=none smtp.client-ip=209.85.128.51
+	 MIME-Version; b=I/Oe+2tlMSwwdUtpWGaXJKpVcXAybvSDnzW7TkbWEZp+jPoSp04ZulOWNIGySf5k3S+/OBavo176WK29fzRcisz/dzPFEeginfW7nwJiCeHgu+DQOyG7yAgQWkNxzPn2ynqV4Wu7HPZxYtdin+l96OWBckcRTMtAiYh9to/bZY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QwmKueW8; arc=none smtp.client-ip=209.85.128.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UtHLc+OU"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4956242332dso7056075e9.2
-        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 03:25:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QwmKueW8"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4956869750eso5257355e9.2
+        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 03:25:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787307914; x=1787912714; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787307911; x=1787912711; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0dWiifvCNQ6/1XjQKOnLCIy+9xjui2vS7wMw6DuKzck=;
-        b=UtHLc+OUTF+fZmq9XpVSv2JuxfjYbpBPEgeWJhlyrnxWStFtw0RR+ZCpA+GwngTb5j
-         lT/ulqbApiN2yudQX2EsW/5g9yOW6QK1VhorQJi4j3aYd44AiFQfdYv46GIE4YK7aFgT
-         iuWEv6j300X2pEaW7K58Mou/xuNd+iakhuya3tEHGSrbRonvKwnytpQxfMyk5hnB2Zyp
-         RQIunIkVYcUHB98LO5f3nJq6GRPeFeL7wJf9mn5cOmJFNboiGO/mkMN+e+30isV3dvzS
-         ryrL55bHwmG9eGswDMvXFVSMwR77pUtVSeycpKuPyQAPYv8FPvKdcEhYQpEPJJgW77xc
-         etTw==
+        bh=XsQREIODkCao/QDK0V814PCMzSICvR9cgatjnm3y9Ns=;
+        b=QwmKueW8i3NewAouoHlS1hrLhhNRGwI78Scj5VmDnm1ASoYnMgXDG15HIN2cOIVxCz
+         mi59CO1xr9c6JtjXPgftU/f9kbaP8zNNjsp/oIJ+5X5vxniZDKFyNDITl2JivjhUS9wV
+         D76OrnMiEOnF8HZP1aI4TiEGSC7Ihapj8JofYEe55D7B2quA0wtAu+ZwlwOAg54ArZqt
+         HtDVUJQ8qN7VQIS7AWzxDHt6u0jEBeg/+7IJIgjH55xJeIctl2ugmCtNH1LBydEtkj8e
+         80nthjybcL50DdYNH5SdX9uy5zy1xjdW+rXH/cjaX3jxjJnahXMWRVG4L3hVmhNZ7RpW
+         vFpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787307914; x=1787912714;
+        d=1e100.net; s=20251104; t=1787307911; x=1787912711;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0dWiifvCNQ6/1XjQKOnLCIy+9xjui2vS7wMw6DuKzck=;
-        b=iR9u93aYbKKnVMBxnI2wa40ajiravRWv5n0lC2sAXeCT3n+QqtMDDkZLywL1fEPLaY
-         5Hj7u+3HRoYNy5uV1t1A0qTVJ+1qeq700uPRXFxCLV1jaZDWaq1iivWKrJi+ZGSmfrt+
-         3nRu0Jfw+ZTUZqLtGcMLWgiMhZhUwqj0fG6fWJXHhY8AnYLg5zjWLwqkS6k466e63st5
-         jSuseyRB7vD9bNZu4pmHFnPNzjqOM/P15g/pm64j6hH405aB1spTSGz+CZ4H2Xgio8nF
-         kn3WNjWtvkGaHjgd8AZAQCh12tbu3ql3KPR7NAokQz34VzFwqhKTWODUXHbLvkOk1feS
-         N2kA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq97NGQm4keh8BOgQSyhVDltbt7Ce0SJeWzbLFEiZ3L0Umdy/ejxIvG1he0zBGqCziL5N8/S+ECzrkS@vger.kernel.org
-X-Gm-Message-State: AOJu0YwGU3dvPhCIT3vw4dyG6dHeeHpBFWAjv6Vwccv6548vEa2Wak6f
-	52SBna2fdjGV78kbIN5ziVhZxmZCRxXZYkFNKQQUcQsb08sQFBJgcNV7
-X-Gm-Gg: AR+sD13bgQ3VRpENv50XiiN5Edl3N45UaT6dYt1VkENcAV0E/qKtYMRAt/PPdC2xF2B
-	ljknkmgrMQO+JKS1iWkx8D4alNfz5R0YXJA6QS1T8Th1kWyFP2iPLjmgD3daKTHjHPEy6vTuNPd
-	aT+FJu5+F4p1qIS849z3BQtheyUemKy3u2AAx1PP6mjKcYyHm7vUssbCUEBHuy50hJ+zmb8Z/D+
-	IhfjyGsA4dlS6P2+Bjhm5e4B+C+EXoIDWhYhU4KyGK0BLXOXjUuZMy52egOjWG39gA6tzZBQoR4
-	VUr6vm3k2c2FOn/5IFFveOP03R5mNDUAIHpKAsYIH6Luo9qwL9udZHRf35LRkOJPefPljF4aykK
-	5lU8MFs0hpVJrYc3l8WhWTJW2zP1ZvEy04lLXbrAt9jSOij+BGA4YcKDW/o9bnCu3ezaq0/Kv9q
-	YHKeeGB5Gf0SWj5BRUtH5yZ6qEM711GWp+2Nbznwa29buzelFKZVdv8ZHElI5QotdjpK9alj2zA
-	DWLWQc2xGUBJw==
-X-Received: by 2002:a05:600c:3b08:b0:499:b402:6c0 with SMTP id 5b1f17b1804b1-499b830d671mr64331415e9.3.1787307913677;
-        Fri, 21 Aug 2026 03:25:13 -0700 (PDT)
+        bh=XsQREIODkCao/QDK0V814PCMzSICvR9cgatjnm3y9Ns=;
+        b=OHQmfpEh1ftpMh9UoTXy4nOSLutUoBQZsQWLQ5oWPq7YAk4szRgaSrRlKMnXwM8qtL
+         iRdqzDYotSBnhvvoAt+QjHMPg/rgDhEZ3obGilr8yKlYqusEzpfJTWOKb8p65/4rkywi
+         XbNPRh9g7eSlquJv0WcLueDbipbXlCXGIUakiswF0XlaNwtzE0geE3fgpjqvBQt2p1Ga
+         1q4ZdAtggCrK/FlqSNoyTM01CuW29V5wwSid+lkFRK6DcPhR40yLcXosf6raWRjX3bru
+         ANuXfnjfLLKFOY0boFboJiJMNmvPGVTmKM4RsVjtuiWgzjiOVVHdPRulYx7EKKbeiuH8
+         ef2A==
+X-Forwarded-Encrypted: i=1; AHgh+RqCeflLNnPdMcmBiYyO/dh8AJatcTuAd2YzfdnYUZX4do+UcEnfnIBnlebUNIKVhV1BpdHoU943RZAh@vger.kernel.org
+X-Gm-Message-State: AOJu0YxBUqIhV3a1VrohcPAApAJL5OBgFz9tNDyeL5VJrHWw+apt+3VH
+	hlplBP5Vhr8FGBefJZ7oFHxfMlBo4meq0UDWWSdcYX6hLgLcEO8OfERL
+X-Gm-Gg: AR+sD12ETeWtMyFBipa7GG4JNKgwr2M4ZyFP9qbV1nkqoENrL96vuOiR0tJTMgaMqun
+	fUabXmlqVo/MH9tCz0lgcrCcXGlyLYdZOYTk2LpOMR3BsWpOBNZ1jyzdF8aDAzNCP0UYK/AI0Nn
+	a+/BeZuKoWzFaYUFiAzZv2fFnMQMIsYjreqjKJzUiqdV00sxTqq/wzKrcSqssFJmqiPx8KZvWc2
+	M9LdQvo/w4LlETWimhEXtqTa1yqBvqsecdl++5AUBIrplHRmfSDxFrE5Zrc+80zMTC+ZG2eGo6j
+	rj/MX8AaRLKWlFvfXxn6EZp0oGD2AJw18asBD6fLnQOjAJoXaYu9Vj8CwiRe9O0GPsMfEw/rU8F
+	Be/ErproCEQ4OnZy6lV39ImODv2Y7LWCCCxOz2nThwRZuH1ugbm28RaNflBR7nGs5niboBYBYxl
+	VZneDq22t/PjvxHhPEEPdEVVJ9KtmCpKawBNF7H5EYEBjf9JLTYZlqRBExOlzWBB5lTyMq+dr0B
+	FFHynZfHaQ95A==
+X-Received: by 2002:a05:600c:3550:b0:499:8777:ccba with SMTP id 5b1f17b1804b1-499b830156bmr76380145e9.12.1787307911253;
+        Fri, 21 Aug 2026 03:25:11 -0700 (PDT)
 Received: from fedora ([105.74.130.192])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499b9ba5139sm11663155e9.2.2026.08.21.03.25.11
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499b9ba5139sm11663155e9.2.2026.08.21.03.25.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 21 Aug 2026 03:25:13 -0700 (PDT)
+        Fri, 21 Aug 2026 03:25:11 -0700 (PDT)
 From: Taha Ed-Dafili <0rayn.dev@gmail.com>
 To: jic23@kernel.org,
 	lars@metafoo.de
@@ -75,9 +75,9 @@ Cc: Michael.Hennerich@analog.com,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Taha Ed-Dafili <0rayn.dev@gmail.com>
-Subject: [PATCH v5 4/6] iio: dac: ad5504: remove legacy platform data support
-Date: Fri, 21 Aug 2026 06:24:46 -0400
-Message-ID: <20260821102452.37407-5-0rayn.dev@gmail.com>
+Subject: [PATCH v5 3/6] iio: dac: ad5504: separate ACPI and DT paths
+Date: Fri, 21 Aug 2026 06:24:45 -0400
+Message-ID: <20260821102452.37407-4-0rayn.dev@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260821102452.37407-1-0rayn.dev@gmail.com>
 References: <20260821102452.37407-1-0rayn.dev@gmail.com>
@@ -89,83 +89,86 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The AD5504 driver has no in-tree users of its legacy platform data
-support. Now that ACPI has its own explicit path, non-ACPI systems can
-safely treat the vcc regulator as mandatory.
+The driver relied on a fragile -ENODEV check from the regulator
+framework to bypass voltage configuration on ACPI platforms, sharing
+the same fallback path as legacy pdata.
 
-Drop the ad5504_platform_data structure, remove the fallback logic
-from probe, and delete include/linux/iio/dac/ad5504.h.
+Fork probe on is_acpi_device_node() to explicitly handle each path.
+On ACPI, skip the regulator and use a fixed 60V default via
+AD5504_VREF_ACPI_DEFAULT_mV. The pdata fallback remains for non-ACPI
+systems in this commit; it is removed in the next.
 
 Signed-off-by: Taha Ed-Dafili <0rayn.dev@gmail.com>
 ---
- drivers/iio/dac/ad5504.c       | 17 +++++------------
- include/linux/iio/dac/ad5504.h | 15 ---------------
- 2 files changed, 5 insertions(+), 27 deletions(-)
- delete mode 100644 include/linux/iio/dac/ad5504.h
+ drivers/iio/dac/ad5504.c | 29 ++++++++++++++++++++---------
+ 1 file changed, 20 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/iio/dac/ad5504.c b/drivers/iio/dac/ad5504.c
-index 6f70c57c7a82..799726eafdf2 100644
+index 5c9c66b04154..6f70c57c7a82 100644
 --- a/drivers/iio/dac/ad5504.c
 +++ b/drivers/iio/dac/ad5504.c
-@@ -20,7 +20,6 @@
- #include <linux/types.h>
- #include <linux/units.h>
+@@ -5,6 +5,7 @@
+  * Copyright 2011 Analog Devices Inc.
+  */
  
--#include <linux/iio/dac/ad5504.h>
++#include <linux/acpi.h>
+ #include <linux/array_size.h>
+ #include <linux/bits.h>
+ #include <linux/dev_printk.h>
+@@ -12,10 +13,12 @@
+ #include <linux/interrupt.h>
+ #include <linux/kstrtox.h>
+ #include <linux/module.h>
++#include <linux/property.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/spi/spi.h>
+ #include <linux/sysfs.h>
+ #include <linux/types.h>
++#include <linux/units.h>
+ 
+ #include <linux/iio/dac/ad5504.h>
  #include <linux/iio/events.h>
- #include <linux/iio/iio.h>
- #include <linux/iio/sysfs.h>
-@@ -281,7 +280,6 @@ static const struct iio_chan_spec ad5504_channels[] = {
- static int ad5504_probe(struct spi_device *spi)
- {
- 	struct device *dev = &spi->dev;
--	const struct ad5504_platform_data *pdata = dev_get_platdata(dev);
- 	struct iio_dev *indio_dev;
- 	struct ad5504_state *st;
- 	int ret;
-@@ -296,16 +294,11 @@ static int ad5504_probe(struct spi_device *spi)
- 		st->vref_mv = AD5504_VREF_ACPI_DEFAULT_mV;
+@@ -24,6 +27,10 @@
+ 
+ #include <asm/byteorder.h>
+ 
++/*
++ * In case of ACPI, we use the 60 V as default voltage reference.
++ */
++#define AD5504_VREF_ACPI_DEFAULT_mV	(60 * MILLI)
+ #define AD5504_RES_MASK			GENMASK(11, 0)
+ #define AD5504_CMD_READ			BIT(15)
+ #define AD5504_CMD_WRITE		0
+@@ -285,16 +292,20 @@ static int ad5504_probe(struct spi_device *spi)
+ 
+ 	st = iio_priv(indio_dev);
+ 
+-	ret = devm_regulator_get_enable_read_voltage(dev, "vcc");
+-	if (ret < 0 && ret != -ENODEV)
+-		return ret;
+-	if (ret == -ENODEV) {
+-		if (pdata->vref_mv)
+-			st->vref_mv = pdata->vref_mv;
+-		else
+-			dev_warn(dev, "reference voltage unspecified\n");
++	if (is_acpi_device_node(dev_fwnode(dev))) {
++		st->vref_mv = AD5504_VREF_ACPI_DEFAULT_mV;
  	} else {
- 		ret = devm_regulator_get_enable_read_voltage(dev, "vcc");
--		if (ret < 0 && ret != -ENODEV)
--			return ret;
--		if (ret == -ENODEV) {
--			if (pdata->vref_mv)
--				st->vref_mv = pdata->vref_mv;
--			else
--				dev_warn(dev, "reference voltage unspecified\n");
--		} else {
--			st->vref_mv = ret / 1000;
--		}
-+		if (ret < 0)
-+			return dev_err_probe(dev, ret,
-+					     "Failed to get vcc regulator\n");
-+
-+		st->vref_mv = ret / 1000;
+-		st->vref_mv = ret / 1000;
++		ret = devm_regulator_get_enable_read_voltage(dev, "vcc");
++		if (ret < 0 && ret != -ENODEV)
++			return ret;
++		if (ret == -ENODEV) {
++			if (pdata->vref_mv)
++				st->vref_mv = pdata->vref_mv;
++			else
++				dev_warn(dev, "reference voltage unspecified\n");
++		} else {
++			st->vref_mv = ret / 1000;
++		}
  	}
  
  	st->spi = spi;
-diff --git a/include/linux/iio/dac/ad5504.h b/include/linux/iio/dac/ad5504.h
-deleted file mode 100644
-index 9f23c90486ee..000000000000
---- a/include/linux/iio/dac/ad5504.h
-+++ /dev/null
-@@ -1,15 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-only */
--/*
-- * AD5504 SPI DAC driver
-- *
-- * Copyright 2011 Analog Devices Inc.
-- */
--
--#ifndef SPI_AD5504_H_
--#define SPI_AD5504_H_
--
--struct ad5504_platform_data {
--	u16				vref_mv;
--};
--
--#endif /* SPI_AD5504_H_ */
 -- 
 2.55.0
 
