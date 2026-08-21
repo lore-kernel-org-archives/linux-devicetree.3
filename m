@@ -1,129 +1,104 @@
-Received: from mail.zlab.su (mail.zlab.su [109.73.193.145])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA0BD36729C;
-	Fri, 21 Aug 2026 09:30:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.73.193.145
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2587E45C6F8
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 09:34:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787304614; cv=none; b=DSInWbVzHygr+i6gIUEwWLDpS1n+1KZ6rwDOAqDxAAg/cV1NS2ZIHZkCDLqB4ab/A2R4KEAEi+3i3X1oW001M7RIDCH3COiop6jfOq102yTBoPNmsSBFkRAbUczalweTfziEdVTcCNhfWGbsbee60SE7OB54Tp48eBrD9wfr0VY=
+	t=1787304866; cv=none; b=iC6XgysBOQYndcGtJS4NrBgZ4dVydkPFIRQwVh0RSjLv7wuvKWq4gX4IwgdSbnE7K60ryzvsui8YFLUVbGr0Co5zofD0AVX+Lea5zl+bJ2mjGgi06BR96FPC8q2KRJSwj0Ljps77icPURbRINmtXcZCehKwh5TChoOmeVjCHrCA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787304614; c=relaxed/simple;
-	bh=2BlwCIRPj878eYNyHhUDHzHUc9xUQe10Kfy/KIZKvHQ=;
-	h=From:In-Reply-To:Content-Type:References:Date:Cc:To:MIME-Version:
-	 Message-ID:Subject; b=pgE2RagrNn6ODboqVWbIpJSdJoXQHX9fo5djz9WobtxudoO62aYO2mKr4T8LpVxjD1KSnFJX99ljCCDMAR9RJZtG1wao6SysufQq83PuWACsQIidQDFa1aVrpon+DV79leIG/tmEpdJOksjy/7Yb9APGLBkpKi5let5T6a5Dg/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zlab.su; spf=pass smtp.mailfrom=zlab.su; dkim=pass (2048-bit key) header.d=zlab.su header.i=@zlab.su header.b=m/RN7abP; arc=none smtp.client-ip=109.73.193.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zlab.su
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zlab.su
+	s=arc-20240116; t=1787304866; c=relaxed/simple;
+	bh=WdZLr1n+nWwhzHD5ms0FDl3HDufTPovn43dEUlSyeMM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OlfjOCsfHd85OUNb3VmEJsgAHXNiP1wplFAVCX/jGWErFH4YApjBaW+YTkPpHahku4gX1jJE2SgrPgcRKVCSwfSd/8poq88TPZ1UOzlcsi0cPJT5aO5eyo9QzFb6NtY4Svuy5duEwGBshgkLviNNnhjAIbcnZaB0tANmUjs7/EI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=HQbNKuAx; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zlab.su header.i=@zlab.su header.b="m/RN7abP"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPA id 466D7C03D9;
-	Fri, 21 Aug 2026 12:30:00 +0300 (MSK)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zlab.su; s=dkim;
-	t=1787304604; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=+UDivxkzUWm8jCVEzWimvw5QQQKBgJN2rUad2RA1A+g=;
-	b=m/RN7abP1i3juYX1BEYCFHZNhP77sGhYzJVe8mgEF64OgNjrVjZ0IqEvVloMx/3LYZqf33
-	W4K8qbuJDw/so2cdCrFwUZLx7HHFFbsD3ZimrzGHNn+qOpX4EcOTWijB6xp2vIbYA810dg
-	OSu7DAgJOpLaDBZKzIm+xZDDaYreq+ztL7PEP9/3kkOJTYUp3U+l7uwgQfZqUnP34TcnoP
-	ejXETsBjhFWPaYLidqzETMu4IIvEgzWj6DcvFspAPNBJ5wQpLvwqDav9tfjns/xp6rYLeu
-	4ai+Mu+s0S9ctAK0wc7tVE00o5NyRPGPc3Rli3PIj0BX8PJrc+XXrOgCnLYCRQ==
-From: "Vladislav Leonov" <vlad@zlab.su>
-In-Reply-To: <20260821-bouncy-sticky-dalmatian-4f72c2@quoll>
-Content-Type: text/plain; charset="utf-8"
-References: <20260816113636.33635-1-vlad@zlab.su> <20260821-bouncy-sticky-dalmatian-4f72c2@quoll>
-Date: Fri, 21 Aug 2026 12:30:00 +0300
-Cc: "Jonathan Cameron" <jic23@kernel.org>, "Heiko Stuebner" <heiko@sntech.de>, "Andy Shevchenko" <andy@kernel.org>, "David Lechner" <dlechner@baylibre.com>, "Conor Dooley" <conor+dt@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Rob Herring" <robh@kernel.org>, "Jonas Karlman" <jonas@kwiboo.se>, "Simon Glass" <sjg@chromium.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, =?utf-8?q?=D0=92=D0=BB=D0=B0=D0=B4=D0=B8=D1=81=D0=BB=D0=B0=D0=B2_=D0=9B=D0=B5=D0=BE=D0=BD=D0=BE=D0=B2?= <vlad@zlab.su>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="HQbNKuAx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=lWsL
+	p4397NNo8UrAz6kD43LDVce8oF9NO46d/WYg4mA=; b=HQbNKuAxkA8YFlZuvH/n
+	a0pzNRX4f20YbYH7d66QH/G+ukEKVl8cpYZBxYCgU1tz1zAncF3E/iFYbOv6L9Id
+	ChSjHMS3rAIhq7IZDkamGbffz5MaA3O5ejxUrWFchu66hufkJ36Urw/dBaqWQdC5
+	WZlr0fBM/rpSeVR6WxvJ9n1B5D969lfHPP0wxd9/uNHRxIgD7LaWpdmDiXYdEZT5
+	IzFKJ+ZFydjTSKfMN8iCoNqisHFh74K2R5IVJz7SwZyAy9IuG1aCYu5zdQx/ifxW
+	MblxCFi3Oj2r4mhrLTyET12zgy6M9Iu4f8fD/c9NXgNZPwuI5YTIchoXpQzcmAa/
+	eA==
+Received: (qmail 605895 invoked from network); 21 Aug 2026 11:34:13 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 21 Aug 2026 11:34:13 +0200
+X-UD-Smtp-Session: l3s3148p1@CbLbVotZJJwujnuu
+Date: Fri, 21 Aug 2026 11:34:11 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, linux-rtc@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v4 13/15] rtc: rzn1: Add OF match data to gate SUBU
+ register access
+Message-ID: <aogbk-moFmTTFkJ0@shikoro>
+References: <20260819103926.2136712-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260819103926.2136712-14-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <aobjCr7ZtpLmL3VP@ninjato>
+ <CA+V-a8tpo2Rc9xsvsj9LLqD2ZjoHzRAVsox=7xURAtwA-GYVEw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <9425cd59-7b78-7e0e-5d7f-aaff876ce8d6@zlab.su>
-Subject: =?utf-8?q?Re=3A?= [PATCH] =?utf-8?q?dt-bindings=3A?==?utf-8?q?_iio=3A?=
- =?utf-8?q?_adc=3A?==?utf-8?q?_rockchip-saradc=3A?= Fix RV1106 compatible
-User-Agent: SOGoMail 5.12.8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: None
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ldgKrqKLs1cCm4Uc"
+Content-Disposition: inline
+In-Reply-To: <CA+V-a8tpo2Rc9xsvsj9LLqD2ZjoHzRAVsox=7xURAtwA-GYVEw@mail.gmail.com>
 
-On Friday, August 21, 2026 10:27 MSK, Krzysztof Kozlowski <krzk@kernel.=
-org> wrote:
 
-> On Sun, Aug 16, 2026 at 02:36:36PM +0300, Vladislav Leonov wrote:
-> > rockchip,rv1106-saradc was folded into the fallback enum together
-> > with rockchip,rk3576-saradc, falling back to rockchip,rk3588-saradc=
-.
-> > The two IP blocks are not equivalent, though: per the RV1106 TRM v0=
-.3,
-> > chapter 20 (SAR-ADC), RV1106 only has 2 channels at 10-bit resoluti=
-on,
-> > versus 8 channels at 12-bit on RK3588. Documenting it as falling ba=
-ck
-> > to rk3588-saradc allows device trees that would bind against the wr=
-ong
-> > channel table and report an incorrect voltage scale.
-> >=20
-> > Remove rockchip,rv1106-saradc from the RK3588 fallback enum and giv=
-e
-> > it its own standalone compatible entry, matching the dedicated matc=
-h
-> > table entry added by the driver patch.
-> >=20
-> > Fixes: bdba14f6122c ("dt-bindings: iio: adc: rockchip-saradc: Add R=
-V1106 compatible")
-> > Link: https://lore.kernel.org/all/20260810090826.146758-1-vlad@zlab=
-.su
-> > Signed-off-by: Vladislav Leonov <vlad@zlab.su>
-> > ---
-> >  .../devicetree/bindings/iio/adc/rockchip-saradc.yaml         | 5 +=
-+---
-> >  1 file changed, 2 insertions(+), 3 deletions(-)
-> >=20
-> > diff --git a/Documentation/devicetree/bindings/iio/adc/rockchip-sar=
-adc.yaml b/Documentation/devicetree/bindings/iio/adc/rockchip-saradc.ya=
-ml
-> > index f0551d665916..dc56855527b8 100644
-> > --- a/Documentation/devicetree/bindings/iio/adc/rockchip-saradc.yam=
-l
-> > +++ b/Documentation/devicetree/bindings/iio/adc/rockchip-saradc.yam=
-l
-> > @@ -22,9 +22,7 @@ properties:
-> >        - const: rockchip,rk3562-saradc
-> >        - const: rockchip,rk3588-saradc
-> >        - items:
-> > -          - enum:
-> > -              - rockchip,rk3576-saradc
-> > -              - rockchip,rv1106-saradc
-> > +          - const: rockchip,rk3576-saradc
-> >            - const: rockchip,rk3588-saradc
-> >        - items:
-> >            - enum:
-> > @@ -35,6 +33,7 @@ properties:
-> >                - rockchip,rv1108-saradc
-> >                - rockchip,rv1126-saradc
-> >            - const: rockchip,rk3399-saradc
-> > +      - const: rockchip,rv1106-saradc
->=20
-> So this goes to an enum with all the other single-entries.
->=20
-> Anyway, where is a driver binding to above compatible (see DT submitt=
-ing
-> patches). git grep on a week old next gave me nothing.
->=20
-> Best regards,
-> Krzysztof
->=20
+--ldgKrqKLs1cCm4Uc
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Hi Krzysztof,
 
-I will combine it into a single enum in v2.
+> } else if (!data->has_subu) {
+>         return dev_err_probe(dev, -EOPNOTSUPP,
+>                              "No valid XTAL provided and SUBU mode not
 
-The driver patch adding this compatible has been sent but is not merged=
- yet:
-Link: https://lore.kernel.org/all/20260810090826.146758-1-vlad@zlab.su
+Yeah, looks good to me. It is maybe a bit hidden that xtal == NULL in
+the above case. I wonder if adding a comment above the return command
 
---=20
-Regards,
-Vladislav
+	/* xtal is NULL here */
 
+will help understanding? But I'll leave it to you.
+
+
+--ldgKrqKLs1cCm4Uc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqIG48ACgkQFA3kzBSg
+KbY/zg/+Of59Tl+ksOh1ZjWKKHkcpR6EXcG0zxzOYsXFZ8cakdLFXeoLNV21EaGW
+cbxZETOsPY+pbEpvG5/bwmv+nI/xI2FEH8RpXbkLjIQZxR8SvqHU3l/7zoPn+1vv
+qXsl/vecQm2rL54bJnyiZ8h+pGnlJR7D0Ix0baajH9LGcV5TCH4R+hsSu4aDjhjE
+nVKmu1txp+zuUhjlzVzWonD/H/CeMxRO9BJx6Jy+bLc4XNJvp6cMHCF4qOrPjshw
+UbUJNH/6UVB6mOjg4CFPysiZzoXZb+iJ5Uhj5ns1UqIp66InIAEUM5CLdbhaZTqK
+jhUoKSKnywtBSc+N7Act5mCCvUPjke41253G+VtV5ogwfpVT2Vx9nN1EgI7VNhRU
+rCnshqJvppU0RRT1WlQBH0kRL/5yVY9d/YG9YjVoiQ+i3xIK+EkWCrxMJjMimj1G
+8hXy3E9OEV4R/VZmqhYV1LNro8fozptm77xOGkKa+p4AMOUpLiL2eenTcb7hA++Z
+p/wZi8NXPnsXHDbR3A1sxmxlrzOIMf5khDs0suACLo3WcUJMq/fFCdTEPRHTXwuH
+KrWm9H/fBl2SCBLWzOGic4fC11O+Z2dU+wo9hiGaJupeXyQofwR2nDGq3rW6a5Nd
+UY22bstARtMdWYCybjPB37gKSqoWosjhWvm2BULfNlbjJhhxxN8=
+=Eu7r
+-----END PGP SIGNATURE-----
+
+--ldgKrqKLs1cCm4Uc--
