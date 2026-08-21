@@ -1,171 +1,206 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBCB241379F
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 06:34:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787294091; cv=none; b=Fmzl9TeEne6UFWdtuJdUge1WYTCiiYqxGQEIaPNX4j4kR/qDOcTVtywEEu+0tzonjqNrYzzN95MMGwPn+Gv9nciOIFuyKPCnacHJA0fpUqXEuyBXSSxxwrxePsNOB5nmGVvBb9XuDoJajHxvKcxI3RrUjq4fhCBZ/MmK8lBbfMg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787294091; c=relaxed/simple;
-	bh=PTtUw1aBvRTFrGS1Xdi2jShMywNyldzKbSOrkVj0R4E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QexWgP/JyjYrVOdHEIFjIuJJtR/yL21p8G/61PtUlGkqyMJvsNF02Z/8Hq1mNfmJlqohCbt/VT+QqDUfmY82vMGqG8A+0cFAZwdUNiE8D3KVe7m26j750HZ4Vklazfhg9uxjaxtLED3bCa/ssqNLqcbBmjXYacj9/1yKsalkqVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nQHdeUfN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gFEOiXPG; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 106C02F616B
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 06:48:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787294927; cv=pass; b=VC2ghkP4OU41mJxYOp+VBnoRNQnOTulZI+1vjOIIUd69cqPMNt0xLtCJlIgXBr8K7+CzI44Jz5h9/YN5kzFiVjsn1GjAP/Xm3pWLFT+qVm/VLGN8kPMsuEAg1cOpOq0JeK8kHdYfELemRLhXdw3iD2Cq34XB5Ksn9/LtUh38Jk8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787294927; c=relaxed/simple;
+	bh=RTViPFoJlknzBdTZe5oQ+ExhGFDjG4WdUKnM3LA4GVM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DGNVUzYvX4mhl5STe0tTgL0FdnmAgJWAPxTS7yr1P1Ngy9ipW18POdij3mVCVuH16q5fhbdoX98Cr/o4u5YOGOK45/0+3sHpsurPcLXxgnQb/6kXIqMjfpcjEVOMmYgL2QHbOzLtI5mteValU8MbZfBSdQEjByyHLf7ESiDP3no=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OYNGvz8Z; arc=pass smtp.client-ip=209.85.208.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nQHdeUfN";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gFEOiXPG"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67L5TucN1271204
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 06:34:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	QJSg8p95MkrIIUpW6qDHyz2rAmYHMQ1fjNNioDnnJ+s=; b=nQHdeUfNpfGoXYbl
-	CuPMJxh5IbaCOsFc+b7yKMoptq0NuV4RYrVCoAgKFXLjFXtclSJaUJv9YSje/87y
-	GK+LM6Xb/9gN22/DnHr9VEjbDnHgfPTXFQelXsWp1QsA4cNgtA3J6D/ijvxGxMfx
-	9ntHvSVAC+oAWobXWtSS2iC/QyD1Z9iBHv8VVN1oEGwkgJD1waWLY3wHw/G0L4jn
-	dwBa5MoJWRlbdVh+gRu4WZxFGpJQsp2AjYdl8lQqC9Q/8wFL+/Htl4n9OzCzk3U+
-	ttSi6ImAZcN04AuOyzd+cWvp4m/4fESHFSAr+kd9HdfCGQ8kVYzVXWFpVU6AnFry
-	zPqvLg==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g6ecb8kkc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 06:34:48 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38e8fee6af3so791549a91.1
-        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 23:34:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OYNGvz8Z"
+Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-39c74722e27so8959981fa.0
+        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 23:48:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787294924; cv=none;
+        d=google.com; s=arc-20260327;
+        b=AnbGXomgMyMvIGI/nOTYoe507TNoyGPNlouU5JZeBMHfwfJqdsykz1sni+BoHAaM6U
+         KzaWr6JhzqQHukU4GFRtSdsNisDzPclnqHuVQTrYspC73KIgEhCuIa1Z6DYcw+I85mtw
+         kw92Oyoy5QmzgrVWiU24cyIquWPHj9R3lB8eL8ifyF+29wmCLFeIfOOvcXFmt2CLuZYT
+         UN7f45C6dHTnGP/Fgwdr5Th218OibiF7zG/YSf6d0nXUSnHJrNJJR6UQDXU8Yd6SldFK
+         j5NlvB/kcgDAG1l5EJpjfln9D5wdEPJZXeFedjxnixVAqQPJ85TEJuDiZavF4keRanra
+         X3jQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ZZV2eo8l44i659VRpU6Jc0rPYdN+/WIVgMkUx/EFXO4=;
+        fh=CrFpeN82h5htB90GYJYLt3SnQjJ3pkeHP7KH5FHS/zY=;
+        b=en3Ticaj0mGEV1tMyKLbzOL0wqJs65SOiJI9AbRdE2mRVESv+OZ3STwUZEP10n29C+
+         eSGeISfBZEkmzNssRqD+rjoTzbocldbzTL0VTqLh1oCfV91xTC0YOGm0KuKyVWzeGt9z
+         Z6NUp9DV5GFSHNKm8jLJJziWLSibC2oT/DGK8EdTwkzqSfABA0RvCOK9eEF69UB9ZKiA
+         j3JGG+dHvWI0qoZ1jh0y+s8X58xUFdB4Nke6ix+MDGjJfjAydiQVXAfZDw+XZmZfAZUR
+         vR2DQ2C2Ay0gN1bXdgKia3sVSM9sJfEgvJn1YG9CbELwi6k4xqVr1JAy0Hb83o6elas0
+         hqHg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787294088; x=1787898888; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QJSg8p95MkrIIUpW6qDHyz2rAmYHMQ1fjNNioDnnJ+s=;
-        b=gFEOiXPGVw06yPr1CxHUuP1Yuh8OkEVmiCzoURIymDPQH3SHXbJ7LabEcCsYe8CfxI
-         T7J+MlPo5vbwhejcq1uJ0eYzK8QfpalPy6HV3uUAEuu8Han4K0g7y0sgpENHjk4VMlQR
-         RMv2XsRG1HmKDNGKf/D7NK23E26+/BW72uS2l9BhCbnY3CvoQdrgc483/x8vv8yBl0Tc
-         CK7n4uSstFbLAaQpq23S/a8Os+IknLQT9ynY0vCEhreiZgrcTNhsD3h6zEdU/a/6xrtd
-         CzNiPpUwi/zmcmcuHcJMjsGQquawDo8HHIFFalJ7sMDviEYC2+l6z43EgfgP6KG6/yof
-         IgHg==
+        d=gmail.com; s=20251104; t=1787294924; x=1787899724; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZZV2eo8l44i659VRpU6Jc0rPYdN+/WIVgMkUx/EFXO4=;
+        b=OYNGvz8ZdDrp6EoYQxeYuuoK38DenM8HFORbEVYM2zwqi8P60M0fGssITKHRUwfunD
+         AFrLAfCbgGGe4VgOiAaI8Hjuy0Y3AtEEJHXS669B5fVhWrhoiOsxnWeUw6t5zJ9+U9oj
+         n9IKodj6hbK4c5rDTb5QJ18rXuvynWU1WFLzIozc+340k6ctDmFu8Lp7wKcFwJVPIKWY
+         fm3dcDpYeS3zr5rM6CySOLhBv1dFHs9NNdrtNwsNJ/hGwjmNGs+IwJ0O/O899wHTBu3G
+         4Q+KyaBpYg1sqg3v8MRR/mgTnhqapJbs74qkqcl/FMxnvEcjkb6SVgdycKUXuqIhx7Qh
+         0W0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787294088; x=1787898888;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QJSg8p95MkrIIUpW6qDHyz2rAmYHMQ1fjNNioDnnJ+s=;
-        b=SJhaMTUxCJQXDMsED0+/9EvFY17VmWGPV+wPvtZS5J3blK9gP/Mkgyl9SDBlEP/0Mb
-         iAFQc1tsMiHRCWzr8hxemNtSJsPJqpqggT2g3HK4o5t61Ip0Twz690fBiEkUpZQHvOyk
-         I2u/FHHbF/GWQi2UeYx7ALvdW6E04Oeoe/rN5McfH7i1/20EJp22Q9Y2FXlmUn5gVgga
-         BfG62Y9oqUZ+odmVRcPM7Sn98okMWaEHT36luLr6bOLabLkqMwcfk6ydslJ29VyAUX/b
-         RXUR2XuOWOWFSxintKXAJ5mQGT5+wR1RW3abdg9F/Uzq/DXkx8rNidXB4enBxXeRqxB4
-         U5ag==
-X-Forwarded-Encrypted: i=1; AHgh+RpyYV6LyNSQRi9VXTDUpfHvNzKBnYd17mc85c8zCpmkRgvp37EbivABnDYlSnbgYiv77HXI3yHKfEnQ@vger.kernel.org
-X-Gm-Message-State: AFuF++mY4Z5/FcdUZsGpoTm+u6vgKzUqRe5bMtJ3gVE7iIO5EjNpzksb
-	HlQjzJTjrBLDQ3GqjjQ7xDdxeekPNewr0YY6b55SLSAdqm3N3Qcs6TKCkhRaF1x/mG3Ii3UfqMI
-	t6ZcXA9m6GzqPeuQhBX1Pswm/jnT+MHgyZuDl/anAqW/Wo1zHIZfbu8XyBybEWy3d
-X-Gm-Gg: AR+sD13FjvPXJmuMbCregCT9b3QWi4oFwSnfGSLxUgguUW3obiw4cVVTM65MGewUARm
-	rlaxWRCVRQRU0tMxy9UUOeZ+fhGGtYqP4A1C1pl6+GHsjFynGTgE04H1sNERcoSR5Oozcp1/5Fb
-	r6v7et00UJcUtfqxH82tktTUw2ySCspdpoABEPpS6DYqLEbElhnyFsfQgvV1J6Pp431L2JtmW5B
-	74rI0SDVJa6Fk/uo3+dPoBEOsJLM3Z7ikPZdbtPcwRhKychARgyieRxGYKm/0bCPfKtszCFumF2
-	F/0JuTFXdxS2eTE74H6fHDabrMMnaXYlK5qQz0JNCdIMv6hUujwvZnapD7ObXrdxg9LX8UoACGl
-	j1C1E4iDVFnZPs+ATCbdF6GQWkN9SXw==
-X-Received: by 2002:a17:90b:53c3:b0:38e:5c6:4db9 with SMTP id 98e67ed59e1d1-395c39cbc42mr7831724a91.11.1787294087792;
-        Thu, 20 Aug 2026 23:34:47 -0700 (PDT)
-X-Received: by 2002:a17:90b:53c3:b0:38e:5c6:4db9 with SMTP id 98e67ed59e1d1-395c39cbc42mr7831667a91.11.1787294087392;
-        Thu, 20 Aug 2026 23:34:47 -0700 (PDT)
-Received: from [10.206.103.106] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-395c4be445fsm1772969a91.10.2026.08.20.23.34.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 20 Aug 2026 23:34:47 -0700 (PDT)
-Message-ID: <e2cab6c6-a5fc-43b2-96e7-f46f9a7bd20d@oss.qualcomm.com>
-Date: Fri, 21 Aug 2026 12:04:40 +0530
+        d=1e100.net; s=20251104; t=1787294924; x=1787899724;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZZV2eo8l44i659VRpU6Jc0rPYdN+/WIVgMkUx/EFXO4=;
+        b=jC1vL0qYjU3sde12v5Ev0LnlowU1bSfi81GNYMZSN6WEkJc/My598liVP02Cab63DW
+         zl8dlrcofmNd8mDxog6A+e/s9nHtRjze5WzIH8jK2Ci/n9U/+xIF2CO6syknhbGX/CTZ
+         XRADPHV5oicNmFmOKAUB1WuVPf6hRBl95YcodecIsFfhK1hUYGMHgB1rlWLix3QcOigN
+         UA7T1LOKGBF+zDyEOYHq3wZMpH9xAp7OiifqDXHGLP1O7YxSsHmq1+qNtRNF9sjzi59c
+         FmZ66WkVm37JhwjlJ4YwqEU7q8SLW/HscUTIoZPhVWkMDShbiNc5On0qQ7Rb3wiXESg5
+         QZvQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqpkDX5sYrDxqjyGZdI7lb4cfGxsueiS+QaEi9hHh5B+RjZs5u0qLh+SYSbo+Jfm7c+JGI/nrbs3vf5@vger.kernel.org
+X-Gm-Message-State: AFuF++nXwuapJFK8JHn0xLbsMnat/Ok2/GDex3BBpev0zvT4pMHf0Mid
+	98v0nydxcr1o71JEMQaSkNkHv5THOupQ+YLoyi5fwtcPWGh6frIjmdrD7R+NIFZmGbybl6Rsabc
+	xpaO8B7wSNaA4Ig/x28xtM4KZosefdas=
+X-Gm-Gg: AR+sD12GsY9ba4Plyfg0W82INO3sxd0VXdQQJGaoS88+9wBkMQ7P1w3a3Q0/EJm1ZRk
+	gljKhlVrnOFgli2aEUwhcgZBj9g1KSgHcgKQg3tXW40F94zOsYszQ18w0Asm+amy3MnHwbobxxW
+	YmIjmjJt0Jg+Zj43whJFiF9/IuAbBXDaxMqdkAF6Swziz/xXZJ+Y6FOgVIbWTRY6plKm1X0uIBi
+	zDieLS742n/TCmcmOdOt1kgbK7wfU/5/oKLBrCQtBZf3otb5vLVukHYspM5qltmvmPcUiurvBQF
+	vRPYkxVZukfDcsr5wxbu7cFOwtMFS3UhcDqwHyZmz7mjOA==
+X-Received: by 2002:a05:651c:222b:b0:3a1:8dd6:aada with SMTP id
+ 38308e7fff4ca-3a1b0e134edmr3994451fa.4.1787294924052; Thu, 20 Aug 2026
+ 23:48:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 4/5] media: qcom: camss: Add CAMSS Offline Processing
- Engine driver
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        Rob Herring
- <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
-        devicetree@vger.kernel.org,
-        Hans de Goede <johannes.goede@oss.qualcomm.com>
-References: <20260724-camss-isp-ope-v5-0-e70ad4fa39ce@oss.qualcomm.com>
- <20260724-camss-isp-ope-v5-4-e70ad4fa39ce@oss.qualcomm.com>
-Content-Language: en-US
-From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-In-Reply-To: <20260724-camss-isp-ope-v5-4-e70ad4fa39ce@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIxMDA0NSBTYWx0ZWRfX7Ga0jwduqUkz
- pF8D7XK4CqseAA8ovuO1hWlaFtRDVnVy3Z//bXt8cXAmScFKCNtIw7oXdL7fmfUQqmuok341QiU
- 2nv5Fp98O06diZtg0G3OAmFmNE1LfeeNjnQ055YnrOYlI5NnWcfL8ivAVBjOSVjdV4vFodAQpk4
- Rr85TTW1W6ESaEEvl1WwWS8tqF/geu8djJLDuN+YKOLV1xBAF/TdjVTpiKcVF+RcrYxKr43u+eY
- I4zOz4w4MaSZlMuAsU031bSsYOEATgt0JrwQ8SDgPVSAdLg5rpTkjMf/1zPi2vKKLVDj+oNdBkb
- kyO4Dv4Er8bDi9PEc9pdUm4zxU4jS4si8isYOsV+gsxFe1EX0pFgmncI3C5DAzsS7plrUpQ8qpI
- cCNUHvVt5ToHLmCv4mzqsmBhSWGgjRleD78G2wpNKzll6EWLGfqiRLTw2OO1C9Vf9PiHg0M400N
- CV0rCkrtuyv5gk//+vA==
-X-Authority-Analysis: v=2.4 cv=e/s2j6p/ c=1 sm=1 tr=0 ts=6a87f188 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=VQr-KVQjmy1A4l77MVwA:9 a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-GUID: QXdlz9ju6hcDfpNQIzEdKhGOr6nqBPkJ
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODIxMDA0NSBTYWx0ZWRfXzIzvx4Yt4woU
- oq96ij3495VMm+MF8+3Gupaqw/u2QtA1GUnh1nAJQ6G0up2+wHEUB3u0R7UR6Ih3botlY173tqz
- pF9t4pziy4+3rTKgyvOh0kGeH1HO8vQ=
-X-Proofpoint-ORIG-GUID: QXdlz9ju6hcDfpNQIzEdKhGOr6nqBPkJ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-21_02,2026-08-20_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 suspectscore=0 spamscore=0 phishscore=0
- lowpriorityscore=0 clxscore=1015 malwarescore=0 priorityscore=1501
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608210045
+References: <20260727-ventura2_initial_dts-v9-0-504c0ec68039@gmail.com>
+ <20260727-ventura2_initial_dts-v9-2-504c0ec68039@gmail.com>
+ <178724902712.20555.7009712214570349708.b4-review@b4> <CAF7HswN1ZzwjfXjG2hV5tEkVZkZYp0CiVNSo_9A4m3tsqQp_Bg@mail.gmail.com>
+In-Reply-To: <CAF7HswN1ZzwjfXjG2hV5tEkVZkZYp0CiVNSo_9A4m3tsqQp_Bg@mail.gmail.com>
+From: Kyle Hsieh <kylehsieh1995@gmail.com>
+Date: Fri, 21 Aug 2026 14:51:47 +0800
+X-Gm-Features: AcwNN1U6V2Do82rvIt74ZZ-aX7aerlDnXhaA1qYUWN10XHuS2TwjSTUhQfWOomU
+Message-ID: <CAF7HswMpfibMRysJQYrkA4EC2Ks3C_20nZkhpVPP3w-J4BoxQA@mail.gmail.com>
+Subject: Re: [PATCH v9 2/2] ARM: dts: aspeed: ventura2: Add Meta ventura2 BMC
+To: Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, 
+	linux-kernel@vger.kernel.org, Tan Siewert <tan.siewert@9elements.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi Andrew,
 
+On Fri, Aug 21, 2026 at 2:31=E2=80=AFPM Kyle Hsieh <kylehsieh1995@gmail.com=
+> wrote:
+>
+> Hi Tan,
+>
+> Thanks for the review.
+>
+> On Fri, Aug 21, 2026 at 2:04=E2=80=AFAM Tan Siewert <tan.siewert@9element=
+s.com> wrote:
+> >
+> > Hi Kyle,
+> >
+> > > Ventura2 is a Rack Management Controller. It is a modular
+> > > device designed to manage liquid cooling systems and monitor hardware
+> > > states within an IT rack. The system uses an AST2600 BMC for manageme=
+nt.
+> > >
+> > > RMCv2 serves several critical roles:
+> > > - Detects liquid leakage at both tray and rack levels.
+> > > - Communicates with and controls liquid cooling equipment.
+> > > - Manages leakage events and executes system recovery protocols.
+> > >
+> > > Key hardware features include:
+> > > - An extensive I2C and IO expander topology to support comprehensive
+> > >   sensor monitoring and backward compatibility with legacy trays.
+> > > - MCTP over I2C support for asynchronous device communications.
+> > > - A dual-flash design for BMC firmware redundancy.
+> > >
+> > > Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
+> >
+> > *snip*
+> >
+> > > diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dt=
+s b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts
+> > > new file mode 100644
+> > > index 000000000000..f1273ca31bf8
+> > > --- /dev/null
+> > > +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts
+> > > @@ -0,0 +1,3005 @@
+> > > +// SPDX-License-Identifier: GPL-2.0
+> > > +// Copyright (c) 2023 Facebook Inc.
+> > > +/dts-v1/;
+> > > +
+> > > +#include "aspeed-g6.dtsi"
+> > > +#include <dt-bindings/i2c/i2c.h>
+> > > +#include <dt-bindings/gpio/aspeed-gpio.h>
+> > > +
+> > > +/ {
+> > > +     compatible =3D "facebook,ventura2-rmc", "aspeed,ast2600";
+> > > +     model =3D "Facebook Ventura2 RMC";
+> > > +
+> > > +     aliases {
+> > > +             /*
+> > > +             * Pre-allocate I2C bus aliases for userspace predictabi=
+lity.
+> > > +             * Several I2C channels are intentionally left empty in =
+this
+> > > +             * DTS as they are strictly reserved for future hardware
+> > > +             * feature expansions and add-on boards that will interf=
+ace
+> > > +             * with these busses.
+> > > +             */
+> > > +             /*
+> > > +             * i2c switch 0-0077, pca9548, 8 child channels assigned
+> > > +             * with bus number 16-23.
+> > > +             */
+> >
+> > This alignment is one of the things that seem to be a false-positive fo=
+r
+> > dt-check-style in strict mode (value-whitespace). See [0] where Krzyszt=
+of said
+> > that it may report false-positives, and "Review and investigate warning=
+s from
+> > 'strict' mode, but do not fix them automatically without thinking".
+> >
+> > @Krzysztof wdyt about this one?
+>
+> You're right, and this is a regression I introduced in v9. In v8 these co=
+mment
+> blocks used the standard kernel style. While running dt-check-style, I ap=
+plied
+> the strict-mode output too mechanically and dropped the space before '*' =
+in all
+> 38 comment blocks in the file. I will restore to the standard style in v1=
+0.
 
-On 24-07-2026 18:12, Loic Poulain wrote:
-> +	.start_streaming = ope_start_streaming,
-> +	.stop_streaming  = ope_stop_streaming,
-> +	.wait_prepare    = vb2_ops_wait_prepare,
-> +	.wait_finish     = vb2_ops_wait_finish,
-> +};
+This is the part I'd like your input on, since it goes against your v8
+review where you asked me to fix the 49 mixed-indent-chars reported in
+relaxed mode.
 
-Hi Loic,
+Looking at the output again, all 52 hits on the current file are on comment
+lines. The standard kernel comment style '\t * ' is a tab followed by a
+space, so the tool flags every correctly formatted multi-line comment. The
+49 you saw in v8 were the same thing. [property-order] on the spi node
+behaves the same way - it wants #address-cells and #size-cells split apart,
+which is what Tan asked me to change back.
 
-While reviewing the series, I noticed that wait_prepare/wait_finish
-callbacks and their helpers were removed in:
+So I can either restore the kernel comment style and note these as false
+positives in the cover letter, or keep the v9 form that satisfies the tool.
+Which would you prefer for v10?
 
-  d0730006dac2 ("media: vb2: remove vb2_ops_wait_prepare/finish helpers")
-  b70886ff5833 ("media: vb2: drop wait_prepare/finish callbacks")
-
-These stale lines are causing a compilation failure:
-
-  -	.wait_prepare    = vb2_ops_wait_prepare,
-  -	.wait_finish     = vb2_ops_wait_finish,
-
-Please take care of this while posting next ver.
-
----
-Regards,
-Nihal Kumar Gupta
+Thanks,
+Kyle Hsieh
