@@ -1,144 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B46D37B003;
-	Fri, 21 Aug 2026 17:23:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55AD335F163;
+	Fri, 21 Aug 2026 17:35:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.39.247.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787333009; cv=none; b=sCj8UrUR5OgcEGQogwUyVLDXQnudgxLphmvJCeazD7CnZ555J3NHBtzKNn3lW1gjcQJ7LaAUowosKZmeWeQoNu3olW4LImxrcgvvYTnszlsk1H+l41VF8PoVxrS9Uqjk2ZN7GARO8OXmsQSf12khpHV9Q8Y/wheYYl4zH5yMnNE=
+	t=1787333712; cv=none; b=geoVXK1T0PSg9Hg2QwSu0BTkoulT3+KUlIZLw1nyuANQ1MRcjUu/1Rslw79rVlLf0I7NpGhuAzRG6LHwiGnaRNfaQOnU8P+/2nai3qEKNWhX7vQOE2dDeA9FwC+9MfUBWJBs+sJ+WjjNsmuxEf0YWlC4dpbht/gNwudIV1cDTpM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787333009; c=relaxed/simple;
-	bh=bXjNUCVAadw0b0GXnnr1xng129Qv7WDG74zFnbmAuC8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QGCgx9yUr865mrBpSrxIW4b5LUzjk8pglKOcXcAoUFozxyGxOkJQBNoZvKVtmJDwvwXk8i1KjGpRdyKNqEu/6SwAsRiKPz5fJkU0OABKauBE/ogadCGtgwdtzdL98DOFuz1PY+m7LYdE5+GfJeazbMUWpD1+Z+lT81fAnJdWj5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KW0EItDg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787333712; c=relaxed/simple;
+	bh=tm57Ad6PECZlLu7lczCl2+y1DS+vkQi7R0ed20Yj/ag=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rY7r/SguAZhNalfIcubMU+E+0zmM2D/rVkH05o+GzrqaYxdIPV9nqHEBxRya2ewFAJrTWw1aPYiaf7oqcfF87+aeFIEg34GCvvxdHjeZV1g3rr7sK6szHIzCA3CtIZhP75Zj/GfUf7/B9+QNK0j0TkmI6sG9CZWvJvFQ5/sPGY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=HQtt7lVZ; arc=none smtp.client-ip=195.39.247.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KW0EItDg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06D8F1F000E9;
-	Fri, 21 Aug 2026 17:23:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787333008;
-	bh=YWUzwAz2gglOPhDQRZ+3MLEbMpUfiyg15km1lbgLClE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KW0EItDg/p2K/B1rbN/IC5VfFeikrMXLMG8LKHHGxgMBR41alZRlnd9N8i4yCSopc
-	 Kie9qLO3Avt9UTxiwhby0P0xq+HTL78U7anbXvLc9oZ/dRVSnoEMqTH5VKV6uC+a06
-	 yolEOo2QkGsOwLydFzPr5Os4ldXqWeSscMTtCp1ck9LSZ0I8CMP32CVU4E0YUK6yIP
-	 PqkEksuu2CFKuVi/IoZdQqJ5j5+T3OSE3pQ8QHrOhyuC4t9D1M7e+n8RFkkK1xBnYh
-	 UwZVcjEG5mSokn2BsRrg1TI+0l+kj6rZkPLOZF7KIJik2v2JieoRXONnFx79tOrd7T
-	 XbxLuD+e0KrDg==
-Date: Fri, 21 Aug 2026 18:23:23 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: dri-devel@lists.freedesktop.org, Conor Dooley <conor+dt@kernel.org>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	David Airlie <airlied@gmail.com>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Rob Herring <robh@kernel.org>, Simona Vetter <simona@ffwll.ch>,
-	Thomas Zimmermann <tzimmermann@suse.de>, devicetree@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] dt-bindings: display: panel: Document 10"
- Raspberry Pi Touch Display 2
-Message-ID: <20260821-naturist-eagle-f691527ae813@spud>
-References: <20260820185506.84448-1-marek.vasut+renesas@mailbox.org>
+	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="HQtt7lVZ"
+Message-ID: <bbaca769-312c-4a24-9524-16cb2b4f277f@cyberchaos.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
+	s=mail; t=1787333180;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4zprVL5/9BVqDOihmvOs/Q42nl1VQUNgjTILqKSw0w0=;
+	b=HQtt7lVZcfVo8TYCvTeQ0igRuXaLHurfb35TIR+j+82dPXJmzUG154fUu75jZxBEkcGoWz
+	jQF6wuQccZftNV5xbWF9/BZb4GXb3VPF9QyKki+En6V7FOPkbtwAbl5I3vuDSh0u10PNot
+	uaRP2PHGDi0hh8BcUCzRWJymQ8yzwY4=
+Date: Fri, 21 Aug 2026 19:26:12 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="P/iFS2tr70btybGJ"
-Content-Disposition: inline
-In-Reply-To: <20260820185506.84448-1-marek.vasut+renesas@mailbox.org>
+Subject: Re: [PATCH 08/10] HID: apple: Add DockChannel HID transport driver
+To: Yureka Lilian <yureka@cyberchaos.dev>,
+ Michael Reeves <michael.reeves077@gmail.com>
+Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+ Neal Gompa <neal@gompa.dev>, Jassi Brar <jassisinghbrar@gmail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Hector Martin <marcan@marcan.st>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <bentiss@kernel.org>, asahi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, iommu@lists.linux.dev,
+ linux-input@vger.kernel.org
+References: <20260630-apple-mtp-keyboard-final-v1-0-506d936a1707@gmail.com>
+ <20260630-apple-mtp-keyboard-final-v1-8-506d936a1707@gmail.com>
+ <05d39c4d-8405-4fe7-a798-c8a9c92699ed@cyberchaos.dev>
+ <CANpmGNs3s2yLw05jkpZ9mscQNZ9JvfbqEgyW8V=cMD29aU8c2A@mail.gmail.com>
+ <03eb4c22-045e-470e-8259-ebf9b1cfe2ed@cyberchaos.dev>
+Content-Language: en-US
+From: Yureka Lilian <yureka@cyberchaos.dev>
+In-Reply-To: <03eb4c22-045e-470e-8259-ebf9b1cfe2ed@cyberchaos.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
---P/iFS2tr70btybGJ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 8/1/26 23:56, Yureka Lilian wrote:
+> On 7/1/26 16:32, Michael Reeves wrote:
+>> Hi Yureka,
+>>
+>> Thank you for the review and the feedback.
+>>
+>> On Tue, Jun 30, 2026 at 11:21 PM Yureka Lilian 
+>> <yureka@cyberchaos.dev> wrote:
+>> [...]
+>>>> +     strscpy(hid->uniq, dchid->serial, sizeof(hid->uniq));
+>>> If the keyboard appeared before stm, dchip->serial might be 
+>>> uninitialized.
+>> Yes, true, thank you for picking this up!
+>> [...]
+>>>> +     /*
+>>>> +      * Prefer to enable STM first, since it provides device IDs. 
+>>>> Some
+>>>> +      * firmware versions do not expose STM, so let the keyboard 
+>>>> start
+>>>> +      * without it.
+>>>> +      */
+>>>> +     if (iface->dchid->id_ready || !strcmp(iface->name, "stm") ||
+>>>> +         !strcmp(iface->name, "keyboard"))
+>>> I specifically asked for a mechanism to let the keyboard probe even on
+>>> devices which do not expose/have stm. Thanks for adding that!
+>>> However, I think this might need some more sophisticated mechanism to
+>>> decide whether the stm is still going to appear after the keyboard, or
+>>> not at all. I'm not sure if there is a way to tell this at this point,
+>>> or we need to add a timeout for the stm to appearing, which needs to
+>>> expire before we create the other interfaces with fake serials.
+>>>
+>> I do not think there is a way to tell at this point, unfortunately.
+>>
+>> I think the best way to resolve this would be to implement a delayed 
+>> work
+>> item that is scheduled during probe. If STM appears and initalises 
+>> before
+>> the timer (I'm not sure how long it should be right now, I will 
+>> prototype and
+>> experiment) we cancel the delayed work, get the real serial, and spin up
+>> the keyboard. If the timeout expires without seeing the STM 
+>> interface, we
+>> assume the platform does not have one, mark id_ready as true, and
+>> proceed to init the keyboard.
+>
+> I see three ways forward (no specific order):
+>
+> 1) Implement the timeout as you described.
+>
+> 2) Use the approach that always waits for the stm to appear, and is 
+> proven to work well on the M2 devices targeted by this series. A 
+> different behavior that does not wait for the stm / determines the 
+> serials using other means can be added at a later point in the same 
+> driver but with a different compatible string.
+>
+> 3) Add an stm subnode (like the downstream Asahi device trees have for 
+> their dockchannel-mtp nodes [1]) which indicates whether the stm is 
+> present. Check for the existence of this subnode to decide whether to 
+> wait for the stm or add the HID devices with fake serials. Support for 
+> other methods of retrieving the serials can be added later and 
+> indicated by other subnodes.
+>
+> I would appreciate feedback from all of you on which of these options 
+> we should move forward with.
 
-On Thu, Aug 20, 2026 at 08:54:27PM +0200, Marek Vasut wrote:
-> Document the 10" Raspberry Pi Touch Display 2 MIPI-DSI TFT LCD panel.
-> The panel is based on the Ilitek ILI79600A controller.
->=20
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> ---
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Jessica Zhang <jesszhan0024@gmail.com>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Neil Armstrong <neil.armstrong@linaro.org>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: devicetree@vger.kernel.org
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-renesas-soc@vger.kernel.org
-> ---
-> V2: Extend existing ilitek,il79900a.yaml document instead of introducing
->     new one. Note that the il79900a should likely be il_i_79900a, but the
->     binding document already shipped in Linux 6.19.y , so this can not be
->     fixed anymore ?
+After checking ioreg -l under macOS on the MacBook Neo (which is the one 
+Apple Silicon MacBook having the non-force-touch trackpad variant, and 
+sending no stm report), I'm convinced it legit has no Serial to report 
+for the keyboard/trackpad HID devices, so we'll always have to use the 
+fake one there.
 
-Should it? Website says il79900a:
-https://www.ilitekholding.com/en/product/Mobile (ctrl + f)
+Knowing this, I'd rule out Option 2). Between option 1 (timeout) and 
+option 3 (device tree node), I prefer the device tree node. We already 
+have the keyboard subnode and we know for each MacBook model whether it 
+has an stm or not, so having the stm subnode seems logical. As a bonus, 
+the code for this is quite simple, and I will prepare the v2 of this 
+series shortly.
 
-Your new device also has no second I there.
-
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
-
-Cheers,
-Conor.
-> ---
->  .../bindings/display/panel/ilitek,il79900a.yaml     | 13 +++++++++----
->  1 file changed, 9 insertions(+), 4 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,il799=
-00a.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,il79900a.=
-yaml
-> index 02f7fb1f16dc7..f8644e9a4478d 100644
-> --- a/Documentation/devicetree/bindings/display/panel/ilitek,il79900a.yaml
-> +++ b/Documentation/devicetree/bindings/display/panel/ilitek,il79900a.yaml
-> @@ -14,10 +14,15 @@ allOf:
-> =20
->  properties:
->    compatible:
-> -    items:
-> -      - enum:
-> -          - tianma,tl121bvms07-00
-> -      - const: ilitek,il79900a
-> +    oneOf:
-> +      - items:
-> +          - enum:
-> +              - raspberrypi,dsi-10inch
-> +          - const: ilitek,ili79600a
-> +      - items:
-> +          - enum:
-> +              - tianma,tl121bvms07-00
-> +          - const: ilitek,il79900a
-> =20
->    reg:
->      maxItems: 1
-> --=20
-> 2.53.0
->=20
-
---P/iFS2tr70btybGJ
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaoiJigAKCRB4tDGHoIJi
-0nMeAP9lEw/ySMu5b7F8tSgGWV0PUvqqjkIrOhlKMp0LJvc1aQD8COjKK1tTBCyC
-msN5oMXiKpEgYQpp7zKg/ZQykN6NNwM=
-=04aB
------END PGP SIGNATURE-----
-
---P/iFS2tr70btybGJ--
+>
+>>
+>> I will work on this and experiment to see if it's the best solution or
+>> if there's
+>> any others as well as to find the ideal timeout, and submit as part 
+>> of v2.
+>> [...]
+>>
+>> Thanks again,
+>> Michael
+>
+>
+> Thanks,
+>
+> - Yureka
+>
+> Link: 
+> https://github.com/AsahiLinux/linux/blob/asahi-7.1.5-2/arch/arm64/boot/dts/apple/t8112-j413.dts#L260 
+> [1]
+>
