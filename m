@@ -1,364 +1,171 @@
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13AD5411F88
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 06:28:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787293721; cv=pass; b=c+uDLSp7ZmDXAlqVEU4QhNcywTGo2SbGHuKieWYDDleHONuzYG+QdoHk1tk+Zl35KqNNT+7yvb/sQ03iLa4yDJj9T7r/tE6RNN1s9/JtqgnrCI9uUFmp6vrM3ex2NJ9L2O0jJ3mszQ1yGjoBPvqzMC0zQg819/x8WyyU9M7uYR0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787293721; c=relaxed/simple;
-	bh=dpSB7kj5Mdvd2RHSlOhr/QI4/pc0C+Rmc0XdvK5aqA0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UJjrviBV8klzSCUSBF7l3xmHtboRJEbYlQ4PDEFZO5PC0ju6T1YjSuDePeprCix4uktkl5WqnbQRmcyWKP/uWRL/p6soLz2yEFv0eDxZ3UfwSigqr7ncNmPWbGEgxR29+unEL+3TXfBhqlAEhModnKNSh6tnJFma19nyg3S9sis=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ayCxAXts; arc=pass smtp.client-ip=209.85.167.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBCB241379F
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 06:34:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787294091; cv=none; b=Fmzl9TeEne6UFWdtuJdUge1WYTCiiYqxGQEIaPNX4j4kR/qDOcTVtywEEu+0tzonjqNrYzzN95MMGwPn+Gv9nciOIFuyKPCnacHJA0fpUqXEuyBXSSxxwrxePsNOB5nmGVvBb9XuDoJajHxvKcxI3RrUjq4fhCBZ/MmK8lBbfMg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787294091; c=relaxed/simple;
+	bh=PTtUw1aBvRTFrGS1Xdi2jShMywNyldzKbSOrkVj0R4E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QexWgP/JyjYrVOdHEIFjIuJJtR/yL21p8G/61PtUlGkqyMJvsNF02Z/8Hq1mNfmJlqohCbt/VT+QqDUfmY82vMGqG8A+0cFAZwdUNiE8D3KVe7m26j750HZ4Vklazfhg9uxjaxtLED3bCa/ssqNLqcbBmjXYacj9/1yKsalkqVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nQHdeUfN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gFEOiXPG; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ayCxAXts"
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5b14d1f9315so649369e87.2
-        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 23:28:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787293718; cv=none;
-        d=google.com; s=arc-20260327;
-        b=auQQwb0nhF9xcRuAtBOpx9/2V3MEaNL+ZurfLbRfLqtEvbZXqUh3OO+C3lQUQFa8VE
-         w5GfZGAHvvJR+4pjQS0j4vQZ0E5AdNaLsNi3UE/wnhOlJs/lwl7ef/fASUbiCYA25gh8
-         G76QWoXQSVzTwBaYupCBENWGQ68lmTfQC8cHfimwATEf+G4DGUnFxY+q7Jwx5D0Fr+Ey
-         COnd1DhDronsTT9kGPbZ1gsy12QWMXkrL2aFCCfzOncWdFw62myzvTTKhwtxYg5DgWEn
-         48BbF4O/n4Iujo/ToL2DKbJsY04HfhdfRAWM7vfTelT4GfWlPlrM+tRWUNmjHaqrS33x
-         a06g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+B9pQd9t0eZEYhD64ciNA4BU0alMXlOocEuezOHCIMY=;
-        fh=T9wnFl24PRYwIKV+A29qqQ1y+ijO6fey36Gsx6byNic=;
-        b=pPq1EL0sN4C1eW8dD+XiyODKaLswDinLHj8O3kNfQ0722S++iKs7t/SSsCxLRGMINO
-         u+zLJdR3Npng34avy34zclKR1GMNZedNzGIJJpJssA7WcaZPNV8fQIv2B7w+r9Djjtme
-         CpgzKnvMajsWi0L4FRPa7IZNU7XZSACKB23yQx4wuZu7veKH0dAZb6IvjnkM+LqdWbh6
-         u6ILrwJJ02pZvV9S2UvCVkhira+6a3V0E2t7ptacD7mJyTzvYe5QVPSZC28UCiVeT5/o
-         DtoUPI4zF7vv8Z0YuKVAq6sB6tE4Lm7XI0RygQpf2lY/X5j3CW0wifYplrT3mTX5pun7
-         FUrA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nQHdeUfN";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gFEOiXPG"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67L5TucN1271204
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 06:34:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	QJSg8p95MkrIIUpW6qDHyz2rAmYHMQ1fjNNioDnnJ+s=; b=nQHdeUfNpfGoXYbl
+	CuPMJxh5IbaCOsFc+b7yKMoptq0NuV4RYrVCoAgKFXLjFXtclSJaUJv9YSje/87y
+	GK+LM6Xb/9gN22/DnHr9VEjbDnHgfPTXFQelXsWp1QsA4cNgtA3J6D/ijvxGxMfx
+	9ntHvSVAC+oAWobXWtSS2iC/QyD1Z9iBHv8VVN1oEGwkgJD1waWLY3wHw/G0L4jn
+	dwBa5MoJWRlbdVh+gRu4WZxFGpJQsp2AjYdl8lQqC9Q/8wFL+/Htl4n9OzCzk3U+
+	ttSi6ImAZcN04AuOyzd+cWvp4m/4fESHFSAr+kd9HdfCGQ8kVYzVXWFpVU6AnFry
+	zPqvLg==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g6ecb8kkc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 06:34:48 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38e8fee6af3so791549a91.1
+        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 23:34:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787293718; x=1787898518; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+B9pQd9t0eZEYhD64ciNA4BU0alMXlOocEuezOHCIMY=;
-        b=ayCxAXtskzNk3Ll3ry0T3VgIWD1U7/J8L/QdNc/ZU/ux0E+HuVARu33GSTDibg43Y+
-         uW/sYXP0ztXIFno3NTCpkyQM4iQP5ttIsn3BeqgQyuaTXDr7IiVgDqFl29Gp6/vBMTBG
-         gY59GpPtDozE+W1lT0DYCG3LWQOMFr8YfAsIYRnOOsLIdM4AvlrnumTf7TAGePzea4Fs
-         J44Rn3yKx7qYS42PTC6ukrG40sSBchMcRn9EGVbMSXsazA25076CFphNpby0yYQLCoI3
-         NvhMiq8bbe3E1GLTgo3inGolWQzRqPuaevJyjmG0ra2HKUpPHFIj5lwO/wJdNIfYngWy
-         dU2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787293718; x=1787898518;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1787294088; x=1787898888; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+B9pQd9t0eZEYhD64ciNA4BU0alMXlOocEuezOHCIMY=;
-        b=XENJx2LStfFh610af0bpw6+5BVIt0Q2pOLU8qXHhL48jmB5DyYUZgYiFU6e+3549Vu
-         zBzJ+Z529cKj5pM6As2H6lqeoxx0xHyN1xgdaBz19EQRY8DUSR8V1rNwpdH0/QkJuHGp
-         bvepcR3pBsD60Mk5xFRVHL9oaf0gf9+h+yqY8MvhURBYyrj0Zt4foTqdmZdexDIFqLTX
-         zWVNqT0YOtmHBSxOdF7ts0R41FjoSVoKAOo4j2b3MmmgoP5U4wsn0d4KoCZnDqnCF+sN
-         2MDbeJIkABBfB8povjX7Fj/5ZRGnMKL+2a2ZEtaPVEX/xScM8k8GbR45Xe3shWpxbfYL
-         BmYQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rpc8QT4p0KmnvzWzvVjSxBEAELDLAf24f/2Cd6z3QzzkBV3vDCEg4HGDc6zzzB/SfkIp5ik3IlG8qB9@vger.kernel.org
-X-Gm-Message-State: AFuF++mzN2ZnoVuoOF47z+hPjMHxvePzSVdKLPisld1Im1zTWxHqz9oV
-	/0summYrTrOFCv5Fi2UK6A5oyOZqa2nKTwGn7pZuIJPdAIdNd6uzLM4t3lPpkWPbmGdlXyU7uex
-	tzXqsB5au+X/g7jTyZh8UzZDeOuRG0DE=
-X-Gm-Gg: AR+sD10dzT/AKx4tZ5O4s4E6hSE0n+jgYCT8Yqk4620S+6VgM11MrxFluUjbSqAgjkd
-	tc90AmXJu0ONiheKOD5KXus2pV40u3d+eADaCYwzUPgga3+Q7+8gJdpGwv6A8Dt5o316qZRENmy
-	4tDvWCJQ3KVBxlYrDZzOXlATTK9PmAUoIaJ4rfT0mX6cNtZrMXzLwp8ZU9VAMAwQGnTnZMNIDi4
-	xMcc9V9npqnzhzPqM5VbKUPvtvjwZiodnDJ0QNw6Chglbk5WlNNvEzCmDSQiQskMzFqqX8h6R+Z
-	y78XsKk35c29Hkuny3+07IiifaQUG98fftEvjzU0XDTCtg==
-X-Received: by 2002:a05:6512:3da0:b0:5ae:bcc4:c071 with SMTP id
- 2adb3069b0e04-5b484090f50mr1322562e87.0.1787293717922; Thu, 20 Aug 2026
- 23:28:37 -0700 (PDT)
+        bh=QJSg8p95MkrIIUpW6qDHyz2rAmYHMQ1fjNNioDnnJ+s=;
+        b=gFEOiXPGVw06yPr1CxHUuP1Yuh8OkEVmiCzoURIymDPQH3SHXbJ7LabEcCsYe8CfxI
+         T7J+MlPo5vbwhejcq1uJ0eYzK8QfpalPy6HV3uUAEuu8Han4K0g7y0sgpENHjk4VMlQR
+         RMv2XsRG1HmKDNGKf/D7NK23E26+/BW72uS2l9BhCbnY3CvoQdrgc483/x8vv8yBl0Tc
+         CK7n4uSstFbLAaQpq23S/a8Os+IknLQT9ynY0vCEhreiZgrcTNhsD3h6zEdU/a/6xrtd
+         CzNiPpUwi/zmcmcuHcJMjsGQquawDo8HHIFFalJ7sMDviEYC2+l6z43EgfgP6KG6/yof
+         IgHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787294088; x=1787898888;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QJSg8p95MkrIIUpW6qDHyz2rAmYHMQ1fjNNioDnnJ+s=;
+        b=SJhaMTUxCJQXDMsED0+/9EvFY17VmWGPV+wPvtZS5J3blK9gP/Mkgyl9SDBlEP/0Mb
+         iAFQc1tsMiHRCWzr8hxemNtSJsPJqpqggT2g3HK4o5t61Ip0Twz690fBiEkUpZQHvOyk
+         I2u/FHHbF/GWQi2UeYx7ALvdW6E04Oeoe/rN5McfH7i1/20EJp22Q9Y2FXlmUn5gVgga
+         BfG62Y9oqUZ+odmVRcPM7Sn98okMWaEHT36luLr6bOLabLkqMwcfk6ydslJ29VyAUX/b
+         RXUR2XuOWOWFSxintKXAJ5mQGT5+wR1RW3abdg9F/Uzq/DXkx8rNidXB4enBxXeRqxB4
+         U5ag==
+X-Forwarded-Encrypted: i=1; AHgh+RpyYV6LyNSQRi9VXTDUpfHvNzKBnYd17mc85c8zCpmkRgvp37EbivABnDYlSnbgYiv77HXI3yHKfEnQ@vger.kernel.org
+X-Gm-Message-State: AFuF++mY4Z5/FcdUZsGpoTm+u6vgKzUqRe5bMtJ3gVE7iIO5EjNpzksb
+	HlQjzJTjrBLDQ3GqjjQ7xDdxeekPNewr0YY6b55SLSAdqm3N3Qcs6TKCkhRaF1x/mG3Ii3UfqMI
+	t6ZcXA9m6GzqPeuQhBX1Pswm/jnT+MHgyZuDl/anAqW/Wo1zHIZfbu8XyBybEWy3d
+X-Gm-Gg: AR+sD13FjvPXJmuMbCregCT9b3QWi4oFwSnfGSLxUgguUW3obiw4cVVTM65MGewUARm
+	rlaxWRCVRQRU0tMxy9UUOeZ+fhGGtYqP4A1C1pl6+GHsjFynGTgE04H1sNERcoSR5Oozcp1/5Fb
+	r6v7et00UJcUtfqxH82tktTUw2ySCspdpoABEPpS6DYqLEbElhnyFsfQgvV1J6Pp431L2JtmW5B
+	74rI0SDVJa6Fk/uo3+dPoBEOsJLM3Z7ikPZdbtPcwRhKychARgyieRxGYKm/0bCPfKtszCFumF2
+	F/0JuTFXdxS2eTE74H6fHDabrMMnaXYlK5qQz0JNCdIMv6hUujwvZnapD7ObXrdxg9LX8UoACGl
+	j1C1E4iDVFnZPs+ATCbdF6GQWkN9SXw==
+X-Received: by 2002:a17:90b:53c3:b0:38e:5c6:4db9 with SMTP id 98e67ed59e1d1-395c39cbc42mr7831724a91.11.1787294087792;
+        Thu, 20 Aug 2026 23:34:47 -0700 (PDT)
+X-Received: by 2002:a17:90b:53c3:b0:38e:5c6:4db9 with SMTP id 98e67ed59e1d1-395c39cbc42mr7831667a91.11.1787294087392;
+        Thu, 20 Aug 2026 23:34:47 -0700 (PDT)
+Received: from [10.206.103.106] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-395c4be445fsm1772969a91.10.2026.08.20.23.34.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 20 Aug 2026 23:34:47 -0700 (PDT)
+Message-ID: <e2cab6c6-a5fc-43b2-96e7-f46f9a7bd20d@oss.qualcomm.com>
+Date: Fri, 21 Aug 2026 12:04:40 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260727-ventura2_initial_dts-v9-0-504c0ec68039@gmail.com>
- <20260727-ventura2_initial_dts-v9-2-504c0ec68039@gmail.com> <178724902712.20555.7009712214570349708.b4-review@b4>
-In-Reply-To: <178724902712.20555.7009712214570349708.b4-review@b4>
-From: Kyle Hsieh <kylehsieh1995@gmail.com>
-Date: Fri, 21 Aug 2026 14:31:41 +0800
-X-Gm-Features: AcwNN1VHyDF2m_8gVrWdQPyCUbVvLps1cRKmYDiyS5eZ7IMCo5hpISGq-5CfFl0
-Message-ID: <CAF7HswN1ZzwjfXjG2hV5tEkVZkZYp0CiVNSo_9A4m3tsqQp_Bg@mail.gmail.com>
-Subject: Re: [PATCH v9 2/2] ARM: dts: aspeed: ventura2: Add Meta ventura2 BMC
-To: Tan Siewert <tan.siewert@9elements.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
-	Andrew Jeffery <andrew@codeconstruct.com.au>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 4/5] media: qcom: camss: Add CAMSS Offline Processing
+ Engine driver
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        Rob Herring
+ <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
+        devicetree@vger.kernel.org,
+        Hans de Goede <johannes.goede@oss.qualcomm.com>
+References: <20260724-camss-isp-ope-v5-0-e70ad4fa39ce@oss.qualcomm.com>
+ <20260724-camss-isp-ope-v5-4-e70ad4fa39ce@oss.qualcomm.com>
+Content-Language: en-US
+From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+In-Reply-To: <20260724-camss-isp-ope-v5-4-e70ad4fa39ce@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIxMDA0NSBTYWx0ZWRfX7Ga0jwduqUkz
+ pF8D7XK4CqseAA8ovuO1hWlaFtRDVnVy3Z//bXt8cXAmScFKCNtIw7oXdL7fmfUQqmuok341QiU
+ 2nv5Fp98O06diZtg0G3OAmFmNE1LfeeNjnQ055YnrOYlI5NnWcfL8ivAVBjOSVjdV4vFodAQpk4
+ Rr85TTW1W6ESaEEvl1WwWS8tqF/geu8djJLDuN+YKOLV1xBAF/TdjVTpiKcVF+RcrYxKr43u+eY
+ I4zOz4w4MaSZlMuAsU031bSsYOEATgt0JrwQ8SDgPVSAdLg5rpTkjMf/1zPi2vKKLVDj+oNdBkb
+ kyO4Dv4Er8bDi9PEc9pdUm4zxU4jS4si8isYOsV+gsxFe1EX0pFgmncI3C5DAzsS7plrUpQ8qpI
+ cCNUHvVt5ToHLmCv4mzqsmBhSWGgjRleD78G2wpNKzll6EWLGfqiRLTw2OO1C9Vf9PiHg0M400N
+ CV0rCkrtuyv5gk//+vA==
+X-Authority-Analysis: v=2.4 cv=e/s2j6p/ c=1 sm=1 tr=0 ts=6a87f188 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=VQr-KVQjmy1A4l77MVwA:9 a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-GUID: QXdlz9ju6hcDfpNQIzEdKhGOr6nqBPkJ
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODIxMDA0NSBTYWx0ZWRfXzIzvx4Yt4woU
+ oq96ij3495VMm+MF8+3Gupaqw/u2QtA1GUnh1nAJQ6G0up2+wHEUB3u0R7UR6Ih3botlY173tqz
+ pF9t4pziy4+3rTKgyvOh0kGeH1HO8vQ=
+X-Proofpoint-ORIG-GUID: QXdlz9ju6hcDfpNQIzEdKhGOr6nqBPkJ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-21_02,2026-08-20_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 impostorscore=0 suspectscore=0 spamscore=0 phishscore=0
+ lowpriorityscore=0 clxscore=1015 malwarescore=0 priorityscore=1501
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608210045
 
-Hi Tan,
 
-Thanks for the review.
 
-On Fri, Aug 21, 2026 at 2:04=E2=80=AFAM Tan Siewert <tan.siewert@9elements.=
-com> wrote:
->
-> Hi Kyle,
->
-> > Ventura2 is a Rack Management Controller. It is a modular
-> > device designed to manage liquid cooling systems and monitor hardware
-> > states within an IT rack. The system uses an AST2600 BMC for management=
-.
-> >
-> > RMCv2 serves several critical roles:
-> > - Detects liquid leakage at both tray and rack levels.
-> > - Communicates with and controls liquid cooling equipment.
-> > - Manages leakage events and executes system recovery protocols.
-> >
-> > Key hardware features include:
-> > - An extensive I2C and IO expander topology to support comprehensive
-> >   sensor monitoring and backward compatibility with legacy trays.
-> > - MCTP over I2C support for asynchronous device communications.
-> > - A dual-flash design for BMC firmware redundancy.
-> >
-> > Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
->
-> *snip*
->
-> > diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts =
-b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts
-> > new file mode 100644
-> > index 000000000000..f1273ca31bf8
-> > --- /dev/null
-> > +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dts
-> > @@ -0,0 +1,3005 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +// Copyright (c) 2023 Facebook Inc.
-> > +/dts-v1/;
-> > +
-> > +#include "aspeed-g6.dtsi"
-> > +#include <dt-bindings/i2c/i2c.h>
-> > +#include <dt-bindings/gpio/aspeed-gpio.h>
-> > +
-> > +/ {
-> > +     compatible =3D "facebook,ventura2-rmc", "aspeed,ast2600";
-> > +     model =3D "Facebook Ventura2 RMC";
-> > +
-> > +     aliases {
-> > +             /*
-> > +             * Pre-allocate I2C bus aliases for userspace predictabili=
-ty.
-> > +             * Several I2C channels are intentionally left empty in th=
-is
-> > +             * DTS as they are strictly reserved for future hardware
-> > +             * feature expansions and add-on boards that will interfac=
-e
-> > +             * with these busses.
-> > +             */
-> > +             /*
-> > +             * i2c switch 0-0077, pca9548, 8 child channels assigned
-> > +             * with bus number 16-23.
-> > +             */
->
-> This alignment is one of the things that seem to be a false-positive for
-> dt-check-style in strict mode (value-whitespace). See [0] where Krzysztof=
- said
-> that it may report false-positives, and "Review and investigate warnings =
-from
-> 'strict' mode, but do not fix them automatically without thinking".
->
-> @Krzysztof wdyt about this one?
+On 24-07-2026 18:12, Loic Poulain wrote:
+> +	.start_streaming = ope_start_streaming,
+> +	.stop_streaming  = ope_stop_streaming,
+> +	.wait_prepare    = vb2_ops_wait_prepare,
+> +	.wait_finish     = vb2_ops_wait_finish,
+> +};
 
-You're right, and this is a regression I introduced in v9. In v8 these comm=
-ent
-blocks used the standard kernel style. While running dt-check-style, I appl=
-ied
-the strict-mode output too mechanically and dropped the space before '*' in=
- all
-38 comment blocks in the file. I will restore to the standard style in v10.
+Hi Loic,
 
->
-> > +             i2c16 =3D &i2c0mux0ch0;
-> > +             i2c17 =3D &i2c0mux0ch1;
-> > +             i2c18 =3D &i2c0mux0ch2;
-> > +             i2c19 =3D &i2c0mux0ch3;
-> > +             i2c20 =3D &i2c0mux0ch4;
-> > +             i2c21 =3D &i2c0mux0ch5;
-> > +             i2c22 =3D &i2c0mux0ch6;
-> > +             i2c23 =3D &i2c0mux0ch7;
->
-> *snip*
->
-> > +     spi {
-> > +             compatible =3D "spi-gpio";
-> > +             #address-cells =3D <1>;
-> > +             cs-gpios =3D <&gpio0 ASPEED_GPIO(Z, 0) GPIO_ACTIVE_LOW>;
-> > +             miso-gpios =3D <&gpio0 ASPEED_GPIO(Z, 5) GPIO_ACTIVE_HIGH=
->;
-> > +             mosi-gpios =3D <&gpio0 ASPEED_GPIO(Z, 4) GPIO_ACTIVE_HIGH=
->;
-> > +             num-chipselects =3D <1>;
-> > +             sck-gpios =3D <&gpio0 ASPEED_GPIO(Z, 3) GPIO_ACTIVE_HIGH>=
-;
-> > +             #size-cells =3D <0>;
->
-> Shouldn't #address-cells and #size-cells be ordered together? If reported=
- by
-> dt-check-style as issue, then it might be a false-positive.
+While reviewing the series, I noticed that wait_prepare/wait_finish
+callbacks and their helpers were removed in:
 
-I will put the two properties back together in v10. Like the comment
-alignment above, I'll list this as a strict-mode warning I'm not acting on.
+  d0730006dac2 ("media: vb2: remove vb2_ops_wait_prepare/finish helpers")
+  b70886ff5833 ("media: vb2: drop wait_prepare/finish callbacks")
 
->
-> > +
-> > +             tpm@0 {
-> > +                     compatible =3D "infineon,slb9670", "tcg,tpm_tis-s=
-pi";
-> > +                     reg =3D <0>;
-> > +                     spi-max-frequency =3D <33000000>;
-> > +             };
-> > +     };
-> > +};
-> > +
-> > +&adc0 {
-> > +     pinctrl-0 =3D
-> > +             <&pinctrl_adc0_default &pinctrl_adc1_default
-> > +             &pinctrl_adc2_default &pinctrl_adc3_default
-> > +             &pinctrl_adc4_default &pinctrl_adc5_default
-> > +             &pinctrl_adc6_default &pinctrl_adc7_default>;
-> > +     pinctrl-names =3D "default";
-> > +     vref-supply =3D <&p1v8_bmc_aux>;
-> > +
-> > +     status =3D "okay";
-> > +};
-> > +
-> > +&adc1 {
-> > +     pinctrl-0 =3D <&pinctrl_adc8_default &pinctrl_adc10_default>;
-> > +     pinctrl-names =3D "default";
-> > +     vref-supply =3D <&p2v5_bmc_aux>;
-> > +
-> > +     status =3D "okay";
-> > +};
-> > +
-> > +&ehci0 {
-> > +     status =3D "okay";
-> > +};
-> > +
-> > +&ehci1 {
-> > +     status =3D "okay";
-> > +};
-> > +
-> > +&fmc {
-> > +     status =3D "okay";
-> > +
-> > +     flash@0 {
-> > +             label =3D "bmc";
-> > +             spi-max-frequency =3D <50000000>;
-> > +             m25p,fast-read;
-> > +
-> > +             status =3D "okay";
-> > +             #include "openbmc-flash-layout-128.dtsi"
-> > +     };
-> > +
-> > +     flash@1 {
-> > +             label =3D "alt-bmc";
-> > +             spi-max-frequency =3D <50000000>;
-> > +             m25p,fast-read;
-> > +
-> > +             status =3D "okay";
->
-> Missing '#include "openbmc-flash-layout-128-alt.dtsi"'?
+These stale lines are causing a compilation failure:
 
-I will add it in v10.
+  -	.wait_prepare    = vb2_ops_wait_prepare,
+  -	.wait_finish     = vb2_ops_wait_finish,
 
->
-> > +     };
-> > +};
->
-> *snip*
->
-> > +&mac2 {
-> > +     phy-mode =3D "rmii";
-> > +     pinctrl-0 =3D <&pinctrl_rmii3_default>;
-> > +     pinctrl-names =3D "default";
-> > +
-> > +     status =3D "okay";
-> > +
-> > +     /*
-> > +     * The Marvell 88E6393X is initialized at boot via EEPROM
-> > +     * configuration and hardware straps.
-> > +     * The BMC connects via an RMII fixed-link; link parameters are fi=
-xed
-> > +     * by board design.
-> > +     */
->
-> This kind of writing gives me the suspicion that it was written with assi=
-stance
-> by an LLM, but I might be wrong.
->
-> Either way, if you have used AI assistance for your series (or only for t=
-his
-> patch), even if you have only used it for the commit message, then you mu=
-st
-> declare it via the "Assisted-by" trailer [1][2].
+Please take care of this while posting next ver.
 
-You're right; I used an AI assistant to write this comment. I'll add the
-Assisted-by trailer in v10.
-
->
-> > +     fixed-link {
-> > +             full-duplex;
-> > +             speed =3D <100>;
-> > +     };
-> > +};
-> > +
-> > +&mac3 {
-> > +     pinctrl-0 =3D <&pinctrl_rmii4_default>;
-> > +     pinctrl-names =3D "default";
-> > +     use-ncsi;
-> > +
-> > +     status =3D "okay";
-> > +};
-> > +
-> > +&peci0 {
-> > +     status =3D "okay";
-> > +};
->
-> You mentioned that this is a rack management controller. Does it really r=
-equire
-> PECI?
-
-It does. Ventura2 can be populated with a COM Express module, and &peci0,
-&kcs3 and &lpc_ctrl describe that path, so I'd like to keep them. I will ad=
-d
-a comment in v10 explaining this, so it's clear from the DTS itself.
-
-For the record, the v5 changelog claimed &peci0 had been removed. That was
-incorrect; the node was never actually dropped. Apologies for the confusion
-that may have caused when reading through the series.
->
-> > +
-> > +&sgpiom0 {
-> > +     bus-frequency =3D <100000>;
-> > +     gpio-line-names =3D
-> > +     /*"input pin","output pin"*/
-> > +     /*A0 - A7*/
-> > +             "power-chassis-good","FM_PLD_HEARTBEAT_LVC3_R",
-> > +             "host0-ready","R_BMC_PTH_RST_BTN_L",
-> > +             "CONTROL_VT2_SUPPLY1_CLOSE","FM_MDIO_SW_SEL_PLD",
-> > +             "CONTROL_VT2_SUPPLY2_CLOSE","FM_88E6393X_BIN_UPDATE_EN_N"=
-,
-> > +             "CONTROL_VT2_SUPPLY3_CLOSE","Sequence_TransFR_Alert",
->
-> Why's "Sequence_TransFR_Alert" written in camelcase?
-
-An oversight; it should be consistent with the surrounding names. I
-will renamed to
-"SEQUENCE_TRANSFR_ALERT" in v10.
-
-Thanks again for the thorough review.
-
-Kyle Hsieh
+---
+Regards,
+Nihal Kumar Gupta
