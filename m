@@ -1,65 +1,65 @@
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3C4F4C042F
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 14:38:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 147CA4C77D8
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 14:38:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787323120; cv=none; b=AQ2ZgbbAS2UmBwYX/2jZwvwCg3KRvu83hj23OYtaQxNwtwBIDYDUkx9fvjAgPmA19KqNrisao3K1nPTRYbuQUqHoef/juT2iyOu57dc/KMpFsgg5Slv1teIVso+1OCkPza9vqRzVE5dPBBwJenSK4+Hnqnp+j2yjJ5SW0oPSCgs=
+	t=1787323127; cv=none; b=FVkcuaZznFafxvEtk5f7NOr3gq0p2+w+uqUspuvnSV6x2bN2hWIbdIVYQ8dI2Ts7olwc4vEbQ4iniwrD0qQ2uZco6UogDpHz4X5r62T3vnLgH0XH42xNnWPVkIemKwqeBKprgpk9at86gJj/KkZZIuEARsLo5ENnfnwBD57DSOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787323120; c=relaxed/simple;
-	bh=yDkWoEFDM+6E+tOGZ/Pf2E1ikfxC7ajm6i/wChJMl5A=;
+	s=arc-20240116; t=1787323127; c=relaxed/simple;
+	bh=jP2B8Oq/SxivmT2+4bp6q/xxtMABghG2HFb3rq1F3l4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YH4QGyqFMTC0gt7mxG3NNEOpVE66JP713RJhR53OcJ0nlD7VqcmpTRLiCk9+dESyPDFw5hjR2CJ2+My4sqeE5D4q7yOOK7ZVsrSMQ8juhf35IY89nhd2yQkeFn+fUyKHVyEp+sUwiGls9mz2msssjRfm9V5GZkndxgtvfAghlN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KDT98qsm; arc=none smtp.client-ip=209.85.128.175
+	 MIME-Version:Content-Type; b=gZDvgbKNlLTvbweqPNiFR4O0lT3o44bt2O8G4ZMylELDVaGzIhMTuGqOM2F1LYF6bQyNyzbiEUYYKZAeUjqYUb7xbszlhs5co8sQfWZatQKDXd2ogcNyAHwL1PItsiY2BUluu/nGGIgq364/0V5k3+/11dRalACzO5lh/RTk8OI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l2prGbB9; arc=none smtp.client-ip=209.85.128.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KDT98qsm"
-Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-81e6f0b4610so12323437b3.2
-        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 07:38:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l2prGbB9"
+Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-81ecf499af9so16657447b3.1
+        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 07:38:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787323113; x=1787927913; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787323122; x=1787927922; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=FpnrrgVBkCseeH30s/+2qScfilYBiNsJRVekRnVKb/Y=;
-        b=KDT98qsmhdmf4F0SEegqSexqjR1iYsyCon39Q/cviDdTMY9rRgnXLlBJaHoqRH42//
-         wRHp+4A25iHCXZiOevgLb9ofFoQ6d40T+wL31jlvqUZIv+gVUmHUi6E6oc0SA1QXW6g1
-         O0V/cI/2B8HaUzcK2+tYExOJt2YQHPeBIOaN2vbKaXy6QA4VGJo40OdcskFyjWDaRfzs
-         1U/dM82ZyeyzWKNVDFoIz7IF63K0fzs7aggRV2jXPUkW7txJKQZia63EYrp/bpn+nVuu
-         +of8oSelOm57ljY1Btbermw5KGsNVIXSLlpNWLBcU3TW1nfNLTmmkuj8nuKVieGt/Uiu
-         cXaA==
+        bh=5O2ZS9+ansg0/IUrCuwtyZKXd4BjLxjahxk05rb1blQ=;
+        b=l2prGbB9aWgh5KG4Lh2YNNx0p40f2KnizlD5zOKVCDXMjAL3mVg0r6djHgeWc+xT25
+         IKm1Hb6WPdshTXX8qUcU5JBAK+1ZJHL2WwingsjsrYN7JPj3+sqmnCz0OQO+YWfGiNR4
+         OiO9N4yVPWLZsnwp9MWjsNhxmMdntJpJ1Su4qOPTRmQsiXlurFxwGvELEEuaniUPhXd/
+         ljgElXjAClTshuN2FdgrptddY+9tvNEP00FDp5S9wr1mjrKkGDHCSi22NwuhmBZpv0gD
+         60DQIf1stsX4Oue6xUMKeZLUC026ulMzV9vjrpHPTNYw+JadB5A2Idb/cPStmN+kWEIp
+         qHYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787323113; x=1787927913;
+        d=1e100.net; s=20251104; t=1787323122; x=1787927922;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FpnrrgVBkCseeH30s/+2qScfilYBiNsJRVekRnVKb/Y=;
-        b=GpqLUf/pG3LxkT7l+sYVBccZNtKhyC6cGkOuMJc+P7RrlzZn1SIzhnfxL1ZHN4s4B2
-         QWlXX8FyBCqNQHEyu0Vq0QQm/Zz8C9VsGMwOgEeVG2B2em7yU36bwEKNdknmwuzSFfEx
-         yvkZ68oDbEHgu+/B1Wuk1nreVviiOLbCIHtvDByz8IRX8uS14gdkf4C+kQDDs2L79q7M
-         mrIRoKKWaq9ztkwEszR+Hww6KD1+15X9bWOcFhVnmAHK+y3BWoqrLkb5eEDIkUDJWQvg
-         5XlAJbYwbb6baIWJmf1M98rkCSpfkZTGWOxhZDU4uxiZ45VnG9E3qiGc+IVFxfyjeiAf
-         bbuA==
-X-Forwarded-Encrypted: i=1; AHgh+Rrvb+LmayU87Qx8aWRBPbr1FlFIoEWmkloRDSWMJyxFDXijimWvNyDs4kzDtb0zCMHg67ZdnpKflfnP@vger.kernel.org
-X-Gm-Message-State: AFuF++l4f4cE+tzv0U9ij1LLVBcvdGx47s8V86L6gbpbh+MQHT3mrlVO
-	B3DhafZhIMNyHHa36ZPq10N22hilcLn6RfV9eTpC0/6R0W/f4+me684=
-X-Gm-Gg: AR+sD10nRSk5EG312LPPp9x/UdnmgtJ1gmwA+h6rRFbDmR4Zx3PB9uGRGY+MRuxUOAL
-	5Z3q/U68JOy4CfGNC2bGsH2mF4/V+C4liAjskx4CU5UxJCrs01vHcNtQVEgP7BqDT7gB0slu4Lu
-	hNUYzcW43Kns+ZUyc+eSPi6qXuKXqo/0RsemTNASL2xI78vGDzzlK2F/QgzQtITrIhsUaWZ8zu4
-	7hzMjSRF6v0MzHEDYad36CONdnxW3mqtHCjoySHtODw7uMkTE+2N4q1ax4S1iEgrY0GV/QSJj8d
-	vI0lonO1sa4hpBPaZHzAbTnzlE9PPE56EAujh00f+hT8ToxRhsxeDoXEo2CRV5tubvWoZ98FelX
-	Br/isqMIuHUQA63UVw2h1UHpZwm5uyQ92uqAc43LokPiTWHwNirkkZZ+r0PUaMqQNG0zZNkJOUO
-	SlmGX+hbbZdACJsLNJ5btZqk3bo/i/f3N2gIY5h7/HRPxGia5UCwSak46y0mczW13tkPR/9GTZK
-	NIlOStEU+f0bHLU1p20AEoz+kJ+O4k1sK4onffE
-X-Received: by 2002:a05:690c:e20c:10b0:81f:d515:8c06 with SMTP id 00721157ae682-849f61ddfc9mr21942087b3.29.1787323112427;
-        Fri, 21 Aug 2026 07:38:32 -0700 (PDT)
+        bh=5O2ZS9+ansg0/IUrCuwtyZKXd4BjLxjahxk05rb1blQ=;
+        b=VdsUNiuHXUYvVhVEO8xpJi1R4fiJDMArbAnAxUDYyWm6IvIVPEA9N5JPQueznVcnhx
+         qgBy4GbbijZEPRH0ROULL1Az9n8dM4aaEHQNgzyYE6wugZ1V3cxCgYKwSlln2ibFA1sw
+         b6Fpd4OKeo9bjIyhIJuiXpVM8D9cZOzMyT4pRbk08YstH9otDEPhvYsv+u3su31+JqVH
+         gp3o+Z/2+amzm3bi/EwuN6+Evp0fHobTOWyL+hvutbhenYhHItMnwHb6njniVmhlIW4a
+         E1C9XGwQUoGzJnnHjR61L9Sj8EPgqkUDPr4dFLG3DNBttUm4XRhL6ouRCrAb3I9dLqk9
+         63nA==
+X-Forwarded-Encrypted: i=1; AHgh+RpxqUH0qNOiThj7Q5dJEQEyIsdX6+ErQzyOz7JtFMJWFZtWH5w7VgCM6Fpa570RsTBsCWIr3hXlzsBi@vger.kernel.org
+X-Gm-Message-State: AFuF++lBrPSgdZiuGlDyWjpsVU+RyzHzthwcTDUF/bPVY8Lxv2jkrFeH
+	VQsvIVi8nCwc/VqlYl8nCd6rnsBnsP0/YEkl6kULn/OltX/dcXo8nZk=
+X-Gm-Gg: AR+sD13kjwXCGxCV+ckNx4jgmrpO0zGGzzS3Q75kDtUgJydahvUw9vNZefOqX+Sefac
+	IEJXlSxhLrnwAALxMHBP8E7JgWMEEIAbme75CmUL9VdLfvvICagOEBZfvrmLJpUy+zi0Qp497im
+	0SYR9w9al0We+rsMk5HHRzRmCr6hmdTkVNgoE0B5WAzkMXVUnzXEg+QjgpJ6TaG5EviyrHA2S3S
+	krIysYynRqSo3doltUSWQaI3u4UwDqMOT9YUFtIxDpOEN733/8qtErSWjSB4KEUgtznXjZdNeHk
+	YStZpWVe/lxhzwIzbINGrqmd2mCab5zmWLzl8Dzeq48obox12dNcjN/Fo/uE9IfEFIxIbRnoltg
+	BOMInNR+p95weg4UlXGXNTxOo4ogQRR/fY0jwlHNW85FmhSDLcYGorqsxGDqWZ/NHFd4BSA/Rfh
+	HcQqbvDpKSq0nDXWk55wHo46o9U++H6lmmPmrARz7CozVdNR2HzBV80HTlWqXAVjnSJKTF39neJ
+	r+zWL3rETII1hJSp4lt4viz7qOBVbANQEzdrqs2
+X-Received: by 2002:a05:690c:e288:20b0:81f:d505:8ea4 with SMTP id 00721157ae682-849f449c2b8mr21855567b3.18.1787323122701;
+        Fri, 21 Aug 2026 07:38:42 -0700 (PDT)
 Received: from localhost.localdomain ([186.158.238.108])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-845188b28f2sm41868277b3.38.2026.08.21.07.38.28
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-845188b28f2sm41868277b3.38.2026.08.21.07.38.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 21 Aug 2026 07:38:32 -0700 (PDT)
+        Fri, 21 Aug 2026 07:38:42 -0700 (PDT)
 From: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Maxime Ripard <mripard@kernel.org>,
@@ -77,9 +77,9 @@ Cc: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	linux-kernel-mentees@lists.linux.dev
-Subject: [PATCH v2 1/3] dt-bindings: display: add Chipwealth CH1115 OLED Controller
-Date: Fri, 21 Aug 2026 11:34:16 -0300
-Message-ID: <379eb0dbb4a911d80a3af680f647cf13ae0ece32.1787321297.git.nico.antinori.7@gmail.com>
+Subject: [PATCH v2 3/3] MAINTAINERS: add entry for Chipwealth CH1115 OLED Controller
+Date: Fri, 21 Aug 2026 11:34:18 -0300
+Message-ID: <a56f15cab62e16df835fd702f26739a381949bec.1787321297.git.nico.antinori.7@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1787321297.git.nico.antinori.7@gmail.com>
 References: <cover.1787321297.git.nico.antinori.7@gmail.com>
@@ -92,125 +92,31 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Chipwealth CH1115 is a controller for monochrome dot matrix OLED panels.
+Add MAINTAINERS entry for the Chipwealth CH1115 dot matrix OLED
+controller.
 
 Signed-off-by: Nicolás Antinori <nico.antinori.7@gmail.com>
 ---
-NOTE: patch series based in kernel v7.2
+ MAINTAINERS | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
- .../bindings/display/chipwealth,ch1115.yaml   | 89 +++++++++++++++++++
- .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
- 2 files changed, 91 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 59d60df34dfa..dff105e5f01b 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -8581,6 +8581,12 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+ F:	Documentation/devicetree/bindings/display/panel/samsung,lms380kf01.yaml
+ F:	drivers/gpu/drm/panel/panel-widechips-ws2401.c
 
-diff --git a/Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml b/Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml
-new file mode 100644
-index 000000000000..9d9c43722131
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml
-@@ -0,0 +1,89 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/chipwealth,ch1115.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++DRM DRIVER FOR CHIPWEALTH CH1115 PANELS
++M:	Nicolás Antinori <nico.antinori.7@gmail.com>
++S:	Maintained
++F:	Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml
++F:	drivers/gpu/drm/chipwealth/ch1115-i2c.c
 +
-+title: Chipwealth CH1115 Display Controller
-+
-+maintainers:
-+  - Nicolás Antinori <nico.antinori.7@gmail.com>
-+
-+description:
-+  Chipwealth CH1115 is a controller for monochrome dot matrix OLED
-+  panels.
-+
-+  https://datasheet4u.com/download/1576606/CH1115.html
-+
-+allOf:
-+  - $ref: panel/panel-common.yaml#
-+
-+properties:
-+  compatible:
-+    const: chipwealth,ch1115
-+
-+  reg:
-+    maxItems: 1
-+
-+  chipwealth,invert:
-+    type: boolean
-+    description:
-+      Display pixels are inverted, i.e. 0 is white and 1 is black.
-+
-+  chipwealth,offset:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    minimum: 0
-+    maximum: 63
-+    description:
-+      Display start line offset. Specifies the vertical alignment and row shift along the
-+      Y-coordinate.
-+
-+  chipwealth,contrast:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    minimum: 0
-+    maximum: 255
-+    description:
-+      Panel contrast.
-+
-+  width-mm: true
-+  height-mm: true
-+  flip-horizontal: true
-+  flip-vertical: true
-+  panel-timing: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - width-mm
-+  - height-mm
-+  - panel-timing
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+      status = "okay";
-+
-+      display@3c {
-+        compatible = "chipwealth,ch1115";
-+        reg = <0x3c>;
-+        width-mm = <12>;
-+        height-mm = <8>;
-+        chipwealth,contrast = <127>;
-+        chipwealth,offset = <8>;
-+        panel-timing {
-+          clock-frequency = <0>;
-+          hactive = <88>;
-+          vactive = <48>;
-+          hfront-porch = <0>;
-+          hback-porch = <0>;
-+          hsync-len = <0>;
-+          vsync-len = <0>;
-+          vfront-porch = <0>;
-+          vback-porch = <0>;
-+        };
-+      };
-+    };
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index d2ba67c4c8e0..1d158ac83ce9 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -325,6 +325,8 @@ patternProperties:
-     description: ChipOne
-   "^chipspark,.*":
-     description: ChipSPARK
-+  "^chipwealth,.*":
-+    description: Chip Wealth Technology, Ltd.
-   "^chongzhou,.*":
-     description: Shenzhen Chongzhou Electronic Technology Co., Ltd
-   "^chrontel,.*":
+ DRM DRIVERS
+ M:	David Airlie <airlied@gmail.com>
+ M:	Simona Vetter <simona@ffwll.ch>
 --
 2.47.3
 
