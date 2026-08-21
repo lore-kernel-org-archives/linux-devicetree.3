@@ -1,172 +1,260 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61FA041F7D4
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 08:01:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787299277; cv=pass; b=X/X2kgOhauZ9Gt4w7nphQ6V35HokpRDKk+AXJGU6EcXSWuF+d4lM07Uiol6+R4qGX67ohmJuE2NNWgLCoTzey57x1sCQCUWa+iTJ2ggqe6mnpX7FhwCAvUIbhg4IDpcIPCvQwCcsxAu6qhDzsJaKw5e6Ahm2Uue8b7dtLaa2SiY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787299277; c=relaxed/simple;
-	bh=U9fW2jiIlgiy2XPNBkMcmqoyzd/7xupfaic+yOZJQF0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=iJm3s6yHj5Ftf6BVSEiRDAv+QCzII2uFEgBhTH+bIz9G3sNRXVsuQlSiWeE/wQRo3tpJkUUaLu3J6FcclI9mwfdIWTnGYSg7ikZRTjCkNUMkUoqXYoTAPK3DxiPiS3EYIqmRyMgGpMNIJZr425M9T4TyqKaXcMxzmWCl7h+ErUE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PRalVaau; arc=pass smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB9638399E
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 08:01:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787299296; cv=none; b=B/hMrPYrD9rblRkPA4TVYLps1zZkMsvIJtl6SXZT88XIp+hrbRT17Pm3R5V1JSkKS1tkZrN0far/cX0ctjLw32eF8bB3ZP5IvxxKUpZzdNlx4Y+AJKmdlGbvkV1NjcqF5LuygunbALtQm/8wwYdgX2OrbtxGQbsxzaMn1DsSV20=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787299296; c=relaxed/simple;
+	bh=LI+FbMTcYSaZVKaGSL436lepaMEZbMMVs9BQFRFSYnE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=TaVxGHgzD7P41JmU7O/g8dS47/KuEYL8opBWtF30q731OliJaNk/QaOP0FM6Txub+4b+uqjOohuCOyRKg2mJZRrGEDu/AcpcWvPgEhFDTVB/4EPErA9qnUNve2lLxmMYQ6Nd4d9xMPD2rokVZMvDXD6B0qdkf/rc9LgYF0xsVw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZrTP+2bN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PRalVaau"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4954a9e8490so12238555e9.1
-        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 01:01:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787299272; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SBwqPHXWmgKpTBx61cWtg/DaOie/0ufUKIw4wiTxj0nVA4yv1uFc7yk8vPnhHX2Cv3
-         RYNZgRZlNJfGcCLWlH6WQX4vigK2kEoH8zCm/BR1MEI6FhGqj8PSw35oR35RsNaBe3t8
-         Nw7nVuWspPWm5nVhsoUJMcPmaAxTZCv5uX/Icicwnb0Q3XyiLoDHsd2v3PT1ry2pFCuO
-         DDmbhNw0/B33hXhNJAOk73DyBPPJ2Wz1HeOiQCKXe+9jBocjBty/qsz+EdaStefAqksK
-         OoqteMz8XpdgkjfY8x7J9AxhfpM4RsFvkdWvxJ3CKVjmXamdpubvFTJXfq7f3AQ6YvaA
-         /yew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=QKPWxLRibVTkF5iNiz5OZvS7ih6dW481F+oBUIMZp1Y=;
-        fh=xq/639j1MQa6ae/DWrFZpBcqPlVILi3zkQ7KXZ9iUG8=;
-        b=depBXtVi0SrWmHm1WyLJ3CAnBD16qd/NL/xZuACqj0bC6jV9Wq89MYqWAWHZwGcfOe
-         PAN+Pmeafyt3EPfMKySXXIioIh1voGnQP1RdqW7GGeGNcHQVdI7Ymo8OwFsPcRSu/6sX
-         yfxYtubk7j6Z9x+f6PRLqkm6J0p0/hxyL6zLaVJBvOmrlPh63okEEdXyjCWjD9/Rzmuk
-         nFR0SIKVvZeq3Zi4J46uW2m0k3pKiEj1x1hvnXURheT45vW+nWAk1GWAEVQrbE3GV2tn
-         aTeE40jUm/24NgK3bzNZbZWKa54t7axMuylH/E3LTin0ofHO/7/zsqy75mMcIieMhrZK
-         Tr5A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787299272; x=1787904072; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QKPWxLRibVTkF5iNiz5OZvS7ih6dW481F+oBUIMZp1Y=;
-        b=PRalVaauxqYvmik87uJ22HYTJ5PVuJtJr1516MKaZhkGQgmzk2hieAoH3YiPKzF529
-         0AMK+/LZAc5hELwACRj/riNzJxj1Rr/BhpDxQTtDvzzyh1I9bg0OsFUQXFtncIUd2NQc
-         1FC6IYHD3fMUDNr1xJyEb0FGdhTkAjB7UD2L5dy2xjwL/FbeXdxsk/DHJQqH7y/3/bdN
-         0V2cS8Q3cif9w78iKi5o/BN+NsgdLpdBtXuqkkuHdzsRlpc9VS8f/mZpdtBbkGe86hfw
-         GemE84N4fVlbefBg934ONbL5iJJsR5jLZEif/lad+DlEHcQxvgiTa0tpXCjGl+Y33ae5
-         qL2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787299272; x=1787904072;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QKPWxLRibVTkF5iNiz5OZvS7ih6dW481F+oBUIMZp1Y=;
-        b=e9E3Z1AqQeegWLNxjnHoV1M85yw4Qd8r8hwP1BnLGKUCKn9VRhUGwSSCJTidsaCCow
-         5lsEywcmPeYcM0fqZXpFdYu3ATguGYJvuNYQJbtp4mgj56arCDZH8oIIk/YlG87llRbF
-         H11GyZxliuSKh1zAJsgLXuFFw0/X6MOw4EgRPswGpBGcJeCy8kNHxwTjRjx13rT+jHTL
-         NJBpt7WKsIOrkdd3Ddb/CNcrD3uFKMxNi758UeVYdK6SG7InIh7k6q1b6rScGIDNqAyS
-         WfdM1dkdQJIbL05iYjVJzcCTLSSWbIYw4PEUXMG3hNzzyOLEu8PVqwHhyXPPZon2A7Kp
-         odrA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp0PiWK/AJfyaYOVSRgy0Bt4jEdKcdrQlTpkaWTotRfob06VVnaVtvu2OQMb2RFL9tjRuOFUPx3ai3Y@vger.kernel.org
-X-Gm-Message-State: AOJu0YyEqIn50Lm/Xq3XAQ4gZW2zkJgAhtsKZ3n8p25D7GFJcLGjXm8a
-	PWZL5UhjZmoCtH1EChAf56O+Zoi15+ZmYFMMT87SB43qV9pa8r7RFUos2je/VpXzWmW6ZvuSxRD
-	udvV2gSV3gwmT4Agg9O7lPf7Kjjs3h2M=
-X-Gm-Gg: AR+sD11pyxZKiTvMf9bqjGIkHRiCHORf+jvpeMi7g67wxcnh25RedGBeOfuR1i+/25+
-	akYCEvbQSRU53Gxffrr6XkEYKZi/ek3KNuOsPGvFOwoe4HYEAHLnrKqmPEKq9a0UpSTi2IqoCaz
-	QYcpNDDsGEd630eu4ClFwwWGwHtBqkATvTqalfxZVh0olzVdGiSIk1BA1ioo+ag7+n6jJhqw71g
-	elbjiy14c/DabPouZDA6uCcyDjy51IAURCAJIhyKEYBFHo4xiiDXe5LByPgaWkd/L3a82I6Hglt
-	Of39s51bNcfs50mOKoVXewZ3jjpwi15RoJTYviDy8CHtYntgYXDcv5au54Gq6eUKgglm32DNK1u
-	5qxeOeROoKJz1zYT/qIDK8+ty41XC1w==
-X-Received: by 2002:a05:600c:8b63:b0:499:7f37:cb74 with SMTP id
- 5b1f17b1804b1-499b06a36demr106804725e9.1.1787299271891; Fri, 21 Aug 2026
- 01:01:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZrTP+2bN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCE241F000E9;
+	Fri, 21 Aug 2026 08:01:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787299295;
+	bh=Wxcfc0Xy+0drgrEfKuXXYeAtb2OXgOmyhpjt81d2okI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZrTP+2bNOiUrsEVTMdW45IA+9R18eHAmU7kanVrTAU3pbv/3ZgYFHhHr9VMT64nG+
+	 saahe01bwVOKrrX+/fL+9MAaPWFIiW7WyQ5jQD1fGXeOeXiJ6GsS/mL68O8CAgdgX1
+	 4x4+4vEYxt/T95h2iH1Y30+jNKuqtMJsGgA//CHdz/ZHQDHTujoAQEUMXZ3cXbu9Km
+	 ylgdozUxDSDK/mR8HrwO46tuvbicJwC3TILDgaDq2X34U5bWsdNAWKtSa14voWwFjZ
+	 9GE96QTkjOVbvxatmyj8ZePyKpd2zcPVTNE1d6i8A0GeSTcz5wuxBtUnBN0tyIjwzJ
+	 +skQWZVJVgmTg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] thermal: amlogic: Add support for A9 thermal
+ controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Xianwei Zhao" <xianwei.zhao@amlogic.com>
+Cc: linux-amlogic@lists.infradead.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20260821-a9-thermal-v3-2-0e7abf3941e3@amlogic.com>
+References: <20260821-a9-thermal-v3-0-0e7abf3941e3@amlogic.com>
+ <20260821-a9-thermal-v3-2-0e7abf3941e3@amlogic.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 21 Aug 2026 08:01:34 +0000
+Message-Id: <20260821080134.CCE241F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260819103926.2136712-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260819103926.2136712-14-prabhakar.mahadev-lad.rj@bp.renesas.com> <aobjCr7ZtpLmL3VP@ninjato>
-In-Reply-To: <aobjCr7ZtpLmL3VP@ninjato>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Fri, 21 Aug 2026 09:00:45 +0100
-X-Gm-Features: AcwNN1XaqV7v4Jl4yl1cAvUjpTPOAGoBa_Le3wz-UFXRDSKArINsOqo29E76N9s
-Message-ID: <CA+V-a8tpo2Rc9xsvsj9LLqD2ZjoHzRAVsox=7xURAtwA-GYVEw@mail.gmail.com>
-Subject: Re: [PATCH v4 13/15] rtc: rzn1: Add OF match data to gate SUBU
- register access
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: Miquel Raynal <miquel.raynal@bootlin.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	linux-rtc@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Wolfram,
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
 
-Thank you for the review.
+New issues:
+- [Critical] Hardware reset registers are unconditionally accessed before t=
+he peripheral clock is enabled, causing a bus fault or system hang on legac=
+y SoCs.
+- [High] The hardware over-temperature reset mechanism is unconditionally e=
+nabled for all SoCs, contradicting the commit message and potentially causi=
+ng undefined behavior on unsupported platforms.
+- [High] The return value of `clk_prepare_enable()` for `sysclk` is ignored=
+ in `amlogic_thermal_resume()`, potentially leading to unclocked hardware a=
+ccesses and clock state leaks.
+- [High] The fallback logic for a zero divisor (`!uptat`) in temperature ca=
+lculation produces a code that overflows the 12-bit hardware register mask,=
+ silently setting the reboot threshold to 0.
 
-On Thu, Aug 20, 2026 at 12:20=E2=80=AFPM Wolfram Sang
-<wsa+renesas@sang-engineering.com> wrote:
->
-> On Wed, Aug 19, 2026 at 11:39:24AM +0100, Prabhakar wrote:
-> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> >
-> > The RZ/N1 RTC driver selects SCMP mode only when an optional xtal clock
-> > is provided at a valid rate other than 32768 Hz. Without an xtal clock,
-> > or when it runs at 32768 Hz, the driver uses SUBU mode.
-> >
-> > However, the RTCA0SUBU register used by SUBU mode is not present on all
-> > SoCs that integrate a similar variant of the RTC block. Allowing SUBU
-> > mode on those variants would expose RTC offset operations that access a
-> > non-existent register.
-> >
-> > Add OF match data to describe whether the RTC supports the SUBU registe=
-r.
-> > Reject probe with -EOPNOTSUPP when SUBU mode would be selected on a
-> > variant without SUBU support.
-> >
-> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->
-> Suggested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
->
-> I still think, this code needs a change:
->
-> 454                 if (rate !=3D 32768)
-> 455                         scmp_val =3D RZN1_RTC_CTL0_SLSB_SCMP;
->
->         if (rate !=3D 32768 || !data->has_subu)
->
-> otherwise having a xtal with 32768 on a SCMP-only device will not be
-> accepted despite it should work.
->
-Agreed.
+Pre-existing issues:
+- [High] The calculation of `uefuse` incorrectly zero-extends a 32-bit bitw=
+ise NOT result on 32-bit platforms, turning a negative calibration offset i=
+nto a massive positive value.
+- [High] The thermal zone and hwmon sysfs interfaces are exposed to userspa=
+ce and the thermal core before hardware initialization completes, allowing =
+unclocked register accesses.
+--
 
-> Haven't checked if that could simplify your later has_subu-check or not.
->
-To reduce the checks I can add a else if check like below:
+--- Patch [2]: [PATCH v3 2/2] thermal: amlogic: Add support for A9 thermal =
+controller ---
+commit a95f34d366c7ca1c65ce5aec6e86688c00a990a8
+Author: Xianwei Zhao <xianwei.zhao@amlogic.com>
 
-/* Only switch to scmp if we have an xtal clock with a valid rate and
-!=3D 32768 */
-xtal =3D devm_clk_get_optional(dev, "xtal");
-if (IS_ERR(xtal)) {
-        return PTR_ERR(xtal);
-} else if (xtal) {
-        rate =3D clk_get_rate(xtal);
+thermal: amlogic: Add support for A9 thermal controller
+   =20
+Add support for the Amlogic A9 thermal controller. The A9 thermal controller
+uses different calibration parameters, requires separate core and bus clock=
+s,
+and supports a hardware over-temperature reset mechanism, and restore the
+hardware reset configuration after resume.
 
-        if (rate < 32000 || rate > BIT(22))
-                return -EOPNOTSUPP;
+> diff --git a/drivers/thermal/amlogic_thermal.c b/drivers/thermal/amlogic_=
+thermal.c
+> index a0b530624b60c..ff8a8b1525367 100644
+> --- a/drivers/thermal/amlogic_thermal.c
+> +++ b/drivers/thermal/amlogic_thermal.c
 
-        if (rate !=3D 32768 || !data->has_subu)
-                scmp_val =3D RZN1_RTC_CTL0_SLSB_SCMP;
-} else if (!data->has_subu) {
-        return dev_err_probe(dev, -EOPNOTSUPP,
-                             "No valid XTAL provided and SUBU mode not
-supported\n");
-}
+[ ... ]
 
-Cheers,
-Prabhakar
+> @@ -138,6 +157,49 @@ static int amlogic_thermal_code_to_millicelsius(stru=
+ct amlogic_thermal *pdata,
+>  	return temp;
+>  }
+> =20
+> +/*
+> + * Calculate a temperature code from a temperature value .
+> + * The unit of the temperature is degree milliCelsius.
+> + */
+> +static u32 amlogic_thermal_millicelsius_to_code(struct amlogic_thermal *=
+pdata, int millicelsius)
+> +{
+> +	const struct amlogic_thermal_soc_calib_data *param =3D
+> +					pdata->data->calibration_parameters;
+> +	s64 factor, uptat, uefuse;
+> +	u32 temp_code;
+> +
+> +	uefuse =3D pdata->trim_info & TSENSOR_TRIM_SIGN_MASK ?
+> +			     ~(pdata->trim_info & TSENSOR_TRIM_TEMP_MASK) + 1 :
+> +			     (pdata->trim_info & TSENSOR_TRIM_TEMP_MASK);
+
+[Severity: High]
+This is a pre-existing issue that was copied into this new function, but do=
+es
+this calculation correctly handle negative calibration offsets on 32-bit
+platforms?
+
+The expression ~(pdata->trim_info & TSENSOR_TRIM_TEMP_MASK) + 1 evaluates t=
+o a
+32-bit unsigned integer since TSENSOR_TRIM_TEMP_MASK is generated by GENMAS=
+K.
+When assigned to the s64 uefuse variable, it is zero-extended instead of
+sign-extended, turning a negative offset into a massive positive value.
+
+> +
+> +	factor =3D param->B + div_s64(millicelsius, 100);
+> +	factor =3D BIT(16) * factor;
+> +	factor =3D div_s64(factor, param->A);
+> +	factor =3D factor - uefuse;
+> +
+> +	uptat =3D param->n * factor;
+> +	uptat =3D div_s64(uptat, BIT(16));
+> +	uptat =3D param->m - uptat;
+> +
+> +	factor =3D factor * 100;
+> +	if (!uptat)
+> +		factor =3D TSENSOR_TEMP_MASK << 0x4;
+> +	else
+> +		factor =3D div_s64(factor, uptat);
+> +
+> +	temp_code =3D ((factor >> 0x4) & TSENSOR_TEMP_MASK) + TSENSOR_TEMP_CAL;
+
+[Severity: High]
+If the division-by-zero fallback (!uptat) triggers, factor is set to 0xFFF0.
+Does this result in a temp_code of 0x1000 here, which exceeds the 12-bit
+TSENSOR_TEMP_MASK?
+
+Later in amlogic_tsensor_setup_hw_reset(), this 0x1000 is shifted left by 4=
+ to
+produce 0x10000. When written to TSENSOR_CFG_REG2 with the GENMASK(15, 4) m=
+ask,
+it truncates to 0. Could this accidentally set the hardware reboot threshol=
+d to
+0 and cause an unexpected reboot?
+
+> +
+> +	return temp_code;
+> +}
+> +
+> +static void amlogic_tsensor_setup_hw_reset(struct amlogic_thermal *data)
+> +{
+> +	regmap_update_bits(data->regmap, TSENSOR_CFG_REG2, TSENSOR_CFG_REG2_REB=
+OOT_CODE,
+> +			   data->temp_code << 0x4);
+> +	regmap_update_bits(data->regmap, TSENSOR_CFG_REG2,
+> +			   TSENSOR_CFG_REG2_ENABLE, TSENSOR_CFG_REG2_ENABLE);
+> +}
+
+[ ... ]
+
+> @@ -346,6 +437,17 @@ static int amlogic_thermal_probe(struct platform_dev=
+ice *pdev)
+> =20
+>  	devm_thermal_add_hwmon_sysfs(&pdev->dev, pdata->tzd);
+
+[Severity: High]
+This is a pre-existing issue, but does registering the thermal zone and hwm=
+on
+sysfs interfaces here expose them to userspace before hardware initializati=
+on
+completes?
+
+Since devm_thermal_of_zone_register() and devm_thermal_add_hwmon_sysfs() are
+called before amlogic_thermal_enable() starts the device clock, a thermal
+core or sysfs read could invoke amlogic_thermal_get_temp() concurrently,
+accessing TSENSOR_STAT0 while the clock is gated, which could cause a bus
+hang.
+
+> +	if (pdata->data->reset_temp) {
+> +		reset_temp =3D pdata->data->reset_temp;
+> +	} else {
+> +		dev_dbg(dev, "using default hardware reset temperature\n");
+> +		reset_temp =3D TSENSOR_HW_RESET_DEFAULT_TEMP;
+> +	}
+
+[Severity: High]
+The commit message states the hardware over-temperature reset is an A9
+thermal controller feature.
+
+However, doesn't this unconditionally fall back to the default reset
+temperature and enable the hardware reboot feature for all SoCs? Older
+platforms might not support this register or the hardware reboot feature.
+
+> +
+> +	pdata->temp_code =3D amlogic_thermal_millicelsius_to_code(pdata, reset_=
+temp);
+> +
+> +	amlogic_tsensor_setup_hw_reset(pdata);
+> +
+> +	ret =3D amlogic_thermal_enable(pdata);
+
+[Severity: Critical]
+Does amlogic_tsensor_setup_hw_reset() access TSENSOR_CFG_REG2 before
+amlogic_thermal_enable() starts the device clock?
+
+On older SoCs like G12A, there is no separate sysclk, so the hardware is
+completely unclocked during this MMIO write. Could this cause a bus fault
+or system hang during boot?
+
+>  	return ret;
+>  }
+
+[ ... ]
+
+> @@ -371,6 +475,9 @@ static int amlogic_thermal_resume(struct device *dev)
+>  {
+>  	struct amlogic_thermal *data =3D dev_get_drvdata(dev);
+> =20
+> +	if (data->data->has_sysclk)
+> +		clk_prepare_enable(data->sysclk);
+
+[Severity: High]
+Should the return value of clk_prepare_enable() be checked here?
+
+If it fails, the driver continues to access the hardware in
+amlogic_tsensor_setup_hw_reset(), causing a bus hang. If it succeeds but the
+subsequent amlogic_thermal_enable() fails, the clock reference count could =
+be
+left imbalanced.
+
+> +	amlogic_tsensor_setup_hw_reset(data);
+> +	return amlogic_thermal_enable(data);
+
+[Severity: Critical]
+Similar to the issue in amlogic_thermal_probe(), does this perform an
+unclocked hardware register access during device resume on legacy platforms?
+
+amlogic_tsensor_setup_hw_reset() accesses TSENSOR_CFG_REG2 before
+amlogic_thermal_enable() starts the main device clock, which could cause a
+bus hang on older SoCs that lack a separate sysclk.
+
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821-a9-thermal=
+-v3-0-0e7abf3941e3@amlogic.com?part=3D2
