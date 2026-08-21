@@ -1,175 +1,78 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDEA831ED68
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 02:04:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87CEB30D3FD;
+	Fri, 21 Aug 2026 02:33:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787277865; cv=none; b=hxdZ2pZ9COLTn3xQguKkANGxVUVYowJsY48JzKydE06e+pJ5e1Bm/QyiOjnRe4Oja7+fFuzTyE5K/N8fe/cNf4J9GKOL4Zm4UkUMXNdgIFZ4Jy/c/7bFwV2LcJZWBAassTLLuwDVEPFp0nuMuJW4B8nnrr5iMCmmBN8QRugXleE=
+	t=1787279622; cv=none; b=c5ZXnw5thOB1fJ9fIq6SrxU8uhMGeS3aS8eh0+2hEX4r8BuLCfMrTrTUqW8hlnp58yCK3Su/MQB028UHaZMpBCvZAYOBz851vn+8/CJetXeMaGME2/Z2thQvXXWj4fFCpVuDltnoRXgKZZg89En2ObfYlRtHGTp3YlTsLlizSWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787277865; c=relaxed/simple;
-	bh=w5DUYNbjW7GqUzc+mq7sClh0IjYlojUpnWerxNc3sZQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QtvSTOoAWmMRMFel1QzsH8H2Kg0xY0cb1mbV7H01S7iqcP9D9T7xS0ItgVqkxEYtavVVpKO4IuT9wpaq6zJtpI7aswDb3gSCEgImAx9JTg4Kf5qvthlYfNPHMPNPu6s84P7cb5TdXbc4bjO/j85cIpc7fRiWcfAlaolq313uxIE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lCu5y1++; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787279622; c=relaxed/simple;
+	bh=hICsbhSrmYEmKwGMKZaQu46cLxptLAmIKPn+5tLbfA0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=eOP2ui18MNPnhNqocD5cKoUIB80i0A8FdIpzPvaclYm7cguGFFqlspoRj5Wk47Pybyh/bdTMHR5D7oF3qJSMmsDGc/K0cdnvVLj/uZni0S4lWLk7kgD/2Bte2mP9VFv2h0v9m6mXjN1yFgUs3xsqoPxAEtvGAqvXv4y9JWNpC5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f54a4cVP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lCu5y1++"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2cace91f112so5877815ad.0
-        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 19:04:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787277863; x=1787882663; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iI3Z7GgqYc25x6cBox9+q0SwGZtkEQxnYhZfkabWWfw=;
-        b=lCu5y1++zmw/DwzFJwa+uyNgcqp1gd4ghYXelhL8da756VavyxM+9JF3Z06UfPvJc2
-         UzZvdyY69XfCEIckqCbrtUIRlO7yLA7V9Xzo+B5o7Mzi4NEWIKwljInZ6aPYPnHNvdBg
-         2OpcuKhi5whcyPjkyaD+chFASstOV2lydm2sSkyhfiN4XktFCZvt8xzxEhQPu0akIMn1
-         xQUjdBaq1iins4DSoIVuhoP/VhDXaVSzeiJtZOtRtqOh079wJaxKUwaPWnfKGj5pXosX
-         OnVCgvzcTL2cScgmnx87buPIxpTDkVT72VWQraIldu3x/NRmH3CC4eu6kn73hxAggAyl
-         8I+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787277863; x=1787882663;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=iI3Z7GgqYc25x6cBox9+q0SwGZtkEQxnYhZfkabWWfw=;
-        b=nInmaE3m2yVNKxkbQI/RJSHdCFjAxN2r/KncbbZHYSuIK/2Ukjt1umeQcsfeSYCNdW
-         /q6lWu4d1kr5sDNl6RqeLyDDsY0z8pBuH5cIq/7POuZ7goBcfjs9CqDNUVzTr8VMLdvg
-         TU7RZALuJlfcstw+K1XQ4QnX6nwdBtz0pf1JQys+j0bArYPMHYoraLfKliv+vzg+TaBm
-         Ke1OqsBWp55my++ecD7C62RvQhajKdVmCkyktLSyJY4Tl73DbfOjPiMwA7cH9SG1pS5x
-         SztiXQ5prJSCADugyvwNOegXPum5tT9CU/hnY83FT1s9Gz9Fge/rku1yizgXazFqBUuo
-         VLHw==
-X-Forwarded-Encrypted: i=1; AHgh+RrHncJjHVKTzYTh8oKshTlcxjYJA5UoIh5CFa4vRikGrbN81k0MYRhBFLk2qAyxeFDtfYEYqQASg/Yq@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy9QrJZmwzWDBLiIAY1x8djwqAbXqCcB5T0PPNqCpdC0aV5yUjC
-	oSlbdph9m98TXKfeGgewmnv7Cc+0qyc0fMlz9em6BGUCxZvtAHOb0AZfkVCI0Q==
-X-Gm-Gg: AR+sD13EhoccZOmMXE8htIn4OIxUm8bCwksahCL8Bb6b1/do6uEDm/Dn4BaRYv5lWGl
-	M/SzMI80TPpFsxt765vVcXOeNFRpdgcYiJsviFW14hOrpb85dn79zSXryLZYwVzk4U8ZacYR+LN
-	arlqsdeZqSbyvB49ZUmnj5IkmoxV71UucFD1ubuJt/ReeYkcxBucDRhe8FoWuv5cFMVFECNjuXf
-	MUpcAkslZGvHEMXKqT29h05p0POLZBA6wl6arVZqvszkoqY51+9mOKwg+wHvsJDAxBp28kntmAV
-	UuSbCkSsIGE4lvW1D7vldZykPpKWRNdvkcQ9fvpCE4+U45Jw4H8adKFq7vLR5HQDp1nN78yCICj
-	7m7lQm8q4RigFsftOyIp+khnQCghs8ZQbqAq7EBsFzgxJTPKTyWYavvx8D6OHYtOr2qVAdDly9l
-	ckVSrhJ9ck0gqD5kOnEvGF4I/OK1DudocwiyOI0Jn2vYw5J/VwuFcIWFDDaEY8XtsRpl5EMVZXc
-	OBBVEpcIUCY/QT44fdv8zcR4IBuZRL8QY14qw==
-X-Received: by 2002:a17:902:e78d:b0:2d3:6fac:d67c with SMTP id d9443c01a7336-2d64b09c688mr57206645ad.10.1787277863180;
-        Thu, 20 Aug 2026 19:04:23 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bef6ec40sm22470895eec.7.2026.08.20.19.04.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 20 Aug 2026 19:04:21 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <5bbbdc8d-828d-4b99-9581-c89cffb7c67a@roeck-us.net>
-Date: Thu, 20 Aug 2026 19:04:20 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f54a4cVP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE2B81F000E9;
+	Fri, 21 Aug 2026 02:33:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787279621;
+	bh=QpXh+KT1B0l3QcV/ej5UwE+ICSTOw1IVfbDkvPge8K0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=f54a4cVP3N560x2uuikktHv8Z+YxzcTyABzQRvRgSG4W2fIOZnXxuoIVmLTlhNYfI
+	 Ij24/MzNbPq1v4eWMzooTybzVVimc75rNeWQNr8bvTUAe88vS5nKbGALfkhESN9WJq
+	 fIAmZbrlYOiuTeyayYLaBxSvtIxS0ktWySHmi/DTjeIyaKvd+a0dh5EKOhBnGOWFHp
+	 L4I0bXz6vkV/X1vsucV6HVhrvMU7zKgPng+SSufWHsAD4qaBpvcB15YIV+OpiGnPye
+	 uzdw0T+0pBvZcnA1lcccOGPCy6LNlBQpVuBvKYiUYok/Y9B80Pgy5GHx1EWqaMFikS
+	 giT931qSsJAKQ==
+Date: Fri, 21 Aug 2026 03:33:34 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Jinseob Kim <kimjinseob88@gmail.com>
+Cc: linux-iio@vger.kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+ andy@kernel.org, linux-kernel@vger.kernel.org, rdunlap@infradead.org,
+ joshua.crofts1@gmail.com, u.kleine-koenig@baylibre.com,
+ julianbraha@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, grondon@gmail.com, devicetree@vger.kernel.org,
+ corbet@lwn.net, skhan@linuxfoundation.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v8 0/5] iio: add Open Sensor Fusion IIO driver
+Message-ID: <20260821033334.400af4d3@jic23-huawei>
+In-Reply-To: <20260820050608.5440-1-kimjinseob88@gmail.com>
+References: <20260820050608.5440-1-kimjinseob88@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] hwmon: (starfive-fan-tach) Add fan tach driver for
- StarFive JHB100
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
-References: <20260819091601.41077-1-changhuang.liang@starfivetech.com>
- <20260819091601.41077-3-changhuang.liang@starfivetech.com>
- <033d3490-9848-436f-a7ad-e6ab73768031@roeck-us.net>
- <ZQ4PR01MB12025F1BFB7E3F897228AA40F2A42@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
- <9fc113e5-e56c-4e9f-8b29-914f39503b0f@roeck-us.net>
- <ZQ4PR01MB1202A9B4F415BE121B6984B0F2A32@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <ZQ4PR01MB1202A9B4F415BE121B6984B0F2A32@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 8/20/26 18:06, Changhuang Liang wrote:
-...
+On Thu, 20 Aug 2026 14:06:03 +0900
+Jinseob Kim <kimjinseob88@gmail.com> wrote:
 
->> So how long does it take to execute the "sensors" command with 16 active
->> fans ?
+> Open Sensor Fusion (OSF) is a physical sensor board that reports
+> measurements over UART.  Add a serdev driver using the generic
+> "opensensorfusion,osf" compatible.
 > 
-> # time sensors
-> starfive_fan_tach-isa-0000
-> Adapter: ISA adapter
-> fan1:           FAULT  (min =  300 RPM)
-> fan2:           FAULT  (min =  300 RPM)
-> fan3:           FAULT  (min =  300 RPM)
-> fan4:           FAULT  (min =  300 RPM)
-> fan5:           FAULT  (min =  300 RPM)
-> fan6:           FAULT  (min =  300 RPM)
-> fan7:           FAULT  (min =  300 RPM)
-> fan8:           FAULT  (min =  300 RPM)
-> fan9:           FAULT  (min =  300 RPM)
-> fan10:          FAULT  (min =  300 RPM)
-> fan11:          FAULT  (min =  300 RPM)
-> fan12:          FAULT  (min =  300 RPM)
-> fan13:          FAULT  (min =  300 RPM)
-> fan14:          FAULT  (min =  300 RPM)
-> fan15:          FAULT  (min =  300 RPM)
-> fan16:       1800 RPM  (min =  300 RPM)
-> 
-> 
-> real    0m4.865s
-> user    0m0.023s
-> sys     0m0.001s
+> The compatible is intentionally independent of a board model or firmware
+> revision.  A fixed wire header carries the protocol version, while a
+> capability report discovers the available sensors and channels at runtime.
+> Supported capabilities are exposed as four IIO devices: accelerometer,
+> gyroscope, magnetometer, and temperature.
 > 
 
-Normally I would say this is a no-go, but this is your chip
-(and, as we say, your funeral). Just please document that reading
-the fan status will take forever for disconnected fans.
+Sashiko has one reasonable sounding comment
+https://sashiko.dev/#/patchset/20260820050608.5440-1-kimjinseob88%40gmail.com
 
-Thanks,
-Guenter
+What this cover letter is missing is any info on maturity of the
+specification.  Is this at a stage where merging it to Linux
+makes sense, or are there still elements on the spec side that need
+to be resolved?
 
+I'll take a fresh look anyway given it has been a while since
+the last version, but others may make their decisions based on that
+statement of how mature things are.
+
+Jonathan
