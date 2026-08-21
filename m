@@ -1,113 +1,154 @@
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3607F47CA64
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 12:27:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFE3638E8A0
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 12:28:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787315246; cv=none; b=HZJiLHwAbIi/ddRbvjPlGimqMx0Bn8Ty++DAU7gkUPPchX7TvNKJijfDMJ8rkv6TgLfuKV5ZCzjQeFkZA5gotrkBJDda6zmCnS1ub52yFtZ9opjefvDrE9o6Hw4qqwpNEmnqlnbCWCO8aADADkg2OY970Oi9OB48+gww71j+vEo=
+	t=1787315291; cv=none; b=Uw+ArIr3r/Q6CvmyGUujpCAansdR90jWo72gcPnoxIuMwnkZF/OoP0zXxa5W7pDQBQppd7RXVxziO9iMWw/FoIt3JRg2QCNU1+HGGnHc26Ywt3+ZlF4b7qlUuOytaI9d+2+YGijPooRmLqW4E6pSTB5WvOy/1Q9l71nyOFOWaiU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787315246; c=relaxed/simple;
-	bh=aRikrKedr8rRD84dJqfsSjKHfSLi0ROhZlN789CUbJc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mfv1hbiQ9GdLls/W8Pp6i0Bi7UazZQ+G2YDDbODIFFRDa6WywFZdoWqMvHbUJBddvvNYlLSeZrfbjMTOFquSAr5M57xaqDQ6dJdG4JSKuqOg0xg12mINoB2kQs5lw8SqjuFSKYkHyCjzpalhPBs4vsMFdfX3lADlbjVHlku6Tzk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QyHo3Q68; arc=none smtp.client-ip=209.85.208.54
+	s=arc-20240116; t=1787315291; c=relaxed/simple;
+	bh=7HjWuNo7DNTNj7Ool2zN1yMEnn5DAV/xlNVqhA4KaBI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sIyUWAWeFLkYfToUA3osYpNW6eInHWplRWBj7eIZirl9Dj2UHH7Nrus2SBLlrld7vHf7Zxsz/aiF7piOv8i8k+hlbhZcg0jpPumvDcFFCkbznjw8SuvfPx1yash6xjXZcrATpIl84xKLuwAA2uYd+fnNOUst3VJq9WtyORtbUDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BJ0BjUwx; arc=none smtp.client-ip=209.85.208.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QyHo3Q68"
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6a3e145e1bfso1315151a12.1
-        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 05:27:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BJ0BjUwx"
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6a144c8eea2so1909876a12.0
+        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 05:28:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787315235; x=1787920035; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=K/a/K4l60N8ZYR9C9kOGDnGGvsCsbHCt+W0MVudFPQc=;
-        b=QyHo3Q68WhsfgHv6ExsGYFjMBTWH/225oSsPXZNSIGy6HP7JrgxcduIuJwOedH23p+
-         U60gRWi1Q9odTZuBfADIApozwglG2DWaopqdiTS3XaRast+KKrg3cu4jwSzdRw/mMtpY
-         HadWE/UWOFrLJj2O66pCPXqdR3/oqnvAZz0LAvcUyiHGorkXCaSLvKrHXfsDRvkqNW/E
-         QT9YY+3WcYxHLa7IIZc96i8PHzdDwBlBd9JekxjncEC3WkLFLPrSgwY+gOQbdgHUMe1l
-         zC0hn6ianheu2qN/BtLagNksR35loz6lbPdWZOHvG7mOKWdIcFMNPsNIcU5dhyV0TA/o
-         HfHA==
+        d=gmail.com; s=20251104; t=1787315285; x=1787920085; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/h0XzmwWRXUqJNSMv5UtY0V0xlijWuRLVo42IsC8mD4=;
+        b=BJ0BjUwxWwgN5DAaKvmg7tm0Cdy7hwgKBCHIM4zmWOBozyRnTYrzPE2Wi3cngqGdx5
+         VCidWzr0w9CTM9PTDcVe19Ge/Dr/+pDux++EKQUJAhPja9NH/lEiexgmejmOR6Z2Myxg
+         XLHijt/CdnJoS5TwwP599VnM91jOXIoeBe77/D2dtgXBMOTNXXA1D8xlZwW76WIEHFLM
+         Yj9at/MIwtVAAfwp3UJqMtw6yqJJpaXnasDYJYLdXTJqLXgY04RoW7RM44zUZrdJ2/+X
+         PwNcFDsEsr6NCkKEoq/NnKSRmIYJ7RjFQfHOeppNSTlM+AFtfbWGIgI39gNKAM75mTsF
+         i1zw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787315235; x=1787920035;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=K/a/K4l60N8ZYR9C9kOGDnGGvsCsbHCt+W0MVudFPQc=;
-        b=LPnnKvqrtQjVmaeu2zuBbQXFX64KOzQHnikGT+BZTeI5nWxMHppOy7JIdxL95YUmkF
-         3N6FAqudJyt4MhJY9lWEIekvIJ0lE0M//cEXx/mCpy4L36OLez0Su8+BmFMan4BDAvf6
-         MRUoLBC0HZSGXdqIKqWhjZJEzwGugA4guzeH6BwV8vQmHE0MgBvHmF2bS0uZPhzQ/6Gf
-         45aNLDVdKyjznLG3HzzFpy1VkVqQhkXstzLICbb3eb3jbsov4og4XSmYiBLITd5HqQm5
-         svNdAbcGrHab9YmkmQ+NJaJmxuQxCYBxKoLP8vb0RjlS/+wiJbQDMHtUVIixd5MsT+pN
-         XeiQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpFF5zJAKOkkGp9hMnAa6RdXS3VywxEMHH+j9ba5KXwTFsR88XTMWUZ5fj0bCL6TtT5rZ3vnlDo47Hr@vger.kernel.org
-X-Gm-Message-State: AFuF++mQVBo5bYr+suDg0cvkEnSbR/48dEcEEGGz3O2DpeRwupsmzpoS
-	rJKKjz0szb/rGbNkIBh2whIgGsgld5SYZyqH9urbok5PAdPWoyglfg3y
-X-Gm-Gg: AR+sD13xmNyc+0MuRaouEBV3Z7FNORKp1nnXUG1L2ZBDrhcTwf4jT9KXZJAKq4LiG2T
-	T1NHy+eAqO9iuLjyHKHGQxxdNgEQ2OaLYOM4hNXRa8MvkfbA5FK5Ns4U/IJFz2YWFTy4hTYyPVn
-	kiRXaWSukCkY4A+sQ76BqiA7tNusw+ZkLIEd7NMqDeFbBu8vidy4ih7EBuW+4r6K5s9cn9vaRHU
-	d8eKJGVpRaYHybwaUPuUse6VwGMfOWEjvP5d6bhyEzzOxA7qKNIvyFMrF6GnNJxWc6EnqZGiOBd
-	7WClO4JmuA6ze7kltbr/+4YUWD/zzloePD9B2O4RAW8ozE5tIZfnN2+cPwJif/F7PxqKs9MkOGL
-	DHxq8vyQ285u5nfoBLEdlmSGpwGqvPrY6uBKT5hvUGtzKl8XwA6NIu7Dsqc/jJonjZt8hrx8Hh9
-	Eget9ukNcVb9kd3H3Kqyh1kDEkzVWQOTgTcNCO5a0UYi+5xXO3lsUgHjsIl1oMotDGcxX4MWIlP
-	OV1z3OB5x1iKR7jca5LkNaqmu7od3452oGmVA==
-X-Received: by 2002:a05:6402:249f:b0:6a3:ebe1:c2c2 with SMTP id 4fb4d7f45d1cf-6a42f14dfacmr7250121a12.2.1787315235036;
-        Fri, 21 Aug 2026 05:27:15 -0700 (PDT)
-Received: from [127.0.1.1] (83.24.178.112.ipv4.supernova.orange.pl. [83.24.178.112])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a3ff0c315dsm6220262a12.9.2026.08.21.05.27.13
+        d=1e100.net; s=20251104; t=1787315285; x=1787920085;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/h0XzmwWRXUqJNSMv5UtY0V0xlijWuRLVo42IsC8mD4=;
+        b=FHbOItElz8FcJbdlkV06S5hC4D/UZP6Pij0NJ8fZxXteS1lJ91WPLdV+unoEj+qy1b
+         emn1cvsvjYZ4VApDyddPzgVMvhA5NQUdp1R3vTLV4dRNgrkQ0dACZg5/Ox0p5tIHDYQw
+         7kMai35t7EMIucxzM8cUzgTr+vud3nx195ZgKMqgrpSN5bgiRPw+8xU32pVNZwpFAIoY
+         Htxf9X9NPpvClBIoBYyTcUfuQyVp2sXrovZ1qeWt3+LZcN6JBnr+qI0bpsdOB6038vjk
+         zQnXVo1ZiGLiA64jndtS2qFtQe/wgBVlX3XTqrT/g9izFtJ1a7JUBtqBfhtdL69WXO6y
+         NVnA==
+X-Forwarded-Encrypted: i=1; AHgh+Ro74ey+jBUg6eETlNunjxcumunJKq46gH1ovFU7+MU0ngD+OZ8Bzq4gsZDPeQL+oroEG0Ni7vVCkefU@vger.kernel.org
+X-Gm-Message-State: AFuF++lGzpkdBHdXWYubhNs+JO+UbxLOlvfQTzDS4qK1fTBGo3bqSnYh
+	fDt0a25ebL4SfSrGK5RR3v1FGQABar4JWTqzydrUWLYi+Br2sfFBgmFb
+X-Gm-Gg: AR+sD11Xt8hZof8YRyhI97TvkTQBGFrqU3zR7WV5CnpEuIagZStslkylVx/OH5ToNqx
+	Xg0A3aTZnyaeslVFgaahhmGici1UpgQoqLrVZy4cPrsQqq8rY1Fc+2v5wwY/DmQTdPa9n28Oq7n
+	JTopP91QuaOIW+KQUl6tWnPp2CT3W/aJrvx0yoLL8yK/aS51jiOdGhvqvX1sioqZ/5s6FvpExGQ
+	Tr9f4X7R9PdmNAjNH/lB46OcUvUhxbcwVScKBg553cO8HtvQn7WUaBxLLOYyDINpvxkw3Os3zxm
+	mmpFubxXi6Urk/sH1aUzYDiAE4KIQREwryMshvHkmwzZY3E69rVs1e3YRH1LtFVsxkfKIOS6JaL
+	+bKAvVQUqmFiYOzHFvhfIwlGolYB9DWHnlvMvXp0IFBEaDnZ++UU5UDyqCwv3061KqkioAZU+e8
+	iBG5U0OefjcYegLiSZYGOi/AGyTwEurqd7KEKT9vlzagUAVSEMamhkdp+esAitFPltlpDucnBXN
+	fWsbh5w8A9FFeKLdJUW03YaNvMIO6dRWCgBsXWWuNBUDmmNpfuNSfrw0w==
+X-Received: by 2002:a05:6402:380f:b0:6a3:9e00:8ed2 with SMTP id 4fb4d7f45d1cf-6a42f27795amr6967378a12.16.1787315285116;
+        Fri, 21 Aug 2026 05:28:05 -0700 (PDT)
+Received: from GLaDOS.station (mob-5-90-140-38.net.vodafone.it. [5.90.140.38])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a3feec9c9dsm6608874a12.4.2026.08.21.05.28.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 21 Aug 2026 05:27:14 -0700 (PDT)
-From: Adam Skladowski <a39.skl@gmail.com>
-Date: Fri, 21 Aug 2026 14:27:05 +0200
-Subject: [PATCH v5 6/7] dt-bindings: arm: qcom: Document Xiaomi Redmi 9T
+        Fri, 21 Aug 2026 05:28:04 -0700 (PDT)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: Frank Li <Frank.Li@nxp.com>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: pierluigi.p@variscite.com,
+	alexander.h@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Josua Mayer <josua@solid-run.com>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
+	Maud Spierings <maudspierings@gocontroll.com>,
+	Markus Niebel <Markus.Niebel@ew.tq-group.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	Marek Vasut <marex@nabladev.com>
+Subject: [PATCH v1 0/3] Add support for Variscite VAR-SOM-MX7 and MX7CustomBoard
+Date: Fri, 21 Aug 2026 14:27:49 +0200
+Message-ID: <cover.1787314780.git.stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260821-next-patches-v5-6-ec81cee63e09@gmail.com>
-References: <20260821-next-patches-v5-0-ec81cee63e09@gmail.com>
-In-Reply-To: <20260821-next-patches-v5-0-ec81cee63e09@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
- Tony Luck <tony.luck@intel.com>, 
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
- Adam Skladowski <a39.skl@gmail.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-Add compatible for Xiaomi Redmi 9T NFC codename lemon which is one
-of variants of Xiaomi Citrus lineup based on Snapdragon 662 SoC.
+This patch series adds support for the Variscite VAR-SOM-MX7 system on
+module and the MX7CustomBoard carrier board.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Adam Skladowski <a39.skl@gmail.com>
----
- Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
- 1 file changed, 1 insertion(+)
+The series includes:
 
-diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-index 68542f76df30..5363efadd4ee 100644
---- a/Documentation/devicetree/bindings/arm/qcom.yaml
-+++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-@@ -1035,6 +1035,7 @@ properties:
-       - items:
-           - enum:
-               - fxtec,pro1x
-+              - xiaomi,lemon
-           - const: qcom,sm6115
- 
-       - items:
+- DT bindings for the supported VAR-SOM-MX7 board configurations
+- VAR-SOM-MX7 device tree support, including V1 and V2 hardware revisions
+- MX7CustomBoard carrier board support
+- eMMC and NAND storage variants
+- optional WM8731 audio codec support
 
+The implementation follows the standard SOM + carrier board pattern,
+where the common SOM dtsi contains the on-module peripherals and
+hardware revision differences, while the MX7CustomBoard dtsi contains
+the carrier-specific interfaces.
+
+The final board device trees combine the supported VAR-SOM-MX7
+configurations with the MX7CustomBoard carrier board.
+
+Stefano Radaelli (3):
+  dt-bindings: arm: fsl: add Variscite VAR-SOM-MX7 boards
+  ARM: dts: imx7d: add Variscite VAR-SOM-MX7 support
+  ARM: dts: imx7d: add Variscite MX7CustomBoard support
+
+ .../devicetree/bindings/arm/fsl.yaml          |  17 +
+ arch/arm/boot/dts/nxp/imx/Makefile            |   6 +
+ .../imx/imx7d-var-som-emmc-mx7customboard.dts |  22 +
+ ...x7d-var-som-emmc-wm8731-mx7customboard.dts |  23 +
+ .../boot/dts/nxp/imx/imx7d-var-som-emmc.dtsi  |  99 +++
+ .../nxp/imx/imx7d-var-som-mx7customboard.dtsi | 378 +++++++++++
+ .../imx/imx7d-var-som-nand-mx7customboard.dts |  22 +
+ ...x7d-var-som-nand-wm8731-mx7customboard.dts |  23 +
+ .../boot/dts/nxp/imx/imx7d-var-som-nand.dtsi  |  73 ++
+ .../imx7d-var-som-v2-emmc-mx7customboard.dts  |  23 +
+ .../imx7d-var-som-v2-nand-mx7customboard.dts  |  23 +
+ .../boot/dts/nxp/imx/imx7d-var-som-v2.dtsi    |  64 ++
+ .../dts/nxp/imx/imx7d-var-som-wm8731.dtsi     |  65 ++
+ arch/arm/boot/dts/nxp/imx/imx7d-var-som.dtsi  | 633 ++++++++++++++++++
+ 14 files changed, 1471 insertions(+)
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc-mx7customboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc-wm8731-mx7customboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-mx7customboard.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-nand-mx7customboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-nand-wm8731-mx7customboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-nand.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-v2-emmc-mx7customboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-v2-nand-mx7customboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-v2.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-wm8731.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som.dtsi
+
+
+base-commit: 9400c5b6aa357be2379c98ae86a207bc21dc7a48
 -- 
-2.55.0
+2.47.3
 
