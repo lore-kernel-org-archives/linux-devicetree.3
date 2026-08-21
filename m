@@ -1,87 +1,86 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0DA03A641B
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 04:54:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E363AC0FD
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 04:55:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787288094; cv=none; b=S3o+xbnPJ3pRquxfi351fmOK9H6EpwfpWa54R/Tin/ex+GMd/GdDqBaQOo/zPPeAn2IBbGgqITVsyaA15tTe2HQ2PYNou6oB/289vT5f1aCjXjbeNBcty/Lsj7oRUTqbxlALyV5umqu7ZXJMYN6BiC46w3k/cQpKTJ/yTWm0OCM=
+	t=1787288114; cv=none; b=hsqiqG9vQjhc1waZ46HfRoPwnrs0yh043Al2T6OcqYseUu86uduHi5ZqdtIPnMU8wAsDZGpDVwpojraucQ9UqKYgM1HIipwgf6blFYZhOoyfpsWVy9LI8AJXBLO/TvYF30eql5yumcg4Sp2UqReCx70sPmeATlb//NSQcC9OQBk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787288094; c=relaxed/simple;
-	bh=jJFqgVQ1xwob2w8K+J2uHQ6676Cn4hsN1VOaawuThpQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=X0C/uhMC0jeiDbTyo2mmWKt5V0ni6iaIX8NyLS6sXJc1tDCQyfZVxLwr3u3MKNktQQ8/WjQQqyAqPizWz5/FKDd54QvtZM/z6N6F5kJ3n2HF8ofotsa4ccVh6dYh2Tf/+okZbTefurrZCYZQFG72Qe2NhEsEk17fI5MVTalVKak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cCK+nW8s; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XJmpQRSU; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1787288114; c=relaxed/simple;
+	bh=jbmancpsHTjVs2TeiXOri8bQFZyZ0a+JoVJMwsnKP0U=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=rce5FhZCqa1Y2ZGr6OPiU8dcdogVMWQ59YDVbLkYGEHPSBFPJuoaYGFyY+zRDKteKwsK6go2AlmiXn8tJiZ4MVb95AU4G+PdcfvgtzYGzziIpgt+BOcc3ihz5ESzVauy5Ucwc3c7XPWXvEpk+7ROhmXKCRdVx+Dt04T/b8XuDOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Eujh0OHx; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gjcKdwH2; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cCK+nW8s";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XJmpQRSU"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67L4dpW71907738
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 04:54:50 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Eujh0OHx";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gjcKdwH2"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67L22uFx053679
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 04:55:09 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	JVPRdpKQ6Z8b1wwWbv6uhUylN+tu2/L/LH6uVlvCTo0=; b=cCK+nW8s2CiKTrbe
-	YjL2ENSbeZfWg+crErkiOyrqwA0DGPwMWm5YK0YBjssY6MTbyHeRxeVq5Axc3/+V
-	drtYKlW6TQVGbFPHb77R+6PwXMgLyy4dxSfryUyheDY7MaNyu24G5IEVZdQzVcvO
-	6Cv13plEF6f2/+HdysLBdm2cPkiQej7H/U1IlcrsmqvhXn9hq8T/pNJx8DNcAc5u
-	8IYmnlzCrM1VXlgH9BEg6VPV5LDbCITTNOFzV9bVgoQtR/Unq0cIbHuV+U4v3dpI
-	OFSc5bEvuGXdmQBumQLDNCb0zs39wxVcPE9qe73Ti4xN3JBVwDGJauBjRKf8vzrg
-	o8/HSQ==
+	uk9NLu6lCcY8JkSba9VV/ahy8MrSZ53djuNpID1PR1M=; b=Eujh0OHxd2HnZjx5
+	dBlEVwNEtHMvBseOq34Pli3xN1EBm43dmAnwCuFKJVEKiKLlXYA5qnfc0d+tByXk
+	eGemOaPGFTXmqVAiecsxmlYX/78ie4koD08WRd6qGOuIP4+ln2StYCgskgqR+Yxf
+	VaIsdwFnGPlgDtrDUEc0i+g6eEyy6YefZBYiwMSyR3gMw4yYy2Q9FcKlVeEO6hS8
+	pZqmgedIcbnPX/x1rgkoxO4jUXqWKCMtW2IfVtopu8LNk1fi2E4xivjqHzwmDe/Z
+	iKu2lgNhpLAGQyNMpAnixEmuApMYpS8dELmqka9aCQPA+vFmdYXFLiWAg23pFkHt
+	Eb7qWA==
 Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g6fuhg19t-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5ytcc6q4-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 04:54:49 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38e2f61c09dso797922a91.2
-        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 21:54:49 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 04:55:08 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38dc085b0a7so1059984a91.2
+        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 21:55:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787288089; x=1787892889; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JVPRdpKQ6Z8b1wwWbv6uhUylN+tu2/L/LH6uVlvCTo0=;
-        b=XJmpQRSUqIDf73TTjFxfswh+Mmm/W1Bk2JPr9fim4SKke+QLpLrFVP8OJdbZg6EI3W
-         OxyerVc1DiBpt8bVQ5VfcplOUuNbZ8Sh2Cq5XuIRo+Ou2hzAVQ+7RUNdBs4XDykL0sd5
-         Y5p7WWPkc1RRv5/2tM+pRHEi2DTYfY/aNJBOgHx2ZBKDt8OjFRAzE0gGhEKgHt5JAeF5
-         rUFsWJSO0hoLYzsXUdu3qhGo3JEi4XcgkJz4Fq7KEgNG8qNj1AyPo9aZ0rneYciCBlt3
-         wezOFMRIEgVsQcPr3ZZljJON/qwar23Uilg3RUdOhQRN7Bt5MTcKd3m1+pGFfUl2ViP0
-         5bWw==
+        d=oss.qualcomm.com; s=google; t=1787288108; x=1787892908; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uk9NLu6lCcY8JkSba9VV/ahy8MrSZ53djuNpID1PR1M=;
+        b=gjcKdwH2I68HWHNWrCrWWxoo+3opqwKoalW4BE7yP8FI1HKsjZ0IPEPibp03V5fsft
+         +fbSNo2VOt4vMD3Mce9oyEjQi5yCJc+roXe4hKATFswz7vUmvH5uKBDJL3cxq49Kazd1
+         W0k9lxmuDxQiTyugjZMCPlwbd1ZcwA6FGzvlcY+uSVSp8C5/+/iSC5O0aP/Xo62JFpvp
+         CD7oe7uSeeJ+U/kXiy/kI5sk9jqvVeWU1st7pDlQUDKNHlt1/Q3gXc1KxAQlKpCOFxaJ
+         HSyos6fYFBol7oO79wjySu1Yyy7DrMQ1Eioiz5tHiU2VnCtzS/75+8zz17PF8UsbIkaF
+         mgfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787288089; x=1787892889;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1787288108; x=1787892908;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JVPRdpKQ6Z8b1wwWbv6uhUylN+tu2/L/LH6uVlvCTo0=;
-        b=Z+TS5uQoGGTLQTowTkzL3FVfhVQr3XcDauQMSYwIQh39wVK8UTVjjifKn69bL/iU1M
-         M+95p4RzJK2GCb7QDHIyO8pbtbTHjbZyYvv8K2ygTxXxriVc8aVlfYetLbKHcfiPt1nJ
-         aH/0DRDPVGWfyRTEJILJ3KnmkdWdX+ubkFhDYIs+GURDa/uwtLWdyZ/DTbUD2lwOUh4c
-         KwEv5uhHZbRSQa8myJ+8hW3o3bR073vqgzQbIiADwL+qFos+3m8b0slopmBGWzsIrOug
-         QaRmkmgTVfvvc1V/2GJzM9Z7eRfQLxKLYsqi+fDMYRBP/anNvFN6yFYsjE2RYNMXpjR4
-         T2sw==
-X-Forwarded-Encrypted: i=1; AHgh+RoPxXPRR7Xc1f1YbNDy1vmInH3gYDUkMfzy+3F+Ar8xg4UqQvSgvvA0FGE0WXGDCHHN/ihK8eItU97Q@vger.kernel.org
-X-Gm-Message-State: AFuF++mDgWUDTI19TEJ7Exu6bg2mPvfNlYaQjaPLpBtDXMcep5hzG442
-	tvfMYkt2n2yiP+Zf9Q2EdV1jLYGGkWCZCLHhTgcxU3YaACxSRJz5x7jKtqNveCrGjA7ti3hNpCW
-	uAGJ7dZEycstKHtx/ACQucFrI4wBs6kvVMG/ePB9wFU9TP50h/tlS49Pc3aZRq8i8
-X-Gm-Gg: AR+sD13EDilWdNGh9k9C6cqdJ/IMW41OeTYRLKoLm1zbij7CGYC6uNts5lYGjhDC9FI
-	gz4C2774IYPx6a42dTSWN84hVPS5hViojZAFBByEj0Nyc/fSBvLPE5Z91i6mJTX49IyVFbv86oy
-	XXuM1giJ63sJNxh+yZNGRH0BU0hmXKtANqOpay4q+gxfp+A1iirExtw0fqdr3vVkfxAQdZq30J6
-	NoSy8Z1o2SiAEmDU4BzE+rfDos4O8F+1gdUwuelAfrkRv34sK+Sm/CSdUTw0Sfov2ozoLHblxAN
-	f0NuYcwwAji5NqIx8a2FXP+RiFn3Mctt8pt+Hw6brpIgyD/Y969qIzv7AJNk+6mNaNGdDNoFxyB
-	TqQuG86GU/ig4EHTV5Xix5ls1Pckfew==
-X-Received: by 2002:a17:90b:4a89:b0:390:8361:a532 with SMTP id 98e67ed59e1d1-395c33bd6d1mr6622728a91.7.1787288088929;
-        Thu, 20 Aug 2026 21:54:48 -0700 (PDT)
-X-Received: by 2002:a17:90b:4a89:b0:390:8361:a532 with SMTP id 98e67ed59e1d1-395c33bd6d1mr6622618a91.7.1787288088440;
-        Thu, 20 Aug 2026 21:54:48 -0700 (PDT)
+        bh=uk9NLu6lCcY8JkSba9VV/ahy8MrSZ53djuNpID1PR1M=;
+        b=FSKABwXB/AM1aTLWiXjf/EGyK//PFyE5DbOihpg8OUmtghNfB30Zn++oeZjxifV4+d
+         CZEkSZLg0CM3UT5yUlvq0aVHyo9hqNkpJ20Z71STcnuprnUQEy9pwDLpUR29DcchVOc9
+         qo4RJL4S3H/GRvvvMFZ9RkjNsGycGmSrRh8+5xVtBBtb5nymBKiPUODll1ohi/J6k16r
+         chslJonS6wXArRcXUZhsm5kuURlTUBoG3PkMiliXoAqEjz2qzjZqwpStf5s5uLeQCoZa
+         jKTMDXp9OBY0PR0jFK+IkXKFMwxRtDwVIXRRe7MDaNQ/KwDU8ilTJYhJHjBf6dsfBYx3
+         jK6Q==
+X-Forwarded-Encrypted: i=1; AHgh+RrvaPxVItwDSE8+NYIu0LUS37UFKd4BzmKU+7k275nyDZFHHpWS98Vr6Dg4gfGGv61wiUmT41UIflPS@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyb+b3cL0aIa5UqVasdt6vmYXLgw6aUc1RBDidfcXb3E+f7pYDF
+	imj/EXUdR01QzsEezlnO5TbEEbLm1MDHN8zELQupBxji9VX6VyGduLV3bjthdHW/q0UGhdxqWXV
+	fkziOnSTmfOVcydxv5dWyg0PW1HGhzZCF7AHsJ7HEx7gIIu2lKljBr51PUsqAjKS/
+X-Gm-Gg: AR+sD10UVugx8yHHVTCiYBjfhLmt3zS5CahvvprKuJ3OJzZe+jqppIWrqlZEyyzvyYm
+	GOsHKwQFVByS+uZp3uoR8JtdPyNeXMNcOxZuwU4lrNLODRPfg8pwYlXkPGjv8gEA6y/eud6p18m
+	JzxaBanid5l4rJTEZwgIyjq0s6PNsUNvuX1Cbal/QpSamR8sGUIIGfo7yDMELi+I9SR6b1hsPAE
+	UlOfC5YUpAGhFZ8Jp2Zxho3y+CGzSHA7TZg6sDBGtJ3WcdB8VM9eTs2t6p8024MXQpWsWKSnH7E
+	CBfw8KrISzwUE7+TfNd6drL2EiMTActS1tVFVu3Sh3Sih5tPXN1/yZWYbz7oxnIu49XijZaLICm
+	exZrtBmBBlq7tx8yqCqnW9WjqYE9Llw==
+X-Received: by 2002:a05:6300:67c1:b0:3cc:9620:5816 with SMTP id adf61e73a8af0-3cd306150e3mr7172976637.8.1787288108166;
+        Thu, 20 Aug 2026 21:55:08 -0700 (PDT)
+X-Received: by 2002:a05:6300:67c1:b0:3cc:9620:5816 with SMTP id adf61e73a8af0-3cd306150e3mr7172878637.8.1787288107721;
+        Thu, 20 Aug 2026 21:55:07 -0700 (PDT)
 Received: from [10.218.7.34] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-395c4553168sm1530980a91.1.2026.08.20.21.54.41
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bef3bb46sm20562131eec.3.2026.08.20.21.55.00
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 20 Aug 2026 21:54:47 -0700 (PDT)
-Message-ID: <04990044-45b3-45ca-9e39-925d5bbe62e2@oss.qualcomm.com>
-Date: Fri, 21 Aug 2026 10:24:39 +0530
+        Thu, 20 Aug 2026 21:55:07 -0700 (PDT)
+Message-ID: <16248e00-5ac9-43c8-9e4f-1b3fb061dd2c@oss.qualcomm.com>
+Date: Fri, 21 Aug 2026 10:24:58 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,15 +88,18 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/7] iio: adc: qcom-spmi-adc5-gen3: Add support for QCOM
- PMIC5 Gen4 ADC
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-        =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>,
+Subject: Re: [PATCH 1/7] dt-bindings: iio: adc: Add support for QCOM PMIC5
+ Gen4 ADC
+From: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+        David Lechner
+ <dlechner@baylibre.com>,
+        =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
         Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Amit Kucheria <amitk@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Amit Kucheria <amitk@kernel.org>,
         Thara Gopinath <thara.gopinath@gmail.com>,
         "Rafael J. Wysocki" <rafael@kernel.org>,
         Daniel Lezcano <daniel.lezcano@kernel.org>,
@@ -111,135 +113,147 @@ Cc: David Lechner <dlechner@baylibre.com>,
         Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
         Priyansh Jain <priyansh.jain@oss.qualcomm.com>
 References: <20260731-pmic5_gen4_adc-v1-0-9c49b2eea6f9@oss.qualcomm.com>
- <20260731-pmic5_gen4_adc-v1-2-9c49b2eea6f9@oss.qualcomm.com>
- <20260803011400.1fb6c93a@jic23-huawei>
- <a98d90bd-aa9d-4af3-aa54-3a34300070d4@oss.qualcomm.com>
- <20260807001822.31f7c137@jic23-huawei>
- <f2b2f590-de3e-4f10-b883-92845f59412d@oss.qualcomm.com>
- <20260815030830.24fc732f@jic23-huawei>
+ <20260731-pmic5_gen4_adc-v1-1-9c49b2eea6f9@oss.qualcomm.com>
+ <20260804-marvellous-crayfish-of-recreation-d06401@quoll>
+ <4e25b74c-baea-4283-9730-7313162284b5@oss.qualcomm.com>
 Content-Language: en-US
-From: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-In-Reply-To: <20260815030830.24fc732f@jic23-huawei>
+In-Reply-To: <4e25b74c-baea-4283-9730-7313162284b5@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: WxtrtyUKwNsCHQ6rQmf-YFhzLwUnuR3n
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODIxMDAzMSBTYWx0ZWRfXyd0MQHrsR1e+
- v56By4o0smLdM+amOXPBJwFc+pCrMQl0qx00GOOKCedcQX2jxq7u/wYRlJiEZ11W6voSvk4euDT
- vtWY+mzTdwmkciTNBaZlo9pUatLtrGA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIxMDAzMSBTYWx0ZWRfXymOJP6N9wHFW
- E9aRm3uWUIDM+6OfkWHTq1rL4Lo7BeOgWMx4WZsMUu4RaD8Fy01lRwlI7XoQrS8zw/LhWKto0j0
- 50ALg1B06nZY2LQYxNHjgrwbZmUGg5rKP4TcQXmNEsYdHsziiqp+8+EoATIJyqBYzZsGkcdE5bk
- SGRH5F20kfIbVicoHDgAurXQ1ZUIvoXr+TyxUygbU9S2BHTsYQTGZzfRyidtD6FwwmfPrYbk57n
- jt31pl3w1DnYJBQD+kbKtAY6MlXBQ49ijVx3h6dwK9iH0V9H/IiSMIfPfq033JBA4T4CEVY9xf3
- KW8WmyqDUG1DYyJOspCFCctcmBU0JuosHE+4RoEsfasjpwvG+MXsW6e0gsyTqr+FlZ5b3RKVgNS
- YdeX0IXjiTV3yTozLokQg1iyD5FN7QgYgNqPLD7IvxODFEhHZN9cBAGovDDQM8pYjBYXf7GdwAk
- 6/2MRXox6I1y9zQiDlA==
-X-Proofpoint-GUID: WxtrtyUKwNsCHQ6rQmf-YFhzLwUnuR3n
-X-Authority-Analysis: v=2.4 cv=UtFT8ewB c=1 sm=1 tr=0 ts=6a87da19 cx=c_pps
+X-Authority-Analysis: v=2.4 cv=OqZ/DS/t c=1 sm=1 tr=0 ts=6a87da2d cx=c_pps
  a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=hBCwbVwefb8Xt-lYK48A:9
- a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22 a=cvBusfyB2V15izCimMoJ:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=JbgVt6K1tEAjoNa7P_MA:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIxMDAzMSBTYWx0ZWRfX1RmRfAAf/anl
+ cZGM16Uvw/DBE35TWssC96uOjQJMmqZS5JsuIUOn7BzfzwAfhreoUmls4rV1jWHMQKirMfYlpgn
+ amprZ/XLwozAhK4CMJsW4+vySVq6C/a2ewOEz0bx3hnJErub8ynsHtcAy4HgtXgEN8GS2UMSRCG
+ fxrVNE8hrNV/iLz4NiYVoFKmcbjRdlwQ9N59GpB3h4EI6SFbYujvo4csZTtCM/24B+AMSEDkUV8
+ GJgRdHdoxFzQeHnNhY2/GOXDIqgLlX6qR9zd7Fw9KqeXu4vOOfVd0h2W2cZzlPbrVpEvt32PQRy
+ VnuWcvTbVaG6XYmWu5IqdO9xet2P5yLtZncnZa7fd+UwLmefC2TVFagqK78SWEwuaSscl6KIrH5
+ cOSzHPQcQ4vgdJQUruJfP/OuRst7yjuK0WDvpeS906T8759ifmQppRh9ZoU/LrLJ0A8VjFJdclU
+ 7+/iAjqd2GFHQ99mkxw==
+X-Proofpoint-ORIG-GUID: elV4Jw9MCszxgE6mS5-1wA7oY_hdHmbC
+X-Proofpoint-GUID: elV4Jw9MCszxgE6mS5-1wA7oY_hdHmbC
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODIxMDAzMSBTYWx0ZWRfX47JZ4OUl+Z9y
+ xp7TIlGLV7u5DGo9nmSdxrcMkFyU7qFrOdPRd4JgttiWaFnZ+LrOgaEukA7iQEKwD2crFzjFy1B
+ TZ69suidZaoZLdnIy0+rgwDHq4mybgU=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-21_01,2026-08-20_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 malwarescore=0 priorityscore=1501
- impostorscore=0 suspectscore=0 bulkscore=0 adultscore=0 clxscore=1015
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ phishscore=0 spamscore=0 malwarescore=0 clxscore=1015 adultscore=0
+ bulkscore=0 suspectscore=0 lowpriorityscore=0 priorityscore=1501
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
  definitions=main-2608210031
 
-Hi Jonathan,
+Hi Krzysztof,
 
-On 8/15/2026 7:38 AM, Jonathan Cameron wrote:
-> On Fri, 7 Aug 2026 13:37:02 +0530
-> Jishnu Prakash <jishnu.prakash@oss.qualcomm.com> wrote:
+On 8/6/2026 4:23 PM, Jishnu Prakash wrote:
+> Hi Krzysztof,
 > 
->> Hi Jonathan,
->>
->> On 8/7/2026 4:48 AM, Jonathan Cameron wrote:
->>> On Thu, 6 Aug 2026 16:22:16 +0530
->>> Jishnu Prakash <jishnu.prakash@oss.qualcomm.com> wrote:
->>>   
->>>> Hi Jonathan,
->>>>
->>>> On 8/3/2026 5:44 AM, Jonathan Cameron wrote:  
->>>>> On Fri, 31 Jul 2026 23:36:15 +0530
->>>>> Jishnu Prakash <jishnu.prakash@oss.qualcomm.com> wrote:
->>>>>     
->>>>>> PMIC5 Gen4 ADC is similar to PMIC5 Gen3 ADC, with several changes made
->>>>>> for improved performance, mostly at the hardware level.
->>>>>>
->>>>>> One significant software change is that ratiometric conversion resolution
->>>>>> has been increased from 14 bits to 16 bits, so the maximum value of
->>>>>> these measurements needs to be updated for Gen4. Add a new scaling
->>>>>> function for thermistor channels which use this type of conversion.
->>>>>>
->>>>>> In the latest PMIC arbiter version (v8), there can be up to 4 buses
->>>>>> under the PMIC arbiter and 32 PMICs under each bus. In order to
->>>>>> support communication between ADC on the master PMIC and ADCs on any
->>>>>> of the other PMICs, a field of width 2 bits is added for bus index
->>>>>> and the bits for SID are extended from 4 to 5 bits, in the SID
->>>>>> register. Add support for this.
->>>>>>
->>>>>> In addition, it is possible that the master PMIC has ADC of one generation
->>>>>> and it needs to communicate with another PMIC with ADC of a different
->>>>>> generation.    
->>>>>
->>>>> "Possible" sounds a bit hypothetical.  Can we state this actually happens
->>>>> on some devices?    
->>>>
->>>> Considering existing upstream platforms, this is applicable for SM8750. I'll
->>>> mention this in the next version of the series.  
+> On 8/4/2026 1:50 PM, Krzysztof Kozlowski wrote:
+>> On Fri, Jul 31, 2026 at 11:36:14PM +0530, Jishnu Prakash wrote:
+>>> PMIC5 Gen4 ADC is similar to PMIC5 Gen3 ADC, with several changes made for
+>>> improved performance, mostly at the hardware level. The main differences are
+>>> increased ratiometric conversion resolution (from 14 bits to 16 bits) and
+>>> increased bit field width for PMIC SID (to allow communication with an
+>>> increased number of PMICs, supported on latest SoCs).
 >>>
->>> What happens on that platform today?  Wrong values?  Should this be treated
->>> as a fix rather than a feature?   
+>>> Signed-off-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+>>> ---
+>>>  .../bindings/iio/adc/qcom,spmi-adc5-gen3.yaml      | 47 +++++++++++++++++++++-
+>>>  1 file changed, 46 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/iio/adc/qcom,spmi-adc5-gen3.yaml b/Documentation/devicetree/bindings/iio/adc/qcom,spmi-adc5-gen3.yaml
+>>> index 149f4af8f4b8..e79ddc2acca0 100644
+>>> --- a/Documentation/devicetree/bindings/iio/adc/qcom,spmi-adc5-gen3.yaml
+>>> +++ b/Documentation/devicetree/bindings/iio/adc/qcom,spmi-adc5-gen3.yaml
+>>> @@ -21,9 +21,14 @@ description: |
+>>>    All boards using a particular (SOC + master PMIC) combination will have the
+>>>    same number of ADC SDAMs supported on that PMIC.
+>>>  
+>>> +  PMIC5 Gen4 ADC is similar to Gen3 ADC, with some differences such as
+>>> +  improved ratiometric conversion resolution.
+>>> +
+>>>  properties:
+>>>    compatible:
+>>> -    const: qcom,spmi-adc5-gen3
+>>> +    enum:
+>>> +      - qcom,spmi-adc5-gen3
+>>> +      - qcom,spmi-adc5-gen4
+>>>  
+>>>    reg:
+>>>      items:
+>>> @@ -83,6 +88,46 @@ patternProperties:
+>>>            This property indicates ADC_TM monitoring is done on this channel.
+>>>          type: boolean
+>>>  
+>>> +      qcom,adc5-gen4:
+>>> +        description:
+>>> +          Indicates channel is of type ADC5 Gen4. This may be needed in cases where the
+>>> +          master PMIC has an ADC peripheral of type Gen3, but some of the other PMICs it
+>>> +          communicates with have ADC peripherals of type Gen4, so channels of those PMICs
+>>> +          need to be marked as Gen4 to ensure their conversions are handled correctly.
+>>> +        type: boolean
 >>
->> There is no issue on that platform right now as ADC channels needing this
->> support are not added yet. SM8750 board files only include pmk8550.dtsi, which
->> has the top-level Gen3 ADC peripheral and some ADC channels on the same PMIC.
->> Gen4 support would be needed only when PMIH0108 ADC channels are added.
+>> It is implied by the compatibles, in this case the peripheral
+>> compatible.
 > 
-> I guess chances of anyone running an older kernel that the device tree on
-> that device is low as other critical stuff won't be supported?
+> This property is needed in cases where a Gen3 master PMIC has Gen4
+> channels under it.
 > 
-> If there is something easy to point to for that, add a note to the patch
-> description as it justifies this not being a fix.
+> The main point to keep in mind for Gen3/Gen4 ADC is that the compatible
+> describes the ADC peripheral on the master PMIC, but the master PMIC's
+> ADC communicates with ADCs on other PMICs, which may not always be of
+> the same generation. Under the master PMIC's ADC DT node, we have ADC
+> channel nodes from all the PMICs it communicates with.
+> 
+> 
+> For example, SM8750 has the following 8 PMICs, having ADC channels:
+> 
+> PMK8550 (Gen3 master PMIC)
+> PM8550
+> PM8550vs (2 instances)
+> PM8550ve (3 instances)
+> PMIH0108
+> 
+> 
+> ADCs on the first 7 PMICs are of type Gen3, but PMIH0108 has
+> Gen4 ADC. So ADC channels of PMIH0108 exposed under the PMK8550
+> ADC peripheral need to have the "qcom,adc5-gen4" property to
+> indicate they are of a different generation and may need a
+> different conversion formula.
+> 
+> Similarly, on some variants of the upcoming mobile platform Maili,
+> we have the opposite case (master PMIC has Gen4 ADC, one of the
+> other PMICs has Gen3 ADC), so we would also need the "qcom,adc5-gen3"
+> property for some platforms.
+> 
+> I'll add a description for these properties too in the commit
+> message, hope it helps.
 > 
 
-Sorry, I did not fully understand your concern here. Are you asking if
-SM8750 runs on any older kernels and the lack of Gen4 ADC support may be an
-issue there?
-This would not happen - let me try explaining with some more details.
+Please let me know, does the above explanation look fine for
+why we need the channel property "qcom,adc5-gen4" ?
 
-DT support for SM8750 has been present since kernel version 6.14. At that
-time, it included pmk8550.dtsi, but this file did not have an ADC peripheral
-at the time.
-
-The Gen3 ADC peripheral was added in pmk8550.dtsi very recently in this series
-from Neil Armstrong: https://lore.kernel.org/all/20260721-topic-sm8x50-adc5-gen3-v6-0-a507f4a1e537@linaro.org/,
-and I see this series is present only in linux-next right now.
-
-With this change applied, the ADC peripheral with 3 channels of
-PMK8550 alone (which is Gen3) would appear for SM8750. This
-would work as its functionality is fully supported by the existing
-Gen3 driver.
-
-Gen4 support is needed only when we add full ADC support for SM8750,
-meaning when we add channels under all its other PMICs (PMIH0108
-specifically as it's Gen4.).
-
-Would it work if I mention in the commit message that SM8750, added from
-kernel 6.14 without ADC support initially, would need this mixed-generation
-support, but only once we add the full ADC support (for all its PMICs)?
+And Jonathan was asking me to split this patch, to add the
+new Gen4 compatible first and channel properties separately,
+do you have any preferences there?
 
 Thanks,
 Jishnu
 
 
 > Thanks,
+> Jishnu
 > 
-> Jonathan
+> 
+>>
+>> Best regards,
+>> Krzysztof
+>>
+> 
 
