@@ -1,163 +1,126 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2131.outbound.protection.partner.outlook.cn [139.219.146.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23323339375;
-	Fri, 21 Aug 2026 05:48:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787291326; cv=fail; b=CNWtcDzR2aSpgYwo1fQzl8K77gTLOWnU6hMtei5c/1JOi7wpkJJFNpYcxiZVu4MP2BJOUYIEtNN+B7k9RQTEOfkgMkGTjQB0LLBIBgxjaO+BcA3HeaiOTm7Q4brGFkZTYLd2lX0Tj0OYG3kIfHX99NQdivugFIrOog9+RJQOnEw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787291326; c=relaxed/simple;
-	bh=O41JOX+W2ueAYJbFVS4PBm3m2lJQwH9FNtrfLPFjLqg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=svNMdYf3phrJ42MqiHr6+vtuqi9XO0fPXzpBgryQ12tggh+wx8fKf93DZ8fv5+DmvgNCJ2/qdChmKF/P+CjVPRvVZWdZ6JTg2ejiqCnbnTSGWMaa634A9ygcbBrNj7SAmtS2bTdFWrkLqiPFa0lzyjpRH34gJWdAFBK8swdemC4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kO63zxt0gjNUH/2ZllQ6sA3iklMUCTik5OlmzTIlrX3DVkzplC71BNzPqoCFH1JFB/p7qrC6MT2DVS0RuJ7pYZJ9xU0d0lcTRWhUGOvG7VV6SsWEFJ5QKY1pr1S+hF1ZRdwfT4CRTN9HSJottlQqIdq0p51W/fepeFlCYoQ8D6N+uTXtKRgZ23QFh1ODpCpzjT/ILKGuJaZ412b1R1Ozp1CtxVLLCA8n/LEXzdL7qqhvLC4Au20qpIZKm0Q60M6Ryl6tRsTOwpWw4tJ5pjGnf2BvoeHycECmYtup8nyGcAYfh0HVfC1ymfLI8zQ3OJW8xQ00FkOr+Dnd3Wg/HVUaSQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O41JOX+W2ueAYJbFVS4PBm3m2lJQwH9FNtrfLPFjLqg=;
- b=HDPw7jp4GllAGIyOpyT+71gW6JKJrN/y9DOBwUFdpL/R9ew0dDpHMUtXZj6fZ9mbnyfmxPHN/P0usdih9v1PUmFPIAGsd3Yo/YESJbes1inqo2o5R+IQZ4Y9HRUoRp2RWbFABfYYUSjH67d+tn6D5f0tH/BgQoRc0zgGErnm8yUGU3VdOtuWSQE0srgp5cCyWiDwhU8I5j55W/K77k3ku9EfiHUy8qPQIRmmzr4lOBedqx1z/c6M/5b00gvMdEiKET2fY2QHUMqMJfxFBXc5w0Dpi3/kiTxYfiR8IdUknRmjroMSVgugnkOoDIR045VnEiY33DMRWAts/XnS9fXa9w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1331.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:16::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Fri, 21 Aug
- 2026 05:48:37 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0315.011; Fri, 21 Aug 2026 05:48:37 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Guenter Roeck <linux@roeck-us.net>
-CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-hwmon@vger.kernel.org"
-	<linux-hwmon@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>
-Subject: Re: [PATCH v2 2/2] hwmon: (starfive-fan-tach) Add fan tach driver for
- StarFive JHB100
-Thread-Topic: [PATCH v2 2/2] hwmon: (starfive-fan-tach) Add fan tach driver
- for StarFive JHB100
-Thread-Index:
- AQHdL7tiZ0pkvi/tGkyyx2gmpMKsaramYUaAgABZA3CAADiYAIAAwDuQgAAQLgCAAD6oUA==
-Date: Fri, 21 Aug 2026 05:48:36 +0000
-Message-ID:
- <ZQ4PR01MB120284D84F7BBC14EA34D854F2A32@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-References: <20260819091601.41077-1-changhuang.liang@starfivetech.com>
- <20260819091601.41077-3-changhuang.liang@starfivetech.com>
- <033d3490-9848-436f-a7ad-e6ab73768031@roeck-us.net>
- <ZQ4PR01MB12025F1BFB7E3F897228AA40F2A42@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
- <9fc113e5-e56c-4e9f-8b29-914f39503b0f@roeck-us.net>
- <ZQ4PR01MB1202A9B4F415BE121B6984B0F2A32@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
- <5bbbdc8d-828d-4b99-9581-c89cffb7c67a@roeck-us.net>
-In-Reply-To: <5bbbdc8d-828d-4b99-9581-c89cffb7c67a@roeck-us.net>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1331:EE_
-x-ms-office365-filtering-correlation-id: 77345bf0-9b28-4eba-9c0e-08deff47d859
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|18002099003|22082099003|56012099006|6133799003|38070700021|4143699003|10067099003;
-x-microsoft-antispam-message-info:
- M4AjzYgDfXX7+1fMegVr13upYwLqE2cFI01Q+WYaxBLu4XkP202mtzrNlhITev08TUjW3NfyEdgR+bwTFCLX0zeqJQhAkRLvGwc1bkr1IKOYIFYt/Y/Rfa3lOxIRwXwcarSJZOcMefv2piShBpUOD8QAFT8GKtqyIBu03bqblYr6Ysq3XixmNZwlkzK/q/zV1Z9SYGhfaA+A0Pftg7apaey9wZ5cQzPdDcy0RxPnD+K4HOHUQIYtq0s+Xd6m05ROOl7hZPtRBHy0HsbohfbknkLo3v40MO9VueJJ3Abzh6gkEeD/bpg9SWLg2G0+CYPXmih3VmWtgWXjqRo7m5Z5+r6irSZXEX4pSjHjpvayeIU7MkOPXkhPg6vAOTl1YdcMebnzW5zHfc+rxhERqYmNQ13lT3/GHUDwepBAh6NeigfkYtfs23IUKbJJ7AhjcQjxylHDGjenh7zqlwHc5XCBQavpHU6b0C54zd5T+nSunqGQEt5pciQxHRJB6WpBvr9EqcrHsijjXTHCVyjMtt253p/ZSQxqfflYT27wKgNxGASyn/Ia5UyPH4u3oyaLSEht
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(18002099003)(22082099003)(56012099006)(6133799003)(38070700021)(4143699003)(10067099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?S2NjUjVEakRCZnZVRi9rdUV3YlN3T2FpK3lSR3FKMVVGTjlPL2I2NUx6eHFP?=
- =?utf-8?B?ZVZheE52eU0zQzlyOWtJQXNhbXJJRVRTekIyNzVRNE43OHhRelgrT2pEb2dW?=
- =?utf-8?B?RmVCY3hpR2YvaWhsTTNyUUcrcnpTRGFzTnJtY2lLNWkyMXZianJlRWtTZDh0?=
- =?utf-8?B?K3JkT0MrNFNTS2xhUVA5Uk41MnlBQmliSkR0TEkrVlR0ZXVYUC94dlAyN0Q1?=
- =?utf-8?B?SktmaHkyRDB3czYvY1dvMDBCc2VOMlpLNUg1UXNoVXRmVms5OTloSkpObGRY?=
- =?utf-8?B?WkdDdlYxOWRUSzc3NXQ1alQrcjhEVGs0WDdGb1FmUWhFZE1VYVlDVlprakV2?=
- =?utf-8?B?WVdqa3V5V2h6NldaVkNXQUlibjYxVEtvWmo2dVpzQ3FEVCtHVkpISFFxeFBK?=
- =?utf-8?B?VHF1SzVYMHVaTVNyanI5dkVFaW9lWTVLK2JqeDBMOEVucDBsVGc2S0x4bVdD?=
- =?utf-8?B?N0NONWx4K09kOUJJcGdVS2w3Z1BLYlQrQXBjKzgwTFFxaXhZdncrSW5kKzM5?=
- =?utf-8?B?ZUJ0QjUxSkN1K2ZMNlZmYXNhTlM0NkxyRVAvRm5EL0xJMUt6UUJlR2RQbVJH?=
- =?utf-8?B?bWkreWY1d2RPZTcvNkxqVlRveEt2c2czQkZPRmwyT0hraVFPTDd2MTlhRHl0?=
- =?utf-8?B?cXp3RzBiUzQvY2xBNHI1QWVIN21DU1Y0dnRoNmE0RVhIdCtPaWgrVTZXUVc1?=
- =?utf-8?B?Z0pNU0lmaUZIM1M2Zm9BNEdGYzJhZUxsaS9VQ1QvZTF6c1hZYnFCdDF3NDFu?=
- =?utf-8?B?cWMxeEExUk5jUHFiNjdudzVKSFNaWG50T2U2WWZQRlVYb0VYZVNoVHppanVl?=
- =?utf-8?B?b1NkVGU0ZmRGMlFNQ1VTcWp3SHl2Vm4rUzJBODZXdHpoc01NUDloNHlTQkN3?=
- =?utf-8?B?NU84UWhqMTJvL3I0YWZXWUIvWURHL0VKY1dnSVFZRmFTcnorL3c2Z2R6UjNu?=
- =?utf-8?B?eS94VXdtQmt4ZDdGNGlCZVJnTks1VnhEQlpTTVJidThiZG1hakpQTkNMMjBW?=
- =?utf-8?B?dFJnRUdyVGlseHd0M3hxd0xlM3hyR2cvMUY1UmN2QU5Tcllzbjd2R29zV2Uy?=
- =?utf-8?B?QlNiSUdVQzdHWkZzcldjakVMNTBBdkNkS1NuWmJqVFNwZVh0OGd1bHk4VnVm?=
- =?utf-8?B?T2o3RnE0b2YvKzB3OVNYcHlKVzF4cWVkQWxYdmpYOCsxWWFVNlNuN1owZzVx?=
- =?utf-8?B?dnNhNkQ2VVVYNEFwVGtSanJpdVdlSjhRWG8wNUhyaTdldkRVUkxodzl6MXBk?=
- =?utf-8?B?cUpqQ0ZZd2NvVlpIMlVoVnd4ZVI1WUl3WTlWK0tRTzdNWVNoYVhhZE9ObXo0?=
- =?utf-8?B?SFhNOVJyNVIrRExJOXg4d1BOZys2RFhabWFMa2hOSTc3TkpKSGdoWGx4TUR2?=
- =?utf-8?B?OXpzdG15dVdMQmRZSmRjc1pGZHpkekMva29CNXZJZFZ6a3hqMS85SHlESDVl?=
- =?utf-8?B?UW9EdFgxb1VyOTMzWHlHVkpPeXNITmkrVEllcnRHT0xCcHg5blUyWStZWjJz?=
- =?utf-8?B?c2xObkQxWHhSeVVHQWJLN1IrMWRoYW1EQTcrUmRlTSt3NlA4OHRKVWNTckNo?=
- =?utf-8?B?N05MS2QxZ3ZVVDJ2TlpSVjlwL3I0SzJaeEcrMitEREJPUG1BZktDaDMwOVBh?=
- =?utf-8?B?YXRDRzBKVEk0cVlFTnQvT3QxNGladFd3STFmU1B3MjNta3ppMGtnV2xWekhp?=
- =?utf-8?B?ejBhTXQ2dUpPSk5DWmx0T29zSSszaDY0QnM4UU9OcGxXTmlZLytZZnMyN3Ey?=
- =?utf-8?B?UUp1eDlsdXkxY0RhUXdiZEVHbDN2Z0VybXZhL3N1MHhRS3R3ckJPOFZZeGo5?=
- =?utf-8?B?Skl2QTk4R1hxUys5ZnNqZktaR2FzWUt2T0RrdzFVeVczQmZLRFFHNE1sUzBZ?=
- =?utf-8?B?eU1ZMzhZN00xYkhGMzhrOEJKbi9ER0VFTUJqS1BLMHIxUjI2UFRXQU85S1VV?=
- =?utf-8?B?alJ2NUhZU09rbStlMUZmd0MrZVBZL3BvbXFaSUt2S09tdE1sUlMxVjlESmFH?=
- =?utf-8?B?T3RXUWljcmd1K3k1T29YZjUwb1BsZTJOWWUwQjE3R3ArTDlCMGVtU1hQMHVq?=
- =?utf-8?B?UTNRZndnNVk4MlFiK3FJQ0RWcTBWV3VQTC8vYmlxTGhYRXN3ZmdSRGhzQzUz?=
- =?utf-8?B?QUJlSkNPbUJDakpieDVRSGhJdVVWUHQwNnNVdXd0QWJjTm9nQlRGRG4vTDBL?=
- =?utf-8?B?U3p0cTNmNXFaSm9NaEZiUDI1UnIwV2lIRHVUUlh6S09WR2g1WlpuMUtaQnov?=
- =?utf-8?B?T25jU3dLUU1keURacjlSZFhNcytHQ2ZjWE55emJxaUZQRE00S3Q4QjVMMzY1?=
- =?utf-8?B?MUhzQkJiM1I0aFFRbE9nUU5KZG1CM1BuV29VZHdVYjl3ZFB1aTJoN2xKZGlt?=
- =?utf-8?Q?4g5xiQY+K+O/m+b4=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDD86379C24;
+	Fri, 21 Aug 2026 06:09:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787292557; cv=none; b=BAKPEZrgjzQer9kY6f2M6zBSlw3WkjzCpTmiZAfX4zOgd80rzttmlyvh7U2WVn80+WAlacAZUSwCg0xyzANgxqYSOm6zOtLwA/3U5tGU7opZsMk7T7WjsSj8w6PYwA7/rD1HDoCBKzKswOn6XvAgDIxnWlbMEAkCh/2/T1u8z70=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787292557; c=relaxed/simple;
+	bh=UVuhDLGaUIh0ajpPdivhSs9ZFGhCoQqK94zlxZ0gD6Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OVnKHEXge/XMm6RmaeaY4pxl4BilpngPDFrlsSPEQe982F6T3GbBO56WHnujlnadAGWFWACH8e4Ktyz3SPnxWQNNwLSxeJ+3NYHC51Eww0mYUIss/fndMcQYf5cYoQf5JPUpZSVWvbA3l4rmYZJuBImkQ4VcBasQ8szBz3HF4/0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gr2WDXsC; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gr2WDXsC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53FA21F000E9;
+	Fri, 21 Aug 2026 06:09:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787292555;
+	bh=BYMpbY6//lXXJsyd0KVwF4tNxEPtY6aLpXTe/zYx2g0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Gr2WDXsCj05+E6MbHAxC20Bq2AoybRWI0lNEiR1qvHRrBfnFjy/132/l1yqmSAzR1
+	 v/Cbl0aS3VVwduHuke7N19i3f++p9RzY8dfP7G/H/oTsUdznt1/vPHJwukihZIF/hY
+	 0zZ9arbiVmU9FEnxtXMFSzVSyBy33CQPUydYIyC3JxAnlwI20yEitA5d/gUUCUVQub
+	 6rumTp1sLSY650DDfE/Kp1CqYhRvWUtELy/OP/GXmjtqk6misenbl3VJeit3meZhQj
+	 kkp09fNcoBwStnd9DTWWm0E/wBeIWU3hK4Uh1N5CWo6AV1/2qI01mQ0oFUsOTfSQuU
+	 3MdSROZ74mkug==
+Message-ID: <cca417a5-c1e5-41d3-8736-ba7fb7c0d9df@kernel.org>
+Date: Fri, 21 Aug 2026 08:09:09 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: 77345bf0-9b28-4eba-9c0e-08deff47d859
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Aug 2026 05:48:37.0032
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: pdiK5xPvp/rGIuZBMF32Y5hSxKkoTueg7rwwFJKbQAisEUO39ckBjj/3yvXGC3w4q4lDgp7OYq2PQ7fr0338hPWqPNH2gY+VA0wiU079B4uVmvHiBb5UbubOK4C2ZDz6
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1331
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/3] nfc: st-nci: Fairphone 5 NFC bring-up (ST21NFCD)
+To: Kristian Brox <isyourbrainfoss@proton.me>
+Cc: Luca Weiss <luca.weiss@fairphone.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+References: <20260820-fp5-st21nfcd-v3-v3-0-5ee0a7f44d04@proton.me>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260820-fp5-st21nfcd-v3-v3-0-5ee0a7f44d04@proton.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-SGksIEd1ZW50ZXINCg0KVGhhbmtzIGZvciB0aGUgcmV2aWV3Lg0KDQo+IE9uIDgvMjAvMjYgMTg6
-MDYsIENoYW5naHVhbmcgTGlhbmcgd3JvdGU6DQo+IC4uLg0KPiANCj4gPj4gU28gaG93IGxvbmcg
-ZG9lcyBpdCB0YWtlIHRvIGV4ZWN1dGUgdGhlICJzZW5zb3JzIiBjb21tYW5kIHdpdGggMTYNCj4g
-Pj4gYWN0aXZlIGZhbnMgPw0KPiA+DQo+ID4gIyB0aW1lIHNlbnNvcnMNCj4gPiBzdGFyZml2ZV9m
-YW5fdGFjaC1pc2EtMDAwMA0KPiA+IEFkYXB0ZXI6IElTQSBhZGFwdGVyDQo+ID4gZmFuMTogICAg
-ICAgICAgIEZBVUxUICAobWluID0gIDMwMCBSUE0pDQo+ID4gZmFuMjogICAgICAgICAgIEZBVUxU
-ICAobWluID0gIDMwMCBSUE0pDQo+ID4gZmFuMzogICAgICAgICAgIEZBVUxUICAobWluID0gIDMw
-MCBSUE0pDQo+ID4gZmFuNDogICAgICAgICAgIEZBVUxUICAobWluID0gIDMwMCBSUE0pDQo+ID4g
-ZmFuNTogICAgICAgICAgIEZBVUxUICAobWluID0gIDMwMCBSUE0pDQo+ID4gZmFuNjogICAgICAg
-ICAgIEZBVUxUICAobWluID0gIDMwMCBSUE0pDQo+ID4gZmFuNzogICAgICAgICAgIEZBVUxUICAo
-bWluID0gIDMwMCBSUE0pDQo+ID4gZmFuODogICAgICAgICAgIEZBVUxUICAobWluID0gIDMwMCBS
-UE0pDQo+ID4gZmFuOTogICAgICAgICAgIEZBVUxUICAobWluID0gIDMwMCBSUE0pDQo+ID4gZmFu
-MTA6ICAgICAgICAgIEZBVUxUICAobWluID0gIDMwMCBSUE0pDQo+ID4gZmFuMTE6ICAgICAgICAg
-IEZBVUxUICAobWluID0gIDMwMCBSUE0pDQo+ID4gZmFuMTI6ICAgICAgICAgIEZBVUxUICAobWlu
-ID0gIDMwMCBSUE0pDQo+ID4gZmFuMTM6ICAgICAgICAgIEZBVUxUICAobWluID0gIDMwMCBSUE0p
-DQo+ID4gZmFuMTQ6ICAgICAgICAgIEZBVUxUICAobWluID0gIDMwMCBSUE0pDQo+ID4gZmFuMTU6
-ICAgICAgICAgIEZBVUxUICAobWluID0gIDMwMCBSUE0pDQo+ID4gZmFuMTY6ICAgICAgIDE4MDAg
-UlBNICAobWluID0gIDMwMCBSUE0pDQo+ID4NCj4gPg0KPiA+IHJlYWwgICAgMG00Ljg2NXMNCj4g
-PiB1c2VyICAgIDBtMC4wMjNzDQo+ID4gc3lzICAgICAwbTAuMDAxcw0KPiA+DQo+IA0KPiBOb3Jt
-YWxseSBJIHdvdWxkIHNheSB0aGlzIGlzIGEgbm8tZ28sIGJ1dCB0aGlzIGlzIHlvdXIgY2hpcCAo
-YW5kLCBhcyB3ZSBzYXksIHlvdXINCj4gZnVuZXJhbCkuIEp1c3QgcGxlYXNlIGRvY3VtZW50IHRo
-YXQgcmVhZGluZyB0aGUgZmFuIHN0YXR1cyB3aWxsIHRha2UgZm9yZXZlciBmb3INCj4gZGlzY29u
-bmVjdGVkIGZhbnMuDQoNCk9rYXksIEknbGwgcHJvY2VlZCB3aXRoIHRoaXMgc29sdXRpb24gZm9y
-IHRoZSB0aW1lIGJlaW5nLCBhbmQgSSBjYW4gcmV2aXNpdCBpdCBsYXRlcg0KdG8gZXhwbG9yZSBw
-b3NzaWJsZSBpbXByb3ZlbWVudHMuIEkgd2lsbCBhbHNvIHJlY29yZCB0aGUgY3VycmVudCBzdGF0
-dXMgaW4gdGhlIA0KZG9jdW1lbnRhdGlvbg0KDQpCZXN0IFJlZ2FyZHMsDQpDaGFuZ2h1YW5nDQo=
+On 20/08/2026 22:56, Kristian Brox wrote:
+> This adds NFC on the Fairphone 5 (qcm6490). The board uses an ST21NFCD
+> on I2C. That part speaks raw NCI; the current st-nci driver always
+> wraps NDLC, so using st,st21nfcb-i2c leaves the adapter unusable.
+> 
+> The series adds a st,st21nfcd compatible for the raw-NCI path and the
+> Fairphone 5 DT node. Boards that already use st21nfcb / st21nfcc keep
+> the NDLC path.
+> 
+> Patches are against linux-nfc/for-next (v7.2-rc7). Hardware test was on
+> a Fairphone 5 running postmarketOS, with these changes as modules on a
+> 7.1.2 sc7280 kernel:
+> 
+> - nfctool: Powered: Yes
+> - initiator poll / neard: NTAG 215, NDEF URI read OK
+> 
+> ese-present and uicc-present follow the public schematic (NFC_SWP1/SWP2:
+> SWP_SE to SIM1, SWP_UICC to SIM2). SE/HCE is not tested.
+> 
+> CLK_REQ (GPIO 39) is omitted, as on Fairphone 6 NFC. VBAT and VDD_TX sit
+> on VPH_PWR and are not modelled. VCC_UICC_IN (L4C) is not modelled;
+> UICC SWP is untested.
+> 
+> To/Cc from scripts/get_maintainer.pl via b4 prep --auto-to-cc on this tree.
+
+Still not. I do not believe you did it. You either run these on
+different tree, or have some commits interfering like changing
+maintainers, or did not actually run it, because you still miss all of
+the DT maintainers.
+
+Best regards,
+Krzysztof
