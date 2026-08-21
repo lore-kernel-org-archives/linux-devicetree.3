@@ -1,146 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FCCB4CA272;
-	Fri, 21 Aug 2026 15:15:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D01D4CA29B
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 15:15:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787325306; cv=none; b=CPzR4ajP/cjtvlUzkgu1OpJ+bqTtG/JbiUDfpngEoC0Og+Dye5VYdPO/qp/XAwJcjKGlcDUuwKPKmZvEvup85ZLL3kM7ZrrifUyTAduE0/PAbo1eYFapaej0KmKxHEasAQaLb/AhltfmisxJFNuQxQfHizerMID7InZRb7J5dew=
+	t=1787325355; cv=none; b=B5M8d1WvgEijSeF83AIFk4B7MUGPO/jYaO+LlhqXB82FBj6ZldbIBEpQnf4/1VdejxPX7mLv6mP3eCIFeLNlaMqHFVJyYCcY1Lz4PodxgeJ752GGqsxO+ILn0L9eGEn0EZzLr9Q1BCzTYMQJq070bS+Viasjn6wmRz7JxMVyIaU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787325306; c=relaxed/simple;
-	bh=VXHO+kNVkIWlKDiPQc9CV6EV7wZW3VHxCByk4YJuSVE=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=JWEcvF3SS6CB/Wf+xeqGrB4VZEDOhGNQgEa0r3juVgGL0OBwUcEI/aTpOkMzW1zU0sBlAuaugbU0St6sDs+P0WhnOb0k/V/cARnk50Ghw6Q/7xFHT3+q0pWv6d2dZTaqk7Wca98/M8hyex22fM/0mUsXyrvc4btB/2vYEoOcvBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ibY4Lrid; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1787325355; c=relaxed/simple;
+	bh=21ctLwJPvEhRuTDaPX96Y0NOo74oCljgQKriInCzXGM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ptghKZAIipAVErScWPcuFQF/MY0lvrWxHLsxM9UVQGsfpK6n05tL0u9K7Gftx6Y8iQKzepFbTh/1YSBoiG8hL/cjdt5z6teRjddAzdgLfOZkpjZ++Xnz8nK0r+eYULp7ORyKVw32iVVaAuTjFh3ys3n67O++N21Iqn5DWVcB5UE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=EonQMfPp; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ibY4Lrid"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CDD8EC19425;
-	Fri, 21 Aug 2026 15:15:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1787325305;
-	bh=VXHO+kNVkIWlKDiPQc9CV6EV7wZW3VHxCByk4YJuSVE=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=ibY4LridY8uHHYLEuMR8zOzkZEryBWYRxT9BdIjdn7hO4CoHVJYRQ3XV35y5RQY3E
-	 K3cum1YpCe0BoHCl2X9EBM9nhjs1M0tLEpa+Mvew3f243gJ0NcbsSeoGLNTL0uqJfo
-	 KMrGm+XmmwyfF21eWf7ot6D8DEEmzFJzvuAqvY7uDHN3PV272aI+UjIMwKH0k9Nr2R
-	 WUpTNSHzHg0GMwSxw7J6+Fme/drLgPKwsNRTr+3hgNuMDVZk6vOTkwHxmdd+SHdGRg
-	 Ye9CYpBR4uIxuLeALjihIaF+yR+liLUWbCzTBmBoWW/RyUNhAWddehF2pSFOMebxl9
-	 kW2eZ1+0p9A4Q==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9A84EC5DF7D;
-	Fri, 21 Aug 2026 15:15:05 +0000 (UTC)
-From: Aiden Isik via B4 Relay <devnull+aidenisik.member.fsf.org@kernel.org>
-Subject: [PATCH v4 0/2] watchdog: Add Exynos5515 watchdog timer support
-Date: Fri, 21 Aug 2026 16:14:48 +0100
-Message-Id: <20260821-for-next-lucky7-watchdog-v4-0-d070cee5009f@member.fsf.org>
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="EonQMfPp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=SEjD
+	crlpVjC60IzAnkU2XTdoDh6O09yHxWnsPLianKw=; b=EonQMfPpmNW8zm7i5Qxq
+	htaVibUaSjeoGvMocQzHE11cdyW2WUujFgybSWgDlXQjyOsVPGm6S2bttz9iVKt4
+	9C2i1rkuUYzT6Deo4YjugUsvoSchsK/NSG4Zw8RZ+bN5GPD8skk0Wu0geWIb/F2Y
+	EFaOuzb6394gOuCKXVBUnlyCXVTPhzx+CG6H2Ap0oYFP+n11Lo3cuUYSEl19gNaR
+	7e2MpQvqk3M3Rb1JzFRQ+TsB7EOIKp6Mwwwln+FkXW4JHqkiFqfYhHAbBjEGtY+T
+	Or7B8jhATJ4ZJ9o7zYg1Qx1SNaY43U2JCAR4ygo4VvRZFPInOhzKMQKKwqMLHlQu
+	/A==
+Received: (qmail 690709 invoked from network); 21 Aug 2026 17:15:51 +0200
+Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 21 Aug 2026 17:15:51 +0200
+X-UD-Smtp-Session: l3s3148p1@mD6oHJBZFr0ujnuu
+Date: Fri, 21 Aug 2026 17:15:51 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Prabhakar <prabhakar.csengg@gmail.com>, linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>
+Subject: Re: [PATCH v5 10/17] rtc: rzn1: Replace remove callback with
+ devm_add_action_or_reset()
+Message-ID: <aohrp9dtVTAg8sVj@ninjato>
+References: <20260821135608.275233-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260821135608.275233-11-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260821140725.D39CB1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAGhriGoC/43NQW7CMBCF4asgr2vkGTuYsOIeVRexM04MTYzsk
- IJQ7l4HhIQEVF0+aeb7LyxR9JTYZnFhkUaffOjzUB8LZtuqb4j7Om+GAldiDQV3IfKeTgP/Ptr
- 9WfOfarBtHRou0ThTAJTggOX3QyTnT1f68+u209HsyA6zN1+0Pg0hnq/tEea7e0a/z4zABa9AS
- S0IhSlx21FnKC5dcssQGza3RnzU1n9omLWVVtIpXVZKu5ea/K8ms4YloKkB0Rb6SZum6Rd1SSA
- BcwEAAA==
-X-Change-ID: 20260815-for-next-lucky7-watchdog-32bfb51191f1
-To: Wim Van Sebroeck <wim@linux-watchdog.org>, 
- Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-watchdog@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- Aiden Isik <aidenisik@member.fsf.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2502;
- i=aidenisik@member.fsf.org; h=from:subject:message-id;
- bh=VXHO+kNVkIWlKDiPQc9CV6EV7wZW3VHxCByk4YJuSVE=;
- b=owEBbQKS/ZANAwAIAUknAbLEetfrAcsmYgBqiGt2Ym2mQo0hLEJozDIpiyFLoV2A+s24KQJG7
- /+aXxtP3yKJAjMEAAEIAB0WIQSDy8UkXGpc3JNbEaVJJwGyxHrX6wUCaohrdgAKCRBJJwGyxHrX
- 68QlEACmUAm8BTspIEJiODwEY25xCo/2ftYOf0zubcOQ7XZNtrcU8TNma0wDhfZymhlSqvEg9tP
- n5W6p4HSzP/AFFGrH5qFHjX4rPJ/D6PbhJDi8X0o42Ba7kod6j4F52h4OMC+Z5tHv+KAZXmoj1V
- BInREaFbLcBBnCONOD3O2IrcybsuRwX5OOyUFWqWCC+Ky/j4rjiD5DaVz3ivMB/FRrfJt7n0wUK
- mzoIPd8XNx3wO0n5kjRLof/KUqzV2N9ZAxeZyaO8C5pgrlq7lOyJ6BiyaTw3DNyRd1Pa5VmBX7t
- Al4XIn6sdwp1U1K7kszVQk0qKjBKE5+wpWsolkjS1TffoMmzm+SDfife3q2VjwwIuQfXBg8RnO8
- ZNy7icCPY2dnyFPOkFTI696Gedq8lN1t2vCjXKB6mbYfoccO6gbdr+h/PHDnfQ5E7gEz6MISmpT
- BlJyqZBHFkSb931MYo67tHwFElofHMqxA0KYeZK3WA6nU6hmQaVv8MR9dvEoWM/d09Q2DYT9WIw
- whgN6San0815htjMQrGxSJJmzWqveE4fScKuVB4jWXFCImj8vOA+trTEYPuoEOFdjqxqy9hiTaG
- yqpXwZDsHo+3/3pU5zPCykqyKSeuxQzJksmTaqfYkRxrUpne7xL00WwtwShEryfwWny4obOwHe5
- rHTizop89X9NS7g==
-X-Developer-Key: i=aidenisik@member.fsf.org; a=openpgp;
- fpr=83CBC5245C6A5CDC935B11A5492701B2C47AD7EB
-X-Endpoint-Received: by B4 Relay for aidenisik@member.fsf.org/default with
- auth_id=956
-X-Original-From: Aiden Isik <aidenisik@member.fsf.org>
-Reply-To: aidenisik@member.fsf.org
-
-Hi there,
-
-This patchset adds support for the Exynos5515 SoC's watchdog timer
-to the S3C2410 watchdog timer driver.
-
-There is one checkpatch warning for this patchset:
-
-> -------------------------------------------------------------------------
-> Commit 8f4ec3a9b89b ("watchdog: s3c2410_wdt: Add exynos5515-wdt compatibl
-> -------------------------------------------------------------------------
-> WARNING: Avoid unnecessary line continuations
-> #26: FILE: drivers/watchdog/s3c2410_wdt.c:240:
-> +       .quirks = QUIRK_HAS_WTCLRINT_REG | QUIRK_HAS_PMU_MASK_RESET | \
-
-Which seems to be erroneous: this line continuation is necessary
-(and is done by every other existing entry).
-
-Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
----
-Changes in v4:
-- Add comment and commit message explaining why QUIRK_HAS_PMU_CNT_EN is not set
-- Link to v3: https://patch.msgid.link/20260818-for-next-lucky7-watchdog-v3-0-2912bd122c57@member.fsf.org
-
-Changes in v3:
-- Set reset_mask_inv to true
-- Remove erroneous QUIRK_HAS_PMU_AUTO_DISABLE flag
-- Link to v2: https://patch.msgid.link/20260818-for-next-lucky7-watchdog-v2-0-6743f479a47f@member.fsf.org
-
-Changes in v2:
-- Add samsung,cluster-index: false to documentation
-- Remove SoC comment from documentation
-- Correct signed-off-by tag in commits
-- Link to v1: https://patch.msgid.link/20260817-for-next-lucky7-watchdog-v1-0-a14370e20b92@member.fsf.org
-
-To: Wim Van Sebroeck <wim@linux-watchdog.org>
-To: Guenter Roeck <linux@roeck-us.net>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Peter Griffin <peter.griffin@linaro.org>
-To: Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-watchdog@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-samsung-soc@vger.kernel.org
-
----
-Aiden Isik (2):
-      dt-bindings: watchdog: samsung-wdt: Add exynos5515-wdt compatible
-      watchdog: s3c2410_wdt: Add exynos5515-wdt compatible data
-
- .../devicetree/bindings/watchdog/samsung-wdt.yaml  | 23 +++++++++++++++++++++-
- drivers/watchdog/s3c2410_wdt.c                     | 16 +++++++++++++++
- 2 files changed, 38 insertions(+), 1 deletion(-)
----
-base-commit: acde40ba506aae78633e080b5704d33cf4bc13c6
-change-id: 20260815-for-next-lucky7-watchdog-32bfb51191f1
-
-Best regards,
---  
-Aiden Isik <aidenisik@member.fsf.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="yWIVHNauTBxAm2Qp"
+Content-Disposition: inline
+In-Reply-To: <20260821140725.D39CB1F000E9@smtp.kernel.org>
 
 
+--yWIVHNauTBxAm2Qp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+
+> > +	ret =3D devm_add_action_or_reset(&pdev->dev, rzn1_rtc_disable_hardwar=
+e, &pdev->dev);
+> > +	if (ret)
+> > +		return ret;
+> > +
+>=20
+> [Severity: High]
+> Since devres executes teardown actions in LIFO order, will registering the
+> hardware disable action here early in rzn1_rtc_probe cause it to run last
+> during driver unbind?
+>=20
+> [ ... ]
+>=20
+> > @@ -468,14 +480,12 @@ static int rzn1_rtc_probe(struct platform_device =
+*pdev)
+> >  	ret =3D devm_request_irq(&pdev->dev, irq, rzn1_rtc_alarm_irq, 0, "RZN=
+1 RTC Alarm", rtc);
+> >  	if (ret) {
+> >  		dev_err(&pdev->dev, "RTC alarm interrupt not available\n");
+> > -		goto dis_runtime_pm;
+> > +		return ret;
+> >  	}
+>=20
+> [Severity: High]
+> If devm_request_irq is called after the hardware disable action is
+> registered, won't the IRQ handlers be freed before the hardware is disabl=
+ed
+> during teardown?
+>=20
+> If an RTC alarm or 1-second interrupt is active when the driver unbinds,
+> could an interrupt fire in the devres teardown window where the handler is
+> gone but the hardware is still active? This might trigger the generic IRQ
+> subsystem's spurious interrupt detector, which could permanently disable =
+the
+> IRQ line.
+
+This needs to be checked, I am afraid. It sounds reasonable.
+
+
+--yWIVHNauTBxAm2Qp
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqIa6cACgkQFA3kzBSg
+KbbjbA/9GjGrjSbxpVZA5XNA6QLp8S2MRsDNo0mGJ/jFVWGPHSm18FsMvv2MxBZd
+3pkTUoTtLCxbPhA38umc6KDf+iHz48ow++JzAr2CmxBchToXpPDVH3RmVEgWyD/Y
+7+OU7dRST6ChqiOPEVf/XcGGM2rtTS/b6dJe6nKDMGvcTtRiFtnPibkjaKlmmFeP
+pKORVErq09hL+iCgBknywjB699+BuRVbpxvsUvVYbtbdNCylzCjEgsfEDwTiJ0ZP
+V1EoKWhszS41Pl/fPVj4nJyag03s7Lx8jmoaRkWtyWHrnHttMm5ckrFSzD0rnlMw
+9m7R3lTG66QDs19E1kd5AWuE6Fn/tV6fsfl/uwiCo+16YUZjLVr3XOLtUVeecwiA
+g3n9HolVGEXGprXDEm/g8QlngYSpkPerWpqbjybAFR2iXe561x2imi+17Lzb52yU
+mB2ZPWQk/d+WSA65MaIV8ZTaI/e7JCQAv7RQcF1wNKKPyOgxA8WoomxgcAQbDuwR
+u115ZnS+jdB/k4B1J3kfdB6Yd6Vxl3UUwWJfZKLAQwitlD988qOWqrxixUnqp6D6
+dkM95157g707FGUxB708z4zy6e+TJeKABv67pXsPW/5Ch1Z2Qbrnpc3vlCXbzrGv
+agjD2qvhQzav7JE2YOSnfxx2hP4Z2pGfv9zdDzVBT2AaKQYnss0=
+=2V3P
+-----END PGP SIGNATURE-----
+
+--yWIVHNauTBxAm2Qp--
