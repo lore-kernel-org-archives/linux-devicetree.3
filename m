@@ -1,84 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E40047CC67;
-	Fri, 21 Aug 2026 12:54:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13FAD3A6F00;
+	Fri, 21 Aug 2026 12:55:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787316892; cv=none; b=bkKBpqH8gsZjM970ON1o2Gw4cGGEi8oP2Jkg26xsmtuTD41Kbawf5pLSpIkPDtlOn53RjBdag4u5ydsxpXhGS/9WxS/DmkpyFP396NJZSfRdkxs6qywGJO5SsZudyv/5XEOXkLBxL0IRhf4honH/jBscoAPfSsUjR3CNS7/+SQs=
+	t=1787316908; cv=none; b=twyuGpC/ByTLyT7MYFPwrT3xyCfFpiPTRI75QSEGjGTmh0UyjZ++OkbilkHtao9GgRQnM2QQtAyiXxeWlKVc4/CWgFtjHBiG7WxpyfXW0kprgwcP0iO7ImSiCVB6NSErzkdvJMxbKj7xDg+oHJaPBqPMQzBcXj2HyKOYZVj1ntw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787316892; c=relaxed/simple;
-	bh=sHYk7pHFoKKRSisfLsXNJvykkpmKjHR8RmZKProaxyo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pZCwsXSy+/Q9NmGH0qbcgWjL+RZbwkhxhxyovW3YYVVFxK23oZCPV6YLrA6IfdNgv04yLJppLKkeDHaKXk/9kQxTbO5p8H2VJ0pToYFTwREqpJrmST4tRMAJ47hK4q23DHNiU0gq4zTSielpCGd/WUjtSOcPquSm4HMFckaGhJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O8ULxmgq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787316908; c=relaxed/simple;
+	bh=034pj/+RDKUa9WSKMXg8IQaUK03iUa1AHN58yFy3h/o=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=joo3CDw8YAdg1vOT+EP0BxnpWQALOR+FbxFfio9ztq9rKfH3iK7G/bkJPpzb1/mAYmy5NUABIcALvxcOgk/wvbBoMxPAPTVf3p3AOgf0PqnfFLsK9drPPKX7iy7cT0gi1BHMvKcA2YvKQ0YvaRtbJftOcHzy2+PeOmQ6YtkyhBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BIhOJI2p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O8ULxmgq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 632F61F000E9;
-	Fri, 21 Aug 2026 12:54:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BIhOJI2p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97D4C1F000E9;
+	Fri, 21 Aug 2026 12:55:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787316887;
-	bh=sHYk7pHFoKKRSisfLsXNJvykkpmKjHR8RmZKProaxyo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=O8ULxmgq5ojU+YIkh3HLY4cUJcQEma3RkI66ZnxSDZ6lCZZ58doTfXpYZdTdL+0Ve
-	 UislUcnOsxafNgPW99WwT1N4w08RVwL0izxk6uZdQPBEOExIhjlYpCq+J6e6ASj9Tx
-	 J9WeJtSUXSC1Bph2B3ueSRaJFoZpayPHy6qTt2msP1vYHaT7/1q+Cqcgvi+39aDWtU
-	 plf7j304dMo/2FtC1tglXM/XtVbdIwtftBKAXj0/6h2ww/mvRvVeyR0mVZc1M4I661
-	 k1Y8+7iyIUOwR4UQdXmm5vjUcJk/7TmTzUgQ7PS35MrvOfSNB5ZRIZ4GUEQuTYlOny
-	 MdpfxoFwlRoEQ==
-Date: Fri, 21 Aug 2026 13:54:42 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Karl Asseily <karl@asseily.com>
-Cc: lgirdwood@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, perex@perex.cz, tiwai@suse.com,
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/4] ASoC: es9039q2m: add ESS Technology ES9039Q2M codec
- driver
-Message-ID: <899f3b8e-cebd-47fb-95d9-9eb031a37e51@sirena.org.uk>
-References: <20260820062626.39218-1-karl@asseily.com>
- <20260820062626.39218-4-karl@asseily.com>
- <7f2e051a-1e77-49e0-bec8-e178855295b0@sirena.org.uk>
- <CA+gvwbr4gUSU3w3PxDjSeKQ1oyXR_psScTZ1ecHTb7boZsK=2g@mail.gmail.com>
+	s=k20260515; t=1787316907;
+	bh=g7TyHELAvJHU4eNziERH223ljexJAuEgbAcvXYlrTvU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=BIhOJI2pLQElcyj7zum3MK5AEoI0fvXqc2GSaL31utE2PejMSiCHqXW3vFZsGcka0
+	 8HdHAnjSs1l0PDtYAI0SN/XvJhl5y6CfXtUCjCJ6aqnLrWhvH8Ei5vXHmcoaak+5Sf
+	 womYiPs79ZrwzAcLZ02mAuLjTY4VSC777f5Uc5K0Rxk/+FzWNnXS8QNzkLUSPk07jW
+	 MbPp0AsOqvbFbENHv2xEf2gFjXXHPKnY6Smom6XOMEk11g6y2qVvycLTIF+ADiguLQ
+	 52Xhc+gE6T4ZrcfvWoHtiAuY2kxGYkMP8FJ0SmlF7JkM8+YoSBAJrjGAXZjTH3/KjF
+	 aZAZcjHA/X7yg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] dt-bindings: leds: lacie,netxbig-leds: Convert to DT
+ schema
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Udaya Kiran Challa" <challauday369@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, linux-leds@vger.kernel.org, lee@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260821123723.198286-1-challauday369@gmail.com>
+References: <20260821123723.198286-1-challauday369@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 21 Aug 2026 12:55:06 +0000
+Message-Id: <20260821125506.97D4C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="yWrwwUvbzRhT6Pkg"
-Content-Disposition: inline
-In-Reply-To: <CA+gvwbr4gUSU3w3PxDjSeKQ1oyXR_psScTZ1ecHTb7boZsK=2g@mail.gmail.com>
-X-Cookie: Package sold by weight, not volume.
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The YAML binding schema for LED child nodes explicitly forbids s=
+tandard LED properties by using 'additionalProperties: false' without refer=
+encing the common LED schema.
+- [Medium] The regular expression used in `patternProperties` to match chil=
+d nodes is brittle: it arbitrarily rejects valid single-word node names and=
+ would erroneously match hyphenated top-level properties.
+--
 
---yWrwwUvbzRhT6Pkg
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--- Patch [1]: [PATCH v2] dt-bindings: leds: lacie,netxbig-leds: Convert to=
+ DT schema ---
+commit a7a7b0d43884f0f2164a9d243e2d08d00c94a010
+Author: Udaya Kiran Challa <challauday369@gmail.com>
 
-On Fri, Aug 21, 2026 at 07:42:54AM +0300, Karl Asseily wrote:
+dt-bindings: leds: lacie,netxbig-leds: Convert to DT schema
 
-> For context rather than argument: the board I wrote this on feeds the part a
-> fixed 24.576 MHz oscillator and runs it as a clock consumer, which is why I
-> had the async case in front of me and the synchronous one not. That is a
-> board choice and it stays in the board's DT, not in the driver.
+This commit converts the LaCie/Seagate netxbig CPLD LEDs devicetree
+binding from the legacy text format to the YAML DT schema.
 
-That's a convenient base clock for 8kHz based sample rates.
+Link to v1:https://lore.kernel.org/all/20260820150223.108374-1-challauday36=
+9@gmail.com/
 
---yWrwwUvbzRhT6Pkg
-Content-Type: application/pgp-signature; name="signature.asc"
+> diff --git a/Documentation/devicetree/bindings/leds/lacie,netxbig-leds.ya=
+ml b/Documentation/devicetree/bindings/leds/lacie,netxbig-leds.yaml
+> new file mode 100644
+> index 0000000000000..02759ecb32d04
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/leds/lacie,netxbig-leds.yaml
+[ ... ]
+> +patternProperties:
+> +  "^(?!gpio-ext$|pinctrl-[0-9]+$)[a-z][a-z0-9]*(-[a-z0-9]+)+$":
 
------BEGIN PGP SIGNATURE-----
+[Severity: Medium]
+Does this regular expression arbitrarily reject valid single-word node
+names like led or sata?
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqISpEACgkQJNaLcl1U
-h9BTjwgAgcjVE7eYtdjgNnxz9lBI4mpdlh2oVHKhc+t5Jx1vpZqptRkD+W58zlQr
-F9MHJ9Y3cI/G7Gf4NIm952XGaltKcj+p7seKL1e24Foxpu+Zw7Ujue58PGi9jZ4a
-UAVYeQ4XhmfCJnqmMaMvg6JLJ3cmTMTKIRTMQCw7gaefGgwiWI/HF3HVEEOZrG+V
-942N+m+rG/OlDhKIjnG8cUpQ7XXfzWBOeWT1B1ExnXG5RTCHwG+VAGvVtNsVexg0
-abT8WIfTEugE4QRGuF1IadhkYBqC9SWu8cG4pq9B/q0gN19gvROF1pZe9sjOP0pO
-Qls/C6GMddxzmh3z71qKrP1vQAPwvA==
-=Wtk+
------END PGP SIGNATURE-----
+The regex requires at least one hyphen. A child node simply named led
+would fail to match here, fall through to the top-level
+additionalProperties: false, and be completely rejected.=20
 
---yWrwwUvbzRhT6Pkg--
+It could also erroneously match future standard hyphenated properties like
+power-domains and expect them to contain LED properties.
+
+> +    type: object
+> +    additionalProperties: false
+> +
+> +    properties:
+> +      label:
+
+[Severity: Medium]
+Does setting additionalProperties: false here without referencing the
+common LED schema prevent the use of standard properties like color and
+function?
+
+Because the schema validator will reject any unlisted properties, device
+trees cannot be modernized to use standard LED subsystem properties, which
+are explicitly recommended over the deprecated label property.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821123723.1982=
+86-1-challauday369@gmail.com?part=3D1
