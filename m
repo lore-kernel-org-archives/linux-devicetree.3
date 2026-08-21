@@ -1,310 +1,103 @@
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+Received: from mail-oi2-f11.google.com (mail-oi2-f11.google.com [74.125.231.203])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 095B047B438
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 15:57:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C07368D57
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 15:59:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.203
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787327860; cv=none; b=qNWleWe1f3sdkrAqEBWzrh4ZBiOVo4GnZYgY6G/Wa9CD+LfJM1SZZuxHbZV95sOa8qSP4DUs6lDLdc2Q+kqBxFsrc2fUHvTAQtwphnWJdnjUBLKtDFVZlnBYKdcAOOPhpvSCZeMgwGiDJosPglX4Md5+7JCLlq8amTv0TAZEDYM=
+	t=1787327953; cv=none; b=r4YSvMLlzVOb8ShKX+v40sX2UD8kW5MRvVPtE5E7uvJf/8ubyckITFIkR3/KLjJJzacPIzUORPtsbtGoZZC0w05VQBUUNEpYTzBCbWkDkZkKHJpP2JAzBvAQt35CSCQjLcI1MjJ5u+dPkIl19jxaisGCimhswpd3z63HFUTG6Wk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787327860; c=relaxed/simple;
-	bh=QPYcmCGE1j6b1oYmWVelzZOv9rRvxAYFCX/sMvIVkH8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Lo8JZEmTDcjwSzoBB2WYnjzRDYgXi8XT+h8oyFb3S4xtVhERquSs8YVS+8tlY8B6O7LYINk8z4JOrqc37runNT8u4lZUPQmzmE7Z7XnJ1RJmsw3b1/WQe6QkYfHCWUsyDXE941zIqsEl1AfQoS0HzI87fol+UPNbSo0tWzm+IJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=DoXzwA1K; arc=none smtp.client-ip=209.85.128.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1787327953; c=relaxed/simple;
+	bh=/a0pcGfQ/DN5G5vgeGh7d5qeMSleQ+VJHVJXKyA8bJE=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=tzn2WKSWiCJsshjzUTYJAN9Gy5syvr/1o4bdo2G8al3oetj4MnDPdY4gCS77/tmUA3R5Ch5EvaHwVwr8NG7qNtjzsaRqFxXoSoFrbpt0dwUR0vmaSadpvt8f2obTLs4QBxR+jTabQYJfNWLxp7UZdgN2neALKC3WZcdcD++px9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MuXGYB4J; arc=none smtp.client-ip=74.125.231.203
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="DoXzwA1K"
-Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-81f64e8dfbcso17911817b3.2
-        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 08:57:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MuXGYB4J"
+Received: by mail-oi2-f11.google.com with SMTP id 5614622812f47-4af7b6a2349so494248b6e.1
+        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 08:59:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1787327850; x=1787932650; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tQtmu6bKLrMNJM/WIbhky8MwVtdX8FoGCP3Tk6EpLao=;
-        b=DoXzwA1K0frpKAlfH202oVdHn0woyQTGgEikG7k2usvBK/b6fQ7vvsOWklc91bwVDt
-         CM+qpIpkZ7sNp5bG99AwV1MW8TE1bkTl+Iodqt+lG4G8LdA2nJYbVtn7rCnVH6x1Hjaw
-         88b8PEPHaB859N99anGKwoXlbRtn99q3uxfNluwzEUsCTSsCXXjWdb2UlqJmTW5MWzkH
-         ozirZM7exyUMXnueoQCT5zOXuYeqwsFpH1lc7Nzz1k/oI08PRAx0U+ND4G3LSEpc5dWT
-         1yateCzxwP13iWwa7jogS3irsGTjdAANmiAdf6gfsaEtF0haFHJ+y5w2er+MQ/J/UZbX
-         i7EQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787327850; x=1787932650;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1787327950; x=1787932750; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tQtmu6bKLrMNJM/WIbhky8MwVtdX8FoGCP3Tk6EpLao=;
-        b=WLyiES/g7GXt+WsNJdMj3ijsEQEnEktzFyTOYbFNd9orFSgWPSRP1UdKmYa275Tpzr
-         R+L7Vwfc7Eopkckt7t+cUjG/lZV4OZmIVYQlbfi8xHziRG8D1ZL7F8gwE0dqA414XeH9
-         IX5h/ApNv9ukCAif7Qz00v9g1KOM/jvwKojJ4mNshnJP18T4B+FkVAwby0eNwdU9NKpi
-         +f1FvTdbI1dM/lEJkHNZ96PY4NovcqKd2lHoB1gM6tpbDLBp5Pg6FaQ7YOVoEFdGbLYh
-         BrATxQ7wGy7boG5PWAREBazZdqPzLRSfV870wYVg11k4y2/ydh3fUxNsKz7bBaLQUDU8
-         NOag==
-X-Forwarded-Encrypted: i=1; AHgh+RqyDdV+BsioK8vnt4HTCwmgRDlBg0p1mlpIhmsYn2/9bzd9uVas16re4rTLl/aCvLOgItMSBnrEDwif@vger.kernel.org
-X-Gm-Message-State: AFuF++nKmAQSAjH9nXwY3ZD6zfzwthxPFywsXPSWtwdSGD/2HnTNV47B
-	GX2Zm9cFstdDpo5x5bD7zIO11LmP04zYpeLHnxfhbEwRfS9Y9ziODIEnEpNuXAVSDIQ=
-X-Gm-Gg: AR+sD11JaIGfZ3aERdELMyGEFjqdUqj2d2fgHmfOkGOQKn4lsfvtwqXK+NCs/oKRziy
-	mLVUZ/rhTVfiXzgKxxoSUZCdqIf2wRzfu4Y+pF8XbpYx34b8dfZFW+a107xRpRUmIxrnhnY/DPD
-	bC7QIzZPsA3REYyajxv42/AcJxi9YbV2i2le8HcYrP+PLiiqq8gLLoOQR+uJJnJeeH+QdvgTWc+
-	8lw9L4VPmvdNbax9cBC2AnvGkfuAcSMco29VMWwMk1BPXH/uGnAqsRHBBz3RJ0OXxabRQUgXPs1
-	DKZg8FyCaWcjETe+6FkzU62Aj4tWxDENNNbtGSnT9VKU4DSLPjyb/aN5ohnKM/rnUAy7bx9cEzm
-	xjJs9sr+anmUXh3vupG1UdeBBINyMBDzKfhfcrv/rAUOxgFaUFlAobRgaCchDmOWuhjv2yyJHM3
-	OrF+eh8bLw0Xx38Wi2lKvguasoAwtA/b9Mcnl1KTzHy18hWbMvaDuf9TrmDYxGE0FGunfPmeGqT
-	9EjdZbK/CkW6h/ALinFPw5Q1fQgS7E6GS+36cBjmMM=
-X-Received: by 2002:a05:690c:ecd:b0:81e:ad1b:cad8 with SMTP id 00721157ae682-849f7ff8dc4mr33817707b3.36.1787327850173;
-        Fri, 21 Aug 2026 08:57:30 -0700 (PDT)
-Received: from [192.168.1.169] (ip98-183-112-25.ok.ok.cox.net. [98.183.112.25])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8451955a784sm43139267b3.47.2026.08.21.08.57.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 21 Aug 2026 08:57:29 -0700 (PDT)
-Message-ID: <718f6ead-d1c0-4dc6-82e4-cac49cc73bd6@baylibre.com>
-Date: Fri, 21 Aug 2026 10:57:27 -0500
+        bh=/a0pcGfQ/DN5G5vgeGh7d5qeMSleQ+VJHVJXKyA8bJE=;
+        b=MuXGYB4Jgs4X06k1sgE9Zz3GefJ1isT1b3y2VX6DTvW0vchi9wDaPd/Tr4nOjYBxNl
+         dFgsVYr/DfDDnlfEsLb/uxKecH2ezXXqU3JzKtDalMObnG57mc3EaJ5oWtPN8UoBGa8H
+         tIU9d2xv2FavuxAyQSza5XeLtenF5BKDkZAQVwtrtyfDso6lVYohTrlZ5Tw+4+R9oydR
+         fzZWf1XcrGxFNrAOySX8hRwsFL72l0fWfbSprOH4ntfG7CQ/3i5yxn7NxUpQUfZU/k7a
+         zghYLBHMLcQVG8kBkAE9QaBnksM+siJU2pIBg5sDd4UrdZq2QGrrlOXA7EKrMNVbkM0+
+         5/mA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787327950; x=1787932750;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/a0pcGfQ/DN5G5vgeGh7d5qeMSleQ+VJHVJXKyA8bJE=;
+        b=J5bEo3pziZGPvYNFC7Pda0FU4DqlmIdT91d9hUox6LiFyIRivrY8S0exIWS2ltUz/z
+         baRa7dbloXfaqCkAVmG0XoN7Iq15KkmFOXn30YcgLELytUNtxnMBZdY/qGelxRNJ/leJ
+         inqid2Edh8CY7t9DKih9ZV5RG9GKOjH5CTnRra+QRDWitwuVV1rxT6lmKtIjeiZLVUID
+         XVHUUVlnAEKx2p5ezSvgjRdSSByCY6PlF4f5E2qtT/O8M7EJSACXnkOl8ltWywZZ5YkD
+         ROSk6rCrk+ekz8oaJccYgjdUfMpUxGlRyctuHdVda2cWiPngMeZVmdqhFrRDr/3gr85F
+         K0zA==
+X-Forwarded-Encrypted: i=1; AHgh+RoDOGrGKgTTEzS8OfRA9sZO5ysSvoiBOxYo1YQif0OkYwkdkrx/j9KvDfA88LujyHhSu24/MIhDv5ab@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz1QAlAmkweUIBAn4c9b4foB3be4ryRD9z709gyhGjBcm3MBHl5
+	1/sXe2bsTTKnJSWdIjt1Kayy3ZjFGe9iTExp9jcnLZq+t+uBhkKWkSq9
+X-Gm-Gg: AR+sD11+JL5NwSJLfZrEHl4e40jb6IkEgcs6OQ2JkrzJl4Jb5x4FvzKV8n40nz0++SO
+	D/OH6HWrXbz7M5BfTMcGZYu+nk1xLTTGic3SudKuK4hKiQrUlFcG0kFUK5SBVgfMSFTB0eTiJ3e
+	S94InLncLccXEucIqfw948pCAKcl4rX/GF6tP3OGsuJDBxJW8oYzP56V3sXT5tHWsAXpODWPCJO
+	iCUhmwnhhCZ7uofMiruW81+iZmaJgRePAH03a94NGsMmHjQn3/4jZ2yghxPQeYQ2xzvTnn32C0Y
+	+Waal++bpoaw69NyX/XdZaA49OoSyEjQAGeBukvPRAT+HoJ692bvU+6tFxsTtF96tjRxBSFNTVi
+	ZBEPcwlYzRh2LWFsgKEjdnbM3G74BPDo1NY8RX1xxE7rpCwXHSKaIx0FxwNuQC5OpW/WLVgSdlw
+	3tvjKRXNj6fzFF2w1hCGP2j7ueJsHdP83w0xLhPSnUpnFQkWW+eKzqDnhd1A5r/y/P841lyDqZ4
+	HCE8w==
+X-Received: by 2002:a05:6808:1527:b0:4a4:933:b20f with SMTP id 5614622812f47-4b2ef14d4eemr6740578b6e.7.1787327950508;
+        Fri, 21 Aug 2026 08:59:10 -0700 (PDT)
+Received: from ubuntu24 ([120.239.197.32])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b2d6d8945dsm5119763b6e.16.2026.08.21.08.59.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 21 Aug 2026 08:59:09 -0700 (PDT)
+Date: Fri, 21 Aug 2026 23:58:57 +0800
+From: Xing Loong <xing.xl.loong@gmail.com>
+To: Jens Wiklander <jens.wiklander@oss.qualcomm.com>
+Cc: Jens Wiklander <jenswi@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+	Sumit Garg <sumit.garg@kernel.org>,
+	op-tee@lists.trustedfirmware.org, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 3/3] tee: add MbedTEE driver
+Message-ID: <aoh1wdtxXF5PkPPw@ubuntu24>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/14] dt-bindings: iio: adc: Add AD7768
-To: Janani Sunil <janani.sunil@analog.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
- Jonathan Cameron <jic23@kernel.org>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Olivier Moysan <olivier.moysan@foss.st.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Michael Walle <mwalle@kernel.org>
-Cc: linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-References: <20260821-ad7768-driver-v4-0-bb8fbd06d4eb@analog.com>
- <20260821-ad7768-driver-v4-2-bb8fbd06d4eb@analog.com>
-From: David Lechner <dlechner@baylibre.com>
-Content-Language: en-US
-In-Reply-To: <20260821-ad7768-driver-v4-2-bb8fbd06d4eb@analog.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAGgiveU2TjkA1YnPxBy2e9qtCorSumuno04aEir-u74yKvXBsw@mail.gmail.com>
 
 
+Hi Jens,
 
-On 8/21/26 9:06 AM, Janani Sunil wrote:
-> Devicetree Bindings for AD7768-4 (4 channel) and AD7768 (8 channel)
-> simultaneous sampling ADCs.
-> 
-> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
-> ---
->  .../devicetree/bindings/iio/adc/adi,ad7768.yaml    | 314 +++++++++++++++++++++
->  MAINTAINERS                                        |   7 +
->  2 files changed, 321 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad7768.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad7768.yaml
-> new file mode 100644
-> index 000000000000..df4b179df988
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad7768.yaml
-> @@ -0,0 +1,314 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/adc/adi,ad7768.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Analog Devices AD7768 and AD7768-4 ADC
-> +
-> +maintainers:
-> +  - Janani Sunil <janani.sunil@analog.com>
-> +
-> +description: |
-> +  The AD7768 is an 8-channel, 24-bit simultaneous sampling ADC with configurable
-> +  power and performance modes. The AD7768-4 is a 4-channel version.
-> +
-> +  This binding covers SPI mode only (register access via SPI). Pin control mode,
-> +  where configuration is set via hardware pins rather than SPI registers, is not
-> +  supported.
-> +
-> +  The io-backend represents the high-speed data output interface, consuming the
-> +  DOUTx data lines, DCLK (data clock), and DRDY (data ready) signals.
-> +
-> +  Datasheet at:
-> +    https://www.analog.com/media/en/technical-documentation/data-sheets/ad7768-ad7768-4.pdf
-> +
-> +  HDL reference design:
-> +    https://github.com/analogdevicesinc/hdl/tree/main/projects/ad7768evb
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - adi,ad7768
-> +      - adi,ad7768-4
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +    description:
-> +      Master clock (MCLK). Can be supplied as a CMOS clock on the XTAL2/MCLK
-> +      pin, a crystal oscillator connected between the XTAL1 and XTAL2 pins, or
-> +      an LVDS differential clock on the XTAL1/XTAL2 pin pair. CMOS and LVDS
-> +      clocks must operate from 1.15 MHz to 34 MHz. Crystals must operate from
-> +      8 MHz to 34 MHz.
-> +
-> +  clock-names:
-> +    description:
-> +      Identifies the master clock source.
+On 20/08/2026 10:10, Jens Wiklander wrote:
+> I took a quick look at the mbedtee project, and it appears to be a
+> one-person hobby project. Sounds like fun, but I wonder how meaningful
+> it is to upstream a kernel driver if you're the only user.
 
-It would be more accurate to say that this describes the type of clock that is
-attached to the XTAL1 and XTAL2/MCLK pins. In other words, drop the description
-from clocks and move it here.
+Fair point. I wasn't fully aware that an active user base was a strict
+requirement for upstreaming a new driver, but that completely makes
+sense from a maintenance perspective.
 
-> +    enum:
-> +      - mclk
-> +      - xtal
-> +      - lvds
-> +    default: mclk
-> +
-> +  avdd1-supply:
-> +    description:
-> +      Analog supply voltage for the AVDD1A and AVDD1B pins (5V ± 10% with
-> +      respect to AVSS). Powers the analog front end, reference input, and
-> +      common-mode output circuitry. Both pins must be tied to the same
-> +      potential.
-> +
-> +  avss-supply:
-> +    description:
-> +      Negative analog supply rail for the AVSS1A, AVSS1B, AVSS2A, AVSS2B,
-> +      and AVSS pins. This rail is referenced to DGND and all AVSS pins must
-> +      be tied to the same potential. In single-supply operation AVSS is
-> +      nominally 0 V; in split-supply operation it can range from 0 V to
-> +      -2.75 V with respect to DGND. If omitted, AVSS is assumed to be at
-> +      system ground (0 V).
-> +
-> +  avdd2-supply:
-> +    description:
-> +      Analog supply voltage for the AVDD2A and AVDD2B pins (2V to 5.5V with
-> +      respect to AVSS). Connects to internal 1.8V analog LDO regulators that
-> +      power the ADC core. Both pins must be tied to the same potential.
-> +
-> +  iovdd-supply:
-> +    description:
-> +      Digital supply voltage IOVDD (2.25V to 3.6V with respect to DGND).
-> +      Sets the logic levels for all interface pins and powers the digital
-> +      processing core via an internal LDO. For 1.8V operation (1.72V to
-> +      1.88V), IOVDD must be tied to the DREGCAP pin.
-> +
-> +  ref1p-supply:
-> +    description:
-> +      Positive reference input supply for REF1+. The voltage range is from
-> +      (AVSS + 1 V) to AVDD1. Together, REF1+ and REF1- must provide a
-> +      differential reference voltage from 1 V to |AVDD1 - AVSS|. This
-> +      reference is used by channels 0 to 3 on the AD7768 and channels 0 and 1
-> +      on the AD7768-4.
-> +
-> +  ref1n-supply:
-> +    description:
-> +      Negative reference input supply for REF1-. The voltage range is from
-> +      AVSS to (AVDD1 - 1 V).
-> +
-> +  ref2p-supply:
-> +    description:
-> +      Positive reference input supply for REF2+. The voltage range is from
-> +      (AVSS + 1 V) to AVDD1. Together, REF2+ and REF2- must provide a
-> +      differential reference voltage from 1 V to |AVDD1 - AVSS|. This
-> +      reference is used by channels 4 to 7 on the AD7768 and channels 2 and 3
-> +      on the AD7768-4.
-> +
-> +  ref2n-supply:
-> +    description:
-> +      Negative reference input supply for REF2-. The voltage range is from
-> +      AVSS to (AVDD1 - 1 V).
+I'll hold off on pushing this driver for now until mbedtee gains more
+actual users. For what it's worth, the integration side is fully in
+place with tested QEMU/FastModel support and a working Buildroot
+overlay, so it's very easy for anyone interested to try it out.
 
-For all of the supplies, I don't think we need to repeat so much of what the
-datasheet says. It is getting quite noisy and makes it hard to see the parts
-of the description that are actually relevant to how the devicetree is to be
-interpreted. (includes VCM as well)
+Thanks for your time and the prompt review!
 
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +    description: GPIO connected to the active-low RESET pin
-> +
-> +  start-gpios:
-> +    maxItems: 1
-> +    description:
-> +      GPIO connected to the START pin. An active-low pulse on this pin
-> +      synchronizes the device to other AD7768 devices. When not used, this
-> +      pin must be tied to a logic high level through a pull-up resistor.
-> +      When used, SYNC_OUT must be wired back to SYNC_IN on all devices in
-> +      the synchronization chain.
-> +
-> +  sync-in-gpios:
-> +    maxItems: 1
-> +    description:
-> +      GPIO connected to the SYNC_IN pin. Receives the synchronization pulse
-> +      generated on SYNC_OUT in response to a START pulse. Must be synchronous
-> +      to the MCLK clock domain. In multi-device or daisy-chained systems,
-> +      two successive synchronization pulses must be applied to guarantee all
-> +      ADCs are synchronized.
-> +
-> +  sync-out-gpios:
-
-Unusual to have an output pin connected to a GPIO. Usually this would be an
-interrupt or trigger-sources.
-
-> +    maxItems: 1
-> +    description:
-> +      GPIO connected to the SYNC_OUT pin. Outputs a synchronization pulse
-> +      synchronous to MCLK in response to a START pulse or SPI_SYNC command.
-> +      In single-device configurations this pin must be wired back to SYNC_IN.
-> +      In multi-device configurations it can be routed to the SYNC_IN pins of
-> +      all devices in the chain.
-
-Although this description makes it sounds like the SYNC_OUT pin is only ever
-wired to SYNC_IN. So wouldn't be described here at all.
-
-> +
-> +  gpio-controller: true
-> +
-> +  '#gpio-cells':
-> +    const: 2
-> +
-> +  adi,data-lines-number:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    enum: [1, 2, 4, 8]
-> +    description:
-> +      Number of DOUTx lines used for the high-speed data output interface
-> +      (distinct from the SPI control interface). AD7768 supports 1, 2, or 8
-> +      lines; AD7768-4 supports 1 or 4 lines. Defaults to the maximum number
-> +      of lines for the selected variant if omitted.
-> +
-> +  regulators:
-> +    type: object
-> +    description: Container for the on-chip VCM regulator.
-> +    additionalProperties: false
-> +
-> +    properties:
-> +      vcm-output:
-> +        type: object
-> +        description:
-> +          The VCM pin provides a buffered common-mode voltage output used to
-> +          bias the analog inputs. It supports three fixed output levels of
-> +          1650000 uV, 2500000 uV, and 2140000 uV, as well as a
-> +          supply-dependent (AVDD1 - AVSS) / 2 output derived from
-> +          avdd1-supply. Select the voltage by setting regulator-min-microvolt
-> +          and regulator-max-microvolt to the same value. Use
-> +          regulator-always-on when no DT consumer node references the VCM
-> +          output. The VCM circuitry is associated with channel 0. When VCM is
-> +          used externally, channel@0 must be present and kept enabled because
-> +          placing channel 0 in standby disables the VCM output.
-> +        $ref: /schemas/regulator/regulator.yaml#
-> +        unevaluatedProperties: false
-> +
-> +  io-backends:
-> +    maxItems: 1
-> +
+Cheers,
+Xing
