@@ -1,67 +1,67 @@
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12A73603DD
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 16:02:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA3736B936
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 16:03:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787328170; cv=none; b=c+1h/Q5p2zUum8n1it8hjDVTnvy1ClR0PxQ8CS9a4/N3dsqn0Xov4XC13gPm/Sr6Hmb0GVvLUGlCElDaYGIv4JHdeCAkLt3Tq3QnFohrP9FVn3JQWuuMIizJIe/M0sgRmR4ZONGMRDDgMIzmsKv6UTBENcb+VEOO/KVX7RUONeQ=
+	t=1787328228; cv=none; b=lkWFLiJiLjwA6frtEEp9mewGtyHcwRALBpppnwC5/6oC5ENMKIFmqIFVrtZBPl3TQANXszuaW3tqSW9AqHfYVlDUPc7lN5jMFkYld755jNKjpkCwFXMEYC/PE2eJ6QsWRay0mSrvluB784txGM1L23yCikKRNatIKcvh5cGvmpg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787328170; c=relaxed/simple;
-	bh=mn6UejKbYkUvw4/VNNYmDeinXZGEQSxfE1rz+AV/JjA=;
+	s=arc-20240116; t=1787328228; c=relaxed/simple;
+	bh=Vy2ZJZNGMyLbLm8dFlgEUCw1Cwow/lz5sQ+qvQJvgcI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Fmb7FFheJiDIbXRg3DGOPD/pUVHDKhkby0Yj85FA+0sZzmTEC5m/D8xMeVxyUVJ7ZP3BBR4W3l6aqolziLNnEdX1MopJVFfbAfwUd8yW1bHXuIjiN4OA4e8PRG1e5qJQTQ4af9+yJ5HjsJPIQf+GPG4LbpHF/ZcYupfSI1esrjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=ZYdrOuT8; arc=none smtp.client-ip=209.85.128.178
+	 In-Reply-To:Content-Type; b=MMfUShT91mM0tVsTLXoEqTrr8V+n20XouTGpSvXH+AFxG/lhVbXE776qwcNcZIhQQW3HMY9I0tE5iSNBTJWSMCPD4zoxTYwRxd6Hxl7Mp8ViVmfPHYfNuEZgnxntQcwevNn3RVrY1/tDBQGAcqn5VF+MHBu8fGSiQHD8iC5NkIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=OJ7OmMj+; arc=none smtp.client-ip=209.85.128.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="ZYdrOuT8"
-Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-7dbcb505578so14790387b3.3
-        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 09:02:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="OJ7OmMj+"
+Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-836c8bdac50so17605287b3.0
+        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 09:03:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1787328163; x=1787932963; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1787328226; x=1787933026; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0dZzEevn51g9AXgQqOI5uA/Xxatf9zurz5TF1P+mh5g=;
-        b=ZYdrOuT8GevK0VXF6r/bBB5UiVTYLPPVVa8c35OlkJ6oD6EoGoHbZyUlCnBf2VGSxw
-         b6ooGzJpHL1hAiYG3+O4yZ7c7A4FAWaH195OBdjdht495BHBGl4xZ3S2k0SHmjFSq8Ti
-         8inzf8NEnuE+2DBB9v3+q15v4KCR8Yh/vWk98dFQPRHMh327wohj/wLzay6vam//KSXm
-         l6YzgHa5EhbiyENJuar6k60N9rEWmPoHLetDBXFpTnGZgkU+dBq4VUx/unysFWpNxrWA
-         U63CUuH0coJhQDg2ZfDWK8kQsio9Wk3gtt2uVm363jgD8CCwuNuEfPyKhmoLW05WNyuV
-         u2PA==
+        bh=ckvBWrFSwcLwwa+ubcnnacuUkv4EVV++6zpuDA54lvA=;
+        b=OJ7OmMj+EAbSu0oTl47nKYBVpapK9/AWe/U1/QD84QD2sWRiKCL+hm6dBPrdGSg7bX
+         H+6W/i3bQuq9/om83syVlmGVDRiPTw1yX3SB4p65mPtayK1CILJ/KwRy0PTiItDoxgR1
+         F7rr/IkXfr7sPYLC0kEgFcjWhpJL0W4eBL3Jq1fH1gsN4X/hy23BN9vBm+iBT034rEj9
+         pR5iRY7ladre+ZWrvYxcv0c1QPSXVMC94A8rkmEU7tnsfKYGZiZBjHVVdsZCxXJ/mRpO
+         +gPi2T4ILRU6RtFMvOV43uoESnBV/XHeGVNXcTN0rMvwdq4eiBt0x4Igj+ZZV7nMLrrl
+         zwWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787328163; x=1787932963;
+        d=1e100.net; s=20251104; t=1787328226; x=1787933026;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0dZzEevn51g9AXgQqOI5uA/Xxatf9zurz5TF1P+mh5g=;
-        b=mLyFm10kAqAoIqOprfhzjSGjdfGMIX6pUFUzleqbdDu2/kEH9Jo28FAgS4CdNlkz+I
-         k3lpweZNTqWz/PKtddXGP3ePA+KMudt4H2mt6NOLE1C9/RPYEvvnL/GA5kXqUfTsVAEx
-         Sjr1VSf1bJpZgFiKnVFhAU9PG+PYwBjHMGziX5FEcn5nd4iaQPP745dwzjCQ4livNutA
-         XfqxQC/RktCOBz/7hOjcxItWFdpotDApqOVueBioiwG+nbfZu/3HcO9v3FH0N3OTPPW5
-         krwkAuazRl5iuuYJxLhMSKi467UAKlrJS+39HT0m3FJVJuTTMwVrX5YC05707jH3NpMf
-         Kwvg==
-X-Forwarded-Encrypted: i=1; AHgh+RofD+zbwfQ4zJM4VKv+YZlOxuh6mz+pBbJ3+4o5ur6Fe83rvgrhXYXpU98icNHmHCGP1+rsSOVyjqd7@vger.kernel.org
-X-Gm-Message-State: AFuF++nJ7iJ/2jD7Aq8C4L5RosVE69relNltnHFY2ooA87FNCi+kbMt+
-	okPGEJQ4NsnA0tFccAfAg1VLb7of/rUOddbMTZ2/ZdB5o5P++cKHoIPrMvIPl2qPtdY=
-X-Gm-Gg: AR+sD10A1gfSzXoCLU4FHtwbvYJgguVwPkMLbVS5tHQ6Agum8fVmS5hVd2E4w3WdLNm
-	MBVbaimGaH8XrWPq/dVHt0X5P+muonpBTyqlQtZJMAwX2t6nG1PwyxlyPF/ik5bFGnkaCKdHnLH
-	5ckpSjIsuipSqcSok3ZaagrGYtLtt3xPj3zXYF0cKXyEWuwhyuPTChLBU8o8sga9aWh52rVcWrD
-	le1ORdatDo9zCHa776+uneDnOnlAgfFdsTtWYtcEEA0Fk2SRVbhsoxw9Hnrbj9HOJvPmR4pBQS1
-	qlyhUfFe+V+suk8pvlQ4yp6J71Chbw5RUPgWb1sW0A83iPvjJuY4UW6cC3QmfhyhJ7Tji08+aXt
-	pKv7TzDGBt83LMMmtutAftVQcQr/gdP2I2NFCj2rKUcr0fsr//SFyQl/+i8pl9MM0bRhkPDIpCX
-	UYbvAJZt8W8ohiLhoP61sgBuEGPemfUc78U3eN4oafHavLuS/aFygUGfu2fbJzpqWtdEwfOaZby
-	U/ut1VBlNuz2KTXuO4zL5OdrSoDvwLw+/aXIhZ2Ng==
-X-Received: by 2002:a05:690c:660a:b0:80f:ddab:1cca with SMTP id 00721157ae682-849f8e84e37mr26940247b3.35.1787328163060;
-        Fri, 21 Aug 2026 09:02:43 -0700 (PDT)
+        bh=ckvBWrFSwcLwwa+ubcnnacuUkv4EVV++6zpuDA54lvA=;
+        b=gqhq23Cw+AtzunLn8jgV1k/7LkvgPrstNctO2pZYS/S1sKvr6LXa4bjDUPy86G4TgP
+         q33Qt0ftV7DR618DwtEYrQZQjPW7kehnaorldnCljaUAgbpxdz6xyh13DP+wQd+fFqXD
+         /9EZMDeI9LgLNKS2amH5e/BPLcvTAriRu4gx+dEuwLTmzMe8Awmld4oRLWV4gHSVujyw
+         9w85qoRe+MdKdBEmbP+KxecginMhpPiB9q/FRrYz7Tq3yYcWBoTWOILf08AxZUghV+3v
+         ZtvWtaUNkLC+8Vyyqm9aQtrR/Ne3LYJG7s4YWJXv4HSsJExtrC1WWIKwGv6wYaPl1+fH
+         nhrg==
+X-Forwarded-Encrypted: i=1; AHgh+RptR1YFYbK5WjCjZQDGgboTvpGYUkxz3hdL0RAX7iJsnlXCt+klIuLmXZ+XfF5JL8zWCQbNoNC5rB+T@vger.kernel.org
+X-Gm-Message-State: AFuF++nmAaaS1yq2eo/v4gQoZ2tO71ne8zHgZXn4eTkJtyjHSgFdTHC7
+	ru+PoYtZ9MfEUU1g7cxkmxdcwMt+uu3sbr0f8zRl8QK2DP97QJwINxkP0zTt3b/QA9k=
+X-Gm-Gg: AR+sD12H0cE6woGblY7Z6MGVRjcaM4t29BTyblfBPW6Kw7SBbRwpcsqijshrd9LGCCA
+	GMRrBECj088s/JARLXXtyDb0rVCY5mpiUplZhnYQSXIqJVfdF1HGA95MBUoB5oXpT4O1WqJRRUT
+	4LSVZuLk6viD7hcYQ1t/pDg3hoAiVO7cZ4RmMZvbvUcfiFjby9HU/HTADTWvghwKpFjRZ55E6/A
+	hJ1n2xEQ0NGINTW5YkPykAXqZgwi7KsWKdoXlk+Fj+4HrcOGPyfKRw9ElKrpAWb2ipipdtOw16m
+	2QKa2850dSZEAHwHDOu9pH3MXxWfDH7HUmZnCJw8AwbpN/+ETbuZ07LYizITCptLeeoI15N0h+2
+	YJpbbm05RmkHyyn7XjK+BhdpTc9xA+aFsSYveqdTuFUD+frajfZNfWmJ2TieovltCq1DCUpuje0
+	OgMU8FAN2dsWr10vLYPuVBB2PjtxgyJStHRqFcjvigHGrnhM8lwSpJo80B0lU6q0YkbDrtzjIeO
+	FAqNXDHqHOK/8dBLH0jzSiqK+p1mfCe7dNNTg/Yyg==
+X-Received: by 2002:a05:690c:b96:b0:806:b6ab:a410 with SMTP id 00721157ae682-849ea4fa374mr34419257b3.0.1787328225648;
+        Fri, 21 Aug 2026 09:03:45 -0700 (PDT)
 Received: from [192.168.1.169] (ip98-183-112-25.ok.ok.cox.net. [98.183.112.25])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-84511abb2bbsm42930907b3.5.2026.08.21.09.02.41
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-845195560e1sm44559037b3.46.2026.08.21.09.03.44
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 21 Aug 2026 09:02:42 -0700 (PDT)
-Message-ID: <65b42c5e-1ce3-474d-a14c-961deb337311@baylibre.com>
-Date: Fri, 21 Aug 2026 11:02:41 -0500
+        Fri, 21 Aug 2026 09:03:45 -0700 (PDT)
+Message-ID: <699419a2-31ab-4379-b11f-c77e9e6a750c@baylibre.com>
+Date: Fri, 21 Aug 2026 11:03:43 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,7 +69,7 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 03/14] iio: backend: Add support for CRC
+Subject: Re: [PATCH v4 04/14] iio: adc: adi-axi-adc: Add support for CRC
 To: Janani Sunil <janani.sunil@analog.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
  <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
  Jonathan Cameron <jic23@kernel.org>, Andy Shevchenko <andy@kernel.org>,
@@ -84,73 +84,22 @@ Cc: linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
  linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
  =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
 References: <20260821-ad7768-driver-v4-0-bb8fbd06d4eb@analog.com>
- <20260821-ad7768-driver-v4-3-bb8fbd06d4eb@analog.com>
+ <20260821-ad7768-driver-v4-4-bb8fbd06d4eb@analog.com>
 From: David Lechner <dlechner@baylibre.com>
 Content-Language: en-US
-In-Reply-To: <20260821-ad7768-driver-v4-3-bb8fbd06d4eb@analog.com>
+In-Reply-To: <20260821-ad7768-driver-v4-4-bb8fbd06d4eb@analog.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 
 
 On 8/21/26 9:06 AM, Janani Sunil wrote:
-> Add a backend operation to enable or disable direction-specific CRC
-> handling. On input data paths, the backend handles CRC data generated by
-> the frontend. On output data paths, the backend generates CRC data for
-> the frontend to verify.
+> Add support for enabling and disabling Cyclic Redundancy Check (CRC)
+> processing in the AXI ADC backend. CRC provides data integrity verification
+> for high-speed ADC data streams, ensuring reliable data transfer between
+> the ADC frontend and backend processing systems.
 > 
 > Signed-off-by: Janani Sunil <janani.sunil@analog.com>
 > ---
->  drivers/iio/industrialio-backend.c | 33 +++++++++++++++++++++++++++++++++
->  include/linux/iio/backend.h        |  6 ++++++
->  2 files changed, 39 insertions(+)
-> 
-> diff --git a/drivers/iio/industrialio-backend.c b/drivers/iio/industrialio-backend.c
-> index f7a4be8ec320..fbf5c39d7655 100644
-> --- a/drivers/iio/industrialio-backend.c
-> +++ b/drivers/iio/industrialio-backend.c
-> @@ -886,6 +886,39 @@ int iio_backend_num_lanes_set(struct iio_backend *back, unsigned int num_lanes)
->  }
->  EXPORT_SYMBOL_NS_GPL(iio_backend_num_lanes_set, "IIO_BACKEND");
->  
-> +/**
-> + * iio_backend_crc_enable - Enable CRC handling
-> + * @back: Backend device
-> + *
-> + * On input data paths, enable backend handling of CRC data generated by the
-> + * frontend. On output data paths, enable the backend to generate CRC data for
-> + * the frontend to verify.
-> + *
-> + * RETURNS:
-> + * 0 on success, negative error number on failure.
-> + */
-> +int iio_backend_crc_enable(struct iio_backend *back)
-> +{
-> +	return iio_backend_op_call(back, crc_enable);
-> +}
-> +EXPORT_SYMBOL_NS_GPL(iio_backend_crc_enable, "IIO_BACKEND");
-> +
-> +/**
-> + * iio_backend_crc_disable - Disable CRC handling
-> + * @back: Backend device
-> + *
-> + * On input data paths, disable backend handling of CRC data generated by the
-> + * frontend. On output data paths, disable CRC generation by the backend.
-> + *
-> + * RETURNS:
-> + * 0 on success, negative error number on failure.
-> + */
-> +int iio_backend_crc_disable(struct iio_backend *back)
-> +{
-> +	return iio_backend_op_call(back, crc_disable);
-> +}
-> +EXPORT_SYMBOL_NS_GPL(iio_backend_crc_disable, "IIO_BACKEND");
-> +
-The descriptions are a bit unclear on how the data is actually sent, so not
-really sure all of the explanation is worth it vs. just saying enables/disables
-CRC.
-
-Good enough for me though:
-
 Reviewed-by: David Lechner <dlechner@baylibre.com>
 
