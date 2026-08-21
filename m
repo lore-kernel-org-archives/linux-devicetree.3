@@ -1,148 +1,121 @@
-Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com [209.85.222.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 342D3381B0E
-	for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 23:41:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 404452459E1;
+	Fri, 21 Aug 2026 00:32:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787269309; cv=none; b=UuDXEz/WC46iZJqmWi6J7zLP2hO/PrzlZ1ofdRI4uXbWzcz2BUXvX7XOdH1HIXQG9jWVDLDn6gFhz7CYIEAo1TmZl0/A6A4oqHJ+Wce+7oMkOCmt8ZHNTWBxBWq1/gQ77qLHuixlSeczgP8e+g/8LCmzZkDBVd7cAO8qC0oOjjg=
+	t=1787272379; cv=none; b=iN4rCoiZaSmuj0OKQFnHQlf6De4sR3oNHzdedlyAtabc16aa7x216waPGppoq3++l187J/Cm2xOyTDe4Y/fC810kHPm040LnSWZzD7wAOX5ZwwPguNsu9TmF8ZzUglHHmKGRZ9P0rTMs69iSzgUOhr5EVB9AxkwylHqnZnu5BLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787269309; c=relaxed/simple;
-	bh=UtldySaucpx0WiT2hf6Tf+4ZCCDvPTnOPP4X9Lh8abA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PqHEI8usbVwmYvtYcaeY5MPt945dmeF6gm6sy6YU2MX5Zrow8qUA0wZNnK4ogOtAI5dUZxZLo67rhYD/llvglLY0/yk1VxAmP08+si7hSa8uKXaT+3ICCcoBepQa259U/OmG6AHm3b7uOE0PYOfGc8YSFms7UZASCEC1nmNDwp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=XRfJlfpD; arc=none smtp.client-ip=209.85.222.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1787272379; c=relaxed/simple;
+	bh=AsuP0tdjtF/OpVJlFzB04+bbqaeTc1ZIOr72+Q0lFPU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=RGGRIli1fGL+CAT6U9OlinX6sOYC1W9REEUSWn3qfe1GdupMwTmmRwRjVqaTUs0jhWdv31Lcpp8KBa38077QIK31dmkZzEjApfXo2dC/NUZbHCDu6WgNpBLal0cw6mvw81/UjzxpHYv8M6ATDnu9AgGzYEI57TEzvgRlVnHIU2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aLittfi1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="XRfJlfpD"
-Received: by mail-ua1-f51.google.com with SMTP id a1e0cc1a2514c-97bf91b2e6eso117042241.2
-        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 16:41:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1787269307; x=1787874107; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UtldySaucpx0WiT2hf6Tf+4ZCCDvPTnOPP4X9Lh8abA=;
-        b=XRfJlfpDbEZSeVrJtqh73EITCyCXpHDHjKWPfL44jJ+MFDmL37jQt8fF7WyI44/MCM
-         Eo7iUX3Xc8e0zGtzDsThrZ51YqRI/sXossv2UE4SgJvVTnJsnpWWVOBgYynaMLh1MR/5
-         ZtyKuXkLsq0N4T1fnCjZJdKu7YckTvs9gFmVQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787269307; x=1787874107;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UtldySaucpx0WiT2hf6Tf+4ZCCDvPTnOPP4X9Lh8abA=;
-        b=LR7f1R/8PdUBOxBdBBnZGEXd3T190+esvg3LTflxU8Bp7O6CIy22jyekaoMVmjSKQS
-         9ii7tMMlCtJlMO2MPCWbMwNN7wgn7vZVLykD4WWauB9fvbOj3208d+zWg0aHcFSWo6R6
-         UjJXzFPhhkJCvqHttTVnyfVrk90VycLzBbZ064jBKpsKAlVcCY32tgrjK8hiN6mgH+1J
-         ZzYKoNLfzORNnRd9WASEVFP49LAd5suNkuUmXJ5QFNYxKvM8vtzb78xyaOUYafE2EoRq
-         Gt2N4tNwOyJLZnWl31+X3Hw3zBU9Y8PGR82Cj0ukhliwzSqf+geUqdOdCyYCuy3OLkz2
-         qqmw==
-X-Forwarded-Encrypted: i=1; AHgh+RrmHSQwiejBOOgup3Uk0f5BtddF0Ws1tVzvhkncASVP5tovTgJGZHdUybvAKVE1juUq7HQzbVF0JnDb@vger.kernel.org
-X-Gm-Message-State: AFuF++mXGL9gyHLvKananCrn4mnsoRjaiJL93DGKcpAnQP/cTYqs0vwe
-	njlKky+1Zyqag1KwVzHWZXfU12IBOv7WzC+BvOVU1051CqCzeR0aS5fvpLqK/dFgTPN3Cnrk141
-	4Mqo=
-X-Gm-Gg: AR+sD12OtN9BmS3fou802Vfaot4ar+6nGlwh3GAPqhavcD5I3AHBQrpLpUtwnkeNcDI
-	YfTGEl+5KhCv/6l3AYZ3t9GoQaNIe0sYdELu7xQfUNVnIj9YcK1f+rO+UWTw1xWT3eWnz8KL0qw
-	03GZJLYFyiyfMdOp3MHf+0wsFamg9wYi2A8+X7wuh0t1fpe+w0WR4CVuDuT6UwPk+aj+1DRdIDM
-	Rnm+XAwKnvHsIFHfVLCeS4ch//PCORRlftsungF7F6ID2IACYXV55fGlH3IdD/pf+4Xd12RTaAY
-	nnPM+O0eE8L0tKgNfgQ3KIgvKOWrPbnQaA1E86GXkydlwZFA49cs1LV6qq78AnYtHYwewXcJaNH
-	S2Aod7el8Ra9+g5tgvBjfVCfqPMVXHopvMTruMM42n88L9YtGOgWFcbFHpxk+kcplgAnJAfLQvc
-	FY10n2tyFmcjC5d4DS6pjT7fmiWJP6GpUscXglwaidAM+5yXSlGTuuNI01IBng6Y3LnQx7wgrk7
-	tAlot8A6SlyYxijGQ1pBSrJ2eI=
-X-Received: by 2002:a05:6102:919:b0:74a:be82:73a6 with SMTP id ada2fe7eead31-77a6334b113mr966082137.8.1787269307065;
-        Thu, 20 Aug 2026 16:41:47 -0700 (PDT)
-Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com. [209.85.217.51])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-777dafa1c59sm7678067137.3.2026.08.20.16.41.44
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 20 Aug 2026 16:41:45 -0700 (PDT)
-Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-754ac74c495so194663137.0
-        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 16:41:44 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrLgomGfNES/TVTFdJlAOP7VfneeBfUqTl77BlEGp/eeceLHaBxw8OmUKPBkocMDP0AQGSYfoPAxoGQ@vger.kernel.org
-X-Received: by 2002:a05:6102:5809:b0:76f:eaa2:6fa7 with SMTP id
- ada2fe7eead31-77a623259d3mr898151137.2.1787269303777; Thu, 20 Aug 2026
- 16:41:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aLittfi1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BB0F1F000E9;
+	Fri, 21 Aug 2026 00:32:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787272377;
+	bh=zg9oINipA4FX3wa+zkJJwtEkBHtkeUWyF4E8ozdOFpw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=aLittfi1ZZnayZQ2odyVRvdUx10klVJuBXRhTZcRUPCf4V+hBYHsHSNV6yK5YYWuI
+	 8oHpmFP+oyM3/qddponpPTZBsyqns89NJXGhRRuTEItTizhnloQhoiClb6cFtSjMsj
+	 1kvR8n2H3BDOb1U6ZtM5IjAAW/lCvCcnWePJK2EQPaV7fLkdLBjrni3u2ltPstqJ1w
+	 D6gybWaKNa3Zb88dzcmw0OcclRTdiqKo6zD1SgfvFdtTqu8n0Vp8aUfI2dODF/qIAp
+	 5YGlHVHp6KyRy9X1FJitf9MAbn1lKt3XvCj+H22wewVq24iXLyB+CVTNAeUOKXMpZl
+	 H3qqbD9tfDKxg==
+Date: Fri, 21 Aug 2026 01:32:51 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: =?UTF-8?B?Tmljb2zDoXM=?= Antinori <nico.antinori.7@gmail.com>
+Cc: Andy Shevchenko <andy@kernel.org>, Brigham Campbell
+ <me@brighamcampbell.com>, Conor Dooley <conor+dt@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Jori Koolstra <jkoolstra@xs4all.nl>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Marcelo Schmitt
+ <marcelo.schmitt1@gmail.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
+ Rob Herring <robh@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>,
+ devicetree@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linux.dev
+Subject: Re: [PATCH v4 0/2] add support for Aosong AM2320
+Message-ID: <20260821013251.74a96b46@jic23-huawei>
+In-Reply-To: <cover.1786973355.git.nico.antinori.7@gmail.com>
+References: <cover.1786973355.git.nico.antinori.7@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260722-contrib-pg-pixel10-initial-dts-v2-0-3abae9717feb@linaro.org>
- <20260722-contrib-pg-pixel10-initial-dts-v2-4-3abae9717feb@linaro.org>
- <20260724-dancing-skunk-of-novelty-72c1b8@quoll> <CAD=FV=U0HUdjPcg+5Vx8_ag0zLd3CZx5w5SFr38p+YwRnC_G6w@mail.gmail.com>
- <CAD=FV=V2+D1m5L-0d81W3E_ih2us-SrddeBUAJtMybpQons7Ww@mail.gmail.com>
- <CAD++jLnQGy_LvRxMjq1s2Hs9Hn4LNTFZ0W17zC1YLs5StwfqMg@mail.gmail.com>
- <CAD=FV=VuVdq_=TQmONJZak84S2c2-2yQ8DS0k_odYsUfg0C+rQ@mail.gmail.com>
- <CAD++jL=VLzW-4eB=izJwaTJ+6xObk9+AQGTDK6ABdrGX4K3vAg@mail.gmail.com>
- <CAD=FV=VsiQfoGYHw3D2xmV=Jedu+cmqEfrCk0mkKFzsrRCQcTg@mail.gmail.com> <CAD++jLkJq0t8sC6_S4LHERbTTiUanKh32QJtdDtUZrXdDEHgMg@mail.gmail.com>
-In-Reply-To: <CAD++jLkJq0t8sC6_S4LHERbTTiUanKh32QJtdDtUZrXdDEHgMg@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 20 Aug 2026 16:41:30 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=WjWd8fRuByAUn-mk-fMJqJN9wrzxAsYH7yYY3XxoDFqA@mail.gmail.com>
-X-Gm-Features: AcwNN1W02_U2EPpwN5r9pV16wwm63sX1fk_h0bppJD-El35NE0PVzCZcm5fPTEs
-Message-ID: <CAD=FV=WjWd8fRuByAUn-mk-fMJqJN9wrzxAsYH7yYY3XxoDFqA@mail.gmail.com>
-Subject: Re: [PATCH v2 4/5] arm64: dts: google: Add initial dts for frankel/blazer/mustang
-To: Linus Walleij <linusw@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, Conor Dooley <conor@kernel.org>, 
-	Peter Griffin <peter.griffin@linaro.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Tudor Ambarus <tudor.ambarus@linaro.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jiri Slaby <jirislaby@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Drew Fustini <fustini@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-samsung-soc@vger.kernel.org, linux-serial@vger.kernel.org, 
-	soc@lists.linux.dev, Juan Yescas <jyescas@google.com>, RD Babiera <rdbabiera@google.com>, 
-	Brian Norris <briannorris@google.com>, William McVicker <willmcvicker@google.com>, 
-	kernel-team@android.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Thu, 20 Aug 2026 11:31:08 -0300
+Nicol=C3=A1s Antinori <nico.antinori.7@gmail.com> wrote:
 
-On Thu, Aug 20, 2026 at 12:04=E2=80=AFAM Linus Walleij <linusw@kernel.org> =
-wrote:
->
-> This is where the imperialistic ambition of device tree
-> kicks in: the piece of software - be that a manufacturing
-> run-it-once piece of code - that produced said calibration
-> should have *also* used device tree to find the thing it
-> was to calibrate. Supposedly looping over all UFS devices
-> in the device tree and calibrating them one at a time,
-> something like this.
+> The AM2320 is fully compatible with the AM2315 sensor in terms of I2C
+> communication protocol and measurement conversions.
+>=20
+> This patch series adds am2320 to the i2c_device_id table, creates
+> of_device_id table and adds both am2315 and am2320 to
+> trivial-devices.yml dt bindings.
 
-Sure. I guess this is one way to look at the root of the problem. The
-firmware doesn't itself consume the device tree. It has its own
-independent ways to know what hardware is present. Trying to get
-Pixel's firmware to use device tree is pretty far out of scope, but I
-do see how this fundamental disconnect can be seen as the root fo the
-problem.
+Hi Nicol=C3=A1s,
+
+Applied to the testing branch of iio.git.  I'll rebase that on rc1 once that
+is available and push out as the togreg branch that linux-next picks up.
 
 
-> "I have a random piece of calibration data and only I know
-> which UFS it is for, so I am going to encode that knowledge
-> into the device tree as an alias."
+>=20
+> v4:
+> - Addressed minor styling issues in driver's C code pointed by Andy Shevc=
+henko
+>   (carried "Reviewed-by: Andy Shevchenko <...> from v3)
+> - Adapted commit message pointed by Marcelo Schmitt (carried
+>   "Reviewed-by: Marcelo Schmitt <...>" from v3)
+> - Carried Acked-by: "Krzysztof Kozlowski <...>: from v3 dt-bindings patch
+>   since bindings patch did not change.
+>=20
+> Note: I carried tags from v3 because reviewers declared the tag after
+> pointing things that were resolved in v4 (and the dt-bindings one
+> because the patch did not change from v3 to v4). If this is a mistake
+> please let me know.
+You got it right.
 
-To be fair, it's not encoding the calibration as an alias. It's using
-an alias to _find_ the node where it can put the calibration data. ;-)
+Thanks
 
+Jonathan
 
-> I don't know if this solves your problem other than saying
-> "go with any hack because this takes place in an imperfect
-> world", but at least it points out how this kind of problems
-> collide with some of the core philosophy of device tree.
+>=20
+> v3: [3]
+> - Added "aosong,am2315" and "aosong,am2320" to trivial-devices.yml.
+> - Added of_device_id table.
+> - Replaced using a constant for driver's name with chip_info struct.
+> - Separated code changes and dt-bindings changes in two commits.
+>=20
+> v2: [2]
+>  - Generalized KConfig description text.
+>=20
+> v1: [1]
+>=20
+> [1] https://lore.kernel.org/all/20260805183733.1000550-1-nico.antinori.7@=
+gmail.com/T/#u
+> [2] https://lore.kernel.org/all/20260810183337.451812-1-nico.antinori.7@g=
+mail.com/T/#u
+> [3] https://lore.kernel.org/all/cover.1786725567.git.nico.antinori.7@gmai=
+l.com/
+>=20
+> Nicol=C3=A1s Antinori (2):
+>   dt-bindings: trivial-devices: add Aosong AM2315 and AM2320 chips
+>   iio: humidity: am2315: add support for am2320
+>=20
+>  .../devicetree/bindings/trivial-devices.yaml  |  2 ++
+>  drivers/iio/humidity/Kconfig                  |  8 +++--
+>  drivers/iio/humidity/am2315.c                 | 34 ++++++++++++++++---
+>  3 files changed, 36 insertions(+), 8 deletions(-)
+>=20
+> --
+> 2.47.3
+>=20
 
-LOL. Yeah, I think at this point I'm ready to give up and just
-hardcode the path that we hope we'll end up with upstream. ...and if
-we're not allowed to have an "empty UFS node" for now, I guess I'll
-just have to have the first detect that it's running on an upstream
-device tree and have it not fail if it can't find the UFS node. Ugly,
-but it'll get us booting and I guess will be uncontroversial.
-
--Doug
