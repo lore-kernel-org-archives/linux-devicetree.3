@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D5BD276041;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D6EB375ADD;
 	Fri, 21 Aug 2026 03:31:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787283068; cv=none; b=CDRFxiHrY7X8kriPqAtLRKKMNRQ4bCeKIpUae1y40Qp+Hn2o9RzsjzAPMUDFeGurgEMGy+jqIe5S4jeHwFYcldhEGavQ78ikzprb8ywhd5v6EJE0dbXmPxmnKhksq6r4HkaiL/fB0NWlcQ9KAH5ZzU6x8Hxyo9+qwHEtPlIRlno=
+	t=1787283068; cv=none; b=c9nQWX/Kiqb8Y6zlhBvhnXCRWx8nxKWsSnOfuJ6Xo8XtrrzpofbFNnqwT/0/gYKgbAws/p+753yvT1jejmlboO3YpFYlt5IlMsc1+ZDlh//NQm+lm6OhE7x6+6Iu353aIoVrYmaQcCPLi6fb9QuNQulWaMZaJB9fcAeHZ2UCT64=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787283068; c=relaxed/simple;
-	bh=Et29W0ugWdExs3+LJNmC3cJWsLTnTUSlg3as7PH9H+c=;
+	bh=gtD7QCZF9hwjGwmyNSwmPa2sxD1FgxJxDbkAvsTPfW0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=AR2lsxfpGkglrL+19c4S4BrkghLjREuFKswKQAik99Vgsrjv+Y254u1/mf7W8IiTSGL4Runs6G9fVB2fa8vG4NHBW7altf9EJU8XRJWRYvUAlf+LseMBHC9yeDcMh0rIJVwtgXRng4jjNYHXoJ3OfP4KfPzIfhUhhk13ZieJoVM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tyWUmacN; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=ahBdd7va0tKwwf4BieXxTt7Li0VPwTTPDF61eKj2/8etMnsVa49kUSGxuN4R/co9mOio6E/IyAKWMD7notZfdan8zDAnMjTe+1JVrmNdT0Zw9s0/zqbIrf67JawEw7LhSpmQO0fRp2/CpcwfT45nYBcBMb51Y0Adh1lLMqdRtok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nT9EDfO2; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tyWUmacN"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 60B84C2BCFF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nT9EDfO2"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6A038C2BCFD;
 	Fri, 21 Aug 2026 03:31:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1787283067;
-	bh=Et29W0ugWdExs3+LJNmC3cJWsLTnTUSlg3as7PH9H+c=;
+	bh=gtD7QCZF9hwjGwmyNSwmPa2sxD1FgxJxDbkAvsTPfW0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=tyWUmacNubJcPD4sCO86DtT4vEOyO4mxNdvnnyuZlmHLq5XLAhN57kpzMzBIJv27d
-	 Yt1BvSnz4i6rPqRAwNBs/3EeW0Z8PzijZ8AIfjWDWJioG0NNDCzp0rXfhkzIQGO7YB
-	 b9NZ/lf0H8xFQdeYYtZfAst9gVmrvzmVc+ZgsT9HyAKa9EZdv9uqXgRc6K9mPUDj6d
-	 J8VbPr7dfZEv+KsV21sPTZ5dL49Ka1aUp8rZCsob45qijgKDP4R33Clb5ak2FGq/ax
-	 WxiImd4f2u8BXXcg9EqiC6/azeEe4RDX5Pjq4i9Dh30XF19SI9/MiiHTpHr9YTYlFY
-	 a8q+pLvxpo+6w==
+	b=nT9EDfO2TRea+Yuktdi4G1VDcVv8iC/pK8bBtUzHkfmswOoyzJ6KbEJQVA3ilL0jt
+	 XtAjY/ada7xQtlWI7x9PTCYwTfIQgHpZtq8EmYsLj4pLFrXFnIxxynXDyHoi3/FmPd
+	 ip5WaXXzLnldWhqxzr/ea4qZRHWj8Zqbcv6DvRJrrmjcdqcIoMVYaKnTPkZICaQsc9
+	 3RuyKyO97h/36gi1ZlXN4b6yCopFM2uV4mJWMTEWImeoIliFfM13ICOB6rfY3XLkul
+	 xCit6EhWcQfidjKRw7IJ5NPvdOMv0tyfCJUaGqFKoO0zHMqMBXhYK3RDAHOSp0iOpG
+	 SIPgUji0i5s0g==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 34DD0C5DF87;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FE7CC5DF81;
 	Fri, 21 Aug 2026 03:31:07 +0000 (UTC)
 From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Date: Thu, 20 Aug 2026 22:30:46 -0500
-Subject: [PATCH v2 1/4] dt-bindings: vendor-prefixes: Add Retroid Pocket
+Date: Thu, 20 Aug 2026 22:30:47 -0500
+Subject: [PATCH v2 2/4] dt-bindings: arm: qcom: Add Retroid Pocket QCS8550
+ Devices
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,21 +41,20 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260820-rp-qcs8550-v2-1-d4ce78fe9385@gmail.com>
+Message-Id: <20260820-rp-qcs8550-v2-2-d4ce78fe9385@gmail.com>
 References: <20260820-rp-qcs8550-v2-0-d4ce78fe9385@gmail.com>
 In-Reply-To: <20260820-rp-qcs8550-v2-0-d4ce78fe9385@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ linux-arm-msm@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787283066; l=915;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787283066; l=736;
  i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=pgxhUlLLIL0s7PQ+Oz8ayGXR7ERpF2skLnamCW8kj9g=;
- b=r/S4fNWlha1+SegojvuMspUR9N7Fc90mkHTBBG8GQ74tE5uHRC6yeZI/Iy8s3vmddwgHsLLFn
- PNpKpLBGJAFB32gLpF9LQvsFDlLAU9BlRjOtfvhN/BtY5klUqHAdZWE
+ bh=WxDgKnm+oG3VxyfqzoJMACArjvmJTRv82JY4e2Z0FgY=;
+ b=RO7IizmECv9EHIZS4O6M0yEt6VLrK+n6/E1GCc7a/4uEbRuPZDCYpDKcP9rigdCckDYOK+/HS
+ O1HiLXb8uepBzlsduzdZ5/bhgnl8x8CDJS2uupW5GZr2PzFVuOZ/AIC
 X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
  pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
 X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
@@ -64,27 +64,28 @@ Reply-To: webgeek1234@gmail.com
 
 From: Aaron Kling <webgeek1234@gmail.com>
 
-Add an entry for Retroid Pocket (https://www.goretroid.com/)
+Namely:
+* Nova
+* RP6
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
 ---
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ Documentation/devicetree/bindings/arm/qcom.yaml | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 8e6307897d051..2c2502feff612 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -1421,6 +1421,8 @@ patternProperties:
-     description: Renesas Electronics Corporation
-   "^rervision,.*":
-     description: Shenzhen Rervision Technology Co., Ltd.
-+  "^retroidpocket,.*":
-+    description: Retroid Pocket
-   "^retronix,.*":
-     description: Retronix Technology Inc.
-   "^revotics,.*":
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index 954be28203017..25d24c36c5e00 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -1158,6 +1158,8 @@ properties:
+               - ayntec,odin2mini
+               - ayntec,odin2portal
+               - ayntec,thor
++              - retroidpocket,nova
++              - retroidpocket,rp6
+           - const: qcom,qcs8550
+           - const: qcom,sm8550
+ 
 
 -- 
 2.54.0
