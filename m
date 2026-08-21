@@ -1,208 +1,158 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AEEA3B05B9
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 10:47:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF67D47CA71
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 10:56:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787309237; cv=none; b=HfKfWmodAPdpzSGf/s3PAx67ceP1WSxSMdL51FtpbOOaqANtJ8ky7AoyNGDW3EnDuho8td49Ps/KX+yglc163V1i6g2Gr7Ain8ZgAR17f1vjVyHvH84G7Dtfcuk491iuFs1truG2vFFxhUN6O/IWvcgaPBxGdKPuqpBOwo3pFPQ=
+	t=1787309787; cv=none; b=Ad8S8ez6MrE1IgPI/WMaLTqU4c6Ho3qKC7FUT8coxUQ5iINljuU9Q9xvI/TF1UkwWP381tP1GGhIAynto+1S4RBggrwzahFEk7QctfhpIN3lDWaNrppThinDXv9IjaLda1EPoshuYRjmtrbUTKN3Dr7EjlpwRlOZi9Y0j+QosI8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787309237; c=relaxed/simple;
-	bh=wHFpYhrsskZl/4X9KYmQfWjR7O3bXLxtO1Q5X0MfZ5Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FrY4cyNll1XKwbBeKyOfm+jjB/7JPKxhCEMPihJcXoJRXGjjvfyAIpmce8wKrxd8RyC6SnO5Cw7o/MHbc+fVB8v9C48h9S6yh6iQVAZM0zcYzLEg0nN0HCFziDgYTblCf3qk+P55DWARzMPSsTeU1V8folFeD+RxeRu/5Vhaz+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gDwBtTsa; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fHl7uNu8; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787309787; c=relaxed/simple;
+	bh=Hszesw6yVqnZ8OpYpwPtsWJaTs2YTlaai6RAYcmBCoI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Uvfchz8nWBrW7Q5yL0mkDYO/t6akJU0s2Gu5kb4bA9NVIsBnEXCo/OsiaEMlPAmNNITk2kYMYYwaaxWnzRfMX2Wda9jqUpmO3KZAXFHvFsxE3BB+h2urtgM8CwH4fFVx3DRLC051HIKx9ezvw7KkXZwDPF0MXfJJ633KHDyiaX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=scX3+nWk; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gDwBtTsa";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fHl7uNu8"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67L9M7g71550606
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 10:47:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=/GrfHFATM8H0RtN2PKqwEH8d
-	UdUp25j7RsmR3cGWD1s=; b=gDwBtTsaPCxejIm7DbM5S0ioImRhsHM3wZJPuaRO
-	9TitT0VGlaZIIM77IzRWAXa6HyzkuYGcGoXK+PB+XG4xPQW7BWk44CGZPzYHIWFq
-	pqU02Tz7YEEDOgPEu/+hI3CTvUpg9O36brvWzfd9EMDVSqqohElJzHcukZ3bs6rf
-	bVLnY9u0eTtnMdDJfAhWHQhjaeQtoggLjKgDSFgpqJD+Xf00bYNaUQRo/f1tHWzW
-	+BJYgQNWCxlMRz8P3LFlPCigVhXxZrhlFY6HE0SCAjMkgpHklF92YQS1Ybbwue7S
-	l4Nfh3kR/Aen0916w3iEdxJgyMTMXo4TMWhIJEkjMGN87w==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g6d069tgv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 10:47:14 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38f97b3f853so1306716a91.3
-        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 03:47:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="scX3+nWk"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38deea72eebso791698a91.1
+        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 03:56:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787309234; x=1787914034; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/GrfHFATM8H0RtN2PKqwEH8dUdUp25j7RsmR3cGWD1s=;
-        b=fHl7uNu8qORl0zQg/PC0lrqESxeGGoK57akXqzKzrQkjqP1mX4eTUWng6CUTMFtZs4
-         /2Dv2stb88mnkorAsw0xMQVBh2LjqZ3VSXxnl1plhqdFFBx27iOBv0S7I3wVeIOLYkJi
-         qEu0ayLPpKunzPoIU5Mqyd9xE1tP0VPMy1H85eCBJTj5w6TD2H6mfORXZVy9+Y9wEJAu
-         lkbWblZpkaB4ZSw8sE3uLWKSQJA1yY01zzCpsvjY3SE315oQ+9F6IqqghrzZSjt9XASq
-         qneoaisqWXNGx4rUd94/Mu3dIwULroJ4E5A5N+J7n9IFj6S3mDQ9qQQL5MwucRb9706Y
-         1wXg==
+        d=gmail.com; s=20251104; t=1787309785; x=1787914585; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RjmvvNDAO6X5XPPRpkVae2cr18FJFP99cR7ZCryUBd0=;
+        b=scX3+nWkH7deRHF+tYx9TbrYJ4/5GCQygA5h6NPUwcxix/Q6E9n2BlgZ0wRLxwslUF
+         HXbCqI+8xYhFKjmjddfLt0BUfRn9F1cggrYAj94RpoT/gRmWdkOP50C1CAeuFwi/fmh9
+         fHUkjCdVvwlr5Hlq/PlU7Y+dXcqu6Rhl/reN4oE1MKmOtuqlTPJAGW1Z015c4VHhy13W
+         luYvF3Fln+sIpfhwQTRnb6UqG/j3o4JZxRKaKq02FnLZUB7ub6j3M+2zvmEqi97Zbgex
+         DOM7WmmAPmmsGpPFOFSmi1D6w5NVR5uxXP2/IzT26VSbBuiIm0IgfSplJXlJ0j4M2O22
+         sT+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787309234; x=1787914034;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/GrfHFATM8H0RtN2PKqwEH8dUdUp25j7RsmR3cGWD1s=;
-        b=GkNHR39Tn2uzdPxbf38lrvCyydP9gtLJ860+gzvYtiu3xn7BevzfKR9PAzRVaNm6jz
-         B08OHACGqVEnUzvW2X6TyNbQx0HRNwq7s1E2d9yzr+Ad/k8O6NiKisn8qlmOFugc5f8j
-         x8sSgZFBABkL2XyaDJAO5942ARRIQY/AoW1IiRirQy4GeNUEUxwTUO3s5N/FghltFNzL
-         puY8EACXZ/zwLs8Dp4EuVgcbqYswPxeOwr17sB2IDVNAZSQ16YCWUxjv7ui7f339k6Di
-         fgh1+uMulqaqVj+SoMXm004QWJJHnlNAB0siU/SvEmKlWu6oGI+0wSboKWtPsb1GDlwl
-         P2cg==
-X-Forwarded-Encrypted: i=1; AHgh+RrD9Qci2Vx4mJSS23Uogu3MJaX6zriJvUfyp5sqPnFgUf/IBNJRX4MESEK0ThB9w5iSxXHFKGRSnz0N@vger.kernel.org
-X-Gm-Message-State: AFuF++n3MBZMCYS94lrkfR7Ot6+dYnjbps9qwAeOr2P/mSvdSbpUsPU9
-	75LBEEBH/dJwS9zmBmw8IJZ9P8FBYqM06z9kTY/e+61qJKXezPRREpGQNI9s/+xCq8nbFBw6XJc
-	8hmZbTvSx8z/b8mGNrF+wnUqdE1K7FB6qL6lMA77WHhCNbMO57sHfKGVP5ygX/ccx
-X-Gm-Gg: AR+sD13pHreJBtDn4hiCrwsa3bcSNbuQ5052EO/XcoaAOUAqqwNKfxTJ8zGCSBMjORs
-	i+Qh0fXTLHC/7k4AMJzEKgX/R1cErSALMRnQykRtCF6cq/saKEnVV7i8InJWhMCJlGsQHQD25Bv
-	yOOzvCUIc3QIPFQ6dZckWOkoN2nZYQQPeNI9iEbigdIFbtoj8GfSezJ0t6UZsb4kdp4xYmVtSJW
-	PleVEjGhwyI2HjYSZUcGSMF1JisHcXd41pSM1YaQIhOQHrrkRpU3iADGV+L9DDLCu7RyocWvqJB
-	ezxi6SK7MNN4PNGv6KCG6amkZMTufUzHYdhM+nmHOHTULB+NpPv6pYRc2DpZpOfPWdNox2Ni8DN
-	+PAAJf7i+xf39oxkeQ5qdXHgLD1Aun9oqVwOw4Q==
-X-Received: by 2002:a17:90b:2ccb:b0:36b:bec8:94c5 with SMTP id 98e67ed59e1d1-395c35ba5aemr10466199a91.10.1787309234121;
-        Fri, 21 Aug 2026 03:47:14 -0700 (PDT)
-X-Received: by 2002:a17:90b:2ccb:b0:36b:bec8:94c5 with SMTP id 98e67ed59e1d1-395c35ba5aemr10466124a91.10.1787309233685;
-        Fri, 21 Aug 2026 03:47:13 -0700 (PDT)
-Received: from hu-arakshit-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-395c42076b6sm2693547a91.0.2026.08.21.03.47.07
+        d=1e100.net; s=20251104; t=1787309785; x=1787914585;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RjmvvNDAO6X5XPPRpkVae2cr18FJFP99cR7ZCryUBd0=;
+        b=qZmJIc4GXZHsdHTeh7kJxekAL9xG3oj0gzy5Pi7QbUV4aWA8aaGFqgy7yUXoK3Ueub
+         3DqNY7Jf++Mjfl2s98yBHuibpulBQkxUAvVOhea/XL950fKSDqA4gvRP647QmjPXGO6y
+         XkBD66UbbT12e1zC8eMH/nRm8iRIUQ8eJgo41RDqUv1PaBTOuIT4Pv8zYfaAaOrlLUIF
+         ZGPb4T9aB1GV/VF2zV9F8ziREShRhcTbMWrv8aQCEBuyQpXzSKPhj6e/Eni9hdAIMPn0
+         1r5vnVwwpo6Ir6Uvbzuuv7V8DepMmO0MchKUevKUvP2GyoRDWzayhGw2mc4CybMP1C1Q
+         +9ig==
+X-Forwarded-Encrypted: i=1; AHgh+Rr86rIgU7nYcRmMXIkV5xKeJHybPCCBQSBQHSaMFOKpaBMELNRdTh9ZokDuDI3tXocrWera/PxsvfFe@vger.kernel.org
+X-Gm-Message-State: AFuF++ngdTh8O3ncfIACmD/2S9B1Ygf66SODAhYjbRd+0GqHzBcgY6UL
+	f37JQ5FoA8XbEAbJpUPxbLqcGrRF1EJ+KUoAMC9fChxYHI92gCWt53/n
+X-Gm-Gg: AR+sD10LkpgBuBqH05p6XoIhDkzenGPQ7k/6k7fF3T/QRDhv9UC3zDiwSVktfVWDFfo
+	8xpoShhHfRxSGtZ8e831ZaPkDAfsl/IBl3TX8RqxcYhtXwWgVBSwTiqsbJM4YPLUTbvDtx0+4/E
+	AgcyM32fJY2lYw/Ts6vwNzJjF/NB7E9m6J7DS90dMCOL1Nd8VfLB607TbKdLHhbd/9QMIi0e46c
+	iV/mYbZODBR2RNWtxo59zmatZEf9AjfWhuqq29xofmp3IctIjch/WM0UDZOhGWNWmen5y/GGcBK
+	RJDtL2/sKXEOUnxZq0ZnUovAp8369Qx1/H1wfDjlNyxqBSmQD31N2KzxN1vFHy+iZQboXyxG/Y1
+	6xkmi9VyCijp09ZcMzA3NdElPAZjvT02oemNY0hqotytmGYuT6YTb3yfOnh/GNkeFsj7bX9CsUV
+	33kleGtp3mB3cDBllHCw1kba1gDKpBvNKeYtHpELXwMkd16OkXW/aoUUrTOYp9XpVnF3CHKeueG
+	sGOLVF/Jua4nX6LOW+Nj/4JhIHuyr1na6IOmmZK2R8FxJ/HZTGq
+X-Received: by 2002:a17:90b:314a:b0:37f:eafd:3505 with SMTP id 98e67ed59e1d1-395c3522213mr9208574a91.6.1787309784878;
+        Fri, 21 Aug 2026 03:56:24 -0700 (PDT)
+Received: from hanzj-mi.. (ec2-99-79-140-187.ca-central-1.compute.amazonaws.com. [99.79.140.187])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-395c467980bsm2692579a91.5.2026.08.21.03.56.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 21 Aug 2026 03:47:12 -0700 (PDT)
-Date: Fri, 21 Aug 2026 16:17:05 +0530
-From: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-        "Martin K. Petersen" <martin.petersen@oracle.com>,
-        Adrian Hunter <adrian.hunter@intel.com>, Ulf Hansson <ulfh@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
-        Harshal Dev <harshal.dev@oss.qualcomm.com>,
-        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-scsi@vger.kernel.org, linux-mmc@vger.kernel.org,
-        devicetree@vger.kernel.org
-Subject: Re: [PATCH v11 1/6] soc: qcom: ice: Add OPP-based clock scaling
- support for ICE
-Message-ID: <aogsqRRgc0is5wBj@hu-arakshit-hyd.qualcomm.com>
-References: <20260609-enable-ice-clock-scaling-v11-0-1cebc8b3275b@oss.qualcomm.com>
- <20260609-enable-ice-clock-scaling-v11-1-1cebc8b3275b@oss.qualcomm.com>
- <d1232243-2f23-423b-84ac-4463eac79f9a@oss.qualcomm.com>
- <ajjloqm9eOkrr5W9@hu-arakshit-hyd.qualcomm.com>
- <cc8678f2-49ab-4754-8102-d567b94e52e9@oss.qualcomm.com>
+        Fri, 21 Aug 2026 03:56:24 -0700 (PDT)
+From: hanzhijian <hanzhijian1991@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Robert Marko <robert.marko@sartura.hr>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	hanzhijian <hanzhijian1991@gmail.com>
+Subject: [PATCH] dt-bindings: fix typos in various bindings
+Date: Fri, 21 Aug 2026 18:56:05 +0800
+Message-ID: <20260821105605.1967718-1-hanzhijian1991@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cc8678f2-49ab-4754-8102-d567b94e52e9@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIxMDA4MSBTYWx0ZWRfX0OZICN8Ssg2T
- cTSdPGqcZFLj1uUXmyIsJWOjfSNFNIDtqs/auvwHVon7byryEmvZhLzgihGLukOJPp62lHRfpI/
- YCBKQlvCCg4UkMiMHFUvhZ23pmx3IEPfpWOkjfv0ScLPCOZ+IqEE8C/24jpGEjWxVhAJZSnJxlO
- vJwz1zPGSOH9RH2M/6j70qBuJdOIXlX7yzmf7+KLNyk3Conm8x363CL+qjeCMuJrWyvoURHAFvE
- RFGd9PtKRWYdFlgqkFsL88gT5Woxp/Z04x0RnDjFa1pxAeakj8l/6V965x0LknZobJ7bAK3MlYE
- khRHZi+O6TjwgHfN179P9Q3y766FVQ50YQq/CQjx7m2CGnPYjGcxi/wF2ltpEli/JrL3D6hBY77
- GHQJEipboH3h0xZSBEnwxAHE2xkSsXTp5bQ1fuh4k4dRdveOp26BTSakjBcUWMIs5YfVjdr312u
- 7XD2eS00rectl3IY2cA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODIxMDA4MSBTYWx0ZWRfX8EGIE58T4M0O
- DDQEnRKrWl3Om8Mfag8x8BBzYouKEbheu1IRmjMB1uAwzQsMYtHD6FGeaHhv9hS+gM3EuydB2vA
- nBjZlDCXyremW893rA/knRaCqXWo8Ws=
-X-Authority-Analysis: v=2.4 cv=DdQnbPtW c=1 sm=1 tr=0 ts=6a882cb2 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=K3LgHJ_EJoQmVUSs8ncA:9 a=CjuIK1q_8ugA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-ORIG-GUID: Xy1cVXE8tnZvSYbtyQuPNBo1RmR_kM7F
-X-Proofpoint-GUID: Xy1cVXE8tnZvSYbtyQuPNBo1RmR_kM7F
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-21_03,2026-08-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015 priorityscore=1501 phishscore=0 bulkscore=0
- impostorscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608210081
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jun 29, 2026 at 01:08:08PM +0200, Konrad Dybcio wrote:
-> On 6/22/26 9:34 AM, Abhinaba Rakshit wrote:
-> > On Thu, Jun 18, 2026 at 03:01:54PM +0200, Konrad Dybcio wrote:
-> >> On 6/8/26 11:47 PM, Abhinaba Rakshit wrote:
-> >>> Register optional operation-points-v2 table for ICE device
-> >>> during device probe. Attach the OPP-table with only the ICE
-> >>> core clock. Since, dtbinding is on a transition phase to include
-> >>> iface clock and clock-names, attaching the opp-table to core clock
-> >>> remains optional such that it does not cause probe failures.
-> >>>
-> >>> Introduce clock scaling API qcom_ice_scale_clk which scale ICE
-> >>> core clock based on the target frequency provided and if a valid
-> >>> OPP-table is registered. Use round_ceil passed to decide on the
-> >>> rounding of the clock freq against OPP-table. Clock scaling is
-> >>> disabled when a valid OPP-table is not registered.
-> >>>
-> >>> This ensures when an ICE-device specific OPP table is available,
-> >>> use the PM OPP framework to manage frequency scaling and maintain
-> >>> proper power-domain constraints.
-> >>>
-> >>> Also, ensure to drop the votes in suspend to prevent power/thermal
-> >>> retention. Subsequently restore the frequency in resume from
-> >>> core_clk_freq which stores the last ICE core clock operating frequency.
-> >>>
-> >>> Reviewed-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
-> >>> Signed-off-by: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
-> >>> ---
-> >>
-> >> [...]
-> >>
-> >>> @@ -335,6 +342,11 @@ int qcom_ice_suspend(struct qcom_ice *ice)
-> >>>  {
-> >>>  	clk_disable_unprepare(ice->iface_clk);
-> >>>  	clk_disable_unprepare(ice->core_clk);
-> >>> +
-> >>> +	/* Drop the clock votes while suspend */
-> >>> +	if (ice->has_opp)
-> >>> +		dev_pm_opp_set_rate(ice->dev, 0);
-> >>
-> >> The PM core will quiesce the vote as the device suspends, this is
-> >> unnecessary. Similarly, the rate restore logic will become unnecessary.
-> >> Especially since dev_pm_opp_set_rate(0) does not actually do any rate
-> >> setting.
-> > 
-> > This section was earlier discussed in the patchset v4:
-> > https://lore.kernel.org/all/7b219a50-6971-4a0c-a465-418f8abd5556@oss.qualcomm.com/
-> > The intention here was to drop the RPMh votes once the device goes to suspend same
-> > as the storage drivers such as mmc drivers does:
-> > https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/drivers/mmc/host/sdhci-msm.c#n2946
-> > This was done to leave the hanging votes *on* for unused clocks.
-> > 
-> > However, I get your point, due to mean to say that once device goes to suspend
-> > and GDSC power-domain will be turned OFF, it will automatically quiesce the
-> > performance votes?
-> 
-> When the device's runtime state goes to 'suspended', all votes are
-> dropped (which then propagates up the power domain tree, effectively
-> lowering the vote which passes through the GDSC to the parent CX domain)
-> 
-> i.e. "yes"
-> 
+Fix spelling errors found by the kernel's scripts/spelling.txt
+and codespell in several devicetree binding documents:
 
-Ack, will drop this in next patchseries.
+  - "curent" -> "current" in adi,ltc2991.yaml
+  - "deivce" -> "device" in zii,rave-sp-eeprom.yaml
+  - "ouput" -> "output" in delta,tn48m-gpio.yaml
+  - "redudant" -> "redundant" in trivial-devices.yaml
 
-Abhinaba Rakshit
+Signed-off-by: hanzhijian <hanzhijian1991@gmail.com>
+---
+ Documentation/devicetree/bindings/gpio/delta,tn48m-gpio.yaml    | 2 +-
+ Documentation/devicetree/bindings/hwmon/adi,ltc2991.yaml        | 2 +-
+ Documentation/devicetree/bindings/nvmem/zii,rave-sp-eeprom.yaml | 2 +-
+ Documentation/devicetree/bindings/trivial-devices.yaml          | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/gpio/delta,tn48m-gpio.yaml b/Documentation/devicetree/bindings/gpio/delta,tn48m-gpio.yaml
+index e3e668a12..698cc14b0 100644
+--- a/Documentation/devicetree/bindings/gpio/delta,tn48m-gpio.yaml
++++ b/Documentation/devicetree/bindings/gpio/delta,tn48m-gpio.yaml
+@@ -14,7 +14,7 @@ description: |
+   details see ../mfd/delta,tn48m-cpld.yaml.
+ 
+   Delta TN48M has an onboard Lattice CPLD that is used as an GPIO expander.
+-  It provides 12 pins in total, they are input-only or ouput-only type.
++  It provides 12 pins in total, they are input-only or output-only type.
+ 
+ properties:
+   compatible:
+diff --git a/Documentation/devicetree/bindings/hwmon/adi,ltc2991.yaml b/Documentation/devicetree/bindings/hwmon/adi,ltc2991.yaml
+index 1ff44cb22..2210764a8 100644
+--- a/Documentation/devicetree/bindings/hwmon/adi,ltc2991.yaml
++++ b/Documentation/devicetree/bindings/hwmon/adi,ltc2991.yaml
+@@ -49,7 +49,7 @@ patternProperties:
+ 
+       shunt-resistor-micro-ohms:
+         description:
+-          The value of curent sense resistor in micro ohms. Pin configuration is
++          The value of current sense resistor in micro ohms. Pin configuration is
+           set for differential input pair.
+ 
+       adi,temperature-enable:
+diff --git a/Documentation/devicetree/bindings/nvmem/zii,rave-sp-eeprom.yaml b/Documentation/devicetree/bindings/nvmem/zii,rave-sp-eeprom.yaml
+index d073c51c2..e0aacecd6 100644
+--- a/Documentation/devicetree/bindings/nvmem/zii,rave-sp-eeprom.yaml
++++ b/Documentation/devicetree/bindings/nvmem/zii,rave-sp-eeprom.yaml
+@@ -27,7 +27,7 @@ properties:
+     $ref: /schemas/types.yaml#/definitions/string
+     description:
+       Unique EEPROM identifier describing its function in the
+-      system. Will be used as created NVMEM deivce's name.
++      system. Will be used as created NVMEM device's name.
+ 
+ required:
+   - compatible
+diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
+index 2de8eb09c..719b82490 100644
+--- a/Documentation/devicetree/bindings/trivial-devices.yaml
++++ b/Documentation/devicetree/bindings/trivial-devices.yaml
+@@ -186,7 +186,7 @@ properties:
+           - injoinic,ip5306
+             # Inspur Power System power supply unit version 1
+           - inspur,ipsps1
+-            # Intel common redudant power supply crps185
++            # Intel common redundant power supply crps185
+           - intel,crps185
+             # Intersil ISL29028 Ambient Light and Proximity Sensor
+           - isil,isl29028
+-- 
+2.43.0
+
