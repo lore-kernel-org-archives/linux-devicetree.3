@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3353D3D9548;
-	Fri, 21 Aug 2026 09:44:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2E704582CB;
+	Fri, 21 Aug 2026 09:45:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787305454; cv=none; b=LiOS0OYJKR/5YRPmHpNEbLZJXhFPgBRFTewN1ixMIsyeQbD6XmQPnuveQ4feTKpIs4q1GYosl6VworiBhNhUNboasKTyuBjwXZysY8Syz7ZU4tpMz6EQnwJujsoATfkf34mmtaqBy8d1SkezQJbm/Gk7/Ia1hUjgnSIciI4jgJI=
+	t=1787305558; cv=none; b=kzshoirDAz1aoUcVoywt/+eYRc5IKX0mx/MUPt75Uv1qZj22XlXgpAsLPuk9gFHbzd3S5z9b8BmNRO+3lLC6vO8kJbx+WtxPW82ZVaS4rtnU3Q75NngBYNSrNgeZW5Xf4X1d7ufujAto0Fyglo3uXW7VOH8rasJnykHP+wTgLtY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787305454; c=relaxed/simple;
-	bh=GCiun3FJPWcaQpqLb+t1wvLo+TsGNEzqYgtsztg6Ay8=;
+	s=arc-20240116; t=1787305558; c=relaxed/simple;
+	bh=kzqR1WdKbSlmyw7IJ21T0FUlTB4r/ex5U5annYpzBwM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=W6KXEzxULlCLSHJGqRCjCHGLSEWbV9N6QL7y2cSN+rWtzPMCRUiYuGot51NZ2aVgnaopBGOqEWHbsYLy49TmlEPcYlMNeVbKjaRxEUZR86/YhQeFLbabu9yU/M9ZF7u/9TQgETYhQoGT70W9H+HtPB7rRFhErbXbQIpzPxkfSH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XdQX2MJf; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=AEjEd5BYFBDxWXd/y1XiQBQL41U+cceY4iIYyYZyLE63yZ4knz7lxwM8sgsJZRAfw8ZRTe9KAz0mf83MOcoTkk+5aBTKw5za69WQ0zrZRm6KKxq8ynSdo1qA4zIyB2Tv5pzWZrO7FXxJ4hKbrbgZNZYiiSPI+mMbhDIXKGudrG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IrUi1wjB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XdQX2MJf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72AB41F000E9;
-	Fri, 21 Aug 2026 09:43:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IrUi1wjB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEF811F000E9;
+	Fri, 21 Aug 2026 09:45:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787305443;
-	bh=eHFJ0eUAVII379yRAiVcoAVkPJx8Zj6PegKpkPE3upo=;
+	s=k20260515; t=1787305550;
+	bh=lcX1HcIioN6RDOu7kJFmuhD+cDaBL4tzsJMwf2OP5DE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XdQX2MJf3kqt+IsJPOusVktomYsFQiT8N16WjjCb1Dklht/wzeEGZ5WD8nLBH4WJl
-	 c4CpefvnFm6CZHL1UvzVWo6hRq+2JgRic4Rdj7vZTr46Q2FBh7zmTFQqR4cEuN1Apa
-	 oujWZPdb4NA0ia5fvEHtgm8L9KTDc1FBoo0C5UI2NaSyttYUh+KTF9Yp4SFlI2dLkm
-	 QIPbL28VRl8tpmzmDXT2b3C4rDhdKs/dKHFOs+jcLyooUQr8YJwInNncq+ae1rDiJ0
-	 SXmWXcTsktt5LDpyLLCpwGGqAsP+dHh+plF72BHuJAG4exHfXq9Yfn3OMjnjpugxHT
-	 DyXqQo53Bv4Kg==
-Message-ID: <f7238047-e434-4e46-9f27-183bd94e77c5@kernel.org>
-Date: Fri, 21 Aug 2026 11:43:55 +0200
+	b=IrUi1wjBqYEnizRjndZOGvVP/lwYsj9xPGf/RV7kVw5jIuU6Hw8sOmOpH4D5mYhlm
+	 vaKbUogJjRjRPMmf0Wm2xMT1ZeomLp8/XQ++X+rm46BkYlMXNVmIINvSYtzqhvMQAr
+	 2X15Pun5aYZbcUYo+bXBIcJZx86r7fdI7jPw5MEXfKs2Ki31Dh4O7xWigsM+Qxk+6C
+	 6qsrqZQupJgk5H014Dn5EE5jwuKVFcK61025lrEgXbeTVEBNf3RQ4Qd3nv8fSA5wvk
+	 uNVQm+muMoFuiHzDF3nEcGs8YdCy7gZZZDNQpJoetgZFJwmLZ+hb0WgiMIa/0n1NWp
+	 l0e186Z/KwRnw==
+Message-ID: <4af6ebe2-c476-4251-829b-2d41239da7ff@kernel.org>
+Date: Fri, 21 Aug 2026 11:45:42 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,7 +35,7 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] dt-bindings: vendor-prefixes: add Axera
+Subject: Re: [PATCH 5/6] arm64: dts: axera: add AX650 Demo initial support
 To: Leng Honglin <lenghonglin@axera-tech.com>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
  <conor+dt@kernel.org>, Shi Zhicheng <shizhicheng@axera-tech.com>,
@@ -46,7 +46,7 @@ To: Leng Honglin <lenghonglin@axera-tech.com>, Rob Herring <robh@kernel.org>,
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev
 References: <20260821-ax650-v1-v1-0-e1b013938e6b@axera-tech.com>
- <20260821-ax650-v1-v1-1-e1b013938e6b@axera-tech.com>
+ <20260821-ax650-v1-v1-5-e1b013938e6b@axera-tech.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -92,38 +92,26 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260821-ax650-v1-v1-1-e1b013938e6b@axera-tech.com>
+In-Reply-To: <20260821-ax650-v1-v1-5-e1b013938e6b@axera-tech.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 21/08/2026 11:30, Leng Honglin wrote:
-> Add the Axera Semiconductor vendor prefix for devicetree bindings.
+> Add initial device tree support for the Axera AX650 SoC and Demo board.
 > 
 > Reviewed-by: Shi Zhicheng <shizhicheng@axera-tech.com>
 
-Where did it happen and what was here exactly reviewed? Did reviewer
-understand statement of oversight? I am asking because this is v1 and
-has already clearly visible issue (below).
+I have more doubts, looks more like automated acking.
 
+...
 
-> Signed-off-by: Leng Honglin <lenghonglin@axera-tech.com>
-> ---
->  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> index 396044f368e7..1dbafe682724 100644
-> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> @@ -219,6 +219,8 @@ patternProperties:
->      description: Shanghai Awinic Technology Co., Ltd.
->    "^axentia,.*":
->      description: Axentia Technologies AB
-> +  "^axera,.*":
+> +	/* GIC-400 block base; register frames start at offset 0x1000. */
+> +	gic: interrupt-controller@4900000 {
 
-So your domain is axera.com?
+MMIO nodes are not placed in top level and your internal review should
+have tell you that.
 
+Also, entire file looks like failing on dt-style-check.
 
-> +    description: Axera Semiconductor Co., Ltd.
 Best regards,
 Krzysztof
