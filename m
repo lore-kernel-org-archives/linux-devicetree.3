@@ -1,120 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D7463FADF7
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 19:18:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F992FD1AA;
+	Fri, 21 Aug 2026 20:36:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787339922; cv=none; b=sWpi8uQusRlX/a5RZefRTmAa8Fc6T4fHL7I2Sk9tv9dHqk0+/sCp3UxBKof++FFL1bk8gPNCSZJ3dG/zZLbgcdVrwhJ009IuD0SvfZlJH/cUc7LllOD3sLa8VtkcmACBgT9XjqAdJ0fNNmXyhpWVtYeVLjcmzcsR2sBfvQ126ns=
+	t=1787344602; cv=none; b=jaoO8AUPZjtLK7C4UHY4wNKg2ZdYplkC2J4FQyn8zr/dO/JgCzERKw5nU6VUliM6DDhNMM3HXpr8zHYuXeTw+71jWcy/DWOe+GdBDB8j9GtTcuf7Gu5+UPcB18HVRqNsvhj1L1Gq5RsxgNbaesfMKaOV7zURHfTpew3FET5ws/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787339922; c=relaxed/simple;
-	bh=dyWX+s85fTBt9c2JlvMZxAles40YKvnD8i9BnJwfT6I=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=J+l2D8TDaMvwrWaeHJOwnkwwB/ExEQtGW3TOGzy2NxQcELT+E0hk57RTfA8sJJOxiDN+lKPls5ufWEcgT6sDX5t2RN2tuNjkJmHw+v8f7MVZ5NUiKF8oiXTsdqc0In05dbdRJePSbEJ0+XUyDOKIkwJ9ILAzyLFdzjzYyWigN10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QQ6AS+wp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787344602; c=relaxed/simple;
+	bh=bGIDuBxQXKqtCd1SoBgj9DAwMmLJqa8KGadDsCyKMX8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=asVPSo6P/JGOtbnKOHYqofrwIOuD4LeoNeh0taiv00Q/K3bo0j1/ZiLrWjISVhs6lNQxyYWQOdq2L+NP+9rZkn0d9imNvyCTlk7Ct6JR6yXz/tu2bEpFIGGqJD9oy3Ky8xkVr+fdm9imH2Nc3CjihV3CmyX2HVFS1jXPsIKHmN4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aJ+k3Csm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QQ6AS+wp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D817D1F000E9;
-	Fri, 21 Aug 2026 19:18:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aJ+k3Csm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF0931F000E9;
+	Fri, 21 Aug 2026 20:36:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787339921;
-	bh=Q97Gt8RMQszKo3EGmPNRp9jxCWk+CukK5mBnIJessWg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QQ6AS+wpMgEGWH0PgQalqobkEG7PTr3/8yvmjjcEgt3IeD0njXdtwOpq1+Jyks2zP
-	 dOS6M3RxVF33iOHwQNapR7+lthyXfa/2C6pDRf2cW+3+lIj8JbfpRN4g4eeJn8zWRI
-	 U/dxXVp8DyoZERIN54PCEcJnQTrdMuQxdteHY+ly0sQHZ2mu+g5EOGl4NW1t1jRH2K
-	 ZyKx4jCqXARCsIBzvxy+n6befxmeKqk+WU7KznZSY0pSCniBBylIxAB/lXwFmeBaw2
-	 mHCHkQba+TQJoWaoAonTP13vCqmzTlR4JQ0fmWcadzYzA9kU3RwdCGFpsg7dzyDsUR
-	 CStFXGCNgwyfA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] regulator: dt-bindings: ti,tps6586x: Convert to DT
- schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Bhargav Joshi" <j.bhargav.u@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260822-ti-tps6586x-v1-1-93cb46b32b27@gmail.com>
-References: <20260822-ti-tps6586x-v1-1-93cb46b32b27@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 21 Aug 2026 19:18:40 +0000
-Message-Id: <20260821191840.D817D1F000E9@smtp.kernel.org>
+	s=k20260515; t=1787344601;
+	bh=MNOKOMup41cy8sy1MgQ/pJy8Y4KSbPC2AV3M7PYDDFw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aJ+k3CsmTQrcJFYjF9/BMPSeebNFmPybuKCIqJZNrYkOX6Zhpp/fbLONzPQPY9R38
+	 iELMw+ToE+JJFAer7hWAH84UnDU3AVk1BOR7UMqs2DInl/Z40thuBXSbV6O0gUsR3i
+	 cWE+X6iqXdcGtOf5bGaqNAqb34GDncJQF7Nrgo2WqKSdklnDlWTOq88umzoHupv+6E
+	 LlrOJTWj0I0vnvz6YiQTUj0Wp6fKITHsldWUcJQ6yVrNDG+dYdaWbNoJmw4kVY5Tb3
+	 oqc1xwN2uo9hbJ+CQlQBZgIDzHVK0tqIuQ24CBsev+YU4b+RkGnZ1txVoJ3KSfNwFh
+	 OWoFRGxJCzMoQ==
+Date: Fri, 21 Aug 2026 15:36:39 -0500
+From: Rob Herring <robh@kernel.org>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Christian Marangi <ansuelsmth@gmail.com>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Jianjun Wang <jianjun.wang@mediatek.com>, linux-pci@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v5 0/2] PCI: mediatek-gen3: Add 2-lanes mode support +
+ clock
+Message-ID: <20260821203639.GA4153689-robh@kernel.org>
+References: <20260806165334.7328-1-ansuelsmth@gmail.com>
+ <20260814223638.GA181706@bhelgaas>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260814223638.GA181706@bhelgaas>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The device tree binding example contains phandle references to unde=
-fined labels, which will cause `make dt_binding_check` to fail.
---
+On Fri, Aug 14, 2026 at 05:36:38PM -0500, Bjorn Helgaas wrote:
+> On Thu, Aug 06, 2026 at 06:53:30PM +0200, Christian Marangi wrote:
+> > This small series introduce support for 2-lanes mode for Airoha AN7581
+> > SoC. This is needed for correctly functionality of Eagle WiFi Card
+> > normally attached to this SoC that require a 2-line PCIe card to
+> > correctly work (and give the proper performance)
+> > ...
+> 
+> > Christian Marangi (2):
+> >   dt-bindings: PCI: mediatek-gen3: Split Airoha schema and document
+> >     2-lanes
+> 
+> This is applied on pci/controller/mediatek-gen3:
+> https://git.kernel.org/cgit/linux/kernel/git/pci/pci.git/commit/?id=39f758dc5fbd
+> ("dt-bindings: PCI: mediatek-gen3: Split Airoha schema and document
+> 2-lanes")
 
---- Patch [1]: [PATCH] regulator: dt-bindings: ti,tps6586x: Convert to DT s=
-chema ---
-commit b755cd6cba207356ee219dac6c62ba31935acb54
-Author: Bhargav Joshi <j.bhargav.u@gmail.com>
+As reported by 0-day, this introduces a bunch of warnings and I don't 
+see any .dts fixes (plus the need for fixes indicates a ABI change).
 
-regulator: dt-bindings: ti,tps6586x: Convert to DT schema
+This should be dropped if dts changes aren't going in in the same cycle.
 
-Convert Texas Instruments tps6586x regulator binding from text to DT
-schema. Add child regulator node properties that were missing in the text
-binding but used in existing DTS files.
-
-> diff --git a/Documentation/devicetree/bindings/regulator/ti,tps6586x.yaml=
- b/Documentation/devicetree/bindings/regulator/ti,tps6586x.yaml
-> new file mode 100644
-> index 0000000000000..82c3a3c811200
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/regulator/ti,tps6586x.yaml
-
-[ ... ]
-
-> +examples:
-> +  - |
-> +    i2c {
-> +      #address-cells =3D <1>;
-> +      #size-cells =3D <0>;
-> +
-> +      pmic@34 {
-> +          compatible =3D "ti,tps6586x";
-> +          reg =3D <0x34>;
-> +          interrupts =3D <0 88 0x4>;
-> +
-> +          #gpio-cells =3D <2>;
-> +          gpio-controller;
-> +
-> +          ti,system-power-controller;
-> +
-> +          sys-supply =3D <&vdd_5v0_sys>;
-> +          vin-sm0-supply =3D <&sys_reg>;
-> +          vin-sm1-supply =3D <&sys_reg>;
-> +          vin-sm2-supply =3D <&sys_reg>;
-> +          vinldo01-supply =3D <&sm2_reg>;
-> +          vinldo23-supply =3D <&sm2_reg>;
-> +          vinldo4-supply =3D <&sm2_reg>;
-> +          vinldo678-supply =3D <&sm2_reg>;
-> +          vinldo9-supply =3D <&sm2_reg>;
-> +
-> +          regulators {
-> +              sys {
-
-[Severity: Low]
-Will this example fail to compile during make dt_binding_check?
-
-The phandles <&vdd_5v0_sys>, <&sys_reg>, and <&sm2_reg> are referenced here,
-but the labels are not defined in the snippet.
-
-In the old text binding, the sys_reg and sm2_reg labels were defined on the
-child nodes (e.g., sys_reg: sys { ... }), but they appear to have been omit=
-ted
-in this conversion.
-
-> +                  regulator-name =3D "vdd_sys";
-> +                  regulator-boot-on;
-> +                  regulator-always-on;
-> +              };
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260822-ti-tps6586=
-x-v1-1-93cb46b32b27@gmail.com?part=3D1
+Rob
