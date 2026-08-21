@@ -1,122 +1,235 @@
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16648481661
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 11:20:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F2AC379EFF;
+	Fri, 21 Aug 2026 11:36:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787311228; cv=none; b=pe2islzNy/2jt5HVkMGHsukT89+1fmxFY1Z5piULH6IYwK/ZAfgHZ85OZoUUAtTiIDV82UeYKlsneX9qx/nWoV5FWjtmXZhMzngcNsoft4SF9/+6mJ+mAWCXgpcSGTdkzAg/Uv3/H254YX27pUcLI+J7JhbXUfadB3GsyBeixH8=
+	t=1787312170; cv=none; b=o0heqwMLygBynqv0HL45RGqtwtHrwqX5lEdUZdOSa1fCkRdx3Dcw0+TSHxKaZF8vmm95P68hTuJn4hOcPyC+UZySGIYQZRTKwS49gA2nJ6LrzCBHZ4NYbsBdyxswSiXhU8DLJVXc5FPlM205FRPStHfbXICvm8NL1vsHiSP5pHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787311228; c=relaxed/simple;
-	bh=zl+lcKVUwTw2hdXwH5M71fIohjQYAkHgT2vGYk8sVcI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MmYyUgIVAQDMl3vGbV1gqhQ0bD/sygWIF3EyXdnktPUJnrvvjrtCc/g2m6jqCaU0Ppg/3xJ3cgSZ7kbFWcgb52rb/TS0y+Jz84Bvk0glKwT74lPlu8XuFdLbQIQ1QWpyRMMYbQQ07pwOcm9LfM7x2tL2q7iwVDWzWQrUfuC32EQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kQWQ6tUB; arc=none smtp.client-ip=209.85.208.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787312170; c=relaxed/simple;
+	bh=o1Bhez6qyf0vI6dDip45ZKlBNsGfUzARPydzPVrup1Y=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=KuCp06V3u2w99Cg/OqNzq31phrakHFq+xI2yAsbN6j041BkMyjR9nqtXMhqjy4s9TSdzHOG7+EyaU0YG7R3WEqBkAbt8d35xeZxluhNqK2w9+bU4JDzZRGL1gGb/pGErV1nMXi5bMCAyr4VZXDd2gc1nM/zQVzoHZ5U4jKgDCZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nw6zwRHP; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kQWQ6tUB"
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6a0794669a6so1826495a12.2
-        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 04:20:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787311225; x=1787916025; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=S/G4kA1oa42FAHTTSOZ1rtStYiGFk+bZCYLupm5QyS4=;
-        b=kQWQ6tUBcIJF+jcb8qBZ4bN8IhgFxCytsHiQhSFZ6JQl9diuPrQMs0AkPOqXf1+Bre
-         f0lCpasDgnu9OJHvG3a7u1lhbAXTMUahPAkbfKCJrL6mbvrjligoFL0fLY9E5usjvPgN
-         XoLFfecTEVAhDjYf7LciWsJ4ViKEjRkYbQEvFESoU2Vv+pCARd2MW3xM1iDUUhtqwf43
-         eJK2J/CfdlpaAFuhAJVRk7g9bpDa5B2J7UmSZ30hqTerMMXmPmj9e1+dZ5SMmkGsgCrm
-         /dKOSVtbvMAGwsEDNSsnqrHjHGTMLJhy5+0llLqgHMeuajHJ/msruKh8P9JX2ITXlXIf
-         4bxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787311225; x=1787916025;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=S/G4kA1oa42FAHTTSOZ1rtStYiGFk+bZCYLupm5QyS4=;
-        b=Z8gjx0mgRCNiQpxqLurppDOtI0u5YcFvhqv6LpbP2AW3soUuhHenOSmgKE8o6LeoBF
-         OhnRhmNoE7B3PRt8SsqJVsgkXNWCkQiUxrxE4/0rWzRu3JOdcUpvfNrr1kTtj7OX6YFK
-         ONvbcDz8X3UQBMdiaW/pa5s8DDGA/V2eiaMHnpMnGJpK+eIZyu3ZKUEPgoDvb8XTQIrD
-         dh2VHaO8qwUy6ljLuXkSCB3OLheyj/LMoGapHhBGOR1+oskzJ8e7K3MUiUmW1blyGXpP
-         2910JF+owWC98n0FOKRW0I38PlfW0gPCo9z4PM+JoxP+4fLo96xWTqgp42sqihMdbRtf
-         ivmQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoHJK9HYkQyM1j5OkLr3CExu/+x/7Iru4v8PD+kpCMNKHXVClMlUgpzknrDDoIvtZOSGUHAoHPEycWL@vger.kernel.org
-X-Gm-Message-State: AFuF++la9XEOeHkWshyAyuC7J9LlUAvnsLP68WoGcXuKJpvr7nIXoK1Y
-	boDV2rTSFfpxf4qmQbZ8ZnbLnlel6mRPPbtH8yeKfBoG6Owo++pMWIN4
-X-Gm-Gg: AR+sD10Y1y91Jfe8zS1TEx7GN4H5R3cN69TQSO1eQPUI+dJ4fcUcGHJb9wTGuNJloZV
-	EpJalfYgE63VOuzowebIdwjXEG4vjH/kgUBI/rISrxca4HXyNF/D7Qe3tnTIbcm/p3sHrmVxXoD
-	pFVs1/RuokULIRzXWhDfozXvULf0RRL2FfInvjWPorKG8oDMDTyfZbbUCsUOzXc8hooH02EzvTZ
-	ZSJJyTEGHhX/6XKPE8sGh+TDjEiYOGroZf0MOBzcD89eoVwEcj3tofVkt0V59KltZtp27eirfeu
-	1ycpZVUnh8gKpWE5xYLs6JYIxRNXcR7VXlRbOxtZcGG2kIppnIj8KxFR4sxY1wFVklXPdxKfHFx
-	CuOa000uTq7pKxSWnBcOPSIYmZNHbvYhL/BFNUIu07VIi9VTffRVXNlhJnS5Mp14hyn8gBFxmIW
-	om+d/IehZ5q4yDZEMopttrnjFZoXlgqXCq0/IhHuxQMBc1/ea57YHl1hJUy/9dRvVzsNsExzNu+
-	o8qFD8F+ITBk2b7h56erPK8sD67S1xHaPFEoIJX0WCholXUwV8z2W17WLBBZMw+zr577dJ3DFEZ
-	JAexWkkVhZaB8poaqW83HZB4i40Z2C2gPi9hXLg/2Iju8zA1DqV6kT5rcse/N3bGzeywX4LowhS
-	VjVDHIU8OCWR01SeGT0A3Rl5C/cwkfcUlohYaYjtIeZczbzOQdbpNoFBVJ06nqGxPRniu6NVoTO
-	DxkuJi6A==
-X-Received: by 2002:a05:6402:380f:b0:6a3:9e00:8ed2 with SMTP id 4fb4d7f45d1cf-6a42f27795amr6505598a12.16.1787311225089;
-        Fri, 21 Aug 2026 04:20:25 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a3ff1780c9sm5978930a12.28.2026.08.21.04.20.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 21 Aug 2026 04:20:24 -0700 (PDT)
-Date: Fri, 21 Aug 2026 13:20:21 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Taha Ed-Dafili <0rayn.dev@gmail.com>
-Cc: jic23@kernel.org, lars@metafoo.de, Michael.Hennerich@analog.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org,
- skhan@linuxfoundation.org, linux@analog.com, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 3/6] iio: dac: ad5504: separate ACPI and DT paths
-Message-ID: <20260821132021.00000d2c@gmail.com>
-In-Reply-To: <20260821102452.37407-4-0rayn.dev@gmail.com>
-References: <20260821102452.37407-1-0rayn.dev@gmail.com>
-	<20260821102452.37407-4-0rayn.dev@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nw6zwRHP"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67L9LncR1474544;
+	Fri, 21 Aug 2026 11:36:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=CXjD5M0e/Wr
+	v8YrUbZUegzsnwQ++lVeh8HIc5uUcP04=; b=nw6zwRHPrxRogTyZ9MD2FiIx+wZ
+	SBTfqMZNtD5WiXOaEE/9xB55+dnY5HC+aPP5k1xR35mhrhn3TVIoivHDRurlGUq1
+	vystLGIADt0U+60DylO7SfoD0z2nuyVI2f7gk5C6nZKCANRef4TbWTLgrrVXZhoL
+	2BOSGJGM/PU9cD1GOQ8Tm1XdpIfQ9WNMOWg9mnFEm24dqdcaPiJA9iYnEK0KCFEG
+	d3WhsBKJlIerELVrXGrlDaPcs0zOOloMP6MBhbk544xt51yvrFP5gESf4036WWOz
+	I329ahA/GeWdiY9lPlPOv5IbRBLgLXdpUihgZAsrK0dqMQ6cq3QpN3XXRbQ==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g6fbw9fvu-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 21 Aug 2026 11:36:06 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 67LBa2OI029385;
+	Fri, 21 Aug 2026 11:36:02 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4g2h6m45px-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 21 Aug 2026 11:36:02 +0000 (GMT)
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 67LBa1Ok029365;
+	Fri, 21 Aug 2026 11:36:01 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-pkumpatl-hyd.qualcomm.com [10.147.245.204])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 67LBa1ch029359
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 21 Aug 2026 11:36:01 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 3914174)
+	id A53CE5D7; Fri, 21 Aug 2026 17:06:00 +0530 (+0530)
+From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v7 1/2] dt-bindings: pinctrl: qcom,hawi-lpass-lpi-pinctrl: Add Hawi LPI pinctrl
+Date: Fri, 21 Aug 2026 17:05:47 +0530
+Message-Id: <20260821113548.2686650-2-prasad.kumpatla@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260821113548.2686650-1-prasad.kumpatla@oss.qualcomm.com>
+References: <20260821113548.2686650-1-prasad.kumpatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODIxMDA4NyBTYWx0ZWRfX3Mt3Ih1ITc52
+ fn0Hw/wujT4kqsIo9ddZOR3RiU26cJRhCAVp1W4L1Z2tQUl7G0Zq5PoDaW06epUE/18SX8SJ6mz
+ xXHkUiYw5ipZYykz2SU7Fwj7RZ7WAtg=
+X-Proofpoint-ORIG-GUID: m6vcE7qoeAr1a_8oNM4nLcnySim6LOtI
+X-Authority-Analysis: v=2.4 cv=L9AtheT8 c=1 sm=1 tr=0 ts=6a883826 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8
+ a=bT5XQOCXPleopHcqzpYA:9 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIxMDA4NyBTYWx0ZWRfX6y/mtzBeZv15
+ Wc2ub1DmGUwWPqBrY7sB6POH6/HmL7uhZEY52Vzj94xBgbo3TPxBGpWa6uPvkz8GgN0m4S0AryO
+ 7/AxpRdLqHxjh7e2jB9dETf6T37yP/USRIjCvp2Yof2mFZwgft0ld7JmSfomFhR0lT1z6fhnW/e
+ vPBZLw2l6bM0cEQZ7vTtk90haxcaFDTf/E40W1UYoW9sHxlX69ABRyNt1BXBAay/geF5UdnyKWK
+ WERI6sDams+fX6TORDSfDjmTLtA0UCZKtDi1WMfgmiTL+j8O1spvOQ8bMjAPGzcILmnKinW0UCo
+ JHUqACcruQ9lsKDpOcg4Let42UzWCPjltgWRdl7WrXxxfhNYUnc6vpIln+IPWpnHoGIbgX/zqZm
+ h2T4Q/sozaBVXrBu517TiqBqquC5lRfGM19XnxfBqHLMLMyv2oljD0chih9rIxORf7UDGWVYUAx
+ qODOl/JYNzhNqj8insg==
+X-Proofpoint-GUID: m6vcE7qoeAr1a_8oNM4nLcnySim6LOtI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-21_03,2026-08-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 clxscore=1015 priorityscore=1501 suspectscore=0
+ lowpriorityscore=0 malwarescore=0 phishscore=0 adultscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608210087
 
-On Fri, 21 Aug 2026 06:24:45 -0400
-Taha Ed-Dafili <0rayn.dev@gmail.com> wrote:
-> @@ -285,16 +292,20 @@ static int ad5504_probe(struct spi_device *spi)
->  
->  	st = iio_priv(indio_dev);
->  
-> -	ret = devm_regulator_get_enable_read_voltage(dev, "vcc");
-> -	if (ret < 0 && ret != -ENODEV)
-> -		return ret;
-> -	if (ret == -ENODEV) {
-> -		if (pdata->vref_mv)
-> -			st->vref_mv = pdata->vref_mv;
-> -		else
-> -			dev_warn(dev, "reference voltage unspecified\n");
-> +	if (is_acpi_device_node(dev_fwnode(dev))) {
-> +		st->vref_mv = AD5504_VREF_ACPI_DEFAULT_mV;
->  	} else {
-> -		st->vref_mv = ret / 1000;
-> +		ret = devm_regulator_get_enable_read_voltage(dev, "vcc");
-> +		if (ret < 0 && ret != -ENODEV)
-> +			return ret;
-> +		if (ret == -ENODEV) {
-> +			if (pdata->vref_mv)
-> +				st->vref_mv = pdata->vref_mv;
-> +			else
-> +				dev_warn(dev, "reference voltage unspecified\n");
-> +		} else {
-> +			st->vref_mv = ret / 1000;
+Add bindings for the pin controller in Low Power Audio SubSystem (LPASS)
+of Qualcomm Hawi SoC.
 
-ret / (MICRO / MILLI)
+The controller has 23 GPIOs (gpio0-gpio22) with functions including
+SoundWire, I2S, DMIC, VA I2S, ext_mclk1, slimbus and lpass_lpi_dbg_clk.
 
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+---
+ .../pinctrl/qcom,hawi-lpass-lpi-pinctrl.yaml  | 109 ++++++++++++++++++
+ 1 file changed, 109 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/qcom,hawi-lpass-lpi-pinctrl.yaml
+
+diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,hawi-lpass-lpi-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,hawi-lpass-lpi-pinctrl.yaml
+new file mode 100644
+index 000000000000..af68581750cf
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pinctrl/qcom,hawi-lpass-lpi-pinctrl.yaml
+@@ -0,0 +1,109 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pinctrl/qcom,hawi-lpass-lpi-pinctrl.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Qualcomm Hawi SoC LPASS LPI TLMM
++
++maintainers:
++  - Krzysztof Kozlowski <krzk@kernel.org>
++  - Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
++  - Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
++
++description:
++  Top Level Mode Multiplexer pin controller in the Low Power Audio SubSystem
++  (LPASS) Low Power Island (LPI) of Qualcomm Hawi SoC.
++
++properties:
++  compatible:
++    const: qcom,hawi-lpass-lpi-pinctrl
++
++  reg:
++    items:
++      - description: LPASS LPI TLMM Control and Status registers
++
++  clocks:
++    items:
++      - description: LPASS LPR(Low Power Resource) voting clock
++      - description: LPASS Audio voting clock
++
++  clock-names:
++    items:
++      - const: lpr
++      - const: audio
++
++patternProperties:
++  "-state$":
++    oneOf:
++      - $ref: "#/$defs/qcom-hawi-lpass-state"
++      - patternProperties:
++          "-pins$":
++            $ref: "#/$defs/qcom-hawi-lpass-state"
++        additionalProperties: false
++
++$defs:
++  qcom-hawi-lpass-state:
++    type: object
++    description:
++      Pinctrl node's client devices use subnodes for desired pin configuration.
++      Client device subnodes use below standard properties.
++    $ref: qcom,lpass-lpi-common.yaml#/$defs/qcom-tlmm-state
++    unevaluatedProperties: false
++
++    properties:
++      pins:
++        description:
++          List of gpio pins affected by the properties specified in this
++          subnode.
++        items:
++          pattern: "^gpio([0-9]|1[0-9]|2[0-2])$"
++
++      function:
++        enum: [dmic1_clk, dmic1_data, dmic2_clk, dmic2_data, dmic3_clk,
++               dmic3_data, dmic4_clk, dmic4_data, ext_mclk1_a, ext_mclk1_b,
++               ext_mclk1_c, ext_mclk1_d, ext_mclk1_e, gpio, i2s0_clk,
++               i2s0_data, i2s0_ws, i2s1_clk, i2s1_data, i2s1_ws, i2s2_clk,
++               i2s2_data, i2s2_ws, i2s3_clk, i2s3_data, i2s3_ws,
++               lpass_lpi_dbg_clk, qca_swr_clk, qca_swr_data, slimbus_clk,
++               slimbus_data, swr_rx_clk, swr_rx_data, swr_tx_clk, swr_tx_clk1,
++               swr_tx_data, va_i2s0_clk, va_i2s0_data, va_i2s0_ws,
++               wsa2_swr_clk, wsa2_swr_data, wsa_swr_clk, wsa_swr_data]
++        description:
++          Specify the alternative function to be configured for the specified
++          pins.
++
++allOf:
++  - $ref: qcom,lpass-lpi-common.yaml#
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
++
++    lpass_tlmm: pinctrl@7f60000 {
++        compatible = "qcom,hawi-lpass-lpi-pinctrl";
++        reg = <0x07f60000 0x20000>;
++
++        clocks = <&q6prmcc LPASS_HW_LPR_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
++                 <&q6prmcc LPASS_HW_DCODEC_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
++        clock-names = "lpr", "audio";
++
++        gpio-controller;
++        #gpio-cells = <2>;
++        gpio-ranges = <&lpass_tlmm 0 0 23>;
++
++        tx-swr-sleep-clk-state {
++            pins = "gpio0";
++            function = "swr_tx_clk";
++            drive-strength = <2>;
++            bias-pull-down;
++        };
++    };
 -- 
-Kind regards,
-Joshua Crofts
+2.34.1
+
