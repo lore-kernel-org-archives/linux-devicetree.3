@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0955C1D432D
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 12:32:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E05F3C2774;
+	Fri, 21 Aug 2026 12:34:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787315579; cv=none; b=QN2U+x13LB+h2Bt6JsC5CO4ABZ4UDlVVsOkdG3LSX7Pq5F4IaGT3IjaaouCyIO7S0kqhuF6bhNGj2kiV+p3+99BY2p4DzJUkxLRaLnOremRAAbZS+3YnFZIi6Yw2b7GOTm4oIpdWz5SeTMb3MJ6uIXml0lZY/2dGsIzxQzXF8AM=
+	t=1787315690; cv=none; b=Z1qiNHxX0pisPcxju2FPsN15p3id6H+PIsdZBFKy7J0vxL1xXT7c7qFJQEL/eVVU49A1Ow4aNPsZLaeSc9u0pg3nh7kABCAuyaVOAH8IrrtmTqtLEoQ33dzkZBsiE06lJXDNsDADHYSHUm0IAsGcb4o8jylo3J97SdhqL/AMZVE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787315579; c=relaxed/simple;
-	bh=PmBMpkKaBaWmMj1Er7Ijrdgmgrke8o9VNzH6kuSGVkU=;
+	s=arc-20240116; t=1787315690; c=relaxed/simple;
+	bh=2kkKHBkv88IKU+xYcF4WPa4D6oErpPyRc/r+4J+1E/Y=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CdvjjBg2wghWtL8e/Wctb4Ydu6eYoFVdfcxrixKnHkQ8Y1gTHfH5cdllm2Y62UBr89PDXCwKzcosi7afAGFN2Eap1RVlp47Lkbv7rwR7u2K5rRmZ/i6qU6sX5KwREJu/LDzj+uu6ehlgWxATt8UWwVxQmnBrcDv0O2u39vPV6eQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nJmajT/w; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=q0r+KH6Ti+KeKsiVgZhwa5DO4n4pZl3NiWNNW0CjPVWiSUAbZBUU5BgCbhMnKqgOEdRPnWsYm2HLKIZbVzpECQN6ZhEFVHitBFRx7S7GJs1EG8xu9Vn5qzPK2ZaySjMjvEXzM9k6qaWK6UXmiY7GITpThNO/xsA93PR2OqALZMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cIC/lNBv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nJmajT/w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 721791F000E9;
-	Fri, 21 Aug 2026 12:32:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cIC/lNBv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A67271F00A3A;
+	Fri, 21 Aug 2026 12:34:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787315577;
-	bh=bcr2K2H5yLJuv2ACy/jcNe93hl0gV4SmcejXtT80Ur4=;
+	s=k20260515; t=1787315689;
+	bh=7AFkhrMCThyIII9/q9rulOXS6WokpvNvCXDBg9oxukc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nJmajT/wHCCpYlavphGSE2Am29ax8ybzKGuvPRuDx0JXGBUUEN/OmOP3ZAmaABjFA
-	 +K/Gk7bIc/2CvR9SV9T3EaqEHcHER7lM9th6/gPrkM4uYFlf8HGyRztO97h0iCk2Rp
-	 kXLqs2zgx0x0cBrwHrVgdX0ocrL8XL73xhg2PxPLUq1nFpYQlIHSvBbioiWqil1FQA
-	 2uIJs/EzmtoWfrozlsCPazgcuoUEw0C5AayHTQ7l7szpKvpCVwyCBo7KhaQAZ8KVLj
-	 zEcThLMJ2jl504DOdGXfgptAIyjKVZEMiFbzNemfDgpKP08TPmWcZZOu4pk3N3dIS4
-	 POk2ao/7SkaMg==
+	b=cIC/lNBvl8Xmx/GpOhS9FclS86DpwvrYQf9wwzljsCfUVO1U0EgjA4aHnqTOQcCrE
+	 KvgRUtPPaRgrQ70A5Id14V5r3Ng21aYPK5rOF3giyZyTXovK89bL5f4AEyoUNYTFny
+	 WuAIEfIaNgwVvXNQrk+TAs/O88MZiIcdkm+MM3BlnH2iuaET9AQB9u4Jat4EqggF0z
+	 NThlonjJoFtgQQl2yqscQm4UGs0w3QUHy7b5q9BoonaVEM/iQ6ovY4XiXGPedN5fDS
+	 xxWY9Oar1nYXOpDp1374e93YJl+VfKiSQyDL5G6UCmwwKKhkxayhEz+iIf4gJbKKhZ
+	 YR8bcHFhiYGYg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 7/7] arm64: dts: qcom: Add Xiaomi Redmi 9T
+Subject: Re: [PATCH v1 3/3] ARM: dts: imx7d: add Variscite MX7CustomBoard
+ support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Adam Skladowski" <a39.skl@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260821-next-patches-v4-7-7ab02c0d4eb9@gmail.com>
-References: <20260821-next-patches-v4-0-7ab02c0d4eb9@gmail.com>
- <20260821-next-patches-v4-7-7ab02c0d4eb9@gmail.com>
+To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <af43fd35a6ccbcf633966a9b18f21832e8f44366.1787314780.git.stefano.r@variscite.com>
+References: <cover.1787314780.git.stefano.r@variscite.com>
+ <af43fd35a6ccbcf633966a9b18f21832e8f44366.1787314780.git.stefano.r@variscite.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 21 Aug 2026 12:32:57 +0000
-Message-Id: <20260821123257.721791F000E9@smtp.kernel.org>
+Date: Fri, 21 Aug 2026 12:34:48 +0000
+Message-Id: <20260821123448.A67271F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,113 +47,113 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] The `brightness-levels` property in the `backlight_dsi` node define=
-s a single element (`<255>`), which violates the led-backlight DT schema an=
-d causes a runtime kernel warning.
-- [Low] The USB SuperSpeed PHY (`usb_qmpphy`) is needlessly enabled and rou=
-ted to the Type-C connector on a USB 2.0-only device, misrepresenting the b=
-oard topology and wasting power.
+
+New issues:
+- [Medium] The V2 hardware revision variants with the WM8731 codec are miss=
+ing, despite the commit message claiming to support them.
+
+Pre-existing issues:
+- [Medium] The `assigned-clock-rates` property is defined twice in the `&sa=
+i1` node.
 --
 
---- Patch [7]: [PATCH v4 7/7] arm64: dts: qcom: Add Xiaomi Redmi 9T ---
-commit b6a263c7aa2dea142dda12d7e116e55fb2d00b44
-Author: Adam Skladowski <a39.skl@gmail.com>
+--- Patch [3]: [PATCH v1 3/3] ARM: dts: imx7d: add Variscite MX7CustomBoard=
+ support ---
+commit 453bab576a5d3f561e4803a647eb9654e584d623
+Author: Stefano Radaelli <stefano.r@variscite.com>
 
-arm64: dts: qcom: Add Xiaomi Redmi 9T
+ARM: dts: imx7d: add Variscite MX7CustomBoard support
 
-This commit adds a devicetree for the Xiaomi Redmi 9T smartphone based
-on the Bengal/SM6115 SoC. It supports basic functionality like display,
-GPU, I2C peripherals, keys, regulators, remoteprocs, UFS/SD, and USB.
+Add device tree support for the Variscite MX7CustomBoard carrier board with
+the VAR-SOM-MX7 system on module. This includes supported board configurati=
+ons
+for both VAR-SOM-MX7 hardware revisions (eMMC, NAND, and WM8731 variants),
+and adds the resulting DTBs to the i.MX7D device tree Makefile.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm6115-xiaomi-lemon.dts b/arch/arm6=
-4/boot/dts/qcom/sm6115-xiaomi-lemon.dts
+Link: https://www.variscite.com/carrier-boards/var-mx7customboard/
+
+> diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/i=
+mx/Makefile
+> index 1a2539fa19b44..37da667f9ffb0 100644
+> --- a/arch/arm/boot/dts/nxp/imx/Makefile
+> +++ b/arch/arm/boot/dts/nxp/imx/Makefile
+> @@ -444,6 +444,12 @@ dtb-$(CONFIG_SOC_IMX7D) +=3D \
+>  	imx7d-sdb-reva.dtb \
+>  	imx7d-sdb-sht11.dtb \
+>  	imx7d-smegw01.dtb \
+> +	imx7d-var-som-emmc-mx7customboard.dtb \
+> +	imx7d-var-som-emmc-wm8731-mx7customboard.dtb \
+> +	imx7d-var-som-nand-mx7customboard.dtb \
+> +	imx7d-var-som-nand-wm8731-mx7customboard.dtb \
+> +	imx7d-var-som-v2-emmc-mx7customboard.dtb \
+> +	imx7d-var-som-v2-nand-mx7customboard.dtb \
+
+[Severity: Medium]
+Are the V2 hardware revision variants with the WM8731 codec missing here?
+
+The commit message states that configurations for both hardware revisions
+include the WM8731 variants, but it seems there are no dtb targets (nor
+source dts files) added for V2 with WM8731.
+
+[ ... ]
+
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc-wm8731-mx7custo=
+mboard.dts b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc-wm8731-mx7customb=
+oard.dts
 > new file mode 100644
-> index 0000000000000..881e05b70116b
+> index 0000000000000..94c4b1fa5d6c3
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sm6115-xiaomi-lemon.dts
-> @@ -0,0 +1,497 @@
-[ ... ]
-> +	backlight_dsi: backlight-dsi {
-> +		compatible =3D "led-backlight";
-> +		leds =3D <&led_backlight>;
-> +		brightness-levels =3D <255>;
-> +		default-brightness-level =3D <190>;
-
-[Severity: Low]
-Could this single-element brightness-levels array trigger a dt-schema
-validation failure and a kernel warning during boot?
-
-In the led_bl.c driver, parsing this node calls of_property_count_u32_elems=
-()
-which warns when num_levels =3D=3D 1 with "Not enough levels defined\n", ca=
-using
-the property to be ignored.
-
-Additionally, the default-brightness-level index of 190 would be out of
-bounds for an array with only one element.
-
-> +		/* Backlight controllers can differ between panel variants */
-> +		status =3D "disabled";
-> +	};
-[ ... ]
-> +		ports {
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
+> +++ b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc-wm8731-mx7customboard.=
+dts
+> @@ -0,0 +1,23 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +/*
+> + * VAR-MX7CustomBoard for VAR-SOM-MX7 with eMMC and WM8731
+> + *
+> + * Link: https://variscite.com/carrier-boards/var-mx7customboard/
+> + *
+> + * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com/
+> + *
+> + */
 > +
-> +			port@0 {
-> +				reg =3D <0>;
-> +				pmi632_hs_in: endpoint {
-> +					remote-endpoint =3D <&usb_dwc3_hs>;
-> +				};
-> +			};
+> +/dts-v1/;
 > +
-> +			port@1 {
-> +				reg =3D <1>;
-> +				pmi632_ss_in: endpoint {
-> +					remote-endpoint =3D <&usb_qmpphy_out>;
-> +				};
-> +			};
-> +		};
+> +#include "imx7d-var-som.dtsi"
+> +#include "imx7d-var-som-emmc.dtsi"
+> +#include "imx7d-var-som-wm8731.dtsi"
 
-[Severity: Low]
-Is it intentional to route the SuperSpeed PHY endpoint to the Type-C connec=
-tor
-here, given that the device is USB 2.0 only?
+[Severity: Medium]
+This is a pre-existing issue, but does the included imx7d-var-som-wm8731.dt=
+si
+file define the assigned-clock-rates property twice?
 
-The usb_dwc3 node restricts the maximum speed to high-speed. Leaving the
-SuperSpeed PHY routed and enabled could misrepresent the hardware topology =
-if
-there are no physical SS traces.
+Looking at &sai1 in arch/arm/boot/dts/nxp/imx/imx7d-var-som-wm8731.dtsi:
 
-> +	};
-> +};
-[ ... ]
-> +&usb_qmpphy {
-> +	vdda-phy-supply =3D <&pm6125_l4>;
-> +	vdda-pll-supply =3D <&pm6125_l12>;
+&sai1 {
+	assigned-clock-rates =3D <0>, <36864000>;
+	assigned-clocks =3D <&clks IMX7D_AUDIO_MCLK_ROOT_SRC>,
+			  <&clks IMX7D_AUDIO_MCLK_ROOT_DIV>;
+	assigned-clock-parents =3D <&clks IMX7D_PLL_AUDIO_POST_DIV>;
+	assigned-clock-rates =3D <0>, <12288000>;
+	/delete-property/ fsl,sai-mclk-direction-output;
+};
+
+The assigned-clock-rates property is defined twice, which causes a device
+tree compiler warning and ambiguity about which clock rates are intended.
+
+Could this lead to incorrect clock configuration and non-working audio
+when this file is included?
+
+> +#include "imx7d-var-som-mx7customboard.dtsi"
 > +
-> +	status =3D "okay";
-> +};
-
-[Severity: Low]
-Should the usb_qmpphy node remain disabled for this high-speed only device?
-
-Enabling the QMP SuperSpeed PHY wastes power initializing and bringing up an
-unused PHY when the USB controller probes.=20
-
-Usually, devices in this situation also remove the usb3-phy reference from
-the phys property in the usb_dwc3 node so the driver does not attempt to
-initialize it at all.
-
-> +
-> +&usb_qmpphy_out {
-> +	remote-endpoint =3D <&pmi632_ss_in>;
-> +};
-> +
-> +&xo_board {
-> +	clock-frequency =3D <19200000>;
+> +/ {
+> +	model =3D "Variscite VAR-SOM-MX7 with eMMC & WM8731 on VAR-MX7CustomBoa=
+rd";
+> +	compatible =3D "variscite,var-som-imx7d-emmc-wm8731-mx7customboard",
+> +		     "variscite,var-som-imx7d",
+> +		     "fsl,imx7d";
 > +};
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821-next-patch=
-es-v4-0-7ab02c0d4eb9@gmail.com?part=3D7
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1787314780.gi=
+t.stefano.r@variscite.com?part=3D3
