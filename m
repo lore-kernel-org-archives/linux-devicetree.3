@@ -1,69 +1,69 @@
-Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06C3E25B09C
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 02:01:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDEA831ED68
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 02:04:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787277713; cv=none; b=ufScR+IphwjTjT5GnhuFcLkAC2dcCK4ZX223rjZm73fBjyvE0Jvam28nc+HRWV+wvuX/+gAHaXCNsS3ss4/l5qSBvtPpstbVBDvIZlykZfR/3Fo0ew5qEu8hn0fvjwcwzR7IQWn3KDLqwHupLBgvwV4gKTe5b8nQKLtsPqXwY+4=
+	t=1787277865; cv=none; b=hxdZ2pZ9COLTn3xQguKkANGxVUVYowJsY48JzKydE06e+pJ5e1Bm/QyiOjnRe4Oja7+fFuzTyE5K/N8fe/cNf4J9GKOL4Zm4UkUMXNdgIFZ4Jy/c/7bFwV2LcJZWBAassTLLuwDVEPFp0nuMuJW4B8nnrr5iMCmmBN8QRugXleE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787277713; c=relaxed/simple;
-	bh=4lnUFJLWnj2hDzaYx6oLw6pV+AMtceec5o57EJk7nAQ=;
+	s=arc-20240116; t=1787277865; c=relaxed/simple;
+	bh=w5DUYNbjW7GqUzc+mq7sClh0IjYlojUpnWerxNc3sZQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ovKFOJdEJ1b/PeFJ7j4vnwIgPC98OfYLaFBvQIjNe7n866nfsGrI+rqKPl1qlmPQ56qgzItp8ie7tKrdsCCR8bsEvPQOHkRecbUZHatKZEyBM8Fm67HV54m/2mfUZze38SdZdln8I6lCLAfUKljTdrhV0z4EhXZGBXvQ0vvFu0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nu+xfwob; arc=none smtp.client-ip=209.85.160.47
+	 In-Reply-To:Content-Type; b=QtvSTOoAWmMRMFel1QzsH8H2Kg0xY0cb1mbV7H01S7iqcP9D9T7xS0ItgVqkxEYtavVVpKO4IuT9wpaq6zJtpI7aswDb3gSCEgImAx9JTg4Kf5qvthlYfNPHMPNPu6s84P7cb5TdXbc4bjO/j85cIpc7fRiWcfAlaolq313uxIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lCu5y1++; arc=none smtp.client-ip=209.85.214.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nu+xfwob"
-Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-44caeb973b3so451182fac.1
-        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 19:01:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lCu5y1++"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2cace91f112so5877815ad.0
+        for <devicetree@vger.kernel.org>; Thu, 20 Aug 2026 19:04:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787277711; x=1787882511; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787277863; x=1787882663; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+GFyIqmIo37Te13lPEl/2zml/WL1XE/teFuCYI7LyDs=;
-        b=Nu+xfwobKTEXYsXR+3usPIZFi7T5ncu3Nz9jUvW+91FjB/XugVU/PSBO987XBO3Anf
-         h/4Nucr94rohqt0Ihu7rdvF3ENY3FrDP9YKeBUoseIwFAlYF5rq/bmVmtRHvB75TdJCE
-         0bJxEnIOkG60Oj3Qefa8LnraAsBiTCWpQzeC+eJ8E3XqZ3tRF4gAAjjOChsayjmJedf1
-         VG8Q+qq9L1k8U9hQSoAsNb4wnZA/xQ/5Ym+7iSVgamrEE7odwmVTTeisnH5u59zzbq58
-         T6qV4/TPlhteTIqdh97JAGav2N2aenwZdYncz23G033Pa8TPoQK4RjVWR54VKKsJNk9e
-         Vxbw==
+        bh=iI3Z7GgqYc25x6cBox9+q0SwGZtkEQxnYhZfkabWWfw=;
+        b=lCu5y1++zmw/DwzFJwa+uyNgcqp1gd4ghYXelhL8da756VavyxM+9JF3Z06UfPvJc2
+         UzZvdyY69XfCEIckqCbrtUIRlO7yLA7V9Xzo+B5o7Mzi4NEWIKwljInZ6aPYPnHNvdBg
+         2OpcuKhi5whcyPjkyaD+chFASstOV2lydm2sSkyhfiN4XktFCZvt8xzxEhQPu0akIMn1
+         xQUjdBaq1iins4DSoIVuhoP/VhDXaVSzeiJtZOtRtqOh079wJaxKUwaPWnfKGj5pXosX
+         OnVCgvzcTL2cScgmnx87buPIxpTDkVT72VWQraIldu3x/NRmH3CC4eu6kn73hxAggAyl
+         8I+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787277711; x=1787882511;
+        d=1e100.net; s=20251104; t=1787277863; x=1787882663;
         h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=+GFyIqmIo37Te13lPEl/2zml/WL1XE/teFuCYI7LyDs=;
-        b=BdO8S0SSHAPB30IJZIj+PxKshEqoYQRwiKzHxNbrxZsbbAFgZ7fYo06UIk+LqZIvc8
-         ne1HpedJDp2VJoFMjwFhcD784RwD+5VhecTiYl399kkyb81vPaRVRMpl+kL7CqC82mTC
-         L3iRSZQnCycdriVBHNKOESL9eGnHIKkdz/xkV09SWXVya1jqOzlPrHTG7NytJJg03JPG
-         R2KY95ZZ7HnGw5TheRBXtyhGca01nmv9WKZu20zpTvIT6MymW4+rONt3xUGoX4pDBp8/
-         6+/klUBCGLjOmlzSbiItqVKvRD1We5uG89PV6l2oCxpbEetXRIAGdhpR1GsiM/VR1o31
-         12HQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoZcj/IswZkheIE8/CaTM8AojAbbdhcZCJjsvV7R+6OZDHPKrVVc7PUE5DP+eLWqPbb16nOBNboiCfb@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw2Eq4VPCRundFJy4kxWA/ehGccpXzpjy7hqBn82zciQ5QnthS0
-	Vgb+J5upISdPt534lZRJQJPe74Jk9BBYkdf+tq8m+1/Cb+lV+c2j30q6
-X-Gm-Gg: AR+sD12g1dwUmTyZit2+bGIZ7RC5ikTZczjho27bu6CMY0VbxIQgv2v/Y5ijBKnqOw4
-	XZxpr+KBoipGUVcGUFoVHBP/xibey/oBZrXJIiCq5FQ5FBzWGS5DT0oVO3ak2UQWFl+yGaLJMBM
-	UtS9P9ci7ggmScSJuI0wHqu4Rzd1E7LkV4rOl/wY8a8jdKY+e3HTFCDyNGl6lS/awpuSnMLaqRF
-	y5YpoCuLZFgyC4Po3Ah6p+/OQKKjRig0MZACXiCGlAL85P/NRQvzicPkHP+jRoHKXCEMlex9fWE
-	u9h1CixgQt0iJoeUuvZw3addKcLce4oqMkBzFTtJI56BeI+z0q+ru6OBRj5PAgADuS6pcr7BuOf
-	TSZwpvNNHK1V8ZYcs3Qj4CFN46e+ekgWxC0fKuom7eZMRlWwlYI70Ex88lhm7DamkazOWXhPMlt
-	HuN6Sp3Uksmm2hP6Ck0DVpRa9h5WHNBqXPZTwQlAA61xXgTABvvuyevU1tduydkCc+DYHFBH1yb
-	Wul6jI8tiNCk8/kn2gx56w3s+mszGXuNYAs6w==
-X-Received: by 2002:a05:6820:5711:10b0:6b0:4c0b:4832 with SMTP id 006d021491bc7-6b1591cf1fdmr2823449eaf.2.1787277710884;
-        Thu, 20 Aug 2026 19:01:50 -0700 (PDT)
+        bh=iI3Z7GgqYc25x6cBox9+q0SwGZtkEQxnYhZfkabWWfw=;
+        b=nInmaE3m2yVNKxkbQI/RJSHdCFjAxN2r/KncbbZHYSuIK/2Ukjt1umeQcsfeSYCNdW
+         /q6lWu4d1kr5sDNl6RqeLyDDsY0z8pBuH5cIq/7POuZ7goBcfjs9CqDNUVzTr8VMLdvg
+         TU7RZALuJlfcstw+K1XQ4QnX6nwdBtz0pf1JQys+j0bArYPMHYoraLfKliv+vzg+TaBm
+         Ke1OqsBWp55my++ecD7C62RvQhajKdVmCkyktLSyJY4Tl73DbfOjPiMwA7cH9SG1pS5x
+         SztiXQ5prJSCADugyvwNOegXPum5tT9CU/hnY83FT1s9Gz9Fge/rku1yizgXazFqBUuo
+         VLHw==
+X-Forwarded-Encrypted: i=1; AHgh+RrHncJjHVKTzYTh8oKshTlcxjYJA5UoIh5CFa4vRikGrbN81k0MYRhBFLk2qAyxeFDtfYEYqQASg/Yq@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy9QrJZmwzWDBLiIAY1x8djwqAbXqCcB5T0PPNqCpdC0aV5yUjC
+	oSlbdph9m98TXKfeGgewmnv7Cc+0qyc0fMlz9em6BGUCxZvtAHOb0AZfkVCI0Q==
+X-Gm-Gg: AR+sD13EhoccZOmMXE8htIn4OIxUm8bCwksahCL8Bb6b1/do6uEDm/Dn4BaRYv5lWGl
+	M/SzMI80TPpFsxt765vVcXOeNFRpdgcYiJsviFW14hOrpb85dn79zSXryLZYwVzk4U8ZacYR+LN
+	arlqsdeZqSbyvB49ZUmnj5IkmoxV71UucFD1ubuJt/ReeYkcxBucDRhe8FoWuv5cFMVFECNjuXf
+	MUpcAkslZGvHEMXKqT29h05p0POLZBA6wl6arVZqvszkoqY51+9mOKwg+wHvsJDAxBp28kntmAV
+	UuSbCkSsIGE4lvW1D7vldZykPpKWRNdvkcQ9fvpCE4+U45Jw4H8adKFq7vLR5HQDp1nN78yCICj
+	7m7lQm8q4RigFsftOyIp+khnQCghs8ZQbqAq7EBsFzgxJTPKTyWYavvx8D6OHYtOr2qVAdDly9l
+	ckVSrhJ9ck0gqD5kOnEvGF4I/OK1DudocwiyOI0Jn2vYw5J/VwuFcIWFDDaEY8XtsRpl5EMVZXc
+	OBBVEpcIUCY/QT44fdv8zcR4IBuZRL8QY14qw==
+X-Received: by 2002:a17:902:e78d:b0:2d3:6fac:d67c with SMTP id d9443c01a7336-2d64b09c688mr57206645ad.10.1787277863180;
+        Thu, 20 Aug 2026 19:04:23 -0700 (PDT)
 Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1416ad564bcsm22623466c88.5.2026.08.20.19.01.45
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bef6ec40sm22470895eec.7.2026.08.20.19.04.20
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 20 Aug 2026 19:01:47 -0700 (PDT)
+        Thu, 20 Aug 2026 19:04:21 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <86fb8015-cb78-4285-8a84-6ea617afb920@roeck-us.net>
-Date: Thu, 20 Aug 2026 19:01:43 -0700
+Message-ID: <5bbbdc8d-828d-4b99-9581-c89cffb7c67a@roeck-us.net>
+Date: Thu, 20 Aug 2026 19:04:20 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -135,82 +135,8 @@ Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 8/20/26 18:06, Changhuang Liang wrote:
-> Hi, Guenter
-> 
-> Thanks for the review.
-> 
->>>> On 8/19/26 02:16, Changhuang Liang wrote:
->>>>> Add fan tach driver for StarFive JHB100 SoC.
->>>>>
->>>>> The controller supports up to 16 independent fan tachometer inputs
->>>>> and reports fan speed in RPM through the hwmon sysfs interface,
->>>>> along with stall and low-speed alarms.
->>>>>
->>>>> For this controller, the special clock and reset operation sequence is:
->>>>>     probe: clk_prepare_enable() than reset_control_deassert()
->>>>>     remove: clk_disable_unprepare() than reset_control_assert()
->>>>
->>>> s/than/then/
->>>>
->>>>>
->>>>> Co-developed-by: William Qiu <william.qiu@starfivetech.com>
->>>>> Signed-off-by: William Qiu <william.qiu@starfivetech.com>
->>>>> Signed-off-by: Changhuang Liang
->>>>> <changhuang.liang@starfivetech.com>
->>>>> ---
->> ...
->>>>> +
->>>>> +static int starfive_fan_tach_hwmon_read(struct device *dev,
->>>>> +					enum hwmon_sensor_types type, u32 attr,
->>>>> +					int channel, long *val)
->>>>> +{
->>>>> +	struct starfive_fan_tach_data *priv = dev_get_drvdata(dev);
->>>>> +	int ret = 0;
->>>>> +
->>>>> +	switch (attr) {
->>>>> +	case hwmon_fan_fault:
->>>>> +		scoped_guard(mutex, &priv->lock) {
->>>>> +			scoped_guard(spinlock_irqsave, &priv->irq_lock) {
->>>>> +				writel(STARFIVE_FAN_TACH_STALL_INT(channel),
->>>>> +				       priv->regs + STARFIVE_FAN_TACH_STATUS);
->>>>> +				/* clear fan_stall first */
->>>>> +				priv->fan_stall[channel] = 0;
->>>>> +				reinit_completion(&priv->comp_stall[channel]);
->>>>> +				priv->armed_stall |= BIT(channel);
->>>>> +			}
->>>>> +
->>>>> +			starfive_fan_tach_ch_stall_unmask(priv, channel, true);
->>>>> +
->>>>> +			/* Waiting for hardware to measure */
->>>>> +
->> 	wait_for_completion_timeout(&priv->comp_stall[channel],
->>>>> +						    2 *
->>>> STARFIVE_FAN_TACH_TIMEOUT_JIFFIES);
->>>>> +
->>>>> +			starfive_fan_tach_ch_stall_unmask(priv, channel, false);
->>>>> +
->>>>> +			scoped_guard(spinlock_irqsave, &priv->irq_lock) {
->>>>> +				priv->armed_stall &= ~BIT(channel);
->>>>> +				*val = priv->fan_stall[channel];
->>>>> +			}
->>>>> +		}
->>>>> +
->>>>
->>>> I'd really be interested to see how long it takes to read the alarm
->>>> and fault status of all fans. And, yes, Sashiko has a point: the
->>>> attributes are supported to report a sticky status, not something
->>>> that is calculated on the fly. Is this based on some heuristics ? I
->>>> don't claim to understand how fault and min_alarm are calculated. A
->>>> comment in the code describing how this works would be helpful.
->>>
->>> There is no real calculation for fault and min_alarm, the hardware
->>> simply counts the corresponding pulses within a specified time period
->>> and reports the counts via interrupt when the counting period expires.
->>> I will try to modify it so that the previous statistical result is
->>> recorded, and when reading, the previous result is returned,  thus
->> eliminating the need to wait for the measurement.
->>>
->>
+...
+
 >> So how long does it take to execute the "sensors" command with 16 active
 >> fans ?
 > 
@@ -239,34 +165,11 @@ On 8/20/26 18:06, Changhuang Liang wrote:
 > user    0m0.023s
 > sys     0m0.001s
 > 
-> 
->> ...
->>>>> +
->>>>> +	for (index = 0; index < count; index++) {
->>>>> +		u8 ch = tach_ch[index];
->>>>> +
->>>>> +		if (ch >= STARFIVE_FAN_TACH_CH) {
->>>>> +			dev_warn(priv->dev, "Invalid tach-ch %d, skipping\n", ch);
->>>>> +			continue;
->>>>
->>>> This should also return an error. Also, this is the only use of
->>>> priv->dev, and
->>>> priv->dev == dev. priv->dev is therefore unnecessary.
->>>>
->>>
->>> Thank you for pointing that out. I noticed that the `struct device
->>> *dev` passed in the function
->>> starfive_fan_tach_create_fan() is somewhat redundant, so I plan to
->>> remove it directly and keep `priv->dev` instead.
->>
->> Just for use in this function ? Why ? It is not used after probe.
-> 
-> After probe, priv->dev is also used. In the starfive_fan_tach_create_fan() function,
-> priv->dev can be used directly as well, so I plan to simply remove struct device *dev.
-> 
 
-Are you checking if I pay attention ? starfive_fan_tach_create_fan()
-is called from the probe function, not "after" probe.
+Normally I would say this is a no-go, but this is your chip
+(and, as we say, your funeral). Just please document that reading
+the fan status will take forever for disconnected fans.
 
+Thanks,
 Guenter
 
