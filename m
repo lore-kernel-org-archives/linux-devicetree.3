@@ -1,526 +1,310 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011016.outbound.protection.outlook.com [52.101.65.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9022F44C51A;
-	Fri, 21 Aug 2026 15:56:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787327786; cv=fail; b=gaehR5WtcJEBIRspKdavS/W43MvUQ4c/upW/dAr48DXBeS9SvUwuFeMf8vOXOLdVg4zhvuwl9+450kVMAcZhcrzRI6xrAbU9ISFNKLtWmlAjfzp+P1w8bG+EfF3NMitp4UMTuVmgNlpOK286TVMmZb7sCfNnQLJmLLHPFQgKU2s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787327786; c=relaxed/simple;
-	bh=FBd692XNWIXEBlSvhrjhBh9YlKo16zUC4ejh0ETN+EA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=KQAtkj7+uAa4mOJMbsmNhJKuXJellXpKJTL9fS29WrBUFAObf9PEn1x7OP/WPlSFtb+jfxDDeRtE0Qb7PF43s/ZdqpfBOdpnVQ0IFN8YCCwf2DJOhe/gqKn/sD1hBJCrSq9zqpitd83Rk8wTdtQoiJHzahWoXi2re9f1a8t+L0E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=g5cr9feG; arc=fail smtp.client-ip=52.101.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 095B047B438
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 15:57:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.180
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787327860; cv=none; b=qNWleWe1f3sdkrAqEBWzrh4ZBiOVo4GnZYgY6G/Wa9CD+LfJM1SZZuxHbZV95sOa8qSP4DUs6lDLdc2Q+kqBxFsrc2fUHvTAQtwphnWJdnjUBLKtDFVZlnBYKdcAOOPhpvSCZeMgwGiDJosPglX4Md5+7JCLlq8amTv0TAZEDYM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787327860; c=relaxed/simple;
+	bh=QPYcmCGE1j6b1oYmWVelzZOv9rRvxAYFCX/sMvIVkH8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Lo8JZEmTDcjwSzoBB2WYnjzRDYgXi8XT+h8oyFb3S4xtVhERquSs8YVS+8tlY8B6O7LYINk8z4JOrqc37runNT8u4lZUPQmzmE7Z7XnJ1RJmsw3b1/WQe6QkYfHCWUsyDXE941zIqsEl1AfQoS0HzI87fol+UPNbSo0tWzm+IJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=DoXzwA1K; arc=none smtp.client-ip=209.85.128.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="g5cr9feG"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dfMDfAtQiOpIns84fYURLdWblJdBAlXdnHVxJyz/OKwkNaZ5JqNef0pFDigq0pOeysypruyldCeOlyuUgaNXuPZRLiPsiwG6JWhase635Bsa1zLq1aEQXTlNrxFQPeSOK9dTvGHQGuiQxPYpPTmBfoxiKg/Rae3jVkX3hT+NZZA78w1D3GE62t983uzK4FkwI3pBY5ibESSO3oP1WaXRx7bIWHOPvIGYfzJt7EzjclZs/MiWk1VzWSzaedVqPJB/6qMkOXiAKw0Firb0a1vOWmJyRFA2eKN2mPNTVEf9lipqZHrseso21o3ROBt1OW0aO53vXpMVvg0UB1XYkybKYQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4GYW851qCsBToK11EEMYMqGrrxqkhUiscxOxDQ5WtXo=;
- b=AVUBSBeCeyT9utXvFWIQCRdoTrKCDmB+JbYucs9X30JH1x21XfHpuX81+xA9Vz3tAPVIKDWU0JhNEPLo9qaYapyI2j6W/qYTVvRxrV+SzAAi25QSOiiI8DMQ9JVCakFA2bRHLXQrwzBg3WSgTFvXPNsF8K4+ml/AUWJ0jpC9/YMd40EvrrbVGgYrKfERjK7GV+eeeBe5XJkDtI9lLIH2bWY1wNm11k7jrs9w8oYiAFzypL4lBBdHAcQXIsBfDDdZO+7RvUeTihNkyK7WoC5KdvPL3KkCbd1M7Ia05BRMIR4qsRW3j1Nre5MaR0YkuvKHu/hf2vIxhG1YzVuLveVeBw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4GYW851qCsBToK11EEMYMqGrrxqkhUiscxOxDQ5WtXo=;
- b=g5cr9feGkkqS8kdXxJURoeH4fEKVqEPZzOJQ+T+nQ4qTH3sKfSNfSwqzligBYbrlxIkofaMDVYy6tJw2XcU879+E68LJjPYICBEcQr5Lq63rV2qq4Ak+UELUVBTQ+lZQxVeQ17GT8/3Ckp0DScAofoGH5OBwkrDd6UVK3DZITHGvvnaxlBz3WPzd4wzbmA/DGdfo+HetERNEa57MAG8rDWBQX9WCfdbubAgOD+YNkUmOCmyUd5XmUOkJxvD0BmSOEBOcoIzDeGUINvqK5/IodvcejhbKaKa2NuAmTz0XEE+rSTLez5/tR2AzBxoGKhXvr8gmC+KTkYWlxFMGD+QRnQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by VI1PR04MB7150.eurprd04.prod.outlook.com (2603:10a6:800:12a::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.10; Fri, 21 Aug
- 2026 15:56:13 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0339.008; Fri, 21 Aug 2026
- 15:56:13 +0000
-Date: Fri, 21 Aug 2026 11:56:05 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: pankaj.gupta@oss.nxp.com
-Cc: Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Pankaj Gupta <pankaj.gupta@nxp.com>, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v40 4/7] firmware: imx: device context dedicated to priv
-Message-ID: <aoh1FQFxUciEl1PL@lizhi-Precision-Tower-5810>
-References: <20260822-imx-se-if-v40-0-74fbce2f2f95@nxp.com>
- <20260822-imx-se-if-v40-4-74fbce2f2f95@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260822-imx-se-if-v40-4-74fbce2f2f95@nxp.com>
-X-ClientProxiedBy: SA0PR11CA0064.namprd11.prod.outlook.com
- (2603:10b6:806:d2::9) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="DoXzwA1K"
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-81f64e8dfbcso17911817b3.2
+        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 08:57:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1787327850; x=1787932650; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tQtmu6bKLrMNJM/WIbhky8MwVtdX8FoGCP3Tk6EpLao=;
+        b=DoXzwA1K0frpKAlfH202oVdHn0woyQTGgEikG7k2usvBK/b6fQ7vvsOWklc91bwVDt
+         CM+qpIpkZ7sNp5bG99AwV1MW8TE1bkTl+Iodqt+lG4G8LdA2nJYbVtn7rCnVH6x1Hjaw
+         88b8PEPHaB859N99anGKwoXlbRtn99q3uxfNluwzEUsCTSsCXXjWdb2UlqJmTW5MWzkH
+         ozirZM7exyUMXnueoQCT5zOXuYeqwsFpH1lc7Nzz1k/oI08PRAx0U+ND4G3LSEpc5dWT
+         1yateCzxwP13iWwa7jogS3irsGTjdAANmiAdf6gfsaEtF0haFHJ+y5w2er+MQ/J/UZbX
+         i7EQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787327850; x=1787932650;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tQtmu6bKLrMNJM/WIbhky8MwVtdX8FoGCP3Tk6EpLao=;
+        b=WLyiES/g7GXt+WsNJdMj3ijsEQEnEktzFyTOYbFNd9orFSgWPSRP1UdKmYa275Tpzr
+         R+L7Vwfc7Eopkckt7t+cUjG/lZV4OZmIVYQlbfi8xHziRG8D1ZL7F8gwE0dqA414XeH9
+         IX5h/ApNv9ukCAif7Qz00v9g1KOM/jvwKojJ4mNshnJP18T4B+FkVAwby0eNwdU9NKpi
+         +f1FvTdbI1dM/lEJkHNZ96PY4NovcqKd2lHoB1gM6tpbDLBp5Pg6FaQ7YOVoEFdGbLYh
+         BrATxQ7wGy7boG5PWAREBazZdqPzLRSfV870wYVg11k4y2/ydh3fUxNsKz7bBaLQUDU8
+         NOag==
+X-Forwarded-Encrypted: i=1; AHgh+RqyDdV+BsioK8vnt4HTCwmgRDlBg0p1mlpIhmsYn2/9bzd9uVas16re4rTLl/aCvLOgItMSBnrEDwif@vger.kernel.org
+X-Gm-Message-State: AFuF++nKmAQSAjH9nXwY3ZD6zfzwthxPFywsXPSWtwdSGD/2HnTNV47B
+	GX2Zm9cFstdDpo5x5bD7zIO11LmP04zYpeLHnxfhbEwRfS9Y9ziODIEnEpNuXAVSDIQ=
+X-Gm-Gg: AR+sD11JaIGfZ3aERdELMyGEFjqdUqj2d2fgHmfOkGOQKn4lsfvtwqXK+NCs/oKRziy
+	mLVUZ/rhTVfiXzgKxxoSUZCdqIf2wRzfu4Y+pF8XbpYx34b8dfZFW+a107xRpRUmIxrnhnY/DPD
+	bC7QIzZPsA3REYyajxv42/AcJxi9YbV2i2le8HcYrP+PLiiqq8gLLoOQR+uJJnJeeH+QdvgTWc+
+	8lw9L4VPmvdNbax9cBC2AnvGkfuAcSMco29VMWwMk1BPXH/uGnAqsRHBBz3RJ0OXxabRQUgXPs1
+	DKZg8FyCaWcjETe+6FkzU62Aj4tWxDENNNbtGSnT9VKU4DSLPjyb/aN5ohnKM/rnUAy7bx9cEzm
+	xjJs9sr+anmUXh3vupG1UdeBBINyMBDzKfhfcrv/rAUOxgFaUFlAobRgaCchDmOWuhjv2yyJHM3
+	OrF+eh8bLw0Xx38Wi2lKvguasoAwtA/b9Mcnl1KTzHy18hWbMvaDuf9TrmDYxGE0FGunfPmeGqT
+	9EjdZbK/CkW6h/ALinFPw5Q1fQgS7E6GS+36cBjmMM=
+X-Received: by 2002:a05:690c:ecd:b0:81e:ad1b:cad8 with SMTP id 00721157ae682-849f7ff8dc4mr33817707b3.36.1787327850173;
+        Fri, 21 Aug 2026 08:57:30 -0700 (PDT)
+Received: from [192.168.1.169] (ip98-183-112-25.ok.ok.cox.net. [98.183.112.25])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8451955a784sm43139267b3.47.2026.08.21.08.57.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 21 Aug 2026 08:57:29 -0700 (PDT)
+Message-ID: <718f6ead-d1c0-4dc6-82e4-cac49cc73bd6@baylibre.com>
+Date: Fri, 21 Aug 2026 10:57:27 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI1PR04MB7150:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8c51ec0d-6077-4eeb-f923-08deff9cba0a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|7416014|1800799024|376014|23010399003|366016|18002099003|6133799003|56012099006|10067099003|11063799006|4143699003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	mHwz6x67ga/RonkJjIhbHXzlDpDDq62/ut+cNxYYn5DHSK9D3Y5yii5OQPg4BtnwBDDd4hzf9gIE67/lyeV/gN862+otDanT2MhZEnLqz/RKou/N0CO63RCaU7zbzRyPAnfGfq0RuGV/oSKrSB4C/P2glVz2eosNZWq3kKBxyQMVATSfRbWTmZkDIjVcQhqICFKU09rpEs5a6+HtkusWjMhGXWW+XmoFeoTN0h+OXwmjm18W/YAMdTiSn5xcvwOgIgGYq6OnajHoyx6YdGXaVEAoBPV2RzCEV8OTWd3YBcC3NmG/jFsLfsPg4wkHgLEfCYm45RQPo7VS+JY0F77IjKd3IlS7pJpm3ZBSGk8IxxFHMaOtvLqedSH9R+GKf3ZDUe2FKHFmsqCyk8FyTE8megr3k2QZakSaQaffNvNOzygEsQ9INfGLZYdpIvynZzFPazjn28ZabNvis0Es22qrTVEmjvtsD7FcxxCfQZZkekQ3+GXp8OvMtiyKZgcKp7BCPyYZUjVVL4Mj8xnv02FDzDs9goIVIdWqUW6+fCEyJFeSXKIfSrcj4KbWnjfPVKQBwYFK376VRRt+Y/s5EuntNNYhcWzI944SyHIed26iW2UWHqmae6Ug5nQm1V6xEeF43BZdKMnef7i5UP+NHnuFHwF5aZ+vZp+0hteZ5JM3508=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(7416014)(1800799024)(376014)(23010399003)(366016)(18002099003)(6133799003)(56012099006)(10067099003)(11063799006)(4143699003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?mqlhyljpaEhKAVQZPlOjkYmVwfg8WFAGmcsbxMRdORf9fcaK3uyKUiv3WKAY?=
- =?us-ascii?Q?pO7+tc5pnW76lVaMLhG0lzUXWx/s9VYPJRZ+LV1HJMkHazXtSAayB8B+ZRyi?=
- =?us-ascii?Q?pGVGSz4ApEfizz/Som5HvCHPECfS6uadPyuWmPKgtQw+5jtqjUHtaqRyxLqX?=
- =?us-ascii?Q?B2qtihDCSgPTGbZnCngKP+lNhgV7VneEty9W54WWoflCj8nhAlxYblzqw+NX?=
- =?us-ascii?Q?d+S6/7Tcp7V7Nm3VfX8BhS0V8tzCbuaXNBieLtNCT/z0b6oXYt2yWCepbWjs?=
- =?us-ascii?Q?GjC+i7QSAedD53EISSOYKx6xt8V8VY1tVq/u1U80DH1EB4R5u9Tr/tpkzS1M?=
- =?us-ascii?Q?7UcAknd2HwX1WfxCcvBPiPB/fqdhYUnMSrLpkXjNGIIlQ2USCV+LTx2v4rvb?=
- =?us-ascii?Q?UnZFR7PH58RMwQtuKedUkaD73yz7BlTlG0eqb73JZI4dDBp92zHgE8SQ8Ngq?=
- =?us-ascii?Q?e7yokQIc1JQMzCi26cqr1EtFDgWVLY/x/tABPDhfiBiYKrfn9UWaxDUovi4q?=
- =?us-ascii?Q?ejHv0siAfvPLg0dE9vAhcMo6OBP0cY75eaqFR2b9DQEJNfG5kFQ/iYnB+lNt?=
- =?us-ascii?Q?ZEjJpqiWx2zMxxbGOiivA9zEUvHkI3V75KT4eaRrk0+K71zdN1psNREzmBLc?=
- =?us-ascii?Q?C3+o3X41bSKj4LgC/sHBgOY6oETRhjwo6xVfMifoTp5j1RwhYeW3KDSQkShh?=
- =?us-ascii?Q?jc1PEkdtXwUWhZ5P68WLWm7kJ8mlRMb7IpbuE3RhbhW2P2vSN1g/c2+5HjRR?=
- =?us-ascii?Q?6W1xb8IvIMG8HfLRb0ZjRtWC0u1NnlsU6wbhhBAgiR/Y8AZs2cWLGvLtI9Sr?=
- =?us-ascii?Q?OvpXPiz++rpPZ3EoiWHKHkt5mmSko/sBTbB6PUpOYpP0Y5c90OsIBnOtlI/W?=
- =?us-ascii?Q?ZgILlEH8FZrJftJlmI9wynu3i6ZvaQrAQCE4fapd3i88CTY/DUz2+j0YCWeJ?=
- =?us-ascii?Q?pbA/v+tjao1vRXOaqJwM0i3ei6Lnkx49oim+LA0sGPd7bmIMSmV7UxYMWHuy?=
- =?us-ascii?Q?GQI2e+bDu7W+tLCFu6qbsnepd77gy1dUV1lfq3q/JG0HBFwbHKXErvVO5F7q?=
- =?us-ascii?Q?d4WO3EmtXPXg8EqhBxfsMzvZlDV3hS/Xm/6dbhlYOU3Q0zCJ8oTk0GKCfRnR?=
- =?us-ascii?Q?CqvHKSLU/dIq+i30iR32DJVnH1AdSWXNF3iUcHKldds4/roqeBZXbAlzUOF5?=
- =?us-ascii?Q?02xlEJAY4QUTvWbMy3r1M8y05npfci757fXbgbVsrpAiHxMPVb7lnaDZzqLe?=
- =?us-ascii?Q?aDULEZOvXFB3K0MvxI5XHDbWMWIs8kgU3O692CVVW1wXcz0LauZqh5wppQnq?=
- =?us-ascii?Q?kFX+/AbfdZV4fUe6qwdHIyFJjI4xYoBH4sfLRNHYqamQnjznMB3OO2sSsprR?=
- =?us-ascii?Q?YeN3BydY5EF9ZTwF/mIhUB2DWbMi8CDDKFa1Mj5zk3F2cOUbfajd9WuCEPhE?=
- =?us-ascii?Q?hU5zJJQCynfiL5qA40IhFj4/SVHVNs/+/kakbdgz2be4a8BAaBmoixe98pCv?=
- =?us-ascii?Q?1wmgSilWr1ea0N9YzL8UBuGYuGk3zWRmXmpc868HXbwmLdVJ7mKN348VCtgt?=
- =?us-ascii?Q?SztmgJv1UnzEdQOYkpNVwPRe9E5EPtd+q0nb9Tc7wNcqohh6PHBEnIA4CmLD?=
- =?us-ascii?Q?gcQL3grQuQhSK5GQ73+3iewrNPQ9KAfiTvPehY++RsMZdfzVKyLnYZGtqaZI?=
- =?us-ascii?Q?C+sPYmGobPdfyrUWlNZ+vXG06LSILMHreqETFHTCCA//cVD9T0scXwTEMjfI?=
- =?us-ascii?Q?Ms1IxAX+BIHamb57HIk/V8XICf8AwNKZ3sib8I1l5+6LWaT0+FoP?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8c51ec0d-6077-4eeb-f923-08deff9cba0a
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 15:56:13.5827
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3NrYelWUOwvoyuXY2XUbwF20GL5+bkEocHXkrN336pLk8OWDi0RF3ayxj4HFpDIiPJbdpQ05vjNKn9oaDUOkHFDkR30pJinWQi+b7JVJ8MPzcvVgzg15SwrQGc4aGaHF
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7150
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 02/14] dt-bindings: iio: adc: Add AD7768
+To: Janani Sunil <janani.sunil@analog.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ Jonathan Cameron <jic23@kernel.org>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Olivier Moysan <olivier.moysan@foss.st.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Michael Walle <mwalle@kernel.org>
+Cc: linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+References: <20260821-ad7768-driver-v4-0-bb8fbd06d4eb@analog.com>
+ <20260821-ad7768-driver-v4-2-bb8fbd06d4eb@analog.com>
+From: David Lechner <dlechner@baylibre.com>
+Content-Language: en-US
+In-Reply-To: <20260821-ad7768-driver-v4-2-bb8fbd06d4eb@analog.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, Aug 22, 2026 at 12:06:11AM +0530, pankaj.gupta@oss.nxp.com wrote:
-> From: Pankaj Gupta <pankaj.gupta@nxp.com>
->
-> Add priv_dev_ctx to prepare enabling misc-device context based send-receive
-> path, to communicate with FW.
->
-> No functionality change.
->
-> Signed-off-by: Pankaj Gupta <pankaj.gupta@nxp.com>
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+
+
+On 8/21/26 9:06 AM, Janani Sunil wrote:
+> Devicetree Bindings for AD7768-4 (4 channel) and AD7768 (8 channel)
+> simultaneous sampling ADCs.
+> 
+> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
 > ---
->  drivers/firmware/imx/ele_base_msg.c | 15 +++++-----
->  drivers/firmware/imx/ele_common.c   | 55 +++++++++++++++++++++----------------
->  drivers/firmware/imx/ele_common.h   |  8 +++---
->  drivers/firmware/imx/se_ctrl.c      | 41 +++++++++++++++++++++++++++
->  drivers/firmware/imx/se_ctrl.h      |  9 ++++++
->  5 files changed, 94 insertions(+), 34 deletions(-)
->
-> diff --git a/drivers/firmware/imx/ele_base_msg.c b/drivers/firmware/imx/ele_base_msg.c
-> index 724f6e913ce7..b70e3ef88a16 100644
-> --- a/drivers/firmware/imx/ele_base_msg.c
-> +++ b/drivers/firmware/imx/ele_base_msg.c
-> @@ -71,8 +71,9 @@ int ele_get_info(struct se_if_priv *priv, struct ele_dev_info *s_info)
->  	tx_msg->data[0] = upper_32_bits(get_info_addr);
->  	tx_msg->data[1] = lower_32_bits(get_info_addr);
->  	tx_msg->data[2] = sizeof(*s_info);
-> -	ret = ele_msg_send_rcv(priv, tx_msg, ELE_GET_INFO_REQ_MSG_SZ, rx_msg,
-> -			       ELE_GET_INFO_RSP_MSG_SZ);
+>  .../devicetree/bindings/iio/adc/adi,ad7768.yaml    | 314 +++++++++++++++++++++
+>  MAINTAINERS                                        |   7 +
+>  2 files changed, 321 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad7768.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad7768.yaml
+> new file mode 100644
+> index 000000000000..df4b179df988
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad7768.yaml
+> @@ -0,0 +1,314 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/adc/adi,ad7768.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +	ret = ele_msg_send_rcv(priv->priv_dev_ctx, tx_msg, ELE_GET_INFO_REQ_MSG_SZ,
-> +			       rx_msg, ELE_GET_INFO_RSP_MSG_SZ);
->  	if (ret < 0) {
->  		ele_get_info_cleanup(priv, get_info_data, get_info_addr, get_info_len);
->  		return ret;
-> @@ -117,8 +118,8 @@ int ele_ping(struct se_if_priv *priv)
->  	se_fill_cmd_msg_hdr(priv, (struct se_msg_hdr *)&tx_msg->header,
->  			    ELE_PING_REQ, ELE_PING_REQ_SZ, true);
->
-> -	ret = ele_msg_send_rcv(priv, tx_msg, ELE_PING_REQ_SZ, rx_msg,
-> -			       ELE_PING_RSP_SZ);
-> +	ret = ele_msg_send_rcv(priv->priv_dev_ctx, tx_msg, ELE_PING_REQ_SZ,
-> +			       rx_msg, ELE_PING_RSP_SZ);
->  	if (ret < 0)
->  		return ret;
->
-> @@ -165,7 +166,7 @@ int ele_service_swap(struct se_if_priv *priv,
->  	if (ret)
->  		return -EINVAL;
->
-> -	ret = ele_msg_send_rcv(priv, tx_msg, ELE_SERVICE_SWAP_REQ_MSG_SZ,
-> +	ret = ele_msg_send_rcv(priv->priv_dev_ctx, tx_msg, ELE_SERVICE_SWAP_REQ_MSG_SZ,
->  			       rx_msg, ELE_SERVICE_SWAP_RSP_MSG_SZ);
->  	if (ret < 0)
->  		return ret;
-> @@ -213,7 +214,7 @@ int ele_fw_authenticate(struct se_if_priv *priv, dma_addr_t contnr_addr,
->  	tx_msg->data[1] = 0;
->  	tx_msg->data[2] = lower_32_bits(img_addr);
->
-> -	ret = ele_msg_send_rcv(priv, tx_msg, ELE_FW_AUTH_REQ_SZ, rx_msg,
-> +	ret = ele_msg_send_rcv(priv->priv_dev_ctx, tx_msg, ELE_FW_AUTH_REQ_SZ, rx_msg,
->  			       ELE_FW_AUTH_RSP_MSG_SZ);
->  	if (ret < 0)
->  		return ret;
-> @@ -251,7 +252,7 @@ int ele_debug_dump(struct se_if_priv *priv)
->  	do {
->  		memset(rx_msg, 0x0, ELE_DEBUG_DUMP_RSP_SZ);
->
-> -		ret = ele_msg_send_rcv(priv, tx_msg, ELE_DEBUG_DUMP_REQ_SZ,
-> +		ret = ele_msg_send_rcv(priv->priv_dev_ctx, tx_msg, ELE_DEBUG_DUMP_REQ_SZ,
->  				       rx_msg, ELE_DEBUG_DUMP_RSP_SZ);
->  		if (ret < 0)
->  			return ret;
-> diff --git a/drivers/firmware/imx/ele_common.c b/drivers/firmware/imx/ele_common.c
-> index 04ee5112d346..b662063c3b1c 100644
-> --- a/drivers/firmware/imx/ele_common.c
-> +++ b/drivers/firmware/imx/ele_common.c
-> @@ -46,8 +46,9 @@ int se_update_msg_chksum(u32 *msg, u32 msg_len)
->  	return 0;
->  }
->
-> -int ele_msg_rcv(struct se_if_priv *priv, struct se_clbk_handle *se_clbk_hdl)
-> +int ele_msg_rcv(struct se_if_device_ctx *dev_ctx, struct se_clbk_handle *se_clbk_hdl)
->  {
-> +	struct se_if_priv *priv = dev_ctx->priv;
->  	bool is_rsp_wait_with_timeout = false;
->  	bool wait_uninterruptible = false;
->  	unsigned long remaining_jiffies;
-> @@ -134,7 +135,7 @@ int ele_msg_rcv(struct se_if_priv *priv, struct se_clbk_handle *se_clbk_hdl)
->  	return ret;
->  }
->
-> -int ele_msg_send(struct se_if_priv *priv,
-> +int ele_msg_send(struct se_if_device_ctx *dev_ctx,
->  		 void *tx_msg,
->  		 int tx_msg_sz)
->  {
-> @@ -146,9 +147,9 @@ int ele_msg_send(struct se_if_priv *priv,
->  	 * carried in the message.
->  	 */
->  	if (header->size << 2 != tx_msg_sz) {
-> -		dev_err(priv->dev,
-> -			"User buf hdr: 0x%x, sz mismatced with input-sz (%d != %d).",
-> -			*(u32 *)header, header->size << 2, tx_msg_sz);
-> +		dev_err(dev_ctx->priv->dev,
-> +			"%s: User buf hdr: 0x%x, sz mismatched with input-sz (%d != %d).",
-> +			dev_ctx->devname, *(u32 *)header, header->size << 2, tx_msg_sz);
->  		return -EINVAL;
->  	}
->
-> @@ -158,9 +159,10 @@ int ele_msg_send(struct se_if_priv *priv,
->  	 * caller-provided tx_msg pointer after mbox_send_message() returns, so
->  	 * the caller-owned buffer may be released after a successful send.
->  	 */
-> -	err = mbox_send_message(priv->tx_chan, tx_msg);
-> +	err = mbox_send_message(dev_ctx->priv->tx_chan, tx_msg);
->  	if (err < 0) {
-> -		dev_err(priv->dev, "Error: mbox_send_message failure.\n");
-> +		dev_err(dev_ctx->priv->dev,
-> +			"%s: Error: mbox_send_message failure.", dev_ctx->devname);
->  		return err;
->  	}
->
-> @@ -172,38 +174,41 @@ static void ele_msg_send_rcv_cleanup(struct se_if_priv *priv)
->  	unsigned long flags;
->
->  	spin_lock_irqsave(&priv->waiting_rsp_clbk_hdl.clbk_rx_lock, flags);
-> +	priv->waiting_rsp_clbk_hdl.dev_ctx = NULL;
->  	priv->waiting_rsp_clbk_hdl.rx_msg = NULL;
->  	priv->waiting_rsp_clbk_hdl.rx_msg_sz = 0;
->  	spin_unlock_irqrestore(&priv->waiting_rsp_clbk_hdl.clbk_rx_lock, flags);
->  }
->
-> -/* API used for send/receive blocking call. */
-> -int ele_msg_send_rcv(struct se_if_priv *priv, void *tx_msg, int tx_msg_sz,
-> -		     void *rx_msg, int exp_rx_msg_sz)
-> +/* API used for send/receive blocking calls. */
-> +int ele_msg_send_rcv(struct se_if_device_ctx *dev_ctx, void *tx_msg,
-> +		     int tx_msg_sz, void *rx_msg, int exp_rx_msg_sz)
->  {
-> +	struct se_if_priv *priv = dev_ctx->priv;
->  	unsigned long flags;
->  	int err;
->
->  	guard(mutex)(&priv->se_if_cmd_lock);
->
->  	if (atomic_read(&priv->fw_busy)) {
-> -		dev_dbg(priv->dev, "ELE became unresponsive.\n");
-> +		dev_dbg(priv->dev, "%s: ELE became unresponsive.\n", dev_ctx->devname);
->  		return -EBUSY;
->  	}
->  	reinit_completion(&priv->waiting_rsp_clbk_hdl.done);
->  	/* Publish rx_msg/rx_msg_sz under the lock read by se_if_rx_callback(). */
->  	spin_lock_irqsave(&priv->waiting_rsp_clbk_hdl.clbk_rx_lock, flags);
-> +	priv->waiting_rsp_clbk_hdl.dev_ctx = dev_ctx;
->  	priv->waiting_rsp_clbk_hdl.rx_msg_sz = exp_rx_msg_sz;
->  	priv->waiting_rsp_clbk_hdl.rx_msg = rx_msg;
->  	spin_unlock_irqrestore(&priv->waiting_rsp_clbk_hdl.clbk_rx_lock, flags);
->
-> -	err = ele_msg_send(priv, tx_msg, tx_msg_sz);
-> +	err = ele_msg_send(dev_ctx, tx_msg, tx_msg_sz);
->  	if (err < 0) {
->  		ele_msg_send_rcv_cleanup(priv);
->  		return err;
->  	}
->
-> -	err = ele_msg_rcv(priv, &priv->waiting_rsp_clbk_hdl);
-> +	err = ele_msg_rcv(dev_ctx, &priv->waiting_rsp_clbk_hdl);
->
->  	if (priv->waiting_rsp_clbk_hdl.signal_rcvd) {
->  		/*
-> @@ -214,7 +219,8 @@ int ele_msg_send_rcv(struct se_if_priv *priv, void *tx_msg, int tx_msg_sz,
->  		if (err > 0)
->  			err = -ERESTARTSYS;
->  		priv->waiting_rsp_clbk_hdl.signal_rcvd = false;
-> -		dev_dbg(priv->dev, "Err[0x%x]:Interrupted by signal.", err);
-> +		dev_dbg(priv->dev, "%s: Err[0x%x]:Interrupted by signal.",
-> +			dev_ctx->devname, err);
->  	}
->
->  	ele_msg_send_rcv_cleanup(priv);
-> @@ -243,6 +249,7 @@ void se_if_rx_callback(struct mbox_client *mbox_cl, void *msg)
->  {
->  	struct se_clbk_handle *se_clbk_hdl;
->  	struct device *dev = mbox_cl->dev;
-> +	const char *devname = NULL;
->  	struct se_msg_hdr *header;
->  	bool sz_mismatch = false;
->  	struct se_if_priv *priv;
-> @@ -266,7 +273,7 @@ void se_if_rx_callback(struct mbox_client *mbox_cl, void *msg)
->  	if (header->tag == priv->if_defs->cmd_tag) {
->  		se_clbk_hdl = &priv->cmd_receiver_clbk_hdl;
->  		spin_lock_irqsave(&se_clbk_hdl->clbk_rx_lock, flags);
-> -		if (!se_clbk_hdl->rx_msg) {
-> +		if (!se_clbk_hdl->dev_ctx || !se_clbk_hdl->rx_msg) {
->  			spin_unlock_irqrestore(&se_clbk_hdl->clbk_rx_lock, flags);
->  			dev_warn(dev, "No command receiver registered for message: %.8x\n",
->  				 *((u32 *)header));
-> @@ -280,8 +287,8 @@ void se_if_rx_callback(struct mbox_client *mbox_cl, void *msg)
->  		 * SE_IOCTL_ENABLE_CMD_RCV and is not subject to the timeout/circuit-
->  		 * breaker handling used for rsp_tag messages.
->  		 */
-> -		dev_dbg(dev, "Selecting cmd receiver: for mesg header:0x%x.",
-> -			*(u32 *)header);
-> +		dev_dbg(dev, "Selecting cmd receiver:%s for mesg header:0x%x.",
-> +			se_clbk_hdl->dev_ctx->devname,  *(u32 *)header);
->
->  		/*
->  		 * Pre-allocated buffer of MAX_NVM_MSG_LEN
-> @@ -296,13 +303,14 @@ void se_if_rx_callback(struct mbox_client *mbox_cl, void *msg)
->  		 * Clamp the copy length to the pre-allocated receiver buffer (MAX_NVM_MSG_LEN).
->  		 */
->  		se_clbk_hdl->rx_msg_sz = min_t(u32, rx_msg_sz, MAX_NVM_MSG_LEN);
-> +		devname = se_clbk_hdl->dev_ctx->devname;
->  		memcpy(se_clbk_hdl->rx_msg, msg, se_clbk_hdl->rx_msg_sz);
->  		complete(&se_clbk_hdl->done);
->  		spin_unlock_irqrestore(&se_clbk_hdl->clbk_rx_lock, flags);
->  		if (sz_mismatch)
->  			dev_err(dev,
-> -				"CMD-RCVER NVM: hdr(0x%x) with different sz(%d != %d).\n",
-> -				*(u32 *)header,
-> +				"%s: CMD-RCVER NVM: hdr(0x%x) with different sz(%d != %d).\n",
-> +				devname, *(u32 *)header,
->  				(header->size << 2), rx_msg_sz);
->  	} else if (header->tag == priv->if_defs->rsp_tag) {
->  		bool exception_for_sz_mismatch = check_hdr_exception_for_sz(priv, header);
-> @@ -324,8 +332,8 @@ void se_if_rx_callback(struct mbox_client *mbox_cl, void *msg)
->  			return;
->  		}
->  		exp_rx_msg_sz = se_clbk_hdl->rx_msg_sz;
-> -		dev_dbg(dev, "Selecting resp waiter: for mesg header:0x%x.",
-> -			*(u32 *)header);
-> +		dev_dbg(dev, "Selecting resp waiter:%s for mesg header:0x%x.",
-> +			se_clbk_hdl->dev_ctx->devname, *(u32 *)header);
->
->  		/*
->  		 * For rsp_tag traffic, the sender provides the expected response
-> @@ -337,14 +345,15 @@ void se_if_rx_callback(struct mbox_client *mbox_cl, void *msg)
->  			sz_mismatch = true;
->
->  		se_clbk_hdl->rx_msg_sz = min(rx_msg_sz, exp_rx_msg_sz);
-> +		devname = se_clbk_hdl->dev_ctx->devname;
->  		memcpy(se_clbk_hdl->rx_msg, msg, se_clbk_hdl->rx_msg_sz);
->  		complete(&se_clbk_hdl->done);
->  		spin_unlock_irqrestore(&se_clbk_hdl->clbk_rx_lock, flags);
->
->  		if (sz_mismatch)
->  			dev_err(dev,
-> -				"Rsp to CMD: hdr(0x%x) with different sz(%d != %d).\n",
-> -				*(u32 *)header,
-> +				"%s: Rsp to CMD: hdr(0x%x) with different sz(%d != %d).\n",
-> +				devname, *(u32 *)header,
->  				(header->size << 2), exp_rx_msg_sz);
->  	} else {
->  		dev_err(dev, "Failed to select a device for message: %.8x\n",
-> diff --git a/drivers/firmware/imx/ele_common.h b/drivers/firmware/imx/ele_common.h
-> index 7bf2febefc45..07e6b6a1bafa 100644
-> --- a/drivers/firmware/imx/ele_common.h
-> +++ b/drivers/firmware/imx/ele_common.h
-> @@ -16,12 +16,12 @@
->
->  int se_update_msg_chksum(u32 *msg, u32 msg_len);
->
-> -int ele_msg_rcv(struct se_if_priv *priv, struct se_clbk_handle *se_clbk_hdl);
-> +int ele_msg_rcv(struct se_if_device_ctx *dev_ctx, struct se_clbk_handle *se_clbk_hdl);
->
-> -int ele_msg_send(struct se_if_priv *priv, void *tx_msg, int tx_msg_sz);
-> +int ele_msg_send(struct se_if_device_ctx *dev_ctx, void *tx_msg, int tx_msg_sz);
->
-> -int ele_msg_send_rcv(struct se_if_priv *priv, void *tx_msg, int tx_msg_sz,
-> -		     void *rx_msg, int exp_rx_msg_sz);
-> +int ele_msg_send_rcv(struct se_if_device_ctx *dev_ctx, void *tx_msg,
-> +		     int tx_msg_sz, void *rx_msg, int exp_rx_msg_sz);
->
->  void se_if_rx_callback(struct mbox_client *mbox_cl, void *msg);
->
-> diff --git a/drivers/firmware/imx/se_ctrl.c b/drivers/firmware/imx/se_ctrl.c
-> index df3d1da28a75..2ee0f70c38cd 100644
-> --- a/drivers/firmware/imx/se_ctrl.c
-> +++ b/drivers/firmware/imx/se_ctrl.c
-> @@ -284,6 +284,36 @@ static int get_se_soc_info(struct se_if_priv *priv, const struct se_soc_info *se
->  	return 0;
->  }
->
-> +static int init_misc_device_context(struct se_if_priv *priv, int ch_id,
-> +				    struct se_if_device_ctx **new_dev_ctx)
-> +{
-> +	const char *err_str = "Failed to allocate memory";
-> +	struct se_if_device_ctx *dev_ctx;
-> +	int ret = -ENOMEM;
+> +title: Analog Devices AD7768 and AD7768-4 ADC
 > +
-> +	dev_ctx = kzalloc_obj(*dev_ctx, GFP_KERNEL);
+> +maintainers:
+> +  - Janani Sunil <janani.sunil@analog.com>
 > +
-> +	if (!dev_ctx)
-> +		return ret;
+> +description: |
+> +  The AD7768 is an 8-channel, 24-bit simultaneous sampling ADC with configurable
+> +  power and performance modes. The AD7768-4 is a 4-channel version.
+> +
+> +  This binding covers SPI mode only (register access via SPI). Pin control mode,
+> +  where configuration is set via hardware pins rather than SPI registers, is not
+> +  supported.
+> +
+> +  The io-backend represents the high-speed data output interface, consuming the
+> +  DOUTx data lines, DCLK (data clock), and DRDY (data ready) signals.
+> +
+> +  Datasheet at:
+> +    https://www.analog.com/media/en/technical-documentation/data-sheets/ad7768-ad7768-4.pdf
+> +
+> +  HDL reference design:
+> +    https://github.com/analogdevicesinc/hdl/tree/main/projects/ad7768evb
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - adi,ad7768
+> +      - adi,ad7768-4
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +    description:
+> +      Master clock (MCLK). Can be supplied as a CMOS clock on the XTAL2/MCLK
+> +      pin, a crystal oscillator connected between the XTAL1 and XTAL2 pins, or
+> +      an LVDS differential clock on the XTAL1/XTAL2 pin pair. CMOS and LVDS
+> +      clocks must operate from 1.15 MHz to 34 MHz. Crystals must operate from
+> +      8 MHz to 34 MHz.
+> +
+> +  clock-names:
+> +    description:
+> +      Identifies the master clock source.
 
-		return -ENOMEM;
+It would be more accurate to say that this describes the type of clock that is
+attached to the XTAL1 and XTAL2/MCLK pins. In other words, drop the description
+from clocks and move it here.
+
+> +    enum:
+> +      - mclk
+> +      - xtal
+> +      - lvds
+> +    default: mclk
+> +
+> +  avdd1-supply:
+> +    description:
+> +      Analog supply voltage for the AVDD1A and AVDD1B pins (5V ± 10% with
+> +      respect to AVSS). Powers the analog front end, reference input, and
+> +      common-mode output circuitry. Both pins must be tied to the same
+> +      potential.
+> +
+> +  avss-supply:
+> +    description:
+> +      Negative analog supply rail for the AVSS1A, AVSS1B, AVSS2A, AVSS2B,
+> +      and AVSS pins. This rail is referenced to DGND and all AVSS pins must
+> +      be tied to the same potential. In single-supply operation AVSS is
+> +      nominally 0 V; in split-supply operation it can range from 0 V to
+> +      -2.75 V with respect to DGND. If omitted, AVSS is assumed to be at
+> +      system ground (0 V).
+> +
+> +  avdd2-supply:
+> +    description:
+> +      Analog supply voltage for the AVDD2A and AVDD2B pins (2V to 5.5V with
+> +      respect to AVSS). Connects to internal 1.8V analog LDO regulators that
+> +      power the ADC core. Both pins must be tied to the same potential.
+> +
+> +  iovdd-supply:
+> +    description:
+> +      Digital supply voltage IOVDD (2.25V to 3.6V with respect to DGND).
+> +      Sets the logic levels for all interface pins and powers the digital
+> +      processing core via an internal LDO. For 1.8V operation (1.72V to
+> +      1.88V), IOVDD must be tied to the DREGCAP pin.
+> +
+> +  ref1p-supply:
+> +    description:
+> +      Positive reference input supply for REF1+. The voltage range is from
+> +      (AVSS + 1 V) to AVDD1. Together, REF1+ and REF1- must provide a
+> +      differential reference voltage from 1 V to |AVDD1 - AVSS|. This
+> +      reference is used by channels 0 to 3 on the AD7768 and channels 0 and 1
+> +      on the AD7768-4.
+> +
+> +  ref1n-supply:
+> +    description:
+> +      Negative reference input supply for REF1-. The voltage range is from
+> +      AVSS to (AVDD1 - 1 V).
+> +
+> +  ref2p-supply:
+> +    description:
+> +      Positive reference input supply for REF2+. The voltage range is from
+> +      (AVSS + 1 V) to AVDD1. Together, REF2+ and REF2- must provide a
+> +      differential reference voltage from 1 V to |AVDD1 - AVSS|. This
+> +      reference is used by channels 4 to 7 on the AD7768 and channels 2 and 3
+> +      on the AD7768-4.
+> +
+> +  ref2n-supply:
+> +    description:
+> +      Negative reference input supply for REF2-. The voltage range is from
+> +      AVSS to (AVDD1 - 1 V).
+
+For all of the supplies, I don't think we need to repeat so much of what the
+datasheet says. It is getting quite noisy and makes it hard to see the parts
+of the description that are actually relevant to how the devicetree is to be
+interpreted. (includes VCM as well)
 
 > +
-> +	dev_ctx->devname = kasprintf(GFP_KERNEL, "%s0_ch%d",
-> +				     get_se_if_name(priv->if_defs->se_if_type),
-> +				     ch_id);
-> +	if (!dev_ctx->devname)
-> +		goto exit;
+> +  reset-gpios:
+> +    maxItems: 1
+> +    description: GPIO connected to the active-low RESET pin
 > +
-> +	dev_ctx->priv = priv;
-> +	*new_dev_ctx = dev_ctx;
+> +  start-gpios:
+> +    maxItems: 1
+> +    description:
+> +      GPIO connected to the START pin. An active-low pulse on this pin
+> +      synchronizes the device to other AD7768 devices. When not used, this
+> +      pin must be tied to a logic high level through a pull-up resistor.
+> +      When used, SYNC_OUT must be wired back to SYNC_IN on all devices in
+> +      the synchronization chain.
 > +
-> +	return 0;
-> +exit:
-> +	*new_dev_ctx = NULL;
+> +  sync-in-gpios:
+> +    maxItems: 1
+> +    description:
+> +      GPIO connected to the SYNC_IN pin. Receives the synchronization pulse
+> +      generated on SYNC_OUT in response to a START pulse. Must be synchronous
+> +      to the MCLK clock domain. In multi-device or daisy-chained systems,
+> +      two successive synchronization pulses must be applied to guarantee all
+> +      ADCs are synchronized.
 > +
-> +	kfree(dev_ctx->devname);
-> +	kfree(dev_ctx);
-> +	return dev_err_probe(priv->dev, ret, "%s", err_str);
+> +  sync-out-gpios:
 
-Needn't var err_str and generally, needn't print msg for -ENOMEM
+Unusual to have an output pin connected to a GPIO. Usually this would be an
+interrupt or trigger-sources.
 
-	return -ENOMEM;
+> +    maxItems: 1
+> +    description:
+> +      GPIO connected to the SYNC_OUT pin. Outputs a synchronization pulse
+> +      synchronous to MCLK in response to a START pulse or SPI_SYNC command.
+> +      In single-device configurations this pin must be wired back to SYNC_IN.
+> +      In multi-device configurations it can be routed to the SYNC_IN pins of
+> +      all devices in the chain.
 
+Although this description makes it sounds like the SYNC_OUT pin is only ever
+wired to SYNC_IN. So wouldn't be described here at all.
 
-> +}
 > +
->  static int se_if_request_channel(struct device *dev, struct mbox_chan **chan,
->  				 struct mbox_client *cl, const char *name)
->  {
-> @@ -328,6 +358,11 @@ static void se_if_probe_cleanup(void *plat_dev)
->
->  	dev_set_drvdata(dev, NULL);
->
-> +	if (priv->priv_dev_ctx) {
-> +		kfree(priv->priv_dev_ctx->devname);
-> +		kfree(priv->priv_dev_ctx);
-> +	}
+> +  gpio-controller: true
 > +
->  	kfree(priv);
->  }
->
-> @@ -425,6 +460,12 @@ static int se_if_probe(struct platform_device *pdev)
->  		load_fw->imem_mgmt = true;
->  	}
->
-> +	ret = init_misc_device_context(priv, 0, &priv->priv_dev_ctx);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "Failed[0x%x] to create device contexts.",
-> +				     ret);
-
-Needn't print error code, dev_err_probe() already print for you.
-
-		dev_err_probe(dev, ret, "Failed to ...\n"):
-
-and need "\n" for all error message, please double other.
-
-Frank
+> +  '#gpio-cells':
+> +    const: 2
 > +
->  	if (if_node->if_defs.se_if_type == SE_TYPE_ID_HSM) {
->  		ret = get_se_soc_info(priv, se_info);
->  		if (ret)
-> diff --git a/drivers/firmware/imx/se_ctrl.h b/drivers/firmware/imx/se_ctrl.h
-> index 54b2a262a2c3..dd4a1ea7e35a 100644
-> --- a/drivers/firmware/imx/se_ctrl.h
-> +++ b/drivers/firmware/imx/se_ctrl.h
-> @@ -20,6 +20,7 @@
->  #define MESSAGING_VERSION_7		0x7
->
->  struct se_clbk_handle {
-> +	struct se_if_device_ctx *dev_ctx;
->  	struct completion done;
->  	bool signal_rcvd;
->  	u32 rx_msg_sz;
-> @@ -44,6 +45,12 @@ struct se_imem_buf {
->  	u32 state;
->  };
->
-> +/* Private struct for each char device instance. */
-> +struct se_if_device_ctx {
-> +	struct se_if_priv *priv;
-> +	const char *devname;
-> +};
+> +  adi,data-lines-number:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    enum: [1, 2, 4, 8]
+> +    description:
+> +      Number of DOUTx lines used for the high-speed data output interface
+> +      (distinct from the SPI control interface). AD7768 supports 1, 2, or 8
+> +      lines; AD7768-4 supports 1 or 4 lines. Defaults to the maximum number
+> +      of lines for the selected variant if omitted.
 > +
->  /* Header of the messages exchange with the EdgeLock Enclave */
->  struct se_msg_hdr {
->  	u8 ver;
-> @@ -106,6 +113,8 @@ struct se_if_priv {
->  	struct se_fw_load_info load_fw;
->
->  	atomic_t fw_busy;
+> +  regulators:
+> +    type: object
+> +    description: Container for the on-chip VCM regulator.
+> +    additionalProperties: false
 > +
-> +	struct se_if_device_ctx *priv_dev_ctx;
->  };
->
->  char *get_se_if_name(u8 se_if_id);
->
-> --
-> 2.43.0
->
+> +    properties:
+> +      vcm-output:
+> +        type: object
+> +        description:
+> +          The VCM pin provides a buffered common-mode voltage output used to
+> +          bias the analog inputs. It supports three fixed output levels of
+> +          1650000 uV, 2500000 uV, and 2140000 uV, as well as a
+> +          supply-dependent (AVDD1 - AVSS) / 2 output derived from
+> +          avdd1-supply. Select the voltage by setting regulator-min-microvolt
+> +          and regulator-max-microvolt to the same value. Use
+> +          regulator-always-on when no DT consumer node references the VCM
+> +          output. The VCM circuitry is associated with channel 0. When VCM is
+> +          used externally, channel@0 must be present and kept enabled because
+> +          placing channel 0 in standby disables the VCM output.
+> +        $ref: /schemas/regulator/regulator.yaml#
+> +        unevaluatedProperties: false
+> +
+> +  io-backends:
+> +    maxItems: 1
+> +
