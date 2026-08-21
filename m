@@ -1,133 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3623F48A8AC;
-	Fri, 21 Aug 2026 15:24:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E50C82D7398;
+	Fri, 21 Aug 2026 15:27:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787325882; cv=none; b=Aix3lTuEDNwyM+A4zBEY/ipbOSKI5Fl+UWIT0+1dCvF4QiBp6200z8g2D5kkTaBDlOzzRtmLzDRjNbNT6jc+7ScfLO/1OYI0WU6NyZ+NS6yN+hmWQnZmtCjvLq5jJ5O458gC2S/02j0Zfg8wG/n1wHJ9PFCqZsH09Ze7l8c4rxs=
+	t=1787326042; cv=none; b=JnBpHzjSHGw9sJKjkMLQOAm9TJK3cm/899xdZCnffW4HIfvKUPsWwgv5LD6ZjN0KQn+ixlwgHh3CXGEUCymPV/a+t63J8MU4MzqhZXArazrHUrWrduou1zJ2F8e/OUmnL1+NBoqqihLLghm2c/dD/0+8Y7PS1lzi7RiHPtc0hIk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787325882; c=relaxed/simple;
-	bh=SBGml8hrQ2aFRGNL2p+ZCGxmIsUl/78d5Et7UrK0FMI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DOIV2XFGUq6iqUSykv6Jyrr89/S9myKSFsEj72x6+YB9ONtsJ5ly77Mp+J+o7L2gYa8X/CqdaVBMiRKNk8wXRuSAYuezhRBAWqkWJ6NO//HX1GIg+4qHHb9xvuMJNZ2jU8tHBFmu2DW+18ETpdKbzJ3gGO1sAmB8ELx1o9wdTWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VWsTPTjF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787326042; c=relaxed/simple;
+	bh=TupuwdvvxEsbS1wFHF0rJwKKe2e91Q3drvO1LcGxE9s=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=eHXQKTnippffc1TClQyRzsWZ5luGvNnJG2AaEOrOnB1/lh/C8iGanNLKZGkyc4z7YADbgax0652KVG/pVy6Kzccw0eAIFlE0RxGvF2aJGdlV992OocVnDTrgD6TkLApvda6PptdqBVa1UvHUcTQPUbFYhrANs+E6sCFuXsa7aow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IKXf65x0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VWsTPTjF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBCB01F000E9;
-	Fri, 21 Aug 2026 15:24:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IKXf65x0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41E1D1F000E9;
+	Fri, 21 Aug 2026 15:27:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787325880;
-	bh=dnL5vbj5IlrgthDUXFHTUoJ8e1RoFREik7AkKfQotBU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VWsTPTjFck2IV5MzjnjvlEZBKFtNtr6UK41cxwdBCwKDSEtRJNhn68AGM9VYnrIEB
-	 MKH+8eHrVZiztyqudfUZP1eDnusyNgkJ4CeS3oWD3kgVC9dmA0cuqFIh3yO4giZHeE
-	 eklKneFSNty/eOOT8CLXBi8Ha9ECzg1WOpSCO81Nb08enxxhCY+DteS07YbezzXyx5
-	 QdMySiIZuwghX3UrEBTyMSYJSmSfsxTGObMbGd1vXkKec+elDUGNQSDMcdww0QjBnO
-	 neb1rL/qmTbkhV9p/yGnbNHCbY2Gdm3abxaFXmY7QKsRwQZAdEybzW96LCy1ZfEDZG
-	 y801IxSjrscbA==
-Date: Fri, 21 Aug 2026 16:24:35 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Neo Chang <YLCHANG2@nuvoton.com>
-Cc: lgirdwood@gmail.com, perex@perex.cz, robh@kernel.org,
-	krzk+dt@kernel.org, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
-	neo.chang70@gmail.com, kchsu0@nuvoton.com, sjlin0@nuvoton.com
-Subject: Re: [PATCH v9 2/2] ASoC: codecs: nau8360: Add support for NAU83G60
- amplifier
-Message-ID: <7e7b8329-23d3-495d-ad48-9ea70189c46c@sirena.org.uk>
-References: <20260820022925.1174132-1-YLCHANG2@nuvoton.com>
- <20260820022925.1174132-3-YLCHANG2@nuvoton.com>
+	s=k20260515; t=1787326040;
+	bh=LFmoWs50goC2h7HSIsoTGwYdG5uN4AfpUPNwy67rdDc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=IKXf65x0umGpMgZOj2aGA2rYdapdI/J8zTRMiXrqJ27Ko6p5sUfV90x7o/khIcEfw
+	 l9cDDjh0aJYf9LAQJF5cV+b6dCDA8fE/cpZO9BKJYaGdukIUL5V96iYg21swWHZ6Uo
+	 oThDB4Cili5kI9oqJMxcAsCw6qkubrJefM/c5ZTbnEW6NkzCwUOkKQ/dgMPzH88iat
+	 qAl46dTPHj6u3YZDVu0R/23IAHJbT2TDtWbf3N5ymGpkE84W3yN+6i4DP8qMze0Sgx
+	 G7FsT9b9sDcmHBBvG9wssJ6eLGYy3aXuvs8AeR5OW/znsC8muyA2j4d17Q0aFXxptf
+	 Bc+GfXER6iVCA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] arm64: dts: imx8qm-ss-conn: Add USB HSIC related
+ nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Franz Schnyder" <fra.schnyder@gmail.com>
+Cc: robh@kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260821-add-apalis-imx8-usbhsic-v1-1-fb93d73ead44@toradex.com>
+References: <20260821-add-apalis-imx8-usbhsic-v1-0-fb93d73ead44@toradex.com>
+ <20260821-add-apalis-imx8-usbhsic-v1-1-fb93d73ead44@toradex.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 21 Aug 2026 15:27:19 +0000
+Message-Id: <20260821152720.41E1D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="FbvYG0boBekWO757"
-Content-Disposition: inline
-In-Reply-To: <20260820022925.1174132-3-YLCHANG2@nuvoton.com>
-X-Cookie: Package sold by weight, not volume.
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Invalid and spurious use of the `#stream-id-cells =3D <1>;` propert=
+y on a USB controller node.
+--
 
---FbvYG0boBekWO757
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--- Patch [1]: [PATCH 1/2] arm64: dts: imx8qm-ss-conn: Add USB HSIC related=
+ nodes ---
+commit 3f8b073ab02e59ddadf748e8d5c304f634b67d3b
+Author: Franz Schnyder <franz.schnyder@toradex.com>
 
-On Thu, Aug 20, 2026 at 10:29:25AM +0800, Neo Chang wrote:
-> Add support for the Nuvoton NAU83G60 audio codec. The NAU83G60 is a
-> stereo 30W+30W smart amplifier with an integrated low-latency
-> Advanced Audio DSP.
+arm64: dts: imx8qm-ss-conn: Add USB HSIC related nodes
+   =20
+This commit adds the required nodes to support the iMX8QM/QP USB HSIC host
+controller.
 
-A couple of issues here, mostly this looks fine.
+[ ... ]
+> diff --git a/arch/arm64/boot/dts/freescale/imx8qm-ss-conn.dtsi b/arch/arm=
+64/boot/dts/freescale/imx8qm-ss-conn.dtsi
+> index ccf9f510e0f88..168f89eebeedb 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8qm-ss-conn.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx8qm-ss-conn.dtsi
+> @@ -4,6 +4,32 @@
+>   *	Dong Aisheng <aisheng.dong@nxp.com>
+>   */
+> =20
+> +&conn_subsys {
+> +	usbh1: usb@5b0e0000 {
+> +		compatible =3D "fsl,imx7ulp-usb", "fsl,imx6ul-usb", "fsl,imx27-usb";
+> +		reg =3D <0x5b0e0000 0x200>;
+> +		interrupt-parent =3D <&gic>;
+> +		interrupts =3D <GIC_SPI 268 IRQ_TYPE_LEVEL_HIGH>;
+> +		phy_type =3D "hsic";
+> +		dr_mode =3D "host";
+> +		fsl,usbphy =3D <&usbphynop2>;
+> +		fsl,usbmisc =3D <&usbmisc2 0>;
+> +		clocks =3D <&usb2_lpcg IMX_LPCG_CLK_6>;
+> +		ahb-burst-config =3D <0x0>;
+> +		tx-burst-size-dword =3D <0x10>;
+> +		rx-burst-size-dword =3D <0x10>;
+> +		#stream-id-cells =3D <1>;
 
-> +static int nau8360_peq_coeff_put(struct snd_kcontrol *kcontrol,
-> +	struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *cp = snd_kcontrol_chip(kcontrol);
-> +	struct snd_soc_dapm_context *dapm = snd_soc_component_to_dapm(cp);
-> +	struct nau8360 *nau8360 = snd_soc_component_get_drvdata(cp);
-> +	struct soc_bytes_ext *params = (void *)kcontrol->private_value;
-> +	int i, reg, ret = 0;
-> +	__be16 *data = NULL;
-> +	bool changed = false;
-> +
-> +	/* Use the DAPM lock to prevent race conditions during DAPM power-up
-> +	 * state transitions, and check component active status to prohibit
-> +	 * PEQ access during active audio streams (playback and capture).
-> +	 */
-> +	snd_soc_dapm_mutex_lock(dapm);
-> +	if (snd_soc_component_active(cp)) {
-> +		dev_dbg(nau8360->dev,
-> +			"PEQ coefficient access is ignored during audio is active");
-> +		goto unlock_dapm;
+[Severity: Low]
+Does this code introduce a dt-bindings validation failure?=20
 
-This should probably be -EBUSY or something, though that will upset
-mixer-test.  As things stand since the values change when a stream
-starts and stops there should be an event when that happens, and since
-we report success some value ought to be filled in for the read.
+The usbh1 node defines #stream-id-cells =3D <1>;, which is a legacy ARM SMMU
+property meant for master buses. The chipidea,usb2 dt-bindings specify
+unevaluatedProperties: false and do not include #stream-id-cells, resulting
+in a dtbs_check validation failure.
 
-> +static void nau8360_dsp_fw_load(struct nau8360 *nau8360)
-> +{
-> +	nau8360->load_fw_done = false;
-> +	schedule_work(&nau8360->load_fw_work);
-> +}
+> +		power-domains =3D <&pd IMX_SC_R_USB_1>;
+> +		status =3D "disabled";
+> +	};
 
-> +static int __maybe_unused nau8360_resume(struct snd_soc_component *component)
-> +{
-> +	struct nau8360 *nau8360 = snd_soc_component_get_drvdata(component);
-> +	struct regmap *regmap = nau8360->regmap;
+[ ... ]
 
-> +	nau8360_dsp_fw_load(nau8360);
-
-This only kicks off the firmware load, it doesn't wait for it to
-complete.  That means that if a stream restarts quickly after resume we
-will run into issues - I see that the normal playback path just errors
-if we try to start without the firmware.  We should wait, either here or
-in the startup path.
-
-> +	if (NAU8360_IS_DSP_REG(reg))
-> +		*value = nau8360->i2c_read_buf[0] |
-> +			(nau8360->i2c_read_buf[1] << 8) |
-> +			(nau8360->i2c_read_buf[2] << 16) |
-> +			(nau8360->i2c_read_buf[3] << 24);
-
-get_unaligned_le32()?
-
---FbvYG0boBekWO757
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqIbbMACgkQJNaLcl1U
-h9ARoQf/Vm6uj3Mw8pW8Ni5unT/J30hjetyZ2zxoIepaS5lXsLB5W34wxwhZhTQq
-D3wbdzK1JJnvXXivIoyoJjY8EZZlXCp7si6f89XtOokkQ8Mvw21EgUetKaDBrNfw
-j91Nw8GBQnY5B+jM4qSvgmHi0nE3lujSpcKm6WQyUrGO2iMJpanztxuv8Py6DCDI
-ojPbtfNA8mCWtiA3gLJC4R3O1DbJZRuKJLpgCyp35NMnttJDaajjdAhIgPAfK/jV
-thzBU72FrQpI4JsDNgT7j9aXXFQBT1k62EKBOEfAB+CFvAz2sgdkd5l/70FCEnRV
-65SCV405IUFuSECXuVpFIzRAJ57p6w==
-=NzXF
------END PGP SIGNATURE-----
-
---FbvYG0boBekWO757--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821-add-apalis=
+-imx8-usbhsic-v1-0-fb93d73ead44@toradex.com?part=3D1
