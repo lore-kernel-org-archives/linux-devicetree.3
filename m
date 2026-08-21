@@ -1,229 +1,221 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B129E3C4B64
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 08:37:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2375346A0C
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 08:38:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787301436; cv=none; b=J7yul3akXvBYHGIOE/ny3SjqUF9Z0OSaCMH6UjmBQR1OqHmet/jiRY0ZJhM3/j5PQZSnHVvto8FvzNpeGwB/IfsATlcYjui5/9JdID+0/3g8UzukdZc45aq0iMkQHrPPI059Mm2Ti3c9ZBnIxTffk/y/4i+MsxBrvR+ma0ASguU=
+	t=1787301505; cv=none; b=ahP6SwGvM4xqwlJf2XfF6wf89t0g1GZp2tImDKpmGIXjTFNry5thesbAhQwLEbTNn+Bq2z0hJXK/XJ7wEq2wyqiaE68jErYPgS+TmJbeZQU+lzXUKTPXSrAT0T/SfTDSI1i8tTDkd4HKVZopKvi26AgT9rOPTLTd6s8j4PCpAug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787301436; c=relaxed/simple;
-	bh=9bibZuUnFhpT6I48ELTQlm+vsx5ZODwi3YO0SRDPBnY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sGaK0jZ1JTdONeBlvp8sd6ohCPau4Fc5jNeYWuv2lEk5GMY0hcZRkaz2ZJbkATzto7gQEQUTdwPfoFVt1wnaCVIaUGGlfIi8r2eCwzvOcHbzmK6KuMIBpIrkXNHhG+iCpAeIyZ7OSsH+0a+DjVMv3A9vojxx607VFxttFLynTas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HKGCxvke; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787301505; c=relaxed/simple;
+	bh=I2avWxIzfSVrI5uA4VvvPei5FCCv/BtqOgz8LYRLb5w=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=VA6Var1jCxtXie4m3C80YQBhgKhJxTYWkd7kMgC5a068DpadQ1ZPBDPVTHWG0jSBccyhb1rHyqe+AXRpH/Uqco/z6rRsrTHWdJStKxlKm9zAxeZzYVU7qnF4yyBPEA++Ru6DEE7gTK0HPHO33lSN+Jwvo8YNUaRKvA0omOj2N+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bp8SaGW8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HKGCxvke"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-499acf0fb55so3910815e9.3
-        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 01:37:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787301433; x=1787906233; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PldkGwtxCC+r0/FLbTvlyq8GzDgKIMshQkWa8+q2omA=;
-        b=HKGCxvkesPJzGWEJ/hRe4wXGbp5IN9j8i2DZrW+d4eKG2DDivO9nQKQ23BQ1DM+R0y
-         eRZJ+HUNFy3T8OxJd+MtdF6AeAL7p1Exqj3hhpo6cytYNshSDhLmaRa58cEBP/3y0xxs
-         hDsgQyo9Gzlv6zytofWA6gE8YuI/25F9nhlGyTC2LfmUg7AxabG9bzVjZkbShytkgoY4
-         0ooA9iZZnJ/6FkEi0gam8cC0oN45UVkoJqIwfbhXIA+0GYHEva2gdZFfCg+oUBp1K/mK
-         HpdvvhqCDlY6MZXJe9oyxasrI9cDa2oCXdtIObly+kn2zdjwH7LEfEx38CYYun8954MP
-         8z5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787301433; x=1787906233;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PldkGwtxCC+r0/FLbTvlyq8GzDgKIMshQkWa8+q2omA=;
-        b=QHsdqU2CSl/rxwqyv0JGqDoc5npUt4D0+WrhMH9iK2ryCOtt7Ar/AGjJFKKD0YlxGU
-         G1LsKaMcIrViB/CdwWqwZAWLxTc5dP67Uk1GT2EN/D0iKtCLfewPOCDLaXT4X/jF6uyv
-         PSZxiXzhpNQPMtHPrYBkj7a+NqJzhLnuw6Hyd2l5igdJBTnn/oMOCuqt7sqbDPAYV4nB
-         6swCJnGA4slW0k/goO54pC1U9aN4+VpawswdrtKacFRj6RgiAlUszwiTxFwnAtILbsXx
-         nfvtokF6T4UNS8Q+LXE8+Q5asyl4pZsmWFD9M+9nyPYFcydB9rtjPxVnpN4YzNZCRz4F
-         tw1g==
-X-Forwarded-Encrypted: i=1; AHgh+RoLonWUry3roO9XgqdXjdUAp90zDMTzVCp9ithT40bRbaXgSa1cq4cpDBeXO6rEUY2IRbSW6RhyXRNX@vger.kernel.org
-X-Gm-Message-State: AOJu0YylnyOg/ih6KFwe1zyqURhN4oLrp7dGatvXClF96iv749/K8mTt
-	v57SC9AagU2CQNjLzfp9HePc3RNDalao1iUdI7p98eoC5O+Kdre+wTXa
-X-Gm-Gg: AR+sD13Rlszll5S24iX0lMxCKfPdW6h2Cej93ecXdh4V+2/qe68EGYGoQLOdlc+xTZH
-	fl8k3Oq5ShyklBy6RT7WewDMMZ+YBPMGndzcHa/5Q4oQAtIZBqZbeqdp6cdB2XvQTRXQqsSPqec
-	8op4XLEjIC08AX4IQyLPA5shOgs37us5RfZeQOir93jKcjaRIs3DuDOg6aKRVmU4z9Jm1g5JYBJ
-	Gpjee70P5pUjel5yGD2CVDuMBQ6zHVlwBm7DNWCp9pAQ1Ma3wqzaNX/qTSkSyiSJ1QhUIXp+7En
-	xw+TNEsmrJiSdPA/rreGVqKD9Hj8CiGhS4iF47tZ61m3xQiXI6YtdkRI3AQqzzlnK+5hrO7JA4q
-	p+bsAggTD/D6yqijWZHl2hFKVWutoE6fSTTjDF2e/CEQGC2ITXfJH8Pwm9EWfJ3Jr5FP1qOzS7s
-	rVn0lpa6bxCM13avUaqC57D29ygeS2vlx8ui5rPjPXpfrDfUOrd1j81w/UMvawbsW+OgPGF1aUH
-	uc3L/4xE10H6y6rRXb44UFVNon9TviAAOUlfVP+1eBOHg==
-X-Received: by 2002:a05:600c:8108:b0:493:a966:d5b5 with SMTP id 5b1f17b1804b1-499b82f40b6mr72829115e9.2.1787301432800;
-        Fri, 21 Aug 2026 01:37:12 -0700 (PDT)
-Received: from rillian-arch.home ([2a00:23a8:8f4:6a01:5ffc:da36:c891:cd3c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499b911724bsm18546705e9.15.2026.08.21.01.37.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 21 Aug 2026 01:37:12 -0700 (PDT)
-From: Rillian Grant <rillian.grant@gmail.com>
-To: lee@kernel.org,
-	pavel@kernel.org,
-	linux-leds@vger.kernel.org
-Cc: Rillian Grant <rillian.grant@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 1/2] dt-bindings: leds: Document TI LM3643 dual LED flash driver
-Date: Fri, 21 Aug 2026 09:36:05 +0100
-Message-ID: <20260821083620.68324-2-rillian.grant@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260821083620.68324-1-rillian.grant@gmail.com>
-References: <20260821083620.68324-1-rillian.grant@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bp8SaGW8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED7281F000E9;
+	Fri, 21 Aug 2026 08:38:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787301504;
+	bh=FGVDtShurTvVb8AHbQTAE/R164A5aID1LHDbhO3NykU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Bp8SaGW8w6buyE13aUZfWR/pebjZAjmxZ9+sJHdmUht75bSVzooqYVN7Dcggbompc
+	 Kz7CYtjPPmvE8cwezUxJvb2SzMeu/SRhJISt0TRrBrRKV1t0tX5N2Pg9+YGeEkFC7y
+	 /VfieCNi1O6wtEsMzHn9XtHKpMG/3BSE4FtzpQVqKkulk3NhWSaYhTj7a8XL54SA79
+	 SCO2cD1EJqcoXa+EqHEmIqWACQMVaDx0Gmm0BFd6zpSffNWYv+yLt00345k7RiZSCK
+	 toIZ3Ow5YHIb0enZubBLMsiKoXHIIHGwJmDQeRWoELO1XLQpNf+OkYsyC7V10jKCsv
+	 Ep43syqlsItcA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/3] usb: typec: tipd: Factor out i2c specifics
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sasha Finkelstein" <k@chaosmail.tech>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260821-tipd-ace3-v5-2-3244ed3bdc3f@chaosmail.tech>
+References: <20260821-tipd-ace3-v5-0-3244ed3bdc3f@chaosmail.tech>
+ <20260821-tipd-ace3-v5-2-3244ed3bdc3f@chaosmail.tech>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 21 Aug 2026 08:38:23 +0000
+Message-Id: <20260821083823.ED7281F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Document Texas Instruments LM3643 dual LED flash driver devicetree
-bindings.
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
 
-Signed-off-by: Rillian Grant <rillian.grant@gmail.com>
----
- .../devicetree/bindings/leds/ti,lm3643.yaml   | 126 ++++++++++++++++++
- 1 file changed, 126 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/leds/ti,lm3643.yaml
+New issues:
+- [High] The `ti,tps66993` compatible string was inadvertently removed from=
+ the OF match table during the I2C split.
+- [High] The hardware variant mapping for `TIPD_VARIANT_TPS66993` incorrect=
+ly points to `tipd_tps6598x_data` instead of `tipd_tps66993_data`.
+- [Medium] The supposedly bus-agnostic core still contains direct I2C struc=
+t downcasts, risking kernel crashes on non-I2C buses.
+- [Low] Direct pointer-to-integer cast causes build warnings/errors on 64-b=
+it systems.
 
-diff --git a/Documentation/devicetree/bindings/leds/ti,lm3643.yaml b/Documentation/devicetree/bindings/leds/ti,lm3643.yaml
-new file mode 100644
-index 000000000000..18b08a79512f
---- /dev/null
-+++ b/Documentation/devicetree/bindings/leds/ti,lm3643.yaml
-@@ -0,0 +1,126 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/leds/ti,lm3643.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments LM3643 1500mA dual LED Flash Driver
-+
-+maintainers:
-+  - Rillian Grant <rillian.grant@gmail.com>
-+
-+description: |
-+  The LM3643 is a dual LED flash driver utilizing a synchronous boost converter
-+  to provide power to two current sources.
-+
-+  The dual high-side current sources can be tied together to provide flash
-+  currents up to 1.5A through a single LED.
-+
-+  Datasheet: https://www.ti.com/lit/ds/symlink/lm3643.pdf
-+
-+properties:
-+  compatible:
-+    enum:
-+      - ti,lm3643
-+
-+  reg:
-+    maxItems: 1
-+
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 0
-+
-+patternProperties:
-+  "^led@[0-1]$":
-+    type: object
-+    $ref: common.yaml#
-+    unevaluatedProperties: false
-+
-+    properties:
-+      reg:
-+        description: Index of the LED.
-+        minimum: 0
-+        maximum: 1
-+
-+      led-sources:
-+        minItems: 1
-+        maxItems: 2
-+        items:
-+          minimum: 0
-+          maximum: 1
-+
-+      flash-max-microamp:
-+        description: |
-+          Maximum flash current through this LED. Each high-side current source
-+          can provide up to 1.5A. The maximum current the boost can deliver is
-+          1.5A across both sources.
-+
-+          Valid values for an LED connected to one source:
-+            10900 - 1500000, step by 11725 (rounded down)
-+          Valid values for an LED connected to both sources:
-+            21800 - 1500000, step by 23450 (rounded down)
-+
-+        minimum: 10900
-+        maximum: 1500000
-+
-+      led-max-microamp:
-+        description: |
-+          Maximum torch current through this LED. In torch mode each high-side
-+          current source can provide up to 179mA.
-+
-+          Valid values for an LED connected to one source:
-+            977 - 179000, step by 1400 (rounded down)
-+          Valid values for an LED connected to both sources:
-+            1954 - 358000, step by 2800 (rounded down)
-+
-+        minimum: 977
-+        maximum: 358000
-+
-+      flash-max-timeout-us:
-+        description: |
-+          The chip supports timeouts from 10ms to 100ms in increments of 10ms
-+          and from 100ms to 400ms in increments of 50ms. The provided value
-+          will be rounded down to a supported value.
-+
-+        minimum: 10000
-+        maximum: 400000
-+
-+    required:
-+      - reg
-+      - led-sources
-+
-+required:
-+  - compatible
-+  - reg
-+  - "#address-cells"
-+  - "#size-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/leds/common.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        flash-led-controller@63 {
-+            compatible = "ti,lm3643";
-+            reg = <0x63>;
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            led@0 {
-+                reg = <0>;
-+                led-sources = <0>, <1>;
-+                function = LED_FUNCTION_FLASH;
-+                color = <LED_COLOR_ID_IR>;
-+                flash-max-microamp = <750000>;
-+                led-max-microamp = <180000>;
-+                flash-max-timeout-us = <150000>;
-+            };
-+        };
-+    };
--- 
-2.55.0
+Pre-existing issues:
+- [Critical] Missing cancellation of delayed works in the probe error path =
+leads to use-after-free.
+- [High] Suspend and resume functions unconditionally disable/enable IRQ 0 =
+when in polling mode, potentially causing system instability.
+--
 
+--- Patch [2]: [PATCH v5 2/3] usb: typec: tipd: Factor out i2c specifics ---
+commit 691ce94a8de82880f19343c1fa6f0daf5755c9d5
+Author: Alyssa Milburn <amilburn@zall.org>
+
+usb: typec: tipd: Factor out i2c specifics
+
+Make the core driver more bus-agnostic to prepare for SPMI variants of
+the tipd chip.
+
+> Make the core driver more bus-agnostic to prepare for SPMI variants of
+> the tipd chip
+
+[Severity: Medium]
+Will this bus-agnostic abstraction fail on non-I2C buses due to remaining I=
+2C
+struct downcasts?
+
+For example, tps25750_write_firmware() in core.c still uses to_i2c_client():
+
+	struct i2c_client *client =3D to_i2c_client(tps->dev);
+	...
+	slave_addr =3D client->addr;
+	timeout =3D client->adapter->timeout;
+	...
+	client->addr =3D bpms_addr;
+
+Could this cause memory corruption if a non-I2C variant calls
+tps25750_apply_patch() -> tps25750_start_patch_burst_mode() ->
+tps25750_write_firmware() in the future?
+
+> diff --git a/drivers/usb/typec/tipd/core.c b/drivers/usb/typec/tipd/core.c
+> --- a/drivers/usb/typec/tipd/core.c
+> +++ b/drivers/usb/typec/tipd/core.c
+
+[ ... ]
+
+> @@ -1887,14 +1760,14 @@ static int tps6598x_probe(struct i2c_client *clie=
+nt)
+>  	if (tps->irq) {
+> -		ret =3D devm_request_threaded_irq(&client->dev, client->irq, NULL,
+> +		ret =3D devm_request_threaded_irq(tps->dev, tps->irq, NULL,
+>  						tps->data->irq_handler,
+>  						IRQF_SHARED | IRQF_ONESHOT,
+> -						dev_name(&client->dev), tps);
+> +						dev_name(tps->dev), tps);
+>  	} else {
+>  		dev_dbg(tps->dev, "no IRQ specified, using polling mode\n");
+>  		INIT_DELAYED_WORK(&tps->wq_poll, tps6598x_poll_work);
+>  		queue_delayed_work(system_power_efficient_wq, &tps->wq_poll,
+>  				   msecs_to_jiffies(POLL_INTERVAL));
+>  	}
+> =20
+>  	if (ret)
+>  		goto err_disconnect;
+
+[Severity: Critical]
+This isn't a bug introduced by this patch, but could this error path leave
+delayed works pending and cause a use-after-free?
+
+If tipd_init() fails after queueing tps->wq_poll in polling mode, or after
+connect() schedules cd321x->update_work, it jumps to err_disconnect. Since
+cancel_delayed_work_sync() is missing in the cleanup, devres will free
+the tps structure while the system workqueue might still execute the pending
+work and dereference the freed memory.
+
+[ ... ]
+
+> @@ -1955,29 +1826,26 @@ static void tps6598x_remove(struct i2c_client *cl=
+ient)
+> +int tipd_suspend(struct tps6598x *tps)
+>  {
+> -	struct i2c_client *client =3D to_i2c_client(dev);
+> -	struct tps6598x *tps =3D i2c_get_clientdata(client);
+> -
+>  	if (tps->wakeup) {
+> -		disable_irq(client->irq);
+> -		enable_irq_wake(client->irq);
+> +		disable_irq(tps->irq);
+> +		enable_irq_wake(tps->irq);
+>  	} else if (tps->reset) {
+>  		gpiod_set_value_cansleep(tps->reset, 1);
+>  	}
+
+[Severity: High]
+This is a pre-existing issue, but does this unconditionally disable and ena=
+ble
+IRQ 0 when in polling mode?
+
+If a device tree specifies a wakeup-source without providing an interrupt,
+tps->irq remains 0 while tps->wakeup is set to true. During suspend and res=
+ume,
+tipd_suspend() and tipd_resume() call disable_irq(0) and enable_irq_wake(0).
+Manipulating IRQ 0 (typically the system timer on x86) can cause lockups or
+panics.
+
+[ ... ]
+
+> @@ -2085,33 +1950,14 @@ static const struct tipd_data tps25750_data =3D {
+> +const struct tipd_data *tipd_hw_variants[] =3D {
+> +	[TIPD_VARIANT_CD321X] =3D &tipd_cd321x_data,
+> +	[TIPD_VARIANT_TPS6598X] =3D &tipd_tps6598x_data,
+> +	[TIPD_VARIANT_TPS66993] =3D &tipd_tps6598x_data,
+> +	[TIPD_VARIANT_TPS25750] =3D &tipd_tps25750_data,
+>  };
+
+[Severity: High]
+Is it intentional that TIPD_VARIANT_TPS66993 points to tipd_tps6598x_data
+instead of tipd_tps66993_data?
+
+Since tipd_tps66993_data is defined with the correct
+tps66993_read_power_status() callback and IRQ masks, assigning
+tipd_tps6598x_data here will cause TPS66993 devices to use the wrong
+callbacks and experience hardware state parsing failures.
+
+> diff --git a/drivers/usb/typec/tipd/i2c.c b/drivers/usb/typec/tipd/i2c.c
+> new file mode 100644
+> index 0000000000000..f852cdc327f5d
+> --- /dev/null
+> +++ b/drivers/usb/typec/tipd/i2c.c
+> @@ -0,0 +1,106 @@
+
+[ ... ]
+
+> +static int tps6598x_probe_i2c(struct i2c_client *client)
+> +{
+> +	enum tipd_hw_variant variant;
+> +	const struct tipd_data *data;
+> +	struct tps6598x *tps;
+> +	int ret;
+> +
+> +	variant =3D (enum tipd_hw_variant)i2c_get_match_data(client);
+
+[Severity: Low]
+Will this pointer-to-int cast trigger a -Wpointer-to-int-cast build warning=
+ on
+64-bit architectures?
+
+[ ... ]
+
+> +static const struct of_device_id tps6598x_of_match[] =3D {
+> +	{ .compatible =3D "ti,tps6598x", (void *)TIPD_VARIANT_TPS6598X},
+> +	{ .compatible =3D "apple,cd321x",  (void *)TIPD_VARIANT_CD321X},
+> +	{ .compatible =3D "ti,tps25750",  (void *)TIPD_VARIANT_TPS25750},
+> +	{}
+> +};
+
+[Severity: High]
+Did we accidentally drop the ti,tps66993 entry here during the refactoring?
+
+Without this compatible string in the I2C driver, it seems we will no longer
+bind to TPS66993 devices during boot.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821-tipd-ace3-=
+v5-0-3244ed3bdc3f@chaosmail.tech?part=3D2
