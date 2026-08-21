@@ -1,162 +1,166 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B44181DDC37;
-	Fri, 21 Aug 2026 12:41:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C03AB2EEE92
+	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 12:42:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787316117; cv=none; b=t6ctHKX5Z3tROoixSNTGvN8BcIJR8T5dmo4+Ao4ROCoAUdKOAvPBSuChCD3uVdIodBifmV4rr7ZYOpswmSrS1azPA3MBEJ0XR3y3i78A+sm6BSb346P86wy1bJMHyzhlO0SpMMMVsXuK9SC0UFVhGmkDE0uPkiO3jXgHkvee3a0=
+	t=1787316157; cv=none; b=N6oMvQkbwGZp9IbleMsOxJUQIkQVodBMJm5w9Wk8Doyx2BxyGwr9Faaq+tRn9u1YgyoNpnZxIFQ9N6u6nPyTltr6K3wkXHQ40VGYB1rk3juuaZAnE9AiVC47fF0ASOODTbe/WrBlQnJ9ri/IMfsTN7fTItCsem7GMYSa9J+7Mv4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787316117; c=relaxed/simple;
-	bh=ItdycJ0ClGLmGAAxgcnNOFaBBg4+WVmTrXEZmhqOJa4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sV8MUNu/ACBR0KUgHp/QKsWhOTtRNuvxvyaGpPjsLX2qJAOuub7S4JSqn4OXq+ko5/S3hGW8xymTKRiZ64gp5sGbVOEg9WAR2JA0GZkDyWfjk2q900pyVwXbog+tyCkawpPO/myXBh0XsFQRfeaiGQtQDv9HRsIx47BHDnmDYOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=m0iFc3kw; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1787316157; c=relaxed/simple;
+	bh=NRPcdfqRtIkrpI4kW24OnOX4mFpe+e3T0HCobS+dYh4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=QZrT7ciQyv46guJElMRqJ8/9Alsdi2W/GBBtHghOU6udRrTgSh2M9llnCfHE7gTu11cY5t43M8ermBa12g0UzqrE0YLci96Js7T7QNtzI0/3pHv6/nN1YP3XmCfYhCA2A6b7CrXrmyhh39u9oyZDvshyCqRo8veDxQB2dQzwt/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bb/DZ4Hb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="m0iFc3kw"
-Received: from [172.16.124.192] (ip-78-44-13-22.bb.vodafone.cz [78.44.13.22])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 9F6A253401CE;
-	Fri, 21 Aug 2026 14:41:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1787316107;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=opLLXtL6IndG/zAcxQ0YK5eXgU6TXGyQYECW5sFzucE=;
-	b=m0iFc3kwOK0vrh5GavBCd2/xCO86rdkW6iqtm8XHHl4wNPdWRSiY7OV8LuvTJ79GU0Go0b
-	/rO4jF02GT+IBPECDu6dxpR3uq16YRf4BczMMeWbM32T0MjroCSY1zs7b31vbBZZvvQjA5
-	DcCNecUdo/dIbitfW2l1pJ+yElFuEvE=
-Message-ID: <e01a7430-1670-4aed-bb2d-3e505218d07a@ixit.cz>
-Date: Fri, 21 Aug 2026 14:41:46 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bb/DZ4Hb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D5001F000E9;
+	Fri, 21 Aug 2026 12:42:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787316154;
+	bh=0+zqm44IcHgq08CLCj0YE+6sVyUOClzlzRhTg32hx+s=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=bb/DZ4HbX2mQ3vvNlUA+AdC2olINFTq/7mYmRiYsr73trfjXlRNHUEEf64W/QbLsj
+	 ucDOq0HClSA4/HnwbMofcrTSVscJszo+/ytiSbOSxLplMwNdu3RxrlT1wpPY/WeLN9
+	 OXLism+7zdR9DA6qfTD5xql1rIlOhIiheAgW6mb9wVjsYR43TKJDXSuyz/liWYxwOm
+	 uU3dJzDosXOgWGQqWl8KDqZLJ6PbnUs50MQvBWLBsR+5octWAC0jj1ptB84BmpKxg0
+	 HwiDzVokZ3bamFlPm/zi2A5enLBhWqCPcgqZpkCb4382r4b+ejneZw7+hSXYXbH8Z5
+	 XuGOXOoGJ9O1g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 5/7] arm64: dts: qcom: Add LeEco Le2
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Adam Skladowski" <a39.skl@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260821-next-patches-v5-5-ec81cee63e09@gmail.com>
+References: <20260821-next-patches-v5-0-ec81cee63e09@gmail.com>
+ <20260821-next-patches-v5-5-ec81cee63e09@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 21 Aug 2026 12:42:34 +0000
+Message-Id: <20260821124234.8D5001F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: sm7225-fairphone-fp4: Enable
- touchscreen
-To: Luca Weiss <luca.weiss@fairphone.com>, Job Noorman <job@noorman.info>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: phone-devel@vger.kernel.org, linux-input@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-References: <20260821-fp4-hx83112a-v1-0-474941bd8860@fairphone.com>
- <20260821-fp4-hx83112a-v1-3-474941bd8860@fairphone.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260821-fp4-hx83112a-v1-3-474941bd8860@fairphone.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 21/08/2026 09:12, Luca Weiss wrote:
-> Add a node and pinctrl for the Himax HX83112A touchscreen found on this
-> phone.
-> 
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
-> ---
->   arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts | 21 ++++++++++++++++++++-
->   1 file changed, 20 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-> index 23f950067a08..ff609f7e1796 100644
-> --- a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-> @@ -626,7 +626,19 @@ &i2c8 {
->   	clock-frequency = <400000>;
->   	status = "okay";
->   
-> -	/* HX83112A touchscreen @ 48 */
-> +	touchscreen@48 {
-> +		compatible = "himax,hx83112a";
-> +		reg = <0x48>;
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] TUSB320 Type-C controller interrupt is incorrectly configured with=
+ a rising edge trigger, causing missed events.
+- [Medium] Incorrect touchscreen reset GPIO polarity prevents touchscreen i=
+nitialization.
+- [Medium] WLED node is not enabled, contradicting the commit message claim=
+s.
+--
+
+--- Patch [5]: [PATCH v5 5/7] arm64: dts: qcom: Add LeEco Le2 ---
+commit bf1cb1abb3fe575b45f1473fbbd547b3fb860088
+Author: Adam Skladowski <a39.skl@gmail.com>
+
+arm64: dts: qcom: Add LeEco Le2
+
+Add a devicetree for the LeEco Le2 smartphone, which is based
+on the Eldarion/MSM8976 SoC. This adds support for I2C peripherals,=20
+regulators, WLED, remoteprocs, and GPU.
+
+> diff --git a/arch/arm64/boot/dts/qcom/msm8976-leeco-s2.dts b/arch/arm64/b=
+oot/dts/qcom/msm8976-leeco-s2.dts
+> new file mode 100644
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/msm8976-leeco-s2.dts
+
+[ ... ]
+
+> +&blsp1_i2c4 {
+> +	status =3D "okay";
 > +
-> +		interrupts-extended = <&tlmm 22 IRQ_TYPE_EDGE_FALLING>;
-> +		reset-gpios = <&tlmm 21 GPIO_ACTIVE_LOW>;
+> +	touchscreen@4b {
+> +		compatible =3D "syna,rmi4-i2c";
+> +		reg =3D <0x4b>;
+> +		interrupts-extended =3D <&tlmm 65 IRQ_TYPE_EDGE_FALLING>;
 > +
-> +		touchscreen-size-x = <1080>;
-> +		touchscreen-size-y = <2340>;
+> +		pinctrl-0 =3D <&touch_default_state>;
+> +		pinctrl-names =3D "default";
 > +
-> +		pinctrl-0 = <&touchscreen_default>;
-> +		pinctrl-names = "default";
-> +	};
->   };
->   
->   &i2c10 {
-> @@ -1117,6 +1129,13 @@ platform {
->   &tlmm {
->   	gpio-reserved-ranges = <13 4>, <56 2>;
->   
-> +	touchscreen_default: touchscreen-default-state {
-> +		pins = "gpio21", "gpio22";
+> +		reset-gpios =3D <&tlmm 64 GPIO_ACTIVE_HIGH>;
 
-I guess you could use here irq-pins {}, reset-pins {},
+[Severity: Medium]
+Is this GPIO polarity correct for the Synaptics RMI4 controller? The hardwa=
+re
+typically uses an active-low reset.=20
 
-but with or without change,
+If configured as active-high, the driver will drive the line low during nor=
+mal
+operation, which might hold the touchscreen controller in a perpetual reset
+state and prevent initialization.
 
-Reviewed-by: David Heidelberg <david@ixit.cz>
+> +
+> +		vdd-supply =3D <&pm8950_l17>;
+> +		vio-supply =3D <&pm8950_l6>;
 
-> +		function = "gpio";
-> +		drive-strength = <8>;
-> +		bias-pull-up;
+[ ... ]
+
+> +&blsp2_i2c2 {
+> +	status =3D "okay";
+> +
+> +	haptics: haptics@5a {
+> +		compatible =3D "ti,drv2604";
+> +		reg =3D <0x5a>;
+> +		enable-gpios =3D <&tlmm 109 GPIO_ACTIVE_HIGH>;
+> +		mode =3D <DRV260X_LRA_MODE>;
+> +		library-sel =3D <DRV260X_LIB_LRA>;
 > +	};
 > +
->   	qup_uart1_sleep_cts: qup-uart1-sleep-cts-state {
->   		pins = "gpio61";
->   		function = "gpio";
-> 
+> +	tiusb320: typec@47 {
+> +		compatible =3D "ti,tusb320";
+> +		reg =3D <0x47>;
+> +		interrupts-extended =3D <&tlmm 21 IRQ_TYPE_EDGE_RISING>;
 
+[Severity: High]
+Will this rising edge trigger work for the TUSB320 hardware?=20
+
+The TUSB320 uses an open-drain, active-low INT_N signal that is pulled low
+when an event occurs and remains low until serviced.=20
+
+If configured as a rising edge, the interrupt handler might not run when the
+signal is asserted. This could prevent the interrupt status from being read,
+which would mean the chip never releases the line, deadlocking the interrupt
+mechanism and missing attach/detach events.
+
+> +
+> +		pinctrl-0 =3D <&tusb320_int_active>;
+> +		pinctrl-names =3D "default";
+> +	};
+> +};
+
+[ ... ]
+
+> +&pm8950_resin {
+> +	linux,code =3D <KEY_VOLUMEDOWN>;
+> +
+> +	status =3D "okay";
+> +};
+> +
+> +&pmi8950_wled {
+> +	qcom,current-limit-microamp =3D <20000>;
+> +	qcom,enabled-strings =3D <0 1>;
+> +	qcom,ovp-millivolt =3D <29500>;
+> +};
+
+[Severity: Medium]
+Does this node need a status =3D "okay"; property added here?=20
+
+The commit message mentions WLED support is included in this initial
+submission, but the pmi8950_wled node is usually defined as disabled in the
+base pmi8950.dtsi file. Without an explicit okay status, this hardware
+functionality might remain disabled.
+
+> +
+> +&rpm_requests {
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821-next-patch=
+es-v5-0-ec81cee63e09@gmail.com?part=3D5
