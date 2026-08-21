@@ -1,148 +1,419 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EADB48F847
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 13:15:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ECF03AFD03;
+	Fri, 21 Aug 2026 13:16:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787318166; cv=none; b=DtQH2PzI69hCGDddxwxVxhCB02afkyZA3aEWaWvRskxLaXzOWBYHsLlHCn4ZesMFb6cqd27fESivIRcZYivG7kQCj2m0w7iwq81o+6zKEJkWqw5zCHq1hL+4N7Oq3OB60SCgXW7KcEmQ93KBrzG2QT6ToQpcShxVPHBOoAzotlY=
+	t=1787318210; cv=none; b=BDtGT8YDQ+il+mpspZwd32JC0AlO91f+9h37BUrr+iwrUUk0RO695exWLS6bk8CB3yg+AlNTfiWcgFk0Z9zqALhy7SYKY4NV7yEtawMuH2D+lAKze1gF/emRFS9IpAl95VeZ8R+es0XjkjShmH6zAIXHgfj0c6JKItr0YbkzwAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787318166; c=relaxed/simple;
-	bh=Ja/rPxOwN4WgQ5M7WWlH3DG5G+nmxT3SN0ReTYvjh/4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=WlOr3Mg3pBi7oP7uReB8WD0yibhxJzhurLlviQVR+43IqAthytEHFwCloaujbkmNkEALwOw+CXSVv6VfAUOaes4RMt7UsQwnz3nFNNPQ6JPL7aEMaZG9E2nZZdBSBSAvW+JoUchUvPN0hwxFCrLxYt62jZLCVogkd/rZx95GN2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZoeQyWZM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787318210; c=relaxed/simple;
+	bh=mFQeiGUM9dHfF6xABuT1qe621J+n7EAwg91rA4n4YbY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VAQkWt/YfV1UyxNTt0JHtQtUWRP/PyWxDoVG3ANhYc1EgPMI7JSD9HXdI59YDfEBv1JUnMDjWoFhYBVyr7pyKfOnxp5dosELX+gq/Vuy85hY2LuEP32TgUPDesF76SEZAqrk327ztiHtKwn/8u/30xxxYh94IxJLzxuiBQ9hrao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Js++vq7z; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZoeQyWZM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E15041F00A3D;
-	Fri, 21 Aug 2026 13:15:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787318149;
-	bh=bv9T3Bf0UGihfHOdk60NDUA+VleUF5WWmwM+I4oBo4M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZoeQyWZMu6iCApDXGdQxmgh9Ova3C/v+sT4Ns/5NIGyDd6PCTmA1JycAxVo7RMLoi
-	 U0U7BFVR3WRMG42BYza+sYbAB82Nf306mpbzyQtgu99fzQF/g5gGdcRI/LRGpLdjgS
-	 gcntaKCe3DSNu5FU4zKW3Iz9o+8dFBv1ikI1JJ6rFvVaNiUW/NuX61aIfIHme9Vi1U
-	 rBdarQPIWCMQlcXcK/ibdzZrfeXAMJZ4QC9c6gxHs0UVcAiWEsa30lxaLEXdCwUnma
-	 bG6zuBcGnawXa20NByqVwLzN2t+5WU0hM6mR3oV6Xg01FwVZ34YA/dNnA9BkGEtEWF
-	 B+5rMFpI2YIfg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 10/18] spi: cadence-quadspi: refactor direct read
- path for PHY support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Santhosh Kumar K" <s-k6@ti.com>
-Cc: "Takahiro Kuwano" <takahiro.kuwano@infineon.com>, conor+dt@kernel.org, robh@kernel.org, "Michael
- Walle" <mwalle@kernel.org>, "Richard Weinberger" <richard@nod.at>, "Pratyush
- Yadav" <pratyush@kernel.org>, "Vignesh Raghavendra" <vigneshr@ti.com>, devicetree@vger.kernel.org, "Miquel
- Raynal" <miquel.raynal@bootlin.com>
-In-Reply-To: <20260821114822.4040338-11-s-k6@ti.com>
-References: <20260821114822.4040338-1-s-k6@ti.com>
- <20260821114822.4040338-11-s-k6@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 21 Aug 2026 13:15:48 +0000
-Message-Id: <20260821131548.E15041F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Js++vq7z"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787318198; x=1818854198;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=mFQeiGUM9dHfF6xABuT1qe621J+n7EAwg91rA4n4YbY=;
+  b=Js++vq7zLHAGAmfkrFYGnEvDYA2FU0RKz3Mf8LHFrAri3GMERSyf4D7Q
+   ZgyGHMbxM6v2gILUMBR27pXI8A1Q7JQFr5mRx20swUf8PSuYw1AH5OVoU
+   HrXxZNpFeJ1rnbzjOIrs+sCdPHKik98X8c0QYDeNONKAThOFLPf/wk2nb
+   sww47lYhxQSFOqT6FmkimrCFGGgKVhS9OcUUBJXvRXAH+jNdIL2/wm5XY
+   bx32BqBPYI5SAW/FkEf8AGzjBCwI0kp5extXWWKB3TL0t8FUD5u8YH+dN
+   enDuD3yGRTaaeTZibNND3VgVHF3EcZ6Y4dWGt5w6xuEm+xIIE28GpPhCr
+   Q==;
+X-CSE-ConnectionGUID: gHuTiBIkT4Kyf+W7eqNdEg==
+X-CSE-MsgGUID: pU7Flox0QM6tvJhmtozDcQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11882"; a="91738959"
+X-IronPort-AV: E=Sophos;i="6.25,235,1779174000"; 
+   d="scan'208";a="91738959"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 06:16:30 -0700
+X-CSE-ConnectionGUID: FyWoSdOVQMmJhrmTM8kHtA==
+X-CSE-MsgGUID: wyLPXuhxSiO2w24PR3267A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,235,1779174000"; 
+   d="scan'208";a="271572530"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.241])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 06:16:23 -0700
+Date: Fri, 21 Aug 2026 16:16:21 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Janani Sunil <janani.sunil@analog.com>
+Cc: Lars-Peter Clausen <lars@metafoo.de>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Mark Brown <broonie@kernel.org>,
+	Marius Cristea <marius.cristea@microchip.com>,
+	Marcus Folkesson <marcus.folkesson@gmail.com>,
+	Kent Gustavsson <kent@minoris.se>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Daire McNamara <daire.mcnamara@microchip.com>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	Janani Sunil <jan.sun97@gmail.com>, linux-spi@vger.kernel.org,
+	Kent Gustavsson <nedo80@gmail.com>, linux-riscv@lists.infradead.org
+Subject: Re: [PATCH v9 3/3] iio: dac: Add AD5529R DAC driver support
+Message-ID: <aohPpQRn5tOANk-c@ashevche-desk.local>
+References: <20260820-ad5529r-driver-v9-0-ba62e0b2a816@analog.com>
+ <20260820-ad5529r-driver-v9-3-ba62e0b2a816@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260820-ad5529r-driver-v9-3-ba62e0b2a816@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] `cqspi_memcpy_fromio()` incorrectly byte-swaps the memory-mapped b=
-yte stream on big-endian architectures.
-- [High] `cqspi_memcpy_fromio()` triggers fatal alignment faults on strict-=
-alignment architectures if the source address is odd.
-- [High] `cqspi_memcpy_fromio()` is vulnerable to integer underflow and buf=
-fer overflow if called with a count of 1.
---
+On Thu, Aug 20, 2026 at 09:08:23AM +0200, Janani Sunil wrote:
+> Add support for AD5529R 16-channel, 12/16 bit Digital to Analog Converter
+> from Analog Devices.
+> 
+> The device communicates over SPI and supports per-channel output range
+> configuration. An optional external 4.096V reference can be used in
+> place of the internal reference.
 
---- Patch [10]: [PATCH v8 10/18] spi: cadence-quadspi: refactor direct read=
- path for PHY support ---
-commit 590a74a26c162a104820e05cc0e00a87a2e899bf
-Author: Santhosh Kumar K <s-k6@ti.com>
+...
 
-spi: cadence-quadspi: refactor direct read path for PHY support
+> +enum ad5529r_output_range {
+> +	AD5529R_RANGE_0V_5V,
+> +	AD5529R_RANGE_0V_10V,
+> +	AD5529R_RANGE_0V_20V,
+> +	AD5529R_RANGE_0V_40V,
+> +	AD5529R_RANGE_NEG5V_5V,
+> +	AD5529R_RANGE_NEG10V_10V,
+> +	AD5529R_RANGE_NEG15V_15V,
+> +	AD5529R_RANGE_NEG20V_20V,
 
-This patch extracts the DMA transfer code from cqspi_direct_read_execute()
-into a new cqspi_direct_read_dma() helper. It also adds cqspi_memcpy_fromio=
-()
-to handle non-DMA transfers, using 2-byte-aligned I/O reads for 8D-8D-8D mo=
-de
-to satisfy the minimum 16-bit AHB transaction width required by the Cadence
-OSPI controller.
+TBH I don't see the value in 'NEG'. It's kinda obvious that they are all ranges
+and from -X volts to +Y volts. I don't expect to see the "range" out of an single
+exclusive constant.
 
-> diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-=
-quadspi.c
-> --- a/drivers/spi/spi-cadence-quadspi.c
-> +++ b/drivers/spi/spi-cadence-quadspi.c
+> +};
 
-[ ... ]
+...
 
-> +static void cqspi_memcpy_fromio(const struct spi_mem_op *op, void *to,
-> +				const void __iomem *from, size_t count)
+> +static int ad5529r_reset(struct ad5529r_state *st)
 > +{
-> +	if (op->data.buswidth =3D=3D 8 && op->data.dtr) {
-> +		unsigned long from_addr =3D (unsigned long)from;
+> +	struct reset_control *rst;
+> +	int ret;
 > +
-> +		/* Handle unaligned start with 2-byte read */
-> +		if (count && !IS_ALIGNED(from_addr, 4)) {
-> +			put_unaligned_le16(__raw_readw(from), to);
-> +			from +=3D 2;
-> +			to +=3D 2;
-> +			count -=3D 2;
-> +		}
+> +	rst = devm_reset_control_get_optional_exclusive(&st->spi->dev, NULL);
 
-[Severity: High]
-If an unprivileged user initiates a 1-byte SPI read at an unaligned address
-(e.g., offset 2), this block in cqspi_memcpy_fromio() executes when count
-is 1.
+It seems having an 'spi' member in the state structure is overkill.
+This all can be done here locally
 
-Since it writes 2 bytes into the 1-byte destination buffer, doesn't this
-cause a buffer overflow?
+	struct regmap *map = st->regmap_8bit;
+	struct device *dev = regmap_get_device(map);
 
-Also, count -=3D 2 will underflow the unsigned size_t count to SIZE_MAX,
-leading to a massive out-of-bounds read/write loop in the while statement
-below.
+> +	if (IS_ERR(rst))
+> +		return PTR_ERR(rst);
+> +
+> +	if (rst) {
+> +		ret = reset_control_assert(rst);
+> +		if (ret)
+> +			return ret;
+> +
+> +		/* Minimum reset low width (t_reset) is 20 ns per datasheet. */
+> +		ndelay(20);
+> +
+> +		ret = reset_control_deassert(rst);
+> +		if (ret)
+> +			return ret;
+> +	} else {
+> +		ret = regmap_write(st->regmap_8bit, AD5529R_REG_INTERFACE_CONFIG_A,
+> +				   AD5529R_INTERFACE_CONFIG_A_SW_RESET);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	/*
+> +	 * Wait 10 ms for digital initialization to complete.
+> +	 * Per datasheet, Interface Status A register NOT_READY_ERR bit is
+> +	 * set if SPI transactions are attempted before digital initialization
+> +	 * completes.
+> +	 */
+> +	fsleep(10 * USEC_PER_MSEC);
+> +
+> +	return regmap_write(st->regmap_8bit, AD5529R_REG_INTERFACE_CONFIG_A,
+> +			    AD5529R_INTERFACE_CONFIG_A_SDO_ENABLE |
+> +			    AD5529R_INTERFACE_CONFIG_A_ADDR_ASCENSION);
+> +}
 
-Could we ensure count >=3D 2 before performing a 2-byte read?
+...
 
-[Severity: High]
-If from_addr is an odd address (1-byte aligned), __raw_readw(from) in
-cqspi_memcpy_fromio() attempts an unaligned 16-bit MMIO read.
+> +static int ad5529r_read_raw(struct iio_dev *indio_dev,
+> +			    struct iio_chan_spec const *chan,
+> +			    int *val, int *val2, long mask)
+> +{
+> +	struct ad5529r_state *st = iio_priv(indio_dev);
+> +	unsigned int reg_addr, reg_val_h;
+> +	int ret, range_idx, span_mv;
 
-On strict-alignment architectures like ARM, wouldn't an unaligned 16-bit
-MMIO read trigger a Data Abort (Alignment Fault)?
+_mV
 
-Furthermore, adding 2 to an odd address results in another odd address,
-meaning the subsequent __raw_readl() loop will also fault.
-
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW:
+> +		/*
+> +		 * Read from DAC_INPUT_A register rather than DAC_DATA_READBACK.
+> +		 * The DAC operates in transparent mode and directly reflects
+> +		 * whatever value is written to the INPUT_A register.
+> +		 */
+> +		reg_addr = AD5529R_REG_DAC_INPUT_A(chan->channel);
+> +		ret = regmap_read(st->regmap_16bit, reg_addr, &reg_val_h);
+> +		if (ret)
+> +			return ret;
+> +
+> +		*val = reg_val_h;
+> +
+> +		return IIO_VAL_INT;
+> +	case IIO_CHAN_INFO_SCALE:
+> +		range_idx = st->output_range_idx[chan->channel];
 > +
 > +		/*
-> +		 * Use an explicit 32-bit read loop for the bulk; this
-> +		 * guarantees the minimum 16-bit AHB transaction width required
-> +		 * in 8D-8D-8D mode on all architectures.
+> +		 * The datasheet specifies a 4.096 V external reference,
+> +		 * matching the nominal output voltage of the internal
+> +		 * reference.
 > +		 */
-> +		while (count >=3D 4) {
-> +			put_unaligned_le32(__raw_readl(from), to);
+> +		span_mv = ad5529r_output_ranges_mV[range_idx][1] -
+> +			  ad5529r_output_ranges_mV[range_idx][0];
+> +		*val = span_mv;
+> +		*val2 = st->model_data->resolution;
+> +
+> +		return IIO_VAL_FRACTIONAL_LOG2;
+> +	case IIO_CHAN_INFO_OFFSET:
+> +		range_idx = st->output_range_idx[chan->channel];
+> +
+> +		if (ad5529r_output_ranges_mV[range_idx][0] < 0)
+> +			*val = -(1 << (st->model_data->resolution - 1));
 
-[Severity: High]
-Does this combination of __raw_readl() and put_unaligned_le32() in
-cqspi_memcpy_fromio() corrupt data on big-endian architectures?
+Hmm... Why not -BIT(st->model_data->resolution - 1)?
 
-On a big-endian CPU, __raw_readl() performs a native 32-bit load. For
-example, reading the byte stream [A, B, C, D] results in the value
-0xAABBCCDD.
+> +		else
+> +			*val = 0;
+> +
+> +		return IIO_VAL_INT;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
 
-Passing this native 32-bit value to put_unaligned_le32() stores it in
-little-endian format, writing out [D, C, B, A] and reversing the bytes in
-every 4-byte chunk.
+...
 
-Should this use stream I/O functions like ioread32_rep(), or pair native
-loads with native stores to preserve the original stream order regardless
-of CPU endianness?
+> +static int ad5529r_parse_channel_ranges(struct device *dev,
+> +					struct ad5529r_state *st)
+> +{
+> +	unsigned long channel_mask = 0;
+> +	s32 vals[2];
+> +	int ret, range_idx;
+> +	u32 ch;
+> +
+> +	device_for_each_child_node_scoped(dev, child) {
+> +		if (st->num_channels == ARRAY_SIZE(st->channels))
+> +			return dev_err_probe(dev, -EINVAL, "Too many channels\n");
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821114822.4040=
-338-1-s-k6@ti.com?part=3D10
+Perhaps -ECHRNG?
+
+> +		ret = fwnode_property_read_u32(child, "reg", &ch);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Missing reg property in channel node\n");
+> +
+> +		if (ch >= AD5529R_MAX_CHANNELS)
+> +			return dev_err_probe(dev, -EINVAL,
+> +					     "Channel %u exceeds maximum 15\n",
+> +					     ch);
+> +
+> +		if (channel_mask & BIT(ch))
+> +			return dev_err_probe(dev, -EINVAL,
+> +					     "Duplicate channel %u\n", ch);
+> +
+> +		channel_mask |= BIT(ch);
+> +
+> +		if (fwnode_property_present(child, "output-range-microvolt")) {
+> +			/*
+> +			 * DT stores cells as raw 32-bit values; signed endpoints are
+> +			 * encoded by dtc in two's-complement and then interpreted
+> +			 * here as s32.
+> +			 */
+> +			ret = fwnode_property_read_u32_array(child,
+> +							     "output-range-microvolt",
+> +							     (u32 *)vals, ARRAY_SIZE(vals));
+> +			if (ret < 0)
+> +				return dev_err_probe(dev, ret,
+> +						     "Failed to read range for ch %u\n",
+> +						     ch);
+> +
+> +			range_idx = ad5529r_find_output_range(vals);
+> +			if (range_idx < 0)
+> +				return dev_err_probe(dev, range_idx,
+> +						     "Invalid range [%d %d] for ch %u\n",
+> +						     vals[0], vals[1], ch);
+> +		} else {
+> +			range_idx = AD5529R_RANGE_0V_5V;
+> +		}
+> +
+> +		st->output_range_idx[ch] = range_idx;
+> +		ret = regmap_write(st->regmap_16bit,
+> +				   AD5529R_REG_OUT_RANGE(ch), range_idx);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to configure range for ch %u\n",
+> +					     ch);
+> +
+> +		st->channels[st->num_channels++] = AD5529R_DAC_CHANNEL(ch);
+> +	}
+> +
+> +	return 0;
+> +}
+
+...
+
+> +static int ad5529r_probe(struct spi_device *spi)
+> +{
+> +	struct device *dev = &spi->dev;
+> +	struct iio_dev *indio_dev;
+> +	struct ad5529r_state *st;
+
+> +	struct regmap_config regmap_8bit_cfg;
+> +	struct regmap_config regmap_16bit_cfg;
+
+Make them to be first in the list, it will follow reversed xmas tree order.
+
+> +	bool external_vref;
+> +	u32 dev_addr = 0;
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*st));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	st = iio_priv(indio_dev);
+
+> +	st->spi = spi;
+
+No need, the same is used when both regmap:s are initialised.
+
+> +	st->model_data = spi_get_device_match_data(spi);
+> +	if (!st->model_data)
+> +		return dev_err_probe(dev, -ENODATA,
+> +				     "Failed to identify device variant\n");
+> +
+> +	device_property_read_u32(dev, "spi-device-addr", &dev_addr);
+> +	if (dev_addr > 3)
+> +		return dev_err_probe(dev, -EINVAL,
+> +				     "spi-device-addr %u out of range [0, 3]\n",
+> +				     dev_addr);
+> +
+> +	regmap_8bit_cfg = (struct regmap_config) {
+> +		.name = "ad5529r-8bit",
+> +		.reg_bits = 16,
+> +		.val_bits = 8,
+> +		.max_register = AD5529R_8BIT_REG_MAX,
+> +		.read_flag_mask = AD5529R_SPI_READ_FLAG,
+> +		.rd_table = &ad5529r_8bit_readable_table,
+> +		.wr_table = &ad5529r_8bit_writeable_table,
+> +		.reg_base = dev_addr << AD5529R_ADDR_SHIFT,
+> +	};
+> +	regmap_16bit_cfg = (struct regmap_config) {
+> +		.name = "ad5529r-16bit",
+> +		.reg_bits = 16,
+> +		.val_bits = 16,
+> +		.max_register = AD5529R_MAX_REGISTER,
+> +		.read_flag_mask = AD5529R_SPI_READ_FLAG,
+> +		.val_format_endian = REGMAP_ENDIAN_LITTLE,
+> +		.rd_table = &ad5529r_16bit_readable_table,
+> +		.wr_table = &ad5529r_16bit_writeable_table,
+> +		.reg_stride = 2,
+> +		.reg_base = dev_addr << AD5529R_ADDR_SHIFT,
+> +	};
+> +
+> +	ret = devm_regulator_bulk_get_enable(dev, ARRAY_SIZE(ad5529r_supply_names),
+> +					     ad5529r_supply_names);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to get and enable regulators\n");
+
+> +	for (i = 0; i < ARRAY_SIZE(ad5529r_vss_supply_names); i++) {
+
+	for (unsigned int i = 0; i < ARRAY_SIZE(ad5529r_vss_supply_names); i++) {
+
+> +		ret = devm_regulator_get_enable_optional(dev,
+> +							 ad5529r_vss_supply_names[i]);
+> +		if (ret && ret != -ENODEV)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to get and enable %s regulator\n",
+> +					     ad5529r_vss_supply_names[i]);
+> +	}
+> +
+> +	ret = devm_regulator_get_enable_optional(dev, "vref");
+> +	if (ret == -ENODEV)
+> +		external_vref = false;
+> +	else if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to get and enable vref regulator\n");
+> +	else
+> +		external_vref = true;
+> +
+> +	/* Wait 10 ms after power-up before the first SPI transaction. */
+> +	fsleep(10 * USEC_PER_MSEC);
+> +
+> +	st->regmap_8bit = devm_regmap_init_spi(spi, &regmap_8bit_cfg);
+> +	if (IS_ERR(st->regmap_8bit))
+> +		return dev_err_probe(dev, PTR_ERR(st->regmap_8bit),
+> +				     "Failed to initialize 8-bit regmap\n");
+> +
+> +	st->regmap_16bit = devm_regmap_init_spi(spi, &regmap_16bit_cfg);
+> +	if (IS_ERR(st->regmap_16bit))
+> +		return dev_err_probe(dev, PTR_ERR(st->regmap_16bit),
+> +				     "Failed to initialize 16-bit regmap\n");
+> +
+> +	ret = ad5529r_reset(st);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to reset device\n");
+> +
+> +	ret = regmap_assign_bits(st->regmap_16bit, AD5529R_REG_REF_SEL,
+> +				 AD5529R_REF_SEL_INTERNAL_REF,
+> +				 !external_vref);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to configure reference\n");
+> +
+> +	ret = ad5529r_parse_channel_ranges(dev, st);
+> +	if (ret)
+> +		return ret;
+> +
+> +	indio_dev->name = st->model_data->model_name;
+> +	indio_dev->info = &ad5529r_info;
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +	indio_dev->channels = st->channels;
+> +	indio_dev->num_channels = st->num_channels;
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
