@@ -1,200 +1,75 @@
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D35A374186
-	for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 17:18:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787332684; cv=pass; b=KNkdnGa2GU2Va5Ug6G1iR2dquDeUnkcmQokWQbkJzLJgbW34eXW4CfFmRUg3NzM8x7E4EyR4lbpT0fzHKFVacgJrR0qjfW9T104pUklv1h4eixeJR1NcjwLYgijgAwdaUnk6FP2ZU97lJaukpQ+/QVB1rRy+LLjQlskzU8G9/q4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787332684; c=relaxed/simple;
-	bh=5BJ6vl3jYvm8+eoq/n1Zi6s8dTJJsKX1H6HW/szWkrA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=vDQwTo513hTDlqc2SOKOHwQuIzWwt1M+cSWENZzPwjU6HrAAKN3wcNg28saqrxYqGOpreDYyXvo5FOVIR2rDSOR0PcZ93YoQY4iLALxV6uqdTfglvw9W2GbZU9RoMOl3UMJfTQtCN+cm19hxONAwK80YhWQSgXNAeG4vCQV7IfE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=maLjoGnX; arc=pass smtp.client-ip=209.85.208.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3A733769FF;
+	Fri, 21 Aug 2026 17:18:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787332714; cv=none; b=k6jS6hBFVB9y1rp3eoNyYanOtqa5UZPwTxdObir6+nT1RVrOB1OsKPF6f/4kzlnp32JHuvnj5FDT19yNMTJgOltg/xl/SET+xTjA2aJc6/7UMVwe/lo5rlbtBVcHSbgA0655EiK2q+UvwUIjfxn4Le9DuydW9G6x0iAGrgNbIVY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787332714; c=relaxed/simple;
+	bh=GS1qQDP/Be5NshQnlyobrrr7FcIivBLhbPmcuwqsGhs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DjWOs4H6Nl2f3ZB+DE9+dfW1p2UwHXxpVIh05jKOW8q5FqDoVpsjXkBqK86GMGAEDDGOAPa5p8khGASDpqHOIlch/cdfugT9ItNi1ZF5jGn537AI2lDlrxvPlsit8lXuhHxyTgXs/t/pLr4MQayT4f1B8ViYpgt/zHAd/tj9jzE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R46EMPu2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="maLjoGnX"
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6a20319d030so2127277a12.2
-        for <devicetree@vger.kernel.org>; Fri, 21 Aug 2026 10:18:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787332680; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jPP79ZIYsih7VveD40hBRgFTf11snH2wJs8otVK1/C9YL3RnwiPML8O8EDOhkCdA7a
-         L+UN1XLrDJia9T+RgDvaPTYnaE6mKHAdD2hXHd8X+MUDaFvIaQcBv2Fi1QCk3bixx/rz
-         bJ0SghKsE3CFz+V/mT7UKAOF7gD77SdSyeXA7kFlngQOzsE/9zdDfUKDbulJjFH6VCkb
-         QtUmMw0XDV+a0+uU4SJ8YPODODx+fdvwx2x7BypA2bgF8rY4ayBzD5ptRrcAlixm57Xy
-         1vfg8QFWm/4UqGQDBsLXDaaaGNzZcoD10rmtOSYNvQFbZb8YOPeiATVmYnqO/CGX+CB4
-         KMpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=a7EiPLlzbwPc3czPLxdKiQ9NmGH3ckuar+CTSrRgEhc=;
-        fh=QWq8Gzhtgz48V/uAPP6N950OdDOsosIyN30y860ZTuA=;
-        b=QUwks7Hv4K+CCt6l06JUVLD50tL0Kqr0Zir1Q1DQiuUiHbe+rEbzqbnD2CNe/tYh/7
-         xQXLBlPHvLU8a+v0lFqTkNCKyKMc5HatH6MORCZ/l6+MpHuFYBuWKa4UPK+GcHoJvCPT
-         i2svhBNjvApkP0jtYHX00FIDkG3ulELre9RunMq/3nPDPOOlhdImLO8FbTX0esCUp1jj
-         QbpClzMil8pkY1ABGtAMINONWMlMMh+ZRAyZw95G3e9gGqkNG91y8yk3LcSO0b9X4+6p
-         jq+ixhIRAMET+HSM+g7KONFFhMaph9CbYlv1kyGqmQKjWg9cFdRpUfEpKzDtvqiKh6dE
-         aYqA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1787332680; x=1787937480; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=a7EiPLlzbwPc3czPLxdKiQ9NmGH3ckuar+CTSrRgEhc=;
-        b=maLjoGnX8NeDXb0U9RStFtcmOVOh+6O+5/nmhqaSGhOeV77KjEmpHapTDiF5ZapirU
-         YueSAi2mGWQ/VmBWoriU4JH+k/1t5TB1zeBdsnJgPuHtmfi5r5XJ+y38mmKpVg3abePO
-         8bnhalSaBxo34OUpJ+BTS1sPD2ErkTV10vLs8j60nXcIaOooLG+9bMg99As6t9g66AV6
-         VySYhWNNMQjysFVenGOPlSXl1sT+mjNl8NAg8JFsS6d4FSQxQ4O34BUHz8m8cyzVSPgm
-         qHYSyMp5a5qTXcIE8bLIL52862yI6d0Lm/SeCJJYv1iXRBCPOaYcRbo95fmFnK88bvrF
-         oFNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787332680; x=1787937480;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=a7EiPLlzbwPc3czPLxdKiQ9NmGH3ckuar+CTSrRgEhc=;
-        b=AJl+Yc/YcZowemOA5AhCKHmWv6bNIsR2MMmBOjR80VAmPk/D6D/Ya2XVuKVEAY9cez
-         qc+s+MoByMjPoz6KIc3NwytCgcGd+GEoDbsxfdEjDYYfGEsbl9Yb6y8/RS3+UjVF61yU
-         dBnb0LWPexB80coczYATNQ7o/lg+3n7BQWKrW2pvGh4hSFmUtnB1KaqhRgmfiaSBNhTa
-         UfUqbqBrdjYq0DN2yUrE4h9HXNmKzJR989Bhz4Kv5xobzXp/lA8rx5a9QbxWt3zQqkt0
-         6sFUDHONRq0zNUvWBiuAbdWTHPiJEIRwp4j3AGZqY2O2caRT/GEohaVSbMUhjSLetknl
-         z7UA==
-X-Forwarded-Encrypted: i=1; AHgh+Rqr+NXQlPLocmc4rD4OWaFZHN0OTJG80NgiV2Brsq8QRqFN1oXCseEACSSNu9NFJxlCL5HZYrDhBRpO@vger.kernel.org
-X-Gm-Message-State: AFuF++mDKEFJG3G+SrPOIXlGN51vMYriPicTMgwwiuHFPmcLnuIsH/zB
-	K1ixhpuLURmaKAZh5yMz9DzKahrnJTMbI8xp1PC46NwMXRnLFuktkxJE+MfQ19CSSPTAW0VAEQI
-	XS4WTBdEGU8Ytki7RuE26m80O1b+YAIifAw38uk2W5g==
-X-Gm-Gg: AR+sD13KeJpl2JBuIIWnKYwZ/Q+dpRoPMPs5AyiPiaXCKNLaVLotOmPGElqTv3yDohH
-	lQXHb7Mj/7tKJz+0eeyHg09yNK8RIM5nxHohaUGACHz662/wMVSDXrACXzzvODRNYPMu4niEB8X
-	AdXip2VLK4N+RC49IzNDmcYr9A0AhTF78ANWq/d4SrJEAyGosIW0zFvZIWdjDRniAjnTIBL8+DQ
-	guzsIA9uLBJjnPo3V1EqreUnzKbO9UMUPXv9sNao9INTMhc5wlS8I3DuzvceliAshkec9KallN6
-	aj6VT89YTy4HzRhXV8BH1lYRBEXnKhWkJRkcQA/EQbbzeDkHc0HwDNVgVZOmaVpFv3/Fw0QjTWc
-	G1w==
-X-Received: by 2002:a17:907:d501:b0:c21:9cf4:e1b0 with SMTP id
- a640c23a62f3a-c246a30a9f5mr868392666b.3.1787332680302; Fri, 21 Aug 2026
- 10:18:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R46EMPu2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D3FD1F000E9;
+	Fri, 21 Aug 2026 17:18:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787332711;
+	bh=GS1qQDP/Be5NshQnlyobrrr7FcIivBLhbPmcuwqsGhs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=R46EMPu2fmoIm4wL7snOkkb+y6mgk7Wp8/BLncHtQKvrebObI05Rd4Yvsx2sggW4N
+	 r+kERmMd2NoPJgq5M+de3E/5oCIhBsi54wRE6Zvl5oFCI+qU+rZguTAF8MKV62DVmu
+	 VpfIeDk4Xe+cay9Uf+FreiRW5XcneW01L/ZyrM1LDLEeVmavnb1OT4m/0oTYbqvK6L
+	 8SHX0fR2eq3AzytoFtEhhhqr8xpe6PaqjBJbAt2xJK7sYYL74l7BlTNs6JHdjSusBd
+	 aLEeOCCQuWh5PbD1Ll8mrTCv8DvmchEdokGErId6SB+Iyvbu0pKN3+U1vwAAgYlAcL
+	 GKoW40aUX4C/w==
+Date: Fri, 21 Aug 2026 18:18:27 +0100
+From: Conor Dooley <conor@kernel.org>
+To: xianwei.zhao@amlogic.com
+Cc: Guillaume La Roque <glaroque@baylibre.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org,
+	linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: thermal: amlogic: Add A9 thermal
+ bindings
+Message-ID: <20260821-envision-mousy-bef9a2c51e2f@spud>
+References: <20260821-a9-thermal-v3-0-0e7abf3941e3@amlogic.com>
+ <20260821-a9-thermal-v3-1-0e7abf3941e3@amlogic.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260821-hd3ss3220-regulators-v1-0-405e5c4fb306@flipper.net>
- <20260821-hd3ss3220-regulators-v1-2-405e5c4fb306@flipper.net> <TY3PR01MB11346E91C25009FE7C45387F986A32@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-In-Reply-To: <TY3PR01MB11346E91C25009FE7C45387F986A32@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-From: Alexey Charkov <alchark@flipper.net>
-Date: Fri, 21 Aug 2026 21:17:43 +0400
-X-Gm-Features: AcwNN1XgtySPeQ9oX-D97l_niNrZbC8_BAFYmBud5FSa8Z0I7DfTLaVwNVSieB4
-Message-ID: <CAKTNdwFnvV_uvz640+Dw+HfJd7LfQ7ym9+JogyASi5t-ch8DOw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] usb: typec: hd3ss3220: Add support for supply regulators
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>, 
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rBQNQ4cmFmVpeZDt"
+Content-Disposition: inline
+In-Reply-To: <20260821-a9-thermal-v3-1-0e7abf3941e3@amlogic.com>
 
-Hi Biju,
+--rBQNQ4cmFmVpeZDt
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Fri, Aug 21, 2026 at 9:03=E2=80=AFPM Biju Das <biju.das.jz@bp.renesas.co=
-m> wrote:
->
->
-> Hi Alexey Charkov,
->
-> Thanks for the patch.
->
-> > -----Original Message-----
-> > From: Alexey Charkov <alchark@flipper.net>
-> > Sent: 21 August 2026 17:17
-> > Subject: [PATCH 2/2] usb: typec: hd3ss3220: Add support for supply regu=
-lators
-> >
-> > HD3SS3220 requires VDD5 input to be present 2ms before VCC33 is applied=
-, or else it gets backpowered via
-> > the 3.3V rail in a non-functional state and wedges the I2C bus, bringin=
-g down all devices on it.
-> >
-> > Enable both regulators in the datasheet prescribed sequence if provided=
-.
-> >
-> > Signed-off-by: Alexey Charkov <alchark@flipper.net>
-> > ---
-> >  drivers/usb/typec/hd3ss3220.c | 32 ++++++++++++++++++++++++++++++++
-> >  1 file changed, 32 insertions(+)
-> >
-> > diff --git a/drivers/usb/typec/hd3ss3220.c b/drivers/usb/typec/hd3ss322=
-0.c index
-> > d0de5a2488f9..b53455abc048 100644
-> > --- a/drivers/usb/typec/hd3ss3220.c
-> > +++ b/drivers/usb/typec/hd3ss3220.c
-> > @@ -49,6 +49,9 @@
-> >  #define HD3SS3220_REG_GEN_CTRL_MODE_SELECT_UFP               BIT(4)
-> >  #define HD3SS3220_REG_GEN_CTRL_MODE_SELECT_DRP               (BIT(5) |=
- BIT(4))
-> >
-> > +/* Minimum time VDD5 has to be stable before VCC33 starts ramping up *=
-/
-> > +#define HD3SS3220_TVDD5V_PG_US                               2000
-> > +
-> >  struct hd3ss3220 {
-> >       struct device *dev;
-> >       struct regmap *regmap;
-> > @@ -358,6 +361,31 @@ static irqreturn_t hd3ss3220_id_isr(int irq, void =
-*dev_id)
-> >       return IRQ_HANDLED;
-> >  }
-> >
-> > +/*
-> > + * Bring both supplies up in the order the datasheet asks for. Powerin=
-g
-> > +VCC33
-> > + * first can back-power the device in a non-functioning state, which
-> > +grounds
-> > + * the I2C bus and takes both this device and any others on the same
-> > +bus down  */ static int hd3ss3220_power_up(struct device *dev) {
-> > +     int ret;
-> > +
-> > +     ret =3D devm_regulator_get_enable(dev, "vdd5");
->
-> Maybe use optional API as existing dt users don't have this property defi=
-ned in DT.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-The optional API is explicitly for devices that can function without
-the respective supply entirely, which is not the case here (both lines
-have to be wired for the chip to work). If a board doesn't define this
-supply in its DT the "normal" API will auto-assign a dummy regulator
-and proceed.
+--rBQNQ4cmFmVpeZDt
+Content-Type: application/pgp-signature; name=signature.asc
 
-I got called out by Mark once [1] trying to shoehorn the _optional
-functions where they don't belong :)
+-----BEGIN PGP SIGNATURE-----
 
-[1] https://lore.kernel.org/all/agUoq2N_nE_Sz0Z_@sirena.co.uk/
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaoiIYgAKCRB4tDGHoIJi
+0ieYAP9rHImLhgtylICcvJnyJJVKYYhFsFpKMqhdSEs66+5r4AEA+DIUM4F6Cbsh
+vRwJotnGqwmpDT4WSw83ag4UscMZHQI=
+=gyny
+-----END PGP SIGNATURE-----
 
-> > +     if (ret)
-> > +             return dev_err_probe(dev, ret, "failed to enable VDD5\n")=
-;
-> > +
-> > +     /* Nothing to stagger against unless the board describes both rai=
-ls */
-> > +     if (device_property_present(dev, "vdd5-supply") &&
-> > +         device_property_present(dev, "vcc33-supply"))
-> > +             fsleep(HD3SS3220_TVDD5V_PG_US);
->
-> No need for fsleep for the consumers that does not have vdd5 and vcc33.
-
-Correct, hence the conditional.
-
-> > +     ret =3D devm_regulator_get_enable(dev, "vcc33");
->
-> Same here.
-
-Best regards,
-Alexey
+--rBQNQ4cmFmVpeZDt--
