@@ -1,103 +1,84 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF392EEE65
-	for <devicetree@vger.kernel.org>; Sat, 22 Aug 2026 19:45:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72A562DCF4C
+	for <devicetree@vger.kernel.org>; Sat, 22 Aug 2026 19:48:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787427922; cv=none; b=iMmJZ4ZksmpAOSlKaVrwHe7MT0KL3ZbpjRtmg6J0vMP2Zo8IKwZZBFlXkdKsTWeIJTn2e4aykb6Wp69Nsg5L+sAH5eWB9Ef7xitChIV5GuxUa2Vqf3oyzHHNHJoSCkzkhhBcwJR43PpqD+wGnzHmaBUvoYj+C0h9c8NV7LOlgwE=
+	t=1787428096; cv=none; b=JUaVD876ZL+Ypa53iGO1F95xyJPRUG8EmO+u3nx1XN7VnWyGp/IytIugeTNCLkyI5BOpSLZ3vNibe//MSV/zE0JeFibPLk/8dlYh6hsD27Zgs6X78o0cpLyT7lv3/yAXCu9VGjzl+wyyxjyPMZKTtRaF8DTDYawRWz/8Mgd+tqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787427922; c=relaxed/simple;
-	bh=8Qig20Vn1Z39mL/aPI0UZZpoHMcdtsF7kx5Ekyaw5xc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=O+Pxjooja568Q3Ezn7Y+I5zq4A3JB+ILAJd4+8Gyk8weqR1W1nzoV7WXhvdlNL22YpAGJP2P/7kp2EptogsA3ZrTvcx4HdeBDWAEngvxe+OU+Y6xLDba8XdURZWVqBb7awgQo83AWpoplvMw+weOXTVmmnFbWrweK/X9Z8NYbgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UaItmTq0; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787428096; c=relaxed/simple;
+	bh=ovOcgKcQpBu8LbKZdZ9w/hhD9cVKqOHmROrt0618EWc=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=KMhTJOZZvovkCAOOsVbUqBjEMljEYyijSfDRu6Khl9YFFQHsHBF7COgJodAWT8/ABV1oE8u5nflHsrEgA7z6BXnl31OY46/MWSyywY/sI7HTyRzMQeeNqShmASYbEY/4KIb0QEQAgFiSy87UeNdXCEXtitI6cFyqGqkJuZlfsNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=AuUjeS4Q; arc=none smtp.client-ip=185.70.43.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UaItmTq0"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4998e0916faso13370055e9.2
-        for <devicetree@vger.kernel.org>; Sat, 22 Aug 2026 12:45:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787427919; x=1788032719; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8Qig20Vn1Z39mL/aPI0UZZpoHMcdtsF7kx5Ekyaw5xc=;
-        b=UaItmTq0/aOb78MI7RCW+m3E1neKc6PiOpHa3+nfuLYPY1cL5nsFJrV1eJSh9DGxq4
-         52+DoJV15yssFXrw3aMNBU53p5PAoRCi8XaeVKIfiHj8kG2wzCC0dvPqEH9y70AYPedR
-         uS2Rhfp+msL6RNsQ17a2F65WqFOmhxkjytZTZBDky5RvDLxuw9dWHG2dOF2kBL2EyfZ9
-         ZJQQPG18corrP7M+Paoea3nLs7N8tppBEnmgAibMnG+FSkdWUq9Eq3sxz6NytKzowQPD
-         eCBsg7KT5gViiMbRpq9zwGsOSxQ5atgNmA1y1pV9zlAn/ZccVoTlzmGCqYZPf5veC4hQ
-         IOdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787427919; x=1788032719;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8Qig20Vn1Z39mL/aPI0UZZpoHMcdtsF7kx5Ekyaw5xc=;
-        b=Qrm12tN9Ccc1XLyHQEBQ3VE70E1bhrC45xeJM9zp0bT4/tBMchap9k3dNXLHOjYMo5
-         OynhGNlD8NBxKWOcs8JxxELju6+pbOUFq9YdQua5zaEUWB4w+SAvuLIxzfO5fqknQio/
-         BYjvKqITcTyD59aOy+vjqdbLG3HvTxeh4q01SjgfMMTEH/7VBPO83BelbWKPEt80o4nh
-         DN/qY03trVThk48BesB0OYpP1ZASaRTmgDOG6jzn9T6q4LJVIW7D1rSDk0UvTLZ6eoHe
-         cGQOPp4/2tZUzKI/03O5rwNrQHh7PinLivj4ijPLb5h0VbsYHZn/kmCkgSg0H/9Zkagi
-         RC9A==
-X-Forwarded-Encrypted: i=1; AHgh+RrH1kKFmyFI9Xwdnce6IXrYhHQfG88Bh+95bQuFVFee+B9kOzD7scvFfvycID3ja6DaDozXFJ3erY18@vger.kernel.org
-X-Gm-Message-State: AFuF++mux8KfFCXQ/wdg67qAcJt4btcZT00k3S6TAs8xqPi3EFESuN13
-	EaaAGxxDCVueGUSeYcItPIPI1FnZyjWuN6hCG2uoxcHTSi19ifHIm1dW
-X-Gm-Gg: AR+sD10AD7bmtimWEh4vJgTO+aMVHc8f/KNt/jFnu7vkXA0hFubPn3HIZumZj6cd/gM
-	+sgzdYQsMuG+pjfqKAp5img9moQ6abXcn/U9dfrM3fM9SylPOadVCXMgT9L6ogbId5fjebB2c5G
-	/q03iuX+JSnQkfht6QPgQeC7un920njmjiok3TBQ1YXUboLxfnRA3oaAvwxfCHcx0xui3Dg0N7P
-	MwDx/he5NI+g/7UHlijBK7JLN2uUO5L3Z2RhoQCNzTqzn8ezjM5t3TeiVnkvb4b4VOt5UtDzPjh
-	+scglvLODt5o8eK7xEbNGY72FSckjwkLc2ai7qqG8+sDhda+0lVHp8UkUmjkwH86zduUShYjwIc
-	iKP6zNYEqmNda/9OstRhCw33jgugpaveEPVp3UoTA1EHfEvX9lnPc5mF7dTbIETPswbFKSH7d4g
-	K1zd7cY5Xp8v0sbctpGyF2wtLfjkpFa7Qu5dOVyEzvvG+RfPSPibWdbp5OgnBn9frrRiNsq9OMv
-	/eP0leoBg==
-X-Received: by 2002:a05:600c:608f:b0:499:a4d1:d7d9 with SMTP id 5b1f17b1804b1-499c19d7367mr69091855e9.9.1787427918747;
-        Sat, 22 Aug 2026 12:45:18 -0700 (PDT)
-Received: from fedora ([105.74.8.24])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499bd581a49sm31267215e9.1.2026.08.22.12.45.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 22 Aug 2026 12:45:18 -0700 (PDT)
-From: Taha Ed-Dafili <0rayn.dev@gmail.com>
-To: dlechner@baylibre.com
-Cc: 0rayn.dev@gmail.com,
-	Michael.Hennerich@analog.com,
-	andy@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	jic23@kernel.org,
-	krzk+dt@kernel.org,
-	lars@metafoo.de,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux@analog.com,
-	nuno.sa@analog.com,
-	robh@kernel.org,
-	skhan@linuxfoundation.org
-Subject: Re: [PATCH v6 6/6] iio: dac: ad5504: support scale via output-range-microvolt property
-Date: Sat, 22 Aug 2026 15:45:05 -0400
-Message-ID: <20260822194505.20389-1-0rayn.dev@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <fb0b857e-eac8-4755-9330-5cfe55523271@baylibre.com>
-References: <fb0b857e-eac8-4755-9330-5cfe55523271@baylibre.com>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="AuUjeS4Q"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1787428084; x=1787687284;
+	bh=+UOlbWmhlZGcXSZas1atuG02Rkmo7MvD1GEC9/IVszM=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=AuUjeS4Qg8skiBG8zgzWsFH8mgr62jLVrdjl+P4UNmaN8E0hnsOICdXWz6yUA5QM8
+	 1kjPq9/ydCZct3aqkuT5/ixqPZoHXQv+jeqbpKNBax16FGVHMf/5QIbW6swx56vj6Y
+	 6FZi16MBpqBZ9TNGIXJwV+TIpG/9oPTLfUjGLEBXBIYqVUlzJwz/CnlKsxf8ynLxUr
+	 FIcBy4NGKFFzXr6u4hobl8AgP90u3ACKn7l74ofcxNR4Nr4Huy+KhZenHgLAGor6rV
+	 VFYOXNsDJSuqxc32zyKthfYrR0pzKNOobFLiR5GJnGlbJLWBKwkpRZ7phE4ijOmTdK
+	 oAhyq4E5Tdc2A==
+Date: Sat, 22 Aug 2026 19:47:58 +0000
+To: Heiko Stuebner <heiko@sntech.de>
+From: Richard DeFrese <richard.defrese@proton.me>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Richard DeFrese <richard.defrese@proton.me>
+Subject: [PATCH] arm64: dts: rockchip: route ES8388 MCLK to the IO pin on Orange Pi 5/5B
+Message-ID: <20260822194730.526392-1-richard.defrese@proton.me>
+Feedback-ID: 216883557:user:proton
+X-Pm-Message-ID: c644c4c6ff2315eb917bb9194d3fe04645365cd6
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-> We should probably handle range-sel-gpios here. Otherwise, if a new
-> DT tries to use it, it will end up falling back to this old wrong
-> behavior.
->
-> Either return an error here that it is not supported. Or implement
-> it by making IIO_CHAN_INFO_SCALE writable.
+The on-board ES8388 codec on the Orange Pi 5 and 5B has no analog output:
+the codec's master clock (MCLK) never reaches its pin.
 
-Thank you for catching that. For now I'll return an error in that
-case, we can always expand it later if needed.
+RK3588 gates the I2S MCLK-to-IO routing in SYS_GRF SOC_CON6 (bit 1 for
+I2S1), exposed as I2S1_8CH_MCLKOUT_TO_IO. The codec references the internal
+mux (I2S1_8CH_MCLKOUT) instead, so nothing enables the IO gate: the
+12.288 MHz MCLK is generated inside the SoC but never driven out to the
+codec. With the ES8388 as I2S bit/frame master, the SoC I2S controller then
+never receives a valid clock and aborts:
 
-Best Regards,
-Taha Ed-Dafili
+  rockchip-i2s-tdm fe480000.i2s: clear failed, reset txrx
+
+Point the codec's "clocks" at I2S1_8CH_MCLKOUT_TO_IO so the ES8388 driver
+enables the gate in clk_prepare_enable() at probe; "assigned-clocks" stays
+on I2S1_8CH_MCLKOUT to keep the 12.288 MHz rate.
+
+Signed-off-by: Richard DeFrese <richard.defrese@proton.me>
+---
+ arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-5b.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-5b.dtsi b/arch=
+/arm64/boot/dts/rockchip/rk3588s-orangepi-5-5b.dtsi
+index 6e081bc06..5ac3e0d9d 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-5b.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-5b.dtsi
+@@ -87,7 +87,7 @@ &i2c6 {
+ =09es8388: audio-codec@10 {
+ =09=09compatible =3D "everest,es8388", "everest,es8328";
+ =09=09reg =3D <0x10>;
+-=09=09clocks =3D <&cru I2S1_8CH_MCLKOUT>;
++=09=09clocks =3D <&cru I2S1_8CH_MCLKOUT_TO_IO>;
+ =09=09AVDD-supply =3D <&vcca_3v3_s0>;
+ =09=09DVDD-supply =3D <&vcca_1v8_s0>;
+ =09=09HPVDD-supply =3D <&vcca_3v3_s0>;
+--=20
+2.53.0
+
+
