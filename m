@@ -1,155 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE153328267
-	for <devicetree@vger.kernel.org>; Sat, 22 Aug 2026 07:55:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD84B32FA18
+	for <devicetree@vger.kernel.org>; Sat, 22 Aug 2026 07:56:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787385357; cv=none; b=n3biz8q6bkeeQK6fF7gKzDp2tjd9TM3DvGCyI8goPllRJ27dkT56RG1h3GCPNX61AXeFW5c5d7XoicLy+YfDY0WSlIfGrq9ETxMgqyMX7NJj4ExpoYRQX+H1gOAqt1mByzJ1dyapWyN9oPvwx5v2LZuvUgnTtmJdO3gCQI3POJw=
+	t=1787385377; cv=none; b=LYJKsE+UYUdrUEUXy5Dx4n9FSCXuoFhjlfkYlN9OOZ8aVq8xtdQlLCi3AcAi6FZH34MS74J9L5hpr0OZj5KbMr+fkgv1YpBr4mLH+wHF3AhcmI7HHhCLZXc+JNMvMkogx+MpDjDnIR3yli8nOl48ntpO1csX4JYJXVCaBQBzyCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787385357; c=relaxed/simple;
-	bh=lZo2ZIKRKhfyRLJFv/h5IRB1XGa5e67HSN6ETefgF1I=;
+	s=arc-20240116; t=1787385377; c=relaxed/simple;
+	bh=0EPo7IEDraVKeqzNmrWTcaarDac0g13CbINzU/oPTUo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Tf26jGViflblqKqBaoFvEGv1tHhlssdlk7Ps4eMG8bO5hr7GFP+boZpU+4O+YnPjJv8Eqwk51ECIOSVPcpaAtJYymh3Z1DOn4em+OIHiqtITG7hFkuf/NB2VZYJy210M6AZxzNKXYYDz3m1BU8mh89/mL4vFBQXe9qARb0uHmTs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T8QxpZEd; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=rtTFJoMIbjnXRozD02li3+UEzwO8zxTVRk5yFmV4im/n04y5lir/HtQpaK5kIPY+hHNbtocqzKdpo723B275It0HlMwb2YhIa5C4+JtqmMP0B7SPznOCWpzuDVmvR/3EhZOlkzVvzNhT91aCR6aGrE4JZA0r0wp92CvbSQ6hfwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZO70ZUB9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T8QxpZEd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D91B91F000E9;
-	Sat, 22 Aug 2026 07:55:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZO70ZUB9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D63261F000E9;
+	Sat, 22 Aug 2026 07:56:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787385355;
-	bh=6N9au3zguC45nbY50QHDxwLeCSu+/FgjEfEQK+IV4Oc=;
+	s=k20260515; t=1787385376;
+	bh=Md8sjyjPFwVegd6vG7EHKzCw4XT3YwVcfSxf497AGF0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=T8QxpZEdYWax8TgfMDzJKMN85LEGBc2y3O4oFJjc/cn9TKktAvcwTP+wExSfRcJpZ
-	 cgBwjuw/fKMA73g61ole0UORo9/g/f3JL2rAMqoXwX2z9vFurLk84f2wU42Ny2PRh6
-	 Mm3283ZO3ZPHcENChUmVEkSXFRtJCzX3r4GK7LSebs/O8cIMVVN1+mDbJ1Q5/bV0g+
-	 oKB9hBXHFOcxOCr2cWaA2539zt1mih8CH2siWljDO8O4bdekF6dzDO42pCzvVby3EY
-	 +UGAz/zA1zrkmA0gbepsdBTG/5k6l32WWOBOsAkgUv89RtY3Ya8AsftQIrNxZEB6O5
-	 xLjgvsupx54dQ==
+	b=ZO70ZUB9p9x7gWPH+8SotlAOiUxehNKuo0yT4n3TFn8kJJ7VT0y9iS9xQxuFVIvOE
+	 oLhoprn99YUACMTurQQihgFnh51rYkz6XCQEpkWmvHXHMeG3kBc9FIGezNknZpnBV7
+	 IohnCQZ8n7yNWKOc1YkcaqmxIEqZucaE2YX9lvMDJrsSs8fmGGMsfiruox0PgJ0mal
+	 eyeTTQEjktc8QjCibr9A6PSUopHwbEcvbeG0SZ4dFQVpFmclEQJOKp1H30LfFN3w3i
+	 D8VAdlNGU/r+LcHBF2LdZFg7PuSz24CtAP+x4eOkJQyXPu3jS10vK6khKfY2k6dU7/
+	 Eu/O9f7ORENJg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/9] dt-bindings: phy: Document ST STM32MP25
- USB2-FEMTO PHY
+Subject: Re: [PATCH v3 6/9] usb: dwc3: dwc3-generic-plat: Add ST STM32MP2
+ DWC3 xHCI USB controller glue
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Marek Vasut" <marex@nabladev.com>
-Cc: vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, robh@kernel.org, conor+dt@kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org
-In-Reply-To: <20260822074816.548662-2-marex@nabladev.com>
+Cc: vkoul@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, olteanv@gmail.com
+In-Reply-To: <20260822074816.548662-7-marex@nabladev.com>
 References: <20260822074816.548662-1-marex@nabladev.com>
- <20260822074816.548662-2-marex@nabladev.com>
+ <20260822074816.548662-7-marex@nabladev.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 22 Aug 2026 07:55:54 +0000
-Message-Id: <20260822075554.D91B91F000E9@smtp.kernel.org>
+Date: Sat, 22 Aug 2026 07:56:15 +0000
+Message-Id: <20260822075615.D63261F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The `reg` property is defined in the schema and used in the example=
- but is missing from the `required` list.
-- [Low] The example node name 'usb-phy@2400' violates the generic PHY schem=
-a pattern.
-- [Low] The '#clock-cells' property lacks documentation for the clock indic=
-es.
+- [Low] The file uses the FIELD_PREP macro without including its required h=
+eader <linux/bitfield.h>.
 --
 
---- Patch [1]: [PATCH v3 1/9] dt-bindings: phy: Document ST STM32MP25 USB2-=
-FEMTO PHY ---
-commit fee849432713aad415e73ed872e6de622206bee8
-Author: Pankaj Dev <pankaj.dev@st.com>
+--- Patch [6]: [PATCH v3 6/9] usb: dwc3: dwc3-generic-plat: Add ST STM32MP2=
+ DWC3 xHCI USB controller glue ---
+commit 144f9fcc747a522925bb8e40158fa496caf2673c
+Author: Marek Vasut <marex@nabladev.com>
 
-dt-bindings: phy: Document ST STM32MP25 USB2-FEMTO PHY
+usb: dwc3: dwc3-generic-plat: Add ST STM32MP2 DWC3 xHCI USB controller glue
 
-This commit documents the USB2 phy for STM32MP25 USB2 controllers. It intro=
-duces
-bindings for two slightly different phys present in the STM32MP25 SoC using
-separate compatible strings.
+This commit extends the generic DWC3 platform driver by adding glue logic
+support for the ST STM32MP2 SoC. It configures controller settings using
+syscon via device tree properties.
 
-> diff --git a/Documentation/devicetree/bindings/phy/st,stm32-usb2phy.yaml =
-b/Documentation/devicetree/bindings/phy/st,stm32-usb2phy.yaml
-> new file mode 100644
-> index 0000000000000..cc5044790beea
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/phy/st,stm32-usb2phy.yaml
-> @@ -0,0 +1,67 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
+> diff --git a/drivers/usb/dwc3/dwc3-generic-plat.c b/drivers/usb/dwc3/dwc3=
+-generic-plat.c
+> index ca69ac0eb07ce..f670576511b59 100644
+> --- a/drivers/usb/dwc3/dwc3-generic-plat.c
+> +++ b/drivers/usb/dwc3/dwc3-generic-plat.c
 
 [ ... ]
 
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - st,stm32mp25-usb2phy1
-> +      - st,stm32mp25-usb2phy2
-> +
-> +  "#clock-cells":
-> +    const: 1
-> +
-
-[Severity: Low]
-This sets #clock-cells to 1, meaning consumers will need to pass an index,
-but there doesn't appear to be any documentation of the valid indices (e.g.=
-,=20
-0 for PLL, 1 for CMN) in the binding or a dt-bindings header file.
-
-Could this be updated to document what index corresponds to which clock so
-device tree authors aren't forced to rely on undocumented magic numbers?
-
-> +  "#phy-cells":
-> +    const: 0
-> +
-> +  reg:
-> +    maxItems: 1
+> @@ -85,6 +91,38 @@ static int dwc3_spacemit_k1_init(struct dwc3_generic *=
+dwc3g)
 
 [ ... ]
 
-> +required:
-> +  - compatible
-> +  - "#clock-cells"
-> +  - "#phy-cells"
-> +  - clocks
-> +  - resets
-> +  - vdd33-supply
+> +static int dwc3_stm32mp25_init(struct dwc3_generic *dwc3g)
+> +{
+
+[ ... ]
+
+> +	return regmap_update_bits(regmap, drcr,
+> +				  STM32MP2_USB3DRCR_HOST_PORT_POWER_CONTROL_PRESENT |
+> +				  STM32MP2_USB3DRCR_OVRCUR_POLARITY |
+> +				  STM32MP2_USB3DRCR_VBUSEN_POLARITY |
+> +				  STM32MP2_USB3DRCR_USB2ONLYD |
+> +				  STM32MP2_USB3DRCR_USB2ONLYH,
+> +				  FIELD_PREP(STM32MP2_USB3DRCR_HOST_PORT_POWER_CONTROL_PRESENT,
+> +					     prt_pwr_ctrl) |
 
 [Severity: Low]
-The reg property is defined in the schema and used in the example below,
-but it is missing from this list.
+This isn't a bug, but FIELD_PREP is used here without explicitly including
+linux/bitfield.h. Could this cause build failures on architectures or
+configurations where this header is not implicitly pulled in by other
+includes?
 
-If it is omitted here, device tree nodes without a register offset can
-silently pass schema validation, even though the driver will fail to probe.
-
-Should the reg property be included in this required list?
-
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/st,stm32mp25-rcc.h>
-> +    #include <dt-bindings/reset/st,stm32mp25-rcc.h>
-> +
-> +    usb-phy@2400 {
-
-[Severity: Low]
-Generic phy schema patterns in dtschema restrict node names for phy
-providers to match the regular expression ^phy(@.*)?$.
-
-Will this node name trigger warnings when validating the example during a=20
-dt_binding_check?
-
-> +        compatible =3D "st,stm32mp25-usb2phy1";
-> +        reg =3D <0x2400 0x24>;
-> +        #phy-cells =3D <0>;
-> +        #clock-cells =3D <1>;
-> +        clocks =3D <&rcc CK_KER_USB2PHY1>;
-> +        resets =3D <&rcc USB2PHY1_R>;
-> +        vdd33-supply =3D <&vdd33usb>;
-> +    };
+> +				  FIELD_PREP(STM32MP2_USB3DRCR_OVRCUR_POLARITY,
+> +					     ovrcur_polarity_low) |
+> +				  FIELD_PREP(STM32MP2_USB3DRCR_VBUSEN_POLARITY,
+> +					     vbusen_polarity_low) |
+> +				  FIELD_PREP(STM32MP2_USB3DRCR_USB2ONLYD,
+> +					     !!usb2only_conf) |
+> +				  FIELD_PREP(STM32MP2_USB3DRCR_USB2ONLYH,
+> +					     !!usb2only_conf));
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260822074816.5486=
-62-1-marex@nabladev.com?part=3D1
+62-1-marex@nabladev.com?part=3D6
