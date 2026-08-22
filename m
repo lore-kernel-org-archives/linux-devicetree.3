@@ -1,68 +1,67 @@
-Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com [209.85.167.173])
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8E1F347BA7
-	for <devicetree@vger.kernel.org>; Sat, 22 Aug 2026 18:24:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A743594A
+	for <devicetree@vger.kernel.org>; Sat, 22 Aug 2026 19:07:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787423074; cv=none; b=GcACOb2LdYmY++npRbfDIW2/Vi8EJ+iTqRR4YOBzxwlSyex67KfV23kH78oZc40uHXQOFHwiNqllzC7pS3FShOBQ70sBe078Rli5xWupaplKGgORei8MeWsdzCmM6NuTsCF0gRGFMCZulzhR/BHnsben43W8JZrDqSdMu68kShc=
+	t=1787425645; cv=none; b=ZAoOKuRFi1dz0MNOb98ElD1DWJqgzjG2cmB3pwiwgEA4S1F9PYKN2UP7HGdZdZ5fUvp+vaIcwVKHMz6pxAW4cYyld1XMppyKlVFumGHzXEArhEEFzRRstI0GYViMZIidOAYS5ntgtFl8l9ZBVKSfYjNk8PRoduRKwvu2chukMSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787423074; c=relaxed/simple;
-	bh=I0EoiW47USBxE6T6MYvTawQh7ajMMiXvhTvG+Px5aok=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QWOury8UAYR15xPzqVFtUuv8tMZSEaVLXCKBqsWsE5OXll61yAbh1Lmsy/LZvwSbLAKBkB3voOMnhQ3dAgwtDAaWHpGIjF3GSleqGKSUimOcN5g6gkpd1QatjsswGBsipLTv3jzUvznOCyr4/nqOdYlzIzQUeMMFklHpx4VpPAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=D9PPhSdJ; arc=none smtp.client-ip=209.85.167.173
+	s=arc-20240116; t=1787425645; c=relaxed/simple;
+	bh=q+JiaLcxdy3sysUNv+2t8QVziFcjTkbCGdLHD4dAkUE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=RXv9tCkN9ccWyOkBYpy805xOdR3BgfDzrD6dFKP9VrboQJDMhk5B8ZSLPRkH6i+h/4isZ43EaXXDxYdKIMtLJHilB5d5k/NAykCXeRNA1AOGEtBClXq00nX773yNrH4c+05RvbpOM00pGQoPX9Hsd9ABJp69AsP+b5+jXBycQOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=CY5oT7h7; arc=none smtp.client-ip=209.85.128.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="D9PPhSdJ"
-Received: by mail-oi1-f173.google.com with SMTP id 5614622812f47-4a43c2a126fso903043b6e.3
-        for <devicetree@vger.kernel.org>; Sat, 22 Aug 2026 11:24:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="CY5oT7h7"
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8200ca16f26so31667077b3.3
+        for <devicetree@vger.kernel.org>; Sat, 22 Aug 2026 12:07:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1787423072; x=1788027872; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1787425641; x=1788030441; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AAUPoDO0LbXR3ORuYSehuTzgSLzhcn+D4ZySu9rxxeM=;
-        b=D9PPhSdJwq3c489sWygiPwnXLHEr04XOslOMbw3xJVOSgMiLVwO7Lro85RQdgZuU/q
-         8nREs4ly8Pz2m9mJWDbBxPvTkaMF6wmwdKYGanP24VPh3IFApH/oqw6LHrpIg0z6udqH
-         yne74shUQBcd5nABZR0ghbANn1pfkmYDG0f4nr18HCfvdfMhW/5ZveZMgcSfRt8AeI3n
-         5pj5fC9rIWHo+s9dAJ+OXLUUCx6b1WCGqhNoNFIdMIX8q/xY58J1MqQN+ZrLfyC5C2sl
-         044n47jrqnNmJtJHGJSDaZ/F7HojjX2TNHy7wY9GJCiYsf6I9uIyS4ee7z/b5G3S+Syv
-         ldWg==
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bfLRiHPUQLr/m5S0xV8RZFTsv1ej10z2QqVIP6Nh6zA=;
+        b=CY5oT7h7dUIaG85wif4kxQDbOxqLftOCeDCoB6CgAi6EDAWa4expzztVj2WpPF2WrX
+         9kPDsdiklCJJBY3tI2/mDh81rotvevYa9333KstiQ2tLf0Pb34/RVV6y1x2AZLEi20i/
+         WvJ6Kr85QvRPcmH34iakx4AKxbXB5/Ev+ZTo1jEefBDQ3R6mHoLJS5RDTEpknNIX7Xrn
+         r2FDWv3hxF7i5UqZ7btYmUcFVzTg8vl0MkQAo5dGe7wg0W5RzAimyLD3ccBqM/dgq+uM
+         QQzmxYOJuqWhIu1KyC5r0qgemu5K0gJagn6m3OeQhsDUWPc1vbbJano7GjSfsDeoUf/N
+         SlLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787423072; x=1788027872;
+        d=1e100.net; s=20251104; t=1787425641; x=1788030441;
         h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AAUPoDO0LbXR3ORuYSehuTzgSLzhcn+D4ZySu9rxxeM=;
-        b=IegDqsnKvm+XXMQm9xEioDEbzIrJFXmCyGF82VAivEu31Wk0uagoe4hKaxBmkrrJ01
-         QurPJpt9a2ORCrN1EDccYmul53UlZV8OPbByy0W1PKjKSRDh4wssL+pz2bJR/hxt6fv2
-         DdcoXXfoM8ebwBTIQn4a9lyQiYmNHwsOQ7uP0K7QTcomWJM4BwMP/9YiWYvloe8cT4ws
-         f7k/ADyry5NoNwgkAGvVptdXAvll9f+FkUTTh1hvgm7y+eA2K8YVs+KcYjxkP2STJSQA
-         8InoPrX7oaYKVjFtu4wGpU7xGZ8b2t3jwtCrEDtffZzAiZspXbCKBt0jZ9Afg+XA81fL
-         erxQ==
-X-Forwarded-Encrypted: i=1; AHgh+RquBMmgXmo4VupCrB/WdM7a4AzZ6itAjCd/p+tEMSeDIWDp85YMNcgp6Pqjg+z4wJa8oPbluCnWtS8X@vger.kernel.org
-X-Gm-Message-State: AFuF++nPlzY6mbeWJ28+z4P7n0KpJoorgRo/PhOIPMIqdOqZp8GmLXuF
-	O4Jy3FniB6IfuD0RViO6kn3bWm+8GjPnnxapsAXUbOmqn3lfPtGPjLxhvte3dh53dGg=
-X-Gm-Gg: AR+sD138RnXZhh9qYe5YIr3KwclCdhyn8mIjvLOZTYvK85Ij8lKonDeRDgvfdEewDa5
-	SpClB11OG5Us4A198lemK2mWMTZuGkuPNrQ86zszqAmzbJFcCwGD2FhjtPM+nPlQC02bIEh87Mi
-	hOPA5l4SV7cR5y/Xfc9TcmE8NwNg/PKH8k0uy3rfmlrY6AtH0c5rZ/uDXy4G869wfbSNlBjBrxB
-	AxTrj/ZtD7W1Sh+bl2x/Xvi8KeFhtWpBJP66VlRMPJjDi9Xoj93TPlvlUeI7QWr4mqUE78jTCvP
-	/EN11/EJaDHCQLKfvZ49ZSM5F697nsKWplJm2fvxs3qyyhTWc6DmRyNHhtBOBHvh77YH58Ddh8G
-	FA7+H/tqGXO3tlAY3FCWlsxcY9GwQcM8Q4SNjLd7yFNlVATPr0PmyOyba2B1LtcB6KHsuxcJ9jn
-	Idrts8//69YvIeh7k7HPwMtppZchan4U2gBiJLwVWBJQDO2su+dIMOxKplqsX0/INe/cVmU3IAU
-	e71Ul60WBLZkNDxOWYGF8w8CmnJpss0+KYmwS0=
-X-Received: by 2002:a05:6808:1998:b0:4a4:c12:49d9 with SMTP id 5614622812f47-4b30998a580mr8468928b6e.3.1787423071836;
-        Sat, 22 Aug 2026 11:24:31 -0700 (PDT)
+        bh=bfLRiHPUQLr/m5S0xV8RZFTsv1ej10z2QqVIP6Nh6zA=;
+        b=IBh25C5I71tspqQqV5Q0fXHq896z5Gvzp4KcfamAJJ09YWVpT8fI3EsHZuO0GimMIi
+         5/qhoJc0a3GADAzhuLlnJI46Qzap4gm5Ko5uV2HyNW+Mtiun6ygjKPziu1UwLezjM0E5
+         ZSyZQGPUpFqAVIatVDv6gNLNYqz7E5m2G/oRfoDAkRDf9lwyN6GUr4ZDZvbMcVztgBha
+         CwQDmeQXvnqn2QMPzbhn3NGWSi/zQ/cBESyR6JaJFMAuP0lJpAVsfTJiaqgPSEY+HFUo
+         mFdWteCIZjv5CEAeghZg0gtuyIm9EWAuHLgpmJSN7fhRYZWNeQK6penMuCrd3N24OzTi
+         7fjA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq1Qu16806grzLuBxbBIkfzmceWUrtlseruBJ7FUEWHdz3b2NfYNV5W5RbN6BAtWCPunOvLGBxMVnTj@vger.kernel.org
+X-Gm-Message-State: AFuF++nFw6OfK+3VTxlTnUBnHZjZFJ46LVlPTKF/tpqVIPY6e9KTYzLQ
+	2RAXZZvhE+zYi/+AFCUlhbnwGMBl989l06+b4PftMlamLG0g/zTw9AAl51uW/oztogY=
+X-Gm-Gg: AR+sD11AwokPTUMhudQHqj82YTMqFxB0mhBO0eKeW65ySW1gtvEuDLC0xfadwWisvUy
+	pTYnivWjKHv/Rbg6qQg7twebmFbHlA3vPnC9YUGRtWn2suJUV4Z5rUThNjRRO4MlLazjmwaJeqC
+	2uCMmrH5leINoUmyhAg7nSjoxYxwHmIoSBZwOmz+KTfP6nhBrJS08J4/CC37aSquJ+QID7Qx+0/
+	X8zEq6gwu7XQP7ejyd6+J9XnRBCU9SGr4A1097lc3MHU8r4LXKHD8B6mZtpAefeuYB7VRVOShAi
+	LLuGJuSndNYwtRMMNKpkicXcqjzy3oOIUmOTA99HunHl9e8PL20+adSMNdJBhXTHlKhppbACagP
+	RNfcUbSlxCpKh/uW8uQUrOuPAmhpRvs8fGkCvdRMT9Us0PUmTccXclkAcU7Gnn5vF/4Sh6HWtn6
+	qmpBFmofjiKrt2/hRiFu2JxyukO1QT6eogbhZatoIlpA5bLLKA1stBcl/krWcx8JqSkh5yBOPvs
+	A/A5LPoziV6Dn5/wD9pcH4iH1gYfmrs0yXjT4c=
+X-Received: by 2002:a05:690c:9b02:b0:81f:2403:9e70 with SMTP id 00721157ae682-849f4e5fe5bmr66342857b3.19.1787425641254;
+        Sat, 22 Aug 2026 12:07:21 -0700 (PDT)
 Received: from ?IPV6:2600:8803:e7e4:500:e0ca:316a:4629:d835? ([2600:8803:e7e4:500:e0ca:316a:4629:d835])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b2d6cdd6cbsm7668245b6e.10.2026.08.22.11.24.29
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-84cac01868dsm13360367b3.42.2026.08.22.12.07.19
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 22 Aug 2026 11:24:31 -0700 (PDT)
-Message-ID: <fb0b857e-eac8-4755-9330-5cfe55523271@baylibre.com>
-Date: Sat, 22 Aug 2026 13:24:29 -0500
+        Sat, 22 Aug 2026 12:07:20 -0700 (PDT)
+Message-ID: <8283770e-4c42-4d7c-adf7-7597288c9712@baylibre.com>
+Date: Sat, 22 Aug 2026 14:07:19 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,90 +69,177 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 6/6] iio: dac: ad5504: support scale via
- output-range-microvolt property
-To: Taha Ed-Dafili <0rayn.dev@gmail.com>, jic23@kernel.org, lars@metafoo.de
-Cc: Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, nuno.sa@analog.com, andy@kernel.org,
- skhan@linuxfoundation.org, linux@analog.com, linux-iio@vger.kernel.org,
+Subject: Re: [PATCH v3 4/4] iio: accel: adxl367: add support for INT2
+ interrupt pin
+To: Antoniu Miclaus <antoniu.miclaus@analog.com>,
+ Marcelo Schmitt <marcelo.schmitt@analog.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-iio@vger.kernel.org, linux@analog.com,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260822085850.17527-1-0rayn.dev@gmail.com>
- <20260822085850.17527-7-0rayn.dev@gmail.com>
+References: <20260821180753.4633-1-antoniu.miclaus@analog.com>
+ <20260821180753.4633-5-antoniu.miclaus@analog.com>
 Content-Language: en-US
 From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260822085850.17527-7-0rayn.dev@gmail.com>
+In-Reply-To: <20260821180753.4633-5-antoniu.miclaus@analog.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 8/22/26 3:56 AM, Taha Ed-Dafili wrote:
-> The AD5504 output range is set by the R_SEL pin, not the VCC supply.
-> Add support for 'output-range-microvolt' to set vref_mv directly from
-> firmware. Use device_property_present() to distinguish absent from
-> malformed property rather than relying on the ambiguous -EINVAL from
-> device_property_read_u32_array(). Fall back to the vcc regulator
-> voltage for old DTs that predate this property.
+On 8/21/26 1:07 PM, Antoniu Miclaus wrote:
+> The ADXL367 provides two independent interrupt output pins, INT1 and
+> INT2, each with its own event mapping register (INTMAP1_LOWER at 0x2A
+> and INTMAP2_LOWER at 0x2B) sharing an identical bit layout. Until now
+> the driver hardcoded INT1 for all interrupt mappings, so a board that
+> routes only INT2 to the host could never receive activity, inactivity
+> or FIFO watermark interrupts.
 > 
-> Signed-off-by: Taha Ed-Dafili <0rayn.dev@gmail.com>
+> Determine the connected pin from the interrupt-names device tree
+> property using fwnode_irq_get_byname(), and route the interrupt
+> mappings to the matching register. Use the interrupt number returned by
+> the lookup for devm_request_threaded_irq() so the requested line always
+> matches the routed INTMAP register, regardless of the order in which the
+> interrupts are listed. When no interrupt-names are present, default to
+> INT1 and the bus-provided interrupt to preserve the existing behaviour.
+> 
+> Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
 > ---
->  drivers/iio/dac/ad5504.c | 31 +++++++++++++++++++++++++------
->  1 file changed, 25 insertions(+), 6 deletions(-)
+> Changes in v3:
+> - Use the interrupt number returned by fwnode_irq_get_byname() for
+>   devm_request_threaded_irq() so the requested line always matches the
+>   routed INTMAP register, regardless of the interrupt-names order.
+> - Access the interrupt map register via regmap_assign_bits() following
+>   the new precursor patch.
 > 
-> diff --git a/drivers/iio/dac/ad5504.c b/drivers/iio/dac/ad5504.c
-> index 74679feea385..d0a3dd4b000d 100644
-> --- a/drivers/iio/dac/ad5504.c
-> +++ b/drivers/iio/dac/ad5504.c
-> @@ -300,6 +300,7 @@ static int ad5504_probe(struct spi_device *spi)
->  	struct device *dev = &spi->dev;
->  	struct iio_dev *indio_dev;
->  	struct ad5504_state *st;
-> +	u32 range[2];
+>  drivers/iio/accel/adxl367.c | 40 ++++++++++++++++++++++++++++++++++---
+>  1 file changed, 37 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/iio/accel/adxl367.c b/drivers/iio/accel/adxl367.c
+> index 54c4d1226790..f5808980b639 100644
+> --- a/drivers/iio/accel/adxl367.c
+> +++ b/drivers/iio/accel/adxl367.c
+> @@ -13,6 +13,7 @@
+>  #include <linux/iio/sysfs.h>
+>  #include <linux/interrupt.h>
+>  #include <linux/irq.h>
+> +#include <linux/property.h>
+>  #include <linux/regmap.h>
+>  #include <linux/regulator/consumer.h>
+>  #include <linux/unaligned.h>
+> @@ -81,6 +82,7 @@
+>  #define ADXL367_SAMPLES_L_MASK		GENMASK(7, 0)
+>  
+>  #define ADXL367_REG_INT1_MAP		0x2A
+> +#define ADXL367_REG_INT2_MAP		0x2B
+>  #define ADXL367_INT_INACT_MASK		BIT(5)
+>  #define ADXL367_INT_ACT_MASK		BIT(4)
+>  #define ADXL367_INT_FIFO_WATERMARK_MASK	BIT(2)
+> @@ -168,6 +170,8 @@ struct adxl367_state {
+>  	enum adxl367_odr	odr;
+>  	enum adxl367_range	range;
+>  
+> +	u8		int_map_reg;
+> +
+>  	unsigned int	act_threshold;
+>  	unsigned int	act_time_ms;
+>  	unsigned int	inact_threshold;
+> @@ -366,7 +370,7 @@ static int adxl367_set_act_interrupt_en(struct adxl367_state *st,
+>  {
+>  	unsigned int mask = adxl367_act_int_mask_tbl[act];
+>  
+> -	return regmap_assign_bits(st->regmap, ADXL367_REG_INT1_MAP, mask, en);
+> +	return regmap_assign_bits(st->regmap, st->int_map_reg, mask, en);
+>  }
+>  
+>  static int adxl367_get_act_interrupt_en(struct adxl367_state *st,
+> @@ -377,7 +381,7 @@ static int adxl367_get_act_interrupt_en(struct adxl367_state *st,
+>  	unsigned int val;
 >  	int ret;
 >  
->  	indio_dev = devm_iio_device_alloc(dev, sizeof(*st));
-> @@ -315,12 +316,30 @@ static int ad5504_probe(struct spi_device *spi)
->  	if (is_acpi_device_node(dev_fwnode(dev))) {
->  		st->vref_mv = AD5504_VREF_ACPI_DEFAULT_mV;
->  	} else {
-> -		ret = devm_regulator_get_enable_read_voltage(dev, "vcc");
-> -		if (ret < 0)
-> -			return dev_err_probe(dev, ret,
-> -					     "Failed to get vcc regulator\n");
-> -
-> -		st->vref_mv = ret / 1000;
-> +		if (device_property_present(dev, "output-range-microvolt")) {
-> +			ret = device_property_read_u32_array(dev, "output-range-microvolt",
-> +							     range, ARRAY_SIZE(range));
-> +			if (ret)
-> +				return dev_err_probe(dev, ret,
-> +							"Error parsing output-range-microvolt\n");
-> +
-> +			if (range[0] != 0 || (range[1] != 30 * MICRO && range[1] != 60 * MICRO))
-> +				return dev_err_probe(dev, -EINVAL,
-> +					"Invalid output-range-microvolt\n");
-> +
-> +			st->vref_mv = range[1] / (MICRO / MILLI);
-> +
-> +			ret = devm_regulator_get_enable(dev, "vcc");
-> +			if (ret < 0)
-> +				return dev_err_probe(dev, ret, "Failed to enable vcc regulator\n");
-
-We should probably handle range-sel-gpios here. Otherwise, if a new DT tries
-to use it, it will end up falling back to this old wrong behavior.
-
-		} else if (device_property_present("range-sel-gpios")) {
-			
-Either return an error here that it is not supported. Or implement it by
-making IIO_CHAN_INFO_SCALE writable.
-
-> +		} else {
-> +			/* Backward compat: old DTs without output-range-microvolt */
-> +			ret = devm_regulator_get_enable_read_voltage(dev, "vcc");
-> +			if (ret < 0)
-> +				return dev_err_probe(dev, ret, "Failed to get vcc regulator\n");
-> +
-> +			st->vref_mv = ret / (MICRO / MILLI);
-> +		}
->  	}
+> -	ret = regmap_read(st->regmap, ADXL367_REG_INT1_MAP, &val);
+> +	ret = regmap_read(st->regmap, st->int_map_reg, &val);
+>  	if (ret)
+>  		return ret;
 >  
->  	st->spi = spi;
+> @@ -400,7 +404,7 @@ static int adxl367_set_act_en(struct adxl367_state *st,
+>  static int adxl367_set_fifo_watermark_interrupt_en(struct adxl367_state *st,
+>  						   bool en)
+>  {
+> -	return regmap_assign_bits(st->regmap, ADXL367_REG_INT1_MAP,
+> +	return regmap_assign_bits(st->regmap, st->int_map_reg,
+>  				  ADXL367_INT_FIFO_WATERMARK_MASK, en);
+>  }
+>  
+> @@ -1423,6 +1427,31 @@ static int adxl367_setup(struct adxl367_state *st)
+>  	return adxl367_set_measure_en(st, true);
+>  }
+>  
+> +static int adxl367_set_int_map_reg(struct adxl367_state *st, int irq)
+> +{
+> +	int ret;
+> +
+> +	ret = fwnode_irq_get_byname(dev_fwnode(st->dev), "INT1");
+> +	if (ret == -EPROBE_DEFER)
+> +		return ret;
+> +	if (ret > 0) {
+> +		st->int_map_reg = ADXL367_REG_INT1_MAP;
+> +		return ret;
+> +	}
+> +
+> +	ret = fwnode_irq_get_byname(dev_fwnode(st->dev), "INT2");
+> +	if (ret == -EPROBE_DEFER)
+> +		return ret;
+> +	if (ret > 0) {
+> +		st->int_map_reg = ADXL367_REG_INT2_MAP;
+> +		return ret;
+> +	}
+> +
+> +	/* No interrupt-names: default to INT1 for backwards compatibility. */
+> +	st->int_map_reg = ADXL367_REG_INT1_MAP;
+> +	return irq;
+
+I guess this works, but it seems like trial and error rather than being
+purposeful. 
+
+Could probably do something like this too:
+
+	if (device_property_present("interrupt-names")) {
+		ret = device_property_match_string(st->dev, "interrupt-names",
+						   "INT2");
+		if (ret < 0)
+			return ret;
+
+		/* If INT2 is at index 0, use it, otherwise use INT1. */
+		st->int_map_reg = ret ? ADXL367_REG_INT2_MAP : ADXL367_REG_INT1_MAP;
+	} else {
+		/* No interrupt-names: default to INT1 for backwards compatibility. */
+		st->int_map_reg = ADXL367_REG_INT1_MAP;
+	}
+
+
+	ret = fwnode_irq_get_byname(dev_fwnode(st->dev),
+				    st->int_map_reg == ADXL367_REG_INT1_MAP ?
+				    "INT1" : "INT2");
+
+
+(Could use device_property_match_property_string() instead if we want to
+return error on invalid values instead of assuming INT1.)
+
+> +}
+> +
+>  int adxl367_probe(struct device *dev, const struct adxl367_ops *ops,
+>  		  void *context, struct regmap *regmap, int irq)
+>  {
+> @@ -1479,6 +1508,11 @@ int adxl367_probe(struct device *dev, const struct adxl367_ops *ops,
+>  	if (ret)
+>  		return ret;
+>  
+> +	ret = adxl367_set_int_map_reg(st, irq);
+> +	if (ret < 0)
+> +		return dev_err_probe(st->dev, ret, "Failed to get interrupt\n");
+> +	irq = ret;
+> +
+>  	ret = devm_request_threaded_irq(st->dev, irq, NULL,
+>  					adxl367_irq_handler, IRQF_ONESHOT,
+>  					indio_dev->name, indio_dev);
 
