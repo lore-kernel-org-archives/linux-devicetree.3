@@ -1,136 +1,223 @@
-Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC6E02D9792;
-	Sat, 22 Aug 2026 09:37:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.154.119.183
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1244B38236F
+	for <devicetree@vger.kernel.org>; Sat, 22 Aug 2026 09:39:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787391477; cv=none; b=MmUwQpmaoVEaQR1aZhhe7/tqdBF4OFRzjSkqo5sx2AdDPgOZuY6dwtUsnSOmkuKfFnC9cStkAIVumIAJg7Bf5pLMbcSfUC3zXIj097pk5n4l+GUS4zQvSk8BUhoRpw1Bgkt40gaOeN6Nrw9apUvjQdT2eRI/XvBtp7aqD1FN5SY=
+	t=1787391560; cv=none; b=e9uQpBXOSJL3BEXOOk/9fJ1zZUd2C2/dGkHKNeayrseLlcLym6ntjjaVusH6ZhpEVI1L3w1rAc2frHx64m0Ew4rJIf11XtEznKyIdu66t7SUM/ywXapZgPBTqgMIVAKGsTZPsa/IZiW6IujKGyBejnneCOn8HnXPu6qM5aWcG8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787391477; c=relaxed/simple;
-	bh=wdWgeUoU/VB7fcZZM4/QWweDg+t4Yxw/zF99iOmKNvI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HjOsoQUEm+/iCWY6EgxDpy6wab/Dz5t/ZKJCaRjrFyZ1JVTdM4bEfC1sZVkCMmTJOEb+Kn/OCej06dRAF66SCb/wyq3kV/D85KduQo9Gs+/q1GxxMCnVmIv7henGeWBVuWP3Vm+8GO34B9SP9WRNIQNGsf44qIS0uZcPutMJo6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net; spf=pass smtp.mailfrom=aurel32.net; dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b=ktaxalRV; arc=none smtp.client-ip=195.154.119.183
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
+	s=arc-20240116; t=1787391560; c=relaxed/simple;
+	bh=rLm5a5u88Ko2fvDm7bp0f0F2l+AzEXhbjaQ3SBGLOLw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=BQAKnG5eAmgC6zFNwW3Iy2D8i58UdF6P2Suvecyclh+XRhEBCKexHY/vdOelWuDjNIwe/51GmmTXe0ToUPVcd8BXJKHsQBiwTgSnyx+Ve8V4ki66uOlJ26d4TFWOfMbEllSI8aAM91NCTpzwJzuFKnH0C84gc9WnYznVvoI4r/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qdzV71uE; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b="ktaxalRV"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
-	; s=202004.hall; h=In-Reply-To:Content-Type:MIME-Version:References:
-	Message-ID:Subject:Cc:To:From:Date:Content-Transfer-Encoding:From:Reply-To:
-	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
-	bh=PXtr0FjCl+UhNS+rb/fTOHoXrNWxlpBFn/+u2wMK3T0=; b=ktaxalRVTUSReGk9GXhu9N5bs+
-	Z/iyvukyhoi3gYd4ynDR5LcIzftPg8Gnax2P1H6nqk2pK8uH5tsa+ZT80pQc/0n4xzO6ifdgg5HcE
-	F3SkISlhWF9uXzlCyqXahWS2/nQv+swdR/NhjW4lcE16p9O9zWAPneoEhktBRt2h2DIEsWYHDnylT
-	aMunADRl+UOBHZoHPbqFjc8wH3LdfPuRocd1UUlDrCmNgCO5aTIC5JcJ9rRvBLVyQ3Cn35zH+Ae84
-	FB5e+/O72Te6YiiK05lbnzYSk6Le6/x0a6JPtYXwxn4IQBP6KvjDLb0/YFpfRuTP6LKcFYOE3lJqr
-	VaxJpSpA==;
-Received: from aurel32 by hall.aurel32.net with local  (Exim 4.98.2)
-	(envelope-from <aurelien@aurel32.net>)
-	id 1wxiAa-0000000GhRJ-31Jx;
-	Sat, 22 Aug 2026 11:37:44 +0200
-Date: Sat, 22 Aug 2026 11:37:44 +0200
-From: Aurelien Jarno <aurelien@aurel32.net>
-To: Inochi Amaoto <inochiama@gmail.com>
-Cc: linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Yixun Lan <dlan@kernel.org>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>
-Subject: Re: [PATCH v3 1/5] riscv: dts: spacemit: k3: move USB3 phy to board
- level
-Message-ID: <aolt6CaL9b6p8A8V@aurel32.net>
-Mail-Followup-To: Inochi Amaoto <inochiama@gmail.com>,
-	linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Yixun Lan <dlan@kernel.org>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>
-References: <20260819162115.2252812-1-aurelien@aurel32.net>
- <20260819162115.2252812-2-aurelien@aurel32.net>
- <aokGbT7XTCbxUQzl@inochi.infowork>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qdzV71uE"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-395ea741d07so165786a91.1
+        for <devicetree@vger.kernel.org>; Sat, 22 Aug 2026 02:39:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787391558; x=1787996358; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SWkv33Y+74+gq7J0O5ontHRvQtInE5grEbn+LzFrXq4=;
+        b=qdzV71uEZKplt1ES2ZjN1sHtNtIZIPmGrZAKcnlhRqEk7dpDwcfGQJ26dlXe47o4+O
+         COjv6hZSVARrRCkipRO9wWwyZOfhMNcha0KDXkeoxi7ceLvRL+thnYVWu5ObNu4GoiJh
+         ekH2tk/XXaZYWMsJI3jA5D79q8ul0cSaQJf4Odc4QnNkfMs6Uh9Oq3M4d12kykrXiscZ
+         xMJ05nfKJq4NVtkFAT0cWEuVAesgrbtbjrV1A7A7P5AJaLsswysfC3m/mi7fCPhnkR/M
+         l0RF/rjXAykTuv5KDRZnfw19J6x38so1wEYBTsJtmx5/vCzlzxF6PHD3sQ2Aj2nMKyEc
+         VpIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787391558; x=1787996358;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SWkv33Y+74+gq7J0O5ontHRvQtInE5grEbn+LzFrXq4=;
+        b=bwLJC2gl9yrcwtAJzSEcn01Zg11tWO+bImOtk59tVGOat+M6Rczw5tW++PZx1or5Ba
+         ZCr6BAp2/ueGNTmWpHEmbN8WUiSJ5HrANqf7cTrNix1pn5eYsjQJwfvsY3ovE2PzJHzk
+         LWdWxPC2FcUAKcMWj07a17GRvmiAMbs8LcImd+swOgEx6qRiDZ3oIM/Z8uWLK2k0IvCw
+         v23EZldegzcatjr35e6wTmfvwYIpp//o1OQbMp0a9mMmGSHLHArViOH+FhRDtPCEOmq9
+         GiMLenii0ndTudij49X5tpRlkwtB+3AmdaT4avuWG59dWrLGnlufK+eZjaFNVUBGliHK
+         EXTg==
+X-Forwarded-Encrypted: i=1; AHgh+Royv5t+cCJxbKmC0dDykpe6d9gJtU/XIFaUIadhCUhYFntZZTIssnHewXkSCgt4exmYi97Gk/Pd8Gfu@vger.kernel.org
+X-Gm-Message-State: AFuF++lWJrm+AtgCjVXKbz687u/oF/61Y1uX3PzNA/B2L4u4Y+uB334q
+	xtjFEV3IfPSKivchPYRanFGwC7pZpnGrVr70dKvnzddAQRc+0oc7mhZL
+X-Gm-Gg: AR+sD13x/7NB7PudcUMJSp0krkw9BbbQ+Wp6T+y0XFKYMEVrM+uZ+OJ2EdEqHijN2E2
+	ub7oRs0fws20ruqT3VJUDqK4APNNahAO9148PlbdMeyDBO9YUTKgDK1hTd448x+l2jMWGs6zv8z
+	DMu4jabutD3mriURNT1/GNQos2iZFgvCsHaiYgsWTSB4IX85/ApRystnHo8CzWpv661OcdmYUzp
+	SxG/YOyiZoSxKCr4PN3dzLPmj8MT27WAJYmi5T8ikZ03dIYUQ7445QnYQoCXA13Rp12ZPIOP97M
+	CB+h1NkDyEhmYSOfPxJz+0TQpLMOpNXjMTzPC0AfDqENPrLeBR8CShn5vosJtceZMkiXZXqV5kf
+	HGWuYeIdl+8qTWqLpfQGnYtiMxP9EDGonSniC4k7pUX8BsYei/fP7Ex6r1uJOuoShG79xPXJsP6
+	3heP7x6XwJurT4aKZ2GGGCcdunvIvUhLfOp7/2ZGClBztEW1NTOLSh9Hcr94HfcJE=
+X-Received: by 2002:a17:90b:3945:b0:37f:fb1d:63fa with SMTP id 98e67ed59e1d1-395c37199b7mr23933867a91.15.1787391558342;
+        Sat, 22 Aug 2026 02:39:18 -0700 (PDT)
+Received: from Ultimate.. ([2406:b400:53:4f23:d4ee:2200:a28b:c285])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-395e49d8d26sm2171183a91.10.2026.08.22.02.39.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 22 Aug 2026 02:39:17 -0700 (PDT)
+From: Udaya Kiran Challa <challauday369@gmail.com>
+To: angelogioacchino.delregno@collabora.com,
+	matthias.bgg@gmail.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: skhan@linuxfoundation.org,
+	me@brighamcampbell.com,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	Udaya Kiran Challa <challauday369@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v5] dt-bindings: arm: mediatek: mediatek,g3dsys: Convert to DT schema
+Date: Sat, 22 Aug 2026 15:08:29 +0530
+Message-Id: <20260822093829.46295-1-challauday369@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aokGbT7XTCbxUQzl@inochi.infowork>
-User-Agent: Mutt/2.2.13 (2024-03-09)
+Content-Transfer-Encoding: 8bit
 
-On 2026-08-22 10:17, Inochi Amaoto wrote:
-> On Wed, Aug 19, 2026 at 06:15:42PM +0200, Aurelien Jarno wrote:
-> > On the SpacemiT K3 SoC, the combo phy provides 8 lines that can
-> > either be used for PCIe or USB3, depending on its configuration
-> > (spacemit,apmu). This configuration is defined at the board level, and
-> > assigning a phy line to a USB3 controller while it is configured as PCIe
-> > results in an "Invalid PHY mode" error.
-> > 
-> > Move the USB3 phy at the board level, the as it is done for the
-> > submitted PCIe controller [1]. Keep the USB2 phy at the SoC level as
-> > there is one phy per USB controller.
-> > 
-> > [1] https://lore.kernel.org/20260727094726.890179-3-inochiama@gmail.com/
-> > 
-> > Fixes: 46380e4b1534c1626cecd7f4d0abb5e0cce09af6 ("riscv: dts: spacemit: k3: add USB controller and USB phy support")
-> > Cc: Inochi Amaoto <inochiama@gmail.com>
-> > Signed-off-by: Aurelien Jarno <aurelien@aurel32.net>
-> > ---
-> >  arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 3 +++
-> >  arch/riscv/boot/dts/spacemit/k3.dtsi         | 5 ++---
-> >  2 files changed, 5 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> > index b084a35aa00e..171bd2f40aa6 100644
-> > --- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> > +++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> > @@ -328,5 +328,8 @@ &usb3d_u2phy {
-> >  };
-> >  
-> >  &usb3d {
-> > +	phys = <&usb3d_u2phy>,
-> > +	       <&combophy 4 PHY_TYPE_USB3>;
-> > +	phy-names = "usb2-phy", "usb3-phy";
-> >  	status = "okay";
-> >  };
-> > diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
-> > index c3f2dce0969c..3e24054d2084 100644
-> > --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-> > +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-> > @@ -452,9 +452,8 @@ usb3d: usb@81a00000 {
-> >  				 <&syscon_apmu RESET_APMU_USB3_D_VCC>,
-> >  				 <&syscon_apmu RESET_APMU_USB3_D_PHY>;
-> >  			reset-names = "ahb", "vcc", "phy";
-> 
-> > -			phys = <&usb3d_u2phy>,
-> > -			       <&combophy 4 PHY_TYPE_USB3>;
-> > -			phy-names = "usb2-phy", "usb3-phy";
-> > +			phys = <&usb3d_u2phy>;
-> > +			phy-names = "usb2-phy";
-> 
-> I suggest removing this completely as we can not determine the
-> phy we used. I think it is suitable for setting this in board
-> file only
+Convert the MediaTek G3D system controller devicetree binding
+from the legacy text format to DT schema.
 
-Yes, moving all the phy definition to the board level is an option. I 
-decided to keep the USB2 phy at the SoC level, because contrary to the 
-USB3 phys, there is a one to one mapping between the controller and the 
-phy. Do you think it is a wrong assumption?
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
+---
+Changelog:
 
-Regards
-Aurelien
+Changes since v4:
+- Add Mediatek Soc maintainers in the send list
 
+Link to v4:https://lore.kernel.org/all/20260326181726.64957-1-challauday369@gmail.com/
+
+Changes since v3:
+- Fix $id path to match new location
+
+Link to v3:https://lore.kernel.org/all/20260325181509.3430-1-challauday369@gmail.com/
+
+Changes since v2:
+- Move binding to soc/mediatek directory
+- Rename file to mediatek,mt2701-g3dsys.yaml based on fallback compatible
+
+Link to v2:https://lore.kernel.org/all/20260323180616.23333-1-challauday369@gmail.com/
+
+Changes since v1:
+- Drop redundant description for reg
+- Drop redundant description for provider properties
+
+Link to v1:https://lore.kernel.org/all/20260315080302.454233-1-challauday369@gmail.com/
+---
+ .../bindings/arm/mediatek/mediatek,g3dsys.txt | 30 ----------
+ .../soc/mediatek/mediatek,mt2701-g3dsys.yaml  | 58 +++++++++++++++++++
+ 2 files changed, 58 insertions(+), 30 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/arm/mediatek/mediatek,g3dsys.txt
+ create mode 100644 Documentation/devicetree/bindings/soc/mediatek/mediatek,mt2701-g3dsys.yaml
+
+diff --git a/Documentation/devicetree/bindings/arm/mediatek/mediatek,g3dsys.txt b/Documentation/devicetree/bindings/arm/mediatek/mediatek,g3dsys.txt
+deleted file mode 100644
+index 7de43bf41fdc..000000000000
+--- a/Documentation/devicetree/bindings/arm/mediatek/mediatek,g3dsys.txt
++++ /dev/null
+@@ -1,30 +0,0 @@
+-MediaTek g3dsys controller
+-============================
+-
+-The MediaTek g3dsys controller provides various clocks and reset controller to
+-the GPU.
+-
+-Required Properties:
+-
+-- compatible: Should be:
+-	- "mediatek,mt2701-g3dsys", "syscon":
+-		for MT2701 SoC
+-	- "mediatek,mt7623-g3dsys", "mediatek,mt2701-g3dsys", "syscon":
+-		for MT7623 SoC
+-- #clock-cells: Must be 1
+-- #reset-cells: Must be 1
+-
+-The g3dsys controller uses the common clk binding from
+-Documentation/devicetree/bindings/clock/clock-bindings.txt
+-The available clocks are defined in dt-bindings/clock/mt*-clk.h.
+-
+-Example:
+-
+-g3dsys: clock-controller@13000000 {
+-	compatible = "mediatek,mt7623-g3dsys",
+-		     "mediatek,mt2701-g3dsys",
+-		     "syscon";
+-	reg = <0 0x13000000 0 0x200>;
+-	#clock-cells = <1>;
+-	#reset-cells = <1>;
+-};
+diff --git a/Documentation/devicetree/bindings/soc/mediatek/mediatek,mt2701-g3dsys.yaml b/Documentation/devicetree/bindings/soc/mediatek/mediatek,mt2701-g3dsys.yaml
+new file mode 100644
+index 000000000000..ad3df062d5db
+--- /dev/null
++++ b/Documentation/devicetree/bindings/soc/mediatek/mediatek,mt2701-g3dsys.yaml
+@@ -0,0 +1,58 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/soc/mediatek/mediatek,mt2701-g3dsys.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: MediaTek G3D System Controller
++
++maintainers:
++  - Sean Wang <sean.wang@mediatek.com>
++  - Ryder Lee <ryder.lee@mediatek.com>
++
++description: |
++  The MediaTek G3D system controller provides clocks and reset control
++  for the GPU subsystem on MediaTek SoCs.
++
++properties:
++  compatible:
++    oneOf:
++      - items:
++          - const: mediatek,mt2701-g3dsys
++          - const: syscon
++      - items:
++          - const: mediatek,mt7623-g3dsys
++          - const: mediatek,mt2701-g3dsys
++          - const: syscon
++
++  reg:
++    maxItems: 1
++
++  "#clock-cells":
++    const: 1
++
++  "#reset-cells":
++    const: 1
++
++required:
++  - compatible
++  - reg
++  - "#clock-cells"
++  - "#reset-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++     soc {
++       #address-cells = <2>;
++       #size-cells = <2>;
++       g3dsys: syscon@13000000 {
++         compatible = "mediatek,mt7623-g3dsys",
++                      "mediatek,mt2701-g3dsys",
++                      "syscon";
++         reg = <0 0x13000000 0 0x200>;
++         #clock-cells = <1>;
++         #reset-cells = <1>;
++       };
++     };
 -- 
-Aurelien Jarno                          GPG: 4096R/1DDD8C9B
-aurelien@aurel32.net                     http://aurel32.net
+2.34.1
+
