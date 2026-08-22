@@ -1,139 +1,123 @@
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC66649362B
-	for <devicetree@vger.kernel.org>; Sat, 22 Aug 2026 07:19:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787383145; cv=pass; b=EW4VZhlbsi8/vW6sK4W0Q2k6XQ/W6ra1SXIpNlN/5TFKeSUxr2m+WBl6R5G/UIX6baTgjJo2ffoIG2bdYdRks5aTDieOeEv5fQALx/qiBlXT1vmUYzbG+n169t7yKNTuOi6rjMlEp7xmWNWTt+M07jXj7wLEWjpsxhsQAL5FZNA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787383145; c=relaxed/simple;
-	bh=oM02a2mnkQuSYdKv1ayoKOy9Qu4BLdImQAtdLtY4ruA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZdcSws5gLxzQmGh4sUXnTJetZjbk/lMbJ/QAjHO4IEyqtP14msTkZa7rdkYCbgo5+4AzLwxGaYnmKr3Jmk82zcXDtLNC7HsVEyTKm4NDhQVXPaedOYqMY+OJL4lX16h+06RS75R2XoMLtC3TMLM+CKlUVQkPUOkokoM1vlSnY90=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mJY2sAlT; arc=pass smtp.client-ip=209.85.128.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A3152475D0;
+	Sat, 22 Aug 2026 07:28:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787383698; cv=none; b=k/mH3q/p/5Pv76cphhW89kO3Or0NickOwTb82ZVUJm2WvktInc9+efzepoM8lgObhmVaKUEa0Xkm3CaIuLOXWmqRwQ3sGIKDdU+XM5T10lmafls8jFO5CcBhtZv6zi6mzeGYh4c2se5iQc2yKcHiOMwhCoKkdNpeW2wS6GLlJbw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787383698; c=relaxed/simple;
+	bh=oEPCxmlMiQDC/jc58/v02is5aSxljKGvcjtGWcP136A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZVsfkBdJavyDCi30c1XmN4rKlfhZGGsmjdTZHBEWNhOS6psB7T/xz1sDcqnBJjJDAYFcUvgVTgZmZ1eiRsYKs7u+zQe4+lIrdF6Lo0DWuC1nJQIsf7HcMHybkjlfZF3CePs0ViE/F02Z3yKU3zuNbEs5yw2Nn4sRtu7b4FqK8Ak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QTgt7+Xc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mJY2sAlT"
-Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-836eac5682bso32720057b3.0
-        for <devicetree@vger.kernel.org>; Sat, 22 Aug 2026 00:19:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787383143; cv=none;
-        d=google.com; s=arc-20260327;
-        b=K3oyfiz4JjfMjzdhp4uY4K2m3Jipz3MuhJ4vbsNeNBRhoEaSV15v3C/NUJmZRvoGfx
-         YEuckuQJmGbLU/tQE7APKyRcxw0gVwZzLiHqn4RxMYoeJ2neMYcI9GyHAw5QeaFXhC42
-         Y/n9m8q4PhnyfJxC8OxZuFVBiV0Pybxe+ol+2UEL46Rn7UETEJ+c25zKoeMBGCl0TqFD
-         8CbiZgF4W4Y6pZJmMeqkSi6Hwa9xcFHCUpiBs3Q9cs20Cf8uvuLqwWIwlAPi3ObQnYNR
-         OjjDLuPjtdpnc/lpgK239cUKAbRdInPqjEse2zA7dq5Mei2LmfO4nCxGXzY5VJFI3NVU
-         J+TA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=2EyolxnGOd3oJbXQjfAMl9517AL75MOEE5l1MmMpyIc=;
-        fh=+UN3HtrIpZ4LkETRR1zGCC75LSbhS46RFit2ajazvG8=;
-        b=OYc2jbM3HSFJxuuNks/b974PtrYAXswzvgweO5Sn91pKRN+08m0YZH6zgvhVxH1/UC
-         YM5NUI1UM8i/e5o3Plx51MxouoEgTC2gljkpqrucluzSd4BrtBQ/ROz+OJx8e3u6atRk
-         24vGU9oaa7GrfzCxc9Mlpvst3ncduvGcsaCgX93XwrZhQyDr/XxynyOOTv1KC+MIcqDD
-         Y2KQacteH/VbKzTJljZXid26QP0TzrX3WubfpK49YcFeZ67fs1L6LNi5r4JIAuDJ5U5w
-         EHSRK7C3Jm3t1YgcM5SR8NCsCeS2xPsP+T7QL3rN6BaMh5hDfuGxzjHYWT0IqIYUTdU3
-         5VhA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787383143; x=1787987943; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2EyolxnGOd3oJbXQjfAMl9517AL75MOEE5l1MmMpyIc=;
-        b=mJY2sAlTpZn1zjmBzaDPA89UsIN5jMIwwuo7mtIUBfjTWcXD20Qfi3O4LruCOSI6JT
-         1G2DGQscIZPLFdCFdHwf5GMwZnlbfaJCYPQVQyIcr2O4q+z/UWaPfWvWScTsJ9RjaqhX
-         wznidl9JLkk7N3jwcurHGfUszQdAt0chMSX8SI/iQEmbIgPl5Drlseo7k+h192PwWBGp
-         7h7HFEj9apKSwg719N858csjs9e5oVXxso/rVLQn215LXWW6lx+bxTx2l71HOsxgiehn
-         W7MuREeuxxWJgi1dtTxO8ymQ4P3/uJDP3cxw47oXRpukSFhg/NdoarBlYGZ61//qOFYz
-         FLBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787383143; x=1787987943;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2EyolxnGOd3oJbXQjfAMl9517AL75MOEE5l1MmMpyIc=;
-        b=Nq1mnL4DDhd+YRI0n/d9aNeFy1jI2oaNUCaWWijYI+gWoSfCuH0frype9YOdUDj4+b
-         UYfQtBeZVma/nxb2mfa5p8xSENVIqY1PQRHm4/agTBecMeUKOROIVdOf1lsI6H7vSMcF
-         ifECYJF4dXVsnmaoIN9pnXVtcfam91kRwjiN5qbx63WUo+Cdxk/ZD1Y9bVtARmR7DjG7
-         a1+rWpxePjKMlj+j8oO9kTWn3rzX6ozQC9nfhNc9T5peMN2aovY51A5H+OigioH/3ues
-         Fl9mfVzDc0R6sVsO4gXf69B+s1cEQ7ENv+w6pz1hIM9GAt6yRlYrt4jPE2K/UBbaJFw8
-         m6qw==
-X-Forwarded-Encrypted: i=1; AHgh+RpTuDOn7tkliX7bby+i1pPtjazA7YdnfgZynTV5rIGi3xFbmjnIHsW5TR1wrNNTZcXhm9jo6bXAUHtk@vger.kernel.org
-X-Gm-Message-State: AFuF++lF4QSwTSsf8ysWTT8+/uAxzvwP35QeH7L6ekC1ASGjOzOiA/1t
-	OCiHzaU7QzHgrkkd+okXDbDBWaFYx+8zGpGIXbPQ+4+5E7238ypvwRfsPfA0hIRszMlNs4bZUJQ
-	p1GEb6e7CmRDsx/EqyKpW0+yPbhh7X/Y=
-X-Gm-Gg: AR+sD12BxTjo66lehbGmm6Ib/lkUQMbCaHy5gLtXKjQkqKFiZ3OvxsuJwETP+m/zaep
-	lz1NQvvD7fRCkeSHtznzmfOBxh0oJLK4p7G0Xkyhg5ume/mkCq5LS5e/TN7AqjI34w2y+BHJ6pk
-	kSTNMAdlqoaEM175nk4IvTpYFrGZM7v5M5RRjULb7TGlrhaSJR02hf+p/bdaMGVFft8XbfR657d
-	Kw/ep2XNpsfpNctsrYaeMltXdsyhhssIlko5COlvhAYKGYCk8JYcjZnj0vCbQFKFF+R6wXXWhdl
-	EqgSVEjmjbEgftvQ6Wt6YpX+TTyd9CnXGe6X0/ImOYy/+J4eOcoqZXhmCgyYk4BXDiFgjIfxzX8
-	=
-X-Received: by 2002:a05:690c:6512:b0:825:468e:e0eb with SMTP id
- 00721157ae682-84a1ac40605mr45066577b3.15.1787383142939; Sat, 22 Aug 2026
- 00:19:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QTgt7+Xc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3C2B1F000E9;
+	Sat, 22 Aug 2026 07:28:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787383696;
+	bh=zoyg9tDcqSP32PikNEbdsojOFRXroqmGh2a+jLRJlR4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=QTgt7+XcJRB5w8VYmQk904bwW7lt2vamXm7poD1+CB7ak3Hkak+nSVVq1ydhqEU45
+	 ONclfaJZKoKpW5Be09Kx5dBn+oo2gFv9d8ijYvXPO8pQv1m/VSXWZ0GpFRdpoP1tVi
+	 txAUCrnIMbpuH5kRBcgU4V8rkGL8VTAarmB4Zfn78eS5ehYPo7u6VaLJyMBJVPfKPB
+	 Eb6LKHJpzZYPKVglcFpEq4NUe9S3DbCPnoAgSv/FM1U7KYuI2jjKgLrMQACEJIUrOQ
+	 wqGStNxLOYNUDCJYxcix98x9nPLxgAeTv14AD6m9a709R7Q3s1POPoK1Ky447s3Ndl
+	 jlPZy40qnqkiQ==
+Message-ID: <8054f9c4-e17f-4b4f-aabe-3939c65f8f24@kernel.org>
+Date: Sat, 22 Aug 2026 09:28:07 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260814083221.34606-1-challauday369@gmail.com>
- <e7efc91b-9d8f-4344-982b-c2b5014985b6@sirena.org.uk> <20260814190759.GA2496807-robh@kernel.org>
- <20260821143242.GA3830037-robh@kernel.org>
-In-Reply-To: <20260821143242.GA3830037-robh@kernel.org>
-From: Uday Kiran <challauday369@gmail.com>
-Date: Sat, 22 Aug 2026 12:48:51 +0530
-X-Gm-Features: AcwNN1Uis6UfIZ0co-b-UtUGD8A07GKsu-HIrWVBLcEcN-_X7pT5x_d88yjoLbc
-Message-ID: <CAAj-GBmHCUb-ArgjHLZ2mxc9261eJ2Z4jL8ZaAaG1d8w8ivGPQ@mail.gmail.com>
-Subject: Re: [PATCH v4] spi: dt-bindings: microchip,pic32mzda-spi: Convert to
- DT schema
-To: Rob Herring <robh@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	skhan@linuxfoundation.org, me@brighamcampbell.com, linux-spi@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 16/16] arm64: configs: enable usb and its dependencies
+ used on stm32mp25
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Christian Bruel <christian.bruel@foss.st.com>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
+ Marek Vasut <marex@nabladev.com>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Pankaj Dev <pankaj.dev@st.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org
+References: <20260821-ucpd-host-fusb340-v7-2-rfc-v1-0-c5e27cbc0795@foss.st.com>
+ <20260821-ucpd-host-fusb340-v7-2-rfc-v1-16-c5e27cbc0795@foss.st.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260821-ucpd-host-fusb340-v7-2-rfc-v1-16-c5e27cbc0795@foss.st.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Aug 21, 2026 at 8:02=E2=80=AFPM Rob Herring <robh@kernel.org> wrote=
-:
->
-> On Fri, Aug 14, 2026 at 02:07:59PM -0500, Rob Herring wrote:
-> > On Fri, Aug 14, 2026 at 03:54:55PM +0100, Mark Brown wrote:
-> > > On Fri, Aug 14, 2026 at 02:02:21PM +0530, Udaya Kiran Challa wrote:
-> > > > Convert Microchip PIC32 SPI controller devicetree binding
-> > > > from legacy text format to DT schema.
-> > >
-> > > > +maintainers:
-> > > > +  - Mark Brown <broonie@kernel.org>
-> > >
-> > > Try again!  :P  I think the DT people had some default they used for
-> > > cases like this, but ICBW?
-> >
-> > I'm the default, but really I wonder if pic32 could just be dropped. No
-> > commits from a Microchip person since 2016 on arch/mips/pic32 or
-> > arch/mips/boot/dts/pic32. Almost all generic cleanups otherwise. These
-> > chips appear to max out at 32MB (SiP) or 128MB DDR2.
-> >
-> > Perhaps I should send some AI patches against it...
-> >
-> > There's this[1], but no updates in 5 years.
-> >
-> > Arnd, Thomas, any thoughts on this platform?
->
-> Thomas agreed to be maintainer on IRC.
+On 21/08/2026 18:23, Fabrice Gasnier wrote:
+> Enable USB drivers used on stm32mp25 reference design boards.
+> In addition to the USB HighSpeed and SuperSpeed PHY drivers,
+> enable the USB Type-C related drivers used on those boards e.g. UCPD,
+> external TCPP i2c protection chip and FUSB340 SuperSpeed mux.
+> 
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> ---
+>  arch/arm64/configs/defconfig | 6 ++++++
+>  1 file changed, 6 insertions(+)
 
-Thanks, Rob. Understood. I=E2=80=99ll update the maintainer to Thomas
-Bogendoerfer for microchip,pic32mzda-spi & microchip,pic32mzda-sqi dt-bindi=
-ngs
-and send the next revision.
+Subject prefix is imprecise - you update one config, not configs. Look
+at git history how this should be named - arm64: defconfig:
 
-Regards,
-Udaya Kiran Challa
+Also, you completely missed company name - it's not your private config
+- and actual name of upstream boards using it.
+
+Best regards,
+Krzysztof
