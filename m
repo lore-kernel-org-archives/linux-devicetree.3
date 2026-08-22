@@ -1,64 +1,64 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0E0A384CD4
-	for <devicetree@vger.kernel.org>; Sat, 22 Aug 2026 08:59:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5098A3955F3
+	for <devicetree@vger.kernel.org>; Sat, 22 Aug 2026 08:59:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787389152; cv=none; b=lwDTFqr4RnZAU9mPBgef+vae+MGFxmifMyg8HbVtu3evM03FDTjXZc066HBVYKKZGxwHmChmxpRBtqGZKRpOKP81RrRf6uZ5fZ8KWLvPzeMQb+/2aNIrz9u9ALySd/WXss+6cwcCDgbOanAFuFuhOyl+XmLTHEOAybv7I4hd/0E=
+	t=1787389157; cv=none; b=dbzXPFffMSN/Fkr8kXrzIcPWmDrEhaKQH+K5TXrNR5ovdCEJd/3qWH+jtN7GqxdfM1UxFs40/rggLhpPm4DC4tGYUICYRAxs3sQOXoBZY87tifWtn7VMLwCD3NFx28ru/hQhDfbJtpj1RXaVKOis09kgphidnHqWsoBEqBPd9dc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787389152; c=relaxed/simple;
-	bh=HCZVOF8T9m7E1Gm3Iq+tZImcQ0gw7AQRtwevkDBWDd0=;
+	s=arc-20240116; t=1787389157; c=relaxed/simple;
+	bh=GrjWD/fHDSl39omfPPPA6fY82p2QrwPspwwKONWixLU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TcTiqBbxTUTEVt+dA555hBxuEp82sMtAPxDV5LxLarPCMis2cZ2FI2dALxJ0y3VSpPmkM16VKDdk7xxTzFZBA12JvzgZN/SXvF4Z3zd1EHOfpDyASA4JdZWbeF7CzTCeLCIezmv9t2B/YCWXgZI30q0mqMLyaiOfYU4LTPenHXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CpVO4Ppa; arc=none smtp.client-ip=209.85.128.45
+	 MIME-Version; b=e94wGwMxJqlT7H2AZPieFYf6au0NnQxi2ZW+2f45opn3GPBrRJeu5mDIv5JwOcUftgmQu3ogjQZE3pyse8fq+nBKNWhF9rI/+EP9xfyviZ6Ec6L8xfb9tC5NjNjDVwfnVc1krseOAMu4wYqxBvVS9xpOfP8TGtH7GU4IrDPhsW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kD7CUfgc; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CpVO4Ppa"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49978908b35so11933895e9.0
-        for <devicetree@vger.kernel.org>; Sat, 22 Aug 2026 01:59:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kD7CUfgc"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4998e0916faso11641545e9.2
+        for <devicetree@vger.kernel.org>; Sat, 22 Aug 2026 01:59:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787389149; x=1787993949; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787389152; x=1787993952; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0dWiifvCNQ6/1XjQKOnLCIy+9xjui2vS7wMw6DuKzck=;
-        b=CpVO4PpaADFUYZb9BdHz57T/9zlRaUoBDVipDhuy6607AqDegFbjE2NxH1KkdF6vsp
-         XTqryFL1Y2rf5ejiYpe7rGDux2wRu3sbivQIvcHbCKo5e4nynSHQuoAhZXHg95svE2iC
-         wKvS800DqoqInTYMk++f2TiHcEnJ+G3740Nu4BPxwpyMgbD2r115CLHOhSqJ0FNxgpyY
-         6/rxlXw7Jgk/yca09cs0QzaowYOzy4YdMledBbN/HAb3Vhebv5y//AmQMZwzFQrzJKsq
-         LFFuLr1P8je950f7gDTc6ypMo0f82hGCuvI1CPw+arnzuqqZnlai63OLHNKIR4jaZW38
-         gGig==
+        bh=luQR8xYtWNjcIKjnua7+NMXDIf2qqWk1d+lbBj05x0Q=;
+        b=kD7CUfgcAdxfIqWoJWbLxfAn9h+Q4Z7UCv9VgUO2mfgDSasF7IQQ8/QqUzi2oDE5kU
+         jMd2V5hkODd6P3fGom8qC8SUqfpViayyzMOc9XSn9tjdQWIuWjGAQ2pUN/H0hj0NsbLU
+         VQgFsQZ65Ae1LJr6qGTAucb/Eu23GWpDW5x7ejrSH/1cvQdbXTvhOS2aduC/9ZUCZEOb
+         TQyzHdhtC531HxwK7aXoqXhCUbsAarQtSZE22cyTFYssbrKSfzSmNDH/gxuEsGvpPBEC
+         iNGIW353j2jCCJ6VqpI0ZKSn7iPZSe28V+R184ZyvxzM5+TlbY+ISgjl9M7xPrVTzjbh
+         twzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787389149; x=1787993949;
+        d=1e100.net; s=20251104; t=1787389152; x=1787993952;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0dWiifvCNQ6/1XjQKOnLCIy+9xjui2vS7wMw6DuKzck=;
-        b=XU8YlBiCIWy2jhqtAQg1Lgr7gQ1mYYBe1a1w6akZzflEK+eFtM1FSEJsihRWyT1g+g
-         +W50xGw50pXcQ8yCc7C1SwuzbRjeEO+sh/RnRNx0KWJyD86uvXy9LuC4UMQlXP3mWZcv
-         gIEoPx36S0yTVtFVchvAH7dD9Cg1j3pexduJXA0lLqQz3zJvAfyO1gnreq6JoN+abufE
-         8OcRFdNwP86lT+CqKPg/8PvC25+Z7um4x4PzNercqCnMQSpwxPmdW6Jw6hPzRkdaZXeT
-         FMyGIWngf433NItfNQCOpvkYLDzGvltmaciJjWiQIni4704g4P4ST1RRgLCD7TOOShAD
-         TEWw==
-X-Forwarded-Encrypted: i=1; AHgh+RrxiCCinRFmt7Jhkoxl3y0mJEie1QKe9mTIQXmNQRl1M25nA1TzUDJ/Xf6He+agHvIyb8z6VWBhQdkr@vger.kernel.org
-X-Gm-Message-State: AFuF++k5zM9ht6p6EOQSyHX+SJLfxyJOsQthxd7rugMmZNbWK4yndp2q
-	uXlllmT+qgNXY+Utegk1o0ost9dLjDvkMtZzegw3OTdmOHEZBTeSMxkJ
-X-Gm-Gg: AR+sD122v2BxmbwlJJ6eKFwICq3nB/mVafoNNONOwVSIc5PHEd7BKXCv4wrwyJNz95D
-	OCAWpF7KjQu46Hh3dQ4spT1qdJiMWlN8aS9rF3Xz0h+HhQ95WI+IeLjV1qin9uev4fTXp/n6tau
-	8frg6SxLhWltKMOZbanOi89Bjv7D8ydIWK9UmVyryPbL6MhXKtQk4/jHBtSfHuUF8TL+60mAhZ+
-	sHl4/8HZvZYhUzAMzwJ6YGYydRZnmheSJvAdIg0pnjsaXN7sUF/DpvqSUSTw3ltu1W3KgzGGbEg
-	EEyiCB4pR8HaWW/lFIcDsjVy/sJE7buEfUdJUZkmaoQf7KR7VVUg22IbSA45dJ9FnZ0DVYd+tJd
-	6cjOESu55Fjad0EGwaENpyqIPct+VvyIiPxCGCx1hhZilCG0pVY1WSzqt1Qef7JT7DqQ9a+v4ve
-	DyEDp3yM/LTj2uHQIJKQ0K+fu0gzrdO2iT+cpiVCrKhtf1/2pI2W7FGN7P+wWtpMipp1vK3fLyx
-	wlil/V2Kxg=
-X-Received: by 2002:a05:600c:4e4e:b0:499:b01e:911c with SMTP id 5b1f17b1804b1-499b830d697mr175513185e9.2.1787389149299;
-        Sat, 22 Aug 2026 01:59:09 -0700 (PDT)
+        bh=luQR8xYtWNjcIKjnua7+NMXDIf2qqWk1d+lbBj05x0Q=;
+        b=BWRQGRlg++hLq6s0yUhbFYDg6BVgebO9WADXfyDQaBHg7W6fZQr825zEnuxOaBYwht
+         o5GvR++hADHp9JdFyDlZU5x5b0q9HxV9RUmFJ/fC1rkJv0EDGpWJRY9JNnUD0iDHrdLS
+         H1QLe39OIzJH8BXRGof66lURAYwancmxqVy7xD+PbkT8FM+/5cYfqlNGCKCkSYSD+pL6
+         73n4CeJTCROgKcm0JXa6WWc93FvaaYdZOAQTapwlRh4SuntJhAeerGMaA4eVUuXWeR5g
+         iq42wH972+kdRGv/GuJEUJJ4ny059XkfSUVxgIQXLzxVDkKqQ1MsKasopEoOeitdhc4C
+         xhfg==
+X-Forwarded-Encrypted: i=1; AHgh+RqwMws3DCH9WqOHWqQx5zqy9K2B+T7/YF30SgwGNUUiPEyZccXBuaN35goD0KQMjaxGF8q+obgaHvKo@vger.kernel.org
+X-Gm-Message-State: AFuF++nWzLXXrlSJghsvEsZW/kt9k9ZaPKds73LKn1cMtiUyAcxrhjaB
+	FHN73FOJq0q7RwBbNB+J3oy8EIlfOXUhpY7GOSccg7DQRaliJE0CH4NUCXwJoA==
+X-Gm-Gg: AR+sD11RYY4mgKaZSJr1xjr+g7Ah2sb+MFv2R6/JSLAqCZs4+E3NeCXQXEEgRfaKBLJ
+	QBJN0U6MCISKKVYRgkJYf94AHesPY09rYAPJnKFzVpPTICCk74KNIEqJYdDyIhRDnh6/UOyoteV
+	k/ab3U0dlRDbn2XOz8MqQPNciu0O96A6epBkU4WSCevnuXr7kEj0gW+FW/ektVfrhLUp+OOTzsD
+	BG7374yF/826nBaycJn5tMFn9vsLWxOf6cDZh//FPdGniy3tzfBTmM8fA4G9K+eKsLx8OYWdYmW
+	aMeVlOkZc6F/Tqh7igXzpOWnb7mTX3B78PWS+JeSlWQBohJK3ycGx+mqL70wRR9brLe+/OBxVaI
+	Gw3CYHD+80M9tlMQg6Q78vJPssMKBrkmPFk7wS7ER3O/tna+Nad9KJ//vueAa+xpMUoGSEMozL2
+	OKXz/FL7Na+84Vzk1OqTpq7YqrY0AZGtmn/0HLSpZtgFv7lTMbcLTmcuZVAW3BUce6tVC/6tkZL
+	twBd96lw/A=
+X-Received: by 2002:a05:600c:83ce:b0:493:a966:d5b5 with SMTP id 5b1f17b1804b1-499c19adad0mr42586245e9.2.1787389152523;
+        Sat, 22 Aug 2026 01:59:12 -0700 (PDT)
 Received: from fedora ([105.74.72.30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499c359b9fcsm13596635e9.9.2026.08.22.01.59.07
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499c359b9fcsm13596635e9.9.2026.08.22.01.59.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 22 Aug 2026 01:59:09 -0700 (PDT)
+        Sat, 22 Aug 2026 01:59:11 -0700 (PDT)
 From: Taha Ed-Dafili <0rayn.dev@gmail.com>
 To: jic23@kernel.org,
 	lars@metafoo.de
@@ -75,9 +75,9 @@ Cc: Michael.Hennerich@analog.com,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Taha Ed-Dafili <0rayn.dev@gmail.com>
-Subject: [PATCH v6 4/6] iio: dac: ad5504: remove legacy platform data support
-Date: Sat, 22 Aug 2026 04:56:51 -0400
-Message-ID: <20260822085850.17527-5-0rayn.dev@gmail.com>
+Subject: [PATCH v6 5/6] iio: dac: ad5504: introduce local lock to protect state and spi transfers
+Date: Sat, 22 Aug 2026 04:56:52 -0400
+Message-ID: <20260822085850.17527-6-0rayn.dev@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260822085850.17527-1-0rayn.dev@gmail.com>
 References: <20260822085850.17527-1-0rayn.dev@gmail.com>
@@ -89,83 +89,133 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The AD5504 driver has no in-tree users of its legacy platform data
-support. Now that ACPI has its own explicit path, non-ACPI systems can
-safely treat the vcc regulator as mandatory.
+The driver lacks locking, exposing concurrent access to the shared DMA
+SPI buffers, the non-atomic CTRL+NOOP write sequence in powerdown, and
+the pwr_down_mask/pwr_down_mode state variables.
 
-Drop the ad5504_platform_data structure, remove the fallback logic
-from probe, and delete include/linux/iio/dac/ad5504.h.
+Introduce a mutex via devm_mutex_init() and guard(mutex) at the IIO
+callbacks to serialize access. In read_raw() and write_raw(), scope the
+lock to IIO_CHAN_INFO_RAW only since IIO_CHAN_INFO_SCALE reads vref_mv
+which is immutable after probe.
 
 Signed-off-by: Taha Ed-Dafili <0rayn.dev@gmail.com>
 ---
- drivers/iio/dac/ad5504.c       | 17 +++++------------
- include/linux/iio/dac/ad5504.h | 15 ---------------
- 2 files changed, 5 insertions(+), 27 deletions(-)
- delete mode 100644 include/linux/iio/dac/ad5504.h
+ drivers/iio/dac/ad5504.c | 26 ++++++++++++++++++++++++--
+ 1 file changed, 24 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/iio/dac/ad5504.c b/drivers/iio/dac/ad5504.c
-index 6f70c57c7a82..799726eafdf2 100644
+index 799726eafdf2..74679feea385 100644
 --- a/drivers/iio/dac/ad5504.c
 +++ b/drivers/iio/dac/ad5504.c
-@@ -20,7 +20,6 @@
- #include <linux/types.h>
- #include <linux/units.h>
- 
--#include <linux/iio/dac/ad5504.h>
- #include <linux/iio/events.h>
- #include <linux/iio/iio.h>
- #include <linux/iio/sysfs.h>
-@@ -281,7 +280,6 @@ static const struct iio_chan_spec ad5504_channels[] = {
- static int ad5504_probe(struct spi_device *spi)
- {
- 	struct device *dev = &spi->dev;
--	const struct ad5504_platform_data *pdata = dev_get_platdata(dev);
- 	struct iio_dev *indio_dev;
- 	struct ad5504_state *st;
+@@ -8,11 +8,13 @@
+ #include <linux/acpi.h>
+ #include <linux/array_size.h>
+ #include <linux/bits.h>
++#include <linux/cleanup.h>
+ #include <linux/dev_printk.h>
+ #include <linux/errno.h>
+ #include <linux/interrupt.h>
+ #include <linux/kstrtox.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/property.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/spi/spi.h>
+@@ -55,10 +57,12 @@
+  * @pwr_down_mask:	power down mask
+  * @pwr_down_mode:	current power down mode
+  * @data:		transfer buffer
++ * @lock:		lock to protect state and spi transfers
+  */
+ struct ad5504_state {
+ 	struct spi_device		*spi;
+ 	struct regulator		*reg;
++	struct mutex			lock;
+ 	unsigned short			vref_mv;
+ 	unsigned			pwr_down_mask;
+ 	unsigned			pwr_down_mode;
+@@ -109,7 +113,9 @@ static int ad5504_read_raw(struct iio_dev *indio_dev,
  	int ret;
-@@ -296,16 +294,11 @@ static int ad5504_probe(struct spi_device *spi)
+ 
+ 	switch (m) {
+-	case IIO_CHAN_INFO_RAW:
++	case IIO_CHAN_INFO_RAW: {
++		guard(mutex)(&st->lock);
++
+ 		ret = ad5504_spi_read(st, chan->address);
+ 		if (ret < 0)
+ 			return ret;
+@@ -117,6 +123,7 @@ static int ad5504_read_raw(struct iio_dev *indio_dev,
+ 		*val = ret;
+ 
+ 		return IIO_VAL_INT;
++	}
+ 	case IIO_CHAN_INFO_SCALE:
+ 		*val = st->vref_mv;
+ 		*val2 = chan->scan_type.realbits;
+@@ -134,11 +141,14 @@ static int ad5504_write_raw(struct iio_dev *indio_dev,
+ 	struct ad5504_state *st = iio_priv(indio_dev);
+ 
+ 	switch (mask) {
+-	case IIO_CHAN_INFO_RAW:
++	case IIO_CHAN_INFO_RAW: {
++		guard(mutex)(&st->lock);
++
+ 		if (val >= (1 << chan->scan_type.realbits) || val < 0)
+ 			return -EINVAL;
+ 
+ 		return ad5504_spi_write(st, chan->address, val);
++	}
+ 	default:
+ 		return -EINVAL;
+ 	}
+@@ -154,6 +164,8 @@ static int ad5504_get_powerdown_mode(struct iio_dev *indio_dev,
+ {
+ 	struct ad5504_state *st = iio_priv(indio_dev);
+ 
++	guard(mutex)(&st->lock);
++
+ 	return st->pwr_down_mode;
+ }
+ 
+@@ -162,6 +174,8 @@ static int ad5504_set_powerdown_mode(struct iio_dev *indio_dev,
+ {
+ 	struct ad5504_state *st = iio_priv(indio_dev);
+ 
++	guard(mutex)(&st->lock);
++
+ 	st->pwr_down_mode = mode;
+ 
+ 	return 0;
+@@ -179,6 +193,8 @@ static ssize_t ad5504_read_dac_powerdown(struct iio_dev *indio_dev,
+ {
+ 	struct ad5504_state *st = iio_priv(indio_dev);
+ 
++	guard(mutex)(&st->lock);
++
+ 	return sysfs_emit(buf, "%d\n",
+ 			  !(st->pwr_down_mask & (1 << chan->channel)));
+ }
+@@ -195,6 +211,8 @@ static ssize_t ad5504_write_dac_powerdown(struct iio_dev *indio_dev,
+ 	if (ret)
+ 		return ret;
+ 
++	guard(mutex)(&st->lock);
++
+ 	if (pwr_down)
+ 		st->pwr_down_mask &= ~(1 << chan->channel);
+ 	else
+@@ -290,6 +308,10 @@ static int ad5504_probe(struct spi_device *spi)
+ 
+ 	st = iio_priv(indio_dev);
+ 
++	ret = devm_mutex_init(dev, &st->lock);
++	if (ret)
++		return ret;
++
+ 	if (is_acpi_device_node(dev_fwnode(dev))) {
  		st->vref_mv = AD5504_VREF_ACPI_DEFAULT_mV;
  	} else {
- 		ret = devm_regulator_get_enable_read_voltage(dev, "vcc");
--		if (ret < 0 && ret != -ENODEV)
--			return ret;
--		if (ret == -ENODEV) {
--			if (pdata->vref_mv)
--				st->vref_mv = pdata->vref_mv;
--			else
--				dev_warn(dev, "reference voltage unspecified\n");
--		} else {
--			st->vref_mv = ret / 1000;
--		}
-+		if (ret < 0)
-+			return dev_err_probe(dev, ret,
-+					     "Failed to get vcc regulator\n");
-+
-+		st->vref_mv = ret / 1000;
- 	}
- 
- 	st->spi = spi;
-diff --git a/include/linux/iio/dac/ad5504.h b/include/linux/iio/dac/ad5504.h
-deleted file mode 100644
-index 9f23c90486ee..000000000000
---- a/include/linux/iio/dac/ad5504.h
-+++ /dev/null
-@@ -1,15 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-only */
--/*
-- * AD5504 SPI DAC driver
-- *
-- * Copyright 2011 Analog Devices Inc.
-- */
--
--#ifndef SPI_AD5504_H_
--#define SPI_AD5504_H_
--
--struct ad5504_platform_data {
--	u16				vref_mv;
--};
--
--#endif /* SPI_AD5504_H_ */
 -- 
 2.55.0
 
