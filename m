@@ -1,103 +1,139 @@
-Received: from lab.riabenko.com (lab.riabenko.com [185.143.146.30])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 969D1493631;
-	Sat, 22 Aug 2026 05:25:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.143.146.30
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787376312; cv=none; b=bHE+P4VTxWiURCwTJt4T5U9Qct5mkJarNYBn4d/jhcDAGTmNU5VsIh6bX4Rmth6uuz0ds9qZJunbeyazUQVmDkDm4x49UaDxjr4+Ml6sKGOajKtX3tKdhILRQl7jSnkFURxzgzGv1z7uGhvGBq4VV2quN3uPu6UxBHIai03g4Vk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787376312; c=relaxed/simple;
-	bh=kvycTdF/5T2MuwzUdYZ0MLY8SBTi7jlE3IA1zDcfl5A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=K3CEJ0k/MAxfeNBDIB0Xhd8enDVy7TGXoTLPJp/+iJHnytCjg5ZOLJUlyhtlli1mTqdgBO2NANYG4fkiGhmchaSvZ3SjFu1sIeXRh32UJAGXyid+dyLPa7vnXY038Z7mavBZ73Zb6NDKSJp/3jnflfJ+iijGCBcxNDOkzBwCJkU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=riabenko.com; spf=pass smtp.mailfrom=riabenko.com; dkim=pass (2048-bit key) header.d=riabenko.com header.i=@riabenko.com header.b=T3JuoMR9; arc=none smtp.client-ip=185.143.146.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=riabenko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riabenko.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC66649362B
+	for <devicetree@vger.kernel.org>; Sat, 22 Aug 2026 07:19:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787383145; cv=pass; b=EW4VZhlbsi8/vW6sK4W0Q2k6XQ/W6ra1SXIpNlN/5TFKeSUxr2m+WBl6R5G/UIX6baTgjJo2ffoIG2bdYdRks5aTDieOeEv5fQALx/qiBlXT1vmUYzbG+n169t7yKNTuOi6rjMlEp7xmWNWTt+M07jXj7wLEWjpsxhsQAL5FZNA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787383145; c=relaxed/simple;
+	bh=oM02a2mnkQuSYdKv1ayoKOy9Qu4BLdImQAtdLtY4ruA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZdcSws5gLxzQmGh4sUXnTJetZjbk/lMbJ/QAjHO4IEyqtP14msTkZa7rdkYCbgo5+4AzLwxGaYnmKr3Jmk82zcXDtLNC7HsVEyTKm4NDhQVXPaedOYqMY+OJL4lX16h+06RS75R2XoMLtC3TMLM+CKlUVQkPUOkokoM1vlSnY90=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mJY2sAlT; arc=pass smtp.client-ip=209.85.128.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riabenko.com header.i=@riabenko.com header.b="T3JuoMR9"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=riabenko.com; s=selector; h=Content-Transfer-Encoding:MIME-Version:
-	Message-ID:Date:Subject:Cc:To:From:From:Sender:Reply-To:Subject:Date:
-	Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=5WH5D0JtSfK72vdeI0nhh2PL53o2bVvJzV3Cx+3KNFU=; b=T3JuoMR9ELdbyGbSwz1h2H7w0d
-	8r576PZcWwLwV9x67G5rGYNtHRfValfZ7J+GcWdPMKC/z+SOKEoruLQRsTM4P0HyFt71TYiKb/mmr
-	ju5hiy2a4u4+du8GrSsvNOpjYIt+W4BVZYIUwjvyQJX4Oyq+I4AfwZktqHO/nTMCQM8QJsgF68j9r
-	imfSVJYP9SYAADXdsJni6gJk4anBkdQP2h1PNwfkNjSS11AB5AQl8n70YXx1VGw5M40whcBdWXCTH
-	QXJsI+ULEzMq1RrGxV0h+mGubY13r9wttE0UTLvjCfkmd4Z/hW/bbzqNKLM7QfBX3gss9f8/RC4tc
-	lkW3BqWA==;
-Received: from librecmc.lan ([192.168.10.1] helo=desk.lan)
-	by mini.riabenko.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <roman@riabenko.com>)
-	id 1wxeDt-0000000005R-1xxc;
-	Sat, 22 Aug 2026 08:24:53 +0300
-From: Roman Riabenko <roman@riabenko.com>
-To: andrew@lunn.ch,
-	wens@kernel.org,
-	jernej.skrabec@gmail.com,
-	samuel@sholland.org
-Cc: andre.przywara@arm.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Roman Riabenko <roman@riabenko.com>
-Subject: [PATCH v2] arm64: dts: allwinner: a64: olinuxino: Fix phy-mode
-Date: Sat, 22 Aug 2026 08:23:53 +0300
-Message-ID: <20260822052353.22881-1-roman@riabenko.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mJY2sAlT"
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-836eac5682bso32720057b3.0
+        for <devicetree@vger.kernel.org>; Sat, 22 Aug 2026 00:19:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787383143; cv=none;
+        d=google.com; s=arc-20260327;
+        b=K3oyfiz4JjfMjzdhp4uY4K2m3Jipz3MuhJ4vbsNeNBRhoEaSV15v3C/NUJmZRvoGfx
+         YEuckuQJmGbLU/tQE7APKyRcxw0gVwZzLiHqn4RxMYoeJ2neMYcI9GyHAw5QeaFXhC42
+         Y/n9m8q4PhnyfJxC8OxZuFVBiV0Pybxe+ol+2UEL46Rn7UETEJ+c25zKoeMBGCl0TqFD
+         8CbiZgF4W4Y6pZJmMeqkSi6Hwa9xcFHCUpiBs3Q9cs20Cf8uvuLqwWIwlAPi3ObQnYNR
+         OjjDLuPjtdpnc/lpgK239cUKAbRdInPqjEse2zA7dq5Mei2LmfO4nCxGXzY5VJFI3NVU
+         J+TA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2EyolxnGOd3oJbXQjfAMl9517AL75MOEE5l1MmMpyIc=;
+        fh=+UN3HtrIpZ4LkETRR1zGCC75LSbhS46RFit2ajazvG8=;
+        b=OYc2jbM3HSFJxuuNks/b974PtrYAXswzvgweO5Sn91pKRN+08m0YZH6zgvhVxH1/UC
+         YM5NUI1UM8i/e5o3Plx51MxouoEgTC2gljkpqrucluzSd4BrtBQ/ROz+OJx8e3u6atRk
+         24vGU9oaa7GrfzCxc9Mlpvst3ncduvGcsaCgX93XwrZhQyDr/XxynyOOTv1KC+MIcqDD
+         Y2KQacteH/VbKzTJljZXid26QP0TzrX3WubfpK49YcFeZ67fs1L6LNi5r4JIAuDJ5U5w
+         EHSRK7C3Jm3t1YgcM5SR8NCsCeS2xPsP+T7QL3rN6BaMh5hDfuGxzjHYWT0IqIYUTdU3
+         5VhA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787383143; x=1787987943; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2EyolxnGOd3oJbXQjfAMl9517AL75MOEE5l1MmMpyIc=;
+        b=mJY2sAlTpZn1zjmBzaDPA89UsIN5jMIwwuo7mtIUBfjTWcXD20Qfi3O4LruCOSI6JT
+         1G2DGQscIZPLFdCFdHwf5GMwZnlbfaJCYPQVQyIcr2O4q+z/UWaPfWvWScTsJ9RjaqhX
+         wznidl9JLkk7N3jwcurHGfUszQdAt0chMSX8SI/iQEmbIgPl5Drlseo7k+h192PwWBGp
+         7h7HFEj9apKSwg719N858csjs9e5oVXxso/rVLQn215LXWW6lx+bxTx2l71HOsxgiehn
+         W7MuREeuxxWJgi1dtTxO8ymQ4P3/uJDP3cxw47oXRpukSFhg/NdoarBlYGZ61//qOFYz
+         FLBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787383143; x=1787987943;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2EyolxnGOd3oJbXQjfAMl9517AL75MOEE5l1MmMpyIc=;
+        b=Nq1mnL4DDhd+YRI0n/d9aNeFy1jI2oaNUCaWWijYI+gWoSfCuH0frype9YOdUDj4+b
+         UYfQtBeZVma/nxb2mfa5p8xSENVIqY1PQRHm4/agTBecMeUKOROIVdOf1lsI6H7vSMcF
+         ifECYJF4dXVsnmaoIN9pnXVtcfam91kRwjiN5qbx63WUo+Cdxk/ZD1Y9bVtARmR7DjG7
+         a1+rWpxePjKMlj+j8oO9kTWn3rzX6ozQC9nfhNc9T5peMN2aovY51A5H+OigioH/3ues
+         Fl9mfVzDc0R6sVsO4gXf69B+s1cEQ7ENv+w6pz1hIM9GAt6yRlYrt4jPE2K/UBbaJFw8
+         m6qw==
+X-Forwarded-Encrypted: i=1; AHgh+RpTuDOn7tkliX7bby+i1pPtjazA7YdnfgZynTV5rIGi3xFbmjnIHsW5TR1wrNNTZcXhm9jo6bXAUHtk@vger.kernel.org
+X-Gm-Message-State: AFuF++lF4QSwTSsf8ysWTT8+/uAxzvwP35QeH7L6ekC1ASGjOzOiA/1t
+	OCiHzaU7QzHgrkkd+okXDbDBWaFYx+8zGpGIXbPQ+4+5E7238ypvwRfsPfA0hIRszMlNs4bZUJQ
+	p1GEb6e7CmRDsx/EqyKpW0+yPbhh7X/Y=
+X-Gm-Gg: AR+sD12BxTjo66lehbGmm6Ib/lkUQMbCaHy5gLtXKjQkqKFiZ3OvxsuJwETP+m/zaep
+	lz1NQvvD7fRCkeSHtznzmfOBxh0oJLK4p7G0Xkyhg5ume/mkCq5LS5e/TN7AqjI34w2y+BHJ6pk
+	kSTNMAdlqoaEM175nk4IvTpYFrGZM7v5M5RRjULb7TGlrhaSJR02hf+p/bdaMGVFft8XbfR657d
+	Kw/ep2XNpsfpNctsrYaeMltXdsyhhssIlko5COlvhAYKGYCk8JYcjZnj0vCbQFKFF+R6wXXWhdl
+	EqgSVEjmjbEgftvQ6Wt6YpX+TTyd9CnXGe6X0/ImOYy/+J4eOcoqZXhmCgyYk4BXDiFgjIfxzX8
+	=
+X-Received: by 2002:a05:690c:6512:b0:825:468e:e0eb with SMTP id
+ 00721157ae682-84a1ac40605mr45066577b3.15.1787383142939; Sat, 22 Aug 2026
+ 00:19:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260814083221.34606-1-challauday369@gmail.com>
+ <e7efc91b-9d8f-4344-982b-c2b5014985b6@sirena.org.uk> <20260814190759.GA2496807-robh@kernel.org>
+ <20260821143242.GA3830037-robh@kernel.org>
+In-Reply-To: <20260821143242.GA3830037-robh@kernel.org>
+From: Uday Kiran <challauday369@gmail.com>
+Date: Sat, 22 Aug 2026 12:48:51 +0530
+X-Gm-Features: AcwNN1Uis6UfIZ0co-b-UtUGD8A07GKsu-HIrWVBLcEcN-_X7pT5x_d88yjoLbc
+Message-ID: <CAAj-GBmHCUb-ArgjHLZ2mxc9261eJ2Z4jL8ZaAaG1d8w8ivGPQ@mail.gmail.com>
+Subject: Re: [PATCH v4] spi: dt-bindings: microchip,pic32mzda-spi: Convert to
+ DT schema
+To: Rob Herring <robh@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	skhan@linuxfoundation.org, me@brighamcampbell.com, linux-spi@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The 'rgmii' mode does not appear to describe the RGMII timing in Olimex
-A64-OlinuXino boards. The PCB layout shows that the clock and data
-traces have roughly the same lengths for both RX and TX and, thus, do
-not appear to implement the 2 ns RGMII delay or introduce any
-significant delay.
+On Fri, Aug 21, 2026 at 8:02=E2=80=AFPM Rob Herring <robh@kernel.org> wrote=
+:
+>
+> On Fri, Aug 14, 2026 at 02:07:59PM -0500, Rob Herring wrote:
+> > On Fri, Aug 14, 2026 at 03:54:55PM +0100, Mark Brown wrote:
+> > > On Fri, Aug 14, 2026 at 02:02:21PM +0530, Udaya Kiran Challa wrote:
+> > > > Convert Microchip PIC32 SPI controller devicetree binding
+> > > > from legacy text format to DT schema.
+> > >
+> > > > +maintainers:
+> > > > +  - Mark Brown <broonie@kernel.org>
+> > >
+> > > Try again!  :P  I think the DT people had some default they used for
+> > > cases like this, but ICBW?
+> >
+> > I'm the default, but really I wonder if pic32 could just be dropped. No
+> > commits from a Microchip person since 2016 on arch/mips/pic32 or
+> > arch/mips/boot/dts/pic32. Almost all generic cleanups otherwise. These
+> > chips appear to max out at 32MB (SiP) or 128MB DDR2.
+> >
+> > Perhaps I should send some AI patches against it...
+> >
+> > There's this[1], but no updates in 5 years.
+> >
+> > Arnd, Thomas, any thoughts on this platform?
+>
+> Thomas agreed to be maintainer on IRC.
 
-According to the KSZ9031RNX datasheet, the PHY adds a typical 1.2 ns RX
-delay and no TX delay by default. The 'rgmii-id' mode causes the PHY
-driver to enable appropriate internal RGMII delays.
+Thanks, Rob. Understood. I=E2=80=99ll update the maintainer to Thomas
+Bogendoerfer for microchip,pic32mzda-spi & microchip,pic32mzda-sqi dt-bindi=
+ngs
+and send the next revision.
 
-Packet loss in the downlink direction is observed with the 'rgmii' mode
-and is severe enough to interfere with downloads and disrupt software
-installation. No packet loss is observed with 'rgmii-id'.
-
-Adjusting the TX delay in the DT was found to be unnecessary with
-'rgmii-id'.
-
-Signed-off-by: Roman Riabenko <roman@riabenko.com>
----
- arch/arm64/boot/dts/allwinner/sun50i-a64-olinuxino.dts | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-olinuxino.dts b/arch/arm64/boot/dts/allwinner/sun50i-a64-olinuxino.dts
-index fd3794678c33..8cb2381e21da 100644
---- a/arch/arm64/boot/dts/allwinner/sun50i-a64-olinuxino.dts
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-olinuxino.dts
-@@ -102,10 +102,9 @@ &ehci1 {
- &emac {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&rgmii_pins>;
--	phy-mode = "rgmii";
-+	phy-mode = "rgmii-id";
- 	phy-handle = <&ext_rgmii_phy>;
- 	phy-supply = <&reg_dcdc1>;
--	allwinner,tx-delay-ps = <600>;
- 	status = "okay";
- };
- 
--- 
-2.54.0
-
+Regards,
+Udaya Kiran Challa
