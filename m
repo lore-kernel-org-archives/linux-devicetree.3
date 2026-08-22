@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A3152475D0;
-	Sat, 22 Aug 2026 07:28:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEAD5376A19;
+	Sat, 22 Aug 2026 07:29:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787383698; cv=none; b=k/mH3q/p/5Pv76cphhW89kO3Or0NickOwTb82ZVUJm2WvktInc9+efzepoM8lgObhmVaKUEa0Xkm3CaIuLOXWmqRwQ3sGIKDdU+XM5T10lmafls8jFO5CcBhtZv6zi6mzeGYh4c2se5iQc2yKcHiOMwhCoKkdNpeW2wS6GLlJbw=
+	t=1787383797; cv=none; b=NmtTm5s73OZhSDw2QztAmfh3KIK0fOnqOmisQBdFSD+aw5DoQIwllw36bYEztMX8EOcPptM1KeMXCZ+liPkm20MlYosP0ipNGzxrgvQLPQKbmO4qqjuG+XtexlRYh4J0s+N3HPYY1/iFwYpUH0aOCKwrvS/PRDijNp6joaiOIfs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787383698; c=relaxed/simple;
-	bh=oEPCxmlMiQDC/jc58/v02is5aSxljKGvcjtGWcP136A=;
+	s=arc-20240116; t=1787383797; c=relaxed/simple;
+	bh=eLtbJyeOFCL8+ZJ05LuveDQaCku1Mqljqd6pBpX3Akc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZVsfkBdJavyDCi30c1XmN4rKlfhZGGsmjdTZHBEWNhOS6psB7T/xz1sDcqnBJjJDAYFcUvgVTgZmZ1eiRsYKs7u+zQe4+lIrdF6Lo0DWuC1nJQIsf7HcMHybkjlfZF3CePs0ViE/F02Z3yKU3zuNbEs5yw2Nn4sRtu7b4FqK8Ak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QTgt7+Xc; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=k/NngqNeSuoW2TrzPefXddsSlYZR2gTYX1EagsycBhmgLHaVzO9azGuo1q40uhTE6HNIcD/RQSl31dhHqL9H0mXHIpS3jzSh18D56cnYLpH1NJpZdX7hCiGR0QkSzuVyWpSJ4pNnf6Qb+DHbjL/ziVLYpJrcte9V5hZge5ejmCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DUGjJrlO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QTgt7+Xc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3C2B1F000E9;
-	Sat, 22 Aug 2026 07:28:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DUGjJrlO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E492E1F000E9;
+	Sat, 22 Aug 2026 07:29:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787383696;
-	bh=zoyg9tDcqSP32PikNEbdsojOFRXroqmGh2a+jLRJlR4=;
+	s=k20260515; t=1787383796;
+	bh=SwjlM+iws+8CDXMH63ul3ZL8LMDDFMdt8lY+0ZAlkFM=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=QTgt7+XcJRB5w8VYmQk904bwW7lt2vamXm7poD1+CB7ak3Hkak+nSVVq1ydhqEU45
-	 ONclfaJZKoKpW5Be09Kx5dBn+oo2gFv9d8ijYvXPO8pQv1m/VSXWZ0GpFRdpoP1tVi
-	 txAUCrnIMbpuH5kRBcgU4V8rkGL8VTAarmB4Zfn78eS5ehYPo7u6VaLJyMBJVPfKPB
-	 Eb6LKHJpzZYPKVglcFpEq4NUe9S3DbCPnoAgSv/FM1U7KYuI2jjKgLrMQACEJIUrOQ
-	 wqGStNxLOYNUDCJYxcix98x9nPLxgAeTv14AD6m9a709R7Q3s1POPoK1Ky447s3Ndl
-	 jlPZy40qnqkiQ==
-Message-ID: <8054f9c4-e17f-4b4f-aabe-3939c65f8f24@kernel.org>
-Date: Sat, 22 Aug 2026 09:28:07 +0200
+	b=DUGjJrlO5cD7QPWN+Qx6swvpNtOkpJb9jVXYHlO3oaMkzsPnGtecPoA/ZGnpLcts+
+	 hW0pNZoj+/jDOyEXA7V2lxUT2FzrlCfFUmkk2mK8ERwRZqKZbfg/DKZUMeFET0rpAa
+	 f5OKryCb47llAG3OyVMfXnph3Lpq0i+CARiAgZF5W5Crhc29LTH8chekcT/UWT50yz
+	 t4rr3cMpIfWaIelSSbgkfKoGJ6ZRv5VszZOxpOS1qVhngyX/GDPiUriHa1h5Z+M9KF
+	 xdYlc6FioJzCs1z8uwm4Jdt6VE2r6ENWefFonrcTaqDJP3NAAqPbAFsTUtdy4GKecT
+	 mJtIU8bvTACkw==
+Message-ID: <b2f486b8-a391-41bc-8a7f-dc81c6752205@kernel.org>
+Date: Sat, 22 Aug 2026 09:29:47 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,24 +35,23 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 16/16] arm64: configs: enable usb and its dependencies
- used on stm32mp25
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Christian Bruel <christian.bruel@foss.st.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
- Marek Vasut <marex@nabladev.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Pankaj Dev <pankaj.dev@st.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org
-References: <20260821-ucpd-host-fusb340-v7-2-rfc-v1-0-c5e27cbc0795@foss.st.com>
- <20260821-ucpd-host-fusb340-v7-2-rfc-v1-16-c5e27cbc0795@foss.st.com>
+Subject: Re: [PATCH 02/10] dt-bindings: power: Add r8a774a3 SYSC power domain
+ definitions
+To: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Ulf Hansson <ulfh@kernel.org>
+Cc: linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-pm@vger.kernel.org, Chris Paterson <Chris.Paterson2@renesas.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260821150408.73829-1-ayman.chaudhry.kc@renesas.com>
+ <20260821150408.73829-3-ayman.chaudhry.kc@renesas.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -98,26 +97,59 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260821-ucpd-host-fusb340-v7-2-rfc-v1-16-c5e27cbc0795@foss.st.com>
+In-Reply-To: <20260821150408.73829-3-ayman.chaudhry.kc@renesas.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 21/08/2026 18:23, Fabrice Gasnier wrote:
-> Enable USB drivers used on stm32mp25 reference design boards.
-> In addition to the USB HighSpeed and SuperSpeed PHY drivers,
-> enable the USB Type-C related drivers used on those boards e.g. UCPD,
-> external TCPP i2c protection chip and FUSB340 SuperSpeed mux.
+On 21/08/2026 17:03, Ayman Chaudhry wrote:
+> This patch adds power domain indices for the Renesas RZ/G2M v3.0
+
+
+Please do not use "This commit/patch/change", but imperative mood. See
+longer explanation here:
+https://elixir.bootlin.com/linux/v6.16/source/Documentation/process/submitting-patches.rst#L94
+
+> (a.k.a. R8A774A3) SoC.
 > 
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> Signed-off-by: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
 > ---
->  arch/arm64/configs/defconfig | 6 ++++++
->  1 file changed, 6 insertions(+)
+>  include/dt-bindings/power/r8a774a3-sysc.h | 30 +++++++++++++++++++++++
 
-Subject prefix is imprecise - you update one config, not configs. Look
-at git history how this should be named - arm64: defconfig:
+Filename must match compatible.
 
-Also, you completely missed company name - it's not your private config
-- and actual name of upstream boards using it.
+
+>  1 file changed, 30 insertions(+)
+>  create mode 100644 include/dt-bindings/power/r8a774a3-sysc.h
+> 
+> diff --git a/include/dt-bindings/power/r8a774a3-sysc.h b/include/dt-bindings/power/r8a774a3-sysc.h
+> new file mode 100644
+> index 000000000000..5694a422b771
+> --- /dev/null
+> +++ b/include/dt-bindings/power/r8a774a3-sysc.h
+> @@ -0,0 +1,30 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> +/*
+> + * Copyright (C) 2026 Renesas Electronics Corp.
+> + */
+> +#ifndef __DT_BINDINGS_POWER_R8A774A3_SYSC_H__
+> +#define __DT_BINDINGS_POWER_R8A774A3_SYSC_H__
+> +
+> +/*
+> + * These power domain indices match the numbers of the interrupt bits
+
+No, that's not a binding then.
+
+Also, why is this sent separately from the binding?
+
+> + * representing the power areas in the various Interrupt Registers
+> + * (e.g. SYSCISR, Interrupt Status Register)
+> + */
+> +
+> +#define R8A774A3_PD_CA57_CPU0		 0
+> +#define R8A774A3_PD_CA57_CPU1		 1
+> +#define R8A774A3_PD_CA53_CPU0		 5
+
+No, value is 2. Or not a binding.
 
 Best regards,
 Krzysztof
