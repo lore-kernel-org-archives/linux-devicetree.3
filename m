@@ -1,67 +1,68 @@
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
+Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com [209.85.167.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21428493636
-	for <devicetree@vger.kernel.org>; Sat, 22 Aug 2026 18:20:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8E1F347BA7
+	for <devicetree@vger.kernel.org>; Sat, 22 Aug 2026 18:24:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787422849; cv=none; b=qQl6hTLQrC+oggKdMcwSi7sKl+FfQgK8LK6lSNYSTkUE4a6h0owFuev0JgbQeSDY8reN7DrfRjNLTxCCbDonMz5Wa2BO22+kQQhLqPTt1qec3dfAzCFbhudUPp9f75dhE8/O0oI1YuNjUSsvzcb72ZD7NfTzThrEgoVWgTSVdKs=
+	t=1787423074; cv=none; b=GcACOb2LdYmY++npRbfDIW2/Vi8EJ+iTqRR4YOBzxwlSyex67KfV23kH78oZc40uHXQOFHwiNqllzC7pS3FShOBQ70sBe078Rli5xWupaplKGgORei8MeWsdzCmM6NuTsCF0gRGFMCZulzhR/BHnsben43W8JZrDqSdMu68kShc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787422849; c=relaxed/simple;
-	bh=yAd7mVfoTBbWlzpS260BpQ70itHd8Zbdwg1YAKphL9w=;
+	s=arc-20240116; t=1787423074; c=relaxed/simple;
+	bh=I0EoiW47USBxE6T6MYvTawQh7ajMMiXvhTvG+Px5aok=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QA2S4gARQfMSsI07QCYCTXQsZVphgzuuaw9wuafI7wlvmvm0fHPLFJe/a6oGkS9gb07j4ngzoRY4+u/Rg0UeG/iFzeKJ1M0HKavZFzPdJUy4wMozcTmp8vMb282rmyqRIOjxVK5/wHX4x2sSEG8zxEfIC8+WrpswMgIBfLE1VUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=QtdB0DiS; arc=none smtp.client-ip=209.85.210.50
+	 In-Reply-To:Content-Type; b=QWOury8UAYR15xPzqVFtUuv8tMZSEaVLXCKBqsWsE5OXll61yAbh1Lmsy/LZvwSbLAKBkB3voOMnhQ3dAgwtDAaWHpGIjF3GSleqGKSUimOcN5g6gkpd1QatjsswGBsipLTv3jzUvznOCyr4/nqOdYlzIzQUeMMFklHpx4VpPAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=D9PPhSdJ; arc=none smtp.client-ip=209.85.167.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="QtdB0DiS"
-Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-7f434cc1c5eso1904014a34.0
-        for <devicetree@vger.kernel.org>; Sat, 22 Aug 2026 11:20:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="D9PPhSdJ"
+Received: by mail-oi1-f173.google.com with SMTP id 5614622812f47-4a43c2a126fso903043b6e.3
+        for <devicetree@vger.kernel.org>; Sat, 22 Aug 2026 11:24:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1787422846; x=1788027646; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NQNhgPr9yKeFxbuFf8eNz2imAjAUqFj9cvzQCXV9ESs=;
-        b=QtdB0DiSzSVUfDZCjXeD9nEncE0SZ5qIlVFYDFNoIKJMeSlyjWcPg0ucyxPo3DZVfe
-         KWr9do1iFWeblA8KhMWJhLkdGx9CRogPHU0ozgglmnUOIVeb5R46lIkrYHyTPPwsOGuk
-         YuWsFh6BHdy4j+60yDKckvtXR8jZBd6fvuyE6wBAdTn97A/+FZUZoa7JgoZRX3ShyHCE
-         ampOQ+wdbk0/QkRE1sroDVPXNvMRdcik0MtGDAqZC8OwQf8/VKeqEaNnEgFaPDK13xYS
-         6TgEpgRA7wIJUvlbgbJbVOSeI0sROy66nSR1OuHh8VJqOl5cdJmJSLxO2W7uYAfpgk3j
-         8W0A==
+        d=baylibre.com; s=google; t=1787423072; x=1788027872; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AAUPoDO0LbXR3ORuYSehuTzgSLzhcn+D4ZySu9rxxeM=;
+        b=D9PPhSdJwq3c489sWygiPwnXLHEr04XOslOMbw3xJVOSgMiLVwO7Lro85RQdgZuU/q
+         8nREs4ly8Pz2m9mJWDbBxPvTkaMF6wmwdKYGanP24VPh3IFApH/oqw6LHrpIg0z6udqH
+         yne74shUQBcd5nABZR0ghbANn1pfkmYDG0f4nr18HCfvdfMhW/5ZveZMgcSfRt8AeI3n
+         5pj5fC9rIWHo+s9dAJ+OXLUUCx6b1WCGqhNoNFIdMIX8q/xY58J1MqQN+ZrLfyC5C2sl
+         044n47jrqnNmJtJHGJSDaZ/F7HojjX2TNHy7wY9GJCiYsf6I9uIyS4ee7z/b5G3S+Syv
+         ldWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787422846; x=1788027646;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1787423072; x=1788027872;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NQNhgPr9yKeFxbuFf8eNz2imAjAUqFj9cvzQCXV9ESs=;
-        b=X5bf573W3ZFV3/Yx95bCOQTCDMie4mSR2GUBCdVPnapWto2g/Rv2gYK80PIGE8lGaR
-         uB5ylumGl+LUUFNr6+TKI60WEZ9KuReqQnGDv9xPI/MW6u7DtLyvpN/dH2mcsdoEAXhQ
-         3xmTocVWstDidOyw3R4M2+RcNw4cIyUQ3RksXgJRIFcz+Q5d1VHcQ297FruZfVedUgFT
-         m1huRE2bWeiDYdCn84y6Ah6/hGdG8M3zbq0j3wxvp6UsYzSvAEe5PxewlwADhRb0p9yx
-         g+KuRZtV0RqBupfY7U7uMqTUuBo5+z7oD+TJhpSvlWpkDuwNQcprqkBD7CBwzCWc6iqi
-         HaKg==
-X-Forwarded-Encrypted: i=1; AHgh+Rq9LBn4XIpSpEMgE8nQesv5ALKhDr/6ib+hTgjBGAoweF8hgjVQSIGrt2eiRoOcrSLUmcav6FSL9xeD@vger.kernel.org
-X-Gm-Message-State: AFuF++lsCNhXiH+I+bXC4HTFYxSFfQGrQiZcYs6nam6F+oPyWlzJrPju
-	w7iv3D4APqviClnyO0Y12+tAzhsYLe9Pv4OuGc9E4zXXCW6qLv/aYaRgvKMGHUeBfaE=
-X-Gm-Gg: AR+sD12YHnc2VgS0ZdtmFb22CnOiLuFZzZ6n8vwjCL2sirbz16e14VSFoPefZvkNK0q
-	aTWsHj9TTO4GQp/NVKGwO7R5mrA677IifiErAd9Fm6HAgUrrCk45oJojefpbb9hJrXwvUDc3BOv
-	mfMLocKHgr1CYh1gaHwiFW3bbx+Z6YQON42wGwzT5jodx9Ev69fVghiTa+snJXoUzpTQmsWeUBR
-	4lkvHQ0XF9FO7DvV1mOmX7jz1AdHvFaRokrfCwtMpr7H74maGuygLE8TdDDAu84HD4jc9Rh7cXr
-	2L+vN8Cc5iYi717Jc1cla0z4lkNNnVfy7Z8vhc9uXlqrMMxSfZbbGUVB2p3zAJpLPwIagMRJ2si
-	5iuXq+dOWtQaKBu3fsWrt8Th3e4fcRrIlVOjjmjpSaKYGoU47qQJw1QKmIIybYY/4e91rozX+H1
-	31979FaABrrFwbc43JJ7MCeNvmOM6xrILDXPHdjsHjL5YcZCqg+tWJfXLPfAeon65xc6yFfA58p
-	Mw/Cu90FbB9+Arapj/j7HCeL0f0fY010FpjonA=
-X-Received: by 2002:a05:6830:83a3:b0:7dc:dbe4:3f21 with SMTP id 46e09a7af769-7f461349073mr19255634a34.1.1787422846094;
-        Sat, 22 Aug 2026 11:20:46 -0700 (PDT)
+        bh=AAUPoDO0LbXR3ORuYSehuTzgSLzhcn+D4ZySu9rxxeM=;
+        b=IegDqsnKvm+XXMQm9xEioDEbzIrJFXmCyGF82VAivEu31Wk0uagoe4hKaxBmkrrJ01
+         QurPJpt9a2ORCrN1EDccYmul53UlZV8OPbByy0W1PKjKSRDh4wssL+pz2bJR/hxt6fv2
+         DdcoXXfoM8ebwBTIQn4a9lyQiYmNHwsOQ7uP0K7QTcomWJM4BwMP/9YiWYvloe8cT4ws
+         f7k/ADyry5NoNwgkAGvVptdXAvll9f+FkUTTh1hvgm7y+eA2K8YVs+KcYjxkP2STJSQA
+         8InoPrX7oaYKVjFtu4wGpU7xGZ8b2t3jwtCrEDtffZzAiZspXbCKBt0jZ9Afg+XA81fL
+         erxQ==
+X-Forwarded-Encrypted: i=1; AHgh+RquBMmgXmo4VupCrB/WdM7a4AzZ6itAjCd/p+tEMSeDIWDp85YMNcgp6Pqjg+z4wJa8oPbluCnWtS8X@vger.kernel.org
+X-Gm-Message-State: AFuF++nPlzY6mbeWJ28+z4P7n0KpJoorgRo/PhOIPMIqdOqZp8GmLXuF
+	O4Jy3FniB6IfuD0RViO6kn3bWm+8GjPnnxapsAXUbOmqn3lfPtGPjLxhvte3dh53dGg=
+X-Gm-Gg: AR+sD138RnXZhh9qYe5YIr3KwclCdhyn8mIjvLOZTYvK85Ij8lKonDeRDgvfdEewDa5
+	SpClB11OG5Us4A198lemK2mWMTZuGkuPNrQ86zszqAmzbJFcCwGD2FhjtPM+nPlQC02bIEh87Mi
+	hOPA5l4SV7cR5y/Xfc9TcmE8NwNg/PKH8k0uy3rfmlrY6AtH0c5rZ/uDXy4G869wfbSNlBjBrxB
+	AxTrj/ZtD7W1Sh+bl2x/Xvi8KeFhtWpBJP66VlRMPJjDi9Xoj93TPlvlUeI7QWr4mqUE78jTCvP
+	/EN11/EJaDHCQLKfvZ49ZSM5F697nsKWplJm2fvxs3qyyhTWc6DmRyNHhtBOBHvh77YH58Ddh8G
+	FA7+H/tqGXO3tlAY3FCWlsxcY9GwQcM8Q4SNjLd7yFNlVATPr0PmyOyba2B1LtcB6KHsuxcJ9jn
+	Idrts8//69YvIeh7k7HPwMtppZchan4U2gBiJLwVWBJQDO2su+dIMOxKplqsX0/INe/cVmU3IAU
+	e71Ul60WBLZkNDxOWYGF8w8CmnJpss0+KYmwS0=
+X-Received: by 2002:a05:6808:1998:b0:4a4:c12:49d9 with SMTP id 5614622812f47-4b30998a580mr8468928b6e.3.1787423071836;
+        Sat, 22 Aug 2026 11:24:31 -0700 (PDT)
 Received: from ?IPV6:2600:8803:e7e4:500:e0ca:316a:4629:d835? ([2600:8803:e7e4:500:e0ca:316a:4629:d835])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f43fe7065csm10638335a34.1.2026.08.22.11.20.45
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b2d6cdd6cbsm7668245b6e.10.2026.08.22.11.24.29
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 22 Aug 2026 11:20:45 -0700 (PDT)
-Message-ID: <f35aea7d-0844-426e-ac81-d5b156b60e4a@baylibre.com>
-Date: Sat, 22 Aug 2026 13:20:44 -0500
+        Sat, 22 Aug 2026 11:24:31 -0700 (PDT)
+Message-ID: <fb0b857e-eac8-4755-9330-5cfe55523271@baylibre.com>
+Date: Sat, 22 Aug 2026 13:24:29 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,115 +70,90 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/6] dt-bindings: iio: dac: ad5504: add output-range
- and missing gpios
+Subject: Re: [PATCH v6 6/6] iio: dac: ad5504: support scale via
+ output-range-microvolt property
 To: Taha Ed-Dafili <0rayn.dev@gmail.com>, jic23@kernel.org, lars@metafoo.de
 Cc: Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
  conor+dt@kernel.org, nuno.sa@analog.com, andy@kernel.org,
  skhan@linuxfoundation.org, linux@analog.com, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Conor Dooley <conor.dooley@microchip.com>
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20260822085850.17527-1-0rayn.dev@gmail.com>
- <20260822085850.17527-2-0rayn.dev@gmail.com>
-From: David Lechner <dlechner@baylibre.com>
+ <20260822085850.17527-7-0rayn.dev@gmail.com>
 Content-Language: en-US
-In-Reply-To: <20260822085850.17527-2-0rayn.dev@gmail.com>
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260822085850.17527-7-0rayn.dev@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 8/22/26 3:56 AM, Taha Ed-Dafili wrote:
-> The AD5504 output range (0-30V or 0-60V) is determined by the R_SEL pin.
-> 
-> Use standard output-range-microvolt and range-sel-gpios properties to
-> describe the hardware configuration of the R_SEL pin. Ensure mutual
-> exclusivity using the not/required logic. Additionally, add missing
-> vlogic-supply, clr-gpios, ldac-gpios and datasheet links, and provide
-> a complete usage example.
+> The AD5504 output range is set by the R_SEL pin, not the VCC supply.
+> Add support for 'output-range-microvolt' to set vref_mv directly from
+> firmware. Use device_property_present() to distinguish absent from
+> malformed property rather than relying on the ambiguous -EINVAL from
+> device_property_read_u32_array(). Fall back to the vcc regulator
+> voltage for old DTs that predate this property.
 > 
 > Signed-off-by: Taha Ed-Dafili <0rayn.dev@gmail.com>
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
 > ---
->  .../bindings/iio/dac/adi,ad5504.yaml          | 39 ++++++++++++++++++-
->  1 file changed, 38 insertions(+), 1 deletion(-)
+>  drivers/iio/dac/ad5504.c | 31 +++++++++++++++++++++++++------
+>  1 file changed, 25 insertions(+), 6 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5504.yaml b/Documentation/devicetree/bindings/iio/dac/adi,ad5504.yaml
-> index 9c2c038683b4..e0123dceaa33 100644
-> --- a/Documentation/devicetree/bindings/iio/dac/adi,ad5504.yaml
-> +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5504.yaml
-> @@ -10,8 +10,10 @@ maintainers:
->    - Lars-Peter Clausen <lars@metafoo.de>
->    - Jonathan Cameron <jic23@kernel.org>
+> diff --git a/drivers/iio/dac/ad5504.c b/drivers/iio/dac/ad5504.c
+> index 74679feea385..d0a3dd4b000d 100644
+> --- a/drivers/iio/dac/ad5504.c
+> +++ b/drivers/iio/dac/ad5504.c
+> @@ -300,6 +300,7 @@ static int ad5504_probe(struct spi_device *spi)
+>  	struct device *dev = &spi->dev;
+>  	struct iio_dev *indio_dev;
+>  	struct ad5504_state *st;
+> +	u32 range[2];
+>  	int ret;
 >  
-> -description:
-> +description: |
->    High voltage (up to 60V) DACs with temperature sensor alarm function
-> +  https://www.analog.com/media/en/technical-documentation/data-sheets/ad5504.pdf
-> +  https://www.analog.com/media/en/technical-documentation/data-sheets/ad5501.pdf
->  
->  properties:
->    compatible:
-> @@ -27,6 +29,29 @@ properties:
->      maxItems: 1
->  
->    vcc-supply: true
-> +  vlogic-supply: true
+>  	indio_dev = devm_iio_device_alloc(dev, sizeof(*st));
+> @@ -315,12 +316,30 @@ static int ad5504_probe(struct spi_device *spi)
+>  	if (is_acpi_device_node(dev_fwnode(dev))) {
+>  		st->vref_mv = AD5504_VREF_ACPI_DEFAULT_mV;
+>  	} else {
+> -		ret = devm_regulator_get_enable_read_voltage(dev, "vcc");
+> -		if (ret < 0)
+> -			return dev_err_probe(dev, ret,
+> -					     "Failed to get vcc regulator\n");
+> -
+> -		st->vref_mv = ret / 1000;
+> +		if (device_property_present(dev, "output-range-microvolt")) {
+> +			ret = device_property_read_u32_array(dev, "output-range-microvolt",
+> +							     range, ARRAY_SIZE(range));
+> +			if (ret)
+> +				return dev_err_probe(dev, ret,
+> +							"Error parsing output-range-microvolt\n");
 > +
-> +  output-range-microvolt:
-> +    description: |
-> +      Specify the channel output full scale range. The R_SEL pin
-> +      determines if the range is 0-30V or 0-60V.
-> +    items:
-> +      - const: 0
-> +      - enum: [30000000, 60000000]
-> +    default: [0, 60000000]
+> +			if (range[0] != 0 || (range[1] != 30 * MICRO && range[1] != 60 * MICRO))
+> +				return dev_err_probe(dev, -EINVAL,
+> +					"Invalid output-range-microvolt\n");
 > +
-> +  range-sel-gpios:
-> +    description:
-> +      GPIO connected to the R_SEL pin to select the output voltage range.
-> +    maxItems: 1
+> +			st->vref_mv = range[1] / (MICRO / MILLI);
 > +
-> +  clr-gpios:
+> +			ret = devm_regulator_get_enable(dev, "vcc");
+> +			if (ret < 0)
+> +				return dev_err_probe(dev, ret, "Failed to enable vcc regulator\n");
 
-This is one that is starting to emerge as a common name, so I would call
-it clear-gpios instead to match the same name on chips with a similar
-function.
+We should probably handle range-sel-gpios here. Otherwise, if a new DT tries
+to use it, it will end up falling back to this old wrong behavior.
 
-> +    description: GPIO that controls the /CLR pin (active low).
-> +    maxItems: 1
+		} else if (device_property_present("range-sel-gpios")) {
+			
+Either return an error here that it is not supported. Or implement it by
+making IIO_CHAN_INFO_SCALE writable.
+
+> +		} else {
+> +			/* Backward compat: old DTs without output-range-microvolt */
+> +			ret = devm_regulator_get_enable_read_voltage(dev, "vcc");
+> +			if (ret < 0)
+> +				return dev_err_probe(dev, ret, "Failed to get vcc regulator\n");
 > +
-> +  ldac-gpios:
-> +    description: GPIO that controls the /LDAC pin (active low).
-> +    maxItems: 1
+> +			st->vref_mv = ret / (MICRO / MILLI);
+> +		}
+>  	}
 >  
->  additionalProperties: false
->  
-> @@ -34,9 +59,17 @@ required:
->    - compatible
->    - reg
->  
-> +allOf:
-> +  - not:
-> +      required:
-> +        - range-sel-gpios
-> +        - output-range-microvolt
-> +
->  examples:
->    - |
->      #include <dt-bindings/interrupt-controller/irq.h>
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
->      spi {
->          #address-cells = <1>;
->          #size-cells = <0>;
-> @@ -45,6 +78,10 @@ examples:
->              compatible = "adi,ad5504";
->              vcc-supply = <&dac_vcc>;
->              interrupts = <55 IRQ_TYPE_EDGE_FALLING>;
-> +
-> +            output-range-microvolt = <0 60000000>;
-> +            clr-gpios = <&gpio 4 GPIO_ACTIVE_LOW>;
-> +            ldac-gpios = <&gpio 5 GPIO_ACTIVE_LOW>;
->          };
->      };
->  ...
+>  	st->spi = spi;
 
