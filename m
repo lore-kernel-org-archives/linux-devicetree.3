@@ -1,185 +1,157 @@
-Received: from benson.vs.mythic-beasts.com (benson.vs.mythic-beasts.com [46.235.224.207])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0B3249364A
-	for <devicetree@vger.kernel.org>; Sat, 22 Aug 2026 10:11:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.235.224.207
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BBCF356757
+	for <devicetree@vger.kernel.org>; Sat, 22 Aug 2026 12:33:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787393511; cv=none; b=EJpnmX1VbhOkvse+iEr/1ijFyWZRjsCYAIAvtXkRPkwA4S9HDBqinAX8TwkJNYN6P7cXLVPKWSSLxU+hZiIkTTKZtozASlec0Gn4LiboFWG/3C4IBZ4tqbvo61syOAFGSItX16BMYe8n/TpJsOxxXLfQ4fDU3FuZpcg4OwQM3oQ=
+	t=1787401994; cv=none; b=JGYkw3qm7qGi1zxYuNWhLUN7AjLtU5WHvzpOFYjqrT11ZeUUI7fmMynuo29+WGwyPR1k5V+MZh6w9VDs1BNZ9/npea6PQFyuHUoUNB6Fz/FhsUTnXRYH4U8oByhMYCHmuLZwD8r8uBGyb7NKcxW5/tq75UVQxQDRoBjCOkIxQgU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787393511; c=relaxed/simple;
-	bh=7sislAKKJoBglGtS8CbS9U54KiYdtSVQKpDAw9xLthk=;
-	h=Message-ID:Subject:From:To:Date:Content-Type:MIME-Version; b=LY97VKWJN/3HLOsCtBtxo5MB+Z46uX5BTpaY8+BDZE/Tufo5tb6QI0zOsNI+o0nTtuvB1iiG/SW58SycL1SWu6EBZeZf89uy+XzHGxUAHK8m9gbuIL2IsXvTS/a+5gSHkZ1etsO/C/7wMMVGsxn7vJ8oZ3QqyLmM82UFEoWoroQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hellion.org.uk; spf=pass smtp.mailfrom=hellion.org.uk; dkim=pass (2048-bit key) header.d=hellion.org.uk header.i=@hellion.org.uk header.b=ZXs/pLFF; arc=none smtp.client-ip=46.235.224.207
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hellion.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hellion.org.uk
+	s=arc-20240116; t=1787401994; c=relaxed/simple;
+	bh=Uw+TK3EgJNgltpy0OWy0qdquWNHbs0IQEHSfH/QkdGs=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YUeigO9GJeVonQLXupFlCBEybKF/q82TYIOVNYJeTy8ayJTl9iH6CA+DhG5ccMrXj5fVPQ9mcPmizqP3Msv7xo/yUumOchCmkQCk1uIytUZSleywFzNGcHt30OTX5bVRAnJMU8LCoeM//naAcLlUzifL4QseYzHRVe4/CeFVrU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o22LtE55; arc=none smtp.client-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hellion.org.uk header.i=@hellion.org.uk header.b="ZXs/pLFF"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=hellion.org.uk; s=benson; h=MIME-Version:Content-Type:Date:To:From:Subject:
-	Message-ID:Sender:Reply-To:Cc:Content-Transfer-Encoding:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=7sislAKKJoBglGtS8CbS9U54KiYdtSVQKpDAw9xLthk=; b=ZXs/pLFF9qfoDdqTaVPykLZ0Yz
-	Xh3QzmQj0tfegNcz88kdzLb78DLBLbvsAyYd+vOCtgoSsvgMjBqQmf2fnXHR8Wyublhfm67+coUxw
-	LQPulLo4PGwSKC4C/uYNXtxTi8kJPVtcivy//mlDf6vP08MQu2MPYi50YlMECtuL3MfL0Y7fgpsqp
-	E6tNLvYYQp0Emtq4DhIDEeiFVJkyey9TJjY8eopOTfpSOdxxUcSZC3fyGYbKNEngxVWEy39P3rrjC
-	sDA879TeK3EHcuVbYxAeKhNcMdk8cUR/EAgafS77mB5vCCj4QNKrIiWP7U9DPIb8Q4FBD0hEvv519
-	HXV4N+4A==;
-Received: from [2a02:390:60b6:0:692:26ff:fed5:7515]
-	by benson.vs.mythic-beasts.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ijc@hellion.org.uk>)
-	id 1wxi8J-00362D-1G
-	for devicetree@vger.kernel.org;
-	Sat, 22 Aug 2026 09:35:23 +0000
-Message-ID: <fe88ed4f288c261373d2ad7184f470a8ea19ec42.camel@hellion.org.uk>
-Subject: devicetree-rebasing history incorrect from v7.2-rc1-dts onwards
-From: Ian Campbell <ijc@hellion.org.uk>
-To: devicetree@vger.kernel.org
-Date: Sat, 22 Aug 2026 10:35:16 +0100
-Autocrypt: addr=ijc@hellion.org.uk; prefer-encrypt=mutual;
- keydata=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
- ZunA==
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-mW4J39Jqe/j2PO50OelN"
-User-Agent: Evolution 3.56.2-10 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o22LtE55"
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-ca80d708489so1250848a12.1
+        for <devicetree@vger.kernel.org>; Sat, 22 Aug 2026 05:33:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787401993; x=1788006793; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XfHQG1lWh9ZlhxyhVuyS3JBvk/o8rp8H++Qugcq4y9w=;
+        b=o22LtE55UdTn0st+ag0i7o8XQWFeteMvYUYQluba1G6qb0atVq2h9+SLPA/vv/Ab5Y
+         6RskHT6Yqe8DPkkKgk2N9A+5TPpxQep0a3IE0kOv2oyW8G2tTCdyeQYkb1XfudEf2Phr
+         QDrKYD0mMxPEH9UaPHB39v7HDdAMNOBc8byNjn7z46V1msPC5GrhlB4iasL43lFlqu46
+         4RkVKbIZo5aHwoGw/Ak82KzdUxhHZt+47qs06StyVauU8NqIYRcx0JPL92tPdM25etif
+         swK9vfS1qKenh4xiLUALsn1FteekN1605aQhMJ0EYlOR7p213sn84W1IG1icIOq7moSo
+         UICw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787401993; x=1788006793;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XfHQG1lWh9ZlhxyhVuyS3JBvk/o8rp8H++Qugcq4y9w=;
+        b=bzliBcAg/zFcG/m4JxFfZlsitgEtnW/aA7VOPW6QdeDAnvlf9DkWuN0GagRpFkPXsj
+         GK0WygkeY5Dy+qq/eIMREOTmy9cSSGZ7vmz+PxgWDvf/rzfXthC7HHxL0DIcJnWQ+LzP
+         IF9pcSdpUfRNyLrtepSzLtD7hGDxeWAsSk4ySZkKrZRF12bPoeT0vbcnnN5XsL209EJB
+         tsZLHiaVF49UCu7Xj7QNQS0C8yvo2pB9AZ/pUhP/PGThW6HEp08NEWVL3mTQlsWuxhK0
+         tf+G5/VN5AWnwAKtKsNyn9eUM9OIr2APIa90//Lwwvy3daB0Tv2XhYSk7vN3x8NMcfVk
+         AIIA==
+X-Forwarded-Encrypted: i=1; AHgh+RrM30nVofzyz1Gl7OJJmKz7oLNATN20j4RaR2LVDu0rxc4SLVXutlJTdJBnQ3NkrEewfflvALm8sN0m@vger.kernel.org
+X-Gm-Message-State: AFuF++kGfmCMpSZOCIAMtfIFczLYg+C61MrfLoy3uz94kJ9zWqnoNzXZ
+	oBrm07f4kFWCPcWxHL40qe1tQptUi5pWZXM08XfhgJvFQdkeZE/WBqlq
+X-Gm-Gg: AR+sD12AdmmEl+JhICAPDMCYzj4ouevf1orP8Py7SuMFfJx7cf2ALN/yg6yKrTrLNnQ
+	AdpEIjFPJuOHdVyRWetC9ZTBFnNP5CQfHyAyaCKAQuYvQTNfXa+M903ptQfOKtpdzs4n3PO++bf
+	hZlO773Z2t5ZsXDiZVmCnD5zm79T+3k87wjJUZ61AvXUMWT99nvIxp6RIN8q3lWXN3pdrWTLVFo
+	yqeI/TXvv2g5vh7OTESFtV3YE/wflcF1FQ90tHJ4mMC/XU23cOS2DCtiozWwMwObEzU56Q1mn3d
+	0uPbFK2uSoFdcfL+I/ykbWaHTgCd4zPenrE9QQHmGsGC0D8VzW1+HYb3d6XJ3WgWwZ3J21Ncetg
+	EFcr+MuXClZBbSkvduIKVBHIUG+9XVdvSJJXu0Kek3MET7bVn9cnGkYC1ipTpzw+RJ8CRed5tc3
+	5lQdMEtHoZk+3CHemkN5QbND0Dh8bte1M8rhr/KH9RImD0c3stJfZSlUkvku0=
+X-Received: by 2002:a17:90b:268b:b0:38e:42f5:d096 with SMTP id 98e67ed59e1d1-395c4528324mr11764124a91.0.1787401992755;
+        Sat, 22 Aug 2026 05:33:12 -0700 (PDT)
+Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-395e4af6e88sm2619008a91.9.2026.08.22.05.33.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 22 Aug 2026 05:33:12 -0700 (PDT)
+Date: Sat, 22 Aug 2026 20:33:08 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Inochi Amaoto <inochiama@gmail.com>, linux-kernel@vger.kernel.org, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>, 
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, 
+	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>, 
+	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>
+Subject: Re: [PATCH v3 1/5] riscv: dts: spacemit: k3: move USB3 phy to board
+ level
+Message-ID: <aomWjQGk_p84pPD2@inochi.infowork>
+References: <20260819162115.2252812-1-aurelien@aurel32.net>
+ <20260819162115.2252812-2-aurelien@aurel32.net>
+ <aokGbT7XTCbxUQzl@inochi.infowork>
+ <aolt6CaL9b6p8A8V@aurel32.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aolt6CaL9b6p8A8V@aurel32.net>
 
+On Sat, Aug 22, 2026 at 11:37:44AM +0200, Aurelien Jarno wrote:
+> On 2026-08-22 10:17, Inochi Amaoto wrote:
+> > On Wed, Aug 19, 2026 at 06:15:42PM +0200, Aurelien Jarno wrote:
+> > > On the SpacemiT K3 SoC, the combo phy provides 8 lines that can
+> > > either be used for PCIe or USB3, depending on its configuration
+> > > (spacemit,apmu). This configuration is defined at the board level, and
+> > > assigning a phy line to a USB3 controller while it is configured as PCIe
+> > > results in an "Invalid PHY mode" error.
+> > > 
+> > > Move the USB3 phy at the board level, the as it is done for the
+> > > submitted PCIe controller [1]. Keep the USB2 phy at the SoC level as
+> > > there is one phy per USB controller.
+> > > 
+> > > [1] https://lore.kernel.org/20260727094726.890179-3-inochiama@gmail.com/
+> > > 
+> > > Fixes: 46380e4b1534c1626cecd7f4d0abb5e0cce09af6 ("riscv: dts: spacemit: k3: add USB controller and USB phy support")
+> > > Cc: Inochi Amaoto <inochiama@gmail.com>
+> > > Signed-off-by: Aurelien Jarno <aurelien@aurel32.net>
+> > > ---
+> > >  arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 3 +++
+> > >  arch/riscv/boot/dts/spacemit/k3.dtsi         | 5 ++---
+> > >  2 files changed, 5 insertions(+), 3 deletions(-)
+> > > 
+> > > diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+> > > index b084a35aa00e..171bd2f40aa6 100644
+> > > --- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+> > > +++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+> > > @@ -328,5 +328,8 @@ &usb3d_u2phy {
+> > >  };
+> > >  
+> > >  &usb3d {
+> > > +	phys = <&usb3d_u2phy>,
+> > > +	       <&combophy 4 PHY_TYPE_USB3>;
+> > > +	phy-names = "usb2-phy", "usb3-phy";
+> > >  	status = "okay";
+> > >  };
+> > > diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
+> > > index c3f2dce0969c..3e24054d2084 100644
+> > > --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
+> > > +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+> > > @@ -452,9 +452,8 @@ usb3d: usb@81a00000 {
+> > >  				 <&syscon_apmu RESET_APMU_USB3_D_VCC>,
+> > >  				 <&syscon_apmu RESET_APMU_USB3_D_PHY>;
+> > >  			reset-names = "ahb", "vcc", "phy";
+> > 
+> > > -			phys = <&usb3d_u2phy>,
+> > > -			       <&combophy 4 PHY_TYPE_USB3>;
+> > > -			phy-names = "usb2-phy", "usb3-phy";
+> > > +			phys = <&usb3d_u2phy>;
+> > > +			phy-names = "usb2-phy";
+> > 
+> > I suggest removing this completely as we can not determine the
+> > phy we used. I think it is suitable for setting this in board
+> > file only
+> 
+> Yes, moving all the phy definition to the board level is an option. I 
+> decided to keep the USB2 phy at the SoC level, because contrary to the 
+> USB3 phys, there is a one to one mapping between the controller and the 
+> phy. Do you think it is a wrong assumption?
+> 
 
---=-mW4J39Jqe/j2PO50OelN
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: quoted-printable
+By default, I prefer to make the forgotten thing as an error in
+validation for any flexible field. If you leave the default value,
+the forgotten field will lead to a downgrade hardware (or maybe
+broken hardware). So I prefer to remove this rather than give a
+default value.
 
-The split devicetree repository[0] currently has an issue, from v7.2-
-rc1-dts onwards (including master, all v7.2 rcs and v7.2 itself) there
-is at least one supposedly rewritten commit (c0abe0fe479e) which has a
-parent in the real/full kernel history rather than a rewritten one.
-
-The net result is that the repo now 2.5G of data instead of the
-expected ~200M.
-
-I am looking into what happened, once I've figured it out and fixed it
-I will force push v7.2-rc*-dts and v7.2-dts tags as well as master.
-
-In the event v7.3-rc1 happens before I get this sorted I won't be
-pushing that or anything newer until I have a fix in place.
-
-Ian.
-
-[0] https://git.kernel.org/pub/scm/linux/kernel/git/devicetree/devicetree-r=
-ebasing.git/
-
---=-mW4J39Jqe/j2PO50OelN
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE7fn8DiT6MgcCyDswKi4ln2laRsYFAmqJbVQACgkQKi4ln2la
-RsbU3Q/9ELBF/RtbyEBCbj+tc6vGQcT2e1gtG5QVC6iWOvIo4f+rQf+h8TQi4qPZ
-fu/KPD+uJpcu4XaIhzcwuWzD6FuIBMH1Uy++uQTtqGzFezoHQWykvlwFdpdafEZz
-srJ7zaXvil8YUf9YUIYanInTWscSb2xQ83enROACYRKdgnXIfRmgNEeOaWJhzRaD
-XGNz3C1NlyB9ND0GC+9UWaQ6X149iFBjDKI32jX007BmdRgn9qO4rDrVWW5f/EBy
-2xtGnrCN2zzAlZE2GwoeG+GQSKcRCIeahL2Bqm6ztG+W1zCOImYiPUgSu0t1QILR
-88ys9aqsoRy7tbka5tWEIuu1lC1Pb0fIktfA4B7rg/jF2StmvVpzb9kYv2c9Rzkj
-YDaQHZZdcwXkzF67IEdOEZLs+puTb3y73wPlA3iYOacXGxV5+HBxWg+tk5kkMEbs
-0WvHgMpKAGQqV5pILYJpVy++j0uETKP24as/i8J7LJ8IfxeuYlFyQwn5w4XRRDJ0
-+q7hXCRoOtCDwPhOKRlkd0000HbL+T5R8Y6PjxIc7f/aHYRgrCIjaiT0sC0EwDu8
-yRnxhuBcymw8kSaVzJUdVtuAtoUpmRJMlke4y1yzte3YimhrS02G++M9HjNGJOzD
-EAmmbXcwwtj0Ue0rIHu4uwMkGH7yKsfD0VFo1wIcCpJhD6/jzIg=
-=S6AM
------END PGP SIGNATURE-----
-
---=-mW4J39Jqe/j2PO50OelN--
+Regards,
+Inochi
