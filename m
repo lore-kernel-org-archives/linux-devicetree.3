@@ -1,633 +1,211 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from benson.vs.mythic-beasts.com (benson.vs.mythic-beasts.com [46.235.224.207])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D9B533E345
-	for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 09:38:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A207D224D6
+	for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 10:41:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.235.224.207
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787477899; cv=none; b=IUnMaOVdwP7QX7VsJGGDilp3va8wgUity+PWuSLk5XvBnMjnpCmy4Q3etvsKZU+zAhcMHD+ukB6BBuMzuUCZA/b4yk9Z5RBbIsfgo4x9HPQ1ghCRnJ3fWE2Y+m//m7BPXc8qWesBMmO9PRdxXFAZRww4QMwJCM4rEvyKhhcarmY=
+	t=1787481720; cv=none; b=kJ9f5J5fP9VX1MSVO4kCn5mgwhd+SJgeEqOnx0IB7TCuxPfCURDsqUW1yQX0Ecxj2ssDwgys/ym2hHTi4oHRk2JzN5D35iVeeyY7rJ8g6ue9npXCyZoG2Q8pjZeTZ18yJoVckwyPhOz4jEVFN1VbZkRaO+f3F882GMF12RcpJYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787477899; c=relaxed/simple;
-	bh=ObcVHcgZbvmzY9HmarPLj9EKYfWmKErrmlW+vBjPd5U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Rsw+iWXbcAvvtuU/cP9AN2OB+zd6IyEjoxxSePJ47KAl+DcBOtwogTB52omEaiSmFLVy2IFSjzsoeGm4eaEhD7k9FEjslznFfK6PbUTOJVB8VbS3jAeaAlFSbYbDT7ZWGkOUPVaoxUm8lsG9t4nX2sfXEPXGZ9hDJmGFm7eZ0JY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sc3Og1hG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787481720; c=relaxed/simple;
+	bh=Q8V5kvIxF57leVSK3qBFwPbYoJEPpdQD4fqQdaDPyng=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=lX1eyUQ5CArJZxbdRczhDUUQ14kp6/giRSKbmNL6kQhzOpfhoL+g7ok5rtw9LsD1KGYhJsMv2V6NLJsA+TDlfM4iMpb648ZoFH5j87ap7jXZjGwgKUzgfYi/RORCedTJ397c3J1QspFvj9xYtCt7w/mczQ5L7XhAxv9lWgDWbqA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hellion.org.uk; spf=pass smtp.mailfrom=hellion.org.uk; dkim=pass (2048-bit key) header.d=hellion.org.uk header.i=@hellion.org.uk header.b=BeSz0Ti1; arc=none smtp.client-ip=46.235.224.207
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hellion.org.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hellion.org.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sc3Og1hG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 417431F00ADE
-	for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 09:38:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787477897;
-	bh=J9RvZrBIdEyhXTZKOsLAel+chPCFREQL34KQiCjJBoc=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=Sc3Og1hGUgph5/jhNJr52g0TZnkxUukiEKw0o3mxMlFiNWvzeS25zKRqajwUxf0Kv
-	 g/KGWp/BPiQjL5GVQNQCtDOW1kQPQ/pdUIXj0+H+pIn00//8yZq5LvwEhe+5zmnnnV
-	 vEcXxOt7pi5p7fAUKmLgSmSrivcZH4MNHCEHGBe6jlWx1gQf31Q9zbh+dFo3/rHL9E
-	 2WRuNijrvXrTAkUK982olL96U4GHKJflhCXeP8U17ILz9yn8Hz5uwuJCbjpbC1iC4i
-	 nKwAIoEAeS+Yt8FNVWzRkAuH2J3qjDQvwHeLZJc0E1AYNzGZyUysiixZA3Q47qo47A
-	 10AeAw5K/g5bw==
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3a1a3bb6c5dso22947171fa.2
-        for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 02:38:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrJpHq5XLH6FExrTG+CMS75ThO0cQjehgWiBGmvy6OulGS84+YqqDAZdkpGPKVbqX4nzw7pwzcTyw0j@vger.kernel.org
-X-Gm-Message-State: AFuF++lPVHrCa2kGsX3NfJV5pqIiyYW9dx8hC2hGol2uTZwJzVOulSTW
-	aGhDyj5dDmdwxozr3GE3W0ZTRIFj/Lzn8QNrRpNpSZcxW0+risa5EfIieJJ0/SmjEaxZUwlu7XR
-	2FaCY5bCfZuZ3dbQKXNKO0hHev7lXZ7c=
-X-Received: by 2002:a05:651c:1442:b0:3a1:660f:1350 with SMTP id
- 38308e7fff4ca-3a1aec49305mr48641171fa.14.1787477895444; Sun, 23 Aug 2026
- 02:38:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=hellion.org.uk header.i=@hellion.org.uk header.b="BeSz0Ti1"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=hellion.org.uk; s=benson; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=+BEwzK0vpc1MnbsWqtfHMbYKLfaWjbcQZfu1ADx5W10=; b=BeSz0Ti145AFQ1ZXEkO7GlV81/
+	cG2wvNTiFQ+163rNSW7Do4RAEx1egVSqXdfeqqVOSC/EYZqWZFPl8XA5sUf/JzqxZzBlUMsA2w8Rq
+	hGov7LJz+nrDsbc4dYfN0F8DXy2V4fELAv9nEIwveIWp0+Vo9fydNFhL7a6zxKctFtlG8vgkEH4Vu
+	0y6iMtCM0HZhtSlxoAIKr8oh3rEKfTfplGHXNG58EjEySgX6U4jKdbNyG53zepT4cgBMQg41EV9eW
+	mI6ZG49nKhuYlc8uxQVAKKdx6j1Ce6lb2ondbrEAxzop5AP3ITiLWQ5Wb1joRgQ6OsVwefE8lzJYW
+	w1CoAb0w==;
+Received: from [2a02:390:60b6:0:692:26ff:fed5:7515]
+	by benson.vs.mythic-beasts.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ijc@hellion.org.uk>)
+	id 1wy5e8-003ck8-2X;
+	Sun, 23 Aug 2026 10:41:48 +0000
+Message-ID: <c0ef5f140cb5e4e1b953b42c3518a5a432c67a93.camel@hellion.org.uk>
+Subject: Re: devicetree-rebasing history incorrect from v7.2-rc1-dts onwards
+From: Ian Campbell <ijc@hellion.org.uk>
+To: devicetree@vger.kernel.org
+Cc: Tom Rini <trini@konsulko.com>
+Date: Sun, 23 Aug 2026 11:41:44 +0100
+In-Reply-To: <fe88ed4f288c261373d2ad7184f470a8ea19ec42.camel@hellion.org.uk>
+References: <fe88ed4f288c261373d2ad7184f470a8ea19ec42.camel@hellion.org.uk>
+Autocrypt: addr=ijc@hellion.org.uk; prefer-encrypt=mutual;
+ keydata=mQINBE24IUcBEACis9e3QtgcOOHlbqjgVXScdxud6AvE5ziXGM7vt1AFudWqVqWfyXoEA
+ 22l1qG2l54Fe/+sWJ5y43ReROOlTRUIyx40Xz8dVj35/PJZ442elpUz5IcaKUNX/cgGen0I98VRoN
+ UUCZQfuxg3y0CgHU2S5U7ETSKxVx0E2UYZOqsaU4gYQjmnly1uvkNiEthdDB+15yL0YpqA8g2OcQs
+ fh6WmfM2bo78tLvsQj6zlEhiaUimUUlSMZ8X38FK4hC8x353LO8K+9yryX5SMBPYsi8GlD0x12mL7
+ v2TayIxKJP8iKpXL1TU6rnrxs2Q8wyPIuosK9nVx24o8hAA/Otb10PbO9iQqwLk0COZ760m+OR5rA
+ x2VzbJ3oyqU694P6Y8hmxtYF5sw+CB6UWxDxHHeyX6hZIulBeFq0V9trpBBo2pV06r5AWZtGK4GTR
+ lAAR9b96wFFqyCvDFvSIOTYcsqTY2aUxzUPYDlvPrGxQy+OWRvPnH7BM6QAybwMrFbNZltqSXIZcl
+ kO1wDAafmgMr5soM12KSl4HaptVTp1PO41yezMqSEYsB+6XjSFsEMMugd0OBUlnIU7tgiiyd9Pe4H
+ VjnRUl/EuUC6KR+bWftUSEpcgsaJO6EK1rqlxZJnG0Woi6C89wWTxwE3Y/X7wFdVjvdxZnBnPEekd
+ 3VlBxdd/3a2FQARAQABtCFJYW4gQ2FtcGJlbGwgPGlqY0BoZWxsaW9uLm9yZy51az6JAlcEEwEIAE
+ ECGwMFCwkIBwMFFQoJCAsFFgIDAQACHgECF4ACGQEWIQSdXO4BM09Gzi/vbcbsY2mXeQdPqAUCaYR
+ MNQUJLtOBbgAKCRDsY2mXeQdPqIRrD/9QJuO0w6mXhJ6KHI/WL8h+Hp2sQADW+rWWN7T+KVBQxVc0
+ eXtr+SEQurA5gGfVwdO5bGERki8cjGWFMcQpV8lPP/wOUPMQdtf/6b0J0HQ1+K3esXz5iAD4Ebudw
+ elUD7+iZnqaJKcV8JQozBWCNSfElWZhcQ5jVQy85jq5cXBlnrEAjAeDxuEbnh+SeUCod2fvy5ln9N
+ G2HPgJFfa7RLct4sAY2iAE+qPWP+im3/qVJdyATSYB9Uee6JvrEjLhBkv2Hx+sGBcdF+Yrjq9X/0c
+ ZYBxv8sJHiNH7pw+D4Dj7GQt1gxuUq9VTvPzGv6oohzhyp7Es8sZOxKuRToVuuazxp+Oz6VjVvc3c
+ HupZso4tGer3TfItiulWSyFKhkvUpSt1/pnSH4KCouKsvq7bpOpTN8F8S6afp5Wr+aZJpiasYbR0Z
+ d7oCMrOE02/gCUIkDOuR2gs+/u9fu5t/8GLIbktmEeg+DvPvB87abX6BQhaO2ThAGW2//NnKRcIp8
+ DvAiWUlyuYIAT54PnAs6WWvVTHsKFuvWKuCdOSSMvATpq/zuLXxJd540CscYGqbTQrSk/v3i6Iyu9
+ 9edBcgG5JEhw9/hIBjqfe0gqymZ3E1kmiMMcH7XQk2/10SrWKx7gW21NivUcNuEtZOJTPstR1rjSX
+ GaM/EWspb0GheAZ7VKBqw7QdSWFuIENhbXBiZWxsIDxpamNAZGViaWFuLm9yZz6JAlQEEwEIAD4CG
+ wMFCwkIBwMFFQoJCAsFFgIDAQACHgECF4AWIQSdXO4BM09Gzi/vbcbsY2mXeQdPqAUCaYRMOAUJLt
+ OBbgAKCRDsY2mXeQdPqO3hD/4gO5Yut+VhSG6E7kGt7RpLOA0lvjXv0JC7/21ur+6YoVDgOBVcdf9
+ 6kA3YeydtfItLRPzFskF7KbbTbEZOL/g/yBQRtVpafPGLMeUDCcGGsWrhTuHNN3c9PO4xIsUy/b11
+ M45qH7GeMvpSuLHSuRH337lAuAFboCV/cnYWQzi6f8oWDC47HhwWs6FkYLXwhUSBeSXunda7qvV6M
+ L11gumwM9FNr3fAytg96qPWHyuYO4sSDjntRWgvXTKGOPLS2LCexgJgjvi1PH7kPxA7i50/VTmSL5
+ z0N8lPev2PvY6I9OOGJiV32aV8yHWnodAaOosghqnwFZEjt3AInCUzDqFEOXgGNidSZPASjxlp2iJ
+ 33shl56HpWCxkHSOX+DKvUUsCRiebHlFPjWOEKo0t7HxXKM5nTHp0dvtzO5X5CLk2pzq+SO/GUD0X
+ VSQCz5BIXc++aUF6nlGE/ALuKJOVO92lnP/ndeIBF0mEMylPpzDEIHVAiKOZ4tdVpUL7MiQeSnqYo
+ krUnz0XauxDY2KlHzWdx/2sod09Wsb/0PUVuadHYkzr5aNCmnLy+Tjw9U/F4/Np+W2CQO9Hks6RSh
+ ivzgjz3EwT60ETwBm15L8liT3ojEOWjjOcJIJcryW3w/3hgvyo8L2BkHppA67+vuPhHcskK7+6cMu
+ lMvFqajcXPGH/Y7Q9SWFuIENhbXBiZWxsIChDaXRyaXggU3lzdGVtcywgSW5jLikgPElhbi5DYW1w
+ YmVsbEBjaXRyaXguY29tPokCHwQwAQgACQUCVtLFGgIdIAAKCRDsY2mXeQdPqMNgEACVkaiRv0hsE
+ 9KO4I8x+2yByqRQYX1aUAlkv2ds10Xisy9JEprlTl4dHr2kxw4JwsMxUpN9ZiyVjWDXkTaEasmjhb
+ KCJSYzpw+BsT0p2F6/RC1NsBJcZhwef0/wf5PHC6ws5NHM1gmyK6Q608FL51qYm3cHDTSALgM95B4
+ yt7cArYovDcVoDEMkucxEG2JtlWOmXLTWoKpl6xaHjbrMS7KrEA2WvXtPFCz+0bdhDE0ykECte5ja
+ w3+HHcJtCVd6pZAtIhq1QmepCfSsdVYLnAVK7g2odJ6aUcF0weWaBSwX34h5/z9O0uQZ5zskqhLqf
+ ZbK/qC1REKrlUW3rcbIgxxdjqJx750ftBLkTBgo+xbK7cspDUXj3IkIaJ4yC7v4ghwbbr0PiPRBHv
+ JWACZ81c7vqkhAn54xEqeBxvJIKoNY5g164kegcHcxFq8GrjTWsQut5X7S8TJ7I+BcnzKeqKDtJ07
+ RXjC0WB3RfzyePdImOMcHZUtvmjV/yTUFWyjWltDC8IHnnZdCAgeYqOuQK+Vh2KjxXALbLzokfLhj
+ PCZ3+pVaOloDzstCZpnU96S6JEM42g1rTbBaGLFWHpyiBJToX8gH5mItzxRI3gbJN8jnTXUx4xwhs
+ 6Xi09gYxstIxMlxJ/E8aexHQf/KeqMxEutqZrfvzR4BYjBpygQQFJZQM7QkSWFuIENhbXBiZWxsIC
+ hYZW4ub3JnKSA8aWpjQHhlbi5vcmc+iQJUBBMBCAA+AhsDBQsJCAcDBRUKCQgLBRYCAwEAAh4BAhe
+ AFiEEnVzuATNPRs4v723G7GNpl3kHT6gFAmmETDgFCS7TgW4ACgkQ7GNpl3kHT6idKRAAnCb8sedj
+ 6SGoupZxVm7W2YIfoWlU+a5B5CY7QfNXfO6krAJR7JBydZnSUDOcEle5KKgoOKAkF2CcsqNUm9BdI
+ aZ/ksn4eJMbEpD1Dy1wKmED6YlFyXVvXtQScph/buBZlxo9uURzsooTPSZMZRxRy6rPv+KHEKBzJ+
+ 32zsILxbEGDtcFcM17TrcXFgVHexXxMCl2faMJHh8aSFmdclVfDDWy9b702ASE1P3AeDdkqJk+JwM
+ Ck1P7jWXilyrNHGUY8/NSKPIXLovou2tVYhcHWaOD/4uZrNTbgwBIx8pdxnILiRpzLLL3s5oYc/rW
+ URe29OPbX1gy5Yy5svmqMN3DUa8W4sDj59VnIaiT3EbDGzcpu768qg9QZ5PX8+xcXVo08bXRbJmtN
+ StrHnRwgr2PWOT4fEdN9tt/tn//csdXbmNAef6bT/UTI/+oht0AZRNGtcARWj1dXOzCns6omBIyo3
+ acYhFLCZ8cMxhzEQpb2DQQ+ziBHPcG+XYwuZ0Pk1h3vSgyyUSXk4CR95J++aB8GSCYT9cCL53GWQ5
+ 0NSTI0c2gSz8s8WqfcqhAtygxpWRx3Npf4Qp2Gr9aeGzxZZ77jUaMl3yEdBBD3NREOjywuSq/B7WR
+ 9+4JsQU56bf4lFwAd6fn/LJNmqXVCB/8FwQuZiq+8HK5vDWFEQNkkqZgHWK0JUlhbiBDYW1wYmVsb
+ CA8aWFuQHRoZS1jYW1wYmVsbHMubmFtZT6JAlQEEwEIAD4CGwMFCwkIBwMFFQoJCAsFFgIDAQACHg
+ ECF4AWIQSdXO4BM09Gzi/vbcbsY2mXeQdPqAUCaYRMOAUJLtOBbgAKCRDsY2mXeQdPqJOAD/90Vfg
+ kKAZPVdWkoV9b88S5vIzvXgESkxzMt6gxbD7CRjKn6IUY3kob6IezxEVJ7+gHWNMv7fTx0sQ3sugB
+ 2gwRqZkNOf0qJx0Pvzw2oKHI9oh2/6rIk+WhnbwpWDAOVwl0adMNREbfDt7HJakk3SJaiLPEIFim1
+ SlSHPv63baRir81SMq6mRhfQ+jv9Rl73YR330ZIhOiztgd+VN+jrZRobHF5lqodkfLREwBQnjBmMa
+ FYlWV0bjHnqEKznHw0zXv8v6j0Em6Ncx8vAgiQkOJLFFIXDwJJ8FxyhXA2bdb6dazICd3IwtRjpO6
+ GajXMX28P79iEenjsppO0QecG653Rkl0UKIp0f9EZetJWEi/iKpGrBSR+GZhTAmm9W/KwzbfBGqAJ
+ 7AiGDiWvBqwcHLogvXO6vnV1bV7jURgDlfFBCQFIMhrMDsLLb+WU9r79VpF1L6P5MBMrSC/br1N3r
+ alNHnPCZoG3BgU/s4QEW0Cc+f9S6at56MJWsNrBitoajpuaMfWL5kKlurD8G5McnRcyVxRI3u2hZg
+ 42s0MZSiUXCbYwF5czqA7gj1FKIzwMxH6hkTAR6LTgtXeivL3hk2PF0rOkpKuVecmbhLUCWv29bdk
+ oK9atYfnHXbeZ2b6zk0fSy+xhGNCW2cSgC7+ECiliEuQ/bRPQP4tYRgBCPm5hwrQ0SWFuIENhbXBi
+ ZWxsIChEb2NrZXIgSW5jLikgPGlhbi5jYW1wYmVsbEBkb2NrZXIuY29tPokCUAQwAQgAOhYhBJ1c7
+ gEzT0bOL+9txuxjaZd5B0+oBQJgVb8wHB0gQ2hhbmdlZCBlbXBsb3ltZW50IGluIDIwMTkACgkQ7G
+ Npl3kHT6g7Cg//RrNSCQpHwkJwAizXavOFSbZLNchBp3fUclfV1wQ4ZLgOLhoPNj/z0jrS4CkZozc
+ t1dZ/nEFUXSNp0r/fLpwGXBg+uNc3YZMWepVbgeb/KYLYMDjYWBjiHV7PAw310KTynPgF3JKs6H+L
+ FxKA2gk6UggJmqs1em04IWuDKdBQQPyGQ/hlC22hkiGb/eCce8LgM9RYlSnmBKQr0KU6cVE2Lubu2
+ gQYPeC89yajXZVixVTBV4808+mJh3gYsjMX+7cZpNd12V2QS+5PH+Kaf9QUA07gS1NnuRHzjhBmhH
+ KbjNIMKk80/to+weZg7iBXOlzN6E5DomsdexYSeCNJ+iolMbIVCfGhkgdpDACsP56A1uo4ACxYf8r
+ 9qlPHlBbui5F8WFFCg0XDelZGXNB+9e92KpQJKjFHa458uPNcZXGJW73Iy53gZZqqurUO6AXhIZLL
+ T1wJ2gMH5zqDPMjKSnhvrBoFpYCbYxGxFaz/TNvdShRhMo35F5x6i8CN3u/VElydDPC3bM1mSPFpZ
+ gMiodHuY72j8AFXeiyKziynGhD6J9yoFumssj3LP7LqoYQXp+t/3qi+4/jzpBtHS4VKXA7zQ91r3Q
+ 3kQA0d2a+sNSUfgE59b/8UbWghprzmCHfrMjy/xQJU+8nuWqArsVZmGD+ykJTRljtejJzo1iwDQbQ
+ 7EkG0IklhbiBDYW1wYmVsbCAoWEJPVykgPGlhbkB4Ym93LmNvbT6JAlQEEwEIAD4CGwMFCwkIBwMF
+ FQoJCAsFFgIDAQACHgECF4AWIQSdXO4BM09Gzi/vbcbsY2mXeQdPqAUCaYRMOQUJLtOBbgAKCRDsY
+ 2mXeQdPqFSTD/49+90Jg9uw67RCNye1THsiB7c+B3RA9lDupI5MKDB+1MB9GfLaAecU3HFzM+EgQB
+ jMrx7Z+/F3Xz26O2+duFTK9gPOPGo322inGhw+72JtdvGlHmq3RDg0kbiB1H6YxDvNoB1wZN6PCow
+ 0esVhZ13fGS7wTfLH5UB0rSIVYMgs7qlEliDJkohTWKFbIfNRZ8+/Nv/DhpUl5H2pZp9HYkvN9riZ
+ NhtXlbO+GyEfTG8Thz67dD0eaaREDDEnXlmv4vrft8a7paSbg7bxDjEJt90GIQ3tzqILIJ93Qb9Ak
+ B5cABvn+BWS0yzFvN5yp7qwwBUmSwEzFdG1GVARXZya7C5wYFkizn3mVripScIW8EdtlcXQaePEEt
+ vb4fM50tRfDq6s2EfZl7XdBiNcxPby1fePl75BAWKG8njQYCsOc0BC6xVMh3vXcxivHmyQTOn/Uxc
+ QvGb95SGp5326Ih8yPcbtgfWSgexolyCOUdd3UoxJXb9i6CH9xqPewKdqpNmKgFD5ZLVDhxwjzKUf
+ mpnSK8E0CcQd2qjof2sTKqLVAyxdxGYXOU7h+jgIHQJDVKAYOTtpj13al36LQqfNLTT3hrXWonu6n
+ GyWyJclmZoLPUCMiyYkhmJTZse9+uHaDqGMrhbf7Gr5iDvvdhYUhUX8Js01ptPBgKGDx4qIwiuI3L
+ ZunA==
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-yXyDttkjBExGwy+7buzV"
+User-Agent: Evolution 3.56.2-10 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260711-a733-clk-v2-0-974d188cbe0c@pigmoral.tech> <20260711-a733-clk-v2-4-974d188cbe0c@pigmoral.tech>
-In-Reply-To: <20260711-a733-clk-v2-4-974d188cbe0c@pigmoral.tech>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sun, 23 Aug 2026 17:38:02 +0800
-X-Gmail-Original-Message-ID: <CAGb2v65KKifCUYUxnZ5Vm=XNqNdiNC1i+U9mgX2djtPkwvtN2g@mail.gmail.com>
-X-Gm-Features: AcwNN1UTLEsKUosntgBh7NOvOvGIMKcXp1q9YUSzig1E8HC9fcenC9Vi6iz9ITA
-Message-ID: <CAGb2v65KKifCUYUxnZ5Vm=XNqNdiNC1i+U9mgX2djtPkwvtN2g@mail.gmail.com>
-Subject: Re: [PATCH v2 4/8] clk: sunxi-ng: a733: Add PLL clocks support
-To: Junhui Liu <junhui.liu@pigmoral.tech>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Jerome Brunet <jbrunet@baylibre.com>
-Content-Type: text/plain; charset="UTF-8"
+
+
+--=-yXyDttkjBExGwy+7buzV
+Content-Type: text/plain; charset="ISO-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-(trimmed recipient list a bit)
+On Sat, 2026-08-22 at 10:35 +0100, Ian Campbell wrote:
+> I am looking into what happened, once I've figured it out and fixed it
+> I will force push v7.2-rc*-dts and v7.2-dts tags as well as master.
 
-On Sat, Jul 11, 2026 at 4:12=E2=80=AFPM Junhui Liu <junhui.liu@pigmoral.tec=
-h> wrote:
->
-> Add PLL clock support for the main CCU of the Allwinner A733 SoC. The
-> structure is mostly similar to the sun55i, with the addition of a
-> PLL_REF clock that normalizes the hardware-detected DCXO/hosc frequency
-> (19.2MHz, 24MHz, or 26MHz) into a consistent 24MHz reference for all
-> subsequent PLLs.
->
-> The behaviors of PLL_AUDIO0 and PLL_AUDIO1 are ported from the vendor
-> driver. Specifically, PLL_AUDIO0 is configured with SDM parameters to
-> provide a 22.5792MHz * 4 output, while PLL_AUDIO1 is integrated into
-> the main CCU without using SDM.
->
-> Tested-by: Jerome Brunet <jbrunet@baylibre.com>
-> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
-> ---
->  drivers/clk/sunxi-ng/Kconfig           |   5 +
->  drivers/clk/sunxi-ng/Makefile          |   2 +
->  drivers/clk/sunxi-ng/ccu-sun60i-a733.c | 539 +++++++++++++++++++++++++++=
-++++++
->  3 files changed, 546 insertions(+)
->
-> diff --git a/drivers/clk/sunxi-ng/Kconfig b/drivers/clk/sunxi-ng/Kconfig
-> index 202e793dc754..cffa83056934 100644
-> --- a/drivers/clk/sunxi-ng/Kconfig
-> +++ b/drivers/clk/sunxi-ng/Kconfig
-> @@ -67,6 +67,11 @@ config SUN55I_A523_R_CCU
->         default ARCH_SUNXI
->         depends on ARM64 || COMPILE_TEST
->
-> +config SUN60I_A733_CCU
-> +       tristate "Support for the Allwinner A733 CCU"
-> +       default ARCH_SUNXI
-> +       depends on ARM64 || COMPILE_TEST
-> +
->  config SUN60I_A733_R_CCU
->         tristate "Support for the Allwinner A733 PRCM CCU"
->         default ARCH_SUNXI
-> diff --git a/drivers/clk/sunxi-ng/Makefile b/drivers/clk/sunxi-ng/Makefil=
-e
-> index d3702bdb7a23..3a39eb9287da 100644
-> --- a/drivers/clk/sunxi-ng/Makefile
-> +++ b/drivers/clk/sunxi-ng/Makefile
-> @@ -36,6 +36,7 @@ obj-$(CONFIG_SUN50I_H616_CCU) +=3D sun50i-h616-ccu.o
->  obj-$(CONFIG_SUN55I_A523_CCU)  +=3D sun55i-a523-ccu.o
->  obj-$(CONFIG_SUN55I_A523_MCU_CCU)      +=3D sun55i-a523-mcu-ccu.o
->  obj-$(CONFIG_SUN55I_A523_R_CCU)        +=3D sun55i-a523-r-ccu.o
-> +obj-$(CONFIG_SUN60I_A733_CCU)  +=3D sun60i-a733-ccu.o
->  obj-$(CONFIG_SUN60I_A733_R_CCU)        +=3D sun60i-a733-r-ccu.o
->  obj-$(CONFIG_SUN4I_A10_CCU)    +=3D sun4i-a10-ccu.o
->  obj-$(CONFIG_SUN5I_CCU)                +=3D sun5i-ccu.o
-> @@ -65,6 +66,7 @@ sun50i-h616-ccu-y             +=3D ccu-sun50i-h616.o
->  sun55i-a523-ccu-y              +=3D ccu-sun55i-a523.o
->  sun55i-a523-mcu-ccu-y          +=3D ccu-sun55i-a523-mcu.o
->  sun55i-a523-r-ccu-y            +=3D ccu-sun55i-a523-r.o
-> +sun60i-a733-ccu-y              +=3D ccu-sun60i-a733.o
->  sun60i-a733-r-ccu-y            +=3D ccu-sun60i-a733-r.o
->  sun4i-a10-ccu-y                        +=3D ccu-sun4i-a10.o
->  sun5i-ccu-y                    +=3D ccu-sun5i.o
-> diff --git a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c b/drivers/clk/sunxi-n=
-g/ccu-sun60i-a733.c
-> new file mode 100644
-> index 000000000000..f80db6ab1a98
-> --- /dev/null
-> +++ b/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
-> @@ -0,0 +1,539 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) 2023 rengaomin@allwinnertech.com
-> + * Copyright (C) 2026 Junhui Liu <junhui.liu@pigmoral.tech>
-> + * Based on the A523 CCU driver:
-> + *   Copyright (C) 2023-2024 Arm Ltd.
-> + */
-> +
-> +#include <linux/clk-provider.h>
-> +#include <linux/io.h>
-> +#include <linux/module.h>
-> +#include <linux/platform_device.h>
-> +
-> +#include <dt-bindings/clock/sun60i-a733-ccu.h>
-> +#include <dt-bindings/reset/sun60i-a733-ccu.h>
-> +
-> +#include "../clk.h"
+The issue actually occurred between v7.1-rc7 and v7.1 where the rewrite
+state tracking file got corrupted (loosing the mappings for every
+upstream commit sha starting with b!). As it happens there were no DTS
+commits starting b in that window, so v7.1-dts remains unchanged, only
+v7.2-rc1-dts onwards had problems.
 
-What do you need this for?
+I've just pushed the updated tags + master.
 
-> +
-> +#include "ccu_common.h"
-> +
-> +#include "ccu_div.h"
-> +#include "ccu_mult.h"
-> +#include "ccu_nkmp.h"
-> +#include "ccu_nm.h"
-> +
-> +/*
-> + * The DCXO oscillator, the root of most of the clock tree, which may be
-> + * 19.2MHz, 24MHz, or 26MHz.
-> + */
-> +static const struct clk_parent_data hosc[] =3D {
-> +       { .fw_name =3D "hosc" }
-> +};
-> +
-> +/***********************************************************************=
-***
-> + *                              PLLs                                    =
-  *
-> + ***********************************************************************=
-***/
-> +
-> +/*
-> + * Undocumented, taken from the vendor kernel.
-> + * PLL_REF normalizes the DCXO frequency to a 24MHz reference for downst=
-ream
-> + * PLLs.
-> + */
-> +#define SUN60I_A733_PLL_REF_REG                0x000
-> +static struct ccu_nkmp pll_ref_clk =3D {
-> +       .enable         =3D BIT(27),
-> +       .lock           =3D BIT(28),
-> +       .n              =3D _SUNXI_CCU_MULT(8, 8),
-> +       .m              =3D _SUNXI_CCU_DIV(16, 7), /* output divider */
-> +       .p              =3D _SUNXI_CCU_DIV(1, 1), /* input divider */
-> +       .common         =3D {
-> +               .reg            =3D SUN60I_A733_PLL_REF_REG,
-> +               .hw.init        =3D CLK_HW_INIT_PARENTS_DATA("pll-ref", h=
-osc,
-> +                                                          &ccu_nkmp_ops,
-> +                                                          CLK_SET_RATE_G=
-ATE),
-> +       },
-> +};
-> +
-> +/*
-> + * Most clock-defining macros expect an *array* of parent clocks, even i=
-f
-> + * they do not contain a muxer to select between different parents.
-> + * The macros ending in just _HW take a simple clock pointer, but then c=
-reate
-> + * a single-entry array out of that. The macros using _HWS take such an
-> + * array (even when it is a single entry one), this avoids having those
-> + * helper arrays created inside *every* clock definition.
-> + * This means for every clock that is referenced more than once it is
-> + * useful to create such a dummy array and use _HWS.
-> + */
-> +static const struct clk_hw *pll_ref_hws[] =3D {
-> +       &pll_ref_clk.common.hw
-> +};
-> +
-> +#define SUN60I_A733_PLL_DDR_REG                0x020
-> +static struct ccu_nkmp pll_ddr_clk =3D {
-> +       .enable         =3D BIT(27),
-> +       .lock           =3D BIT(28),
-> +       .n              =3D _SUNXI_CCU_MULT_MIN(8, 8, 11),
-> +       .m              =3D _SUNXI_CCU_DIV(20, 3), /* output divider */
-> +       .p              =3D _SUNXI_CCU_DIV(1, 1), /* input divider */
-> +       .common         =3D {
-> +               .reg            =3D SUN60I_A733_PLL_DDR_REG,
-> +               .hw.init        =3D CLK_HW_INIT_PARENTS_HW("pll-ddr", pll=
-_ref_hws,
-> +                                                        &ccu_nkmp_ops,
-> +                                                        CLK_SET_RATE_GAT=
-E |
-> +                                                        CLK_IS_CRITICAL)=
-,
-> +       },
-> +};
-> +
-> +/*
-> + * There is no actual clock output with that frequency (2.4 GHz), instea=
-d it
-> + * has multiple outputs with adjustable dividers from that base frequenc=
-y.
-> + * Model them separately as divider clocks based on that parent here.
-> + */
-> +#define SUN60I_A733_PLL_PERIPH0_REG    0x0a0
-> +static struct ccu_nm pll_periph0_4x_clk =3D {
-> +       .enable         =3D BIT(25) | BIT(26) | BIT(27),
+Updated refs are:
+v7.2-rc1-dts: 09832bf2b0b2e0c68573cba8b0fb7a8e44e1f549 -> 607f3ab2da8d12e1f=
+768681837d0148e1434f4f6
+v7.2-rc2-dts: 9e215244e26884918782c9f04edbeedc20423900 -> 15747534cdf8337d5=
+fee021aa4460349289163df
+v7.2-rc3-dts: 86f4635ad4ec0d3f357dc343abe987cac59a0beb -> 6df412888270fd1e7=
+22415f96f9521030ec8a54d
+v7.2-rc4-dts: f2fb2d33ea008de172c130de0b42e2a0d7b37239 -> 1fb80695c541c7e4e=
+fd067676f14b43af568f33d
+v7.2-rc5-dts: 87ccaa2dc91309bb5358d39873f252cea79561ce -> adc5edc9140c341a7=
+c3f46b3230e4ced158cc42b
+v7.2-rc6-dts: 7653fa238d797bcfcda9fdf57ab9192fb8f93341 -> 584cbdf196048458b=
+fd6c0b4d997d1aa4020dc08
+v7.2-rc7-dts: d8f117c8aee92c4878efd4d17e47d3a1e51e6b89 -> e5f14f4c0501a6d40=
+13513ae2f76f6fa8ae26976
+    v7.2-dts: f4bde8516d3849987e02e62411e85a6c10c8f239 -> 41930a1eec9ea89c6=
+84a8ed95bf8e147f636f10d
+      master: edd49c1cfb49fd14165e83e33360c789f23ce39e -> 1826bba6fb1c8c0b6=
+d845f8308590dcfd1f7f859
 
-The gate helper sort of expects this to be just one bit. And the three
-bits here are for the three individual outputs (2x, 800M, 480M). I think
-you should move the bits to the individual outputs, and use BIT(31) here
-instead (or just leave out the enable bit for this one).
+v7.3-rc1-dts will be pushed as normal.
 
-> +       .lock           =3D BIT(28),
-> +       .n              =3D _SUNXI_CCU_MULT_MIN(8, 8, 11),
-> +       .m              =3D _SUNXI_CCU_DIV(1, 1), /* input divider */
-> +       .common         =3D {
-> +               .reg            =3D SUN60I_A733_PLL_PERIPH0_REG,
-> +               .hw.init        =3D CLK_HW_INIT_PARENTS_HW("pll-periph0-4=
-x",
-> +                                                        pll_ref_hws, &cc=
-u_nm_ops,
-> +                                                        CLK_SET_RATE_GAT=
-E),
-> +       },
-> +};
-> +
-> +static const struct clk_hw *pll_periph0_4x_hws[] =3D {
-> +       &pll_periph0_4x_clk.common.hw
-> +};
-> +
-> +static SUNXI_CCU_M_HWS(pll_periph0_2x_clk, "pll-periph0-2x", pll_periph0=
-_4x_hws,
-> +                      SUN60I_A733_PLL_PERIPH0_REG, 20, 3, 0);
-> +static const struct clk_hw *pll_periph0_2x_hws[] =3D {
-> +       &pll_periph0_2x_clk.common.hw
-> +};
-> +static SUNXI_CCU_M_HWS(pll_periph0_800M_clk, "pll-periph0-800M", pll_per=
-iph0_4x_hws,
-> +                      SUN60I_A733_PLL_PERIPH0_REG, 16, 3, 0);
-> +static SUNXI_CCU_M_HWS(pll_periph0_480M_clk, "pll-periph0-480M", pll_per=
-iph0_4x_hws,
-> +                      SUN60I_A733_PLL_PERIPH0_REG, 2, 3, 0);
-> +static const struct clk_hw *pll_periph0_480M_hws[] =3D {
-> +       &pll_periph0_480M_clk.common.hw
-> +};
-> +static CLK_FIXED_FACTOR_HWS(pll_periph0_600M_clk, "pll-periph0-600M",
-> +                           pll_periph0_2x_hws, 2, 1, 0);
-> +static CLK_FIXED_FACTOR_HWS(pll_periph0_400M_clk, "pll-periph0-400M",
-> +                           pll_periph0_2x_hws, 3, 1, 0);
-> +static CLK_FIXED_FACTOR_HWS(pll_periph0_300M_clk, "pll-periph0-300M",
-> +                           pll_periph0_2x_hws, 4, 1, 0);
+I've added better error handling for failing to save state after a
+rewrite iteration as well as a repo size check before pushing.
 
-Technically this is divided from the 600M one.
+Thanks to Tom Rini for bringing this problem to my attention.
 
-> +static CLK_FIXED_FACTOR_HWS(pll_periph0_200M_clk, "pll-periph0-200M",
-> +                           pll_periph0_2x_hws, 6, 1, 0);
+Cheers,
+Ian.
 
-This one from the 400M one.
+--=-yXyDttkjBExGwy+7buzV
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-> +static CLK_FIXED_FACTOR_HWS(pll_periph0_150M_clk, "pll-periph0-150M",
-> +                           pll_periph0_2x_hws, 8, 1, 0);
+-----BEGIN PGP SIGNATURE-----
 
-This one from the 300M one.
+iQIzBAABCgAdFiEE7fn8DiT6MgcCyDswKi4ln2laRsYFAmqKzmgACgkQKi4ln2la
+Rsa7gQ//X2hJlTnWPg9NU8cqTAkIj0FOqfExXaLV0+VeiNqP8eoinqmcMEvz2aig
+B67iDcVwXtBVJ90xpIIdtM/oDNwEbwAAbAP1iDGcjfDwqYId+Cz+7AeD/jjI/CZy
+kbndrBmndsgzEPVMdUOtn+bqYQ7DBFiTqPICUdgyCIf5XQESdshUyNjvgULyJT/S
+ZwApkEroDZ2/8oDqo41PDleXuleZ2CDIqCQbrONDGOapDAKVAjn/J3DKRONjiupj
+1G2NvtqRt1/dSdyaMGG3H398NSi7QOZKLKvu8gBtVLCN5AQAjm079FkDTTFbA3pU
+NnWNbrgAklTJDLRVWxEBwC3FbtzzIAWgFU1g+PBq01RchTjT7F627PmO/DO0cG+d
+GLVyqs5+bJJOn3B8U2ChzXz5TvvnLCCCt1nqT+dZoV7WiZp7rgd1NuuVmGlBGN85
+US6j+CSOnIxH5l2odYXVg/MU3oI5oFiWihD9jtAamyx3KRazFWoACIxlLYXk0rOH
+XX5UMaMCjtKg1YWgbGZ6xtw+SIVLl+BqO39k14D6MbQRTOI/OTGw7NMwyi4sx9Ss
+UtcRY1nHxnJJ8WLP06JE44X2htcuuZ3DcQNj3Dqs3LFjCag7C381+LGkA+P9RmGk
+G3ihFRsXU1VW4nQBv22pINRlw3/ab66OosThLzhGvPqCS7D0LB8=
+=Qek6
+-----END PGP SIGNATURE-----
 
-The same comments apply to PLL periph1 as well.
-
-
-[...]
-
-> +#define SUN60I_A733_PLL_VIDEO0_REG     0x120
-> +static struct ccu_nm pll_video0_12x_clk =3D {
-> +       .enable         =3D BIT(26) | BIT(27),
-
-Same thing as peri0. The gates are for the individual outputs. They should
-be modeled as such. Also applies to the other video PLLs.
-
-[...]
-
-> +/*
-> + * PLL_AUDIO0 has a m1 divider in addition to the usual N, M factors.
-> + * Since we only need some fixed frequency from this PLL (22.5792MHz x 4=
-),
-> + * ignore the divider and force it to 1 (encoded as 0), in the probe fun=
-ction
-> + * below.
-> + * The M factor must be an even number to produce a 50% duty cycle outpu=
-t.
-> + */
-> +#define SUN60I_A733_PLL_AUDIO0_REG     0x260
-> +static struct ccu_sdm_setting pll_audio0_sdm_table[] =3D {
-> +       { .rate =3D 90316800, .pattern =3D 0xa002872b, .m =3D 20, .n =3D =
-75 }, /* 22.5792 * 4 */
-> +};
-> +
-> +static struct ccu_nm pll_audio0_4x_clk =3D {
-> +       .enable         =3D BIT(27),
-> +       .lock           =3D BIT(28),
-> +       .n              =3D _SUNXI_CCU_MULT_MIN(8, 8, 11),
-> +       .m              =3D _SUNXI_CCU_DIV(16, 7),
-> +       .sdm            =3D _SUNXI_CCU_SDM_DUAL_PAT(pll_audio0_sdm_table,=
- 0,
-> +                                                 0x268, BIT(31),
-> +                                                 0x26c, BIT(27) | BIT(31=
-)),
-
-Ideally we should call this the "new fractional" mode. But that's probably
-a different subject.
-
-> +       .common         =3D {
-> +               .reg            =3D SUN60I_A733_PLL_AUDIO0_REG,
-> +               .features       =3D CCU_FEATURE_SIGMA_DELTA_MOD,
-> +               .hw.init        =3D CLK_HW_INIT_PARENTS_HW("pll-audio0-4x=
-", pll_ref_hws,
-> +                                                        &ccu_nm_ops,
-> +                                                        CLK_SET_RATE_GAT=
-E),
-> +       },
-> +};
-> +
-> +#define SUN60I_A733_PLL_AUDIO1_REG     0x280
-> +static struct ccu_nm pll_audio1_clk =3D {
-> +       .enable         =3D BIT(27),
-> +       .lock           =3D BIT(28),
-> +       .n              =3D _SUNXI_CCU_MULT_MIN(8, 8, 11),
-> +       .m              =3D _SUNXI_CCU_DIV(1, 1), /* input divider */
-> +       .common         =3D {
-> +               .reg            =3D SUN60I_A733_PLL_AUDIO1_REG,
-
-You should still fill in the CCU_FEATURE_SIGMA_DELTA_MOD flag and .sdm fiel=
-d.
-Even though you aren't using it here, it could have been left on somehow,
-and if the kernel doesn't know about it, it can't turn it off, and then
-the clock coming out of it won't be correct.
-
-> +               .hw.init        =3D CLK_HW_INIT_PARENTS_HW("pll-audio1", =
-pll_ref_hws,
-> +                                                        &ccu_nm_ops,
-> +                                                        CLK_SET_RATE_GAT=
-E),
-> +       },
-> +};
-> +
-> +static const struct clk_hw *pll_audio1_hws[] =3D {
-> +       &pll_audio1_clk.common.hw
-> +};
-> +static SUNXI_CCU_M_HWS(pll_audio1_div2_clk, "pll-audio1-div2", pll_audio=
-1_hws,
-> +                      SUN60I_A733_PLL_AUDIO1_REG, 20, 3, 0);
-> +static SUNXI_CCU_M_HWS(pll_audio1_div5_clk, "pll-audio1-div5", pll_audio=
-1_hws,
-> +                      SUN60I_A733_PLL_AUDIO1_REG, 16, 3, 0);
-
-Perhaps these should be made fixed? Otherwise the names don't apply correct=
-ly.
-
-> +
-> +#define SUN60I_A733_PLL_NPU_REG                0x2a0
-> +static struct ccu_nkmp pll_npu_clk =3D {
-> +       .enable         =3D BIT(27),
-> +       .lock           =3D BIT(28),
-> +       .n              =3D _SUNXI_CCU_MULT_MIN(8, 8, 11),
-> +       .m              =3D _SUNXI_CCU_DIV(20, 3), /* output divider */
-> +       .p              =3D _SUNXI_CCU_DIV(1, 1), /* input divider */
-> +       .common         =3D {
-> +               .reg            =3D SUN60I_A733_PLL_NPU_REG,
-> +               .hw.init        =3D CLK_HW_INIT_PARENTS_HW("pll-npu", pll=
-_ref_hws,
-> +                                                        &ccu_nkmp_ops,
-> +                                                        CLK_SET_RATE_GAT=
-E),
-> +       },
-> +};
-> +
-> +#define SUN60I_A733_PLL_DE_REG         0x2e0
-> +static struct ccu_nm pll_de_12x_clk =3D {
-> +       .enable         =3D BIT(26) | BIT(27),
-
-Same as before. These are gates for the individual outputs. Please move the=
-m
-there.
-
-> +       .lock           =3D BIT(28),
-> +       .n              =3D _SUNXI_CCU_MULT_MIN(8, 8, 11),
-> +       .m              =3D _SUNXI_CCU_DIV(1, 1), /* input divider */
-> +       .common         =3D {
-> +               .reg            =3D SUN60I_A733_PLL_DE_REG,
-> +               .hw.init        =3D CLK_HW_INIT_PARENTS_HW("pll-de-12x", =
-pll_ref_hws,
-> +                                                        &ccu_nm_ops,
-> +                                                        CLK_SET_RATE_GAT=
-E),
-> +       },
-> +};
-> +
-> +static const struct clk_hw *pll_de_hws[] =3D {
-> +       &pll_de_12x_clk.common.hw
-> +};
-> +static SUNXI_CCU_M_HWS(pll_de_4x_clk, "pll-de-4x", pll_de_hws,
-> +                      SUN60I_A733_PLL_DE_REG, 20, 3, 0);
-> +static SUNXI_CCU_M_HWS(pll_de_3x_clk, "pll-de-3x", pll_de_hws,
-> +                      SUN60I_A733_PLL_DE_REG, 16, 3, 0);
-
-Should we make the values fixed or the divider read-only?
-
-> +
-> +/*
-> + * Contains all clocks that are controlled by a hardware register. They
-> + * have a (sunxi) .common member, which needs to be initialised by the c=
-ommon
-> + * sunxi CCU code, to be filled with the MMIO base address and the share=
-d lock.
-> + */
-> +static struct ccu_common *sun60i_a733_ccu_clks[] =3D {
-> +       &pll_ref_clk.common,
-> +       &pll_ddr_clk.common,
-> +       &pll_periph0_4x_clk.common,
-> +       &pll_periph0_2x_clk.common,
-> +       &pll_periph0_800M_clk.common,
-> +       &pll_periph0_480M_clk.common,
-> +       &pll_periph1_4x_clk.common,
-> +       &pll_periph1_2x_clk.common,
-> +       &pll_periph1_800M_clk.common,
-> +       &pll_periph1_480M_clk.common,
-> +       &pll_gpu0_clk.common,
-> +       &pll_video0_12x_clk.common,
-> +       &pll_video0_4x_clk.common,
-> +       &pll_video0_3x_clk.common,
-> +       &pll_video1_12x_clk.common,
-> +       &pll_video1_4x_clk.common,
-> +       &pll_video1_3x_clk.common,
-> +       &pll_video2_12x_clk.common,
-> +       &pll_video2_4x_clk.common,
-> +       &pll_video2_3x_clk.common,
-> +       &pll_ve0_clk.common,
-> +       &pll_ve1_clk.common,
-> +       &pll_audio0_4x_clk.common,
-> +       &pll_audio1_clk.common,
-> +       &pll_audio1_div2_clk.common,
-> +       &pll_audio1_div5_clk.common,
-> +       &pll_npu_clk.common,
-> +       &pll_de_12x_clk.common,
-> +       &pll_de_4x_clk.common,
-> +       &pll_de_3x_clk.common,
-> +};
-> +
-> +static struct clk_hw_onecell_data sun60i_a733_hw_clks =3D {
-> +       .hws    =3D {
-> +               [CLK_PLL_REF]           =3D &pll_ref_clk.common.hw,
-> +               [CLK_PLL_DDR]           =3D &pll_ddr_clk.common.hw,
-> +               [CLK_PLL_PERIPH0_4X]    =3D &pll_periph0_4x_clk.common.hw=
-,
-> +               [CLK_PLL_PERIPH0_2X]    =3D &pll_periph0_2x_clk.common.hw=
-,
-> +               [CLK_PLL_PERIPH0_800M]  =3D &pll_periph0_800M_clk.common.=
-hw,
-> +               [CLK_PLL_PERIPH0_480M]  =3D &pll_periph0_480M_clk.common.=
-hw,
-> +               [CLK_PLL_PERIPH0_600M]  =3D &pll_periph0_600M_clk.hw,
-> +               [CLK_PLL_PERIPH0_400M]  =3D &pll_periph0_400M_clk.hw,
-> +               [CLK_PLL_PERIPH0_300M]  =3D &pll_periph0_300M_clk.hw,
-> +               [CLK_PLL_PERIPH0_200M]  =3D &pll_periph0_200M_clk.hw,
-> +               [CLK_PLL_PERIPH0_160M]  =3D &pll_periph0_160M_clk.hw,
-> +               [CLK_PLL_PERIPH0_150M]  =3D &pll_periph0_150M_clk.hw,
-> +               [CLK_PLL_PERIPH1_4X]    =3D &pll_periph1_4x_clk.common.hw=
-,
-> +               [CLK_PLL_PERIPH1_2X]    =3D &pll_periph1_2x_clk.common.hw=
-,
-> +               [CLK_PLL_PERIPH1_800M]  =3D &pll_periph1_800M_clk.common.=
-hw,
-> +               [CLK_PLL_PERIPH1_480M]  =3D &pll_periph1_480M_clk.common.=
-hw,
-> +               [CLK_PLL_PERIPH1_600M]  =3D &pll_periph1_600M_clk.hw,
-> +               [CLK_PLL_PERIPH1_400M]  =3D &pll_periph1_400M_clk.hw,
-> +               [CLK_PLL_PERIPH1_300M]  =3D &pll_periph1_300M_clk.hw,
-> +               [CLK_PLL_PERIPH1_200M]  =3D &pll_periph1_200M_clk.hw,
-> +               [CLK_PLL_PERIPH1_160M]  =3D &pll_periph1_160M_clk.hw,
-> +               [CLK_PLL_PERIPH1_150M]  =3D &pll_periph1_150M_clk.hw,
-> +               [CLK_PLL_GPU0]          =3D &pll_gpu0_clk.common.hw,
-> +               [CLK_PLL_VIDEO0_12X]    =3D &pll_video0_12x_clk.common.hw=
-,
-> +               [CLK_PLL_VIDEO0_4X]     =3D &pll_video0_4x_clk.common.hw,
-> +               [CLK_PLL_VIDEO0_3X]     =3D &pll_video0_3x_clk.common.hw,
-> +               [CLK_PLL_VIDEO1_12X]    =3D &pll_video1_12x_clk.common.hw=
-,
-> +               [CLK_PLL_VIDEO1_4X]     =3D &pll_video1_4x_clk.common.hw,
-> +               [CLK_PLL_VIDEO1_3X]     =3D &pll_video1_3x_clk.common.hw,
-> +               [CLK_PLL_VIDEO2_12X]    =3D &pll_video2_12x_clk.common.hw=
-,
-> +               [CLK_PLL_VIDEO2_4X]     =3D &pll_video2_4x_clk.common.hw,
-> +               [CLK_PLL_VIDEO2_3X]     =3D &pll_video2_3x_clk.common.hw,
-> +               [CLK_PLL_VE0]           =3D &pll_ve0_clk.common.hw,
-> +               [CLK_PLL_VE1]           =3D &pll_ve1_clk.common.hw,
-> +               [CLK_PLL_AUDIO0_4X]     =3D &pll_audio0_4x_clk.common.hw,
-> +               [CLK_PLL_AUDIO1]        =3D &pll_audio1_clk.common.hw,
-> +               [CLK_PLL_AUDIO1_DIV2]   =3D &pll_audio1_div2_clk.common.h=
-w,
-> +               [CLK_PLL_AUDIO1_DIV5]   =3D &pll_audio1_div5_clk.common.h=
-w,
-> +               [CLK_PLL_NPU]           =3D &pll_npu_clk.common.hw,
-> +               [CLK_PLL_DE_12X]        =3D &pll_de_12x_clk.common.hw,
-> +               [CLK_PLL_DE_4X]         =3D &pll_de_4x_clk.common.hw,
-> +               [CLK_PLL_DE_3X]         =3D &pll_de_3x_clk.common.hw,
-> +       },
-> +       .num    =3D CLK_FANOUT3 + 1,
-> +};
-> +
-> +static const struct sunxi_ccu_desc sun60i_a733_ccu_desc =3D {
-> +       .ccu_clks       =3D sun60i_a733_ccu_clks,
-> +       .num_ccu_clks   =3D ARRAY_SIZE(sun60i_a733_ccu_clks),
-> +
-> +       .hw_clks        =3D &sun60i_a733_hw_clks,
-> +};
-> +
-> +static const u32 pll_regs[] =3D {
-> +       SUN60I_A733_PLL_REF_REG,
-> +       SUN60I_A733_PLL_DDR_REG,
-> +       SUN60I_A733_PLL_PERIPH0_REG,
-> +       SUN60I_A733_PLL_PERIPH1_REG,
-> +       SUN60I_A733_PLL_GPU_REG,
-> +       SUN60I_A733_PLL_VIDEO0_REG,
-> +       SUN60I_A733_PLL_VIDEO1_REG,
-> +       SUN60I_A733_PLL_VIDEO2_REG,
-> +       SUN60I_A733_PLL_VE0_REG,
-> +       SUN60I_A733_PLL_VE1_REG,
-> +       SUN60I_A733_PLL_AUDIO0_REG,
-> +       SUN60I_A733_PLL_AUDIO1_REG,
-> +       SUN60I_A733_PLL_NPU_REG,
-> +       SUN60I_A733_PLL_DE_REG,
-> +};
-> +
-> +static int sun60i_a733_ccu_probe(struct platform_device *pdev)
-> +{
-> +       void __iomem *reg;
-> +       u32 val;
-> +       int i, ret;
-> +
-> +       reg =3D devm_platform_ioremap_resource(pdev, 0);
-> +       if (IS_ERR(reg))
-> +               return PTR_ERR(reg);
-> +
-> +       /*
-> +        * The PLL clock code does not model all bits, for instance it do=
-es
-> +        * not support a separate enable and gate bit. We present the
-> +        * gate bit(27) as the enable bit, but then have to set the
-> +        * PLL Enable, LDO Enable, and Lock Enable bits on all PLLs here.
-> +        */
-> +       for (i =3D 0; i < ARRAY_SIZE(pll_regs); i++) {
-> +               val =3D readl(reg + pll_regs[i]);
-> +               val |=3D BIT(31) | BIT(30) | BIT(29);
-> +               writel(val, reg + pll_regs[i]);
-> +       }
-> +
-> +       /* Enforce m1 =3D 0 for PLL_AUDIO0 */
-> +       val =3D readl(reg + SUN60I_A733_PLL_AUDIO0_REG);
-> +       val &=3D ~BIT(1);
-> +       writel(val, reg + SUN60I_A733_PLL_AUDIO0_REG);
-
-We should also force the divider for all the divN or Nx outputs.
-
-
-Thanks
-ChenYu
-
-> +
-> +       ret =3D devm_sunxi_ccu_probe(&pdev->dev, reg, &sun60i_a733_ccu_de=
-sc);
-> +       if (ret)
-> +               return ret;
-> +
-> +       return 0;
-> +}
-> +
-> +static const struct of_device_id sun60i_a733_ccu_ids[] =3D {
-> +       { .compatible =3D "allwinner,sun60i-a733-ccu" },
-> +       { /* sentinel */ }
-> +};
-> +
-> +static struct platform_driver sun60i_a733_ccu_driver =3D {
-> +       .probe  =3D sun60i_a733_ccu_probe,
-> +       .driver =3D {
-> +               .name                   =3D "sun60i-a733-ccu",
-> +               .suppress_bind_attrs    =3D true,
-> +               .of_match_table         =3D sun60i_a733_ccu_ids,
-> +       },
-> +};
-> +module_platform_driver(sun60i_a733_ccu_driver);
-> +
-> +MODULE_IMPORT_NS("SUNXI_CCU");
-> +MODULE_DESCRIPTION("Support for the Allwinner A733 CCU");
-> +MODULE_LICENSE("GPL");
->
-> --
-> 2.54.0
->
->
+--=-yXyDttkjBExGwy+7buzV--
