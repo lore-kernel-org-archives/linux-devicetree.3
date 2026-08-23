@@ -1,76 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from out-2z4y-a153.jellyfish.systems (out-2z4y-a153.jellyfish.systems [198.54.127.153])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58CEF4AEEF;
-	Sun, 23 Aug 2026 00:29:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82FF413B5B3
+	for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 00:33:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.153
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787444969; cv=none; b=tuawJCoWhHSpbdbgb1GmzS4IZxVSXDihnXUehqbGLmS6qRR2hucxnnvh+LEmDb7/52pt1WjPN7UICcUW4FVTrETGhdg5D7m3/igjEalbEMJPaFP8VTtPqG914yiJl0w627CUy4REa1cnxyUJrom6jN75mp8OpaBCDfC2R6v8Co0=
+	t=1787445240; cv=none; b=cuTAaJW/mR8/xFRzjtE/3mfZCru3Cbmw5nnVT5KCRLQylevmX34AIt9w/quI/7ORaEzVUeZxidUCmbL7tWQbYVhwSlWLHEmF8DEup2jMDPoFbsdb0ftqDmp4E4K5qPQvrihxH3++h68PnIz0p9EOUIlA1+gQf9FHR2/iofyajyw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787444969; c=relaxed/simple;
-	bh=3gm+17AAM3DITaDSJXBuA5Wga4hb/mr/tYfT4eQAdLg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=icAEiyo0tagbz0i9OqBc6uFx0YXy2WNxRqbt4U6kYHasPQd9R7oUPGJMUxWnWaIkcuHsRNTPZ26U8UfIhz4JSWVHDXxoUi0qulK6KrRuovfKpWMow/5XzramU5TF+GxBBS7yKEfU+aC+Ve9lF5JJ3G1KZMXO2o6Os3bPJSS2emc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hcdAy7MZ; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hcdAy7MZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 754801F000E9;
-	Sun, 23 Aug 2026 00:29:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787444967;
-	bh=7UY5n9qQPMGMnnRq7U6pqxvxu6lugc3HJYg0BucsmBI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=hcdAy7MZ16ZMIIP93Q+SdTjJYU+wsC0I3uDk+diENz16+FqtbuCgzStwnKYAwJRrD
-	 lRGhrdFuaKQkMkmrZ0gFaemUIsi8RNg0MbNdhw/irVwIF6xY3aneUVokBjws4/NU9X
-	 ChHQDEOS83eCFMo6KtcZseVi0nO0xXyXLA+dakTn7DulYfoKIjPultfURE0LrNteEw
-	 slUHhvL+5hIQXGicJqxPeX0DNpMSgwMU/WZmROq53nuyr9yiB8upW6Nef0rL1uG22J
-	 ExxWJ3Ok6u5c4edIa36NIpI168ngKz+YZukQvemkMbXAYboVXFSFhbYlec8doZ+6as
-	 d2myIe8PVpAeA==
-Date: Sun, 23 Aug 2026 01:29:22 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Esben Haabendal <esben@geanix.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Martin Kepplinger <martink@posteo.de>, Sean Nyekjaer
- <sean@geanix.com>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Martin Kepplinger <martin.kepplinger@theobroma-systems.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Joshua Crofts <joshua.crofts1@gmail.com>,
- Andy Shevchenko <andriy.shevchenko@intel.com>
-Subject: Re: [PATCH RESEND v5 0/6] io: accel: mma8452: Allow open drain
- interrupt pin configuration
-Message-ID: <20260823012922.22bdb16e@jic23-huawei>
-In-Reply-To: <20260819-mma8452-open-drain-v5-0-d8aa590d7c36@geanix.com>
-References: <20260819-mma8452-open-drain-v5-0-d8aa590d7c36@geanix.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1787445240; c=relaxed/simple;
+	bh=/fwlB3mZ7oOlrc6UmNl0+D4YT+UrZyvZqvTW0ELXY7o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WieC9pYBTnLbG+d7OJ2ZAW8NFC/cbIKhUOtx5hev+8RQjW6W6sMdL0a60qrgLuPBBTSOuEccJeL46qPx89hxeXQfTxi4Sog85sS5JlDPtRLkvdTK3ZEqnO1olcw1Med+VWHGxbnKM96YJ58MjtLQhYxo+7xuxtWD9FPU0zcaAoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=198.54.127.153
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
+Received: from mail.privateemail.com (unknown [87.215.145.39])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.privateemail.com (Postfix) with ESMTPSA id 4hSFQX6MsRz8sWP;
+	Sun, 23 Aug 2026 00:33:40 +0000 (UTC)
+From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+To: Jonathan Cameron <jic23@kernel.org>,
+	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chris Morgan <macromorgan@hotmail.com>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v5 3/3] dt-bindings: iio: imu: icm42600: add icm42630
+Date: Sun, 23 Aug 2026 02:33:20 +0200
+Message-ID: <20260823003320.62192-4-jorijnvdgraaf@catcrafts.net>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260823003320.62192-1-jorijnvdgraaf@catcrafts.net>
+References: <20260823003320.62192-1-jorijnvdgraaf@catcrafts.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Envelope-From: jorijnvdgraaf@catcrafts.net
 
-On Wed, 19 Aug 2026 10:15:27 +0200
-Esben Haabendal <esben@geanix.com> wrote:
+The TDK InvenSense ICM-42630 is a 6-axis IMU of the ICM-42600 family,
+found e.g. in the Fairphone 6. Document its compatible with the
+ICM-42631 as fallback: TDK confirmed the part is similar to the
+ICM-42631 and driven by the same driver without modification. The
+dedicated compatible records the exact part so a difference can still
+be handled if one surfaces (the part has no public datasheet).
 
-> This is a resend of v5 which was not fully sent first time for some unknown
-> reason.
-> 
-> Extend the mma8452 driver with support for configuration of the
-> interrupt line in open-drain mode, which is needed for hardware designs
-> where the interrupt line is shared with other chips.
-> 
-> Adding drive-open-drain property to mma8452 device-tree node for such
-> designs to enable switching pin configuration to open-drain mode.
-> 
-> Signed-off-by: Esben Haabendal <esben@geanix.com>
-Hi Esben,
+Link: https://lore.kernel.org/all/BE1P281MB1426D6579C0E2709574549B6CEC22@BE1P281MB1426.DEUP281.PROD.OUTLOOK.COM/
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+---
+No changes in v5.
+v4: rebased over the icm42607 and mount-matrix changes to this file
+(no content change); added Conor's Acked-by.
+No changes in v3.
+v2: restructured to the icm42631 fallback form; Jean-Baptiste's v1
+Acked-by lapsed with the rework.
 
-Just quick not to say I took another look and didn't find anything to add.
+ .../bindings/iio/imu/invensense,icm42600.yaml | 24 +++++++++++--------
+ 1 file changed, 14 insertions(+), 10 deletions(-)
 
-Looking forward to v6! 
+diff --git a/Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml b/Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml
+index 81b6e85decd5..9e22b603d47f 100644
+--- a/Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml
++++ b/Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml
+@@ -26,16 +26,20 @@ description: |
+ 
+ properties:
+   compatible:
+-    enum:
+-      - invensense,icm42600
+-      - invensense,icm42602
+-      - invensense,icm42605
+-      - invensense,icm42607
+-      - invensense,icm42607p
+-      - invensense,icm42622
+-      - invensense,icm42631
+-      - invensense,icm42686
+-      - invensense,icm42688
++    oneOf:
++      - enum:
++          - invensense,icm42600
++          - invensense,icm42602
++          - invensense,icm42605
++          - invensense,icm42607
++          - invensense,icm42607p
++          - invensense,icm42622
++          - invensense,icm42631
++          - invensense,icm42686
++          - invensense,icm42688
++      - items:
++          - const: invensense,icm42630
++          - const: invensense,icm42631
+ 
+   reg:
+     maxItems: 1
+-- 
+2.55.0
 
-Jonathan
