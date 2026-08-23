@@ -1,62 +1,62 @@
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44D642D0C72
-	for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 23:45:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7983A217723
+	for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 23:47:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787528741; cv=none; b=rEP21YMOyaEXvOdtyf2Cu5UgEzgPX7gTpbgLMlgLCmstJ5rRruOayFztnVFmdkIakQF3Cccjd3qORMS15lSZCDSOnuRQ0bDv/MJp+vKf8+I1dDcgnyRAjAreUAkpzMfbU8FjPxk45Y7F/1eir19KytDlUZzPOkIrtTPUAbEAYWo=
+	t=1787528847; cv=none; b=flQA76FqrW5yA7mysqjCBJq9132+Kor/YLBFFYRznE1UJXfGR3RrB7MLvOLKP/UBb1LVSwFqg0dSBH2jf0fyu6nkdePJAYTBdZfkM0jHEOmE0lxqDUVFvX8KyJGuwpbxLhOG4CWU4t7Z6PWDBFMxNhyamMk9OCC2p/3MZ0grIRQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787528741; c=relaxed/simple;
-	bh=RzvLZKWyoGQrm1BbOeawIxREqfKPZuHBTiSw0ZacfMw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MueqSBsQSw8j5ddRzRi3tHjKORJgG7vAj5KBKioX04XFAywDQf8h6fsfP6KyEf5LxiDKv/dnb5qJW3wafZ04+3pA5IIC9CA0HhlHQYqhl7C3xDr7fbnvjmLsMfIvX17lFuWuj4SOnN40YREgX5tUl+tvGby1fY5lhw8lcXwU8sc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fBn4JyL4; arc=none smtp.client-ip=209.85.160.171
+	s=arc-20240116; t=1787528847; c=relaxed/simple;
+	bh=4obUbmOGx4hCRl+KoVRfaNhchFlfxR7dKDEX+TRekQo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Wizv4h38czs8jo7T+i68Ca+8IMA3GD9cYepfVVuAyklUl+PkB7woKinkED3wjvK2we47QeoBT5DDIUV4UHM+1RHU1NmFD0mDy7ABNaunsJ9KoGchreZmVu+AnvIUAxz15uEt1caL+YPk4o1btukAUTIaTYrQ5k23dwWqCmXCQ5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kF4uAC2j; arc=none smtp.client-ip=209.85.160.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fBn4JyL4"
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-52d590ce5cdso19290041cf.1
-        for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 16:45:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kF4uAC2j"
+Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-51c2a818fc4so18954291cf.2
+        for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 16:47:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787528739; x=1788133539; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787528845; x=1788133645; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vmy0i3VZMA4HR325lbcOKfgC/mnsKmGPoPBOA/3Q7xg=;
-        b=fBn4JyL4YIwHmi7dHnQqiFzjr199sfj+P+u0S7svHsjpX9OgJBQeUlKul7dpg778y8
-         yt4Ctvb3yv1lMmABUlVxHjGhQvjLilRBKEbd9hCF0DMe3WGAlsrQI6yfGvbrBPjVDYe2
-         JF83kLDT3u9T0Cf6eMit+Zh/z+F2bpJSSRSaMi22Z73SSGc2BuaRveokunvNS7zwo5wL
-         U+CicIN5nAucjhvBOMwcPb5Wbw5/WOAR9fZMa/lznWOyvJVKixjPyegVktFTptzYelTB
-         LNoATCJ+qS+wSrJ5ofe/E67lw2t8TQ0yahVN4I38snvBDNCcQRoQe+u09d0U063HkLJc
-         Qb9w==
+        bh=RxJ7bJC9fshEg18tC8CqCMJJPORI/U6b98X15Dyh4Vc=;
+        b=kF4uAC2jnz4SNyyafLzVHUx7YI0Ln7wBNENDifhEzM+RSJmJtrXmzDTR8GQdYtEqkM
+         kRAFrN8rdTHDy79u96L1My+X8CGCVYRbOiY/Ew72etjTZwixcuscEhMpVr3O5RxzxbrN
+         q7q4Bcuh8GM4AbqOxAbUpyHOg9WiNpNKk6fp5lTc3nWLy4Xqj6KmPUmQ/rOCDm/94dbD
+         V/AOtvRL0W9w2Z/eiF2wdSAzwfoBr6lm4U5g1E7tv+akk7AuzT+2v5uatY0b0X9dGrJS
+         uJoqDCd46TDrr3RTdiKiahI7tFclV9lsEMONnOmFrX8XNgU693kUFvo3IIoDxTITaabA
+         XJIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787528739; x=1788133539;
+        d=1e100.net; s=20251104; t=1787528845; x=1788133645;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vmy0i3VZMA4HR325lbcOKfgC/mnsKmGPoPBOA/3Q7xg=;
-        b=orN9xydNR285RLXoGV83xdwAsn1PdeWz96uWJviv/rX4I8pSJ8vbR8hZ36xkeh+/PW
-         K4uCfpZuAjJtJZrTeESCjar7GYHzEJRYudLt4aoHdDflaz7ve+kx9DVc7CO9V9h7See0
-         hzxbq7En+EaIqGLY6vi9Fijm2T7YKhptRcj8PfEYCFIlFhCkCpL7AWjD9jO3NEaYHDxP
-         A2RBmanXyck+H/XFc5IaekGdE2hv4o8ao2koXuNKjVvIZBTd42+5Y+IX5qBKi/EaeSnn
-         9+I071fnhuZebSJ2NdSjjsd28Xa4SehU0zDxvZVRvAuft8pdJVt5U0hyW25THxvVpyig
-         ri/w==
-X-Gm-Message-State: AFuF++lnrgqNXvuoPXiWO93RPwqrb+um314kGJ5zqqxhsubs9PplDTVA
-	ia22+pLciWO95Vpwik8AoOxXWNYrv297P+kGW+INNDtJ8eusHbbIbUtBfQuLeQ==
-X-Gm-Gg: AR+sD13hxJWH6B87lZg9TG+Q8Fbd0u5bkGQ3fyseqSKjYTAg7uGX14MmTN1hyFHRFXd
-	sCibfaJvbluiYHeLIJTGixv0DACX6C1Tyj45Y23GIvmsLLO4wVC2ket5t1GHGwH2F4vGNGZ8HaD
-	tIvU7TD8ABmsq/pMZ2JLM3jGC1vxJPaQStzu8y09HikdGdOLGkQdvp5LHwV3i/yi5BlSj9rL0bF
-	gsRDbwWo5N0KCVfHN4cLDQYUNnWszExJ76J7N/OjJXRKrBzJZoU4qxC+A2oXw8PuP8XmRDUaoY6
-	JgpB/a2U14LfCIuOKq32Jd9kV7nqdqXFBQPSkqva6Av0TW1U23dkuZgokkcshe81DDekghpxoMh
-	pprPeHwN1hrOBsXq0DJjUGAMOKW59cHrskEBM2cOzL1LA9FDdPdVrU0WmHlccZu1ZAXb32G7jgR
-	FNH8z7NyA2+tUmh2v8ZBuZe6VEn6jxX9SaOCz1LK18IvERITnNdtsoDgLQR1B3XJzSDfEKrj6O1
-	Q56QBPN7+xd5Jivh5qCcXgBWgoymNIzdyD2j45EUSvIv2lwbqt+0e87xW3aXnjKZ8FeacZRRV9N
-	Hcc+DWHpzztr3BR56b3ucxMWhRSF8+kTgYdPSg==
-X-Received: by 2002:ac8:5916:0:b0:50d:e471:2d1e with SMTP id d75a77b69052e-52df5a7e229mr226286061cf.35.1787528739209;
-        Sun, 23 Aug 2026 16:45:39 -0700 (PDT)
+        bh=RxJ7bJC9fshEg18tC8CqCMJJPORI/U6b98X15Dyh4Vc=;
+        b=Q+SOVcDvSWHCCnQLSZdIZtPbXyOcqvH6x/2PSxPy6w+n+/ySgQCBL/C1VOhEUiX7yd
+         IiYYVSW63XN8xRZdWjxcZ0yeO62RL6+Lwlj50JgD3F7vio40mrsK6G0uGk6Mcso5eiPr
+         BmdD50arlQuQc0eeKf7xS9trZjiDfd31c974GACSa/amWD58A2aKrcxK3WtTExxe+EO/
+         muXkpmgGpFFMo8hy2MVzNCGbXZTTLO6czPYpeh9fnPi7OwM2cofCgfqSeHPSagHbK7Bn
+         x60BIbdb46vwBezltzRNl9PiYUyyIpdo8YiAApW7B1Ol+mIDdoGzeNnYPf/urInB/5kW
+         3mSA==
+X-Gm-Message-State: AFuF++lNJIFIdWdupOFT8Q4pkCfZEKdoglYGgI1hnxBIweq7dAneWPMw
+	akyJlepMXt4u9hJANJ9vGe01rEkQi/WUoHv5k8jtSiwC1kv/sU5FZ+RqWdleZg==
+X-Gm-Gg: AR+sD10jLq6r6OCQAZHhxYSfuXAcynO7Gqq0UYZHz5t7da55tm30+mAlr5B/JUOOYN+
+	iQvpDISFRx3PDB4VrFcHycTfTxXT66sGdW6YErxwK2KIvJZ1sSKgXNTtYZVGU6WhNwUTGn4YIo9
+	nzO7AMughQIWy5w3TsUCWnVrsOZwZHaLouPNRJCwTw9LCtnoykRgYeZ8URmf/d0LBQ/ddI5A4Xp
+	RSn2EPznAGB78x1GwhVGYAxFAzCw2lKugCu3PSClg+GrMgoNHbQMLCrtTpjOseKh/jLEqID1IwJ
+	qnYbNpnW0VTGdTvRyr18HgZCMVS6bzsCArkE0v92fNzxnkEt4RwRQDWR99++bnS389HJ8woe9C5
+	LtRczCxSOr2M7zgNG2HrV39azZQrzRqLeyLkcsPNGA8un/Y9aUhMaU0v+nYiY801uN5S6ACYDq2
+	ErIHbWTpc+ubQNumuN/ZWK1BoKARX82QC8L4Z8dShDsb0lsZwlRJcQByPr1nzEHAB+uitwaDz4u
+	ik5fJ6Ts89lVPpBq7BwqModSIvCkYZYdNKG9bP9hb6cG4B+2o501Hp4XGA0QsNtMWV8/bI4i0Eg
+	Wq2on8Btk+RaZZ8plcsbR2DWRCbirdRqtG0Giw==
+X-Received: by 2002:a05:622a:1c0c:b0:51c:a8:51cd with SMTP id d75a77b69052e-52e09b81035mr153613501cf.1.1787528845452;
+        Sun, 23 Aug 2026 16:47:25 -0700 (PDT)
 Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52e099baf17sm36510031cf.12.2026.08.23.16.45.36
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52e09aad030sm36778851cf.15.2026.08.23.16.47.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 23 Aug 2026 16:45:38 -0700 (PDT)
+        Sun, 23 Aug 2026 16:47:24 -0700 (PDT)
 From: Rosen Penev <rosenp@gmail.com>
 To: devicetree@vger.kernel.org
 Cc: Andrew Lunn <andrew@lunn.ch>,
@@ -65,12 +65,11 @@ Cc: Andrew Lunn <andrew@lunn.ch>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Baruch Siach <baruch@tkos.co.il>,
 	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Marvell Kirkwood and Armada 370, 375, 38x,...),
 	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] ARM: dts: armada-385-clearfog-gtr: fix vmmc property name
-Date: Sun, 23 Aug 2026 16:45:35 -0700
-Message-ID: <20260823234535.72052-1-rosenp@gmail.com>
+Subject: [PATCH] ARM: dts: marvell: add missing SDHCI clock-names
+Date: Sun, 23 Aug 2026 16:47:21 -0700
+Message-ID: <20260823234721.72903-1-rosenp@gmail.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -80,30 +79,46 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The SDHCI node references the 3.3V regulator through a bare "vmmc"
-property, which is not part of the mmc controller DT binding; the
-correct property is "vmmc-supply".
+The marvell,armada-380-sdhci binding requires "clock-names", and
+the sdhci-pxav3 driver requests its io clock by name before falling
+back to an unnamed lookup. Both Armada 38x and 39x nodes only carry
+an unnamed clocks reference, so dtbs_check reports "'clock-names'
+is a required property" on every board.
 
-Fixes: aecc313490ae ("ARM: dts: mvebu: add support for SolidRun Clearfog GTR")
+Add clock-names = "io" to both nodes. No functional change: the
+driver already obtains the clock through its fallback.
+
 Assisted-by: opencode:big-pickle
 Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- arch/arm/boot/dts/marvell/armada-385-clearfog-gtr.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm/boot/dts/marvell/armada-38x.dtsi | 1 +
+ arch/arm/boot/dts/marvell/armada-39x.dtsi | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/arch/arm/boot/dts/marvell/armada-385-clearfog-gtr.dtsi b/arch/arm/boot/dts/marvell/armada-385-clearfog-gtr.dtsi
-index 48b09df53c60..3262b726a1c7 100644
---- a/arch/arm/boot/dts/marvell/armada-385-clearfog-gtr.dtsi
-+++ b/arch/arm/boot/dts/marvell/armada-385-clearfog-gtr.dtsi
-@@ -235,7 +235,7 @@ mmc@d8000 {
- 				pinctrl-0 = <&cf_gtr_sdhci_pins>;
- 				pinctrl-names = "default";
- 				status = "okay";
--				vmmc = <&reg_3p3v>;
-+				vmmc-supply = <&reg_3p3v>;
- 				wp-inverted;
+diff --git a/arch/arm/boot/dts/marvell/armada-38x.dtsi b/arch/arm/boot/dts/marvell/armada-38x.dtsi
+index 1155bee20523..598022645dd2 100644
+--- a/arch/arm/boot/dts/marvell/armada-38x.dtsi
++++ b/arch/arm/boot/dts/marvell/armada-38x.dtsi
+@@ -627,6 +627,7 @@ sdhci: mmc@d8000 {
+ 					<0x18454 0x4>;
+ 				interrupts = <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
+ 				clocks = <&gateclk 17>;
++				clock-names = "io";
+ 				mrvl,clk-delay-cycles = <0x1F>;
+ 				status = "disabled";
  			};
- 
+diff --git a/arch/arm/boot/dts/marvell/armada-39x.dtsi b/arch/arm/boot/dts/marvell/armada-39x.dtsi
+index 218fcf99ae07..81dd4ca5fbc9 100644
+--- a/arch/arm/boot/dts/marvell/armada-39x.dtsi
++++ b/arch/arm/boot/dts/marvell/armada-39x.dtsi
+@@ -381,6 +381,7 @@ mmc@d8000 {
+ 					<0x18454 0x4>;
+ 				interrupts = <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
+ 				clocks = <&gateclk 17>;
++				clock-names = "io";
+ 				mrvl,clk-delay-cycles = <0x1F>;
+ 				status = "disabled";
+ 			};
 -- 
 2.55.0
 
