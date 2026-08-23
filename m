@@ -1,39 +1,53 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6501E2472A2;
-	Sun, 23 Aug 2026 11:36:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A4EC386C36
+	for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 11:39:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787485011; cv=none; b=MFRJzmPHGCWAPeL0F5Qe3ve99wKrwN3Afc3MViI994AUzyu7xSVRg09rdtRi74Qt/ADMvbunzkLFjCBJRAr0HOUZ7tzxouBZoe1cZSt9NBMzCCeIZLz+bNwsT3+vNKOLm/MoeIADYrKLiGc9HYS0uGFYU8jrgZwovnPrWFj8uUo=
+	t=1787485146; cv=none; b=QG8Eu0h11AgfaMB6Xie0H5XdGuI0ebybNh7An6vQ5tfZOHbu0CDhEJIdiPnStsF+ryRRUGt+/JsKK3LyPXpPsS7NjfNZjBSGKzGvCaj6l/dp0NcsOXKD0+spdWeHnYjNeghiAYXqzlBq4Jgk0snU+GcozLsvpvCt8+e1neQgSRo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787485011; c=relaxed/simple;
-	bh=qsavDS75FwaA2nzZMPJxqb/YthIsUW4ps5oUPuXGwmc=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=EbYn3OW6HL9BI6a4Mw7nuMhiIgvv/iuQAe7xlbp17GPGBfzpvcsLsplm/nEMoef3A6bweIq4Us9nSrY0zExKv047xM8fI33ZxfwRgc4omFa/whBPJ6WakLgf5Rj0LtUN8hE1byetLKzmmnoJgca+H5jnUrLuzjVCKIlaoeVKnws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=NisWJ7l6; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="NisWJ7l6"
-Received: from [172.16.124.192] (ip-78-44-13-22.bb.vodafone.cz [78.44.13.22])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 6B7025340655;
-	Sun, 23 Aug 2026 13:36:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1787485006;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=rv08Lm3LOD0foXTOq5xqoZa2NwR2DHy3i20jUMhz/xc=;
-	b=NisWJ7l6iUQ9WJmJ2FuE3siRPuswQsc82yqwJcVBKqSiJb7H01crZbALSLxpsMuQ4HxMaq
-	Nd1q189YwjuMIAOvUsLJt473Z62zi7Ym2JHFDowLwFpzuu0K/9j0d2oS7lLAcV1to6Ta0U
-	/rr5totujNaXTvpTKWNGdNRUpfcwCgc=
-Message-ID: <7df4c69d-9d7b-418f-b7dc-a03a710dfb13@ixit.cz>
-Date: Sun, 23 Aug 2026 13:36:45 +0200
+	s=arc-20240116; t=1787485146; c=relaxed/simple;
+	bh=ITZNQSv3mENS/rSATJqELJsp+Dm6h3RBs5Q2aE1v1pE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bARfu3IS570V+Ypfok+5r1P6TSiwsPZdQRsv+FExUWlDHuhMfo7qgnxYm49K+JYTX5zegSB6uv+iYaeFwo2MQ9onb7KkBA8ZWf0FUzF1CBH/C3Gc8G9lG+pry1cYfZMY7A3igzOSHE2jpYedNEjDHrhXhIm+R+cCDFb3AKY+OgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4953de5be0aso15451725e9.0
+        for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 04:39:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787485143; x=1788089943;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Qrz6vWIs7Ln59X+fS+7H6xGzZNfsFTViY3UVWM/k9UQ=;
+        b=esk2pct0yMQbpyyK7MELCAxEF3PQTClXIgjNJe2gaBPLSzayrHqbPHMYampmq1m7lN
+         dcEMuzbvwvhmyU1Ho0xvb/U8AMsAfKQxtRun0qbR6y7FrICjfRxGpQ/iSVyHtI/xRbZU
+         owUyhjv3fuD+wnLs4Gvg/H+BNK9FL/RDRqCFYnXCuh15OO4DTPMQYn27VuRNjK/Nollw
+         AZ0LZx1+I13Wm86vMXEPqg9Rm/aT+2BkxU12co4EiynOFDTtuCveeVUNQl3pjSvN+7Vd
+         pzAXAv+P1hw9sZVFXE4W6ehmdcJYh+foetT11fOrayL6Y8IoqHYsCEcBU0Ol/VWVOk4u
+         pi1g==
+X-Forwarded-Encrypted: i=1; AHgh+Ro9OdVbYP8lqVKsyBAWVFMUwS0iHixO1oYiBj49fCpgwiJaHEJexlCt8NKOUhCyOjPolHqRgpOdodTf@vger.kernel.org
+X-Gm-Message-State: AFuF++kvO/nIrBkiiPJLBa3lLKzg1GTLdySDDyI4d3H6NyIoggUk8cF3
+	9nCfmecivi8SA2mhnepcqsgp9nUBGHlsIgnTRZ+/i3oACWi4PZuY56Zt
+X-Gm-Gg: AR+sD10fnrEFxSJQe6Igp7jiLOvU94vt7PzZfLR/JVuMNNiLds+g4ZHQOvRDECiPiZv
+	0N+79ohxDl8DAGbMgdVg6WBpz+reQ7n6jPVjATEDl8AVK/jxbcOY456hJ0OuNKTf/GVsxjfAzG4
+	OxcyLZnrzp91lmKHaBO+MqFIBiYUWwiS7iYEw4Y/VXIc/dYxx17p0s0Gj4m6S5ujqo1BHbRsEcW
+	qfFzjChSWu9xVKf29CHdLt+I4xYucYVQ/tGUYE+X/LLoRHex7jbM8KzXgWzwgnbI+rbgbQNzGSn
+	9jDfD9fgsl3mat6PH2i0Otd423KwCMoX1RAHUfKc4EKUgpYFJjrpgFTlauTTW0eEyiGZcGOLFT5
+	5kMrrF/yt/cbvLDX/eDT9XIOXFg8uUbrWQpmCbI0GqeA89GIwq8tMG+4QYq7hBdzuCMRpTCresZ
+	k7w5dtvTnaWwA0urBPOwy8TbpqybuqkNX8zDBx+iO0FZQn6bQdItYF5Ipz5gjfv2f8Y3Wh8pzEh
+	xWaksQTeYgo3flOe+fvjF2lmsZLaW0d
+X-Received: by 2002:a05:600c:c48f:b0:493:bd2a:93be with SMTP id 5b1f17b1804b1-499b8325d80mr195726245e9.6.1787485142600;
+        Sun, 23 Aug 2026 04:39:02 -0700 (PDT)
+Received: from [192.168.1.135] ([83.106.158.114])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499b9b57ab4sm61139535e9.2.2026.08.23.04.39.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 23 Aug 2026 04:39:01 -0700 (PDT)
+Message-ID: <0969d872-faff-4b0f-81ad-972b7aa9bb7f@linux.com>
+Date: Sun, 23 Aug 2026 12:39:00 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,90 +55,112 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/2] input: misc: Add Qualcomm SPMI PMIC haptics driver
-From: David Heidelberg <david@ixit.cz>
-To: Fenglin Wu <fenglin.wu@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: David Collins <david.collins@oss.qualcomm.com>,
- Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
- Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, linux-input@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260806-qcom-spmi-haptics-v6-0-19fcecd5204f@oss.qualcomm.com>
- <20260806-qcom-spmi-haptics-v6-2-19fcecd5204f@oss.qualcomm.com>
- <214bbcf7-38ba-458b-81ba-d7f3a42cb73d@ixit.cz>
-Content-Language: en-US, cs-CZ
-Autocrypt: addr=david@ixit.cz; keydata=
- xsFNBF5v1x4BEADS3EddwsNsvVAI1XF8uQKbdYPY/GhjaSLziwVnbwv5BGwqB1tfXoHnccoA
- 9kTgKAbiXG/CiZFhD6l4WCIskQDKzyQN3JhCUIxh16Xyw0lECI7iqoW9LmMoN1dNKcUmCO9g
- lZxQaOl+1bY/7ttd7DapLh9rmBXJ2lKiMEaIpUwb/Nw0d7Enp4Jy2TpkhPywIpUn8CoJCv3/
- 61qbvI9y5utB/UhfMAUXsaAgwEJyGPAqHlC0YZjaTwOu+YQUE3AFzhCbksq95CwDz4U4gdls
- dmv9tkATfu2OmzERZQ6vJTehK0Pu4l5KmCAzYg42I9Dy4E6b17x6NncKbcByQFOXMtG0qVUk
- F1yeeOQUHwu+8t3ZDMBUhCkRL/juuoqLmyDWKMc0hKNNeZ9BNXgB8fXkRLWEUfgDXsFyEkKp
- NxUy5bDRlivf6XfExnikk5kj9l2gGlNQwqROti/46bfbmlmc/a2GM4k8ZyalHNEAdwtXYSpP
- 8JJmlbQ7hNTLkc3HQLRsIocN5th/ur7pPMz1Beyp0gbE9GcOceqmdZQB80vJ01XDyCAihf6l
- AMnzwpXZsjqIqH9r7T7tM6tVEVbPSwPt4eZYXSoJijEBC/43TBbmxDX+5+3txRaSCRQrG9dY
- k3mMGM3xJLCps2KnaqMcgUnvb1KdTgEFUZQaItw7HyRd6RppewARAQABzSBEYXZpZCBIZWlk
- ZWxiZXJnIDxkYXZpZEBpeGl0LmN6PsLBlAQTAQgAPgIbAwULCQgHAgYVCgkICwIEFgIDAQIe
- AQIXgBYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJl+KksBQkPDaAOAAoJEGACP8TTSSBy6IAQ
- AMqFqVi9LLxCEcUWBn82ssQGiVSDniKpFE/tp7lMXflwhjD5xoftoWOmMYkiWE86t5x5Fsp7
- afALx7SEDz599F1K1bLnaga+budu55JEAYGudD2WwpLJ0kPzRhqBwGFIx8k6F+goZJzxPDsf
- loAtXQE62UvEKa4KRRcZmF0GGoRsgA7vE7OnV8LMeocdD3eb2CuXLzauHAfdvqF50IfPH/sE
- jbzROiAZU+WgrwU946aOzrN8jVU+Cy8XAccGAZxsmPBfhTY5f2VN1IqvfaRdkKKlmWVJWGw+
- ycFpAEJKFRdfcc5PSjUJcALn5C+hxzL2hBpIZJdfdfStn+DWHXNgBeRDiZj1x6vvyaC43RAb
- VXvRzOQfG4EaMVMIOvBjBA/FtIpb1gtXA42ewhvPnd5RVCqD9YYUxsVpJ9d+XsAy7uib3BsV
- W2idAEsPtoqhVhq8bCUs/G4sC2DdyGZK8MRFDJqciJSUbqA+5z1ZCuE8UOPDpZKiW6H/OuOM
- zDcjh0lOzr4p+/1TSg1PbUh7fQ+nbMuiT044sC1lLtJK0+Zyn0GwhR82oNM4fldNsaHRW42w
- QGD35+eNo5Pvb3We5XRMlBdhFnj7Siggp4J8/PJ6MJvRyC+RIJPGtbdMB2/RxWunFLn87e5w
- UgwR9jPMHAstuTR1yR23c4SIYoQ2fzkrRzuazsFNBF5v1x4BEADnlrbta2WL87BlEOotZUh0
- zXANMrNV15WxexsirLetfqbs0AGCaTRNj+uWlTUDJRXOVIwzmF76Us3I2796+Od2ocNpLheZ
- 7EIkq8budtLVd1c06qJ+GMraz51zfgSIazVInNMPk9T6fz0lembji5yEcNPNNBA4sHiFmXfo
- IhepHFOBApjS0CiOPqowYxSTPe/DLcJ/LDwWpTi37doKPhBwlHev1BwVCbrLEIFjY0MLM0aT
- jiBBlyLJaTqvE48gblonu2SGaNmGtkC3VoQUQFcVYDXtlL9CVbNo7BAt5gwPcNqEqkUL60Jh
- FtvVSKyQh6gn7HHsyMtgltjZ3NKjv8S3yQd7zxvCn79tCKwoeNevsvoMq/bzlKxc9QiKaRPO
- aDj3FtW7R/3XoKJBY8Hckyug6uc2qYWRpnuXc0as6S0wfek6gauExUttBKrtSbPPHiuTeNHt
- NsT4+dyvaJtQKPBTbPHkXpTO8e1+YAg7kPj3aKFToE/dakIh8iqUHLNxywDAamRVn8Ha67WO
- AEAA3iklJ49QQk2ZyS1RJ2Ul28ePFDZ3QSr9LoJiOBZv9XkbhXS164iRB7rBZk6ZRVgCz3V6
- hhhjkipYvpJ/fpjXNsVL8jvel1mYNf0a46T4QQDQx4KQj0zXJbC2fFikAtu1AULktF4iEXEI
- rSjFoqhd4euZ+QARAQABwsF8BBgBCAAmAhsMFiEE13oJz+7cK71TpwR0YAI/xNNJIHIFAmX4
- qVAFCQ8NoDIACgkQYAI/xNNJIHKN4A/+Ine2Ii7JiuGITjJkcV6pgKlfwYdEs4eFD1pTRb/K
- 5dprUz3QSLP41u9OJQ23HnESMvn31UENk9ffebNoW7WxZ/8cTQY0JY/cgTTrlNXtyAlGbR3/
- 3Q/VBJptf04Er7I6TaKAmqWzdVeKTw33LljpkHp02vrbOdylb4JQG/SginLV9purGAFptYRO
- 8JNa2J4FAQtQTrfOUjulOWMxy7XRkqK3QqLcPW79/CFn7q1yxamPkpoXUJq9/fVjlhk7P+da
- NYQpe4WQQnktBY29SkFnvfIAwqIVU8ix5Oz8rghuCcAdR7lEJ7hCX9bR0EE05FOXdZy5FWL9
- GHvFa/Opkq3DPmFl/0nt4HJqq1Nwrr+WR6d0414oo1n2hPEllge/6iD3ZYwptTvOFKEw/v0A
- yqOoYSiKX9F7Ko7QO+VnYeVDsDDevKic2T/4GDpcSVd9ipiKxCQvUAzKUH7RUpqDTa+rYurm
- zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
- fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
- ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
-In-Reply-To: <214bbcf7-38ba-458b-81ba-d7f3a42cb73d@ixit.cz>
+Subject: Re: [PATCH 1/2] arm64: dts: amlogic: t7: use the real UART pclk
+To: Ronald Claveau <linux-kernel-dev@aliel.fr>,
+ Xianwei Zhao <xianwei.zhao@amlogic.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+References: <20260818191159.11523-1-tanure@linux.com>
+ <20260818191159.11523-2-tanure@linux.com>
+ <c428305a-265c-4cc5-be01-be5b21dc22ca@amlogic.com>
+ <6673edea-6822-4368-9374-29f92195fcf5@aliel.fr>
+Content-Language: en-US
+From: Lucas Tanure <tanure@linux.com>
+In-Reply-To: <6673edea-6822-4368-9374-29f92195fcf5@aliel.fr>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 17/08/2026 14:08, David Heidelberg wrote:
-> On 07/08/2026 08:21, Fenglin Wu wrote:
->> Add an initial driver for the Qualcomm PMIH0108 PMIC haptics module,
->> named as HAP530_HV. This module supports several play modes, including
->> DIRECT_PLAY, FIFO, PAT_MEM, and SWR, each with distinct data sourcing
->> and hardware data handling logic. Currently, the driver provides support
->> for two play modes using the input force-feedback framework: FF_CONSTANT
->> effect for DIRECT_PLAY mode and FF_PERIODIC effect with FF_CUSTOM
->> waveform for FIFO mode.
+On 19/08/2026 08:25, Ronald Claveau wrote:
+> On 8/19/26 4:39 AM, Xianwei Zhao wrote:
+>> Hi Lucas,
 >>
->> Assisted-by: Claude:claude-4-8-opus
->> Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
->> ---
->>   drivers/input/misc/Kconfig             |   11 +
->>   drivers/input/misc/Makefile            |    1 +
->>   drivers/input/misc/qcom-spmi-haptics.c | 1252 ++++++++++++++++++++++++++++++++
->>   3 files changed, 1264 insertions(+)
+>> On 2026/8/19 03:11, Lucas Tanure wrote:
+>>> uart_a lists the 24MHz crystal for all three of its clocks, because
+>>> the T7 clock controller driver did not exist when these boards were
+>>> added.
+>>>
+>>> That leaves the real UART bus clock without a user, so the kernel
+>>> turns it off when it disables unused clocks at the end of boot, and
+>>> the board hangs.
+>>>
+>>> Point uart_a at the real clocks, the way meson-s4.dtsi does, and drop
+>>> the placeholders from the two board files.
+>>>
+>>> Fixes: 4fef056588f5 ("arm64: dts: amlogic-t7-a311d2-khadas-vim4: add
+>>> initial device-tree")
+>>> Fixes: 6f048cc7a635 ("arm64: dts: add board AN400")
+>>> Signed-off-by: Lucas Tanure<tanure@linux.com>
+>>> Assisted-by: Claude:claude-fable-5
+>>> ---
+>>>    arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts       | 2 --
+>>>    arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts | 2 --
+>>>    arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi                   | 4 ++++
+>>>    3 files changed, 4 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts
+>>> b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts
+>>> index cab2ee9ea0d3..dcbcd08a78b9 100644
+>>> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts
+>>> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts
+>>> @@ -33,7 +33,5 @@ xtal: xtal-clk {
+>>>    };
+>>>
+>>>    &uart_a {
+>>> -       clocks = <&xtal>, <&xtal>,
+>>> <&xtal>;
+>>> -       clock-names = "xtal", "pclk", "baud";
+>>>           status = "okay";
+>>>    };
+>>> diff --git
+>>> a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+>>> b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+>>> index c41525a34b72..677069e58f30 100644
+>>> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+>>> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+>>> @@ -266,6 +266,4 @@ &sd_emmc_c {
+>>>
+>>>    &uart_a {
+>>>           status = "okay";
+>>> -       clocks = <&xtal>, <&xtal>,
+>>> <&xtal>;
+>>> -       clock-names = "xtal", "pclk", "baud";
+>>>    };
+>>> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+>>> b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+>>> index cc371fcd1896..7847582e77ed 100644
+>>> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+>>> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+>>> @@ -587,6 +587,10 @@ uart_a: serial@78000 {
+>>>                                   compatible = "amlogic,t7-uart",
+>>> "amlogic,meson-s4-uart";
+>>>                                   reg = <0x0 0x78000 0x0 0x18>;
+>>>                                   interrupts = <GIC_SPI 168
+>>> IRQ_TYPE_EDGE_RISING>;
+>>> +                               clocks = <&xtal>,
+>>> +                                        <&clkc_periphs
+>>> CLKID_SYS_UART_A>,
+>>> +                                        <&xtal>;
+>>> +                               clock-names = "xtal", "pclk", "baud";
+>>>                                   status = "disabled";
+>>>                           };
 >>
-P.S. Could you post together with the PMIH0108 device-tree part and ideally the 
-device integration you testing with? (or at least share the WIP DT, if it's not 
-finished yet)
-
-Thanks
-David
+>> I agree with moving the UART clock configuration to the DTSI file.
+>> However, it seems a little odd to keep the XTAL clock definition in the
+>> DTS, as the alias may not be consistent across different boards, which
+>> could result in compilation errors. Could we move the XTAL clock
+>> definition to the DTSI as well, similar to other Amlogic SoCs?
+> 
+> It seems similar to changes in this series :
+> 
+> https://lore.kernel.org/all/20260420-add-bluetooth-t7-vim4-v4-0-9505df0e7016@aliel.fr/
+> 
+> What do you think ?
+> 
+Thanks for pointing out that series, though I wasn't aware of it.
+And after reading I don't agree with it. The clocks are not redundant, 
+they are there because we agreed sometime ago that xtal belongs to the 
+board files.
+So I still vote for my change in v2, that I will send in a few minutes.
