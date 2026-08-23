@@ -1,118 +1,171 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 228642D739C;
-	Sun, 23 Aug 2026 19:28:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF3A3515EF;
+	Sun, 23 Aug 2026 19:39:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787513292; cv=none; b=hGb3RbmjWX4QnTmXHusuGMBWucJchji0OwRkusw1dxrR+O10eF+FhmsFqsuHsWyo1kepnF5ZEazVpqan+Hj7Yw19BaBJ0YNE8I3jlFdS+Q+QTbgWYomoJMBByo4YC8kbU+85QV5Cn64VvfQEfhMAKrnAcqq5AJzz2XLgRI+GqxY=
+	t=1787513995; cv=none; b=squY2UzcXkOdnQWao+FDqvFc34bFHpYraXstUcxvayJIk0IiCklyXnlc3UQcIUHwo2TeFVBaMtJlhda5a0pVJL0DNiDxuPIY1CPP0qal5m3yDu/MNsbBUSCNLgTyeCZ0DRgwvSIrpvjHexUkZM1JU7esXc02/tZNdLBfSKfqbp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787513292; c=relaxed/simple;
-	bh=Xyu++SJOi+a3aYTtKVgNn4xmzspRA5cr1q25ZYCu4L8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mORLYC1KdJjThrSB8qxpsDEFns3KTnwrZdG2nVY5Ojm65wielpm42+nYEnqeNMJB1Hx6tbypAAKBaXeYz+5S6hn6802PqfDSQu1q3lis5phEoAUMw6/QOIiumqI0UzWSbDz7Mrgdh7pxJFYO6cHlWn57FUTAfbrO4HR/9fzxAMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=tQHIIO09; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1787513995; c=relaxed/simple;
+	bh=itzQ5jV4BN8Ss0Lby1cpZAmO5kE4SoO0NCU8doihEM4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=l0WZTVgxBeXgQ7JQEzSWeu+6eRW/YjjTqVPBIbwjg7olGLUojbVOCTDwBU3aTZjItCbEzjmwD//+4vmXUALX+i+FbgzMyUDfzHYbGqfl3XHhipuylGubezdCHRs9MenfknCFBhkfmI5d1Keie80EUX5KXsB/Ryj9ZFJGG43E3jg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QqvdhyI5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="tQHIIO09"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 5AEF11A17D2;
-	Sun, 23 Aug 2026 19:28:00 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 0E3C460378;
-	Sun, 23 Aug 2026 19:28:00 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EEE4411C78552;
-	Sun, 23 Aug 2026 21:27:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1787513274; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=X/CY+Q5KwPD7iPjdJOTwPbS6HjELxq+ezGaZFw25SNM=;
-	b=tQHIIO09m6AuJtcW0Ov/zMHW+6/6fsHvQ13a6MPWgozDIH4BVaY/YAyg8Pjbp6OkdcbSzD
-	5aamc2+69S645w1MF1xCRi2M788VaxPJP9pcojH9Hsjnz7x3UIx6Y8+s4nGQoClhcE13IM
-	XB979omXqgQcJ/3Kc10wo7rLq9mGHXhpYofVnAtPKX1PPcFnvhrThBwU/JBNoiMCufK+9o
-	qwHxk0EFEvIs/jCM+HcKYzpbiTUR4WaDn1SSO3Lxh9pzMmz8Jmqj9UB9HP9uNpUbsj7jy3
-	MHujLukUnzQahuFvwBuMWNt3304kwr5VUXZYepH0W10pSm9tf0+6CtGMewFDHw==
-Date: Sun, 23 Aug 2026 21:27:51 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Prabhakar <prabhakar.csengg@gmail.com>
-Cc: linux-rtc@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v6 00/17] Add RTC support for Renesas RZ/T2H and RZ/N2H
- SoCs
-Message-ID: <178751320985.803208.13800880301925482074.b4-ty@b4>
-References: <20260821211032.13554-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QqvdhyI5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75EAC1F000E9;
+	Sun, 23 Aug 2026 19:39:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787513994;
+	bh=zLEE0is5dWhs16wMe34Vd1UXOLmD5Wu3lEF7TZ/ozEw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=QqvdhyI55iVZzRF/c9RS8/5Xfb6HEMEYsDvqw5w0N9ZQbQlzyNhN6sRRWQv55njuU
+	 S5v4k24oadl7iOdoQmQeCjwtoCgeyYo0ZA+EPy1r9z2eyw3MV78SdH4TgV+i0c7qFg
+	 WsUtXvXSmOp60fecJfJus22teLnW1p/y8CAd8jjFe3Fwp4GmAd++rpOii2eXjcgbFu
+	 41dn8xvejS3PRVIA3Wo6isZJOEXnAzR4ktiAXC0A0D8r6zgte1gBzHRCimFEiygx5p
+	 3KCESm982FAmu+OqpZqE21uuXa/9E9mbcwj+tun4nHZ8k254fMrCgj/JyqiNla9v8b
+	 rB9mm0gUoGFLA==
+Date: Sun, 23 Aug 2026 20:39:47 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Janani Sunil <janani.sunil@analog.com>
+Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, "David Lechner" <dlechner@baylibre.com>,
+ Andy Shevchenko <andy@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, Olivier Moysan <olivier.moysan@foss.st.com>, Philipp
+ Zabel <p.zabel@pengutronix.de>, Linus Walleij <linusw@kernel.org>, Bartosz
+ Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, Michael Walle <mwalle@kernel.org>,
+ <linux@analog.com>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-gpio@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+ <jananisunil.dev@gmail.com>, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?=
+ <u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH v4 13/14] gpio: ad7768: Add AD7768 GPIO auxiliary driver
+Message-ID: <20260823203947.3ecdc448@jic23-huawei>
+In-Reply-To: <20260821-ad7768-driver-v4-13-bb8fbd06d4eb@analog.com>
+References: <20260821-ad7768-driver-v4-0-bb8fbd06d4eb@analog.com>
+	<20260821-ad7768-driver-v4-13-bb8fbd06d4eb@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260821211032.13554-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, 21 Aug 2026 22:10:15 +0100, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+On Fri, 21 Aug 2026 16:07:06 +0200
+Janani Sunil <janani.sunil@analog.com> wrote:
+
+> The AD7768 provides five GPIOs controlled through registers shared
+> with the parent IIO device. Register an auxiliary gpio-regmap driver
+> and use the parent device for runtime PM.
 > 
-> Hi all,
+> The device has separate input-state and output-latch registers. Add a
+> reg_mask_xlate() callback that checks the line direction and reads the
+> programmed output latch for output lines while retaining input-state
+> reads for input lines.
 > 
-> This series adds support for the RTC IP found on the Renesas RZ/T2H and
-> RZ/N2H SoCs.
+> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+
+Linus W, for I think that (when you are happy) you can pick up this
+and the previous two enabling patches via the gpio tree and I'll take
+the rest via IIO.  One small wrinkle around the maintainers entry that
+we can fudge in various ways.
+
+> ---
+>  MAINTAINERS                |   1 +
+>  drivers/gpio/Kconfig       |  12 +++++
+>  drivers/gpio/Makefile      |   1 +
+>  drivers/gpio/gpio-ad7768.c | 118 +++++++++++++++++++++++++++++++++++++++++++++
+>  4 files changed, 132 insertions(+)
 > 
-> [...]
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index dc94e7803a7c..3de7ebcc4ee7 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -1639,6 +1639,7 @@ L:	linux-iio@vger.kernel.org
+>  S:	Supported
+>  W:	https://ez.analog.com/linux-software-drivers
+>  F:	Documentation/devicetree/bindings/iio/adc/adi,ad7768.yaml
+> +F:	drivers/gpio/gpio-ad7768.c
 
-Applied, thanks!
+This may be the only reason we can't merge the gpio driver via
+the gpio tree, independent of the rest.
 
-[01/17] dt-bindings: rtc: renesas,rzn1-rtc: Add RZ/T2H and RZ/N2H support
-        https://git.kernel.org/abelloni/c/1ffb5be3e4be
-[02/17] rtc: rzn1: Handle EPROBE_DEFER for optional pps interrupt
-        https://git.kernel.org/abelloni/c/708546aa3956
-[03/17] rtc: rzn1: Fix weekday underflow when alarm crosses month boundary
-        https://git.kernel.org/abelloni/c/022a2839a520
-[04/17] rtc: rzn1: Handle unset alarm weekday in rzn1_rtc_read_alarm
-        https://git.kernel.org/abelloni/c/457b5dbce312
-[05/17] rtc: rzn1: Fix alarm range check truncation on 32-bit systems
-        https://git.kernel.org/abelloni/c/c3e735e9f620
-[06/17] rtc: rzn1: Disable alarm interrupt before reprogramming alarm registers
-        https://git.kernel.org/abelloni/c/51458d5b0a1c
-[07/17] rtc: rzn1: Fix malformed MODULE_AUTHOR string
-        https://git.kernel.org/abelloni/c/cd54d8f09d9b
-[08/17] rtc: Kconfig: Broaden RTC_DRV_RZN1 dependency to ARCH_RENESAS
-        https://git.kernel.org/abelloni/c/960987abe58d
-[09/17] rtc: rzn1: Use pm_runtime_put_sync()
-        https://git.kernel.org/abelloni/c/ea0ef2e7f83b
-[10/17] rtc: rzn1: Replace remove callback with devm_add_action_or_reset()
-        https://git.kernel.org/abelloni/c/6e0d7d480f2d
-[11/17] rtc: rzn1: Dynamically calculate synchronization delay based on clock rate
-        https://git.kernel.org/abelloni/c/afb8972b9e36
-[12/17] rtc: rzn1: Use temporary variable for struct device
-        https://git.kernel.org/abelloni/c/b587001387c1
-[13/17] rtc: rzn1: Consistently use dev_err_probe()
-        https://git.kernel.org/abelloni/c/0e1ae8c654f0
-[14/17] rtc: rzn1: use FIELD_PREP/FIELD_GET and GENMASK for register access
-        https://git.kernel.org/abelloni/c/5ae93269d3e5
-[15/17] rtc: rzn1: Add OF match data to gate SUBU register access
-        https://git.kernel.org/abelloni/c/38a3a3b09958
-[16/17] rtc: rzn1: Drop trailing comma from OF match table sentinel
-        https://git.kernel.org/abelloni/c/8af6331c6e7a
-[17/17] rtc: rzn1: Add support for Renesas RZ/T2H and RZ/N2H SoCs
-        https://git.kernel.org/abelloni/c/b418fa370ea6
+Maybe drop this for now, or break it out as a separately patch that I can
+pick up via IIO.
 
-Best regards,
+>  F:	drivers/iio/adc/ad7768.c
+>  
+>  ANALOG DEVICES INC AD7780 DRIVER
 
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+> diff --git a/drivers/gpio/gpio-ad7768.c b/drivers/gpio/gpio-ad7768.c
+> new file mode 100644
+> index 000000000000..710739e33dff
+> --- /dev/null
+> +++ b/drivers/gpio/gpio-ad7768.c
+
+> +static int ad7768_gpio_probe(struct auxiliary_device *adev,
+> +			     const struct auxiliary_device_id *id)
+> +{
+> +	struct device *parent = adev->dev.parent;
+> +	struct gpio_regmap_config config = {
+> +		.parent = &adev->dev,
+> +		.label = dev_name(parent),
+> +		.ngpio = AD7768_NUM_GPIOS,
+> +		.reg_dat_base = AD7768_REG_GPIO_READ,
+> +		.reg_set_base = AD7768_REG_GPIO_WRITE,
+> +		.reg_dir_out_base = AD7768_REG_GPIO_CONTROL,
+> +		.pm_dev = parent,
+> +		.reg_mask_xlate = ad7768_gpio_reg_mask_xlate,
+> +		.init_valid_mask = ad7768_gpio_init_valid_mask,
+> +	};
+> +	struct gpio_regmap *gpio;
+> +	struct regmap *map;
+> +	int ret;
+> +
+> +	map = dev_get_regmap(parent, NULL);
+> +	if (!map)
+> +		return -ENODEV;
+> +
+> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(parent, pm);
+> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_set_bits(map, AD7768_REG_GPIO_CONTROL, AD7768_GPIO_UGPIO_ENABLE);
+> +	if (ret)
+> +		return ret;
+> +
+> +	config.regmap = map;
+> +	config.drvdata = map;
+
+Why not do all this in one place rather than init then later
+modify?
+
+	config = (struct gpio_regmap_config) {
+		.parent = &adev->dev,
+		.regmap = map,
+		.label = dev_name(parent),
+		.ngpio = AD7768_NUM_GPIOS,
+		.reg_dat_base = AD7768_REG_GPIO_READ,
+		.reg_set_base = AD7768_REG_GPIO_WRITE,
+		.reg_dir_out_base = AD7768_REG_GPIO_CONTROL,
+		.pm_dev = parent,
+		.reg_mask_xlate = ad7768_gpio_reg_mask_xlate,
+		.init_valid_mask = ad7768_gpio_init_valid_mask,
+		.drvdata = map,
+	};
+
+> +	gpio = devm_gpio_regmap_register(&adev->dev, &config);
+> +	return PTR_ERR_OR_ZERO(gpio);
+Could do
+	return PTR_ERR_OR_ZERO(devm_gpio_regmap_register(&adev->dev, &config));
+
+Though maybe it looses some readability?
+
+> +}
