@@ -1,83 +1,63 @@
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7983A217723
-	for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 23:47:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8B55345EB9
+	for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 23:55:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787528847; cv=none; b=flQA76FqrW5yA7mysqjCBJq9132+Kor/YLBFFYRznE1UJXfGR3RrB7MLvOLKP/UBb1LVSwFqg0dSBH2jf0fyu6nkdePJAYTBdZfkM0jHEOmE0lxqDUVFvX8KyJGuwpbxLhOG4CWU4t7Z6PWDBFMxNhyamMk9OCC2p/3MZ0grIRQ=
+	t=1787529310; cv=none; b=lDKON/rFiX60pLoEv87wv/v3pLdfLwQ0xQYXN77gaKaTqX0HPzZzE+fqjSEa5Ty6neEFPtqf4cAtKp2v71phGIXHC/utimBka59jW3T+OTVn8N72/a0Rxfu/BBoSsC4/DEBW2328FyPbs3/UR7qbYuEC4oTLp2/FG3n9KcPZCFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787528847; c=relaxed/simple;
-	bh=4obUbmOGx4hCRl+KoVRfaNhchFlfxR7dKDEX+TRekQo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Wizv4h38czs8jo7T+i68Ca+8IMA3GD9cYepfVVuAyklUl+PkB7woKinkED3wjvK2we47QeoBT5DDIUV4UHM+1RHU1NmFD0mDy7ABNaunsJ9KoGchreZmVu+AnvIUAxz15uEt1caL+YPk4o1btukAUTIaTYrQ5k23dwWqCmXCQ5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kF4uAC2j; arc=none smtp.client-ip=209.85.160.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787529310; c=relaxed/simple;
+	bh=RoIspbrMGs1HzG6/GImoeffSXr48axzFV7S1li2E68U=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=AFlxlp165c0FweLNFOb0kw8n4v4k3JKPuA9qLaz9dMdiB8jn8rN5x6gcLWl/c3CleGX2Jkj260/Sb+zqgsjDxW5wDvW3uOVAkObnQ6Cr5UXrAhrMn567R7WqhZ9nhUzub7ucJznTUkUle/yYpnmqcdGSjp4AEkPOvmyabjRGNe8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OYMgCgYC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kF4uAC2j"
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-51c2a818fc4so18954291cf.2
-        for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 16:47:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787528845; x=1788133645; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RxJ7bJC9fshEg18tC8CqCMJJPORI/U6b98X15Dyh4Vc=;
-        b=kF4uAC2jnz4SNyyafLzVHUx7YI0Ln7wBNENDifhEzM+RSJmJtrXmzDTR8GQdYtEqkM
-         kRAFrN8rdTHDy79u96L1My+X8CGCVYRbOiY/Ew72etjTZwixcuscEhMpVr3O5RxzxbrN
-         q7q4Bcuh8GM4AbqOxAbUpyHOg9WiNpNKk6fp5lTc3nWLy4Xqj6KmPUmQ/rOCDm/94dbD
-         V/AOtvRL0W9w2Z/eiF2wdSAzwfoBr6lm4U5g1E7tv+akk7AuzT+2v5uatY0b0X9dGrJS
-         uJoqDCd46TDrr3RTdiKiahI7tFclV9lsEMONnOmFrX8XNgU693kUFvo3IIoDxTITaabA
-         XJIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787528845; x=1788133645;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RxJ7bJC9fshEg18tC8CqCMJJPORI/U6b98X15Dyh4Vc=;
-        b=Q+SOVcDvSWHCCnQLSZdIZtPbXyOcqvH6x/2PSxPy6w+n+/ySgQCBL/C1VOhEUiX7yd
-         IiYYVSW63XN8xRZdWjxcZ0yeO62RL6+Lwlj50JgD3F7vio40mrsK6G0uGk6Mcso5eiPr
-         BmdD50arlQuQc0eeKf7xS9trZjiDfd31c974GACSa/amWD58A2aKrcxK3WtTExxe+EO/
-         muXkpmgGpFFMo8hy2MVzNCGbXZTTLO6czPYpeh9fnPi7OwM2cofCgfqSeHPSagHbK7Bn
-         x60BIbdb46vwBezltzRNl9PiYUyyIpdo8YiAApW7B1Ol+mIDdoGzeNnYPf/urInB/5kW
-         3mSA==
-X-Gm-Message-State: AFuF++lNJIFIdWdupOFT8Q4pkCfZEKdoglYGgI1hnxBIweq7dAneWPMw
-	akyJlepMXt4u9hJANJ9vGe01rEkQi/WUoHv5k8jtSiwC1kv/sU5FZ+RqWdleZg==
-X-Gm-Gg: AR+sD10jLq6r6OCQAZHhxYSfuXAcynO7Gqq0UYZHz5t7da55tm30+mAlr5B/JUOOYN+
-	iQvpDISFRx3PDB4VrFcHycTfTxXT66sGdW6YErxwK2KIvJZ1sSKgXNTtYZVGU6WhNwUTGn4YIo9
-	nzO7AMughQIWy5w3TsUCWnVrsOZwZHaLouPNRJCwTw9LCtnoykRgYeZ8URmf/d0LBQ/ddI5A4Xp
-	RSn2EPznAGB78x1GwhVGYAxFAzCw2lKugCu3PSClg+GrMgoNHbQMLCrtTpjOseKh/jLEqID1IwJ
-	qnYbNpnW0VTGdTvRyr18HgZCMVS6bzsCArkE0v92fNzxnkEt4RwRQDWR99++bnS389HJ8woe9C5
-	LtRczCxSOr2M7zgNG2HrV39azZQrzRqLeyLkcsPNGA8un/Y9aUhMaU0v+nYiY801uN5S6ACYDq2
-	ErIHbWTpc+ubQNumuN/ZWK1BoKARX82QC8L4Z8dShDsb0lsZwlRJcQByPr1nzEHAB+uitwaDz4u
-	ik5fJ6Ts89lVPpBq7BwqModSIvCkYZYdNKG9bP9hb6cG4B+2o501Hp4XGA0QsNtMWV8/bI4i0Eg
-	Wq2on8Btk+RaZZ8plcsbR2DWRCbirdRqtG0Giw==
-X-Received: by 2002:a05:622a:1c0c:b0:51c:a8:51cd with SMTP id d75a77b69052e-52e09b81035mr153613501cf.1.1787528845452;
-        Sun, 23 Aug 2026 16:47:25 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52e09aad030sm36778851cf.15.2026.08.23.16.47.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 23 Aug 2026 16:47:24 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: devicetree@vger.kernel.org
-Cc: Andrew Lunn <andrew@lunn.ch>,
-	Gregory Clement <gregory.clement@bootlin.com>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Marvell Kirkwood and Armada 370, 375, 38x,...),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] ARM: dts: marvell: add missing SDHCI clock-names
-Date: Sun, 23 Aug 2026 16:47:21 -0700
-Message-ID: <20260823234721.72903-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OYMgCgYC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B7421F000E9;
+	Sun, 23 Aug 2026 23:55:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787529308;
+	bh=R0lxUk5ugNyWPmeeH/2pf45+OuGIzhCziyLP4GsYBx4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=OYMgCgYC7XRk3OkEHkKUH36aL3VEaDlkrEUS4QLLka7qdjRD9e2oXVr7p9yD3roJy
+	 IZq9IvYj5abkicYNuLg7mqEUZxgROXUVk7pLHvta2/KHluiTC6P7sgSlpF8a/7wfw2
+	 jzpG/ADGzEERBRas37tP352N4RULQidJcXhPKz1IhEtEazHRC8ZHBaa4DTJ6W7dmDg
+	 lBd2EZ6m/3j34DiAfn34DUGDl8EoAe4a0K30a4objz2CafLoG3AGfr+xiaI1kAQmkc
+	 otZYn28wcly9inxfBk5pB6FedzVnAyWinp06J17zXlTy8Jekn0yjtH8AqRnep8eN0q
+	 4SGqpewaVEWTw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] ARM: dts: marvell: add missing SDHCI clock-names
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Rosen Penev" <rosenp@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260823234721.72903-1-rosenp@gmail.com>
+References: <20260823234721.72903-1-rosenp@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 23 Aug 2026 23:55:07 +0000
+Message-Id: <20260823235508.2B7421F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+
+Pre-existing issues:
+- [High] Unchecked return value of clk_prepare_enable() leading to potentia=
+l unclocked hardware accesses.
+- [High] Suppression of legitimate errors (e.g., -EPROBE_DEFER) when fetchi=
+ng the optional 'core' clock.
+--
+
+--- Patch [1]: [PATCH] ARM: dts: marvell: add missing SDHCI clock-names ---
+commit 4be703994612e3151cc7dd6a9b229ae270b6b4da
+Author: Rosen Penev <rosenp@gmail.com>
+
+ARM: dts: marvell: add missing SDHCI clock-names
 
 The marvell,armada-380-sdhci binding requires "clock-names", and
 the sdhci-pxav3 driver requests its io clock by name before falling
@@ -85,40 +65,80 @@ back to an unnamed lookup. Both Armada 38x and 39x nodes only carry
 an unnamed clocks reference, so dtbs_check reports "'clock-names'
 is a required property" on every board.
 
-Add clock-names = "io" to both nodes. No functional change: the
+Add clock-names =3D "io" to both nodes. No functional change: the
 driver already obtains the clock through its fallback.
 
-Assisted-by: opencode:big-pickle
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- arch/arm/boot/dts/marvell/armada-38x.dtsi | 1 +
- arch/arm/boot/dts/marvell/armada-39x.dtsi | 1 +
- 2 files changed, 2 insertions(+)
+> diff --git a/arch/arm/boot/dts/marvell/armada-38x.dtsi b/arch/arm/boot/dt=
+s/marvell/armada-38x.dtsi
+> index 1d616edda322d..0618779090d04 100644
+> --- a/arch/arm/boot/dts/marvell/armada-38x.dtsi
+> +++ b/arch/arm/boot/dts/marvell/armada-38x.dtsi
 
-diff --git a/arch/arm/boot/dts/marvell/armada-38x.dtsi b/arch/arm/boot/dts/marvell/armada-38x.dtsi
-index 1155bee20523..598022645dd2 100644
---- a/arch/arm/boot/dts/marvell/armada-38x.dtsi
-+++ b/arch/arm/boot/dts/marvell/armada-38x.dtsi
-@@ -627,6 +627,7 @@ sdhci: mmc@d8000 {
- 					<0x18454 0x4>;
- 				interrupts = <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
- 				clocks = <&gateclk 17>;
-+				clock-names = "io";
- 				mrvl,clk-delay-cycles = <0x1F>;
- 				status = "disabled";
- 			};
-diff --git a/arch/arm/boot/dts/marvell/armada-39x.dtsi b/arch/arm/boot/dts/marvell/armada-39x.dtsi
-index 218fcf99ae07..81dd4ca5fbc9 100644
---- a/arch/arm/boot/dts/marvell/armada-39x.dtsi
-+++ b/arch/arm/boot/dts/marvell/armada-39x.dtsi
-@@ -381,6 +381,7 @@ mmc@d8000 {
- 					<0x18454 0x4>;
- 				interrupts = <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
- 				clocks = <&gateclk 17>;
-+				clock-names = "io";
- 				mrvl,clk-delay-cycles = <0x1F>;
- 				status = "disabled";
- 			};
--- 
-2.55.0
+[ ... ]
 
+> @@ -627,6 +627,7 @@ sdhci: sdhci@d8000 {
+>  					<0x18454 0x4>;
+>  				interrupts =3D <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
+>  				clocks =3D <&gateclk 17>;
+> +				clock-names =3D "io";
+
+[Severity: High]
+This isn't a bug introduced by this patch, but while reviewing the
+sdhci-pxav3 driver mentioned in the commit message, I noticed a pre-existing
+issue in how these clocks are handled.
+
+Looking at sdhci_pxav3_probe() in drivers/mmc/host/sdhci-pxav3.c:
+
+drivers/mmc/host/sdhci-pxav3.c:sdhci_pxav3_probe() {
+    ...
+	pltfm_host->clk =3D pxa->clk_io;
+	clk_prepare_enable(pxa->clk_io);
+    ...
+	pxa->clk_core =3D devm_clk_get(dev, "core");
+	if (!IS_ERR(pxa->clk_core))
+		clk_prepare_enable(pxa->clk_core);
+    ...
+}
+
+Are we ignoring the return values of clk_prepare_enable() here? If the clock
+subsystem fails to enable the IO or core clocks during probe, the driver
+might access hardware registers while the clock is disabled or failed to
+enable, which could lead to a synchronous external abort.
+
+[Severity: High]
+This is also a pre-existing issue, but does this code suppress legitimate
+errors like -EPROBE_DEFER when fetching the optional 'core' clock?
+
+drivers/mmc/host/sdhci-pxav3.c:sdhci_pxav3_probe() {
+    ...
+	pxa->clk_core =3D devm_clk_get(dev, "core");
+	if (!IS_ERR(pxa->clk_core))
+		clk_prepare_enable(pxa->clk_core);
+    ...
+}
+
+If devm_clk_get() returns -EPROBE_DEFER because the clock provider is not
+yet ready, the if (!IS_ERR(pxa->clk_core)) condition treats this as if the
+clock is absent and proceeds silently without it. Could this break device
+initialization if the clock is actually required but deferred?
+
+The unchecked clk_prepare_enable() issue also appears in the runtime
+resume path:
+
+drivers/mmc/host/sdhci-pxav3.c:sdhci_pxav3_runtime_resume() {
+    ...
+	clk_prepare_enable(pxa->clk_io);
+	if (!IS_ERR(pxa->clk_core))
+		clk_prepare_enable(pxa->clk_core);
+
+	sdhci_runtime_resume_host(host, 0);
+	return 0;
+}
+
+Can the clocks fail to enable during runtime resume, leading to the same
+risk of unclocked hardware access when sdhci_runtime_resume_host() is
+called?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260823234721.7290=
+3-1-rosenp@gmail.com?part=3D1
