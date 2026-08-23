@@ -1,132 +1,69 @@
-Received: from out-2z4y-a133.jellyfish.systems (out-2z4y-a133.jellyfish.systems [198.54.127.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852871AB6F1
-	for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 00:46:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 387D0493654;
+	Sun, 23 Aug 2026 00:51:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787446002; cv=none; b=jSm2x8tMEpE7wEtL8cZuRcgptnv3wFPPkAekwStX2EONFiFVHdp1rfQA7Sc+qxpuNGeW0PZuJaqUGqrl06kg/gYUexFMtwEayfX/wSUjOi4W4cEfFD73uRuQXsV7ay/8NXKySWQh+/a90RYKAyP+xz62DKFB3IRVA8Hz7P9vj9g=
+	t=1787446267; cv=none; b=DqGYmHAnWVX9pDwandzdD7sGm5+iO7uDQbPejYE6ibNr8azkWdewufRIuH5UvB3IS9eEhnVXgHfP72F2Y0hcuu/UEeHgE6XYYvI32mFqD0z4eiuw68V5jlXs0cGy4juLlitJQrB36DfckknPeYwCvxPGM2AusMSUxWF15K6+KzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787446002; c=relaxed/simple;
-	bh=g0F3xnJRJxxCMYaaA6dOWoIlAD58qtUBsqbxx0qTfeI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jZLJ6Ebr1Dp2TRToWXmFFkA3ZZ396Bt7mSc8vV+Z1kooBnrf2E+dR+/a3igfwBOzAJD9zDyW6XEtaVofd+9KK9oHLQNi4SMu303Mo7Zy+4m4dpE0JbZLrvdAtNrjFP5xMCb+HNFXgD2qMx0ysiaBSZhbmW1U8ZiKb0gHbcs4qn4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=198.54.127.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
-Received: from mail.privateemail.com (unknown [87.215.145.39])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.privateemail.com (Postfix) with ESMTPSA id 4hSFQS61K0z8sWN;
-	Sun, 23 Aug 2026 00:33:36 +0000 (UTC)
-From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-To: Jonathan Cameron <jic23@kernel.org>,
-	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chris Morgan <macromorgan@hotmail.com>,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Conor Dooley <conor@kernel.org>
-Subject: [PATCH v5 2/3] iio: imu: inv_icm42600: log whoami mismatch instead of failing probe
-Date: Sun, 23 Aug 2026 02:33:19 +0200
-Message-ID: <20260823003320.62192-3-jorijnvdgraaf@catcrafts.net>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260823003320.62192-1-jorijnvdgraaf@catcrafts.net>
-References: <20260823003320.62192-1-jorijnvdgraaf@catcrafts.net>
+	s=arc-20240116; t=1787446267; c=relaxed/simple;
+	bh=+QlTFb8cMfc/OK5Z4qCUYQr5XCWnEkEPKqH8+KBsNpY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=RKSDPY2X9KObCmkI2KmImFvfJSGn9k5cJkUYZK4iFbeRu0w1FjOWC69qB/YKL8e/oZwkD49aym0WuqtYzbKPdLcFMYmTa3mZ+igcF9C/tuzyRNtDnqR4qGObaHXpkOIa+g6OUGLXByDDataKJRxP12tJyysWVV1R3Csz89n14xg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NKWM+uH6; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NKWM+uH6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CADF1F000E9;
+	Sun, 23 Aug 2026 00:51:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787446265;
+	bh=va1x5CTVjllfWhBzZzKLjqK8OdH8fsdFKbjrDXWyuP0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=NKWM+uH6OOJEOHO87p7rzj2x1GC+z3bYbd3a16Gcy4k6c1789W73s1BBErlYTsx2Y
+	 FXR9qj87xCpnfSRbHELg3pSGRW0aVSiLJc6kc6ZLU7zBzZFbJowWyVp7yotOsLzw6u
+	 mbJ0JEth3kkpj06MZ/6SvT4ob+gRIulWuoGbQ7vtm5YIN1S+aYr3Cj4JjrkPUMuLEO
+	 U33kimAL/mrWt2i9qzCKtabE3pd6KeMX3Hn+I00MWwU9PDlw1mXEb+RMX8wdBn+yqU
+	 0remvZmp1V383+5qg7/A3Yg2lj/TPVTiH8djfTbYpcit2jcj3ST2dUxMVsiPBzlP3q
+	 Rbg5Hg2uOgYcQ==
+Date: Sun, 23 Aug 2026 01:51:00 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Ariana Lazar <ariana.lazar@microchip.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 1/9] iio: dac: mcp47feb02: initialize dac_data field
+ in channel data struct at probe
+Message-ID: <20260823015100.74b6f615@jic23-huawei>
+In-Reply-To: <aoW657jDvmMiOsaX@ashevche-desk.local>
+References: <20260819-mcp47feb02_refactor-v4-0-beb2aa3bfd09@microchip.com>
+	<20260819-mcp47feb02_refactor-v4-1-beb2aa3bfd09@microchip.com>
+	<aoW657jDvmMiOsaX@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Envelope-From: jorijnvdgraaf@catcrafts.net
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-A WHOAMI value differing from the one the compatible implies aborts
-probe with -ENODEV, which prevents a register-compatible part described
-with a fallback compatible from probing at all.
+On Wed, 19 Aug 2026 17:17:11 +0300
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-The devicetree compatible is authoritative for which part is fitted:
-log the mismatch at info level and continue. The message keeps a
-breadcrumb for anyone seeing an unexpected part change on their device
-versus the devicetree; tmp117 takes the same trade at the same level
-for its fallback matches.
+> On Wed, Aug 19, 2026 at 03:41:05PM +0300, Ariana Lazar wrote:
+> > Read DAC value register to initialize corresponding field in channel_data
+> > struct when the module is inserted.  
+> 
+> Since we have a cache enabled for regmap, can we rather read back initial HW
+> values at the probe time for all non-volatile or precise registers?
+> 
 
-A whoami of 0x00 or 0xff still fails probe: SPI has no transfer-level
-ack, so those values mean nothing answered. Otherwise the probe outcome
-on mismatch changes for all parts the driver supports. The check sits
-before the mismatch comparison; it does not depend on hw->whoami, since
-no supported part uses either value (the WHOAMI values the driver
-defines span 0x40-0x5C). inv_icm45600 carries the same guard nested in
-its mismatch branch.
+That should indeed be explored.  This is also missing any description of 'why'
+this needs to be read and cached at all.
 
-Tested via a backport to a Fairphone 6 running a 7.1-based kernel: its
-ICM-42630 (WHOAMI 0x0C), described with an icm42631 fallback compatible
-and matched as icm42631, probes with the one informational line, and
-accelerometer, gyroscope and temperature reads work.
-
-Suggested-by: Conor Dooley <conor@kernel.org>
-Suggested-by: Jonathan Cameron <jic23@kernel.org>
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
----
-v5: the no-response guard moves before the whoami-mismatch comparison
-as its own check (Andy); the four Link trailers are dropped (Andy,
-Jonathan); retested on the device.
-v4 kept the whoami read, logging the mismatch at info level
-(Jonathan, Conor), and added inv_icm45600's no-response guard; both
-prints use %#04x so the two ids render at equal width.
-v3 dropped the check and the whoami definitions entirely.
-New in v2, as a demotion of the error to a warning.
-
- .../iio/imu/inv_icm42600/inv_icm42600_core.c    | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c b/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c
-index dc97d8a274e3..be8cbecdd92e 100644
---- a/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c
-+++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c
-@@ -8,6 +8,7 @@
- #include <linux/interrupt.h>
- #include <linux/irq.h>
- #include <linux/kernel.h>
-+#include <linux/limits.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/pm_runtime.h>
-@@ -509,10 +510,20 @@ static int inv_icm42600_setup(struct inv_icm42600_state *st,
- 	ret = regmap_read(st->map, INV_ICM42600_REG_WHOAMI, &val);
- 	if (ret)
- 		return ret;
-+
-+	/*
-+	 * SPI interface has no ack mechanism.
-+	 * 0xFF or 0x00 whoami means no response from the device.
-+	 */
-+	if (val == U8_MAX || val == 0)
-+		return dev_err_probe(dev, -ENODEV,
-+				     "invalid whoami %#04x expected %#04x (%s)\n",
-+				     val, hw->whoami, hw->name);
-+
- 	if (val != hw->whoami) {
--		dev_err(dev, "invalid whoami %#02x expected %#02x (%s)\n",
--			val, hw->whoami, hw->name);
--		return -ENODEV;
-+		dev_info(dev,
-+			 "device id %#04x is not the %#04x associated with the FW-specified device (%s), probably using a valid fallback compatible\n",
-+			 val, hw->whoami, hw->name);
- 	}
- 	st->name = hw->name;
- 
--- 
-2.55.0
-
+Jonathan
