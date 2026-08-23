@@ -1,124 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCCC0313267;
-	Sun, 23 Aug 2026 19:25:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 228642D739C;
+	Sun, 23 Aug 2026 19:28:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787513136; cv=none; b=mo+T00Af6/sb/hRjcPW8IwS7mKMUKNYt+MQ+o/BGWBKzDEJdErgNvhln8j3YDH0ia+m80QL6DtOpcLjBP1yPFUYUWxDkbq8G316kbNWvBmnYKMVr4eOeAkOjdV2gGGk8HMIbm1gsGZoWersIUOfTqXPf1xO8YqSYwy9viTXDVxI=
+	t=1787513292; cv=none; b=hGb3RbmjWX4QnTmXHusuGMBWucJchji0OwRkusw1dxrR+O10eF+FhmsFqsuHsWyo1kepnF5ZEazVpqan+Hj7Yw19BaBJ0YNE8I3jlFdS+Q+QTbgWYomoJMBByo4YC8kbU+85QV5Cn64VvfQEfhMAKrnAcqq5AJzz2XLgRI+GqxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787513136; c=relaxed/simple;
-	bh=u7U4CAhCSXaMrVki6po0VO+G7qnMnr5lcvy2xyJhbTc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AFWaN8to2rPswVbEcZyY2VopPS6ngisfW/Vq+R98lWOkmfrnJWDf+N5NcUyTyHbIAm206bTOLfvnhRckQ28uGlQb5bGIBRlv6Sv3KjUq3Q5n1YBx9Ez4E5nlxLgc0QRnfKAaTt1n+jphPmP6+8pxo26nCLGja09cb4CnIAFv3cQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YxyOi3GY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787513292; c=relaxed/simple;
+	bh=Xyu++SJOi+a3aYTtKVgNn4xmzspRA5cr1q25ZYCu4L8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mORLYC1KdJjThrSB8qxpsDEFns3KTnwrZdG2nVY5Ojm65wielpm42+nYEnqeNMJB1Hx6tbypAAKBaXeYz+5S6hn6802PqfDSQu1q3lis5phEoAUMw6/QOIiumqI0UzWSbDz7Mrgdh7pxJFYO6cHlWn57FUTAfbrO4HR/9fzxAMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=tQHIIO09; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YxyOi3GY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 396DB1F000E9;
-	Sun, 23 Aug 2026 19:25:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787513134;
-	bh=j29QskVYdEiLxu4ve4piAcLrA6al4W9RQUnAtxaMrVY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=YxyOi3GYYqAUbll+k7OEV72OYqp0s7m5YK/napBESyfK+TmmuZzlap6bWrWIesI1b
-	 +laQHDZ4LeFmkDHydGnwwUlrFXcq8Vk7vClUPmusmdTRbEkpA7ErwWCSnCgUCVASaa
-	 88x+2v4ve9l8wT6itDYwXyPuN6jpnINuU7a7NbrdI19lU0gp9shB75OjF46PyHCO2N
-	 OxrHU67Rs5yV00IVKVuAC807f9mkZhVyxiOw6Ro5T4sXsgDoZRLsPSWLCVJDL3HHnh
-	 75Szuq4saQ6jIG+EZCohKVXs8OGHwdV7zr3NLR48zmDWWR7Xxd404/dr9aO9WprfRQ
-	 31Fu2lvkqIDEQ==
-Date: Sun, 23 Aug 2026 20:25:27 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich
- <Michael.Hennerich@analog.com>, "David Lechner" <dlechner@baylibre.com>,
- Andy Shevchenko <andy@kernel.org>, "Rob Herring" <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, Olivier Moysan <olivier.moysan@foss.st.com>, Philipp
- Zabel <p.zabel@pengutronix.de>, Linus Walleij <linusw@kernel.org>, Bartosz
- Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, Michael Walle <mwalle@kernel.org>,
- <linux@analog.com>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-gpio@vger.kernel.org>, <linux-doc@vger.kernel.org>,
- <jananisunil.dev@gmail.com>, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?=
- <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH v4 06/14] iio: adc: ad7768: Add configurable sampling
- modes
-Message-ID: <20260823202527.29881ee4@jic23-huawei>
-In-Reply-To: <20260821-ad7768-driver-v4-6-bb8fbd06d4eb@analog.com>
-References: <20260821-ad7768-driver-v4-0-bb8fbd06d4eb@analog.com>
-	<20260821-ad7768-driver-v4-6-bb8fbd06d4eb@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="tQHIIO09"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 5AEF11A17D2;
+	Sun, 23 Aug 2026 19:28:00 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 0E3C460378;
+	Sun, 23 Aug 2026 19:28:00 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EEE4411C78552;
+	Sun, 23 Aug 2026 21:27:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1787513274; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=X/CY+Q5KwPD7iPjdJOTwPbS6HjELxq+ezGaZFw25SNM=;
+	b=tQHIIO09m6AuJtcW0Ov/zMHW+6/6fsHvQ13a6MPWgozDIH4BVaY/YAyg8Pjbp6OkdcbSzD
+	5aamc2+69S645w1MF1xCRi2M788VaxPJP9pcojH9Hsjnz7x3UIx6Y8+s4nGQoClhcE13IM
+	XB979omXqgQcJ/3Kc10wo7rLq9mGHXhpYofVnAtPKX1PPcFnvhrThBwU/JBNoiMCufK+9o
+	qwHxk0EFEvIs/jCM+HcKYzpbiTUR4WaDn1SSO3Lxh9pzMmz8Jmqj9UB9HP9uNpUbsj7jy3
+	MHujLukUnzQahuFvwBuMWNt3304kwr5VUXZYepH0W10pSm9tf0+6CtGMewFDHw==
+Date: Sun, 23 Aug 2026 21:27:51 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Prabhakar <prabhakar.csengg@gmail.com>
+Cc: linux-rtc@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v6 00/17] Add RTC support for Renesas RZ/T2H and RZ/N2H
+ SoCs
+Message-ID: <178751320985.803208.13800880301925482074.b4-ty@b4>
+References: <20260821211032.13554-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260821211032.13554-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, 21 Aug 2026 16:06:59 +0200
-Janani Sunil <janani.sunil@analog.com> wrote:
-
-> Derive the available output data rates from MCLK and expose per-channel
-> sampling frequency and filter controls.
+On Fri, 21 Aug 2026 22:10:15 +0100, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 > 
-> Select the fastest compatible power mode for the enabled channels and
-> map matching sampling frequency and filter combinations onto the two
-> hardware channel profiles. Configure the data clock divider and wait for
-> the selected filters to settle before capture.
+> Hi all,
 > 
-> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
-More minor stuff.
-
-J
-> ---
->  drivers/iio/adc/ad7768.c | 580 ++++++++++++++++++++++++++++++++++++++++++++---
->  1 file changed, 543 insertions(+), 37 deletions(-)
+> This series adds support for the RTC IP found on the Renesas RZ/T2H and
+> RZ/N2H SoCs.
 > 
-> diff --git a/drivers/iio/adc/ad7768.c b/drivers/iio/adc/ad7768.c
-> index 34233ad6cfca..08d8e97d58fc 100644
-> --- a/drivers/iio/adc/ad7768.c
-> +++ b/drivers/iio/adc/ad7768.c
+> [...]
 
-> +static int ad7768_apply_channel_modes(struct iio_dev *indio_dev,
-> +				      const unsigned long *scan_mask)
-> +{
-> +	enum ad7768_filter_type mode_filter[AD7768_NUM_CHANNEL_MODES];
-> +	unsigned int mode_freq[AD7768_NUM_CHANNEL_MODES];
-> +	bool mode_used[AD7768_NUM_CHANNEL_MODES] = { };
->  	struct ad7768_state *st = iio_priv(indio_dev);
->  	unsigned int channel_mask;
->  	unsigned int standby_mask;
-> +	unsigned int max_freq = 0;
-> +	struct device *dev;
-> +	unsigned int c;
->  	int ret;
->  
-> +	guard(mutex)(&st->lock);
-> +	dev = regmap_get_device(st->regmap);
+Applied, thanks!
 
-I can't see why this needs to be under the lock.  I'd just do
-it at declaration above.
+[01/17] dt-bindings: rtc: renesas,rzn1-rtc: Add RZ/T2H and RZ/N2H support
+        https://git.kernel.org/abelloni/c/1ffb5be3e4be
+[02/17] rtc: rzn1: Handle EPROBE_DEFER for optional pps interrupt
+        https://git.kernel.org/abelloni/c/708546aa3956
+[03/17] rtc: rzn1: Fix weekday underflow when alarm crosses month boundary
+        https://git.kernel.org/abelloni/c/022a2839a520
+[04/17] rtc: rzn1: Handle unset alarm weekday in rzn1_rtc_read_alarm
+        https://git.kernel.org/abelloni/c/457b5dbce312
+[05/17] rtc: rzn1: Fix alarm range check truncation on 32-bit systems
+        https://git.kernel.org/abelloni/c/c3e735e9f620
+[06/17] rtc: rzn1: Disable alarm interrupt before reprogramming alarm registers
+        https://git.kernel.org/abelloni/c/51458d5b0a1c
+[07/17] rtc: rzn1: Fix malformed MODULE_AUTHOR string
+        https://git.kernel.org/abelloni/c/cd54d8f09d9b
+[08/17] rtc: Kconfig: Broaden RTC_DRV_RZN1 dependency to ARCH_RENESAS
+        https://git.kernel.org/abelloni/c/960987abe58d
+[09/17] rtc: rzn1: Use pm_runtime_put_sync()
+        https://git.kernel.org/abelloni/c/ea0ef2e7f83b
+[10/17] rtc: rzn1: Replace remove callback with devm_add_action_or_reset()
+        https://git.kernel.org/abelloni/c/6e0d7d480f2d
+[11/17] rtc: rzn1: Dynamically calculate synchronization delay based on clock rate
+        https://git.kernel.org/abelloni/c/afb8972b9e36
+[12/17] rtc: rzn1: Use temporary variable for struct device
+        https://git.kernel.org/abelloni/c/b587001387c1
+[13/17] rtc: rzn1: Consistently use dev_err_probe()
+        https://git.kernel.org/abelloni/c/0e1ae8c654f0
+[14/17] rtc: rzn1: use FIELD_PREP/FIELD_GET and GENMASK for register access
+        https://git.kernel.org/abelloni/c/5ae93269d3e5
+[15/17] rtc: rzn1: Add OF match data to gate SUBU register access
+        https://git.kernel.org/abelloni/c/38a3a3b09958
+[16/17] rtc: rzn1: Drop trailing comma from OF match table sentinel
+        https://git.kernel.org/abelloni/c/8af6331c6e7a
+[17/17] rtc: rzn1: Add support for Renesas RZ/T2H and RZ/N2H SoCs
+        https://git.kernel.org/abelloni/c/b418fa370ea6
 
-> +
+Best regards,
 
-
-> +
-> +static struct iio_chan_spec_ext_info ad7768_ext_info[] = {
-> +	IIO_ENUM("filter_type", IIO_SEPARATE,
-> +		 &ad7768_filter_types_enum),
-
-	IIO_ENUM("filter_type", IIO_SEPARATE, &ad7768_filter_types_enum),
-	IIO_ENUM_AVAILABLE("filter_type", IIO_SEPARATE, &ad7768_filter_types_enum),
-
-First line easily fits and second is only just over 80 chars. So i'd
-do one line for each.
-
-
-> +	IIO_ENUM_AVAILABLE("filter_type", IIO_SEPARATE,
-> +			   &ad7768_filter_types_enum),
-> +	{ }
-> +};
-
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
