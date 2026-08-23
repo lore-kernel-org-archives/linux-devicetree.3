@@ -1,174 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com [162.62.57.87])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D991B247280
-	for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 15:04:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2075725B094;
+	Sun, 23 Aug 2026 15:47:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.87
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787497488; cv=none; b=jCDjPaj9Jbx1IFhL7nmFhMnptknhS8ip13CuLtzhFIDP3SCWCaXKZLkLvHNW+66QWiQ7mf8V34xhVCq3FEef0qdfxtQ1oD7uQQI5nxw2q1ydRMK5h0mtV0iB49MHJHomRB7KvbkRbjemQ38cWjoX97KjHMx18oMI4L2oPVioI/k=
+	t=1787500057; cv=none; b=LBakfALAHApwAkBMCLRJKNmRcOa9QzizmTchDUWQyiJ2r8w491O40kXfDb85K00J6n1AEwf3jkS0W2lUeezusCxBlf46ON+i13O9Ug8Sgt1nJEsr3+O1N0V92S7aneSOZs0uPsYo47OtEo0tWKfrzb3p2sfT9lsrW4utdJIJsRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787497488; c=relaxed/simple;
-	bh=wJK+IRMBLE0VnTn8bSkgSg1Z4ePe8NtBDxX5MSaJXlM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KKg8Bkk+MDV60uUizlVE0q8ErbwB+x6ciskDo0uFevpMAK4Cj7wl/F6vGV37/sNZikk0YbrIEfT5W/96qsH1iIuWay64n9TsVQEGbeTc4DKExJGtz1siD4ZuGAN/TGLU70ASnEwgHHlf5zTpOeYBp/o1+NiD74KDhEOnwIMtND0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a99xvnwq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787500057; c=relaxed/simple;
+	bh=I7Ao4YgUFcBSFFM3a37YFgi8Dt1E0RnHuSxbuQecCGA=;
+	h=Message-ID:From:Date:Subject:MIME-Version:Content-Type:References:
+	 In-Reply-To:To:Cc; b=tFPUos337FqX6476y1AoSI2k9aj2Ftv4qWCmBYOof3ChVFub6TEV0dJyk2rXOMjs1r++NnKDKTiBjBLKqUQIzPyIsDjgGqBv3uXrmHiV65nd+CsgTHeYWe+Yi5xM4kBlaU2Gm1SBot79VzS3U5B4J1dk4tW8ky4DaGKYBnjnGZs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=srn+GyZP; arc=none smtp.client-ip=162.62.57.87
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a99xvnwq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 893771F00A3A
-	for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 15:04:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787497485;
-	bh=xsGgYkAkQbDGRSbjrvJuqtTe00nXz5WswQtw/Srcifs=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=a99xvnwq+UjFxWXZ32BNHv9W84m1gmsn2FUsYDLIIzkVNeIGjOFDzYd59m5c/gpD7
-	 LNsKUL87b0uNtvqwul5jgUWO+N0RcGSzlXlYzG3mCO02vlhyeHZBSedUHxThMu2v03
-	 VILIpzCX75hMNtkd53DlQnENzia7/CZ/fAH1DQk4uQBaPe03K+kTbHo/nSYv39n8Hr
-	 Za2CFFIlgLwjBZMjLb/XIF8CDDVOwEojYcYBCoo8/bVqLiz4cBd1ZYPyaYsrmCv/cw
-	 +P1tvvS56QUXERtCatenyaKSOSyZVxiHzOzKX37Opi1hz7XXyhuGhWcM0y1IE//XH4
-	 i/XVY56tnlFbA==
-Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-39c8dbf4f38so25138531fa.3
-        for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 08:04:45 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqJMAvjascYDD2tPwoYiaBXJr7JAevMR9ZTv65UfuVq2u2tm7ffSzDfO3ZOl5AWyVgIgOO8MSUHR88v@vger.kernel.org
-X-Gm-Message-State: AFuF++m9eTAxwLtYMEjn/MAHXAED8l8a757zXJwwg3iSUNF/MF0WaU+g
-	jZgi15ie+x0i8brhijHFELQugVJGE1PmaitdjAr+Lf+Wp7/eMaJh8hN9J7qUBFsv5zNFoKVj4EP
-	GUKhAOq/rc6R1tWtjQc7n4YUbNTkV8MQ=
-X-Received: by 2002:a2e:bc28:0:b0:3a1:11d3:173e with SMTP id
- 38308e7fff4ca-3a1aee83d62mr48188841fa.14.1787497483973; Sun, 23 Aug 2026
- 08:04:43 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="srn+GyZP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1787500043; bh=w9CIQFXWYmHnbG2olip8/ZEkH+fpGsI4/iC0LU8BgT8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=srn+GyZPEnMK4kg4bSMoFXogNGO9du+8flrEMmhAqlBq3I0KgSXMHHizr66oxav+W
+	 Pl4DDBE+ifSb17x8BC5sd3JMsh7aL5dXx2c24omnTXaC8GzpouFvjItwOr3ZPyU1S4
+	 ZHxMpb93dR6Acy9k4EU8XFYIni0Jy3NCI7utlT4A=
+Received: from ubuntu2204.localdomain ([2409:8d20:2b:671:9e54:40ff:fe02:3f0f])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id BD29E410; Sun, 23 Aug 2026 23:47:18 +0800
+X-QQ-mid: xmsmtpt1787500040tw6cbvwgm
+Message-ID: <tencent_E56643A62E2161842C400BD1D30FBB698B05@qq.com>
+X-QQ-XMAILINFO: N9Ft9za/J3VVfWHLwHdJtJlKBggkypGRGIJ4KXQ5Ej/xgIbPkSKUuOBGM5Fk/Q
+	 bqI8M0QO5ccrZWcxSY1OFArbWv0NLfkmBJcZdQT9xl8zFWecZ7IMJCldFkeXWNnUanJ/xdk8Yatq
+	 fwXiWHquHrXvr2NblcMAkoipWG8zv4nL89WEc1xS0aPrUk7ihFqgtuqkqeiQifnpa9W76GsJ4x6Y
+	 v7MQkZ1MSGn07jP6ylzfXdPsC7JSn0KmudabG2bml3So4RLjvIEC8J5IcY3Lj2uj+VI+pIy48E87
+	 0SDeeGxi1rGSx3nP7UmeC76vzGfP2kh7yWlzNxWRvuIWEB+Rpi9e0PEz1vu3C4rakFy41AvWFQ2M
+	 cEbDY0MzBqQNJ2ro1uE9BXPgNCreoo2EmyJO0xRPv7RgODg2+AwWl2pjtJiEatoFQNQiF492A08g
+	 rAStHvh/E2LFKTbtKDntm51HQqUaaV9RRwqPP0GBauO60ExCi8fybA6lVt1+Sy0UIxJ/A8SsdwP8
+	 YlP4LpRI0rKC8hXCQp3qyTaeQWIQk34+wJgm9GbhLK0zPh0lUkbuPTrrACCko4cslRCV7o6PgPQp
+	 GNEaU7onqTI00vQWQ8RuvKPR4TqEXpkvDkHgJqWH8mQbY90mWtDeUk1OirSQPJH2x07rCNPcLLTF
+	 x56F4po+nBac+gxukWF6e1Y+t/wDCfgH7kowPIGRqi50SfSWOM7JJt8Y4D7+6qh/YJN8ecS4vFGr
+	 hdNu4Aq1Elf95tyQVnso6z8sMdZy9M0w9dpnBlbXHtIeBqjWTwGJ43p6ZDtwSKNF5zbkJ59Z1Vsj
+	 uCFtrUhS1Ay4KG3TUWLXAzAFnP2urDYFUydpzh9XuRxodlKtAjD1xADKbfjeiZFkHMZ4wHthS8Bi
+	 J2ie/k/itnGiSbFBkKY//zW07QV/Kwdw+QCnML61ZL3YP60HS513Lrq1n1c1sYaUajGUr01JEaoX
+	 Z3qmF9PcD2OSuqauvhl3G1hKUirNZTERNHl/8QWecmcFyMTkEJVAd8GdeW3CaKCvwcahJTYm3prI
+	 kiCSJtm+Pb2TM9RMJ0sWWReR17W8Jn8q3b+xiT9f0oFXH8rTsPING7dKB4k6gJtgLBrTfpIXovdv
+	 L2mGIzl5LNlg6BnIlPO+HRMnlz+Gm/x814fCth1aSfbERkNb9d0yq+U1z6ssTqngetjqd5hIzOrt
+	 +PUz0=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+From: Cunhao Lu <1579567540@qq.com>
+Date: Sun, 23 Aug 2026 23:46:53 +0800
+Subject: [PATCH 1/2] dt-bindings: arm: rockchip: Add LubanCat 5IO board
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260812-axp318-regulator-v6-0-d6b84b55c000@baylibre.com> <20260812-axp318-regulator-v6-5-d6b84b55c000@baylibre.com>
-In-Reply-To: <20260812-axp318-regulator-v6-5-d6b84b55c000@baylibre.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sun, 23 Aug 2026 23:04:30 +0800
-X-Gmail-Original-Message-ID: <CAGb2v64HtVFWmYV5uYBN+h2S+xGM=0XrkHuRj13cG3W=nOVN1Q@mail.gmail.com>
-X-Gm-Features: AcwNN1VquLs742qEc8_LGCpKYFHLYLrK5XTQoYktTpdadWoCANLMlSKPCtF7-Qk
-Message-ID: <CAGb2v64HtVFWmYV5uYBN+h2S+xGM=0XrkHuRj13cG3W=nOVN1Q@mail.gmail.com>
-Subject: Re: [PATCH RESEND v6 5/5] regulator: axp20x: add support for the AXP318W
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Andre Przywara <andre.przywara@arm.com>, Lee Jones <lee@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, mfd@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-OQ-MSGID: <20260823-add-lubancat-5io-v1-1-e6b7894e8c60@qq.com>
+References: <20260823-add-lubancat-5io-v1-0-e6b7894e8c60@qq.com>
+In-Reply-To: <20260823-add-lubancat-5io-v1-0-e6b7894e8c60@qq.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Cunhao Lu <1579567540@qq.com>
+X-Mailer: b4 0.15.2
 
-On Thu, Aug 13, 2026 at 5:31=E2=80=AFAM Jerome Brunet <jbrunet@baylibre.com=
-> wrote:
->
-> From: Andre Przywara <andre.przywara@arm.com>
->
-> The X-Powers AXP318W is a typical PMIC from X-Powers, featuring nine
-> DC/DC converters and 28 LDOs, on the regulator side.
->
-> Describe the chip's voltage settings and switch registers, how the
-> voltages are encoded, and connect this to the MFD device via its
-> regulator ID.
-> We use just "318" for the internal identifiers, for easier typing and
-> less churn. If something else other than the "AXP318W" shows up, that's
-> an easy change, externally visible strings carry the additional letter
-> already.
->
-> Reviewed-by: Mark Brown <broonie@kernel.org>
-> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
-> Co-developed-by: Jerome Brunet <jbrunet@baylibre.com>
-> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
-> ---
->  drivers/regulator/axp20x-regulator.c | 324 +++++++++++++++++++++++++++++=
-+++++-
->  include/linux/mfd/axp20x.h           |  45 +++++
->  2 files changed, 360 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/regulator/axp20x-regulator.c b/drivers/regulator/axp=
-20x-regulator.c
-> index da891415efc0..9e81e2cb7542 100644
-> --- a/drivers/regulator/axp20x-regulator.c
-> +++ b/drivers/regulator/axp20x-regulator.c
-> @@ -138,6 +138,29 @@
->  #define AXP313A_DCDC_V_OUT_MASK                GENMASK(6, 0)
->  #define AXP313A_LDO_V_OUT_MASK         GENMASK(4, 0)
->
-> +#define AXP318_DCDC1_PFM_PWM_CTRL      BIT(7)
-> +#define AXP318_DCDC23_POLYPHASE_CTRL   BIT(6)
-> +#define AXP318_DCDC45_POLYPHASE_CTRL   BIT(7)
-> +#define AXP318_DCDC1_V_OUT_MASK                GENMASK(4, 0)
-> +#define AXP318_DCDC2_V_OUT_MASK                GENMASK(6, 0)
-> +#define AXP318_LDO_V_OUT_MASK          GENMASK(4, 0)
-> +#define AXP318_ELDO_V_OUT_MASK         GENMASK(5, 0)
-> +#define AXP318_THRESHOLD_VOLTAGE       1540000
-> +/*
-> + * FIXME:
-> + * Some LDOs of the AXP318 may be fed by different supplies and
-> + * the documentation repeatedly warns that output voltage must
-> + * be less than the supply, which is the case for any LDO really.
-> + *
-> + * The best way to let the framework handle this is to set the
-> + * min_dropout_uV field. However the AXP318 documentation
-> + * does not provide any information about this.
-> + *
-> + * Realistically, it can't be less than 1uV so use this
-> + * for all LDOs until we know more.
-> + */
-> +#define AXP318_LDO_MIN_DROPOUT         1 /* uV */
-> +
->  #define AXP717_DCDC1_NUM_VOLTAGES      88
->  #define AXP717_DCDC2_NUM_VOLTAGES      107
->  #define AXP717_DCDC3_NUM_VOLTAGES      103
+The EmbedFire LubanCat 5IO is a carrier board for the LubanCat 5 BTB
+core board based on the Rockchip RK3588 SoC. Add devicetree binding
+documentation for it.
 
-[...]
+Signed-off-by: Cunhao Lu <1579567540@qq.com>
+---
+ Documentation/devicetree/bindings/arm/rockchip.yaml | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-> @@ -1430,6 +1704,20 @@ static int axp20x_set_dcdc_workmode(struct regulat=
-or_dev *rdev, int id, u32 work
->                 workmode <<=3D ffs(mask) - 1;
->                 break;
->
-> +       case AXP318_ID:
-> +               /*
-> +                * Only DCDC1 has PWM control on the AXP318
-> +                * The other DCDCs control DVM through bit 7 of the relat=
-ed
-> +                * registers. Work mode could possibly extended to deal w=
-ith
-> +                * this but it is not how it is documented at the moment
-> +                */
+diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Documentation/devicetree/bindings/arm/rockchip.yaml
+index a799bb843f74..81744fbee98a 100644
+--- a/Documentation/devicetree/bindings/arm/rockchip.yaml
++++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
+@@ -216,6 +216,13 @@ properties:
+           - const: embedfire,lubancat-4
+           - const: rockchip,rk3588s
+ 
++      - description: EmbedFire LubanCat 5IO
++        items:
++          - enum:
++              - embedfire,lubancat-5io
++          - const: embedfire,lubancat-5-btb
++          - const: rockchip,rk3588
++
+       - description: Engicam PX30.Core C.TOUCH 2.0
+         items:
+           - const: engicam,px30-core-ctouch2
 
-DVM bit is for turning on / off voltage ramp rate control. It is unrelated
-to work mode. Please drop the comment.
+-- 
+2.34.1
 
-> +               if (id !=3D AXP318_DCDC1)
-> +                       return -EINVAL;
-> +               reg =3D AXP318_DCDC1_CONTROL;
-> +               mask =3D AXP318_DCDC1_PFM_PWM_CTRL;
-> +               workmode <<=3D ffs(mask) - 1;
-> +               break;
-> +
->         case AXP806_ID:
->                 /*
->                  * AXP806 DCDC regulator IDs have the same range as AXP22=
-X.
-
-[...]
-
-> diff --git a/include/linux/mfd/axp20x.h b/include/linux/mfd/axp20x.h
-> index 0191467de4ec..251f057ea76d 100644
-> --- a/include/linux/mfd/axp20x.h
-> +++ b/include/linux/mfd/axp20x.h
-> @@ -128,6 +128,7 @@ enum axp20x_variants {
->  #define AXP318_DCDC7_CONTROL           0x18
->  #define AXP318_DCDC8_CONTROL           0x19
->  #define AXP318_DCDC9_CONTROL           0x1a
-> +#define AXP318_DCDC_CONTROL1           0x1b
-
-This could be moved to the previous patch for completeness.
-
-[...]
-
-
-Once fixed,
-
-Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
