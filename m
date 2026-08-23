@@ -1,141 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C92D25524C;
-	Sun, 23 Aug 2026 22:35:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D20AF2441B8
+	for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 22:57:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787524556; cv=none; b=BqKYqYsZcowJU0+TbxDL6gV1qjJUmmFzzqcMsIpHRHYWe1j1nhgKTwvnNp7Q3tqW/aBM0K3Z8ocqj3E9/U2j+LF9uwWjU6Obild4zUzMox/+OWy+wikqJnc3f+MZQzukZa5OxtV4bK5f5YnlF5QBwXkOn1Zoth2/B63dLXTJAJY=
+	t=1787525838; cv=none; b=Yvl/WVnMMRw4ER7WXrAjJ67ekWNU32TsbBA2xVvFw3nwFzHISNptx/JA/wjmA8Q43CBu+NjwZhQSYeHgGs1gb7F92KoeqGfycW4psACwDTtvZgAZSaTixanA4oPhnVaa8po0CfGkltpYJ5KC4HLINnfcC0mLEcnJZJxpUzeU9v4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787524556; c=relaxed/simple;
-	bh=QQNYF+vq2eHzvXvr6LF/g5eTCLrcpvJfSvMtW/+G7PY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=C0G37bpRmvKJR7S2yU2UNZMYbj/yl874TpotzjCwGqRb7aBUkZUCI8m5A52DhcSBNGqA5w8bCfFcsPgJY/YB/dJ+IPZ2ihLkih21Ztv/JkhIPxOmDVOo/5nQ5wFlbqgpY06CnkVvQCDETG4n+PV0COLWpmyAFF2F6iYihzO7rcs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NPX+hzNR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787525838; c=relaxed/simple;
+	bh=MFVvndqmgqt7XvRFOQuuPx0LRipmu+49v98832HkAZI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FmEhQc96K+qgMnoSFiSoaCeihbnCwLwpMH58SL66y9hWgIRf6K2bflOxAQmd3RF5Ktc+L2pESL2yAJm9Vy8NtbkU0BE80V+Ilqqn8F2UaR+Y7aLL3sc1Cd1FTD1Wz9A3oD2RxvyZenhuPOdnZ5s2kQjZg39tIrRA3xdKKq6jEWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d8n35vg9; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NPX+hzNR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A6CC1F000E9;
-	Sun, 23 Aug 2026 22:35:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787524554;
-	bh=po7IIoGOeeqrSpZ0T/dO1sDrsRTve3va2HW8MDN/VFU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NPX+hzNR7qJdfJBxOLKw2E+bR+SPnZVFnCoIuRwIx2virIuuge7axHzg6M1w8y+Hg
-	 TX82MpT5KOP7wcY751X7V4MIuZ/YJbZ9u0Aj8vt0U/VYpfJkEUvw7ap9UxekQQVGEj
-	 WAW9OZcnzbKVc55PU8G+dr8XphHjVDhr8fizWqwy5fHXqN7DAJi3HfCHe5HkF60bar
-	 FHhPpO7UCVmSvP2Lil8ReBgC0A4zHV59wcZ1z42VFkwSR74+sdBwMyu5s/Z1y3ONIo
-	 /xgunlFK11a8RRH9KGQnBNQ6tvQq3Uf7oPiHjfUFCoskAbiisZ5cgRbnSkGTLuJ95U
-	 g/1ExDDeBmsAg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: lx2160a: fix incorrect pinmux
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vincent Jardin" <vjardin@free.fr>
-Cc: robh@kernel.org, imx@lists.linux.dev, conor+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20260824-for-upstream-lx2160a-pinmux-fix-v1-1-33a3c8d5ea8a@free.fr>
-References: <20260824-for-upstream-lx2160a-pinmux-fix-v1-1-33a3c8d5ea8a@free.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 23 Aug 2026 22:35:53 +0000
-Message-Id: <20260823223554.7A6CC1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d8n35vg9"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so3806594a91.0
+        for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 15:57:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787525836; x=1788130636; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CqO2eF1E/cLxqGSvCisTSlVPdaIBeR7m9dvhWx5XYYo=;
+        b=d8n35vg9Do/BQ8WoPTWs8a+BtefNAn5fT2XcLhZOKHeX7pbnzt3TxFgMBP6AHrojgl
+         anG96oXobxKmVqNAqcv8dpbi6g/VzhUQOcypNPVyCfeuAwK5m6VX4Oqul+nNcrKRbKAJ
+         VXwZSMUZA08E301utq3STtJXO8tpTsvvn5BufzHh7UNkvqEmdwROMT4wi3b1GSI0ybIh
+         pxuC4dtFMu/BUQPczmsdRrn2cmNxY7ZFoAf9UoPtlUPaG29tBfbWXeyQdF8wTBaG594m
+         70BlT3Eivwwhy+2enNrRPSAaArKzQsf8kypkf0ZMZDv+DFh48h+Q/8xbehIdypp0QChZ
+         +79A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787525836; x=1788130636;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CqO2eF1E/cLxqGSvCisTSlVPdaIBeR7m9dvhWx5XYYo=;
+        b=fmjH9OKdFWK/NAUG9yon0R+1g05aeYnvBvVCFQJ0rX64DFxQVkwWGVWPmtpwEnHqow
+         5m/guaEp/IQ5oq/Yd+uzgXG6u9pGiz1gaSHQ0wyOayBTvVCZpL5bfgOwg4UASlwdZ75y
+         71e7gYj5NcPSajs7k270dyctOHg1bHjDTGAo8Cn6xALZ3FRVtGX/cgJdceWQbSKFOGl7
+         8hjJTUr6/Q4uCySLBI/iQWGr4jgBsME2HYiMt2mNuaYTjTCKdxxdXF4MhIFcyVGHk8HI
+         gA+k87OTaXZU0b/N0PiKrlXRa1anid3TsvRRq/L996I7SJuQ0a1S1DLCMu5aCQy1RyA4
+         uhzw==
+X-Gm-Message-State: AFuF++m4RQIEgvSz/eMkUGr7EppouWcGcZvugNiF7pVtS6a4t/g+hGsH
+	YTl09X+d/IbkKrtgtnJU4HNDKAbwUeGtIhq32OFywwgob29o2XDJu9ogJ2+O7Q==
+X-Gm-Gg: AR+sD10G1+Vr6vgum/KaqOiEjoh1y6hrZLzeG0m/4xPdpth0l6uC5KX3KG5yBIubb97
+	trgtI9quq2sMKTDKRJKQt5DiiiFyl76/JoInfJYLzOYuHiifz/Z8uK+R8trRuUaIiSOmX1WrYFS
+	jnlr0ovqCkULJID2YbWg4RZVe9aAGP2QojVxTXxhjjel4TkMc2PLn5NF6Uw+XdKahpJ50PAFctZ
+	lmfnX4cK4YlxKd0y0PWkUQNInPBb3N44VJ02mB9/PYhqU2ubY2aZwYN1Aw4sudJbohhw52wrcMA
+	OjBB+2YRpEjscCYq9hWyUIvOZpUsg2lTfH/GOpBfNsh1XFM8bK5Hp3JdMbMPjLkeFf9Y4Z70SFK
+	EQRF0JQbuvsOjCyhSfw7/RT5ph4PLZo9uIURC6ZekvzXHNLVyhS5OfLDM331EaMjIcrKqhiqPoo
+	vWs1V5bny3HkHTmeOXU6MHbOQz0laMKXp1V3nDuD5ciL/5qgQV/6jG0X7AT8Dwcs5K4iz0DVJ89
+	bVo/HG9jCKcs5ctq4k4f2Fbiu94XtyGXSrP5CGwtpZDnW4hFVG5mBqpuNE5NgAj9w/3/+X0/Xg7
+	EaOTSDhu6yyQXHzUgChi9JYAMjZR4JD6J1KKfkToQ17jolo3
+X-Received: by 2002:a17:90b:33c8:b0:38f:57f0:1f5d with SMTP id 98e67ed59e1d1-395c397f4ecmr34800142a91.15.1787525836228;
+        Sun, 23 Aug 2026 15:57:16 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-395c9174be7sm3416564a91.3.2026.08.23.15.57.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 23 Aug 2026 15:57:15 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: devicetree@vger.kernel.org
+Cc: Andrew Lunn <andrew@lunn.ch>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dennis Gilmore <dennis@ausil.us>,
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Marvell Kirkwood and Armada 370, 375, 38x,...),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] ARM: dts: helios4: fix lm75 supply name
+Date: Sun, 23 Aug 2026 15:57:14 -0700
+Message-ID: <20260823225714.33938-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+The lm75 driver requests a regulator named "vs" (the +VS power pin
+of the chip).  The Helios4 DTS incorrectly used vcc-supply instead
+of vs-supply, causing the regulator core to emit:
 
-Pre-existing issues:
-- [High] The pinctrl offset for `dspi2_miso_mosi_pins` is set to `0x3`, whi=
-ch is unaligned for a 32-bit register width, triggering a synchronous align=
-ment fault on ARM64.
-- [High] Pinmux nodes `i2c0_pins` and `gpio0_3_2_pins` specify an incomplet=
-e 1-bit mask (`0x1 << 10`), causing the `pinctrl-single` driver to silently=
- reject them.
---
+  lm75 0-004c: supply vs not found, using dummy regulator
 
---- Patch [1]: [PATCH] arm64: dts: lx2160a: fix incorrect pinmux ---
-commit 361d41dcf4495f73be88ba1bf5234be91b377473
-Author: Vincent Jardin <vjardin@free.fr>
+Fix the property name to match the binding and the driver.
 
-arm64: dts: lx2160a: fix incorrect pinmux
-   =20
-For gpio1 value set for pinctrl is outside the mask and so will do
-nothing. Add the missing offset for value field to be the same as the
-mask as expected.
+Fixes: ced8025b569e ("ARM: dts: armada388-helios4")
+Assisted-by: opencode:big-pickle
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ arch/arm/boot/dts/marvell/armada-388-helios4.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Fixes: 284ad7064aaa ("arm64: dts: lx2160a: complete pinmux for rcwsr12 conf=
-iguration word")
-Signed-off-by: Vincent Jardin <vjardin@free.fr>
+diff --git a/arch/arm/boot/dts/marvell/armada-388-helios4.dts b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
+index 626a7339a5d0..af96d27e7159 100644
+--- a/arch/arm/boot/dts/marvell/armada-388-helios4.dts
++++ b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
+@@ -200,7 +200,7 @@ usb3-ilimit-hog {
+ 				temp_sensor: temp@4c {
+ 					compatible = "ti,lm75";
+ 					reg = <0x4c>;
+-					vcc-supply = <&reg_3p3v>;
++					vs-supply = <&reg_3p3v>;
+ 				};
+ 
+ 				eeprom@53 {
+-- 
+2.55.0
 
-> diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a.dtsi b/arch/arm64/=
-boot/dts/freescale/fsl-lx2160a.dtsi
-> index 1d73abffa6b72..b9f079c49e193 100644
-> --- a/arch/arm64/boot/dts/freescale/fsl-lx2160a.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a.dtsi
-
-[ ... ]
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is the pinctrl offset unalig=
-ned
-for dspi2_miso_mosi_pins?
-
-arch/arm64/boot/dts/freescale/fsl-lx2160a.dtsi:dspi2_miso_mosi_pins {
-    ...
-    pinctrl-single,bits =3D <0x3 (0x2 << 9) (0x7 << 9)>;
-    ...
-}
-
-The pinctrl-single driver uses 32-bit accessors when the register width is =
-32.
-Since the base offset is 0x3, this results in an unaligned I/O access on
-arm64, which triggers a synchronous alignment fault.
-
-Could this have been a typo for <0x0 (0x3 << 9) (0x7 << 9)>?
-
-[Severity: High]
-This is a pre-existing issue, but does this incomplete mask cause the pin
-configuration to be skipped entirely?
-
-arch/arm64/boot/dts/freescale/fsl-lx2160a.dtsi:i2c0_pins {
-    ...
-    pinctrl-single,bits =3D <0x8 0x0 (0x1 << 10)>;
-    ...
-}
-
-This also appears in gpio0_3_2_pins:
-
-arch/arm64/boot/dts/freescale/fsl-lx2160a.dtsi:gpio0_3_2_pins {
-    ...
-    pinctrl-single,bits =3D <0x8 (0x1 << 10) (0x1 << 10)>;
-    ...
-}
-
-Looking at the pinctrl-single driver, it strictly validates that the suppli=
-ed
-mask matches the hardware function mask shifted to the pin's bit position:
-
-drivers/pinctrl/pinctrl-single.c:pcs_parse_bits_in_pinctrl_entry() {
-    ...
-    if (submask !=3D mask_pos) {
-        dev_warn(pcs->dev,
-                "Invalid submask 0x%x for %pOFn at 0x%x\n",
-                submask, np, offset);
-        continue;
-    }
-    ...
-}
-
-Since the function mask is 0x7, mask_pos would be 0x1c00 (0x7 << 10), but t=
-he
-supplied mask is 0x400 (0x1 << 10).
-
-Because these do not match, does the driver log an invalid submask warning =
-and
-skip configuring the pin?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824-for-upstre=
-am-lx2160a-pinmux-fix-v1-1-33a3c8d5ea8a@free.fr?part=3D1
