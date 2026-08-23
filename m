@@ -1,171 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF3A3515EF;
-	Sun, 23 Aug 2026 19:39:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF170356757
+	for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 19:42:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787513995; cv=none; b=squY2UzcXkOdnQWao+FDqvFc34bFHpYraXstUcxvayJIk0IiCklyXnlc3UQcIUHwo2TeFVBaMtJlhda5a0pVJL0DNiDxuPIY1CPP0qal5m3yDu/MNsbBUSCNLgTyeCZ0DRgwvSIrpvjHexUkZM1JU7esXc02/tZNdLBfSKfqbp8=
+	t=1787514143; cv=none; b=pujKcK2X7gJNX/7H9FEFMIw7Ov3OWtfNxEbVFvbtdD/AdObKLNWioY3HdDhgOIb1ySqjz7Kw25sSmn3UImYOzwLe0faZe2rFdySSFFWDbvaRPzrX/uTgBnnP/Qu0yJYH+1Xv7/T2pk/uvsWRZluYseerA1kkYO7hEaxC9Ok1E+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787513995; c=relaxed/simple;
-	bh=itzQ5jV4BN8Ss0Lby1cpZAmO5kE4SoO0NCU8doihEM4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=l0WZTVgxBeXgQ7JQEzSWeu+6eRW/YjjTqVPBIbwjg7olGLUojbVOCTDwBU3aTZjItCbEzjmwD//+4vmXUALX+i+FbgzMyUDfzHYbGqfl3XHhipuylGubezdCHRs9MenfknCFBhkfmI5d1Keie80EUX5KXsB/Ryj9ZFJGG43E3jg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QqvdhyI5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787514143; c=relaxed/simple;
+	bh=aPBoR/SrsNjXZtRLindVuRnXvTuc6wCuIe9LUpNd6xY=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pMGISglCN5RCJcmQLbA6+0tPtegGTA2nT8ItlTqrVAzZqAIzHiu4M5AyapGyLe1inFr8JJy+F1x4FUyFKgFAaSP9jD7i0Xc8ltElE3pKK4pN1sayoYhnoUkkzUPgJyNUFu7aw7SK2kAzpqYRPocBEpEf+aaIzFXEaS+ORWNx2ew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=bUI6AdXG; arc=none smtp.client-ip=109.224.244.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QqvdhyI5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75EAC1F000E9;
-	Sun, 23 Aug 2026 19:39:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787513994;
-	bh=zLEE0is5dWhs16wMe34Vd1UXOLmD5Wu3lEF7TZ/ozEw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=QqvdhyI55iVZzRF/c9RS8/5Xfb6HEMEYsDvqw5w0N9ZQbQlzyNhN6sRRWQv55njuU
-	 S5v4k24oadl7iOdoQmQeCjwtoCgeyYo0ZA+EPy1r9z2eyw3MV78SdH4TgV+i0c7qFg
-	 WsUtXvXSmOp60fecJfJus22teLnW1p/y8CAd8jjFe3Fwp4GmAd++rpOii2eXjcgbFu
-	 41dn8xvejS3PRVIA3Wo6isZJOEXnAzR4ktiAXC0A0D8r6zgte1gBzHRCimFEiygx5p
-	 3KCESm982FAmu+OqpZqE21uuXa/9E9mbcwj+tun4nHZ8k254fMrCgj/JyqiNla9v8b
-	 rB9mm0gUoGFLA==
-Date: Sun, 23 Aug 2026 20:39:47 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich
- <Michael.Hennerich@analog.com>, "David Lechner" <dlechner@baylibre.com>,
- Andy Shevchenko <andy@kernel.org>, "Rob Herring" <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, Olivier Moysan <olivier.moysan@foss.st.com>, Philipp
- Zabel <p.zabel@pengutronix.de>, Linus Walleij <linusw@kernel.org>, Bartosz
- Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, Michael Walle <mwalle@kernel.org>,
- <linux@analog.com>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-gpio@vger.kernel.org>, <linux-doc@vger.kernel.org>,
- <jananisunil.dev@gmail.com>, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?=
- <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH v4 13/14] gpio: ad7768: Add AD7768 GPIO auxiliary driver
-Message-ID: <20260823203947.3ecdc448@jic23-huawei>
-In-Reply-To: <20260821-ad7768-driver-v4-13-bb8fbd06d4eb@analog.com>
-References: <20260821-ad7768-driver-v4-0-bb8fbd06d4eb@analog.com>
-	<20260821-ad7768-driver-v4-13-bb8fbd06d4eb@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="bUI6AdXG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=wgg54forqrhdrizm4bumlw33ce.protonmail; t=1787514127; x=1787773327;
+	bh=UScXlwRR/M1y2OECh3339hzVY9m2bouWXTszntHiI1o=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=bUI6AdXGPCkTC2bHxkE9PD3xfmKrvq2GXd8gkw/2W8Hefphk6mEx7P9LrBXqqlZz5
+	 3R0dL32f+ZN89lyNQ0UkDaL2+P3uJZM+nTjTNbIHg5f7nZa1XAQhaTGQoWZq5c+NEi
+	 4Tj77nWDIiUJRYdxbD/wkuqYgewPbm2/o4CLVaksTbYXeriFAhkq5LdG4WQfSwnF94
+	 ed2cdKNvvYINAnLQCoifB4ounI9tgq0I+uqz97jzN8YthPLDt3LY2wERrg0eCqn1wi
+	 9UjQ3CThX6vC/BEbtY/Arii56eaPAssZptvpRtqTBY1+qjBsAvl5I8xdTwFdLOA+vN
+	 vo85uo+ixK1dg==
+Date: Sun, 23 Aug 2026 19:42:02 +0000
+To: Luca Weiss <luca.weiss@fairphone.com>
+From: Kristian Brox <isyourbrainfoss@proton.me>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, David Heidelberg <david@ixit.cz>, oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, Kristian Brox <isyourbrainfoss@proton.me>
+Subject: Re: [PATCH v3 0/3] nfc: st-nci: Fairphone 5 NFC bring-up (ST21NFCD)
+Message-ID: <20260823194152.501107-1-isyourbrainfoss@proton.me>
+In-Reply-To: <DKUIKHDS44LA.10CHEGZHLQSNS@fairphone.com>
+References: <20260820-fp5-st21nfcd-v3-v3-0-5ee0a7f44d04@proton.me> <DKUIKHDS44LA.10CHEGZHLQSNS@fairphone.com>
+Feedback-ID: 203906395:user:proton
+X-Pm-Message-ID: 8d39a5982a299822bc8981a11884d845d111b1ed
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 21 Aug 2026 16:07:06 +0200
-Janani Sunil <janani.sunil@analog.com> wrote:
+Hi Luca,
 
-> The AD7768 provides five GPIOs controlled through registers shared
-> with the parent IIO device. Register an auxiliary gpio-regmap driver
-> and use the parent device for runtime PM.
-> 
-> The device has separate input-state and output-latch registers. Add a
-> reg_mask_xlate() callback that checks the line direction and reads the
-> programmed output latch for output lines while retaining input-state
-> reads for input lines.
-> 
-> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+On Fri, Aug 21, 2026 at 11:28:22 +0200, Luca Weiss wrote:
+> Can you please confirm how you tested this on your side, and if I'm
+> maybe missing some parts?
 
-Linus W, for I think that (when you are happy) you can pick up this
-and the previous two enabling patches via the gpio tree and I'll take
-the rest via IIO.  One small wrinkle around the maintainers entry that
-we can fudge in various ways.
+Cover letter tests were postmarketOS, these changes as modules on
+7.1.2: nfctool -d nfc0 -1 -p on an NTAG 215, then neard for NDEF.
+No extra firmware or userspace on top of the three patches.
 
-> ---
->  MAINTAINERS                |   1 +
->  drivers/gpio/Kconfig       |  12 +++++
->  drivers/gpio/Makefile      |   1 +
->  drivers/gpio/gpio-ad7768.c | 118 +++++++++++++++++++++++++++++++++++++++++++++
->  4 files changed, 132 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index dc94e7803a7c..3de7ebcc4ee7 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -1639,6 +1639,7 @@ L:	linux-iio@vger.kernel.org
->  S:	Supported
->  W:	https://ez.analog.com/linux-software-drivers
->  F:	Documentation/devicetree/bindings/iio/adc/adi,ad7768.yaml
-> +F:	drivers/gpio/gpio-ad7768.c
+That 7.1.2 dmesg already had
 
-This may be the only reason we can't merge the gpio driver via
-the gpio tree, independent of the rest.
+  nci_ntf_packet: unsupported ntf opcode 0xf02
 
-Maybe drop this for now, or break it out as a separately patch that I can
-pick up via IIO.
+I treated a found tag as enough and did not mention it. I have a
+driver change so that NTF is handled; I'll send it in v4. The ndlc:
+dumps are debug prints.
 
->  F:	drivers/iio/adc/ad7768.c
->  
->  ANALOG DEVICES INC AD7780 DRIVER
+I also ran nfctool -d nfc0 -1 -p on a locally built 7.2.0 kernel
+(sc7280-mainline, with that handler): no 0xf02 line, a Type 2 tag
+in about 0.13 s, and Ctrl-C with no tag still left Powered: Yes.
 
-> diff --git a/drivers/gpio/gpio-ad7768.c b/drivers/gpio/gpio-ad7768.c
-> new file mode 100644
-> index 000000000000..710739e33dff
-> --- /dev/null
-> +++ b/drivers/gpio/gpio-ad7768.c
+I have not reproduced an error after Ctrl-C with nfctool on that
+kernel. If you have the nfctool and dmesg lines from the second
+start, that would help.
 
-> +static int ad7768_gpio_probe(struct auxiliary_device *adev,
-> +			     const struct auxiliary_device_id *id)
-> +{
-> +	struct device *parent = adev->dev.parent;
-> +	struct gpio_regmap_config config = {
-> +		.parent = &adev->dev,
-> +		.label = dev_name(parent),
-> +		.ngpio = AD7768_NUM_GPIOS,
-> +		.reg_dat_base = AD7768_REG_GPIO_READ,
-> +		.reg_set_base = AD7768_REG_GPIO_WRITE,
-> +		.reg_dir_out_base = AD7768_REG_GPIO_CONTROL,
-> +		.pm_dev = parent,
-> +		.reg_mask_xlate = ad7768_gpio_reg_mask_xlate,
-> +		.init_valid_mask = ad7768_gpio_init_valid_mask,
-> +	};
-> +	struct gpio_regmap *gpio;
-> +	struct regmap *map;
-> +	int ret;
-> +
-> +	map = dev_get_regmap(parent, NULL);
-> +	if (!map)
-> +		return -ENODEV;
-> +
-> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(parent, pm);
-> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_set_bits(map, AD7768_REG_GPIO_CONTROL, AD7768_GPIO_UGPIO_ENABLE);
-> +	if (ret)
-> +		return ret;
-> +
-> +	config.regmap = map;
-> +	config.drvdata = map;
+Regards
+Kristian
 
-Why not do all this in one place rather than init then later
-modify?
-
-	config = (struct gpio_regmap_config) {
-		.parent = &adev->dev,
-		.regmap = map,
-		.label = dev_name(parent),
-		.ngpio = AD7768_NUM_GPIOS,
-		.reg_dat_base = AD7768_REG_GPIO_READ,
-		.reg_set_base = AD7768_REG_GPIO_WRITE,
-		.reg_dir_out_base = AD7768_REG_GPIO_CONTROL,
-		.pm_dev = parent,
-		.reg_mask_xlate = ad7768_gpio_reg_mask_xlate,
-		.init_valid_mask = ad7768_gpio_init_valid_mask,
-		.drvdata = map,
-	};
-
-> +	gpio = devm_gpio_regmap_register(&adev->dev, &config);
-> +	return PTR_ERR_OR_ZERO(gpio);
-Could do
-	return PTR_ERR_OR_ZERO(devm_gpio_regmap_register(&adev->dev, &config));
-
-Though maybe it looses some readability?
-
-> +}
