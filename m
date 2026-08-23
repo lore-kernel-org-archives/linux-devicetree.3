@@ -1,177 +1,101 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E59EC270EC3;
-	Sun, 23 Aug 2026 08:35:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A3A73655C2;
+	Sun, 23 Aug 2026 08:35:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787474125; cv=none; b=l4pDiGprn2SPT9L7dRV2BXiHmI+F4Iz7iCMcOz92fWKM0C6AvYn+qCsX+spXd0iDTYhKurpqsJIBn5otl8N5tC4CWpBjJfkTpkOQG/bkc/XVz2xDWe3rGxdvdoZhbbU+lnz9nC/aQ38LGs4axQRp6Rg0bR75tFT0yqWtGkEVc/c=
+	t=1787474151; cv=none; b=au+GiW0FAdEta1pEsQe9YSSHUU9Nv2eMzyNCBm+SvUTAjgVt+60S2eKY8ObztKrD2K/q3y0cY/iSf/s4HbKw1wM3e6Vm8Xt26WAkEfEnYI+nxkMOQTqNl5XGAinmo5QIGNUX3jUC3+bS0qCxzq4tOHBkwgvBdlrcpCJTE13H8/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787474125; c=relaxed/simple;
-	bh=xG4lz1yM7gf8EYfruFQf5zCEd4+W3L0sSo+itXvqSbk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BiCp7HhnwbsXqK2e53/PkbR8KBb22etinNO5XK8h1mEHA2SjSDVvE58bMSjlJWYNS0R/csuVRon+fmVIYNTioEb3qEl8s50+nJ1vWbRNkd93z5sq04fpvi02fMcChmeVaGM2Qk32ORmH1y5KxkVMpAx3eqw3SbVNpxorF75UskE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KPh+jaVx; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787474151; c=relaxed/simple;
+	bh=fypSaFdXAtNFNmFOmAKyGhkU5hxq6SpoITbmIH89J3M=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=sSQXUQUSj4FZZ56foOF+S42bStpD+UII39c2CH1jWxD6uhap+zp8+ZDVNY7VSBauWs/9kKcucBrDdw8qIBIE/ZX0YVYiRndSyIw7ot/M8QFglWW4kzn+7GJuL4YXhFaSe6MCUBld5mvzXbHFe53YWAb007Get19M9bdDBXKhWyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YYDW92+0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KPh+jaVx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787474124; x=1819010124;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=xG4lz1yM7gf8EYfruFQf5zCEd4+W3L0sSo+itXvqSbk=;
-  b=KPh+jaVxeX1nZWtrS4/fXlWZLh+2dGOvamYcEsFWnOEsg/2eNCyagoDg
-   0CcWjLX7zCq+61j+qzPSspoIHRn/477k4EdUFapwgfJhZuOtdgLX9PGHr
-   jlS72Y3wc3gK0DXpTnqC0ZN9z9fFPF4sfsf7PAzjHuG0dL2nn2hzRpSbj
-   mLhlNNfh4Q6sya4hPkUoj2ZB2frEJTzod1tRiryHm+XUraRlmbcxXZeCG
-   GSKqRt3G/GYGVUkc5TG63bkHZmVNw9UrtdkJDlN4G94yZVJYvG3owPUZ6
-   1TQBCZzXoFoQSQaoDxHn6SRU9X83eeF/iwcrl8GOH6KPrN2nEufqOf+GH
-   g==;
-X-CSE-ConnectionGUID: aEE1nh1oRq6TaPFPmFS/tA==
-X-CSE-MsgGUID: OaExqMfgSlGfzc5FAuo2ow==
-X-IronPort-AV: E=McAfee;i="6800,10657,11883"; a="98545522"
-X-IronPort-AV: E=Sophos;i="6.25,238,1779174000"; 
-   d="scan'208";a="98545522"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Aug 2026 01:35:23 -0700
-X-CSE-ConnectionGUID: 8059gAHgRv+SoNDPMdaYZw==
-X-CSE-MsgGUID: COe38Vd3RdGV9O0IHUJe6w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,238,1779174000"; 
-   d="scan'208";a="263020648"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.83])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Aug 2026 01:35:18 -0700
-Date: Sun, 23 Aug 2026 11:35:15 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: David Lechner <dlechner@baylibre.com>
-Cc: Janani Sunil <janani.sunil@analog.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Michael Walle <mwalle@kernel.org>, linux@analog.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH v4 05/14] iio: adc: Add AD7768 and AD7768-4 core support
-Message-ID: <aoqww3LcT0yOLC-y@ashevche-desk.local>
-References: <20260821-ad7768-driver-v4-0-bb8fbd06d4eb@analog.com>
- <20260821-ad7768-driver-v4-5-bb8fbd06d4eb@analog.com>
- <10d575af-2a2c-484b-82b0-0a00de1c50be@baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YYDW92+0"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 063ABC2BCB8;
+	Sun, 23 Aug 2026 08:35:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1787474151;
+	bh=fypSaFdXAtNFNmFOmAKyGhkU5hxq6SpoITbmIH89J3M=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=YYDW92+0wGQ8S9yTihNaF22oP36iW4xgzOSIleAdzWEYGMM2oPvFbm05bAPFo+Ukz
+	 FAJQpQcYEtovy+jy8MRKgNavTIJinm5Ag0kAp1NPB1tcT6LH2xLAKHGASWM4+yiJ/d
+	 1lL2Tx9YZMoqAfTi/FIeVfba5amDIrgb6Ae+MR+40dC0nrlKNAuncvUEPK9pXnwdc0
+	 AyMnIMO6VYfop64ivock+1+2+RORVc+iQsqeQFIAsuEbVQJGFCUnfGkhoAoqmMNZDE
+	 4WNXshZeUH17hl2idOarUNbWIXA1reJPcbPhFHLhl9Yz1k+Il5vxAnRuFuqnzfP/a0
+	 P7tk+vp9qC7pw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D1AF3C5DF97;
+	Sun, 23 Aug 2026 08:35:50 +0000 (UTC)
+From: Jens Glathe via B4 Relay <devnull+jens.glathe.oldschoolsolutions.biz@kernel.org>
+Subject: [PATCH 0/2] arm64: dts: qcom: sc8280xp-microsoft-blackrock: DP
+ audio + 4-lane altmode
+Date: Sun, 23 Aug 2026 10:35:27 +0200
+Message-Id: <20260823-blackrock-audio-v1-0-f319387fc6a6@oldschoolsolutions.biz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <10d575af-2a2c-484b-82b0-0a00de1c50be@baylibre.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avIrBPMJKqrRItJpxoKDaUIwrsnL
+ d/i/xcSRaYEg3gh0s2Jgy+oKwF2Q7+SZFcMWulWdVrL+UC7x2B3iZfjIBvslSOD1iw9lOqMtPD
+ zH8cp5w8o/BthYQAAAA==
+X-Change-ID: 20260822-blackrock-audio-3a90de4ac4f9
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787474149; l=1091;
+ i=jens.glathe@oldschoolsolutions.biz; s=20240919;
+ h=from:subject:message-id;
+ bh=fypSaFdXAtNFNmFOmAKyGhkU5hxq6SpoITbmIH89J3M=;
+ b=+7+yi0gzX852t0gInBHlDBNBiFBVoltZWZgTgBl8szvNcwpHsEWahyMv5sBobudhJzJWcD8UN
+ yxvf/8TYCYBAr0EQm5sjRcRNrn4fCuwn+P/u9pCgKnEb36Op/bmA5kC
+X-Developer-Key: i=jens.glathe@oldschoolsolutions.biz; a=ed25519;
+ pk=JcRJqJc/y8LsxOlPakALD3juGfOKmFBWtO+GfELMJVg=
+X-Endpoint-Received: by B4 Relay for
+ jens.glathe@oldschoolsolutions.biz/20240919 with auth_id=216
+X-Original-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+Reply-To: jens.glathe@oldschoolsolutions.biz
 
-On Sat, Aug 22, 2026 at 12:30:05PM -0500, David Lechner wrote:
-> On 8/21/26 9:06 AM, Janani Sunil wrote:
+This series contains some well-tested improvements for the Windows Dev
+Kit 2023 (Blackrock).
 
-...
+Patch 1 is for enabling audio via DisplayPort outputs (DP0..DP2).
 
-> > +static int ad7768_update_scan_mode(struct iio_dev *indio_dev,
-> > +				   const unsigned long *scan_mask)
-> > +{
-> > +	struct ad7768_state *st = iio_priv(indio_dev);
-> > +	unsigned int channel_mask;
-> > +	unsigned int standby_mask;
-> > +	int ret;
-> > +
-> > +	channel_mask = ad7768_all_standby_mask(st);
-> > +	standby_mask = channel_mask;
-> 
-> Would be helpful to have some comments to explain why XTAL gets special
-> handling so that we don't have to look at the datasheet. (I see something
-> similar later in the patch too.)
-> 
-> > +	if (st->clock_source == AD7768_CLOCK_SOURCE_XTAL)
-> > +		standby_mask &= ~BIT(st->chip_info->num_channels / 2);
-> > +
-> > +	for (unsigned int c = 0; c < st->chip_info->num_channels; c++) {
-> > +		if (test_bit(c, scan_mask))
-> > +			standby_mask &= ~BIT(c);
-> > +	}
+Patch 2 enables full 4-lane DP altmode on the USB-C ports and the
+mini-DP connector. It's the same treatment that was previously done 
+for the X13s.
 
-Make _mask:s to be unsigned long, and use direct operations on top, No need to
-have for-loop I think.
+Related (still pending) fix that makes DP altmode on USB0 work in both
+orientations on that port:
 
-> > +	ret = regmap_update_bits(st->regmap, AD7768_REG_CH_STANDBY,
-> > +				 channel_mask, standby_mask);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	for (unsigned int c = 0; c < st->chip_info->num_channels; c++) {
-> > +		if (test_bit(c, scan_mask))
-> > +			ret = iio_backend_chan_enable(st->back, c);
-> > +		else
-> > +			ret = iio_backend_chan_disable(st->back, c);
-> > +		if (ret)
-> > +			return ret;
-> > +	}
-> > +
-> > +	return 0;
-> > +}
+  https://lore.kernel.org/all/20250609-blackrock-usb0-mux-v1-1-7903c3b071e4@oldschoolsolutions.biz/
 
-...
+Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+---
+Jens Glathe (2):
+      arm64: dts: qcom: sc8280xp-microsoft-blackrock: enable DisplayPort audio
+      arm64: dts: qcom: sc8280xp-microsoft-blackrock: enable 4-lane DP altmode
 
-> > +	/* ADC start-up time after reset: 1.66 ms max (datasheet Table 1) */
-> > +	fsleep(2000);
+ .../boot/dts/qcom/sc8280xp-microsoft-blackrock.dts | 149 +++++----------------
+ 1 file changed, 31 insertions(+), 118 deletions(-)
+---
+base-commit: 903c1cf6dff9964e71eda98a39e2e5d442050472
+change-id: 20260822-blackrock-audio-3a90de4ac4f9
 
-2 * USEC_PER_MSEC
-
-...
-
-> > +	clock_name = ad7768_clock_names[st->clock_source];
-> > +	if (st->clock_source == AD7768_CLOCK_SOURCE_LVDS)
-> > +		st->mclk = devm_clk_get(dev, clock_name);
-> 
-> This needs an explanation why we don't enable the LVDS clock right away.
-> 
-> > +	else if (device_property_present(dev, "clock-names"))
-> > +		st->mclk = devm_clk_get_enabled(dev, clock_name);
-> > +	else
-> > +		st->mclk = devm_clk_get_enabled(dev, NULL);
-> 
-> The NULL option should work in all cases since there should only be one clock.
-
-I disagree on such an approach in general. We should not encourage NULL cases
-for the clocks. Some drivers (IRL we have such cases) might have need more
-clocks in the future and this becomes a problem. I think the NULL must be
-simply dropped. Always require the named clock.
-
-> > +	if (IS_ERR(st->mclk))
-> > +		return dev_err_probe(dev, PTR_ERR(st->mclk),
-> > +				     "Failed to get master clock\n");
-
-...
-
-> > +	/*
-> > +	 * The datasheet does not specify a wake-up time. Allow 20 ms for the
-> > +	 * ADC and digital clocks to restart.
-> > +	 */
-> > +	fsleep(20000);
-
-20 * USEC_PER_MSEC (don't forget to include time.h for these multipliers)
-
+Best regards,
 -- 
-With Best Regards,
-Andy Shevchenko
+Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 
 
