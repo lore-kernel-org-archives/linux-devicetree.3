@@ -1,215 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF09018A93F;
-	Sun, 23 Aug 2026 04:21:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83D2333F5A7;
+	Sun, 23 Aug 2026 08:32:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787458876; cv=none; b=hHQAKd9qWw+fsaOuGeN2M4fNkd6DqF01TItpMTMNR4EOMOanPPeVR+QCb0m0V11nHddEU1lK/ivnpB6qDkNkoe6k6SaExid0PsaqsogUyYbOInI2fgdQUT5JJhFTuD8WSw3r0aVjQFuSItjauplFNqMoYSKV+YpruOVklOS6+ww=
+	t=1787473941; cv=none; b=Alp+47qVu+QGZNpEhqyHgDnim64CJNCkITSuaey4HtnK5Arru6RMLzs/Nw9421VAXVeMcrwEUEnLXB5g0s/VQqoUJL2A0zLKUA5V8NMvo7DFkGp96LSu0YOxEWiLHRrNJrjx1JZIJHYtAf5SFGW5xVIqnckgKqOE+R8dM6GIzXA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787458876; c=relaxed/simple;
-	bh=6Uj3LV3Gilf572ZZK65PCvmv760bN2FTyCt96zenQGU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=h1N07W5mG4iwrqSR5d5uqDyETepEqEJbewwRkTw5m0UOwblM/25KD+/BB/whbR20nxYDNsW28NtGtxnBllf6PGNFADe4lVvlc14Am5C3hLMWLrsCTxDOO1mMo6fXoL4pjqxmbtkedgKKDIYI+K/ewtwyZp1NOCMmDwDIumBYJds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xp1cGxhg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787473941; c=relaxed/simple;
+	bh=6nN7F+g2bvyuvSxs2ZDjHWjbfEgXT41SOL/yingCANs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jKMcIys1S6YHXCX2CuNSlDV0X6QcLxG/Td11HCeKAtcm0+1JdhzkXEkwi6eNwOnUSy/mcbigJFImfCIm3nm8t56kDPlbBVRlnvt6ytRKr84G0Fca2EvM07naIaCpQSiOYZsnhUaonznC+XQsctPUAi/VrWxDtUvdNvmqEO7u/i0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=h1SQjeJn; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xp1cGxhg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13BC81F000E9;
-	Sun, 23 Aug 2026 04:21:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787458874;
-	bh=mucUJrqBP9mxXEIz0YU5NBH0jb0zo/XjQQK82TYJGes=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Xp1cGxhgPGudAPW4OvyQ5zPtPtxSCoZNqd3f+u20VRIhz2aPxQgFdd8JRWTo4+ISo
-	 brUxZh31AoMAbC3aJNfOtqMDHeUyh1M+gJj0+IcQqByQeaoP9v0PmuaSSaU0kK/gz+
-	 AqZlTvG+/ifKk9nGxYmBFlCJBuxETKqsqowViHSKWjPxkemDGv/7/F2ah952Kj/mxZ
-	 MGcvReFZnqfX5KzyNDqykcDi5SBqS1AwUdiNndQEbxpgAr4klqlTTgXl6A8Nnhknrk
-	 M1U5j5JIymfostNN3eelaNuYtATvsB0mbMVvpk0pQf/ydXG7gDK6UamM7hO80/e19u
-	 LYHqWEMrZ9h2A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 2/2] PCI: amd-mdb: Add CPM6 host controller support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sai Krishna Musham" <sai.krishna.musham@amd.com>
-Cc: linux-pci@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260823040715.204096-3-sai.krishna.musham@amd.com>
-References: <20260823040715.204096-1-sai.krishna.musham@amd.com>
- <20260823040715.204096-3-sai.krishna.musham@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 23 Aug 2026 04:21:13 +0000
-Message-Id: <20260823042114.13BC81F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="h1SQjeJn"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 4334953402C6;
+	Sun, 23 Aug 2026 10:32:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1787473930;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=2JlsbcyZwzKezXPdK2tC1+1lCw/bBm3L87lBJldaxnQ=;
+	b=h1SQjeJnHt5llfVWVCbl4rChd3b8QAdayAQdsGsw6WVrtr4ei3eHES3MY98ChGZrh2ITif
+	Z9/Z/s9PAasw3yVI1XzE6ojeKvak9j3KdLE1/bFdaZ8vvJp1WtO3IHe0Brb37KnKBxAZGk
+	bGD3Sjlt7wuc9P7+isUT0n/ftJ7KFpg=
+Message-ID: <4816df55-c486-408b-8aae-80cef532d327@ixit.cz>
+Date: Sun, 23 Aug 2026 10:32:09 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] nfc: st-nci: add raw NCI path for ST21NFCD
+To: Kristian Brox <isyourbrainfoss@proton.me>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+ Luca Weiss <luca.weiss@fairphone.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, David Heidelberg <david@ixit.cz>
+References: <20260820-fp5-st21nfcd-v3-v3-0-5ee0a7f44d04@proton.me>
+ <20260820-fp5-st21nfcd-v3-v3-2-5ee0a7f44d04@proton.me>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20260820-fp5-st21nfcd-v3-v3-2-5ee0a7f44d04@proton.me>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+On 20/08/2026 22:56, Kristian Brox wrote:
+> ST21NFCD does not use NDLC. When the compatible is st,st21nfcd,
+> talk raw NCI:
+> 
+> - do not add or strip an NDLC PCB
+> - do not run the T1/T2 ACK timers
+> - I2C reads are a 3-byte NCI header plus payload
+> - skip proprietary SET_NFC_MODE and HCI SE discovery
+> 
+> Optionally enable clocks (SYS_CLK) and vdd-io (VPS_IO) when the
+> DT describes them. Existing st21nfcb / st21nfcc boards keep the
+> NDLC path and do not need those properties.
+> 
+> Tested on Fairphone 5: adapter powers up and reads an NTAG 215.
+> 
+> Signed-off-by: Kristian Brox <isyourbrainfoss@proton.me>
+> ---
+>   drivers/nfc/st-nci/core.c |  5 +++
+>   drivers/nfc/st-nci/i2c.c  | 87 ++++++++++++++++++++++++++++++++++++++++-------
+>   drivers/nfc/st-nci/ndlc.c | 23 +++++++++----
+>   drivers/nfc/st-nci/ndlc.h |  2 ++
+>   drivers/nfc/st-nci/se.c   |  3 ++
+>   5 files changed, 102 insertions(+), 18 deletions(-)
+> 
 
-New issues:
-- [High] Blindly clearing the shared `PS_MISC` severity register in a share=
-d interrupt handler creates a race condition that can permanently drop the =
-peer controller's interrupts.
-- [High] The interrupt handler checks the raw status (`ev_raw`) instead of =
-the masked status (`val`) for pending interrupts, breaking spurious IRQ det=
-ection and inappropriately clearing masked bits.
-- [High] The driver fails to mask unhandled interrupt sources and leaves th=
-e sticky aggregator uncleared on boot, leading to an unrecoverable interrup=
-t storm on CPM6.
+Hello Kristian,
 
-Pre-existing issues:
-- [High] On MDB5, INT B, C, and D interrupts are enabled in hardware but no=
-t mapped to the Linux IRQ domain, causing them to be silently dropped.
---
+getting better, but still few nitpicls
 
---- Patch [2]: [PATCH v7 2/2] PCI: amd-mdb: Add CPM6 host controller suppor=
-t ---
-commit 23a947213bc9887ee94f4ea8b025fb7bc8ad21bd
-Author: Sai Krishna Musham <sai.krishna.musham@amd.com>
+1. Always To / Cc maintainer :)
+2. read the Sashiko review, there is one issue pointed out
 
-PCI: amd-mdb: Add CPM6 host controller support
+see below,
 
-This patch adds support for AMD Versal2 CPM6 host controllers. It adapts
-the driver to handle the differing interrupt register layout of CPM6 and
-manages the shared event interrupt line.
+[...]
+> @@ -257,23 +318,25 @@ static void st_nci_i2c_remove(struct i2c_client *client)
+>   }
+>   
+>   static const struct i2c_device_id st_nci_i2c_id_table[] = {
+> -	{ .name = ST_NCI_DRIVER_NAME },
+> -	{ }
+> +	{ ST_NCI_DRIVER_NAME },
+> +	{}
 
-Link: https://lore.kernel.org/all/20260819172057.3636214-3-sai.krishna.mush=
-am@amd.com/
+I believe you reverting recent changes, same below.
 
-> diff --git a/drivers/pci/controller/dwc/pcie-amd-mdb.c b/drivers/pci/cont=
-roller/dwc/pcie-amd-mdb.c
-> --- a/drivers/pci/controller/dwc/pcie-amd-mdb.c
-> +++ b/drivers/pci/controller/dwc/pcie-amd-mdb.c
+>   };
+>   MODULE_DEVICE_TABLE(i2c, st_nci_i2c_id_table);
+>   
+> -static const struct acpi_device_id st_nci_i2c_acpi_match[] = {
+> -	{ .id = "SMO2101" },
+> -	{ .id = "SMO2102" },
+> -	{ }
+> +static const struct acpi_device_id st_nci_i2c_acpi_match[] __maybe_unused = {
+> +	{"SMO2101"},
+> +	{"SMO2102"},
+> +	{}
+>   };
+>   MODULE_DEVICE_TABLE(acpi, st_nci_i2c_acpi_match);
+>   
+> -static const struct of_device_id of_st_nci_i2c_match[] = {
+> -	{ .compatible = "st,st21nfcb-i2c" },
+> -	{ .compatible = "st,st21nfcb_i2c" },
+> -	{ .compatible = "st,st21nfcc-i2c" },
+> -	{ }
+> +static const struct of_device_id of_st_nci_i2c_match[] __maybe_unused = {
+> +	{ .compatible = "st,st21nfcb-i2c", },
+> +	{ .compatible = "st,st21nfcb_i2c", },
+> +	{ .compatible = "st,st21nfcc-i2c", },
 
-[ ... ]
+The `,` above was removed recently, keep it that way ;-)
 
-> +static void amd_mdb_pcie_clear_aggregators(struct amd_mdb_pcie *pcie)
-> +{
-> +	if (pcie->variant->version =3D=3D MDB5)
-> +		return;
-> +
-> +	/* Clear this host's serviced MISC_EVENT contribution from MERGED. */
-> +	writel_relaxed(amd_mdb_pcie_merged_host_mask(pcie),
-> +		       pcie->slcr + AMD_CPM6_MERGED_STATUS);
-> +
-> +	/*
-> +	 * Clear MERGED in the PS_MISC severity register so the misc GIC line
-> +	 * de-asserts.
-> +	 */
-> +	writel_relaxed(AMD_CPM6_PS_IR_MERGED,
-> +		       pcie->slcr + AMD_CPM6_PS_MISC_IR_STATUS);
-> +}
-
-[Severity: High]
-Does clearing this shared register unconditionally create a race condition
-that drops interrupts for the peer controller?
-
-If Host 1's interrupt arrives and sets its MERGED_STATUS bit just before
-Host 0's interrupt handler executes this W1C write to the shared=20
-AMD_CPM6_PS_MISC_IR_STATUS register, the aggregator is cleared while Host 1=
-'s
-event is still pending. Because the aggregator does not re-assert for
-already-latched MERGED bits or loses the edge, does this mean the GIC line
-drops and Host 1's interrupt is permanently lost?
-
-[ ... ]
-
->  static irqreturn_t amd_mdb_pcie_event(int irq, void *args)
->  {
->  	struct amd_mdb_pcie *pcie =3D args;
->  	unsigned long val;
-> +	u32 ev_raw;
->  	int i;
-> =20
-> -	val =3D readl_relaxed(pcie->slcr + AMD_MDB_TLP_IR_STATUS_MISC);
-> -	val &=3D ~readl_relaxed(pcie->slcr + AMD_MDB_TLP_IR_MASK_MISC);
-> +	ev_raw =3D readl_relaxed(pcie->intr_base + pcie->variant->misc_status_r=
-eg);
-> +	val =3D ev_raw;
-> +	val &=3D ~readl_relaxed(pcie->intr_base + pcie->variant->misc_mask_reg);
-
-[ ... ]
-
-> +	val &=3D pcie->variant->misc_mask_all;
-> +
-> +	/*
-> +	 * The misc GIC line is shared with the peer host controller. If this
-> +	 * host has nothing pending, report the interrupt as not ours so the
-> +	 * shared line's spurious detection keeps working and the peer's sticky
-> +	 * aggregator state is left untouched.
-> +	 */
-> +	if (!ev_raw)
-> +		return IRQ_NONE;
-
-[Severity: High]
-Should this check use the masked status (val) rather than the raw status
-(ev_raw) to determine if the interrupt was spurious?
-
-If this controller has a masked status bit active (such as an AER error left
-to native AER), ev_raw will be non-zero even when the peer controller asser=
-ted
-the shared GIC line. The check if (!ev_raw) will pass, proceeding to falsely
-return IRQ_HANDLED while unconditionally clearing the masked status bit and
-the shared aggregator. Could this break AER error reporting?
-
-[ ... ]
-
-> -static void amd_mdb_pcie_free_irq_domains(struct amd_mdb_pcie *pcie)
-> +static void amd_mdb_pcie_disable_interrupts(struct amd_mdb_pcie *pcie)
->  {
-> +	u32 misc_mask_all =3D pcie->variant->misc_mask_all;
-> +	u32 val;
-> +
-> +	/* Mask all leaf TLP interrupts. */
-> +	writel_relaxed(misc_mask_all,
-> +		       pcie->intr_base + pcie->variant->misc_disable_reg);
-
-[Severity: High]
-Does this sequence leave unhandled interrupt sources unmasked and the sticky
-aggregator uncleared?
-
-For CPM6, misc_mask_all only includes the INTx bit, which leaves other
-interrupt sources like PCIe errors unmasked. It also fails to clear the
-sticky MERGED_STATUS aggregator.=20
-
-When amd_mdb_pcie_init_port() is called later and enables the shared
-aggregator via AMD_CPM6_MERGED_ENABLE, any pending unhandled leaf interrupts
-or stale aggregator state will immediately assert the GIC line. If the
-handler then returns IRQ_NONE or clears the leaf without resolving the
-underlying error, will this cause an unrecoverable interrupt storm on boot?
-
-[ ... ]
-
->  static int amd_mdb_setup_irq(struct amd_mdb_pcie *pcie,
->  			     struct platform_device *pdev)
->  {
->  	struct dw_pcie *pci =3D &pcie->pci;
->  	struct dw_pcie_rp *pp =3D &pci->pp;
->  	struct device *dev =3D &pdev->dev;
-> +	unsigned long event_flags =3D IRQF_NO_THREAD;
->  	int i, irq, err;
-
-[ ... ]
-
->  	pcie->intx_irq =3D irq_create_mapping(pcie->mdb_domain,
-> -					    AMD_MDB_PCIE_INTR_INTX);
-> +				    pcie->variant->intx_hwirq);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but are the INT B, C, and D
-interrupts missing from the IRQ domain mapping on MDB5?
-
-In amd_mdb_setup_irq(), only the intx_hwirq (which corresponds to INT A,
-bit 16 on MDB5) is mapped into the mdb_domain. However, the hardware is
-configured to unmask all four INTx sources (bits 16, 18, 20, 22) in
-amd_mdb_intx_irq_unmask().=20
-
-When INT B, C, or D fire, amd_mdb_pcie_event() will call
-generic_handle_domain_irq() for an unmapped hwirq, which returns -EINVAL.
-Does this mean legacy PCI devices using INT B, C, or D behind the MDB5
-controller will have their interrupts silently dropped?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260823040715.2040=
-96-1-sai.krishna.musham@amd.com?part=3D2
+> +	{ .compatible = "st,st21nfcd",
+> +	  .data = (void *)ST_NCI_I2C_PROTO_RAW_NCI },
+> +	{}
+>   };
+>   MODULE_DEVICE_TABLE(of, of_st_nci_i2c_match);
+>   
+[...]
