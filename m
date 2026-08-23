@@ -1,120 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5EBC331EB9;
-	Sun, 23 Aug 2026 22:25:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27C9015C14F;
+	Sun, 23 Aug 2026 22:26:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787523906; cv=none; b=V1FSebyRDfiF9Kb1SZFCSH+W+LdLNUQMMgIUj8Q2oFx3r8HsYpzglL9L0HYhqbuVa0lx35P+HotfbtrRHeebUMe7nxYw8ZnwiFPWrFJrRBOooDr2docYy3JKmYrGsNUEkqST7fEpHU2Rx00w2BDMEBL5s2Ok+u45OGhT+kEwo6E=
+	t=1787523973; cv=none; b=qi4uz4M4nAzBhpgCYbtgN84XCvq2qVx1QTO4JJt3UKwkH2HrPCjZoRsA02kAIMWvvChB2rIZL4wUNe4LYxdA3DSQ/aIDfKFQqdOeQZ/XxPlHV5I04HGuhAs9V3ZEmGkPr7prHKSx27qAfiu+Tf1I35eJ9xVa2eiIisuonczpDn0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787523906; c=relaxed/simple;
-	bh=cq1hYsxSF8q8kGHGEdS0KX9Ra636QhedZrafPgp9MF4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=TYWhmR6V1i7K8EQtkedRnTCmHqK4Kwz9ThnDzPt2N/4dcDJqkD4tir2YnPzdf4qV1VvHf1tiXFLONSC5XuhQuaEyOTPQ2mLXtSn8hM1r9DUZZiAZ4isBdb8t5Zpml89F9Z6faM1hVNJNvusD6YanvpNAfJ3R+0N8mqHLVH1YQbs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G1e+R70k; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1787523973; c=relaxed/simple;
+	bh=fUe415RR23MHXIp5/fjmdp8ZELdAlSWnF5D0QvAa+4s=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=NEi35bfl+gePDZf+Be531thSKibfJcqONBIcx2g2/4+BY/kwEfoDo9t1gQ0XJyyGX+y63kxmYS0+vc04M6zrD65J50j9eVFPByaNE9Xlsb9yKaOnKqlx90BUv/Ii+oBVuGEO+PGzOpFGEoywkOX1yA8hM2wSOpdSy+VjREv0Hc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DWMy+vMf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G1e+R70k"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 668A1C2BCB8;
-	Sun, 23 Aug 2026 22:25:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1787523905;
-	bh=cq1hYsxSF8q8kGHGEdS0KX9Ra636QhedZrafPgp9MF4=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=G1e+R70kZaq6JfUd4XQR/TVBzuSQmU8TWfyq9UiSZxswyqovfTUoT8A07B4+ZBRKj
-	 P0LUxLvrOa+6eJ8CO2b+4EbiaL5eWXAi71gwbZu/f0Hw+GM7nLw1GJvwlxIFJcaBxZ
-	 P+9cniXYPA54HeqKB0UvYbOXOfcQQh/XlhoG6C6CPUQ6AxHEh8j3oJiyTidyYOeTRP
-	 TiUnXGvlHOcXRS6JMHoHJ9AwYDmvRzykxyPORZGYOpUzZdJsJKshZLS5yj8VJXauOK
-	 H9CDqeB3C4buXwkqScazqn4yC3HLOUGwbdPBdL9qVW+IliMflzw5c0spJwAtMzxQM1
-	 w0HdMBlVpZwzQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E72EC5DF97;
-	Sun, 23 Aug 2026 22:25:05 +0000 (UTC)
-From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Date: Mon, 24 Aug 2026 00:24:56 +0200
-Subject: [PATCH] arm64: dts: lx2160a: fix incorrect pinmux
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DWMy+vMf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B176B1F000E9;
+	Sun, 23 Aug 2026 22:26:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787523972;
+	bh=q+ODLCHyap1XWKH3/xYI3rzmya17lA2xHmMYSQJ/2fA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=DWMy+vMfJJLNHcao2QBWlkmMAbqwYTbSz7+5rNG+QllwEDuJl9PztY3egwkcejBuf
+	 TRW8Sc1G4dl9QWYpl43My/5UUfsEveftoXSWWQzsTPMg742L8bGeb38AMvoErQqc6u
+	 WwqplhUVIrWkTHZxRHqtRW3hq/0mvTwbhJYbGw8q2X4QvW2uC6aMxbi6RFc1/AiGoo
+	 gJWaCZxlowCPaIsoo09n+lD1F0r5cTL4j/BKGQQEcjUdoCYwSOV4y42LcWjNAtI8JC
+	 jWO3PjITC2veLyjW4fjONz4Nmg3ZEXLjokv/gU9p5An3Dy+crt8yR1VIA9SwIarV/n
+	 1Mka9/Ky7iRvA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 5/6] rtc: s35390a: Add pinctrl
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Markus Probst" <markus.probst@posteo.de>
+Cc: "Alexandre Belloni" <alexandre.belloni@bootlin.com>, devicetree@vger.kernel.org, linux-rtc@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260824-rtc_s35390a_int1-v6-5-df96569e3412@posteo.de>
+References: <20260824-rtc_s35390a_int1-v6-0-df96569e3412@posteo.de>
+ <20260824-rtc_s35390a_int1-v6-5-df96569e3412@posteo.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 23 Aug 2026 22:26:11 +0000
+Message-Id: <20260823222611.B176B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260824-for-upstream-lx2160a-pinmux-fix-v1-1-33a3c8d5ea8a@free.fr>
-X-B4-Tracking: v=1; b=H4sIADdzi2oC/x2NQQqDMBAAvyJ7diEubdB+pXiIZm0XNIaNkYD49
- 4YeZw4zFyRW4QSv5gLlU5LsoULXNjB/Xfgwiq8MZMianh647Io5pkPZbbgW6qxxGCVsueAiBa0
- 3A/c0+ec8Qa1E5ar/h/d43z/EZGZkcQAAAA==
-To: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Josua Mayer <josua@solid-run.com>
-Cc: imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Vincent Jardin <vjardin@free.fr>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787523904; l=1744;
- i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=v7b3i0icYOPqdG+BqtL6lYNtCLmPe90OESWp1UB4moI=;
- b=ezvxDYGXs6w7Ps/jMEObsLtPsg3EUttJ5frsgrfiS1kdS3jut+ZHF5FBxc6FpWlv0zBsho0Pc
- UYsr1nbTKn0DQLloefJC+hR9tYSMkslaNs5TIRd93+OqdiSsPlxadad
-X-Developer-Key: i=vjardin@free.fr; a=ed25519;
- pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
-X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
- auth_id=871
-X-Original-From: Vincent Jardin <vjardin@free.fr>
-Reply-To: vjardin@free.fr
 
-From: Vincent Jardin <vjardin@free.fr>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Unconditional dependency on PINCTRL removes the RTC driver on non-=
+pinctrl platforms.
+- [Medium] The 'clock' pin function is advertised but silently falls back t=
+o disabling the pin rather than returning an error.
+- [Medium] TOCTOU race in `s35390a_probe` when reading `pinfunction` withou=
+t lock after `pinctrl_enable`.
+--
 
-For gpio1 value set for pinctrl is outside the mask and so will do
-nothing.
-Add the missing offset for value field to be the same as the mask as
-expected.
+--- Patch [5]: [PATCH v6 5/6] rtc: s35390a: Add pinctrl ---
+commit 73fe5a984406c6bfdc0258a390d1f790625e1082
+Author: Markus Probst <markus.probst@posteo.de>
 
-Fixes: 284ad7064aaa ("arm64: dts: lx2160a: complete pinmux for rcwsr12 configuration word")
-Signed-off-by: Vincent Jardin <vjardin@free.fr>
----
- arch/arm64/boot/dts/freescale/fsl-lx2160a.dtsi | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+rtc: s35390a: Add pinctrl
 
-diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a.dtsi b/arch/arm64/boot/dts/freescale/fsl-lx2160a.dtsi
-index 1d73abffa6b7..b9f079c49e19 100644
---- a/arch/arm64/boot/dts/freescale/fsl-lx2160a.dtsi
-+++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a.dtsi
-@@ -1803,7 +1803,7 @@ fspi_data74_pins: xspi1-data74-pins {
- 			};
- 
- 			gpio1_31_28_pins: xspi1-data74-gpio-pins {
--				pinctrl-single,bits = <0x0 0x1 (0x7 << 15)>;
-+				pinctrl-single,bits = <0x0 (0x1 << 15) (0x7 << 15)>;
- 			};
- 
- 			fspi_data30_pins: xspi1-data30-pins {
-@@ -1811,7 +1811,7 @@ fspi_data30_pins: xspi1-data30-pins {
- 			};
- 
- 			gpio1_27_24_pins: xspi1-data30-gpio-pins {
--				pinctrl-single,bits = <0x0 0x1 (0x7 << 18)>;
-+				pinctrl-single,bits = <0x0 (0x1 << 18) (0x7 << 18)>;
- 			};
- 
- 			fspi_dqs_sck_cs10_pins: xspi1-base-pins {
-@@ -1819,7 +1819,7 @@ fspi_dqs_sck_cs10_pins: xspi1-base-pins {
- 			};
- 
- 			gpio1_23_20_pins: xspi1-base-gpio-pins {
--				pinctrl-single,bits = <0x0 0x1 (0x7 << 21)>;
-+				pinctrl-single,bits = <0x0 (0x1 << 21) (0x7 << 21)>;
- 			};
- 
- 			esdhc0_cmd_data30_clk_vsel_pins: sdhc1-base-sdhc-vsel-pins {
+This commit adds pinctrl support to the S35390A RTC driver, allowing
+configuration of pin functions like wake up, disabled, and periodic
+interrupts. If no function is configured, it falls back to the previous
+behavior.
 
----
-base-commit: 3d6d817622b0a9721e3cc404df3469171582be13
-change-id: 20260824-for-upstream-lx2160a-pinmux-fix-6d09e82bd5cb
+> diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
+> index 01def82318731..2d79710c48375 100644
+> --- a/drivers/rtc/Kconfig
+> +++ b/drivers/rtc/Kconfig
+> @@ -668,7 +668,9 @@ config RTC_DRV_RC5T619
+> =20
+>  config RTC_DRV_S35390A
+>  	tristate "Seiko Instruments S-35390A"
+> +	depends on PINCTRL
 
-Best regards,
--- 
-Vincent Jardin <vjardin@free.fr>
+[Severity: High]
+Will this unconditional dependency cause the RTC driver to be silently drop=
+ped
+on platforms without PINCTRL enabled?
 
+This could break backwards compatibility for existing driver users by chang=
+ing
+an optional feature into a hard dependency.
 
+>  	select BITREVERSE
+> +	select GENERIC_PINCONF
+>  	help
+>  	  If you say yes here you will get support for the Seiko
+
+> diff --git a/drivers/rtc/rtc-s35390a.c b/drivers/rtc/rtc-s35390a.c
+> index 8e3616c65d2c0..a2ddce91ef7ac 100644
+> --- a/drivers/rtc/rtc-s35390a.c
+> +++ b/drivers/rtc/rtc-s35390a.c
+[ ... ]
+> @@ -458,13 +520,170 @@ static int s35390a_nvmem_write(void *priv, unsigne=
+d int offset, void *val,
+[ ... ]
+> +static int s35390a_pinctrl_set_mux(struct pinctrl_dev *pctldev, unsigned=
+ int function,
+> +				   unsigned int group)
+> +{
+[ ... ]
+> +	switch (function) {
+> +	case S35390A_FUNC_DISABLE:
+> +	case S35390A_FUNC_CLOCK: /* not implemented */
+> +		status2 =3D (status2 & ~mask) | S35390A_INT_MODE_NOINTR;
+> +		break;
+
+[Severity: Medium]
+Since the clock function is not implemented, should this return an error
+instead of silently disabling the pin?
+
+Users specifying the 'clock' function in the device tree might assume the p=
+in
+is outputting a clock signal, but it will be disabled instead.
+
+> +	case S35390A_FUNC_WAKEUP:
+> +		flag =3D group =3D=3D 0 ? S35390A_INT1_MODE_ALARM : S35390A_INT2_MODE_=
+ALARM;
+[ ... ]
+> @@ -533,9 +758,33 @@ static int s35390a_probe(struct i2c_client *client)
+[ ... ]
+> +	err =3D pinctrl_enable(pctl);
+> +	if (err)
+> +		return dev_err_probe(dev, err, "pinctrl enable failed\n");
+> +
+> +	/* If no pinmux function is defined in DT, fallback to previous behavio=
+ur */
+> +	fallback[0] =3D S35390A_FUNC_IGNORE;
+> +	fallback[1] =3D S35390A_FUNC_WAKEUP;
+> +
+> +	for (i =3D 0; i < ARRAY_SIZE(s35390a_pin_groups); i++) {
+> +		if (s35390a->pinfunction[i] =3D=3D -1) {
+
+[Severity: Medium]
+Is there a data race here since the pinfunction array is accessed locklessly
+after pinctrl_enable() has made the pinctrl device available?
+
+If another consumer requests the pins concurrently right after pinctrl_enab=
+le()
+modifying pinfunction, could their configuration be overwritten by this
+fallback logic?
+
+> +			err =3D s35390a_pinctrl_set_mux(pctl, fallback[i], i);
+> +			if (err)
+> +				return err;
+> +		}
+> +	}
+> +
+>  	nvmem_cfg.priv =3D s35390a;
+>  	err =3D devm_rtc_nvmem_register(rtc, &nvmem_cfg);
+>  	if (err)
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824-rtc_s35390=
+a_int1-v6-0-df96569e3412@posteo.de?part=3D5
