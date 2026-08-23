@@ -1,63 +1,63 @@
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1107D390992
-	for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 11:20:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4C7D3C1D75
+	for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 11:20:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787484036; cv=none; b=Oc6mBK6IRUtPHEKP2ic7HmWv22HfRsn87g83OJkqzWgaq60e9W7oWYuZo0oj8jPy8Ohbf8LfXYnEblOrA3p7NbbSxmnjqxT6GPEAhY39aWKFhX3rvAe+pS5WGAY03aj+9rimRz3Af7TO+oBK7QudXmoElG+1WRSs/eqlX/0rF5o=
+	t=1787484039; cv=none; b=iNsMs2gvytwpIXUJ3mSLLmhL9OJ5hxq5sLyWpKtGabmMmMK2eM5kUkrVPIxcJCJExNb62n0p7ALWGnXIpDNwRXKRfM8ry76ZyuqRVMD/jKY38xLaY5nwervycY+5COHKPAmjSFd3hSxqlqhe1eNqgCldyEdKhh1lVFyoDdU3MXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787484036; c=relaxed/simple;
-	bh=sS+JQZ85OpW7bY3sDFgkgCR9UWbFFQQuEfzVJqKunbc=;
+	s=arc-20240116; t=1787484039; c=relaxed/simple;
+	bh=G4D/tLQlr5MskfBE1LEuWc9pIfnVArKK2j3Z9+4DMo4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=i0XBwSik7mOocd5GNr6C1NZeGR0zeBm7QiLAEIttJqLxyOmTEWKY/ht48D5fQHSHumRyqz4GNAn5b1B7BvILRYRS92qXUPnczSgZILS3jk9Z7U3t2CGLhkRcUGjl19NEoedJRLjWDc8NuDsPMGwHyosM6vjEmqUusfXwmo0vlrM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=osA8EUBa; arc=none smtp.client-ip=209.85.208.50
+	 MIME-Version; b=O/X6lHwRHaFC2w7bTQuPwyJPuWEr2mQMAwO4a9v0vqQtFkfGzNcq1O+EoK0pjC4m8uvNa/eg78lo7dzWKqQXmk38iEpVVqFJqcG4tj9ShqKSBdeGmy08ivSBF3RWN+1I69AWgKPxlIRMuM752mDKeTEEvG/zUet8OjbJXGsX69U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mlCeB4mr; arc=none smtp.client-ip=209.85.218.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="osA8EUBa"
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6a173ad7cf4so4737165a12.3
-        for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 04:20:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mlCeB4mr"
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c214321dc32so490212166b.0
+        for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 04:20:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787484032; x=1788088832; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787484036; x=1788088836; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=O2nHmLuWlmB9nT6PWD8W1i/ls2Umb2NuoFiA04KEePk=;
-        b=osA8EUBawZ0heovjb25FQajptwNPN/DzUbbO/VBCR0zPArKIz69alwAXKes1mwGe4d
-         B0x0AVjzIrPkiwym0Mmle8OqbKplgJ21RLxuA0qdW0zDnuGAESoxx08XLnZHhNKxkcDm
-         fwIRPfMYriLPnussVhHak87k+MDEiyiepq8Iwl+zMfL5WdFOj0ZkC8mvRfA8giv+AupZ
-         7/b0F+Aq+8BfWZjl1Ci9Z0ZuouD+autyZXyaifMk8IHWf3W8FKpacFOyFZ4KJ1fems8+
-         kmcB9vcsuUKJfiGCSSnmeDFXo0D9VW9yTDeZ9Bw4FFWJS2x6VWNfEJ3OdrfYFhftTLsD
-         1uQQ==
+        bh=ITWcZ5jiF/pXFpj+1UU2crAZw5A+n08+7Om7GUXkowQ=;
+        b=mlCeB4mrbRx8dEC/qmju6K78Wh1TnBzDJ9dZLL6WdHC+raku0O3/vUh4KHKPLa2idw
+         3JgtsQCcoWq+CHf8EHmAYkMFz0rDVQvFIAVk1qtusf6/9fgswOHpCXsEF2nmksj6GkF+
+         aBDKweuBbdtx+zxKrl+B6CfnGJ25+k4vMBigvnYMIsr2ih65BWOupbN9h6l1hEBc/nLs
+         fjL0+pJWi6oGAud+oS/ToN9+BNZcE4zoIIDCoxIoqyfE0T9AUtwYcrP25zPbe+6L1/L9
+         TA82IeEByTvZlz7lmEJ56bNi+Sk/otjC8DsTbdK8NWY3ZF7YN16RRoL10d+T03drKES7
+         kKww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787484032; x=1788088832;
+        d=1e100.net; s=20251104; t=1787484036; x=1788088836;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=O2nHmLuWlmB9nT6PWD8W1i/ls2Umb2NuoFiA04KEePk=;
-        b=EWsuEEV06qxQSgY4c3IhBT5FK0JgTNH2T0dHWcTuX16wEVFiJVX9jOHX5mjxrseOEQ
-         mRsFYkCPVqIbUFPe2aWVKLnwF+dHgLMRyEacITCgGmbgEOoDcGf3e3AYuNf6LamDpF10
-         LGldHBKNUdBABhBKG3MouiL2EM9Z39J3q3i3ngHN/heENDM9wRfN8aowxB7glnMFTWDH
-         EVo4zLwFOKBGMmxHC6W7UC3Ln6DSE2glh6s/l9pIaItXRhinECNbqwutZ2EJrtPZqUIs
-         U6/KspicRFAUAjLRzmtfebxTYLREkVQngm8ZtwOggnMdjRjLnfg5ch5XYFf/MRlvBjGP
-         ps+g==
-X-Forwarded-Encrypted: i=1; AHgh+RohQtRda9CJ11aeOuwr4CHLnX5kFM3B7iGj8zUqI/ZZ9f/BPQPqOyUuVwxP3cWc9dveik/iYAjLPeFQ@vger.kernel.org
-X-Gm-Message-State: AFuF++mOqCJDD3CjJ2OKCZc50PqWS7xmLgW2roT4EFLirNeOhBiIxYQX
-	NJ4ks8QHh9dFxow9vbEahywEOuyRhKiFa/oNopedfvQ2zBiNPXUK2U8r
-X-Gm-Gg: AR+sD12YNZHZKdRB9Id2fajHqLeEaJK5Z2D7UlhQa24ZeLFPEKV9DyOUIApTltc1Z3Q
-	WLMoPzyh11pNxtLQmwoctMGRoAf0t/EC2KGc4/ftkoDGsMW0zLkMVSW4QXf2ZrJ6HmGusQu1guz
-	0GPkXg/86mbqEYzvNlNK0y0oxjEjITjwzEplz2+OTaAR5+2HQaOWcT4Ae65fzPheBxI3+nM4shY
-	VN3DeOeeKVplVKR0OWDPY3fey5/ofubDr7vyUb6fsU9nQKln2Ma14UYinoTM4li3tEwlvuyIzja
-	W4aYKDDZtTf82uLDa4+TOZbeoLegM2WYQ46WZzfOy8iMWjv+JAcEnnstaiTHrMJJKm/AqGnxJUb
-	xmK+IQ25qTKL56iJ8ikJLgtsTe6BQ3JrSNQtYQp9tnRXALU/NUrZ9fpR3lhSyUFecxbcz1pZNW+
-	8le9svibeCsgIoJGsHOgmj39szBdRDIooi9bU1954wQZWNNeqJRi1sWkGkUWjVkbH59g==
-X-Received: by 2002:a17:907:9495:b0:c21:49df:1650 with SMTP id a640c23a62f3a-c2491c9bae2mr962084666b.8.1787484032115;
-        Sun, 23 Aug 2026 04:20:32 -0700 (PDT)
+        bh=ITWcZ5jiF/pXFpj+1UU2crAZw5A+n08+7Om7GUXkowQ=;
+        b=gYiYsiqZzC1X2NAGEg+H/X2kRDphYDjXckUnmb7epY814ObWwavip4qTTBd5IIAzMq
+         6hQLMvumTkfebXepcXrQUPUIDft2MkMGymN25vD1xVk6n4Qwvywjm1cMVTY5Kve4LCLF
+         lX+er6+Jzub4yckJnGiRlZnpCJ6Anr1VQ6YlmVsA46CSAaCYSjJ6Ln1luq3fZldcqZ3S
+         Qov4OppPwAzQhfMOgs28qi4xbw0MYwWLiboPLVeyv+Zgv85zrG3MXOjjg1YhG8l8ZsM/
+         j4+pZV5jWenCWzChwhk0Tjcg1BYUCTwaZtW+4ovgFCzPiM4ZOJqVww3fx1EwQcxYUSGo
+         ik6A==
+X-Forwarded-Encrypted: i=1; AHgh+RqUzpu6tbEfIXbl7CE8KqPC1aeycoOUHKJ/F3uLKlWOgifCWyH6q9PXxKVbzPlsAVv4HDu10c5Cnm2S@vger.kernel.org
+X-Gm-Message-State: AFuF++n2WoZ8BO0iaVLt0D+HNfo6I271rQ5nfKfpdiRwDR+xWZZtJYOG
+	3nmibahmh4/jetLGZ+GOT25OG6DPX5ECI97UqzStEOHW1PSUq04Inquv
+X-Gm-Gg: AR+sD10LEPMQCZkttOoWO5fMwixiy+s6xYKePEW+v2jskUOAVj32SlfT3sJ1xViK42A
+	BOagPT4V5gMqQdDHtqfONxDJNt6XT4UPu8V8DEXPgCRtR1YSTP0a5LZ6FXHj/3xcZ/yrZKtRXA7
+	vC4eNjdeKOvtuhQIvN9oeKzCjvVZzeS2xXnboBAoO0zu3AribaAws+dfPquhfIkmPWSZf2Yoodd
+	KDzioLz0hMe/mkzMz7uFN5PY93MJkD/YSxln9o3ADPhtTCuhnrdUFW8kPW7u6VS2oGECkOnNke9
+	qwHOGB7i4hiWf+XD+JFTflRcYrgZ0vGAeRMqg0scLTAIBiq7d46Td4ngu7M/5+GZ5Ocl9mxUWEr
+	Yq9fUkAfeapfrQJFFSlsaJ/5uVNqS/uUDoK7lS2oLQy6Xg266UCcj2/uY6HmiedITRQbtTelgA6
+	vHLEVx0qVuhWrUV+t5fv3uEQNb78ZrrUfgu1bJLASMFUGjjwboEZlToUQDTpC/BhPybw==
+X-Received: by 2002:a17:907:e1d0:20b0:c20:f864:d480 with SMTP id a640c23a62f3a-c246a6559aemr1554170866b.13.1787484035807;
+        Sun, 23 Aug 2026 04:20:35 -0700 (PDT)
 Received: from thinker ([2a13:54c2:f000:e268:6d0c:d746:2b12:231f])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c24966f58dfsm707233866b.38.2026.08.23.04.20.28
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c24966f58dfsm707233866b.38.2026.08.23.04.20.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 23 Aug 2026 04:20:31 -0700 (PDT)
+        Sun, 23 Aug 2026 04:20:35 -0700 (PDT)
 From: Amit Barzilai <amit.barzilai22@gmail.com>
 To: javierm@redhat.com,
 	airlied@gmail.com,
@@ -74,9 +74,9 @@ Cc: andriy.shevchenko@intel.com,
 	devicetree@vger.kernel.org,
 	dri-devel@lists.freedesktop.org,
 	Amit Barzilai <amit.barzilai22@gmail.com>
-Subject: [PATCH v5 2/6] drm/ssd130x: Change SSD133X color format to RGB565 from RGB332
-Date: Sun, 23 Aug 2026 14:19:55 +0300
-Message-ID: <20260823111959.17029-3-amit.barzilai22@gmail.com>
+Subject: [PATCH v5 3/6] drm/ssd130x: Constify ssd130x_write_data() 'values' parameter
+Date: Sun, 23 Aug 2026 14:19:56 +0300
+Message-ID: <20260823111959.17029-4-amit.barzilai22@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260823111959.17029-1-amit.barzilai22@gmail.com>
 References: <20260823111959.17029-1-amit.barzilai22@gmail.com>
@@ -88,130 +88,30 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-SSD133X screens were driven at 8bpp RGB332 despite supporting 16bpp RGB565.
-Switch the SSD133X data path to RGB565.
+At no point does ssd130x_write_data() change the bytes it receives via
+the 'values' parameter. Constify the parameter so const-qualified
+buffers pass through without casting away const.
 
-Assisted-by: Claude:claude-opus-4-8
 Signed-off-by: Amit Barzilai <amit.barzilai22@gmail.com>
 Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 ---
- drivers/gpu/drm/solomon/ssd130x.c | 48 ++++++++++++++++++++-----------
- 1 file changed, 31 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/solomon/ssd130x.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/ssd130x.c
-index 0b0fc6fe3df2..8cf1e9c84a81 100644
+index 8cf1e9c84a81..73e7f2a8b730 100644
 --- a/drivers/gpu/drm/solomon/ssd130x.c
 +++ b/drivers/gpu/drm/solomon/ssd130x.c
-@@ -146,6 +146,11 @@
- #define SSD133X_DEFAULT_CONTRAST_B		0x50
- #define SSD133X_DEFAULT_CONTRAST_C		0x7d
- 
-+/* ssd133x remap byte (data of SSD13XX_SET_SEG_REMAP) */
-+#define SSD133X_SET_REMAP_COM_SPLIT		BIT(5)
-+#define SSD133X_SET_REMAP_COLOR_DEPTH_MASK	GENMASK(7, 6)
-+#define SSD133X_COLOR_DEPTH_65K			0x1
-+
- #define MAX_CONTRAST 255
- 
- const struct ssd130x_deviceinfo ssd130x_variants[] = {
-@@ -618,17 +623,17 @@ static int ssd133x_set_contrast(struct ssd130x_device *ssd130x, u32 brightness)
- static int ssd133x_init(struct ssd130x_device *ssd130x)
+@@ -252,7 +252,7 @@ static inline struct ssd130x_device *drm_to_ssd130x(struct drm_device *drm)
+ /*
+  * Helper to write data (SSD13XX_DATA) to the device.
+  */
+-static int ssd130x_write_data(struct ssd130x_device *ssd130x, u8 *values, int count)
++static int ssd130x_write_data(struct ssd130x_device *ssd130x, const u8 *values, int count)
  {
- 	int ret;
-+	/*
-+	 * Horizontal address increment, normal SA,SB,SC (e.g. RGB) sub-pixel
-+	 * order, COM split odd even and 65k (RGB565) color depth.
-+	 */
-+	const u8 remap = SSD133X_SET_REMAP_COM_SPLIT |
-+			 FIELD_PREP(SSD133X_SET_REMAP_COLOR_DEPTH_MASK, SSD133X_COLOR_DEPTH_65K);
- 	const u8 cmds[] = {
- 		2, SSD133X_SET_MASTER_CURRENT, 0x06,
- 		3, SSD133X_SET_COL_RANGE, 0x00, ssd130x->width - 1,
- 		3, SSD133X_SET_ROW_RANGE, 0x00, ssd130x->height - 1,
--		/*
--		 * Horizontal Address Increment
--		 * Normal order SA,SB,SC (e.g. RGB)
--		 * COM Split Odd Even
--		 * 256 color format
--		 */
--		2, SSD13XX_SET_SEG_REMAP, 0x20,
-+		2, SSD13XX_SET_SEG_REMAP, remap,
- 		2, SSD133X_SET_DISPLAY_START, 0x00,
- 		2, SSD133X_SET_DISPLAY_OFFSET, 0x00,
- 		1, SSD133X_SET_DISPLAY_NORMAL,
-@@ -829,14 +834,20 @@ static int ssd133x_update_rect(struct ssd130x_device *ssd130x,
- 	 * COM0 to COM[N - 1] are the rows and SEG0 to SEG[M - 1] are
- 	 * the columns.
- 	 *
--	 * Each Segment has a 8-bit pixel and each Common output has a
--	 * row of pixels. When using the (default) horizontal address
--	 * increment mode, each byte of data sent to the controller has
--	 * a Segment (e.g: SEG0).
-+	 * Each Segment holds one pixel and each Common output has a row
-+	 * of pixels. A pixel is 8 bits (one byte) in the 256 color
-+	 * (RGB332) format or 16 bits (two bytes) in the 65k color
-+	 * (RGB565) format. When using the (default) horizontal address
-+	 * increment mode, the pixel data is sent Segment by Segment
-+	 * (e.g: SEG0 first).
- 	 *
- 	 * When using the 256 color depth format, each pixel contains 3
--	 * sub-pixels for color A, B and C. These have 3 bit, 3 bit and
--	 * 2 bits respectively.
-+	 * sub-pixels for color A, B and C. These have 3, 3 and 2 bits
-+	 * respectively.
-+	 *
-+	 * When using the 65k color depth format, each pixel contains 3
-+	 * sub-pixels for color A, B and C. These have 5, 6 and 5 bits
-+	 * respectively.
- 	 */
- 
- 	/* Set column start and end */
-@@ -909,9 +920,10 @@ static void ssd132x_clear_screen(struct ssd130x_device *ssd130x, u8 *data_array)
- 
- static void ssd133x_clear_screen(struct ssd130x_device *ssd130x, u8 *data_array)
- {
--	const struct drm_format_info *fi = drm_format_info(DRM_FORMAT_RGB332);
-+	const struct drm_format_info *fi;
- 	unsigned int pitch;
- 
-+	fi = drm_format_info(DRM_FORMAT_RGB565);
- 	if (!fi)
- 		return;
- 
-@@ -978,17 +990,18 @@ static int ssd133x_fb_blit_rect(struct drm_framebuffer *fb,
- 				struct drm_format_conv_state *fmtcnv_state)
- {
- 	struct ssd130x_device *ssd130x = drm_to_ssd130x(fb->dev);
--	const struct drm_format_info *fi = drm_format_info(DRM_FORMAT_RGB332);
-+	const struct drm_format_info *fi;
- 	unsigned int dst_pitch;
- 	struct iosys_map dst;
- 
-+	fi = drm_format_info(DRM_FORMAT_RGB565);
- 	if (!fi)
- 		return -EINVAL;
- 
- 	dst_pitch = drm_format_info_min_pitch(fi, 0, drm_rect_width(rect));
- 
- 	iosys_map_set_vaddr(&dst, data_array);
--	drm_fb_xrgb8888_to_rgb332(&dst, &dst_pitch, vmap, fb, rect, fmtcnv_state);
-+	drm_fb_xrgb8888_to_rgb565be(&dst, &dst_pitch, vmap, fb, rect, fmtcnv_state);
- 
- 	ssd133x_update_rect(ssd130x, rect, data_array, dst_pitch);
- 
-@@ -1446,10 +1459,11 @@ static int ssd133x_crtc_atomic_check(struct drm_crtc *crtc,
- 	struct ssd130x_device *ssd130x = drm_to_ssd130x(drm);
- 	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
- 	struct ssd130x_crtc_state *ssd130x_state = to_ssd130x_crtc_state(crtc_state);
--	const struct drm_format_info *fi = drm_format_info(DRM_FORMAT_RGB332);
-+	const struct drm_format_info *fi;
- 	unsigned int pitch;
- 	int ret;
- 
-+	fi = drm_format_info(DRM_FORMAT_RGB565);
- 	if (!fi)
- 		return -EINVAL;
- 
+ 	return regmap_bulk_write(ssd130x->regmap, SSD13XX_DATA, values, count);
+ }
 -- 
 2.55.0
 
