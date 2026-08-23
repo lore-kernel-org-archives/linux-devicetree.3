@@ -1,129 +1,178 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-24420.protonmail.ch (mail-24420.protonmail.ch [109.224.244.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EB80493633;
-	Sun, 23 Aug 2026 01:45:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A986B30567B
+	for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 02:14:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787449527; cv=none; b=Yt/TsGDXLHg9GZuDCx7uXa3HIlh4AbEr8RTA8n9jreYqFlgxbLCPxJqKG4T6cChQIRwjdaXqKtVbhsoA7HmHDpWXl9leVCN3s9uk6EyRyGwlztTNUnjz65yoEbSGyalwq1nKWgOga8gs64boECp/3d0tx39v/xmffHwyJoH/Vl4=
+	t=1787451282; cv=none; b=M4evi11U3oa+Wg3h7aFAi597UpOWl6LvGIJscJe37MdWz9b5dE0rz+aYCEPQr781rWvhedowZ1svMY+quSCJrOZj4tAXqEbMM0p1lO8Hn8Ppkn7FrNOCRyaOmPHJ0QbHAX2j2Gujf2TjPQS99+NXVNPfHc/mzEN0ElSTnIFAcR8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787449527; c=relaxed/simple;
-	bh=zYZGc1vkqbwQkIWt+/eSDfR1QodCXeEx48GIk2cQ3OI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Xo8xUonRjm7EntpEpNBVg3VtQq9t3aLXzgzCTK7mpH5C9mKM2qLK530R7fhCTtTR9qSjV2AhPnDKGKTzBW7kXETN8k1umpVkAxVRcECydVbuckk3gDLIAoMCvc2lJ+OVQ75niviezcKbyJ1jVsaLQUvKV9doIggc7PhC7LrbNRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dxkAbQlo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787451282; c=relaxed/simple;
+	bh=DRkxTvZbI1EJfie9pxFcCEipG+No0t5u6lL906w7lu8=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=VrLPXSZnHJPrpCadlJ3fifhDer8D8uffA4s+KxqCnx11B5ioGjGbBFSfKoW3vl2zD9KLTzDzEKtp5xclUhvPNEmfbJtI1JOkxNYVq+sXWcLQudp6Yr/nqqga1NP99JfKgzLOuZ6SS2ZiH3loo8cbXE6Y8taO5q83RaD4+net2+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=httpd.dev; spf=pass smtp.mailfrom=httpd.dev; dkim=pass (2048-bit key) header.d=httpd.dev header.i=@httpd.dev header.b=DvDdywB4; arc=none smtp.client-ip=109.224.244.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=httpd.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=httpd.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dxkAbQlo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D26C31F000E9;
-	Sun, 23 Aug 2026 01:45:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787449525;
-	bh=TXMCHlIVfpqQkSeP/b3tc25WGhv/E3FlDQil0NC/ZnY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=dxkAbQlou+MMIDmO2dDrV0XLBr1j/S3mDEh9R5VXoUw9ACRs4dvBZ5fH9+ii7Odzj
-	 Jvg0gRjBGWAn70h6mmPQ5OBQllDWtN+fR6BPu+sezOM3S2xM1Aje7kCun8sJZGAwcg
-	 SWNYJDhTUxomPl6VBe83FtLRB+E/N6KYX7Z0VMjIwZ+uVe/KTddZ8bwpnqfHkj7VpK
-	 Qlx3YkhgiYX4O4mR401XJBHplxtWWvLADYiEDKl6+NqciTuF5HcGbvTk1lQLn80hXM
-	 M5zdsnIeNj+eAZmbLzzq5Opam4AZ22IEGYN/wIveZ97eN9CWquik0oypCH+hHxF3j7
-	 1rZ5kj+DMUPxg==
-Date: Sun, 23 Aug 2026 02:45:18 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: David Lechner <dlechner@baylibre.com>
-Cc: Janani Sunil <janani.sunil@analog.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Olivier
- Moysan <olivier.moysan@foss.st.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, Linus Walleij <linusw@kernel.org>, Bartosz
- Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, Michael Walle <mwalle@kernel.org>,
- linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-doc@vger.kernel.org, jananisunil.dev@gmail.com, Uwe =?UTF-8?B?S2xl?=
- =?UTF-8?B?aW5lLUvDtm5pZw==?= <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH v4 02/14] dt-bindings: iio: adc: Add AD7768
-Message-ID: <20260823024518.2c75733c@jic23-huawei>
-In-Reply-To: <718f6ead-d1c0-4dc6-82e4-cac49cc73bd6@baylibre.com>
-References: <20260821-ad7768-driver-v4-0-bb8fbd06d4eb@analog.com>
-	<20260821-ad7768-driver-v4-2-bb8fbd06d4eb@analog.com>
-	<718f6ead-d1c0-4dc6-82e4-cac49cc73bd6@baylibre.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=httpd.dev header.i=@httpd.dev header.b="DvDdywB4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=httpd.dev;
+	s=protonmail2; t=1787451271; x=1787710471;
+	bh=4J6bCxPshWp7f3qp56C2WcD7YMKy40HDmmnsQrLHimM=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=DvDdywB4rI3wC3O16hurybpVl9ACdYtsRKa6vbDts9EngNAE7yR8SfsuCgQycby+7
+	 UObVznkDmM+gf4zhbvilw5lRAh1KVnUHzwF02iH6MACFV7kTriL6G/bFHerS4/X4oC
+	 eRJyBc0ZaL7vAwrNprs2gXnYKr//jp6WkVHlxkQaCVLClGNAZ2HsFanCNcTFweo3ZB
+	 OY8LlpTrzlKAXwjKblVBRg0gqABoqA3T9kdVCpWp32bac0FE/rujrSJE/k0r0S6cwf
+	 JEQ4VLIo1R5qcBMSkKMoHKgQxOTPvOnNb2Vjq4QADzGlgxnmCOWuWN2Q0ZtOl2u1Kp
+	 la+guzjMT6fkA==
+Date: Sun, 23 Aug 2026 02:14:25 +0000
+To: "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>
+From: Angel J <iamanaws@httpd.dev>
+Cc: "regressions@lists.linux.dev" <regressions@lists.linux.dev>, "stable@vger.kernel.org" <stable@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-rpi-kernel@lists.infradead.org" <linux-rpi-kernel@lists.infradead.org>, "helgaas@kernel.org" <helgaas@kernel.org>, "robh@kernel.org" <robh@kernel.org>, "andrea.porta@suse.com" <andrea.porta@suse.com>, "florian.fainelli@broadcom.com" <florian.fainelli@broadcom.com>
+Subject: [REGRESSION] PCI: Dynamic OF node creation hangs on invalid bridge configuration
+Message-ID: <GXe6anuewkS4bLNwca3cYOmUxN9csc0TxLYGSBc1qNRmfrmvFlcmD62wEM23TxfzfuXAv4P3yvUv7pyraleARrL1Na-aN8w-t9uc1Igu8DA=@httpd.dev>
+Feedback-ID: 163474212:user:proton
+X-Pm-Message-ID: 31142567ec075a3e2598ab04adff317de0e77832
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------0ef466dcdb1e40e51586a73753b73daa3d57415976dd54a41ab1ba279b082e9e"; charset=utf-8
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------0ef466dcdb1e40e51586a73753b73daa3d57415976dd54a41ab1ba279b082e9e
+Content-Type: multipart/mixed;boundary=---------------------5816d7253a565b3528da584c08321c23
+
+-----------------------5816d7253a565b3528da584c08321c23
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;charset=utf-8
+
+Hello,
+
+This regression was introduced in v6.17-rc1 and remains in the dynamic
+PCI OF node code. Linux 6.18 fails very early during boot on my Dell XPS
+8940 when CONFIG_PCI_DYNAMIC_OF_NODES=3Dy. The display goes black before
+any useful console or pstore output appears, and the machine remains
+hung.
+
+Disabling CONFIG_PCI_DYNAMIC_OF_NODES makes the same kernel boot normally.
+Linux v6.19-rc5 also boots because the RP1 driver stopped selecting that
+option, not because the dynamic PCI OF node code changed.
+
+Hardware:
+
+  System: Dell XPS 8940, board 0K3CM7, BIOS 2.27.1 (2025-04-03)
+  CPU: Intel Core i7-11700 (Rocket Lake)
+  Triggering device: 0000:00:00.0, Intel 8086:4c43
+  Firmware boot: UEFI, ACPI-based x86_64
+
+Test results:
+
+  Linux 6.12.103: good
+  Linux v6.17-rc1: bad
+  Linux 6.18.44, CONFIG_PCI_DYNAMIC_OF_NODES=3Dy: bad
+  Linux 6.18.44, CONFIG_PCI_DYNAMIC_OF_NODES=3Dn: good
+  Linux 6.18.44, CONFIG_PCI_DYNAMIC_OF_NODES=3Dy, skip invalid bridge: goo=
+d
+  Linux v6.19-rc4: bad
+  Linux v6.19-rc5: good
+  Linux 4621c338d33f: bad
+  Linux e55feea3a03a: good
+
+The first-parent boundary between the last two tests is:
+
+  e55feea3a03a ("Merge tag 'soc-fixes-6.19' ...")
+
+That merge contains ce26f588c831 ("misc: rp1: drop overlay support"), whic=
+h
+removes:
+
+  select PCI_DYNAMIC_OF_NODES
+
+from MISC_RP1. The generated configurations differed only by:
+
+  -CONFIG_PCI_DYNAMIC_OF_NODES=3Dy
+  +# CONFIG_PCI_DYNAMIC_OF_NODES is not set
+
+CONFIG_MISC_RP1=3Dm in both. The known-bad 4621c338d33f and Linux 6.18.44
+both boot after disabling PCI_DYNAMIC_OF_NODES (and MISC_RP1, whose Kconfi=
+g
+select otherwise forces it on).
+
+There is no RP1 device in this machine, and its driver does not probe.
+MISC_RP1 affects this x86 system only because its Kconfig select enables
+PCI_DYNAMIC_OF_NODES globally.
+
+I narrowed the hang to dynamic OF node creation for 0000:00:00.0
+(8086:4c43), the Intel Rocket Lake-S integrated memory controller. On
+this machine it reports PCI class 0604 and header type 1, but it is bound
+to icl_uncore and is not a usable forwarding bridge:
+
+  Bus: primary=3Dff, secondary=3Dff, subordinate=3Dff
+  I/O and memory bridge windows: invalid/all ones
+  kernel: bridge configuration invalid ([bus ff-ff]), reconfiguring
+
+A minimal dynamic node for this device boots. Adding only
+device_type=3D"pci" makes it hang. Full PCI dynamic OF node generation als=
+o
+boots when only 0000:00:00.0 is skipped.
+
+I also tested a generic guard in of_pci_make_dev_node(). It reads
+PCI_PRIMARY_BUS and skips node creation if the primary bus does not match
+pdev->bus->number, the secondary bus is not greater than the primary bus,
+or the secondary bus is greater than the subordinate bus. Linux 6.18.44
+boots with CONFIG_PCI_DYNAMIC_OF_NODES=3Dy and logs:
+
+  pci 0000:00:00.0: skipping dynamic OF node for invalid bridge
+
+The regression was introduced by 49d63971f963 in v6.17-rc1. Commit
+ce26f588c831 made v6.19-rc5 boot by removing MISC_RP1's select of
+PCI_DYNAMIC_OF_NODES. That avoids the failing path in the tested
+configuration but does not change of_pci_make_dev_node().
+
+I do not have a log from the failed boots. No output appeared with
+earlyprintk=3Defi,keep, keep_bootcon, ignore_loglevel, loglevel=3D8,
+initcall_debug, and EFI pstore enabled. Blacklisting both GPU drivers and
+disabling the Intel IOMMU did not make the bad kernel boot.
+
+Should of_pci_make_dev_node() reject devices with invalid bridge bus
+configuration, or should 8086:4c43 use a device-specific quirk? I can
+prepare and test a patch for either approach. For Linux 6.18 stable,
+would that fix be preferable to backporting ce26f588c831 and its
+dependencies?
+
+#regzbot introduced: 49d63971f963
+#regzbot title: PCI_DYNAMIC_OF_NODES early boot hang on ACPI x86
+
+Thanks,
+Angel J
 
 
-> > +  ref2p-supply:
-> > +    description:
-> > +      Positive reference input supply for REF2+. The voltage range is from
-> > +      (AVSS + 1 V) to AVDD1. Together, REF2+ and REF2- must provide a
-> > +      differential reference voltage from 1 V to |AVDD1 - AVSS|. This
-> > +      reference is used by channels 4 to 7 on the AD7768 and channels 2 and 3
-> > +      on the AD7768-4.
-> > +
-> > +  ref2n-supply:
-> > +    description:
-> > +      Negative reference input supply for REF2-. The voltage range is from
-> > +      AVSS to (AVDD1 - 1 V).  
-> 
-> For all of the supplies, I don't think we need to repeat so much of what the
-> datasheet says. It is getting quite noisy and makes it hard to see the parts
-> of the description that are actually relevant to how the devicetree is to be
-> interpreted. (includes VCM as well)
 
-Agreed.  Keep anything about how being present / not present may matter.
-Pretty much anything else isn't really that interesting.
-Sometimes
-	xxx-supply: true
 
-is enough.
 
-> 
-> > +
-> > +  reset-gpios:
-> > +    maxItems: 1
-> > +    description: GPIO connected to the active-low RESET pin
-> > +
-> > +  start-gpios:
-> > +    maxItems: 1
-> > +    description:
-> > +      GPIO connected to the START pin. An active-low pulse on this pin
-> > +      synchronizes the device to other AD7768 devices. When not used, this
-> > +      pin must be tied to a logic high level through a pull-up resistor.
-> > +      When used, SYNC_OUT must be wired back to SYNC_IN on all devices in
-> > +      the synchronization chain.
-> > +
-> > +  sync-in-gpios:
-> > +    maxItems: 1
-> > +    description:
-> > +      GPIO connected to the SYNC_IN pin. Receives the synchronization pulse
-> > +      generated on SYNC_OUT in response to a START pulse. Must be synchronous
-> > +      to the MCLK clock domain. In multi-device or daisy-chained systems,
-> > +      two successive synchronization pulses must be applied to guarantee all
-> > +      ADCs are synchronized.
-> > +
-> > +  sync-out-gpios:  
-> 
-> Unusual to have an output pin connected to a GPIO. Usually this would be an
-> interrupt or trigger-sources.
-> 
-> > +    maxItems: 1
-> > +    description:
-> > +      GPIO connected to the SYNC_OUT pin. Outputs a synchronization pulse
-> > +      synchronous to MCLK in response to a START pulse or SPI_SYNC command.
-> > +      In single-device configurations this pin must be wired back to SYNC_IN.
-> > +      In multi-device configurations it can be routed to the SYNC_IN pins of
-> > +      all devices in the chain.  
-> 
-> Although this description makes it sounds like the SYNC_OUT pin is only ever
-> wired to SYNC_IN. So wouldn't be described here at all.
 
-We don't have a particularly good way to say "this hardware controlled pin
-is wired from this ADC to this second ADC"  As you note though GPIO doesn't
-work for that.
+-----------------------5816d7253a565b3528da584c08321c23--
+
+--------0ef466dcdb1e40e51586a73753b73daa3d57415976dd54a41ab1ba279b082e9e
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
+
+wrsEARYKAG0FgmqKV28JEBoBbwppzUxnRRQAAAAAABwAIHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmdLuaAoGKL92QTzbI2Uy7jw4k6tIc99AdBp6S6r
+YQoA3BYhBEAFf9htFyVnqZzmVhoBbwppzUxnAADIqQD/fnLk8GJzel74P3PZ
+NqUm7u5JPB8p1goB/ebqiGCVVakA/jt6U8pQNghHs/SsdfY/fVJqNl9WXIEV
+5zaRuPsjk5cK
+=Lb99
+-----END PGP SIGNATURE-----
+
+
+--------0ef466dcdb1e40e51586a73753b73daa3d57415976dd54a41ab1ba279b082e9e--
 
