@@ -1,170 +1,160 @@
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C55F3B27F0
-	for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 22:13:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7657C15C14F;
+	Sun, 23 Aug 2026 22:17:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787523242; cv=none; b=L+rqdLZE3m7zKe0W/D6fzV6LZ8QyZ6r2/hqZ5jx4E3mqSdnHIdcSBMTip5dP0F2pHnj0WOVQ/rIPNNn+wXkRlnSc2PwIVb6MQWoWyW71Q9NBBZATGo4A2Ak67H/Cm6FGVG0odkUr/3D3G1PZgHACQ7AErmLhwt+3G7ydRZFDkCY=
+	t=1787523422; cv=none; b=aaPWbuTVSKABJttae7QmUhGis6nKVDXOQ3HdM3gd5+j8v/zu5DUVlSdmO+FuncfyLV4H0l4GbDX0Is5diKJ6pM19GhhFJGphAAoHpLrDW4WecpPwxaocPCyvd4yBYu9Fgs4ej+KHPA3OvIXIncf/ce8pBmB3XbTa8tpSG2oBumM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787523242; c=relaxed/simple;
-	bh=BUoA/vM3YI2yGLDTRIYnBiKEYpDkV95H3G6Cwllo8To=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=n35vyg1YAH6ZrSxLtgVzGmLaugBaPJdwQUGASwyVOXlaJTzRVQzhLVPObJAVudJ8iO1kY1VfawAqA7SL3EmGzSYLxTYvpSoS/w2i2I5MwMcFutOHUZLgU533oVN57qXdBS1HNbLe9TUOxg0ZsvMaMDZ2FZa/fb3NuYDK6MMbG00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=dlheMDHC; arc=none smtp.client-ip=185.67.36.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	s=arc-20240116; t=1787523422; c=relaxed/simple;
+	bh=gT86V4rgwFjsx2k8iOk+OTfu+wC2GjYvWjgjus6H6Kg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=orocOrDzgOcp6KR+R7Uure0RDZ00/kFihVOAUM4jqM2ZLYt7rZYPnHQkPHaVFbwZW285iqkHX69cTDjeUEqtszouB8lb5HQzV3LwM1Qiw7Atz0cDsU/hm1VP3QZGrq+WR+8iv+dhffoOVLq+tWi+Ucu11Rq/xLzYcHavxn2F2ec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ok8kbt8/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="dlheMDHC"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id 590A3240104
-	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 00:13:43 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
-	s=1984.8680eb; t=1787523223;
-	bh=K95v5lBKLld5D4XbErbvnOYmdLy7z/Tlkd6T3gRWDns=;
-	h=From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:To:Cc:Autocrypt:OpenPGP:From;
-	b=dlheMDHCgaU35cJY8Lb8aIq3j6QzJBj+ikLvwQU2Q9yrm3xIcYK2fPs42Pi5LxVJn
-	 OXT3T4ocB4fVma6jSkVcZnQ4rQnX8P/ZrgeRJHEuqV9KxlEVqPFg7zbM0Ox0Jilvu8
-	 oNmk2U0pf7920A3cr+1k5K0mryM9D1rHBwVQFHGx5zP9YxKNG/ibfoIw+j4MUmEjUt
-	 dlsAtm10X63KLjduxooema8uQDv3VB9+yZYmhOZQAHxkHZ7lo5tzN2H5wWkqXhR25a
-	 qT97DQXaIsUT7HuIdVLBXJTYhGRBYju0QjvtAhLgL5GeRysoR+3tw82agwcRPWl76y
-	 FeRZHiOlgsBGg==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4hSpGY34wDz9rxG;
-	Mon, 24 Aug 2026 00:13:41 +0200 (CEST)
-From: Markus Probst <markus.probst@posteo.de>
-Date: Sun, 23 Aug 2026 22:13:42 +0000
-Subject: [PATCH v6 6/6] rtc: s35390a: Add synology quirk
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ok8kbt8/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3449F1F000E9;
+	Sun, 23 Aug 2026 22:16:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787523421;
+	bh=jJJ2+Gz5QjAkIcUUBf9XCCvJOyKr1cALXVDkrgWjuqM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ok8kbt8/vFqF1DTo6U4wJzIRSMpucDhR7YV82YFNZQeScYBeFafmctipoKsIftOc4
+	 L7tb2wbou0xKKOaIGFwIQigPQM2sZqaHdx1sVMWVJvoHu7ZB/cTJXFSA9vB2bQceD0
+	 RUrSjSOmOkjBgMDXYHY3hTxy48AFRQTYed2iUtsBl08uPsiyuuhv8gg18CW57zH2/H
+	 2iQ8HBDLp91WggLRXuWSFZ1clr7BQBCFY5i9PgXDI9Z+VcHGU28VNAR7XHZGaX9ucc
+	 rCWjwopQfw0hV+ZDLQs4idEy1D0nnGrSIKI/mi3KtLl3acVg4CarG9y69w4xHf+1tM
+	 L/DhHlCaQISbA==
+Date: Sun, 23 Aug 2026 23:16:54 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: "Miclaus, Antoniu" <Antoniu.Miclaus@analog.com>
+Cc: "Sa, Nuno" <Nuno.Sa@analog.com>, "Hennerich, Michael"
+ <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, "Sabau, Radu bogdan" <Radu.Sabau@analog.com>,
+ "Schmitt, Marcelo" <Marcelo.Schmitt@analog.com>, "Marques, Jorge"
+ <Jorge.Marques@analog.com>, Salih Erim <salih.erim@amd.com>, Matti
+ Vaittinen <mazziesaccount@gmail.com>, Jishnu Prakash
+ <jishnu.prakash@oss.qualcomm.com>, "linux-iio@vger.kernel.org"
+ <linux-iio@vger.kernel.org>, linux <linux@analog.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
+Subject: Re: [PATCH v2 0/4] iio: adc: ade9000: add support for ADE9078
+Message-ID: <20260823231654.7e4ad595@jic23-huawei>
+In-Reply-To: <20260805174548.4668a844@jic23-huawei>
+References: <20260731082951.1228-1-antoniu.miclaus@analog.com>
+	<20260802024406.6147807e@jic23-huawei>
+	<CY2PR03MB64993328B3E165CF124F5EF35F9BD32@CY2PR03MB649933.namprd03.prod.outlook.com>
+	<20260805174548.4668a844@jic23-huawei>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260824-rtc_s35390a_int1-v6-6-df96569e3412@posteo.de>
-References: <20260824-rtc_s35390a_int1-v6-0-df96569e3412@posteo.de>
-In-Reply-To: <20260824-rtc_s35390a_int1-v6-0-df96569e3412@posteo.de>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <uwe@kleine-koenig.org>, 
- Andrew Lunn <andrew@lunn.ch>, Gregory Clement <gregory.clement@bootlin.com>, 
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
- Michael Langer <michael.brainbug.langer@googlemail.com>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Linus Walleij <linusw@kernel.org>, 
- Fabien Lahoudere <fabien.lahoudere@collabora.co.uk>
-Cc: linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Markus Probst <markus.probst@posteo.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1557;
- i=markus.probst@posteo.de; h=from:subject:message-id;
- bh=BUoA/vM3YI2yGLDTRIYnBiKEYpDkV95H3G6Cwllo8To=;
- b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBqi3CMm58kV4MEijBDt1gqW11eK9Trc0yAor/xC
- UZOk1SLYaWJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCaotwjBsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9J0kA/+Jx14qU9xK2G0FuIjWiv9Yw11Ql702DR
- BhZNKn+ZQMFiWuDcpqeH0T9aaPlHrKApjCZbxF98RhQ5c/otEVeb9iW0OIyUJvzL2Bu1jXDnvKS
- 046byVBWyN9Iw+AC6ZmD68U/Hfmg7rnJKffZwNBVnCe7tW5epsGFhHgrG7IZ343g0U42XdBF820
- NcnJTwx+jmmat1PVKBxF9tm56P5vHxP8ioi74OEEQlhC1fJYabYrcEq8jsNnJashg4dEAxl5szn
- lRf5z8ZlesfPWY6nzedmxtB4rYj0DpPW/fsR8fdJH2cIzHnNJ09GyONz4vELzRSGkLevVj16A0t
- S9L6Cb3ogysbbjt2vLVtgy75qTDs4D2JqP5ffO7QZtjoUmRc7U+U1XZ4cHe5sXsfLdsUmzMkUqr
- oJNate9wNguQMhSO/tpyYLhgknj5UwdTkQhXF3m9DnmQf1okh0ZncAH7oUpaJ7b24MNfGcJJcTz
- GFb0EHiCXPqbvf6ROTODyYKBFkNo4mn25zvTKDxj+e8U0IqWkOZsmPmtV60sCCiuHDflGuEm8l5
- 5zyw/+uJvyna9mg4n8Gnf5mz/RiAToo116lH5nsXIC2tRGwkqnVxjTZj06rjkTixe2E8VeP7lRY
- 9OIO305C123kq7NDnbzEh2l2pSIJBqz9zFM61GviU9uiMxZIE7Xw=
-X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
- fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
-  keydata=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
-  aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
 
-Synology NAS devices use interrupt signal 1 for wakeup alarms. On ACPI
-it is not possible to configure pinctrl.
+On Wed, 5 Aug 2026 17:45:48 +0100
+Jonathan Cameron <jic23@kernel.org> wrote:
 
-Use interrupt signal 1 for wakeup if no pinmux function has been
-configured in devicetree and dmi sys vendor matches "Synology Inc.".
+> On Wed, 5 Aug 2026 11:45:37 +0000
+> "Miclaus, Antoniu" <Antoniu.Miclaus@analog.com> wrote:
+> 
+> > Hi Jonathan,
+> >   
+> > > -----Original Message-----
+> > > From: Jonathan Cameron <jic23@kernel.org>
+> > > Sent: Sunday, August 2, 2026 4:44 AM
+> > > To: Miclaus, Antoniu <Antoniu.Miclaus@analog.com>
+> > > Cc: Sa, Nuno <Nuno.Sa@analog.com>; Hennerich, Michael
+> > > <Michael.Hennerich@analog.com>; David Lechner <dlechner@baylibre.com>;
+> > > Rob Herring <robh@kernel.org>; Krzysztof Kozlowski <krzk+dt@kernel.org>;
+> > > Conor Dooley <conor+dt@kernel.org>; Jonathan Corbet <corbet@lwn.net>;
+> > > Shuah Khan <skhan@linuxfoundation.org>; Sabau, Radu bogdan
+> > > <Radu.Sabau@analog.com>; Schmitt, Marcelo
+> > > <Marcelo.Schmitt@analog.com>; Marques, Jorge
+> > > <Jorge.Marques@analog.com>; Salih Erim <salih.erim@amd.com>; Matti
+> > > Vaittinen <mazziesaccount@gmail.com>; Jishnu Prakash
+> > > <jishnu.prakash@oss.qualcomm.com>; linux-iio@vger.kernel.org; linux
+> > > <linux@analog.com>; devicetree@vger.kernel.org; linux-
+> > > kernel@vger.kernel.org; linux-doc@vger.kernel.org
+> > > Subject: Re: [PATCH v2 0/4] iio: adc: ade9000: add support for ADE9078
+> > > 
+> > > [External]
+> > > 
+> > > On Fri, 31 Jul 2026 11:29:46 +0300
+> > > Antoniu Miclaus <antoniu.miclaus@analog.com> wrote:
+> > >     
+> > > > The ADE9078 is a polyphase energy metering device from the same family as
+> > > > the ADE9000 and is register compatible with it. The main differences
+> > > > relevant to the driver are the absence of the on-chip dip/swell detection,
+> > > > a lower maximum SPI clock (10 MHz), and slightly different full-scale ADC
+> > > > codes.    
+> > > 
+> > > This looks fine to me, but will need to sit on list until the dt maintainers
+> > > have gotten to it.  Sashiko did call out some possible preexisting issues
+> > > in the driver.  I haven't looked at them, but if you have some time, it may
+> > > be worth a look the power vs interrupt registration one smells plausible.
+> > >     
+> > Want me to send the fixes in a separate patch or within this series?  
+> 
+> Separate should be fine for any preexisting issues.  I'm not going to
+> hold this series up waiting for them (assuming we get the dt ack - it's
+> listed on their patchwork as Needs Ack so no one has gotten to it yet).
+> https://patchwork.kernel.org/project/devicetree/patch/20260731082951.1228-3-antoniu.miclaus@analog.com/
 
-Signed-off-by: Markus Probst <markus.probst@posteo.de>
----
- drivers/rtc/rtc-s35390a.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+Applied this series to the testing branch of iio.git.  Expecting to see
+patches dealing with any of the Sashiko found prexisting issues on top.
 
-diff --git a/drivers/rtc/rtc-s35390a.c b/drivers/rtc/rtc-s35390a.c
-index a2ddce91ef7a..6109c4838eb0 100644
---- a/drivers/rtc/rtc-s35390a.c
-+++ b/drivers/rtc/rtc-s35390a.c
-@@ -5,6 +5,7 @@
-  * Copyright (c) 2007 Byron Bradley
-  */
- 
-+#include <linux/dmi.h>
- #include <linux/module.h>
- #include <linux/rtc.h>
- #include <linux/i2c.h>
-@@ -774,8 +775,18 @@ static int s35390a_probe(struct i2c_client *client)
- 		return dev_err_probe(dev, err, "pinctrl enable failed\n");
- 
- 	/* If no pinmux function is defined in DT, fallback to previous behaviour */
--	fallback[0] = S35390A_FUNC_IGNORE;
--	fallback[1] = S35390A_FUNC_WAKEUP;
-+
-+	if (dmi_match(DMI_SYS_VENDOR, "Synology Inc.")) {
-+		/*
-+		 * Synology uses interrupt signal 1 for wakeup. Since pinctrl cannot be
-+		 * configured on ACPI, we check against the dmi sys vendor.
-+		 */
-+		fallback[0] = S35390A_FUNC_WAKEUP;
-+		fallback[1] = S35390A_FUNC_DISABLE;
-+	} else {
-+		fallback[0] = S35390A_FUNC_IGNORE;
-+		fallback[1] = S35390A_FUNC_WAKEUP;
-+	}
- 
- 	for (i = 0; i < ARRAY_SIZE(s35390a_pin_groups); i++) {
- 		if (s35390a->pinfunction[i] == -1) {
+Thanks,
 
--- 
-2.54.0
+Jonathan
+
+> 
+> Jonathan
+> 
+> >   
+> > > https://urldefense.com/v3/__https://sashiko.dev/*/patchset/20260731082
+> > > 951.1228-1-
+> > > antoniu.miclaus*40analog.com__;IyU!!A3Ni8CS0y2Y!78esTjrnDgvdH9h_Pruv
+> > > IpxZPJggP6_ge3-ecPnYKxN8b32xrwH3oUABtFHCRmEGtnicycd5eqRTn7EkeQ$    
+> > > >
+> > > > This series adds support for the ADE9078 to the existing ade9000 driver.
+> > > > It first refactors the driver to move the part-specific values (device
+> > > > name, channel table, and full-scale codes) into a chip_info structure
+> > > > retrieved via device match data, then adds the new device tree compatible
+> > > > and the ADE9078 support itself, and finally updates the documentation.
+> > > >
+> > > > Changes in v2:
+> > > > - move the "respective datasheets" comment wording to avoid churn.
+> > > > - use a generic Kconfig title and list the supported parts.
+> > > > - duplicate the RMS voltage macro instead of a shared base macro.
+> > > >
+> > > > v1: https://urldefense.com/v3/__https://lore.kernel.org/linux-    
+> > > iio/__;!!A3Ni8CS0y2Y!78esTjrnDgvdH9h_PruvIpxZPJggP6_ge3-
+> > > ecPnYKxN8b32xrwH3oUABtFHCRmEGtnicycd5eqTALKwajg$ <FILL-IN-v1-
+> > > MESSAGE-ID>/    
+> > > >
+> > > > Antoniu Miclaus (4):
+> > > >   iio: adc: ade9000: introduce chip_info structure
+> > > >   dt-bindings: iio: adc: adi,ade9000: add adi,ade9078 compatible
+> > > >   iio: adc: ade9000: add support for ADE9078
+> > > >   docs: iio: ade9000: document ADE9078 support
+> > > >
+> > > >  .../bindings/iio/adc/adi,ade9000.yaml         |  30 ++-
+> > > >  Documentation/iio/ade9000.rst                 |  28 +--
+> > > >  drivers/iio/adc/Kconfig                       |  16 +-
+> > > >  drivers/iio/adc/ade9000.c                     | 180 ++++++++++++------
+> > > >  4 files changed, 175 insertions(+), 79 deletions(-)
+> > > >
+> > > >
+> > > > base-commit: 0b5e142ced4bcf20532da051934bd694d1bbd470    
+> >   
+> 
+> 
 
