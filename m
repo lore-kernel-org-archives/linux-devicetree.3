@@ -1,15 +1,16 @@
 Received: from out-2z4y-a133.jellyfish.systems (out-2z4y-a133.jellyfish.systems [198.54.127.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8738E1AB6F1
-	for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 00:46:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852871AB6F1
+	for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 00:46:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787445982; cv=none; b=hNezS2LP8wmP0C85xdHR/AhPV6K+AfX8+yBw0Rro3GbvyWOvc+ZuBBPedOBB0wcASl2XDbFB/ZkQXkgNDdKinpSDvjY6Tuc8yl4JmGvjtBlZQki6LFnuVjwwHnAEw/mav/G8cuaocy46QacU0qNOpOrM/UUGELqqg5srPeMnBH8=
+	t=1787446002; cv=none; b=jSm2x8tMEpE7wEtL8cZuRcgptnv3wFPPkAekwStX2EONFiFVHdp1rfQA7Sc+qxpuNGeW0PZuJaqUGqrl06kg/gYUexFMtwEayfX/wSUjOi4W4cEfFD73uRuQXsV7ay/8NXKySWQh+/a90RYKAyP+xz62DKFB3IRVA8Hz7P9vj9g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787445982; c=relaxed/simple;
-	bh=6whiMiAEO1S7pfsaBg9Sc1h/nNsDRj1yrHCK/Dyi/n4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HJexxZ0nIFQHu3mxiNLuUxVXVR/Xy6rhqcJJ1nciNbV+6Mxfbg+E0JG1wYurKSareQibkj/gLtHg20PYZpeu96mhJbC+G0Fcfsx8vu+VGoGrf85K2JznHxSOnS9aj1ubFoC5aOucDSfYJh0PaUriasc8ESTF72O0qnhoTdttsrQ=
+	s=arc-20240116; t=1787446002; c=relaxed/simple;
+	bh=g0F3xnJRJxxCMYaaA6dOWoIlAD58qtUBsqbxx0qTfeI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jZLJ6Ebr1Dp2TRToWXmFFkA3ZZ396Bt7mSc8vV+Z1kooBnrf2E+dR+/a3igfwBOzAJD9zDyW6XEtaVofd+9KK9oHLQNi4SMu303Mo7Zy+4m4dpE0JbZLrvdAtNrjFP5xMCb+HNFXgD2qMx0ysiaBSZhbmW1U8ZiKb0gHbcs4qn4=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=198.54.127.133
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
@@ -17,8 +18,8 @@ Received: from mail.privateemail.com (unknown [87.215.145.39])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail.privateemail.com (Postfix) with ESMTPSA id 4hSFQL0QlBz8sWN;
-	Sun, 23 Aug 2026 00:33:29 +0000 (UTC)
+	by mail.privateemail.com (Postfix) with ESMTPSA id 4hSFQS61K0z8sWN;
+	Sun, 23 Aug 2026 00:33:36 +0000 (UTC)
 From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
 To: Jonathan Cameron <jic23@kernel.org>,
 	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
@@ -33,11 +34,14 @@ Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
 	Luca Weiss <luca.weiss@fairphone.com>,
 	linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 0/3] iio: imu: inv_icm42600: add support for icm42630
-Date: Sun, 23 Aug 2026 02:33:17 +0200
-Message-ID: <20260823003320.62192-1-jorijnvdgraaf@catcrafts.net>
+	linux-kernel@vger.kernel.org,
+	Conor Dooley <conor@kernel.org>
+Subject: [PATCH v5 2/3] iio: imu: inv_icm42600: log whoami mismatch instead of failing probe
+Date: Sun, 23 Aug 2026 02:33:19 +0200
+Message-ID: <20260823003320.62192-3-jorijnvdgraaf@catcrafts.net>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260823003320.62192-1-jorijnvdgraaf@catcrafts.net>
+References: <20260823003320.62192-1-jorijnvdgraaf@catcrafts.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,46 +51,82 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Envelope-From: jorijnvdgraaf@catcrafts.net
 
-The TDK InvenSense ICM-42630 is a 6-axis IMU of the ICM-42600 family,
-used in the Fairphone 6. It needs no part-specific driver code: TDK
-confirmed it can be supported by inv_icm42600 without modification.
+A WHOAMI value differing from the one the compatible implies aborts
+probe with -ENODEV, which prevents a register-compatible part described
+with a fallback compatible from probing at all.
 
-The binding documents the new compatible with an invensense,icm42631
-fallback, and a WHOAMI mismatch no longer fails probe, so that a
-fallback-matched part can probe; one informational line records the
-mismatch, and a whoami of 0x00/0xff (no response) still fails. No
-driver id entries are added: the part binds through the fallback.
+The devicetree compatible is authoritative for which part is fitted:
+log the mismatch at info level and continue. The message keeps a
+breadcrumb for anyone seeing an unexpected part change on their device
+versus the devicetree; tmp117 takes the same trade at the same level
+for its fallback matches.
 
-Tested on the Fairphone 6 with the fallback pair in the devicetree,
-via a backport to its 7.1-based kernel: matched as icm42631 through
-the fallback, the part probes with the one informational line, and
+A whoami of 0x00 or 0xff still fails probe: SPI has no transfer-level
+ack, so those values mean nothing answered. Otherwise the probe outcome
+on mismatch changes for all parts the driver supports. The check sits
+before the mismatch comparison; it does not depend on hw->whoami, since
+no supported part uses either value (the WHOAMI values the driver
+defines span 0x40-0x5C). inv_icm45600 carries the same guard nested in
+its mismatch branch.
+
+Tested via a backport to a Fairphone 6 running a 7.1-based kernel: its
+ICM-42630 (WHOAMI 0x0C), described with an icm42631 fallback compatible
+and matched as icm42631, probes with the one informational line, and
 accelerometer, gyroscope and temperature reads work.
 
-Changes in v5:
-- patch 2: the no-response guard moves before the whoami-mismatch
-  comparison as its own check (Andy); it does not depend on
-  hw->whoami, since no supported part uses either value
-- patch 2: the four Link trailers are dropped (Andy, Jonathan); the
-  Suggested-by tags carry the attribution
+Suggested-by: Conor Dooley <conor@kernel.org>
+Suggested-by: Jonathan Cameron <jic23@kernel.org>
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+---
+v5: the no-response guard moves before the whoami-mismatch comparison
+as its own check (Andy); the four Link trailers are dropped (Andy,
+Jonathan); retested on the device.
+v4 kept the whoami read, logging the mismatch at info level
+(Jonathan, Conor), and added inv_icm45600's no-response guard; both
+prints use %#04x so the two ids render at equal width.
+v3 dropped the check and the whoami definitions entirely.
+New in v2, as a demotion of the error to a warning.
 
-v4: https://lore.kernel.org/all/20260810191157.125550-1-jorijnvdgraaf@catcrafts.net/
-v3: https://lore.kernel.org/all/20260728184351.75015-1-jorijnvdgraaf@catcrafts.net/
-v2: https://lore.kernel.org/all/20260724202708.128267-1-jorijnvdgraaf@catcrafts.net/
-v1: https://lore.kernel.org/all/20260720173411.82979-1-jorijnvdgraaf@catcrafts.net/
+ .../iio/imu/inv_icm42600/inv_icm42600_core.c    | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
 
-Jorijn van der Graaf (3):
-  iio: imu: inv_icm42600: sort device id tables numerically
-  iio: imu: inv_icm42600: log whoami mismatch instead of failing probe
-  dt-bindings: iio: imu: icm42600: add icm42630
-
- .../bindings/iio/imu/invensense,icm42600.yaml | 24 +++++++++++--------
- .../iio/imu/inv_icm42600/inv_icm42600_core.c  | 17 ++++++++++---
- .../iio/imu/inv_icm42600/inv_icm42600_i2c.c   | 16 ++++++-------
- .../iio/imu/inv_icm42600/inv_icm42600_spi.c   | 16 ++++++-------
- 4 files changed, 44 insertions(+), 29 deletions(-)
-
-
-base-commit: 350d1fb9204b13c5f95e511e98b8bcb47574d425
+diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c b/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c
+index dc97d8a274e3..be8cbecdd92e 100644
+--- a/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c
++++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c
+@@ -8,6 +8,7 @@
+ #include <linux/interrupt.h>
+ #include <linux/irq.h>
+ #include <linux/kernel.h>
++#include <linux/limits.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
+ #include <linux/pm_runtime.h>
+@@ -509,10 +510,20 @@ static int inv_icm42600_setup(struct inv_icm42600_state *st,
+ 	ret = regmap_read(st->map, INV_ICM42600_REG_WHOAMI, &val);
+ 	if (ret)
+ 		return ret;
++
++	/*
++	 * SPI interface has no ack mechanism.
++	 * 0xFF or 0x00 whoami means no response from the device.
++	 */
++	if (val == U8_MAX || val == 0)
++		return dev_err_probe(dev, -ENODEV,
++				     "invalid whoami %#04x expected %#04x (%s)\n",
++				     val, hw->whoami, hw->name);
++
+ 	if (val != hw->whoami) {
+-		dev_err(dev, "invalid whoami %#02x expected %#02x (%s)\n",
+-			val, hw->whoami, hw->name);
+-		return -ENODEV;
++		dev_info(dev,
++			 "device id %#04x is not the %#04x associated with the FW-specified device (%s), probably using a valid fallback compatible\n",
++			 val, hw->whoami, hw->name);
+ 	}
+ 	st->name = hw->name;
+ 
 -- 
 2.55.0
 
