@@ -1,276 +1,415 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 013B538DC46
-	for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 12:55:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26D1933998
+	for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 13:17:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787489725; cv=none; b=fNTAF4igX9zxzr+iBVboji9zK1ppiOtEoDL2SNd4UwwV47hikfpKVXvR7LPsEm0blG0KOIqcXbac/uY4E/YXXcVYkozjuVsZ4elUXzT/Z78ZcWr5uJoqdOR24Vk03RmsZpCwJYFsZL0ZcE/T3gtLD8yDIV4QGwdYefEQ9kc3kyg=
+	t=1787491075; cv=none; b=YmJTIxs3wJ57BKQ8U5/T52gxJasaHC/gVoklUIyJP+AOYLrKWYyj2wl1f+oZnO3sFG3zlx6Tlf3VJBndZcTVCx5HwkIN+IrOGxLiV5JBGKBXOTwPgvGw+vlW3akDwj/d6oKjHytYg0tZOtHSHAnAo8PuIdeXX31PLlX7bYDlPXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787489725; c=relaxed/simple;
-	bh=7H+QRnVkp5spW6VNF16Q8SehioK5tX6/Szt3426/OUI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pT7nq8eOb2E79wC1ooJ86NgJtEzzq1Bn9/a1xUrqeMOufYSO0X12G8RuxawMZm+ec3ILBoKhz/FrgpwZ3tboac2IJXMHbUx4RT8/4FOx6mguiXd2cGIKFd2dgnI14f5wJ39Y+RxXxmI9kQGa9ZUNPLkXPiOGBC+eW7xNKMouMLM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TfBe743C; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Hu/BowuR; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787491075; c=relaxed/simple;
+	bh=CYTLeT7Z/Naj8p9HlS63yVRbaRyuzGOrQiGPiDTQ2ZM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=f03Sd1tfLHfp1HrKymrAeZQIAykLnL2hyQgHN74fzDgiJ5wbY84c6N04rsMw/a4fMdwknt9EO8HGTRDAKxk4GrIY6WrG1cKnIbH/31KwUIpOZGCTblswa+jcwB3Edqc/L/kITlg0iLonKV4J++sS0TnR0d0OCYqA9wPRnKwKLqQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NuQgdO8Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TfBe743C";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Hu/BowuR"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67NAA5oZ698419
-	for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 12:55:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=rWtDIrQYEyI6JicjlZo1CV9b
-	6jk+qjMeQz26se4HqAY=; b=TfBe743Cs+W1oBb77dg0jwDuip5GwO7na2ocqDX2
-	cgdkBmLKpqwgPzbmijLZ58YEDkux5/lSo6YWhldinYkaeP1cEwC2IdL86NiwXKCu
-	JXbPmAa8PaAEzoe8EbfVLgLNuR4Y/HOzWV3kN40Eh86u9VVy3dha5PjYn4BznVeP
-	HA7+4k8PmTN8ROvdbpg0kE3K1QjhZMQegTbx3mfGAlmoDa7hlzZIcY21Viat3Dqs
-	L+3MdxYYtpcymSWlcQffRBEeL3sWRaglVaMKbpaAfJ2fJ3geyjG/w3FEgredWzG3
-	XxC/nSGyCvpRApwaqncIfw+YnjEPK4mfADgBae86ybCzNQ==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g743xkdhy-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 12:55:23 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38ecc48b3c2so4231181a91.1
-        for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 05:55:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787489722; x=1788094522; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rWtDIrQYEyI6JicjlZo1CV9b6jk+qjMeQz26se4HqAY=;
-        b=Hu/BowuR59wLy2/kP8x3YYOXXO7ev8DZzuM8VDBR9nUF3GJ8CuRiIgbBeeL18i1wBk
-         bnTrypjOalenR1Ec6Pc8CPQPMJ4n7FvpIEy2OQ+lUco7OveGXbdImXq97EQSo2E+mFGY
-         8QB4yVcnh9w7x42FXySxwsYA5Hz+DFq2iwIWd7QvMmWqzL5JNANdtTOTdJbJua9igNKz
-         7JGWV0h8sU3IWHcSjKkZleZw5yn5nHPPGgML77KyzfIYAmP3gtH1Q3Et/TbdDlG0EZaM
-         rkih+2oHTlqTH9uTxQblaujWykcQeetM0I1eDxNIiQ1OzUQZl5ygYIj7n9V6hxN42suz
-         c51g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787489722; x=1788094522;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rWtDIrQYEyI6JicjlZo1CV9b6jk+qjMeQz26se4HqAY=;
-        b=kMGGJ1Oltz/WyEGkhhg6kzouY+pF5TW54Hq+1JN7Gx4sErRMMtF1Zec0k7vX8Ptpc3
-         iYZCyb51TrEi+/4Cw7VlfiH2PXzwq9q0iohE7H/KGGgc8+2GF+iwawdV/lx0QFyX2baQ
-         nT3+DWnXEWd6ZchG7Oc2F/K209i9FgcrwL0Bf8sVC1Gn4wuzCU8yabr+tmTj2nUmOwFS
-         yGvaTwGj+2YWnmXLDhZqXPC4ruAL4H5W3DL2fjxwUgPbyL5kP/PktAPKjdRFbYlFygIE
-         wSCJXB37fhRQu/dRwXDn1Hwx8m+8I0fcjURMuSMwl/VbSJEiPn/VmGqR6ENARaFQMVLk
-         sPwQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rr7ucnC1e91gfRMpKm4xzTUbWoNQtz/pKuEWr9z8Zi5Kd70AkDRsm+CusFTwozF3ulyXe+ECyqTRr85@vger.kernel.org
-X-Gm-Message-State: AFuF++lJHamH1fMxTKcGrSmizLOc6vuMpUAMdg9Bd5/ZTL9uSAFEt1AB
-	LBg0H85ljBChH3G7bPw4NXB0JJEUgVuz/j2RkyaDUPC7aPm1y4cdja6HalT28aO8Ui9t7KWyqPb
-	8ggqi/hKJ3q5sPPyMwwGo/yepBzDcNAQ9QsRNK6lx4AJBTr4BKOLz5sZMmXnOzF5A
-X-Gm-Gg: AR+sD10lg4XzRonrh3il51VlzZiCPKq8oBoNhLMQew8l+EaQGPPKRtjRLKkb1OA2oCV
-	V9GuGlNzEGSmTU/DYTdL1dizX2QLBsX95Sn+9dszVKm2nH+j8NfeESWrFNmNBuqX6+UAiHSKNwu
-	dDhkug3srxpCTIDI9BHXegDyoHxw6NPLuvXGJKd9XFfHOLPZuzMhblqcuuPWye5ZPDviq9/ZQvj
-	PfwAnqaAtE5kPMSb6PTw2PWnlsuVg0vDKnnBWI8faTpqlWBjOo3aKylUDu71GgU6gzxryOs5vsf
-	WblQp4IaSFZuEODAgdXCZANJGV1Pd6UUyn1qf7V9w7/1ca6ICeKr48h3nTSI3Rbf8XH3TkjwJaN
-	yIt56+na9wB4EXuifK+NDl3nmvw==
-X-Received: by 2002:a17:90b:4b02:b0:36b:bec8:94c5 with SMTP id 98e67ed59e1d1-395df2595femr18223921a91.10.1787489722289;
-        Sun, 23 Aug 2026 05:55:22 -0700 (PDT)
-X-Received: by 2002:a17:90b:4b02:b0:36b:bec8:94c5 with SMTP id 98e67ed59e1d1-395df2595femr18223837a91.10.1787489721847;
-        Sun, 23 Aug 2026 05:55:21 -0700 (PDT)
-Received: from hu-mdsor-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14186173199sm15411282c88.9.2026.08.23.05.55.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 23 Aug 2026 05:55:21 -0700 (PDT)
-Date: Sun, 23 Aug 2026 18:25:11 +0530
-From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Sunyun Yang <syyang@lontium.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Robert Foss <rfoss@kernel.org>,
-        Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-        Jonas Karlman <jonas@kwiboo.se>,
-        Jernej Skrabec <jernej.skrabec@gmail.com>,
-        Luca Ceresoli <luca.ceresoli@bootlin.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com,
-        vishnu.saini@oss.qualcomm.com, Jessica Zhang <jesszhan0024@gmail.com>
-Subject: Re: [PATCH v10 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
- to HDMI driver
-Message-ID: <aortr3FLsAMxcVXs@hu-mdsor-hyd.qualcomm.com>
-References: <20260808-lt9611c-v7-v10-0-ee90a136d82a@oss.qualcomm.com>
- <20260808-lt9611c-v7-v10-2-ee90a136d82a@oss.qualcomm.com>
- <uuuph37ftuyuqpbayqbotnsqgqn367ytdam627jl3cqcxkzana@xq2pky3dobyx>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NuQgdO8Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D937A1F00A3A
+	for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 13:17:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787491073;
+	bh=2cxTWBPqywkJGDBoUm2j3fncZ0luhC2dj1cnwdhN0qU=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=NuQgdO8ZdNPoI3TN54MdAwzLCwZbVB/jffl1Z8U+aKcLdEoPs9FodDotPu6wePZ0x
+	 OpXKkODdjeAz1C1iZVmVMuhj2/1uT1C4If0CG27eiupLuWL21TsPX9+n6gSZ2yy38E
+	 yvLcNm2PpWLVGscCxiBY1igtZPoY+PsSESb2zBwRcLpK+l4yE1oQYoCP6fyI+XQtCz
+	 xlM+nnnTF4LZRn/H76qV52uQ+8vKipj5UZ9DZ43loGXxXm8+2yH8t/JOAP6KbqZyOP
+	 sMafZLXhzv8HN2w1rtDHU+xxtckdo5ta+SsJbQUfMmOXOqzoJzDEUQzc+TxQmr3w0O
+	 eXaAmH5PBmCCA==
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-39faf9e2c62so16450191fa.3
+        for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 06:17:53 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpMQ0ejWBcZ2aqXm/Es507Z3AR3ivqauIRAHjEjq+MEHTG49q5yQO8K2hio6QAaL74UI5kZoSk8BF/k@vger.kernel.org
+X-Gm-Message-State: AFuF++khI6l88VYRQa8Ua91lOUwRN7KS0H0UbgnfG030AieonMsR/paz
+	ynrURnwBntSdQEK0htWAtl50yl5rQtAZlhh7Rb5noUfjHhI++NsDuSh+hx8fZ0TGfpr+ThRlHVS
+	8QkEXXRRmuD0Vj4s6syhnCBSKAeZC00g=
+X-Received: by 2002:a2e:a587:0:b0:399:6c9e:dfaa with SMTP id
+ 38308e7fff4ca-3a1c1dde554mr22856181fa.2.1787491072312; Sun, 23 Aug 2026
+ 06:17:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <uuuph37ftuyuqpbayqbotnsqgqn367ytdam627jl3cqcxkzana@xq2pky3dobyx>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODIzMDExNiBTYWx0ZWRfX8AETxFC4sMcp
- 5KXM9JffIkEpDASPxGEulpO37AiUjXr9JAFbei0SHNVN81y37phX3dfjTt+CBL2D6vQv+1KAWiM
- OnXaG/qH6nWjgQEVFrzJR27ialS6a9c=
-X-Authority-Analysis: v=2.4 cv=HYckiCE8 c=1 sm=1 tr=0 ts=6a8aedbb cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=Kz8-B0t5AAAA:8 a=pMoGBK1uSPhNkBhojBIA:9 a=CjuIK1q_8ugA:10
- a=rl5im9kqc5Lf4LNbBjHf:22 a=RuZk68QooNbwfxovefhk:22
-X-Proofpoint-ORIG-GUID: d5jmh1lc6iGHiYRTrnYq2hiV8iR9dL3p
-X-Proofpoint-GUID: d5jmh1lc6iGHiYRTrnYq2hiV8iR9dL3p
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIzMDExNiBTYWx0ZWRfX3VpR2Zuqs0a5
- wT3PRRDhRQ0KTNG4bRKuSVRh4oH9tQYSpv/Fz8OQVsokM6JS3hoEGZUVE1bbOtK2VxPEsbZDJIU
- hJIKqD7+Nj+jXxuctP7BbsH++nQqo7llOCfuFmG1EvI3RcSOaobAQQVhs9/OwjPp0ilk56vlwW5
- tIWD0zRN51B9r8le+Qk0ll8G/m+sXWo4jySS5E4f3iM98JxzPr+ZN9QMUljgHdTS11eNwGer06L
- 2B38QBppeEKg+FP4neqDoRHGSrXQgb/rPYPYKk5ibgGi6Mp5TU3NHx3FTEfPqsoDP0P6DkP1sMO
- ZQcB8XalMJsbNoZDnRZ6Ka/bChplD9UTNgcH2SJdXUBX/3LF3jglCixnHmWJZJXJE+BARniIOmf
- izx9WsQJie6as5ZEl606DHHtDDfiKH0CakTqiL/o4eUg5OnfMr/ak88TKw1KP/T2B0qFm5SF+VL
- 71CtBGVQifHlWCFtk3A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-23_04,2026-08-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 spamscore=0 phishscore=0 impostorscore=0
- lowpriorityscore=0 priorityscore=1501 adultscore=0 clxscore=1015 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608230116
+References: <20260812-axp318-regulator-v6-0-d6b84b55c000@baylibre.com> <20260812-axp318-regulator-v6-4-d6b84b55c000@baylibre.com>
+In-Reply-To: <20260812-axp318-regulator-v6-4-d6b84b55c000@baylibre.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Sun, 23 Aug 2026 21:17:38 +0800
+X-Gmail-Original-Message-ID: <CAGb2v66Uz6hCQaf5Nk5Eup8wQ+Xo9tuAqm0+ZH9J5CbT0zyAPg@mail.gmail.com>
+X-Gm-Features: AcwNN1WyeWi-qvoFmgQ2l97eJ8l4oauH6PsI2TweouP6wFixCDaLgHG6yAzwOGw
+Message-ID: <CAGb2v66Uz6hCQaf5Nk5Eup8wQ+Xo9tuAqm0+ZH9J5CbT0zyAPg@mail.gmail.com>
+Subject: Re: [PATCH RESEND v6 4/5] mfd: axp20x: Add support for AXP318W PMIC
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Andre Przywara <andre.przywara@arm.com>, Lee Jones <lee@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, mfd@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Aug 19, 2026 at 12:49:53AM +0300, Dmitry Baryshkov wrote:
-> On Sat, Aug 08, 2026 at 01:37:51PM +0530, mohit.dsor@oss.qualcomm.com wrote:
-> > From: Sunyun Yang <syyang@lontium.com>
-> > 
-> > LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
-> > mipi dsi and output hdmi, differences in hardware features:
-> > - LT9611C: supports 1-port mipi dsi to hdmi 1.4
-> > - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
-> > - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
-> > 
-> > Signed-off-by: Sunyun Yang <syyang@lontium.com>
-> > Co-developed-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-> > Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-> > ---
-> >  Documentation/ABI/testing/sysfs-lontium-firmware |   10 +
-> >  drivers/gpu/drm/bridge/Kconfig                   |   18 +
-> >  drivers/gpu/drm/bridge/Makefile                  |    1 +
-> >  drivers/gpu/drm/bridge/lontium-lt9611c.c         | 1283 ++++++++++++++++++++++
-> >  4 files changed, 1312 insertions(+)
-> > 
-> > diff --git a/Documentation/ABI/testing/sysfs-lontium-firmware b/Documentation/ABI/testing/sysfs-lontium-firmware
-> > new file mode 100644
-> > index 000000000000..8700933ba0f0
-> > --- /dev/null
-> > +++ b/Documentation/ABI/testing/sysfs-lontium-firmware
-> > @@ -0,0 +1,10 @@
-> > +What:		/sys/bus/i2c/drivers/<driver>/.../firmware
-> > +Date:		July 2026
-> > +KernelVersion:	7.3
-> > +Contact:	Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-> > +Description:
-> > +		Read: Returns the current firmware version loaded on the
-> > +		Lontium bridge chip in hex format (e.g. "0x0105").
-> > +
-> > +		Write: Triggers a firmware upgrade of the chip using the
-> > +		firmware file loaded via the firmware loader.
-> > diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-> > index 4a57d49b4c6d..d1597548e578 100644
-> > --- a/drivers/gpu/drm/bridge/Kconfig
-> > +++ b/drivers/gpu/drm/bridge/Kconfig
-> > @@ -177,6 +177,24 @@ config DRM_LONTIUM_LT9611
-> >  	  HDMI signals
-> >  	  Please say Y if you have such hardware.
-> >  
-> > +config DRM_LONTIUM_LT9611C
-> > +	tristate "Lontium LT9611C DSI/HDMI bridge"
-> > +	select SND_SOC_HDMI_CODEC if SND_SOC
-> > +	depends on OF && I2C
-> > +	select CRC8
-> > +	select FW_LOADER
-> > +	select DRM_PANEL_BRIDGE
-> > +	select DRM_KMS_HELPER
-> > +	select DRM_MIPI_DSI
-> > +	select DRM_DISPLAY_HELPER
-> > +	select DRM_DISPLAY_HDMI_STATE_HELPER
-> > +	select REGMAP_I2C
-> > +	help
-> > +	  Driver for the Lontium LT9611C(EX/UXD) DSI to HDMI bridge chip.
-> > +	  It converts single or dual MIPI DSI and I2S signals to HDMI
-> > +	  output. Supports HDMI 1.4 (LT9611C/EX) and HDMI 2.0 (LT9611UXD).
-> > +	  Say Y if you have hardware using this chip.
-> > +
-> >  config DRM_LONTIUM_LT9611UXC
-> >  	tristate "Lontium LT9611UXC DSI/HDMI bridge"
-> >  	select SND_SOC_HDMI_CODEC if SND_SOC
-> > diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
-> > index 15cc821d85b7..f322f3f89f6b 100644
-> > --- a/drivers/gpu/drm/bridge/Makefile
-> > +++ b/drivers/gpu/drm/bridge/Makefile
-> > @@ -16,6 +16,7 @@ obj-$(CONFIG_DRM_ITE_IT6505) += ite-it6505.o
-> >  obj-$(CONFIG_DRM_LONTIUM_LT8912B) += lontium-lt8912b.o
-> >  obj-$(CONFIG_DRM_LONTIUM_LT9211) += lontium-lt9211.o
-> >  obj-$(CONFIG_DRM_LONTIUM_LT9611) += lontium-lt9611.o
-> > +obj-$(CONFIG_DRM_LONTIUM_LT9611C) += lontium-lt9611c.o
-> >  obj-$(CONFIG_DRM_LONTIUM_LT9611UXC) += lontium-lt9611uxc.o
-> >  obj-$(CONFIG_DRM_LONTIUM_LT8713SX) += lontium-lt8713sx.o
-> >  obj-$(CONFIG_DRM_LVDS_CODEC) += lvds-codec.o
-> > diff --git a/drivers/gpu/drm/bridge/lontium-lt9611c.c b/drivers/gpu/drm/bridge/lontium-lt9611c.c
-> > new file mode 100644
-> > index 000000000000..e6887f2c89a6
-> > --- /dev/null
-> > +++ b/drivers/gpu/drm/bridge/lontium-lt9611c.c
-> > @@ -0,0 +1,1283 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +/*
-> > + * Copyright (C) 2026 Lontium Semiconductor, Inc.
-> > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> > + */
-> > +
-> > +#include <linux/crc8.h>
-> > +#include <linux/firmware.h>
-> > +#include <linux/gpio/consumer.h>
-> > +#include <linux/i2c.h>
-> > +#include <linux/interrupt.h>
-> > +#include <linux/media-bus-format.h>
-> > +#include <linux/module.h>
-> > +#include <linux/mutex.h>
-> > +#include <linux/of_graph.h>
-> > +#include <linux/platform_device.h>
-> > +#include <linux/regmap.h>
-> > +#include <linux/regulator/consumer.h>
-> > +#include <linux/unaligned.h>
-> > +#include <drm/drm_atomic_helper.h>
-> > +#include <drm/drm_bridge.h>
-> > +#include <drm/drm_connector.h>
-> > +#include <drm/drm_drv.h>
-> > +#include <drm/drm_edid.h>
-> > +#include <drm/drm_mipi_dsi.h>
-> > +#include <drm/drm_modes.h>
-> > +#include <drm/drm_of.h>
-> > +#include <drm/drm_print.h>
-> > +#include <drm/drm_probe_helper.h>
-> > +#include <drm/display/drm_hdmi_audio_helper.h>
-> > +#include <drm/display/drm_hdmi_state_helper.h>
-> > +#include <sound/hdmi-codec.h>
-> > +
-> > +#define FW_SIZE (64 * 1024)
-> > +#define LT_PAGE_SIZE 256
-> > +#define FW_FILE  "lt9611c_fw.bin"
-> 
-> Lontium/lt9611c_fw.bin
-> 
-> With that fixed:
-> 
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Thanks Dmitry, will fix it and add R/B tag.
-> 
-> 
-> 
-> -- 
-> With best wishes
-> Dmitry
+On Thu, Aug 13, 2026 at 5:31=E2=80=AFAM Jerome Brunet <jbrunet@baylibre.com=
+> wrote:
+>
+> From: Andre Przywara <andre.przywara@arm.com>
+>
+> The AXP318W is a PMIC chip produced by X-Powers, it can be connected to
+> an I2C bus.
+>
+> It has a large number of regulators: 9(!) DCDC buck converters, and 28
+> LDOs, also some ADCs, interrupts, and a power key.
+>
+> Describe the regmap and the MFD bits, along with the registers exposed
+> via I2C only. This covers the regulators and interrupts for now.
+> Advertise the device using the new compatible string.
+>
+> We use just "318" for the internal identifiers, for easier typing and
+> less churn, but use "318W" for anything externally visible. If something
+> else other than the "AXP318W" shows up, that's an easy change then.
+>
+> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+> ---
+>  drivers/mfd/axp20x-i2c.c   |  2 ++
+>  drivers/mfd/axp20x.c       | 81 ++++++++++++++++++++++++++++++++++++++++=
+++
+>  include/linux/mfd/axp20x.h | 88 ++++++++++++++++++++++++++++++++++++++++=
+++++++
+>  3 files changed, 171 insertions(+)
+
+[...]
+
+> diff --git a/drivers/mfd/axp20x.c b/drivers/mfd/axp20x.c
+> index 84839d4aa1ca..ea00c0cdce58 100644
+> --- a/drivers/mfd/axp20x.c
+> +++ b/drivers/mfd/axp20x.c
+> @@ -218,6 +219,31 @@ static const struct regmap_access_table axp313a_vola=
+tile_table =3D {
+>         .n_yes_ranges =3D ARRAY_SIZE(axp313a_volatile_ranges),
+>  };
+>
+> +static const struct regmap_range axp318_writeable_ranges[] =3D {
+
+  +       regmap_reg_range(AXP20X_DATACACHE(0), AXP20X_DATACACHE(3)),
+
+> +       regmap_reg_range(AXP318_DCDC_OUTPUT_CONTROL1, AXP318_IRQ_STATE4),
+
+Probably want to skip the holes between:
+
+- AXP318_DCDC9_CONTROL and AXP318_DCDC_MODE_CTRL1
+- AXP318_DCDC_MODE_CTRL1 and AXP318_DCDC_MODE_CTRL3
+- AXP318_DCDC_MODE_CTRL3 and AXP318_LDO_OUTPUT_CONTROL1
+- AXP318_IRQ_EN4 and AXP318_IRQ_STATE1
+
+> +       regmap_reg_range(AXP318_SHUTDOWN_SRC_CTRL1, AXP318_TEMP_ADC_H_EN)=
+,
+
+Holes between
+
+- AXP318_POK_CTRL and AXP318_TEMP_ADC_H_EN
+- AXP318_WAKEUP_PWROK_PIN_CFG and AXP318_TS_PIN_CFG
+- AXP318_TS_PIN_CFG and AXP318_TEMP_ADC_H_EN
+
+> +       regmap_reg_range(AXP318_DIE_TEMP_ADC_H_EN, AXP318_DIE_TEMP_ADC_H_=
+EN),
+> +       regmap_reg_range(AXP318_GPADC_H_EN, AXP318_GPADC_H_EN),
+> +       regmap_reg_range(AXP318_GPIO_CTRL, AXP318_WDOG_CTRL),
+> +};
+> +
+> +static const struct regmap_range axp318_volatile_ranges[] =3D {
+> +       regmap_reg_range(AXP318_IRQ_EN1, AXP318_IRQ_STATE4),
+
+The EN bits aren't volatile; only the status bits are.
+
+> +       regmap_reg_range(AXP318_POWER_REASON, AXP318_SHUTDOWN_SOURCE),
+> +       regmap_reg_range(AXP318_TEMP_ADC_H_EN, AXP318_GPADC_L),
+> +       regmap_reg_range(AXP318_GPIO_INPUT, AXP318_GPIO_INPUT),
+> +};
+> +
+> +static const struct regmap_access_table axp318_writeable_table =3D {
+> +       .yes_ranges =3D axp318_writeable_ranges,
+> +       .n_yes_ranges =3D ARRAY_SIZE(axp318_writeable_ranges),
+> +};
+> +
+> +static const struct regmap_access_table axp318_volatile_table =3D {
+> +       .yes_ranges =3D axp318_volatile_ranges,
+> +       .n_yes_ranges =3D ARRAY_SIZE(axp318_volatile_ranges),
+> +};
+> +
+>  static const struct regmap_range axp717_writeable_ranges[] =3D {
+>         regmap_reg_range(AXP717_PMU_FAULT, AXP717_MODULE_EN_CONTROL_1),
+>         regmap_reg_range(AXP717_MIN_SYS_V_CONTROL, AXP717_BOOST_CONTROL),
+> @@ -447,6 +473,15 @@ static const struct regmap_config axp313a_regmap_con=
+fig =3D {
+>         .cache_type =3D REGCACHE_MAPLE,
+>  };
+>
+> +static const struct regmap_config axp318_regmap_config =3D {
+> +       .reg_bits =3D 8,
+> +       .val_bits =3D 8,
+> +       .wr_table =3D &axp318_writeable_table,
+> +       .volatile_table =3D &axp318_volatile_table,
+> +       .max_register =3D AXP318_WDOG_CTRL,
+> +       .cache_type =3D REGCACHE_MAPLE,
+> +};
+> +
+>  static const struct regmap_config axp323_regmap_config =3D {
+>         .reg_bits =3D 8,
+>         .val_bits =3D 8,
+> @@ -663,6 +698,28 @@ static const struct regmap_irq axp313a_regmap_irqs[]=
+ =3D {
+>         INIT_REGMAP_IRQ(AXP313A, DIE_TEMP_HIGH,         0, 0),
+>  };
+>
+> +static const struct regmap_irq axp318_regmap_irqs[] =3D {
+> +       INIT_REGMAP_IRQ(AXP318, DCDC8_V_LOW,            0, 7),
+> +       INIT_REGMAP_IRQ(AXP318, DCDC7_V_LOW,            0, 6),
+> +       INIT_REGMAP_IRQ(AXP318, DCDC6_V_LOW,            0, 5),
+> +       INIT_REGMAP_IRQ(AXP318, DCDC5_V_LOW,            0, 4),
+> +       INIT_REGMAP_IRQ(AXP318, DCDC4_V_LOW,            0, 3),
+> +       INIT_REGMAP_IRQ(AXP318, DCDC3_V_LOW,            0, 2),
+> +       INIT_REGMAP_IRQ(AXP318, DCDC2_V_LOW,            0, 1),
+> +       INIT_REGMAP_IRQ(AXP318, DCDC1_V_LOW,            0, 0),
+> +       INIT_REGMAP_IRQ(AXP318, PEK_RIS_EDGE,           1, 6),
+> +       INIT_REGMAP_IRQ(AXP318, PEK_FAL_EDGE,           1, 5),
+
+> +       INIT_REGMAP_IRQ(AXP318, PEK_LONG,               1, 4),
+> +       INIT_REGMAP_IRQ(AXP318, PEK_SHORT,              1, 3),
+
+These two seem to be reversed.
+
+> +       INIT_REGMAP_IRQ(AXP318, DIE_TEMP_HIGH_LV2,      1, 2),
+> +       INIT_REGMAP_IRQ(AXP318, DIE_TEMP_HIGH_LV1,      1, 1),
+> +       INIT_REGMAP_IRQ(AXP318, DCDC9_V_LOW,            1, 0),
+> +       INIT_REGMAP_IRQ(AXP318, GPIO3_INPUT,            2, 6),
+> +       INIT_REGMAP_IRQ(AXP318, GPIO2_INPUT,            2, 5),
+> +       INIT_REGMAP_IRQ(AXP318, GPIO1_INPUT,            2, 4),
+> +       INIT_REGMAP_IRQ(AXP318, WDOG_EXPIRE,            3, 0),
+> +};
+> +
+>  static const struct regmap_irq axp717_regmap_irqs[] =3D {
+>         INIT_REGMAP_IRQ(AXP717, SOC_DROP_LVL2,          0, 7),
+>         INIT_REGMAP_IRQ(AXP717, SOC_DROP_LVL1,          0, 6),
+> @@ -884,6 +941,17 @@ static const struct regmap_irq_chip axp313a_regmap_i=
+rq_chip =3D {
+>         .num_regs               =3D 1,
+>  };
+>
+> +static const struct regmap_irq_chip axp318_regmap_irq_chip =3D {
+> +       .name                   =3D "axp318w_irq_chip",
+> +       .status_base            =3D AXP318_IRQ_STATE1,
+> +       .ack_base               =3D AXP318_IRQ_STATE1,
+> +       .unmask_base            =3D AXP318_IRQ_EN1,
+> +       .init_ack_masked        =3D true,
+> +       .irqs                   =3D axp318_regmap_irqs,
+> +       .num_irqs               =3D ARRAY_SIZE(axp318_regmap_irqs),
+> +       .num_regs               =3D 4,
+> +};
+> +
+>  static const struct regmap_irq_chip axp717_regmap_irq_chip =3D {
+>         .name                   =3D "axp717_irq_chip",
+>         .status_base            =3D AXP717_IRQ0_STATE,
+> @@ -1061,6 +1129,10 @@ static const struct mfd_cell axp313a_cells[] =3D {
+>         MFD_CELL_RES("axp313a-pek", axp313a_pek_resources),
+>  };
+>
+> +static const struct mfd_cell axp318_cells[] =3D {
+> +       MFD_CELL_BASIC("axp20x-regulator", NULL, NULL, 0, 1),
+
+Unless this PMIC is used as a sub-PMIC in other designs, we don't need an I=
+D.
+Allwinner designs "mostly" only have one PMIC. We add IDs only when needed,
+as seen on the AXP313a and AXP806 + AXP809.
+
+> +};
+> +
+>  static const struct mfd_cell axp717_cells[] =3D {
+>         MFD_CELL_NAME("axp20x-regulator"),
+>         MFD_CELL_RES("axp20x-pek", axp717_pek_resources),
+> @@ -1248,6 +1320,9 @@ static int axp20x_power_off(struct sys_off_data *da=
+ta)
+>         case AXP313A_ID:
+>                 shutdown_reg =3D AXP313A_SHUTDOWN_CTRL;
+>                 break;
+> +       case AXP318_ID:
+> +               shutdown_reg =3D AXP318_SHUTDOWN_CTRL;
+> +               break;
+>         default:
+>                 shutdown_reg =3D AXP20X_OFF_CTRL;
+>                 break;
+> @@ -1312,6 +1387,12 @@ int axp20x_match_device(struct axp20x_dev *axp20x)
+>                 axp20x->regmap_cfg =3D &axp313a_regmap_config;
+>                 axp20x->regmap_irq_chip =3D &axp313a_regmap_irq_chip;
+>                 break;
+> +       case AXP318_ID:
+> +               axp20x->nr_cells =3D ARRAY_SIZE(axp318_cells);
+> +               axp20x->cells =3D axp318_cells;
+> +               axp20x->regmap_cfg =3D &axp318_regmap_config;
+> +               axp20x->regmap_irq_chip =3D &axp318_regmap_irq_chip;
+> +               break;
+>         case AXP323_ID:
+>                 axp20x->nr_cells =3D ARRAY_SIZE(axp313a_cells);
+>                 axp20x->cells =3D axp313a_cells;
+> diff --git a/include/linux/mfd/axp20x.h b/include/linux/mfd/axp20x.h
+> index 1badb4868d17..0191467de4ec 100644
+> --- a/include/linux/mfd/axp20x.h
+> +++ b/include/linux/mfd/axp20x.h
+> @@ -19,6 +19,7 @@ enum axp20x_variants {
+>         AXP223_ID,
+>         AXP288_ID,
+>         AXP313A_ID,
+> +       AXP318_ID,
+>         AXP323_ID,
+>         AXP717_ID,
+>         AXP803_ID,
+> @@ -116,6 +117,71 @@ enum axp20x_variants {
+>  #define AXP313A_IRQ_STATE              0x21
+>  #define AXP323_DCDC_MODE_CTRL2         0x22
+>
+> +#define AXP318_DCDC_OUTPUT_CONTROL1    0x10
+> +#define AXP318_DCDC_OUTPUT_CONTROL2    0x11
+> +#define AXP318_DCDC1_CONTROL           0x12
+> +#define AXP318_DCDC2_CONTROL           0x13
+> +#define AXP318_DCDC3_CONTROL           0x14
+> +#define AXP318_DCDC4_CONTROL           0x15
+> +#define AXP318_DCDC5_CONTROL           0x16
+> +#define AXP318_DCDC6_CONTROL           0x17
+> +#define AXP318_DCDC7_CONTROL           0x18
+> +#define AXP318_DCDC8_CONTROL           0x19
+> +#define AXP318_DCDC9_CONTROL           0x1a
+
++#define AXP318_DCDC_MODE_CTRL1           0x1b
++#define AXP318_DCDC_MODE_CTRL3           0x1d
+
+> +#define AXP318_LDO_OUTPUT_CONTROL1     0x20
+> +#define AXP318_LDO_OUTPUT_CONTROL2     0x21
+> +#define AXP318_LDO_OUTPUT_CONTROL3     0x22
+> +#define AXP318_LDO_OUTPUT_CONTROL4     0x23
+> +#define AXP318_ALDO1_CONTROL           0x24
+> +#define AXP318_ALDO2_CONTROL           0x25
+> +#define AXP318_ALDO3_CONTROL           0x26
+> +#define AXP318_ALDO4_CONTROL           0x27
+> +#define AXP318_ALDO5_CONTROL           0x28
+> +#define AXP318_ALDO6_CONTROL           0x29
+> +#define AXP318_BLDO1_CONTROL           0x2a
+> +#define AXP318_BLDO2_CONTROL           0x2b
+> +#define AXP318_BLDO3_CONTROL           0x2c
+> +#define AXP318_BLDO4_CONTROL           0x2d
+> +#define AXP318_BLDO5_CONTROL           0x2e
+> +#define AXP318_CLDO1_CONTROL           0x2f
+> +#define AXP318_CLDO2_CONTROL           0x30
+> +#define AXP318_CLDO3_CONTROL           0x31
+> +#define AXP318_CLDO4_CONTROL           0x32
+> +#define AXP318_CLDO5_CONTROL           0x33
+> +#define AXP318_DLDO1_CONTROL           0x34
+> +#define AXP318_DLDO2_CONTROL           0x35
+> +#define AXP318_DLDO3_CONTROL           0x36
+> +#define AXP318_DLDO4_CONTROL           0x37
+> +#define AXP318_DLDO5_CONTROL           0x38
+> +#define AXP318_DLDO6_CONTROL           0x39
+> +#define AXP318_ELDO1_CONTROL           0x3a
+> +#define AXP318_ELDO2_CONTROL           0x3b
+> +#define AXP318_ELDO3_CONTROL           0x3c
+> +#define AXP318_ELDO4_CONTROL           0x3d
+> +#define AXP318_ELDO5_CONTROL           0x3e
+> +#define AXP318_ELDO6_CONTROL           0x3f
+> +#define AXP318_IRQ_EN1                 0x40
+> +#define AXP318_IRQ_EN2                 0x41
+> +#define AXP318_IRQ_EN3                 0x42
+> +#define AXP318_IRQ_EN4                 0x43
+> +#define AXP318_IRQ_STATE1              0x48
+> +#define AXP318_IRQ_STATE2              0x49
+> +#define AXP318_IRQ_STATE3              0x4a
+> +#define AXP318_IRQ_STATE4              0x4b
+> +#define AXP318_POWER_REASON            0x50
+> +#define AXP318_SHUTDOWN_SOURCE         0x51
+> +#define AXP318_SHUTDOWN_SRC_CTRL1      0x52
+> +#define AXP318_SHUTDOWN_SRC_CTRL2      0x53
+
+  +#define AXP318_DISCHARGE_OVERTEMP_CTRL 0x54
+
+> +#define AXP318_SHUTDOWN_CTRL           0x55
+
+  +#define AXP318_WAKEUP_VOFF_CTRL        0x56
+  +#define AXP318_POK_CTRL                0x57
+
+  +#define AXP318_WAKEUP_PWROK_PIN_CFG    0x5d
+
+  +#define AXP318_TS_PIN_CFG              0x60
+
+> +#define AXP318_TEMP_ADC_H_EN           0x65
+> +#define AXP318_TEMP_ADC_L              0x66
+> +#define AXP318_DIE_TEMP_ADC_H_EN       0x67
+  +#define AXP318_DIE_TEMP_ADC_L          0x68
+> +#define AXP318_GPADC_H_EN              0x69
+> +#define AXP318_GPADC_L                 0x6a
+> +#define AXP318_GPIO_CTRL               0x70
+> +#define AXP318_GPIO_INPUT              0x71
+
+  +#define AXP318_GPIO_OUTPUT             0x72
+  +#define AXP318_PWM_CTRL1               0x73
+  +#define AXP318_PWM_CTRL2               0x74
+  +#define AXP318_PWM_CTRL3               0x75
+  +#define AXP318_BACKUP_BATTERY_CTRL     0x76
+
+> +#define AXP318_WDOG_CTRL               0x77
+> +
+>  #define AXP717_ON_INDICATE             0x00
+>  #define AXP717_PMU_STATUS_2            0x01
+>  #define AXP717_BC_DETECT               0x05
+> @@ -819,6 +885,28 @@ enum axp313a_irqs {
+>         AXP313A_IRQ_PEK_RIS_EDGE,
+>  };
+>
+> +enum axp318_irqs {
+> +       AXP318_IRQ_DCDC1_V_LOW,
+> +       AXP318_IRQ_DCDC2_V_LOW,
+> +       AXP318_IRQ_DCDC3_V_LOW,
+> +       AXP318_IRQ_DCDC4_V_LOW,
+> +       AXP318_IRQ_DCDC5_V_LOW,
+> +       AXP318_IRQ_DCDC6_V_LOW,
+> +       AXP318_IRQ_DCDC7_V_LOW,
+> +       AXP318_IRQ_DCDC8_V_LOW,
+> +       AXP318_IRQ_DCDC9_V_LOW,
+> +       AXP318_IRQ_DIE_TEMP_HIGH_LV1,
+> +       AXP318_IRQ_DIE_TEMP_HIGH_LV2,
+
+> +       AXP318_IRQ_PEK_SHORT,
+> +       AXP318_IRQ_PEK_LONG,
+
+The order of these two are reversed.
+
+> +       AXP318_IRQ_PEK_FAL_EDGE,
+> +       AXP318_IRQ_PEK_RIS_EDGE,
+
+And these two as well.
+
+Once all these are fixed,
+Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
+
+
+ChenYu
+
+> +       AXP318_IRQ_GPIO1_INPUT =3D 20,
+> +       AXP318_IRQ_GPIO2_INPUT,
+> +       AXP318_IRQ_GPIO3_INPUT,
+> +       AXP318_IRQ_WDOG_EXPIRE =3D 24,
+> +};
+> +
+>  enum axp717_irqs {
+>         AXP717_IRQ_VBUS_FAULT,
+>         AXP717_IRQ_VBUS_OVER_V,
+>
+> --
+> 2.47.3
+>
