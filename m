@@ -1,93 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77E092931FF
-	for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 11:28:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03BC92F7F0F
+	for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 11:29:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787484496; cv=none; b=LaRK6czYVhtaG1T1IkPM9cKGOqczMtY8ClLcGn42YW/XPtdsGMZf4EkL7jQxJg2ixzauirGQGm3wlM6Vf40Q+ptmZ2PoX0oTbB7XAfEc79IsdJ16nu/9C+jxkX8zDv+hOsLWAonMXdNYeJRKB6CZ92Gqhond+/jVXmAEzF2Efcg=
+	t=1787484584; cv=none; b=VfcuCjXI85yMZaCYpJVtcrhe93G6GUUbbHvx4HwoBDcrCzN336d3at5khHsYh3oIpAqnYVJ8wvlxXKNjYiDlqepiDH8UfDT1D6akhXUe+t6onS0pEyxU8KMjRlnRx9uY9e/usPhY3qBWSY3h7BZivVJgIvjukppNfShsNKN3URk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787484496; c=relaxed/simple;
-	bh=iRZBG1UZ60buEmIuQfDEnX2IytnsJWwXE2YTByhRT7k=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bXcuh6vbBYF4UJOLu5TCwIebpadp/ghvOPusjVa1ZdLRxjtvvMgiVl29CwzwOQ0qzD+ukXVmCBScA6V2BXfm/z3uboJe9X3ox0GtwTUwo2AGA/pyiu+mx9Fi5P9WE57a6FM79dnII30KaFQXZ2vM2CDZaD9pLM5KgLp1ECu9QeA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OKk2OoGT; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OKk2OoGT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 896AE1F000E9;
-	Sun, 23 Aug 2026 11:28:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787484494;
-	bh=sVA2nTFwdB9AbrUROrsDttAGxu4oSLrIWqtGBp1hayE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OKk2OoGTrrPN7kHGYt5ZX+1YzMm7FjQ38XkFWlrsuZtCFQjNJBBxUfY672ERRGR0s
-	 ayJzD2VgONWsr9XWVawU1gA/hllVNRwpDZ399aioGuO64btFjl9OSjAy1hleIEU/Da
-	 tMuCa26RMfGhtnfLJ1OmNLKUWj6GSUC1ZVBrPCHFiuxayWzsIl/EUlKtsGKMqInTUo
-	 AXxNGJw6ZvRScKWhVbqQr1v0snQ4/6Te2DeNVAx1HCx733rB8I33vLbW+M0YioNk7G
-	 q09b10no3hswUomAPfituYjuhdWoi52aNFU7WFZ7caf5PGEve7XJk+NcxN6jfWCOHP
-	 9vk+/g1lAyR7A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/6] dt-bindings: display: Add Solomon SSD1351 OLED
- controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Amit Barzilai" <amit.barzilai22@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260823111959.17029-2-amit.barzilai22@gmail.com>
-References: <20260823111959.17029-1-amit.barzilai22@gmail.com>
- <20260823111959.17029-2-amit.barzilai22@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 23 Aug 2026 11:28:14 +0000
-Message-Id: <20260823112814.896AE1F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1787484584; c=relaxed/simple;
+	bh=hfHnkTHbv3Z3CmIesaFyD4n9krXP06WyqHie6wge7HI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=n6Z/eoQrjSDiTcZ7wapwz7Xx7aChBUgz3m72y4mwOY/3g2uDNnh2BEujplxTnZHsWz4qDux67BO4C2/VHtG4Lc3GEaO90z1sKMfCL20abeXNXp6pzpCGMpzHFNL4LfuzxCdtEAkYg6VEDh7oIU4chnYiTqABh02dHPRj4W/cJgo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-493b966dd74so10841225e9.3
+        for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 04:29:42 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787484581; x=1788089381;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Gic4a9l1Tysqkb/KXwcHfceHx++tdNsSZ7fJK8rIj4o=;
+        b=I5J3+20dOf55kT0xwx39pMHVOpaPN4uqCoodlROFcy72hxd9oCIeiPZPlZFjZqO3Yy
+         u9LYttOGHltLcYlQNJD+sX0zCQEKZyP54oY/6RBp2ZAoe4bKrN5fKo5uoTJ8irLOF9KE
+         PYCklFvetZZDXncYCEZSb33RQ1YiX3VBl0ijd8HAYZainQk29pndTaPuYdSW+Q0EMLWb
+         S8XEvISGXOKcz37RgsoYl39rL3wRgUwOrFrXUj343v6QOhKA69J/vjOEhdg76XlLrTcK
+         1Xadd6I/LzWUABf5Bte+k88gZae8BqCM2Set58IfWx9QyrV9opF2eVu89l3JnVoMJRCi
+         4lJg==
+X-Forwarded-Encrypted: i=1; AHgh+RqqnCnMkAxCgca4Dv+rM/WYr2pp+amrL+FAXrKC4TMMgpjMqSBiM8cRTwGG0FJqWaJiVemkC5J6ie5D@vger.kernel.org
+X-Gm-Message-State: AFuF++nH2+BWV8+nxh6D/iOZdGZ7DVANdl4debdh3VSsdZAun4ZWHrY7
+	S8PlWRH1fI0xNSXbDXYfUPjpJxsVahUZL20YyxIiZ94ExuvcLIv1Kbpo
+X-Gm-Gg: AR+sD130RGQosNGev2jAkVwZMSiDR/g5715Odo9MAfGLD9WBfKc5ibhjUdOEQWHHSxb
+	jQAff35kp1RHvYfBUCMEbm3mxBv33dVmr6vhJyyxBt1BbpMLTi0ibC+WIMBSxNZWhVMtTGM29YB
+	rf+3ho+xu5NoD76BW6UwBtXJ3HSSNQ6Aqn31Hnt/rDxdMF23OalYiM99XV65xFADb5spWaVC92C
+	Hh8n5VvKOGE4dlTFJvnOq8liMqHGNjzxv68oHAdy4Ia0j+A9RmEKwQKh2pgOC4ZtbjvkQIBryHR
+	wqf24OlDXexybD35jNche95jiNx6e+zNVtY8ddhVJmp/HWWe34jAJWRgagHjXiojx7f/Q0uwNOx
+	2Ydhf/X+SRcNkhoWSjQbAPCxfeemPG8KKPUPk+ewK5Pd3Ka03vabm6zskKzPsT2+y++/b267MN/
+	C2PereWtwGgKVkHIviYDX5ylaxzYSiaztO3aZNfkWPTcmxyYrlh5jyAwQwsilWKjYvnJjztC52Q
+	eR66LdafYrHC2yBFrjsGuOMbIxtNiwr
+X-Received: by 2002:a05:600c:548c:b0:499:8aff:59b6 with SMTP id 5b1f17b1804b1-499c19f514emr95373715e9.14.1787484581078;
+        Sun, 23 Aug 2026 04:29:41 -0700 (PDT)
+Received: from [192.168.1.135] ([83.106.158.114])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499c3553681sm46417835e9.1.2026.08.23.04.29.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 23 Aug 2026 04:29:39 -0700 (PDT)
+Message-ID: <78722571-a418-4962-b1ac-216519303aa2@linux.com>
+Date: Sun, 23 Aug 2026 12:29:38 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] arm64: dts: amlogic: t7: use the real UART pclk
+To: Xianwei Zhao <xianwei.zhao@amlogic.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260818191159.11523-1-tanure@linux.com>
+ <20260818191159.11523-2-tanure@linux.com>
+ <c428305a-265c-4cc5-be01-be5b21dc22ca@amlogic.com>
+Content-Language: en-US
+From: Lucas Tanure <tanure@linux.com>
+In-Reply-To: <c428305a-265c-4cc5-be01-be5b21dc22ca@amlogic.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The binding is missing controller-specific default values for `solo=
-mon,width` and `solomon,height`.
---
-
---- Patch [1]: [PATCH v5 1/6] dt-bindings: display: Add Solomon SSD1351 OLE=
-D controller ---
-commit c53d1459d9817dd8adf46b673b2d950a10a1775b
-Author: Amit Barzilai <amit.barzilai22@gmail.com>
-
-dt-bindings: display: Add Solomon SSD1351 OLED controller
-
-This commit adds a device tree binding for the Solomon SSD1351 128x128
-65k-color RGB OLED display controller. It leverages the shared
-solomon,ssd-common.yaml properties used by other Solomon display controller=
-s.
-
-> diff --git a/Documentation/devicetree/bindings/display/solomon,ssd1351.ya=
-ml b/Documentation/devicetree/bindings/display/solomon,ssd1351.yaml
-> new file mode 100644
-> index 0000000000000..80850c2ab5b3e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/solomon,ssd1351.yaml
-[ ... ]
-> +allOf:
-> +  - $ref: solomon,ssd-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - solomon,ssd1351
-
-[Severity: Low]
-Should this properties block also declare default values for solomon,width
-and solomon,height?
-
-Other bindings that include solomon,ssd-common.yaml, such as
-solomon,ssd133x.yaml, establish default geometry values for their specific
-compatible strings in this block. Without these default values, device trees
-that omit the width and height properties will lack a schema-defined default
-geometry.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260823111959.1702=
-9-1-amit.barzilai22@gmail.com?part=3D1
+On 19/08/2026 03:39, Xianwei Zhao wrote:
+> Hi Lucas,
+> 
+> On 2026/8/19 03:11, Lucas Tanure wrote:
+>> uart_a lists the 24MHz crystal for all three of its clocks, because
+>> the T7 clock controller driver did not exist when these boards were
+>> added.
+>>
+>> That leaves the real UART bus clock without a user, so the kernel
+>> turns it off when it disables unused clocks at the end of boot, and
+>> the board hangs.
+>>
+>> Point uart_a at the real clocks, the way meson-s4.dtsi does, and drop
+>> the placeholders from the two board files.
+>>
+>> Fixes: 4fef056588f5 ("arm64: dts: amlogic-t7-a311d2-khadas-vim4: add 
+>> initial device-tree")
+>> Fixes: 6f048cc7a635 ("arm64: dts: add board AN400")
+>> Signed-off-by: Lucas Tanure<tanure@linux.com>
+>> Assisted-by: Claude:claude-fable-5
+>> ---
+>>   arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts       | 2 --
+>>   arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts | 2 --
+>>   arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi                   | 4 ++++
+>>   3 files changed, 4 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts
+>> b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts
+>> index cab2ee9ea0d3..dcbcd08a78b9 100644
+>> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts
+>> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts
+>> @@ -33,7 +33,5 @@ xtal: xtal-clk {
+>>   };
+>>
+>>   &uart_a {
+>> -       clocks = <&xtal>, <&xtal>,
+>> <&xtal>;
+>> -       clock-names = "xtal", "pclk", "baud";
+>>          status = "okay";
+>>   };
+>> diff --git
+>> a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+>> b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+>> index c41525a34b72..677069e58f30 100644
+>> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+>> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+>> @@ -266,6 +266,4 @@ &sd_emmc_c {
+>>
+>>   &uart_a {
+>>          status = "okay";
+>> -       clocks = <&xtal>, <&xtal>,
+>> <&xtal>;
+>> -       clock-names = "xtal", "pclk", "baud";
+>>   };
+>> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+>> b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+>> index cc371fcd1896..7847582e77ed 100644
+>> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+>> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+>> @@ -587,6 +587,10 @@ uart_a: serial@78000 {
+>>                                  compatible = "amlogic,t7-uart",
+>> "amlogic,meson-s4-uart";
+>>                                  reg = <0x0 0x78000 0x0 0x18>;
+>>                                  interrupts = <GIC_SPI 168
+>> IRQ_TYPE_EDGE_RISING>;
+>> +                               clocks = <&xtal>,
+>> +                                        <&clkc_periphs
+>> CLKID_SYS_UART_A>,
+>> +                                        <&xtal>;
+>> +                               clock-names = "xtal", "pclk", "baud";
+>>                                  status = "disabled";
+>>                          };
+> 
+> I agree with moving the UART clock configuration to the DTSI file. 
+> However, it seems a little odd to keep the XTAL clock definition in the 
+> DTS, as the alias may not be consistent across different boards, which 
+> could result in compilation errors. Could we move the XTAL clock 
+> definition to the DTSI as well, similar to other Amlogic SoCs?
+I think keeping it in the board files is actually better here, as the 
+crystal (xtal) physically belongs to the board rather than the SoC. To 
+keep things clean without moving xtal into amlogic-t7.dtsi, I've updated 
+v2 to modify only the board DTS files.
