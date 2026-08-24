@@ -1,229 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3C513515F8
-	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 20:07:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5417937B019
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 20:20:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787602055; cv=none; b=R/myIO4C0/vFbmnBGJb20CK4guOSQu5xVtQ5hYSgPVVdspVknqBsbbwycGtflEdkNKs4/8T7a/W/ADn/xTwBoGyOFNdu7DJp0wGpmmyX3dTGqwBD+ytM9gDl5TaWNepKSR/MlfPlSFJHWQ2W+5zodjr9j/lEspqfXGi6aVvu/Qo=
+	t=1787602804; cv=none; b=CY+S2J2+YPb8nC4zSpYGEBPWnHe72iLp3BMxUFcm00gnqMPDc9MIYNYbTmCNEwGZ8ALMbUUsqlQLAXphxLTpZe9WggmtUe82pV8enO9cr3XMp20OEDwSb4gmh7bOFfxQf0V3JJO+dw9SvhiMXAuqtUCvOacAs7XuOZmngi22pAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787602055; c=relaxed/simple;
-	bh=kKy+d+WxSxfQI/P90NbsZ8FJ9Qw4zEEWdk41Wuxx8TY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=oPE+OvinI/8m/s8QwF0+5vruIF3lNVbj3hyrk3MAzzUDk9y/qu3y1lucrabU8xTM+K+3u61/RlaePeslKjMXvv9DAnqMpA5G0ACnaIaf3QazUoaJWdJOjx5l1UMB/8tyYTkhk2AHUcWGnKzUY1E3n/lWTgZTGyuo/YghUdV2xAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=miWFWb/I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787602804; c=relaxed/simple;
+	bh=1x/8fcBOBGwQhPNEF75nOw7LbFJkmoN2c84cmfv3ius=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EEJmeT/BVrEtAcR7F26QZBjTmI5kFvpz4dFr4mc3KeR4DhVifEm9Lpyod2nCq9NAo8fb4mc4KlRe43twr2uBEu+Xx8q6SWKAC1fI+NmTEdW1ylAVp/PEap5sAPr1FkWSDi/dzbGDjf3WXu681z12VtQIJsV5O6Pyse4PNC0UMTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pCsIBIBD; arc=none smtp.client-ip=209.85.222.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="miWFWb/I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17EC71F000E9;
-	Mon, 24 Aug 2026 20:07:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787602053;
-	bh=HXqpBmsy3koJuYdV0MGTeoTO2rJ7Sd8LFgvk4JP2QeI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=miWFWb/IK+t0siMniDVWDUsQBqMzj+4nVK/BCCnSWoJ7qyPTXjh9mbbPfU/liKZQN
-	 8lVCAdVqHj3wnc+aSs/hwHGH7WjzNNAeXAkt2/H5vUbKZnyNYpzO/ZDXgUpmsXbl3P
-	 yxUvT8SUkwgDpFfZReHdo+cKnJU7eIW02BaMy6MWKQnDkZQER7Xl0QiLcMAjyXgKRR
-	 44i7tahpQ0vJuCikY58WfLJnrAmTe0D0BevXQy9gVb8gPn3l4VMA21JOIBXV/Z2HaH
-	 ogRBnlFpmr+ni76OSN8az6hJH1y4N1YgDmVxbdcHkVuWHd0DLUP52QScfAqccs5HvS
-	 HBt33dZ5hIbUQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] drm/glanda: Add initial DRM driver for GlandaGPU
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Leander Kieweg" <kieweg.leander@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org
-In-Reply-To: <20260824195418.17707-3-kieweg.leander@gmail.com>
-References: <20260824195418.17707-1-kieweg.leander@gmail.com>
- <20260824195418.17707-3-kieweg.leander@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 24 Aug 2026 20:07:32 +0000
-Message-Id: <20260824200733.17EC71F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pCsIBIBD"
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-934944f2d22so223422785a.0
+        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 13:20:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787602802; x=1788207602; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vOLy1+a9YXmFraELoFIR4gVacZ4F6tH0XUrBNuPXgmE=;
+        b=pCsIBIBDLwx10+YaO9sEpmdmW7rB6v6lwzISt6NjuaoSTRn7ZjO+fZifskQZ6Xtj5/
+         mcleid+a5NMx5Sw5mCNMWtyivu7lJslQ5jnhIv/FrWr0nGWmquQBrK5T3EZvIoRfAkQe
+         UjtVXt95VwsnmgbZ3FhP0c68Wvj9Yyi0ywvHGVi2F+MT9wnDfy78LbmWfaG4D2aL+CK/
+         fpV7IBKRlmkCpdmczfxF2570cnfi9UAeEHfUo9ooYWCy82VUlLqjzPTAJs2g2EeZCR8u
+         b3OaHdjTct8QLW7ADTTy2RLxPS5VbI8Kf4hEAhWS9Fj3lEjktGRUtaSRxvl7bF1EWtad
+         j1UA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787602802; x=1788207602;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vOLy1+a9YXmFraELoFIR4gVacZ4F6tH0XUrBNuPXgmE=;
+        b=lm/7wKd7dxDFozTS7wlXokF2W72krer0add2tnb1lAC2sWJe/qpgiaHdhwjbudW+rN
+         GPROX42deJSuxNeEeKstT4cJWy35yK6dy6jvi3LDyi4CNaQuc/ymmBCrIi7fYc72zDlO
+         mBbemRfan8jNTvRfXsaFirmpHlP47eh0WQWZXG+NtuEt5mSQhq8iYc92qjIPMSyIYsUW
+         KZaEZ+P6pVpOfHyGufaO4NN5nR8Yh7IRGQgso3gxWR+wT+lqECIm69RpkhgSes2eDw+p
+         21WRBN8Xg95dYGFYifegOyQ9xQ0quonvrVj1Hjl86rKqLSV/PikauTIn2CJhKltcMnm7
+         7ORw==
+X-Forwarded-Encrypted: i=1; AHgh+RqLR/X4wv3VzDgAuv+/ZWim/E1DuJiS9Jtn7tJxq08dis7VaqagkvTpz0EQ/CC9gl3qJbjFg+2J5GRf@vger.kernel.org
+X-Gm-Message-State: AFuF++k6J1I+9XY80O5707OLZQ4609oZ76KWae/VAMRZ4+RGJnK1Tdmg
+	Ozp/Vl7e2qhu3Z1ZvInwsCEplJOA9bI0WbtwqE8N39Ewr6QQpEe444ac
+X-Gm-Gg: AR+sD13COJj+yLw9gB2Ih6wWNoYp1SOjBksA6oXUokG8r4zdfCKs3iW8+a9ygRCV9ZP
+	xiP7lol3YbiCbnLSkK6lgdGTWvzVQsuBYjYlEcUkB4jWgZr3Gj4lH2OOYiPg54+JQdJlOmKYozW
+	ITyhzky682DvWIlBcw4dAxwV8zjnNByKFLPVfx4Qm4WPCyRnNNYee1S227zHk6H9KtjMvpZdYQ0
+	2LVP48wdCHzH0XY9SeaEopl3aM9rX3Eja4bdcPpH7/ASbnG6MncTdKCvi8kNE8apa6jI7VTH2sq
+	b+OhNdIwIcrtXn7YA7mWnKnAXWkuaZdTC2T2piOJO4g5XxJ/I1huhB9xKZC6zNpeTzmjcAKON0x
+	9D8e6W8oSJAYI3q9vrbuSnqg14j8kzrESnEdOMknlXKbgxgM4TAbvVySvKQUQEIpDE/yQKMsRQ0
+	wzKysdy1VAE3lUerCD+UKw/K2fCdB1AInCT4Mpl0KpeLehWqHuQdIWTsCMc+h6tw2P0Kslbt8rX
+	8nqMcEtH5S80Sz5ICsMGoTD8vk2jYryeBBexHaFoZW2ypPnGX3pctsX4eLts1TzQLEHsVSTZwnb
+	fu0ipRjy2KlkXMEVE1GKBur1
+X-Received: by 2002:a05:620a:4809:b0:92e:8a84:7041 with SMTP id af79cd13be357-93739542819mr2709922585a.8.1787602801988;
+        Mon, 24 Aug 2026 13:20:01 -0700 (PDT)
+Received: from zaina.mynetworksettings.com (pool-173-48-203-201.bstnma.fios.verizon.net. [173.48.203.201])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93749d91ec0sm579356185a.26.2026.08.24.13.20.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 24 Aug 2026 13:20:01 -0700 (PDT)
+From: Zain Aboobacker <zainaboobacker33@gmail.com>
+To: Nick Li <nick.li@foursemi.com>,
+	Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Zain Aboobacker <zainaboobacker33@gmail.com>
+Subject: [PATCH] ASoC: dt-bindings: foursemi,fs2105s: Fix typo
+Date: Mon, 24 Aug 2026 16:19:51 -0400
+Message-ID: <20260824201951.3116-1-zainaboobacker33@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] `glanda_crtc_enable_vblank()` enables the hardware VSYNC interrupt=
- without checking if an IRQ handler is registered, leading to an interrupt =
-storm in polling mode.
-- [High] VRAM is mapped using standard I/O instead of Write-Combining, caus=
-ing a severe performance regression.
-- [Medium] Unconditionally enabling the VSYNC interrupt during initializati=
-on bypasses DRM core's state management, causing unnecessary CPU wakes.
-- [Low] Unconditional usage of PCI APIs breaks the build when `CONFIG_PCI` =
-is disabled under `COMPILE_TEST`.
---
+Correct the misspelling of "generated" in the FS2105S binding.
 
---- Patch [2]: [PATCH v3 2/2] drm/glanda: Add initial DRM driver for Glanda=
-GPU ---
-commit a32b58ce69a1f7f207f85c416ed56ab0c146bd56
-Author: Leander Kieweg <kieweg.leander@gmail.com>
+Signed-off-by: Zain Aboobacker <zainaboobacker33@gmail.com>
+---
+ Documentation/devicetree/bindings/sound/foursemi,fs2105s.yaml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-drm/glanda: Add initial DRM driver for GlandaGPU
+diff --git a/Documentation/devicetree/bindings/sound/foursemi,fs2105s.yaml b/Documentation/devicetree/bindings/sound/foursemi,fs2105s.yaml
+index 4da735317e0f..17c938a565e5 100644
+--- a/Documentation/devicetree/bindings/sound/foursemi,fs2105s.yaml
++++ b/Documentation/devicetree/bindings/sound/foursemi,fs2105s.yaml
+@@ -63,7 +63,7 @@ properties:
+       a. Register initialization settings
+       b. DSP effect parameters
+       c. Multi-scene sound effect configurations(optional)
+-      It's gernerated by FourSemi's tuning tool.
++      It's generated by FourSemi's tuning tool.
+ 
+ required:
+   - compatible
+-- 
+2.53.0
 
-This commit introduces a new DRM/KMS driver for the GlandaGPU display
-controller. It supports basic modesetting and atomic updates via shadow
-planes, and allows for both platform and PCI probing.
-
-> diff --git a/drivers/gpu/drm/tiny/glandagpu.c b/drivers/gpu/drm/tiny/glan=
-dagpu.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tiny/glandagpu.c
-
-[ ... ]
-
-> +static int glanda_crtc_enable_vblank(struct drm_crtc *crtc)
-> +{
-> +	struct glanda_device *gdev =3D to_glanda(crtc->dev);
-> +	u32 ier;
-> +
-> +	ier =3D readl(gdev->mmio_base + REG_IER);
-> +	writel(ier | INT_VSYNC, gdev->mmio_base + REG_IER);
-
-[Severity: High]
-Could this cause an unhandled interrupt storm in polling mode?
-
-If the driver falls back to polling mode, such as when
-platform_get_irq_optional() returns -ENXIO, gdev->irq is set to -1
-and no handler is registered. If a userspace application calls
-DRM_IOCTL_WAIT_VBLANK, the DRM core will invoke this callback and enable
-the hardware vsync interrupt.
-
-Since there is no IRQ handler to clear the REG_ISR register, the hardware
-will keep the interrupt line asserted, which might disable a shared
-interrupt line and affect other devices.
-
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static int glanda_drm_init(struct glanda_device *gdev, int irq)
-> +{
-
-[ ... ]
-
-> +	if (irq > 0) {
-> +		gdev->irq =3D irq;
-> +		ret =3D devm_request_irq(gdev->drm.dev, gdev->irq, glanda_irq_handler,
-> +				       IRQF_SHARED, "glandagpu", gdev);
-> +		if (ret) {
-> +			drm_err(&gdev->drm, "Failed to request IRQ %d\n",
-> +				gdev->irq);
-> +			return ret;
-> +		}
-> +
-> +		writel(INT_VSYNC, gdev->mmio_base + REG_IER);
-
-[Severity: Medium]
-Is it necessary to unconditionally enable the hardware vsync interrupt here?
-
-The DRM core initializes software vblank state as disabled. Because it is
-already considered disabled, the core won't call the disable_vblank()
-callback. This means the hardware will fire vsync interrupts continuously
-from the moment the driver loads, even when the display is idle.
-
-> +	} else {
-> +		drm_warn(&gdev->drm, "No IRQ found, falling back to polling\n");
-> +	}
-
-[ ... ]
-
-> +static int glandagpu_probe(struct platform_device *pdev)
-> +{
-
-[ ... ]
-
-> +	if (resource_size(res) < GLANDA_MMIO_OFFSET + GLANDA_MMIO_SIZE) {
-> +		dev_err(&pdev->dev, "MMIO region too small: %llu bytes, need at least =
-%u\n",
-> +			(unsigned long long)resource_size(res),
-> +			GLANDA_MMIO_OFFSET + GLANDA_MMIO_SIZE);
-> +		return -EINVAL;
-> +	}
-> +
-> +	gdev->vram_phys =3D res->start;
-> +	gdev->vram_base =3D devm_ioremap(&pdev->dev, res->start, GLANDA_VRAM_SI=
-ZE);
-
-[Severity: High]
-Will this cause severe CPU stalling during atomic frame updates?
-
-The devm_ioremap() function creates a strongly uncacheable memory mapping.
-Since glanda_plane_atomic_update() writes hundreds of thousands of pixels
-individually using writel_relaxed(), each write will traverse the bus
-separately.
-
-Should this memory be mapped using write-combining (e.g., devm_ioremap_wc())
-so the CPU can burst writes efficiently?
-
-> +	gdev->mmio_base =3D devm_ioremap(&pdev->dev, res->start + GLANDA_MMIO_O=
-FFSET,
-> +								   GLANDA_MMIO_SIZE);
-
-[ ... ]
-
-> +static struct platform_driver glandagpu_driver =3D {
-> +	.driver =3D {
-> +		.name =3D "glandagpu",
-> +		.of_match_table =3D glanda_of_match,
-> +	},
-> +	.probe =3D glandagpu_probe,
-> +	.remove =3D glandagpu_remove,
-> +};
-> +
-> +/* PCI probe path for the QEMU test device, real hardware uses platform_=
-driver */
-> +static int glandagpu_pci_probe(struct pci_dev *pdev, const struct pci_de=
-vice_id *id)
-> +{
-
-[Severity: Low]
-Does this code break the build when the kernel is configured with
-CONFIG_DRM_GLANDA=3Dy, CONFIG_COMPILE_TEST=3Dy, and CONFIG_PCI=3Dn?
-
-The Kconfig explicitly allows building without PCI for test coverage, but
-functions like pcim_iomap_regions() and pcim_iomap_table() do not have
-fallback stubs in the headers when PCI is disabled.
-
-Should the PCI-specific driver code be guarded by #ifdef CONFIG_PCI?
-
-> +	struct glanda_device *gdev;
-> +	int ret;
-> +
-> +	ret =3D pcim_enable_device(pdev);
-> +	if (ret)
-> +		return ret;
-> +	pci_set_master(pdev);
-> +
-> +	if (pci_resource_len(pdev, 0) < GLANDA_MMIO_SIZE ||
-> +		pci_resource_len(pdev, 1) < GLANDA_VRAM_SIZE) {
-> +		dev_err(&pdev->dev, "BAR too small: BAR0=3D%llu (need %u), BAR1=3D%llu=
- (need %u)\n",
-> +			(unsigned long long)pci_resource_len(pdev, 0), GLANDA_MMIO_SIZE,
-> +			(unsigned long long)pci_resource_len(pdev, 1), GLANDA_VRAM_SIZE);
-> +		return -EINVAL;
-> +	}
-> +
-> +	ret =3D pcim_iomap_regions(pdev, BIT(0) | BIT(1), "glandagpu");
-
-[Severity: High]
-Similar to the platform probe, does this create a strongly uncacheable
-mapping for VRAM?
-
-pcim_iomap_regions() defaults to standard I/O mappings. This will likely
-cause the same performance degradation during frame updates.
-
-> +	if (ret)
-> +		return ret;
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824195418.1770=
-7-1-kieweg.leander@gmail.com?part=3D2
