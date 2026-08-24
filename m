@@ -1,169 +1,112 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DCF444C50A;
-	Mon, 24 Aug 2026 15:44:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BD4544D693;
+	Mon, 24 Aug 2026 15:46:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787586278; cv=none; b=As4vUVVuCIq2pEzZRbfxzVacgC9UmtBQmgJikFoVYx2fy4TDk6LdqnrOL/VhQgk/kDJbzDjHrqnRxnsz6Zvp5AAQ+Gi8Qr9Y8UGyWlPkr7/zhGAnYwyenapCsBwQy8ejgj4HnCWXw06Zkh+DpcgUzfJYcY/a0A+sNzGmcqx1+4k=
+	t=1787586400; cv=none; b=no6h8wk8Yjtvv7+0Nxjfxh/+GCLvSZZPQ+0+0tXchUluy9nxuPNCzNSuvwzuiaX8nFIH/P9ADslQz62jQ6G9i3WrxHypOI+sPIs9Axtx6ufeDe25/Ps0R6oYlBXKEid0L0X3Ix8xVnZrCm4GFJyBmTpNxJ+gwb0Hkb+P3kWs+SM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787586278; c=relaxed/simple;
-	bh=9iHx6FAw7+VntXPaX72ZXc+yZ4757eFeoDhaDU1odnU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ABZJVj19cY9lVy7ICKQMBPd5+OVJ3Bd8Gqo/vpvYfypLyjVLUc7FzL4+fTOgOGjlG2WFszvtrITfjPrbOFlkdUv6GtAQJIocAdpGvVVEILPIwoG8fRt1O+C1fIzc6mm+UfSsjfTsrE0HvWuCM2Lp+q6Mpul4aTxaV2yznGBxbng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id EB63A200F4F;
-	Mon, 24 Aug 2026 17:44:27 +0200 (CEST)
-Message-ID: <246663148696324c7e625a9227faf275ee0730a7.camel@pengutronix.de>
-Subject: Re: [PATCH v5 8/8] mmc: sdhci-cadence: add Altera Agilex5 SD6HC
- support
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Tanmay Kathpalia <tanmay.kathpalia@altera.com>, linux-mmc@vger.kernel.org
-Cc: ulfh@kernel.org, adrian.hunter@intel.com, krzk+dt@kernel.org,
- robh@kernel.org, 	conor+dt@kernel.org, dinguyen@kernel.org,
- devicetree@vger.kernel.org, 	linux-kernel@vger.kernel.org
-Date: Mon, 24 Aug 2026 17:44:27 +0200
-In-Reply-To: <20260820185721.22823-9-tanmay.kathpalia@altera.com>
-References: <20260820185721.22823-1-tanmay.kathpalia@altera.com>
-	 <20260820185721.22823-9-tanmay.kathpalia@altera.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	s=arc-20240116; t=1787586400; c=relaxed/simple;
+	bh=uK79qjAHQ3AeX/ICLt1IK3Zc2rMOVt3EIxkbNN6yzcA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=EpQpcwTuzAAV7yl/ih7rYQJ/U++C6biHPUYvjKmx02LQ72qe2JbwG9Os50ViS8/RXCcJzaD4lnr2gC20g+LuQEhwder/mCSTipG+xX1/WHSlaOTpZQDFtxTuI2ydVliGnft60z3GmCRYB0Y2lBZfby3KnPJL05Ft1wd1cQRUEv0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oKdqsc2g; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oKdqsc2g"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 18E53C19425;
+	Mon, 24 Aug 2026 15:46:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1787586399;
+	bh=uK79qjAHQ3AeX/ICLt1IK3Zc2rMOVt3EIxkbNN6yzcA=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=oKdqsc2g5hSpUKr7v9UuVXoPwaZE8E6wEkEHW2jFd/xn++HvYMe55h7H6ujd3OXj0
+	 LDhWTbcwnZ5o1dMnDyHn6Y0OyvyakC7Vg/XpDxnvIGkLjBB7oGdzemtUR39FrbDjiI
+	 sH/dwG6QOLEtLah8Fcp2p5VHdxIpwOjfxONvYRB9HnkEwsU/HtzIg3D9+ogsDvtQ73
+	 KpTwsTky+QmxHRXzguNQQFcnWc+ioZdNPx3R6V1lSrRcNoazN9+Pg255qEU8LwysyP
+	 +YYob+1tFHp9duFUsTeDEadSptI7GZG1WzHh5oNHWON7f8mRqWG9Vowj3rlqclXXGk
+	 a5We6Vpyy18Zw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E9E19C5DF94;
+	Mon, 24 Aug 2026 15:46:38 +0000 (UTC)
+From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
+Date: Mon, 24 Aug 2026 17:46:36 +0200
+Subject: [PATCH] dt-bindings: hwmon: ti,tmp401: add vcc-supply and
+ #thermal-sensor-cells
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260824-for-upstream-dt-tmp401-vcc-tsc-v1-1-ecb5ef7898bd@free.fr>
+X-B4-Tracking: v=1; b=H4sIAFtnjGoC/x3NwQqDMAyA4VeRnBdou07EV5EdaoxbDmpJqgjiu
+ 6/s+F3+/wJjFTbomwuUDzHZ1gr/aIC+af0wylQNwYXWdSHivCnu2YpyWnAqWJYcnceDCIsRJt+
+ OTN3zFThCjWTlWc7/YHjf9w+FU6QHcAAAAA==
+To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Vincent Jardin <vjardin@free.fr>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787586398; l=1364;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=P+vvtVa9Xt5cHsZaKRS93Aih5rhUVfFYRpn5jmhnpxM=;
+ b=tyqh1tD1gWbAy0YYrloa/Zvko1FEsMvJGZPig0Y/hhR72qRY3lPu+U5Y750Qap2yS7PRxopyL
+ C4Cmwnwe4M1DBtU9GERurozcJpLm4wnr/e1mcojtfHCg4rkRugJwSh9
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
+ auth_id=871
+X-Original-From: Vincent Jardin <vjardin@free.fr>
+Reply-To: vjardin@free.fr
 
-On Do, 2026-08-20 at 11:57 -0700, Tanmay Kathpalia wrote:
-> The Altera Agilex5 SoC integrates a Cadence SD6HC controller that needs
-> platform-specific configuration to operate correctly.
->=20
-> The SoC requires three named resets: "sdhc-reset", "combophy", and
-> "sdmmc-ocp". All three are exclusive and must be asserted together before
-> being released, so the SDHCI, SoftPHY, and OCP/AXI clock domains cross th=
-e
-> reset boundary simultaneously. SoftPHY is shared with NAND at the SoC
-> level, but only one of SDMMC or NAND is enabled on a given board.
->=20
-> The IOMMU maps DMA addresses within a 40-bit physical address space, so
-> the DMA mask is capped at 40 bits to prevent allocation beyond the
-> controller's reach.
->=20
-> The silicon requires the MULTIBLOCK_READ_ACMD12, CAP_CLOCK_BASE_BROKEN,
-> PRESET_VALUE_BROKEN, and ACMD23_BROKEN quirks. Since
-> CAP_CLOCK_BASE_BROKEN prevents reading the base clock from the
-> capabilities register, the maximum clock is supplied from the platform
-> clock instead.
->=20
-> Signed-off-by: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
-> Acked-by: Adrian Hunter <adrian.hunter@intel.com>
-> ---
->  drivers/mmc/host/sdhci-cadence-core.c | 85 +++++++++++++++++++++++++++
->  1 file changed, 85 insertions(+)
->=20
-> diff --git a/drivers/mmc/host/sdhci-cadence-core.c b/drivers/mmc/host/sdh=
-ci-cadence-core.c
-> index 18a5329f27db..e215f6a4c344 100644
-> --- a/drivers/mmc/host/sdhci-cadence-core.c
-> +++ b/drivers/mmc/host/sdhci-cadence-core.c
-> @@ -7,6 +7,7 @@
-> =20
->  #include <linux/bitfield.h>
->  #include <linux/bits.h>
-> +#include <linux/dma-mapping.h>
->  #include <linux/iopoll.h>
->  #include <linux/module.h>
->  #include <linux/mmc/host.h>
-> @@ -90,6 +91,7 @@ struct sdhci_cdns4_phy_cfg {
->  struct sdhci_cdns_drv_data {
->  	int (*init)(struct platform_device *pdev);
->  	const struct sdhci_pltfm_data pltfm_data;
-> +	u64 dma_mask;
->  };
-> =20
->  static const struct sdhci_cdns4_phy_cfg sdhci_cdns4_phy_cfgs[] =3D {
-> @@ -196,6 +198,23 @@ static unsigned int sdhci_cdns_get_timeout_clock(str=
-uct sdhci_host *host)
->  	return host->max_clk;
->  }
-> =20
-> +static int sdhci_cdns_set_dma_mask(struct sdhci_host *host)
-> +{
-> +	const struct sdhci_cdns_drv_data *data;
-> +	struct device *dev =3D mmc_dev(host->mmc);
-> +	int ret;
-> +
-> +	data =3D of_device_get_match_data(dev);
-> +	if (!data || !data->dma_mask)
-> +		return 0;
-> +
-> +	ret =3D dma_set_mask_and_coherent(dev, data->dma_mask);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to set DMA mask\n");
-> +
-> +	return 0;
-> +}
-> +
->  static void sdhci_cdns_set_emmc_mode(struct sdhci_cdns_priv *priv, u32 m=
-ode)
->  {
->  	u32 tmp;
-> @@ -462,6 +481,44 @@ static int elba_drv_init(struct platform_device *pde=
-v)
->  	return 0;
->  }
-> =20
-> +static int sdhci_cdns6_agilex5_init(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct reset_control_bulk_data resets[] =3D {
-> +		{ .id =3D "sdhc-reset" },
-> +		{ .id =3D "combophy" },
-> +		{ .id =3D "sdmmc-ocp" },
-> +	};
-> +	int ret;
-> +
-> +	/*
-> +	 * Assert SDHCI, SoftPHY (combophy), and SDMMC OCP/AXI resets together
-> +	 * so their active periods overlap before all domains are released.
-> +	 * SoftPHY is shared with NAND, but only one of SDMMC
-> +	 * or NAND is enabled on a given board.
-> +	 */
-> +	ret =3D reset_control_bulk_get_exclusive(dev, ARRAY_SIZE(resets), reset=
-s);
+From: Vincent Jardin <vjardin@free.fr>
 
-Why not devm_reset_control_bulk_get_exclusive()?
+Both properties are used by the driver that backs this binding, and
+neither is described, so a board that supplies either fails dtbs_check:
 
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to get resets\n");
-> +
-> +	ret =3D reset_control_bulk_assert(ARRAY_SIZE(resets), resets);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "failed to assert resets\n");
-> +		goto out_put;
-> +	}
-> +
-> +	/* Hold resets asserted long enough for all clock domains to capture. *=
-/
-> +	usleep_range(10, 20);
-> +
-> +	ret =3D reset_control_bulk_deassert(ARRAY_SIZE(resets), resets);
-> +	if (ret)
-> +		dev_err_probe(dev, ret, "failed to deassert resets\n");
-> +
-> +out_put:
-> +	reset_control_bulk_put(ARRAY_SIZE(resets), resets);
+  tmp411@4c (ti,tmp411): '#thermal-sensor-cells', 'vcc-supply' do not
+  match any of the regexes: '^pinctrl-[0-9]+$'
 
-This happens to work as long as nothing else grabs the reset controls
-afterwards, but it is technically incorrect. In the ret =3D=3D 0 case the
-resets are expected to stay deasserted for the lifetime of the device,
-so we shouldn't give up control here.
+vcc-supply is fetched in lm90_probe():
 
-regards
-Philipp
+  drivers/hwmon/lm90.c:2777
+        err = devm_regulator_get_enable(dev, "vcc");
+
+so a board with the sensor behind a switched rail has no other way to
+describe it, and omitting it means the chip is probed with its supply
+possibly off.
+
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
+---
+ Documentation/devicetree/bindings/hwmon/ti,tmp401.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/hwmon/ti,tmp401.yaml b/Documentation/devicetree/bindings/hwmon/ti,tmp401.yaml
+index 0e8ddf0ad7890..69f77aec01a33 100644
+--- a/Documentation/devicetree/bindings/hwmon/ti,tmp401.yaml
++++ b/Documentation/devicetree/bindings/hwmon/ti,tmp401.yaml
+@@ -50,6 +50,11 @@ properties:
+     minimum: 0
+     maximum: 15
+ 
++  vcc-supply: true
++
++  "#thermal-sensor-cells":
++    const: 1
++
+ allOf:
+   - if:
+       properties:
+
+---
+base-commit: 0a0d1d55dad570724bf8c7ea83409639cfb4be9b
+change-id: 20260824-for-upstream-dt-tmp401-vcc-tsc-a16bec8352e4
+
+Best regards,
+-- 
+Vincent Jardin <vjardin@free.fr>
+
+
