@@ -1,158 +1,163 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com [209.85.160.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2347E368D62;
-	Mon, 24 Aug 2026 14:52:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01D1E3655CA
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 15:02:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787583172; cv=none; b=j6tcGsxmagfBT2jfe1uvSR9f2W6vWTWy92T4KM7yfNid49bYplRLvhQp2H1CXsDKo5wvkuE+lBAQf4Br+FmmoXP950fSzc4SBKdoj9gaDqxoAQAMIHUxy7mlpsRP2EBv32hdULi8S0eJYOFZeyeMWv15bCeCB+YniwOrVEWFB6M=
+	t=1787583744; cv=none; b=ODAntlOmVDeJN/Am+Lq5ylMSa46ZPV7AFD6xO8/YECLtoC2osMgcIZ8t0NGinblOk5aQlP28sW2BMS7Mu9VcT1c4Mr8YPZ14NzggcagcyypORwc8OHK+s4THhppF7RQOHDu+YFtBQ63Pc26UqEhlHS9KdNAXH4dVBnF6P22dDso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787583172; c=relaxed/simple;
-	bh=vK5KrI85B7Cn4xzAeelxtYqcSDq5NxepkCxJpxY3gl0=;
-	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=mKUFHNwGy5e4jppXB0LB/Cw2UFwbNTmVY+qMc5s40unQ2WZ6S6DE3Ixj/5j0qWYGEeIN5lfH75U9pjQHKC6tNwzImoxsDTj80VA3H3aSeh9bZIpzNWtCvhuWLSf1szhWatfjcpDAxMU8DM5PnaAYjT0FcjDg9JGRH08OwJJNefY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 27528200F4F;
-	Mon, 24 Aug 2026 16:52:43 +0200 (CEST)
-Message-ID: <f419c95ff3f97e25593557234d1b2276ba6cf453.camel@pengutronix.de>
-Subject: Re: [PATCH v5 2/2] PCI: mediatek-gen3: Add 2-lanes mode support for
- Airoha AN7581
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Christian Marangi <ansuelsmth@gmail.com>, Lorenzo Pieralisi	
- <lpieralisi@kernel.org>, Krzysztof =?UTF-8?Q?Wilczy=C5=84ski?=	
- <kwilczynski@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, Rob
- Herring	 <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, Krzysztof
- Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Ryder
- Lee	 <ryder.lee@mediatek.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Jianjun Wang <jianjun.wang@mediatek.com>, 	linux-pci@vger.kernel.org,
- devicetree@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- linux-mediatek@lists.infradead.org, 	linux-arm-kernel@lists.infradead.org
-Date: Mon, 24 Aug 2026 16:52:43 +0200
-In-Reply-To: <20260806165334.7328-3-ansuelsmth@gmail.com>
-References: <20260806165334.7328-1-ansuelsmth@gmail.com>
-	 <20260806165334.7328-3-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	s=arc-20240116; t=1787583744; c=relaxed/simple;
+	bh=Ty0g4P4F7c+Qc5dUbLKGZwOoXgVcOPCAOWMPRmFgvFs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e/fPKJOo8pVuPUwGTIbgQ2hQUBlV9/G5g8J6P4wlTNJLHlS5RUPn8IsNFAoVzFVK3F9Z9VcNd8KJvcVQUKNhVjqo8g4VATWhS8aYpD2ydWR1o5hn51U5LwZVoTJ3YLGk/3qkomkNl0Kib3nvi+RS3IbKd5zFrkPsAxOXCgPXVMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ji5eJioI; arc=none smtp.client-ip=209.85.160.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ji5eJioI"
+Received: by mail-oa1-f44.google.com with SMTP id 586e51a60fabf-45837e52d8aso3296312fac.0
+        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 08:02:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787583741; x=1788188541; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DuO7/PraFPSbHMi7EyxWPZg5tO+DugLz4X8jMJoOXHs=;
+        b=Ji5eJioI1+hfuihFbTVgwTol6EiFI51s/ShUsegWUUmbBtO7QqVnYLTQNRIStXghcy
+         W7B0XSj1nFOxlOVLn+Zagj05GrcxmkCjxqVu0Ch59oecSGRXHOpe6M+dQmj/8Vh/MCvY
+         LUN09uySSmXpgIlkL7raFwhXWf/JrevHCCF725srAUbP5nPVKDwCVGSuN0bRJ9pzv2qR
+         S8cizALTtfVztnu+Ksnn8JRbfYsVM51gs17JoYN7WQegwXqgawRKgHCRA2FeL2hbcRJe
+         IIokaULSW6wA1pQgKfeAB1tgnShmiIEEYjaxwRA+305usgd4Dko4CAduBEFSmqCk3FdN
+         NMOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787583741; x=1788188541;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DuO7/PraFPSbHMi7EyxWPZg5tO+DugLz4X8jMJoOXHs=;
+        b=EY/SFbZGlx4+JEXtA+PYBIw3sWo52rnNYUCSJimMIHXjDEiEnepPTZZV7Z9AVReMbY
+         eKp0Y6AZ7v8BUKegxax1PNTk6S+rHqfYZZBFel3FNEOPbMKyPAwyMdJ4DbI2DKdIjVkW
+         pJMNE4FgeDixxVi9XX3ZUSdA0S1tkBIxeCtMP53UaA6MG+sk5oehWm615Z+Q7Cgo9vyC
+         Y3WzVBLOuNAXAj9Xy4Mkn6FZdAa1YORXuHDAEEd7cxI5oSY6ciyVN1Ei/fQ2bik7a4C7
+         eKqLgyAvnwcHmG3MkawCKHyKQH6TAlMSGCA1AxAx3BKGzXcSRNCSnap92/KKW+WUQBgj
+         XMtw==
+X-Forwarded-Encrypted: i=1; AHgh+RqUrnl4KbG5kUilbl2fsXsWwuln0J62odWSSSKBvabIgD73IsUyAc2zw1WJ4Hrfp7V9dyZYydeEKUel@vger.kernel.org
+X-Gm-Message-State: AFuF++kuT6uSqANXlMIHO4Og6CemUZcx1bFkgi2EzH7uxzOowfv23Tjf
+	56PMwn3WHx2h0YY0LOEIJbYUPDw2Fd15xYIopnjExn7+tmp3gHmnY5yw
+X-Gm-Gg: AR+sD10ZgYimh/h4uXE/lBqjLbv6VTr/FIy4RDRAyDW3NMoR4OaAQWZZx1PQTEIzVBa
+	XsgClQPi1hvGxl7nvaFVEKZ1pb//N62K6vMg3COI+ZCq0CKHxt8z/NAhyUQgjGYtr6qcHNTQEMI
+	pUk9wjNksWlYmqHvdmD0MK/snGC1fHWj8Ya0UYyFkN1Gam3xb+gLRJS56t1AgETLHug+eC6S6ty
+	uwOsgZi2s8xdkTWVI9B3EnSCd9/H9Q0wclVzh6/6ACGpuFxrkfVoGh83L5y67K7YWNGyQnFv8VF
+	RovjZ0Syo/WHKpmPJuTtaCXUW7cZYMTgIinUYuGK+uNyM6niLZ/qzxXgQ82LGvTgJqjNmL4sBs8
+	8AAbvMleFHEhJPWRJ6n2NXuGws2W8JhrR1bejdpRPHiiTL6OiUHUxIb0PWNa4cyPocZygxo+1ih
+	papk+YcEtW4m5vZJyY1GpI0TwY4bOeWvpSK37yUXYZZXMgYJoS8w1cvfBHVAMIWQjAo9Ts5PI19
+	nVDieMtQ7kK
+X-Received: by 2002:a05:6820:151a:b0:6a1:47ad:d18e with SMTP id 006d021491bc7-6b159199686mr26114840eaf.2.1787583740856;
+        Mon, 24 Aug 2026 08:02:20 -0700 (PDT)
+Received: from localhost.localdomain ([152.59.223.115])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327f91d381csm30035247eec.19.2026.08.24.08.02.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 24 Aug 2026 08:02:18 -0700 (PDT)
+From: Sreeshankar K <sreeshankar0910@gmail.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andersson@kernel.org,
+	mturquette@baylibre.com,
+	sboyd@kernel.org,
+	rafael@kernel.org,
+	viresh.kumar@linaro.org,
+	konradybcio@kernel.org,
+	tglx@kernel.org,
+	ulfh@kernel.org
+Cc: bmasney@redhat.com,
+	radu@rendec.net,
+	abel.vesa@oss.qualcomm.com,
+	lpieralisi@kernel.org,
+	taniya.das@oss.qualcomm.com,
+	danila@mainlining.org,
+	davidwronek@gmail.com,
+	mani@kernel.org,
+	robimarko@gmail.com,
+	linux@gurudas.dev,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	Sreeshankar K <sreeshankar0910@gmail.com>
+Subject: [PATCH v6 00/13] Add initial support for Qualcomm SM7250 SoC
+Date: Mon, 24 Aug 2026 15:01:43 +0000
+Message-ID: <20260824150156.1310-1-sreeshankar0910@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Do, 2026-08-06 at 18:53 +0200, Christian Marangi wrote:
-> The Airoha AN7581 SoC supports configuring the first PCIe0 lane to 2-lane=
-s
-> mode (x2 link) by bonding it with the second PCIe lane (PCIe1). This is
-> done by configuring the PCIe MUX in the SCU register.
->=20
-> To correctly configure PCIe0 in x2 link, define in DT the following
-> additional properties:
->=20
->   - additional reg, 'sec-pcie-mac' for the secondary PCIe.
->   - PERSTOUT reset for both main and secondary PCIE0, called 'perstout' a=
-nd
->     'sec-perstout'
->   - 'airoha,scu' property to correctly configure the SCU register for the
->     PCIe MUX
->   - 'num-lanes' set to '2' to enable PCIe0 in x2 link
->=20
-> In such configuration the EQ preset are configured to the same values.
->=20
-> To permit correct configuration of the PCIe link, additional logic is add=
-ed
-> to assert and deassert the PERSTOUT resets. Support of these additional
-> reset was introduced in Airoha clk driver with commit
-> 6712f48eb3a1 ("clk: en7523: add support for dedicated PCIe PERSTOUT reset=
-")
-> and on backporting of this commit also the clk driver change will be
-> needed.
->=20
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-> ---
->  drivers/pci/controller/pcie-mediatek-gen3.c | 106 ++++++++++++++++----
->  1 file changed, 89 insertions(+), 17 deletions(-)
->=20
-> diff --git a/drivers/pci/controller/pcie-mediatek-gen3.c b/drivers/pci/co=
-ntroller/pcie-mediatek-gen3.c
-> index b0accd828589..c8300c47374b 100644
-> --- a/drivers/pci/controller/pcie-mediatek-gen3.c
-> +++ b/drivers/pci/controller/pcie-mediatek-gen3.c
-> @@ -32,6 +32,11 @@
-> =20
->  #include "../pci.h"
-> =20
-> +/* AN7581 SCU register */
-> +#define SCU_PCIC			0x88
-> +#define SCU_PCIC_PCIE_CTRL		GENMASK(7, 0)
-> +
-> +/* PCIe register */
->  #define PCIE_BASE_CFG_REG		0x14
->  #define PCIE_BASE_CFG_SPEED		GENMASK(15, 8)
-> =20
-> @@ -131,6 +136,7 @@
->  #define PCIE_ATR_TLP_TYPE_IO		PCIE_ATR_TLP_TYPE(2)
-> =20
->  #define MAX_NUM_PHY_RESETS		3
-> +#define MAX_NUM_PERSTOUT_RESETS		2
-> =20
->  #define PCIE_MTK_RESET_TIME_US		10
-> =20
-> @@ -203,9 +209,11 @@ struct mtk_msi_set {
->  struct mtk_gen3_pcie {
->  	struct device *dev;
->  	void __iomem *base;
-> +	void __iomem *sec_base;
->  	phys_addr_t reg_base;
->  	struct reset_control *mac_reset;
->  	struct reset_control_bulk_data phy_resets[MAX_NUM_PHY_RESETS];
-> +	struct reset_control_bulk_data perstout_resets[MAX_NUM_PERSTOUT_RESETS]=
-;
->  	struct phy *phy;
->  	struct clk_bulk_data *clks;
->  	int num_clks;
-> @@ -928,6 +936,14 @@ static int mtk_pcie_parse_port(struct mtk_gen3_pcie =
-*pcie)
->  	if (ret)
->  		return dev_err_probe(dev, ret, "failed to get PHY bulk reset\n");
-> =20
-> +	pcie->perstout_resets[0].id =3D "perstout";
-> +	pcie->perstout_resets[1].id =3D "sec-perstout";
-> +
-> +	ret =3D devm_reset_control_bulk_get_optional_exclusive(dev, MAX_NUM_PER=
-STOUT_RESETS,
-> +							     pcie->perstout_resets);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to get PERSTOUT bulk reset\n");
+This patchset introduces foundational upstream support for the Qualcomm SM7250
+SoC (internally codenamed Lito).
 
-"bulk" is a property of the API, not the reset controls. Maybe just
-"failed to get PERSTOUT resets"?
+SM7250 is an ARMv8.2-A platform manufactured on a 7nm process, featuring an
+octa-core Kryo 475 CPU configuration (1x Prime Cortex-A76, 1x Gold Cortex-A76,
+and 6x Silver Cortex-A55) and Adreno 620 GPU.
 
-> +
->  	pcie->mac_reset =3D devm_reset_control_get_optional_exclusive(dev, "mac=
-");
->  	if (IS_ERR(pcie->mac_reset))
->  		return dev_err_probe(dev, PTR_ERR(pcie->mac_reset), "failed to get MAC=
- reset\n");
-[...]
-> @@ -992,6 +1028,19 @@ static int mtk_pcie_en7581_power_up(struct mtk_gen3=
-_pcie *pcie)
->  	size =3D lower_32_bits(resource_size(entry->res));
->  	regmap_write(pbus_regmap, args[1], GENMASK(31, __fls(size)));
-> =20
-> +	/* Assert PERSTOUT for all relevant lanes */
-> +	err =3D reset_control_bulk_assert(MAX_NUM_PERSTOUT_RESETS,
-> +					pcie->perstout_resets);
+This patchset is organized as follows:
+> Document relevant device tree bindings (SoC ID, Kryo 475 CPUs, SCM, PDC,
+RPMh clocks/power domains, GCC and cpufreq hardware).
+> Add driver support for SM7250 in socinfo, rpmh-clk, rpmhpd, and GCC.
+> Add the base SoC DTSI (sm7250.dtsi) defining the cpus, PSCI,
+interrupt controllers, clock providers, power domains, and reserved memory.
 
-Isn't there a possible error return before this? Should the PERSTOUT
-resets be asserted in those error cases as well?
+Dependencies:
+This patchset depends on the following patch:
+> [PATCH] dt-bindings: clock: qcom,sm6375-gcc: Merge SM7150 into SM6375
+Link: https://lore.kernel.org/linux-arm-msm/20260817082457.64797-2-krzysztof.kozlowski@oss.qualcomm.com/T/#t
 
+[PATCH v5] Link: https://lore.kernel.org/linux-arm-msm/20260824130437.2771-1-sreeshankar0910@gmail.com/T/#t
 
-regards
-Philipp
+Changes in [PATCH v6]:
+[PATCH v6 04/13]: clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
+> Make all clk_init_data instances const across the driver.
+
+Sreeshankar K (13):
+  dt-bindings: arm: qcom,ids: Add SoC ID for SM7250
+  soc: qcom: socinfo: Add SM7250 SoC ID
+  dt-bindings: clock: Add SM7250 global clock controller
+  clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
+  dt-bindings: clock: qcom,rpmhcc: Document RPMHCC compatible for SM7250
+  clk: qcom: rpmh: Add SM7250 rpmh clocks
+  dt-bindings: power: qcom,rpmhpd: Document RPMh power domain for SM7250
+  pmdomain: qcom: rpmhpd: Add RPMh power domains for SM7250
+  dt-bindings: arm: cpus: Document Kryo 475 CPUs
+  dt-bindings: firmware: qcom,scm: Document SM7250 SCM
+  dt-bindings: interrupt-controller: qcom,pdc: Document SM7250 PDC
+  dt-bindings: cpufreq: qcom-hw: Document SM7250 cpufreq hardware
+  arm64: dts: qcom: Add SM7250 devicetree file
+
+ .../devicetree/bindings/arm/cpus.yaml         |    1 +
+ .../bindings/clock/qcom,rpmhcc.yaml           |    1 +
+ .../bindings/clock/qcom,sm6375-gcc.yaml       |    4 +-
+ .../bindings/cpufreq/cpufreq-qcom-hw.yaml     |    1 +
+ .../bindings/firmware/qcom,scm.yaml           |    1 +
+ .../interrupt-controller/qcom,pdc.yaml        |    1 +
+ .../devicetree/bindings/power/qcom,rpmpd.yaml |    1 +
+ arch/arm64/boot/dts/qcom/sm7250.dtsi          |  771 ++++++
+ drivers/clk/qcom/Kconfig                      |    9 +
+ drivers/clk/qcom/Makefile                     |    1 +
+ drivers/clk/qcom/clk-rpmh.c                   |   24 +
+ drivers/clk/qcom/gcc-sm7250.c                 | 2275 +++++++++++++++++
+ drivers/pmdomain/qcom/rpmhpd.c                |   19 +
+ drivers/soc/qcom/socinfo.c                    |    1 +
+ include/dt-bindings/arm/qcom,ids.h            |    1 +
+ include/dt-bindings/clock/qcom,sm7250-gcc.h   |  163 ++
+ 16 files changed, 3273 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm64/boot/dts/qcom/sm7250.dtsi
+ create mode 100644 drivers/clk/qcom/gcc-sm7250.c
+ create mode 100644 include/dt-bindings/clock/qcom,sm7250-gcc.h
+
+-- 
+2.43.0
+
