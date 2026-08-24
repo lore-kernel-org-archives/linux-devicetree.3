@@ -1,117 +1,102 @@
 Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B0DB3451B5
-	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 07:20:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28B591990C7
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 07:23:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787556005; cv=none; b=WtkPs2RzrBdVLGXm4Go/Q+adBqlhbi+8CEZiBgGG4Y6WzeqtrrWg2b6IcoWXnAMbKnwFjSmHId/nckftsN9lOOZ5JdzkT2fB5t4vfoVsD6UzP/iHYOr+dCXR8aGUv8PvP2wUnek2VMWuNMKSvwS9BIHWUTPJFI/TlvPeh78FJJ8=
+	t=1787556241; cv=none; b=OzKrHW69A9KftpbOYBy44RodJVA1Q3VmSFwVF7p0UXrNwqjlQYfN2YpjgCfCR8p+MoxsSIUeGzFgLwO44AjnaaWEEsZFcshTigwgxM2jFl5LJIN2dY1w0lynUM7PdFEQM8VJycx6j3mcYg+UxaAr6gaV3zm54Ax7OdSN35uINKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787556005; c=relaxed/simple;
-	bh=aXL4UHrf+0humdIEef+4JRKRa9+MfpcNujWBdBmDGOI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hf4/lzSmw9NtSr9xZB4h+5jrFFQtGsaHbVpySUw2bjSt4GmBEI64f8srsDJ7m5AfJYzgWQLpNqQxLm4wJYt5qbCZ6Q1MEfTVxcWKAAqEVXJ6ydMcFcjTg+BfOhT3eU6uJ6b4bzGcIditoBqM+vha43e5KtfGLjZe7GPIN4YUVz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CUFpmHPm; arc=none smtp.client-ip=209.85.218.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787556241; c=relaxed/simple;
+	bh=7cAYYs7QCMaFSHUfhOXAYKr+4Ut6/0VfAcoLh4hkqJI=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
+	 References:In-Reply-To; b=kZq9J6CSMD1UQFytUoi9A8dGqxlw+vyD5zGfyMW+ty11Kho870iADjQ1YO2K9FEaYKy3Rsn+jWQTK5HPCISSh2lXFhqoeSFHHUsnILIbG+QgxAXqvaVbxU2SfL+wmuY722gZApzndMVraVYe81rQXHogVq8T0KCMSXOwaLDkgb4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=YFDaF5tC; arc=none smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CUFpmHPm"
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c247f6687dcso344199466b.2
-        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 00:20:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="YFDaF5tC"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c1c50c1e29bso499790366b.3
+        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 00:23:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787556001; x=1788160801; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jiRReprdkoXJr2ffVSHCZYH7aGcmAMsjru8xnumcQsE=;
-        b=CUFpmHPm1dpajm8kHJo/EBAKIRfUvFM8CCblNrP7igR3Bf8DjmaR1GXSQJwvGGexqM
-         qkrwtSZnEB77wsfsRUASTLWuasfR7/3sN5ZGMTTNIdvs3p36/cJKb3FpuYlIgbwKuTHi
-         E8QX4ghP/fMaLC4oRBeNXUclwjPfydI7y51tRwdps0wyA6rlKj3zruXeYQXWWrDrSEhw
-         tbnowEjAVVGLWjTVx/6GE4zmj87DwtqhUOTkBdZYb7Qc7jb5+gKgl1X6PxnBMi3Kk+st
-         x0IyJKR3Ehvm8kY+iHZ0Yj5gPTiRO0Wsr3jBIrb1jlxEiRM7skIaHEhfoVac+2BAQrkH
-         Us0g==
+        d=baylibre.com; s=google; t=1787556237; x=1788161037; darn=vger.kernel.org;
+        h=in-reply-to:references:to:cc:subject:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=7cAYYs7QCMaFSHUfhOXAYKr+4Ut6/0VfAcoLh4hkqJI=;
+        b=YFDaF5tCK+oyzgX7nHwffXR0KZdmtW4dT38gIPGO26TpNqAElXJWFuV8vz5sUzY2zA
+         njABMqCdQTZ82KwpCX0ZHO0+4al8POtlrwy+ahkLScEWKSZvtc89iz9ocbJaIHzwUwQa
+         tEEgFyBX8+c64oBcer8wGRFnJtdc8yDypCp4X6Mn4hpbBrx13TS7yIL0RNZawPsH6qK9
+         xJyBj0AlWH5bX/CdHq1+1okcxohRbOMnUEkTIQvHFxilYynF7j1wYZj0LeTFtdhaw/zK
+         uq2R6v3qwlBQfErAd+G2d82E79Ajh5O64DADEJu2/5wOH58vkY4Rqsx8OaiesbVGPItO
+         y/4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787556001; x=1788160801;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1787556237; x=1788161037;
+        h=in-reply-to:references:to:cc:subject:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=jiRReprdkoXJr2ffVSHCZYH7aGcmAMsjru8xnumcQsE=;
-        b=syHTbXius/FH9grNNeehrZRkg3dLO1r4O274BRBsibzCI5Kjb6FpTm4GWhxzaCMPy0
-         jgQsKzrMZfuRBu2ORrzBQO9KyVa+eMW/uasWp539KybcwMJyT7xq4CL3SDTve4miDgLD
-         Mj3zQmyDQ5Feg/nbESL2jQA6dW6mXHXdn2uGBrgOwDl1ape67QCUyE70eTLE5iMGBX2z
-         PqCRxGaVj+l5f7awcv+4iv+NJkC2S3207rJWNRyaILA00iaykb3x491uKYSZqxRleWXm
-         jumZY42QOmytvG4FhC0C2kUKePwFwJ3pT3Y1ayTxcYPvxhpQR/XQ96/k/qOGlLkGOXFF
-         HN6g==
-X-Forwarded-Encrypted: i=1; AHgh+RoYCVpHMVVBqa0OIGXlFBLsAWrxMBc2Ralh4ilvoLXjsGKzp9cMSA0gDfm35nwznMLIt7QUwl7XXVY3@vger.kernel.org
-X-Gm-Message-State: AFuF++lnrOdO/fT7xEsYflrGh22IJooqFxrsPXVKVzNyuE0mMYPfnnFH
-	y4uA7xPbBRHgMyRWcNwcg7PjzUSiviIdp7KjSJgiiaMvCAOKVBIuq1IC
-X-Gm-Gg: AR+sD11f/9P+BZNz5/ic7iIpm9qkkOsenSi0Zqb/q1v/W8eseA1V2YdT/+kI0yUNsGn
-	N0TNo36+dacJTgUWPjtgtVSlEWTj3qj4KMXH3osTe7tRofZlkijL5Rei8xOMFYJRACwryYNS6w+
-	Wssl2RbD3xezYPTmF6k76n1hQ6R0zLp0SQiPY2adQFHRt2vfmXIm8xlsbN49V1HiTKTZvD/vQlF
-	vED5NdDJdgIN/pnh6ulH/IdEo7A+5PFZOR3elNlUpMKr5NpnfHR67OHFe5qQkkupJ9T1WjJubLY
-	f6KwAOPJ9JsXFr6qEvtGASeK1GFYXP9hHmcKbEXJc3yRtlptmH7KEdJMY4BG0uwepBXo8ZmV6GT
-	w+ODR58rYz5qf0icRAhV88ujHQNF3nlIRrqVKmL7JUYWipJClOE0GKVQiLlPK83mna3n91fOGzt
-	7Ycl/QqQI7gmK77Dlf53fT93nVIvzi2mhJkR84BThT3C1b2Om8k5hpvH9JD5aDSfrkc7UegOcWZ
-	UpjF32YxAcKuhaKs15Y7m6bmWhZNoKBrFSEoJYAiwMVHJ6OrQQb8mpUzpsH3Bu2rnjmco4QgEzW
-	fJX45U2M8qWsyUlTkHME1tVyG167h/pioac=
-X-Received: by 2002:a17:907:7b93:b0:c20:5213:56f1 with SMTP id a640c23a62f3a-c246a60348emr2628478966b.13.1787556000424;
-        Mon, 24 Aug 2026 00:20:00 -0700 (PDT)
-Received: from franzs-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c249685ab3csm1137673466b.49.2026.08.24.00.19.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 24 Aug 2026 00:19:59 -0700 (PDT)
-Date: Mon, 24 Aug 2026 09:19:58 +0200
-From: Franz Schnyder <fra.schnyder@gmail.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
-	Lukasz Luba <lukasz.luba@arm.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Francesco Dolcini <francesco@dolcini.it>, devicetree@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-usb@vger.kernel.org, Franz Schnyder <franz.schnyder@toradex.com>
-Subject: Re: [PATCH 1/2] arm64: dts: imx8qm-ss-conn: Add USB HSIC related
- nodes
-Message-ID: <qyrzrmrvymwhoziwf3we4fxwb4nfyhb3s7hiuqauzoco52auns@7rihmyhkti2v>
-References: <20260821-add-apalis-imx8-usbhsic-v1-0-fb93d73ead44@toradex.com>
- <20260821-add-apalis-imx8-usbhsic-v1-1-fb93d73ead44@toradex.com>
- <aohtVk57YIWkj05I@SMW015318>
+        bh=7cAYYs7QCMaFSHUfhOXAYKr+4Ut6/0VfAcoLh4hkqJI=;
+        b=KADru13npQuMpiMqOAygIF75Gy/MtLWdTskWVAxtUGuk0gmpY5XWl+Ns9THboVbWMJ
+         yJA/PWjFICzncBwo/6NN7iH+FVgoNvMwqbWUHTISHnbrrqwGCQQ70UASVjPqQGX2kJ+u
+         ku7VT2oPhfEQFP7XVlEwaER8gPfbeBgVz+3xnDyZvrffZSx7KZcmt0CFAEGUrgfsJZbH
+         u2QgIU04MoXVfMrdqV6Cvv0sf1EPl3FJoWuUUaIG+mCMpv5v9eg4a3qWLUAsn9yfms/a
+         wm/4MNJ1oCjno83sDNg79xlNxBAnJgxrmbMKjNsjraiHbrwneLAdeTcFJoiQAsa9XKem
+         IqqQ==
+X-Gm-Message-State: AFuF++nPeGq7CAJxxUO04RzI8qWU8hHAqUFh5EsDNHIbqRu1fbrZ5IQ3
+	7v5DdlDpunchbETiIPVxCqUqpaODyT+DfjR8uVgXKnF+yjiSDO0p2cMXiJuffLknAOQ=
+X-Gm-Gg: AR+sD13WaS1zk/WOoI6ksz+HrxTe27RVT902Fohl28E3x3A8DammmzddCd2u1ZPwsjt
+	xscjnSthIVO9h8xBtcuicynWwXPRmkE7ogQJ2PjZTIozq91ecD6Rz0pwB/Ai1mbVVwNpHIZLK79
+	NUvRXCikYa3gkekZtKaA+uv0DrbB1YT70WySNfEKA5sw+KaVk8nzm15lKDhu4m52pnPAIAsZ8KP
+	ay5UDlNbC/u07+cJmW2/NbNjIuu1aWGgS03siFogHM/8126aBpU0cCSdMTtzcq309jUwH0YcymZ
+	BiKfGzB+VUs7+gHt/hljHMH7RseQNdjTmKWMAX1jNFU8AjDeaP06uXvFtGHkMMIBX9HkXAeGHdL
+	m5EixIYG37SJYhaVlkAcMAHJDDZMEq1pyT1KK3t03w2FLKAozsRSVFleLsAOIFmDK4aMi3fvE8Q
+	hPIT1Km7c7Yj4B+2DTmKtQN2x+D/U/UFcWX5vuZIuyvz0B2oMre+OjX9MlMh4anT3xpFH7+yvDW
+	NT1VOCtOxxmM0pLzk/WM8HErXTcrie7cW6CH15pn1flyQ6+oZRffBbA
+X-Received: by 2002:a17:907:3d0a:b0:c20:83b1:396c with SMTP id a640c23a62f3a-c246a62b68fmr2605606366b.17.1787556237186;
+        Mon, 24 Aug 2026 00:23:57 -0700 (PDT)
+Received: from localhost (host-212-171-227-71.pool212171.interbusiness.it. [212.171.227.71])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a59e199767sm7243944a12.15.2026.08.24.00.23.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 24 Aug 2026 00:23:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aohtVk57YIWkj05I@SMW015318>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 24 Aug 2026 09:23:55 +0200
+Message-Id: <DKWZSTY0TTBK.HRRXYTZ4CBWF@baylibre.com>
+From: "Carlo Caione" <ccaione@baylibre.com>
+Subject: Re: [PATCH v2] arm64: dts: mediatek: mt8390-genio-common: add boot
+ phase tags
+Cc: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>,
+ <linux-mediatek@lists.infradead.org>, "David Lechner"
+ <dlechner@baylibre.com>, "Julien Stephan" <jstephan@baylibre.com>
+To: "Carlo Caione" <ccaione@baylibre.com>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "Matthias Brugger" <matthias.bgg@gmail.com>,
+ "AngeloGioacchino Del Regno" <angelogioacchino@collabora.com>
+X-Mailer: aerc 0.22.0
+References: <20260730-ccaione-upstream-mt8390-bootph-v2-1-82f67feadf7a@baylibre.com>
+In-Reply-To: <20260730-ccaione-upstream-mt8390-bootph-v2-1-82f67feadf7a@baylibre.com>
 
-On Fri, Aug 21, 2026 at 10:23:02AM -0500, Frank Li wrote:
-> On Fri, Aug 21, 2026 at 04:58:57PM +0200, Franz Schnyder wrote:
-> > From: Franz Schnyder <franz.schnyder@toradex.com>
-> >
-> > Add the required nodes to support the iMX8QM/QP USB HSIC host controller.
-> >
-> > Keep the HSIC host node in the QM/QP specific dtsi to not conflict with
-> > the address used by usbotg2 on the iMX8DXL variant.
-> >
-> > Signed-off-by: Franz Schnyder <franz.schnyder@toradex.com>
-> > ---
-> 
-> I already post similar patch at
-> 
-> https://lore.kernel.org/imx/20260720212401.C2BD31F000E9@smtp.kernel.org/
-> 
-> Frank
+On Thu Jul 30, 2026 at 10:04 AM CEST, Carlo Caione wrote:
+> U-Boot SPL runs after the platform DDR loader has initialized DRAM on
+> the Genio 510 and Genio 700 EVKs. It needs the debug UART and eMMC
+> controller, together with their clock, syscon, pinctrl, interrupt and
+> watchdog providers, to load the firmware FIT.
+>
+> Mark the nodes consumed by the current SPL configuration with
+> 'bootph-pre-ram' so that the canonical devicetree carries the boot-phase
+> information and bootloaders do not need local overrides.
 
-Hi Frank,
+Gentle ping on this.
 
-I somehow missed that imx/dt64-intend branch.
-Do you want a V2 with only the changes for Apalis?
-Or will you just drop this imx8qm-ss-conn patch from the series?
+Cheers,
 
-Franz
+--
+Carlo Caione
