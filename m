@@ -1,74 +1,102 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA59C18DB01;
-	Mon, 24 Aug 2026 08:13:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 479B63A6418
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 08:23:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787559231; cv=none; b=XDwxnDhbnywbJMmA767qsg1LO+NH7IRqAGa3FbyILHYsn64U0iCauN0Xw9dvNrhGY6X7mX+tWTmNH++vRr16GGxCU0PnxjJ7Xtm3vSh8oVraP/8L8iu9cOu4ytJDA6mw/tsq4uRIojUEgdIcMzMnczS6s8ndI2myiD+aNdh0FQE=
+	t=1787559782; cv=none; b=ISgPF2QFkW74gasrjJcAAkXhshqeGBrJFF5FJeop5Kx8RhXHnFVqRzJsKoH4nVa8rDSpN4naIEdYfThq8QFb5ewdbnMpObSntpyCQdZhpVIsAqx5xLhCdP/29yZL1bzrxaKrN+reO5YYvUIcwC6+UYH8Fa7XVJpw8ChqZBYLs8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787559231; c=relaxed/simple;
-	bh=28tdcNeYvivqfO6xmJCs3eQvMTf7EWGHzRJJZsjamd0=;
+	s=arc-20240116; t=1787559782; c=relaxed/simple;
+	bh=rfclZYf7Uzx4bu/Ox2iIC+60XIG9HV2XUwYmcsvUYYM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oSz20zDbQRMpLxWQDQl6bj8R7Jj8JB/v7nq4r/m/T4E8OQmoh+GlpiMVdVm0uHJbvOkY1Rlz1//kGjehdEZ2IrcZqHd1PyRY/+PwZnqgqh1JjggzKCIZj0koWMdMK9rKKMd8ZofwXaA6PsOU+gmFOi8Zm+OLjIl5w1pnRRMwEQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MDItu8eq; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=liqjJpY+GgnMhrU5Beu5SUwfLzfYQp/WYCeYAwP+GItSnCzmPOnZsVFbdkw/zB/8sHuV3u05Rqpzq52l6IorTlv+JdHg/g4IBHiCfATLZpiv/BEBSXoo/lLNpcFg2antLcX0ewyB24zYIrrvkFsxkfTZl12JxSTNwjcIht+vQtM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=O51hXF6Y; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ONPpbNrq; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MDItu8eq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787559230; x=1819095230;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=28tdcNeYvivqfO6xmJCs3eQvMTf7EWGHzRJJZsjamd0=;
-  b=MDItu8eqZgxNg0K32gVYOof0GEcNswvu+FDJJMUEZfc2ETr4t9QKOxFd
-   GfDyqBoZazd/9SlS5+rbjPnfrvNGkP1zbxhMs1PSgfC+iSkhKCVHjCVeS
-   VSyvZ/p6z1HTOojqrd1Z0tP/8Odmf8zR242Vd+QWJmaLcLFnEfQySrotn
-   IpDC/pIg4qXYbndhL5g1L8Lf3d1k80+N+kvnQP+W6BqEJiB7mN8zJVhrQ
-   ukSvWAvMLZwOuCUi9LpuKGQOuyW8BZWPGluYc4cJ9dugbpcZPeXNwdfkp
-   z/LE/KeEFQnee2lnxnLrq97q54bWDZeGpvIq/55L87a5WVhj3GjjG96E/
-   g==;
-X-CSE-ConnectionGUID: q8YICUUMR4SVgMjSdZcWgg==
-X-CSE-MsgGUID: Fd0ezUfCQdmyBcXDOMYEag==
-X-IronPort-AV: E=McAfee;i="6800,10657,11884"; a="87769170"
-X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="87769170"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 01:13:49 -0700
-X-CSE-ConnectionGUID: NYnPaUjXT9K2smj8J4yUxQ==
-X-CSE-MsgGUID: ig49bFpbSOKtqUFni+Zl3A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="264316491"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.130])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 01:13:44 -0700
-Date: Mon, 24 Aug 2026 11:13:41 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Janani Sunil <janani.sunil@analog.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Michael Walle <mwalle@kernel.org>, linux@analog.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH v4 13/14] gpio: ad7768: Add AD7768 GPIO auxiliary driver
-Message-ID: <aov9NcmRhx3XgJpl@ashevche-desk.local>
-References: <20260821-ad7768-driver-v4-0-bb8fbd06d4eb@analog.com>
- <20260821-ad7768-driver-v4-13-bb8fbd06d4eb@analog.com>
- <20260823203947.3ecdc448@jic23-huawei>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="O51hXF6Y";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ONPpbNrq"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67O7PvpU2666074
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 08:23:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=rfclZYf7Uzx4bu/Ox2iIC+60
+	XIG9HV2XUwYmcsvUYYM=; b=O51hXF6Y7PmN4YnhSBtH22N17WGEzBzVJgjos4UE
+	LkzESPN90baTSC1WztVz+Jh4B3YvIf2yPsCqnUyqUla/FB6z6i+JWKtIH5Uo9DAM
+	JerXzsx7O1Wi4UTqYQzkeQN1RK87hNaeddlnSBjW7u/Ripd7Ch2xeyuwXBXLjljH
+	JOKw6hl+m3Nf7xwPkjXt11oQiPqdo+Ig/nxwj0buEdsr82ZQrxoD/ZxPeiiT8D7h
+	ZvBddJAV62fCt1kSmJ7cFI0hm+sWUfh1RUyO0F0O+cSVOLDSitdTfIa6GdhdDCPP
+	68uowQRgQvppEBfkmNnqdkrxOyhxnynhtGsQeJNA/Em8nw==
+Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g8hjgr7ag-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 08:22:59 +0000 (GMT)
+Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-97c3607c924so3965864241.0
+        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 01:22:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787559779; x=1788164579; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rfclZYf7Uzx4bu/Ox2iIC+60XIG9HV2XUwYmcsvUYYM=;
+        b=ONPpbNrqfgr7+lfg8Zx5+14FufSgVc/xyFc35MaiQVV6M0mlJiwF7ghwnCd4xyqOB8
+         jKHgPDsaiOZicOaZ4Qcd00uNUJujCEJ8KvnJv2zF4JzgVjI5KFOmORJtj3qTzbWuheH/
+         f3aGQlRrMCu01Ej9fS5R3yA3qmXcnNDJwx1tFi7CYeevJwArloK1BCiCfPPXLVBaUJrm
+         E9bWegmNTgrXFcE0a2hVlkc2GNN40fBtxS2X17QJq0vUI85NwgkVcYUqvyh+0eWk6b9a
+         QxE35N8JbGO/A0SWvwEb/jmTEIUFLpmQOvYKhouska+2Cc8YPPdwqrMQT4nPXy5iS1uR
+         Vvpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787559779; x=1788164579;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rfclZYf7Uzx4bu/Ox2iIC+60XIG9HV2XUwYmcsvUYYM=;
+        b=Ohpou/Gkl1qHjaWQrgT6IdrZJcoyOAaRTQXUUJOAgwV0pEi4Pj0KobCtOT4d9IDnCb
+         vg0RcRbj0FC/Kk3fr4SRH1iZAWVoLTKrHo9nqwiEtodSM2FG47d8qLESjQB0TRhC+Xaj
+         XcPRqgjgqje17TKe25JGMk04d8/T3U0gPB0X4sl6OyiaHfH/8W2OCrXluBc10vo3nwK2
+         qL1Uch0IpIWP+Ies4v3gTiH/Fhthdy5pi5nR99GX9Vq3gImP1tAcX5ousc/QjhNLbqOB
+         8Lnz0vkigF11+b8zZI4dLrR16qsczmRbMqoSN7mvtA4AkfvLaU95KXk9ECUuuag16u0g
+         fgJA==
+X-Forwarded-Encrypted: i=1; AHgh+RqzVdVfIKy3tgXfwuK/kSMDQadrEF1ug4Q4cBZwsWDT49dAezEvqPlAMuB/xb7LBEuRxDh520Z7erHB@vger.kernel.org
+X-Gm-Message-State: AFuF++mcmlEWoLsQ91eY2YfRbDH7QUpQalNtrsfST+FiEYM0AKaRDUZA
+	vkNMJoLh5UijXis1AZX0vx8DZ776cBbP+JE46vV7rco8FRknv4m8BCh+l9EFjkVBJ7OjQ+/Q6Sr
+	hRR+cPWl9flZBbzm6+cUit+/1VUME0cWQpvW8ZiC9iQvwPCnBiUwFflXiZujCDx7B
+X-Gm-Gg: AR+sD10BboYK94u+9J/EqQq5bgs3LnVxsVpbFuIY9gGgDrHD8yNt84z5HnhsbYD9apj
+	HzqIrFbBzGOGx/XX3iW33EUjzGIDG0UrjdjMIQc2T4EYVS8tErWkhcZ88ANx6fKN9BOyBWSMWdn
+	LmzHq6SsgNOqQEqKrxjjYz2u4vWX2bt+4Rja+xXCd85OLNOfUVY5E/+etJHdrR6aJJW+2s1YBNy
+	Z47DoIoQZwboiDvr/zHez2g3vKBYQdHIT4wAEvkX37b7wojMooeQ6BU1XJxhn6vLhbl20KPpEMz
+	ukNENs/INGqCG0eYNLexfWjeskZ4bIyQHyWy0iR7lKdUuKxndnivZ6+SYeIJY92vePuX4WwbZz1
+	/J+7g+oMBhJOXmAc=
+X-Received: by 2002:a05:6102:834e:20b0:778:290e:a080 with SMTP id ada2fe7eead31-778f2cd6323mr5698359137.13.1787559779099;
+        Mon, 24 Aug 2026 01:22:59 -0700 (PDT)
+X-Received: by 2002:a05:6102:834e:20b0:778:290e:a080 with SMTP id ada2fe7eead31-778f2cd6323mr5698338137.13.1787559778563;
+        Mon, 24 Aug 2026 01:22:58 -0700 (PDT)
+Received: from oss.qualcomm.com ([188.27.161.240])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a59e1aeab9sm8341362a12.22.2026.08.24.01.22.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 24 Aug 2026 01:22:57 -0700 (PDT)
+Date: Mon, 24 Aug 2026 11:22:54 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>, Mark Brown <broonie@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
+        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
+        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Subject: Re: [PATCH v3 9/9] MAINTAINERS: Add Qualcomm QAIF driver entry
+Message-ID: <slkmp4xwsb4it7fdncmey4rr5zwjj7ar4iktps5dkr4k6ndpou@ayfexlgpitm2>
+References: <20260824063627.3595610-1-harendra.gautam@oss.qualcomm.com>
+ <20260824063627.3595610-10-harendra.gautam@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -77,87 +105,36 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260823203947.3ecdc448@jic23-huawei>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260824063627.3595610-10-harendra.gautam@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI0MDA3MyBTYWx0ZWRfXwSaYU/CNHZ+L
+ luI72ZAgfaaJI3Aqrty9D+AdXAb6XA5hOAv0fUIlhbmxN+RN5RDt9bSvf4xdPI3mYdkOLBYQhDD
+ RXicnaIHk0WvaJFJxrXJJQgSoKa83w4=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI0MDA3MyBTYWx0ZWRfX/cGrXHrHHxbC
+ 87HP6pb8yheA5zleWcxdb8wx7edTlwqWdDMT+hGzsqJhc53D4M73pSfrKWLzFzhBiPSjEUybxII
+ Zq5fUpEqZNixicDA6gtVJY/9KArH3uwEgKbPxe+MqpQgobRAcPmYf8ESxLYaOzjJeMZ96rC8egC
+ Qy2ADSABFZb18Cz9EJD0rNRdjPdwX0Cw/sh563NhL1IM9hxX90eikH8KYouRoESuJerYBhH7Mbf
+ mku0c5pbpzb9lqtVdci4HLMoPGi2wKTP6LHB95O78kIg7NYU9PwxRTAyF0KIDhFU7Emfv3Its00
+ GvFZxUx70uu0U9fdeO7yEATxQKTPIModJ0RH4GsKGl+Y8SQv7MPO0mq2k/8LZWpsQk3wCAUILIM
+ htGdM4WS3ew6ux3Zs/GKrcdgnpWlWbZapl5lNEQutMSeAJcr93EJyVV7FJgm5whY6smLxp/qG/p
+ mJZoBCM4NiBZlvAb2cA==
+X-Proofpoint-ORIG-GUID: qwXD2MO1X5iwMUvZZlZdFxdmOWNs6GNB
+X-Authority-Analysis: v=2.4 cv=CoCPtH4D c=1 sm=1 tr=0 ts=6a8bff63 cx=c_pps
+ a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=wUpz7uCjLrEXi01cjX+DLw==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=eKVyUmMguRHMKu-RSS8A:9 a=CjuIK1q_8ugA:10
+ a=1WsBpfsz9X-RYQiigVTh:22
+X-Proofpoint-GUID: qwXD2MO1X5iwMUvZZlZdFxdmOWNs6GNB
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-24_02,2026-08-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 priorityscore=1501 malwarescore=0 phishscore=0 bulkscore=0
+ adultscore=0 spamscore=0 clxscore=1015 lowpriorityscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608240073
 
-On Sun, Aug 23, 2026 at 08:39:47PM +0100, Jonathan Cameron wrote:
-> On Fri, 21 Aug 2026 16:07:06 +0200
-> Janani Sunil <janani.sunil@analog.com> wrote:
-> 
-> > The AD7768 provides five GPIOs controlled through registers shared
-> > with the parent IIO device. Register an auxiliary gpio-regmap driver
-> > and use the parent device for runtime PM.
-> > 
-> > The device has separate input-state and output-latch registers. Add a
-> > reg_mask_xlate() callback that checks the line direction and reads the
-> > programmed output latch for output lines while retaining input-state
-> > reads for input lines.
+On 26-08-24 12:06:27, Harendra Gautam wrote:
+> Signed-off-by: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
 
-...
-
-> > +static int ad7768_gpio_probe(struct auxiliary_device *adev,
-> > +			     const struct auxiliary_device_id *id)
-> > +{
-> > +	struct device *parent = adev->dev.parent;
-> > +	struct gpio_regmap_config config = {
-> > +		.parent = &adev->dev,
-> > +		.label = dev_name(parent),
-> > +		.ngpio = AD7768_NUM_GPIOS,
-> > +		.reg_dat_base = AD7768_REG_GPIO_READ,
-> > +		.reg_set_base = AD7768_REG_GPIO_WRITE,
-> > +		.reg_dir_out_base = AD7768_REG_GPIO_CONTROL,
-> > +		.pm_dev = parent,
-> > +		.reg_mask_xlate = ad7768_gpio_reg_mask_xlate,
-> > +		.init_valid_mask = ad7768_gpio_init_valid_mask,
-> > +	};
-> > +	struct gpio_regmap *gpio;
-> > +	struct regmap *map;
-> > +	int ret;
-
-> > +	map = dev_get_regmap(parent, NULL);
-> > +	if (!map)
-> > +		return -ENODEV;
-
-
-^^^^
-
-> > +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(parent, pm);
-> > +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	ret = regmap_set_bits(map, AD7768_REG_GPIO_CONTROL, AD7768_GPIO_UGPIO_ENABLE);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	config.regmap = map;
-> > +	config.drvdata = map;
-> 
-> Why not do all this in one place rather than init then later
-> modify?
-
-See above the answer :-)
-
-...
-
-> > +	gpio = devm_gpio_regmap_register(&adev->dev, &config);
-> > +	return PTR_ERR_OR_ZERO(gpio);
-> Could do
-> 	return PTR_ERR_OR_ZERO(devm_gpio_regmap_register(&adev->dev, &config));
-> 
-> Though maybe it looses some readability?
-
-Fine with me. Taking into account my previous suggestion (in another reply)
-
-	return PTR_ERR_OR_ZERO(devm_gpio_regmap_register(dev, &config));
-
-which bumps readability back to track a bit.
-
-> > +}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Commit message missing.
