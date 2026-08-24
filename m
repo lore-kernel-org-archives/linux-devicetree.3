@@ -1,64 +1,64 @@
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E851385D7E
-	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 18:39:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79B6F385D9F
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 18:39:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787596751; cv=none; b=dLuJEpnm7qz5rD+Ew7bI/22dKvG9WxbjILfhrdIxFhAGqW0Km6eDyIje8t+x1ABk+wijyc/STZZRLyjwYU712Om0BMNBXdZfyetmvo6hHPmP9H47k6skcB2aN6GoKmo6MO7qJWoBla8jduHxB3f4/tFEt/9D1RzTDxZ6vovw5HA=
+	t=1787596753; cv=none; b=qAaESqWQ5y6EyaAzyarfh6WcsKRNlSJC9EfMjTG2Tib74hqXi9F9lIivOqFb/2iv9Hmqu4tPuYiQmXKK8Ekx1ITX9JKQPngpVEifdUQtNFIK4lgSVct+Zuq83GDobieynodAiKYd1npHvHPZPLTGoL3yVrGDTLNxNw4aeqBKuJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787596751; c=relaxed/simple;
-	bh=O3UXywBmTQzj42EhSFesy4w4MZCGG2xsS0Sf+bwGzkI=;
+	s=arc-20240116; t=1787596753; c=relaxed/simple;
+	bh=3zTrUNP97wjygcEyxUmUMs4ernWyBlapMobTCcEOsLo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=vFe6NNxhx76bnzUhuC8vT7DYrW9hq8zckoOVFzp3eODdHtzf4xf6Jxhi/EbqSLtcchdGe6Uqppf0cJTnZr+wbi2ysBQBTu4P1ckqHuBTQ2aTpywUByAHnJGYcJwVwYhynzYdKyrmkNNpgoJo594aytfd3b5acD7M5m9vpXGeXUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QYqynPWV; arc=none smtp.client-ip=209.85.208.41
+	 MIME-Version; b=LqPOT7XmfnkQMEWh7oydyiKxlfPbLhl2OL3xZMBIFh6ga6r8x9qpJe0KsTPodpG8XnZ/ihiJgi9aiPT92Ez5XyF/eFC5pedxeEGfAww35/wmIHBnkqN6AZFYKWNB9tVsgZ31hZis7iqT1X/eD00H9q/lu4oqHz7qOiYUEndnFVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kBn/OwzN; arc=none smtp.client-ip=209.85.218.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QYqynPWV"
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a051b737d8so4824054a12.1
-        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 11:39:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kBn/OwzN"
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c1600d040e4so34620466b.1
+        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 11:39:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787596747; x=1788201547; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787596750; x=1788201550; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+SSHM+dMzftRd72hGlvvpR2crpi5QEgfnmH3X3t3vsU=;
-        b=QYqynPWVWavJVhftKUBA0EcPHjzBjGF3Owob65G4PJ4cFPYRMD9/WKH0B2z6DgKsoq
-         /qHy9mK/FVefLvZHftyquuKmrdfG8pRGosfncya+/qDdanxhx3JzVS57FXaonhkFNhSD
-         uVFQRnI8kAFLEXK4U81oWTKql6eZCe0YolXIrnvyyJPoAbqDgZrDP4mBSPjkiC7WPe4o
-         bdpvSUNtYZlLjYSV68DtOOq/UWw5Ag2TOuTTzuDcrSC3yeRcNHynVj96qHvY5Afcro1a
-         cSO5pzTLgVp37TMVDpRkYmIuBF6UKNRLvMWvljLv3pJB5zgVe7SAJs9+ZuDXClxS8san
-         02EQ==
+        bh=yNGuRramHsyQedVrqROIzZg6iP7sI/lSPknDcuWVUUc=;
+        b=kBn/OwzNF6zi/8HqX9mV/gBhhauV13H/WoF2Iuv+BkB4dlX1/koXfELDN4jLW0kh1j
+         u4PKFDVwRRwr0CaJnEjiSj8SNBi/X+zypXZv0VeVu3we2gEp30TiPd8cXCL2lPuDG7VV
+         ZdWuxPa3D4c1/gzjpb2eK2Mk+2fo7cbJI06Ewk3jCeO3lDyv8Vaw1zl+MYEDLviHVj15
+         Hd8ozAll0M/YiDvuj6Sjue6PztWkumvy2uLB/GDEAm5KWKDnlxrmcwd5enpbxJRxEpyq
+         3IJoF19XQsLA5ksPAF7de1GyEx8lwTITQVMu4ISUOacWXF1SxMPjfqWho8Suwtck7M5c
+         QGMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787596747; x=1788201547;
+        d=1e100.net; s=20251104; t=1787596750; x=1788201550;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+SSHM+dMzftRd72hGlvvpR2crpi5QEgfnmH3X3t3vsU=;
-        b=MLk5OqnRMZ1NdLyCnHPQjFRaY6zrO9u1yq+WNHHnijyGSOoUMngGRHjsPF+Em6PPEz
-         7Uz+ipMukF1gNrEzEJdcZ3/CY/2IfU9971x47UfmTSLjcYFqsDFLMJqXpC5pcVXWkuV2
-         oeyLDozJWmYq4oeD5JDa3B2wOaQliXLAxbgCHKtZbmwJ3JnBJoWZKmbkIi5tFEpAo8eK
-         kwSmQLgyQJn0zml1j3rBr++mqRPrTFMIISZq0r2ehKtJTmjd8TgaFew1YLYfSeYno3zW
-         kNDY7EGUhsz6J1SJB+j6YgPpWIS3KIbZlURYVO5RgEkGHlW/8iv5VChsAymXyuVC/4cA
-         WkCA==
-X-Forwarded-Encrypted: i=1; AHgh+Ro8tUAsJk56dtuJMuN+rAES7d8dr2g0FhqnkoroTyKWIlBCHiY4D0sRuFM4wB1CPIcOt9+0D5EhayEi@vger.kernel.org
-X-Gm-Message-State: AFuF++lb04WgGnDvfuTilK1fhI1InBCWapl+Lf1aqoBKl4vQ6QJ7aCoG
-	XZS/4wRhBa6t8ZgbTF4I99wEAURrUj5gPk1U911lBF/rcI6bqSMtHup0
-X-Gm-Gg: AR+sD13WhR0Wh7QAw35RaB44HCNrdoLlXtSnk6+C/rpEqR3LiZ96vhSew00/VJoDMDD
-	ySLSRsS7mIGS3nfAHPv8cDpBbw8j6NDhHWrvp3oyW/UM392dFFi+dwfb+RFZcx2p8rqS6SRSoHA
-	/+/7M7qIBqHoccEjR3R9KEFMw730ElEszOqJ2EEhRttAz9j2hvKAbH5yCWSVbE8tCRFnvnsNWwd
-	RTidb6cULWUl1TQs2uCKjdnPCfd6QH80Jc6IenlnCQBnfMkb83Q8aMyGOgjIrZCJya+9zrbY9FU
-	MNMkJzzyoMQc1sCgTZnUPCDQeDfbQ01AbWOWOfOfCACt/PJD5L8fzkBFyEiXtH/DP/odivVdurc
-	/vGY7e5nu9v/87c7zcxaBB3WrMtKXma/0CdVfD8w1xswhdjw++Ymywlh1NYPOtjrfW+M6Uu0PuD
-	r2onO1t0F0VnGdpqFADsl/KB9XsrumFpOVHvbf2G9vTmWREcM7dpXk5LjLOBbW2G1hzfAXyu0oZ
-	8QkOSzpmKXTU7+2qybncvZ9BwvglocCIk46Aqx7cT0qiA==
-X-Received: by 2002:a17:907:3d44:b0:c20:1c9d:8d4b with SMTP id a640c23a62f3a-c24e58d101amr38617666b.2.1787596747403;
-        Mon, 24 Aug 2026 11:39:07 -0700 (PDT)
+        bh=yNGuRramHsyQedVrqROIzZg6iP7sI/lSPknDcuWVUUc=;
+        b=JjoDtYTG9HlpK8f3fqomsGThJ5ggitx7AZwdpI+Id7pvHvSbVdi8+RzuWvyq3M3fyh
+         i892dIbCbWFRcfoT2deYf9KCTp0riiqIxu+GDIaz8NyzeYpJsLzm+v4U1pFnLLdKjN6K
+         LhJATMl0qqOOEUcQwQSpkyNGNla83CioC9X/fI4d9T53BDjhupLOPyk1cAFOK8CHGf1P
+         EpIbmsOoK1mho5Ny+kHWq8yqOoMPahTK2w3bmMQ9It4nbq4lsO4odRE4Wp/ESXMiV3IL
+         cth7Nfa/KP950b6XS8U2R4uWWWarCMPAjvdPyg42ZY86zPx5v9rNAqj7ikFzr8MO2hT1
+         epaA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq+yCkSOInhFIjWzjbMv6jvhyLk3U7UCzivaVXkcCt7SPzM3R7dUFpBSGEZQBXYipMtBPh3MK5G0Fx/@vger.kernel.org
+X-Gm-Message-State: AFuF++k8lIqBDTDH3Nkp4QBRh55mnWjqjds1ZzkEogv3et4gbtA6wlpB
+	5/zmqdKJTck95yEbmr+UeBw2tC6IoRC5X5aZ6HT40XxOgnUjmSgOxVR5
+X-Gm-Gg: AR+sD10QYzT7AyHWDAyspSv80s0EqkDXbjP8QIS0U9F0xDMbCM5i/wWTPUHnxFyhb9A
+	Z3uGAl3X13aaZ8H+mq/mv8DX3+4hwZJzvIFWXKhDwElbLjclXCW4s7GQdWg3kf5b+8vi+30B9Xc
+	KRO6XiTCD48Uk+bGMkc2PxQv4ccpEQNRgCd17ewCRC2SEcaYzs4+NqX2fn2rOkhLZD5cKlUfM+1
+	9btbtXl64n9pVBkJhLFwGTSJlX466+GNhwCGKn7r33v3xp66PhH4eRMqGoElMNCY6yMzSh4uJqN
+	8kr6L+Tf4ldwsnSa/HL/PVNB3X4px4yPB6vfu9BM2mLmb/On7PfmqJl4Sc9yDEF2BlXZS3c6DNV
+	RVX+F86ec7jVfATHa/37FuKEGypicq+h3OdCyGyWT+9GlMS1etAvFftYILCrQUrJBUQMPU9Idox
+	IL8wGOlZdtSzpNBfB31h7fiIWO77o498WkXs3TELkstMQtgoV8kFwXhWBxVUuheRfq6db1+Dd1r
+	g2qba11jjuhIi7jrOx5/ihE/9IVVU/pP+bmgd7Sd/amyA==
+X-Received: by 2002:a17:906:794f:b0:c1c:4c72:e6df with SMTP id a640c23a62f3a-c24e2860886mr95058966b.0.1787596749638;
+        Mon, 24 Aug 2026 11:39:09 -0700 (PDT)
 Received: from flaviu-Aspire-E5-572G.. ([2a02:2f08:440b:2900:8e59:1937:8c58:aeb6])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c249673d43bsm1307499266b.47.2026.08.24.11.39.06
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c249673d43bsm1307499266b.47.2026.08.24.11.39.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 24 Aug 2026 11:39:07 -0700 (PDT)
+        Mon, 24 Aug 2026 11:39:09 -0700 (PDT)
 From: Flaviu Nistor <flaviu.nistor@gmail.com>
 To: Guenter Roeck <linux@roeck-us.net>,
 	Jean Delvare <jdelvare@suse.com>,
@@ -69,9 +69,9 @@ Cc: Flaviu Nistor <flaviu.nistor@gmail.com>,
 	linux-hwmon@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org
-Subject: [PATCH 1/2] dt-bindings: hwmon: national,lm90: Fix channel constraints for temperature offset
-Date: Mon, 24 Aug 2026 21:38:59 +0300
-Message-ID: <20260824183900.8983-2-flaviu.nistor@gmail.com>
+Subject: [PATCH 2/2] hwmon: (lm90) Reject channel 2 on chips with only one remote sensor
+Date: Mon, 24 Aug 2026 21:39:00 +0300
+Message-ID: <20260824183900.8983-3-flaviu.nistor@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260824183900.8983-1-flaviu.nistor@gmail.com>
 References: <20260824183900.8983-1-flaviu.nistor@gmail.com>
@@ -83,77 +83,30 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Limit temperature-offset-millicelsius to remote channels only, since
-channel 0 is local and this property does not apply to it.
-Channel 2 is only valid on devices with two remote sensors, so reject
-channel 2 for compatibles that do not support a second remote channel.
+Validate firmware channel definitions against chip capabilities and return
+-EINVAL when channel 2 is configured on devices with 1 remote channel.
 
 Signed-off-by: Flaviu Nistor <flaviu.nistor@gmail.com>
 ---
- .../bindings/hwmon/national,lm90.yaml         | 29 +++++++++++++++++--
- 1 file changed, 26 insertions(+), 3 deletions(-)
+ drivers/hwmon/lm90.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/hwmon/national,lm90.yaml b/Documentation/devicetree/bindings/hwmon/national,lm90.yaml
-index 164068ba069d..a7f82b202b86 100644
---- a/Documentation/devicetree/bindings/hwmon/national,lm90.yaml
-+++ b/Documentation/devicetree/bindings/hwmon/national,lm90.yaml
-@@ -113,6 +113,29 @@ allOf:
-       properties:
-         ti,extended-range-enable: false
+diff --git a/drivers/hwmon/lm90.c b/drivers/hwmon/lm90.c
+index 1c603272538a..3faeb2c6ab01 100644
+--- a/drivers/hwmon/lm90.c
++++ b/drivers/hwmon/lm90.c
+@@ -2712,6 +2712,11 @@ static int lm90_probe_channel(struct i2c_client *client,
+ 		return -EINVAL;
+ 	}
  
-+  - patternProperties:
-+      "channel@0":
-+        type: object
-+        properties:
-+          temperature-offset-millicelsius: false
++	if (id == 2 && !(data->flags & LM90_HAVE_TEMP3)) {
++		dev_err(dev, "channel %d is not supported for this chip in %pfw\n", id, child);
++		return -EINVAL;
++	}
 +
-+  - if:
-+      not:
-+        properties:
-+          compatible:
-+            contains:
-+              enum:
-+                - adi,adt7481
-+                - dallas,max6695
-+                - dallas,max6696
-+    then:
-+      patternProperties:
-+        "^channel@[0-1]$":
-+          properties:
-+            reg:
-+              enum: [0, 1]
-+        "channel@2": false
-+
-   - if:
-       properties:
-         compatible:
-@@ -149,7 +172,7 @@ allOf:
-               - onnn,nct1008
-     then:
-       patternProperties:
--        "^channel@([0-2])$":
-+        "^channel@([1-2])$":
-           properties:
-             temperature-offset-millicelsius:
-               maximum: 127750
-@@ -172,7 +195,7 @@ allOf:
-               - winbond,w83l771
-     then:
-       patternProperties:
--        "^channel@([0-2])$":
-+        "^channel@([1-2])$":
-           properties:
-             temperature-offset-millicelsius:
-               maximum: 127875
-@@ -186,7 +209,7 @@ allOf:
-               - ti,tmp461
-     then:
-       patternProperties:
--        "^channel@([0-2])$":
-+        "^channel@([1-2])$":
-           properties:
-             temperature-offset-millicelsius:
-               maximum: 127937
+ 	err = fwnode_property_read_string(child, "label", &data->channel_label[id]);
+ 	if (err == -ENODATA || err == -EILSEQ) {
+ 		dev_err(dev, "invalid label property in %pfw\n", child);
 -- 
 2.34.1
 
