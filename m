@@ -1,209 +1,194 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013024.outbound.protection.outlook.com [52.101.72.24])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B7C03F4DE4
-	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 09:32:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787563955; cv=none; b=rn/Z9AHIEFRjSMV08gk+yT0mA9La6I2LfoGNFn+K/zDzImY3qadvwogUHPJs7Y4GT+HC29ZUdcL+z4XOKrn4sFuXV2MAWgW08nZ9OTyMf0nNjvhNaT0QzuOLBjWaXwXt318rrbCX/PAtzzrVTQnmnH2aUZBjPM4cHMy9hcUfTDE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787563955; c=relaxed/simple;
-	bh=hJWivipbzrq/Yp85Ioax6DLsoXVKNqX9wEPdMO5xGIU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uDCXdHQOJRnr0nLG40Eoe04YpYxzBr9vCU1fR3FNq9NpENpUWpdYYDRbDnHxSalb/P8VoUM41hE89PormMfFJpI6s2coyVpKHtp7wl6qPlfyENbuzJ6yFjoZEcylJHs3xH1rUdqqoyHdIiPnopWcO0CGckRwFbxwSSTtP+hOtaw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4996f1ee4a4so21325805e9.2
-        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 02:32:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787563951; x=1788168751;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gJloPN89elVAin5U0ydRdECi+cW4StvyY0mXdouFdaQ=;
-        b=MOYupwassMouc/oEk83vSxoY4Wb6pYWQyqyQp3W8DUH25hxNsQ3M81JhhCpDAK08+Z
-         K9fF3BFJgUguTX6/WwcP26Ss8qzMLMrPn8+oV0A9hy4rUGDtCi/WLBZ1yhXVYmILlxax
-         hOxch9YGMM7Ongzftpl/UEZC144mUqqcvYW2c2wKpo4ybO1gP/ZWw0NrrLEXdtIFr+1E
-         u7ci1phxPVirdrj0E38fYyFUe/Qzyt/3H7r7ZijuP1rhAL1oy6NU1hORIKNI+mKiqCmd
-         EkmBoxx7c/WyNXIQA8ascVebsiKmrUtjyNRzr4lMJeQSzsMzcL05gfHf0xVOuiFFyJhB
-         ivnw==
-X-Forwarded-Encrypted: i=1; AHgh+RplZuXbzRdCPFyxsgoC9IGfbsFB++jJJJKehIio6wTMoLF6laujarppEhMnHjwV5thmFY3UM1KHHnxp@vger.kernel.org
-X-Gm-Message-State: AFuF++m06JK+H14Jf68gDylWG6UWr3UfKNIhzJmoz1y3jhbMS1TzuSAq
-	wwDh/kidxc8FXq4rkc/G+KG32rrdUX457PUBrFuFiY/zxvb9ljTk8X2Z
-X-Gm-Gg: AR+sD11Z9DA4X/F3U1Qt7xPXBjarL3TaqvvvkJF6iT2udItbAk3clTBKbUzLYAM5xTR
-	6BBg4r4ZTjaDzEl0OKlGbN/QZnX2oM3Ji4XWGiePumnvvVqeL9QquG0rhF2ttE3PqaHdIHQGO92
-	u0zobPukd/97NIBoFC0OwN0QrZZD3ZysVF16ZpkyQZL785KrlgYAkYmtGdNRobEUlz+6vWiYhGJ
-	OlEpoeUxlB0nT3apUL6r+oZhFkRGjZQVvIPhIC0IcrcI3ydUhSKc1NdpVuliQvk5ubud+Hjpox7
-	TRwr+jh/kokPKU7JLwYhyLoC5URRe9qo+bDSTPHXSGdhrSit57+9Pa3bxXhH4MXn0t/JhWnpTcL
-	d0qU814j2GdMpA6TKPT4hGi1HCgXdkGCXIk+B6LGncf5EQ5YdjgEgdHWKgR59xOFtMpcyOzg6v5
-	dcaAMKF+8iF9h8NSP3cPqGUU5WdujtNsRNXirWnRf1DhuSSP5/plL4glnZuliJPOWgc/F2qgvG9
-	XaVvdJdiKJhaHquT4Ekgg==
-X-Received: by 2002:a05:600c:1387:b0:499:7a4f:d13d with SMTP id 5b1f17b1804b1-499b8313ad3mr240196255e9.4.1787563950900;
-        Mon, 24 Aug 2026 02:32:30 -0700 (PDT)
-Received: from [192.168.1.135] ([83.106.158.114])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499b914bfcbsm117572285e9.9.2026.08.24.02.32.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 24 Aug 2026 02:32:30 -0700 (PDT)
-Message-ID: <7c7f447d-8796-4f6e-b607-5251d9129665@linux.com>
-Date: Mon, 24 Aug 2026 10:32:29 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 780703A7848;
+	Mon, 24 Aug 2026 09:33:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.24
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787564024; cv=fail; b=L6y0aNq747r15tj6n33S7UoatKhThUTDV4BFO/R41uLkSCappyWQw22EXtll59PJDhgsXJLA+DeN1PhK7g5stVyOKPwQ3vUWstmpt3i6csgUp0dKhBQl5WwV6EAD4tc64sx+t2emmuJsFI3cCRyYA1teqY7U9lbvv90MMy9S1fs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787564024; c=relaxed/simple;
+	bh=qdGJw9XiZoJAfu5UR/MrpPUVyhIE+w3Xn/lX0Ozy+88=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=fd63Sj+fpfl1SeauMEBI0U3Och8CzsGj4XNEBfxmUFe3iZx6xNnNc0Jvrt/u3DaPdG5Xy2QTbYccc+zcReHNso5mSDFkefKLHl5VftgEJtAV45DC6wK7IKLtbIANnSPuxyWbTVwUiBtqYq3IqnNuqyr2o/42NZZYDhmsOsTDJb0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=Ss4vbB4t; arc=fail smtp.client-ip=52.101.72.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="Ss4vbB4t"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QTVYvJgnhgJHG6h+kblY+FHhkPw1kjcEjAQatKj6eMaAXFMn1lGckSp4I31l0AfgqPS6Z7fNU1z6m0LYS7uIvyxR0lTooZAXEB+ErPGrcTNqjq8l9isFRbONZ2/ETt4ui6EPkvLNYjPxL0XvbkPNtTtgShHRXBkPVqVI59R6bAII4ZdFvkGpStt+W72C90uyczHmVAQBZTXcoXTmEutilq2fPW7btCVwoAZ05K97a06v5TrrvgvtT77c+WdyNdX6fOWEs070QwxWOHTPEWzi29NbRjX+zwzebCvulh7lb3p4EptI+7qsUx5cJWRyE2lA41a1Q8cQOgoc7ZZZE9uoiA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qdGJw9XiZoJAfu5UR/MrpPUVyhIE+w3Xn/lX0Ozy+88=;
+ b=GZG3JX4996p2VHi7QUhEGi1t5TfnjdzYX/lJLOMkjrrK/y2nm2YYX6HIa1yjbPbDpMV5RXCsUdLPEesECavQhuCUWw2FOPD9OMUEXyAJcb8upQT6QoGiv2/xCFAUhYBeQB61M2YZHB2N4o55MP34BdNZ4F3HRhA4vwYiWZnCtVIWslwX4a3PtgnCv+/jwc0aMx70sGQ/HDIx3rXRZnJ/8dRrELS+SOLuevfc6kOcPcCuDkinrSaNXazuxIlbjQoswZcqwGGM/ue41zIBGpZYjLGyyo7pR8Xg+9KAHLuDjEY1wZNZzQvWZuXQgJx6j8dcYCXpNcbHvpTuAuyJacqgWQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=axis.com; dmarc=pass action=none header.from=axis.com;
+ dkim=pass header.d=axis.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qdGJw9XiZoJAfu5UR/MrpPUVyhIE+w3Xn/lX0Ozy+88=;
+ b=Ss4vbB4tgspnWlZmPpf2GILU3qO7NZSeb4idrT1/BMt3HkbCTGYfcEOf3G14uwQwOC93eH/IfIOCjmgV2WyjkGvFwjnpRYC7He0CvPmsnFiQ2lW/qONbfiiCNDUQApBglfi46/ZkOrx2k5jcqelmpl3h0ZIVCldWkiD8N+sicNM=
+Received: from DB3PR0202MB9129.eurprd02.prod.outlook.com
+ (2603:10a6:10:43a::19) by AS2PR02MB9581.eurprd02.prod.outlook.com
+ (2603:10a6:20b:59a::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Mon, 24 Aug
+ 2026 09:33:39 +0000
+Received: from DB3PR0202MB9129.eurprd02.prod.outlook.com
+ ([fe80::7510:e8c3:db37:47ff]) by DB3PR0202MB9129.eurprd02.prod.outlook.com
+ ([fe80::7510:e8c3:db37:47ff%4]) with mapi id 15.21.0339.012; Mon, 24 Aug 2026
+ 09:33:39 +0000
+From: Kanak Shilledar <Kanak.Shilledar@axis.com>
+To: "jic23@kernel.org" <jic23@kernel.org>
+CC: "dlechner@baylibre.com" <dlechner@baylibre.com>, "nuno.sa@analog.com"
+	<nuno.sa@analog.com>, "jean-baptiste.maneyrol@tdk.com"
+	<jean-baptiste.maneyrol@tdk.com>, "linux-iio@vger.kernel.org"
+	<linux-iio@vger.kernel.org>, "robh@kernel.org" <robh@kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"andy@kernel.org" <andy@kernel.org>, "krzk+dt@kernel.org"
+	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>, Kernel
+	<Kernel@axis.com>, Henrik Grimler <Henrik.Grimler@axis.com>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+Subject: Re: [PATCH v2 2/3] iio: accel: Add support for ICM42370P
+Thread-Topic: [PATCH v2 2/3] iio: accel: Add support for ICM42370P
+Thread-Index: AQHdKx75Am9VUxIwQESw7+lTV7Qul7agAGOAgA0AmwA=
+Date: Mon, 24 Aug 2026 09:33:39 +0000
+Message-ID: <751ab6d68a10ce896e99f213810dc6ffef131516.camel@axis.com>
+References: <20260813-b4-inv_icm42370p-v2-0-11aedfdf76d3@axis.com>
+	 <20260813-b4-inv_icm42370p-v2-2-11aedfdf76d3@axis.com>
+	 <20260816035955.61e4c805@jic23-huawei>
+In-Reply-To: <20260816035955.61e4c805@jic23-huawei>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axis.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DB3PR0202MB9129:EE_|AS2PR02MB9581:EE_
+x-ms-office365-filtering-correlation-id: c9e6bf01-1333-4b18-e4b9-08df01c2c777
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|7416014|376014|23010399003|6049299003|1800799024|366016|4053099003|38070700021|56012099006|10067099003|4143699003|11063799006|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ oPiXagQhrj4+DgXrOgtZgMD2hTsKSBn9waELncLZjdwpscc0iVvxo/GkfRPIQOdOuOhf5z0UHyaYs+MOUS6C+m0zyQRPRctICrC8MZfi8ERiAMi/NuiQReOgfGQeX8j84OV3mWMLvgHGQHgXA7BLH+eNqCR+QgQIIk7e8/1wo9OaKF83qbps09o1mR5Fdqm5NcITLJh7BBppSsnzKhrRJs4m7bmhKIE9MhnKs46f4C2LREw2r0rhB6I0ZxGA9myQ2Z3dHT/hlK59QMjb1bxMf589YhJ/vkkl/rub06jBhyvxTYAbvXfaWaDu2fESjcWBHvVk6lVSFFBuife3htSnUprprIxYIA0kuxNZaxTdcKKGLqLFJGclIy3LNvzFW0U4H/lRGpP6xbB6tlesu+I7pMiUHQY+iaR2NbQQTnYpdqOuChMIuXjg9vLo6XRQRBjs6Ed/+dKsr/AE6kDNnkfnQs/5pgHgP3Z7Xq4oSA6f6JrzGpd3wgMuB2PlhzLoQjW3e9uf6tkGjc0oEdxbNwRwkYPxmUqC8BprcIXMy4TRMYP1ij043nqcWL0JAvu67x9+PfFEN80Yoj1y6c0MkW32QtJf8GQNFirLJbQ+VcIcXBxxcNczb7tg/5gfeXSKMIqOtByBOGMKMVTPqDDW2zQ7KgnVuTmGMBBjnl3agQuWxWp52kRJNL0uCzKPRtKb4DWAmYAVDzACMHDlrq5QqLrmgEoAjG0wqGNG67FSaErIntk=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB3PR0202MB9129.eurprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(6049299003)(1800799024)(366016)(4053099003)(38070700021)(56012099006)(10067099003)(4143699003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?ajAzdVk5K01lUjZzL1RpQ2Rrdlo3RmpSSUo0U01pMU5ha2RzZWltSDI4aDFJ?=
+ =?utf-8?B?R2xiQlJiRE5vcStrMHBxNGJnaE9jdjRVMFdJTHFaZWVSM0dQa29YZHpodWJK?=
+ =?utf-8?B?dkxQWWVSV0hGUEZ3emZKcG8zRHhHNDd3YTdHeVR2VlVnZ1kyMjlkVmJqY1Jp?=
+ =?utf-8?B?eWVzQVp5RnphaHlQVXFmcUlHT2ZRUXpVNjBoMlNjV3pJZnFINFRDYS9ETitS?=
+ =?utf-8?B?bWdhazdLdFhxQmlIU2xFZ3FjOFJHNnRqR0ZvaE5UTjRIbk9GV3VxYldjazda?=
+ =?utf-8?B?NXNYY09lOGN3amRlUkszempHWmtpeUN2Vk5YS3BDbjZxcHllTjlZNkJGVGhN?=
+ =?utf-8?B?MGRZbUJUUW50ZjhQNXRDeEdLWkQ0aXFHVGFPZGU2K0dBWEdkT3JtQS9OeXF6?=
+ =?utf-8?B?ZHFkTWtUL0t1UnNzWTNWQXJRSUdXbGJEanl6bDdaZGVpdk1mZldldVl2TVVi?=
+ =?utf-8?B?V3dRSE9KbkNXUFh3T3QrOTkrUXI5MDVyV1oySzZJWFh0Zy9DeW5Ec2x3WWYz?=
+ =?utf-8?B?WkI4WHdtSTRPcFNHOS9EaVgyLzJNSU5qVmM4MjRKaUdWWVlwY2J3NTVDTHVD?=
+ =?utf-8?B?T0hNbFFDcnNCNUVZREdrbkhKQUFZamZCcVpKbDFJS2RGNFJyRHFJRzlPZ3BT?=
+ =?utf-8?B?QU1iVzRDQU54TlptY09QNXF0dEJEUDJBR04zRXdscHFidkE4eHJwUFF0QVcr?=
+ =?utf-8?B?R1VQRHF3bk1WQ1dHWmkrT0Q1VjFmamp4YUcrZWozeW5Rc0RPUllGQmZPTWJG?=
+ =?utf-8?B?NmZmTGU5bHNDaEx6cjRGMmM4aFVwR3JEa2tobWZGc0ZzT0VMTkd2Z3JuNlM5?=
+ =?utf-8?B?d3lWKzF3TXRaUlp0VVBQVXUwZStiRWdvbUs0YXRVVWtLeGlqRjlhK2paZEpH?=
+ =?utf-8?B?aithc3pQczlmcmh3OXkyamV0dGRodm1JbFV5VVZENUgxZVBOSUxSZU1pQmx6?=
+ =?utf-8?B?UzluMjFiOWtyb1I2bmJiMEg0dEZ0aTBlUlVUa0tvZUVwdmQrMklrajJOMzc3?=
+ =?utf-8?B?aHpVenRiTTh2WGVRT3BXc1prM0xnM28vZ2ROLy9DUGM1VU1iNFNYUHhPd0s1?=
+ =?utf-8?B?ajRwNXB0c3Q2NTEzMTNHZjlEcWJ3anl0RHRreTRlc2pxcVBNUXNBN0I1U0Q1?=
+ =?utf-8?B?azFERjhTWXo4V0dQSmJrODBGaTg2cFpyV2tBYSs4TnR2RlFMZkg3Q09EVDZk?=
+ =?utf-8?B?WnhKdkxjZ3EwS2Y1TkUwMTBHR2YrR0l2NFArbXlYMXRHS1ArYTRjdDRmOGhi?=
+ =?utf-8?B?ZkpNN2l1SzVYQm56OS83UEJOOHZQVkNCWkZSeVdlZTVvWDkrQkliU1puQ2J4?=
+ =?utf-8?B?V2dJbnRUTEVjbm5WanQ2TGlnWUJKMWN2NUI2RWJYNkNEdlpXSlZaUWxtbEdO?=
+ =?utf-8?B?NWdBbUMva1ZDRkhUNWtTb20yd1dRV0VXL0F6ZHNva0svb1NQUnVuMXBra200?=
+ =?utf-8?B?R1NZSTlLOVNjaU1nQ2xIN09ZWHk0QWpJRFlWUTFDbkdPRjR4NTBWOHdIbDFH?=
+ =?utf-8?B?ZXEyL1pzakkwbXJ1cXlzWk9YZkdaeldWQURoTVRlU1ZGSDRkUHdGNHBQMHht?=
+ =?utf-8?B?ZnU4am5xeWhCT3F2ODVRckZzRXg1WjkrOEZ4dGNaMnhBWmsyMmRza0pnekI2?=
+ =?utf-8?B?V1pXRlE3Sms3cm5Mb3JnQzRaZkdRamFYN0F1Yk9TeHN3RVkxMWNRbmx4ZTB5?=
+ =?utf-8?B?SjNRWVhianM0TTYrdE9YYmY4eGU2M3ZSZk5xaTVLa1ZhM3NmcGFMYnRzRFBl?=
+ =?utf-8?B?bUFocnBSZkd1aE45Y25vWHhsSCtQUVg2SHh1SWdyMzJPMUM4aW4yWDl6T1Iz?=
+ =?utf-8?B?azJJL0NzRnZQZ1dsWGVyUG1mcVdZaGlmNldHYnhXWFQzMDg5Q203amNIUDJ1?=
+ =?utf-8?B?dmVMYTZnR3JoZlJneWtmYVYrZ2ZOUGpxcWpVeTNwSDcrdXlMYS9zMitCYms0?=
+ =?utf-8?B?RVptcHBUTGRoN3pnVTB2d1A3MGp2dDV6a3lwZThMNlBLZWV6eTR4dTdZcmZ2?=
+ =?utf-8?B?T2JsMmZMemgzNllRYWJNdjZvRDZXU2Vudm42bklSOWpWdy9PK2xjQ3dqcy92?=
+ =?utf-8?B?QlhIVzRTNlMvQ1ZvK3NMRWszQ2ZoV2RteVZDckFNT2tCUnlrWWREckZIODVC?=
+ =?utf-8?B?UzBzSSs2em9RUHFKdkxQQ1BHU0lWYjk1cDhjeHNWNjN3VWFNVnUwUmpZdUFr?=
+ =?utf-8?B?TE5jdEQ4RXdvODBnQmpKOGZxVG1qbEhpS2RvVVdlQzZ2bVlJRW1Zd2pMbTFF?=
+ =?utf-8?B?VG56d2RMVTJtUll5RS9oVFZLeHVseVVSaVArMitmd1VoTG9jc0puNjl2bUsv?=
+ =?utf-8?B?Szc2cDUzcDVoU0lsaDZMNFF1dWZqdERidmllTklIQnV1d0VhY25rZz09?=
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="=-sg0bqBwIDmXs9Z1lxDxY"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] arm64: dts: amlogic: t7: use the real UART pclk
-To: Ronald Claveau <linux-kernel-dev@aliel.fr>,
- Xianwei Zhao <xianwei.zhao@amlogic.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-References: <20260818191159.11523-1-tanure@linux.com>
- <20260818191159.11523-2-tanure@linux.com>
- <c428305a-265c-4cc5-be01-be5b21dc22ca@amlogic.com>
- <6673edea-6822-4368-9374-29f92195fcf5@aliel.fr>
- <0969d872-faff-4b0f-81ad-972b7aa9bb7f@linux.com>
- <78721fe3-d9d0-4f85-a1ec-a01ebbf4f9a3@aliel.fr>
-Content-Language: en-US
-From: Lucas Tanure <tanure@linux.com>
-In-Reply-To: <78721fe3-d9d0-4f85-a1ec-a01ebbf4f9a3@aliel.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: axis.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DB3PR0202MB9129.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c9e6bf01-1333-4b18-e4b9-08df01c2c777
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Aug 2026 09:33:39.1583
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 78703d3c-b907-432f-b066-88f7af9ca3af
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: WtECKTD1kYqrDJZY2CHU+GTPpGETqtVbPVH38cy/T3BJpCY/mk72qm4QIylGCyi6
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR02MB9581
 
-On 24/08/2026 10:15, Ronald Claveau wrote:
-> On 8/23/26 1:39 PM, Lucas Tanure wrote:
->> On 19/08/2026 08:25, Ronald Claveau wrote:
->>> On 8/19/26 4:39 AM, Xianwei Zhao wrote:
->>>> Hi Lucas,
->>>>
->>>> On 2026/8/19 03:11, Lucas Tanure wrote:
->>>>> uart_a lists the 24MHz crystal for all three of its clocks, because
->>>>> the T7 clock controller driver did not exist when these boards were
->>>>> added.
->>>>>
->>>>> That leaves the real UART bus clock without a user, so the kernel
->>>>> turns it off when it disables unused clocks at the end of boot, and
->>>>> the board hangs.
->>>>>
->>>>> Point uart_a at the real clocks, the way meson-s4.dtsi does, and drop
->>>>> the placeholders from the two board files.
->>>>>
->>>>> Fixes: 4fef056588f5 ("arm64: dts: amlogic-t7-a311d2-khadas-vim4: add
->>>>> initial device-tree")
->>>>> Fixes: 6f048cc7a635 ("arm64: dts: add board AN400")
->>>>> Signed-off-by: Lucas Tanure<tanure@linux.com>
->>>>> Assisted-by: Claude:claude-fable-5
->>>>> ---
->>>>>     arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts       | 2 --
->>>>>     arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts | 2 --
->>>>>     arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi                   | 4
->>>>> ++++
->>>>>     3 files changed, 4 insertions(+), 4 deletions(-)
->>>>>
->>>>> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts
->>>>> b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts
->>>>> index cab2ee9ea0d3..dcbcd08a78b9 100644
->>>>> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts
->>>>> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts
->>>>> @@ -33,7 +33,5 @@ xtal: xtal-clk {
->>>>>     };
->>>>>
->>>>>     &uart_a {
->>>>> -       clocks = <&xtal>, <&xtal>,
->>>>> <&xtal>;
->>>>> -       clock-names = "xtal", "pclk", "baud";
->>>>>            status = "okay";
->>>>>     };
->>>>> diff --git
->>>>> a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
->>>>> b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
->>>>> index c41525a34b72..677069e58f30 100644
->>>>> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
->>>>> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
->>>>> @@ -266,6 +266,4 @@ &sd_emmc_c {
->>>>>
->>>>>     &uart_a {
->>>>>            status = "okay";
->>>>> -       clocks = <&xtal>, <&xtal>,
->>>>> <&xtal>;
->>>>> -       clock-names = "xtal", "pclk", "baud";
->>>>>     };
->>>>> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
->>>>> b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
->>>>> index cc371fcd1896..7847582e77ed 100644
->>>>> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
->>>>> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
->>>>> @@ -587,6 +587,10 @@ uart_a: serial@78000 {
->>>>>                                    compatible = "amlogic,t7-uart",
->>>>> "amlogic,meson-s4-uart";
->>>>>                                    reg = <0x0 0x78000 0x0 0x18>;
->>>>>                                    interrupts = <GIC_SPI 168
->>>>> IRQ_TYPE_EDGE_RISING>;
->>>>> +                               clocks = <&xtal>,
->>>>> +                                        <&clkc_periphs
->>>>> CLKID_SYS_UART_A>,
->>>>> +                                        <&xtal>;
->>>>> +                               clock-names = "xtal", "pclk", "baud";
->>>>>                                    status = "disabled";
->>>>>                            };
->>>>
->>>> I agree with moving the UART clock configuration to the DTSI file.
->>>> However, it seems a little odd to keep the XTAL clock definition in the
->>>> DTS, as the alias may not be consistent across different boards, which
->>>> could result in compilation errors. Could we move the XTAL clock
->>>> definition to the DTSI as well, similar to other Amlogic SoCs?
->>>
->>> It seems similar to changes in this series :
->>>
->>> https://lore.kernel.org/all/20260420-add-bluetooth-t7-vim4-
->>> v4-0-9505df0e7016@aliel.fr/
->>>
->>> What do you think ?
->>>
->> Thanks for pointing out that series, though I wasn't aware of it.
->> And after reading I don't agree with it. The clocks are not redundant,
->> they are there because we agreed sometime ago that xtal belongs to the
->> board files.
->> So I still vote for my change in v2, that I will send in a few minutes.
-> 
-> I don't get why it would be better to define the exact same clocks in
-> each DTS file.
-> 
-> The xtal recommended characteristics provided at the SOC level can be
-> defined in the DTSI and overridden, if really necessary, in the DTS.
-> 
-Hi Ronald,
+--=-sg0bqBwIDmXs9Z1lxDxY
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The preference for keeping xtal in board-specific .dts files rather than 
-the SoC .dtsi comes down to DT hardware modeling principles and upstream 
-maintainer guidelines:
+Hi Jonathan,
 
-Hardware Topology: The xtal is physically located on the board PCB, not 
-inside the SoC silicon. The .dtsi file models the SoC silicon internal 
-architecture (clock controllers, IPs, registers), whereas .dts files 
-describe the physical board layout surrounding it.
+On Sun, 2026-08-16 at 03:59 +0100, Jonathan Cameron wrote:
+> On Thu, 13 Aug 2026 14:26:11 +0200
+> Kanak Shilledar <kanak.shilledar@axis.com> wrote:
+>=20
+> > Add support for the Invensense ICM42370P MEMS MotionTracking 3-axis
+> > accelerometer with a built-in temperature sensor. Compared to other
+> > sensors from the same vendor ICM42370 uses a different way of
+> > handling
+> > register banks. Although the device supports I2C, SPI, and I3C,
+> > implement only I2C support.=C2=A0 Provide basic support for raw sensor
+> > reads and a sysfs interface for setting the calibration bias. Keep
+> > the
+> > embedded temperature sensor enabled because the device design does
+> > not
+> > allow it to be turned off.
+> >=20
+> > Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
+> Hi Kanak
+>=20
+> Welcome to IIO. Various comments below.
 
-Avoiding Implicit Assumptions: Defining a default 24MHz xtal in .dtsi 
-assumes every T7 board will use the same oscillator configuration. If a 
-custom board design uses a different crystal frequency or an external 
-clock generator/TCXO, overriding a .dtsi-level node can lead to messy DT 
-overrides or silent clock rate mismatches if forgotten.
+Thanks for reviewing the code. As per the response from @Jean, I will
+drop this new file, and improve upon the existing Invensense, ICM42607
+driver. While at it I will try to keep your comments in mind before
+sending out the v3.
+>=20
+> > diff --git a/drivers/iio/accel/inv_icm42370.h
+> > b/drivers/iio/accel/inv_icm42370.h
+> > new file mode 100644
+> > index 0000000000000..a4a822f04355f
+> > --- /dev/null
+> > +++ b/drivers/iio/accel/inv_icm42370.h
 
-Upstream DT Maintainer Policy: Kernel DT maintainers consistently push 
-to keep board-level hardware explicitly declared in the board .dts files 
-to reflect actual physical board components.
+Best Regards,
+Kanak Shilledar
 
-That said, I acknowledge the trade-off is minor boilerplate duplication 
-across board DTS files. If the Amlogic SoC maintainers prefer setting a 
-default 24MHz xtal in amlogic-t7.dtsi to match older SoC generations, I 
-am open to updating it—provided the maintainers explicitly prefer that 
-tradeoff over strict DT topology modeling.
+--=-sg0bqBwIDmXs9Z1lxDxY
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-Best regards,
+-----BEGIN PGP SIGNATURE-----
 
-Lucas
+iHUEABYKAB0WIQRZbIB7R61KYt5yWsuslrbqDH4eIAUCaowP6AAKCRCslrbqDH4e
+IMRZAP0bg+7OkjXHQWjk7opmWiIEJdZBjH5jXaRzC3YPN5YT4QD6Ail2qNmDrAh3
+efyqFCoRfUhln6qkHQY84gqrmCYgngY=
+=DKCA
+-----END PGP SIGNATURE-----
+
+--=-sg0bqBwIDmXs9Z1lxDxY--
