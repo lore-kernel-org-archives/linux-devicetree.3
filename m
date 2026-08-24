@@ -1,214 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B359C2F3C10
-	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 07:17:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B0DB3451B5
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 07:20:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787555842; cv=none; b=X/z64syDy4ZNeeJagp9X6d/cdPQjCk3wVt+lFAoqIFWKEBFJgN9ljaTuNdk8/pnx85fICbvrehtH7GpnjCWKG4V1x09Gxm3jwmjgGvbqZi63zcVoF6MzYsUsXyv0mASSLJklsl7YZpS9uEUDz/lnJA6onA9zt+2jRRF+0SqPw48=
+	t=1787556005; cv=none; b=WtkPs2RzrBdVLGXm4Go/Q+adBqlhbi+8CEZiBgGG4Y6WzeqtrrWg2b6IcoWXnAMbKnwFjSmHId/nckftsN9lOOZ5JdzkT2fB5t4vfoVsD6UzP/iHYOr+dCXR8aGUv8PvP2wUnek2VMWuNMKSvwS9BIHWUTPJFI/TlvPeh78FJJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787555842; c=relaxed/simple;
-	bh=9gHAG5HigLkTRlfUUAPTv5LCVMuSAgSV7KkCUfOiW6I=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=VdhgzYELqb4RcDCLvGNW9a9zOKA3xBLS5n15MkHSzhonIszsgZc9UY+Tk0fzwwcbAW4ON6WNCjYPUvwlWwwyL7iYCGSlpPwXVq4ro/mTGd3VlUCPXhuJn1d6edb7XGWaC0MUpUnzWYC5ynwgabDTqBAsEKLbVTOyO7cLrzzVdik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MX7bNwSQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787556005; c=relaxed/simple;
+	bh=aXL4UHrf+0humdIEef+4JRKRa9+MfpcNujWBdBmDGOI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hf4/lzSmw9NtSr9xZB4h+5jrFFQtGsaHbVpySUw2bjSt4GmBEI64f8srsDJ7m5AfJYzgWQLpNqQxLm4wJYt5qbCZ6Q1MEfTVxcWKAAqEVXJ6ydMcFcjTg+BfOhT3eU6uJ6b4bzGcIditoBqM+vha43e5KtfGLjZe7GPIN4YUVz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CUFpmHPm; arc=none smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MX7bNwSQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 216081F00A3A;
-	Mon, 24 Aug 2026 07:17:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787555841;
-	bh=G35dHnALsPD+Puy08DU+SwMlThqnp+a3HlfSlCTxhSQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MX7bNwSQwvm+O0oRe4b6TvcgZDZonnT1km4tN8q6H0yrR18RA3E7b7Ap3qkuysCCX
-	 BqkF5eW2/Sb+oEKSHWhDNNwwu/ZQ48UVki8G8Ak5dz9Hk7rbeJH/9riQlcNlVYNtUQ
-	 v3VSIsA963cqRFG8cDXJfRzPtZxAKQpCAu6qx2ISdVijAiOBLfdpTJ+KVdTGQ5EJrk
-	 m3/YEjkKdur8OUwsTt8dY9rrfB4oeZkyhw6WOla1kzVVdP8wDZG62I8K4Wegd3RmYG
-	 N6sb/a63xMM/mKLW4F6QYic75HUOLWDQ/JB+9ayq5vxxTEQUENYqgSAs14hc/5joS0
-	 Zjr0GUe9aFExw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3] ipmi: kcs_bmc_aspeed: Support multiple LPC
- controller instances
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yu-Che Hsieh" <yc_hsieh@aspeedtech.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260824-upstream_kcs_multiple_lpc-v3-1-b15bb0f77462@aspeedtech.com>
-References: <20260824-upstream_kcs_multiple_lpc-v3-1-b15bb0f77462@aspeedtech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 24 Aug 2026 07:17:20 +0000
-Message-Id: <20260824071721.216081F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CUFpmHPm"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c247f6687dcso344199466b.2
+        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 00:20:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787556001; x=1788160801; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jiRReprdkoXJr2ffVSHCZYH7aGcmAMsjru8xnumcQsE=;
+        b=CUFpmHPm1dpajm8kHJo/EBAKIRfUvFM8CCblNrP7igR3Bf8DjmaR1GXSQJwvGGexqM
+         qkrwtSZnEB77wsfsRUASTLWuasfR7/3sN5ZGMTTNIdvs3p36/cJKb3FpuYlIgbwKuTHi
+         E8QX4ghP/fMaLC4oRBeNXUclwjPfydI7y51tRwdps0wyA6rlKj3zruXeYQXWWrDrSEhw
+         tbnowEjAVVGLWjTVx/6GE4zmj87DwtqhUOTkBdZYb7Qc7jb5+gKgl1X6PxnBMi3Kk+st
+         x0IyJKR3Ehvm8kY+iHZ0Yj5gPTiRO0Wsr3jBIrb1jlxEiRM7skIaHEhfoVac+2BAQrkH
+         Us0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787556001; x=1788160801;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jiRReprdkoXJr2ffVSHCZYH7aGcmAMsjru8xnumcQsE=;
+        b=syHTbXius/FH9grNNeehrZRkg3dLO1r4O274BRBsibzCI5Kjb6FpTm4GWhxzaCMPy0
+         jgQsKzrMZfuRBu2ORrzBQO9KyVa+eMW/uasWp539KybcwMJyT7xq4CL3SDTve4miDgLD
+         Mj3zQmyDQ5Feg/nbESL2jQA6dW6mXHXdn2uGBrgOwDl1ape67QCUyE70eTLE5iMGBX2z
+         PqCRxGaVj+l5f7awcv+4iv+NJkC2S3207rJWNRyaILA00iaykb3x491uKYSZqxRleWXm
+         jumZY42QOmytvG4FhC0C2kUKePwFwJ3pT3Y1ayTxcYPvxhpQR/XQ96/k/qOGlLkGOXFF
+         HN6g==
+X-Forwarded-Encrypted: i=1; AHgh+RoYCVpHMVVBqa0OIGXlFBLsAWrxMBc2Ralh4ilvoLXjsGKzp9cMSA0gDfm35nwznMLIt7QUwl7XXVY3@vger.kernel.org
+X-Gm-Message-State: AFuF++lnrOdO/fT7xEsYflrGh22IJooqFxrsPXVKVzNyuE0mMYPfnnFH
+	y4uA7xPbBRHgMyRWcNwcg7PjzUSiviIdp7KjSJgiiaMvCAOKVBIuq1IC
+X-Gm-Gg: AR+sD11f/9P+BZNz5/ic7iIpm9qkkOsenSi0Zqb/q1v/W8eseA1V2YdT/+kI0yUNsGn
+	N0TNo36+dacJTgUWPjtgtVSlEWTj3qj4KMXH3osTe7tRofZlkijL5Rei8xOMFYJRACwryYNS6w+
+	Wssl2RbD3xezYPTmF6k76n1hQ6R0zLp0SQiPY2adQFHRt2vfmXIm8xlsbN49V1HiTKTZvD/vQlF
+	vED5NdDJdgIN/pnh6ulH/IdEo7A+5PFZOR3elNlUpMKr5NpnfHR67OHFe5qQkkupJ9T1WjJubLY
+	f6KwAOPJ9JsXFr6qEvtGASeK1GFYXP9hHmcKbEXJc3yRtlptmH7KEdJMY4BG0uwepBXo8ZmV6GT
+	w+ODR58rYz5qf0icRAhV88ujHQNF3nlIRrqVKmL7JUYWipJClOE0GKVQiLlPK83mna3n91fOGzt
+	7Ycl/QqQI7gmK77Dlf53fT93nVIvzi2mhJkR84BThT3C1b2Om8k5hpvH9JD5aDSfrkc7UegOcWZ
+	UpjF32YxAcKuhaKs15Y7m6bmWhZNoKBrFSEoJYAiwMVHJ6OrQQb8mpUzpsH3Bu2rnjmco4QgEzW
+	fJX45U2M8qWsyUlTkHME1tVyG167h/pioac=
+X-Received: by 2002:a17:907:7b93:b0:c20:5213:56f1 with SMTP id a640c23a62f3a-c246a60348emr2628478966b.13.1787556000424;
+        Mon, 24 Aug 2026 00:20:00 -0700 (PDT)
+Received: from franzs-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c249685ab3csm1137673466b.49.2026.08.24.00.19.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 24 Aug 2026 00:19:59 -0700 (PDT)
+Date: Mon, 24 Aug 2026 09:19:58 +0200
+From: Franz Schnyder <fra.schnyder@gmail.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+	Lukasz Luba <lukasz.luba@arm.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Francesco Dolcini <francesco@dolcini.it>, devicetree@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-usb@vger.kernel.org, Franz Schnyder <franz.schnyder@toradex.com>
+Subject: Re: [PATCH 1/2] arm64: dts: imx8qm-ss-conn: Add USB HSIC related
+ nodes
+Message-ID: <qyrzrmrvymwhoziwf3we4fxwb4nfyhb3s7hiuqauzoco52auns@7rihmyhkti2v>
+References: <20260821-add-apalis-imx8-usbhsic-v1-0-fb93d73ead44@toradex.com>
+ <20260821-add-apalis-imx8-usbhsic-v1-1-fb93d73ead44@toradex.com>
+ <aohtVk57YIWkj05I@SMW015318>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aohtVk57YIWkj05I@SMW015318>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+On Fri, Aug 21, 2026 at 10:23:02AM -0500, Frank Li wrote:
+> On Fri, Aug 21, 2026 at 04:58:57PM +0200, Franz Schnyder wrote:
+> > From: Franz Schnyder <franz.schnyder@toradex.com>
+> >
+> > Add the required nodes to support the iMX8QM/QP USB HSIC host controller.
+> >
+> > Keep the HSIC host node in the QM/QP specific dtsi to not conflict with
+> > the address used by usbotg2 on the iMX8DXL variant.
+> >
+> > Signed-off-by: Franz Schnyder <franz.schnyder@toradex.com>
+> > ---
+> 
+> I already post similar patch at
+> 
+> https://lore.kernel.org/imx/20260720212401.C2BD31F000E9@smtp.kernel.org/
+> 
+> Frank
 
-New issues:
-- [Medium] Dynamically allocated `struct aspeed_kcs_bank` entries are never=
- freed on module unload, causing a memory leak.
-- [Medium] The driver stores the parent `device_node` pointer in a global l=
-ist without acquiring a reference, risking a dangling pointer and ABA alias=
-ing.
+Hi Frank,
 
-Pre-existing issues:
-- [High] The IRQ handler is registered before `kcs_bmc->lock` is initialize=
-d, leading to uninitialized spinlock access if a shared interrupt fires.
-- [High] The KCS hardware channel is left enabled if `kcs_bmc_add_device` f=
-ails, potentially causing an unhandled IRQ storm.
---
+I somehow missed that imx/dt64-intend branch.
+Do you want a V2 with only the changes for Apalis?
+Or will you just drop this imx8qm-ss-conn patch from the series?
 
---- Patch [1]: [PATCH v3] ipmi: kcs_bmc_aspeed: Support multiple LPC contro=
-ller instances ---
-commit 6a9db3a3464fe3254462564cc2c5b13db5dfb6b3
-Author: Yu-Che Hsieh <yc_hsieh@aspeedtech.com>
-
-ipmi: kcs_bmc_aspeed: Support multiple LPC controller instances
-
-This patch adds support for multiple physical LPC controller instances on
-SoCs like AST2700. It separates the hardware channel index from the global
-KCS device channel index. A dynamic bank index is assigned to each LPC
-controller node during probe to ensure unique chardev names.
-
-Link: https://lore.kernel.org/r/20260813-upstream_kcs_multiple_lpc-v2-0-775=
-b1db3fe95@aspeedtech.com
-
-> diff --git a/drivers/char/ipmi/kcs_bmc_aspeed.c b/drivers/char/ipmi/kcs_b=
-mc_aspeed.c
-> index a13a3470c17a4..751f477c09e0d 100644
-> --- a/drivers/char/ipmi/kcs_bmc_aspeed.c
-> +++ b/drivers/char/ipmi/kcs_bmc_aspeed.c
-
-[ ... ]
-
-> @@ -526,6 +530,47 @@ static int aspeed_kcs_of_get_channel(struct platform=
-_device *pdev)
->  	return -EINVAL;
->  }
-> =20
-> +struct aspeed_kcs_bank {
-> +	struct device_node *lpc_np;
-> +	struct list_head entry;
-> +};
-> +
-> +static DEFINE_MUTEX(aspeed_kcs_bank_lock);
-> +static LIST_HEAD(aspeed_kcs_banks);
-> +
-> +/*
-> + * Assign each distinct LPC controller device_node a stable bank index t=
-he
-> + * first time it's seen, so that KCS devices instantiated from different=
- LPC
-> + * controllers on the same SoC (e.g. AST2700) don't collide on the same
-> + * global kcs_bmc_device::channel value.
-> + */
-> +static int aspeed_kcs_of_get_bank(struct device_node *lpc_np)
-> +{
-> +	struct aspeed_kcs_bank *bank;
-> +	int index =3D 0;
-> +
-> +	mutex_lock(&aspeed_kcs_bank_lock);
-> +
-> +	list_for_each_entry(bank, &aspeed_kcs_banks, entry) {
-> +		if (bank->lpc_np =3D=3D lpc_np)
-> +			goto out;
-> +		index++;
-> +	}
-> +
-> +	bank =3D kzalloc(sizeof(*bank), GFP_KERNEL);
-
-[Severity: Medium]
-Does this leak memory on module unload?
-
-Since the bank entries are dynamically allocated and added to the global
-aspeed_kcs_banks list, and the driver uses the default module exit routine,
-it looks like unloading the module might permanently leak these allocations.
-
-> +	if (!bank) {
-> +		mutex_unlock(&aspeed_kcs_bank_lock);
-> +		return -ENOMEM;
-> +	}
-> +
-> +	bank->lpc_np =3D lpc_np;
-> +	list_add_tail(&bank->entry, &aspeed_kcs_banks);
-
-[Severity: Medium]
-Is it safe to store the raw device_node pointer without pinning its referen=
-ce?
-
-If the LPC node is removed via Device Tree overlays, this pointer might
-become dangling. If a new node is later allocated at the same memory addres=
-s,
-could it cause an ABA problem where an unrelated device incorrectly matches
-this old bank index?
-
-Should this use of_node_get() to keep the reference alive?
-
-> +
-> +out:
-> +	mutex_unlock(&aspeed_kcs_bank_lock);
-> +	return index;
-> +}
-
-[ ... ]
-
-> @@ -590,9 +639,11 @@ static int aspeed_kcs_probe(struct platform_device *=
-pdev)
->  	if (!priv)
->  		return -ENOMEM;
-> =20
-> +	priv->channel =3D channel;
-> +
->  	kcs_bmc =3D &priv->kcs_bmc;
->  	kcs_bmc->dev =3D &pdev->dev;
-> -	kcs_bmc->channel =3D channel;
-> +	kcs_bmc->channel =3D bank * KCS_CHANNEL_MAX + channel;
->  	kcs_bmc->ioreg =3D ast_kcs_bmc_ioregs[channel - 1];
->  	kcs_bmc->ops =3D &aspeed_kcs_ops;
-> =20
-
-[Severity: High]
-This is a pre-existing issue, but I noticed a potential race condition in t=
-he
-probe function just below this hunk.
-
-The driver requests a shared irq before the lock is initialized:
-
-aspeed_kcs_probe() {
-    ...
-    rc =3D aspeed_kcs_config_downstream_irq(kcs_bmc, pdev); // Requests IRQ
-    ...
-    rc =3D kcs_bmc_add_device(&priv->kcs_bmc); // Initializes kcs_bmc->lock
-}
-
-If a shared interrupt fires immediately after the IRQ is requested, could t=
-he
-handler try to acquire the uninitialized spinlock in kcs_bmc_handle_event()
-and cause a kernel panic?
-
-[Severity: High]
-This is also a pre-existing issue, but does the error path for device
-registration leave the hardware channel enabled?
-
-aspeed_kcs_probe() {
-    ...
-    aspeed_kcs_enable_channel(kcs_bmc, true);
-   =20
-    rc =3D kcs_bmc_add_device(&priv->kcs_bmc);
-    if (rc) {
-        dev_warn(&pdev->dev, ...);
-        return rc;
-    }
-}
-
-If kcs_bmc_add_device() fails, the function returns without calling
-aspeed_kcs_enable_channel(kcs_bmc, false). Since the probe failure will
-clean up the IRQ handler, could this leave the hardware asserting an
-unhandled interrupt and eventually disable the shared IRQ line?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824-upstream_k=
-cs_multiple_lpc-v3-1-b15bb0f77462@aspeedtech.com?part=3D1
+Franz
