@@ -1,92 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BDF6414A34;
-	Mon, 24 Aug 2026 12:30:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AAC340F73B
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 12:32:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787574660; cv=none; b=VPi3tCQMQTv08q/vx6eoyr2LTQW1W6+sX0dE5cVkn2m6LJ8svh5u/XOBq6r88Ry/Kd6FKRpl54yIox4whPSuy2DGfb8FF9/domM7V4HC+Pb1Oix0A02FbiVCT9mwYktE/CvaqK6WFnsQOsYQBzCaJUK0UUpv/ICFHyeM3sqL6Hs=
+	t=1787574756; cv=none; b=pqr7cwWmzyZajoql5c/TqHJSyiCA0+cED4mkRossvs7/fmY5j2/2WyZl2GzbBuNe66vgVHlxVe41sWjh4ulFR9I0NXvZA5JV9AZtcqPUhfP4xsxI9Ilkp1eBzk2dPyEdqKZaeqrFqpjreOXbk6fem00XNFxEtyIS1F9Gyg97Sbk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787574660; c=relaxed/simple;
-	bh=/t956YREvi6l1+EC5J83mdIBd+VKFZIUveimwxilras=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nHV+ft4bRsDqZnRl8Nn8+Sh9rsazUTfeqKKF0tdvRkAXSVMhNHQjBLclmKRRPF/t92a6XzC0P1txR/444Zmxix05TybJNscrWnSWaRsSYOihW1K/g1bHbYiVLjAJK7QfAAvdXcVRLaYxnZK+OLmmvGROt/Vkfr7F8fn72g0rVnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ezJGhFiF; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ezJGhFiF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B71081F000E9;
-	Mon, 24 Aug 2026 12:30:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787574657;
-	bh=fDoJWeTCQqctnvHI1vokd1HHPUUSVKq57c+kCOeQsVE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ezJGhFiF25T5BvbEO8czWY8e/xQpIfbL6jrvL/RlPb90lsdSav5CF2fO5nRefcpkn
-	 DBb8beKsgeGHN9i9oj1Z37LVkl2d8Sv0FSAZS1cZtfqVoYd8zz6/xLqSTC1A9efYhI
-	 vurjfizgXP2fZyNXtQ48JQjahd/AQGuCHEROjJ20oeZKE8wZjJoLrukXIXOw8vESYV
-	 1MJ/yksOIpPD8z1ktF4c32xAK4FLCG1no5sQ9mR19dtT3a93zGDQyBMFCTS9C9Sy1d
-	 ZTMOs0Bx6hKYFGTJRamubcDo/I+y+DJ0rUr0d+KsZQpCQRPR7lqFjOai7e7PQ9K8OR
-	 bbtsaX+49FklA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 39/47] arm64: dts: qcom: sm6350: Add GCC CX power
- domain
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Abel Vesa" <abel.vesa@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, linux-clk@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260824-qcom-tie-cx-to-gcc-v3-39-f1205a92682b@oss.qualcomm.com>
-References: <20260824-qcom-tie-cx-to-gcc-v3-0-f1205a92682b@oss.qualcomm.com>
- <20260824-qcom-tie-cx-to-gcc-v3-39-f1205a92682b@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 24 Aug 2026 12:30:56 +0000
-Message-Id: <20260824123056.B71081F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1787574756; c=relaxed/simple;
+	bh=DEZT2iTUyT+wYINbjMVwPLrK23Cyo32nBz5M20vfPFs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hFWKyWd37vcJ2nQAH9lfYC0RCKZNbLmfRO9JsfEi8GjMsl5zbmt7D2guo52nnAyBWMe4icmjbejqjCq7qSkORXMvydruLyQJnA0y9WWtBsEJ2XPkJfL91uZRMLMOCUIQnIuBCJU9POVH7pVlryRnVOBg/YVUmrsMTwRM2hgfrPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5bfbbe5220dso1725509e0c.1
+        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 05:32:34 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787574754; x=1788179554;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=zS58fBhFuvoJHzKpw8/MR9X6Crj2kpawACKthu0lOKM=;
+        b=nbAzS/l3CApEEG/GTx5LVvanBL7FimFnwlxTIpqdz9xpUxJwN3c9vm1bPTwulqol+3
+         kdGKCBbSVsqZ9RIHQkEL1TppMgnrwXzMAuElYrZgMzGDxFSkoI/0wbhiXNMWm9Cah1GE
+         XjMZvLQftx603CpivuNS0VWfJV13DxpxJcHKO7vVN4uiIpsVyutcRLpHVb85rPSzCWyw
+         M4hjnqtfefDtwlqshYz+1UFBubCH9u4Psbp9or3PCx5mfvEh/3G8dCh+sEB68F99E5ME
+         u/Sx4PECvWI1qEBk/gQ6f5NSb8vM8ChrANg1JWd5sn9/AijF0HJ5PXgMZK0yBD+KKHCh
+         7I5A==
+X-Forwarded-Encrypted: i=1; AHgh+RovaTOpI+p519z2oCmdMD8PiZOz07uO0OAPhDyqfpzqXhCOlf3LBsVKnILcWIB+mkJnvDpx+VjUTtv+@vger.kernel.org
+X-Gm-Message-State: AFuF++mIXyFSsPNCVct/NQhrBU93XYy7MnDUodIFEbHFtE0iXdDM3JKV
+	qAj/oLskyKKP8BsMBCB3YCyailq7Sf+gvHd15aMY1/kHE+754kh96QNg04gRTKzZ
+X-Gm-Gg: AR+sD117BBRwHpHqvJ+MwhyeQYhM50eAz1tE82Bc/QtknxbRZ/VElkNQTZk4HlU7FQx
+	kEwCqNvISxRu6MVoPrKtPErmaJrd/qQ1kYTdxNK6l3ubC7IocWWEFIY9qzFnwrQFWCRjBdCP7i5
+	9lvLIZ0yw8Wiv8beV6bU7aejYi/NHr3Drk6n1Q0c8zhZluaZqAqe9JAgHTX8wUOGn1Get+Ht2q6
+	PZSo4pC24P8zKQtpIg4SoPZeUqckxMxAwn8B6TVxYVTR/g2e0/YK+uDk2PWxRVg31b9BJVzSXA5
+	UMXBnQeedhBZqYrIYmj9V/RCj+SJDp7Pp2y6LGL7n0YT0WdFcreb0AZHJBxdPjWKsRlIN9Orn/7
+	cUZipiEj7umyRoGFv0qR2QsRN8HQhmsKR2egam88BYJS/cjjMz0uVFsCzOPqmobTlM7nCs/KA7T
+	1b8h8FiQ+WRVmey0DUQne2yXzawLV7q2m24yKl456ql0IE4TYO9EHU9C8IDIfPebDkuIhAS2vj2
+	ZxA7vtwlp3eQZystKwnqjphfw==
+X-Received: by 2002:a05:6122:6c0b:b0:5c2:a30a:1a08 with SMTP id 71dfb90a1353d-5c5ffcadc64mr6439142e0c.2.1787574753951;
+        Mon, 24 Aug 2026 05:32:33 -0700 (PDT)
+Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com. [209.85.217.41])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c623cf4026sm3372167e0c.3.2026.08.24.05.32.31
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 24 Aug 2026 05:32:32 -0700 (PDT)
+Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-7377dde7bc6so3204073137.0
+        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 05:32:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rrf8w4pGEaINp9vbP07K1OrVL87WnywFThTApj72HDqXi5E9awTzvic1LiObEGuA2qJxv80ssCGym9g@vger.kernel.org
+X-Received: by 2002:a05:6102:834e:20b0:778:290e:a080 with SMTP id
+ ada2fe7eead31-778f2cd6323mr5912697137.13.1787574751661; Mon, 24 Aug 2026
+ 05:32:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260824075936.2904336-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260824075936.2904336-4-prabhakar.mahadev-lad.rj@bp.renesas.com> <aowOJx0TMIZMyFUa@ninjato>
+In-Reply-To: <aowOJx0TMIZMyFUa@ninjato>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 24 Aug 2026 14:32:20 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUULBe5y9tk7qj8PogPZ2+o8c8B3v1LD1+35ncV-RUPBA@mail.gmail.com>
+X-Gm-Features: AcwNN1XvQ6CGj1qZ042NYJollJLUDRjaipOrbn0snBAOqHjlrtNJhLJhV7ICnUI
+Message-ID: <CAMuHMdUULBe5y9tk7qj8PogPZ2+o8c8B3v1LD1+35ncV-RUPBA@mail.gmail.com>
+Subject: Re: [PATCH 3/3] arm64: dts: renesas: rzt2h-n2h-evk: Enable RTC support
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: Prabhakar <prabhakar.csengg@gmail.com>, Magnus Damm <magnus.damm@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Adding the `power-domains` property to the `gcc` node without updat=
-ing its DT binding schema will trigger a dtbs_check warning.
---
+Hi Wolfram,
 
---- Patch [39]: [PATCH v3 39/47] arm64: dts: qcom: sm6350: Add GCC CX power=
- domain ---
-commit e7cbb98ab7c0a2a7495045fc51188886857246b1
-Author: Abel Vesa <abel.vesa@oss.qualcomm.com>
+On Mon, 24 Aug 2026 at 11:26, Wolfram Sang
+<wsa+renesas@sang-engineering.com> wrote:
+> > +             rtc0 = &rtc0;
+>
+> Maybe 'rtc' instead of 'rtc0' throughout the patchset?
+>
+> @Geert: do we have a rule for this? There is also only 'gic' instead of
+> 'gic0'?
 
-arm64: dts: qcom: sm6350: Add GCC CX power domain
+There is only one GIC to rul'em all, but there can be multiple RTCs
+in a system.
 
-The GCC GDSCs on SM6350 are backed by the RPMh CX power domain. This commit
-adds the CX power-domain reference to the GCC node so votes from GCC GDSC
-consumers can propagate to RPMh CX.
+> What is this alias for? I don't think this is HW description?
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm6350.dtsi b/arch/arm64/boot/dts/q=
-com/sm6350.dtsi
-> index 15d38b7e803c5..ded5c3a45891b 100644
-> --- a/arch/arm64/boot/dts/qcom/sm6350.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm6350.dtsi
-> @@ -794,6 +794,7 @@ gcc: clock-controller@100000 {
->  			#clock-cells =3D <1>;
->  			#reset-cells =3D <1>;
->  			#power-domain-cells =3D <1>;
-> +			power-domains =3D <&rpmhpd SM6350_CX>;
+I understand rtc0 is the main RTC.
 
-[Severity: Low]
-Will adding this property without updating the device tree binding schema
-trigger a dtbs_check warning?
+drivers/rtc/class.c:            of_id = of_alias_get_id(dev->of_node, "rtc");
+drivers/rtc/class.c:            of_id =
+of_alias_get_id(dev->parent->of_node, "rtc");
 
-The schema in Documentation/devicetree/bindings/clock/qcom,gcc-sm6350.yaml
-uses unevaluatedProperties: false but lacks the definition for power-domain=
-s,
-which typically causes dtbs_check to flag newly added properties as an erro=
-r.
+Gr{oetje,eeting}s,
 
->  			clock-names =3D "bi_tcxo",
->  				      "bi_tcxo_ao",
->  				      "sleep_clk";
+                        Geert
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824-qcom-tie-c=
-x-to-gcc-v3-0-f1205a92682b@oss.qualcomm.com?part=3D39
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
