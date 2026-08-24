@@ -1,50 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A517B377AB6;
-	Mon, 24 Aug 2026 16:50:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1C8E3750CB;
+	Mon, 24 Aug 2026 17:00:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787590226; cv=none; b=F6gOjolW5HQspWnn4aTNv1B6Cn0ML2lwD/dEdLxBesXVITQV5rej9XDlR2YrmZ4BZfCOJA1uz+ZSZhnVQBi2qLKEr9Wfhn69dCsVKvffdc3wEDXxj2uYLMEa4uEB3Z9Ia8t7Oxv/biXyZTVrNN7u9KPmNgMSeCPAzNg3Jc3NQnM=
+	t=1787590812; cv=none; b=ruWlEx12X0MY0P1QMXM48ciUPLRWmC2uEdsM1eMgNOYzfFejj2GMLUomcRGSbHdcvnWf+ksgRyXaRGP1R/YX3HPm6FgENVddtAC/tSYeDWdP/qvS4RKsQbhqeKZiymWUFqXHBmabuvv9HYgpZ5ZqxVxhurGyMaCX2FHq2w71JkA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787590226; c=relaxed/simple;
-	bh=P2oE7NNSes296z+R5pgyux6238eLyzOHrVS++MTq3uQ=;
+	s=arc-20240116; t=1787590812; c=relaxed/simple;
+	bh=m0pGvoGKqFFa4fJPRRTh+DIFuLPs8Wi9Rx8mt+EGeWc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jgIlk9bvcSjLPtwQ0Kcxy6FQVmGlJQ+M2znqb/5DBXjct5XmnlywFrcJR7hJCwqEfgEecHv+YvlN2AWvCVoUHaevhNZP1PnDnll/slhO1+3d6ZRFxvdInrbrSNbhvB9keq5N+yEXyqgprwVOHKplE35lAtfCK+L2i77Q7iYbKFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iMpEX+Qt; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=dJSORmccePmzPBVW3BwXDFJ18A0na6lF23jBw3amkcBhpr/cKozhKiw9JRonKMA4T77YJxzxSmZdczBcCZoYW19lCFQugRS6rFzQRQOc30VTLAFWkTtO5yizpoq403Ik1nngcXmgCodUB7mmu45NYMfNqVbYix5MnnngGlBbALk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jkHpo3Hv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iMpEX+Qt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88E601F00AC4;
-	Mon, 24 Aug 2026 16:50:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jkHpo3Hv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E79B1F00A3D;
+	Mon, 24 Aug 2026 17:00:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787590225;
-	bh=6x+poQPlXHIZacgVgB4fgeSl2HAChqchH7MvBjpDI2Y=;
+	s=k20260515; t=1787590810;
+	bh=0iQZtq/06HuVi0Cnk5yLnj5kQcM3jND8hKuQqwUer0I=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iMpEX+Qtz6jvGo9EWmZpxZYqB6Ugl2Z5v+PTtG0c9ajr3Cl3y0s/8iJ5ZT8IXvN+v
-	 Z3LYrkQs2WdXPT6OfbylT7oZD5BJ4J8AWRHSkN2ZzXlN2Gn5eSWwueGcxUKGYbU9vd
-	 4zIraJMNXInIBjIa/eLfpEvNkNUucgJFmRTdKxn7qi5RGoAUJFvkyPiJoqVYkvxRG0
-	 k3u342qRW4puWBkvyG6kX1A5pqM0foDx0LJzGOpfSTbPOT/reCtr98vngX+AQybo4j
-	 WEhbsJIckL5/ciVwOgLSVXtTSJb2A9zJXX8B3hjqO9JO2EF8Lc2OFkwZLp2gbPbGtg
-	 yb4j8tPHi0njA==
-Date: Mon, 24 Aug 2026 17:50:20 +0100
+	b=jkHpo3HvT12iIkkuq25fu+CEOjpJDnncEUxBU3g/oEVaaKLyKQKKAM7eBpZom5mb1
+	 UJKe55hDyNopLYSbrymIZz5LBoEv4F0faSNlY4wH69NEwGkoLV1rqyfYH10slT+B8l
+	 bDDOvz4T0v2qQ5GH5BRzNaZEPtoQQaTNoaqCQyWQFbTkwYOce+LJwMYCIAhBNPANlD
+	 CBT1ZRRfKQjvDTgBGNkcYBpXO2a2Tm1wNhnX7N8S3m94Je4p8C/x5a/VsuMHMBdQaG
+	 rw4gsigkZKHen0XfSLBtv/PcS5HeTh7tS84JEmeI4MxuluMFAw105zInmwJ/GKPQOI
+	 RBDHygm5jT86w==
+Date: Mon, 24 Aug 2026 18:00:06 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Kendall Willis <k-willis@ti.com>
-Cc: Markus Schneider-Pargmann <msp@baylibre.com>,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>,
+To: vjardin@free.fr
+Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Chandrasekar Ramakrishnan <rcsekar@samsung.com>,
-	s-kochidanadu@ti.com, a-kaur@ti.com, s-tripathi1@ti.com,
-	vishalm@ti.com, linux-can@vger.kernel.org,
+	Michael Shych <michaelsh@nvidia.com>, linux-hwmon@vger.kernel.org,
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: can: m_can: add out-band-wakeup
- property
-Message-ID: <20260824-public-mashing-252473f928c3@spud>
-References: <20260821-temp-v3-0-9ac1f8806929@ti.com>
- <20260821-temp-v3-1-9ac1f8806929@ti.com>
- <20260821-regulate-recharger-2e984e9591ef@spud>
- <20260821190511.jwdgox4uocbf4brd@uda0506412>
+Subject: Re: [PATCH] dt-bindings: hwmon: microchip,emc2305: add vcc-supply
+ and #cooling-cells
+Message-ID: <20260824-flashcard-renewably-badc0e011949@spud>
+References: <20260824-for-upstream-dt-emc2305-vcc-cooling-v1-1-cd3b53dfb5d4@free.fr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,78 +45,88 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xOCU88mvube+3/uL"
+	protocol="application/pgp-signature"; boundary="Qad3kUMeTf4JW6rQ"
 Content-Disposition: inline
-In-Reply-To: <20260821190511.jwdgox4uocbf4brd@uda0506412>
+In-Reply-To: <20260824-for-upstream-dt-emc2305-vcc-cooling-v1-1-cd3b53dfb5d4@free.fr>
 
---xOCU88mvube+3/uL
+--Qad3kUMeTf4JW6rQ
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 21, 2026 at 02:05:11PM -0500, Kendall Willis wrote:
-> On 17:45-20260821, Conor Dooley wrote:
-> > On Fri, Aug 21, 2026 at 11:07:00AM -0500, Kendall Willis wrote:
-> > > Add the out-band-wakeup property as a possible property. The property
-> > > indicates that the device can wakeup the system even when its power
-> > > domain is off.
-> > >=20
-> > > Signed-off-by: Kendall Willis <k-willis@ti.com>
-> > > ---
-> > >  Documentation/devicetree/bindings/net/can/bosch,m_can.yaml | 2 ++
-> > >  1 file changed, 2 insertions(+)
-> > >=20
-> > > diff --git a/Documentation/devicetree/bindings/net/can/bosch,m_can.ya=
-ml b/Documentation/devicetree/bindings/net/can/bosch,m_can.yaml
-> > > index 2c9d37975bedd652b3060ab11ba75c37565edaad..0663beaa532bcc4a71cd6=
-ad01520a4dfea294d0c 100644
-> > > --- a/Documentation/devicetree/bindings/net/can/bosch,m_can.yaml
-> > > +++ b/Documentation/devicetree/bindings/net/can/bosch,m_can.yaml
-> > > @@ -150,6 +150,8 @@ properties:
-> > >      description:
-> > >        List of phandles to system idle states in which mcan can wakeu=
-p the system.
-> > > =20
-> > > +  out-band-wakeup: true
-> >=20
-> > Where is "-wakeup" defined genericly, or out-band-wakeup defined that
-> > you're getting the property definition from?
+On Mon, Aug 24, 2026 at 05:42:59PM +0200, Vincent Jardin via B4 Relay wrote:
+> From: Vincent Jardin <vjardin@free.fr>
 >=20
-> I sent a PR to define out-band-wakeup in the wakeup-source.yaml binding
-> in dt-schema repo. I figured it made more sense to be defined in the
-> wakeup-source.yaml binding to allow other drivers the option to use it.
+> Both properties are missing, so a board that supplies either fails with
+> dtbs_check:
 >=20
-> dt-schema PR:
-> https://github.com/devicetree-org/dt-schema/pull/205
-
-This sounds like something you should be able to determine from
-device specific compatibles for these platforms. Not sure why they are
-not used for this particular device, but this is an indication to me
-that that is a mistake.
-
-Cheers,
-Conor.
-
+>   fan-controller@2c (microchip,emc2305): '#cooling-cells', 'vcc-supply'
+>   do not match any of the regexes: '^fan@[0-4]$', '^pinctrl-[0-9]+$'
 >=20
-> >=20
-> > > +
-> > >  required:
-> > >    - compatible
-> > >    - reg
-> > >=20
-> > > --=20
-> > > 2.34.1
-> > >=20
+> The #cooling-cells property belongs to the controller node, which is
+> where the driver actually registers.
+>=20
+> Two cells is what that registration needs: a cooling-maps entry
+> references the fan as <&emc2305 min max>.
+>=20
+> Two cells also documents what the driver supports today. The
+> pwm-separate path registers one cooling device per PWM against the same
+> node, and they all get cdev_id 0, so no cell count can tell them apart.
+> That is a driver issue, noted here but not addressed.
+>=20
+> The examples in this binding put that property on the fan@N subnodes
+> instead, which does not match what the driver does: they are left alone
+> here rather than changed blind.
 
---xOCU88mvube+3/uL
+That seems correct though and putting it in the device node when there's 4
+fans that could interact with different zones seems wrong. Shouldn't the
+driver be fixed instead?
+
+> vcc-supply describes the chip's own rail, which matters on boards where
+> the sensor sits behind a switched supply.
+>=20
+> Signed-off-by: Vincent Jardin <vjardin@free.fr>
+> ---
+>  Documentation/devicetree/bindings/hwmon/microchip,emc2305.yaml | 5 +++++
+>  1 file changed, 5 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/hwmon/microchip,emc2305.ya=
+ml b/Documentation/devicetree/bindings/hwmon/microchip,emc2305.yaml
+> index 8c2548539d7fd..47640214de100 100644
+> --- a/Documentation/devicetree/bindings/hwmon/microchip,emc2305.yaml
+> +++ b/Documentation/devicetree/bindings/hwmon/microchip,emc2305.yaml
+> @@ -44,6 +44,11 @@ properties:
+>             - 0 (Open-Drain)
+>             - 1 (Push-Pull)
+> =20
+> +  vcc-supply: true
+> +
+> +  "#cooling-cells":
+> +    const: 2
+> +
+>  patternProperties:
+>    '^fan@[0-4]$':
+>      $ref: fan-common.yaml#
+>=20
+> ---
+> base-commit: 0a0d1d55dad570724bf8c7ea83409639cfb4be9b
+> change-id: 20260824-for-upstream-dt-emc2305-vcc-cooling-251655c99ef8
+>=20
+> Best regards,
+> --=20
+> Vincent Jardin <vjardin@free.fr>
+>=20
+>=20
+
+--Qad3kUMeTf4JW6rQ
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaox2TAAKCRB4tDGHoIJi
-0hLmAP9Ra5gvX6p8BDvYxw1Q1w9pBMtJ+ZapwpaLEeNEZLVMpAEA+5HAYGSoyAn6
-GdsivqyvQscHdBPSDcd0Y3J+YYMwlgg=
-=hTch
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaox4lgAKCRB4tDGHoIJi
+0pH0AQDMAyBy97dRC/xHLvoSY/pG34asw8zUpXooByN18iWoPAD/W9aWkyf37bLf
+q2dD8397c4nXklll+9solKDzoojFdwM=
+=wIzG
 -----END PGP SIGNATURE-----
 
---xOCU88mvube+3/uL--
+--Qad3kUMeTf4JW6rQ--
