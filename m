@@ -1,120 +1,109 @@
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38F6E3F326F
-	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 14:33:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40BE8322527
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 14:36:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787582017; cv=none; b=Gyy1r5GdVT7NMOxGJ2gikffV0pTRmj9CdLreXJ9wjInL04Gw81Jb34cgX/E4E/iSgefJBLr4SrLzsp3+duhfXXj/nxu3WdJhO+oj4vJlcvNSd8xlCKhmu/15sS2n8+22LYMjMid++x6vfl+WvsSSynZEmiCmQCZcRyxV7/lGiFU=
+	t=1787582190; cv=none; b=hlC3Jut4cLIcYR57NtcoiHi5XTf9KtytRXv0J8FQDGeC5+fMhUAX+QYamc3m9+tQIwxpjqxfg50goW2XqW+rQnDNRHxMte3uLcHnOQ1dqZc6i6HmstQYEuAYvyQ6mZuIJRwMxl7bie5cwBsojeXzQutWdq2/q5WJt56EStrog8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787582017; c=relaxed/simple;
-	bh=9lOz/HheY/JgyQO68g2hJfw7pgjLIzpYJzoipc5Lkcs=;
+	s=arc-20240116; t=1787582190; c=relaxed/simple;
+	bh=euyYYIX9hGqmevRqLicy+2VXXvcJDx0K8piK2mzEcog=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=s57v+snhKvVr7q8nfzWa5sjbR+X4TGATzzowi/FkYi1XoSTNiwdfEgQgjKF6c4OOynQwMKFKiwTlJdlmhUzNmERrXdp69nxyPKBSE61UdxeVa223JzvZfPLfhN6PMrAQqwN50ELbP3csYV+QT62S/JhU8pxi9IMxmZhvY6UUj1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.218.44
+	 To:Cc:Content-Type; b=WbVtCla7rEvX/U9H+X/wtsiF2wKlRJZ0TQuZ5uMNAYTAKNQyItAm/is3Tp6r27FctVEyc5Kv9vR6FpdsyU0pFPp5/KnZBXzI+YVZDgamyrnqkuTcKypjExo2BvNhjyO2pHoG19Owd451b28yCDHJeL/0efggPE1aqyIYStPolIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.218.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c15e592da74so494737766b.1
-        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 07:33:35 -0700 (PDT)
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c15ba3a2b4bso502881966b.1
+        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 07:36:29 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787582014; x=1788186814;
+        d=1e100.net; s=20251104; t=1787582187; x=1788186987;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=3GPQezqjhBkpGCOBKEYotnOOM0fAmn0TURaAn/z0fIM=;
-        b=HxDrCD2Lf1smEx4RgNMWbtDdrn4XLcMPJtKBwDk4y7v+WyxPDGyouuEm6FnbH2m5Wd
-         uo/RpXjDQJSGqXFgPLgoz3HKFPGbHh2hnn0inqc8Qy+7gDAWFRmGm/+i5EuWQ/nctMRk
-         9ALMblpLLzeV5OqE3KGKAN1/hN/mN1lKlVE2fIS5FM9QKurO+agZcrOoSJbe2tomxw11
-         8q6mwumCTr22PKWff2pif7MuNPVAeL3XrUXgt2FxJyKA3W5ggpis1gt9SEmHcY8Nclps
-         A4xZAcS7thEeLYHalo/mM8Jnpnl2mzuAhD+QqnnQc0b6qNXOD2U5cu/EoqU0cCz0ls+F
-         Se2g==
-X-Forwarded-Encrypted: i=1; AHgh+Rp6Cu3jU8o/gckaZPy05y3k41+VaXaDlHT4M8ksF8N075unKMIUO28McSCm3lkVEgTyy+rzEIncWWph@vger.kernel.org
-X-Gm-Message-State: AFuF++nUSXRc5TxmjXwKMiry8uMaQ4bLj+7dnYj0mGZklS66nL7xGUTi
-	1zn8jrNu/W8J2MQxwAq8CfGsb66xm0zHPDH5QWFSBO7VhF1x5p+t29b7AN576CEcc+Q=
-X-Gm-Gg: AR+sD10p+RmlgTHl7uqfCDNlxN8xYpGGZLR+GFKvKhtM1AU9enOKvz1lTfN0jBkiIhC
-	pdQ96ucIE3MU3a4Z8Cr8K3EQrCpTMXGCx6QL4h6bnshwmrNYyOFUTOOJXxiZOHSC5pyvB6vxwp+
-	ATgy8tgrrgzhBOvD6Rw6ATjhOYxpp+k/cfnYqHNBXpGKx4KiYYPHy40RTtCGx2a/DzYAtwk2h/v
-	X7lmUO2hw8cJroVuAhLWVhpTYgl4dIs5yC+4KDC7zyI0KQilnm61STqyT+igECxMBJjeSvK3ztQ
-	D6p/K02JrXtI+T8VEQ+P8gnVs3HUExtfcKOQOCeDk7QNTAV83RF3oamBPJ7SJWDFvSg61rO1E5L
-	uTNZkBt0Rjuxn4Ngp1D72fGd6R1amSTKYF9ae5r0LB0KK1tN9mG6fjTK36t2U6BZ1pODCnSR8K1
-	Re5yR/AHpDFP3qKkpOdxCrZrujMhOm82EGWbVeByF5zL30/jpT3EoH0rWwD3Wb/bqqAu31gsB8T
-	6T1Ev6A8vqSx8zWDYNzuNSFKg==
-X-Received: by 2002:a17:907:7254:b0:c20:af9d:4533 with SMTP id a640c23a62f3a-c2492625c49mr2024837166b.19.1787582014078;
-        Mon, 24 Aug 2026 07:33:34 -0700 (PDT)
+        bh=cjvRvnamI0/i77BPfHjgSWNkTw1kt6AokX8isFSnrJk=;
+        b=SrciUfX6DTHSUExMCFG4ypt7+BxbJNfd+at8CDi8W4kL072wScm9UlvIyp+Ad1QFk/
+         2ZIPhv6+GIEM3MrBEPUOd7jCOWJ+zWZB0x4L1BbzvFetuLZX7gd96jxK49Uo1KaOb9A5
+         naFhHid3qYroKC21LShJ7KZhHLIs77O2G7IDnffLivmKeBorsUQiPA0dGysTK1lTf3T0
+         sclegcdJRQ44PpIb0l8/wEBSSTk6K/tvPX4qn96/XXT3C0LfJcoA1WjybOX5wTScEAdB
+         UiuVNj1oB+rb3ShJnOCGBJ8KusXJfgXAXWIAZNsMxCCjjqrGZwDFU09XnTePHxlOaplv
+         XDVw==
+X-Forwarded-Encrypted: i=1; AHgh+RqAkr/KY3ARwNY7I55IAlh73VWvBdBrsmwLQxuJqbG1CAsn3OtwwdnEsE/lxPOAd2LNiXih0Wo8XTdA@vger.kernel.org
+X-Gm-Message-State: AFuF++k9FIvIa4UcGEb5X8kZX3Kud1olQcttmuy5raBwIkpPC0HOteWT
+	beIGnJLJxNCEsvXktCLpXzsDWKUWSatSKPvUyTAXMHzD7iatc194oEHsY+sRRpz2Zk0=
+X-Gm-Gg: AR+sD10oOXur+jhYi4JvUnQcW+LsifGy7iGlvfQJyxtsvW3mFCw1tfn7tQV/Iejp6Lj
+	DKtE1MmJauJBU65vvKmdC3nNPTfzWrYuBpAZcWD6CJ6DP+Ibhjha3u1JPxV9EdHU/Y3LJ3Y7gTI
+	q1TL3xbi1pLy6ps9oj36ncjH8L8sVkZ62Ql5klLDuLBQ7wTH8YspmYLQQY7H0em0iUYzzavaVzz
+	2ssRdR0JlCjWn3BoR0MtKyMFx2Q3pUqipEMgrvlc1C6CYlGi9JeASzDsk8i7C5b9njviI5Lj6rG
+	e7xH9oBXGAbGAkJnLh7ajRUtfYBzqRj33Ep2lhArvTdFRDPx3qfAIO2aRRLyFjRSB6FdeNpR+9C
+	OtFbUDjwNo8PV3YXKebmd61rjwCbLQUVr3EiYPnadieGZhQFOdUQHePFfP+JX3oFSqjw8S1Cv2/
+	kn4Ic/rEWK0afJCvDP7EwoPCqgijZkM98vRYtFGZcHJgV0paAglDZ2PM+vdNZVCQI5kBmbYtD5A
+	o9nRaG8XC29RXDvFPDo7r2/oQ==
+X-Received: by 2002:a17:906:3e5a:b0:c20:2165:d74f with SMTP id a640c23a62f3a-c246a6ca4f5mr2493654066b.22.1787582187289;
+        Mon, 24 Aug 2026 07:36:27 -0700 (PDT)
 Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com. [209.85.208.51])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c24e1adf5c2sm4972666b.28.2026.08.24.07.33.31
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c24966f6b48sm1335498166b.33.2026.08.24.07.36.25
         for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 24 Aug 2026 07:33:31 -0700 (PDT)
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6a0a4a28cbdso6289385a12.3
-        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 07:33:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rp+/SdMjJcQQGhKa/LwNYyx6XomvOjUURw9shVmYxLVwG5r6J+7wfEP5IxtMBc6KeKh+nslNzTi47g7@vger.kernel.org
-X-Received: by 2002:a05:6402:50c8:b0:6a1:df2c:cfa3 with SMTP id
- 4fb4d7f45d1cf-6a582b0b822mr20096659a12.4.1787582011648; Mon, 24 Aug 2026
- 07:33:31 -0700 (PDT)
+        Mon, 24 Aug 2026 07:36:25 -0700 (PDT)
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6a41191c9a9so7058952a12.3
+        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 07:36:25 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqiGi9AeyfJIkRqEEqotKyUygtkhv3H61SoTsKNLTp/oDYtQ82cZO+e44Uxh1MDeSmk4Q24iYBZ+2FD@vger.kernel.org
+X-Received: by 2002:a05:6402:4588:b0:699:fbe4:16d5 with SMTP id
+ 4fb4d7f45d1cf-6a42f13c47dmr33276754a12.1.1787582185390; Mon, 24 Aug 2026
+ 07:36:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260819183829.3953529-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260819183829.3953529-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <20260819183829.3953529-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <cover.1787062965.git.tommaso.merciai.xr@bp.renesas.com> <aec1fce5558c6c88725fe710a2f9e4b1eb9e8d64.1787062965.git.tommaso.merciai.xr@bp.renesas.com>
+In-Reply-To: <aec1fce5558c6c88725fe710a2f9e4b1eb9e8d64.1787062965.git.tommaso.merciai.xr@bp.renesas.com>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 24 Aug 2026 16:33:17 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWBNtK_W5PajM2-4gvUWWU05K1hh4a=Y+cfY93Q-P+nYQ@mail.gmail.com>
-X-Gm-Features: AcwNN1VXBPFtA4Vecf3pV2N4hIm6QeQ_OHDpTywSlixoNeYKbAmedCU3SlFkP2A
-Message-ID: <CAMuHMdWBNtK_W5PajM2-4gvUWWU05K1hh4a=Y+cfY93Q-P+nYQ@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] arm64: dts: renesas: Add LCDC overlays for RZ/T2H
- and RZ/N2H EVKs
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Date: Mon, 24 Aug 2026 16:36:10 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUUAcrUbYV+_CFp5sZ1gQtn5eHzswZPvfZs=-=FX44DVg@mail.gmail.com>
+X-Gm-Features: AcwNN1WKLbQoBhWyxHFoBVgNL35FfLUMj0SA3RfCuChNtnL3NS63UMiAsSuuf_Y
+Message-ID: <CAMuHMdUUAcrUbYV+_CFp5sZ1gQtn5eHzswZPvfZs=-=FX44DVg@mail.gmail.com>
+Subject: Re: [PATCH 1/3] arm64: dts: renesas: r9a08g046: Add USB2.0
+ placeholder nodes
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Cc: tomm.merciai@gmail.com, prabhakar.mahadev-lad.rj@bp.renesas.com, 
+	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com, 
+	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 19 Aug 2026 at 20:39, Prabhakar <prabhakar.csengg@gmail.com> wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->
-> Add DT overlay support for enabling the DU/LCDC pipeline on the RZ/T2H
-> and RZ/N2H evaluation kits when fitted with an ADV7513 HDMI transmitter
-> on CN15/CN20.
->
-> Share the common ADV7513 and LCDC pin configuration between the two
-> overlays. Disable board functions whose pins are reassigned to LCDC,
-> including the affected LEDs, SDHI0 on the RZ/T2H EVK, and I2C0 on the
-> RZ/N2H EVK.
->
-> Move the LED8 and LED9 preprocessor conditionals inside the node
-> definitions so that the nodes remain present in the base DTS. This
-> allows the LCDC overlays to reference and disable the LEDs when their
-> pins are reassigned to display functions.
->
-> Configure the LCDC data and clock pins with slew-rate setting 1 as
-> recommended by the hardware manual. Use slew-rate setting 0 for the
-> HSYNC, VSYNC and DE pins, as testing with the ADV7513 showed unstable
-> display output and visible flicker when these synchronization signals
-> were configured for fast slew rate.
->
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> ---
-> v2->v3:
-> - Renamed HEADER_IRQ8 to IRQ8
-> - Added irq support for the ADV7513 in the overlays
-> - Corrected the DIP switch settings for I2C_SDA1/I2C_SCL1
-> - Added missing DIP switch settings for LCDC_DATG3
-> - MOved the header include at the end
-> - Added a comment for i2c0 as to why it is disabled in the overlay
-> - Split up the du_pinctrl into a group of pins as only sync/de pins
->   needed to set slew-rate=0, the rest of the pins can use slew-rate=1
-> - Updated commit message
+Hi Tommaso,
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.4.
+On Tue, 18 Aug 2026 at 16:29, Tommaso Merciai
+<tommaso.merciai.xr@bp.renesas.com> wrote:
+> The USB2.0 wiring on the RZ SMARC Carrier-II board is the same for the
+> RZ/G3E and RZ/G3L SoMs, so the nodes belong in the shared
+> renesas-smarc2.dtsi. Enabling them there breaks the RZ/G3L SMARC EVK
+> build, as the r9a08g046 (RZ/G3L) SoC DTSI describes neither the USB2.0
+> host (OHCI/EHCI) nor function (HSUSB) instances:
+>
+> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:94.1-7 Label or path ehci0 not found
+> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:99.1-7 Label or path ehci1 not found
+> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:104.1-8 Label or path hsusb0 not found
+> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:114.1-7 Label or path ohci0 not found
+> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:119.1-7 Label or path ohci1 not found
+>
+> Add minimal placeholder nodes carrying only the reg property.
+> The remaining properties will be filled in once USB2.0 support for
+> RZ/G3L is complete.
+>
+> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> ---
+>  arch/arm64/boot/dts/renesas/r9a08g046.dtsi | 25 ++++++++++++++++++++++
+
+FTR, this conflicts with Biju's "[PATCH v7 6/9] arm64: dts: renesas:
+r9a08g046: Add USB2.0 host/phy device nodes". which does add the real
+device nodes.
+
+[1] https://lore.kernel.org/20260812141940.246223-7-biju.das.jz@bp.renesas.com
 
 Gr{oetje,eeting}s,
 
