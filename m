@@ -1,184 +1,155 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DE953E7BBD;
-	Mon, 24 Aug 2026 10:16:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFC8A3F3285
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 10:18:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787566605; cv=none; b=E3aRamWYP9LbxEQ+5FKv0EpdUkz3Xn9xRz4gNdnQaaaG58Hr3XLwrV/QRmvbGCI4qoSrHYR8jCbNyoOCRCVBX71UtT06lMYB9KgGOvYlFCQ2pX7yGV1SgHGioullryQ6usbtP9QcEhTqbD1PkyU+faQr+3eIX98FlbofLyFLRpc=
+	t=1787566701; cv=none; b=ECLvG7WaItWT8C680ApKQtvAUBmRrXmJQ5RND78cakQQctf9V+F/PFoaV7YNx8w1ik5SxyCa52YdUAbhRCES3wR6d8eJnZb4M+AmJaiPNqwnqX2l4YlOklPS+kEe1a5sxBtQdPBB0zDJKmBAK1i6ZWqNIYm8vkCImlGe7SOnWZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787566605; c=relaxed/simple;
-	bh=NGwBWQrSn1f/7ALE6N0sk7ApTNXlY6dyMDSj+LRH1gA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e1UBOdFGaP4Vk+6wnhgvaYuEywgw8RqHzfrEzL/Vc/sKkg3X/JokszjrqtRBuMRMGOjPXxNiiAqiFMvAEPiPhTv3CsoTMRLeQ5JVgRKZYw2p6U1sfN+hMwIiiJXpDUU1P71tIOy5JbJt+xgkIAwCKwPbCO8vHwDqwJpXudxq4yM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 25F9F2010D6;
-	Mon, 24 Aug 2026 12:16:40 +0200 (CEST)
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1wyRjL-0035Xp-3B;
-	Mon, 24 Aug 2026 12:16:40 +0200
-Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id A796258B268;
-	Mon, 24 Aug 2026 10:16:39 +0000 (UTC)
-Date: Mon, 24 Aug 2026 12:16:39 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Bough Chen <haibo.chen@oss.nxp.com>
-Cc: sashiko-reviews@lists.linux.dev, 
-	Ciprian Costea <ciprianmarian.costea@oss.nxp.com>, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, 
-	Oleksij Rempel <o.rempel@pengutronix.de>, linux-can@vger.kernel.org, imx@lists.linux.dev, 
-	Oliver Hartkopp <socketcan@hartkopp.net>, Vincent Mailhol <mailhol@kernel.org>, devicetree@vger.kernel.org
-Subject: Re: [PATCH v6 3/6] can: flexcan: split rx/tx masks per mailbox IRQ
- line
-Message-ID: <20260824-mustang-of-original-fame-4b3a91-mkl@pengutronix.de>
-References: <20260713085306.2643794-1-ciprianmarian.costea@oss.nxp.com>
- <20260713085306.2643794-4-ciprianmarian.costea@oss.nxp.com>
- <20260713090803.CCE2E1F000E9@smtp.kernel.org>
- <20260824101241.ysq45swzx4ihctel@shlinux89>
+	s=arc-20240116; t=1787566701; c=relaxed/simple;
+	bh=3cfC7qo7h9ePtXWXBaunVx0xslZX/a6Eepv+CkyC4j4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WGiFvAN/Rjf3sTGGW5geyc793mqc6lBh3rIlXyetFr2u6PPJhi1rjsqs1as9aWsES5epm/cRYdLVFJSYsDvdjqGgX5g178VUYTuaAQbKSU30oHC58/1sD85FNDFAYcGEJQ/vcgTaLPPK6hzH/U20GtVv4kQQvbBNCzMRn6Mjeec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JKh6PCe1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ddcv10ba; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JKh6PCe1";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ddcv10ba"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67O99Aoh2547842
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 10:18:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Cd7y2v7ZbQcd6P8BeTtHdryoBL5iEjibfBxom0P+gPI=; b=JKh6PCe1GYAYfMAa
+	HP2gCYaTxo6N+Ap3zbpLQyHEJb8vOSRu3qgnH0vP5k4waFDcMg/+DKt+4U421hMD
+	vXN7Lqq8c1+4bDR6DwUjktc9aqj5yRQM/ydU3V7crzOLqiSM95Szz2uGblxQxuRS
+	TOmXbTaLC8nyzyTwhe7WmUh01MAnP0bRM7PCZxjUlNSKSMVQ0pJDVkzz5dCIg2CV
+	QwUtLhcgl9VVkydhe5QeChzDW9K/7/qA5twhkMw6GoDNdbIXSr+cSCMN/lof9iJg
+	82EF6j6PEXhqKSPTVSEPsok1RMF/XtqfFf+mCoBkw0M4G4c8U/IIT414/AnyENRV
+	ZGw19w==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g88k7j669-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 10:18:19 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d54187d8b0so29744585ad.0
+        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 03:18:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787566698; x=1788171498; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Cd7y2v7ZbQcd6P8BeTtHdryoBL5iEjibfBxom0P+gPI=;
+        b=ddcv10baqtkeZ3i83C2XA1RlJMb39EtZQDxpX8uiwj1A+Ppoz2vD9RnLbPYHq14d0B
+         IhcE/s7i0nOOuNhxoa85Wgb7SfTxzEk5bWWPUjnzAXdKuX7iH854u7dbRzdV8U75TM2I
+         kZwJHm9RW1IYHfPQ1PM+P506nGAN6y0417djAZEbmUUb3M7g3gtesUn2D5/AOFUaX89P
+         LgXRgt/wrAWf0tdDIveWomS1YIHAKwIIn3v+ShcN8PGLkr3QqMrgvGqWafUOuNUFnkaP
+         XYV7gi/bb0c1fxYCJcznTa45o/qd0DPgEjKQ/SZ8gHzqoBAw/7P+cK2G2GwPgY2loq/W
+         k81Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787566698; x=1788171498;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Cd7y2v7ZbQcd6P8BeTtHdryoBL5iEjibfBxom0P+gPI=;
+        b=oK553qKQPq3RTEapaq//mWRom/RXLH9iIMCl2izPCCFEvYHdJEl+3v/Tka4W2PvBvo
+         BqMVQFufgWXjx3HlidW1qABiv3cgjMiM7ejqanW4pl/5w4sL8z7pxXYtXXZzVbZmQaN5
+         FDz1Fdj+e3Rt9TnOc76Ov267JK1NSYCD0VHmw1q3EbA6VnKi7L+273I+i7ZR3Lr60RUx
+         32FyHIpa8pdMAxzFqKuiWgWb+ZFbLXpj/I7wzQSI4R17Md+t5H9Fedr4s+uH1SyDkJqV
+         WEjmEWuzLkESEZCF/FOIxLbpvQOS5JPfaSj4ppAGIOCu2d++6niE2pUaBFvQbhUran8B
+         ip4Q==
+X-Forwarded-Encrypted: i=1; AHgh+RqRTDIXWq6azwjnd7liIvx4JN51Ho5KdJ59AtQV/PyRXdRO81E9ESRZxbrJq0/vvk6Hug3q0WdrVsFf@vger.kernel.org
+X-Gm-Message-State: AFuF++mTgSDWUvRCiVL+UoeqNX67xbgDBfW+E94jkEWXWM0Ld+7qK/Ns
+	/D6GKtsyjw3BNE+0a9V2d7RxOQhI2vcoAW4xrkW7g1hS4QtGmhRg4CkOIVAEHErc70GOe2rTHQf
+	eJNvKqHlqaZde8M18dolvyYm7my1+6W02XzTopDPrc7bzPSDPKEH5VBdKahT9PjPy
+X-Gm-Gg: AR+sD128dtRZvNErJwzwCyzVJYod7ld/z7D9oRDDxztrfw6ozTQgsy8H3fEhCc77rse
+	JmoqRrZYKXvKJ7vzae+GCoemsf5E5DM3iLkjZShTH14TxUeyb025iQScpo5C9vhWqFOq7dZPVsm
+	Eo5fnr8/xHzl2MYI24FOC0r05nYkTp2fujkrA/xhON2cmJQROUScc8yGhx4mOVQOHJC6h2vb2/w
+	X+sIyRVfcsNmj+gB3f0owo7Sefym8QR+SjKwAEJ01HdCDtWBXJD8uKDnslO65PnFsOOhd5+8HTX
+	5pltcUZaHCLDIKCiy0n2SAvaxzgIlioDwbHXVphnM1ABbJjrCYZuujRtHiO6YcE1BmLcpTVUOby
+	uzpED0WLuUxyqsqycW0MQm7v+RSS4Eik=
+X-Received: by 2002:a17:902:ec8a:b0:2d6:3c1a:85e0 with SMTP id d9443c01a7336-2d64b185640mr442373975ad.14.1787566698520;
+        Mon, 24 Aug 2026 03:18:18 -0700 (PDT)
+X-Received: by 2002:a17:902:ec8a:b0:2d6:3c1a:85e0 with SMTP id d9443c01a7336-2d64b185640mr442372585ad.14.1787566698083;
+        Mon, 24 Aug 2026 03:18:18 -0700 (PDT)
+Received: from [10.218.31.125] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d676761fbcsm15891965ad.4.2026.08.24.03.18.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 24 Aug 2026 03:18:17 -0700 (PDT)
+Message-ID: <d27d1c7b-72c8-4295-b308-52541348d1ea@oss.qualcomm.com>
+Date: Mon, 24 Aug 2026 15:48:13 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="23nbqcy73hx4u2kj"
-Content-Disposition: inline
-In-Reply-To: <20260824101241.ysq45swzx4ihctel@shlinux89>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 0/2] Enable sdhc inline crypto engine for kodiak and
+ monaco
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Neeraj Soni <neeraj.soni@oss.qualcomm.com>
+References: <20260707-ice_emmc_support-v9-0-701c86f3c25b@oss.qualcomm.com>
+ <f5b538dd-b350-4eb3-a300-78a02d5e4f1e@oss.qualcomm.com>
+ <d4c65f68-900e-4d1d-9b31-350d7a88343f@oss.qualcomm.com>
+ <7d78ea3c-3de3-4f90-8964-18a962218fca@oss.qualcomm.com>
+Content-Language: en-US
+From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+In-Reply-To: <7d78ea3c-3de3-4f90-8964-18a962218fca@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=b4iCJNGx c=1 sm=1 tr=0 ts=6a8c1a6b cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=90rwYzJkSxp73LfnE_QA:9 a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI0MDA4NiBTYWx0ZWRfXzJ24PsGYwjBl
+ KKymvAXrUXgwT1HTxke4ys4DZfjqtRnsN6N6sTc5z8mhg+VTNM3MsYbeyj8gPEKmCY3pLcih7rM
+ VckinZlnVUH2k7FLv2VvqxPNxMGdnTA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI0MDA4NiBTYWx0ZWRfX+A7Ja+xkcLuT
+ WbuRLGGqjwnQcF8v7YwsejJRtnFxatFEyEKATKP65G5HXIqAca619ZkLF6ew3d0mHRSRYMxmL7i
+ 0gksQ09oXhPkhb8ZAYYzKNncd8gn8lQx3A0ynKbXAFMIZLoRG3//v9ol06FvQM8XVL9k8S4CFt0
+ k7JpBBjYG/ip240ZS1ldEmqlKYYbVvDzVa48ipJNcUJLusbfMUtgK7Vzc7LnV3WTgs0Pfiyo06P
+ CboBERMHI6nKlQgHlGi/89KEgVuop37OaYIHX3Bot3eI1n43qGxAFmy1eEhw8usmIpt2JJErfFS
+ /g/SYCdCo43rCZo3tXjjPxsPXpVwYxXd2cEQVfMchk2xYJzUjngYCz2MQWMewOmXyoXs5UroOK5
+ WBWuiATYbtMfURzBevvlMSZfjV7uPoAcGYW0LNe3dmfKhK8/217dvLQ+kQhMfBy3r2d6OmD5rgD
+ NFPT+1DCwdfMP/npoWQ==
+X-Proofpoint-ORIG-GUID: _Ix9E2yRMMFoBe33WteC5MTvYv0Xz-P9
+X-Proofpoint-GUID: _Ix9E2yRMMFoBe33WteC5MTvYv0Xz-P9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-24_03,2026-08-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 phishscore=0 bulkscore=0 clxscore=1015
+ lowpriorityscore=0 impostorscore=0 adultscore=0 priorityscore=1501
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608240086
 
+> I'm afraid you're unfamiliar with the release process and have
+> mismatched expectations. The feature development of 7.3 on
+> maintainer trees is done already and the RCs will only pull in
+> fixes to the new code.
 
---23nbqcy73hx4u2kj
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 3/6] can: flexcan: split rx/tx masks per mailbox IRQ
- line
-MIME-Version: 1.0
+Sure konrad, what I am more afraid here is that patch was in ready to
+accept state but somehow got *missed/skipped* to pull in maintainer tree.
 
-On 24.08.2026 18:12:41, Bough Chen wrote:
-> On Mon, Jul 13, 2026 at 09:08:03AM +0000, sashiko-bot@kernel.org wrote:
-> > Thank you for your contribution! Sashiko AI review found 1 potential is=
-sue(s) to consider:
-> >
-> > Pre-existing issues:
-> > - [High] Concurrent execution of multiple flexcan IRQ handlers causes l=
-ockless list corruption in the can_rx_offload queue.
-> > --
-> >
-> > --- Patch [3]: [PATCH v6 3/6] can: flexcan: split rx/tx masks per mailb=
-ox IRQ line ---
-> > commit 9f143e05fb5957d463ce1d05d4126d168798b0d8
-> > Author: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
-> >
-> > can: flexcan: split rx/tx masks per mailbox IRQ line
-> >
-> > This commit updates flexcan to process split rx/tx masks based on the
-> > mailbox IRQ line for platforms like S32G2. It introduces MB0 and MB1 ma=
-sks
-> > and passes them to flexcan_do_mb() to only process the relevant mailbox
-> > range for each IRQ.
-> >
-> > > diff --git a/drivers/net/can/flexcan/flexcan-core.c b/drivers/net/can=
-/flexcan/flexcan-core.c
-> > > --- a/drivers/net/can/flexcan/flexcan-core.c
-> > > +++ b/drivers/net/can/flexcan/flexcan-core.c
-> >
-> > [ ... ]
-> >
-> > > @@ -1244,8 +1255,14 @@ static irqreturn_t flexcan_irq_mb(int irq, voi=
-d *dev_id)
-> > >  	struct net_device *dev =3D dev_id;
-> > >  	struct flexcan_priv *priv =3D netdev_priv(dev);
-> > >  	irqreturn_t handled;
-> > > +	u64 mb_mask =3D ~0ULL;
-> > > +
-> > > +	if (priv->devtype_data.quirks & FLEXCAN_QUIRK_SECONDARY_MB_IRQ)
-> > > +		mb_mask =3D (irq =3D=3D priv->irq_secondary_mb) ?
-> > > +			  FLEXCAN_SECONDARY_MB_IRQ_MB1_MASK :
-> > > +			  FLEXCAN_SECONDARY_MB_IRQ_MB0_MASK;
-> > >
-> > > -	handled =3D flexcan_do_mb(dev);
-> > > +	handled =3D flexcan_do_mb(dev, mb_mask);
-> > >
-> > >  	if (handled)
-> > >  		can_rx_offload_irq_finish(&priv->offload);
-> >
-> > [Severity: High]
-> > This is a pre-existing issue, but does this concurrent execution risk
-> > corrupting the lockless rx-offload queues?
-> >
-> > Since the primary and secondary mailbox IRQs are separate lines (e.g., =
-on
-> > S32G2), they can be dispatched concurrently on different CPUs when fram=
-es
-> > arrive simultaneously for both mailbox groups.
-> >
-> > If both IRQs execute at the same time:
-> >
-> > CPU1
-> > flexcan_irq_mb()
-> >    flexcan_do_mb()
-> >       can_rx_offload_irq_offload_timestamp()
-> >          __skb_queue_add_sort(&offload->skb_irq_queue, ...)
-> >
-> > CPU2
-> > flexcan_irq_mb()
-> >    flexcan_do_mb()
-> >       can_rx_offload_irq_offload_timestamp()
-> >          __skb_queue_add_sort(&offload->skb_irq_queue, ...)
-> >
-> > Or if CPU2 reaches the finish step while CPU1 is still adding:
-> >
-> > CPU2
-> > flexcan_irq_mb()
-> >    can_rx_offload_irq_finish()
-> >       skb_queue_splice_tail_init(&offload->skb_irq_queue, ...)
-> >
-> > Since __skb_queue_add_sort() and skb_queue_splice_tail_init() operate
-> > locklessly on offload->skb_irq_queue, could this lead to corrupted link=
-ed
-> > list next/prev pointers or infinite loops during list traversal?
->
-> Hi Ciprian Costea,
->
-> Please double check whether S32 can generate these two mb interrupt at
-> the same time, if not, no need change, just comment this feature, if
-> yes, then need to add lock.
+I think i was well before that timeline but still couldn't have this
+patch in(for v7.3). Not sure if something to change at my end.
 
-If the IRQ is delayed for some reason, mailboxes 7 (associated with
-mb-0) and 8 (associated with mb-1) might be pending at the same time.
+Can we atleast pull in for v7.4 now?
 
-I assume that both IRQs will fire. One workaround would be to only use
-the mb-1 IRQ until the rx-offloading has been fixed.
+-- 
+Regards
+Kuldeep
 
-regards,
-Marc
-
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---23nbqcy73hx4u2kj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCaowaBQAKCRDMOmT6rpmt
-0sLJAQDgj+mugeJoBBdtCb4CiLYS3Z0HoOdnlZYJjWCglth7ZQEA2FFoB0ldtyha
-tL8E40aGkK00bWNAggsJSF+pLhnLgQc=
-=Z2Sp
------END PGP SIGNATURE-----
-
---23nbqcy73hx4u2kj--
