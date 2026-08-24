@@ -1,166 +1,116 @@
-Received: from flow-b5-smtp.messagingengine.com (flow-b5-smtp.messagingengine.com [202.12.124.140])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B609F40B367;
-	Mon, 24 Aug 2026 11:11:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FFB43F54BF;
+	Mon, 24 Aug 2026 11:14:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787569895; cv=none; b=Ww35dzIbIhZCwImLOrMHZ7gHBtQSvGQi6xqAu8OCtVJcTjtj7GJJDEAsCZpuBeOlqbLgQsJK/48wlbWXNI8t+LTLS3hWvYrEHfxjdeXWhY69FQoDXiBQg99v8mjWkOy/fLsfh70Xsv0c70KI+a6dIOfVUGnXrgmdsaQwkgX+wyU=
+	t=1787570067; cv=none; b=dVJgPhaYJvGTzyL8VkRGiFmbMImIA0k6O8HUzFBeMTXqYRrCPKyIM8yjuqNzUGY6Mlb29m3owlppxcFl8PGOiEfjTaAh28r03XdmYUNFPNim24C+ZmoB8B62rDnEwStH7L2m9zvhq6MVKRdfvGPc9TvAv5fKA5LUlS55sKmKcqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787569895; c=relaxed/simple;
-	bh=rKtYZ4cuNw2XD4BIP9sPPE9g0fpAvvKP/Sfa/QGMjIk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Nh8Z8RUPqzstrixe8aQnEBusTPOxm9ozyGBamTBdM1hJYPyt1CefHD7PZzt02BFb5x7KCXLXicPGlAv5rJbVys7r22IC7nt3YMgbxV4uXJfqXpvywac9W40leaf74RkjFJJiqA9apXTi2pLzGu2j4NCCBQ++v/A6kF+IiM44mVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com; spf=pass smtp.mailfrom=gahingwoo.com; dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b=ObcmMFca; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=VteIXgpB; arc=none smtp.client-ip=202.12.124.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
+	s=arc-20240116; t=1787570067; c=relaxed/simple;
+	bh=dVdUsBxh+Nf+XIJpvuJ4eJBu+cwfa0EXC60r+4bgLlw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=LC+cLkDsbAKSLpeNQt1iPkiuxOmrnD3RolFthjsnJThCx4yQDib1MgOGbPQHy09uAeXE3lfqPSqXA+4CY2lSG7eHwK4PP6knbmY+nQsz2f0pZAgY7gZ/RBiJMKK/uuKD98GvkZWehxKLKnPeuq8gYntxMhF4zO1jNle2DHN3VBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bK/tD7vV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="ObcmMFca";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="VteIXgpB"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailflow.stl.internal (Postfix) with ESMTP id 70909130005D;
-	Mon, 24 Aug 2026 07:11:32 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Mon, 24 Aug 2026 07:11:33 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1787569892; x=
-	1787573492; bh=yyAlnjllRJoc8EnuoheqRfmGGLiMMzIInITnv3UMbRQ=; b=O
-	bcmMFcah6VWQt1lnG5fWb89SOZ3pwISwWy3p7CkV2x42aThFTrnAu8t4E/LZekJF
-	s+q/ocaKEHRRlfXqKekfwPi0nh/Tsrda6Y8xINyhGRshWR2WfICQoCG2sIdzLgSa
-	N2jJxH3kDxIKx/O9KgwjKeUX5aEw5/CwX/8pUW2a6vkRvZLcRb2Vt1kx6bcAelen
-	Xbv84H9xJQk5RcyTtC6v8l62zgMRS45OA6pf58i1TmM4WkTKOyjZ6v3wCOhWhjrv
-	GIxm7HCOhML0ILf1LM0FgExULfgqVEa9vZVDx5OCKQIqqrs4wyl57AyX1SHUA8o3
-	v/1iI/arpufs4cblVXerQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1787569892; x=1787573492; bh=y
-	yAlnjllRJoc8EnuoheqRfmGGLiMMzIInITnv3UMbRQ=; b=VteIXgpBHVXXIXkqf
-	4HCbBg/HxjDfGZmZmx2cFGv+qddpamknSZWVFu7h1bir4/3k7vngpPBA/oMPEoK1
-	0BRUKy6Lk35gSAeELWBi2ojq+hQM+pfcJBjZHR7VRtVygZubjJeMGgvL3oi4lVxP
-	s0za+L+K+zKEKy3uM8fOWUUacQXU9r0PE5JLYixhaUbti+h2//pvziceRPt3Iwds
-	S894DiKQnSG8vSfuPxGBPdBaaA6fOP1h1oF/M2Ft3CYBEqOamVdNi3BN8+I2tQPm
-	ohDQrEPzjEXoRMjvfp8CsS1u6RU4i5BdZ3PAiOVHHsen5WLehm1PnTsT34pW3wTq
-	arJ3A==
-X-ME-Sender: <xms:5CaMaow3Y9GlBm23J6UMqeNaEmT_CxYshE55VnVeypQhJWDGoxkqYg>
-    <xme:5CaMatUl5894Ar-smezsR07OJLdMlv_Z8TgbSgLhRXn_3B7GZGLVUHnQMeUddkVyw
-    -UFE6epYV3xzGvna_JgEy_SXad9kEBh5R-BDQWtA4SWAV3vjMEKG2vO>
-X-ME-Received: <xmr:5CaMatROTP5BS99rFddvYAmDMlvP5q2DsEruo6QrtGtgh7HbtHzScIL7Ed2ra9vlhNuWfU2taQ>
-X-ME-Proxy-Cause: dmFkZTFZCbpsgW1YFD8tkPvHCNfxYRvTZ4blFH/NRV/HzygHIZO36nEMOhE1d730qpXJvh
-    mj3vwdyckgY6cjcLbWoO+E+Y3xnZHjj3a4qFKPUp4C1ItOyypDc5v9ubc43QMrvknpo3YV
-    t254bBqkhHFILTMaiaOskey67wujVC060Hg7shRsjYN75EBvtRkSi+gTwzTAT9QI5uwF5a
-    jKY8X+yRsMvgEojvqKUbS+n33ebqC8Mk85kgoigVyIrVFWYfmyd/lA/A6ULdG/inFBXWp7
-    ziuYhhyF6f7lNHjxbQ4kgWN86q7p7VmrRBdAb8OqXw1LSsz5kDP4W0+4ny2SVIkbn/odIK
-    sf4O9rLwTvN1owLeLJeRDej9R2fOMuPzGWUO9AyRJmv3oebnLgAG7tohV4GtAlGdkl39OS
-    WN1gKehlQbcq1i1RlPATIOvCydwYlmIBO+5j+aMcmi/KyXBdPWuxCg08+8l083ANX9+4Wh
-    40CtErh+EM+/Uov4XapNrslCi+GV7ACGr6yic20uXHqWtpf8rOabFMZWcw5dcinjlpn5ng
-    TaGaEoh5ZLYRbUrrMix0OIZW/rhunExybkwfqmYWxrhObNq9A0WLtpe6H0rxgCAtQg1Tnm
-    /w4vkuKbnsu5g4Ww4vy+x68JXfx+et5DEchqGAMWeiQKRWR70aujF0munKRQ
-X-ME-Proxy: <xmx:5CaMakNOmqtW3dImjCTsB_6OQBT0mPRyOupzhql2fsz44o3uNvDKrA>
-    <xmx:5CaMaixAGBFlnZfVEcOQ13XGVqWdaKNCJX6lZaT8wZ3lUvAnzVRxqg>
-    <xmx:5CaMampzz8uSV1XhNbY0oEySIk2_EiQjvmyavhpQmGLzzvWmSt8NtA>
-    <xmx:5CaMami4gaUg9lKBXW8yorn1F6_c0NK0afXHrxzkSPuMeW3Ke-_2mA>
-    <xmx:5CaMakJOZuXrm-zfUA2uFgrYmI50Ki5veIfFe31BhuTy93qLc22OkTBB>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 24 Aug 2026 07:11:25 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: tomeu@tomeuvizoso.net,
-	heiko@sntech.de,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	joro@8bytes.org,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	ulfh@kernel.org,
-	p.zabel@pengutronix.de,
-	ogabbay@kernel.org,
-	zhangqing@rock-chips.com
-Cc: royalnet026@gmail.com,
-	u.kleine-koenig@baylibre.com,
-	chaoyi.chen@rock-chips.com,
-	diederik@cknow-tech.com,
-	alchark@flipper.net,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	iommu@lists.linux.dev,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Jiaxing Hu <gahing@gahingwoo.com>
-Subject: [PATCH v9 13/13] arm64: dts: rockchip: rk3576-rock-4d: enable NPU
-Date: Mon, 24 Aug 2026 23:09:02 +1200
-Message-ID: <d06951df2d4e1dca108be71c5e66bbb088610a21.1787568944.git.gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <f1805c2bce56c89d8ace35f67c665b24bab90965.1787568944.git.gahing@gahingwoo.com>
-References: <f1805c2bce56c89d8ace35f67c665b24bab90965.1787568944.git.gahing@gahingwoo.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bK/tD7vV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ABB51F000E9;
+	Mon, 24 Aug 2026 11:14:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787570065;
+	bh=19UYL/DTLYmf+6p7uxMkM1QyiJ6HqAEH7Afr+QOKQls=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=bK/tD7vVrTlxhrEHL+vJ6fl7HEzuv34HJCynnOZpOWa8JafZyKVNcJ4IgeI8GhStP
+	 khHuU7sW52f50p//R3E4uOVq9jm5Dr5tlR1mUOu06k/Em8U8uV4/fUtDkjhIlIb0hX
+	 0PDZUQoUICKlzTKmfiIne85JwJQE4J/ziKH+ixCehAkFj0IlnDjpXC2nQv3mcCp5ir
+	 uLVjHrMTyQwBHBcCdRP7Upb8rHaK7XVRbu22QMBjx/IIzcw7K3AxBMbKxtu898LECd
+	 eh9t5pyBs3GWiqJmJXqyEgGlf0m5iaoq7/66Y4TAArdyATQXOBvOTsPAnPgXuw/k2+
+	 TPCzfaJkwfn/w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 2/3] rtc: rs5c372: add support for Ricoh R2223x
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Heiko Schocher" <hs@nabladev.com>
+Cc: "Alexandre Belloni" <alexandre.belloni@bootlin.com>, conor+dt@kernel.org, robh@kernel.org, linux-rtc@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260824110452.4038870-3-hs@nabladev.com>
+References: <20260824110452.4038870-1-hs@nabladev.com>
+ <20260824110452.4038870-3-hs@nabladev.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 24 Aug 2026 11:14:25 +0000
+Message-Id: <20260824111425.9ABB51F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Enable rknn_core_0 and its IOMMU on the Radxa ROCK 4D, and hand
-vdd_npu_s0 to the NPU power domain as its domain-supply, so the rail is
-switched by the domain that gates the block.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The new RTC type `rtc_r2223x` is missing from the switch stateme=
+nts in `rs5c372_ioctl()`, `rs5c372_read_offset()`, and `rs5c372_set_offset(=
+)`.
+--
 
-Measured on a ROCK 4D with this in place. The rail's regulator debugfs
-reports open_count 1, so the domain is the consumer that took it. A
-sampler running beside an inference caught use_count at 1, and three
-reads at rest report use_count 0 with the rail disabled, so it follows
-the domain rather than staying on. Over the same run the genpd
-active_time of all four NPU domains rises by roughly 60ms per inference,
-and the inferences either side of that are 128 of 128 channels against
-the CPU reference.
+--- Patch [2]: [PATCH v1 2/3] rtc: rs5c372: add support for Ricoh R2223x ---
+commit f8cda87e08814c0d84a3917bdc200d86363e7127
+Author: Heiko Schocher <hs@nabladev.com>
 
-rknn_core_0 keeps npu-supply on the same rail, which the binding
-requires. Only rknn_core_0 is enabled: the driver binds one core per
-node and the second core is left to whoever can test it.
+rtc: rs5c372: add support for Ricoh R2223x
+   =20
+The R2223x is an I2C RTC from the same family as the r2025sd and r2221tl
+that this driver already handles. It shares the R2x2x control register
+layout, so treat it like the r2221tl.
 
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
----
- arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+> diff --git a/drivers/rtc/rtc-rs5c372.c b/drivers/rtc/rtc-rs5c372.c
+> index 24bd795d9d95d..30e272d650219 100644
+> --- a/drivers/rtc/rtc-rs5c372.c
+> +++ b/drivers/rtc/rtc-rs5c372.c
+[ ... ]
+> @@ -221,8 +227,10 @@ static int rs5c372_rtc_read_time(struct device *dev,=
+ struct rtc_time *tm)
+>  	switch (rs5c->type) {
+>  	case rtc_r2025sd:
+>  	case rtc_r2221tl:
+> +	case rtc_r2223x:
+>  		if ((rs5c->type =3D=3D rtc_r2025sd && !(ctrl2 & R2x2x_CTRL2_XSTP)) ||
+> -		    (rs5c->type =3D=3D rtc_r2221tl &&  (ctrl2 & R2x2x_CTRL2_XSTP))) {
+> +		    ((rs5c->type =3D=3D rtc_r2221tl || rs5c->type =3D=3D rtc_r2223x) &&
+> +		     (ctrl2 & R2x2x_CTRL2_XSTP))) {
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-index 272af1012..79e039bee 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-@@ -722,6 +722,10 @@ &pcie0 {
- 	status = "okay";
- };
- 
-+&pd_npu {
-+	domain-supply = <&vdd_npu_s0>;
-+};
-+
- &pinctrl {
- 	hdmi {
- 		hdmi_tx_on_h: hdmi-tx-on-h {
-@@ -779,6 +783,15 @@ wifi_en_h: wifi-en-h {
- 	};
- };
- 
-+&rknn_core_0 {
-+	npu-supply = <&vdd_npu_s0>;
-+	status = "okay";
-+};
-+
-+&rknn_mmu_0 {
-+	status = "okay";
-+};
-+
- &sai6 {
- 	status = "okay";
- };
--- 
-2.43.0
+[Severity: Medium]
+Since rtc_r2223x shares the register layout with rtc_r2221tl, should it als=
+o be
+added to the switch statements in rs5c372_ioctl(), rs5c372_read_offset(), a=
+nd
+rs5c372_set_offset()?
 
+Without it, RTC_VL_READ falls into the default path, ignoring VDET and
+returning incorrect XSTP bits. RTC_VL_CLR also fails to clear the VDET hard=
+ware
+flag:
+
+	case RTC_VL_CLR:
+		/* clear VDET bit */
+		if (rs5c->type =3D=3D rtc_r2025sd || rs5c->type =3D=3D rtc_r2221tl) {
+			ctrl2 &=3D ~R2x2x_CTRL2_VDET;
+			...
+
+Additionally, rs5c372_read_offset() and rs5c372_set_offset() will skip using
+the higher resolution DEV mode for rtc_r2223x, falling back to the default =
+low
+resolution calculations:
+
+	switch (rs5c->type) {
+	case rtc_r2221tl:
+		ppb_per_step =3D val & R2221TL_TRIM_DEV ? 1017 : 3051;
+		break;
+	...
+
+>  			dev_warn(&client->dev, "rtc oscillator interruption detected. Please =
+reset the rtc clock.\n");
+>  			return -EINVAL;
+>  		}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824110452.4038=
+870-1-hs@nabladev.com?part=3D2
