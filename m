@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E84E421EF8;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E950421F05;
 	Mon, 24 Aug 2026 13:12:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787577138; cv=none; b=QKKTHPfyTP96QjjNLXxSPmJYZ5VWX5jidP2EViYVzyjwnb8WcoPAV9dePJpbHx97/96b1AsgG6SMsL0Q4zNQb7igx3UXy+YVVJMz8igrJCofRyKbAs4C2liltb8jCzT2C0egv3AIClU3OJkuIJ7xGSoH8ZLEzow2IGoL6H8yZJQ=
+	t=1787577138; cv=none; b=GK2tis+NYav8Va00yM3BXzITcBgbTQFnQDMBhAvReE6us0THCJYoW9UHWUpKtmFNR7I6WDXZwtGvn/Pz+oLN/+dN1OuY38Suu/8UjILO3hvbCIpLikqe4fP10Th4Gjv6/ce50T/kDPzOwAlGK53+0wCCtJM6FL4J0DWYXN4tTl8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787577138; c=relaxed/simple;
-	bh=eOmEAB1Xz6tQIVGWJ9mAtX/RxTJecAHU6ZfIuBfKcTM=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=gIXCdoPxB7PqZSw7AwDSb3DDIDka2mKMZiea+2JdiRC8ehl2+eK3JenAIujZ4jJ76l61Pvj4hQBuBCQCOS5bG0D8+rW9JEf24H1bk3Dascwj1CQ5Nf/FEXPcH5AXnurDgu5U5BQRPthUeZoKihF72t1S4LtbmUMs9Wdg9haoE7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qhySWPr0; arc=none smtp.client-ip=10.30.226.201
+	bh=QyXzZnJwkyxBDSEwT4XALNAbFVFz7Ox37OrO3JqwCZk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=URk1OdGuXjJ8xjAYRKPmg0m81v66rTXKeV5bn0jGDmlVqGvrAWVKz0/B3ymn9T77y7kKoWqE8L0uRQ3JjfhkocoADxq+2DVM6Ass8jBljOs3/R3OncqlxLAq0Eqk9cEDcXOaUUy/M5RLUpPALSDe7OgEnnpCCJN2hka9edNm1Lg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=p7NjkJO7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qhySWPr0"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BE0A6C2BCF6;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="p7NjkJO7"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CDF6CC19425;
 	Mon, 24 Aug 2026 13:12:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1787577137;
-	bh=eOmEAB1Xz6tQIVGWJ9mAtX/RxTJecAHU6ZfIuBfKcTM=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=qhySWPr0VHZGqjN/KwT7QrpaUm1QaFCwBZ9KSEgivYSE32xyxR584N3A0phKeehQ2
-	 ec5bRlZ/iYw9F92ZBX8GYtsxw9viV/2oJOsz8iZa9xjLIrCTx1A9cLPEQGi085+nbG
-	 WFTN2ssGNBTdkQtHL5/lUV1c2PKnQ0PfQKANDJm+xjjzp/N123xD3ruMi2wnyAhCwZ
-	 7yZ7sBXHfvPaAoGxSbGkcoMC64zgExPH3vsmN06X5uL4W0oeG/SPfIqzmR0h4lAKFM
-	 oSNqK8IpxjJPgsXO6UneCeAB2yuEUW1p3oHFGSOm6hwm5kGCKiZ0q7tGo5E+nuqr0u
-	 0xL/SxMA1pUtQ==
+	bh=QyXzZnJwkyxBDSEwT4XALNAbFVFz7Ox37OrO3JqwCZk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=p7NjkJO7FloiQgAuqKk6zV+0yL9ZWDaWqO36zQDjya1zg0eZekTpPYjkSfqavibgf
+	 SON5OBnuQBIxhDJE7W+fZz7ByT4ZeIWYionNeSZM4potvBl01yx9/crETHJKapm0eR
+	 0JJ6n+sflqxxVePsYb2ZlNWQ8GLkDWIF0X5vWXp1I6WlnhvBFXefJcl4Xpzg2wuWDr
+	 NAucYBQNra5pa+N7qKNzIQd4SgayKQ9B5XPMD+OdUvuKNJx1/vLtNQHVtS1XBjL3Fm
+	 BMACGGbYK3qrXtP0ILMc97IoRMgCKhbE4Wrnd4w0V/8OpvVPikuAqT6xyh7/wr5zjk
+	 OQGuOaHJweDuA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9508BC5DF9B;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AB06FC5DF94;
 	Mon, 24 Aug 2026 13:12:17 +0000 (UTC)
 From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Subject: [PATCH v2 0/3] arm64: dts: lx2160a: fix the malformed pinmux
- entries
-Date: Mon, 24 Aug 2026 15:12:00 +0200
-Message-Id: <20260824-for-upstream-lx2160a-pinmux-fix-v2-0-0a525d5f4cd5@free.fr>
+Date: Mon, 24 Aug 2026 15:12:01 +0200
+Subject: [PATCH v2 1/3] arm64: dts: lx2160a: fix incorrect pinmux
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,10 +40,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIACBDjGoC/42NSw6CMBBAr0Jm7Zi2CKmuuIdhUehUJpFPpkAwh
- LtbOYHL9xbv7RBJmCI8sh2EVo48DgnMJYO2c8OLkH1iMMqUypobhlFwmeIs5Hp8b0aXyuHEQ79
- sGHjD0qs7WdP4om0gVSahpM/Ds07ccZxH+ZzDVf/s/+1Vo8Y8d3lrfUHOuioI0TUI1MdxfAErm
- y1szAAAAA==
+Message-Id: <20260824-for-upstream-lx2160a-pinmux-fix-v2-1-0a525d5f4cd5@free.fr>
+References: <20260824-for-upstream-lx2160a-pinmux-fix-v2-0-0a525d5f4cd5@free.fr>
+In-Reply-To: <20260824-for-upstream-lx2160a-pinmux-fix-v2-0-0a525d5f4cd5@free.fr>
 To: Frank Li <Frank.Li@nxp.com>, Carlos Song <carlos.song@nxp.com>, 
  Sascha Hauer <s.hauer@pengutronix.de>, 
  Pengutronix Kernel Team <kernel@pengutronix.de>, 
@@ -55,11 +53,11 @@ Cc: imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Thibaut Collet <thbt.cllt@gmail.com>, Vincent Jardin <vjardin@free.fr>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787577136; l=2864;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787577136; l=1626;
  i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=eOmEAB1Xz6tQIVGWJ9mAtX/RxTJecAHU6ZfIuBfKcTM=;
- b=TpqRhxT6XpYSa4kKcljJVHo28WzdMGU8ReP/52n6CNe+J58fYSbtjUbVrv5Lx++3QhodVkeZE
- cJAqxgwss+ZDA82Dd++CCrMPfzbvO1NwfN5NsxPtxcAYNZuqTnt51DB
+ bh=cZfDHWxtn03VL7NNB13yIdWVRIXNDxo1MTtXhAgv4U8=;
+ b=dHSEpwxeF9dhLwKyueWq+wokOc4uqkX0QwvIMBU7Ty2dsMST7A7Rn24MKI+ZUqoIEeVH/goLx
+ WKgk3gOCBUzBv9OBRjRsCCsjhAfCQGBgKygWVieLawOiMoatUKi+UHR
 X-Developer-Key: i=vjardin@free.fr; a=ed25519;
  pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
 X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
@@ -67,71 +65,54 @@ X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
 X-Original-From: Vincent Jardin <vjardin@free.fr>
 Reply-To: vjardin@free.fr
 
-Every pinctrl-single,bits entry in the lx2160a pinmux@70010012c node was
-reviewed against what pinctrl-single actually accepts in bit-per-mux mode:
- the offset has to name one of the three registers the node maps,
- the mask has to equal pinctrl-single,function-mask shifted to the field,
- the value has to fit inside that mask.
+From: Vincent Jardin <vjardin@free.fr>
 
-Three entries fail one of those rules, and each fails differently:
+For gpio1 value set for pinctrl is outside the mask and so will do
+nothing.
 
-  1/3 the three gpio1 groups put the field value at bit 0 instead of at
-      the field, so pcs_parse_bits_in_pinctrl_entry() masks it away and
-      the mux write does nothing;
+Add the missing offset for value field to be the same as the mask as
+expected.
 
-  2/3 the two iic1 groups carry a one bit mask, which the driver rejects
-      outright with "Invalid submask", dropping both pinctrl states of
-      i2c0 along with its bus recovery;
-
-  3/3 iic5-spi3-pins has the field value in the offset cell, leaving an
-      invalid offset and a value that selects the neighbouring sdhc1
-      function rather than SPI3.
-
-After the series no entry in that node is malformed anymore.
-
-Only 1/3 was sent with the v1, as a single patch. The other two turned up
-while checking whether it was the only one of its kind in that node.
-
-They are 3 patches rather than 1 because each fails differently and
-each requires the reviewer to check something different:
- 1/3 is mask arithmetic,
- 3/3 needs the IIC5_PMUX encoding table to confirm which
-     function value is right,
- 2/3 is a partial revert of a change that was made deliberately.
-
-1/3 and 3/3 share a Fixes: tag and are still not folded together:
-  - one is a value that is never shifted into its field,
-  - the other is a value that ended up in the offset cell and also names
-    the wrong function
-and both they touch unrelated pads.
-
-I can squash any of them if you would rather have them merged.
-
+Fixes: 284ad7064aaa ("arm64: dts: lx2160a: complete pinmux for rcwsr12 configuration word")
+Suggested-by: Thibaut Collet <thbt.cllt@gmail.com>
 Signed-off-by: Vincent Jardin <vjardin@free.fr>
 ---
-Changes in v2:
-- Rebased onto current mainline. fsl-lx2160a.dtsi was renamed to
-  fsl-lx216x.dtsi by commit 285560f0d39d ("arm64: dts: lx2160a: split the
-  dtsi to avoid delete-property"), which landed in the v7.3 merge window,
-  so v1 no longer applied.
-- Added 2/3 and 3/3: two more malformed entries in the same pinmux node,
-  found by auditing the rest of it.
-- Link to v1: https://lore.kernel.org/r/20260824-for-upstream-lx2160a-pinmux-fix-v1-1-33a3c8d5ea8a@free.fr
+ arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
----
-Vincent Jardin (3):
-      arm64: dts: lx2160a: fix incorrect pinmux
-      arm64: dts: lx2160a: fix IIC1 pinmux submask rejected by pinctrl-single
-      arm64: dts: lx2160a: fix the iic5 spi3 pinmux offset and value
+diff --git a/arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi b/arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi
+index ae6e37870c5e5..d4522a19405a9 100644
+--- a/arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi
++++ b/arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi
+@@ -1622,7 +1622,7 @@ fspi_data74_pins: xspi1-data74-pins {
+ 			};
+ 
+ 			gpio1_31_28_pins: xspi1-data74-gpio-pins {
+-				pinctrl-single,bits = <0x0 0x1 (0x7 << 15)>;
++				pinctrl-single,bits = <0x0 (0x1 << 15) (0x7 << 15)>;
+ 			};
+ 
+ 			fspi_data30_pins: xspi1-data30-pins {
+@@ -1630,7 +1630,7 @@ fspi_data30_pins: xspi1-data30-pins {
+ 			};
+ 
+ 			gpio1_27_24_pins: xspi1-data30-gpio-pins {
+-				pinctrl-single,bits = <0x0 0x1 (0x7 << 18)>;
++				pinctrl-single,bits = <0x0 (0x1 << 18) (0x7 << 18)>;
+ 			};
+ 
+ 			fspi_dqs_sck_cs10_pins: xspi1-base-pins {
+@@ -1638,7 +1638,7 @@ fspi_dqs_sck_cs10_pins: xspi1-base-pins {
+ 			};
+ 
+ 			gpio1_23_20_pins: xspi1-base-gpio-pins {
+-				pinctrl-single,bits = <0x0 0x1 (0x7 << 21)>;
++				pinctrl-single,bits = <0x0 (0x1 << 21) (0x7 << 21)>;
+ 			};
+ 
+ 			esdhc0_cmd_data30_clk_vsel_pins: sdhc1-base-sdhc-vsel-pins {
 
- arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
----
-base-commit: 0a0d1d55dad570724bf8c7ea83409639cfb4be9b
-change-id: 20260824-for-upstream-lx2160a-pinmux-fix-6d09e82bd5cb
-
-Best regards,
 -- 
-Vincent Jardin <vjardin@free.fr>
+2.43.0
 
 
