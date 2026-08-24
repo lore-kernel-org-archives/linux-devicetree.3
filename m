@@ -1,63 +1,65 @@
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F7DB394E91
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C718B3EC2F6
 	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 11:04:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787569488; cv=none; b=VSYIa5hhl1l321Cm75wGP8evHoQIXpD/yDMoWhnZTII6sdD5uW/f3kw/H1yK2trRAEpSRlpW2w6BDYF8lfE/qSX5e5EWfy1kZpno6UhUfY3TT0MzeWcoZNJwb/Y6oPNjAfIAtgz38pXjsAEKKdQTkjKATn1XZW0bEMecARHqVMI=
+	t=1787569489; cv=none; b=CE22zZctvxGWtRM3QnoX7upBbUkAaGy7mCw4Q6eQ6FABFht/6fMGLQV9/jAQWVSI1D2f81gUBjXwvCzdrg/RW5dOV6tGBfS+QYeKpExtvGJZOVbWUNx6aRpy4SsxJpJfTkXDqteDXJYYY8nj/t2ByObsS+h0zBGUZGCApraOj7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787569488; c=relaxed/simple;
-	bh=3QfgIH/GgpjZ3VkdsfXWUQfOIdxeyEfDrjW0KFRGvA4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CEwxFZ3GfI2Iq3fPksqhNuL50mT97UgRlDtDyn1qd/FJJ92U43suKAfa+VfJApkioOmIe3TDAPZPZnDA4vZFNHPzANzGQWJGPXFvkp5m6LhkBQRvSI/4tyHeGfWCI+mN1Z7HMkNd0pYBCyZjfjpFVD5ixI0ZTJymvGBHNpU7fnM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=mFvuDLDJ; arc=none smtp.client-ip=209.85.218.45
+	s=arc-20240116; t=1787569489; c=relaxed/simple;
+	bh=vkWv8VZf5KbzWdhWzOUZe19ad0YI1y8OxFn+suLRD68=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XKtkhkBOxYQmVAXxRwVxNF+yCRyT4xgxWsWM7TqA7oTgVqJ8H4L6sqz8IaVx3ZoTNzlz5VpanMTHcRtVmHWt3f6I1mHzB+qUUAydu5VbYu9dsZ6lO3wCvpZJYKZ/2cuowgXK/5wfkegy0LWNquQ2D1tTqnYAIiJKY+4u9ovjzOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=wgUq1iuc; arc=none smtp.client-ip=209.85.218.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="mFvuDLDJ"
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c197e7e4e94so588737166b.2
-        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 04:04:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="wgUq1iuc"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c1670dad7a8so577876266b.3
+        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 04:04:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sartura.hr; s=sartura; t=1787569485; x=1788174285; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NxuxqWbvyXC7ugR8MRCNznILz1F4+G4M9w5UTCg9J3I=;
-        b=mFvuDLDJD7en2Q5ej4a2IkuH5R5F5cD/AGLPKkcvdHdSk8M+eUGSNKWfE0w62liUs+
-         i3g4CMN4aeoqDHfr/d+EmhLPeuVvadt0QCFVL0FkTRiODTtqpkMaGqIk5hbz/mhQohxd
-         EiubX3k927920CK2YFvEypKTG2+tdCoudTG26AiLXq+dZNVFs31CM50HLAhqUYf74Bw2
-         x1Yv3RQuSeVgRnHdjdAkoQpqAvGLdL9sd7HrjUaLZeHN5ZQF6/dA1Dq/DIUT6poqIilq
-         VdehDcI3dyi9xlOiwCij7mFCuZTDeMZQsJtT7FFmYpHz5L0D8j+QWwMnhxH496BUF8b1
-         k0jw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787569485; x=1788174285;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=sartura.hr; s=sartura; t=1787569486; x=1788174286; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NxuxqWbvyXC7ugR8MRCNznILz1F4+G4M9w5UTCg9J3I=;
-        b=CoBZWBi3ocyN/qofx0Y3rMFu7Yh4wtvlNygDWbinwSwTRFMM0IDQCGGWC8A7rVdqVv
-         bBpyc252JFiyLYCaxG9arikrJdVi7vsZRJ6MORc+tHUhi+ng/xRbqhbsNjHm8D0TfNem
-         c8b4Mty7MDGxz4qL8AzHrB3GjbSelJllUMRoxnVcQnLdYYHP6TNON5BczemQxYUN0z8I
-         z61NOHjuCgoj8BWXeIW0NVHfSSJhJJ8BV9DMKsnQRsgYxCtsEhS/CXTxArBt/YIZsP+N
-         IEmp+EiFJSIP9RANP4wQeL214XQHSQs63EKrIZZ84UkAYI3nSmaE7s4/tSlM9MVa19is
-         Qldw==
-X-Forwarded-Encrypted: i=1; AHgh+RpqSTsE8n+XOgxjAgtORcf7XEd8ozcu1kNf98KVgTZeKr1zpC3kxjEcXzjCThg0FOTyEo6ZYpTLAxrL@vger.kernel.org
-X-Gm-Message-State: AFuF++kEw3LcljIIrleYT6NWg7KDTxoLkF6zRQggpUK4kDkVs47O6IF5
-	OJNzmkjLcz4q3meNO4xnfrojtAwzjv+XpsP9aEz/XgJxQUJOsi4ue3UI16XPkBMCHXc=
-X-Gm-Gg: AR+sD11q2SVlaQd3PpJhgHN+qrVwikVgAqGRDroiJGgNxyZuxArwMCLk+9ITwFHhbEs
-	YcWZ5bfTdNYsZFyh//7q0qI9G30d2okd7UUnq8QNtmjZIIvgpLAadyOPFpdTFFJfZZyn+HXE5/S
-	e9TTT8wkJIK3SnIZMEfV+MOJxEF+XoIqxXhCYn+3tMDUPg/TEWbC/iwEY/DIqEsS0QVkMOuMfks
-	YnzYVxFbRSAKn5aYrOOt13/heEgbC2Z+l6D9HjIQJyNBL7FrLqmRW3HzMFeO2+Iuy+grnne9XJM
-	pibhcXyHNtnwgOeR1A1D5ojdupglRACvnowidUPJlTKa6GQvdxoNBx8+TKYJJCcYdFGiDrPYR/5
-	X2ekzg9hozb32N1dgPh8Odkz9rSKMcjAY8yJWwKsPXepOhjwc/klM8Fm44II24gzqpuWY8p2pOE
-	k0A/o6o7/h+1jUNQLd1D7VWX0EPmnbrqegDAPvSQug1Mfo5YLPukB0PFUbcUm0A8mxmrvl7g6qO
-	WsK4ktimVBWbs6w5AJ6VgQo4wkRLhpAdzRIrlQyGoDSSGv60NvhAcZqeTLLBkPSHbNsHBGpDPNr
-	PdDbsm+9l2kb8cDStaZop4Ej7XjCsrHaqRq5Ig==
-X-Received: by 2002:a17:906:9c93:b0:c24:6687:bf6a with SMTP id a640c23a62f3a-c2492663ee3mr1888041866b.21.1787569484828;
-        Mon, 24 Aug 2026 04:04:44 -0700 (PDT)
+        bh=YuCDKY9mXTrdYYrt4yEzUU2rfGaRGeNzZjabp91Amlo=;
+        b=wgUq1iucYzxLPzLyhYAprZsGm0vZRRQsqYBvGCWad3z0YZ6/8upz/kbUz2MESE0NyM
+         wcLpPV3d/cqXqEgOqpytsXjXJ1y9JFUELW9ILpezdNRXuGQZzDPvAxiPxpwg54N2sR02
+         1Vm+930NOxyq0qOViD95cVl+npvFAOBXTKl2o7QAv2rJtozHmOtHmJwuwKWKfwCbYTt1
+         F1zsXt973ZpP9UYmUk6JGeJ94x+t6l3YusXyDGtBTV+XSSKHbK40b+E2RWrGR8/DgEBf
+         HTneZmD7c2H7ay61KCLdFwi9alq5VHrgAwpz5fNoHJCNNTtuCjc4ebrCyStu8+F+3A+n
+         escA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787569486; x=1788174286;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YuCDKY9mXTrdYYrt4yEzUU2rfGaRGeNzZjabp91Amlo=;
+        b=ixJgSUlZzmmFMP1zNvj1Bh/NzMJZ1Erbf+1QLt8OqCrW3jjkZf1HOIliABp4txGFxf
+         A0+4T8i03vNYsXz3sCSKfN3rxX1OnX1iwwBJaEw3mZJPSoRgVXpdSBG15DC6zN4hFD/P
+         Wr0a52foDSCmrsez/dVyMGPO5HskFVS7WYbm5+plthABNjIYtSyk1CUZjIN21NZhXdZg
+         KQ1JZ10cw91rKOjOmB+tNJyI9ek1LI+X010ibEtFgflg2Mh+RJYyCKBcBm8QMiL7ag04
+         OAIuUZeZRjWqIoSkTI0nH0AupzsCdGMfk4PIT6Yvba0yE29VeN4sgx3fY0BS1joojU7u
+         soUw==
+X-Forwarded-Encrypted: i=1; AHgh+Rr/nYrjZXsajCRHRJFT+tnasdVmTrif0ajc3gXHr1ohfXLt6eOi76QCo1AYS4gPz30Kq/drCUPvFZqJ@vger.kernel.org
+X-Gm-Message-State: AFuF++m53WeUalYHv2/+Sn3PTdHYkqbeIBmWgxMdvhMw6YGOYwRxC9fp
+	o4XDEFJMyJpdVhIC7fI9lauVB5HynhX0rA59r6/DbdZjMbkb1+ESsWw+vL/ip91J6Ho=
+X-Gm-Gg: AR+sD13yIFByT43tsJIlBoWZTFx7QYbdTx8UfU8YNcsbvprNYu5nWvzckOX0L0Xj45y
+	o2vU7slDgGDg9gIESHj8Xft7+EdTqcBAQZY8Kk0+/MiZqpm/Sab3A5R7iIPPdpCAsqYo2OLMzNx
+	forQ9Q0tV0HDJ3fStIFYP/m7CyPayYWpVDudG2W8yanwts5GhIKpQacI0pguHrvc42FxiNIfjSy
+	OSN3Kvg50XXTsBSyFHE+eTND/xKg0jKQiV07X4tfpXQ8OMQ2IhP0FfHJjih3QveRDqMMDyTHVJt
+	w0L9rnCkaOed9UFyAO0myH6pO/D4prxEzFpg+DQqCwZyqMPmga6DDvcUTUveIGmfKDFsYRuBsTu
+	+LpElyAI38hZYEO6DqFl67gDFmVFIRAZ2mRnLHKzVaiZIVuaEppO3O/feCUBtj1hHvQr1GrBtsa
+	UZJAE3oLI/P22ALw/2JY0i/pOaiGIfnEGzgT+hH+h5a96TCcNAk6hscS/yKc+9aMhzYVuTqfrcC
+	6PJZdzd18GQ/7XSboEUOmTVSFgnHBnFPM7sVscrZbCe1N4CBfuoE3BxKVsIVmCuKHHczaijpA13
+	in8k2g7dWMbU+zFE+qMl+p8rQlXVUk0ErBb9ag==
+X-Received: by 2002:a17:907:7252:b0:c16:8adf:f183 with SMTP id a640c23a62f3a-c246a683ff5mr2769437566b.14.1787569486011;
+        Mon, 24 Aug 2026 04:04:46 -0700 (PDT)
 Received: from threadripper-fedora-workstation (cpe-109-60-82-103.zg3.cable.xnet.hr. [109.60.82.103])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2496738e7esm1331954166b.46.2026.08.24.04.04.42
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2496738e7esm1331954166b.46.2026.08.24.04.04.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 24 Aug 2026 04:04:43 -0700 (PDT)
+        Mon, 24 Aug 2026 04:04:45 -0700 (PDT)
 From: Robert Marko <robert.marko@sartura.hr>
 To: ulfh@kernel.org,
 	robh@kernel.org,
@@ -73,10 +75,12 @@ To: ulfh@kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: luka.perkov@sartura.hr,
 	Robert Marko <robert.marko@sartura.hr>
-Subject: [PATCH 1/4] dt-bindings: mmc: atmel,sama5d2-sdhci: add LAN969x compatible
-Date: Mon, 24 Aug 2026 12:56:49 +0200
-Message-ID: <20260824110432.1074136-1-robert.marko@sartura.hr>
+Subject: [PATCH 2/4] arm64: dts: microchip: lan969x: add SDMMC nodes
+Date: Mon, 24 Aug 2026 12:56:50 +0200
+Message-ID: <20260824110432.1074136-2-robert.marko@sartura.hr>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260824110432.1074136-1-robert.marko@sartura.hr>
+References: <20260824110432.1074136-1-robert.marko@sartura.hr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -85,27 +89,48 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The SDHCI controller in the LAN969x family is compatible with the
-SAM9X60 implementation. Add the microchip,lan9691-sdhci compatible
-with microchip,sam9x60-sdhci as its fallback.
+Add nodes for both SDMMC controllers.
 
 Signed-off-by: Robert Marko <robert.marko@sartura.hr>
 ---
- Documentation/devicetree/bindings/mmc/atmel,sama5d2-sdhci.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/boot/dts/microchip/lan9691.dtsi | 24 ++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/mmc/atmel,sama5d2-sdhci.yaml b/Documentation/devicetree/bindings/mmc/atmel,sama5d2-sdhci.yaml
-index ba75623b7778..af1c66a1f882 100644
---- a/Documentation/devicetree/bindings/mmc/atmel,sama5d2-sdhci.yaml
-+++ b/Documentation/devicetree/bindings/mmc/atmel,sama5d2-sdhci.yaml
-@@ -21,6 +21,7 @@ properties:
-           - microchip,sam9x60-sdhci
-       - items:
-           - enum:
-+              - microchip,lan9691-sdhci
-               - microchip,sam9x7-sdhci
-               - microchip,sama7d65-sdhci
-               - microchip,sama7g5-sdhci
+diff --git a/arch/arm64/boot/dts/microchip/lan9691.dtsi b/arch/arm64/boot/dts/microchip/lan9691.dtsi
+index a8541c6a098d..2d943ea75768 100644
+--- a/arch/arm64/boot/dts/microchip/lan9691.dtsi
++++ b/arch/arm64/boot/dts/microchip/lan9691.dtsi
+@@ -414,6 +414,30 @@ qspi0: spi@e0804000 {
+ 			status = "disabled";
+ 		};
+ 
++		sdmmc0: mmc@e0830000 {
++			compatible = "microchip,lan9691-sdhci",
++				     "microchip,sam9x60-sdhci";
++			reg = <0xe0830000 0x00000300>;
++			interrupts = <GIC_SPI 64 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&clks GCK_ID_SDMMC0>, <&clks GCK_ID_SDMMC0>;
++			clock-names = "hclock", "multclk";
++			assigned-clocks = <&clks GCK_ID_SDMMC0>;
++			assigned-clock-rates = <100000000>;
++			status = "disabled";
++		};
++
++		sdmmc1: mmc@e0838000 {
++			compatible = "microchip,lan9691-sdhci",
++				     "microchip,sam9x60-sdhci";
++			reg = <0xe0838000 0x00000300>;
++			interrupts = <GIC_SPI 50 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&clks GCK_ID_SDMMC1>, <&clks GCK_ID_SDMMC1>;
++			clock-names = "hclock", "multclk";
++			assigned-clocks = <&clks GCK_ID_SDMMC1>;
++			assigned-clock-rates = <45000000>;
++			status = "disabled";
++		};
++
+ 		qspi2: spi@e0834000 {
+ 			compatible = "microchip,lan9691-qspi";
+ 			reg = <0xe0834000 0x00000100>,
 -- 
 2.55.0
 
