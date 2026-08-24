@@ -1,99 +1,101 @@
-Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C49A36492D;
-	Mon, 24 Aug 2026 02:42:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F463769F9;
+	Mon, 24 Aug 2026 02:42:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787539375; cv=none; b=gdmQ1dYp3UqGtfuiLw3DX9H2yBg6zLc8nyMI0KlOhsGKFDElmqjgeFdcUA0DqDKpPN/8ubpde1AsoSTrNYf+ihUV76j26+2S798hPCUnmLIaSszzuI2uokZFRTsV1y1lnkiEVvWHUWJfeg23PgMGbiIhCDA2gvmR7DEPflpYUiA=
+	t=1787539378; cv=none; b=Wjj/uWFkS7ccUC+YYUDMO+OcEayuuuyvxTg3jmwcp3WiPAdLOqgBkoR300599awMwrnJMOqnKFCmM2H1JyepC/URBYha21uxy5FOLeNyCY8FTTT5urHiHnnDOghTCw66B9pbRydPE8sYBLWZ1yPdefNn2bAExN1T+bx9SYyK/WA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787539375; c=relaxed/simple;
-	bh=RlxiTc6ufbAPp2W9fkd50aRtYznC++m4JM40pI/YrqE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=Et9wE66ve0xuquxPlhLCF1tqCgdqPPW2QRJzzD1oV51S2GqG8f63MCuoHVDhBXwPZeCxF7eVWrmF9jYjp9gKv+oKYY/l1yi8cbIRTLIkavrIPWzMGPz0rDL9OD1V3kWd+FlcNKrFhHiWpT7iA8DcmLHoS5vmrju4rqX/Fro7f4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Mon, 24 Aug
- 2026 10:42:29 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Mon, 24 Aug 2026 10:42:29 +0800
-From: Ryan Chen <ryan_chen@aspeedtech.com>
-Date: Mon, 24 Aug 2026 10:42:30 +0800
-Subject: [PATCH v2 3/8] EDAC/aspeed: Free the interrupt before the
- mem_ctl_info on remove
+	s=arc-20240116; t=1787539378; c=relaxed/simple;
+	bh=ZkCCJ24pwCFBSzn/XX4R16/HBiYgHZ3wXppgXaFr6rc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=efmteeVdQqieZHFZm3Abd0JfoZX9FstsB0N4yVfKsPwQX63uZzFT2lxJToMaRJCv5qPC5EYdMhOl2uEsEnTxPgFwIHzwdzkus7E4jlQh4sjXEPkyQvzF4WPKawDCJ0DPDyp0RgH/FDnwW5XR41x4tzt61CA9K2Dzv6jw++NU2lQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mSkXxiRX; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mSkXxiRX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A3E91F000E9;
+	Mon, 24 Aug 2026 02:42:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787539372;
+	bh=sD8DOPhmGdq9TOzzHyx3XSMEdDAdzpX6enxF2TJVICE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=mSkXxiRXJHWxLCHhkq1nRN2lLQTJKJosf0hTTBojgg1Q1ts4yhH4Rlg0KrRdRV7NR
+	 uTaQkAvREF1qfsfKdA0qXimGrDJPGJ3ghp7xsWM/jAQSqxUEESBzKCxQjFCqY/EoBC
+	 vDVbojTIIVQUXN9JVhZPGH/WWnyAwFN3M1Ay6QxTV/kZnMIO0MRf9GWVMwF4CkTD49
+	 +2ukbceA0iw/nlHpNZ17GPTwVIptjKW7+x+TdKqEt2O0GWMcheBwf83PytkRzG9qly
+	 Mym4B8H3+HYXIy0iDPkPs19Kjg1uPLFtr8JMhc8YB252PiPulXurzi8SjPP4LSDGW0
+	 Mbqy3mEi56X8w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 17/17] arm64: dts: fsl: Add DT overlay to build MQS1
+ sound cards on i.MX9 platforms
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chancel Liu" <chancel.liu@oss.nxp.com>
+Cc: Frank.Li@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260824022020.2812810-18-chancel.liu@oss.nxp.com>
+References: <20260824022020.2812810-1-chancel.liu@oss.nxp.com>
+ <20260824022020.2812810-18-chancel.liu@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 24 Aug 2026 02:42:51 +0000
+Message-Id: <20260824024252.1A3E91F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260824-edac-v2-3-c8d8bb693586@aspeedtech.com>
-References: <20260824-edac-v2-0-c8d8bb693586@aspeedtech.com>
-In-Reply-To: <20260824-edac-v2-0-c8d8bb693586@aspeedtech.com>
-To: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>
-CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
-	<linux-edac@vger.kernel.org>, Ryan Chen <ryan_chen@aspeedtech.com>,
-	<stable@vger.kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787539349; l=1363;
- i=ryan_chen@aspeedtech.com; s=20251126; h=from:subject:message-id;
- bh=RlxiTc6ufbAPp2W9fkd50aRtYznC++m4JM40pI/YrqE=;
- b=gpm27cUcRMtuWzCYAMZDJ+ZRjHayMCjYlYb1GvBw7j/JjEkz5DoJugDkwdsgHS1YKJBXoglg0
- LrgCW0p3PfhD0Ihn/PVxqB2zZL+Dut7Vd3Y6FJ9p6NtwOpzsuoeFiW4
-X-Developer-Key: i=ryan_chen@aspeedtech.com; a=ed25519;
- pk=Xe73xY6tcnkuRjjbVAB/oU30KdB3FvG4nuJuILj7ZVc=
 
-The ECC interrupt is devm-managed, so it is only released after .remove()
-has returned, and masking the controller does not wait for a handler
-already running on another CPU. edac_mc_free() can therefore free the
-mem_ctl_info the handler uses as its context while it is still running.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The device tree overlay defines audio DAPM routing referencing non=
+-existent source widgets `MQS_L` and `MQS_R`, which will cause the sound ca=
+rd probe to fail with `-ENODEV`.
+--
 
-Fix the ordering and synchronise by freeing the interrupt prior to
-releasing related memory.
+--- Patch [17]: [PATCH v3 17/17] arm64: dts: fsl: Add DT overlay to build M=
+QS1 sound cards on i.MX9 platforms ---
+commit 16b11b202a8f8c0d5f524ed9bbec5f9b49d2926e
+Author: Chancel Liu <chancel.liu@nxp.com>
 
-Fixes: 9b7e6242ee4e ("EDAC, aspeed: Add an Aspeed AST2500 EDAC driver")
-Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
-Cc: stable@vger.kernel.org
+arm64: dts: fsl: Add DT overlay to build MQS1 sound cards on i.MX9 platforms
 
----
-Changes in v2:
-- New patch.
----
- drivers/edac/aspeed_edac.c | 5 +++++
- 1 file changed, 5 insertions(+)
+This commit adds a common DT overlay to support MQS sound cards on i.MX9
+platforms. It routes SAI1 to MQS1, disables conflicting devices, and attach=
+es
+a board amplifier via DAPM routing.
 
-diff --git a/drivers/edac/aspeed_edac.c b/drivers/edac/aspeed_edac.c
-index 83d60414f89a..e05ebed5c2f2 100644
---- a/drivers/edac/aspeed_edac.c
-+++ b/drivers/edac/aspeed_edac.c
-@@ -359,11 +359,16 @@ static int aspeed_probe(struct platform_device *pdev)
- static void aspeed_remove(struct platform_device *pdev)
- {
- 	struct mem_ctl_info *mci;
-+	int irq;
- 
- 	/* disable interrupts */
- 	regmap_update_bits(aspeed_regmap, ASPEED_MCR_INTR_CTRL,
- 			   ASPEED_MCR_INTR_CTRL_ENABLE, 0);
- 
-+	irq = platform_get_irq(pdev, 0);
-+	WARN_ON(irq < 0);
-+	devm_free_irq(&pdev->dev, irq, platform_get_drvdata(pdev));
-+
- 	/* free resources */
- 	mci = edac_mc_del_mc(&pdev->dev);
- 	if (mci)
+> diff --git a/arch/arm64/boot/dts/freescale/imx9-mqs.dtso b/arch/arm64/boo=
+t/dts/freescale/imx9-mqs.dtso
+> new file mode 100644
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx9-mqs.dtso
+[ ... ]
+> +&{/} {
+> +	sound-mqs {
+> +		compatible =3D "audio-graph-card2";
+> +		aux-devs =3D <&amp_mqs1>;
+> +		label =3D "mqs-audio";
+> +		links =3D <&sai1_port1>;
+> +		routing =3D "MQS AMP INL", "MQS_L",
+> +			  "MQS AMP INR", "MQS_R";
 
--- 
-2.34.1
+[Severity: High]
+Will this cause the sound card probe to fail with -ENODEV?
 
+Looking at the MQS codec driver (sound/soc/fsl/fsl_mqs.c), it only registers
+a playback DAI with .stream_name =3D "Playback" and doesn't appear to define
+.dapm_widgets exporting "MQS_L" or "MQS_R".=20
+
+Since the sound-mqs node lacks a widgets property to manually instantiate t=
+hem
+(e.g., widgets =3D "Line", "MQS_L", ...), won't snd_soc_dapm_add_route() fa=
+il
+to find these source widgets and abort the initialization of the sound card?
+
+> +	};
+> +};
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824022020.2812=
+810-1-chancel.liu@oss.nxp.com?part=3D17
