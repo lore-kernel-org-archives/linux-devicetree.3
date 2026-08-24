@@ -1,189 +1,198 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7D921A682E;
-	Mon, 24 Aug 2026 07:10:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 294E63EC81B;
+	Mon, 24 Aug 2026 07:13:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787555446; cv=none; b=Oemj//tebwYyCGXHYS+0Eh8zgpsoM+XzG9RZr8e+k9N+SG5Fs04G3l1RjHyvrAGLZMLzv/Q7HT0rum6C+uBNY5pC4j78d1Z4ia4T0zAI+jf4d0/NJo3T0KWimbEX7ja44s+if9m+8olgOTe4tSb9nSsnh8Mq5X7o+zJqRoFd7Sw=
+	t=1787555593; cv=none; b=KIpQT7/ympK8TNsh1pmIoYd0IRvLF05wpZf4BnIIcB5YulEcJQ98afktBRHL4bQnun5z+pcnLKohSh0nmqng54eeOQYxTjZ1bPE0g/rdPKRFFUiLv8JAPX1wplv8IUsrgYPjnEQV4vfSoetvNWgrpTIAEKmdWEiu+WOfMNYoU6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787555446; c=relaxed/simple;
-	bh=fpHciuKFxrDpGxi6XvkP47uMh6llOLS6pWUt/AwpxnY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=To2R82QWsAe126wkfUOxFh4OqcBX9Ln404PUTw1dp/8anEBPrVOEnWeK+880m9D1Jy+ukTomGzUW4OBGGD9xr/qQEssBwa2JEEwQYTdbSWBqCwpOVCidb1tFizF2Bsg6qK/zBDslEXUtoGjaUfUXsqtcqNWhgRwhM4Qs8b8liEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bVDEpAmq; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787555593; c=relaxed/simple;
+	bh=GjUknA2RoaWJNhBcXll5I/qA4PoGHQdRvlsoorUv/Vo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=C0bnzLYhtPzSi2rby0PVcuB39JFYMJ6qzG3XAS2TRnc2kLxkAaBq8vm1sY76GRR9VhheR1Q0lxZ/dLBTdeO5cIzDpxI+K3ZSG7ZOQR52X2wrpwT6GiyMWIFWKYT2wHrOmAIV3MzzmUEWyXFRFkLnQ7HBpPfIf3JEUQrnPrhf70E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CnEQV3zK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bVDEpAmq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787555444; x=1819091444;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=fpHciuKFxrDpGxi6XvkP47uMh6llOLS6pWUt/AwpxnY=;
-  b=bVDEpAmqd7XH4QoinEENwQ2KPGOycyoVzm9rEPxpUk0ouLvQnahLGlVF
-   6ljyAUtLS2SBAtU0ytFskK4N2pLRjLZchmpb8yiHB20fjagcHRRQbyBYa
-   8NiIYI3wxzb9KhoAXFGSiIJX2sUV1FddfGIfvdMVq2lZJZVCSFlHRPJnK
-   G1va1DCaRBwdD3wZwyb3Jt76IDc0ujpRy7d10Iu9W3zb3rAAxT5S1tgJF
-   yrbNPC5oSQodiSCOAaGkbJRVjfmj58HfiN9X8AuoL3FI+dyeDYuDxaICB
-   xh9GF1caNsVqOr1seBo35pQTYfpqCxULUR34grIXI/xEY2W2iKVQyp9md
-   A==;
-X-CSE-ConnectionGUID: jlev98B3QA+rR6QRoLW2GA==
-X-CSE-MsgGUID: 8WNufDBDRZKNQuGeQdkGJA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11884"; a="87867517"
-X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="87867517"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 00:10:43 -0700
-X-CSE-ConnectionGUID: 81PysIvMRLSoj0YxzKm4bg==
-X-CSE-MsgGUID: 931OPkOORtWThlWmswNCJw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="265143916"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.130])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 00:10:37 -0700
-Date: Mon, 24 Aug 2026 10:10:35 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Michael Walle <mwalle@kernel.org>, linux@analog.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH v4 08/14] iio: adc: ad7768: Add per-channel conversion
- delay
-Message-ID: <aovua1sy4sm6RmSt@ashevche-desk.local>
-References: <20260821-ad7768-driver-v4-0-bb8fbd06d4eb@analog.com>
- <20260821-ad7768-driver-v4-8-bb8fbd06d4eb@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CnEQV3zK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D115F1F000E9;
+	Mon, 24 Aug 2026 07:13:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787555591;
+	bh=dldc0lzYKxH3rU+95/kaiXSuRhtGieYB9JJpIcySH3g=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=CnEQV3zKk6Gs4OYWkPBpvf33tv0tzcYUFGiiEKUFVba3bQpnCj0Y3ra7H0pkFN/lm
+	 DvOVNUzVQmKsiqJuD7Y6cvT/wqUtuCKaDmT7dTZBpb33ef9C9+ku+xqU2fJCYvLSWb
+	 XjF7lxAGqOdLoqvSTyOG/iSh5v5y2QQBwx52sozFgI6xGn+NMGutoQA3ILE3ROJpQs
+	 rcQgeiY9FDLsrwb8eNKqBkYMqC3oWuQihhlHZ04s90Tgwo74CBVN6Dxf+ROQhib/8s
+	 I0vTIYzdNqkbqoxGWBkaNTTLYI8bypPIkGX7wevt6eT6Sj+hAKHR9E4nMNkZod3T+e
+	 LvEm8wgnQAZJg==
+Message-ID: <4d5e26c8-615b-4893-810d-14351f391655@kernel.org>
+Date: Mon, 24 Aug 2026 09:13:02 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260821-ad7768-driver-v4-8-bb8fbd06d4eb@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] dt-bindings: display: add Chipwealth CH1115 OLED
+ Controller
+To: =?UTF-8?Q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Brigham Campbell <me@brighamcampbell.com>,
+ Jori Koolstra <jkoolstra@xs4all.nl>, Shuah Khan <skhan@linuxfoundation.org>,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linux.dev
+References: <cover.1787321297.git.nico.antinori.7@gmail.com>
+ <379eb0dbb4a911d80a3af680f647cf13ae0ece32.1787321297.git.nico.antinori.7@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <379eb0dbb4a911d80a3af680f647cf13ae0ece32.1787321297.git.nico.antinori.7@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 21, 2026 at 04:07:01PM +0200, Janani Sunil wrote:
-> Expose the per-channel synchronization phase offset through the IIO
-> conversion-delay attribute.
-> 
-> Derive the delay resolution from MCLK, power mode and decimation rate.
-> Validate the requested delay and program the corresponding phase
-> register when applying the active channel configuration.
-
-...
-
-> +static int ad7768_get_convdelay_params(struct ad7768_state *st, unsigned int ch,
-> +				       struct ad7768_convdelay_params *params)
-> +{
-> +	struct ad7768_freq_config f_cfg;
-> +	unsigned int dec_rate;
-> +	unsigned int mclk_div;
-> +	unsigned int mult;
-> +	u64 mclk;
-> +	int ret;
+On 21/08/2026 16:34, Nicolás Antinori wrote:
 > +
-> +	ret = ad7768_get_freq_cfg(st, st->ch_freq[ch], &f_cfg);
-> +	if (ret)
-> +		return ret;
+> +properties:
+> +  compatible:
+> +    const: chipwealth,ch1115
 > +
-> +	dec_rate = ad7768_dec_rate[f_cfg.dec_rate];
-> +	switch (dec_rate) {
-> +	case 32:
-> +		params->shift = 3;
-> +		params->max_raw = 31;
-> +		mult = 1;
-> +		break;
-> +	case 64:
-> +		params->shift = 2;
-> +		params->max_raw = 63;
-> +		mult = 1;
-> +		break;
-> +	case 128:
-> +		params->shift = 1;
-> +		params->max_raw = 127;
-> +		mult = 1;
-> +		break;
-> +	case 256:
-> +		params->shift = 0;
-> +		params->max_raw = 255;
-> +		mult = 1;
-> +		break;
-> +	case 512:
-> +		params->shift = 0;
-> +		params->max_raw = 255;
-> +		mult = 2;
-> +		break;
-> +	case 1024:
-> +		params->shift = 0;
-> +		params->max_raw = 255;
-> +		mult = 4;
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-
-So, this is just a bit twiddling of the dec_rate.
-
-Can be written like
-
-	/* Optional, perhaps shouldn't appear */
-	if (!dec_rate)
-		return -EINVAL;
-
-	/* Same? What does table allow to have? */
-	if (!is_power_of_two(dec_rate))
-		return -EINVAL;
-
-	mult = ilog2(dec_rate);
-	if (mult > 10) {
-		return -EINVAL;
-	} else if (mult > 8) {
-		params->shift = 0;
-		params->max_raw = 255;
-		mult = BIT(mult - 8);
-	} else if (mult > 5) {
-		params->shift = 8 - mult;
-		params->max_raw = dec_rate - 1;
-		mult = 1;
-	} else {
-		return -EINVAL;
-	}
-
-TBH, I don't know which looks easier to read. It all depends on what datasheet
-says about these parameters and multiplier and what the table allows to have.
-
-> +	mclk = clk_get_rate(st->mclk);
-> +	if (!mclk)
-> +		return -EINVAL;
+> +  reg:
+> +    maxItems: 1
 > +
-> +	mclk_div = ad7768_power_modes[st->power_mode_idx].mclk_div;
-> +	params->step_ps = DIV_ROUND_CLOSEST_ULL((u64)mult * PSEC_PER_SEC *
-> +						mclk_div, mclk);
+> +  chipwealth,invert:
+
+Do not come with own style.
+git grep invert: -- Documentation/devicetree/bindings/display/
+git grep inverted: -- Documentation/devicetree/bindings/display/
+
+so chipwealth,inverted.
+
+
+> +    type: boolean
+> +    description:
+> +      Display pixels are inverted, i.e. 0 is white and 1 is black.
 > +
-> +	return 0;
-> +}
+> +  chipwealth,offset:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    minimum: 0
+> +    maximum: 63
+> +    description:
+> +      Display start line offset. Specifies the vertical alignment and row shift along the
+> +      Y-coordinate.
 
--- 
-With Best Regards,
-Andy Shevchenko
+Please wrap code according to the preferred limit expressed in Kernel
+coding style (checkpatch is not a coding style description, but only a
+tool).  However don't wrap blindly (see Kernel coding style).
 
+Missing "default:"
 
+> +
+> +  chipwealth,contrast:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    minimum: 0
+> +    maximum: 255
+> +    description:
+> +      Panel contrast.
+
+I do not get why this should be fixed property. Contrast feels like
+runtime adjustable feature.
+
+> +
+> +  width-mm: true
+> +  height-mm: true
+> +  flip-horizontal: true
+> +  flip-vertical: true
+> +  panel-timing: true
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - width-mm
+> +  - height-mm
+> +  - panel-timing
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    i2c {
+> +      #address-cells = <1>;
+> +      #size-cells = <0>;
+
+> +      status = "okay";
+
+Drop, does not exist in bindings.
+
+Please use existing, recently added code as an example/base.
+
+> +
+> +      display@3c {
+> +        compatible = "chipwealth,ch1115";
+> +        reg = <0x3c>;
+> +        width-mm = <12>;
+> +        height-mm = <8>;
+> +        chipwealth,contrast = <127>;
+> +        chipwealth,offset = <8>;
+> +        panel-timing {
+> +          clock-frequency = <0>;
+> +          hactive = <88>;
+> +          vactive = <48>;
+> +          hfront-porch = <0>;
+> +          hback-porch = <0>;
+> +          hsync-len = <0>;
+> +          vsync-len = <0>;
+> +          vfront-porch = <0>;
+> +          vback-porch = <0>;
+> +        };
+> +      };
+> +    };
+Best regards,
+Krzysztof
