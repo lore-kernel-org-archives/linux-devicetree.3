@@ -1,159 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B4062264DB
-	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 11:17:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 288EA40DB51;
+	Mon, 24 Aug 2026 11:30:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787570249; cv=none; b=pTLeNJIBPDV4+kh7v5m5tafgvQV9miNRPnAElufG/RRPflfHkx/XQjjU53BNFtda3hGFowZ4T3xLxT7mqQ358Ab9uey2cJLEWqyuwFwzyekeVxLCU4pr9BElx3iaAZgXMkV2nHoY/ThSyQpRf+9wp/7o4XPfzx7aV18OP+tEcPs=
+	t=1787571045; cv=none; b=XeNNr6huiA3e/zOrvIcVQ46BKgEGbHLVW3oE3wzzHItDy+MPh067UkfCA6MIb18dGQoIWfv8iW3sdwGSMerMDMVPPZ88Qj9JObFJuIY1VsAVw3PgSU+xNf+0QTmQ3EJAYaH5Fn5NmPPd9EccL8kOeuDAZLt/sw3r/+pr/BvZ9ic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787570249; c=relaxed/simple;
-	bh=myA6oResvMNhlOf3DmjQQjPK2ndQTUwRx5JXFlqAuIk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=qzvuUrFdg4SrgsVJwTizCWVUJl5io6o+kEcDU8sr8aml3BTvEWkyNWbraB7cmd65l4ifMRYidoaeRMwmtLV9a75/omXx4COur0C3EzB2+eAnOu3aKdkmV4PLDVzh1X8PMSacCnrBWEGMrNqiBbYRqnUZFhdUskAKlKJ1CYbbon0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QnKMEqI/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787571045; c=relaxed/simple;
+	bh=GP8wZtqjruHsbTyR3J4PDQDDVmSrCezj465xeEf/l3Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n/d3cy0MViUgPXa8Y/iAtIV2Sr4no/ZEL6bkf9T4S5kECQ/nMwo16/OEE43mSoYj5PkB9CMr5PpN+4Ald+EGWzspXpdVhM1BIhufH4Un3kXIwEY7RYpYE20k1xLmOkicgH5+qIsjdGyx3NmY6hzXtDnATSEGKvaGeJAnvazG6zI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XZcCBUGV; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QnKMEqI/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 876CC1F000E9;
-	Mon, 24 Aug 2026 11:17:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787570247;
-	bh=fqMC6mNiciVQ7qjYK2TIpu5ETAbBK0agaCGIsCdcMVQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QnKMEqI/I2MAskAV86S0Lg5xRJ568IpcIEaaPiYPKZOaliBAZFO0ffJ4ow6W6VghS
-	 2VabFxBvqqTSncngUPmmBk5l1RWAEQCZNmd/2ifeakyruOZmKQFyg8MXEOPQWrK2dd
-	 MGfCdpzzm7Eoy5fwbINJ5W545AI4Y0+S/xfBtG8X0gM0rFC2P4EQQnGmMJjWO6o8sb
-	 HVLuS4hmVYQe2L9+pdzQwnSIqG2MxCZ/SgVgSLwwKAGwjwM6/gh84ERHeJaJc1PQ0x
-	 Se7Nxz4VMHEWN0xrWLrnLxV3WUzrfcmHohRV67OoaeUh0ihBsKYnJP5YgBPXQkpAjp
-	 nu0ZmVGJ2xyzA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/4] arm64: dts: microchip: lan969x: add SDMMC nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Robert Marko" <robert.marko@sartura.hr>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260824110432.1074136-2-robert.marko@sartura.hr>
-References: <20260824110432.1074136-1-robert.marko@sartura.hr>
- <20260824110432.1074136-2-robert.marko@sartura.hr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 24 Aug 2026 11:17:27 +0000
-Message-Id: <20260824111727.876CC1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XZcCBUGV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787571044; x=1819107044;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=GP8wZtqjruHsbTyR3J4PDQDDVmSrCezj465xeEf/l3Y=;
+  b=XZcCBUGVfLJYWf4xjNoMVWPDDWFCJw/Q1h4+T5UwSjv4m9tK8PqeYpS9
+   2fBTxh0CpK3G+xCI3og1iT5cmwLbJXYEhHaahZCWUwyA1171gyF14r+86
+   VCdHIqQJsp+YV7S6tlWhIcTNTsmscVW7NC42grpfvWF8WGk+yf4hrU7+f
+   o9MEYAzQ2TJRVjI+uWSVJ8voqdbC8uVT5MYdE2dsrJbMvVXuRzVHqeBgp
+   fIuv1yS2tQdNji/RPUbCojDfx+xC3DeDcQEFH/ImcsBxVbBZ5c1pIwzYe
+   wbewsC1qgSMXCvkUmQ+4XyIFsgLcGPvTBjZml6pDW8ldahbjTSgbYMvag
+   Q==;
+X-CSE-ConnectionGUID: Rn/i8KHZQV6Id8qEZ5FGpA==
+X-CSE-MsgGUID: DrtJyncRTOmpxBJ5pho7gg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11884"; a="88145367"
+X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
+   d="scan'208";a="88145367"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 04:30:43 -0700
+X-CSE-ConnectionGUID: LhYp9fhfQXSTli61QbQmbg==
+X-CSE-MsgGUID: NSiZk8rKTdu90QK4rMHVXQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
+   d="scan'208";a="265670080"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa010.jf.intel.com with ESMTP; 24 Aug 2026 04:30:41 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id CC7A499; Mon, 24 Aug 2026 13:30:39 +0200 (CEST)
+Date: Mon, 24 Aug 2026 13:30:39 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Akash Kumar <akash.kumar@oss.qualcomm.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] usb: typec: ucsi: ccg: Add support for
+ cypd6129/cypd6229
+Message-ID: <aowrX4f-Xe00iIxz@black.igk.intel.com>
+References: <20260821-shikra-usb-dt-v7-apply-v2-0-628885fc1d0e@oss.qualcomm.com>
+ <20260821-shikra-usb-dt-v7-apply-v2-2-628885fc1d0e@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260821-shikra-usb-dt-v7-apply-v2-2-628885fc1d0e@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Potential clock calculation truncation bug with `45000000` rate in=
- `sdmmc1` leading to an out-of-spec initialization clock.
-- [Medium] Identical clocks assigned to `hclock` and `multclk` in `sdmmc` n=
-odes incorrectly model the hardware.
-- [Low] Child nodes are not sorted alphanumerically by their unit-address.
-- [Low] The compatible string 'microchip,lan9691-sdhci' is undocumented.
---
+On Fri, Aug 21, 2026 at 07:34:32PM +0530, Akash Kumar wrote:
+> Add cypd6129 and cypd6229 compatible strings to the of_device_id
+> match table so the driver binds to boards describing these Cypress
+> PD controllers in their device tree. No other driver changes are
+> needed since the chip is accessed through the same generic UCSI/HPI
+> I2C register protocol as the existing cypd4226 support.
+> 
+> Signed-off-by: Akash Kumar <akash.kumar@oss.qualcomm.com>
 
---- Patch [2]: [PATCH 2/4] arm64: dts: microchip: lan969x: add SDMMC nodes =
----
-commit 3b81135d2fb8590ea896af2a6f1a054ed2baf2c4
-Author: Robert Marko <robert.marko@sartura.hr>
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
-arm64: dts: microchip: lan969x: add SDMMC nodes
+> ---
+>  drivers/usb/typec/ucsi/ucsi_ccg.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/usb/typec/ucsi/ucsi_ccg.c b/drivers/usb/typec/ucsi/ucsi_ccg.c
+> index d46ca942026e..37b96d662e59 100644
+> --- a/drivers/usb/typec/ucsi/ucsi_ccg.c
+> +++ b/drivers/usb/typec/ucsi/ucsi_ccg.c
+> @@ -1527,6 +1527,8 @@ static void ucsi_ccg_remove(struct i2c_client *client)
+>  
+>  static const struct of_device_id ucsi_ccg_of_match_table[] = {
+>  		{ .compatible = "cypress,cypd4226", },
+> +		{ .compatible = "cypress,cypd6129", },
+> +		{ .compatible = "cypress,cypd6229", },
+>  		{ /* sentinel */ }
+>  };
+>  MODULE_DEVICE_TABLE(of, ucsi_ccg_of_match_table);
+> 
+> -- 
+> 2.43.0
 
-Add nodes for both SDMMC controllers.
-
-> diff --git a/arch/arm64/boot/dts/microchip/lan9691.dtsi b/arch/arm64/boot=
-/dts/microchip/lan9691.dtsi
-> index a8541c6a098d1..2d943ea757689 100644
-> --- a/arch/arm64/boot/dts/microchip/lan9691.dtsi
-> +++ b/arch/arm64/boot/dts/microchip/lan9691.dtsi
-> @@ -414,6 +414,30 @@ qspi0: spi@e0804000 {
->  			status =3D "disabled";
->  		};
-> =20
-> +		sdmmc0: mmc@e0830000 {
-> +			compatible =3D "microchip,lan9691-sdhci",
-> +				     "microchip,sam9x60-sdhci";
-
-[Severity: Low]
-Is this new compatible string "microchip,lan9691-sdhci" documented in the
-device tree bindings?
-
-Running make dtbs_check might result in warnings if the string is missing f=
-rom
-the dt-bindings schemas.
-
-> +			reg =3D <0xe0830000 0x00000300>;
-> +			interrupts =3D <GIC_SPI 64 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks =3D <&clks GCK_ID_SDMMC0>, <&clks GCK_ID_SDMMC0>;
-> +			clock-names =3D "hclock", "multclk";
-
-[Severity: Medium]
-Are these clock assignments correct for hclock and multclk?
-
-In AT91/Microchip SoC bindings, hclock typically points to the system perip=
-heral
-bus clock (AHB), while multclk points to the generated core clock.
-
-By specifying the generated clock (GCK_ID_SDMMC0) for both, the driver will
-never manage the actual AHB clock state, which could lead to power manageme=
-nt
-issues.
-
-> +			assigned-clocks =3D <&clks GCK_ID_SDMMC0>;
-> +			assigned-clock-rates =3D <100000000>;
-> +			status =3D "disabled";
-> +		};
-> +
-> +		sdmmc1: mmc@e0838000 {
-
-[Severity: Low]
-Should this node be placed after qspi2: spi@e0834000 to maintain alphanumer=
-ic
-sorting by unit-address?
-
-The address 0xe0838000 is greater than 0xe0834000.
-
-> +			compatible =3D "microchip,lan9691-sdhci",
-> +				     "microchip,sam9x60-sdhci";
-> +			reg =3D <0xe0838000 0x00000300>;
-> +			interrupts =3D <GIC_SPI 50 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks =3D <&clks GCK_ID_SDMMC1>, <&clks GCK_ID_SDMMC1>;
-> +			clock-names =3D "hclock", "multclk";
-> +			assigned-clocks =3D <&clks GCK_ID_SDMMC1>;
-> +			assigned-clock-rates =3D <45000000>;
-
-[Severity: High]
-Does this 45MHz rate cause SD card initialization to fail due to exceeding =
-the
-400kHz limit?
-
-During SDHCI probe, sdhci-of-at91 computes the base clock by dividing the
-gck_rate by 2 and truncating to integer MHz (22.5 MHz -> 22 MHz). It writes=
- 22
-to the capabilities register with a multiplier of 2, so the core thinks the=
- max
-clock is 44 MHz.
-
-When requesting a 400 kHz initialization clock, the core calculates a divid=
-er
-of 110 (44,000,000 / 110 =3D 400,000).
-
-However, the actual programmable clock source is exactly 45 MHz. Applying t=
-he
-110 divider to the real 45 MHz source yields an actual initialization clock=
- of
-409,090 Hz, which exceeds the strict 400 kHz SD specification maximum.
-
-Could we use a clock rate that divides cleanly into an integer MHz (like
-48 MHz) to avoid this truncation issue?
-
-> +			status =3D "disabled";
-> +		};
-> +
->  		qspi2: spi@e0834000 {
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824110432.1074=
-136-1-robert.marko@sartura.hr?part=3D2
+-- 
+heikki
