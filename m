@@ -1,113 +1,170 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0CDD36F91B;
-	Mon, 24 Aug 2026 15:06:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 513973630BA
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 15:08:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787584018; cv=none; b=L+RyImYmZ8spZPtoINXz7bWFBaoC7XBaQkN2qsH0PAYkv+89X8iV8N0tDznCNuIFA4HkS1UyLGD9abb2+VT20mOOk1ccLYgxYYCbSBqoujSjl9QTgGU3sg6BH7uFllr1mVupq2rRltVHgNbaj1LwNDNpBuoqrNY9jrcj0/HmA2o=
+	t=1787584122; cv=none; b=p5uBMUJdLUrHK96znxVD2lnCruPSHTewOwBA3iBYU9Kt/U6qjtIKPnbFylanlsewkQw4vYnZ85UPlZ0/Fu2z8uayUA8ABorSMOhMQfaaFKq2Omc6MJiC+3gt4+w4i2eP0WVZiYGlYD1Cw0vTj4QcJm+QWlg+tQWYxu2qGSj7NaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787584018; c=relaxed/simple;
-	bh=yKUnYbg/8SK/30O7cmDvkg9NK7A9m6n/C5vk+v6dJaA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=K2tNztccTFnLMtsnM/ZUD7yCZGqi0yqJfjF0juGwYIYwP404otnwknEoU7U6R/03dEVFsPfmu+8qN9e29v1YKjRUl2ry5OQqyEnU58I9i/5aPrH+u2llsEBkhagXut0NgEWSzghFhq6Vnb+VHqAVKC6k8qHFXxoWJyrBxghPVzs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ewS9Wosn; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787584122; c=relaxed/simple;
+	bh=QVfnzXp3mJ1hu94QeXCBeJl8Jj1ky6nEk9MHssMloEg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lz/hmLn9OmqAt5z09rjD+hsrPkdqXlk5eaOQA74lvC4zlE2Fa6Mm5iBXAWoybBTTYqpylZkq9hK/NA56zYCN9c8up6aON9XeUCMLE6mjvLK6KDDqNlgienbHy6Uvl/2EOJL4oQZpV3rJD1S4b+KS0nptE7HmH0ZTYdmkZVGcZvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tI3Xn/CE; arc=none smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ewS9Wosn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787584018; x=1819120018;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=yKUnYbg/8SK/30O7cmDvkg9NK7A9m6n/C5vk+v6dJaA=;
-  b=ewS9WosnODLF/VYBuEmrVNHfBF4C6eO93400sJFcaNO6+Myfw0CNbDIx
-   RlY6pochOBvvre9SDjI7MpsNUmUvAUa67APtn6P5P6EAAusWzTk3T/Ol1
-   hX0o3D896WprwB7CRNnm8FG6Vvv7Ze/OUg4ASf+HIvmWe1UnUMarsOEqy
-   TCC3WPVW6FGi1PQq8jGRvV1PjEj4d6XciYNM7roy4i416EIgRovbZAtsj
-   SnsU5M0M2yxYX4h9QkcbcdhtiOLR7V/+zIi2TKg4r00hV3Ek2ZfVC6M7c
-   hdGfVKHuj212Dy52y73n/KSogfBDzSFXx1ODDWZMFbUIsZfq6TrQQHP8g
-   w==;
-X-CSE-ConnectionGUID: MIBa/CrrSSasyrCDepUOhQ==
-X-CSE-MsgGUID: r/yeLOQ4T2W7G19Yfi0kXQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11885"; a="88051817"
-X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="88051817"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 08:06:57 -0700
-X-CSE-ConnectionGUID: +O3VUrxiRTKEzR8XNqG2Sw==
-X-CSE-MsgGUID: tE2pJXz3QTetpGJ5NTAsyA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="271235995"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.130])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 08:06:50 -0700
-Date: Mon, 24 Aug 2026 18:06:48 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Janani Sunil <janani.sunil@analog.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tI3Xn/CE"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c214e625259so523158466b.2
+        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 08:08:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787584119; x=1788188919; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/nOah9yaCPBJ9asb8hJhVi9n8xa+eAyGsPGC/JnGbYU=;
+        b=tI3Xn/CEn/L9xWD2Q0RFOVM+gFn2Qfp++HywtpswMdl7qlHa3Tf5ZJ9ywtpsEv2E1v
+         VNiTY/hsaiop2eQrvpz3gueMZFauivJDUNpfVxKaU0bz296upRFK993jSo2i7L3Mo280
+         vXiA+jhT0lM834Rcu9yOGmzGDmk25cMNkDZEjS0/SfqvIeyXt1EMyzattACdNsYQsKw/
+         H+sKhqBbUIauVxKyhdCJ1yPB86Yyw2scO1NMc0Bc13kuTzAjo5QfEfiuu1X1KVXnrvD4
+         IAliq5raCVs2e8yn/ghEGti0s3+tw74uRa1LqlsCnlp8geYXs4fLDpQgTmXPzBAU5MHZ
+         2JKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787584119; x=1788188919;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/nOah9yaCPBJ9asb8hJhVi9n8xa+eAyGsPGC/JnGbYU=;
+        b=OBh+nj/zJ+DzE0CJzWaLtYnJfFmrguKCpbvpimiPjVq9y6qMoFDbvxAoF/x0i3suyl
+         G7rKyh8QEsJpRO1yWXb/GkxvDmWk0E0K0/TaQrW1WrjcjY7pJlumRRv5deqe75HBQRKd
+         cOkU0q9sKTimk6rTEn+KHWbXSSDCqUSp2dEvFSgOvgHfl4AIKzeL/D++xstJQmk+iET4
+         ABpOssrgA5//JRBX+OtugLJgdUZ/BgXk2P4Ish7VFE5CNIfNmEiN22xkJ85gL+8q9D6F
+         ZigBVY/4+oCtbYtUQPZwtwAsWHjGGrs7D5IiSpApGXCBhYeQYJx29UUoSVRI5AyNunaJ
+         SwKg==
+X-Forwarded-Encrypted: i=1; AHgh+Rq1B0gOE/QPGlNXMNqbhrfixLEaCTrIWFvF3OL6X9pd8PSs2dq1oxWy+VbPg/9jEPiMWmieDyUq8xNO@vger.kernel.org
+X-Gm-Message-State: AFuF++lbeDQDurr2+fPV1V44gISPBipmpS1Fxhffz/hDkn9JrAT5KuiN
+	3LTEkTJpB+BYy+0f4GS7pQWiD3mmnkzGoJtU6ifEBBMdE1W2YppWTmqG
+X-Gm-Gg: AR+sD10Cbjxl1gGIKxkxnfsWGM69X61hFc7e2krP2kziNVDu39aT1gU/pGPCU4nKdGz
+	woFGJRvbGa/T2G8WZTwC67mnW06/t+WsN2P3OfyGcrIhwY75NsmpFrk/rs87IRgVCc1K4LMAvIJ
+	A96nz7PdbHglWttXnVoFQBPPp5pycYnxjdBEJtXln7Hk16S/CXRBR5LiPG3dOKfo7cZ9dIKJrV1
+	J14aeRKElACPATYy/bSxabJJao7rXDLDBGDsQRwY9zX/OE2pJB/N/xmPcryrO4m6gRZZMbZDK9h
+	/907gT6wBlSmyu8KObFSd7FCAjSTO7LtIoxYTsNTym20K91o7ojdaPk2ugvrhDluImlWRhx2AAJ
+	mWtq8oHnkwzaFjIEh0kvKXG6xSWM65C/RJ35yHt1lkG5h5CJTFwsRW32ufxH4X5y1Nirin5Iqjz
+	j9OBMBoPOtsJOPUvYRm+G1kGRspbWZ48WJLSZrn8xzMOnEdXtWu5fjnqO0yfIwZ/j4RW66UywAm
+	80lxdrcGj10nAFPzxETbdUiMA==
+X-Received: by 2002:a17:906:2083:b0:c24:b11a:46fc with SMTP id a640c23a62f3a-c24b11a4996mr1066420866b.22.1787584119253;
+        Mon, 24 Aug 2026 08:08:39 -0700 (PDT)
+Received: from GLaDOS.station ([109.55.72.80])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2496297189sm1273530066b.22.2026.08.24.08.08.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 24 Aug 2026 08:08:38 -0700 (PDT)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: Frank Li <Frank.Li@nxp.com>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: pierluigi.p@variscite.com,
+	alexander.h@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Michael Walle <mwalle@kernel.org>, linux@analog.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH v3 05/14] iio: adc: Add AD7768 and AD7768-4 core support
-Message-ID: <aoxeCDspYo_jaBhx@ashevche-desk.local>
-References: <20260813-ad7768-driver-v3-0-cb554399ad26@analog.com>
- <20260813-ad7768-driver-v3-5-cb554399ad26@analog.com>
- <20260816201049.480143e1@jic23-huawei>
- <31aa140058fde422c12e34fe926e7df01ba448df.camel@pengutronix.de>
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Josua Mayer <josua@solid-run.com>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
+	Maud Spierings <maudspierings@gocontroll.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Markus Niebel <Markus.Niebel@ew.tq-group.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	Marek Vasut <marex@nabladev.com>
+Subject: [PATCH v3 0/3] Add support for Variscite VAR-SOM-MX7 and MX7CustomBoard
+Date: Mon, 24 Aug 2026 17:08:27 +0200
+Message-ID: <cover.1787583584.git.stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <31aa140058fde422c12e34fe926e7df01ba448df.camel@pengutronix.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 24, 2026 at 04:45:01PM +0200, Philipp Zabel wrote:
-> On So, 2026-08-16 at 20:10 +0100, Jonathan Cameron wrote:
-> > On Thu, 13 Aug 2026 15:56:58 +0200
-> > Janani Sunil <janani.sunil@analog.com> wrote:
+This patch series adds support for the Variscite VAR-SOM-MX7 system on
+module and the MX7CustomBoard carrier board.
 
-[...]
+The series includes:
 
-> > > +static int ad7768_reset(struct ad7768_state *st)
-> > > +{
-> > > +	struct reset_control *reset_ctrl;
-> > > +	unsigned long reset_low_us;
-> > > +	unsigned long mclk;
-> > > +	int ret;
-> > > +
-> > > +	reset_ctrl = devm_reset_control_get_optional_exclusive(regmap_get_device(st->regmap),
-> > 
-> > Probably use a local variable for struct device *dev = regmap_get_device(st->regmap);
-> > to reduce line length.
-> 
-> Or just pass dev into ad7768_reset() as an additional parameter.
+- DT bindings for the supported VAR-SOM-MX7 board configurations
+- VAR-SOM-MX7 device tree support, including V1 and V2 hardware revisions
+- MX7CustomBoard carrier board support
+- eMMC and NAND storage variants
+- optional WM8731 audio codec support
 
-It might make code be less understandable as this function is not something
-like devm_*(). I slightly prefer my suggestion over this one.
+The implementation follows the standard SOM + carrier board pattern,
+where the common SOM dtsi contains the on-module peripherals and
+hardware revision differences, while the MX7CustomBoard dtsi contains
+the carrier-specific interfaces.
 
+The final board device trees combine the supported VAR-SOM-MX7
+configurations with the MX7CustomBoard carrier board.
+
+v2->v3:
+ - Removed wrong header in dtsi
+ - Fixed pinctrl name
+ - Fixed sai clocks
+
+v1->v2:
+ - Fixed commit messages and spacing
+ - Moved ethphy1 reset pin mux
+ - Fixed irq types
+ - Removed duplicate assigned-clock-rates property
+ - fixed wifi child node name
+ - Added color property in gpio led definition
+ - Updated deprecated reset-gpio property
+ - Added disable-over-current property in usb nodes
+ - Fixed model names
+
+Stefano Radaelli (3):
+  dt-bindings: arm: fsl: add Variscite VAR-SOM-MX7 boards
+  ARM: dts: imx7d: add Variscite VAR-SOM-MX7 support
+  ARM: dts: imx7d: add Variscite MX7CustomBoard support
+
+ .../devicetree/bindings/arm/fsl.yaml          |  17 +
+ arch/arm/boot/dts/nxp/imx/Makefile            |   6 +
+ .../imx/imx7d-var-som-emmc-mx7customboard.dts |  22 +
+ ...x7d-var-som-emmc-wm8731-mx7customboard.dts |  23 +
+ .../boot/dts/nxp/imx/imx7d-var-som-emmc.dtsi  |  99 +++
+ .../nxp/imx/imx7d-var-som-mx7customboard.dtsi | 382 +++++++++++
+ .../imx/imx7d-var-som-nand-mx7customboard.dts |  22 +
+ ...x7d-var-som-nand-wm8731-mx7customboard.dts |  23 +
+ .../boot/dts/nxp/imx/imx7d-var-som-nand.dtsi  |  73 ++
+ .../imx7d-var-som-v2-emmc-mx7customboard.dts  |  23 +
+ .../imx7d-var-som-v2-nand-mx7customboard.dts  |  23 +
+ .../boot/dts/nxp/imx/imx7d-var-som-v2.dtsi    |  66 ++
+ .../dts/nxp/imx/imx7d-var-som-wm8731.dtsi     |  65 ++
+ arch/arm/boot/dts/nxp/imx/imx7d-var-som.dtsi  | 635 ++++++++++++++++++
+ 14 files changed, 1479 insertions(+)
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc-mx7customboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc-wm8731-mx7customboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-mx7customboard.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-nand-mx7customboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-nand-wm8731-mx7customboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-nand.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-v2-emmc-mx7customboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-v2-nand-mx7customboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-v2.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-wm8731.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som.dtsi
+
+
+base-commit: 9400c5b6aa357be2379c98ae86a207bc21dc7a48
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.47.3
 
