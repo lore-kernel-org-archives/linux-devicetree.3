@@ -1,150 +1,239 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB4F43E7BB4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D6D23E6DC8
 	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 06:49:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787554170; cv=none; b=jxPyDD4XgNByrUxjnedN1e+6SlV1/z2gw1NX7UstlHl2nBXW3PxLaKgmEfg3w50ddbJ7NLxLWCadZoAj69iIkTFJfIqm1STM8zPVwJ0+u6mik1jXNMGHgv9riW5xYoFisK8m56bM/uP8R5VbPmoto+C0ZJ4g2YWORIv9DEYsytE=
+	t=1787554171; cv=none; b=MKj2IIxQASzb4/EWxiiZ6V65+YIsxyi0juHBBWGsMD/H6vfKueT8RPEVR7vYVPopbp2b4hBfK90zinTx5nCyh8Yvj4NvAK/cT8XNnl7k8NRHgQnmmuGgAy/0IhpMQygXJqbS6jbxJUfiEG6MUa9zlf1AIzAHg3qC6buXZ1K43wo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787554170; c=relaxed/simple;
-	bh=MdgVsqytscDNoBcQq1T2DXmnKAy+0t/SSD8HWEOcbPM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HNupsHylHOhgBUSczKxFGLCFwUzKv8Dt96E/hayrNB9+uSnzPEGv9kgqi3NN8mlxf10iSZ6KzUbBz1nrRQk5/a3pX5PGcNhTFs2vUO0MO2qqyxJPCQTjLsUXIMI2dATQOWj5O58sqgFrcUx6hspbHFx0onPWsiQzm/+jRS7j3Wg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LfM1E5Xp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eugu3q0n; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787554171; c=relaxed/simple;
+	bh=QUInWTcwSFsN07jFbVx0Lb5UcVRVsdwIVNC1PcyncQE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=QLQzzZYR64KdKewr1cY7xPSm+TVThTiQtbuT0zP3rC7fLUkShZ1FzOyamngAkChJNqJ2ZJDb8VR0lrJntGssuf38eiPXlILbhQuryUqcczvJPu9/A+bFqsXPdW3IHXiSIqV92jMHBdw8yUM0TnCdfYK5pMibPJjcuMelN4QUCK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X7pK8POv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LfM1E5Xp";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eugu3q0n"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67O5R8402041417
-	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 06:49:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	2dD9MZSrO17sYCLJOzYAgvl/pfHfIeh6MHwlSpI4G/Q=; b=LfM1E5XpVDizC3qf
-	MiFOZ6aQG9jGY5rDjbBb47nNlA9fwTP0/9ACGkODDLrS7TPkxuB+AgJGQCqYwgG+
-	59f9d0r2EdbmirMkM4lrOgBJZP3+7lze13R1GO9xQGOCBZQrTg9YzEU68PsnedD6
-	cUsEAsAp1MQCoomk6XrDy0W36xkdK/5U6YvDkdMn0azHMa8Hidktk2qOEH+sh0iw
-	EaX8Ems5hYEsvpONXx1qSgla6LsYQDCJEpukDOaE1uJhpNTZaXaAauRdh4uCrj1u
-	2LPlNBQuvI/xCd5MbblaiSRFgZeGWyN/GtkfmQdqh2zxNWRCV7BfXUQiElIyVqiB
-	HAM/ng==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g88k7h7n1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 06:49:27 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7376ea4bcccso62908137.2
-        for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 23:49:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787554167; x=1788158967; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2dD9MZSrO17sYCLJOzYAgvl/pfHfIeh6MHwlSpI4G/Q=;
-        b=eugu3q0nZ6mMGBxahYfrijB+PRc9fKbCDUyte86OYQJqaYygXugh+xgoO2qvGxnRtJ
-         GiIHu/ThrMXnz1olTkak6TtrYJ02O3LaND2zYhqHZewqAUYNR8mMlkLFVDd9SwshcASZ
-         qPaHnCS0UJUUeqkCovAh5jI+DG5jHvtzhjXNWi6TICAn/qQXgvFPQJinkhr1D9B/Af8w
-         0Z+ufA+GI2B5ChvNfcROhGRrs9TqQtJ14IBHaT27mF3D1jeEqxuw51FttVxt49/KzlC4
-         M/JmRH4RC389rmKssWp//Gx+e+fpHFZabTyWu5kfy9F07rzwagC7WHtafNfxS3N9VoSk
-         e5Pw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787554167; x=1788158967;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2dD9MZSrO17sYCLJOzYAgvl/pfHfIeh6MHwlSpI4G/Q=;
-        b=qzKIdgzLUPgbAbD6v2Uv7p1Bv5L5hLN/oY48ve5tCkU1wq7O1lXqyQgrDgC2R2D/qb
-         VqgP8Aq0QA/GVr08RinDFuU6GzSKOZoaoqpw3vSg1HrOZwpqPA15wMgw9ectvAOae3/p
-         MLJuyZhxC6GhJndlAXbmrQjvhMFZbL3sZfvELWham8G2lqftmips/ManvDlB0X6A5dqN
-         Ne9kGcotgw4lOk+jpdC7DOzZE3FttM/hvqpb3u4UGoH0p0mHajxQqkx2MoUcBmfyaFq0
-         LUAMkZTNjBjvmG9KzmftSeIoyx/bGnjh8s6b6HPu5VUbJtTk3lsv3jRO1tQvCHVpejwa
-         XBrg==
-X-Forwarded-Encrypted: i=1; AHgh+RoFBluWyACWbNeayJ8D6WZ8daf/ZtlkOJIwb18wz277i9kCliH32irfeaeSsriy7J7VG0EnK9nO0gM0@vger.kernel.org
-X-Gm-Message-State: AFuF++lE6Bgxxx/4rmaRhoMhiJ2RO12lSrt1mdiJg6/9ndUgxvTUvrmA
-	5qnUFeE6weZmhNCx5LYRo3V/Vc5mNJ74/93tXqCMRVlp6cF5/4GKLwYcH42/BVpvcGXiLnsBCJl
-	2bYKgFkdhY2FiDmEMyzmXdLVDE4bZRx3LLZu5lf8axZqkXxiBHWipCH6exFp1yUxk
-X-Gm-Gg: AR+sD13NO7ktYZTFHlpz1y/YyG9+eaXNOU9qR62pCe/HAJ/quwVvW45tiCB1S8HkLSA
-	9KcOzhPP2DTzxT5A8Y//yd9R23HOJ9CFs7M6oBSo/lCIfsh8P/rmUV1+OSknnzFksjvSRRzUtQy
-	SvyiMFYBwDtsvTutUDq56qh7NAlX8UCezfxdo3AVWMC0FsAT3wg0+gIm/OKyISXxoLxsBcPa+6t
-	hh4/3TfU4C1qejuUt1HDqj5V2OelrH7g/2PrPP2xldyTT5/z21Kmbg97T836r7Iat3XKRZ67GN5
-	agUYm/ifX0GQSLjrz3nrDP5Afs4u52ydKlstNp45gB5tW4mzinJvduCdBVicPW6X4mEDz/sPX26
-	DFI+Y+lGiJmUXYemoYiS7pdfM
-X-Received: by 2002:a05:6102:b03:b0:778:5579:c65e with SMTP id ada2fe7eead31-77a6434994amr2998282137.2.1787554166911;
-        Sun, 23 Aug 2026 23:49:26 -0700 (PDT)
-X-Received: by 2002:a05:6102:b03:b0:778:5579:c65e with SMTP id ada2fe7eead31-77a6434994amr2998268137.2.1787554166519;
-        Sun, 23 Aug 2026 23:49:26 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a59e0126edsm7306458a12.7.2026.08.23.23.49.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 23 Aug 2026 23:49:25 -0700 (PDT)
-Message-ID: <f2ab67d9-e1e7-4ee2-8bdc-abf2e6b4baf3@oss.qualcomm.com>
-Date: Mon, 24 Aug 2026 08:49:23 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X7pK8POv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 626781F000E9;
+	Mon, 24 Aug 2026 06:49:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787554167;
+	bh=CZLfVpoJ0BTXyuEPYIq3AOI5N4FkZs5KJkpMlNbrrMQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=X7pK8POvxvyq7Yi/GIeqe+TXNDiyvMJ9EBMZwOARH+orDhcbLQOYJY+cIqpHiLRCb
+	 SA0+TDXKo0wz+6LrbAUdkwtZz7kFV2D14ZdX0jIJ8HLWl1YN0NwhwdpUtXGQTkrfXy
+	 tlv5/CbPO8sy3iQdx5lcz/rUx48r2JkYmyWyAbzqP+vhRzB38wiWNKHOWraF5ed+x1
+	 LlKDDCrEunRieQf4T4BJYIRXg5FQ2PwcIq0zHgfh/h4HSdIAwmideKFYBTcDSAaqg8
+	 VgLwgTiOU6A/roC6MEA4SG/QMbxwUmNXyL6ubRuA42DjxA9XE1uWxVz8kKFijaB90z
+	 Le9rxje1KrKDQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/9] ASoC: qcom: Add QAIF CPU DAI ops, regmap, DT
+ parsing and platform init
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Harendra Gautam" <harendra.gautam@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260824063627.3595610-5-harendra.gautam@oss.qualcomm.com>
+References: <20260824063627.3595610-1-harendra.gautam@oss.qualcomm.com>
+ <20260824063627.3595610-5-harendra.gautam@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 24 Aug 2026 06:49:26 +0000
+Message-Id: <20260824064927.626781F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: sm7225-fairphone-fp4: Enable
- touchscreen
-To: Luca Weiss <luca.weiss@fairphone.com>, Job Noorman <job@noorman.info>,
-        Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
-        linux-input@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-References: <20260821-fp4-hx83112a-v1-0-474941bd8860@fairphone.com>
- <20260821-fp4-hx83112a-v1-3-474941bd8860@fairphone.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260821-fp4-hx83112a-v1-3-474941bd8860@fairphone.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=b4iCJNGx c=1 sm=1 tr=0 ts=6a8be977 cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=6H0WHjuAAAAA:8 a=EUspDBNiAAAA:8 a=2kaJ5Qa3FYFKpuAPAowA:9 a=QEXdDO2ut3YA:10
- a=AYr37p2UDEkA:10 a=crWF4MFLhNY0qMRaF8an:22 a=Soq9LBFxuPC4vsCAQt-j:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI0MDA1OCBTYWx0ZWRfX5T0+vfIqI/oO
- BccWLi2U6Z0oej41e5cvHVHQwAj0rqkw2a6/HsgIdZHdWq0FlbaXEew9Zj5ow0xuXwi3n5ycgGS
- URlLk3B5Vmw/rh4yY9R7WLLE8h+4V8o=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI0MDA1OCBTYWx0ZWRfXyrTYBtsWGXZg
- sXYgh40rbT26HBfL1e395MA/u5ts1Qw3wC+XZ9G5zwslGT8hLnlHfICnVeD1nIucJHxZdC9h73+
- EBDdAieZTAkGFSsN5RFLW3SF0wnl/YbREn13P4cnDuPgm9OT0aLJeX1G7kMBkQvN/N46uJuRkFj
- 9xXzHET12AkjrllkK43sWt0sggWebUdmO5GG2Ge9gB66X2FXhapr9AGYXlISqDcJ8Vm7W4BoT5z
- WRKGuHBgbqBEjBUXrvm0PE8keP9JL6gxCdLIOxquHhv0lfSL7xOt3aoGQa6jx2fxHkZ4R64jfjF
- 8Gy499m7yl3mVNRL5VSApRsH4VjOBvWgW8SFuosHRFGUdCYU6IbS2SrwwXh5Q26EMGrQhPa85Yd
- pT7VqpaWTGpcrtrtFLCX4T/Hh0WHTyZFh0d+aamq/Hz+E9N4TNhd9HcssaO4HRS1lwR6aufPyfk
- Qbml4U2iMi0eDS9hXAw==
-X-Proofpoint-ORIG-GUID: GWBQmXIKIO7IoFJ82PyAa5gC1_-Rf2wI
-X-Proofpoint-GUID: GWBQmXIKIO7IoFJ82PyAa5gC1_-Rf2wI
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-24_02,2026-08-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 phishscore=0 bulkscore=0 clxscore=1015
- lowpriorityscore=0 impostorscore=0 adultscore=0 priorityscore=1501
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608240058
 
-On 8/21/26 9:12 AM, Luca Weiss wrote:
-> Add a node and pinctrl for the Himax HX83112A touchscreen found on this
-> phone.
-> 
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
-> ---
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] Shared AIF enable bit is improperly cleared during concurrent loop=
+back stream stop.
+- [High] Inconsistent frame clock inversion handling between set_fmt and DT=
+ parser breaks I2S.
+- [Medium] Device Tree TDM slot parameters are not validated, causing silen=
+t truncation and hardware misconfiguration.
+- [Low] Missing DAI type validation in DT parser allows CIF DAIs to overwri=
+te AIF interface configurations.
+--
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+--- Patch [4]: [PATCH v3 4/9] ASoC: qcom: Add QAIF CPU DAI ops, regmap, DT =
+parsing and platform init ---
+commit 11d4fc6e518b0a0de63f9a65aeca246850ab08f1
+Author: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+Subject: ASoC: qcom: Add QAIF CPU DAI ops, regmap, DT parsing and platform =
+init
 
-Konrad
+This patch implements the CIF and AIF DAI operations for the QAIF CPU drive=
+r.
+It configures the DMA paths, MI2S/TDM formats, registers the regmap, and
+parses per-interface configuration from the device tree.
+
+> diff --git a/sound/soc/qcom/qaif-cpu.c b/sound/soc/qcom/qaif-cpu.c
+> new file mode 100644
+> index 0000000000000..8792d01254a68
+> --- /dev/null
+> +++ b/sound/soc/qcom/qaif-cpu.c
+
+[ ... ]
+
+> +static int qaif_aif_cpu_daiops_trigger(struct snd_pcm_substream *substre=
+am,
+> +				       int cmd, struct snd_soc_dai *dai)
+> +{
+> +	struct qaif_drv_data *drvdata =3D snd_soc_dai_get_drvdata(dai);
+> +	const struct qaif_variant *v =3D drvdata->variant;
+> +	const struct qaif_aif_config *cfg;
+> +	unsigned int enable_bit;
+> +	int idx, ret;
+> +
+> +	idx =3D v->get_dma_idx(dai->driver->id);
+> +	if (idx < 0) {
+> +		dev_err(dai->dev, "Invalid DMA index: %d\n", idx);
+> +		return -EINVAL;
+> +	}
+> +
+> +	cfg =3D &drvdata->aif_intf_cfg[idx];
+> +	if (cfg->loopback_en)
+> +		enable_bit =3D QAIF_AIF_CTL_ENABLE_BIT;
+> +	else if (substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK)
+> +		enable_bit =3D QAIF_AIF_CTL_ENABLE_TX_BIT;
+> +	else
+> +		enable_bit =3D QAIF_AIF_CTL_ENABLE_RX_BIT;
+> +
+> +	switch (cmd) {
+> +	case SNDRV_PCM_TRIGGER_START:
+> +	case SNDRV_PCM_TRIGGER_RESUME:
+> +	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+> +		ret =3D regmap_update_bits(drvdata->audio_qaif_map,
+> +					 QAIF_AUD_INTF_CTL_REG(idx), enable_bit, enable_bit);
+> +		if (ret)
+> +			dev_err(dai->dev, "error setting AIF enable bit: %d\n", ret);
+> +		return ret;
+> +	case SNDRV_PCM_TRIGGER_STOP:
+> +	case SNDRV_PCM_TRIGGER_SUSPEND:
+> +	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+> +		ret =3D regmap_update_bits(drvdata->audio_qaif_map,
+> +					 QAIF_AUD_INTF_CTL_REG(idx), enable_bit, 0);
+
+[Severity: High]
+When loopback is enabled, enable_bit is assigned to the global
+QAIF_AIF_CTL_ENABLE_BIT instead of a stream-specific bit.
+
+If both streams are running concurrently in full-duplex, will stopping one
+stream unconditionally clear this shared enable bit and disrupt the other
+active stream?
+
+[ ... ]
+
+> +static int qaif_aif_cpu_daiops_set_fmt(struct snd_soc_dai *dai,
+> +				       unsigned int fmt)
+> +{
+> +	struct qaif_drv_data *drvdata =3D snd_soc_dai_get_drvdata(dai);
+> +	const struct qaif_variant *v =3D drvdata->variant;
+> +	int idx =3D v->get_dma_idx(dai->driver->id);
+> +	struct qaif_aif_config *cfg;
+> +
+> +	if (idx < 0)
+> +		return -EINVAL;
+> +
+> +	cfg =3D &drvdata->aif_intf_cfg[idx];
+
+[ ... ]
+
+> +	switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
+> +	case SND_SOC_DAIFMT_NB_NF:
+> +	case SND_SOC_DAIFMT_NB_IF:
+> +		cfg->invert_sync =3D (fmt & SND_SOC_DAIFMT_INV_MASK) =3D=3D
+> +				   SND_SOC_DAIFMT_NB_IF;
+> +		break;
+
+[Severity: High]
+If a machine driver sets the format to SND_SOC_DAIFMT_I2S with
+SND_SOC_DAIFMT_NB_NF, this code clears cfg->invert_sync to false.
+
+However, the device tree parser hardcodes cfg->invert_sync to true for I2S.
+Does this set_fmt override conflict with the hardware requirements establis=
+hed
+during DT parsing and break the I2S setup?
+
+[ ... ]
+
+> +static int of_qaif_parse_aif_intf_cfg(struct device *dev,
+> +				      struct qaif_drv_data *data)
+> +{
+> +	const struct qaif_variant *v =3D data->variant;
+> +	struct device_node *np =3D dev->of_node;
+> +	struct device_node *intf_np;
+> +	struct qaif_aif_config *cfg;
+> +	int ret;
+> +	u32 dai_id;
+> +	int intf_idx;
+> +	int num_interfaces =3D 0;
+> +	u32 val_buf[QAIF_MAX_LANES];
+> +	int j, n;
+> +	unsigned long configured_intf_mask =3D 0;
+> +
+> +	for_each_child_of_node(np, intf_np) {
+> +		if (!of_property_present(intf_np, "reg"))
+> +			continue;
+> +
+> +		if (num_interfaces >=3D QAIF_MAX_AIF_CFG_CNT) {
+> +			dev_warn(dev, "Too many AIF interfaces, limiting to %d\n",
+> +				 QAIF_MAX_AIF_CFG_CNT);
+> +			of_node_put(intf_np);
+> +			break;
+> +		}
+> +
+> +		ret =3D of_property_read_u32(intf_np, "reg", &dai_id);
+> +		if (ret) {
+> +			dev_err(dev, "Missing reg for interface %pOFn\n", intf_np);
+> +			of_node_put(intf_np);
+> +			return ret;
+> +		}
+> +
+> +		intf_idx =3D v->get_dma_idx(dai_id);
+
+[Severity: Low]
+This loop iterates over all child nodes with a reg property and assumes they
+are AIF DAIs.
+
+If a malformed device tree includes a CIF DAI child node, could its ID
+overlap with an AIF DAI index when passed to get_dma_idx(), causing array
+corruption in drvdata->aif_intf_cfg or a false duplicate registration error?
+
+[ ... ]
+
+> +		if (!qaif_is_mi2s_port(dai_id)) {
+> +			ret =3D of_property_read_u32(intf_np, "dai-tdm-slot-width",
+> +						   &cfg->slot_width);
+> +			if (ret || !cfg->slot_width) {
+> +				dev_err(dev, "Missing/invalid dai-tdm-slot-width for %pOFn\n",
+> +					intf_np);
+> +				of_node_put(intf_np);
+> +				return ret ? ret : -EINVAL;
+> +			}
+> +			ret =3D of_property_read_u32(intf_np, "dai-tdm-slot-num",
+> +						   &cfg->slot_num);
+
+[Severity: Medium]
+The values from dai-tdm-slot-width and dai-tdm-slot-num are read directly
+into cfg without bounds checking against hardware maximums.
+
+In qaif_aif_cpu_daiops_hw_params(), the unvalidated slot_width is shifted
+and masked:
+
+qaif_aif_cpu_daiops_hw_params()
+    ...
+    QAIF_AIF_SLOT_WIDTH(slot_width) |
+    ...
+
+If a device tree specifies a width greater than 32, does this result in
+silent bitwise truncation and hardware misconfiguration instead of returning
+an error during probe?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824063627.3595=
+610-1-harendra.gautam@oss.qualcomm.com?part=3D4
