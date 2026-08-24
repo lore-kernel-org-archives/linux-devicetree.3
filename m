@@ -1,206 +1,285 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E138D403EB5;
-	Mon, 24 Aug 2026 10:41:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F84B3EEAC4;
+	Mon, 24 Aug 2026 10:46:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787568103; cv=none; b=hBSJKdGobM5lfnVNmYZXK9mO2N66CXsCRmvG+SM4HtV988OIOOOmob5NeA4GA80zxV0GBHsQdWylzl+kyQpi1f6xm5OMDdeBybRMutM2AplXzEbxFHOes7KC2VvIWGqbu5TTKICD5aLf8MrNFpw1+49SBjqMcYF0N5bdsHqNZx0=
+	t=1787568420; cv=none; b=SpqpvDbd1i9efdU35aIfPYVSn1NDlwzPAwyIgh7tZYjI9ZLv2SBwNrH8mwvmZuR9si9V+hM3/upowtXXkARQCY1e9W8ioTviCD9kV6/L3XtcDftD66QReexjZXCO9WPAQHzIUzK4KJs5lTcveIC3gIT/T2LmTVlNxFyfiswSQ/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787568103; c=relaxed/simple;
-	bh=8r9s+F1nkfnuBTeOhsbJo3G7SONGvu7RZGT6UyA8AoM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=J6483Tj0SbUbbT0RWnebOH3f0GixXSz2mQnRnD8JHD1G0QovOT2OUa1eGwF9TvDqEMFBxS3ce0VDoZOEqzbTwfCAGH4B86PZMqocls7HqL1x0oPdRdxnB5/sG30LbVja03NDLC04S/oJYW/56hFuAcNtU70wcPY6ccSHInEQOqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nRVmQUKL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787568420; c=relaxed/simple;
+	bh=NhHoUqjsSGGKoQ8soMQnUuRdpoAj8PLKNnRoNFbOF/g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=q9msis+oV89ht9Ts511pQvjaBAw/ssoBzMglWgewphOksdqJWioatmxX2W4/9rkasqZvUgQDRULTtQgV7B4VNTCHiY9VQITstaENXebojIaTxE87bw5FtiNn7efP+x6EYsfHswTnpeAzbKlkoD6rlm4fI1OuVdKLxfAzZM7vufA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=kZDgwjbD; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nRVmQUKL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 247111F000E9;
-	Mon, 24 Aug 2026 10:41:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787568101;
-	bh=WqXBa68XEOMxy1e0r4MeC8FGsxkrC4ZQrO7h7ire268=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nRVmQUKLCtNSIW1Pooz9GZpqP0+elXmrJHsGQ+ldqds3vdPk5uce7sFGL+Z4kQ3gu
-	 BRs3pFqthIOBEQoEDUnhxoF4nWEqjS/zczrC4jOrqicUB0vN0mjSuLFXkeczUh09Fi
-	 wwKASnzC+X6PgkqrkTPn7b2XlTUTogbnsYJQ7vnsMZ5da04mJhoZGfYpv4Qzj2DraW
-	 w95E4ZQCCkdBUgLeU2vWAnO13XqTlgbXH6EFM0P7Dy4Hzfrdlh5Jkc/4ujyi2F0ibJ
-	 Oczky3ErO9V83yac1r9FIa/AavssmH77DKFNJQphSL+JNKMLRTCuS642Nimazy8cmL
-	 ipf35sFTgjShw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] ARM: dts: imx7d: add Variscite VAR-SOM-MX7
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
-Cc: imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org
-In-Reply-To: <f54545f2a08a558977b0e76bd0f44b2cf1158783.1787566980.git.stefano.r@variscite.com>
-References: <cover.1787566980.git.stefano.r@variscite.com>
- <f54545f2a08a558977b0e76bd0f44b2cf1158783.1787566980.git.stefano.r@variscite.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 24 Aug 2026 10:41:40 +0000
-Message-Id: <20260824104141.247111F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="kZDgwjbD"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id ACC091A17E4;
+	Mon, 24 Aug 2026 10:46:53 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 5F59B5FFC1;
+	Mon, 24 Aug 2026 10:46:43 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C3B7111C79150;
+	Mon, 24 Aug 2026 12:46:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1787568402; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=BhZZBUETH8qQBmbmXUyu8ssNHxGDUGnmiu0xmE5vVIQ=;
+	b=kZDgwjbD6ld2yFIVAokM6lBIRAYVjgMgSJdN5/qtzvlGpNacIzB9G5EGkXX2pS9kF3A+T3
+	N2F7tw70fm5la07OxIMvhsToCIe/kQ0T06O71hpbhcS3l78baTimbcmjMwcQsNEv9vGl/q
+	gG2jHU3H+3uK/tD65OV7u2LETgQFbochElpWSvw2HBnhi6eAUykAFZXKJeRZDt+tmg1aTz
+	TEoPqD0uszWkMuDFOxrMIZcWJuonjD8guSpcZinyizfQWAzxXasnOsmVaSU1ByjlzKLh5O
+	ahNOUiECH72Q/snenLVM+AbDaqi6PxANhBZqaPW4WQtDYZiN8OD8W+Xrn0neyw==
+Message-ID: <4b16ca01-a09c-49bd-8c3e-ffa9921a0823@bootlin.com>
+Date: Mon, 24 Aug 2026 12:46:35 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Betterbird (Linux)
+Subject: Re: [RFC PATCH net-next v2 1/2] dt-bindings: net: pse-pd: Add
+ bindings for LTC4266 PSE Controller
+To: Kyle Swenson <kyle.swenson@est.tech>,
+ "o.rempel@pengutronix.de" <o.rempel@pengutronix.de>,
+ "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
+ "davem@davemloft.net" <davem@davemloft.net>,
+ "edumazet@google.com" <edumazet@google.com>,
+ "kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com"
+ <pabeni@redhat.com>, "robh@kernel.org" <robh@kernel.org>,
+ "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+ "conor+dt@kernel.org" <conor+dt@kernel.org>
+Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ =?UTF-8?Q?Roland_Kov=C3=A1cs?= <roland.kovacs@est.tech>,
+ =?UTF-8?Q?David_Nystr=C3=B6m?= <david.nystrom@est.tech>
+References: <20260820142429.2285172-1-kyle.swenson@est.tech>
+ <20260820142429.2285172-2-kyle.swenson@est.tech>
+From: Kory Maincent <kory.maincent@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <20260820142429.2285172-2-kyle.swenson@est.tech>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] Overriding `assigned-clocks` in `&sai1` drops essential `SAI1_ROOT=
-_CLK` configuration, breaking audio.
-- [Low] Missing device tree binding headers in `imx7d-var-som-mx7customboar=
-d.dtsi` causing undefined macros.
-- [Low] The SoM `.dtsi` file incorrectly includes a `/dts-v1/;` directive, =
-leading to duplicate directives in `.dts` files.
-- [Low] The `usdhc1` and `usdhc3` nodes specify `no-1-8-v` while defining u=
-nreachable 100MHz/200MHz pinctrl states.
-- [Low] Device Tree node names contain underscores, violating DT specificat=
-ions.
---
+Hello Kyle,
 
---- Patch [2]: [PATCH v2 2/3] ARM: dts: imx7d: add Variscite VAR-SOM-MX7 su=
-pport ---
-commit f0d7c3577a1db2d9fa7ddee6134d561982409054
-Author: Stefano Radaelli <stefano.r@variscite.com>
+Glad to see the v2 landing in the mailing list.
 
-ARM: dts: imx7d: add Variscite VAR-SOM-MX7 support
-
-Add device tree support for the Variscite VAR-SOM-MX7 system on module.
-The module is based on the NXP i.MX7Dual SoC and is available in
-multiple configurations and hardware revisions.
-
-Link: https://variscite.com/system-on-module-som/i-mx-7/var-som-mx7/
-
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc.dtsi b/arch/arm=
-/boot/dts/nxp/imx/imx7d-var-som-emmc.dtsi
+On 8/20/26 16:25, Kyle Swenson wrote:
+> Add the LTC4266 Power Sourcing Equipment controller device tree bindings
+> documentation.
+> 
+> Signed-off-by: Kyle Swenson <kyle.swenson@est.tech>
+> ---
+>   .../bindings/net/pse-pd/lltc,ltc4266.yaml     | 180 ++++++++++++++++++
+>   1 file changed, 180 insertions(+)
+>   create mode 100644 Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.yaml b/Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.yaml
 > new file mode 100644
-> index 0000000000000..2f8185f8c526e
+> index 000000000000..b3da8fea0b07
 > --- /dev/null
-> +++ b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc.dtsi
-> @@ -0,0 +1,99 @@
-[ ... ]
-> +&usdhc3 {
-> +	pinctrl-names =3D "default", "state_100mhz", "state_200mhz", "sleep";
-> +	pinctrl-0 =3D <&pinctrl_usdhc3>;
-> +	pinctrl-1 =3D <&pinctrl_usdhc3_100mhz>;
-> +	pinctrl-2 =3D <&pinctrl_usdhc3_200mhz>;
-> +	pinctrl-3 =3D <&pinctrl_usdhc3_sleep>;
-> +	vmmc-supply =3D <&vgen3_reg>;
-> +	assigned-clocks =3D <&clks IMX7D_USDHC3_ROOT_CLK>;
-> +	assigned-clock-rates =3D <400000000>;
-> +	no-1-8-v;
-
-[Severity: Low]
-Does this no-1-8-v property conflict with the 100MHz and 200MHz pinctrl sta=
-tes
-defined above it?
-
-By forcing the MMC core to stay at 3.3V, UHS-I and high-speed modes that
-require 1.8V might be disabled, making those pinctrl states unreachable dead
-code.
-
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-var-som-mx7customboard.dtsi =
-b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-mx7customboard.dtsi
-> new file mode 100644
-> index 0000000000000..ecd4601c12bfb
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-mx7customboard.dtsi
-> @@ -0,0 +1,382 @@
-[ ... ]
-> +	gpio-keys {
-> +		compatible =3D "gpio-keys";
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&pinctrl_gpio_keys>;
+> +++ b/Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.yaml
+> @@ -0,0 +1,180 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/net/pse-pd/lltc,ltc4266.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +		key-back {
-> +			label =3D "Back";
-> +			gpios =3D <&gpio1 11 GPIO_ACTIVE_LOW>;
-> +			linux,code =3D <KEY_BACK>;
-
-[Severity: Low]
-Are the KEY_BACK, KEY_MENU, and KEY_HOME macros undefined here?
-
-It looks like the dt-bindings/input/input.h header is missing from the
-includes, which could cause a dtc compilation failure.
-
-[ ... ]
-> +	reg_hsic_hub_connect: regulator_hsic_hub_connect {
-> +		compatible =3D "regulator-fixed";
-
-[Severity: Low]
-Could this node name and regulator_hsic_hub_pwr_on below use hyphens instead
-of underscores?
-
-Using underscores in node names violates the device tree specification and
-triggers node_name_chars_strict compiler warnings.
-
-[ ... ]
-> +&usdhc1 {
-> +	pinctrl-names =3D "default", "state_100mhz", "state_200mhz";
-> +	pinctrl-0 =3D <&pinctrl_usdhc1>, <&pinctrl_usdhc1_gpio>;
-> +	pinctrl-1 =3D <&pinctrl_usdhc1_100mhz>, <&pinctrl_usdhc1_gpio>;
-> +	pinctrl-2 =3D <&pinctrl_usdhc1_200mhz>, <&pinctrl_usdhc1_gpio>;
-> +	cd-gpios =3D <&gpio5 0 GPIO_ACTIVE_LOW>;
-> +	no-1-8-v;
-
-[Severity: Low]
-Does this no-1-8-v property similarly prevent the high-speed pinctrl states
-from being used on this interface?
-
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-var-som-wm8731.dtsi b/arch/a=
-rm/boot/dts/nxp/imx/imx7d-var-som-wm8731.dtsi
-> new file mode 100644
-> index 0000000000000..af5dd6d459ad2
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-wm8731.dtsi
-> @@ -0,0 +1,64 @@
-[ ... ]
-> +&sai1 {
-> +	assigned-clocks =3D <&clks IMX7D_AUDIO_MCLK_ROOT_SRC>,
-> +			  <&clks IMX7D_AUDIO_MCLK_ROOT_DIV>;
-> +	assigned-clock-parents =3D <&clks IMX7D_PLL_AUDIO_POST_DIV>;
-> +	assigned-clock-rates =3D <0>, <36864000>;
-> +	/delete-property/ fsl,sai-mclk-direction-output;
-> +};
-
-[Severity: High]
-Does overriding the assigned-clocks here silently drop the required SAI1 ro=
-ot
-clock configuration defined in the base dtsi?
-
-In imx7d-var-som.dtsi, the assigned-clocks property sets IMX7D_SAI1_ROOT_SRC
-and IMX7D_SAI1_ROOT_CLK. By overriding it without retaining the original
-assignments, the SAI1 block might lose its required clock configuration, and
-deleting fsl,sai-mclk-direction-output forces the pad to become an input,
-which could break the audio interface entirely.
-
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-var-som.dtsi b/arch/arm/boot=
-/dts/nxp/imx/imx7d-var-som.dtsi
-> new file mode 100644
-> index 0000000000000..486e9360dea52
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/nxp/imx/imx7d-var-som.dtsi
-> @@ -0,0 +1,637 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-> +/*
-> + * Common dtsi for Variscite VAR-SOM-MX7
-> + *
-> + * Link: https://variscite.com/system-on-module-som/i-mx-7/var-som-mx7/
-> + *
-> + * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com/
-> + *
-> + */
+> +title: Linear Technology LTC4266 Power Sourcing Equipment controller
 > +
-> +/dts-v1/;
+> +maintainers:
+> +  - Kyle Swenson <kyle.swenson@est.tech>
+> +
+> +allOf:
+> +  - $ref: pse-controller.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - lltc,ltc4266
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  reset-gpios:
+> +    maxItems: 1
 
-[Severity: Low]
-Will this /dts-v1/; directive cause a duplicate version directive syntax er=
-ror?
+The reset-gpios is currently not implemented in your driver. Maybe add 
+it in the binding when it will be the case.
 
-When this dtsi file is included by carrier board dts files that also declare
-/dts-v1/;, the expanded source will contain duplicate version directives.
+> +  channels:
+> +    type: object
+> +    additionalProperties: false
+> +    description:
+> +      Defines the 4 physical delivery channels on the controller that can be
+> +      referenced by PSE PIs through their "pairsets" property. The actual port
+> +      matrix mapping is created when PSE PIs reference these channels in their
+> +      pairsets.
+> +
+> +    properties:
+> +      '#address-cells':
+> +        const: 1
+> +
+> +      '#size-cells':
+> +        const: 0
+> +
+> +    patternProperties:
+> +      '^channel@[0-3]$':
+> +        type: object
+> +        additionalProperties: false
+> +
+> +        properties:
+> +          reg:
+> +            maxItems: 1
+> +
+> +          sense-resistor-micro-ohms:
+> +            description: Sense resistor connected to the channel's MOSFET, used
+> +              for current measurement for overcurrent detection.
+> +            enum: [250000, 500000]
+> +
+> +        required:
+> +          - reg
+> +          - sense-resistor-micro-ohms
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1787566980.gi=
-t.stefano.r@variscite.com?part=3D2
+I am bit skeptical about having sense-resistor-micro-ohms as a mandatory 
+parameter. As you have described it's only for current measurement so 
+it's not a requirement for PSE functioning. Maybe set it as a default 
+value if not specified.
+
+Else LGTM.
+
+> +    required:
+> +      - '#address-cells'
+> +      - '#size-cells'
+> +
+> +  pse-pis:
+> +    type: object
+> +    additionalProperties: false
+> +
+> +    properties:
+> +      '#address-cells':
+> +        const: 1
+> +
+> +      '#size-cells':
+> +        const: 0
+> +
+> +    patternProperties:
+> +      '^pse-pi@[0-3]$':
+> +        type: object
+> +        properties:
+> +          pairsets:
+> +            description: The LTC4266 delivers power to a PI over a single
+> +              pairset, driven by one of the controller's four channels. There
+> +              is no 4-pair mode spreading a PI over two channels, so exactly
+> +              one channel phandle is expected.
+> +            maxItems: 1
+> +          pairset-names:
+> +            maxItems: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - channels
+> +  - pse-pis
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
+> +    i2c {
+> +      #address-cells = <1>;
+> +      #size-cells = <0>;
+> +
+> +      ethernet-pse@2f {
+> +        compatible = "lltc,ltc4266";
+> +        reg = <0x2f>;
+> +        interrupts = <8 IRQ_TYPE_LEVEL_LOW>;
+> +        interrupt-parent = <&gpio>;
+> +
+> +        channels {
+> +          #address-cells = <1>;
+> +          #size-cells = <0>;
+> +
+> +          phys0: channel@0 {
+> +            reg = <0>;
+> +            sense-resistor-micro-ohms = <500000>;
+> +          };
+> +
+> +          phys1: channel@1 {
+> +            reg = <1>;
+> +            sense-resistor-micro-ohms = <500000>;
+> +          };
+> +
+> +          phys2: channel@2 {
+> +            reg = <2>;
+> +            sense-resistor-micro-ohms = <500000>;
+> +          };
+> +
+> +          phys3: channel@3 {
+> +            reg = <3>;
+> +            sense-resistor-micro-ohms = <500000>;
+> +          };
+> +        };
+> +
+> +        pse-pis {
+> +          #address-cells = <1>;
+> +          #size-cells = <0>;
+> +
+> +          pse_pi0: pse-pi@0 {
+> +            reg = <0>;
+> +            #pse-cells = <0>;
+> +            pairset-names = "alternative-a";
+> +            pairsets = <&phys0>;
+> +            polarity-supported = "MDI";
+> +            vpwr-supply = <&vreg_pse>;
+> +          };
+> +
+> +          pse_pi1: pse-pi@1 {
+> +            reg = <1>;
+> +            #pse-cells = <0>;
+> +            pairset-names = "alternative-a";
+> +            pairsets = <&phys1>;
+> +            polarity-supported = "MDI";
+> +            vpwr-supply = <&vreg_pse>;
+> +          };
+> +
+> +          pse_pi2: pse-pi@2 {
+> +            reg = <2>;
+> +            #pse-cells = <0>;
+> +            pairset-names = "alternative-a";
+> +            pairsets = <&phys2>;
+> +            polarity-supported = "MDI";
+> +            vpwr-supply = <&vreg_pse>;
+> +          };
+> +
+> +          pse_pi3: pse-pi@3 {
+> +            reg = <3>;
+> +            #pse-cells = <0>;
+> +            pairset-names = "alternative-a";
+> +            pairsets = <&phys3>;
+> +            polarity-supported = "MDI";
+> +            vpwr-supply = <&vreg_pse>;
+> +          };
+> +        };
+> +      };
+> +    };
+
+-- 
+Köry Maincent, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
+
