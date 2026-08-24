@@ -1,121 +1,209 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB1D343F8D3;
-	Mon, 24 Aug 2026 15:33:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4A1641D20E;
+	Mon, 24 Aug 2026 15:34:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787585614; cv=none; b=R1+/06smSheLjkcukFCkZ9RlH05B1BE94B0Mma5dx+mhGiJRewRWVtuJ6BXVQya6uSoNQ+ImtzfwciDuHepGWnWrJE+PXQ+Ra/xghFszFzQkkHwq9Fab7/0zqfGmauMW9AmMv9SHRvdm2KySBTmCnQHOpHGfgI6bwYTG6BsbK6M=
+	t=1787585642; cv=none; b=TfOp161DFg9DTBatPCDvRnhI9tvz7QUiOfftoj1QL83h0Pue2dwQP7DO/YihHOLoUSpHHAe9i1FEXIgLUtNpLjexWDfyLv+tUBDz6Bu10ed375IPijg3qEZRAkdsbfK5K0n93XNyNSMG8pPOGzie3eqlnPLkrJmqy7mAK1e+xVg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787585614; c=relaxed/simple;
-	bh=8SSQlt77m+fOb+AVhYxC8vGo6DtayiPrLbBipchx+D0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=fUjH7wzZQ5im/Lz+LbOswb2GF0+ZiU8QBmu5gvLDAiwmKj78jQ82WNCk2pxrPpUQE4AXLI29pV+ddNa4ikVIOXj/jowXIq9UDVdVSZ1KuzLiKKHwOLwLxXeRJFsmS8OCSiy0GLVYemHVJflDbW+szM9uZZ3TsjMj8cXkRwOXzdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 256EB2010D6;
-	Mon, 24 Aug 2026 17:33:25 +0200 (CEST)
-Message-ID: <699de61dc2bfebdf18cdb0e377d1ba63886b4e12.camel@pengutronix.de>
-Subject: Re: [PATCH v2 2/2] usb: gadget: udc: add Axiado AX3000 and AX3005
- UDC driver
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>, Krutik Shah	
- <krutikshah@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Tzu-Hao Wei	 <twei@axiado.com>, Karthikeyan Mitran
- <kmitran@axiado.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	openbmc@lists.ozlabs.org
-Date: Mon, 24 Aug 2026 17:33:25 +0200
-In-Reply-To: <20260817-axiado-ax3000-usb-device-controller-v2-2-0ef033dd0a68@axiado.com>
-References: 
-	<20260817-axiado-ax3000-usb-device-controller-v2-0-0ef033dd0a68@axiado.com>
-	 <20260817-axiado-ax3000-usb-device-controller-v2-2-0ef033dd0a68@axiado.com>
-Content-Type: text/plain; charset="UTF-8"
+	s=arc-20240116; t=1787585642; c=relaxed/simple;
+	bh=Gslo8VlsRYGDdWtZBDxxR27dbA/71ErGRoFeewZ9nAA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=e82B2SZIhd46t54vL1evzdkhHChxEPUdzhjm5rSFUJWk5MY/XejziBvoTZ7qdQglrjMThchC2iktWSkWjTwy27pSZJFV/lFt8W4bw6dFw+HXTSit/LVjkJdxUNcpAlP5+bSkvFoKczIJ4nbJ10TGL1t0ErT8pdzmiS+pGH2lMkE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UMbq9C87; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UMbq9C87"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 119F61F000E9;
+	Mon, 24 Aug 2026 15:34:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787585640;
+	bh=OVr2jXr19TZYdfl67NKHEMq1SnD4DVj9k7QT1HR4rpM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UMbq9C87EjXHRFxFhyl8PMwNKob/NIToZDABilXEE2VicAjq41UtAazAV2FR4ksve
+	 tJi+fzDZW1k3GKjp95/2dLeWbbtPgBLixYUjuKXttOJfTy20ZoqhCM3k4Atm3CRvnb
+	 rhv90SK3YVT225vprK74aL86beG/T5QjPMHNZgn7y40xOEtdqHrtbB8JkKjprr94/o
+	 MQB6tfOo5ac2nuZidFK7hah0YQ0F8AybsK78dRl5CEgYPdv9r+WRrymQnzlS/eK0cT
+	 +ZBqLS6r0EtmGpkyriB+vphN3/UBDjnhRJQXy1xwvUT8wqD/D8zclyfvnyW2mIVZZO
+	 z4APPuIJij8rw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/3] ARM: dts: imx7d: add Variscite VAR-SOM-MX7
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev
+In-Reply-To: <aa8af884a709961f155f855b8a480488ef4c47d1.1787583584.git.stefano.r@variscite.com>
+References: <cover.1787583584.git.stefano.r@variscite.com>
+ <aa8af884a709961f155f855b8a480488ef4c47d1.1787583584.git.stefano.r@variscite.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+Date: Mon, 24 Aug 2026 15:33:59 +0000
+Message-Id: <20260824153400.119F61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-On Mo, 2026-08-17 at 22:57 -0700, Naveen Kumar Rajgiri Bassappa wrote:
-> Add a driver for the USB device controller integrated into the Axiado
-> AX3000 and AX3005 SoCs.
->=20
-> The controller is based on the Corigine USB 3.1 device IP core and uses a=
-n
-> xHCI-like programming model with a command ring, an event ring, and
-> per-endpoint transfer rings composed of Transfer Request Blocks (TRBs).
->=20
-> The driver implements the USB gadget and endpoint operations, including
-> endpoint enable and disable, request queue and dequeue, halt and wedge
-> handling, and standard endpoint 0 control requests.
->=20
-> It supports High-Speed and SuperSpeed operation, control, bulk,
-> interrupt, and isochronous transfers, and scatter-gather requests.
->=20
-> Signed-off-by: Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
-> ---
->  MAINTAINERS                      |    2 +
->  drivers/usb/gadget/udc/Kconfig   |   14 +
->  drivers/usb/gadget/udc/Makefile  |    1 +
->  drivers/usb/gadget/udc/crg_udc.c | 4491 ++++++++++++++++++++++++++++++++=
-++++++
->  drivers/usb/gadget/udc/crg_udc.h |  355 +++
->  5 files changed, 4863 insertions(+)
->=20
-[...]
-> diff --git a/drivers/usb/gadget/udc/crg_udc.c b/drivers/usb/gadget/udc/cr=
-g_udc.c
-> new file mode 100644
-> index 000000000000..bb3ed394d984
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] The ads7846 touchscreen specifies an active-high GPIO for pendown,=
+ which conflicts with its active-low interrupt and breaks touch detection.
+- [High] The V1 hardware WiFi regulator (`reg_vmmc_wl`) lacks a `gpio` prop=
+erty and relies on a userspace script to enable WiFi power, breaking automa=
+tic device probing.
+- [Medium] The `wm8904` codec's `IN1L` pin is configured as a digital micro=
+phone input but is simultaneously routed to an analog 'Microphone Jack' in =
+the DAPM topology.
+- [Low] Non-generic node names and invalid characters are used for the touc=
+hscreen, audio codec devices, and regulators.
+--
+
+--- Patch [2]: [PATCH v3 2/3] ARM: dts: imx7d: add Variscite VAR-SOM-MX7 su=
+pport ---
+commit b9c1c689cb3179b0139172b9a6b0fd1126434165
+Author: Stefano Radaelli <stefano.r@variscite.com>
+Subject: ARM: dts: imx7d: add Variscite VAR-SOM-MX7 support
+
+This commit adds device tree support for the Variscite VAR-SOM-MX7 system
+on module based on the NXP i.MX7Dual SoC. It includes the common SoM
+description along with support for eMMC, NAND, WM8731 audio codec, and the
+V2 hardware revision.
+
+Link: https://variscite.com/system-on-module-som/i-mx-7/var-som-mx7/
+
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-var-som-mx7customboard.dtsi =
+b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-mx7customboard.dtsi
 > --- /dev/null
-> +++ b/drivers/usb/gadget/udc/crg_udc.c
-> @@ -0,0 +1,4491 @@
-[...]
-> +static int crg_udc_init_hw(struct crg_gadget_dev *crg_udc)
-> +{
-> +	struct device *dev =3D crg_udc->dev;
-> +	int ret;
-> +
-> +	crg_udc->clk =3D devm_clk_get_optional(dev, NULL);
-> +	if (IS_ERR(crg_udc->clk))
-> +		return dev_err_probe(dev, PTR_ERR(crg_udc->clk),
-> +				     "failed to get clock\n");
-> +
-> +	ret =3D clk_prepare_enable(crg_udc->clk);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to enable clock\n");
-> +
-> +	ret =3D devm_add_action_or_reset(dev, crg_udc_clk_disable, crg_udc->clk=
-);
-> +	if (ret)
-> +		return ret;
-> +
-> +	crg_udc->rst =3D devm_reset_control_get_optional_exclusive(dev, NULL);
-> +	if (IS_ERR(crg_udc->rst))
-> +		return dev_err_probe(dev, PTR_ERR(crg_udc->rst),
-> +				     "failed to get reset\n");
-> +
-> +	ret =3D reset_control_deassert(crg_udc->rst);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to deassert reset\n");
-> +
-> +	ret =3D devm_add_action_or_reset(dev, crg_udc_reset_assert, crg_udc->rs=
-t);
-> +	if (ret)
-> +		return ret;
+> +++ b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-mx7customboard.dtsi
+> @@ -0,0 +1,382 @@
+[ ... ]
+> +	reg_hsic_hub_connect: regulator_hsic_hub_connect {
 
-This looks like it could be simplified with
-devm_reset_control_get_optional_exclusive_deasserted()
+[Severity: Low]
+Are there invalid characters in this node name? The Devicetree Specification
+prohibits the use of underscores in node names, which should use hyphens
+instead.
 
-regards
-Philipp
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-var-som-wm8731.dtsi b/arch/a=
+rm/boot/dts/nxp/imx/imx7d-var-som-wm8731.dtsi
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-wm8731.dtsi
+> @@ -0,0 +1,65 @@
+[ ... ]
+> +&i2c2 {
+> +	wm8731: wm8731@1a {
+
+[Severity: Low]
+Does this node name follow the Devicetree Specification? Node names should =
+be
+generic and reflect the function of the device rather than its precise part
+number. Should this be named audio-codec@1a instead?
+
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-var-som.dtsi b/arch/arm/boot=
+/dts/nxp/imx/imx7d-var-som.dtsi
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/nxp/imx/imx7d-var-som.dtsi
+> @@ -0,0 +1,635 @@
+[ ... ]
+> +	codec_wm8904: sound {
+> +		compatible =3D "simple-audio-card";
+> +		simple-audio-card,bitclock-master =3D <&dailink_master>;
+> +		simple-audio-card,format =3D "i2s";
+> +		simple-audio-card,frame-master =3D <&dailink_master>;
+> +		simple-audio-card,name =3D "wm8904-audio";
+> +		simple-audio-card,routing =3D
+> +			"Headphone Jack", "HPOUTL",
+> +			"Headphone Jack", "HPOUTR",
+> +			"IN2L", "Line In Jack",
+> +			"IN2R", "Line In Jack",
+> +			"IN1L", "Microphone Jack",
+> +			"IN1R", "Microphone Jack",
+[ ... ]
+> +	wm8904: audio-codec@1a {
+> +		compatible =3D "wlf,wm8904";
+> +		reg =3D <0x1a>;
+[ ... ]
+> +		/* DMIC is connected to IN1L */
+> +		wlf,in1l-as-dmicdat1;
+> +	};
+
+[Severity: Medium]
+Is this DAPM routing correct? This maps IN1L to an analog "Microphone Jack",
+but later in the wm8904 node, wlf,in1l-as-dmicdat1 explicitly configures it
+as a digital microphone input.
+
+Can this topological contradiction cause the DAPM subsystem to incorrectly
+power up analog components for a digital microphone, or present invalid ana=
+log
+paths to userspace?
+
+[ ... ]
+> +	/* Resistive touch controller */
+> +	ads7846_ts: ads7846@0 {
+
+[Severity: Low]
+Should this node use a generic name like touchscreen@0 instead of the
+specific part number to align with Devicetree Specification requirements?
+
+> +		reg =3D <0>;
+> +		compatible =3D "ti,ads7846";
+> +		pinctrl-names =3D"default";
+> +		pinctrl-0 =3D <&pinctrl_restouch>;
+> +		interrupt-parent =3D <&gpio1>;
+> +		interrupts =3D <9 IRQ_TYPE_EDGE_FALLING>;
+> +		spi-max-frequency =3D <1500000>;
+> +		pendown-gpio =3D <&gpio1 9 0>;
+
+[Severity: High]
+Does this configuration break touch detection? The interrupt is defined as
+active-low (IRQ_TYPE_EDGE_FALLING), but the GPIO flag here is 0 (active-hig=
+h).
+
+When the interrupt handler fires, it will read the physical low signal as
+a logical false, causing it to immediately abort without processing the eve=
+nt.
+Should this use GPIO_ACTIVE_LOW instead?
+
+[ ... ]
+> +	reg_vmmc_wl: regulator-vmmc-wl {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-min-microvolt =3D <3300000>;
+> +		regulator-max-microvolt =3D <3300000>;
+> +		regulator-name =3D "wlreg_on";
+> +	};
+[ ... ]
+> +&usdhc2 {
+> +	#address-cells =3D <1>;
+> +	#size-cells =3D <0>;
+> +	pinctrl-names =3D "default", "state_100mhz", "state_200mhz","sleep";
+> +	pinctrl-0 =3D <&pinctrl_usdhc2>, <&pinctrl_wlan>;
+> +	pinctrl-1 =3D <&pinctrl_usdhc2_100mhz>, <&pinctrl_wlan>;
+> +	pinctrl-2 =3D <&pinctrl_usdhc2_200mhz>, <&pinctrl_wlan>;
+> +	pinctrl-3 =3D <&pinctrl_usdhc2_sleep>, <&pinctrl_wlan_sleep>;
+> +	keep-power-in-suspend;
+> +	non-removable;
+> +	vmmc-supply =3D <&reg_vmmc_wl>;
+> +	status =3D "okay";
+[ ... ]
+> +	/* GPIO Used in User Space init script */
+> +	pinctrl_wlan: wlangrp {
+> +		fsl,pins =3D <
+> +			MX7D_PAD_LPSR_GPIO1_IO04__GPIO1_IO4		0x09
+> +		>;
+> +	};
+
+[Severity: High]
+Will this cause the SDIO bus probe to fail permanently during boot?
+
+The usdhc2 node is marked non-removable and bound to reg_vmmc_wl. Because
+this regulator lacks a gpio property to physically power the chip, the MMC
+core will attempt to enumerate the bus while the WiFi chip is unpowered.
+
+Since the bus is non-removable, it will not retry when the userspace
+script later toggles the GPIO via pinctrl_wlan. Should the gpio property
+be moved to the regulator-fixed node so the kernel can properly probe it?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1787583584.gi=
+t.stefano.r@variscite.com?part=3D2
