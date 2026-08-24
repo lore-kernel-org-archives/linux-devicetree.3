@@ -1,101 +1,203 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F463769F9;
-	Mon, 24 Aug 2026 02:42:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E023376BD0;
+	Mon, 24 Aug 2026 02:42:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787539378; cv=none; b=Wjj/uWFkS7ccUC+YYUDMO+OcEayuuuyvxTg3jmwcp3WiPAdLOqgBkoR300599awMwrnJMOqnKFCmM2H1JyepC/URBYha21uxy5FOLeNyCY8FTTT5urHiHnnDOghTCw66B9pbRydPE8sYBLWZ1yPdefNn2bAExN1T+bx9SYyK/WA=
+	t=1787539379; cv=none; b=p/62WoqP0le3pc4gS+K9lFH8rVJ6CeAHvY1aM405RbbC4BPfgDwqwDE4RONRLWW/YS4kw84TTgL+8mC0F6djUkTHll0ST/qxOKFIcAWUjkPG2Wn0+5P7MahbLbkhTPAyQ6io0I0U0/9HPHXnr0va919PPWwmUQvzhuBsJhoWd+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787539378; c=relaxed/simple;
-	bh=ZkCCJ24pwCFBSzn/XX4R16/HBiYgHZ3wXppgXaFr6rc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=efmteeVdQqieZHFZm3Abd0JfoZX9FstsB0N4yVfKsPwQX63uZzFT2lxJToMaRJCv5qPC5EYdMhOl2uEsEnTxPgFwIHzwdzkus7E4jlQh4sjXEPkyQvzF4WPKawDCJ0DPDyp0RgH/FDnwW5XR41x4tzt61CA9K2Dzv6jw++NU2lQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mSkXxiRX; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mSkXxiRX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A3E91F000E9;
-	Mon, 24 Aug 2026 02:42:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787539372;
-	bh=sD8DOPhmGdq9TOzzHyx3XSMEdDAdzpX6enxF2TJVICE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mSkXxiRXJHWxLCHhkq1nRN2lLQTJKJosf0hTTBojgg1Q1ts4yhH4Rlg0KrRdRV7NR
-	 uTaQkAvREF1qfsfKdA0qXimGrDJPGJ3ghp7xsWM/jAQSqxUEESBzKCxQjFCqY/EoBC
-	 vDVbojTIIVQUXN9JVhZPGH/WWnyAwFN3M1Ay6QxTV/kZnMIO0MRf9GWVMwF4CkTD49
-	 +2ukbceA0iw/nlHpNZ17GPTwVIptjKW7+x+TdKqEt2O0GWMcheBwf83PytkRzG9qly
-	 Mym4B8H3+HYXIy0iDPkPs19Kjg1uPLFtr8JMhc8YB252PiPulXurzi8SjPP4LSDGW0
-	 Mbqy3mEi56X8w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 17/17] arm64: dts: fsl: Add DT overlay to build MQS1
- sound cards on i.MX9 platforms
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chancel Liu" <chancel.liu@oss.nxp.com>
-Cc: Frank.Li@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260824022020.2812810-18-chancel.liu@oss.nxp.com>
-References: <20260824022020.2812810-1-chancel.liu@oss.nxp.com>
- <20260824022020.2812810-18-chancel.liu@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 24 Aug 2026 02:42:51 +0000
-Message-Id: <20260824024252.1A3E91F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1787539379; c=relaxed/simple;
+	bh=FhGqCgC1qcv7kHcNVhXGaiiu15ASlL/TX82CfVZ7NtU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=dRe1vRC36327wvKfOEMu2fyMZkDCPdW1HWoF1FfRshXxWzVdziBwgI7DrQp0Txt1cKbgsKYScG9/ol6puYxd7S3ZCl8TCfh90g2TuNRk3duZfswq6TfZMmOw1qJ9mxD/bw7+QEfzsXsyJ3tubUqlPBb+p3RrwofunA8l9XVdffk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Mon, 24 Aug
+ 2026 10:42:29 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Mon, 24 Aug 2026 10:42:29 +0800
+From: Ryan Chen <ryan_chen@aspeedtech.com>
+Date: Mon, 24 Aug 2026 10:42:31 +0800
+Subject: [PATCH v2 4/8] EDAC/aspeed: Clean up whitespace and include
+ ordering
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260824-edac-v2-4-c8d8bb693586@aspeedtech.com>
+References: <20260824-edac-v2-0-c8d8bb693586@aspeedtech.com>
+In-Reply-To: <20260824-edac-v2-0-c8d8bb693586@aspeedtech.com>
+To: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>
+CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
+	<linux-edac@vger.kernel.org>, Ryan Chen <ryan_chen@aspeedtech.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787539349; l=4626;
+ i=ryan_chen@aspeedtech.com; s=20251126; h=from:subject:message-id;
+ bh=FhGqCgC1qcv7kHcNVhXGaiiu15ASlL/TX82CfVZ7NtU=;
+ b=GoygC2E3grvnPd/Rs5Ery9rOw8CZ2YdTHWs1JTllbAufHdcDhqmniCvIr3gty9x43Vlyq1Pzb
+ X3NhroraJhdCdJOYlFiEs3dh3IsGOe5FHGgeBVNvzZoIfwSoJOtCGuK
+X-Developer-Key: i=ryan_chen@aspeedtech.com; a=ed25519;
+ pk=Xe73xY6tcnkuRjjbVAB/oU30KdB3FvG4nuJuILj7ZVc=
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The device tree overlay defines audio DAPM routing referencing non=
--existent source widgets `MQS_L` and `MQS_R`, which will cause the sound ca=
-rd probe to fail with `-ENODEV`.
---
+The driver separates functions and definition groups with two blank
+lines where the kernel style uses one, its headers are not sorted, and it
+includes linux/stop_machine.h without using it. Collapse the double blank
+lines, drop the unused include and sort the rest alphabetically so the
+following changes start from a consistent style.
 
---- Patch [17]: [PATCH v3 17/17] arm64: dts: fsl: Add DT overlay to build M=
-QS1 sound cards on i.MX9 platforms ---
-commit 16b11b202a8f8c0d5f524ed9bbec5f9b49d2926e
-Author: Chancel Liu <chancel.liu@nxp.com>
+Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
+---
+ drivers/edac/aspeed_edac.c | 34 +++++++++-------------------------
+ 1 file changed, 9 insertions(+), 25 deletions(-)
 
-arm64: dts: fsl: Add DT overlay to build MQS1 sound cards on i.MX9 platforms
+diff --git a/drivers/edac/aspeed_edac.c b/drivers/edac/aspeed_edac.c
+index e05ebed5c2f2..cd2a6fcca355 100644
+--- a/drivers/edac/aspeed_edac.c
++++ b/drivers/edac/aspeed_edac.c
+@@ -4,20 +4,17 @@
+  */
+ 
+ #include <linux/edac.h>
+-#include <linux/module.h>
+ #include <linux/init.h>
+ #include <linux/interrupt.h>
+-#include <linux/platform_device.h>
+-#include <linux/stop_machine.h>
+ #include <linux/io.h>
++#include <linux/module.h>
+ #include <linux/of_address.h>
++#include <linux/platform_device.h>
+ #include <linux/regmap.h>
+ #include "edac_module.h"
+ 
+-
+ #define DRV_NAME "aspeed-edac"
+ 
+-
+ #define ASPEED_MCR_PROT        0x00 /* protection key register */
+ #define ASPEED_MCR_CONF        0x04 /* configuration register */
+ #define ASPEED_MCR_INTR_CTRL   0x50 /* interrupt control/status register */
+@@ -25,19 +22,16 @@
+ #define ASPEED_MCR_ADDR_REC    0x5c /* address of last recoverable error */
+ #define ASPEED_MCR_LAST        ASPEED_MCR_ADDR_REC
+ 
+-
+-#define ASPEED_MCR_PROT_PASSWD	            0xfc600309
+-#define ASPEED_MCR_CONF_DRAM_TYPE               BIT(4)
+-#define ASPEED_MCR_CONF_ECC                     BIT(7)
+-#define ASPEED_MCR_INTR_CTRL_CLEAR             BIT(31)
+-#define ASPEED_MCR_INTR_CTRL_CNT_REC   GENMASK(23, 16)
+-#define ASPEED_MCR_INTR_CTRL_CNT_UNREC GENMASK(15, 12)
+-#define ASPEED_MCR_INTR_CTRL_ENABLE  (BIT(0) | BIT(1))
+-
++#define ASPEED_MCR_PROT_PASSWD          0xfc600309
++#define ASPEED_MCR_CONF_DRAM_TYPE       BIT(4)
++#define ASPEED_MCR_CONF_ECC             BIT(7)
++#define ASPEED_MCR_INTR_CTRL_CLEAR      BIT(31)
++#define ASPEED_MCR_INTR_CTRL_CNT_REC    GENMASK(23, 16)
++#define ASPEED_MCR_INTR_CTRL_CNT_UNREC  GENMASK(15, 12)
++#define ASPEED_MCR_INTR_CTRL_ENABLE     (BIT(0) | BIT(1))
+ 
+ static struct regmap *aspeed_regmap;
+ 
+-
+ static int regmap_reg_write(void *context, unsigned int reg, unsigned int val)
+ {
+ 	void __iomem *regs = (void __iomem *)context;
+@@ -53,7 +47,6 @@ static int regmap_reg_write(void *context, unsigned int reg, unsigned int val)
+ 	return 0;
+ }
+ 
+-
+ static int regmap_reg_read(void *context, unsigned int reg, unsigned int *val)
+ {
+ 	void __iomem *regs = (void __iomem *)context;
+@@ -76,7 +69,6 @@ static bool regmap_is_volatile(struct device *dev, unsigned int reg)
+ 	}
+ }
+ 
+-
+ static const struct regmap_config aspeed_regmap_config = {
+ 	.reg_bits = 32,
+ 	.val_bits = 32,
+@@ -88,7 +80,6 @@ static const struct regmap_config aspeed_regmap_config = {
+ 	.fast_io = true,
+ };
+ 
+-
+ static void count_rec(struct mem_ctl_info *mci, u8 rec_cnt, u32 rec_addr)
+ {
+ 	struct csrow_info *csrow = mci->csrows[0];
+@@ -120,7 +111,6 @@ static void count_rec(struct mem_ctl_info *mci, u8 rec_cnt, u32 rec_addr)
+ 			     0, 0, -1, "", "");
+ }
+ 
+-
+ static void count_un_rec(struct mem_ctl_info *mci, u8 un_rec_cnt,
+ 			 u32 un_rec_addr)
+ {
+@@ -153,7 +143,6 @@ static void count_un_rec(struct mem_ctl_info *mci, u8 un_rec_cnt,
+ 	}
+ }
+ 
+-
+ static irqreturn_t mcr_isr(int irq, void *arg)
+ {
+ 	struct mem_ctl_info *mci = arg;
+@@ -200,7 +189,6 @@ static irqreturn_t mcr_isr(int irq, void *arg)
+ 	return IRQ_HANDLED;
+ }
+ 
+-
+ static int config_irq(void *ctx, struct platform_device *pdev)
+ {
+ 	int irq;
+@@ -225,7 +213,6 @@ static int config_irq(void *ctx, struct platform_device *pdev)
+ 	return 0;
+ }
+ 
+-
+ static int init_csrows(struct mem_ctl_info *mci)
+ {
+ 	struct csrow_info *csrow = mci->csrows[0];
+@@ -274,7 +261,6 @@ static int init_csrows(struct mem_ctl_info *mci)
+ 	return 0;
+ }
+ 
+-
+ static int aspeed_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+@@ -355,7 +341,6 @@ static int aspeed_probe(struct platform_device *pdev)
+ 	return rc;
+ }
+ 
+-
+ static void aspeed_remove(struct platform_device *pdev)
+ {
+ 	struct mem_ctl_info *mci;
+@@ -375,7 +360,6 @@ static void aspeed_remove(struct platform_device *pdev)
+ 		edac_mc_free(mci);
+ }
+ 
+-
+ static const struct of_device_id aspeed_of_match[] = {
+ 	{ .compatible = "aspeed,ast2400-sdram-edac" },
+ 	{ .compatible = "aspeed,ast2500-sdram-edac" },
 
-This commit adds a common DT overlay to support MQS sound cards on i.MX9
-platforms. It routes SAI1 to MQS1, disables conflicting devices, and attach=
-es
-a board amplifier via DAPM routing.
+-- 
+2.34.1
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx9-mqs.dtso b/arch/arm64/boo=
-t/dts/freescale/imx9-mqs.dtso
-> new file mode 100644
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx9-mqs.dtso
-[ ... ]
-> +&{/} {
-> +	sound-mqs {
-> +		compatible =3D "audio-graph-card2";
-> +		aux-devs =3D <&amp_mqs1>;
-> +		label =3D "mqs-audio";
-> +		links =3D <&sai1_port1>;
-> +		routing =3D "MQS AMP INL", "MQS_L",
-> +			  "MQS AMP INR", "MQS_R";
-
-[Severity: High]
-Will this cause the sound card probe to fail with -ENODEV?
-
-Looking at the MQS codec driver (sound/soc/fsl/fsl_mqs.c), it only registers
-a playback DAI with .stream_name =3D "Playback" and doesn't appear to define
-.dapm_widgets exporting "MQS_L" or "MQS_R".=20
-
-Since the sound-mqs node lacks a widgets property to manually instantiate t=
-hem
-(e.g., widgets =3D "Line", "MQS_L", ...), won't snd_soc_dapm_add_route() fa=
-il
-to find these source widgets and abort the initialization of the sound card?
-
-> +	};
-> +};
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824022020.2812=
-810-1-chancel.liu@oss.nxp.com?part=3D17
