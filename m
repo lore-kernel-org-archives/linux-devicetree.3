@@ -1,240 +1,115 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1525041F34E
-	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 13:07:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E7AB421223;
+	Mon, 24 Aug 2026 13:12:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787576853; cv=none; b=C4CmXIdnLrltQ/7ifdP+u/+nWQkKg5Bo4TE7N72E83Cl4aUJCedhDEi0JKMgBBMm2C7CLu0hhpQCzq3EBN6GpjiOy044pj1etChEpfykPMV5lZk4iNzOSIz5R3JWYhd/McngtKCyq5A2lLzNa9+ax3KB9bsvEDIy/Tf59cjgjAM=
+	t=1787577138; cv=none; b=FcQw+gEqTIWhkhCT/l1ILLuByVRW3yAk+F7+17iNjt0VeE8JypvebJbb0ibFX2mj4Iy6VPOmgt6YMr52UtYujKI7M3moKodLuFdKplTted1ihh2FxLrpto+7Bxxgb/ssEmA2RKTfNVbkfobbZ1+wZx/BPLotpMEqEf/gqG7zlzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787576853; c=relaxed/simple;
-	bh=u5ihNkizXxWzyF5GSE/VjUlcZrXmF+6zr4JEzwJ38CA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Tr09R+3Yp4+U2TcCtAKSaH/MWkskNN2pthPwDtZwHFitrUUggAtYxdg7aXPT/ukrxOckyJ4ZwuH4NO8xe2jshWE0Bjm3Q/PHl0LDEph3RoQK1BokpGJM/Gc/ueSWEFnPwJRkFTKqZuSDGv771IoVzwdTfhvd5NlpyKa5/woFtP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VasDoPJ+; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1787577138; c=relaxed/simple;
+	bh=YfnNy7H+MKpmvOhS4SoksQSiXwR94LflioldK9T78Ag=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=h5iDcgAOwIWOhWMZ3KviHbgcNeiaFuSo3V460uf0KWXzcHJZuAQt5tAq6c22Bp5OZ0zRIkkFd6AeLUxAcqHR9BQlBdyFPJJP6blroe2CwCNmYik/u2rEzTqkZnIMyElhDdfsrncsl8zwsTL5MkLGeItp0akrnI1/JuKrj5KvR6E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PX2O47pq; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VasDoPJ+"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4953de5be0aso21663895e9.0
-        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 06:07:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787576849; x=1788181649; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=II0EHdpiWVifHn+uIz31c6Jp5mdC3hunRFCnEAwNy/g=;
-        b=VasDoPJ+9W3n6kop+crjHXP7TptzbDGsgfbm9Uk4NKXGd6OGSugla7VlitMZw98TK9
-         NVgdy1g8rya6Yqv+lAwmQAA7dqQjHTRt75BtuIha0W9mgx+ggKWWMmmUisJSlAMrinEf
-         e3/R/ELvI9YYRlq7rCg1cATN/Ub4gE0rcWwcfO9hgfAQupcKHPbzKdmaIZZ0D9++h+oY
-         dgvGtWeYGOvPvZVQeL6A7w6M0zsypu09XmYrqR3Iwv/cCfnEnCvT+xc+/+KUwzYHtU8o
-         EpfP/3KzoKSiw0GhTSCSkj4lZZjidkJLF+3SH2bAzDuzawyPRDr7Y4fQ0iJXmjmixqg9
-         8Dog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787576849; x=1788181649;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=II0EHdpiWVifHn+uIz31c6Jp5mdC3hunRFCnEAwNy/g=;
-        b=ShPvNg5FUzeQIvSIEmnh0GokyajDcWAD3kLXz1F5FS1B1d7ozFI8C6o3S7djzG7Mqi
-         H5zK4Kiwi7clJOgw9FsrgzCAV6b0x2g7iBiPNuDDmrNBS+dkQVws7eD4/PD1asgkMLHB
-         /HyZqwjoV1Fn7dPytv5Xi7NkAOkm91qbqzWYksHyjfISdMV14EY81YuvDVK6S/SZHv0w
-         z9VMO2mRDb495z/bBPdR5cDdZDd9fvQ4/3ZSMGOtJG+jxnvTccrfvEch3POt3C0yP+PE
-         b8H1j/bhkFBGMU+lG7w7knmozggAsUW9dh85CuPfjayN8OfJTusRXJ0bm8erSSKTFG4H
-         ZTBA==
-X-Forwarded-Encrypted: i=1; AHgh+RqJ84FjeZMnzZjjEtTMTKnR11qziN86D/TIc4Ig1FNB/nTi/huV37lZwbiPvuusjSGm5ld3fbYwCD4B@vger.kernel.org
-X-Gm-Message-State: AFuF++kfSpGMhum8DyyHthz4cEw91+Lm7Pr6u613vogSn28N53vcwGBb
-	ljZLKhJ0lBztjeB832EcqpgjHUSc5vj+u2EQsKG2lf+pchwCX+iIm7pfZIfiLAAKRw==
-X-Gm-Gg: AR+sD11GXb5Kpnbh4zSkVJ3gvIazcJfXY6nTbMi6E+O8E6cY4bGSppDa94q4xYjIVH7
-	YZ11MnNQ0rK0egfpmtGkbFF504P4eC294j9iJRZWuJjPREZtyFYhopdYMWIvhuDSddyw8jni6uz
-	Rw3k0UIKZa+8e1tBwDayMhImvnnzFz7VzROyy/9N8e6xaMaY90x+oSlMLZTDCxVd9NpLRJaOMRg
-	3VSOGRu3OB0RF8RcPRGxhy3eCwcWre5JAH3zKNusPoiOK2DON/BF2fgrqw57FvrgJeBGEQ1OVb5
-	ngli0ihUX7dJnez/Aux1U+HYqqt4E7l0k5nutI+jpyVIiZvl0QCP7cc5d/HPweyOT0SHqWfvEGM
-	HXkoiBVSkwSYPsHF/7glaXU7qqnEO386CtVd7npgeLpuSulvxP54lussjKYMzEiRcEkhseUDOlO
-	MjBL9LHluh3ZTg1cW8rxMsUl7nZHAZZB0nm+0N2djLEQeRdj4MQy6ueS9p4FVF/86c06CmmVeqx
-	9+4mXx2k43rYvp52LuVBATCJ1QnwCqG
-X-Received: by 2002:a05:600c:8b76:b0:499:8c68:a3aa with SMTP id 5b1f17b1804b1-499b8475133mr350361245e9.13.1787576848494;
-        Mon, 24 Aug 2026 06:07:28 -0700 (PDT)
-Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499c355e1ddsm85389525e9.5.2026.08.24.06.07.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 24 Aug 2026 06:07:27 -0700 (PDT)
-Date: Mon, 24 Aug 2026 14:07:23 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Sowjanya Komatineni <skomatineni@nvidia.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Yury Norov <yury.norov@gmail.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Russell King <linux@armlinux.org.uk>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Brian Starkey <Brian.Starkey@arm.com>,
-	John Stultz <jstultz@google.com>,
-	"T.J. Mercier" <tjmercier@google.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Chun Ng <chunn@nvidia.com>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-s390@vger.kernel.org, linux-mm@kvack.org,
-	iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
-	linux-trace-kernel@vger.kernel.org,
-	Thierry Reding <treding@nvidia.com>, pavan.kondeti@oss.qualcomm.com
-Subject: Re: [PATCH v4 07/10] dma-buf: heaps: Add support for Tegra VPR
-Message-ID: <aoxCC1yPFdutU5vB@google.com>
-References: <20260807-tegra-vpr-v4-0-5510d16af89e@nvidia.com>
- <20260807-tegra-vpr-v4-7-5510d16af89e@nvidia.com>
- <an4MEI7lkc2p3nKI@google.com>
- <an8K2gb1pIqbDj6-@orome>
- <aoNDRTKCUkzd2n5G@google.com>
- <aoQ1lhZojzsSkWHQ@orome>
- <aoVy8dj8f3ll5-M4@google.com>
- <aobOs0ZidWzgoHut@orome>
- <aoi4wZJIutMWu9Ux@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PX2O47pq"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id EA918C2BCFF;
+	Mon, 24 Aug 2026 13:12:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1787577138;
+	bh=YfnNy7H+MKpmvOhS4SoksQSiXwR94LflioldK9T78Ag=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=PX2O47pqhH/pbt/WC7X8/6B5zZNt44LL++6mowya9jleVdzkb61QM6ZO1UXW5BJZl
+	 2/ICBumpdlSkSdY8ihrM8JDH5m5QwbGuER5FaEOsf5dmUd6qCYrRpsA6ReSOgn7T3q
+	 IPqcUcw/cJwLJYHLFS8rrdb/ZeuhO1SLUkp+axzt5BS0lGYR1n1EZDZ6km6ylZh49w
+	 cqhaJCpCprTYHlsfYafS3laeevPvyGeycyzn46Q9+JnrHGQiRAV0MZeNdMiMt3SsaF
+	 9vNHHb7AQNL4EOJ/9i4rgplRB5VGWQnm3jpQBWZ2hhjV/lEjNFb/f9uzBJ14Fq28d7
+	 625d8lJXuVqjQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CFF95C61CE3;
+	Mon, 24 Aug 2026 13:12:17 +0000 (UTC)
+From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
+Date: Mon, 24 Aug 2026 15:12:03 +0200
+Subject: [PATCH v2 3/3] arm64: dts: lx2160a: fix the iic5 spi3 pinmux
+ offset and value
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aoi4wZJIutMWu9Ux@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260824-for-upstream-lx2160a-pinmux-fix-v2-3-0a525d5f4cd5@free.fr>
+References: <20260824-for-upstream-lx2160a-pinmux-fix-v2-0-0a525d5f4cd5@free.fr>
+In-Reply-To: <20260824-for-upstream-lx2160a-pinmux-fix-v2-0-0a525d5f4cd5@free.fr>
+To: Frank Li <Frank.Li@nxp.com>, Carlos Song <carlos.song@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Josua Mayer <josua@solid-run.com>
+Cc: imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Thibaut Collet <thbt.cllt@gmail.com>, Vincent Jardin <vjardin@free.fr>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787577136; l=1537;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=BZq9iBy9zMULsx08pGD1SDDVGE5pMTVNIR3ADNpa4zc=;
+ b=CKuLq+J0V1nANBfd3Gi8NrIBf4GFu2kLUI5rd055oh1iFr2PI2LlUcEnf9TdY1zYJ+Kir0gch
+ xK+EtHn0BzvA6Fa/QWghZyvOzPEphZGYwJwkVtej4BrEKqjdvA4wNTp
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
+ auth_id=871
+X-Original-From: Vincent Jardin <vjardin@free.fr>
+Reply-To: vjardin@free.fr
 
-On Fri, Aug 21, 2026 at 09:44:49PM +0100, Vincent Donnefort wrote:
-> [...]
-> 
-> > > > Interesting. I had been thinking more along the lines of adding this
-> > > > directly into memblock using a new entry in enum memblock_flags. None of
-> > > > the existing ones seem to do what we need here, though some are closely
-> > > > related. MEMBLOCK_SECURE or MEMBLOCK_PROTECTED are quite specific and
-> > > > don't necessarily mean that we need the mapping to be page-granular, so
-> > > > MEMBLOCK_PAGE_GRANULAR is perhaps clearer.
-> > > 
-> > > I thought it would be interesting to not have to modify memblock since it is
-> > > used for all architectures, while the DT is at least slightly less widespread.
-> > 
-> > This isn't something that is DT specific. On the Tegra side, I suspect
-> > we might need this on ACPI platforms eventually, too. And it's not an
-> > ARM specific feature either. Other platforms could use shared carveouts,
-> > too.
-> 
-> Agreed, and actually I have tried the memblock version and it looks quite neat!
-> 
-> I will share what I have after the merge-window.
-> 
-> > 
-> > > Also, cma_init_reserved_mem() could use an order 9. In that case PTE-level isn't
-> > > necessary and we could just use PMD-level. Extending that support would be more
-> > > cumbersome with a memblock flag than with a callback.
-> > > 
-> > > rmem_cma_setup() hardcoding an order 0, perhaps this isn't really a problem at
-> > > the moment?
-> > 
-> > How so? memblock is really just used as a way of backing the CMA. How
-> > CMA subdivides it doesn't really matter, right?
-> > 
-> > Or are you suggesting that if we use an entire PMD as granularity, we
-> > could equally well remove the entire PMD from the linear mapping instead
-> > of doing it page-by-page? I think that'd work really well for at least
-> > VPR, since it is 1 MiB aligned anyway. Using a granularity of 2 MiB is
-> > easily doable.
-> 
-> Yes, that is what I meant. We could easily force a PMD-level mapping instead of
-> PTE-level one. But then that means declaring another memblock flag. 
-> 
-> > 
-> > For anything that doesn't require a single contiguous area to be
-> > protected this might be a bit more challenging since it potentially
-> > wastes a lot of memory. On the other hand, a lot of this is heavily
-> > custom code anyway, so the entire stack could be modified to make
-> > efficient use of this (i.e. userspace could allocate a larger chunk
-> > for a pool of buffers, etc.).
-> > 
-> > > But yeah, the alternative is to create a "memblock_mark_forcepte" (it seems
-> > > memblock_setclr_flag does split memblocks) and let of_reserved_mem call that
-> > > function. Finally the arm64 mmu code can simply check for the flag before
-> > > calling __map_memblock. Perhaps it isn't that bad in the end?
-> > 
-> > It sounds like the right level of abstraction to me. But I'm not too
-> > familiar with this code, so it'd be good to hear from the MM and/or ARM
-> > maintainers what they think about this.
-> > 
-> > [...]
-> > > I had in mind to extend "shared-dma-pool" to handle
-> > > set_direct_map_invalid_noflush()/set_direct_map_default_noflush() based on an
-> > > option. But perhaps it is better to create another separate driver. And VPR
-> > > needing a specific dma-heap driver anyway, it could call the direct-map
-> > > functions there too without relying on CMA to do anything?
-> > 
-> > I think it'd be nice to have separate APIs for this case where we know
-> > the memory region is already page-granular (or, I suppose, PMD granular)
-> > and removing from (or adding back to) the linear mapping is safe. That
-> > way we could avoid the checks for can_set_direct_map() for each page.
-> > 
-> > It'd also be nice to have a version that can update the protection bits
-> > for a range of pages (would map directly to update_range_prot()) instead
-> > of having to manually iterate over each page in a range.
-> >
-> 
-> How about?
-> 
->   /* True if can_set_direct_map() or [start, end) is mapped at PTE-level */
->   can_set_direct_map_range(phys_addr_t start, phys_addr_t end); 
-> 
->   /* Must check can_set_direct_map() or can_set_direct_map_range() first */
->   __set_direct_map_invalid_noflush(phys_addr_t start, phys_addr_t end)
->   __set_direct_map_default_noflush(phys_addr_t start, phys_addr_t end)
-> 
-> > A good middle-ground might be to have helpers that do the grunt work and
-> > they can then be called from VPR and the shared-dma-pool drivers to have
-> > pages removed from the linear mapping. VPR and similar can then perform
-> > the hardware protection bits on top of that.
-> 
-> I believe between the reserved-memory attribute to force the last-level mappings
-> and the direct map functions above, there's enough for the VPR driver?
-> 
-> -- 
-> Vincent
-> 
-> > 
-> > Thierry
+From: Vincent Jardin <vjardin@free.fr>
 
-I have pushed a first version here [1]. I am waiting for the merge window to end
-before posting anything on the list, but let me know if you have any comment.
+The iic5-spi3-pins node has both of its first two cells wrong.
 
-[1] https://android-kvm.googlesource.com/linux/+/refs/heads/vdonnefort/ffa-lend-pool
+The offset selects the register within the node's reg range, where:
+  0x0 is RCWSR12,
+  0x4 is RCWSR13,
+  0x8 is RCWSR14.
+
+An offset of 0x3 is not one of them and is not even aligned for the
+declared 32 bit register width. It is the only node in this pinmux that
+does not use 0x0, 0x4 neither 0x8.
+
+The value is wrong too:
+  IIC5_PMUX is RCWSR12[11:9] and it encodes 0b000 for IIC5,
+  0b001 for GPIO_1[25:24],
+  0b010 for SDHC1_CLK_SYNC_OUT/IN,
+  0b011 for {IIC5_SCL,IIC5_SDA} = {SPI3_SOUT,SPI3_SIN}.
+
+This node selects the last of those, so it needs 0x3, not the 0x2, which
+is the value of the neighbouring sdhc1 clock sync node it was copied
+from.
+
+Fixes: 284ad7064aaa ("arm64: dts: lx2160a: complete pinmux for rcwsr12 configuration word")
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
+---
+ arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi b/arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi
+index fae705dd07669..bf5d9b671d858 100644
+--- a/arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi
++++ b/arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi
+@@ -1602,7 +1602,7 @@ esdhc0_clksync_pins: iic5-sdhc-clk-pins {
+ 			};
+ 
+ 			dspi2_miso_mosi_pins: iic5-spi3-pins {
+-				pinctrl-single,bits = <0x3 (0x2 << 9) (0x7 << 9)>;
++				pinctrl-single,bits = <0x0 (0x3 << 9) (0x7 << 9)>;
+ 			};
+ 
+ 			i2c5_pins: iic6-i2c-pins {
 
 -- 
-Vincent
+2.43.0
+
+
