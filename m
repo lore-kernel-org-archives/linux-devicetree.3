@@ -1,64 +1,64 @@
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A4C4400DF6
-	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 15:03:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 987A242CB00
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 15:03:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787583810; cv=none; b=aHyunB4NLh+6e/+AQFgMagCvjbBZHzIx7YI9N053jmnsWpY9IQrMyXHXhz95EMhPnOupSwW3+rV8VMzu9ZaduwvOyvyf0aX4TtSJb47sP/MW25jj0L30WT7JuST3H+FoOC1+AN+isaKslDOvKsC3Vr4cjp6a6dS8bNs1tKQc0/w=
+	t=1787583820; cv=none; b=m2u9k5i+RNBoLkZ9Jbm66S2qZADlIIysl0nrrjy1376NG1yuG02IQ1+rJrZcYqkFrxvTWeAoGGteOrSexLQY+1LKiGEM3fs+gn94kqu8gzGyypkVu4v2E+H95j/coqINhCgfmsXQrOAoiVyaHHKUqpE5qMBelx4600jV9oJb9qo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787583810; c=relaxed/simple;
-	bh=TdJ1z9fnJv9Cwe2UxdX0lSqEP6tGIURNZuGinVjnLHw=;
+	s=arc-20240116; t=1787583820; c=relaxed/simple;
+	bh=jKh+XPUoJmr7fIpNbx8/2EaPd/67MsZW4ebNDZ/8MPE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IsPLeim2dYiO9F1O+ljuADwxdWh2ptibINr04szu2QND89hgMNBJQdIFB0p1Zkev7pCPjnH8n21HPXcxroe5g7w/aUuvdrztAGQHE3RaqUwrjNmS5d+6y/sjDRidkzexlX9wKec7itVhJV7pQJY7FkxNmnxUgEnqORA9SxSJu48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ABP83f9g; arc=none smtp.client-ip=209.85.210.43
+	 MIME-Version; b=tBWgy39szuVBKRtnmmMn7rnVxQCkFmQ3U4zdt4lQEqRYUFasGL8m0B23BYd3ePZwamYVDKVKJNXOuzZYspQN+zgcvgU2uDCKUXDmrPmELWSE80xiJjo5q6fC3x9PzPWCtnw3XXvSeFOVIEKWQT8mp8/Ru91cCYJ+zsL/FpNl9kw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AllZ3pxt; arc=none smtp.client-ip=209.85.210.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ABP83f9g"
-Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-7e9f69ee6f4so4563826a34.2
-        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 08:03:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AllZ3pxt"
+Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7eb6573bd52so3606316a34.3
+        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 08:03:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787583807; x=1788188607; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787583817; x=1788188617; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/T4NeVLI2Q/E0biNa8b/pafq7wYXWTnIin5DSqXZ6bs=;
-        b=ABP83f9gL/fb/JtarmdO76pXmUpwzaW1UcotOQUWydJ06+WS8RcIy615OqDjYW5S6E
-         CHZifXaCfmzAvi/zEbw8w7i+DK55nr0kaD8805zROuqyPb3Bnfk6432CQWRsOEzcw543
-         2zF4FGNd9WlO/06vOJDlIOBvgRBlh7zowqAC1b1r2x8YZZ3wWzoq7R+4SyGXoUhx/NxV
-         tlo44+99QMJ2t83vG+tVIpAYozmqXXfif9/OF2OAJDwMXvsEXcUtj19eycoLtoWx9wsM
-         IBYj3mWba81KruDIUKkxfvYnqMIXaYIrPUCUPfLgDDL6+R6GCdu630lBl5059OfVeVcS
-         4c8A==
+        bh=QQnqfdvjWzHpIFqKpmfnZN4AvVDc8IQ+C2JI25EK8GQ=;
+        b=AllZ3pxtD6h27T4HEHXep8mB2/RMKUx6IV559NoJnnklENcXMvKQuvoSjumQG8sPC4
+         brIDIlibXMiuCnKDGjWJdbrHSO9Tak3xyCP2I9VHPLHvQuOtOKnoiaTHTFtBVZ+YzJ/z
+         ibpilitEFi49VmhtQBke7sCROB2xBwmGgEe0DjDABHWfWZudgwdwF90OdAcOtmvOo/bL
+         XJZp+5MbXegAhpUAirb3cHylk9Aa1fIKrz/jdd0mwUFnvsz4NWKc5MmaU3ixhn8bmkp4
+         eXJ0qguZpWDs6AFzbspfXzEUbY0iyP6h9XJigpK4W7P73tWcEFOg8oEkQQWB66M9mG8m
+         V5Sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787583807; x=1788188607;
+        d=1e100.net; s=20251104; t=1787583817; x=1788188617;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/T4NeVLI2Q/E0biNa8b/pafq7wYXWTnIin5DSqXZ6bs=;
-        b=ieWF7CS4cw2fhbccVZmFBJe3BvEv6WpXxE/Q+LDMlokkL368ohWq3ZSJmJxF3vfbC5
-         v3t3WfIAc0c0485nAHQuibuWl9bP4D4PfluHKILMWCTN2JBypYQ0VkujhkjsIuGUtpFp
-         4L+nKa/J5BJyHTveDWrC5MbfvU7ay7/UVmlncGCWo2nmBUculFnrCmtR7Ij8dJ5o+2LQ
-         0KR7TZq2rykgaLJBH6zVHlfxTsR7W66r0xlc12Df9XQVbnnJ+nh9O20bQB9zAaXYknFQ
-         gTW8coeeT4iK4myIToGAf6qa0dxUM/yGGOLEL5/xKR72BXBk/Qa8JH+9+B6+cbbim1PS
-         9/lQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqqUwhvDcYNyEN2emaTZWbYCfIrWcBIJRLSklCVyhHXmT1fQ66oOGy2VDE9hXeNUOsURp+SL+P9bKEZ@vger.kernel.org
-X-Gm-Message-State: AFuF++k4vRQhKc0KW27E3IVhEAJv7fyc00r6b1OsCCRYZ7Lgb1BEqoEY
-	84ZKzWd3y4ZS+uv3HzHquG1UIh7WQq/6GdhC0spRZyMWvbY1VxzNLnEq
-X-Gm-Gg: AR+sD13cqk6uqvDjFdRTo4AB7RsnfdV6/dC4zMDjJaR6re5uUV9612DvFLkHuy83elI
-	5NID4+y8/3KvDgT17J0iRScysVZJOvSM0tVYZddQWEhBCX14MWWxX1ABmpe8aWDGmovWsmGIg77
-	tw1pGSaEgRM+VFXkDC+6UcUNrrG/0oS1ozNDmQBOmFlBYDM7J94a/cjk6xtH5CKUC0gBK6OQ7Pg
-	YBqQhjGOCuRc1vZjlouA1yEFnCoNqJiuy8wE+ojVq3m0U8DF120vkYlv+wlju/Tv/pRw385WArH
-	zRQzgn1VFOKbXmPwBL1owDBVaRr6Iv1eCMjdXYzAiHhCG8x/y5D8BzPVDllRSgMlyzr2pS1DdaV
-	E3vObTfPjfxxeE4h3aMqJmRzYdDnrJAlqDDAyefz4VtX/1m1Tr2jz5H/qSGFhqtCvxN0LGwi3Vx
-	s71rWLLmmDkK70xj/ariZLl7GcqYtUAUOiAXGG1EBV1hIxPrXr6L17f6R7wDPutq8a2LjFlTuyK
-	no91xqN8jfu
-X-Received: by 2002:a05:6820:4c82:b0:6b1:3496:9ab with SMTP id 006d021491bc7-6b1591a0a16mr27505315eaf.2.1787583807237;
-        Mon, 24 Aug 2026 08:03:27 -0700 (PDT)
+        bh=QQnqfdvjWzHpIFqKpmfnZN4AvVDc8IQ+C2JI25EK8GQ=;
+        b=noG0qelUHCGTVRfpLDTCEoQwsheAs3MZRmW5bJfi5ywS7tMyIHyX95GjNMCDMlwTDV
+         U8ONiFs7ZGbjlrJrdT1AN8X0ucYwqq99/SIBeRQpDsEV8EgN1alKPKJczj5/nOwbmYfF
+         x/Emw9c5dzpVXR5z/0Hqyi6TEDCmmxemiFdRDLq4bmghILK/hJB0G7DoswSDUVRooKSQ
+         cAZ9bZ2f4ReV60OKFgZjck8foPqJ6u0VTKFHqu8i7mKyd45JK8ShgF+2SUWdRutBAve7
+         oamde2yJ5mMFNbT0GKP/t3yFcaIlfG5UQ3PkHA2YrvCOfKgNnlYF1P4b75jEMtFIYBOF
+         xmgw==
+X-Forwarded-Encrypted: i=1; AHgh+RrWbKVODqo535qgUYleLeixOpZEmyjUjjxT/V6tCGfSgxqyyUSiE6SVguAY46P4o9ssFZLSvjjnvOlw@vger.kernel.org
+X-Gm-Message-State: AFuF++lvI5YEjF+VmApo4UzfGiF0BYWkeZArk8xGehFh1sg/BbghXFhZ
+	oCj3uVK0pPSNcAcDZDYyz8OsrvYTU1eDYOerNSv94naWl/IiDEbQhMIo
+X-Gm-Gg: AR+sD11151UJGCFT2UsaG7C0zJjxBbwkX9EkpzGMUVr+dMIzR6erLfwc6pP/Y+9cHN3
+	xoEVpSXgsAhD9H7RjFWmRizhNDsW6T7ZJYEhF1TLAe2NHmg62UKhc9xBOD8QXY4njyrPRCVw2cv
+	OHThFTuwT4QGeYshQ0jJf2bZZ9sVgtQzCNnCCkD6OvhhHhQrrSSgaDAPAy6lvLxUm7Nhl2akFO1
+	u24Vrw36D+1oim+27EBDmWy95OLORPFKE5Mgc1L31uv5twZbPcq9SJNIPOiG5HYD4HD3y7p56Yt
+	aYQAGLGfYf4DfXx1x9yr/iBlJg4ujNIl7hU5KCncYO2khkBkmmei26k+pQW4776GcTF0hVTVdFd
+	9fADULAWjGUGMTXq6wilq6ev1gEWT39g0jvtt5Vz+wSrYutNYJdAuR97jBtbOgsYahcbu15/Usb
+	U0Pn3p31OjKtriCtkoh8G1AnzlKKhIVXXu0DHt1qRM4KtFRmQi9csHQvFikq2WeAyuEyr9MLbsa
+	XGxfkuTTbz/
+X-Received: by 2002:a4a:ec4b:0:b0:69d:e4c8:86f6 with SMTP id 006d021491bc7-6b1592b8c96mr26911121eaf.15.1787583817353;
+        Mon, 24 Aug 2026 08:03:37 -0700 (PDT)
 Received: from localhost.localdomain ([152.59.223.115])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327f91d381csm30035247eec.19.2026.08.24.08.03.16
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327f91d381csm30035247eec.19.2026.08.24.08.03.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 24 Aug 2026 08:03:26 -0700 (PDT)
+        Mon, 24 Aug 2026 08:03:36 -0700 (PDT)
 From: Sreeshankar K <sreeshankar0910@gmail.com>
 To: robh@kernel.org,
 	krzk+dt@kernel.org,
@@ -86,12 +86,10 @@ Cc: bmasney@redhat.com,
 	linux-arm-msm@vger.kernel.org,
 	linux-clk@vger.kernel.org,
 	linux-pm@vger.kernel.org,
-	Sreeshankar K <sreeshankar0910@gmail.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: [PATCH v6 06/13] clk: qcom: rpmh: Add SM7250 rpmh clocks
-Date: Mon, 24 Aug 2026 15:01:49 +0000
-Message-ID: <20260824150156.1310-7-sreeshankar0910@gmail.com>
+	Sreeshankar K <sreeshankar0910@gmail.com>
+Subject: [PATCH v6 07/13] dt-bindings: power: qcom,rpmhpd: Document RPMh power domain for SM7250
+Date: Mon, 24 Aug 2026 15:01:50 +0000
+Message-ID: <20260824150156.1310-8-sreeshankar0910@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260824150156.1310-1-sreeshankar0910@gmail.com>
 References: <20260824150156.1310-1-sreeshankar0910@gmail.com>
@@ -103,58 +101,25 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the RPMH clocks present in SM7250 SoC.
+Document the RPMh power domain for SM7250 SoC.
 
 Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 ---
- drivers/clk/qcom/clk-rpmh.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ Documentation/devicetree/bindings/power/qcom,rpmpd.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/clk/qcom/clk-rpmh.c b/drivers/clk/qcom/clk-rpmh.c
-index 6367b2a5a..f4cafa274 100644
---- a/drivers/clk/qcom/clk-rpmh.c
-+++ b/drivers/clk/qcom/clk-rpmh.c
-@@ -1011,6 +1011,29 @@ static const struct clk_rpmh_desc clk_rpmh_hawi = {
- 	.num_clks = ARRAY_SIZE(hawi_rpmh_clocks),
- };
- 
-+static struct clk_hw *sm7250_rpmh_clocks[] = {
-+	[RPMH_CXO_CLK]		= &clk_rpmh_bi_tcxo_div2.hw,
-+	[RPMH_CXO_CLK_A]	= &clk_rpmh_bi_tcxo_div2_ao.hw,
-+	[RPMH_LN_BB_CLK2]	= &clk_rpmh_ln_bb_clk2_a2.hw,
-+	[RPMH_LN_BB_CLK2_A]	= &clk_rpmh_ln_bb_clk2_a2_ao.hw,
-+	[RPMH_LN_BB_CLK3]	= &clk_rpmh_ln_bb_clk3_a2.hw,
-+	[RPMH_LN_BB_CLK3_A]	= &clk_rpmh_ln_bb_clk3_a2_ao.hw,
-+	[RPMH_RF_CLK1]		= &clk_rpmh_rf_clk1_d.hw,
-+	[RPMH_RF_CLK1_A]	= &clk_rpmh_rf_clk1_d_ao.hw,
-+	[RPMH_RF_CLK2]		= &clk_rpmh_rf_clk2_d.hw,
-+	[RPMH_RF_CLK2_A]	= &clk_rpmh_rf_clk2_d_ao.hw,
-+	[RPMH_RF_CLK3]		= &clk_rpmh_rf_clk3_d.hw,
-+	[RPMH_RF_CLK3_A]	= &clk_rpmh_rf_clk3_d_ao.hw,
-+	[RPMH_RF_CLK4]		= &clk_rpmh_rf_clk4_d.hw,
-+	[RPMH_RF_CLK4_A]	= &clk_rpmh_rf_clk4_d_ao.hw,
-+	[RPMH_IPA_CLK]		= &clk_rpmh_ipa.hw,
-+};
-+
-+static const struct clk_rpmh_desc clk_rpmh_sm7250 = {
-+	.clks = sm7250_rpmh_clocks,
-+	.num_clks = ARRAY_SIZE(sm7250_rpmh_clocks),
-+};
-+
- static struct clk_hw *of_clk_rpmh_hw_get(struct of_phandle_args *clkspec,
- 					 void *data)
- {
-@@ -1120,6 +1143,7 @@ static const struct of_device_id clk_rpmh_match_table[] = {
- 	{ .compatible = "qcom,sdx75-rpmh-clk",  .data = &clk_rpmh_sdx75},
- 	{ .compatible = "qcom,sm4450-rpmh-clk", .data = &clk_rpmh_sm4450},
- 	{ .compatible = "qcom,sm6350-rpmh-clk", .data = &clk_rpmh_sm6350},
-+	{ .compatible = "qcom,sm7250-rpmh-clk", .data = &clk_rpmh_sm7250},
- 	{ .compatible = "qcom,sm8150-rpmh-clk", .data = &clk_rpmh_sm8150},
- 	{ .compatible = "qcom,sm8250-rpmh-clk", .data = &clk_rpmh_sm8250},
- 	{ .compatible = "qcom,sm8350-rpmh-clk", .data = &clk_rpmh_sm8350},
+diff --git a/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml b/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
+index 0a45e1f55..e08441915 100644
+--- a/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
++++ b/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
+@@ -63,6 +63,7 @@ properties:
+           - qcom,sm6350-rpmhpd
+           - qcom,sm6375-rpmpd
+           - qcom,sm7150-rpmhpd
++          - qcom,sm7250-rpmhpd
+           - qcom,sm8150-rpmhpd
+           - qcom,sm8250-rpmhpd
+           - qcom,sm8350-rpmhpd
 -- 
 2.43.0
 
