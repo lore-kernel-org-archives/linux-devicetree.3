@@ -1,129 +1,69 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp2-g21.free.fr (smtp2-g21.free.fr [212.27.42.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E6DA41D640;
-	Mon, 24 Aug 2026 13:12:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 027833264F9;
+	Mon, 24 Aug 2026 13:15:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787577138; cv=none; b=LJEHpO3IV4e/5ZHTavxy/VpwiZtzT9VR9LHP1vgbCIQV41+BidwCEYdU5OlzGRYHr2CFsmZebpk4vlgTjrkyONma8oxzMMRo4qn971V6ek+KPueQ20BiTMJrzaT/gjobcJax3wQ9Fhqfie3jDR3G+hK1KLZc34UCsyW6J7Lw2/4=
+	t=1787577339; cv=none; b=LUFLjjLtQswW8MaxRIoUDGncIQnKeIHSogM9OblIsfoz+92seuilN8ypWZQOS/XlyBHa2XJaI9VsQ18KfCpgvWITTG4snkyV6fRRHQFqobxcjsP5h308k1tZkXluXSfycKa3dLfg422P6cFrIGRShpYoCi+0LFZbp9UshK52yLM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787577138; c=relaxed/simple;
-	bh=aLPrKh54Wlnah4cvi9tYM9DMTZkazBiSOSAV5SDrO3o=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hGaFGHrpAsLNvL0kTqT3zetCJnppg+BSCtsynj0rLnNJhg9wDMdLv9zWvGViurxGJx86illaYoeFpUgyiT6Tk4VSsALv7ouaTMnNWk/qBahSoyak5oKXd5hJPC/JLDKhJf4TsMwgdBczpObUtHbcIhhtDfxwoXHrHtmPXDHbBJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PK6Y7xs9; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1787577339; c=relaxed/simple;
+	bh=xu6YOcOWUBosY162fqI8wR2m/f4r2kHKyQ4LgFRs438=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fWJAzthJWi6oLsC/af2b9Kx25chVRoDVP7AewUouvBbR3fVRSVp8hUrAky7q6noCAOLVJaxdoRB0TZ9FtbcbRtLiRz/JN9zswi+Ij44787tVkVnYq85kdoX6tgJCCMc6BHcgOfZiYVeRC9vQ5gS0mR5rXwdRaSuw7RL2KKjgU74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=tE4EsFIy; arc=none smtp.client-ip=212.27.42.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PK6Y7xs9"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E396EC2BCF7;
-	Mon, 24 Aug 2026 13:12:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1787577138;
-	bh=aLPrKh54Wlnah4cvi9tYM9DMTZkazBiSOSAV5SDrO3o=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=PK6Y7xs9PAWTTHFZ1ropQWLu+ifwdHwiU8nUk9O7jgFGZ5gh2itx0GmqxS4sn2HSf
-	 RmRJ2To34w5eLv6bNhqMp8ghlmVVg5WperuKYsYR6w5sp7OdHHH+UmYZADH7KsDfOz
-	 KFUylocHTGGtwQNs2fYoymsDok3nYqbfGu5jS+kUxSKPfRy/g0REOJ3GtQs8gtY+31
-	 d4JNDm6M9K9PP1LwPqy2f3IYxr10PEK277lvGD+w4jWEZzpxgEftqsx6yz0UmZPwLJ
-	 ClJgG6dMPS9oATHvz/JrFP4egZgvNqq0x9AuRin27K/qIghGipn4KA9nw5LtC3kfri
-	 iIykgDN7Usbew==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BE254C5DF81;
-	Mon, 24 Aug 2026 13:12:17 +0000 (UTC)
-From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Date: Mon, 24 Aug 2026 15:12:02 +0200
-Subject: [PATCH v2 2/3] arm64: dts: lx2160a: fix IIC1 pinmux submask
- rejected by pinctrl-single
+	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="tE4EsFIy"
+Received: from L30177.local (unknown [46.193.67.97])
+	(Authenticated sender: vjardin@free.fr)
+	by smtp2-g21.free.fr (Postfix) with ESMTPSA id 1AADF2003C3;
+	Mon, 24 Aug 2026 15:15:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1787577333;
+	bh=xu6YOcOWUBosY162fqI8wR2m/f4r2kHKyQ4LgFRs438=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tE4EsFIyKBG0hbwT2YlOyTcRsEht1e52R4KqWyfTanay+mfqAwtAkoG1w1cFurfZt
+	 SkfaeudBWXGjB+X7+h+60FuCj/T8LrPiPMLS4KAwanudCZE7zsTm+F5LHD4LUZmRXF
+	 8+ILdE3Xgf8lis1SoejHi23/R3aXAwFve2c8WXX0IEknqv3X1GKhTxZQbRHX8j8qaj
+	 z8ZQ4QVPmV815FF5Cgi0JRxLH7rJoI3nuWvsDD0vlcWQwQgckip9KTQuv826hjRINh
+	 u0fFBGgouNOHIuLfOlMnTuJpTfhtiYbEx3Rly44yQKf0kAf63ZCY3TwUsjM5gH7wDS
+	 yTu6KM+L5RDdQ==
+Date: Mon, 24 Aug 2026 15:15:18 +0200
+From: Vincent Jardin <vjardin@free.fr>
+To: Josua Mayer <josua@solid-run.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"imx@lists.linux.dev" <imx@lists.linux.dev>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] arm64: dts: lx2160a: fix incorrect pinmux
+Message-ID: <aoxD5mwdBCU5Gnfg@L30177.local>
+References: <20260824-for-upstream-lx2160a-pinmux-fix-v1-1-33a3c8d5ea8a@free.fr>
+ <3d4fe161-895e-4820-a99d-8cd5fd6d9ad2@solid-run.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260824-for-upstream-lx2160a-pinmux-fix-v2-2-0a525d5f4cd5@free.fr>
-References: <20260824-for-upstream-lx2160a-pinmux-fix-v2-0-0a525d5f4cd5@free.fr>
-In-Reply-To: <20260824-for-upstream-lx2160a-pinmux-fix-v2-0-0a525d5f4cd5@free.fr>
-To: Frank Li <Frank.Li@nxp.com>, Carlos Song <carlos.song@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Josua Mayer <josua@solid-run.com>
-Cc: imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Thibaut Collet <thbt.cllt@gmail.com>, Vincent Jardin <vjardin@free.fr>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787577136; l=2029;
- i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=O+VGpUg5BMz3UlWXVE3y0mK/EDo+jBPNvLqqP9N2rrU=;
- b=9Ed/17SijE21QKnYqCS+wmMMquGU+wut4XYtYPBK2z9I734J/iXdafdkfxzBHcSF8wg6ghV31
- 0FGmBmeWpd4ApF2eECQlKiDvxZBfzEnxrOpJ2ESHJspGQoNp27Xlyro
-X-Developer-Key: i=vjardin@free.fr; a=ed25519;
- pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
-X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
- auth_id=871
-X-Original-From: Vincent Jardin <vjardin@free.fr>
-Reply-To: vjardin@free.fr
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3d4fe161-895e-4820-a99d-8cd5fd6d9ad2@solid-run.com>
 
-From: Vincent Jardin <vjardin@free.fr>
+Hi Josua,
 
-IIC1_PMUX is a single bit field at RCWSR14 bit 10, so the mask for the
-two iic1 pinmux nodes was narrowed from 0x7 to 0x1 to avoid writing the
-two reserved bits next to it.
+> Reviewed-by: Josua Mayer <josua@solid-run.com>
 
-With pinctrl-single,bit-per-mux the driver does not take the supplied
-mask as the bits to modify. It derives the field from the node's
-pinctrl-single,function-mask, which is 0x7 here, and then requires the
-supplied mask to match it exactly:
+Sorry, I did miss your review while doing a v2 based on the Bot's comments.
+Please, can you resubmit your reviewed by on this serie:
+  https://lore.kernel.org/all/20260824-for-upstream-lx2160a-pinmux-fix-v2-0-0a525d5f4cd5@free.fr/
+?
 
-	bit_pos = __ffs(mask);			/* 10 */
-	mask_pos = ((pcs->fmask) << bit_pos);	/* 0x7 << 10 = 0x1c00 */
-	submask = mask & mask_pos;		/* 0x400 */
-	...
-	if (submask != mask_pos) {
-		dev_warn(pcs->dev,
-			 "Invalid submask 0x%x for %pOFn at 0x%x\n",
-			 submask, np, offset);
-		continue;
-	}
-
-A one bit mask gives submask 0x400 against mask_pos 0x1c00, so both
-nodes are rejected and the pins are never muxed with this message:
-
-  pinctrl-single 70010012c.pinmux: Invalid submask 0x400 for iic1-i2c-pins
-  pinctrl-single 70010012c.pinmux: Invalid submask 0x400 for iic1-gpio-pins
-
-The values are not changed:
-  - 0x0 selects IIC1
-  - 0x1 << 10 selects GPIO_1[3:2].
-
-Fixes: 7a3cc49ad1fc ("arm64: dts: lx2160a: change i2c0 (iic1) pinmux mask to one bit")
-Signed-off-by: Vincent Jardin <vjardin@free.fr>
----
- arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi b/arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi
-index d4522a19405a9..fae705dd07669 100644
---- a/arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi
-+++ b/arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi
-@@ -1688,11 +1688,11 @@ i2c6_i2c7_pins: iic8-iic7-i2c-pins {
- 
- 			/* RCWSR14 */
- 			i2c0_pins: iic1-i2c-pins {
--				pinctrl-single,bits = <0x8 0x0 (0x1 << 10)>;
-+				pinctrl-single,bits = <0x8 0x0 (0x7 << 10)>;
- 			};
- 
- 			gpio0_3_2_pins: iic1-gpio-pins {
--				pinctrl-single,bits = <0x8 (0x1 << 10) (0x1 << 10)>;
-+				pinctrl-single,bits = <0x8 (0x1 << 10) (0x7 << 10)>;
- 			};
- 		};
- 
-
--- 
-2.43.0
-
-
+thank you,
+  Vincent
