@@ -1,125 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A200364E85;
-	Mon, 24 Aug 2026 02:40:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D71626AF4;
+	Mon, 24 Aug 2026 02:42:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787539247; cv=none; b=RoWnHX1oDud2u5m5LCiHqb2VemH/1DuFMrRr5QOAIFuShuq20ZYaDg0HmIcjI5iRp6NyMGl8dELGkC+zULAjKfaxnw5dEnxOLelSr/b9pU3nn8v4vsLNNTHM3xF3gzHXYCpG3EAMn4vyfM20/9NFruDTyS3A6j+CSo2YyYaP1Zc=
+	t=1787539362; cv=none; b=EzDnANvpHKElGv4oi7kh294SNYMoCicZg1XaYq0UQbdvpMo3MH3WOnvfOLn7fGnSe51190tRQVvpmbAnoDHJ5YhV/am2IvQsoFtOVQM35dcxlQnmVwGTg23maHJE59iQ502qodm3sIlUM8io0rJ5OhoO8bNHm0UdpLV3eoF0r9c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787539247; c=relaxed/simple;
-	bh=8DVdctD/JijThTDKI/V0KGbx+Gyyij0SORExsEaHFQ4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EBEXDxAQGGugNVKGzLbpXa1Tpjbl6q2MZHvdvklPHUTVSa0hKSwgmTSlUi2eYMOZLF5tPvFUwsBUoQ9v9prMyNC5DicK/xJGQ6yXLcRTwbdjOaoznXT4QEsDrxqqj6AiO7OSGL0QrL8t6SoZh1N3NThcCOk4AmEQNFG0dZPvpdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oZlZnsSB; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oZlZnsSB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A2391F000E9;
-	Mon, 24 Aug 2026 02:40:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787539241;
-	bh=58jSCeKOvgy3apVPWjB9cjUC7+iANy6CCzBTI8YnblM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oZlZnsSBSiOU9kMkZRCXjh5nOQNh/g8kzozFiusbVQj+RNuCxbZLlibq9rdnFV+J0
-	 mttA6oFcfiRS3g4EK/fFo+UZHt3+0OPyZufIarMnj+zXqXwJpGUu1dYzvtQyrMapOQ
-	 zDgzbSrwq7tdH4RoZFD0+LsLfMaX8S11uISKrM56gOBi+kmAMg0DHfAAl1y5g12p0I
-	 9LvVtx5dOhdLTyINMoQCn9zpWX34zspftgD9IE24rcmEErfCJvHIWd0yIn6TqZzqG4
-	 53efPl2KUfMVdAHsR7Bx0rQ999GVymyqPYv4HJ0FrVV44F03bp6wCGxAQFONBV/UyM
-	 5C92Km38SMZSA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 15/17] arm64: dts: imx952-evk: Add board muxes to
- select between CAN1/PDM
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chancel Liu" <chancel.liu@oss.nxp.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org
-In-Reply-To: <20260824022020.2812810-16-chancel.liu@oss.nxp.com>
-References: <20260824022020.2812810-1-chancel.liu@oss.nxp.com>
- <20260824022020.2812810-16-chancel.liu@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 24 Aug 2026 02:40:40 +0000
-Message-Id: <20260824024041.1A2391F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1787539362; c=relaxed/simple;
+	bh=V9vHnE3kH0gZ8K3oW6/dvUq+35N/saT/ANArt5Lrs9A=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=XMCYK2S04K4pscMfCxbZog81kaIbu88ZAlouX2TGBrlIPSxpbFBr6K0i7pvCJSbTNEtWkZjX/lCPv3RNqE3DvLF6HNh5LwmvYqi61rXPgIptPECG8+jk9A1d+BKuqecI8wCMeBZZcQaDAYFW25BTkkDTBJoh/gzTXMPO2CGK4kk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Mon, 24 Aug
+ 2026 10:42:29 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Mon, 24 Aug 2026 10:42:29 +0800
+From: Ryan Chen <ryan_chen@aspeedtech.com>
+Subject: [PATCH v2 0/8] Add Aspeed AST2700 SDRAM EDAC support
+Date: Mon, 24 Aug 2026 10:42:27 +0800
+Message-ID: <20260824-edac-v2-0-c8d8bb693586@aspeedtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJOvi2oC/yXMQQ6DIBSE4auYty4NvqYgXXmPxgWBsbKoGjCkj
+ eHupbr8J5Nvp4QYkOjR7BSRQwrLXIMvDbnJzi+I4GsTS1ZS8V3AWyc6GCUhGXrUVK9rxBg+B/M
+ cak8hbUv8Hmpu/+sJdC2fQG6FFPJmDMPDstG9TSvgN7jp6pY3DaWUH420yfCdAAAA
+X-Change-ID: 20260625-edac-8e960e02e7f7
+To: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>
+CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
+	<linux-edac@vger.kernel.org>, Ryan Chen <ryan_chen@aspeedtech.com>,
+	"Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>,
+	<stable@vger.kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787539349; l=2978;
+ i=ryan_chen@aspeedtech.com; s=20251126; h=from:subject:message-id;
+ bh=V9vHnE3kH0gZ8K3oW6/dvUq+35N/saT/ANArt5Lrs9A=;
+ b=XXSvVnRUICHxI9DnJdoEdFOU8J2txiDs0wz1CkmDp2Xnhr8sCeqGajvULSJ0Riky30K3iF1sg
+ 3wZ1AR+N5Z/DdaY+lcmZxDf5h0utro6XciKLWKsGBdDRk1TKA7TiKlO
+X-Developer-Key: i=ryan_chen@aspeedtech.com; a=ed25519;
+ pk=Xe73xY6tcnkuRjjbVAB/oU30KdB3FvG4nuJuILj7ZVc=
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Add ECC error reporting for the Aspeed AST2700 SoC to the existing
+aspeed_edac driver.
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but repeated probe d=
-eferrals of devices consuming `pinctrl-multiplexer` states will cause a mem=
-ory leak in the `pinctrl-generic-mux` driver.
---
+The AST2700 memory controller keeps the same overall EDAC programming
+model as the earlier Aspeed BMC SoCs, but uses a different register
+layout, a split interrupt status/clear/mask scheme and DDR4/DDR5 memory.
+Rather than fork the driver, the existing code is first tidied and
+generalised, then the AST2700 is added as one more per-SoC variant.
 
---- Patch [15]: [PATCH v3 15/17] arm64: dts: imx952-evk: Add board muxes to=
- select between CAN1/PDM ---
-commit 8303ed37e9ec3be6828aa6ff3d2b548e65c73826
-Author: Chancel Liu <chancel.liu@nxp.com>
+Patches 2-5 are bug fixes and cleanups to the existing driver. Patches 6
+and 7 rework the implementation to accommodate the AST2700. Patch 8 adds
+the AST2700 support itself.
 
-arm64: dts: imx952-evk: Add board muxes to select between CAN1/PDM
+Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
+---
+Changes in v2:
+- New patch: free the ECC interrupt before the mem_ctl_info in
+  aspeed_remove(). The interrupt is requested with devm_request_irq() and
+  is only released after .remove() has returned, so edac_mc_free() could
+  free the handler's context while the handler was still running on
+  another CPU.
+- Acquire the register lock with the irqsave variant in init_csrows() and
+  in aspeed_probe(). The interrupt handler takes the same lock in hardirq
+  context, so taking it with interrupts enabled would have tripped lockdep
+  on the first reported error.
+- Move the dev_dbg() of the interrupt status register out of the
+  raw_spinlock critical section in the interrupt handler.
+- Opt aspeed_edac.o into context analysis in drivers/edac/Makefile. The
+  check is opt-in per object, so without it the __guarded_by() annotation
+  added by the same patch was never actually verified.
+- Return IRQ_NONE from ast2700_dramc_isr() when no ECC interrupt status
+  bit is set; the handler clears only the ECC bits, so unconditionally
+  claiming the interrupt could livelock the level-triggered line.
+- Tested v2 on both AST2600 and AST2700 by injecting a correctable
+  error with the memory controller's ECC error injection; each is
+  reported as a CE with the expected failure address.
+- Link to v1: https://lore.kernel.org/r/20260812-edac-v1-0-03992edea297@aspeedtech.com
 
-This commit replaces static gpio-hog settings with GPIO-controlled board
-muxes. It uses the pinctrl-multiplexer framework so that conflicting
-functions between CAN1 and PDM can be selected at runtime.
+---
+Ryan Chen (8):
+      dt-bindings: edac: aspeed: Add AST2700 SDRAM EDAC
+      EDAC/aspeed: Set the DIMM grain
+      EDAC/aspeed: Free the interrupt before the mem_ctl_info on remove
+      EDAC/aspeed: Clean up whitespace and include ordering
+      EDAC/aspeed: Free the mem_ctl_info unconditionally on remove
+      EDAC/aspeed: Replace regmap with direct register access
+      EDAC/aspeed: Abstract SoC differences behind chip data
+      EDAC/aspeed: Add AST2700 support
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx952-evk.dts b/arch/arm64/bo=
-ot/dts/freescale/imx952-evk.dts
-> index 2224b90aafe93..e9d735dc2a51b 100644
-> --- a/arch/arm64/boot/dts/freescale/imx952-evk.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx952-evk.dts
-> @@ -52,6 +52,40 @@ chosen {
->  		stdout-path =3D &lpuart1;
->  	};
-> =20
-> +	can1_pdm_mux: mux-controller-0 {
-> +		compatible =3D "gpio-mux";
-> +		#mux-control-cells =3D <0>;
-> +		#mux-state-cells =3D <1>;
-> +		mux-gpios =3D <&pcal6416 10 GPIO_ACTIVE_HIGH>;
-> +	};
-> +
-> +	mqs1_en_mux: mux-controller-1 {
-> +		compatible =3D "gpio-mux";
-> +		#mux-control-cells =3D <0>;
-> +		#mux-state-cells =3D <1>;
-> +		mux-gpios =3D <&pcal6416 15 GPIO_ACTIVE_HIGH>;
-> +	};
-> +
-> +	pinctrl-gpiomux {
-> +		compatible =3D "pinctrl-multiplexer";
+ .../bindings/edac/aspeed,ast2400-sdram-edac.yaml   |   6 +-
+ drivers/edac/Makefile                              |   1 +
+ drivers/edac/aspeed_edac.c                         | 426 ++++++++++++++-------
+ 3 files changed, 284 insertions(+), 149 deletions(-)
+---
+base-commit: 5464985e42c04e335fb30e38fbc409c997db9bec
+change-id: 20260625-edac-8e960e02e7f7
 
-[Severity: High]
-This isn't a bug introduced by this patch, but adding this multiplexer=20
-reveals a pre-existing memory leak in the pinctrl-generic-mux driver.
+Best regards,
+-- 
+Ryan Chen <ryan_chen@aspeedtech.com>
 
-When a consumer device (e.g., flexcan1) probes, the pinctrl core calls
-mux_pinmux_dt_node_to_map() in drivers/pinctrl/pinctrl-generic-mux.c. That
-function unconditionally allocates memory using devm_ APIs attached to the
-provider's device:
-
-drivers/pinctrl/pinctrl-generic-mux.c:mux_pinmux_dt_node_to_map() {
-	...
-	function =3D devm_kzalloc(pctldev->dev, sizeof(*function), GFP_KERNEL);
-	if (!function)
-		return -ENOMEM;
-
-	group_names =3D devm_kcalloc(pctldev->dev, 1, sizeof(*group_names), GFP_KE=
-RNEL);
-	...
-}
-
-If the consumer defers probe, these allocations are orphaned on the
-provider's devres list and aren't freed during the consumer's cleanup
-path. On subsequent probe attempts, new allocations are made, leaking
-memory each time.
-
-Is there a plan to fix this in drivers/pinctrl/pinctrl-generic-mux.c so
-that repeated probe deferrals don't cause unbounded memory exhaustion on
-the provider device?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824022020.2812=
-810-1-chancel.liu@oss.nxp.com?part=3D15
