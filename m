@@ -1,269 +1,202 @@
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6A5D3A0E88
-	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 07:57:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787558271; cv=pass; b=fO6HNaPtb0MFxXPDqqfvM9VIP/O7OuNT5mUDHVAazD2g7YWmYuGyOSbv5Pjgb+te1iEqHOWvU4acdEVkW54wEmn6iVwlk024hOb0JaQWUXpcyBH2k7bANkaTEg5X9jMSn3CepJRKomB8IbIsabIXOoc71y6/5lGm235WV6XlO8M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D61BE3A254D
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 07:57:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787558271; cv=none; b=u1tiYGu7anzjwRdgbwuZ2W2+k337nusuU4UyQx/MnP7hqJ2lhAK5LDzBVyQQTR3Xr3/YhbEujhbWq874jK8KLMTnhSAFb3MGmrzJX+olnHacNj45c6wpi3b7zfgk6irePc81RISdspwco2FViAV9FDK9VFDFdmptHtJCtnvWjHk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787558271; c=relaxed/simple;
-	bh=WrtUjVJk6alrvqmX7ok/YmeHd1u9WPIdgJPTrkxRxh0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=V+s9bMgsj3YXUBx6eqlpENi2bDvXPP5Oslj0hR2sGx6nEEx6+FfAqRck4ThbXDkxfShwUTsuwUVhXUV2mh8Vqhnhm19dvhi2/9NCCMn4qwntwXo2vZTfvpNehlc1iIDB+PuGhkhXVRQV+wp7wt1o82FVw2tXWs3a2CNxOT50fSg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YSvEv93F; arc=pass smtp.client-ip=209.85.208.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=GMRE8o4FYu0fpDK6C3DwWUu00g4PLrDg1fl5q+NGQb8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tFM3JHVmzxVzqa9uI2q+pgFtpxa7zVKrPK4BAWZW0fUQQzzJ/qQ7WSO4bB8g26iTAHqfawvDo7XxEfEIdywoQXFsx48jNAIoqKmI3oNo2ILg9rvC/T3I2SDPYYkaFcauPWasXd6MD96c+v6PRWbKtsXRA7ziOsdBqMeS59jwIHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ovgqGziC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WheRhPkc; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YSvEv93F"
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-39faa67fab8so21507281fa.2
-        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 00:57:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787558265; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FoAHogtxYwQSYeg5gRtkJDjmOoSI4psnlABD/qqDvtJX/kAXBfT5YS+eCEpY4FAGty
-         OITEXuJNJUwINYlpwWMD1oPBRV6G02dcEm2wZfdQDvLutPK8MqynFhXrc+xN+EYnthfZ
-         bT5NjTdrKiZFzvv8ZW6siR1lodoSU0KHkRkkghUfEIvjw1OTZD+qYXbwsFVke4rECLgQ
-         eagLYqF1P1rzm85FrIHHX8zCNnUlhr7MO1h0JStVSV61M9WmZeeRwUXMtt0/DMCq+KBL
-         Vr5WfSCmV8zpfWHUMnE1JXitPpoq96z7RpLum6XXdGaCoc3IXR2nw0133p4m21R0MVYT
-         iTkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VWCwm00e2NQzgOI6ji4mfpuOp31nsUpfbcVtkliODgg=;
-        fh=x+0OIQJkxfFHMduLD37EThDP4GGy63nTjnQVBhw/Tm8=;
-        b=MnJEXs0XH2cZ5Z/IeGy8cPl+6dfrxWTNVc4qxHrwGGi+KAn947o6fcp7FDI2RiVoO/
-         By8S4jyZ1z+ubnvADJjHjUlCFXX1sz8vRF7bilRiMjPWk33mYIvrtz/lkrQig3wYlICt
-         yfO/i3BP9KgWFgGRhSk+yWt/A4ieKUVu+R1G/CW9XK4Typ/mq53XGFnDh/yV8GJtB8Ol
-         3PaYSxKpAQbxlmCai4IsGN2a3WIZTA7+9jWE01ER+PIHA2Gyj04wHVwrGrJ3m9CSg2vJ
-         qsElwgDicAagWWsc38wmokzbGj3r7RXUnheAMApHFKkqvVmPF/qdWHeLkBmhzqjrQO1I
-         yxKg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ovgqGziC";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WheRhPkc"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67O7Pw4M2666122
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 07:57:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=oczCj5f3UWMs39FGECP1/K93
+	ViDAX6FAuEBjSlTzqVE=; b=ovgqGziCxKRiwicrKzukwp+Vw5GFK9548mfORnVf
+	O53d80Esj50DcLKwJfUquyd8gQdmqd9aSE/jKEmLtsk3GpoBqTBm3SfpqGZ2PPbk
+	WeVczAQNgwfIUaGvZMIqQ+p7XAgir3mldG3r0V3SuJIlGlWPouFEaNP7SwPhsYlr
+	QIMZxlyIKlNquzN9U9zhbQLW3lCY8nwysjlZ0KjX6lMWSX6AkR/zqURB9v7gaXqr
+	tlOr+uiMEaEpbp4AgdAgEO3fHVp+uvahtZoeyhDQsPpfqskTIJvU7WfA/TE3dpQH
+	OvU5BHt7zntrSmyLXDiH+BVHbO3wDe6CSWdm+FTdbJBfNA==
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g8hjgr40k-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 07:57:44 +0000 (GMT)
+Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5bf90475eb9so858551e0c.2
+        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 00:57:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787558265; x=1788163065; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1787558259; x=1788163059; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=VWCwm00e2NQzgOI6ji4mfpuOp31nsUpfbcVtkliODgg=;
-        b=YSvEv93FDh0ukiHQADBaOq1Desl2PVpJvKSOrmRiWNq5xMsecTdkdHf5k3VJboaHGj
-         rM01wHo0PIATxzfH4uLAa0ciRdLrB2dskcctjMN2j4UsYD/Yq4TeA0b7nxSBVOM1Jm0N
-         6BE9RujCfknSmd5mlVhQAPZjt+1vDGAApL265OOxurMJOofNaWMUN6VijceVTBssDyLc
-         6AD5y8SzAzleIAk+Gku+j9D5ohIIQKEjWCPWwiNSBKkLGZZ7J00JRukqNr36pGJ3PUcf
-         3xdHO9xBx7ir4vI4wwvx7Fq6czRIlfSlQsnmtKixxkqll71Ugl7RK4JTfrRt0/yPw/5C
-         cUNw==
+        bh=oczCj5f3UWMs39FGECP1/K93ViDAX6FAuEBjSlTzqVE=;
+        b=WheRhPkc5jYeuWCzWZR8BTMEHh7RfQrJ1u4iE5M9NatBHapUQZnmrw6kTX2cd+vN4L
+         8uW94kV3+EZQi9YowVS2ss2FAL7gmmhnC2O3yYy03cQWH5PTQ/8xjtyWhoC1rRgRCNTh
+         ZD7P+6HLPxtsJAypX8PrxQmST61gn5Dj8jSzhC+cH4X2oOsuD3fxku7v1r2A0WGjF69A
+         8xrb8FsziKHiOngIfs9mC+PlYPetyNeujRVAQqTR6WM+lT9vH+xVcb2lomP8QExfMZkW
+         h4xTkcx3DUAiCUG8TjEsCcqhKEcCIoqGjTGiplsFOEzskVn4kSZRCXH/Bk8dIKYXTAv8
+         dCwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787558265; x=1788163065;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1787558259; x=1788163059;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VWCwm00e2NQzgOI6ji4mfpuOp31nsUpfbcVtkliODgg=;
-        b=MDQaRiZuZM1i3slqzuvpdlrr/JhojlE0M4gUziQXpDh2aJ5Ya8So7adq3/H9dx/XMq
-         4wwFoFU7omKt/FNWaJ0trXeWaEiNkgcgjelf0niZEXnRlNNJSwIjCzDJT2askprvjYM5
-         gcz3Z4ykrb1BdUe2arPluZCamLtrdlcUjiDCmmc54+A8EKqzs8I/qjAulpyE9bCRXICx
-         c5kZo2ALAOOWJhpKwGNd/YrrD5T7ZsYZ/n9m25Ts0ZsJ1fpdfqD9t3cq3wjogOipri1V
-         OxAkx5z3xUdrei0vIhGknDPerbWbBet0iQfAX9gwYnYoR65p9+xZutjv1nous4sGWwlH
-         BzPg==
-X-Forwarded-Encrypted: i=1; AHgh+RrCrVV40uvJ1lQCkz6pdS3kbltJqK+7xgoqttz3F6F1vBTv1+oehUJvlI05C/Ze+otcUwPY5PpVbiLp@vger.kernel.org
-X-Gm-Message-State: AFuF++nTvBd1EroL8Ig0dbxb0IVCr5lggkwKiHlqJ9AskGUpOP70NS2y
-	ciZWZvqFQFiuSMSiFeGhe6fbBIHjaKEetBTG3QUN2vBdmNXvJzgPCOU4pKDKCvesvXgi7BiORe1
-	uPYzDgWW56lH8R2WkHW8GWsnSO+pxK1M=
-X-Gm-Gg: AR+sD12wjA6xmHuoW5Cbdu6vFNXunSpqXC9Nc8Ejb0i9vRfPMalfRqAdprw07Dbn/h6
-	88OYfHU1Ry/pqBys0IMeZlGDRiCXcLxGSgsgQ59lU51I1xTGU44UOyQEhavV6Ujs8UtdNPoPJHa
-	FeUk+OpEY6S736UD3A5czaVl22/efKu/3Di6RvYa38j/qIh++J/S9sN9u5+tmi7rXy2TA1uttj7
-	NZ2G/iMwPGfFDQJQMXI41A18klXaiZNeuY3EINNh+QlscX1HEtM03vCNHl19yFjkLnAEkxmM0lJ
-	pyL2YRdUKDaI/VhpKJ6WxhMcOgErlvI2r4YrJixiqoKxCwhtoQlHKJ13
-X-Received: by 2002:a05:651c:a382:10b0:3a1:9562:73b with SMTP id
- 38308e7fff4ca-3a1aec07a7bmr42175991fa.11.1787558264439; Mon, 24 Aug 2026
- 00:57:44 -0700 (PDT)
+        bh=oczCj5f3UWMs39FGECP1/K93ViDAX6FAuEBjSlTzqVE=;
+        b=HwVIm309zkdQl6lftXRlEpAHgTqPu7cJVQTj7GkfJ7AWxuaktFNz9Qpn2REvG/fEpn
+         Y7W6yzcTGoRvvd1lX4NUxSsXZqmQ3nJaylEzF+DyXETsUK6DNRMN8nUE4Kr2kV9+2lRZ
+         o+17wA+H4SfJq1EeFaUc8bar5EG4Ggxzj4FcgF0fq0tRP6P3MNRXTDgJF1jB6k4L4qnt
+         XWqVKk1XhzTVdmhsRtchLDcNDBQfYkJOA/nqZK9fLiPR28AE+tkXK86OURKAmBaUxdjQ
+         fSvWIOkfBowji/Kcu4lFNkPk4CLcmSgvsePNQ/+lz2WfMnx8+07tIMw96gwcRfB/1c9G
+         npmQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rqxff/ZyBnGwTOqtuhQl1SYlcGunNshlYQkPQhBT+oWxkUODK0zb9iYY2CfQ6NL1fuXXPaqqYgDs14z@vger.kernel.org
+X-Gm-Message-State: AFuF++nU7lezMAdchzrV9Tj5N41GeZsYW+PtrPVDflUEpOCnyULLZPQh
+	vIFFl+C7NS0L/5fVNeE1AHsTfyyl4wUrXFz5Sg/g8DAP7AhM229F9h9LD2pcsAz56YJ4ClY4gIP
+	lP9YowcwokqryotNLaYE0JshmFHy1tleWba779dRzM+SWdvKoN7BO8NitMVwr4xzn
+X-Gm-Gg: AR+sD13DO5GUX/HUenf5/+E89ppzrOK3yMY1y/tidlXUZAnejGT9T+faDWACOQfQYLE
+	jNpMCt0JtMc/zey/rBGlwR/lC11m4shlq7Dduh2gxUcX15sNdTtEHTF4yrNxkqb9qqFfF775skf
+	qAAqOG4d1Dg6jnuAwQhC5NeJFXz23f1vcH6ZGCzfFY5LuMEUR89H2HaI+BLIcOyB6Uz2wEZuV8u
+	4v0fG19N2rk2ais1VtZR+6iSqy/Tqq6IwYjNWpITaW9cZxFZpW4hwk9YyaROq8F7IESKg73ndUN
+	zWzb21jL7sbeXdqfFt/coP4vp6mjdJwNjX684+DaNJLeBuuPdbPmdU2g9vZE/KXDaCy51HNnyK9
+	aimgQVBgFgqq8xGA=
+X-Received: by 2002:a05:6102:2d03:b0:77b:2d24:db60 with SMTP id ada2fe7eead31-77bd3189574mr5175313137.10.1787558259421;
+        Mon, 24 Aug 2026 00:57:39 -0700 (PDT)
+X-Received: by 2002:a05:6102:2d03:b0:77b:2d24:db60 with SMTP id ada2fe7eead31-77bd3189574mr5175296137.10.1787558258934;
+        Mon, 24 Aug 2026 00:57:38 -0700 (PDT)
+Received: from oss.qualcomm.com ([188.27.161.240])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a59e00129fsm8633622a12.1.2026.08.24.00.57.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 24 Aug 2026 00:57:37 -0700 (PDT)
+Date: Mon, 24 Aug 2026 10:57:35 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Taniya Das <quic_tdas@quicinc.com>, Georgi Djakov <djakov@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+        Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>,
+        Guru Das Srinagesh <linux@gurudas.dev>, linux-arm-msm@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
+        linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v3 07/15] interconnect: qcom: Add Kuno interconnect
+ provider driver
+Message-ID: <mhjq6szchgrgoegi7jrzmeumlhdjr2njkh5jdyjb3cjb4pd2hb@qjvx34fyo5au>
+References: <20260821-kuno-soc-support-v3-0-196e2b306368@oss.qualcomm.com>
+ <20260821-kuno-soc-support-v3-7-196e2b306368@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260820-ti-ads112c04-driver-v6-0-0e8f0aacce9b@gmail.com>
- <20260820-ti-ads112c04-driver-v6-2-0e8f0aacce9b@gmail.com> <1b0af12a-0653-4a14-9c0b-4948eab9a4cf@baylibre.com>
-In-Reply-To: <1b0af12a-0653-4a14-9c0b-4948eab9a4cf@baylibre.com>
-From: Kyle Hsieh <kylehsieh1995@gmail.com>
-Date: Mon, 24 Aug 2026 16:00:49 +0800
-X-Gm-Features: AcwNN1U4ahlelk9rgkeVTfIHrIU3wa7mxWz-Nrmu3SlqD4eZV_AV1OdCyJK0trQ
-Message-ID: <CAF7HswMT-e87oapWSw11-Qhj570wLDiayKeSP5vuYo9Fm9AbxQ@mail.gmail.com>
-Subject: Re: [PATCH v6 2/2] iio: adc: ti-ads112c04: Add support for TI ADS112C04
-To: David Lechner <dlechner@baylibre.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260821-kuno-soc-support-v3-7-196e2b306368@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI0MDA2OSBTYWx0ZWRfX+cZQhfiMumP8
+ wqejbYrFyvuoKfPDkCXfAdtcp2w/IELbOlNYSNRdx3HUG2wwokuiKc51WhfcU2Y9NogahIF6WFg
+ 32YoShFhIiSEUyUa+soFeHV6pzjzaaA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI0MDA2OSBTYWx0ZWRfXy301T66Z7A2R
+ /RAC/+bfImzliEhjLr+mHQqTAdAOCq72GytVgzoRUMB6zmROGZIaDpuW/6P8/7Bfzo6FSlEBaOK
+ l7q0HedUo9HLilF1IWtuRMPk6+jZSbS7E8T9hcnlqx7gTiFXjhH7GTGgETIL71hJQKpHKOrgUk0
+ /gZjGwHUiAIsOIumhIavxizcyKtjcTpLNE+L6mOhF4Q2IgnEEiSEq8LXZUmkQt3LLZB+Uj/rYHu
+ Pzc3+5B/fm3t0hd5Ct9fB0QUS4dHtgdMg5+nEOr5zAx7rXXqwEzdZp+B/3AoWerjrxrh1+/cOKL
+ sqQEwKUD6EQD0HOwwik6Vub1jdb7zTG3+VaGIHingxl5mgKnG2mcvhf32jqREldh/xNfv4VUqU1
+ 06rPZXipP+l7qG9GnUN3x0jAVNKcg82iLXH5yVRe5yHADJuemDxP1SfGSWIJ3EKneYF8gS0gWnZ
+ bLNGdnpt2cLjDKcDpWQ==
+X-Proofpoint-ORIG-GUID: T6AmHXqHMOou_1xt9weqip4F1ZZzXAHy
+X-Authority-Analysis: v=2.4 cv=CoCPtH4D c=1 sm=1 tr=0 ts=6a8bf978 cx=c_pps
+ a=+D9SDfe9YZWTjADjLiQY5g==:117 a=wUpz7uCjLrEXi01cjX+DLw==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=PAQKBgKzElogREcGxNUA:9 a=CjuIK1q_8ugA:10
+ a=vmgOmaN-Xu0dpDh8OwbV:22
+X-Proofpoint-GUID: T6AmHXqHMOou_1xt9weqip4F1ZZzXAHy
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-24_02,2026-08-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 priorityscore=1501 malwarescore=0 phishscore=0 bulkscore=0
+ adultscore=0 spamscore=0 clxscore=1015 lowpriorityscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608240069
 
-On Sun, Aug 23, 2026 at 8:06=E2=80=AFAM David Lechner <dlechner@baylibre.co=
-m> wrote:
->
-> On 8/20/26 2:51 AM, Kyle Hsieh wrote:
-> > Add IIO driver support for the Texas Instruments ADS112C04 (16-bit)
-> > delta-sigma ADCs.
-> >
->
-> ...
->
-> > +static int ads112c04_parse_channels(struct iio_dev *indio_dev,
-> > +                                 bool *need_avdd_ref, bool *need_ext_r=
-ef)
-> > +{
-> > +     struct device *dev =3D indio_dev->dev.parent;
-> > +     struct ads112c04_state *st =3D iio_priv(indio_dev);
-> > +     struct iio_chan_spec *channels;
-> > +     u32 num_channels, pair[2], channel;
-> > +     unsigned int i;
-> > +     int ret;
-> > +
-> > +     num_channels =3D device_get_named_child_node_count(dev, "channel"=
-);
-> > +     if (!num_channels)
-> > +             return dev_err_probe(dev, -EINVAL, "no channel subnodes f=
-ound\n");
-> > +
-> > +     if (num_channels > ADS112C04_MAX_CHANNELS)
-> > +             return dev_err_probe(dev, -EINVAL,
-> > +                                  "num of channel nodes exceeds %d\n",
-> > +                                  ADS112C04_MAX_CHANNELS);
-> > +
-> > +     channels =3D devm_kcalloc(dev, num_channels, sizeof(*channels), G=
-FP_KERNEL);
-> > +     if (!channels)
-> > +             return -ENOMEM;
-> > +
-> > +     st->vref_source =3D devm_kcalloc(dev, num_channels,
-> > +                                    sizeof(*st->vref_source), GFP_KERN=
-EL);
-> > +     if (!st->vref_source)
-> > +             return -ENOMEM;
-> > +
-> > +     i =3D 0;
-> > +     device_for_each_named_child_node_scoped(dev, child, "channel") {
-> > +             const char *sp =3D "single-channel", *dp =3D "diff-channe=
-ls";
->
-> What does the "p" mean? I would make the names the same as the string,
-> e.g. sc, dc, or s_chan, d_chan since they are used quite far from here.
+On 26-08-21 21:39:00, Hardeep Sharma wrote:
+> Add the interconnect provider driver for the Qualcomm Kuno SoC to
+> enable bus bandwidth voting on the platform. This includes the
+> aggre-noc and cnoc-main NoC instances with their associated BCM
+> nodes.
+> 
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+> ---
+>  drivers/interconnect/qcom/Kconfig  |  13 +
+>  drivers/interconnect/qcom/Makefile |   2 +
+>  drivers/interconnect/qcom/kuno.c   | 977 +++++++++++++++++++++++++++++++++++++
+>  3 files changed, 992 insertions(+)
+> 
 
-Renamed to s_chan and d_chan in v7.
->
-> > +             struct iio_chan_spec *spec =3D &channels[i];
-> > +
-> > +             if (fwnode_property_present(child, "excitation-channels")=
-)
-> > +                     return dev_err_probe(dev, -EOPNOTSUPP,
-> > +                                          "excitation-channels is not =
-supported yet\n");
-> > +
-> > +             st->vref_source[i] =3D ADS112C04_VREF_SOURCE_INTERNAL;
-> > +
-> > +             if (fwnode_property_present(child, "reference-sources")) =
-{
->
-> ads112c04_parse_vref_source() already calls fwnode_property_present(child=
-, "reference-sources")
-> and returns ADS112C04_VREF_SOURCE_INTERNAL as default, so we are duplicat=
-ing that
-> logic here. Either drop the helper or drop the extra code here.
+[...]
 
-Dropped the extra code in the loop and now call the helper directly.
->
-> > +                     ret =3D ads112c04_parse_vref_source(child);
-> > +                     if (ret < 0)
-> > +                             return dev_err_probe(dev, ret,
-> > +                                                  "invalid reference-s=
-ources value\n");
-> > +
-> > +                     st->vref_source[i] =3D ret;
-> > +             }
-> > +
-> > +             if (st->vref_source[i] =3D=3D ADS112C04_VREF_SOURCE_EXTER=
-NAL)
-> > +                     *need_ext_ref =3D true;
->
-> Can just assign these directly:
->
->                 *need_ext_ref =3D st->vref_source[i] =3D=3D ADS112C04_VRE=
-F_SOURCE_EXTERNAL;
+> diff --git a/drivers/interconnect/qcom/kuno.c b/drivers/interconnect/qcom/kuno.c
+> new file mode 100644
+> index 000000000000..9a5bd53e7ed9
+> --- /dev/null
+> +++ b/drivers/interconnect/qcom/kuno.c
+> @@ -0,0 +1,977 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
 
-I used |=3D instead of =3D here: the flags accumulate across all channels,
-so a plain assignment would let a later channel clear what an earlier
-one set. For example with channel 0 on "external" and channel 1 on
-"internal", *need_ext_ref would end up false and probe would skip
-reading the refp voltage.
->
-> > +             if (st->vref_source[i] =3D=3D ADS112C04_VREF_SOURCE_AVDD)
-> > +                     *need_avdd_ref =3D true;
-> > +
->
-> ...
->
-> > +
-> > +             i++;
-> > +     }
-> > +
-> > +     indio_dev->channels =3D channels;
-> > +     indio_dev->num_channels =3D i;
-> > +
-> > +     return 0;
-> > +}
-> > +
-> > +static int ads112c04_probe(struct i2c_client *client)
-> > +{
-> > +     struct device *dev =3D &client->dev;
-> > +     struct iio_dev *indio_dev;
-> > +     struct ads112c04_state *st;
-> > +     struct reset_control *reset;
-> > +     bool need_avdd_ref =3D false, need_ext_ref =3D false;
-> > +     int ret;
-> > +
->
-> ...
->
-> > +     /* Datasheet: POR releases ~500us after supplies are stable */
-> > +     fsleep(500);
-> > +
-> > +     reset =3D devm_reset_control_get_optional_exclusive(dev, NULL);
-> > +     if (IS_ERR(reset))
-> > +             return dev_err_probe(dev, PTR_ERR(reset), "failed to get =
-reset\n");
-> > +
-> > +     if (reset) {
->
-> I'm pretty sure devm_reset_control_get_optional_exclusive() already asser=
-ts
-> the reset. So the way this is usally implemented is that we get (assert)
-> the rest, then wait chip-specific time (usually a few microsonds) then
-> reset_control_deassert().
->
-> I don't see any other IIO drivers that are using reset_control_reset().
-> (And I think a lot might be calling reset_control_assert() unnecissaraly.=
-)
->
+[...]
 
-You're right - reset-gpio requests the GPIO with GPIOD_OUT_HIGH, so the
-reset is already asserted by the time we get the control. Changed to
-waiting tw(RSL) and then calling reset_control_deassert(). That also
-makes the pulse width explicit, rather than relying on the assert and
-deassert inside reset_control_reset() happening to be far enough apart.
-> > +             ret =3D reset_control_reset(reset);
-> > +             if (ret)
-> > +                     return dev_err_probe(dev, ret, "failed to reset d=
-evice\n");
-> > +     } else {
-> > +             ret =3D ads112c04_write_cmd(client, ADS112C04_CMD_RESET);
-> > +             if (ret < 0)
-> > +                     return ret;
-> > +     }
-> > +
->
-> If it wasn't for the duplicate code, I might have said good enough. :-)
+> +static const struct of_device_id qnoc_of_match[] = {
+> +	{ .compatible = "qcom,kuno-aggre-noc", .data = &kuno_aggre_noc },
+> +	{ .compatible = "qcom,kuno-clk-virt", .data = &kuno_clk_virt },
+> +	{ .compatible = "qcom,kuno-cnoc-main", .data = &kuno_cnoc_main },
+> +	{ .compatible = "qcom,kuno-dc-noc", .data = &kuno_dc_noc },
+> +	{ .compatible = "qcom,kuno-mc-virt", .data = &kuno_mc_virt },
+> +	{ .compatible = "qcom,kuno-mem-noc", .data = &kuno_mem_noc },
+> +	{ .compatible = "qcom,kuno-pcie-anoc", .data = &kuno_pcie_anoc },
+> +	{ .compatible = "qcom,kuno-system-noc", .data = &kuno_system_noc },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, qnoc_of_match);
+> +
+> +static struct platform_driver qnoc_driver = {
+> +	.probe = qcom_icc_rpmh_probe,
+> +	.remove = qcom_icc_rpmh_remove,
+> +	.driver = {
+> +		.name = "qnoc-kuno",
+> +		.of_match_table = qnoc_of_match,
+> +		.sync_state = icc_sync_state,
+> +	},
+> +};
 
-Thanks,
-Kyle
+qnoc_driver_init() and core_initcall()
+
+then
+
+qnoc_driver_exit() and module_exit()
+
+Please have a look at all other Qualcomm interconnect drivers in upstream.
