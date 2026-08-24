@@ -1,163 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57E722765E2
-	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 06:48:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB4F43E7BB4
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 06:49:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787554092; cv=none; b=JIl33qtohoRYxC3B4bhG6CGbbLCTpyFVSPN8tW10LtombexlzJmkXlVkSJzmSC3xHgf8uzagHuw9LW+j09st7QrdI/Ql/jivTQqBmBLVvS+DLPEtlRyFbFKOj0IAfSjvez4q2lIuOY+z4E+9BcOj0L+43N5Ia31/MNne8b8v17s=
+	t=1787554170; cv=none; b=jxPyDD4XgNByrUxjnedN1e+6SlV1/z2gw1NX7UstlHl2nBXW3PxLaKgmEfg3w50ddbJ7NLxLWCadZoAj69iIkTFJfIqm1STM8zPVwJ0+u6mik1jXNMGHgv9riW5xYoFisK8m56bM/uP8R5VbPmoto+C0ZJ4g2YWORIv9DEYsytE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787554092; c=relaxed/simple;
-	bh=010CAIGGimwIdScs+UG+xmXix0Az1deycBtCY54XQYQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=J58LF4RTQJytrxynOGxlpjtggwo+UidYUxQeKQc44B6RQa+8b1RN3rzHLfaCaLC4WCIsGlMftJJ+GLb7sDBVnaLjzAHNCpCXoBCorV0e5iB+lAnMhezxRwR8Auv6chG8bD373WjsKhzElR/CQViPXryOnfGe9IZaciFY5ht+ToY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jBPmcqRT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787554170; c=relaxed/simple;
+	bh=MdgVsqytscDNoBcQq1T2DXmnKAy+0t/SSD8HWEOcbPM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HNupsHylHOhgBUSczKxFGLCFwUzKv8Dt96E/hayrNB9+uSnzPEGv9kgqi3NN8mlxf10iSZ6KzUbBz1nrRQk5/a3pX5PGcNhTFs2vUO0MO2qqyxJPCQTjLsUXIMI2dATQOWj5O58sqgFrcUx6hspbHFx0onPWsiQzm/+jRS7j3Wg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LfM1E5Xp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eugu3q0n; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jBPmcqRT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D03021F00A3A;
-	Mon, 24 Aug 2026 06:48:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787554091;
-	bh=22hRFo6MfWaSEzRwPpjUq6rzijl7gr1LnfvkwN7kMWY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jBPmcqRTU0tonrU8jdmE/fseksMxeP/bKkbkKHqQKP24B7ybJfPzwlUif/lcuOo87
-	 j86zofVYnvW1ieD9xlPWadhh9jRwu0tadv0ZIF6ezwKB7Zxr9vtplDmG8TCaJOcxZg
-	 ueeZybR7Qv5J/8277L5EzDbAbrIqANgrH2VyY/nV02QzH1IEjiWaOcqg5PgZawBt9N
-	 v8CW9xL5OB80RwOuXllVZa81CP+5sTHX/Qo8R//btVcESTltEGGJAXBPSVeTPpxHHF
-	 ii1nJz8N4cMlQCK3KKJz6beoaJzNRgSm/Amy1CxG7oTNd+d1MZ1Q5gLjSxplbYrI/Z
-	 C7vOo+tCdnt7w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/9] ASoC: qcom: Add QAIF hardware register map
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Harendra Gautam" <harendra.gautam@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260824063627.3595610-4-harendra.gautam@oss.qualcomm.com>
-References: <20260824063627.3595610-1-harendra.gautam@oss.qualcomm.com>
- <20260824063627.3595610-4-harendra.gautam@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 24 Aug 2026 06:48:10 +0000
-Message-Id: <20260824064810.D03021F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LfM1E5Xp";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eugu3q0n"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67O5R8402041417
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 06:49:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	2dD9MZSrO17sYCLJOzYAgvl/pfHfIeh6MHwlSpI4G/Q=; b=LfM1E5XpVDizC3qf
+	MiFOZ6aQG9jGY5rDjbBb47nNlA9fwTP0/9ACGkODDLrS7TPkxuB+AgJGQCqYwgG+
+	59f9d0r2EdbmirMkM4lrOgBJZP3+7lze13R1GO9xQGOCBZQrTg9YzEU68PsnedD6
+	cUsEAsAp1MQCoomk6XrDy0W36xkdK/5U6YvDkdMn0azHMa8Hidktk2qOEH+sh0iw
+	EaX8Ems5hYEsvpONXx1qSgla6LsYQDCJEpukDOaE1uJhpNTZaXaAauRdh4uCrj1u
+	2LPlNBQuvI/xCd5MbblaiSRFgZeGWyN/GtkfmQdqh2zxNWRCV7BfXUQiElIyVqiB
+	HAM/ng==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g88k7h7n1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 06:49:27 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7376ea4bcccso62908137.2
+        for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 23:49:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787554167; x=1788158967; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2dD9MZSrO17sYCLJOzYAgvl/pfHfIeh6MHwlSpI4G/Q=;
+        b=eugu3q0nZ6mMGBxahYfrijB+PRc9fKbCDUyte86OYQJqaYygXugh+xgoO2qvGxnRtJ
+         GiIHu/ThrMXnz1olTkak6TtrYJ02O3LaND2zYhqHZewqAUYNR8mMlkLFVDd9SwshcASZ
+         qPaHnCS0UJUUeqkCovAh5jI+DG5jHvtzhjXNWi6TICAn/qQXgvFPQJinkhr1D9B/Af8w
+         0Z+ufA+GI2B5ChvNfcROhGRrs9TqQtJ14IBHaT27mF3D1jeEqxuw51FttVxt49/KzlC4
+         M/JmRH4RC389rmKssWp//Gx+e+fpHFZabTyWu5kfy9F07rzwagC7WHtafNfxS3N9VoSk
+         e5Pw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787554167; x=1788158967;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2dD9MZSrO17sYCLJOzYAgvl/pfHfIeh6MHwlSpI4G/Q=;
+        b=qzKIdgzLUPgbAbD6v2Uv7p1Bv5L5hLN/oY48ve5tCkU1wq7O1lXqyQgrDgC2R2D/qb
+         VqgP8Aq0QA/GVr08RinDFuU6GzSKOZoaoqpw3vSg1HrOZwpqPA15wMgw9ectvAOae3/p
+         MLJuyZhxC6GhJndlAXbmrQjvhMFZbL3sZfvELWham8G2lqftmips/ManvDlB0X6A5dqN
+         Ne9kGcotgw4lOk+jpdC7DOzZE3FttM/hvqpb3u4UGoH0p0mHajxQqkx2MoUcBmfyaFq0
+         LUAMkZTNjBjvmG9KzmftSeIoyx/bGnjh8s6b6HPu5VUbJtTk3lsv3jRO1tQvCHVpejwa
+         XBrg==
+X-Forwarded-Encrypted: i=1; AHgh+RoFBluWyACWbNeayJ8D6WZ8daf/ZtlkOJIwb18wz277i9kCliH32irfeaeSsriy7J7VG0EnK9nO0gM0@vger.kernel.org
+X-Gm-Message-State: AFuF++lE6Bgxxx/4rmaRhoMhiJ2RO12lSrt1mdiJg6/9ndUgxvTUvrmA
+	5qnUFeE6weZmhNCx5LYRo3V/Vc5mNJ74/93tXqCMRVlp6cF5/4GKLwYcH42/BVpvcGXiLnsBCJl
+	2bYKgFkdhY2FiDmEMyzmXdLVDE4bZRx3LLZu5lf8axZqkXxiBHWipCH6exFp1yUxk
+X-Gm-Gg: AR+sD13NO7ktYZTFHlpz1y/YyG9+eaXNOU9qR62pCe/HAJ/quwVvW45tiCB1S8HkLSA
+	9KcOzhPP2DTzxT5A8Y//yd9R23HOJ9CFs7M6oBSo/lCIfsh8P/rmUV1+OSknnzFksjvSRRzUtQy
+	SvyiMFYBwDtsvTutUDq56qh7NAlX8UCezfxdo3AVWMC0FsAT3wg0+gIm/OKyISXxoLxsBcPa+6t
+	hh4/3TfU4C1qejuUt1HDqj5V2OelrH7g/2PrPP2xldyTT5/z21Kmbg97T836r7Iat3XKRZ67GN5
+	agUYm/ifX0GQSLjrz3nrDP5Afs4u52ydKlstNp45gB5tW4mzinJvduCdBVicPW6X4mEDz/sPX26
+	DFI+Y+lGiJmUXYemoYiS7pdfM
+X-Received: by 2002:a05:6102:b03:b0:778:5579:c65e with SMTP id ada2fe7eead31-77a6434994amr2998282137.2.1787554166911;
+        Sun, 23 Aug 2026 23:49:26 -0700 (PDT)
+X-Received: by 2002:a05:6102:b03:b0:778:5579:c65e with SMTP id ada2fe7eead31-77a6434994amr2998268137.2.1787554166519;
+        Sun, 23 Aug 2026 23:49:26 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a59e0126edsm7306458a12.7.2026.08.23.23.49.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 23 Aug 2026 23:49:25 -0700 (PDT)
+Message-ID: <f2ab67d9-e1e7-4ee2-8bdc-abf2e6b4baf3@oss.qualcomm.com>
+Date: Mon, 24 Aug 2026 08:49:23 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] arm64: dts: qcom: sm7225-fairphone-fp4: Enable
+ touchscreen
+To: Luca Weiss <luca.weiss@fairphone.com>, Job Noorman <job@noorman.info>,
+        Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+        linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+References: <20260821-fp4-hx83112a-v1-0-474941bd8860@fairphone.com>
+ <20260821-fp4-hx83112a-v1-3-474941bd8860@fairphone.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260821-fp4-hx83112a-v1-3-474941bd8860@fairphone.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=b4iCJNGx c=1 sm=1 tr=0 ts=6a8be977 cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=6H0WHjuAAAAA:8 a=EUspDBNiAAAA:8 a=2kaJ5Qa3FYFKpuAPAowA:9 a=QEXdDO2ut3YA:10
+ a=AYr37p2UDEkA:10 a=crWF4MFLhNY0qMRaF8an:22 a=Soq9LBFxuPC4vsCAQt-j:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI0MDA1OCBTYWx0ZWRfX5T0+vfIqI/oO
+ BccWLi2U6Z0oej41e5cvHVHQwAj0rqkw2a6/HsgIdZHdWq0FlbaXEew9Zj5ow0xuXwi3n5ycgGS
+ URlLk3B5Vmw/rh4yY9R7WLLE8h+4V8o=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI0MDA1OCBTYWx0ZWRfXyrTYBtsWGXZg
+ sXYgh40rbT26HBfL1e395MA/u5ts1Qw3wC+XZ9G5zwslGT8hLnlHfICnVeD1nIucJHxZdC9h73+
+ EBDdAieZTAkGFSsN5RFLW3SF0wnl/YbREn13P4cnDuPgm9OT0aLJeX1G7kMBkQvN/N46uJuRkFj
+ 9xXzHET12AkjrllkK43sWt0sggWebUdmO5GG2Ge9gB66X2FXhapr9AGYXlISqDcJ8Vm7W4BoT5z
+ WRKGuHBgbqBEjBUXrvm0PE8keP9JL6gxCdLIOxquHhv0lfSL7xOt3aoGQa6jx2fxHkZ4R64jfjF
+ 8Gy499m7yl3mVNRL5VSApRsH4VjOBvWgW8SFuosHRFGUdCYU6IbS2SrwwXh5Q26EMGrQhPa85Yd
+ pT7VqpaWTGpcrtrtFLCX4T/Hh0WHTyZFh0d+aamq/Hz+E9N4TNhd9HcssaO4HRS1lwR6aufPyfk
+ Qbml4U2iMi0eDS9hXAw==
+X-Proofpoint-ORIG-GUID: GWBQmXIKIO7IoFJ82PyAa5gC1_-Rf2wI
+X-Proofpoint-GUID: GWBQmXIKIO7IoFJ82PyAa5gC1_-Rf2wI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-24_02,2026-08-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 phishscore=0 bulkscore=0 clxscore=1015
+ lowpriorityscore=0 impostorscore=0 adultscore=0 priorityscore=1501
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608240058
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Hardware register map definition typos cause memory map collisions
-- [Low] Misleading macro parameter 'i' acts as an API trap for developers
-- [Low] Missing _REG suffix on raw status macros
---
+On 8/21/26 9:12 AM, Luca Weiss wrote:
+> Add a node and pinctrl for the Himax HX83112A touchscreen found on this
+> phone.
+> 
+> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+> ---
 
---- Patch [3]: [PATCH v3 3/9] ASoC: qcom: Add QAIF hardware register map ---
-commit 36bb94e8a1bb834af28c48728f97ecbcef9f8a30
-Author: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-ASoC: qcom: Add QAIF hardware register map
-
-This commit introduces the register map and accessor helpers for the QAIF
-driver. It defines macros to program core registers, audio interfaces, DMA
-channels, interrupts, and SID maps based on the DAI ID.
-
-> diff --git a/sound/soc/qcom/qaif-reg.h b/sound/soc/qcom/qaif-reg.h
-> new file mode 100644
-> --- /dev/null
-> +++ b/sound/soc/qcom/qaif-reg.h
-[ ... ]
-> +/*
-> + * EE (Execution Engine) assignment and map registers.
-> + *
-> + * The EE offset (v->ee) is an address/index offset relative to the
-> + * platform-defined QAIF/EE base and lets the hardware route the AIF
-> + * operation to the correct EE context. It is hardware/platform-specific=
- and
-> + * must match the mapping defined for the selected QAIF AIF/lane in the
-> + * hardware programming guide. It is not a runtime data offset and must =
-not
-> + * be changed based on the stream configuration.
-> + */
-> +#define QAIF_EE_RDDMA_ASSIGNMENT_REG(v)			(0x19148 + (0x1000 * ((v)->ee)=
-))
-> +#define QAIF_EE_WRDMA_ASSIGNMENT_REG(v)			(0x19150 + (0x1000 * ((v)->ee)=
-))
-> +#define QAIF_EE_INTF_ASSIGNMENT_REG(v)			(0x19158 + (0x1000 * ((v)->ee)))
-> +#define QAIF_EE_CODEC_RDDMA_ASSIGN_REG(v)		(0x19308 + (0x1000 * ((v)->ee=
-)))
-> +#define QAIF_EE_CODEC_WRDMA_ASSIGN_REG(v)		(0x19318 + (0x1000 * ((v)->ee=
-)))
-> +#define QAIF_EE_RDDMA_MAP_REG(v)			(0x1920 + (0x1000 * ((v)->ee)))
-> +#define QAIF_EE_WRDMA_MAP_REG(v)			(0x1940 + (0x1000 * ((v)->ee)))
-> +#define QAIF_EE_INTF_MAP_REG(v)				(0x1960 + (0x1000 * ((v)->ee)))
-> +#define QAIF_EE_CODEC_RDDMA_MAP_REG(v)			(0x1980 + (0x1000 * ((v)->ee)))
-> +#define QAIF_EE_CODEC_WRDMA_MAP_REG(v)			(0x1A00 + (0x1000 * ((v)->ee)))
-
-[Severity: High]
-Are these base addresses missing a zero?
-
-QAIF_EE_RDDMA_MAP_REG evaluates to 0x1920 instead of 0x19200. Combined with=
- a
-stride of 0x1000 * v->ee, if v->ee is 3 or greater, the address evaluates to
-0x4920, which overlaps with the QAIF_AUD_INTF block starting at 0x4000.
-
-QAIF_EE_CODEC_WRDMA_MAP_REG similarly uses 0x1A00 instead of 0x1A000.
-
-Could this mapping collision cause adjacent register block corruption or bus
-errors during device initialization?
-
-[ ... ]
-> +static inline u32 qaif_rddma_irq_reg_addr(const struct qaif_variant *v,
-> +					  enum qaif_irq_type dma_type,
-> +					  u32 offset)
-> +{
-> +	if (dma_type =3D=3D QAIF_AIF_IRQ)
-> +		return v->rddma_irq_reg_base + offset +
-> +		       v->rddma_irq_stride * v->ee;
-> +	return v->codec_rddma_irq_reg_base + offset +
-> +	       v->codec_rddma_irq_stride * v->ee;
-> +}
-> +
-> +/* RDDMA Period Interrupts */
-> +#define QAIF_EE_RDDMA_PERIOD_IRQ_EN_REG(v, i)		qaif_rddma_irq_reg_addr(v=
-, i, 0x00)
-
-[Severity: Low]
-This isn't a bug, but could the 'i' parameter be renamed to something like
-'dma_type'?
-
-Since it is passed to qaif_rddma_irq_reg_addr() which expects an
-enum qaif_irq_type, using 'i' might imply a channel index like the adjacent
-macros. Could this API trap cause a developer to inadvertently pass a chann=
-el
-index (0-7) instead of the required enum?
-
-[ ... ]
-> +/* RDDMA Error Response Interrupts */
-> +#define QAIF_EE_RDDMA_ERR_RSP_IRQ_EN_REG(v, i)		qaif_rddma_irq_reg_addr(=
-v, i, 0x50)
-> +#define QAIF_EE_RDDMA_ERR_RSP_IRQ_STAT_REG(v, i)	qaif_rddma_irq_reg_addr=
-(v, i, 0x58)
-> +#define QAIF_EE_RDDMA_ERR_RSP_IRQ_RAW_STAT(v, i)	qaif_rddma_irq_reg_addr=
-(v, i, 0x60)
-
-[Severity: Low]
-This isn't a bug, but does QAIF_EE_RDDMA_ERR_RSP_IRQ_RAW_STAT miss the _REG
-suffix used consistently on adjacent definitions in this file?
-
-[ ... ]
-> +/* WRDMA Error Response Interrupts */
-> +#define QAIF_EE_WRDMA_ERR_RSP_IRQ_EN_REG(v, i)		qaif_wrdma_irq_reg_addr(=
-v, i, 0x50)
-> +#define QAIF_EE_WRDMA_ERR_RSP_IRQ_STAT_REG(v, i)	qaif_wrdma_irq_reg_addr=
-(v, i, 0x58)
-> +#define QAIF_EE_WRDMA_ERR_RSP_IRQ_RAW_STAT(v, i)	qaif_wrdma_irq_reg_addr=
-(v, i, 0x60)
-
-[Severity: Low]
-This isn't a bug, but similar to the RDDMA definitions, does
-QAIF_EE_WRDMA_ERR_RSP_IRQ_RAW_STAT miss the _REG suffix?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824063627.3595=
-610-1-harendra.gautam@oss.qualcomm.com?part=3D3
+Konrad
