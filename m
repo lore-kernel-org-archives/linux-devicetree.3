@@ -1,106 +1,301 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 444613FBEA5;
-	Mon, 24 Aug 2026 15:58:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B3E370AEC;
+	Mon, 24 Aug 2026 15:58:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787587087; cv=none; b=nbfeKS+N8OwDmorHXaR+xQBhiX6Dx3O2EvRfGcH1EvZYYB32XKL81ASaUBG7pHqLPZTcmdsJhisbl6RLAxVWgyC4kG1yukRj43IvkMekmpUNF/hPEsNoxc+ZlBSbtkKXiBwrJSoPSs9sE1q21NRLBoBJsVMljvO+Hd4T24tBuZc=
+	t=1787587100; cv=none; b=W87pWDYZn+jqnGy+5jEy2bqxs3uwCRVibwOXJ6I2GBxGMBJcaS4JtqVpcxmKphjs7gywJAByoM2fJDFTYUKI43tOBSPy0SXERV8kLiOWJqVanNufjB88hv1FmvErqrRQ4wHWO5eCWVqNwgL0y+ZqFtMHMbNoTn5+JX2SVl+KSC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787587087; c=relaxed/simple;
-	bh=Nz9lbWp+Ecc1Cx+JYEuuWNtIwuJ6oA3kHHvaPL4BkVM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Q5bqdLc0TJkTJOBlESijKq1G+ocvY2RF4vgOO+C6a2Gd+xwaD8hwxJ9PasSkt7vOJYhi5hkyAOJ0DtL7YfLT5f/XUHD5YqpKZMWAgYlgHP/Zhrovj5exVFdofJpMYfn8XshVw/cIjHHgCYkSAE79R/+f3oegVi+Eye6js6oGTLI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i7SVQQDw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787587100; c=relaxed/simple;
+	bh=DzQtUdxPsGQxAnyB2mZ8jc5ib/G4dhPX4wbn9tIQSMk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=tD/DGSyBXSer/yqNvI2MbjuFhPBGgSGs2A5rrAB8CiTK9+pjZkAHBpzvx2gE1so39Dq07FbioMkwVlP8MnEsy25aJAHp7LaVRRDVZQCkFRAsmTDbqW+mIamrQZwjFJ/e0tec8FSmxZhmudpFt/p6zXBTtQfPBSjWjZC7p151//o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VUj7nKzK; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i7SVQQDw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD2F11F000E9;
-	Mon, 24 Aug 2026 15:57:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787587079;
-	bh=Fm5WqJaG0FDTe6cFnCfZen0nBPFTH0cOY1JOmWS8i9w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=i7SVQQDwBL3LEMesJJylb6qtPTtNPHAKEfTEl72rceWGT8MKWCKTUcf9TNxPTAWOM
-	 z1tHceR51QRcRThSQxYaoaDn9LDlCnNDOs2E4ph1iLBL/rmH8wOWEyVngAt2/yMFEZ
-	 3WJPsTOjWb1//rrwDz0OCerPdM8HbkXaz3kYVrfp6u1xXOizbvWO7SYFa5UR9voTzM
-	 9lRUzwfD3NyrPSkqEXVstHq76as13qNu3QgqjuAkRmeBcdCElctsQu8qhNPmPvLkFe
-	 uSG4zU4APJUBoUoFeWwTmbBPxZUiJtiWNTmkmHckaSZciaCDwVYR6ELD+8LYk3SkMO
-	 ZeeK0E+afJUBg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: hwmon: ti,tmp401: add vcc-supply and
- #thermal-sensor-cells
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vincent Jardin" <vjardin@free.fr>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260824-for-upstream-dt-tmp401-vcc-tsc-v1-1-ecb5ef7898bd@free.fr>
-References: <20260824-for-upstream-dt-tmp401-vcc-tsc-v1-1-ecb5ef7898bd@free.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 24 Aug 2026 15:57:58 +0000
-Message-Id: <20260824155758.CD2F11F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VUj7nKzK"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1A0DAC19425;
+	Mon, 24 Aug 2026 15:58:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1787587100;
+	bh=DzQtUdxPsGQxAnyB2mZ8jc5ib/G4dhPX4wbn9tIQSMk=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=VUj7nKzKrMoJIhvucJHvbl897mz1Z1V3heYZc6zn5vCs7LpMJ83B9gGCLe2KUXkmI
+	 oXFo5jnzcJqAghHGHpkE8LAUgHznYFhuVx0yECh9brm5i7Wa5jEO018TiAOjGlQbHz
+	 6JtKBwR3DpbxYlvsYUM5IF0/YWqGq/11k8SL1PgnWKQHFxNdsk5j1KuGa7TeSyb8Ch
+	 0AfoBSHk9HZsy0HdEofqqNxg0wrGMAwMHNp7rQc+58DfumNGzjj/qx0Y0kUNzN6nCs
+	 OFzgY5AO6nQfzN3GhDOi/RinPXmacHNZmgQ/EN5p2qSlamtSAYTxOjya78mUV77gJ7
+	 o5MXuZdjk64sg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F1854C5DF94;
+	Mon, 24 Aug 2026 15:58:19 +0000 (UTC)
+From: Alexandre Hamamdjian via B4 Relay <devnull+azkali.limited.gmail.com@kernel.org>
+Subject: [PATCH v6 0/4] arm64: qcom: add Ayaneo Pocket DS gaming console
+Date: Mon, 24 Aug 2026 22:58:18 +0700
+Message-Id: <20260824-pocketds-v6-0-370161574ca2@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23NzW7CMBAE4FdBPtdo/W/31PdAPYT1GtwWguIQt
+ UJ59zpwqAscR5pv5sIKDZkKe11d2EBTLrk/1mBfVgz33XFHPMeamQRpwQjgpx4/aYyFE5DbhoB
+ J2cBq/TRQyt/Xqc37LZfz9oNwXPzS2Ocy9sPP9WsSS+/J7CQ4cExgOiQE26W33aHLX2vsD2yZn
+ WQLRQNlhTKEGLXULskHqFroGqgqjCYIQA/CGXsP9R90UjZQV6iVd6AxGpHcPTQtVA00FTptwCv
+ v0Yl/j/M8/wL118snlgEAAA==
+X-Change-ID: 20260510-pocketds-e0e7b99cf369
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Alexandre Hamamdjian <azkali.limited@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Teguh Sobirin <teguh@sobir.in>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787587098; l=12629;
+ i=azkali.limited@gmail.com; s=20260510; h=from:subject:message-id;
+ bh=DzQtUdxPsGQxAnyB2mZ8jc5ib/G4dhPX4wbn9tIQSMk=;
+ b=xqfgsxEMYMgE5XEHWIKD+ut0zY+YpQlK3I3ThkXLGjnFtWqPqZwd5gT/vnpOFQFvbiDB0gh+r
+ Zj2ex2Lqtj8A+P87fmbnCaSNPKMkJUuzU2I/wuW3a1MeWx4VnnEFahg
+X-Developer-Key: i=azkali.limited@gmail.com; a=ed25519;
+ pk=I0Z0IdCdQJqNGX+FQUnXhrHg950u3cM6Xzz3YT6JOyQ=
+X-Endpoint-Received: by B4 Relay for azkali.limited@gmail.com/20260510 with
+ auth_id=774
+X-Original-From: Alexandre Hamamdjian <azkali.limited@gmail.com>
+Reply-To: azkali.limited@gmail.com
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The commit message contains a major factual error: it justifies =
-adding the `vcc-supply` property by claiming it is fetched by `lm90_probe()=
-` in `drivers/hwmon/lm90.c`, but the `ti,tmp401` and `ti,tmp411` devices ar=
-e actually backed by `drivers/hwmon/tmp401.c`, which completely lacks regul=
-ator support.
---
+This series adds initial support for the Ayaneo Pocket DS, a handheld
+gaming console built around the Qualcomm QCS8550 SoC. It has UFS
+storage, WiFi/Bluetooth, gaming buttons, microSD, and USB-C with
+DisplayPort. Game controls are exposed through a Renesas uPD720201
+PCIe USB 3.0 host controller hung off PCIe1, while a dedicated gamepad
+MCU is reached over UART11.
 
---- Patch [1]: [PATCH] dt-bindings: hwmon: ti,tmp401: add vcc-supply and #t=
-hermal-sensor-cells ---
-commit bb8183d96c519f5d3050a2f78596d89eca815884
-Author: Vincent Jardin <vjardin@free.fr>
+The series is structured as:
 
-dt-bindings: hwmon: ti,tmp401: add vcc-supply and #thermal-sensor-cells
+  1. dt-bindings entry for the new ayaneo,pocket-ds compatible.
+  2. sm8550.dtsi: add the QUP2 SE3 (UART11) controller node and its
+     default pinctrl, so the board can enable it as &uart11.
+  3. The Pocket DS board device tree itself, together with thermal_*
+     labels for the cpuss/cpu/gpuss thermal zones added to sm8550.dtsi
+     so the board has a real user of them in the same patch.
 
-This commit updates the ti,tmp401 device tree binding to include the
-vcc-supply and #thermal-sensor-cells properties. It aims to fix
-dtbs_check warnings for boards that describe these features.
+Only the basics are wired up at this stage (boot to console, core
+peripherals, USB-C with DP and SBU AUX muxing, microSD, WiFi/BT,
+gaming controls, volume keys, the RGB power LED and PWM-fan cooling),
+plus the lower DSI panel in patch 4.
 
-> vcc-supply is fetched in lm90_probe():
->
->   drivers/hwmon/lm90.c:2777
->         err =3D devm_regulator_get_enable(dev, "vcc");
->
-> so a board with the sensor behind a switched rail has no other way to
-> describe it, and omitting it means the chip is probed with its supply
-> possibly off.
+The upper panel is still missing. Its Chipone ICNA3512 binding makes
+disp-supply and blvdd-supply mandatory, and this board has no
+separately controllable rail for either: the vendor device tree drives
+the upper panel through a platform enable GPIO and points the panel
+node at the simulator supply list, and holding that GPIO low on the
+device does not stop the panel initialising. It will follow once the
+wiring is confirmed.
 
-[Severity: Medium]
-Is this justification accurate for the ti,tmp401 binding?
+Signed-off-by: Alexandre Hamamdjian <azkali.limited@gmail.com>
+---
+Changes in v6:
+- board dts: renamed the uart11 alias from hsuart0 to serial2. uart11 is
+  a plain serial engine like uart7 and uart14; hsuart0 in-tree only
+  labels the sc7180/trogdor Bluetooth UART (Konrad).
+- board dts: dropped output-low from the fan_pwr_active pinctrl state.
+  vdd_fan_5v0 is a regulator-fixed with gpios = <&tlmm 31 ...>, so the
+  gpiod API already drives the pin (Konrad).
+- board dts: reordered the codec node before cpu in both dai-links of
+  the sound node (Konrad).
+- board dts: kept output-high on the gamepad_pwr_en pinctrl state.
+  Unlike fan_pwr_active, gpio52 has no GPIO consumer anywhere in the
+  device tree, so pinctrl is the only thing asserting it; dropping it
+  leaves the uPD720201 gamepad host controller unpowered. This mirrors
+  the already-merged sm8650-ayaneo-pocket-s2.dts and reverses a v4
+  removal that v5 restored. Happy to model it as a fixed regulator
+  instead if that is preferred.
+- Rebased onto next-20260824. Three fallouts from the newer base, all in
+  the board dts:
+    * &pcieport0 is now &pcie0_port0 in sm8550.dtsi.
+    * the uPD720201 node moved from an inline pcie@0 child of &pcie1 to
+      the &pcie1_port0 label, matching sm8650-ayaneo-pocket-s2.
+    * &ipa now carries memory-region = <&ipa_fw_mem>, so deleting the
+      ipa_fw_mem reserved-memory node left a dangling phandle and dtc
+      refused to build. Added /delete-property/ memory-region on &ipa,
+      the same treatment &remoteproc_mpss and &remoteproc_cdsp already
+      get; &ipa is status = "disabled" on this board.
+- board dts: added the RGB power LED under &pm8550_pwm, shaped like the
+  multi-led node already in sm8650-ayaneo-pocket-s2.
+- New patch 4/4 adding the lower DSI panel (ST7703 + SGM3804 + SY7758 +
+  TCA6408 rails). It is kept separate because it depends on four
+  bindings that only reached linux-next recently, so patches 1-3 can be
+  applied without waiting for them.
+- Picked up Konrad's Reviewed-by on the board dts patch. It predates the
+  RGB LED node above; happy to drop it if you would rather re-review.
+- Link to v5: https://patch.msgid.link/20260723-pocketds-v5-0-74508388c716@gmail.com
 
-The ti,tmp401 and ti,tmp411 devices appear to be backed by the driver
-in drivers/hwmon/tmp401.c, rather than lm90.c.
+Changes in v5:
+- Restore output-high on the gamepad_pwr_en pinctrl state: the Renesas
+  uPD720201 gamepad host controller power-enable on gpio52 must be
+  driven high. It was dropped in v4 together with the boot-time
+  output-high states, but unlike those it is a functional enable
+  rather than a downstream boot artefact (Sashiko).
+- Link to v4: https://patch.msgid.link/20260722-pocketds-v4-0-438704cd51f7@gmail.com
 
-Looking at tmp401_probe(), it currently lacks regulator support and does
-not call devm_regulator_get_enable(). Does this mean boards using the
-tmp401 sensor with a switched rail will still fail to power up the chip
-since the driver ignores the property?
+Changes in v4:
+- Reordered the series so the sm8550.dtsi UART11 patch comes before the
+  board dts that consumes &uart11, keeping the tree bisectable (Dmitry).
+- Renamed the board compatible from "ayaneo,pocketds" to
+  "ayaneo,pocket-ds", matching the hyphenated "ayaneo,pocket-s2" already
+  in qcom.yaml and the DT compatible naming convention (Sashiko). The
+  Acked-by on the bindings patch was given for the unhyphenated string;
+  kept it since the change is a one-word rename, please shout if you
+  would rather re-ack it.
+- uart11: switched operating-points-v2 to &qup_opp_table_120mhz, which
+  is what i2c11 and spi11 use for the very same serial engine at
+  0x88c000; the 100 MHz table was simply wrong (Sashiko).
+- uart11: use bias-pull-up rather than bias-disable on TX/RX, matching
+  qup_uart14_default, the other high-speed UART on this SoC (Sashiko).
+- Reworded the UART11 commit message, which implied that open-coding
+  the controller in a board dts was a viable alternative (Konrad).
+- Squashed the sm8550.dtsi thermal-zone labels patch into the board
+  dts patch so the labels gain their consumer in the same change
+  (Krzysztof).
+- Renamed the sm8550.dtsi thermal-zone labels from
+  cpuss[0-3]_thermal / cpu7_top_thermal / gpuss[0-7]_thermal to
+  thermal_cpuss[0-3] / thermal_cpu7_top / thermal_gpuss[0-7] so all
+  thermal-related overrides cluster alphabetically in the consuming
+  board dts (Dmitry).
+- Dropped the &gpu_opp_table override until upstream gains proper
+  speed-bin detection (Dmitry).
+- Switched remoteproc_adsp firmware-name from the downstream .mdt
+  suffix to the upstream .mbn convention (Dmitry).
+- Replaced the /delete-node/ overrides on &remoteproc_mpss /
+  &remoteproc_cdsp with /delete-property/ memory-region (Dmitry). Both
+  are already status="disabled" in sm8550.dtsi, so the nodes never
+  needed deleting; only their now-dangling memory-region phandles did.
+  The reserved-memory regions for the unused modem, CDSP, camera and
+  IPA firmware stay /delete-node/-ed so that memory is handed back to
+  Linux, matching what sm8550-samsung-q5q and
+  sm8550-sony-xperia-yodo-pdx234 already do on this SoC.
+- Dropped the downstream rocknix-u-boot-dt-id root property (Neil).
+- Switched the deprecated "gpio" property to "gpios" on all fixed
+  regulators (Neil).
+- Reworked the audio-routing DAPM table to drop the bogus
+  "VA DMIC0/1, vdd-micb" routes (Neil).
+- Reshaped the per-zone thermal-zones overrides to a single "active"
+  trip point bound to &pwm_fan via cooling-maps, mirroring the
+  Ayaneo Pocket S2 style (Neil).
+- Added a pinctrl-1 sleep state for pwm_fan and the corresponding
+  fan_pwm_sleep PMIC pinctrl entry (Neil).
+- Added a gpio-keys node wiring up the Volume Up button via the
+  previously-unreferenced volume_up_n pinctrl (Neil).
+- Dropped every output-high in the &tlmm pinctrl states (Neil).
+- Dropped the incomplete DSI/panel bring-up (display_panel, &mdss_dsi0,
+  &mdss_dsi0_phy, &mdss_dsi1, &mdss_dsi1_out, &mdss_dsi1_phy and the
+  sde_dsi*/sde_te*/panel_pwr_active pinctrl) until the panel bindings
+  are reviewed (Neil).
+- Added the missing SBU AUX endpoint between the pmic-glink connector
+  and the NB7VPQ904M redriver port@2 to complete the DP altmode
+  signal path (Neil).
+- Normalised the last fixed-regulator node name to the "<name>-regulator"
+  convention (vph_pwr) (Krzysztof).
+- Reauthored the bindings patch under Alexandre alone (no co-developed
+  needed for the trivial DT entry) and picked up Krzysztof's Acked-by.
+- Fixed the sign-off chain on the board dts patch: the From: author's
+  Signed-off-by now comes first and the submitter's last (Krzysztof).
+- No qup_uart11_cts_rts pinctrl state was added: nothing in-tree
+  references it, and hardware flow control is not wired on this board.
+  It can be added together with its first user (Sashiko).
+- Built with "make CHECK_DTBS=yes qcom/qcs8550-ayaneo-pocket-ds.dtb":
+  no errors, no warnings. With W=1 dtc additionally reports
+  avoid_unnecessary_addr_size on sm8550.dtsi's dsi@ae94000/dsi@ae96000,
+  because no panel child is added while display support is deferred;
+  qcs8550-aim300-aiot already reports the same for dsi@ae96000.
+- board dts: enabled &pcie0_phy and added the &pcieport0 wifi@0 supply
+  node for the WCN7850. Without the PCIe0 PHY and the vddpcie0p9 /
+  vddpcie1p8 rails the WiFi link never trained; the wifi@0 supply node
+  follows sm8650-ayaneo-pocket-s2 and the sm8550/sm8650 QRD/HDK boards.
+- board dts: dropped &i2c4 to 100 kHz. The FT5426 touchscreen
+  clock-stretches past the GENI controller's timeout at 400 kHz, and
+  the qcom-geni-i2c controller has no i2c_bus_recovery, so a stuck SCL
+  can only be cleared by an FSM reset that is itself the operation
+  timing out. Standard mode is within the FT5426's clock-stretch spec.
+- board dts: pinned &pcie0 to max-link-speed = <2> (Gen2), the link
+  speed validated for the WCN7850 on this board.
+- board dts: dropped the undocumented sdhci-caps-mask = <0x3 0x0> on
+  &sdhc_2 (it masked the SDR50/SDR104 capability bits that the board's
+  own sd-uhs-sdr50 / sd-uhs-sdr104 properties enable). qcom,dll-config
+  is kept, with its derivation now recorded in the commit message.
+- Renamed the board dts to qcs8550-ayaneo-pocket-ds.dts to match the
+  hyphenated compatible and the sibling sm8650-ayaneo-pocket-s2.dts;
+  the Makefile entry and the CHECK_DTBS target were updated to suit.
+- Note on the UART11 Reviewed-by: Konrad's tag was given on v3, before
+  the operating-points-v2 (&qup_opp_table_120mhz) and bias-pull-up
+  changes above. It is retained here; happy to drop it for a re-review.
+- Link to v3: https://patch.msgid.link/20260517-pocketds-v3-0-d5910c801756@gmail.com
 
-> diff --git a/Documentation/devicetree/bindings/hwmon/ti,tmp401.yaml b/Doc=
-umentation/devicetree/bindings/hwmon/ti,tmp401.yaml
-> index 0e8ddf0ad7890..69f77aec01a33 100644
-> --- a/Documentation/devicetree/bindings/hwmon/ti,tmp401.yaml
-> +++ b/Documentation/devicetree/bindings/hwmon/ti,tmp401.yaml
-[ ... ]
-> @@ -50,6 +50,11 @@ properties:
->      minimum: 0
->      maximum: 15
-> =20
-> +  vcc-supply: true
+Changes in v3:
+- New prerequisite patch adding the QUP2 SE3 (UART11) controller node
+  and the qup_uart11_default pinctrl state to sm8550.dtsi, so the
+  board can enable the gamepad MCU UART via &uart11 instead of
+  duplicating the controller node in the board dts.
+- Alphabetised the root-level nodes in the board dts and renamed the
+  fixed regulators to the "<name>-regulator" node-name convention.
+- Link to v2: https://patch.msgid.link/20260511-pocketds-v2-0-299dd4247f2f@gmail.com
 
-[Severity: Medium]
-While adding this property correctly describes the hardware and silences the
-dtbs_check warnings, should the drivers/hwmon/tmp401.c driver also be
-updated in a companion patch so it actually parses and enables this supply?
+Changes in v2:
+- Inlined the board into a single qcs8550-ayaneo-pocketds.dts, matching
+  the sm8650-ayaneo-pocket-s2 layout
+- Added qcom,qcs8550 to the compatible chain
+- Prerequisite patch labelling the sm8550 thermal zones so the board
+  can extend them via &label overrides (and refactored the board's
+  thermal-zones to use them)
+- Added the Renesas uPD720201 USB 3.0 controller as a child of pcie1
+  with proper avdd33 / vdd10 / vdd33 regulators
+- Moved gamepad_pwr_en off &pcie1's pinctrl-0 and onto the
+  usb-controller node
+- Split the lumped upd720201_active pinctrl into per-regulator states
+- Fixed mdss_dp0_out data-lanes to <0 1 2 3> (all four wired)
+- Fixed gpio-reserved-ranges to <32 4> (gpio 38-39 drive the Goodix
+  touchscreen)
+- Renamed nodes with underscores (llcc-lpi-region, splash-region,
+  gpio@20) per DT conventions
+- Reordered pinctrl-names after pinctrl-N file-wide
+- Dropped the unused cont_splash_region label
+- Link to v1: https://patch.msgid.link/20260510-pocketds-v1-0-cf05acec06af@gmail.com
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824-for-upstre=
-am-dt-tmp401-vcc-tsc-v1-1-ecb5ef7898bd@free.fr?part=3D1
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Alexandre Hamamdjian (3):
+      dt-bindings: arm: qcom: document the Ayaneo Pocket DS
+      arm64: dts: qcom: sm8550: add UART11 node
+      arm64: dts: qcom: qcs8550-ayaneo-pocket-ds: add the lower DSI panel
+
+Teguh Sobirin (1):
+      arm64: dts: qcom: add basic devicetree for Ayaneo Pocket DS gaming console
+
+ Documentation/devicetree/bindings/arm/qcom.yaml    |    1 +
+ arch/arm64/boot/dts/qcom/Makefile                  |    1 +
+ .../boot/dts/qcom/qcs8550-ayaneo-pocket-ds.dts     | 1742 ++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8550.dtsi               |   52 +-
+ 4 files changed, 1783 insertions(+), 13 deletions(-)
+---
+base-commit: 4b18edbd8e70f7e6860d56370f13244896d0f95c
+change-id: 20260510-pocketds-e0e7b99cf369
+
+Best regards,
+--  
+Alexandre Hamamdjian <azkali.limited@gmail.com>
+
+
