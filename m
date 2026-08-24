@@ -1,98 +1,181 @@
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C0040F74F
-	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 12:19:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE7FD412276;
+	Mon, 24 Aug 2026 12:19:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787573953; cv=none; b=UsWmrY24qyZWva2HxhmYHmK3SXUc0CQEWUGN0W9uoDd4kWrARKIIceO15oHN9hbvLynhKYthp7KiifVEmAFVNMlkFsrVfzJ+NrERsUDmDyhabjUxF0fhEkneggxAs7xqRQsEqCt/9Nlb4eNe2hhZHiWPMCU835fvf1OSOeyHpRc=
+	t=1787573957; cv=none; b=ml/dABwvbuSkJQW/NYqj1toj3rbZejerQgVx4AiPektf16MCGm4Vv9fceoFBr13RPJZwbJ8IqyaQBzbVC1iurhxAjimGDpSBM1ByTW38+S+0K0qz1kEX0eRapN6Gou23AKMv1T5c80uUMGxKAKgOVC7Cu0sOoqNlDFvbHkkC9hs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787573953; c=relaxed/simple;
-	bh=oEmVoTqNwL4oExAHfGENpNbS+QESXn4HTPfAL2vKifQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H9LXvbn78VIO9HWnvMFVqu9jjmBoaLQbZh7uxTHGsdpmdM7Nj66dUwIJ7JS9j466mDxD/Gjd7KRwmaRZuhM6wohs31k2DMQ420iXYSoe4Go9nmWfmAi0NcFRDs0XN3w31PQLsFGum8OnbKnxusKUkcaK29g55KRD6hNRNW0b//k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bXFQrC4P; arc=none smtp.client-ip=209.85.221.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787573957; c=relaxed/simple;
+	bh=ZXjmB9NrVghqV8R+lcEthXlP99YjP4L1lGePbVKzf7A=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=GpfzZAJPBUqcqWAWVD1NQvANNzNFwA70vsDtIVSurouvkfS7KNrFiSCpcws5+bN/YavynlpZt6zysdwC8PZkOz5Zg10gbwB4S0+cl7OKraKsTxEysGcg/+7qT6Jm+NLIUZfiOS7hDGgB6HpFeC2SJymogihLJnpZH/CT5vDZ7qk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O7jExXe2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bXFQrC4P"
-Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5c2c96286f0so1476054e0c.3
-        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 05:19:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787573951; x=1788178751; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ActAKE3l7zo8+sdxPLWIoLXyxVVzOQ3YeANx3kA/65I=;
-        b=bXFQrC4P7+uh7hya8oThpKVsciD4eO9zwqJPj16X3t5CxJRW/dpJuR3AJAxU6v9Z4E
-         8zsIVuAQkgo1EMRqqsEFHEwuJeHGH5QaBhE+ki/QcBgEd+jfjOKlNCcMwOzZFLXlb18w
-         AnaekO/hekdU8er4PavV43otomWwRV3sBEmSkU0vWG+JehkT9Wcv3mGYVYoW9O/ePx54
-         aMRn9nyOe9PvS2HR5X4fOhom7TW95AAnLXi7O46jhiVZAjA8AtwCCENd4dcH0b5KdTna
-         Q6tdjsgOOMMGsgAOxpPn+wx0LdJM56i9S8vPLXioa1iqN7QN1gHvHkPpiEU44DaOaRud
-         4GPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787573951; x=1788178751;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ActAKE3l7zo8+sdxPLWIoLXyxVVzOQ3YeANx3kA/65I=;
-        b=WhbYacbnxr6eW+Ms/nticBaFAMYGNxcGuhRillO+ycsIeVlvqFQnD4RkIR5xtqepg/
-         Jg/2D/kdnRDaQpXrcTbKOu0ms/wVhjXPWYBlz1+GYhhDkLOSC+KaSkdBBNh6/8bz6BK/
-         SWZNDG/bCsyKKbimv5yPtPxCTj95HdjPu8k7eTGZNji6AanYkzgvs5ZSQ2B9S+6ApZxi
-         qUDHREiBhuBaB0k12UQrgyayGfYJpd4w1AKsASx6Q6ouwfYU9Nz/lApOWb80pNsdjdRH
-         fTmSbHuPN34Ia9DCIzE2VvufwBacujH1z83JD1a2hTQnI+gm0nu0pzNWO74Gxze31ZtI
-         jmEg==
-X-Forwarded-Encrypted: i=1; AHgh+RpQXAxxo+fr5E27wVLL7AFAThiVDQgvkJ0Hndpjz76PvYscb4QpB4uQfXdGxxV25oxGQbnR2uXVf2cW@vger.kernel.org
-X-Gm-Message-State: AFuF++m8pkoMck1hXQo6OjNAd/a9f6mJ+tjQFFRFvvXi3WTwWXUpsEIZ
-	fzLuJXZTg6pl5qkshBLUoo9M5BemyAZhwc/xFXRDkEJoxm7oxjRzdCStRJH9Ufht
-X-Gm-Gg: AR+sD11zBWCmo45mZdzIkPe1SIoGR1YYru3cGtkylErwsmIjoTDVtuXkgrPFJXtKpkG
-	Srnv+Ys4zOL+CPgXZYmDVcbGZ3b1vVBDG7y0J4mj7hUfV4byffRFzQMuAXP1ziz+0a1PMeBTjwI
-	yCw91q3jSW7tbxh6+YqCblmKS+Eh33opcIkS+S2r9Q5zxgt4BKvrJiBBESfrkU/suPCFzzAvVOu
-	yqNfYJ/FKDVgG2v8scjKHYIcIYY/n82+0PzGqbJTNOgxE/vp+K5WOP/nW9phogpK+YYkDAUwkcC
-	82l4GepMTO1Rx2NKwEjEcRqV3I6ScyOro9AJkYU1dHM/p0Qt0coxnO08T6x9bRKcxE4QjcGZkGP
-	pDkYePZGOMCMNVX20xV2hOosuH0u0dnj8WrbcOh4U8kk+b4zVdkpbqwgc12JJAgybYt0JU64XVQ
-	Dg8+LgXPDSM5df+FRrNWzkDQRmIOL01VRq8HSkeVBg5CrbRELKmXVQWlBVhmpdJUBky6bt
-X-Received: by 2002:a05:6122:6610:b0:5a1:fbbd:6bd0 with SMTP id 71dfb90a1353d-5c5ff803054mr10905050e0c.5.1787573951106;
-        Mon, 24 Aug 2026 05:19:11 -0700 (PDT)
-Received: from localhost ([2804:30c:97d:e800:9454:1179:18df:ab33])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-97c8db56329sm4847385241.3.2026.08.24.05.19.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 24 Aug 2026 05:19:10 -0700 (PDT)
-Date: Mon, 24 Aug 2026 09:19:52 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Antoniu Miclaus <antoniu.miclaus@analog.com>
-Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
-	linux@analog.com, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/4] iio: accel: adxl367: use regmap_assign_bits()
-Message-ID: <aow26IMc3tpgzI7r@debian-BULLSEYE-live-builder-AMD64>
-References: <20260821180753.4633-1-antoniu.miclaus@analog.com>
- <20260821180753.4633-4-antoniu.miclaus@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O7jExXe2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 811D21F00A3A;
+	Mon, 24 Aug 2026 12:19:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787573955;
+	bh=EBoWStSzbytuTWZKFmo4k62okrk2cB3UE3wLpCN7IJs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=O7jExXe2CTuuFsRc0R0ApBm0WYNprDnSAECne2HpUXamU4j/Jy7midVDb8Pxb8tCk
+	 aActWLMfZvXzqIPQeT+y+IvEtcGtKS1oA5UiglwQ2+7mmgi4q6DbQ86jlC6la6lcqi
+	 n2Huqrr8OHRY3Egd6n38g0ESHo2eLdbDIcuQX5mEdvs28NYywvt2Vybx6wbwN+ighB
+	 GRk0QFd5gJ+Swoi1v/XVTW2CWwv+Knw/JAdIjOvphmdJhZXe3lKBMzFXlTUh8e6k6p
+	 xzEJER/YPdJRca56wdaxExUbHIGrJaO070RtrcaA30ODhZpdHLpr7CgqtNFo/+bBjW
+	 02R7V1SsgwmSA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 19/47] clk: qcom: gcc-sdm670: Tie the CX power domain
+ to controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Abel Vesa" <abel.vesa@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-clk@vger.kernel.org
+In-Reply-To: <20260824-qcom-tie-cx-to-gcc-v3-19-f1205a92682b@oss.qualcomm.com>
+References: <20260824-qcom-tie-cx-to-gcc-v3-0-f1205a92682b@oss.qualcomm.com>
+ <20260824-qcom-tie-cx-to-gcc-v3-19-f1205a92682b@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 24 Aug 2026 12:19:15 +0000
+Message-Id: <20260824121915.811D21F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260821180753.4633-4-antoniu.miclaus@analog.com>
 
-On 08/21, Antoniu Miclaus wrote:
-> Several helpers set or clear a fixed set of bits based on a boolean using
-> the regmap_update_bits(reg, mask, en ? mask : 0) idiom. Replace these with
-> regmap_assign_bits(), which expresses the same intent more concisely.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
-> ---
-Reviewed-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+
+New issues:
+- [High] The patch adds `.use_rpm =3D true` to allow the CX power domain to=
+ power down when idle, but `CLK_IS_CRITICAL` clocks permanently prevent the=
+ device from suspending, entirely defeating the patch's goal.
+- [High] Enabling runtime PM introduces a permanent PM runtime usage count =
+leak on probe deferral.
+
+Pre-existing issues:
+- [High] Missing `sync_state` callback causes GDSCs initialized as active b=
+y the bootloader to stay powered on indefinitely, defeating the patch's pur=
+pose of powering down CX.
+- [High] If `gdsc_init()` or `pm_genpd_add_subdomain()` fails in `gdsc_regi=
+ster()`, previously initialized generic PM domains are not removed, leading=
+ to a Use-After-Free.
+--
+
+--- Patch [19]: [PATCH v3 19/47] clk: qcom: gcc-sdm670: Tie the CX power do=
+main to controller ---
+commit b55a4bcc407393a5d2f7c186b77a4841507253c0
+Author: Abel Vesa <abel.vesa@oss.qualcomm.com>
+
+clk: qcom: gcc-sdm670: Tie the CX power domain to controller
+
+This commit sets use_rpm to true in the gcc_sdm670_desc configuration to
+enable runtime PM for the controller. The goal is to allow the CX power
+domain to be powered down when all consumers have released their clocks and
+GDSCs.
+
+> diff --git a/drivers/clk/qcom/gcc-sdm845.c b/drivers/clk/qcom/gcc-sdm845.c
+> index 6d0f9cede5cfe..57d54b45fa527 100644
+> --- a/drivers/clk/qcom/gcc-sdm845.c
+> +++ b/drivers/clk/qcom/gcc-sdm845.c
+> @@ -3948,6 +3948,7 @@ static const struct qcom_cc_desc gcc_sdm670_desc =
+=3D {
+>  	.num_resets =3D ARRAY_SIZE(gcc_sdm845_resets),
+>  	.gdscs =3D gcc_sdm670_gdscs,
+>  	.num_gdscs =3D ARRAY_SIZE(gcc_sdm670_gdscs),
+> +	.use_rpm =3D true,
+
+[Severity: High]
+Does setting use_rpm to true actually allow the device to suspend?
+
+When use_rpm is true, clk_core_prepare() takes a PM runtime vote on the GCC
+device. However, critical clocks are permanently prepared at registration:
+
+drivers/clk/qcom/gcc-sdm845.c:gcc_camera_ahb_clk {
+	...
+	.flags =3D CLK_IS_CRITICAL,
+}
+
+Since critical clocks are never unprepared, the runtime PM vote is never
+dropped, which appears to keep the CX power domain permanently active. Does
+this prevent the patch from achieving its power-savings objective?
+
+
+[Severity: High]
+Will enabling runtime PM here introduce a usage count leak on probe deferra=
+l?
+
+Critical clocks take a PM runtime reference during registration. If probe
+defers later (for example in qcom_cc_icc_register()), the clocks are
+unregistered via clk_unregister().
+
+However, clk_unregister() doesn't unprepare critical clocks or drop the PM
+runtime reference:
+
+drivers/clk/clk.c:clk_unregister() {
+	if (clk->core->prepare_count)
+		pr_warn("%s: unregistering prepared clock: %s\n",
+				__func__, clk->core->name);
+	...
+}
+
+Does this lead to permanently unbalanced usage counts every time probe defe=
+rs?
+
+>  };
+> =20
+>  static const struct qcom_cc_desc gcc_sdm845_desc =3D {
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the lack of a sync_state
+callback in gcc_sdm845_driver prevent the CX power domain from powering dow=
+n?
+
+When GDSCs are initialized as active by the bootloader, pm_genpd_init() is
+called with is_off=3Dfalse, and the genpd framework sets stay_on=3Dtrue. Th=
+is
+flag is only cleared when the device driver's sync_state callback fires.
+
+Since gcc_sdm845_driver lacks a sync_state callback (like
+of_genpd_sync_state), the stay_on flag is never cleared:
+
+drivers/clk/qcom/gcc-sdm845.c:gcc_sdm845_driver {
+	.probe		=3D gcc_sdm845_probe,
+	.driver		=3D {
+		.name	=3D "gcc-sdm845",
+		.of_match_table =3D gcc_sdm845_match_table,
+	},
+}
+
+Could this cause active GDSCs to stay powered on indefinitely?
+
+
+[Severity: High]
+This is a pre-existing issue, but can the error path in gdsc_register() lead
+to a use-after-free?
+
+If gdsc_init() or pm_genpd_add_subdomain() fails during the loop in
+gdsc_register(), it exits immediately and only cleans up subdomains:
+
+drivers/clk/qcom/gdsc.c:gdsc_register() {
+	...
+		ret =3D gdsc_init(scs[i]);
+		if (ret)
+			return ret;
+	...
+err_pm_subdomain_remove:
+	gdsc_pm_subdomain_remove(desc, i);
+
+	return ret;
+}
+
+The error path fails to call pm_genpd_remove() for the previously
+initialized generic PM domains, leaving them in the global gpd_list. If the
+module is later unloaded, the statically allocated GDSC structures are
+freed, which might cause a kernel panic on the next gpd_list traversal.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824-qcom-tie-c=
+x-to-gcc-v3-0-f1205a92682b@oss.qualcomm.com?part=3D19
