@@ -1,207 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B18E53E867A
-	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 06:53:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0783D3E49F5
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 06:53:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787554421; cv=none; b=l/+R7JnxVz1jnEsot+2dHFqmqCY3cv548Wn/riy/94isoq/xJdph38FqsqYXXUdwhHOdjqy/HNWTbHmJBwy5yTBLuKDatTLLmtxOqmoVsWNwxYiOd49OKpUvfMDernXiWTHmTj+G3XR7J1cEoI/7EIn9PxkVi1y79jo8cVYOG7Y=
+	t=1787554426; cv=none; b=tlkNS87lUDalrOfqQplUehMOZAloFVuZI56ZeGwg6//C8+gNxoiuhxLYeeY/0SZUBanbstWHdblJhr3QnwV46SRVk1lcLV11w6jlvtTbUorNlqDugWVZXHrh12qIPLyNe9zevrmrj0F6WoE/JmI1AYVCUpIRoRggVJlHyAjrkAM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787554421; c=relaxed/simple;
-	bh=Og8RaQk46u/+7CQ2Zkivg0t4lJQINx73B0q8cZHLHG0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=an6RQ/RpURFBzOmoK7BMhOOYQEtCWVfT4og8G7mBb35tgGkzxAvv1vqKGVYA0aUsP/1gPu2LD8N9R0NlS12L+gRRmq2weqbEHNBsksZprsV3W3EaCYhhxW7ISk75WwdcW3Y/hjSkFU5RGU9WkxY2ktOdZn3L0xB8epRdSqlVG+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GWa0VkBm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787554426; c=relaxed/simple;
+	bh=yPqxZEN17TSsE8y7K+fPGHdga83+K6GnBWtDAPOSCk8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=RAy8Ut/p2yLCRS3sQAqr9aD/tx4UgKxfo3/Eo5B39Ss+o5bv9oMv76Hc21gpQIaEdaYs9ycKgVyFWCfADITTZy/L81EXr4MStvbOhOD0uxEtX6CVoFSSZqUsT4cPd5VEXYkXI8fwox7OTfHiuDf1LZPRGcJSp8rEs5lT4WgCri4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hy4A2c3c; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HtSMCa91; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GWa0VkBm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E41F1F00A3A;
-	Mon, 24 Aug 2026 06:53:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787554419;
-	bh=MpbvQTAn3dPv4OTjt9cgCs/bhOZ8m89oDTpEhsjHENY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GWa0VkBmimWnt4Wn+sefGrHUqimUOeH3WXv4Tx1O/xsjCPiL1zJ5gSW708QsTczK2
-	 uG4WVuOiSgmB0gDQMz+6H/8tqWwrHP5+ndHsSVVW4j3J/gMmeMcN2vkb3nS/uVVEOB
-	 u76/d3xONoRMEuwBQb12dYLzslUUS92XJT7DNrmmLjhYrdVs5KKVdWV38SAoyork9K
-	 E87LxMernrqY+S1z5autBGRzgVIAmi7dMEB960AGj0mnxc5vUXrHREBeZxCwcvQ9y9
-	 wONgCb6wmoE05WFNqw3/YdJwwDxfjmuLkKgiGXHdupcqgOk3JynKf/ZTP5URosrsPm
-	 pMZgNsLcLi/vQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 7/9] ASoC: qcom: Add QAIF IRQ handling,
- suspend/resume and platform register
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Harendra Gautam" <harendra.gautam@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260824063627.3595610-8-harendra.gautam@oss.qualcomm.com>
-References: <20260824063627.3595610-1-harendra.gautam@oss.qualcomm.com>
- <20260824063627.3595610-8-harendra.gautam@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 24 Aug 2026 06:53:38 +0000
-Message-Id: <20260824065339.3E41F1F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hy4A2c3c";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HtSMCa91"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67O6ScUo1982465
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 06:53:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	6DkIxjYN30xA97QN4X9jUUUIIBPxDeXPrblaonVHpOY=; b=hy4A2c3crGOGvlxi
+	IQAGK9dJN22WT69YcQl1bb9zuCqunIfdTs1AEuTwDdSDOFv+RwRLKiUE/g8qrMcF
+	mJEm1tN22UvsiloRljjYYgZMD8ozB7Be2/oSUWx+KXZBwf8JBQEYkuGnGiETHXuT
+	VF+vyBIu40+ka64TtjNHVpTo6eyt3M/GBNJdQKgCVLoYZEb/YP487FxVoRtyb1T5
+	tnXbkmORahw95/bBM7Fu5mK/XcK52mI6h4FQg16p6fTPrCo8Elwmr/rydtYwkLiQ
+	xhvbiI9muKjUeIv8knkoFPbUD7+aEwW+KXf++C6S4UpBsE8WJmIicFoQtr+v+yXl
+	NAhA4w==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g8gqn8378-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 06:53:42 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38f0fe57470so4399742a91.0
+        for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 23:53:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787554422; x=1788159222; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6DkIxjYN30xA97QN4X9jUUUIIBPxDeXPrblaonVHpOY=;
+        b=HtSMCa91OFBcOdl99vSU5VjZjugCDW8BKlm31t2lzWUTlD4x7foz9bFtvaixIRvOJV
+         58ZAbwk1eRMRg7+yc9JZneu4kbc45yQRr0tWQm2ULiWV5E6KM0zRuGPyPJbGfSsl6oez
+         2zoTGwZpgoFb/aArYYIsYH3syDFgGyUuHW5Y4UphmqcVjqRsE7K+HDiW2Yk/p5MPQi/z
+         R8QY4bMnrBoUgz5dpHdZT6q6+eg55eWUCnAEl87CEBLHh+vwvvjHoiWuJ65jXQexLRT1
+         csWbP4kM6bEyVl03Sj7ztuq2HYhLTQUTGkfr6ZDYJ+GLoNBLYQdIT9Vkfc9tpxvYDkG3
+         kB1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787554422; x=1788159222;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6DkIxjYN30xA97QN4X9jUUUIIBPxDeXPrblaonVHpOY=;
+        b=bpwkK1xhHUfDPDhv9PPSR/PVoFZ9kGVdf32MRFBogk6b2sUmyDGPcp9HiGXSjyaq/R
+         5IltK+o/v0kDHFTATwQm5m9Dg4VUFgXyZ+svm5GIONS+azWMVRCAJ9ifeyoAyRd0/yjb
+         YZrP8ItuEzapVhxykgAjWdAq7YEDfwgG1qss9YO/m9Snj1uUurF3GbcZ+WFG1CsM9lCE
+         HfvD+2cx4GOIu4L4E06tp4RZCIVKCq+/POpZGr2Oiqu+WnUj7WJM0PvAyRS8doEDfOs/
+         fL23z0UiV52voVjdCJqdrUvX8RkYWbZWTCO3k4QptstoVI2Y47OS0MpLezgRz31pR41n
+         wiMw==
+X-Forwarded-Encrypted: i=1; AHgh+Rqb0ka56ku+cOBAwK4GF3UKjIcsXdL6qOPRFZs8jq0EwTlcRd4Is5NWvBbCvTf78c75CUSXWbCS3I9j@vger.kernel.org
+X-Gm-Message-State: AFuF++lDddMpVUeJizQC3/1A0MYiWC2T01lnswY/ROUGZIePk0JhCZ9N
+	zGX6m2hp45l09+LH7/XtcklwCvHVMpdEl9MvTZyt9+V/QvkmMp7hDkzKEMekZmjsoFunJfW1uRz
+	OKXugc+OH8eUsRnkayfiAEcJ0sbBhrsE8FnNBh8p5czGQbxsTn+Os55IuEMIQIlb+
+X-Gm-Gg: AR+sD1369N/6e2Ve1YI48hyAOkaRsJzGBbfshvZ4tQXQtZcQkJ1Tv4bh4pgA4jf01H4
+	3Nrflo+8xXbNyVWOvpXPxTmDW4h2t8UvcyYRbpi0bIsl0QN0nvXzbkSiKFvDkWUQjw9Brv4Zn5S
+	+VDCUUZiEhjqYbc8GXxYGnrwvjjGcO8ebWMk+mcvJrRyzo3YfLlafu5mV+R+dRP76pQUaXxSMNh
+	Kr7QEG8aKuprCqBEhZuy9+w+RCcHenEpSUajIMMR/yxPetu8p7s4YVKaEZYlOcJAGiBJdZ2pNo/
+	GT5YJC93pb/EHZX/5SnxBO5Kc1wPTcncnMCyhi9bvBGAXMLPYb6+9+faYtkt6CbEq8uXFrmxbZQ
+	P1WYGbTNtX2kEhKeoExvAW4tK
+X-Received: by 2002:a17:90b:268b:b0:38e:42f5:d096 with SMTP id 98e67ed59e1d1-395c4528324mr22880242a91.0.1787554421907;
+        Sun, 23 Aug 2026 23:53:41 -0700 (PDT)
+X-Received: by 2002:a17:90b:268b:b0:38e:42f5:d096 with SMTP id 98e67ed59e1d1-395c4528324mr22880215a91.0.1787554421506;
+        Sun, 23 Aug 2026 23:53:41 -0700 (PDT)
+Received: from hu-tdas-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-395e4b240e7sm8768031a91.13.2026.08.23.23.53.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 23 Aug 2026 23:53:41 -0700 (PDT)
+From: Taniya Das <taniya.das@oss.qualcomm.com>
+Date: Mon, 24 Aug 2026 12:23:29 +0530
+Subject: [PATCH 1/2] dt-bindings: clock: qcom: Add EMAC CNOC APB clocks for
+ Nord
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260824-nords_emac_apb_clk-v1-1-290767386bf5@oss.qualcomm.com>
+References: <20260824-nords_emac_apb_clk-v1-0-290767386bf5@oss.qualcomm.com>
+In-Reply-To: <20260824-nords_emac_apb_clk-v1-0-290767386bf5@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+        Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Taniya Das <taniya.das@oss.qualcomm.com>
+X-Mailer: b4 0.15-dev-aa3f6
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI0MDA1OSBTYWx0ZWRfX9k9fup5xF5xU
+ HBfYZvqSdKFH1vHbSg4fa3NTmPFaL79V/B2ut/PbcohZFMcUbimVPW3rr3DKoMkk/pv/tjMUe/U
+ QyMruXOUfeGrOuz8tC0rZe6qVKsq5lM=
+X-Proofpoint-GUID: JMDs7D6o3cJ2wsZ2FktY2JGxhcOZz_y9
+X-Authority-Analysis: v=2.4 cv=fqXsol4f c=1 sm=1 tr=0 ts=6a8bea76 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=0SKnWDcDATWbK4hpfooA:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI0MDA1OSBTYWx0ZWRfX6m/A2YFVQ84a
+ MFoali6ACtOavQvXf4AfeZ672ImHIbgzVx57C4kIY8yMqyAXzGFXU2upC0kPXnQ6bXg0MG1gIez
+ cC0DmQyJNLL5CLE3RrMVS3GzsuGx5ZZzDSvkMYJBc6/DGpknNbSost7ijPa7zXE92gYWdbWZEIj
+ P19FYKHcc+aNr6K4pzK31DpzuO1Tbc86Mvr1sHW0b48loHkA8FR+ZvaPyQS0mOL5ZfaTRA5Mdnl
+ fAhH3Gql029TqOLPNpCz2UPpk5J/th/40ONLxzLVgQPQkjss55qC5bEoVrMpzhSmLgIVFoeLpSz
+ 9ZrzHQXmENE+s/Ida3KqirXOAxd3WhOYceRyf6Wqa1OvoxTvIswZ1Lie6pntJqI1ij/LKgyLp+i
+ sg8jwBZWtWqDGmKj3MeU2HGeKrFBRlaPFZvf29xInQthoEp9Hn/SXi8gMjmcSkuUgfkZYYRZGSj
+ spVs53+lSLIvHFk4pjA==
+X-Proofpoint-ORIG-GUID: JMDs7D6o3cJ2wsZ2FktY2JGxhcOZz_y9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-24_02,2026-08-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 impostorscore=0 phishscore=0 clxscore=1015
+ spamscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608240059
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Hardcoded cell count for 'iommus' property parsing ignores `#iommu=
--cells`.
-- [High] Incomplete hardware context restore during system resume.
-- [Medium] Early return in SNDRV_PCM_TRIGGER_STOP leaves interrupts enabled=
- on failure.
---
+Add the EMAC0 and EMAC1 CNOC APB clock IDs to the SE_GCC clock
+controller bindings for the Qualcomm Nord SoC.
 
---- Patch [7]: [PATCH v3 7/9] ASoC: qcom: Add QAIF IRQ handling, suspend/re=
-sume and platform register ---
-commit e0106aaa99b0a121b196914494fc9a99b9c5df66
-Author: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+---
+ include/dt-bindings/clock/qcom,nord-segcc.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-    ASoC: qcom: Add QAIF IRQ handling, suspend/resume and platform register
-   =20
-    Register the ASoC component, request the QAIF interrupt and add trigger
-    handling to enable or disable DMA and its interrupt sources. Dispatch t=
-he
-    top-level IRQ status to the AIF and CIF DMA handlers, report period ela=
-psed
-    events to ALSA, warn on xrun conditions and stop the stream on bus erro=
-rs.
+diff --git a/include/dt-bindings/clock/qcom,nord-segcc.h b/include/dt-bindings/clock/qcom,nord-segcc.h
+index f0f7422af692d05417d126c1011a22faf3bdc611..de4539b999850294926854a45db2997043c74f2c 100644
+--- a/include/dt-bindings/clock/qcom,nord-segcc.h
++++ b/include/dt-bindings/clock/qcom,nord-segcc.h
+@@ -84,6 +84,8 @@
+ #define SE_GCC_QUPV3_WRAP1_S6_CLK				74
+ #define SE_GCC_QUPV3_WRAP1_S6_CLK_SRC				75
+ #define SE_GCC_QUPV3_WRAP1_S_AHB_CLK				76
++#define SE_GCC_EMAC0_CNOC_APB_CLK				77
++#define SE_GCC_EMAC1_CNOC_APB_CLK				78
+ 
+ /* SE_GCC power domains */
+ #define SE_GCC_EMAC0_GDSC					0
 
-> diff --git a/sound/soc/qcom/qaif-platform.c b/sound/soc/qcom/qaif-platfor=
-m.c
-> index 4b4647641d113..2e5dc5b081cd1 100644
-> --- a/sound/soc/qcom/qaif-platform.c
-> +++ b/sound/soc/qcom/qaif-platform.c
-> @@ -542,3 +542,394 @@ static int qaif_platform_copy(struct snd_soc_compon=
-ent *component,
+-- 
+2.34.1
 
-[ ... ]
-
-> +static int qaif_platform_pcmops_trigger(struct snd_soc_component *compon=
-ent,
-> +					struct snd_pcm_substream *substream,
-> +					int cmd)
-> +{
-> +	struct snd_soc_pcm_runtime *soc_runtime =3D snd_soc_substream_to_rtd(su=
-bstream);
-> +	struct snd_soc_dai *cpu_dai =3D snd_soc_rtd_to_cpu(soc_runtime, 0);
-> +	struct qaif_drv_data *drvdata =3D snd_soc_component_get_drvdata(compone=
-nt);
-> +	const struct qaif_variant *v =3D drvdata->variant;
-> +	struct qaif_pcm_data *data =3D substream->runtime->private_data;
-> +	unsigned int dai_id =3D cpu_dai->driver->id;
-> +	enum qaif_irq_type irq_type =3D qaif_is_cif_dma_port(dai_id) ? QAIF_CIF=
-_IRQ : QAIF_AIF_IRQ;
-> +	struct regmap *map =3D drvdata->audio_qaif_map;
-> +	int idx =3D data->dma_reg_idx;
-> +	int ret;
-> +
-> +	switch (cmd) {
-> +	case SNDRV_PCM_TRIGGER_START:
-> +	case SNDRV_PCM_TRIGGER_RESUME:
-> +	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-> +		ret =3D qaif_platform_irq_op(drvdata, substream->stream, irq_type,
-> +					   idx, QAIF_IRQ_CLEAR);
-
-[Severity: High]
-Does this code fully restore the hardware context during a system resume?
-
-If power is lost during suspend, the hardware registers might be zeroed. It
-looks like the trigger path handles SNDRV_PCM_TRIGGER_RESUME by enabling
-the DMA control bit and interrupts, but without reprogramming the lost DMA
-configuration such as base address, buffer limits, and period lengths.
-
-Could this cause the hardware to fetch from unmapped memory and trigger
-IOMMU faults or memory corruption if we resume a paused or active stream?
-
-> +		if (ret) {
-> +			dev_err(soc_runtime->dev, "error clearing irq regs: %d\n", ret);
-> +			return ret;
-> +		}
-> +		ret =3D regmap_update_bits(map,
-> +					 qaif_dmacfg_reg(v, idx, substream->stream, dai_id),
-> +					 QAIF_DMACFG_DYNCLK_BIT, QAIF_DMACFG_DYNCLK_BIT);
-> +		if (ret) {
-> +			dev_err(soc_runtime->dev, "error enabling dma_dynclk: %d\n", ret);
-> +			return ret;
-> +		}
-> +		ret =3D regmap_update_bits(map,
-> +					 qaif_dmactl_reg(v, idx, substream->stream, dai_id),
-> +					 QAIF_DMACTL_ENABLE_BIT, QAIF_DMACTL_ENABLE_BIT);
-> +		if (ret) {
-> +			dev_err(soc_runtime->dev, "error enabling DMA: %d\n", ret);
-> +			return ret;
-> +		}
-> +		ret =3D qaif_platform_irq_op(drvdata, substream->stream, irq_type,
-> +					   idx, QAIF_IRQ_ENABLE);
-> +		if (ret)
-> +			dev_err(soc_runtime->dev, "error enabling irq regs: %d\n", ret);
-> +		break;
-> +	case SNDRV_PCM_TRIGGER_STOP:
-> +	case SNDRV_PCM_TRIGGER_SUSPEND:
-> +	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-> +		ret =3D regmap_update_bits(map,
-> +					 qaif_dmactl_reg(v, idx, substream->stream, dai_id),
-> +					 QAIF_DMACTL_ENABLE_BIT, 0);
-> +		if (ret) {
-> +			dev_err(soc_runtime->dev, "error disabling DMA: %d\n", ret);
-> +			return ret;
-> +		}
-
-[Severity: Medium]
-Can this early return lead to an interrupt storm?
-
-If regmap_update_bits() fails during SNDRV_PCM_TRIGGER_STOP, this skips
-the subsequent qaif_platform_irq_op() call that disables the interrupts.
-
-Even if disabling DMA fails, wouldn't we still want to ensure interrupts
-are disabled during the teardown sequence?
-
-> +		ret =3D regmap_update_bits(map,
-> +					 qaif_dmacfg_reg(v, idx, substream->stream, dai_id),
-> +					 QAIF_DMACFG_DYNCLK_BIT, 0);
-> +		if (ret)
-> +			dev_err(soc_runtime->dev, "error disabling dma_dynclk: %d\n", ret);
-> +		ret =3D qaif_platform_irq_op(drvdata, substream->stream, irq_type,
-> +					   idx, QAIF_IRQ_DISABLE);
-> +		if (ret)
-> +			dev_err(soc_runtime->dev, "error disabling irq regs: %d\n", ret);
-> +		break;
-
-[ ... ]
-
-> +int asoc_qcom_qaif_platform_register(struct platform_device *pdev)
-> +{
-> +	struct qaif_drv_data *drvdata =3D platform_get_drvdata(pdev);
-> +	struct of_phandle_args iommu_spec;
-> +	u32 sid;
-> +	int ret;
-> +
-> +	if (!drvdata || !drvdata->variant)
-> +		return dev_err_probe(&pdev->dev, -EINVAL,
-> +				     "Invalid drvdata or variant\n");
-> +
-> +	ret =3D of_parse_phandle_with_fixed_args(pdev->dev.of_node,
-> +					       "iommus", 2, 0,
-> +					       &iommu_spec);
-
-[Severity: High]
-Does this code correctly handle generic IOMMU bindings?
-
-The driver uses a fixed cell count of 2 to parse the "iommus" property.
-If the target IOMMU configuration on a platform uses a different
-#iommu-cells value (e.g., 1), won't this cause parsing to fail during
-driver probe?
-
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret,
-> +				     "failed to parse iommus property\n");
-> +	sid =3D iommu_spec.args[0];
-> +	of_node_put(iommu_spec.np);
-> +	drvdata->smmu_csid_bits =3D sid & QAIF_CSID_MASK;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824063627.3595=
-610-1-harendra.gautam@oss.qualcomm.com?part=3D7
