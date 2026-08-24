@@ -1,117 +1,196 @@
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40BE8322527
-	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 14:36:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8D5343C05E;
+	Mon, 24 Aug 2026 14:38:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787582190; cv=none; b=hlC3Jut4cLIcYR57NtcoiHi5XTf9KtytRXv0J8FQDGeC5+fMhUAX+QYamc3m9+tQIwxpjqxfg50goW2XqW+rQnDNRHxMte3uLcHnOQ1dqZc6i6HmstQYEuAYvyQ6mZuIJRwMxl7bie5cwBsojeXzQutWdq2/q5WJt56EStrog8k=
+	t=1787582333; cv=none; b=WfsTGRAnTwumMikQKuHB0OfFDTIziOgYRjjECeq33aiZPcfWLcZb/R8PCv8TzERFf3qT+AubLx4KYEqGCshXvqBygF/P0XYc9D0oSYUL0tSWTAAcyXfVJ/gyUTASoul85rh05WP2XHqeX1uqaGgVSzCxJHp5KlecN1Kim/khKpw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787582190; c=relaxed/simple;
-	bh=euyYYIX9hGqmevRqLicy+2VXXvcJDx0K8piK2mzEcog=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WbVtCla7rEvX/U9H+X/wtsiF2wKlRJZ0TQuZ5uMNAYTAKNQyItAm/is3Tp6r27FctVEyc5Kv9vR6FpdsyU0pFPp5/KnZBXzI+YVZDgamyrnqkuTcKypjExo2BvNhjyO2pHoG19Owd451b28yCDHJeL/0efggPE1aqyIYStPolIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.218.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c15ba3a2b4bso502881966b.1
-        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 07:36:29 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787582187; x=1788186987;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=cjvRvnamI0/i77BPfHjgSWNkTw1kt6AokX8isFSnrJk=;
-        b=SrciUfX6DTHSUExMCFG4ypt7+BxbJNfd+at8CDi8W4kL072wScm9UlvIyp+Ad1QFk/
-         2ZIPhv6+GIEM3MrBEPUOd7jCOWJ+zWZB0x4L1BbzvFetuLZX7gd96jxK49Uo1KaOb9A5
-         naFhHid3qYroKC21LShJ7KZhHLIs77O2G7IDnffLivmKeBorsUQiPA0dGysTK1lTf3T0
-         sclegcdJRQ44PpIb0l8/wEBSSTk6K/tvPX4qn96/XXT3C0LfJcoA1WjybOX5wTScEAdB
-         UiuVNj1oB+rb3ShJnOCGBJ8KusXJfgXAXWIAZNsMxCCjjqrGZwDFU09XnTePHxlOaplv
-         XDVw==
-X-Forwarded-Encrypted: i=1; AHgh+RqAkr/KY3ARwNY7I55IAlh73VWvBdBrsmwLQxuJqbG1CAsn3OtwwdnEsE/lxPOAd2LNiXih0Wo8XTdA@vger.kernel.org
-X-Gm-Message-State: AFuF++k9FIvIa4UcGEb5X8kZX3Kud1olQcttmuy5raBwIkpPC0HOteWT
-	beIGnJLJxNCEsvXktCLpXzsDWKUWSatSKPvUyTAXMHzD7iatc194oEHsY+sRRpz2Zk0=
-X-Gm-Gg: AR+sD10oOXur+jhYi4JvUnQcW+LsifGy7iGlvfQJyxtsvW3mFCw1tfn7tQV/Iejp6Lj
-	DKtE1MmJauJBU65vvKmdC3nNPTfzWrYuBpAZcWD6CJ6DP+Ibhjha3u1JPxV9EdHU/Y3LJ3Y7gTI
-	q1TL3xbi1pLy6ps9oj36ncjH8L8sVkZ62Ql5klLDuLBQ7wTH8YspmYLQQY7H0em0iUYzzavaVzz
-	2ssRdR0JlCjWn3BoR0MtKyMFx2Q3pUqipEMgrvlc1C6CYlGi9JeASzDsk8i7C5b9njviI5Lj6rG
-	e7xH9oBXGAbGAkJnLh7ajRUtfYBzqRj33Ep2lhArvTdFRDPx3qfAIO2aRRLyFjRSB6FdeNpR+9C
-	OtFbUDjwNo8PV3YXKebmd61rjwCbLQUVr3EiYPnadieGZhQFOdUQHePFfP+JX3oFSqjw8S1Cv2/
-	kn4Ic/rEWK0afJCvDP7EwoPCqgijZkM98vRYtFGZcHJgV0paAglDZ2PM+vdNZVCQI5kBmbYtD5A
-	o9nRaG8XC29RXDvFPDo7r2/oQ==
-X-Received: by 2002:a17:906:3e5a:b0:c20:2165:d74f with SMTP id a640c23a62f3a-c246a6ca4f5mr2493654066b.22.1787582187289;
-        Mon, 24 Aug 2026 07:36:27 -0700 (PDT)
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com. [209.85.208.51])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c24966f6b48sm1335498166b.33.2026.08.24.07.36.25
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 24 Aug 2026 07:36:25 -0700 (PDT)
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6a41191c9a9so7058952a12.3
-        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 07:36:25 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqiGi9AeyfJIkRqEEqotKyUygtkhv3H61SoTsKNLTp/oDYtQ82cZO+e44Uxh1MDeSmk4Q24iYBZ+2FD@vger.kernel.org
-X-Received: by 2002:a05:6402:4588:b0:699:fbe4:16d5 with SMTP id
- 4fb4d7f45d1cf-6a42f13c47dmr33276754a12.1.1787582185390; Mon, 24 Aug 2026
- 07:36:25 -0700 (PDT)
+	s=arc-20240116; t=1787582333; c=relaxed/simple;
+	bh=KmmiQgLky96CeGYe3E9jq9qzR+TjTfkZmrKYgaI48hs=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=snLkvOrZfLDBLwAEz4tnhnFPg5zvD4gcCNoQm+M5aUbZVXGS6WgqdBPjHt3Wzpyi3I9v5JzXLpuB99JJvm8oQ7CiM4LT2PaQ7aKjxkSE+9mlAgM12CM9EFaDJQfOWlwgqAStvw6BdkKzDndmzL32RRvMHaz8UtMRmuJjXP99++s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 90B14201B99;
+	Mon, 24 Aug 2026 16:38:43 +0200 (CEST)
+Message-ID: <9650b30e936b58c37ccc73934a66e2d8edb02331.camel@pengutronix.de>
+Subject: Re: [PATCH 04/16] usb: typec: tcpm: Add STM32 UCPD driver
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>, Greg Kroah-Hartman	
+ <gregkh@linuxfoundation.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Christian Bruel	 <christian.bruel@foss.st.com>, Heikki Krogerus
+ <heikki.krogerus@linux.intel.com>,  Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark
+ Brown <broonie@kernel.org>,  Srinivas Kandagatla	 <srini@kernel.org>, Marek
+ Vasut <marex@nabladev.com>, Vinod Koul	 <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Pankaj Dev	 <pankaj.dev@st.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org
+Date: Mon, 24 Aug 2026 16:38:43 +0200
+In-Reply-To: <20260821-ucpd-host-fusb340-v7-2-rfc-v1-4-c5e27cbc0795@foss.st.com>
+References: 
+	<20260821-ucpd-host-fusb340-v7-2-rfc-v1-0-c5e27cbc0795@foss.st.com>
+	 <20260821-ucpd-host-fusb340-v7-2-rfc-v1-4-c5e27cbc0795@foss.st.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1787062965.git.tommaso.merciai.xr@bp.renesas.com> <aec1fce5558c6c88725fe710a2f9e4b1eb9e8d64.1787062965.git.tommaso.merciai.xr@bp.renesas.com>
-In-Reply-To: <aec1fce5558c6c88725fe710a2f9e4b1eb9e8d64.1787062965.git.tommaso.merciai.xr@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 24 Aug 2026 16:36:10 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUUAcrUbYV+_CFp5sZ1gQtn5eHzswZPvfZs=-=FX44DVg@mail.gmail.com>
-X-Gm-Features: AcwNN1WKLbQoBhWyxHFoBVgNL35FfLUMj0SA3RfCuChNtnL3NS63UMiAsSuuf_Y
-Message-ID: <CAMuHMdUUAcrUbYV+_CFp5sZ1gQtn5eHzswZPvfZs=-=FX44DVg@mail.gmail.com>
-Subject: Re: [PATCH 1/3] arm64: dts: renesas: r9a08g046: Add USB2.0
- placeholder nodes
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Cc: tomm.merciai@gmail.com, prabhakar.mahadev-lad.rj@bp.renesas.com, 
-	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com, 
-	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-Hi Tommaso,
-
-On Tue, 18 Aug 2026 at 16:29, Tommaso Merciai
-<tommaso.merciai.xr@bp.renesas.com> wrote:
-> The USB2.0 wiring on the RZ SMARC Carrier-II board is the same for the
-> RZ/G3E and RZ/G3L SoMs, so the nodes belong in the shared
-> renesas-smarc2.dtsi. Enabling them there breaks the RZ/G3L SMARC EVK
-> build, as the r9a08g046 (RZ/G3L) SoC DTSI describes neither the USB2.0
-> host (OHCI/EHCI) nor function (HSUSB) instances:
->
-> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:94.1-7 Label or path ehci0 not found
-> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:99.1-7 Label or path ehci1 not found
-> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:104.1-8 Label or path hsusb0 not found
-> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:114.1-7 Label or path ohci0 not found
-> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:119.1-7 Label or path ohci1 not found
->
-> Add minimal placeholder nodes carrying only the reg property.
-> The remaining properties will be filled in once USB2.0 support for
-> RZ/G3L is complete.
->
-> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+On Fr, 2026-08-21 at 18:23 +0200, Fabrice Gasnier wrote:
+> From: Christian Bruel <christian.bruel@foss.st.com>
+>=20
+> Add support for the STM32 UCPD controller providing USB Type=E2=80=91C
+> Configuration Channel (CC) management and USB Power Delivery (PD)
+> protocol handling.
+>=20
+> The driver integrates with the TCPM (Type-C Port Manager) framework.
+> On this platform, VBUS monitoring is handled by an external TCPP03
+>=20
+> Note the driver doesn't allow PD, so the role can only be set at
+> plug time.
+>=20
+> The UCPD can be a wakeup source, in such a case, keep the hardware
+> enabled. Else, keep track of the vbus state as provider and as
+> consumer, to be restored after low power.
+>=20
+> Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 > ---
->  arch/arm64/boot/dts/renesas/r9a08g046.dtsi | 25 ++++++++++++++++++++++
+>  drivers/usb/typec/tcpm/Kconfig      |  12 +
+>  drivers/usb/typec/tcpm/Makefile     |   1 +
+>  drivers/usb/typec/tcpm/stm32_ucpd.c | 818 ++++++++++++++++++++++++++++++=
+++++++
+>  3 files changed, 831 insertions(+)
+>=20
+[...]
+> diff --git a/drivers/usb/typec/tcpm/stm32_ucpd.c b/drivers/usb/typec/tcpm=
+/stm32_ucpd.c
+> new file mode 100644
+> index 000000000000..b5c9dc417814
+> --- /dev/null
+> +++ b/drivers/usb/typec/tcpm/stm32_ucpd.c
+> @@ -0,0 +1,818 @@
+[...]
+> +static int stm32_ucpd_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct i2c_client *tcpp_client;
+> +	struct device_node *tcpp_np;
+> +	struct stm32_ucpd *ucpd;
+> +	int ret;
+> +
+> +	ucpd =3D devm_kzalloc(dev, sizeof(*ucpd), GFP_KERNEL);
+> +	if (!ucpd)
+> +		return -ENOMEM;
+> +
+> +	ucpd->dev =3D dev;
+> +	platform_set_drvdata(pdev, ucpd);
+> +
+> +	ucpd->vdd =3D devm_regulator_get(&pdev->dev, "ucpd");
+> +	if (IS_ERR(ucpd->vdd))
+> +		return dev_err_probe(&pdev->dev, PTR_ERR(ucpd->vdd), "vdd get failed\n=
+");
+> +
+> +	ucpd->vconn =3D devm_regulator_get_optional(&pdev->dev, "vconn");
+> +	if (IS_ERR(ucpd->vconn)) {
+> +		if (PTR_ERR(ucpd->vconn) !=3D -ENODEV)
+> +			return dev_err_probe(&pdev->dev, PTR_ERR(ucpd->vconn),
+> +					     "vconn get failed\n");
+> +		ucpd->vconn =3D NULL;
+> +	}
+> +
+> +	ucpd->base =3D devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(ucpd->base))
+> +		return PTR_ERR(ucpd->base);
+> +
+> +	ucpd->num_clks =3D devm_clk_bulk_get_all(dev, &ucpd->clks);
+> +	if (ucpd->num_clks <=3D 0)
+> +		return ucpd->num_clks ? : -ENOENT;
+> +
+> +	ucpd->reset =3D devm_reset_control_get_exclusive(dev, "ucpd");
+> +	if (IS_ERR(ucpd->reset))
+> +		return dev_err_probe(dev, PTR_ERR(ucpd->reset), "Failed to get UCPD re=
+set\n");
+> +
+> +	ret =3D stm32_ucpd_get_trim_values(ucpd);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to get trim values\n");
+> +
+> +	ucpd->vconn_cc1_gpio =3D devm_gpiod_get_optional(dev, "vconn-cc1", GPIO=
+D_OUT_LOW);
+> +	if (IS_ERR(ucpd->vconn_cc1_gpio))
+> +		return dev_err_probe(dev, PTR_ERR(ucpd->vconn_cc1_gpio), "vconn-cc1 ge=
+t failed\n");
+> +
+> +	ucpd->vconn_cc2_gpio =3D devm_gpiod_get_optional(dev, "vconn-cc2", GPIO=
+D_OUT_LOW);
+> +	if (IS_ERR(ucpd->vconn_cc2_gpio))
+> +		return dev_err_probe(dev, PTR_ERR(ucpd->vconn_cc2_gpio), "vconn-cc2 ge=
+t failed\n");
+> +
+> +	ucpd->ucpd_irq =3D platform_get_irq_byname(pdev, "ucpd");
+> +	if (ucpd->ucpd_irq < 0)
+> +		return ucpd->ucpd_irq;
+> +
+> +	ucpd->tcpc_dev.fwnode =3D device_get_named_child_node(dev, "connector")=
+;
+> +	if (IS_ERR(ucpd->tcpc_dev.fwnode))
+> +		return dev_err_probe(dev, PTR_ERR(ucpd->tcpc_dev.fwnode), "connector n=
+ot found");
+> +
+> +	tcpp_np =3D of_parse_phandle(dev->of_node, "st,tcpp", 0);
+> +	if (!tcpp_np)
+> +		return -EINVAL;
+> +
+> +	tcpp_client =3D of_find_i2c_device_by_node(tcpp_np);
+> +	of_node_put(tcpp_np);
+> +
+> +	/* tcpp driver must be probed so tcpp_init() can be called from tcpm_re=
+gister_port() */
+> +	if (!tcpp_client || !tcpp_client->dev.driver)
+> +		return -EPROBE_DEFER;
+> +
+> +	ucpd->tcpp_dev =3D &tcpp_client->dev;
+> +
+> +	/* No irq until tcpm_port is ready */
+> +	irq_set_status_flags(ucpd->ucpd_irq, IRQ_NOAUTOEN);
+> +	ret =3D devm_request_threaded_irq(dev, ucpd->ucpd_irq, NULL, ucpd_irq_h=
+andler, IRQF_ONESHOT,
+> +					dev_name(dev), ucpd);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "failed to get irq\n");
+> +		goto put_tcpp;
+> +	}
+> +
+> +	init_tcpc_dev(&ucpd->tcpc_dev);
+> +
+> +	ret =3D regulator_enable(ucpd->vdd);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "failed to enable regulator\n");
+> +		goto put_tcpp;
+> +	}
+> +
+> +	ret =3D clk_bulk_prepare_enable(ucpd->num_clks, ucpd->clks);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "failed to enable clocks\n");
+> +		goto disable_regulator;
+> +	}
+> +
+> +	ret =3D reset_control_deassert(ucpd->reset);
 
-FTR, this conflicts with Biju's "[PATCH v7 6/9] arm64: dts: renesas:
-r9a08g046: Add USB2.0 host/phy device nodes". which does add the real
-device nodes.
+No reset_control_assert() in the error path and in stm32_ucpd_remove()?
 
-[1] https://lore.kernel.org/20260812141940.246223-7-biju.das.jz@bp.renesas.com
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+regards
+Philipp
