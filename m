@@ -1,124 +1,136 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94BCF439F63;
-	Mon, 24 Aug 2026 16:17:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E26CF4611C2
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 16:19:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787588270; cv=none; b=JH1mSZG8UBECdxk5VWDZHosu0bOVDtKJG7zkjUhuXGKx6WxZozAde42WYzAk2gRFT13vMCX1htgNLay9VkYY+6kkOuqRGp/o4zWGpge0Wc0k+wrP+BaAVGYcvyclOQwPKLEKNz0suhlgKZx0WevmxJ//AMVbI3Gou7s4R+kzld0=
+	t=1787588365; cv=none; b=EurAQ3vGE/p4I5otI1BZgNZzRJLcEgBuMJYtDIGciruJd4J1Xl3Ya1SPHkl50bcZ/1QuwE7gf2S8j29X4b+yAbxENTrVT4Szp8pMogBo6KEKQ1L9NW2prfDEb48eaCWQz88b8Mu/P9dUfZB5hS6be044maxk7XEVZBAuUI++Guk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787588270; c=relaxed/simple;
-	bh=LltkyRM5IYXEEFNa8eVoTodyPx3gyblAbp7f61uK7rg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i2locrSO0KBUGYC4L1PfyjHVBvcFOUpsyvPfMMwsqNNhusiKspyMEhSa1A24qFWo+A0Bn3TFIShtBF0pAQzTliyLtTU/7i76Vu+r6PKvm39dqeHjUM7ldmzxVSYkEBAMpylcI0YKFixyAAa9cOVs+eHau2KCAVg29LsT+/A/XCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n9Gmzbmm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787588365; c=relaxed/simple;
+	bh=rNdDtFDU2axzuWfQoyDcTdmbEp2bNS83R5Xa4ajWivY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nVkuqJUekj77y2LhgrZ9633igfwnZC2njhFC/cWydbiPBdOT+IhNPobcaQIifm3NX17MvQ8GJzhI5waVRrahKVbBtGZ7uwdAf2ufhJtq/wZUR1earrrVAXaz9RJ80+y8WSilHuPO8l6gPhW+SbIMyv6CnaROyp61hR3w1WVNy2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e2zx3Q+D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n9Gmzbmm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2C051F000E9;
-	Mon, 24 Aug 2026 16:17:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e2zx3Q+D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87F581F00A3A
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 16:19:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787588268;
-	bh=QZcFyUMor0Fj+XIeE0TAFK0SEwLvV98FqTZ7jS4SEg4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=n9GmzbmmaEvRlcvBO1tg4MJfImVxnfCxwxJyor/Xypw+pz9b47Ysmh1dCuoiWmEEn
-	 K0ZBKWBXrOX1ZMYrdbZ3LDm1V/uBhcvSUXW52xlcq4eaGhM3NotMNQfInkTJgdv/5i
-	 RhpM3j+adNiuNJ08NjuytkC+CtdyvFKbmj9suY5uyzMR677dKnFZVFS5KD0eBOwWcP
-	 5n8a8c24LLRCt4dO6FaZbk9frxZ4YGLiTENd6aCOe7Zyf/1X2Q7Am54rPn1uwgvTKf
-	 humulFcFW6rybUhY34ZGx596UtmcNHLUko6rqXqDiQkb3qvKZNnuL9arHccMy4VGkk
-	 AxIB0n3quJM1w==
-Date: Mon, 24 Aug 2026 17:17:44 +0100
-From: Conor Dooley <conor@kernel.org>
-To: markuss.broks@gmail.com
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Henrik Rydberg <rydberg@bitmath.org>, linux-input@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/5] dt-bindings: input: touchscreen: imagis: add
- compatible for IST4050
-Message-ID: <20260824-dollar-finance-7804dc4384cb@spud>
-References: <20260822-imagis-40xx-v1-0-73e6d6cdf110@gmail.com>
- <20260822-imagis-40xx-v1-1-73e6d6cdf110@gmail.com>
+	s=k20260515; t=1787588362;
+	bh=8lJZ+v1tQE+7fXGv9gG2/kR5WGSGWGubrkKIdBQfjbg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=e2zx3Q+DaSkTKQzibxEcudcXsl5ipdlSV+bIEg6UXND2/I0uEFHbnBB6iwQfKU0WB
+	 M+T27rCEJhOr0vHHt+3LbEDUe3aVyTEoWNaSnQTtGnDBJkLJh+vljtQ+xMRted2fm2
+	 mUnQ3ft56/wO426SMGDX7BK6/6o3NT+yZRWcyS5JEGmpVXpZ4sD2yOSYzX7quX6+IA
+	 QmjSXGB1xKkOguoL6DW+TiGgYnnBKxQ9exXoPyoVic9VNro61PLSUKt32xDg6wdsty
+	 MuYofxM79HiaDFwYuwuzRhvek2/1pVV8DFbU5mDu26TljRrFRoUJNsclHUpefZvn/Q
+	 RU+84vR0H7HYg==
+Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3a12ffc112cso501141fa.0
+        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 09:19:22 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rq6HNZWsZ+LiqRr+lx1GALjkvmIZ5Si7IoW/TOBbxXg4GbNFpv5A77UiZI7uZr6bvELxxrKcEoXg58s@vger.kernel.org
+X-Gm-Message-State: AFuF++kpkS9OG8zVodP6VJi1Gzdvztye7fLuSX750Ih7p8srrlyLGATJ
+	B7iJzBPVOugo9P065aicC2AQnF6FklJ0HH7pYDNWKn/+tQwpr+3kGnBE7mCZE7apIV19rFqa1BX
+	UGJmmnqA3i9LKszQCJwh/D0lsUqiEmR0=
+X-Received: by 2002:a2e:be2b:0:b0:3a1:749:3031 with SMTP id
+ 38308e7fff4ca-3a1ed8e6121mr897261fa.0.1787588360914; Mon, 24 Aug 2026
+ 09:19:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="zrINpzeCOQ4ePhS1"
-Content-Disposition: inline
-In-Reply-To: <20260822-imagis-40xx-v1-1-73e6d6cdf110@gmail.com>
-
---zrINpzeCOQ4ePhS1
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20260810100452.426320-1-nagendra.golla@amd.com> <20260810100452.426320-3-nagendra.golla@amd.com>
+In-Reply-To: <20260810100452.426320-3-nagendra.golla@amd.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Mon, 24 Aug 2026 18:18:39 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0gKwxBp=Ajm5_iJEP0GTY5J7SJnHJGCQjfKYgmOHqE0xg@mail.gmail.com>
+X-Gm-Features: AcwNN1Vm_R3byA4Vsfe3EkAk1m9zCfndN3eNtueRTEDziUufHrE5YCmoodKHCrI
+Message-ID: <CAJZ5v0gKwxBp=Ajm5_iJEP0GTY5J7SJnHJGCQjfKYgmOHqE0xg@mail.gmail.com>
+Subject: Re: [PATCH V3 2/6] PM: runtime: Add pm_runtime_if_active guard and
+ conditional variant
+To: Golla Nagendra <nagendra.golla@amd.com>
+Cc: vkoul@kernel.org, Frank.Li@kernel.org, michal.simek@amd.com, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, rafael@kernel.org, 
+	git@amd.com, dmaengine@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Aug 22, 2026 at 12:30:13AM +0300, Markuss Broks via B4 Relay wrote:
-> From: Markuss Broks <markuss.broks@gmail.com>
->=20
-> The IST4050 is a touchscreen IC of the Imagis IST40xx family. It shares
-> the register interface with IST3038C, but uses a different, event-based
-> touch reporting format and does not have touch keys.
->=20
-> The binding no longer covers only the IST30XXC family, so generalize its
-> title as well.
->=20
-> Signed-off-by: Markuss Broks <markuss.broks@gmail.com>
+On Mon, Aug 10, 2026 at 12:11=E2=80=AFPM Golla Nagendra <nagendra.golla@amd=
+.com> wrote:
+>
+> Add a pm_runtime_if_active base guard and its _try conditional variant
+> to pm_runtime.h for drivers that need to conditionally acquire a runtime
+> PM reference only when the device is already active.
+>
+> The base guard must not be used directly via guard()/scoped_guard()
+> because pm_runtime_get_if_active() only acquires a reference when it
+> returns 1; the destructor unconditionally calls pm_runtime_put(), which
+> would underflow usage_count on a suspended or RPM-disabled device. The
+> base guard exists solely to back the DEFINE_GUARD_COND _try variant.
+
+Which is not nice and confusing IMV.
+
+Is there anything like that anywhere else in the kernel?
+
+> The _try variant (used via PM_RUNTIME_ACQUIRE_IF_ACTIVE) checks the
+> return value and only runs the destructor when the reference was
+> actually acquired. This is useful in interrupt handlers where the
+> device may be runtime-suspended and MMIO accesses must be avoided.
+>
+> Signed-off-by: Golla Nagendra <nagendra.golla@amd.com>
 > ---
->  .../devicetree/bindings/input/touchscreen/imagis,ist3038c.yaml         |=
- 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/input/touchscreen/imagis,i=
-st3038c.yaml b/Documentation/devicetree/bindings/input/touchscreen/imagis,i=
-st3038c.yaml
-> index dfaffbc398d3..a4f3e2f0cf45 100644
-> --- a/Documentation/devicetree/bindings/input/touchscreen/imagis,ist3038c=
-=2Eyaml
-> +++ b/Documentation/devicetree/bindings/input/touchscreen/imagis,ist3038c=
-=2Eyaml
-> @@ -4,7 +4,7 @@
->  $id: http://devicetree.org/schemas/input/touchscreen/imagis,ist3038c.yam=
-l#
->  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> =20
-> -title: Imagis IST30XXC family touchscreen controller
-> +title: Imagis touchscreen controller
-
-"controllers" probably.
-
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
-
-> =20
->  maintainers:
->    - Markuss Broks <markuss.broks@gmail.com>
-> @@ -20,6 +20,7 @@ properties:
->        - imagis,ist3038b
->        - imagis,ist3038c
->        - imagis,ist3038h
-> +      - imagis,ist4050
-> =20
->    reg:
->      maxItems: 1
->=20
-> --=20
-> 2.55.0
->=20
->=20
-
---zrINpzeCOQ4ePhS1
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaoxupAAKCRB4tDGHoIJi
-0sksAQCLEcu4V4sKCBqqOsJWxBaSWWqF5zLirHu9iuly6mVDxAEAmFgugmKHpeA4
-oRopGrYKl3h0tcL5iC+rcWJbrdyj+gw=
-=JQZQ
------END PGP SIGNATURE-----
-
---zrINpzeCOQ4ePhS1--
+> Changes in V3:
+> - New patch: add PM_RUNTIME_ACQUIRE_IF_ACTIVE() guard and backing
+>   infrastructure to pm_runtime.h so that drivers
+>   can use a structured guard instead of an open-coded
+>   pm_runtime_get_if_active()/pm_runtime_put() pair
+> ---
+>  include/linux/pm_runtime.h | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+>
+> diff --git a/include/linux/pm_runtime.h b/include/linux/pm_runtime.h
+> index 64921b10ac74..bc6de97e6111 100644
+> --- a/include/linux/pm_runtime.h
+> +++ b/include/linux/pm_runtime.h
+> @@ -609,6 +609,13 @@ DEFINE_GUARD(pm_runtime_active, struct device *,
+>              pm_runtime_get_sync(_T), pm_runtime_put(_T));
+>  DEFINE_GUARD(pm_runtime_active_auto, struct device *,
+>              pm_runtime_get_sync(_T), pm_runtime_put_autosuspend(_T));
+> +/*
+> + * Do not use directly -- the destructor calls pm_runtime_put()
+> + * unconditionally, which underflows if no reference was acquired.
+> + * Use only via the _try variant below.
+> + */
+> +DEFINE_GUARD(pm_runtime_if_active, struct device *,
+> +            pm_runtime_get_if_active(_T), pm_runtime_put(_T));
+>  /*
+>   * Use the following guards with ACQUIRE()/ACQUIRE_ERR().
+>   *
+> @@ -624,6 +631,8 @@ DEFINE_GUARD_COND(pm_runtime_active_auto, _try,
+>                   pm_runtime_get_active(_T, RPM_TRANSPARENT), _RET =3D=3D=
+ 0)
+>  DEFINE_GUARD_COND(pm_runtime_active_auto, _try_enabled,
+>                   pm_runtime_resume_and_get(_T), _RET =3D=3D 0)
+> +DEFINE_GUARD_COND(pm_runtime_if_active, _try,
+> +                 pm_runtime_get_if_active(_T) ?: -EAGAIN, _RET =3D=3D 1)
+>
+>  /* ACQUIRE() wrapper macros for the guards defined above. */
+>
+> @@ -639,6 +648,9 @@ DEFINE_GUARD_COND(pm_runtime_active_auto, _try_enable=
+d,
+>  #define PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(_dev, _var)  \
+>         ACQUIRE(pm_runtime_active_auto_try_enabled, _var)(_dev)
+>
+> +#define PM_RUNTIME_ACQUIRE_IF_ACTIVE(_dev, _var)       \
+> +       ACQUIRE(pm_runtime_if_active_try, _var)(_dev)
+> +
+>  /*
+>   * ACQUIRE_ERR() wrapper macro for guard pm_runtime_active.
+>   *
+> --
+> 2.43.7
+>
