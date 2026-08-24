@@ -1,302 +1,318 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com [209.85.160.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5DC837EFE3;
-	Mon, 24 Aug 2026 17:50:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787593813; cv=none; b=lQpRXj4bi4Q7zTasK0j8qTbpjW5weu2QwffNeoQJ4wa8S+e1pluGjPsJz4qs9FNGpfXD5E/b7QxGKdxHOctSVGuEN+O0qqbt5mXJ37bBOp8mT7ZH2WxuembVoozBMe7sqb2VYCl8Foq7nBiZuC0eOyO5pGezhhr38HOTMLj6Upg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787593813; c=relaxed/simple;
-	bh=Fhh2UffmUuF5+HmE0WM9lPcbYNUmTiZ7y1Rg8TJQg9A=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=G/eWppsQ48TtpDnMT2Z2UxydFy9wSen1BVt08BroUxlP+CHCuhdgORQ+B0A5SjTTwYmh9aqOb+Lv496LftA45nnqTVxiS3L70/KTwC6+VyaSt+3FpNJckpzaObOtQQBSkT6jmfsPX9M/Lhro+uLmfUMLwsocWiS3SyxDYuV9DgI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VKbCODsx; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56BFB37F305
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 17:51:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787593866; cv=pass; b=E5tbvvuIat9ss5qfSYVahIJSCOHlxV2IKleOUBXjoNT3XKwDezMBP+UNoTBTsqh8SO3EqA/HAxVBsIezUI4ZPgaz2ooLYElXMQs+72xdBKJ3CRwTwlSB0uw4x8nMu527qD8NVSN/hxQNfKfBqLEVffGnsYlYWjZz5MsqTEWPG4U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787593866; c=relaxed/simple;
+	bh=JmVOmQAfuc9t3Q2sQM7LHcrIhrhwru9wPUqm4XULBl8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=OViiLendetqVIOOIrNIONkUt9iGIIGvzdbMUr7rJLC/Q1mXv06IbZlyyUnNyRp2XsNQeoVs63Ff7sXqWsXq7sRZnLNC1QcVNXZ/K4d5hUHfcSTqqGKiPvNw2rDFZbMgojuve9Vdox1EKqYYPr7Xf+qaO4IdG+xNbIJdMtRLo03U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=L9SYbnan; arc=pass smtp.client-ip=209.85.160.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VKbCODsx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8E2E1F000E9;
-	Mon, 24 Aug 2026 17:50:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787593811;
-	bh=ed5jbee2CBtPFs/Cfkb51MbQGLH5UObqa4KM1g18ofg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VKbCODsxxLywLUMyEnPxaAt5R2uY5VBklSpbzyqqmten+pXhTWUHUKM8OF2Aua9Ok
-	 qOWR1OL+li04wNS0C4+Tn738yib9xlV4XBadjceZmuAqf7s2Nl1gK5RBW8Gc6/WGUe
-	 l4EbeyeCBxLv4B3tJHAV1qGKpjbXhZZD8GQPBT6Y0cffN2aOv0JlPoTtRJqdpQOldq
-	 wYjQZD/QeqAupgN9VMUyCurf8w58HOyc1W25zuJnUGoUYyFnSMcq/yKoUPUZU9WLrv
-	 xbUvUMz9LpLjf7NButj1R9ElL+13aghW593apOcUz9WIMAVu/1chmp6kOML4vS87yI
-	 CvcqJZBgqkh9Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v42 5/7] firmware: imx: adds miscdev
-Reply-To: sashiko-reviews@lists.linux.dev
-To: pankaj.gupta@oss.nxp.com
-Cc: imx@lists.linux.dev, Frank.Li@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260825-imx-se-if-v42-5-2e8efac0bb16@nxp.com>
-References: <20260825-imx-se-if-v42-0-2e8efac0bb16@nxp.com>
- <20260825-imx-se-if-v42-5-2e8efac0bb16@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 24 Aug 2026 17:50:10 +0000
-Message-Id: <20260824175010.E8E2E1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="L9SYbnan"
+Received: by mail-oa1-f44.google.com with SMTP id 586e51a60fabf-44cb057311bso3494356fac.0
+        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 10:51:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787593863; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mcCSfH74Rs+Ubxe0vBzXlgj/qW+FYiUu4fLa6b9/KmVQEidOrtyhuyq5LNWYuB4vpN
+         kTEZ5hc+UamRqVG6H7bBm5Bfr+kphIkMHBL/eREBbbgew3LGvH25rT6QdYyQL13+ocNe
+         kHDgYthQrfNgty9p1K6+QrEwCUvjLbVwNWNRALxvUYTBT+2lgfos1mm+nePRMTC0nYBc
+         uF/WUXD37AKDA4qD/FpEDPXmKMndvGcHyVQAGacefm7mM8MKQ4pI0DPYxyO080upKPWA
+         6eKP82F2B3VjqM7fzy0VJjlgBg1xFKdnx1gF2cJJIodJGTY7zqWV0knAx08qrwk/1Cko
+         412A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=368dgGXu/NgX5l7Y6iSl/tG/Vts2sR8oGKwLQvpP0vE=;
+        fh=bMXQgZmMpt0/8sYo2g84kvtTQFjwiKbN7OwXV6b/X6k=;
+        b=MY2QRM8cCDZA3MKnzKWmFaCnZxb1ozWFJhLQvmh4YGAQmJwFEP38txPzVO7xkihNa/
+         fu6tx+Ki7cWSynLRv497Eqsm0sJdtzWATUrLBE+ANkQ0lH0pgWZAw6GIVWr/Y3AtYkEC
+         uL1HDxH0McYd31DVc3IQy0cSPNftLTU6e/EZPy80Jv0wBOxKECwcUlNpAci50wSIOIZV
+         FYZRDaYozXN3tQf97KpZxn+/JCIezbpdRz8HmxNGGcDV8eJORf8xGp6p3DqGH8xu4pXC
+         B4IIAx1EyeavbZRmDQWhmDjAI3k/zQKHOAZZeAgPJ6qWWl1eaAIF/N7LwRBmQYY2zSZv
+         MnVQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1787593863; x=1788198663; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=368dgGXu/NgX5l7Y6iSl/tG/Vts2sR8oGKwLQvpP0vE=;
+        b=L9SYbnan3gAfObr+vhP+iO1fOHNoKca9+L2ku7s88NjA+nqGDZcg5mwlIJbUn8+YAM
+         P5Oxgb/8wMMU+eQmT4zRun2I7NSDPFD/1l/kKvHPZLc4urxXxMonVyQvRA9YKXC1X/mI
+         BoIuKieOJz4gbwCcfXUsZSjvA/d5rd2pBngJMN/5JNwT1kvlFLQY6s6XkkXSeBeAcrJV
+         Y4V0peRuGeAsr5h0doxFUdoEwIkY9zQl6hhhl8J3W07rR1Y+QhNyI+1/ZxukNRmTr719
+         rkeRxn9E8j9p49DdC5rrxl9d2W3XJr0Fb4NCTeV01YarRLYv/yUqpXxy4X8vXzxT26LE
+         rfJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787593863; x=1788198663;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=368dgGXu/NgX5l7Y6iSl/tG/Vts2sR8oGKwLQvpP0vE=;
+        b=Gsyq9hQo3ejaq2cfCAc1xkZZFi5Gz4Ddp2vTy9JD/OPoTys7n3mVG27aAy6FowcYMJ
+         VY0J9rv+O26FyO2DbG+vMS5YQnmZY5y6XEmVdsq1wo2nIzWEgpvbJmydDyQXg/FgqkpO
+         ge3jzHU/bsloAdANT0tx48wqazZG8VU4FQh2tHJ82rgNcAwmIrwtyJFJCcuKsYZVg385
+         SkhJT67S0Gs0+HUdZ5P141qMutYQVP5j4vX3Xw0ORYB44KUQDwBMo676PlMs8AEisECb
+         MsHQ7vtc2P3mX9um1CJdWocrW3PRxjdQsC2qBijHr3ROXXbMvXm+NKJpxaUWNnVYQkQL
+         Xh9g==
+X-Forwarded-Encrypted: i=1; AHgh+RrdapIk8AvvL588Vh1RcaljbvJE0oAYUDl5afRqPvBGpnz/hfpiUHZ2XzWqowvLIESC90DJaX1fBpbM@vger.kernel.org
+X-Gm-Message-State: AFuF++mmicuCuIJYXcd/NAchCQF181Rk+psGFV6lbj+hwwtC/GeP/bUb
+	lblp1iNiwYZFG+qxq6yolQksbjqNhJp3rxkcgBQ9Aq1wmw36MHD8G/QM5irB8V/CD+Mjp0yGaCZ
+	IpK2OhbiJV5/fMCLTj4ryduIBlJNiGGDxtSf3JfYmaw==
+X-Gm-Gg: AR+sD138WGSJ6h4r1aCE2Bfv6IVPErpE9mPWJUUFcjYDD/YiY/iQ4K6+rj8kf3V77UV
+	mGDo8hV9xoGnzsCDftglJ0steGFHkcGTLgUa++sZi2hwtWQiqe9G6TB5hifq6LR/LSGnftLjwMB
+	wUgU4I36y7tQxf5y+V7op4DlfNInfIDZjEWm32ZXz5V7KN6Yph3WzH5tB7L7ydiP2oxz/2Kswy3
+	hdbHDWQ7nigXomwbCN+bx8ZkbrjQrbFmzGpIbMKbgzqwM7edPdzh2zzoqGNWeE16aypWLX0S+Kg
+	NJusXjob93jVa5kas+2oj7ZLGTiB0jbQX6eGxteXrx5/BUb2LI4baH/ky0k7K/+HMofMka2RN9U
+	poJKmaDGg8gy0DI7cd866cIvwwbUkd9x0oq1yiUSu8GSnCyLAzvbvqw1iaKED0Q==
+X-Received: by 2002:a05:6870:16ef:b0:455:a590:7ff1 with SMTP id
+ 586e51a60fabf-46351715cb1mr26016442fac.15.1787593862727; Mon, 24 Aug 2026
+ 10:51:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260806070934.21764-1-lachlan.michael@sony.com>
+ <20260806070934.21764-3-lachlan.michael@sony.com> <CAPY8ntCHzT1H3Qpbi9WpAbZc-fY0ezDxLc93jxnD1v+OCNbh0Q@mail.gmail.com>
+ <OS7PR01MB17833AD851D9272D1E1CE9AA592A72@OS7PR01MB17833.jpnprd01.prod.outlook.com>
+In-Reply-To: <OS7PR01MB17833AD851D9272D1E1CE9AA592A72@OS7PR01MB17833.jpnprd01.prod.outlook.com>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Mon, 24 Aug 2026 18:50:46 +0100
+X-Gm-Features: AcwNN1U5A5aKnLmX9a8fgHDHSyFVT6hoslmGpLyFs4JyttXBm4z_WhpxCSVOaMM
+Message-ID: <CAPY8ntC2Wk2PuSk7sKR8J-ARRZJj+po1aEjapOOjNTcj7ew=2g@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] media: i2c: Add Sony IMX908 image sensor driver
+To: "Lachlan.Michael@sony.com" <Lachlan.Michael@sony.com>
+Cc: "mchehab@kernel.org" <mchehab@kernel.org>, 
+	"sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>, 
+	"hverkuil+cisco@kernel.org" <hverkuil+cisco@kernel.org>, 
+	"laurent.pinchart@ideasonboard.com" <laurent.pinchart@ideasonboard.com>, 
+	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, 
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "robh@kernel.org" <robh@kernel.org>, 
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>, 
+	"kieran.bingham@ideasonboard.com" <kieran.bingham@ideasonboard.com>, 
+	"jai.luthra@ideasonboard.com" <jai.luthra@ideasonboard.com>, 
+	"Ryuichi.Tadano@sony.com" <Ryuichi.Tadano@sony.com>, 
+	"Kengo.Hayasaka@sony.com" <Kengo.Hayasaka@sony.com>, "Bird, Tim" <Tim.Bird@sony.com>, 
+	"Kazumi.A.Sato@sony.com" <Kazumi.A.Sato@sony.com>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
-s) to consider:
-- [High] TOCTOU race condition in ELE_STORAGE_OPEN_REQ allows NVM traffic i=
-nterception
-- [High] Firmware session handles permanently leak if a process exits via a=
- fatal signal due to the fw_busy circuit breaker
-- [High] SE_IOCTL_ENABLE_CMD_RCV_STATUS unconditionally returns -ENOMEM, re=
-ndering it broken
-- [High] Missing bounds validation for SE_CMD_ADDR_NO_SIZE buffers allows a=
-rbitrary out-of-bounds DMA reads
-- [High] Use-After-Free of priv due to fw_busy_work being scheduled after c=
-ancel_work_sync
-- [High] Mutexes initialized via devm_mutex_init() are destroyed before se_=
-if_probe_cleanup() executes
-- [High] Successfully received firmware responses are dropped on non-fatal =
-signals, leaking firmware resources
-- [Medium] SE_IOCTL_GET_MU_INFO returns hardcoded zeroes instead of enclave=
- identification data
---
+Hi Lachlan
 
---- Patch [5]: [PATCH v42 5/7] firmware: imx: adds miscdev ---
-commit 2e1b01a2a813fca5bf21f8f8fd015fe9ea573491
-Author: Pankaj Gupta <pankaj.gupta@nxp.com>
-Subject: firmware: imx: adds miscdev
+On Mon, 17 Aug 2026 at 10:21, Lachlan.Michael@sony.com
+<Lachlan.Michael@sony.com> wrote:
+>
+> Dear Dave,
+>
+> Thanks for your review.
+> I was on summer holidays last week so sorry for the delay in replying.
+>
+> >Hi Lachlan
+> >
+> >These comments are made without having access to the datasheet or
+> >software reference manual (I have requested them), so are based on my
+> >experience of other Starvis sensors. Feel free to dismiss them if not
+> >applicable to this sensor.
+> >
+> >And some are personal preferences, so feel free to disagree there :-)
+> >
+> >On Thu, 6 Aug 2026 at 08:12, Lachlan Michael <lachlan.michael@sony.com> =
+wrote:
+> >>
+> >> The Sony IMX908 is an 8.39 megapixel (3856x2176) CMOS image sensor
+> >> with a MIPI CSI-2 output interface, configurable as either 2 or 4
+> >> data lanes.
+> >>
+> >> Add a V4L2 sub-device driver for the sensor. The driver supports
+> >> RAW10 and RAW12 output formats, exposure and analogue gain controls,
+> >> horizontal and vertical flipping, horizontal and vertical blanking
+> >> controls, window cropping and test pattern generation.
+> >>
+> >> HDR modes and RAW16 output are not currently supported.
+> >>
+> >> Signed-off-by: Lachlan Michael <lachlan.michael@sony.com>
+> >> ---
+> >> Changes in v2:
+> >> - Treat the pixel rate as a fixed sensor property (594 MHz, 8 px/clock=
+),
+> >>   read-only.
+> >> - Compute HMAX from both the array and MIPI link floors.
+> >> - Express HBLANK in pixels with a step of 8; keep HMAX fixed in crop
+> >>   mode.
+> >> - Drop struct imx908_mode; cache hmax/vmax directly.
+> >> - Change the link-frequency table to s64.
+> >> - Fix the probe error-unwind ordering.
+> >> - Be silent on success (chip ID print is now dev_dbg).
+> >> - Drop redundant comments.
+> >> - Kconfig: fix a "module will be called" typo.
+> >> ---
+>
+> <snip>
 
-This patch adds a character driver to communicate with NXP secure enclaves
-(such as EdgeLock) from user-space. It introduces an ioctl ABI, shared memo=
-ry
-management, and validation checks for firmware commands.
+<snip>
 
-> diff --git a/drivers/firmware/imx/ele_common.c b/drivers/firmware/imx/ele=
-_common.c
-> index 0000000000000..0000000000000
-> --- a/drivers/firmware/imx/ele_common.c
-> +++ b/drivers/firmware/imx/ele_common.c
-> [ ... ]
-> @@ -546,6 +546,14 @@ int ele_msg_send_rcv(struct se_if_device_ctx *dev_ct=
-x, void *tx_msg,
->  	err =3D ele_msg_rcv(dev_ctx, &priv->waiting_rsp_clbk_hdl);
-> =20
->  	if (priv->waiting_rsp_clbk_hdl.signal_rcvd) {
->  		/*
->  		 * Signal was deferred until the FW/kernel protocol resynchronized.
->  		 * On success report -ERESTARTSYS for the interrupted wait; the
->  		 * command is not re-sent. Keep real errors like -ETIMEDOUT.
->  		 */
->  		if (err > 0)
->  			err =3D -ERESTARTSYS;
+> >> +/*
+> >> + * Link (consumer) floor: the line period must be long enough for the=
+ MIPI
+> >> + * burst (width * bpp bits) to drain over num_lanes * link_freq * 2 (=
+DDR).
+> >> + */
+> >> +static u32 imx908_calc_link_min_hmax(struct imx908 *imx, u32 width, u=
+8 bpp)
+> >> +{
+> >> +       u64 link_hz =3D imx908_link_freqs[imx->link_freq_idx];
+> >> +       u64 num =3D (u64)width * bpp * IMX908_XHS_HZ;
+> >> +       u64 den =3D (u64)imx->num_lanes * link_hz * 2; /* DDR */
+> >> +
+> >> +       /*
+> >> +        * den can exceed 32 bits (e.g. 4 lanes * 720 MHz * 2 =3D 5.76=
+ GHz), so
+> >> +        * DIV_ROUND_UP_ULL / do_div would truncate the divisor to u32=
+. Use a
+> >> +        * full 64/64 division.
+> >> +        */
+> >> +       return DIV64_U64_ROUND_UP(num, den);
+> >
+> >It's unlikely to make that significant a difference, but don't you
+> >need to account for the LP to/from HS transitions on the MIPI link?
+>
+> A more accurate minimum is really drain_time + framing + LP/HS_transition
+> and you're right that here I am only calculating the drain_time. It's mea=
+nt as
+> a safe lower bound for the HBLANK range rather than an exact line time.
+>
+> At 1440 Mbps/lane (720 MHz link) for 4K RAW10 the floor is about 495
+> clocks (~6.67 us):
+>  - CSI-2 packet header/footer is 48 bits on top of width*bpp, ~0.1%.
+>  - the LP/HS transition, from the D-PHY timings, is a few hundred ns per =
+line,
+>    ~7% of the floor at 4 lanes (~3% at 2 lanes).
+>
+> Both terms are strictly positive, so folding them in only ever raises the=
+ floor,
+> so this is more about accuracy than safety.
+>
+> Given that, do you suggest I should add in the packet framing and/or the
+> LP/HS transition into this floor, or is it ok to leave it as the payload-=
+only
+> bound (as-is)?
 
-[Severity: High]
-Could this leak firmware resources when a non-fatal signal arrives?
-If a firmware response successfully arrives but defers a non-fatal signal,
-this code overwrites the positive success size with -ERESTARTSYS.
-Then in se_ioctl_cmd_snd_rcv_rsp_handler(), this is converted to -EINTR
-and returns early without copying the response payload to userspace.
-Because userspace never receives the newly generated handles (e.g., keys
-or contexts), it cannot issue cleanup commands.
+As long as the calculation gives a value that is expected to work,
+then that's fine.
 
-> [ ... ]
-> @@ -660,11 +660,11 @@ void se_if_rx_callback(struct mbox_client *mbox_cl,=
- void *msg)
->  		se_clbk_hdl =3D &priv->waiting_rsp_clbk_hdl;
->  		spin_lock_irqsave(&se_clbk_hdl->clbk_rx_lock, flags);
->  		if (!se_clbk_hdl->rx_msg) {
->  			if (atomic_read(&priv->fw_busy))
->  				schedule_fw_busy_work =3D true;
->  			spin_unlock_irqrestore(&se_clbk_hdl->clbk_rx_lock, flags);
-> =20
->  			if (schedule_fw_busy_work)
->  				schedule_work(&priv->fw_busy_work);
+> >> +}
+> >> +
+> >> +/* HMAX must satisfy both the array (producer) and link (consumer) li=
+mits */
+> >> +static u16 imx908_calc_min_hmax(struct imx908 *imx, u32 width, u8 bpp=
+)
+> >> +{
+> >> +       return max(imx908_calc_array_min_hmax(width),
+> >> +                  imx908_calc_link_min_hmax(imx, width, bpp));
+> >> +}
+> >> +
+> >> +static u32 imx908_calc_min_vmax(const struct v4l2_rect *crop)
+> >> +{
+> >> +       /* In window crop mode constrain VMAX (from datasheet) */
+> >> +       if (!v4l2_rect_equal(crop, &imx908_active_area))
+> >> +               return max_t(u32, crop->height + IMX908_VMAX_CROP_MIN_=
+MARGIN,
+> >> +                          IMX908_VMAX_CROP_MIN_LIMIT);
+> >> +
+> >> +       return IMX908_VMAX_DEFAULT;
+> >
+> >VMAX values in the Starvis datasheets always seem to be "let's give a
+> >nice round frame rate", not "this is the minimum that is valid".
+> >If run in window mode at 3856x2176 then VMAX would be 2176+70 =3D 2246,
+> >so I guess not such a big difference, but default is not the same as
+> >minimum.
+> >
+> >(IMX662 runs quite happily with a margin of 40 which gives an extra
+> >10% on the frame rate compared to the default. I ought to check
+> >against the datasheet for that one though)
+>
+> You're right =E2=80=94 2250 is the 30 fps operating point, not a stated m=
+inimum,
+> but the +70 margin is only given for window-crop mode in the datasheet.
+>
+> There's no documented all-pixel VMAX minimum, so for crop mode I keep the
+> datasheet restriction (height + 70, >=3D 1206) and for all-pixel I leave =
+the
+> floor at the 2250 default as a conservative bound rather than inferring o=
+ne.
+>
+> I added a comment:
+>         /* No datasheet min for all-pixel; use 30 fps default as safe flo=
+or */
+>         return IMX908_VMAX_DEFAULT;
 
-[Severity: High]
-Could this lead to a use-after-free of the priv object?
-In se_if_probe_cleanup(), cancel_work_sync() is called to wait for and canc=
-el
-fw_busy_work before the rx_chan mailbox is disabled. If a late firmware
-response arrives in this window, this callback will execute. Because the
-callback schedules the work unconditionally if fw_busy is set without check=
-ing
-going_away, the work could be re-queued after cancel_work_sync() returns,
-causing it to access the freed priv object when the unbind finishes.
+Any chance you could ask your colleagues?
+If height + 70 can be used in all cases then it just simplifies things.
 
-> diff --git a/drivers/firmware/imx/ele_fw_api.c b/drivers/firmware/imx/ele=
-_fw_api.c
-> index 0000000000000..0000000000000
-> --- a/drivers/firmware/imx/ele_fw_api.c
-> +++ b/drivers/firmware/imx/ele_fw_api.c
-> [ ... ]
-> @@ -155,10 +155,10 @@ int ele_uapi_allowed_fw_cmd(struct se_if_device_ctx=
- *dev_ctx, struct se_msg_hdr *he
->  		/*
->  		 * Reject the storage-open request when another context is
->  		 * already registered as the command receiver.
->  		 */
->  		scoped_guard(mutex, &priv->modify_lock)
->  			if (priv->cmd_receiver_clbk_hdl.dev_ctx &&
->  			    priv->cmd_receiver_clbk_hdl.dev_ctx !=3D dev_ctx)
->  				ret =3D -EBUSY;
+<snip>
 
-[Severity: High]
-Can this create a TOCTOU race condition?
-The modify_lock is dropped immediately after checking the receiver
-availability, opening a window before the command reaches firmware.
-If two threads concurrently send ELE_STORAGE_OPEN_REQ, both could pass this
-check and receive valid storage handles.
+> >> +static int imx908_program_window(struct imx908 *imx,
+> >> +                                const struct v4l2_rect *crop)
+> >> +{
+> >> +       bool all_pixel_mode =3D v4l2_rect_equal(crop, &imx908_active_a=
+rea);
+> >> +       int ret =3D 0;
+> >> +
+> >> +       cci_write(imx->cci, IMX908_REG_WINMODE,
+> >> +                 all_pixel_mode ? IMX908_WINMODE_ALLPIX : IMX908_WINM=
+ODE_CROP,
+> >> +                 &ret);
+> >
+> >This one knocks on to several other checks of the active_area / all-pixe=
+l mode.
+> >Why switch into the pre-defined all-pixel mode at all? What advantage
+> >does it give you over always using window mode?
+> >
+> >To my mind it just gives the possibility that the crop defined in the
+> >structure is incorrect, therefore you aren't getting the pixels you
+> >thought you were.
+> >(I learned the hard way working on IMX675).
+>
+> All-pixel mode has variable HMAX; in window-crop mode the datasheet says
+> to keep HMAX at the drive-mode value, so collapsing to always-window woul=
+d
+> lose that. The test pattern generator is also all-pixel only. On the crop=
+-accuracy
+> concern: the advertised active_area (2176) is the datasheet's active heig=
+ht, distinct
+> from the 2180 effective height (the extra 4 lines are the ignored effecti=
+ve-pixel area),
+> so all-pixel mode does read out what we advertise.
 
-> [ ... ]
-> @@ -244,11 +244,11 @@ void fw_api_specific_ops(struct se_if_device_ctx *d=
-ev_ctx, struct se_api_msg *rx
->  		rc =3D set_dev_ctx_as_command_receiver(dev_ctx, false);
->  		if (rc)
->  			dev_err(priv->dev,
->  				"Failed to register %s as CMD-Receiver: %d\n",
->  				dev_ctx->devname, rc);
->  		break;
->  	}
+Not supporting a variable HMAX in window-crop mode rather defeats the
+purpose of cropping to reduce the line time and increase frame rate.
+Does it really not work? Again can it be checked? Datasheets so often
+get copy/pasted from previous versions.
 
-[Severity: High]
-Following the race condition above, if one thread successfully registers as=
- the
-command receiver but the other fails here, the failure to register only logs
-an error and returns void. Does this allow the ioctl to return success, rou=
-ting
-the second thread's firmware callbacks to the first thread and allowing
-interception of NVM traffic?
+Extending HMAX in all-pixel mode adds the possibility of increasing
+the line time and hence allows for longer exposure captures. I haven't
+checked the limits for exposure time if HMAX is fixed vs variable, but
+I'd be tempted to drop it and make V4L2_CID_HBLANK read only. It can
+be revisited at a later date if someone does want extra long
+exposures.
 
-> diff --git a/drivers/firmware/imx/ele_msg_addr_field.c b/drivers/firmware=
-/imx/ele_msg_addr_field.c
-> index 0000000000000..0000000000000
-> --- a/drivers/firmware/imx/ele_msg_addr_field.c
-> +++ b/drivers/firmware/imx/ele_msg_addr_field.c
-> [ ... ]
-> @@ -51,7 +51,7 @@ static const struct se_cmd_addr_field ele_oem_auth_cntr=
-_addr_fields[] =3D {
->  	 * Output buffers must be fully bounded; input-only buffers are safe wi=
-th
->  	 * addr-only checks.
->  	 */
->  	{ .lsb_idx =3D 1, .msb_idx =3D 0, .has_msb =3D true, .flag_idx =3D SE_C=
-MD_ADDR_ALWAYS,
->  	  .size_idx =3D SE_CMD_ADDR_NO_SIZE },			/* container_hdr_addr */
->  };
+The test pattern only working in all-pixel mode is largely irrelevant
+as it's only used for test purposes. Trying to gate use of the test
+pattern on cropping not being applied starts to get messy.
+(I do have the datasheet and app notes for IMX908 now, but none cover
+the pattern generator)
 
-[Severity: High]
-Can this unbounded input buffer allow arbitrary out-of-bounds DMA reads?
-The descriptor specifies SE_CMD_ADDR_NO_SIZE and a zero buf_size, which
-bypasses end-bounds checks. If a malicious userspace process places the buf=
-fer
-at the very end of the shared memory window and crafts a header with a huge
-size field, couldn't the firmware read beyond the mapped shared memory wind=
-ow
-into unmapped space and trigger AXI bus faults?
-
-> [ ... ]
-> @@ -138,7 +138,7 @@ static const struct se_cmd_addr_field ele_keystore_re=
-prov_en_addr_fields[] =3D {
->  	 * memory the caller already owns. Output buffers must be fully bounded;
->  	 * input-only buffers are safe with addr-only checks.
->  	 */
->  	{ .lsb_idx =3D 1, .msb_idx =3D 0, .has_msb =3D true, .flag_idx =3D SE_C=
-MD_ADDR_ALWAYS,
->  	  .size_idx =3D SE_CMD_ADDR_NO_SIZE },			/* signed_msg_addr */
->  };
-
-[Severity: High]
-This appears to be another instance where an unbounded input buffer might
-allow arbitrary sized DMA reads by the firmware. Is there a way to safely
-bound this input payload?
-
-> diff --git a/drivers/firmware/imx/se_ctrl.c b/drivers/firmware/imx/se_ctr=
-l.c
-> index 0000000000000..0000000000000
-> --- a/drivers/firmware/imx/se_ctrl.c
-> +++ b/drivers/firmware/imx/se_ctrl.c
-> [ ... ]
-> @@ -746,10 +746,10 @@ static void se_if_probe_cleanup(void *plat_dev)
->  	while (true) {
->  		dev_ctx =3D NULL;
-> =20
->  		scoped_guard(mutex, &priv->modify_lock) {
->  			if (list_empty(&priv->dev_ctx_list))
->  				goto out_done;
-
-[Severity: High]
-Is there a devres initialization order issue here?
-Because devres actions execute in reverse order (LIFO), modify_lock will be
-destroyed before se_if_probe_cleanup() is invoked, since it was initialized
-after devm_add_action_or_reset. When the cleanup function later attempts
-to lock this destroyed mutex, could this lead to undefined behavior or
-crashes during device unbind?
-
-> [ ... ]
-> @@ -1151,9 +1151,9 @@ int set_dev_ctx_as_command_receiver(struct se_if_de=
-vice_ctx *dev_ctx, bool is_io
->  	if (se_clbk_hdl->dev_ctx)
->  		return -EBUSY;
-> =20
->  	if (!dev_ctx->strg_hdl)
->  		return -EINVAL;
-> =20
->  	if (is_ioctl)
->  		return -ENOMEM;
-
-[Severity: High]
-Does this check render the SE_IOCTL_ENABLE_CMD_RCV_STATUS ioctl broken?
-When se_ioctl() invokes this function with is_ioctl set to true, it will
-unconditionally return -ENOMEM here and the command receiver will never be
-registered via the API.
-
-> [ ... ]
-> @@ -1532,9 +1532,9 @@ static int se_ioctl_get_mu_info(struct se_if_device=
-_ctx *dev_ctx,
->  	struct se_if_node *if_node;
->  	int err =3D 0;
-> =20
->  	if_node =3D container_of(priv->if_defs, typeof(*if_node), if_defs);
-> =20
->  	if_info.se_if_id =3D 0;
->  	if_info.interrupt_idx =3D 0;
->  	if_info.tz =3D 0;
->  	if_info.did =3D 0;
->  	if_info.cmd_tag =3D priv->if_defs->cmd_tag;
-
-[Severity: Medium]
-Are these structural identification fields intentionally populated with
-hardcoded zeroes? Setting se_if_id, interrupt_idx, tz, and did to 0 prevents
-userspace from dynamically identifying the secure enclave's type or
-configuration.
-
-> [ ... ]
-> @@ -1614,11 +1614,11 @@ static void cleanup_dev_ctx(struct se_if_device_c=
-tx *dev_ctx, bool is_fclose)
->  				struct se_if_device_ctx *tx_ctx =3D is_fclose ? dev_ctx :
->  							dev_ctx->priv->priv_dev_ctx;
-> =20
->  				if (dev_ctx->strg_hdl && se_close_storage(tx_ctx,
->  									  dev_ctx->strg_hdl))
->  					dev_err(dev_ctx->priv->dev, "failed to close storage.\n");
->  				if (dev_ctx->sess_hdl && se_close_session(tx_ctx,
->  									  dev_ctx->sess_hdl))
->  					dev_err(dev_ctx->priv->dev, "failed to close session.\n");
->  			}
-
-[Severity: High]
-Will firmware session handles leak if a process exits via a fatal signal?
-If se_close_storage() encounters a pending SIGKILL, its wait_for_completion
-aborts instantly and arms the fw_busy circuit breaker.=20
-
-When se_close_session() runs immediately afterward, it sees fw_busy is set
-and aborts the session close command without sending it. Does this permanen=
-tly
-leak the session handle on the secure enclave?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825-imx-se-if-=
-v42-0-2e8efac0bb16@nxp.com?part=3D5
+Thanks
+  Dave
