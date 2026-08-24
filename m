@@ -1,101 +1,116 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11E9C3EFD30;
-	Mon, 24 Aug 2026 09:04:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788F1395D86;
+	Mon, 24 Aug 2026 09:09:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787562266; cv=none; b=MDXkJ1+0qpiOGnxXRDjP90jNT5z3hnj9sPbrgvCTYPhGRvXa5FxuQJRpUVTVdFbe+PbEkHeM7GF8paWhFy4zWLt3oUs96/fQMcTfH3bspm0u79Z9BE8E42gxxqclL3VfTqJ9tEeDlg2n9YFwhin11P5yW9+KoVTg7a3WGTeA130=
+	t=1787562569; cv=none; b=kYGagC5c1Q2KEcXETE+6aAWYQ5hw1MOw2v3aiXXIz3ImETtD6kaodlHxdeNxtCZpzzkTeuY/SojDLjkVe+7mJkaXajIas8971bduBTS1vco/wEZc5UaEB3K8KH9uBPMzEDLaCB7ZtoJGwzxI9uqGJp/7Gy8oj66f076HvjhcMmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787562266; c=relaxed/simple;
-	bh=8IWwb6vpgOhMbw4KZxOur1W1eGzDWUqCvfiTDTTohIs=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=tKLObah7IYkWl7u17c6GGaPhWlEVlIH8LhN7mnGq1KsFa9RFZB70RepM4uJNMZJwRsZGHjuwtLX/jt+5mktSO1n6A1JuQZ49TTnZ2FCUuPOrzi2x8/me1mkLOShvgi+1LfqAa43O/9NtpDNYMRuaW2QbjEEwW253nNAl4uNm2do=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=pLglmnOa; arc=none smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1787562569; c=relaxed/simple;
+	bh=eCWf39Oq6R1dV4/QbHyL8gv4lIOiAOFmRGTTP3aYLeU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=hDEoyfkt41oG7rNiPmsy/c3ym8bqnHHeID8IV5CJgK0P3Pl5EJ+uwPi42Yjsj9wFsf24KJw+mVIuNYJhinjnkJTUaacWiJfSasyuspettm8H1428xaCRZwXrq+ucuQYvJ7qrpXXYFykkyK9PynyJ7POBqEpPfHXrDw6tJ3qaY4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n/6RTO09; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="pLglmnOa"
-X-UUID: c83c0dde9f9a11f18dc8c9802ae25ab1-20260824
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=yVSAp3BOn2NMVHDPGQ6AJu+jYwg4kqser2wze3TvZks=;
-	b=pLglmnOamEJZIzk8PC3d0HVWd+fsj8GCpNcL3BhPYkn3+J8lIbsR70QvPqXfAotormSi2zc9EOxMtPv8kxvvgJhbqftr1f5Vy9R3Mq5kY5v/QURRt9vjtJyiHxIycuscVNKczGt/UO5JigdWw0wSkWMIpYfCbmc64zt6HdUL6Eg=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:4cc59c5b-a3f4-4862-a8d0-79323c5d806f,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:fb1e1dc3-610e-480f-b463-9bb53aa0aeaf,B
-	ulkID:nil,BulkQuantity:0,SF:102|836|865|888|898,TC:-5,Content:0|15|50|99,E
-	DM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,OSA:0,
-	AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: c83c0dde9f9a11f18dc8c9802ae25ab1-20260824
-Received: from mtkmbs13n1.mediatek.inc [(172.21.101.193)] by mailgw02.mediatek.com
-	(envelope-from <justin.yeh@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1542505101; Mon, 24 Aug 2026 17:04:15 +0800
-Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
- mtkmbs13n2.mediatek.inc (172.21.101.108) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Mon, 24 Aug 2026 17:04:13 +0800
-Received: from mtksitap99.mediatek.inc (10.233.130.16) by
- mtkmbs13n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Mon, 24 Aug 2026 17:04:13 +0800
-From: Justin Yeh <justin.yeh@mediatek.com>
-To: Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>, Chen-Yu Tsai <wenst@chromium.org>,
-	Fei Shao <fshao@chromium.org>
-CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>,
-	<Project_Global_Chrome_Upstream_Group@mediatek.com>, Justin Yeh
-	<justin.yeh@mediatek.com>
-Subject: [PATCH] arm64: dts: mediatek: mt8188-geralt: Enlarge SCP core0 memory region
-Date: Mon, 24 Aug 2026 17:04:00 +0800
-Message-ID: <20260824090409.203230-1-justin.yeh@mediatek.com>
-X-Mailer: git-send-email 2.45.2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n/6RTO09"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBD741F00A3A;
+	Mon, 24 Aug 2026 09:09:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787562568;
+	bh=eCWf39Oq6R1dV4/QbHyL8gv4lIOiAOFmRGTTP3aYLeU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=n/6RTO09hzYkG+Q9Ve8rI9r+ZZwzNsM4jwLBGzfLooHbjI8e8DpEHMtwywwrssodm
+	 sP8RySPfKNeYFWtU1YHCiJHxmrFOHV2+QN5n2Y6aEx9LUhrHocTVkY/c5jvsStZxhC
+	 KdjTAgbk2pFgy/wsl9u9UV2lmq9lCSI3QBCZxxmcQ5CP5rMrrVcdy6t+uoOu29RKMV
+	 gQZjsEMvZQ2/zb5xSqYjc9pEpmVjVlbQBsDqX/b8pT8ACcp4erfohPRQCzOYW3sMrD
+	 gLyPg5zJbBo1Koq1wOpaO5pCcCRaPtXfTEA6Tkxxmm7/Lz7LeyN1plYy+92rChSZ0Y
+	 0hQ/xstw7Kb/g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v41 1/7] Documentation/firmware: add imx/se to
+ other_interfaces
+Reply-To: sashiko-reviews@lists.linux.dev
+To: pankaj.gupta@oss.nxp.com
+Cc: conor+dt@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org
+In-Reply-To: <20260824-imx-se-if-v41-1-29cf129e4d86@nxp.com>
+References: <20260824-imx-se-if-v41-0-29cf129e4d86@nxp.com>
+ <20260824-imx-se-if-v41-1-29cf129e4d86@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 24 Aug 2026 09:09:27 +0000
+Message-Id: <20260824090927.EBD741F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
 
-The SCP firmware in linux-firmware for this platform
-(mediatek/mt8188/scp_c0.img) supports MDP, which the mdp3-rdma node
-drives through scp_c0. On top of the segments it loads, the firmware
-allocates a 1 MiB DMA region at 0x50800000 at run time. That lies
-outside the 8 MiB reserved for SCP core0, so Linux is free to allocate
-over memory the firmware uses.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Minor grammatical and spacing errors make the text less readable.
+--
 
-Enlarge the region to 9 MiB. apu_mem starts at 0x55000000, so no other
-reserved region has to move.
+--- Patch [1]: [PATCH v41 1/7] Documentation/firmware: add imx/se to other_=
+interfaces ---
+commit 260e585f488d10326488a8cd35371c3b01d9bec6
+Author: Pankaj Gupta <pankaj.gupta@nxp.com>
 
-Fixes: e36be19823f0 ("arm64: dts: mediatek: mt8188-geralt: Enable first SCP core")
-Signed-off-by: Justin Yeh <justin.yeh@mediatek.com>
----
- arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Documentation/firmware: add imx/se to other_interfaces
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-index f382f90c48f5..35f60b5bba6f 100644
---- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-@@ -166,7 +166,7 @@ reserved_memory: reserved-memory {
- 
- 		scp_mem_reserved: memory@50000000 {
- 			compatible = "shared-dma-pool";
--			reg = <0 0x50000000 0 0x800000>;
-+			reg = <0 0x50000000 0 0x900000>;
- 			no-map;
- 		};
- 
--- 
-2.45.2
+This commit documents the i.MX SoC Service layer and character device driver
+for secure enclaves like the NXP EdgeLock Enclave.
 
+> diff --git a/Documentation/driver-api/firmware/other_interfaces.rst b/Doc=
+umentation/driver-api/firmware/other_interfaces.rst
+> index 06ac89adaafba..6c6fa9a0ba1df 100644
+> --- a/Documentation/driver-api/firmware/other_interfaces.rst
+> +++ b/Documentation/driver-api/firmware/other_interfaces.rst
+[ ... ]
+> +Each of the above features is enabled through dedicated NXP H/W IP on th=
+e SoC.
+> +On a single SoC, multiple hardware IP (or can say more than one secure e=
+nclave)
+> +can exist.
+> +
+> +NXP SoCs enabled with the such secure enclaves(SEs) IPs are:
+
+[Severity: Low]
+This isn't a bug, but there is an extra "the" and a missing space before
+"(SEs)". Could this be updated to "with such secure enclaves (SEs) IPs are:=
+"?
+
+> +i.MX93, i.MX8ULP
+> +
+> +To communicate with one or more co-existing SE(s) on SoC, there is/are d=
+edicated
+> +messaging units(MU) per SE. Each co-existing SE can have one or multiple=
+ exclusive
+
+[Severity: Low]
+This isn't a bug, but there is a missing space before "(MU)".
+
+> +MUs, dedicated to itself. None of the MU is shared between two SEs. Comm=
+unication
+[ ... ]
+> +NXP Secure Enclave(SE) Interface
+> +--------------------------------
+> +MU(s) is/are not shared between SE(s). But for an SoC like i.MX95 which =
+has
+> +multiple SE(s) like HSM, V2X-HSM, V2X-SHE, all the SE(s) and their inter=
+faces 'se-if'
+> +that is/are dedicated to a particular SE will be enumerated and provisio=
+ned using the
+> +single compatible node("fsl,imx95-se").
+
+[Severity: Low]
+This isn't a bug, but there is a missing space before the parenthesis for t=
+he
+compatible node name.
+
+> +
+> +Each 'se-if' comprises two layers:
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824-imx-se-if-=
+v41-0-29cf129e4d86@nxp.com?part=3D1
