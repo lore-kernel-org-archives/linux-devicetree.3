@@ -1,146 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 665AD38E8D3;
-	Mon, 24 Aug 2026 20:39:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C29D93911CE;
+	Mon, 24 Aug 2026 21:25:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787603979; cv=none; b=dFOhxgs3Fty5FLf6UF+D4+r9BRGafp3hZNhxB5a0NTpfYp5/BjW2RX+/l1kPrLoY+jxRJQM3oZkko6wh3AFjS3pH0NQ+TRo+DyhzzWYetfN64SGd+Q9M9sanmqNYOxA71l/qHd+ZdLuiiF3lttZ+Mea4lPHzjDVNhiar9uk/6nY=
+	t=1787606749; cv=none; b=S4MrXOgbt5K/1zeH4wUKV8P9KTeNOsiX+9DNLcFNvYEEuHRK2cvM31uL/mHYlBVBWS2VyTNSoTAjzoS5130cAykOd8AViZT+mEnnVC7Oi6Znt1HaTzBVP1icQcNlDxCn5E7QVpbOn6UhM8VdfyeOebvJBfW9/o6K0P1PlwIbq30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787603979; c=relaxed/simple;
-	bh=CrMHWQZWfexFwnF92QdtRMpzd3Kx8o5qxQx7P+2UO20=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=expCr565PeYHCKaxArgUQb1cMZApP57tv0+lBtH9Hkr74fefLlZyEgmDW62+1wynRCCPbodA8vtmp+wO2d/ST5WP12dwpZ3pWA81sGQIh9yrlwWWernOuwZbi3b9aJZp+m8lnFmGF3wFx7zIDrxVPXF94d1rxqQ/6rmwvsJKbdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h7HHcQpI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787606749; c=relaxed/simple;
+	bh=DMzETM3+OkJKc6qgpdSW8xVmC4w5CNfGRBEct9Ookao=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=jeiTLespsj8emW+CdNmXizjTmHA00TtZOcago3EBPigfmfqiDshdOiI8910io6/T020M8w9QGRvTbj6JUV6mGAbhG4N+GAg+m9j0fmyNMdlzDTeBCQ4Yh0DM7sgb4aYc7FtUpMCDeb0fr9JUb8BmMaAsoy8F/ZcIqI4LIwNl6+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sxu13gcJ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h7HHcQpI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CA971F000E9;
-	Mon, 24 Aug 2026 20:39:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787603977;
-	bh=+nW+h2UHWsYrSdLRtcajnv7EmPnCQNQ36j2T2RdgJb4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=h7HHcQpIdeFgIPTs9s4Mbzcc91nkd8JRFCUfdgBUXfq5sywSnWr5/MjmsD6QvWMJ6
-	 hcxUuqaM6LBOF/rDGnKL6uNyJVG1WOCNf8BvU3RDDXuM1AjH6FPtPKpt9Ujk/P5rj4
-	 mCY5y1S+qQAFAyq+cfVWX5KUUDjYwIy7VpfHY914BszjdXfk7qjHGqr0HiD4/OMmoq
-	 +4/ZSc+BMYtD4Ba9LOVKU/CznXrlIyDjVGcIC0E6/lNpa49pskPkpDFBaxpatBTR8E
-	 8+VsEpCYe4DRhZAbp8gR683uh6QviDTtrdOwu+ebAYArIH+KL9DYBIIddoqp6J4aOV
-	 m9/iIVaBjhwQA==
-Message-ID: <6d8b7fc0-9bd5-4bfa-97b0-a20bf01779c5@kernel.org>
-Date: Mon, 24 Aug 2026 22:39:28 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sxu13gcJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 718A5C19425;
+	Mon, 24 Aug 2026 21:25:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1787606749;
+	bh=DMzETM3+OkJKc6qgpdSW8xVmC4w5CNfGRBEct9Ookao=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=sxu13gcJGp2BeXOhVerY+0b6fdid8sgEnP+edLQBo3w2jeULpHqPrLGlqyTJUrSWK
+	 oi9e5wLprjE4k5cqRRfMS6NpC+t2zjNrd+c48EqrLLOCQEswmiAYGJ1RGHH6WgDSii
+	 hMjaqCi/gRznxdd1NrzQaH+pV5zvhixXQOm4vto8AubL1gWKXgHzzT5EOsgPSkvuC6
+	 86kxtI6ghwNMvT+xID8HtmO/YBVcKAw1rp3DNvQGBmWaIjvHfxqza3PCOKtJY8qahx
+	 e9PcNTm2c5aHkMQe1nqKa5lswEsoG4d/7n6NNPNCaIb0DKc16xN24LRjGF9/L1ZLSI
+	 HZS4ZufbWK7MA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4C1C0C5DF94;
+	Mon, 24 Aug 2026 21:25:49 +0000 (UTC)
+From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
+Subject: [PATCH v3 0/3] arm64: dts: lx2160a: fix the malformed pinmux
+ entries
+Date: Mon, 24 Aug 2026 23:25:28 +0200
+Message-Id: <20260824-for-upstream-lx2160a-pinmux-fix-v3-0-5556ff1e6be2@free.fr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 01/47] dt-bindings: clock: qcom: gcc-sdm845: Add CX
- power domain
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Taniya Das <taniya.das@oss.qualcomm.com>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Tengfei Fan <tengfei.fan@oss.qualcomm.com>,
- Jingyi Wang <jingyi.wang@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260824-qcom-tie-cx-to-gcc-v3-0-f1205a92682b@oss.qualcomm.com>
- <20260824-qcom-tie-cx-to-gcc-v3-1-f1205a92682b@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260824-qcom-tie-cx-to-gcc-v3-1-f1205a92682b@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMi2jGoC/5XNvQ6CMBSG4VshnT2mnFJSnbwP41DaU2kiP2mhw
+ RDu3cLiquP7Dc+3skjBU2TXYmWBko9+6HOIU8FMq/sngbe5GXKsucIK3BBgHuMUSHfwWrCsuYb
+ R9928gPML1JZfSGFjpWlYVsZAeT4e7o/crY/TEN7HYSr39Xc7lVCCEFoYZSVppW8uEJ1dYLuc8
+ E8NgQPXEqWVrjJWfrVt2z5BRmxGGgEAAA==
+To: Frank Li <Frank.Li@nxp.com>, Carlos Song <carlos.song@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Josua Mayer <josua@solid-run.com>
+Cc: imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Thibaut Collet <thbt.cllt@gmail.com>, Vincent Jardin <vjardin@free.fr>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787606747; l=3130;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=DMzETM3+OkJKc6qgpdSW8xVmC4w5CNfGRBEct9Ookao=;
+ b=cNsMCCK0QIkNlo4rCG1R0e1K02J+YQVoyOlzBlxAAW49X0qq3yTtkOQsHRjJGpeJiP3Mey1sk
+ ZRJfk8zPEKmBtcZKuojYklE6PV69liVxVODtihlDuaWfEYaDoMSTjAT
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
+ auth_id=871
+X-Original-From: Vincent Jardin <vjardin@free.fr>
+Reply-To: vjardin@free.fr
 
-On 24/08/2026 13:53, Abel Vesa wrote:
-> Describe the CX power-domain dependency for SDM845 and SDM670 GCCs, and
-> require it for both compatibles.
-> 
-> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/clock/qcom,gcc-sdm845.yaml | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/clock/qcom,gcc-sdm845.yaml b/Documentation/devicetree/bindings/clock/qcom,gcc-sdm845.yaml
-> index a7523a414341..980edcd244a2 100644
-> --- a/Documentation/devicetree/bindings/clock/qcom,gcc-sdm845.yaml
-> +++ b/Documentation/devicetree/bindings/clock/qcom,gcc-sdm845.yaml
-> @@ -31,6 +31,8 @@ properties:
->      maxItems: 5
->  
->    power-domains:
-> +    description:
-> +      A phandle and PM domain specifier for the CX power domain.
+Every pinctrl-single,bits entry in the lx2160a pinmux@70010012c node was
+reviewed against what pinctrl-single actually accepts in bit-per-mux mode:
+ the offset has to name one of the three registers the node maps,
+ the mask has to equal pinctrl-single,function-mask shifted to the field,
+ the value has to fit inside that mask.
 
-Describe items instead:
-items:
-  - description:
+Three entries fail one of those rules, and each fails differently:
 
-Also, "A phandle and PM domain specifier for the" is redundant part of
-sentence. This cannot be anything else than phandle and PM domain, thus
-just say "CX power domain".
+  1/3 the three gpio1 groups put the field value at bit 0 instead of at
+      the field, so pcs_parse_bits_in_pinctrl_entry() masks it away and
+      the mux write does nothing;
 
->      maxItems: 1
->  
->  required:
-> @@ -56,6 +58,8 @@ allOf:
->              - const: bi_tcxo
->              - const: bi_tcxo_ao
->              - const: sleep_clk
-> +      required:
-> +        - power-domains
+  2/3 the two iic1 groups carry a one bit mask, which the driver rejects
+      outright with "Invalid submask", dropping both pinctrl states of
+      i2c0 along with its bus recovery;
 
-Why? Commit msg should tell me why you are changing ABI. It is actual
-ABI break without an explanation...
+  3/3 iic5-spi3-pins has the field value in the offset cell, leaving an
+      invalid offset and a value that selects the neighbouring sdhc1
+      function rather than SPI3.
+
+After the series no entry in that node is malformed anymore.
+
+Only 1/3 was sent with the v1, as a single patch. The other two turned up
+while checking whether it was the only one of its kind in that node.
+
+They are 3 patches rather than 1 because each fails differently and
+each requires the reviewer to check something different:
+ 1/3 is mask arithmetic,
+ 3/3 needs the IIC5_PMUX encoding table to confirm which
+     function value is right,
+ 2/3 is a partial revert of a change that was made deliberately.
+
+1/3 and 3/3 share a Fixes: tag and are still not folded together:
+  - one is a value that is never shifted into its field,
+  - the other is a value that ended up in the offset cell and also names
+    the wrong function
+and both they touch unrelated pads.
+
+I can squash any of them if you would rather have them merged.
+
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
+---
+Changes in v3:
+- 2/3: RCWSR14[11:12] are reserved, writing 0 to them is harmless (Josua Mayer)
+- Add Reviewed-by from Josua Mayer on 1/3 and 3/3
+- Link to v2: https://lore.kernel.org/r/20260824-for-upstream-lx2160a-pinmux-fix-v2-0-0a525d5f4cd5@free.fr
+
+Changes in v2:
+- Rebased onto current mainline. fsl-lx2160a.dtsi was renamed to
+  fsl-lx216x.dtsi by commit 285560f0d39d ("arm64: dts: lx2160a: split the
+  dtsi to avoid delete-property"), which landed in the v7.3 merge window,
+  so v1 no longer applied.
+- Added 2/3 and 3/3: two more malformed entries in the same pinmux node,
+  found by auditing the rest of it.
+- Link to v1: https://lore.kernel.org/r/20260824-for-upstream-lx2160a-pinmux-fix-v1-1-33a3c8d5ea8a@free.fr
+
+---
+Vincent Jardin (3):
+      arm64: dts: lx2160a: fix incorrect pinmux
+      arm64: dts: lx2160a: fix IIC1 pinmux submask rejected by pinctrl-single
+      arm64: dts: lx2160a: fix the iic5 spi3 pinmux offset and value
+
+ arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
+---
+base-commit: 0a0d1d55dad570724bf8c7ea83409639cfb4be9b
+change-id: 20260824-for-upstream-lx2160a-pinmux-fix-6d09e82bd5cb
 
 Best regards,
-Krzysztof
+-- 
+Vincent Jardin <vjardin@free.fr>
+
+
