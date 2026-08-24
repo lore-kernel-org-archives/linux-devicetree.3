@@ -1,202 +1,191 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4123333D6EE
-	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 05:04:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8617379987
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 05:11:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787547865; cv=none; b=FPBG6VuYq7WqZDnjY1eIgXD8uOj80m2H6by9PyAMZ0YuqUBe45AO6MluF+Z4r+FZjuuxFhUvg6n+Rg6nP7tKdr8ZAMYItrwCg0++Z1Baj/ekoMGi3cxIx4joVQk+DPs8tZLFvHcrJWHyQgCaoZUYM0624I3ar77F1vnUN46imlU=
+	t=1787548301; cv=none; b=YdLJ0lLanKHAPwVp/WyjIFhXYVajx1ssq54mHe5NWR1D2JppeWbXzJKXNJ6SfJ8KDcpjy4/tQfrQRFZ9RLWkx7tnk2Fv3xFd0mxGOSgL1ETZzSSfewpBv/G7RZLfMR6R6Su3mIh5gRPqHLITdzKLvvDhnanITzwFo8EaAGuHn8M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787547865; c=relaxed/simple;
-	bh=ABFoY8Kd/xi3PTZ5Pp7goeMiUi8sxiLqeBaaE2isV1g=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OKURLD3kIz0N88C7z5OBGtcV9gtfc0+Nvm27hG09suvbZIqozNhyuZBA3PclX+XzeOQzuuydAPeWgGJOXUZpn5ffM2djKXAtp5cTy8v3/psrjfrD5naozp6R5fdqHu/IfN+UOgxHKZulciqSOnxl5z0ftYFsm7obKDp1Ucm0QPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ybl6PJIU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787548301; c=relaxed/simple;
+	bh=4+VlY2D06jTHF5E2ToUSpDtRWNDTChr5h+Bq0QmCch8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=q2x/4mom1Z5ty9kqKDu3wgIdQbOaSwDPpj3/skRhM0bVMc7+Q+h2JIVHfHlEva5EtPvJBsb864UJMz4xVOY1426FiAsNm+r++yFXJ2S8ZqF7stjjCecv3aoXwpRFPjcMCGD67Zbhm8XurB2Pk7tOa78C4Ii0D5G4nTOAAOwpAy4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=C752QwXk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=M9qSvyAa; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ybl6PJIU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82D601F000E9;
-	Mon, 24 Aug 2026 05:04:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787547863;
-	bh=f7wx6EGCh/T5ArQC2s1jZ97pGYD4zTjw2k8KAhE6maI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ybl6PJIUfDWaiP+K+8SNk8EVxr/R/mwFBHtWDy2SLynj9dvNkPVaeoUmBUPgYEWQ5
-	 JtoyZA+NgIierYNUQG0/5ZF44t17/V1u1SSDYFAPDN1BDigf1/Dk3YpzUSjiKtBiyb
-	 GfekU/WStIcAOa6CX0yySC95OiS+bteYlL0gNUqqIOWM0OGUdEa0OQPD/hbQOi6mdc
-	 W2lJ1HtKEBtDnz9VkNJxNYhDd+IsoCbPkle7Z1JslIxFF+LMOQy0a2juvV+6lRNZlw
-	 oouH5I1/ycLcwsPUEk9jpxC4glX/Nr1JuRNQWq0J0RlJXQ2F37YoIUYNIhD1S6mQNb
-	 duV+tCcXme3NQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] i3c: master: amd: Add support for in-band
- interrupts
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shubham Patil" <shubhamsanjay.patil@amd.com>
-Cc: robh@kernel.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>, linux-i3c@lists.infradead.org, Frank.Li@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260824044835.2924141-3-shubhamsanjay.patil@amd.com>
-References: <20260824044835.2924141-1-shubhamsanjay.patil@amd.com>
- <20260824044835.2924141-3-shubhamsanjay.patil@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 24 Aug 2026 05:04:23 +0000
-Message-Id: <20260824050423.82D601F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="C752QwXk";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="M9qSvyAa"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67O0mNP3984211
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 05:11:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	4+VlY2D06jTHF5E2ToUSpDtRWNDTChr5h+Bq0QmCch8=; b=C752QwXkN5e9Jl0g
+	oMZCfLm7ekaP237CqxsFn4SHeEKMqrw1iybu504nplBNW6AdHzhYKtpQzm+KoCex
+	xlq6SDWG14eeYwXaYZbiwKDk4AWN10KCBzHt5/wicQ7cL+AyQlPC6iXtJW7uPyU6
+	jmrEtbOsYWYz+K+HSzteBX6yp6XE5eNSRGX2B+ku9r8CeZxN97ovc1plDzfNIc14
+	UN3XQnJIjn3f48HS3rainwTdWdqMWwJzhOiG4BScPvDUM02Oat8eaHDorfjRO1O1
+	OOCQjkLDriruU7zOt7XiaHsiBB0KyWDqhZH744ThHWsaTXHDLCsWbrZ0jlLEd/Dt
+	+DpsSA==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g7456wgqg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 05:11:38 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38e54b6556aso3447153a91.2
+        for <devicetree@vger.kernel.org>; Sun, 23 Aug 2026 22:11:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787548297; x=1788153097; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4+VlY2D06jTHF5E2ToUSpDtRWNDTChr5h+Bq0QmCch8=;
+        b=M9qSvyAadguaGqKwqOPbYb3YiiCNKIQLVMN1qLMowP5CTyPF5n3Wzf0xWpDPB+RWG5
+         Mv5LnvxVuORyTmvXltI+A0fgq1t1hO0iPp1wy4dRzTWfdFIbn0qgG1Te8zYTPYcaGKfy
+         QmPxfFcqP3DTDivXR2B2gcjUwwRrahW6QABkoN1BECSxMXWJUdTrI4xwTkb66Y/wQ7sM
+         aL4M/fET+bcryLagYuvX4M42R/AK3y74vIJTcviyGqlr+K4JaDTVswOP8Urh3u5Pc/BG
+         7DbfRbaD7iPtKKzDh2C+NvbOXaZ0C/hSoqaTeqSHZwfoO8R+cr31dxjLsQYyo0rR3czu
+         vxeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787548297; x=1788153097;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4+VlY2D06jTHF5E2ToUSpDtRWNDTChr5h+Bq0QmCch8=;
+        b=SvLOJF3FfUcChQ6d3G4wZrk7FlM0K3dCTsPwOAvng0D0KsOi9PJB8enQpe/f38FmnI
+         rmgiRJy48qwRgAhwk0wIePqYDHMfGOynYk7nokvnKD2xU8gi/R628VMJjoQo3Voed/rV
+         BNS7kouL84EuGae1ZGxTce07tvmURvWXhcXx1wPUA8DSEncT77a3kEB65zwOfNHiqtvH
+         /kiJ2VmC2OafnnH/dRBzOQfzP0g/P/s/meZkTjV2lZ7DHpjpmsk+Y2c1xJ91oO/xGF9S
+         P6rI7JYcVtqaoZtFbHT+tsESoBBO8y++Z0sWJPRFdjYjYJM1IOSQJ6lPiWTIdKN1NcFA
+         7dXg==
+X-Forwarded-Encrypted: i=1; AHgh+RpqQRfa78BahlfzxglQ5Gy90655BGsVKorhifo88jpFCyz/ckJcYbQjynsxoz7tKndRPyjzhYZtosfI@vger.kernel.org
+X-Gm-Message-State: AFuF++lzGWzcEltLuiRhxTkqG+Es8e4gEvVSV3YfY1Fthnl/e245dxxF
+	tRQ3bCS+JJuvs62KEw1OBNZPuqf9eMJrilUmLdvJwBMtFA54Camw/V4B/jxBisWgQu+mQblhbsT
+	J5y/Ro+XNt+YXAoqcucqIiaQQlRcrn6dakTl5WwLP0f3cqX+H2NvHuFK1mRrNFXyO
+X-Gm-Gg: AR+sD12kO2ReP0ASOP5rkpRZso4T/seojeDS6rFAuQejDSVGUW/j8J+dBL1MRTqYPQI
+	7tfHQF6md0vNhv++FiZ1qus78y57mEElJtvHvjO220Mm1SLUcjpldFePmldjswcAwZqs+RTG+bl
+	fwXUM0LXJU8idLIuMcSLWwFGGx3osPxf/LJ7mrclobPIc8Cr1vfxsZOwONbbIEJ7wT3rMZvcNc6
+	JgsKRP6IcY6JorSouoY7FdebEdEASwHglXzmREZ2zTwsGOnP6p+dnraWfnoKi2wd56KCJVQVrbB
+	AdOLwKJTEY7K3jY9Xct/b9+JdAWJFaSnFbj2vjjjPd68MIyI9MM3lpKEUSP2RoUqGnWZ5osvXeX
+	xrJhBKluV8Qsbp42mYTGhggnFR3YVs10t
+X-Received: by 2002:a17:90b:3fc5:b0:38d:eaec:4396 with SMTP id 98e67ed59e1d1-395df5ec7a7mr27572430a91.11.1787548297493;
+        Sun, 23 Aug 2026 22:11:37 -0700 (PDT)
+X-Received: by 2002:a17:90b:3fc5:b0:38d:eaec:4396 with SMTP id 98e67ed59e1d1-395df5ec7a7mr27572358a91.11.1787548297002;
+        Sun, 23 Aug 2026 22:11:37 -0700 (PDT)
+Received: from [10.206.101.140] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141860ec7f7sm22225790c88.6.2026.08.23.22.11.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 23 Aug 2026 22:11:36 -0700 (PDT)
+Message-ID: <a281a8b7-79ae-3f68-1c4f-0f50bb0848e8@oss.qualcomm.com>
+Date: Mon, 24 Aug 2026 10:41:27 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH v2 5/5] media: iris: Fix frame interval enumeration for
+ non-divisor framerates
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Hans Verkuil <hverkuil@kernel.org>,
+        Stefan Schmidt <stefan.schmidt@linaro.org>,
+        Hans Verkuil <hverkuil+cisco@kernel.org>,
+        Mansur Alisha Shaik <mansur@codeaurora.org>,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        stable@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+References: <20260818-iris-fixes-dma-pseq-fint-v2-0-8dc8c4b3880e@oss.qualcomm.com>
+ <20260818-iris-fixes-dma-pseq-fint-v2-5-8dc8c4b3880e@oss.qualcomm.com>
+ <20260819-fat-shrew-of-agility-16bb0b@quoll>
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+In-Reply-To: <20260819-fat-shrew-of-agility-16bb0b@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI0MDA0NCBTYWx0ZWRfX1cHJ0J0dI8IX
+ 7gOZTnQObAQVoqyaR1aCqvIudl1ABSWc22DfbaIm6KG3njfs1iBd8HJswWRZJ3AB6YDf1HRePIl
+ JU3XoX8SqPF9txFCDyuQkuodRT3FbUc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI0MDA0NCBTYWx0ZWRfX6WSH2WX6+5xy
+ UaXZdhpq6e4ne9BAhPGElkX04+RHtXTSaKjwny7b4kn155fUUYnxzFr+7M6hVTlw9sylWrvluxB
+ EqpKGKxmTAEzWvwBnTmy+F5eCxs01E835YD5+HwTiQGWLnfin8V0YYXfhWA+ewGjzNXVgsWhCa1
+ YDCzY2z9hhYtqe72solIsbNlf9Rgg4LeeFqh0p+rFPkou6bDXy+M564WiNvYhkfqYQiRCrAekdU
+ LhMBdSL/pzAaVKLhV6CTNaCnIlSaw49hCSoRUeZ9hsshh8lFpI+YBGLiEOGUS9ZlAyPSINs6msx
+ 7Y6gArG1NLbLJTDUaAlDNSE97qPzLXJs5UVes1d1BYSHfGp8Gu1mdii6H8cz4VSWFh61A0tFsMZ
+ ZhAr6ySvquyovngKBWO3wa3pIsBwPAWHJlek9wMuuIQGfI6mhhsxDf6EmzNg2Alb/oF9dwMg91o
+ dSxnwPoub0UTbY0/giA==
+X-Authority-Analysis: v=2.4 cv=RtL16imK c=1 sm=1 tr=0 ts=6a8bd28a cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=_6ABqccX2T2vhF0wR04A:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-ORIG-GUID: N1Y069w24zv2wg5vwMj-b2x7fjYRHQvx
+X-Proofpoint-GUID: N1Y069w24zv2wg5vwMj-b2x7fjYRHQvx
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-24_01,2026-08-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 lowpriorityscore=0 adultscore=0 malwarescore=0 phishscore=0
+ impostorscore=0 priorityscore=1501 suspectscore=0 bulkscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608240044
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Inconsistent register read order causes the polled IBI handler to =
-read the wrong Target Address (DA).
-- [High] Premature publication of the IBI slot causes a NULL pointer derefe=
-rence in the IRQ handler.
-- [High] Eager polling of the shared RX FIFO corrupts read transfers and dr=
-ops IBI payloads.
---
 
---- Patch [2]: [PATCH v2 2/3] i3c: master: amd: Add support for in-band int=
-errupts ---
-commit 09c533cb3c7b670acbbd25a3bdfd78e983efb676
-Author: Shubham Patil <shubhamsanjay.patil@amd.com>
+On 8/19/2026 12:47 PM, Krzysztof Kozlowski wrote:
+> On Tue, Aug 18, 2026 at 09:24:18PM +0530, Vishnu Reddy wrote:
+>> iris_enum_frameintervals() advertised frame intervals using
+>> V4L2_FRMIVAL_TYPE_STEPWISE with step=1/MAXIMUM_FPS where MAXIMUM_FPS
+>> is 480. This caused client to enumerate only framerates of the form
+>> MAXIMUM_FPS/n (where n is a positive integer), restricting support to
+>> exact divisors of MAXIMUM_FPS (e.g., 480, 240, 160, 120, 96, 80, 60,
+>> 30, 24, 1).
+>>
+>> Framerates that are not exact divisors of MAXIMUM_FPS, such as 29 fps,
+>> 25 fps, were excluded from the enumerated list. There is no hardware
+>> restriction to framerates that are exact divisors of MAXIMUM_FPS. This
+>> caused GStreamer caps negotiation to fail with an "internal data
+>> stream error" when encoding content at such framerates.
+>>
+>> Fix this by using V4L2_FRMIVAL_TYPE_CONTINUOUS. With CONTINUOUS type,
+>> GStreamer creates a continuous framerate range [1, max_fps], allowing
+>> any integer framerate within the range to pass caps negotiation. The
+>> step field is set to 1/1 as required by the V4L2 specification for
+>> continuous frame intervals.
+>>
+>> Fixes: a6882431a138 ("media: iris: Add support for ENUM_FRAMESIZES/FRAMEINTERVALS for encoder")
+>> Cc: stable@vger.kernel.org
+> Why is driver patch AFTER the dts? What is the dependency?
 
-i3c: master: amd: Add support for in-band interrupts
+No dependency, posted together as a series.
 
-This commit adds support for receiving and dequeueing I3C in-band interrupt=
-s.
-The IBI operations are assembled at probe time if the capability is present=
- in
-the device tree. It also introduces logic to handle IBIs that race with nor=
-mal
-transfers by demultiplexing the response FIFO by TID.
+>
+> Dependency on DTS is in general a no go. I looked at cover letter and
+> could not find explanation - where is it?
 
-> diff --git a/drivers/i3c/master/amd-i3c-master.c b/drivers/i3c/master/amd=
--i3c-master.c
-> index ef5ad5abb788c..92a9f43f89344 100644
-> --- a/drivers/i3c/master/amd-i3c-master.c
-> +++ b/drivers/i3c/master/amd-i3c-master.c
-[ ... ]
-> @@ -206,23 +273,88 @@ static inline bool xi3c_is_resp_available(struct xi=
-3c_master *master)
-[ ... ]
-> +static bool xi3c_xfer_resp_available(struct xi3c_master *master)
-> +{
-> +	u32 resp;
-> +	u8 da;
-> +
-> +	if (master->xfer_resp_valid)
-> +		return true;
-> +
-> +	while (xi3c_is_resp_available(master)) {
-> +		resp =3D ioread32(master->membase + XI3C_RESP_STATUS_FIFO_OFFSET);
-> +
-> +		if (FIELD_GET(XI3C_RESP_TID_MASK, resp) !=3D XI3C_IBI_RESP_TID) {
-> +			master->xfer_resp =3D resp;
-> +			master->xfer_resp_valid =3D true;
-> +			return true;
-> +		}
-> +
-> +		da =3D FIELD_GET(XI3C_ADDR_MASK,
-> +			       ioread32(master->membase + XI3C_IBI_TARGET_ADDR_OFFSET));
+No dependency, this series addresses three independent issues in the iris video
+and I mentioned this point this cover letter.
 
-[Severity: High]
-Does popping the response FIFO before reading the Target Address register
-cause the wrong address to be read?
-
-In the hardware IRQ handler, the Target Address is read before waiting for
-and popping the response FIFO:
-
-xi3c_master_handle_ibi() {
-    ibi_reg =3D ioread32(master->membase + XI3C_IBI_TARGET_ADDR_OFFSET);
-    da =3D FIELD_GET(XI3C_ADDR_MASK, ibi_reg);
-    if (xi3c_wait_resp_atomic(master)) { ... }
-    resp =3D ioread32(master->membase + XI3C_RESP_STATUS_FIFO_OFFSET);
-}
-
-If the response is popped first here, does it advance the FIFO head and cau=
-se
-this read to return the address of the next queued IBI (or garbage) instead=
- of
-the current one?
-
-> +		dev_dbg_ratelimited(master->dev,
-> +				    "IBI from 0x%02x raced with transfer\n", da);
-> +		xi3c_master_process_ibi(master, resp, da);
-[ ... ]
-> @@ -437,13 +605,19 @@ static int xi3c_master_read(struct xi3c_master *mas=
-ter, struct xi3c_cmd *cmd)
-[ ... ]
->  	/* Read data from rx fifo */
-> -	while (cmd->rx_len > 0 && !xi3c_is_resp_available(master)) {
-> +	while (cmd->rx_len > 0 && !xi3c_xfer_resp_available(master)) {
->  		if (time_after(jiffies, timeout)) {
->  			dev_err(master->dev, "XI3C read timeout\n");
->  			return -EIO;
->  		}
->  		xi3c_master_rd_from_rx_fifo(master, cmd);
->  		usleep_range(XI3C_POLL_INTERVAL_US, 2 * XI3C_POLL_INTERVAL_US);
->  	}
-
-[Severity: High]
-Does this eager polling of the shared RX FIFO risk consuming an IBI payload
-into the transfer buffer before the IBI response is processed?
-
-If an IBI executes right before a read transfer, its payload will enter the=
- RX
-FIFO. Since !xi3c_xfer_resp_available() can evaluate to true if the response
-word hasn't been pushed to the Response FIFO yet, the loop might call
-xi3c_master_rd_from_rx_fifo().
-
-Could this blindly copy the IBI payload into the read transfer's buffer, le=
-aving
-an empty RX FIFO for xi3c_master_process_ibi() and dropping the IBI data?
-
-[ ... ]
-> @@ -1052,9 +1242,337 @@ static void xi3c_master_bus_cleanup(struct i3c_ma=
-ster_controller *m)
-[ ... ]
-> +static int xi3c_master_request_ibi(struct i3c_dev_desc *dev,
-> +				   const struct i3c_ibi_setup *req)
-> +{
-[ ... ]
-> +	spin_lock_irqsave(&master->ibi.lock, flags);
-> +	for (i =3D 0; i < ARRAY_SIZE(master->ibi.slots); i++) {
-> +		if (!master->ibi.slots[i]) {
-> +			data->ibi_slot =3D i;
-> +			master->ibi.slots[i] =3D dev;
-> +			break;
-> +		}
-> +	}
-> +	spin_unlock_irqrestore(&master->ibi.lock, flags);
-> +
-> +	if (data->ibi_slot < 0) {
-> +		dev_err(master->dev, "IBI: no free slot for addr 0x%02x\n",
-> +			dev->info.dyn_addr);
-> +		i3c_generic_ibi_free_pool(data->ibi_pool);
-> +		kfree(data);
-> +		return -ENOSPC;
-> +	}
-> +
-> +	i3c_dev_set_master_data(dev, data);
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-Can an incoming IBI trigger a NULL pointer dereference if it arrives right
-after the slot is published but before the master data is set?
-
-If the controller's IBI ACK is already armed by another device, and the har=
-dware
-sends an IBI after master->ibi.slots[i] =3D dev but before
-i3c_dev_set_master_data(dev, data), the IRQ handler (xi3c_master_process_ib=
-i)
-could look up the device and call i3c_dev_get_master_data(dev).
-
-Would this return NULL and result in a crash when accessing data->ibi_pool?
-Should i3c_dev_set_master_data(dev, data) be called before the slot is made
-visible to the IRQ handler?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824044835.2924=
-141-1-shubhamsanjay.patil@amd.com?part=3D2
+>
+> Please read both submitting patches documents.
+>
+> Best regards,
+> Krzysztof
+>
+>
