@@ -1,67 +1,87 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013065.outbound.protection.outlook.com [40.107.162.65])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF89376475;
-	Mon, 24 Aug 2026 13:19:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.65
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787577574; cv=fail; b=rMy866We36a+gtX8RDzlSbuBpp8Bi6PAxpyS/4gWjrkNop/6y4Zp52BD/kYkjIxYCg6hrtmqo3ol2hiJJ3YlwmthkYJrjci1+txBSz0ilRX5XwiTQpSPOBAmvMMH1q7zpw61cKFgJny39iHmNlV7LDj0wx0Jks4++qVpoHQdWiA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787577574; c=relaxed/simple;
-	bh=sYgS4LphnQScVc3JuWUdecQkyQbpO4xnm6uTJi8LYrA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=eUGa/mtBKkjZELo1+eQnEBMv8aEcSfEtQB6a+yjdRdkJAjZYpZK1U07pHg3ibqef51MFtiaokiwCzMsmLm0HNBsBa3qiv55bAG5zLlrYktU4J1ZDg4C7f3saOv5HXDCpHjneKcKLz0CIgagdBeEZfIbmdqOVsEslSqHWEe5KtzM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=NaQoMwwb; arc=fail smtp.client-ip=40.107.162.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F055CBA34
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 13:23:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787577805; cv=none; b=u0/AIhYQ+61SmvphqRJLgQjtbQSdWax1+hY6LDGdpYH8lIeHUhtsqkSDHMwnT7V8NmjqVyxOlIRy70SldrOAeCaT82pk2Qra7yq5NxUq3x5ZfxLqxlDnQ1LJxJS4HkgCQY+QmasDBVYzP074DOsOPpDSyH7MSsMFFMKpvib2r00=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787577805; c=relaxed/simple;
+	bh=c84EENtMlpj4dcqmfrCTzYWwu1VFPCw85ytM+ZGBn/c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QCBDZZgk4Et/xk/UmHWcar3VFTmvGMdJTi/G0FbZinDRC2wOaN860Nq6uBra6O7cbE0ZhGRZmkrG6+yw8y+U3+BdUjdDKPlvdTIHT7hHVma7gC+W/goN8+X4JuWcmX0xmh6TzTJZfNajAVou3ku5BU8SrVu5pUDxwE3CIkFTWrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LVu7C1jo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cqQzOAGo; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="NaQoMwwb"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rfjVAVqSU8aYdjj2UcjvMmMs9AAhMqB+Y9lXrk/uBCUg2G6OLvo7C+16XbpujCA0BeaPGKqXPh5zTAcMMKgJGfNCcaJ/GKZAcH5crtzPVWcp2BuZe+5cDW3SPH42o5psfATwa9yiYZRuAQdA9EK/u22thRePIt6OUHrntmGgSIql47MxCm7jnqnoyamedmXDMFDqLxpeOOWZb6r8q1B2VtdTCkTEbEOTg8pFlNzXYqUT48lxZM5U8au5BEeI27/TcBZ5P0BXPwrz7vduNY9A5CmqEKC1Eg6B18Xpo0QbEaAaGySR1+eapcBL+wdO5r9mKVUPeMv1rsA1B0uqJqvH0Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wCzOjEA9OywrEATDl45R1TfXZBBJe+6tm4EMtmxJt4w=;
- b=URgoKEyZIdkzbVm20saGD0aoN2QEeJjyPlWQ3UtQQ9/OMkrdlc8m49zyr+l8UBYAv5OYe+prksZwL2WdDnEiOC4NID3N6l2yUQP+0AT0xfw3OuhXPFov4VrNdUYCe5nFh/9hNZ5I2fktBuFlImyZETSD4UkJgYPElHP/hpMP3Wu3y4kUaRtjwYDo75dbo8ge2igJHQNuCRbfh8tIxKZmsZNPhz0CKSPikoNoo2sTZpu7nboOnBE0Mf9MYdnYqST6KYfyQpKtm3R7Nz4Z3btncypz6S6vEAaTVhOZGp3MLImShqbP4eIZLq80amUTmpeTBzNlTWNYxPJJZapLmrInHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=nabladev.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wCzOjEA9OywrEATDl45R1TfXZBBJe+6tm4EMtmxJt4w=;
- b=NaQoMwwbQFks28EXWVzr1ItwOWJItlXZoJWDR28rVJvDY2ZXcPRkZqapD0m31LSpWc/SDL4YKq981TLsA9Uvhmu/R9V+Cc4AMgX5E62NgtU33oYolySK+nbObzk7WQelSdDFMLcmvnbKSh+B0IcA3SdJ1O0qW9V3RdUAWDbMJrT1w4vT3JkGrIajFES5wg6pkcsg71t0dTsen9qa7omio8fW4RpMOIgYWnH67nwM4AGt1978dJsNGmYDdL3I0Ja8sSbV34syhl1N+RofgthZRR1elzeihsOWtIQJxoEjIbTeN6ccmnXQihUyBxWbr6u4/oiIIcPo3Jzajnz9D6zSyg==
-Received: from AS4PR10CA0023.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:5d8::15)
- by DB4PR10MB6144.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:388::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Mon, 24 Aug
- 2026 13:19:25 +0000
-Received: from AM4PEPF00027A65.eurprd04.prod.outlook.com
- (2603:10a6:20b:5d8:cafe::77) by AS4PR10CA0023.outlook.office365.com
- (2603:10a6:20b:5d8::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.12 via Frontend Transport; Mon,
- 24 Aug 2026 13:19:24 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- AM4PEPF00027A65.mail.protection.outlook.com (10.167.16.86) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Mon, 24 Aug 2026 13:19:24 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Mon, 24 Aug
- 2026 15:24:43 +0200
-Received: from [10.48.86.251] (10.48.86.251) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Mon, 24 Aug
- 2026 15:19:23 +0200
-Message-ID: <a6c55491-7cbe-4856-bb45-b7f5872966fc@foss.st.com>
-Date: Mon, 24 Aug 2026 15:19:21 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LVu7C1jo";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cqQzOAGo"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67OCuxs11880531
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 13:23:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Ht/73UpQIIZyUpRTYArGJnPpIGG8cQZGTaPS+SJfDcE=; b=LVu7C1jo62a64VKS
+	xh0Nb4RJvu0BxOGQFyVX3Yr4kMrYrY1quBwAs/9hrAwSrKAT8VPfzC2v1NN7DtZw
+	Gp5biwo0Du7HEHUOzZOaVwXeTLjYHOKyedkkBNS1fgLbeN19NyIsWEzN5IMLja0d
+	Z15Lkc2tfNw03DWcLx1lDXP64huNMtJeyiWrW8YzGygNIJB8Sp/uNwe+7L/do0ZR
+	IF1u3+Oi48DWa4bjzOCM9ZeXonhhgila2Xr7wUFg3t43blukYM17w89yxkTuHiUb
+	qqAARehG00CH8bFH4IkWqy5QvnIOxXQuuBTBtGnGd9dPk4xjjFEGPPqHWVVwsFqt
+	5aSyag==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g8huf1dmd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 13:23:22 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9349ba88188so51088385a.2
+        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 06:23:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787577802; x=1788182602; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ht/73UpQIIZyUpRTYArGJnPpIGG8cQZGTaPS+SJfDcE=;
+        b=cqQzOAGo1DzN4qiNShKmCyRafY32qopunVOWIunnE3U+6Nc9hFcJL2T/X7a0A4/+D2
+         4mAX6xsD0eAYNbULzjjQyGB/M3VyKaLfkoa/fzBvyHSrLwUdB9CvqZOavBMNh62FBfM+
+         Tzl1JeW6d18WhJHa5134PqJ496kCmNvI5kW81zmbWzRHped7EuDDma0ESM5LtXG+cC8o
+         /ARi8ay1wQbiY+LnEk6Brb3YwG9/ZxWfoo7Mr28NipHWKrsrjTDTU81w7kJv72rHt4pX
+         fS6eWHRa6Z7wL18f7jHbpxDTrUyacTWP/M7/WUGMvcW+aJLLwzuZXU5TKtgCF6nMfHmO
+         wJkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787577802; x=1788182602;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ht/73UpQIIZyUpRTYArGJnPpIGG8cQZGTaPS+SJfDcE=;
+        b=CoDPCtlC9/tI+dtbPUtAiizbZtwivnAMf7xz1om/2+NBqGqCK2gQWWY5u1I51/4iEX
+         7XA56ofoKHJI5UP573+BrFJ/Kham1lI9lmbJ4Hycby40ytxmMI4zaVyeLYFciPiDLYTb
+         g4LdsmYl/dYkVwumxiIwnGE8Elxbn0fN78prYFSF5tDkbkpKoUp2fMvjbtzi+3EXLjQ4
+         jDcTcEn8PnroXrlWwpW142H+q7GJBdfNH8KI319FbFmF1w8Zen2L/G5mAvT/3FSforNo
+         W08YRGcduOHn3A1fgBqT2GeOww+kA6ENkMyAVtowHCw7TVZK+F/JjmBSrhjmfLmeYZWt
+         U7+g==
+X-Forwarded-Encrypted: i=1; AHgh+RoUVQJTOdjoTYZkB8O/8usJyqVEcviZpUgkTAK2auPJDMHDgYgVKdWSlb9WznSq23xUc9sftFuKzCjK@vger.kernel.org
+X-Gm-Message-State: AFuF++lSNLLaz2ic+VzxYYgOKw9+bBlg+1ZADVx7VHZ+NDUFcLuIVL51
+	pisX64Uzj3rhhj1pYqMYtL2lvYNH9AdI8ROK3yRCVYSUidxI8bwzhF+DosutlLPceL/+T1V/i3q
+	U9LstC/nCTSqNCiEtGxZIliISmQ5cCL3lJOUaxtIOBGl1TqUaCtQgwkNaLegO77+C
+X-Gm-Gg: AR+sD10JTO52AyYi3HUujljBGPXJM3kVKLCq940nisJznZBKNlu7AX22IhBy+1rkNWZ
+	LnJjwSA+0yviPS+dPhjljl7zgbw/ieJ2yAXDWFQkr+wTh+pxmbHFfS+Rtv4BGH88nyeyE2OPuY/
+	2fCXZTjgXm2JELz53Rm07p0CSMMAaNEK6h5y9zkPPcGPS8lYqZo5zcmMH7CT4+wSpk8HJw/NyHj
+	SEHCwy3cqEhUredYhp6f65DEYXhHzkwHlAiZrSwCTBAg6XQvs+e2YkaL5Nql22fweK4+5nElbsy
+	tXyne+r+1DEF6iGZMxihW5HUFulkIUFdJ3RFAgtmIs7WBF3CJ3PstXLuz9XmKHiYoqeObkJuW4f
+	3tFeOZw5eq5HKqcJCoY3+8d2R
+X-Received: by 2002:a05:620a:2806:b0:92e:6485:f640 with SMTP id af79cd13be357-937395ae7ecmr1685240585a.4.1787577802104;
+        Mon, 24 Aug 2026 06:23:22 -0700 (PDT)
+X-Received: by 2002:a05:620a:2806:b0:92e:6485:f640 with SMTP id af79cd13be357-937395ae7ecmr1685235085a.4.1787577801667;
+        Mon, 24 Aug 2026 06:23:21 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a1c2fe663esm14943741fa.35.2026.08.24.06.23.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 24 Aug 2026 06:23:20 -0700 (PDT)
+Message-ID: <bbf024e1-0e0a-4b49-988b-9827120e359b@oss.qualcomm.com>
+Date: Mon, 24 Aug 2026 15:23:19 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,193 +89,95 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 9/9] arm64: dts: st: Add USB nodes on stm32mp251
-To: Marek Vasut <marex@nabladev.com>, <linux-usb@vger.kernel.org>
-CC: Pankaj Dev <pankaj.dev@st.com>, Alexandre Torgue
-	<alexandre.torgue@foss.st.com>, Christian Bruel
-	<christian.bruel@foss.st.com>, Conor Dooley <conor+dt@kernel.org>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, "Neil
- Armstrong" <neil.armstrong@linaro.org>, Rahul Kumar <rahul.kumar05@st.com>,
-	Rob Herring <robh@kernel.org>, Rosen Penev <rosenp@gmail.com>, Thinh Nguyen
-	<Thinh.Nguyen@synopsys.com>, Vinod Koul <vkoul@kernel.org>,
-	<devicetree@vger.kernel.org>, <kernel@dh-electronics.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<linux-phy@lists.infradead.org>, <linux-stm32@st-md-mailman.stormreply.com>
-References: <20260822074816.548662-1-marex@nabladev.com>
- <20260822074816.548662-10-marex@nabladev.com>
+Subject: Re: [PATCH] arm64: dts: qcom: sm6125-xiaomi-laurel-sprout: reserve
+ firmware-owned DRAM
+To: Roman Linev <admin@mswin.me>, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260821032541.1856299-1-admin@mswin.me>
 Content-Language: en-US
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-In-Reply-To: <20260822074816.548662-10-marex@nabladev.com>
-Content-Type: text/plain; charset="UTF-8"
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260821032541.1856299-1-admin@mswin.me>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM4PEPF00027A65:EE_|DB4PR10MB6144:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6ae98eac-9034-48a7-d332-08df01e2515e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|7416014|82310400026|1800799024|23010399003|56012099006|10067099003|4143699003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	LKGQ+lukUjNcB/acinK9XiWx0Er1ZaghSyPB3U3Oyc0R37PMJDZ1Qhux0tf/rDUQviTeZT41VTyEa1OGA9A31IuNPR4Bx8dHx8pZRMtERXWvkoTrUgPwiy3FF2qgWBcr4jN9LaCZhzic28g9EmA072gD5Ix91x6G4dgK8TtBBStVfOKIICmftBKbJUbI2KvPMOTpfdh+TOW6WHL/zvWUBfw5XhSuEzIJrM4l2f8WRtpkkXXnw3TJi/aF49eJSBf7z9ejyMozkCfC0TqOJsKyeKaR1xh9BfZ4R1vKBI37xvCq0mMnLDuijYK3HiVaAdgXe/uO5wutqAesHCtD398DxhVqzQ9VmChYXlwhwJG9EPRq/W+060iiU2dhUJZpJp8qu3SuXtjWGwz5kiNpQE4M5rk9dKIbs/YiPoHgnWlZAKIVbjiDoHlqISzH4G9PF48nMJQ0JWGYjWRY9YZ8WQZOGLNkTBuaZkwbgT0WBdloaAR2jRotsliRj7uP1VMXbSZWmsJvJ1ZbW21izrPFQ/jJoORrQtNbU7Twl0qwtESBqrzaLeGe5YypAyHFEisPtU62A740TVe9I46DJJ+YyIJnf07zO+X+gQhZQAwl08kguO+LwmAL9cs1PAerjb464GuvydQysRdJz2dsAScxzG03KsEAblN1mV49/Wkb/UK8ERqTFOKePQladEYlAypBsiC4ylJCWTfbjhVXklECN8pqcQ==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(7416014)(82310400026)(1800799024)(23010399003)(56012099006)(10067099003)(4143699003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	cv0BORWU0EyZsxx0XHEogXXuVtrSdzd9Z6EMbF0qMZsy4+eSoaVypQ4KZYzs7e/kw8/QZBTFOV6Z3CM9jFO/6fjtPy9xbx9jfVXhYKPBZ9NXDGPPZtaQa6vM7SHElE8MGmoP6fmvh1Qy6bGkH9dNHQ/d6W9XPLhs+j9rQ18mg+jm7D8BVFkh7/KmY30e2dST9PoC9wDPYol7768b/fSyF7LFOW6kf18Z0uwrsSBart3wCpPVK/h/ZYs6cuS1/9OLdA2VON1ViaQ7bvuG/4Z0eYU560tyx7JKfkPEBeETtR8FN0f3+1CfZCqnkCZcJCi181mBDhKu+JRQ26TSwdvgoWAm/U3tWsdc2a2l7mc8pZmBxo4kQM9Q0Dbd2RcIwsgKASOTjLjnNyrTzl+T+77PXr3F3XWzse5+ZkqpcQdWTKveQFyVu1QAzAc0NdSzOH4X
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 13:19:24.8401
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6ae98eac-9034-48a7-d332-08df01e2515e
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM4PEPF00027A65.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR10MB6144
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI0MDExMiBTYWx0ZWRfX2TQWPwNl4l7F
+ bT2dTNB0lhb7mKfH4y5a/3CosoohZGbh+udMSUrCH6F1gJtk2eLOqTvJtLHlZsTX+HSrtk4TOPv
+ hSpIdDD0HKBOogVzxbQykBv5KJlggE4=
+X-Authority-Analysis: v=2.4 cv=Wac8rUhX c=1 sm=1 tr=0 ts=6a8c45ca cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=cPhRdkEELQjuWZljFz4A:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: 9wTByv0cUS4inZSQu2xgc9TZOp8mCWOG
+X-Proofpoint-GUID: 9wTByv0cUS4inZSQu2xgc9TZOp8mCWOG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI0MDExMiBTYWx0ZWRfX8sAl3PJhTwO0
+ qHBKMo0EkHG2b5lTtmh5k3+L9uKMh7FnMPXBHyNt0QBN2G2ZvBp45yS1R35h70Rwu1Q+Op1td+A
+ XvV9Tx/WkEivGbZiS/QWykXAzWYB/RDMQXg4Hz0T1ji+MdKjU08vBe9ylIhQ7uybV86Wq7uy7CY
+ Hz0qeP922RlT1EiWnZj1lX5Sy4ReJXSbdIsAfwpLKsbGV81kQk3vcQ3Sihwyhu4Zot6Qv6JiQnC
+ quFgue0Dn5uBnjgMSbn3qdd9gHwjdhaGkYArZi52AEZ4eqKUqkUrMuY2V+TjG/08Xj0CwA5fQZZ
+ 8oq0dA/VGL7SPwEuYJlOcl1Jug5a9go6HX3lHv2sG75+6QEQYctZvN7MYyVBOx8bb9kOtgMIhSO
+ Bo6wBafD3Uy5hgx5K8s1JKFDvc5nnkm7B8rSIV9d7/4/WWJZesv8zI1D4f4uHMbNmkxQesvrt4e
+ mcztOf5niyQJ0bfExeg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-24_04,2026-08-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 impostorscore=0 adultscore=0 priorityscore=1501
+ bulkscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608240112
 
-
-
-On 8/22/26 09:46, Marek Vasut wrote:
-> From: Pankaj Dev <pankaj.dev@st.com>
+On 8/21/26 5:25 AM, Roman Linev wrote:
+> sm6125.dtsi sizes reserved_mem1@46200000 at 0x2d00000 (45 MiB), so it ends
+> at 0x48f00000. On laurel-sprout the firmware owns 0x4900000 (73 MiB) at
+> that base: the downstream device tree overrides the SoC region with
 > 
-> Add USB controller and PHY nodes to stm32mp251 DT.
-> This includes two USB 2.0 FEMTO PHYs, USB 2.0 host
-> controller and DWC3 DRD controller nodes.
+> 	removed_region@46200000 { reg = <0 0x46200000 0 0x4900000>; };
 > 
-> Signed-off-by: Pankaj Dev <pankaj.dev@st.com>
-> Co-developed-by: Marek Vasut <marex@nabladev.com>
-> Signed-off-by: Marek Vasut <marex@nabladev.com>
-> ---
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Christian Bruel <christian.bruel@foss.st.com>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Neil Armstrong <neil.armstrong@linaro.org>
-> Cc: Pankaj Dev <pankaj.dev@st.com>
-> Cc: Rahul Kumar <rahul.kumar05@st.com>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Rosen Penev <rosenp@gmail.com>
-> Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-> Cc: Vinod Koul <vkoul@kernel.org>
-> Cc: devicetree@vger.kernel.org
-> Cc: kernel@dh-electronics.com
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-phy@lists.infradead.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> Cc: linux-usb@vger.kernel.org
-> ---
-> V2: - Fix up Sob/Cdb lines
->     - Move PHY into syscfg subnode
->     - Turn st,stm32mp25-syscfg into simple-mfd
->     - Use clock-cells = <1> to discern OSC and future PLL clock from the PHY
-> V3: - Describe OHCI clock as the CMN clock
->     - Fix up Sob/Cdb lines further
-> ---
->  arch/arm64/boot/dts/st/stm32mp251.dtsi | 65 +++++++++++++++++++++++++-
->  1 file changed, 64 insertions(+), 1 deletion(-)
+> which ends exactly at 0x4ab00000, where mainline places camera_mem. The
+> 28 MiB between 0x48f00000 and 0x4ab00000 is therefore firmware-owned on
+> this board while mainline leaves it as free System RAM and hands it to the
+> page allocator.
 > 
-> diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-> index 6e985f115b195..dd2f7ddd9b634 100644
-> --- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-> +++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-> @@ -1746,6 +1746,47 @@ stmmac_axi_config_1: stmmac-axi-config {
->  				};
->  			};
->  
-> +			usbh_ohci: usb@482e0000 {
-> +				compatible = "generic-ohci";
-> +				reg = <0x482e0000 0x1000>;
-> +				access-controllers = <&rifsc 63>;
-> +				clocks = <&usb2_phy1 1>, <&rcc CK_BUS_USB2OHCI>;
-> +				interrupts = <GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>;
-> +				phys = <&usb2_phy1>;
-> +				phy-names = "usb";
-> +				resets = <&rcc USBH_R>;
-> +				status = "disabled";
-> +			};
-> +
-> +			usbh_ehci: usb@482f0000 {
-> +				compatible = "generic-ehci";
-> +				reg = <0x482f0000 0x1000>;
-> +				access-controllers = <&rifsc 63>;
-> +				clocks = <&usb2_phy1 0>, <&rcc CK_BUS_USB2EHCI>;
-> +				companion = <&usbh_ohci>;
-> +				interrupts = <GIC_SPI 139 IRQ_TYPE_LEVEL_HIGH>;
-> +				phys = <&usb2_phy1>;
-> +				phy-names = "usb";
-> +				resets = <&rcc USBH_R>;
-> +				status = "disabled";
-> +			};
-> +
-> +			usb3dr: usb@48300000 {
-> +				compatible = "st,stm32mp25-dwc3";
-> +				reg = <0x48300000 0x100000>;
-> +				access-controllers = <&rifsc 66>;
-> +				clocks = <&rcc CK_KER_USB2PHY2>,
-> +					 <&rcc CK_BUS_USB3DR>,
-> +					 <&rcc CK_KER_USB2PHY2>;
-> +				clock-names = "ref", "bus_early", "suspend";
-> +				interrupts = <GIC_SPI 228 IRQ_TYPE_LEVEL_HIGH>;
-> +				phys = <&usb2_phy2>, <&combophy PHY_TYPE_USB3>;
-> +				phy-names = "usb2-phy", "usb3-phy";
-> +				resets = <&rcc USB3DR_R>;
-> +				st,syscfg = <&syscfg 0x4800>;
-> +				status = "disabled";
-> +			};
-> +
->  			pcie_ep: pcie-ep@48400000 {
->  				compatible = "st,stm32mp25-pcie-ep";
->  				reg = <0x48400000 0x100000>,
-> @@ -2002,9 +2043,31 @@ exti1: interrupt-controller@44220000 {
->  		};
->  
->  		syscfg: syscon@44230000 {
-> -			compatible = "st,stm32mp25-syscfg", "syscon";
-> +			compatible = "st,stm32mp25-syscfg", "syscon", "simple-mfd";
->  			reg = <0x44230000 0x10000>;
->  			#clock-cells = <0>;
-> +			#address-cells = <1>;
-> +			#size-cells = <1>;
-> +
-> +			usb2_phy1: phy@2400 {
-> +				compatible = "st,stm32mp25-usb2phy1";
-> +				reg = <0x2400 0x24>;
-> +				#phy-cells = <0>;
-> +				#clock-cells = <1>;
-> +				clocks = <&rcc CK_KER_USB2PHY1>;
-> +				resets = <&rcc USB2PHY1_R>;
-> +				status = "disabled";
-> +			};
-> +
-> +			usb2_phy2: phy@2800 {
-> +				compatible = "st,stm32mp25-usb2phy2";
-> +				reg = <0x2800 0xc>;
+> On Qualcomm a "removed_region" is XPU-protected, so this is not a matter of
+> reading stale data: the region is not the kernel's to allocate.
 
-Hello Marek,
+Not necessarily, XPU protection is a specialized mechanism, there may be
+other owners that don't like tampering with their memory (hyp, tz..)
 
-Similar to stm32mp231: should update size ?
+> The observed symptom is hard lockups under sustained buffered reads, where
+> page-cache pressure eventually reaches the disputed range. Before this
+> change the device wedged at a rate of roughly one lockup per 59 MiB of
+> buffered reads from the SD card, reproducibly enough to fire on demand.
+> With the region reserved, the same workload has run 691 GiB of buffered
+> reads with zero lockups.
 
-				reg = <0x2800 0x10>;
+CONFIG_MEMTEST=y and `memtest=1` in cmdline is good to run to confirm
+your memory map checks out
 
-Thanks & BR,
-Fabrice
+[...]
 
-> +				#phy-cells = <0>;
-> +				#clock-cells = <1>;
-> +				clocks = <&rcc CK_KER_USB2PHY2EN>;
-> +				resets = <&rcc USB2PHY2_R>;
-> +				status = "disabled";
-> +			};
->  		};
->  
->  		pinctrl: pinctrl@44240000 {
+> +		/*
+> +		 * The SoC dtsi sizes reserved_mem1 at 0x2d00000 (45 MiB), ending
+> +		 * at 0x48f00000. This device's firmware owns 0x4900000 (73 MiB)
+> +		 * there -- downstream laurel_sprout carves out
+> +		 * removed_region@46200000 with that size, ending exactly at
+> +		 * camera_mem's 0x4ab00000. The 28 MiB in between is XPU-owned
+> +		 * on this board and mainline currently hands it to the buddy
+> +		 * allocator.
+> +		 */
+> +		reserved_mem1_laurel: memory@48f00000 {
 
+The label is unused, you can drop it. I think you should just do something
+like this:
+
+/* This carveout is larger than on other devices  */
+&reserved_mem1 {
+	reg = <0x0 0x46200000 0x0 foo>;
+};
+
+Konrad
