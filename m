@@ -1,307 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E09A3F1660;
-	Mon, 24 Aug 2026 09:19:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D791536167B
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 09:21:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787563149; cv=none; b=IM568D1BwxFUTkrs1O4oWe2OAUT5MBChRdbsr3BSgcWI5GmzYcXc21aATWMQoXpIbg7r2Z0yZ5GPDNdOp1XNrYEFh5JS9uqBgj0sPrJDRG7AKiXKrGi2NJ16h2ydDR5+0x6JgsKK0iCwPxM4UKb/YbpWT+/qq0PlS8NqlPkXtIQ=
+	t=1787563321; cv=none; b=K82QBxeIdqPFL6xA43/ToSKY5TmqNZQiKWfkkcjNzwH3ivandu4+zXXUzGs7icKNnHyxTlanjl6l4wJ7zpYgkvNwYQUyq6Q1KYx14ykjfrstsYT5r2xL2P3LFZtgsRKq6QQOW8NIlVnZIEC6EdHNsUMaCxEmmkjSbg6iqbagUjc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787563149; c=relaxed/simple;
-	bh=NL0yqA1dgQxmeXXXwXbu6p8BtL2/aCwBSjNaq6QT2LY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=qSdMR+xzeTpHS6rAypbrD7i2sBfGWVM1XXMqhY4FG/Rp72jM+u9hroKuCRG1xG74kBQst4a4S16l/2kLXtRaIfh+5KNf5oeL9ZM7hc6+mOsKpWWQ/czDgcfaHPMbnXkrRtTNkmFnavJTLW8zGCboimQJZ35lhgJcgggcWfBKxP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BILPdnOO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787563321; c=relaxed/simple;
+	bh=o+B5RSigbPl6LxyEugiHKw2RVa3xzMwCkq2ly9Aebn0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=utpArfax5nfFcgy4iPrYz8ny9PqSca1aGO1M5ASMWxve/TGsHECkFcFot9jSmAA4S4EY6pFRSQrrAVKnVY/yX6YcyGQ9kKBswxQJEPaIVOUgOL84hJYC6yB4TFRC8tm7AZ1xN0YZbk+PYqzD3Lxjk3VixQnUQuS+NYRqmXU0p6s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LYmVziRf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YP5Vir4q; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BILPdnOO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63B871F000E9;
-	Mon, 24 Aug 2026 09:19:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787563140;
-	bh=auFA8mSQqPfJrP6NW8Ish4yx/Au3DSZqiFiq1xti/H4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BILPdnOOT90Aaf8b4fO7Ua5BoMtAG282f88MepClaqeJYtQu1YGL/MJzml4evDyj9
-	 vbi3NAFL0xVWfzk4N1BYAD0+7U4w5LlF/S0Oc6eT/5DbjYYs219jtVypvMwljUFcBE
-	 MncbBA5lPqOLcu/Vf26ZKZxMEf3vg43pOHl7MzuFwnNru9ORW63WDbrtbgyfVNvCu1
-	 fqPMDtxIX5NE5ezMPr4/SzcszxLHtkn4q8aF0RHutQSJQyN9Go1D49dmv0ZWmJxw+u
-	 vIYlLkNHNG97oMtBr+l3yCMtlybX69lq5c3v4zHjIQEygd+hoHXCYN05xrRH7tq9GU
-	 D+Zm8hCTLY2sQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v41 5/7] firmware: imx: adds miscdev
-Reply-To: sashiko-reviews@lists.linux.dev
-To: pankaj.gupta@oss.nxp.com
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, robh@kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260824-imx-se-if-v41-5-29cf129e4d86@nxp.com>
-References: <20260824-imx-se-if-v41-0-29cf129e4d86@nxp.com>
- <20260824-imx-se-if-v41-5-29cf129e4d86@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 24 Aug 2026 09:19:00 +0000
-Message-Id: <20260824091900.63B871F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LYmVziRf";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YP5Vir4q"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67O99ALr2448696
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 09:21:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	8dKzfaRi2Etz6Z4YX7fYfgcARzGLYR+vSE6GioyE3ec=; b=LYmVziRfEr/jQn7E
+	qFVJkSqeksiAUxzSg9Ih+axo/QJSAXro5kF3a8fSvuhTxSIbHCSeeTnlYmJpDqsq
+	y0/pbhNxfKtBtIjuSgq9wTkkCm4/8y/5gfKWmAPAAuOmkJfYtFDwBkb1FpcNL6+r
+	LP/LO5SgQW+TvxaoyUhQTHAPJh9jsqeWEryIGKu+Fjffb2WCZDDZK4rGBRjaFO8q
+	i8He63TnznwN6+U9s467caSEGxA94kt/h7ouJRqhB6aQINWfFsxB+lmm/PpMi6NV
+	rEdD+PRLX6dZ+va9KEiTeUWi3/aaTmyFySEiOLvmPuwzNMjh120an28pcBJ1Zrg/
+	/wvsog==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g8j7r0cjr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 09:21:56 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51bfd1772d8so7361371cf.1
+        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 02:21:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787563316; x=1788168116; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8dKzfaRi2Etz6Z4YX7fYfgcARzGLYR+vSE6GioyE3ec=;
+        b=YP5Vir4quu7yv4UoT6wiOk7rhO2Yv1G+4Iw9e+uigq8xJ/+LS5zDJVxCaLiJcSWthM
+         HAQf4Utqp90mfygUfdkVBgqon2/AS66nHu1O8cHCrpBtT5X9y0pdTOu8AbYh0N0AibZt
+         vEcaKq70IvQbwA914lFPIUbWOJhiudrW/JHdLKWmj+i+BC6PAlfRlW1J8gWGJTk9dHww
+         ldcl6E0HWxjTrwpbQwv8CjwdNbNxwcsYt2ubzYzvRssgnWwBGAMCh1rMr7t0/B9Cbalk
+         ZyAgBF8JqTFf080cistDUq4QtHzJpQYr7MiO8GNLt3/cWDkckAqVPFzFcw0I0EEtV/Y3
+         rOjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787563316; x=1788168116;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8dKzfaRi2Etz6Z4YX7fYfgcARzGLYR+vSE6GioyE3ec=;
+        b=cA9LMecl8StiZ4xG1CLeRudT0kg0vobTYjxWs2O91vn4+puyfkJ+hGY2qd0CQQHZfl
+         /RsqPeBtSh/tUNd1s1N0oyy+Un0GQ51YdYkwesDKl5iJUwDJtCHo3YqTLfoeudT2gZSo
+         zvtSzvwZTQ5ui3brBJrWpERJIUG0Rh6ZC5Bikf7t/Obzb9WFMyivqzGPLpLb5qi/C1V/
+         Rh9OpGsDMlZXOmHAVWcQ5urBWPOr3fAcCEWECoSbOkIdVcbING0hhYneBeW8Qk8LBtfl
+         Q54flhWirnyDQzIGF00qQwVXgcVXDH7XbdCRyY4wGQ6GiBVNidITBMkLXCeys71JNR5S
+         5THQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrvGwYdGBDAZ4g8uI0oUhUG2J3uTFAsxoBJlMgnhf6cYDMWXXl7GiJaSXWXcoNMRCu5LQzv38mGZeth@vger.kernel.org
+X-Gm-Message-State: AFuF++kx2hkaAmnjJrWqMfCkquWqpSYseQUSYX7RdTrVr0OMcGxJGOY7
+	7LcvLPi7yyUHOGHsF2w1c7DzdcXrhU/Y7Wu8AnnQXqmyQWztHvOKEkzlVhq+NZiNjhlzvAgYPyC
+	+k8x8wTdxzP0kvR1YJ1dMYK7PDvtq93jblGtCpEKvnVytnSt+PFwplD3LPsRXKh9O
+X-Gm-Gg: AR+sD11nXkWERSIJwcrkzk4t5t+n8wkgl0QAMXKyUWNBnA0yiYeOjzmSlTnjNLO2QRc
+	zY/9mwXDVI9XgRBDLk5lpfb/F0JjDSBRRoB//zxnnrkySUCgo3K3jeCV4k0wu5WLHUIyJ8BwP/F
+	8e59dOFMWzkWiveyIcAsYaqYUgkdDupEHI5RHgcCHivgdwQVNA01LMYlCzl3mrPNHeMfc9UbTNc
+	qP41C0pNDJJ1xjYgvSFNQ6XzganMGcCg1nrq9M/1SqR5p8KNOPTUUziLMMacVUgOiuWaxnQs9oc
+	U7S+fz0qa/QT9GGTWHUH26N2eSgN2YDW1dUj7bJzmhETWTKBfU6qmUirGOhtzBSP2/szt65SH+W
+	QT1gDc9t+ilxEBXCrXc3kajqn
+X-Received: by 2002:ac8:5e53:0:b0:51a:8079:795e with SMTP id d75a77b69052e-52df59d1d7cmr182458701cf.4.1787563315605;
+        Mon, 24 Aug 2026 02:21:55 -0700 (PDT)
+X-Received: by 2002:ac8:5e53:0:b0:51a:8079:795e with SMTP id d75a77b69052e-52df59d1d7cmr182458611cf.4.1787563315279;
+        Mon, 24 Aug 2026 02:21:55 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2495ee5295sm1200185566b.0.2026.08.24.02.21.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 24 Aug 2026 02:21:54 -0700 (PDT)
+Message-ID: <7d78ea3c-3de3-4f90-8964-18a962218fca@oss.qualcomm.com>
+Date: Mon, 24 Aug 2026 11:21:52 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 0/2] Enable sdhc inline crypto engine for kodiak and
+ monaco
+To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Neeraj Soni <neeraj.soni@oss.qualcomm.com>
+References: <20260707-ice_emmc_support-v9-0-701c86f3c25b@oss.qualcomm.com>
+ <f5b538dd-b350-4eb3-a300-78a02d5e4f1e@oss.qualcomm.com>
+ <d4c65f68-900e-4d1d-9b31-350d7a88343f@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <d4c65f68-900e-4d1d-9b31-350d7a88343f@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI0MDA4MiBTYWx0ZWRfX3xtDuOzMD96J
+ LFMIF0fpWNwIsKe6ppPUuOlPuFyWiBeA+UqzNRg5CkogubxYh5ZNOnm7UtIohHCS2YnmN5rmr/V
+ NVNMtTl1SOc9WoMYebIJ4OVQhtPSze0/EuHsgrqAOT40ASth3dR6Pf/dNQ3/7rGlMIj3W8jUFZp
+ tqW07mxOGaYz426VNvzCzBGwbyqClNeEsutPnpn++Z22A1Vmgw3Jui8aFr7IfSaIZZTjKjaTem8
+ YqtgKbKSXDRmQk5Z4WJxSweUv7MYjrI07orEyEwT9g8qNQj9oMJyjeIl6nglgrMkpIU4AiYEB+X
+ p+EKb/opRvXKzUPiLoxNAHVVGTa5yn2L20y9ggz8+lMMV2CiqgNTej2DuDduJx1uEWXJf0ifg7P
+ h9lQG4AYQ2e+8v0rW+SoW5soS2EW+7O4Fke9d24nx6YlarWAkrbbZt+8tNpYlJpTgWCtODWS4yf
+ 32wKmqpo46w33Cvi/Lw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI0MDA4MiBTYWx0ZWRfXyxcgDjJdsk5S
+ WWdZB5BYGFe8U9idGWWqp15XaUeTqQdVWT5PJa1vo0QkM+RWsq4DbeUPYDsxbNKQ46PyapD4gmp
+ eaEXK6VoHgJP8QLbWmE9s/gT50ujnVs=
+X-Proofpoint-GUID: FzJV62lmftMHQUtIZEXbqY7QttDnJw7L
+X-Authority-Analysis: v=2.4 cv=IL8yzAvG c=1 sm=1 tr=0 ts=6a8c0d34 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=_4JtDfczSMH1pd5P-UgA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-ORIG-GUID: FzJV62lmftMHQUtIZEXbqY7QttDnJw7L
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-24_03,2026-08-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 phishscore=0 priorityscore=1501 suspectscore=0
+ spamscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608240082
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] Firmware can be tricked into reading out of bounds of the shared m=
-emory window, potentially accessing arbitrary physical memory.
-- [High] A TOCTOU race condition allows multiple contexts to issue ELE_STOR=
-AGE_OPEN_REQ concurrently, breaking command receiver isolation and allowing=
- one process to intercept another's NVM traffic.
-- [High] Incorrect teardown ordering allows `fw_busy_work` to be scheduled =
-after it is canceled, leading to a use-after-free when `priv` is freed.
-- [High] A 3-way deadlock occurs during driver unbind if a concurrent `clos=
-e()` is called on a context that recently experienced a command timeout.
-- [Medium] The SE_IOCTL_ENABLE_CMD_RCV_STATUS ioctl unconditionally fails w=
-ith -ENOMEM.
-- [Medium] Memory and device reference leak on early probe error paths.
---
+On 8/24/26 10:43 AM, Kuldeep Singh wrote:
+> On 21-07-2026 12:43, Kuldeep Singh wrote:
+>> On 07-07-2026 12:41, Kuldeep Singh wrote:
+>>> The series is combination of below 2 series sent in past. Since, both
+>>> need to be picked together, combine them and send as one series.
+>>> - https://lore.kernel.org/lkml/20260608041650.541502-1-neeraj.soni@oss.qualcomm.com/
+>>> - https://lore.kernel.org/linux-arm-msm/20260409-ice_emmc_clock_addition-v2-0-90bbcc057361@oss.qualcomm.com/
+>>>
+>>> Document and wire the SDHCI to ICE relationship on Qualcomm platforms
+>>> where ICE is modelled as a dedicated DT node.
+>>>
+>>> This series:
+>>> - adds the qcom,ice phandle to the SDHCI binding and enforces the
+>>>   qcom,ice vs embedded-reg modelling rule,
+>>> - enables ICE for kodiak and monaco by wiring SDHC to the dedicated ICE
+>>>   node,
+>>> - adds interface clock and power-domain requirements for the ICE node in
+>>>   affected DTS files.
+>>
+>> Konrad/Bjorn, could you please review and let me know for any comments.
+> Thanks Konrad for review.
+> Bjorn, can you please help in picking patch for v7.3-rc1.
 
---- Patch [5]: [PATCH v41 5/7] firmware: imx: adds miscdev ---
-commit 6943d8e80841760dc256faf0183efc19b3d26073
-Author: Pankaj Gupta <pankaj.gupta@nxp.com>
-Subject: firmware: imx: adds miscdev
+I'm afraid you're unfamiliar with the release process and have
+mismatched expectations. The feature development of 7.3 on
+maintainer trees is done already and the RCs will only pull in
+fixes to the new code.
 
-Adds the driver for communication interface to secure-enclave, that
-enables exchanging messages with NXP secure enclave HW IP(s)
-like EdgeLock Enclave, from User-Space Applications via character driver.
+After v7.3-rc1 is released (and we expect that to happen next
+Sunday), for-next branches will be created atop it and maintainers
+will be able to accept patches targetting v7.4
 
-> diff --git a/drivers/firmware/imx/ele_common.c b/drivers/firmware/imx/ele=
-_common.c
-> --- a/drivers/firmware/imx/ele_common.c
-> +++ b/drivers/firmware/imx/ele_common.c
-> @@ -66,0 +66,0 @@ int se_val_cmd_addrs(struct se_if_device_ctx *dev_ctx, =
-struct se_api_msg *msg,
-[ ... ]
-> +		} else if (f->size_idx !=3D SE_CMD_ADDR_NO_SIZE) {
-[ ... ]
-> +		} else if (f->buf_size) {
-> +			/* buf_size: literal byte count (FW-defined constant). */
-> +			if ((u64)f->buf_size > end - addr)
-> +				return -EACCES;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-Could a malicious userspace program trick the firmware into reading out of
-bounds of the shared memory window?
-
-The bounds check loop skips length verification entirely when size_idx is
-SE_CMD_ADDR_NO_SIZE and buf_size is 0, only validating the start address.
-
-For commands like ELE_OEM_AUTH_CONTAINER_REQ, this means userspace could
-supply an address near the end of the authorized window, causing the enclave
-firmware to read past the valid DMA window into unowned memory.
-
-> @@ -618,0 +618,0 @@ void se_if_rx_callback(struct mbox_client *mbox_cl, v=
-oid *msg)
-[ ... ]
-> +		se_clbk_hdl =3D &priv->waiting_rsp_clbk_hdl;
-> +		spin_lock_irqsave(&se_clbk_hdl->clbk_rx_lock, flags);
-> +		if (!se_clbk_hdl->rx_msg) {
-> +			if (atomic_read(&priv->fw_busy))
-> +				schedule_fw_busy_work =3D true;
-> +			spin_unlock_irqrestore(&se_clbk_hdl->clbk_rx_lock, flags);
-> +
-> +			if (schedule_fw_busy_work)
-> +				schedule_work(&priv->fw_busy_work);
-
-[Severity: High]
-Is there a use-after-free risk if this callback runs during driver unbind?
-
-If a late firmware response arrives while se_if_probe_cleanup() is running,
-the callback might evaluate atomic_read(&priv->fw_busy) and prepare to
-schedule the work. If cancel_work_sync() completes before schedule_work() is
-called, the work will be queued after being canceled. When the unbind finis=
-hes
-and frees priv, the workqueue will execute se_fw_busy_work() and dereference
-the freed priv pointer.
-
-> diff --git a/drivers/firmware/imx/ele_fw_api.c b/drivers/firmware/imx/ele=
-_fw_api.c
-> --- a/drivers/firmware/imx/ele_fw_api.c
-> +++ b/drivers/firmware/imx/ele_fw_api.c
-> @@ -82,0 +82,0 @@ int ele_uapi_allowed_fw_cmd(struct se_if_device_ctx *de=
-v_ctx, struct se_msg_hdr
-[ ... ]
-> +	case ELE_STORAGE_OPEN_REQ:
-> +		/* Might be cleared as part of tear down. */
-> +		if (dev_ctx->strg_hdl) {
-> +			ret =3D -EEXIST;
-> +			break;
-> +		}
-> +		/*
-[ ... ]
-> +		 */
-> +		scoped_guard(mutex, &priv->modify_lock)
-> +			if (priv->cmd_receiver_clbk_hdl.dev_ctx &&
-> +			    priv->cmd_receiver_clbk_hdl.dev_ctx !=3D dev_ctx)
-> +				ret =3D -EBUSY;
-
-[Severity: High]
-Does this create a time-of-check to time-of-use race condition that allows
-multiple contexts to issue ELE_STORAGE_OPEN_REQ concurrently?
-
-The exclusivity check is performed under a scoped modify_lock but dropped
-before the command is actually sent. Two contexts could both pass this
-validation because neither is registered yet.
-
-> @@ -290,0 +290,0 @@ void fw_api_specific_ops(struct se_if_device_ctx *dev=
-_ctx, struct se_api_msg *rx
-[ ... ]
-> +	case ELE_STORAGE_OPEN_REQ: {
-> +		int rc;
-> +
-> +		/*
-[ ... ]
-> +		 */
-> +		dev_ctx->strg_hdl =3D rx_msg->data[1];
-> +
-> +		if (is_cmd_interrupted) {
-> +			if (se_close_storage(dev_ctx, dev_ctx->strg_hdl))
-> +				dev_err(dev_ctx->priv->dev, "failed to close storage.\n");
-> +			dev_ctx->strg_hdl =3D 0;
-> +			break;
-> +		}
-> +
-> +		rc =3D set_dev_ctx_as_command_receiver(dev_ctx, false);
-> +		if (rc)
-> +			dev_err(priv->dev,
-> +				"Failed to register %s as CMD-Receiver: %d\n",
-> +				dev_ctx->devname, rc);
-> +		break;
-> +	}
-
-[Severity: High]
-Could this result in broken isolation if two contexts obtain valid storage
-handles?
-
-Following the race mentioned above, the second process will fail to register
-as a command receiver here. However, since this failure is only logged,
-success is still returned to userspace. Could this cause the NVM callbacks
-for the second process's storage handle to be routed to the first process?
-
-> diff --git a/drivers/firmware/imx/ele_msg_addr_field.c b/drivers/firmware=
-/imx/ele_msg_addr_field.c
-> --- a/drivers/firmware/imx/ele_msg_addr_field.c
-> +++ b/drivers/firmware/imx/ele_msg_addr_field.c
-> @@ -20,0 +20,0 @@ static const struct se_cmd_addr_field ele_get_info_addr=
-_fields[] =3D {
-[ ... ]
-> +static const struct se_cmd_addr_field ele_oem_auth_cntr_addr_fields[] =
-=3D {
-[ ... ]
-> +	{ .lsb_idx =3D 1, .msb_idx =3D 0, .has_msb =3D true, .flag_idx =3D SE_C=
-MD_ADDR_ALWAYS,
-> +	  .size_idx =3D SE_CMD_ADDR_NO_SIZE },			/* container_hdr_addr */
-> +};
-
-(Just noting the definition for context of the bounds check issue.)
-
-> diff --git a/drivers/firmware/imx/se_ctrl.c b/drivers/firmware/imx/se_ctr=
-l.c
-> --- a/drivers/firmware/imx/se_ctrl.c
-> +++ b/drivers/firmware/imx/se_ctrl.c
-> @@ -702,0 +702,0 @@ static void se_if_probe_cleanup(void *plat_dev)
-[ ... ]
-> +	scoped_guard(mutex, &priv->se_if_cmd_lock) {
-> +		cancel_work_sync(&priv->fw_busy_work);
-> +		if (priv->rx_chan) {
-> +			mbox_free_channel(priv->rx_chan);
-> +			priv->rx_chan =3D NULL;
-> +		}
-
-[Severity: High]
-Can a 3-way deadlock occur here during driver unbind if a concurrent close()
-is called on a context that recently experienced a command timeout?
-
-The unbind thread holds se_if_cmd_lock and waits for the workqueue via
-cancel_work_sync().
-
-The workqueue executing se_clear_fw_busy() holds nothing but waits for
-dev_ctx->fops_lock.
-
-The close thread executing cleanup_dev_ctx() holds fops_lock, observes
-fw_busy =3D=3D 0, and attempts to acquire se_if_cmd_lock by calling
-se_close_storage().
-
-This circular dependency seems like it could lock up the kernel unbind
-process and userspace close().
-
-[Severity: High]
-Additionally, is the teardown ordering here safe?
-
-By calling cancel_work_sync(&priv->fw_busy_work) before
-mbox_free_channel(priv->rx_chan), the IRQ source remains active. This allows
-the race condition mentioned earlier where the work could be re-armed after
-being canceled.
-
-> @@ -880,0 +880,0 @@ static int se_if_probe(struct platform_device *pdev)
-[ ... ]
-> +	priv =3D kzalloc_obj(*priv, GFP_KERNEL);
-> +	if (!priv)
-> +		return -ENOMEM;
-> +
-> +	priv->dev =3D dev;
-> +	/*
-[ ... ]
-> +	 */
-> +	get_device(priv->dev);
-> +	kref_init(&priv->refcount);
-> +	priv->if_defs =3D &if_node->if_defs;
-> +	dev_set_drvdata(dev, priv);
-> +
-> +	ret =3D devm_mutex_init(dev, &priv->se_if_cmd_lock);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "Failed to init mutex: priv se_if_cmd_lock.\n");
-> +	ret =3D devm_mutex_init(dev, &priv->modify_lock);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "Failed to init mutex: priv modify_lock.\n");
-[ ... ]
-> +	ret =3D devm_add_action_or_reset(dev, se_if_probe_cleanup, pdev);
-
-[Severity: Medium]
-Are there memory and device reference leaks on these early error paths?
-
-If devm_mutex_init() fails, the function returns immediately. Because
-devm_add_action_or_reset() has not been called yet, the cleanup function is
-not registered, which leaves the priv allocation and the device reference
-leaked.
-
-> @@ -1012,0 +1012,0 @@ int set_dev_ctx_as_command_receiver(struct se_if_de=
-vice_ctx *dev_ctx, bool is_io
-[ ... ]
-> +	if (!dev_ctx->strg_hdl)
-> +		return -EINVAL;
-> +
-> +	if (is_ioctl)
-> +		return -ENOMEM;
-
-[Severity: Medium]
-Does this make the SE_IOCTL_ENABLE_CMD_RCV_STATUS ioctl completely unusable?
-
-Because se_ioctl() invokes this function with is_ioctl set to true, this
-check will cause the ioctl to fail unconditionally with -ENOMEM.
-
-> @@ -1844,0 +1844,0 @@ static long se_ioctl(struct file *fp, unsigned int =
-cmd, unsigned long arg)
-[ ... ]
-> +		case SE_IOCTL_ENABLE_CMD_RCV_STATUS: {
-> +			err =3D set_dev_ctx_as_command_receiver(dev_ctx, true);
-> +			if (err)
-> +				dev_err(priv->dev, "Failed[%ld] to register %s as CMD-Receiver.\n",
-> +					err, dev_ctx->devname);
-> +		break;
-> +		}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824-imx-se-if-=
-v41-0-29cf129e4d86@nxp.com?part=3D5
+Konrad
