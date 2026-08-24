@@ -1,150 +1,145 @@
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B7445A297
-	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 15:55:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E6DA43F081;
+	Mon, 24 Aug 2026 15:56:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787586945; cv=none; b=F650NqmCTk6w1TYp/q01CDFfkEikSBQq0AfbHC2IOAU9ddZYkvB0BUJVh959+gdueXl/GLhIeDdVCYrjesSKpRSSgxDCNhnc1xhFr0eYxuUl4yagGcF+Y1xleExYA/KVkFzFuev2kbfhLsJPVLY+wtZIS7Z9AXNFu/oOumNxyz8=
+	t=1787586983; cv=none; b=Vyhi1+IFJaSoLfCqr7NYUPcdforZZK17OSVCsbZqeF4pMYMFlp1m5nBsR+Rn+b3L2Yv/U/5N6LAgn/z2VBFv/TLejWOyvuokRCf2TcwI3aeb2qrbdt4VmR+anSu75J+ykZVZs7SyS1VHufxb9GXKIAa6Mh09dcSUwrpEJywZOCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787586945; c=relaxed/simple;
-	bh=PNvyjChKn3pbDTthHstD6LZXuJxaV2eJcVcKFdqaIM8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WxA/Tl4qAvzChsklCJUCp5wAOY9t1beKH8PnZWzZeyiLpF35F1ZcJpXYUYrfNQy5tw7146U8gVNhV5sW1vEhF/bnVTrBuqRN6aRg3d1j+ri4aETW8dwdd6MppCAC+U6FJXmJeBsU/I2TdYSiPnPFtJ4z8oxDKcPJPVQ8mvubmrQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mswin.me; spf=none smtp.mailfrom=mswin.me; dkim=pass (2048-bit key) header.d=mswin-me.20251104.gappssmtp.com header.i=@mswin-me.20251104.gappssmtp.com header.b=FC4V2hZ5; arc=none smtp.client-ip=209.85.218.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mswin.me
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mswin.me
+	s=arc-20240116; t=1787586983; c=relaxed/simple;
+	bh=7vVgCRCHccUN3G7vCDFrvfAczHVMVD+dithT9jbnmfk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=CMKJX9dOsOEsrnc+GZJYGdpH7uBqNsVuGuXvurN4h7dTgi+LqHKiT3LCvANl0T5y8Jel50Fk74V8Ci8XncHkJF645kMAw/SsXwdZBhzoXRa+wq4L9NIqic+yYzXkxKA+wF+JNSnIOQB3kvq7TkrlU9MU2l7dJE9kb6+PRAh93/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zi0gwT6N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mswin-me.20251104.gappssmtp.com header.i=@mswin-me.20251104.gappssmtp.com header.b="FC4V2hZ5"
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c1c26d7e951so548471166b.0
-        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 08:55:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mswin-me.20251104.gappssmtp.com; s=20251104; t=1787586940; x=1788191740; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+2zxKlrM4sl+jf+tWEo+93mp6Ls/Tsoob0YEldv6RWM=;
-        b=FC4V2hZ5tr6vMLi4/QgVOn8N1qzXSv9iEzIwZcNLZnVL+0Omgc77xjSVr/QuZShybY
-         rCReg+JkA7TWLLYkmWj8i4jFYRmiwW2A8ueQXUamZd0jZ+r0PzK92xL3E29ZZyxjOMaf
-         vQ2bfY12bm81xvrebuPkNlG7DrOC4ZDjULKpxRLZPj1L03DGFED4tiSpF9brD2EgrrQB
-         0TDN+j446lQP4z5LzY8Xq1AWlbjBveJQlbs62Qhs3AB9G8yioy23DdD0wzVa5Nuo9e0H
-         1LcTJqSPVNLT+uctZ6BIJwi7f1sT4L6CsSTQe20XhMksONQZb08+rjtKjihRsgTo/5+0
-         HUjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787586940; x=1788191740;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+2zxKlrM4sl+jf+tWEo+93mp6Ls/Tsoob0YEldv6RWM=;
-        b=XPFDP9QlauYCSlXvHfdb9AnGH4PVZRsyppQ0idCtKPITfU6/KEKB4WAOd6XpI7be4Q
-         VqZc3TQOhuJprFiA2SLXTDvjPoR7PRsGztyjteo2xWSYBDydPhUtqSTes8YLvXowtrac
-         S+BsomcvwpqX0OAwJo78uuNj0YvQ8PXcbxfBzi4/n3HlkjQ3c3zW8M3vaZEM9tWz+gR4
-         cdk1ukJc14VwCHvUOZ7mizjyrx0/zL6yqu4gF/LD+f6xXu7jvB9CPiMOImEMJbipMQ2d
-         TBvhPlJOvCk4RZGpV58msPJLZDr5sETG9278IoHv4FG6kMA57/9HRfiFlDEiVzy8O2A3
-         3Ndw==
-X-Forwarded-Encrypted: i=1; AHgh+RrfDlPepRXP8lgDtsWMBTtO44dU8y2TNCtNZwRzjS26XYFcQv3nPecwksHR1p9+5FIVSM4xVjicmaZp@vger.kernel.org
-X-Gm-Message-State: AFuF++kvKKRDzZDZQmgyXQgqxi4EtRuOR3tgc/Y1dy5VBh4ppba7rDtE
-	T/HEzPO+IIa78CPvLUhs2K0pUHjBPdx9wQUrxBkxOo/m+ewG2shLPRt2ZeG/2sUlusE=
-X-Gm-Gg: AR+sD11U58uC4ciUKthXr9LEHgyv1cGeHJysg5YQTDqn2HpbQM6gjF+DbRFTHdWz5RE
-	CDrMrHQ9OwzH7vsejlnfU+IhciswnmuPQ/DnNZ7jEr/my52hl805aQqaUp2bJ5SRl4tU/tz8QeV
-	OEHGv4J5zo5URqDsLeLtnhv4dRvRGG0oqFgib3nMhRCHCnn1S+JY3D1wSfQD9ETLT4H1SAXI+bl
-	WwzZt6lRWafDjxiIvmV3a7cGt2rVKSb7cq/iwjpavxTDL52KCzEbMcoRF23CrwQ0hvKESEoal16
-	+/BBiMfWJV0KlxtRzBpIziutxQhMFZv3Q2+qic+0o3OmBsmCI5h/2TXY4ejciP0yIa7xllT4FHR
-	bXAtpVYj405VMwvCrfXr3E7B4UKKLngPU1wc/kNSMsbM0Q0Zxs8utDFPTEzxDqVEYmtgsp1Wvww
-	BP67dST9uFowt+PrhDvieOyyIf3AaLUbYPZS3ruOG1wtAGWF+mYFppyUoHUwwGv4nsyH0=
-X-Received: by 2002:a17:907:8b8a:b0:c05:b9db:68cc with SMTP id a640c23a62f3a-c2469f7b668mr3038453066b.0.1787586939427;
-        Mon, 24 Aug 2026 08:55:39 -0700 (PDT)
-Received: from zephyr.int.serkovo.ru ([95.135.208.171])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c24967383e5sm1266270566b.45.2026.08.24.08.55.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 24 Aug 2026 08:55:38 -0700 (PDT)
-From: Roman Linev <admin@mswin.me>
-To: andersson@kernel.org,
-	konradybcio@kernel.org
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	barnabas.czeman@mainlining.org,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Roman Linev <admin@mswin.me>
-Subject: [PATCH v2] arm64: dts: qcom: sm6125-xiaomi-laurel-sprout: enlarge reserved_mem1
-Date: Mon, 24 Aug 2026 18:55:35 +0300
-Message-ID: <20260824155535.335494-1-admin@mswin.me>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260821032541.1856299-1-admin@mswin.me>
-References: <20260821032541.1856299-1-admin@mswin.me>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zi0gwT6N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2E651F000E9;
+	Mon, 24 Aug 2026 15:56:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787586982;
+	bh=w9rJhpDVQVCHCxhApfFKKk9Wu7P/cwhoWpvi03bF5j8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Zi0gwT6N5FxW0e61cTJgAUaJazS3tOrWTOxnY9/h/OtVAaKWdY9op+oghPbP7pGCI
+	 adQutIP2O/WPwNhDiKLeN3DfrSPeju0EWUql4pOenoml1J38nnMc73zCEDW0fZUXJ4
+	 +Fz5wn3RNfPbZz00cfxdl/gD4TDH7oQ4dBmc54Xn9AtzMY5z5s77QVuVaPomKrs0ve
+	 N3esvOSpW6jefzdIWUR2uCgwysTzLlYZviZWWFBmgLcHNQwYChk/jGtCDprBlgVD3l
+	 OGAq7xIcVt+IlRej//J7tlRKIAo5fOrBP051+D1WamPKgnvuoWBBrkNaxO+nMl1uFD
+	 7TA7RleJq3Oyg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] dt-bindings: hwmon: microchip,emc2305: add vcc-supply
+ and #cooling-cells
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vincent Jardin" <vjardin@free.fr>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, linux-hwmon@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260824-for-upstream-dt-emc2305-vcc-cooling-v1-1-cd3b53dfb5d4@free.fr>
+References: <20260824-for-upstream-dt-emc2305-vcc-cooling-v1-1-cd3b53dfb5d4@free.fr>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 24 Aug 2026 15:56:21 +0000
+Message-Id: <20260824155621.E2E651F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-sm6125.dtsi sizes reserved_mem1@46200000 at 0x2d00000 (45 MiB), so it
-ends at 0x48f00000. On laurel-sprout the firmware owns more than that:
-the downstream device tree describes the same base as
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-  removed_region@46200000 { reg = <0 0x46200000 0 0x4900000>; };
+New issues:
+- [Medium] The commit message makes materially false claims about the drive=
+r's device tree parsing logic to justify leaving the binding examples uncha=
+nged.
 
-i.e. 0x4900000 (73 MiB), ending exactly at 0x4ab00000 where mainline
-places camera_mem. The 28 MiB between 0x48f00000 and 0x4ab00000 is
-therefore owned by firmware on this board while mainline leaves it as
-free System RAM and hands it to the page allocator.
+Pre-existing issues:
+- [High] The driver fails to use `hwmon_lock()` or any other locking to ser=
+ialize accesses between hwmon sysfs and thermal subsystem operations, leadi=
+ng to race conditions and potential I2C corruption.
+--
 
-The observed symptom is hard lockups under sustained buffered reads,
-where page cache pressure eventually reaches the disputed range. Before
-this change the device wedged at a rate of roughly one lockup per 59 MiB
-of buffered reads from the SD card, reproducibly enough to fire on
-demand. With the region enlarged, the same workload has run 691 GiB of
-buffered reads with zero lockups.
+--- Patch [1]: [PATCH] dt-bindings: hwmon: microchip,emc2305: add vcc-suppl=
+y and #cooling-cells ---
+commit 2e59e1a6682ca5d565101743c080415ed986b896
+Author: Vincent Jardin <vjardin@free.fr>
 
-Booting with CONFIG_MEMTEST=y and memtest=1 confirms the resulting map:
-17 free ranges are swept with no bad ranges reported, and the swept list
-skips 0x46200000..0x4ab00000 entirely, so none of the firmware carveout
-is in the page allocator's pool any more.
+dt-bindings: hwmon: microchip,emc2305: add vcc-supply and #cooling-cells
 
-Signed-off-by: Roman Linev <admin@mswin.me>
----
-Changes in v2 (all from Konrad's review of v1):
- - Resize the existing &reserved_mem1 instead of adding a second,
-   board-level region for the delta. Same bytes reserved, one node.
- - Drop the now-unused label.
- - Do not claim the range is XPU-protected. As Konrad pointed out it may
-   equally be claimed by hyp or TZ; either way it is not the kernel's to
-   allocate, so the commit message now says only that.
- - Add the CONFIG_MEMTEST=y / memtest=1 confirmation Konrad asked for.
+This commit adds the missing vcc-supply and #cooling-cells properties to the
+microchip,emc2305 device tree binding to resolve schema validation errors.
+It places #cooling-cells at the controller node level.
 
-v1: https://lore.kernel.org/r/20260821032541.1856299-1-admin@mswin.me
----
- .../boot/dts/qcom/sm6125-xiaomi-laurel-sprout.dts    | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+> The #cooling-cells property belongs to the controller node, which is
+> where the driver actually registers.
+>
+> Two cells is what that registration needs: a cooling-maps entry
+> references the fan as <&emc2305 min max>.
+>
+> Two cells also documents what the driver supports today. The
+> pwm-separate path registers one cooling device per PWM against the same
+> node, and they all get cdev_id 0, so no cell count can tell them apart.
+> That is a driver issue, noted here but not addressed.
+>
+> The examples in this binding put that property on the fan@N subnodes
+> instead, which does not match what the driver does: they are left alone
+> here rather than changed blind.
 
-diff --git a/arch/arm64/boot/dts/qcom/sm6125-xiaomi-laurel-sprout.dts b/arch/arm64/boot/dts/qcom/sm6125-xiaomi-laurel-sprout.dts
-index 139f2b4..027c009 100644
---- a/arch/arm64/boot/dts/qcom/sm6125-xiaomi-laurel-sprout.dts
-+++ b/arch/arm64/boot/dts/qcom/sm6125-xiaomi-laurel-sprout.dts
-@@ -324,6 +324,18 @@
- 	status = "okay";
- };
- 
-+/*
-+ * The firmware carveout at this base is larger on this device than the
-+ * SoC dtsi assumes: downstream laurel_sprout describes it as
-+ * removed_region@46200000 with a size of 0x4900000, ending exactly where
-+ * camera_mem begins. The 28 MiB past the dtsi's 0x2d00000 is not the
-+ * kernel's to allocate, and handing it to the buddy allocator wedges the
-+ * machine under memory pressure.
-+ */
-+&reserved_mem1 {
-+	reg = <0x0 0x46200000 0x0 0x4900000>;
-+};
-+
- &rpm_requests {
- 	regulators-0 {
- 		compatible = "qcom,rpm-pm6125-regulators";
--- 
-2.55.0
+[Severity: Medium]
+Is this description accurate regarding where the driver registers?
 
+Looking at emc2305_probe() in drivers/hwmon/emc2305.c, when pwm_childs > 0,
+the driver iterates through the subnodes and passes the child subnode direc=
+tly
+to devm_thermal_of_child_cooling_device_register():
+
+drivers/hwmon/emc2305.c:emc2305_probe() {
+    ...
+    ret =3D emc2305_set_single_tz(dev, child, ch + 1);
+    ...
+}
+
+It appears the examples in the binding are actually correct in placing
+the #cooling-cells property on the fan@N subnodes when subnodes are present.
+
+Could the commit message be updated to reflect this?
+
+[Severity: High]
+This is a pre-existing issue, but does the driver lack locking between
+thermal subsystem and sysfs operations?
+
+Looking at drivers/hwmon/emc2305.c, the thermal subsystem callback reads and
+modifies shared state and performs I2C operations without acquiring any loc=
+ks:
+
+drivers/hwmon/emc2305.c:__emc2305_set_cur_state() {
+    ...
+    data->cdev_data[cdev_idx].cur_state =3D state;
+    if (data->pwm_separate) {
+        ret =3D i2c_smbus_write_byte_data(client, EMC2305_REG_FAN_DRIVE(cde=
+v_idx), val);
+    ...
+}
+
+Concurrently, the hwmon sysfs callback modifies the hwmon state and triggers
+I2C updates:
+
+drivers/hwmon/emc2305.c:emc2305_write() {
+    ...
+    data->cdev_data[cdev_idx].last_hwmon_state =3D
+        EMC2305_PWM_DUTY2STATE(val, data->max_state,
+                               EMC2305_FAN_MAX);
+    ...
+}
+
+Because the driver uses devm_thermal_of_child_cooling_device_register() for
+its thermal device, the hwmon core lock is not automatically held. The hwmon
+subsystem API requires drivers to implement their own locking (like hwmon_l=
+ock())
+for manually registered attributes.
+
+Can this lead to race conditions accessing shared state and potential
+interleaving of I2C operations to the same chip?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824-for-upstre=
+am-dt-emc2305-vcc-cooling-v1-1-cd3b53dfb5d4@free.fr?part=3D1
