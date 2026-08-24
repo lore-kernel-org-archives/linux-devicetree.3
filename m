@@ -1,137 +1,195 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6977741D12B;
-	Mon, 24 Aug 2026 12:43:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 369C041D127
+	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 12:55:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787575446; cv=none; b=li1sbsAVJEN0VLmka7+QpY0gNHokcpZT5i0XBGsQ+e68+4PwXO2Dj4SYpC/0s2c2LD6CXYMkysfRsEDeLfwfLVK7L7BqTn2MKOWX7NAxKFhQUfSTwdtr0qoLYhupGtllg4ICSdld+UkD/AZ2aO6Bks0qkWanKkYkBMBlQCkSO5I=
+	t=1787576136; cv=none; b=IrDwQk5zYEYUBEKRk87+N0OXswRiB6EE7JR/ZMV09jHfJ69fyKqL6dCdwU6xAi4kR0nXhFfaNES3xdDYB6QVP2hrjTbXEdFo2KVBmITTkTm0GprjXMTvi5KZwocewCzBC/sMbU23777WoXwQ1eUUG5yKQ8SrmQI4tNTl1r/cdkc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787575446; c=relaxed/simple;
-	bh=lfl7rp+xhEOu29BWIIpft3LUJVcj9p9igChhyJD06hs=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=WOaAj5Oda9bcswHfm3Z2ytQ5W9Np0lAtGcHfCLcpKvumTobkwKIVixqm1UznKeCyIlRVB1fYdGiUOQoVbaf46h3U5goVoX1xlT/LH1R6ATEaz3oo/vA35u2I5ezz2bQrC95d0zwJfCy5WiRux8AmitGVIP3oLXsydV4ODJCL+oA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=DPszi5TG; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1787576136; c=relaxed/simple;
+	bh=oDQxqAZ/MFegtTTo3io2fPNAu4P0qICklONKgl7Gz7I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YDNKmhYdkeF9HPMzalGTKQyyN1OVxZwqJ73xbziVJz2YsnbEjNxjcfDzaWluLqF120arRX97Xl4gJVmkiXg/t7F6rra2TFZjz3z+S6iofaDpLAW99Hc3n5CAbPQGGoWEZ/n9aJZRW/vIAljUVtvSbfM2dm2ysaJJjt7GRtZ2FeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mocpuwda; arc=none smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="DPszi5TG"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 87B874E4139C;
-	Mon, 24 Aug 2026 12:43:57 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 500905FFC1;
-	Mon, 24 Aug 2026 12:43:57 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2C4F711C7941D;
-	Mon, 24 Aug 2026 14:43:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1787575432; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=fl8a2fw0ounjOTLkIR3VH+zumruQ5hoWeaHQ4crll+o=;
-	b=DPszi5TGVdjjsBy4JSP2i5vMlxfEVSbTn00fFrQh1NzMZby3zb5VzjiVTSRtbcHVWitYLf
-	Gl8bI89u+6hUcq+95mWBq7cLRckZMKwXOwxIY890xl0SS2b6ifYyPxrYusupqYaPWu1iZj
-	0OVV8pen58nwNCxTpIDFbWYM3Rr/o7ljj7hQaW+RSQpoMGGOrv6IjZ91TEl4uFGmRx19rp
-	6sjcFpQXLyVRUuVP5aFMnhg8A66Ydu79cb6kf1PbtcCGxtR8+A4hMQw+Y/XSydYaqX4X45
-	Nx/2pLPxqIm7Pj8zEgy8SFhKEb63jkiBqe4xP8oaVzCRZfZZkAWE0nHFUxa43A==
-Message-ID: <41dd51e5-ac20-48b5-9e7c-4d2d261f3402@bootlin.com>
-Date: Mon, 24 Aug 2026 14:43:44 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mocpuwda"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c15ba3a2b4bso483402866b.1
+        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 05:55:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787576132; x=1788180932; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uAR5+9e9wgGWBAz4ZXWOeogWsdn7LcyNvWkJY/5ZCD0=;
+        b=mocpuwdahEs9Ip4uxKr4lOvoZ7tW0VAUGHes9zVbqvCu0Jj8xlJifpv4Dh+8bod5pl
+         9llIb74j+bI33H+cEp93s8/77u0jBvo+zV9e1X9++nTfPR98LhYwaXoEc5ptdwx7ne7w
+         Mx6xi+4ad48QP/ZKijLeyzcpo11ODW3Z8jY8SEVDpSD+Yf7taY65WBjm2Z6DWpzOvg6G
+         gYobZD0dHFnXPBl6rCm/KpXYeCTW2tEFZk1qecxEA3SrfXzp8Fa0IYR+xQoXJVko/XRt
+         EkO8vhq85CsYdowy1SW2nSIEly/xFu28DQvv3/dWxUXp9Hw2YYFPY4Logn1DdowknHHN
+         /AAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787576132; x=1788180932;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uAR5+9e9wgGWBAz4ZXWOeogWsdn7LcyNvWkJY/5ZCD0=;
+        b=AtqA/oXk8/HyRPSMigGNXPE1uzqMqgZEmBCDp19XzKQDbJQR8/+f3DhGFlmeDMx2I/
+         manVSGEEb8/BdixJ70qrHqgRexv5egkq51aa8s4JgL4d9TFf8DdzW8svGjphfoKjKieP
+         mib/mmrusIyaMTOKocV9OqcuXcNCpxfzHx3jorVfWRVgMbQRvj9rMN9LMErx43Ft+/tI
+         KlmLLKikw3zNYXBB4n/4IOdC8Lmqb/6dqStqGsgooxm87YTA8zdExO5GHvz+QHgGT1N/
+         SIup5y8vJK4LjmuxubWMkcc8AgFeIT0k3v29zVspYdFrD80jYW0LO3s6OnAWOo6DVlaE
+         4EwQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rpg1ojUm/a9uX4uPzokBVnKf9MhU69jr2ZuHDp6s1b6iCyp2+lnww0ookKBg7zyMx02RIU2M5zQqdef@vger.kernel.org
+X-Gm-Message-State: AFuF++nk+SOlvNL9q7vXG9M3D++auQx1f7yZetF2sxCac41tEClVfwMG
+	hpZ7i1uMJscy5jrzKaS22RDJC6DOnXpAgK1aPnndtsNU0KuyyXmcN2wi
+X-Gm-Gg: AR+sD13JFdZDMcnQMUfUvUPk+5psit7eVrAUYda/BQRGDcCPBkBvYOmQ2fko9bj8jKJ
+	gWvizV/CifqHkYnC2pIJ4/rvLwSVeZM1pOgzK0MYJDd+bRjW6MbNIb/sScmb9njE8pWCgIDFNO3
+	YwQfVrgM0Bj/0QVEa7AGuULnK4R/E8P42jLD4FzNHULbwbPxXdsLoTEwQKul5Oq2Yn6aw4pcfBO
+	KTWB442FSyO2ez3BoPD+DgIY1/qdWF6ycWbQKdD0L7BtS9lHG4XHrDr34TUzkYvlMDa71y+ocfv
+	dSKhBc/zdvhPrhTsfW6dn9wzZMSLWEbKpTZVXTG//2TZvdU9f9CDF5BtW82BjcJzbB2eLjDmNZa
+	RXqvTDVjyvuFSUJuSMLCi2n9CCeOzMzULkp0bcOSvfOCJMd5lhiwrusq/m2DmVMVcGGaZ9sx2dh
+	sjnEqSBSBVXVmJq/9MjxfxYOuDAvKnHxmIvDd188RtMjBvOvs54M+ArABXtUPiIdGVOUiOAdUOj
+	WwM+Sh460353w==
+X-Received: by 2002:a17:907:e14b:10b0:c19:80cf:4c75 with SMTP id a640c23a62f3a-c246a6ab42dmr2489326766b.20.1787576132074;
+        Mon, 24 Aug 2026 05:55:32 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:23c4:a702:d301:dea4:599b:49a8:96f5])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c24966f9c9fsm1245403066b.39.2026.08.24.05.55.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 24 Aug 2026 05:55:29 -0700 (PDT)
+From: Biju <biju.das.au@gmail.com>
+X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
+To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+	linux-pwm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH v7 0/9] Add Renesas RZ/G3E GPT support
+Date: Mon, 24 Aug 2026 13:55:06 +0100
+Message-ID: <20260824125523.131762-1-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Linux)
-From: Kory Maincent <kory.maincent@bootlin.com>
-Subject: Re: [RFC PATCH net-next v2 0/2] net: pse-pd: Add LTC4266 PSE
- controller driver
-To: Kyle Swenson <kyle.swenson@est.tech>,
- "o.rempel@pengutronix.de" <o.rempel@pengutronix.de>,
- "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
- "davem@davemloft.net" <davem@davemloft.net>,
- "edumazet@google.com" <edumazet@google.com>,
- "kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com"
- <pabeni@redhat.com>, "robh@kernel.org" <robh@kernel.org>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>
-Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- =?UTF-8?Q?Roland_Kov=C3=A1cs?= <roland.kovacs@est.tech>,
- =?UTF-8?Q?David_Nystr=C3=B6m?= <david.nystrom@est.tech>
-References: <20260820142429.2285172-1-kyle.swenson@est.tech>
-Content-Language: en-US
-In-Reply-To: <20260820142429.2285172-1-kyle.swenson@est.tech>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hello Kyle,
+From: Biju Das <biju.das.jz@bp.renesas.com>
 
-Sadly, we won't present together at the next ELCE, but well, we still 
-can drink a beer together. Are you going anyway?
+This series extends the RZ/G2L GPT PWM driver with RZ/G3E SoC support.
 
-On 8/20/26 16:25, Kyle Swenson wrote:
-> This RFC series intends to continue discussion around the support for
-> the LTC4266, an older PSE controller that supports powering Type 1 and
-> Type 2 PDs.
-> 
-> This chip has four individually controllable ports, each with its own
-> detection, classification and current-limiting abilities.  The driver
-> declares the static power budgeting strategy.
-> 
-> The LTC4266 only enforces a current limit (I_CUT and I_LIM), not a power
-> limit, so an admin power limit has to be turned into a current limit.
-> There are two problems that fall out of this I don't feel like I've got
-> a great solution to either and would welcome feedback, hence the 2nd RFC
-> version.
+The RZ/G3E GPT has a number of hardware differences compared to RZ/G2L:
+it exposes 16 channels (across two GPT instances of 8 channels each),
+uses a 4-bit GTCR prescaler field (versus 3-bit on RZ/G2L), and has a
+discontinuous prescale sequence with powers-of-2 scaling rather than the
+continuous powers-of-4 sequence on RZ/G2L. It also has additional clocks
+and resets (bus clock and rst_s).
 
-Of course every controller is doing it on its own way ...
-I have taken a look at your driver, it would be more precise to use the 
-voltage used on each ports instead of the constant LTC4266_VPORT_MIN_MV.
-I don't have the datasheet of the registers but does a read voltage 
-return a value even with no PD plugged?
-BTW I don't understand why in ltc4266_pi_set_pw_limit you are using the 
-detected class for power comparison. If the user wants to set a power 
-above the current detected class, well lets allow him to do so. Also 
-this will prevent any power limit set if no PD is plugged which is not good.
+v6->v7:
+ * Reordered the patched moving POEG support to last.
+ * Replaced USEC_PER_SEC->NSEC_PER_MSEC for period/duty cycle
+   conversion.
+ * Avoided recalculation of prescale, if is_small_second_period == true.
+ * Moved `wfhw->gtccr = 0` into the if block in rzg2l_gpt_config().
+ * Added rzg2l_gpt_poeg_link_channels() and used __free for deallocating
+   device node pointer.
+ * Replaced dev_err()->dev_err_probe() in rzg2l_gpt_poeg_link_channels().
+ * Replaced local variable cells with num_poeg_pairs in
+   rzg2l_gpt_poeg_init().
+v5->v6:
+ * Added patch for fixing period_ticks overflow.
+ * Added patch to add missing newlines to dev_err_probe() messages.
+ * Dropped extra space in poegs variable assignment in
+   rzg2l_gpt_poeg_init().
+ * Updated the comment sections of rzg2l_gpt_poeg_init() with POEG and GPT
+   in upper-case and replaced configure->configures.
+ * Format specifiers in dev_err() changed from %d to %u in
+   rzg2l_gpt_poeg_init().
+ * Dropped local variables pv and dc from rzg2l_gpt_round_waveform_tohw().
+ * Dropped blank line in rzg2l_gpt_round_waveform_tohw().
+ * Moved assignment of rzg2l_gpt->period_ticks[ch] to *_write_waveform().
+ * Restored clamping of duty_ticks with period_ticks in
+   rzg2l_gpt_round_waveform_tohw().
+ * Simplified rzg2l_gpt_write_waveform() using else if statement.
+ * Dropped local variable gptr in rzg2l_gpt_write_waveform().
+ * Moved mutex after early return in rzg2l_gpt_round_waveform_tohw().
+ * Dropped extra parameter rzg2l_gpt from rzg2l_gpt_calculate_prescale()
+   in rzg2l_gpt_round_waveform_tohw().
+ * Updated comment in rzg2l_gpt_calculate_period_or_duty().
+ * Updated rzg3e_gpt_calculate_prescale().
+v4->v5:
+ * Merged GPT linking POEG patch series here.
+ * Dropped suspend/resume patch; will be added later.
+ * Updated commit description for patches #2, #4, #5, and #6.
+ * Replaced return type of rzg2l_gpt_poeg_init() from void to int and
+   probe() check this return value.
+ * Added more error checks in rzg2l_gpt_poeg_init().
+ * Added a patch to drop the unused rzg2l_gpt_chip parameter from
+   rzg2l_gpt_calculate_prescale().
+ * Updated rzg2l_gpt_round_waveform_tohw() to initialize gtccr when the
+   period of the second channel is smaller.
+ * Replaced period_ticks with RZG2L_MAX_TICKS for the duty_ticks maximum
+   value check in rzg2l_gpt_round_waveform_tohw().
+v3->v4:
+ * Added wave form callback conversion back to this patch series.
+ * Updated rzg2l_gpt_is_ch_enabled() fit into 80-character limit for
+   consistency with other functions.
+ * Dropped field_{get,prep} as mainline now support it.
+ * Updated commit description for patch#3
+ * Retained RZG2L_GTCR_TPCS bit definitons
+ * Replaced gtcr_tpcs_mask->gtcr_tpcs
+ * Updated commit header and description for patch#4
+ * Renamed prescale_pow_of_two_mult_factor->prescale_mult
+ * Added RZG3E_GTCR_TPCS bit definition for RZ/G3E and added to
+   rzg3e_data.
+ * Added error checks on suspend() and device set to operational state
+   on failure().
+ * Added Rb tag from Geert for SoC dtsi.
+ * Added SW_GPIO9_CAN1_STB check to gpt0 node.
+v2->v3:
+ * Added Rb tag from Rob for bindings patch
+ * Dropped wave form callback conversion from this patch series as
+   it is covered in another series[1]
+ * Added suspend/resume support.
+v1->v2:
+ * Created separate document for RZ/G3E GPT.
+ * Updated commit header and description for binding patch.
+ * Added waveform callback conversion to this series.
+ * Collected tag.
+ * Added link to hardware manual
+ * Updated limitation section in driver patch.
 
-> The first problem is programming the current limit from the
-> admin-specified power limit for power limits other than a specific PD
-> class.  For this, I replaced the linear regression in the first RFC with
-> the minimum port voltage for a Type 2 PSE (50V, from Table 33-11 in the
-> IEEE 802.3 spec) to convert power to current.
+Biju Das (9):
+  pwm: rzg2l-gpt: Fix macro used for period/duty cycle conversion
+  pwm: rzg2l-gpt: Convert to waveform callbacks
+  pwm: rzg2l-gpt: Add info variable to struct rzg2l_gpt_chip
+  pwm: rzg2l-gpt: Add prescale_mult variable to struct rzg2l_gpt_info
+  pwm: rzg2l-gpt: Add calculate_prescale() callback to struct
+    rzg2l_gpt_info
+  dt-bindings: pwm: Document RZ/G3E GPT support
+  pwm: rzg2l-gpt: Add RZ/G3E support
+  dt-bindings: pwm: rzg2l-gpt: Document renesas,poegs property
+  pwm: rzg2l-gpt: Add support for gpt linking with poeg
 
-See above, please use a measured voltage for more precision.
-  > The second problem is that when the admin does something like
-> 
->      ethtool --set-pse eth1 c33-pse-avail-pw-limit 10000
-> 
-> the command fails with:
-> 
->      netlink error: Can't calculate the current, PSE voltage read is 0
->      netlink error: Result not representable
-> 
-> unless the PSE port has been enabled first, and the PSE has detected and
-> classified a PD on that port.  I'm hopeful I'm just missing something I
-> can do differently in this driver, but if not I'm open to adjusting
-> things at other layers to support this.
+ .../bindings/pwm/renesas,rzg2l-gpt.yaml       |  23 ++
+ .../bindings/pwm/renesas,rzg3e-gpt.yaml       | 323 +++++++++++++++
+ drivers/pwm/pwm-rzg2l-gpt.c                   | 376 ++++++++++++++----
+ 3 files changed, 634 insertions(+), 88 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/pwm/renesas,rzg3e-gpt.yaml
 
-To have this working the pi_get_voltage should return some value even 
-with no PD plugged.
 
-I am replying only here for now. I will take a look more deeply on your 
-code when this is solved. Is it ok for you?
-
-Also I think your code is rather ready, so you could remove the RFC 
-prefix. With it, the nedev check are not triggered.
-
-Also in the 2nd patch you should add yourself in the MAINTAINERS file 
-for this new driver.
-
-Regards,
+base-commit: 17b4db6750cedbf4b22fa3895631465a5688cff0
 -- 
-Köry Maincent, Bootlin
-Embedded Linux and kernel engineering
-https://bootlin.com
+2.43.0
 
