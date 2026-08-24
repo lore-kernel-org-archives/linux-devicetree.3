@@ -1,79 +1,133 @@
-Received: from smtp2-g21.free.fr (smtp2-g21.free.fr [212.27.42.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC52F3911C0;
-	Mon, 24 Aug 2026 21:31:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8986D38D6AD;
+	Mon, 24 Aug 2026 21:54:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787607063; cv=none; b=gBDIKxQbUSpGLkTXyIDEuBtXv5VFs1k3eLDC65wI3e79h8+32w5hTTCqD5HzOA0X9S6UFrNmDAM8dM0sL96XPNAOQF/+sQqPBVjINFTM3DYXj79P/yqyGO8RRT/RkbJc67r4Pcrq0qc8OHw+C/JQbsgEtD6tETYMe4ZVgSoRUYA=
+	t=1787608488; cv=none; b=E0CGSjETs0IpDCrAfEbn8uvBNKZ82yW0TgE6Tt8LiInFOmqhqSoPvJH48ALJffeB5lx1WaBtg8xd+darZc0RNyNXoJcEXwbvKeMLCJOQKXFSYj7ALkJflX4YYIoY8h/+t6Xan0T9vRyCuCEGs3Lhm4eZnLjTuEjb5fc49cW5Nos=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787607063; c=relaxed/simple;
-	bh=9epPxeHWNF8W940Jf+0CNBre0EINBiimKM4d85ai6W0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Q+0giynDuyIsr098SC8n47DBNqjsnOlj3QuLPLm5x0RPLs45XShe91frE+auEBMKhRM+ux3STJxcVnMQEJE5aLxsJZcBe69FmSfz/BNkOXVlyPeHOxk2TJ4hA9Z9CJfSNFgHvq0AxX3fO1i3DdgL2kqsTgQ3ELju3CvaYo0rP1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=buZW05gc; arc=none smtp.client-ip=212.27.42.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	s=arc-20240116; t=1787608488; c=relaxed/simple;
+	bh=dHPotMoPjkimgv5uJNH1lLg5Xjp99bDcr+jx8XV6URs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=mJk/aLbvxSphl4zaoCjZ2tIOHTsy2pcLA+3QpgPfaXBlPosV+e6pQnD1wIqY9VmyNJ2KDc5IfVksbfdLNCWrCqMfAlW6v9fHdMNl8EL9NDBDMy9jjNg1OOBIBEEAYQHeSIXtjI/9h4ef1suYy9ciDNF0o//W1OOHt0UmsmFGNS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IM9v6QkP; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="buZW05gc"
-Received: from L30177.local (unknown [IPv6:2a01:e0a:ac2:22b0:9a6:acd5:d8dc:dcdb])
-	(Authenticated sender: vjardin@free.fr)
-	by smtp2-g21.free.fr (Postfix) with ESMTPSA id C55642003B4;
-	Mon, 24 Aug 2026 23:30:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1787607059;
-	bh=9epPxeHWNF8W940Jf+0CNBre0EINBiimKM4d85ai6W0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=buZW05gc6K5VVSLaQz9HETJnwKgZiZe0c967arfsdrSEpjokoRbdMJrOnStbDH7Zf
-	 onw2xa+5HBhIxAt0SuN1Ef/Wlb/I4bZjEYKp1/KX+Q2MyZLhB0QCTf7AaRPN+juiEZ
-	 30lMmCJW5NF9Rt3p1FMxkV5jBmM7sys1NljQ7V7iLOTLSFmG6DSI/3Ck+8e8oz9CTC
-	 KW0mOeKALISmUHNjbRSpQSxdB1amMz2ZV1+yBHgzoXBqqCJuCA4Sh8Imxwq1NeVepC
-	 AEXBqLNhs+cx7/iWDa2FiVoDk6Z/ZEpckaSZfQmAfWb0uax0AVsyTgjkqEV7W1EjSJ
-	 6g7hCqX6UlyMQ==
-Date: Mon, 24 Aug 2026 23:30:43 +0200
-From: Vincent Jardin <vjardin@free.fr>
-To: Josua Mayer <josua@solid-run.com>
-Cc: Frank Li <Frank.Li@nxp.com>, Carlos Song <carlos.song@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Thibaut Collet <thbt.cllt@gmail.com>
-Subject: Re: [PATCH v2 2/3] arm64: dts: lx2160a: fix IIC1 pinmux submask
- rejected by pinctrl-single
-Message-ID: <aoy4A810WeNi7YAw@L30177.local>
-References: <20260824-for-upstream-lx2160a-pinmux-fix-v2-0-0a525d5f4cd5@free.fr>
- <20260824-for-upstream-lx2160a-pinmux-fix-v2-2-0a525d5f4cd5@free.fr>
- <e9a20a84-a20c-456b-bf17-0790d2aea633@solid-run.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IM9v6QkP"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 46082C19425;
+	Mon, 24 Aug 2026 21:54:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1787608488;
+	bh=dHPotMoPjkimgv5uJNH1lLg5Xjp99bDcr+jx8XV6URs=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=IM9v6QkPAGU9wzJiK8aTZAXHK25keee6yxQV/qK0zBMul6Znnn+7KkWi5BLN3E1CR
+	 +HOcltq6VMh9VESopuP3GF09RQ5OJrNchwJi2MO0XrJZmd1O3X2+llWFNBvnNSngLy
+	 jVuvL9nER9c2ZbHwpEThgM6h+sJhdnmvzhkpViexLf4Bw1au08o0K1X/uVnnpUvbYa
+	 fWtlu/FJ0h2jl6Ulfz0O45FDgBA+SDf8WO7EDlawLhmy6yNqJFANXXRp2Z9CwLnget
+	 DKPPzAgnolU4Wuc6KiiEbisbcpA53fUsAsRIiY0XrMG6872yDJlJQkNS8nSTJ5WXft
+	 EoLHQs77Yb+lg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3256FC5DF9C;
+	Mon, 24 Aug 2026 21:54:48 +0000 (UTC)
+From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
+Date: Mon, 24 Aug 2026 23:54:40 +0200
+Subject: [PATCH v2] dt-bindings: gpio: fsl,qoriq-gpio: allow gpio-hog child
+ nodes
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e9a20a84-a20c-456b-bf17-0790d2aea633@solid-run.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260824-for-upstream-dt-qoriq-gpio-hog-v2-1-58bbc82b881e@free.fr>
+X-B4-Tracking: v=1; b=H4sIAJ+9jGoC/42NQQ6CMBAAv0L27JpSQcGT/zAcKt3CHqSwxUZD+
+ ncrL/A4c5jZIJAwBbgWGwhFDuynDPpQQD+aaSBkmxm00mfV6AqdF3zNYRUyT7QrLl54wWFmj6M
+ fsFatNspVVjUt5Mgs5Pi9D+5d5pHD6uWz/2L5s3+nY4kl2kvd6tOjp97YmxOioxPoUkpfHC6/y
+ coAAAA=
+To: Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Vincent Jardin <vjardin@free.fr>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787608486; l=2553;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=vLftnW/6ZHYpxUdAguO8gqJD/zFrC/vFGlvGHyTT+do=;
+ b=vnETn4Fqarl7H1tavyKw/MO27Msn4zA6zF1Bg6CprtBiH1Fp+nKXMthIjCMp6ZsX/uBB43goO
+ nG6wBIpHOwuBuoce7R1RgwnOLGXKTdGdGRNTU64igJgmUY9tksh6P2Q
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
+ auth_id=871
+X-Original-From: Vincent Jardin <vjardin@free.fr>
+Reply-To: vjardin@free.fr
 
-Hi Josua,
+From: Vincent Jardin <vjardin@free.fr>
 
-> >  
-> >  			gpio0_3_2_pins: iic1-gpio-pins {
-> > -				pinctrl-single,bits = <0x8 (0x1 << 10) (0x1 << 10)>;
-> 
-> Perhaps add a short comment here on reserved bits, e.g.:
-> 
-> "LX2160A RM describes bits 11 and 12 as reserved, but writing 0 to them was confirmed harmless."
-> 
-> Feel free to rephrase.
+The binding sets additionalProperties: false and describes no child nodes,
+so a gpio-hog on a QorIQ/Layerscape GPIO controller is rejected by
+dtbs_check as an unmatched node name, even though the hardware and the
+kernel both support it.
 
-Done into the v3:
-  https://lore.kernel.org/all/20260824-for-upstream-lx2160a-pinmux-fix-v3-2-5556ff1e6be2@free.fr/
+Hogs are not a controller feature and need nothing from the driver:
+gpio-mpc8xxx.c does not mention them at all. A hog on this controller
+works today, only the schema rejects it.
 
-Thank you also for the Reviewed-by on 1/3 and 3/3, v3 includes your Reviewed-by,
-  Vincent
+QorIQ and Layerscape boards do need them. These SoCs bring board-level
+reset, enable and mux-select lines out on the SoC GPIOs, and those lines
+have to be driven to a safe level at boot before any consumer claims them,
+which is exactly what a hog is for.
+
+Some boards in the tree already express this need where they can:
+fsl-ls1088a-ten64.dts and the tqmls1012a/ls1028a boards all carry hogs, but
+on I2C GPIO expanders, because that is the only place the schema currently
+supports them. No board uses one on this controller yet, so this fixes no
+current failure.
+
+Other GPIO bindings already carry the same block. gpio-mvebu.yaml and
+gpio-davinci.yaml use the identical "^(.+-hog(-[0-9]+)?)$" object requiring
+gpio-hog.
+
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
+---
+Changes in v2:
+- Change the commit message. Drop the dmesg excerpt: those hog names come
+  from my out-of-tree dev git repo and are not in the tree (Frank Li)
+- Note: the hog call path is: gpiochip_hog_lines(), called from gpiochip_add_data_with_key()
+- Explain why these QorIQ SoCs need it
+- No change to the diff
+- Link to v1: https://lore.kernel.org/r/20260824-for-upstream-dt-qoriq-gpio-hog-v1-1-d75923bcecad@free.fr
+---
+ Documentation/devicetree/bindings/gpio/fsl,qoriq-gpio.yaml | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/gpio/fsl,qoriq-gpio.yaml b/Documentation/devicetree/bindings/gpio/fsl,qoriq-gpio.yaml
+index 4cb2a6b9fabfb..a6252440e099b 100644
+--- a/Documentation/devicetree/bindings/gpio/fsl,qoriq-gpio.yaml
++++ b/Documentation/devicetree/bindings/gpio/fsl,qoriq-gpio.yaml
+@@ -63,6 +63,13 @@ properties:
+       GPIO registers are used as little endian. If not
+       present registers are used as big endian by default.
+ 
++patternProperties:
++  "^(.+-hog(-[0-9]+)?)$":
++    type: object
++
++    required:
++      - gpio-hog
++
+ required:
+   - compatible
+   - reg
+
+---
+base-commit: 0a0d1d55dad570724bf8c7ea83409639cfb4be9b
+change-id: 20260824-for-upstream-dt-qoriq-gpio-hog-5092a0f4d089
+
+Best regards,
+-- 
+Vincent Jardin <vjardin@free.fr>
+
+
