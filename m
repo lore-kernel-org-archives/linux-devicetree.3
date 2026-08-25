@@ -1,125 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3844C3F9F2B;
-	Tue, 25 Aug 2026 10:48:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C0B3374A1B
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 10:52:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787654921; cv=none; b=CIgRe4xjEOuFOL6lOcO0IL47Wq/SrDoebk3grhe9Qsi1AslpOOyvXtpH/FNw30F6TUbHSnttbsW6gojUJp8WPxHYCyF2GrH6b2lmSBkdqURNuRsXruDt8u1x4/+Ho7InlbFBtavWgY9AUeCqxzVDk5mS/KJNazBe+ZazYX5Q9zQ=
+	t=1787655129; cv=none; b=LYbdR1mRw+C1aRRdaXCWWKEyi3og7NiLXI42/fMVw06bN5gd98BgKPR6Ptcq5SSE5ClCJMstKh0F9qmKh4dexffE5OOeN5Qm42Sq0o8cLT8+lLRC5Q10BTAQenLXvTlirUvBIeCLy2yCr6OKQWNK8fO1Ififvqa86A6W+olNnUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787654921; c=relaxed/simple;
-	bh=16Ku8dX3mO/gcbNRdCYEkNsA7bUoTUoknNALDTnAIUM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=AfN1bNPkQ+i1vxCniDSAsrb7o8hd7pYcXyc33MN/l0WoX2lChrwVIxhla19cxxmwzSd+AMh6SzezRz8pV77OCMGkJe18488tOKazeS4Tu5YsOqNXm3ObpyRULOW9J6vvlHnXNWpki0QtsjHmZHxpadCwvZmIar80hqVa353ke4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ir5hUKw8; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1787655129; c=relaxed/simple;
+	bh=q2VeD+YW6UbyJ/7uSVrJ+zf5hz0uP1LN87vORH2ljFs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=OVJIsSNHzU0ONSzevI1+l4msjwH/yn7TI8EOLVSShrHcIWWq+ydKpPrq9U1Gwi8nEaT5JmeJG5Qo8zBw7f4M4HshKalad3iyCVS6mGcgh5w9t1cegqsV2xuTZd9YLdasdVjcMbtO6iqy7ENXXjwhXdORC/xW1E53GolAO3SMMUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mbAwdSz4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ir5hUKw8"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 112B3C4AF12;
-	Tue, 25 Aug 2026 10:48:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1787654921;
-	bh=16Ku8dX3mO/gcbNRdCYEkNsA7bUoTUoknNALDTnAIUM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Ir5hUKw896BzQ5HWKZv1sLJSBbsgEQPbUkb0A4gDm3R8WoxYOMbf1XrwiCgCW+e2/
-	 DlztZnWWaa+W+NmOQz9CqHT4JO/ixxs8JOAqJTlbrsP9pMH2AKP1PI3NiA3pRbj104
-	 t2y82J/hUhKFcp+ydhnsIUDBpWOelBugr/gimbCdhreR5Zh2hvDT+kg3tWe9HaBrHP
-	 4mUO4OpL/Vc4r2p4fxx5cnBj5hSSLLd9abO2Apc9H6N7KsoL8c7BoZBQUMKcNL/i12
-	 +9LFfzfTh8daApDKwET9oC+vTNoRwFlVJw9AJQop+GWisbmOk+nhQC5zpVQq7L9koo
-	 SQMLgIR2fg7RA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EFAA1C61DC2;
-	Tue, 25 Aug 2026 10:48:40 +0000 (UTC)
-From: Colin Huang via B4 Relay <devnull+u8813345.gmail.com@kernel.org>
-Date: Tue, 25 Aug 2026 18:47:53 +0800
-Subject: [PATCH v6 12/12] ARM: dts: aspeed: anacapa: Add SPI flash VCC
- supply
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mbAwdSz4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CA5F1F000E9;
+	Tue, 25 Aug 2026 10:52:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787655127;
+	bh=woTGqOaWhAQB9nG56K6RNCU6AMogQOzDl7sQNSPE6QI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=mbAwdSz4RsvaArRFWAuj3wevv1PrmPnvzFKGv9Q4o4eIbnNqdsocC0eIizM3H0YQ+
+	 m6B2PA6FOO08aFak9L2Tl8vCqMhAo1zrkfMd6MKF4RPzQbndYpgVUrUci3SXXjEgPJ
+	 vX+pvlbbBHzhAwoWMN0tlYEZQo4ec6qTLdxr2wwuB0OfWzXxzE8Ph8wkdBHGuabHfl
+	 TDzKs8agBcwDUZwMa5cO8+9NA08epThHncsF350bWMk7bVu02wAqdo/toc0TuKWPXK
+	 RFjrp1K8s6CGi4plrwuUwnIK0BoslKMM/meTLT6I7Wul/pcaH7B4qtPHDbtxo/mrUd
+	 eeffxDKEU21MA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/9] dt-bindings: usb: qcom,snps-dwc3: Add ability to
+ select UTMI as reference clock
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "George Moussalem" <george.moussalem@outlook.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260825-ipq-flatten-usb-v1-1-5c1f3170bbe9@outlook.com>
+References: <20260825-ipq-flatten-usb-v1-0-5c1f3170bbe9@outlook.com>
+ <20260825-ipq-flatten-usb-v1-1-5c1f3170bbe9@outlook.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 25 Aug 2026 10:52:06 +0000
+Message-Id: <20260825105207.6CA5F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260825-anacapa-devlop-phase-devicetree-v6-12-9059a2a279ce@gmail.com>
-References: <20260825-anacapa-devlop-phase-devicetree-v6-0-9059a2a279ce@gmail.com>
-In-Reply-To: <20260825-anacapa-devlop-phase-devicetree-v6-0-9059a2a279ce@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
- colin.huang2@amd.com, Colin Huang <u8813345@gmail.com>, 
- Rex Fu <rex.fu.amd@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787654905; l=1370;
- i=u8813345@gmail.com; s=20260202; h=from:subject:message-id;
- bh=LtEnhYtDTDdaFJ8Tq5vy4icjC937RP4+reqqmwZJfEY=;
- b=tPqM9x7iBx4Q7kaW/I2LUyeTaNwihkP+gBdmjQ9uMV+pvqC+B1zq5uUw2RQ4umZ7N8hhJCHjl
- rfrrsJmtiDxA1XkeI9iLyhclx/ysdHZhAwGTk2LJj6kxjjDlz53EkQH
-X-Developer-Key: i=u8813345@gmail.com; a=ed25519;
- pk=Zlg0WqpCw4qbswOqamTBTXIchwR/3SnYZpy7rjaGMdQ=
-X-Endpoint-Received: by B4 Relay for u8813345@gmail.com/20260202 with
- auth_id=761
-X-Original-From: Colin Huang <u8813345@gmail.com>
-Reply-To: u8813345@gmail.com
 
-From: Rex Fu <rex.fu.amd@gmail.com>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] Addition of a bespoke boolean property `qcom,select-utmi-as-ref-=
+clk` to dictate software behavior instead of describing hardware.
+- [Medium] The commit message references a non-existent deprecated DT prope=
+rty (`snps,quirk-ref-clk-period-ns`) and contains typos.
+--
 
-Specify the 3.3 V auxiliary rail as the SPI flash VCC supply to
-avoid using the dummy regulator during device initialization.
+--- Patch [1]: [PATCH 1/9] dt-bindings: usb: qcom,snps-dwc3: Add ability to=
+ select UTMI as reference clock ---
+commit bbfd7925c484a6ab77f42b767c8fcd756476cd44
+Author: George Moussalem <george.moussalem@outlook.com>
 
-Signed-off-by: Rex Fu <rex.fu.amd@gmail.com>
-Signed-off-by: Colin Huang <u8813345@gmail.com>
----
- .../aspeed/aspeed-bmc-facebook-anacapa-evt2.dts    | 25 ++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
+dt-bindings: usb: qcom,snps-dwc3: Add ability to select UTMI as reference c=
+lock
 
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dts
-index c36519a601a9..ecb1c86f9e90 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dts
-@@ -6,6 +6,14 @@
- / {
- 	compatible = "facebook,anacapa-bmc-evt2", "aspeed,ast2600";
- 	model = "Facebook Anacapa BMC";
-+
-+	p3v3_bmc_aux: regulator-p3v3-bmc-aux {
-+		compatible = "regulator-fixed";
-+		regulator-always-on;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-name = "p3v3_bmc_aux";
-+	};
- };
- 
- &{/aliases} {
-@@ -27,6 +35,23 @@ / {
- 	i2c51 = &i2c10mux0ch0;
- };
- 
-+&fmc {
-+	flash@0 {
-+		vcc-supply = <&p3v3_bmc_aux>;
-+	};
-+
-+	flash@1 {
-+		vcc-supply = <&p3v3_bmc_aux>;
-+	};
-+};
-+
-+// BIOS Flash
-+&spi2 {
-+	flash@0 {
-+		vcc-supply = <&p3v3_bmc_aux>;
-+	};
-+};
-+
- // MB - PDB
- &i2c8 {
- 	i2c-mux@72 {
+This commit introduces a new device tree property to select the UTMI clock
+as the reference clock for DWC3. It aims to support chipsets that have a
+reference clock rate different from the default 19.2 MHz.
 
--- 
-2.34.1
+> In the flattened snsp-dwc3 model, it is currently not possible to pass a
 
+[Severity: Low]
+This isn't a bug, but there is a typo in the text above ("snsp-dwc3" instead
+of "snps-dwc3").
 
+> The existing DT property 'snps,quirk-ref-clk-period-ns' has been
+> deprecated.
+
+[Severity: Medium]
+Is this property name accurate?
+
+Searching the tree reveals no property named snps,quirk-ref-clk-period-ns.
+
+Could this be referencing snps,ref-clock-period-ns, which is the property
+defined in snps,dwc3-common.yaml?
+
+> diff --git a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml b/=
+Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
+> index ea60f7220afe3..aa263dfd42a1c 100644
+> --- a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
+> +++ b/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
+> @@ -155,6 +155,15 @@ properties:
+>        HS/FS/LS modes are supported.
+>      type: boolean
+> =20
+> +  qcom,select-utmi-as-ref-clk:
+> +    description:
+> +      If present, pass the UTMI clock as the reference clock to the DWC3=
+ core to
+
+[Severity: Medium]
+Does this property dictate driver software behavior rather than describing
+the hardware?
+
+The hardware's connection to the UTMI clock is already fully described via
+the clocks property (e.g., mock_utmi).
+
+Can the driver deduce the need to pass this clock based on the SoC's
+compatible string, or by checking the clock's presence, rather than relying
+on a new bespoke boolean property?
+
+> +      use its clock rate to calculate the reference clock period and fra=
+me
+> +      length adjustment in GUCTL and GFLADJ registers. This is needed wh=
+en these
+> +      values based on the standard clock rate deviate from the hardware =
+default
+> +      values. If not set, the hardware default values are used.
+> +    type: boolean
+> +
+>    wakeup-source: true
+> =20
+>  required:
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825-ipq-flatte=
+n-usb-v1-0-5c1f3170bbe9@outlook.com?part=3D1
