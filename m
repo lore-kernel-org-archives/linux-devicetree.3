@@ -1,129 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 561EE3F1676
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 10:59:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 390E630B509;
+	Tue, 25 Aug 2026 11:00:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787655590; cv=none; b=lz5iAd5CLPKJ5il+N4+lXIAO4cmBtSpF0KxRhvjwAQkEtdLRVHT0vSDSFvd7Mnrpxm2ZIaJxfcA/k+2NdTEuDIgEUsQa5jULTBYjCMaowEeupBVj/VLpWDWOXUq1cIJbVfIuQKlkfcdbQq7wdsyf0vK4Vs26aJdrc8faMd7X600=
+	t=1787655633; cv=none; b=PgX47swX3o9VJOnEnn4gJkoAcCEQCN7hWb10PxNltSf+kH5VswJzBsUYVXdfwTQyrrewQZJhWaMDpJ14xwZ+A/Hc21vEa/vjclrNQ1ZkKXV9JxwYR3PFyOWSc+CIjIOFV/w2A5++njA4IFTFYgQqmf9TpgybKgMiwXuAHmpH//g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787655590; c=relaxed/simple;
-	bh=/C68qQFH+umnvfPFHdxViGdydqSi1CpVpa7+mch8ZEY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kfdZdTB+msrlxCWikRmW3AjxMGQNEolFmzvcSHU/pa6Gr0tCQGbwKEuOfIAVnjiPHEpnUUb/hVkHqw0euyxTodUyegxcSIVa0M/LGcf4guKHieFWF5aKPXaYzVq82Uwlo8DJabnqkk0X7f4OkOO/MVyMXWq+/5G4xW+jTiZkxQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S+toA94H; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787655633; c=relaxed/simple;
+	bh=hlQaic0F0CxMkHX0OwjEl1Bx+fB1Q/isL2/ynDVBG14=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=c7/pzLMm8RXFn5wfa4o/wWIpXhSZDPniLqvScaJADuPxx8A0G/WhgB038sNX46aZcaTT9gJEetAdvmVYwxxIdXz7y2BM2qcBtK22g1HaqfZmcRoDyp7Ss8OuhnZm0CERK5md3LfGvIjJwZr4yNdWy2377lf9prHCBUb2INoBNj8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=L8bibeUi; arc=none smtp.client-ip=79.135.106.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S+toA94H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D2301F000E9;
-	Tue, 25 Aug 2026 10:59:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787655588;
-	bh=VNShuSIn7VTnKRwQGKV+MMP/gcdBC83GLVtPmKqAnMA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=S+toA94HLQjfgUGQX3x6Iyh9ICV9zk50Ye7VwU56ut5fkSnEnZlxti/FBfSzAGKwd
-	 FF+uWN+5AN2iQLzEWDTUv5asQQwZXy/bdaekRajItRG5Vp4NvL/OFHWmqX5oTKsJPV
-	 +xzhLTbTtvkVi2Be4fFeuYKhBc3VO4qCscuWOOYn8cPdTFbsCuTLGq/7V0ps6lakp5
-	 Jzo5VElZU8gQw9vuTlv50LdEeV4AcV8u/8wnTeKx8VdCwtFNYL4ukVN99pu+QuQ/CV
-	 fTQm8oH5B7qtnpJ8bxx7o0HhDbVHR80J8dxg9L4ZzkLFq+ktjqSeUSVYcbhISzIwU7
-	 JtgGwp1OWytKw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/9] usb: dwc3: qcom: Add support for selecting UTMI as
- reference clock
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "George Moussalem" <george.moussalem@outlook.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260825-ipq-flatten-usb-v1-3-5c1f3170bbe9@outlook.com>
-References: <20260825-ipq-flatten-usb-v1-0-5c1f3170bbe9@outlook.com>
- <20260825-ipq-flatten-usb-v1-3-5c1f3170bbe9@outlook.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 10:59:48 +0000
-Message-Id: <20260825105948.9D2301F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="L8bibeUi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1787655624; x=1787914824;
+	bh=el0ckJyITQBcyMzLRk7pDSGAYgyQePG9Nu8b8f3Hh54=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=L8bibeUicnFFoDCPHx8kwWFRlY/pG6kDuqTvEXdB37ZJiZI4x6KW9TC7DBaax+LVi
+	 pSsWW+wCMfWftkbz4E0TgzVB7sWl9sw+fF9jhGSmhQ9L8SQt1r6nqcyAaiNisXG8Mk
+	 jw9xjbbrKTH9DZctHwtQF3o/wXmXmzfjc26amaS/VWUph0ce3D5702J7XWyu9wZEns
+	 DArRD/AGutSPrzdBwfVyW0C6y6gVHNlEJvD9C0H5hOCPHPDWV1itBv5+Uba7BMeI/M
+	 hIrDuaWvxcH5rV9lWeZsCgzG/jh5p+tvgKBlM3+cL15km6IDbirRWpcnXsEbTwbMGG
+	 TMe124eunRXWQ==
+X-Pm-Submission-Id: 4hTlDk67C3z1DDXK
+From: Esben Haabendal <esben@geanix.com>
+To: "Joshua Crofts" <joshua.crofts1@gmail.com>
+Cc: "Jonathan Cameron" <jic23@kernel.org>,  "Lars-Peter Clausen"
+ <lars@metafoo.de>,  "Rob Herring" <robh@kernel.org>,  "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,  "Conor Dooley" <conor+dt@kernel.org>,
+  "Martin Kepplinger" <martink@posteo.de>,  "Sean Nyekjaer"
+ <sean@geanix.com>,  "David Lechner" <dlechner@baylibre.com>,  Nuno
+ =?utf-8?Q?S=C3=A1?=
+ <nuno.sa@analog.com>,  "Andy Shevchenko" <andy@kernel.org>,  "Martin
+ Kepplinger" <martin.kepplinger@theobroma-systems.com>,  "Christoph
+ Muellner" <christoph.muellner@theobroma-systems.com>,
+  <linux-iio@vger.kernel.org>,  <devicetree@vger.kernel.org>,
+  <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v6 9/9] iio: accel: mma8452: Use proper error code when
+ missing device model
+In-Reply-To: <20260825122301.0000531e@gmail.com> (Joshua Crofts's message of
+	"Tue, 25 Aug 2026 12:23:01 +0200")
+References: <20260825-mma8452-open-drain-v6-0-9b252804ee80@geanix.com>
+	<20260825-mma8452-open-drain-v6-9-9b252804ee80@geanix.com>
+	<HmXmDujS0IYQxlEIiTAGIiTIpioZlDO_L3bIBEBj8FWdbzyRSs2EnMSbymREOsD07x_zeOkYuPGdpgRl5Wewog==@protonmail.internalid>
+	<20260825122301.0000531e@gmail.com>
+Date: Tue, 25 Aug 2026 13:00:21 +0200
+Message-ID: <87fr02o46y.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The error code from `devm_clk_get_optional` is overwritten and ign=
-ored, failing to abort the probe on errors like `-EPROBE_DEFER`.
-- [Medium] Use of `devm_clk_get_optional` instead of `devm_clk_get` for a c=
-onditionally required clock.
---
+"Joshua Crofts" <joshua.crofts1@gmail.com> writes:
 
---- Patch [3]: [PATCH 3/9] usb: dwc3: qcom: Add support for selecting UTMI =
-as reference clock ---
-commit 62ea0cca7668740a78a41a22a25751f5e998df7d
-Author: George Moussalem <george.moussalem@outlook.com>
+> On Tue, 25 Aug 2026 10:27:47 +0200
+> Esben Haabendal <esben@geanix.com> wrote:
+>
+>> The device is there, but we don't have data describing how to use it.
+>
+> A bit of a weird commit message IMO,
 
-usb: dwc3: qcom: Add support for selecting UTMI as reference clock
+:)
 
-This commit adds support for selecting the UTMI clock as the reference clock
-for the DWC3 core on certain Qualcomm chipsets. It reads a device tree
-property to determine if the UTMI clock should be used and passes it to the
-core driver via the probe data.
+> I'd do
+>
+> Switch -ENODEV error on i2c_get_match_data() failure to -ENODATA to
+> satisfy the IIO coding style. (but this is only my opinion).
 
-> diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
-> --- a/drivers/usb/dwc3/dwc3-qcom.c
-> +++ b/drivers/usb/dwc3/dwc3-qcom.c
+Sounds good to me. I will update for next version, if needed. But feel
+free to make the change when merging.
 
-[ ... ]
+/Esben
 
-> @@ -698,6 +700,18 @@ static int dwc3_qcom_probe(struct platform_device *p=
-dev)
->  			qcom->current_role =3D USB_ROLE_DEVICE;
->  	}
-> =20
-> +	select_utmi_as_ref_clk =3D device_property_read_bool(dev,
-> +					"qcom,select-utmi-as-ref-clk");
-> +	if (select_utmi_as_ref_clk) {
-
-[Severity: Medium]
-Since the UTMI clock is required to derive the reference clock period when
-"qcom,select-utmi-as-ref-clk" is set, should this use devm_clk_get() instea=
-d?
-
-If the "mock_utmi" clock is missing from the Device Tree,
-devm_clk_get_optional() will return NULL rather than an error pointer.
-Because IS_ERR(NULL) is false, the driver will silently continue with a NULL
-clock, which might lead to the same non-functional USB operation mentioned =
-in
-the commit message.
-
-> +		ref_clk =3D devm_clk_get_optional(dev, "mock_utmi");
-> +		if (IS_ERR(ref_clk)) {
-> +			ret =3D PTR_ERR(ref_clk);
-
-[Severity: High]
-Does this missing error handling silently swallow probe deferrals?
-
-If devm_clk_get_optional() returns an error like -EPROBE_DEFER, the error
-code is stored in 'ret' and a warning is logged, but execution continues.
-The 'ret' variable will then be overwritten by the return value of
-dwc3_core_probe() shortly after:
-
-dwc3_qcom_probe() {
-    ...
-    ret =3D dwc3_core_probe(&probe_data);
-    if (ret) {
-        ret =3D dev_err_probe(dev, ret, "failed to register DWC3 Core\n");
-        goto clk_disable;
-    }
-    ...
-}
-
-Should this error path abort the probe with a goto clk_disable?
-
-> +			dev_warn(dev, "failed to get ref clock: %d\n", ret);
-> +		} else {
-> +			probe_data.ref_clk =3D ref_clk;
-> +		}
-> +	}
-> +
->  	qcom->dwc.glue_ops =3D &dwc3_qcom_glue_ops;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825-ipq-flatte=
-n-usb-v1-0-5c1f3170bbe9@outlook.com?part=3D3
+> (We recently had a few conversations about -ENODEV vs. -ENODATA and
+> while there are a lot of uses of -ENODEV in IIO they should be replaced
+> with -ENODATA when checking *_get_match_data() results).
+>
+>>
+>> Signed-off-by: Esben Haabendal <esben@geanix.com>
+>> ---
+>>  drivers/iio/accel/mma8452.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
+>> index 4a1eb196589a..42e3371cdb1d 100644
+>> --- a/drivers/iio/accel/mma8452.c
+>> +++ b/drivers/iio/accel/mma8452.c
+>> @@ -1595,7 +1595,7 @@ static int mma8452_probe(struct i2c_client *client)
+>>
+>>  	data->chip_info = i2c_get_match_data(client);
+>>  	if (!data->chip_info)
+>> -		return dev_err_probe(dev, -ENODEV, "unknown device model\n");
+>> +		return dev_err_probe(dev, -ENODATA, "unknown device model\n");
+>>
+>>  	ret = iio_read_mount_matrix(dev, &data->orientation);
+>>  	if (ret)
+>>
+>
+> Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+>
+> --
+> Kind regards,
+> Joshua Crofts
