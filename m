@@ -1,111 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m19731108.qiye.163.com (mail-m19731108.qiye.163.com [220.197.31.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF5B3E7BCC
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 11:17:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E1D03F6C2D;
+	Tue, 25 Aug 2026 11:18:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787656669; cv=none; b=OmmtTRmZ9pXF1qBcuX+vJNN8vLW1DtlZ2HEKREiwHRAuHZB8+o5kIs+0E46vDherD34E/pIqwa/QQAunFOj6VV6arm88KcgQd8tSfTVt3GymZQP6kQ7HPV1sVrSQdRYosx+LYEBcaJYO31QC1KRRa4WhN1uap/Kukq4RHQjRZZU=
+	t=1787656717; cv=none; b=b3sHs2O3E5RsFAugjI/QCHbrBZvCYoKEyyi58wZsjEJsoYx9Q9kY8h/QsVsDcsLytVMDEbNv2Oer2iqWbUgvRrdQiS4Tt1lXfvX1zWAwaHvT/QAVIlEz5318KFfmRwSBVvyDQ8PrRys6y16oYcQudqZQA2Eharo2goZF/+3hPGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787656669; c=relaxed/simple;
-	bh=IPozr/DAmozhkEpoIvQznxdbu8IqrMGvjhYXWNL7VDY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XfPYRdyuVji4i5sqxIopvbQA2Vxgjhqoq/7aRt/mXzi+qUp4HzTwWcPAIaZ9NFeqFNeNTm+/qUg2TfX9b8sfMEzorNCQMwKm1sR5tNmx2wFhYTzQVH/pFwAvswuf3Tkm1zPFl5Rw5NfasIpcpx3jmreutPoG/gBIfjjqMa34GAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ESeStfni; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787656717; c=relaxed/simple;
+	bh=UlgNgsoI2mgmcPjZD9IEaM7dJdoYRpuKMNwGpLxOlJM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=aNxZ+43514i1IskgyucOekH5u41Wt0/zfah31amAyKFoBnNRLqjPvLPznSFAQfiqlEm8sFyYdk5gJi7i43PQebO7es/xJ04ICoc9FXMZuDNkZDvhH3Q5cgDs5J4WS9rea7tsaKXTDxdMrmhCc7yns8mPGpdaDQOET6Hj3ou8Rgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=g6sSXvDm; arc=none smtp.client-ip=220.197.31.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ESeStfni"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FEE11F000E9;
-	Tue, 25 Aug 2026 11:17:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787656668;
-	bh=RlGqGSrlshna4xavX0l2U2naGDqGI8dH0VU9pAI2tng=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ESeStfniEd6s4MaZQe6x9v64BHrF8sqAlYatyRV/N4rtm3rB7vPHUZeavLUQF6Xxe
-	 8QKSBg3ua4VHdgzbu2p9izGo8sz3v7Xb1QyUSXHAH7Bb9bQoJIsx3i6kNU/MtVjS8Z
-	 MHFVIKAbawPqk2EAXf4QWIfBwcviTVYOfNl/S+Y76eNmjdXg21APuGxpLlb3RO2C2O
-	 7KTzh6VG993pGCZ4noUmvFIEgvuk15VUVOiFP3SLF/cipBoQf3zDQPCTrg4aRpUc3i
-	 NY/PQgUqw5lDc9tinwIIIPQDo7OtXOmSgGj2CgyqtsSXJADnYib7NoCzKM7KJSU/yH
-	 v3WBomI4Qidhw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: mmc: cdns,sdhci: Add CQE support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rohan Joshi" <rohan1sj@cadence.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260825-cdns_sdhci_cqe-support-v4-1-e9f72e338373@cadence.com>
-References: <20260825-cdns_sdhci_cqe-support-v4-0-e9f72e338373@cadence.com>
- <20260825-cdns_sdhci_cqe-support-v4-1-e9f72e338373@cadence.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 11:17:47 +0000
-Message-Id: <20260825111748.1FEE11F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="g6sSXvDm"
+Received: from tsdl-HP-EliteDesk-880-G6-Tower-PC.. (unknown [36.129.139.90])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4b42473f7;
+	Tue, 25 Aug 2026 19:13:14 +0800 (GMT+08:00)
+From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+To: konrad.dybcio@oss.qualcomm.com
+Cc: Frank.Li@nxp.com,
+	andersson@kernel.org,
+	bryan.odonoghue@linaro.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	festevam@gmail.com,
+	hongyang.zhao@thundersoft.com,
+	imx@lists.linux.dev,
+	kernel@pengutronix.de,
+	konradybcio@kernel.org,
+	krzk+dt@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	robh@kernel.org,
+	rosh@debian.org,
+	s.hauer@pengutronix.de
+Subject: Re: [PATCH v3 2/2] arm64: dts: qcom: qcs6490-rubikpi3: Add IMX219 camera overlays
+Date: Tue, 25 Aug 2026 19:13:00 +0800
+Message-ID: <20260825111300.578054-1-hongyang.zhao@thundersoft.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <1ef41a49-dcf8-4252-acdd-f7f3c1210c55@oss.qualcomm.com>
+References: <1ef41a49-dcf8-4252-acdd-f7f3c1210c55@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0389fd69e09d5kunmfc72ad39516699
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQksdVkhNSkJKTklNT0MeSFYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKSUJVSkhCVUJLWVdZFhoPEhUdFFlBWU9LSFVCQk
+	lOS1VKS0tVSkJLQlkG
+DKIM-Signature: a=rsa-sha256;
+	b=g6sSXvDmyQWkNKsuejnsoucOf08FtjSwsRNkWjRVUoH/E29b1E0J9z8qeSrVwN809tPpS8Ilc0BD+F/R7/QBNEetBJKtHhWfzAyZyZSq2UVy8DqjM5ZjQyY7oJMoNXKLyV9aXvejDAWSEkdToPQ2lF1y4Bqdk+hw7aVITxyVexs=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
+	bh=vu2NX5WQU7lXnOIBq1D5RPPESP5Qndpwyx9mUpie3Rk=;
+	h=date:mime-version:subject:message-id:from;
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The `else` block for non-Elba platforms lacks explicit `maxItems: 2=
-` constraints for `reg` and `reg-names`, creating a validation loophole tha=
-t allows non-Elba platforms to define an invalid third register.
---
+Hi Konrad,
 
---- Patch [1]: [PATCH v4 1/2] dt-bindings: mmc: cdns,sdhci: Add CQE support=
- ---
-commit 48a4d35cce2e12157d9c52de4ba805fd4e404597
-Author: Rohan Joshi <rohan1sj@cadence.com>
+Thanks for the review.
 
-dt-bindings: mmc: cdns,sdhci: Add CQE support
+On 8/12/26 4:22 AM, Hongyang Zhao wrote:
+> > RUBIK Pi 3 ships without camera sensors, and its two connectors support
+> > multiple modules. Keep module-specific nodes out of the base board DTS
+> > and add per-connector overlays for Raspberry Pi Camera Module V2 IMX219
+> > sensors.
+> > 
+> > CAM1 uses CCI1 and CSIPHY1, while CAM2 uses CCI0 and CSIPHY4. Each
+> > overlay describes the 24 MHz sensor input clock and models the module
+> > power domain controlled through the connector PWR_EN signal. The
+> > baseboard supplies VCC3V3_OUTPUT separately and has no per-camera
+> > regulator.
+> > 
+> > Describe each connector CAMERA_GPIO signal as a privacy indicator LED
+> > and associate it with the corresponding sensor. This lets the V4L2 core
+> > control the LED while the sensor is streaming.
+> > 
+> > Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> > Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+> > ---
+> 
+> [...]
+> 
+> > +	camera@10 {
+> > +		compatible = "sony,imx219";
+> > +		reg = <0x10>;
+> > +
+> > +		clocks = <&cam1_imx219_clk>;
+> > +
+> > +		VANA-supply = <&vreg_cam1_pwr>;
+> > +		VDIG-supply = <&vreg_cam1_pwr>;
+> > +		VDDL-supply = <&vreg_cam1_pwr>;
+> > +
+> > +		leds = <&cam1_privacy_led>;
+> > +		led-names = "privacy";
+> 
+> No reset GPIOs?
 
-This commit adds an optional cqhci named resource to map the CQE register
-space. It updates the amd,pensando-elba platform to include this resource
-while maintaining compatibility for platforms without the CQE block.
+Yes. The RubikPi camera connector does not route a dedicated sensor reset
+signal. It exposes PWR_EN and CAMERA_GPIO, but neither is connected
+directly to the IMX219 reset input when using the official Raspberry Pi
+Camera Module 2.
 
-> diff --git a/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml b/Docu=
-mentation/devicetree/bindings/mmc/cdns,sdhci.yaml
-> --- a/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml
-> +++ b/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml
+PWR_EN is connected to the module's ENABLE signal and controls the
+module-local power supplies. CAMERA_GPIO corresponds to a pin that is
+not connected on Camera Module 2. The IMX219 /PWDN signal remains local
+to the camera module and is tied to its 1.8 V rail.
 
-[ ... ]
+Therefore, there is no board-controllable reset GPIO to describe for
+this camera configuration.
 
-> @@ -131,13 +138,27 @@ allOf:
->      then:
->        properties:
->          reg:
-> +          minItems: 2
->            items:
->              - description: Host controller registers
->              - description: Elba byte-lane enable register for writes
-> +            - description: CQE (Command Queuing Engine) registers (optio=
-nal)
-> +        reg-names:
-> +          minItems: 2
-> +          items:
-> +            - const: hc
-> +            - const: bctl
-> +            - const: cqhci
->      else:
->        properties:
->          reg:
-> -          maxItems: 1
-> +          items:
-> +            - description: Host Controller registers
-> +            - description: CQE (Command Queuing Engine) registers (optio=
-nal)
-> +        reg-names:
-> +          items:
-> +            - const: hc
-> +            - const: cqhci
+> 
+> You should also have a reference to the mclk pin state to make sure
+> the correct pin function kicks in
 
-[Severity: Low]
-Since the top-level schema was updated to permit up to 3 items for reg, does
-omitting an explicit maxItems limit in this else block allow non-Elba
-platforms to define an invalid third register and silently pass validation?
+The Camera Module 2 provides its own 24 MHz oscillator, which is
+connected to the IMX219 MCLK input on the module. RubikPi does not route
+a SoC CAM_MCLK signal to this connector. The fixed-clock node represents
+that module-local oscillator, so there is no corresponding TLMM MCLK
+pin state.
 
-In dt-schema, an items list inside an if/then/else block does not restrict
-the overall length unless maxItems is explicitly defined.
+The Camera Module 2 schematic shows both connections:
+https://datasheets.raspberrypi.com/camera/camera-module-2-schematics.pdf
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825-cdns_sdhci=
-_cqe-support-v4-0-e9f72e338373@cadence.com?part=3D1
+RUBIK Pi 3 schematic (CSI connector, page 13):
+https://thundercomm.s3-accelerate.amazonaws.com/uploads/web/rubik-pi-3/RUBIKPI3-IOB-V02-RELEASE.pdf
+
+Best regards,
+Hongyang
