@@ -1,129 +1,167 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 514293CFF6C;
-	Tue, 25 Aug 2026 07:19:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 862483CEBBB;
+	Tue, 25 Aug 2026 07:21:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787642391; cv=none; b=NawFvVSCEQY72jV3lMPEZT3oai1A2uEFhDi/OAeFObySLzIxO/CFJbXStdEe5jopsFUzPBkev2YNSRaWNthUzpfZ6AOHmkKi96RZ/Qbh+QfJYugSfDk9vXSDsxOKSOO6jMT7Q1BGrzr+XhRosG0ml0fHaJeqNCxLRQYS4241cu8=
+	t=1787642501; cv=none; b=CbLWiqsljlGMX9F15sEA+yhkSy8GwN+lL72ROKSzZ2kFUcg7tNinzlIksi8jwwjnMheT6+bvtdhO7LzFqvOFFHoLFCmAb6Hs2lh5zvtvN1D5+pp/rOmChr+l1oojikme3phbbBRBqNIK3mjJTHFIV0bOTkXuiNojdFo1oAEBMeg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787642391; c=relaxed/simple;
-	bh=85P/R5gcif35u3BDK1lWztpzNfA68IzZXgV7sHTiI5g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mJ2Uuj65UikOGmgt46nmzzBqjXKYQFuhBsqoAaLEUN1ZyFD69XQ6lT4zc2s0WchCiW7W5F/aU4YU8MKcKlQ0DL9aVGlUhw9rG0n2c90tEg+t9sKFtureySVl6dVtL6JuyQKzzLk+mJcpRSliZ1ZkTtPL/CajWTs85TH5Nkzaw04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=RR4M+vhH; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1787642501; c=relaxed/simple;
+	bh=HYlImQsUiycttBRc9q8I68WzOfPR90j1mrb7B9SGsHU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cmyz1DS76urxGp+c5wLHRcZPErZepN8mhnuegaoOGxfoindky8MvPzHbEPsUdDtzDhy9ntKh2Od0RDeigZXr7GgNrprxXR1XWl5hB4oiBEXTnL5F9yHiE282h6HgDBCcqJ3PDwJam6MSkPKHQGZEPYE0IM5IipmfoZcFUtH6yUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L5uKnFVN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="RR4M+vhH"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D4EBE11CC1B;
-	Tue, 25 Aug 2026 09:19:43 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1787642384; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=qc/xQJmsi42iCIOkJ2wF2iMJ9+EWHiTHbIMYFOtTR9I=;
-	b=RR4M+vhHhH9nrx9bHBtybt4Yzk/2+61NKX3oRzWxwIV28CWfkA6Qc9uyC00Nq5NRZu+LU6
-	Bf/T1BZ7IVbIKasLx2vM/yhXw6KHCNh4lOUt5oTkplmxC6tFeJ9JwABTuJUU6YuMI/r17x
-	JqP4xUk1DQa0SpP6jmnN+2EPok87/L0qXiu8TCERcqdf5K/x2bBJ3+fpGCKVzfXV2SMW7v
-	E45dDRnM6d/dit13GH/GNbznQ1icy/yJE5bv0bXn6B7qrRSGdMu+DF6yp7WeSi/HvjH44z
-	jAQ2Wp7TcOViD0pvhTjt9cFw2t8xUZ/iiQo6w91fOVTTqqbGBcemwTV/wRD0pw==
-From: Heiko Schocher <hs@nabladev.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	linux-rtc@vger.kernel.org,
-	Heiko Schocher <hs@nabladev.com>
-Subject: [PATCH v2 3/3] rtc: rs5c372: support eco mode on R2223x
-Date: Tue, 25 Aug 2026 09:19:18 +0200
-Message-ID: <20260825071927.4090460-4-hs@nabladev.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260825071927.4090460-1-hs@nabladev.com>
-References: <20260825071927.4090460-1-hs@nabladev.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L5uKnFVN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54B6A1F000E9;
+	Tue, 25 Aug 2026 07:21:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787642500;
+	bh=rYTDFbaE1JJfaMo+4gmChPHhIQlrt73MEiayTTjME6k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=L5uKnFVN6U7JlDpZjykUYsM31mRreDBUSIQQxhl6O0emTFTI0MCN5iu57fN5BLwsY
+	 clMRmla9IT/J2d4ZtzQkQMz64gKEL7j+jJI4AO7krfKlUj3p3t8nTnI4RUG1dthoIy
+	 yjfFJpTJq3h71mEBqLe51I6RCD3NLSbg8E3K80luAGV1qOEPXwuSMBbwDDIOvILkQj
+	 2Xryd1YQ6/+UlWjX+jTQAUnVzN+56Zu1uB/bcHQxvVaHTLuU7VygGRMRDJ0ZUktl7l
+	 OXg6A4BlxLOq0jhKVFXXk06vroD1BwrvR8kaiEeTwfChjcv/OVzJL3Qkcxpa+d1DXi
+	 9KLhSCW+m64jg==
+Message-ID: <d24d59bb-2330-41c9-a6cc-a4c7053f8526@kernel.org>
+Date: Tue, 25 Aug 2026 09:21:33 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] media: dt-bindings: Add Rockchip JPEG decoder
+To: Sascha Hauer <s.hauer@pengutronix.de>,
+ Lucas Sinn <lucas.sinn@wolfvision.net>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260824-rockchip-jpegdec-v1-0-8011822bf500@pengutronix.de>
+ <20260824-rockchip-jpegdec-v1-1-8011822bf500@pengutronix.de>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <20260824-rockchip-jpegdec-v1-1-8011822bf500@pengutronix.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The R2223x can run in an eco mode that lowers its current consumption
-from the backup supply. Follow the ricoh,eco-mode property from the
-device tree: enable the mode when the property is set, turn it off when
-it is not set, as the bit is in CTRL2 register, which is backed by the
-same supply and keeps its contents across a reset, and no other path in
-the driver touches it.
+On 24/08/2026 09:01, Sascha Hauer wrote:
+> Add a devicetree binding schema for the JPEG hardware decoder Rockchip
+> integrates into a number of its SoCs.  Documents the single register
+> window (task registers plus the LLP link-table block at offset 0x300),
+> the decode interrupt, the aclk/hclk clocks, the AXI/AHB resets, the IOMMU
+> and the power domain.
+> 
+> The core is not tied to one SoC.  Downstream it is known as the VDPU720
+> and the same block sits on the RK3528, RK3562, RK356x, RK3576, RK3588 and
+> RV1126B, with only the clocks, the resets and the power domain differing,
+> none of which this schema constrains.  A compatible per SoC is all it
+> takes to cover them; the RK3568 and the RK3588 are the two that have been
+> tested and are enabled here.
+> 
+> The resets and the power domain are required.  The block cannot be
+> reached with its domain off, and the driver falls back to pulsing the
+> reset lines when a frame times out and the in-block soft reset does not
+> complete, which a node without them would leave with no way to recover.
+> 
+> The IOMMU stays optional.  The driver never refers to it, it is a platform
+> integration detail, and rockchip-vpu.yaml does not require it for the
+> other codec blocks on these SoCs either.
+> 
+> Assisted-by: Claude:claude-opus-5
+> ---
+>  .../bindings/media/rockchip,jpeg-decoder.yaml      | 92 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  8 ++
+>  2 files changed, 100 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/rockchip,jpeg-decoder.yaml b/Documentation/devicetree/bindings/media/rockchip,jpeg-decoder.yaml
+> new file mode 100644
+> index 0000000000000..e20c1bf43ef3e
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/rockchip,jpeg-decoder.yaml
+> @@ -0,0 +1,92 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/rockchip,jpeg-decoder.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Rockchip JPEG Decoder
+> +
+> +maintainers:
+> +  - Lucas Sinn <lucas.sinn@wolfvision.net>
+> +  - Sascha Hauer <s.hauer@pengutronix.de>
+> +
+> +description:
+> +  Rockchip's in-house JPEG/MJPEG hardware decoder, known downstream as the
+> +  VDPU720.  The same core is integrated into a number of Rockchip SoCs, which
+> +  differ only in the clocks, resets and power domain they are wired to.  A
+> +  dedicated Link List Processor (LLP) register block, located at offset 0x300
+> +  within the same register window, allows the hardware to decode a chain of
+> +  frames autonomously ("link mode").
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - rockchip,rk3568-jpegd
+> +      - rockchip,rk3588-jpegd
 
-Signed-off-by: Heiko Schocher <hs@nabladev.com>
----
+How this can be v1 if you send VPU720 for rk3588 already?
 
-Changes in v2:
-- Fixed results of a local run of the sashiko review prompts: apply the
-  device tree setting in both directions. v1 only set the eco bit, so
-  the mode stayed on when a board dropped the property.
-- Leave rs5c372_probe() through goto exit like its other error paths,
-  instead of returning directly.
+https://lore.kernel.org/all/20260819-rk3588-jpegdec-v1-4-33d74cdf369c@pengutronix.de/
 
- drivers/rtc/rtc-rs5c372.c | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+Were there more versions?
 
-diff --git a/drivers/rtc/rtc-rs5c372.c b/drivers/rtc/rtc-rs5c372.c
-index c65b76cc0dc6..9ab6f2c28f7b 100644
---- a/drivers/rtc/rtc-rs5c372.c
-+++ b/drivers/rtc/rtc-rs5c372.c
-@@ -52,6 +52,7 @@
- #define RS5C_REG_CTRL2		15
- #	define RS5C372_CTRL2_24		(1 << 5)
- #	define RS5C_CTRL2_XSTP		(1 << 4)	/* only if !R2x2x */
-+#	define R2223x_CTRL2_ECO		(1 << 7)	/* only if  R2223x */
- #	define R2x2x_CTRL2_VDET		(1 << 6)	/* only if  R2x2x */
- #	define R2x2x_CTRL2_XSTP		(1 << 5)	/* only if  R2x2x */
- #	define R2x2x_CTRL2_PON		(1 << 4)	/* only if  R2x2x */
-@@ -807,6 +808,24 @@ static int rs5c_oscillator_setup(struct rs5c372 *rs5c372)
- 	return 0;
- }
- 
-+static int rs5c372_set_eco_mode(struct rs5c372 *rs5c372, bool eco)
-+{
-+	struct i2c_client *client = rs5c372->client;
-+	int ctrl2;
-+
-+	ctrl2 = i2c_smbus_read_byte_data(client, RS5C_ADDR(RS5C_REG_CTRL2));
-+	if (ctrl2 < 0)
-+		return ctrl2;
-+
-+	if (eco)
-+		ctrl2 |= R2223x_CTRL2_ECO;
-+	else
-+		ctrl2 &= ~R2223x_CTRL2_ECO;
-+
-+	return i2c_smbus_write_byte_data(client, RS5C_ADDR(RS5C_REG_CTRL2),
-+					 ctrl2);
-+}
-+
- static int rs5c372_probe(struct i2c_client *client)
- {
- 	int err = 0;
-@@ -903,6 +922,15 @@ static int rs5c372_probe(struct i2c_client *client)
- 			rs5c372->time24 ? "24hr" : "am/pm"
- 			);
- 
-+	if (rs5c372->type == rtc_r2223x) {
-+		bool eco = device_property_read_bool(&client->dev,
-+						     "ricoh,eco-mode");
-+
-+		err = rs5c372_set_eco_mode(rs5c372, eco);
-+		if (err < 0)
-+			goto exit;
-+	}
-+
- 	/* REVISIT use client->irq to register alarm irq ... */
- 	rs5c372->rtc = devm_rtc_device_register(&client->dev,
- 					rs5c372_driver.driver.name,
--- 
-2.55.0
-
+Best regards,
+Krzysztof
