@@ -1,142 +1,183 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46EF84756CD
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 17:36:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AC332F7EF5
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 17:41:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787679371; cv=none; b=du3iGzfdETAs3xzqDszRQmQ60BNz+87pxptWuaBQa0E7yGQTieVYeABqMm+y/A+UXlWMvFSut/w5f5yK3soA6t9mZOE4nv6naVH7WIPP+Qsp1b/uvg7GucT+U8tSbgC79uFC/84jXwY5CMvbW++AWIMzEIXVSKyVaGKBVF3/TxE=
+	t=1787679661; cv=none; b=RpH1R71oTPJKXn751nVRQVEmcGiEHEtMiFCCwoRBt6xbb7vHrgQ2tcQi2cfGRUT6NQCTRFJD5gQnRIRCIqDMjaHGE3JFD9iS/873PaHYmtjuasATH8jJGT2vSdyto0n6aUwBEtGPLjLoBSvKkgr9ctXt03S4Bff+hWqjXZoatUE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787679371; c=relaxed/simple;
-	bh=0YEsPM1TVakoUbUjZDzjkzlAcEaGzmSudYEQJiUOgV8=;
+	s=arc-20240116; t=1787679661; c=relaxed/simple;
+	bh=3I/GOK0rdQRXXJHHhQ+VqL2zXB3b+DLvtYxgK/EHUPE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Od5GMI0o3yUURx+GSJM6H1uNLxRs6Tiw0mUz8JH9CPiFY0eeXUdK4/ezDcCrcTd48/MYBv4HdrZtjXGSjswvTfDsMXL03oX/7m/PNHPtlK8+bPzgBHkiXbqFKVwHfz38L/zvmJwdGFvoZZpZ2Izs6GiaXSIBZqn+VGIuobrZLq0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UcD7f0dY; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=bDHTnIV04ao+VVa81X0YpfFOAVa/63DsHrSJVoxWp2cuMwEdW2DqCiTlDxHYx2pn9EQJWS/PLDP72SoEa8ym3QFEy6zvtVQUjcmSK8FPK6MUbmgdxCpTkUBl2o7fljLugyIVXr4ngeHCyf+plsMO30g8GOBt0RRjXh2fSoScY3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IHkbGZKF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UcD7f0dY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 158011F000E9;
-	Tue, 25 Aug 2026 17:36:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IHkbGZKF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C8391F000E9;
+	Tue, 25 Aug 2026 17:40:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787679367;
-	bh=ZlZiutI7XNGPr4j9CADZGXBtP0RCvYn7c97OhXfZmF0=;
+	s=k20260515; t=1787679660;
+	bh=BKTdhi3OiU9ggO/Uyw40LP7UgydjkQNwVZR0O8c6z8Q=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UcD7f0dYRckApY2vPgbUULJ8/s7xCZ5qwwRhqnxPgPtAPM0efbUkWmd4aHYVUG8RD
-	 iBRWGj4sGOss89sY3HxqRiwp81rG+NdytrFQ9jCZ4nIvh/C9xGbCvCwucD9NVHDO+9
-	 zTeP/w/y102rnjityySgoR3VgZVRW8VEn4UMSU2BfDPlmaaQUgryNzhLm+5c1wB9Lf
-	 aGJTjQZ8XsdIl4MuKXdaw2w80KrARjzRfzGAiM8xQoMzvKCCp+gAfkhTMSVbLNsKsA
-	 1CehrfV9y7A2xUHbo/Z3pDqtqo/t28wNoVeZX1ute24MhqU5TMHSUKIsrTBXFCgcKk
-	 mXD0J5sDzIh8A==
+	b=IHkbGZKFGaCOEjVIzpMT2XD8xxtnDr1hRj6c14/3ts3W2SKzcP+H/RSAwUS3dt9yo
+	 Ee22pXmpc+KG1T2zkqVCSE1fD+IqrlWlpqopj8jOqfQ96fB7lZMI3W7H8WDNVZB6Wl
+	 bf8UHtVADfPq9vy7RsSTyjmPaQEVeKzJ0pgWnzTTVbEfqunc5pEEJDYEd20oGW15pI
+	 D0PBhq9fneL+G6Xd4aVgRn699INQFIbfOuKjhKO02+YtJ6vY6s4srr4vMPN882RQOe
+	 nkSNB1yA6qC56MseTrpYRPee82K1qSN8KPPHqumb44myChHEpyqRLiJaLHe32U8Juj
+	 mYcfcT7J4LSLA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 14/18] spi: cadence-quadspi: reprogram PHY DLL on
- runtime resume
+Subject: Re: [PATCH v9 08/18] spi: cadence-quadspi: add PHY tuning support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Santhosh Kumar K" <s-k6@ti.com>
-Cc: "Pratyush Yadav" <pratyush@kernel.org>, robh@kernel.org, "Miquel Raynal" <miquel.raynal@bootlin.com>, "Vignesh
- Raghavendra" <vigneshr@ti.com>, "Michael Walle" <mwalle@kernel.org>, conor+dt@kernel.org, "Takahiro
- Kuwano" <takahiro.kuwano@infineon.com>, "Richard Weinberger" <richard@nod.at>, devicetree@vger.kernel.org
-In-Reply-To: <20260825171737.776052-15-s-k6@ti.com>
+Cc: devicetree@vger.kernel.org, "Miquel Raynal" <miquel.raynal@bootlin.com>, "Pratyush
+ Yadav" <pratyush@kernel.org>, "Michael Walle" <mwalle@kernel.org>, "Takahiro
+ Kuwano" <takahiro.kuwano@infineon.com>, conor+dt@kernel.org, robh@kernel.org, "Richard
+ Weinberger" <richard@nod.at>, "Vignesh Raghavendra" <vigneshr@ti.com>
+In-Reply-To: <20260825171737.776052-9-s-k6@ti.com>
 References: <20260825171737.776052-1-s-k6@ti.com>
- <20260825171737.776052-15-s-k6@ti.com>
+ <20260825171737.776052-9-s-k6@ti.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 17:36:06 +0000
-Message-Id: <20260825173607.158011F000E9@smtp.kernel.org>
+Date: Tue, 25 Aug 2026 17:40:59 +0000
+Message-Id: <20260825174059.7C8391F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Critical] Disabling 'use_tuned_phy' on DLL resync failure bypasses the P=
-HY DLL while continuing to run at high speed, causing silent data corruptio=
-n.
-- [Medium] Iteratively reprogramming the global PHY DLL for all chip select=
-s on runtime resume causes redundant delays and overwrites state.
+- [High] Manual PHY dummy cycle adjustments are overwritten and clobbered b=
+y subsequent read setups.
+- [Medium] SDR PHY tuning fails for valid 1-tap wide windows due to an off-=
+by-one error in the loop condition.
+- [Medium] Incorrect parsing of 64-bit addresses for 'spi-phy-pattern-parti=
+tion'.
 --
 
-commit 9b2d8bb539c61392a12afe8d25c966ba88c70398
+commit 9701c78fc6d77976ffa5b3298e4d3809197ebe5d
 Author: Santhosh Kumar K <s-k6@ti.com>
 
-spi: cadence-quadspi: reprogram PHY DLL on runtime resume
+spi: cadence-quadspi: add PHY tuning support
 
-The PHY DLL loses its programmed delay values and lock when the OSPI
-controller is power-gated during runtime suspend. On resume,
-cqspi_controller_init() reinitialises the controller but does not
-touch the PHY DLL registers, leaving the DLL in an unlocked state.
-Any subsequent PHY read or write would then fail at the cqspi_resync_dll()
-call inside cqspi_tune_phy().
+This commit adds an execute_tuning callback for the Cadence QSPI controller
+to perform delay-line calibration. It introduces 2D sweeps for DDR protocols
+and 1D sweeps for SDR protocols by reading a known data pattern or writing
+to the page cache before calibration.
 
 > diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-=
 quadspi.c
-> index 530335f002fb4..94d67e8bcfbc4 100644
+> index 046fa5d69b0f7..f7cda1bc71393 100644
 > --- a/drivers/spi/spi-cadence-quadspi.c
 > +++ b/drivers/spi/spi-cadence-quadspi.c
-
 [ ... ]
+> @@ -1559,10 +1718,1594 @@ static bool cqspi_supports_mem_op(struct spi_me=
+m *mem,
+> +static void cqspi_phy_pre_config(struct cqspi_st *cqspi,
+> +				 struct cqspi_flash_pdata *f_pdata,
+> +				 const bool bypass)
+> +{
+[ ... ]
+> +	reg =3D readl(reg_base + CQSPI_REG_RD_INSTR);
+> +	dummy =3D FIELD_GET(CQSPI_REG_RD_INSTR_DUMMY_MASK
+> +				  << CQSPI_REG_RD_INSTR_DUMMY_LSB,
+> +			  reg);
+> +	cqspi->phy_saved_dummy =3D dummy;
+> +	if (dummy)
+> +		dummy--;
+> +	reg &=3D ~(CQSPI_REG_RD_INSTR_DUMMY_MASK << CQSPI_REG_RD_INSTR_DUMMY_LS=
+B);
+> +	reg |=3D FIELD_PREP(CQSPI_REG_RD_INSTR_DUMMY_MASK
+> +				  << CQSPI_REG_RD_INSTR_DUMMY_LSB,
+> +			  dummy);
+> +	writel(reg, reg_base + CQSPI_REG_RD_INSTR);
 
-> @@ -4042,6 +4042,28 @@ static int cqspi_runtime_resume(struct device *dev)
-> =20
->  	cqspi->current_cs =3D -1;
->  	cqspi->sclk =3D 0;
+[Severity: High]
+Does this modification to CQSPI_REG_RD_INSTR get clobbered during tuning?
+
+During the tuning process, cqspi_phy_check_pattern() executes a read via the
+SPI core. This eventually calls cqspi_read_setup(), which recalculates the
+dummy cycles from the spi_mem_op and unconditionally overwrites
+CQSPI_REG_RD_INSTR:
+
+cqspi_read_setup() {
+    ...
+    dummy_clk =3D cqspi_calc_dummy(op);
+    if (dummy_clk)
+        reg |=3D (dummy_clk & CQSPI_REG_RD_INSTR_DUMMY_MASK)
+               << CQSPI_REG_RD_INSTR_DUMMY_LSB;
+    writel(reg, reg_base + CQSPI_REG_RD_INSTR);
+    ...
+}
+
+Will this overwrite destroy the PHY pipeline adjustment made here before the
+tuning read even executes, causing the tuning reads to fail?
+
 > +
-> +	for (cs =3D 0; cs < CQSPI_MAX_CHIPSELECT; cs++) {
-> +		struct cqspi_flash_pdata *f_pdata =3D &cqspi->f_pdata[cs];
+> +	cqspi_phy_set_dll_master(cqspi);
+> +}
+[ ... ]
+> +static int cqspi_find_rx_high_sdr(struct cqspi_flash_pdata *f_pdata,
+> +				  struct spi_mem *mem, struct phy_setting *phy,
+> +				  u8 lowerbound)
+> +{
+> +	struct device *dev =3D &f_pdata->cqspi->pdev->dev;
+> +	int ret;
 > +
-> +		if (!f_pdata->use_tuned_phy)
-> +			continue;
-> +
-> +		cqspi_phy_set_dll_master(cqspi);
-> +
-> +		cqspi_set_dll(cqspi->iobase, f_pdata->phy_setting.rx,
-> +			      f_pdata->phy_setting.tx);
-> +		ret =3D cqspi_resync_dll(cqspi);
+> +	phy->rx =3D CQSPI_PHY_MAX_DELAY;
+> +	do {
+> +		ret =3D cqspi_phy_apply_setting(f_pdata, phy);
+> +		if (!ret) {
+> +			ret =3D cqspi_phy_check_pattern(f_pdata, mem);
+> +			if (!ret)
+> +				return 0;
+> +		}
+> +		phy->rx--;
+> +	} while (phy->rx > lowerbound);
 
 [Severity: Medium]
-Will this iteratively reprogram the global PHY DLL for all chip selects on
-runtime resume, causing redundant delays and overwriting state?
+Does this loop condition prematurely fail for 1-tap wide windows?
 
-The PHY config register (CQSPI_REG_PHY_CONFIG) is global, yet the resume lo=
-op
-iterates over all chip selects, writes each CS's RX/TX taps to the global
-register, and triggers a full DLL resync each time. Because only the final
-CS's taps remain active in hardware, the driver's cqspi_tune_phy() function
-will redundantly re-sync the DLL again on the next transfer to any other ch=
-ip
-select, completely negating the purpose of pre-locking them during resume.
+If the valid SDR window is exactly 1-tap wide, the upper boundary will be
+equal to lowerbound. Because the loop condition is strictly greater-than
+(phy->rx > lowerbound), it will exit immediately when reaching lowerbound
+without returning success for that tap. Should this be >=3D lowerbound so
+narrow windows are properly detected?
 
-Furthermore, master DLL lock is independent of the slave RX/TX taps.
-
-> +		if (ret) {
-> +			dev_warn(dev, "cs%d: PHY DLL resync failed on resume: %d, disabling P=
-HY\n",
-> +				 cs, ret);
-> +			f_pdata->dll_locked =3D false;
-> +			f_pdata->use_tuned_phy =3D false;
-
-[Severity: Critical]
-Does disabling 'use_tuned_phy' here on DLL resync failure bypass the PHY DLL
-while continuing to run at high speed, causing silent data corruption?
-
-If the PHY DLL resync fails during resume, setting 'use_tuned_phy =3D false'
-causes subsequent flash operations to bypass the PHY data capture logic.
-
-However, the SPI clock frequency (op->max_freq) is not downgraded and
-continues running at the high PHY-tuned speed (e.g., 150-200MHz). The
-controller's non-PHY fallback cannot reliably sample data at these high
-frequencies, resulting in garbage data being read from or written to the
-flash.
-
-> +		} else {
-> +			f_pdata->dll_locked =3D true;
-> +		}
-> +	}
 > +
->  	return 0;
->  }
->
+> +	dev_dbg(dev, "Unable to find RX high\n");
+> +	return -ENOENT;
+> +}
+[ ... ]
+> @@ -1588,9 +3331,12 @@ static int cqspi_of_get_flash_pdata(struct platfor=
+m_device *pdev,
+>  		return -ENXIO;
+>  	}
+> =20
+> -	if (of_property_read_u32(np, "spi-max-frequency", &f_pdata->clk_rate)) {
+> -		dev_err(&pdev->dev, "couldn't determine spi-max-frequency\n");
+> -		return -ENXIO;
+> +	part_np =3D of_parse_phandle(np, "spi-phy-pattern-partition", 0);
+> +	if (part_np) {
+> +		f_pdata->phy_pattern_partition_valid =3D
+> +			!of_property_read_u32_index(part_np, "reg", 0,
+> +						    &f_pdata->phy_pattern_partition_offset);
+
+[Severity: Medium]
+Will this truncate 64-bit partition offsets?
+
+If the SPI device specifies #address-cells =3D <2>, the reg property contai=
+ns
+a 64-bit address. Reading it with of_property_read_u32_index() fetches only
+the upper 32 bits (which is 0 for offsets under 4GB). This could lead to the
+pattern being read from the wrong flash offset instead of the dedicated
+partition.
+
+> +		of_node_put(part_np);
+>  	}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825171737.7760=
-52-1-s-k6@ti.com?part=3D14
+52-1-s-k6@ti.com?part=3D8
