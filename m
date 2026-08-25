@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA30339281D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA39D3D669F;
 	Tue, 25 Aug 2026 10:43:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787654583; cv=none; b=Q3HA+gr/WXrN7d+oCGQE4aJc9YJnm2/U7g056w4uDsAdzVp4h19YVzV0d3OMlkZ17/qPTknaPX5jaB3cDI5r3A8zHI+3Otk6WrBSvn0Up5c0t8FEXpmYL9BA6fSgNXsDOAsR9xquiNQSqqlJ0KfoUlobGUHA0dljFiyASPYbF2w=
+	t=1787654583; cv=none; b=OGAqXV4XFqAfT1aEUaEOMAFzPCckjwQuyjlZz9mSi2PtthPryaNlJbTTd5Xq+M1q+o1MQThyL+Wpdl0xNnbgI49a5Znte6PnQi0KxFgm2TUgM4ic7bslA8CbofDX4UuSI9VKCgQg3kA6LTiQodczbsV/5pyaK3g24hIbGW7q7rk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787654583; c=relaxed/simple;
-	bh=urk0+Er5ux8uZwdpteslcND66gV+vT/aS5AwzhbtppI=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=KZ07jM6iP6FNOkh1MXlEaw8lCcqPUZFYJyA+0MDa72MY7T24EONp3XreSdxY9Enn/sTZo9rSiC4CZeROBHdgqVi9xwcUeU6BgEQ22zTMQ+aX/6DFwcaBxRYvON6Dfe8ZM0G0ziZDWNN5bxTCbfceMabB1qP+NfLosOknBlRERbs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gTlYL7sy; arc=none smtp.client-ip=10.30.226.201
+	bh=CoY8MC/CiohEkIO0woh3W7ToV/HZWV2HpXzffodCVGU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=neRyK7czF3bipGTdDEkcE+Fznw5HwP+4j+RATwK8sEVoaoNfiDScnht6CcTPaj8Ute+K+54/QvvvV+KthAdtBdPCc26bGOrUApNzySygbZuVEdtKeJ/n4ebaxM+wt1VdcLbCCLz9K6UJFiLVw46A9zQ28uCtFI9FCH9g9H9iTh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dXi2KDBn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gTlYL7sy"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5E96DC2BCB8;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dXi2KDBn"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 61083C2BCF6;
 	Tue, 25 Aug 2026 10:43:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1787654583;
-	bh=urk0+Er5ux8uZwdpteslcND66gV+vT/aS5AwzhbtppI=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=gTlYL7syGgUi6OXyj7PutwwPu3Z0qfYXWvoW8gNfLwZcFRQewALrhB7G/GImVdenp
-	 aBPp2LsX95qlpqFSbUxfs4YMei+Uj2z6j7VKg/ktuYB5Y1T23Nq9E25pXyA5otlsPN
-	 mpo9LjNAd5izQ73sIY5rYsT0wenfggdpXCrIeed2fBwmqQRgBjXvRzFBb19h0V2F0/
-	 /pex8RZVtyyAfwWXe7g33W9s8dKjyc3lF7D7HzT7eWZCCN4GVDT/cotlYOhkYM8fzl
-	 sz7gqmjP7yfw/ELqpED78T0dY2D8aQa8wEsSs/bLcvGvFtk2y0b39Lc3o/IFS1ikZx
-	 EdaKG0RI7uUog==
+	bh=CoY8MC/CiohEkIO0woh3W7ToV/HZWV2HpXzffodCVGU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=dXi2KDBnpXPK2Qy1FmdqBt7NXzaRClX1vDgz5Pkf26FETh0FItmvXwWqNhfVIfT++
+	 IgdQZER0Xbe4XKN5cI412XeNSiGJKdat6ttx+pyJS874EZqXSYJ33JDq05eCbKzS5b
+	 Q2evRDpXbjPxltpM4QQoa24LJmlFJVbxcSnMaujWrLBhV19KCy0gZ9VUqJEFpmJJId
+	 0jG14JgnEZ5/dH8AF6eMsZEYqBHkV4hGuSLpWhu1KnODDM/584+oM5Gqo2ROk81PJu
+	 Wp78bDXpp6kdLKVnB380AmyhVII1Y9F2J0yT6+iHBh0h+xPlrgI3WiJ2oZdUeGQ+dn
+	 sJu6td99tecbw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 25DB5C5DF94;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 38FEDC61DB4;
 	Tue, 25 Aug 2026 10:43:03 +0000 (UTC)
 From: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>
-Subject: [PATCH 0/9] Flatten USB Controller Nodes on IPQ SoCs
-Date: Tue, 25 Aug 2026 14:42:25 +0400
-Message-Id: <20260825-ipq-flatten-usb-v1-0-5c1f3170bbe9@outlook.com>
+Date: Tue, 25 Aug 2026 14:42:26 +0400
+Subject: [PATCH 1/9] dt-bindings: usb: qcom,snps-dwc3: Add ability to
+ select UTMI as reference clock
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,10 +41,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDCyNT3cyCQt20nMSSktQ83dLiJN1k8xTzNEPTNGNLMzMloK6CotS0zAq
- widGxtbUA43iwHmEAAAA=
-X-Change-ID: 20260825-ipq-flatten-usb-c7d7f15f3966
+Message-Id: <20260825-ipq-flatten-usb-v1-1-5c1f3170bbe9@outlook.com>
+References: <20260825-ipq-flatten-usb-v1-0-5c1f3170bbe9@outlook.com>
+In-Reply-To: <20260825-ipq-flatten-usb-v1-0-5c1f3170bbe9@outlook.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>, 
@@ -53,14 +53,13 @@ To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>, 
- George Moussalem <george.moussalem@outlook.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+ George Moussalem <george.moussalem@outlook.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787654580; l=2592;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787654580; l=2093;
  i=george.moussalem@outlook.com; s=20250321; h=from:subject:message-id;
- bh=urk0+Er5ux8uZwdpteslcND66gV+vT/aS5AwzhbtppI=;
- b=5MUNm4XTglR3MnPNMCiGyPVCu3gYeBKDunI6KDhxtgjdz9hLea2nEfjxrD2ySHsP1OUN4R7Ys
- mG2EXgCETBSDKMsLmr3FvtbSXtrvuOfgtpfCruJrJ6JGerATzxrp+77
+ bh=PpmFa72hwQoy5I4zpkHd0b3hra/QO3YfJD1WlPOqoa4=;
+ b=EuVX9KSNZOwoA0oaPoUM8tQBGYI6bSeOyFoi0yRtwHUcr0O+MAF2deFukun0alQeBviIQSN4B
+ 2YaYa9tHmR7DjbZ/uO/BfKDesBD0tj1LuB8LDkFsbLqH8Kd0RFvc0OB
 X-Developer-Key: i=george.moussalem@outlook.com; a=ed25519;
  pk=/PuRTSI9iYiHwcc6Nrde8qF4ZDhJBlUgpHdhsIjnqIk=
 X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
@@ -68,56 +67,57 @@ X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
 X-Original-From: George Moussalem <george.moussalem@outlook.com>
 Reply-To: george.moussalem@outlook.com
 
-Add property to select UTMI as reference clock for the DWC3 core to
-calculate the right values for the period and frame length adjustment.
+From: George Moussalem <george.moussalem@outlook.com>
 
-Flatten usb controller node and update to using latest bindings and
-flattened driver approach.
+Add ability to select the UTMI clock as reference clock which is passed
+by the glue layer to the DWC3 core to calculate the reference clock
+period and frame length adjustment based on its clock rate.
 
-In addition, set the right UTMI clock rate and override any clock
-rate inherited from the bootloader.
+In the flattened snsp-dwc3 model, it is currently not possible to pass a
+reference clock that differs from the default since:
+commit 613a2e655d4d ("usb: dwc3: core: Expose core driver as library")
 
-I've split these patches from a larger patch set to add USB3 support on
-IPQ5018 and IPQ5332 SoCs where these patches are required to ensure new
-functionality is added to the new flattened driver and binding model.
+This prevents moving chipsets such as IPQ5018, IPQ6018, IPQ5332, IPQ5424
+and IPQ9574 with a reference clock rate different from 19.2 MHz from
+moving to the flattened model.
 
-link: https://lore.kernel.org/all/20260812-ipq5018-usb3-v2-0-8f355d7ff0ef@outlook.com/
+The Qualcomm takes care of clock and resets management itself and sets
+the ignore_clocks_and_resets flag in dwc3_probe_data to true, so the
+core doesn't acquire the reference clock from the devicetree.
+
+The existing DT property 'snps,quirk-ref-clk-period-ns' has been
+deprecated.
+
+So, add a property to select the UTMI clock used by many (if not all)
+Qualcomm USB controllers as the reference clock.
 
 Signed-off-by: George Moussalem <george.moussalem@outlook.com>
 ---
-George Moussalem (9):
-      dt-bindings: usb: qcom,snps-dwc3: Add ability to select UTMI as reference clock
-      usb: dwc3: core: Allow glue layer to pass reference clock
-      usb: dwc3: qcom: Add support for selecting UTMI as reference clock
-      arm64: dts: qcom: ipq5018: Flatten usb controller node
-      arm64: dts: qcom: ipq5332: Flatten usb controller node
-      arm64: dts: qcom: ipq5424: Flatten usb controller nodes
-      arm64: dts: qcom: ipq6018: Flatten usb controller nodes
-      arm64: dts: qcom: ipq8074: Flatten usb controller nodes
-      arm64: dts: qcom: ipq9574: Flatten usb controller node
+ Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
- .../devicetree/bindings/usb/qcom,snps-dwc3.yaml    |   9 ++
- arch/arm64/boot/dts/qcom/ipq5018-rdp432-c2.dts     |   6 +-
- arch/arm64/boot/dts/qcom/ipq5018.dtsi              |  52 +++++-----
- arch/arm64/boot/dts/qcom/ipq5332-rdp468.dts        |   6 +-
- arch/arm64/boot/dts/qcom/ipq5332.dtsi              |  58 +++++------
- arch/arm64/boot/dts/qcom/ipq5424-rdp466.dts        |  12 +--
- arch/arm64/boot/dts/qcom/ipq5424.dtsi              |  89 ++++++++--------
- arch/arm64/boot/dts/qcom/ipq6018.dtsi              |  99 +++++++++---------
- arch/arm64/boot/dts/qcom/ipq8074.dtsi              | 112 ++++++++++-----------
- arch/arm64/boot/dts/qcom/ipq9574-rdp-common.dtsi   |   6 +-
- arch/arm64/boot/dts/qcom/ipq9574.dtsi              |  42 ++++----
- drivers/usb/dwc3/core.c                            |  12 +++
- drivers/usb/dwc3/core.h                            |   2 +
- drivers/usb/dwc3/dwc3-qcom.c                       |  14 +++
- drivers/usb/dwc3/glue.h                            |   2 +
- 15 files changed, 257 insertions(+), 264 deletions(-)
----
-base-commit: 4b18edbd8e70f7e6860d56370f13244896d0f95c
-change-id: 20260825-ipq-flatten-usb-c7d7f15f3966
+diff --git a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml b/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
+index ea60f7220afe..aa263dfd42a1 100644
+--- a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
++++ b/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
+@@ -155,6 +155,15 @@ properties:
+       HS/FS/LS modes are supported.
+     type: boolean
+ 
++  qcom,select-utmi-as-ref-clk:
++    description:
++      If present, pass the UTMI clock as the reference clock to the DWC3 core to
++      use its clock rate to calculate the reference clock period and frame
++      length adjustment in GUCTL and GFLADJ registers. This is needed when these
++      values based on the standard clock rate deviate from the hardware default
++      values. If not set, the hardware default values are used.
++    type: boolean
++
+   wakeup-source: true
+ 
+ required:
 
-Best regards,
 -- 
-George Moussalem <george.moussalem@outlook.com>
+2.53.0
 
 
