@@ -1,223 +1,148 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C80AC3446CE
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 22:27:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0F7E3D9041
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 22:28:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787696832; cv=none; b=UWz3v+xWctrCp8o9n7HeJI7iBXRzgsborczlmfukNaRpox58J4IZAhskxMkapa9Q+rBqAceT58jF2QvYjnI/J1+4OIL2pcMF+Vc9zjmayKmkgCx/Ib7fp1WdHIYJbzrOuZUZX66m2LIVQzpiPVSPL3GjcCIjedaWtvBXMl8BjJI=
+	t=1787696888; cv=none; b=DnWTqIqeGQ3d4yXVIy1FIttJBweF8V6uQhHttBMH5jYsyD0/VaQEAub5zivfHfWG4oIqkGvi048bKjsSj+UD2gNUvElH+jTwmY0u+mA4GAkn8GaHiEo6ArrT2XiebMnHROpxI/LnDl02QwJwCK6Ruc6uW5b8H1zWwuzdKgEqZbc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787696832; c=relaxed/simple;
-	bh=PYtwptbzi4MiIOq0y8hMpjaPI2SJ8ZWh+GAf5gai/iQ=;
+	s=arc-20240116; t=1787696888; c=relaxed/simple;
+	bh=p1m6c+WBzCjdZ+p5GdraWDE816KriLzuY8G1VIENNTY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KZaiExQUr7fkft55DIO+HMSDXE/mdZ1pfSh2SGB6SA6WkOfk/KO2faPlLk3JjFHi1VI7gFGbhTkQb0GNsJ3g0cODDOCnyMSKeVHBRtN3VTz54FhxqGKGGOrRiZzCRjL/xXauLqsQtO8X5hBsb1xgp+Ldl0iT53iMCVX9l4BjxaU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DaOctzK/; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=HgrjxHpr55cTv3JFQ2ckz++oJnO0VSy5NnZ9lPUuyUzwTV5Vi8ee/iXuT9NrXMDz5r/SgQrEEWwjHavU7kyEhD9SMzd4h4xl6rd/y6ZEsYloY2baKptNrVx7aHjdBCjKDG0GAP/vCWpeozXy6ZYQ5V4y3jkmLERFQ59JUdDEjfQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jMHfhB9S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DaOctzK/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 256441F000E9;
-	Tue, 25 Aug 2026 22:27:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jMHfhB9S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48D551F000E9;
+	Tue, 25 Aug 2026 22:28:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787696830;
-	bh=JsszKPAbs6z/jWvWVGZtRGLjVNyJ/A9q7LEOVa4LGpg=;
+	s=k20260515; t=1787696886;
+	bh=ftyXNUAShr8G+TQ7YMTWv5LUSRg7LcZ+3d0SSDmHcWA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DaOctzK/IpOGNyxc3qSWMIRPEaqce2P7AIg5TbGeAkKC9S20YKoedqDUkfnBlB9Nk
-	 ikRp+wLK7jJfIARH4FPFuOkZToy/o+8KQzRFZXkdiNr9FoQfElpiOIuxdNQ38oHJWn
-	 z8jA2FwAM/UwUcwuUuqI8oHVRSJF93nQ9a/J2RHCg+QPdf5sjEqvZhtYwohWysYItO
-	 agOYXvy9v26PPrU0oZes984UjRzcOEKErtIKXVbgtE1X6BMcQsF3SwD3iRcfdWHk37
-	 l9dtJjJcjR77RRQa2e9OHtUAbLBEHqyBbHIG26V/x3qBl5HbBHVkyQneMIOokNswNr
-	 yBR2BXZ+KnlDQ==
+	b=jMHfhB9Sd0KsG0wRUicrEUEfv28T0qEj98ptriDWIaH0DTuJWZ2WaZDyjhB2zItWI
+	 1/joGfaENDLBmDNbdn7KloeT7dHcx/VuV5jwodj8226zL4+mcI1RddiuQKIT/PG5n4
+	 DWdBoYDku7+K0/1Qe83HRPp2jL17bOIBhLsIyzjL/DXYe3HFIYOyxM1qCZEoQftXtu
+	 eUsFwQJj0O224gefVYEFsC9V5Q424mbM0iYHVe0+K5Nbn7ooeEZB+9/UUhdeaYx/N0
+	 SB6tvKWNB2a15TyJZ9jMo3gBXzLmZz0QcveyfpTGSuUns/8CS1QGlECdWSj5lMz7HW
+	 fSyAyPYSkYMtg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 04/19] crypto: cmh - add SHA-2/SHA-3/SHAKE ahash
+Subject: Re: [PATCH v4 01/19] dt-bindings: crypto: add Rambus CryptoManager
+ Hub
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Alex Ousherovitch" <aousherovitch@rambus.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260825221539.255951-5-aousherovitch@rambus.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260825221539.255951-2-aousherovitch@rambus.com>
 References: <20260825221539.255951-1-aousherovitch@rambus.com>
- <20260825221539.255951-5-aousherovitch@rambus.com>
+ <20260825221539.255951-2-aousherovitch@rambus.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 22:27:09 +0000
-Message-Id: <20260825222710.256441F000E9@smtp.kernel.org>
+Date: Tue, 25 Aug 2026 22:28:05 +0000
+Message-Id: <20260825222806.48D551F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] DMA mapping the inline `rctx->checkpoint` buffer violates DMA API =
-rules and causes memory corruption due to cache-line sharing or stack mappi=
-ng.
-- [High] The driver linearizes arbitrary-length hash updates into a single =
-kmalloc buffer, causing valid large updates to predictably fail with -ENOME=
-M.
-- [High] Misusing the crypto API `cra_blocksize` for hardware alignment bre=
-aks SHAKE holdback logic, leading to hardware state corruption and potentia=
-l buffer overflows.
-- [High] Accessing `req->src` and `rctx` after submitting an asynchronous h=
-ardware request causes a Use-After-Free.
-- [Medium] The commit message claims zero-copy support for virtual buffers,=
- but the implementation unconditionally copies the data.
+- [Medium] Properties `rambus,num-slots` and `rambus,slot-stride-bytes` des=
+cribe software policy rather than hardware topology.
+- [Low] The `rambus,cores` description contradicts its schema definition re=
+garding multiple core instances.
 --
 
-commit 100670a57b48ff51f5668c01fd9ada227bac5247
+commit 8265e37ff871f85826a6ac586fd7dcad414998e4
 Author: Alex Ousherovitch <aousherovitch@rambus.com>
 
-crypto: cmh - add SHA-2/SHA-3/SHAKE ahash
+dt-bindings: crypto: add Rambus CryptoManager Hub
 
-This commit registers various ahash algorithms (SHA-2, SHA-3, SHAKE) using
-the CMH hash core. It implements the necessary operations for incremental
-updates, request cloning, and handles hardware submissions.
+This commit adds the device tree binding schema for the Rambus
+CryptoManager Hub (CMH) hardware crypto accelerator. The binding
+describes the SoC-level node and its mailbox child nodes, detailing
+their respective registers, interrupts, and VCQ ring geometries.
 
->     Supports incremental update/finup/final, init/export/import for
->     request cloning, and the CRYPTO_AHASH_REQ_VIRT flag for zero-copy
->     from virtual buffers.
+> diff --git a/Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.ya=
+ml b/Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.yaml
+> new file mode 100644
+> index 0000000000000..d9598b0f3bbc4
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.yaml
+[ ... ]
+> +      rambus,num-slots:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        enum: [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 819=
+2,
+> +               16384, 32768]
+> +        default: 64
+> +        description:
+> +          Number of VCQ ring slots for this mailbox's command queue in
+> +          host DMA memory.  This is a per-board, per-mailbox host-memory
+> +          ring geometry -- boards built around the same SoC (hence the
+> +          same compatible) may use different ring sizes, so it is
+> +          described per mailbox rather than derived from the compatible.
 
 [Severity: Medium]
-Does the driver actually perform zero-copy DMA for virtual buffers?
+Do these properties describe OS software allocation policy rather than fixed
+hardware topology?
 
-Looking at cmh_hash_update() and cmh_hash_finup(), the implementation
-appears to unconditionally allocate a bounce buffer with kmalloc() and
-then executes a memcpy() from req->svirt into the bounce buffer. Is there
-a code path that avoids the allocation and directly maps the virtual buffer
-to DMA, or should the commit message be updated to reflect the copy?
+Device tree bindings are intended to describe immutable hardware or firmware
+interfaces. This property dictates the size of command queues in host DMA
+memory, which the host driver dynamically allocates and programs into hardw=
+are
+registers. Should software tuning parameters like this be excluded from the
+device tree?
 
-> diff --git a/drivers/crypto/cmh/cmh_hash.c b/drivers/crypto/cmh/cmh_hash.c
-> new file mode 100644
-> index 0000000000000..72d09c5b0c91f
-> --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_hash.c
-[ ... ]
-> +	{
-> +		.hc_algo     =3D HC_ALGO_SHAKE128,
-> +		.digest_size =3D CMH_SHAKE128_DIGEST_SIZE,
-> +		.block_size  =3D 1,    /* XOF: no meaningful block for crypto API */
-> +		.alg_name    =3D "shake128",
-> +		.drv_name    =3D "rambus-cmh-shake128",
-> +	},
-[ ... ]
-> +static int cmh_hash_update(struct ahash_request *req)
-> +{
-[ ... ]
-> +	/* Not enough for a full block -- just buffer */
-> +	if (total_avail < block_size) {
-> +		if (req->base.flags & CRYPTO_AHASH_REQ_VIRT)
-> +			memcpy(rctx->buf + rctx->buf_len,
-> +			       req->svirt, req->nbytes);
-
-[Severity: High]
-Does this logic bypass the software holdback for SHAKE algorithms?
-
-Because block_size is explicitly defined as 1 to indicate byte-oriented
-operation for the crypto API, the condition total_avail < block_size is
-practically never met (only when total_avail is 0).
-
-The hardware Keccak cores require intermediate updates to be multiples of
-the algorithm's block rate (e.g., 168 bytes for SHAKE-128) to correctly
-save the state. Submitting unaligned arbitrary byte fragments might
-corrupt the hardware state. Additionally, CMH_HASH_MAX_BLOCK is 144, which
-would not be able to hold back a true SHAKE-128 block of 168 bytes without
-overflowing the array.
-
-[ ... ]
-> +	/*
-> +	 * Linearise: holdback prefix + full blocks from scatterlist.
-> +	 * full_len is user-controlled and can exceed KMALLOC_MAX_SIZE for a
-> +	 * single large update; __GFP_NOWARN avoids splatting the page
-> +	 * allocator on an oversized request.
-> +	 */
-> +	rctx->data_buf =3D kmalloc(full_len, gfp | __GFP_NOWARN);
-> +	if (!rctx->data_buf)
-> +		return -ENOMEM;
-
-[Severity: High]
-Will legitimate large hash requests deterministically fail with -ENOMEM
-here?
-
-The ahash API does not enforce a maximum size on req->nbytes, and clients
-like IPsec, IMA, or AF_ALG can submit very large scatterlists. Because
-kmalloc() is strictly limited to KMALLOC_MAX_SIZE and can fail earlier due
-to fragmentation, dynamically allocating a contiguous buffer for an
-arbitrary-length user-provided req->nbytes causes large updates to predicta=
-bly
-fail with -ENOMEM.
-
-[ ... ]
-> +	rctx->ckpt_dma =3D DMA_MAPPING_ERROR;
-> +	if (rctx->has_checkpoint) {
-> +		rctx->ckpt_dma =3D cmh_dma_map_single(rctx->checkpoint,
-> +						    HC_CONTEXT_SIZE,
-> +						     DMA_TO_DEVICE);
-
-[Severity: High]
-Does DMA mapping the inline rctx->checkpoint violate the DMA API rules?
-
-The checkpoint array is embedded inline in struct cmh_hash_reqctx without
-being aligned to the cacheline. If the request context is allocated on the
-stack (e.g., via AHASH_REQUEST_ON_STACK), this maps stack memory for DMA,
-which is prohibited by the DMA API and may trigger a kernel panic.
-
-Even if heap-allocated, the unaligned array shares a cache line with
-adjacent members like rctx->packed. Modifying these adjacent fields while
-DMA is active could corrupt the checkpoint data (or vice versa) on
-non-coherent architectures. This same mapping also happens in
-cmh_hash_submit_final().
-
-[ ... ]
-> +	ret =3D cmh_vcq_pack_and_submit_async(cmds, idx, rctx->packed,
-> +					    CMH_HASH_MAX_PACKED,
-> +					    d.mbx_idx,
-> +					    cmh_hash_update_complete, req,
-> +					    !!(req->base.flags &
-> +					       CRYPTO_TFM_REQ_MAY_BACKLOG),
-> +					    cmh_tm_async_timeout_jiffies());
-> +	if (ret && ret !=3D -EBUSY)
-> +		goto err_unmap_ckpt;
 > +
-> +	/*
-> +	 * Submit accepted (in flight or backlogged) -- only now move the tail
-> +	 * into the holdback.  A synchronous rejection above (e.g. -EAGAIN)
-> +	 * leaves rctx->buf/buf_len untouched so the caller can retry the
-> +	 * identical update.
-> +	 */
-> +	if (tail_len > 0) {
-> +		if (req->base.flags & CRYPTO_AHASH_REQ_VIRT)
-> +			memcpy(rctx->buf, req->svirt + from_src, tail_len);
-> +		else
-> +			scatterwalk_map_and_copy(rctx->buf, req->src,
-> +						 from_src, tail_len, 0);
-> +	}
-> +	rctx->buf_len =3D tail_len;
+> +      rambus,slot-stride-bytes:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        enum: [128, 256, 512, 1024]
+> +        default: 512
+> +        description:
+> +          Stride in bytes between consecutive VCQ ring slots for this
+> +          mailbox's command queue.  Like rambus,num-slots this is a
+> +          per-board host-memory ring geometry, not derived from the
+> +          compatible.
 
-[Severity: High]
-Can accessing req->src and rctx after submitting an asynchronous hardware
-request result in a use-after-free?
+[Severity: Medium]
+Similarly, does this stride property represent software memory layout policy
+rather than a fixed hardware constraint?
 
-Once cmh_vcq_pack_and_submit_async() submits the request to the hardware,
-the completion callback cmh_hash_update_complete() could run immediately
-on another CPU and signal completion to the client. The client is then
-free to release the ahash_request (which contains rctx) and the source
-scatterlist (req->src).
-
-If the original thread continues execution and attempts to copy the tail
-data into rctx->buf using req->src, it will access freed memory.
-
-[ ... ]
-> +static int cmh_hash_finup(struct ahash_request *req)
-> +{
-[ ... ]
-> +	gfp =3D req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP ?
-> +	      GFP_KERNEL : GFP_ATOMIC;
 > +
-> +	data_buf =3D kmalloc(data_len, gfp | __GFP_NOWARN);
-> +	if (!data_buf)
-> +		return -ENOMEM;
+> +      rambus,cores:
+> +        $ref: /schemas/types.yaml#/definitions/uint32-array
+> +        items:
+> +          enum: [0x02, 0x03, 0x04, 0x05, 0x08, 0x09, 0x0a, 0x18]
+> +        description: |
+> +          Core-affinity list: the hardware core IDs whose work is
+> +          dispatched to this mailbox.  A core ID may appear on at most o=
+ne
+> +          mailbox.  Cores not listed on any mailbox are load-balanced
+> +          across all mailboxes.  Optional (default: none -- the mailbox
+> +          only serves the load-balanced pool).
+> +
+> +          Because each core instance has a distinct ID, separate
+> +          instances of the same core type can be pinned to different
+> +          mailboxes.
 
-[Severity: High]
-Similar to the allocation in cmh_hash_update(), could this unbounded
-contiguous allocation fail deterministically for valid large requests?
+[Severity: Low]
+Is there a contradiction between this documentation and the schema definiti=
+on?
+
+The description implies support for multiple instances of the same core type
+distinguished by unique IDs, but the enum above strictly limits the valid I=
+Ds
+to exactly 8 specific values (exactly one for each core type). If a develop=
+er
+attempts to configure a second instance using a new ID, it will fail schema
+validation.
+
+> +
+> +          Core IDs:
+> +            0x02 HC, 0x03 AES, 0x04 SM4, 0x05 SM3,
+> +            0x08 HCQ, 0x09 QSE, 0x0a PKE, 0x18 CCP.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825221539.2559=
-51-1-aousherovitch@rambus.com?part=3D4
+51-1-aousherovitch@rambus.com?part=3D1
