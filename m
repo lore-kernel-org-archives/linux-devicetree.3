@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1510344040
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 22:28:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 570F833F37A
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 22:28:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787696929; cv=none; b=b40HCK0W2XNyxtnQiSSkPVD7enivFXK+eu++XHxGk5XIQ3fSOkbbJ7XRUGa8KWZLwh0ue6L3pagVAeJD4VJwbFycP//HKj6QryShed3kvb3LWmakyuwVJVOlAegyVWA/E90qKI2ehYTk5JAkVnZKR+d7KmKcGPcHmKiT2j/SUrc=
+	t=1787696929; cv=none; b=iwgPKV8OJf23Uh0I5hgua5ywvRcVTP6AvqUkZfc3MqBlO3zj/HlFDK6or5U6UWANZ943G7J5tZwLU8xcTxUp52WBtxIfFv8PWEXqcwxhqF5hkSSH2DtltYQW5feEHllzblqIlmmk1lSwDigEmmD2r7Q7uJL3ulKbXcUkqOi1VnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787696929; c=relaxed/simple;
-	bh=lWZ2S5cVyzq+KbBrsB/kFXf/r3W21SDVSX6K0pWiGa0=;
+	bh=Qs4xWE6qDTfRkJ/s+YsDLz3116H3E0YLZnTnlIUrVIA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KsOK/pM6cQphillfMKb6R7g3DmV43pEA4wIKmeH303MapyaSCM4f9DXKyIebTjdHh5i7KylKuGyBf9Pl4vvv6l0vrxTc15+LgcriKlIC+TcK/Or9DXkbjAPMB7iYLvTgxWe08llmQC38GTG+e6GB9M3HczfFCAx7zGoJWyzJ/tY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Db2XujeT; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=JxaOWoLQKNM9NqZzWRlygn7/nGAukxisVoj3UXHHooG8ZXnTYiSjwAWHIhubb+pRUVQPYiP9T+FM0xsF1xMUoNbkIgV4VXt/b0JczaxllI2pQg8+9qz5X2waSgqKe+9qLkgeQpR8qqWT9Jl2TBfkPO91/TnmZPhO+keg/kkVwqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F/F3KcDi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Db2XujeT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 338B31F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F/F3KcDi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C93BD1F00A3A;
 	Tue, 25 Aug 2026 22:28:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787696927;
-	bh=PqKpUrZSU83ktmEO4TLN3jKayKwiJ0YqZmJMTXxFksM=;
+	s=k20260515; t=1787696928;
+	bh=bhzA5+7QXK7ND3kk7PhPUzvibpJ9lRxQ2XYewKTdOIc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Db2XujeTQZPh9qm7PeqLwZ8PfFUa7n++UU5x4/5GO47sSSQ/LQpV4GTN+t98SQNRH
-	 OcYsnvWg5C7JEFEdgpLSyOE/K/QILu+IBePKw1RhUcCmJIGNmUkPOGQA4VO2U+/Ahq
-	 p05ci77vYU1+PMLqx3BtxkW2oyIkKK7QETRsy6VhyGiZqHbqzyTrgTZyzk2irk2CxX
-	 +BZFfOR1WhAdsoF5IBJDZPziVAtzi5DWbM9RujGFHpshAdRXFZJ0kZIpKDKIZszNpU
-	 vIZs+93o/olhv6XTGe6VXVmYXngrbiFb7pTpUmtWG28Y3bfWTiYL57Xid3Gi3HvQV5
-	 1l9C++hCcnFDg==
+	b=F/F3KcDivcb0BaDSpz3v1d6tp11CCRxktGS4/taXmWZlDvwxjYiredp2teHTpuTPG
+	 ch7cHdBfsu8wdrGw06iRulngDKCMtE86P9a0aWfH3A+PrCkdbqoT4iRoAsb+BIzQKi
+	 ObSEsm4FDDbst/fFU6mmSYZxBS4+VYNNdxKXrr2e1ZN7EhwFg8YKsohivoH1RN3WIw
+	 14ykmTzS8MTFKTf8PK9mldnZij7yAqhXbBgAIkWaptzRZlLg95DnjfOXw0ZbL30SxH
+	 iNCx7KXliy7JVwH7HZn7WTc0yKrYWO8+4fJP4qymnQ7tbFlmoKPbztded5nvGHA3uO
+	 nCQKrg+Fl4gvQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 08/19] crypto: cmh - add AES skcipher/aead/cmac
+Subject: Re: [PATCH v4 07/19] crypto: cmh - add SM3 ahash
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Alex Ousherovitch" <aousherovitch@rambus.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260825221539.255951-9-aousherovitch@rambus.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260825221539.255951-8-aousherovitch@rambus.com>
 References: <20260825221539.255951-1-aousherovitch@rambus.com>
- <20260825221539.255951-9-aousherovitch@rambus.com>
+ <20260825221539.255951-8-aousherovitch@rambus.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 22:28:46 +0000
-Message-Id: <20260825222847.338B31F000E9@smtp.kernel.org>
+Date: Tue, 25 Aug 2026 22:28:47 +0000
+Message-Id: <20260825222847.C93BD1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,147 +46,154 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] Aborted or re-initialized `cmac(aes)` ahash requests leak accumula=
-ted dynamically allocated chunks until TFM destruction, allowing trivial ke=
-rnel memory exhaustion (OOM).
-- [High] Incorrect IV state update in `cmh_aes_update_iv` for AES-CFB mode =
-with partial blocks breaks cipher chaining.
-- [Medium] The skcipher driver attempts to kmalloc up to 32MB for input/out=
-put buffers, deterministically failing for valid large requests.
+- [High] Deterministic failure on large hash updates due to a single large =
+kmalloc linearization.
+- [High] Race condition leading to Use-After-Free or state corruption becau=
+se the request context and input buffers are modified after asynchronous su=
+bmission.
+- [High] DMA mapping of an unaligned embedded structure member violates the=
+ DMA API, causes cache coherency corruption, and risks kernel panics if map=
+ped from a vmap stack.
 --
 
-commit 0ec57ce28ce08fa19d032fb79fd5650db5f53a75
+commit db71afa324a1c32abd2a50db9da6330962bdae16
 Author: Alex Ousherovitch <aousherovitch@rambus.com>
-Subject: crypto: cmh - add AES skcipher/aead/cmac
 
-This commit registers AES algorithms using the CMH AES core for skcipher,
-aead, and ahash interfaces. It handles key management, context setup, and
-VCQ command sequencing for encryption and authentication.
+crypto: cmh - add SM3 ahash
 
-> diff --git a/drivers/crypto/cmh/cmh_aes.c b/drivers/crypto/cmh/cmh_aes.c
+Register the SM3 ahash algorithm using the CMH SM3 core. Supports
+incremental update, finup, final, and export/import functionality.
+
+> diff --git a/drivers/crypto/cmh/cmh_sm3.c b/drivers/crypto/cmh/cmh_sm3.c
 > new file mode 100644
+> index 0000000000000..8dbc46c30a40f
 > --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_aes.c
+> +++ b/drivers/crypto/cmh/cmh_sm3.c
 [ ... ]
-> +static void cmh_aes_update_iv(struct skcipher_request *req, u32 mode,
-> +			      u32 op, const u8 *in_buf, const u8 *out_buf)
+> +struct cmh_sm3_reqctx {
+> +	int    error;
+> +	u32    hw_started;
+> +	u32    buf_len;
+> +	u32    has_checkpoint;
+> +	u8     checkpoint[SM3_CONTEXT_SIZE]; /* SM3 context from last SAVE */
+> +	/* DMA state for current async operation */
+[ ... ]
+> +static int cmh_sm3_update(struct ahash_request *req)
 > +{
-> +	u32 bs =3D CMH_AES_BLOCK_SIZE;
-> +	u32 nblocks;
-> +
-> +	switch (mode) {
-[ ... ]
-> +	case AES_MODE_CFB:
-> +		/*
-> +		 * CFB-128 chains on the last ciphertext block.  On encrypt,
-> +		 * that is out_buf; on decrypt, it is in_buf.
-> +		 *
-> +		 * For sub-block requests (cryptlen < 16), there is no
-> +		 * complete ciphertext block to chain, so the IV is left
-> +		 * unchanged -- CFB-128 has no defined chaining semantic
-> +		 * for partial blocks (shift-register CFB-n is a different
-> +		 * mode).  Without this guard the pointer arithmetic
-> +		 * underflows and reads before the buffer.
-> +		 */
-> +		if (req->cryptlen >=3D bs) {
-> +			if (op =3D=3D AES_OP_ENCRYPT)
-> +				memcpy(req->iv, out_buf + req->cryptlen - bs,
-> +				       bs);
-> +			else
-> +				memcpy(req->iv, in_buf + req->cryptlen - bs,
-> +				       bs);
-> +		}
-> +		break;
-
-[Severity: High]
-When dealing with partial blocks in CFB mode where req->cryptlen is not a=20
-multiple of the block size, will the offset calculation (req->cryptlen - bs)
-point to an unaligned offset rather than the last full block boundary? The=
-=20
-next operation in a chained CFB stream requires the last full ciphertext=20
-block for the chaining IV, so could this break the cipher chaining by=20
-copying the wrong bytes?
-
-[ ... ]
-> +#define CMH_AES_MAX_CRYPTLEN	SZ_32M
-[ ... ]
-> +static int cmh_aes_crypt(struct skcipher_request *req, u32 aes_op)
-> +{
-[ ... ]
-> +	if (req->cryptlen > CMH_AES_MAX_CRYPTLEN)
-> +		return -EINVAL;
 [ ... ]
 > +	/*
-> +	 * Linearise input from scatterlist.  cryptlen is user-controlled up
-> +	 * to CMH_AES_MAX_CRYPTLEN (well above KMALLOC_MAX_SIZE), so use
-> +	 * __GFP_NOWARN: an oversized request fails cleanly with -ENOMEM
-> +	 * instead of splatting the page allocator.
+> +	 * full_len is user-controlled and can exceed KMALLOC_MAX_SIZE for a
+> +	 * single large update; __GFP_NOWARN avoids splatting the page
+> +	 * allocator on an oversized request.
 > +	 */
-> +	rctx->in_buf =3D kmalloc(req->cryptlen, gfp | __GFP_NOWARN);
-> +	if (!rctx->in_buf)
+> +	rctx->data_buf =3D kmalloc(full_len, gfp | __GFP_NOWARN);
+> +	if (!rctx->data_buf)
 > +		return -ENOMEM;
 
-[Severity: Medium]
-Does this driver attempt to allocate up to 32MB of physically contiguous=20
-memory via kmalloc() for the input and output buffers? While the __GFP_NOWA=
-RN=20
-flag ensures a clean failure, any valid request larger than KMALLOC_MAX_SIZ=
-E=20
-(typically 4MB or 8MB) will deterministically fail with -ENOMEM. Would it b=
-e=20
-better to cap the maximum length to KMALLOC_MAX_SIZE instead of 32MB, or=20
-process the buffers in smaller chunks?
+[Severity: High]
+Is it safe to assume the entire remaining data can be linearized into a
+single kmalloc buffer? If a caller attempts to hash a large input (e.g.,
+several megabytes) using the ahash API via AF_ALG, this allocation will
+predictably fail for sizes exceeding KMALLOC_MAX_SIZE or under memory
+fragmentation, which breaks the API contract.
 
-> diff --git a/drivers/crypto/cmh/cmh_aes_cmac.c b/drivers/crypto/cmh/cmh_a=
-es_cmac.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_aes_cmac.c
 [ ... ]
-> +static int cmh_aes_cmac_init(struct ahash_request *req)
-> +{
-> +	struct cmh_aes_cmac_reqctx *rctx =3D ahash_request_ctx(req);
-> +
-> +	memset(rctx, 0, sizeof(*rctx));
-> +	INIT_LIST_HEAD(&rctx->chunks);
-> +	return 0;
-> +}
+> +	rctx->ckpt_dma =3D DMA_MAPPING_ERROR;
+> +	if (rctx->has_checkpoint) {
+> +		rctx->ckpt_dma =3D cmh_dma_map_single(rctx->checkpoint,
+> +						    SM3_CONTEXT_SIZE,
+> +						     DMA_TO_DEVICE);
 
 [Severity: High]
-If a user opens an AF_ALG socket, accumulates data by calling=20
-crypto_ahash_update(), and then calls crypto_ahash_init() to reset the hash=
-=20
-state, won't this memset() clear the rctx->chunks list head and leak the=20
-dynamically allocated chunks? The orphaned chunks would remain on=20
-tctx->all_chunks indefinitely until the long-lived TFM is destroyed, which=
-=20
-could allow unprivileged userspace to easily exhaust kernel memory.
+Does mapping this inline checkpoint buffer violate the DMA API?
+
+The checkpoint array is embedded directly inside struct cmh_sm3_reqctx with=
+out
+ARCH_DMA_MINALIGN alignment, which can lead to cacheline corruption on
+non-coherent architectures when adjacent fields are modified.
+
+Additionally, if the request context is allocated on the stack (for instance
+via AHASH_REQUEST_ON_STACK) on a system with CONFIG_VMAP_STACK enabled, map=
+ping
+a stack address results in a bogus physical address and can cause kernel
+panics.
 
 [ ... ]
-> +static int cmh_aes_cmac_import(struct ahash_request *req, const void *in)
-> +{
-> +	struct crypto_ahash *tfm =3D crypto_ahash_reqtfm(req);
-> +	struct cmh_aes_cmac_tfm_ctx *tctx =3D crypto_ahash_ctx(tfm);
-> +	struct cmh_aes_cmac_reqctx *rctx =3D ahash_request_ctx(req);
-> +	const struct cmh_aes_cmac_export_state *state =3D in;
-> +	struct cmh_aes_cmac_chunk *chunk;
+> +	ret =3D cmh_vcq_pack_and_submit_async(cmds, idx, rctx->packed,
+> +					    CMH_SM3_MAX_PACKED,
+> +					    d.mbx_idx,
+> +					    cmh_sm3_update_complete, req,
+> +					    !!(req->base.flags &
+> +					       CRYPTO_TFM_REQ_MAY_BACKLOG),
+> +					    cmh_tm_async_timeout_jiffies());
+> +	if (ret && ret !=3D -EBUSY)
+> +		goto err_unmap_ckpt;
 > +
 > +	/*
-> +	 * Do NOT call free_chunks() here: the crypto API does not
-> +	 * guarantee the request context is in a valid state before
-> +	 * import(), so the list pointers may be stale or invalid.
-> +	 * Re-initialize from scratch instead.  Any pre-existing chunks
-> +	 * are tracked on tctx->all_chunks and freed in exit_tfm.
+> +	 * Submit accepted (in flight or backlogged) -- only now move the tail
+> +	 * into the holdback.  A synchronous rejection above (e.g. -EAGAIN)
+> +	 * leaves rctx->buf/buf_len untouched so the caller can retry the
+> +	 * identical update.
 > +	 */
-> +	memset(rctx, 0, sizeof(*rctx));
-> +	INIT_LIST_HEAD(&rctx->chunks);
+> +	if (tail_len > 0) {
+> +		if (req->base.flags & CRYPTO_AHASH_REQ_VIRT)
+> +			memcpy(rctx->buf, req->svirt + from_src, tail_len);
+> +		else
+> +			scatterwalk_map_and_copy(rctx->buf, req->src,
+> +						 from_src, tail_len, 0);
+> +	}
+> +	rctx->buf_len =3D tail_len;
 
 [Severity: High]
-Similarly, if a caller performs a state import over a request that has=20
-already accumulated data in its own chunk list, doesn't this memset() also=
-=20
-strand any previously allocated chunks?
+Is there a race condition here that could lead to a use-after-free or state
+corruption?
+
+This block modifies the holdback buffer (rctx->buf) and reads from the requ=
+est
+input (req->svirt or req->src) after ownership has already been yielded to =
+the
+hardware asynchronously via cmh_vcq_pack_and_submit_async().
+
+If the hardware completes the operation quickly, the interrupt handler could
+execute cmh_sm3_update_complete() on another CPU and signal completion to t=
+he
+caller. The caller could then free or reuse the request and its scatterlists
+while this thread is still copying the tail bytes from the freed memory.
+
+[ ... ]
+> +static int cmh_sm3_submit_final(struct ahash_request *req,
+> +				u8 *data_buf, u32 data_len)
+> +{
+[ ... ]
+> +	rctx->ckpt_dma =3D DMA_MAPPING_ERROR;
+> +	if (rctx->has_checkpoint) {
+> +		rctx->ckpt_dma =3D cmh_dma_map_single(rctx->checkpoint,
+> +						    SM3_CONTEXT_SIZE,
+> +						     DMA_TO_DEVICE);
+
+[Severity: High]
+Similarly, in the finalization stage, can mapping this embedded inline buff=
+er
+cause DMA API violations or kernel panics on vmap stacks?
+
+[ ... ]
+> +static int cmh_sm3_finup(struct ahash_request *req)
+> +{
+[ ... ]
+> +	gfp =3D req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP ?
+> +	      GFP_KERNEL : GFP_ATOMIC;
+> +
+> +	data_buf =3D kmalloc(data_len, gfp | __GFP_NOWARN);
+> +	if (!data_buf)
+> +		return -ENOMEM;
+
+[Severity: High]
+Does this finup path have the same issue with large inputs?
+
+Because data_len could be very large depending on the caller, this single
+kmalloc attempt could deterministically fail if it exceeds KMALLOC_MAX_SIZE,
+similar to the issue in the update path.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825221539.2559=
-51-1-aousherovitch@rambus.com?part=3D8
+51-1-aousherovitch@rambus.com?part=3D7
