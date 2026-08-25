@@ -1,226 +1,196 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0322F46F486
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 13:16:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787663816; cv=pass; b=k3gksz21lcZnPgveAqtLlSn+R1aWT0+yiu/L+0oQYmTkX4v1GKGsNFZqya6xRirYvA8ZYqHzcsZyiioqWq8T1vHqfHGU2YL7rREv3nlDGFG2GPL/DBXlSaV5QTIFK06gc204ymgF2JWmILf4R7nXU5VFg0kH28eW7APZ3tZgZPk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787663816; c=relaxed/simple;
-	bh=UrrWucbLkup42OFaKWfPnfbwkGasVfP84MagPNI1G50=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fHzKuj4JhGbWD16FS/SGWprU7jYn914ejH+X7r6/KromvRC3BoZ5hSYcS6LrVEGn4JUc90wiyY81saQ0gQX4AQsDDTeQWkuNtrjmC8ZFo/706n4BuOfjcvjFiKgbH0qvqj20kPYLGIrDoiZWedndYt434aRR2hK8n2IgjkTaFTQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HSz7R7mh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EP0AwQVc; arc=pass smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA5D9463B6D
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 13:17:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787663855; cv=none; b=PkW20c7Y6aWLWXud1JSIRhawqV08oQUjy9eOT19en/zLyKafTB2uxnehzEoa3JP2QDt0/Ba5Pg7RWfpv881bCtY3A8zi0k8CbhZOMoy0o/e71Kf1B9XxQuh2M0NODIqicmRe5A51Sqb299pDw66SwFVvtUh+KZRYPWaPbNMqXlk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787663855; c=relaxed/simple;
+	bh=pt9eezPeCUT7V+HzJqfo0KBN0/mjD+4aoP/HdGr69OY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cB/KJgqtLY0BX4lLzIQM6jz3ZH68m/qdaawy08Ewla6xnYVBaCIAJfcaQ++EENy6Yi6OPwIDRVB81LuupkFIy0YtbNAqGu91lZEZZ405Pxk8cTaPHTWu+DGA+vSwySrQBUZhWiZ2dFtr/uYXlFVMlvn29Yqkldzy0Axf00uGQ6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B+9zZUpR; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HSz7R7mh";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EP0AwQVc"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67PAv7bQ1761561
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 13:16:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	XvqkCKDCZwmeMaXcFghQ7kb7aCZrtTzb3I560fNPdCE=; b=HSz7R7mhb8BhpTSl
-	jPyFXFmfRIhiAciT1fsU/QPbwkwKTK2PngNzPz8ibiqz2V+gc7h2fFW+e6FPyTAl
-	XnwQdeBXvCfYzWXObMrLfuETZXu+j+8LfXnLjmGs8LhLpAUzN62jf/8TN1hOhP1Z
-	V9bQmiN82xkbVETgp66MmJIVkhRzSjhpY5o1f7Kxr+WHYOFrMXpbuIugsouvmFra
-	6V/ooKH9fPnot0XqMZ9H47vS4yK2j0MOrkLZ00jiRN8hHsVevseXjMyj9lOhuujZ
-	YgT4A/RVBbUBnCmS5eA0w/znsVA/e1CqBaQ5bYl4G3FIhonkqKl53X3icfOflM1c
-	jMuJ7g==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g96absh68-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 13:16:53 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2d54187d8b0so58303575ad.0
-        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 06:16:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787663812; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NqvE8vgibBQQFldnulP3M0LQ+K1YJkfs0XpH8MafL78qUl4PSD62eQLdH9DrO+Cboz
-         y1xKxtUv9SM/6gAwJRkmhHHEtrZnYBBurb3XwHOOuscQO7oSmYod8ctMNJOaqyQAUXZu
-         24rCmvxdkWi4NHtCYG0sp811OkK6gV75l5Oj01Zuw73iNhHK2X3lG02j31ENsyDWy+Ee
-         z8LlmWZz3az4TRCwVyPfypNhM6Wgs4vUTuQJg370fZtjrRXN5283G85ET6BbQZ2rtu1p
-         xuU+CgQCrACukk+Wj6Cju1U4zEdESYuHOJ9fBRf1ewFEdzepgyFIWCR9dw0GkEFuIITg
-         Z5pQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=XvqkCKDCZwmeMaXcFghQ7kb7aCZrtTzb3I560fNPdCE=;
-        fh=EweQ1MXQnm5Ow/7Piz594mBXbYsJQ/QYIdPreek7TDI=;
-        b=U8yoym8TBm7B6hroRhNZ0Goio1XAdB18gyBLigDILptP+60+RXzkEfr8Kcreg2OeQa
-         nPgrQmy3d3/aJUsJMgIMzHKup/eGz0nrYDywvru6LjOqTV6LNQT1sLUpeLE1nz9883u6
-         629nAHBQn1lE8a89pxKsLSmQH0EqufAsRdeStxbueKmysmHYuHcQ21zJr3ukht64pZTG
-         aJOvoSfy5yGeO9COezG81hSCxqC4cGTmGwqqih6Df3fKzE5BD7VWtNFUUeCx3WdLrWfV
-         2kqIHCwzeVwbaKydrOx9/BihMaItcHS32BeQ/f6ufiwpSOP90TXaU3RxAW+hoZHFOMFa
-         VT1Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B+9zZUpR"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so43193225e9.1
+        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 06:17:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787663812; x=1788268612; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XvqkCKDCZwmeMaXcFghQ7kb7aCZrtTzb3I560fNPdCE=;
-        b=EP0AwQVc4xE2rEUllhWpY/9egZdHSt+uQHjJnjb/UKkvKfkxz4GrFkR5kOMIrwO1Wz
-         D1ojIpl4oxah8o9VRgqKC2269Y58GLJJSzv8nKdbFwwf7YarsSkK0OiELS+GE05JGh+W
-         eMAz7m/MebGzZQTtADwJMoImqVS9V3oVA+fBoTebYsxVENbOEgG+x0hUMZB8a67zpTPQ
-         mR4gC1hD6iYSJDOi4q1sCqQ83jaR3hSh+CxRSY9Gbs9X3J2gPHB/D/nBwEKiDHnuweB6
-         NJcq9xhvs2KPAlTIyASnpTG7LwYqL+MOkWAP8UyrAerhnKjd1i3tcQtNmT9eR9FSbaxr
-         hGFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787663812; x=1788268612;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1787663852; x=1788268652; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XvqkCKDCZwmeMaXcFghQ7kb7aCZrtTzb3I560fNPdCE=;
-        b=TkLanYNzqJSKwOubLLxB8LWrKY30lfliXsnwM7OqoH3VWXMbgexZM1sghYzcG+CBBl
-         PKd7f0l6ZlsoU1YmlfOhZ+ydgV/BAXYbTkigg6OFJ2n/XPEZCYEnSAM77PVd1HYP0qRC
-         R8TajmQaocDq84zgw3JufdqLIonTnDGjFXHtfWT6KO7qBN8wfXLXc7nmRR60v9U/ov3P
-         ZDyke4RKvOo1+nQf56WMjnHpz3pKi0ccj3H8Bqdm405yHULkgpGI69wFYDonQi7ivQ+n
-         RaOP5gIrKZMqCMrW7a6BM5CE8ymR1SiS88DCsPaKZKxPjUJ1Ubh5WZn69+v9r/cTtCyk
-         JsBw==
-X-Forwarded-Encrypted: i=1; AHgh+RqiJqkrpXmGMPtCgI7U7ntslznP/BDEO+L917wEwdoyay5R8/99HyLpZrV4d98rAn1iKavXB3ERBghh@vger.kernel.org
-X-Gm-Message-State: AFuF++noK+1wMMwzjMlHymYLi8/JtSwcbakYJJVkAF8fU/9hf35L35sz
-	od4zOWZemlFeoaLlku3bbb8VGie1nIPwBkIp6RUnobQNSwrk/M+D515vRctrOBh2fnxbJ4j2nh7
-	2d6mBLoNB0xeTiXfjUHwpw11rxUodoAAxgN/QBvcEMJh53c2NIiZIlSVjNq+r+fo2iidjhJlEFX
-	Au9uuaTVITD/RNmwB8Vsbhf65BXRh1KeR00RhJNqM=
-X-Gm-Gg: AR+sD1383aG74TzgxTl1V1p6N7YYWrZ2aH0q0IdrPEQOAgzT+h8qxw1O+TQcv4jiO4i
-	Xme7UGsdXth4nTCaF2QImL3iiGrry4sVeqqCg+i3Bq82rYa3i/IrXr2v7biPWSaE4dpjii/hUc4
-	TfuxpMh9HMVRe3gbD+aJFmAu0uW0WV1+hGpHIK5NjX0SrzJ815Z8MkbW2rCGM=
-X-Received: by 2002:a17:902:f683:b0:2d6:3c1a:85e0 with SMTP id d9443c01a7336-2d6dccfb542mr121198125ad.14.1787663811859;
-        Tue, 25 Aug 2026 06:16:51 -0700 (PDT)
-X-Received: by 2002:a17:902:f683:b0:2d6:3c1a:85e0 with SMTP id
- d9443c01a7336-2d6dccfb542mr121196205ad.14.1787663810832; Tue, 25 Aug 2026
- 06:16:50 -0700 (PDT)
+        bh=py3ROtb3vVj5APnhYCyw+k54KDsBa1cNIVxX44uQqJI=;
+        b=B+9zZUpR3Zb/yz7F/XWKWBZtBgL6JzX5Givc21cs4Up+fFxlb8U5Q5QANZAu1k1qt7
+         d61UH4CzBQ+r71aPtnq4+97krk8SPK+/YgiRiHb15ZV/G4Bke5s7OYutnw1yw6RTNfy9
+         Rt5srqaP+9EXv7zbMoAQTcTFYnlAlH02qokI4xo4bGmVMyRES6y9pBeJ67nuOvq75byE
+         pzvG/uNOqv3u2wFxDoQmLcjwK4hpEMSZR2cvekRuLEaG3Y4Yvkcg5QY4vcUwWofpBVCe
+         94uZihdjF1/ix97ht17quY3uqeL5I/7Nm213Rty8ioY6arxDir/QqLH3wXKEvsv71XFq
+         jObA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787663852; x=1788268652;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=py3ROtb3vVj5APnhYCyw+k54KDsBa1cNIVxX44uQqJI=;
+        b=JkfKgj+Jr18Tnlgr25BEygcjJZODgL5Vhbb2mGNNzpB0Xp383kzqcTg+QdupvKFr2P
+         TjWfAJ2hQYi/4HaUoOd6Oc4RsjrBkhBncgLdhoh5/RJNmgzTAlCTpMHjA9lyJ8N4NJtE
+         U8QAZZ34DVYEpEFLh/OdaOOqPbVB60jB9z6FgaV6L53pHiw1D8Ad70LwDHx5wkcR3qYZ
+         QW2npEECJYvhZoivFRz3Xi4Nc0uRVKyj8h3hI4IEIPUf1WO3kieLk3Lvv0cenVzS/fkY
+         3N/z045x7BYamKW/+k/UBlk5P+r+Vsb5sLEp+rBSz5M+QXfNyAGEkAc+HAGhfQSUim6L
+         tUsg==
+X-Forwarded-Encrypted: i=1; AHgh+RpLtOvDZaNDdO84aGV/BBt9M919JQNPwbXEjQVszMw2MVR0UrIEFIUArVZQjvALGCJYw+2eFYPNBvSA@vger.kernel.org
+X-Gm-Message-State: AFuF++kNc4JjcnVOtnO5Ol56awELxjUqSbN9VKPS6EIbpxil8PDeVO8B
+	EOCHOkADg/1fquiEC/t47xsxc7J0EOZR5bStKGGmki/zceskpiUo8NEE
+X-Gm-Gg: AR+sD11ChO1JRRIC1wRst8LPvdjczb5qO+MbWogAjsu3axYQ+xj6PaLJLgoSEut6uGK
+	ygXyCBJSvEzPUNopmxKimPKneu4J9JFEpTMKLpGAiTd93KT+kADTWcrrWnmv2aueZPVe0Yk667g
+	MJ6vsB30hBrNIHaR8K8SiZvWJb2B1Db3eSZGiW9UX3JN2HGdq5f3Ns9cg3CtqaN6htpPqsvK7S0
+	7EKb2DBG9LN1dI2kVTaoDkeNCv1y0ycRD5S1+wVSpfGlUco25+OdEBhhB8AU8htyjMNhyJl9xCG
+	ooEjI/9hbYXOpZqY04m+R+ViZHEcs7+SX+/xMJ4ikHCUs+KvpZxrEkSWz7pYPUElWRcUoLgyAqv
+	vhiToM3ynvS+KISjoxST0mKm2hNyDFJ5n8xnPUGTzUhEcca92EeGcc/lWdGl+/jghut/MqSt4D2
+	IVWWoxDp9+ChTxjgyW7JIrZ9RrvhwZldT4L/cTg1ghTnIj+808mmLCYZZwFayAzhDk+BrbhLhZW
+	0+kDtwDlJWt9M8q4IQTugZal1k0I0Pr89am6MB+mp0tynvTupoQsgvS
+X-Received: by 2002:a05:600c:3111:b0:495:7888:281c with SMTP id 5b1f17b1804b1-499c1772dd5mr302953505e9.0.1787663851572;
+        Tue, 25 Aug 2026 06:17:31 -0700 (PDT)
+Received: from [172.24.138.145] (dynamic-176-007-058-112.176.7.pool.telefonica.de. [176.7.58.112])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499d5d72d36sm23411535e9.3.2026.08.25.06.17.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 25 Aug 2026 06:17:31 -0700 (PDT)
+Message-ID: <9e7edec5-578d-48e0-b253-e50cf848236e@gmail.com>
+Date: Tue, 25 Aug 2026 15:17:14 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260817160222.3313295-1-mayuresh.chitale@oss.qualcomm.com>
- <20260817160222.3313295-2-mayuresh.chitale@oss.qualcomm.com> <20260818-hunger-module-a44d9716010d@spud>
-In-Reply-To: <20260818-hunger-module-a44d9716010d@spud>
-From: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
-Date: Tue, 25 Aug 2026 18:46:39 +0530
-X-Gm-Features: AcwNN1V9egfNMIH691TkAHArGtQXAw0rOFr0i5eeHAW-N5CIlrbpdAfvtphGjHo
-Message-ID: <CAHuiULBGKCqxMzO7f-i0VeuN0nykEaDwzVzq1VtT5VK2LM3eTQ@mail.gmail.com>
-Subject: Re: [RFC PATCH 1/3] dt-bindings: riscv: Add Sspesa and Ssplcofi extensions
-To: Conor Dooley <conor@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-        Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
-        Alexandre Ghiti <alex@ghiti.fr>, Guodong Xu <docular.xu@gmail.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Deepak Gupta <debug@rivosinc.com>, Xu Lu <luxu.kernel@bytedance.com>,
-        Pincheng Wang <pincheng.plct@isrc.iscas.ac.cn>,
-        devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-        linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI1MDExMyBTYWx0ZWRfX8O40qC6R5HWp
- tNbyGYA0+YekrDerpAH6NwwRLCRR8yZDPIingW8VyDnLA9q/71Rcw8W4LvKm6EawWVuyX2iCts7
- ggnuZDtONRTHi3Y8EV0aY+Iuni/ngzrAKa4m91Xu09SA/YGKJRX2p4tV0LwxfpV/YnhEsepXQOG
- Kxz+sthD091dN+skqS1QGPbIQyf9egl4r/dyyOK2mG0awyH6u8uWE6D30r209fB9H/K8UGO7S0f
- J96eqw+S5LkHxCUKxhhVfcI55VFcPxJdJdmXeUR70fXumXkNiiHKFhCIlUjMaypKdlTxGhu8vPb
- z2GujP0h3m+kCV/loCuS09ODoI2sBbBDUTsCKD5cXG9RbG3B3jiABaPDlNrLnXyLHvF4pv/17I2
- vQfTIQvJGk2chHOrxssv1Xg0cKuKgtKL9FfvF1gT/jvprQeEKy+zXcpojJCcTvLCx2N+n3mgiP2
- NnDwAdedd4rWt+cpwaA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI1MDExMyBTYWx0ZWRfX+8PWNdkYe1Va
- lZkWEUevX6Z7HtfYOCm8oWOV/9tFtGfMguSxEJnAzYGCkiryVJp/TpNp35JSA88qYmuP2SMtd3W
- XFEjA+hSzWQ/6FYgKoLY2uHLJ3BVKdA=
-X-Proofpoint-GUID: chcOPMpJB1gnE8pBrP4mSNRZpds_rcdr
-X-Proofpoint-ORIG-GUID: chcOPMpJB1gnE8pBrP4mSNRZpds_rcdr
-X-Authority-Analysis: v=2.4 cv=SaHHsPRu c=1 sm=1 tr=0 ts=6a8d95c5 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=5iWJdViXKeNTBtzVyBoA:9 a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-25_03,2026-08-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 malwarescore=0 suspectscore=0 spamscore=0
- clxscore=1015 priorityscore=1501 lowpriorityscore=0 impostorscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608250113
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 08/14] iio: adc: ad7768: Add per-channel conversion
+ delay
+To: Andy Shevchenko <andriy.shevchenko@intel.com>,
+ Janani Sunil <janani.sunil@analog.com>
+Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Olivier Moysan <olivier.moysan@foss.st.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Michael Walle <mwalle@kernel.org>,
+ linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-doc@vger.kernel.org, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+ <u.kleine-koenig@baylibre.com>
+References: <20260821-ad7768-driver-v4-0-bb8fbd06d4eb@analog.com>
+ <20260821-ad7768-driver-v4-8-bb8fbd06d4eb@analog.com>
+ <aovua1sy4sm6RmSt@ashevche-desk.local>
+Content-Language: en-US
+From: Janani Sunil <jananisunil.dev@gmail.com>
+In-Reply-To: <aovua1sy4sm6RmSt@ashevche-desk.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Aug 18, 2026 at 3:05=E2=80=AFPM Conor Dooley <conor@kernel.org> wro=
-te:
->
-> On Mon, Aug 17, 2026 at 09:32:17PM +0530, Mayuresh Chitale wrote:
-> > Document the RISC-V Performance Event Sampling extensions Sspesa
-> > (Precise Event Sample Attribution) and Ssplcofi (Precise Local Counter
-> > Overflow Interrupt) in the ISA extensions binding.
-> >
-> > Add a dependency rule requiring Sspesa to be present whenever Ssplcofi
-> > is present.
-> >
-> > Signed-off-by: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
->
-> Why is this series RFC?
-It's because the spec is still in draft stage and also the register
-addresses have yet to be assigned.
 
-Thanks,
-Mayuresh.
+On 8/24/26 09:10, Andy Shevchenko wrote:
+> On Fri, Aug 21, 2026 at 04:07:01PM +0200, Janani Sunil wrote:
+>> Expose the per-channel synchronization phase offset through the IIO
+>> conversion-delay attribute.
+>>
+>> Derive the delay resolution from MCLK, power mode and decimation rate.
+>> Validate the requested delay and program the corresponding phase
+>> register when applying the active channel configuration.
+> ...
 >
+>> +static int ad7768_get_convdelay_params(struct ad7768_state *st, unsigned int ch,
+>> +				       struct ad7768_convdelay_params *params)
+>> +{
+>> +	struct ad7768_freq_config f_cfg;
+>> +	unsigned int dec_rate;
+>> +	unsigned int mclk_div;
+>> +	unsigned int mult;
+>> +	u64 mclk;
+>> +	int ret;
+>> +
+>> +	ret = ad7768_get_freq_cfg(st, st->ch_freq[ch], &f_cfg);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	dec_rate = ad7768_dec_rate[f_cfg.dec_rate];
+>> +	switch (dec_rate) {
+>> +	case 32:
+>> +		params->shift = 3;
+>> +		params->max_raw = 31;
+>> +		mult = 1;
+>> +		break;
+>> +	case 64:
+>> +		params->shift = 2;
+>> +		params->max_raw = 63;
+>> +		mult = 1;
+>> +		break;
+>> +	case 128:
+>> +		params->shift = 1;
+>> +		params->max_raw = 127;
+>> +		mult = 1;
+>> +		break;
+>> +	case 256:
+>> +		params->shift = 0;
+>> +		params->max_raw = 255;
+>> +		mult = 1;
+>> +		break;
+>> +	case 512:
+>> +		params->shift = 0;
+>> +		params->max_raw = 255;
+>> +		mult = 2;
+>> +		break;
+>> +	case 1024:
+>> +		params->shift = 0;
+>> +		params->max_raw = 255;
+>> +		mult = 4;
+>> +		break;
+>> +	default:
+>> +		return -EINVAL;
+>> +	}
+> So, this is just a bit twiddling of the dec_rate.
+>
+> Can be written like
+>
+> 	/* Optional, perhaps shouldn't appear */
+> 	if (!dec_rate)
+> 		return -EINVAL;
+>
+> 	/* Same? What does table allow to have? */
+> 	if (!is_power_of_two(dec_rate))
+> 		return -EINVAL;
+>
+> 	mult = ilog2(dec_rate);
+> 	if (mult > 10) {
+> 		return -EINVAL;
+> 	} else if (mult > 8) {
+> 		params->shift = 0;
+> 		params->max_raw = 255;
+> 		mult = BIT(mult - 8);
+> 	} else if (mult > 5) {
+> 		params->shift = 8 - mult;
+> 		params->max_raw = dec_rate - 1;
+> 		mult = 1;
+> 	} else {
+> 		return -EINVAL;
+> 	}
+>
+> TBH, I don't know which looks easier to read. It all depends on what datasheet
+> says about these parameters and multiplier and what the table allows to have.
+>
+I kept the explicit switch case because it the device supports only the 6 discrete decimation ratios listed in the table 32.
+The switch directly mirrors the phase resolution, number of steps and register bit mappings from that table, which I find easier to verify against the datasheet.
 
-> Cheers,
-> Conor.
->
-> > ---
-> >  .../devicetree/bindings/riscv/extensions.yaml | 19 +++++++++++++++++++
-> >  1 file changed, 19 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/riscv/extensions.yaml b/=
-Documentation/devicetree/bindings/riscv/extensions.yaml
-> > index 5ffc40d599c0..f316b93754ff 100644
-> > --- a/Documentation/devicetree/bindings/riscv/extensions.yaml
-> > +++ b/Documentation/devicetree/bindings/riscv/extensions.yaml
-> > @@ -232,6 +232,18 @@ properties:
-> >              ratified at commit d70011dde6c2 ("Update to ratified state=
-")
-> >              of riscv-j-extension.
-> >
-> > +        - const: sspesa
-> > +          description: |
-> > +            The standard Sspesa supervisor-level extension for precise=
- event
-> > +            sample attribution, as defined in the RISC-V Performance E=
-vent
-> > +            Sampling specification.
-> > +
-> > +        - const: ssplcofi
-> > +          description: |
-> > +            The standard Ssplcofi supervisor-level extension for preci=
-se local
-> > +            counter overflow interrupts, as defined in the RISC-V Perf=
-ormance
-> > +            Event Sampling specification. Ssplcofi depends on Sspesa.
-> > +
-> >          - const: ssstateen
-> >            description: |
-> >              The standard Ssstateen extension for supervisor-mode view =
-of the
-> > @@ -934,6 +946,13 @@ properties:
-> >                  const: smnpm
-> >              - contains:
-> >                  const: ssnpm
-> > +      # Ssplcofi depends on Sspesa
-> > +      - if:
-> > +          contains:
-> > +            const: ssplcofi
-> > +        then:
-> > +          contains:
-> > +            const: sspesa
-> >        # Za64rs and Ziccrse depend on Zalrsc or A
-> >        - if:
-> >            contains:
-> > --
-> > 2.43.0
-> >
+The arithmetic version is more compact, but the proposed conditions would reject the valid x32 case because ilog2(32) is 5. A corrected arithmetic version would be functionally equivalent, but I do not think it improves the readability here.
+
+Regards,
+Jan
+
