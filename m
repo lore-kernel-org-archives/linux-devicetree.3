@@ -1,200 +1,201 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2272D36F8E4
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 16:32:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787675563; cv=pass; b=ONKMLDnw/uBzpK9yDRM9q+M8FTlaAbsXShDHkIDZ9P9nr0z8nKZyXrULpqpgQbxMmbgkDWTe965nwcsz9YwIzSVgn9m+fCuBD2OGDIbOebZMOAuoqDkiOkcpyTn08N3YiBvUEYjaNgkCjaKviSWCutTGZex8hTowk8Fz+HhQUhA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787675563; c=relaxed/simple;
-	bh=/k84j26bjqojqsGkVOowJ/WCefrkRCst+f+Jb6wWW6o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=L2HMdFOLLZQOg7ELspo6T+1uYMtb69UWs58U6kiizMNVd+VnoPE+3FL2oDfG95k2BBZNAkWJgSfMSI9pt150bXnoqgXjcFD2YRKp3D07AK9mAutiDQ7u4TnDqKG3hTn9eGmACr50cdW6hH5tn+TLaPndWURPh08k39TdH+Z84Y8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gdvfAcjJ; arc=pass smtp.client-ip=209.85.208.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8047138836A
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 16:36:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787675789; cv=none; b=PqW/wgo1tFaau2oZf34UlFyN6RCpy1/hv4g0gfrEugou/I4Y9Qfe3ZZh/+NHHm90qVaB1xO8JUgftLOGEJJWa0nDMEIpe0QNKUTmjM0KlQ0XMmgSDrGcfNqt7Kd2LcvK50rT0AT9fqHhfeQgVa2YhXQraYQjvAqEr0rnfm+SGwM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787675789; c=relaxed/simple;
+	bh=i8eodjsuIdPpCX04HGaCZ6BaFipCim8Lde/X299xfiY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=IXZCrGdT4EosTCtWu7M19nTuAMcwG3xbYwn0ITbjycD0zkGZKErhk64zF1mmEu3O5CywSSv6j5cL65LOPH7TYk3wIkI5s2o0ZeKhOFzPddr2J6CsG0LOv/E4yAPght/NBqYnBNppQPYjsLqRCThLqDv9uiaia0U6SUizpFDTuP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IpOx8Czy; arc=none smtp.client-ip=209.85.210.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gdvfAcjJ"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-69f7fa1c548so376737a12.2
-        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 09:32:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787675559; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IznqbedyFRR3liWkBkvsKRferZGxq51VsHJS54bMCow5neczcHOjoQ9p6QnSrnxgm3
-         JKwYA/MyB3ueCHRFVMt9kJtv4CAU2qEtFRyN8sKDZ4pk8pXlLakEVPozujZ7dXRJImBI
-         UxTva4grt0e/T7BVsxQu7/J1f2/isOWwor9x07sZhIbyw22CSgbcITOSBACTjbPD0kVG
-         nj+LDk7szr3l77FN/XrEVSiD4DV/saRuLedCqXBCyZn+uFweh90PhFFCwKfIkkF6Zah+
-         PKIEs0DClWKNs0dUvbXi1cSRzXaBD9nvNbO/QQLUv9GFy1m75W7TZcJ1MaUDyBU2vfhg
-         JAcg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=RLh6vm4k5z6kpwU5Bc9yLeQpIHWI3MlaI4Wdfs6kBDA=;
-        fh=Prp4ecfCEbT9zl4eEyx+PqZbxSZTvGwigM/nP4Y/ZX0=;
-        b=eENwdrWkzJUdfAgSkWBmMLxuzAtdclrZ0OLhHdoYQk/7fG5fv2RK5RixoGfbbXEZvb
-         g2bNX+5Unvxd05o8ZJYHZc741FFD3JcQNmib0BiSgGisHGGajXW4VtlY7xk7WPcJEp8D
-         XeKW1VyH62rq3hvoRoG+ekL0qPpIUVnD8wpNcFgTRmrLh9cNL3zpHScQm3eMPbR9szMU
-         jJGiulTs3bZkyOkH+cgQf1Udn11qkfTqg7PXGBdN58nFFfftSYtUpxejkfQmswDzsI/7
-         +aKjdaCU3a581zm/p0TfGDGg8UMuKfG9k+IkBX6JgCnJLCemAJjHXcE9EmL5OudgmJTY
-         YrOw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IpOx8Czy"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-84f77cc7302so16521b3a.3
+        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 09:36:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787675559; x=1788280359; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RLh6vm4k5z6kpwU5Bc9yLeQpIHWI3MlaI4Wdfs6kBDA=;
-        b=gdvfAcjJQbRqhDQBdk/RdtckY/LBCPDDoLoED0WcGvIHz8otCeBLL29taUtVc16DOJ
-         gs+iTP9jWIVfsQJmRM8ILa3ps5lVqgoTvyZvQNMHQp1fCFa/+egZK/H7G8NKpA1iO/pt
-         uR8zkixBz5qTbaMtjSAfN+53V8fUOmUm5bRXzfFG+m79PB9THidUsKi1pnlKzqo1k0LT
-         jWuC+CPKpGNpvaeFXoG3MIEtB1nRBQsHRzEXR2MRBWGbTMN2mD2DYQ1iOA4NtShapDLa
-         gl4hkvJT0xJ1cABgstmzsvQfJSy2HWjisDfcHijEc9V9Hd5Y2iwxi5QoOkRReTrTkl1V
-         7gaw==
+        d=gmail.com; s=20251104; t=1787675787; x=1788280587; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Wodm8m2zjhUXQujtK3fCFfHBkirwYTQboCwEV2qWqmc=;
+        b=IpOx8Czy11N6uMsdJH25tG+zjCz8mTarfl58DnJ6rnPpwmslXbKLeqaajQnomXgckv
+         mu9yW896fikk9wO6xVl9PJSCnO1IUgWvCIEYWE0EWrGvKhQD+RI2Lz+nXelnViA2bapS
+         CN31c7si5ofDrvQfLQ2lYlB0qWcXWPKVqcllrJDPtdHM+aKrXh4IXnS3LA4ixNyH+9ne
+         u/XIYqA2eJzJj6L3g6DARbJZ0QG6GCApUnAqayTNdzPDeto4uPPvu1u462CP6vb+ukxu
+         TpsNVFvBSE/hL/Oku7dntQ567dXIuxTOdp4POfgU7qOZgIAUJzJVa4zdVJpgtHTkyv5d
+         GYzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787675559; x=1788280359;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RLh6vm4k5z6kpwU5Bc9yLeQpIHWI3MlaI4Wdfs6kBDA=;
-        b=Y75USa88v/eRp9AB3ED9e+MhgjRKWBxIbL+UJq6gYr3DCxCA2pqlHa38l7yEMPH7K4
-         e+lfxuwBbN1F882F5ROx5EwOpr4cVw8KZ1BuZCecPuVn5Vynzayx+1E0hnU820p+/UJM
-         t9kdOD/Az8WWfO4lGqEpJQ6lk894TwWSx8K4QYghgsN/vlJitQffz7uA85ohbnyHq7ei
-         M8TwtAiOkvRAMS2K8lGOb3wp79aqUnt0dLs2Vn1ktHMuR5DO/nDHbnr93bc4jpMe0EoM
-         NcADVIccwVaQHY68tVpxMWE+48KEfO+chs13LUzcGD2JcSIAFY7HxFCfE0aHlSSwBjmN
-         bIKA==
-X-Forwarded-Encrypted: i=1; AHgh+Roz91N530GSjy+M46Tn0J++uFtRpHlbioDDo4WSTjStS91b8t4CjCddtqf/AqpjEzjK+3DDFxdmZfr+@vger.kernel.org
-X-Gm-Message-State: AFuF++nAsF2w69+B6jCweUIJdo12fkcHAxhPn61/AbTrPTxObGdaD6tb
-	PCcs1B+sSZnNBR7WTzdkgYvDsaTtcZhCZ4a9frZCovpzTIKTQWpDPE63RfUrLS8/TB0Dd3N7wLZ
-	NbDvuFtRuadh+BcyPFImORW1q1Ei8wbaTb0c=
-X-Gm-Gg: AR+sD116kO9nMiFTvCkhdQS6F8KOy5qXq556uw5/yGdvg2+FmqFHph+DeRERdgyaGmQ
-	PiXe0EwX+UqNtjdkIkE2PSt3skLt9CU8ARlyYr25bWPN6sGec/1HZFdvaSGauK1K+QO4oKjkA0k
-	zvlvkeh6iwFPH3DT7eJZohzva/+7G5g31a5W0R2HCHJY+VSjD4OjuXt3C2u/PYK4XW9e4gvInaU
-	8dcnAKbSvIVkwh67RmdEG/lzj4DOFpTtforiRkC3NenLQgW7rHRDWkPILHw3i1zWJP+NR8JFZl4
-	Q47AfsDnlhQ2Ga6ykwoPbAtsXYajBybLmn0aC876kLWM43FrcQDcmA==
-X-Received: by 2002:a17:906:ba8f:b0:c1c:3b06:ed03 with SMTP id
- a640c23a62f3a-c24920e2f93mr3477526066b.23.1787675557738; Tue, 25 Aug 2026
- 09:32:37 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787675787; x=1788280587;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Wodm8m2zjhUXQujtK3fCFfHBkirwYTQboCwEV2qWqmc=;
+        b=PMUbRmsnzOB4LHLCJIxPKaYBd1iO2l8BHaFdquRtXSb0PNlzD/JZijDWgdcK6HkMOq
+         KUdeRfI/9Jlk4cPI77ti7e5MzYZPlYL4EUyYcm5aVwz8dRawhj8FRkl9isXxtN2DeMh4
+         GbtMWWFqILSoB1accXOPJAg0RcrW3vexGTUozHNhztzRZM9WJRthtK4Zs4pPZFdUcShY
+         QX1NrXv67+6MIxNi/ZeuY1K/hXDJnGJaztjOb6BNm+7p7IuPfZUcX5TdJB+Yqi5/2x+v
+         rNTYwg3/QKgJmVQV0gQuIdxoHhmRuhgo97q+RY6T4AfZ36VILCuRVs2A+edSlD75klZ4
+         15jw==
+X-Forwarded-Encrypted: i=1; AHgh+RpBNaR4omLOVf/12HrwNFjyKfppKRoOOxkgDiVthXMilDIF+SW6kv5D52Af4sJEtG9PqUz348MZBkCu@vger.kernel.org
+X-Gm-Message-State: AFuF++kFvrD+RO9Ha4PiGIjmODxDLZxlOz6f9J29a54xFS5ngoYrmkRr
+	bK/uT/BcFC8ZwDyjnz51oBRy5FNY0hiDNi4HhsGBmMjG7yt5wrbL83yF
+X-Gm-Gg: AR+sD10rXoaGFXFXgAkwPxs3gKEz2s+yLOCMWbb+320bjLBdS/DxAc8z9vpo+MtwC8c
+	80ngHn0/49FLbMeUtuPOuwhCy1gc+ZYkovqI3nMkryLTfuCEklJ840YfZYzAb3TpRVCce9H8tqV
+	jKlKQdCCyd9NVJU490JtKcOd/bB9/Vu8wQ3dN7YREZeKe/Y+zjKaIroMtfU044w+RWnRrkwsU7g
+	KbNP2GLAcWS75k7nifJPYEF1ABsIcyqDV1aRVsMeeE9RM+vOun9Vz+ePsxBPXyG6s2LiEsr7cPI
+	LkxzrrSVTtnsZkv9fayOplSEUQ2RaR5EFaBnHkItetTbcWa5baLs+xFlgWl51030+/R2X8dn0L0
+	ce//KexM3/9EEXORAIXtJ3I8wXhJxqD4uGZ2tIRULY1GgNKVTubsz5KGaX4RF+jVQL0mCU7FP5h
+	dAxzyHXeXpb0D6P5vD75jcv3HQwYSU5krYCXF94CnaEiqibzw4SnRoTxX6fiKh5ujK8pRjw0KF1
+	sAGqg==
+X-Received: by 2002:a05:6a00:7488:b0:853:2e35:ad84 with SMTP id d2e1a72fcca58-8532e35bfd2mr3411792b3a.14.1787675786854;
+        Tue, 25 Aug 2026 09:36:26 -0700 (PDT)
+Received: from inhnjlux1020.ls.ege.ds ([2406:b400:53:dfb:c17a:6cf8:3d2c:cd28])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8535cdc03d6sm88527b3a.32.2026.08.25.09.36.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 25 Aug 2026 09:36:26 -0700 (PDT)
+From: Udaya Kiran Challa <challauday369@gmail.com>
+To: tsbogend@alpha.franken.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	broonie@kernel.org
+Cc: skhan@linuxfoundation.org,
+	me@brighamcampbell.com,
+	linux-spi@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Udaya Kiran Challa <challauday369@gmail.com>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v4] spi: dt-bindings: microchip,pic32mzda-sqi: Convert to DT schema
+Date: Tue, 25 Aug 2026 22:05:51 +0530
+Message-Id: <20260825163551.79603-1-challauday369@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260825-blackrock-audio-v2-0-659cc4724d57@oldschoolsolutions.biz>
- <20260825-blackrock-audio-v2-2-659cc4724d57@oldschoolsolutions.biz>
-In-Reply-To: <20260825-blackrock-audio-v2-2-659cc4724d57@oldschoolsolutions.biz>
-From: =?UTF-8?B?SsOpcsO0bWUgZGUgQnJldGFnbmU=?= <jerome.debretagne@gmail.com>
-Date: Tue, 25 Aug 2026 18:32:01 +0200
-X-Gm-Features: AcwNN1WYzseF4DrN8CujPdJzCtFKwid82ijQDptCX4tlvVoNAotzNxH91_O73SQ
-Message-ID: <CA+kEDGHSZmkch4Hs=U8ry7P0FzvE6gNC=sqQZ7noiy=T-rY16g@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: sc8280xp-microsoft-blackrock:
- Enable 4-lane DP altmode
-To: jens.glathe@oldschoolsolutions.biz
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Le mar. 25 ao=C3=BBt 2026 =C3=A0 16:07, Jens Glathe via B4 Relay
-<devnull+jens.glathe.oldschoolsolutions.biz@kernel.org> a =C3=A9crit :
->
-> From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
->
-> Allow up to 4 lanes for the DisplayPort links on the USB-C ports and
-> the mini-DP connector. Add the standard link-frequencies and move
-> data-lanes to the out endpoints where required by the current bindings.
->
-> Also enable mode-switch on the QMP combo PHYs so that altmode events
-> can reach them.
->
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-> ---
->  arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts | 13 +++++++++=
-----
->  arch/arm64/boot/dts/qcom/sc8280xp.dtsi                    |  4 ++++
->  2 files changed, 13 insertions(+), 4 deletions(-)
->
-> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts b/=
-arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts
-> index ac22f44020a64..f5140d3985503 100644
-> --- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts
-> +++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts
-> @@ -563,7 +563,9 @@ &mdss0_dp0 {
->  };
->
->  &mdss0_dp0_out {
-> -       data-lanes =3D <0 1>;
-> +       data-lanes =3D <0 1 2 3>;
-> +
-> +       link-frequencies =3D /bits/ 64 <1620000000 2700000000 5400000000 =
-8100000000>;
->         remote-endpoint =3D <&usb_0_qmpphy_dp_in>;
->  };
->
-> @@ -572,19 +574,22 @@ &mdss0_dp1 {
->  };
->
->  &mdss0_dp1_out {
-> -       data-lanes =3D <0 1>;
-> +       data-lanes =3D <0 1 2 3>;
-> +       link-frequencies =3D /bits/ 64 <1620000000 2700000000 5400000000 =
-8100000000>;
-> +
->         remote-endpoint =3D <&usb_1_qmpphy_dp_in>;
->  };
->
->  &mdss0_dp2 {
->         compatible =3D "qcom,sc8280xp-dp";
->
-> -       data-lanes =3D <0 1 2 3>;
-> -
->         status =3D "okay";
->  };
->
->  &mdss0_dp2_out {
-> +       data-lanes =3D <0 1 2 3>;
-> +       link-frequencies =3D /bits/ 64 <1620000000 2700000000 5400000000 =
-8100000000>;
-> +
->         remote-endpoint =3D <&dp1_connector_in>;
->  };
->
-> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi b/arch/arm64/boot/dts=
-/qcom/sc8280xp.dtsi
-> index baca36b151853..1c8836c1aae63 100644
-> --- a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-> @@ -3692,6 +3692,8 @@ usb_0_qmpphy: phy@88eb000 {
->                         #clock-cells =3D <1>;
->                         #phy-cells =3D <1>;
->
-> +                       mode-switch;
-> +
->                         status =3D "disabled";
->
->                         ports {
-> @@ -3807,6 +3809,8 @@ usb_1_qmpphy: phy@8903000 {
->                         #clock-cells =3D <1>;
->                         #phy-cells =3D <1>;
->
-> +                       mode-switch;
-> +
+Convert Microchip PIC32 Quad SPI controller devicetree binding
+from legacy text format to DT schema.
 
-As you've moved this common definition to sc8280xp.dtsi, should you
-also update the x13s and arcata devicetrees to remove the now
-duplicated mode-switch for both usb_0_qmpphy and usb_1_qmpphy?
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
+---
+Changelog:
+Changes since v3:
+- Update the binding maintainer to Thomas Bogendoerfer
 
-Thank you,
-J=C3=A9r=C3=B4me
+Link to v3: https://lore.kernel.org/all/20260814101733.46406-1-challauday369@gmail.com/
 
->                         status =3D "disabled";
->
->                         ports {
->
-> --
-> 2.53.0
+Changes since v2:
+- Change maintainer to SPI subsystem maintainer
+
+Link to v2: https://lore.kernel.org/all/20260625060903.14661-1-challauday369@gmail.com/
+
+Changes since v1:
+- Drop maxItems and add items list in 'clocks' property
+- Remove unsed label from example node
+
+Link to v1: https://lore.kernel.org/all/20260624061329.130468-1-challauday369@gmail.com/
+---
+ .../bindings/spi/microchip,pic32mzda-sqi.yaml | 55 +++++++++++++++++++
+ .../devicetree/bindings/spi/sqi-pic32.txt     | 18 ------
+ 2 files changed, 55 insertions(+), 18 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/spi/microchip,pic32mzda-sqi.yaml
+ delete mode 100644 Documentation/devicetree/bindings/spi/sqi-pic32.txt
+
+diff --git a/Documentation/devicetree/bindings/spi/microchip,pic32mzda-sqi.yaml b/Documentation/devicetree/bindings/spi/microchip,pic32mzda-sqi.yaml
+new file mode 100644
+index 000000000000..c8f58c506087
+--- /dev/null
++++ b/Documentation/devicetree/bindings/spi/microchip,pic32mzda-sqi.yaml
+@@ -0,0 +1,55 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/spi/microchip,pic32mzda-sqi.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Microchip PIC32MZDA Quad SPI controller
++
++maintainers:
++  - Thomas Bogendoerfer <tsbogend@alpha.franken.de>
++
++allOf:
++  - $ref: spi-controller.yaml#
++
++properties:
++  compatible:
++    const: microchip,pic32mzda-sqi
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: SPI source clock
++      - description: SQI register interface clock
++
++  clock-names:
++    items:
++      - const: spi_ck
++      - const: reg_ck
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - clock-names
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/microchip,pic32-clock.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    spi@1f8e2000 {
++        compatible = "microchip,pic32mzda-sqi";
++        reg = <0x1f8e2000 0x200>;
++        interrupts = <169 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&rootclk REF2CLK>, <&rootclk PB5CLK>;
++        clock-names = "spi_ck", "reg_ck";
++    };
+diff --git a/Documentation/devicetree/bindings/spi/sqi-pic32.txt b/Documentation/devicetree/bindings/spi/sqi-pic32.txt
+deleted file mode 100644
+index c82d021bce50..000000000000
+--- a/Documentation/devicetree/bindings/spi/sqi-pic32.txt
++++ /dev/null
+@@ -1,18 +0,0 @@
+-Microchip PIC32 Quad SPI controller
+------------------------------------
+-Required properties:
+-- compatible: Should be "microchip,pic32mzda-sqi".
+-- reg: Address and length of SQI controller register space.
+-- interrupts: Should contain SQI interrupt.
+-- clocks: Should contain phandle of two clocks in sequence, one that drives
+-          clock on SPI bus and other that drives SQI controller.
+-- clock-names: Should be "spi_ck" and "reg_ck" in order.
+-
+-Example:
+-	sqi1: spi@1f8e2000 {
+-		compatible = "microchip,pic32mzda-sqi";
+-		reg = <0x1f8e2000 0x200>;
+-		clocks = <&rootclk REF2CLK>, <&rootclk PB5CLK>;
+-		clock-names = "spi_ck", "reg_ck";
+-		interrupts = <169 IRQ_TYPE_LEVEL_HIGH>;
+-	};
+-- 
+2.34.1
+
