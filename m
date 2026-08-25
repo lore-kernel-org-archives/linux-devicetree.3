@@ -1,134 +1,248 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38163288C2D
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 16:15:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787674542; cv=pass; b=Gi6dUjGdUyrviSJ1yP26kEAUANtkFstNmxiS+jSpqT+yT8WFKcIE402JVL8Fm6amGCf9qQFf90TZH2pLMMLE3bXp+LQ000a6GHeqnQ6N70s+Xvnih+Ggf4gfjOXNShAEStVkx5FDH0oV+gakzK0zmky5Xk42u9kY9lsmz6wka7A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787674542; c=relaxed/simple;
-	bh=mhCYfoLImXJnmt0+tRDHMMQyd9cURICYnhCWLjk2PLg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Xt4fCp5Q6XB1qui/EnIAuRWqzHiIakNvV1/0K9S99KyIEgsnKP583ZIu+wCA9ztLAgzGUNECifhsqbpJWi+dN01dRqaDo/kEpychE/T3p+D6ecFERa54fj61raB3nIH6MTNw1FMJVSFZHtRFJWAgQr5YHLgZORZsQgjYU+vCzz8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LYDe5Sfc; arc=pass smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5A13451D6
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 16:23:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787675008; cv=none; b=iP8Tt775Iq9iWaUaMZiCG74fkzGN9tmMvUnJwfYuN+cZWosrC15A+4ob2SS9AFIjGSefWWwylErfFiYmHeiw7WkN1gLWzHOIv+kE3gIjgG3zalivVSpM5oak5hv7k/o6xB0Jm/uriSs4U+uFyG7qy5beQkvaKS2OLGwDIEYAiqU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787675008; c=relaxed/simple;
+	bh=ysoHY3SLi8Xlfwy2rIEXN2Q/taJhPUpIC77tj83FcYU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=D7mUO94zK3BWi90nD4o7XxfHx5jHeWOu36G6UqC+Ce0iHwyCrH7V3gjbh/KMd7hY8fIGJQICJkex4Nph31P44IEygjIUjw2jWF4qsEfYLLo9a0q6sql9o5/q1eT1IJ1o21Fz3fEYh8Zffyrfj4iVB37WGCquaJXhysJljmpgnKY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZJkxLZ5e; arc=none smtp.client-ip=209.85.214.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LYDe5Sfc"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c15d111ca99so602045666b.0
-        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 09:15:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787674539; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rONyYQRybSK7knJKcaYXwKs1SFHtiYSeFS6m2roB3J+2O6c0x1nompfYuPDD8PLUEX
-         zoQMsjNrPyO02in+b+lBMc/llQZ9QphO8Lji3u47O5N43oKmi6HwwTSt87TQsozc+jq2
-         K3BjJM/hXiiYJe3lRKEc60LQTuFeqALZl6z7yg5ukGsTpJkYKWA5Vyy64NM/SgtuH+6N
-         WaVChma+5xc1P0O2+EFoKFgmmC6/QFOIyOhf0oeDOUZkCObrUW0YfOPCtG4GnnKpDElD
-         4rYPlNEQHV0l9lJT3q40ClHuigS46c4fxC4pP6U+ZVyL2I0yri0onYB2uMUpOpx2GwAI
-         YnRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=mhCYfoLImXJnmt0+tRDHMMQyd9cURICYnhCWLjk2PLg=;
-        fh=35PTNJsBP6vZpye9h7tBXCiNl1DSzlkOZ3NOdZna0Zc=;
-        b=ncQLrMDTuAnSZghMkmDadZMqOuK9Nxk0DjgDG/OmexPIiL8sXWmMC4+J9lfaWn7KaK
-         qHiHCty+KEkhR1be3aXglt22tx1afnbi3RiM/GtC/cAoWzt4ZG48UExca0b1VJLVjgEQ
-         q1EXjibheVa9TNPSWHJjOHLmECAAxqz9+d6v3lAq3oKex9kNt3T6cJMXFocnpOlt86lc
-         AR/HCG9n81P6I49tYgE/Uo/f3sRlGmt0fiPFkr12hMzgT/EjkS2lX3PaGXtN/WaA9GZL
-         6olrct8gRBCHIEwXGXWa5K2Tp+3dHHSnCc/RitsERXWVjiLotRDhBNTSeUBlNO1hLxb6
-         5vvQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZJkxLZ5e"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2cc891373e0so514525ad.2
+        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 09:23:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787674539; x=1788279339; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mhCYfoLImXJnmt0+tRDHMMQyd9cURICYnhCWLjk2PLg=;
-        b=LYDe5Sfcrj44bmekSy+MJs3ZkuY/uJ1DYBOUqIO7oKKeFFlRkyOzCo+j1xKwS1tX0D
-         iVaKnNSa+lWdNyKsGbmdKjYzbwXhxuPnP+fydX5cKuNdCf0jwSeKEqaED4Qgt+fwkeff
-         3cvBlDUf2LyRzPconw09fVFK64j54dTw6z/ISV0iHTMBPycDl3QRES2aanzQAI/uY+kH
-         rrVXRH0ySYaQmWYFgorcMizjdC5rUFepdPAtMl6BY2VNYi1kP3yoIRGx3d8spbG31UC9
-         xNLWsHGzTqOtFo0vgSgQyiJIkCEEmG+h6d4RY3/UztfU2tEzi2AXtvlMPHlfjnbcMYLX
-         hTGQ==
+        d=gmail.com; s=20251104; t=1787675007; x=1788279807; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1WQ9kthHmMpag/c69Wm9Q+6Otvy5A1GAgbAGrjlGGoE=;
+        b=ZJkxLZ5eGpqqdoOsh5D2mHWmP1B75jx5A0wtOtjJFzzwiCBxe4pl7PPGTA+K2K4XCJ
+         cdgVOWcMvV5Fn3fQJUW/TboBcsvYn4Im86Hpbq6cXvUr7sYrXLAP6GvuhD6UbtBu4NDh
+         GEPZcwuaEhiNcF91mhgus6kOJ8yd9vbKWnDmbHR9edTXLeQQwUkc3AV9Bxn/XwjSlusz
+         P52YSWNaE3uyAJE2wc3komRBuPQBidpYiWmWDYrCn3HSBohV5VXSbhm/7DKyk28o6U44
+         IdH5Hyo3HYPNaxYmx3EocNnVXhQ5ilbNhrUgIaR8w1hjM1BjkSkpnbdTdvnviU44r2+t
+         xkBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787674539; x=1788279339;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mhCYfoLImXJnmt0+tRDHMMQyd9cURICYnhCWLjk2PLg=;
-        b=slR6reYH/7uJVrNsCgTksebJ2ZkaTUndW/ni3CsHyI8Vmcb5F4wnaCmUx6jWYq2/hE
-         XcSmVyfOhCwQrfmAoqT74/U7D4BkD4os0MivdbGaWAeCUgGbzew4ivEl+BpT62C936Es
-         eyp6SBbdx3ZXxjOkCSYhqMvAZsZZj1FhWtzJsRc7/wuEKfZmHWyZxf34CMJLzLU8twJg
-         K/HEv0hYfExWV5qVEi7rEHIUrHHsVpKUzCAOxKER0j63SS2l+GuO8pSlOKQVd8Mg0xkA
-         cl6HlwXdqGLh2WJDpP0HMUQ3O/SwKB90veGHylRqSYZA+EKexHixQNgRPkSysiWYnk0F
-         +YvQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rpfuxj+ROtr7vGJJ1F/GUYVTHHcd5fkTg52ZGqvcBllK7aDD6sR5vjiWSeFSv0YlcqAHZbsjpJrdb0m@vger.kernel.org
-X-Gm-Message-State: AFuF++lY1VQ9j85Qy7wPLrNofj4eO99ppO6TclPsgzxI5od8wUGzZvSs
-	i94FMT/ao80oVPSPHCQLgrdlGcSJ3RaKMaQkTzg0+aIEJ3cEPuhnNNwBdF2t4NONBuXeuN8RgL6
-	zMGvAbkpos31fAdPva6RPjG4XEdu9Jg==
-X-Gm-Gg: AR+sD12ucBwFs5TfKzYuYmscodU4GRCPoKhsi/cH5aO4ckpQo6quNNPtynnTDMC7syY
-	gT1vofl4E5OBP4047jHs7EvSDHWQro8muTsykhnSQqEyk/r1D6DOZmbCUxfE9363iBFFiU0KC6t
-	+7XH8FE4S9i+IZ/xsRSq95Bess78tspYwIqVL4fVPPRvrimZzICKHgfqD3MagaR1WexwF6yJoVz
-	llv07juxLBCefvNRVlgUqrxYd4xjD8wE9E4WvlrSqXu6wExrMo8UTMHviN4KgyltslipTkY4GNf
-	fAat0M8pyVMv0TCsegqxp7/H+CE3v7bHQIH9iRmJm9Q=
-X-Received: by 2002:a17:906:6312:b0:c24:6445:d19 with SMTP id
- a640c23a62f3a-c24926f3cf9mr3439116466b.17.1787674539339; Tue, 25 Aug 2026
- 09:15:39 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787675007; x=1788279807;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1WQ9kthHmMpag/c69Wm9Q+6Otvy5A1GAgbAGrjlGGoE=;
+        b=gpeUPYa9XAT8kWkDwJbRQfjPNT3A6YAFoxyBXeW6EUEeOKyEDKHpBmvobDRoCIccuu
+         SLzLAIEqaepWu0jXrqXFP4IM/YNGSwW9z264JWNWXHoqkhGlZr2DPFCxHfLH7ZBsEr2h
+         xyx5LrM74T2/+GhhpfoAQoZLayC7aluFPxM2aTuurFLZW4Gb30DdufMSgNC3FtFFwZxO
+         l50WiKdw454Xdyc+5vie4CS1Bz8A358sB7EGeUBv0F8ufiqZcGpPZdSAHXgv3OdzqvQB
+         tCzNsj2RQk/OGrFcrJEN0jAcg33GSiXHqYIy7ld9ImDZSdWOPEYnFmlqJKxq+LmJUGAe
+         i2WA==
+X-Forwarded-Encrypted: i=1; AHgh+RqAgiWtXQ3m9N2jjKj9hc0TeK3b1xqpsQ/7INqN/r68H7T32UX0pQFTqZ85pqQHCVBxHmxCC87aQoWf@vger.kernel.org
+X-Gm-Message-State: AFuF++miZOH9/tH0siAeBEg+vjLQ7x1WMyDCDqa5Vi6nIYxy+Ooj1xnC
+	akgIDbEt9WERxgo9Ud+ZFR/zan6+caFBOJlk0GF8VAzxcVkPkFv/IIdv
+X-Gm-Gg: AR+sD103hi3jaiMegdKMnWsdOWIUIbuVWgkSQUsF62eB/a4geZ+YwFsHzaxEhpmldj+
+	K3Ic9rfzyMaU0u2wijAlBRifewaSpHb/789gD5o6bMq+DzNRvM2MpLxMLclyG8n0hL6gefFAL9V
+	XVCBGZBxVO16Pzfmfi9/1nSXobO0qnjBybagl1+/XAzdrDV+XKPAnD3aFTOa0573Xn+vFHvMVca
+	L3/TviMfKtHAvDg15q3WY/qKeaI7ZsJ/Zlu5DPJlAgsEWwQwIXPK8MiPwvZ+4TrutOAkzhpXE54
+	TcbaStsuxkpWnIfxuUQV5N4HQLw7KJEUg2c5uJgJ5ONssjGf+9EykGxsxQF9lh7FEzvbOQo5hfs
+	HRC6cUWrXxo0mQblFHml6HFLXPlreDf5vowBBVb4FoTQT1sIVnIBhtHiFDNw5c7qRyqhSNFO3Yd
+	WisYvUWDFHJbld+/ee3phezyYtMR4F7X1ErIMrBIEEcrSpuqkjGv5vIJy4aSa6fD0WMffxT4+Pi
+	+zWZA==
+X-Received: by 2002:a17:903:b85:b0:2d6:ccc5:a3dd with SMTP id d9443c01a7336-2d6ccc5a4dbmr260612805ad.4.1787675006324;
+        Tue, 25 Aug 2026 09:23:26 -0700 (PDT)
+Received: from inhnjlux1020.ls.ege.ds ([2406:b400:53:dfb:c17a:6cf8:3d2c:cd28])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d704c11ac2sm540925ad.68.2026.08.25.09.23.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 25 Aug 2026 09:23:24 -0700 (PDT)
+From: Udaya Kiran Challa <challauday369@gmail.com>
+To: tsbogend@alpha.franken.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: skhan@linuxfoundation.org,
+	me@brighamcampbell.com,
+	linux-spi@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Udaya Kiran Challa <challauday369@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v5] spi: dt-bindings: microchip,pic32mzda-spi: Convert to DT schema
+Date: Tue, 25 Aug 2026 21:52:57 +0530
+Message-Id: <20260825162257.77042-1-challauday369@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260825-blackrock-audio-v2-0-659cc4724d57@oldschoolsolutions.biz>
- <20260825-blackrock-audio-v2-1-659cc4724d57@oldschoolsolutions.biz>
-In-Reply-To: <20260825-blackrock-audio-v2-1-659cc4724d57@oldschoolsolutions.biz>
-From: =?UTF-8?B?SsOpcsO0bWUgZGUgQnJldGFnbmU=?= <jerome.debretagne@gmail.com>
-Date: Tue, 25 Aug 2026 18:15:03 +0200
-X-Gm-Features: AcwNN1Xh1B5d1Dzdu5ByG6tQN_JbDhHIx5uu93y7vcm7QY05B1IJMZkB-j3ldSU
-Message-ID: <CA+kEDGFwSyebOLJEsg4fyQ2MjVuyPzJxq8j1acbmGeiOWw0RJw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] arm64: dts: qcom: sc8280xp-microsoft-blackrock:
- Replace old sound nodes, enable DisplayPort audio
-To: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Le mar. 25 ao=C3=BBt 2026 =C3=A0 16:07, Jens Glathe via B4 Relay
-<devnull+jens.glathe.oldschoolsolutions.biz@kernel.org> a =C3=A9crit :
->
-> From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
->
-> The Windows Dev Kit 2023 has no built-in speakers, microphones or
-> headphone jack. Likewise the device with the same mainboard, Surface
-> Pro 9 5G [1].
+Convert Microchip PIC32 SPI controller devicetree binding
+from legacy text format to DT schema.
 
-Potential nitpick, I don't know : the Surface Pro 9 5G has built-in
-speakers and microphones but no headphone jack, so I find the
-"Likewise ..." sentence confusing or misleading somehow.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
+---
+Changelog:
+Changes since v4:
+- Update the binding maintainer to Thomas Bogendoerfer
 
-This has no impact on the actual code changes though.
+Link to v4: https://lore.kernel.org/all/20260814083221.34606-1-challauday369@gmail.com/
 
-> The previous WCD938x / WSA / VA sound card definition
-> was therefore non-functional.
->
-> Replace the unused codec nodes, SoundWire controllers, LPASS macros
-> and related pinctrl with DisplayPort DAI links (DP0/DP1/DP2) so that
-> audio is available over the DP connectors. Add the required
-> sound-name-prefix properties and update the card model name to the
-> conventional SC8280XP-MICROSOFT-BLACKROCK form.
->
-> [1]: https://support.microsoft.com/en-us/surface/models/surface-pro-9-fea=
-tures-and-specs
->
-> Fixes: 16a7fed11714 ("arm64: dts: qcom: sc8280xp-blackrock: dt definition=
- for WDK2023")
-> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+Changes since v3:
+- Change maintainer to SPI subsystem maintainer
 
-Cheers,
-J=C3=A9r=C3=B4me
+Link to v3: https://lore.kernel.org/all/20260617101009.148851-1-challauday369@gmail.com/
+
+Changes since v2:
+- Add cs-gpios to required property
+
+Link to v2: https://lore.kernel.org/all/20260615115311.515404-1-challauday369@gmail.com/
+
+Changes since v1:
+- Rename schema file to microchip,pic32mzda-spi.yaml
+- Update subject prefix to match SPI DT binding conventions
+
+Link to v1: https://lore.kernel.org/all/20260614175005.435826-1-challauday369@gmail.com/
+---
+ .../bindings/spi/microchip,pic32mzda-spi.yaml | 82 +++++++++++++++++++
+ .../bindings/spi/microchip,spi-pic32.txt      | 34 --------
+ 2 files changed, 82 insertions(+), 34 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/spi/microchip,pic32mzda-spi.yaml
+ delete mode 100644 Documentation/devicetree/bindings/spi/microchip,spi-pic32.txt
+
+diff --git a/Documentation/devicetree/bindings/spi/microchip,pic32mzda-spi.yaml b/Documentation/devicetree/bindings/spi/microchip,pic32mzda-spi.yaml
+new file mode 100644
+index 000000000000..4669b521fa1f
+--- /dev/null
++++ b/Documentation/devicetree/bindings/spi/microchip,pic32mzda-spi.yaml
+@@ -0,0 +1,82 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/spi/microchip,pic32mzda-spi.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Microchip PIC32MZDA SPI Controller
++
++maintainers:
++  - Thomas Bogendoerfer <tsbogend@alpha.franken.de>
++
++allOf:
++  - $ref: spi-controller.yaml#
++
++properties:
++  compatible:
++    const: microchip,pic32mzda-spi
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    items:
++      - description: Fault interrupt
++      - description: Receive interrupt
++      - description: Transmit interrupt
++
++  interrupt-names:
++    items:
++      - const: fault
++      - const: rx
++      - const: tx
++
++  clocks:
++    maxItems: 1
++
++  clock-names:
++    items:
++      - const: mck0
++
++  cs-gpios:
++    maxItems: 1
++
++  dmas:
++    items:
++      - description: RX DMA channel
++      - description: TX DMA channel
++
++  dma-names:
++    items:
++      - const: spi-rx
++      - const: spi-tx
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - interrupt-names
++  - clocks
++  - clock-names
++  - cs-gpios
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/gpio/gpio.h>
++
++    spi@1f821000 {
++        compatible = "microchip,pic32mzda-spi";
++        reg = <0x1f821000 0x200>;
++        interrupts = <109 IRQ_TYPE_LEVEL_HIGH>,
++                     <110 IRQ_TYPE_LEVEL_HIGH>,
++                     <111 IRQ_TYPE_LEVEL_HIGH>;
++        interrupt-names = "fault", "rx", "tx";
++        clocks = <&PBCLK2>;
++        clock-names = "mck0";
++        cs-gpios = <&gpio3 4 GPIO_ACTIVE_LOW>;
++        dmas = <&dma 134>, <&dma 135>;
++        dma-names = "spi-rx", "spi-tx";
++    };
+diff --git a/Documentation/devicetree/bindings/spi/microchip,spi-pic32.txt b/Documentation/devicetree/bindings/spi/microchip,spi-pic32.txt
+deleted file mode 100644
+index 79de379f4dc0..000000000000
+--- a/Documentation/devicetree/bindings/spi/microchip,spi-pic32.txt
++++ /dev/null
+@@ -1,34 +0,0 @@
+-Microchip PIC32 SPI Master controller
+-
+-Required properties:
+-- compatible: Should be "microchip,pic32mzda-spi".
+-- reg: Address and length of register space for the device.
+-- interrupts: Should contain all three spi interrupts in sequence
+-              of <fault-irq>, <receive-irq>, <transmit-irq>.
+-- interrupt-names: Should be "fault", "rx", "tx" in order.
+-- clocks: Phandle of the clock generating SPI clock on the bus.
+-- clock-names: Should be "mck0".
+-- cs-gpios: Specifies the gpio pins to be used for chipselects.
+-            See: Documentation/devicetree/bindings/spi/spi-bus.txt
+-
+-Optional properties:
+-- dmas: Two or more DMA channel specifiers following the convention outlined
+-        in Documentation/devicetree/bindings/dma/dma.txt
+-- dma-names: Names for the dma channels. There must be at least one channel
+-             named "spi-tx" for transmit and named "spi-rx" for receive.
+-
+-Example:
+-
+-spi1: spi@1f821000 {
+-        compatible = "microchip,pic32mzda-spi";
+-        reg = <0x1f821000 0x200>;
+-        interrupts = <109 IRQ_TYPE_LEVEL_HIGH>,
+-                     <110 IRQ_TYPE_LEVEL_HIGH>,
+-                     <111 IRQ_TYPE_LEVEL_HIGH>;
+-        interrupt-names = "fault", "rx", "tx";
+-        clocks = <&PBCLK2>;
+-        clock-names = "mck0";
+-        cs-gpios = <&gpio3 4 GPIO_ACTIVE_LOW>;
+-        dmas = <&dma 134>, <&dma 135>;
+-        dma-names = "spi-rx", "spi-tx";
+-};
+-- 
+2.34.1
+
