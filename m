@@ -1,115 +1,112 @@
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16DDF386C3B
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 13:41:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 888A2481255;
+	Tue, 25 Aug 2026 13:43:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787665290; cv=none; b=ZHxA7qMO1Qd+FN14eG0iEYeY9S+U6fMpJlf0YmSZ/gL7y5k7oaLvkhiK3lPVY8dR9EDZzphEaRicIdfPkzjOvhjrgbjQ1aq2G5vn57RCCnQWr/6E8MmyA1OIWVGbuRvJwsw8Kb6zftdE3oYguyFlOl4tboP2HSto15QpA4oWdkE=
+	t=1787665383; cv=none; b=O/hOKrMhgJyO78mxKinjlopWcI+2NaXZ+g4aEXoPbh2ueASCty+HEq4F79lInF6+1tWaEo36vsM2n7Zt5oZoexy2eQJjB9ciirTwk/qeqOzgBsc7EJZxSJbGmNOFJijOZHZfv1AbDXkySH5dLn1Fo6eIclGyUr78+N+DdyVWACo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787665290; c=relaxed/simple;
-	bh=iCNE85ieT38V40SytsBgY6taKmcQnUJj4OoTrJALY9c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZapPkq7LO7PrXdpZPPmkrmJ6iApad8yl/ThD0TUvrgXqWBiKjlKIDVyx7DMHr2b5Sd53DC4sVH+6k2OvS1wqH1xT/YBtvJF+N4JlxTZssKTMOSVInBqfh14okF/bTd766kQ+nkehmevTM/pc7ZtPoRy//owJCvDmtfNA9sCOpEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=DKzlQDH1; arc=none smtp.client-ip=209.85.210.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
+	s=arc-20240116; t=1787665383; c=relaxed/simple;
+	bh=+ld5p03DFLdf0vRq/18GLxG2EtZHIfWbO5K7Op7bfOA=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=MtC/wEF7Gfa3pdHH7iQFOUYTLQ37juV8Kb6E8b2pXs8xujDJQ8En0IwUrlqqr/2J4ifRJdbaNT1mqzmNb/e5XwJEGKHMggu7gdljTgtd+o81qPXgMGWJWsAY9/EBUOL+RZTx57lYEQY1o5f+4252imSMbJZ7uq0qs68GPDc98Uw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oLHwF9Q/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="DKzlQDH1"
-Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-7e9ef94c0e2so3704723a34.3
-        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 06:41:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=konsulko.com; s=google; t=1787665288; x=1788270088; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RdLU1QE6jZBJNVqT4VGlcr4l8tJq40LqvRHk8VAlZOg=;
-        b=DKzlQDH1MgZXg5cfKcUZIeB99C0zfogvgEypNGTlMyBIb1VDDQMPAQpE61K69xlxe+
-         Om9y0MetdDyZhmbJ4PVPoW8CU0hHysJT9HdAkdUBSziEFP792PgT84MbjSGjArf4Jtk2
-         9gGvRahZgT/ANztm10764f/wSduMfXbDdOEjk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787665288; x=1788270088;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RdLU1QE6jZBJNVqT4VGlcr4l8tJq40LqvRHk8VAlZOg=;
-        b=fpD2bukohovM3bBpEEoOI0mCKTeSEanQHCVgGz8bY7uH1ZJO2xlpryEi0uJJvF+/TA
-         M5ctlSy7qO90NigRTdEr67UC76Ycvgrj+7Jetz3G4CK4MqkW+IKQ2Vwp3S0CRPyahV0L
-         wvOVUAnubKkbNF2hRGZVOTVWKKn7DMWoXK32Wh81EH75tp3WGA61UjxpWcvibIi3CnFt
-         iakt7VMIyxnUbTQZjeGJOnftPnavXmlx8wk0845mp3xZtHYWiqpozTA6/I7rZ4Tnkmb8
-         HqjIV72kbkM+Yq/Ery2PFYYY/OkbydU0OT8C8n7/DtwsEX1vMyN7SzU3/yIUH/yEmWPA
-         Q/Ww==
-X-Gm-Message-State: AFuF++mtKu3ijkSJ+9lHFPbJAH0gmB06x6p4XvxarJxn68cohTMr7Ciq
-	eNnU+UaHqZj28tHO6UriiDbgyvl84wWnzFHWBhZjVQTz2n7d5pl9yUGSx8Q5Xgax9Md+6ftOfb3
-	P6ngy2bxNq4LM
-X-Gm-Gg: AR+sD134LwOM3abbRoCHf5GGfhHtRXvrv6O0+qUwvmWRSjtURfqX2GinvpwEVly+XKp
-	0kfqDxHwTHU/hpzRCvLHa92kYCdAys2sU5w5OD/7AHftuXdCytE+FfTU2rJWgQaHnvi4McoIWjz
-	K0yZWp2Ggw7D+AACulmBxqf0tYfg8MrVVuq7k8ind4YarkfNL3jJCtJgkCyu7ipPRFT/unu/r+W
-	b9qCpSLSm21TK8wpje9ZRygg2BaAGZk0DISZ1aqbLT6A0aAfyWcRyx+1+psVzp3Hq3EjrpcTCLt
-	VphQ2HXkE3Bglf6bpCZu94vG2bJPOoyUAA4QjQoXgHFroF03ShlwwOvBZQ0jHhOPh54OVHHTtD8
-	FJXvbcF3NpksHVnGZ2ItmLYMhijjnKGPwZ9QTY7j5VqQ2DP3JujeRIrsHRQPhusjJ2XCELJtExg
-	Gt2Pb0bwuP2E0ycrNQxo/e5D/U5KpBwiuSkqOfvYutrz4Qm4FwvWTy5Hvi2j1lVXUhaMLhC+sEO
-	8dOnzCfGRguOLNX4TK77dZX/th+i0v6PF7IY7DEhmId/tAi8jpNIKHITJGRrSYyKLyc1FCxjlqa
-	WvlPGDozzw==
-X-Received: by 2002:a05:6830:6515:b0:7e9:e709:44f6 with SMTP id 46e09a7af769-7f4afa2cf94mr6453979a34.12.1787665287764;
-        Tue, 25 Aug 2026 06:41:27 -0700 (PDT)
-Received: from bill-the-cat (fixed-189-203-100-56.totalplay.net. [189.203.100.56])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f48f903f44sm6889965a34.0.2026.08.25.06.41.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 06:41:27 -0700 (PDT)
-Date: Tue, 25 Aug 2026 07:41:25 -0600
-From: Tom Rini <trini@konsulko.com>
-To: Ian Campbell <ijc@hellion.org.uk>
-Cc: devicetree@vger.kernel.org
-Subject: Re: devicetree-rebasing history incorrect from v7.2-rc1-dts onwards
-Message-ID: <20260825134125.GQ523975@bill-the-cat>
-References: <fe88ed4f288c261373d2ad7184f470a8ea19ec42.camel@hellion.org.uk>
- <c0ef5f140cb5e4e1b953b42c3518a5a432c67a93.camel@hellion.org.uk>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oLHwF9Q/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF8CB1F00A3A;
+	Tue, 25 Aug 2026 13:42:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787665382;
+	bh=+ld5p03DFLdf0vRq/18GLxG2EtZHIfWbO5K7Op7bfOA=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=oLHwF9Q/qC0zeYEdWdG4tWVYA5TC63O/8OyYRFCId03O04nZYgLNzQ7O7OnxCmcm1
+	 SXqDBKskM+QlGqRnaTGycJZH3CFgbJo/lS9xLhhyWpv+RW2V7Sm998NjwOr97KUofk
+	 J9GBRbkdRtG/bFq4d0zwSNgpj92egKLMbd687d0n6m+M0+uCLHQasr0zTJ8dq+WhNP
+	 gIPADdugWRWn3Qoo3vKzLW3sB2gPTuS48UkcniiCFmpUHcpR5g8tAS7twDEzyeWP6w
+	 pPkDIfNVpb1nt1YqigVALh+U9xr6RXIfE4sz3sNbAB58ezVeWmIjtSKjp4UxzE/Qdg
+	 gdPDjVent8VAA==
+Message-ID: <c29c325f-d6ee-4f07-96c5-9daa258d2da1@kernel.org>
+Date: Tue, 25 Aug 2026 15:42:55 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c0ef5f140cb5e4e1b953b42c3518a5a432c67a93.camel@hellion.org.uk>
-X-Clacks-Overhead: GNU Terry Pratchett
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/2] arm64: dts: qcom: qcs6490-rb3gen2: add audio CMA
+ memory region for AudioReach
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Karthik S <karthik.s@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260825133333.376591-1-karthik.s@oss.qualcomm.com>
+ <20260825133333.376591-2-karthik.s@oss.qualcomm.com>
+ <62fda76e-771a-4242-92a8-36374345883d@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <62fda76e-771a-4242-92a8-36374345883d@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, Aug 23, 2026 at 11:41:44AM +0100, Ian Campbell wrote:
-> On Sat, 2026-08-22 at 10:35 +0100, Ian Campbell wrote:
-> > I am looking into what happened, once I've figured it out and fixed it
-> > I will force push v7.2-rc*-dts and v7.2-dts tags as well as master.
-> 
-> The issue actually occurred between v7.1-rc7 and v7.1 where the rewrite
-> state tracking file got corrupted (loosing the mappings for every
-> upstream commit sha starting with b!). As it happens there were no DTS
-> commits starting b in that window, so v7.1-dts remains unchanged, only
-> v7.2-rc1-dts onwards had problems.
-> 
-> I've just pushed the updated tags + master.
-> 
-> Updated refs are:
-> v7.2-rc1-dts: 09832bf2b0b2e0c68573cba8b0fb7a8e44e1f549 -> 607f3ab2da8d12e1f768681837d0148e1434f4f6
-> v7.2-rc2-dts: 9e215244e26884918782c9f04edbeedc20423900 -> 15747534cdf8337d5fee021aa4460349289163df
-> v7.2-rc3-dts: 86f4635ad4ec0d3f357dc343abe987cac59a0beb -> 6df412888270fd1e722415f96f9521030ec8a54d
-> v7.2-rc4-dts: f2fb2d33ea008de172c130de0b42e2a0d7b37239 -> 1fb80695c541c7e4efd067676f14b43af568f33d
-> v7.2-rc5-dts: 87ccaa2dc91309bb5358d39873f252cea79561ce -> adc5edc9140c341a7c3f46b3230e4ced158cc42b
-> v7.2-rc6-dts: 7653fa238d797bcfcda9fdf57ab9192fb8f93341 -> 584cbdf196048458bfd6c0b4d997d1aa4020dc08
-> v7.2-rc7-dts: d8f117c8aee92c4878efd4d17e47d3a1e51e6b89 -> e5f14f4c0501a6d4013513ae2f76f6fa8ae26976
->     v7.2-dts: f4bde8516d3849987e02e62411e85a6c10c8f239 -> 41930a1eec9ea89c684a8ed95bf8e147f636f10d
->       master: edd49c1cfb49fd14165e83e33360c789f23ce39e -> 1826bba6fb1c8c0b6d845f8308590dcfd1f7f859
-> 
-> v7.3-rc1-dts will be pushed as normal.
-> 
-> I've added better error handling for failing to save state after a
-> rewrite iteration as well as a repo size check before pushing.
-> 
-> Thanks to Tom Rini for bringing this problem to my attention.
+On 25/08/2026 15:34, Krzysztof Kozlowski wrote:
+> On 25/08/2026 15:33, Karthik S wrote:
+>> Add a dynamic CMA pool for the AudioReach audio stack on qcs6490-rb3gen2.
+>> Use alloc-ranges to let the kernel pick a free address rather than a fixed
+>> reg, which avoided EFI-reserved memory at 0x9cc00000. Add 4 MiB alignment
+>> to satisfy CMA_MIN_ALIGNMENT_BYTES. Wire memory-region into q6apmdai so
+>> the q6apm-audio-mem-cma child driver can attach the pool.
+>>
+>> Based on the equivalent implementation for lemans (SA8295P).
 
-And I can confirm things are looking good on this end again as well,
-thanks for digging!
+And the "equivalent implementation for lemans" received comments which
+you missed and re-implemented the same issues.
 
--- 
-Tom
+Best regards,
+Krzysztof
