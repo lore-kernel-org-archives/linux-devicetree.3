@@ -1,127 +1,153 @@
-Received: from mail-ua1-f45.google.com (mail-ua1-f45.google.com [209.85.222.45])
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328CF4028C4
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 12:40:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 213513E1D12
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 12:43:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787661615; cv=none; b=rtdpMbSwelLnv4IJlz/hf6HLiiZ1seKfbMDho/jmIR2rwQoLhS4lACuiw08RrMMJf9Dic58k8NNpdBnWokMMMaRMzJi5OO3ZEnwdzPBq4j/lw8WEWvcLlyZ+N4nk2INOA5ScodR5bXtftKrVU6HYAmCg4+/rypUhRjAHFW5+4rc=
+	t=1787661796; cv=none; b=XiE0wN9n56cFDIMGHMZBF66O4/y2HL8yFceE4FuRR0gtzCbEq79t2ZdtC2wlmN10Vpg3gfXqYZtjVuuC5m+mUUHnTHLopDn4FI9QCVjHV48voFJr+ZkV2+t98s0hLH6Mnl3wzQA+gF8ycImNoWw0n+nz7LkN49Ui8SzXE4n6Kts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787661615; c=relaxed/simple;
-	bh=QCWu+1nCsFU3Ed99yMQ8CrBj5gAQSQzojcYoisfIgnw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SMu/pasQHh1LBIuh7qFWPkCTHsZaFFS6k4SGWDDXRdEKUuD1T4OKmDAXVGg/FBBK1M9FQW2LlOBhI40UvB+t3dSfCK4n8SvQzhloJErdoPrGkmKgAwPeOzaKpMl7focWM/s+JLJ2YqROvUMSNDmNuN07PL8vuBfPCvM5WwUhVn4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f45.google.com with SMTP id a1e0cc1a2514c-97622cc1f40so2618295241.3
-        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 05:40:05 -0700 (PDT)
+	s=arc-20240116; t=1787661796; c=relaxed/simple;
+	bh=qKVDN6780BM7FpRbqGfcw4sKV8utIJkRbQ4/Bz1H7P4=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=p98PktM3ix3uuM/gfuwqTkE6w4hGNwSTr9W9IPK7Fsm2GQjKLXxpTiIcYkdHcmOkgchzpItDehY8JdNg/h3LGwmQxUXxT86tAUOJ99zcb8gyx3bIbDuUDBZKBnDmD6SxghUX1J5KUqoIDFpTpw3Bakio8kFmP9S2uOO8bv++Zss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=SqnJZgC1; arc=none smtp.client-ip=209.85.208.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="SqnJZgC1"
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-69f7fa1c548so8590343a12.2
+        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 05:43:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1787661792; x=1788266592; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=TFI3yyLn9l19QnGbVm2do/qnURFM3qOYJajHXsZKIRI=;
+        b=SqnJZgC147cZbd0pL1z7QmhHQI7+KZaTx0W2FH8XBE6xxM/6ufA0Gug0sJJCKa4HoU
+         OBo9AL60XoKUISpziK7GrM8Hv8n7KTqzbFBLjNUGDXB1bnL78X1kYMU3cgPtS8bAmm4i
+         0dujfNZ5vf1UuaimYSEZA3LvAyyJWWAsrAFG7hA9kcol/TiFBlDcXD/sVORNonFekRe0
+         euHfKgs1xslAZ0VszYgcudSDBVi6f/GHoJfMGekk4YjDxcpusIwTwQTu2wH840GB/Y15
+         ZMfi/qbFTomhl4gQLCCe3DzkRUAqCC9UoiPRmKxlFnveRy0ZBYVbKO543Q7zQXmL+TFy
+         BbBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787661602; x=1788266402;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20251104; t=1787661792; x=1788266592;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=lItA1IXA9IE0IEBaaAVaQ9GLMnrPHs08yepsXMWLXUM=;
-        b=e7jqwNqwAZhfu+4XhbhlyxK5Omkh95fWtQbgEGtwV2dDy74xI3hNsIk+ke+VcW2lOQ
-         GMqm6DuwOcKWfDRQWIJGFQY59vU0wJE93LnYFsfRXagjtdMNul4P5zsxqMrHv41+kVPL
-         mmUg1j/aU5hcg+E7FOi1tGq8wM/+CqgCOt6qkDQUOpy6qpKbxRl4knzPytysJYf4ScNG
-         U+gAP8unSQdcvLsPwUevThbDV17uylReehc2HJZToD2uDrxVY1HvuiE2gMGCEAPI47f+
-         MKqAkbN0Os0NTXUvnmrUzzkNSuX5/wYVhfvBSp7RqbYCEjipxQhnlwJBgjTKj92AZstp
-         TJQg==
-X-Forwarded-Encrypted: i=1; AHgh+RrePtuvDrShWyCuTWKBvjokLtWk/Kdppwk4hbBvxAqMkrbkCeZI0HyNJ0+o6oO+7LqiD0B5Uir2v+lL@vger.kernel.org
-X-Gm-Message-State: AFuF++kLlpis8B9txlJjP4I43COrlTX1R7VPeoxk+Sgdk/Pk4zzAs0Rn
-	gHXA6MqiBx5grNq+oVjOJ26qJJPhKpIpWn3wO3JVJqtGgB6IKOXNINJAd9myDKDNanY=
-X-Gm-Gg: AR+sD13UjXpxof0FLjdw+YFTNn0JoKrqtqfx2QE4N40z5ZinoDXJcH7JB8RRY746eMq
-	DcI3mLCE1V+JUiWvb6fJI7AkvDfMpMfal/kC1Os62iloMxcr/n8PNZKMlKK5yZyrV1iwkbsdpfp
-	iS1kavJU5s6To/jY3VX57UrpxSO+217Llg5V/hBcTBiSobvM0zFae3/bgy8WzDQbWulCkP9xzKR
-	qTHbw1ny2ujEiWlJ3qJjV8ZiDh4ATAYFV933lJv5K0r2KKZ3E1vdOH/coD1TmE/wMwWVmAdyKdx
-	3FvSD2wlxqOq53fEmyDq5nasRr6djFa0LA5veBHFI2L64G9UGsiK9W+XEqFmue5tZJzzPgYFMdT
-	gqXWj1VML5TJmzRqQmFznOA+E/he+AdA/ox79RH2DbPivQlcnnjruxKYrn7msSEVzSJjEWXVIJO
-	wFctYEYFSRedidtkVDGGIhWE786kNORE9lLSSfQMGpya4pWDaH8w26KnQmKwW4UPpZxDFhZrouP
-	3TTRBuaxr9VCtcfIenHaaVQew==
-X-Received: by 2002:a05:6102:3c9d:b0:77b:b14e:b6c5 with SMTP id ada2fe7eead31-77bb14ec487mr9916647137.9.1787661602028;
-        Tue, 25 Aug 2026 05:40:02 -0700 (PDT)
-Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com. [209.85.217.43])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-97cb3970361sm808178241.5.2026.08.25.05.40.00
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 25 Aug 2026 05:40:01 -0700 (PDT)
-Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-74ab99038afso3120372137.3
-        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 05:40:00 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrHL7giJNdLSlyhV+TecWjuYr+bTjhobiPSx4rkeKicVHQYbutG4dzhPWNdLKvc3ZYx2XUkXmo7yzGK@vger.kernel.org
-X-Received: by 2002:a05:6102:2907:b0:77d:e064:2dc1 with SMTP id
- ada2fe7eead31-77de064341fmr5703801137.0.1787661600596; Tue, 25 Aug 2026
- 05:40:00 -0700 (PDT)
+        bh=TFI3yyLn9l19QnGbVm2do/qnURFM3qOYJajHXsZKIRI=;
+        b=ZNuw45FVuHgI5psXIPTqYm64pTDR0z4YqPNwfK6yK+dh2F2FjpugPypdpqyiEm4Al9
+         ay76UP+ROT9qNUWig9/bYL3bpCQHMyomrzp/qNYhk89ZXNPMoXjcaZb7EoXcweU8IE4M
+         RWUCKV2kCQQUqMIF8rWSN7P9oWtx/iLZ0eM/sRn8uJl0FGw50Zzf6PgVXPXmJquSmUm8
+         C8ffNsnRdrb5xNYT+OwccohCNA/WyvU7KYKVnKJACVBG3NdGD5hRiA7dmagmuIn7Jo2b
+         LkOopltSm0sRgGWlXOGBtwhZKlaEB3yAZ0SQpGV1BQI5zRksVVE5y9GqwnpGqsBSNVtN
+         hWyQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoYco58CrI9y9N2dUJ9Zq8pPbP4c+efP2cUa0Ax5S5UroNvXC2feGJy59cfO8UjeHVfZ2Sb8UP9GWr2@vger.kernel.org
+X-Gm-Message-State: AFuF++n1Hx11NhXkIbmuoPJBK72ALvtq5s0/h4identhq46iA7bivkzC
+	Ow0zMtApE7h7lVXEGEJL29CI1R2wyeXGiRTXfJYb0J6/YrJ19HH5fIR5HmH/Vxqjhm0=
+X-Gm-Gg: AR+sD11R/McU7MHmRr/9xX5U2JtUPWaKersJeP1OzVB/l7xbxTfk875mqSCcIJAj+53
+	Nic2RL50p64zllahJrLHbqP5GSFt57CtL2QqqVuRDSVIP9ypXvRrev0YpwLCqHxrpDoanCZklrS
+	LBJjqXl3bhMq6cwC3Za84lgHchawpy/G+9G9jdmi1B3Ei6+n0VQO+5Ln6qidlW7HA20xtJ79Kgo
+	tYXqudkEYov49Zo3WFHshU728QF0WXGbTMGOmbNvQimbBmluamOTw9hrxQSQt9csYN+hrAUdHAP
+	8wGB6IGG4GwLRVoNFakW7Yd059ZBhsZzWNbgOUpoPMLNWkvxirMPhIv9VH6LmuAW/jb8HNad5sF
+	q1TL7k4vkkckoVlFGfG+Q3OYFnvFHSftdrDkv/e2bBhj4ln5SRY3TQm3EoEN8YQt42FFBvrWmIv
+	8p1QVNXcS+2mZLmwQ0tfwkOn+a7MmyTcM+XQ15m+8hy4/xF6euvN0+ew+A
+X-Received: by 2002:a17:907:1c27:b0:c21:382e:9a38 with SMTP id a640c23a62f3a-c2491c2a110mr2907599166b.2.1787661792297;
+        Tue, 25 Aug 2026 05:43:12 -0700 (PDT)
+Received: from localhost ([2001:4090:a244:80d4:489b:7642:1b32:84d6])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c24966f809bsm1943085966b.41.2026.08.25.05.43.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 25 Aug 2026 05:43:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260819143553.2478984-1-claudiu.beznea+renesas@tuxon.dev> <20260819143553.2478984-2-claudiu.beznea+renesas@tuxon.dev>
-In-Reply-To: <20260819143553.2478984-2-claudiu.beznea+renesas@tuxon.dev>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 25 Aug 2026 14:39:49 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXqsO4Y9g+mLdeq4LZ2sosR7r7hXP0swKtRFap4qU3zfw@mail.gmail.com>
-X-Gm-Features: AcwNN1W430KgO2INmLr-jl8Vwq7Neq8fxPjRN54TH1O2lbbWeDTKDcjU2n1-28M
-Message-ID: <CAMuHMdXqsO4Y9g+mLdeq4LZ2sosR7r7hXP0swKtRFap4qU3zfw@mail.gmail.com>
-Subject: Re: [PATCH v5 1/5] pinctrl: renesas: rzg2l: Generalize the power
- source code
-To: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-Cc: linusw@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, magnus.damm@gmail.com, 
-	prabhakar.mahadev-lad.rj@bp.renesas.com, linux-renesas-soc@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=14a369f1291804ff25a36242752313e74f8647a8095442ea6e38a796f654;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Tue, 25 Aug 2026 14:43:01 +0200
+Message-Id: <DKY17OVPN49B.3U7OKB7NIMLF2@baylibre.com>
+From: "Markus Schneider-Pargmann" <msp@baylibre.com>
+To: "Andrew Davis" <afd@ti.com>, "Markus Schneider-Pargmann (TI)"
+ <msp@baylibre.com>, "Nishanth Menon" <nm@ti.com>, "Vignesh Raghavendra"
+ <vigneshr@ti.com>, "Tero Kristo" <kristo@kernel.org>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Nathan Chancellor" <nathan@kernel.org>,
+ "Nick Desaulniers" <nick.desaulniers+lkml@gmail.com>, "Bill Wendling"
+ <morbo@google.com>, "Justin Stitt" <justinstitt@google.com>, "Judith
+ Mendez" <jm@ti.com>, "Daniel Schultz" <d.schultz@phytec.de>, "Siddharth
+ Vadapalli" <s-vadapalli@ti.com>, "Paresh Bhagat" <p-bhagat@ti.com>, "Bryan
+ Brattlof" <bb@ti.com>, "Jai Luthra" <jai.luthra@ideasonboard.com>, "Devarsh
+ Thakkar" <devarsht@ti.com>, "Beleswar Padhi" <b-padhi@ti.com>, "Francesco
+ Dolcini" <francesco.dolcini@toradex.com>, "Stefano Radaelli"
+ <stefano.radaelli21@gmail.com>
+Cc: "Vishal Mahaveer" <vishalm@ti.com>, "Kevin Hilman"
+ <khilman@baylibre.com>, "Sebin Francis" <sebin.francis@ti.com>, "Kendall
+ Willis" <k-willis@ti.com>, "Akashdeep Kaur" <a-kaur@ti.com>,
+ <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <llvm@lists.linux.dev>, "Hari Nagalla"
+ <hnagalla@ti.com>
+Subject: Re: [PATCH v7 07/11] arm64: dts: ti: k3-am62a-ti-ipc-firmware: Move
+ wkup reserved memory
+X-Mailer: aerc 0.21.0-146-gb5c16ebe1835
+References: <20260701-topic-am62a-ioddr-dt-v6-19-v7-0-e9db8b16821a@baylibre.com> <20260701-topic-am62a-ioddr-dt-v6-19-v7-7-e9db8b16821a@baylibre.com> <f9a23a59-4346-4408-92c6-11b9162f0efa@ti.com>
+In-Reply-To: <f9a23a59-4346-4408-92c6-11b9162f0efa@ti.com>
 
-Hi Claudiu,
+--14a369f1291804ff25a36242752313e74f8647a8095442ea6e38a796f654
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-On Wed, 19 Aug 2026 at 16:36, Claudiu Beznea <claudiu.beznea@tuxon.dev> wrote:
-> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
->
-> The current functions used to get/set the pin power source check the
-> OTHER_POC register, which is specific to the RZ/G3L SoC only. To allow the
-> code to be extended for other power source functionalities (e.g. I3C on
-> RZ/G3S), generalize the functions used to get/set the pin power source.
->
-> For this, introduce the struct rzg2l_register_masks data structure whose
-> purpose is to store SoC specific register bit masks. The members of this
-> structure are then used in rzg2l_caps_to_pwr_reg() to retrieve the bitmask
-> corresponding to a SoC specific power source capability.
->
-> The conversion between HW specific power source values and SW specific
-> power source values is now handled through rzg2l_pwr_reg_val_to_ps() and
-> rzg2l_ps_to_pwr_reg_val().
->
-> Finally, to keep the code generic, the register update in
-> rzg2l_set_power_source() was changed to a read-modify-write approach to
-> cover all cases.
->
-> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-> ---
->
-> Changes in v5:
-> - in function rzg2l_ps_to_pwr_reg_val() return power source register
->   value or negative error; due to this, in rzg2l_set_power_source()
->   dropped the val local variable and use ret instead; due to this,
->   to be able to use ret on register setup, moved the rzg2l_ps_to_pwr_reg_val()
->   call after rzg2l_caps_to_pwr_reg()
-> - dropped the tags
+Hi Andrew,
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+On Thu Jul 9, 2026 at 9:33 PM CEST, Andrew Davis wrote:
+> On 7/1/26 7:39 AM, Markus Schneider-Pargmann (TI) wrote:
+>> Move the reserved memory regions used for wkup_r5fss0_core0 to the
+>> k3-am62a-ti-ipc-firmware.dtsi. These are all the same for the other
+>> boards as well, so we can combine them here similar to what is already
+>> done for the mcu_r5fss0_core0 memory regions.
+>
+> The reason we left this region here in the base DTSI is this region
+> is for the DM firmware and is required for the SoC to function.
+> The other firmware regions are all optional.
 
-This does not apply to renesas-pinctrl-for-v7.4, so please rebase.
+I left this in the base dts before and Nishanth pointed out that it
+should be in the ipc-firmware.dtsi so it only needs to be changed in one
+place:
+
+  That was the entire purpose of splitting ipc-firmware.dtsi out -
+  if the default firmware carveouts have changed, do the change in
+  ipc-firmware.dtsi. That way some other firmware people will have could
+  potentially have their own dtsi files and handle things appropriately
+  there, even if they are using the same evm OR if they use the exact
+  ipc-firmware on different boards, that will appropriately introduce
+  the change there as well. BUT, do check first.
+
+https://lore.kernel.org/r/20260507155710.5zch4ghhzrj7hnlh@immovably
+
+Maybe I am misunderstanding what you are suggesting. Also note that the
+memory-region list in wkup_r5fss0_core0 which references the memory
+regions defined in the base dts were always in the ipc-firmware.dtsi.
+
+Could you please help me understand how this is modeled so I can update
+the patches appropriately?
+
 Thanks!
 
-Gr{oetje,eeting}s,
+Best
+Markus
 
-                        Geert
+--14a369f1291804ff25a36242752313e74f8647a8095442ea6e38a796f654
+Content-Type: application/pgp-signature; name="signature.asc"
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+-----BEGIN PGP SIGNATURE-----
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+iKMEABYKAEsWIQSJYVVm/x+5xmOiprOFwVZpkBVKUwUCao2N1RsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDIRHG1zcEBiYXlsaWJyZS5jb20ACgkQhcFWaZAVSlMY
+0wD+MW1P+fXLHbnT0Q5q0xRZNdlX5mzZrZjflYaQeXlZQVkBALnL4EjrbB40bxbu
+e80zmZ+OmW/bF+SzGKpJy8SoyqYK
+=pVaV
+-----END PGP SIGNATURE-----
+
+--14a369f1291804ff25a36242752313e74f8647a8095442ea6e38a796f654--
