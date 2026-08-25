@@ -1,251 +1,107 @@
-Received: from mail-qv2-f2.google.com (mail-qv2-f2.google.com [74.125.230.130])
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBAD5430CD9
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 12:30:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 865C9435EF3
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 12:30:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787661047; cv=none; b=t9U0KjgVZf+DNa7FsyvG2MzpCQxM6v9AVqGb8KsSP7iaSJbObr6yO0o3IKUxaOR2Vqrv1VdnVGNkQGp7lSkxf8GScWZCVNsRlrFDBGQKMO9Ykla+LrbezZFfbCuzc84sxlOOeuSM6DInZh+XMhdcFguZftIbc+8FIqCnLYXMv2I=
+	t=1787661058; cv=none; b=KP9jwkI9LUQfzpM9TTGseNAMnObEIAwIczsdRKrEIaW/WloK1aLlGljxEOHuJGsscTs24x4HfFcSr5hUMFVD13fG11ydGJxdCPECWlxenycnpQBrICZFj9o8ygAEPhlffqSs/Wm1TpD0rxwYpZc+toJwc4UwlnpaxJWOCVTx7J0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787661047; c=relaxed/simple;
-	bh=1UaB/C71vBaf2CdWhu246BI1ms6R5l9BWXZ1AMi5kK8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=UeUSdiiYsNzB7StL/dE1jiyrrV8zAjf/UwjNXe4kpZXDtbc6ykRCkeAkLOLqLjvGj4TOBPOAOAw/kmJnjfpXq4pxK2jRKHKdB1xsJImRJv45ADwC5/34Ki3MoJA+ZHEl/nFKtMLwZYjyukKXNF9ZYC2eWS3d47nsD6hTjJZDNwk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=bBTAw1GI; arc=none smtp.client-ip=74.125.230.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="bBTAw1GI"
-Received: by mail-qv2-f2.google.com with SMTP id 6a1803df08f44-90c8bdf100dso9127626d6.1
-        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 05:30:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1787661040; x=1788265840; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tePxgbUu8DYYRL1mHGa0nQWcmT0XGn3PbE8YrkUps7M=;
-        b=bBTAw1GIpWIHCzNCp1rBLd/IslfiDuvOGOlQsqfXkNBomJ41lHPdl9qcbuHLk/QNCJ
-         Zo4AZMjzwK7kEMNWZ4hQcm2iPYq78Mojqm8+MtN9XhlhAfGPfWr8ch3fN9ZL2AGNbjd3
-         6spAcMSoxa8W4RxKrwBSktl0Zf/8+ITVpaW3wpsasbpil3iE7dFFxx1jYi4ootEQyr5N
-         8Y+KPRrC66Sloa4u+t3uH5jyWPZOmjHXlXGXRWCprV6C0YR0WiUxGix7FWKgGfuU5tFH
-         o/9KErfy2I3nY7oFjfVr7mEdjo8/PM20JE2D5RqRXJszwWAu099eEwsW6uCAgMDpiIfY
-         T7DQ==
+	s=arc-20240116; t=1787661058; c=relaxed/simple;
+	bh=XVZs/xqSmR+34+BrwmpxC0cd+dGU1Zxb/J9zlN0cTU8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ksIQVeQYylk98YCC/H2Y2gOGMb5eayuCNDwZeFyXl9xe522/JZHPQPRgOgxg+wxo/mrXpJ3ktMlU0g4z3SEmhFbyamT7gfbpml123Ixherf5LdIlxex93qKGNGgVDaoVQyJSZi5zgYHi+P8zJLhDf+MhA4uTzX5svHEjlKWe0cY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-754ac74c495so1422739137.0
+        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 05:30:53 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787661040; x=1788265840;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tePxgbUu8DYYRL1mHGa0nQWcmT0XGn3PbE8YrkUps7M=;
-        b=I97/gMM3Ng70WJOqwF9bsj8nHIN+JaDAqmrQNmTX0yMaj2NxPUHq4X7adpNq4+4ZdM
-         baMekqfTqSQ0EZvo1B7w1DLWlEXHccuqcc8cA1IzBqoYhP/PoA+xNce0ZdcVYMs3ETyn
-         VHUiSmc0U3XIrpBq+MAARtpM5XlfzjY8AaHrP8jzf/MNUbK2rhZpumm8Cdz8hQph/blA
-         qAyl620rO8G0Cr0k7Qh/xBpqVGtYMEC7BmJKYEDFh1TXDjSaRHPvhbSMJ+tAm03Mk4TQ
-         zTnuMh3KSCNTfeZLzHIGlT/cpFlmnrpoRJ8A4C+IIIZSTw77Gm8ySDFXeMG9fnMSWxlp
-         1ZPg==
-X-Forwarded-Encrypted: i=1; AHgh+RqvN3PcUlyPuwf5lu58ZpJR0R+rSazSuacfv3JuXUWz87hmhw2LxsLWVL7accc9O6Z8WSWS40ycohB0@vger.kernel.org
-X-Gm-Message-State: AFuF++nv0xkXeMxGFgQhy/r/kV4mpD0mLA7/B4KdUqKb11L8OOaYCmUQ
-	8hs6mwahAT15wvuf471msJV+7kBdLIBPVQP/1Jq5nGy1K+W8H83z8M9o8ha1SbBkaZY=
-X-Gm-Gg: AR+sD10twoT8ughNXuk+LymIo1FDq7hamj1YuZV5wu5e2mv/gpLQFPaARvBVndP43Zb
-	ookoX1kaqGyyj1uLJVp67/K9dfYIpozww0jwnW8GgPLFKkmHMKTHYgmBNornpzM4AP2hiE+FNI9
-	FTnMITYiUoFNyAEL9kvqZQ/qce9oBsykbLabeq5b/z+TaHdFDAcohPeT5+iewmGHI5cPtxLXjnn
-	lb2SzNVxvlwo9ZFoK76AOZxH33KGCcIxMRcQ13V4fbLJYqpsK6rH4EJy3Rp2RpRMN/q5maowZHy
-	DV80J/UTGTPLkJ3aHTvanIvwnFY9jp49dAR4sEIHJG2IIlNmjOl6ZtBkVY85nWi6Ht6QTVFvdFT
-	BMH6HA5EevG4rFkofqy22L9jy8B/lzEy4mL0TngxSkxU6h+8tGSEHwf74I3w0SLTu6y3VhADoCO
-	9HR4Yp9KYdlzFdkWF8H9td71DIPXB0iMJAPYRdKUT8AIUYvx0thfoQGVh9DqYd48kI
-X-Received: by 2002:a05:622a:5815:b0:51c:1bcd:5cc3 with SMTP id d75a77b69052e-52e2f1130f6mr73042651cf.25.1787661039558;
-        Tue, 25 Aug 2026 05:30:39 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:15:e221::5ac? ([2606:6d00:15:e221::5ac])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93749abf1dfsm725543585a.5.2026.08.25.05.30.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 05:30:37 -0700 (PDT)
-Message-ID: <2de2e03c7bed7e4ec292c2f83da5556c1b27b334.camel@ndufresne.ca>
-Subject: Re: [PATCH 1/4] media: dt-bindings: Add Rockchip JPEG decoder
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Sascha Hauer <s.hauer@pengutronix.de>, Krzysztof Kozlowski
- <krzk@kernel.org>
-Cc: Lucas Sinn <lucas.sinn@wolfvision.net>, Mauro Carvalho Chehab
-	 <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner
-	 <heiko@sntech.de>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Date: Tue, 25 Aug 2026 08:30:34 -0400
-In-Reply-To: <1048ee70-54b2-4e42-ab67-22384961f094@pengutronix.de>
-References: <20260824-rockchip-jpegdec-v1-0-8011822bf500@pengutronix.de>
-	 <20260824-rockchip-jpegdec-v1-1-8011822bf500@pengutronix.de>
-	 <d24d59bb-2330-41c9-a6cc-a4c7053f8526@kernel.org>
-	 <1048ee70-54b2-4e42-ab67-22384961f094@pengutronix.de>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-pDFlBjF+U0XMJcHrbQOX"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+        d=1e100.net; s=20251104; t=1787661052; x=1788265852;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ILP07iJKBmCL4umuQJDRJxi/o8MvR2u5/1eDo+tc9XU=;
+        b=QPXHL6kx1sSq3bJBe7tT0F+LumBz6P2481tZ1MF0MbboQOdUMmw1BGNXzvcah5mbNb
+         X+GGo/rwyCtP4P24UD2SJwSIF0tY7aRg2VBykP0rkGO8IouzZZmO7lUmlAu4Z+l2+XEj
+         nI9StCflVOCVYz4NL+DIu1aoOQI0iLU3FQw7wkVw4mlag5Jp6aZBWEh5LhaCCkojauG4
+         gCoDNCa5fhbAxlXw5W30qsn9/XUhWb0nBOvA9IdVSJlgOGXtmmfmYSDjmXU7OEIZOBMa
+         okhPLbpaUrSPZS2vamR51rQzPS7CflmSBAP2MlEmymOyUnVjwPl6pFIVNpLCX2Pk07WN
+         uE7w==
+X-Forwarded-Encrypted: i=1; AHgh+RrCnS9tDgwra0Wl8K2ezY+JTrw8ITd8yqynC/hv4CyrtKW8cmNLL8iGhjyivl0lKS96PXiMHALQSl0d@vger.kernel.org
+X-Gm-Message-State: AFuF++mLfFh0O54/z4wCX73X7fxeYg30UzCHuTnhsTeFYGfgC1E1UFQU
+	nLy0jJwv0ZGqluMtkEaMPC0uxKpFcvsju6f8cSuaqmvTMiYvsV85cvTQTDdrXV9XbzA=
+X-Gm-Gg: AR+sD12HclpmlAZFkzST598hCm79iwq0A/v+rociyXc39Uufzo7/2oHFztV5rOhBHxJ
+	6JNSdY/8WJ13d6AHwrhbyxXaJiolKbcD2bxVBBk1JvBwJdW+5puPlgNNboCh1KPSEcbqJgLglV0
+	6azmD/900pcicJjdyjbyOdE8lSFjRvbPm8JeEskEvyrnHW4hiwunbk4OuGYEKmO7rKAjdLgmnfD
+	9AdiMKOlwoztZc/pozO+pwOlBr1+K7EHqn4JxnUuJKKdfDtR/d5RykAnIHPROH6dV7ndfJnYgUU
+	Ppy1UM4cWcpMH8lMU3/39lGwrCMO39CH3D1yn8MNtKWP8FTCLQlUuIC4xL/inxoqlPClrf8M6kp
+	YabAu32HjNZJ27b+HceCBGQHOrNNA8kahNt1YZkZ4aiGTH8WmbCAHkcJQOcVMzAmmYAKVDh3ale
+	HHAX0uoOuAUUml8tdzmzl5lu7RLvC/BlbTxqqfJeh2tArB/h7eqv8RNR4YTw9CwcFokC00G7CU3
+	ADGESzeG9IJ7KpGHKcAMMJFpw==
+X-Received: by 2002:a05:6102:3e93:b0:778:5e58:ec43 with SMTP id ada2fe7eead31-77a6476ae2amr10667233137.13.1787661052085;
+        Tue, 25 Aug 2026 05:30:52 -0700 (PDT)
+Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com. [209.85.222.48])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-77d8357da32sm5223901137.5.2026.08.25.05.30.51
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 25 Aug 2026 05:30:51 -0700 (PDT)
+Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-97bf91b2e6eso965201241.2
+        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 05:30:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rr/x6tjiqBxSWsk5JUeO3AhCJNt9UtE9ip7OZDW/PwUGSch2dDp7t0qSRn3abx3P7Kk8s51z4+TPgCd@vger.kernel.org
+X-Received: by 2002:a05:6102:5107:b0:778:4c28:6725 with SMTP id
+ ada2fe7eead31-77a6434bfc4mr9788298137.10.1787661050975; Tue, 25 Aug 2026
+ 05:30:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-
---=-pDFlBjF+U0XMJcHrbQOX
+References: <20260817192540.423994-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260817192540.423994-8-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260817192540.423994-8-prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 25 Aug 2026 14:30:39 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWO8ARCZtT7m+bndN5szyzRxPwQmZ-GKQ+ho+yLgTH0bw@mail.gmail.com>
+X-Gm-Features: AcwNN1XXro5QQ7iyl-KmnWQpVLzoicJmI0T4QyJFnTkTZ2UbLlORJ3tn7mvhDjA
+Message-ID: <CAMuHMdWO8ARCZtT7m+bndN5szyzRxPwQmZ-GKQ+ho+yLgTH0bw@mail.gmail.com>
+Subject: Re: [PATCH v4 7/7] arm64: dts: renesas: r9a09g087: Use CPG/MSSR
+ syscon for WDTDCR access
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+	Guenter Roeck <linux@roeck-us.net>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Le mardi 25 ao=C3=BBt 2026 =C3=A0 07:39 +0000, Sascha Hauer a =C3=A9crit=C2=
-=A0:
-> On 2026-08-25 09:21, Krzysztof Kozlowski wrote:
-> > On 24/08/2026 09:01, Sascha Hauer wrote:
-> > > Add a devicetree binding schema for the JPEG hardware decoder Rockchi=
-p
-> > > integrates into a number of its SoCs.  Documents the single register
-> > > window (task registers plus the LLP link-table block at offset 0x300)=
-,
-> > > the decode interrupt, the aclk/hclk clocks, the AXI/AHB resets, the I=
-OMMU
-> > > and the power domain.
-> > >=20
-> > > The core is not tied to one SoC.  Downstream it is known as the VDPU7=
-20
-> > > and the same block sits on the RK3528, RK3562, RK356x, RK3576, RK3588=
- and
-> > > RV1126B, with only the clocks, the resets and the power domain differ=
-ing,
-> > > none of which this schema constrains.  A compatible per SoC is all it
-> > > takes to cover them; the RK3568 and the RK3588 are the two that have =
-been
-> > > tested and are enabled here.
-> > >=20
-> > > The resets and the power domain are required.  The block cannot be
-> > > reached with its domain off, and the driver falls back to pulsing the
-> > > reset lines when a frame times out and the in-block soft reset does n=
-ot
-> > > complete, which a node without them would leave with no way to recove=
-r.
-> > >=20
-> > > The IOMMU stays optional.  The driver never refers to it, it is a pla=
-tform
-> > > integration detail, and rockchip-vpu.yaml does not require it for the
-> > > other codec blocks on these SoCs either.
-> > >=20
-> > > Assisted-by: Claude:claude-opus-5
-> > > ---
-> > >  .../bindings/media/rockchip,jpeg-decoder.yaml      | 92 ++++++++++++=
-++++++++++
-> > >  MAINTAINERS                                        |  8 ++
-> > >  2 files changed, 100 insertions(+)
-> > >=20
-> > > diff --git a/Documentation/devicetree/bindings/media/rockchip,jpeg-de=
-coder.yaml b/Documentation/devicetree/bindings/media/rockchip,jpeg-decoder.=
-yaml
-> > > new file mode 100644
-> > > index 0000000000000..e20c1bf43ef3e
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/media/rockchip,jpeg-decoder.y=
-aml
-> > > @@ -0,0 +1,92 @@
-> > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/media/rockchip,jpeg-decoder.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: Rockchip JPEG Decoder
-> > > +
-> > > +maintainers:
-> > > +  - Lucas Sinn <lucas.sinn@wolfvision.net>
-> > > +  - Sascha Hauer <s.hauer@pengutronix.de>
-> > > +
-> > > +description:
-> > > +  Rockchip's in-house JPEG/MJPEG hardware decoder, known downstream =
-as the
-> > > +  VDPU720.  The same core is integrated into a number of Rockchip So=
-Cs, which
-> > > +  differ only in the clocks, resets and power domain they are wired =
-to.  A
-> > > +  dedicated Link List Processor (LLP) register block, located at off=
-set 0x300
-> > > +  within the same register window, allows the hardware to decode a c=
-hain of
-> > > +  frames autonomously ("link mode").
-> > > +
-> > > +properties:
-> > > +  compatible:
-> > > +    enum:
-> > > +      - rockchip,rk3568-jpegd
-> > > +      - rockchip,rk3588-jpegd
-> >=20
-> > How this can be v1 if you send VPU720 for rk3588 already?
-> >=20
-> > https://lore.kernel.org/all/20260819-rk3588-jpegdec-v1-4-33d74cdf369c@p=
-engutronix.de/
->=20
-> The above has the JPEG decoder driver integrated into the hantro driver
-> which turned out to be the wrong abstraction, so I had to split this
-> series up into two, one for the Hantro fixes and one for the now
-> standalone JPEG decoder driver which is this series. I decided to start
-> freshly for both series instead of treating one as continuation of the
-> other.
+On Mon, 17 Aug 2026 at 21:26, Prabhakar <prabhakar.csengg@gmail.com> wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>
+> The WDTDCR registers for wdt0-wdt5 reside in the second register region of
+> the CPG/MSSR block. This multi-function block is now exposed via a unified
+> syscon regmap interface.
+>
+> Replace the direct mapping of the individual WDTDCR registers with the
+> new "renesas,sysc" phandle property pointing to the CPG/MSSR block syscon
+> node.
+>
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-I'd like to recommend doing the opposite next time. Create a separate serie=
-s for
-the fixes, and place your fresh bindings, driver and updated DTS in a v2.
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-The reason is that you are sending 1 series to 3 maintainers, and we all ha=
-ve to
-keep a different patchwork up-to-date, having v2 makes it clear as we can s=
-ee
-from the changelog what happened and why it got rewritten.
+Gr{oetje,eeting}s,
 
-Nicolas
+                        Geert
 
->=20
-> >=20
-> > Were there more versions?
->=20
-> No.
->=20
-> Sascha
->=20
-> --
-> Pengutronix e.K.                           |                             =
-|
-> Steuerwalder Str. 21                       | http://www.pengutronix.de/  =
-|
-> 31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    =
-|
-> Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 =
-|
->=20
->=20
-> _______________________________________________
-> Linux-rockchip mailing list
-> Linux-rockchip@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-rockchip
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
---=-pDFlBjF+U0XMJcHrbQOX
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCao2K6gAKCRDZQZRRKWBy
-9AepAP9LKy3L2SDezcHWRKeGBxhM7jMPnAdAPPhP2UALllz2iwD9H7t7vcPXscK+
-c8c3Swnx7HKx4J+UNpsV0i3RGR3GZgw=
-=pluw
------END PGP SIGNATURE-----
-
---=-pDFlBjF+U0XMJcHrbQOX--
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
