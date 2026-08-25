@@ -1,237 +1,154 @@
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBB0C3EC80C
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 09:50:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 972913E8685
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 09:53:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787651459; cv=none; b=UAJQmeWmpNoqm9edgBi7LvvWLlD2u6qmCTA+XETDc4xEPQVqWY7AMZlqJOAu5G5lZ36CY7uKzz/bJMfqu6Pry5rCOemVUZ+T/5j1VW+lCVw2zJuKkXD3fjLUY5TmHY41Ck3ya+daDXPgwlgsibQ/ZB9DyvCLqy5Rg7K0oE4Zijs=
+	t=1787651607; cv=none; b=DTOQSuc5ri2TULsEUFGwG/kupIQbAxvr8GiaFmK1IMMVaqai2t7NlqeeQ/xjc8OBXGtMjSUtmaXLPPrJw6yQO1BW4ZziabKI1T2Qo4MjugQ2laXZeP68qpcF1lP86UTlxXPNBPcbDZ0RpTaj0m8fP1I3JSfIK63MAhxfXhmIL50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787651459; c=relaxed/simple;
-	bh=/HkeeA+hW6cXIZLjRr46L3leSd7vxIIkGxvtnXNd93Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CKrSDu4lF8+W9QTM0YtAtoZ5SK1UcLDWT226ZTFuwit2e8riAKYpJFiS1d+Tl8z2WmEmO1BEDU3/6cEM463pO3iozZXZivmqQ65UNDXIbpulYlEap2a266vlyh/4XFsweD8bhFEYVgX1eSgoBS2MQjK+P+HLlDEPpxTToF9QpQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dJkkfl2V; arc=none smtp.client-ip=209.85.218.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787651607; c=relaxed/simple;
+	bh=l5X6ihKbm+gmWczFyqZudpJABTmGS7exPIXHaJYGFxs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kuopRlbV+1XdKMYR2aCFdO8snZYFYFlAkxyM36JK/Ps6yz/Kse6TKhnrnAXD5chZW7HhcbJ9ZKmjvvEv224YPPsAjaVzc4D9pmhR/33OGQ3oAdm/2rJf6tlmUFw4fo5xEUrNYJvx+B8PPZPv3PF/vReKg7oM8A82ofKRx6eGt7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=niYAYoXO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YcZ4BFda; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dJkkfl2V"
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c167aa9500dso690088366b.3
-        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 02:50:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="niYAYoXO";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YcZ4BFda"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67P88I0Z870409
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 09:53:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	dql0ic0Yn/JBQsVTOCXTrILTSajEuRbm9CRzP1GLCp0=; b=niYAYoXO9OStFEvY
+	oBLMZ2QFwuwv5XNwvZQqTgg0YG8OO8tCsdwxy4j41blGlmYO4etpQcG6ehQdOSxM
+	SAG616GbzRA3/qiZjhC6yUUaX7FBZTBKjtIAI7CFWqtFEsjFmJssx+7TL3E2haT9
+	rKLH8l4zNw1+yIHi5J8byyT+1dy43RKvku/z6MsOgsB0LwgKwyWwgDWMYjPjKz39
+	aDxGPV/vVRNALTEDheriZVSFwNn75pAedj6KOqZG6I9co+tSdf+O1LSZ5zgOKesX
+	M9EA3BaTVxHwX8soSfBIlcos3xAuzbMQVnVxxNKmwHHawUmp8L7mcbi1TtRnaW/s
+	1uE9gQ==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g8t3duayw-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 09:53:25 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-52845bd815bso8919741cf.0
+        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 02:53:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787651456; x=1788256256; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=paaPPd/qR8ZuuPD7RS7gPXa0/O72xu/xLDRu3Cm8lYo=;
-        b=dJkkfl2VtLiLYxys6yQO7TCQ0YgmoqFk0ptx5Y3Iq9owIc5qT1Bpu0RQqRqrtY/7s0
-         kLj2/TGdD3dHbvJeFqgYVEpOrnf+xTYL8EVgUG6EjsQvG84NK3k/PFtVSyL23EZcqby+
-         CHCa349Hbxti8Ln4atAkWlGMvr2xhIWMlx3X+2U1bY/8Uoa2kHt2ss1AOgeAUnFKqT7j
-         qqFnL6FkzXM3rybiI1f1RnGYZVVWEN4VuFyWb25HaviBWIJ6gSZTzCobVObt4BfurZqS
-         6GrFOt8buY+4ReVSSfpvr5mrFN49+Otbncc4IuLqR6w0JC/YcYIkbmfHk1pFxLBGjW6v
-         nOzw==
+        d=oss.qualcomm.com; s=google; t=1787651605; x=1788256405; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dql0ic0Yn/JBQsVTOCXTrILTSajEuRbm9CRzP1GLCp0=;
+        b=YcZ4BFdax4Uc+1Vv4CWjxKw4ftbI0lNQ/6+WPcwW7A8Car2fcl8y1os7vi02BLgP6p
+         oO6M6/yU7s671E1Zup2WnaeJJncGc/gCey12wA5HvRoIOv3o8ML8ki41EJ3gGbcyBLB7
+         1r8lxLad+6geAdE91p7A0suay93/hkptDAvZuZh7gYE7cvQ4RPoKSoWK4n0akjMazUT0
+         NliYELc413fedIFLfgiOUv5Fmu/hWH2aLugOFNF2HELB3FMQVq7CMCxhBqc5FwZEn1DI
+         +8iz7RQ86XSN1XirTiGNWSOhuzkXFKgzUBRE6mqG+frsYq4biAumEt4w+lc0FzLePvqu
+         K2Ig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787651456; x=1788256256;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=paaPPd/qR8ZuuPD7RS7gPXa0/O72xu/xLDRu3Cm8lYo=;
-        b=T9aC4yHx/SEbB2Klhr5ABbKOWqbPqZz+2YTfI7394W5EgFblmJaNgwLsRYfK5o1z8K
-         B68Yje9ghtkEbYZxqBtihUn+ZQDcmqBotF5KmI4RxSbknYbwQc9ffPX0amGhZq0wdad8
-         0AxFJvV5kKKpkyjDR2AdjjQAE79/SvvQqzu4aVyLi/hYzpTYw9x9yoXg+UQ9NlZWvEey
-         DJ+utQX8olO96JojlDii50IJWa0/r4RHF8I8gLCc35ynxteQlbOt9Gzp3/DMuqT49dmQ
-         QDKBkIdG9bLgYa7nL5hobvAp3iD+eDy2JVE5DqYvifz2PDnvizj05/pbR6WUiE6/AvRQ
-         b5HA==
-X-Forwarded-Encrypted: i=1; AHgh+RowiIuHmb0KZK+ymCrGRvQZp1LpvUlsH81sGN1Not8L3i3ZArUsRfZhtr+jgMZFewx/NMrJ0zqyfLkA@vger.kernel.org
-X-Gm-Message-State: AFuF++ncJG+NEqT0D718Eeogi0x7ScYtWx5CeTyilBiooCgR4BiieQkA
-	P/qhsIfozdsL9BDIcqzkbi9itDQgj49o9t07w3GZSC8LxyasG9JqO651
-X-Gm-Gg: AR+sD136REk+rD2/KC5N+iZ/ozMNCXAePUthfhn7ra8uFNucO7FGJvFHi/LLgA01rPW
-	mgso5tBt62dxTJxEuJCse2tbgvQnzoxlNTEA/o2dVl/KNHCOyeatCoKyl2l09ckt8KxdsQ5Y5eO
-	j688zX4r28U9kO9ApmjHNkoi5E2vnodY4hXKhuJ5pqgdV10LoAMPzSMB7yLXmpTaZd9kxJ0zyA5
-	bhQm7P+z1GbNSDXhVpjuAJq1D3MCwMAta77OPrheGVVObSol6RldKIsXCZ39HDBJCsG30AEBMum
-	Gwiqp75lp0WPx5n4PesyrVcd2iQhfoJ5iwnkH7bjhD+wp9WCFMagM890aAVvsL+wcsxwB3s2UaH
-	yTVB18Orlc0vYpXRRIuPiOPpFX2dn/b3mE5/Nr3k/EQstDmdVvNHM8/UnBYWw8CTuk/bmJGKoyI
-	wk3p2A3LcNi2Vpcjm8U1kg3EzBm5MSY4E/HH7uFd8utYj06TPK1XllL1k29RSswIFCn7VMva5y6
-	/3mUopxwQF1SG0gQ2easace
-X-Received: by 2002:a17:907:9603:b0:c07:43ed:1b3e with SMTP id a640c23a62f3a-c2469f9a365mr3735955466b.0.1787651455541;
-        Tue, 25 Aug 2026 02:50:55 -0700 (PDT)
-Received: from localhost.localdomain ([2a00:23c4:a702:d301:81d:57c0:e4cb:959c])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c249629929dsm1749320666b.23.2026.08.25.02.50.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 02:50:55 -0700 (PDT)
-From: Biju <biju.das.au@gmail.com>
-X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH 4/4] arm64: dts: renesas: r9a08g046: Add PCIe support
-Date: Tue, 25 Aug 2026 10:50:43 +0100
-Message-ID: <20260825095047.9971-5-biju.das.jz@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260825095047.9971-1-biju.das.jz@bp.renesas.com>
-References: <20260825095047.9971-1-biju.das.jz@bp.renesas.com>
+        d=1e100.net; s=20251104; t=1787651605; x=1788256405;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dql0ic0Yn/JBQsVTOCXTrILTSajEuRbm9CRzP1GLCp0=;
+        b=Lq4oMnQJyDW02aaT6vXT4zQPIchpSlgwVXipwE+5dgwM5nbBD2xnGOof9ZkH8BBLFQ
+         HYox3MaIHudmCzZ79thAHYMgyqwDGhvSnXLvZiIhnetgh+tNfNTdH4D1UbCIFdvgqHsV
+         Or9hxFmTlyRkfH2uCwHCh6HuWIdht77kd6nLhUtEg+KXTN36hXrgCOYq4RUwVex3ml7b
+         NEIefJd7DKaU2at8YzI/EohwnOhXrLWBuJQ7fHdUjDqV4yWqMbn2G11x1rbDWqB8I3P1
+         FfBZ8EAlXsI6mqeDrXTXiZoaIafTvj+NXAuYC9MylMNbXRzeoUoTwN9pzIrbeD68GMpS
+         dfRQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoKOkZKgERPf7wkcuLtmuKBDq3H1DQQsWLL6EtZ91ai5p6nmpxXDFQFgzl/bgyK3au+nG5TBQ6cc2dy@vger.kernel.org
+X-Gm-Message-State: AFuF++kBtF6o/hDsIc76pDunQZztlASY0KHTVF9xMAdqke9FJv5jf7PH
+	X3wAP2hS9XME6nWwB9egNCaPYWCytsDHC+sSGGapSOFwLajIAHADfZrmLP2Wz/wR+Wp/mefdSvK
+	bkpN+G6tY9GgSVvkGZoD3i8ZuNAE2FZhnIa703QInKprfIQQHT3GSwycyn7D0gPMI
+X-Gm-Gg: AR+sD11jW/h4bpo0iwvGF/nT8FIorTkPTRXRXVFkKmfYKI2uuiGCOzft8gkNKF1hFdX
+	npTXIutrel/pSH1tzGRjF4BBdcyQfk8ZWhCDsA/TjBVpTFcVj0Y1d9k1bf3XsxhMHqZgb2ULyuR
+	6Q3+rGHQAtJpfrTym1xTtUpFpxXr9gINELsboHSyTlMk3ky2zKLIYyNnkYqXFn/4fpBSj3dXs8u
+	KbwljhnMNspIjnsFhHAbusFMfvYHik5y3skjX/ejrlFU2E1h+ghBd/64H8/LuicVkuqM0kshclq
+	YMc/u2U6zHl78AVRdhg+Kd4sVDwHuYVOsHwxbkCBLWFFWKeCQLk9G5/N7hpE58c+0WMdiRIfnrL
+	yigT8csXqA8UKcbnoIeHAQMLG
+X-Received: by 2002:a05:622a:607:b0:52d:9a83:419d with SMTP id d75a77b69052e-52df54d7275mr238711301cf.0.1787651604769;
+        Tue, 25 Aug 2026 02:53:24 -0700 (PDT)
+X-Received: by 2002:a05:622a:607:b0:52d:9a83:419d with SMTP id d75a77b69052e-52df54d7275mr238710981cf.0.1787651604251;
+        Tue, 25 Aug 2026 02:53:24 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c249606b59fsm1923235166b.12.2026.08.25.02.53.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 25 Aug 2026 02:53:23 -0700 (PDT)
+Message-ID: <150c1500-4d78-4350-9ce9-407615a08312@oss.qualcomm.com>
+Date: Tue, 25 Aug 2026 11:53:20 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: x1e80100-dell-xps13-9345:
+ introduce EC
+To: Aleksandrs Vinarskis <alex@vinarskis.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
+        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+        laurentiu.tudor1@dell.com, Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Tobias Heider <tobias.heider@canonical.com>,
+        Val Packett <val@packett.cool>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Stephan Gerhold <stephan.gerhold@linaro.org>
+References: <20260801-dell-xps-9345-ec-v3-0-9f4bdb5a5dad@vinarskis.com>
+ <20260801-dell-xps-9345-ec-v3-3-9f4bdb5a5dad@vinarskis.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260801-dell-xps-9345-ec-v3-3-9f4bdb5a5dad@vinarskis.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: iuC5OGDWJL49wcXwfS7Wvk7Koz5xdfAT
+X-Authority-Analysis: v=2.4 cv=OLAXGyaB c=1 sm=1 tr=0 ts=6a8d6615 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=I76Qk8w-AAAA:8 a=EUspDBNiAAAA:8 a=BDX-M9UYCxStvK4FQfUA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22 a=vUPM0Wvl0xcrLs4nqPIT:22
+X-Proofpoint-GUID: iuC5OGDWJL49wcXwfS7Wvk7Koz5xdfAT
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI1MDA4MyBTYWx0ZWRfX0TH8jAmlWgG4
+ eqvmEeQqLk3lrpmF5E/lLzJOMkK3UdhmJv0DDViy6szSNL+5QkR6P1LgWzA7d6qyGhOP0vCKCFP
+ erVbxbJMC/43CoCag9zvBgbfsPPZ5OE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI1MDA4MyBTYWx0ZWRfXwoX0MQBNCVur
+ v66HoRZp1Gm5mLrbXciZVfiM7hpiy3iI1Xz8n32PK950IYd3t8QceN4lk+6INmWEwdtg/3UOBhg
+ tKEzL+LRIFvN5QHBrA7FYpvs6eXMC770UOQbthElYIkKR2XQBijuynd2VEu+zsP/k5M3/dtE2Bv
+ 450W+qd7XJ4doQ5EWmb3mBCo0XMzuef+4tnRiuyxHnrUXobHH9Vov8vMVZr0QCWXO9jMtVOwSLv
+ ktRyd5kuh6AdaYiak1uuChioVgW+gImVRSKvbrzajUPvo+GABctSyNqQh1igJ8tcqZh+4XKBAVA
+ VNxjp+j34ncAB63+JrdbF50qDViZrcxxyojVyJt5TO90MQECWpUg/VY9BEU4nh7dYincT7hE++g
+ RMraSPZWU1rzx2bmswllseyQciitPlYbPl3CYYZsYU865dpbbzQilsNRJ2mXRwa+x4yh62BU9lx
+ Wv0XhGw8xaLi/BVvzuA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-25_02,2026-08-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 adultscore=0 malwarescore=0 suspectscore=0
+ priorityscore=1501 spamscore=0 phishscore=0 lowpriorityscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608250083
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
+On 8/1/26 8:22 PM, Aleksandrs Vinarskis wrote:
+> Describe embedded controller, its interrupt and required thermal zones.
+> Add EC's reset GPIO to reserved range, as triggering it during device
+> operation leads to unrecoverable and unusable state.
+> 
+> Signed-off-by: Aleksandrs Vinarskis <alex@vinarskis.com>
+> ---
 
-Populate the previously placeholder PCIe node for the RZ/G3L
-(R9A08G046) SoC with interrupts, clocks, resets, interrupt-map, and
-the PCIe root port's vendor/device ID, and enable it on the RZ/G3L
-SMARC board with the required pin control, CLKREQ# GPIO hog, and
-100 MHz reference clock.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
----
- arch/arm64/boot/dts/renesas/r9a08g046.dtsi    | 45 ++++++++++++++++++-
- .../boot/dts/renesas/r9a08g046l48-smarc.dts   | 16 +++++++
- .../boot/dts/renesas/rzg3l-smarc-som.dtsi     | 11 +++++
- 3 files changed, 70 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-index f652ad3f1d1a..83e466ec49ff 100644
---- a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-+++ b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-@@ -1480,20 +1480,61 @@ hsusb1: usb@11eb0000 {
- 		};
- 
- 		pcie: pcie@11e40000 {
-+			compatible = "renesas,r9a08g046-pcie";
- 			reg = <0 0x11e40000 0 0x10000>;
- 			ranges = <0x02000000 0 0x30000000 0 0x30000000 0 0x08000000>;
-+			/* Map all possible DRAM ranges (4 GB). */
-+			dma-ranges = <0x42000000 0 0x40000000 0 0x40000000 1 0x00000000>;
-+			bus-range = <0x0 0xff>;
-+			interrupts = <GIC_SPI 483 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 484 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 485 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 486 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 487 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 488 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 489 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 490 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 491 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 492 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 493 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 494 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 495 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 496 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 497 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 498 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "serr", "serr_cor", "serr_nonfatal",
-+					  "serr_fatal", "axi_err", "inta",
-+					  "intb", "intc", "intd", "msi",
-+					  "link_bandwidth", "pm_pme", "dma",
-+					  "pcie_evt", "msg", "all";
-+			#interrupt-cells = <1>;
-+			interrupt-controller;
-+			interrupt-map-mask = <0 0 0 7>;
-+			interrupt-map = <0 0 0 1 &pcie 0 0 0 0>, /* INTA */
-+					<0 0 0 2 &pcie 0 0 0 1>, /* INTB */
-+					<0 0 0 3 &pcie 0 0 0 2>, /* INTC */
-+					<0 0 0 4 &pcie 0 0 0 3>; /* INTD */
-+			clocks = <&cpg CPG_MOD R9A08G046_PCI_ACLK>,
-+				 <&cpg CPG_MOD R9A08G046_PCI_CLKL1PM>,
-+				 <&cpg CPG_MOD R9A08G046_PCI_CLK_PMU>;
-+			clock-names = "aclk", "pm", "pmu";
-+			resets = <&cpg R9A08G046_PCI_ARESETN>;
-+			reset-names = "aresetn";
-+			power-domains = <&cpg>;
- 			device_type = "pci";
- 			#address-cells = <3>;
- 			#size-cells = <2>;
--			/* placeholder */
-+			renesas,sysc = <&sysc>;
-+			status = "disabled";
- 
- 			pcie_port0: pcie@0,0 {
- 				reg = <0x0 0x0 0x0 0x0 0x0>;
- 				ranges;
- 				device_type = "pci";
-+				vendor-id = <0x1912>;
-+				device-id = <0x0033>;
- 				#address-cells = <3>;
- 				#size-cells = <2>;
--				/* placeholder */
- 			};
- 		};
- 
-diff --git a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-index 5a8269c06435..a155967e1f68 100644
---- a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-+++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-@@ -170,6 +170,11 @@ &ohci1 {
- 	status = "okay";
- };
- 
-+&pcie {
-+	pinctrl-0 = <&pcie_pins>;
-+	pinctrl-names = "default";
-+};
-+
- &phyrst {
- 	status = "okay";
- };
-@@ -190,6 +195,17 @@ i2c3_pins: i2c3 {
- 			 <RZG3L_PORT_PINMUX(2, 1, 4)>; /* RIIC3_SDA */
- 	};
- 
-+	pcie-clkreq-n-hog {
-+		gpio-hog;
-+		gpios = <RZG3L_GPIO(G, 6) GPIO_ACTIVE_HIGH>;
-+		output-low;
-+		line-name = "PCIE_A_CKREQ";
-+	};
-+
-+	pcie_pins: pcie {
-+		pinmux = <RZG3L_PORT_PINMUX(G, 7, 1)>; /* PCIE_RST_OUT# */
-+	};
-+
- 	rsci1_pins: rsci1 {
- 		pinmux = <RZG3L_PORT_PINMUX(D, 4, 5)>, /* RSCI1_RXD_MISO_SCL */
- 			 <RZG3L_PORT_PINMUX(D, 5, 5)>, /* RSCI1_TXD_MOSI_SDA */
-diff --git a/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi b/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
-index c1c2795bda4e..2ee11d54bd58 100644
---- a/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
-+++ b/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
-@@ -51,6 +51,12 @@ memory@48000000 {
- 		reg = <0x0 0x48000000 0x0 0x78000000>;
- 	};
- 
-+	pcie_refclk: pcie-ref-clock {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <100000000>;
-+	};
-+
- 	reg_1p0v: regulator-1p0v {
- 		compatible = "regulator-fixed";
- 		regulator-name = "fixed-1.0V";
-@@ -190,6 +196,11 @@ phy1: ethernet-phy@7 {
- 	};
- };
- 
-+&pcie_port0 {
-+	clocks = <&pcie_refclk>;
-+	clock-names = "ref";
-+};
-+
- &pinctrl {
- 	eth0_pins: eth0 {
- 		txc {
--- 
-2.43.0
-
+Konrad
