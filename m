@@ -1,124 +1,134 @@
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABB4533A71A
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 16:06:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787674021; cv=none; b=faGx5QbjWH/MUS5Mfe87ZSXvzv70Dt0EkvvK7USdTgpUGcnD82iVXWW8Pr7Wv/hmiAHg+rpnjxSglE72lhstBePnJ3cJRg2RxOLOFklgLIs01ey7+pGQhhuMQXhu4iEFQNG9wr+NwOEmm+IM3z/IrT6K/udcCFDYqqwPIhUd/AA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787674021; c=relaxed/simple;
-	bh=DvKH2fFcZ/uhD/ZuKu0uGpyMl16LVSMA9icM14BxbOU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iFeLmYwCPEJu+CpXYodIJ8izZj9f3cD7c5+BKX1jFclJgbMBd9A9ecHvuYuB4IQY3QTLwwXjQ1cBc1tWzBqQ1T9g0Te8UafHURyNWx6hmyiV3cfJup47Wp8tgBk8IaO4kyGp4/KH/zdzwnXfcTXPAqwvZC51HNAfQdzLqfZCFRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S54QIlPx; arc=none smtp.client-ip=209.85.218.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38163288C2D
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 16:15:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787674542; cv=pass; b=Gi6dUjGdUyrviSJ1yP26kEAUANtkFstNmxiS+jSpqT+yT8WFKcIE402JVL8Fm6amGCf9qQFf90TZH2pLMMLE3bXp+LQ000a6GHeqnQ6N70s+Xvnih+Ggf4gfjOXNShAEStVkx5FDH0oV+gakzK0zmky5Xk42u9kY9lsmz6wka7A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787674542; c=relaxed/simple;
+	bh=mhCYfoLImXJnmt0+tRDHMMQyd9cURICYnhCWLjk2PLg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Xt4fCp5Q6XB1qui/EnIAuRWqzHiIakNvV1/0K9S99KyIEgsnKP583ZIu+wCA9ztLAgzGUNECifhsqbpJWi+dN01dRqaDo/kEpychE/T3p+D6ecFERa54fj61raB3nIH6MTNw1FMJVSFZHtRFJWAgQr5YHLgZORZsQgjYU+vCzz8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LYDe5Sfc; arc=pass smtp.client-ip=209.85.218.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S54QIlPx"
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c1c52d920b8so707068466b.2
-        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 09:06:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LYDe5Sfc"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c15d111ca99so602045666b.0
+        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 09:15:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787674539; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rONyYQRybSK7knJKcaYXwKs1SFHtiYSeFS6m2roB3J+2O6c0x1nompfYuPDD8PLUEX
+         zoQMsjNrPyO02in+b+lBMc/llQZ9QphO8Lji3u47O5N43oKmi6HwwTSt87TQsozc+jq2
+         K3BjJM/hXiiYJe3lRKEc60LQTuFeqALZl6z7yg5ukGsTpJkYKWA5Vyy64NM/SgtuH+6N
+         WaVChma+5xc1P0O2+EFoKFgmmC6/QFOIyOhf0oeDOUZkCObrUW0YfOPCtG4GnnKpDElD
+         4rYPlNEQHV0l9lJT3q40ClHuigS46c4fxC4pP6U+ZVyL2I0yri0onYB2uMUpOpx2GwAI
+         YnRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=mhCYfoLImXJnmt0+tRDHMMQyd9cURICYnhCWLjk2PLg=;
+        fh=35PTNJsBP6vZpye9h7tBXCiNl1DSzlkOZ3NOdZna0Zc=;
+        b=ncQLrMDTuAnSZghMkmDadZMqOuK9Nxk0DjgDG/OmexPIiL8sXWmMC4+J9lfaWn7KaK
+         qHiHCty+KEkhR1be3aXglt22tx1afnbi3RiM/GtC/cAoWzt4ZG48UExca0b1VJLVjgEQ
+         q1EXjibheVa9TNPSWHJjOHLmECAAxqz9+d6v3lAq3oKex9kNt3T6cJMXFocnpOlt86lc
+         AR/HCG9n81P6I49tYgE/Uo/f3sRlGmt0fiPFkr12hMzgT/EjkS2lX3PaGXtN/WaA9GZL
+         6olrct8gRBCHIEwXGXWa5K2Tp+3dHHSnCc/RitsERXWVjiLotRDhBNTSeUBlNO1hLxb6
+         5vvQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787674018; x=1788278818; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1787674539; x=1788279339; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=BdqXyZVZhBIDnSDIcLKPXaIgy8TBNW5ywHFUYDexGKw=;
-        b=S54QIlPxfzEMRvnY0oIBSyqi4JP0HxgyDJgaADCYJXzzPBUAdPaKS5dNCORXQ+CQVD
-         VhBXnxjsEDb/5PO618q+JS1mDBlwJi6hAu5tVjaw+fOdwCOdhb9bIiuZiS6+sh6GEVBz
-         BuXMDixPWSD/5t/F+q0FLpEhtWstWZC/n+n6xuMYQIOp342QTlOhieWYM7hwENX8QfWM
-         BUfllep2R1WDd/h4yVX+EMcTaYa/htS+0q66tXcIGZSN2z99u/EfKllUBCF5YZMvB8xN
-         g/UENuo3pO9J1/muAmgFl+DI48kATEpZC2kquxKZPJ4rYXkb7+wEM1h/3sZ9SCCsW7/e
-         eIUA==
+        bh=mhCYfoLImXJnmt0+tRDHMMQyd9cURICYnhCWLjk2PLg=;
+        b=LYDe5Sfcrj44bmekSy+MJs3ZkuY/uJ1DYBOUqIO7oKKeFFlRkyOzCo+j1xKwS1tX0D
+         iVaKnNSa+lWdNyKsGbmdKjYzbwXhxuPnP+fydX5cKuNdCf0jwSeKEqaED4Qgt+fwkeff
+         3cvBlDUf2LyRzPconw09fVFK64j54dTw6z/ISV0iHTMBPycDl3QRES2aanzQAI/uY+kH
+         rrVXRH0ySYaQmWYFgorcMizjdC5rUFepdPAtMl6BY2VNYi1kP3yoIRGx3d8spbG31UC9
+         xNLWsHGzTqOtFo0vgSgQyiJIkCEEmG+h6d4RY3/UztfU2tEzi2AXtvlMPHlfjnbcMYLX
+         hTGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787674018; x=1788278818;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1787674539; x=1788279339;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=BdqXyZVZhBIDnSDIcLKPXaIgy8TBNW5ywHFUYDexGKw=;
-        b=PAgJ3BFTMPjVOiTEna44LRultSb3cC+b4o4yVMUbk6QX76RojqlVS7qOwBmlkAi2Yz
-         w9w+nHONwyNh+DzL8OH60OzAoV+UjwaFFB2/zcfBozDEwsa0FCAd42z8wF1q98fB0CbF
-         Drq+NxbVU9eDnNg6kDG6QZ0l9Hi3oustBbWr5W9f0PelvXrsozrXIQe1BNNnPHcvKmic
-         VrITbAtwmDaKgGftpsGuZkOmxJeAvNaS+mX/7oz2RA+YiX2KN5EcNjG8tDg4QkIN96dd
-         Mw+AA8EUa78qQxXGXWp9IFtJHRG5FIO+ODN4EIBOUTvwQSvVe8Pi9K3pFjs/OgEAjW+F
-         i3+Q==
-X-Forwarded-Encrypted: i=1; AHgh+RqQO9+ftejNp2m+4I56wJHh4lDlVJw9r23wb8cWn+rcQ9QcpjYuFQenL31DnswyA3Cf63Jy1KWutvjX@vger.kernel.org
-X-Gm-Message-State: AFuF++k/2gE7B44z5LjrkXy9ScLwAkH2BcmAWlOjJf4DqPvfXR7Bu9Tw
-	Cn8WaSZeV/iqThOLq9TflKxjw0pPuGrDKov1XsFTz44ePXvDfD1HJsEv
-X-Gm-Gg: AR+sD12o/oOO+sc8Y6AfHxNuD6EVjBwX8M0naSakCcTZNEyZU86FFIOenqjUESOr6oQ
-	sDCkEFlNFFfcy5FjtUPg/KPJaDTdQtCizz2fT4pEmgI2T/PoN+l76mObL7lSOj3TkBvs4nwWz/K
-	zXxXFiNWSU/6GaMcxc0IARtkj7eCFdavinxXi4LMwNJAcDEsjME6USpKqNFPdHJsQ+bZhLbPPRg
-	hUmDmJTdG6TeszKNrAFodaATGkSh7KgzNC0rSD9Zq6iqfGzx4IVlKUcZO0tbIpgwRKuh+RBvZxR
-	L4BsJ97Pr6EJyr7Upw9QEaH9QU4ga+5xriVv+OKlJMgE70cjgu8fH7Jq13VrrI6S72GFh4XMusk
-	u8rAbxmNvFZwd3YRp5E4t/vyrQoUG1S0IR2AqrziZzI2oWyz8l6VGOXRq2UleOZOcXb60Hhizk4
-	3YewcYaQzlL7P9FNnaQZtWduJ/hs+4Mps6nQNEq7MfQwrVDDYRnowKIjSPkagRTds3cPOwdD7r5
-	IlDF9VK7GFbzjX/cpq2E+fsX0HkcYMV
-X-Received: by 2002:a05:6938:a08e:10b0:c21:7584:fc58 with SMTP id a640c23a62f3a-c24e5b5531emr663869666b.12.1787674017582;
-        Tue, 25 Aug 2026 09:06:57 -0700 (PDT)
-Received: from GLaDOS.station ([109.55.72.35])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a5d62dfsm24369966b.4.2026.08.25.09.06.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 09:06:56 -0700 (PDT)
-Date: Tue, 25 Aug 2026 18:06:53 +0200
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: sashiko-reviews@lists.linux.dev, Frank.Li@kernel.org, robh@kernel.org,
-	imx@lists.linux.dev, conor+dt@kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 2/3] ARM: dts: imx7d: add Variscite VAR-SOM-MX7 support
-Message-ID: <ao29neQwKSWlK4Lx@GLaDOS.station>
-References: <cover.1787586961.git.stefano.r@variscite.com>
- <2b7fabe6b1c4d08e58d2542742492564b67c4c32.1787586961.git.stefano.r@variscite.com>
- <20260825071648.B547C1F000E9@smtp.kernel.org>
- <ao2p-Yj1HfJeeVOM@SMW015318>
+        bh=mhCYfoLImXJnmt0+tRDHMMQyd9cURICYnhCWLjk2PLg=;
+        b=slR6reYH/7uJVrNsCgTksebJ2ZkaTUndW/ni3CsHyI8Vmcb5F4wnaCmUx6jWYq2/hE
+         XcSmVyfOhCwQrfmAoqT74/U7D4BkD4os0MivdbGaWAeCUgGbzew4ivEl+BpT62C936Es
+         eyp6SBbdx3ZXxjOkCSYhqMvAZsZZj1FhWtzJsRc7/wuEKfZmHWyZxf34CMJLzLU8twJg
+         K/HEv0hYfExWV5qVEi7rEHIUrHHsVpKUzCAOxKER0j63SS2l+GuO8pSlOKQVd8Mg0xkA
+         cl6HlwXdqGLh2WJDpP0HMUQ3O/SwKB90veGHylRqSYZA+EKexHixQNgRPkSysiWYnk0F
+         +YvQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rpfuxj+ROtr7vGJJ1F/GUYVTHHcd5fkTg52ZGqvcBllK7aDD6sR5vjiWSeFSv0YlcqAHZbsjpJrdb0m@vger.kernel.org
+X-Gm-Message-State: AFuF++lY1VQ9j85Qy7wPLrNofj4eO99ppO6TclPsgzxI5od8wUGzZvSs
+	i94FMT/ao80oVPSPHCQLgrdlGcSJ3RaKMaQkTzg0+aIEJ3cEPuhnNNwBdF2t4NONBuXeuN8RgL6
+	zMGvAbkpos31fAdPva6RPjG4XEdu9Jg==
+X-Gm-Gg: AR+sD12ucBwFs5TfKzYuYmscodU4GRCPoKhsi/cH5aO4ckpQo6quNNPtynnTDMC7syY
+	gT1vofl4E5OBP4047jHs7EvSDHWQro8muTsykhnSQqEyk/r1D6DOZmbCUxfE9363iBFFiU0KC6t
+	+7XH8FE4S9i+IZ/xsRSq95Bess78tspYwIqVL4fVPPRvrimZzICKHgfqD3MagaR1WexwF6yJoVz
+	llv07juxLBCefvNRVlgUqrxYd4xjD8wE9E4WvlrSqXu6wExrMo8UTMHviN4KgyltslipTkY4GNf
+	fAat0M8pyVMv0TCsegqxp7/H+CE3v7bHQIH9iRmJm9Q=
+X-Received: by 2002:a17:906:6312:b0:c24:6445:d19 with SMTP id
+ a640c23a62f3a-c24926f3cf9mr3439116466b.17.1787674539339; Tue, 25 Aug 2026
+ 09:15:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ao2p-Yj1HfJeeVOM@SMW015318>
+References: <20260825-blackrock-audio-v2-0-659cc4724d57@oldschoolsolutions.biz>
+ <20260825-blackrock-audio-v2-1-659cc4724d57@oldschoolsolutions.biz>
+In-Reply-To: <20260825-blackrock-audio-v2-1-659cc4724d57@oldschoolsolutions.biz>
+From: =?UTF-8?B?SsOpcsO0bWUgZGUgQnJldGFnbmU=?= <jerome.debretagne@gmail.com>
+Date: Tue, 25 Aug 2026 18:15:03 +0200
+X-Gm-Features: AcwNN1Xh1B5d1Dzdu5ByG6tQN_JbDhHIx5uu93y7vcm7QY05B1IJMZkB-j3ldSU
+Message-ID: <CA+kEDGFwSyebOLJEsg4fyQ2MjVuyPzJxq8j1acbmGeiOWw0RJw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] arm64: dts: qcom: sc8280xp-microsoft-blackrock:
+ Replace old sound nodes, enable DisplayPort audio
+To: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
+	devicetree@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Aug 25, 2026 at 09:43:05AM -0500, Frank Li wrote:
-> >
-> > [Severity: Medium]
-> > Does this GPIO hog conflict with the native usdhc3 pinctrl configuration
-> > for SD3_RESET_B?
-> >
-> > The sd3-pwr-hog statically claims gpio6 11, which corresponds to
-> > MX7D_PAD_SD3_RESET_B. The pinctrl_usdhc3 later claims the exact same pad as
-> > SD3_RESET_B in its native mode.
-> >
-> 
-> Is it true?
+Le mar. 25 ao=C3=BBt 2026 =C3=A0 16:07, Jens Glathe via B4 Relay
+<devnull+jens.glathe.oldschoolsolutions.biz@kernel.org> a =C3=A9crit :
+>
+> From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+>
+> The Windows Dev Kit 2023 has no built-in speakers, microphones or
+> headphone jack. Likewise the device with the same mainboard, Surface
+> Pro 9 5G [1].
 
-It's true, I'll fix it.
+Potential nitpick, I don't know : the Surface Pro 9 5G has built-in
+speakers and microphones but no headphone jack, so I find the
+"Likewise ..." sentence confusing or misleading somehow.
 
-> 
-> > [Severity: High]
-> > Does setting the sw1a maximum voltage to 3.3V violate the hardware limits
-> > for the i.MX7D core voltage?
-> >
-> > The sw1a regulator supplies the cpu0 and cpu1 cores. The PFUZE3000 SW1A limit
-> > for this design is typically around 1.475V, and the absolute maximum rating
-> > for the i.MX7D ARM cores is usually around 1.15V.
-> >
-> > If a driver scales the core voltage up to 3.3V based on these boundaries,
-> > could this result in hardware damage?
-> 
-> Please double check this one?
-> 
-I double-checked this.
-PFUZE3000 SW1A supports selector values up to 3.3 V;
-the 1.475V limit applies to SW1B, not SW1A.
-The regulator-max-microvolt value only defines the regulator constraint,
-while the actual CPU voltage is selected according to the i.MX7 OPP table.
-Therefore, the 3.3 V constraint does not cause the CPU supply to be
-driven to 3.3 V.
+This has no impact on the actual code changes though.
 
+> The previous WCD938x / WSA / VA sound card definition
+> was therefore non-functional.
+>
+> Replace the unused codec nodes, SoundWire controllers, LPASS macros
+> and related pinctrl with DisplayPort DAI links (DP0/DP1/DP2) so that
+> audio is available over the DP connectors. Add the required
+> sound-name-prefix properties and update the card model name to the
+> conventional SC8280XP-MICROSOFT-BLACKROCK form.
+>
+> [1]: https://support.microsoft.com/en-us/surface/models/surface-pro-9-fea=
+tures-and-specs
+>
+> Fixes: 16a7fed11714 ("arm64: dts: qcom: sc8280xp-blackrock: dt definition=
+ for WDK2023")
+> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 
-Best Regards,
-Stefano
+Cheers,
+J=C3=A9r=C3=B4me
