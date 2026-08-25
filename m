@@ -1,96 +1,105 @@
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D67A23CA4A0
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 21:06:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.28.215.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A611F3BB699
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 21:10:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787691975; cv=none; b=nMYiF2HammgJNV3iknoSQgseEyIK3Fn7WhqjPDJ0EKlFG5QrEiJAxZG444UsqundsVxvQXhNQ7JlzouP5AcR4lvBClSIBff23OCzV1MU9yJXc51JGwayafEfb+y6392xtWG6ReR2cgUnJvKKFcdbERYeJYVI0D8Rp8nCeK3QGuE=
+	t=1787692234; cv=none; b=WFnJ+ADeMtmpnTXN6Vs0vYzXYWuYeBbQy2BoCXR4T55uBUumT1ePqAd9o2WELYTgqj139X1A6KCEwuLU4yHX2fEpn/qdWRckXPyv39bKBHrXkq8UkFPRf9i0qWpGBzWO9osA5PEHksyvM0PCoiE0vOhUpxY+1A1QFv9HdIow9KU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787691975; c=relaxed/simple;
-	bh=bUmGqiGJN1LIhHuKEpPHFBWlPa9jmzxDZwZzMhWy5aA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kez2yRIqJTrzmrivjBj6RVWea2OGEh0vbkZPB/AzspSy0yJR2bZ3pzS6I+Jbxu015JFDqcIbpz1RIR4iluAEOs9IZcSJqIDvQQEqrIlgVToNrj8E6SIVJrX8yUQUIOZ9rhOdhrw/V5VV/Xpy4WIKO1+RMIVLAGvvk6Z+H6OyG4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org; dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b=DSQOrOLD; arc=none smtp.client-ip=149.28.215.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org
+	s=arc-20240116; t=1787692234; c=relaxed/simple;
+	bh=MeRPUhvigC2zhsGl+R0+MqrgTQuqen361SAvUYMPNdM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Qu+uOKCtad4fh60vhEIlKpSfhihcDUfOtHJI249FnNCPBEtmcpcyDf8ODM/PPAa3qR6Cumful07+ePrdbDtBte0cN1bGOV/TOkJF/+EKdWFcwrie/zD0KEbfP7TjzOKXMv+f8HAkowKEp7TEtA1XOi6n3n0mv1VVwfmchpBJFXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OgOWXZZT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b="DSQOrOLD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lineageos.org;
- h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From: References:
- Cc: To: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
- s=fe-2eefaa527c; t=1787691967;
- bh=mXPE1zcGo976EzGHDXx5Ar7VnZP3PdhjhoOGWAuejoE=;
- b=DSQOrOLDqyXuBLtYTU76CByocWFEvOaHKDTtS3uZEVSvss4pzHxOoy4vifXyLtuwmIwHYsF30
- HZisROCXVUaGY5aFRaRUSdW3kCYiemkUToey9/CZhOU74kO2rtsDTIQV8xcMUYWneEK0WXopC+O
- 0vWGuJKMaFSeXuVDbx+i4F8=
-X-Forward-Email-ID: 6a8e03b750593cdd5fd1e5f7
-X-Forward-Email-Sender: rfc822; tturner@lineageos.org,
- smtp.forwardemail.net, 149.28.215.223
-X-Forward-Email-Version: 2.13.16
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-Message-ID: <135d48e7-58ac-48b8-8fa5-c2548e2f3ae9@lineageos.org>
-Date: Tue, 25 Aug 2026 22:05:53 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OgOWXZZT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1936F1F000E9;
+	Tue, 25 Aug 2026 21:10:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787692233;
+	bh=2EH9V1aLSOi62ASdkcuYkzqTfoRR3Mh9axmxidxzbA0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=OgOWXZZTdojy9wmRroh5c9Sci7WlmVQHG7/8qfn0i4P6ZpVs+eu6+VMzsrCdM3+QI
+	 6a9Fv37UbgZX23YvFHdMjMTJBHfLYABgcUXe79eNJK37tFixcuH0BLYcOQAp2sOLYF
+	 tG7Pxawdm72Jng/s56axwFYV3CE9dioFu5ESSgWlzJK2JI67vtsouBMdIzPUYPefOS
+	 L68ebIl1Rl4ceegAjGMRvzk85Cb9x1BM2lBUNB8vZpeaNsgiuiWhumC/bbxysMkvEb
+	 LDHDSeYUWOZcYTdjlcyarCrGiBplJvFq4+KBGBmPtBm8kcK7JfZZWIkZn9A1NzkCBt
+	 FtQ022BnDKvsA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/5] iommu/generic_pt: Add Broadcom BCM2712 page
+ table format
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Daniel Drake" <dan@reactivated.net>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260825-bcm2712-iommu-submit-v3-3-7f143e7289b6@reactivated.net>
+References: <20260825-bcm2712-iommu-submit-v3-0-7f143e7289b6@reactivated.net>
+ <20260825-bcm2712-iommu-submit-v3-3-7f143e7289b6@reactivated.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 25 Aug 2026 21:10:32 +0000
+Message-Id: <20260825211033.1936F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re:
-To: Sam Protsenko <semen.protsenko@linaro.org>,
- Alexey Klimov <alexey.klimov@linaro.org>
-Cc: "robh@kernel.org" <robh@kernel.org>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,
- krzysztof.kozlowski@oss.qualcomm.com, peter.griffin@linaro.org,
- alim.akhtar@samsung.com, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org
-References: <GVYP280MB12139AB976CA7ACF49FEB768A1A52@GVYP280MB1213.SWEP280.PROD.OUTLOOK.COM>
- <CAPLW+4kQTUX8QhKnAP7bg=iCw5hhNQZoW7cuOpTdvvAUpGaicg@mail.gmail.com>
-Content-Language: en-GB
-From: Thomas Turner <tturner@lineageos.org>
-In-Reply-To: <CAPLW+4kQTUX8QhKnAP7bg=iCw5hhNQZoW7cuOpTdvvAUpGaicg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-Hi Sam and Alexey,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Silent truncation of the page table physical address if allocated =
+above the 37-bit limit.
+--
 
-On 19/08/2026 20:51, Sam Protsenko wrote:
-> Can you please tell us a bit about how you tested this patch, and on
-> which board? As DPU is not currently enabled on Exynos850 SoC, I'm not
-> sure how exactly GPU can be useful. If you have a use case or a
-> testing procedure we can run on the E850-96 board, please share.
-> 
+commit d58086891d7da9b612c9b0e4a88de9a9dc4f255e
+Author: Daniel Drake <dan@reactivated.net>
 
-Sam, Alexey could you please test GPU on the E850-96 board by following
-these instructions:
+iommu/generic_pt: Add Broadcom BCM2712 page table format
 
-1) Apply this patch series locally
-2) Change status="disabled"; to status="okay";
-3) Make sure these configs are enabled:
-CONFIG_DRM_SIMPLEDRM=y
-CONFIG_DRM_PANFROST=y
-4) In terms of regulators we set up a basic mali regulator via our
-secondary bootloader [1] and configured with this dts setup [2], NOTE
-you may be able to get away with a dummy regulator so try that first.
-If not I am sure you can replicate something simple with u-boot PMIC.
-5) Boot a GUI, I saw Debian was used for the bring-up, that should work
-6) Run the following command:
-$ dmesg | grep "panfrost"
-7) Compare that to the output at [3]
+Implement generic_pt support for the 2-level page table format used by
+the BCM2712 IOMMUs.
 
-I hope these instructions make sense, but feel free to send any queries
-my way.
+> diff --git a/drivers/iommu/generic_pt/fmt/bcm2712.h b/drivers/iommu/gener=
+ic_pt/fmt/bcm2712.h
+> new file mode 100644
+> index 0000000000000..2c5b034441c14
+> --- /dev/null
+> +++ b/drivers/iommu/generic_pt/fmt/bcm2712.h
+> @@ -0,0 +1,288 @@
 
-Best Regards,
-Tom
+[ ... ]
 
-[1] https://github.com/samsungexynos850/uniLoader/commit/6a2ed2d97aaf1616e581d0979f9e56a046093e15
-[2] https://github.com/samsungexynos850/linux/commit/68442271304b7c7a410d85118e85df67bcda108a
-[3] https://gist.github.com/DaemonMCR/63fa564483202642d6d66e628b8e6c90
+> +static inline bool bcm2712pt_install_table(struct pt_state *pts,
+> +					   pt_oaddr_t table_pa,
+> +					   const struct pt_write_attrs *attrs)
+> +{
+> +	pt_bcm2712_entry_t entry =3D
+> +		BCM2712PT_VALID |
+> +		FIELD_PREP(BCM2712PT_PFN,
+> +			   oalog2_div(table_pa, PT_GRANULE_LG2SZ));
+> +
+> +	return pt_table_install32(pts, entry);
+> +}
+
+[Severity: High]
+Can table_pa exceed the 37-bit physical address limit here?
+
+Because GFP_KERNEL is used when allocating child tables, the memory
+allocations are not restricted to 32-bit or 37-bit physical addresses.
+
+While the BCM2712 hardware might currently not exceed 16GB of RAM, the
+generic_pt KUnit test for this format can run on any architecture. On syste=
+ms
+with >128GB of RAM, couldn't the child table memory be allocated above the
+37-bit boundary?
+
+If so, wouldn't FIELD_PREP() silently truncate the upper bits of table_pa
+since BCM2712PT_PFN is only 25 bits?
+
+Could this cause the IOMMU hardware to access truncated physical addresses,
+reading random memory and leading to spurious test failures, faults, or DMA
+memory corruption?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825-bcm2712-io=
+mmu-submit-v3-0-7f143e7289b6@reactivated.net?part=3D3
