@@ -1,136 +1,149 @@
-Received: from mail-m19731108.qiye.163.com (mail-m19731108.qiye.163.com [220.197.31.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E1D03F6C2D;
-	Tue, 25 Aug 2026 11:18:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 909A428B7DA
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 11:24:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787656717; cv=none; b=b3sHs2O3E5RsFAugjI/QCHbrBZvCYoKEyyi58wZsjEJsoYx9Q9kY8h/QsVsDcsLytVMDEbNv2Oer2iqWbUgvRrdQiS4Tt1lXfvX1zWAwaHvT/QAVIlEz5318KFfmRwSBVvyDQ8PrRys6y16oYcQudqZQA2Eharo2goZF/+3hPGY=
+	t=1787657064; cv=none; b=LHQQ9QkKzgGCN/VgQiTAupRrYinuyqyXBzEz3KeFv58iR0TlvFzzdR60GKgH1dmw3CIBHgNmWmfdEqcDkY5vW3RnL33qhyq/yAEe6kW9XkJEg1v9Kjwnyab9dGtewXsaQJ2jWfDUhC+m474MnGxMhouFlDzdex77+allTYn5fLY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787656717; c=relaxed/simple;
-	bh=UlgNgsoI2mgmcPjZD9IEaM7dJdoYRpuKMNwGpLxOlJM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aNxZ+43514i1IskgyucOekH5u41Wt0/zfah31amAyKFoBnNRLqjPvLPznSFAQfiqlEm8sFyYdk5gJi7i43PQebO7es/xJ04ICoc9FXMZuDNkZDvhH3Q5cgDs5J4WS9rea7tsaKXTDxdMrmhCc7yns8mPGpdaDQOET6Hj3ou8Rgk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=g6sSXvDm; arc=none smtp.client-ip=220.197.31.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
+	s=arc-20240116; t=1787657064; c=relaxed/simple;
+	bh=xLqbKAI281pxZ1yD5cvn52d7/I7KrdjIiSKYXUfwaFo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Qy+XiMwYP7KkTMrOTYkLiKq0b2P356aPUn1qFoHjAM2ozwE9Ovfp8LhJG7nuelqM+jle7iprbDYBTlI4Tcv+qPxRmEmvOztBlN+nMDzuAntvZP8WfbUb+YSbyWrxBAJC+5Cu/bGK5K6IRTu3BIl6T/pVA8PALso7h6BIz7DWofQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j6uxNw+U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="g6sSXvDm"
-Received: from tsdl-HP-EliteDesk-880-G6-Tower-PC.. (unknown [36.129.139.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4b42473f7;
-	Tue, 25 Aug 2026 19:13:14 +0800 (GMT+08:00)
-From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
-To: konrad.dybcio@oss.qualcomm.com
-Cc: Frank.Li@nxp.com,
-	andersson@kernel.org,
-	bryan.odonoghue@linaro.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	festevam@gmail.com,
-	hongyang.zhao@thundersoft.com,
-	imx@lists.linux.dev,
-	kernel@pengutronix.de,
-	konradybcio@kernel.org,
-	krzk+dt@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	robh@kernel.org,
-	rosh@debian.org,
-	s.hauer@pengutronix.de
-Subject: Re: [PATCH v3 2/2] arm64: dts: qcom: qcs6490-rubikpi3: Add IMX219 camera overlays
-Date: Tue, 25 Aug 2026 19:13:00 +0800
-Message-ID: <20260825111300.578054-1-hongyang.zhao@thundersoft.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <1ef41a49-dcf8-4252-acdd-f7f3c1210c55@oss.qualcomm.com>
-References: <1ef41a49-dcf8-4252-acdd-f7f3c1210c55@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j6uxNw+U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11FDD1F000E9;
+	Tue, 25 Aug 2026 11:24:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787657063;
+	bh=gJoeW07gUWfDhVtrvAHhgVe6HyLIFK2fU8TU/x9pfjg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=j6uxNw+UOkPnyQ5gztiWiPlb1zzYUhFm84joMmcS1sEeI7slxvnfc/4zGFaVxLZ7q
+	 G7fPEYcc7ZC4AI1P8kLKEE9uVe4/p/j3scT0B0DH5Ee3n/49zbkm6+ZEUSFwYyqaKI
+	 hXxPYIJh9olqnl5GqE5lIGeLLTHg++Y+qh2H2W3VVxFPdEKIpsPTXme4pIyAo75OJk
+	 qCG8p6fxKlQVcbij/C52O670hRLwvVl/i7I/XNK/0Ea0bq4xuRhSQ+4otU4d+0HFHY
+	 hixzbvXSVGCXG76xKZkH855Q9qmL60vGUHNoK5IqrL/EN/BqUytyTp2njYrLXcUUfq
+	 X7pokXmJTgWOw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/2] mmc: sdhci-cadence: Add CQE support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Rohan Joshi" <rohan1sj@cadence.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260825-cdns_sdhci_cqe-support-v4-2-e9f72e338373@cadence.com>
+References: <20260825-cdns_sdhci_cqe-support-v4-0-e9f72e338373@cadence.com>
+ <20260825-cdns_sdhci_cqe-support-v4-2-e9f72e338373@cadence.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 25 Aug 2026 11:24:22 +0000
+Message-Id: <20260825112423.11FDD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0389fd69e09d5kunmfc72ad39516699
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQksdVkhNSkJKTklNT0MeSFYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKSUJVSkhCVUJLWVdZFhoPEhUdFFlBWU9LSFVCQk
-	lOS1VKS0tVSkJLQlkG
-DKIM-Signature: a=rsa-sha256;
-	b=g6sSXvDmyQWkNKsuejnsoucOf08FtjSwsRNkWjRVUoH/E29b1E0J9z8qeSrVwN809tPpS8Ilc0BD+F/R7/QBNEetBJKtHhWfzAyZyZSq2UVy8DqjM5ZjQyY7oJMoNXKLyV9aXvejDAWSEkdToPQ2lF1y4Bqdk+hw7aVITxyVexs=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
-	bh=vu2NX5WQU7lXnOIBq1D5RPPESP5Qndpwyx9mUpie3Rk=;
-	h=date:mime-version:subject:message-id:from;
 
-Hi Konrad,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Hardcoded cqhci_host_ops breaks SoC-specific write wrappers (e.g=
+., Elba SoC byte-lane enables), causing potential hardware state corruption.
+--
 
-Thanks for the review.
+--- Patch [2]: [PATCH v4 2/2] mmc: sdhci-cadence: Add CQE support ---
+commit dbab4b1c448ae45285ec3f2e6b5c3e939ca07cc3
+Author: Rohan Joshi <rohan1sj@cadence.com>
 
-On 8/12/26 4:22 AM, Hongyang Zhao wrote:
-> > RUBIK Pi 3 ships without camera sensors, and its two connectors support
-> > multiple modules. Keep module-specific nodes out of the base board DTS
-> > and add per-connector overlays for Raspberry Pi Camera Module V2 IMX219
-> > sensors.
-> > 
-> > CAM1 uses CCI1 and CSIPHY1, while CAM2 uses CCI0 and CSIPHY4. Each
-> > overlay describes the 24 MHz sensor input clock and models the module
-> > power domain controlled through the connector PWR_EN signal. The
-> > baseboard supplies VCC3V3_OUTPUT separately and has no per-camera
-> > regulator.
-> > 
-> > Describe each connector CAMERA_GPIO signal as a privacy indicator LED
-> > and associate it with the corresponding sensor. This lets the V4L2 core
-> > control the LED while the sensor is streaming.
-> > 
-> > Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> > Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
-> > ---
-> 
-> [...]
-> 
-> > +	camera@10 {
-> > +		compatible = "sony,imx219";
-> > +		reg = <0x10>;
-> > +
-> > +		clocks = <&cam1_imx219_clk>;
-> > +
-> > +		VANA-supply = <&vreg_cam1_pwr>;
-> > +		VDIG-supply = <&vreg_cam1_pwr>;
-> > +		VDDL-supply = <&vreg_cam1_pwr>;
-> > +
-> > +		leds = <&cam1_privacy_led>;
-> > +		led-names = "privacy";
-> 
-> No reset GPIOs?
+mmc: sdhci-cadence: Add CQE support
+   =20
+Cadence host controller has optional CQE (Command Queue Engine).
+The HW presence of CQE is determined by an additional host capability
+register. Look up for "cqhci" register space from the DT and when
+present, initialize CQHCI engine.
 
-Yes. The RubikPi camera connector does not route a dedicated sensor reset
-signal. It exposes PWR_EN and CAMERA_GPIO, but neither is connected
-directly to the IMX219 reset input when using the official Raspberry Pi
-Camera Module 2.
+> diff --git a/drivers/mmc/host/sdhci-cadence.c b/drivers/mmc/host/sdhci-ca=
+dence.c
+> index 435603c8c00b2..aa4431ef2b394 100644
+> --- a/drivers/mmc/host/sdhci-cadence.c
+> +++ b/drivers/mmc/host/sdhci-cadence.c
+[ ... ]
+> @@ -385,6 +392,68 @@ static void sdhci_cdns_set_uhs_signaling(struct sdhc=
+i_host *host,
+>  		sdhci_set_uhs_signaling(host, timing);
+>  }
+> =20
+> +static u32 sdhci_cdns_cqhci_irq(struct sdhci_host *host, u32 intmask)
+> +{
+> +	int cmd_err =3D 0;
+> +	int data_err =3D 0;
+> +
+> +	/* return original intmask to be handled by other handlers if it's not =
+a CQE interrupt */
+> +	if (!sdhci_cqe_irq(host, intmask, &cmd_err, &data_err))
+> +		return intmask;
+> +
+> +	cqhci_irq(host->mmc, cmd_err, data_err);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct cqhci_host_ops sdhci_cdns_cqhci_ops =3D {
+> +	.enable		=3D sdhci_cqe_enable,
+> +	.disable	=3D sdhci_cqe_disable,
+> +};
+> +
+> +static int sdhci_cdns_cqe_add_host(struct sdhci_host *host, struct platf=
+orm_device *pdev)
+> +{
+> +	struct cqhci_host *cq_host;
+> +	bool dma64;
+> +	int ret;
+[ ... ]
+> +	dma64 =3D host->flags & SDHCI_USE_64_BIT_DMA;
+> +	if (dma64)
+> +		cq_host->caps |=3D CQHCI_TASK_DESC_SZ_128;
+> +
+> +	cq_host->ops =3D &sdhci_cdns_cqhci_ops;
 
-PWR_EN is connected to the module's ENABLE signal and controls the
-module-local power supplies. CAMERA_GPIO corresponds to a pin that is
-not connected on Camera Module 2. The IMX219 /PWDN signal remains local
-to the camera module and is tied to its 1.8 V rail.
+[Severity: Medium]
+By hardcoding cq_host->ops to sdhci_cdns_cqhci_ops here, does this bypass
+the SoC-specific write wrappers needed by platforms like the Pensando Elba
+SoC?
 
-Therefore, there is no board-controllable reset GPIO to describe for
-this camera configuration.
+The sdhci_cdns_cqhci_ops struct lacks a custom .write_l callback. Elba
+requires a custom byte-lane enable configuration protected by wrlock
+(elba_priv_writel). If a raw writel() from the CQE core interleaves with
+an elba_write_b(), the 32-bit CQHCI write could be truncated by the hardware
+to 1 byte, potentially corrupting the CQE state.
 
-> 
-> You should also have a reference to the mclk pin state to make sure
-> the correct pin function kicks in
+While Elba's current device tree might not define the cqhci resource, it
+appears CQE support is architecturally intended for it since CQE hooks are
+added to sdhci_elba_ops further below in this patch. Is there a way to allow
+sdhci_elba_drv_data to supply its own cqhci_host_ops, or dynamically inherit
+the write_l wrapper from the host operations?
 
-The Camera Module 2 provides its own 24 MHz oscillator, which is
-connected to the IMX219 MCLK input on the module. RubikPi does not route
-a SoC CAM_MCLK signal to this connector. The fixed-clock node represents
-that module-local oscillator, so there is no corresponding TLMM MCLK
-pin state.
+> +
+> +	host->mmc->caps2 |=3D MMC_CAP2_CQE | MMC_CAP2_CQE_DCMD;
+> +
+> +	ret =3D cqhci_init(cq_host, host->mmc, dma64);
+> +	if (ret) {
+> +		dev_err_probe(&pdev->dev, ret, "cqhci init failed\n");
+> +		goto cleanup;
+> +	}
+> +
+> +	/* add host to MMC subsystem */
+> +	ret =3D __sdhci_add_host(host);
+> +	if (ret)
+> +		goto cleanup;
+> +
+> +	return 0;
+> +
+> +cleanup:
+> +	sdhci_cleanup_host(host);
+> +	return ret;
+> +}
+[ ... ]
 
-The Camera Module 2 schematic shows both connections:
-https://datasheets.raspberrypi.com/camera/camera-module-2-schematics.pdf
-
-RUBIK Pi 3 schematic (CSI connector, page 13):
-https://thundercomm.s3-accelerate.amazonaws.com/uploads/web/rubik-pi-3/RUBIKPI3-IOB-V02-RELEASE.pdf
-
-Best regards,
-Hongyang
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825-cdns_sdhci=
+_cqe-support-v4-0-e9f72e338373@cadence.com?part=3D2
