@@ -1,183 +1,142 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AC332F7EF5
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 17:41:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C818F3515EE
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 17:43:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787679661; cv=none; b=RpH1R71oTPJKXn751nVRQVEmcGiEHEtMiFCCwoRBt6xbb7vHrgQ2tcQi2cfGRUT6NQCTRFJD5gQnRIRCIqDMjaHGE3JFD9iS/873PaHYmtjuasATH8jJGT2vSdyto0n6aUwBEtGPLjLoBSvKkgr9ctXt03S4Bff+hWqjXZoatUE=
+	t=1787679822; cv=none; b=rdMZmSXLrHFVv94N9KrEiqELKDD6TsabPS2cmDz00y1MAp1RV5RbcxI8nVt8O+O0fLAsDxOo/9lM3KZ31WnKpVWsPk8bG/dBX8UpWvShol6L9ioKQ0lhNAl4dIVRv3v2mhyyoY0/oV4pThg2jtjKZxTYxR/5qd6QhuqEeaUG+oU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787679661; c=relaxed/simple;
-	bh=3I/GOK0rdQRXXJHHhQ+VqL2zXB3b+DLvtYxgK/EHUPE=;
+	s=arc-20240116; t=1787679822; c=relaxed/simple;
+	bh=Dklc6CsbFR46ysitZ8qL2m5c+pPxoGL/dCIkUmn7fp4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bDHTnIV04ao+VVa81X0YpfFOAVa/63DsHrSJVoxWp2cuMwEdW2DqCiTlDxHYx2pn9EQJWS/PLDP72SoEa8ym3QFEy6zvtVQUjcmSK8FPK6MUbmgdxCpTkUBl2o7fljLugyIVXr4ngeHCyf+plsMO30g8GOBt0RRjXh2fSoScY3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IHkbGZKF; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=lOp9u03EWduRwHSgH4d7gSJD5bz1EBvAeo1XaQxbSq97zCfRoRA49Tx9r2owN/m3RHnny9RbOLwOSm7q68/zxmHCic+KTnnf6mDlXKeFFW90oIOmf7BWjHLQxrwgi9G9yWupkSznPlke3SsYKCkkEbUxlk5NTuFtCHYVLRi0XBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FkoB8+7r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IHkbGZKF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C8391F000E9;
-	Tue, 25 Aug 2026 17:40:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FkoB8+7r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 213AD1F000E9;
+	Tue, 25 Aug 2026 17:43:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787679660;
-	bh=BKTdhi3OiU9ggO/Uyw40LP7UgydjkQNwVZR0O8c6z8Q=;
+	s=k20260515; t=1787679821;
+	bh=N5/3GRv0VAaomLrKQ4TAsvIMWlPOkksNTpLSgL2vTYM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IHkbGZKFGaCOEjVIzpMT2XD8xxtnDr1hRj6c14/3ts3W2SKzcP+H/RSAwUS3dt9yo
-	 Ee22pXmpc+KG1T2zkqVCSE1fD+IqrlWlpqopj8jOqfQ96fB7lZMI3W7H8WDNVZB6Wl
-	 bf8UHtVADfPq9vy7RsSTyjmPaQEVeKzJ0pgWnzTTVbEfqunc5pEEJDYEd20oGW15pI
-	 D0PBhq9fneL+G6Xd4aVgRn699INQFIbfOuKjhKO02+YtJ6vY6s4srr4vMPN882RQOe
-	 nkSNB1yA6qC56MseTrpYRPee82K1qSN8KPPHqumb44myChHEpyqRLiJaLHe32U8Juj
-	 mYcfcT7J4LSLA==
+	b=FkoB8+7rKfZs84h9R1ZXJdlHKm03Ckdf04W2N/OlQT5uO7wnHOOoKszU5SaQ+7OIR
+	 hcbaD4gBkbufezc3hp6/lbXSy1WXZ1IHMNuglKL5iFj7NzMTy8kGS+wefhAzCm7xdT
+	 b7fd63LoDCsa0s0h+nVkrgydwSlGQKjjYGsK9ACrvFTAdWJG2kcgxcRgqIPSuNN/4u
+	 Ix+4duGjS436o5iRjGsu51GHEoBKaiDsrSIQ8IW/IX9r2LP3fs7gA+cgCAVopVgT7A
+	 1yIWRAhPM2+rQtfPvhrKBZma0drr2RjpPUvKLlrKtQgrxr4SDCyXHbelbIC/nybSkV
+	 mSChoXNnYD60A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 08/18] spi: cadence-quadspi: add PHY tuning support
+Subject: Re: [PATCH v9 16/18] mtd: spinand: negotiate optimal controller
+ operating point before dirmap creation
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Santhosh Kumar K" <s-k6@ti.com>
-Cc: devicetree@vger.kernel.org, "Miquel Raynal" <miquel.raynal@bootlin.com>, "Pratyush
- Yadav" <pratyush@kernel.org>, "Michael Walle" <mwalle@kernel.org>, "Takahiro
- Kuwano" <takahiro.kuwano@infineon.com>, conor+dt@kernel.org, robh@kernel.org, "Richard
- Weinberger" <richard@nod.at>, "Vignesh Raghavendra" <vigneshr@ti.com>
-In-Reply-To: <20260825171737.776052-9-s-k6@ti.com>
+Cc: "Richard Weinberger" <richard@nod.at>, "Vignesh Raghavendra" <vigneshr@ti.com>, robh@kernel.org, conor+dt@kernel.org, "Michael
+ Walle" <mwalle@kernel.org>, "Takahiro Kuwano" <takahiro.kuwano@infineon.com>, "Miquel
+ Raynal" <miquel.raynal@bootlin.com>, "Pratyush Yadav" <pratyush@kernel.org>, devicetree@vger.kernel.org
+In-Reply-To: <20260825171737.776052-17-s-k6@ti.com>
 References: <20260825171737.776052-1-s-k6@ti.com>
- <20260825171737.776052-9-s-k6@ti.com>
+ <20260825171737.776052-17-s-k6@ti.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 17:40:59 +0000
-Message-Id: <20260825174059.7C8391F000E9@smtp.kernel.org>
+Date: Tue, 25 Aug 2026 17:43:40 +0000
+Message-Id: <20260825174341.213AD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Manual PHY dummy cycle adjustments are overwritten and clobbered b=
-y subsequent read setups.
-- [Medium] SDR PHY tuning fails for valid 1-tap wide windows due to an off-=
-by-one error in the loop condition.
-- [Medium] Incorrect parsing of 64-bit addresses for 'spi-phy-pattern-parti=
-tion'.
+- [High] Unconditional overwrite of `spinand->cont_read_possible` bypasses =
+system capability checks, risking unsupported continuous reads.
 --
 
-commit 9701c78fc6d77976ffa5b3298e4d3809197ebe5d
+commit 6afbb44eacdd7b8d06d61615ac789bcc3b8a5186
 Author: Santhosh Kumar K <s-k6@ti.com>
 
-spi: cadence-quadspi: add PHY tuning support
+mtd: spinand: negotiate optimal controller operating point before dirmap cr=
+eation
 
-This commit adds an execute_tuning callback for the Cadence QSPI controller
-to perform delay-line calibration. It introduces 2D sweeps for DDR protocols
-and 1D sweeps for SDR protocols by reading a known data pattern or writing
-to the page cache before calibration.
+This commit introduces a mechanism to calibrate the PHY before creating the
+dirmap so the validated max frequency is embedded into the dirmap operation=
+s.
+It adds a ranked fallback iteration to find optimal variants if the
+pre-selected one fails, updating op templates and continuous read capabilit=
+ies
+accordingly.
 
-> diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-=
-quadspi.c
-> index 046fa5d69b0f7..f7cda1bc71393 100644
-> --- a/drivers/spi/spi-cadence-quadspi.c
-> +++ b/drivers/spi/spi-cadence-quadspi.c
+> diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
+> index f839438a44ff2..cd353eb8b5374 100644
+> --- a/drivers/mtd/nand/spi/core.c
+> +++ b/drivers/mtd/nand/spi/core.c
+
 [ ... ]
-> @@ -1559,10 +1718,1594 @@ static bool cqspi_supports_mem_op(struct spi_me=
-m *mem,
-> +static void cqspi_phy_pre_config(struct cqspi_st *cqspi,
-> +				 struct cqspi_flash_pdata *f_pdata,
-> +				 const bool bypass)
+
+> @@ -2050,6 +2121,198 @@ static void spinand_cleanup(struct spinand_device=
+ *spinand)
+
+[ ... ]
+
+> +static bool spinand_try_ranked_variant(struct spinand_device *spinand,
+> +				       struct spi_mem *mem,
+> +				       enum spinand_bus_interface iface,
+> +				       u32 *tried_mask)
 > +{
-[ ... ]
-> +	reg =3D readl(reg_base + CQSPI_REG_RD_INSTR);
-> +	dummy =3D FIELD_GET(CQSPI_REG_RD_INSTR_DUMMY_MASK
-> +				  << CQSPI_REG_RD_INSTR_DUMMY_LSB,
-> +			  reg);
-> +	cqspi->phy_saved_dummy =3D dummy;
-> +	if (dummy)
-> +		dummy--;
-> +	reg &=3D ~(CQSPI_REG_RD_INSTR_DUMMY_MASK << CQSPI_REG_RD_INSTR_DUMMY_LS=
-B);
-> +	reg |=3D FIELD_PREP(CQSPI_REG_RD_INSTR_DUMMY_MASK
-> +				  << CQSPI_REG_RD_INSTR_DUMMY_LSB,
-> +			  dummy);
-> +	writel(reg, reg_base + CQSPI_REG_RD_INSTR);
-
-[Severity: High]
-Does this modification to CQSPI_REG_RD_INSTR get clobbered during tuning?
-
-During the tuning process, cqspi_phy_check_pattern() executes a read via the
-SPI core. This eventually calls cqspi_read_setup(), which recalculates the
-dummy cycles from the spi_mem_op and unconditionally overwrites
-CQSPI_REG_RD_INSTR:
-
-cqspi_read_setup() {
-    ...
-    dummy_clk =3D cqspi_calc_dummy(op);
-    if (dummy_clk)
-        reg |=3D (dummy_clk & CQSPI_REG_RD_INSTR_DUMMY_MASK)
-               << CQSPI_REG_RD_INSTR_DUMMY_LSB;
-    writel(reg, reg_base + CQSPI_REG_RD_INSTR);
-    ...
-}
-
-Will this overwrite destroy the PHY pipeline adjustment made here before the
-tuning read even executes, causing the tuning reads to fail?
-
-> +
-> +	cqspi_phy_set_dll_master(cqspi);
-> +}
-[ ... ]
-> +static int cqspi_find_rx_high_sdr(struct cqspi_flash_pdata *f_pdata,
-> +				  struct spi_mem *mem, struct phy_setting *phy,
-> +				  u8 lowerbound)
-> +{
-> +	struct device *dev =3D &f_pdata->cqspi->pdev->dev;
+> +	const struct spinand_op_variants *variants =3D spinand->all_read_varian=
+ts;
+> +	struct spinand_mem_ops *templates =3D iface =3D=3D ODTR ?
+> +		&spinand->odtr_op_templates : &spinand->ssdr_op_templates;
+> +	const struct spi_mem_op *best;
 > +	int ret;
 > +
-> +	phy->rx =3D CQSPI_PHY_MAX_DELAY;
-> +	do {
-> +		ret =3D cqspi_phy_apply_setting(f_pdata, phy);
-> +		if (!ret) {
-> +			ret =3D cqspi_phy_check_pattern(f_pdata, mem);
-> +			if (!ret)
-> +				return 0;
-> +		}
-> +		phy->rx--;
-> +	} while (phy->rx > lowerbound);
-
-[Severity: Medium]
-Does this loop condition prematurely fail for 1-tap wide windows?
-
-If the valid SDR window is exactly 1-tap wide, the upper boundary will be
-equal to lowerbound. Because the loop condition is strictly greater-than
-(phy->rx > lowerbound), it will exit immediately when reaching lowerbound
-without returning success for that tap. Should this be >=3D lowerbound so
-narrow windows are properly detected?
-
+> +	if (!variants)
+> +		return false;
 > +
-> +	dev_dbg(dev, "Unable to find RX high\n");
-> +	return -ENOENT;
+> +	while ((best =3D spinand_op_find_best_variant(spinand, variants, iface,
+> +						    *tried_mask, NULL))) {
+> +		*tried_mask |=3D BIT(best - variants->ops);
+> +		spinand->max_read_op =3D *best;
+> +		spinand->max_read_op.max_freq =3D 0;
+> +		spinand->max_write_op.max_freq =3D 0;
+> +		ret =3D spi_mem_execute_tuning(mem, &spinand->max_read_op,
+> +					     &spinand->max_write_op);
+> +		if (ret && ret !=3D -EOPNOTSUPP)
+> +			dev_dbg(&mem->spi->dev, "%s optimization failed: %d\n",
+> +				iface =3D=3D ODTR ? "ODTR" : "SSDR", ret);
+> +		if (!ret && spinand->max_read_op.max_freq) {
+> +			templates->read_cache =3D best;
+> +			if (spinand->all_cont_read_variants) {
+> +				templates->cont_read_cache =3D
+> +					spinand_find_cont_read_variant(spinand, best, iface);
+> +				spinand->cont_read_possible =3D
+> +					!!templates->cont_read_cache;
+
+[Severity: High]
+Does this code unconditionally overwrite the system capability flag for
+continuous reads?
+
+Earlier in the initialization sequence, spinand_cont_read_init() may have
+cleared spinand->cont_read_possible due to system-level constraints, such as
+pipelined ECC requirements or lack of controller support. By setting it here
+based solely on the existence of an op template, it appears we might re-ena=
+ble
+continuous reads on hardware that cannot actually support it.
+
+Could this lead to I/O timeouts or potential data corruption when the subsy=
+stem
+attempts unsupported continuous read operations?
+
+> +			}
+> +			return true;
+> +		}
+> +	}
+> +	return false;
 > +}
+
 [ ... ]
-> @@ -1588,9 +3331,12 @@ static int cqspi_of_get_flash_pdata(struct platfor=
-m_device *pdev,
->  		return -ENXIO;
->  	}
-> =20
-> -	if (of_property_read_u32(np, "spi-max-frequency", &f_pdata->clk_rate)) {
-> -		dev_err(&pdev->dev, "couldn't determine spi-max-frequency\n");
-> -		return -ENXIO;
-> +	part_np =3D of_parse_phandle(np, "spi-phy-pattern-partition", 0);
-> +	if (part_np) {
-> +		f_pdata->phy_pattern_partition_valid =3D
-> +			!of_property_read_u32_index(part_np, "reg", 0,
-> +						    &f_pdata->phy_pattern_partition_offset);
-
-[Severity: Medium]
-Will this truncate 64-bit partition offsets?
-
-If the SPI device specifies #address-cells =3D <2>, the reg property contai=
-ns
-a 64-bit address. Reading it with of_property_read_u32_index() fetches only
-the upper 32 bits (which is 0 for offsets under 4GB). This could lead to the
-pattern being read from the wrong flash offset instead of the dedicated
-partition.
-
-> +		of_node_put(part_np);
->  	}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825171737.7760=
-52-1-s-k6@ti.com?part=3D8
+52-1-s-k6@ti.com?part=3D16
