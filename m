@@ -1,68 +1,68 @@
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 957B63FF1A9
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 14:02:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF339476CEB
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 14:02:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787666560; cv=none; b=hCGSXL4gxOX8SMyEp105pmPejiUAMmla7lD96Bx8nmk8IghscmLHl7IwiuBTW+nFvmB65zt2g1eqLb9Bhu3u3p0S4xDD4u31SOjEmhFdiwTwqem6dGfK3G1azjd5q7nXFs8DMgAyJ8XCfHJ2lV8+9MjM7SltNwHUWGexwHe+qUY=
+	t=1787666560; cv=none; b=oJPe8ceM9CqxJMoZKrb3RyX08CwkA1uKI3K3Kqmknx1nH0Jk1T+rbuR+S1M+c43omNQVev39X18394jxtUTMKCqVI6qBuBEdu96LxUo4EhKA4Uou9SicWRk+YiPGtrVU4+fNI1x6+41OkjAnJ/Sd8kaaFgO1iYHWBeVQCrVRd4M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787666560; c=relaxed/simple;
-	bh=O954oCb/X6zJFFKR9J1IhOMsbO2BftkbFDfdzjj0t24=;
+	bh=6MKEBqdvSj+cBNSrEPepe8pk2+obpoDTJBuGcXxOWOY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GZ0OhOvJtmiI80iaSE7Ez4cgs1ZETa9QVqzjrxyjex6C4rKgveBLFORjg25ve/QfgeUmwU2vyaHjEWql6vsJPhidGiuJ7wnxHM6thaD20qrmAhBlamHVwcgEYZN82074OiEdA9z3uh8PTSa9XB8GArPkkltTFGeeWJNcYX4NxkM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=XB9Dmah3; arc=none smtp.client-ip=209.85.208.47
+	 MIME-Version; b=KKliMnBNZst2j03RZxxuGyuwnzwOiFuVJpXdeT/yCXoW92I4LQbuWkaStSCFZ3QI9e4tyJD3cIU/Cm4Gfcr36yfPrRwFbaqrmhgvX7kle1bLdSCUtbqzd2QGfQq3jxZNOXj/Ol/a9JxAfceuwkK/MsniUgJ8EpcNXY+teWho1/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=PcPP7gld; arc=none smtp.client-ip=209.85.208.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="XB9Dmah3"
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a157f90752so8049491a12.3
-        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 07:02:37 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="PcPP7gld"
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6a051b737d8so5974180a12.1
+        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 07:02:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=konsulko.com; s=google; t=1787666556; x=1788271356; darn=vger.kernel.org;
+        d=konsulko.com; s=google; t=1787666557; x=1788271357; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GCkLszOPb6Hb/w5Hz9VQzAO60/GLzuXIDg2ZoU++UGk=;
-        b=XB9Dmah3ltJEcbre1kkqGMxu83QofFUm2yrux4EQpfUENXSuLhca4HnWfq/WvDOyS9
-         c/huTG6ZGpMpGbhXy/dIUqfiu9wCmhYnHyiNzdZijAJB8xG6b5/PXm5ZceTJZ+XzVdwq
-         N2lJReQs+g3acAZEmb5c5zwnv250DPdaOdtX0=
+        bh=MMEJUlW+39T2nK1hEgYlTYnd7Zxcw3anaDHrvpxUYSU=;
+        b=PcPP7gldCtmzXK9tuCuz/IfnhcHQTiU3Bdy/Hiyh4CTehIRqxjEURARHm/MTl9bNa/
+         u1+MUK4FazCDR7DvwhACtlGOE/34s1DabdNXplCSUFdTIDDclEZv0w368Qpi4b+QtH+2
+         4Q9pXKye722RK5JzDl8xVz7f7DzeNQf9v28uI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787666556; x=1788271356;
+        d=1e100.net; s=20251104; t=1787666557; x=1788271357;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GCkLszOPb6Hb/w5Hz9VQzAO60/GLzuXIDg2ZoU++UGk=;
-        b=gNBDPE7ZVCK+i8j6bCdHJ7wLahS44DQCSfOx78JAw5AjhiNlh/JDdFzat9vIjesn5Y
-         W2jYFvM9X0n0iO1o6aCJNxSjLCDFjIAozLxKwWJMkYI0T5lla0y5KpvChIMh+1JtPAGV
-         sU6odetMt49zL+IWVwlYySTQGT32RX2CIT5sf/dgShJWtVOwqJ5D9t0PGQAfAhcc53dm
-         /gjc3lajzWWfQlqYKUAiks9x87UGxA5l0n5+05hVXMaiq+J1ujYKaGR+u9RYeoySxJ/6
-         v8v0KA/1ST1GWAO9ZB9jQnqRDLsoFQjs8IxRtbLxkTHXFq4NhDfsNvqJe7SZOufPnUS6
-         XHQw==
-X-Gm-Message-State: AFuF++n2BUNKRvXfyWnX1ZkdnLZjbBsIk7YwPWlv/388v2YpUeO1iMil
-	SLgpbwwoaGRQWedDfFiLO3Fio8kzhdNk22tx8nB96FYS9NebLg5NSq/VTfB2/xV6LT0=
-X-Gm-Gg: AR+sD100y6CiIYC9PAKrItAIiQjx4V9nS7tGOwZSoh0pfwNYnxfpcltlz5Xe4sVQilc
-	tlGvbtPsXAGHYtHTUW9K8HuAko2UIylDC+Crffss2vIeZZzqwJVs9hUQ3Wm95+0VdGuinvLCghY
-	3ozwQ28+ofdWKd+3kx+L7Xabeb6eJQhiHnfZo4c+C8gM+cRWp3l2sA9V78DbU8+ql7dGFkI73Qo
-	Y+fWTdCNCPRof/MJKVIgH8LMLuGduYtzrJJGB6oZ35MTVxPQo/DDtsR1kVGbD9/2qbrRHAdWtP+
-	5fIfZisXdaocw/fypZmwD+j7m4A102h2+7NV4svJKpGRNsXDR3iDrrNpEjxrNsPbQ2+JqKV16i0
-	/8rrN4maL2hK36qlMgdXD7o/eFfRh5NT9pID3wa4skiJMuWJ0mVivb5FeIi1TGwspTEB+WseIt4
-	RuNP29syntsbbleyRRiShgPFMcp/uI+1sxqrB8RfnWUKY5NN9ubZSOJ+ziuuAzPZr89bMNml/jn
-	wP5Wg==
-X-Received: by 2002:a05:6402:1f0d:b0:6a1:bff4:645d with SMTP id 4fb4d7f45d1cf-6a5c409f22cmr8077327a12.2.1787666555707;
-        Tue, 25 Aug 2026 07:02:35 -0700 (PDT)
+        bh=MMEJUlW+39T2nK1hEgYlTYnd7Zxcw3anaDHrvpxUYSU=;
+        b=ao2Y3WGQ3pv4EIrHteqoiyPDTSfid5O3bhLIifp0EBDLV3IvO5BypeRlDvA45Gtkeu
+         fZZIP2Qs+0+Wqgi9k1BV+E3POYr6iY9Pgy1U0XydmH8ApGqZL92Mjy3gW2Wo4HUFdfSs
+         DgXM6abyaAC/SbZdER7PEC86O7WdAJhR5/VScQUT9ji3VBsQKw6jvK0JiGn7m8ulvbdk
+         FPs+K4xnKc1mE/iCC0p4uvue3CiZNuFZSqONoJwbsAozv98oQYoqXt6U3Z4lmaHzZASG
+         yI5kdf9s1+d6sgZGEEXXflZjO4qt90eG2u5DvhI/iKdWnr2ShLMNFs7zBUOfq5bsI7q7
+         IaSA==
+X-Gm-Message-State: AFuF++lhHDMeeyw51vO9dLRZ64ufNLRdBDzEnOQ8/1lx/bm86WulgwOB
+	4707eUp+j7Qx/SxXciO9IZSS758JDQdDRQd7a2qg8Q37Ya/m1nWrSAvjJ51LDignU0A=
+X-Gm-Gg: AR+sD10OUckAD0SB2dVXDQVw1HTE/Mgpu5kqy5YnrCugkSSwdOw7R1qlsNvuLhoch8y
+	VpqB6JfsFMDGlFJIIcsA63QGF4p5WEM2c7UxyfsBFCzmlt+7o5w/qPl7sySewvwFc5ucZzfRsbF
+	0jOy+6BJ8HJCviOtpshQAgRhiZUjIJQezEzHF2GwUJ8xtct4KzDFI2+2hhlXoaHcJNW6zucwh0p
+	Uf7Y6IOE0Cr+GChU/LZaEVZVmJTSeI1hQbDboclZkV74DG/1uspAEr9cAuL2y7T4IzVtbR3VJle
+	zHMvufTitNAnTJTiSq+zrH990ScxUDgrvoPscaXf52zGyXkoDY326Kb/YzyPvTrFznRHXywyVFF
+	bHvHDizSSb4ypsjaYzooJtxwZ80k28T6ZceBlK/dzs96jXfhKv928X9VHI/ULefKXLUxQSbWjDN
+	Bw1xTRbx1Voc3ml2XG3xKuT5BztwdrY5vdW515GZUNI4tLjJPcot+ZP/C9jcWhNCLmUG2xNhDky
+	KcIvQ==
+X-Received: by 2002:a05:6402:50cc:b0:6a3:8525:b9da with SMTP id 4fb4d7f45d1cf-6a5c40b1a17mr7908221a12.4.1787666556727;
+        Tue, 25 Aug 2026 07:02:36 -0700 (PDT)
 Received: from tone.k.g (lan.nucleusys.com. [92.247.61.126])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a59e00129fsm17187878a12.1.2026.08.25.07.02.34
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a59e00129fsm17187878a12.1.2026.08.25.07.02.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 07:02:35 -0700 (PDT)
+        Tue, 25 Aug 2026 07:02:36 -0700 (PDT)
 From: Petko Manolov <petko.manolov@konsulko.com>
 To: linux-kernel@vger.kernel.org
 Cc: devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	Petko Manolov <petko.manolov@konsulko.com>
-Subject: [PATCH v1 1/1] ARM: dts: draeger: Add devicetree files for M48 Intel/Altera SoCFPGA Cyclone
-Date: Tue, 25 Aug 2026 17:02:22 +0300
-Message-ID: <20260825140225.3968019-2-petko.manolov@konsulko.com>
+Subject: [PATCH v1 1/1] ARM: dts: draeger: Add devicetree files for M48 on NXP i.MX6(Q)
+Date: Tue, 25 Aug 2026 17:02:23 +0300
+Message-ID: <20260825140225.3968019-3-petko.manolov@konsulko.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260825140225.3968019-1-petko.manolov@konsulko.com>
 References: <20260825140225.3968019-1-petko.manolov@konsulko.com>
@@ -76,128 +76,205 @@ Content-Transfer-Encoding: 8bit
 
 Signed-off-by: Petko Manolov <petko.manolov@konsulko.com>
 ---
- arch/arm/boot/dts/intel/socfpga/Makefile      |   1 +
- .../socfpga/socfpga_cyclone5_draeger_m48.dts  | 132 ++++++++++++++++++
- 2 files changed, 133 insertions(+)
- create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+ arch/arm/boot/dts/nxp/imx/Makefile            |   2 +
+ .../boot/dts/nxp/imx/imx6dl-draeger-m48.dts   |  23 ++
+ .../boot/dts/nxp/imx/imx6q-draeger-m48.dts    |  23 ++
+ .../boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi | 369 ++++++++++++++++++
+ .../boot/dts/nxp/imx/imx6qp-draeger-m48.dts   |  78 ++++
+ 5 files changed, 495 insertions(+)
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6dl-draeger-m48.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6q-draeger-m48.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6qp-draeger-m48.dts
 
-diff --git a/arch/arm/boot/dts/intel/socfpga/Makefile b/arch/arm/boot/dts/intel/socfpga/Makefile
-index 8df0976da01c..cdcea11abdfa 100644
---- a/arch/arm/boot/dts/intel/socfpga/Makefile
-+++ b/arch/arm/boot/dts/intel/socfpga/Makefile
-@@ -11,6 +11,7 @@ dtb-$(CONFIG_ARCH_INTEL_SOCFPGA) += \
- 	socfpga_arria10_mercury_aa1_st1_emmc.dtb \
- 	socfpga_arria10_mercury_aa1_st1_qspi.dtb \
- 	socfpga_arria10_mercury_aa1_st1_sdmmc.dtb \
-+	socfpga_cyclone5_draeger_m48.dtb \
- 	socfpga_cyclone5_mercury_sa1_pe1_emmc.dtb \
- 	socfpga_cyclone5_mercury_sa1_pe1_qspi.dtb \
- 	socfpga_cyclone5_mercury_sa1_pe1_sdmmc.dtb \
-diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
+index 1a2539fa19b4..44b393256235 100644
+--- a/arch/arm/boot/dts/nxp/imx/Makefile
++++ b/arch/arm/boot/dts/nxp/imx/Makefile
+@@ -220,6 +220,8 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
+ 	imx6q-dmo-edmqmx6.dtb \
+ 	imx6q-dms-ba16.dtb \
+ 	imx6q-ds.dtb \
++	imx6q-draeger-m48.dtb \
++	imx6dl-draeger-m48.dtb \
+ 	imx6q-emcon-avari.dtb \
+ 	imx6q-evi.dtb \
+ 	imx6dl-b105pv2.dtb \
+diff --git a/arch/arm/boot/dts/nxp/imx/imx6dl-draeger-m48.dts b/arch/arm/boot/dts/nxp/imx/imx6dl-draeger-m48.dts
 new file mode 100644
-index 000000000000..fd597f15c0d8
+index 000000000000..45809770d16f
 --- /dev/null
-+++ b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-@@ -0,0 +1,132 @@
++++ b/arch/arm/boot/dts/nxp/imx/imx6dl-draeger-m48.dts
+@@ -0,0 +1,23 @@
++// SPDX-License-Identifier: GPL-2.0+
++
++/*
++ *  (C) Copyright 2020 Draeger and Licensors, info@draeger.com
++ *  Based on work by Russell King
++ *
++ *  Device Tree file for Drager M48 Board
++ */
++
++/dts-v1/;
++
++#include "imx6dl.dtsi"
++/* PAD config disabled in imx6qdl-draeger-m48.dtsi by setting value to 0x80000000
++ * PAD configuration register must not be 0, so it is set to 0xfff
++ */
++#define MX6QDL_PAD_CTL_GRP_DDR_TYPE_RGMII        0x768 0xfff 0x000 0x000C0000 0x0
++#define MX6QDL_PAD_CTL_GRP_RGMII_TERM            0x788 0xfff 0x000 0x00000200 0x0
++#include "imx6qdl-draeger-m48.dtsi"
++
++/ {
++	model = "Draeger M48 i.MX6 DualLite";
++	compatible = "draeger,imx6dl-m48", "fsl,imx6dl";
++};
+diff --git a/arch/arm/boot/dts/nxp/imx/imx6q-draeger-m48.dts b/arch/arm/boot/dts/nxp/imx/imx6q-draeger-m48.dts
+new file mode 100644
+index 000000000000..1266b8451fa1
+--- /dev/null
++++ b/arch/arm/boot/dts/nxp/imx/imx6q-draeger-m48.dts
+@@ -0,0 +1,23 @@
++// SPDX-License-Identifier: GPL-2.0+
++
++/*
++ *  (C) Copyright 2020 Draeger and Licensors, info@draeger.com
++ *
++ *  Device Tree file for Drager M48 Board
++ */
++
++/dts-v1/;
++
++#include "imx6q.dtsi"
++/* PAD config disabled in imx6qdl-draeger-m48.dtsi by setting value to 0x80000000
++ * PAD configuration register must not be 0, so it is set to 0xfff
++ */
++#define MX6QDL_PAD_CTL_GRP_DDR_TYPE_RGMII        0x790 0xfff 0x000 0x000C0000 0x0
++#define MX6QDL_PAD_CTL_GRP_RGMII_TERM            0x7ac 0xfff 0x000 0x00000200 0x0
++
++#include "imx6qdl-draeger-m48.dtsi"
++
++/ {
++	model = "Draeger M48 i.MX6 Quad";
++	compatible = "draeger,imx6q-m48", "fsl,imx6q";
++};
+diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi
+new file mode 100644
+index 000000000000..bcfe7b2556cb
+--- /dev/null
++++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi
+@@ -0,0 +1,369 @@
 +// SPDX-License-Identifier: GPL-2.0+
 +/*
 + *  (C) Copyright 2020 Draeger and Licensors, info@draeger.com
++ *  Based on work by Russell King
++ *
++ *  Device Tree file for Drager M48 Board
 + */
-+#include "socfpga_cyclone5.dtsi"
++#include <dt-bindings/clock/imx6qdl-clock.h>
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/input/input.h>
 +
-+/ {
-+	model = "Draeger M48 Cyclone V SoC";
-+	compatible = "draeger,M48/socfpga", "altr,socfpga-cyclone5", "altr,socfpga";
-+
-+	chosen {
-+		bootargs = "earlyprintk";
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	memory@0 {
-+		name = "memory";
-+		device_type = "memory";
-+		reg = <0x0 0x40000000>;
-+
-+		/* 1GB */
-+	};
-+
-+	aliases {
-+	/* this allow the ethaddr uboot environmnet variable contents
-+	 * to be added to the gmac1 device tree blob.
-+	 */
-+		ethernet0 = &gmac0;
-+	};
-+
-+	soc {
-+		gpio3: gpio@0xff202000 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "snps,dw-apb-gpio";
-+			reg = <0xff202000 0x20>;
-+			status = "okay";
-+
-+			portd: gpio-controller@0 {
-+				compatible = "snps,dw-apb-gpio-port";
-+				gpio-controller;
-+				#gpio-cells = <2>;
-+				snps,nr-gpios = <2>;
-+				reg = <0>;
-+				bank-name = "SYNC_I";
-+			};
++&iomuxc {
++	m48 {
++		pinctrl_m48_uart1: m48-uart1 {
++			fsl,pins = <
++				MX6QDL_PAD_SD3_DAT7__UART1_TX_DATA 0x1b010
++				MX6QDL_PAD_SD3_DAT6__UART1_RX_DATA 0x1b010
++			>;
 +		};
 +
-+		gpio4: gpio@0xff202020 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "snps,dw-apb-gpio";
-+			reg = <0xff202020 0x20>;
-+			status = "okay";
++		pinctrl_m48_hdmi: m48-hdmi {
++			fsl,pins = <
++				MX6QDL_PAD_EIM_D16__HDMI_TX_DDC_SDA 0x1b0b0
++				MX6QDL_PAD_EIM_EB2__HDMI_TX_DDC_SCL 0x1b0b0
++			>;
++		};
 +
-+			porte: gpio-controller@0 {
-+				compatible = "snps,dw-apb-gpio-port";
-+				gpio-controller;
-+				#gpio-cells = <2>;
-+				snps,nr-gpios = <2>;
-+				reg = <0>;
-+				bank-name = "SYNC_O";
-+			};
++		pinctrl_m48_lvds: m48-lvds {
++			fsl,pins = <
++				MX6QDL_PAD_EIM_A22__GPIO2_IO16 0x1b010 /* DISPLAY_EN */
++				MX6QDL_PAD_EIM_A20__GPIO2_IO18 0x1b010 /* BACKLIGHT_EN */
++				MX6QDL_PAD_EIM_A18__GPIO2_IO20 0x1b010 /* DISP0_CONTRAST */
++			>;
++		};
++
++		pinctrl_m48_i2c2: m48-i2c2 {
++			fsl,pins = <
++				MX6QDL_PAD_KEY_COL3__I2C2_SCL 0x4001b820
++				MX6QDL_PAD_KEY_ROW3__I2C2_SDA 0x4001b820
++			>;
++		};
++
++		pinctrl_m48_i2c2_gpio: m48-i2c2_gpio {
++			fsl,pins = <
++				MX6QDL_PAD_KEY_COL3__GPIO4_IO12 0x1b820
++				MX6QDL_PAD_KEY_ROW3__GPIO4_IO13 0x1b820
++			>;
++#define GP_I2C2_SCL <&gpio4 12 GPIO_ACTIVE_HIGH>
++#define GP_I2C2_SDA <&gpio4 13 GPIO_ACTIVE_HIGH>
++		};
++
++		pinctrl_m48_i2c3: m48-i2c3 {
++			fsl,pins = <
++				MX6QDL_PAD_EIM_D17__I2C3_SCL 0x4001b820
++				MX6QDL_PAD_EIM_D18__I2C3_SDA 0x4001b820
++			>;
++		};
++
++		pinctrl_m48_i2c3_gpio: m48-i2c3_gpio {
++			fsl,pins = <
++				MX6QDL_PAD_EIM_D17__GPIO3_IO17 0x1b820
++				MX6QDL_PAD_EIM_D18__GPIO3_IO18 0x1b820
++			>;
++#define GP_I2C3_SCL <&gpio3 17 GPIO_ACTIVE_HIGH>
++#define GP_I2C3_SDA <&gpio3 18 GPIO_ACTIVE_HIGH>
++		};
++
++		pinctrl_m48_usdhc3: m48-usdhc3 {
++			fsl,pins = <
++				MX6QDL_PAD_SD3_CMD__SD3_CMD 0x1B060
++				MX6QDL_PAD_SD3_CLK__SD3_CLK 0x1B060
++				MX6QDL_PAD_SD3_DAT0__SD3_DATA0 0x1B060
++				MX6QDL_PAD_SD3_DAT1__SD3_DATA1 0x1B060
++				MX6QDL_PAD_SD3_DAT2__SD3_DATA2 0x1B060
++				MX6QDL_PAD_SD3_DAT3__SD3_DATA3 0x1B060
++				MX6QDL_PAD_NANDF_CS1__SD3_VSELECT 0x1B060
++			>;
++		};
++
++		pinctrl_m48_enet: enetgrp {
++			fsl,pins = <
++				MX6QDL_PAD_KEY_COL1__ENET_MDIO 0x1b0b0
++				MX6QDL_PAD_ENET_MDC__ENET_MDC 0x1b0b0
++				MX6QDL_PAD_RGMII_TXC__RGMII_TXC 0x13018
++				MX6QDL_PAD_RGMII_TD0__RGMII_TD0 0x1B018
++				MX6QDL_PAD_RGMII_TD1__RGMII_TD1 0x1B018
++				MX6QDL_PAD_RGMII_TD2__RGMII_TD2 0x1B018
++				MX6QDL_PAD_RGMII_TD3__RGMII_TD3 0x1B018
++				MX6QDL_PAD_RGMII_TX_CTL__RGMII_TX_CTL 0x13018
++				MX6QDL_PAD_ENET_REF_CLK__ENET_TX_CLK 0x1b0b0
++				MX6QDL_PAD_RGMII_RXC__RGMII_RXC 0x13030
++				MX6QDL_PAD_RGMII_RD0__RGMII_RD0 0x1B030
++				MX6QDL_PAD_RGMII_RD1__RGMII_RD1 0x1B030
++				MX6QDL_PAD_RGMII_RD2__RGMII_RD2 0x1B030
++				MX6QDL_PAD_RGMII_RD3__RGMII_RD3 0x1B030
++				MX6QDL_PAD_RGMII_RX_CTL__RGMII_RX_CTL 0x13030
++				MX6QDL_PAD_CTL_GRP_DDR_TYPE_RGMII 0x80000000
++				MX6QDL_PAD_CTL_GRP_RGMII_TERM 0x80000000
++			>;
 +		};
 +	};
 +};
 +
-+&gmac0 {
-+	status = "okay";
-+	phy-mode = "rgmii-id";
-+	rxc-skew-ps = <1860>;
-+	rxd0-skew-ps = <0>;
-+	rxd1-skew-ps = <0>;
-+	rxd2-skew-ps = <0>;
-+	rxd3-skew-ps = <0>;
-+	rxdv-skew-ps = <0>;
-+	txc-skew-ps = <900>;
-+	txd0-skew-ps = <0>;
-+	txd1-skew-ps = <0>;
-+	txd2-skew-ps = <0>;
-+	txd3-skew-ps = <0>;
-+	txen-skew-ps = <0>;
-+};
-+
-+&gpio0 {
-+	status = "okay";
-+};
-+
-+&gpio1 {
-+	status = "okay";
-+};
-+
-+&gpio2 {
-+	status = "okay";
-+};
-+
-+&i2c0 {
-+	status = "okay";
++&i2c2 {
 +	clock-frequency = <100000>;
++	pinctrl-names = "default", "gpio";
++	pinctrl-0 = <&pinctrl_m48_i2c2>;
++	pinctrl-1 = <&pinctrl_m48_i2c2_gpio>;
++	scl-gpios = GP_I2C2_SCL;
++	sda-gpios = GP_I2C2_SDA;
++	status = "okay";
 +
 +	eeprom_mac: eeprom@50 {
 +		compatible = "atmel,24c08";
@@ -206,30 +283,339 @@ index 000000000000..fd597f15c0d8
 +	};
 +};
 +
-+&mmc0 {
++&i2c3 {
++	pinctrl-names = "default", "gpio";
++	pinctrl-0 = <&pinctrl_m48_i2c3>;
++	pinctrl-1 = <&pinctrl_m48_i2c3_gpio>;
++	scl-gpios = GP_I2C3_SCL;
++	sda-gpios = GP_I2C3_SDA;
 +	status = "okay";
 +};
 +
-+&qspi {
++&uart1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_m48_uart1>;
++	status = "okay";
++};
++
++&usdhc3 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_m48_usdhc3>;
++	non-removable;
++	fsl,wp-controller;
++	status = "okay";
++};
++
++&fec {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_m48_enet>;
++	phy-mode = "rgmii-id";
++	phy-handle = <&ethphy>;
 +	status = "okay";
 +
-+	flash0: n25q00@0 {
++	mdio {
 +		#address-cells = <1>;
-+		#size-cells = <1>;
-+		compatible = "n25q00";
-+		reg = <0>;
++		#size-cells = <0>;
 +
-+		/* chip select */
-+		spi-max-frequency = <100000000>;
-+		m25p,fast-read;
-+		cdns,page-size = <256>;
-+		cdns,block-size = <16>;
-+		cdns,read-delay = <4>;
-+		cdns,tshsl-ns = <50>;
-+		cdns,tsd2d-ns = <50>;
-+		cdns,tchsh-ns = <4>;
-+		cdns,tslch-ns = <4>;
++		ethphy: ethernet-phy@0 {
++			reg = <0>;
++			rxc-skew-ps = <1380>;
++			rxd0-skew-ps = <0>;
++			rxd1-skew-ps = <0>;
++			rxd2-skew-ps = <0>;
++			rxd3-skew-ps = <0>;
++			rxdv-skew-ps = <0>;
++			txc-skew-ps = <1860>;
++			txd0-skew-ps = <0>;
++			txd1-skew-ps = <0>;
++			txd2-skew-ps = <0>;
++			txd3-skew-ps = <0>;
++			txen-skew-ps = <0>;
++			status = "okay";
++		};
 +	};
++};
++
++&hdmi {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_m48_hdmi>;
++
++	display-timings {
++		native-mode = <&hdmi0>;
++
++		hdmi0: hdmi {
++			clock-frequency = <65000000>;
++			hactive = <1024>;
++			vactive = <768>;
++			hback-porch = <220>;
++			hfront-porch = <40>;
++			vback-porch = <21>;
++			vfront-porch = <7>;
++			hsync-len = <60>;
++			vsync-len = <10>;
++		};
++
++		hdmi1: hdmi-1280x800-24@60 {
++			clock-frequency = <71000000>;
++			hactive = <1280>;
++			vactive = <800>;
++			hback-porch = <80>;
++			hfront-porch = <48>;
++			vback-porch = <14>;
++			vfront-porch = <3>;
++			hsync-len = <32>;
++			vsync-len = <6>;
++		};
++
++		hdmi2: hdmi-1366x768-32@60 {
++			clock-frequency = <72000000>;
++			hactive = <1366>;
++			vactive = <768>;
++			hback-porch = <80>;
++			hfront-porch = <48>;
++			vback-porch = <14>;
++			vfront-porch = <3>;
++			hsync-len = <32>;
++			vsync-len = <5>;
++		};
++	};
++};
++
++&ldb {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_m48_lvds>;
++
++	lvds-channel@0 {
++		fsl,data-mapping = "spwg";
++		fsl,default-data-width = <24>;
++		status = "okay";
++
++		display-timings {
++			native-mode = <&timing0>;
++
++			timing0: 1920x1080-32@60 {
++				fsl,dual-channel;
++
++				/* LVDS split mode */
++				clock-frequency = <71190000>;
++
++				/* pixclk /2 */
++				hactive = <1920>;
++				vactive = <1080>;
++				hback-porch = <60>;
++
++				/* left * 2 */
++				hfront-porch = <60>;
++
++				/* right * 2 */
++				vback-porch = <30>;
++				vfront-porch = <3>;
++				hsync-len = <60>;
++
++				/* hsync * 2 */
++				vsync-len = <17>;
++			};
++
++			timing1: 1366x768-32@60 {
++				clock-frequency = <72000000>;
++				hactive = <1366>;
++				vactive = <768>;
++				hback-porch = <80>;
++				hfront-porch = <48>;
++				vback-porch = <14>;
++				vfront-porch = <3>;
++				hsync-len = <32>;
++				vsync-len = <5>;
++			};
++
++			timing2: 1280x800-24@60 {
++				fsl,data-width = <18>;
++				clock-frequency = <71000000>;
++				hactive = <1280>;
++				vactive = <800>;
++				hback-porch = <80>;
++				hfront-porch = <48>;
++				vback-porch = <14>;
++				vfront-porch = <3>;
++				hsync-len = <32>;
++				vsync-len = <6>;
++			};
++
++			timing3: Tianma_1280x800-24@60 {
++				fsl,data-width = <18>;
++				clock-frequency = <67254000>;
++				hactive = <1280>;
++				vactive = <800>;
++				hback-porch = <5>;
++				hfront-porch = <27>;
++				vback-porch = <2>;
++				vfront-porch = <26>;
++				hsync-len = <32>;
++				vsync-len = <6>;
++			};
++
++			timing4: 1024x768-24@60 {
++				fsl,data-width = <18>;
++				clock-frequency = <65000000>;
++				hactive = <1024>;
++				vactive = <768>;
++				hback-porch = <160>;
++				hfront-porch = <24>;
++				vback-porch = <29>;
++				vfront-porch = <3>;
++				hsync-len = <136>;
++				vsync-len = <6>;
++			};
++
++			timing5: 800x600-32@60 {
++				clock-frequency = <40000000>;
++				hactive = <800>;
++				vactive = <600>;
++				hback-porch = <120>;
++				hfront-porch = <40>;
++				vback-porch = <28>;
++				vfront-porch = <13>;
++				hsync-len = <80>;
++				vsync-len = <4>;
++			};
++
++			timing6: 800x480-32@60 {
++				clock-frequency = <25000000>;
++				hactive = <800>;
++				vactive = <480>;
++				hback-porch = <8>;
++				hfront-porch = <8>;
++				vback-porch = <8>;
++				vfront-porch = <8>;
++				hsync-len = <4>;
++				vsync-len = <4>;
++			};
++
++			timing7: 640x480-32@60 {
++				clock-frequency = <25175000>;
++				hactive = <640>;
++				vactive = <480>;
++				hback-porch = <48>;
++				hfront-porch = <16>;
++				vback-porch = <33>;
++				vfront-porch = <10>;
++				hsync-len = <96>;
++				vsync-len = <2>;
++			};
++		};
++	};
++};
++
++/ {
++	aliases {
++		mmc0 = &usdhc3;
++		mmc1 = &usdhc4;
++		eeprom_mac = &eeprom_mac;
++	};
++
++	/* Will be filled by the bootloader */
++	memory@10000000 {
++		device_type = "memory";
++		reg = <0x10000000 0x80000000>;
++	};
++
++	chosen {
++		stdout-path = &uart1;
++	};
++
++	config {
++		#ifdef LEGACY_BOOT
++		bootcmd = "startM48;errorMsg";
++			bootcmd = "startKernel;errorMsg";
++		#endif
++
++	};
++};
+diff --git a/arch/arm/boot/dts/nxp/imx/imx6qp-draeger-m48.dts b/arch/arm/boot/dts/nxp/imx/imx6qp-draeger-m48.dts
+new file mode 100644
+index 000000000000..ab331596abd9
+--- /dev/null
++++ b/arch/arm/boot/dts/nxp/imx/imx6qp-draeger-m48.dts
+@@ -0,0 +1,78 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ *  (C) Copyright 2020 Draeger and Licensors, info@draeger.com
++ *
++ *  Device Tree file for Drager M48 Board
++ */
++
++/dts-v1/;
++
++#include "imx6q.dtsi"
++/* PAD config disabled in imx6qdl-draeger-m48.dtsi by setting value to 0x80000000
++ * PAD configuration register must not be 0, so it is set to 0xfff
++ */
++#define MX6QDL_PAD_CTL_GRP_DDR_TYPE_RGMII        0x790 0xfff 0x000 0x000C0000 0x0
++#define MX6QDL_PAD_CTL_GRP_RGMII_TERM            0x7ac 0xfff 0x000 0x00000200 0x0
++#define IMX_PAD_SION	                         0x40000000	/* set SION */
++
++#include "imx6qdl-draeger-m48.dtsi"
++#include "imx6qdl-draeger-m48-u-boot.dtsi"
++
++/ {
++	model = "Draeger M48 i.MX6 Quad Plus";
++	compatible = "draeger,imx6qp-m48", "fsl,imx6qp";
++
++	vccq_sdhc3: regulator-vccq-sdhc3 {
++		compatible = "regulator-gpio";
++		regulator-name = "SDHC3 VccQ";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <3300000>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_m48_regulatorvccq_sdhc3>;
++		gpios = <&gpio6 16 GPIO_ACTIVE_HIGH>;
++		gpios-states = <1>;
++		states = <3300000 0>, <1800000 1>;
++	};
++};
++
++&iomuxc {
++	m48 {
++		pinctrl_m48_usdhc3_100mhz: m48-usdhc3_100mhz {
++			fsl,pins = <
++				MX6QDL_PAD_SD3_CMD__SD3_CMD    0x1B0E9
++				MX6QDL_PAD_SD3_CLK__SD3_CLK    0x1B0E9
++				MX6QDL_PAD_SD3_DAT0__SD3_DATA0 0x1B0E9
++				MX6QDL_PAD_SD3_DAT1__SD3_DATA1 0x1B0E9
++				MX6QDL_PAD_SD3_DAT2__SD3_DATA2 0x1B0E9
++				MX6QDL_PAD_SD3_DAT3__SD3_DATA3 0x1B0E9
++			>;
++		};
++		pinctrl_m48_usdhc3_200mhz: m48-usdhc3_200mhz {
++			fsl,pins = <
++				MX6QDL_PAD_SD3_CMD__SD3_CMD    0x1B0E9
++				MX6QDL_PAD_SD3_CLK__SD3_CLK    0x1B0E9
++				MX6QDL_PAD_SD3_DAT0__SD3_DATA0 0x1B0E9
++				MX6QDL_PAD_SD3_DAT1__SD3_DATA1 0x1B0E9
++				MX6QDL_PAD_SD3_DAT2__SD3_DATA2 0x1B0E9
++				MX6QDL_PAD_SD3_DAT3__SD3_DATA3 0x1B0E9
++			>;
++		};
++
++		pinctrl_m48_regulatorvccq_sdhc3: m48-vccq-sdhc3 {
++			fsl,pins = <MX6QDL_PAD_NANDF_CS3__GPIO6_IO16 (0x1B0B0 | IMX_PAD_SION)>;
++		};
++	};
++};
++
++&usdhc3 {
++	compatible = "fsl,imx6qp-usdhc";
++	vqmmc-supply = <&vccq_sdhc3>;
++	pinctrl-names = "default", "state_100mhz", "state_200mhz";
++	pinctrl-0 = <&pinctrl_m48_usdhc3>;
++	pinctrl-1 = <&pinctrl_m48_usdhc3_100mhz>;
++	pinctrl-2 = <&pinctrl_m48_usdhc3_200mhz>;
++	sd-uhs-sdr12;
++	sd-uhs-sdr25;
++	sd-uhs-sdr50;
++	sd-uhs-ddr50;
 +};
 -- 
 2.47.3
