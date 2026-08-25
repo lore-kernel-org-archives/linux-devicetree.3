@@ -1,119 +1,154 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 956543DEFF1;
-	Tue, 25 Aug 2026 08:37:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0AF73E51EC
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 08:38:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787647033; cv=none; b=q45RzpmOJYozqdXNUW/XpqNUUcYMabA4+fLg7VVri4arFRoN5OBERzqY3HOJE7Vgp/wldMp2AL81/s/iTGxbKO+fazTxxX7nDaZ1eD6QbUaMoD72H915DSMVt/1gskG5rwyPTbJRVHJ/gEzxYtzZaXd3a/y6ONgfu8VhkWu1eiw=
+	t=1787647085; cv=none; b=PRstEeiY/LL8PY/Of2XnEHidwogzgPnNMWuwXiTA25STC4xZu161EroLC+3ybD9bD6k8KIjPOi5SoXmBrQij4NfsGE3eMK51ajztGpOrojnN89mA4WMASH4ca8lhnJD/NRvYmMBif5+kEs6n3mnwTSTnK2fsSEFNeQDiqOFEeJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787647033; c=relaxed/simple;
-	bh=dY3R2BieCJBuRXOF3/b2wWYcmKq5YJwaox3pRyD2fso=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Kc7enec+KUmg7Grlq9GnXnrVDQ1v5qIL5jcKroL4/sJRzyNiwUhQdwbtJr4XnlgoMUReZudmpvmsvQWRfjxEaWw7teK2/qsmCJ51Q9zGC4/Z0iYs9/TDyGeKxUxeJ6dAXvkmopBYuiYast8VkrjFR7QS0pEp2aUu5qhutOEeR7A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gMcxvGUs; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1787647085; c=relaxed/simple;
+	bh=6iGwC4biJppGYQXxot5SmJIscY8KkrzqhfvuB/XeDAY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=UIxUIt1Waewokwh5OhMrXUoUKsq+ufEsB/TXGGIEyhx2CvsTYumVhQEJG6YpuW6UqKCrIQ1Au9F2AwruRAsAPpZFaYp3SUwPK323lNOnD7b+fM/UhCzrdsMNi6FnP2QB2CXF7bcMpJP5Susn7BqG3OCyeP4+cg3IwwTyKxMNxsY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f7wMT6Zg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gMcxvGUs"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67P896oY878144;
-	Tue, 25 Aug 2026 08:37:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=9ndG8C5Pmlsupjsqg3tf9762LO2Ie9IWMHg
-	gzETEz/Q=; b=gMcxvGUsfuTTaqXx/rMlwZoPr8OzB+UEjlLkJoQ3ioxEdMW0A/G
-	k/MHpNS7AIQINRW/7EGg9fESgujRCrdPpilUTOf21bSw5DVjBZV2SK7KQfV2ZDOM
-	HZsyBA3Qo9HPZc0xP1iaUaDJ/x9zLcxaH19XilEEgdi1AkQy9JEVZu9zkP8YyzU0
-	+kg8GI9l1zO+JSWcJXdmiFa9pzJeSptFBjruChY8NjYxYJWw4HaBRRVNc0T2BH9t
-	+OGoEOuJucPOdKLgqDAOUfPdC5wy79MqBZBnoNyNMm0PRtm/pbexD+J9o7dmHLEs
-	VcVN3EnIQQIQFXgK+wXb+ZzuNtXe7FnWU4A==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g8rqukehe-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 25 Aug 2026 08:37:10 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 67P8b5F6032650;
-	Tue, 25 Aug 2026 08:37:05 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 4g74ujn5nr-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 25 Aug 2026 08:37:05 +0000 (GMT)
-Received: from APBLRPPMTA01.qualcomm.com (APBLRPPMTA01.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 67P8b5C7032639;
-	Tue, 25 Aug 2026 08:37:05 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com ([10.213.101.157])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 67P8b5Uo032638
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 25 Aug 2026 08:37:05 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2342877)
-	id 8CF01648; Tue, 25 Aug 2026 14:07:04 +0530 (+0530)
-From: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
-To: krzk+dt@kernel.org, robh@kernel.org, ulfh@kernel.org, conor+dt@kernel.org,
-        andersson@kernel.org, konradybcio@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-mmc@vger.kernel.org,
-        Nitin Rawat <nitin.rawat@oss.qualcomm.com>
-Subject: [PATCH V2] dt-bindings: mmc: sdhci-msm: Document the Maili compatible
-Date: Tue, 25 Aug 2026 14:07:02 +0530
-Message-Id: <20260825083702.3931016-1-nitin.rawat@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f7wMT6Zg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3D821F000E9;
+	Tue, 25 Aug 2026 08:38:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787647083;
+	bh=7hPtKzAdXir2w4Yxrzdv0jDetKSqdY9uDw44Eh0ftIM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=f7wMT6Zg3S07cpDkVpNTqsCysqBz4cWJsysDq5FdohFh8QgmlF7Smhg5MCay5bOO3
+	 fMOIHIqpqCHrYwZiKrzTxAGoHlljB4jTRtCeoKnB8T7SbGjJQ7zP2AHtNGM0cltJXk
+	 26QtpPpx/M63meKAAq7TTUwIF7B/rMVOsTenxG/hDPLo3TH8cQNZS7MZSSmX83OihS
+	 /+X7+oA0rCFasqoPduN8FBed4GopPN3qmUGJcZ9pVgKHClUdvGcp4Le/mPTzhuEb4K
+	 q0vVuB2Vt/TkxGtnhxvxT47bpu/mwl0/hYf2zOx0GTv6uRECf5N5FF0AUacDlywUZw
+	 L0sBO0u+4h0sg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 6/9] iio: accel: mma8452: Reuse existing dev pointer
+ in mma8452_probe()
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Esben Haabendal" <esben@geanix.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260825-mma8452-open-drain-v6-6-9b252804ee80@geanix.com>
+References: <20260825-mma8452-open-drain-v6-0-9b252804ee80@geanix.com>
+ <20260825-mma8452-open-drain-v6-6-9b252804ee80@geanix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 25 Aug 2026 08:38:02 +0000
+Message-Id: <20260825083802.C3D821F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-ORIG-GUID: H8BwpSmfGvpPWUat3K9ssP7bZOaB1_uQ
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI1MDA3MiBTYWx0ZWRfXwc1UHMshgRgZ
- BC7zBRKPsLAW6uyBPaIPVsGPeFsbA1SOWrvGRcMpTuN+23zAog6iDaYQdxJWPQDhCARYivU0wC+
- gKrxlpyVTFbhvDwRfl9olgRbTkguBS4=
-X-Authority-Analysis: v=2.4 cv=CbQ4Irrl c=1 sm=1 tr=0 ts=6a8d5436 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8 a=knvCIUFXnbKBaXdP70cA:9
-X-Proofpoint-GUID: H8BwpSmfGvpPWUat3K9ssP7bZOaB1_uQ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI1MDA3MiBTYWx0ZWRfX0v0SdHiWtLri
- pYTm3K5ZNxbWZTfZYlOx/APxtbr1/vqG9kUP0Oe5ttXwSaymnRGMmdRF50EI6gqb0+UighYi/oX
- 54QhqQPWZoJyC8GmvGD2yVzfN7iUwNqmxDjkJUP9xvEuMNuJcFQaV4N3DG0agxF0rjXCvXEjNil
- watO7tzTJAvVZvGma3iuNRwQwJvd/8Ogf1oGtErKXBP2weDlsAcu7uEVzq346rm2tIOghSoQC8d
- 1hER42D//2Cj7lzYkQDkDZxqIN7bkOZcxsJHenjj/GDksu6AIMjnhS/eGtZujjCUDsLdHcqRpUC
- xAZs8HKX/2W8mhkKRlOXrg+J7kJaQxnrsgIxZpNHsmPWqLPPJfddQB2ODTDC6l1djV7Y1xW8lt3
- w/HXLeYR/Nankjv0MLBm65Nvd0OznpKCjfGss22tzNWv3GsFUzTgQoc93Cemi9gkzeKCX0w8Y6z
- PKfQ0eT2BfnoEd6pipQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-25_02,2026-08-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0 suspectscore=0
- impostorscore=0 malwarescore=0 spamscore=0 clxscore=1011 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608250072
 
-Document the compatible for SDHCI on Qualcomm Maili SoC.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Signed-off-by: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
+New issues:
+- [Low] Undocumented scope modification and suboptimal pointer dereferencin=
+g.
+
+Pre-existing issues:
+- [High] Device teardown accesses powered-off hardware and causes unbalance=
+d regulator disables.
+- [Low] Unconditional assignment of PM callbacks causes dead code when PM i=
+s disabled.
 --
-Changes from V1:
-1. Added Reviewed-by tag from Jingyi Wang
---
- Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml b/Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml
-index b3fcc1673c10..69bd44e65ad7 100644
---- a/Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml
-+++ b/Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml
-@@ -47,6 +47,7 @@ properties:
-               - qcom,ipq9574-sdhci
-               - qcom,ipq9650-sdhci
-               - qcom,kaanapali-sdhci
-+              - qcom,maili-sdhci
-               - qcom,milos-sdhci
-               - qcom,qcm2290-sdhci
-               - qcom,qcs404-sdhci
---
-2.34.1
+--- Patch [6]: [PATCH v6 6/9] iio: accel: mma8452: Reuse existing dev point=
+er in mma8452_probe() ---
+commit 04da87f5e80c506bb658d3dd5161087ce55fa6b0
+Author: Esben Haabendal <esben@geanix.com>
 
+iio: accel: mma8452: Reuse existing dev pointer in mma8452_probe()
+
+This commit refactors mma8452_probe() to use a local 'dev' variable instead
+of repeatedly referencing &client->dev. It aims to improve code readability.
+
+> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
+> index d1e8eb2a4ad3a..7ef1a9a91c31f 100644
+> --- a/drivers/iio/accel/mma8452.c
+> +++ b/drivers/iio/accel/mma8452.c
+
+[ ... ]
+
+> @@ -1801,7 +1799,8 @@ static void mma8452_remove(struct i2c_client *clien=
+t)
+>  #ifdef CONFIG_PM
+>  static int mma8452_runtime_suspend(struct device *dev)
+>  {
+> -	struct iio_dev *indio_dev =3D i2c_get_clientdata(to_i2c_client(dev));
+> +	struct i2c_client *client =3D to_i2c_client(dev);
+> +	struct iio_dev *indio_dev =3D i2c_get_clientdata(client);
+>  	struct mma8452_data *data =3D iio_priv(indio_dev);
+>  	int ret;
+> =20
+> @@ -1809,7 +1808,7 @@ static int mma8452_runtime_suspend(struct device *d=
+ev)
+>  	ret =3D mma8452_standby(data);
+>  	mutex_unlock(&data->lock);
+>  	if (ret < 0) {
+> -		dev_err(&data->client->dev, "powering off device failed\n");
+> +		dev_err(&client->dev, "powering off device failed\n");
+
+[Severity: Low]
+The commit message states the changes are restricted to reusing the dev
+pointer in mma8452_probe(), but this modifies mma8452_runtime_suspend().
+Should the commit message be updated to reflect this scope change?
+
+Also, since the function already receives a struct device *dev parameter,
+and &client->dev evaluates to that exact same pointer, wouldn't it be=20
+simpler to use dev directly here rather than dereferencing client?
+
+>  		return -EAGAIN;
+>  	}
+
+
+As a related note, looking at the device teardown path in mma8452_remove():
+
+static void mma8452_remove(struct i2c_client *client)
+{
+[ ... ]
+	pm_runtime_disable(&client->dev);
+	pm_runtime_set_suspended(&client->dev);
+[ ... ]
+	mma8452_standby(iio_priv(indio_dev));
+
+	regulator_disable(data->vddio_reg);
+	regulator_disable(data->vdd_reg);
+}
+
+[Severity: High]
+This is a pre-existing issue, but does this teardown sequence access
+potentially powered-off hardware?
+
+If the device is in the RPM_SUSPENDED state when remove() is called, its
+regulators have already been disabled by mma8452_runtime_suspend(). The
+call to mma8452_standby() attempts an I2C write to the powered-off device,
+which might hang the I2C bus or cause transaction timeouts.
+
+Furthermore, unconditionally calling regulator_disable() drops the usage
+counts below zero, triggering a kernel warning for unbalanced disables.
+
+Should pm_runtime_get_sync(&client->dev) be called at the beginning of
+mma8452_remove() to ensure the hardware is active before teardown?
+
+
+Finally, regarding the PM ops assignment in the driver struct:
+
+[Severity: Low]
+This isn't a bug introduced by this patch, but does the unconditional
+assignment of &mma8452_pm_ops to the .pm field in mma8452_driver produce
+dead code when CONFIG_PM is disabled?
+
+According to the power management subsystem guidelines, this pointer should
+be wrapped in pm_ptr(&mma8452_pm_ops) to allow the compiler to eliminate
+the dead code.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825-mma8452-op=
+en-drain-v6-0-9b252804ee80@geanix.com?part=3D6
