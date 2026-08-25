@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC6438A706
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 22:36:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D3E3443ABA
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 22:37:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787697408; cv=none; b=kWNP70QQOL4kHdULxu1qVL02+Iq6dVk55TTkQ2ACKthQK4oDBJHOYAHlD0JG9yj1kT+fx/4iIw3iI6gO1BjaMMUgIeTXTYJ5POas9aRwLJs1BAI9M0D5/jrNye3KZYK48B/Dt3JnWf/XXxILObbP0bQCXSRzqShLo245bTOEqKw=
+	t=1787697424; cv=none; b=BtwOQsiucJh3uDwtXdj079356lTngIeFo1Mj4Va9kNcmS8+Yf8Xt4QlPh3vcz0EV+I1lbWcQbVXDXNF6gSC2g4FapmxCGsLPNl9PrUyw8DDbfDXrj/or1CW+1hv7d2mavz3qRjoR0s7uonTiQMwMbVz0HlCFKS/6/fXQ/uxdGYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787697408; c=relaxed/simple;
-	bh=BfEhZVV8hSKqmYzQAVZCM+kG6T+CAnwOl5LappRI66I=;
+	s=arc-20240116; t=1787697424; c=relaxed/simple;
+	bh=u12Y2y1N5ml8wMb+su2r5gj0NC/xzvjabDX79ap1kCw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TpZB1AOB7env4BlwWDvse/GhW+6V66E7PbAAREIkJk314WJ7SDGpoe+QGpijX5VKMT7c6do3JfgR+a+qJyf6FWS8jiEkYWwsiiLAOKyc5kDEJHYLpVeTW+42k63VU+Bw8ZZCy9pD/fbLe/V//Xet+n2XCvFCPW9hT0WrIeNhDcc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VBJ4MWNY; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=btAt7tT1XDQJI3KEEIZPiEYbfyL5W1UfgYZLNWUm8TjTy8eJCE3rK131ldGwJ8jwII2Hvhkgt788szN9aaB25C44hnJzBi1jBHe6tFqPRUxZB+N4ivJkubQ1xCexYQnrMLp6VgA1luqjBvXFKTu6MjBCj2i7kHlFMvV1Odp3TVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cHGmMv5h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VBJ4MWNY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 294F81F000E9;
-	Tue, 25 Aug 2026 22:36:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cHGmMv5h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B83AE1F000E9;
+	Tue, 25 Aug 2026 22:37:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787697407;
-	bh=XX+I4pdjqboABhtM6xQY71l6eevU1am8J75DHk202kM=;
+	s=k20260515; t=1787697422;
+	bh=E2Nb+PmnwfQGHWg9sIBWT/u57VGzUPBUMIOWndzn3OQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VBJ4MWNYdnYqfrD7AbcP+D85VfO7GgWEGVmRTgG4PAlTbtSEj6VHjKPu4vjDJaG0f
-	 77VBOjRUTSD+iG1WqWNg3XHrSXqIUYK2XHAgkNnEMdhEudHhQfLuhQafULGAZimroV
-	 /F4ibFovjxQkF7YORXDO1aVmBv6leB2iTOlhwQY+19nQaCtEJk4eYUkUxhlDPYyt8i
-	 PrwubuQZLo/S2uiJ/TUkXQAwuVEFCOTL9++KVuKJB44vphrjnf99syh5r9kC8JVZEC
-	 nrgTs36WJTs5geWtEHfeYHLrOGmGky/uWgxE59kZtR0Wda2LInog4vuMEeTjOcDUol
-	 mrmDVoimu7Oyw==
+	b=cHGmMv5hyjtG3ygctbz8E928vXJVjcLsRirO+NG02MXeybM59Mzb3ycbXprajV5j+
+	 q7iaTVA5/SSnTAReXQPr+Xf+RVPCDb58n1bVjmZZ9pFmqROdy0jWfD7BXhA/9bGj9k
+	 L49ROCIVVUhzwBtCdUwFqLUGY4x6LE1OocXJ+M8KRdddegHT0XijuLVapeY71ppffN
+	 NGPkSzuj07l6TeZDMlWZfnjEi3SoLoOd7rUa4aKmGH6udU3tOJRxsFF9EgZ/fZF9h3
+	 C27JT2DcBL4Pd3vovxP8WsMCPSnIG0t0/v//iUMUzAYR85Ua3f8Gb4n5GfA94NYkSP
+	 66itxVk8gj67A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 15/19] crypto: cmh - add ML-KEM/ML-DSA (QSE)
+Subject: Re: [PATCH v4 16/19] crypto: cmh - add SLH-DSA/LMS/XMSS (HCQ)
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Alex Ousherovitch" <aousherovitch@rambus.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260825221539.255951-16-aousherovitch@rambus.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260825221539.255951-17-aousherovitch@rambus.com>
 References: <20260825221539.255951-1-aousherovitch@rambus.com>
- <20260825221539.255951-16-aousherovitch@rambus.com>
+ <20260825221539.255951-17-aousherovitch@rambus.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 22:36:46 +0000
-Message-Id: <20260825223647.294F81F000E9@smtp.kernel.org>
+Date: Tue, 25 Aug 2026 22:37:02 +0000
+Message-Id: <20260825223702.B83AE1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,64 +46,54 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] ML-DSA implementation incorrectly rejects 0-length messages, preve=
-nting signing and verification of empty messages.
+- [Low] Mixed declarations and code violate strict declaration-after-statem=
+ent coding style
 --
 
-commit 69ecf7bfc1b6bb507d086ddc8d892b5e6791e35f
+commit 0ef415a044191dc8d92f6871f0f86042ccf5c94f
 Author: Alex Ousherovitch <aousherovitch@rambus.com>
 
-crypto: cmh - add ML-KEM/ML-DSA (QSE)
+crypto: cmh - add SLH-DSA/LMS/XMSS (HCQ)
 
-Register ML-KEM (Kyber) and ML-DSA (Dilithium) algorithms using the CMH
-QSE core (core ID 0x09).
+This commit registers SLH-DSA, LMS, LMS-HSS, XMSS, and XMSS-MT algorithms
+using the CMH HCQ core. SLH-DSA is registered with sign and verify support,
+while the others are exposed as verify-only algorithms since their stateful
+semantics are not modeled by the kernel crypto API.
 
-> diff --git a/drivers/crypto/cmh/cmh_pqc_mldsa.c b/drivers/crypto/cmh/cmh_=
-pqc_mldsa.c
+> diff --git a/drivers/crypto/cmh/cmh_pqc_slhdsa.c b/drivers/crypto/cmh/cmh=
+_pqc_slhdsa.c
 > new file mode 100644
-> index 0000000000000..cbaba7d63b437
 > --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_pqc_mldsa.c
-> @@ -0,0 +1,389 @@
+> +++ b/drivers/crypto/cmh/cmh_pqc_slhdsa.c
 [ ... ]
-> +static int cmh_mldsa_sign(struct crypto_sig *tfm,
-> +			  const void *src, unsigned int slen,
-> +			  void *dst, unsigned int dlen)
+> +static int cmh_slhdsa_sign(struct crypto_sig *tfm,
+> +			   const void *src, unsigned int slen,
+> +			   void *dst, unsigned int dlen)
 > +{
 [ ... ]
-> +	if (ctx->key.mode !=3D CMH_KEY_RAW)
-> +		return -EINVAL;
-> +	if (dlen < sig_size)
-> +		return -EINVAL;
-> +	if (!slen || slen > ML_DSA_MAX_MLEN)
-> +		return -EINVAL;
+> +	m_dma =3D cmh_dma_map_single(m_buf, slen, DMA_TO_DEVICE);
+> +	sig_dma =3D cmh_dma_map_single(sig_buf, sig_sz, DMA_FROM_DEVICE);
+> +	if (cmh_dma_map_error(m_dma) || cmh_dma_map_error(sig_dma)) {
+> +		ret =3D -ENOMEM;
+> +		goto out_unmap;
+> +	}
+> +
+> +	sk_dma =3D DMA_MAPPING_ERROR;
+> +	idx =3D 0;
+> +
+> +	struct core_dispatch d;
 
-[Severity: High]
-Does this incorrectly reject valid 0-length messages?
+[Severity: Low]
+This isn't a bug, but could this variable declaration be moved to the start
+of the block? The kernel coding style historically expects variables to be
+declared before executable statements. Mixing declarations and code here can
+trigger warnings on older toolchains or depending on subsystem Makefile fla=
+gs.
 
-Because this driver overrides the kernel's fallback implementation with a
-higher priority (5001), system-wide empty message signing operations could
-unconditionally fail with -EINVAL, violating the FIPS 204 specification.
-
+> +
+> +	d =3D cmh_core_select_instance(CMH_CORE_HCQ);
 [ ... ]
-> +static int cmh_mldsa_verify(struct crypto_sig *tfm,
-> +			    const void *src, unsigned int slen,
-> +			    const void *digest, unsigned int dlen)
-> +{
-[ ... ]
-> +	if (!ctx->pub_key)
-> +		return -EINVAL;
-> +	if (slen !=3D sig_size)
-> +		return -EINVAL;
-> +	if (!dlen || dlen > ML_DSA_MAX_MLEN)
-> +		return -EINVAL;
-
-[Severity: High]
-Does this also incorrectly reject valid 0-length messages for verification?
-
-Similar to signing, this could block drop-in compatibility for userspace or
-kernel components verifying an empty payload.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825221539.2559=
-51-1-aousherovitch@rambus.com?part=3D15
+51-1-aousherovitch@rambus.com?part=3D16
