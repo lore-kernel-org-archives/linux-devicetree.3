@@ -1,277 +1,226 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D5DD3A9639
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 22:30:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C6E53546CD
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 22:30:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787697012; cv=none; b=E5DzLle2k0/xv0eOLBmnRPSCHbZ6vXSeD5msrJoews0esG503KOJ1z64X0QFLo6fikI9HKYNze9Bjn7dW34HLGpwecfqYJMVr/MTVm3qSCaUce3BNPuAh4+cRM+vBOmWeiL40s5Xp7wZ/HPrj/KXOuUoy4AT+yt9dgiePBW6hiI=
+	t=1787697034; cv=none; b=MlixyG4X8poZDuIGDSDcSRQGBZLuQ9fHuXqV2KpAannX8TaQBY74P6H+0vFahpTyQ+833Lo7v8XX0UG8AuQmmm900OfuwR8oYBehZLpsTj4jbSqQlvVwtS7M8XtNxUg5coEhBYfZ2nlEcgbuTGFQ/e1I5I546DwoedcCG27dcko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787697012; c=relaxed/simple;
-	bh=Pjxw5sJ0vKNmgGEHSg/UAgyHQsZJnD0Zy9bA+35WCbc=;
+	s=arc-20240116; t=1787697034; c=relaxed/simple;
+	bh=BD2vQrX8RqACDdswZuMRP5eTmYzRbWTt8vnWBMJL5hM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=sD9lm31HDJao51Ouc+bl984cRFinr1tXLtm+Rg02A1vZ6qpf9i8hD+MrmV3iok8+1HomHkqvrjcrc0T05e+iDk8/AHWTy0RYLo/2xRMOfZVFqT14ipD9+3tEVa5IlNQOqY6IdJjA2/RGmAjoqqzP8qsNmKE/h+H7XXvlkotbmMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hGCpgHx4; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=q/jjQaGHdUI3U/7H1qw19JJuvZexZXIdNpNvaSVt1ms+ItDtTiYYfSEpvwd8E39wEodocUFtQ2IGn7rZ+U93zbzIqzkyfLpzK779Qbl0uu5ikUcPdlfLS6UlhdnOgjvjr5L50+uRsGkHcHmF0qfYe9iOpgMKkS3L3+8lCsilJvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JZfKEX5F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hGCpgHx4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9986B1F00A3A;
-	Tue, 25 Aug 2026 22:30:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JZfKEX5F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7399C1F000E9;
+	Tue, 25 Aug 2026 22:30:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787697010;
-	bh=bSv8MUWOMPAN25awP8qmPHtPgASAZEUEF8lg0kG2O98=;
+	s=k20260515; t=1787697032;
+	bh=ooQ+LpgcxDGNe5NyTJkbH8oQ48NpucY3OuQi4lXZysU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hGCpgHx4UYadjgs8lT3g6Mjh958R7pilLo2IwJcj95rAIF5RkHgMfGZhVbRPxEJY0
-	 Pph6xxPDmz+5xvt0Bggj8zQZ6Ac/XGhoSmjbd1//Ac8MnHpoWfUmNcuM2xfCmqIjKy
-	 QM7wGTVxCLekzs7+kGdrQUfAgC4ovpCct+E+XtPmYkgfhGsVCbc6ZqGZwfQjVLhQEi
-	 2B7wqViqtUv78kLvUCbzP9ldxFCiRrvTAcsG3GsyB14MFUVaLDpHkuZC7zyah43tb8
-	 c7dxvEE7ZaU7dlv5gOeTVB/75JzdWn0WOPQT7EMHpNgKS+Y47XXjDuOOxfooNZ2cQp
-	 VDRoLerKMNGTQ==
+	b=JZfKEX5FddwjlGssqt0CZG9KpnneKXIrGEl6S8aJhQ+rWRurAlC1YMANcj8tgUEpU
+	 wTSjTgyi/9cgFnygtiJ3o7Ohm/87ryYF4Y/A1scKzloCRV5b1D6RP5dqDC83Wzos6B
+	 68zpbYyQio7b2Shb6Cq095JJsoD7w2S9mAa8erN5Y3ss57EMhoDK1JqTtlSvnqLPS1
+	 F+wLotjNs9YF4Wut+KSfVmf1l0cuKy87b91ulNL0yJ5HX3SUWnstZKDBLQPJVoS4Ws
+	 neIns6Z93XQ+gFqFIPHGDekG17ql4RGb4OGImI7IhHE00VebrZAYg0z7Fr8j8PN2mN
+	 gqGPWbhrAz04A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 03/19] crypto: cmh - add key provisioning and
- management
+Subject: Re: [PATCH v4 10/19] crypto: cmh - add ChaCha20-Poly1305
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Alex Ousherovitch" <aousherovitch@rambus.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260825221539.255951-4-aousherovitch@rambus.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260825221539.255951-11-aousherovitch@rambus.com>
 References: <20260825221539.255951-1-aousherovitch@rambus.com>
- <20260825221539.255951-4-aousherovitch@rambus.com>
+ <20260825221539.255951-11-aousherovitch@rambus.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 22:30:10 +0000
-Message-Id: <20260825223010.9986B1F00A3A@smtp.kernel.org>
+Date: Tue, 25 Aug 2026 22:30:32 +0000
+Message-Id: <20260825223032.7399C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] Persistent datastore objects are permanently leaked on success and=
- error paths, allowing unprivileged DoS of the hardware datastore.
-- [High] Missing `PKE_SWAP_FLAGS` in `cmh_mgmt_sm2_ecdh_hash` causes crypto=
-graphic corruption.
-- [High] Treating DMA address 0 as "absent" causes silent cryptographic deg=
-radation and mapping leaks.
-- [High] Unprotected concurrent access to `SYS_REF_TEMP` allows cross-proce=
-ss crypto key theft and corruption.
-- [High] RSA buffer lengths are calculated via truncation, causing hardware=
- DMA overflows on unaligned key sizes.
-- [Medium] Cryptographic randomness buffers are freed with `kfree()` instea=
-d of `kfree_sensitive()`, leaking secrets.
-- [Medium] `KEY_READ` fails to apply the reverse byte-swap for PKE keys, re=
-turning obfuscated keys to userspace.
+- [High] Unbounded memory leak of dynamically allocated Poly1305 chunks (`s=
+truct cmh_poly_chunk`) when an `ahash_request` is re-initialized or abandon=
+ed, due to missing cleanup.
+- [High] The driver linearizes arbitrary-length skcipher and AEAD requests =
+into large contiguous kmalloc buffers (up to 1MB), which is highly prone to=
+ allocation failures and violates API contracts.
+- [Medium] Mapping an unaligned structure member for DMA violates DMA API c=
+onstraints and causes cacheline sharing issues.
 --
 
-commit 67f85ec0363d5636a036b63752d2d0407ae36205
+commit bb2ec11c7c7c49e89d1a8aef0363955e68578689
 Author: Alex Ousherovitch <aousherovitch@rambus.com>
+Subject: crypto: cmh - add ChaCha20-Poly1305
 
-crypto: cmh - add key provisioning and management
+This commit registers the ChaCha20-Poly1305 AEAD, ChaCha20 skcipher, and
+Poly1305 ahash algorithms using the CMH CCP core. It introduces VCQ
+transaction handling for hardware operations while accumulating data in
+memory for arbitrary-length poly1305 requests.
 
-The in-kernel crypto API cannot express the CMH management plane, so
-this patch adds a character device (/dev/cmh_mgmt) for it. The ioctl
-commands fall into two groups, enabling datastore key lifecycle
-management, KIC derivation, and asymmetric/PQC operations that keep
-the private key hardware-resident.
-
-> diff --git a/drivers/crypto/cmh/cmh_mgmt.c b/drivers/crypto/cmh/cmh_mgmt.c
-> new file mode 100644
-> index 0000000000000..c17a60a436c0f
+> diff --git a/drivers/crypto/cmh/cmh_ccp.c b/drivers/crypto/cmh/cmh_ccp.c
 > --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_mgmt.c
-
+> +++ b/drivers/crypto/cmh/cmh_ccp.c
 [ ... ]
+> +static int cmh_ccp_crypt(struct skcipher_request *req, u32 ccp_op)
+> +{
+[ ... ]
+> +	/* Limit linearisation buffers to avoid large allocations. */
+> +	if (req->cryptlen > SZ_1M)
+> +		return -EINVAL;
+> +
+> +	gfp =3D req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP ?
+> +	      GFP_KERNEL : GFP_ATOMIC;
+> +
+> +	memset(rctx, 0, sizeof(*rctx));
+> +	rctx->cryptlen =3D req->cryptlen;
+> +
+> +	/* Linearise input from scatterlist */
+> +	rctx->in_buf =3D kmalloc(req->cryptlen, gfp | __GFP_NOWARN);
 
-> @@ -274,6 +274,10 @@ static int cmh_mgmt_key_read(void __user *argp)
->  		return -ENOMEM;
->  	}
-> =20
->  	vcq_set_header(&vcq[0], MGMT_VCQ_CMDS);
->  	vcq_add_sys_read(&vcq[1], req.ref, dma_addr, req.wrap_key, req.len);
->  	vcq_add_sys_flush(&vcq[2]);
+[Severity: High]
+Does this code linearize the entire payload into a large contiguous buffer?
+Allocating up to 1MB of contiguous physical memory via kmalloc (especially
+with GFP_ATOMIC) is extremely prone to failure under memory fragmentation.
+
+Also, returning -EINVAL for requests larger than 1MB breaks the crypto API
+contract, which expects support for arbitrary payload sizes. Could this
+cause unpredictable failures for subsystems like IPsec?
+
+> diff --git a/drivers/crypto/cmh/cmh_ccp_aead.c b/drivers/crypto/cmh/cmh_c=
+cp_aead.c
+> --- /dev/null
+> +++ b/drivers/crypto/cmh/cmh_ccp_aead.c
+[ ... ]
+> +static int cmh_ccp_aead_crypt(struct aead_request *req, u32 ccp_op)
+> +{
+[ ... ]
+> +	if ((u64)cryptlen + req->assoclen > SZ_1M)
+> +		return -EINVAL;
+[ ... ]
+> +	/* Linearise input */
+> +	if (cryptlen > 0) {
+> +		rctx->in_buf =3D kmalloc(cryptlen, gfp | __GFP_NOWARN);
+
+[Severity: High]
+Does this AEAD implementation suffer from the same limitation?
+Using kmalloc for large contiguous buffers (up to 1MB) can easily fail
+under memory pressure, and rejecting requests larger than this size
+violates the expected behavior of the crypto API. Can this be reworked to
+use scatterlists directly or handle chunks iteratively?
+
+> diff --git a/drivers/crypto/cmh/cmh_ccp_poly.c b/drivers/crypto/cmh/cmh_c=
+cp_poly.c
+> --- /dev/null
+> +++ b/drivers/crypto/cmh/cmh_ccp_poly.c
+[ ... ]
+> +static int cmh_poly_setkey(struct crypto_ahash *tfm, const u8 *key,
+> +			   unsigned int keylen)
+> +{
+[ ... ]
+> +	tctx->skey_dma =3D cmh_dma_map_single(tctx->key + CCP_POLY_KEY_SIZE,
+> +					    CCP_POLY_KEY_SIZE,
+> +					     DMA_TO_DEVICE);
 
 [Severity: Medium]
-Does this command need to conditionally reverse the PKE byte swap?
-
-If a user writes an RSA or ECC key via KEY_WRITE, the driver applies
-PKE_SWAP_FLAGS to store it in the internal big-endian representation.
-
-Since the flags are not reversed here, could this return obfuscated, swapped
-keys back to userspace?
+Are we mapping a structure member that is not cacheline aligned for DMA?
+Mapping an inner offset of the tctx->key array for DMA violates the DMA API
+constraints and can cause cacheline sharing issues with surrounding fields
+(like tctx->chunk_lock) on non-coherent architectures. Should this use a
+separately allocated buffer instead?
 
 [ ... ]
-
-> @@ -661,6 +661,10 @@ static int cmh_mgmt_kic_hkdf1(void __user *argp)
->  out_ref:
->  	if (ref_buf) {
->  		cmh_dma_unmap_single(ref_dma, sizeof(*ref_buf),
->  				     DMA_FROM_DEVICE);
->  		kfree(ref_buf);
->  	}
->  	return ret;
->  }
+> +static int cmh_poly_init(struct ahash_request *req)
+> +{
+> +	struct cmh_poly_reqctx *rctx =3D ahash_request_ctx(req);
+> +
+> +	memset(rctx, 0, sizeof(*rctx));
+> +	INIT_LIST_HEAD(&rctx->chunks);
+> +	return 0;
+> +}
 
 [Severity: High]
-Could this error path leak a persistent datastore object?
+Does this unconditionally overwrite the request context without cleaning up
+previously allocated chunks?
 
-If cmh_tm_submit_sync_mbx() fails after the SYS_CMD_NEW command has already
-executed and allocated the slot, this path does not call cmh_mgmt_ds_scrub(=
-).
-
-This appears to leave an orphaned slot in the hardware datastore. Could a
-caller repeatedly trigger timeouts or failures here to exhaust the finite
-datastore capacity?
+If a user re-initializes a request (e.g. via crypto_ahash_init), any chunks
+currently linked to rctx->chunks are abandoned here. Since the crypto
+framework provides no request destructor, this leads to an unbounded memory
+leak.
 
 [ ... ]
-
-> @@ -1094,6 +1094,10 @@ static int cmh_mgmt_kic_aes_cmac_kdf(void __user *=
-argp)
->  out_unmap_label_cmac:
->  	if (label_buf && !cmh_dma_map_error(label_dma) && label_dma)
->  		cmh_dma_unmap_single(label_dma, req.label_len, DMA_TO_DEVICE);
+> +static int cmh_poly_update(struct ahash_request *req)
+> +{
+[ ... ]
+> +	chunk =3D kmalloc(sizeof(*chunk) + req->nbytes, gfp);
+> +	if (!chunk) {
+> +		ret =3D -ENOMEM;
+> +		goto err_free_chunks;
+> +	}
+> +
+> +	chunk->len =3D req->nbytes;
+[ ... ]
+> +	list_add_tail(&chunk->list, &rctx->chunks);
+> +	spin_lock_bh(&tctx->chunk_lock);
+> +	list_add_tail(&chunk->tfm_node, &tctx->all_chunks);
+> +	spin_unlock_bh(&tctx->chunk_lock);
 
 [Severity: High]
-Is it safe to treat DMA address 0 as an invalid mapping here?
+Is this where the leaked chunks are accumulated?
 
-On many architectures, 0 is a valid IOVA. The && label_dma check means the
-mapping will be leaked if the label happens to map to address 0.
+Chunks allocated here are added to both the request list and the global
+transform list. If the user abandons the request (like closing an AF_ALG
+socket), the chunks remain permanently orphaned in tctx->all_chunks until
+the parent transform is destroyed.
 
 [ ... ]
-
-> @@ -1470,6 +1470,12 @@ static long cmh_mgmt_ioctl(struct file *file, unsi=
-gned int cmd,
->  			   unsigned long arg)
->  {
->  	void __user *argp =3D (void __user *)arg;
->  	int ret;
-> =20
->  	if (cmh_mgmt_needs_temp_flush(cmd) &&
->  	    atomic_xchg(&mgmt_temp_dirty, 0)) {
->  		ret =3D cmh_tm_flush_mbx(MGMT_MBX);
+> +static int cmh_poly_import(struct ahash_request *req, const void *in)
+> +{
+> +	struct crypto_ahash *tfm =3D crypto_ahash_reqtfm(req);
+> +	struct cmh_poly_tfm_ctx *tctx =3D crypto_ahash_ctx(tfm);
+> +	struct cmh_poly_reqctx *rctx =3D ahash_request_ctx(req);
+> +	const struct cmh_poly_export_state *state =3D in;
+> +	struct cmh_poly_chunk *chunk;
+> +
+> +	memset(rctx, 0, sizeof(*rctx));
+> +	INIT_LIST_HEAD(&rctx->chunks);
 
 [Severity: High]
-Is the per-mailbox SYS_REF_TEMP state fully protected here?
+Does this zeroing of the request context cause the same leak as
+cmh_poly_init?
 
-The lockless atomic_xchg combined with the lack of an ioctl-level mutex
-appears to leave the temporary key store vulnerable to concurrent clobberin=
-g.
-
-If two processes interleave calls (e.g., one doing KIC_HKDF1 and another
-doing DS_EXPORT), could temporary keys derived by one process be exported or
-overwritten by the other?
-
-> diff --git a/drivers/crypto/cmh/cmh_mgmt_pke.c b/drivers/crypto/cmh/cmh_m=
-gmt_pke.c
-> new file mode 100644
-> index 0000000000000..649ad20086579
-> --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_mgmt_pke.c
+Any existing chunks attached to the request before the import will be
+abandoned and remain orphaned in the global transform list.
 
 [ ... ]
-
-> @@ -50,6 +50,10 @@ int cmh_mgmt_pke_rsa_enc(void __user *argp)
->  	if (req.bits < PKE_RSA_MIN_BITS || req.bits > PKE_RSA_MAX_BITS)
->  		return -EINVAL;
->  	if (!req.e_len || req.e_len > PKE_MAX_OPERAND)
->  		return -EINVAL;
-> =20
->  	n_len =3D req.bits / 8;
+> +static void cmh_poly_exit_tfm(struct crypto_ahash *tfm)
+> +{
+> +	struct cmh_poly_tfm_ctx *tctx =3D crypto_ahash_ctx(tfm);
+> +	struct cmh_poly_chunk *c, *tmp;
+> +
+> +	/* Free any orphaned chunks (e.g. testmgr export/reimport poison) */
+> +	spin_lock_bh(&tctx->chunk_lock);
+> +	list_for_each_entry_safe(c, tmp, &tctx->all_chunks, tfm_node) {
+> +		list_del(&c->tfm_node);
+> +		kfree_sensitive(c);
+> +	}
+> +	spin_unlock_bh(&tctx->chunk_lock);
 
 [Severity: High]
-If req.bits is not a multiple of 8 (e.g., 2049), does this integer division
-drop the fractional byte?
+Does this cleanup step confirm the accumulation of orphaned chunks?
 
-This would underestimate the required DMA buffer size.
-
-Could the hardware then write more bytes than the buffer holds, leading to
-memory corruption or an IOMMU fault?
-
-> diff --git a/drivers/crypto/cmh/cmh_mgmt_pqc.c b/drivers/crypto/cmh/cmh_m=
-gmt_pqc.c
-> new file mode 100644
-> index 0000000000000..83af21eec716e
-> --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_mgmt_pqc.c
-
-[ ... ]
-
-> @@ -852,6 +852,10 @@ int cmh_mgmt_ml_dsa_sign(void __user *argp)
->  out_unmap:
->  	if (rnd_dma && !cmh_dma_map_error(rnd_dma))
->  		cmh_dma_unmap_single(rnd_dma, rnd_len, DMA_TO_DEVICE);
-
-[Severity: High]
-Is this if (rnd_dma) check correct for validating the DMA mapping?
-
-As mentioned earlier, DMA address 0 is a valid IOVA on some platforms. If t=
-he
-mapping returns 0, this check evaluates to false and skips unmapping, which
-leaks the mapping.
-
-If the hardware interprets a 0 pointer as absent randomness, could this also
-silently drop the randomness from the signature generation, degrading its
-security?
-
-[ ... ]
-
-> @@ -869,6 +873,11 @@ int cmh_mgmt_ml_dsa_sign(void __user *argp)
->  out_free:
->  	kfree(rnd_buf);
->  	kfree(sig_buf);
->  	kfree(m_buf);
->  	kfree_sensitive(sk_buf);
->  	return ret;
->  }
-
-[Severity: Medium]
-Should rnd_buf be cleared with kfree_sensitive() instead of kfree()?
-
-This buffer holds the user's secret cryptographic randomness.
-
-Freeing it without zeroization leaves sensitive secrets in the kernel heap,
-where they might be exposed by a memory leak vulnerability.
-
-> diff --git a/drivers/crypto/cmh/cmh_pke_sm2.c b/drivers/crypto/cmh/cmh_pk=
-e_sm2.c
-> new file mode 100644
-> index 0000000000000..9daeaaa948281
-> --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_pke_sm2.c
-
-[ ... ]
-
-> @@ -622,6 +622,10 @@ int cmh_mgmt_sm2_ecdh_hash(void __user *argp)
->  	/* Phase 2: read shared key from DS -> DMA */
->  	vcq_set_header(&vcq[0], 3);
->  	vcq_add_sys_data(&vcq[1], *ref_buf, sk_dma, SM2_SHARED_KEY_LEN);
->  	vcq_add_sys_flush(&vcq[2]);
-
-[Severity: High]
-Does this missing PKE_SWAP_FLAGS cause cryptographic corruption?
-
-In Phase 1 and in SM2_ECDH, the command is OR'd with PKE_SWAP_FLAGS to
-reverse the byte order.
-
-Since vcq[1].id is not modified here, will the shared key be returned to
-userspace in the internal big-endian format rather than the host's format?
-
-[ ... ]
-
-> @@ -651,6 +655,8 @@ int cmh_mgmt_sm2_ecdh_hash(void __user *argp)
->  out_unmap:
->  	if (!cmh_dma_map_error(ref_dma))
->  		cmh_dma_unmap_single(ref_dma, sizeof(u64), DMA_FROM_DEVICE);
-
-[Severity: High]
-Is it possible that the persistent datastore object referenced by *ref_buf
-is permanently leaked here?
-
-The *ref_buf object created by SYS_CMD_NEW is never scrubbed on the success
-path or the error path.
-
-Could repeated calls to this ioctl exhaust the finite datastore capacity
-and brick the hardware until a reset?
+The fact that chunks must be freed here during transform destruction
+verifies that abandoned requests leave their chunks permanently stranded in
+tctx->all_chunks throughout the lifetime of the transform, providing an
+easy path for a local denial of service.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825221539.2559=
-51-1-aousherovitch@rambus.com?part=3D3
+51-1-aousherovitch@rambus.com?part=3D10
