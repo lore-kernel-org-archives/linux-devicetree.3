@@ -1,228 +1,129 @@
-Received: from mail-43172.protonmail.ch (mail-43172.protonmail.ch [185.70.43.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19B5E47606D
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 13:26:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4084C380FC3
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 13:28:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787664386; cv=none; b=qTlve13KZiCdsWIhoGHC/TKSgUO5jGPGm1xdG6JWm+EJlUeWthdizCJOP3Ki3LkyH53utlVyz2Q7dk4+hH5+3jfpltgfgYPzzelwGnLewyS/rhNYFQCtpvqy83F3qsCOou7lQwKTRGTdVTI1nri5+gyHsWTkAuQTfGV80eUAyW8=
+	t=1787664539; cv=none; b=n3b1nWEFzIFf0oIMHz2QWS4XuHr1YGzME+L1nSZ2jBguOjqJWolBMmD5tBvbbX/HKUOSryM40oTUetRObtPohmfiCTyDwGzpHmXsL0QOFIqnlm/g/UsfvFtzrJ/ZMJxnhPH0EkeIy0/PHIWNiqr3lTLCC2zupbq3GYkp1+9B9Ls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787664386; c=relaxed/simple;
-	bh=+wabpMdqtsliqdIXgzzV3mZNMO0dOr8R4C5EtXhaqjc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=DrQbup9YExrdeRdVFsezg6H6gvNlDyfGeMVL6ROY3oUzL7NSRBO8+8tSH+/3wO+3dP4hpU0VWMBjRK14epIyupU5LO3zpokFgxk5N6VW+s3V+3Uft/r1a9gLFK2B5IO0LW06UGGch0Oesj8Hn1OE2+3i5bKuyAGCkZTw4koDyac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=SBMqDdHT; arc=none smtp.client-ip=185.70.43.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1787664539; c=relaxed/simple;
+	bh=+cwb+T2Q/QU7Udy9UcntSUaoGr6FB++hhck3o43Qi58=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=L5gl9ozf8b7vjq540nuHHrY4cbxG6l7zWp2tEJ7cx7ZMv1hFB0dqBPbls8drkiJ9Bpj+B8r+1YCt+tLeRpjmrPyvTZ34MMfybsv7hqfWkUG2VNkuM454OxmAqSXAbooO0EjiqHXVvEBI4Pm9h1TfMdxL61lIxdce0yxv/7H9Oj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IbThXUVx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="SBMqDdHT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1787664369; x=1787923569;
-	bh=Xcobj1WbtNCpSLg5LjYRTxyLeZGzjny7gDMENHUb54M=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=SBMqDdHTIXWTLJ+9MfdFqqubFT5XKN37KOebg4JrRGoN+uuQt5xEi2HaRKAtCgpnh
-	 l+cLNkls5rrB65suOzYMDvaif0JDcix1atUKFR6f5RpCE+s9v1Oam5Br62KkkBdwgt
-	 hoPL3UnkB7mKLZEVZxeKa4fZJbaPPdrdQgvhFk/5J5v1uTInSWFbKT6Z3LBY4wUKBi
-	 ZAB3buHM/ITyElLH8pezewOLsTi2wV02lTJyVl+oAHFMlJdmdBvPu0zXLiGvLuMOMW
-	 T6FMfW+v18J+Da8k8Oe89fpyJzqQpOqonac64/HlFFZs9EmcC6sIB2fsHQVHtU8Laq
-	 M7e561pjbbY6Q==
-X-Pm-Submission-Id: 4hTpSv2jsFz2ScdY
-From: Esben Haabendal <esben@geanix.com>
-To: <sashiko-bot@kernel.org>
-Cc: <sashiko-reviews@lists.linux.dev>,  <robh@kernel.org>,
-  <conor+dt@kernel.org>,  <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v6 5/9] iio: accel: mma8452: Allow open drain interrupt
- pin configuration
-In-Reply-To: <20260825084232.C01211F000E9@smtp.kernel.org>
-	(sashiko-bot@kernel.org's message of "Tue, 25 Aug 2026 08:42:32
-	+0000")
-References: <20260825-mma8452-open-drain-v6-0-9b252804ee80@geanix.com>
-	<20260825-mma8452-open-drain-v6-5-9b252804ee80@geanix.com>
-	<91GhVUP-80gkcISIz0dE2ynhBCleQAdud8LjQ0jw35yVrdKs2GYLWLJmrR5D1F66rapeWHP1SLbjJSWs5dv5sA==@protonmail.internalid>
-	<20260825084232.C01211F000E9@smtp.kernel.org>
-Date: Tue, 25 Aug 2026 15:26:06 +0200
-Message-ID: <8733w2nxg1.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IbThXUVx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6A561F00A3A;
+	Tue, 25 Aug 2026 13:28:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787664538;
+	bh=ZPQkRix7mK4UiTqrf7gVND6+vOn7rFnEDw44l4fYTwg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=IbThXUVxxW+vwhjBEARivvbmGNTzsQuKKsec7xlrjajwOYR2/66Ftj7T8HP3SM60R
+	 CTKnhAfZJ0DBVnjOcFpPk6ALv/9Cw4ediUcIBvxhCtW/Lj3a9pbwxdrMV367cuRM+B
+	 A0RGx1PSYh/MNNrtQUfmIOGuwDLzu7Tn3C+RhLlt2gpkXA8Gg3gKcYhwyznk5ogG8q
+	 mWgZnWnGbujLoZXGAGl59GUeSzIgGxfDaQGQqKY3l0uBo2yP62tywPY71u5gye/5CZ
+	 vN0KNYZXoXT0QfNLv7zLQXOx8DsG4JwitKPH7O37DqxGhp1Uh3dkdNF9oxcs7UjxOz
+	 j2PteIAVvuXkQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/4] arm64: dts: renesas: r9a09g047: Add USB2.0
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Tommaso Merciai" <tommaso.merciai.xr@bp.renesas.com>
+Cc: wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <c1488855f44e6faddae1f541c460268eaea483d4.1787663426.git.tommaso.merciai.xr@bp.renesas.com>
+References: <cover.1787663426.git.tommaso.merciai.xr@bp.renesas.com>
+ <c1488855f44e6faddae1f541c460268eaea483d4.1787663426.git.tommaso.merciai.xr@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 25 Aug 2026 13:28:57 +0000
+Message-Id: <20260825132857.B6A561F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-<sashiko-bot@kernel.org> writes:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The `usb2_phy0` and `usb2_phy1` nodes incorrectly include the ho=
+st controller resets (`<&cpg 0xac>` and `<&cpg 0xad>`) as their second `res=
+ets` item.
+--
 
-> Thank you for your contribution! Sashiko AI review found 5 potential issu=
-e(s) to consider:
->
-> Pre-existing issues:
-> - [High] Critical device register configurations are lost after a runtime=
- suspend/resume cycle because `mma8452_runtime_resume` fails to restore the=
-m.
-> - [High] Sysfs read/write callbacks and write_raw paths access the device=
- hardware over I2C without waking it from runtime suspend.
-> - [High] The `mma8452_remove()` function accesses unpowered I2C registers=
- and causes unbalanced regulator disables if the device is runtime suspende=
-d.
-> - [High] `mma8452_runtime_resume` modifies device active state and config=
-uration registers without holding `data->lock`, causing a TOCTOU race with =
-`mma8452_change_config`.
-> - [High] Read-modify-write operations on I2C registers in sysfs operation=
-s are performed without holding `data->lock`.
-> --
->
-> --- Patch [5]: [PATCH v6 5/9] iio: accel: mma8452: Allow open drain inter=
-rupt pin configuration ---
-> commit 0eb3a6b1fa62842d47690cc795da7896eb5b7153
-> Author: Esben Haabendal <esben@geanix.com>
-> Subject: iio: accel: mma8452: Allow open drain interrupt pin configuration
->
-> This commit introduces the ability to configure the interrupt pin of mma8=
-452
-> chips in open-drain mode. It reads the "drive-open-drain" property during
-> probe and updates the hardware configuration accordingly.
->
->> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
->> index 8eb97e6793d6f..d1e8eb2a4ad3a 100644
->> --- a/drivers/iio/accel/mma8452.c
->> +++ b/drivers/iio/accel/mma8452.c
-> [ ... ]
->> @@ -1829,6 +1853,10 @@ static int mma8452_runtime_resume(struct device *=
-dev)
->>
->>  	WRITE_ONCE(data->suspended, false);
->>
->> +	ret =3D mma8452_set_interrupt_pin_mode(data);
->> +	if (ret)
->> +		goto runtime_resume_failed;
->> +
->>  	ret =3D mma8452_active(data);
->>  	if (ret < 0)
->>  		goto runtime_resume_failed;
->
-> [Severity: High]
-> This is a pre-existing issue, but does mma8452_runtime_resume() fail to
-> restore critical configurations?
->
-> When the device autosuspends, mma8452_runtime_suspend() disables the VDD
-> regulator, which cuts power to the chip and loses volatile register state.
-> Upon resume, only CTRL_REG1 and CTRL_REG3 are restored.
->
-> Are essential configurations set during probe (like DATA_CFG, TRANSIENT_T=
-HS,
-> CTRL_REG4 for interrupt enables, and CTRL_REG5) lost after the first
-> autosuspend?
+--- Patch [3]: [PATCH v2 3/4] arm64: dts: renesas: r9a09g047: Add USB2.0 su=
+pport ---
+commit 631196a322ba0beff3a83f906e11925634e7691a
+Author: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 
-Yes, I think they are lost. Looks like suspend/resume is not fully
-implemented in this driver.
+arm64: dts: renesas: r9a09g047: Add USB2.0 support
 
-> [Severity: High]
-> This is a pre-existing issue, but does mma8452_runtime_resume() introduce=
- a
-> race condition by not holding data->lock?
->
-> The device state is modified to ACTIVE outside of the mutex lock here. If=
- a
-> concurrent sysfs write checks mma8452_is_active() and sees STANDBY, could
-> this activation occur just before the I2C write executes?
->
-> Would this cause the hardware to silently ignore the write since the devi=
-ce
-> was unexpectedly transitioned to ACTIVE mode?
+The Renesas RZ/G3E ("R9A09G047") SoC supports 1x channel with OTG/DRD
+and 1x channel with host interface. This commit adds the EHCI, OHCI,
+USB2.0 PHY and reset control nodes for USB2.0 channels in R9A09G047 SoC DTS=
+I.
 
-Yes. That sounds like something that could happen. But even more, all
-the sysfs attributes does not even try to resume the device if it is
-suspended. Which is also your next comment/issue.
+> diff --git a/arch/arm64/boot/dts/renesas/r9a09g047.dtsi b/arch/arm64/boot=
+/dts/renesas/r9a09g047.dtsi
+> index 73757e8e21970..e26d43538ad8c 100644
+> --- a/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
+[ ... ]
+> @@ -1773,6 +1773,130 @@ usb3_phy: usb-phy@15870000 {
+[ ... ]
+> +		usb2_phy0: usb-phy@15800200 {
+> +			compatible =3D "renesas,usb2-phy-r9a09g047",
+> +				     "renesas,usb2-phy-r9a09g057";
+> +			reg =3D <0 0x15800200 0 0x700>;
+> +			interrupts =3D <GIC_SPI 745 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks =3D <&cpg CPG_MOD 0xb3>,
+> +				 <&cpg CPG_CORE R9A09G047_USB2_0_CLK_CORE0>;
+> +			clock-names =3D "fck", "usb_x1";
+> +			resets =3D <&usb20phyrst>, <&cpg 0xac>;
 
-So as mentioned above, suspend/resume implementation in this driver
-seems very much incomplete.
+[Severity: Medium]
+Does this node incorrectly include the host side reset <&cpg 0xac> as the
+second item?
 
-> [Severity: High]
-> This is a pre-existing issue, but do the sysfs read/write callbacks and
-> write_raw paths access the device hardware over I2C without waking it from
-> runtime suspend?
->
-> drivers/iio/accel/mma8452.c:mma8452_write_raw() {
->     ...
-> 	if (!iio_device_claim_direct(indio_dev))
-> 		return -EBUSY;
->
-> 	ret =3D __mma8452_write_raw(indio_dev, chan, val, val2, mask);
->     ...
-> }
->
-> Functions like mma8452_write_raw() and mma8452_show_hp_cutoff_avail() do
-> direct I2C accesses without wrapping the operation in
-> pm_runtime_resume_and_get() and pm_runtime_put().
->
-> If the device is autosuspended, will the unpowered chip fail to ACK the
-> transfers and return -EREMOTEIO?
+If the PHY driver manipulates this second reset, it will reset the host
+controller behind the USB host driver's back. This can break USB
+functionality or cause crashes if active transfers or DMAs are interrupted.
+Could this be a copy-paste error from the ohci0/ehci0 nodes?
 
-Probably will.
+> +			#phy-cells =3D <1>;
+> +			power-domains =3D <&cpg>;
+> +			mux-states =3D <&usb20phyrst 1>;
+> +			status =3D "disabled";
+> +
+> +			usb2_phy0_vbus_otg: vbus-regulator {
+> +				regulator-name =3D "USB2PHY0-VBUS-OTG";
+> +			};
+> +		};
+> +
+> +		usb2_phy1: usb-phy@15810200 {
+> +			compatible =3D "renesas,usb2-phy-r9a09g047",
+> +				     "renesas,usb2-phy-r9a09g057";
+> +			reg =3D <0 0x15810200 0 0x700>;
+> +			interrupts =3D <GIC_SPI 750 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks =3D <&cpg CPG_MOD 0xb4>,
+> +				 <&cpg CPG_CORE R9A09G047_USB2_0_CLK_CORE1>;
+> +			clock-names =3D "fck", "usb_x1";
+> +			resets =3D <&usb21phyrst>, <&cpg 0xad>;
 
-> [Severity: High]
-> This is a pre-existing issue, but does mma8452_remove() access unpowered =
-I2C
-> registers and cause unbalanced regulator disables?
->
-> drivers/iio/accel/mma8452.c:mma8452_remove() {
->     ...
-> 	mma8452_standby(iio_priv(indio_dev));
->
-> 	regulator_disable(data->vddio_reg);
-> 	regulator_disable(data->vdd_reg);
->     ...
-> }
->
-> If the device is runtime suspended, the vdd and vddio regulators are alre=
-ady
-> disabled. Since pm_runtime_disable() does not wake the device,
-> mma8452_remove() unconditionally calls mma8452_standby() which will time =
-out
-> on an unpowered bus.
->
-> Will the subsequent unconditional regulator_disable() calls drive the usa=
-ge
-> counts below zero?
+[Severity: Medium]
+Similar to the usb2_phy0 node above, does this node incorrectly include the
+host side reset <&cpg 0xad>?
 
-Yes and yes.
+If the PHY driver accesses this second reset item, it will reset the host
+controller unexpectedly.
 
-> [Severity: High]
-> This is a pre-existing issue, but are read-modify-write operations on I2C
-> registers in sysfs operations performed without holding data->lock?
+> +			#phy-cells =3D <1>;
+> +			power-domains =3D <&cpg>;
+> +			mux-states =3D <&usb21phyrst 0>;
+> +			status =3D "disabled";
+> +		};
 
-Yes. But I don't think the data->lock is supposed to be used for this
-purpose. It looks like the purpose is to protect the ACTIVE/STANDBY
-state handling in mma8452_change_config().
-
->
-> drivers/iio/accel/mma8452.c:mma8452_write_event_config() {
->     ...
-> 	case IIO_EV_DIR_RISING:
-> 		val =3D i2c_smbus_read_byte_data(data->client, ev_regs->ev_cfg);
-> 		if (val < 0)
-> 			return val;
->     ...
-> }
->
-> In functions like mma8452_write_event_config(), an I2C read of the
-> configuration register happens completely outside data->lock.
->
-> If two threads execute this concurrently, could they both read the old
-> state, modify different bits, and serialize on mma8452_change_config(),
-> causing the second thread to unconditionally overwrite the first thread's
-> modifications?
-
-Looks like a bug. I will try to write up a fix for this and all the
-other similar race conditions that this driver seems to have quite a few
-of.
-
-/Esben
-
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825-mma8452-=
-open-drain-v6-0-9b252804ee80@geanix.com?part=3D5
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1787663426.gi=
+t.tommaso.merciai.xr@bp.renesas.com?part=3D3
