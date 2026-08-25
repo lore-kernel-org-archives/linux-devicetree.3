@@ -1,107 +1,157 @@
-Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com [209.85.217.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5ECA4229BA
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 12:27:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1A08429035
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 12:30:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787660877; cv=none; b=SEgFCucHpyZGAX71aeCMQDRxm8URAJFPFI+254XPNquyXa7XaHfUzqUruPx+HrZAyftVHCRCPlsXEh7OLwMM/437j+/R8C0oXAxK5ZBk1Js013cuMKGK/KX+MIdmAYLFGt8O6h85/GZmk1cUaSI2aJau8INPmKnaIk3wKJ2yBhs=
+	t=1787661013; cv=none; b=enaIZI+lLslFYHrwrFxDUTEnY4zM7Da45nWPD2a5XKfw/8a5YcG6usHvRTfPLMmiN2Qbk7K3GSdsrimqmwf2tBuwHuk4TXj8GZC84plP5NeIoRM55zDIwuE67MQ03SP9xPJy/qV1ljwdbplc8uYf29zWPwKKISsPqNGB4bcq/Z0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787660877; c=relaxed/simple;
-	bh=vTlIBThix6p5ACZNkCu4XDSKPza1TCok1RZWv9Vcpu8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tSlX0H0jC0vVyniipxTOKJxHnrJGrvZTC++/ZJxzf/92xPwHyYzBdRog+wHf5fSx8tGAEumuoC34/uBUiEnYJRnQBhE0f6m8NAAMG8JJKUmnKSOh5TPlUDg3lqEQBCdUd609DSKg0CN0U3GSBN+EdU/TphtXyrSJpcbrJqdMb38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-77e354fa83aso638075137.3
-        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 05:27:53 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787660872; x=1788265672;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=oIDFWZS6RDEUFbtSxS2ibtPun+j6l9sII3nkgLpimSA=;
-        b=az+LevT70F6mCCRebOYhnIzw8BfZyEvY9+pOyJVj8w5jMWhYVHu6qEz2yISG9rPE04
-         td6dquJX4r8E5oAQCVpqZoCC92SSeKH+GoY5mnLpMkSO1C63U3QT5tQwIBIzxNychJX+
-         tIwhVILXnAaMZkeptBHjvkglV2JmXQ51r447NN9day2SX1/uq/sDhfuxRWVUhBQxfWED
-         gjQtpLpJcZeVH+a1lo4L2R8Ea4q9YqcapiKsSW2aGc3i0lQtjWB58mNpk63ZfhJWFOUn
-         s/nn0S8moEaLrDCRERCG95oRU/+M2nXfcG4og53BcIRAn+CYdAnVv+6dNYF1lep77vZD
-         w3dg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr2LNl13hOJDuj6NM2U1qaTMEVv4k3hY5IwGlfyN4/dMGH58nWzVufpdta3EWw0wRZCjzSLIMAB0bTa@vger.kernel.org
-X-Gm-Message-State: AFuF++nwTGToall8eHtvJG8HUGTKJVH2rVeuVhMX842RvmvcQfVaiv8S
-	InmucjQs67rKIYIBhW8GXCAUmbhTlZYRhaHpgEapFlAqlCGQCMNeBpoGrv7O80Bm2iE=
-X-Gm-Gg: AR+sD10Id5/NwA3uAq6TWk6ms9XPt5XUQNbleVHQAe1GadTf00geXE2MS0DnDPwU7I/
-	gKesnJhHDRUi8IblTpDW/KK4/vXE4cihBxTKFD63ZzOfVsLnA3HIbeDOf1J8twibMnV5z9XDdb1
-	YL8EFnjVzgwW2/E5bNPEmghDd8cgCpw6Lf9JK1yOAwHpqDX2YBDWTveR6eISyekzXuGnFV+ju2g
-	hYDLePMbC18OcrSOOkX1b9oxzFYNAfoNO84s7uVEVWDpgiChmPqpdEs2jCs4iRADbWbGgdvroQk
-	bw8zta4wqNYxi/pBhaKDZFT5FgP+zofCW9I3/8qHixYq023bMXCc15xmxVFGUFXbQ8Q5oSmHv4J
-	YxEcZhHzmRfypMEK+9tAPjb3jeMsiZBrl1btfC1o4Opz3bn/Rmhd8Uw9ml0c+0ovaxavkMlBE/D
-	EaD9ciS9Nl/KSIZZiz4vf0rMsXmjhXAMsSkCnIzaXIutuiE1a2xHdUW3iAmcw8N2izNxgLHDIpP
-	P9ifBi1pc0zz3Lto/eteKj+tA==
-X-Received: by 2002:a05:6102:161f:b0:780:8536:f53 with SMTP id ada2fe7eead31-780854567aamr704353137.5.1787660871876;
-        Tue, 25 Aug 2026 05:27:51 -0700 (PDT)
-Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com. [209.85.222.48])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7804c715dfesm1022522137.3.2026.08.25.05.27.49
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 25 Aug 2026 05:27:50 -0700 (PDT)
-Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-96723c7151eso2122037241.2
-        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 05:27:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrY/6yFIyRLL/fRCqGjiBWEI5lZRSvaJvKaOU19hOcwk0AeCy14hhthDkHsoiSlfh6QXtSd6MqIs24g@vger.kernel.org
-X-Received: by 2002:a05:6102:956:b0:778:9e3c:5760 with SMTP id
- ada2fe7eead31-77bd288c901mr8408694137.11.1787660869267; Tue, 25 Aug 2026
- 05:27:49 -0700 (PDT)
+	s=arc-20240116; t=1787661013; c=relaxed/simple;
+	bh=DBxi0BOOwrT4xCseyDgm+w1BLMxRq77pCreq5EfGDkY=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:In-Reply-To:
+	 Content-Type:References; b=imUTR4+bESiG8Iy+qjMrAS98DQtlWLCJiEBEigXTsZk6PvHS1L8K+SewbsClEAZeUIUDuEpbqTmyCx+ONCVrjwDMC3HzoWkhpn7PDVkohMev+OzZq/aSTeeEgXkp6BHuBK979ibjnFCAuE1DFT76zrG6kWbBYbnDh4Y2ax+Eyl8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=M/plwnle; arc=none smtp.client-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="M/plwnle"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260825123000euoutp01493d19e725e84dd1470e005c23cddd5c~PDDVel8wH0823408234euoutp01x
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 12:30:00 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260825123000euoutp01493d19e725e84dd1470e005c23cddd5c~PDDVel8wH0823408234euoutp01x
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1787661000;
+	bh=/CFXDg3L0aD6SB3xy+cQUqcdazmfSamoOM2pD2VK9/8=;
+	h=Date:From:Subject:To:Cc:In-Reply-To:References:From;
+	b=M/plwnleb557HnWW2Dgy9vnFWSWbm89jMkXmfdBPQP4QBiSMtpwH1WVf0GPG0YzkB
+	 gifzRvzJLk6W7MqMdMgDOgPSNREwbE762LekRDsHSM41/dqjMNjK0W8f2FmZQdds1C
+	 PimsNKW8gsS17sEJpl3sKl4RVUT9KVaiQ48N53po=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20260825123000eucas1p248f943e21b217192142c843eb427dd76~PDDVEpmia1504115041eucas1p2S;
+	Tue, 25 Aug 2026 12:30:00 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20260825122959eusmtip1bd8675e1e80e324fa87b118bf74d4d66~PDDULpsjo1767517675eusmtip1d;
+	Tue, 25 Aug 2026 12:29:59 +0000 (GMT)
+Message-ID: <e7605d7a-85f1-4339-99d2-85c0df884ec2@samsung.com>
+Date: Tue, 25 Aug 2026 14:29:58 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260817192540.423994-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260817192540.423994-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <20260817192540.423994-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 25 Aug 2026 14:27:38 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXyq0pO-ZDMiSx6k5HoT4Y1W+Ov2KRWRr_OCE_ng8BEVA@mail.gmail.com>
-X-Gm-Features: AcwNN1VVA1JsDEFfJkQvCcAZH1nZvL8L6xNDA-rPHWfx8tfe-s3NaRctdvNNt_w
-Message-ID: <CAMuHMdXyq0pO-ZDMiSx6k5HoT4Y1W+Ov2KRWRr_OCE_ng8BEVA@mail.gmail.com>
-Subject: Re: [PATCH v4 3/7] arm64: dts: renesas: r9a09g087: Adjust CPG
- register region sizes
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
-	Guenter Roeck <linux@roeck-us.net>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Betterbird (Windows)
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+Subject: Re: [PATCH v5 05/10] mm/cma: Introduce cma_alloc_at() API
+To: "David Hildenbrand (Arm)" <david@kernel.org>, Thierry Reding
+	<thierry.reding@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+	Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Jonathan
+	Hunter <jonathanh@nvidia.com>, Robin Murphy <robin.murphy@arm.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
+	linux-mm@kvack.org, iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
+	linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
+Content-Language: en-US
+In-Reply-To: <ae6c93e6-10f2-4bac-be61-118bbfc3c05d@kernel.org>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20260825123000eucas1p248f943e21b217192142c843eb427dd76
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260820180431eucas1p21be3f213606c4dbef2e4a73a2c1623f0
+X-EPHeader: CA
+X-CMS-RootMailID: 20260820180431eucas1p21be3f213606c4dbef2e4a73a2c1623f0
+References: <20260814-tegra-vpr-v5-0-71832b5d0246@nvidia.com>
+	<20260814-tegra-vpr-v5-5-71832b5d0246@nvidia.com>
+	<CGME20260820180431eucas1p21be3f213606c4dbef2e4a73a2c1623f0@eucas1p2.samsung.com>
+	<ae6c93e6-10f2-4bac-be61-118bbfc3c05d@kernel.org>
 
-On Mon, 17 Aug 2026 at 21:26, Prabhakar <prabhakar.csengg@gmail.com> wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+On 20.08.2026 20:04, David Hildenbrand (Arm) wrote:
+>> /* This part must be outside protection */> diff --git a/mm/cma.c b/mm/cma.c
+>> index a10ea37a261d..1e1ebae79090 100644
+>> --- a/mm/cma.c
+>> +++ b/mm/cma.c
+>> @@ -936,6 +936,141 @@ struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order)
+>> return __cma_alloc_frozen(cma, 1 << order, order, gfp);
+>> }
+>> +static int cma_range_alloc_at(struct cma *cma, struct cma_memrange *cmr,
+>> + unsigned long offset, unsigned long count,
+>> + struct page **pagep, gfp_t gfp)
+>> +{
+>> + struct page *page = NULL;
+>> + unsigned long pfn;
+>> + int ret = -EBUSY;
+>> +
+>> + spin_lock_irq(&cma->lock);
+>> +
+>> + /*
+>> + * If the request is larger than the available number of pages, stop
+>> + * right away.
+>> + */
+>> + if (count > cma->available_count)
+>> + goto unlock;
+>> +
+>> + ret = bitmap_allocate(cmr->bitmap, offset, count);
+>> + if (ret < 0)
+>> + goto unlock;
+>> +
+>> + pfn = cmr->base_pfn + offset;
+>> + page = pfn_to_page(pfn);
+>> +
+>> + /*
+>> + * Do not hand out page ranges that are not contiguous, so
+>> + * callers can just iterate the pages without having to worry
+>> + * about these corner cases.
+>> + */
+>> + if (!page_range_contiguous(page, count)) {
+>> + pr_warn_ratelimited("%s: %s: skipping non-contiguous area [0x%lx-0x%lx]",
+>> + __func__, cma->name, pfn, pfn + count - 1);
+>> + ret = -EBUSY;
+>> + goto clear;
+>> + }
+>> +
+>> + cma->available_count -= count;
+>> +
+>> + /*
+>> + * It's safe to drop the lock here. We've marked this region for
+>> + * our exclusive use. If the migration fails we will take the
+>> + * lock again and unmark it.
+>> + */
+>> + spin_unlock_irq(&cma->lock);
+>> +
+>> + mutex_lock(&cma->alloc_mutex);
+>> + ret = alloc_contig_frozen_range(pfn, pfn + count, ACR_FLAGS_CMA, gfp);
+>> + mutex_unlock(&cma->alloc_mutex);
+>> +
+> There is quite some code duplication with cma_range_alloc(). Please try harder
+> to factor common code out and reuse it.
 >
-> Increase the size of both CPG register regions from 64 KiB to 128 KiB.
 >
-> On the RZ/N2H SoC, the CPG/MSSR block is a multi-function block where,
-> apart from clock and reset handling, it supports other features including
-> clock monitoring, write protection, and peripheral configuration registers.
-> Expand the mapped register regions to cover the entire register space of
-> this block so these additional features can be utilized.
+> > ...
+> Also here, way too much code duplication with __cma_alloc_frozen().
 >
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> There must be a better way :)
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Maybe the existing 'alloc' functions could call 'alloc_at' variant internally
 
-Gr{oetje,eeting}s,
+(with locks adjusted and moved out).
 
-                        Geert
+
+> (I really prefer this direction of the patch set)
+
+Definitely, I also like this approach much more than previous attempt with
+
+'dynamically' instantiated cma regions.
+
+
+
+Best regards
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
