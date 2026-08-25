@@ -1,132 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25DFA447817;
-	Tue, 25 Aug 2026 12:37:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 367B442AF8D
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 12:38:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787661456; cv=none; b=PKtnCzVK95gL5KYZEKy7FYLN6Gc7R77rEl0USg6fQHCrBPF44vYqvhHQNj3E5Sbq16+9a6qI3uAAjANoYdmJrUeSgnIfo9tDj2CYyZ7kC/MCNDlmRtmFXXQuY9Z59MdwhGN0dGEBHHZRNINoLo5OHRe5qQFKlsDOjHhGW/68IsE=
+	t=1787661503; cv=none; b=HHHr++LGF2ao+4Jz4n+jUWC+m1nsBtlLZ9qkHKKZfxY/QhyppMm/weHYJQQA+zJJDu1Su5m4D54EHvUO1GT6yxNeUnyrE/ttBEiFDqDs15gEQWnEdGRhHc9ODCAWGeEvr01v2FophC0yDe8Bg3dUpNm5k9rtrUz0emI5h+GSoPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787661456; c=relaxed/simple;
-	bh=3InrEzqBoL04PndarbQa9vfc8Y03H+tVOBZBHp4kxfk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=AxVtpEVrYaOdxUIN+Y2O20eCH9C6ZpQf3MqqWJS+2qDJ/SCJsSz/dt14ZRfrxRs0HEcwXGbZcwt4+zhYfNN861FGXiCdDNv7FRMEhQKM+8alInvU1i0zggUbN45zItuCemYDFG9OkA7g7ahzN2D4e2suy0lVIKhOGGjUeW2nBxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dwgh2aSn; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dwgh2aSn"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 677E3C2BCFB;
-	Tue, 25 Aug 2026 12:37:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1787661453;
-	bh=3InrEzqBoL04PndarbQa9vfc8Y03H+tVOBZBHp4kxfk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=dwgh2aSnJOkT0WZEP6/0yf80ICfw+5qbWp7vcxXmQ7e0tPRLmtZs2oQijr2jE3pq9
-	 jS4fkDIsYrYeLRMaEDkFDuZKwpVFydqkk6SwZdcojzMNJLPvdSQf32oAfRLHAw89js
-	 v4ZZGFoAaMvHjtRvQN+j+3WM9lyHPEAsEyAJRSGvSslZaHp5Ql8t6+198sA5SKvXKY
-	 JEo6zWOcbL9pnK2g85XTfqXjQ4dtwv6y3JnLuTJuqWunVfCuAUF1Udv+AL7P1vc5r0
-	 P/a387sVAgOgtdTti7VdsFxyZwMyBmFZvaBUNjIss6zmmzEN81f4GnY8geUqiTOSv2
-	 ZA3bkit2q/vww==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5375EC61DC4;
-	Tue, 25 Aug 2026 12:37:33 +0000 (UTC)
-From: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>
-Date: Tue, 25 Aug 2026 16:37:26 +0400
-Subject: [PATCH v3 09/12] dt-bindings: usb: qcom,snps-dwc3: Add clocks for
- USB3 on Qualcomm IPQ5018
+	s=arc-20240116; t=1787661503; c=relaxed/simple;
+	bh=XVZs/xqSmR+34+BrwmpxC0cd+dGU1Zxb/J9zlN0cTU8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dEvqIMqVLaEcn/iHYEhfHoXnt0wSPqp7/Kk9W9rtNulmZgHlvUGJ+K0mFVZU04BFKZ7rlUnK1Hz31gyiCT2OZRmkv5nlJ0sc25SMseWVEbAMwykPcY4x9ADWTQJTrrlj1PJbhBI7IPDq98vu5QuGKxZqHB5fUiZh2nU0GWP0dTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8200b55dc47so72963317b3.3
+        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 05:38:14 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787661492; x=1788266292;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ILP07iJKBmCL4umuQJDRJxi/o8MvR2u5/1eDo+tc9XU=;
+        b=Yd4KFTeBGsyXn/0e4TSlzFGxkSbysI2AV4AYYTveA8kS/r5Sjn1dcVy+84BlDW80Oe
+         hPgTH+US1gAAeDT2vpOSruuvSyhFxRq6c5o9MByPUdoavwbOCEPh1RQ1/nbN9jQLBlJ9
+         zNht7IRu/zUjdSA2z1YGXolOX+gb2cfg7lyQ8PbPZnPGrfbT/nNcgGd9SiGJFa/5WOzy
+         9YqBSgsIgwGM2xXK6fEDYMUE7IDDoQG4Jk9DmTNrchwGB/UYAGStb7RbDJDYq6hMneRh
+         OeXSb1z6JRt+xTBw/zn4qz55I0QjonwLC1UBtWNzTy7OAmr41dfTtPNkZzinO/VwYjqY
+         ik0A==
+X-Forwarded-Encrypted: i=1; AHgh+RrKXSUSkgqX5bZHkAOM261GtbSUjfXNNsNojTVJJF5iIukODRhCctucaK/pFXLlVT8J+GRc0Tfok0Dd@vger.kernel.org
+X-Gm-Message-State: AFuF++lS/Hboj+5nL00ACcaH+DR9fDzTnLd9kzNL+PFL8aEScj8Rj4Az
+	HfGB7Ko8lGT4WMqgyERMV86C1w+iq6L/07nc03gLDX7HpixcxaT6FosTvlIDhRGrw0A=
+X-Gm-Gg: AR+sD11tR+33FtUtNWNkUiz/F9y2CHOYX61e+ORiRbpSl0JyMi40bCrF6MpakFDfAwi
+	rghbpUnKx4xGxQjZO6Jy5e8RZUHEIadOK6ag8zHgfEY57uLjcX3hO4Ub8v6R+T0vqafSFf4NFkA
+	pS6tBKYrwIMyH7imo1JelK0W72G9+sBVaCOWn7s+NgcFS+aiqbNyA4B3Z+dyUvBGaiOfiguxV1k
+	iHdGhC1V79fEYDMI7CPyQS2fgvOC9UEGK+4rDg1QWtoRGGc1RTG8vQhr/NO44qx/DUKNuD9qPxi
+	bPhaWLCA6mnjN9h6OdYr78AcZoWD6hj14BySvFkq/T7lVyl8nj6HgdUxu0RIMT+irJGUcaF7Tpc
+	QCbZwOe7FH3G3gYkoXTSNEk+6cnrQROhj7PhwtUyjZEuoLlYKmq2VhPzZI1066xIq7JsiXetyeC
+	P3xMvutqw/gUyokd/i8VBDh6TZ+/jowieh9cDQKrGMNVYGyPHAzo+Hb6VkpVCc+UjDan1y5lv0Q
+	znZCTCIY8uqeB1KWo/zP8OB6Q==
+X-Received: by 2002:a05:690c:6983:b0:7fe:1333:c745 with SMTP id 00721157ae682-84c9b31383emr99719567b3.27.1787661492402;
+        Tue, 25 Aug 2026 05:38:12 -0700 (PDT)
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com. [74.125.224.46])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-84ca5188f03sm48521757b3.8.2026.08.25.05.38.12
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 25 Aug 2026 05:38:12 -0700 (PDT)
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-66ce4a63e17so5632358d50.3
+        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 05:38:12 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RphbqsBbOJHh+/rpnPAS3aB95pASRP5rMcbJ0fCKyleb5wgqhcLuAc+KWLi8/YF/k/X1KGNBSzliomu@vger.kernel.org
+X-Received: by 2002:a05:6102:fa4:b0:778:9033:e337 with SMTP id
+ ada2fe7eead31-77bd12c12c9mr7782019137.7.1787661031227; Tue, 25 Aug 2026
+ 05:30:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260825-ipq5018-usb3-v3-9-39be0955a6aa@outlook.com>
-References: <20260825-ipq5018-usb3-v3-0-39be0955a6aa@outlook.com>
-In-Reply-To: <20260825-ipq5018-usb3-v3-0-39be0955a6aa@outlook.com>
-To: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Praveenkumar I <praveenkumar.i@oss.qualcomm.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>, 
- Nitheesh Sekar <quic_nsekar@quicinc.com>, 
- Wesley Cheng <quic_wcheng@quicinc.com>, 
- Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-usb@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- George Moussalem <george.moussalem@outlook.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787661450; l=1506;
- i=george.moussalem@outlook.com; s=20250321; h=from:subject:message-id;
- bh=BrVJTl3Tb6P7JuTScfV3IA2WcKzF+sHcd0AfrYGATWA=;
- b=e7gfZhyd/OCSOtqtMZiVVCph9z+d7pnrX3IBRHUK6oxcqPBmFaPIS+31US8RRgPhyLW8FUaEo
- e+XE+GM8iGbBLl1TyEA5G5+LPz0d4Ap8FcjkM+DRpZb6VS/E1SadlOK
-X-Developer-Key: i=george.moussalem@outlook.com; a=ed25519;
- pk=/PuRTSI9iYiHwcc6Nrde8qF4ZDhJBlUgpHdhsIjnqIk=
-X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
- with auth_id=364
-X-Original-From: George Moussalem <george.moussalem@outlook.com>
-Reply-To: george.moussalem@outlook.com
+References: <20260817192540.423994-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260817192540.423994-7-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260817192540.423994-7-prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 25 Aug 2026 14:30:19 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXwbEUjqxWyXFK0WSDh5B_hXj5n5iH4Nk3_EpBVQDbtMA@mail.gmail.com>
+X-Gm-Features: AcwNN1VMSQ32o_cnpnsTpSPX7r0kAj3W65LFTE0SdyuxEiBV0BGPSBvqvVU8GfE
+Message-ID: <CAMuHMdXwbEUjqxWyXFK0WSDh5B_hXj5n5iH4Nk3_EpBVQDbtMA@mail.gmail.com>
+Subject: Re: [PATCH v4 6/7] arm64: dts: renesas: r9a09g077: Use CPG/MSSR
+ syscon for WDTDCR access
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+	Guenter Roeck <linux@roeck-us.net>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-From: George Moussalem <george.moussalem@outlook.com>
+On Mon, 17 Aug 2026 at 21:26, Prabhakar <prabhakar.csengg@gmail.com> wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>
+> The WDTDCR registers for wdt0-wdt5 reside in the second register region of
+> the CPG/MSSR block. This multi-function block is now exposed via a unified
+> syscon regmap interface.
+>
+> Replace the direct mapping of the individual WDTDCR registers with the
+> new "renesas,sysc" phandle property pointing to the CPG/MSSR block syscon
+> node.
+>
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Add aux and lfps clocks in Qualcomm IPQ5018. These clocks are required
-only for USB Super-Speed support.
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: George Moussalem <george.moussalem@outlook.com>
----
- .../devicetree/bindings/usb/qcom,snps-dwc3.yaml     | 21 ++++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
+Gr{oetje,eeting}s,
 
-diff --git a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml b/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
-index aa263dfd42a1..97dd0cefd732 100644
---- a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
-+++ b/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
-@@ -194,6 +194,26 @@ allOf:
-             - const: sleep
-             - const: mock_utmi
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - qcom,ipq5018-dwc3
-+    then:
-+      properties:
-+        clocks:
-+          minItems: 6
-+          maxItems: 6
-+        clock-names:
-+          items:
-+            - const: core
-+            - const: iface
-+            - const: sleep
-+            - const: mock_utmi
-+            - const: aux
-+            - const: lfps
-+
-   - if:
-       properties:
-         compatible:
-@@ -295,7 +315,6 @@ allOf:
-         compatible:
-           contains:
-             enum:
--              - qcom,ipq5018-dwc3
-               - qcom,msm8994-dwc3
-               - qcom,qcs404-dwc3
-     then:
+                        Geert
 
 -- 
-2.53.0
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
