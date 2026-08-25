@@ -1,207 +1,124 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2881342E43D;
-	Tue, 25 Aug 2026 15:53:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABB4533A71A
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 16:06:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787673195; cv=none; b=UHVhiYNhkFwx5HUP4kiEA1VVbrZybpBFZDxR2AqXtV3SYWZyL/+LFvM54ToIl9GMtY2vLEM+LWL21EKQWnyT4LVlR5OgR1Ret71FQTXLbHFUdMXcsCmpsIICmMK+Bgz8ux0pjFSnn7v71NdiIn+7JxhC3OULavacMUFvZdUEjo8=
+	t=1787674021; cv=none; b=faGx5QbjWH/MUS5Mfe87ZSXvzv70Dt0EkvvK7USdTgpUGcnD82iVXWW8Pr7Wv/hmiAHg+rpnjxSglE72lhstBePnJ3cJRg2RxOLOFklgLIs01ey7+pGQhhuMQXhu4iEFQNG9wr+NwOEmm+IM3z/IrT6K/udcCFDYqqwPIhUd/AA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787673195; c=relaxed/simple;
-	bh=dcKT6azsjRjWutpi4ebH55Jr0c+6I4CEvnw1UsnE80g=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Pomv/50aUh3BqXpzkaGflmjkzvc4f+jQshkKPHaZzR1n3vFGTQ02e7gXipGvPV/9scW1cbjbPJraKCUOsPjvo6vOGh35wUA5M9WNrk78UQpVZmC7ORp4PeGiPgJVDjjx1DpHmdDjxGG8BCqWiiy30jCs5LkYjAiHkiZ0AZXJWd4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Ttp339aZ; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1787674021; c=relaxed/simple;
+	bh=DvKH2fFcZ/uhD/ZuKu0uGpyMl16LVSMA9icM14BxbOU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iFeLmYwCPEJu+CpXYodIJ8izZj9f3cD7c5+BKX1jFclJgbMBd9A9ecHvuYuB4IQY3QTLwwXjQ1cBc1tWzBqQ1T9g0Te8UafHURyNWx6hmyiV3cfJup47Wp8tgBk8IaO4kyGp4/KH/zdzwnXfcTXPAqwvZC51HNAfQdzLqfZCFRU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S54QIlPx; arc=none smtp.client-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Ttp339aZ"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 621B41A1766;
-	Tue, 25 Aug 2026 15:53:09 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 344E2604C4;
-	Tue, 25 Aug 2026 15:53:09 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E279D11C7A676;
-	Tue, 25 Aug 2026 17:53:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1787673184; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=ayRsWbjbDg+OxGMZloCREgzB7cLLDf7rWS6c16W8m04=;
-	b=Ttp339aZvzmPPp1xKY3R8tnslhH2kqZtTJOsY+TbirETxjUP34ngaOeHLkKkkoupWugiej
-	FE2jlvbl7TxCWrCgFzTPbiRJgUqMp6y9hRg2XXv3fuJJKBeDL6lXp5RVybmXEDyTpVRKTs
-	HLqsMvdBJ5L5WsT60LR8dweqPYRPwEmAFBInWrhd232HShmFxFTXfkCZOcJdhWtMEko8ti
-	9qTM5eoOI2RtzKZ4rY+XSZvH8odfN3kODQd8kO/RHtgVWstGniLlnpGFtOayje9sCjfcR/
-	SVfRPIP072W2MQwzk3xRk4JakoKI3N/NycfaBhrnm2MUnkUtCjD2X8umDS/6Jg==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.net>
-Cc: Linus Walleij <linusw@kernel.org>,  Bartosz Golaszewski
- <brgl@kernel.org>,  linux-gpio@vger.kernel.org,  broonie@kernel.org,
-  linux-spi@vger.kernel.org,  richard@nod.at,  vigneshr@ti.com,
-  linux-mtd@lists.infradead.org,  robh@kernel.org,  krzk+dt@kernel.org,
-  conor+dt@kernel.org,  devicetree@vger.kernel.org,
-  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] gpiolib: of: Only apply the SPI CS quirk to SPI buses
-In-Reply-To: <20260819155502.3934837-1-maciej.andrzejewski@m-works.net>
-	(Maciej Andrzejewski ICEYE's message of "Wed, 19 Aug 2026 17:55:10
-	+0200")
-References: <20260819155502.3934837-1-maciej.andrzejewski@m-works.net>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Tue, 25 Aug 2026 17:53:00 +0200
-Message-ID: <877blegpsz.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S54QIlPx"
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c1c52d920b8so707068466b.2
+        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 09:06:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787674018; x=1788278818; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BdqXyZVZhBIDnSDIcLKPXaIgy8TBNW5ywHFUYDexGKw=;
+        b=S54QIlPxfzEMRvnY0oIBSyqi4JP0HxgyDJgaADCYJXzzPBUAdPaKS5dNCORXQ+CQVD
+         VhBXnxjsEDb/5PO618q+JS1mDBlwJi6hAu5tVjaw+fOdwCOdhb9bIiuZiS6+sh6GEVBz
+         BuXMDixPWSD/5t/F+q0FLpEhtWstWZC/n+n6xuMYQIOp342QTlOhieWYM7hwENX8QfWM
+         BUfllep2R1WDd/h4yVX+EMcTaYa/htS+0q66tXcIGZSN2z99u/EfKllUBCF5YZMvB8xN
+         g/UENuo3pO9J1/muAmgFl+DI48kATEpZC2kquxKZPJ4rYXkb7+wEM1h/3sZ9SCCsW7/e
+         eIUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787674018; x=1788278818;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BdqXyZVZhBIDnSDIcLKPXaIgy8TBNW5ywHFUYDexGKw=;
+        b=PAgJ3BFTMPjVOiTEna44LRultSb3cC+b4o4yVMUbk6QX76RojqlVS7qOwBmlkAi2Yz
+         w9w+nHONwyNh+DzL8OH60OzAoV+UjwaFFB2/zcfBozDEwsa0FCAd42z8wF1q98fB0CbF
+         Drq+NxbVU9eDnNg6kDG6QZ0l9Hi3oustBbWr5W9f0PelvXrsozrXIQe1BNNnPHcvKmic
+         VrITbAtwmDaKgGftpsGuZkOmxJeAvNaS+mX/7oz2RA+YiX2KN5EcNjG8tDg4QkIN96dd
+         Mw+AA8EUa78qQxXGXWp9IFtJHRG5FIO+ODN4EIBOUTvwQSvVe8Pi9K3pFjs/OgEAjW+F
+         i3+Q==
+X-Forwarded-Encrypted: i=1; AHgh+RqQO9+ftejNp2m+4I56wJHh4lDlVJw9r23wb8cWn+rcQ9QcpjYuFQenL31DnswyA3Cf63Jy1KWutvjX@vger.kernel.org
+X-Gm-Message-State: AFuF++k/2gE7B44z5LjrkXy9ScLwAkH2BcmAWlOjJf4DqPvfXR7Bu9Tw
+	Cn8WaSZeV/iqThOLq9TflKxjw0pPuGrDKov1XsFTz44ePXvDfD1HJsEv
+X-Gm-Gg: AR+sD12o/oOO+sc8Y6AfHxNuD6EVjBwX8M0naSakCcTZNEyZU86FFIOenqjUESOr6oQ
+	sDCkEFlNFFfcy5FjtUPg/KPJaDTdQtCizz2fT4pEmgI2T/PoN+l76mObL7lSOj3TkBvs4nwWz/K
+	zXxXFiNWSU/6GaMcxc0IARtkj7eCFdavinxXi4LMwNJAcDEsjME6USpKqNFPdHJsQ+bZhLbPPRg
+	hUmDmJTdG6TeszKNrAFodaATGkSh7KgzNC0rSD9Zq6iqfGzx4IVlKUcZO0tbIpgwRKuh+RBvZxR
+	L4BsJ97Pr6EJyr7Upw9QEaH9QU4ga+5xriVv+OKlJMgE70cjgu8fH7Jq13VrrI6S72GFh4XMusk
+	u8rAbxmNvFZwd3YRp5E4t/vyrQoUG1S0IR2AqrziZzI2oWyz8l6VGOXRq2UleOZOcXb60Hhizk4
+	3YewcYaQzlL7P9FNnaQZtWduJ/hs+4Mps6nQNEq7MfQwrVDDYRnowKIjSPkagRTds3cPOwdD7r5
+	IlDF9VK7GFbzjX/cpq2E+fsX0HkcYMV
+X-Received: by 2002:a05:6938:a08e:10b0:c21:7584:fc58 with SMTP id a640c23a62f3a-c24e5b5531emr663869666b.12.1787674017582;
+        Tue, 25 Aug 2026 09:06:57 -0700 (PDT)
+Received: from GLaDOS.station ([109.55.72.35])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a5d62dfsm24369966b.4.2026.08.25.09.06.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 25 Aug 2026 09:06:56 -0700 (PDT)
+Date: Tue, 25 Aug 2026 18:06:53 +0200
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: sashiko-reviews@lists.linux.dev, Frank.Li@kernel.org, robh@kernel.org,
+	imx@lists.linux.dev, conor+dt@kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 2/3] ARM: dts: imx7d: add Variscite VAR-SOM-MX7 support
+Message-ID: <ao29neQwKSWlK4Lx@GLaDOS.station>
+References: <cover.1787586961.git.stefano.r@variscite.com>
+ <2b7fabe6b1c4d08e58d2542742492564b67c4c32.1787586961.git.stefano.r@variscite.com>
+ <20260825071648.B547C1F000E9@smtp.kernel.org>
+ <ao2p-Yj1HfJeeVOM@SMW015318>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ao2p-Yj1HfJeeVOM@SMW015318>
 
-Hello Maciej,
+On Tue, Aug 25, 2026 at 09:43:05AM -0500, Frank Li wrote:
+> >
+> > [Severity: Medium]
+> > Does this GPIO hog conflict with the native usdhc3 pinctrl configuration
+> > for SD3_RESET_B?
+> >
+> > The sd3-pwr-hog statically claims gpio6 11, which corresponds to
+> > MX7D_PAD_SD3_RESET_B. The pinctrl_usdhc3 later claims the exact same pad as
+> > SD3_RESET_B in its native mode.
+> >
+> 
+> Is it true?
 
-On 19/08/2026 at 17:55:10 +02, Maciej Andrzejewski ICEYE <maciej.andrzejews=
-ki@m-works.net> wrote:
+It's true, I'll fix it.
 
-> The legacy SPI chip-select polarity quirk in of_gpio_flags_quirks() is
-> keyed on nothing but the property name "cs-gpios". That name is not
-> exclusive to SPI: nand-controller.yaml documents the very same property
-> for NAND controllers, and rawnand_dt_parse_gpio_cs() requests those
-> lines with gpiod_count(dev, "cs"), which gpiolib expands to "cs-gpios".
-> A NAND controller therefore has SPI chip-select semantics forced onto
-> its chip selects, and any chip node whose first reg cell matches a GPIO
-> index is silently flipped to active low. The NAND core requests the
-> descriptors GPIOD_OUT_HIGH and drivers assert with a logical 0, so the
-> inversion leaves the die permanently deselected.
->
-> The example in nand-controller.yaml is itself affected: it pairs a
-> native chip select with a GPIO one and gives the second chip a reg of 1,
-> which trips the quirk whenever CONFIG_SPI_MASTER is enabled. In-tree the
-> collision is real but latent. 36 board trees, all Atmel/Microchip at91,
-> give their nand@3 controller a cs-gpios line, and they escape only
-> because the sole child of those nodes is a partitions container with no
-> reg for the quirk to match against.
+> 
+> > [Severity: High]
+> > Does setting the sw1a maximum voltage to 3.3V violate the hardware limits
+> > for the i.MX7D core voltage?
+> >
+> > The sw1a regulator supplies the cpu0 and cpu1 cores. The PFUZE3000 SW1A limit
+> > for this design is typically around 1.475V, and the absolute maximum rating
+> > for the i.MX7D ARM cores is usually around 1.15V.
+> >
+> > If a driver scales the core voltage up to 3.3V based on these boundaries,
+> > could this result in hardware damage?
+> 
+> Please double check this one?
+> 
+I double-checked this.
+PFUZE3000 SW1A supports selector values up to 3.3 V;
+the 1.475V limit applies to SW1B, not SW1A.
+The regulator-max-microvolt value only defines the regulator constraint,
+while the actual CPU voltage is selected according to the i.MX7 OPP table.
+Therefore, the 3.3 V constraint does not cause the CPU supply to be
+driven to 3.3 V.
 
-:')
 
-> Device tree carries no bus type marker, so identify the bus from two
-> hints. Properties of an SPI peripheral are namespaced with "spi-"
-> (spi-max-frequency, spi-cpol, spi-cs-high and the rest of
-> spi-peripheral-props.yaml), whereas a NAND chip node carries only reg,
-> nand-* and its partition table. That is a convention rather than a
-> guarantee, since compatible and reg are the only properties
-> spi-controller.yaml makes mandatory for a peripheral, so let the
-> controller settle the remaining cases: spi-controller.yaml constrains
-> the controller nodename to ^spi(@.*|-[0-9]+)?$, which makes the name the
-> one bus marker every conforming controller has to carry. A peripheral
-> that carries nothing but compatible and reg therefore keeps its active
-> low default through its parent. Skip the quirk only when neither test
-> matches.
->
-> Both tests were scored over every board device tree in the kernel,
-> expanded with the same cpp and scripts/dtc pipeline the build uses, at
-> v7.2-rc7. All 3620 trees under arch/*/boot/dts expand; 503 of them hold
-> at least one GPIO chip select that can reach the quirk, 765 such chip
-> selects in total. 761 are matched by both tests, and none are matched by
-> neither, so no in-tree board changes behaviour.
->
-> One needs the property scan on its own: psc@11400 on ac14xx, a
-> fsl,mpc5121-psc-spi named after the hardware block rather than the bus,
-> whose m25p128@0 child carries spi-max-frequency.
->
-> Three need the nodename on its own, all peripherals with no "spi-"
-> property of any kind:
->
->   - panel@0 under the spi-gpio controller on rk3566-anbernic-rg503
->   - can@0, an mcp251xfd, under ecspi3 on imx8mn-vhip4-evalboard-v1
->   - spi@1 under ecspi1 on imx53-ppd
->
-> The two tests are complementary, so both are needed to keep every
-> in-tree board working. A tree that names its controller after the
-> hardware block and gives it a peripheral with no "spi-" property would
-> still lose the quirk. No in-tree board does, and such a controller is
-> already outside the nodename pattern spi-controller.yaml requires.
-
-Sounds okay to me.
-
-> of_gpio_spi_cs_get_count() in this file identifies SPI controllers with
-> of_device_is_compatible() instead, but it only has to name three legacy
-> controllers whose bindings are closed. An allow-list here would have to
-> name every SPI controller binding in the tree, 71 distinct compatible
-> strings among the candidates alone, and grow with every new one.
-
-That would be impossible to maintain indeed.
-
->
-> Signed-off-by: Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.net>
-
-I believe "ICEYE" is your company which backed this work, in which case
-you should use "(ICEYE)" instead.
-
-Also, this probably deserves a Fixes and Cc: stable set of tags.
-
-> ---
-> Changes in v2:
-> - Squashed the two patches into one. The property scan and the nodename
->   test are complementary, so patch 1 alone stopped applying the quirk to
->   the three peripherals that carry no "spi-" property, which would have
->   broken those boards for anyone bisecting through the series. Reported
->   by an automated review of v1.
-> - Folded the two helpers into a single of_gpio_is_spi_chipselect().
-> - Said outright that a peripheral with nothing but compatible and reg
->   keeps its active low default through the controller nodename.
-> - Rebased; drivers/gpio/gpiolib-of.c is unchanged since v7.2-rc7, so the
->   diff itself is the v1 pair verbatim.
->
-> v1: https://lore.kernel.org/r/20260810141629.81650-1-maciej.andrzejewski@=
-m-works.net
->
->  drivers/gpio/gpiolib-of.c | 31 +++++++++++++++++++++++++++++--
->  1 file changed, 29 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpio/gpiolib-of.c b/drivers/gpio/gpiolib-of.c
-> index 940b566946ce..d73114166f6b 100644
-> --- a/drivers/gpio/gpiolib-of.c
-> +++ b/drivers/gpio/gpiolib-of.c
-> @@ -340,6 +340,28 @@ static void of_gpio_set_polarity_by_property(const s=
-truct device_node *np,
->  	}
->  }
->=20=20
-> +/*
-> + * The legacy SPI chip select binding below is keyed on a property name =
-that
-> + * other subsystems reuse for the same purpose, notably NAND controllers=
- (see
-> + * Documentation/devicetree/bindings/mtd/nand-controller.yaml), whose ch=
-ip
-> + * selects carry no SPI polarity semantics. Device tree has no bus type
-> + * marker, so take two hints. Properties of an SPI peripheral are namesp=
-aced
-> + * with "spi-", and a peripheral that declares none is covered by the
-> + * controller, whose nodename spi-controller.yaml constrains to
-> + * ^spi(@.*|-[0-9]+)?$.
-> + */
-> +static bool of_gpio_is_spi_chipselect(const struct device_node *np,
-> +				      const struct device_node *child)
-> +{
-
-This check will be done for each child, whereas we should have to do it
-only once for a given controller node. Plus, as soon as one of the
-children has a spi- property, it is enough for enabling the quirk for
-all the children whereas in this implementation, only one child is used
-at a time to derive the bus type, which means in theory you could have
-one child node that gets the quirk and another child node of the same
-parent which does not.
-
-This is not a show stopper, but I believe this can be slightly
-enhanced,if that does not make the code too complex.
-
-With the comments on the tags and SoB addressed, you can nevertheless
-add my:
-
-Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
-
-Thanks,
-Miqu=C3=A8l
+Best Regards,
+Stefano
