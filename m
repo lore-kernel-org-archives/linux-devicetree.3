@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 087AC3F8241;
-	Tue, 25 Aug 2026 10:48:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E95403F822A;
+	Tue, 25 Aug 2026 10:48:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787654921; cv=none; b=V2SkyTnozoUCDRqY3mqtGki50oM/Z4MDGDD/cadUc+T5hQlPY4adAm33XfypVSIz9L9iKrsuNqmFcYfq7KbSDj0iQyONCFf/WO73tM7mLKGBfHYUSv8iMn9i5owpJQJlwrTfyLi1KC6FIF5Yka+5Iv7zcJi9RLPp205E6uE1p78=
+	t=1787654921; cv=none; b=jtLm8OeQRqWYTlkE0jy0+HNb8dXtW1V3xCTlRwujKRp+/1XM8pXLi3gLv0owfnUSwpVmisHGAFTc2vDIUcmRdwPR4WdozLmwWjN5rogzDq1rkNTV/Vm8QwyC1NOcpKitIjBhjrNMtfvBIlLIBmcxNW5TNPy1vfiF/5OkYeCjVwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787654921; c=relaxed/simple;
-	bh=6jOFUYvgMlcmzafj/Ti74phm3e09p8uFSSwu6v757NU=;
+	bh=5n4CWCuGf8N+WYrS1EObUuP6aViTVd0F84tGUfgyYLo=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CscLiCm2+8hkUbQ46gJl+njF/YV1OvC0X7Xb9eaIAvNDDwT4Bu/SORh1jNJ+Sx+M5Fsf5qByqYTP9Z/Fuu3zMWhlwZPUUlcQv3t85HxyIyJyVTg/urNOFXWAtCq1iN3KPFRHrFp0sOv26/n0eXSqzTMcwr/Hf5vQzCh4l6D6PiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a3cZLasc; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=njBLgU5adom6TllsSMIQZ77RPNs+gTx9x3lnAxTAsprmDBOHWzGtPypJSl230/efyjqE8mjh7yoaE1XwtWSxT9ymEZcH4wrYaIBCfzZqIucJC4oV7LOSXeIi1YcWYpaVx97qIU/8sTARMG0fX9MDO7G3g7BCQ9/UMBb1r6tymYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DSxMj/cA; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a3cZLasc"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DBA23C2BCFB;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DSxMj/cA"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C537BC2BCFD;
 	Tue, 25 Aug 2026 10:48:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1787654920;
-	bh=6jOFUYvgMlcmzafj/Ti74phm3e09p8uFSSwu6v757NU=;
+	bh=5n4CWCuGf8N+WYrS1EObUuP6aViTVd0F84tGUfgyYLo=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=a3cZLascbDxL1ZPivBZ5+d92jyNU9u8kz28ZCtM0E0UzGdYZYlbrUc4bo/q6DR6Qr
-	 IA+YswSO7Ea/cMka9/rtuilA7SdOoyL8yUUdbMQOwDkMNtgPnEWYSqq8nhC7r+bhL4
-	 O/zw5BIXfy5wCCe4zWF/OR8WDVa30Ho3hnqnzp89Xv8HRJPhjrverB/4W9SO0Jbd3S
-	 wVO1UWWvx8htDS1ahpBrN84mTYPHMNCXBSQ83PdrqxVHOwVq89a8obiZAjJr6iWr68
-	 4aVfegnGKqHZNZ/Likh/Yhgz1jaXt3fZpYtg7MrCDztYcWGMccBudmHTx5qShW6JHF
-	 VJibGegl6sbqA==
+	b=DSxMj/cAnl35yQywTvYwbmH0vhKHgw9dyTPDtMBlOFf/jVWfAxgmjTD6uX9HOWmxq
+	 NgVWv7qXjZyQ9200lHjJIkqQFwfKSo4HP728eERD8HO2cYTLFGAc8uY8QxgL/v8K0J
+	 vkG0xIcxfmt9ZIw4lll+7hMQsXBoFEjRW2OuS16vUJ9HtpGH/On75bkaiTAYErOWn+
+	 TRT5QxK9T5W0Z6O5tDWUDB5AJLEDdNkSZrHyNHiwalLry9zTQzpi8cVV6WwcyfzxSl
+	 6ecCS+gw1s7oSvnroi6cj3X2O9uuDhYxNN2NGKeN3J0pRMLxrIFipMyB71QCW0DOxO
+	 hyP9yX9qU9z2A==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C9330C61DC4;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B3522C61DBD;
 	Tue, 25 Aug 2026 10:48:40 +0000 (UTC)
 From: Colin Huang via B4 Relay <devnull+u8813345.gmail.com@kernel.org>
-Date: Tue, 25 Aug 2026 18:47:51 +0800
-Subject: [PATCH v6 10/12] ARM: dts: aspeed: anacapa: Add LPDB fuse monitor
- GPIO expander
+Date: Tue, 25 Aug 2026 18:47:50 +0800
+Subject: [PATCH v6 09/12] ARM: dts: aspeed: anacapa: evt2: Add shunt
+ resistor values for HSC monitors
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260825-anacapa-devlop-phase-devicetree-v6-10-9059a2a279ce@gmail.com>
+Message-Id: <20260825-anacapa-devlop-phase-devicetree-v6-9-9059a2a279ce@gmail.com>
 References: <20260825-anacapa-devlop-phase-devicetree-v6-0-9059a2a279ce@gmail.com>
 In-Reply-To: <20260825-anacapa-devlop-phase-devicetree-v6-0-9059a2a279ce@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -50,13 +50,13 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
  colin.huang2@amd.com, Colin Huang <u8813345@gmail.com>, 
- Rex Fu <rex.fu.amd@gmail.com>
+ Peter Shen <peter.shen@amd.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787654905; l=3697;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787654905; l=2042;
  i=u8813345@gmail.com; s=20260202; h=from:subject:message-id;
- bh=E531mFcQuSg4vkfS0BrbVzRcV4G9+LgoYtq/R4Xx1MI=;
- b=UjQBhYpkRedPJGHhjHpjBxaA7X7I2AKSg5HvZVfdXO73zjLgpdDG00HVQ0TMRWF2h4ynW5o8K
- giROwDkqboJAqjqasdnTAu8sFudjHh//Uaw8jhZy44wIXQStaTXYPeG
+ bh=Nkr6isVpDdRMMBTaTgNrI6h8ViGx2pJj1Pj8jJLDOHI=;
+ b=PbLx5G7AHzh5WHvsZjQlObM/t2WWS+f13JDDHoRPhAHTS4EM3/Kmx+wi9urIcxgO1YkJ1mwJP
+ hZ1XInQY+ZCCpJwGP+ghsQrYIQ6SCJwXAdU+hKj3MluKtF1s2p7jfKT
 X-Developer-Key: i=u8813345@gmail.com; a=ed25519;
  pk=Zlg0WqpCw4qbswOqamTBTXIchwR/3SnYZpy7rjaGMdQ=
 X-Endpoint-Received: by B4 Relay for u8813345@gmail.com/20260202 with
@@ -64,123 +64,83 @@ X-Endpoint-Received: by B4 Relay for u8813345@gmail.com/20260202 with
 X-Original-From: Colin Huang <u8813345@gmail.com>
 Reply-To: u8813345@gmail.com
 
-From: Rex Fu <rex.fu.amd@gmail.com>
+From: Peter Shen <peter.shen@amd.com>
 
-Add PCA9554 GPIO expanders for PDB fuse monitor signals on the
-Anacapa DVT board.
+Add shunt resistor configuration for LTC4287 hot-swap controllers on
+Anacapa EVT2 platform.
 
-The patch adds GPIO expander definitions for both the left and
-right PDBs under the i2c8 multiplexer and updates the associated
-gpio-line-names to reflect the final signal assignments.
+The resistor values are required for accurate current and power
+measurement by the driver. These settings reflect the actual BOM used
+on EVT2, where different sense resistor values (150 uOhm and 250 uOhm)
+are populated across rails.
 
-Signed-off-by: Rex Fu <rex.fu.amd@gmail.com>
+Without this configuration, the reported readings would be incorrect.
+
+Signed-off-by: Peter Shen <peter.shen@amd.com>
 ---
- .../dts/aspeed/aspeed-bmc-facebook-anacapa-dvt.dts | 92 ++++++++++++++++++++++
- 1 file changed, 92 insertions(+)
+ .../aspeed/aspeed-bmc-facebook-anacapa-evt2.dts    | 42 ++++++++++++++++++++++
+ 1 file changed, 42 insertions(+)
 
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-dvt.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-dvt.dts
-index 975d603ca540..923954cff7a2 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-dvt.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-dvt.dts
-@@ -8,6 +8,98 @@ / {
- 	model = "Facebook Anacapa BMC";
- };
+diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dts
+index 7fe8d279202a..c36519a601a9 100644
+--- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dts
++++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dts
+@@ -43,6 +43,30 @@ gpio@24 {
+ 					"RPDB_FAN7_PRSNT_N_R", "RPDB_FAN8_PRSNT_N_R",
+ 					"", "";
+ 			};
++
++			power-monitor@42 {
++				compatible = "lltc,ltc4287";
++				reg = <0x42>;
++				shunt-resistor-micro-ohms = <150>;
++			};
++
++			power-monitor@43 {
++				compatible = "lltc,ltc4287";
++				reg = <0x43>;
++				shunt-resistor-micro-ohms = <150>;
++			};
++
++			power-monitor@44 {
++				compatible = "lltc,ltc4287";
++				reg = <0x44>;
++				shunt-resistor-micro-ohms = <250>;
++			};
++
++			power-monitor@45 {
++				compatible = "lltc,ltc4287";
++				reg = <0x45>;
++				shunt-resistor-micro-ohms = <250>;
++			};
+ 		};
  
-+// MB - PDB
-+&i2c8 {
-+	i2c-mux@72 {
-+		i2c@0 {
-+			gpio@22 {
-+				gpio-line-names =
-+					"RPDB_FAN_FULL_SPEED_R_N", "RPDB_I2C_TMP432_U8_ALERT_R_N",
-+					"RPDB_I2C_TMP432_U29_ALERT_R_N", "RPDB_GLOBAL_WP",
-+					"RPDB_FAN_CT_FAN_FAIL_R_N", "RPDB_VERID_A0",
-+					"RPDB_VERID_A1", "RPDB_VERID_A2",
-+					"RPDB_ALERT_P50V_HSC2_R_N", "RPDB_ALERT_P50V_HSC3_R_N",
-+					"RPDB_ALERT_P50V_HSC4_R_N", "RPDB_ALERT_P50V_STBY_R_N",
-+					"RPDB_P12V_MB_VRM_ALERT_R_N",
-+					"RPDB_P12V_STBY_VRM_ALERT_R_N",
-+					"RPDB_PGD_P3V3_STBY_PWRGD_R",
-+					"RPDB_P12V_STBY_VRM_PWRGD_BUF_R";
+ 		i2c@1 {
+@@ -57,6 +81,24 @@ gpio@24 {
+ 					"","",
+ 					"","";
+ 			};
++
++			power-monitor@40 {
++				compatible = "lltc,ltc4287";
++				reg = <0x40>;
++				shunt-resistor-micro-ohms = <150>;
 +			};
 +
-+			gpio@24 {
-+				gpio-line-names =
-+					"RPDB_EAM2_PRSNT_MOS_N_R", "RPDB_EAM3_PRSNT_MOS_N_R",
-+					"RPDB_PWRGD_P50V_HSC4_SYS_R",
-+					"RPDB_PWRGD_P50V_STBY_SYS_BUF_R",
-+					"RPDB_P50V_FAN5_R2_PG", "RPDB_P50V_FAN6_R2_PG",
-+					"RPDB_P50V_FAN7_R2_PG", "RPDB_P50V_FAN8_R2_PG",
-+					"RPDB_SKU_ID0", "RPDB_FAN5_PRSNT_N_R",
-+					"", "RPDB_FAN6_PRSNT_N_R",
-+					"RPDB_FAN7_PRSNT_N_R", "RPDB_FAN8_PRSNT_N_R",
-+					"", "";
++			power-monitor@41 {
++				compatible = "lltc,ltc4287";
++				reg = <0x41>;
++				shunt-resistor-micro-ohms = <150>;
 +			};
 +
-+			gpio@38 {
-+				compatible = "nxp,pca9554";
-+				reg = <0x38>;
-+				#gpio-cells = <2>;
-+				gpio-controller;
-+
-+				gpio-line-names =
-+					"RPDB_P50V_FUSE2_TVS1", "RPDB_P50V_FUSE2_TVS2",
-+					"RPDB_P50V_FUSE3_TVS1", "RPDB_P50V_FUSE3_TVS2",
-+					"RPDB_P50V_FUSE4_TVS1", "",
-+					"", "";
-+
-+				interrupt-parent = <&sgpiom0>;
-+				interrupts = <174 IRQ_TYPE_LEVEL_LOW>;
++			power-monitor@45 {
++				compatible = "lltc,ltc4287";
++				reg = <0x45>;
++				shunt-resistor-micro-ohms = <250>;
 +			};
-+		};
-+
-+		i2c@1 {
-+			gpio@22 {
-+				gpio-line-names =
-+					"LPDB_FAN_FULL_SPEED_R_N", "LPDB_I2C_TEMP75_U8_ALERT_R_N",
-+					"LPDB_I2C_TMP432_U29_ALERT_R_N", "LPDB_GLOBAL_WP",
-+					"LPDB_FAN_CT_FAN_FAIL_R_N", "LPDB_VERID_A0",
-+					"LPDB_VERID_A1", "LPDB_VERID_A2",
-+					"LPDB_ALERT_P50V_HSC0_R_N", "LPDB_ALERT_P50V_HSC1_R_N",
-+					"LPDB_ALERT_P50V_HSC5_R_N", "LPDB_I2C_P12V_SW_VRM_ALERT_R_N",
-+					"LPDB_EAM0_PRSNT_MOS_N_R", "LPDB_EAM1_PRSNT_MOS_N_R",
-+					"LPDB_PWRGD_P50V_HSC5_SYS_R", "BARKLIP_PRSNT_N_R3";
-+			};
-+
-+			gpio@24 {
-+				gpio-line-names =
-+					"LPDB_P50V_FAN0_R2_PG", "LPDB_P50V_FAN1_R2_PG",
-+					"LPDB_P50V_FAN2_R2_PG", "LPDB_P50V_FAN3_R2_PG",
-+					"LPDB_P50V_FAN4_R2_PG", "LPDB_FAN0_PRSNT_N_R",
-+					"LPDB_FAN1_PRSNT_N_R", "LPDB_FAN2_PRSNT_N_R",
-+					"LPDB_FAN3_PRSNT_N_R", "LPDB_FAN4_PRSNT_N_R",
-+					"LPDB_SKU_ID0", "",
-+					"", "",
-+					"", "LPDB_PG_P3V3_R";
-+			};
-+
-+			gpio@38 {
-+				compatible = "nxp,pca9554";
-+				reg = <0x38>;
-+				#gpio-cells = <2>;
-+				gpio-controller;
-+
-+				gpio-line-names =
-+					"LPDB_P50V_FUSE0_TVS1", "LPDB_P50V_FUSE0_TVS2",
-+					"LPDB_P50V_FUSE1_TVS1", "LPDB_P50V_FUSE1_TVS2",
-+					"LPDB_P50V_FUSE5_TVS1", "",
-+					"", "";
-+
-+				interrupt-parent = <&sgpiom0>;
-+				interrupts = <174 IRQ_TYPE_LEVEL_LOW>;
-+			};
-+		};
-+	};
-+};
-+
- &sgpiom0 {
- 	bus-frequency = <2000000>;
- 	gpio-line-names =
+ 		};
+ 	};
+ };
 
 -- 
 2.34.1
