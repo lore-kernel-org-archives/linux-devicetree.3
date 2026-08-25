@@ -1,46 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C818F3515EE
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 17:43:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF93A38BF75
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 17:45:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787679822; cv=none; b=rdMZmSXLrHFVv94N9KrEiqELKDD6TsabPS2cmDz00y1MAp1RV5RbcxI8nVt8O+O0fLAsDxOo/9lM3KZ31WnKpVWsPk8bG/dBX8UpWvShol6L9ioKQ0lhNAl4dIVRv3v2mhyyoY0/oV4pThg2jtjKZxTYxR/5qd6QhuqEeaUG+oU=
+	t=1787679909; cv=none; b=ardv9DQvWW4fo3opXkuUPplSNp92T9ifhLIr5S7ySgxF7/We6fUDCF1gThCbI9V1EqpJDHpOOXw02sldDybDOpifXdSLMbKU9EmN+UcTqXYl6HHN5kZf8lyWv4MJFCM8L8BBY5UAnRzy24ncoYuDZpiX1ls5dRWwEzTQK4n3/KI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787679822; c=relaxed/simple;
-	bh=Dklc6CsbFR46ysitZ8qL2m5c+pPxoGL/dCIkUmn7fp4=;
+	s=arc-20240116; t=1787679909; c=relaxed/simple;
+	bh=J/WYUUZfMiquUBq9n9FCk0uUBc2kGOv25gRbsIcAWcg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lOp9u03EWduRwHSgH4d7gSJD5bz1EBvAeo1XaQxbSq97zCfRoRA49Tx9r2owN/m3RHnny9RbOLwOSm7q68/zxmHCic+KTnnf6mDlXKeFFW90oIOmf7BWjHLQxrwgi9G9yWupkSznPlke3SsYKCkkEbUxlk5NTuFtCHYVLRi0XBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FkoB8+7r; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Cu1CKEN7Bv5twqiMIMkz7sPptE2UHptKb7yUF9doninJ+mT9nUOOPbV49IO/7F6Igj2NG7cpNb1u03LgUgzMNbB6SXIxkgtWOYm/NMQKrxS4lvdEl7f9D6NvKYwkjcugHVYrpHx11Bnxt7ocp+0/z0nXmt74o5kW/CHp13VRujA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ku+WnARp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FkoB8+7r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 213AD1F000E9;
-	Tue, 25 Aug 2026 17:43:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ku+WnARp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3254E1F000E9;
+	Tue, 25 Aug 2026 17:45:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787679821;
-	bh=N5/3GRv0VAaomLrKQ4TAsvIMWlPOkksNTpLSgL2vTYM=;
+	s=k20260515; t=1787679907;
+	bh=Ch8tKm3ivGyNnGQqoyFVpoUisE2HbrZZi42HTNnay4k=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FkoB8+7rKfZs84h9R1ZXJdlHKm03Ckdf04W2N/OlQT5uO7wnHOOoKszU5SaQ+7OIR
-	 hcbaD4gBkbufezc3hp6/lbXSy1WXZ1IHMNuglKL5iFj7NzMTy8kGS+wefhAzCm7xdT
-	 b7fd63LoDCsa0s0h+nVkrgydwSlGQKjjYGsK9ACrvFTAdWJG2kcgxcRgqIPSuNN/4u
-	 Ix+4duGjS436o5iRjGsu51GHEoBKaiDsrSIQ8IW/IX9r2LP3fs7gA+cgCAVopVgT7A
-	 1yIWRAhPM2+rQtfPvhrKBZma0drr2RjpPUvKLlrKtQgrxr4SDCyXHbelbIC/nybSkV
-	 mSChoXNnYD60A==
+	b=Ku+WnARpJ/Kkcx6EvvHlalek+iLQ5Sx5e3GfCYyp2yiyMG29OIHHGW52FIz0y2Kf7
+	 f+KZ/cRpdr3X8XYRxM/zu6xcQu0WjLJ1Zt0A+JekLh60xhXWgV8EM4AW9dEaWFcGi2
+	 4M7xBtr0u1lc++JFJlURbop/BYQW8FSoDpzb2uZwOksZhciRE7pYH4yVOiMBC3dNwn
+	 VSP4PH794ruTwlkANZ0QJP2qVGi0jvt3ootxd0b8qBPwWs3dsfJhs7u+39bSX0waVI
+	 sTv1S0YhogI59aCqvBv7wrOw0ZXutmEvukqeVwWJTTXSNki9aVF4SMDVNWLfDoa0Tj
+	 mwVcus2E73mlw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 16/18] mtd: spinand: negotiate optimal controller
- operating point before dirmap creation
+Subject: Re: [PATCH v9 18/18] mtd: spi-nor: run controller optimization
+ before dirmap creation
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Santhosh Kumar K" <s-k6@ti.com>
-Cc: "Richard Weinberger" <richard@nod.at>, "Vignesh Raghavendra" <vigneshr@ti.com>, robh@kernel.org, conor+dt@kernel.org, "Michael
- Walle" <mwalle@kernel.org>, "Takahiro Kuwano" <takahiro.kuwano@infineon.com>, "Miquel
- Raynal" <miquel.raynal@bootlin.com>, "Pratyush Yadav" <pratyush@kernel.org>, devicetree@vger.kernel.org
-In-Reply-To: <20260825171737.776052-17-s-k6@ti.com>
+Cc: "Miquel Raynal" <miquel.raynal@bootlin.com>, "Vignesh Raghavendra" <vigneshr@ti.com>, devicetree@vger.kernel.org, "Michael
+ Walle" <mwalle@kernel.org>, "Richard Weinberger" <richard@nod.at>, conor+dt@kernel.org, "Pratyush
+ Yadav" <pratyush@kernel.org>, "Takahiro Kuwano" <takahiro.kuwano@infineon.com>, robh@kernel.org
+In-Reply-To: <20260825171737.776052-19-s-k6@ti.com>
 References: <20260825171737.776052-1-s-k6@ti.com>
- <20260825171737.776052-17-s-k6@ti.com>
+ <20260825171737.776052-19-s-k6@ti.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 17:43:40 +0000
-Message-Id: <20260825174341.213AD1F000E9@smtp.kernel.org>
+Date: Tue, 25 Aug 2026 17:45:06 +0000
+Message-Id: <20260825174507.3254E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,94 +49,61 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Unconditional overwrite of `spinand->cont_read_possible` bypasses =
-system capability checks, risking unsupported continuous reads.
+- [High] The validated tuning frequency (`nor->max_read_op.max_freq`) is in=
+discriminately applied to all read operations constructed via `spi_nor_spim=
+em_get_read_op()`. This incorrectly forces low-speed alternative read comma=
+nds (such as OTP reads) to execute at the high-speed PHY-calibrated frequen=
+cy.
 --
 
-commit 6afbb44eacdd7b8d06d61615ac789bcc3b8a5186
+commit 6decf5586ab8fae3319b12bc93ad82202b53b090
 Author: Santhosh Kumar K <s-k6@ti.com>
 
-mtd: spinand: negotiate optimal controller operating point before dirmap cr=
-eation
+mtd: spi-nor: run controller optimization before dirmap creation
 
-This commit introduces a mechanism to calibrate the PHY before creating the
-dirmap so the validated max frequency is embedded into the dirmap operation=
-s.
-It adds a ranked fallback iteration to find optimal variants if the
-pre-selected one fails, updating op templates and continuous read capabilit=
-ies
-accordingly.
+This commit runs controller optimization before creating dirmaps so the
+validated frequency is available at dirmap construction time. It stores the
+configured read op template and propagates the calibrated rate into regular
+read ops. Optimization failure is non-fatal.
 
-> diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
-> index f839438a44ff2..cd353eb8b5374 100644
-> --- a/drivers/mtd/nand/spi/core.c
-> +++ b/drivers/mtd/nand/spi/core.c
-
-[ ... ]
-
-> @@ -2050,6 +2121,198 @@ static void spinand_cleanup(struct spinand_device=
- *spinand)
-
-[ ... ]
-
-> +static bool spinand_try_ranked_variant(struct spinand_device *spinand,
-> +				       struct spi_mem *mem,
-> +				       enum spinand_bus_interface iface,
-> +				       u32 *tried_mask)
-> +{
-> +	const struct spinand_op_variants *variants =3D spinand->all_read_varian=
-ts;
-> +	struct spinand_mem_ops *templates =3D iface =3D=3D ODTR ?
-> +		&spinand->odtr_op_templates : &spinand->ssdr_op_templates;
-> +	const struct spi_mem_op *best;
-> +	int ret;
+> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+> index b683c077a233d..2efcdc7f637fb 100644
+> --- a/drivers/mtd/spi-nor/core.c
+> +++ b/drivers/mtd/spi-nor/core.c
+> @@ -216,6 +216,9 @@ static struct spi_mem_op spi_nor_spimem_get_read_op(s=
+truct spi_nor *nor)
+>  	if (spi_nor_protocol_is_dtr(nor->read_proto))
+>  		op.dummy.nbytes *=3D 2;
+> =20
+> +	/* Propagate the validated frequency; zero before tuning. */
+> +	op.max_freq =3D nor->max_read_op.max_freq;
 > +
-> +	if (!variants)
-> +		return false;
-> +
-> +	while ((best =3D spinand_op_find_best_variant(spinand, variants, iface,
-> +						    *tried_mask, NULL))) {
-> +		*tried_mask |=3D BIT(best - variants->ops);
-> +		spinand->max_read_op =3D *best;
-> +		spinand->max_read_op.max_freq =3D 0;
-> +		spinand->max_write_op.max_freq =3D 0;
-> +		ret =3D spi_mem_execute_tuning(mem, &spinand->max_read_op,
-> +					     &spinand->max_write_op);
-> +		if (ret && ret !=3D -EOPNOTSUPP)
-> +			dev_dbg(&mem->spi->dev, "%s optimization failed: %d\n",
-> +				iface =3D=3D ODTR ? "ODTR" : "SSDR", ret);
-> +		if (!ret && spinand->max_read_op.max_freq) {
-> +			templates->read_cache =3D best;
-> +			if (spinand->all_cont_read_variants) {
-> +				templates->cont_read_cache =3D
-> +					spinand_find_cont_read_variant(spinand, best, iface);
-> +				spinand->cont_read_possible =3D
-> +					!!templates->cont_read_cache;
 
 [Severity: High]
-Does this code unconditionally overwrite the system capability flag for
-continuous reads?
+Does applying the tuned frequency to all read operations cause issues for
+lower-speed commands?
 
-Earlier in the initialization sequence, spinand_cont_read_init() may have
-cleared spinand->cont_read_possible due to system-level constraints, such as
-pipelined ECC requirements or lack of controller support. By setting it here
-based solely on the existence of an op template, it appears we might re-ena=
-ble
-continuous reads on hardware that cannot actually support it.
+When reading the OTP area via the MTD API, spi_nor_otp_read_secr() in
+drivers/mtd/spi-nor/otp.c temporarily changes the opcode and sets the
+protocol to 1-1-1, then calls spi_nor_read_data():
 
-Could this lead to I/O timeouts or potential data corruption when the subsy=
-stem
-attempts unsupported continuous read operations?
+drivers/mtd/spi-nor/otp.c:spi_nor_otp_read_secr() {
+    ...
+    nor->read_opcode =3D SPINOR_OP_RSECR;
+    nor->read_proto =3D SNOR_PROTO_1_1_1;
 
-> +			}
-> +			return true;
-> +		}
-> +	}
-> +	return false;
-> +}
+    ret =3D spi_nor_read_data(nor, addr, len, buf);
+    ...
+}
 
-[ ... ]
+Because spi_nor_spimem_get_read_op() unconditionally sets op.max_freq to the
+high-speed PHY-calibrated frequency, will this force the 1-1-1 OTP read to
+execute at an inappropriately high clock speed and potentially fail or
+return corrupted data?
+
+>  	return op;
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825171737.7760=
-52-1-s-k6@ti.com?part=3D16
+52-1-s-k6@ti.com?part=3D18
