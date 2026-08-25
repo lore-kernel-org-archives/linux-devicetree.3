@@ -1,168 +1,198 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3523348A8D0
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 15:44:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6EAA351C13
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 15:48:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787672698; cv=none; b=QNYMypmHiDdLVsiuuYZu9ofLO8qT1DLzsYuU7NT/RfR90aEEdRUc1L0aHtt4fll7OKiKXvx9/ia8twN4mjT3iUzD+7E5c+G4YnvYZ5vu1SPUCEe/p9G6xXBbQ2WNKW+2ljC1DQi0BxOJdM/XBmvHLgZzqdX0CeehDrebfXY0+qk=
+	t=1787672934; cv=none; b=rDaFItS+QCMxpuf7S+dxYHp3Y0VmpfRPHYhdsyP8RmgsaJPlNnbt5RUZLwkoX3kY1LaumLWGFbFYaA7dBbHYz/SDvXVUiJOR9YaHy3ZX0n385y8LanhUXONL4NYqZCD8225EIAaKUjDuZNaTwdOQxKjh9Gzu3Bnwd1pQ3hckj1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787672698; c=relaxed/simple;
-	bh=RoNxwuvIkkCUrkl/TSTIGHMAvWivzZj78lAAeQ0oWkg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Q3DiwOVU3kViKDWg+3JTVN5PGWbtFKNkLRLz//g0AcdM666KXN7wSkkAxG//URHk3E8hSyAkSjKOmNk1LhNDYeeqI58A7xAXaiMndc4ZS6uSrlQc09hVehqJfuJK2u6dZ5iRPuE7T71etQNahSc1qio84fuJINyvFASPTVguDoM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iDa4HXY4; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=aHQ2O5VY; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787672934; c=relaxed/simple;
+	bh=rxyHzPNUz9b4zNYK7txdcG7VFbrJRknz+tzv7o8YuWs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WPZZZE31UMctC8ixMYT4mCq+TvzMbItqvspbXbCbncycWMmBVcTbafBWmlUPyjdI5irrmn33w8e9IiGEUk/6KrBi956mxotGI4ci/lnz+hNXZ5SctxEGyU28wAloReOVU4g32FaxNmbglX/nsOP3n5jn+ixpypwx2w2+xTs9jEg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N+xAQa/0; arc=none smtp.client-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iDa4HXY4";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="aHQ2O5VY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787672694;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Jh5qdzgU4/sI1NAzoiIMyEleZO6Z0K521x8atNlCujM=;
-	b=iDa4HXY4eXUAXT5J8bEbN4cJEfL31jJg+QU5BOe4VSttVMVOFNt03hAIwJvLkjQGZs+r/z
-	bcSDdsT5P2QGlfma5M8QdtdluNDq5gCOAPPwoSuwGbzfJ6+5E1k596IVxcsLDH7t6OgSmp
-	G+cKIpgiMR0lWPuJBi1fWk/pi3MAmb8=
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-680-OIOA-47fMmqWwJ0BfmhZ7A-1; Tue, 25 Aug 2026 11:44:53 -0400
-X-MC-Unique: OIOA-47fMmqWwJ0BfmhZ7A-1
-X-Mimecast-MFC-AGG-ID: OIOA-47fMmqWwJ0BfmhZ7A_1787672692
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-52dd69b00cfso61701741cf.3
-        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 08:44:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N+xAQa/0"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c2074710751so900164466b.1
+        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 08:48:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1787672692; x=1788277492; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Jh5qdzgU4/sI1NAzoiIMyEleZO6Z0K521x8atNlCujM=;
-        b=aHQ2O5VYcDzeXlAclW9m3+Ja9nFR95ZesFvRsZ/5uTJmuz2mJ/9U9n6cnoTv/PBmL9
-         1aLEqaeLr8ifmcx0zxrFPMk+/pSidqUJbEoyWkLzm2/7oqc4BppOk8B3RJJkwzvcBr3d
-         I6gPK7mjDy96ygSxV+/RrPwVmxCz2VihQkDsoYp9sWVb81MFFVMW6iZO2xYjr9lkzglb
-         Kl+dk3m20QPb96i2T3Q66BOKa2gf2bvyGFwL4nXNdz50uqa7SBTcStQTCI2a8Pq1Qx7/
-         K8hMczmB9zMYTQOHGpNYNqqxRyl+cIUnNqdG97uQj0ZbcY88Av7P25fG+qmwuIRM5nd+
-         gicA==
+        d=gmail.com; s=20251104; t=1787672931; x=1788277731; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jebXbQa4a7c2PMydy+yk1SSG+FUmio3GZyCN/zd+c9c=;
+        b=N+xAQa/0ceBiYhWnEYB3U+mnD5IDt0WJpcT6pwq9cZgtakR84L+YueI7kLqSVNZdS+
+         MvEeAD4KMhPnGCLC51vKWkrXm8aMMulWV4QUKJis2Q2cAxfopDiYWUVOEQm6HHk03T1e
+         RWQnNQTUmFq++KJFbti84+f5PCeEiMOJP6vKLRLKwUT5k6h/XpdPd8qd0AUKlxXt6Oe3
+         n7cneK0x+ypQNWtPWJPQmAmuQdSaqzmrA5WFgTKp1qSfj4DjDNyzi+QGeKwZVGdoTXCL
+         6ZY04SJz2ix/2q0H1fM859BS1FPNBbVzHYhs4z09JvAXtC9LPsUrE/J4BOddsad4TcEw
+         zRcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787672692; x=1788277492;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Jh5qdzgU4/sI1NAzoiIMyEleZO6Z0K521x8atNlCujM=;
-        b=YnzBsj5sb3IuiO4OwZ1C5ZtB4RgZmWxZ1yk9p7cKWCNDZvF3k7PJximayz8GdvLn4D
-         mQc6lTofvOynWZy4aM05xI4AtIQHRvkdJwDqAto6ioNon/hUBuyYFzZLTHmoCkP1p74P
-         DxfPVHp4GYWQXzPf786ARca8+s4bAUPlzUahhPbHh+/RRlvv8IFN1p6IvCjibbKxgiXS
-         XaUPqlQIi0tB4nlP9rzPQw/+Ymrxeoa/r1wneF21RBlEA2+v1NqYYcpbkDvaztpvjmmI
-         OArHWnV3OJQxsVTMZ6Z60YmWWcpCrHsTdWXum5RHnskp7QIVIq2cMH6PyElYBx4qPhKN
-         oVWA==
-X-Forwarded-Encrypted: i=1; AHgh+RqPgDOjauQ3xI8g9uLGySf5WP6SNVX1MOZ8DI/vjXWK58aHDTaECd4TCJMpdIMlYTTDt/i8wTKToiDK@vger.kernel.org
-X-Gm-Message-State: AFuF++liKg9hjvVfaIq9Kzd2jESV3OWE8YDTIFOQ5Hrj2weZMEBl85l6
-	5j2WjSvPAopvf5WmelyiqMnIRwFT+56bteiwdt1yZeuYkIgZL/USCLtnYPjWcX0gKtHvzo3meT8
-	DcJfq5/6OsniDaosKo/1mHxvWFiyMHmw/aJRkcBUXLAtJmUcTUEA1wzm0ks+9FA0=
-X-Gm-Gg: AR+sD117HsDLUrTxiX3zTOHehAlZd1GlUkFJ5/q5AfYsEZIqW5XDpUHWQKqJ/vDPWl0
-	1Mo8fbzey0VnwF4AEaymoJ5r+7rJ8Kg2sHDOPJDIalw6Zd+jPW/TL/w4/ZG/IM+R6nuUiDXHvPc
-	eGYKv3xCbf+Cg600uPkuAu2YzPxSAaXfi7PZs0FqDOLM5mFJVa+APBTKQsblYz4YqL2LjgD6QPf
-	J07XFSC50f1rMLglP+J4jX4OOAzDBZ9TyYcG6tMG666TNDyAXG6HfEFFSp6B+hafSO+IGukFEH7
-	emUsbrzFkHO6uFOf6G6twPGF4SPTiUtqOQYS9mK7mwCgcHQD407e6zTkkxl9SU1KQ0eVD83BNFE
-	B+wkGTHQhCzP/KqVemVP8SX3B177ZpctStYs=
-X-Received: by 2002:a05:622a:1f0a:b0:517:7e26:36a4 with SMTP id d75a77b69052e-52df5a7601dmr383864251cf.34.1787672692214;
-        Tue, 25 Aug 2026 08:44:52 -0700 (PDT)
-X-Received: by 2002:a05:622a:1f0a:b0:517:7e26:36a4 with SMTP id d75a77b69052e-52df5a7601dmr383863391cf.34.1787672691646;
-        Tue, 25 Aug 2026 08:44:51 -0700 (PDT)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52e09974dc5sm71521911cf.1.2026.08.25.08.44.50
+        d=1e100.net; s=20251104; t=1787672931; x=1788277731;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jebXbQa4a7c2PMydy+yk1SSG+FUmio3GZyCN/zd+c9c=;
+        b=aWfWwrIrmOB6oUQFXKTrqZ0uPapf4QKNfZQBzTBrY5JbsAcqN/Dr7bwuzSPBgQDZmV
+         5+N+PNomwIWLKhACo3TS4WQrpq7numfivdh9ku1cNKial/SQEuHY/CrLvzFq6TchCOmV
+         0y545GQuflrXay9vu8qk0+dDErZNDSG7OiflO05znTzUFZiYSIU6Y/dHIUDQjy+CXQpd
+         e9sgsfnVLUlSV4lUhtqFT1H7dOYAbk4ZOnFUsNEsl8ob6rdbvMnsLuHd77FbU2QufUT5
+         2DRvbmY2vvKpduFJl3z2oS0KPqZhrCRJrEj1XM/hKL205ndDottNO8A5n0Q9UVyaCcjR
+         bhyg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr0m8YfOBAB2kiwwKIf7+72gVfCKuBv01SWWk88U0SMFC5c3d0rfGNJ5ZbCkbnh6QXTynX6Ggz9mQwz@vger.kernel.org
+X-Gm-Message-State: AFuF++mdwfWVjTN/KHLH6FDV4GjIY4rBToFAAftUdwXLxLjpo2pk8tgg
+	gdCg039CMPdtUaz4UvD9ZH675C3I/tPw1s5fgc90SCCezFIwExURPo4/
+X-Gm-Gg: AR+sD11tHDC3ek72N0BGjbWQZm4HBsf5xnmg8xgnbU5I2ggpv3+9S5AsoT0Vp4FYbop
+	It6Y7xbLkDvYR7ohKPnBdF7uOYED+/ZSawx8hiho5TqzlhqbGsJz6w2KIOiauy7+4r9Yg7GLz30
+	SkKfuEh0H7Qx+t0TXsi/93EV3Cr+WxBd3Qma1EDZfJVtleLfIkdj/gqGD23CAv2tGpl8iND8gUp
+	0hW8yCeF3QZ9X+L+U2ko+e0j2GCxEe2hOmcPRQmeVYmNuFaU2aKk2w4rkGG085Uhil3Xlg3n0f4
+	itB3SchpdQozmjxq4ALRGq74Ofgql1MSX9oCWC2ViCM1ICqFgo7xR1OFt5nzzKwMcGRPJn4m4VQ
+	Y3glU85sHmDgktVHSVtSyWWdf1F4/fl6x3rGNjB5YSNUG2UgdHlOfNMm/4S396KWPuRBm60fQl5
+	sK982dAzM+QAfynB4KLyY/J6cP1GL0amEWVT0XlrwOglwJ/1yI7ZlhIrrNPrlouyLtcMhCYKFOk
+	UVY0M2IRpsy1fY9gwNBSTE=
+X-Received: by 2002:a17:906:7316:b0:c19:45e3:2f57 with SMTP id a640c23a62f3a-c2491cbca79mr3035402366b.9.1787672930739;
+        Tue, 25 Aug 2026 08:48:50 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:23c4:a702:d301:81d:57c0:e4cb:959c])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a6fd69asm16682066b.18.2026.08.25.08.48.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 08:44:50 -0700 (PDT)
-Date: Tue, 25 Aug 2026 11:44:49 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Tue, 25 Aug 2026 08:48:50 -0700 (PDT)
+From: Biju <biju.das.au@gmail.com>
+X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
+To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Felix Fietkau <nbd@nbd.name>, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 2/3] clk: en7523: generalize register clocks function
-Message-ID: <ao24cTsN_V-1O_6L@redhat.com>
-References: <20260819221458.30040-1-ansuelsmth@gmail.com>
- <20260819221458.30040-3-ansuelsmth@gmail.com>
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+	linux-pwm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH v8 0/9] Add Renesas RZ/G3E GPT support
+Date: Tue, 25 Aug 2026 16:48:28 +0100
+Message-ID: <20260825154847.197948-1-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260819221458.30040-3-ansuelsmth@gmail.com>
-User-Agent: Mutt/2.4.0 (2026-06-19)
+Content-Transfer-Encoding: 8bit
 
-Hi Christian,
+From: Biju Das <biju.das.jz@bp.renesas.com>
 
-On Thu, Aug 20, 2026 at 12:14:55AM +0200, Christian Marangi wrote:
-> Airoha AN7583 SoC will use the same logic used by Airoha EN7581 SoC to
-> register clocks. Generalize it to register clocks defined in soc_data.
-> 
-> Add the clocks definition in EN7581 SoC to support this new implementation.
-> 
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-> ---
->  drivers/clk/clk-en7523.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/clk/clk-en7523.c b/drivers/clk/clk-en7523.c
-> index 5c45aacb6409..924e4f3e36b6 100644
-> --- a/drivers/clk/clk-en7523.c
-> +++ b/drivers/clk/clk-en7523.c
-> @@ -116,6 +116,7 @@ struct en_rst_data {
->  
->  struct en_clk_soc_data {
->  	u32 num_clocks;
-> +	const struct en_clk_desc *base_clks;
+This series extends the RZ/G2L GPT PWM driver with RZ/G3E SoC support.
 
-What do you think about adding a num_base_clks member as well to avoid
-the soc_data->num_clocks - 1 below?
+The RZ/G3E GPT has a number of hardware differences compared to RZ/G2L:
+it exposes 16 channels (across two GPT instances of 8 channels each),
+uses a 4-bit GTCR prescaler field (versus 3-bit on RZ/G2L), and has a
+discontinuous prescale sequence with powers-of-2 scaling rather than the
+continuous powers-of-4 sequence on RZ/G2L. It also has additional clocks
+and resets (bus clock and rst_s).
 
-Brian
+v7->v8:
+ * Cached prescale value.
+ * Updated rzg2l_gpt_write_waveform() for caching the period, If the
+   channel is already enabled and the user changes its period.
+ * Updated rzg3e_gpt_calculate_prescale() with >= 64.
+v6->v7:
+ * Reordered the patched moving POEG support to last.
+ * Replaced USEC_PER_SEC->NSEC_PER_MSEC for period/duty cycle
+   conversion.
+ * Avoided recalculation of prescale, if is_small_second_period == true.
+ * Moved `wfhw->gtccr = 0` into the if block in rzg2l_gpt_config().
+ * Added rzg2l_gpt_poeg_link_channels() and used __free for deallocating
+   device node pointer.
+ * Replaced dev_err()->dev_err_probe() in rzg2l_gpt_poeg_link_channels().
+ * Replaced local variable cells with num_poeg_pairs in
+   rzg2l_gpt_poeg_init().
+v5->v6:
+ * Added patch for fixing period_ticks overflow.
+ * Added patch to add missing newlines to dev_err_probe() messages.
+ * Dropped extra space in poegs variable assignment in
+   rzg2l_gpt_poeg_init().
+ * Updated the comment sections of rzg2l_gpt_poeg_init() with POEG and GPT
+   in upper-case and replaced configure->configures.
+ * Format specifiers in dev_err() changed from %d to %u in
+   rzg2l_gpt_poeg_init().
+ * Dropped local variables pv and dc from rzg2l_gpt_round_waveform_tohw().
+ * Dropped blank line in rzg2l_gpt_round_waveform_tohw().
+ * Moved assignment of rzg2l_gpt->period_ticks[ch] to *_write_waveform().
+ * Restored clamping of duty_ticks with period_ticks in
+   rzg2l_gpt_round_waveform_tohw().
+ * Simplified rzg2l_gpt_write_waveform() using else if statement.
+ * Dropped local variable gptr in rzg2l_gpt_write_waveform().
+ * Moved mutex after early return in rzg2l_gpt_round_waveform_tohw().
+ * Dropped extra parameter rzg2l_gpt from rzg2l_gpt_calculate_prescale()
+   in rzg2l_gpt_round_waveform_tohw().
+ * Updated comment in rzg2l_gpt_calculate_period_or_duty().
+ * Updated rzg3e_gpt_calculate_prescale().
+v4->v5:
+ * Merged GPT linking POEG patch series here.
+ * Dropped suspend/resume patch; will be added later.
+ * Updated commit description for patches #2, #4, #5, and #6.
+ * Replaced return type of rzg2l_gpt_poeg_init() from void to int and
+   probe() check this return value.
+ * Added more error checks in rzg2l_gpt_poeg_init().
+ * Added a patch to drop the unused rzg2l_gpt_chip parameter from
+   rzg2l_gpt_calculate_prescale().
+ * Updated rzg2l_gpt_round_waveform_tohw() to initialize gtccr when the
+   period of the second channel is smaller.
+ * Replaced period_ticks with RZG2L_MAX_TICKS for the duty_ticks maximum
+   value check in rzg2l_gpt_round_waveform_tohw().
+v3->v4:
+ * Added wave form callback conversion back to this patch series.
+ * Updated rzg2l_gpt_is_ch_enabled() fit into 80-character limit for
+   consistency with other functions.
+ * Dropped field_{get,prep} as mainline now support it.
+ * Updated commit description for patch#3
+ * Retained RZG2L_GTCR_TPCS bit definitons
+ * Replaced gtcr_tpcs_mask->gtcr_tpcs
+ * Updated commit header and description for patch#4
+ * Renamed prescale_pow_of_two_mult_factor->prescale_mult
+ * Added RZG3E_GTCR_TPCS bit definition for RZ/G3E and added to
+   rzg3e_data.
+ * Added error checks on suspend() and device set to operational state
+   on failure().
+ * Added Rb tag from Geert for SoC dtsi.
+ * Added SW_GPIO9_CAN1_STB check to gpt0 node.
+v2->v3:
+ * Added Rb tag from Rob for bindings patch
+ * Dropped wave form callback conversion from this patch series as
+   it is covered in another series[1]
+ * Added suspend/resume support.
+v1->v2:
+ * Created separate document for RZ/G3E GPT.
+ * Updated commit header and description for binding patch.
+ * Added waveform callback conversion to this series.
+ * Collected tag.
+ * Added link to hardware manual
+ * Updated limitation section in driver patch.
 
+Biju Das (9):
+  pwm: rzg2l-gpt: Fix macro used for period/duty cycle conversion
+  pwm: rzg2l-gpt: Convert to waveform callbacks
+  pwm: rzg2l-gpt: Add info variable to struct rzg2l_gpt_chip
+  pwm: rzg2l-gpt: Add prescale_mult variable to struct rzg2l_gpt_info
+  pwm: rzg2l-gpt: Add calculate_prescale() callback to struct
+    rzg2l_gpt_info
+  dt-bindings: pwm: Document RZ/G3E GPT support
+  pwm: rzg2l-gpt: Add RZ/G3E support
+  dt-bindings: pwm: rzg2l-gpt: Document renesas,poegs property
+  pwm: rzg2l-gpt: Add support for gpt linking with poeg
 
+ .../bindings/pwm/renesas,rzg2l-gpt.yaml       |  23 ++
+ .../bindings/pwm/renesas,rzg3e-gpt.yaml       | 323 +++++++++++++++
+ drivers/pwm/pwm-rzg2l-gpt.c                   | 385 ++++++++++++++----
+ 3 files changed, 643 insertions(+), 88 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/pwm/renesas,rzg3e-gpt.yaml
 
->  	const struct clk_ops pcie_ops;
->  	int (*hw_init)(struct platform_device *pdev,
->  		       struct clk_hw_onecell_data *clk_data);
-> @@ -714,12 +715,15 @@ static int en7523_clk_hw_init(struct platform_device *pdev,
->  static void en7581_register_clocks(struct device *dev, struct clk_hw_onecell_data *clk_data,
->  				   struct regmap *map, void __iomem *base)
->  {
-> +	const struct en_clk_soc_data *soc_data;
->  	struct clk_hw *hw;
->  	u32 rate;
->  	int i;
->  
-> -	for (i = 0; i < ARRAY_SIZE(en7581_base_clks); i++) {
-> -		const struct en_clk_desc *desc = &en7581_base_clks[i];
-> +	soc_data = device_get_match_data(dev);
-> +
-> +	for (i = 0; i < soc_data->num_clocks - 1; i++) {
-> +		const struct en_clk_desc *desc = &soc_data->base_clks[i];
->  		u32 val, reg = desc->div_reg ? desc->div_reg : desc->base_reg;
->  		int err;
->  
-> @@ -1014,6 +1018,7 @@ static const struct en_clk_soc_data en7523_data = {
->  };
->  
->  static const struct en_clk_soc_data en7581_data = {
-> +	.base_clks = en7581_base_clks,
->  	/* We increment num_clocks by 1 to account for additional PCIe clock */
->  	.num_clocks = ARRAY_SIZE(en7581_base_clks) + 1,
->  	.pcie_ops = {
-> -- 
-> 2.53.0
-> 
+-- 
+2.43.0
 
