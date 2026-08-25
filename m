@@ -1,169 +1,166 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 241E93F413F
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 10:12:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D052B3F4827;
+	Tue, 25 Aug 2026 10:13:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787652729; cv=none; b=G//dxtzB+QorgVbb4TJZEwSA+1Y9fovmqVtX6oM7qDAn08Zyw9Z2OFxPHAleC9qsjbLT4OEThFgrh7NRAxMHKRhxepy35Mcb0RBPzFE5wq9nHhGvDJnkwWvMEwQtGNeQhwYn2X3A9ceNuJZqE43yttk8kBptTE1WHc3jZSeBdYE=
+	t=1787652797; cv=none; b=ONBRoFZdpbIN2CetiCQX55oISp+PmeQ4UhknkWRr+yxQyUyEIx1V0ayKUo3t2Wo1S7Kfx5nFXjGklG9FbULaDNWuuLZE6Nh2sbRF3M75vVscr1HRO6V/e36lJVABPE7AhkoNqsklF3vVsgazLZZvmIH4jj28CZ0/1Z99HA71MQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787652729; c=relaxed/simple;
-	bh=EQSGiojsYALTSGZ5Y4YskmupYqjLh+q7MfWEhQtMbEI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GnsDXfRkQm1qtUNtkm/NL8mkN7nVvmAFU8zCF5Lbvca9oBxPxmXtfzLAq1mob1iqZHu4iETEWT82JirWmEQx1GoCakhHb+LD4Ombx/mJ+7dOkYyglMmlGI4k2/bCy2B7TmNuuWkdLfbpSzDdkvhyyAukcCXqLMFxXtF3YHUyzjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dvmQlg1W; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=i0nXYuev; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787652797; c=relaxed/simple;
+	bh=5dYjzzWbAa+d1SZc/KWtoViQS1sWxVQw8dgEHXnwgvQ=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=exjzXU2eu4KYJCM7NvMTKZhFd20poj+RHrJJlSOgT2aiLHw9Pxo5j6sey6CKBIdpRD2aTMN4ob5sQdN0fg0fqQ3ub6DxVP8FVmmS6BlWTOtF4shYfvaIT6tilp2tUDaub/W8j7UnofQ38B03Li8Rr4Jvf2h/DtqSd3vSmqCQs9o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=TXn0V4i9; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dvmQlg1W";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="i0nXYuev"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67P88RX01163451
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 10:12:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ZJEm0YAVf8sVvEnytUvJioE0+EoqWLxL+9jnYrfDyFg=; b=dvmQlg1W6qBdV8t5
-	7FwJqiHhyXr4gIu/49lbl63+mHf7l45oVoapZrq5gPw+a4vrnAACOMHOuNkkGym4
-	SB6NqfY1HhpSw7/0V+/H75a/xQIXjSJNTlkagZxuiK9K9vXEDxSYu6CVJHxa/88C
-	60hZxJ8qkA0Vu18yrL148a0y3iHVyHvxVKjciYrtTDKTBdz6TADlc3tB+Xkcupgc
-	kyY1+QKKAy6WB7DXCb3kLY1SDJniDJqs57e3ynY00/sIpMLcvYFCqUFOzr8dNizU
-	7/K2+B53g/sPIstZy+67+nrZ4zUg58McZIxr7NYkkvXMLjhbw5UOYjr1PwfVvOHP
-	6Qm3vA==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g8y5jj6qd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 10:12:06 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cfe48ca1efso64749765ad.0
-        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 03:12:06 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="TXn0V4i9"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787652726; x=1788257526; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZJEm0YAVf8sVvEnytUvJioE0+EoqWLxL+9jnYrfDyFg=;
-        b=i0nXYuev8HRneTJzUe3MHSnlOyNVlfoWiflTbONXItcBWAYlh+fWwmQ03YQRnnmMK2
-         gF8qGstANUNkIfOgnZg99AbdgDwZB8kq8epkrsTxg13WDPtAXlj1zN7tsewsYgwvCMWV
-         IOkOuk5p1b8Aym8WfCrdkaGuJRu60n+3urRABDvfHcA5mEtTLQdNDCvFTKRgtOkQrolZ
-         6xMbDlQV+QMiCk0QHVJHtwlQZuplUIqkrLX9LmRZtXxfqUveQ+cO0Tzfo/+I+EGRD+bq
-         Wm/RjOyUwNcJBXmXM4AxXAattUELQppsUSAHy/wBEjvhUdE7CeuTjKMqOBZAZUF+ON/f
-         /CRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787652726; x=1788257526;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZJEm0YAVf8sVvEnytUvJioE0+EoqWLxL+9jnYrfDyFg=;
-        b=ZXe5HIsXAmX/P3Lts2onFcvLsVAwdsk8kBdfYTbXPCGf1bX/SO8/3uDl7wiMwmEXI/
-         FonljNqJp01zfc9r0tePvFcAiKVej620RI0njCMi8370j3l+m8ZCsns1pZKFTxmCthyj
-         WQQJhAweeNojqKsjMxcfZUvIn7oWSK0/s8rwLBZeAUt6aeDNZslZHUlkgCySeaetyp3b
-         fbI4Wx3SaEF5EcLG7pVen2LWjHckaHKETB3w5K7qfrW5CvtpYHXFkYkTb7WSt8ZyHegD
-         Z6XFOvIoYIMHfuzxuDnGowN+VWnjKpYPjzfuYya5v5OIBHwBonV1xKyYMXq670s/sYou
-         6kqg==
-X-Forwarded-Encrypted: i=1; AHgh+Rrc7+RliwhaRKgxkdsk0f9SVo9onywe5qKIpKO8EQc3ANdBT97Ji8sCD2Lq6KE/pb8jyo+YCQIzbYPR@vger.kernel.org
-X-Gm-Message-State: AFuF++lEHvybAiCn3tjYC7Lziojt1w07Xr0J88hCcu2jdrXZLLuiL8E9
-	Ey/RWlIuLCkrYuqdIOgif/FAul+AxBDOMCViilbDvWxPRVLygj639JD3BOhH7/YmGAtvhSbwaCv
-	JDa9z30MYwVqrmIM9dyaFiErb5z1b2nwhwcUg2O+gofUUSQzUN0n7YJR7iZ7dQnMu
-X-Gm-Gg: AR+sD12TanMGvQXcbAR0Jlsg0EIMwZmmVcLgx5Y8vufu+ycQWLk/CW+/9xPIxBqEwx3
-	u9AG13WZ9uJ1EQvVh5XCzuuLsNGa73iVTnV8Bwyd4bXFK6FycOQQsB+20jX4wXvil3vfEuZdBAb
-	D4F3/7CXHANGMr5K1hxzWnt/T0sCXTqDZKc2+6JXmaIpeWTb0QRBxJlzlyDG9fpeLM7eI+cnrvM
-	j8YMyanxO5WdZMsQxDNW4mwpt5u5AAK5OMw+9JNjaSicwtMhb7tzTtsYvyykksEaD61x74gQrSU
-	wLN3Vurh3pn8oaMdHhEGSpZcnFjCBFMm3tGLT0HsM41mowjZSKHhyW4YKeXO6IZh0T9e76GgRIl
-	jf84OL5v4cZFi/CYiYod0vcqGVFzulDU=
-X-Received: by 2002:a17:902:e541:b0:2cf:82e6:a5 with SMTP id d9443c01a7336-2d670cbd08cmr430892575ad.13.1787652725998;
-        Tue, 25 Aug 2026 03:12:05 -0700 (PDT)
-X-Received: by 2002:a17:902:e541:b0:2cf:82e6:a5 with SMTP id d9443c01a7336-2d670cbd08cmr430891585ad.13.1787652725581;
-        Tue, 25 Aug 2026 03:12:05 -0700 (PDT)
-Received: from [10.218.21.115] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d676761cf9sm26410825ad.7.2026.08.25.03.12.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 25 Aug 2026 03:12:05 -0700 (PDT)
-Message-ID: <f30d7e3d-6f48-4c3b-acc3-36f1eac1c5be@oss.qualcomm.com>
-Date: Tue, 25 Aug 2026 15:42:01 +0530
+	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	References:Date:Message-Id; bh=B6Ik//fdJsRM3YoXkW+CTFTfgmywDovmt
+	WiSCiahu00=; b=TXn0V4i9HS7MYYNysCyvSp+F4BJOzFOwJYlbjciEmSxFeIBbm
+	qqnMw6M6ei/ZU5vRU9RqEetUmHRq590cpvKNW0a96CU3Kr7rQKxFqbIPkpPy78y7
+	xux4QDYLTPP9Had1QWV4OUg9yai8KUDZYd7JZKcBMuEJBkXYL2i8LrdkvU=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwCXxs2jao1qpzMBAA--.329S2;
+	Tue, 25 Aug 2026 18:12:52 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: shikra: Enable dTPM on EVK boards
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260820-shikra_dtpm-v1-1-40d96b8238bb@oss.qualcomm.com>
- <b9b07abb-b9be-478f-8e4a-204d8ce0586d@oss.qualcomm.com>
-Content-Language: en-US
-From: Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>
-In-Reply-To: <b9b07abb-b9be-478f-8e4a-204d8ce0586d@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=O5QJeh9W c=1 sm=1 tr=0 ts=6a8d6a76 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=zVusS4tTP7DiVzkMLGIA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI1MDA4NiBTYWx0ZWRfXwOKZWakxxgSO
- L+/6si1Pzo8ibDk44xAtN9L53a0PAWnzdWDtMno+cHSNzWYO/YStg5TFfvDRHwHUNiAUm68JhCG
- K63xz+5bvir1nG5fJDA/igFFcJ7vSBDz6NePylk/h3roOIxy46V7sgzR7CuGm6hHpalWa9TMjbS
- d60BOdDCSJyB+CIh/ovT4MJTItrkQUz9oJHZrOGIAlLtoo6IeocHgSTaequnVGwC05uBr/EIaUJ
- 9YqF1T7dOihYI7L0l2Mgnq+oHJvs2iJIwpgOHPVVWLloUgpzjXpGxUDxvEmwZ+YrVJQ/09LQodx
- uvhlyBnio8L5gUHgc5ADzB8sXG92d1PD4yU/Sas3UVZRRwiK3IhAci8yuTVMIptXHEVK284RC1C
- D3VbRw9owleShnE+t+6thRRKGP7AWeC2UANZiBA4EvQqQ7HnpT7TUnz3IEsT4LvbKvz9Gr78g0h
- 4SW/vPK9QxFWTf1ac/w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI1MDA4NiBTYWx0ZWRfX3N1eC5N6QJrj
- VqJKbeqyoYj+B5ka4CGbRdhJVvRAQceAIavJsMrO1WEuKMcKhbwZGXsfozAJY+apzlg49qIz2i+
- fXJooPpKQmwCzhvOPYv+gYhkO9BibOQ=
-X-Proofpoint-GUID: ylmi4ci252abXhyQ-mL1IvWIGGC_Iyi7
-X-Proofpoint-ORIG-GUID: ylmi4ci252abXhyQ-mL1IvWIGGC_Iyi7
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-25_02,2026-08-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 spamscore=0 adultscore=0 bulkscore=0
- suspectscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608250086
+Subject: Re: [PATCH 08/12] dt-bindings: net: snps,dwmac: Add compatible for
+ UltraRISC DP1000 SoC
+From: Jia Wang <wangjia@ultrarisc.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: wangjia@ultrarisc.com, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Anup Patel <anup@brainfault.org>, Mark Brown <broonie@kernel.org>, 
+ Andi Shyti <andi.shyti@kernel.org>, 
+ Mika Westerberg <mika.westerberg@linux.intel.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
+ Jose Abreu <joabreu@synopsys.com>, 
+ Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, 
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@sifive.com>, devicetree@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-spi@vger.kernel.org, linux-i2c@vger.kernel.org, 
+ netdev@vger.kernel.org, dmaengine@vger.kernel.org
+In-Reply-To: <20260824-blimp-spirited-01365897db24@spud>
+References: <20260824-ultrarisc-dts-v1-0-61ab7aebe9e5@ultrarisc.com>
+ <20260824-ultrarisc-dts-v1-8-61ab7aebe9e5@ultrarisc.com>
+ <20260824-bride-food-052b313e4b76@spud>
+ <20260824-blimp-spirited-01365897db24@spud>
+Date: Tue, 25 Aug 2026 18:12:37 +0800
+Message-Id: <178765275795.744215.4911904858473260204.b4-reply@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787652758; l=2269;
+ i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
+ bh=5dYjzzWbAa+d1SZc/KWtoViQS1sWxVQw8dgEHXnwgvQ=;
+ b=BmgfJ4TSHWZivJhgL5UzOY3W7O3nZB2tcpMTcDQMruGKyZz5R7tjA1mWLIcqeXFtnstKZ9/Yb
+ pofdSWFIrXgBEIaX7n4Pqd1ZfUWYV9FifkwuftQ7j+dkeJTVucEGiKo
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
+X-CM-TRANSID:AQAAfwCXxs2jao1qpzMBAA--.329S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7CF4xGrWxJw1kZry3JF4rGrg_yoW8uFyfpF
+	95AFZFkF13Jr13Jw1kt3WxGF1jvr40yrW8Xrs5tr1UKF90gFsYqrZFgw15W3Z5Zr4rJFyj
+	vrWUur13X3WjvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBEb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_Gr1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IE
+	rcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWrXVW3AwCY02Avz4vE-s
+	yl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWU
+	JVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26rWY6r4UJwCIc40Y0x
+	0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8
+	JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIx
+	AIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0pKiifUUUUUU
+	=
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAHEWqJFPsACQA0sm
+
+On 2026-08-24 18:13 +0100, Conor Dooley wrote:
+> On Mon, Aug 24, 2026 at 06:09:48PM +0100, Conor Dooley wrote:
+> > On Mon, Aug 24, 2026 at 01:54:21PM +0800, Jia Wang via B4 Relay wrote:
+> > > From: Jia Wang <wangjia@ultrarisc.com>
+> > > 
+> > > Add the SoC-specific compatible string for the UltraRISC DP1000 GMAC
+> > > controller to the DesignWare MAC binding.
+> > > 
+> > > Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+> > 
+> > The dts may not be right, but I am also a bit concerned here.
+> > 
+> > This binding permits 100s of combinations of properties, of which only
+> > a very limited set can be correct for your device. Just adding the
+> > compatible permits all of this variation.
+> > 
+> > Please add some restrictions.
+> 
+> In fact, it's particularly bad here because you don't even restrict
+> which fallback compatibles are used, so there's no guidance on what
+> version of the IP is even in use!
+> 
+
+I have rechecked the DTS against the hardware. The controller uses a
+DesignWare GMAC IP from the 5.20 series, with "snps,dwmac-5.20" as its
+version-specific fallback.
+
+In the next version, I will restrict the fallback compatibles and add
+DP1000-specific constraints for its hardware resources.
+
+> > 
+> > pw-bot: changes-requested
+> > 
+> > Thanks,
+> > Conor.
+> >
+
+Best regards,
+Jia Wang
+ 
+> > > ---
+> > >  Documentation/devicetree/bindings/net/snps,dwmac.yaml | 1 +
+> > >  1 file changed, 1 insertion(+)
+> > > 
+> > > diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > > index 2449311c6d28..2ed4564ae99d 100644
+> > > --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > > +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > > @@ -119,6 +119,7 @@ properties:
+> > >          - starfive,jh7110-dwmac
+> > >          - tesla,fsd-ethqos
+> > >          - thead,th1520-gmac
+> > > +        - ultrarisc,dp1000-gmac
+> > >  
+> > >    reg:
+> > >      minItems: 1
+> > > 
+> > > -- 
+> > > 2.34.1
+> > > 
+> > > 
+> > > 
+> > > _______________________________________________
+> > > linux-riscv mailing list
+> > > linux-riscv@lists.infradead.org
+> > > http://lists.infradead.org/mailman/listinfo/linux-riscv
+> 
+> 
 
 
-On 8/20/2026 2:52 PM, Konrad Dybcio wrote:
-> On 8/20/26 11:16 AM, Khalid Faisal Ansari wrote:
->> The Shikra EVK boards (CQM, CQS, IQS) carry an ST33 discrete TPM
->> connected via SPI5. Enable the SPI controller and add the TPM node
->> with the ST33HTPM compatible and a 20 MHz max clock.
->>
->> Depends-on: https://lore.kernel.org/all/20260820085347.822-1-xueyao.an@oss.qualcomm.com/
-> This is not a valid tag to put in the commit message
->
-> Why haven't you sent the two clearly interdependent patches together?
-
-I referenced the SPI5 enabling patch because the TPM node addition depends on that change being present. I had followed a similar approach used in an earlier submission (https://lore.kernel.org/all/0afa55d5-20bf-487b-abe0-4e2126ccf453@oss.qualcomm.com/), where the dependency was mentioned in the commit message.
-Since the two changes originate from different internal ownership areas but are functionally interdependent, we have been handling them as separate submissions while documenting the dependency between them.
-
->> Signed-off-by: Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>
->> ---
->> The Shikra EVK boards (CQM, CQS, IQS) have an ST33 discrete TPM (dTPM)
->> connected over SPI5. Enable the SPI controller and add the TPM node for
->> all three board variants.
->>
->> This series depends on the SPI5 node addition in shikra-evk.dtsi:
->>    https://lore.kernel.org/all/20260820085347.822-1-xueyao.an@oss.qualcomm.com/
->> ---
->>   arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts | 10 ++++++++++
->>   arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts | 10 ++++++++++
->>   arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts | 10 ++++++++++
-> Turn this into a single addition to shikra-evk.dtsi
-
-I intentionally kept the changes in the individual board DTS files rather than placing them in shikra-evk.dtsi.
-While the current EVK variants (CQM, CQS, and IQS) all carry the ST33 dTPM, a future board could potentially reuse shikra-evk.dtsi without supporting the TPM hardware. Keeping the node in the board-specific DTS files makes the hardware dependency explicit and avoids enabling TPM on boards where it may not be present.
-
->
-> Konrad
