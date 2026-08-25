@@ -1,127 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09DDF3BB12B;
-	Tue, 25 Aug 2026 06:16:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC6C23C3F4C;
+	Tue, 25 Aug 2026 06:28:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787638578; cv=none; b=bV/8kDIrOiExd3kb6+awfixZKHLFFpAtK3TjV2kwFb0O9lC73RTZjCuxfRXunmRsBc4GyqMQTzsNWh9X0q5FtH2jeSpPtXVOWHmqOQKqu9YFY7SpEPPCs/JCd0VQ3p3wF9U4xsXF5/pyvhGX7hwqZm0ro4plQFIk1+adNtgx5dI=
+	t=1787639314; cv=none; b=O5EC4Js/bYwZYxsi/tUnne3GAlYaONJ7X5llRhVZK/O49yuF9jI/n2b+/o7LRN67kPWNYsr0EPZQsq/BXHvW3ZpaCxb/mI+iqTq7s2U2LXLqUuzlmjWb/Ncty0FVI1bIneNxoSA07iNt+udxEPn9c9hhuoLjC7pKb6KUhZIjmLU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787638578; c=relaxed/simple;
-	bh=pxjJ3dTMABlBTHsEZk8AXhUIlwidBt/+K26bVxvRBPc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=k9+POJUPlutXJIxKylJWlTMXTZktYeAdB7PWve/dj8rDmIYRqm+HopxxpxH6a9WewsQb8cHDgCqStEqa0kh3ZvlmpdBItNlq8fvcQTnNbO2H98N5mHw/MCP2XHewRNeHEemgJeYaJUxxDAI6aU9h6tRcTPWjq3uT0RKHSFlR7Pc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ew59n7Cj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787639314; c=relaxed/simple;
+	bh=wtn1I+ai2TfN4YtsNfLA2KMBghSMbAH01BL0yp3zDvE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=RjqgcykAgMi/YoduMxpSR5lkqkKsMSF6b2n4OvkM1Zg0xHUZzKpz+1aJhMjMwGcmXxIEpfOQoG6A+bEqmmoJjdXNU+a7Ks0VXLJdUS75yEeKLM3Sc6J6z0YKKTkyVCZsp4Ih+fhXa2ymtKduLVb8tIuxBuE9tonfkaN9YzNf0u0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FEZr7Sv3; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ew59n7Cj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 610111F000E9;
-	Tue, 25 Aug 2026 06:16:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787638576;
-	bh=x3yKx0Dqta8cbDIYi/n8+Omu3SgNR24W6NstoMdG08g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ew59n7CjfT63zf8RObjidvHEdF8BxXSgeL6cAdUbf2a+Yu3HW5P4HGzcSShcfuHjX
-	 V0H8RwRWUbDX84CbOcmVAfCYuDLJkv8eLEIGjvTai8vERJ1nLTb/LVmY2mC2/IT9D9
-	 9X6WUd/sOz8PcDzxXdYb9qVu/20k4yUUbOTj9r7hZLXZ8qcx+mTTgRDybPP0ZwZCiH
-	 k6FlqFb/s93b3JgSYxss3mlrSRF3mS9q6Q7ZaY++Fk1StAmB6kPGG8pa1khlclDMWH
-	 Qz7u4zMwIdDDpkApQKDcNExxSUJfIvy6AqzK431m4gC6HC5kKeJPg8tD4uP0HXpWVy
-	 ZqhzTOlaPUtzA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 12/12] riscv: dts: ultrarisc: Add Milk-V Titan board
- device tree
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jia Wang" <wangjia@ultrarisc.com>
-Cc: vkoul@kernel.org, dmaengine@vger.kernel.org, Frank.Li@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260824-ultrarisc-dts-v1-12-61ab7aebe9e5@ultrarisc.com>
-References: <20260824-ultrarisc-dts-v1-0-61ab7aebe9e5@ultrarisc.com>
- <20260824-ultrarisc-dts-v1-12-61ab7aebe9e5@ultrarisc.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 06:16:16 +0000
-Message-Id: <20260825061616.610111F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FEZr7Sv3"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4849FC2BCF4;
+	Tue, 25 Aug 2026 06:28:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1787639314;
+	bh=wtn1I+ai2TfN4YtsNfLA2KMBghSMbAH01BL0yp3zDvE=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=FEZr7Sv3d+5cr0PQIx41y23gXoYErknC6jxzIMTwt3foltbh+YZAA4dSmtvwt+FP9
+	 Urbn3TciHGLehE375EgAQMT/Fcs28RrkcR18ju2ei+T0+ufCUei1Kc7cJzuDS2FhZx
+	 +3HX2r8XV7MnWdxuw9iVJ2uiJVT2pEOUGvOrP3g34AbIwqlU+BrkWhfbGE2BSQFzaz
+	 gQA7PpU/RqQFllqS1//afMxDfAlz3AUnh3lNg/nvyjyGNJWmMwshLcnyIC2M/keutz
+	 mEUzTnkeDT65e9eCsbLVn4hvVpAiu/IF0r3k5yvh6cBuDNhPZxGRyD4I4AV5dJDXaO
+	 cYqL4AfDTJkPA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1CF4FC61DB6;
+	Tue, 25 Aug 2026 06:28:34 +0000 (UTC)
+From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
+Subject: [PATCH v4 0/2] thermal: Add support A9
+Date: Tue, 25 Aug 2026 06:28:28 +0000
+Message-Id: <20260825-a9-thermal-v4-0-d8fc9859cf22@amlogic.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAw2jWoC/2XMSwqDMBSF4a1Ixk1Jcq0xHXUfpYM8bjTgo0SRF
+ nHvjVKo0uE58P0zGTAGHMg1m0nEKQyh79LITxmxte4qpMGlTQQTBZMMqFZ0rDG2uqG+EBZ9gVp
+ xTxJ4RvThtcXuj7TrMIx9fG/tia/vNwNsn5k4ZdTJsnAgrdGX8qbbpq+CPdu+JWtoEj9ccn7AI
+ mHpnAUwnBul/zHssDhiSJih1MaDyjnCES/L8gEOipaQIAEAAA==
+X-Change-ID: 20260703-a9-thermal-f62cef6ea91f
+To: Guillaume La Roque <glaroque@baylibre.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-pm@vger.kernel.org, linux-amlogic@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Xianwei Zhao <xianwei.zhao@amlogic.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787639310; l=1596;
+ i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
+ bh=wtn1I+ai2TfN4YtsNfLA2KMBghSMbAH01BL0yp3zDvE=;
+ b=F5+QWQZl4PmucrgygUs+YLg5rrOp+WvqSGZix8VgOu8ehFtrOeF6XCsABxyDJUapkpv9En1pg
+ jN30zNiglk+CB37pANMJqMad75efyfP4iaHscftoGikgpJgMXZ6x1b8
+X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
+ pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
+X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
+ auth_id=578
+X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Reply-To: xianwei.zhao@amlogic.com
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The comment explaining the `phy-mode =3D "rgmii"` configuration =
-contradicts how the Realtek RTL8211F PHY driver actually behaves.
-- [Low] The Ethernet PHY node is named `phy@0` instead of the standard `eth=
-ernet-phy@0`.
---
+Document the thermal controller compatibles for the Amlogic A9 SoC
+And add driver support for the Amlogic A9 thermal controller.
 
---- Patch [12]: [PATCH 12/12] riscv: dts: ultrarisc: Add Milk-V Titan board=
- device tree ---
-commit 3f673472054f18222d34b30ffbabd903e6df950c
-Author: Jia Wang <wangjia@ultrarisc.com>
+Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+---
+Changes in v4:
+- Fix type error in comit mesage, and set factor valid value. 
+- Link to v3: https://lore.kernel.org/r/20260821-a9-thermal-v3-0-0e7abf3941e3@amlogic.com
 
-riscv: dts: ultrarisc: Add Milk-V Titan board device tree
+Changes in v3:
+- Binding: add restrictive conditions for clock, and remove remove "amlogic,hw-reset-temp" property.
+- Driver: add private data reset_temp instead of get value from DTS.
+- Link to v2: https://lore.kernel.org/r/20260811-a9-thermal-v2-0-7ddc33b11b9a@amlogic.com
 
-This commit adds the device tree for the Milk-V Titan, an ITX motherboard
-based on the UltraRISC DP1000 SoC.
+Changes in v2:
+- Fix the spelling mistakes (clock-names) and reset-temp properties is visible to old chips.
+- Adjust the clock enable sequence in resume func and remove the clock disable in remove func.
+- Add the judgment on the divisor zero.
+- Add description of support for over-temperature reset for old chips in commit message.
+- Link to v1: https://lore.kernel.org/r/20260730-a9-thermal-v1-0-d786d37cba58@amlogic.com
 
-Link: https://milkv.io/docs/titan/overview
+---
+Xianwei Zhao (2):
+      dt-bindings: thermal: amlogic: Add A9 thermal bindings
+      thermal: amlogic: Add support for A9 thermal controller
 
-> diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan.dts b/arch/=
-riscv/boot/dts/ultrarisc/dp1000-milkv-titan.dts
-> new file mode 100644
-> index 0000000000000..f1a0efee3d746
-> --- /dev/null
-> +++ b/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan.dts
+ .../bindings/thermal/amlogic,thermal.yaml          |  27 ++++-
+ drivers/thermal/amlogic_thermal.c                  | 113 ++++++++++++++++++++-
+ 2 files changed, 136 insertions(+), 4 deletions(-)
+---
+base-commit: 78bc8af4affb9a732504eb22eeac7d1e50883853
+change-id: 20260703-a9-thermal-f62cef6ea91f
 
-[ ... ]
+Best regards,
+-- 
+Xianwei Zhao <xianwei.zhao@amlogic.com>
 
-> +&ethernet {
-> +	phy-handle =3D <&phy0>;
-> +	/*
-> +	 * RTL8211F: board timing uses PHY strap delays; keep plain "rgmii".
-> +	 * Enabling PHY internal delays via "rgmii-id" breaks Ethernet traffic.
-> +	 */
-> +	phy-mode =3D "rgmii";
 
-[Severity: Medium]
-Does this comment accurately describe how the Realtek RTL8211F PHY driver
-handles "rgmii"?
-
-Looking at rtl8211f_config_rgmii_delay() in
-drivers/net/phy/realtek/realtek_main.c, configuring an RTL8211F PHY with
-phy-mode =3D "rgmii" causes the driver to explicitly zero out the internal
-TX and RX delay registers, overriding and disabling any hardware strap dela=
-ys.
-
-If the board functions correctly with "rgmii", it actually requires the PHY
-delays to be disabled. Could the comment be updated to prevent confusion
-about the hardware configuration?
-
-> +
-> +	status =3D "okay";
-> +
-> +	mdio {
-> +		compatible =3D "snps,dwmac-mdio";
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +
-> +		phy0: phy@0 {
-> +			reg =3D <0>;
-
-[Severity: Low]
-Does this node name correctly follow the devicetree bindings for ethernet
-PHYs?
-
-The node name phy@0 does not match the regex pattern required by the Ethern=
-et
-PHY DT binding (Documentation/devicetree/bindings/net/ethernet-phy.yaml).
-The standard name is ethernet-phy@0.
-
-Because the name does not match the expected pattern, the schema validation
-is bypassed for this node and its subnodes when running make dtbs_check.
-
-> +
-> +			leds {
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824-ultrarisc-=
-dts-v1-0-61ab7aebe9e5@ultrarisc.com?part=3D12
