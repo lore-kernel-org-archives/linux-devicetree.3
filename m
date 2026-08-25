@@ -1,130 +1,115 @@
-Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F990483824;
-	Tue, 25 Aug 2026 13:35:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16DDF386C3B
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 13:41:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787664928; cv=none; b=PqP3juNesIjgYXxm+NZWGtVNridCDmgYZFK30zao7GM3dT7sDPUC0jbOk60FaXnsUV5n/sn87E78zvdUbskr2q+yGVvqp2JEd0+EgXrSZHdVxPgp0UNDnLgfz/VXCEnhezSXCOB2MD1uWbC16Lj95TycwRoqlB+ApreVbat2Ey8=
+	t=1787665290; cv=none; b=ZHxA7qMO1Qd+FN14eG0iEYeY9S+U6fMpJlf0YmSZ/gL7y5k7oaLvkhiK3lPVY8dR9EDZzphEaRicIdfPkzjOvhjrgbjQ1aq2G5vn57RCCnQWr/6E8MmyA1OIWVGbuRvJwsw8Kb6zftdE3oYguyFlOl4tboP2HSto15QpA4oWdkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787664928; c=relaxed/simple;
-	bh=RmKE3E4oGb27PW1XWDC6KrPVZvMH56dk0BN1FPRAGBM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=WvUdfsYVWESIYH5jMD3OdlKOUbYA4MoyGGQbGIVsLSPthmP4PeatP/sRNdpijIHLlDa1j3i95ZUhN6J3r/RID/iLVxQjkJg6gkCOiQ3RyzT7gmUiT9uZ8J8MgQJWgXmpOUSn8UKG7f122RgB55NYFS/T8irEs3JysiliNUZ8eKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=HaIciQI8; arc=none smtp.client-ip=109.224.244.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1787665290; c=relaxed/simple;
+	bh=iCNE85ieT38V40SytsBgY6taKmcQnUJj4OoTrJALY9c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZapPkq7LO7PrXdpZPPmkrmJ6iApad8yl/ThD0TUvrgXqWBiKjlKIDVyx7DMHr2b5Sd53DC4sVH+6k2OvS1wqH1xT/YBtvJF+N4JlxTZssKTMOSVInBqfh14okF/bTd766kQ+nkehmevTM/pc7ZtPoRy//owJCvDmtfNA9sCOpEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=DKzlQDH1; arc=none smtp.client-ip=209.85.210.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="HaIciQI8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1787664919; x=1787924119;
-	bh=t8gCPOns6Lt7Voi7K4oqpWNumhq592+gFx77TstZ3Pw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=HaIciQI8Eyr6zkc5rS0o87DDQVDbVM8Sz/PqmiAKxyg3LdgoHieIhfetxNcSy/q/a
-	 W5KL7Jd3y/MTcjrSIJKR+wcwonO/yxnJVyYVmiKeo1Aaj5iIoox1zBEMaq612BH9pi
-	 YNEKxHPv6ONkm9SDq1wXBZ08pWdd5kVo/KGvHLeSCDlu3Vm5B1PvLo5E+b6oGcsJM/
-	 SaSI1QralpBZHrlVFdfjJl4Miih82z2kP2iXHioDfDgtPO+1SISiFacJQsAuR9MGST
-	 mMldTDE9YM9itOS5xnTbjx82LcDUUbcrAkkDDhZrNj1SPPDSq/ms5x4RGSDBrxe9Ck
-	 Y4TxaW68l7ofw==
-X-Pm-Submission-Id: 4hTpgV38jGz1DFFp
-From: Esben Haabendal <esben@geanix.com>
-To: "Joshua Crofts" <joshua.crofts1@gmail.com>
-Cc: <linux-iio@vger.kernel.org>,  <devicetree@vger.kernel.org>,  "Jonathan
- Cameron" <jic23@kernel.org>,  "Lars-Peter Clausen" <lars@metafoo.de>,
-  "Rob Herring" <robh@kernel.org>,  "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>,  "Conor Dooley" <conor+dt@kernel.org>,  "Martin
- Kepplinger" <martink@posteo.de>,  "Sean Nyekjaer" <sean@geanix.com>,
-  "David Lechner" <dlechner@baylibre.com>,  Nuno =?utf-8?Q?S=C3=A1?=
- <nuno.sa@analog.com>,
-  "Andy Shevchenko" <andy@kernel.org>,  "Martin Kepplinger"
- <martin.kepplinger@theobroma-systems.com>,  "Christoph Muellner"
- <christoph.muellner@theobroma-systems.com>,
-  <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v6 7/9] iio: accel: mma8452: Drop unneeded lock acquire
- on read
-In-Reply-To: <20260825121704.00004ed3@gmail.com> (Joshua Crofts's message of
-	"Tue, 25 Aug 2026 12:17:04 +0200")
-References: <20260825-mma8452-open-drain-v6-0-9b252804ee80@geanix.com>
-	<20260825-mma8452-open-drain-v6-7-9b252804ee80@geanix.com>
-	<UFc9cC1VeohKw6lxQ8uulsfj9wJ_OqGUgGPTUnTX-zssKZ97aEC0Xi9nsAxv-tcf2DP5e85ElFZ8wPgxwG8l3g==@protonmail.internalid>
-	<20260825121704.00004ed3@gmail.com>
-Date: Tue, 25 Aug 2026 15:35:17 +0200
-Message-ID: <87y0dumiga.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="DKzlQDH1"
+Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-7e9ef94c0e2so3704723a34.3
+        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 06:41:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=konsulko.com; s=google; t=1787665288; x=1788270088; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RdLU1QE6jZBJNVqT4VGlcr4l8tJq40LqvRHk8VAlZOg=;
+        b=DKzlQDH1MgZXg5cfKcUZIeB99C0zfogvgEypNGTlMyBIb1VDDQMPAQpE61K69xlxe+
+         Om9y0MetdDyZhmbJ4PVPoW8CU0hHysJT9HdAkdUBSziEFP792PgT84MbjSGjArf4Jtk2
+         9gGvRahZgT/ANztm10764f/wSduMfXbDdOEjk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787665288; x=1788270088;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RdLU1QE6jZBJNVqT4VGlcr4l8tJq40LqvRHk8VAlZOg=;
+        b=fpD2bukohovM3bBpEEoOI0mCKTeSEanQHCVgGz8bY7uH1ZJO2xlpryEi0uJJvF+/TA
+         M5ctlSy7qO90NigRTdEr67UC76Ycvgrj+7Jetz3G4CK4MqkW+IKQ2Vwp3S0CRPyahV0L
+         wvOVUAnubKkbNF2hRGZVOTVWKKn7DMWoXK32Wh81EH75tp3WGA61UjxpWcvibIi3CnFt
+         iakt7VMIyxnUbTQZjeGJOnftPnavXmlx8wk0845mp3xZtHYWiqpozTA6/I7rZ4Tnkmb8
+         HqjIV72kbkM+Yq/Ery2PFYYY/OkbydU0OT8C8n7/DtwsEX1vMyN7SzU3/yIUH/yEmWPA
+         Q/Ww==
+X-Gm-Message-State: AFuF++mtKu3ijkSJ+9lHFPbJAH0gmB06x6p4XvxarJxn68cohTMr7Ciq
+	eNnU+UaHqZj28tHO6UriiDbgyvl84wWnzFHWBhZjVQTz2n7d5pl9yUGSx8Q5Xgax9Md+6ftOfb3
+	P6ngy2bxNq4LM
+X-Gm-Gg: AR+sD134LwOM3abbRoCHf5GGfhHtRXvrv6O0+qUwvmWRSjtURfqX2GinvpwEVly+XKp
+	0kfqDxHwTHU/hpzRCvLHa92kYCdAys2sU5w5OD/7AHftuXdCytE+FfTU2rJWgQaHnvi4McoIWjz
+	K0yZWp2Ggw7D+AACulmBxqf0tYfg8MrVVuq7k8ind4YarkfNL3jJCtJgkCyu7ipPRFT/unu/r+W
+	b9qCpSLSm21TK8wpje9ZRygg2BaAGZk0DISZ1aqbLT6A0aAfyWcRyx+1+psVzp3Hq3EjrpcTCLt
+	VphQ2HXkE3Bglf6bpCZu94vG2bJPOoyUAA4QjQoXgHFroF03ShlwwOvBZQ0jHhOPh54OVHHTtD8
+	FJXvbcF3NpksHVnGZ2ItmLYMhijjnKGPwZ9QTY7j5VqQ2DP3JujeRIrsHRQPhusjJ2XCELJtExg
+	Gt2Pb0bwuP2E0ycrNQxo/e5D/U5KpBwiuSkqOfvYutrz4Qm4FwvWTy5Hvi2j1lVXUhaMLhC+sEO
+	8dOnzCfGRguOLNX4TK77dZX/th+i0v6PF7IY7DEhmId/tAi8jpNIKHITJGRrSYyKLyc1FCxjlqa
+	WvlPGDozzw==
+X-Received: by 2002:a05:6830:6515:b0:7e9:e709:44f6 with SMTP id 46e09a7af769-7f4afa2cf94mr6453979a34.12.1787665287764;
+        Tue, 25 Aug 2026 06:41:27 -0700 (PDT)
+Received: from bill-the-cat (fixed-189-203-100-56.totalplay.net. [189.203.100.56])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f48f903f44sm6889965a34.0.2026.08.25.06.41.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 25 Aug 2026 06:41:27 -0700 (PDT)
+Date: Tue, 25 Aug 2026 07:41:25 -0600
+From: Tom Rini <trini@konsulko.com>
+To: Ian Campbell <ijc@hellion.org.uk>
+Cc: devicetree@vger.kernel.org
+Subject: Re: devicetree-rebasing history incorrect from v7.2-rc1-dts onwards
+Message-ID: <20260825134125.GQ523975@bill-the-cat>
+References: <fe88ed4f288c261373d2ad7184f470a8ea19ec42.camel@hellion.org.uk>
+ <c0ef5f140cb5e4e1b953b42c3518a5a432c67a93.camel@hellion.org.uk>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c0ef5f140cb5e4e1b953b42c3518a5a432c67a93.camel@hellion.org.uk>
+X-Clacks-Overhead: GNU Terry Pratchett
 
-"Joshua Crofts" <joshua.crofts1@gmail.com> writes:
+On Sun, Aug 23, 2026 at 11:41:44AM +0100, Ian Campbell wrote:
+> On Sat, 2026-08-22 at 10:35 +0100, Ian Campbell wrote:
+> > I am looking into what happened, once I've figured it out and fixed it
+> > I will force push v7.2-rc*-dts and v7.2-dts tags as well as master.
+> 
+> The issue actually occurred between v7.1-rc7 and v7.1 where the rewrite
+> state tracking file got corrupted (loosing the mappings for every
+> upstream commit sha starting with b!). As it happens there were no DTS
+> commits starting b in that window, so v7.1-dts remains unchanged, only
+> v7.2-rc1-dts onwards had problems.
+> 
+> I've just pushed the updated tags + master.
+> 
+> Updated refs are:
+> v7.2-rc1-dts: 09832bf2b0b2e0c68573cba8b0fb7a8e44e1f549 -> 607f3ab2da8d12e1f768681837d0148e1434f4f6
+> v7.2-rc2-dts: 9e215244e26884918782c9f04edbeedc20423900 -> 15747534cdf8337d5fee021aa4460349289163df
+> v7.2-rc3-dts: 86f4635ad4ec0d3f357dc343abe987cac59a0beb -> 6df412888270fd1e722415f96f9521030ec8a54d
+> v7.2-rc4-dts: f2fb2d33ea008de172c130de0b42e2a0d7b37239 -> 1fb80695c541c7e4efd067676f14b43af568f33d
+> v7.2-rc5-dts: 87ccaa2dc91309bb5358d39873f252cea79561ce -> adc5edc9140c341a7c3f46b3230e4ced158cc42b
+> v7.2-rc6-dts: 7653fa238d797bcfcda9fdf57ab9192fb8f93341 -> 584cbdf196048458bfd6c0b4d997d1aa4020dc08
+> v7.2-rc7-dts: d8f117c8aee92c4878efd4d17e47d3a1e51e6b89 -> e5f14f4c0501a6d4013513ae2f76f6fa8ae26976
+>     v7.2-dts: f4bde8516d3849987e02e62411e85a6c10c8f239 -> 41930a1eec9ea89c684a8ed95bf8e147f636f10d
+>       master: edd49c1cfb49fd14165e83e33360c789f23ce39e -> 1826bba6fb1c8c0b6d845f8308590dcfd1f7f859
+> 
+> v7.3-rc1-dts will be pushed as normal.
+> 
+> I've added better error handling for failing to save state after a
+> rewrite iteration as well as a repo size check before pushing.
+> 
+> Thanks to Tom Rini for bringing this problem to my attention.
 
-> On Tue, 25 Aug 2026 10:27:45 +0200
-> Esben Haabendal <esben@geanix.com> wrote:
->
->> There is no need to acquire data->lock when calling mma8452_read(), and
->> dropping that makes it less likely to end up in an AB-BA deadlock
->> situation.
->>
->> Signed-off-by: Esben Haabendal <esben@geanix.com>
->> ---
->>  drivers/iio/accel/mma8452.c | 2 --
->>  1 file changed, 2 deletions(-)
->>
->> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
->> index 7ef1a9a91c31..9ae2c3e60576 100644
->> --- a/drivers/iio/accel/mma8452.c
->> +++ b/drivers/iio/accel/mma8452.c
->> @@ -504,9 +504,7 @@ static int mma8452_read_raw(struct iio_dev *indio_dev,
->>  		if (!iio_device_claim_direct(indio_dev))
->>  			return -EBUSY;
->>
->> -		mutex_lock(&data->lock);
->>  		ret = mma8452_read(data, buffer);
->> -		mutex_unlock(&data->lock);
->>  		iio_device_release_direct(indio_dev);
->>  		if (ret < 0)
->>  			return ret;
->>
->
-> Sashiko has something to say and I tend to agree at the moment:
->
-> Could removing this lock expose mma8452_read() to race conditions with PM
-> auto-suspend and event configuration?
+And I can confirm things are looking good on this end again as well,
+thanks for digging!
 
-Yes. I tend to agree as well.
-
-> mma8452_read() can be interrupted by the PM auto-suspend worker, which puts
-> the device in STANDBY and disables regulators while mma8452_drdy() is actively
-> polling over I2C. This can lead to I/O timeouts or errors.
-
-Yes, and causing pain for other I2C devices on same bus :(
-
-> Additionally, concurrent sysfs writes to event configurations invoke
-> mma8452_change_config(), which puts the hardware into STANDBY to modify
-> registers. The Standby transition flushes the hardware FIFO. If this occurs
-> between the mma8452_drdy() check and the i2c_smbus_read_i2c_block_data() in
-> mma8452_read(), the block read will fetch flushed or stale data.
-
-Argh. Yet another level of trouble.
-
-Maybe we should extend the use of data->lock instead. Holding it
-1. whenever doing read-modify-write actions
-2. while holding the device in standby mode for changing registers
-3. while doing suspend/resume
-
-I was just adding support for a open-drain mode irq sharing you know.
-While sashiko-bot definitely is catching lots of valid problems, and
-fixing them is a good thing, this is starting to feel like I opened
-Pandoras box by touching this driver :D
-
-I will try to wrap up a patch with the above described extended usage of
-data->lock, but hope we can find a way to get the irq sharing and open
-drain mode support merged, without necessarily having to fixing all and every
-possible existing bugs as a pre-condition, but maybe delay some work to
-later work.
-
-/Esben
+-- 
+Tom
