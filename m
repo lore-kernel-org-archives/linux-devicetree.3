@@ -1,121 +1,174 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-43172.protonmail.ch (mail-43172.protonmail.ch [185.70.43.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 719323AC00
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 11:08:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06C673FE359
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 11:15:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787656145; cv=none; b=g44fE6W2krfBLJSARvSGnaJpXosKHBs4CyRiGoJ/IlbI3rL7POJCfR7DeCAJfcqhDuYVuqsXNSqKXb1bIFmzbByRuf67eZRfeaPHD26aakGo8ectEKr6hMNP6dvwL7uH7GIAGFfGzRbXi2r2J7Nguq7jYec1DUq9WMxoEUlvqbo=
+	t=1787656514; cv=none; b=axNjlt5bJHc+mbzij8cmNodR0wfeHy5RzOCF/WYvzcuwz4c9JuyojuMWjFEbox+NPHTDUc2G6NbfjTCj0CTsoj7L5a0g/+KimuRcJabJMiWIH5D/iKnF9AgaBqlW5FfCATzQIsE0CW/jA/29+kbmCdGzWPkWifasvU0GLvLczXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787656145; c=relaxed/simple;
-	bh=6t3zAru9h1/FdafexW7ABLtjm1bS2oFBnFtibTmoYd0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rBbSvv2zu0hw29BbDEgwHaWALICZ6nSix857eIIBOLb7LSbjJhQTBCyagLz5pTM8CwpNKFJPEPS1jnkFHHNd/OamCTEhIvl+dgLcR0SOsVR5ON7vaoaq4bUBiGGyAkbDKbT54uMItb8ksdWUmT4AgHfbrwo8B2SOOuFNlht3Zz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d0hDeyZq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787656514; c=relaxed/simple;
+	bh=rgO8WxAzGYA1IAaWkCLnezd4kffh98VeD+zgztdDmBc=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=S4BjsfXjMyfWWt6yefvH4Ou+65gH+AbZ1bNOQQXo1XDCeV72TZdbnTeyOf7QTeGqGwSmnXgeAPzHTaLpuJR43TSJibdioPNUkUwRvvyzg8c8Ou1vgjS2gBas/Q/8fCC1OCHpUgpzATzVlwK9Szswdi8RTs5iahsVYvfrfVus+W8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=bVEHik/M; arc=none smtp.client-ip=185.70.43.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d0hDeyZq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D11AD1F000E9;
-	Tue, 25 Aug 2026 11:08:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787656136;
-	bh=Cv2KfJB4hx+YL0Q5vMRzFtMKgQq5DyKrkRjHEQpr1Ks=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=d0hDeyZq1bes8RDQIsZwWJE4Rm2fPFleaO0+tLLxuXEruB+MUseeQ9k0pI6sodX67
-	 uqspzOYGFlnFvqubkyGhahmR7nw2+kYIzXRewvvzTFEIFftRMpoYMEx3f7ZMq3T94/
-	 J2L8GLqX/o0Tvkt6JVdFOWcKfpg64NslW3UUv4mGBczCHy/BShLZrk4bLWYPomz5aP
-	 5RezfTwldsD44pyioXy9EqFVz2MQyf4zD7qKvaU8HNdIWLN6tf0xzh4L90zZv+dBMN
-	 8MZndLG5KbQYvu20K3cDLxtYI/w39fThhOiFVXd83HxALaa7lRMuVJIFYwre9sObNq
-	 NSWEdvBQdfpuQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 6/9] arm64: dts: qcom: ipq5424: Flatten usb controller
- nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "George Moussalem" <george.moussalem@outlook.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260825-ipq-flatten-usb-v1-6-5c1f3170bbe9@outlook.com>
-References: <20260825-ipq-flatten-usb-v1-0-5c1f3170bbe9@outlook.com>
- <20260825-ipq-flatten-usb-v1-6-5c1f3170bbe9@outlook.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 11:08:55 +0000
-Message-Id: <20260825110855.D11AD1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="bVEHik/M"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1787656508; x=1787915708;
+	bh=jt6JmGogQkBpzPG4dOzOQgmcS6RIhCTyLzPIOBRmgfY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=bVEHik/McdKFjKE88dEnE3GiZM2xhUIxaO+ql4DhYrEPsjNOlpxmjJa20kdxn4jzh
+	 Mwo5hLubgmTgXOIApkiGA39Tdzjn+AuFHwT/j9d2mSl1L97+Lkuk/GmfVC2fAnMy7/
+	 fDS0sAPzV5FpqRTE3VlaLf3E1JXInLGNMt14BYkzqTfTrZbacZl3VtlWKQw1iza/uj
+	 VBz2vq0YWhMUQrRtQDTw/0SeVnJaA+RNQkHPqDzAw1F/W2AmoZ0GhnlioMKd9vBNGF
+	 VWJ3Ak1W29HNrayXDvslaTOJlIj27XBR/o57wVsGUSTQiGJbUxLX50kvfA04h+pWM8
+	 kwEJA6I/M5blg==
+X-Pm-Submission-Id: 4hTlYl0b0Dz1DF7G
+From: Esben Haabendal <esben@geanix.com>
+To: <sashiko-bot@kernel.org>
+Cc: <sashiko-reviews@lists.linux.dev>,  <devicetree@vger.kernel.org>,
+  <robh@kernel.org>,  <conor+dt@kernel.org>
+Subject: Re: [PATCH v6 6/9] iio: accel: mma8452: Reuse existing dev pointer
+ in mma8452_probe()
+In-Reply-To: <20260825083802.C3D821F000E9@smtp.kernel.org>
+	(sashiko-bot@kernel.org's message of "Tue, 25 Aug 2026 08:38:02
+	+0000")
+References: <20260825-mma8452-open-drain-v6-0-9b252804ee80@geanix.com>
+	<20260825-mma8452-open-drain-v6-6-9b252804ee80@geanix.com>
+	<L6z2_8mrgRvVwG5aZBq5LTTYkeXmAEBX8ycp5-n_HC7aAydrlcmzV-c9zRFNEULDUJ9zsbkbReCbJJdj4F1eFw==@protonmail.internalid>
+	<20260825083802.C3D821F000E9@smtp.kernel.org>
+Date: Tue, 25 Aug 2026 13:15:06 +0200
+Message-ID: <87bjaqo3id.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Incorrect interrupt-names array order triggers dtbs_check failures.
---
+<sashiko-bot@kernel.org> writes:
 
---- Patch [6]: [PATCH 6/9] arm64: dts: qcom: ipq5424: Flatten usb controlle=
-r nodes ---
-commit 7fc908a77a39f9104c77c013b5b7e44175c43038
-Author: George Moussalem <george.moussalem@outlook.com>
+> Thank you for your contribution! Sashiko AI review found 3 potential issu=
+e(s) to consider:
+>
+> New issues:
+> - [Low] Undocumented scope modification and suboptimal pointer dereferenc=
+ing.
+>
+> Pre-existing issues:
+> - [High] Device teardown accesses powered-off hardware and causes unbalan=
+ced regulator disables.
+> - [Low] Unconditional assignment of PM callbacks causes dead code when PM=
+ is disabled.
+> --
+>
+> --- Patch [6]: [PATCH v6 6/9] iio: accel: mma8452: Reuse existing dev poi=
+nter in mma8452_probe() ---
+> commit 04da87f5e80c506bb658d3dd5161087ce55fa6b0
+> Author: Esben Haabendal <esben@geanix.com>
+>
+> iio: accel: mma8452: Reuse existing dev pointer in mma8452_probe()
+>
+> This commit refactors mma8452_probe() to use a local 'dev' variable inste=
+ad
+> of repeatedly referencing &client->dev. It aims to improve code readabili=
+ty.
+>
+>> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
+>> index d1e8eb2a4ad3a..7ef1a9a91c31f 100644
+>> --- a/drivers/iio/accel/mma8452.c
+>> +++ b/drivers/iio/accel/mma8452.c
+>
+> [ ... ]
+>
+>> @@ -1801,7 +1799,8 @@ static void mma8452_remove(struct i2c_client *clie=
+nt)
+>>  #ifdef CONFIG_PM
+>>  static int mma8452_runtime_suspend(struct device *dev)
+>>  {
+>> -	struct iio_dev *indio_dev =3D i2c_get_clientdata(to_i2c_client(dev));
+>> +	struct i2c_client *client =3D to_i2c_client(dev);
+>> +	struct iio_dev *indio_dev =3D i2c_get_clientdata(client);
+>>  	struct mma8452_data *data =3D iio_priv(indio_dev);
+>>  	int ret;
+>>
+>> @@ -1809,7 +1808,7 @@ static int mma8452_runtime_suspend(struct device *=
+dev)
+>>  	ret =3D mma8452_standby(data);
+>>  	mutex_unlock(&data->lock);
+>>  	if (ret < 0) {
+>> -		dev_err(&data->client->dev, "powering off device failed\n");
+>> +		dev_err(&client->dev, "powering off device failed\n");
+>
+> [Severity: Low]
+> The commit message states the changes are restricted to reusing the dev
+> pointer in mma8452_probe(), but this modifies mma8452_runtime_suspend().
+> Should the commit message be updated to reflect this scope change?
+>
+> Also, since the function already receives a struct device *dev parameter,
+> and &client->dev evaluates to that exact same pointer, wouldn't it be
+> simpler to use dev directly here rather than dereferencing client?
 
-arm64: dts: qcom: ipq5424: Flatten usb controller nodes
+Yes. Using the dev pointer directly is the right thing to do.  Added for
+next version.
 
-This patch flattens the USB controller nodes and updates them to use the
-latest bindings and the flattened driver approach. It also adds a property
-to select UTMI as the reference clock for the DWC3 core.
+And also, the change that adds the client pointer will be rebased into
+patch 4, where the client pointer is used. Sorry about that.
 
-> diff --git a/arch/arm64/boot/dts/qcom/ipq5424.dtsi b/arch/arm64/boot/dts/=
-qcom/ipq5424.dtsi
-> index 702061e16a58d..648f95d70448e 100644
-> --- a/arch/arm64/boot/dts/qcom/ipq5424.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/ipq5424.dtsi
-> @@ -663,33 +660,32 @@ usb2: usb2@1ef8800 {
->  			assigned-clock-rates =3D <200000000>,
->  					       <24000000>;
-> =20
-> -			interrupts-extended =3D <&intc GIC_SPI 395 IRQ_TYPE_LEVEL_HIGH>,
-> +			interrupts-extended =3D <&intc GIC_SPI 396 IRQ_TYPE_LEVEL_HIGH>,
-> +					      <&intc GIC_SPI 395 IRQ_TYPE_LEVEL_HIGH>,
->  					      <&intc GIC_SPI 397 IRQ_TYPE_LEVEL_HIGH>,
->  					      <&intc GIC_SPI 387 IRQ_TYPE_LEVEL_HIGH>,
->  					      <&intc GIC_SPI 388 IRQ_TYPE_LEVEL_HIGH>;
-> -			interrupt-names =3D "pwr_event",
-> +			interrupt-names =3D "dwc_usb3",
-> +					  "pwr_event",
->  					  "qusb2_phy",
->  					  "dm_hs_phy_irq",
->  					  "dp_hs_phy_irq";
-
-[Severity: Low]
-Will this order of interrupt names cause dtbs_check failures with the new
-schema?
-
-The qcom,snps-dwc3.yaml schema requires the interrupts for
-qcom,ipq5424-dwc3 to strictly follow the order: dwc_usb3, pwr_event,
-qusb2_phy, dp_hs_phy_irq, and then dm_hs_phy_irq. Leaving
-dm_hs_phy_irq before dp_hs_phy_irq seems like it might trigger a
-validation error, even though the kernel matches them by name.
-
-[ ... ]
-
-> @@ -755,34 +747,33 @@ usb3: usb3@8af8800 {
->  			assigned-clock-rates =3D <200000000>,
->  					       <24000000>;
-> =20
-> -			interrupts-extended =3D <&intc GIC_SPI 412 IRQ_TYPE_LEVEL_HIGH>,
-> +			interrupts-extended =3D <&intc GIC_SPI 409 IRQ_TYPE_LEVEL_HIGH>,
-> +					      <&intc GIC_SPI 412 IRQ_TYPE_LEVEL_HIGH>,
->  					      <&intc GIC_SPI 414 IRQ_TYPE_LEVEL_HIGH>,
->  					      <&intc GIC_SPI 423 IRQ_TYPE_LEVEL_HIGH>,
->  					      <&intc GIC_SPI 424 IRQ_TYPE_LEVEL_HIGH>;
-> -			interrupt-names =3D "pwr_event",
-> +			interrupt-names =3D "dwc_usb3",
-> +					  "pwr_event",
->  					  "qusb2_phy",
->  					  "dm_hs_phy_irq",
->  					  "dp_hs_phy_irq";
-
-[Severity: Low]
-Does this also need to have dp_hs_phy_irq placed before dm_hs_phy_irq
-to satisfy the qcom,snps-dwc3 dtbs_check requirements for this node?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825-ipq-flatte=
-n-usb-v1-0-5c1f3170bbe9@outlook.com?part=3D6
+>>  		return -EAGAIN;
+>>  	}
+>
+>
+> As a related note, looking at the device teardown path in mma8452_remove(=
+):
+>
+> static void mma8452_remove(struct i2c_client *client)
+> {
+> [ ... ]
+> 	pm_runtime_disable(&client->dev);
+> 	pm_runtime_set_suspended(&client->dev);
+> [ ... ]
+> 	mma8452_standby(iio_priv(indio_dev));
+>
+> 	regulator_disable(data->vddio_reg);
+> 	regulator_disable(data->vdd_reg);
+> }
+>
+> [Severity: High]
+> This is a pre-existing issue, but does this teardown sequence access
+> potentially powered-off hardware?
+>
+> If the device is in the RPM_SUSPENDED state when remove() is called, its
+> regulators have already been disabled by mma8452_runtime_suspend(). The
+> call to mma8452_standby() attempts an I2C write to the powered-off device,
+> which might hang the I2C bus or cause transaction timeouts.
+>
+> Furthermore, unconditionally calling regulator_disable() drops the usage
+> counts below zero, triggering a kernel warning for unbalanced disables.
+>
+> Should pm_runtime_get_sync(&client->dev) be called at the beginning of
+> mma8452_remove() to ensure the hardware is active before teardown?
+>
+>
+> Finally, regarding the PM ops assignment in the driver struct:
+>
+> [Severity: Low]
+> This isn't a bug introduced by this patch, but does the unconditional
+> assignment of &mma8452_pm_ops to the .pm field in mma8452_driver produce
+> dead code when CONFIG_PM is disabled?
+>
+> According to the power management subsystem guidelines, this pointer shou=
+ld
+> be wrapped in pm_ptr(&mma8452_pm_ops) to allow the compiler to eliminate
+> the dead code.
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825-mma8452-=
+open-drain-v6-0-9b252804ee80@geanix.com?part=3D6
