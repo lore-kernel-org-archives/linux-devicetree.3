@@ -1,223 +1,200 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-43171.protonmail.ch (mail-43171.protonmail.ch [185.70.43.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB3A63FF1B5;
-	Tue, 25 Aug 2026 11:38:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F8383FFACC
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 11:39:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787657923; cv=none; b=QkHxY2B5vyyikIcA9n/bWrAHbJF4FvUyYH9jFuOpybGy3IMx9+8dsovQ/diPNPG/xCbxTKgkKEuPRRDK3JEr2HerpncCCf2/4dUr4rDCzWesXj8QEKM72mYx8qmvUI/7RVUbTZL8GHU0C+pUkxA08BIRNqK9pz7TSdIim/x9vPg=
+	t=1787658002; cv=none; b=ajAg6XdpXYLwjJxPjW5skuW1HnfiW/yqJDuXG2eGMS1AY1O2JblHr7KIaHNdtxQFYF7VVJ/ONev1GxQcVf5Gmzmydq+0RAO0sRGEWuhSNLxMebLwOz6eP6WUoXCqQNpPox8MoD2TIB1OkJfzdppo0MCl/LxcCrH95VP3xQrbJCc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787657923; c=relaxed/simple;
-	bh=XrK1FoTy7bStmvPEdH9i7YgI3GVbgjtUO+DQ+0miFqI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NwkmWQPjK6w+s/I2It8ZnhLwdfkpbk1aSupdtFopFjuknxpFRULNdb5T6M/CBWbY3TwV0jajnLl66ACOTKbZOVXTqiLMqZRjtw4oitFK25yQ5nlilq83S4Nu+Eo02PEwDhhs7Mqk8Homnh6xpBYnY7hbj2vRao+SsNNy97wWBvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PdSbmOK9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787658002; c=relaxed/simple;
+	bh=L/6/DNj0Yio1x00kZr2rxT+p/qQuZdl/Cm127py1fro=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Jg6IR75gGkDmZIn1ntwxh5uq4a5mmE44xCmGYPYpZxqV/F4Hj6iSqKRzcsH9elHU5s1a22R9OXuYdAk/7I5bdr/SoDu2KuJOGQ7Ntr3YNgL2S0vf5JgQPbe17mEpw8C51VNSPAHpTTKywIhiEkbvhg72wbkUXRKmWcSZBpFGwAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=IRBKF1Ch; arc=none smtp.client-ip=185.70.43.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PdSbmOK9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CA671F000E9;
-	Tue, 25 Aug 2026 11:38:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787657922;
-	bh=hfAz0lmNWjCpnbTFBMb785/r6Eq03EkY7I1r1n+4OeM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=PdSbmOK9OLNLDMyij418TNAJLodlVu/fmnQsp4P+YBtMVmOq/yK+0DXZJvez1Gm93
-	 sZMKMza5rWwitYV6lmCG18rFuG4Vgy6D6aQpf/hNw2SRf+DC3ekkncFAC06HFxa/ag
-	 7dSVHjScOFcwiZZxVYCU5u2XYySipz4x+wOhDWuxpQFOHSgRTKtgxfOlwItVHX+pVi
-	 cGMm7npO9rZgA42SMnz8Tlnf3FjXG0Yi4b8cgw7nBiy+msCV0LWd4IXy4d28fLGbDY
-	 JGVLXqf+ugzfTurNltNAWtwb1gu59/ll4s5Ef9B/43OAtbhNpLhE3pKNsN7rVoNWmF
-	 RlCojBSPgKg0Q==
-Message-ID: <c5a4b16d-c55b-4448-91ee-fbc5956bcd21@kernel.org>
-Date: Tue, 25 Aug 2026 13:38:35 +0200
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="IRBKF1Ch"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1787657996; x=1787917196;
+	bh=asyZ9V5PRGB1ApJnRmBxuu35L5F7opXjmpLJsMizme8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=IRBKF1ChGTNQNemHhc+CKy/oAFMDFBPMvV2CXaB9Uy3WfF+QRoxt5hvoihKtQGi31
+	 qq3/7yehXrziM65pOJbX8ekkN+TPE8bb6DGh1mXiLqHMZJgkj6ZP4v4Re3a1NDqS/H
+	 gr7FyI5raMEyL/vUP6fKOo95hef0xPPYMK8oIGkNSvfTcEaQy2lGcOhGxS+DgPeJlA
+	 cYuWeqZGbNtuyN9cS5CWncIu1A2K3Fm0bfjKBGPJa8xNXeER5943Dg8EvTx1nzq9wT
+	 o7TVcqIBMfIjNYV5eiHib3EjEnXBp64AsCuwb5FsSRDhl7ccMG+EgVLpCrRcjuQTxI
+	 IxG4XyTzkKu3A==
+X-Pm-Submission-Id: 4hTm6K1xj7z1DFFC
+From: Esben Haabendal <esben@geanix.com>
+To: <sashiko-bot@kernel.org>
+Cc: <sashiko-reviews@lists.linux.dev>,  <robh@kernel.org>,
+  <devicetree@vger.kernel.org>,  <conor+dt@kernel.org>
+Subject: Re: [PATCH v6 4/9] iio: accel: mma8452: Support interrupt sharing
+In-Reply-To: <20260825084221.582281F000E9@smtp.kernel.org>
+	(sashiko-bot@kernel.org's message of "Tue, 25 Aug 2026 08:42:20
+	+0000")
+References: <20260825-mma8452-open-drain-v6-0-9b252804ee80@geanix.com>
+	<20260825-mma8452-open-drain-v6-4-9b252804ee80@geanix.com>
+	<YAaf9j1P6vPR2vJqoPFnYqJcHanWcLOeDXn0md6ZcwU_laH0F2kqktrI6TXLQQLQQZjN7_8Bqav7gL8TA5JxFA==@protonmail.internalid>
+	<20260825084221.582281F000E9@smtp.kernel.org>
+Date: Tue, 25 Aug 2026 13:39:52 +0200
+Message-ID: <877bleo2d3.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] mmc: sdhci-cadence: Add CQE support
-To: rohan1sj@cadence.com, Ulf Hansson <ulfh@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Masahiro Yamada <yamada.masahiro@socionext.com>,
- Adrian Hunter <adrian.hunter@intel.com>
-Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, mparab@cadence.com, pawell@cadence.com,
- sjakhade@cadence.com, mpillai@cadence.com, razb@mobileye.com, blarson@amd.com
-References: <20260825-cdns_sdhci_cqe-support-v4-0-e9f72e338373@cadence.com>
- <20260825-cdns_sdhci_cqe-support-v4-2-e9f72e338373@cadence.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260825-cdns_sdhci_cqe-support-v4-2-e9f72e338373@cadence.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On 25/08/2026 13:10, Rohan Joshi via B4 Relay wrote:
-> From: Rohan Joshi <rohan1sj@cadence.com>
-> 
-> Cadence host controller has optional CQE (Command Queue Engine).
-> The HW presence of CQE is determined by an additional host capability
-> register. Look up for "cqhci" register space from the DT and when
-> present, initialize CQHCI engine.
-> 
-> Signed-off-by: Rohan Joshi <rohan1sj@cadence.com>
-> ---
->  drivers/mmc/host/Kconfig         |   1 +
->  drivers/mmc/host/sdhci-cadence.c | 125 +++++++++++++++++++++++++++++++++++++--
->  2 files changed, 122 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/mmc/host/Kconfig b/drivers/mmc/host/Kconfig
-> index 4f060d3e5636..2cc8133e8ef3 100644
-> --- a/drivers/mmc/host/Kconfig
-> +++ b/drivers/mmc/host/Kconfig
-> @@ -293,6 +293,7 @@ config MMC_SDHCI_CADENCE
->  	depends on MMC_SDHCI_PLTFM
->  	depends on OF
->  	select MMC_SDHCI_IO_ACCESSORS
-> +	select MMC_CQHCI
->  	help
->  	  This selects the Cadence SD/SDIO/eMMC driver.
->  
-> diff --git a/drivers/mmc/host/sdhci-cadence.c b/drivers/mmc/host/sdhci-cadence.c
-> index 435603c8c00b..aa4431ef2b39 100644
-> --- a/drivers/mmc/host/sdhci-cadence.c
-> +++ b/drivers/mmc/host/sdhci-cadence.c
-> @@ -15,6 +15,8 @@
->  #include <linux/reset.h>
->  
->  #include "sdhci-pltfm.h"
-> +#include "sdhci-cqhci.h"
-> +#include "cqhci.h"
->  
->  /* HRS - Host Register Set (specific to Cadence) */
->  #define SDHCI_CDNS_HRS04		0x10		/* PHY access port */
-> @@ -36,6 +38,10 @@
->  #define   SDHCI_CDNS_HRS06_MODE_MMC_HS400	0x5
->  #define   SDHCI_CDNS_HRS06_MODE_MMC_HS400ES	0x6
->  
-> +/* Host capabilities not covered by the standard capability registers (SRS16-SRS18) */
-> +#define SDHCI_CDNS_HRS30		0x78	/* Host capabilities */
-> +#define SDHCI_CDNS_HRS30_CQE_SUPPORTED	BIT(0)
-> +
->  /* Read block gap */
->  #define SDHCI_CDNS_HRS37		0x94	/* interface mode select */
->  #define   SDHCI_CDNS_HRS37_MODE_DS		0x0
-> @@ -88,6 +94,7 @@ struct sdhci_cdns_priv {
->  	void __iomem *ctl_addr;	/* write control */
->  	spinlock_t wrlock;	/* write lock */
->  	bool enhanced_strobe;
-> +	bool cqe_support;	/* Command Queuing Engine support */
->  	void (*priv_writel)(struct sdhci_cdns_priv *priv, u32 val, void __iomem *reg);
->  	struct reset_control *rst_hw;
->  	unsigned int nr_phy_params;
-> @@ -385,6 +392,68 @@ static void sdhci_cdns_set_uhs_signaling(struct sdhci_host *host,
->  		sdhci_set_uhs_signaling(host, timing);
->  }
->  
-> +static u32 sdhci_cdns_cqhci_irq(struct sdhci_host *host, u32 intmask)
-> +{
-> +	int cmd_err = 0;
-> +	int data_err = 0;
-> +
-> +	/* return original intmask to be handled by other handlers if it's not a CQE interrupt */
-> +	if (!sdhci_cqe_irq(host, intmask, &cmd_err, &data_err))
-> +		return intmask;
-> +
-> +	cqhci_irq(host->mmc, cmd_err, data_err);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct cqhci_host_ops sdhci_cdns_cqhci_ops = {
-> +	.enable		= sdhci_cqe_enable,
-> +	.disable	= sdhci_cqe_disable,
-> +};
-> +
-> +static int sdhci_cdns_cqe_add_host(struct sdhci_host *host, struct platform_device *pdev)
-> +{
-> +	struct cqhci_host *cq_host;
-> +	bool dma64;
-> +	int ret;
-> +
-> +	ret = sdhci_setup_host(host);
-> +	if (ret)
-> +		return ret;
-> +
-> +	cq_host = cqhci_pltfm_init(pdev);
-> +	if (IS_ERR(cq_host)) {
-> +		ret = PTR_ERR(cq_host);
-> +		dev_err_probe(&pdev->dev, ret, "cqhci platform init failed\n");
+<sashiko-bot@kernel.org> writes:
 
-If this is probe path, why aren't you using standard syntax:
-ret = dev_err_probe?
+> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+>
+> New issues:
+> - [High] If regulator_disable() fails in mma8452_runtime_suspend(), the data->suspended flag is not rolled back, leading to a permanent IRQ storm on subsequent interrupts.
+>
+> Pre-existing issues:
+> - [High] mma8452_remove() does not wake up the device before disabling runtime PM, leading to unbalanced regulator disables (underflow) and illegal I2C access while powered off.
+> - [High] Registers are not restored after runtime resume, causing the device to lose critical configuration.
+> --
+>
+> --- Patch [4]: [PATCH v6 4/9] iio: accel: mma8452: Support interrupt sharing ---
+> commit 5bc641da9d60875f38db9937a3a1dae1afd9a94e
+> Author: Esben Haabendal <esben@geanix.com>
+>
+> iio: accel: mma8452: Support interrupt sharing
+>
+> This commit adds handling of runtime PM suspension in the interrupt handler
+> to allow sharing the interrupt with other devices. It introduces a suspended
+> flag and uses synchronize_irq() to protect against race conditions during
+> runtime suspend and device removal.
+>
+>> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
+>> index 1fb43c5b0b72f..8eb97e6793d6f 100644
+>> --- a/drivers/iio/accel/mma8452.c
+>> +++ b/drivers/iio/accel/mma8452.c
+> [ ... ]
+>> @@ -1056,14 +1057,24 @@ static irqreturn_t mma8452_interrupt(int irq, void *p)
+>>  	struct iio_dev *indio_dev = p;
+>>  	struct mma8452_data *data = iio_priv(indio_dev);
+>>  	irqreturn_t ret = IRQ_NONE;
+>> +	int pm_status;
+>>  	int src;
+>>
+>> +	pm_status = pm_runtime_get_if_active(&data->client->dev);
+>> +	if (pm_status == 0)
+>> +		return IRQ_NONE; /* device is powered down */
+>> +	if (READ_ONCE(data->suspended)) {
+>> +		/* device is being removed */
+>> +		ret = IRQ_NONE;
+>> +		goto out_runtime_put;
+>> +	}
+>
+> [Severity: High]
+> Is the READ_ONCE(data->suspended) check reachable during normal suspend?
+>
+> Since pm_runtime_get_if_active() returns 0 when the device state is
+> RPM_SUSPENDING, it seems the handler will return early before reaching
+> the data->suspended check.
 
-> +		goto cleanup;
-> +	}
-> +
-> +	dma64 = host->flags & SDHCI_USE_64_BIT_DMA;
-> +	if (dma64)
-> +		cq_host->caps |= CQHCI_TASK_DESC_SZ_128;
-> +
-> +	cq_host->ops = &sdhci_cdns_cqhci_ops;
-> +
-> +	host->mmc->caps2 |= MMC_CAP2_CQE | MMC_CAP2_CQE_DCMD;
-> +
-> +	ret = cqhci_init(cq_host, host->mmc, dma64);
-> +	if (ret) {
-> +		dev_err_probe(&pdev->dev, ret, "cqhci init failed\n");
-> +		goto cleanup;
-> +	}
-> +
-> +	/* add host to MMC subsystem */
-> +	ret = __sdhci_add_host(host);
-> +	if (ret)
-> +		goto cleanup;
-> +
-> +	return 0;
+Yes. That is on purpose. If pm_runtime_get_if_active() returns 0,
+runtime PM is enabled and the device is not RPM_ACTIVE. We don't want to
+process irq for the device, and we must not call pm_runtime_put() as
+that would cause counter underflow.
 
+> [ ... ]
+>> @@ -1774,6 +1789,10 @@ static int mma8452_runtime_suspend(struct device *dev)
+>>  		return -EAGAIN;
+>>  	}
+>>
+>> +	WRITE_ONCE(data->suspended, true);
+>> +
+>> +	synchronize_irq(client->irq);
+>> +
+>>  	ret = regulator_disable(data->vddio_reg);
+>>  	if (ret) {
+>>  		dev_err(dev, "failed to disable VDDIO regulator\n");
+>>  		return ret;
+>>  	}
+>
+> [Severity: High]
+> If regulator_disable() fails here, the function returns without resetting
+> data->suspended to false.
+>
+> If this happens, the PM core leaves the device in RPM_ACTIVE. Would this
+> cause a permanent IRQ storm since the next interrupt will see pm_status > 0,
+> but data->suspended is true, causing it to continually return IRQ_NONE
+> without clearing the level-triggered interrupt?
 
-Best regards,
-Krzysztof
+If regulator_disable() fails here, the device will be in STANDBY mode,
+and interrupts should not happen. The INT_SOURCE (MMA8452_INT_SRC)
+register is reset when switching from ACTIVE to STANDBY mode, and the
+analog subsystem is disabled, so no irq should be asserted by the chip.
+
+> [ ... ]
+>> @@ -1808,6 +1827,8 @@ static int mma8452_runtime_resume(struct device *dev)
+>>  		return ret;
+>>  	}
+>>
+>> +	WRITE_ONCE(data->suspended, false);
+>> +
+>>  	ret = mma8452_active(data);
+>>  	if (ret < 0)
+>>  		goto runtime_resume_failed;
+>
+> [Severity: High]
+> This is a pre-existing issue, but does mma8452_runtime_resume() need to
+> restore other device registers like MMA8452_CTRL_REG4 and
+> MMA8452_DATA_CFG?
+>
+> When the regulators are disabled during suspend, the device loses power and
+> these registers are reset. If they aren't restored here, will the device
+> lose its configuration and permanently disable hardware interrupts since
+> CTRL_REG4 defaults to 0?
+
+According to data sheet, both CTRL_REG4 (0x2d) and XYZ_DATA_CFG (0x0e)
+is preserved on transition from ACTIVE to STANDBY. But yes, we probably
+need to restore these when regulator have been disabled.
+
+Is it okay if I address this in a follow-up patch?
+
+> [ ... ]
+>> @@ -1822,6 +1843,7 @@ static int mma8452_runtime_resume(struct device *dev)
+>>  	return 0;
+>>
+>>  runtime_resume_failed:
+>> +	WRITE_ONCE(data->suspended, true);
+>>  	regulator_disable(data->vddio_reg);
+>>  	regulator_disable(data->vdd_reg);
+>>
+>
+> [Severity: High]
+> This is a pre-existing issue, but if the device is unbound via sysfs while
+> runtime-suspended, will mma8452_remove() run into issues?
+>
+> drivers/iio/accel/mma8452.c:mma8452_remove() {
+>     ...
+> 	pm_runtime_disable(&client->dev);
+> 	pm_runtime_set_suspended(&client->dev);
+>     ...
+> 	mma8452_standby(iio_priv(indio_dev));
+>
+> 	regulator_disable(data->vddio_reg);
+> 	regulator_disable(data->vdd_reg);
+> }
+>
+> Since pm_runtime_disable() leaves the device suspended, won't
+> mma8452_standby() attempt an I2C write on an unpowered chip? Also, won't
+> calling regulator_disable() here cause an underflow since the regulators
+> were already disabled during runtime suspend? Does this need a
+> pm_runtime_get_sync() before teardown?
+
+I don't know if that is the correct approach. But it does look like an
+easy fix.
+
+/Esben
