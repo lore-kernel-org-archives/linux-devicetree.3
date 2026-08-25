@@ -1,152 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD2753FF8BA;
-	Tue, 25 Aug 2026 13:33:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFE2C2E06E4;
+	Tue, 25 Aug 2026 13:33:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787664803; cv=none; b=P1OTfEkcQkaCEGeMEvQOy/fo1m7d0t4qDNO141b+tfVWPLxkrXtYxSLNq49iaVQQlT9uIHXCbhA6t6DYTPp2/H+REw88/3l3Zcf7MODkEHnqc0IhdsFBO92CtlQmmVSABX8R+0sRxBuSh9UMSsYUHv2Vn+V0cS/AO2+UjwVW6aw=
+	t=1787664827; cv=none; b=PYu71pvZfBXGbB55cMcCOSROQwBNvTs3VRLaI59uOXkblGOiNRjP66h098qcncRAIMDunw1dXg0svwPWZdqbbgW3KXYh3I4l1ebuWxgESqEYsPSVKX9l6bJ1AeHjTVWcWPuddLobdVfIB7BGPHHiLtImcY4N3pjl5rupSGeDBTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787664803; c=relaxed/simple;
-	bh=+L0JA2jMxxLyOH5M5GrcRTJFcK6dZdET6rCdjpWY+hY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PEeI+sXULYYSD/K4f0FcPypsv+JVCTq3WdxJm38zTpaxwbEDiYhkp3xGDszfGFBTWjtk/Cet7vADNyq1lOMefHE1+bfBWfOXMsBU2PwumQmXcZxTrQ/gtiRcRbG1p4CqUo1aaO24JtgY6/r9VE+FYjjhGF5rPBnDxzyPVnwYEvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MFAb6+P2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787664827; c=relaxed/simple;
+	bh=cSfME+UB7duyDCoS8YJcqvds/wiyQXknB/6ASDuDDkw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=JAJKASssIEOWraH6dDItJXQFxSQm0mz+Y+2D0aVe5bAWY6bo+94+4fhp8G4YleSNc6U+S9PPTfmXbZ6+0g4tR/L9kYBQpVW1csImuedmL9huSPNSU3UBVkSoQUZb0KLx+5EGW+ZhKmkkQOsO/xYKkq2Hxj+F/wJwmEBrRI3E0wc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Gb9D38kC; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MFAb6+P2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCB761F000E9;
-	Tue, 25 Aug 2026 13:33:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787664801;
-	bh=BW+MznbbmPkoRpEl9gc4mWqmQCAlxK0ZIDQx8WkrhXs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MFAb6+P2Es7yaFEaCiw66E5uyCstF7/oQALaPnA/2w5vez20Cnh3+hF8S/nwH/pfG
-	 SRIxtoVyPPi9Lf1YJztP6gPGaObuDm/XusuMeRhGTTuFzQw+6KenG5HkoOiK4zSYVW
-	 dTBkIjVeW2hFA8wZ1M9AmJ9V2cP8Kp/J/D7G0WCRS+S1MchcreRAn4LuNSzoZUjlj7
-	 Wq4HTEOpzKv8HM1qFE75hmb/xBInam7ic9J23zorE8K9OPa+74zjO/8wyR+Rdtl/Gn
-	 pjbr6sV2axn28Dbtus3k9uDkZlB2hcfQ3dN7GCddrEfqBWXk1JAJtbIFRfenQRFEHb
-	 88DHI1K0eiXoQ==
-Message-ID: <c4bf7a4b-48a9-4bfb-b133-858189627639@kernel.org>
-Date: Tue, 25 Aug 2026 15:33:14 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Gb9D38kC"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67PAvAT72090801;
+	Tue, 25 Aug 2026 13:33:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=etesFSPWENobR5eB6+HPh7
+	Ra3HnGoar+Qu3Q6P4tT6I=; b=Gb9D38kCqnA29TE8TrkE5eVWXPHQ49JdDMfCXm
+	eTOqXG2KNrgIOn8dturkX04L0KqzdNjZtbdjNSU6hl+iftSfnxn/Ul75UtmGfxIP
+	1cFhfN2GIowUBPpkofVnCHlvToIMwOEz5nyZ09P5Ad+wsIiTuDRF7eHvP8VU2tH6
+	qgXPEWdgUGvy1NrCdME1IucdN2T5U5TnlgfBLQTmlVHLz7X5X/8GSfWLce27TvBt
+	ISLU+Y30rsCq92Bm1XxNCkW290ng00XhOH0hzFS14jZZxfpjk6U+eVq6tvH2wCoq
+	wmiUE9OBIHDNJzk4hHcywGEfColi1YHYRnohaVD6/YTOdjAQ==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g93kvt5pu-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 25 Aug 2026 13:33:42 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 67PDXcu7031329;
+	Tue, 25 Aug 2026 13:33:38 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 4g74ujrypk-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 25 Aug 2026 13:33:38 +0000 (GMT)
+Received: from APBLRPPMTA01.qualcomm.com (APBLRPPMTA01.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 67PDXc2O031323;
+	Tue, 25 Aug 2026 13:33:38 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-ks5-hyd.qualcomm.com [10.147.255.18])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 67PDXbeO031322
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 25 Aug 2026 13:33:38 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4763723)
+	id D3590638; Tue, 25 Aug 2026 19:03:36 +0530 (+0530)
+From: Karthik S <karthik.s@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Karthik S <karthik.s@oss.qualcomm.com>
+Subject: [PATCH v1 0/2] CMA-memory-to-offload-FNN-PLUS-module-to-eNPU
+Date: Tue, 25 Aug 2026 19:03:31 +0530
+Message-Id: <20260825133333.376591-1-karthik.s@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: shikra: Enable dTPM on EVK boards
-To: Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260820-shikra_dtpm-v1-1-40d96b8238bb@oss.qualcomm.com>
- <b9b07abb-b9be-478f-8e4a-204d8ce0586d@oss.qualcomm.com>
- <e4058fd8-23e8-4031-906d-7ff4ec525508@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <e4058fd8-23e8-4031-906d-7ff4ec525508@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI1MDExNSBTYWx0ZWRfX/3k+3SPSwsnP
+ QakQkUQra/MQJVwinQ2sc0/YcPL+1Acw8g++B65/C8btsCgsoCcDyddmK+8ztMecyGZouZjbLGs
+ 8CELs2LRzTi6a+W11OahF2TxKSM8uYRSJjUQmAyz6aq8Uc+i8qib7QiWR8Vb9C+MBokdVjnHUiK
+ BZCdIptvpeg2LaroTu4GNrqtVBowx4fg99IecsCMRA1crlIWA0hrBhlDRkOJ6Y6OAhoZm5Qi+Q6
+ zdAAVcjEDgNJav6wmgWmjb0/Tos0cdvIKGVrZtL+rLMXM83EOmRnlR65Wrsz4eW6AGYd4tAqqYG
+ fG5a9nXbc2Vljtx48O0+yugCfRVD5SVA37d+5rW24F9O3qbCTO1+R0Oel//PbR4RsasXt8+2zY3
+ qYtWxsZBAE8OydaijsMXivaFNTCGCMOVu5IsCLMzqllAklnjHdJHOH0yizgJtuIXjydZmHRnZgO
+ O9haGbmx+Bwq23/1dBA==
+X-Authority-Analysis: v=2.4 cv=aPHAb79m c=1 sm=1 tr=0 ts=6a8d99b6 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=0t2w34_WqSWHtLCw6q0A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI1MDExNSBTYWx0ZWRfX2WKOw0a5pqMe
+ ppyKGQliV7Rg5XKiiudcfuIzTKbD8emE5voK/22I5SzpJX8uuxyIijac1GTsPRzVHZkrtqAD5IA
+ dS7BmHpSGdS14dmhDsGAqvZU1PdKznc=
+X-Proofpoint-ORIG-GUID: TXb_pohQf3plYsHXvCZ2BVgZ_Of43K67
+X-Proofpoint-GUID: TXb_pohQf3plYsHXvCZ2BVgZ_Of43K67
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-25_03,2026-08-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0 adultscore=0 malwarescore=0 clxscore=1011
+ impostorscore=0 lowpriorityscore=0 priorityscore=1501 suspectscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608250115
 
-On 25/08/2026 12:06, Khalid Faisal Ansari wrote:
-> 
-> On 8/20/2026 2:52 PM, Konrad Dybcio wrote:
->> On 8/20/26 11:16 AM, Khalid Faisal Ansari wrote:
->>> The Shikra EVK boards (CQM, CQS, IQS) carry an ST33 discrete TPM
->>> connected via SPI5. Enable the SPI controller and add the TPM node
->>> with the ST33HTPM compatible and a 20 MHz max clock.
->>>
->>> Depends-on:https://lore.kernel.org/all/20260820085347.822-1-xueyao.an@oss.qualcomm.com/
->> This is not a valid tag to put in the commit message
->>
->> Why haven't you sent the two clearly interdependent patches together?
-> 
-> I referenced the SPI5 enabling patch because the TPM node addition 
-> depends on that change being present. I had followed a similar approach 
-> used in an earlier submission 
-> (https://lore.kernel.org/all/0afa55d5-20bf-487b-abe0-4e2126ccf453@oss.qualcomm.com/), 
-> where the dependency was mentioned in the commit message.
-> 
-> Since the two changes originate from different internal ownership areas 
-> but are functionally interdependent, we have been handling them as 
-> separate submissions while documenting the dependency between them.
+This series contains patches for allocating CMA memory to offload
+FNN PLUS module to eNPU.
 
-You have been already told TWICE and you keep arguing.
+Karthik S (2):
+  arm64: dts: qcom: qcs6490-rb3gen2: add audio CMA memory region for
+    AudioReach
+  arm64: dts: qcom: kodiak-el2: add LPASS AML IOMMU SIDs for eNPU audio
+    offload
 
-> 
->>> Signed-off-by: Khalid Faisal Ansari<khalid.ansari@oss.qualcomm.com>
->>> ---
->>> The Shikra EVK boards (CQM, CQS, IQS) have an ST33 discrete TPM (dTPM)
->>> connected over SPI5. Enable the SPI controller and add the TPM node for
->>> all three board variants.
->>>
->>> This series depends on the SPI5 node addition in shikra-evk.dtsi:
->>>    https://lore.kernel.org/all/20260820085347.822-1-xueyao.an@oss.qualcomm.com/
->>> ---
->>>   arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts | 10 ++++++++++
->>>   arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts | 10 ++++++++++
->>>   arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts | 10 ++++++++++
->> Turn this into a single addition to shikra-evk.dtsi
-> 
-> I intentionally kept the changes in the individual board DTS files 
-> rather than placing them in shikra-evk.dtsi. While the current EVK 
-> variants (CQM, CQS, and IQS) all carry the ST33 dTPM, a future board 
-> could potentially reuse shikra-evk.dtsi without supporting the TPM 
-> hardware. Keeping the node in the board-specific DTS files makes the 
-> hardware dependency explicit and avoids enabling TPM on boards where it 
-> may not be present.
+ arch/arm64/boot/dts/qcom/kodiak-el2.dtso         | 5 ++++-
+ arch/arm64/boot/dts/qcom/qcs6490-audioreach.dtsi | 1 +
+ arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts     | 8 ++++++++
+ 3 files changed, 13 insertions(+), 1 deletion(-)
 
-Do not paste us LLM answers, I find it disrespectful in regard to my time.
+This patch depends on: 
+ arm64: dts: qcom: kodiak: EL2 overlay for qcm6490-idp / qcs6490-rb3gen2
+ 
+ Link: https://lore.kernel.org/all/20260803121042.3313824-1-mukesh.ojha@oss.qualcomm.com/
+ 
+ The prerequisite patch introduces kodiak el2 overlay.
 
-Which future board could reuse shikra-evk.dtsi? This the DTSI FOR THIS
-EVK. Not some future boards.
+-- 
+2.34.1
 
-Best regards,
-Krzysztof
