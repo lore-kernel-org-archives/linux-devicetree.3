@@ -1,116 +1,374 @@
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 068FE43FD0B
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 12:36:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C456442FCE;
+	Tue, 25 Aug 2026 12:37:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787661398; cv=none; b=jyOfN/iHVfo9VBjGMn4UA9O22Aus0S2qjXhVfxvMG+0+mHOknBpufj+kcuC7Ff0y70oz00Qzwej3UO0sT92k367ADX+WvRM7TvFLxFqqgpkA3iWkAGHPFpdyA/PKbt+YS/QPEDmwX7Lyvs5NIhAEtlQH1+8fZ9W/GNt2dJqQ0iA=
+	t=1787661454; cv=none; b=I3RCjwyZSXIcO/rwasfSiYYWelWPvWjJJ8U8/+XW4iVsF0hmFKJXZHEY/w9Buc6i+4mtTT8VZ/OaWNeXp1lkZFhgoKa+OYuKa7daSYqhyW/18sqfWLbVTT3KRiwop+Scd9DUiW63dYqy6WEdP9GlPUUh6twW3Kn7n9EMXGKxKls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787661398; c=relaxed/simple;
-	bh=ok07ERH/NwgqhzqDl0baL8HLrodhlClduOLX6Z5TrNQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IVEcx/1iaN4s4M7/frs+aSDvZL5Ou14qFJHUKJpVIBTByIYIXJaYQCVN0hj/XqSlsaSkQGmw0Sieq7ntIvG/5BfHwFdIEERPCg8dNgsn+BTxoSMpMh30L5s9XiSfFovDa6oPka37FthMaqPuU5YlpUOUCTp3VyYT3iPVo31cREU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-836ce6cbe1eso67616287b3.1
-        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 05:36:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787661385; x=1788266185;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=PcH15y8twR6KC4dsUQbRnnIWb4o2clyuM/4NKdId/5Y=;
-        b=nQlgvRuteMhCntye2o+W6Mv7swMvqBtVpurSotEioxb74MWPsKSYcXDXT+CQUSAMzq
-         a9vVIkh2+AksVjSKsg/7olNC9lWHEiCW+gJ78hpVyhe4xytcLnnSLvQWVQ0SC2biTps0
-         ylYbt9ChSUs5OZXnZzn/aCb6ZwAP75ZQeIXBgQtfPQOGyNMGCMZcfVPSuy7ItK3vrSc0
-         MGwuqYH8WH9Al3nRH9+37KP7VNIVqZfU98ilZyHTrGOmH5ExwMg2aMwB8R4Eoa94myX4
-         9qshFdVNddhfUp3xfPL43DxKJy+/nOyVbXfTzjLnWrieYeEjagmsg6Xtqorle6am107l
-         /dlA==
-X-Forwarded-Encrypted: i=1; AHgh+Ro/ZUTJoK5Kiz6E2f4Y9QPQVor7uZVQqjcj9GSWB91RHqwzud9tO/0kE/fJTy+f5okepoaWZq5cEOBX@vger.kernel.org
-X-Gm-Message-State: AFuF++kfQXXwxfDxBFDB90eDOXDVQ3Mh8VOVeqHgSw6qPkCQZPlBHCTI
-	dR2GN0E7dJY8EG6cr1m0XxbK0Xblv0dCK4hP/EZEFmt12BbKTQOi5q7PlaQDa+PE8Pg=
-X-Gm-Gg: AR+sD106iOBoh+J8PHIoB2C47jMt7w2jjVheDEEYHAGCqrGjRq8HDT7yrQQou3wSheS
-	kDXL8kM6Bx3b79kJo3tDJ/xalE1dZg1IQjcd5LrNlZBa4Jpac3e2RHhu2vpb/VPVqvNAdzMDlq6
-	gDFBlkdsj2FKC4yjrVJiNJb84hBBJf/3qhUra/719dfzLmdQdn/3aa5K16J4R4GoQb5B53tl6di
-	XvcEvx3cd8IBV8+cNgfGp0qWQK8B5PQKyRsZpoUh5ZU1q4P3uW87AbC6VWG//ydTzitUygMW11K
-	MKzCBapUT7+rNf6QpiXgmypVbZ6k1NR6F5/n8k2tu6H+OdgN+2czKE+EmSIzdqXkDvbsssKlBvh
-	DCd46qDk17stJBO1jsJolbroGiMjAoXUoO76cy1ixAbrmQTjWyJmYkzRAQ1skzhRHtyqipSWksp
-	quAbVWPbie60JZBk6Sxko3zvBkVgqLiNVvuoReQGfB20GvVPBOdQFnvsz1g0SErw1rF/2GuitPi
-	IHdEAxkCubV1X7/Wxr0w+9pER1CEg==
-X-Received: by 2002:a05:690c:8d0f:b0:81e:7075:e2e3 with SMTP id 00721157ae682-849f782c876mr112842967b3.35.1787661384830;
-        Tue, 25 Aug 2026 05:36:24 -0700 (PDT)
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com. [209.85.128.170])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-84cac201719sm48413857b3.43.2026.08.25.05.36.24
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 25 Aug 2026 05:36:24 -0700 (PDT)
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-852ee3bb0c3so24584597b3.3
-        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 05:36:24 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rof/r4kyBp5t5yLILFD1O+R655iptvdPyZucJ1p0scGBY/nty4057oBHAkHSZ6KMRBNJWD8UJaho2YL@vger.kernel.org
-X-Received: by 2002:a05:6102:5094:b0:781:7ce2:1896 with SMTP id
- ada2fe7eead31-7817ce23603mr428191137.6.1787660899827; Tue, 25 Aug 2026
- 05:28:19 -0700 (PDT)
+	s=arc-20240116; t=1787661454; c=relaxed/simple;
+	bh=Fvem3S/s8weQhv29yD3FxDRPYmYvuo32XVi3h1fP+i8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=HeOij0Lp6n3QAlzLAHxTsHYv4mcwmD+uLWFJhgZVTp5F4lmVYOfP9KJPBw3DzYCfVAkxRJlOeng3hUk8jU3gogLp9QpZ0j3L58te3ldjnyRS+0DIhiET5sZUsrk+3FLyTbBb493XXWKO/8cTgSRMQ7OqqaHLxgGP0cCCol1icIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LGJEMGcL; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LGJEMGcL"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id ED453C2BCFA;
+	Tue, 25 Aug 2026 12:37:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1787661453;
+	bh=Fvem3S/s8weQhv29yD3FxDRPYmYvuo32XVi3h1fP+i8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=LGJEMGcLvFnb2sWI3ScamBYhxIKBZIeO8RQMXXDvVla0rlMMg6ndPGJchGdulAvV/
+	 29tF0wbL3+VGHSSP/znHy8UTiQL6DOA6IHzWd+RtXyp+MJxFjU1oSOnLXd/ftfQpG6
+	 X7gRglMz14dEn73A53UwyxfLvYM2twbpXxsxB+qIQeKJuZ1/xpQzxb/bTCaLLEftRj
+	 5BpX67shz6oEKijv2kxVuCPOTcF5bqpamd1CReCGo2M0BsXv2hxxm8RmL7xaAjGj2z
+	 liorQJOE0Ud62smvPDM5U0OrxBCoXh/33OxSebAp7FF5E0MDyRWZF9cyHhQ0wGvcpZ
+	 LDT4XsZ+ASJMQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C71D0C61DBE;
+	Tue, 25 Aug 2026 12:37:32 +0000 (UTC)
+From: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>
+Date: Tue, 25 Aug 2026 16:37:18 +0400
+Subject: [PATCH v3 01/12] dt-bindings: phy: qcom,ipq5332-uniphy-pcie:
+ Change to PCIe/USB3 combo PHY
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260817192540.423994-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260817192540.423994-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <20260817192540.423994-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 25 Aug 2026 14:28:08 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWmoHO2BETYFrKT68D8+Ma_t4NYiFZ=DyXnT-HeCJq8yQ@mail.gmail.com>
-X-Gm-Features: AcwNN1UWpDCFj0N_VaU-Rs-_PsGCZWtHQVesPIowDRB6pC65FgGL5i3thBl2XoE
-Message-ID: <CAMuHMdWmoHO2BETYFrKT68D8+Ma_t4NYiFZ=DyXnT-HeCJq8yQ@mail.gmail.com>
-Subject: Re: [PATCH v4 4/7] dt-bindings: watchdog: renesas,r9a09g057-wdt: Add
- CPG/MSSR syscon support
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
-	Guenter Roeck <linux@roeck-us.net>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260825-ipq5018-usb3-v3-1-39be0955a6aa@outlook.com>
+References: <20260825-ipq5018-usb3-v3-0-39be0955a6aa@outlook.com>
+In-Reply-To: <20260825-ipq5018-usb3-v3-0-39be0955a6aa@outlook.com>
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Praveenkumar I <praveenkumar.i@oss.qualcomm.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>, 
+ Nitheesh Sekar <quic_nsekar@quicinc.com>, 
+ Wesley Cheng <quic_wcheng@quicinc.com>, 
+ Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-usb@vger.kernel.org, George Moussalem <george.moussalem@outlook.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787661450; l=7815;
+ i=george.moussalem@outlook.com; s=20250321; h=from:subject:message-id;
+ bh=+Cf/fEtBtS5hTFBthO9VA7YZ1YWg8gWCwEnzEp4khVM=;
+ b=QGGfI18EJcCkeq6dGsPRHELd+S+u0Bap8yJuo3Usxev29C+KAZjyFt6yCCH42rU4HfmnLTrZQ
+ Zm1NGidRlWKBLCvqHcJEfXreuM8iKzPctnwCtAd33ndnJnw2hNhznnz
+X-Developer-Key: i=george.moussalem@outlook.com; a=ed25519;
+ pk=/PuRTSI9iYiHwcc6Nrde8qF4ZDhJBlUgpHdhsIjnqIk=
+X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
+ with auth_id=364
+X-Original-From: George Moussalem <george.moussalem@outlook.com>
+Reply-To: george.moussalem@outlook.com
 
-On Mon, 17 Aug 2026 at 21:26, Prabhakar <prabhakar.csengg@gmail.com> wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->
-> On the Renesas RZ/T2H SoC, the Watchdog Timer Control Register (WDTDCR)
-> resides within the CPG/MSSR block rather than the WDT address space
-> itself.
->
-> Previously, this was handled by including a second register range in the
-> "reg" property. However, this is architecturally incorrect as the CPG/MSSR
-> block consists of two distinct regions (0x80280000 and 0x81280000) that
-> contain registers for multiple peripheral blocks.
->
-> Since the CPG/MSSR block is a multi-function block, introduce the
-> "renesas,sysc" phandle-array property to allow the WDT driver to access
-> its control register via this shared regmap.
->
-> Mark the use of a second "reg" entry as deprecated in favor of the
-> new phandle-array approach for SoCs that require WDTDCR access.
->
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+From: George Moussalem <george.moussalem@outlook.com>
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+This PHY is a PCIE/USB3 multi-purpose PHY. Initial support was added for
+PCIe only, so rename the binding and add support for USB3 PHY mode.
 
-Gr{oetje,eeting}s,
+The PCIe and USB physical pads are muxed and selection is done via a
+control register in TCSR. Add a new property to the binding to enable
+switching the default PCIe mux selection to USB3 mode.
 
-                        Geert
+In addition, USB3 mode requires a 5V supply, so add a vdd-supply
+property for it.
+
+Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+---
+ .../bindings/phy/qcom,ipq5332-uniphy-pcie-phy.yaml | 109 ----------------
+ .../phy/qcom,ipq5332-uniphy-pcie-usb3-phy.yaml     | 141 +++++++++++++++++++++
+ include/dt-bindings/phy/phy-qcom-qmp.h             |   4 +
+ 3 files changed, 145 insertions(+), 109 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/phy/qcom,ipq5332-uniphy-pcie-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,ipq5332-uniphy-pcie-phy.yaml
+deleted file mode 100644
+index 6e9df81441e9..000000000000
+--- a/Documentation/devicetree/bindings/phy/qcom,ipq5332-uniphy-pcie-phy.yaml
++++ /dev/null
+@@ -1,109 +0,0 @@
+-# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+-%YAML 1.2
+----
+-$id: http://devicetree.org/schemas/phy/qcom,ipq5332-uniphy-pcie-phy.yaml#
+-$schema: http://devicetree.org/meta-schemas/core.yaml#
+-
+-title: Qualcomm UNIPHY PCIe 28LP PHY
+-
+-maintainers:
+-  - Nitheesh Sekar <quic_nsekar@quicinc.com>
+-  - Varadarajan Narayanan <quic_varada@quicinc.com>
+-
+-description:
+-  PCIe and USB combo PHY found in Qualcomm IPQ5018 & IPQ5332 SoCs
+-
+-properties:
+-  compatible:
+-    enum:
+-      - qcom,ipq5018-uniphy-pcie-phy
+-      - qcom,ipq5332-uniphy-pcie-phy
+-
+-  reg:
+-    maxItems: 1
+-
+-  clocks:
+-    minItems: 1
+-    maxItems: 2
+-
+-  resets:
+-    minItems: 2
+-    maxItems: 3
+-
+-  "#phy-cells":
+-    const: 0
+-
+-  "#clock-cells":
+-    const: 0
+-
+-  num-lanes:
+-    $ref: /schemas/types.yaml#/definitions/uint32
+-    enum: [1, 2]
+-
+-required:
+-  - compatible
+-  - reg
+-  - clocks
+-  - resets
+-  - "#phy-cells"
+-  - "#clock-cells"
+-  - num-lanes
+-
+-additionalProperties: false
+-
+-allOf:
+-  - if:
+-      properties:
+-        compatible:
+-          contains:
+-            enum:
+-              - qcom,ipq5018-uniphy-pcie-phy
+-    then:
+-      properties:
+-        clocks:
+-          items:
+-            - description: pcie pipe clock
+-        resets:
+-          items:
+-            - description: phy reset
+-            - description: cfg reset
+-
+-  - if:
+-      properties:
+-        compatible:
+-          contains:
+-            enum:
+-              - qcom,ipq5332-uniphy-pcie-phy
+-    then:
+-      properties:
+-        clocks:
+-          items:
+-            - description: pcie pipe clock
+-            - description: pcie ahb clock
+-        resets:
+-          items:
+-            - description: phy reset
+-            - description: ahb reset
+-            - description: cfg reset
+-
+-examples:
+-  - |
+-    #include <dt-bindings/clock/qcom,ipq5332-gcc.h>
+-
+-    pcie0_phy: phy@4b0000 {
+-        compatible = "qcom,ipq5332-uniphy-pcie-phy";
+-        reg = <0x004b0000 0x800>;
+-
+-        clocks = <&gcc GCC_PCIE3X1_0_PIPE_CLK>,
+-                 <&gcc GCC_PCIE3X1_PHY_AHB_CLK>;
+-
+-        resets = <&gcc GCC_PCIE3X1_0_PHY_BCR>,
+-                 <&gcc GCC_PCIE3X1_PHY_AHB_CLK_ARES>,
+-                 <&gcc GCC_PCIE3X1_0_PHY_PHY_BCR>;
+-
+-        #clock-cells = <0>;
+-
+-        #phy-cells = <0>;
+-
+-        num-lanes = <1>;
+-    };
+diff --git a/Documentation/devicetree/bindings/phy/qcom,ipq5332-uniphy-pcie-usb3-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,ipq5332-uniphy-pcie-usb3-phy.yaml
+new file mode 100644
+index 000000000000..0d9d0fb405b6
+--- /dev/null
++++ b/Documentation/devicetree/bindings/phy/qcom,ipq5332-uniphy-pcie-usb3-phy.yaml
+@@ -0,0 +1,141 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/phy/qcom,ipq5332-uniphy-pcie-usb3-phy.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Qualcomm IPQ5332 UNIPHY PCIe/USB3 28LP PHY controller
++
++maintainers:
++  - Nitheesh Sekar <quic_nsekar@quicinc.com>
++  - Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
++
++description:
++  The QMP PHY controller supports physical layer functionality for PCIe and USB
++  controllers on Qualcomm IPQ5018 & IPQ5332 chipsets.
++
++properties:
++  compatible:
++    enum:
++      - qcom,ipq5018-uniphy-pcie-phy
++      - qcom,ipq5332-uniphy-pcie-phy
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    minItems: 1
++    maxItems: 4
++
++  clock-names:
++    maxItems: 4
++
++  resets:
++    minItems: 1
++    maxItems: 4
++
++  reset-names:
++    maxItems: 4
++
++  num-lanes:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [1, 2]
++
++  vdd-supply:
++    description:
++      Phandle to 5V regulator supply to PHY digital circuit.
++
++  qcom,phy-usb-mux-sel:
++    description:
++      TCSR register address for mux selection control for PCIe / USB3 mode.
++      If the property is set, the driver will configure USB3 mux selection.
++      If not set, the setting defaults to PCIe mux selection (BIT(0) = 0).
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    items:
++      - items:
++          - description: phandle of TCSR syscon
++          - description: offset of PHY mux selection register
++
++  "#clock-cells":
++    enum: [0, 1]
++
++  "#phy-cells":
++    enum: [0, 1]
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - resets
++  - "#clock-cells"
++  - "#phy-cells"
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - qcom,ipq5018-uniphy-pcie-phy
++    then:
++      properties:
++        clocks:
++          items:
++            - description: pcie pipe clock
++        resets:
++          items:
++            - description: pcie phy reset
++            - description: pcie cfg reset
++        "#clock-cells":
++          const: 0
++        "#phy-cells":
++          const: 0
++      required:
++        - num-lanes
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - qcom,ipq5332-uniphy-pcie-phy
++    then:
++      properties:
++        clocks:
++          items:
++            - description: pcie pipe clock
++            - description: pcie ahb clock
++        resets:
++          items:
++            - description: pcie phy reset
++            - description: pcie ahb reset
++            - description: pcie cfg reset
++        "#clock-cells":
++          const: 0
++        "#phy-cells":
++          const: 0
++      required:
++        - num-lanes
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/qcom,ipq5332-gcc.h>
++
++    pcie1_phy: phy@4b1000 {
++        compatible = "qcom,ipq5332-uniphy-pcie-phy";
++        reg = <0x004b1000 0x800>;
++
++        clocks = <&gcc GCC_PCIE3X2_PIPE_CLK>,
++                 <&gcc GCC_PCIE3X2_PHY_AHB_CLK>;
++
++        resets = <&gcc GCC_PCIE3X2_PHY_BCR>,
++                 <&gcc GCC_PCIE3X2_PHY_AHB_CLK_ARES>,
++                 <&gcc GCC_PCIE3X2PHY_PHY_BCR>;
++
++        #clock-cells = <0>;
++        #phy-cells = <0>;
++
++        num-lanes = <2>;
++    };
+diff --git a/include/dt-bindings/phy/phy-qcom-qmp.h b/include/dt-bindings/phy/phy-qcom-qmp.h
+index 6b43ea9e0051..a19f7376b15e 100644
+--- a/include/dt-bindings/phy/phy-qcom-qmp.h
++++ b/include/dt-bindings/phy/phy-qcom-qmp.h
+@@ -21,4 +21,8 @@
+ #define QMP_PCIE_PIPE_CLK		0
+ #define QMP_PCIE_PHY_AUX_CLK		1
+ 
++/* QMP PHY MUX */
++#define QMP_PHY_MUX_PCIE		0
++#define QMP_PHY_MUX_USB3		1
++
+ #endif /* _DT_BINDINGS_PHY_QMP */
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.53.0
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+
