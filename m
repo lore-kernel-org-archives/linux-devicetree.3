@@ -1,109 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF93A38BF75
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 17:45:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D23C736A36A;
+	Tue, 25 Aug 2026 17:56:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787679909; cv=none; b=ardv9DQvWW4fo3opXkuUPplSNp92T9ifhLIr5S7ySgxF7/We6fUDCF1gThCbI9V1EqpJDHpOOXw02sldDybDOpifXdSLMbKU9EmN+UcTqXYl6HHN5kZf8lyWv4MJFCM8L8BBY5UAnRzy24ncoYuDZpiX1ls5dRWwEzTQK4n3/KI=
+	t=1787680589; cv=none; b=OIELhFsCQzzF/48ID9T8cxOpeLNX0pTClD7XVK1gUXO9eMCE/4M4u+WlHXDIvPrRJEZblgHcsxUokV9d7zvvkU5T1O0A7F4fxgVNPopmlUSALzyPxxfaut3JJ9WaDdcNuEVkoWAzv84ME6fW57XOmPfYLvyoUdW2KHOTmzx3t/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787679909; c=relaxed/simple;
-	bh=J/WYUUZfMiquUBq9n9FCk0uUBc2kGOv25gRbsIcAWcg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Cu1CKEN7Bv5twqiMIMkz7sPptE2UHptKb7yUF9doninJ+mT9nUOOPbV49IO/7F6Igj2NG7cpNb1u03LgUgzMNbB6SXIxkgtWOYm/NMQKrxS4lvdEl7f9D6NvKYwkjcugHVYrpHx11Bnxt7ocp+0/z0nXmt74o5kW/CHp13VRujA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ku+WnARp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787680589; c=relaxed/simple;
+	bh=0IZNqUaqznsXbat6uAyGD6/PQMpX1Ku5fP/Exuz8t+Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KIn+0ZZsi76qBllrtUHNROmkV8WbKSYr5DTm9AOW++tWi6D4sH8Vx5Zgx0vrop80GTtVTOFR2SmjoW1sOUn64l1RfDEnJf4UD8/TydEnDDUPSRp1SH4t3WH71zB64bBSg7bt3br/Jg8wWbMQWps53CfJjSJgQF70rgHqBQHeG6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XcvaehR/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ku+WnARp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3254E1F000E9;
-	Tue, 25 Aug 2026 17:45:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XcvaehR/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6797A1F000E9;
+	Tue, 25 Aug 2026 17:56:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787679907;
-	bh=Ch8tKm3ivGyNnGQqoyFVpoUisE2HbrZZi42HTNnay4k=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ku+WnARpJ/Kkcx6EvvHlalek+iLQ5Sx5e3GfCYyp2yiyMG29OIHHGW52FIz0y2Kf7
-	 f+KZ/cRpdr3X8XYRxM/zu6xcQu0WjLJ1Zt0A+JekLh60xhXWgV8EM4AW9dEaWFcGi2
-	 4M7xBtr0u1lc++JFJlURbop/BYQW8FSoDpzb2uZwOksZhciRE7pYH4yVOiMBC3dNwn
-	 VSP4PH794ruTwlkANZ0QJP2qVGi0jvt3ootxd0b8qBPwWs3dsfJhs7u+39bSX0waVI
-	 sTv1S0YhogI59aCqvBv7wrOw0ZXutmEvukqeVwWJTTXSNki9aVF4SMDVNWLfDoa0Tj
-	 mwVcus2E73mlw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 18/18] mtd: spi-nor: run controller optimization
- before dirmap creation
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Santhosh Kumar K" <s-k6@ti.com>
-Cc: "Miquel Raynal" <miquel.raynal@bootlin.com>, "Vignesh Raghavendra" <vigneshr@ti.com>, devicetree@vger.kernel.org, "Michael
- Walle" <mwalle@kernel.org>, "Richard Weinberger" <richard@nod.at>, conor+dt@kernel.org, "Pratyush
- Yadav" <pratyush@kernel.org>, "Takahiro Kuwano" <takahiro.kuwano@infineon.com>, robh@kernel.org
-In-Reply-To: <20260825171737.776052-19-s-k6@ti.com>
-References: <20260825171737.776052-1-s-k6@ti.com>
- <20260825171737.776052-19-s-k6@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 17:45:06 +0000
-Message-Id: <20260825174507.3254E1F000E9@smtp.kernel.org>
+	s=k20260515; t=1787680588;
+	bh=cr3sE+cVYK6tw/l2CJTQdBhZ0n0WYwtgkDzEqTpHk1E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XcvaehR/JCkzqX43q1fWN1QogxR8Rp1LGt9hUXB5t0csFr/+E8t3OiZmzqZHJgqjT
+	 8hsaVccZ6AcG5FWhi9qegv54MPifTg95BA1Y07ljaWICSSBoOzVdpY11rkmsVqtHhq
+	 WLj/Cc/zasIuip1orCfMlKPH1/ucq6u7clY1HS+Ph6gmGrYH0um/CvglFX1k5XukK4
+	 2cE5yyiilWMYPCmc2h1kUMaZH6TxuB6Qd9G1Zg8vaYcRjpQnkHEnDhDoNqYNRrYYDF
+	 oEsm81n+MmNibgKE+AE5HJGfz1gZwNVcVrz4MYVPsbt/dzZ/cq48b++RVvNPzYjzHD
+	 jV6r29RKJS0oQ==
+Date: Tue, 25 Aug 2026 17:56:25 +0000
+From: Eric Biggers <ebiggers@kernel.org>
+To: Ayush Singh <ayush@beagleboard.org>
+Cc: Jason Kridner <jkridner@beagleboard.org>, robertcnelson@gmail.com,
+	Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Ayush Singh <ayush@beagleboard.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, greybus-dev@lists.linaro.org,
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	linux-crypto@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 3/7] rust: crc_ccitt: add CRC-CCITT abstraction
+Message-ID: <20260825175625.GA3673306@google.com>
+References: <20260820-gb-uart-transport-v1-0-282da14ab7b7@beagleboard.org>
+ <20260820-gb-uart-transport-v1-3-282da14ab7b7@beagleboard.org>
+ <20260821030018.GA1961@sol>
+ <93977935-ea60-48de-9d13-23454e038c18@beagleboard.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <93977935-ea60-48de-9d13-23454e038c18@beagleboard.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The validated tuning frequency (`nor->max_read_op.max_freq`) is in=
-discriminately applied to all read operations constructed via `spi_nor_spim=
-em_get_read_op()`. This incorrectly forces low-speed alternative read comma=
-nds (such as OTP reads) to execute at the high-speed PHY-calibrated frequen=
-cy.
---
+On Fri, Aug 21, 2026 at 10:55:41AM +0530, Ayush Singh wrote:
+> > > diff --git a/rust/kernel/crc_ccitt.rs b/rust/kernel/crc_ccitt.rs
+> > > new file mode 100644
+> > > index 000000000000..6042ada16967
+> > > --- /dev/null
+> > > +++ b/rust/kernel/crc_ccitt.rs
+> > Is there a reason why the kconfig symbol is being put in lib/crc/ but
+> > the actual code is being put in rust/kernel/?  It seems inconsistent.
+> > 
+> > - Eric
+> 
+> 
+> Was copying `RUST_SERIAL_DEV_BUS_ABSTRACTIONS`. It is also in
+> `drivers/tty/serdev/Kconfig`.
 
-commit 6decf5586ab8fae3319b12bc93ad82202b53b090
-Author: Santhosh Kumar K <s-k6@ti.com>
+kconfig options usually should be in the same directory as the code they
+control.
 
-mtd: spi-nor: run controller optimization before dirmap creation
-
-This commit runs controller optimization before creating dirmaps so the
-validated frequency is available at dirmap construction time. It stores the
-configured read op template and propagates the calibrated rate into regular
-read ops. Optimization failure is non-fatal.
-
-> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
-> index b683c077a233d..2efcdc7f637fb 100644
-> --- a/drivers/mtd/spi-nor/core.c
-> +++ b/drivers/mtd/spi-nor/core.c
-> @@ -216,6 +216,9 @@ static struct spi_mem_op spi_nor_spimem_get_read_op(s=
-truct spi_nor *nor)
->  	if (spi_nor_protocol_is_dtr(nor->read_proto))
->  		op.dummy.nbytes *=3D 2;
-> =20
-> +	/* Propagate the validated frequency; zero before tuning. */
-> +	op.max_freq =3D nor->max_read_op.max_freq;
-> +
-
-[Severity: High]
-Does applying the tuned frequency to all read operations cause issues for
-lower-speed commands?
-
-When reading the OTP area via the MTD API, spi_nor_otp_read_secr() in
-drivers/mtd/spi-nor/otp.c temporarily changes the opcode and sets the
-protocol to 1-1-1, then calls spi_nor_read_data():
-
-drivers/mtd/spi-nor/otp.c:spi_nor_otp_read_secr() {
-    ...
-    nor->read_opcode =3D SPINOR_OP_RSECR;
-    nor->read_proto =3D SNOR_PROTO_1_1_1;
-
-    ret =3D spi_nor_read_data(nor, addr, len, buf);
-    ...
-}
-
-Because spi_nor_spimem_get_read_op() unconditionally sets op.max_freq to the
-high-speed PHY-calibrated frequency, will this force the 1-1-1 OTP read to
-execute at an inappropriately high clock speed and potentially fail or
-return corrupted data?
-
->  	return op;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825171737.7760=
-52-1-s-k6@ti.com?part=3D18
+- Eric
