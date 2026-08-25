@@ -1,256 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F60DF76
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 08:45:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7B5F63E8685;
+	Tue, 25 Aug 2026 08:45:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787647506; cv=none; b=JfkEKW0Qdw0ExYTE3cFTq1CGPdn76nzxrzFJbJKkjhhqyGUfnKCNRFci7CUtuwiHOKWH8xUSahrT1eKq9gqqOycCORW8yjGyCAkbaO41PopTzmx1abJecFdneFpbwmLg5W18/O6rWXjkvrY2/EE1eRX53XmgasGLYBgeEDIZo9g=
+	t=1787647564; cv=none; b=N1x/cBtsrqm7WJKJ+OpkyDPsnJdfiSLSTfR/VvoHSzFJXXW20WFvVfXBzxA9k9zKXU3l28QptVhTF3P8uOK7LpSzF2P2q0b+drUZg7HIS/YBwsoxnUPTSgOhAkaQk6SPP6HqomttEcvgO3/1LpEhuYm3J1aDQg1219oAC+9TuF0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787647506; c=relaxed/simple;
-	bh=ehwP5axgI1yTHZkJk2xRmSYuhHQHUasCI+C5hilBWMk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=P+AaI3l1OAlRqrvk061dc0Jh1nU4g9z/m6GgNxd15vPYhQfg8BuEGIBArcPDhQKTSHIVNYe93c0pKuuBwO0E/KbIAoQJ2/dklBqC1XUJbgpePa9PZrmkHMXswr0MRvY9NKRRuA1fAIITQ24+LyiwxP9WeDwrgPbqbKZOaKzsGKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G9zNRujK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787647564; c=relaxed/simple;
+	bh=WrJtVbLSM8GbkbAn64EbEX8lLAe/w4MbK7EWpFSxYw0=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=QckX1HqQ+KVMKT48AnNPQLZK6W6Cmo0ltC+tU9fhoOgxBgoqdUIkeBXN1Xakle+h9C17PNCWqScZuo8ZEKWx9G12mXBYmV91ilOyLMum+Pm0e4ioMKfUT2AAJu8oHy5lFpoEP7e75cEw5XQCvgIHwyR+AIp/5mqsKTI1dJwAES0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=UJLQyy0c; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G9zNRujK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 778091F000E9;
-	Tue, 25 Aug 2026 08:45:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787647504;
-	bh=+nN8E1NeYFR918nk422/e+nsDkePGCcJMmfvy6jhhdI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=G9zNRujK/SsnDQwMIBybCmhbjl7/kvvApdx4N5pNn54fOuOtGX1ee4fab9AcPwZTN
-	 /1Q0azMiBn1Hq+2AyFAvd5cXhQxTRYzpJ+ai8P95t/fCIvLEp6XX2Lqfw7jNE0Hkov
-	 bXg4jM5dOujoe5zFDBKefzd3QirkZaBYA7yeWto8bd3iFp6aagZkWi5TVyiVf2k7Ka
-	 sO9falmQrKc6A9BLqZ6OFD2GZKERbxXpeO0hu4T+KS8Tc2JncGEFNS9MyQf//OH6jv
-	 Qi9oCBsydHIMzlFB7tX63yESYs8UtMvuPeenTCeQscq0DCWvFXnt5J17ngyyuPRRvK
-	 NZUsfdSS34ILg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 7/9] iio: accel: mma8452: Drop unneeded lock acquire
- on read
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Esben Haabendal" <esben@geanix.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260825-mma8452-open-drain-v6-7-9b252804ee80@geanix.com>
-References: <20260825-mma8452-open-drain-v6-0-9b252804ee80@geanix.com>
- <20260825-mma8452-open-drain-v6-7-9b252804ee80@geanix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 08:45:03 +0000
-Message-Id: <20260825084504.778091F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="UJLQyy0c"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	References:Date:Message-Id; bh=Y5OfRGX5nb3vPgvkisInJ84mcEX6LHgXS
+	SdtcBu0E6s=; b=UJLQyy0c/aSzoDyUBvs8rCWvLWp87i51EdbbuFNUUBKMVgsLH
+	ULLWeO7vGwcTfLhPQiN9STfKz2hNBdHeZvcYMfCuX/VA1ehYO3QPzAWLJWYIUqDC
+	suqelmdwWv8u381pXK3WZnHrA4UHlBhmeteSTB7waVf2RzAXjcEm0svTfk=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwCn1s05Vo1qWzEBAA--.296S2;
+	Tue, 25 Aug 2026 16:45:45 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 07/12] dt-bindings: i2c: dw: Add compatible for
+ UltraRISC DP1000 SoC
+From: Jia Wang <wangjia@ultrarisc.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: wangjia@ultrarisc.com, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Anup Patel <anup@brainfault.org>, Mark Brown <broonie@kernel.org>, 
+ Andi Shyti <andi.shyti@kernel.org>, 
+ Mika Westerberg <mika.westerberg@linux.intel.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
+ Jose Abreu <joabreu@synopsys.com>, 
+ Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, 
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@sifive.com>, devicetree@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-spi@vger.kernel.org, linux-i2c@vger.kernel.org, 
+ netdev@vger.kernel.org, dmaengine@vger.kernel.org
+In-Reply-To: <20260824-aging-umbilical-8e68cfcea468@spud>
+References: <20260824-ultrarisc-dts-v1-0-61ab7aebe9e5@ultrarisc.com>
+ <20260824-ultrarisc-dts-v1-7-61ab7aebe9e5@ultrarisc.com>
+ <20260824-oppressed-jogging-5b055ca274b1@spud>
+ <20260824-aging-umbilical-8e68cfcea468@spud>
+Date: Tue, 25 Aug 2026 16:45:31 +0800
+Message-Id: <178764753153.744215.13628356455140662072.b4-reply@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787647531; l=854;
+ i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
+ bh=WrJtVbLSM8GbkbAn64EbEX8lLAe/w4MbK7EWpFSxYw0=;
+ b=h1QFd/geJ3eCnvfmWE8MCcEuTL/3WBAshWGKokJSW5v7Y342aTIZNXVyNJFCAnwmJzvTTSSz4
+ VabtmlcOV21DQ+pv1nlrXSy7xqd4zrKSpl7e8nDQc1SjJu3Iax0A8mE
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
+X-CM-TRANSID:AQAAfwCn1s05Vo1qWzEBAA--.296S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7GF18Aw4Dtry5JFyxuF4rZrb_yoW3uFg_ur
+	Z7Ar97AF1UZFy7Kws8AFsIy3sY9F4DWrZxGr45XF4UJ3s5Kry8Wwn2grySvw13JrW8try7
+	Cr1Sva4DtrnI9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb6kYjsxI4VWxJwAYFVCjjxCrM7AC8VAFwI0_Wr0E3s1l1xkIjI8I
+	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0
+	cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4j6F4UM28EF7xvwVC2z2
+	80aVCY1x0267AKxVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVW8JVWxJw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAG
+	YxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26rWY6Fy7MxkIecxEwVCm-w
+	CF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j
+	6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Wrv_Gr1UMIIYrxkI7V
+	AKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42
+	IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTRjg43UUUUU
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAHEWqJFPsACQAwsi
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
+On 2026-08-24 18:14 +0100, Conor Dooley wrote:
+> On Mon, Aug 24, 2026 at 06:07:29PM +0100, Conor Dooley wrote:
+> > On Mon, Aug 24, 2026 at 01:54:20PM +0800, Jia Wang via B4 Relay wrote:
+> > > From: Jia Wang <wangjia@ultrarisc.com>
+> > > 
+> > > Add the SoC-specific compatible string and use the generic one as fallback
+> > > for the UltraRISC DP1000 I2C controller.
+> > > 
+> > > Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+> > 
+> > Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> > pw-bot: not-applicable
+> 
+> Same here, I was too hasty - please add some constraints like clocks
+> being required etc.
+>
 
-New issues:
-- [High] Removing data->lock exposes mma8452_read() to race conditions with=
- PM auto-suspend and event configuration.
+Thanks for the review.
 
-Pre-existing issues:
-- [High] Polling for DRDY before PM runtime wake-up leads to I/O timeouts a=
-nd errors.
-- [High] PM runtime usage count leak on error paths.
-- [High] Device is permanently locked in STANDBY mode on I2C write failure.
-- [Medium] Unprotected read-modify-write operations on event configuration =
-registers.
-- [Medium] Kernel stack information leak due to mishandling of short I2C bl=
-ock reads.
---
+The existing schema already limits each DP1000 I2C controller to one
+register range. In the next version, I will require two clocks and the
+corresponding clock names.
 
---- Patch [7]: [PATCH v6 7/9] iio: accel: mma8452: Drop unneeded lock acqui=
-re on read ---
-commit 9c2b3fc538cb28ca3a39bb1585927926bb25f284
-Author: Esben Haabendal <esben@geanix.com>
+Best regards,
+Jia Wang
 
-iio: accel: mma8452: Drop unneeded lock acquire on read
 
-There is no need to acquire data->lock when calling mma8452_read(), and
-dropping that makes it less likely to end up in an AB-BA deadlock
-situation.
-
-> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
-> index 7ef1a9a91c31f..9ae2c3e605761 100644
-> --- a/drivers/iio/accel/mma8452.c
-> +++ b/drivers/iio/accel/mma8452.c
-> @@ -504,9 +504,7 @@ static int mma8452_read_raw(struct iio_dev *indio_dev,
->  		if (!iio_device_claim_direct(indio_dev))
->  			return -EBUSY;
-> =20
-> -		mutex_lock(&data->lock);
->  		ret =3D mma8452_read(data, buffer);
-
-[Severity: High]
-Could removing this lock expose mma8452_read() to race conditions with PM
-auto-suspend and event configuration?
-
-mma8452_read() can be interrupted by the PM auto-suspend worker, which puts
-the device in STANDBY and disables regulators while mma8452_drdy() is activ=
-ely
-polling over I2C. This can lead to I/O timeouts or errors.
-
-Additionally, concurrent sysfs writes to event configurations invoke
-mma8452_change_config(), which puts the hardware into STANDBY to modify
-registers. The Standby transition flushes the hardware FIFO. If this occurs
-between the mma8452_drdy() check and the i2c_smbus_read_i2c_block_data() in
-mma8452_read(), the block read will fetch flushed or stale data.
-
-> -		mutex_unlock(&data->lock);
->  		iio_device_release_direct(indio_dev);
->  		if (ret < 0)
->  			return ret;
-
-[Severity: High]
-This is a pre-existing issue, but will polling for DRDY before PM runtime
-wake-up lead to I/O timeouts and errors?
-
-In mma8452_read():
-
-	int ret =3D mma8452_drdy(data);
-
-	if (ret < 0)
-		return ret;
-
-	ret =3D mma8452_set_runtime_pm_state(data->client, true);
-
-If the device is in auto-suspend, its regulators are turned off by
-mma8452_runtime_suspend().
-
-The I2C read in mma8452_drdy() will communicate with a powered-off device,
-resulting in immediate I/O errors or timeouts.
-
-Should the PM runtime resume be performed before any hardware register poll=
-ing?
-
-[Severity: High]
-This is a pre-existing issue, but is there a PM runtime usage count leak on
-error paths?
-
-In mma8452_read():
-
-	ret =3D mma8452_set_runtime_pm_state(data->client, true);
-	if (ret)
-		return ret;
-
-	ret =3D i2c_smbus_read_i2c_block_data(data->client, MMA8452_OUT_X,
-					    3 * sizeof(__be16), (u8 *)buf);
-	if (ret < 0)
-		return ret;
-
-If i2c_smbus_read_i2c_block_data() fails, it returns the error code
-immediately. This bypasses the subsequent call to
-mma8452_set_runtime_pm_state(data->client, false), permanently leaking the
-usage count.
-
-A similar leak occurs in mma8452_write_event_config():
-
-	ret =3D mma8452_set_runtime_pm_state(data->client, state);
-	if (ret)
-		return ret;
-
-	switch (dir) {
-	case IIO_EV_DIR_FALLING:
-        ...
-	case IIO_EV_DIR_RISING:
-		val =3D i2c_smbus_read_byte_data(data->client, ev_regs->ev_cfg);
-		if (val < 0)
-			return val;
-
-If this I2C read fails and returns early, the PM runtime decrement is also
-missed.
-
-[Severity: Medium]
-This is a pre-existing issue, but are the read-modify-write operations on
-event configuration registers properly protected?
-
-In mma8452_write_event_config():
-
-	case IIO_EV_DIR_RISING:
-		val =3D i2c_smbus_read_byte_data(data->client, ev_regs->ev_cfg);
-		if (val < 0)
-			return val;
-
-The initial I2C read is performed without holding data->lock, while the wri=
-te
-is performed by mma8452_change_config() which does hold the lock.
-
-Since IIO event sysfs attributes do not hold the IIO mlock, concurrent writ=
-es
-to different event attributes can interleave.
-
-Could two threads perform the unprotected read simultaneously, resulting in=
- the
-second thread silently overwriting the first thread's register modification=
-s?
-
-[Severity: High]
-This is a pre-existing issue, but can an I2C write failure leave the device
-permanently locked in STANDBY mode?
-
-In mma8452_change_config():
-
-	/* config can only be changed when in standby */
-	if (is_active > 0) {
-		ret =3D mma8452_standby(data);
-		if (ret < 0)
-			goto fail;
-	}
-
-	ret =3D i2c_smbus_write_byte_data(data->client, reg, val);
-	if (ret < 0)
-		goto fail;
-
-	if (is_active > 0) {
-		ret =3D mma8452_active(data);
-...
-fail:
-	mutex_unlock(&data->lock);
-
-	return ret;
-
-If the I2C write fails, the code jumps to the fail label, bypassing the cal=
-l to
-mma8452_active().
-
-Does this leave the device stuck in STANDBY mode, which breaks all future d=
-ata
-measurements?
-
-[Severity: Medium]
-This is a pre-existing issue, but might the mishandling of short I2C block
-reads leak uninitialized kernel stack memory?
-
-In mma8452_read():
-
-	ret =3D i2c_smbus_read_i2c_block_data(data->client, MMA8452_OUT_X,
-					    3 * sizeof(__be16), (u8 *)buf);
-	if (ret < 0)
-		return ret;
-
-	ret =3D mma8452_set_runtime_pm_state(data->client, false);
-
-	return ret;
-
-i2c_smbus_read_i2c_block_data() returns the number of bytes successfully re=
-ad.
-If a short read occurs, it returns a positive value and passes the if (ret =
-< 0)
-check.
-
-The subsequent call to mma8452_set_runtime_pm_state() will overwrite ret wi=
-th 0
-on success.
-
-mma8452_read_raw() assumes the stack array buffer is fully initialized and
-processes the uninitialized bytes, which are then returned to userspace.
-
-Should the check verify if exactly the requested number of bytes were read?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825-mma8452-op=
-en-drain-v6-0-9b252804ee80@geanix.com?part=3D7
