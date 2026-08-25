@@ -1,121 +1,124 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 598F44756CD
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 17:29:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2709632D0FC
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 17:30:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787678961; cv=none; b=U7SIw/aa+1NDlCRw5nLu+8ZNI4jpX0euERkLCdZbYnFfpEGXz2DPH3/bQknUcoDm30mRzK7HQW9taVTj9r2UbGdlUxNNGEpyY/DYdIfzS7071aKT7BcqnCbZP4OXue3HRnF5cf01j2N+9WNcQepTXyO9YneySygLyi9wohSCS5Y=
+	t=1787679050; cv=none; b=NbZeR6tzK9NpZCZcAJPAq+R5/zeNRdrHiiX8832xk3fkHvd8kh3gGaID6NmhJMY5K2QzdfRQ5uvW1S5076TOjVTzZFTJkySRtGyPhT5eIoWF0dC0nS4263sdwyG37SS0DIxZN5kxlDtruO1Jxi9/Y1zCmJ9aLmYn+CJ6rjwhQbw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787678961; c=relaxed/simple;
-	bh=l4diE6U2/WrkVGjNJUeFsQ0k5FaZjrt5/qPfb8pDbgw=;
+	s=arc-20240116; t=1787679050; c=relaxed/simple;
+	bh=Zh5ocdFCKqohnPk8LeeV3jqVH7IPRn45S1jqpiz59Mw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uY5N8REsjCOmMxLK/lobfLO3kMZNZsvt3qdR7tth2gh7WvvXDzZ/0pVjZlE8ZoQiEmMgFG5Ej0n0wM93vwhtBtPVR/YpmEzyKF5Aw8TS7ETInfMz2cRyOAN2YubJvxgsaBEjpqgI1XZHY+gU07uUzF9pnAuATnDgfKyhQC66RuU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OX7lnYsq; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=hvZsGlgLV6Bq2HYyqmt2hT6hn7tUPUpFqL/ScPJimdbKeDZXzTmtCEVXf6WAVSSW2DLtj3zKwA/e13F6lbhGtzSLBD+oV3YjF7UiQ1ixgnVsyMkepRppQrjqAlbX4/IOaFsQVnsDxI23LEEaENkn9Rp/HanFPfLvpCgydXHSBEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kaiqIsuX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OX7lnYsq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD7941F000E9;
-	Tue, 25 Aug 2026 17:29:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kaiqIsuX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F21CA1F00A3A;
+	Tue, 25 Aug 2026 17:30:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787678958;
-	bh=jE40dZ/URuiJ9zRWztJ12XP2Vep+UwSNOQzCkQINRUg=;
+	s=k20260515; t=1787679044;
+	bh=yPAv2s/qbT1BWaEbkVizNyrdV4WAEMBTPwVK9eEsW/0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OX7lnYsqhhEOMsEV+rQLggW9cncVzNIBxHApRGBVIzzI4ipC0h5QmjD4zQFsthSBR
-	 KcpiqN9woVqVx2GC33Fm8LXwHODbpykwqQI7lKjsAiG8p6S3MkE3gDOsU/F90tdbhV
-	 ZzBjqJ99kTCvGp3BP7RBQXnvBdPUbdu9UGlkj21A3U8uOhF7pQsNjGb3jvaTBFmm7k
-	 i3fuWd1PTD0/cM3bNH2FrgYa6oIZSqU1xxYZfWJSmcwYJkALuSTjw8999esXrl1G+y
-	 DsgN0kg9aH3YZhPFgAiCVFZeMZyBW9kjnd2S2JSVJZVrIG1LPHhIkB0rz6tDvSGj/0
-	 heh4+D1tkVuEQ==
+	b=kaiqIsuXCMxA5AbAHrBgdzDFEb7LQDLJJtDx0jXSo1u1LGxoOJlcL8VPRsepU/JZa
+	 WfgE4YhsN1x9un/tOY70M7XqCMdKAkjcyB/NvWMelSABCJtjODUu4qqPrDRqZZS9Dv
+	 2+QpwlQhcqeJw+U/MeRk2G9C5lhtux9GgiWPWuOq7UzLuXxPQczA4dsNkIdQ6bcZ7i
+	 6vbU1Rv4YzzDTFIFl1kcPDGP6vPrFVviz0eGjJW4xtGAGe5lLAjKuwWw87h/PlnoI1
+	 kCiW8wE+V17/Er0p7e7DdfPoNc46HYYZxWEPBtV8a9b3eDvTG+E3kbA0X57nGC8+o9
+	 eYPBIthtTPNtg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 07/18] spi: cadence-quadspi: add DQS support to read
- data capture
+Subject: Re: [PATCH v9 03/18] spi: parse spi-max-post-config-frequency-hz
+ into post_config_max_speed_hz
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Santhosh Kumar K" <s-k6@ti.com>
-Cc: conor+dt@kernel.org, "Vignesh Raghavendra" <vigneshr@ti.com>, robh@kernel.org, "Pratyush
- Yadav" <pratyush@kernel.org>, "Michael Walle" <mwalle@kernel.org>, "Miquel
- Raynal" <miquel.raynal@bootlin.com>, devicetree@vger.kernel.org, "Takahiro
- Kuwano" <takahiro.kuwano@infineon.com>, "Richard Weinberger" <richard@nod.at>
-In-Reply-To: <20260825171737.776052-8-s-k6@ti.com>
+Cc: "Miquel Raynal" <miquel.raynal@bootlin.com>, "Pratyush Yadav" <pratyush@kernel.org>, robh@kernel.org, "Michael
+ Walle" <mwalle@kernel.org>, "Takahiro Kuwano" <takahiro.kuwano@infineon.com>, conor+dt@kernel.org, "Richard
+ Weinberger" <richard@nod.at>, devicetree@vger.kernel.org, "Vignesh
+ Raghavendra" <vigneshr@ti.com>
+In-Reply-To: <20260825171737.776052-4-s-k6@ti.com>
 References: <20260825171737.776052-1-s-k6@ti.com>
- <20260825171737.776052-8-s-k6@ti.com>
+ <20260825171737.776052-4-s-k6@ti.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 17:29:17 +0000
-Message-Id: <20260825172917.CD7941F000E9@smtp.kernel.org>
+Date: Tue, 25 Aug 2026 17:30:43 +0000
+Message-Id: <20260825173043.F21CA1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The patch introduces a `dqs` parameter to `cqspi_readdata_capture(=
-)` but hardcodes it to `false` in `cqspi_configure()`, unconditionally clea=
-ring the hardware DQS bit and breaking platforms that rely on the bootloade=
-r to enable it.
+- [Medium] The new `post_config_max_speed_hz` property is not clamped to th=
+e SPI controller's maximum supported speed during device setup.
+- [Medium] `post_config_max_speed_hz` is not copied to ancillary or multipl=
+exed SPI devices, breaking high-speed operations for multi-die packages and=
+ proxy devices.
 --
 
-commit e47fa544a8e52f8469fd8ae3d4eeedbed9dc8a9e
+commit 5705672f7b6c77c877910c5996844e5029e278fd
 Author: Santhosh Kumar K <s-k6@ti.com>
 
-spi: cadence-quadspi: add DQS support to read data capture
+spi: parse spi-max-post-config-frequency-hz into post_config_max_speed_hz
 
-This commit adds a DQS (Data Strobe) parameter to cqspi_readdata_capture()
-to control data capture timing. DQS mode uses a dedicated strobe signal for
-improved timing margins in high-speed SPI modes.
+This commit adds a post_config_max_speed_hz field to struct spi_device to
+support SPI devices operating at distinct pre- and post-configuration clock
+rates. The new property is parsed from the spi-max-post-config-frequency-hz
+Device Tree property.
 
-> diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-=
-quadspi.c
-> index f8e2663723677..046fa5d69b0f7 100644
-> --- a/drivers/spi/spi-cadence-quadspi.c
-> +++ b/drivers/spi/spi-cadence-quadspi.c
+> diff --git a/include/linux/spi/spi.h b/include/linux/spi/spi.h
+> index 88d17fce02dcb..02fd602f29e8b 100644
+> --- a/include/linux/spi/spi.h
+> +++ b/include/linux/spi/spi.h
 [ ... ]
-> @@ -476,6 +477,11 @@ static void cqspi_readdata_capture(struct cqspi_st *=
-cqspi, const bool bypass,
->  	reg |=3D (delay & CQSPI_REG_READCAPTURE_DELAY_MASK)
->  	       << CQSPI_REG_READCAPTURE_DELAY_LSB;
-> =20
-> +	if (dqs)
-> +		reg |=3D BIT(CQSPI_REG_READCAPTURE_DQS_LSB);
-> +	else
-> +		reg &=3D ~BIT(CQSPI_REG_READCAPTURE_DQS_LSB);
-> +
+> @@ -195,6 +197,7 @@ struct spi_device {
+>  	struct device		dev;
+>  	struct spi_controller	*controller;
+>  	u32			max_speed_hz;
+> +	u32			post_config_max_speed_hz;
 
-[Severity: High]
-Does explicitly clearing the DQS bit here destroy hardware state established
-by the bootloader?
+[Severity: Medium]
+Does the new post_config_max_speed_hz need to be clamped to the controller's
+maximum supported speed during device setup?
 
-Previously, this function used a read-modify-write operation that preserved
-the existing DQS bit. Platforms that don't utilize the new kernel PHY tuning
-infrastructure, but rely on the bootloader to enable DQS, might now
-experience read failures and data corruption in high-speed SPI modes when
-this state is lost.
+Looking at drivers/spi/spi.c:__spi_setup(), the existing max_speed_hz is
+strictly validated against the hardware capabilities:
 
->  	writel(reg, reg_base + CQSPI_REG_READCAPTURE);
->  }
-> =20
-> @@ -1317,7 +1323,7 @@ static void cqspi_configure(struct cqspi_flash_pdat=
-a *f_pdata,
->  		cqspi->sclk =3D sclk;
->  		cqspi_config_baudrate_div(cqspi);
->  		cqspi_delay(f_pdata);
-> -		cqspi_readdata_capture(cqspi, !cqspi->rclk_en,
-> +		cqspi_readdata_capture(cqspi, !cqspi->rclk_en, false,
->  				       f_pdata->read_delay);
->  	}
+	if (spi->controller->max_speed_hz &&
+	    (!spi->max_speed_hz ||
+	     spi->max_speed_hz > spi->controller->max_speed_hz))
+		spi->max_speed_hz =3D spi->controller->max_speed_hz;
 
-[Severity: High]
-Does hardcoding false here unconditionally disable DQS on every configurati=
-on
-cycle?
+Without similar clamping for post_config_max_speed_hz, a misconfigured
+Device Tree could inject an arbitrarily large frequency, causing the
+underlying controller to configure hardware for an unsupported rate.
 
-Because cqspi_configure() is executed unconditionally on any chip-select or
-clock frequency switch, this passes false to cqspi_readdata_capture(). This
-will unconditionally clear the hardware DQS bit across all Cadence QSPI
-controllers, leading to regressions for boards that require it to remain
-enabled.
+[Severity: Medium]
+Should post_config_max_speed_hz also be cloned for ancillary or multiplexed
+SPI devices to ensure multi-die packages can use post-config speeds?
+
+Looking at drivers/spi/spi.c:spi_new_ancillary_device(), only the primary
+max_speed_hz is copied to secondary logical devices:
+
+	/* Take over SPI mode/speed from SPI main device */
+	ancillary->max_speed_hz =3D spi->max_speed_hz;
+	ancillary->mode =3D spi->mode;
+
+A similar omission exists in drivers/spi/spi-mux.c:spi_mux_select():
+
+	/* copy the child device's settings except for the cs */
+	priv->spi->max_speed_hz =3D spi->max_speed_hz;
+	priv->spi->mode =3D spi->mode;
+
+Without cloning this new property, these proxy devices will have a zero
+post-config frequency, forcing secondary dies to operate at the slower
+pre-configuration rate.
+
+>  	u8			bits_per_word;
+>  	bool			rt;
+>  #define SPI_NO_TX		BIT(31)		/* No transmit wire */
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825171737.7760=
-52-1-s-k6@ti.com?part=3D7
+52-1-s-k6@ti.com?part=3D3
