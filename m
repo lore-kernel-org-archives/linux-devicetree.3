@@ -1,112 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 888A2481255;
-	Tue, 25 Aug 2026 13:43:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DDD340243B
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 13:44:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787665383; cv=none; b=O/hOKrMhgJyO78mxKinjlopWcI+2NaXZ+g4aEXoPbh2ueASCty+HEq4F79lInF6+1tWaEo36vsM2n7Zt5oZoexy2eQJjB9ciirTwk/qeqOzgBsc7EJZxSJbGmNOFJijOZHZfv1AbDXkySH5dLn1Fo6eIclGyUr78+N+DdyVWACo=
+	t=1787665495; cv=none; b=JaLyp5Hv22H5zx07ryTN9KiH12ArA6VWwOHwWYquF/qhgUPKW7KNbKGsaqbGJ3YMLWYS8LdChA27z4GbklEokCEny9o2SiHhSHarrqgQ2mR3XkLXJk2mjrPvWGp5QIvXtf/EtRcqehQN70/5yPMIcWg7ygWPIdiFrGvdTZTUHL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787665383; c=relaxed/simple;
-	bh=+ld5p03DFLdf0vRq/18GLxG2EtZHIfWbO5K7Op7bfOA=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=MtC/wEF7Gfa3pdHH7iQFOUYTLQ37juV8Kb6E8b2pXs8xujDJQ8En0IwUrlqqr/2J4ifRJdbaNT1mqzmNb/e5XwJEGKHMggu7gdljTgtd+o81qPXgMGWJWsAY9/EBUOL+RZTx57lYEQY1o5f+4252imSMbJZ7uq0qs68GPDc98Uw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oLHwF9Q/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787665495; c=relaxed/simple;
+	bh=P5WYgFdBB2WI7NKSLc+xkQveSUZZ4oR4RAnxRZ3sOk4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=iNpR+lmOFHAyb1iMMYVBxiaidVqtnTUeoWUiKMifSJUcFiY/RPFjgkSqF8AQlu2M9hGS6JIbgMAWYtgScoktJjeBgg2fNv+76h32C7AhoLSvmaAWZ4tzo8ZWABiJujp4bDKtmjDAHFxmOAtkmMxFCsq8vzJ6TUJ9kqzecAj7CY4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dK32DNjg; arc=none smtp.client-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oLHwF9Q/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF8CB1F00A3A;
-	Tue, 25 Aug 2026 13:42:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787665382;
-	bh=+ld5p03DFLdf0vRq/18GLxG2EtZHIfWbO5K7Op7bfOA=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=oLHwF9Q/qC0zeYEdWdG4tWVYA5TC63O/8OyYRFCId03O04nZYgLNzQ7O7OnxCmcm1
-	 SXqDBKskM+QlGqRnaTGycJZH3CFgbJo/lS9xLhhyWpv+RW2V7Sm998NjwOr97KUofk
-	 J9GBRbkdRtG/bFq4d0zwSNgpj92egKLMbd687d0n6m+M0+uCLHQasr0zTJ8dq+WhNP
-	 gIPADdugWRWn3Qoo3vKzLW3sB2gPTuS48UkcniiCFmpUHcpR5g8tAS7twDEzyeWP6w
-	 pPkDIfNVpb1nt1YqigVALh+U9xr6RXIfE4sz3sNbAB58ezVeWmIjtSKjp4UxzE/Qdg
-	 gdPDjVent8VAA==
-Message-ID: <c29c325f-d6ee-4f07-96c5-9daa258d2da1@kernel.org>
-Date: Tue, 25 Aug 2026 15:42:55 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dK32DNjg"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c2055573c8cso737346566b.3
+        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 06:44:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787665491; x=1788270291; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FWi5OWCgDbdxS/z+vG1uBzNcpx684WDjQnVfCGs5vMo=;
+        b=dK32DNjg2scjX673JNJzWSquArEbN6lfZ+BV7iTjzCBBg3Plg74V1BLyPqifApojqr
+         Lb9yDXxmFAg/nkVntEc8pW4aP4BopdzVENDYZHFoqoPVVuVwQv0U85+iqSx4AuNkacfW
+         tW9mOrehmpbSwn24G30MyiLEBC2oK+iCzdaT88imi24lPKBJNnZGkdbrJyb1z9GdKQZg
+         lWihaeiBhDs5MFqTGkS1RX3llc8PCaoTiMcYuCzHKqHww6uPcN0fGSfhe1koQ/ZJenOO
+         gSQmKBdexhX6+nDTWm18mzqH0p783MoyQs02S37ionpGGMtM93pXRl+x1K4AeichmhqK
+         Tzsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787665491; x=1788270291;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FWi5OWCgDbdxS/z+vG1uBzNcpx684WDjQnVfCGs5vMo=;
+        b=cPttYwTP6MSlt9b+K19r4WgveU/OHaj4NVzP7Qmt8s/rbGOxfFYARw/Es2i4LoP4sJ
+         yheG7KuPLBx53aX6umQskSLhJJmPTeASHamkKomLeXxb0JFEyes7Z4VUtIAS5a52qmrP
+         vYQvSoueccLou2CKOW8DPcUiT8vbbTKgYZVzz8xPixzwwP+4ILoFNdv+TBWuf+qImfiT
+         e7eb2Dj5qhmJ9ZEgT9K/W7kEreDePwR55SOGb6SRep4m5GXsrsvmEsUHjm0fkxQnQxME
+         oWX1v4NtTy+76G/AykXTuc1OvrAzxnCTchETSWtplWxslEawvm9BHbedKBns0o1HHEhx
+         ZLHw==
+X-Forwarded-Encrypted: i=1; AHgh+Rom7/qo/AiX5RBdh8U1YUlugncawabmIHgUHPb6rKaNJ3rF46qZgpnvc5T/uK3c8bnUGNC2ARBBKFN4@vger.kernel.org
+X-Gm-Message-State: AFuF++m5Zwo5pJWQjZ1azYJsXXTLG/AE7nv+ptn9hRXtbFO0uFUqz9ob
+	bIwpO0J0oQlofXncOZMsNE4ebA64Gbk66/3auqf4282ks76eGMbpveDi
+X-Gm-Gg: AR+sD10DFHgCAUVswiFXY9zgg/0sQ9MnjZdUuxRz4L0neR+VtJ1+BWtgrS7+x6zhxdd
+	GdWd0M/vI4Uso/sVU48FGwHEIHYZ5jSOu+FdlxvsuX0AQyy+d0m9KNzfF8jfO5vTzRWUPqwNn0R
+	9X8G2wVtEktRQBWzMdtlNbvt41WbTSKzdrowZtuvenHrh8HaKV2I4acGLN6jF6Adqn4mTNemstg
+	WFoXjiYwOJKwot2yrc8YW/4QA9fOb3rBq7G7mbwlfcbWivEtUTUSPpd5I0pTPKlylUOmDS6Tecr
+	qwuH9g94S/RnziOOwVLAX5y2/jjYXn0VAeM/PPk/WSKcovzEFf04qbIYlbFkfKNsKv8KC8B/3dZ
+	JBTYG8sJXYkSQdNTQGghLtpXeUqeW+muze/fwCdaSQr5l73UoFlgqMn7U9DqZf16ctDAW2+ZfIr
+	SDAA9yvpcdinA1EjTvOIYAmXxqvDoiCeClVunWfuqv+kyrsOxIso1s4FQaDxOTBkBG03SDJoVYK
+	HlgPZUwQIOmo1oFE7tZN+fcAmqYB8xCScSwmrIvqr2p0fl71B8KYl1az1i3eo8dqfwJZtl/JDKw
+	arvV4xItPjE8hvXg8It60GG4zKX4ki1bAn4qVf1RCr+5CUOsqDbaFuTAhVFX+yPFd5R23a3cZnV
+	1jgjwwVbJ/062K1it4pdgBvoOqGGFHn8DQ647AAPsmXBOmJXmCquHrn3wnNMIp5DxUNc8299Thf
+	UkxobA
+X-Received: by 2002:a17:907:9701:b0:c24:8af3:c92 with SMTP id a640c23a62f3a-c2504e504bbmr243031766b.3.1787665491183;
+        Tue, 25 Aug 2026 06:44:51 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c249606b59fsm2031244466b.12.2026.08.25.06.44.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 25 Aug 2026 06:44:51 -0700 (PDT)
+Date: Tue, 25 Aug 2026 15:44:49 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Esben Haabendal <esben@geanix.com>
+Cc: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>, "Jonathan
+ Cameron" <jic23@kernel.org>, "Lars-Peter Clausen" <lars@metafoo.de>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Martin Kepplinger"
+ <martink@posteo.de>, "Sean Nyekjaer" <sean@geanix.com>, "David Lechner"
+ <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ "Andy Shevchenko" <andy@kernel.org>, "Martin Kepplinger"
+ <martin.kepplinger@theobroma-systems.com>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v6 7/9] iio: accel: mma8452: Drop unneeded lock acquire
+ on read
+Message-ID: <20260825154449.00002f6f@gmail.com>
+In-Reply-To: <87y0dumiga.fsf@geanix.com>
+References: <20260825-mma8452-open-drain-v6-0-9b252804ee80@geanix.com>
+	<20260825-mma8452-open-drain-v6-7-9b252804ee80@geanix.com>
+	<UFc9cC1VeohKw6lxQ8uulsfj9wJ_OqGUgGPTUnTX-zssKZ97aEC0Xi9nsAxv-tcf2DP5e85ElFZ8wPgxwG8l3g==@protonmail.internalid>
+	<20260825121704.00004ed3@gmail.com>
+	<87y0dumiga.fsf@geanix.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/2] arm64: dts: qcom: qcs6490-rb3gen2: add audio CMA
- memory region for AudioReach
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Karthik S <karthik.s@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260825133333.376591-1-karthik.s@oss.qualcomm.com>
- <20260825133333.376591-2-karthik.s@oss.qualcomm.com>
- <62fda76e-771a-4242-92a8-36374345883d@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <62fda76e-771a-4242-92a8-36374345883d@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 25/08/2026 15:34, Krzysztof Kozlowski wrote:
-> On 25/08/2026 15:33, Karthik S wrote:
->> Add a dynamic CMA pool for the AudioReach audio stack on qcs6490-rb3gen2.
->> Use alloc-ranges to let the kernel pick a free address rather than a fixed
->> reg, which avoided EFI-reserved memory at 0x9cc00000. Add 4 MiB alignment
->> to satisfy CMA_MIN_ALIGNMENT_BYTES. Wire memory-region into q6apmdai so
->> the q6apm-audio-mem-cma child driver can attach the pool.
->>
->> Based on the equivalent implementation for lemans (SA8295P).
+On Tue, 25 Aug 2026 15:35:17 +0200
+Esben Haabendal <esben@geanix.com> wrote:
 
-And the "equivalent implementation for lemans" received comments which
-you missed and re-implemented the same issues.
+> "Joshua Crofts" <joshua.crofts1@gmail.com> writes:
+> 
+> > On Tue, 25 Aug 2026 10:27:45 +0200
+> > Esben Haabendal <esben@geanix.com> wrote:
+> >  
+> >> There is no need to acquire data->lock when calling mma8452_read(), and
+> >> dropping that makes it less likely to end up in an AB-BA deadlock
+> >> situation.
+> >>
+> >> Signed-off-by: Esben Haabendal <esben@geanix.com>
+> >> ---
+> >>  drivers/iio/accel/mma8452.c | 2 --
+> >>  1 file changed, 2 deletions(-)
+> >>
+> >> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
+> >> index 7ef1a9a91c31..9ae2c3e60576 100644
+> >> --- a/drivers/iio/accel/mma8452.c
+> >> +++ b/drivers/iio/accel/mma8452.c
+> >> @@ -504,9 +504,7 @@ static int mma8452_read_raw(struct iio_dev *indio_dev,
+> >>  		if (!iio_device_claim_direct(indio_dev))
+> >>  			return -EBUSY;
+> >>
+> >> -		mutex_lock(&data->lock);
+> >>  		ret = mma8452_read(data, buffer);
+> >> -		mutex_unlock(&data->lock);
+> >>  		iio_device_release_direct(indio_dev);
+> >>  		if (ret < 0)
+> >>  			return ret;
+> >>  
+> >
+> > Sashiko has something to say and I tend to agree at the moment:
+> >
+> > Could removing this lock expose mma8452_read() to race conditions with PM
+> > auto-suspend and event configuration?  
+> 
+> Yes. I tend to agree as well.
+> 
+> > mma8452_read() can be interrupted by the PM auto-suspend worker, which puts
+> > the device in STANDBY and disables regulators while mma8452_drdy() is actively
+> > polling over I2C. This can lead to I/O timeouts or errors.  
+> 
+> Yes, and causing pain for other I2C devices on same bus :(
+> 
+> > Additionally, concurrent sysfs writes to event configurations invoke
+> > mma8452_change_config(), which puts the hardware into STANDBY to modify
+> > registers. The Standby transition flushes the hardware FIFO. If this occurs
+> > between the mma8452_drdy() check and the i2c_smbus_read_i2c_block_data() in
+> > mma8452_read(), the block read will fetch flushed or stale data.  
+> 
+> Argh. Yet another level of trouble.
+> 
+> Maybe we should extend the use of data->lock instead. Holding it
+> 1. whenever doing read-modify-write actions
+> 2. while holding the device in standby mode for changing registers
+> 3. while doing suspend/resume
+> 
+> I was just adding support for a open-drain mode irq sharing you know.
+> While sashiko-bot definitely is catching lots of valid problems, and
+> fixing them is a good thing, this is starting to feel like I opened
+> Pandoras box by touching this driver :D
+> 
+> I will try to wrap up a patch with the above described extended usage of
+> data->lock, but hope we can find a way to get the irq sharing and open
+> drain mode support merged, without necessarily having to fixing all and every
+> possible existing bugs as a pre-condition, but maybe delay some work to
+> later work.
+> 
 
-Best regards,
-Krzysztof
+If they're pre-existing conditions then it's not required to fix those in the
+same patch series, you can come back to it another time or someone else can fix
+those.
+
+Nevertheless this is an issue that will be caused directly by this patch if
+applied. If your only goal is to add support for open-drain irq sharing, you
+can probably just drop this for the time being and just focus on that.
+
+-- 
+Kind regards,
+Joshua Crofts
