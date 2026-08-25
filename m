@@ -1,277 +1,141 @@
-Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com [209.85.217.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011037.outbound.protection.outlook.com [40.107.130.37])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D17554432F6
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 12:54:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787662455; cv=none; b=O7XPZwKxoiMnvSbhD2SDSR/dQM+7utI/KSBkn3xhhoQY9LMVk7O9aP3xhxMtHGDb4TdaQnktCheYd++UYwO8qvmSBYJTPCi84dy3AYT9+plWr0G42Et1xN2ZZvSjZxRXZYpmiQLb93/jKl6FI/bTaa0uig14b8szzfRLxwC+4PY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787662455; c=relaxed/simple;
-	bh=CaotQxU7iNU6c524dtH/JOUWSksfXQDDVYiUOPk3TkE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IORRBjCoRU5VQresMnduoGQH0Cr0MG5rHrRR9CeE/uUCiJTK3zvauZHjtTC1BkCuX2dIA0QL8oCEhTuvqixVXO2LrbmVz3tjVeB7C8J/ZekOE6AvZ8KyxtAAHPBMLGkett+mbl6Aza4MBbxDjm0sXOUFHT5HVweqdLXsCUO4qMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-7564b7a9490so557579137.1
-        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 05:54:13 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787662453; x=1788267253;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Edl2lWOUjsEtEInWLfhIYEcuR1CiWfh9q8iac3qNwFA=;
-        b=OsFQ0R3i5FpklIcIT6xNcRhjxu/EucOlxUA6o+d7Jt0QshFLTX2DeWZgPfFfWcbihA
-         cS/blJMilyaVtOOImD6wDaswMUnoCQ6iaiLnK2w6yp/EAALWlagrN+aJB2Xrx9tdo1tf
-         md7RjGUCcEzPk+iGFlYOWyN0uerzuBxdbVVjXWbBkNVO1VsJkOUUsAgEf572xo3+9c4c
-         9khbvIEOfCcKsNxrVtAZgTibvDB4VwXcwNxEuvdz4E0cyPa74ENioiig5U4FYQUfUxrR
-         TwysYVm2kwz+q+4EN6lE8uxKvpTrmJjjLob+RqX7gg4BUfHJJE8NrETU80k2frd0A3x/
-         I92g==
-X-Forwarded-Encrypted: i=1; AHgh+RqtvetPuN5XVtsFn8XwhY7l4+KbDLDt6OjY7sW/wPHrbKjuASK5yrID6R0eSLC2KtMg4SAokxZNFCt+@vger.kernel.org
-X-Gm-Message-State: AFuF++l1Ms7c+4ksKiOQSOHRZ0PY1Bv1Wrpf0ININhVfpkXG3RtY4/wZ
-	OaR2wtiQX2V2okxyZzr7eKg5y3Ip9d+6IxhzN2N7dSqgiPMEprhbfbMo8tK0As54+HQ=
-X-Gm-Gg: AR+sD13UfgEhkXHdTgfIpKhebktn/rjNMaE/TCbaPjYIVEfs69r7yHRQKEixLDoZr77
-	Y0G+lofGJHXocfaoverWKXPxjXwoqHtaBwwsnIpPmDT2FjtlyTneI8rVQQIhmNPUVXEI1mSb3Sn
-	alV5iMfS0uI5QfEP4+gn7tJ4ygwmhbBH+w4s3akLl2r2uTXyXOG0hfskv+/lV76az3o8NyT/lvN
-	+GJkbr88trvxD6qO2qqP/RW+ugANKM5+I4KUvMra2BmOtMT3O6kYkl8UsVenqy2uavi1hJeJJ8S
-	5FJZCYdZYPhHWeyyuM4PGGXawwdbcU0b9JJaswZQXXz3wZ3KKGZPrI9g/KDVY9uD+50ifC3xiYz
-	DmbrJ3AM2hdssxRvqdnQyf1l8Q8stIqjfIEgXN0iLXLNzjKOuD6sYaidf30uOH+9JrRDUdu73O1
-	x7uqK6sy5O8WdUlSl2h933XhWg/GC1PECWweMRUi3as/br9DTIDI4f5ckQuCRaHU7O1DDgaIF0M
-	/EuIkaFzYyJ+0xdEQXp/ZRraQ==
-X-Received: by 2002:a05:6102:1083:b0:744:d517:b0b0 with SMTP id ada2fe7eead31-77fd560c3a9mr1241632137.10.1787662452632;
-        Tue, 25 Aug 2026 05:54:12 -0700 (PDT)
-Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com. [209.85.217.53])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-97c8345f53esm10476821241.1.2026.08.25.05.54.10
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 25 Aug 2026 05:54:10 -0700 (PDT)
-Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-7564b7a9490so557518137.1
-        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 05:54:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrWeLLE8r6E5tTlTX7ANYRXfWOyycl6J2+tn+VRINleDN2KRs4r88OnYQi2E7jvOoPXhb0QnWql5LfQ@vger.kernel.org
-X-Received: by 2002:a05:6102:3b15:b0:736:f95c:4bd4 with SMTP id
- ada2fe7eead31-77fd370acd5mr1148905137.6.1787662449703; Tue, 25 Aug 2026
- 05:54:09 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D11553D47B3;
+	Tue, 25 Aug 2026 12:59:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.37
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787662774; cv=fail; b=FhL4MPWDjmRZQBcoOquhkd2SCZVtA55FUazBK2uj7n+256aQb1Bkyg8VghUNyjQwqlX5vLrPV0/r58SySszMR87Iwy6KYgVhr1zaNws5aGRXwKwRDb6+MCTa0pXI2Kfa9dDV+4rga6GEhkfj5gjH5qkIUDEONNKStEyDJouNGBg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787662774; c=relaxed/simple;
+	bh=Jy0ytjAQ2Obc7cuOMaqoLc6V1FfLKx2h0M6dt2lawTM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=i1cRSu2loGukIDbwRRz5cYulQ6mjg/lPhygd5viv0zjOoCHpsh/q8H1ovbIu0dwDxEpeF2+8mtwfgoPzMPfF1yfbH/SSlnSDbNItrT3nkCWSqu+dZtT+JARX0ZWQ3JjZwA8NOSRmBjF63j6pr9aA+pf0OdX1MqlNJn5kGE/t6q4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=CCiEKQ/3; arc=fail smtp.client-ip=40.107.130.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="CCiEKQ/3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SA4893w0IuOsQUrcwL71QZmnFegs3utyJwY+eDECKZg59N+gowy+SL3oFyOFovsc3MQ5aJkzVuQ9TLYLufSmxa2m1r+cH5pTBfhFUvrCbxPwdfBj1MWBXEZzRVTfOEIYchiaIBanCnZYougGi3UQ65e9ife2ujqf7aTxyhbTwkSGR0XYQhpIL4Cs9waXOQfUXJkAZ/RgL7hScbKunYsDw/j/hXLyPe7C/RrEL5+cfYwMnDdOtoBO6916R/wieqJfGq1f02/836y8+EUxsD5SEkzBxYJU+WCtyvlnbKuFryBfYlaLeK2pbPksWEBb57TRk2Tg4ni0XIt8uUyM+OAVZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ijhTo2BDKPqbCL7RAQ2C8XhzIChtfkjGHv6eq3z7+Ds=;
+ b=T8mSTQkDUezlTQ+IvSA/lC/ax496g/qc+moo1Ap+wm9DOH/ICiCcTxPJCV6JKhY5moWShUP/Foersm5wJZjfM/L3Cx23BlPI2yfBDUCfIU0/0U73J9HeHO+irNVT1bpw2DL+3zrewXmuk1cQIqZYQ7YmM7KQP5Fj5ibol1GDiSUNF9dMEBk/F566vnoBG7wBkwBEst7KkUom2R2y6h7QTTEU93s5AX9KdELiynVHO3Dh03K0ujIwlfcwAM/rUDJrhMrKn19URY1SlKJ+l+VJ2aD/juNKHjDIywIZ9oFGlM2ajBGWbWx+qvxKQBkuvOSww7Upq9BxcLJy/Y98fQLQVA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ijhTo2BDKPqbCL7RAQ2C8XhzIChtfkjGHv6eq3z7+Ds=;
+ b=CCiEKQ/3PkTZi+QzxcjRO+lz6p9tvOXe//iirggQutjeAdWrJvv4yvXVj8C/5JNLz43JhGD2BG6k08A0Jg0Ol7qa4DN113GIJmeKTI/8UBzmZjOYzBeTKXQsx7b6ckfK9dfwaC6Eej5LHEVJazdlDJson45I3hR5/m1Mbe2JWSJp2KUl0rnvmXr5Xv5KZMa94jzAx5vcByiT+9JwNuLb3cJvx2+oZx1vpanUfh9rhj0q8IfqY6rt8VhYLXmTuwFZf6FiwISROqH6l1ODv+ehIcWEm+0xfgvT0oSiCH+91Gaf0wka/cb27DlJO/TCRvz/sT5+26c8RqkaG9wOCh1+9A==
+Received: from AM8P191CA0016.EURP191.PROD.OUTLOOK.COM (2603:10a6:20b:21a::21)
+ by PAVPR10MB7092.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:316::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Tue, 25 Aug
+ 2026 12:59:29 +0000
+Received: from AM2PEPF0001C712.eurprd05.prod.outlook.com
+ (2603:10a6:20b:21a:cafe::89) by AM8P191CA0016.outlook.office365.com
+ (2603:10a6:20b:21a::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.12 via Frontend Transport; Tue,
+ 25 Aug 2026 12:59:29 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ AM2PEPF0001C712.mail.protection.outlook.com (10.167.16.182) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.3 via Frontend Transport; Tue, 25 Aug 2026 12:59:29 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 25 Aug
+ 2026 15:05:22 +0200
+Received: from localhost (10.252.23.181) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 25 Aug
+ 2026 14:59:28 +0200
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Date: Tue, 25 Aug 2026 14:54:23 +0200
+Subject: [PATCH 1/2] dt-bindings: usb: gpio-sbu-mux: Add compatible for
+ FUSB340
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260819143553.2478984-1-claudiu.beznea+renesas@tuxon.dev> <20260819143553.2478984-4-claudiu.beznea+renesas@tuxon.dev>
-In-Reply-To: <20260819143553.2478984-4-claudiu.beznea+renesas@tuxon.dev>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 25 Aug 2026 14:53:57 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXoS=LZ94aYQ=Tm4n+R_L-1t7gZQ2vvHVZMfanxb=1yHg@mail.gmail.com>
-X-Gm-Features: AcwNN1UP9Sje02JijQSgDxiN9g9qyPwNFW9wB2YgLhT-mIKpO45iKkt9fOTFuRw
-Message-ID: <CAMuHMdXoS=LZ94aYQ=Tm4n+R_L-1t7gZQ2vvHVZMfanxb=1yHg@mail.gmail.com>
-Subject: Re: [PATCH v5 3/5] pinctrl: renesas: rzg2l: Unify the power source handling
-To: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-Cc: linusw@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, magnus.damm@gmail.com, 
-	prabhakar.mahadev-lad.rj@bp.renesas.com, linux-renesas-soc@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260825-usb-fusb340-v1-v1-1-2191179b0661@foss.st.com>
+References: <20260825-usb-fusb340-v1-v1-0-2191179b0661@foss.st.com>
+In-Reply-To: <20260825-usb-fusb340-v1-v1-0-2191179b0661@foss.st.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, "Heikki
+ Krogerus" <heikki.krogerus@linux.intel.com>
+CC: Marek Vasut <marex@nabladev.com>, <linux-usb@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-stm32@st-md-mailman.stormreply.com>, Fabrice Gasnier
+	<fabrice.gasnier@foss.st.com>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM2PEPF0001C712:EE_|PAVPR10MB7092:EE_
+X-MS-Office365-Filtering-Correlation-Id: 746ccf4d-5947-40e5-cd9e-08df02a8b308
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|23010399003|376014|7416014|36860700016|11063799006|10067099003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	EltSc6V8L69BAmKk3nUwLipgSTGg2Crh0qkQba0n+uflXZAHcXTn/uoqPx+WkJk5d35jciDY2y1EYXxgie7v7TUbVczo/J9h8hS9POW0Xh0vNsHRQKEuwdaDQUir5GMd3AuQ+QWVZdqRw235v7GN54j925a9S9dldw30vbmb4FaHRQgsSTK2dUWmyFRobgy/5m17h/UnJE6/2dI8XUBMY97ci33Ljoq29Vtrz/QC1SL2xjb0/g1KY3f0kxfG0DCIA+wTwoWe2vtuqbUo7Mga/PMNgIy0JRHQHpgLXXwt12zvvomXstXhcmI3aAp+PID7R0ENnLMwsNSbANsClJo9ymN78IgH5W4fbbeh1VogPOvIJy4WSiIFvdbjN70qMJRcq/TQGv6zre5e1VkbCoXh9j+z2Cgmd+ruIueSvjNm+fjq0dOXVaRnuBSrQ9DpRzGAvF0rV3amMD8XH00U+bDacsgEMqQwV/0JPi/RgKw30DwRooszvsuokcGFhR4LF7ESw6LNUPk+eMK69igBHdL1JRzrQlP+3RNxDyX2c4HLlaOGkLfnno2cDv7jUd1HZ/DsLlgjvml/ZvkJiawyDNaUtkzBqbhXRa+3xevPoQeItTyTinjXVfmXoiXrb031paJO2/XBt1BaQGLHdm2CTrK364RhF6UR8xB02G3tQnvNXJJf2GHe8zjLuPeWVjPiPgI3TUsM31zOnAnzLBNKR7Lbaw==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(23010399003)(376014)(7416014)(36860700016)(11063799006)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	hfMHoin7Pl2eEYW3omMn5o/yA+X1mRH1DE1IJAxL+HSoNl+oBPNKUBcw/5baGDWpXQpPEwD7J2m6RUgZ2FYKO26aXi+Q308pndbEu0NjNbluLJJl7HIV5xvBtg1UB5Vt69OXNEcjmRrMIgLm73jm3qmHHKGQkS5uuTt8Ce9RBW+y7alC/qaBS/eQvrjwYg5sXDnKtnOYwdlMKmHbh/CA/p2FUqn1BSgw5D9F9wq9MXLGOr6cV3IBcxYWxp0k/Z3iMhLFavjXqZNnta4rNu/N/eBo0NSj1+lUmsP6YBtWSFbC3WYq9KzuvysaL39C5egMxamefd/bAO425mS9y8kmFgMOQYWomLErTDBqxPHWS5SOuO7sRqW0i1mPho0nS1P1yRK3JaMRPo1yLbdOxkidVDlY7qkeL8eXe/04doXaOMi7ZRbs7us4lC3eXyamD+Hr
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2026 12:59:29.0448
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 746ccf4d-5947-40e5-cd9e-08df02a8b308
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM2PEPF0001C712.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR10MB7092
 
-Hi Claudiu,
+Add a compatible for the FUSB340 GPIO-based 2:1 SuperSpeed switch
+with enable-gpios and select-gpios controls. The switch can be used
+in Type-C applications where a reversible cable requires a switch.
 
-On Wed, 19 Aug 2026 at 16:36, Claudiu Beznea <claudiu.beznea@tuxon.dev> wrote:
-> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
->
-> The previous code handled power sources using a mixture of power
-> source specific definitions and lookups in the available_ps[] array.
-> Unify the power source handling by introducing
-> struct rzg2l_pinctrl_ps_desc, whose purpose is to describe a power
-> source through its power source value, associated register value,
-> associated capabilities (e.g. Ethernet), and associated IOLH index.
->
-> Introduce two new functions, rzg2l_ps_to_desc() and
-> rzg2l_pwr_reg_val_to_desc(), using the
-> RZG2L_PINCTRL_PS_DESC_MEMBER_TO_DESC_FUNC() macro, as their
-> implementations are similar.
->
-> These functions retrieve a power source descriptor based on either a
-> power source value or a power source register value. Other functions
-> that need to perform power source specific operations can call them to
-> retrieve the corresponding power source descriptor.
->
-> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Suggested-by: Marek Vasut <marex@nabladev.com>
+Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+---
+ Documentation/devicetree/bindings/usb/gpio-sbu-mux.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Thanks for your patch!
-
-> --- a/drivers/pinctrl/renesas/pinctrl-rzg2l.c
-> +++ b/drivers/pinctrl/renesas/pinctrl-rzg2l.c
-
-> @@ -440,7 +439,65 @@ struct rzg2l_pinctrl {
->         u32                             clone_offset;
->  };
->
-> -static const u16 available_ps[] = { 1800, 2500, 3300 };
-> +/**
-> + * struct rzg2l_pinctrl_ps_desc - RZ/G2L power source descriptor
-> + * @caps: Capabilities that applies to the power source
-> + * @iolh_index: IOLH index
-> + * @ps: Power source value
-> + * @pwr_reg_val: Power source register value
-> + */
-> +struct rzg2l_pinctrl_ps_desc {
-> +       u32 caps;
-> +       enum rzg2l_iolh_index iolh_index;
-> +       u16 ps;
-> +       u16 pwr_reg_val;
-> +};
-> +
-> +#define RZG2L_PINCTRL_PS_DESC(_ps, _pwr_reg_val, _caps, _iolh_index) \
-> +       { \
-> +               .ps = _ps, \
-> +               .pwr_reg_val = _pwr_reg_val, \
-> +               .caps = _caps, \
-> +               .iolh_index = _iolh_index, \
-> +       }
-> +
-> +/* Keep the entries with .caps set in the first positions. */
-> +static const struct rzg2l_pinctrl_ps_desc available_ps[] = {
-> +       /* Ethernet I/O domain voltage 2.5V */
-> +       RZG2L_PINCTRL_PS_DESC(2500, 2, PIN_CFG_IO_VMC_ETH0 | PIN_CFG_IO_VMC_ETH1,
-> +                             RZG2L_IOLH_IDX_2V5),
-> +       /* I/O domain voltage 1.8V */
-> +       RZG2L_PINCTRL_PS_DESC(1800, 1, 0, RZG2L_IOLH_IDX_1V8),
-> +       /* I/O domain voltage 3.3V */
-> +       RZG2L_PINCTRL_PS_DESC(3300, 0, 0, RZG2L_IOLH_IDX_3V3),
-> +};
-> +
-> +#define RZG2L_PINCTRL_PS_DESC_MEMBER_TO_DESC_FUNC(_name, _desc_member, _caps)  \
-> +static const struct rzg2l_pinctrl_ps_desc *_name(u16 _desc_member, u32 _caps)  \
-> +{                                                                              \
-> +       const struct rzg2l_pinctrl_ps_desc *desc = NULL;                        \
-> +                                                                               \
-> +       for (unsigned int i = 0; i < ARRAY_SIZE(available_ps); i++) {           \
-> +               if (available_ps[i]._desc_member == _desc_member) {             \
-> +                       if (available_ps[i].caps) {                             \
-> +                               if (available_ps[i].caps & caps) {              \
-
-"_caps", as pointed out by Sashiko.
-
-> +                                       desc = &available_ps[i];                \
-> +                                       break;                                  \
-> +                               } else {                                        \
-> +                                       continue;                               \
-> +                               }                                               \
-> +                       } else {                                                \
-> +                               desc = &available_ps[i];                        \
-> +                               break;                                          \
-> +                       }                                                       \
-> +               }                                                               \
-> +       }                                                                       \
-
-You can reduce indentation, and simplify the code, by restructuring
-the checks:
-
-    for (unsigned int i = 0; i < ARRAY_SIZE(available_ps); i++) {
-            if (!available_ps[i]._desc_member == _desc_member)
-                    continue;
-
-            if (!available_ps[i].caps) {
-                    desc = &available_ps[i];
-                    break;
-            }
-
-            if (available_ps[i].caps & caps) {
-                    desc = &available_ps[i];
-                    break;
-            }
-    }
-
-> +                                                                               \
-> +       return desc;                                                            \
-> +}
-> +
-> +RZG2L_PINCTRL_PS_DESC_MEMBER_TO_DESC_FUNC(rzg2l_ps_to_desc, ps, caps)
-> +RZG2L_PINCTRL_PS_DESC_MEMBER_TO_DESC_FUNC(rzg2l_pwr_reg_val_to_desc, pwr_reg_val, caps)
->
->  static u64 rzg2l_pinctrl_get_variable_pin_cfg(struct rzg2l_pinctrl *pctrl,
->                                               u64 pincfg,
-
-> @@ -1191,32 +1240,21 @@ static int rzg2l_set_power_source(struct rzg2l_pinctrl *pctrl, u32 pin, u32 caps
->         return 0;
->  }
->
-> -static bool rzg2l_ps_is_supported(u16 ps)
-> +static bool rzg2l_ps_is_supported(u16 ps, u32 caps)
->  {
-> -       unsigned int i;
-> +       const struct rzg2l_pinctrl_ps_desc *desc = rzg2l_ps_to_desc(ps, caps);
->
-> -       for (i = 0; i < ARRAY_SIZE(available_ps); i++) {
-> -               if (available_ps[i] == ps)
-> -                       return true;
-> -       }
-> -
-> -       return false;
-> +       return !!desc;
-
-No need for the "!!".
-Then this function becomes very simple, and you can just call
-rzg2l_ps_to_desc(ps, caps) in the callers instead.
-
->  }
->
-> -static enum rzg2l_iolh_index rzg2l_ps_to_iolh_idx(u16 ps)
-> +static enum rzg2l_iolh_index rzg2l_ps_to_iolh_idx(u16 ps, u32 caps)
->  {
-> -       unsigned int i;
-> +       const struct rzg2l_pinctrl_ps_desc *desc = rzg2l_ps_to_desc(ps, caps);
->
-> -       for (i = 0; i < ARRAY_SIZE(available_ps); i++) {
-> -               if (available_ps[i] == ps)
-> -                       break;
-> -       }
-> +       if (!desc)
-> +               return RZG2L_IOLH_IDX_NA;
->
-> -       /*
-> -        * We multiply with RZG2L_IOLH_MAX_DS_ENTRIES as we have
-> -        * RZG2L_IOLH_MAX_DS_ENTRIES DS values per power source
-> -        */
-> -       return i * RZG2L_IOLH_MAX_DS_ENTRIES;
-> +       return desc->iolh_index;
-
-Perhaps
-
-    return desc ? desc->iolh_index : RZG2L_IOLH_IDX_NA;
-
-?
-
->  }
->
->  static u16 rzg2l_iolh_val_to_ua(const struct rzg2l_hwcfg *hwcfg, u32 caps, u8 val)
-
-> @@ -1797,7 +1839,7 @@ static int rzg2l_pinctrl_pinconf_set(struct pinctrl_dev *pctldev,
->
->         /* Apply power source. */
->         if (settings.power_source != pctrl->settings[_pin].power_source) {
-> -               ret = rzg2l_ps_is_supported(settings.power_source);
-> +               ret = rzg2l_ps_is_supported(settings.power_source, cfg);
->                 if (!ret)
->                         return -EINVAL;
-
-As rzg2l_ps_is_supported() returns a bool, there is no need to keep its
-return value in "ret" for later use.
-
-After eliminating rzg2l_ps_is_supported(), this can just become
-
-    if (!rzg2l_ps_to_desc(settings.power_source, cfg)
-            return -EINVAL;
-
-Gr{oetje,eeting}s,
-
-                        Geert
+diff --git a/Documentation/devicetree/bindings/usb/gpio-sbu-mux.yaml b/Documentation/devicetree/bindings/usb/gpio-sbu-mux.yaml
+index 793662f6f3bf..c0e60848d8ab 100644
+--- a/Documentation/devicetree/bindings/usb/gpio-sbu-mux.yaml
++++ b/Documentation/devicetree/bindings/usb/gpio-sbu-mux.yaml
+@@ -22,6 +22,7 @@ properties:
+           - nxp,cbdtu02043
+           - onnn,fsusb42
+           - onnn,fsusb43l10x
++          - onnn,fusb340
+           - pericom,pi3usb102
+           - ti,tmuxhs4212
+       - const: gpio-sbu-mux
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.43.0
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
