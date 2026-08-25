@@ -1,124 +1,142 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4977340D9D
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 17:33:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46EF84756CD
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 17:36:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787679186; cv=none; b=Azr+Wy7/uSGtD+jaiD3iHz5lUdenIrXhiQpo7TvV8xOkLEstc/N1UkxdggLOaP1G0ez9Mfv9zRX87tEuU8n9Euzpe8ckZdsl+YNE3wwjIuA+cXsopfjRC2QTlig4Sfxh1kfbwOh8apUhhtubDHVxtsnwkom10qppkVN35ymnOsU=
+	t=1787679371; cv=none; b=du3iGzfdETAs3xzqDszRQmQ60BNz+87pxptWuaBQa0E7yGQTieVYeABqMm+y/A+UXlWMvFSut/w5f5yK3soA6t9mZOE4nv6naVH7WIPP+Qsp1b/uvg7GucT+U8tSbgC79uFC/84jXwY5CMvbW++AWIMzEIXVSKyVaGKBVF3/TxE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787679186; c=relaxed/simple;
-	bh=ra3X+fMppIOXTGakwbsyivyJzRtJ3/G9A5Ft3K2EcUs=;
+	s=arc-20240116; t=1787679371; c=relaxed/simple;
+	bh=0YEsPM1TVakoUbUjZDzjkzlAcEaGzmSudYEQJiUOgV8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ZbIF7C2SiANz22/D7yqsOAS1RR4Zg3Ni6Fiw+WiOJOw5HUI/9qTFnY7DNBeX+fMfz9LSO5TRbzX+sviJZDZcMWREmmW5+sm9JQRw0+OUEcrAC9/cBH5uTSUgUHetGzoPQFDFGkmJ79hOn73FrHOMKVrOIpPFVbY0H3Ku3y1iIB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nfU5LymF; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Od5GMI0o3yUURx+GSJM6H1uNLxRs6Tiw0mUz8JH9CPiFY0eeXUdK4/ezDcCrcTd48/MYBv4HdrZtjXGSjswvTfDsMXL03oX/7m/PNHPtlK8+bPzgBHkiXbqFKVwHfz38L/zvmJwdGFvoZZpZ2Izs6GiaXSIBZqn+VGIuobrZLq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UcD7f0dY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nfU5LymF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD6791F000E9;
-	Tue, 25 Aug 2026 17:32:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UcD7f0dY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 158011F000E9;
+	Tue, 25 Aug 2026 17:36:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787679179;
-	bh=l3u5d4aQNlvNraScxa3nedErTsjHQzi/9PCeVAa++LQ=;
+	s=k20260515; t=1787679367;
+	bh=ZlZiutI7XNGPr4j9CADZGXBtP0RCvYn7c97OhXfZmF0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nfU5LymFhWgBxJNepl/vssq6wNX+H7XQg9/AFYBJdIzFudwpl2ljlPoG/BQEJzPZA
-	 RJcMsTzv6tCayjfsuHOkkc04nli5DAl9D6wQ7LOMBo4xdiRla5AGYDLX1sa3dNDAMI
-	 jh8qXTrdACtSLm4fB/bBf97rofdNSuNdgIK6emE1gnkIExjFoQv+5AJ0X9hwnMDcMx
-	 nER9dSCf0q9R/iARcRRyHmRzPzuxV/ufxTwBTTe7hHqfWQrIru6d5xm21qbWTCPqTY
-	 5eHdLOl1BTihezq9jU0lKC2i2qJ/Mv+QbHQkhpluvS0Q0SS+gtTr/AxzHcxkqFPdlY
-	 +X3jqVXixEFvA==
+	b=UcD7f0dYRckApY2vPgbUULJ8/s7xCZ5qwwRhqnxPgPtAPM0efbUkWmd4aHYVUG8RD
+	 iBRWGj4sGOss89sY3HxqRiwp81rG+NdytrFQ9jCZ4nIvh/C9xGbCvCwucD9NVHDO+9
+	 zTeP/w/y102rnjityySgoR3VgZVRW8VEn4UMSU2BfDPlmaaQUgryNzhLm+5c1wB9Lf
+	 aGJTjQZ8XsdIl4MuKXdaw2w80KrARjzRfzGAiM8xQoMzvKCCp+gAfkhTMSVbLNsKsA
+	 1CehrfV9y7A2xUHbo/Z3pDqtqo/t28wNoVeZX1ute24MhqU5TMHSUKIsrTBXFCgcKk
+	 mXD0J5sDzIh8A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 12/18] spi: cadence-quadspi: enable PHY for indirect
- writes
+Subject: Re: [PATCH v9 14/18] spi: cadence-quadspi: reprogram PHY DLL on
+ runtime resume
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Santhosh Kumar K" <s-k6@ti.com>
-Cc: "Miquel Raynal" <miquel.raynal@bootlin.com>, "Michael Walle" <mwalle@kernel.org>, "Vignesh
- Raghavendra" <vigneshr@ti.com>, "Takahiro Kuwano" <takahiro.kuwano@infineon.com>, robh@kernel.org, conor+dt@kernel.org, "Richard
- Weinberger" <richard@nod.at>, "Pratyush Yadav" <pratyush@kernel.org>, devicetree@vger.kernel.org
-In-Reply-To: <20260825171737.776052-13-s-k6@ti.com>
+Cc: "Pratyush Yadav" <pratyush@kernel.org>, robh@kernel.org, "Miquel Raynal" <miquel.raynal@bootlin.com>, "Vignesh
+ Raghavendra" <vigneshr@ti.com>, "Michael Walle" <mwalle@kernel.org>, conor+dt@kernel.org, "Takahiro
+ Kuwano" <takahiro.kuwano@infineon.com>, "Richard Weinberger" <richard@nod.at>, devicetree@vger.kernel.org
+In-Reply-To: <20260825171737.776052-15-s-k6@ti.com>
 References: <20260825171737.776052-1-s-k6@ti.com>
- <20260825171737.776052-13-s-k6@ti.com>
+ <20260825171737.776052-15-s-k6@ti.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 17:32:58 +0000
-Message-Id: <20260825173258.DD6791F000E9@smtp.kernel.org>
+Date: Tue, 25 Aug 2026 17:36:06 +0000
+Message-Id: <20260825173607.158011F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Missing verification of the current operation frequency (`op->max_=
-freq`) against the calibrated PHY frequency, potentially causing the PHY to=
- be incorrectly enabled for uncalibrated writes.
+- [Critical] Disabling 'use_tuned_phy' on DLL resync failure bypasses the P=
+HY DLL while continuing to run at high speed, causing silent data corruptio=
+n.
+- [Medium] Iteratively reprogramming the global PHY DLL for all chip select=
+s on runtime resume causes redundant delays and overwrites state.
 --
 
-commit f08af848763cec6062f2de1a309900c45e4f895a
+commit 9b2d8bb539c61392a12afe8d25c966ba88c70398
 Author: Santhosh Kumar K <s-k6@ti.com>
 
-spi: cadence-quadspi: enable PHY for indirect writes
+spi: cadence-quadspi: reprogram PHY DLL on runtime resume
 
-This commit enables PHY for indirect writes of at least 1KB, restricting
-PHY writes to NAND devices where a write op template was provided. It also
-cancels the indirect write before disabling PHY in the error path to avoid
-timeouts while the controller is still waiting for AHB data.
+The PHY DLL loses its programmed delay values and lock when the OSPI
+controller is power-gated during runtime suspend. On resume,
+cqspi_controller_init() reinitialises the controller but does not
+touch the PHY DLL registers, leaving the DLL in an unlocked state.
+Any subsequent PHY read or write would then fail at the cqspi_resync_dll()
+call inside cqspi_tune_phy().
 
 > diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-=
 quadspi.c
-> index d38a0253e4bda..20ece785c97a4 100644
+> index 530335f002fb4..94d67e8bcfbc4 100644
 > --- a/drivers/spi/spi-cadence-quadspi.c
 > +++ b/drivers/spi/spi-cadence-quadspi.c
 
 [ ... ]
 
-> @@ -1370,18 +1372,32 @@ static int cqspi_write_setup(struct cqspi_flash_p=
-data *f_pdata,
+> @@ -4042,6 +4042,28 @@ static int cqspi_runtime_resume(struct device *dev)
 > =20
->  static int cqspi_indirect_write_execute(struct cqspi_flash_pdata *f_pdat=
-a,
->  					loff_t to_addr, const u8 *txbuf,
-> -					const size_t n_tx)
-> +					const size_t n_tx,
-> +					u32 post_config_max_speed_hz)
->  {
->  	struct cqspi_st *cqspi =3D f_pdata->cqspi;
->  	struct device *dev =3D &cqspi->pdev->dev;
->  	void __iomem *reg_base =3D cqspi->iobase;
->  	unsigned int remaining =3D n_tx;
->  	unsigned int write_bytes;
-> +	bool use_tuned_phy_write;
->  	int ret;
-> =20
->  	if (!refcount_read(&cqspi->refcount))
->  		return -ENODEV;
-> =20
-> +	/* Use PHY only for large writes at the calibrated rate */
-> +	use_tuned_phy_write =3D n_tx >=3D CQSPI_PHY_MIN_INDIRECT_WRITE_LEN &&
-> +			      f_pdata->use_tuned_phy &&
-> +			      f_pdata->phy_write_op.max_freq =3D=3D
-> +				      post_config_max_speed_hz;
+>  	cqspi->current_cs =3D -1;
+>  	cqspi->sclk =3D 0;
+> +
+> +	for (cs =3D 0; cs < CQSPI_MAX_CHIPSELECT; cs++) {
+> +		struct cqspi_flash_pdata *f_pdata =3D &cqspi->f_pdata[cs];
+> +
+> +		if (!f_pdata->use_tuned_phy)
+> +			continue;
+> +
+> +		cqspi_phy_set_dll_master(cqspi);
+> +
+> +		cqspi_set_dll(cqspi->iobase, f_pdata->phy_setting.rx,
+> +			      f_pdata->phy_setting.tx);
+> +		ret =3D cqspi_resync_dll(cqspi);
 
-[Severity: High]
-Does this logic correctly handle operations where the command-specific speed
-limit (op->max_freq) is lower than post_config_max_speed_hz?
+[Severity: Medium]
+Will this iteratively reprogram the global PHY DLL for all chip selects on
+runtime resume, causing redundant delays and overwriting state?
 
-If a large indirect write is executed with an op->max_freq less than
-post_config_max_speed_hz, the hardware clock will be lowered to op->max_fre=
-q.
-However, this condition only checks the controller's post-configuration
-maximum speed against the calibrated PHY frequency, completely omitting a
-check against the actual frequency of the current SPI operation.
+The PHY config register (CQSPI_REG_PHY_CONFIG) is global, yet the resume lo=
+op
+iterates over all chip selects, writes each CS's RX/TX taps to the global
+register, and triggers a full DLL resync each time. Because only the final
+CS's taps remain active in hardware, the driver's cqspi_tune_phy() function
+will redundantly re-sync the DLL again on the next transfer to any other ch=
+ip
+select, completely negating the purpose of pre-locking them during resume.
 
-Could this lead to the PHY being incorrectly enabled using high-speed DLL
-tuning values while operating at a lower clock speed? Applying DLL delay
-values calibrated for a high clock speed to a lower clock speed could cause
-the PHY data transmission eye to shift, potentially leading to incorrect
-sampling and silent data corruption on flash writes.
+Furthermore, master DLL lock is independent of the slave RX/TX taps.
 
-The read path explicitly validates op->max_freq via cqspi_use_tuned_phy(),
-should the write path perform a similar validation before enabling the PHY?
+> +		if (ret) {
+> +			dev_warn(dev, "cs%d: PHY DLL resync failed on resume: %d, disabling P=
+HY\n",
+> +				 cs, ret);
+> +			f_pdata->dll_locked =3D false;
+> +			f_pdata->use_tuned_phy =3D false;
+
+[Severity: Critical]
+Does disabling 'use_tuned_phy' here on DLL resync failure bypass the PHY DLL
+while continuing to run at high speed, causing silent data corruption?
+
+If the PHY DLL resync fails during resume, setting 'use_tuned_phy =3D false'
+causes subsequent flash operations to bypass the PHY data capture logic.
+
+However, the SPI clock frequency (op->max_freq) is not downgraded and
+continues running at the high PHY-tuned speed (e.g., 150-200MHz). The
+controller's non-PHY fallback cannot reliably sample data at these high
+frequencies, resulting in garbage data being read from or written to the
+flash.
+
+> +		} else {
+> +			f_pdata->dll_locked =3D true;
+> +		}
+> +	}
+> +
+>  	return 0;
+>  }
+>
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825171737.7760=
-52-1-s-k6@ti.com?part=3D12
+52-1-s-k6@ti.com?part=3D14
