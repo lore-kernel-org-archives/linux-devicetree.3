@@ -1,177 +1,106 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DDD340243B
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 13:44:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5379D46C4AA;
+	Tue, 25 Aug 2026 13:46:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787665495; cv=none; b=JaLyp5Hv22H5zx07ryTN9KiH12ArA6VWwOHwWYquF/qhgUPKW7KNbKGsaqbGJ3YMLWYS8LdChA27z4GbklEokCEny9o2SiHhSHarrqgQ2mR3XkLXJk2mjrPvWGp5QIvXtf/EtRcqehQN70/5yPMIcWg7ygWPIdiFrGvdTZTUHL0=
+	t=1787665598; cv=none; b=upgwcQ+MNNYxFnuzVAGMQ9WUnuNnXiNXfudiD0r/DzzBv4hL8H6/evtN6RllJAZzENkX1ETUYmyqZjZU1QkTkV7a+WMTaIj7Vqjc4y9AWfodtiqAzl1jgMYLHhVUh0QSfDMnlUyQoky/vTcTMibmNAXiYNqvGlSB1L7WpFIxheI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787665495; c=relaxed/simple;
-	bh=P5WYgFdBB2WI7NKSLc+xkQveSUZZ4oR4RAnxRZ3sOk4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=iNpR+lmOFHAyb1iMMYVBxiaidVqtnTUeoWUiKMifSJUcFiY/RPFjgkSqF8AQlu2M9hGS6JIbgMAWYtgScoktJjeBgg2fNv+76h32C7AhoLSvmaAWZ4tzo8ZWABiJujp4bDKtmjDAHFxmOAtkmMxFCsq8vzJ6TUJ9kqzecAj7CY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dK32DNjg; arc=none smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dK32DNjg"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c2055573c8cso737346566b.3
-        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 06:44:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787665491; x=1788270291; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FWi5OWCgDbdxS/z+vG1uBzNcpx684WDjQnVfCGs5vMo=;
-        b=dK32DNjg2scjX673JNJzWSquArEbN6lfZ+BV7iTjzCBBg3Plg74V1BLyPqifApojqr
-         Lb9yDXxmFAg/nkVntEc8pW4aP4BopdzVENDYZHFoqoPVVuVwQv0U85+iqSx4AuNkacfW
-         tW9mOrehmpbSwn24G30MyiLEBC2oK+iCzdaT88imi24lPKBJNnZGkdbrJyb1z9GdKQZg
-         lWihaeiBhDs5MFqTGkS1RX3llc8PCaoTiMcYuCzHKqHww6uPcN0fGSfhe1koQ/ZJenOO
-         gSQmKBdexhX6+nDTWm18mzqH0p783MoyQs02S37ionpGGMtM93pXRl+x1K4AeichmhqK
-         Tzsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787665491; x=1788270291;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FWi5OWCgDbdxS/z+vG1uBzNcpx684WDjQnVfCGs5vMo=;
-        b=cPttYwTP6MSlt9b+K19r4WgveU/OHaj4NVzP7Qmt8s/rbGOxfFYARw/Es2i4LoP4sJ
-         yheG7KuPLBx53aX6umQskSLhJJmPTeASHamkKomLeXxb0JFEyes7Z4VUtIAS5a52qmrP
-         vYQvSoueccLou2CKOW8DPcUiT8vbbTKgYZVzz8xPixzwwP+4ILoFNdv+TBWuf+qImfiT
-         e7eb2Dj5qhmJ9ZEgT9K/W7kEreDePwR55SOGb6SRep4m5GXsrsvmEsUHjm0fkxQnQxME
-         oWX1v4NtTy+76G/AykXTuc1OvrAzxnCTchETSWtplWxslEawvm9BHbedKBns0o1HHEhx
-         ZLHw==
-X-Forwarded-Encrypted: i=1; AHgh+Rom7/qo/AiX5RBdh8U1YUlugncawabmIHgUHPb6rKaNJ3rF46qZgpnvc5T/uK3c8bnUGNC2ARBBKFN4@vger.kernel.org
-X-Gm-Message-State: AFuF++m5Zwo5pJWQjZ1azYJsXXTLG/AE7nv+ptn9hRXtbFO0uFUqz9ob
-	bIwpO0J0oQlofXncOZMsNE4ebA64Gbk66/3auqf4282ks76eGMbpveDi
-X-Gm-Gg: AR+sD10DFHgCAUVswiFXY9zgg/0sQ9MnjZdUuxRz4L0neR+VtJ1+BWtgrS7+x6zhxdd
-	GdWd0M/vI4Uso/sVU48FGwHEIHYZ5jSOu+FdlxvsuX0AQyy+d0m9KNzfF8jfO5vTzRWUPqwNn0R
-	9X8G2wVtEktRQBWzMdtlNbvt41WbTSKzdrowZtuvenHrh8HaKV2I4acGLN6jF6Adqn4mTNemstg
-	WFoXjiYwOJKwot2yrc8YW/4QA9fOb3rBq7G7mbwlfcbWivEtUTUSPpd5I0pTPKlylUOmDS6Tecr
-	qwuH9g94S/RnziOOwVLAX5y2/jjYXn0VAeM/PPk/WSKcovzEFf04qbIYlbFkfKNsKv8KC8B/3dZ
-	JBTYG8sJXYkSQdNTQGghLtpXeUqeW+muze/fwCdaSQr5l73UoFlgqMn7U9DqZf16ctDAW2+ZfIr
-	SDAA9yvpcdinA1EjTvOIYAmXxqvDoiCeClVunWfuqv+kyrsOxIso1s4FQaDxOTBkBG03SDJoVYK
-	HlgPZUwQIOmo1oFE7tZN+fcAmqYB8xCScSwmrIvqr2p0fl71B8KYl1az1i3eo8dqfwJZtl/JDKw
-	arvV4xItPjE8hvXg8It60GG4zKX4ki1bAn4qVf1RCr+5CUOsqDbaFuTAhVFX+yPFd5R23a3cZnV
-	1jgjwwVbJ/062K1it4pdgBvoOqGGFHn8DQ647AAPsmXBOmJXmCquHrn3wnNMIp5DxUNc8299Thf
-	UkxobA
-X-Received: by 2002:a17:907:9701:b0:c24:8af3:c92 with SMTP id a640c23a62f3a-c2504e504bbmr243031766b.3.1787665491183;
-        Tue, 25 Aug 2026 06:44:51 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c249606b59fsm2031244466b.12.2026.08.25.06.44.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 06:44:51 -0700 (PDT)
-Date: Tue, 25 Aug 2026 15:44:49 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Esben Haabendal <esben@geanix.com>
-Cc: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>, "Jonathan
- Cameron" <jic23@kernel.org>, "Lars-Peter Clausen" <lars@metafoo.de>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Martin Kepplinger"
- <martink@posteo.de>, "Sean Nyekjaer" <sean@geanix.com>, "David Lechner"
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- "Andy Shevchenko" <andy@kernel.org>, "Martin Kepplinger"
- <martin.kepplinger@theobroma-systems.com>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v6 7/9] iio: accel: mma8452: Drop unneeded lock acquire
- on read
-Message-ID: <20260825154449.00002f6f@gmail.com>
-In-Reply-To: <87y0dumiga.fsf@geanix.com>
-References: <20260825-mma8452-open-drain-v6-0-9b252804ee80@geanix.com>
-	<20260825-mma8452-open-drain-v6-7-9b252804ee80@geanix.com>
-	<UFc9cC1VeohKw6lxQ8uulsfj9wJ_OqGUgGPTUnTX-zssKZ97aEC0Xi9nsAxv-tcf2DP5e85ElFZ8wPgxwG8l3g==@protonmail.internalid>
-	<20260825121704.00004ed3@gmail.com>
-	<87y0dumiga.fsf@geanix.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	s=arc-20240116; t=1787665598; c=relaxed/simple;
+	bh=mRWayqQ4wjjMoVMzdTT1rAzWvbAxJEF/PCFVYCuhJbo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Ry5buo8RvDVSCEL2ZF3camwrTarCwKGFd7PDVVedbp6kVxyWS7Jy58q6dnIoCbsbzPuSgueGPqBDZQdjkAKtc8gVUJqnXI8eV+KiFnuEp/Gm8LgbPs5UgCSzsufbIyw+hMuHSp7T+gReTcx3u9crISESiUuncfBBWZQaH/fpoio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 018F22024A1;
+	Tue, 25 Aug 2026 15:46:28 +0200 (CEST)
+Received: from dude02.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::28])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <s.hauer@pengutronix.de>)
+	id 1wyrTv-003Hb4-2g;
+	Tue, 25 Aug 2026 15:46:27 +0200
+Received: from [::1] (helo=dude02.red.stw.pengutronix.de)
+	by dude02.red.stw.pengutronix.de with esmtp (Exim 4.98.2)
+	(envelope-from <s.hauer@pengutronix.de>)
+	id 1wyrTv-00000002q5P-2sCh;
+	Tue, 25 Aug 2026 15:46:27 +0200
+From: Sascha Hauer <s.hauer@pengutronix.de>
+Subject: [PATCH v2 0/4] media: rockchip: Add JPEG decoder driver
+Date: Tue, 25 Aug 2026 15:44:05 +0200
+Message-Id: <20260825-rockchip-jpegdec-v2-0-86af859a3266@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACacjWoC/2WNQQrCMBBFr1JmbWQSbAiuvId0ockkHYUkJLVUS
+ u9uLLhy+R7891eoVJgqnLsVCs1cOcUG6tCBHW8xkGDXGBQqjUZJUZJ92pGzeGQKjqxAp41B63W
+ vLbRZLuR52ZPXofHIdUrlvT/M8mt/sdN/bJYChUEpjVJ33yNeMsXwmkqKvBwdwbBt2wfEkwY7t
+ QAAAA==
+X-Change-ID: 20260821-rockchip-jpegdec-0d6880cf656c
+To: Lucas Sinn <lucas.sinn@wolfvision.net>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787665587; l=1833;
+ i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
+ bh=mRWayqQ4wjjMoVMzdTT1rAzWvbAxJEF/PCFVYCuhJbo=;
+ b=cYpcyUJNccn6xQidWcaZAtxFNgG50tHrk9i/3M8vbXg6tLI/wl+Zo7pgHl4T+bKdzlPbFIzbW
+ SY7cNt9759iBX3UBzfqMbldWqTGmW+FDoCpuVGP8PNOHdtUj4QHMd5L
+X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
+ pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
 
-On Tue, 25 Aug 2026 15:35:17 +0200
-Esben Haabendal <esben@geanix.com> wrote:
+This series adds support for the Rockchip JPEG decoder hardware. The JPEG decoder
+is an in-house IP which is integrated into various Rockchip SoCs. The driver is
+tested on a RK3588 board but reportedly works on RK3568 as well.
 
-> "Joshua Crofts" <joshua.crofts1@gmail.com> writes:
-> 
-> > On Tue, 25 Aug 2026 10:27:45 +0200
-> > Esben Haabendal <esben@geanix.com> wrote:
-> >  
-> >> There is no need to acquire data->lock when calling mma8452_read(), and
-> >> dropping that makes it less likely to end up in an AB-BA deadlock
-> >> situation.
-> >>
-> >> Signed-off-by: Esben Haabendal <esben@geanix.com>
-> >> ---
-> >>  drivers/iio/accel/mma8452.c | 2 --
-> >>  1 file changed, 2 deletions(-)
-> >>
-> >> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
-> >> index 7ef1a9a91c31..9ae2c3e60576 100644
-> >> --- a/drivers/iio/accel/mma8452.c
-> >> +++ b/drivers/iio/accel/mma8452.c
-> >> @@ -504,9 +504,7 @@ static int mma8452_read_raw(struct iio_dev *indio_dev,
-> >>  		if (!iio_device_claim_direct(indio_dev))
-> >>  			return -EBUSY;
-> >>
-> >> -		mutex_lock(&data->lock);
-> >>  		ret = mma8452_read(data, buffer);
-> >> -		mutex_unlock(&data->lock);
-> >>  		iio_device_release_direct(indio_dev);
-> >>  		if (ret < 0)
-> >>  			return ret;
-> >>  
-> >
-> > Sashiko has something to say and I tend to agree at the moment:
-> >
-> > Could removing this lock expose mma8452_read() to race conditions with PM
-> > auto-suspend and event configuration?  
-> 
-> Yes. I tend to agree as well.
-> 
-> > mma8452_read() can be interrupted by the PM auto-suspend worker, which puts
-> > the device in STANDBY and disables regulators while mma8452_drdy() is actively
-> > polling over I2C. This can lead to I/O timeouts or errors.  
-> 
-> Yes, and causing pain for other I2C devices on same bus :(
-> 
-> > Additionally, concurrent sysfs writes to event configurations invoke
-> > mma8452_change_config(), which puts the hardware into STANDBY to modify
-> > registers. The Standby transition flushes the hardware FIFO. If this occurs
-> > between the mma8452_drdy() check and the i2c_smbus_read_i2c_block_data() in
-> > mma8452_read(), the block read will fetch flushed or stale data.  
-> 
-> Argh. Yet another level of trouble.
-> 
-> Maybe we should extend the use of data->lock instead. Holding it
-> 1. whenever doing read-modify-write actions
-> 2. while holding the device in standby mode for changing registers
-> 3. while doing suspend/resume
-> 
-> I was just adding support for a open-drain mode irq sharing you know.
-> While sashiko-bot definitely is catching lots of valid problems, and
-> fixing them is a good thing, this is starting to feel like I opened
-> Pandoras box by touching this driver :D
-> 
-> I will try to wrap up a patch with the above described extended usage of
-> data->lock, but hope we can find a way to get the irq sharing and open
-> drain mode support merged, without necessarily having to fixing all and every
-> possible existing bugs as a pre-condition, but maybe delay some work to
-> later work.
-> 
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+---
+Changes in v2:
+- rename clocks from aclk/hclk to axi/ahb
+- Add missing Signed-off-by
+- Fix suspend/resume path
+- Pad the capture buffer to the mode's MCU width, not to a macroblock
+- Reject a frame header picture size outside the supported range
+- Set the capture payload at decode time, not at queue time
+- Trim comments in the driver
+- Link to v1: https://lore.kernel.org/r/20260824-rockchip-jpegdec-v1-0-8011822bf500@pengutronix.de
 
-If they're pre-existing conditions then it's not required to fix those in the
-same patch series, you can come back to it another time or someone else can fix
-those.
+---
+Sascha Hauer (4):
+      media: dt-bindings: Add Rockchip JPEG decoder
+      media: rockchip: Add JPEG decoder driver
+      arm64: dts: rockchip: rk3588: Add JPEG decoder node
+      arm64: dts: rockchip: rk356x: Add JPEG decoder node
 
-Nevertheless this is an issue that will be caused directly by this patch if
-applied. If your only goal is to add support for open-drain irq sharing, you
-can probably just drop this for the time being and just focus on that.
+ .../bindings/media/rockchip,jpeg-decoder.yaml      |   92 +
+ MAINTAINERS                                        |    9 +
+ arch/arm64/boot/dts/rockchip/rk356x-base.dtsi      |   22 +
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi      |   24 +
+ drivers/media/platform/rockchip/Kconfig            |    1 +
+ drivers/media/platform/rockchip/Makefile           |    1 +
+ drivers/media/platform/rockchip/rkjpegd/Kconfig    |   14 +
+ drivers/media/platform/rockchip/rkjpegd/Makefile   |    3 +
+ .../rockchip/rkjpegd/rkjpegd-vdpu720-regs.h        |  230 ++
+ drivers/media/platform/rockchip/rkjpegd/rkjpegd.c  | 2328 ++++++++++++++++++++
+ 10 files changed, 2724 insertions(+)
+---
+base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
+change-id: 20260821-rockchip-jpegdec-0d6880cf656c
 
+Best regards,
 -- 
-Kind regards,
-Joshua Crofts
+Sascha Hauer <s.hauer@pengutronix.de>
+
