@@ -1,155 +1,120 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9626334F479;
-	Tue, 25 Aug 2026 07:19:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25ED3381E88;
+	Tue, 25 Aug 2026 07:19:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787642367; cv=none; b=gBqM6Lj2xWLwqC2FdQc1bdJcbmbkA7Nly0p8Yq5X3yKYlsd9jvr6sxkfYEpOsgMHQHfX6MYHmkmk4qu1+8anqtedEtvaIhN6Ph4i5Pcq9A8+AUE/ygPR8EBflR3YtEdBKl5f645AshZePBXqehutOb/l3Muzjy1f5dQD/0Ft6F4=
+	t=1787642378; cv=none; b=n4IyT4sW5HF6ZEANbMceDuZXkE1SFGsui+3fyWkwhFQ3efBZkU7YcljQQSJWZXkGKkYFhP+5X/ZEKfEsVrWFNwW9Ic6cno+kSDG+EJhyX5lpMs8I9JXj6ALl6HCfxP6zXsuGnWw6g9cjf0iJjJFPpFIU3+m/rL400gD/wgt3je8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787642367; c=relaxed/simple;
-	bh=PlAd0+5gOTNKNhRaNCaeHUNi+ThRt4Ds49wzRnnsfOE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lwYdCfKvL38wY8MkxRjzqxr5endXZx6ncoEYA6dgcjP7BRIKb2eyFhZ7yv4fm1ok4sb441tG5Iz2icovE+okRTNHu2uL2UtZQwSL5faRzBczF9+6R2wAFFobezzbeDXxwP/An2RJeZkMEYmc+eoeoufW5mymxknIPmJEUT3IGII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=e/r3DmhX; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1787642378; c=relaxed/simple;
+	bh=dlC/Ek5EP/2kZcYmlKPUIlAhRIuJKkz4m41PgrxDrs0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OCXS76MtZmN8H1CHoLDsKUcY3gtDX77DgR881MhvPmVoR2r+Zc796C354gEskO1SyZ7ebTPmR6Xy3COukHQC0ox5GfB5Prefx3DVrFN+4FSYkxU+J8tFMU16cIEcOX7ZC1EBMr9ISyAPVnaEdZ5EUoihFhhqHN2gReciIETAgL8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=Q3kPndtb; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="e/r3DmhX"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=JFUwKTn4gkob/ASKsHj6HhQUTISQAuY9+eAMnMI/GpY=; b=e/r3DmhXhVonE6qyIEZEAoyjyg
-	CB3jj6Y02jtDRahg0dF47xwBJrOOYVk2SVUmlj5LOzDF+3GL+QxrARH6sH0paKp8djOL8oYFE+uTr
-	nOFpTw5V9O8ZNeThl789IbnGmhHdI3c3SGI6yTb0RSKzD5yzXHfi4Ka9EZMCiAS77wGPrYJItHyEv
-	xinTnTi1bDpxWhCfA6HawgvZMbugk+R6xeCe63WpAiopCMbgzKy9t0uQDeqsHOvXBJ7SCug/ELDKM
-	056FvMrpmrOngtWON9gM7kFb4ArvsvqPQAh6eLYi3Jb4DL2r+2eBAFJabXIYD0i+U8jI4VlN8NvUR
-	iVLVekcA==;
-Received: from sslproxy06.your-server.de ([78.46.172.3])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wyl56-000N2p-0L;
-	Tue, 25 Aug 2026 08:56:24 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy06.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wyl55-000CgB-2B;
-	Tue, 25 Aug 2026 08:56:23 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- vjardin@free.fr
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Vincent Jardin <vjardin@free.fr>
-Subject:
- Re: [PATCH v2] dt-bindings: gpio: fsl,qoriq-gpio: allow gpio-hog child nodes
-Date: Tue, 25 Aug 2026 08:56:22 +0200
-Message-ID: <13423320.O9o76ZdvQC@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To:
- <20260824-for-upstream-dt-qoriq-gpio-hog-v2-1-58bbc82b881e@free.fr>
-References:
- <20260824-for-upstream-dt-qoriq-gpio-hog-v2-1-58bbc82b881e@free.fr>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="Q3kPndtb"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 50A8A11CBFD;
+	Tue, 25 Aug 2026 09:19:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1787642369; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=2CbjXARxxC+IvwNS/3iRUtHjs69OcKoxnN9624Q/9t4=;
+	b=Q3kPndtbqfQl3CTJuFaNlYFIk4cwfgmj7rpNRxsmXGnDrIy9ezdk9rEqrGePk0ZgB36jvI
+	mtWIioxwY7pzM4G12IQxdyGPGTH268AWS4rzHhDuR6imgiALE3MFc7GeagMgOItQDLr7wv
+	2r+XZ1ld38YaCF4B2s69fETqgT9FOPxqBnyW7DhaL97PNAsFrqwLk/ZcStm32fPJcn+3x9
+	9OZ2SUqGaluqdNyPFRqm5SieLeCo7DUgPJe3eZNb1Ytum1q15dw/glu25qwojmq7YOIRSM
+	78XK5o1CjFVEiDAJ2VbGa7CMJ3mJvDIUKw0rAijs7K/ocUo66W20Zifl0QLCJg==
+From: Heiko Schocher <hs@nabladev.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	linux-rtc@vger.kernel.org,
+	Heiko Schocher <hs@nabladev.com>
+Subject: [PATCH v2 0/3] rtc: rs5c372: add Ricoh R2223x support
+Date: Tue, 25 Aug 2026 09:19:15 +0200
+Message-ID: <20260825071927.4090460-1-hs@nabladev.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28102/Mon Aug 24 08:23:58 2026)
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Am Montag, 24. August 2026, 23:54:40 CEST schrieb Vincent Jardin via B4 Rel=
-ay:
-> From: Vincent Jardin <vjardin@free.fr>
->=20
-> The binding sets additionalProperties: false and describes no child nodes,
-> so a gpio-hog on a QorIQ/Layerscape GPIO controller is rejected by
-> dtbs_check as an unmatched node name, even though the hardware and the
-> kernel both support it.
->=20
-> Hogs are not a controller feature and need nothing from the driver:
-> gpio-mpc8xxx.c does not mention them at all. A hog on this controller
-> works today, only the schema rejects it.
->=20
-> QorIQ and Layerscape boards do need them. These SoCs bring board-level
-> reset, enable and mux-select lines out on the SoC GPIOs, and those lines
-> have to be driven to a safe level at boot before any consumer claims them,
-> which is exactly what a hog is for.
->=20
-> Some boards in the tree already express this need where they can:
-> fsl-ls1088a-ten64.dts and the tqmls1012a/ls1028a boards all carry hogs, b=
-ut
-> on I2C GPIO expanders, because that is the only place the schema currently
-> supports them. No board uses one on this controller yet, so this fixes no
-> current failure.
->=20
-> Other GPIO bindings already carry the same block. gpio-mvebu.yaml and
-> gpio-davinci.yaml use the identical "^(.+-hog(-[0-9]+)?)$" object requiri=
-ng
-> gpio-hog.
->=20
-> Signed-off-by: Vincent Jardin <vjardin@free.fr>
-> ---
-> Changes in v2:
-> - Change the commit message. Drop the dmesg excerpt: those hog names come
->   from my out-of-tree dev git repo and are not in the tree (Frank Li)
-> - Note: the hog call path is: gpiochip_hog_lines(), called from gpiochip_=
-add_data_with_key()
-> - Explain why these QorIQ SoCs need it
-> - No change to the diff
-> - Link to v1: https://lore.kernel.org/r/20260824-for-upstream-dt-qoriq-gp=
-io-hog-v1-1-d75923bcecad@free.fr
-> ---
->  Documentation/devicetree/bindings/gpio/fsl,qoriq-gpio.yaml | 7 +++++++
->  1 file changed, 7 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/gpio/fsl,qoriq-gpio.yaml b=
-/Documentation/devicetree/bindings/gpio/fsl,qoriq-gpio.yaml
-> index 4cb2a6b9fabfb..a6252440e099b 100644
-> --- a/Documentation/devicetree/bindings/gpio/fsl,qoriq-gpio.yaml
-> +++ b/Documentation/devicetree/bindings/gpio/fsl,qoriq-gpio.yaml
-> @@ -63,6 +63,13 @@ properties:
->        GPIO registers are used as little endian. If not
->        present registers are used as big endian by default.
-> =20
-> +patternProperties:
-> +  "^(.+-hog(-[0-9]+)?)$":
-> +    type: object
-> +
-> +    required:
-> +      - gpio-hog
-> +
+The Ricoh R2223x is an I2C RTC from the same family as the r2025sd and
+r2221tl which the rtc-rs5c372 already supports. It shares the R2x2x
+control register layout, so only the new type must be added to the driver.
 
-Shouldn't you reference gpio-hog.yaml schema instead? This already has (amo=
-ng
-others) patter and required properties. But I'm no expert on bindings.
+The ricoh R2223x drives a clock output and offers an eco mode that
+lowers its current consumption while running from the backup supply.
 
-Best regards
-Alexander
+The trivial-rtc binding does not cover this, so give the device its
+own binding in patch 1. Patch 2 adds the R2223x to the rs5c372 rtc
+driver, and patch 3 implements the eco-mode setting.
 
->  required:
->    - compatible
->    - reg
->=20
-> ---
-> base-commit: 0a0d1d55dad570724bf8c7ea83409639cfb4be9b
-> change-id: 20260824-for-upstream-dt-qoriq-gpio-hog-5092a0f4d089
->=20
-> Best regards,
->=20
+v2 answers the sashiko review of v1 and a local run of the same review
+prompts. This resulted in 2 changes:
 
+Patch 2 now handles the new type in rs5c372_ioctl(), where RTC_VL_READ
+read CTRL2 bit 4 as XSTP although the R2x2x parts have PON there and
+RTC_VL_CLR did nothing at all, and in the two offset helpers, where the
+R2223x fell back to the coarse trim resolution.
 
-=2D-=20
-TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
-Amtsgericht M=FCnchen, HRB 105018
-Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
-http://www.tq-group.com/
+Patch 3 now applies the device tree setting in both directions. V1 only
+set the eco bit before, so a board that dropped the property kept running
+in eco mode, because CTRL2 is backed by the backup supply.
 
+Not touched sashiko reviews (some from local run):
+
+- #clock-cells stays out of the required list. Requiring it would
+  reject every node that does not use the clock output; the other
+  discrete I2C RTC bindings with a clock output keep it optional too.
+  Also the clock output can be disabled per hardware pin CLKC. So
+  #clock-cells is optional.
+
+  https://sashiko.dev/#/patchset/20260824110452.4038870-1-hs@nabladev.com?part=1
+
+- additionalProperties: false together with $ref: rtc.yaml# means the
+  properties from rtc.yaml are not allowed here unless they are listed.
+  Only start-year is, the others can be added once a board needs them.
+  microcrystal,rv3032.yaml is built the same way.
+
+- ricoh,eco-mode is a vendor boolean. Whether the RTC may run in eco
+  mode depends on the backup cell the board is fitted with, so it
+  describes the board and not a runtime policy.
+
+Changes in v2:
+- Added Reviewed-by from Conor, no code change in patch 1
+- Fixed the sashiko review of v1: handle the new type in
+  rs5c372_ioctl(), rs5c372_read_offset() and rs5c372_set_offset()
+  https://sashiko.dev/#/patchset/20260824110452.4038870-1-hs@nabladev.com?part=2
+- Added sashiko review for patch 3 in this patch, as it fits better here
+  https://sashiko.dev/#/patchset/20260824110452.4038870-1-hs@nabladev.com?part=3
+- Fixed results of a local run of the sashiko review prompts: apply the
+  device tree setting in both directions. v1 only set the eco bit, so
+  the mode stayed on when a board dropped the property.
+- Leave rs5c372_probe() through goto exit like its other error paths,
+  instead of returning directly.
+
+Heiko Schocher (3):
+  dt-bindings: rtc: add ricoh,r2223x binding
+  rtc: rs5c372: add support for Ricoh R2223x
+  rtc: rs5c372: support eco mode on R2223x
+
+ .../devicetree/bindings/rtc/ricoh,r2223x.yaml | 58 +++++++++++++++++++
+ drivers/rtc/rtc-rs5c372.c                     | 52 ++++++++++++++++-
+ 2 files changed, 107 insertions(+), 3 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/rtc/ricoh,r2223x.yaml
+
+---
+base-commit: 2709dd5ae32f0828f386327c76bba9f39f63a1c6
+
+-- 
+2.55.0
 
