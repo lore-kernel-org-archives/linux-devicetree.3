@@ -1,166 +1,256 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8234DF76
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 08:43:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F60DF76
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 08:45:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787647405; cv=none; b=VyzqRu8yuhHPMTsOz0ASaSY6Xdhlpr7bEDBfSEZU8uMwgSoQKlqYMuG6etff6xMRpyiN/w5/oAGnTTFazvMddLNQxGVZieNwNLxvE0pPqjVQUsoPYzd/FLpp1C9tNr/NNw9Sdj06jL4Q2vaDTdL3Vj1XbxQKBdWVZfrpKv41L8U=
+	t=1787647506; cv=none; b=JfkEKW0Qdw0ExYTE3cFTq1CGPdn76nzxrzFJbJKkjhhqyGUfnKCNRFci7CUtuwiHOKWH8xUSahrT1eKq9gqqOycCORW8yjGyCAkbaO41PopTzmx1abJecFdneFpbwmLg5W18/O6rWXjkvrY2/EE1eRX53XmgasGLYBgeEDIZo9g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787647405; c=relaxed/simple;
-	bh=AOL6VFNdC+SF/qq/hPE4GrMSqVzzndh3XxY+y5GB7no=;
+	s=arc-20240116; t=1787647506; c=relaxed/simple;
+	bh=ehwP5axgI1yTHZkJk2xRmSYuhHQHUasCI+C5hilBWMk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XTsanEqABG204t2RQNIKvPAOQJjMTvsq5bBuGOLF+WYR2+jhXYeJ5tMn9R495ajU9uCmX5Pyu+8mJ2W6wEzAA18XJb/jjSasKu804K2z1QhVzSY3OI2OhlN5SAe6vMBOLXZ9aIiKvbTaZ5vCdLwasD2I0OhJtDwqitt/084XDa4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ug9BOae/; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=P+AaI3l1OAlRqrvk061dc0Jh1nU4g9z/m6GgNxd15vPYhQfg8BuEGIBArcPDhQKTSHIVNYe93c0pKuuBwO0E/KbIAoQJ2/dklBqC1XUJbgpePa9PZrmkHMXswr0MRvY9NKRRuA1fAIITQ24+LyiwxP9WeDwrgPbqbKZOaKzsGKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G9zNRujK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ug9BOae/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 958231F000E9;
-	Tue, 25 Aug 2026 08:43:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G9zNRujK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 778091F000E9;
+	Tue, 25 Aug 2026 08:45:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787647403;
-	bh=1Q9YAJxIbZdYzJKHtAyKC+HjVDLj/ZQCl6J5eBlF/QI=;
+	s=k20260515; t=1787647504;
+	bh=+nN8E1NeYFR918nk422/e+nsDkePGCcJMmfvy6jhhdI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ug9BOae/shuFPr4j3/R9W54CXgGDNm5pelMeNRxPo6OuGZrALFfG5xvdRRMkQs6dd
-	 m3uv8/PLXCbf3aTW4AVUygxuhTnpZB2CBJVTvSI7sHwUalBYPTiuu8KOwKww9wDHE3
-	 SQDiQ7CjY273LZpzfkX8kg8npMyD4IuwOo1Oi7+w2MUT4P4VLmIEw6v/bAkw0tdn/q
-	 BXnSgXvCIWUOW4t09WZNLIcSk+L8VAvQ5EuKIPn6apGzyZsafAkefIPY4hSfmlErk5
-	 C9gAbo/IJ9fIi4DUgvx/mjdJLrkcScrDh27gji+sfPefsAABBlkafQc1LFhuVKzXXl
-	 Qfxome2wIba7w==
+	b=G9zNRujK/SsnDQwMIBybCmhbjl7/kvvApdx4N5pNn54fOuOtGX1ee4fab9AcPwZTN
+	 /1Q0azMiBn1Hq+2AyFAvd5cXhQxTRYzpJ+ai8P95t/fCIvLEp6XX2Lqfw7jNE0Hkov
+	 bXg4jM5dOujoe5zFDBKefzd3QirkZaBYA7yeWto8bd3iFp6aagZkWi5TVyiVf2k7Ka
+	 sO9falmQrKc6A9BLqZ6OFD2GZKERbxXpeO0hu4T+KS8Tc2JncGEFNS9MyQf//OH6jv
+	 Qi9oCBsydHIMzlFB7tX63yESYs8UtMvuPeenTCeQscq0DCWvFXnt5J17ngyyuPRRvK
+	 NZUsfdSS34ILg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 3/9] iio: accel: mma8452: Only apply trigger type
- when not set by firmware
+Subject: Re: [PATCH v6 7/9] iio: accel: mma8452: Drop unneeded lock acquire
+ on read
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Esben Haabendal" <esben@geanix.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260825-mma8452-open-drain-v6-3-9b252804ee80@geanix.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260825-mma8452-open-drain-v6-7-9b252804ee80@geanix.com>
 References: <20260825-mma8452-open-drain-v6-0-9b252804ee80@geanix.com>
- <20260825-mma8452-open-drain-v6-3-9b252804ee80@geanix.com>
+ <20260825-mma8452-open-drain-v6-7-9b252804ee80@geanix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 08:43:23 +0000
-Message-Id: <20260825084323.958231F000E9@smtp.kernel.org>
+Date: Tue, 25 Aug 2026 08:45:03 +0000
+Message-Id: <20260825084504.778091F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
 
 New issues:
-- [Medium] Hardware-Software Polarity Mismatch
+- [High] Removing data->lock exposes mma8452_read() to race conditions with=
+ PM auto-suspend and event configuration.
 
 Pre-existing issues:
-- [High] PM runtime usage counter leaks permanently on I2C read/write error=
-s.
-- [High] Hardware state is accessed over I2C before acquiring runtime PM re=
-ferences, failing if the device is suspended.
+- [High] Polling for DRDY before PM runtime wake-up leads to I/O timeouts a=
+nd errors.
+- [High] PM runtime usage count leak on error paths.
+- [High] Device is permanently locked in STANDBY mode on I2C write failure.
+- [Medium] Unprotected read-modify-write operations on event configuration =
+registers.
+- [Medium] Kernel stack information leak due to mishandling of short I2C bl=
+ock reads.
 --
 
---- Patch [3]: [PATCH v6 3/9] iio: accel: mma8452: Only apply trigger type =
-when not set by firmware ---
-commit b862ff26c69f226387993dc22a2537b8dc72d9fd
+--- Patch [7]: [PATCH v6 7/9] iio: accel: mma8452: Drop unneeded lock acqui=
+re on read ---
+commit 9c2b3fc538cb28ca3a39bb1585927926bb25f284
 Author: Esben Haabendal <esben@geanix.com>
 
-iio: accel: mma8452: Only apply trigger type when not set by firmware
+iio: accel: mma8452: Drop unneeded lock acquire on read
 
-This patch modifies the mma8452 driver to only apply a default active-low
-trigger type if the firmware does not specify one. This aims to improve
-backward compatibility while respecting firmware configuration.
+There is no need to acquire data->lock when calling mma8452_read(), and
+dropping that makes it less likely to end up in an AB-BA deadlock
+situation.
 
 > diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
-> index f645a5c6fd1c2..1fb43c5b0b72f 100644
+> index 7ef1a9a91c31f..9ae2c3e605761 100644
 > --- a/drivers/iio/accel/mma8452.c
 > +++ b/drivers/iio/accel/mma8452.c
-
-[ ... ]
-
-> @@ -1683,9 +1683,16 @@ static int mma8452_probe(struct i2c_client *client)
->  		goto trigger_cleanup;
+> @@ -504,9 +504,7 @@ static int mma8452_read_raw(struct iio_dev *indio_dev,
+>  		if (!iio_device_claim_direct(indio_dev))
+>  			return -EBUSY;
 > =20
->  	if (client->irq) {
-> +		unsigned long irq_flags;
-> +
-> +		irq_flags =3D irq_get_trigger_type(client->irq);
-> +		if (irq_flags =3D=3D IRQ_TYPE_NONE) {
-> +			dev_info(dev, "invalid irq type, setting default active low\n");
-> +			irq_flags =3D IRQF_TRIGGER_LOW;
-> +		}
-> +		irq_flags |=3D IRQF_ONESHOT;
->  		ret =3D request_threaded_irq(client->irq, NULL, mma8452_interrupt,
-> -					   IRQF_TRIGGER_LOW | IRQF_ONESHOT,
-> -					   client->name, indio_dev);
-> +					   irq_flags, client->name, indio_dev);
+> -		mutex_lock(&data->lock);
+>  		ret =3D mma8452_read(data, buffer);
+
+[Severity: High]
+Could removing this lock expose mma8452_read() to race conditions with PM
+auto-suspend and event configuration?
+
+mma8452_read() can be interrupted by the PM auto-suspend worker, which puts
+the device in STANDBY and disables regulators while mma8452_drdy() is activ=
+ely
+polling over I2C. This can lead to I/O timeouts or errors.
+
+Additionally, concurrent sysfs writes to event configurations invoke
+mma8452_change_config(), which puts the hardware into STANDBY to modify
+registers. The Standby transition flushes the hardware FIFO. If this occurs
+between the mma8452_drdy() check and the i2c_smbus_read_i2c_block_data() in
+mma8452_read(), the block read will fetch flushed or stale data.
+
+> -		mutex_unlock(&data->lock);
+>  		iio_device_release_direct(indio_dev);
+>  		if (ret < 0)
+>  			return ret;
+
+[Severity: High]
+This is a pre-existing issue, but will polling for DRDY before PM runtime
+wake-up lead to I/O timeouts and errors?
+
+In mma8452_read():
+
+	int ret =3D mma8452_drdy(data);
+
+	if (ret < 0)
+		return ret;
+
+	ret =3D mma8452_set_runtime_pm_state(data->client, true);
+
+If the device is in auto-suspend, its regulators are turned off by
+mma8452_runtime_suspend().
+
+The I2C read in mma8452_drdy() will communicate with a powered-off device,
+resulting in immediate I/O errors or timeouts.
+
+Should the PM runtime resume be performed before any hardware register poll=
+ing?
+
+[Severity: High]
+This is a pre-existing issue, but is there a PM runtime usage count leak on
+error paths?
+
+In mma8452_read():
+
+	ret =3D mma8452_set_runtime_pm_state(data->client, true);
+	if (ret)
+		return ret;
+
+	ret =3D i2c_smbus_read_i2c_block_data(data->client, MMA8452_OUT_X,
+					    3 * sizeof(__be16), (u8 *)buf);
+	if (ret < 0)
+		return ret;
+
+If i2c_smbus_read_i2c_block_data() fails, it returns the error code
+immediately. This bypasses the subsequent call to
+mma8452_set_runtime_pm_state(data->client, false), permanently leaking the
+usage count.
+
+A similar leak occurs in mma8452_write_event_config():
+
+	ret =3D mma8452_set_runtime_pm_state(data->client, state);
+	if (ret)
+		return ret;
+
+	switch (dir) {
+	case IIO_EV_DIR_FALLING:
+        ...
+	case IIO_EV_DIR_RISING:
+		val =3D i2c_smbus_read_byte_data(data->client, ev_regs->ev_cfg);
+		if (val < 0)
+			return val;
+
+If this I2C read fails and returns early, the PM runtime decrement is also
+missed.
 
 [Severity: Medium]
-Does this configuration leave the hardware and software out of sync?
+This is a pre-existing issue, but are the read-modify-write operations on
+event configuration registers properly protected?
 
-The code reads the firmware's IRQ trigger type and requests the IRQ with
-it, but the actual MMA8452 sensor hardware polarity doesn't appear to be
-updated. If the firmware requests an active-high or rising-edge trigger,
-the host interrupt controller is configured for active-high, but the sensor
-would continue to drive its default active-low signal.
+In mma8452_write_event_config():
 
-Unless there is an external hardware inverter on the board, could this=20
-mismatch break interrupts? Should the driver read the requested trigger type
-and configure the IPOL bit in CTRL_REG3 to match?
+	case IIO_EV_DIR_RISING:
+		val =3D i2c_smbus_read_byte_data(data->client, ev_regs->ev_cfg);
+		if (val < 0)
+			return val;
 
->  		if (ret)
->  			goto buffer_cleanup;
->  	}
+The initial I2C read is performed without holding data->lock, while the wri=
+te
+is performed by mma8452_change_config() which does hold the lock.
 
+Since IIO event sysfs attributes do not hold the IIO mlock, concurrent writ=
+es
+to different event attributes can interleave.
 
-While reviewing the I2C handling in this driver, I also noticed a couple of
-other issues.
-
-[Severity: High]
-This is a pre-existing issue, but I noticed a potential leak of the runtime
-PM usage counter when handling I2C errors.
-
-In mma8452_read(), the device is woken up, incrementing the PM counter:
-
-mma8452_read() {
-    ...
-    ret =3D mma8452_set_runtime_pm_state(data->client, true);
-    ...
-    ret =3D i2c_smbus_read_i2c_block_data(data->client, ...);
-    if (ret < 0)
-        return ret;
-}
-
-If the I2C read fails, the function returns immediately and bypasses the
-matching mma8452_set_runtime_pm_state() false call. Could this permanently
-prevent the device from re-entering autosuspend?
-
-A similar pattern appears to exist in mma8452_write_event_config() where
-an early return on a failed I2C read skips restoring the PM state.
-
+Could two threads perform the unprotected read simultaneously, resulting in=
+ the
+second thread silently overwriting the first thread's register modification=
+s?
 
 [Severity: High]
-This is a pre-existing issue, but could some I2C accesses fail if the
-device is currently suspended?
+This is a pre-existing issue, but can an I2C write failure leave the device
+permanently locked in STANDBY mode?
 
-In mma8452_read(), the code checks for data readiness before waking up the
-device:
+In mma8452_change_config():
 
-mma8452_read() {
-    ...
-    ret =3D mma8452_drdy(data);
-    if (ret < 0)
-        return ret;
+	/* config can only be changed when in standby */
+	if (is_active > 0) {
+		ret =3D mma8452_standby(data);
+		if (ret < 0)
+			goto fail;
+	}
 
-    ret =3D mma8452_set_runtime_pm_state(data->client, true);
-}
+	ret =3D i2c_smbus_write_byte_data(data->client, reg, val);
+	if (ret < 0)
+		goto fail;
 
-Because mma8452_drdy() executes an I2C read against the MMA8452_STATUS
-register, it happens before the power regulators are enabled. If the device
-has already autosuspended (after 2 seconds of inactivity), will this I2C
-read hit powered-off silicon and fail?
+	if (is_active > 0) {
+		ret =3D mma8452_active(data);
+...
+fail:
+	mutex_unlock(&data->lock);
 
-A similar direct I2C read without a runtime PM reference seems to happen
-in mma8452_read_raw() for IIO_CHAN_INFO_CALIBBIAS.
+	return ret;
+
+If the I2C write fails, the code jumps to the fail label, bypassing the cal=
+l to
+mma8452_active().
+
+Does this leave the device stuck in STANDBY mode, which breaks all future d=
+ata
+measurements?
+
+[Severity: Medium]
+This is a pre-existing issue, but might the mishandling of short I2C block
+reads leak uninitialized kernel stack memory?
+
+In mma8452_read():
+
+	ret =3D i2c_smbus_read_i2c_block_data(data->client, MMA8452_OUT_X,
+					    3 * sizeof(__be16), (u8 *)buf);
+	if (ret < 0)
+		return ret;
+
+	ret =3D mma8452_set_runtime_pm_state(data->client, false);
+
+	return ret;
+
+i2c_smbus_read_i2c_block_data() returns the number of bytes successfully re=
+ad.
+If a short read occurs, it returns a positive value and passes the if (ret =
+< 0)
+check.
+
+The subsequent call to mma8452_set_runtime_pm_state() will overwrite ret wi=
+th 0
+on success.
+
+mma8452_read_raw() assumes the stack array buffer is fully initialized and
+processes the uninitialized bytes, which are then returned to userspace.
+
+Should the check verify if exactly the requested number of bytes were read?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825-mma8452-op=
-en-drain-v6-0-9b252804ee80@geanix.com?part=3D3
+en-drain-v6-0-9b252804ee80@geanix.com?part=3D7
