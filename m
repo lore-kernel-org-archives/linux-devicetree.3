@@ -1,129 +1,152 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4084C380FC3
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 13:28:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD2753FF8BA;
+	Tue, 25 Aug 2026 13:33:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787664539; cv=none; b=n3b1nWEFzIFf0oIMHz2QWS4XuHr1YGzME+L1nSZ2jBguOjqJWolBMmD5tBvbbX/HKUOSryM40oTUetRObtPohmfiCTyDwGzpHmXsL0QOFIqnlm/g/UsfvFtzrJ/ZMJxnhPH0EkeIy0/PHIWNiqr3lTLCC2zupbq3GYkp1+9B9Ls=
+	t=1787664803; cv=none; b=P1OTfEkcQkaCEGeMEvQOy/fo1m7d0t4qDNO141b+tfVWPLxkrXtYxSLNq49iaVQQlT9uIHXCbhA6t6DYTPp2/H+REw88/3l3Zcf7MODkEHnqc0IhdsFBO92CtlQmmVSABX8R+0sRxBuSh9UMSsYUHv2Vn+V0cS/AO2+UjwVW6aw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787664539; c=relaxed/simple;
-	bh=+cwb+T2Q/QU7Udy9UcntSUaoGr6FB++hhck3o43Qi58=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=L5gl9ozf8b7vjq540nuHHrY4cbxG6l7zWp2tEJ7cx7ZMv1hFB0dqBPbls8drkiJ9Bpj+B8r+1YCt+tLeRpjmrPyvTZ34MMfybsv7hqfWkUG2VNkuM454OxmAqSXAbooO0EjiqHXVvEBI4Pm9h1TfMdxL61lIxdce0yxv/7H9Oj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IbThXUVx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787664803; c=relaxed/simple;
+	bh=+L0JA2jMxxLyOH5M5GrcRTJFcK6dZdET6rCdjpWY+hY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PEeI+sXULYYSD/K4f0FcPypsv+JVCTq3WdxJm38zTpaxwbEDiYhkp3xGDszfGFBTWjtk/Cet7vADNyq1lOMefHE1+bfBWfOXMsBU2PwumQmXcZxTrQ/gtiRcRbG1p4CqUo1aaO24JtgY6/r9VE+FYjjhGF5rPBnDxzyPVnwYEvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MFAb6+P2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IbThXUVx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6A561F00A3A;
-	Tue, 25 Aug 2026 13:28:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MFAb6+P2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCB761F000E9;
+	Tue, 25 Aug 2026 13:33:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787664538;
-	bh=ZPQkRix7mK4UiTqrf7gVND6+vOn7rFnEDw44l4fYTwg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IbThXUVxxW+vwhjBEARivvbmGNTzsQuKKsec7xlrjajwOYR2/66Ftj7T8HP3SM60R
-	 CTKnhAfZJ0DBVnjOcFpPk6ALv/9Cw4ediUcIBvxhCtW/Lj3a9pbwxdrMV367cuRM+B
-	 A0RGx1PSYh/MNNrtQUfmIOGuwDLzu7Tn3C+RhLlt2gpkXA8Gg3gKcYhwyznk5ogG8q
-	 mWgZnWnGbujLoZXGAGl59GUeSzIgGxfDaQGQqKY3l0uBo2yP62tywPY71u5gye/5CZ
-	 vN0KNYZXoXT0QfNLv7zLQXOx8DsG4JwitKPH7O37DqxGhp1Uh3dkdNF9oxcs7UjxOz
-	 j2PteIAVvuXkQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/4] arm64: dts: renesas: r9a09g047: Add USB2.0
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Tommaso Merciai" <tommaso.merciai.xr@bp.renesas.com>
-Cc: wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <c1488855f44e6faddae1f541c460268eaea483d4.1787663426.git.tommaso.merciai.xr@bp.renesas.com>
-References: <cover.1787663426.git.tommaso.merciai.xr@bp.renesas.com>
- <c1488855f44e6faddae1f541c460268eaea483d4.1787663426.git.tommaso.merciai.xr@bp.renesas.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 13:28:57 +0000
-Message-Id: <20260825132857.B6A561F00A3A@smtp.kernel.org>
+	s=k20260515; t=1787664801;
+	bh=BW+MznbbmPkoRpEl9gc4mWqmQCAlxK0ZIDQx8WkrhXs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=MFAb6+P2Es7yaFEaCiw66E5uyCstF7/oQALaPnA/2w5vez20Cnh3+hF8S/nwH/pfG
+	 SRIxtoVyPPi9Lf1YJztP6gPGaObuDm/XusuMeRhGTTuFzQw+6KenG5HkoOiK4zSYVW
+	 dTBkIjVeW2hFA8wZ1M9AmJ9V2cP8Kp/J/D7G0WCRS+S1MchcreRAn4LuNSzoZUjlj7
+	 Wq4HTEOpzKv8HM1qFE75hmb/xBInam7ic9J23zorE8K9OPa+74zjO/8wyR+Rdtl/Gn
+	 pjbr6sV2axn28Dbtus3k9uDkZlB2hcfQ3dN7GCddrEfqBWXk1JAJtbIFRfenQRFEHb
+	 88DHI1K0eiXoQ==
+Message-ID: <c4bf7a4b-48a9-4bfb-b133-858189627639@kernel.org>
+Date: Tue, 25 Aug 2026 15:33:14 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: shikra: Enable dTPM on EVK boards
+To: Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260820-shikra_dtpm-v1-1-40d96b8238bb@oss.qualcomm.com>
+ <b9b07abb-b9be-478f-8e4a-204d8ce0586d@oss.qualcomm.com>
+ <e4058fd8-23e8-4031-906d-7ff4ec525508@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <e4058fd8-23e8-4031-906d-7ff4ec525508@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The `usb2_phy0` and `usb2_phy1` nodes incorrectly include the ho=
-st controller resets (`<&cpg 0xac>` and `<&cpg 0xad>`) as their second `res=
-ets` item.
---
+On 25/08/2026 12:06, Khalid Faisal Ansari wrote:
+> 
+> On 8/20/2026 2:52 PM, Konrad Dybcio wrote:
+>> On 8/20/26 11:16 AM, Khalid Faisal Ansari wrote:
+>>> The Shikra EVK boards (CQM, CQS, IQS) carry an ST33 discrete TPM
+>>> connected via SPI5. Enable the SPI controller and add the TPM node
+>>> with the ST33HTPM compatible and a 20 MHz max clock.
+>>>
+>>> Depends-on:https://lore.kernel.org/all/20260820085347.822-1-xueyao.an@oss.qualcomm.com/
+>> This is not a valid tag to put in the commit message
+>>
+>> Why haven't you sent the two clearly interdependent patches together?
+> 
+> I referenced the SPI5 enabling patch because the TPM node addition 
+> depends on that change being present. I had followed a similar approach 
+> used in an earlier submission 
+> (https://lore.kernel.org/all/0afa55d5-20bf-487b-abe0-4e2126ccf453@oss.qualcomm.com/), 
+> where the dependency was mentioned in the commit message.
+> 
+> Since the two changes originate from different internal ownership areas 
+> but are functionally interdependent, we have been handling them as 
+> separate submissions while documenting the dependency between them.
 
---- Patch [3]: [PATCH v2 3/4] arm64: dts: renesas: r9a09g047: Add USB2.0 su=
-pport ---
-commit 631196a322ba0beff3a83f906e11925634e7691a
-Author: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+You have been already told TWICE and you keep arguing.
 
-arm64: dts: renesas: r9a09g047: Add USB2.0 support
+> 
+>>> Signed-off-by: Khalid Faisal Ansari<khalid.ansari@oss.qualcomm.com>
+>>> ---
+>>> The Shikra EVK boards (CQM, CQS, IQS) have an ST33 discrete TPM (dTPM)
+>>> connected over SPI5. Enable the SPI controller and add the TPM node for
+>>> all three board variants.
+>>>
+>>> This series depends on the SPI5 node addition in shikra-evk.dtsi:
+>>>    https://lore.kernel.org/all/20260820085347.822-1-xueyao.an@oss.qualcomm.com/
+>>> ---
+>>>   arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts | 10 ++++++++++
+>>>   arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts | 10 ++++++++++
+>>>   arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts | 10 ++++++++++
+>> Turn this into a single addition to shikra-evk.dtsi
+> 
+> I intentionally kept the changes in the individual board DTS files 
+> rather than placing them in shikra-evk.dtsi. While the current EVK 
+> variants (CQM, CQS, and IQS) all carry the ST33 dTPM, a future board 
+> could potentially reuse shikra-evk.dtsi without supporting the TPM 
+> hardware. Keeping the node in the board-specific DTS files makes the 
+> hardware dependency explicit and avoids enabling TPM on boards where it 
+> may not be present.
 
-The Renesas RZ/G3E ("R9A09G047") SoC supports 1x channel with OTG/DRD
-and 1x channel with host interface. This commit adds the EHCI, OHCI,
-USB2.0 PHY and reset control nodes for USB2.0 channels in R9A09G047 SoC DTS=
-I.
+Do not paste us LLM answers, I find it disrespectful in regard to my time.
 
-> diff --git a/arch/arm64/boot/dts/renesas/r9a09g047.dtsi b/arch/arm64/boot=
-/dts/renesas/r9a09g047.dtsi
-> index 73757e8e21970..e26d43538ad8c 100644
-> --- a/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
-[ ... ]
-> @@ -1773,6 +1773,130 @@ usb3_phy: usb-phy@15870000 {
-[ ... ]
-> +		usb2_phy0: usb-phy@15800200 {
-> +			compatible =3D "renesas,usb2-phy-r9a09g047",
-> +				     "renesas,usb2-phy-r9a09g057";
-> +			reg =3D <0 0x15800200 0 0x700>;
-> +			interrupts =3D <GIC_SPI 745 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks =3D <&cpg CPG_MOD 0xb3>,
-> +				 <&cpg CPG_CORE R9A09G047_USB2_0_CLK_CORE0>;
-> +			clock-names =3D "fck", "usb_x1";
-> +			resets =3D <&usb20phyrst>, <&cpg 0xac>;
+Which future board could reuse shikra-evk.dtsi? This the DTSI FOR THIS
+EVK. Not some future boards.
 
-[Severity: Medium]
-Does this node incorrectly include the host side reset <&cpg 0xac> as the
-second item?
-
-If the PHY driver manipulates this second reset, it will reset the host
-controller behind the USB host driver's back. This can break USB
-functionality or cause crashes if active transfers or DMAs are interrupted.
-Could this be a copy-paste error from the ohci0/ehci0 nodes?
-
-> +			#phy-cells =3D <1>;
-> +			power-domains =3D <&cpg>;
-> +			mux-states =3D <&usb20phyrst 1>;
-> +			status =3D "disabled";
-> +
-> +			usb2_phy0_vbus_otg: vbus-regulator {
-> +				regulator-name =3D "USB2PHY0-VBUS-OTG";
-> +			};
-> +		};
-> +
-> +		usb2_phy1: usb-phy@15810200 {
-> +			compatible =3D "renesas,usb2-phy-r9a09g047",
-> +				     "renesas,usb2-phy-r9a09g057";
-> +			reg =3D <0 0x15810200 0 0x700>;
-> +			interrupts =3D <GIC_SPI 750 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks =3D <&cpg CPG_MOD 0xb4>,
-> +				 <&cpg CPG_CORE R9A09G047_USB2_0_CLK_CORE1>;
-> +			clock-names =3D "fck", "usb_x1";
-> +			resets =3D <&usb21phyrst>, <&cpg 0xad>;
-
-[Severity: Medium]
-Similar to the usb2_phy0 node above, does this node incorrectly include the
-host side reset <&cpg 0xad>?
-
-If the PHY driver accesses this second reset item, it will reset the host
-controller unexpectedly.
-
-> +			#phy-cells =3D <1>;
-> +			power-domains =3D <&cpg>;
-> +			mux-states =3D <&usb21phyrst 0>;
-> +			status =3D "disabled";
-> +		};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1787663426.gi=
-t.tommaso.merciai.xr@bp.renesas.com?part=3D3
+Best regards,
+Krzysztof
