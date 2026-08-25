@@ -1,117 +1,154 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AEDB3D1ABD;
-	Tue, 25 Aug 2026 07:12:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70EEA184524;
+	Tue, 25 Aug 2026 07:16:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787641971; cv=none; b=PWnd2TUeUyeAdKVHshbcNgo+TMSEEdAygICu+j5DVQ0ZSha/vrtcmTFnRWkmBIhOHCgYwUTO/ZS25m8EZffgOgM0+Tk5NEeGjLdXlMF1cfR2OnKa58UahxOeDigRp3p51kcLEbdthO2utaRD5Fm+RdQpK+DM4c1VvwDRON4ROr0=
+	t=1787642210; cv=none; b=WCWU3cvuMCh2k2OUgEt3Qoupulazs+EaPAXbNEPzGu4qFBMJS5M9lkd2hpLZ3dbXNCZmBb3B3+zrYfjxLFTZ+YuAcy04AEA7EA6n7f5DiuJHodMqYlsOH35WOzCLICODrGHLwyZl/1v4jCtP2SqdOSaF/D9NKY6WVGThZupXov0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787641971; c=relaxed/simple;
-	bh=xzGZTYkrQ9nyfVHqZW6veLzcSWAuPzDQYLKZUOZAVqA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SdCGJVbwVSi7ARRjw/IDw0G1NJlxcSGRY6U3S4Z905wQ3f46+DcjmfisuOsQr/FyDolRH06yCoaxD57ftmrketvSuLw8mWn5Nq430tTJlUphevLO98/9qrUKPJCzh8RxCziR2voysey16Xnnu945Qse75zuTXffHovKnGKuvwWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=an+fMrXi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787642210; c=relaxed/simple;
+	bh=l2A4Q4fWn0G6O1zLjnfbmmSmbbaWhg7JC/yaTYCnxgU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=pgNuAcBHMZwW9v0i2d0vhS9IbLLrXEP6lUB9rQY9s7Lpn2JM/MqTxya7DD56Xt/hLTY8n0SAWFqjaIxCKrexr36vG4qVSEAGMq7nG0fFDp4OgCRgIo6iqy25CHv4azINalyQ6+fEev2rJcRxjeTaBnziCRtiYe2oN6f1TXSDNE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TDnTY3eu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="an+fMrXi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6CFE1F00ACF;
-	Tue, 25 Aug 2026 07:12:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TDnTY3eu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B547C1F000E9;
+	Tue, 25 Aug 2026 07:16:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787641969;
-	bh=fSnPxOXxbPqn44HU8F1vVplrQwAFdhDYxhZwMac+fCo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=an+fMrXiyWYpott+Z6owFw/JOtZH9cA8hHYiKw7TP3fiB9xeEnfYIKAdBo/evUxSW
-	 ER4IqZZPuiRHN2bC0VI9e/tla+FocezAQV05KqNqePxG+wYeu+ALfEuP3pM0WkN0Ks
-	 CqiaCLJK8BNlGpLPJklx1YIDwMPvwKSqC+GNqAcejxoWqLQPEd0ivwEYIdEcnud2Ry
-	 iZXEKx2zBCpvwaLVNgz8EtgG6/Aoav2dcH31F1UGmj771KH3/fuAMXo07HNWXh40HQ
-	 U7OO5oINerfba7ZU4Pnzlw0SGZ3IQRJj7X/n82AZZkjVWYi57ojILaPHdFMWQafX5i
-	 Cr+TRrAJVTfPQ==
-Message-ID: <115c74e0-2e08-48ac-a70b-c11d2fa808f5@kernel.org>
-Date: Tue, 25 Aug 2026 09:12:42 +0200
+	s=k20260515; t=1787642209;
+	bh=AT3dvNSm8bdMfrFcqv8ffidb/RGxThAxqf4nG5NbF+c=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TDnTY3euL5+pAh4V/NwVTk9JXJXILrD12KWu9IXqq7MWiSqL6UPQ7yE6R5ejYAVN7
+	 hVJpjo74obnvyR+rISfTcatY8hHxYH8mP8KSWZaLrbXeNquSaM/6eQ4qVgWXVO1JUp
+	 79FiVSCIbPMgjqptulDqVT5benGQ8QFYJbq6IV20nEq4Ri0Auw9F7biLpKaS19wH21
+	 6RZYXPZq+N3G0UAjYiHz3rsyySfZmtBixj0+2ImDrp7nhPtL/KotLg9iVHu/tLv8s7
+	 I6Lo8rN97Gg2TvMo9lgIsCsCUyWRgEbEMgIVULrl/UuhNS4sY2neN9ZbnnGcbaNzrg
+	 lTAD2zSXnBe1Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/3] ARM: dts: imx7d: add Variscite VAR-SOM-MX7
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
+Cc: Frank.Li@kernel.org, robh@kernel.org, imx@lists.linux.dev, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <2b7fabe6b1c4d08e58d2542742492564b67c4c32.1787586961.git.stefano.r@variscite.com>
+References: <cover.1787586961.git.stefano.r@variscite.com>
+ <2b7fabe6b1c4d08e58d2542742492564b67c4c32.1787586961.git.stefano.r@variscite.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 25 Aug 2026 07:16:48 +0000
+Message-Id: <20260825071648.B547C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] clk: qcom: segcc-nord: Add EMAC CNOC APB clocks for
- Nord SoC
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
- Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
- Imran Shaik <imran.shaik@oss.qualcomm.com>,
- Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260824-nords_emac_apb_clk-v1-0-290767386bf5@oss.qualcomm.com>
- <20260824-nords_emac_apb_clk-v1-2-290767386bf5@oss.qualcomm.com>
- <z3d2awmpulr5cwexhso24verb24ec4rsnj4pxfhhqxwezrfjat@pwoxszguelpg>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <z3d2awmpulr5cwexhso24verb24ec4rsnj4pxfhhqxwezrfjat@pwoxszguelpg>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 24/08/2026 10:12, Abel Vesa wrote:
-> On 26-08-24 12:23:30, Taniya Das wrote:
->> Add the EMAC0 and EMAC1 CNOC APB clocks to the SE_GCC clock controller
->> on the Qualcomm Nord SoC. These branch clocks gate the config NoC APB
->> access to the two EMAC controllers and are required for register access
->> to the Ethernet MACs.
->>
->> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
-> 
-> Fixes tag, maybe?
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The `sw1a` regulator maximum voltage is set to 3.3V, which violate=
+s the i.MX7D core voltage limits (typically 1.0V, max 1.15V) and the PFUZE3=
+000 SW1A hardware limit for this design (max 1.475V).
+- [High] Deleting `fsl,sai-mclk-direction-output` prevents the SoC from out=
+putting the required Master Clock (MCLK) to the WM8731 audio codec.
+- [Medium] The `sd3-pwr-hog` GPIO hog on `gpio6 11` directly conflicts with=
+ the native `usdhc3` pinctrl configuration for `SD3_RESET_B`.
+--
 
-Same here. Fixes needs proper bug description.
+--- Patch [2]: [PATCH v4 2/3] ARM: dts: imx7d: add Variscite VAR-SOM-MX7 su=
+pport ---
+commit a699faaceb07c2b3521d089b94e7deba5e25dd8b
+Author: Stefano Radaelli <stefano.r@variscite.com>
 
-Best regards,
-Krzysztof
+ARM: dts: imx7d: add Variscite VAR-SOM-MX7 support
+
+Add device tree support for the Variscite VAR-SOM-MX7 system on module.
+The module is based on the NXP i.MX7Dual SoC.
+
+Link: https://variscite.com/system-on-module-som/i-mx-7/var-som-mx7/
+
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc.dtsi b/arch/arm=
+/boot/dts/nxp/imx/imx7d-var-som-emmc.dtsi
+> new file mode 100644
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc.dtsi
+[ ... ]
+> +&gpio6 {
+> +	sd3-pwr-hog {
+> +		gpio-hog;
+> +		gpios =3D <11 0>;
+> +		output-low;
+> +		line-name =3D "sd3_pwr";
+> +	};
+> +};
+[ ... ]
+> +&iomuxc {
+> +	pinctrl_usdhc3: usdhc3grp {
+> +		fsl,pins =3D <
+> +			MX7D_PAD_SD3_RESET_B__SD3_RESET_B	0x59
+
+[Severity: Medium]
+Does this GPIO hog conflict with the native usdhc3 pinctrl configuration
+for SD3_RESET_B?
+
+The sd3-pwr-hog statically claims gpio6 11, which corresponds to
+MX7D_PAD_SD3_RESET_B. The pinctrl_usdhc3 later claims the exact same pad as
+SD3_RESET_B in its native mode.
+
+Could this cause a device tree resource conflict over the pad, and
+potentially spuriously reset the eMMC during sleep transitions if the
+pin reverts to the driven-low GPIO state?
+
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-var-som-wm8731.dtsi b/arch/a=
+rm/boot/dts/nxp/imx/imx7d-var-som-wm8731.dtsi
+> new file mode 100644
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-wm8731.dtsi
+[ ... ]
+> +&sai1 {
+> +	assigned-clock-rates =3D <0>, <36864000>;
+> +	/delete-property/ fsl,sai-mclk-direction-output;
+> +};
+
+[Severity: High]
+Does deleting the fsl,sai-mclk-direction-output property prevent the SoC
+from outputting the required master clock to the WM8731 audio codec?
+
+The WM8731 codec requires an MCLK to function. By removing this direction
+property, the SAI block might configure the pad as an input, which would le=
+ave
+the codec without a master clock from the SoC.
+
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-var-som.dtsi b/arch/arm/boot=
+/dts/nxp/imx/imx7d-var-som.dtsi
+> new file mode 100644
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/nxp/imx/imx7d-var-som.dtsi
+[ ... ]
+> +&i2c1 {
+[ ... ]
+> +	pfuze300: pmic@8 {
+> +		compatible =3D "fsl,pfuze3000";
+> +		reg =3D <0x08>;
+> +
+> +		regulators {
+> +			sw1a_reg: sw1a {
+> +				regulator-min-microvolt =3D <700000>;
+> +				regulator-max-microvolt =3D <3300000>;
+
+[Severity: High]
+Does setting the sw1a maximum voltage to 3.3V violate the hardware limits
+for the i.MX7D core voltage?
+
+The sw1a regulator supplies the cpu0 and cpu1 cores. The PFUZE3000 SW1A lim=
+it
+for this design is typically around 1.475V, and the absolute maximum rating
+for the i.MX7D ARM cores is usually around 1.15V.
+
+If a driver scales the core voltage up to 3.3V based on these boundaries,
+could this result in hardware damage?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1787586961.gi=
+t.stefano.r@variscite.com?part=3D2
