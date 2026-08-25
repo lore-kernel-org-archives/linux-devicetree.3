@@ -1,101 +1,91 @@
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E69E45A287
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 13:51:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F5B4470117
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 13:54:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787665876; cv=none; b=g3g5ouktO1xXuPV0HV1de56WdC6mySISgVkGO4NScqzvFp6RM/+DYvSLigpbxyzv0alwCHmCed7SFRfy0EU4T2mQhAGLVDRDrDXh+J15/xdyeApqMk2sKoRraOp2UDyABEfV+s97tMb5KpUBUz0HcERAXyy8GVDglPBcuGh95BQ=
+	t=1787666082; cv=none; b=BwpDr+sHAtJEYdhX4wK4Co/674jfNnwxrZm/FjYtuNzF02jODpM7CQYVET3kZVFkBGlRwx7y0TFEy1mSO9YjcjmMM4Wj9YqgaRS8V4pHngoF55HYgevockQWgLuQVHYmt777Adnswx8Bejdj4y/1fKJdYC4QfCCZWY30CPyJMXc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787665876; c=relaxed/simple;
-	bh=4Nhf7wYr5y5kOmehF2+mwwOUzZfIYgBl4L8KXVm9JcY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KaWlghHPvx8S6T/LNzeHfhwy+/dZy7CXkV5XIRDZOoiezvUTsMaLEbedJ8w9ZLmzEGi+aaunJI3EyZMm4c1UiZ2huadvNcHin/ubA1pQjHQwRPRTS0DIKRdmr3A6UD5Ur5LbM5jKsG8Nf6qx8WZcS25jmLpFYRrAlpNV4ZNtiDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5c5ac25089bso1750051e0c.0
-        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 06:51:14 -0700 (PDT)
+	s=arc-20240116; t=1787666082; c=relaxed/simple;
+	bh=HeWcAvcHoVCngDKxWDwcs8lqQkIX1yBSlztDKTCfC4A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ThhGP7yF2iq2YkdZ5liVTUWRL71kAEiwlRh/3HM1axdRm5BIEg81+wVAkhjGlzj1+KWolB5e1Lkq9a8uXBga3a7y7a+uDf+FPkxwpzG/KWEZu69bNHF694F4bTwBASE4pH4c10spzEZehGpr4j7ZpfyyeF5hGkpcnuTq2tKAhbg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=I8dlSs5e; arc=none smtp.client-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="I8dlSs5e"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c15e592da74so665452966b.1
+        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 06:54:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=konsulko.com; s=google; t=1787666079; x=1788270879; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Jv3tIOWEnK/99KAUgJnbIDJX1kKr30Yc7XPU554aBtU=;
+        b=I8dlSs5eoufT+UgeE5PprGNT4tsU3l1O1jIMMaIQCPQxSJ/P7AAIc0/aC7juf9sQYn
+         o6V1rUXY6uFrwuONYBpIIZ37Y018hIJrRLAeEQv9GSftd9Tf3xKQYtEObQllGvi077zy
+         bWu5r5JHg3Adczoji67vXNMp4vzmheQcdEk0A=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787665874; x=1788270674;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=r3HqpL4LRyR8Q1Zvn+1cvkTShpZ++E7BIg5onQopH7Y=;
-        b=GBY1rtX9Q/pP41y5ilGiaMwol+ocI7TzZX3QQHlYT9YtqWxQg9q1Tid+ZseBVJ2IqB
-         k5eejYL37LO/errL4X5/CElk0SsGYMUBImNqFmBifUsQpNpU5tGUKTT8KnBGF5Y2mvhP
-         026dmrcPL3pfFB1lDmr17kOn+9tU1K0sQM9KH+6zIT7oRfGd/WZg1GULOnj2C/+d46zn
-         R1ogSkjUPi76k/0OVQ4s+7i0B32kviT4bSNB/+LI+pJiytW/Beq26WYZ8DawUN4+BQDc
-         qbZSyC/kakZ69nU3RVeQ/hTa4EIEoS48sJaWQ2gDStAN493IfzHmV76fA74e/W37525V
-         or7g==
-X-Forwarded-Encrypted: i=1; AHgh+Ro06UEML+/7pXhH5nWZM5+ts+rJDQx9IeVcMJYmPEBI1SP3MNctLGsK84eM5Y1EO/Noc2HWu2Mwc1LU@vger.kernel.org
-X-Gm-Message-State: AFuF++mEpoGTikZA+2cMLz6gho4kd/DcHSFdTPy3OFREi2yym5e/v0wL
-	mmjFZW0PBqyqB9e9J0DpwAdzkbMAsv0cNu7XgGNbT4BwXwaYPLR44p2GvT96oJ56y3Y=
-X-Gm-Gg: AR+sD124iAnpgtOCzRyWmSCdSYyhzLIl/uIscUDdOLArok6+OF9qfr3n7iHkmTEVbns
-	edq5j0gtNDsHLTRqAhxTZUEdBkgTG+yuNLL9CAlV36eSrrWWyG31v6VXLxCj4LBMkx1xoR/pf3k
-	1LDDqnyK1dKT4VrM+d1v6GAwKWkVk3N/phc4+VJGrT9oNpZsYb23qb7w6DyABL7/9SSCDFsWRQL
-	YXo6hxVUXkTY0QBWfFwLJkwkQZadaiWoAZlL68K7sBVp/vUBT2Qi0p4Vz4JCFIdjC9FYMpSB/sm
-	di618eTcKbq3aXIDjV9NAEiKLkodtfVfiPqqv2uco4G5tx2KALumEIXVWubJesBMabKP5bobBU8
-	jCA0BgoMwe/ps0omomQYKW7x8/g/kFI+0s5ohDiKaC98q7Awn5sAtWPrF34UDrwUoFGkFI9HVmz
-	er/U8XWwm3qcaX1DQeFD4B7EBIeAGNoZ/lMF/YxFJ60NTCVUGFYcF717M26wouvmvFH6UXi/1pD
-	j6TuZpGbFSXil11ZABcU5wGUg==
-X-Received: by 2002:a05:6122:46a0:b0:5c5:d531:2f4e with SMTP id 71dfb90a1353d-5c5ff7f198amr13071397e0c.5.1787665873766;
-        Tue, 25 Aug 2026 06:51:13 -0700 (PDT)
-Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com. [209.85.217.45])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c632e87d61sm4527422e0c.1.2026.08.25.06.51.11
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 25 Aug 2026 06:51:11 -0700 (PDT)
-Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-77bf892b496so912348137.0
-        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 06:51:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rp3wQvYwyPYnyPeMDuvq73wiAmwd5KjnSAka2oVySOuDWF09P1OwlxSFraoqEuTkuizEoNrNWcsBD0d@vger.kernel.org
-X-Received: by 2002:a05:6102:3ecd:b0:74a:b1ee:e034 with SMTP id
- ada2fe7eead31-77a63f3f870mr10636886137.8.1787665871110; Tue, 25 Aug 2026
- 06:51:11 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787666079; x=1788270879;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Jv3tIOWEnK/99KAUgJnbIDJX1kKr30Yc7XPU554aBtU=;
+        b=nW1Gw0vWtDSxpF3PKIk4ttYjml3M6HlVktW+iaQi3cFOMDWu0+SeYNINS+6obIWSYp
+         BLgbHjbZkH4Upc+Z+bPJZVOg996j4VQaj6+Msb+nIkVV1WmW3/Z/XP0MzdmCtDz/dGYP
+         C5boRmbqf+fGJ/GnBHFNXRzRuxqqM8y0tUZbzi7i/s6QRjGGm9lumjs9h4opVzywXbuT
+         y4DCvPM7xRilLGOD9dToMCYJI1juzOfd5Ai9PXTbwldyhu8HpuxMpS9n73XJZTLZxbp8
+         Trrt6CFRTxnoIVn9ITwZuoSsweyCVxclol+x80noZRhD59Ft7obhuH8cgHgjNTrtspAA
+         30xg==
+X-Gm-Message-State: AFuF++mQU1i2TFzGzhtUQdg5R9hyOwOc68QeDC6Dpv/Y/xVrgW69pu+N
+	Um6E3UnNpsl8M8TJsQa2PPQoB/65gSCwuKFuOWrypoChOrbyZ5W+bAQ4NlMbmcmQwSDJNf6av8d
+	Iv4f1
+X-Gm-Gg: AR+sD13zQXuxyzQEBCUZzd2uOjmeJxT4llUkYc66McXvLN4xPFTqLiebemyfU7QY8GV
+	9xqbIV3o7XmWH1JauO0oKsvuNnqBE0325R0D0uLj1sq1PIeIrLnn4vnaMgoGova5VbMgo8KutIG
+	PabPUq20KzQanVThyelzJ+fHD16S5sWDP8iAPc9+pP2AF0I/GcXkMH/wWnZQBcMqDaBBYjDaINC
+	5OhLcPSyg/s8os5t27O3BTKr+oiiaUu/Dn/f8SHTeTginBzu2HtHVaBN5e6FTBVxRzg+8GC548D
+	CF15n/ALGJ3smqZC4U5kk1qp7LKeyIODmu457DfTForwRhi0aMrtt5QTqMgaORFsWeeToxaHFKr
+	v12Y3VE8KHbsFZVzfu8ooUasArTj39Y3GXH6szASn5Q1pdP1i2INRlvysgG7jP0sWzHnjvhjCAC
+	EmDTwXyqRqtWMUGL8XMJb1/aTNUBD7Ca3Tp+xS21YmfYmBP3J8WANy04T75jil76/vt0rrWk7jz
+	3gARQ==
+X-Received: by 2002:a17:907:a089:b0:c21:450d:cd88 with SMTP id a640c23a62f3a-c24924b8000mr2955242766b.6.1787666079439;
+        Tue, 25 Aug 2026 06:54:39 -0700 (PDT)
+Received: from tone.k.g (lan.nucleusys.com. [92.247.61.126])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c24968a336fsm1819330866b.60.2026.08.25.06.54.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 25 Aug 2026 06:54:38 -0700 (PDT)
+From: Petko Manolov <petko.manolov@konsulko.com>
+To: linux-media@vger.kernel.org
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Petko Manolov <petko.manolov@konsulko.com>
+Subject: [PATCH v1 0/1] ARM: dts: draeger: Add devicetrees for Draeger's M48 board.
+Date: Tue, 25 Aug 2026 16:54:24 +0300
+Message-ID: <20260825135426.3967333-1-petko.manolov@konsulko.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260714173315.1981708-1-claudiu.beznea+renesas@tuxon.dev> <20260714173315.1981708-4-claudiu.beznea+renesas@tuxon.dev>
-In-Reply-To: <20260714173315.1981708-4-claudiu.beznea+renesas@tuxon.dev>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 25 Aug 2026 15:50:59 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVBL30LN-+9e5LAVFCaK1y2BEr+VBs=sDgjLCgpc=kgyg@mail.gmail.com>
-X-Gm-Features: AcwNN1VGPHnBk0TXWTegWV3RPljNeX5vHxO1DRox-RPTqr-v1ZX5lP4j3I-XFNY
-Message-ID: <CAMuHMdVBL30LN-+9e5LAVFCaK1y2BEr+VBs=sDgjLCgpc=kgyg@mail.gmail.com>
-Subject: Re: [PATCH v3 3/8] can: rcar_canfd: Fix typos in macro names
-To: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
-Cc: mkl@pengutronix.de, mailhol@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, magnus.damm@gmail.com, 
-	mturquette@baylibre.com, sboyd@kernel.org, bmasney@redhat.com, 
-	biju.das.jz@bp.renesas.com, fabrizio.castro.jz@renesas.com, 
-	claudiu.beznea@tuxon.dev, linux-can@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, 14 Jul 2026 at 19:33, Claudiu Beznea
-<claudiu.beznea+renesas@tuxon.dev> wrote:
-> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
->
-> The bits 1..0 of the Channel n Control Register are named CHMDC (Channel
-> Mode select). Fix typos in macro names by replacing DMC with MDC.
->
-> Reviewed-by: Biju Das <biju.das.jz@bp.renesas.com>
-> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Adding the device trees for “Dräger M48 on NXP i.MX6 (Q) and Intel/Altera
+SoCFPGA Cyclone V” board variant.  It has both (the SoC and FPGA) on the same
+carrier and they are cross-monitoring each other.
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Petko Manolov (1):
+  ARM: dts: draeger: Add devicetree files for M48 Intel/Altera SoCFPGA
+    Cyclone
 
-Gr{oetje,eeting}s,
-
-                        Geert
+ arch/arm/boot/dts/intel/socfpga/Makefile      |   1 +
+ .../socfpga/socfpga_cyclone5_draeger_m48.dts  | 132 ++++++++++++++++++
+ 2 files changed, 133 insertions(+)
+ create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.47.3
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
