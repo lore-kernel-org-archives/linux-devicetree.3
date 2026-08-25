@@ -1,356 +1,148 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013017.outbound.protection.outlook.com [52.101.83.17])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B8C6486639
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 15:06:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787670411; cv=fail; b=pfn7uqjpiAUdt6ZhcsdAtVfsrI0gM7F2b2jPnGjr68+byF7omLsc78d6KYr+nKei1JBSlre97pghf7v3yZf1Jiv6TJn75ZdxGkblkrdXIhaAHhzUpaoAMlVVKuqMU7B44qNfzPo+QQsIvs3c+hORcYGxPHxH4ylwIn4YyeAsDmQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787670411; c=relaxed/simple;
-	bh=iXQnNRCbq+Zz02tGktlc3HdlT2Hk7ivc7N+BKNS1JLM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=r5X9rMxAms2sIwVmGQgNtf91OOs6Dkace13NVC8BkFc4/wSSjDYcRb1VUbE/cFNACAj4bLczoofioHJve3iasidyE0cKaxsrtTsnXhySdY+NCYDzg8XiY4rFpisM9o6PxSNtoKgY2VlCzAg5Bs0CNelw4pWuoRtICcJMTRqR+1U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=gTvEC7rC reason="signature verification failed"; arc=fail smtp.client-ip=52.101.83.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D69848550F
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 15:26:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787671575; cv=none; b=b2nT17ikVNFx43mio6f9Dr333ET9XiJI7gSKqQDo6EgrDlvsw6hLs//NXD6sqYpBAWdXBiHVGf0tx6hZ9C7wXuBazMjoqA5gZ+Xs9jfDn1fv/qhQP+UkygoVCoBen07oZ5sQOSYXLNj/FwP2GFAb77MZ0WLVJOEaE1TEeAaS4lY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787671575; c=relaxed/simple;
+	bh=phpEkPZEUkUlFJpU8mOcSvNhHDcWnWX6PmAgg9Jp/W0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=msqYtgDrHTU9VZQ02rnANPJsq77D6GxTLaYdk8l1vLOQj5zKFbntSV2KU9LC9X1kc/qUrA6KyC96fW7C6ze7CuZcg099HuXt2UWnGBoku4JJhdNLjCwSgQXSxlKzV1WCzcsQae88GuyUukWzGj7sHD1P+Ssj5mB+vtDMLNu3Tqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=K3WwPSb4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OyYDTQdb; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="gTvEC7rC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=icJSterUQco/Tpq+oLtKctNfj4fdC1b8ELpTDHaBoUA9hvIFrAOVvu0eS3UqFCu77GELDIvh4EbtVN1k/4Yh04uNfc8jYe9Y60ka3aZVILy3rW1c4lzdk5SNgMJNp/L+hozL0eSgo/JdjZoQ4oduOOdS6IciL/VJ6zjT+o4lnpwSrSq6stMUWMfibSpL9Y87JZexr/UvkhtqthxRTTvKX0KExGbaIM3Gx17038y2+dzrjqxOUmXQiVdG95wo83AGwQIu9jFUpDvPp8MgSLY07AvXYFwqVmm1Sci5PwjqZMhX7t8yZ+ajxAHW0Pj0ogUKTYnE+SPC52/4sqGXrqP1bw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zzGKf2Z/0+smRnu9izlu1xUfCxrH/ouIsZCvFpCZCw8=;
- b=AYY9R2L80OlGvqiBeqfLcyFBpx54W7sY0U/7T0wOSzFldzmm8lx4j2vtTaFbwzEbPKa4xdsV0EWg/1+KGB1jV98kGxqMhce6X1PvE+8BKtg62IrGLSiDiWCMALVc3Bc57ZdHcE3KNBeQnTQmNBLRqtvvRKVhRAM0iHk1o/AosCxH6PcsW2YnvD2Odb3MWGZTmIe4wJQlllbIVDf+jvqI0V3yDK+MgUbCU8fOX3x+RvW0aJwbXMBP1Dp2ICzd89mktGmxv5YZIZmkK9tDfTjd8/06oB5/ngnTKIXBhZZ2B40LK5cH8OSdQMNMpo9uIE/loiYi8oMcuL0pie0EmjmZhA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zzGKf2Z/0+smRnu9izlu1xUfCxrH/ouIsZCvFpCZCw8=;
- b=gTvEC7rCjMLVymbNeqICu1Lw4G99HOOGxT3V0EXUGnXZsu4azQvqOhzzAar5X1zRfcQwGC1jbhn1A+CJ9XR6Z9eePGQrwcU33l4OeW4gS0iHExC/mydmGRpvZ+BPOEblsKFIaCJwA1s/anaBTbEC/v9q34Y96VeqyPgluwv90C0tfXO2lYPenaTV3Vkw3WhfL5J3ONbcf1CjksgwGQosPOwY7Q+0uxq3UdkQD/RbqA5+u3PGCIHDh6WDHa/KOqAwGawc+K+vDid/HSK/3BzGa0XW/quDTbyGKCqaEeE438AvJbz8PeoGctxstAMfKx7dvCfcBzmurqyd69GTYC7otw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by MRWPR04MB12045.eurprd04.prod.outlook.com (2603:10a6:501:94::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Tue, 25 Aug
- 2026 15:06:41 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0339.012; Tue, 25 Aug 2026
- 15:06:41 +0000
-Date: Tue, 25 Aug 2026 10:06:33 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: pankaj.gupta@oss.nxp.com, imx@lists.linux.dev, Frank.Li@kernel.org,
-	conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-Subject: Re: [PATCH v42 5/7] firmware: imx: adds miscdev
-Message-ID: <ao2vea2Z6RvDL4oy@SMW015318>
-References: <20260825-imx-se-if-v42-0-2e8efac0bb16@nxp.com>
- <20260825-imx-se-if-v42-5-2e8efac0bb16@nxp.com>
- <20260824175010.E8E2E1F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260824175010.E8E2E1F000E9@smtp.kernel.org>
-X-ClientProxiedBy: SA1PR03CA0024.namprd03.prod.outlook.com
- (2603:10b6:806:2d3::25) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="K3WwPSb4";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OyYDTQdb"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67PEUWiF1153283
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 15:26:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	FmvOoqVI4nFK8bx8DmiZ00iFRmbAwyUfhcb0iHKmqrc=; b=K3WwPSb4pTyqf+t9
+	B+JxmUqQo+yij2VfzIOCKrdIVeX3gEKMkGF2lE0x1Cz049+U1yLDwycYFSJQh2Xv
+	P+nRFezLhjBdPmrVOEtBEIDQ3r7vvUjH0BgIjGBd9mok/lE3bM84RWHYDIGtoDCS
+	SPvgjDH2M/Di4+DY9m7rVl12BeYQrVfThEZOTlsLd8cUlGU45jrKkqKLTLC9nuaG
+	ofRsluKv7L0K1gNG0B34ZnGLCcfz+Pv2ja1YU8z379kwV98jHNFjBzl4kelX/Kyk
+	M4QTVUT99LxoBhEfyNhHqs9wXms54mU+O8DmAsOKes6uZO1qFULro6jnflP56fCd
+	ddT3+A==
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g93xxtpb8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 15:26:13 +0000 (GMT)
+Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-7530aaa7212so179078137.3
+        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 08:26:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787671572; x=1788276372; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FmvOoqVI4nFK8bx8DmiZ00iFRmbAwyUfhcb0iHKmqrc=;
+        b=OyYDTQdbPugPiCaHVVIq2Dpwzq9cTbmUDSEY2XiYm3IP9Uf4pN38UNaj/sR/ztR7SB
+         IVhTyk2JPETdKYMzcN/14mRj1OcS3cn+Rtk347hOg2PfmO/tJGuO3Khp/AW82bwUi6mh
+         Z1LpJ/M4igKeJQf8oQ3cFkyPaOvrFCXDrtz0R80TOAfBBFe6/ynysGIjiNyg5Nll0MIT
+         VDyzGhKMElDUEVDvfrNGb+brewEY8DkkHZ9sNH6q3v/SxiDDZ/A9B/0i/LqgoofYMQ+m
+         C3nzYrlmWSc2yLIA47GVCY/ecqJCLjHC+8oASylfswddPuHlcoKfPRsuzTJ2+jfw3HyO
+         kA7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787671572; x=1788276372;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FmvOoqVI4nFK8bx8DmiZ00iFRmbAwyUfhcb0iHKmqrc=;
+        b=IjkfhbtFqXKIxX/aiaUjocSQnBm0PiaBnqKbWYdZL4Uj/d4WxOu4MO8Qm8Bt7FxlwG
+         FzdSdp2YHuZP7vv1M8Uv/TcmhvEvXPYq1j0Ta4QSQQJb3AWZaozbAncZIzMQ2HMVPg/l
+         p8/qE84phPiRgQQ30TY6E/yhlAkJA1ne3C/UTlDE5nyYkYNyWDQ4IGTpMGP3OIskCSvm
+         7gYRehf8Yeb8yRmPrRrfcVPq8eKjErFJz/JvmbtnBlMRsQOC9m5wRA2zzXI3EwuA5JP5
+         9io8/5g5TH9wR2739rcWZNpolXG5mdplWXEZhNU/ZWZF0R9Qgcb8X1Kv426R1hw4Rk+c
+         WHEA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq8P9h1UPogf3tW1OBjrYazIu4lqRyJk0RPhF9lmMczDbyB0XVxsQjQH48ieo/ltglpqsOnbiqvb4gW@vger.kernel.org
+X-Gm-Message-State: AFuF++m/28DpWdwNOXxoP2Xrj1Nq13lUYIPgEQ/18mx5BQZAcra7+RbP
+	YuLaq75rM8B+lOO+Uoiax9VKbsFvdOqcNd4fg0ymvWYe9vD+PSUzwIjzNxE37lr0/WYbLJSAVb8
+	TZWcKMVEbbUdho92pzRoZye+1eZiZyaK0d1aoVvlpbtaesxKg8xFOy+KbnjdJ7qMo
+X-Gm-Gg: AR+sD12VlOB4e0DTTMRGMyBClr4qS8RiTOx0CNF8GluXKOwEqyTYdpIGOP14y7HR+Fl
+	mXUSZp18V9D+KGDPKpVgs+/O0gCiNMlmb+gTrroz3UzzWgW1JiNw+f6vD9zD/i7bcq5HLiDnn86
+	fFQSQSetZhWg/j6v6kwV3trE5W1hLsuSUSd15FEaDeFiRtFQ/BqX/Dtm2sAWZjKOK+HI8nP30pq
+	aFyvOva80hzQ0hrpYnwCrU0ixxzJVtls2ymUHhNisaLIZqH3N/Bqy9DV0lEl4NwVT5TNcc5JjHs
+	xVLS0/uhpn1Sf8NA8wHFQ40EbnkDBnXwnM6TSxxNAZHcritJWx2sggMQRk033HIyOJxkej+2jRA
+	ZdEzErzG+zWcRSv6obbH6i1Yf
+X-Received: by 2002:ac5:c906:0:b0:5c5:90ae:a8b8 with SMTP id 71dfb90a1353d-5c642f47423mr936877e0c.1.1787671572676;
+        Tue, 25 Aug 2026 08:26:12 -0700 (PDT)
+X-Received: by 2002:ac5:c906:0:b0:5c5:90ae:a8b8 with SMTP id 71dfb90a1353d-5c642f47423mr936866e0c.1.1787671572175;
+        Tue, 25 Aug 2026 08:26:12 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a5de8b641fsm247083a12.3.2026.08.25.08.26.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 25 Aug 2026 08:26:11 -0700 (PDT)
+Message-ID: <31c12756-50e1-41e1-8b01-67c1e0d6d8cf@oss.qualcomm.com>
+Date: Tue, 25 Aug 2026 17:26:09 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|MRWPR04MB12045:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4873909b-d785-45a9-09a5-08df02ba77e2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|19092799006|6133799003|5023799004|10067099003|56012099006|4143699003|11063799006|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	0rZl1oeM+lJwK83gwLaJFe5z13zSkM6AuL/gaf4KmAP3iFN9D+762uRp3M2muTcSjI/63Za4tMNwYQZCm0HfXvZTTCEkXJNE6VGHzR3L8QFf0+ROpG/eLNCdVPlTBH1Nd+eaCUYj8ZJ3nZXGGDgB8gZ3mBVQwt0fKEBBbysFSYZPSn2QKW+/VkrdU6dDKEWO6ErSokai7DUcGrj6FAoipQeO7FgYh1iZTPuBLMLvxmX+mOrPrRIbZgaD2fDutNKu1cHpVgplAfTDLacKl5W+m2FbMvZ4FvO94BRTJ+icFScn1Y53ry1DiX+hpIGU0L0O73si+ux0jI6IUu6IvZA1xF4J8/aystL643Lp0Wv5keAsbaYxzDVBtKhLZMhm0spx1OePGQtZv7RJY+7UZKz/dz5BpCzSAF8hIlfxPGZUerOsuCejJ8zS8xH/7Zlgml8HJAHbJQHetuLyraCT+uQLiB5NiXBG0D++P46IEYyjX7LoxPfgslHsCRds2Tls33t1BVCKKG4n7miOkJWfIs/9lU0u5h6s55mgtnCZmTOTbox2HEEZzqpBEbmK2aJIrUxqRU5EimrezW/OlxWVvEMd9v96qghjxc0gQuc3kWn6M3Q=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(19092799006)(6133799003)(5023799004)(10067099003)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?cg6VOUEONOVOHHBwWfL2/ovPL8BlPJOk/vI/3RSoTiiuzvyLr1/XJ7N7Yu?=
- =?iso-8859-1?Q?VSSljZx2Xx8s6pVNoghD+DJEIwJ5kR1XeWPxR+XPP1c6BfpxZioZAfkSDy?=
- =?iso-8859-1?Q?iWa5yoN11rlq0FPzpZDxK4m1f9BAQ/OYC2eKNX3p+bvuNYLtYN/3ktaKGV?=
- =?iso-8859-1?Q?+6uxsyHzBHO4/DGhEzZFzHGQRXb1IjRRN+M7p0Z5Yznojxme6W6jQ1hRaV?=
- =?iso-8859-1?Q?BvwFAoijCS+InGxKAQcTPfXYCCTHixNK+vWQlAV40XdIxPTuKejJslCd2f?=
- =?iso-8859-1?Q?J4PJrqSADw4Oy9RXpuTYAWrUM5K38vEsQqpaSxPC+hxK7neI6Afuw5I2Td?=
- =?iso-8859-1?Q?41+cq5yUxWr0SkKqxjSlFs7Z0cK0Onkgqcg34We+OuMwaVfuL+ut4Z9Iwd?=
- =?iso-8859-1?Q?dxwrhsmnynC0h9djlu5hXOf5y1uqL+gVlXFoh864rIkFc5s/Hap0qWmUll?=
- =?iso-8859-1?Q?dw8P6AgwkwYltFaaE/autt4nT3f05v5EcNj4CWupx0TaIASnry5jVKXSY4?=
- =?iso-8859-1?Q?nAG4NqDGCR0OYA/qsXUzBpCtmWqbf/gvmXSMYzSV96/FDvwz7EM1SwCvD+?=
- =?iso-8859-1?Q?fyAXQIu8h260ZIg6ro39lX7B7zm+1FO09utI+wtT2QropiQJAzNzfNBM19?=
- =?iso-8859-1?Q?wN323rh4LWHsOwo3rglbEmbqm2f0MakEpbh9u082JI6LqWzlGuiFsmVEcC?=
- =?iso-8859-1?Q?CPmllM9YP8vEIuUCLWTJIkOX47bvANc0RlEwrn3Y43MoDuTKCMw1crDGhG?=
- =?iso-8859-1?Q?WYKhNOzQ4xPExcsxWNkpt4eD7hfRG15oUYshBOpqEmtThKiOarD62tkxlg?=
- =?iso-8859-1?Q?E/tT30FRll43gstmwwjeLk7O4wFrXVx+Hycqh/vmxCamtOyCiSEQoLJ2xV?=
- =?iso-8859-1?Q?InJ1x/Waif0/DQc+Pzi9DK4xwv58ajFfk6qf6FtRvZK8pqxvOmvg97IhRH?=
- =?iso-8859-1?Q?JxaD/q9UDawKd5B6xfnmrVj1vzLGTD6YFBYCEHTPXKfxxdW8q6hbRdQTqk?=
- =?iso-8859-1?Q?SGpXwl5HlAwMIloFoZaPt53SZGUpxwfuvxv9hDFTlCMuxXmqgn7OWeKIB5?=
- =?iso-8859-1?Q?gVTBoUTx7jalJ7Wcq/IonKsAHMQCFgVWeda88VM6CCxooIB0Dapn/tCx6y?=
- =?iso-8859-1?Q?3ucwG2KFHVwUNPBEwTJf0ENGkuyTgBW5XlS//gTZWnlubWHeKle5J4nY+u?=
- =?iso-8859-1?Q?Oe9BT8OegE54UL1uNAZSR/Z0RyMfES6X/7a3yz4TxxnGsTTdg3m+rQ4hps?=
- =?iso-8859-1?Q?O3JRS/avV/NAKGPBwxhKiMiB+KOnM1+aOpZFcFs3GqfEOrr6FdSqmHlV1O?=
- =?iso-8859-1?Q?m0UW2cfaJJEaioj0kzcvwA40nSFkPC48mLHVG59KE+RTqnxNsWmKfP/ERC?=
- =?iso-8859-1?Q?NN9BKPXnAuCIjnDK3YkJBu0qNhaL6f5KObHCGFUrNC4N7Zv1kMcrPZ3MDM?=
- =?iso-8859-1?Q?6+LWRUJ+Gh5nV28MeLYGCysgL2x8/aYg7eVA72txBpDbav0g368ukCazuU?=
- =?iso-8859-1?Q?ggkeNSTJjI72cV9grr3W3EEnDPAlrjHw3X5S0VNGkCtNFdorEtfDUJKEPS?=
- =?iso-8859-1?Q?zI6yzwqZsLOMs5drImqE+3IfO4ebPPRI4W7OWKYjdeJwkL994gHTIxstq2?=
- =?iso-8859-1?Q?k2gKrj/7KsLhnT154r6DWsMu9nbHSNWJXvDOSnpmDTz+2TCHWZP60jU1oM?=
- =?iso-8859-1?Q?iIR6KBJjnvW2fyrnHQ3Rs2mvHzMdIOkHgsYHDZ7+HV+3frmbGIKP2jKQRe?=
- =?iso-8859-1?Q?2sT6c+kE5qtzJ8MJ2cNvlLavBzfYethoO0QBOy+tmKb8c/4ViWiB8BFmIq?=
- =?iso-8859-1?Q?TS4kf3vOYoHyX87taNc7CjUd8X1krOufMtcTmbwzuY/atuc2Ncgb?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4873909b-d785-45a9-09a5-08df02ba77e2
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2026 15:06:41.1563
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AjxEETeXfByHt/FEsA3ZbD+mjdUdO3C7IwO7b3RYM4aa23YpXldENQit8gVQEI1JzYPS0j2R5XGcq6W8r9QIzLb2gG4xn7TbBrZzXvoDlyOx+PbJXs/KuGBvEl5xhsf4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MRWPR04MB12045
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] arm64: dts: qcom: sc8280xp-microsoft-blackrock:
+ Replace old sound nodes, enable DisplayPort audio
+To: jens.glathe@oldschoolsolutions.biz,
+        Bjorn Andersson
+ <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: =?UTF-8?Q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260825-blackrock-audio-v2-0-659cc4724d57@oldschoolsolutions.biz>
+ <20260825-blackrock-audio-v2-1-659cc4724d57@oldschoolsolutions.biz>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260825-blackrock-audio-v2-1-659cc4724d57@oldschoolsolutions.biz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI1MDEzMSBTYWx0ZWRfX561vhxl5/YG9
+ spuPYWC0MQ3c1KTY1KBwOTfdedRnQ8WY7KAsGKfNXayK0jDejUt1BZhlXa5UQhlnAKqZ4eMxOcz
+ ClM4mpxCUaLk5kggDEABJyR0JF+bvaw=
+X-Authority-Analysis: v=2.4 cv=EOg2FVZC c=1 sm=1 tr=0 ts=6a8db415 cx=c_pps
+ a=P2rfLEam3zuxRRdjJWA2cw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=gxl3bz0cAAAA:8 a=EUspDBNiAAAA:8 a=dFqHnVd931faZYylGH0A:9 a=QEXdDO2ut3YA:10
+ a=zgiPjhLxNE0A:10 a=ODZdjJIeia2B_SHc_B0f:22 a=kiRiLd-pWN9FGgpmzFdl:22
+X-Proofpoint-GUID: V4NryhpHLshD2itwEjcjYkDlLL1JrmTT
+X-Proofpoint-ORIG-GUID: V4NryhpHLshD2itwEjcjYkDlLL1JrmTT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI1MDEzMSBTYWx0ZWRfXyMrgDWwyk95o
+ CJXDa27jz0hKYHEHVFDmhzXW0mLpIFrQTtIiRPQyy9GTbT+OwYVr/pieDjUS4KUl9kUKy8rl+Sg
+ QVp8oZwSt8Sl8gmgP7JB3iHcz/roIexMxN+4iTuZ+Ra7mnDjeu4m7bmqgVPbkM3e7/V9/aQV/1l
+ dXyXdF+x10jgfNRUfD2c5DxRwG7D05sDHi4GtYZvapPOfxFw94Et+YZxKtFYtzTLEv34V12fnJi
+ gN7ATtpTeKRKMsm4ABH2AeDP1duRfKdA2vPCVs0e06qaGCiHBO3aA7yv92i1qngKpgG47EkLZ1B
+ Mafdf8C3S2pqwz9+gC2XRQppNOC+jJfyojjowP5FvtckQb3EIibli1b7ij0vKogg3hfRNcP5M7e
+ bCPp9cz1tp1JHOgq8wLXGczaE4GZq6Ap5/CVq/hXpnHJ+bzJuMtJ7uRE4cWB4lZ2gBgF0zl+pvq
+ r2Mikc3rnNSveaP7fFw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-25_04,2026-08-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 clxscore=1015 impostorscore=0 bulkscore=0
+ phishscore=0 suspectscore=0 priorityscore=1501 spamscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608250131
 
-On Mon, Aug 24, 2026 at 05:50:10PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 8 potential issue(s) to consider:
-> - [High] TOCTOU race condition in ELE_STORAGE_OPEN_REQ allows NVM traffic interception
-> - [High] Firmware session handles permanently leak if a process exits via a fatal signal due to the fw_busy circuit breaker
-> - [High] SE_IOCTL_ENABLE_CMD_RCV_STATUS unconditionally returns -ENOMEM, rendering it broken
-> - [High] Missing bounds validation for SE_CMD_ADDR_NO_SIZE buffers allows arbitrary out-of-bounds DMA reads
-> - [High] Use-After-Free of priv due to fw_busy_work being scheduled after cancel_work_sync
-> - [High] Mutexes initialized via devm_mutex_init() are destroyed before se_if_probe_cleanup() executes
-> - [High] Successfully received firmware responses are dropped on non-fatal signals, leaking firmware resources
-> - [Medium] SE_IOCTL_GET_MU_INFO returns hardcoded zeroes instead of enclave identification data
-> --
->
-> --- Patch [5]: [PATCH v42 5/7] firmware: imx: adds miscdev ---
-> commit 2e1b01a2a813fca5bf21f8f8fd015fe9ea573491
-> Author: Pankaj Gupta <pankaj.gupta@nxp.com>
-> Subject: firmware: imx: adds miscdev
->
-> This patch adds a character driver to communicate with NXP secure enclaves
-> (such as EdgeLock) from user-space. It introduces an ioctl ABI, shared memory
-> management, and validation checks for firmware commands.
->
-> > diff --git a/drivers/firmware/imx/ele_common.c b/drivers/firmware/imx/ele_common.c
-> > index 0000000000000..0000000000000
-> > --- a/drivers/firmware/imx/ele_common.c
-> > +++ b/drivers/firmware/imx/ele_common.c
-> > [ ... ]
-> > @@ -546,6 +546,14 @@ int ele_msg_send_rcv(struct se_if_device_ctx *dev_ctx, void *tx_msg,
-> >  	err = ele_msg_rcv(dev_ctx, &priv->waiting_rsp_clbk_hdl);
-> >
-> >  	if (priv->waiting_rsp_clbk_hdl.signal_rcvd) {
-> >  		/*
-> >  		 * Signal was deferred until the FW/kernel protocol resynchronized.
-> >  		 * On success report -ERESTARTSYS for the interrupted wait; the
-> >  		 * command is not re-sent. Keep real errors like -ETIMEDOUT.
-> >  		 */
-> >  		if (err > 0)
-> >  			err = -ERESTARTSYS;
->
-> [Severity: High]
-> Could this leak firmware resources when a non-fatal signal arrives?
-> If a firmware response successfully arrives but defers a non-fatal signal,
-> this code overwrites the positive success size with -ERESTARTSYS.
-> Then in se_ioctl_cmd_snd_rcv_rsp_handler(), this is converted to -EINTR
-> and returns early without copying the response payload to userspace.
-> Because userspace never receives the newly generated handles (e.g., keys
-> or contexts), it cannot issue cleanup commands.
->
-> > [ ... ]
-> > @@ -660,11 +660,11 @@ void se_if_rx_callback(struct mbox_client *mbox_cl, void *msg)
-> >  		se_clbk_hdl = &priv->waiting_rsp_clbk_hdl;
-> >  		spin_lock_irqsave(&se_clbk_hdl->clbk_rx_lock, flags);
-> >  		if (!se_clbk_hdl->rx_msg) {
-> >  			if (atomic_read(&priv->fw_busy))
-> >  				schedule_fw_busy_work = true;
-> >  			spin_unlock_irqrestore(&se_clbk_hdl->clbk_rx_lock, flags);
-> >
-> >  			if (schedule_fw_busy_work)
-> >  				schedule_work(&priv->fw_busy_work);
->
-> [Severity: High]
-> Could this lead to a use-after-free of the priv object?
-> In se_if_probe_cleanup(), cancel_work_sync() is called to wait for and cancel
-> fw_busy_work before the rx_chan mailbox is disabled. If a late firmware
-> response arrives in this window, this callback will execute. Because the
-> callback schedules the work unconditionally if fw_busy is set without checking
-> going_away, the work could be re-queued after cancel_work_sync() returns,
-> causing it to access the freed priv object when the unbind finishes.
->
-> > diff --git a/drivers/firmware/imx/ele_fw_api.c b/drivers/firmware/imx/ele_fw_api.c
-> > index 0000000000000..0000000000000
-> > --- a/drivers/firmware/imx/ele_fw_api.c
-> > +++ b/drivers/firmware/imx/ele_fw_api.c
-> > [ ... ]
-> > @@ -155,10 +155,10 @@ int ele_uapi_allowed_fw_cmd(struct se_if_device_ctx *dev_ctx, struct se_msg_hdr *he
-> >  		/*
-> >  		 * Reject the storage-open request when another context is
-> >  		 * already registered as the command receiver.
-> >  		 */
-> >  		scoped_guard(mutex, &priv->modify_lock)
-> >  			if (priv->cmd_receiver_clbk_hdl.dev_ctx &&
-> >  			    priv->cmd_receiver_clbk_hdl.dev_ctx != dev_ctx)
-> >  				ret = -EBUSY;
->
-> [Severity: High]
-> Can this create a TOCTOU race condition?
-> The modify_lock is dropped immediately after checking the receiver
-> availability, opening a window before the command reaches firmware.
-> If two threads concurrently send ELE_STORAGE_OPEN_REQ, both could pass this
-> check and receive valid storage handles.
->
-> > [ ... ]
-> > @@ -244,11 +244,11 @@ void fw_api_specific_ops(struct se_if_device_ctx *dev_ctx, struct se_api_msg *rx
-> >  		rc = set_dev_ctx_as_command_receiver(dev_ctx, false);
-> >  		if (rc)
-> >  			dev_err(priv->dev,
-> >  				"Failed to register %s as CMD-Receiver: %d\n",
-> >  				dev_ctx->devname, rc);
-> >  		break;
-> >  	}
->
-> [Severity: High]
-> Following the race condition above, if one thread successfully registers as the
-> command receiver but the other fails here, the failure to register only logs
-> an error and returns void. Does this allow the ioctl to return success, routing
-> the second thread's firmware callbacks to the first thread and allowing
-> interception of NVM traffic?
->
-> > diff --git a/drivers/firmware/imx/ele_msg_addr_field.c b/drivers/firmware/imx/ele_msg_addr_field.c
-> > index 0000000000000..0000000000000
-> > --- a/drivers/firmware/imx/ele_msg_addr_field.c
-> > +++ b/drivers/firmware/imx/ele_msg_addr_field.c
-> > [ ... ]
-> > @@ -51,7 +51,7 @@ static const struct se_cmd_addr_field ele_oem_auth_cntr_addr_fields[] = {
-> >  	 * Output buffers must be fully bounded; input-only buffers are safe with
-> >  	 * addr-only checks.
-> >  	 */
-> >  	{ .lsb_idx = 1, .msb_idx = 0, .has_msb = true, .flag_idx = SE_CMD_ADDR_ALWAYS,
-> >  	  .size_idx = SE_CMD_ADDR_NO_SIZE },			/* container_hdr_addr */
-> >  };
->
-> [Severity: High]
-> Can this unbounded input buffer allow arbitrary out-of-bounds DMA reads?
-> The descriptor specifies SE_CMD_ADDR_NO_SIZE and a zero buf_size, which
-> bypasses end-bounds checks. If a malicious userspace process places the buffer
-> at the very end of the shared memory window and crafts a header with a huge
-> size field, couldn't the firmware read beyond the mapped shared memory window
-> into unmapped space and trigger AXI bus faults?
->
-> > [ ... ]
-> > @@ -138,7 +138,7 @@ static const struct se_cmd_addr_field ele_keystore_reprov_en_addr_fields[] = {
-> >  	 * memory the caller already owns. Output buffers must be fully bounded;
-> >  	 * input-only buffers are safe with addr-only checks.
-> >  	 */
-> >  	{ .lsb_idx = 1, .msb_idx = 0, .has_msb = true, .flag_idx = SE_CMD_ADDR_ALWAYS,
-> >  	  .size_idx = SE_CMD_ADDR_NO_SIZE },			/* signed_msg_addr */
-> >  };
->
-> [Severity: High]
-> This appears to be another instance where an unbounded input buffer might
-> allow arbitrary sized DMA reads by the firmware. Is there a way to safely
-> bound this input payload?
->
-> > diff --git a/drivers/firmware/imx/se_ctrl.c b/drivers/firmware/imx/se_ctrl.c
-> > index 0000000000000..0000000000000
-> > --- a/drivers/firmware/imx/se_ctrl.c
-> > +++ b/drivers/firmware/imx/se_ctrl.c
-> > [ ... ]
-> > @@ -746,10 +746,10 @@ static void se_if_probe_cleanup(void *plat_dev)
-> >  	while (true) {
-> >  		dev_ctx = NULL;
-> >
-> >  		scoped_guard(mutex, &priv->modify_lock) {
-> >  			if (list_empty(&priv->dev_ctx_list))
-> >  				goto out_done;
->
-> [Severity: High]
-> Is there a devres initialization order issue here?
-> Because devres actions execute in reverse order (LIFO), modify_lock will be
-> destroyed before se_if_probe_cleanup() is invoked, since it was initialized
-> after devm_add_action_or_reset. When the cleanup function later attempts
-> to lock this destroyed mutex, could this lead to undefined behavior or
-> crashes during device unbind?
+On 8/25/26 4:07 PM, Jens Glathe via B4 Relay wrote:
+> From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+> 
+> The Windows Dev Kit 2023 has no built-in speakers, microphones or
+> headphone jack. Likewise the device with the same mainboard, Surface
+> Pro 9 5G [1]. The previous WCD938x / WSA / VA sound card definition
+> was therefore non-functional.
 
-Please check this
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
->
-> > [ ... ]
-> > @@ -1151,9 +1151,9 @@ int set_dev_ctx_as_command_receiver(struct se_if_device_ctx *dev_ctx, bool is_io
-> >  	if (se_clbk_hdl->dev_ctx)
-> >  		return -EBUSY;
-> >
-> >  	if (!dev_ctx->strg_hdl)
-> >  		return -EINVAL;
-> >
-> >  	if (is_ioctl)
-> >  		return -ENOMEM;
->
-> [Severity: High]
-> Does this check render the SE_IOCTL_ENABLE_CMD_RCV_STATUS ioctl broken?
-> When se_ioctl() invokes this function with is_ioctl set to true, it will
-> unconditionally return -ENOMEM here and the command receiver will never be
-> registered via the API.
-
-Please check this
-
->
-> > [ ... ]
-> > @@ -1532,9 +1532,9 @@ static int se_ioctl_get_mu_info(struct se_if_device_ctx *dev_ctx,
-> >  	struct se_if_node *if_node;
-> >  	int err = 0;
-> >
-> >  	if_node = container_of(priv->if_defs, typeof(*if_node), if_defs);
-> >
-> >  	if_info.se_if_id = 0;
-> >  	if_info.interrupt_idx = 0;
-> >  	if_info.tz = 0;
-> >  	if_info.did = 0;
-> >  	if_info.cmd_tag = priv->if_defs->cmd_tag;
->
-> [Severity: Medium]
-> Are these structural identification fields intentionally populated with
-> hardcoded zeroes? Setting se_if_id, interrupt_idx, tz, and did to 0 prevents
-> userspace from dynamically identifying the secure enclave's type or
-> configuration.
-
-Is it true?
-
-Frank
->
-> > [ ... ]
-> > @@ -1614,11 +1614,11 @@ static void cleanup_dev_ctx(struct se_if_device_ctx *dev_ctx, bool is_fclose)
-> >  				struct se_if_device_ctx *tx_ctx = is_fclose ? dev_ctx :
-> >  							dev_ctx->priv->priv_dev_ctx;
-> >
-> >  				if (dev_ctx->strg_hdl && se_close_storage(tx_ctx,
-> >  									  dev_ctx->strg_hdl))
-> >  					dev_err(dev_ctx->priv->dev, "failed to close storage.\n");
-> >  				if (dev_ctx->sess_hdl && se_close_session(tx_ctx,
-> >  									  dev_ctx->sess_hdl))
-> >  					dev_err(dev_ctx->priv->dev, "failed to close session.\n");
-> >  			}
->
-> [Severity: High]
-> Will firmware session handles leak if a process exits via a fatal signal?
-> If se_close_storage() encounters a pending SIGKILL, its wait_for_completion
-> aborts instantly and arms the fw_busy circuit breaker.
->
-> When se_close_session() runs immediately afterward, it sees fw_busy is set
-> and aborts the session close command without sending it. Does this permanently
-> leak the session handle on the secure enclave?
->
-> --
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260825-imx-se-if-v42-0-2e8efac0bb16@nxp.com?part=5
+Konrad
