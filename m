@@ -1,164 +1,198 @@
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011061.outbound.protection.outlook.com [40.107.74.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7ABF34A78F;
-	Tue, 25 Aug 2026 04:20:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.61
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787631654; cv=fail; b=Tu0wC/95kAvMgelYIYB/RYC75Oi5B/r0PTvpydjWR8qNb251xWtexU8SnUIGSMZUqgHvJo+fYJ/WtSWVtgwv3Q/+fkFQeZHllblpg465gF0HedeyTQiCHBU8s0I57f9IHesK7R2sA8lpXvDI9JH1QsJeNwE63Lv7WREnnS6V+D4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787631654; c=relaxed/simple;
-	bh=8vrGJNT9WkxIeH1fTJ7688bwsWh1fNjHcbeYCvOTiZs=;
-	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=mia4ChQmkK2ewMmlBdnJb1t8kJDLisPN9ONTZTXEHNI5KXeZ7E4W6giCc2i0f0C1X8DaXkjgB2vRmVYqBXL65BMOKCLqSzfrccwjW+pRU/gGXuL5Vvs/L4krGSX0CK1Tg15hPJwkP4AqJoB3R3+o1kb0Hc8X5uOg8SfOi3P/2wM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=Fo/GVtTg; arc=fail smtp.client-ip=40.107.74.61
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D82251E8332
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 04:33:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787632413; cv=none; b=YcaHAzQETZZJh3RLq413Sx7vgorCzAUkdqgffHU9vwaT2VkVu19f3uiWp5yZzJzMZh6BAF2xE2Idoo7Zg2yUT0lBGEBNl4u1c/HVDN8YXgrPQC8wm8lDbPagVoq8Jm8WLOvFoH4D0YRPGThLLpgn3VsRxxYIrDTIpfOQAqgl7ng=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787632413; c=relaxed/simple;
+	bh=naC7PasILh7V9am2ebalC0RbUKLTLStW+MGCGU/CcoE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pWtO3MujIYpa6lC9Onn9s70NARKo3KLHv7ghTjMGvkNokfngCxHFoPHenB1tWfcguJ4Glf4S7S/3g6B8pHHEKSHif60+Uqi1VTY+AcHSxBdbrNKNIZRAQKSyUYAtb7au/jXKA4CDByImbH8EJmETP81AodUYhxLT1IWVi/Pjr1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Y7/B5QMb; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="Fo/GVtTg"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xP8LfDzcuSsvuzTCeiYMO+pFmpqUhKeKyFMLyEXzj3J+83jCrkbDQP6QgK6NCxBHNk4fao4FYchMbEzpf6Ou6aWwwtYzLJC6KeUX7KaOjlx0WJy2pLQU2UAGbNE46F7CtrX1zktmx9c4mC04vZLyXDrrher+c2nm/M5bxMKX2g7sYpcaAVf+wHybcA0bhtYinBEZooic4jgB6J/Qpyio0Ve6dg9EzesmN0URdnrjBXXB2YZVry8pAVdI/AJf49948I86qWTqCjtNAxhw8HUN9PJNOLDjrjCyGDEPdO40D3k2pAmhesaB+u/BHD1Xwbd2kyAcMPdkvF1hN8mAngTQTA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5nFcPDZ45rtoY9Qi3S6ltUYU30mgF8oW57wreeEgCKs=;
- b=SUnML/OQVxIX5Hb187vUKbrnFtc3eCtnQGyV7WizFBawQP0PW9x0uhTM4W2TatYH2eC6TBzvc8Xe0yf3yC25DRwh4Jj0jP2sldSo6skGfwm4TFkKN1UNQ05EW0nWPuT6Z6MAHpuovwOn2Jd1IVC5whNU1g6EpCCvMZv2qXKu6/uSI0VcaRTLIamFrfB5FRqnwQNvtNyCPfOQ8s8/l2kxFJDnmB6Yhkfq4VuX5YZcBkxnHwem3SqPrrhZz3ESg5+9nBV3Wyz2KZNWucRsEBCyUTw6OuygMIKquqoLOcd4fzk1y79srE0W5y8+gQTha+5mNrM/R/DGefvAF3booKbAQQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5nFcPDZ45rtoY9Qi3S6ltUYU30mgF8oW57wreeEgCKs=;
- b=Fo/GVtTg68qUuafYy63afHqbhqb/HYi/UYLzV5j1PAT3MvcYKBn/N2tYtm/eaqvY7sigtfa4r+UIHB1w9Dn2mPjMtlkVgSrvy3CiqAqqA/2lLPIKOKZntpNsJ+WAIXa+0yBErHku4mVrTocHJLXnph85rZfRK8GjuKo3KPPG6wQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from TY4PR01MB13787.jpnprd01.prod.outlook.com (2603:1096:405:1fc::9)
- by TYCPR01MB6672.jpnprd01.prod.outlook.com (2603:1096:400:9d::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Tue, 25 Aug
- 2026 04:20:48 +0000
-Received: from TY4PR01MB13787.jpnprd01.prod.outlook.com
- ([fe80::2029:7bd8:d49b:23c1]) by TY4PR01MB13787.jpnprd01.prod.outlook.com
- ([fe80::2029:7bd8:d49b:23c1%5]) with mapi id 15.21.0339.012; Tue, 25 Aug 2026
- 04:20:48 +0000
-Message-ID: <8733w296g0.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-	Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Y7/B5QMb"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3964dfb5a69so393152a91.1
+        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 21:33:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1787632410; x=1788237210; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hJaZXX8cNoxV0uNCu7A5Ojv5p0WSmZqW9OZzrJevJb8=;
+        b=Y7/B5QMb+bCNmBRydiHDAb0sTpa1MQeSmvK9vTYEJL9T+vmFeszFsm2P6YpK5bLwxA
+         +Qsl6cXxJP6rNA5DBC361ITOjnWz6K59fH+gtkOf5u154BkIDnljl1yEQxUVL5hddrRq
+         lgM+KFcHWuLXdUGm/1TG4b++LO/416pGprfrQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787632410; x=1788237210;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hJaZXX8cNoxV0uNCu7A5Ojv5p0WSmZqW9OZzrJevJb8=;
+        b=cG4Yi9iPkSb14WxM22AQ4wXbZ4yfWH5Ek1nJYCxKwyKyZTXdaryrZzI1h5M2iVf3/s
+         pHmc4/sVh4b1lL/ofdLsBRkpsZQ2Pyoni5em7gDWekKFNV+1btXLC7ntTgh05WCIsRXO
+         MM59L3b/v5lqfHY5O3dZzACVem7a5pXfUWrxccsOA37M5lR2uX2U2QM/anoZxe15/0zK
+         0a1XNmusT054MKQ0iPsm41KGXHBcqik/0aA2eQb3rsc9iFk0XqRAoK3A1je8ADfA+wL1
+         FbvDuhVzZmchIyZ3fb2gpvc1rzAsEirfM5aJ+DG7VplspplaQoBlSMUy4BNsp9r8LH7e
+         ECig==
+X-Forwarded-Encrypted: i=1; AHgh+Rq4ugOfgRkZ8atVWqyCPw+wfiCAtGr6bljp2rgRzMnjqyhwJLG9nfA3ER9deR41VdAzt96bO7IfKzQb@vger.kernel.org
+X-Gm-Message-State: AFuF++kXxptvtgpiIQu2ZGzWRDnrbEdOrTfyhZjpfRefWbBHiPZ1ciVQ
+	o4wfhdBz5KOKPdq/M1xEjjD4LumtlrUidgWFO80+OLnJ1nIKW0t0fQlIEWyPiYSxFw==
+X-Gm-Gg: AR+sD13p/rpo7GYTnVmm1B2TCUfW57uY9vC/+AHhFkq6qNfQAUGYk9LmPZZagxmTya9
+	U6J1yaEPFjxSWJrqDbJJ7YGH3AjCnydtTfF20WgpoBFNUG2xJC0lSKyKhq5e+99RaizbxzA+kRQ
+	UC8vrgM+FZyU8PtWMeJnC6odbqEiCb7IJ9F3YVzC1uKJq49yNcW1kBrSZlG3cwVsQbWjEIxGBnS
+	ZRYZHCUKhi+N39ZpivmM7scfWUMedXtLrGDufH1Vu5YLEUHuEfwdbwdgQcuscN7lhzk2vYSwg+W
+	D82cL2D7OhSWzMKLaUu7LUjWv4bGYG1vKPjm0ixkVUm8Lqx/GOsRFOJLURS1hTwtdo++WOfW3Zj
+	v8uPtds8jTWzq/4lX/37IBlXPog+0OzSATaz68nNIiyEQRHTfBISW89ghgFzjAR6ltjAKgmWGUJ
+	GBrcY/XETj9k/EYm0M0ANMjUgGVVxoPgKcQ3XJ2RxQRSHU4Pqh+7sFsxA9vhxj8dRhxlDuMyHRh
+	Kjd9qosFIQByO2BZOT/I7phb0wtrILdorivyTFwAvn0aBM=
+X-Received: by 2002:a17:90b:1b04:b0:38d:dfd1:7c1 with SMTP id 98e67ed59e1d1-395c33406e0mr52907259a91.2.1787632409907;
+        Mon, 24 Aug 2026 21:33:29 -0700 (PDT)
+Received: from wenst-7875.tpe.corp.google.com ([2a00:79e0:201d:8:a442:9780:24da:cb4e])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396458212absm2187823a91.0.2026.08.24.21.33.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 24 Aug 2026 21:33:29 -0700 (PDT)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Mark Brown <broonie@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+	Benson Leung <bleung@chromium.org>,
+	Tzung-Bi Shih <tzungbi@kernel.org>,
+	linux-mediatek@lists.infradead.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
-	Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
-	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Subject: Re: [PATCH v3 5/9] ASoC: soc-core: Add snd_soc_of_xlate_dai_name() generic helper
-In-Reply-To: <20260824063627.3595610-6-harendra.gautam@oss.qualcomm.com>
-References: <20260824063627.3595610-1-harendra.gautam@oss.qualcomm.com>
-	<20260824063627.3595610-6-harendra.gautam@oss.qualcomm.com>
-User-Agent: Wanderlust/2.15.9 Emacs/30.2 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Tue, 25 Aug 2026 04:20:48 +0000
-X-ClientProxiedBy: TYCP301CA0086.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:7b::12) To TY4PR01MB13787.jpnprd01.prod.outlook.com
- (2603:1096:405:1fc::9)
+	linux-arm-kernel@lists.infradead.org,
+	chrome-platform@lists.linux.dev,
+	linux-input@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v5 0/7] arm64: mediatek: Chromebook trackpad supply fixes
+Date: Tue, 25 Aug 2026 12:16:18 +0800
+Message-ID: <20260825041628.988369-1-wenst@chromium.org>
+X-Mailer: git-send-email 2.55.0.860.g4b6b3295ed-goog
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY4PR01MB13787:EE_|TYCPR01MB6672:EE_
-X-MS-Office365-Filtering-Correlation-Id: 19e11f94-6c28-44d2-83dc-08df02603d9e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|52116014|376014|7416014|23010399003|18002099003|22082099003|11063799006|56012099006|38350700014|4143699003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	o5icffqt8CODEBCF51CyNcbw3O9XvOyzZC/0/w6GJRvXh9tWWNWooY03TXQwWKoHHrMIXtovaRVMzgYD1+HCM194vMh/89wd/oxRr3h4tInV+UJM+4V56OS3WkYRktAOBpmiPKxO+l0IJ6rZpFSFqPq9HZ+J1MdrXkCKuBcnUIqKmGyNqF9YUrnEYQaQocwTpCX5QGbOpfcrYVRor9UgYWY3mCNl2rDmWqk+iTOtBgshmA3tnu0AgHhlo4Z3WYlQHofdpmSNKfN13Qt4BbSddq/GBzpBPBKUQ0TJ6zIWIEoWyjVcDKj+z3OeR7c09dMX6JIuhqTTFRvAFkCC7xkYsDsaQyydmaKXykaQjQE1Ou2cUfW1cSBdsF2cgoTypYF2lfKMKOxaeIhOeFm7Jiffy/XUUkCmGSFA1BiYxmQZVQmOXj8dAx+YU1D0BgwFV8XLXLKrT2HR1sS+GwAe728sn8mZIkuTBKcUy4yTSAZt+ysNCIitKGrMI5re3NDzvJPsebAX9L/+DT/BiV73gwlvY+7ahcdCoCTTaYPtQ4Oyo4mTO6a/Fe5py3ONtKXAq2Mxzf5XoZopG2OGBnqEF894/LaW38T7kSOkdxuCJIm0AO23XxIFHX/5Gfb72yrfKBIhbWELry6ZrU2sWSqaBoa5Mqi0oAPD1FhXYMJwsZqUUO8VKq00KWRzodhU1yukPJ1gFbRQndG9RTYeXTYm2sNAsw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY4PR01MB13787.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(52116014)(376014)(7416014)(23010399003)(18002099003)(22082099003)(11063799006)(56012099006)(38350700014)(4143699003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?S7jV5T5Ww2CdasK9d/q+TDI+TG1VwDSqMGMIarvpOneBlnW/8Lhm3ESPWgAj?=
- =?us-ascii?Q?NglH3SJeD0KwCodS1h4RoskIEK0DMWMROiS8fS9U3gKuhNs0TKJCkLyf7U4z?=
- =?us-ascii?Q?8E/3jYyziaNv58fZjCMwzOha02gN3syN1GRrAIuMx7wXE0hJ9TkOzlXE9rJg?=
- =?us-ascii?Q?d7QFFtCRqhVV9vxaPAVwKKJdJLnQ/FlypTREYO2TxUFLNMSC9B6ahbvhFqZ0?=
- =?us-ascii?Q?gW/K3ojRoMwOerIMjYJGOkCfdZQkfxsjlv7RrhsphGDRz8ofBbKYIZsjsDkO?=
- =?us-ascii?Q?2+71ICfBcjVKWE0I+grNM8cDwVgWG7syfQVJ/8Nq6oOXUeSNSmiLsFikfN6w?=
- =?us-ascii?Q?lZi6CJkDpbjG2w7eSZm7uuJpNpQR6EkAdWbWs8huH514Di5e+OjAvBDDlrXQ?=
- =?us-ascii?Q?B7oHXDLERrdSr52ujJq6uSQf6MOBTS16eolLt2ikRvmd9u1J1yNbNXo1urot?=
- =?us-ascii?Q?qrHWoZhHLJ+QIS+tHjjKiHC56Ycoer/RpVdjjXD7GNDhJOtsWe9aukexM3TR?=
- =?us-ascii?Q?p4WVim+jZXClq7U3zlR20CyRhFpm/kjyQ8o6VitUxil6i4AiOvrlXIh99E+x?=
- =?us-ascii?Q?Kidc5fANlngZIRqDhRp+on9EztjRVmby1B/eubUoXFNhI3L2U7OBrBAX+URC?=
- =?us-ascii?Q?g2hWXhKxM+3VH5YJmeJ5WP8Kw//O0p281RPVzZAtLqmPi/pKMTGrXTOuDdHy?=
- =?us-ascii?Q?mulQousDgAyhPqVIuueSNkWH53KJvuNP2Oeo1z02egJH9ezHvWQWKdSrieQ6?=
- =?us-ascii?Q?Vj4hCv33eXeaYLJGR/DBP2A+hwQAe9FFjtizQVswukNuxnL/L8teff1xcF+7?=
- =?us-ascii?Q?khi35Tx5l6cvGoNg0iR25v+FLjDMRnw4r47z2bH3DjzRuesmeOmRac8pRLj9?=
- =?us-ascii?Q?uKocr1axz/Ir0oh51zdxTb4mKx1RxJjtpaRRGPeCk9LKRLP+WIV2jRvW541/?=
- =?us-ascii?Q?bZgjl868mzQKErBNKxhnBkIEAVgIX9R2AEB67FHAzMTZ5AbTYZiF+rKmM89C?=
- =?us-ascii?Q?LJs9uPAYVcB3u4d2rJqHaYX22lm9b40GeAiDve0LJHJftDVoop1IlsWMt8mq?=
- =?us-ascii?Q?Ne7N/CCLu2DkCRkDoYHp8/PACAzLEn94oF1SCf5Gj9em16nxceoSobLuWsrs?=
- =?us-ascii?Q?gSM/nmMbsmVxI9OrIL4aO3IWjYrXxf3ykk3Bx+FxldpNpYqhtdZG7tYef96a?=
- =?us-ascii?Q?cPAZfB/DGpBmjLr7l6BP1RtzHtJanJKTLjizECewILDap61VY22pTZrjTWVu?=
- =?us-ascii?Q?5Gov7+ASllcjXa1f1Xxl0JaC9WpZdEGTSXqn3JJHaMK5aFR8UMqbIOSpJduQ?=
- =?us-ascii?Q?GcGCaMjL3OW1014zToYQydD7v+VV8HFtihm1ymvf9KAYZlJuSdfRWZHykMUr?=
- =?us-ascii?Q?vGFIjB3awTIlqfUXdeGkDoC6D3LpvV7jk+k1YKZvhedX+qCpmbhgT+UjEeLA?=
- =?us-ascii?Q?PW1JyXqThCcltlyCDdVGtC8RYmq8atCUHcoFZdz/R3KC8jXZRg0RAA+JAsTC?=
- =?us-ascii?Q?CvJX0MSGWkULnYMnCewCXWXibvxeXt/uCAHSgQOO4/S6Ryrpi50NXIDd66sH?=
- =?us-ascii?Q?mndV9EHGCuRL+FCj/ux3xVkBbkaI6pO3ZAxnDx23jmsOn3Ypg0E8M5w44vbv?=
- =?us-ascii?Q?Czh5KhkrWX7zM6V5GthlOhimecLrhoqa2O1sWigmXO2b58bwrzY7giPbIuNr?=
- =?us-ascii?Q?SjMYaoZioU7MrSent0j2u+AD6p32E4pMK15Cl7ojFQTd+J52jCPjuVha1QdG?=
- =?us-ascii?Q?lH4+fu/539X8Jxjn0looY5vj/TFdmuYWwXPMN2J4HW+nRCjyRi+p?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 19e11f94-6c28-44d2-83dc-08df02603d9e
-X-MS-Exchange-CrossTenant-AuthSource: TY4PR01MB13787.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2026 04:20:48.6682
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EtMmqZhU1rNjySSbdPpWyVjtBTf6eyhgY9AIOM8ThfnFbcQl6JjOizCVaY2wBJ9lT3q4aXxYFT0mY+IZQZpRwTptsVAMVUyX+J+d6jfiOLila/RmO5WV0MuAWQqqponK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB6672
+Content-Transfer-Encoding: 8bit
+
+Hi everyone,
+
+This is v5 of my Chromebook trackpad supply fixes and optimization
+series.
+
+Changes since v4:
+- Made regulator core try to set last_on timestamp for regulators that
+  were left on by reset default or firmware, but not enabled in kernel
+- Dropped two patches that were merged
+- Link to v4:
+  https://lore.kernel.org/all/20260811122011.3539250-1-wenst@chromium.org/
+
+Changes since v3:
+- Added __private modified to regulator_bulk_data.wait_us field and
+  switched to ACCESS_PRIVATE accessor for the field (Andy)
+- Moved wait outside regulator lock scope (Sashiko)
+- Moved "remaining" value assignment closer to conditional (Andy)
+- Fixed variable unit name in regulator_enable_and_wait() prototype
+  (Andy, Sashiko)
+- Added commit message section showing average delay needed for I2C
+  prober (patch 6) (Andy)
+- Link to v3:
+  https://lore.kernel.org/all/20260721075226.2347933-1-wenst@chromium.org/
+
+Changes since v2:
+- Added new regulator "enable and wait" functions that wait until at
+  least the given amount of time has passed since the regulator was
+  last enabled.
+- Converted patches to use the new functions
+- New header inclusion cleanup patch for elan_i2c driver
+
+This series fixes the trackpad descriptions on some MediaTek-based
+Chromebooks: either the trackpad's supply was set as always-on to
+workaround missing delays in the driver, or the delay and supply
+are missing from the trackpad's device node.
+
+v1 was just the first patch [1]. It has since grown to cover multiple
+drivers and devices.
 
 
-Hi Harendra
+Patch 1 adds new "enable and wait" functions for single and bulk
+regulator enable.
 
-Thank you for the patch
+Patch 2 adds the correct enable delay after enabling the supply regulator
+for the Elan trackpad to initialize. This uses the new "enable and wait"
+regulator enable function.
 
-> Add snd_soc_of_xlate_dai_name() to soc-core.c as a generic helper
-> that can be assigned directly to the .of_xlate_dai_name component
-> driver callback. It iterates the component's DAI list using
-> for_each_component_dais() and matches by DAI ID.
-> 
-> Use the helper in lpass-cpu.c and qaif-cpu.c, and remove the local
-> lpass implementation.
-> 
-> Signed-off-by: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-> ---
+Patch 3 applies the same logic of skipping the power on delay to the
+i2c-hid-of driver.
 
-I think this patch want to be separated into 2 patches.
+Patch 4 applies the same logic of skipping the power on delay to the
+i2c OF component prober library.
 
-	- add snd_soc_of_xlate_dai_name()
-	- switch to use it
+Patch 5 adds a delay between when the device node found is enabled and
+when regulator_disable() is called. This gives an asynchronously probing
+driver some time to increment the enable count of their regulator
+reference, thus keeping the device operational and allowing the driver
+to skip the initialization delay.
 
-It makes backport easy.
+Patch 6 removes the "always-on" setting from the trackpad supply for
+Elm / Hana and adds the correct delay to the second source trackpad.
+This corrects the hardware description.
+
+Patch 7 adds the supply and power on delay properties to the Synaptics
+trackpad on the Spherion device. Combined with previous driver changes
+this should cause no actual functional changes or delays.
 
 
-Thank you for your help !!
+Please take a look. Patches 2, 3, and 4 have build time dependencies
+on patch 1. I suggest placing patch 1 on a separate immutable branch
+or tag for the other maintainers to pull in. The three patches all have
+different maintainers. Or if it's not too late, Mark could take patch
+1 for v7.3-rc1 and the rest can go in later.
 
-Best regards
----
-Kuninori Morimoto
+The DT changes must go in after all the driver changes land, especially
+patch 2 that adds delays to the Elan trackpad driver. Otherwise the user
+could potentially end up with a non-functional trackpad on the device.
+
+
+Thanks
+ChenYu
+
+[1] https://lore.kernel.org/all/20241001093815.2481899-1-wenst@chromium.org/
+
+Chen-Yu Tsai (7):
+  regulator: core: Add "enable and wait" functions
+  Input: elan_i2c - Wait for initialization after enabling regulator
+    supply
+  HID: i2c-hid-of: skip post-power-on delay if powered on sufficiently
+    long
+  i2c: of-prober: skip post-power-on delay if powered on sufficiently
+    long
+  i2c: of-prober: Defer regulator_disable() on successful probe in
+    simple helper
+  arm64: dts: mediatek: mt8173-elm-hana: Unmark trackpad supply as
+    always-on
+  arm64: dts: mediatek: mt8192-asurada-spherion: Add Synaptics
+    trackpad's supply
+
+ .../boot/dts/mediatek/mt8173-elm-hana.dtsi    |   8 +-
+ arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi  |   1 -
+ .../mediatek/mt8192-asurada-spherion-r0.dts   |   2 +
+ drivers/hid/i2c-hid/i2c-hid-of.c              |   9 +-
+ drivers/i2c/i2c-core-of-prober.c              |  25 ++--
+ drivers/input/mouse/elan_i2c_core.c           |   7 +-
+ drivers/regulator/core.c                      | 117 +++++++++++++++---
+ include/linux/regulator/consumer.h            |  21 +++-
+ include/linux/regulator/driver.h              |   2 +
+ 9 files changed, 149 insertions(+), 43 deletions(-)
+
+-- 
+2.55.0.860.g4b6b3295ed-goog
+
