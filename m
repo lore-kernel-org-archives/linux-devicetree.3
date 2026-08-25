@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A58833FB7E5;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A57E43FA5FC;
 	Tue, 25 Aug 2026 11:08:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787656134; cv=none; b=UvyTaxyOyB1E1wXU6irZ07vUovTcec90PN+y1pbsjdhcGqj8iQt2EgJeXMeyfsRe7BOfohmBnAMe/4/b0v4o+URyfD0TXctiemmXy+zvV9KRk2Sx6tqE6M9D6dnSzwvefF5omjwmEQLx7T3tiFASde7Pfo/zN2lkF2glROyvL9I=
+	t=1787656134; cv=none; b=X/dGpB+q5+X2H4mQs5ZKK4JXtTKAf5xiPTJek2zPWZdUZ/zPiViRKi/p5jP9dLKkZ7IfRjK8ymkIoDep7F9k+a7bJk5B21d5XWD0O3ZUtfbmqJQlDaUKg/UxImRpVnV9YoxW9+MA3sVB3Vx7GDYpRyJsD0ANLZMh2FLCmyJ3IIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787656134; c=relaxed/simple;
-	bh=dZEbc9Abi2x+UTPvpEHftXVxRd1ym08XU5Shg8fX5uM=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=hK9bIxy/L/4b7MBi3Jz4daZB/Lw7WCYPcr8tGO8qo8gmIAfIoE8m0Rq9ZbcUd0+cW0cEpLt4eHe1zW6+1QuUJFnKtoqrpda19ueaf3WOzxQ71SiP3VGl05ZWuLsM1htv42cr7G7wqThfmWkT1CrS60Cti3i+m2pBAJARh4a2b3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sjSFkdZr; arc=none smtp.client-ip=10.30.226.201
+	bh=TUIgN/sa9/6uBBWA4LxoxB40C8FVlYaGtN9aNjYFVCw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=neJ06Hkiz/nNW5lY2Zyu7o6yTO4cU+70wqppxCT5hGICXE3HU9UUquwL815boziqtjJrNlT0i2w6fr2y6oMOgA0IWomQ0ys6QChnupALSIz5ZkOUWeCx5m5JHsk/ITTOhZoOGEJnsh3JrklUGfekypfBegviVhEOieiIV/P5LyY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D+MtPpva; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sjSFkdZr"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4A652C2BCB8;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D+MtPpva"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 56F02C2BCC7;
 	Tue, 25 Aug 2026 11:08:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1787656134;
-	bh=dZEbc9Abi2x+UTPvpEHftXVxRd1ym08XU5Shg8fX5uM=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=sjSFkdZrdfnLuXamibbkHj21d4PNTj1Wmo0H7NBkDK7HvTLKGQ5SsOmy5juWrdNku
-	 quiFzlR5SLqd9wNFzm389P3ApuDTZPw6ROk0/4Hhn2qhohoWJZcJ/aBmT00XDRze9c
-	 DG9asg7kFN5HyJm7KHWcc8ipJ62kqVCjqwZS5nHIBPJAQYRAuRPO4l+J2+2XRaZqvs
-	 kudctpHeU5SHyVIaKO46xE3ku3o7iCIUA7mtcilyA/jvozZuj7xeUCWKHgh0L3zyY3
-	 N7Lf6ebs19U8cJ4VeBlilAZY/3h6+aUbMjRYHyZRcRXXsYGRSoWvVBIniF3mO2kF/a
-	 nqEuTCgfWN8Yw==
+	bh=TUIgN/sa9/6uBBWA4LxoxB40C8FVlYaGtN9aNjYFVCw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=D+MtPpvaXUuzdrihiMmS9LOSPa1ry+oI/z5de1G2pJif0qg6kGwzOLmOydUMVN8qL
+	 4V6PwaXkHBgY2os3OwEtsC7R4PLlxGz5ItIFrSHnFGjfkdG9XmhxFwgJBdqMe9nTnZ
+	 qcpczR1l0lBBMlRBmSS1XWXaxiCyJnbNI/+yabgA/2MsE2TZtPe5PuwZyV03KTF7fq
+	 afUW1mm7KA5PJazDCtLri8BXL0vahmMpBawzUSekXKHYycvYjiHsR4wsnNsP4M1Bk8
+	 igaC9S9S6nvBjDiSRdO715jBu9LAw71CXu8WGcAVzvAy5ZFL34LZnjhdf6PYuU86Uz
+	 I+1cizRJhLkpA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 27412C61DBE;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 37AF6C61DBD;
 	Tue, 25 Aug 2026 11:08:54 +0000 (UTC)
 From: Rohan Joshi via B4 Relay <devnull+rohan1sj.cadence.com@kernel.org>
-Subject: [PATCH v4 0/2] CQE support for cadence eMMC host controller
-Date: Tue, 25 Aug 2026 16:40:56 +0530
-Message-Id: <20260825-cdns_sdhci_cqe-support-v4-0-e9f72e338373@cadence.com>
+Date: Tue, 25 Aug 2026 16:40:57 +0530
+Subject: [PATCH v4 1/2] dt-bindings: mmc: cdns,sdhci: Add CQE support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,11 +40,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAEB4jWoC/63NvQ6CMBSG4Vsxna2B0h/i5H0YQ6A9lQ620EKjI
- dy7BQbiwOb4neQ874QCeAMBXU8T8hBNMM6mQc8nJNvaPgEblTYiGeGZIDmWyoYqqFaaSvaAw9h
- 1zg+40RSo0lIDFyg9dx60ea/w/bFtD/2Y/GE/tiYMzn/WeMyX69ZhGT/qRIIzLBjVqQZlw9lN1
- gqshIt0L7SgkfwLKnZIEHIIFQmiNCcl4zWlZfkLzfP8BUOEINdlAQAA
-X-Change-ID: 20260721-cdns_sdhci_cqe-support-bf4e4dfcfe67
+Message-Id: <20260825-cdns_sdhci_cqe-support-v4-1-e9f72e338373@cadence.com>
+References: <20260825-cdns_sdhci_cqe-support-v4-0-e9f72e338373@cadence.com>
+In-Reply-To: <20260825-cdns_sdhci_cqe-support-v4-0-e9f72e338373@cadence.com>
 To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
@@ -55,11 +53,11 @@ Cc: Rohan Joshi <rohan1sj@cadence.com>, linux-mmc@vger.kernel.org,
  mparab@cadence.com, pawell@cadence.com, sjakhade@cadence.com, 
  mpillai@cadence.com, razb@mobileye.com, blarson@amd.com
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787656261; l=3115;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787656261; l=2483;
  i=rohan1sj@cadence.com; s=20260406; h=from:subject:message-id;
- bh=dZEbc9Abi2x+UTPvpEHftXVxRd1ym08XU5Shg8fX5uM=;
- b=BpsGK8WXA3uupR57BQ8IAGkrFZJaal31ytdOaozX0imBIxxA+7WPJYMeIlmkfbVYoarqqcXj6
- A65UTtYO+h2AKKzqOe5yyvedJoP/E8kA0DCPGYyytI0ao1oVU0TRoAk
+ bh=tnxL6P/kgvSIMtCk+Ymrqyu224na2jvLAY8/B+g5f2g=;
+ b=hxGduSniPK0Ou//Q34vXOH5FohiuZGGh6AbxKHkphdv3d7T4+J9rperQnanY5J8R2XvQRTftb
+ h9nPjVbKuJ7Ac3Z9wUST+0qOdx/JVCvyTa6w1OUwEmIgjQp6wFciuzp
 X-Developer-Key: i=rohan1sj@cadence.com; a=ed25519;
  pk=YuwylizMVlVj8I4+VPMZ6xrFR2wyqJAWZyj90OVZgD0=
 X-Endpoint-Received: by B4 Relay for rohan1sj@cadence.com/20260406 with
@@ -67,84 +65,87 @@ X-Endpoint-Received: by B4 Relay for rohan1sj@cadence.com/20260406 with
 X-Original-From: Rohan Joshi <rohan1sj@cadence.com>
 Reply-To: rohan1sj@cadence.com
 
-Hi,
+From: Rohan Joshi <rohan1sj@cadence.com>
 
-This series adds CQE (Command Queue Engine) support for cadence
-eMMC host controller. The driver enables CQE when both the
-conditions mentioned below are met
-        1. Hardware reports the presence of CQE
-        2. DT provides a "cqhci" register space
+Add optional named resource "cqhci" to map the CQE
+register space. When present, it is used for CQHCI
+initialization and enable Command Queue Engine for eMMC.
 
-The sdhci-cadence driver currently maps the host register
-space (index 0). On the amd,pensando-elba platform, an
-additional register space (byte-lane control) is present
-at index 1, which the driver already handles separately.
-The original author for Elba, Brad Larson(blarson@amd.com)
-has confirmed that Elba does support CQE!
-In this case, total 3 register spaces are mapped in the
-order [hc, bctl, cqhci].
+The "cqhci" space is optional to maintain compatibility
+for platforms that don't have CQE block. When absent, the
+controller can operate without the CQE block as routined.
 
-The CQHCI core expects the CQE region to be provided as
-a named resource ("cqhci") via DT rather than by index.
-The driver has never wired up CQE initialization for any
-platform and the feature remains unused.
-
-This series adds the support to look up the "cqhci" named
-resource from the DT and when present, initializes the
-CQHCI engine. This allows platforms to enable Command
-Queuing simply by adding the named resource to the DT node
-without requiring any platform-specific driver changes.
+Update amd,pensando-elba platform to include this resource
+since Elba does have hardware block required for CQE! The
+original author for Elba, Brad Larson (blarson@amd.com)
+was able to confirm the CQE support.
 
 Signed-off-by: Rohan Joshi <rohan1sj@cadence.com>
 ---
-Changes in v4:
-- On cqhci_resume() failure, emit a dev_warn and continue rather than
-  disabling the clock and halting the operation
-- Link to v3: https://lore.kernel.org/r/20260722-cdns_sdhci_cqe-support-v3-0-4412856a4488@cadence.com
+ .../devicetree/bindings/mmc/cdns,sdhci.yaml        | 28 +++++++++++++++++++---
+ 1 file changed, 25 insertions(+), 3 deletions(-)
 
-Changes in v3:
-- Device Tree updates to account for multiple platforms supporting CQE
-- Link to v2: https://patch.msgid.link/20260506-cdns_sdhci_cqe-support-v2-0-754fe4de8b65@cadence.com
+diff --git a/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml b/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml
+index 6c7317d13aa6..10bc9ac2073a 100644
+--- a/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml
++++ b/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml
+@@ -22,7 +22,14 @@ properties:
+ 
+   reg:
+     minItems: 1
+-    maxItems: 2
++    maxItems: 3
++
++  reg-names:
++    minItems: 1
++    items:
++      - const: hc
++      - enum: [bctl, cqhci]
++      - const: cqhci
+ 
+   interrupts:
+     maxItems: 1
+@@ -131,13 +138,27 @@ allOf:
+     then:
+       properties:
+         reg:
++          minItems: 2
+           items:
+             - description: Host controller registers
+             - description: Elba byte-lane enable register for writes
++            - description: CQE (Command Queuing Engine) registers (optional)
++        reg-names:
++          minItems: 2
++          items:
++            - const: hc
++            - const: bctl
++            - const: cqhci
+     else:
+       properties:
+         reg:
+-          maxItems: 1
++          items:
++            - description: Host Controller registers
++            - description: CQE (Command Queuing Engine) registers (optional)
++        reg-names:
++          items:
++            - const: hc
++            - const: cqhci
+ 
+ unevaluatedProperties: false
+ 
+@@ -145,7 +166,8 @@ examples:
+   - |
+     emmc: mmc@5a000000 {
+         compatible = "socionext,uniphier-sd4hc", "cdns,sd4hc";
+-        reg = <0x5a000000 0x400>;
++        reg = <0x5a000000 0x400>, <0x5a000400 0x060>;
++        reg-names = "hc", "cqhci";
+         interrupts = <0 78 4>;
+         clocks = <&clk 4>;
+         bus-width = <8>;
 
-Changes in v2:
-- Use dev_err_probe() for error messages when in probe path
-- Updated commit messages as per subsystem naming conventions
-- Select MMC_CQHCI in Kconfig for MMC_SDHCI_CADENCE
-- Drop new dt-binding example and corrected existing one
-- Link to v1: https://patch.msgid.link/20260407-cdns_sdhci_cqe-support-v1-0-13efc0810631@cadence.com
-
-To: Ulf Hansson <ulfh@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Masahiro Yamada <yamada.masahiro@socionext.com>
-To: Adrian Hunter <adrian.hunter@intel.com>
-Cc: linux-mmc@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: mparab@cadence.com
-Cc: pawell@cadence.com
-Cc: sjakhade@cadence.com
-Cc: mpillai@cadence.com
-Cc: rohan1sj@cadence.com
-Cc: razb@mobileye.com
-Cc: blarson@amd.com
-
----
-Rohan Joshi (2):
-      dt-bindings: mmc: cdns,sdhci: Add CQE support
-      mmc: sdhci-cadence: Add CQE support
-
- .../devicetree/bindings/mmc/cdns,sdhci.yaml        |  28 ++++-
- drivers/mmc/host/Kconfig                           |   1 +
- drivers/mmc/host/sdhci-cadence.c                   | 125 ++++++++++++++++++++-
- 3 files changed, 147 insertions(+), 7 deletions(-)
----
-base-commit: 66498c75b4f8017f62d720d9b59675bdf3abce91
-change-id: 20260721-cdns_sdhci_cqe-support-bf4e4dfcfe67
-
-Best regards,
---  
-Rohan Joshi <rohan1sj@cadence.com>
+-- 
+2.43.0
 
 
