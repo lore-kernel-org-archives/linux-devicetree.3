@@ -1,153 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B00637CD2C;
-	Tue, 25 Aug 2026 16:58:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D30DC1531C8;
+	Tue, 25 Aug 2026 17:14:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787677140; cv=none; b=SdilOVRHcsPZ4oiZ2VvAtt/YPKNGNsbPejH4DbDaPdZ2NOT7yZlAjUhh8XCIZwiRDrabQBRcUdDnHx+aZpozRRVy4jV3X9xaV9G/vx9GRdTVen29h5PzQIdq3s4C+eAEn40gs1bfbbOuHh+R8XNp5zksv+CXNRQtoTYvzkxpDMU=
+	t=1787678086; cv=none; b=QM9/dk6u6t4alk8nJfLyfdclCfDKtlCaZ5FcFxbS4rKRVPB/Wq0P+VLk6s7aIgS66GyMTGbxsWPj6OObPYkuNgEKt226jutWlAaM/OyDRawJQetLNrgHDv49XgsIRbeOJb2qlaJ9WdL++bUxZLGWOFPLCWOMJFA4QsVU/aCSWgg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787677140; c=relaxed/simple;
-	bh=pIjoEkPTCdDS4o3ecBCBRPRxdAzs4X9VyF3THM3KFhY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=V1f2de+YXZVyEfSbHo4utilRYBdZ8UV8d+T+leOFEmRRQpr01AKjCJyjmWUDMJqthl1k1Xo24CAqOxohn7KIhV8G6kBPp+aYQyFpIT536rr0uh/REgFinpHQ81J3R8PnxYmNCXomXUZDKrH2ST6zvuuerR2oH1Z99+bBptMrAv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=irNlAnkQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787678086; c=relaxed/simple;
+	bh=lgQBRPrl/nvc5f3CC0Mq/mPd8cl7M4MjjXACHNFSUxo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=rw97NESH36zgJOre2MJRzSSp79/YoIFtz4wlsdCHgFPMtxEmRQKs83LQlLcsMC1Qr+iO5WkgZg0gfuLtU+MP2dhhed60P1JadR6GxCHAJL2oyNv5r/AdiMEH1uS4xiEdo+Do/8aCvPrdcC37LIc6FvSvPP9IC7VfVnOqF/musnY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=1RTb0kI9; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="irNlAnkQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94FE71F000E9;
-	Tue, 25 Aug 2026 16:58:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787677139;
-	bh=SoUKIpShsXgeE+dawkrCHb0RtrpeuMsGXBGtr8nYd2Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=irNlAnkQfMsFNr0/Wd4Ceg40cU5P2HLohFklKtYyH/SS/tjidGXv7d24JPMr98MSc
-	 W4CwmpbzGzJmIj0zSFYTZGUAqtBovlgm2TbAoYcv5cYm7Fox9dJRH5EvipfePPR4Zh
-	 u5MyJ5Eb0y5VXmkyOecz2XTHErIGIH9o6f0+kx64cdDfTK1FdXPeMpMyUXQfyECYJX
-	 DXp+IQV5yjoV8c0/fmAfQmeiOGaqeC5rq76PjUH6dO6hu5/vOcqbDJbp4OCZk6e038
-	 MFwux94Lm02xe6I96Cwiy/p57XgMw52bOnSGukIU458RiTb+afqfzzyrCqYvEyAdcB
-	 OznlJO/CRe7LA==
-Date: Tue, 25 Aug 2026 17:58:55 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Flaviu Nistor <flaviu.nistor@gmail.com>
-Cc: Guenter Roeck <linux@roeck-us.net>, Jean Delvare <jdelvare@suse.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: hwmon: national,lm90: Fix channel
- constraints for temperature offset
-Message-ID: <20260825-iciness-unsavory-a13f2bf0f2d9@spud>
-References: <20260824183900.8983-1-flaviu.nistor@gmail.com>
- <20260824183900.8983-2-flaviu.nistor@gmail.com>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="1RTb0kI9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1787678084; x=1819214084;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=lgQBRPrl/nvc5f3CC0Mq/mPd8cl7M4MjjXACHNFSUxo=;
+  b=1RTb0kI9HVKKdwLmtx2YpwOrM60VvZtv1aE2Y0jMYsTuFg6QE/EUW45u
+   YlP/Fiqso/mPyinM7rDAYoPHNUE0g4rV505De3rQd/xeuXWMFU5inbNKN
+   LXlID4PPvNrSaE2a9QSxdCp7Wr3U16KksmtncGNcps+E/RScOqGkllJpV
+   kBizIqIfdkmzL71qc/+3PyZNndYh/j0zFMxayhY/jw+rAUro+X+KXK2ho
+   yGlU95UBlW1cQXuXJhiy5Mv9nKNffMFhaEkpBkUBzMuW1BFD46AH0eikI
+   BVwMmNZeaQPzlidtwnoCjK7vAbJtHE3G+ZJ75I921b+QE6ruprOMDibUl
+   A==;
+X-CSE-ConnectionGUID: Fm4WJO+JQtCEf0ZpwAwKqA==
+X-CSE-MsgGUID: 4+gyDQLjQUepiV5YM5XrCA==
+X-IronPort-AV: E=Sophos;i="6.25,243,1779174000"; 
+   d="scan'208";a="61743666"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 25 Aug 2026 10:14:43 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Tue, 25 Aug 2026 10:14:43 -0700
+Received: from [10.159.227.160] (10.10.85.11) by chn-vm-ex01.mchp-main.com
+ (10.10.85.143) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Tue, 25 Aug 2026 10:14:41 -0700
+Message-ID: <0cc2d875-7aab-4091-816c-031f21f3cbac@microchip.com>
+Date: Tue, 25 Aug 2026 19:14:43 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fKeMsBHyzBZsUZpE"
-Content-Disposition: inline
-In-Reply-To: <20260824183900.8983-2-flaviu.nistor@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] arm64: dts: microchip: lan969x: add SDMMC nodes
+To: Robert Marko <robert.marko@sartura.hr>, <ulfh@kernel.org>,
+	<robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+	<nicolas.ferre@microchip.com>, <alexandre.belloni@bootlin.com>,
+	<claudiu.beznea@tuxon.dev>, <linux-mmc@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>
+CC: <luka.perkov@sartura.hr>
+References: <20260824110432.1074136-1-robert.marko@sartura.hr>
+ <20260824110432.1074136-2-robert.marko@sartura.hr>
+Content-Language: en-US, fr
+From: Aubin Constans <aubin.constans@microchip.com>
+In-Reply-To: <20260824110432.1074136-2-robert.marko@sartura.hr>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
 
---fKeMsBHyzBZsUZpE
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Aug 24, 2026 at 09:38:59PM +0300, Flaviu Nistor wrote:
-> Limit temperature-offset-millicelsius to remote channels only, since
-> channel 0 is local and this property does not apply to it.
-> Channel 2 is only valid on devices with two remote sensors, so reject
-> channel 2 for compatibles that do not support a second remote channel.
->=20
-> Signed-off-by: Flaviu Nistor <flaviu.nistor@gmail.com>
+On 24/08/2026 12:56, Robert Marko wrote:
+> Add nodes for both SDMMC controllers.
+> 
+> Signed-off-by: Robert Marko <robert.marko@sartura.hr>
 > ---
->  .../bindings/hwmon/national,lm90.yaml         | 29 +++++++++++++++++--
->  1 file changed, 26 insertions(+), 3 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/hwmon/national,lm90.yaml b=
-/Documentation/devicetree/bindings/hwmon/national,lm90.yaml
-> index 164068ba069d..a7f82b202b86 100644
-> --- a/Documentation/devicetree/bindings/hwmon/national,lm90.yaml
-> +++ b/Documentation/devicetree/bindings/hwmon/national,lm90.yaml
-> @@ -113,6 +113,29 @@ allOf:
->        properties:
->          ti,extended-range-enable: false
-> =20
-> +  - patternProperties:
-> +      "channel@0":
-> +        type: object
-> +        properties:
-> +          temperature-offset-millicelsius: false
+>   arch/arm64/boot/dts/microchip/lan9691.dtsi | 24 ++++++++++++++++++++++
+>   1 file changed, 24 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/microchip/lan9691.dtsi b/arch/arm64/boot/dts/microchip/lan9691.dtsi
+> index a8541c6a098d..2d943ea75768 100644
+> --- a/arch/arm64/boot/dts/microchip/lan9691.dtsi
+> +++ b/arch/arm64/boot/dts/microchip/lan9691.dtsi
+> @@ -414,6 +414,30 @@ qspi0: spi@e0804000 {
+>                          status = "disabled";
+>                  };
+> 
+> +               sdmmc0: mmc@e0830000 {
+> +                       compatible = "microchip,lan9691-sdhci",
+> +                                    "microchip,sam9x60-sdhci";
+> +                       reg = <0xe0830000 0x00000300>;
+> +                       interrupts = <GIC_SPI 64 IRQ_TYPE_LEVEL_HIGH>;
+> +                       clocks = <&clks GCK_ID_SDMMC0>, <&clks GCK_ID_SDMMC0>;
+> +                       clock-names = "hclock", "multclk";
+> +                       assigned-clocks = <&clks GCK_ID_SDMMC0>;
+> +                       assigned-clock-rates = <100000000>;
 
-Instead of this, could the two if/then blocks below grow an else with
-this instead? What you've got here is a bit abnormal.
+If always targeting an e.MMC, capped at the High Speed DDR mode, one might consider
+a multiple of 52 MHz here.
 
-Cheers,
-Conor.
-
+> +                       status = "disabled";
+> +               };
 > +
-> +  - if:
-> +      not:
-> +        properties:
-> +          compatible:
-> +            contains:
-> +              enum:
-> +                - adi,adt7481
-> +                - dallas,max6695
-> +                - dallas,max6696
-> +    then:
-> +      patternProperties:
-> +        "^channel@[0-1]$":
-> +          properties:
-> +            reg:
-> +              enum: [0, 1]
-> +        "channel@2": false
+> +               sdmmc1: mmc@e0838000 {
+> +                       compatible = "microchip,lan9691-sdhci",
+> +                                    "microchip,sam9x60-sdhci";
+> +                       reg = <0xe0838000 0x00000300>;
+> +                       interrupts = <GIC_SPI 50 IRQ_TYPE_LEVEL_HIGH>;
+> +                       clocks = <&clks GCK_ID_SDMMC1>, <&clks GCK_ID_SDMMC1>;
+> +                       clock-names = "hclock", "multclk";
+> +                       assigned-clocks = <&clks GCK_ID_SDMMC1>;
+> +                       assigned-clock-rates = <45000000>;
+> +                       status = "disabled";
+> +               };
 > +
->    - if:
->        properties:
->          compatible:
-> @@ -149,7 +172,7 @@ allOf:
->                - onnn,nct1008
->      then:
->        patternProperties:
-> -        "^channel@([0-2])$":
-> +        "^channel@([1-2])$":
->            properties:
->              temperature-offset-millicelsius:
->                maximum: 127750
-> @@ -172,7 +195,7 @@ allOf:
->                - winbond,w83l771
->      then:
->        patternProperties:
-> -        "^channel@([0-2])$":
-> +        "^channel@([1-2])$":
->            properties:
->              temperature-offset-millicelsius:
->                maximum: 127875
-> @@ -186,7 +209,7 @@ allOf:
->                - ti,tmp461
->      then:
->        patternProperties:
-> -        "^channel@([0-2])$":
-> +        "^channel@([1-2])$":
->            properties:
->              temperature-offset-millicelsius:
->                maximum: 127937
-> --=20
-> 2.34.1
->=20
+>                  qspi2: spi@e0834000 {
+>                          compatible = "microchip,lan9691-qspi";
+>                          reg = <0xe0834000 0x00000100>,
+> --
+> 2.55.0
+> 
 
---fKeMsBHyzBZsUZpE
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCao3JzwAKCRB4tDGHoIJi
-0krJAQDiEUUUrM6+fTmT8SMRPXUg/rHRMv6V3Zr7hQ5y/PXFNgEA67cfFszTtB39
-NVD7cVVh3L7XXon9MnLTiNgCg9vDqwo=
-=6LE8
------END PGP SIGNATURE-----
-
---fKeMsBHyzBZsUZpE--
