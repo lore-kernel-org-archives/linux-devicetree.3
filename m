@@ -1,113 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFB813F58FF
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 10:59:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 561EE3F1676
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 10:59:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787655550; cv=none; b=kCBQUSs34sGwBTaCAZaTAsh8sG5E23syqRy7+ji8o7PA8BEzcQhLCgNLAIyaQiRZcJaXc0lgBBBAEBzrdB/VEsLgMErQ/Gnhq+B5SISrBKqeR3GqTiH2UxSc9VTT7gco9dZpgt2tTC81jDCQ8rc8x1q2Xw9XFvoV5+2bRP7zHCA=
+	t=1787655590; cv=none; b=lz5iAd5CLPKJ5il+N4+lXIAO4cmBtSpF0KxRhvjwAQkEtdLRVHT0vSDSFvd7Mnrpxm2ZIaJxfcA/k+2NdTEuDIgEUsQa5jULTBYjCMaowEeupBVj/VLpWDWOXUq1cIJbVfIuQKlkfcdbQq7wdsyf0vK4Vs26aJdrc8faMd7X600=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787655550; c=relaxed/simple;
-	bh=iZ9P2yNt7846OU6V2LP6saVOSvrr+N6AO/Su/mpbXWo=;
+	s=arc-20240116; t=1787655590; c=relaxed/simple;
+	bh=/C68qQFH+umnvfPFHdxViGdydqSi1CpVpa7+mch8ZEY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Z0StMe0Q9V17Svf6ktk5xBxMiZ0I5zU015ig2TExxItFrTPb/n5eXukDPBf6tgcMyqb7ytM1MGoh+NjA9YvYef+86Z+yul3wCyeVMPMBmCfpzGy0e6A0ZHRKh5K28UUUd/hcYLLAvDCwWB/ZaewobEF6NQuKlg/Vb/mnP4rqUoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GGyMOZpp; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=kfdZdTB+msrlxCWikRmW3AjxMGQNEolFmzvcSHU/pa6Gr0tCQGbwKEuOfIAVnjiPHEpnUUb/hVkHqw0euyxTodUyegxcSIVa0M/LGcf4guKHieFWF5aKPXaYzVq82Uwlo8DJabnqkk0X7f4OkOO/MVyMXWq+/5G4xW+jTiZkxQM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S+toA94H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GGyMOZpp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5AF81F00A3A;
-	Tue, 25 Aug 2026 10:59:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S+toA94H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D2301F000E9;
+	Tue, 25 Aug 2026 10:59:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787655548;
-	bh=F2WepNQfM8+D3D4/3fZ6VdrX7fFKYE5oKsHPU1hUToY=;
+	s=k20260515; t=1787655588;
+	bh=VNShuSIn7VTnKRwQGKV+MMP/gcdBC83GLVtPmKqAnMA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GGyMOZpp/XCZK/nL8Sd0gyXNE+tKDUaDwzbL15SX1olOz1/RmdDbMHuOWmBD4ivFc
-	 pXSx3GZR37KYqvyUNqZ0iNFQIIcwpikfi9Z5mKD236KQy5XsAI3ana1xi8vcwat+u0
-	 id8ahwLngMh6+TLGINETF7APzn5yB8M2RtcDpb94wU7GWsn2kzoPkDEH4e+MthWOMZ
-	 2Guv+PDjpMgUmMOrZycUguiBNPs3OgyfXfmaW4deCE4s6Ct4BoieFQrI/yLR+EYZc0
-	 /avISLy5bylLMhqYBpC3HazOeK8V32BqqH2R9AL2WtP6MY3KZ4j9Vr2vWtwj5FWpLw
-	 1PiweTGkSErrw==
+	b=S+toA94HLQjfgUGQX3x6Iyh9ICV9zk50Ye7VwU56ut5fkSnEnZlxti/FBfSzAGKwd
+	 FF+uWN+5AN2iQLzEWDTUv5asQQwZXy/bdaekRajItRG5Vp4NvL/OFHWmqX5oTKsJPV
+	 +xzhLTbTtvkVi2Be4fFeuYKhBc3VO4qCscuWOOYn8cPdTFbsCuTLGq/7V0ps6lakp5
+	 Jzo5VElZU8gQw9vuTlv50LdEeV4AcV8u/8wnTeKx8VdCwtFNYL4ukVN99pu+QuQ/CV
+	 fTQm8oH5B7qtnpJ8bxx7o0HhDbVHR80J8dxg9L4ZzkLFq+ktjqSeUSVYcbhISzIwU7
+	 JtgGwp1OWytKw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 03/12] ARM: dts: aspeed: anacapa: Add EVT2 devicetree
- inheriting EVT1
+Subject: Re: [PATCH 3/9] usb: dwc3: qcom: Add support for selecting UTMI as
+ reference clock
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Colin Huang" <u8813345@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260825-anacapa-devlop-phase-devicetree-v6-3-9059a2a279ce@gmail.com>
-References: <20260825-anacapa-devlop-phase-devicetree-v6-0-9059a2a279ce@gmail.com>
- <20260825-anacapa-devlop-phase-devicetree-v6-3-9059a2a279ce@gmail.com>
+To: "George Moussalem" <george.moussalem@outlook.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260825-ipq-flatten-usb-v1-3-5c1f3170bbe9@outlook.com>
+References: <20260825-ipq-flatten-usb-v1-0-5c1f3170bbe9@outlook.com>
+ <20260825-ipq-flatten-usb-v1-3-5c1f3170bbe9@outlook.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 10:59:07 +0000
-Message-Id: <20260825105907.C5AF81F00A3A@smtp.kernel.org>
+Date: Tue, 25 Aug 2026 10:59:48 +0000
+Message-Id: <20260825105948.9D2301F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] Redundant redefinition of inherited properties in the `evt2.dts` fi=
-le.
+- [High] The error code from `devm_clk_get_optional` is overwritten and ign=
+ored, failing to abort the probe on errors like `-EPROBE_DEFER`.
+- [Medium] Use of `devm_clk_get_optional` instead of `devm_clk_get` for a c=
+onditionally required clock.
 --
 
---- Patch [3]: [PATCH v6 03/12] ARM: dts: aspeed: anacapa: Add EVT2 devicet=
-ree inheriting EVT1 ---
-commit 6b89a922e36e90ce204fd77dd1e9b16cb96a0684
-Author: Colin Huang <u8813345@gmail.com>
+--- Patch [3]: [PATCH 3/9] usb: dwc3: qcom: Add support for selecting UTMI =
+as reference clock ---
+commit 62ea0cca7668740a78a41a22a25751f5e998df7d
+Author: George Moussalem <george.moussalem@outlook.com>
 
-ARM: dts: aspeed: anacapa: Add EVT2 devicetree inheriting EVT1
+usb: dwc3: qcom: Add support for selecting UTMI as reference clock
 
-Add a development-phase devicetree for the Facebook Anacapa BMC EVT2
-hardware revision and update the Anacapa wrapper DTS to reference it.
+This commit adds support for selecting the UTMI clock as the reference clock
+for the DWC3 core on certain Qualcomm chipsets. It reads a device tree
+property to determine if the UTMI clock should be used and passes it to the
+core driver via the probe data.
 
-> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dt=
-s b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dts
-> new file mode 100644
-> index 0000000000000..075ac39f369f7
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dts
-> @@ -0,0 +1,178 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +
-> +/dts-v1/;
-> +#include "aspeed-bmc-facebook-anacapa-evt1.dts"
-> +
-> +/ {
-> +	compatible =3D "facebook,anacapa-bmc-evt2", "aspeed,ast2600";
-> +	model =3D "Facebook Anacapa BMC";
-
-[Severity: Low]
-This isn't a bug, but since this file includes
-aspeed-bmc-facebook-anacapa-evt1.dts, is redefining the model string here
-redundant? It appears to be identical to the inherited value from evt1.dts.
-
-> +};
-> +
-> +&sgpiom0 {
-> +	bus-frequency =3D <2000000>;
-
-[Severity: Low]
-This isn't a bug, but does redefining bus-frequency create a minor
-maintainability hazard? This property seems to exactly match the one
-inherited from the evt1.dts file.
+> diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
+> --- a/drivers/usb/dwc3/dwc3-qcom.c
+> +++ b/drivers/usb/dwc3/dwc3-qcom.c
 
 [ ... ]
 
-> +	"AMC_FAIL", "HPM_CPLD_RISCV_RST",
-> +	"S0_ON", "";
-> +
-> +	ngpios =3D <128>;
-> +
-> +	status =3D "okay";
+> @@ -698,6 +700,18 @@ static int dwc3_qcom_probe(struct platform_device *p=
+dev)
+>  			qcom->current_role =3D USB_ROLE_DEVICE;
+>  	}
+> =20
+> +	select_utmi_as_ref_clk =3D device_property_read_bool(dev,
+> +					"qcom,select-utmi-as-ref-clk");
+> +	if (select_utmi_as_ref_clk) {
 
-[Severity: Low]
-This isn't a bug, but are ngpios and status also redundantly redefined?=20
-These exactly match the properties already inherited via Devicetree's node
-merging from evt1.dts.
+[Severity: Medium]
+Since the UTMI clock is required to derive the reference clock period when
+"qcom,select-utmi-as-ref-clk" is set, should this use devm_clk_get() instea=
+d?
 
-> +};
+If the "mock_utmi" clock is missing from the Device Tree,
+devm_clk_get_optional() will return NULL rather than an error pointer.
+Because IS_ERR(NULL) is false, the driver will silently continue with a NULL
+clock, which might lead to the same non-functional USB operation mentioned =
+in
+the commit message.
+
+> +		ref_clk =3D devm_clk_get_optional(dev, "mock_utmi");
+> +		if (IS_ERR(ref_clk)) {
+> +			ret =3D PTR_ERR(ref_clk);
+
+[Severity: High]
+Does this missing error handling silently swallow probe deferrals?
+
+If devm_clk_get_optional() returns an error like -EPROBE_DEFER, the error
+code is stored in 'ret' and a warning is logged, but execution continues.
+The 'ret' variable will then be overwritten by the return value of
+dwc3_core_probe() shortly after:
+
+dwc3_qcom_probe() {
+    ...
+    ret =3D dwc3_core_probe(&probe_data);
+    if (ret) {
+        ret =3D dev_err_probe(dev, ret, "failed to register DWC3 Core\n");
+        goto clk_disable;
+    }
+    ...
+}
+
+Should this error path abort the probe with a goto clk_disable?
+
+> +			dev_warn(dev, "failed to get ref clock: %d\n", ret);
+> +		} else {
+> +			probe_data.ref_clk =3D ref_clk;
+> +		}
+> +	}
+> +
+>  	qcom->dwc.glue_ops =3D &dwc3_qcom_glue_ops;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825-anacapa-de=
-vlop-phase-devicetree-v6-0-9059a2a279ce@gmail.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825-ipq-flatte=
+n-usb-v1-0-5c1f3170bbe9@outlook.com?part=3D3
