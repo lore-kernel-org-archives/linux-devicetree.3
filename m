@@ -1,299 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5BCC3FB7EB;
-	Tue, 25 Aug 2026 11:08:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 719323AC00
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 11:08:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787656134; cv=none; b=b+jyj35u+PyaLXKaDAMLVs0EAtNH3l2g3rC2ZPA7IgeP9UiakG/TYmY9cfDudoGZD3lC364LoEFgxaIs+jaXKCwX6djZ4NYp2JsylJoRu1cvqlP/gaqtu5RarAa0Z9wkuQBp4GqBz4ui4SH+PXdeYD0he4x0xoKM84bPhKjeLJs=
+	t=1787656145; cv=none; b=g44fE6W2krfBLJSARvSGnaJpXosKHBs4CyRiGoJ/IlbI3rL7POJCfR7DeCAJfcqhDuYVuqsXNSqKXb1bIFmzbByRuf67eZRfeaPHD26aakGo8ectEKr6hMNP6dvwL7uH7GIAGFfGzRbXi2r2J7Nguq7jYec1DUq9WMxoEUlvqbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787656134; c=relaxed/simple;
-	bh=MEsK8Hfi6QeopkryejcPosPkhpPyMDvxUA5tkoHT32k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=amJE4pvk5Fuj3tRZ9xgbwXHNaOz2tg55L33fC0Vpb0xySmpJXQYqbvBhf7VFzAQb48hzuxo7YWcHbGmsIBKeqjz5QKzWawQKrtdzUuJPSQS8N+IGkZ/aftY6SOSFJ0CM+m4inmxPBO/DA2iF4a+LA5rqDb533KB+mKUYPHLFlao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L0qoEOTf; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1787656145; c=relaxed/simple;
+	bh=6t3zAru9h1/FdafexW7ABLtjm1bS2oFBnFtibTmoYd0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rBbSvv2zu0hw29BbDEgwHaWALICZ6nSix857eIIBOLb7LSbjJhQTBCyagLz5pTM8CwpNKFJPEPS1jnkFHHNd/OamCTEhIvl+dgLcR0SOsVR5ON7vaoaq4bUBiGGyAkbDKbT54uMItb8ksdWUmT4AgHfbrwo8B2SOOuFNlht3Zz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d0hDeyZq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L0qoEOTf"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 66AD0C2BCF6;
-	Tue, 25 Aug 2026 11:08:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1787656134;
-	bh=MEsK8Hfi6QeopkryejcPosPkhpPyMDvxUA5tkoHT32k=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=L0qoEOTf7BY9llO/dPyDWxciS3LzFUOXHDm8GAK/6RwJnbU8tdzxnIihVE4kzJ3m0
-	 jvYFE4IslPIzI02Uy9ECNVVTgnZRpcMQXQtesghNjMehFRbTjfYANQtz/y9/doAefr
-	 Ef1f4jF7vfwptsITRIaczZEDVbgzJP5p2zIaMoWZbUGzLOFJB5C+3mNhsaL4CYoQ5T
-	 dJdp2twUOh3qyUXpXPCTC78PlHXL4RYvvuZO2xmGyRXNLeJLKtYqCd0uOoZJDZyqx/
-	 9YBhK7e6KdWnZECnvMjFmMWV7LPL+GrOnymKcHgX7OAgcUsA3s/p9er/Co7QMv+BoY
-	 Qb88mx6sdreFQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4772AC61DC2;
-	Tue, 25 Aug 2026 11:08:54 +0000 (UTC)
-From: Rohan Joshi via B4 Relay <devnull+rohan1sj.cadence.com@kernel.org>
-Date: Tue, 25 Aug 2026 16:40:58 +0530
-Subject: [PATCH v4 2/2] mmc: sdhci-cadence: Add CQE support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d0hDeyZq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D11AD1F000E9;
+	Tue, 25 Aug 2026 11:08:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787656136;
+	bh=Cv2KfJB4hx+YL0Q5vMRzFtMKgQq5DyKrkRjHEQpr1Ks=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=d0hDeyZq1bes8RDQIsZwWJE4Rm2fPFleaO0+tLLxuXEruB+MUseeQ9k0pI6sodX67
+	 uqspzOYGFlnFvqubkyGhahmR7nw2+kYIzXRewvvzTFEIFftRMpoYMEx3f7ZMq3T94/
+	 J2L8GLqX/o0Tvkt6JVdFOWcKfpg64NslW3UUv4mGBczCHy/BShLZrk4bLWYPomz5aP
+	 5RezfTwldsD44pyioXy9EqFVz2MQyf4zD7qKvaU8HNdIWLN6tf0xzh4L90zZv+dBMN
+	 8MZndLG5KbQYvu20K3cDLxtYI/w39fThhOiFVXd83HxALaa7lRMuVJIFYwre9sObNq
+	 NSWEdvBQdfpuQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 6/9] arm64: dts: qcom: ipq5424: Flatten usb controller
+ nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "George Moussalem" <george.moussalem@outlook.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260825-ipq-flatten-usb-v1-6-5c1f3170bbe9@outlook.com>
+References: <20260825-ipq-flatten-usb-v1-0-5c1f3170bbe9@outlook.com>
+ <20260825-ipq-flatten-usb-v1-6-5c1f3170bbe9@outlook.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 25 Aug 2026 11:08:55 +0000
+Message-Id: <20260825110855.D11AD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260825-cdns_sdhci_cqe-support-v4-2-e9f72e338373@cadence.com>
-References: <20260825-cdns_sdhci_cqe-support-v4-0-e9f72e338373@cadence.com>
-In-Reply-To: <20260825-cdns_sdhci_cqe-support-v4-0-e9f72e338373@cadence.com>
-To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Masahiro Yamada <yamada.masahiro@socionext.com>, 
- Adrian Hunter <adrian.hunter@intel.com>
-Cc: Rohan Joshi <rohan1sj@cadence.com>, linux-mmc@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- mparab@cadence.com, pawell@cadence.com, sjakhade@cadence.com, 
- mpillai@cadence.com, razb@mobileye.com, blarson@amd.com
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787656261; l=7039;
- i=rohan1sj@cadence.com; s=20260406; h=from:subject:message-id;
- bh=UdDZCZdTFb9J+GcBk4lpdt0hRYsXPZ4V3RxJcKMOXpU=;
- b=wQx3DKZxnxpz0gQgF4PCuQd28wzbXqt31ywcJfCvajzEi+tcjaN+T+maSlxsI2PVQBqIIXhf8
- kLJV3SytvJZA8hx4Vy+Ytv+7DRbXa/H96nsdCzIC6JqCvkREfvsdkFI
-X-Developer-Key: i=rohan1sj@cadence.com; a=ed25519;
- pk=YuwylizMVlVj8I4+VPMZ6xrFR2wyqJAWZyj90OVZgD0=
-X-Endpoint-Received: by B4 Relay for rohan1sj@cadence.com/20260406 with
- auth_id=723
-X-Original-From: Rohan Joshi <rohan1sj@cadence.com>
-Reply-To: rohan1sj@cadence.com
 
-From: Rohan Joshi <rohan1sj@cadence.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Incorrect interrupt-names array order triggers dtbs_check failures.
+--
 
-Cadence host controller has optional CQE (Command Queue Engine).
-The HW presence of CQE is determined by an additional host capability
-register. Look up for "cqhci" register space from the DT and when
-present, initialize CQHCI engine.
+--- Patch [6]: [PATCH 6/9] arm64: dts: qcom: ipq5424: Flatten usb controlle=
+r nodes ---
+commit 7fc908a77a39f9104c77c013b5b7e44175c43038
+Author: George Moussalem <george.moussalem@outlook.com>
 
-Signed-off-by: Rohan Joshi <rohan1sj@cadence.com>
----
- drivers/mmc/host/Kconfig         |   1 +
- drivers/mmc/host/sdhci-cadence.c | 125 +++++++++++++++++++++++++++++++++++++--
- 2 files changed, 122 insertions(+), 4 deletions(-)
+arm64: dts: qcom: ipq5424: Flatten usb controller nodes
 
-diff --git a/drivers/mmc/host/Kconfig b/drivers/mmc/host/Kconfig
-index 4f060d3e5636..2cc8133e8ef3 100644
---- a/drivers/mmc/host/Kconfig
-+++ b/drivers/mmc/host/Kconfig
-@@ -293,6 +293,7 @@ config MMC_SDHCI_CADENCE
- 	depends on MMC_SDHCI_PLTFM
- 	depends on OF
- 	select MMC_SDHCI_IO_ACCESSORS
-+	select MMC_CQHCI
- 	help
- 	  This selects the Cadence SD/SDIO/eMMC driver.
- 
-diff --git a/drivers/mmc/host/sdhci-cadence.c b/drivers/mmc/host/sdhci-cadence.c
-index 435603c8c00b..aa4431ef2b39 100644
---- a/drivers/mmc/host/sdhci-cadence.c
-+++ b/drivers/mmc/host/sdhci-cadence.c
-@@ -15,6 +15,8 @@
- #include <linux/reset.h>
- 
- #include "sdhci-pltfm.h"
-+#include "sdhci-cqhci.h"
-+#include "cqhci.h"
- 
- /* HRS - Host Register Set (specific to Cadence) */
- #define SDHCI_CDNS_HRS04		0x10		/* PHY access port */
-@@ -36,6 +38,10 @@
- #define   SDHCI_CDNS_HRS06_MODE_MMC_HS400	0x5
- #define   SDHCI_CDNS_HRS06_MODE_MMC_HS400ES	0x6
- 
-+/* Host capabilities not covered by the standard capability registers (SRS16-SRS18) */
-+#define SDHCI_CDNS_HRS30		0x78	/* Host capabilities */
-+#define SDHCI_CDNS_HRS30_CQE_SUPPORTED	BIT(0)
-+
- /* Read block gap */
- #define SDHCI_CDNS_HRS37		0x94	/* interface mode select */
- #define   SDHCI_CDNS_HRS37_MODE_DS		0x0
-@@ -88,6 +94,7 @@ struct sdhci_cdns_priv {
- 	void __iomem *ctl_addr;	/* write control */
- 	spinlock_t wrlock;	/* write lock */
- 	bool enhanced_strobe;
-+	bool cqe_support;	/* Command Queuing Engine support */
- 	void (*priv_writel)(struct sdhci_cdns_priv *priv, u32 val, void __iomem *reg);
- 	struct reset_control *rst_hw;
- 	unsigned int nr_phy_params;
-@@ -385,6 +392,68 @@ static void sdhci_cdns_set_uhs_signaling(struct sdhci_host *host,
- 		sdhci_set_uhs_signaling(host, timing);
- }
- 
-+static u32 sdhci_cdns_cqhci_irq(struct sdhci_host *host, u32 intmask)
-+{
-+	int cmd_err = 0;
-+	int data_err = 0;
-+
-+	/* return original intmask to be handled by other handlers if it's not a CQE interrupt */
-+	if (!sdhci_cqe_irq(host, intmask, &cmd_err, &data_err))
-+		return intmask;
-+
-+	cqhci_irq(host->mmc, cmd_err, data_err);
-+
-+	return 0;
-+}
-+
-+static const struct cqhci_host_ops sdhci_cdns_cqhci_ops = {
-+	.enable		= sdhci_cqe_enable,
-+	.disable	= sdhci_cqe_disable,
-+};
-+
-+static int sdhci_cdns_cqe_add_host(struct sdhci_host *host, struct platform_device *pdev)
-+{
-+	struct cqhci_host *cq_host;
-+	bool dma64;
-+	int ret;
-+
-+	ret = sdhci_setup_host(host);
-+	if (ret)
-+		return ret;
-+
-+	cq_host = cqhci_pltfm_init(pdev);
-+	if (IS_ERR(cq_host)) {
-+		ret = PTR_ERR(cq_host);
-+		dev_err_probe(&pdev->dev, ret, "cqhci platform init failed\n");
-+		goto cleanup;
-+	}
-+
-+	dma64 = host->flags & SDHCI_USE_64_BIT_DMA;
-+	if (dma64)
-+		cq_host->caps |= CQHCI_TASK_DESC_SZ_128;
-+
-+	cq_host->ops = &sdhci_cdns_cqhci_ops;
-+
-+	host->mmc->caps2 |= MMC_CAP2_CQE | MMC_CAP2_CQE_DCMD;
-+
-+	ret = cqhci_init(cq_host, host->mmc, dma64);
-+	if (ret) {
-+		dev_err_probe(&pdev->dev, ret, "cqhci init failed\n");
-+		goto cleanup;
-+	}
-+
-+	/* add host to MMC subsystem */
-+	ret = __sdhci_add_host(host);
-+	if (ret)
-+		goto cleanup;
-+
-+	return 0;
-+
-+cleanup:
-+	sdhci_cleanup_host(host);
-+	return ret;
-+}
-+
- /* Elba control register bits [6:3] are byte-lane enables */
- #define ELBA_BYTE_ENABLE_MASK(x)	((x) << 3)
- 
-@@ -445,8 +514,9 @@ static const struct sdhci_ops sdhci_elba_ops = {
- 	.set_clock = sdhci_set_clock,
- 	.get_timeout_clock = sdhci_cdns_get_timeout_clock,
- 	.set_bus_width = sdhci_set_bus_width,
--	.reset = sdhci_reset,
-+	.reset = sdhci_and_cqhci_reset,
- 	.set_uhs_signaling = sdhci_cdns_set_uhs_signaling,
-+	.irq = sdhci_cdns_cqhci_irq,
- };
- 
- static int elba_drv_init(struct platform_device *pdev)
-@@ -474,9 +544,10 @@ static const struct sdhci_ops sdhci_cdns_ops = {
- 	.set_clock = sdhci_set_clock,
- 	.get_timeout_clock = sdhci_cdns_get_timeout_clock,
- 	.set_bus_width = sdhci_set_bus_width,
--	.reset = sdhci_reset,
-+	.reset = sdhci_and_cqhci_reset,
- 	.platform_execute_tuning = sdhci_cdns_execute_tuning,
- 	.set_uhs_signaling = sdhci_cdns_set_uhs_signaling,
-+	.irq = sdhci_cdns_cqhci_irq,
- };
- 
- static const struct sdhci_cdns_drv_data sdhci_cdns_uniphier_drv_data = {
-@@ -553,6 +624,8 @@ static int sdhci_cdns_probe(struct platform_device *pdev)
- 	int ret;
- 	struct device *dev = &pdev->dev;
- 	static const u16 version = SDHCI_SPEC_400 << SDHCI_SPEC_VER_SHIFT;
-+	bool cqe_enabled;
-+	u32 host_caps;
- 
- 	clk = devm_clk_get_enabled(dev, NULL);
- 	if (IS_ERR(clk))
-@@ -608,7 +681,43 @@ static int sdhci_cdns_probe(struct platform_device *pdev)
- 			host->mmc_host_ops.card_hw_reset = sdhci_cdns_mmc_hw_reset;
- 	}
- 
--	return sdhci_add_host(host);
-+	host_caps = readl(priv->hrs_addr + SDHCI_CDNS_HRS30);
-+
-+	/*
-+	 * CQE is enabled only when both conditions are met:
-+	 *   1. Hardware reports CQE support via HRS30[0].
-+	 *   2. DT provides a named "cqhci" register space.
-+	 */
-+	cqe_enabled = (host_caps & SDHCI_CDNS_HRS30_CQE_SUPPORTED) &&
-+		      !!platform_get_resource_byname(pdev, IORESOURCE_MEM, "cqhci");
-+
-+	if ((host_caps & SDHCI_CDNS_HRS30_CQE_SUPPORTED) && !cqe_enabled)
-+		dev_dbg(dev, "CQE supported by hardware but no 'cqhci' register space in DT, disabling\n");
-+
-+	if (cqe_enabled) {
-+		priv->cqe_support = true;
-+		ret = sdhci_cdns_cqe_add_host(host, pdev);
-+	} else {
-+		ret = sdhci_add_host(host);
-+	}
-+
-+	return ret;
-+}
-+
-+static int sdhci_cdns_suspend(struct device *dev)
-+{
-+	struct sdhci_host *host = dev_get_drvdata(dev);
-+	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
-+	struct sdhci_cdns_priv *priv = sdhci_pltfm_priv(pltfm_host);
-+	int ret;
-+
-+	if (priv->cqe_support) {
-+		ret = cqhci_suspend(host->mmc);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return sdhci_pltfm_suspend(dev);
- }
- 
- static int sdhci_cdns_resume(struct device *dev)
-@@ -630,6 +739,14 @@ static int sdhci_cdns_resume(struct device *dev)
- 	if (ret)
- 		goto disable_clk;
- 
-+	/* Resume CQE if enabled */
-+	if (priv->cqe_support) {
-+		ret = cqhci_resume(host->mmc);
-+		if (ret)
-+			dev_warn(dev, "CQE resume failed (%pe), continuing without CQE\n",
-+				 ERR_PTR(ret));
-+	}
-+
- 	return 0;
- 
- disable_clk:
-@@ -638,7 +755,7 @@ static int sdhci_cdns_resume(struct device *dev)
- 	return ret;
- }
- 
--static DEFINE_SIMPLE_DEV_PM_OPS(sdhci_cdns_pm_ops, sdhci_pltfm_suspend, sdhci_cdns_resume);
-+static DEFINE_SIMPLE_DEV_PM_OPS(sdhci_cdns_pm_ops, sdhci_cdns_suspend, sdhci_cdns_resume);
- 
- static const struct of_device_id sdhci_cdns_match[] = {
- 	{
+This patch flattens the USB controller nodes and updates them to use the
+latest bindings and the flattened driver approach. It also adds a property
+to select UTMI as the reference clock for the DWC3 core.
 
--- 
-2.43.0
+> diff --git a/arch/arm64/boot/dts/qcom/ipq5424.dtsi b/arch/arm64/boot/dts/=
+qcom/ipq5424.dtsi
+> index 702061e16a58d..648f95d70448e 100644
+> --- a/arch/arm64/boot/dts/qcom/ipq5424.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/ipq5424.dtsi
+> @@ -663,33 +660,32 @@ usb2: usb2@1ef8800 {
+>  			assigned-clock-rates =3D <200000000>,
+>  					       <24000000>;
+> =20
+> -			interrupts-extended =3D <&intc GIC_SPI 395 IRQ_TYPE_LEVEL_HIGH>,
+> +			interrupts-extended =3D <&intc GIC_SPI 396 IRQ_TYPE_LEVEL_HIGH>,
+> +					      <&intc GIC_SPI 395 IRQ_TYPE_LEVEL_HIGH>,
+>  					      <&intc GIC_SPI 397 IRQ_TYPE_LEVEL_HIGH>,
+>  					      <&intc GIC_SPI 387 IRQ_TYPE_LEVEL_HIGH>,
+>  					      <&intc GIC_SPI 388 IRQ_TYPE_LEVEL_HIGH>;
+> -			interrupt-names =3D "pwr_event",
+> +			interrupt-names =3D "dwc_usb3",
+> +					  "pwr_event",
+>  					  "qusb2_phy",
+>  					  "dm_hs_phy_irq",
+>  					  "dp_hs_phy_irq";
 
+[Severity: Low]
+Will this order of interrupt names cause dtbs_check failures with the new
+schema?
 
+The qcom,snps-dwc3.yaml schema requires the interrupts for
+qcom,ipq5424-dwc3 to strictly follow the order: dwc_usb3, pwr_event,
+qusb2_phy, dp_hs_phy_irq, and then dm_hs_phy_irq. Leaving
+dm_hs_phy_irq before dp_hs_phy_irq seems like it might trigger a
+validation error, even though the kernel matches them by name.
+
+[ ... ]
+
+> @@ -755,34 +747,33 @@ usb3: usb3@8af8800 {
+>  			assigned-clock-rates =3D <200000000>,
+>  					       <24000000>;
+> =20
+> -			interrupts-extended =3D <&intc GIC_SPI 412 IRQ_TYPE_LEVEL_HIGH>,
+> +			interrupts-extended =3D <&intc GIC_SPI 409 IRQ_TYPE_LEVEL_HIGH>,
+> +					      <&intc GIC_SPI 412 IRQ_TYPE_LEVEL_HIGH>,
+>  					      <&intc GIC_SPI 414 IRQ_TYPE_LEVEL_HIGH>,
+>  					      <&intc GIC_SPI 423 IRQ_TYPE_LEVEL_HIGH>,
+>  					      <&intc GIC_SPI 424 IRQ_TYPE_LEVEL_HIGH>;
+> -			interrupt-names =3D "pwr_event",
+> +			interrupt-names =3D "dwc_usb3",
+> +					  "pwr_event",
+>  					  "qusb2_phy",
+>  					  "dm_hs_phy_irq",
+>  					  "dp_hs_phy_irq";
+
+[Severity: Low]
+Does this also need to have dp_hs_phy_irq placed before dm_hs_phy_irq
+to satisfy the qcom,snps-dwc3 dtbs_check requirements for this node?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825-ipq-flatte=
+n-usb-v1-0-5c1f3170bbe9@outlook.com?part=3D6
