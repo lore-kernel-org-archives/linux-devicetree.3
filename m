@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA39D3D669F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DADAA3D8123;
 	Tue, 25 Aug 2026 10:43:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787654583; cv=none; b=OGAqXV4XFqAfT1aEUaEOMAFzPCckjwQuyjlZz9mSi2PtthPryaNlJbTTd5Xq+M1q+o1MQThyL+Wpdl0xNnbgI49a5Znte6PnQi0KxFgm2TUgM4ic7bslA8CbofDX4UuSI9VKCgQg3kA6LTiQodczbsV/5pyaK3g24hIbGW7q7rk=
+	t=1787654583; cv=none; b=C859CvzXPevo1wyTiLpVR2IA3eS/1k9X3pXptVA6g/o6pQgtC/VrQT/XAAViSqYHhIDUFM0WCH+ajqIN4RBUVjowSWU60UhAVFPffTLLRwRfB9SCCY7x713t0iMBkK72lJfpaBtr1jbk0vNA+psYDdyB0ftIyNH0KXgUxlnroHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787654583; c=relaxed/simple;
-	bh=CoY8MC/CiohEkIO0woh3W7ToV/HZWV2HpXzffodCVGU=;
+	bh=cjJKfu1NBudId1qQWYXIg0pclAI0IbjrW5ldFkbUqGQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=neRyK7czF3bipGTdDEkcE+Fznw5HwP+4j+RATwK8sEVoaoNfiDScnht6CcTPaj8Ute+K+54/QvvvV+KthAdtBdPCc26bGOrUApNzySygbZuVEdtKeJ/n4ebaxM+wt1VdcLbCCLz9K6UJFiLVw46A9zQ28uCtFI9FCH9g9H9iTh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dXi2KDBn; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=gLG2zm8goVjxaAOGuTW7K5e8XvswpcnPi9F6s54lMfADaOSIoger5TNtbh8IaWMjRdxH7z+sQk+f1tgMabRTkDk1RdCU2r47MHhZ/TkDn3Xsr86vQ/X8I8pCXv9ajLAdYaKL0kUsRndO+uD/sX2cA/Mgs77pNfqYguPH+NTcFrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=djA6itc/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dXi2KDBn"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 61083C2BCF6;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="djA6itc/"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7E556C4AF09;
 	Tue, 25 Aug 2026 10:43:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1787654583;
-	bh=CoY8MC/CiohEkIO0woh3W7ToV/HZWV2HpXzffodCVGU=;
+	bh=cjJKfu1NBudId1qQWYXIg0pclAI0IbjrW5ldFkbUqGQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=dXi2KDBnpXPK2Qy1FmdqBt7NXzaRClX1vDgz5Pkf26FETh0FItmvXwWqNhfVIfT++
-	 IgdQZER0Xbe4XKN5cI412XeNSiGJKdat6ttx+pyJS874EZqXSYJ33JDq05eCbKzS5b
-	 Q2evRDpXbjPxltpM4QQoa24LJmlFJVbxcSnMaujWrLBhV19KCy0gZ9VUqJEFpmJJId
-	 0jG14JgnEZ5/dH8AF6eMsZEYqBHkV4hGuSLpWhu1KnODDM/584+oM5Gqo2ROk81PJu
-	 Wp78bDXpp6kdLKVnB380AmyhVII1Y9F2J0yT6+iHBh0h+xPlrgI3WiJ2oZdUeGQ+dn
-	 sJu6td99tecbw==
+	b=djA6itc/Cmpod3CnXP/iBd6vDPUss1Bs+UtqWi3GXKKaxCvg1L1LNZgub74lNRrdw
+	 DUYoY9T1McLLqVedR2Z3byhOdWgoPWpPkiroJhQm1vtVVeQ6aQ9YeCa0CVB85nHgHp
+	 5aH0FyS1WNZikUy5CezmOftlAYJmL+eyLCGaPDWrZ/m4OdMxjOjGvxv5dkuJhZbtcz
+	 M4Rq9V3bSQpIEWa8go4K3DLwmeVnOyLpWXtC6a1gaUntqrRMLEgaDeLiSA+j8TXFOW
+	 GhL1rNsFtb2tFQUG/M9wku0U3WmK+9iRk7h/KXAfl1FeTi7wk6SRPrKm/0bh4cCPL0
+	 MTSWQZFXhBvMQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 38FEDC61DB4;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B269C61CE2;
 	Tue, 25 Aug 2026 10:43:03 +0000 (UTC)
 From: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>
-Date: Tue, 25 Aug 2026 14:42:26 +0400
-Subject: [PATCH 1/9] dt-bindings: usb: qcom,snps-dwc3: Add ability to
- select UTMI as reference clock
+Date: Tue, 25 Aug 2026 14:42:28 +0400
+Subject: [PATCH 3/9] usb: dwc3: qcom: Add support for selecting UTMI as
+ reference clock
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260825-ipq-flatten-usb-v1-1-5c1f3170bbe9@outlook.com>
+Message-Id: <20260825-ipq-flatten-usb-v1-3-5c1f3170bbe9@outlook.com>
 References: <20260825-ipq-flatten-usb-v1-0-5c1f3170bbe9@outlook.com>
 In-Reply-To: <20260825-ipq-flatten-usb-v1-0-5c1f3170bbe9@outlook.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -55,11 +55,11 @@ Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
  Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>, 
  George Moussalem <george.moussalem@outlook.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787654580; l=2093;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787654580; l=2074;
  i=george.moussalem@outlook.com; s=20250321; h=from:subject:message-id;
- bh=PpmFa72hwQoy5I4zpkHd0b3hra/QO3YfJD1WlPOqoa4=;
- b=EuVX9KSNZOwoA0oaPoUM8tQBGYI6bSeOyFoi0yRtwHUcr0O+MAF2deFukun0alQeBviIQSN4B
- 2YaYa9tHmR7DjbZ/uO/BfKDesBD0tj1LuB8LDkFsbLqH8Kd0RFvc0OB
+ bh=IcMBry42eYPvkI9bqgoJ0mKN1T29dETKkJm3TDSEDqQ=;
+ b=BsQfnDzO0TLBZ6Yyad0M5dIlm2SMDXkIzWw0tUEGJxjetAasa20HW8fCBpwhX2iRvsnfSlCM/
+ umhR9eH1+uLDHby/I+dvLMOVcMai1utHlDYS2qEN2QbYjT3t+L357PS
 X-Developer-Key: i=george.moussalem@outlook.com; a=ed25519;
  pk=/PuRTSI9iYiHwcc6Nrde8qF4ZDhJBlUgpHdhsIjnqIk=
 X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
@@ -69,53 +69,59 @@ Reply-To: george.moussalem@outlook.com
 
 From: George Moussalem <george.moussalem@outlook.com>
 
-Add ability to select the UTMI clock as reference clock which is passed
-by the glue layer to the DWC3 core to calculate the reference clock
-period and frame length adjustment based on its clock rate.
+On many Qualcomm chipsets, the UTMI clock is used as the reference clock
+(ex. IPQ5018, IPQ6018, and IPQ9574 and more). Since moving to the new
+flattened snps-dwc3 model, it is no longer possible to pass the
+reference clock to the dwc3 core driver.
 
-In the flattened snsp-dwc3 model, it is currently not possible to pass a
-reference clock that differs from the default since:
-commit 613a2e655d4d ("usb: dwc3: core: Expose core driver as library")
+The clock rate is used by dwc3 core to derive the reference clock period
+and frame length adjusment. This is needed when the reference clock
+deviates from the hardware default (typically 19.2MHz). Above mentioned
+SoCs use different rates and, as such, the core initializes with the
+wrong values which leads to non-functional USB operation.
 
-This prevents moving chipsets such as IPQ5018, IPQ6018, IPQ5332, IPQ5424
-and IPQ9574 with a reference clock rate different from 19.2 MHz from
-moving to the flattened model.
-
-The Qualcomm takes care of clock and resets management itself and sets
-the ignore_clocks_and_resets flag in dwc3_probe_data to true, so the
-core doesn't acquire the reference clock from the devicetree.
-
-The existing DT property 'snps,quirk-ref-clk-period-ns' has been
-deprecated.
-
-So, add a property to select the UTMI clock used by many (if not all)
-Qualcomm USB controllers as the reference clock.
+Read the "qcom,select-utmi-as-ref-clk" property to determine if the UTMI
+clock should be used as the reference clock. If so, set it as the
+reference clock in the dwc3_probe_data structure.
+The dwc3 core driver will then use this clock to derive the clock rate.
 
 Signed-off-by: George Moussalem <george.moussalem@outlook.com>
 ---
- Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/usb/dwc3/dwc3-qcom.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml b/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
-index ea60f7220afe..aa263dfd42a1 100644
---- a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
-+++ b/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
-@@ -155,6 +155,15 @@ properties:
-       HS/FS/LS modes are supported.
-     type: boolean
+diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
+index ac68b4218b56..17292517c594 100644
+--- a/drivers/usb/dwc3/dwc3-qcom.c
++++ b/drivers/usb/dwc3/dwc3-qcom.c
+@@ -617,6 +617,8 @@ static int dwc3_qcom_probe(struct platform_device *pdev)
+ 	int			ret;
+ 	bool			ignore_pipe_clk;
+ 	bool			wakeup_source;
++	bool			select_utmi_as_ref_clk;
++	struct clk		*ref_clk;
  
-+  qcom,select-utmi-as-ref-clk:
-+    description:
-+      If present, pass the UTMI clock as the reference clock to the DWC3 core to
-+      use its clock rate to calculate the reference clock period and frame
-+      length adjustment in GUCTL and GFLADJ registers. This is needed when these
-+      values based on the standard clock rate deviate from the hardware default
-+      values. If not set, the hardware default values are used.
-+    type: boolean
+ 	qcom = devm_kzalloc(&pdev->dev, sizeof(*qcom), GFP_KERNEL);
+ 	if (!qcom)
+@@ -698,6 +700,18 @@ static int dwc3_qcom_probe(struct platform_device *pdev)
+ 			qcom->current_role = USB_ROLE_DEVICE;
+ 	}
+ 
++	select_utmi_as_ref_clk = device_property_read_bool(dev,
++					"qcom,select-utmi-as-ref-clk");
++	if (select_utmi_as_ref_clk) {
++		ref_clk = devm_clk_get_optional(dev, "mock_utmi");
++		if (IS_ERR(ref_clk)) {
++			ret = PTR_ERR(ref_clk);
++			dev_warn(dev, "failed to get ref clock: %d\n", ret);
++		} else {
++			probe_data.ref_clk = ref_clk;
++		}
++	}
 +
-   wakeup-source: true
+ 	qcom->dwc.glue_ops = &dwc3_qcom_glue_ops;
  
- required:
+ 	qcom->dwc.dev = dev;
 
 -- 
 2.53.0
