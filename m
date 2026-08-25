@@ -1,321 +1,193 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B5AA31E830
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 02:29:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A61D631ED93
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 02:39:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787624983; cv=none; b=F4C3QsoaJwsT9nwfjDrZF6Lg2PvpMTpRSBjOSh0v81l6HLq7sV20uGxpTyX92YMg2M1yfNQMQFhQ50eBZ8lyN8hACn/V4TCFE9YuP9iRcSV8XRPmaVVxmOppsdXR9Qvo66q+tnuPD5Uydda5YZMZZazkK4vUK3db+s/OvWwsTg0=
+	t=1787625572; cv=none; b=tfe68OWtco1ino15RIvwMTz97ifsoeSDi0BqAmHy53VOb/b0ka4XF5eSA6PeDizpBS3VvrIp7zZnVs2DN8fODdErFtRegTx+8me+8wrP9HQjBr+o7qDuD1ikLr0OsQP0PqdT5AEti9LWttf4jWGmravcz1s1cj+XUBc0PJgnO3U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787624983; c=relaxed/simple;
-	bh=84QHTJHLKh9BGI3g7BtUENC4CStNgfmhW2guNs39uWY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jmn7K6BIIxKoMFxh4t2OmkEEWyXwAK4KGElceGknEojd1alue0U7vY9VWk3q8WC3M9bvNOWtkWejZRbMHWBcL1AsvyKB4ITC/QtQ3dF87LJ3KAlU/BJoblvcvsRutq7KsabjpdIln99G54EAn7sfqb1bvtr56wka0GsV9VZ02ss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ws0cDLQV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787625572; c=relaxed/simple;
+	bh=30xKD38o73VXa/hJ0JOvY2xHjIVXoiWOnOPEV1JWW2c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YV4o4kjFFiy3fjnWmy5NR090ogiBGWsoghRgTrQJVoNvHdBzxgPY5qT47rvM3avJx0vtIw3Fyw++mz9DhIOoYR+OCiw+az9HPX0S2xEksufASk5fnbor0ZALOL0quqE6jQUZseoPXmJENTLkT5or/5a6HtS/mGVp3hckyW5+eHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=X3iG/7UK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TWCA00AR; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ws0cDLQV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A4361F00A3A;
-	Tue, 25 Aug 2026 02:29:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787624981;
-	bh=4rzkU77KTIE8tnzWx9CiEUmB9vBJDQWtL5DbyQcSRlA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ws0cDLQV0LTIv0ur9LU5YbblxMVUQ8N7MqMLgvw4NQWKfJZfnAbKsXdpoY3Uiei05
-	 McwFJWmF6166UTIpUZKZrS7rspELfIDQ9Hu3pweIJYXEbeO7eWXMT1ds5/idqTe/HJ
-	 +Vxu7+C0mpWFeLuaSxV1C4+HW/hRKAd8atuE3QGfr+jlBBRix5RkVVB6o3FZau6SVd
-	 PJZI9EZyVnVSj56XAZHAP7U5GZZ42Ogkj13y+i/Hf5xRQIl0Rf8gQq2iiB0skXNy2b
-	 IdLoor9k//HankgE44aoYKddoFm0dhxYEO04OpuAkYCUPc/NdWUQs/MAA8ngaKCWBk
-	 k/asTyC2R2lUA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 2/2] ASoC: codecs: nau8360: Add support for NAU83G60
- amplifier
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Neo Chang" <YLCHANG2@nuvoton.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260825021644.1203076-3-YLCHANG2@nuvoton.com>
-References: <20260825021644.1203076-1-YLCHANG2@nuvoton.com>
- <20260825021644.1203076-3-YLCHANG2@nuvoton.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 02:29:41 +0000
-Message-Id: <20260825022941.8A4361F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="X3iG/7UK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TWCA00AR"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67P2QxVc624777
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 02:39:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	kqoeoOu+8PfjGTZBzhg+XakMcLe1cSmMdGUV9GViNyg=; b=X3iG/7UKzeiRBoaI
+	VmGc2DyxCYAbbvzfXRLabwbVi7hdkpTr5t4X3iJN+Ha+D2LBOXEgTyo/d9egZWfg
+	ktzK89fNSq+/1cJuT5Sw1di88WTsPCPOfVKs6O5LZ7uQKEED28Vvq9lkUfcO0lSF
+	LmxjnNmnToVBhSm9/S2yuj5N3xcEvTMIIHHCjtrOAYT+ulNawIAw2upjzcYnDwtM
+	ocDoNMFefuiNkZSHhsxGC03zL8aNP0lZx6TPmVeQgRjnrtngtbLA2Q3RnBezAUKV
+	dOHIwfN5Ib6wfa9dQTIiRSu7ih1gXP06AfihyvOLO3DpQ6/E20L8GTbXxIDUVLXA
+	z5cIRg==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g8pkdju48-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 02:39:29 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38e7ff7b375so6358503a91.1
+        for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 19:39:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787625568; x=1788230368; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kqoeoOu+8PfjGTZBzhg+XakMcLe1cSmMdGUV9GViNyg=;
+        b=TWCA00ARyL/C5wIb0qcBv/LIKGlKpQduxIsVihAP0OxyGBDoAVLfDnMWa6sGvsbOmM
+         MbelUo2A9dBtNs9NSfe8pQopnRXWBwNzLgpWLiz5wuovv3SXaJcYWflAYTm06vXvJ3v9
+         j/55ss+tTqLVEZ+8FAh9X5/ILxzs0NYgjvH4ZzubbswS4/bi6rBkmJR2j5mXtgYud18H
+         LLPUUbWg6NbzzZyglHrvI3WoALV3pSNa04Wzzl5WQw1HfeJoC8WYa9tq8SQIffkF2NFA
+         l4Cbcf5xgvB9LCKDO1fMQLAG7wQUa+3inrBJBJOfTx/zqCo3T1CGqvaXsyifHOQo30vm
+         /Gbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787625568; x=1788230368;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kqoeoOu+8PfjGTZBzhg+XakMcLe1cSmMdGUV9GViNyg=;
+        b=CSjw1S+0y0hg5WWnCDLGpQbohAOzf5eycOQCaQIwjyZtZxcWCfKEyYXwn1Ldz00gRX
+         XbKYAayB47XrAFb6nR6lYxKMlENIbzDYOfoXvfA4mAXy8fPyaQ9bxhfPQ4kJ7vNrTggP
+         Dyhj9V5iU5z5J5Nf8m8EPffbD66x2sW/8FCxnh73ftUSyl/Lf0U2UtLaCwChZtr78Sb7
+         Fgru4qayORW2cX9Np9mO2NYamdbMKpjNv58A3yPYIpeOIOoXxecQpmTUbk1c8sp+nWqJ
+         pq7I4rJEt2cHeQHIdd70ViWwP6V0GyNcIE786P6JHwWUTxCL5xaWVJ1DnaHtqTbO3nsb
+         WiDw==
+X-Forwarded-Encrypted: i=1; AHgh+RqwaCjqNtDj6fecP2Zzx9qbzS+DaUe3+77pWPbkj9k7jIoOKHg8g6YsSjxSj5R8rp0zLVL/OowIaS1L@vger.kernel.org
+X-Gm-Message-State: AFuF++mC2diwcz5U88V2hG7ZmALEpz9oPXJqVQYE2zw16HSIdekKF0OU
+	CfZmw0uPu+Sltwb1rfZm+Bm7AiptzhCKYT20gyJQnSw3QuxHXR4Ud8MD8UnSPo6aez7Cle061P0
+	kvD8J0Hc+PGyq0WTJ/mtygnSiH5aw3WMYh3VDk2yj/qiDUF+4tmQeTT5rUFTV+UaN
+X-Gm-Gg: AR+sD12kza5teBbNbVXcjBAeTNg1dEo3/O/VNwpLp3odly2SL1fy0/RuRCTOgeVLQOl
+	cBAwf165Ci5DN2LTUkNI1g8srcoZlN5zKrQxKPKViidGwMBZWTnQ7EXAFo69Q/0B5P/VU5MDVBn
+	ssKzFeVKHmEhwXW6kInbAIqZbPoYAGnP0zMObiHddeM1hmmJ0FkR2GEpwAnvHF0cMenh5vtr0Kq
+	HP6l3AXVyoKXf/8U3BqCEaHnsWYNjisRBZ2TJZgFoAalKoVm0JKq6IGUymOXk3tCepDub5HfnZw
+	fbZr2jrA0lJrzhW+bRMkOqdAZSkBNo6v6Vy9GmPNY+4gk6OoOuR2tuvuNsCC0P8C7GNXTQB1pr6
+	xWp9jes47NGdu8Qqasl1M3SafNeh8YmusTjW012XVxGMGRFel6stlz6yTYQfAKtmaOjpn
+X-Received: by 2002:a17:90b:4b0a:b0:38d:ddc2:7ccb with SMTP id 98e67ed59e1d1-396462ff21fmr5422592a91.1.1787625568406;
+        Mon, 24 Aug 2026 19:39:28 -0700 (PDT)
+X-Received: by 2002:a17:90b:4b0a:b0:38d:ddc2:7ccb with SMTP id 98e67ed59e1d1-396462ff21fmr5422537a91.1.1787625567955;
+        Mon, 24 Aug 2026 19:39:27 -0700 (PDT)
+Received: from [10.133.33.69] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39646138f87sm1707105a91.3.2026.08.24.19.39.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 24 Aug 2026 19:39:27 -0700 (PDT)
+Message-ID: <d129ce45-0769-432c-bbc2-76e992325dee@oss.qualcomm.com>
+Date: Tue, 25 Aug 2026 10:39:24 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/2] dt-bindings: input: Add Qualcomm SPMI PMIC haptics
+To: sashiko-reviews@lists.linux.dev
+Cc: dmitry.torokhov@gmail.com, robh@kernel.org, conor+dt@kernel.org,
+        devicetree@vger.kernel.org, linux-input@vger.kernel.org
+References: <20260806-qcom-spmi-haptics-v6-0-19fcecd5204f@oss.qualcomm.com>
+ <20260806-qcom-spmi-haptics-v6-1-19fcecd5204f@oss.qualcomm.com>
+ <20260807062927.548EF1F000E9@smtp.kernel.org>
+Content-Language: en-US
+From: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+In-Reply-To: <20260807062927.548EF1F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI1MDAyMCBTYWx0ZWRfX1K90Quu40NTk
+ UblCuF2YnXBj1WUJ8k829Tn6gHwe/5cBlH5OSOep/M9M6/tx4i21yT0Ea6SROTkGVAgK0Sm3ynt
+ 1cmTgG5RxVs8uzkY4hKcHvcARUkxaV8=
+X-Proofpoint-ORIG-GUID: vcdNCCmo0VkGBRllV-xv9TugbR8ZmWhv
+X-Proofpoint-GUID: vcdNCCmo0VkGBRllV-xv9TugbR8ZmWhv
+X-Authority-Analysis: v=2.4 cv=Kq19H2WN c=1 sm=1 tr=0 ts=6a8d0061 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=ED_tUBg3TPI6sqZwEIEA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI1MDAyMCBTYWx0ZWRfX+mxUrvGx+4hM
+ 4W9t4+2rzCT0UfuCfsWo0RJU6brhxTa7p1DUV+DMHtvtMQddQttfVempgghQ55Oi0erg6VjhNzV
+ SfQoSwzoNEGqtJqQJvi4JE5ckhFc2QXU3zlBp05oNEB122f9jd971mLo6V78bf4SU9++ww66C+W
+ T7BTIRYPxlYWmNp2m66LSI1qXgkaY3YgQWkit0cxyqjnAYvnxUyqVyaF/VLDCZiyLSloDT29Q/T
+ CujFhinx6eZHMOPNJF2/ZHzwFYMRfxBFhSbHtw4vVzFxVWe8arZriMIupXKfe65anQT9eolMw5h
+ +bAWePE1p7ZNJk6SIHjTSPr7C2OglK10rJ/xLKJn21NnQvOknnPCBcfowLhBYJtnHk+eONGEhyN
+ oOTdol6DZ6nfcgwGDYwzx1Ci8s0irfbD4b1uEyUbtLIP3h9FbhxFF09sOZfl39DlIfmcQFhtdye
+ ngRzeJnoDtSfJoTdgEg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-25_01,2026-08-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 suspectscore=0 phishscore=0 bulkscore=0 clxscore=1015
+ adultscore=0 spamscore=0 priorityscore=1501 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608250020
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] Regmap `val_bits =3D 16` causes all 32-bit DSP commands to be reje=
-cted and replies to be truncated, completely breaking DSP initialization.
-- [High] Asymmetric clearing of TDM TX and RX enable flags breaks subsequen=
-t audio capture streams.
-- [High] AB-BA lock inversion deadlock between `nau8360->lock` and the ASoC=
- DAPM mutex.
-- [High] Audio playback can resume before asynchronous DSP firmware loading=
- completes, potentially causing DSP crashes or invalid audio output.
-- [High] The background work `load_fw_work` is scheduled in the ASoC compon=
-ent `.probe` callback, but the driver lacks an ASoC component `.remove` cal=
-lback to cancel it.
-- [High] nau8360_resume() corrupts the cached clock and DSP state by callin=
-g nau8360_dsp_bootup() without bypassing the regcache.
---
 
---- Patch [2]: [PATCH v10 2/2] ASoC: codecs: nau8360: Add support for NAU83=
-G60 amplifier ---
-commit a968f346c53b7f4b17a1854ba82cf86c1d38cc5f
-Author: Neo Chang <YLCHANG2@nuvoton.com>
-Subject: ASoC: codecs: nau8360: Add support for NAU83G60 amplifier
 
-This commit introduces support for the Nuvoton NAU83G60 stereo smart
-amplifier. The driver implements I2C control, DSP firmware loading for
-the KCS algorithm, and DAPM routing for DAC, ADC, and internal engines.
+On 8/7/2026 2:29 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Low] Missing update to the parent PMIC schema `qcom,spmi-pmic.yaml` to allow the new `qcom,spmi-haptics` child node.
+> --
+> 
+> --- Patch [1]: [PATCH v6 1/2] dt-bindings: input: Add Qualcomm SPMI PMIC haptics ---
+> commit eb446753c24c30e9b557074281da814e0e94aa51
+> Author: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+> 
+> dt-bindings: input: Add Qualcomm SPMI PMIC haptics
+> 
+> Adds a device tree binding document for the haptics module inside the
+> Qualcomm PMIC PMIH0108, which drives a Linear Resonant Actuator (LRA) and
+> supports multiple play modes.
+> 
+>> diff --git a/Documentation/devicetree/bindings/input/qcom,spmi-haptics.yaml b/Documentation/devicetree/bindings/input/qcom,spmi-haptics.yaml
+>> new file mode 100644
+>> index 0000000000000..b1a69e9886ee6
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/input/qcom,spmi-haptics.yaml
+> 
+> [ ... ]
+> 
+>> +examples:
+>> +  - |
+>> +    #include <dt-bindings/interrupt-controller/irq.h>
+>> +
+>> +    pmic {
+>> +        #address-cells = <1>;
+>> +        #size-cells = <0>;
+>> +
+>> +        haptics@f000 {
+>> +            compatible = "qcom,pmih0108-haptics", "qcom,spmi-haptics";
+>> +            reg = <0xf000>, <0xf100>;
+> 
+> [Severity: Low]
+> Does the parent PMIC schema (mfd/qcom,spmi-pmic.yaml) need to be updated to
+> allow the new qcom,spmi-haptics child node shown in this example?
+> 
+> The parent PMIC schema has additionalProperties: false and explicitly lists
+> allowed child node patterns in patternProperties. Since it does not include
+> a pattern for ^haptics@[0-9a-f]+$, will device trees instantiating this
+> haptics node fail dtbs_check validation?
 
-> --- /dev/null
-> +++ b/sound/soc/codecs/nau8360.c
-[ ... ]
-> +static int nau8360_peq_coeff_put(struct snd_kcontrol *kcontrol,
-> +	struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *cp =3D snd_kcontrol_chip(kcontrol);
-> +	struct snd_soc_dapm_context *dapm =3D snd_soc_component_to_dapm(cp);
-> +	struct nau8360 *nau8360 =3D snd_soc_component_get_drvdata(cp);
-[ ... ]
-> +	snd_soc_dapm_mutex_lock(dapm);
-> +	if (snd_soc_component_active(cp)) {
-> +		dev_dbg(nau8360->dev,
-> +			"PEQ coefficient access is ignored during audio is active");
-> +		ret =3D -EBUSY;
-> +		goto unlock_dapm;
-> +	}
-> +
-> +	reg =3D nau8360_peq_regaddr(kcontrol->id.name);
-> +	if (reg < 0) {
-> +		ret =3D reg;
-> +		goto unlock_dapm;
-> +	}
-> +
-> +	data =3D kmemdup(ucontrol->value.bytes.data, params->max, GFP_KERNEL);
-> +	if (!data) {
-> +		ret =3D -ENOMEM;
-> +		goto unlock_dapm;
-> +	}
-> +
-> +	mutex_lock(&nau8360->lock);
+The change which adds haptics child node in the spmi-pmic schema has
+already been applied, so I dropped it in this series.
 
-[Severity: High]
-Could this lock ordering cause an AB-BA deadlock with the ALSA mixer?
+https://lore.kernel.org/linux-input/178602255123.2917765.7426706813083510078.b4-ty@b4/
 
-In nau8360_peq_coeff_put(), the code acquires snd_soc_dapm_mutex_lock() bef=
-ore
-mutex_lock(&nau8360->lock). However, in nau8360_dac_mux_put_enum() below, t=
-he
-driver acquires mutex_lock(&nau8360->lock) and then calls
-snd_soc_dapm_put_enum_double(), which blocks acquiring the DAPM mutex.
-Since the ALSA core permits concurrent put callbacks on different kcontrols,
-this inversion might hang the system.
+> 
+>> +            reg-names = "cfg", "ptn";
+>> +            interrupts = <0x7 0xf0 0x1 IRQ_TYPE_EDGE_RISING>;
+>> +            interrupt-names = "fifo-empty";
+>> +
+>> +            qcom,vmax-microvolt = <1300000>;
+>> +            qcom,lra-period-us = <5880>;
+>> +        };
+>> +    };
+> 
 
-> +static int nau8360_dac_mux_put_enum(struct snd_kcontrol *kcontrol,
-> +	struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_dapm_context *dapm =3D snd_soc_dapm_kcontrol_to_dapm(kco=
-ntrol);
-> +	struct snd_soc_component *component =3D snd_soc_dapm_to_component(dapm);
-> +	struct nau8360 *nau8360 =3D snd_soc_component_get_drvdata(component);
-> +	struct soc_enum *e =3D (struct soc_enum *)kcontrol->private_value;
-> +	unsigned int *item =3D ucontrol->value.enumerated.item;
-> +	int ret =3D 0;
-> +
-> +	if (snd_soc_dapm_get_bias_level(dapm) > SND_SOC_BIAS_STANDBY) {
-> +		dev_warn(nau8360->dev, "changing path is not allowed during playback");
-> +		return ret;
-> +	}
-> +
-> +	mutex_lock(&nau8360->lock);
-> +
-> +	ret =3D snd_soc_dapm_put_enum_double(kcontrol, ucontrol);
-
-[ ... ]
-> +static int nau8360_startup(struct snd_pcm_substream *substream, struct s=
-nd_soc_dai *dai)
-> +{
-> +	struct snd_soc_component *component =3D dai->component;
-> +	struct nau8360 *nau8360 =3D snd_soc_component_get_drvdata(component);
-> +	unsigned int i2s_mask =3D NAU8360_FRAME_START_MASK | NAU8360_RX_OFFSET_=
-MASK;
-> +	unsigned int i2s_fmt =3D NAU8360_FRAME_START_H2L | NAU8360_RX_OFFSET_I2=
-S;
-> +	int val =3D 0;
-> +
-> +	flush_work(&nau8360->load_fw_work);
-> +
-> +	if (nau8360_dsp_active(component) && !nau8360->load_fw_done) {
-> +		dev_warn(nau8360->dev, "DSP firmware is not ready yet!");
-> +		return -EBUSY;
-> +	}
-> +
-> +	if (substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK) {
-> +		regmap_read(nau8360->regmap, NAU8360_R0B_I2S_PCM_CTRL1, &val);
-> +		if ((val & i2s_mask) =3D=3D i2s_fmt)
-> +			regmap_update_bits(nau8360->regmap, NAU8360_R0B_I2S_PCM_CTRL1,
-> +				NAU8360_EN_TDM_RX, NAU8360_EN_TDM_RX);
-> +
-> +		if (nau8360_dsp_active(component))
-> +			snd_soc_dapm_enable_pin(nau8360->dapm, "Sense");
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static void nau8360_shutdown(struct snd_pcm_substream *substream,
-> +	struct snd_soc_dai *dai)
-> +{
-> +	struct snd_soc_component *component =3D dai->component;
-> +	struct nau8360 *nau8360 =3D snd_soc_component_get_drvdata(component);
-> +	unsigned int tdm_mask;
-> +
-> +	tdm_mask =3D (substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK) ?
-> +		NAU8360_EN_TDM_RX : NAU8360_EN_TDM_TX;
-> +	regmap_update_bits(nau8360->regmap, NAU8360_R0B_I2S_PCM_CTRL1,
-> +		tdm_mask, 0);
-
-[Severity: High]
-Does this asymmetric clearing of TDM flags break subsequent capture streams?
-
-In nau8360_shutdown(), NAU8360_EN_TDM_TX is permanently cleared when a capt=
-ure
-stream is closed. However, nau8360_startup() lacks any logic to restore
-NAU8360_EN_TDM_TX for capture streams. This seems to result in the TDM capt=
-ure
-interface being permanently disabled after the first use. Additionally,
-startup() restricts RX restoration strictly to the I2S format, which might
-break playback for Left/Right-Justified formats.
-
-[ ... ]
-> +static inline void nau8360_dsp_software_reset(struct snd_soc_component *=
-component)
-> +{
-> +	/* Enable PLL for successful DSP reset. After DSP is alive,
-> +	 * system clock switches to internal clock and disable PLL.
-> +	 */
-> +	snd_soc_component_update_bits(component, NAU8360_R72_PLL_CFG0,
-> +		NAU8360_PD_PLL_MASK, NAU8360_PD_PLL_EN);
-> +	msleep(50);
-> +	snd_soc_component_write(component, NAU8360_R01_DSP_SOFTWARE_RST, 0x5a5a=
-);
-> +	snd_soc_component_write(component, NAU8360_R01_DSP_SOFTWARE_RST, 0xa5a5=
-);
-> +	snd_soc_component_set_sysclk(component, NAU8360_CLK_ID_INT, 0, 0,
-> +		SND_SOC_CLOCK_IN);
-> +}
-[ ... ]
-> +static int __maybe_unused nau8360_resume(struct snd_soc_component *compo=
-nent)
-> +{
-> +	struct nau8360 *nau8360 =3D snd_soc_component_get_drvdata(component);
-> +	struct regmap *regmap =3D nau8360->regmap;
-> +
-> +	regcache_cache_only(regmap, false);
-> +
-> +	nau8360_dsp_bootup(component);
-> +
-> +	nau8360_peq_mem_enable(regmap, true);
-> +	regcache_sync(regmap);
-
-[Severity: High]
-Might this sequence corrupt the cached clock and DSP state during resume?
-
-By calling regcache_cache_only(regmap, false) before nau8360_dsp_bootup(), =
-the
-cache is active when nau8360_dsp_software_reset() sets the sysclk to
-NAU8360_CLK_ID_INT. These writes will update the regcache and clear its dir=
-ty
-flags. When regcache_sync() runs immediately afterward, it sees the cache
-matches the hardware for these clock registers, leaving the clobbered inter=
-nal
-clock settings in place instead of restoring the pre-suspend values.
-
-> +	nau8360_peq_mem_enable(regmap, false);
-> +
-> +	/* disable Sense at standby */
-> +	snd_soc_dapm_disable_pin(nau8360->dapm, "Sense");
-> +	snd_soc_dapm_sync(nau8360->dapm);
-> +
-> +	nau8360_dsp_fw_load(nau8360);
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-Can audio playback resume before the asynchronous DSP firmware loading
-completes?
-
-In nau8360_resume(), nau8360_dsp_fw_load() schedules background work to load
-firmware over I2C and returns immediately. During an ALSA PCM stream resume,
-the core framework issues prepare() and trigger(RESUME) to restart the stre=
-am
-without calling startup(). Since there is no .prepare callback in
-nau8360_dai_ops below to flush the background work, an active audio stream
-will forcefully restart while the DSP is still being configured.
-
-> +static const struct snd_soc_component_driver soc_comp_dev_nau8360 =3D {
-> +	.probe			=3D nau8360_codec_probe,
-> +	.set_sysclk		=3D nau8360_set_sysclk,
-> +	.set_pll		=3D nau8360_set_pll,
-> +	.suspend		=3D nau8360_suspend,
-> +	.resume			=3D nau8360_resume,
-> +	.controls		=3D nau8360_snd_controls,
-> +	.num_controls		=3D ARRAY_SIZE(nau8360_snd_controls),
-> +	.dapm_widgets		=3D nau8360_dapm_widgets,
-> +	.num_dapm_widgets	=3D ARRAY_SIZE(nau8360_dapm_widgets),
-> +	.dapm_routes		=3D nau8360_dapm_routes,
-> +	.num_dapm_routes	=3D ARRAY_SIZE(nau8360_dapm_routes),
-> +	.suspend_bias_off	=3D 1,
-> +	.idle_bias_on		=3D 1,
-> +	.use_pmdown_time	=3D 1,
-> +	.endianness		=3D 1,
-> +};
-
-[Severity: High]
-Could the missing .remove callback in the ASoC component driver lead to a U=
-AF?
-
-The background task load_fw_work is scheduled during the ASoC component
-.probe() and dereferences nau8360->dapm when it runs. If the ASoC component
-unbinds, the core frees the DAPM context. Because soc_comp_dev_nau8360 omits
-a .remove callback to flush or cancel the workqueue, the background task can
-continue executing and access freed memory.
-
-> +static const struct snd_soc_dai_ops nau8360_dai_ops =3D {
-> +	.startup	=3D nau8360_startup,
-> +	.shutdown	=3D nau8360_shutdown,
-> +	.hw_params	=3D nau8360_hw_params,
-> +	.set_fmt	=3D nau8360_set_fmt,
-> +	.set_tdm_slot	=3D nau8360_set_tdm_slot,
-> +};
-[ ... ]
-> +static const struct regmap_config nau8360_regmap_config =3D {
-> +	.reg_bits =3D NAU8360_REG_ADDR_LEN,
-> +	.val_bits =3D NAU8360_REG_DATA_LEN,
-> +
-> +	.max_register =3D NAU8360_REG_MAX,
-> +	.readable_reg =3D nau8360_readable_reg,
-
-[Severity: High]
-Will setting .val_bits to 16 truncate or reject 32-bit DSP messages?
-
-The custom nau8360_reg_write and nau8360_reg_read functions perform 32-bit =
-I2C
-transactions for DSP registers. However, by setting NAU8360_REG_DATA_LEN
-(which appears to be 16) for .val_bits, the core regmap framework will set
-map->max_val to 0xFFFF. When nau8360_message_to_dsp() writes 32-bit command
-payloads, the regmap core's value check will immediately reject the write w=
-ith
--EINVAL. Additionally, 32-bit reads from the DSP will have their upper 16 b=
-its
-silently truncated.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825021644.1203=
-076-1-YLCHANG2@nuvoton.com?part=3D2
