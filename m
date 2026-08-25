@@ -1,161 +1,164 @@
-Received: from mx08-001d1705.pphosted.com (mx08-001d1705.pphosted.com [185.183.30.70])
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011061.outbound.protection.outlook.com [40.107.74.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4A0E2D8370;
-	Tue, 25 Aug 2026 04:20:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.183.30.70
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787631618; cv=none; b=I7fRAeVq36Dxx5xyoYbVhh8QuHPhvNKxl8eHYd+uroCHz/Em7tGn3oYyxHTOrVkZFDJOssTfsJb9SHYBoXVrkeZU4sQN4guS7Y/uL+nTVOxajegU6mVti5fHqT+kazqts7A08e3okxg9g4rsqsuJxLNB+DUh22ufUF++TNRu6WA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787631618; c=relaxed/simple;
-	bh=rJaeg1blBpFXAjXQix/GM1ndpgD4OUn3gqU3Nk+3m2U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HuBd3O3aI804rtV7dl/XCdJpJHRXJbCA1xCksF4UckSAQcapTMLfN2l5hSMYuywMfhFgyaCaxdp+z3svXNF3YxAw1n33W/Rg2JGfSz/Eaf5MDx46t28SFH3zeDOMP9x3PVFR432iIXflhNcajY6kFMNzjF4+tU7MJa75hcaEKmw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com; spf=pass smtp.mailfrom=sony.com; dkim=pass (2048-bit key) header.d=sony.com header.i=@sony.com header.b=pn9st3b2; arc=none smtp.client-ip=185.183.30.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sony.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7ABF34A78F;
+	Tue, 25 Aug 2026 04:20:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.61
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787631654; cv=fail; b=Tu0wC/95kAvMgelYIYB/RYC75Oi5B/r0PTvpydjWR8qNb251xWtexU8SnUIGSMZUqgHvJo+fYJ/WtSWVtgwv3Q/+fkFQeZHllblpg465gF0HedeyTQiCHBU8s0I57f9IHesK7R2sA8lpXvDI9JH1QsJeNwE63Lv7WREnnS6V+D4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787631654; c=relaxed/simple;
+	bh=8vrGJNT9WkxIeH1fTJ7688bwsWh1fNjHcbeYCvOTiZs=;
+	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=mia4ChQmkK2ewMmlBdnJb1t8kJDLisPN9ONTZTXEHNI5KXeZ7E4W6giCc2i0f0C1X8DaXkjgB2vRmVYqBXL65BMOKCLqSzfrccwjW+pRU/gGXuL5Vvs/L4krGSX0CK1Tg15hPJwkP4AqJoB3R3+o1kb0Hc8X5uOg8SfOi3P/2wM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=Fo/GVtTg; arc=fail smtp.client-ip=40.107.74.61
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sony.com header.i=@sony.com header.b="pn9st3b2"
-Received: from pps.filterd (m0209318.ppops.net [127.0.0.1])
-	by mx08-001d1705.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67P3Qk4n2287054;
-	Tue, 25 Aug 2026 04:19:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sony.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=p1; bh=XOd899j
-	X1UCqv30mDrBdXEq60vw1irW8OL4rcnCWN3g=; b=pn9st3b2pRSDdaw4MIW+l2n
-	UPydgMg4W7X3VPeMuh6JwGIoqPnChih2KnEC8AekmMhgaLGMMtMuLXxi07sDS0ju
-	jiZG0IKCTuLQZHAHlRaRE3viN3mUwJDPk7w8ML2F1CGMrdyhB8yUDFMp24cHuywh
-	qKdei3yB/lXGNIOMlc6f37MGODDHOssM0r5dDczZozSMCE+FVO0oZMmdMxDpgHS2
-	ompSUjfIdMsnu6tUS8pB/SNBBNH/bU9mb5nOGDPEXqNqS9Eq6uTROYhTzUgj7WHR
-	9REhtjgacgKGDBgxNInCGZ8Jx+mVIqHkTozro9thrP1Y4/c/0jaGka1bh3geXxA=
-	=
-Received: from sgppsem01v.sg.gdce.sony.com.sg ([121.100.43.221])
-	by mx08-001d1705.pphosted.com (PPS) with ESMTPS id 4g72b5tw51-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
-	Tue, 25 Aug 2026 04:19:52 +0000 (GMT)
-Received: from pps.filterd (SGPPSEM01v.sg.gdce.sony.com.sg [127.0.0.1])
-	by SGPPSEM01v.sg.gdce.sony.com.sg (8.18.1.11/8.18.1.11) with ESMTP id 67P3j5ZA4034869;
-	Tue, 25 Aug 2026 04:19:49 GMT
-Received: from sgppsba02v.s.gdce.sony.com.sg ([146.215.113.219])
-	by SGPPSEM01v.sg.gdce.sony.com.sg (PPS) with ESMTPS id 4g7ameg2nh-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 25 Aug 2026 04:19:49 +0000 (GMT)
-Received: from pps.filterd (SGPPSBA02v.s.gdce.sony.com.sg [127.0.0.1])
-	by SGPPSBA02v.s.gdce.sony.com.sg (8.18.1.11/8.18.1.11) with ESMTP id 67P2QSMH3555528;
-	Tue, 25 Aug 2026 04:19:49 GMT
-Received: from [43.3.253.133] ([146.215.113.251])
-	by SGPPSBA02v.s.gdce.sony.com.sg (PPS) with ESMTPS id 4g7amfpev0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT);
-	Tue, 25 Aug 2026 04:19:49 +0000 (GMT)
-Message-ID: <16b096e1-f2de-4f68-a4d2-7d667d8bd13a@sony.com>
-Date: Tue, 25 Aug 2026 13:19:46 +0900
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="Fo/GVtTg"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xP8LfDzcuSsvuzTCeiYMO+pFmpqUhKeKyFMLyEXzj3J+83jCrkbDQP6QgK6NCxBHNk4fao4FYchMbEzpf6Ou6aWwwtYzLJC6KeUX7KaOjlx0WJy2pLQU2UAGbNE46F7CtrX1zktmx9c4mC04vZLyXDrrher+c2nm/M5bxMKX2g7sYpcaAVf+wHybcA0bhtYinBEZooic4jgB6J/Qpyio0Ve6dg9EzesmN0URdnrjBXXB2YZVry8pAVdI/AJf49948I86qWTqCjtNAxhw8HUN9PJNOLDjrjCyGDEPdO40D3k2pAmhesaB+u/BHD1Xwbd2kyAcMPdkvF1hN8mAngTQTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5nFcPDZ45rtoY9Qi3S6ltUYU30mgF8oW57wreeEgCKs=;
+ b=SUnML/OQVxIX5Hb187vUKbrnFtc3eCtnQGyV7WizFBawQP0PW9x0uhTM4W2TatYH2eC6TBzvc8Xe0yf3yC25DRwh4Jj0jP2sldSo6skGfwm4TFkKN1UNQ05EW0nWPuT6Z6MAHpuovwOn2Jd1IVC5whNU1g6EpCCvMZv2qXKu6/uSI0VcaRTLIamFrfB5FRqnwQNvtNyCPfOQ8s8/l2kxFJDnmB6Yhkfq4VuX5YZcBkxnHwem3SqPrrhZz3ESg5+9nBV3Wyz2KZNWucRsEBCyUTw6OuygMIKquqoLOcd4fzk1y79srE0W5y8+gQTha+5mNrM/R/DGefvAF3booKbAQQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5nFcPDZ45rtoY9Qi3S6ltUYU30mgF8oW57wreeEgCKs=;
+ b=Fo/GVtTg68qUuafYy63afHqbhqb/HYi/UYLzV5j1PAT3MvcYKBn/N2tYtm/eaqvY7sigtfa4r+UIHB1w9Dn2mPjMtlkVgSrvy3CiqAqqA/2lLPIKOKZntpNsJ+WAIXa+0yBErHku4mVrTocHJLXnph85rZfRK8GjuKo3KPPG6wQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from TY4PR01MB13787.jpnprd01.prod.outlook.com (2603:1096:405:1fc::9)
+ by TYCPR01MB6672.jpnprd01.prod.outlook.com (2603:1096:400:9d::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Tue, 25 Aug
+ 2026 04:20:48 +0000
+Received: from TY4PR01MB13787.jpnprd01.prod.outlook.com
+ ([fe80::2029:7bd8:d49b:23c1]) by TY4PR01MB13787.jpnprd01.prod.outlook.com
+ ([fe80::2029:7bd8:d49b:23c1%5]) with mapi id 15.21.0339.012; Tue, 25 Aug 2026
+ 04:20:48 +0000
+Message-ID: <8733w296g0.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+	Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
+	Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
+	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Subject: Re: [PATCH v3 5/9] ASoC: soc-core: Add snd_soc_of_xlate_dai_name() generic helper
+In-Reply-To: <20260824063627.3595610-6-harendra.gautam@oss.qualcomm.com>
+References: <20260824063627.3595610-1-harendra.gautam@oss.qualcomm.com>
+	<20260824063627.3595610-6-harendra.gautam@oss.qualcomm.com>
+User-Agent: Wanderlust/2.15.9 Emacs/30.2 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Tue, 25 Aug 2026 04:20:48 +0000
+X-ClientProxiedBy: TYCP301CA0086.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:7b::12) To TY4PR01MB13787.jpnprd01.prod.outlook.com
+ (2603:1096:405:1fc::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] media: i2c: Add Sony IMX908 image sensor driver
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-        Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: devicetree@vger.kernel.org, hverkuil+cisco@kernel.org,
-        laurent.pinchart@ideasonboard.com, linux-media@vger.kernel.org,
-        mchehab@kernel.org, sakari.ailus@linux.intel.com, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org,
-        kieran.bingham@ideasonboard.com, Ryuichi.Tadano@sony.com,
-        Kengo.Hayasaka@sony.com, Tim.Bird@sony.com, Kazumi.A.Sato@sony.com,
-        linux-kernel@vger.kernel.org
-References: <20260806070934.21764-1-lachlan.michael@sony.com>
- <20260806070934.21764-3-lachlan.michael@sony.com>
- <178608558219.4139729.1786136799159384307@freya> <aoV3zV1jDB2j9b5j@zed>
-Content-Language: en-US
-From: Lachlan Michael <Lachlan.Michael@sony.com>
-Organization: Sony Semiconductor Solutions Corporation
-In-Reply-To: <aoV3zV1jDB2j9b5j@zed>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Sony-BusinessRelay-GUID: qA5zvhUViYDiicJ4y4XNYvQ4fvQ0ecwy
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-25_01,2026-08-24_01,2025-10-01_01
-X-Sony-EdgeRelay-GUID: _t45N4GbmwdPK_8jm80ppxKKAIjZrLA8
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-25_01,2026-08-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI1MDAzNCBTYWx0ZWRfX5WOiKRYkoI5Z
- CtpxLV5tUxPfOTGjJ75G3PWXa30a1aNMpwBGxkY1WFJBNQRDlbVdJ59jeOFrDiw9uPlWKiK1Boa
- HrPr7DCuqebmzLLcPy8JABssM6aQfn0wuzHw8TI4ZZaPF65eCcBPFhEWYdgFwVP5xSF+h1vs2sj
- SkZp6syASa8v4hd6qU9gORlrAHGgDxXDGnxxGm2tSDzCBzJkPZBjAnDIsYnrWOVzQlsnZQ+rrck
- Za4JMTKxbg1905h29iY2pV05oocCTXyM4fHBP7H6Tlwh0ZUuzmw4DnqgTLCh5MoAwB7GBf1/qNw
- 3z+blssg8dRjid5W5uZblBAHAyQ9YMuNA6n5odX7/JyJS91NroUIpXJpnl/fKR+KcAsBrdqhuAG
- omnemoYBGAmJ9WHwldiuv21GuF/vT74+VPXXRcOoQK8Ua2ng316RFxFhfizUgJFz/0R9Mc5My2p
- fgB/Lv/grAUOSKNzO6g==
-X-Authority-Analysis: v=2.4 cv=XvXK/1F9 c=1 sm=1 tr=0 ts=6a8d17e9 cx=c_pps
- a=5iEaAFJ3UIynSlflvg1n/g==:117 a=5iEaAFJ3UIynSlflvg1n/g==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=KAb5x4SsHD3PzxGk7EmX:22 a=XGr2FpfLDd2dUKU_94WB:22 a=C2Wck1hqlHncK-hOJGIA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: -VanghpVg7v0VSAsOgW_G-U3YrO1h4xU
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI1MDAzNCBTYWx0ZWRfX+ELuhq+8/34v
- Oe1keNvN07A9nMQc7HlekwZGJtAEYklROwtI5fJUG4IIR0MGpidHqtGsWKQ0BhTrJM2253N8Ii6
- 5tluI2mG8owvgPzhFAYygPBrqn0CmcsttFqvkcHyIQVX182QYoc0
-X-Proofpoint-ORIG-GUID: -VanghpVg7v0VSAsOgW_G-U3YrO1h4xU
-X-Sony-Outbound-GUID: -VanghpVg7v0VSAsOgW_G-U3YrO1h4xU
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-25_01,2026-08-24_01,2025-10-01_01
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY4PR01MB13787:EE_|TYCPR01MB6672:EE_
+X-MS-Office365-Filtering-Correlation-Id: 19e11f94-6c28-44d2-83dc-08df02603d9e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|52116014|376014|7416014|23010399003|18002099003|22082099003|11063799006|56012099006|38350700014|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	o5icffqt8CODEBCF51CyNcbw3O9XvOyzZC/0/w6GJRvXh9tWWNWooY03TXQwWKoHHrMIXtovaRVMzgYD1+HCM194vMh/89wd/oxRr3h4tInV+UJM+4V56OS3WkYRktAOBpmiPKxO+l0IJ6rZpFSFqPq9HZ+J1MdrXkCKuBcnUIqKmGyNqF9YUrnEYQaQocwTpCX5QGbOpfcrYVRor9UgYWY3mCNl2rDmWqk+iTOtBgshmA3tnu0AgHhlo4Z3WYlQHofdpmSNKfN13Qt4BbSddq/GBzpBPBKUQ0TJ6zIWIEoWyjVcDKj+z3OeR7c09dMX6JIuhqTTFRvAFkCC7xkYsDsaQyydmaKXykaQjQE1Ou2cUfW1cSBdsF2cgoTypYF2lfKMKOxaeIhOeFm7Jiffy/XUUkCmGSFA1BiYxmQZVQmOXj8dAx+YU1D0BgwFV8XLXLKrT2HR1sS+GwAe728sn8mZIkuTBKcUy4yTSAZt+ysNCIitKGrMI5re3NDzvJPsebAX9L/+DT/BiV73gwlvY+7ahcdCoCTTaYPtQ4Oyo4mTO6a/Fe5py3ONtKXAq2Mxzf5XoZopG2OGBnqEF894/LaW38T7kSOkdxuCJIm0AO23XxIFHX/5Gfb72yrfKBIhbWELry6ZrU2sWSqaBoa5Mqi0oAPD1FhXYMJwsZqUUO8VKq00KWRzodhU1yukPJ1gFbRQndG9RTYeXTYm2sNAsw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY4PR01MB13787.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(52116014)(376014)(7416014)(23010399003)(18002099003)(22082099003)(11063799006)(56012099006)(38350700014)(4143699003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?S7jV5T5Ww2CdasK9d/q+TDI+TG1VwDSqMGMIarvpOneBlnW/8Lhm3ESPWgAj?=
+ =?us-ascii?Q?NglH3SJeD0KwCodS1h4RoskIEK0DMWMROiS8fS9U3gKuhNs0TKJCkLyf7U4z?=
+ =?us-ascii?Q?8E/3jYyziaNv58fZjCMwzOha02gN3syN1GRrAIuMx7wXE0hJ9TkOzlXE9rJg?=
+ =?us-ascii?Q?d7QFFtCRqhVV9vxaPAVwKKJdJLnQ/FlypTREYO2TxUFLNMSC9B6ahbvhFqZ0?=
+ =?us-ascii?Q?gW/K3ojRoMwOerIMjYJGOkCfdZQkfxsjlv7RrhsphGDRz8ofBbKYIZsjsDkO?=
+ =?us-ascii?Q?2+71ICfBcjVKWE0I+grNM8cDwVgWG7syfQVJ/8Nq6oOXUeSNSmiLsFikfN6w?=
+ =?us-ascii?Q?lZi6CJkDpbjG2w7eSZm7uuJpNpQR6EkAdWbWs8huH514Di5e+OjAvBDDlrXQ?=
+ =?us-ascii?Q?B7oHXDLERrdSr52ujJq6uSQf6MOBTS16eolLt2ikRvmd9u1J1yNbNXo1urot?=
+ =?us-ascii?Q?qrHWoZhHLJ+QIS+tHjjKiHC56Ycoer/RpVdjjXD7GNDhJOtsWe9aukexM3TR?=
+ =?us-ascii?Q?p4WVim+jZXClq7U3zlR20CyRhFpm/kjyQ8o6VitUxil6i4AiOvrlXIh99E+x?=
+ =?us-ascii?Q?Kidc5fANlngZIRqDhRp+on9EztjRVmby1B/eubUoXFNhI3L2U7OBrBAX+URC?=
+ =?us-ascii?Q?g2hWXhKxM+3VH5YJmeJ5WP8Kw//O0p281RPVzZAtLqmPi/pKMTGrXTOuDdHy?=
+ =?us-ascii?Q?mulQousDgAyhPqVIuueSNkWH53KJvuNP2Oeo1z02egJH9ezHvWQWKdSrieQ6?=
+ =?us-ascii?Q?Vj4hCv33eXeaYLJGR/DBP2A+hwQAe9FFjtizQVswukNuxnL/L8teff1xcF+7?=
+ =?us-ascii?Q?khi35Tx5l6cvGoNg0iR25v+FLjDMRnw4r47z2bH3DjzRuesmeOmRac8pRLj9?=
+ =?us-ascii?Q?uKocr1axz/Ir0oh51zdxTb4mKx1RxJjtpaRRGPeCk9LKRLP+WIV2jRvW541/?=
+ =?us-ascii?Q?bZgjl868mzQKErBNKxhnBkIEAVgIX9R2AEB67FHAzMTZ5AbTYZiF+rKmM89C?=
+ =?us-ascii?Q?LJs9uPAYVcB3u4d2rJqHaYX22lm9b40GeAiDve0LJHJftDVoop1IlsWMt8mq?=
+ =?us-ascii?Q?Ne7N/CCLu2DkCRkDoYHp8/PACAzLEn94oF1SCf5Gj9em16nxceoSobLuWsrs?=
+ =?us-ascii?Q?gSM/nmMbsmVxI9OrIL4aO3IWjYrXxf3ykk3Bx+FxldpNpYqhtdZG7tYef96a?=
+ =?us-ascii?Q?cPAZfB/DGpBmjLr7l6BP1RtzHtJanJKTLjizECewILDap61VY22pTZrjTWVu?=
+ =?us-ascii?Q?5Gov7+ASllcjXa1f1Xxl0JaC9WpZdEGTSXqn3JJHaMK5aFR8UMqbIOSpJduQ?=
+ =?us-ascii?Q?GcGCaMjL3OW1014zToYQydD7v+VV8HFtihm1ymvf9KAYZlJuSdfRWZHykMUr?=
+ =?us-ascii?Q?vGFIjB3awTIlqfUXdeGkDoC6D3LpvV7jk+k1YKZvhedX+qCpmbhgT+UjEeLA?=
+ =?us-ascii?Q?PW1JyXqThCcltlyCDdVGtC8RYmq8atCUHcoFZdz/R3KC8jXZRg0RAA+JAsTC?=
+ =?us-ascii?Q?CvJX0MSGWkULnYMnCewCXWXibvxeXt/uCAHSgQOO4/S6Ryrpi50NXIDd66sH?=
+ =?us-ascii?Q?mndV9EHGCuRL+FCj/ux3xVkBbkaI6pO3ZAxnDx23jmsOn3Ypg0E8M5w44vbv?=
+ =?us-ascii?Q?Czh5KhkrWX7zM6V5GthlOhimecLrhoqa2O1sWigmXO2b58bwrzY7giPbIuNr?=
+ =?us-ascii?Q?SjMYaoZioU7MrSent0j2u+AD6p32E4pMK15Cl7ojFQTd+J52jCPjuVha1QdG?=
+ =?us-ascii?Q?lH4+fu/539X8Jxjn0looY5vj/TFdmuYWwXPMN2J4HW+nRCjyRi+p?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 19e11f94-6c28-44d2-83dc-08df02603d9e
+X-MS-Exchange-CrossTenant-AuthSource: TY4PR01MB13787.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2026 04:20:48.6682
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EtMmqZhU1rNjySSbdPpWyVjtBTf6eyhgY9AIOM8ThfnFbcQl6JjOizCVaY2wBJ9lT3q4aXxYFT0mY+IZQZpRwTptsVAMVUyX+J+d6jfiOLila/RmO5WV0MuAWQqqponK
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB6672
 
-Dear Jacopi,
 
-Thanks for the suggestion and reference.
+Hi Harendra
 
-On 8/19/2026 6:34 PM, Jacopo Mondi wrote:
+Thank you for the patch
 
-> [snip]
+> Add snd_soc_of_xlate_dai_name() to soc-core.c as a generic helper
+> that can be assigned directly to the .of_xlate_dai_name component
+> driver callback. It iterates the component's DAI list using
+> for_each_component_dais() and matches by DAI ID.
 > 
->> > +static int imx908_init_controls(struct imx908 *imx)
->> > +{
->> > +       struct v4l2_ctrl_handler *hdl = &imx->ctrls.handler;
->> > +       struct v4l2_fwnode_device_properties props;
->> > +       struct v4l2_ctrl *link_freq_ctl;
->> > +       int ret;
->> > +
->> > +       ret = v4l2_ctrl_handler_init(hdl, 11);
->> > +       if (ret)
->> > +               return ret;
->> > +
->> > +       imx->ctrls.pixel_rate = v4l2_ctrl_new_std(hdl, &imx908_ctrl_ops,
->> > +                                                 V4L2_CID_PIXEL_RATE,
->> > +                                                 IMX908_PIXEL_RATE,
->> > +                                                 IMX908_PIXEL_RATE, 1,
->> > +                                                 IMX908_PIXEL_RATE);
->> > +       if (imx->ctrls.pixel_rate)
->> > +               imx->ctrls.pixel_rate->flags |= V4L2_CTRL_FLAG_READ_ONLY;
->>
->> Not needed, PIXEL_RATE is marked as RO by the control framework
->>
->> > +
->> > +       link_freq_ctl = v4l2_ctrl_new_int_menu(hdl, &imx908_ctrl_ops,
->> > +                                              V4L2_CID_LINK_FREQ,
->> > +                                              ARRAY_SIZE(imx908_link_freqs) - 1,
->> > +                                              imx->link_freq_idx,
->> > +                                              imx908_link_freqs);
->> > +
->> > +       if (link_freq_ctl)
->> > +               link_freq_ctl->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+> Use the helper in lpass-cpu.c and qaif-cpu.c, and remove the local
+> lpass implementation.
 > 
-> Read-only controls should have their control ops set to NULL, so that
-> .s_ctrl is never called for them.
-> 
-> See as an example:
-> 892ac5e6cd1f ("media: imx355: Use NULL ctrl_ops for HBLANK as it is a read-only control")
-> 
+> Signed-off-by: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+> ---
 
-Updated accordingly. Both V4L2_CID_PIXEL_RATE and V4L2_CID_LINK_FREQ are 
-now created with NULL control ops, as they are read-only controls and do 
-not require s_ctrl() handling.
+I think this patch want to be separated into 2 patches.
 
-Regards, Lachlan
+	- add snd_soc_of_xlate_dai_name()
+	- switch to use it
 
+It makes backport easy.
+
+
+Thank you for your help !!
+
+Best regards
+---
+Kuninori Morimoto
