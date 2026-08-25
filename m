@@ -1,132 +1,287 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11013039.outbound.protection.outlook.com [52.101.127.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54EE6395ADE
-	for <devicetree@vger.kernel.org>; Mon, 24 Aug 2026 22:51:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787611873; cv=none; b=GO+NedYF8G2FSXU5HW1X9H08aVpn3lR8hsITn8nZaQ90JHj3RTVAx9nSV+iCNRSawWGYfOYoDLTI4QTTsHyQhmf/cldDmcVvrPJOHgGMGWw+UToAnAkbLvdva3mUTVebPxblHUlQL89kOqGBU42e+7mxl3VShq2RnDDbcJ2bQYA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787611873; c=relaxed/simple;
-	bh=pjd0I5flwLDJ/mvt3Jx5EDFxb34do/KG1KAHf/QGmto=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ANWAoSqFvBuqyiS52dofJ5dQgjQarNVvRJYW2hnk8wjFjJXxMMWI6W4rx30vFQDRuP7qofmC72pOD+ofGvuLMOuMbJOcifYEvq8jeCCQQTnxhIlcNAyAC7LP/G12wTDO7ZT3D+fYMYKUG37Drhy7pt20NeQDmRhr5NafE923FyA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TxuIIXMe; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AA93194C96;
+	Tue, 25 Aug 2026 02:16:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.39
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787624217; cv=fail; b=nmZggdvz30y9PFZ1h3B+tXGLEIQCg1U6xDQa3UToVbk7Ca3ovbspUaS1A32T9EStanCQlB0YCCxxS/D4Nejok9voLg41m93b8HEGf6W37yT65Psf0uqXvkb788o7PWqp4BXF8RxXX7avmTaSbiYjQJo3c4i/ZoALEM7mWOAaY+U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787624217; c=relaxed/simple;
+	bh=O3DPLmK/UR9wi0ynj87MBRI630IoFY0A+jZMzcAOHPE=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VxO7kcnv2VKUd5JGKv78l4JekwOschiuk5cxhqCkYp0dWmC1s/eGX4n6tXhBLXcdyL0rhiGkurVgt5PfI11B55R6NspoKcm9fnB4lWkXNw4MqldE9tA+40kfRyfH6aFrAd28AODsJWO6Y8hcMtqTueCOxRPKlk7AMasCFhNH9vA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuvoton.com; spf=pass smtp.mailfrom=nuvoton.com; dkim=pass (2048-bit key) header.d=nuvoton.com header.i=@nuvoton.com header.b=ZXJ1wopv; arc=fail smtp.client-ip=52.101.127.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuvoton.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nuvoton.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TxuIIXMe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 014E61F000E9;
-	Mon, 24 Aug 2026 22:51:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787611872;
-	bh=eVgJpTkwEbcwWgNGbcQgLPoVz9aODaMiBF7bSyMrtPM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=TxuIIXMeWQBB/0kKmZu927VGgyBMnpxbnavBFpfGXIHjZFbXkI1OV1XVN9h/XOFmR
-	 1B3LmUyAzC6FLyaXCsAMiENv+gcKd9/p7wpO88eV/h/F1XNh/1OQtYft6KNE3a7CAa
-	 79xLKK+e9smMzGtN+hEsaj7k5KdGQuA5K2tzH2rgP/lcls6aahp8ChPs9jNGuXDvgh
-	 qjVdZ+MBKKcfYzrcepGT5tuAAIMMmTWhiToy5+ucu+cGQ96F3NLFNVoF7yXB86pE5v
-	 98+BzZ2NbQd6WlGncoOrixp6F4Re+sesBn40r9iC4Kkhc++Xp3oMLswQuYNTJNV+0a
-	 uOu3ez/ULjeQg==
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 25 Aug 2026 00:51:04 +0200
-Subject: [PATCH 2/2] ARM: dts: ux500: Add the Imagis ISA to Gavini DTS
+	dkim=pass (2048-bit key) header.d=nuvoton.com header.i=@nuvoton.com header.b="ZXJ1wopv"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LUmjkepGUj0b5qy+SzJbhf2rY2p+qtMgMigGrotVyU8TiWzKuCihLsSXcatda/nlri2EI+/wT2uxk/WLK9v7kP8rRSJZ+whslWgMQtr/kVc0t8qfoX8DjywuF40ksQLVoNt23bPycDt3mzPskd3/804iAHLThU1anY+cWrx8q9REJ0Q0kxtuFvQk/1WiTmSF/u8QHwGZ2uQ0QCoROaCf4/TY/cv46HGJfwDzDHk/WmL2/WOBjqvsTXYamYrq0sI4GRt+b5n7bti+ny1yHBWkVSBoURHU4a89x1w+Wu0/zAFliphNee2f9IxcmTCWVGRLdXypFgIQmAcCYdwB6KrAvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dozaAEMvDNqbyYuBLjYXmZkSw5iRPKf2/z+UhZWuWa0=;
+ b=UqB9wqht4YymC+c+MVYOO44tlvlktZjdVtDz6QoLs26sjJI/HncVUYZdg+f+7KAV+O1Uflo/UMlBnYoIKQp29eKgUEhZa1BCfNKbUCwA7sa6nWS5ZyyW3XOnFySB+zrtDVtH2WjAV9TUxYAftz9ik0mcoUVWo21XG/k2sgsZyObn9pEm63eZBnkR61ma36YDJjFYrgszhiVYynLWQ8yA0pWOs1QD2xZ+zY+la5iKSCRvO0iVBqpoFLy6opzUeXh0NLFMgrSB31j7fN2P1EnDPIRJ62G9OH402lQw/I30yxL2VeEdkC8FtYs7WDWOQ97JL5f6spLnJMy6dJoFQj97sw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 175.98.123.7) smtp.rcpttodomain=kernel.org smtp.mailfrom=nuvoton.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=nuvoton.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nuvoton.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dozaAEMvDNqbyYuBLjYXmZkSw5iRPKf2/z+UhZWuWa0=;
+ b=ZXJ1wopvqsd2WEDQjM2a7OF3g6PwWizS+e36bUzBluSh8vl4vi9LjX86t+fUEtD0erIgJ9TkS9doN3d9HRmIoGB9hpw+B8/gPqPacc+miv+Y8T0Xt/BtGVWnUypsD6r5eavQy+RA+UocuWm0EVsHxNyjMe4KXIEaxhM6MRhp3aA+xmOAksaLvfIgU17rsZe4PyzUTA3HM6G2ey6hbBMjKypJVSOZbyIM8yteG3HpvPvSOHlE+KbnDHRFzCDtCPWEcMQQNT/GnIvswPfhbkRJOAom3qtRqY9cGExK9p43krCclVtl7RzpcwWEF3g9cI8z8AYn04XkoFY6tcRx6iTykw==
+Received: from TYCP286CA0276.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:3c9::13)
+ by SEZPR03MB10259.apcprd03.prod.outlook.com (2603:1096:101:33c::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Tue, 25 Aug
+ 2026 02:16:49 +0000
+Received: from TY2PEPF0000AB83.apcprd03.prod.outlook.com
+ (2603:1096:400:3c9:cafe::6f) by TYCP286CA0276.outlook.office365.com
+ (2603:1096:400:3c9::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.12 via Frontend Transport; Tue,
+ 25 Aug 2026 02:16:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 175.98.123.7)
+ smtp.mailfrom=nuvoton.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nuvoton.com;
+Received-SPF: Pass (protection.outlook.com: domain of nuvoton.com designates
+ 175.98.123.7 as permitted sender) receiver=protection.outlook.com;
+ client-ip=175.98.123.7; helo=NTHCCAS02.nuvoton.com; pr=C
+Received: from NTHCCAS02.nuvoton.com (175.98.123.7) by
+ TY2PEPF0000AB83.mail.protection.outlook.com (10.167.253.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.3 via Frontend Transport; Tue, 25 Aug 2026 02:16:48 +0000
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS02.nuvoton.com
+ (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.61; Tue, 25 Aug
+ 2026 10:16:47 +0800
+Received: from localhost.localdomain (10.11.36.27) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server id 15.1.2507.61 via Frontend
+ Transport; Tue, 25 Aug 2026 10:16:47 +0800
+From: Neo Chang <YLCHANG2@nuvoton.com>
+To: <broonie@kernel.org>
+CC: <lgirdwood@gmail.com>, <perex@perex.cz>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <linux-sound@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+	<neo.chang70@gmail.com>, <kchsu0@nuvoton.com>, <sjlin0@nuvoton.com>, "Neo
+ Chang" <YLCHANG2@nuvoton.com>, Krzysztof Kozlowski
+	<krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v10 1/2] ASoC: dt-bindings: nuvoton,nau8360: Add NAU83G60
+Date: Tue, 25 Aug 2026 10:16:43 +0800
+Message-ID: <20260825021644.1203076-2-YLCHANG2@nuvoton.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260825021644.1203076-1-YLCHANG2@nuvoton.com>
+References: <20260825021644.1203076-1-YLCHANG2@nuvoton.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260825-ux500-dts-add-imagis-img1200-v1-2-6319ac50e3a3@kernel.org>
-References: <20260825-ux500-dts-add-imagis-img1200-v1-0-6319ac50e3a3@kernel.org>
-In-Reply-To: <20260825-ux500-dts-add-imagis-img1200-v1-0-6319ac50e3a3@kernel.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- Linus Walleij <linusw@kernel.org>
-X-Mailer: b4 0.14.3
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NotSetDelaration: True
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB83:EE_|SEZPR03MB10259:EE_
+X-MS-Office365-Filtering-Correlation-Id: 81e866ec-4dca-4ae8-600a-08df024eeb7a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|23010399003|36860700016|376014|7416014|1800799024|13003099007|6133799003|10067099003|11063799006|56012099006|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	9QaXrIScWVMogJbs7+iwXQLdBPazVH+yrgFSeWLgArWX5n+2beAk7EbXoMN7BoJBKvhC2RvjcQ4aXDa11tyZfJFKYBvucHIwBmIUX35GCLHYHnh5kTkoOL3sVuTtzrEbkjWklgAMPex9zsOm9/k8vuHrZsRUubwLrJUI+O/sdANfDgSaNEm5lh9oXyecyk3AlaK4FdBM4BlbpmCfE/dt/ZvhxgaX4hyqnCHwkzi5QhBJmg2OzseKFlkyIw7MfkQScYiuFKxPwKt1wwPY/rb+9uVaiMgQQmmK6aOKghwZu8u9z8AbNX8oma//L978guwsD7/ektMjb/gdM4JHmz1zElTPUNkitrZOOSbSs4ZhoGiaG3A3uTCXcuM5Aq8b/DA31aJGpusw8by9wejhDzQNo8tROr8oZPDpm5uhyhln9Ybd07qVcm7uMgXxv7/VvD5HKJKdTreR88TcvZfU6qFgJg2OtgJNqBtfDQm+t04O4jgjvBPaXcbvlDDukUGR9IRGQcfG3e/u0s4fCloCwvtan4v0L8dVwt/FwUyx4uJ+APdox2S1wM0WTLNuBxTjwXOkJDjXWdNMVnRYrldReGOi2ye+QgUMejDry8w4GDN4xvE2TH4XeyQCqCMSBiqlhiZt6MS4fdwzrpMgEj4r4ahR4w==
+X-Forefront-Antispam-Report:
+	CIP:175.98.123.7;CTRY:TW;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:NTHCCAS02.nuvoton.com;PTR:175-98-123-7.static.tfn.net.tw;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(36860700016)(376014)(7416014)(1800799024)(13003099007)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	r7aat6oBe8BhCRsPVV4Pltpz1uet8Bscc571O54s6WtfWlyn63AFngx2j3LVCHrBTtdgRkGTf2LG5FXKus/u3zy0tAah7S8hDRRMdRiSvnCLBaypDpkW/1THOOoUtRXpGeJ3IxhoE2J6866xpq/mbgm4BRmBhHhfaliichl4usgbn7aQQGIy4vmMktDQZnFImhcBvV0n9nguD8Vnx0Sxnk7ioQ+i+bUovP6dls4bZjYF2/Ewv6JTrPkMNXufsWuyyx4ruyQz3ZqgIZaKwizR+4FS594z5PN3jyaGXnygRW5vHHCqUTPLK5GggJhhRXeiuyIRiMS2cIXJfTsPYbB2fmbnEBSaZINWsQ/O+xJjj/Pt+Ll+TgCVZx9c0E3lfcJlLB9GLHepFYdUk2RZ2isdLPVvfebzYGd/fStzZYJkI8Ap4E75ztghF4OQ2zU6SsGg
+X-OriginatorOrg: nuvoton.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2026 02:16:48.9994
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 81e866ec-4dca-4ae8-600a-08df024eeb7a
+X-MS-Exchange-CrossTenant-Id: a3f24931-d403-4b4a-94f1-7d83ac638e07
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=a3f24931-d403-4b4a-94f1-7d83ac638e07;Ip=[175.98.123.7];Helo=[NTHCCAS02.nuvoton.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	TY2PEPF0000AB83.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR03MB10259
 
-This adds the Imagis ISA1200 haptic feedback chip to the
-Gavini device tree.
+Add device tree bindings documentation for the Nuvoton NAU83G60
+audio amplifier.
 
-Signed-off-by: Linus Walleij <linusw@kernel.org>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Neo Chang <YLCHANG2@nuvoton.com>
 ---
- arch/arm/boot/dts/st/ste-ux500-samsung-gavini.dts | 56 ++++++++++++++++++++++-
- 1 file changed, 55 insertions(+), 1 deletion(-)
+Changes in v10:
+- No changes, added Krzysztof's Reviewed-by tag.
 
-diff --git a/arch/arm/boot/dts/st/ste-ux500-samsung-gavini.dts b/arch/arm/boot/dts/st/ste-ux500-samsung-gavini.dts
-index 0c3eef7a294a..3d1c31a709e0 100644
---- a/arch/arm/boot/dts/st/ste-ux500-samsung-gavini.dts
-+++ b/arch/arm/boot/dts/st/ste-ux500-samsung-gavini.dts
-@@ -329,7 +329,38 @@ i2c-gpio-2 {
- 		pinctrl-0 = <&i2c_gpio_2_default>;
- 		#address-cells = <1>;
- 		#size-cells = <0>;
--		/* TODO: add the Immersion ISA1200 I2C device here */
-+
-+		/* Haptic feedback unit Imagis ISA1200 */
-+		haptic-engine@49 {
-+			compatible = "imagis,isa1200";
-+			reg = <0x49>;
-+
-+			/*
-+			 * GPIO194 pin HEN (motor hardware enable)
-+			 * GPIO195 pin LEN (motor LDO enable)
-+			 */
-+			control-gpios = <&gpio6 2 GPIO_ACTIVE_HIGH>, <&gpio6 3 GPIO_ACTIVE_HIGH>;
-+
-+			/* clkout1 from ACLK divided by 8 */
-+			clocks = <&clkout_clk DB8500_CLKOUT_1 DB8500_CLKOUT_SRC_ACLK 8>;
-+
-+			imagis,clk-div = <256>;
-+			imagis,pll-div = <2>;
-+
-+			imagis,mode = <0>; /* LRA_MODE */
-+
-+			imagis,period-ns = <13400>;
-+			imagis,duty-cycle-ns = <100>;
-+
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&isa1200_gavini_default>;
-+
-+			ldo {
-+				regulator-name = "vdd_vib";
-+				regulator-min-microvolt = <3000000>;
-+				regulator-max-microvolt = <3000000>;
-+			};
-+		};
- 	};
- 
- 	/* Bit-banged I2C on GPIO196 and GPIO197 also called "MPR_I2C" */
-@@ -884,4 +915,27 @@ gavini_cfg1 {
- 			};
- 		};
- 	};
-+	isa1200 {
-+		isa1200_gavini_default: isa1200_gavini {
-+			/* Bring out clkout1 on pin GPIO227 pin AH7 */
-+			gavini_mux {
-+				function = "clkout";
-+				groups = "clkout1_a_1";
-+			};
-+			gavini_cfg1 {
-+				pins = "GPIO227_AH7";
-+				ste,config = <&out_lo>;
-+			};
-+			/* HEN GPIO */
-+			gavini_cfg2 {
-+				pins = "GPIO194_AF27";
-+				ste,config = <&gpio_out_lo>;
-+			};
-+			/* LEN GPIO */
-+			gavini_cfg3 {
-+				pins = "GPIO195_AG28";
-+				ste,config = <&gpio_out_lo>;
-+			};
-+		};
-+	};
- };
+Changes in v9:
+- Correct firmware-name descriptions for Left/Right DSP binary requirement
 
+Changes in v8:
+- No changes, added Krzysztof's Reviewed-by tag.
+
+Changes in v7:
+- No changes, added Krzysztof's Reviewed-by tag.
+
+Changes in v6:
+- Remove '|' from descriptions.
+- Add firmware-name in required.
+- Add "nuvoton,dsp-tx-slot-mapping" and "nuvoton,dsp-rx-slot-mapping" properties.
+
+Changes in v5:
+- Remove the detailed datasheet information, keep only the valid I2C address enum
+- Simplify the firmware firmware-name items definition by removing the redundant
+  minItems/maxItems and moving the channel descriptions directly into individual
+  item entries.
+
+Changes in v4:
+- Refine the `firmware-name` description to clarify the loading order
+ (Left then Right) and the PBTL mode behavior.
+- Remove the "dsp bypass" option description.
+- Update the example node to follow devicetree coding styles.
+
+Changes in v3:
+- Remove colon to resolve YAML build warnings.
+- Fix 'firmware-name' property definition to comply with binding schemas
+
+Changes in v2:
+- Dropped the word "driver" from the description.
+- Removed runtime/software configuration properties:
+  nuvoton,low-latency, nuvoton,anc-enable, nuvoton,aec-enable,
+  nuvoton,vbat-microvolt, and nuvoton,tdm-channel-length.
+- Added missing "nuvoton,dac-cur-enable" property for static speaker impedance matching.
+- Removed unnecessary '|' formatting from single-line descriptions.
+- Fixed typo in firmware-name property.
+---
+ .../bindings/sound/nuvoton,nau8360.yaml       | 115 ++++++++++++++++++
+ 1 file changed, 115 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/nuvoton,nau8360.yaml
+
+diff --git a/Documentation/devicetree/bindings/sound/nuvoton,nau8360.yaml b/Documentation/devicetree/bindings/sound/nuvoton,nau8360.yaml
+new file mode 100644
+index 000000000000..3edab944a4e9
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/nuvoton,nau8360.yaml
+@@ -0,0 +1,115 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/nuvoton,nau8360.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Nuvoton NAU83G60 Stereo Class-D Amplifier with DSP
++
++description:
++  Stereo Class-D Amplifier with DSP and I/V-sense.
++  This device supports I2C.
++
++maintainers:
++  - Neo Chang <YLCHANG2@nuvoton.com>
++
++properties:
++  compatible:
++    enum:
++      - nuvoton,nau8360
++
++  reg:
++    description: The I2C address is determined by the hardware pins.
++    enum: [0x1a, 0x1b, 0x4a, 0x4b]
++
++  "#sound-dai-cells":
++    const: 0
++
++  clocks:
++    maxItems: 1
++
++  clock-names:
++    const: mclk
++
++  firmware-name:
++    description:
++      List of DSP core firmware filenames. Both Left and Right DSP firmware
++      must be provided and loaded. In PBTL mode, the Left DSP must use the
++      same binary file as the Right DSP.
++    items:
++      - description: Left DSP core firmware filename.
++      - description: Right DSP core firmware filename.
++
++  nuvoton,pbtl-enable:
++    type: boolean
++    description: NAU83G60 supports PBTL mode for mono output.
++
++  nuvoton,dac-cur-enable:
++    type: boolean
++    description:
++      Adjust DAC output current to match speaker impedance and prevent
++      hardware damage. +3.2dB when present, 0dB by default.
++
++  nuvoton,dsp-rx-slot-mapping:
++    description:
++      Configures the TDM slot routing for DSP RX functions.
++      Each integer assigns a specific DSP internal function to a TDM slot.
++      The indices of the array correspond to the following hardware functions
++        (0) DACL
++        (1) DACR
++        (2) ANCL
++        (3) ANCR
++      Assigned slots must be unique, except 255 which disables the function.
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    minItems: 4
++    maxItems: 4
++    items:
++      enum: [ 0, 1, 2, 3, 4, 5, 6, 7, 255 ]
++
++  nuvoton,dsp-tx-slot-mapping:
++    description:
++      Configures the TDM slot routing for DSP TX functions.
++      Each integer assigns a specific DSP internal function to a TDM slot.
++      The indices of the array correspond to the following hardware functions
++        (0) AECL (Acoustic echo cancellation left)
++        (1) AECR (Acoustic echo cancellation right)
++        (2) ISNSL (Current sense left)
++        (3) ISNSR (Current sense right)
++        (4) VSNSL (Voltage sense left)
++        (5) VSNSR (Voltage sense right)
++        (6) TJ (Junction temperature)
++        (7) VBAT (Battery voltage)
++      Assigned slots must be unique, except 255 which disables the function.
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    minItems: 8
++    maxItems: 8
++    items:
++      enum: [ 0, 1, 2, 3, 4, 5, 6, 7, 255 ]
++
++required:
++  - compatible
++  - reg
++  - firmware-name
++
++allOf:
++  - $ref: dai-common.yaml#
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        codec@1a {
++            compatible = "nuvoton,nau8360";
++            reg = <0x1a>;
++            #sound-dai-cells = <0>;
++            firmware-name = "NAU83G60.kcs.bin.l", "NAU83G60.kcs.bin.r";
++            nuvoton,dac-cur-enable;
++            nuvoton,pbtl-enable;
++            nuvoton,dsp-rx-slot-mapping = <0 1 2 3>;
++            nuvoton,dsp-tx-slot-mapping = <0 1 2 3 4 5 6 7>;
++        };
++    };
 -- 
-2.55.0
+2.25.1
 
