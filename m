@@ -1,149 +1,330 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 909A428B7DA
-	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 11:24:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 913A828B7DA
+	for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 11:25:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787657064; cv=none; b=LHQQ9QkKzgGCN/VgQiTAupRrYinuyqyXBzEz3KeFv58iR0TlvFzzdR60GKgH1dmw3CIBHgNmWmfdEqcDkY5vW3RnL33qhyq/yAEe6kW9XkJEg1v9Kjwnyab9dGtewXsaQJ2jWfDUhC+m474MnGxMhouFlDzdex77+allTYn5fLY=
+	t=1787657140; cv=none; b=qyqNAIdcmQh+0hBukebiMoH0hHwfLgDqMJc6VrtGsLBxnd/lvVRmFTME738OTVMa3CCahCzcpgw6ecZOVGAK3Mmy804wqg63QDiKWKRCasWijG+ehSJTfYkzJUKk7S1MQmWj4P5rUhE1ho7WsKLnFyh/RowBFDJIXk4aMTScey0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787657064; c=relaxed/simple;
-	bh=xLqbKAI281pxZ1yD5cvn52d7/I7KrdjIiSKYXUfwaFo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Qy+XiMwYP7KkTMrOTYkLiKq0b2P356aPUn1qFoHjAM2ozwE9Ovfp8LhJG7nuelqM+jle7iprbDYBTlI4Tcv+qPxRmEmvOztBlN+nMDzuAntvZP8WfbUb+YSbyWrxBAJC+5Cu/bGK5K6IRTu3BIl6T/pVA8PALso7h6BIz7DWofQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j6uxNw+U; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787657140; c=relaxed/simple;
+	bh=TCg90wejKzNepQmUlr7VlLil2Voh1QXd1sHwSdm29lQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=RWJKsbD/NUuezcsl49vAKM2kZP5C24OPaE9WjzxGGdaHtFHSPFfgGXeEToeuftQ89/iizj7zHvmw7qrGUocdYQ1hOTAMX0z1FBZ620SPa+orBp9Td+poc0XOnbXxkBWLOuYOvvXeG9bSBaTNrlWk0D3lXXQ0dGtoezZ2la0S3zY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HNu8kn7X; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j6uxNw+U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11FDD1F000E9;
-	Tue, 25 Aug 2026 11:24:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787657063;
-	bh=gJoeW07gUWfDhVtrvAHhgVe6HyLIFK2fU8TU/x9pfjg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=j6uxNw+UOkPnyQ5gztiWiPlb1zzYUhFm84joMmcS1sEeI7slxvnfc/4zGFaVxLZ7q
-	 G7fPEYcc7ZC4AI1P8kLKEE9uVe4/p/j3scT0B0DH5Ee3n/49zbkm6+ZEUSFwYyqaKI
-	 hXxPYIJh9olqnl5GqE5lIGeLLTHg++Y+qh2H2W3VVxFPdEKIpsPTXme4pIyAo75OJk
-	 qCG8p6fxKlQVcbij/C52O670hRLwvVl/i7I/XNK/0Ea0bq4xuRhSQ+4otU4d+0HFHY
-	 hixzbvXSVGCXG76xKZkH855Q9qmL60vGUHNoK5IqrL/EN/BqUytyTp2njYrLXcUUfq
-	 X7pokXmJTgWOw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/2] mmc: sdhci-cadence: Add CQE support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rohan Joshi" <rohan1sj@cadence.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260825-cdns_sdhci_cqe-support-v4-2-e9f72e338373@cadence.com>
-References: <20260825-cdns_sdhci_cqe-support-v4-0-e9f72e338373@cadence.com>
- <20260825-cdns_sdhci_cqe-support-v4-2-e9f72e338373@cadence.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 11:24:22 +0000
-Message-Id: <20260825112423.11FDD1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HNu8kn7X"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38f57e312ecso663722a91.1
+        for <devicetree@vger.kernel.org>; Tue, 25 Aug 2026 04:25:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787657138; x=1788261938; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Bq7uKHGNUXEgSWPFjEuffT294xcsizEScOhns0j5+Fw=;
+        b=HNu8kn7XtvrXRzIsDtMkWsqIkmKtpaYd5JGo9DABJ13Ydoz6hMU+bPDVaAszJB3yst
+         jj8eXEGc7hzBKfgyponspHSbpUDduq9ljG2/ft1Dor2xxCqnK8/sS7v2wSuggJe0KD8g
+         Xe2890ySRUfnwA5HHHtqOWHSSLjReBofBbtJcrRua2Pz2B5RT8MfFtCM8Qd4CyK5QzHN
+         1WQMvOzjsEAs9OvZnr0ub7Z7Z7tWlc9zLc8ZhY6Ef52RXoX4SSy4L2glFiFjksbGgr0Z
+         Dah0EKYPob6puN4bnTsGjFMcpyLtECcybQoJZ+zHD5eOtJJOwrQH2v69HgxpXrHuKDVK
+         5i6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787657138; x=1788261938;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Bq7uKHGNUXEgSWPFjEuffT294xcsizEScOhns0j5+Fw=;
+        b=cA5mFMiXCYwpGfjy7fB682ytsTu7LGh+uDSLa33zkZXrvSyBvnciZamlsw0U+rUkM7
+         X1wi31BWrohL3oEZYE5x7D3CwG/OVS4OMpdmxmddNq0dTeUTkiQeQ0NLSqhBjr+ANSuj
+         ccV99wXwDfYRJ77OBeVHoXlr2iMl3sU8wscaT7nvLtFUDdFXjb5dEhGG4SEEU5JSI38r
+         wptpHRnIlFgwoX6X2PA+VTwb5MQtFWZg28f2gfRdrYRqS1316JEVs2JWC+MH7sBWZaSF
+         hE6aE3WZHDNN+vYg0cywJzNFdid71C8LujTqj4CnWcMkhQGDT+aflFLugBLkKH6p5DiZ
+         tCJw==
+X-Forwarded-Encrypted: i=1; AHgh+RqqIW4db/YUVHPyoe2fk4oMU+mV4RG+gx4TkonTEggblNRP/VafRDB1Tbi16t+eDIimTqq1drkQUCyx@vger.kernel.org
+X-Gm-Message-State: AFuF++kgwTHjYWzgMWoMNPwRQaab7q2OMmR7K+RzGKkvSJJ5WkkkrS5c
+	IBaNB4J2vsocvpWeLoKd6Rk5UlLEsPndgh0UNxqnhwpUy57Y/qOtSgRU
+X-Gm-Gg: AR+sD103zprplYkwuGxOLShrgDI+WzMYd0+B4wfMblwrLOHfSWxErHwJLnPbMkN+bmb
+	DDWNWfZDmOABVzIgPf0cutQX0xJ8AOVCk/6JuKwClek8ss4v6tvrKMwVH24A/w5Ch/cAqF/L7q8
+	CrPb4K5KGgiI+ex6ztOtgByhN0bri2RuhQx8xEAaCH6pZ1FScAdekQCmKAOgi1529wuxcLfbF+R
+	H3+w0yJhJYzTfqYjYa7d/aIQ7n1GlEsST0lVMam9P/uE2c1bgl7UKTmbSsom0Gd59W6CNTO9fLe
+	mxIlv/UgAiMCPZsgINdx5OjsoKcgQvsbx4GxEicw5xJ9vb97QPArjqAbgykMyqNmi9YXIktukje
+	jxf3y1MiHG6HOIhllfKdOSNfL9nwK2dVeOHPpbcokkpDvE9kt+k6ci1i1AZqdFIVqLgUJ8otT1E
+	0H1m4lQcnf2HRqd73a2YruhJyIOowU4rCKNBDYIk0IN0P+hnq7D6tZJvzogtVn8m2pK/0Oq5o3B
+	QvCgQ==
+X-Received: by 2002:a17:903:3c30:b0:2ca:de3:15eb with SMTP id d9443c01a7336-2d64a9d1a92mr283520425ad.0.1787657137689;
+        Tue, 25 Aug 2026 04:25:37 -0700 (PDT)
+Received: from [10.40.19.4] ([123.252.204.197])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-328272232besm8780086eec.21.2026.08.25.04.25.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 25 Aug 2026 04:25:37 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Date: Tue, 25 Aug 2026 16:55:22 +0530
+Subject: [PATCH v4] dt-bindings: dma: ti,dma-crossbar: Convert to DT schema
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260825-ti-dma-crossbar-v4-1-b0bc78cf071e@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XNTQ7CIBCG4asY1mIYoJS68h7GBeWnJbHFQEM0T
+ e8u7arRGJfvJM83M0o2epvQ+TCjaLNPPowl+PGAdK/GzmJvSiNKqCA1kXjy2AwK6xhSalXEyko
+ OoCvTSIqKekTr/HNbvN5K9z5NIb62BxnW6++tDBiwE7RuBKfSAbt0g/L3kw4DWrcy/eNp8VRpY
+ oR1xjLx6dnOA/v2rPia8Yo0LQOhYe+XZXkD9clKuy4BAAA=
+X-Change-ID: 20260708-ti-dma-crossbar-ae8411c5d982
+To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Peter Ujfalusi <peter.ujfalusi@gmail.com>
+Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
+ daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787657131; l=8133;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=TCg90wejKzNepQmUlr7VlLil2Voh1QXd1sHwSdm29lQ=;
+ b=+J1Arlu+MyQuPX+il98P0x7yQ+FI4nK5WmLYINtKa3EgFvF+3jnM6E+i1LZmDJYENch3FJkcu
+ +ZqFYJhkBBIBLmsn9I0G7P78w/fFHRec4uj/xLmdCpdAEQyM1wGX/Zd
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Hardcoded cqhci_host_ops breaks SoC-specific write wrappers (e.g=
-., Elba SoC byte-lane enables), causing potential hardware state corruption.
---
+Convert Texas Instruments DMA Crossbar from text to DT schema.
+Modify MAINTAINERS file to correctly point to new yaml file.
 
---- Patch [2]: [PATCH v4 2/2] mmc: sdhci-cadence: Add CQE support ---
-commit dbab4b1c448ae45285ec3f2e6b5c3e939ca07cc3
-Author: Rohan Joshi <rohan1sj@cadence.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+---
+Changes in v4:
+- Rebased to latest mainline.
+- Link to v3: https://lore.kernel.org/r/20260713-ti-dma-crossbar-v3-1-734509b316c1@gmail.com
 
-mmc: sdhci-cadence: Add CQE support
-   =20
-Cadence host controller has optional CQE (Command Queue Engine).
-The HW presence of CQE is determined by an additional host capability
-register. Look up for "cqhci" register space from the DT and when
-present, initialize CQHCI engine.
+Changes in v3:
+- Add else block to validate dma-cells property better
+- Link to v2: https://lore.kernel.org/r/20260708-ti-dma-crossbar-v2-1-2ac0d6efde36@gmail.com
 
-> diff --git a/drivers/mmc/host/sdhci-cadence.c b/drivers/mmc/host/sdhci-ca=
-dence.c
-> index 435603c8c00b2..aa4431ef2b394 100644
-> --- a/drivers/mmc/host/sdhci-cadence.c
-> +++ b/drivers/mmc/host/sdhci-cadence.c
-[ ... ]
-> @@ -385,6 +392,68 @@ static void sdhci_cdns_set_uhs_signaling(struct sdhc=
-i_host *host,
->  		sdhci_set_uhs_signaling(host, timing);
->  }
-> =20
-> +static u32 sdhci_cdns_cqhci_irq(struct sdhci_host *host, u32 intmask)
-> +{
-> +	int cmd_err =3D 0;
-> +	int data_err =3D 0;
-> +
-> +	/* return original intmask to be handled by other handlers if it's not =
-a CQE interrupt */
-> +	if (!sdhci_cqe_irq(host, intmask, &cmd_err, &data_err))
-> +		return intmask;
-> +
-> +	cqhci_irq(host->mmc, cmd_err, data_err);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct cqhci_host_ops sdhci_cdns_cqhci_ops =3D {
-> +	.enable		=3D sdhci_cqe_enable,
-> +	.disable	=3D sdhci_cqe_disable,
-> +};
-> +
-> +static int sdhci_cdns_cqe_add_host(struct sdhci_host *host, struct platf=
-orm_device *pdev)
-> +{
-> +	struct cqhci_host *cq_host;
-> +	bool dma64;
-> +	int ret;
-[ ... ]
-> +	dma64 =3D host->flags & SDHCI_USE_64_BIT_DMA;
-> +	if (dma64)
-> +		cq_host->caps |=3D CQHCI_TASK_DESC_SZ_128;
-> +
-> +	cq_host->ops =3D &sdhci_cdns_cqhci_ops;
+Changes in v2:
+- Removed the unmatched `ti,omap4430-sdma` compatible string from the
+  example block and trim down example
+- Restored dropped documentation regarding client dma-cells
+  configuration into the top-level description block.
+- Updated the MAINTAINERS file to replace the old .txt reference with
+  the new .yaml file path.
+- Added constraints on its inner tuple dimensions of
+  ti,reserved-dma-request-ranges
+- Link to v1: https://lore.kernel.org/r/20260708-ti-dma-crossbar-v1-1-f62796428f13@gmail.com
 
-[Severity: Medium]
-By hardcoding cq_host->ops to sdhci_cdns_cqhci_ops here, does this bypass
-the SoC-specific write wrappers needed by platforms like the Pensando Elba
-SoC?
+To: Vignesh Raghavendra <vigneshr@ti.com>
+To: Vinod Koul <vkoul@kernel.org>
+To: Frank Li <Frank.Li@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Bhargav Joshi <j.bhargav.u@gmail.com>
+Cc: dmaengine@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+ .../bindings/dma/ti,dra7-dma-crossbar.yaml         | 94 ++++++++++++++++++++++
+ .../devicetree/bindings/dma/ti-dma-crossbar.txt    | 68 ----------------
+ MAINTAINERS                                        |  2 +-
+ 3 files changed, 95 insertions(+), 69 deletions(-)
 
-The sdhci_cdns_cqhci_ops struct lacks a custom .write_l callback. Elba
-requires a custom byte-lane enable configuration protected by wrlock
-(elba_priv_writel). If a raw writel() from the CQE core interleaves with
-an elba_write_b(), the 32-bit CQHCI write could be truncated by the hardware
-to 1 byte, potentially corrupting the CQE state.
+diff --git a/Documentation/devicetree/bindings/dma/ti,dra7-dma-crossbar.yaml b/Documentation/devicetree/bindings/dma/ti,dra7-dma-crossbar.yaml
+new file mode 100644
+index 000000000000..873cedd1427d
+--- /dev/null
++++ b/Documentation/devicetree/bindings/dma/ti,dra7-dma-crossbar.yaml
+@@ -0,0 +1,94 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/dma/ti,dra7-dma-crossbar.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments DMA Crossbar (DMA request router)
++
++maintainers:
++  - Vignesh Raghavendra <vigneshr@ti.com>
++  - Bhargav Joshi <j.bhargav.u@gmail.com>
++
++description:
++  When requesting channel via ti,dra7-dma-crossbar, the DMA client must request
++  the DMA event number as crossbar ID (input to the DMA crossbar). For
++  ti,am335x-edma-crossbar the meaning of parameters of dmas for clients dmas =
++  <&edma_xbar 12 0 1>; where <12> is the DMA request number, <0> is the TC the
++  event should be assigned and <1> is the mux selection for in the crossbar.
++  When mux 0 is used the DMA channel can be requested directly from edma node.
++
++properties:
++  compatible:
++    enum:
++      - ti,dra7-dma-crossbar
++      - ti,am335x-edma-crossbar
++
++  reg:
++    maxItems: 1
++
++  "#dma-cells":
++    minimum: 1
++    maximum: 3
++
++  dma-requests:
++    minimum: 1
++    maximum: 256
++
++  dma-masters:
++    maxItems: 1
++
++  ti,dma-safe-map:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: Safe routing value for unused request lines
++
++  ti,reserved-dma-request-ranges:
++    $ref: /schemas/types.yaml#/definitions/uint32-matrix
++    description:
++      DMA request ranges which should not be used when mapping xbar input to
++      DMA request, they are either allocated to be used by for example the DSP
++      or they are used as memcpy channels in eDMA.
++    items:
++      items:
++        - description: starting DMA request line number
++        - description: number of consecutive lines to reserve
++
++required:
++  - compatible
++  - reg
++  - "#dma-cells"
++  - dma-requests
++  - dma-masters
++
++allOf:
++  - $ref: dma-router.yaml#
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: ti,am335x-edma-crossbar
++    then:
++      properties:
++        "#dma-cells":
++          const: 3
++
++    else:
++      properties:
++        "#dma-cells":
++          enum: [1, 2]
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    dma-router@4a002b78 {
++        compatible = "ti,dra7-dma-crossbar";
++        reg = <0x4a002b78 0xfc>;
++        #dma-cells = <1>;
++        dma-requests = <205>;
++        ti,dma-safe-map = <0>;
++        /* Protect the sDMA request ranges: 10-14 and 100-126 */
++        ti,reserved-dma-request-ranges = <10 5>, <100 27>;
++        dma-masters = <&sdma>;
++    };
+diff --git a/Documentation/devicetree/bindings/dma/ti-dma-crossbar.txt b/Documentation/devicetree/bindings/dma/ti-dma-crossbar.txt
+deleted file mode 100644
+index 1f9831540c97..000000000000
+--- a/Documentation/devicetree/bindings/dma/ti-dma-crossbar.txt
++++ /dev/null
+@@ -1,68 +0,0 @@
+-Texas Instruments DMA Crossbar (DMA request router)
+-
+-Required properties:
+-- compatible:	"ti,dra7-dma-crossbar" for DRA7xx DMA crossbar
+-		"ti,am335x-edma-crossbar" for AM335x and AM437x
+-- reg:		Memory map for accessing module
+-- #dma-cells:	Should be set to match with the DMA controller's dma-cells
+-		for ti,dra7-dma-crossbar and <3> for ti,am335x-edma-crossbar.
+-- dma-requests:	Number of DMA requests the crossbar can receive
+-- dma-masters:	phandle pointing to the DMA controller
+-
+-The DMA controller node need to have the following poroperties:
+-- dma-requests:	Number of DMA requests the controller can handle
+-
+-Optional properties:
+-- ti,dma-safe-map: Safe routing value for unused request lines
+-- ti,reserved-dma-request-ranges: DMA request ranges which should not be used
+-		when mapping xbar input to DMA request, they are either
+-		allocated to be used by for example the DSP or they are used as
+-		memcpy channels in eDMA.
+-
+-Notes:
+-When requesting channel via ti,dra7-dma-crossbar, the DMA client must request
+-the DMA event number as crossbar ID (input to the DMA crossbar).
+-
+-For ti,am335x-edma-crossbar: the meaning of parameters of dmas for clients:
+-dmas = <&edma_xbar 12 0 1>; where <12> is the DMA request number, <0> is the TC
+-the event should be assigned and <1> is the mux selection for in the crossbar.
+-When mux 0 is used the DMA channel can be requested directly from edma node.
+-
+-Example:
+-
+-/* DMA controller */
+-sdma: dma-controller@4a056000 {
+-	compatible = "ti,omap4430-sdma";
+-	reg = <0x4a056000 0x1000>;
+-	interrupts =	<GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>,
+-			<GIC_SPI 8 IRQ_TYPE_LEVEL_HIGH>,
+-			<GIC_SPI 9 IRQ_TYPE_LEVEL_HIGH>,
+-			<GIC_SPI 10 IRQ_TYPE_LEVEL_HIGH>;
+-	#dma-cells = <1>;
+-	dma-channels = <32>;
+-	dma-requests = <127>;
+-};
+-
+-/* DMA crossbar */
+-sdma_xbar: dma-router@4a002b78 {
+-	compatible = "ti,dra7-dma-crossbar";
+-	reg = <0x4a002b78 0xfc>;
+-	#dma-cells = <1>;
+-	dma-requests = <205>;
+-	ti,dma-safe-map = <0>;
+-	/* Protect the sDMA request ranges: 10-14 and 100-126 */
+-	ti,reserved-dma-request-ranges = <10 5>, <100 27>;
+-	dma-masters = <&sdma>;
+-};
+-
+-/* DMA client */
+-uart1: serial@4806a000 {
+-	compatible = "ti,omap4-uart";
+-	reg = <0x4806a000 0x100>;
+-	interrupts-extended = <&gic GIC_SPI 67 IRQ_TYPE_LEVEL_HIGH>;
+-	ti,hwmods = "uart1";
+-	clock-frequency = <48000000>;
+-	/* Requesting crossbar input 49 and 50 */
+-	dmas = <&sdma_xbar 49>, <&sdma_xbar 50>;
+-	dma-names = "tx", "rx";
+-};
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 549df316f487..804d2c231be3 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -26922,7 +26922,7 @@ TEXAS INSTRUMENTS DMA DRIVERS
+ M:	Vignesh Raghavendra <vigneshr@ti.com>
+ L:	dmaengine@vger.kernel.org
+ S:	Maintained
+-F:	Documentation/devicetree/bindings/dma/ti-dma-crossbar.txt
++F:	Documentation/devicetree/bindings/dma/ti,dra7-dma-crossbar.yaml
+ F:	Documentation/devicetree/bindings/dma/ti-edma.txt
+ F:	Documentation/devicetree/bindings/dma/ti/
+ F:	drivers/dma/ti/
 
-While Elba's current device tree might not define the cqhci resource, it
-appears CQE support is architecturally intended for it since CQE hooks are
-added to sdhci_elba_ops further below in this patch. Is there a way to allow
-sdhci_elba_drv_data to supply its own cqhci_host_ops, or dynamically inherit
-the write_l wrapper from the host operations?
+---
+base-commit: 66498c75b4f8017f62d720d9b59675bdf3abce91
+change-id: 20260708-ti-dma-crossbar-ae8411c5d982
 
-> +
-> +	host->mmc->caps2 |=3D MMC_CAP2_CQE | MMC_CAP2_CQE_DCMD;
-> +
-> +	ret =3D cqhci_init(cq_host, host->mmc, dma64);
-> +	if (ret) {
-> +		dev_err_probe(&pdev->dev, ret, "cqhci init failed\n");
-> +		goto cleanup;
-> +	}
-> +
-> +	/* add host to MMC subsystem */
-> +	ret =3D __sdhci_add_host(host);
-> +	if (ret)
-> +		goto cleanup;
-> +
-> +	return 0;
-> +
-> +cleanup:
-> +	sdhci_cleanup_host(host);
-> +	return ret;
-> +}
-[ ... ]
+Best regards,
+--  
+Bhargav
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825-cdns_sdhci=
-_cqe-support-v4-0-e9f72e338373@cadence.com?part=3D2
