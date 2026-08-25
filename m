@@ -1,113 +1,150 @@
-Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 390E630B509;
-	Tue, 25 Aug 2026 11:00:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A58833FB7E5;
+	Tue, 25 Aug 2026 11:08:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787655633; cv=none; b=PgX47swX3o9VJOnEnn4gJkoAcCEQCN7hWb10PxNltSf+kH5VswJzBsUYVXdfwTQyrrewQZJhWaMDpJ14xwZ+A/Hc21vEa/vjclrNQ1ZkKXV9JxwYR3PFyOWSc+CIjIOFV/w2A5++njA4IFTFYgQqmf9TpgybKgMiwXuAHmpH//g=
+	t=1787656134; cv=none; b=UvyTaxyOyB1E1wXU6irZ07vUovTcec90PN+y1pbsjdhcGqj8iQt2EgJeXMeyfsRe7BOfohmBnAMe/4/b0v4o+URyfD0TXctiemmXy+zvV9KRk2Sx6tqE6M9D6dnSzwvefF5omjwmEQLx7T3tiFASde7Pfo/zN2lkF2glROyvL9I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787655633; c=relaxed/simple;
-	bh=hlQaic0F0CxMkHX0OwjEl1Bx+fB1Q/isL2/ynDVBG14=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=c7/pzLMm8RXFn5wfa4o/wWIpXhSZDPniLqvScaJADuPxx8A0G/WhgB038sNX46aZcaTT9gJEetAdvmVYwxxIdXz7y2BM2qcBtK22g1HaqfZmcRoDyp7Ss8OuhnZm0CERK5md3LfGvIjJwZr4yNdWy2377lf9prHCBUb2INoBNj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=L8bibeUi; arc=none smtp.client-ip=79.135.106.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1787656134; c=relaxed/simple;
+	bh=dZEbc9Abi2x+UTPvpEHftXVxRd1ym08XU5Shg8fX5uM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=hK9bIxy/L/4b7MBi3Jz4daZB/Lw7WCYPcr8tGO8qo8gmIAfIoE8m0Rq9ZbcUd0+cW0cEpLt4eHe1zW6+1QuUJFnKtoqrpda19ueaf3WOzxQ71SiP3VGl05ZWuLsM1htv42cr7G7wqThfmWkT1CrS60Cti3i+m2pBAJARh4a2b3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sjSFkdZr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="L8bibeUi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1787655624; x=1787914824;
-	bh=el0ckJyITQBcyMzLRk7pDSGAYgyQePG9Nu8b8f3Hh54=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=L8bibeUicnFFoDCPHx8kwWFRlY/pG6kDuqTvEXdB37ZJiZI4x6KW9TC7DBaax+LVi
-	 pSsWW+wCMfWftkbz4E0TgzVB7sWl9sw+fF9jhGSmhQ9L8SQt1r6nqcyAaiNisXG8Mk
-	 jw9xjbbrKTH9DZctHwtQF3o/wXmXmzfjc26amaS/VWUph0ce3D5702J7XWyu9wZEns
-	 DArRD/AGutSPrzdBwfVyW0C6y6gVHNlEJvD9C0H5hOCPHPDWV1itBv5+Uba7BMeI/M
-	 hIrDuaWvxcH5rV9lWeZsCgzG/jh5p+tvgKBlM3+cL15km6IDbirRWpcnXsEbTwbMGG
-	 TMe124eunRXWQ==
-X-Pm-Submission-Id: 4hTlDk67C3z1DDXK
-From: Esben Haabendal <esben@geanix.com>
-To: "Joshua Crofts" <joshua.crofts1@gmail.com>
-Cc: "Jonathan Cameron" <jic23@kernel.org>,  "Lars-Peter Clausen"
- <lars@metafoo.de>,  "Rob Herring" <robh@kernel.org>,  "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,  "Conor Dooley" <conor+dt@kernel.org>,
-  "Martin Kepplinger" <martink@posteo.de>,  "Sean Nyekjaer"
- <sean@geanix.com>,  "David Lechner" <dlechner@baylibre.com>,  Nuno
- =?utf-8?Q?S=C3=A1?=
- <nuno.sa@analog.com>,  "Andy Shevchenko" <andy@kernel.org>,  "Martin
- Kepplinger" <martin.kepplinger@theobroma-systems.com>,  "Christoph
- Muellner" <christoph.muellner@theobroma-systems.com>,
-  <linux-iio@vger.kernel.org>,  <devicetree@vger.kernel.org>,
-  <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v6 9/9] iio: accel: mma8452: Use proper error code when
- missing device model
-In-Reply-To: <20260825122301.0000531e@gmail.com> (Joshua Crofts's message of
-	"Tue, 25 Aug 2026 12:23:01 +0200")
-References: <20260825-mma8452-open-drain-v6-0-9b252804ee80@geanix.com>
-	<20260825-mma8452-open-drain-v6-9-9b252804ee80@geanix.com>
-	<HmXmDujS0IYQxlEIiTAGIiTIpioZlDO_L3bIBEBj8FWdbzyRSs2EnMSbymREOsD07x_zeOkYuPGdpgRl5Wewog==@protonmail.internalid>
-	<20260825122301.0000531e@gmail.com>
-Date: Tue, 25 Aug 2026 13:00:21 +0200
-Message-ID: <87fr02o46y.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sjSFkdZr"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4A652C2BCB8;
+	Tue, 25 Aug 2026 11:08:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1787656134;
+	bh=dZEbc9Abi2x+UTPvpEHftXVxRd1ym08XU5Shg8fX5uM=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=sjSFkdZrdfnLuXamibbkHj21d4PNTj1Wmo0H7NBkDK7HvTLKGQ5SsOmy5juWrdNku
+	 quiFzlR5SLqd9wNFzm389P3ApuDTZPw6ROk0/4Hhn2qhohoWJZcJ/aBmT00XDRze9c
+	 DG9asg7kFN5HyJm7KHWcc8ipJ62kqVCjqwZS5nHIBPJAQYRAuRPO4l+J2+2XRaZqvs
+	 kudctpHeU5SHyVIaKO46xE3ku3o7iCIUA7mtcilyA/jvozZuj7xeUCWKHgh0L3zyY3
+	 N7Lf6ebs19U8cJ4VeBlilAZY/3h6+aUbMjRYHyZRcRXXsYGRSoWvVBIniF3mO2kF/a
+	 nqEuTCgfWN8Yw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 27412C61DBE;
+	Tue, 25 Aug 2026 11:08:54 +0000 (UTC)
+From: Rohan Joshi via B4 Relay <devnull+rohan1sj.cadence.com@kernel.org>
+Subject: [PATCH v4 0/2] CQE support for cadence eMMC host controller
+Date: Tue, 25 Aug 2026 16:40:56 +0530
+Message-Id: <20260825-cdns_sdhci_cqe-support-v4-0-e9f72e338373@cadence.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEB4jWoC/63NvQ6CMBSG4Vsxna2B0h/i5H0YQ6A9lQ620EKjI
+ dy7BQbiwOb4neQ874QCeAMBXU8T8hBNMM6mQc8nJNvaPgEblTYiGeGZIDmWyoYqqFaaSvaAw9h
+ 1zg+40RSo0lIDFyg9dx60ea/w/bFtD/2Y/GE/tiYMzn/WeMyX69ZhGT/qRIIzLBjVqQZlw9lN1
+ gqshIt0L7SgkfwLKnZIEHIIFQmiNCcl4zWlZfkLzfP8BUOEINdlAQAA
+X-Change-ID: 20260721-cdns_sdhci_cqe-support-bf4e4dfcfe67
+To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Masahiro Yamada <yamada.masahiro@socionext.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>
+Cc: Rohan Joshi <rohan1sj@cadence.com>, linux-mmc@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ mparab@cadence.com, pawell@cadence.com, sjakhade@cadence.com, 
+ mpillai@cadence.com, razb@mobileye.com, blarson@amd.com
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787656261; l=3115;
+ i=rohan1sj@cadence.com; s=20260406; h=from:subject:message-id;
+ bh=dZEbc9Abi2x+UTPvpEHftXVxRd1ym08XU5Shg8fX5uM=;
+ b=BpsGK8WXA3uupR57BQ8IAGkrFZJaal31ytdOaozX0imBIxxA+7WPJYMeIlmkfbVYoarqqcXj6
+ A65UTtYO+h2AKKzqOe5yyvedJoP/E8kA0DCPGYyytI0ao1oVU0TRoAk
+X-Developer-Key: i=rohan1sj@cadence.com; a=ed25519;
+ pk=YuwylizMVlVj8I4+VPMZ6xrFR2wyqJAWZyj90OVZgD0=
+X-Endpoint-Received: by B4 Relay for rohan1sj@cadence.com/20260406 with
+ auth_id=723
+X-Original-From: Rohan Joshi <rohan1sj@cadence.com>
+Reply-To: rohan1sj@cadence.com
 
-"Joshua Crofts" <joshua.crofts1@gmail.com> writes:
+Hi,
 
-> On Tue, 25 Aug 2026 10:27:47 +0200
-> Esben Haabendal <esben@geanix.com> wrote:
->
->> The device is there, but we don't have data describing how to use it.
->
-> A bit of a weird commit message IMO,
+This series adds CQE (Command Queue Engine) support for cadence
+eMMC host controller. The driver enables CQE when both the
+conditions mentioned below are met
+        1. Hardware reports the presence of CQE
+        2. DT provides a "cqhci" register space
 
-:)
+The sdhci-cadence driver currently maps the host register
+space (index 0). On the amd,pensando-elba platform, an
+additional register space (byte-lane control) is present
+at index 1, which the driver already handles separately.
+The original author for Elba, Brad Larson(blarson@amd.com)
+has confirmed that Elba does support CQE!
+In this case, total 3 register spaces are mapped in the
+order [hc, bctl, cqhci].
 
-> I'd do
->
-> Switch -ENODEV error on i2c_get_match_data() failure to -ENODATA to
-> satisfy the IIO coding style. (but this is only my opinion).
+The CQHCI core expects the CQE region to be provided as
+a named resource ("cqhci") via DT rather than by index.
+The driver has never wired up CQE initialization for any
+platform and the feature remains unused.
 
-Sounds good to me. I will update for next version, if needed. But feel
-free to make the change when merging.
+This series adds the support to look up the "cqhci" named
+resource from the DT and when present, initializes the
+CQHCI engine. This allows platforms to enable Command
+Queuing simply by adding the named resource to the DT node
+without requiring any platform-specific driver changes.
 
-/Esben
+Signed-off-by: Rohan Joshi <rohan1sj@cadence.com>
+---
+Changes in v4:
+- On cqhci_resume() failure, emit a dev_warn and continue rather than
+  disabling the clock and halting the operation
+- Link to v3: https://lore.kernel.org/r/20260722-cdns_sdhci_cqe-support-v3-0-4412856a4488@cadence.com
 
-> (We recently had a few conversations about -ENODEV vs. -ENODATA and
-> while there are a lot of uses of -ENODEV in IIO they should be replaced
-> with -ENODATA when checking *_get_match_data() results).
->
->>
->> Signed-off-by: Esben Haabendal <esben@geanix.com>
->> ---
->>  drivers/iio/accel/mma8452.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
->> index 4a1eb196589a..42e3371cdb1d 100644
->> --- a/drivers/iio/accel/mma8452.c
->> +++ b/drivers/iio/accel/mma8452.c
->> @@ -1595,7 +1595,7 @@ static int mma8452_probe(struct i2c_client *client)
->>
->>  	data->chip_info = i2c_get_match_data(client);
->>  	if (!data->chip_info)
->> -		return dev_err_probe(dev, -ENODEV, "unknown device model\n");
->> +		return dev_err_probe(dev, -ENODATA, "unknown device model\n");
->>
->>  	ret = iio_read_mount_matrix(dev, &data->orientation);
->>  	if (ret)
->>
->
-> Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
->
-> --
-> Kind regards,
-> Joshua Crofts
+Changes in v3:
+- Device Tree updates to account for multiple platforms supporting CQE
+- Link to v2: https://patch.msgid.link/20260506-cdns_sdhci_cqe-support-v2-0-754fe4de8b65@cadence.com
+
+Changes in v2:
+- Use dev_err_probe() for error messages when in probe path
+- Updated commit messages as per subsystem naming conventions
+- Select MMC_CQHCI in Kconfig for MMC_SDHCI_CADENCE
+- Drop new dt-binding example and corrected existing one
+- Link to v1: https://patch.msgid.link/20260407-cdns_sdhci_cqe-support-v1-0-13efc0810631@cadence.com
+
+To: Ulf Hansson <ulfh@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Masahiro Yamada <yamada.masahiro@socionext.com>
+To: Adrian Hunter <adrian.hunter@intel.com>
+Cc: linux-mmc@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: mparab@cadence.com
+Cc: pawell@cadence.com
+Cc: sjakhade@cadence.com
+Cc: mpillai@cadence.com
+Cc: rohan1sj@cadence.com
+Cc: razb@mobileye.com
+Cc: blarson@amd.com
+
+---
+Rohan Joshi (2):
+      dt-bindings: mmc: cdns,sdhci: Add CQE support
+      mmc: sdhci-cadence: Add CQE support
+
+ .../devicetree/bindings/mmc/cdns,sdhci.yaml        |  28 ++++-
+ drivers/mmc/host/Kconfig                           |   1 +
+ drivers/mmc/host/sdhci-cadence.c                   | 125 ++++++++++++++++++++-
+ 3 files changed, 147 insertions(+), 7 deletions(-)
+---
+base-commit: 66498c75b4f8017f62d720d9b59675bdf3abce91
+change-id: 20260721-cdns_sdhci_cqe-support-bf4e4dfcfe67
+
+Best regards,
+--  
+Rohan Joshi <rohan1sj@cadence.com>
+
+
