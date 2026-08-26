@@ -1,78 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D80B836F8E9
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 18:03:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E75E46AA97
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 18:07:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787767429; cv=none; b=aYAVqh2KAVE6Df2z+L4qvRraORz/dbWhKlpTkytYu4X6ao4GMRekeEInTXVOBW3d+qVpjks5AXkhQvOaAXSZvSsI7+7VtDWAA27N/K8TcbYAyfR0grP0ZiqtPa6rtxhi/lTDVhzB3G469h5whO8G9YvsFBSKP+pJGa8DgcH9/oU=
+	t=1787767660; cv=none; b=nZB1jcijfSi923XL0Xx6OYJ7gCQat2uNDHwSAXw6a+INSXCS/uU5U6lzmx4+NHFqFnreoMlw7PofIDbJD69nNh0ZLa4yZ+iSeEbzSy9C14D4QwjxfyuOVsSkz3g9Cj9F8HOP+fhF+VyB0BzS3hf413bDX3IeQJimHtOXhbPihWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787767429; c=relaxed/simple;
-	bh=hmzY2QkUr+iFI7KP39ouEUoFEOATdAsVMxwGLgr9ncM=;
+	s=arc-20240116; t=1787767660; c=relaxed/simple;
+	bh=hToXz3TBPEgoP3ypBlW47W+9Fa9h+4YHpQjIMK8NETQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=iFmxA93tu1Wd+MdjQe6hkSloNCyPXY0rx/q85/rkcR3Wtm6bm9OZMxD26w7OToycjTvGSWfI/+WGXQzZlk7LYTtTZsUmy1Cg+69583a5mH6iK4eTm2EGfQOhZOyN7uJG8yhbjoLzELx7h73OohWr0eV3aZWuOoAlyY+c5QD/LjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O08bbIw3; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Zb9Tauom5D6S+q3dt5j8o/f59xUYvzPeeW5lWm2aNrC+krVbERfLmKrMw4/LYeAcUoUbwt7rbuxyyu7QmUcm/tpu3O2i7d4EpeZgAmDscG3x5zQGVoZIQsa5LzcULPqCcN5REKYeEB4LiIReCLEEINF6EBZEM6nlsGh02KcB3nM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L0I8vUTC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O08bbIw3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 738421F000E9;
-	Wed, 26 Aug 2026 18:03:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L0I8vUTC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBA9D1F000E9;
+	Wed, 26 Aug 2026 18:07:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787767417;
-	bh=g96M6bPkEwl8FOdsvP3tbRc6/8JFrRf1gJYA5syRpwM=;
+	s=k20260515; t=1787767649;
+	bh=Wgo8HOEqLU3HdcMI6z2gRPZAspMgtBfaDmObGSu1hb8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=O08bbIw3G9K7LBe8I3dXGtxnyYheDBUwRlN+MpY9+dOetomB6dm6wJjvRR/gSSsxo
-	 pAA1fVetI5HOhYjOCGUC79X8RKsq9LTb4es8Qhw33Z1nkrbon1OuCKnBMDeXeB9Bn2
-	 jJf4ahDHA+D5ufeBwgp92q35gf5mMemSTzjMY2PVO1UL7wuT7UkZN9kV+TsGg0+xYk
-	 wzOF5BlFkDhNrzt5bcGRFnEVdPE+sfgfzqp64nxo6Rt8H2zbVPgPHRR1H4AamPpncs
-	 VwLv6cXuXnNgKXOOy145W04R104zzo1cp6Yp59dKdCxOkbDqLdogke3gsp4Fz/cFYI
-	 uINVfQQSOK6iQ==
+	b=L0I8vUTC0Z73CQrRSqCPDAO/5QpwNxKkk9GQ0loM15dKAkfskDunP9w5ehLoUYUuo
+	 0EqYsS6G9f1cuZPIMecUl08X0ykiRe0+so96+dT3G8jE56G71pZvmfuSdl7l/sbvZn
+	 Pqao/njye6UScXsON+/JbzDcr0raE7DlR+SVI7mYP/ThJ4JZuzwhqz7JwHw37AtjaW
+	 HgiqsNvexVQPbLp6dEqYUtEBl5NLMvqv4Y5oEYe1C1w5EvdCsGD0/MJAU/LcfpCUIb
+	 J4UIGxARj4lrY9hkHRFClRcFs6wWVsb4eRPV+RWwos7wY/JiLo6D1tRltSAnEcrGfp
+	 GYHJp9zriktZw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/5] iio: light: stk3310: add per-chip match data
+Subject: Re: [PATCH v2 3/5] iio: light: stk3310: move the data registers
+ into the channel address
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Jorijn van der Graaf" <jorijnvdgraaf@catcrafts.net>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260826175409.326131-5-jorijnvdgraaf@catcrafts.net>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260826175409.326131-4-jorijnvdgraaf@catcrafts.net>
 References: <20260826175409.326131-1-jorijnvdgraaf@catcrafts.net>
- <20260826175409.326131-5-jorijnvdgraaf@catcrafts.net>
+ <20260826175409.326131-4-jorijnvdgraaf@catcrafts.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 26 Aug 2026 18:03:37 +0000
-Message-Id: <20260826180337.738421F000E9@smtp.kernel.org>
+Date: Wed, 26 Aug 2026 18:07:28 +0000
+Message-Id: <20260826180728.EBA9D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] stk3310_write_event() modifies hardware registers and shared cache=
-d state without holding the driver lock, leading to state desynchronization.
+- [High] Possible Use-After-Free of `event_interface` in `iio_push_event` o=
+n the `iio_device_register` error path.
+- [High] Missing locking in `stk3310_write_event` leading to state mismatch=
+ between hardware and software.
 --
 
-commit 1a4ec350350bbed28440d2daf132d19b8c5712c9
+commit 0d9aa45c0bb9cd3c7c737938875870bc51a8c0be
 Author: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
 
-    iio: light: stk3310: add per-chip match data
-   =20
-    Introduce a chip_info structure carrying the device name and channel
-    specification, attach it to every i2c, OF and ACPI table entry, and
-    let probe take it from the match data, failing when there is none.
+iio: light: stk3310: move the data registers into the channel address
+
+The RAW read selects its data register with a per-channel-type branch.
+Record each channel's data register in its .address field and read
+from there, so adding a channel does not grow the branch.
 
 > diff --git a/drivers/iio/light/stk3310.c b/drivers/iio/light/stk3310.c
-> index 156888969366c..d632e6447f065 100644
+> index 5b5b6812edc75..156888969366c 100644
 > --- a/drivers/iio/light/stk3310.c
 > +++ b/drivers/iio/light/stk3310.c
 
+[ ... ]
+
+> @@ -370,25 +372,20 @@ static int stk3310_read_raw(struct iio_dev *indio_d=
+ev,
+>  			    struct iio_chan_spec const *chan,
+>  			    int *val, int *val2, long mask)
+>  {
+> -	u8 reg;
+>  	__be16 buf;
+>  	int ret;
+>  	unsigned int index;
+>  	struct stk3310_data *data =3D iio_priv(indio_dev);
+>  	struct i2c_client *client =3D data->client;
+> +	struct regmap *map =3D data->regmap;
+> =20
+>  	if (chan->type !=3D IIO_LIGHT && chan->type !=3D IIO_PROXIMITY)
+>  		return -EINVAL;
+> =20
+>  	switch (mask) {
+>  	case IIO_CHAN_INFO_RAW:
+> -		if (chan->type =3D=3D IIO_LIGHT)
+> -			reg =3D STK3310_REG_ALS_DATA_MSB;
+> -		else
+> -			reg =3D STK3310_REG_PS_DATA_MSB;
+> -
+>  		mutex_lock(&data->lock);
+> -		ret =3D regmap_bulk_read(data->regmap, reg, &buf, sizeof(buf));
+> +		ret =3D regmap_bulk_read(map, chan->address, &buf, sizeof(buf));
+>  		if (ret < 0) {
+>  			dev_err(&client->dev, "register read failed\n");
+>  			mutex_unlock(&data->lock);
+
 [Severity: High]
-This is a pre-existing issue, but does stk3310_write_event() need to hold
-data->lock to prevent concurrent access?
+This is a pre-existing issue, but is there missing locking in
+stk3310_write_event()?
 
-Looking at stk3310_write_event(), it modifies hardware registers and shared
-cached state without holding the driver lock:
-
+drivers/iio/light/stk3310.c:stk3310_write_event() {
+	...
+	buf =3D cpu_to_be16(val);
 	ret =3D regmap_bulk_write(data->regmap, reg, &buf, sizeof(buf));
 	if (ret < 0) {
 		dev_err(&client->dev, "failed to set PS threshold!\n");
@@ -83,28 +118,58 @@ cached state without holding the driver lock:
 		data->ps_thdh =3D val;
 	else
 		data->ps_thdl =3D val;
+	...
+}
 
-This allows a race between concurrent writers to cause a state
-desynchronization between the hardware registers and the driver's cached
-threshold values (data->ps_thdh and data->ps_thdl).
+Can concurrent sysfs writes to the event threshold file cause the hardware
+configuration and software state to diverge?
 
-On system resume, the driver restores these incorrect cached thresholds to =
-the
-hardware, resulting in incorrect proximity event behavior.
+If two threads call stk3310_write_event() concurrently without data->lock
+being held, could they interleave their regmap_bulk_write() and software
+state updates?=20
 
-Additionally, this function reads state that could concurrently be modified=
- by
-stk3310_write_raw() without a lock:
+For example, if Thread A writes 10 and Thread B writes 20, can the hardware
+be set to 20 while the software state incorrectly records 10, leading to
+stk3310_resume() restoring the wrong state later?
 
-	ret =3D regmap_field_read(data->reg_ps_gain, &index);
+[Severity: High]
+This isn't a bug introduced by this patch, but could there be a
+use-after-free in the probe error path?
 
-This causes a TOCTOU race on threshold bounds checking.
+drivers/iio/light/stk3310.c:stk3310_probe() {
+	...
+	if (client->irq > 0) {
+		ret =3D devm_request_threaded_irq(&client->dev, client->irq,
+						stk3310_irq_handler,
+						stk3310_irq_event_handler,
+						IRQF_TRIGGER_FALLING |
+						IRQF_ONESHOT,
+						"stk3310_event", indio_dev);
+		if (ret)
+			goto err_standby;
+	}
 
-Could we add a mutex_lock() to stk3310_write_event() to synchronize with
-stk3310_write_raw() and prevent state desynchronization?
+	ret =3D iio_device_register(indio_dev);
+	if (ret < 0) {
+		dev_err(&client->dev, "device_register failed\n");
+		goto err_standby;
+	}
+	...
+}
 
-[ ... ]
+If iio_device_register() fails, does this code leave the IRQ active?
+
+Since devm_request_threaded_irq() is called before iio_device_register(), a
+failure in iio_device_register() will clean up the event interface and
+free it.=20
+
+Because the IRQ is still active and not disabled on this error path, an
+interrupt could fire concurrently.
+
+If that happens, would stk3310_irq_event_handler() call iio_push_event()
+and dereference the freed event interface pointer, resulting in memory
+corruption?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260826175409.3261=
-31-1-jorijnvdgraaf@catcrafts.net?part=3D4
+31-1-jorijnvdgraaf@catcrafts.net?part=3D3
