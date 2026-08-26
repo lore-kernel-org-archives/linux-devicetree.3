@@ -1,171 +1,197 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013060.outbound.protection.outlook.com [40.107.159.60])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33BE33EBF04;
-	Wed, 26 Aug 2026 13:24:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.60
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787750687; cv=fail; b=L1WiJigp9i5NzErTQ41Wpws8/uuYhWFAEARlWfT6r2J+kmKtiQhqy44m9ybYx725TtzlIBTS5rspNDoGrKV5mf80LlfZ0dL+fP6eM8P6SjMlgn8OEMidgonHVKzP1YckeVXJ/CY7/16WbnvKMzqy3AlI9gomjzFz1dlqGT/JuLA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787750687; c=relaxed/simple;
-	bh=fowx9Doeas1XScCTFhSEUH30lD4fhIRFRrG/IP1LV3o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=UwoZuVsHLTLpXlu5HH+HgUR3Tl3FYO+1LIVbpd9XvRcuQQuh7uAjPUOBcPlznrf34rRK2mMkvq7xjrmbYFYS/S0xCubJYR0RXytuiWkIUFUsqJNT3u1L32Txm2GT1sdzuSwiUEe84HKXMRbbZ673A03nOG+nA7gbMhj0XMjLf5g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=SVE18XNz; arc=fail smtp.client-ip=40.107.159.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CAE03E3156
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 13:26:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787750766; cv=none; b=Ae6zfOpgwG9hFJNamcEWr5k67mbwymAlS+faAa8NWVmVURJ5MZEhrnxIwma/Ll0XgOggPhas3L6H602o+LYaOg8rxG6T/3QmfSshMtz2Y/a3Zsa7nzGT7PFh4/xEP8U1tJ4zmlch4g93grMqqRHxIwyKiC7ky6CZYFrLh75epoI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787750766; c=relaxed/simple;
+	bh=9P/mxSvpF3bR3tFDHNmq61Ve/osDwxIH3CqbWQqC31s=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=KP8KmaZi3l0wkkRTeKMN5iyBRV++0r88nhpmYQPPHBDjyPaAAmn/1dCpLqTPzobz4z+zvbqDPBBxgqy0XDUvdtlCJOHYG3DmHPO88i6tcUILMsIL4BDsPBqnHlYDZsplfOXFm7TpG0vKMaxHKi6VBicMahfH2gtxCxkKAt+3+uA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CpcD0B2l; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Xkc7ISSj; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="SVE18XNz"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xfCas3Z7zRISzhNSFoxpSyQilgmo1RGjZxT+HkWsMgU3T4CciohwFOySttu/3x5baWgQzxO/spcEw0vWoMcRBPZFAvn/mKEYtveVrQJl34VTsfdGWSunxyXHd/ywcjKnucEMuhYKdiCOaCnoG3Dmhl7SXLdfXmf01sDu7MUeTRC84cl4r1KTUsQU0FNBHz+Y9yusz9+J3zy5Syp3+NzGCEZlr9LxbR+RjvO132GtbwvLQnbme3c+rG6qFF6VQMMKdI2mI3EYVSj/ZUm8mSMwMsTel2bk4+1i9NvGs4yRZWoD0W0ZTiToB7xWIG6gJnzzXW4lWhyQ11Xj6vYNSTNbTg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Scoq2PWNqrbBzHPnJ6j4uRZ93geFy4MJFtk30NC1+4I=;
- b=kpoGJ8SPCaC8YdjQS2DbSEG7nup5mF65Vqp2HJtON14Tbke3fF2Iwb7L9dn9603vDYIW9nmlvc/1UMa4eDXbSzPER3QWXXKJoZOX4oxnpfeYsE44pQFkIg10UagZtJOvOj/6fBJTjlmxqTOvAMIUczRPWynVbr0TztHlpVv4lud0Dwzs8W4z3c1E9wp+elTURWN4DDaoUBhdKdsQPjCUMjRcYwbBY8iFa342ftXs2QP9mAGoVnS97d8b4D142NKvm3cDJI1UzpdSeaURuzjDVYVjXpylIn07fowaHe0FYJybnArgtpf6nzvHgCQvV0HWNqGxn+4+l2OGWcvl3nAbJw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=nabladev.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Scoq2PWNqrbBzHPnJ6j4uRZ93geFy4MJFtk30NC1+4I=;
- b=SVE18XNz5DToEl2eAg34Ip0tsH4GIR9NvbV+F6N67bCtKi9LVaOjWtyXzsTfpogzCbFa6HPh1ma2PS+1y79l/D8axJvnNFBPKeezuPl3EJ/VFfclE1Iwmz1oNXGdxQjgqIUfBNlBMPyeQKYQ4i1lpm/LL3hZ7eEgKHB734GvU2YPlOLclH42s1002JNClob5ZBlyPdG46zrDvpAx+nAeKRzJnOUX7P9iA3ik5lohdpZHJGK5Pr2dgMa7V4RN2erfij28xAKvtJyYz1LA69BtqfXhknYwvKLBdrAu8uJvoUfs2aSqUNY2lFzvwH+B3KneskrAxqAhQm27K4cxf38Dxg==
-Received: from DUZP191CA0048.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:4f8::8) by
- BESPR10MB992179.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:b10:109::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Wed, 26 Aug
- 2026 13:24:39 +0000
-Received: from DU2PEPF00028D12.eurprd03.prod.outlook.com
- (2603:10a6:10:4f8:cafe::6) by DUZP191CA0048.outlook.office365.com
- (2603:10a6:10:4f8::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.9 via Frontend Transport; Wed, 26
- Aug 2026 13:24:39 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- DU2PEPF00028D12.mail.protection.outlook.com (10.167.242.26) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Wed, 26 Aug 2026 13:24:39 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 26 Aug
- 2026 15:29:58 +0200
-Received: from [10.252.23.181] (10.252.23.181) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 26 Aug
- 2026 15:24:37 +0200
-Message-ID: <42bb4c3c-1dbd-4902-9765-01687b74cb39@foss.st.com>
-Date: Wed, 26 Aug 2026 15:24:36 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CpcD0B2l";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Xkc7ISSj"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QCBn793983363
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 13:26:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=bB/Mx69oBZb+rLa8duMgJQ
+	gKK4MnuS8x8VisngUjkTE=; b=CpcD0B2l5a/wd5kyDMUKF4KqONW+t+0nSvMDHZ
+	tHf1HdGBwJWRsnW55q6mcE6Fige79B5q+JBdTZlEZ9jreqMJeBPwOEpGgl9pTddY
+	Kxv2cMwPuITfYZwinGdcbHDf3ksekNhWi8gUfAmvEOiFcm/ShJRHd9HlhRkGF1nF
+	ZQzKs8dGgku3137CG9hj36vVZPQGOKPnNlbJcrRcZWvWV0AA1oi+M/CIwccDjjAw
+	+RT5xIiqMrXK7aFDot2KAD3GLP1G4HI0BYC8neit5cSTxMyhNGeqkoy1F6O+h7RF
+	2u8+2lAseN+36R6Ttp1Pqh4Ihx0SS1x0LBehbrmNuFsKK8gw==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9wmqrvcd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 13:26:04 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38dde0df80bso1390501a91.3
+        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 06:26:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787750764; x=1788355564; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=bB/Mx69oBZb+rLa8duMgJQgKK4MnuS8x8VisngUjkTE=;
+        b=Xkc7ISSjBGjYtQ4C7lN7EFfmfWloOu8XFRW4jxqPSWDfIXoRXN1+9M6dgn2acNvX6x
+         mlUU0TBscm+bSGMvwwYZyL1qFz8hRMOUeQFLNB7LeFcuy0J734vdJjT+4TroHRjol7W0
+         qMpaKuhDCte8AH6MewkJJM7s5ld3YaAw6wELs/MPD6jMwRK9j5QGWV2Osi0Rdql1M2Ge
+         pYdBQkq/OiolYquhycNjV1VRxY0G7+c2sMU40LBGohs+MCjZSzxx1AUJBYxr8vUvTMjY
+         3Sd3KnXL73R490oMi3KtGQYePf92Er/C2X/nGAXZ9aAKfUAsZMOfGa9WcHF5iwX/BaA7
+         knAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787750764; x=1788355564;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bB/Mx69oBZb+rLa8duMgJQgKK4MnuS8x8VisngUjkTE=;
+        b=kOeY2rJXBJ4KRk6oym7g9vSIfcvx9Caez37qBnII/eLolcDkupKl9ZEQ5aOxQ3MXz7
+         V+/W5Ed6QKP4p2LajpZz6rMFMPMGanelkKNTn4G0RqbWSI2lFwqAlygbuEYlSVBwVROO
+         2vim8C4WT0gPIrnI1w/KTmnRIMXXamipCS3NxeT4RpCsX3z0wmGINqDWKCJz/HXSkxz0
+         wXyO0IO4WzMUDlpa07nKJ22jW+OWsb/Ll75yt2HtMShbuXkkdHXLQ0CuZBan3OKz34j5
+         VQzGqkoG7eiNQLqNFKwCzys6JaocoEwyA4V+x2Q03IRrw+HiY44Pf5vqvxh80R6WJoOK
+         r4/w==
+X-Forwarded-Encrypted: i=1; AHgh+RpAxIDwp4NbP4H8cLnCiwbc3TuffQAP8fa93QORpP85Gf4qhGNVFE6CmiTjiqUzExKR4hBu9VDmJIA/@vger.kernel.org
+X-Gm-Message-State: AFuF++neMM4OzxW7EAdsXB9pW6ukTsHR3vw590ceFjm7mcwYWbZU4mzQ
+	CzB6EcLeRfXZm+eNT6izzsLh0kwg1I9MpelD5d0ZtBIdv/r70qjZshGYJ9SESevHbshmO/qzhho
+	m15Az1lCijQtBaukyh3uJ1+ZjkCaQA3XdxccwwHT+cCxqs+fYfLOFhwnUHh5I+MIRVmB9LHMk
+X-Gm-Gg: AR+sD128Mw6rP4Q1FODk6haGbcRvI/zJ04SX5eFX93iK/1x8p5oPP+XyhwzN/o6SFBv
+	NLgW+zze5AYsHHJDbXfiCY0HBUQXOO/7HTtj+NWUq0ymhDGL2MP+KyWGyKnzq6wzTwVOp3NeX0R
+	lKYdVWK9WzGUZcWonRvDGp2ekfFeDoG52b7mcjuiQiHvNK7TUdJjgPoGy1M/30o6eJ2xktOmvdD
+	xzelpgTci/jUnDA9crsscdI9KMxre9jltjkIeZNauPtoCKM/mMx2g5tNS0g8GIwu+3lj9wwLCcd
+	L/X9qL8kEp1ipQQf4mLzKkUMOzoLFdg+gP31thb1hbHjLWiHdWQVBvE1AutScnvOs5c/0NqLISI
+	KwNn2g2vc/WMIOiE4T+MIH/wDpNF8x/wmoQ==
+X-Received: by 2002:a17:90a:dfd0:b0:37c:6130:7a5b with SMTP id 98e67ed59e1d1-3966d3a8f3amr15824145a91.8.1787750763532;
+        Wed, 26 Aug 2026 06:26:03 -0700 (PDT)
+X-Received: by 2002:a17:90a:dfd0:b0:37c:6130:7a5b with SMTP id 98e67ed59e1d1-3966d3a8f3amr15823968a91.8.1787750762781;
+        Wed, 26 Aug 2026 06:26:02 -0700 (PDT)
+Received: from hu-vkatoch-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39668767d65sm4581108a91.8.2026.08.26.06.25.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 06:26:02 -0700 (PDT)
+From: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+Subject: [PATCH v4 0/3] misc: fastrpc: fix ADSP duplicate session creation
+Date: Wed, 26 Aug 2026 18:55:48 +0530
+Message-Id: <20260826-dup-sessions-v4-0-35555d2bfed4@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] dt-bindings: usb: Document ST UCPD
-To: Marek Vasut <marex@nabladev.com>, <linux-usb@vger.kernel.org>
-CC: Alexandre Torgue <alexandre.torgue@foss.st.com>, Conor Dooley
-	<conor+dt@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, "Rob
- Herring" <robh@kernel.org>, Sebastian Reichel
-	<sebastian.reichel@collabora.com>, <devicetree@vger.kernel.org>,
-	<kernel@dh-electronics.com>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>
-References: <20260819163410.119755-1-marex@nabladev.com>
- <db62c29a-7260-4e19-9279-e38323353c30@foss.st.com>
- <225f1704-399d-47d0-8bca-73a27a59bbd4@nabladev.com>
-Content-Language: en-US
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-In-Reply-To: <225f1704-399d-47d0-8bca-73a27a59bbd4@nabladev.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PEPF00028D12:EE_|BESPR10MB992179:EE_
-X-MS-Office365-Filtering-Correlation-Id: 596c24f0-c23e-4908-dcdf-08df0375617a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|376014|7416014|1800799024|6133799003|10067099003|4143699003|11063799006|56012099006|5023799004|22082099003|18002099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	j9agtvI9vK6uh7XX6vI+ChyGl9pDdjIyERBWLqp9Apdz0CgNdJWS9B+Xt/X2PWCb6oqw4locQOq94b2j2vVcvXnZ67RttvgnHqKZL36r5nLAv/6KctiFLade8moih86okrIT2hSbGsIFHG0Ez22peKOoobOBOrbJVmXiNbMcZpVPgpNx0Rn6fpjGaxXgWLGhpOnHx4jsQJim5n6/KB5eqrDO9VLu4aN2K90rDpYWjh/CjfMq1FS928z7KUUQ3UFuhhNb7JNUDK4jn9gx/pLmiQyk6jG2oCG9hQru7ycN1B48HDXsNs9TrSrnmx2l3VneVBcdlScgnfCpIEZIv32PmGD0vQjUidJb2Zj3uozoTJeGTka8xh8E5Ihb2T3JqGgZL+qxoPRli6mNwFKAJCIP6/iFxYBi5pLOoCU7F0PnbUfP1Iw/mYkM53SO5FCTn6F36KFOrUFuv8cJ8ucSJhfbgTIThvXlnfOBIX4cEFI/v/elf/pIu9+Z0ZTRRgiTnB7wOkIMcDg0d9+Q8Fv1qdfH5kgaepwoCeMnimV6gJ02BciW/ntRh3b78yTWedtHMeVOhY0AvOsBmYoSlpKRrGrVibABHgWkq2hZuAnEznfmUYeeUqSxnb6ZhFKkdHhByyLLkAi8Qrh55DPyLf/xZz6N9f9ICdGcLMlXZSqjwihJzquxLYVubB/39hc7FOsvI9oHEieAjuQoSPMG8s7/EHG5vQ==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(7416014)(1800799024)(6133799003)(10067099003)(4143699003)(11063799006)(56012099006)(5023799004)(22082099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	tHlwY3T6RUbHFPTF1g/bJCUqUwxOp+R3o13b7ZhhnOaXu64K+GLmAUUKmBkXhLfoCjIk91Mxuvc0eDQ8ySITPQ9GJS/4mx4ro/ZyEu8ftDNcXv/z7/8aRjVeoSWh+hK4+0Vyv1bqprT2AeRSLAV7hhVQx8VZ009HYbseI2rwzYB+706RIzueP+bG+3xywZhJUy+BwEfRvmvru2gzJV8512hVaA30xCGMN4tETbbmNJudW54FsMQQEcV0lZrmWYzsaiAaI5LDqJqM36eIH6CffUBQwF5kiZ3UZ1kcJpXkdHa2jNfZawYJvCpJblLQJ9cHQ8Z9r/vo72aEBum1NwUozgKm4IGjq284BRXVJkDYuEsiYOcVKJ7QFasvF+4sIoN7iNUzjTSq0woNcBEfAVFJaQuyUCQmUT9MrApFQJqBIzfDH5OYFiP+QoWBy0zLO4my
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 13:24:39.0276
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 596c24f0-c23e-4908-dcdf-08df0375617a
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DU2PEPF00028D12.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BESPR10MB992179
+X-B4-Tracking: v=1; b=H4sIAFzpjmoC/3XMzQqDMAzA8VeRnldpa3F2p73H2CHWdBbmx8wsG
+ +K7r3oRZF4C/5D8JkY4eCR2SSY2YPDkuzaGPiXM1tA+kPsqNlNC5SIXhldjzwlpuSOOoMACWGm
+ MZvGlH9D5z8rd7rFrT+9u+K56kMv2AAqSS65yk2koS+Mgu3ZE6WuEp+2aJo2DLV5Qm3EWxc5QX
+ PAKtHDGmgJUeWBkm1EovTOyaOhSSFOh0yj+GfM8/wAmIqArNwEAAA==
+X-Change-ID: 20260609-dup-sessions-ea2acaac1994
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Amol Maheshwari <amahesh@qti.qualcomm.com>,
+        Arnd Bergmann <arnd@arndb.de>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org, Bharath Kumar <bkumar@qti.qualcomm.com>,
+        Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+        devicetree@vger.kernel.org,
+        Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787750757; l=2213;
+ i=vinayak.katoch@oss.qualcomm.com; s=20260609; h=from:subject:message-id;
+ bh=9P/mxSvpF3bR3tFDHNmq61Ve/osDwxIH3CqbWQqC31s=;
+ b=4xm/wk6ic1DGhn00WjuMS8HNa86/c05hLVp4f0R7zF9xenCMKZMI3wJW0E3feBNaMh6c/zsHG
+ t1mlONpYoqTDhC84KX0WKzxs7vtwsg2xsjynmroapNTdzt/Ie0juo/4
+X-Developer-Key: i=vinayak.katoch@oss.qualcomm.com; a=ed25519;
+ pk=UrGeKKxjIjpHZIjsbQKS/8rrVaP9KVGki69pFclCH08=
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDExMSBTYWx0ZWRfX0KfPehuSF793
+ P+CLdWLzQ50wYtPWtR+6yhG4aLNTTj5Xp+ddVt1C3vhNjjSIBiqtLT1R8iWvqCU4wEf3CVW1Qz0
+ yHWsVfZQfDiefdQmlqDr0HPGGWasZWE=
+X-Proofpoint-ORIG-GUID: PAEZZc3ANf3JhdqjQy2klCkYfsBD874j
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDExMSBTYWx0ZWRfXx+uXuaFY/p3A
+ ftqSo4IQfz2q0V+lVzH67kWky1tQIJHioGPuXRXef0CsAC3tvGQy7yqCmSzSmnCZOzTPmAu7RsE
+ drTfPAkYQ9kjPfMlVJpx2J2TVI06bij70mLLzbyXZ7HDdZlyh0RDBxxSucOBhMzbXhsE+MrDCiB
+ jn5SXZpTRR8YpXmq5BC9vhWMLVXWGLe23mfnMYPWKMCkDJL+Ncn01Z5nLJ9/+nwSYhIRBKj5HXJ
+ HQdDmOSbey+tCv8QJQSI8U1yVz7YIEnaG/XU0bPx6yPK/7yofe0N5kw/gMy0jKhH7x/0CeNPEN1
+ 0KI0jYMPQvUY8VTFfLG9beV4fyniD4zUcIWGufGG+ubmdwfYTZyWVqvBvYrf7reMtUBXGdut4lo
+ KbDgVz4Te4EtaU06xRtgB2iAdH8fI2o9UzO9rPAwba0QKUP75yf92cxMM8UJano+LjnzXpf3rGl
+ x7bBA/IIh66Qg3RkrYA==
+X-Authority-Analysis: v=2.4 cv=T9S8ifKQ c=1 sm=1 tr=0 ts=6a8ee96c cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=vdYYOim__DPnj8GFrYsA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-GUID: PAEZZc3ANf3JhdqjQy2klCkYfsBD874j
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-26_03,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 suspectscore=0 priorityscore=1501 malwarescore=0 phishscore=0
+ lowpriorityscore=0 clxscore=1015 spamscore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260111
 
-On 8/22/26 06:51, Marek Vasut wrote:
-> On 8/21/26 6:27 PM, Fabrice Gasnier wrote:
->> On 8/19/26 18:33, Marek Vasut wrote:
->>> Document ST UCPD Type-C block. The UCPD integrates the physical
->>> layer of the Power Delivery (PD), with CC signaling method, for
->>> operation with Type-C cables. Vbus and Vconn control is performed
->>> using an external chip, usually ST TCPP01/TCPP02/TCPP03 or similar.
->>
->> Hi Marek, All,
->>
->> I've sent a series for the complete case. Please check and review here:
->> https://lore.kernel.org/linux-usb/20260821-ucpd-host-fusb340-v7-2-rfc-
->> v1-0-c5e27cbc0795@foss.st.com/
-> 
-> What is the difference between this driver and the ^ driver ?
-> 
+For ADSP, only a limited number of FastRPC context banks (CBs) are
+available. Each CB supports a single session, which means only a few
+processes can run on ADSP simultaneously. If all sessions are consumed
+by fastrpc daemons, no session remains available when a user application
+starts, causing the application to fail.
 
-Hello Marek,
+To work around this, some DT set:
+  qcom,nsessions = <5>;
+which duplicated sessions inline during context bank initialisation.
+Upstream feedback indicated that this policy does not belong in DT and
+should be handled at the driver level instead.
 
-That includes the TCCP I2C driver (and an example on ST boards).
+This series iterates over CB child nodes directly and synchronously,
+replacing of_platform_populate(), and moves the ADSP session duplication
+to the driver. The qcom,nsessions binding is deprecated in the same
+series.
 
-> Why is this driver not covering "the complete case" , what is missing
-> here and not missing there ?
+Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+---
+Changes in v4:
+- Rebased on latest linux-next (a8406e6c0b79, 2026-08-25)
+- Link to v3: https://lore.kernel.org/r/20260824-dup-sessions-v3-0-4b019def4e0b@oss.qualcomm.com
 
-I intended to show a complete case, e.g. UCPD controller driver and
-external TCPP I2C protection chip driver. The TCPP is a companion,
-complementary, e.g. provider/consumer relationship.
+Changes in v3:
+- Add patch to fix async probe race with of_platform_populate().
+- Rename fastrpc_cb_probe() to fastrpc_cb_init().
+- Reorder series: sync fix, nsessions, binding.
+- Collect Reviewed-by tags.
+- Link to v2: https://lore.kernel.org/r/20260708-dup-sessions-v2-0-da40f9c98a2b@oss.qualcomm.com
 
-You've pointed some "horribleness" there. I guess you talk about the
-straight forward approach e.g. EXPORT_SYMBOL() macros. That's an
-on-going work, a prototype. I could have sent as an RFC.
-I wanted to be transparent, so the correct level of APIs gets used.
+Changes in v2:
+- Added patch to deprecate the qcom,nsessions dt-binding.
+- Kept the logic unchanged; only split into two patches.
+- Link to v1: https://lore.kernel.org/r/20260609-dup-sessions-v1-1-26934abb9fa3@oss.qualcomm.com
 
-You propose to turn the TCPP into a GPIO chip ?
-That seems smart, at least for the CC lines switches.
-What about Vbus and Vconn, it could also fit regulator API ?
+---
+Vinayak Katoch (3):
+      misc: fastrpc: iterate CB nodes manually instead of of_platform_populate
+      misc: fastrpc: move ADSP duplicate session creation to the driver
+      dt-bindings: misc: qcom,fastrpc: deprecate qcom,nsessions
 
-There are various functions, the bindings should be extensible enough
-for later use of additional functions. I'm thinking of:
-- Over-current events for Vbus & Vconn
-  Could be represented as interrupt controller ?
-  Or could benefit from a regulator notifier (if used) ?
-- Vbus sensing
+ .../devicetree/bindings/misc/qcom,fastrpc.yaml     |   2 +
+ drivers/misc/fastrpc.c                             | 112 +++++++++------------
+ 2 files changed, 48 insertions(+), 66 deletions(-)
+---
+base-commit: a8406e6c0b793ce0788019683837c40855b55995
+change-id: 20260609-dup-sessions-ea2acaac1994
 
-My point is that, that can impact the dt-bindings or functionality.
-Sending UCPD driver only, without the TCCP binding & driver, I find it
-is a bit hard to review or test at my end without having a more complete
-view.
+Best regards,
+-- 
+Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
 
-I'm not sure which way you'd like to proceed ?
-
-Best Regards,
-Fabrice
