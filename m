@@ -1,334 +1,124 @@
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6632353A9B
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 08:16:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE84B37B01E
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 08:24:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787732195; cv=none; b=bZa1kkWyeYuXsXIGeiHQ2xCcs/E++hp53sSXswyl7/YSTKLNjCWUtRW2uCkVq4hrmXOx8/LWkegcVqtqgZQZoZrvT6Bb0mh/eT20QT5O6HOTMA2SyGI8FpLJHVd8jmDZsVxspOD/eztLzC0ISgExrVbO9ZAh2jLUlFL+Htu57ws=
+	t=1787732689; cv=none; b=dgq3R5FbsCBrrqy/8Z4HRE9G2si35zXl768Qtg4Yoa2HqenIKmeainsdfX7ke4KlBrqsPf4bMU8gEgQE6JurdCfWKbBWnF+BuTwdZwxr1NkUOW1xkTZi7FTb1Km5b4ZXgcnp15YcODB3mAJYhJcCBLdg7KtWBqXC42as/vbQzOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787732195; c=relaxed/simple;
-	bh=3U8ZAKPh2UK8cUVMKl9yXkzeqRTjEzWTeGYvBAg4rZU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=X5eWjfHYZ/77ZSLmdDYHtmSceWiA7JFVDNN3FeEn+wVxaL8/hWpWMhM6bVMHhcGKbl62WEv8y7IcOohFLGxrabRzWxZuJtlA+0AqayyM2lLWJ1FT796QwccZXB2fIdOR/WbAYSpGfEtjG8R41JWFX6xAC2IxJBiG3El0OjpdaqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=msfrN/Xi; arc=none smtp.client-ip=209.85.218.50
+	s=arc-20240116; t=1787732689; c=relaxed/simple;
+	bh=Y8zx2w1AIDgfPowWVDAXwKwQkjMhicPcg6v2Sd+OOqg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hNV9ntjtH1XpIwPiqWQBcwEfV+ZRnL4VXq7XFehyKEdftN/lKIXsfo4asUydY9grX7+/ZFJ6LzR/WrwHZJKZWtoCbro+P0otrtzNXOpspTuJtLry4tEh/Olm15Qck47YzzjHtxBiAJv7/vokK1P6kJ5HPqqNXiGD/5qPknWGNs4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eR/YvpEP; arc=none smtp.client-ip=209.85.218.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="msfrN/Xi"
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c1600d040e4so105246366b.1
-        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 01:16:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eR/YvpEP"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c2519b8d330so64078466b.0
+        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 01:24:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787732189; x=1788336989; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1AIaAZXhiBBlPf+UZk1HRbisifDFosqeHDGRsyaxxrw=;
-        b=msfrN/XinWIMsPcuAZXec3WYcG8NxAlPHR4/ZNRIHzPne9Q/ainHz2DzK794bFEKZU
-         C4Joq+t9RmRunxbYT2xVBhD3C6bw/TvHZImZQYszBrjXR3m6C7R06QtM6U2S+sYrDvzQ
-         aWxQ/bFQxtCbjQeVG9ZGd0YtbC0YLZSCSFkSCkWK2CZbTSdbTabpDa6XcbsAqOlDc2k0
-         uYxga1inrllePXZfSiycUEdJ52jakW7xL/Ao451TtoKs9y2UJWzNxHQf1I6QWPbB5WuP
-         DaSPsXfOFSTDvuLvJJ41uFGNyj2occivUYs/nz1ArFGf2uKi7ai6JX1FwtOON1oN+61E
-         Fy7w==
+        d=gmail.com; s=20251104; t=1787732683; x=1788337483; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ir5Os0CQnbQuxUCzuubgRfeVAkcH8JmP+kvrHlYfrQQ=;
+        b=eR/YvpEPf/GJCTOdYh96a4H9GujEDhlWcU6R4VCxNfmKreE9KGAL2iq3XEi3/KNJwY
+         P8Pz/ML2CAIwzA4ReEDSnZi1NqnfLU8AAe3KHgMFELuBQY4Llu7sDCduMhx+NKJ8A9XI
+         wpYwalXiMXUK8BRtxRAUxzKPes34f+uVyTYRx86xVGKOCopK4ccM8aNv1+atkwRkCXKC
+         FgVjm0Y1WttlAwsCULc29rCvWmg1iqPHCOgtjgoduJd21OOzHWtzoowzXENJjpIbg413
+         0z9/jcrLxELndGZ2tVBzEf8al1f7fcfEkh8sLhSkGew2K4NSxCnSaRHht1xw4TBvI/es
+         ETsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787732189; x=1788336989;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1AIaAZXhiBBlPf+UZk1HRbisifDFosqeHDGRsyaxxrw=;
-        b=rgfZUjGNzJlWDmx69SCPPEyRguVbiK0CFpjG5r+PX1GWxJFmvve1K6xy4oI3uB5t71
-         +ZOnIAaaIefvfh4Tj/tsDyqbFz2H0Pap+oz2nDIes79eH4tZf06+U4s1LeO/nGDIXNuI
-         Qp0e08j2zW9EqOBm+DSPItIbKw3Tx7d5MCFY/C7cCOWhs1qggFN/pLKY2LP3V9VilxKx
-         ow2Sh5OSxWngx2CDQ4w3FQFlysRL0XveFjwcaNeOSdi4dgzQjH5MTRxGW9E7kR1nP5f8
-         Cp6iPzQ6IFbml2PbuBVA6egz4NK0oEqToW/VOwH4DY9KRYo295lVOM8zyFJcrVI1uybL
-         TRWg==
-X-Forwarded-Encrypted: i=1; AHgh+Rpuxm/5BNpUwroVtKNIJp0ouHldTbkK4Vnjt+oeO9Z4wsp7UK/Nz3tlQaJdk7KHiREKTWywd2UM/b94@vger.kernel.org
-X-Gm-Message-State: AFuF++lqiGk+1lW87hBJU5LJ+ytdj/Yr/wOqL/Kf5Ghgo1x0U6MwGmdK
-	DK/uz20KbpAPC4bLoXPxnfBtpuIHEis5P7lVoJhcFVDdf7ZaPIokwYKP
-X-Gm-Gg: AR+sD11G9h9adoXY8ybYdC9DrXyawH9BT+ZgdZKoDj8tJsGO+1vIS1B9ClU5p7NF37Q
-	ySNVwohbE36IQunovab7NuVP2h6Eeu8daW20GWihZoT9tVJhkAyjv1Im23ZGhqaGFNCEO8W+xCi
-	uI/wyo8DMp5pnTJjDBxPqcQl3syvG5TG7qmKLvrgVYQHuX1MFBAce5WadjK6610uLvW3n7+eNey
-	jAR2qeahbgVZo0WFfsj+S58jyvCDCXwJSf2MPSBneSfoAinEYn0IwtCB7/SaKVJnh+6U1eiBSFq
-	/mUVM1PnUmDrplJgzkrmxSrIDvxkZN6htAEwbHIyugj5SSRp1R1Zta5PwYBslg3nDQtYKot/DjD
-	9In55t6++agraELF7CZwsvUlZmNYOwY8bAK7o2pzhZWUWm27iEBPJ3ZKjdXTv7ZFOFlA954+QtY
-	K8ITii0CVYCzEu/+xo4EerATCdLYhFV6zp5M2Zixr/I5HD2I8UqWu/3Vf+nRqFUyYIpc0WSZsj0
-	UMD+uOba0HPPGy+XwsIdAp1VtRmRJJHlA==
-X-Received: by 2002:a17:907:5cb:b0:c08:580e:899a with SMTP id a640c23a62f3a-c250acf086fmr550255366b.10.1787732188918;
-        Wed, 26 Aug 2026 01:16:28 -0700 (PDT)
-Received: from GLaDOS.station ([91.80.77.66])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a88ab65sm360997566b.37.2026.08.26.01.16.13
+        d=1e100.net; s=20251104; t=1787732683; x=1788337483;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ir5Os0CQnbQuxUCzuubgRfeVAkcH8JmP+kvrHlYfrQQ=;
+        b=lwVMMFsL89jS4AU/kPzVSnDaprGf0OB/jmxRQj9msZiICypOkohEXtnWtSUL2xJr3v
+         ScaOm2Mqe8k+DtDfjbTIvRdrCHfYBmQ++/aqjWY8YLYey8P2PotpMTzJpPBLy7uyg/Lz
+         tQKW78mGUE/WKz1VA5Op+LfcylM/SAmgGcKnz/Boc9Iu4xQH4kJ9aKoK8EHauu3zbo9V
+         D8LqormlIUt0r2UEfhoBMGRnUQLEQo4uCGEBam+VUl/G0IzYO7Xj0u+Y2Iw+I9vndizy
+         DVV6iy+RqAU9H5RYAidnBUGYzn9CIW37PNh2Zad1YfuKakY9njbFjF9ShH+w1iQFWRKO
+         d2fw==
+X-Forwarded-Encrypted: i=1; AHgh+RqnfjE0SrTvMjgxJPn3+UXhsmRlDVAq/34cCrT5vfP8ThwmqRu489sbU+8ypowJzKtxxHG4yaHBtVTi@vger.kernel.org
+X-Gm-Message-State: AFuF++kyuMiEi+ei5fS8k/5AaMAf++Rv0/rseJek2wmHnvBfF5hFBPs4
+	Qj0dfvWEB960MsF9eaV85rmL8lGN58tQYTkkaVP4FytiHFZL0bPY2sl+
+X-Gm-Gg: AR+sD13I/DfxvStlWWfI/cnHe3Un9wns+zqZXFPYedG5Iup03X1jaBy9FyDLMvxoGdS
+	l4WdNua0qYazlV9Hvmh5hXmj+wFtrE659iiCYSg+IZE4uNgPRcByY88G4qEdm/dMM5lAVcK42Kf
+	LkeRv99XU9lJibdGpyBWzPO7ysEOqbIJ64ki+OI4/R65js1F3GV9z3GwtKvaJOqyPFu6vdGfp1q
+	jy4RN5U/60aG3jPKXoBzeSWir6tQTotYhZfLOkAeQ7BI4OvoVELCtvMI6A9EBV4eZKe4jNEKo3g
+	MdW1OdNVNH+nFMJ7+pyGffRa6vrEQH4Z8Rr8sw9j4svEL27+FM8lSUq/urjTBqcyxzXRjZC5KZt
+	IMhHK3QFW8KkoBueAmARI22no3pKFOpxBeMkRxFtFlX5ZzdrsjoFgmFvqrKTAxekNch9SR5sUtC
+	ewIF5OiKisyRr8cPD0BE5hBS+2JwPTq2qoKnC1eQLUfKAOxOTgC0+0j2RwXtGT7N1I6UZFpwhn2
+	9B4QrRZrcMgKDu6kBp+rQ==
+X-Received: by 2002:a17:907:3cd6:b0:c1f:922d:34c3 with SMTP id a640c23a62f3a-c250c308f96mr539179466b.14.1787732683231;
+        Wed, 26 Aug 2026 01:24:43 -0700 (PDT)
+Received: from [10.25.211.251] ([128.77.115.158])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a5d6acasm419960366b.9.2026.08.26.01.24.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 01:16:28 -0700 (PDT)
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
-To: Frank Li <Frank.Li@nxp.com>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Josua Mayer <josua@solid-run.com>,
-	Alexander Stein <alexander.stein@ew.tq-group.com>,
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
-	Maud Spierings <maudspierings@gocontroll.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Markus Niebel <Markus.Niebel@ew.tq-group.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Marek Vasut <marex@nabladev.com>
-Subject: [PATCH v5 3/3] ARM: dts: imx7d: add Variscite MX7CustomBoard support
-Date: Wed, 26 Aug 2026 10:15:37 +0200
-Message-ID: <921be34681396dbcc4d951232d8e86ccb1bf0373.1787674237.git.stefano.r@variscite.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1787674237.git.stefano.r@variscite.com>
-References: <cover.1787674237.git.stefano.r@variscite.com>
+        Wed, 26 Aug 2026 01:24:42 -0700 (PDT)
+Message-ID: <1c5e12af-927b-40c3-b682-8f432a0d9907@gmail.com>
+Date: Wed, 26 Aug 2026 01:24:39 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] arm64: dts: freescale: add MR-NAVQ95 basic board
+ support
+To: Fabio Estevam <festevam@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, elena.popa@nxp.com,
+ cosmin.stoica@nxp.com, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+References: <20260825120812.2152-1-laurentiumihalcea111@gmail.com>
+ <20260825120812.2152-3-laurentiumihalcea111@gmail.com>
+ <CAOMZO5B7Cn_qRq=_9ALXHx9svU8WQZbaaL_jXJorhux1L-JoPA@mail.gmail.com>
+Content-Language: en-US
+From: Laurentiu Mihalcea <laurentiumihalcea111@gmail.com>
+In-Reply-To: <CAOMZO5B7Cn_qRq=_9ALXHx9svU8WQZbaaL_jXJorhux1L-JoPA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Stefano Radaelli <stefano.r@variscite.com>
 
-Add device tree support for the Variscite MX7CustomBoard carrier board
-with the VAR-SOM-MX7 system on module.
 
-This includes supported board configurations for both VAR-SOM-MX7
-hardware revisions, with eMMC and NAND variants, and WM8731 variants
-for the first hardware revision.
+On 8/25/2026 2:52 PM, Fabio Estevam wrote:
+> Hi Laurentiu,
+> 
+> On Tue, Aug 25, 2026 at 9:11 AM Laurentiu Mihalcea
+> <laurentiumihalcea111@gmail.com> wrote:
+>>
+>> From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
+>>
+>> Add basic support for NXP's MR-NAVQ95 board. This board is designed for
+>> robotics applications (e.g. drones, rovers, humanoids, etc..) and has the
+>> following hardware feats (list is not exhaustive):
+>>
+>> * based on i.MX95 19x19 SoC
+>> * 64GB eMMC
+>> * up to 16GB of LPDDR5 memory
+>> * 1 x USB 2.0 TypeC
+>> * 1 x USB 3.0 TypeC
+>> * 1 x RJ45 port with RTL8211 PHY
+>>
+>> The support targets revision B of the board.
+> 
+> Please add the bootph- properties as well.
+> 
+> Elena plans to support this board in U-Boot where they are needed.
+> 
+> For reference, here is a commit that adds the bootph- properties to
+> the frdm board:
+> https://git.kernel.org/pub/scm/linux/kernel/git/frank.li/linux.git/commit/?h=imx/dt64-intend&id=50c0d934698f7602d579ba21262fcca3643c5464
 
-Also add the resulting DTBs to the i.MX7D device tree Makefile.
 
-Link: https://www.variscite.com/carrier-boards/var-mx7customboard/
-Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
----
-v4->v5:
- - 
-
-v3->v4:
- - 
-
-v2->v3:
- - 
-
-v1->v2:
- - Fixed commit message
- - Fixed model names
-
- arch/arm/boot/dts/nxp/imx/Makefile            |  6 +++++
- .../imx/imx7d-var-som-emmc-mx7customboard.dts | 22 ++++++++++++++++++
- ...x7d-var-som-emmc-wm8731-mx7customboard.dts | 23 +++++++++++++++++++
- .../imx/imx7d-var-som-nand-mx7customboard.dts | 22 ++++++++++++++++++
- ...x7d-var-som-nand-wm8731-mx7customboard.dts | 23 +++++++++++++++++++
- .../imx7d-var-som-v2-emmc-mx7customboard.dts  | 23 +++++++++++++++++++
- .../imx7d-var-som-v2-nand-mx7customboard.dts  | 23 +++++++++++++++++++
- 7 files changed, 142 insertions(+)
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc-mx7customboard.dts
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc-wm8731-mx7customboard.dts
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-nand-mx7customboard.dts
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-nand-wm8731-mx7customboard.dts
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-v2-emmc-mx7customboard.dts
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-v2-nand-mx7customboard.dts
-
-diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
-index 1a2539fa19b4..37da667f9ffb 100644
---- a/arch/arm/boot/dts/nxp/imx/Makefile
-+++ b/arch/arm/boot/dts/nxp/imx/Makefile
-@@ -444,6 +444,12 @@ dtb-$(CONFIG_SOC_IMX7D) += \
- 	imx7d-sdb-reva.dtb \
- 	imx7d-sdb-sht11.dtb \
- 	imx7d-smegw01.dtb \
-+	imx7d-var-som-emmc-mx7customboard.dtb \
-+	imx7d-var-som-emmc-wm8731-mx7customboard.dtb \
-+	imx7d-var-som-nand-mx7customboard.dtb \
-+	imx7d-var-som-nand-wm8731-mx7customboard.dtb \
-+	imx7d-var-som-v2-emmc-mx7customboard.dtb \
-+	imx7d-var-som-v2-nand-mx7customboard.dtb \
- 	imx7d-zii-rmu2.dtb \
- 	imx7d-zii-rpu2.dtb \
- 	imx7s-colibri-aster.dtb \
-diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc-mx7customboard.dts b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc-mx7customboard.dts
-new file mode 100644
-index 000000000000..855b621b0ee8
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc-mx7customboard.dts
-@@ -0,0 +1,22 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * VAR-MX7CustomBoard for VAR-SOM-MX7 with eMMC
-+ *
-+ * Link: https://variscite.com/carrier-boards/var-mx7customboard/
-+ *
-+ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com/
-+ *
-+ */
-+
-+/dts-v1/;
-+
-+#include "imx7d-var-som.dtsi"
-+#include "imx7d-var-som-emmc.dtsi"
-+#include "imx7d-var-som-mx7customboard.dtsi"
-+
-+/ {
-+	model = "Variscite VAR-SOM-MX7 with eMMC & WM8904 on VAR-MX7CustomBoard";
-+	compatible = "variscite,var-som-imx7d-emmc-mx7customboard",
-+		     "variscite,var-som-imx7d",
-+		     "fsl,imx7d";
-+};
-diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc-wm8731-mx7customboard.dts b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc-wm8731-mx7customboard.dts
-new file mode 100644
-index 000000000000..94c4b1fa5d6c
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc-wm8731-mx7customboard.dts
-@@ -0,0 +1,23 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * VAR-MX7CustomBoard for VAR-SOM-MX7 with eMMC and WM8731
-+ *
-+ * Link: https://variscite.com/carrier-boards/var-mx7customboard/
-+ *
-+ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com/
-+ *
-+ */
-+
-+/dts-v1/;
-+
-+#include "imx7d-var-som.dtsi"
-+#include "imx7d-var-som-emmc.dtsi"
-+#include "imx7d-var-som-wm8731.dtsi"
-+#include "imx7d-var-som-mx7customboard.dtsi"
-+
-+/ {
-+	model = "Variscite VAR-SOM-MX7 with eMMC & WM8731 on VAR-MX7CustomBoard";
-+	compatible = "variscite,var-som-imx7d-emmc-wm8731-mx7customboard",
-+		     "variscite,var-som-imx7d",
-+		     "fsl,imx7d";
-+};
-diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-var-som-nand-mx7customboard.dts b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-nand-mx7customboard.dts
-new file mode 100644
-index 000000000000..0da9653ecffc
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-nand-mx7customboard.dts
-@@ -0,0 +1,22 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * VAR-MX7CustomBoard for VAR-SOM-MX7 with NAND
-+ *
-+ * Link: https://variscite.com/carrier-boards/var-mx7customboard/
-+ *
-+ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com/
-+ *
-+ */
-+
-+/dts-v1/;
-+
-+#include "imx7d-var-som.dtsi"
-+#include "imx7d-var-som-nand.dtsi"
-+#include "imx7d-var-som-mx7customboard.dtsi"
-+
-+/ {
-+	model = "Variscite VAR-SOM-MX7 with NAND flash & WM8904 on VAR-MX7CustomBoard";
-+	compatible = "variscite,var-som-imx7d-nand-mx7customboard",
-+		     "variscite,var-som-imx7d",
-+		     "fsl,imx7d";
-+};
-diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-var-som-nand-wm8731-mx7customboard.dts b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-nand-wm8731-mx7customboard.dts
-new file mode 100644
-index 000000000000..603b2dbf4c8e
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-nand-wm8731-mx7customboard.dts
-@@ -0,0 +1,23 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * VAR-MX7CustomBoard for VAR-SOM-MX7 with NAND and WM8731
-+ *
-+ * Link: https://variscite.com/carrier-boards/var-mx7customboard/
-+ *
-+ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com/
-+ *
-+ */
-+
-+/dts-v1/;
-+
-+#include "imx7d-var-som.dtsi"
-+#include "imx7d-var-som-nand.dtsi"
-+#include "imx7d-var-som-wm8731.dtsi"
-+#include "imx7d-var-som-mx7customboard.dtsi"
-+
-+/ {
-+	model = "Variscite VAR-SOM-MX7 with NAND flash & WM8731 on VAR-MX7CustomBoard";
-+	compatible = "variscite,var-som-imx7d-nand-wm8731-mx7customboard",
-+		     "variscite,var-som-imx7d",
-+		     "fsl,imx7d";
-+};
-diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-var-som-v2-emmc-mx7customboard.dts b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-v2-emmc-mx7customboard.dts
-new file mode 100644
-index 000000000000..12971bfefdcc
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-v2-emmc-mx7customboard.dts
-@@ -0,0 +1,23 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * VAR-MX7CustomBoard for VAR-SOM-MX7 V2 with eMMC
-+ *
-+ * Link: https://variscite.com/carrier-boards/var-mx7customboard/
-+ *
-+ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com/
-+ *
-+ */
-+
-+/dts-v1/;
-+
-+#include "imx7d-var-som.dtsi"
-+#include "imx7d-var-som-v2.dtsi"
-+#include "imx7d-var-som-emmc.dtsi"
-+#include "imx7d-var-som-mx7customboard.dtsi"
-+
-+/ {
-+	model = "Variscite VAR-SOM-MX7-5G_V2 with eMMC & WM8904 on VAR-MX7CustomBoard";
-+	compatible = "variscite,var-som-imx7d-v2-emmc-mx7customboard",
-+		     "variscite,var-som-imx7d-v2",
-+		     "fsl,imx7d";
-+};
-diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-var-som-v2-nand-mx7customboard.dts b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-v2-nand-mx7customboard.dts
-new file mode 100644
-index 000000000000..1c465e89f198
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-v2-nand-mx7customboard.dts
-@@ -0,0 +1,23 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * VAR-MX7CustomBoard for VAR-SOM-MX7 V2 with NAND
-+ *
-+ * Link: https://variscite.com/carrier-boards/var-mx7customboard/
-+ *
-+ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com/
-+ *
-+ */
-+
-+/dts-v1/;
-+
-+#include "imx7d-var-som.dtsi"
-+#include "imx7d-var-som-v2.dtsi"
-+#include "imx7d-var-som-nand.dtsi"
-+#include "imx7d-var-som-mx7customboard.dtsi"
-+
-+/ {
-+	model = "Variscite VAR-SOM-MX7-5G_V2 with NAND flash & WM8904 on VAR-MX7CustomBoard";
-+	compatible = "variscite,var-som-imx7d-v2-nand-mx7customboard",
-+		     "variscite,var-som-imx7d-v2",
-+		     "fsl,imx7d";
-+};
--- 
-2.47.3
+thanks for the idea and the reference Fabio! let me try this locally and will update in V2 if all's good.
 
