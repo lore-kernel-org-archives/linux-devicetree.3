@@ -1,33 +1,33 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C2FC280A56;
-	Wed, 26 Aug 2026 10:14:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 791053B840F;
+	Wed, 26 Aug 2026 10:15:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787739259; cv=none; b=cCPHFZJCpQQGSSffq4mKjqTlJ0u6fxcywUBuWao/B88jofJpmFCuhS8qGfs4B+fNP0Wx3Qz80evgCFrsTjgH3EmcVWVN2hQtZFrejlgyiSrlY2sS6YnFL7flIh+BVfNcmGtxZ0ptv77PmVWmRCydxuH+TL8EQaw0QvF/SmyUjDA=
+	t=1787739313; cv=none; b=SvNPdsj1gMyNl4ThMpLfNZ6mJbKKC4vZcbtzXUCOCqxk5k2nNZmrhpDk4XrJOznzap9GK1VxDSiQzuCUa2J1KIKEcLE/oxXtq1T54/0cxiJ194v7f+Wgrv4wZmG4mdTXg3BKMqn6+dtWko3KZEgMyxhNDewWqNdOLscpLlFt3Zg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787739259; c=relaxed/simple;
-	bh=Yf2+wYlDhYV+dRcNbkEkupgTMW1++oVLVIc8iKPco10=;
+	s=arc-20240116; t=1787739313; c=relaxed/simple;
+	bh=vM5HfCdIN0W+FC2oAjmuQ7NPe4fDOvQMnI7qeQBPfDQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kx3m9UpDYk62JNjUnS5by6Pqkf9ALPChd2abF22906RxHg2TECn5jwZbH2FcjWOIhN4wXEoHRAX/xoiFeiz08BVKiyWH86fF5gRfC3Rda33SM/jy/HLWj6ChS1lgufirmp3aML0AFOivQTIaM+wxZ8yXr/zz6n/IsBZTthew36Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NML33Nox; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=hziNNS9cHp/BfmqBYeJvgY3EH2lq1e91GCDfwmly18HeUttlPUeuqSLK3NPqCvQ+B5XBi1V/y+dRQTXYoL/pbpod2YZpGwOD27Gu+bJCp1HiLp1wqwouPoF+irDIVWzBtnapIJmyuiLM/vkSC0ewydZRjYm/8fmldnd4akBHerk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=YGtPOTFw; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NML33Nox"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA53E1F000E9;
-	Wed, 26 Aug 2026 10:14:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787739257;
-	bh=0FdTBoUxI+BWMXiLA1L4sWVP6s5St11nHlTDeu43bbQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=NML33Nox2QzM67ywZhdxswneb0ixKpKWN5Xlgahb5fr/YFMAXZE4R34ODVOw3D0aL
-	 hPoMmBPCalsHEmjg3IxhtRHlot55fRvMYVeSRS8DnBrpj1z7YbRfVDJR0XW16QGUbD
-	 iDFjdyv3C6bJi3xdWPAjZ0nhBi+1Ob30jYLfeNGvgUCXiV1BmIW9UGJAiTr0xyKzmn
-	 X8Gd62O6mMpYRFBv2V3BSoBSEnm59NFeTtnxOAo3U1l4Ffxga1HTsUR0Jh3eL31LxN
-	 3qQWKrmg2Q7sHA/EsMPmarAwzUKe8InMVkLlgbY3YF79PpaCpWPb9/ovaqRtY/APbQ
-	 gi1UcXjU7A8Uw==
-Message-ID: <94a31b58-a342-4a12-81f7-fabc570b6f51@kernel.org>
-Date: Wed, 26 Aug 2026 12:14:11 +0200
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="YGtPOTFw"
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C77FD19C;
+	Wed, 26 Aug 2026 12:13:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1787739221;
+	bh=vM5HfCdIN0W+FC2oAjmuQ7NPe4fDOvQMnI7qeQBPfDQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=YGtPOTFwZw41YbmWfHk17StA48t6cYc51KF8Dv++tFv1R6cB/Sai79pf3bxqTGY70
+	 5itE0iTZ/ymVMUezH57ZumhpxEMX14xYXQxd8LVjtwE2VWXWurfKESQ0S4JUh5Koe5
+	 xYp/0hfhf1x7YXyRrT88G2JFpXkq+l1wIOiA/WeU=
+Message-ID: <d0537d7f-6e74-4cca-93ae-398530c5cd51@ideasonboard.com>
+Date: Wed, 26 Aug 2026 13:15:03 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,90 +35,72 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] arm64: dts: axiado: Add initial support for AX3005
- SoC and eval board
-To: Swark Yang <syang@axiado.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Prasad Bolisetty <pbolisetty@axiado.com>,
- Tzu-Hao Wei <twei@axiado.com>, Karthikeyan Mitran <kmitran@axiado.com>,
- Harshit Shah <hshah@axiado.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Marc Zyngier <maz@kernel.org>
-References: <20260826-ax3005-dts-v4-v4-0-a7702a3ace0e@axiado.com>
- <20260826-ax3005-dts-v4-v4-2-a7702a3ace0e@axiado.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v15 00/22] media: i2c: add Maxim GMSL2/3 serializer and
+ deserializer drivers
+To: dumitru.ceclan@analog.com
+Cc: mitrutzceclan@gmail.com, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-gpio@vger.kernel.org,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+ Martin Hecht <Martin.Hecht@avnet.eu>, Andrian Suciu
+ <Adrian.Suciu@analog.com>, Cosmin Tanislav <demonsingur@gmail.com>,
+ Vivekananda Dayananda <vivekana@amd.com>, Cory Keitz <ckeitz@amazon.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Julien Massot <julien.massot@collabora.com>, Rob Herring <robh@kernel.org>,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+References: <20260807-gmsl2-3_serdes-v15-0-7212e9e5156a@analog.com>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260826-ax3005-dts-v4-v4-2-a7702a3ace0e@axiado.com>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <20260807-gmsl2-3_serdes-v15-0-7212e9e5156a@analog.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 26/08/2026 12:10, Swark Yang wrote:
-> Add initial device tree support for the AX3005 SoC and its evaluation
-> board. The AX3005 is a multi-core SoC featuring 4 Cortex-A53 cores, and
-> this adds the CPUs, timer, GPIO, UART, I2C, I3C, SPI and USB
-> controllers.
-> 
-> Note that all secondary CPUs share a single cpu-release-addr for SMP
-> bring-up per the AX3005 platform specification.
-> 
-> The AX3005 groups its low-speed controllers into four Slow Peripheral
-> (SP) blocks (SP0-SP3), each exposing its own I2C/I3C, SPI and UART
-> instances. The controllers are numbered by their per-SP hardware
-> instance ID, so the i2cN/spiN/uartN labels and their aliases are
-> intentionally non-contiguous and do not increase monotonically with
-> the register address.
-> 
-> Signed-off-by: Swark Yang <syang@axiado.com>
-> ---
->  arch/arm64/boot/dts/axiado/Makefile       |   1 +
->  arch/arm64/boot/dts/axiado/ax3005-evk.dts | 327 ++++++++++++
->  arch/arm64/boot/dts/axiado/ax3005.dtsi    | 844 ++++++++++++++++++++++++++++++
->  3 files changed, 1172 insertions(+)
+Hi,
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+On 07/08/2026 16:02, Dumitru Ceclan via B4 Relay wrote:
+> This series adds new drivers for multiple Maxim GMSL2 and GMSL3 devices,
+> replacing the few GMSL2 drivers already in upstream, and introducing a
+> common framework that can be used to implement such GMSL chips, which
+> avoids code duplication while also adding support for previously
+> unsupported features.
+If you send a series, it needs your Signed-off-by.
 
-Best regards,
-Krzysztof
+This series also depends on the internal pad, which is not upstream and 
+is not just a straightforward add-a-define case. Sakari's "[PATCH v12 
+00/86] Generic line based metadata support, internal pads" has it, and 
+additional patches around it. For the time being, I think the internal 
+pad unfortunately blocks merging this.
+
+However, (correct me if I'm wrong) the internal pad is only required for 
+TPG. An option would be to remove the TPG support (or at least the parts 
+that make it visible, i.e. you could keep the internal functionality), 
+thus removing the blocker. The TPG could be added later on top.
+
+I tested the series on Xilinx Kria KV260 and on TI AM62A SK, both with
+max96716 deserializer and two max96717 serializers with imx219. On 
+Xilinx I used RAW8, with and without embedded data. On AM62A I used RAW8 
+and RAW10.
+
+The deserializer TPG gives me no frames at all. I recall the clocking 
+for the TPG was quite a challenge on at least some max96 serializers, so 
+maybe it's related to that.
+
+The serializer TPG worked, although I think there's something funny with 
+it: the initial frames (maybe just the first one) seem to be truncated a 
+bit, there's black at the bottom. Another, a bit more unclear, is that 
+sometimes ser tpg stops working. If I'm not mistaken, what I did was run 
+cam0-tpg + cam1-tpg. Then I tried des tpg. Then cam0-tpg, but it gives 
+me nothing. Streaming with cam0+cam1 video "resets" things and it all 
+works again. I've seen this a few times, but there seems to be some 
+randomness so I haven't been able to pinpoint it, but feels like there's 
+some extra state that's left behind into the HW.
+
+All in all, the normal case (non-tpg) works ok for me:
+
+Tested-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+
+  Tomi
+
