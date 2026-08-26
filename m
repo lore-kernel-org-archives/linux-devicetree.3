@@ -1,87 +1,87 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23DE8381EA2
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 07:06:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2259381E84
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 07:06:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787727994; cv=none; b=gGeKY3qwU+3pi4FVgENOlQvgveZoUWXML0+FHCehYQ0ZI1cefoOaXuHQUKtvuTUs1q4Q7IT2vpAmPRwGG//pUnwCWEjwCeLSrvSxPz9x1rOOywkNXUVTQrYAv7NEE1AqbLTJLbi8omwb+xNB55Y0fEk+NhYAF7vcyvSXXUUW9Qc=
+	t=1787727995; cv=none; b=biFoVDL/5dLNR8X4q9R5IB1PTvGFfkxjf5+49dC7O1xmSM5/mUoIA3pE3wG53SwRSeHpAJiwYm8wJgdjsc/VFKxpoJMElM2mofWMJk4Is+bYX7cIJlRFNZynua+fwU8XUamTuCzCWqaIG8OEVKXttPUIBkQ8IHfldIb4cQy25cA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787727994; c=relaxed/simple;
-	bh=+2ROCb6kqVvx17mUmZm+JMrsgCHyyS4gQ9bjeReqjas=;
+	s=arc-20240116; t=1787727995; c=relaxed/simple;
+	bh=FPeedyVcOBXCW3XWVDVXuimg6qXUY3mVgEYbtrKbxZ4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kL8nednYdykqO8UgtW7grwRK6UUcB1cs/Cr6mowly9fvcHcX8O82/PMfNMlEX5dVAbHXyXNBUX611G0yCvtk7M7tyTpnPBILITK35E/3tGXUAKjZNY1wROloQQxoFBRw+dvIkWrN28KPKoNnR+WeQYBKHbXbKIzbPnjjBH1j8VQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=koVJnDjS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZaDgn/fB; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=WOICLBJoujyLtjT+/R6G4yIChgHjTIfqdwPZG/YgcQcmg2wdnC24FDkrRWyxVj0sowfsRrnFUiIht25JGCgH9GVeZKLTIrkminWhuuFImoJ0qJBPFsRsVMgmR9ROsmn90d5u2heVIzzJrCvZsT5Lhs7MVvVb0a/oPbZscVQnXLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HTHRxJs5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=g/U1lzyy; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="koVJnDjS";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZaDgn/fB"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67Q6Rp8A3124074
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 07:06:32 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HTHRxJs5";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="g/U1lzyy"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67Q6Ruxs122883
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 07:06:33 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	NdZFtBZ8aaJXcDnF46oSRjvRUH8o02DrQqlCp10tq1s=; b=koVJnDjSjyPa7+I6
-	sc7VJ5YBIvvKQJRMMqCxlzRuFc8aHbNufP7an0ITUUE+GYFiS9SmcK3ZgL3bvllP
-	R+aUUimadKisehtSAVPGrT2r1ghM0xrCclD6xp5KhSxDyGwPuktawRfZgxMl1OAF
-	bOCZA3mrdHXxDtxtIPov+cvPly2tDjE+xJeLQk7aATZ3MS1Fx2w4/cR6VZSnlt2y
-	JGtBGyYF6hyZ4BNRnb375IpuGqPA6AFs1n19OLDF0KGgjx7542Qmt2J3frqYjfY5
-	d69uFwQEaHrRdXswtvbrAGyKmzZ3PgwPD6BF3E7DwKdKYm2uCT2yMGBnyMFTJy1a
-	4p0E4g==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9f9utjj6-1
+	NlYonceip/HjNNcd5x5taiH0FWaLkMJzjDZRZYp13jo=; b=HTHRxJs5YGnS0NQJ
+	tuiYZcfNRMeZNqRI4pk5SYrFCY/7vtszu7iMYt1OI2nw50t914Fz9YnJrbXQaTBI
+	tK1Z40YGsG7Oia6Hc0KWZW16WUWDH0tbfRZ9bzTODPsqYLmy4/ZBMEjfGzJtTmwx
+	8/zk0C+lzul+Rs+z3Qa8BjsTI9r2MRcmnEeaxDijWwYHwmp/3eE/0EX/NP+Aufzr
+	k3tU9xgGoKNJE86FAJW/P1fS/VIDv7EgfpNBBYDBLurFVtx8QhFwtWPzNMBWFEvK
+	Jy4jGAa2pGTnJhf55wuTTXVlQIJFGRrldj/k7VE9MnW+TeJmL6NMnu4ClrvWaCqr
+	VOKh6g==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9g4mtcm2-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 07:06:31 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-52d7b3b6aa2so3530771cf.1
-        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 00:06:31 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 07:06:32 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51bf321d786so4846151cf.1
+        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 00:06:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787727991; x=1788332791; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1787727992; x=1788332792; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NdZFtBZ8aaJXcDnF46oSRjvRUH8o02DrQqlCp10tq1s=;
-        b=ZaDgn/fBYNImzHa1FP0nw2/KNv1w8bHW5vU/e9gzpE2Et619bV/tCgEfaR296iDb2r
-         ectieLJvkm41SpFk5MSXQSNmuvhmdjMEOE1jt4B/wa6DmPi0HbPnKsoitk45b01WTyM8
-         sypyNLg//i0Rp95XRdEi1MWjvw1ChCZM64c2JX1CwoyXh9nv9Ro5YhX886b6t8bURjDL
-         +znWinkTlsshtiVH7+uwHQxVqm7qgZVVt2/APMXuaz/m7kyhjKE7elV4mooh5e1Itrl4
-         WxBmHkMR9RjcdgysrH0CbgMm3med0bN8vKKoqvOm0b81m52nJueoXu7E5mDZr8pT1n9V
-         NdmA==
+        bh=NlYonceip/HjNNcd5x5taiH0FWaLkMJzjDZRZYp13jo=;
+        b=g/U1lzyyMPrWCqiay3XBb5FzVwDu5dQ5ionHyIuQ704qyfkwCGcRoQvL73hmyb/8TS
+         Qz0sqFaBHxIJcH+Q5uG47D2TOKSO2oLvdoxnKNCKwIL+irg6yNxakL6oZGUdLjpQFGka
+         Bx1tePwwApQJv6BmnR0asIBB6C//fIbsv331vhfRYcfJt9XMGcPkzI/wj7WBsP6M3LNr
+         muk1e5rwWJWF10lBmSSXxh2KM303gQwRMgYfQLb/XS/wBQgpT4QpvIMR2H2JpIJ72XiQ
+         OCu6qTCXHOsycG1kbWA9axSeY1qguRciDJaUx7qTZPL1+YVjJFjO/zp30fcNBS26Rcvh
+         96gA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787727991; x=1788332791;
+        d=1e100.net; s=20251104; t=1787727992; x=1788332792;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NdZFtBZ8aaJXcDnF46oSRjvRUH8o02DrQqlCp10tq1s=;
-        b=eIpTkvN26CinEYGlPiyV/7Jl6BgeMxlk4mubXh6g4e8gLBaxrkSkhf03XJNXl7Y8CK
-         hogOnCf+wpJYWk7qTg9Mx/OuYj8VcIqSEY7hF2RernwFZa7jh9vC3IA0iyp1amuNLEYQ
-         4fhAYYPsDO5wxa88r1xpx5uaH9RBjL0HbP2asLGtBhSgJJ99LLqydg5Fm/W8o1xN3TG1
-         2NLbFcrEIdMX8KoaSpeqHHN0q7oS0MjU6W/B6Ox5EkFUWbIcGyTFMzkOVvaRi/t9qzPL
-         2rQp4+oZ1kLEHaFSPvD0eYeafiQZ4gejvsa41jQXQkgDG3fNE5fbqBdRAPdEcJ6cLZ01
-         fTeA==
-X-Gm-Message-State: AFuF++kwktdKTdQxCOGbRUihxPnI0v4dhrK/XBeotywxJ1kc75ryG4j/
-	t4zhspoAXknobfj0xA/yf8dDw63j8HYD75pb16y6lve+IdTBb4Ql2UD1QrU6F48m2ps1PNhVUtM
-	0DfYWCyTUReD4B4X4uSsL8l1eONJml8/Y0E5MYvvq7O8MputgKOlWfzYn4lVarswq
-X-Gm-Gg: AR+sD11gQ6VwZgcEWvqYgvi2GaEU6Ln/DS1c80gmY4CSr60C6bAKN/DdEMDSx6Co5LU
-	gjvS2dsEYzQ68k4NTb6HGtvoHAgzwUTMr6FUVG4lqhltW5CrKJC1lVraWxNGmv+zVWT43UVxOOi
-	VKPiCOYwzOryvQVXSRvZNHlcGdOqzmIO76YltK37K6z/ufXiDkw8SaMiCArfJ/kfhZYidST6Ooa
-	TZS1dPAUQAsCsrhrn8r4y9Dc9AQNDLPvwJrydOE391l4qw3K99M+j4j4RFTYBVrLlclFh3UEMY9
-	QdymnMV2h7vuTRPi2AlsUsGiotdjyoGP5uB7pphf0IfHC+yhOupm5gK3PuyLZMOzqwN6upkiCC8
-	+489qAQCPpQsQoumxDE4h6so=
-X-Received: by 2002:ac8:58c9:0:b0:517:78c7:d93a with SMTP id d75a77b69052e-52e4227150amr41640151cf.16.1787727989637;
-        Wed, 26 Aug 2026 00:06:29 -0700 (PDT)
-X-Received: by 2002:ac8:58c9:0:b0:517:78c7:d93a with SMTP id d75a77b69052e-52e4227150amr41639921cf.16.1787727989229;
-        Wed, 26 Aug 2026 00:06:29 -0700 (PDT)
+        bh=NlYonceip/HjNNcd5x5taiH0FWaLkMJzjDZRZYp13jo=;
+        b=WSfDa1rK6MQV67zqvOoebvvnKFJqHDwwErjiQEXC4n1q9rM8WWHD67it9X/YVmVz34
+         hWe6lHjxIwbkW9a1BxuzxCSTjwRfUpjKO1ICc0xh0caQeE/mWSJul5c2nxver8a9gm00
+         pKhlMGW8bvPK28r/L3QD6MScLciNCToXn91e4PuNQHhaW1fWQ8+PG0euTWPG0D847PHf
+         DSgYQ69GQVnzNlXAJE84UqWm6Dm6aPbzyo0mLAYo/37vsXXAiEcMGzpWh+ihG8dsIBeM
+         o+KJb5ahKY5CsDooomSCMZ0UgAxmHXruaBPhoBQ/DW8B1APEwX282ossgJf6ZhwTQkO2
+         Km5Q==
+X-Gm-Message-State: AFuF++n3GuR7AqTJgW3eWGblv62VWDnG8GhJpG6qU4u0u9cBQW8GPbL5
+	8OigV1xfenKoa2V3Dhs8MjDKtc0ClokQPzXDaeHZVCDSvCfksdtlKkSSyb9bBIUOrOvjUCQQutb
+	M1lTYf78FHvlxf2oppl06NostWdsm6KvbVhXPWwa4oPSfMIbG5IFBbba6Exa3DfNd
+X-Gm-Gg: AR+sD10Xszp4APNFDZPcQpQim+JUsmdhG2F/erWuzIf1mXD9KtZKYmb++LZS0Dt6Tut
+	ZFjrS1qQjm8LjBEuCEyeg24YrqsV4m9mlW9qx7bTMKJuBE7oWam0+yzaIuyKP4ce4qYo6RLX8gO
+	Pr+uCJwjz4orWG5ORpfnaIByPmqB8rYv1iDBJgJ81lawkz4ulxVbhYXAPIUJcgdArNv0NXkXHxs
+	1xHzj6CW8cmpFI1hhFDRefRa5+gu2GJ9U6PFaHJ8e6QchAMZTASiMYYdwxZ5hzNhdnh50UxzVyH
+	EGusO/mxdFpqiUwhCT4yV2NXaYUn7UlT8Hu6wCpI3Rm3Xc6Z433gi/K4Jt/U6J30zwaoqomGhSa
+	xMtufEWcO1sj/zuL11HDcqd4=
+X-Received: by 2002:a05:622a:c2:b0:51c:555:7dea with SMTP id d75a77b69052e-52e4236caeamr43894441cf.30.1787727992118;
+        Wed, 26 Aug 2026 00:06:32 -0700 (PDT)
+X-Received: by 2002:a05:622a:c2:b0:51c:555:7dea with SMTP id d75a77b69052e-52e4236caeamr43894011cf.30.1787727991553;
+        Wed, 26 Aug 2026 00:06:31 -0700 (PDT)
 Received: from [127.0.1.1] ([178.197.219.214])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a88ab82sm366812966b.31.2026.08.26.00.06.27
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a88ab82sm366812966b.31.2026.08.26.00.06.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 00:06:28 -0700 (PDT)
+        Wed, 26 Aug 2026 00:06:30 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Date: Wed, 26 Aug 2026 09:06:01 +0200
-Subject: [PATCH v4 08/10] dtc: dt-check-style: Add test for trailing
- white-space in DTS
+Date: Wed, 26 Aug 2026 09:06:02 +0200
+Subject: [PATCH v4 09/10] dtc: dt-check-style: Add warning for redundant
+ white-spaces
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,7 +90,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260826-n-dts-style-checker-continued-v4-8-022e60091965@oss.qualcomm.com>
+Message-Id: <20260826-n-dts-style-checker-continued-v4-9-022e60091965@oss.qualcomm.com>
 References: <20260826-n-dts-style-checker-continued-v4-0-022e60091965@oss.qualcomm.com>
 In-Reply-To: <20260826-n-dts-style-checker-continued-v4-0-022e60091965@oss.qualcomm.com>
 To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
@@ -99,82 +99,341 @@ To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1226;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=12566;
  i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
- bh=+2ROCb6kqVvx17mUmZm+JMrsgCHyyS4gQ9bjeReqjas=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqjpBf6LgcSSdsFTH++TETWG/ezqsBymbXpQhym
- l6whHY3I4qJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCao6QXwAKCRDBN2bmhouD
- 17jwEACF5a5ZJeTNJiyIQdYb+/KVseeaF3QOGmj8xlJNWyfH0B6RsEvZfpNiOhJ3OxJWOPK4eBs
- kVoarZEWSH+EBMRVnXGix91HoQU63/8Kis7fD6QXJxHYVzkw4prny7h5kOkMnw/x4QBFb7HOLfL
- KLQWfVlvYzAcVxICvIigVlvjmPVrrHSY2jS+Zqd02E6rO9uuxj2/m3WXoDq6cB2REC40oqahb/D
- bRcrcjFiwfzN9q3W8tJAPIv9I5bfJzK84DB1MEwhif/SdwQ7cr4GDYaPpx4xxy2nV3KF8iJ7k+i
- 7L14hjxW1V+sVR2wy0+ZAzOv/H4ecBRM1ENip1HQHgIAWZqedOg+Iw4q9uteTGq20slS9X+LthY
- ynNYKBNu7wzuTqBleu8za3NXm9kBCf4dI9nabT/xuiEyIN+psmkSsOj9P7J5o/sFzEhe11Fzhx8
- IwV1wT9uuvb9Nzwl+usdG6EibWJJkfJi2K0qWf9ltfuioC1DieUo4QLum3/vXTbPXi16GjOlR+7
- 6qxyUWXr5IaVaASmdKsMkH43ZgtYDrH9gAPsyN37t5bVtWOKQ+MuHQXzqeaHtizxemFk3hhLmTg
- g+eHuFteIWWDCATE172HoVbop2iQfN4rQYYV24hU+OnkKzJOgYHuwd/mcizOtSs5S89i2N8BKib
- 6ar6k/5RX2pxVvg==
+ bh=FPeedyVcOBXCW3XWVDVXuimg6qXUY3mVgEYbtrKbxZ4=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqjpBgNzbOdpkZS0yce/l1txODGulEAiSrIhcTP
+ v5cxditbvWJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCao6QYAAKCRDBN2bmhouD
+ 17WmD/4tF7683zPWDlEViBUe77te8CwH3tEwUiVou/npGVophJYrP0MGsWc5D6Fk9tv2SGqyPNk
+ CWtnBv0ETO5QnbHp0wVi+VU/a8Zu6tJ12b9TvU7WGPVwtWSAgzAM/dHCpnkgy+jJaa8YlBIftOh
+ c4t4Rl8+b2ykaMLYVldxeiMHClZ3s4nMrHGG3OssjaT3Jd8XcsvSREsczFWRNp4EQIX/U14oWGC
+ 9Mi3FCFTpNIB3ucwj3zGEitSwE9yKmVvFqND9ylHDL7Xf7NaCdJDEm/3JoD247ZL4YMX8X4fMGN
+ X4pSYpmWZn+9Is9yAJ2V3Hs5LfkG+E/ZZf4oHS3erqBvQn2LwI6yvpIpIDlMZcyzpqFvsQ1AryZ
+ mqyAHp7r/h6DwHTrb6zYS7DilhD49/dWUSlXq7arIUYYWuAT8axlBK/80nxkOxbNzs6QpGuRrCq
+ sPTA4lfCCWqB56DswjIOPiVM6G4n1zInHyD8O62cKss10LcUQ7jqHyLIf3ows92xtM917zE5Rb5
+ UsFEI1GYd93nHOHKdxprYEV7bFi1V843ZlVP2VStNcjF1kuP65UyQy4e4IZ4Q1Ris5E547tyoTL
+ npVPr8Edf3o33g0ie3SINjCDuwJ5miRoLibl3suqoCwaEDMVpNHDj1JRPawmqfHFVCw759gm/Ic
+ h3CdxRe8f35Yl7Q==
 X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-X-Proofpoint-GUID: PglieefED44PwZCkMzYZuECBzpHG1Jha
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDA1OCBTYWx0ZWRfX4fXCVa6thJBq
- O6xtLUUaWaqKVI87yI7u39ncejH4MdlWxp1Ox1WSNZ/JDf1vuFX8zV5grOTkJdMKiMLrnuXb8ta
- xbNtwmeJKl0HEzHUzKUM0wOc/jp65inE4SMixBScvdIHGumVL6iPw11k7TUuhJqv59wmzKWQDUp
- rxZOs0TpZpEk9SzaVHYP0uoGwZOquMPD3q1CBTrSsZOPeQungrG5w+hNXpqjIJ2jMmcjB/XHUAX
- rwKUsIXBLfDCX3b8bwM0/wE3fO0RM+xlhbCb0c0+38znvrDO84WEJorBbY+REesXNadymQP8Zmw
- LkXvatI94s+9Tf44zTHnjTOpcIlL3IR4bopjaM460M8ueG3z4SVDxEJfsOmLX4VgK/lE3EoZe4P
- N6jCrQuaoZdXATrAvMFl0uSAs1gUJ+exLDr7R0cBr2VxicstPWlQCZF/vs7RZykSRlavNdQI6TU
- gE9eGXBVrUHUhhzw87Q==
-X-Authority-Analysis: v=2.4 cv=acNRWxot c=1 sm=1 tr=0 ts=6a8e9077 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDA1OCBTYWx0ZWRfX5Yw6zTXCHWWj
+ KuMUgpwh/UAdwbyQCj6Hql+zpw6q3VEv/51l7PqC5AqP54FiBpNXdwGauIesdNbHIC3Vho38BgX
+ KL7+Jd7r3QSCLCAaVvpsZ9Oi7cEy58Y=
+X-Proofpoint-ORIG-GUID: wh6FmFl4NtWu-uQhDTebr-Qw900_4RXC
+X-Authority-Analysis: v=2.4 cv=eYgNubEH c=1 sm=1 tr=0 ts=6a8e9078 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
  a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=ZteHwOODggqzs_94cHsA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDA1OCBTYWx0ZWRfXxV2LMEwcsMfN
- czCTuTFufrds/CX5FlQL50v12uMOZeEBlLFhodd2Sm1XzhiTJKF+B+dg5sKeNNXTmA6yFzS0Rvu
- ztzRHGNmnexKadICbVBydU4EHIPXvN0=
-X-Proofpoint-ORIG-GUID: PglieefED44PwZCkMzYZuECBzpHG1Jha
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=5jFD4gabhsihpJkUSYkA:9
+ a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDA1OCBTYWx0ZWRfX1eoW9/oUiyHF
+ CWks37HaMwMMsDgBe82ENzhQNCRFw8MwvTgA/r55hm3tVMuOLoalsnLKXPSusGSDR9n99pUDSN2
+ A4+0j5zGS1gQBxrvXeWB947eI9Zb1VFejZ35LDwCsfaCpmL10lGe6ThFYbwSDgNNyAMFEPNxENw
+ Kct5PfTJkGB5pHGHzG/A+iTIZYTvMMhQhr4y9Fvba+gp22ffHsc6SWkwEq/Hvk02JepGPAzLHqT
+ Uk9hywiqjgHokO/IyZGG7QL/EIiQW0/GrnFVW3Fnmsd7h9N4sZp6E/qLhDGIISYDQdXm2uoemIX
+ MQrlVzxPWnRvQHYoqY5Ysdz62mBr3QkxNCJqkVsS8vezeQIRUGbtd3jvltUXt4rRmij+7IP65pl
+ DN15yj9Hh5e5OobewXVSKaYF5EAiJvCNQe1tX3NjIL/NVWOTE7nJs8p7CpfLxK/X1Mojj0Ayu0a
+ ozwynNPZJvdbPeKCYsQ==
+X-Proofpoint-GUID: wh6FmFl4NtWu-uQhDTebr-Qw900_4RXC
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-26_02,2026-08-24_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 clxscore=1015 phishscore=0 impostorscore=0
- malwarescore=0 priorityscore=1501 spamscore=0 adultscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260058
+ malwarescore=0 priorityscore=1501 impostorscore=0 suspectscore=0
+ clxscore=1015 lowpriorityscore=0 bulkscore=0 phishscore=0 spamscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608260058
 
-Add unit tests for expected warnings for trailing white-spaces in DTS
-(there is only one for YAML files).
+Show warnings of too many spaces around '=', before '{' and ';'
+characters, or using tabs for these.  Both in-tree DTS and DT bindings
+have many warnings for the first case (too mant spaces around '='), thus
+keep this one only for 'strict' mode.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- scripts/dtc/dt-style-selftest/bad/dts-trailing-ws.dts          | 8 ++++++++
- scripts/dtc/dt-style-selftest/expected/dts-trailing-ws.dts.txt | 2 ++
- 2 files changed, 10 insertions(+)
+ scripts/dtc/dt-check-style                         | 38 ++++++++++++++++++++++
+ .../bad/dts-redundant-ws-strict.dts                | 27 +++++++++++++++
+ .../dtc/dt-style-selftest/bad/dts-redundant-ws.dts | 27 +++++++++++++++
+ .../bad/yaml-redundant-ws-strict.yaml              | 31 ++++++++++++++++++
+ .../dt-style-selftest/bad/yaml-redundant-ws.yaml   | 34 +++++++++++++++++++
+ .../expected/dts-property-order.dts.txt            |  1 +
+ .../expected/dts-redundant-ws-strict.dts.txt       | 13 ++++++++
+ .../expected/dts-redundant-ws.dts.txt              |  9 +++++
+ .../expected/yaml-redundant-ws-strict.yaml.txt     |  5 +++
+ .../expected/yaml-redundant-ws.yaml.txt            |  3 ++
+ 10 files changed, 188 insertions(+)
 
-diff --git a/scripts/dtc/dt-style-selftest/bad/dts-trailing-ws.dts b/scripts/dtc/dt-style-selftest/bad/dts-trailing-ws.dts
+diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
+index dd3828b14638..e67ba1e5164a 100755
+--- a/scripts/dtc/dt-check-style
++++ b/scripts/dtc/dt-check-style
+@@ -349,6 +349,36 @@ def check_trailing_whitespace(ctx):
+             yield (dl.lineno, 'trailing whitespace')
+ 
+ 
++def check_redundant_whitespace(ctx):
++    """No whitespace between brackets or other code elements.
++    See also check_value_whitespace() for more checks."""
++    for dl in ctx.lines:
++        if dl.linetype in (LineType.COMMENT, LineType.COMMENT_BODY,
++                           LineType.COMMENT_END, LineType.COMMENT_START,
++                           LineType.PREPROCESSOR):
++            continue
++        if re.search(r'(\s\s+|\t){', dl.code):
++            yield (dl.lineno, 'extra whitespace before {')
++        if re.search(r':(\s\s+|\t)', dl.code):
++            yield (dl.lineno, 'extra whitespace after :')
++        if re.search(r'\s+;', dl.code):
++            yield (dl.lineno, 'extra whitespace before ;')
++
++
++def check_redundant_whitespace_strict(ctx):
++    """No whitespace between brackets or other code elements.
++    See also check_value_whitespace() for more checks."""
++    for dl in ctx.lines:
++        if dl.linetype in (LineType.COMMENT, LineType.COMMENT_BODY,
++                           LineType.COMMENT_END, LineType.COMMENT_START,
++                           LineType.PREPROCESSOR):
++            continue
++        if re.search(r'(\s\s+|\t)=', dl.code):
++            yield (dl.lineno, 'extra whitespace before =')
++        if re.search(r'=(\s\s+|\t)', dl.code):
++            yield (dl.lineno, 'extra whitespace after =')
++
++
+ def check_tab_in_yaml_example(ctx):
+     """Reject literal tabs in DTS lines when input is YAML.
+ 
+@@ -1002,6 +1032,10 @@ RULES = [
+     Rule('trailing-whitespace', 'relaxed',
+          'no trailing whitespace on any line',
+          check_trailing_whitespace),
++    # See also check_redundant_whitespace_strict() and check_value_whitespace()
++    Rule('redundant-whitespace', 'relaxed',
++         'no redundant whitespace within code',
++         check_redundant_whitespace),
+     Rule('tab-in-yaml', 'relaxed',
+          'YAML (also DTS examples) may not contain tab characters',
+          check_tab_in_yaml_example, applies_to=('yaml',)),
+@@ -1052,6 +1086,10 @@ RULES = [
+     Rule('unit-address-format', 'strict',
+          'unit addresses must be lowercase hex without leading zeros',
+          check_unit_address_format),
++    # See also check_redundant_whitespace() and check_value_whitespace()
++    Rule('redundant-whitespace-strict', 'strict',
++         'no redundant whitespace within code',
++         check_redundant_whitespace_strict),
+     Rule('value-whitespace', 'strict',
+          'no whitespace directly inside <...> brackets',
+          check_value_whitespace),
+diff --git a/scripts/dtc/dt-style-selftest/bad/dts-redundant-ws-strict.dts b/scripts/dtc/dt-style-selftest/bad/dts-redundant-ws-strict.dts
 new file mode 100644
-index 000000000000..1eb24d91c640
+index 000000000000..201e3940ba1c
 --- /dev/null
-+++ b/scripts/dtc/dt-style-selftest/bad/dts-trailing-ws.dts
-@@ -0,0 +1,8 @@
++++ b/scripts/dtc/dt-style-selftest/bad/dts-redundant-ws-strict.dts
+@@ -0,0 +1,27 @@
 +// SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
 +/dts-v1/;
 +
-+/ {
-+	compatible = "example,test-board";  
++#define SOME_MACRO(foo)					\
++	(foo) ? <1> : <2> ;
++
++/  {
++	compatible = "example,test-board";
 +	#address-cells = <1>;
 +	#size-cells = <1>;
++
++	/* comments  { are okay  =  though ; */
++	soc:  soc@0  { /* comments  { are okay  =  though ; */
++		compatible = "simple-bus";  /* comments  { are okay  =  though ; */
++		ranges = <0 0 0 0xc0000000>;
++
++		#address-cells	= <1>;
++		#size-cells =	<1>;
++	} ;
++}; /* comments  { are okay  =  though ; */
++
++&soc	{
++	serial:	serial@20000  { /* comments  { are okay  =  though ; */
++		compatible  = "example,serial";
++		reg =  <0x20000 0x1000>;
++	}	;
 +};
-diff --git a/scripts/dtc/dt-style-selftest/expected/dts-trailing-ws.dts.txt b/scripts/dtc/dt-style-selftest/expected/dts-trailing-ws.dts.txt
+diff --git a/scripts/dtc/dt-style-selftest/bad/dts-redundant-ws.dts b/scripts/dtc/dt-style-selftest/bad/dts-redundant-ws.dts
 new file mode 100644
-index 000000000000..94d9ae9d616c
+index 000000000000..de1f383571d2
 --- /dev/null
-+++ b/scripts/dtc/dt-style-selftest/expected/dts-trailing-ws.dts.txt
-@@ -0,0 +1,2 @@
++++ b/scripts/dtc/dt-style-selftest/bad/dts-redundant-ws.dts
+@@ -0,0 +1,27 @@
++// SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++/dts-v1/;
++
++#define SOME_MACRO(foo)					\
++	(foo) ? <1> : <2> ;
++
++/  {
++	compatible = "example,test-board";
++	#address-cells = <1>;
++	#size-cells = <1>;
++
++	/* comments  { are okay  =  though ; */
++	soc:  soc@0  { /* comments  { are okay  =  though ; */
++		compatible = "simple-bus";  /* comments  { are okay  =  though ; */
++		ranges = <0 0 0 0xc0000000>;
++
++		#address-cells = <1>;
++		#size-cells = <1>;
++	} ;
++}; /* comments  { are okay  =  though ; */
++
++&soc	{
++	serial:	serial@20000  { /* comments  { are okay  =  though ; */
++		compatible = "example,serial";
++		reg = <0x20000 0x1000>;
++	}	;
++};
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-redundant-ws-strict.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-redundant-ws-strict.yaml
+new file mode 100644
+index 000000000000..739c44fd7217
+--- /dev/null
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-redundant-ws-strict.yaml
+@@ -0,0 +1,31 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/yaml-redundant-ws-strict.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Test fixture with redundant whitespace
++
++maintainers:
++  - Rob Herring <robh@kernel.org>
++
++properties:
++  compatible:
++    const: example,test-redundant
++  reg:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    device@1000  {
++        compatible  = "example,test-trailing";
++        reg =  <0x1000 0x100>;
++        clocks = <&clk 0>; /* comments  { are okay  =  though ; */
++        clock-names = "bus";  /* comments  { are okay  =  though ; */
++    } ;
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-redundant-ws.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-redundant-ws.yaml
+new file mode 100644
+index 000000000000..92ddfddaf5c0
+--- /dev/null
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-redundant-ws.yaml
+@@ -0,0 +1,34 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/yaml-redundant-ws.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Test fixture with redundant whitespace
++
++maintainers:
++  - Rob Herring <robh@kernel.org>
++
++properties:
++  compatible:
++    const: example,test-redundant
++  reg:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    device@1000  { /* comments  { are okay  =  though ; */
++        compatible = "example,test-trailing";
++        reg = <0x1000 0x100>;
++    } ;
++
++    device@2000 { /* comments  { are okay  =  though ; */
++        compatible = "example,test-trailing";
++        reg = <0x2000 0x100>;
++    }; /* comments  { are okay  =  though ; */
+diff --git a/scripts/dtc/dt-style-selftest/expected/dts-property-order.dts.txt b/scripts/dtc/dt-style-selftest/expected/dts-property-order.dts.txt
+index 65977f96331d..29283f3451c7 100644
+--- a/scripts/dtc/dt-style-selftest/expected/dts-property-order.dts.txt
++++ b/scripts/dtc/dt-style-selftest/expected/dts-property-order.dts.txt
+@@ -1,4 +1,5 @@
+ # mode=strict
++bad/dts-property-order.dts:8: [redundant-whitespace] extra whitespace before {
+ bad/dts-property-order.dts:10: [property-order] property 'model' out of canonical order (should sort before 'compatible')
+ bad/dts-property-order.dts:12: [property-order] property 'chassis-type' out of canonical order (should sort before 'qcom,board-id')
+ bad/dts-property-order.dts:20: [property-order] property 'compatible' out of canonical order (should sort before 'reg')
+diff --git a/scripts/dtc/dt-style-selftest/expected/dts-redundant-ws-strict.dts.txt b/scripts/dtc/dt-style-selftest/expected/dts-redundant-ws-strict.dts.txt
+new file mode 100644
+index 000000000000..ac0d57bdecdf
+--- /dev/null
++++ b/scripts/dtc/dt-style-selftest/expected/dts-redundant-ws-strict.dts.txt
+@@ -0,0 +1,13 @@
++# mode=strict
++bad/dts-redundant-ws-strict.dts:7: [redundant-whitespace] extra whitespace before {
++bad/dts-redundant-ws-strict.dts:13: [redundant-whitespace] extra whitespace before {
++bad/dts-redundant-ws-strict.dts:13: [redundant-whitespace] extra whitespace after :
++bad/dts-redundant-ws-strict.dts:17: [redundant-whitespace-strict] extra whitespace before =
++bad/dts-redundant-ws-strict.dts:18: [redundant-whitespace-strict] extra whitespace after =
++bad/dts-redundant-ws-strict.dts:19: [redundant-whitespace] extra whitespace before ;
++bad/dts-redundant-ws-strict.dts:22: [redundant-whitespace] extra whitespace before {
++bad/dts-redundant-ws-strict.dts:23: [redundant-whitespace] extra whitespace before {
++bad/dts-redundant-ws-strict.dts:23: [redundant-whitespace] extra whitespace after :
++bad/dts-redundant-ws-strict.dts:24: [redundant-whitespace-strict] extra whitespace before =
++bad/dts-redundant-ws-strict.dts:25: [redundant-whitespace-strict] extra whitespace after =
++bad/dts-redundant-ws-strict.dts:26: [redundant-whitespace] extra whitespace before ;
+diff --git a/scripts/dtc/dt-style-selftest/expected/dts-redundant-ws.dts.txt b/scripts/dtc/dt-style-selftest/expected/dts-redundant-ws.dts.txt
+new file mode 100644
+index 000000000000..c18c1972bb47
+--- /dev/null
++++ b/scripts/dtc/dt-style-selftest/expected/dts-redundant-ws.dts.txt
+@@ -0,0 +1,9 @@
 +# mode=relaxed
-+bad/dts-trailing-ws.dts:5: [trailing-whitespace] trailing whitespace
++bad/dts-redundant-ws.dts:7: [redundant-whitespace] extra whitespace before {
++bad/dts-redundant-ws.dts:13: [redundant-whitespace] extra whitespace before {
++bad/dts-redundant-ws.dts:13: [redundant-whitespace] extra whitespace after :
++bad/dts-redundant-ws.dts:19: [redundant-whitespace] extra whitespace before ;
++bad/dts-redundant-ws.dts:22: [redundant-whitespace] extra whitespace before {
++bad/dts-redundant-ws.dts:23: [redundant-whitespace] extra whitespace before {
++bad/dts-redundant-ws.dts:23: [redundant-whitespace] extra whitespace after :
++bad/dts-redundant-ws.dts:26: [redundant-whitespace] extra whitespace before ;
+diff --git a/scripts/dtc/dt-style-selftest/expected/yaml-redundant-ws-strict.yaml.txt b/scripts/dtc/dt-style-selftest/expected/yaml-redundant-ws-strict.yaml.txt
+new file mode 100644
+index 000000000000..fbf323832c91
+--- /dev/null
++++ b/scripts/dtc/dt-style-selftest/expected/yaml-redundant-ws-strict.yaml.txt
+@@ -0,0 +1,5 @@
++# mode=strict
++bad/yaml-redundant-ws-strict.yaml:26: example 0 [redundant-whitespace] extra whitespace before {
++bad/yaml-redundant-ws-strict.yaml:27: example 0 [redundant-whitespace-strict] extra whitespace before =
++bad/yaml-redundant-ws-strict.yaml:28: example 0 [redundant-whitespace-strict] extra whitespace after =
++bad/yaml-redundant-ws-strict.yaml:31: example 0 [redundant-whitespace] extra whitespace before ;
+diff --git a/scripts/dtc/dt-style-selftest/expected/yaml-redundant-ws.yaml.txt b/scripts/dtc/dt-style-selftest/expected/yaml-redundant-ws.yaml.txt
+new file mode 100644
+index 000000000000..c85e80ed272a
+--- /dev/null
++++ b/scripts/dtc/dt-style-selftest/expected/yaml-redundant-ws.yaml.txt
+@@ -0,0 +1,3 @@
++# mode=relaxed
++bad/yaml-redundant-ws.yaml:26: example 0 [redundant-whitespace] extra whitespace before {
++bad/yaml-redundant-ws.yaml:29: example 0 [redundant-whitespace] extra whitespace before ;
 
 -- 
 2.53.0
