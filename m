@@ -1,97 +1,149 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84629382381
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 06:18:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1645C364042;
+	Wed, 26 Aug 2026 06:33:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787725136; cv=none; b=uj2QD5QSi0FUeTl78sU0/GNo5of8xCmscnpFlBbYm2Df/aR3qOmxuHwbFWbiEIg1DxTZ6kbrx/iW/BqdPZXDuOdw/vCMrR5NkfoEwnuvzZWL9Ih3LQIeZktGwUMHY2cna/X65Foab2W1RxZL6yb6blcsXHNM8gdkWYwKkGBkCeM=
+	t=1787725985; cv=none; b=tmK7eVR4qzjJ4uC8hcWQm+cIdASzrjNkgpkQM+CVx6zAjkOu2wVXuBX2XaUwq4S+UvaLtD0xam5nuqpZpSiSMcK7E9oXFvRvmz2KzRgTYBYIHbjdljZwx8GA/FCkJPxK7kPjrS2Y3e877JS2Cxn/lzo6Ag5KR44poho1IObSy/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787725136; c=relaxed/simple;
-	bh=DbCTJukolfpS5vBXMuJe1+/zbUuM7hlBYEssvD68LNM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TFhTV2MaZPA0xLZDDvMQK9pUPX+s5xH+kBuAKvz7IxBYhD26Dvhd9OHqb+bFUCyQp1g5Fdu+cs9ytNKbtUeUFTI+c3h3ZTf1HYTlRJ2gg40PEBOUepwMHUmVeqL0GropDBVV1cg6QOhauN608aDIdLa7kpDzLukNw+5rFoZpJiE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=BTgZYYJx; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1787725985; c=relaxed/simple;
+	bh=0BtAWSZwhotS8PXB85lFALooA6E24pBG8DUkMZPTgWM=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=f3KwfAY6IkUAtfxHjxabSK0I0Ft1iOSyyYNOI8FfKioGXIyqXqlj09nlicC64Xho9m+5vLjJgJhWC2JGzWZyNRWRkp651kn4xqAIFYYnYzJ86PDCDQzQkGLMPJaPHlemojYJRm+W9ZZd30EcRDNrJ9g7jR+ObQd2YuGeK+d2qRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ZVQxmjZ2; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="BTgZYYJx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=XAVd
-	fQMKoUNKXhIRLBSmGx+VPPOXsC/vwNmW1w94LKs=; b=BTgZYYJxGNEjDNidHU4Z
-	HmhTNvBqE637Ds4eRWtyxo8RIYXNwghwfLcpoV6loo6Rccq1g/tkaDuhWPpIXefW
-	dkj2HjrP4Vtv7+eVoKAo03iU8DV6QgzGlPXDpGD3NSqhaoWlN8eUiD/12HuzBq94
-	uyCSnw6aeLtAWTXLRCfXJUCM9qFRqAM5k0+zSAuTIiggRfp4qZSnBArImgIW8UfX
-	Tc9vlHPrpu0GBxl3bV9Sl7ae7KhZ9fH3ih7o0JH4dYIL2cokGjvTgoyLdbqIP7nI
-	jZ7snk/loH8kxwnebZWSrcb/zcf3mBSGl+caF4plroh/TZw6AgI7Rl3lSJYdMvQi
-	lw==
-Received: (qmail 750881 invoked from network); 26 Aug 2026 08:18:47 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 26 Aug 2026 08:18:47 +0200
-X-UD-Smtp-Session: l3s3148p1@G/wlMe1ZrJkujnsh
-Date: Wed, 26 Aug 2026 08:18:45 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH] dt-bindings: i2c: renesas,rcar-i2c: allow 6 DMA channels
-Message-ID: <ao6FRUMWN2eq-nTv@shikoro>
-References: <20260825203251.2118-2-wsa+renesas@sang-engineering.com>
- <20260825204204.0E52B1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ZVQxmjZ2"
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c30:56b2:8fe2:337f:8c01:dede])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1491819C;
+	Wed, 26 Aug 2026 08:31:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1787725894;
+	bh=0BtAWSZwhotS8PXB85lFALooA6E24pBG8DUkMZPTgWM=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=ZVQxmjZ2iPBL++fc0JysDiLc0I/Kft4au3FyxIMNhD3X7sCdlbzUTQsx+5mNdyYz4
+	 /UdjjdMDYVOw6MbdJu0o6z2RhwhBA/QPuvXUX0dnRCxfTYvt0d0Ra4BhY/J+tabq9C
+	 XqPMDAD69pUnp1mxFft23s0d/l8h/+MkZ4G1tWW4=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="prp2l7oMeMD20m2F"
-Content-Disposition: inline
-In-Reply-To: <20260825204204.0E52B1F000E9@smtp.kernel.org>
-
-
---prp2l7oMeMD20m2F
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260819125647.68910-3-himanshu.bhavani@siliconsignals.io>
+References: <20260819125647.68910-1-himanshu.bhavani@siliconsignals.io> <20260819125647.68910-3-himanshu.bhavani@siliconsignals.io>
+Subject: Re: [PATCH v4 2/2] media: i2c: add imx576 image sensor driver
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: tarang.raval@siliconsignals.io, Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>, Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Hans de Goede <johannes.goede@oss.qualcomm.com>, Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kate Hsuan <hpa@redhat.com>, Walter Werner Schneider <contact@schnwalter.eu>, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Svyatoslav Ryhel <clamor95@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+To: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>, sakari.ailus@linux.intel.com
+Date: Wed, 26 Aug 2026 12:02:55 +0530
+Message-ID: <178772597500.9142.2498807519600395462@freya>
+User-Agent: alot/0.13.dev35+g4a69c46ca
 
-> > diff --git a/Documentation/devicetree/bindings/i2c/renesas,rcar-i2c.yam=
-l b/Documentation/devicetree/bindings/i2c/renesas,rcar-i2c.yaml
-> > index c4ace5585e1e2..bfe55e20f1251 100644
-> > --- a/Documentation/devicetree/bindings/i2c/renesas,rcar-i2c.yaml
-> > +++ b/Documentation/devicetree/bindings/i2c/renesas,rcar-i2c.yaml
-> > @@ -77,14 +77,14 @@ properties:
-> > =20
-> >    dmas:
-> >      minItems: 2
-> > -    maxItems: 4
-> > +    maxItems: 6
+Hi Himanshu,
+
+Thanks for the patch, and converting to CCS registers and helpers.
+
+I only have a few minor comments.
+
+Quoting Himanshu Bhavani (2026-08-19 18:26:40)
+> Add a v4l2 subdevice driver for the Sony imx576 sensor.
 >=20
-> [Severity: Medium]
-> Doesn't globally increasing maxItems to 6 allow invalid device trees for =
-older
-> hardware generations (Gen3/Gen4) to silently pass schema validation?
+> The Sony IMX576 image sensor with an active
+> array size of 5760 x 4312
+>=20
+> The following features are supported:
+> - Manual exposure an gain control support
+> - vblank/hblank control support
+> - Supported resolution: 5760 x 4312 30fps (SRGGB10)
+>=20
+> Signed-off-by: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>
+> ---
+>  MAINTAINERS                |    1 +
+>  drivers/media/i2c/Kconfig  |   10 +
+>  drivers/media/i2c/Makefile |    1 +
+>  drivers/media/i2c/imx576.c | 1103 ++++++++++++++++++++++++++++++++++++
+>  4 files changed, 1115 insertions(+)
+>  create mode 100644 drivers/media/i2c/imx576.c
+>=20
+> diff --git a/drivers/media/i2c/imx576.c b/drivers/media/i2c/imx576.c
+> new file mode 100644
+> index 000000000000..8115d0c16cc3
+> --- /dev/null
+> +++ b/drivers/media/i2c/imx576.c
 
-Will fix!
+[...]
+
+> +
+> +#define IMX576_LINE_LENGTH             6144
+> +#define IMX576_VBLANK_DEF              4387
+> +
+> +/* FIXME: Exact VBLANK limit unknown (no datasheet). */
+> +#define IMX576_VBLANK_MAX              32420
+
+You could try reading the CCS.MAX_FRAME_LENGTH_LINES register (0x1142), in
+IMX708 that had a value of 0xffff, which did work during my testing.
+
+[...]
+
+> +       { CCI_REG8(0x0401), 0x00 },
+
+This might be writing to the CCS.SCALING_MODE (0x400) register's lower
+byte, so you could use the macro here (unless the higher byte is programmed
+to something else?)
 
 
---prp2l7oMeMD20m2F
-Content-Type: application/pgp-signature; name="signature.asc"
+[...]
 
------BEGIN PGP SIGNATURE-----
+> +static int imx576_set_ctrl(struct v4l2_ctrl *ctrl)
+> +{
+> +       struct imx576 *imx576 =3D container_of_const(ctrl->handler,
+> +                                                  struct imx576, handler=
+);
+> +       struct v4l2_subdev_state *state;
+> +       struct v4l2_mbus_framefmt *fmt;
+> +       int ret =3D 0;
+> +
+> +       state =3D v4l2_subdev_get_locked_active_state(&imx576->sd);
+> +       fmt =3D v4l2_subdev_state_get_format(state, 0);
+> +
+> +       if (ctrl->id =3D=3D V4L2_CID_VBLANK) {
+> +               /* Honour the VBLANK limits when setting exposure */
+> +               ret =3D __v4l2_ctrl_modify_range(imx576->exposure,
+> +                                              IMX576_EXPOSURE_MIN,
+> +                                              fmt->height + ctrl->val -
+> +                                              IMX576_EXPOSURE_OFFSET,
+> +                                              IMX576_EXPOSURE_STEP,
+> +                                              IMX576_EXPOSURE_DEFAULT);
+> +               if (ret)
+> +                       return ret;
+> +       }
+> +
+> +       if (pm_runtime_get_if_active(imx576->dev) =3D=3D 0)
+> +               return 0;
+> +
+> +       cci_write(imx576->regmap, CCS_R_GROUPED_PARAMETER_HOLD, 1, &ret);
+> +
+> +       switch (ctrl->id) {
+> +       case V4L2_CID_VBLANK: {
+> +               u64 vmax =3D fmt->height + ctrl->val;
+> +
+> +               cci_write(imx576->regmap, CCS_R_FRAME_LENGTH_LINES, vmax,=
+ &ret);
+> +               break;
+> +       }
+> +       case V4L2_CID_EXPOSURE:
+> +               cci_write(imx576->regmap, CCS_R_COARSE_INTEGRATION_TIME, =
+ctrl->val, &ret);
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqOhUUACgkQFA3kzBSg
-Kbbb+g//QI6v7WawK7SerzuJxosgC7mCbCTbj2w2BzdCHTIlpix9XBp9BRT2TipX
-YdaDbUUZlaTaQKKFdX5SUkljI/90JD9FCYTdXxeRsVDvlLjZxKMQ4ie8VuR41t9m
-52tWCwq/zWVOeeIc7SzyRD517+klJ6yQ2q1DcCKm2cZ683RYfoKKfQC/cKRchbvt
-4JPRrTCSnx5ngwETawoGYjyBXDEwbn48Xe59rjqVyqix1WiMsEkbCTrrOVVN508o
-PDhbKRxyJui5sQwO07vieOvF2A5gcVPWojjNhNQSynjlJtTEPfP4Ew5ePa/FFokg
-nAXkWMtUXrA7iEJP+tzlzkmLPsjWY5XoN5+CVgcOg2991IKZjlj4SjKK6BWieBUN
-BPQYdgtgfBKgr/mDF7pLAtxpa7Uj1qM9q3uSvokVvqALv0ui31TbcCKs+h1PPLXL
-dgM2Z/qq2KARe9JK9PmKCVU3GCrj+4ubjMEud4j3lkD5GNQeBVmuGQF6QMlE1NEs
-pfa5CCyEvQME3WD/W7BkgJUpfhzPBMQM7HoIVRLQi5J6I6HTcnpxHtx2ZKtFhO+P
-jAJelHtc4WpADEBVC+8IzTYZhG1/964EjRDDYSlCOyt+tu5lAQLBgKwRIK1xJjta
-6EEpL/cTg5qVsh4wx24gxlH+xA0wa3FKiC3DpIAss5X+Uc2AiX0=
-=C/wK
------END PGP SIGNATURE-----
+Does exposure register need an update in cases where VBLANK was modified in
+a way that old value goes out of bounds?
 
---prp2l7oMeMD20m2F--
+[...]
+
+Thanks,
+    Jai
