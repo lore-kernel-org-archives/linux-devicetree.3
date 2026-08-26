@@ -1,67 +1,87 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013057.outbound.protection.outlook.com [40.107.162.57])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C201241F5D1;
-	Wed, 26 Aug 2026 13:20:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.57
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787750407; cv=fail; b=rNiEIYJx6AQv/xr591MRO4/f8nTWG0XthqkGB14/Bfg7EpqiyX/0GBvl/267f+diyjKQukoZG5bI6RRVhyLNfM4Oq5GxXgt724mIU7eM0kXt0+zPgiTxixCnfYvWEPi9uc34Nwl5VluPLWCnxdp9DuiMKI912+VZqie8dqnJbw8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787750407; c=relaxed/simple;
-	bh=nZ93/cAZi0ZmppB20RdCi6878JyolmJjlIRvAgsLFeM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=BX3Dc3YdfBcr0Me03RUJBzryOASh+4bQNmLByBsEhU0LlxeIKEelJT/zTfDYQhYO5jT4sIXr+WE3/hDHpJVeuznm5V0iN7nBZwpsoFSn7SpNkixGBq1iwgMgkm538GdqQEVMWXGu2KCkuD1tWQ+nsr0or/kgDr4kj3foYID32rc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=OA8eJBUD; arc=fail smtp.client-ip=40.107.162.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 333573EB0E6
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 13:20:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787750411; cv=none; b=USC083zRoQki4A0RS43HebwEs8ZcIfFHqMiDwP/cGCU9fIm28CwCXtgNdlmg6LSCfcCUvVZWEHx93peAU6VthMXiQPJUI79xH8wlK9kizmgREe1ts3bdDmh6jjld5SCLZDLs0LhBtbaIJTGwCBC9/nsFQ8gazIcimY/otEx2Xhc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787750411; c=relaxed/simple;
+	bh=Is6pvF121XtSUY07IGzQAq0wL92JRGVCiWRMROTaG/o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=co/uoU07gdv7oBEJ+SqOXYSbiqnbaPjDFc2c8s3BE6RTFh0+op87GyokGkzHetH//CjN/1c+XcW2UfX2rIVl7pkwBB2hx4aMBRyXooQdcs2n8lVGuSC8+XI014RmFiSjPQTlqaX7dVwQuL9vws5HtBlAKQ7rQJCDXC13AkDX/ZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aMs+jxax; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=grDTQDMG; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="OA8eJBUD"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HkNczmtNHsJiW2aKujap+yN/LQcLVp2jx+TIF80bFOPY+/O+DdPPHUTJzODjjdIjXYgCRoHFvSRl3B7JYMIympf/VIb4Zyf1ckk6srZR7qzKvxgCAdIV+UpM3iWfdSK1e5dJ69m1ffX0V9REhNJLmnmff36BjA7XtW5LG7eSoSYLFK88DuvtGQNpELX7QCh+d7qxy7Z8pXdtzMySQno+t6Iyf+SSKHv2u1ZFPT+s1oY5yoa1WBAbRtNqiHTaHswGIWmS8TLvEphoHnBqla1GVidXm8Ke/aAqtNcEtCyRKnshSpmctdsRWHUDwnEoiJeY+d6yOIZRmdpMbagoyTRb9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jCwwyJLd0mfu177p6suH3hriyU2wFFGIcIman/dEOP8=;
- b=V0vxeSLTlWs8VQ6PLL+x5mppGomLgXCRSqj5vezM5cHewy2kJTp6xcFiiwB3/1Z1ABPdyfB3IcEbouaVjOXeBAQq/KpcgWRkeAs9pAevsVvKkgSmWpVO+MT/pvWo6m2infbAojtDnHvRTHKZdEVsvzX9TA2YwQf1SsJBa1/Zf8wMtHVEEYfStsdQtn1G+FffU3rOeDzR5k99h6AdI9sEaZAiycA6Hp2HsuuUN//iFloGS9epdMQUjr7AFx0LBUYNCy/LqoZ3iwOBbCmgYCXMNUtthdwXMMlVLR0XKB+3r8RXrtFzV5cQJnP4Qn4VB6oECRhmr+ZFfidIkbqUVudhSQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=nabladev.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jCwwyJLd0mfu177p6suH3hriyU2wFFGIcIman/dEOP8=;
- b=OA8eJBUDdO5c58ytTWYnvtExNYZd/XcKHwFGGNZmkzJYK9rtGANKTMmQ+0ZIk1t/vf8YuwCjvtnBwtBZMaUWYjJduqEyW4AG96hC2LXVlvUrS5ahinlh+Vcs+ZpwgDI6YJN4803NKUS/R5wadVVBDG/AW3WRFnGVlf+UHxP3FRAHNPaLAWzrf64cllZlrzowfd3WcOye0ipbkdgrz2NRvLHKZWK3gdAA+p1XSzc0IH2+8GLIH1LNgBquHjR+0oT0g2NIXnAuD+/FcO9QJZtS4OH50AF82efB0q+r8pp3LHWVaUjnr5zkExRd3k3maegqKh5/iVsyTZraOJE9WRfkQw==
-Received: from AS8PR07CA0013.eurprd07.prod.outlook.com (2603:10a6:20b:451::21)
- by DU4PR10MB8466.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:55b::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Wed, 26 Aug
- 2026 13:19:57 +0000
-Received: from AM3PEPF00009B9C.eurprd04.prod.outlook.com
- (2603:10a6:20b:451:cafe::60) by AS8PR07CA0013.outlook.office365.com
- (2603:10a6:20b:451::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.7 via Frontend Transport; Wed, 26
- Aug 2026 13:19:57 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- AM3PEPF00009B9C.mail.protection.outlook.com (10.167.16.21) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Wed, 26 Aug 2026 13:19:57 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 26 Aug
- 2026 15:25:51 +0200
-Received: from [10.252.23.181] (10.252.23.181) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 26 Aug
- 2026 15:19:55 +0200
-Message-ID: <1cf02ebd-fa70-4d44-9deb-f39e4dd6c04f@foss.st.com>
-Date: Wed, 26 Aug 2026 15:19:54 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aMs+jxax";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="grDTQDMG"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QCC3pq768394
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 13:20:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ELhK3Fdw98kZw2wfGL+DHumauqq7uUpJz9jAzGKztAE=; b=aMs+jxaxOaA28pFt
+	LCipY1WVLPXxjplFYjxAFfm7P1lxB3TpXMgZo8csCEO9aHmo1xer9vpGl1V0nr9o
+	ugtrkRPE//+mic8wgmvHgwK1+b+m4vyhHmCI5DUuYuPDOSrC4icmcwXmf93OF6bN
+	rFwHKSqm4gPuuJ+OcQ+Rlb86yjlPhYhULAgNEPUOjT7uLNmoZmCTWoE7GC37vlK4
+	21jLiKj57YCy5S0pbmfPPxLYIXHsoeQL+ssEBWbxvPMTA3hC7IwKaNl5DUK6tD9O
+	inL95T5xej9Db8zz2Tij43UPd17kmWZO8jRLd+16xmBOfg4heCxv1PmvZVWsyy6R
+	A7dprQ==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9x2n0ppm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 13:20:06 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5c3cd150bc9so28715e0c.3
+        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 06:20:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787750406; x=1788355206; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ELhK3Fdw98kZw2wfGL+DHumauqq7uUpJz9jAzGKztAE=;
+        b=grDTQDMGA19KZoHjqR3pQwK1lhKQxg2B445J4MQj/b8z+/wAu9BCY8EYByv7dmgbfR
+         vXXy8fwjLgrJHVWKXUE80PEDP+iggk9DwQ0eKZdVJ/NfEUHKNJHrWZJnXGSl5sIkDuvo
+         jeBJtQQEKLLF3EG43gl/PuFYT+C4q9hI9A/lYtt6VUhOsr5pwKZ7wHXZbEkFHOXG3xTh
+         4m8YZPbZiuaGs4dXuN3lBfJvQ+yCYEDpOMQo/pLfOMazJIuSycg18Ejfmi/5EyaQ5dgM
+         yQTgU2xdns+xL16NJdaBGEOTpQ8FLBjuAJXyoZKVwtMmHBIk9J3FAKx1T9Os4aziQlq9
+         eJBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787750406; x=1788355206;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ELhK3Fdw98kZw2wfGL+DHumauqq7uUpJz9jAzGKztAE=;
+        b=cw7yE61/9nloojTuNHrwy+xE1v7Xzm/k87YLbVhZIgqg6zYfOMGVwQ//5r6ah2tsGd
+         MUeGAYENd6yJZLj3paYKEccipfpFOyxH0s7hkL1Ky3K/A4oSgtRWhv5M0fI467zm3g6M
+         WlTrHrrMAiZQQMw6cbqV1mVCAToVzB1McMbwXPOcZDVPXvO70g28lJEm3vDqn21Ux1f3
+         tGAAGhoxIhTGyFHj6qzxYpn7Pb1pJI5c4b09yYLS2V2Z8FVS9tZhWQGhJsxQxmG6Khzj
+         VPHs0ovGChxS4JLp6tqbcwyLdAT51lXTicSA8bbFsmRAwjn05xuZC2tTz3DO9mFo8BXm
+         +nGQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rr2zTMDc5aJsaNWQH15nk3DKf9rVR5V+S8gBAeniITd0w/LcFjiJLcCB/VXolOkFgFODZIGm4p77ZJo@vger.kernel.org
+X-Gm-Message-State: AFuF++nnl+vB5ZXXihM7dcI/mO9ZtJD99/UEE5giNt6R35L8VzEPAgbV
+	MySDI8O5281TqqaEOOONgZRRThGzVvCgqqDFm640p/MsZYJreE+rqujYdZq1CJUjOeldLSgFynm
+	D6OJ/zkyq5dGVjoT4f/K3kvJoonoO3FfIYKV3YMhI/o7Q1iivGj650RUUfh4Z0XpW
+X-Gm-Gg: AR+sD10ngTEmxZDf89D6cwPpnE+pRhtZapnEaMXpXkuUslZ+Z+4xXeP0MoyAsBB5mvm
+	YHpa/jEzwLln/NWzPwv7vfe+MxBCY+TFMaQfpETZYk6mqKNIdylWEKT5iffuMX7UVcc8PLtAvsv
+	3dDRpd1VFDDaam8IW7Uz87IdK4d05p//f5LrFvTtEFb/EsMUXa/Cdf4OZPGrwTRAl36X88xHtVA
+	NEaHAwO83q4SkTOsNkXu6ACdNVIXrD4DhhnTdOX5G+qVbrsA5HEwcQ27MAvCiuBXQBlQUhCd97j
+	fNSFVQfTzL0WxX6655/JLbr0heujawXQ6XWrNeRuIixRZmEULD+R1aaoxAfB6WvG+WWkV9DKr0M
+	QsgYt5ElHDziWGd+OZebY0GWG
+X-Received: by 2002:a05:6102:1490:b0:783:a923:efac with SMTP id ada2fe7eead31-783f9034d7fmr55353137.0.1787750405607;
+        Wed, 26 Aug 2026 06:20:05 -0700 (PDT)
+X-Received: by 2002:a05:6102:1490:b0:783:a923:efac with SMTP id ada2fe7eead31-783f9034d7fmr55324137.0.1787750404893;
+        Wed, 26 Aug 2026 06:20:04 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c251b7a9936sm337362766b.49.2026.08.26.06.20.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 26 Aug 2026 06:20:03 -0700 (PDT)
+Message-ID: <f36b9019-91c8-43bb-bfcc-5da06d2d122e@oss.qualcomm.com>
+Date: Wed, 26 Aug 2026 15:19:59 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,137 +89,112 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/16] arm64: dts: st: Add ucpd node on stm32mp251
-To: Marek Vasut <marex@nabladev.com>
-CC: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Christian Bruel
-	<christian.bruel@foss.st.com>, <linux-usb@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-stm32@st-md-mailman.stormreply.com>, Conor Dooley
-	<conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, Neil Armstrong
-	<neil.armstrong@linaro.org>, Vinod Koul <vkoul@kernel.org>, Liam Girdwood
-	<lgirdwood@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	<linux-phy@lists.infradead.org>, Thomas Bourgoin
-	<thomas.bourgoin@foss.st.com>, Mark Brown <broonie@kernel.org>, Philipp Zabel
-	<p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>, Alexandre Torgue
-	<alexandre.torgue@foss.st.com>, Srinivas Kandagatla <srini@kernel.org>,
-	Pankaj Dev <pankaj.dev@st.com>
-References: <20260821-ucpd-host-fusb340-v7-2-rfc-v1-0-c5e27cbc0795@foss.st.com>
- <20260821-ucpd-host-fusb340-v7-2-rfc-v1-8-c5e27cbc0795@foss.st.com>
- <745a30e5-3fc3-406c-9263-1c1c8ca9135c@nabladev.com>
+Subject: Re: [PATCH 1/3] dt-bindings: display: msm: Allow two MDSS power
+ domains
+To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov
+ <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Krishna Manikandan <quic_mkrishn@quicinc.com>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Yuanjie Yang
+ <yuanjie.yang@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260720-msm_gdsc2-v1-0-4687866d6cb0@oss.qualcomm.com>
+ <20260720-msm_gdsc2-v1-1-4687866d6cb0@oss.qualcomm.com>
+ <b36691d3-e996-4fc0-8955-25beeeecc385@oss.qualcomm.com>
+ <ccab8aae-d980-423a-b39e-3ce2a7c82542@oss.qualcomm.com>
+ <5341e732-0deb-4d00-9a7c-595e317bf1e8@oss.qualcomm.com>
+ <db2a18aa-f5fb-4ee8-8747-05fcf740749f@oss.qualcomm.com>
+ <f344a913-cc95-4fef-880b-f1fee200c108@oss.qualcomm.com>
+ <b6d6b627-a38b-427a-9e62-ee883505b2ad@oss.qualcomm.com>
+ <15826e27-514c-4aaf-b56e-b40ed0bd600b@oss.qualcomm.com>
 Content-Language: en-US
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-In-Reply-To: <745a30e5-3fc3-406c-9263-1c1c8ca9135c@nabladev.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM3PEPF00009B9C:EE_|DU4PR10MB8466:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2d29e307-b785-47e4-0af1-08df0374b995
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|7416014|376014|1800799024|82310400026|10067099003|6133799003|22082099003|18002099003|11063799006|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	iPw6JiKxBdylA6enzFv3TJycHxbTuZ7msJbVwYCwE0u3tXHDutyS9wyvL+ThLNdRqqX33nJxKun22C/wsWB91qUWJMstGuqv9w572YSyAJFeBtTF0jJs9WdG3/k6gW3uIQiMl1v5E6bw61F9aNS572AtVibjpYk+lIInIfB9yM4WVBJVpTaNi9mCDxQkZ2hrs2r6jNFDmnvYZG93lUlsw/u5oGgdRX3K6iBbDclofIqMXwC7bYqnw/KTPmuAzndHN411OJYjLd+6g/hcAo5J6O3xMbXu+/rsAR9vZI38+Wh6xzttuM3wbrFLRZz7jbIRM01oNMXov8sQTjxj6yDkoCreTuIB8iEr5XYdTwj2tfukA/jyswOvqzvT6Kjf1SssqNYZbK7YWPlMtiC0dtBsy+cAZSuIhqBflBsN92CurWns6m3eUPbmKYi9vyiGG6vDsuDJzPZQNXDBIJg2cfa1OOWUK8l2InuaGuvaiAUVVIGoTLFd2GfAf/OE1z0gKJg5XHfuf18TDn67nfJ0Bau4fqIkMQkL7XafBp81ljBoFceLNerHnakBqZYfiqlXKU4TtKiPWcOXi1qgvgkWHLclD8aEG3b0UNUOoJBwDGUyW3Cyrgkb/2TWVYC8XoaSdv0TxGLEeBh+SEORtm7SD/zhWq9mMztMYPx0T4iQn46pjzOVJlqc0ICgIKtUiIkqoNk/CU8kNjdhjiBcuOmYYPb5Ow==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(7416014)(376014)(1800799024)(82310400026)(10067099003)(6133799003)(22082099003)(18002099003)(11063799006)(56012099006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	FXqBVyuMaiC4kW+uZeCSPUxIS/aEjtC+nv7VAZxE92oWlYb4tUrLWhgDfvskJh4diAEuiZk9z++9YFxkxhlL7uX/AkCxae2EMzqPcDAmGrvI6rmZRoNkW0DLwy+vNW1P2eKPqzJx6mzIlQQvO+cZKf2nfyVvG8q7bmet2vaHIavLCopqp1xOmMNM0Q/8Y63pe4tr5M6buhZfzzxWaqFH7ThAeaDvjLi5Dzz5rmf59yvoiA7k6EYypgYpTTrWnfSKa25vRYPN7lnVAD2xVKxKnlZBpEkHKjxLN6AEhtha8cndOnDguiK7ZmvRcmE4MlwH3QgmfHJDgcAVQXdGE+qUhuAt+WNThp2g2E3iCO+/HuIDgFHiqzz+DCL5jCO8GLcD4KWFylCtmxeTgNjlnjcfQmWodkb6wmtT+93SofHTIt2WN82A4tsBj3tZYIwKITOa
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 13:19:57.3697
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d29e307-b785-47e4-0af1-08df0374b995
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM3PEPF00009B9C.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR10MB8466
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <15826e27-514c-4aaf-b56e-b40ed0bd600b@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: lMZoFHAhpSOpLehFfSMVtjshQP1_G3Fh
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDExMCBTYWx0ZWRfX3h0UgKAFTwxh
+ q8qUXNaLYX/AyDJ4yNKaiKnYiWjokhSz/mERIl3Wu1hkUJGx08ytJX5RwofaU02sAkB8YzUJgQe
+ E5hMY5Uk8/3/Tb7NMLg/42M2FCnucGE=
+X-Proofpoint-GUID: lMZoFHAhpSOpLehFfSMVtjshQP1_G3Fh
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDExMCBTYWx0ZWRfX2RP7UkJV+HRY
+ dtj1gsyjdwt8N3mBJqUhoiHHNdKapLZuusuNlGiYlTGcQV6miVw65uxuG5+e8vlombIGV/vT86o
+ XboAgT6FZEtBV9PfGYwjrbZhQTaq5BZE0mHekHc/kiPa4S+ByrwNQ+0zK4Lic/vASSNh7Kqx30u
+ XrPUh7/4IR0uifWkhwnBdpsLrGL7YNP2anaxASR0DSGbEAAow59hjvTBpNkDIOmlgvbcpxROnhg
+ cnL3A0rs5vCD6HFKVJbro37fD+TKX+wISb7kbWIB/P/iZq33cNXfmkmjWNl3Q/YLZPpyJWJSK3Y
+ Si3vPBe6TOCnoDiIw5moe1f40PsFzTQK0hBVpgSwPCGqa+1peYWKEzf5/dcZHu13Jm/bP+KaBtW
+ OmStW2VcPs0sCTZzUjgBXFEqH5hM6h6rm0ZbqYQK6K3PVL/B5M1d6O8AAuWR+C0Z5hMbOGdSYIv
+ jvAH0PXx7MPstZX1Y5g==
+X-Authority-Analysis: v=2.4 cv=PPQ/P/qC c=1 sm=1 tr=0 ts=6a8ee806 cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=TDtJeqXoE0GuUOfqXLQA:9 a=QEXdDO2ut3YA:10 a=XD7yVLdPMpWraOa8Un9W:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-26_03,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 priorityscore=1501 malwarescore=0 lowpriorityscore=0
+ clxscore=1015 suspectscore=0 impostorscore=0 spamscore=0 adultscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608260110
 
-On 8/22/26 07:00, Marek Vasut wrote:
-> On 8/21/26 6:23 PM, Fabrice Gasnier wrote:
->> Describe UCPD bindings and nvmem cells to access trim values.
->> This provides the PD and CC USB-C cable signaling functions.
+On 8/26/26 4:53 AM, Yongxing Mou wrote:
+> 
+> 
+> On 8/25/2026 4:30 PM, Konrad Dybcio wrote:
+>> On 8/25/26 8:28 AM, Yongxing Mou wrote:
+>>>
+>>>
+>>> On 8/17/2026 10:14 PM, Konrad Dybcio wrote:
+>>>> On 8/17/26 4:13 PM, Konrad Dybcio wrote:
+>>>>> On 8/13/26 9:44 AM, Yongxing Mou wrote:
+>>>>>>
+>>>>>>
+>>>>>> On 7/20/2026 4:49 PM, Konrad Dybcio wrote:
+>>>>>>> On 7/20/26 10:43 AM, Yongxing Mou wrote:
+>>>>>>>> Kaanapali (SM8750) and Glymur use two display power domains.
+>>>>>>>> CORE_GDSC powers the main display hardware while INT2_GDSC
+>>>>>>>> powers a subset of SSPP blocks.
+>>>>>>>
+>>>>>>> Can they operate independently? Does INT2_GDSC need to be
+>>>>>>> powered on after CORE_GDSC?
+>>>>>>>
+>>>>>> On Kaanapali, my understanding is that CORE_GDSC and INT2_GDSC should generally track the same state, except that INT2_GDSC may be powered down when SSPP1 (VIG2/VIG3/DMA5) is unused.
+>>>>>
+>>>>> Is the MDSS any useful if *only* INT2_GDSC is enabled? Can the INT2_GDSC
+>>>>> be enabled itself if CORE_GDSC is off?
+>>>>
+>>>> (I didn't quite know how to parse the list of states you provided in your
+>>>> reply so I asked again)
+>>>>
+>>>> Konrad
+>>> Hi, Konard. Would you recommend adding the parent clock in the clock driver, or handling 2 GDSC in the display driver? I'm preparing the next revision and would appreciate your feedback.
 >>
->> Co-developed-by: Christian Bruel <christian.bruel@foss.st.com>
->> Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
->> Co-developed-by: Thomas Bourgoin <thomas.bourgoin@foss.st.com>
->> Signed-off-by: Thomas Bourgoin <thomas.bourgoin@foss.st.com>
->> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
->> ---
->>   arch/arm64/boot/dts/st/stm32mp251.dtsi | 51 ++++++++++++++++++++++++
->> ++++++++++
->>   1 file changed, 51 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/
->> dts/st/stm32mp251.dtsi
->> index 9dc7a05fce99..be54dd56713b 100644
->> --- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-> 
-> [...]
-> 
->> @@ -1818,10 +1839,40 @@ part-number-otp@24 {
->>                   reg = <0x24 0x4>;
->>               };
->>   +            ucpd_trim_3a_cc1: trim_3a_cc1@1bd,1 {
->> +                reg = <0x1bd 0x1>;
->> +                bits = <1 4>;
->> +            };
->> +
->> +            ucpd_trim_3a_cc2: trim_3a_cc2@1bf,1 {
->> +                reg = <0x1bf 0x1>;
->> +                bits = <1 4>;
->> +            };
-> 
-> These two fuse fields ^ do not seem to match STM32MP25xx documentation ?
-> 
-> RM0457 Rev 5
-> Table 876. UCPD software trim data
-> Page 5013
-> 
->                Non-volatile memory location
-> Name                 Address       Bits
-> 3A0_CC1[3:0]       0x5400 01E8     11:8
-> 3A0_CC2[3:0]       0x5400 01E8     11:8
-> ^^^^^^^                   ^^^^     ^^^^
-> 
+>> Does disabling INT2 provide us with any power benefits and will the
+> So far, I haven't found any documentation that explicitly describes a power-saving use case achieved by disabling the INT2 GDSC. The material I found instead describes it in the context of display tiering:
+> "Goal for partial display is to tier down from premium tier to match low tier pipe configurations."
+>> display driver do the accounting for what resources need the INT2
+>> GDSC specifically?
+> Not at the moment. Our current requirement is simply to enable and disable it together with the core GDSC.
 
-Hi Marek,
+So WDYT Dmitry, should we just wire it up as a child of the core gdsc on
+the clk side and pass just one gdsc to mdss?
 
-Yes, I've raised it internally (ST) so the documentation gets clarified.
-
-Please look at "OTP mapping" section instead, Table 34.
-
-e.g. OTP111
-
-word/bits |
-
-9 to 12  | USBTC_VIREF1_3A0[3:0] | USB Type C CC1 ref current trim (±6%)
-in 3 A mode
-25 to 28 | USBTC_VIREF2_3A0[3:0] | USB Type C CC2 ref current trim (±6%)
-in 3 A mode
-
-and OTP122
-4 to 7   | USBTC_CCRPD1[3:0]     | USB Type C CC1 5.1Kohm pull down trim
-(±10%)
-8 to 11  | USBTC_VIREF1_1A5[3:0] | USB Type C CC1 ref current trim (±6%)
-in 1.5 A mode
-12 to 15 | USBTC_CCRPD2[3:0]     | USB Type C CC2 pull down trim (5.1 K
-±10%)
-16 to 19 | USBTC_VIREF2_1A5[3:0] | USB Type C CC2 ref current trim (±6%)
-in 1.5 A mode
-
-BR,
-Fabrice
-
->>               package-otp@1e8 {
->>                   reg = <0x1e8 0x1>;
->>                   bits = <0 3>;
->>               };
-> [...]
-
+Konrad
