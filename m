@@ -1,47 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5739448665E;
-	Wed, 26 Aug 2026 22:47:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 260A03AC0ED;
+	Wed, 26 Aug 2026 22:52:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787784451; cv=none; b=t7+rpWjQH3uUE9a7wv09SjJrHB6KP1qFn3fJwSYRBKFaWzCCg6Oul0wEykygZ08RTYmpNwWNor8zGe684KExPQJBzrrXqdmemJB5qfAcjvKryGifzYj5+IofUmHajfORUeBq4W2WSACYDymV+qm5AZTdQjQSU8S+qAR6XZMb0fs=
+	t=1787784734; cv=none; b=kSTZf07d0QLi1ntnXhfFFT7SuHAol48i/HzxJDO9RbTnMIIix9bXwuhXRJ2GannLQdeMLCQIarxFifvp6s1wHcVfeTOQADeUVt/wWrrZ6vcZK32bs3avAAjy/gq0KrSOgrDEV5Z1XhJQHSLs/nSSgE+vf5zv/0kYcl21heA9l/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787784451; c=relaxed/simple;
-	bh=FRwQPG9DE7JxfoQ3ufmKEg/UDWvmWPSLdquxMxfgp+k=;
+	s=arc-20240116; t=1787784734; c=relaxed/simple;
+	bh=Rh2EB7O6u3E0TiXhDWUwLODYAKGwpgxnOvJ6cg6COBA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HXY5o9o0rsRkC8eU3TM3lNq+DIMAI5g2G10iK5HEHbyz2S0H+Z4KO58abcqUu8MweCtpTbrKW3M72z71PUW17T2tmfm9szbAecO4fiFs+qTHqY/XffX/PHGnt9CMskyff/+JtVKSq5iRfgy2JiPa+c9hJfLQrr3i3CM3YeiRbbk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cicfke3W; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=I2wHbu2oJNqjgAvpL1i6CE4UJm7/hXhnHLDxqKhk9lsAT3WPMRF2IT1X6Jj7wG/kNhqstSZsjTi2B0X8838n/fiWY3wiU53a9uGFt0yO6WVEJOVlf1zYP07hSn+tokHFYAb179l4FZc8I6FD2FnEpwZvnesU8xEGm4YjQWmOThk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NzBFueOb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cicfke3W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB87D1F000E9;
-	Wed, 26 Aug 2026 22:47:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NzBFueOb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49E051F000E9;
+	Wed, 26 Aug 2026 22:52:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787784448;
-	bh=FRwQPG9DE7JxfoQ3ufmKEg/UDWvmWPSLdquxMxfgp+k=;
+	s=k20260515; t=1787784732;
+	bh=CZS7C6LT6h7Nx5WFzFNwahcSwOuDoEqIvEI+dGRsD2o=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cicfke3WmAqQJ8y+V2HyotTup8sFctk1CxQcgHVnzbNpVUsHsUsqNdFLKOxrByERK
-	 5rajg32WABXUJwNv5c+y/RPal+qbjWe+Wq9cBlIL8JGQBBooDxIWOs9DXaG9hotELY
-	 qZbYTRoaEDmxEzMeD/9pLmbSzX22hkFaGfRbi7JKNc0Ms+xmWER36xQehRE/jOjZLZ
-	 80QTAkln6bAqL8OfmthzqjkroUvbTVLKHgip4alVu2P1ESJPy1nSrvEUdj2m0+ZbkP
-	 ly+JAsd5j+FkX97E+Gi2FHOi7FGXKkjkgMZt7+oTtYXRplbGne+fkDDSs9KzbkSS64
-	 YZeaEaVj4sF3g==
-Date: Wed, 26 Aug 2026 23:47:24 +0100
-From: Conor Dooley <conor@kernel.org>
-To: =?utf-8?B?UsOzYmVydCBCb8W+aWs=?= <robertbozik@gmail.com>
-Cc: linux-media@vger.kernel.org,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
+	b=NzBFueOboRdqXkz83tXzn7vIqYttjtbSKdVcIQvFBtip1HevEfNRZxq804PMFzPkB
+	 ul9poVOdYU2hzrNoQ8WmdZQv73jJgQ9TfxxATiDo90zk88WUBXz2Ul3ruVXLode2J8
+	 7BguQRLlxdPQ4GBO2iFUv7i9GAmXExLNdgviEnbMzoHVGnmYsQfnMuMW+pSIkFv3YM
+	 XQJrkj9jTqMIH2ejN4WXHZNLZclRmbl6C/w5A3ItqHbxx7HkW2dY+seRAJCmvI9/98
+	 3bUQFAYqPwJX34U36ZH/IrLtacPfqJxpsDjnC3KRR6BUZEbf9nXfUPgM63VELJR4kF
+	 beXoqFcx4gsBw==
+Date: Wed, 26 Aug 2026 23:52:07 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: media: i2c: Add OmniVision OV32C4
-Message-ID: <20260826-prowling-jimmy-61f30fb50d03@spud>
-References: <20260826072002.14357-1-robertbozik@gmail.com>
- <20260826072002.14357-2-robertbozik@gmail.com>
- <20260826-copy-arise-bb7e9eb5e908@spud>
- <CALSBEvTvrhniBrM29Y7sery15W-onz7t_8ZQhg1TW8nBDgYKxg@mail.gmail.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Mohit Sharma <mohit.sharma@oss.qualcomm.com>
+Subject: Re: [PATCH v2 2/3] ASoC: qcom: q6apm-dai: add VMID-based SCM
+ assignment for mDSP buffers
+Message-ID: <948de620-a482-4624-8383-6b65eb28a5e9@sirena.org.uk>
+References: <20260826-a2a-shikra-vmid-v5-v2-0-c3dc62354eee@oss.qualcomm.com>
+ <20260826-a2a-shikra-vmid-v5-v2-2-c3dc62354eee@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,46 +49,47 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="erYPw3LhD8tke5dL"
+	protocol="application/pgp-signature"; boundary="MYKMonRN2WMXWZoC"
 Content-Disposition: inline
-In-Reply-To: <CALSBEvTvrhniBrM29Y7sery15W-onz7t_8ZQhg1TW8nBDgYKxg@mail.gmail.com>
+In-Reply-To: <20260826-a2a-shikra-vmid-v5-v2-2-c3dc62354eee@oss.qualcomm.com>
+X-Cookie: Obey all traffic laws.
 
---erYPw3LhD8tke5dL
-Content-Type: text/plain; charset=utf-8
+
+--MYKMonRN2WMXWZoC
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Aug 26, 2026 at 08:34:01PM +0200, R=C3=B3bert Bo=C5=BEik wrote:
-> Hi Conor,
->=20
-> > Where do this name and frequency come from? pin name I presume for the
-> > former? Is 19.2 MHz a mandatory frequency?
+On Wed, Aug 26, 2026 at 12:10:13AM +0530, Ajay Kumar Nandam wrote:
+> On platforms such as Qualcomm Shikra, audio is served by the modem DSP
+> (mDSP) which runs in a stage-2 protected context. Unlike ADSP targets
+> where SMMU-mapped system RAM is directly accessible, the mDSP cannot
+> reach the PCM buffers unless they are explicitly SCM-assigned to the
+> appropriate Virtual Machine IDs (VMIDs). Without this assignment, audio
+> does not function on these platforms.
 
-Please do normal inline replies, instead of this which removes some
-context.
+> -		ret = snd_pcm_set_fixed_buffer_all(pcm, SNDRV_DMA_TYPE_DEV, component->dev, size);
+> +		if (pdata->has_reserved_mem)
+> +			ret = snd_pcm_set_managed_buffer_all(pcm,
+> +							     SNDRV_DMA_TYPE_DEV, component->dev,
+> +							     pdata->reserved_buf_size,
+> +							     pdata->reserved_buf_size);
 
-> The name is the sensor's input clock pin (XVCLK), as in the other
-> OmniVision bindings. 19.2 MHz is not a requirement of the sensor but of
-> the driver: it comes from the platform (the ACPI SSDB of the laptop this
-> was developed on provides 19.2 MHz) and the register tables in the
-> driver are computed for it (the internal 96 MHz clock the timing
-> registers count in is 5 x 19.2 MHz). The driver refuses other rates
-> because I have no verified PLL settings for them. I'll drop the
-> frequency from the description and keep it only in the example and in
-> the driver. I've also dropped the sentence about what the driver
-> supports from the description, that doesn't describe the hardware.
+Does this do the right thing if the ALSA core preallocate_dma module
+param is set to 0 for some reason?  I'm not clear why you would...
 
-Great, sounds good to me. Thanks.
-
---erYPw3LhD8tke5dL
-Content-Type: application/pgp-signature; name=signature.asc
+--MYKMonRN2WMXWZoC
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCao9s/AAKCRB4tDGHoIJi
-0n7/AQCW3Wl/KiqLkWSHU0BIKI58DZpmLW0ujhTry4N3PJy/5wD/clr9823jQ9mN
-+/jvrNrd9wwdGl/RlmxnIQorECGmNww=
-=9zyL
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqPbhYACgkQJNaLcl1U
+h9AgGwf/WbUZ1UnidNl88VuYhNBqGsutsE4jrqx1YH25jZhaDPaw2FiW8LzOmPFG
+kOvhWuVq5/ynYyJpFQYylvvKwqaZb0cZN4TCynMbyA/XeEZASkWTsujFz9O4Z6v0
+GveQ589yFyo7dYVVxkl1+9FM4ymszIQ/Ic6E6cEep6+D6uSyAcyymIpS2OkD2YP+
+WnRJVz2alv8YkOAKyX0uS3191Bi678W8rYu7XUrYsrD5T442Fa3/gPIBM/UfJSjh
+BVntSB6PAFg0+gtFcGtYkqtedrBS5A63/wiLc1eOoIzII9v8rz5tsqH3IHDIqpvD
+VHqd1XOZHq9aQvVUhML148a182By2A==
+=MeT9
 -----END PGP SIGNATURE-----
 
---erYPw3LhD8tke5dL--
+--MYKMonRN2WMXWZoC--
