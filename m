@@ -1,225 +1,193 @@
-Received: from mail-10625.protonmail.ch (mail-10625.protonmail.ch [79.135.106.25])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010003.outbound.protection.outlook.com [52.101.69.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 979F635B62C;
-	Wed, 26 Aug 2026 20:34:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.25
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787776489; cv=none; b=GPTTSi6w1SYSotZDPT7iYxz3rfmRgY2SV2x7cqx0Y5cSBaeFPM6GmQOHgemxmRNFWBUD4p3uP23SaBbxLltepvj7GCP4LKOXBUXV4xPYbwk7HUrKAXBhro0gpToTBtsFQgooctPPLh7Idd+U/8Lr54+a3IdJxsRJ894FlXbUNWA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787776489; c=relaxed/simple;
-	bh=zq0sKLifmni0DSexviiQ1uu6d9+6e2RXquCxsHJWfQ0=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=rPSEUFfbWo70FUPWC4pJiA0Uq+mx6Aj8ounpNSUNiSSbKPh3o+WsevigSZj8NUeL6bZ/wQmU18B/g6wo79QO6xrGfEqmxqdlhVRFELREx3adzF/Zngmb57WM9DI/pTv7Ki+vbIsQeghkr6mW/fZk/pkIJuyuvYGhIMRVMpXfSNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pouliot.me; spf=pass smtp.mailfrom=pouliot.me; dkim=pass (2048-bit key) header.d=pouliot.me header.i=@pouliot.me header.b=A80E78jF; arc=none smtp.client-ip=79.135.106.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pouliot.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pouliot.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF88D3B0AC6;
+	Wed, 26 Aug 2026 21:14:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.3
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787778876; cv=fail; b=fgVnY0aErN5wkEhhVohlZ4Q5dYi3GTmC1CUfd6P27H30iIaVcBjokTL0k0QPjA8l+VIQSMv8ECor93kFOnYBc909KAjFon9ODhtpqw0X3TrmWr3hdpcx9+kbyWx5Az8T8FKPZw5McIv9ShPf/ME2TqqF6wdTBKwsHejI73J7kyM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787778876; c=relaxed/simple;
+	bh=pfudL1JWE2EThEv588V74xT41wkXqOaybZySAl/QAKo=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=G1bQ5Srae4j5xornOlv7wG6HXlFtdINrh9/KZgqBP2t9TyJaLJ0O+BAhJUwMYcWlmAKTuoKAvpY0rqgAEcLFoYgzQcJQY7/No/DivvS10a7bN8t7TGPovRkFb6RjUodE7n8tMRoYdbRI/MNFRSXrOZ5ye2B8yG1GIINQU3e0x5I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=fF1px9r6; arc=fail smtp.client-ip=52.101.69.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pouliot.me header.i=@pouliot.me header.b="A80E78jF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pouliot.me;
-	s=protonmail; t=1787776476; x=1788035676;
-	bh=Q198YZwzrhXS/7RbDIqrvfTGNpuEuUr/N5NMCdGeJkc=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=A80E78jFehbZOTldMdqmITN3ph3bgkRBRMKd3g3h3XJrgz8g7HYkRPxIxEMjYUoKa
-	 Ag/gih610fTHPMteCVfIQo7hXQQgpaVNYiAxMt+V+DG5i8OuD3mzISJ+yUfsSr/jhk
-	 Wa2YYVgeWC+Sc83aKNtnPOecIfGmIk6C0ypm2VO7x4sk/B6SvXgbbspMB56UOtCUz7
-	 RSYScOC7QiJ4wrfX8Rfxsr9fgbiTnLfRYg8BnooFI4tClv9Xw+hYB1iNT9SF6MrXnS
-	 ZTav6r/AG7/8UYRgY1CDRUCeQXmh19uP2NO9mFTk5aC7oeL5A/VxeH9DUmG9hDfebZ
-	 lID94GamShi0g==
-Date: Wed, 26 Aug 2026 20:34:29 +0000
-To: Nicko van Someren <nicko@nicko.org>
-From: Chris Pouliot <chris@pouliot.me>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-Subject: Re: [PATCH 2/3] arm64: dts: qcom: glymur: Add Asus Zenbook A14 (UX3407NA)
-Message-ID: <ao9NBCsVaKMbl25Y@a14>
-Feedback-ID: 216858851:user:proton
-X-Pm-Message-ID: 41b5b3c0d73fbf60451e6ebed01936724d3b0afe
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="fF1px9r6"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Rj+LL5MeL3r1EtsxiLRZilju/f9knI5Ivnsrw3Et1yKkvfXGpOm29/WisXLoJp+NsqzZPLvdzbKw3YXpERkagCGodZo4ubcDiRFWUOvaUZrBGuNalrfmTXTyAl+F2QUTJ0JSnp221DGgSSJukBdVwssGrJ7ma95ugu+Ep1Ry8t+69wZqMnZOZ1J6zmxxERB/AeHRVe5vjVT1LyXdRjKQ5/fMs4zaZfH8YY/8+SHJmvZ0epOpnD9fmur7E67kFh151HS8ef+F9oAwuyRfsdG86ZfOE0AsuJk6u0eI16C4oohJcebN9bkNfw40mmDyneLbXDrH8KOX/vnIWHFbPQML6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yYxkXxEWzy95RL8icTOl/YKNFxm2ttCEukpPG4bvwPU=;
+ b=D3YVYB9NAVfYMv06VWAQ4HIKoyJf7vgJqgy1Hahnx1Aj0p64V822PmWhudk4RN8RxBufpbBSdrmbtgw5X/yGAAf7kPoZQqJoXXTNk60bm8mmEDOnhV6di4MlQHTpyDLHfSh6s2HW3xyJUjZ1GtooOINZ2QB1/H0l4SaqIBl9zFA3PIf7s5ljA2tODyMODmmHPTIQIqmKJcQec3rru0aYHd22OritewbnfhgfBfTQt0LlUVl/6erOkvLuPRbR1tRN89EzS30zFBbMNYXoFUMiPdDM+4p1EK8OFKzx99IRcu8PjLWgWsNKzzeK+VHUVEXBo3mBNDktB06Tu9ZTGipFLA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yYxkXxEWzy95RL8icTOl/YKNFxm2ttCEukpPG4bvwPU=;
+ b=fF1px9r6AD7y7DW/Kjttn4TmEsFGaLfs4NHBLXocN30VYIdxXqipDYvUCv4bBUhVtmLQM1FATK4bGuS+fbNDDdfYmgHCNk1fcH4lfR8V//+VcHWCoG72eBEqVtyrEsV2gZFbquJOeDRJp/Q3OSs6eILP/MOc15AQScWxn1JFzKJIU9a84kEz6kpSA9vjAHLA1WQ+51tgRX8JHs8hu50syeQbKGk1fbohF9nQwVLGqzdL2EH48ciZNwIRB5HwvIE3JBV1gagZMifUNYdUK70IHfypyX/woEYgNmTH5DQpg6RCJI2zeUV7kQX3QDb6pDbE7q6oXJCK3TUnEu+85mm1Qw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by VI0PR04MB12188.eurprd04.prod.outlook.com (2603:10a6:800:332::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Wed, 26 Aug
+ 2026 21:14:31 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.006; Wed, 26 Aug 2026
+ 21:14:29 +0000
+From: Frank.Li@oss.nxp.com
+To: Guenter Roeck <linux@roeck-us.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Wensheng Wang <wenswang@yeah.net>,
+	Cosmo Chou <chou.cosmo@gmail.com>,
+	Colin Huang <u8813345@gmail.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Dixit Parmar <dixitparmar19@gmail.com>,
+	Antoni Pokusinski <apokusinski01@gmail.com>,
+	Eddie James <eajames@linux.ibm.com>,
+	Thorsten Blum <thorsten.blum@linux.dev>,
+	linux-hwmon@vger.kernel.org (open list:HARDWARE MONITORING),
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-kernel@vger.kernel.org (open list)
+Cc: imx@lists.linux.dev
+Subject: [PATCH 1/1] dt-bindings: hwmon: tmp102: move ti,tmp103 out of trivial-devices.yaml
+Date: Wed, 26 Aug 2026 17:14:19 -0400
+Message-ID: <20260826211422.3299728-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SA9PR10CA0008.namprd10.prod.outlook.com
+ (2603:10b6:806:a7::13) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI0PR04MB12188:EE_
+X-MS-Office365-Filtering-Correlation-Id: 497dab8a-54f4-4329-f667-08df03b7042e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|19092799006|921020|10067099003|3023799007|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	7tkGchPxFgDvJnnXkLT0sDIJyTEe6V5w0px7MzUrryD16NWy53nGbZWBv60Reh2EYHvOdcdptQfWPB2JJMUo1oqEWED6pax9H7aSY7qYwPM4PvxHfPp6pWTAsLpt+FX6RbLv6XPkwklDK0K2DMNeeKLgqMgXToKxa7/a8/dB5cS45meCscuPJS0hXAyyB0ku9GHUpE33WpvnbDa4+HJrYUxC8OvbMwnPqDtIs86ABGfXrTUUQa6PP/554OVhYqkDCunSmgbMMWN+KTnMT2AOJCqcD1lRWa40DVYLw5uD51OoOVbsv+A5nsqJslSkiT5dHGwdmWvhWIEtjhovCfJuE1qdDY3opsztCD2h+FWbvnc80qBGq9gCNR0rrvrJZJtUt3wFR49sV9CJ9D8EkGPUqiyn1MJiEXL2Oe2nfCcO6RCmQE14gxHdr38L7JK9WsjEJ1Gh9pV2/qGNU6yfwuBlZtpk5LOs5d3jUzK5YSrvoS5Sj9x4KTr4w54+UED+V6tO+zkf/09Gxgt0PDfspUBfa/gvdroHEM54HyAfl+0ufUhooyCpY/RLQ8x4yivSOXr4D7CLtDYus55nITkVNrFbsrVvLgcQMmz3WUZPBuBD/4taRbMcso3D6n8G73HbBhQhHNLgeWp38lVOvDKd7z6JAoVIBGsVIPDHc91OVIkFIz8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(19092799006)(921020)(10067099003)(3023799007)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?p5qd1bCGbWmDfMP5XbRd5HnEXeX2ZuwkefxOgBJlSmzR2hF89dQQIjRnMWsx?=
+ =?us-ascii?Q?1U6jw/gj45dIdYJ7868N9VLKi4Te81gjY1TkKMJEBt+BNm2K3bH07nnWlV7V?=
+ =?us-ascii?Q?6BKnXcIJd+g6nh59MENfcbz7eHDq/Kh3diX59nFptq2KyKKjJm1Imex9G7Xl?=
+ =?us-ascii?Q?GymYwyXSW1PaUF/astgfpQwAQOA7+kIhcfzbpGUAXxYFMOS+P0D9e33bBEDw?=
+ =?us-ascii?Q?QHrGj8BGBXw6zrkld2S43x3YR46MeoCpNF6Wimce/bB7Pjv+0FZbm5FD+M0N?=
+ =?us-ascii?Q?4PCyFBOqHNPshOaJ0ODMJSCEZ/8aSf8ctz0s79foa7Qs8BX/7KAyJLFvqPCU?=
+ =?us-ascii?Q?yEATfXi5hyiMrabzjUueGIc5Vf9rM1ElSeazopsLKdoRAEcWwdvPeP/xIuVp?=
+ =?us-ascii?Q?jBytamdz2ZXPR9/UPgUcxKvUMZe5NXK4zHyl1eQuTuMo+RgRKsiTsLwFwDSD?=
+ =?us-ascii?Q?jQQ5ICCZUb9YdXkPdcrfIcnXoCobEoep0r6Axl8F693YdcMez1kVEKrx5EDl?=
+ =?us-ascii?Q?qx8chjS/QDhZZ26TF7kvu5O1TA/1zOpKN4ym33zBP0yNPm6Gzg8wxHtLNPX1?=
+ =?us-ascii?Q?k96GNuG4ijOwVx8A9AnDaPbkYntRf0C3qwW4eSwYE90qROeUizxbHLfHHQbM?=
+ =?us-ascii?Q?pYuGQ8UTzcAtD74te84Snd/gcqZ6kjNUbUGVz+EsTcORxQi7XlXBDZgC4y2a?=
+ =?us-ascii?Q?KtXish1x5U+/tT0ZQjs603In06IwQWuxOrOnCmXNDQoXWDTO/RonyutJXAW7?=
+ =?us-ascii?Q?kn36m7b0t4USDMyTyfjfTWGT/FqCnzZztlPd/+XZ2cvBuMEYjiKq+j3h5m42?=
+ =?us-ascii?Q?tjBlcVLN/E6L3ki6IUclavmr7ajzUgQ6AJc7q5olNCD6yjs/BxDcJI0CAqoZ?=
+ =?us-ascii?Q?TbDuB2ypv+XG8I8Vy7uSINZ6eLprIdEM56V4N8LYWByiTJX1uEXU8cjj8z2o?=
+ =?us-ascii?Q?dgL0UwpiTDIQee+sdvbXFIseIg4JoSgOgT6K7qVYwfjpagRV5z6B+0wF+yMP?=
+ =?us-ascii?Q?t44L1O30Xngeo+SK4zdd0lauH0rPCrsq7s1L4FlsXL59nDI7yjUh1d/V5zz/?=
+ =?us-ascii?Q?lW5YGKRG6XrtqYTlJdLrd+XBj4TbdAECL9WRjvgxKjmQcTMwrEwX12VRVBVk?=
+ =?us-ascii?Q?jMJsMcA9vRV7UK3wfr75G+ib8KP4EzO3RvE+YXyfED/YR3NEHcrUSJHhpNI9?=
+ =?us-ascii?Q?fIUs2S3N6bKmcrtke7UiwEYVBSz7CTDQBgZNZxw9gKwkKtRUkn8RW6cwMeWU?=
+ =?us-ascii?Q?Cmy5iWlsMFX59sRV3Oawd6ZbFBocqqsknd7lmzhaHXQECmwEQt9PSEwu+yxb?=
+ =?us-ascii?Q?0YVxHWO8r8pGWlvWeSaYhC+9zoc3VwU83BqrpTq/91xI2cKW1tyklWz89XS+?=
+ =?us-ascii?Q?ABimG5uNismLiQqoeheTDUyc4/1mKZeGxDHnVhFuXGuwRkCZvJ2vlU3eeR4/?=
+ =?us-ascii?Q?gOscdqZgqHJbRNdkFCInf7K/bpo4OIjmQjdfYge794pHogP8EX5IAowUAH0f?=
+ =?us-ascii?Q?H0F0fmFLiN05PhxBko8aqmbO8CDfOkFrgqMZ/nao7/qktG8HaizIFtKx2MzD?=
+ =?us-ascii?Q?GYMXneSGq4NKyXJ3RAhIs1Gwuk2NoYU2SgpeyoYU03u9SGbSsDkjdUjX8ykH?=
+ =?us-ascii?Q?Ac9Vuh0KQiccmleQX3VkDb6DL/9/noVq4K7b20h+oTfu5gpJVjtRsYQx6R28?=
+ =?us-ascii?Q?Upa0Sl3kMlDr3JZWEoJmboX3GHin9SvckGq4FTo0B9GoY5dvcHG27N4kGe+/?=
+ =?us-ascii?Q?cfaFT+3sPxNY1RgYcrRiEo6A192WJOIK6ausypUNt9E6uaP0pXbA?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 497dab8a-54f4-4329-f667-08df03b7042e
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 21:14:29.7507
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BUZ7jfQZ2V7RnLk5cUFZsoi45b/GumQzu9WnQiHahuPgN8GF+KwB3szbC+hdNnzodZSCCwIJqgLtH22yQYae+h4SFyTipOoUlJpOAHKWGg44U5gZ4+8l0z1vHWTcfaQq
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB12188
 
-Hi Nicko,
+From: Frank Li <Frank.Li@nxp.com>
 
-I have an ASUS Zenbook A14 UX3407NA as well and have been investigating the=
- audio issue further.
+Move ti,tmp103 binding from trivial-devices.yaml to ti,tmp102.yaml. Both
+devices are single temperature sensors and update "#thermal-sensor-cells"
+property to accept values 0 and 1 (passing no argument is equivalent to
+passing 0 as the first argument)
 
-On my unit I see the same basic hardware layout you described: the two WSA8=
-845 devices on swr0 attach, while the two devices described on swr3 remain =
-unattached. I now have working stereo speakers and internal microphone on N=
-ixOS.
+Fix below CHECK_DTBS warnings:
+arch/arm/boot/dts/nxp/imx/imx6dl-plym2m.dtb: temperature-sensor@70 (ti,tmp103): '#thermal-sensor-cells' does not match any of the regexes: '^pinctrl-[0-9]+$'
 
-The currently working setup is:
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+ Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml | 5 +++--
+ Documentation/devicetree/bindings/trivial-devices.yaml | 2 --
+ 2 files changed, 3 insertions(+), 4 deletions(-)
 
-keep the stock 4-channel GLYMUR-CRD AudioReach topology
-remove the nonexistent WSA2/swr3 speaker path from the board/UCM configurat=
-ion
-constrain the WSA codec-DMA backend to 2 channels in the x1e80100 machine d=
-river
-map the frontend channel order so physical left/right, which land in PCM sl=
-ots 0 and 2, are exposed as normal stereo
-
-I have also started turning this into cleaner, distribution-independent pat=
-ches for the DTS, AudioReach topology, and alsa-ucm-conf here:
-
-https://github.com/chrispouliot/ux3407na-linux-audio
-
-Those exact upstream-style patches have not been tested yet; they are curre=
-ntly intended as RFC material. In particular, I am not yet sure whether the=
- correct upstream solution is a board-specific 2-channel AudioReach topolog=
-y, or whether Glymur should retain the 4-channel frontend and express the 2=
--channel speaker constraint elsewhere.
-
-I would appreciate any guidance on where that constraint is expected to liv=
-e upstream.
-
-Thanks,
-Chris
-
-On Mon, Aug 03, 2026 at 10:19:33AM -0600, Nicko van Someren wrote:
-> On Jun 22, 2026, at 19:31, Bjorn Andersson <andersson@kernel.org> wrote:
->=20
-> > From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-> >=20
-> > UX3407NA is a variant of the Asus Zenbook A14 built on the Qualcomm
-> > Glymur platform. It comes with an 18-core X2 Elite SoC, 32GB DDR, and
-> > the other typical Glymur platform capabilities.
->=20
-> Firstly, many thanks for this. I recently acquired one of these machines
-> for some firmware work I'm doing and having a working Linux system on it
-> makes my life much easier!
->=20
-> I tested this patch set, along with the others it depends on. I have it
-> mostly working now but ran into some issues that might indicate a few
-> changes.
->=20
-> WIFI:
->=20
-> > + wifi@0 {
-> > + compatible =3D "pci17cb,1107";
-> > ...
-> > + };
->=20
-> ASUS don't specify what WiFi7 chip they use, which is fairly normal since
-> ASUS tends to swap the parts depending on supply. As a result, my machine
-> has a QCC2072 (17cb:1112) WiFi/BT module not the WCN7850 (17cb:1107) devi=
-ce
-> that you listed. Inspection of the hardware shows that the WiFi/BT module
-> is a solder-down M.2 LGA module, but electrically that's still an M.2
-> interface. Photos that I can find of the Zenbook A16 show it does the sam=
-e.
-> I think it might be more reliable to define a wlan-connector, like Konrad
-> Dybcio did in the Asus Zenbook A16 (UX3607OA) (2/3) from 2026-07-21,
-> rather than specify the chip.
->=20
->=20
-> SOUND:
->=20
-> Regarding sound definitions, the dts declares four WSA8845s -- a woofer
-> and tweeter per side, two on swr0 and two on swr3.=20
->=20
-> > +&swr0 {
-> > + status =3D "okay";
-> > +
-> > + /* WSA8845, left woofer */
-> > ...
-> > +
-> > + /* WSA8845, left tweeter */
-> > ...
-> > +};
-> > +
-> > +&swr3 {
-> > + status =3D "okay";
-> > ...
-> > + /* WSA8845, right woofer */
-> > ...
-> > +
-> > + /* WSA8845, right tweeter */
-> > ...
-> > +};
->=20
-> This machine only has two speakers (again confirmed by physical inspectio=
-n).
-> Only swr0 shows attached on /sys/bus/soundwire/devices/sdw:*/status:
->=20
->   sdw:1:0:0217:0204:00:0   Attached
->   sdw:1:0:0217:0204:00:1   Attached
->   sdw:4:0:0217:0204:00:0   UNATTACHED
->   sdw:4:0:0217:0204:00:1   UNATTACHED
->=20
-> I don't think that's a config fault either; the swr0 and swr3 reset lines=
- are
-> both claimed and in identical state of (out, 0, 2mA, no pull). It's not r=
-eally
-> a surprise that the cheaper model from ASUS would not use the full spec a=
-udio
-> offered on the Qualcomm reference designs, but without a suitable
-> UX3407NA-tplg.bin topology file I can't really tell more.
->=20
-> It appears that the audio setup is blocked further up the audio stack any=
-way.
-> I hacked some dts changes, purloined blobs from Windows and got a stereo =
-speaker
-> setup configured. SoundWire is healthy, but no audio is possible because =
-the DSP
-> does not respond. The ADSP boots and the audio PD is reported up:
->=20
->   remoteproc remoteproc1: remote processor adsp is now up
->   PDR: Indication received from msm/adsp/audio_pd, state: 0x1fffffff
->   qcom,apr ...: Adding APR/GPR dev: gprsvc:service:2:1
->=20
-> then, on every boot:
->=20
->   qcom-apm gprsvc:service:2:1: CMD timeout for [1001021] opcode
->=20
-> I'm curious as to if you tested this (or if this even known to work on th=
-e
-> Zenbook A16, Yoga Slim 7x or EliteBook X G2q with the other submissions).=
- Do
-> you know if/when the required firmware blobs will be forthcoming and
-> upstreamed?
->=20
->=20
-> HDMI:
->=20
-> The built-in HDMI cannot read EDID: the connector reports "connected" wit=
-h
-> a monitor attached but the EDID is 0 bytes and there are no modes. Less t=
-han
-> 2 seconds into every boot, before any cable is involved:
->=20
->   gcc_usb3_tert_phy_com_aux_clk status stuck at 'off'
->   Failed to enable clk 'com_aux': -16
->   phy phy-88e1000.phy.5: phy init failed --> -16
->=20
-> I have not really investigated this in detail.
->=20
->=20
-> eDP:
->=20
-> eDP link training intermittently times out on resume, leaving visible fli=
-cker
-> until another suspend/resume retrains it:
->=20
->   [drm:msm_dp_ctrl_link_train_1_2] *ERROR* link training #2 on phy 0 fail=
-ed. ret=3D-110
->=20
-> I am carrying the (unmerged) "phy: qcom: edp: update v8 power-on
-> programming sequence" series, so this may be feedback for that rather tha=
-n
-> a report against mainline.
->=20
->=20
-> Anyway, thank you again for this patch series. It got me to the point of
-> having a very usable machine for my limited needs. If you have updates th=
-e
-> need testing I'm happy to help.
->=20
-> Nicko
->=20
->=20
+diff --git a/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml b/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
+index 96b2e4969f78a..cd96b1d8a2d5e 100644
+--- a/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
++++ b/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
+@@ -4,7 +4,7 @@
+ $id: http://devicetree.org/schemas/hwmon/ti,tmp102.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: TMP102 temperature sensor
++title: TMP102/TMP103 temperature sensor
+ 
+ maintainers:
+   - Krzysztof Kozlowski <krzk@kernel.org>
+@@ -13,6 +13,7 @@ properties:
+   compatible:
+     enum:
+       - ti,tmp102
++      - ti,tmp103
+ 
+   interrupts:
+     maxItems: 1
+@@ -25,7 +26,7 @@ properties:
+       A descriptive name for this channel, like "ambient" or "psu".
+ 
+   "#thermal-sensor-cells":
+-    const: 1
++    enum: [0, 1]
+ 
+   vcc-supply:
+     description: Power supply for tmp102
+diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
+index 05f88cf81d6c6..3cdf9e0d8322d 100644
+--- a/Documentation/devicetree/bindings/trivial-devices.yaml
++++ b/Documentation/devicetree/bindings/trivial-devices.yaml
+@@ -506,8 +506,6 @@ properties:
+           - ti,lm74
+             # Temperature sensor with integrated fan control
+           - ti,lm96000
+-            # Low Power Digital Temperature Sensor with SMBUS/Two Wire Serial Interface
+-          - ti,tmp103
+             # Thermometer with SPI interface
+           - ti,tmp121
+           - ti,tmp122
+-- 
+2.43.0
 
