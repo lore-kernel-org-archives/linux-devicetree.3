@@ -1,149 +1,183 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34C1E3F164E
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 11:05:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFCB23EDAAE
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 11:06:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787742314; cv=none; b=BenNDGmbBeX//SDFQ90rxDN8pBEfGewF28rm4iCrkHZR0zinNMsmY66gI3kIw1CDgXvIvxrgK47Rru8s16X1cguYl+c24cv86kvdQaTiyyKha9V40l6Lo7vvn24wXkn0WZOeS022979dowWids4HZkrkFsLa/VNvhYASyGKj4dU=
+	t=1787742384; cv=none; b=fjf5K5wRJP4VPvmNB/9PUztzK9KUfgR1RURf8ahN5Z4nq1arxMtj8kS2vOAzI2Rs4Q0RBkOM382NaS9B059cm50DK5uAwBzd1a6fJm+13OdW7W/uYSATMJu/hW+EftBNEatz3wR30rqMcHKUuCG2lmFejkoGLsdYKVBYLU2erAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787742314; c=relaxed/simple;
-	bh=YyYUUVqBJGI286K5cUmRrDnI792ynvOKG4YEV7L1rJY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HX/7ukSGRwOwSsY2E5PFrHn9FbUJNYM37PKLf/ZAiKugKraBCHqScEZGVsAnCJsKOaszkzH5DX0HV5lNF3hhPgZTgJe5C+uUuPCu7ZltWZ8wdtGkTjma9jJJm9VfdLq3eOAZd7TRMkpVK4EBSjCfjhNgyGiLVn/SWdhetgb0+0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oRINjrDx; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JsVheKM/; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787742384; c=relaxed/simple;
+	bh=0+IwrBV28aCuRXggvy87Pnh0OkueBTW/44xZq4fyGWk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=i8q9puZKb78rmRMY75C3uUvD5b6YkKLERKlx4CQY70pWcvzd3bHeg2gxrr520ByxsHhInkPnWzIXnG2sxknCMqYUZce1wn1qjB5Ws/JcnKkxxm7KnwsFlXBLE7qGlO+8byyh5/wNUdqwj/s/5wJ8YXYur3ycJByVeuY61HBaaCg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eI0kVTV0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oRINjrDx";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JsVheKM/"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QAGplt107571
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 11:05:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=EnUK4lzSsA+4H8FJzIU3OLV4
-	bLy+1PASPEgPsSBWvBs=; b=oRINjrDxgmZqQjIfpGtUwo0eDBbgp1Y8D7vzVdek
-	LLP0kpFXcUyoAf44yoD3tsow7sa/jKRgoZ5onKcGz6gTcRQ3tk7HzUulXmX1UlkS
-	HXSTm18zJT3h6jsPxajQ7XuAijAO4nNMSYWaZpj0Yd6ipmsj58deSmBmKnuzsrmc
-	F3iZI0wwKUx8UUgtICHJO47G70yfaWl65qbBxVy02x7/JQbyyBKW/lnF7vsb558B
-	WceseKuuIGRLKzJ4jQLVY2e7spvVlrGdWuV8qzmSJpRsbzyi9AdOEiuJsnuTW5yx
-	u7Tjy4xw+v69OV4J2gyhr/D4WFHnLyjGNjeHOuTxvsoB8Q==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9s9g9g7r-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 11:05:05 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-52f52ccd459so1086031cf.1
-        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 04:05:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787742304; x=1788347104; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EnUK4lzSsA+4H8FJzIU3OLV4bLy+1PASPEgPsSBWvBs=;
-        b=JsVheKM/rHLITwg1/j261Lis6usL3OvBgP2rSinXrZPB4La9FwZUAuZf0Gr3Byzs66
-         hQPh92ykkHw/Z2O+VOVtKfNtMH4KTqgvKE3Dwn17iMeZpx1M3ZQS5zuP+RbZ4ibWlGsI
-         TQ5epCHmeQq60UfQDlCwtjn0BnHd9JliwIndQL4GA2xLIzq36KqzQh+PhQuvkawzns3Z
-         +JPp6Bgh/WCh7QCEyEWp8xpxdFYWWmWXAkxO7fnZ9zLzMLxohO4fvFwJYm4pp1ZEobJB
-         9WVtIZ4ZgYNA8JqgEOngPe4feyAF2SXGS3juB0rM3kZFNUEcOAXXR08mF/w4q42gJyTF
-         2tSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787742304; x=1788347104;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EnUK4lzSsA+4H8FJzIU3OLV4bLy+1PASPEgPsSBWvBs=;
-        b=fLH6kIplY/JHDI/kFp4OcnZXCIGxx2LK6D5dFGXkwmFGkWx59NuZuM9iFz0QZMdI9N
-         6p8yBA3CkIgiRDjU/yFx+FqFNkgkMAgiU7PsYSBErxOJMc/E2oHNt8B+3Zup4zdJhQh1
-         XvOr9NmWVk5BzUTCKLrNuhrO1Kr1jDwGKMA7qaBqlSPECKiA+uy89Ry0sBCULs0eiplv
-         rnAwiIBWoO3tgd2SQPFD7eS9ITWgkSnhXe3dhbMf3GHrO06QPwUvhEi7UrNUheLG7pzj
-         AOC0dII+RcTUD1h3lr2ygeJ7keeDmA4/yX5EvoAwx1Nwzb+PXRz72CGhDrgWPO65Atyw
-         fTrQ==
-X-Forwarded-Encrypted: i=1; AHgh+Roo+Msa68E4iXZlkAXS2qgnWP3lQgZG2Jahqzo0p9wv87RZiB4hEeo3jAqJLw3YyicB1gcuUzyVyCbL@vger.kernel.org
-X-Gm-Message-State: AFuF++kDpSUgcSSG00qPNFFlNLHfmRtWhIII2cw3vYhREtQOs6Yc6nJf
-	VD8I1Q/HP/fg2Xgx86YKU1tf1xfbRo4MJ58hRy6o4mG1ZncHHBGZU2sF8KYDVVgLH37SLAzLu1Q
-	NiiV1RrDI2KUJqWD2uu8QwcaR9RvkfujcRotWXoCPVokQ9hHuNrh42qxNgpdGex8P
-X-Gm-Gg: AR+sD11w+JnodQ0E4/YjYa68dXOM5k44Zs/BY94zdLeFzX01wAH0AxjIyzhpxTsRsAY
-	Za3dnjjynEgmapNu8gNTv58saEWT0dJyrR+83w1iuEX7oW3a8T8Ct2mUqR6PRqBnoHNoqRj3mXA
-	MWPquUN+jy0PG6rwpsjXFuyCGSyu5wz8piXA3a/8ZnH0cR2uchYGR2QQ7zQQxz2Wybv187vkr/4
-	hN0lf45V+4pFQvKBJ4FoMHT4tVs/3onhelkWt6Fi1cX+ddV7iBg5lxbrJ1whbhZHKq392rsy8OB
-	MhulHE/KaWss53ANQ5+Jcq7IGmXOFPLhZCKILdEv3tGdUeQ9rAsKKcOMegkg/SmZPfgdVSxAIC+
-	PbjjvsHre7sGH
-X-Received: by 2002:a05:622a:1b25:b0:52d:f376:c254 with SMTP id d75a77b69052e-52e422cbe1fmr59964551cf.10.1787742304420;
-        Wed, 26 Aug 2026 04:05:04 -0700 (PDT)
-X-Received: by 2002:a05:622a:1b25:b0:52d:f376:c254 with SMTP id d75a77b69052e-52e422cbe1fmr59963661cf.10.1787742303900;
-        Wed, 26 Aug 2026 04:05:03 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.13])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a6fda4fsm496909466b.16.2026.08.26.04.05.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 04:05:02 -0700 (PDT)
-Date: Wed, 26 Aug 2026 14:05:00 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/4] pmdomain: qcom: rpmhpd: Add NMXC power domain for
- Nord
-Message-ID: <24kdkayk7odpbojcvbhzwupzvhqgtlei7d2bvbrjpi372z7hnh@7fte77gqooaa>
-References: <20260826102746.633076-1-shengchao.guo@oss.qualcomm.com>
- <20260826102746.633076-3-shengchao.guo@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eI0kVTV0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 707DB1F000E9;
+	Wed, 26 Aug 2026 11:06:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787742378;
+	bh=xuzOIiaXyhOUhhgwY02aAjweFTXAqHHgZUxH3amT6hE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=eI0kVTV0w4QtEOsb4k0XdazuMHHBA16/GXQWbw9A5pYYuQdsm9ne/viWMC6QqoEf/
+	 6/LPA7eEGBW8wvX0QAFSIFgs1JnGjN4P06td914veHI22iR1uIqlg0aoWsk6B3Ptc0
+	 ype7mdcSuT1yR4Hrsl0SHzumNJ6ZsJU1dMIoIAONGSa0K1kqg6Sjyu/zgB+8AOJzbB
+	 jV8NDsSdJUUUv6fF/UrhQ5lzU6C+qGOM6FFeZe1VaVQWAhkivZrjq+BJYFapxjWNyD
+	 qmDzkgxDBRq6hmtv/Wci1E8xZAOmSti4fO0OMtdov9WS5Ahf0Jkoql2/Bdw2FOR/61
+	 3NQ0sXYI1JgoA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 2/3] usb: typec: tipd: Factor out i2c specifics
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sasha Finkelstein" <k@chaosmail.tech>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260826-tipd-ace3-v6-2-e919f39a93a2@chaosmail.tech>
+References: <20260826-tipd-ace3-v6-0-e919f39a93a2@chaosmail.tech>
+ <20260826-tipd-ace3-v6-2-e919f39a93a2@chaosmail.tech>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 26 Aug 2026 11:06:17 +0000
+Message-Id: <20260826110618.707DB1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826102746.633076-3-shengchao.guo@oss.qualcomm.com>
-X-Proofpoint-GUID: rprxZBbECdQUCkPLveh7mC1fSNXv5wDS
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDA5MiBTYWx0ZWRfX451JjIta3+Ux
- Xc/wnl9dexhoC5XYJcrOlSCONSSs6ADjEnnjr2xI5pPajD7jqNof2zO7V5o49QB2BFNHOjErvp/
- zI1pTI2eYTy71pSUeV4KmD3wFwtHEF/yAqn2LGWwKqLyldwW5luJfeLZHqhITbqjtqDvmC95F9/
- ko4tP+Md1fSv7qlGTT8AVqTcJRUqgf+3mQ73nid9KyJPgL0JPzh4eZ2O0u3MANLNtokbFMe6/XB
- RfvrWyqyVjH27rnxqhSXhrxFmMF6nmh2VgacfrewIBwK6pH0DU2NoWBuVO+1/GUEfhz26NZNYxC
- trqA1oZiH2i0bfKNdG7R18c5kz0O3erYSd/Gvd8jsMipNz38Rn/ToY8lcBcQH3oZ1QLEdvxAxnQ
- M1s+iUEtCJgrw584+s1eArHzUlyHVLjjqsOFb5Ye0OYoGlBuhf5gAKZHN0sKB/rfep1Tziu4qWA
- i/d/j5Yzirtpu4ObPJA==
-X-Authority-Analysis: v=2.4 cv=Xfq5Co55 c=1 sm=1 tr=0 ts=6a8ec861 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=clBUptZa5v5FR042Ey+sjA==:17
- a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=WUwTdx2_Dbflg4nuc2oA:9 a=CjuIK1q_8ugA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDA5MiBTYWx0ZWRfX9O4eam8Er5ty
- 8tZG3TP54yoS6z0MhlNxGwuU2e/c2ximRa9L4Mw4swNikQm/NqYWsWZlCf280wmrKcIm4czC5XK
- Fw4pjaTxe0H6WVIgT1JoGGMLIdAT3ak=
-X-Proofpoint-ORIG-GUID: rprxZBbECdQUCkPLveh7mC1fSNXv5wDS
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-26_03,2026-08-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 priorityscore=1501
- bulkscore=0 clxscore=1015 malwarescore=0 adultscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260092
 
-On 26-08-26 18:27:44, Shawn Guo wrote:
-> From: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
-> 
-> Add the nmxc.lvl RPMh resource and register it in the Nord power domain
-> table. Nord supplies the NSP memory rail from this dedicated resource
-> rather than from the shared MX rail, so consumers need it exposed as its
-> own power domain.
-> 
-> Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Pre-existing issues:
+- [High] A delayed work item is queued but never cancelled on the probe err=
+or path in polling mode, leading to a Use-After-Free.
+- [High] Suspend and resume callbacks operate blindly on IRQ 0 if the `wake=
+up-source` property is present but no valid IRQ is configured.
+- [High] If hardware checks fail during `tipd_resume()`, early return leave=
+s the system IRQ permanently disabled.
+--
+
+commit 74c8f85f00d632452859f6773ca966726049ba5e
+Author: Alyssa Milburn <amilburn@zall.org>
+
+usb: typec: tipd: Factor out i2c specifics
+
+Make the core driver more bus-agnostic to prepare for SPMI variants of
+the tipd chip.
+
+> diff --git a/drivers/usb/typec/tipd/core.c b/drivers/usb/typec/tipd/core.c
+> index 522f56742aa9b..fb7bb68731bc5 100644
+> --- a/drivers/usb/typec/tipd/core.c
+> +++ b/drivers/usb/typec/tipd/core.c
+[ ... ]
+> @@ -1887,14 +1760,14 @@ static int tps6598x_probe(struct i2c_client *clie=
+nt)
+>  			goto err_unregister_port;
+>  		ret =3D tps->data->connect(tps, status);
+>  		if (ret)
+> -			dev_err(&client->dev, "failed to register partner\n");
+> +			dev_err(tps->dev, "failed to register partner\n");
+>  	}
+> =20
+> -	if (client->irq) {
+> -		ret =3D devm_request_threaded_irq(&client->dev, client->irq, NULL,
+> +	if (tps->irq) {
+> +		ret =3D devm_request_threaded_irq(tps->dev, tps->irq, NULL,
+>  						tps->data->irq_handler,
+>  						IRQF_SHARED | IRQF_ONESHOT,
+> -						dev_name(&client->dev), tps);
+> +						dev_name(tps->dev), tps);
+>  	} else {
+>  		dev_dbg(tps->dev, "no IRQ specified, using polling mode\n");
+>  		INIT_DELAYED_WORK(&tps->wq_poll, tps6598x_poll_work);
+> @@ -1905,13 +1778,12 @@ static int tps6598x_probe(struct i2c_client *clie=
+nt)
+>  	if (ret)
+>  		goto err_disconnect;
+
+[Severity: High]
+This is a pre-existing issue, but can this error path in tipd_init() lead
+to a use-after-free?
+
+If tps->data->connect() fails in polling mode (where tps->irq =3D=3D 0), ret
+will hold the error code. The polling work is then queued in the else
+branch.
+
+Because ret is non-zero, the "if (ret)" check triggers a jump to
+err_disconnect. The error handling path misses calling
+cancel_delayed_work_sync(&tps->wq_poll). When the devres framework frees
+the tps structure upon probe failure, the scheduled delayed work might
+execute and access freed memory.
+
+[ ... ]
+> -static int __maybe_unused tps6598x_suspend(struct device *dev)
+> +int tipd_suspend(struct tps6598x *tps)
+>  {
+> -	struct i2c_client *client =3D to_i2c_client(dev);
+> -	struct tps6598x *tps =3D i2c_get_clientdata(client);
+> -
+>  	if (tps->wakeup) {
+> -		disable_irq(client->irq);
+> -		enable_irq_wake(client->irq);
+> +		disable_irq(tps->irq);
+> +		enable_irq_wake(tps->irq);
+>  	} else if (tps->reset) {
+>  		gpiod_set_value_cansleep(tps->reset, 1);
+>  	}
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does tipd_suspend() blindly
+operate on IRQ 0?
+
+During probe, tps->wakeup can be set to true if the wakeup-source property
+is found in the device tree, even if no valid IRQ is configured
+(tps->irq =3D=3D 0).
+
+If this happens, tipd_suspend() will pass IRQ 0 to disable_irq() and
+enable_irq_wake(), which could crash the system or disable critical system
+timers (such as the PIT on x86).
+
+[ ... ]
+> -static int __maybe_unused tps6598x_resume(struct device *dev)
+> +int tipd_resume(struct tps6598x *tps)
+>  {
+> -	struct i2c_client *client =3D to_i2c_client(dev);
+> -	struct tps6598x *tps =3D i2c_get_clientdata(client);
+>  	int ret;
+> =20
+>  	ret =3D tps6598x_check_mode(tps);
+>  	if (ret < 0)
+>  		return ret;
+
+[Severity: High]
+This is a pre-existing issue, but could this early return in tipd_resume()
+leave the system IRQ permanently disabled?
+
+If tps6598x_check_mode(tps) fails on resume, the function returns early
+before balancing the disable_irq() call from suspend with enable_irq().
+
+This creates an unbalanced IRQ depth, keeping the IRQ line disabled, which
+will break any other devices sharing the same IRQ.
+
+[ ... ]
+> @@ -1991,25 +1859,22 @@ static int __maybe_unused tps6598x_resume(struct =
+device *dev)
+>  	}
+> =20
+>  	if (tps->wakeup) {
+> -		disable_irq_wake(client->irq);
+> -		enable_irq(client->irq);
+> +		disable_irq_wake(tps->irq);
+> +		enable_irq(tps->irq);
+>  	} else if (tps->reset) {
+>  		gpiod_set_value_cansleep(tps->reset, 0);
+>  		msleep(TPS_SETUP_MS);
+>  	}
+
+[Severity: High]
+This isn't a bug introduced by this patch, but similar to the suspend path,
+will tipd_resume() pass IRQ 0 to disable_irq_wake() and enable_irq() if
+no IRQ is configured but the wakeup-source property is present?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260826-tipd-ace3-=
+v6-0-e919f39a93a2@chaosmail.tech?part=3D2
