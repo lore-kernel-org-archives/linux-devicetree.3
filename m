@@ -1,763 +1,204 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD45429825;
-	Wed, 26 Aug 2026 09:54:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787738091; cv=none; b=N1PJWU8ECOruYZRtbUkEhHPGDMio1KglyAd0XVuTjzK4ZkB3fec2lBbHWEDBHLF2DMMTwyMK/Qrh4Y2TcFyW+jFX5beUlfQpKgBMFfTKUjdaolGrzPLxxYvK6pCve67oGc2IKV7iDLGUtUdvMBCYLj2rOwcjWq+avEwtfdPe0Hw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787738091; c=relaxed/simple;
-	bh=08K8z7E2qT/i37KcXePY4tvqCh0QxUUtG1GgEWhELc4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IbEo4NwLh5G9pGdHskvCejP205TqSQ3UAV4IZl1MfqJeX9/hOOy13OQFnaFzFJc5gxhSnOUQwRfE0zTd8YeJYA6S0qAWw2m7ryyay7yy3Eut6CdUkAtJZ54WtafvEMxBVIrjGo/6FE/8wbAP7IrLKcvVyOLFap2nAMN56dA/WHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=K2y2+lAe; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA123E316D
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 09:55:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787738139; cv=pass; b=KPXxRb3B79T77W3sMOVZqgHcrl2cR4vCa4j5jgLrsAlmiAli60c6nxMK0IBC1/D9IpzUtzuzdQWgA7qXUKhQfCFQ5iP4N0T4xZw+h2piTyNELyGqzOJUlxbesF45Hmu9AlEx1OijS+taSO3ylBBRjpE5+xmUr6KvFyhktuuxqxk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787738139; c=relaxed/simple;
+	bh=b3ei/scJgqf6mMPZy0JCl3AJkVZk5UcyBZq61g3/Kfc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=eixVo2jK/jZqxwfiFlfSY6o0+OsQoVIQUtDd4lJXFLK2aBvsOt+u52OkNaAdubqMfyF6NBX86OL32ozBbmSn+48I4Ow4KdqvN/CH/ilRYSkzt+R5Rw5ZInn082EYfzodsM+mWNijZIJzIED6f9gWi1ysZYS/Ti6ph/Te/rMJPGg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=h/2GLpI4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=O68A76sL; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="K2y2+lAe"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 7918A4E413BF;
-	Wed, 26 Aug 2026 09:54:47 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 4D72B604EC;
-	Wed, 26 Aug 2026 09:54:47 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B896611C7AD70;
-	Wed, 26 Aug 2026 11:54:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1787738086; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=7VoJl6dLG+BIoVyuXucMhaeyw2jV/tYSa8t+aTz27nM=;
-	b=K2y2+lAepwZ31AggaRYfOaKyUH8LqSWz5D0EE+xpUGpJSrdirwDvtUOLhureYujtVbY1YM
-	+TeNgDu6mvcGyr24X4OWkdLipkhULFEf3XzM4wPLgrbls3EY5OIxNN8kg6zfNMzGAhZLTL
-	r2dbsmZCbew4RpFIIUuRWorsCgudi/Y0Vzapm6T9mqYDDSg+q/WIA+EQbdgDbogxkL3wJK
-	ruq4Z7+lVCZOWHiMiIB5L635eMzOIRWqa5c10AHPcXnwcpvTMSw9IX6oI1tOxBkFGykGym
-	8Y9dt9xVOmQlCCulc/RtOIudl5fajqU7wUqj2aQhYU7QkhvZj3wsdIKXwAiE1w==
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Herve Codina <herve.codina@bootlin.com>
-Subject: [RFC PATCH v2 74/74] fdtaddon: Add a simple external resolver
-Date: Wed, 26 Aug 2026 11:49:43 +0200
-Message-ID: <20260826094950.1088288-75-herve.codina@bootlin.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260826094950.1088288-1-herve.codina@bootlin.com>
-References: <20260826094950.1088288-1-herve.codina@bootlin.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="h/2GLpI4";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="O68A76sL"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67Q9CoPV279612
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 09:55:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	M2bWbTkVFAgOM74BazGMrLdyQn6F7QMTe6rJKc2GfOA=; b=h/2GLpI4/WKJvtw/
+	YGFKEd2wE1FIgXMBc8uz9Oa/LQNNavC/FHWVsU9LHeSx5xOuxTTNO31BXU1udSK8
+	ZFhZzyXSonIO7y/DDZmJ+2WvjzKuN4ldXt/YXkz44Uah3R/93D1VPtM9CTIdHGMR
+	y2s0lNnsKQ3rQbuNw+EOUMTBJoSKMTkDXI9Sl1aXPWnpsLzlSu3BHtw+04yIjzhd
+	XY5HpIK8dvmJkjNyOHm7ele3ZJL6FIqEJB+wV9rEA15AoEO2N4h6n15ozB8xSdOm
+	AkB3ZcAFKLX4M8K3oWE1Y92h3GBlQOv8wZL6bdStvJXkG2xqGjpgsU/u2t4Y58cQ
+	VxBLJg==
+Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com [209.85.128.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9fceu9yg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 09:55:36 +0000 (GMT)
+Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-858b746a9a8so8074067b3.2
+        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 02:55:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787738136; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Ke5yoHwI2cY3XWkM6wtyT3X/48MHuEgXC9WSqiMzZ2HkhpfRE35GjkdQteE+apqbhM
+         YpDcDaaXXErJ99zq367nt0WVqSTiDinMa2pWrUGZxKjDSD77d09YmhRhs5EptoUxTHbJ
+         t1OFf9xfKCP3tErAy/G/qgISGR3L7fSb+7rroxwXeVG+1VT0UXH1Sa+G08TB8G9ZqY7z
+         X49px4QXGPSLvOUphZe0xPsiGaDGs2QWTFOOIN0d7qu9TNJ2/BKCV1SDnpgpPSkZUpiG
+         zWTdkYcOSzpAD9iKvyyn1pr/UB6k963mKVelKeSC/fNW72W6ZW1btsEUSSQJ9F7jFbRT
+         9j1A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=M2bWbTkVFAgOM74BazGMrLdyQn6F7QMTe6rJKc2GfOA=;
+        fh=ZLnMx6FvRMKjI9uY1ghba555CootmVJ1V9VvEz5UJDs=;
+        b=Xk/DYEUR3CG8vQV7fhHJm9+u6vvjbnfxHJ6PxIX6Mwp79meC7ER5vAedDIRkOaxX91
+         zF/uvqQpBBThkX9dOLJ5yaA6k1WKY3vn2J27LYKjUW9LGhyC6XbfXytrTv2vrYI1cRkt
+         5/dBmbYx7B09cROyw2vxrbMvk0RNrB2tLzi7chBHZdp2MOwkqAJWTX/7y7p7IphH8dMm
+         k2NcjNEukuXCYfyX5DuWU9nteB5GiWP3OfGX6ELuZxyb47CgJJEmp17PERF43Zmr40WD
+         9SIKZiP6AbzpDhZA/68Gg7QP3gfG9rqa7zqqXaaOVQkFfqjHKx3L9tGDYdiu+bj0nucR
+         bi8g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787738136; x=1788342936; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=M2bWbTkVFAgOM74BazGMrLdyQn6F7QMTe6rJKc2GfOA=;
+        b=O68A76sLRef5uhsGZ6uG2bWXwYrjM5IbdLnn8TtD8x8PCRg0OSlK8VSh8FAVE5sYJe
+         HKbW2FYkGqi+D7vpjrp9H7R/5GLRTBf8mPH2C5j9jVzzashlPFEI4YtcI+xAZoBQqcfU
+         vHfQudSV+ok0oWwN54Fk9Z/8F/V0UrXkDYVhsuavGYraR0UbLJgYbFHYR8DTCiaSi3OD
+         HHbGPnLxV0yp8bz4TPXiyGTBmnqDuS9FxzaMuHlQ6ZFerxEl26jm/nFT6UT/GJz97WtT
+         eG68tEoBk63VCWAMiV8v0uX9NO1GPjXm8U8TbWTnUNzT/ZhO9Zq8cGjMkKRTdDy95RfS
+         Vv0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787738136; x=1788342936;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=M2bWbTkVFAgOM74BazGMrLdyQn6F7QMTe6rJKc2GfOA=;
+        b=YdO/Vfj95Fm/17M7FnO6pGH3aDl21YHV0GDCFI80YwJUGsVOVFoFOLPrjkQVixTEMc
+         pcA+QBRcQ9iMOBMIubdvgcPJtZmDwwBJdO2akRjcCZXKyNs/iriSClDiPsKL4DRwALkI
+         a3VtdQPpxSP8VOq1JCUUMao5viZxY+zWqdcy4aAbGAUrS3WSuZRyypK4Fg3WG2j4khev
+         TLdmXWmdZS3gXNxcvvGqWcfj2Oe67SPxCl/l5b3B+ITPcirXAYIKrLJOFYBC8ggLvIDw
+         Gl5E7cI7R0lT/aW9j+GmUGnZ0p8t4x9fsx8Gu7DXDvG4Opfx0/34FojNr0vV+aq6qx21
+         4UYw==
+X-Forwarded-Encrypted: i=1; AHgh+Rol7R5cKuwq29uYd3nAj9oRIufqqt8HpZW9y/+d1zg97s3p+U9unFs4Odr6kO/dbmdgm3dDn2gEqfMr@vger.kernel.org
+X-Gm-Message-State: AFuF++kAV7/E0VBVJv+pE4Qdnj9wazSN0TSASQ4bmyO+UL13eyhtqacc
+	KaeTrAYE9y2npohVcnBUXQOp4eG32vUaPiZtdN7Fx3Hdn27rg4y0fygjiUouTETuIjpbPK2Cva4
+	Pcmht5mNcYCuMVCCWuMjJ25McGPTKzcbBM6AFrTT/VIBKQjD03J5ySf6fVrY1jTq7hRxYahPh8r
+	yEZ8jVGsleNgCS0nOe4gm4wRVVsO+FBxYEEzH4lYk=
+X-Gm-Gg: AR+sD13+Rx0cuzMRs18CKlQR98eMZ83wyjGNbG4hndNYWVqxKWkRU3OejreJeRxCM4A
+	heQ0y5qJ81oVlKG0oofm8FQVaLoU/XudSgpm3pHCaPj7K6VOJm7JyGhrR1MRZfoRvbhhyRcvvn6
+	fp/SsEnE0iaQjIQp4lFXqhkHJV/BAROKJb6BNsRqH16ryNWxQ7QBh5PvLWqw==
+X-Received: by 2002:a05:690c:4b8f:b0:816:b469:ccec with SMTP id 00721157ae682-8573cfbda13mr22927527b3.15.1787738135957;
+        Wed, 26 Aug 2026 02:55:35 -0700 (PDT)
+X-Received: by 2002:a05:690c:4b8f:b0:816:b469:ccec with SMTP id
+ 00721157ae682-8573cfbda13mr22927347b3.15.1787738135581; Wed, 26 Aug 2026
+ 02:55:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260824063627.3595610-1-harendra.gautam@oss.qualcomm.com>
+ <20260824063627.3595610-2-harendra.gautam@oss.qualcomm.com>
+ <bf6e42b4-ff21-4b6c-a7d5-024e5b9a7da4@oss.qualcomm.com> <CAC-tS8CaVN8YgkUHJVvLcU1xWB3V5dOgS07CHVOBUnPtMjNxTg@mail.gmail.com>
+ <08b6fd88-84b3-4b3f-a8c5-dd6bfd39403f@oss.qualcomm.com>
+In-Reply-To: <08b6fd88-84b3-4b3f-a8c5-dd6bfd39403f@oss.qualcomm.com>
+From: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+Date: Wed, 26 Aug 2026 15:25:23 +0530
+X-Gm-Features: AcwNN1WVFRPvlQgvshmc0r_etw3NSt1fZg4y_jOiN4z4411feqSqHUo8KXSuovQ
+Message-ID: <CAC-tS8CtA+wRuucDskRXSc=AHgNdbuq+khj85pFmCG8dGS3Njw@mail.gmail.com>
+Subject: Re: [PATCH v3 1/9] ASoC: dt-bindings: qcom,qaif-cpu: Add binding
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
+        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=a8AAM0SF c=1 sm=1 tr=0 ts=6a8eb818 cx=c_pps
+ a=72HoHk1woDtn7btP4rdmlg==:117 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8 a=0RC-DErAFZYGOsEwKv0A:9
+ a=QEXdDO2ut3YA:10 a=kA6IBgd4cpdPkAWqgNAz:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDA4MSBTYWx0ZWRfXybKV4whQjrVB
+ hJWIYNnudPXPM3y2DFREa+Jtih/MQ8oPfEe1RPuHV4V9FR5zMD3oLJm33AADOSUimzHNm5LgGZf
+ 5B9AvqUwo6qqxXYOBkmEJ7wC/37S6yY=
+X-Proofpoint-ORIG-GUID: hHVL6cxzZcRowIav6TQryyPzad-TW9gp
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDA4MSBTYWx0ZWRfXy5vyIOPwG4Mv
+ kyxh4Vq41/mEYiatu5mMsFB2OC2SAY0hjhEDjqWBJghaYOyDamjb79Q32if2sFSic5mXOlS79PS
+ EvCTYbLmZswK5kYEjVpoQwpmHVgrSXtYvcPV7pyasVGUNFyIEBavHEfPTuMx0XgdOako7ZqBuaT
+ SJ5Psw0uU/qZ04qjSsXfO8iKemXfVTg0j7JJpu7taPf9jovwh5iH40Im4XWNMhoy63pl1+17O72
+ ySCRF4oR87xhF42yZfx4Pp/CmI0tMFAuyRPsS5YDN63QWfGqycgudaa+UYhg7iHoQe45ldD93fF
+ 5C5V0cjflc68bE/lXaKThOEVEvjf/SB/PAB19/ivwWNZCDFTUdQqdRyfFBuyLm6LJzJa0zEWjdW
+ Mz4X8EC5gb0i42pItoa5O3M0X5zyVCGKh6kBTplWhdYxIlHMGOE0NR4Iu9OnSMversIAwsLIb9v
+ pFkLBdEWwnAqd6BskfQ==
+X-Proofpoint-GUID: hHVL6cxzZcRowIav6TQryyPzad-TW9gp
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-26_02,2026-08-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 spamscore=0 lowpriorityscore=0 phishscore=0
+ adultscore=0 impostorscore=0 clxscore=1015 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260081
 
-libfdt allows to use an external resolver to resolve import symbols when
-an addon is applied.
-
-Add a simple external resolver in fdtaddon based on export symbols given
-on the tool command line (-e or --export). Those export symbols are used
-to mach import symbols (match by names) in order to resolved them.
-
-Two syntaxes are available for the -e or --export option:
-
-  - Export by symbol (--export '<name>=&<symbol>')
-    The export symbol <name> is created an reference the node identified
-    by <symbol>. This <symbol> has to be an exported symbol available at
-    the node the addon is applied to. For instance, assuming this base
-    device-tree fragment in the base device-tree:
-       target {
-	  /export/ bar: &{/somewhere/bar-node};
-       }
-    The '--target "/target" --export "foo=&bar"' will export foo as an
-    exported symbol pointing to /somewhere/bar-node. An addon can import
-    the foo symbol an it will be resolved to /somewhere/bar-node.
-
-  - Export by path (--export '<name>=&{<path>}')
-    The export symbol <name> is created and reference the node available
-    at the given <path>. This path must be an absolute path.
-    The '--target "/target" --export "foo=&{/somewhere/baz-node}"'
-    export the symbol 'foo' referencing the node at /somewhere/baz-node.
-    Here again, an addon importing the foo symbol will see this foo symbol
-    resolved to /somewhere/baz-node.
-    It is worth noting that /somewhere/baz-node may not be referenced in
-    the base device-tree. Indeed, /export/ could not be present to
-    reference this node. If the node is not referenced, dtc will not
-    create its phandle value and the resolution will failed. For this
-    reason having a /export/ keyword at the target node pointing to the
-    /somewhere/baz-node node is still recommended. This will
-    ensure that dtc will create the needed phandle.
-
-Signed-off-by: Herve Codina <herve.codina@bootlin.com>
----
- fdtaddon.c                                    | 232 +++++++++++++++++-
- ...n_custom_resolver_node_a-merged.dtb.expect |  39 +++
- ...n_addon_custom_resolver_node_a.dtba.expect |  15 ++
- ...fdtaddon_addon_custom_resolver_node_a.dtsa |  22 ++
- ..._custom_resolver_node_ab-merged.dtb.expect |  42 ++++
- ..._addon_custom_resolver_node_ab.dtba.expect |  21 ++
- ...dtaddon_addon_custom_resolver_node_ab.dtsa |  29 +++
- .../fdtaddon_base_custom_resolver.dtb.expect  |  33 +++
- tests/fdtaddon_base_custom_resolver.dts       |  52 ++++
- tests/run_tests.sh                            |  25 ++
- 10 files changed, 503 insertions(+), 7 deletions(-)
- create mode 100644 tests/fdtaddon_addon_custom_resolver_node_a-merged.dtb.expect
- create mode 100644 tests/fdtaddon_addon_custom_resolver_node_a.dtba.expect
- create mode 100644 tests/fdtaddon_addon_custom_resolver_node_a.dtsa
- create mode 100644 tests/fdtaddon_addon_custom_resolver_node_ab-merged.dtb.expect
- create mode 100644 tests/fdtaddon_addon_custom_resolver_node_ab.dtba.expect
- create mode 100644 tests/fdtaddon_addon_custom_resolver_node_ab.dtsa
- create mode 100644 tests/fdtaddon_base_custom_resolver.dtb.expect
- create mode 100644 tests/fdtaddon_base_custom_resolver.dts
-
-diff --git a/fdtaddon.c b/fdtaddon.c
-index 037851d9..80073860 100644
---- a/fdtaddon.c
-+++ b/fdtaddon.c
-@@ -22,20 +22,215 @@
- static const char usage_synopsis[] =
- 	"apply an addon to a base blob\n"
- 	"	fdtaddon <options> <addon.dtba>";
--static const char usage_short_opts[] = "i:o:t:v" USAGE_COMMON_SHORT_OPTS;
-+static const char usage_short_opts[] = "i:o:t:e:v" USAGE_COMMON_SHORT_OPTS;
- static const struct option usage_long_opts[] = {
- 	{ "input", required_argument, NULL, 'i' },
- 	{ "output", required_argument, NULL, 'o' },
- 	{ "target", required_argument, NULL, 't' },
-+	{ "export", required_argument, NULL, 'e' },
- 	{ "verbose", no_argument, NULL, 'v' },
- 	USAGE_COMMON_LONG_OPTS,
- };
- static const char *const usage_opts_help[] = { "Input base DT blob",
--					       "Output DT blob", "Target node",
-+					       "Output DT blob",
-+					       "Target node",
-+					       "Custom export symbol"
-+					       "\n\tMultiple --export or -e can be present in order to export multiple symbols."
-+					       "\n\tThe following syntaxes are supported:"
-+					       "\n\t  - Defines a export symbol pointing to a node using its symbol"
-+					       "\n\t      --export '<export_name>=&<symbol>'"
-+					       "\n\t  - Defines a export symbol pointing to a node by path"
-+					       "\n\t      --export '<export_name>=&{path_to_node}'",
- 					       "Verbose messages",
- 					       USAGE_COMMON_OPTS_HELP };
- 
--static void *do_apply(void *base, const void *addon, const char *target)
-+struct export_symbol {
-+	char *name;
-+	char *ref;
-+	struct export_symbol *next;
-+};
-+
-+struct resolver {
-+	struct export_symbol *export_list;
-+	int verbose;
-+};
-+
-+static void resolver_init(struct resolver *resolver)
-+{
-+	memset(resolver, 0, sizeof(*resolver));
-+}
-+
-+static void resolver_exit(struct resolver *resolver)
-+{
-+	struct export_symbol *e, *next;
-+
-+	e = resolver->export_list;
-+	while (e) {
-+		free(e->name);
-+		free(e->ref);
-+		next = e->next;
-+		free(e);
-+		e = next;
-+	}
-+}
-+
-+static char *str_strip_spaces(char *str)
-+{
-+	char *strip, *tmp;
-+
-+	tmp = str;
-+	strip = str;
-+	while (*tmp != '\0') {
-+		if (*tmp != ' ' && *tmp != '\t')
-+			*(strip++) = *tmp;
-+		tmp++;
-+	}
-+	*strip = *tmp;
-+	return str;
-+}
-+
-+static char *str_split(char *str, char token, char **remaining)
-+{
-+	char *tmp;
-+
-+	tmp = strchr(str, token);
-+	if (!tmp)
-+		return NULL;
-+	*(tmp++) = '\0'; /* Split the string at token char */
-+
-+	*remaining = tmp;
-+	return str;
-+}
-+
-+static int resolver_parse_export(struct resolver *resolver, const char *arg)
-+{
-+	struct export_symbol *export_symbol;
-+	const char *name, *ref;
-+	char *tmp, *strip;
-+
-+	strip = xstrdup(arg);
-+	strip = str_strip_spaces(strip);
-+
-+	tmp = strip;
-+
-+	name = str_split(tmp, '=', &tmp);
-+	if (!name || !strlen(name))
-+		goto fail;
-+
-+	if (*(tmp++) != '&')
-+		goto fail;
-+	if (*tmp == '\0')
-+		goto fail;
-+
-+	if (*tmp == '{') {
-+		/* ref by path : &{/xxxx/yyyy} */
-+		tmp++;
-+		if (*(tmp) != '/')
-+			goto fail;
-+
-+		ref = str_split(tmp, '}', &tmp);
-+		if (!ref || !strlen(ref))
-+			goto fail;
-+		if (*tmp != '\0')
-+			goto fail;
-+	} else {
-+		/* ref by symbol : &xxxx */
-+		ref = tmp;
-+		if (!strlen(ref))
-+			goto fail;
-+	}
-+
-+	export_symbol = xmalloc(sizeof(*export_symbol));
-+	export_symbol->name = xstrdup(name);
-+	export_symbol->ref = xstrdup(ref);
-+	free(strip);
-+
-+	export_symbol->next = resolver->export_list;
-+	resolver->export_list = export_symbol;
-+	return 0;
-+fail:
-+	free(strip);
-+	return -1;
-+}
-+
-+static int resolver_resolve(void *priv, const void *fdt, int target_node,
-+			    const char *importsym_name,
-+			    const char *importsym_compatible)
-+{
-+	struct resolver *resolver = priv;
-+	int node = -FDT_ERR_NOTFOUND;
-+	struct export_symbol *e;
-+
-+	e = resolver->export_list;
-+	while (e) {
-+		if (strcmp(importsym_name, e->name)) {
-+			e = e->next;
-+			continue;
-+		}
-+
-+		if (e->ref[0] == '/')
-+			node = fdt_path_offset(fdt, e->ref);
-+		else
-+			node = fdt_addon_resolve_default(fdt, target_node, e->ref,
-+							 NULL);
-+
-+		return node;
-+	}
-+	return -FDT_ERR_NOTFOUND;
-+}
-+
-+static int resolver_validate(void *priv, const void *fdt, int target_node)
-+{
-+	struct resolver *resolver = priv;
-+	struct export_symbol *e;
-+	uint32_t phandle;
-+	int node;
-+
-+	/*
-+	 * Check the export_symbol list. The related node must exist in the fdt
-+	 * blob and must have a valid phandle value.
-+	 *
-+	 * Simply revolve all export symbols available in the list to validate
-+	 * that they can be resolved.
-+	 */
-+
-+	e = resolver->export_list;
-+	while (e) {
-+		node = resolver_resolve(resolver, fdt, target_node, e->name,
-+					NULL);
-+		if (node < 0) {
-+			fprintf(stderr,
-+				"\nExport symbol '%s': Cannot find reference '%s'\n",
-+				e->name, e->ref);
-+			return node;
-+		}
-+
-+		phandle = fdt_get_phandle(fdt, node);
-+		if ((phandle == 0) || (phandle == ~0U)) {
-+			fprintf(stderr,
-+				"\nExport symbol '%s', reference '%s': Invalid phandle\n",
-+				e->name, e->ref);
-+			return -FDT_ERR_BADPHANDLE;
-+		}
-+
-+		if (resolver->verbose) {
-+			printf("Export symbol '%s', ref '%s' -> node at 0x%x, phandle 0x%"PRIx32"\n",
-+				e->name, e->ref, node, phandle);
-+		}
-+
-+		e = e->next;
-+	}
-+	return 0;
-+}
-+
-+static const struct fdt_addon_resolver_ops resolver_ops = {
-+	.validate = resolver_validate,
-+	.resolve = resolver_resolve,
-+};
-+
-+
-+static void *do_apply(void *base, const void *addon, const char *target,
-+		      struct resolver *resolver)
- {
- 	void *tmp_merged;
- 	void *tmp_addon;
-@@ -72,7 +267,12 @@ static void *do_apply(void *base, const void *addon, const char *target)
- 		goto fail;
- 	}
- 
--	ret = fdt_addon_apply(tmp_merged, tmp_addon, target);
-+	if (resolver)
-+		ret = fdt_addon_apply_resolver(tmp_merged, tmp_addon, target,
-+					       &resolver_ops, resolver);
-+	else
-+		ret = fdt_addon_apply(tmp_merged, tmp_addon, target);
-+
- 	if (ret) {
- 		fprintf(stderr, "\nFailed to apply %s\n", fdt_strerror(ret));
- 		goto fail;
-@@ -88,7 +288,8 @@ fail:
- }
- 
- static int do_fdtaddon(const char *input_filename, const char *output_filename,
--		       const char *addon_filename, const char *target)
-+		       const char *addon_filename, const char *target,
-+		       struct resolver *resolver)
- {
- 	void *base_blob = NULL;
- 	void *addon_blob = NULL;
-@@ -122,7 +323,7 @@ static int do_fdtaddon(const char *input_filename, const char *output_filename,
- 	}
- 
- 	/* apply the addon  */
--	merged_blob = do_apply(base_blob, addon_blob, target);
-+	merged_blob = do_apply(base_blob, addon_blob, target, resolver);
- 	if (!merged_blob)
- 		goto out_err;
- 
-@@ -146,7 +347,12 @@ int main(int argc, char *argv[])
- 	char *addon_filename = NULL;
- 	const char *target = NULL;
- 	int verbose;
-+	bool use_resolver = false;
-+	struct resolver resolver;
- 	int opt;
-+	int ret;
-+
-+	resolver_init(&resolver);
- 
- 	while ((opt = util_getopt_long()) != EOF) {
- 		switch (opt) {
-@@ -164,6 +370,13 @@ int main(int argc, char *argv[])
- 		case 't':
- 			target = optarg;
- 			break;
-+		case 'e':
-+			if (resolver_parse_export(&resolver, optarg) < 0) {
-+				resolver_exit(&resolver);
-+				return 1;
-+			}
-+			use_resolver = true;
-+			break;
- 		}
- 	}
- 
-@@ -190,7 +403,12 @@ int main(int argc, char *argv[])
- 		printf("addon = %s\n", addon_filename);
- 	}
- 
--	if (do_fdtaddon(input_filename, output_filename, addon_filename, target))
-+	resolver.verbose = verbose;
-+
-+	ret = do_fdtaddon(input_filename, output_filename, addon_filename, target,
-+			  use_resolver ? &resolver : NULL);
-+	resolver_exit(&resolver);
-+	if (ret)
- 		return 1;
- 
- 	return 0;
-diff --git a/tests/fdtaddon_addon_custom_resolver_node_a-merged.dtb.expect b/tests/fdtaddon_addon_custom_resolver_node_a-merged.dtb.expect
-new file mode 100644
-index 00000000..637387a7
---- /dev/null
-+++ b/tests/fdtaddon_addon_custom_resolver_node_a-merged.dtb.expect
-@@ -0,0 +1,39 @@
-+/dts-v1/;
-+
-+/ {
-+    base-node {
-+        sub-node {
-+            prop = <0x00000000>;
-+            phandle = <0x00000003>;
-+            addon-node {
-+                prop = "other";
-+            };
-+        };
-+    };
-+    somewhere {
-+        // [FDT_EXPORT_SYM] 'node_a1' -> phandle 0x00000001
-+        // [FDT_EXPORT_SYM] 'node_a2' -> phandle 0x00000002
-+        // [FDT_EXPORT_SYM] 'sub_node' -> phandle 0x00000003
-+        // [FDT_EXPORT_SYM] 'node_b1' -> phandle 0x00000004
-+        // [FDT_EXPORT_SYM] 'node_b2' -> phandle 0x00000005
-+        node-a1 {
-+            compatible = "abc,aaa";
-+            phandle = <0x00000001>;
-+            addon-node {
-+                prop = "node_a";
-+            };
-+        };
-+        node-a2 {
-+            compatible = "abc,aaa";
-+            phandle = <0x00000002>;
-+        };
-+        node-b1 {
-+            compatible = "abc,bbb";
-+            phandle = <0x00000004>;
-+        };
-+        node-b2 {
-+            compatible = "abc,bbb";
-+            phandle = <0x00000005>;
-+        };
-+    };
-+};
-diff --git a/tests/fdtaddon_addon_custom_resolver_node_a.dtba.expect b/tests/fdtaddon_addon_custom_resolver_node_a.dtba.expect
-new file mode 100644
-index 00000000..60104190
---- /dev/null
-+++ b/tests/fdtaddon_addon_custom_resolver_node_a.dtba.expect
-@@ -0,0 +1,15 @@
-+/dts-v1/;
-+/addon/;
-+
-+// [FDT_IMPORT_SYM] 'node_a' (abc,aaa)
-+// [FDT_IMPORT_SYM] 'other' ()
-+&node_a {
-+    addon-node {
-+        prop = "node_a";
-+    };
-+};
-+&other {
-+    addon-node {
-+        prop = "other";
-+    };
-+};
-diff --git a/tests/fdtaddon_addon_custom_resolver_node_a.dtsa b/tests/fdtaddon_addon_custom_resolver_node_a.dtsa
-new file mode 100644
-index 00000000..d400c4f2
---- /dev/null
-+++ b/tests/fdtaddon_addon_custom_resolver_node_a.dtsa
-@@ -0,0 +1,22 @@
-+// SPDX-License-Identifier: (GPL-2.0-or-later OR BSD-2-Clause)
-+/*
-+ * Copyright (C) 2026 Bootlin
-+ */
-+
-+/dts-v1/;
-+/addon/;
-+
-+/import/ node_a: "abc,aaa";
-+/import/ other: "";
-+
-+&node_a {
-+	addon-node {
-+		prop = "node_a";
-+	};
-+};
-+
-+&other {
-+	addon-node {
-+		prop = "other";
-+	};
-+};
-diff --git a/tests/fdtaddon_addon_custom_resolver_node_ab-merged.dtb.expect b/tests/fdtaddon_addon_custom_resolver_node_ab-merged.dtb.expect
-new file mode 100644
-index 00000000..40678266
---- /dev/null
-+++ b/tests/fdtaddon_addon_custom_resolver_node_ab-merged.dtb.expect
-@@ -0,0 +1,42 @@
-+/dts-v1/;
-+
-+/ {
-+    base-node {
-+        sub-node {
-+            prop = <0x00000000>;
-+            phandle = <0x00000003>;
-+            addon-node {
-+                prop = "other";
-+            };
-+        };
-+    };
-+    somewhere {
-+        // [FDT_EXPORT_SYM] 'node_a1' -> phandle 0x00000001
-+        // [FDT_EXPORT_SYM] 'node_a2' -> phandle 0x00000002
-+        // [FDT_EXPORT_SYM] 'sub_node' -> phandle 0x00000003
-+        // [FDT_EXPORT_SYM] 'node_b1' -> phandle 0x00000004
-+        // [FDT_EXPORT_SYM] 'node_b2' -> phandle 0x00000005
-+        node-a1 {
-+            compatible = "abc,aaa";
-+            phandle = <0x00000001>;
-+        };
-+        node-a2 {
-+            compatible = "abc,aaa";
-+            phandle = <0x00000002>;
-+            addon-node {
-+                prop = "node_a";
-+            };
-+        };
-+        node-b1 {
-+            compatible = "abc,bbb";
-+            phandle = <0x00000004>;
-+            addon-node {
-+                prop = "node_b";
-+            };
-+        };
-+        node-b2 {
-+            compatible = "abc,bbb";
-+            phandle = <0x00000005>;
-+        };
-+    };
-+};
-diff --git a/tests/fdtaddon_addon_custom_resolver_node_ab.dtba.expect b/tests/fdtaddon_addon_custom_resolver_node_ab.dtba.expect
-new file mode 100644
-index 00000000..04116f47
---- /dev/null
-+++ b/tests/fdtaddon_addon_custom_resolver_node_ab.dtba.expect
-@@ -0,0 +1,21 @@
-+/dts-v1/;
-+/addon/;
-+
-+// [FDT_IMPORT_SYM] 'node_a' (abc,aaa)
-+// [FDT_IMPORT_SYM] 'node_b' (abc,bbb)
-+// [FDT_IMPORT_SYM] 'other' ()
-+&node_a {
-+    addon-node {
-+        prop = "node_a";
-+    };
-+};
-+&node_b {
-+    addon-node {
-+        prop = "node_b";
-+    };
-+};
-+&other {
-+    addon-node {
-+        prop = "other";
-+    };
-+};
-diff --git a/tests/fdtaddon_addon_custom_resolver_node_ab.dtsa b/tests/fdtaddon_addon_custom_resolver_node_ab.dtsa
-new file mode 100644
-index 00000000..74a9cab3
---- /dev/null
-+++ b/tests/fdtaddon_addon_custom_resolver_node_ab.dtsa
-@@ -0,0 +1,29 @@
-+// SPDX-License-Identifier: (GPL-2.0-or-later OR BSD-2-Clause)
-+/*
-+ * Copyright (C) 2026 Bootlin
-+ */
-+
-+/dts-v1/;
-+/addon/;
-+
-+/import/ node_a: "abc,aaa";
-+/import/ node_b: "abc,bbb";
-+/import/ other: "";
-+
-+&node_a {
-+	addon-node {
-+		prop = "node_a";
-+	};
-+};
-+
-+&node_b {
-+	addon-node {
-+		prop = "node_b";
-+	};
-+};
-+
-+&other {
-+	addon-node {
-+		prop = "other";
-+	};
-+};
-diff --git a/tests/fdtaddon_base_custom_resolver.dtb.expect b/tests/fdtaddon_base_custom_resolver.dtb.expect
-new file mode 100644
-index 00000000..4a76672f
---- /dev/null
-+++ b/tests/fdtaddon_base_custom_resolver.dtb.expect
-@@ -0,0 +1,33 @@
-+/dts-v1/;
-+
-+/ {
-+    base-node {
-+        sub-node {
-+            prop = <0x00000000>;
-+            phandle = <0x00000003>;
-+        };
-+    };
-+    somewhere {
-+        // [FDT_EXPORT_SYM] 'node_a1' -> phandle 0x00000001
-+        // [FDT_EXPORT_SYM] 'node_a2' -> phandle 0x00000002
-+        // [FDT_EXPORT_SYM] 'sub_node' -> phandle 0x00000003
-+        // [FDT_EXPORT_SYM] 'node_b1' -> phandle 0x00000004
-+        // [FDT_EXPORT_SYM] 'node_b2' -> phandle 0x00000005
-+        node-a1 {
-+            compatible = "abc,aaa";
-+            phandle = <0x00000001>;
-+        };
-+        node-a2 {
-+            compatible = "abc,aaa";
-+            phandle = <0x00000002>;
-+        };
-+        node-b1 {
-+            compatible = "abc,bbb";
-+            phandle = <0x00000004>;
-+        };
-+        node-b2 {
-+            compatible = "abc,bbb";
-+            phandle = <0x00000005>;
-+        };
-+    };
-+};
-diff --git a/tests/fdtaddon_base_custom_resolver.dts b/tests/fdtaddon_base_custom_resolver.dts
-new file mode 100644
-index 00000000..b92475b2
---- /dev/null
-+++ b/tests/fdtaddon_base_custom_resolver.dts
-@@ -0,0 +1,52 @@
-+// SPDX-License-Identifier: (GPL-2.0-or-later OR BSD-2-Clause)
-+/*
-+ * Copyright (C) 2026 Bootlin
-+ */
-+
-+/dts-v1/;
-+
-+/ {
-+	base-node {
-+		sub_node: sub-node {
-+			prop = <0>;
-+		};
-+	};
-+
-+	somewhere {
-+		/*
-+		 * Nodes are referenced, either by path or by symbol, by the
-+		 * custom resolver available in the fdt_addon tool.
-+		 *
-+		 * Nodes referenced by symbols need to have the symbol exported
-+		 * here (i.e. in the node where the addon is applied to).
-+		 *
-+		 * For nodes referenced by path by the custom resolver, this is
-+		 * not strictly necessary but we need to ensure that DTC will
-+		 * create the phandle property for those nodes.
-+		 *
-+		 * DTC creates phandles when a node is referenced in the dts
-+		 * compiled by DTC. Using the /export/ keyword is a good way
-+		 * to ensure this reference and so to have the phandle created.
-+		 * Even if the exported symbol is not used (path instead of
-+		 * symbol), this ensures the phandle creation by DTC.
-+		 */
-+		/export/ node_a1: &node_a1;
-+		/export/ node_a2: &node_a2;
-+		/export/ sub_node: &sub_node;
-+		/export/ node_b1: &node_b1;
-+		/export/ node_b2: &node_b2;
-+
-+		node_a1: node-a1 {
-+			compatible = "abc,aaa";
-+		};
-+		node_a2: node-a2 {
-+			compatible = "abc,aaa";
-+		};
-+		node_b1: node-b1 {
-+			compatible = "abc,bbb";
-+		};
-+		node_b2: node-b2 {
-+			compatible = "abc,bbb";
-+		};
-+	};
-+};
-diff --git a/tests/run_tests.sh b/tests/run_tests.sh
-index 664ebf5d..6f4f8386 100755
---- a/tests/run_tests.sh
-+++ b/tests/run_tests.sh
-@@ -1369,6 +1369,31 @@ fdtaddon_tests() {
- 	run_dtc_test -I dtb -O dts -o fdtaddon_stack_2nd-merged.dtb.dts fdtaddon_stack_2nd-merged.dtb
- 	check_dts fdtaddon_stack_2nd-merged.dtb.dts
- 
-+	# Custom resolver
-+	run_dtc_test -I dts -O dtb -o fdtaddon_base_custom_resolver.dtb "$SRCDIR/fdtaddon_base_custom_resolver.dts"
-+	check_dtb fdtaddon_base_custom_resolver.dtb
-+
-+	run_dtc_test -I dts -O dtb -o fdtaddon_addon_custom_resolver_node_a.dtba "$SRCDIR/fdtaddon_addon_custom_resolver_node_a.dtsa"
-+	check_dtb fdtaddon_addon_custom_resolver_node_a.dtba
-+
-+	run_fdtaddon_test -i fdtaddon_base_custom_resolver.dtb -o fdtaddon_addon_custom_resolver_node_a-merged.dtb \
-+			  -t "/somewhere" \
-+			  -e "node_a=&node_a1" \
-+			  -e "other=&{/base-node/sub-node}" \
-+			  fdtaddon_addon_custom_resolver_node_a.dtba
-+	check_dtb fdtaddon_addon_custom_resolver_node_a-merged.dtb
-+
-+	run_dtc_test -I dts -O dtb -o fdtaddon_addon_custom_resolver_node_ab.dtba "$SRCDIR/fdtaddon_addon_custom_resolver_node_ab.dtsa"
-+	check_dtb fdtaddon_addon_custom_resolver_node_ab.dtba
-+
-+	run_fdtaddon_test -i fdtaddon_base_custom_resolver.dtb -o fdtaddon_addon_custom_resolver_node_ab-merged.dtb \
-+			  -t "/somewhere" \
-+			  -e "node_a=&{/somewhere/node-a2}" \
-+			  -e "node_b=&node_b1" \
-+			  -e "other=&sub_node" \
-+			  fdtaddon_addon_custom_resolver_node_ab.dtba
-+	check_dtb fdtaddon_addon_custom_resolver_node_ab-merged.dtb
-+
- 	# More realistic dts and dtsa input files
- 	run_dtc_test -I dts -O dtb -o fdtaddon_realistic_base.dtb "$SRCDIR/fdtaddon_realistic_base.dts"
- 	check_dtb fdtaddon_realistic_base.dtb
--- 
-2.55.0
-
+On Wed, Aug 26, 2026 at 3:13=E2=80=AFPM Srinivas Kandagatla
+<srinivas.kandagatla@oss.qualcomm.com> wrote:
+>
+>
+>
+> On 8/26/26 10:39 AM, Harendra Gautam wrote:
+> >>> + * CIF (Codec Interface) VA TX DAI IDs -- capture from voice activit=
+y codec.
+> >>> + * WRDMA channels collect audio from the VA codec and write it to me=
+mory.
+> >>> + */
+> >>> +#define QAIF_CDC_DMA_VA_TX0  246
+> >>> +#define QAIF_CDC_DMA_VA_TX1  247
+> >>> +#define QAIF_CDC_DMA_VA_TX2  248
+> >>> +#define QAIF_CDC_DMA_VA_TX3  249
+> >>> +#define QAIF_CDC_DMA_VA_TX4  250
+> >>> +#define QAIF_CDC_DMA_VA_TX5  251
+> >>> +#define QAIF_CDC_DMA_VA_TX6  252
+> >>> +#define QAIF_CDC_DMA_VA_TX7  253
+> >>> +#define QAIF_CDC_DMA_VA_TX8  254
+> >>> +#define QAIF_CDC_DMA_VA_TX9  255
+> >>> +
+> >> These DAI IDs exceed the LPASS_MAX_PORT limit, which will cause sound
+> >> card registration to fail.
+> >>
+> >> Check sound/soc/qcom/common.c, as the current indices (246-255) are
+> >> beyond the supported LPASS port range.
+> >>
+> >> Best Regards,
+> >> Rafi.
+> > Thanks for pointing this out. We can either add the range check for
+> > min/max QAIF DAI IDs in qcom/common.c or introduce a common helper in
+> > qcom/common.h to validate the supported DAI IDs across Qualcomm
+> > platforms.
+>
+> You should add these ids to
+> include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h instead to avoid
+> conflicts with common code.
+>
+> --srini
+Thanks for the suggestion. qcom,q6dsp-lpass-ports.h is specific to Q6
+DSP/AFE virtual port IDs. Since QAIF is a direct MMIO driver with no
+Q6 DSP involvement, would adding QAIF IDs there not be misleading?
+would it be better to update the range check in common.c/common.h to
+accommodate both LPASS and QAIF DAI ID ranges instead?
+-Harendra
+> > -Harendra
+>
