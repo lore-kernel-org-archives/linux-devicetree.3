@@ -1,122 +1,117 @@
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84A1131327D
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 07:20:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E07D833F589;
+	Wed, 26 Aug 2026 07:27:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787728816; cv=none; b=rGbyLWerGjsoWKNm9Ea0CCZyKa+LZxMyaM6YApIoUW6sez5BF5VJk0OX9yNnuzC1Xtdh0dpj7F44tOzf+h4QTVW/kTeicKdXmU6RjmpTxHOqZpJ6jub5rr9/kEzY7rek69OjAUZ8k0LAdnIUAG8W4FEd5uon25F4X/H1XSIaShQ=
+	t=1787729271; cv=none; b=Zy18aoUSTPQjVcjDPLJ8Y6o02ip0aCBf7ZEAhltRxT3mTBAzWm1RkROUgGJLoItIDZos6zRCxoDQ430RghYNOs4zjI6Rag6c8Ju7Oa6P0s47wQxaKsFwXtDPy1Bv42rAbjBC4mS1Z2b9yeFnrJrdAc+lmknOlvRpZG/slg1FssM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787728816; c=relaxed/simple;
-	bh=hZiNQy3iO6KSEujh93jIhCeW+8rxMqaiJ0+rPCJREQI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TWfUGsoe7n860A3oaAocwGBa8Fk+2TvfMki7rDOdBYYmCHfC1nzxQ3wL+ySvMjxRZd7BakqQoyRaBm2PdUpRIYWXDtNlm56U5zFtk4NIeW3A2J6hym6Y+ZB1NIyaPJtmMbru5LUcGKCAomdiwzJ6hNkBDkqyzzSe7A7IBUoVF7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=du7TT8f9; arc=none smtp.client-ip=209.85.218.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787729271; c=relaxed/simple;
+	bh=GNR7ns7Ns3sdCOR5OtMGipxO9x433LO9assu298sSkw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TLJeq/KmzZE3h7xlPCaFbhtOaSBEZ6+YMGekIvpyDg0rOGYg1wudhKWjmX3xc+pfTpWRGS5M9PTtxld1RuiSkSpb3KS9PcNep1JkG5lTxKG90x6E0lc0mym3LDlfXsvSciYKqDjeNyQLrYm8CM3hKi5a6eR2X2BHhNeNRJKnC3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dO2FDL5N; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="du7TT8f9"
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c250c6a6a6eso95122866b.0
-        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 00:20:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787728811; x=1788333611; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aheGcIIqE1nFbVMMTOFfK9uzsMEkXzfTrDVK9lTzIxY=;
-        b=du7TT8f9BQFuczTpSF79ehbuQ5WFhn7AIdqMD9bl6D6WI1ze7umvJeHxkqGNy4GBhr
-         oLdYWKRf4ik+oGxq4dcyOb2hdwlP6385dL2uzBrWkeHelcP47BEDNmmmQo5zFbw6UPec
-         hvCEXEvThZu8OuMcwHyLh5cgsLCe2ZeR1+D5pOV/u/ETwQCcggyaVI0jqMVhEZD9eA97
-         I/cADWcctt8wf2q0sBKaWAUzqPFiR0OSnkONNDwYN8m+eKy4CpITZgJ19pVbmfZxs9wd
-         OOaMV2/u3i14j6k4urjMD+X5hp3HAdTTSosKVHiQgREn/V8Kj4ZSf4h8GHKN0vSdBy+R
-         Ev3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787728811; x=1788333611;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aheGcIIqE1nFbVMMTOFfK9uzsMEkXzfTrDVK9lTzIxY=;
-        b=NNDQVX43FVCH5ZfEm6x5WTTMFboPhQs+uIxDPgVv7wV0saQbK9p0t7N6Mr0RaDwmPI
-         o9e5HToRCR/03JUd3rUeLf9KmIgJXKJMq2hJ8OQc/4HPOFlix7z6XafJl4uQO1fUBKA5
-         F+4h999acGeaMBCY0SYahqSZRmHkaorlIHoTlzEOecW6Al+c4uzTK+9do/x2jojZbkwb
-         4Z/8oIqkyX3vo9VX0ixCM3Jd+hmR//oiyt9ZtN10J1zDxe61g1MVH7DOZFz/YCzaZsNP
-         oMWtlyyimC9LRnboiVnFhpAqO70u7+a86D3f1J8CiL+p+7jswoytobMF4vbq1Doxwspk
-         ZOiQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpP+ihCL0sQ44/Bi/muUyiVtlNtJXHcnh7RAZ06td70L/BYk943GvzaDsPdznUPvhx5FOsBPX17GRLv@vger.kernel.org
-X-Gm-Message-State: AFuF++nf/7k4sg5UJLOF0qwsUGniVduJJtLSnTZFa9HFJRl8bNGqK5kz
-	3PCE0rz7K5VYacjHwb2RHqyJbW8qK3B15J34kpwv6YX+OYyhE5GpB33a
-X-Gm-Gg: AR+sD12FC6d0M04GP6ypQJJJB+fKfY5aswL+GMgBZO+0T93NrwhdVwC1ptGz2v3eled
-	u9SraQLLvLfvYakBYAH6dttJOsWyJm/gri6sOnODwwOc4cJGH+6AcvHNBzu8DNc1nPjX+ynjqsN
-	KQ3zT3ITlnojuTUBHmtQj7vyvBzVRboEqs/qPsy5l9ncBMojWHBE4DLGAApBuoIctOG2C/0J2fG
-	X57YDfpJ0BVQR6UBEiJQGCgp2H3mjKGFQLLk8do++mt+orRxkJ4CBGUdzrDOxi7hGfxv6MvNWrK
-	6wxQ9OW5dPlGZBHsQ3oAhx7X2BCrgepNDrvxGBMNrJSQsj8Jx4xPIEjrt+DG27Et0Aahe8JPBB+
-	/kb0WfJjOTrbRND6EqR+iO2ILO5J2TudRmc95vKYCxt1q6isNXQlfXIBlgNbW69q45TYpzHQm/X
-	mRNYVlFZ9nxu3k1qPhUyNiBZZ+7YxIoMXci72J7X1DyW3UPJ4heggSVCFTkTKybbs0GpdVeLTdy
-	oat4knI4QZHfwFW7YbCozwjMh/USstBHQH19OFN4DZRY/4q89Q8HG6f1Vetch7dHcTEhTq72qXT
-	QaCNnWrlWzL9bNHOcGXKs3tO5w==
-X-Received: by 2002:a17:907:e001:10b0:c25:2c70:50ed with SMTP id a640c23a62f3a-c252c715dccmr56217266b.5.1787728810259;
-        Wed, 26 Aug 2026 00:20:10 -0700 (PDT)
-Received: from robert-83cx (static-dsl-191.87-197-115.telecom.sk. [87.197.115.191])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a88ab59sm298340066b.41.2026.08.26.00.20.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 00:20:09 -0700 (PDT)
-From: Robert Bozik <robertbozik@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dO2FDL5N"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787729270; x=1819265270;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=GNR7ns7Ns3sdCOR5OtMGipxO9x433LO9assu298sSkw=;
+  b=dO2FDL5Nyz2cxucGu/EDsPErInxl7NabiJ652BGCVxRVFgQ+6oqPaFVL
+   XLGP9D4gNuUgDRhaV82O1BNgV/qjDrwbGpk3cXliG3Yq2y3Ib4DcbFh+W
+   ifkahCGscYbBdYU5ycyiI+pe3tKzguz3rj9LFXiQo+SmCWZfWNIMY48gf
+   CjjSwruPjQemE0SACXHyNyJFZEceokANkh/L6b8PNGVEsDL+ivX+ogms6
+   Dc5AnvQYG15qug1LT89QULwrU8z98nM/0JjLBtkSYp2h0C2h5NqhQt2lM
+   GE+5fhT9L4pre+Rc1lJ/kI/eHYvY3mZwb1F9ehRWivtb0OAlTmckf4UHe
+   Q==;
+X-CSE-ConnectionGUID: /pydZ11mRmG23R8Fe7npTg==
+X-CSE-MsgGUID: OfsXEA9xQd+sNMyqb+e9xg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11886"; a="91885660"
+X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
+   d="scan'208";a="91885660"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 00:27:49 -0700
+X-CSE-ConnectionGUID: CatdtcIuShuEXX5ylwAgOw==
+X-CSE-MsgGUID: 6E9IUNyJRs+A7WmZNzk2PQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
+   d="scan'208";a="269447556"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.235])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 00:27:45 -0700
+Date: Wed, 26 Aug 2026 10:27:42 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Esben Haabendal <esben@geanix.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
+	Martin Kepplinger <martink@posteo.de>,
+	Sean Nyekjaer <sean@geanix.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Martin Kepplinger <martin.kepplinger@theobroma-systems.com>,
+	Christoph Muellner <christoph.muellner@theobroma-systems.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Robert Bozik <robertbozik@gmail.com>
-Subject: [PATCH 3/3] media: ipu-bridge: Add OmniVision OV32C4
-Date: Wed, 26 Aug 2026 09:20:02 +0200
-Message-ID: <20260826072002.14357-4-robertbozik@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260826072002.14357-1-robertbozik@gmail.com>
-References: <20260826072002.14357-1-robertbozik@gmail.com>
+	Joshua Crofts <joshua.crofts1@gmail.com>
+Subject: Re: [PATCH v6 6/9] iio: accel: mma8452: Reuse existing dev pointer
+ in mma8452_probe()
+Message-ID: <ao6Vbm59IX1cl7tj@ashevche-desk.local>
+References: <20260825-mma8452-open-drain-v6-0-9b252804ee80@geanix.com>
+ <20260825-mma8452-open-drain-v6-6-9b252804ee80@geanix.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260825-mma8452-open-drain-v6-6-9b252804ee80@geanix.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Add the sensor configuration for the OV32C4, matching the _HID the
-sensor enumerates with. Without this entry the bridge does not build a
-software node graph for the sensor, so its driver defers probing on the
-missing fwnode endpoint forever and the camera never binds.
+On Tue, Aug 25, 2026 at 10:27:44AM +0200, Esben Haabendal wrote:
+> In commit 32a5c04d4575 ("iio: accel: mma8452: Use dev_err_probe()") the
+> struct device * pointer was assigned to local variable dev, so we can just
+> as well reuse that throughout the function for sligthly more readable code.
 
-Signed-off-by: Robert Bozik <robertbozik@gmail.com>
-Assisted-by: Claude:claude-opus-5 sparse
-Assisted-by: Claude:claude-fable-5 sparse
----
- drivers/media/pci/intel/ipu-bridge.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+...
 
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index 1bb3a3e98..7d3c7e09f 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -93,6 +93,16 @@ static const struct ipu_sensor_config ipu_supported_sensors[] = {
- 	IPU_SENSOR_CONFIG("OVTIDB10", 1, 560000000),
- 	/* Omnivision OV2680 */
- 	IPU_SENSOR_CONFIG("OVTI2680", 1, 331200000),
-+	/*
-+	 * OmniVision OV32C4.
-+	 *
-+	 * 400 MHz link frequency, i.e. 800 Mbps per lane. There is no public
-+	 * datasheet; the value comes from the vendor Windows driver, which
-+	 * carries it as MipiBps, and it is confirmed on hardware: the IPU7
-+	 * D-PHY locks and the sensor streams 3264x1840 at a measured
-+	 * 30.00 fps, matching pixel_rate / (ppl * vts) exactly.
-+	 */
-+	IPU_SENSOR_CONFIG("OVTI32C4", 1, 400000000),
- 	/* Omnivision OV5675 */
- 	IPU_SENSOR_CONFIG("OVTI5675", 1, 450000000),
- 	/* Omnivision OV8856 */
+>  static int mma8452_runtime_suspend(struct device *dev)
+>  {
+> -	struct iio_dev *indio_dev = i2c_get_clientdata(to_i2c_client(dev));
+> +	struct i2c_client *client = to_i2c_client(dev);
+> +	struct iio_dev *indio_dev = i2c_get_clientdata(client);
+
+This change is unrelated and should be as simple as
+
+	struct iio_dev *indio_dev = dev_get_drvdata(dev);
+
+OTOH, this might require the full device.h to be included...
+Either way, it's not for this patch.
+
+>  	struct mma8452_data *data = iio_priv(indio_dev);
+>  	int ret;
+
+>  	ret = mma8452_standby(data);
+>  	mutex_unlock(&data->lock);
+>  	if (ret < 0) {
+> -		dev_err(&data->client->dev, "powering off device failed\n");
+> +		dev_err(&client->dev, "powering off device failed\n");
+>  		return -EAGAIN;
+>  	}
+
+Why? Just use given 'dev' as is.
+
 -- 
-2.53.0
+With Best Regards,
+Andy Shevchenko
+
 
