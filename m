@@ -1,117 +1,91 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E07D833F589;
-	Wed, 26 Aug 2026 07:27:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D440E3A9015
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 07:31:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787729271; cv=none; b=Zy18aoUSTPQjVcjDPLJ8Y6o02ip0aCBf7ZEAhltRxT3mTBAzWm1RkROUgGJLoItIDZos6zRCxoDQ430RghYNOs4zjI6Rag6c8Ju7Oa6P0s47wQxaKsFwXtDPy1Bv42rAbjBC4mS1Z2b9yeFnrJrdAc+lmknOlvRpZG/slg1FssM=
+	t=1787729479; cv=none; b=Udd/pOcZiMCjC5CKkCXuPhpNvJrtcVS0SEf7LE3A19A5Z8/UxONfPR5F2RFB8PpMAVHdHwAlqIo2Wo5B44hPODItkiMSM6A5ShwJptL2zJm5b7SMs6mnQ72GfI4+NA+r3qs6MY7AmNJQ94n6dfFZHmWnPtqJQ2te68I9s8EJSO8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787729271; c=relaxed/simple;
-	bh=GNR7ns7Ns3sdCOR5OtMGipxO9x433LO9assu298sSkw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TLJeq/KmzZE3h7xlPCaFbhtOaSBEZ6+YMGekIvpyDg0rOGYg1wudhKWjmX3xc+pfTpWRGS5M9PTtxld1RuiSkSpb3KS9PcNep1JkG5lTxKG90x6E0lc0mym3LDlfXsvSciYKqDjeNyQLrYm8CM3hKi5a6eR2X2BHhNeNRJKnC3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dO2FDL5N; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787729479; c=relaxed/simple;
+	bh=UohQG3YwY7lOUlVvLWVbLdpHlpUH7ltj2uEVv6bI+M8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=D+LR9Q9CPma3hfWZC1C0rvxi1ozpQmFXJGQ2kAo3k5hEHtCXHLXn3y7l3qFGZcosqPGlnrdjMEysR/dX45/xkQE+z9Zjes217z6JoXTg1q7dasnTrRyGqQkN+zW3blD0zw5WbX7evWAGKYPWulqoQZenBtowJvPK0bQdRZTV3sw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GSd6aJ6j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dO2FDL5N"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787729270; x=1819265270;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=GNR7ns7Ns3sdCOR5OtMGipxO9x433LO9assu298sSkw=;
-  b=dO2FDL5Nyz2cxucGu/EDsPErInxl7NabiJ652BGCVxRVFgQ+6oqPaFVL
-   XLGP9D4gNuUgDRhaV82O1BNgV/qjDrwbGpk3cXliG3Yq2y3Ib4DcbFh+W
-   ifkahCGscYbBdYU5ycyiI+pe3tKzguz3rj9LFXiQo+SmCWZfWNIMY48gf
-   CjjSwruPjQemE0SACXHyNyJFZEceokANkh/L6b8PNGVEsDL+ivX+ogms6
-   Dc5AnvQYG15qug1LT89QULwrU8z98nM/0JjLBtkSYp2h0C2h5NqhQt2lM
-   GE+5fhT9L4pre+Rc1lJ/kI/eHYvY3mZwb1F9ehRWivtb0OAlTmckf4UHe
-   Q==;
-X-CSE-ConnectionGUID: /pydZ11mRmG23R8Fe7npTg==
-X-CSE-MsgGUID: OfsXEA9xQd+sNMyqb+e9xg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11886"; a="91885660"
-X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
-   d="scan'208";a="91885660"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 00:27:49 -0700
-X-CSE-ConnectionGUID: CatdtcIuShuEXX5ylwAgOw==
-X-CSE-MsgGUID: 6E9IUNyJRs+A7WmZNzk2PQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
-   d="scan'208";a="269447556"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.235])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 00:27:45 -0700
-Date: Wed, 26 Aug 2026 10:27:42 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Esben Haabendal <esben@geanix.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Martin Kepplinger <martink@posteo.de>,
-	Sean Nyekjaer <sean@geanix.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Martin Kepplinger <martin.kepplinger@theobroma-systems.com>,
-	Christoph Muellner <christoph.muellner@theobroma-systems.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Joshua Crofts <joshua.crofts1@gmail.com>
-Subject: Re: [PATCH v6 6/9] iio: accel: mma8452: Reuse existing dev pointer
- in mma8452_probe()
-Message-ID: <ao6Vbm59IX1cl7tj@ashevche-desk.local>
-References: <20260825-mma8452-open-drain-v6-0-9b252804ee80@geanix.com>
- <20260825-mma8452-open-drain-v6-6-9b252804ee80@geanix.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GSd6aJ6j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 766341F00A3E
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 07:31:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787729475;
+	bh=UohQG3YwY7lOUlVvLWVbLdpHlpUH7ltj2uEVv6bI+M8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=GSd6aJ6jPiK9yOmuMVBRtHLJnMkTQMo7Z2Lkdpr7VUKDR/IgoIiETza0DlIcd4yPY
+	 bd+pq1Cz+XdmZOCqKXNxRw/LRnF2H7PPGiX1pJjH/V801dPBhcWmkdQJZBi2BPGlM4
+	 yxItF9F/wezIF6j3tUnrbPDdQxXSqvJDZOZutIyaFA4CF4WdFtvIT+zZ32LuOSVsWE
+	 +EVRnQHZk/3GL80kOMxH4DrcN6RKYKWhDvwSnysvg0XuS/ue8R57nLr2KOoZZ/Qe4E
+	 vbOirOf/lF8KOo+WyunYkHzhqAY97G+alrjTvfVZTwPZmFYTn2kKXch5VR7GeFlMDX
+	 tKznCI8uuV1QA==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5b4747943b8so585251e87.0
+        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 00:31:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RozRqQY8jDl/f6Ax7Ragz2eaTPQ8yZqnkHjONisch7UsvlpgmoNFs5UnJNsa432NuVK3YqcF3l77Awu@vger.kernel.org
+X-Gm-Message-State: AFuF++kSMnZdXTGA/Z8LwLkmUSxbd0DiSaukh6rj+45c04g+A+9ZybkK
+	Jn+PCVZdXxsoV4sP7i3m8XTpbUwvu6f2CONkFgF7dLMKR1rTv1G1WGLnylcLYgKc+TmeZu7pJiy
+	3RclolxtkoyUcQ+1tZBgXgVZS+SxukvU=
+X-Received: by 2002:a05:6512:3b29:b0:5ae:a0b4:5013 with SMTP id
+ 2adb3069b0e04-5b4a8d700fcmr1189934e87.0.1787729474161; Wed, 26 Aug 2026
+ 00:31:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260825-mma8452-open-drain-v6-6-9b252804ee80@geanix.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20260824-rtc_s35390a_int1-v6-0-df96569e3412@posteo.de>
+ <20260824-rtc_s35390a_int1-v6-5-df96569e3412@posteo.de> <20260823222611.B176B1F000E9@smtp.kernel.org>
+ <CAD++jLnpzMs5h-k49HQ_asppECRMm1wGQK8X+vTmiC+S70fZgw@mail.gmail.com> <3827a4e6be868e8726c140281a140a85e706aacc.camel@posteo.de>
+In-Reply-To: <3827a4e6be868e8726c140281a140a85e706aacc.camel@posteo.de>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 26 Aug 2026 09:31:00 +0200
+X-Gmail-Original-Message-ID: <CAD++jLm1fU41_gY+CUZpS+woURECAqdy3PEiV+_+g4cnL7rciw@mail.gmail.com>
+X-Gm-Features: AcwNN1U59KN6awAelPsuYmcuHtZlNIrj9X52ZAxwkc3wLZaZ-UfIl-H65G2LfEw
+Message-ID: <CAD++jLm1fU41_gY+CUZpS+woURECAqdy3PEiV+_+g4cnL7rciw@mail.gmail.com>
+Subject: Re: [PATCH v6 5/6] rtc: s35390a: Add pinctrl
+To: Markus Probst <markus.probst@posteo.de>
+Cc: sashiko-reviews@lists.linux.dev, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, devicetree@vger.kernel.org, 
+	linux-rtc@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Aug 25, 2026 at 10:27:44AM +0200, Esben Haabendal wrote:
-> In commit 32a5c04d4575 ("iio: accel: mma8452: Use dev_err_probe()") the
-> struct device * pointer was assigned to local variable dev, so we can just
-> as well reuse that throughout the function for sligthly more readable code.
+On Tue, Aug 25, 2026 at 9:37=E2=80=AFPM Markus Probst <markus.probst@posteo=
+.de> wrote:
 
-...
+> > > [Severity: Medium]
+> > > Is there a data race here since the pinfunction array is accessed loc=
+klessly
+> > > after pinctrl_enable() has made the pinctrl device available?
+> >
+> > That's a valid concern.
+> I don't think so.
+>
+> `s35390a_pinctrl_set_mux` itself will take a lock for the operation.
+>
+> `pinfunction[i]` is a 32-bit integer, so there should be no load
+> tearing.
+>
+> If we take a lock here, it shouldn't change anything. In a normal
+> condition this shouldn't happen anyway, as `pinctrl_enable` should
+> block until the default state is selected. If another driver is
+> concurrently selecting a pinctrl state of this device while we probe
+> (which is the only time pinfunction should be modified here
+> concurrently), it is still a race condition whether the fallback
+> applies or not.
 
->  static int mma8452_runtime_suspend(struct device *dev)
->  {
-> -	struct iio_dev *indio_dev = i2c_get_clientdata(to_i2c_client(dev));
-> +	struct i2c_client *client = to_i2c_client(dev);
-> +	struct iio_dev *indio_dev = i2c_get_clientdata(client);
+I buy that.
 
-This change is unrelated and should be as simple as
+Once there is a solution for the Kconfig business I think
+this is good to go!
 
-	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-
-OTOH, this might require the full device.h to be included...
-Either way, it's not for this patch.
-
->  	struct mma8452_data *data = iio_priv(indio_dev);
->  	int ret;
-
->  	ret = mma8452_standby(data);
->  	mutex_unlock(&data->lock);
->  	if (ret < 0) {
-> -		dev_err(&data->client->dev, "powering off device failed\n");
-> +		dev_err(&client->dev, "powering off device failed\n");
->  		return -EAGAIN;
->  	}
-
-Why? Just use given 'dev' as is.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Yours,
+Linus Walleij
