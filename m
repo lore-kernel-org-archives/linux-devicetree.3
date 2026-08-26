@@ -1,276 +1,388 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7482B423EAE
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 09:54:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51884423E8F;
+	Wed, 26 Aug 2026 09:54:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787738066; cv=none; b=bys9ixY0MZslzDTF7qAcKEFMK6Gr8Ue4nbWDLX8/GuMI5u5gKFsqUM2cQsw0VFkTsxB2iVUtKJ8DjH7Pblfe4K9P1DIZMhJa5dlIIraXazsa6AAUuYGDCdZ+VnuxsLe0kFEno4KauCTymAtaiVaPnn3MspYe/eUoP2DSby4l584=
+	t=1787738070; cv=none; b=QmzjNyneCBGeDqFifDpAf/jlP7JR6ij/9BhIhtktbmTafYWOcT3ujHNuXPXW9aSIfU46bakuNCZtqaQulQPhvbP+5c+/kUrmaPv8Zm2itkbJE1oIfeAkynB1U4PdR3BDLPqfvqzaQBp/8UDcEFGoxnChLmGbhTO44Zxc+U48PVs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787738066; c=relaxed/simple;
-	bh=8fFg9ED/ROd60XizeBWJbyCXDyM27TOjkHL+V1F8IPg=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=gJ+g0PKrYkXQavZCvV4gGC2MIEfiszQWIAXfCWr4A1Uwe/aNXc3x6hrqPKgfalX6z/LY8fa1ena3sLLxtl9egDpAFfi20GKvYxu4SvUzxezFOGx5f2IEoByqGZ4zw1wET4hxurXukjjW7hpSSiv8t/1d7fuZQsQVsFCAm5VAruk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=bVzaqwoE; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1787738070; c=relaxed/simple;
+	bh=MHnNR2pV7IRFuaKfOt2KHUASy69UhfvCkta9wVvsJgI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qqm1p+jRq9yORTXUhei6k5mVhimCLUcDsYvMbKMXm52+yZAFomdI+z67Xhb3fjJPAybUK1ndQUUeVzRYEn8sqYZrINX9Z/hCMYW770iFJQsm8YCzgFUhH1tWiW0I97srX1FrVeXfkGjKzGYpPKHzJCAc9k0t2zc48j64NahUL6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=pbXcjOg3; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="bVzaqwoE"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4996f1ee4a4so4869685e9.2
-        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 02:54:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1787738063; x=1788342863; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SDtTT4dCnjJ69lmBAdXwlid3ixyj5+6saySsWKlL1vI=;
-        b=bVzaqwoExEz9+hlVQmykQ374Phnlo5f7OamtY7qR5fan7vtYAjC/590e4tl4uuH8M6
-         cSL9lle7jmYfpxMCxcfb07udmnwXp5gCOvhm/KH930vKMSxXriFQ0aIG5mSiJ+C0X+TH
-         6qO4kJRPlN8GEKQPQDgDiBHFfUFxvyCtRtUAO6yMtWCszVw8x8Ss8fktKcYgynDYJe4t
-         Uab21h5hTJ5+oY+IZcXNJF/3qLubsCHR62cYg3cXckcFEPwN8W02VoxBFGwzeNHyUCLD
-         7yTdNZM0tHe+T71TPY6Q/RQgV2gKVgikDJ1q3c8VZyHDmqXX1E8dINQSYDlaWuFn2+Zy
-         7zjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787738063; x=1788342863;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SDtTT4dCnjJ69lmBAdXwlid3ixyj5+6saySsWKlL1vI=;
-        b=GcE04e+j/CFdJu/VueUlK8AfKWeFqr+07R8QWk62J2nC6REAuS4OX1wBX3r5HNMBXF
-         dzGusefBYQ0y8tJpmLOzAnhJe4acOyR6L92RfPG6ha8QyEuWxXjYQRNrlL9ONlSrIhzg
-         TN3lqDKDENPl2hFQAmvplsLM47ywd37vHZJFOarKG2D0RyB+5lo29/Uj/TWGdWLrtUSf
-         zBdR8Szs3UswQy3JrgXRFTi+67HCSIs/cvM8YOwuSo11r+Oz7HtoZ5VFbAhr9Cm11peC
-         u2pZoXxGgYzF/TrAqNN9rSW+yXAu5lzrobPCzZefZ3eveaM19uM2SdJXq1qY75GN+cLD
-         XrPQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrZzOu13AqBy6v9dtPs3lnbnoitLhnHEbKWpOjBBgbeoqAUVgoJ3YlhiU6SjB/zSG1SXcBzu4xzLgnX@vger.kernel.org
-X-Gm-Message-State: AFuF++lPQC29hQsgukWROHZEpHxm4W8heVP0wTs224GPaQGk9GJz7uh/
-	vBEx8MzdElYnlRNp5Gd2aKUXQWsTqHu6BEaQ/MqqUkGewR0/bMpolcsasMvAmQiXqdua56AD7R6
-	7jsK1t1s=
-X-Gm-Gg: AR+sD10yFtI9Pii/FSBRW+ktJiaQ8nz0uj0O1hOVhUywcJOIRMuGzowcTTT3TRgeSEm
-	SlUhsPzUOw+9GIUL5vtzcpQui7zkwo/pwih04I+Gw1N5PZ3sRvr5NLUXG4zbUaOgtnsjrFfm7J8
-	LDL2GDyTfySn1pYHLvo32STtCUEIoOxfs7GKNvgkcTXA0AOJWxz5anQM1K6+GpgmBCfH9RUkU1t
-	kOeMldVTqRVf9SYOd6Gm5ZqG9FAK9sJP3h5ilCo6egkhV7SoFErI1vZIY4gfGYZskdW1Nhl9tXz
-	ZHcVrVd5OXcmac3deDH2n393YnkAgp/tNNUobsTKAn4AO4ItE+ZbM3QppAnhsB65XY+uEJWYfXP
-	YLdI/WBSckg5TAss60PF5RJjNYJxL2ZdJXlWfKbTcFEjbb4tHptfHd7YKAsWNiqvsiR4hUey7uX
-	MBJBlBA89OpLJg6ltDBYYcRY4eNfusVGgFo8cmuAE3cNhkGoezbTxewFpuBq/wM5ugWg9XI0C1B
-	IATmoJ6MsSM+uvW5IVNupwYpVNk0f2D8p4+5drisG40lQ==
-X-Received: by 2002:a05:600c:a43:b0:497:fecd:5b00 with SMTP id 5b1f17b1804b1-499dc717e27mr42328835e9.9.1787738062562;
-        Wed, 26 Aug 2026 02:54:22 -0700 (PDT)
-Received: from ?IPV6:2a0d:e487:135f:84f0:37f7:9223:8e7a:9b5f? ([2a0d:e487:135f:84f0:37f7:9223:8e7a:9b5f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dca8c75csm21065975e9.2.2026.08.26.02.54.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 26 Aug 2026 02:54:22 -0700 (PDT)
-Message-ID: <40d0cb7c-eabd-45e0-aa4c-5638cc71b8db@linaro.org>
-Date: Wed, 26 Aug 2026 11:54:15 +0200
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="pbXcjOg3"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 0EE944E413BC;
+	Wed, 26 Aug 2026 09:54:27 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D0674604EC;
+	Wed, 26 Aug 2026 09:54:26 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6A52C11C7AD68;
+	Wed, 26 Aug 2026 11:54:19 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1787738061; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=9pMDiGyCLLstUmB3wiJhwi2oHDjtrJbG23U6ozFYFFY=;
+	b=pbXcjOg3Y+8LHn26vgpi2xGfR9R6lorLxaUd+uJHnUysTNGUlox7nCvVwPu7KRLwlWPGDP
+	ZqLb5ZPZu76QawjIVZyhHG2/YnW7P6Aa6bMIuPCXidbyP/h9/9ltbi0Cd7CdX+K8iP1qKr
+	5kdOsDrs8f7r3nsGYhkyuc6fDsvX/8811PwQFQ0mamj755aWFQre0kYntYqk3oiYR6yyEL
+	q9kjWbqH8WagvLCPBHTiOAF45Lft70GGwCLFC7bDb4QHsutgM3H0oLlAlSzsnToxGxyz2M
+	Znnwd4S+JnwkBX//L6Xisvox8cNQ96KGAPktYovKQ+REWzvU3yyt/6tJFCyi8Q==
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Herve Codina <herve.codina@bootlin.com>
+Subject: [RFC PATCH v2 70/74] tests: fdtaddon: Add a test for addons using namespace label references
+Date: Wed, 26 Aug 2026 11:49:39 +0200
+Message-ID: <20260826094950.1088288-71-herve.codina@bootlin.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260826094950.1088288-1-herve.codina@bootlin.com>
+References: <20260826094950.1088288-1-herve.codina@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 4/4] drm/panel: visionox-vtdr6130: Add Retroid Pocket 6
- panel
-To: webgeek1234@gmail.com, Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260814-rp6-panel-v1-0-111c1aeccf0f@gmail.com>
- <20260814-rp6-panel-v1-4-111c1aeccf0f@gmail.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260814-rp6-panel-v1-4-111c1aeccf0f@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 8/14/26 20:17, Aaron Kling via B4 Relay wrote:
-> From: Aaron Kling <webgeek1234@gmail.com>
-> 
-> Add support for the 1080x1920 panel used in the Retroid Pocket 6.
-> 
-> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> ---
->   drivers/gpu/drm/panel/panel-visionox-vtdr6130.c | 114 ++++++++++++++++++++++++
->   1 file changed, 114 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
-> index 805c9846c2a0b..5c826f95ec478 100644
-> --- a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
-> +++ b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
-> @@ -64,6 +64,82 @@ static void visionox_vtdr6130_reset(struct visionox_vtdr6130 *ctx)
->   	usleep_range(10000, 11000);
->   }
->   
-> +static int retroidpocket_rp6_on(struct visionox_vtdr6130 *ctx)
-> +{
-> +	struct mipi_dsi_device *dsi = ctx->dsi;
-> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
-> +	struct drm_dsc_picture_parameter_set pps;
-> +
-> +	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-> +
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x03, 0x01);
-> +	mipi_dsi_dcs_set_tear_on_multi(&dsi_ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx,
-> +				     MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x20);
-> +	mipi_dsi_dcs_set_display_brightness_multi(&dsi_ctx, 0xff07);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x02);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_SET_ADDRESS_MODE, 0x02);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x59, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6c, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6d, 0x00);
-> +
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x70, 0x11, 0x00, 0x00, 0x89,
-> +				     0x30, 0x80, 0x07, 0x80, 0x04, 0x38, 0x00,
-> +				     0x14, 0x02, 0x1c, 0x02, 0x1c, 0x02, 0x00,
-> +				     0x02, 0x25, 0x00, 0x20, 0x01, 0xd5, 0x00,
-> +				     0x07, 0x00, 0x0d, 0x05, 0x7a, 0x05, 0x16,
-> +				     0x18, 0x00, 0x10, 0xf0, 0x03, 0x0c, 0x20,
-> +				     0x00, 0x06, 0x0b, 0x0b, 0x33, 0x0e, 0x1c,
-> +				     0x2a, 0x38, 0x46, 0x54, 0x62, 0x69, 0x70,
-> +				     0x77, 0x79, 0x7b, 0x7d, 0x7e, 0x01, 0x02,
-> +				     0x01, 0x00, 0x09, 0x40, 0x09, 0xbe, 0x19,
-> +				     0xfc, 0x19, 0xfa, 0x19, 0xf8, 0x1a, 0x38,
-> +				     0x1a, 0x78, 0x1a, 0xb6, 0x2a, 0xb6, 0x2a,
-> +				     0xf4, 0x2a, 0xf4, 0x4b, 0x34, 0x63, 0x74,
-> +				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
-> +
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0, 0xaa, 0x10);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb1, 0x02, 0x15, 0x00, 0x14,
-> +				     0x00, 0x20, 0x00, 0x02, 0x16, 0x00, 0x14,
-> +				     0x07, 0xb4, 0x00, 0x02, 0x16, 0x00, 0x14,
-> +				     0x00, 0x10, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0, 0xaa, 0x14);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb2, 0x03, 0x33);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb4, 0x0a, 0x72, 0x00, 0x00,
-> +				     0x0a, 0x72, 0x00, 0x00, 0x0a, 0x72, 0x00,
-> +				     0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb5, 0x00, 0x1e, 0x1e, 0x1e,
-> +				     0x1e, 0x1e, 0x1e, 0x06, 0x01);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb9, 0x00, 0x00, 0x08, 0x1e,
-> +				     0x1e, 0x1e);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xbc, 0x10, 0x00, 0x00, 0x08,
-> +				     0x11, 0x1e, 0x7c, 0x1e, 0x7c, 0x1e, 0x7c);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xbe, 0x10, 0x10, 0x00, 0x0c,
-> +				     0x22, 0x1e, 0x62, 0x1e, 0x62, 0x1e, 0x62);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0x5a, 0x80);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x65, 0x13);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfd, 0x01);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0x5a, 0x81);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf9, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0x5a, 0x83);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x65, 0x04);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf8, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0, 0xaa, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0x5a, 0x00);
-> +
-> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, 150);
-> +
-> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, 50);
-> +
-> +	drm_dsc_pps_payload_pack(&pps, dsi->dsc);
-> +	mipi_dsi_picture_parameter_set_multi(&dsi_ctx, &pps);
-> +	mipi_dsi_compression_mode_multi(&dsi_ctx, true);
-> +
-> +	return dsi_ctx.accum_err;
-> +}
-> +
->   static int visionox_vtdr6130_on(struct visionox_vtdr6130 *ctx)
->   {
->   	struct mipi_dsi_device *dsi = ctx->dsi;
-> @@ -204,6 +280,43 @@ static int visionox_vtdr6130_unprepare(struct drm_panel *panel)
->   	return 0;
->   }
->   
-> +static const struct drm_display_mode retroidpocket_rp6_modes[] = {
-> +	{
-> +		.clock = (1080 + 22 + 2 + 16) * (1920 + 16 + 2 + 20) * 120 / 1000,
-> +		.hdisplay = 1080,
-> +		.hsync_start = 1080 + 22,
-> +		.hsync_end = 1080 + 22 + 2,
-> +		.htotal = 1080 + 22 + 2 + 16,
-> +		.vdisplay = 1920,
-> +		.vsync_start = 1920 + 16,
-> +		.vsync_end = 1920 + 16 + 2,
-> +		.vtotal = 1920 + 16 + 2 + 20,
-> +	},
-> +};
-> +
-> +static struct visionox_vtdr6130_desc retroidpocket_rp6_panel_desc = {
-> +	.modes = retroidpocket_rp6_modes,
-> +	.num_modes = ARRAY_SIZE(retroidpocket_rp6_modes),
-> +	.width_mm = 69,
-> +	.height_mm = 122,
+Namespace label references are labels in the form &foo.bar.baz
 
-With the dimension in the mode:
+Those kind of labels allow to 'jump' from node to node based on
+exported symbols defined at each nodes.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Add a test for this feature.
 
-Thanks,
-Neil
+Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+---
+ ...ddon_addon_namespace-merged.dtb.dts.expect | 57 +++++++++++++++++++
+ ...fdtaddon_addon_namespace-merged.dtb.expect | 49 ++++++++++++++++
+ tests/fdtaddon_addon_namespace.dtba.expect    | 31 ++++++++++
+ tests/fdtaddon_addon_namespace.dtsa           | 34 +++++++++++
+ tests/fdtaddon_base_namespace.dtb.expect      | 29 ++++++++++
+ tests/fdtaddon_base_namespace.dts             | 33 +++++++++++
+ tests/run_tests.sh                            | 13 +++++
+ 7 files changed, 246 insertions(+)
+ create mode 100644 tests/fdtaddon_addon_namespace-merged.dtb.dts.expect
+ create mode 100644 tests/fdtaddon_addon_namespace-merged.dtb.expect
+ create mode 100644 tests/fdtaddon_addon_namespace.dtba.expect
+ create mode 100644 tests/fdtaddon_addon_namespace.dtsa
+ create mode 100644 tests/fdtaddon_base_namespace.dtb.expect
+ create mode 100644 tests/fdtaddon_base_namespace.dts
 
-> +	.bpc = 8,
-> +	.lanes = 4,
-> +	.format = MIPI_DSI_FMT_RGB888,
-> +	.mode_flags = MIPI_DSI_MODE_NO_EOT_PACKET |
-> +		      MIPI_DSI_CLOCK_NON_CONTINUOUS,
-> +	.init_sequence = retroidpocket_rp6_on,
-> +	.dsc = {
-> +		.dsc_version_major = 0x1,
-> +		.dsc_version_minor = 0x1,
-> +		.slice_height = 12,
-> +		.slice_width = 540,
-> +		.slice_count = 2,
-> +		.bits_per_component = 8,
-> +		.bits_per_pixel = 8 << 4,
-> +		.block_pred_enable = true,
-> +	},
-> +};
-> +
->   static const struct drm_display_mode visionox_vtdr6130_modes[] = {
->   	{
->   		.clock = (1080 + 20 + 2 + 20) * (2400 + 20 + 2 + 18) * 144 / 1000,
-> @@ -357,6 +470,7 @@ static int visionox_vtdr6130_probe(struct mipi_dsi_device *dsi)
->   }
->   
->   static const struct of_device_id visionox_vtdr6130_of_match[] = {
-> +	{ .compatible = "retroidpocket,rp6-panel", .data = &retroidpocket_rp6_panel_desc },
->   	{ .compatible = "visionox,vtdr6130", .data = &visionox_vtdr6130_panel_desc },
->   	{ /* sentinel */ }
->   };
-> 
+diff --git a/tests/fdtaddon_addon_namespace-merged.dtb.dts.expect b/tests/fdtaddon_addon_namespace-merged.dtb.dts.expect
+new file mode 100644
+index 00000000..ff0e5fff
+--- /dev/null
++++ b/tests/fdtaddon_addon_namespace-merged.dtb.dts.expect
+@@ -0,0 +1,57 @@
++/dts-v1/;
++
++/ {
++
++	other_n1 {
++		prop = <0x00>;
++		phandle = <0x05>;
++
++		/export/ a: &{/other-a};
++		/export/ b: &{/other-b};
++	};
++
++	other-a {
++		prop = <0x00>;
++		phandle = <0x01>;
++
++		addon-node-1a {
++			phandle = <0x06>;
++			prop = <0x1a>;
++		};
++	};
++
++	other-b {
++		prop = <0x00>;
++		phandle = <0x02>;
++
++		/export/ x: &{/other-x};
++	};
++
++	other-x {
++		prop = <0x00>;
++		phandle = <0x03>;
++
++		addon-node-1bx {
++			phandle = <0x07>;
++			prop = <0x1b>;
++		};
++	};
++
++	node {
++		compatible = "abc,aaa";
++		phandle = <0x04>;
++
++		/export/ node: &{/node};
++		/export/ n1: &{/other_n1};
++
++		addon-node2 {
++			ref-addon-n1bx = <&{/other-x/addon-node-1bx}>;
++			ref-n1bx = <&{/other-x}>;
++		};
++
++		addon-node1 {
++			ref-addon-n1a = <&{/other-a/addon-node-1a}>;
++			ref-n1a = <&{/other-a}>;
++		};
++	};
++};
+diff --git a/tests/fdtaddon_addon_namespace-merged.dtb.expect b/tests/fdtaddon_addon_namespace-merged.dtb.expect
+new file mode 100644
+index 00000000..71edbba8
+--- /dev/null
++++ b/tests/fdtaddon_addon_namespace-merged.dtb.expect
+@@ -0,0 +1,49 @@
++/dts-v1/;
++
++/ {
++    other_n1 {
++        // [FDT_EXPORT_SYM] 'a' -> phandle 0x00000001
++        // [FDT_EXPORT_SYM] 'b' -> phandle 0x00000002
++        prop = <0x00000000>;
++        phandle = <0x00000005>;
++    };
++    other-a {
++        prop = <0x00000000>;
++        phandle = <0x00000001>;
++        addon-node-1a {
++            phandle = <0x00000006>;
++            prop = <0x0000001a>;
++        };
++    };
++    other-b {
++        // [FDT_EXPORT_SYM] 'x' -> phandle 0x00000003
++        prop = <0x00000000>;
++        phandle = <0x00000002>;
++    };
++    other-x {
++        prop = <0x00000000>;
++        phandle = <0x00000003>;
++        addon-node-1bx {
++            phandle = <0x00000007>;
++            prop = <0x0000001b>;
++        };
++    };
++    node {
++        // [FDT_EXPORT_SYM] 'node' -> phandle 0x00000004
++        // [FDT_EXPORT_SYM] 'n1' -> phandle 0x00000005
++        compatible = "abc,aaa";
++        phandle = <0x00000004>;
++        addon-node2 {
++            ref-addon-n1bx = <0x00000007>;
++            // [FDT_PROPDATA_PHANDLE] ref-addon-n1bx[0]
++            ref-n1bx = <0x00000003>;
++            // [FDT_PROPDATA_PHANDLE] ref-n1bx[0]
++        };
++        addon-node1 {
++            ref-addon-n1a = <0x00000006>;
++            // [FDT_PROPDATA_PHANDLE] ref-addon-n1a[0]
++            ref-n1a = <0x00000001>;
++            // [FDT_PROPDATA_PHANDLE] ref-n1a[0]
++        };
++    };
++};
+diff --git a/tests/fdtaddon_addon_namespace.dtba.expect b/tests/fdtaddon_addon_namespace.dtba.expect
+new file mode 100644
+index 00000000..ec1090b5
+--- /dev/null
++++ b/tests/fdtaddon_addon_namespace.dtba.expect
+@@ -0,0 +1,31 @@
++/dts-v1/;
++/addon/;
++
++// [FDT_IMPORT_SYM] 'node' (abc,aaa)
++// [FDT_IMPORT_SYM] 'n1' ()
++&node {
++    addon-node1 {
++        ref-n1a = <0xffffffff>;
++        // [FDT_PROPDATA_PHANDLE_REF] ref-n1a[0], ref = n1.a
++        ref-addon-n1a = <0x00000001>;
++        // [FDT_PROPDATA_PHANDLE] ref-addon-n1a[0]
++    };
++    addon-node2 {
++        ref-n1bx = <0xffffffff>;
++        // [FDT_PROPDATA_PHANDLE_REF] ref-n1bx[0], ref = n1.b.x
++        ref-addon-n1bx = <0x00000002>;
++        // [FDT_PROPDATA_PHANDLE] ref-addon-n1bx[0]
++    };
++};
++&n1.a {
++    addon-node-1a {
++        prop = <0x0000001a>;
++        phandle = <0x00000001>;
++    };
++};
++&n1.b.x {
++    addon-node-1bx {
++        prop = <0x0000001b>;
++        phandle = <0x00000002>;
++    };
++};
+diff --git a/tests/fdtaddon_addon_namespace.dtsa b/tests/fdtaddon_addon_namespace.dtsa
+new file mode 100644
+index 00000000..8c25d3d4
+--- /dev/null
++++ b/tests/fdtaddon_addon_namespace.dtsa
+@@ -0,0 +1,34 @@
++// SPDX-License-Identifier: (GPL-2.0-or-later OR BSD-2-Clause)
++/*
++ * Copyright (C) 2026 Bootlin
++ */
++
++/dts-v1/;
++/addon/;
++
++/import/ node: "abc,aaa";
++/import/ n1: "";
++
++&node {
++	addon-node1 {
++		ref-n1a = <&n1.a>;
++		ref-addon-n1a = <&addon_n1a>;
++	};
++
++	addon-node2 {
++		ref-n1bx = <&n1.b.x>;
++		ref-addon-n1bx = <&addon_n1bx>;
++	};
++};
++
++&n1.a {
++	addon_n1a: addon-node-1a {
++		prop = <0x1a>;
++	};
++};
++
++&n1.b.x {
++	addon_n1bx: addon-node-1bx {
++		prop = <0x1b>;
++	};
++};
+diff --git a/tests/fdtaddon_base_namespace.dtb.expect b/tests/fdtaddon_base_namespace.dtb.expect
+new file mode 100644
+index 00000000..879c4550
+--- /dev/null
++++ b/tests/fdtaddon_base_namespace.dtb.expect
+@@ -0,0 +1,29 @@
++/dts-v1/;
++
++/ {
++    other_n1 {
++        // [FDT_EXPORT_SYM] 'a' -> phandle 0x00000001
++        // [FDT_EXPORT_SYM] 'b' -> phandle 0x00000002
++        prop = <0x00000000>;
++        phandle = <0x00000005>;
++    };
++    other-a {
++        prop = <0x00000000>;
++        phandle = <0x00000001>;
++    };
++    other-b {
++        // [FDT_EXPORT_SYM] 'x' -> phandle 0x00000003
++        prop = <0x00000000>;
++        phandle = <0x00000002>;
++    };
++    other-x {
++        prop = <0x00000000>;
++        phandle = <0x00000003>;
++    };
++    node {
++        // [FDT_EXPORT_SYM] 'node' -> phandle 0x00000004
++        // [FDT_EXPORT_SYM] 'n1' -> phandle 0x00000005
++        compatible = "abc,aaa";
++        phandle = <0x00000004>;
++    };
++};
+diff --git a/tests/fdtaddon_base_namespace.dts b/tests/fdtaddon_base_namespace.dts
+new file mode 100644
+index 00000000..e2bc4f04
+--- /dev/null
++++ b/tests/fdtaddon_base_namespace.dts
+@@ -0,0 +1,33 @@
++// SPDX-License-Identifier: (GPL-2.0-or-later OR BSD-2-Clause)
++/*
++ * Copyright (C) 2026 Bootlin
++ */
++
++/dts-v1/;
++
++/ {
++	n1: other_n1 {
++		prop = <0>;
++		/export/ a: &other_a;
++		/export/ b: &other_b;
++	};
++
++	other_a: other-a {
++		prop = <0>;
++	};
++
++	other_b: other-b {
++		prop = <0>;
++		/export/ x: &other_x;
++	};
++
++	other_x: other-x {
++		prop = <0>;
++	};
++
++	node: node {
++		compatible = "abc,aaa";
++		/export/ node: &node;
++		/export/ n1: &n1;
++	};
++};
+diff --git a/tests/run_tests.sh b/tests/run_tests.sh
+index 0182dffc..8f8db608 100755
+--- a/tests/run_tests.sh
++++ b/tests/run_tests.sh
+@@ -1334,6 +1334,19 @@ fdtaddon_tests() {
+ 			  -t "/base-node" fdtaddon_addon_prop_existing_ok.dtba
+ 	check_dtb fdtaddon_addon_prop_existing_ok-merged.dtb
+ 
++	# Test namespace label reference
++	run_dtc_test -I dts -O dtb -o fdtaddon_base_namespace.dtb "$SRCDIR/fdtaddon_base_namespace.dts"
++	check_dtb fdtaddon_base_namespace.dtb
++
++	run_dtc_test -I dts -O dtb -o fdtaddon_addon_namespace.dtba "$SRCDIR/fdtaddon_addon_namespace.dtsa"
++	check_dtb fdtaddon_addon_namespace.dtba
++
++	run_fdtaddon_test -i fdtaddon_base_namespace.dtb -o fdtaddon_addon_namespace-merged.dtb \
++			  -t "/node" fdtaddon_addon_namespace.dtba
++	check_dtb fdtaddon_addon_namespace-merged.dtb
++
++	run_dtc_test -I dtb -O dts -o fdtaddon_addon_namespace-merged.dtb.dts fdtaddon_addon_namespace-merged.dtb
++	check_dts fdtaddon_addon_namespace-merged.dtb.dts
+ }
+ 
+ pylibfdt_tests () {
+-- 
+2.55.0
 
