@@ -1,266 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 212273E5EFD
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 11:04:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34C1E3F164E
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 11:05:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787742256; cv=none; b=HaRj+1Mf/4g5vqA1kWDERYIDX+2kFXZIFk2FZTxw/hcUC18RACTgNJDlIO39Vi9rpSuUMQD5sphuPhbxI8sprjfC9dseEtnTZKoIky4I6oRkIphdfmsIVmL+w2AVTzl+ACpmquBKXZ/SpSAoCAnUi8ZFjEF2meWUSj885lFKy5k=
+	t=1787742314; cv=none; b=BenNDGmbBeX//SDFQ90rxDN8pBEfGewF28rm4iCrkHZR0zinNMsmY66gI3kIw1CDgXvIvxrgK47Rru8s16X1cguYl+c24cv86kvdQaTiyyKha9V40l6Lo7vvn24wXkn0WZOeS022979dowWids4HZkrkFsLa/VNvhYASyGKj4dU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787742256; c=relaxed/simple;
-	bh=II//pgk7K5GccKj3wbSHRaa+A+8ns91UAgdqDPxa1+c=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Uoia5zwdw1FkuFySamU31vo9WptFotIDejAnw7aEW50eO23EM+wuJDkBfsK3Ks2PmbiopVHgTi9e7sC0YKBqJvBSrpNDU6AMvEnzb3rBNIMO2jxCxt7qUML799hpmSffuTnJ6MZmtt4Sbp7aDvsoiluqaGFN1EV9BXWFCT/SOgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XtDzHPew; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787742314; c=relaxed/simple;
+	bh=YyYUUVqBJGI286K5cUmRrDnI792ynvOKG4YEV7L1rJY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HX/7ukSGRwOwSsY2E5PFrHn9FbUJNYM37PKLf/ZAiKugKraBCHqScEZGVsAnCJsKOaszkzH5DX0HV5lNF3hhPgZTgJe5C+uUuPCu7ZltWZ8wdtGkTjma9jJJm9VfdLq3eOAZd7TRMkpVK4EBSjCfjhNgyGiLVn/SWdhetgb0+0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oRINjrDx; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JsVheKM/; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XtDzHPew"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FF461F000E9;
-	Wed, 26 Aug 2026 11:04:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787742247;
-	bh=/silV9NurI0YAP0vORMsQqp5NaleRhZHq0G5SYodBr0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XtDzHPewJM68gOvDGKWheJkWPvXOwoaPxrqyFDk8UPbDMNlMAeVRgpmuVMIqgKsTQ
-	 1UOerYx3BDjSvabZjXYj9lwfV/PUg5vVBZ7vuYwSTACdazuJjOPQ1KdK/xDpfL/tem
-	 E0KFxtD6vlMoJciECmRiHw9ErmFlBaZT60uCa8irtTcawXPq2O3s1SBZQtiRPScttq
-	 ggURtXvX/VYWgy0nK41qJdLIQcd2+tLzPaTaQRitR+3nOxca3F7BcSURGEEAkIXqrN
-	 6fcckowtbWW7LwtSOIpJdezvowjGUcmljf9FAQKFCPscSE9MM4Y43H1uKPf2vCIjH0
-	 Jzs3S1QjXpsrQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v16 6/8] i3c: hub: Add support for the I3C interface in
- the I3C hub
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
-Cc: Frank.Li@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, linux-i3c@lists.infradead.org, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>
-In-Reply-To: <20260826103819.1614843-7-lakshay.piplani@nxp.com>
-References: <20260826103819.1614843-1-lakshay.piplani@nxp.com>
- <20260826103819.1614843-7-lakshay.piplani@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 26 Aug 2026 11:04:07 +0000
-Message-Id: <20260826110407.8FF461F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oRINjrDx";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JsVheKM/"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QAGplt107571
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 11:05:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=EnUK4lzSsA+4H8FJzIU3OLV4
+	bLy+1PASPEgPsSBWvBs=; b=oRINjrDxgmZqQjIfpGtUwo0eDBbgp1Y8D7vzVdek
+	LLP0kpFXcUyoAf44yoD3tsow7sa/jKRgoZ5onKcGz6gTcRQ3tk7HzUulXmX1UlkS
+	HXSTm18zJT3h6jsPxajQ7XuAijAO4nNMSYWaZpj0Yd6ipmsj58deSmBmKnuzsrmc
+	F3iZI0wwKUx8UUgtICHJO47G70yfaWl65qbBxVy02x7/JQbyyBKW/lnF7vsb558B
+	WceseKuuIGRLKzJ4jQLVY2e7spvVlrGdWuV8qzmSJpRsbzyi9AdOEiuJsnuTW5yx
+	u7Tjy4xw+v69OV4J2gyhr/D4WFHnLyjGNjeHOuTxvsoB8Q==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9s9g9g7r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 11:05:05 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-52f52ccd459so1086031cf.1
+        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 04:05:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787742304; x=1788347104; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EnUK4lzSsA+4H8FJzIU3OLV4bLy+1PASPEgPsSBWvBs=;
+        b=JsVheKM/rHLITwg1/j261Lis6usL3OvBgP2rSinXrZPB4La9FwZUAuZf0Gr3Byzs66
+         hQPh92ykkHw/Z2O+VOVtKfNtMH4KTqgvKE3Dwn17iMeZpx1M3ZQS5zuP+RbZ4ibWlGsI
+         TQ5epCHmeQq60UfQDlCwtjn0BnHd9JliwIndQL4GA2xLIzq36KqzQh+PhQuvkawzns3Z
+         +JPp6Bgh/WCh7QCEyEWp8xpxdFYWWmWXAkxO7fnZ9zLzMLxohO4fvFwJYm4pp1ZEobJB
+         9WVtIZ4ZgYNA8JqgEOngPe4feyAF2SXGS3juB0rM3kZFNUEcOAXXR08mF/w4q42gJyTF
+         2tSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787742304; x=1788347104;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EnUK4lzSsA+4H8FJzIU3OLV4bLy+1PASPEgPsSBWvBs=;
+        b=fLH6kIplY/JHDI/kFp4OcnZXCIGxx2LK6D5dFGXkwmFGkWx59NuZuM9iFz0QZMdI9N
+         6p8yBA3CkIgiRDjU/yFx+FqFNkgkMAgiU7PsYSBErxOJMc/E2oHNt8B+3Zup4zdJhQh1
+         XvOr9NmWVk5BzUTCKLrNuhrO1Kr1jDwGKMA7qaBqlSPECKiA+uy89Ry0sBCULs0eiplv
+         rnAwiIBWoO3tgd2SQPFD7eS9ITWgkSnhXe3dhbMf3GHrO06QPwUvhEi7UrNUheLG7pzj
+         AOC0dII+RcTUD1h3lr2ygeJ7keeDmA4/yX5EvoAwx1Nwzb+PXRz72CGhDrgWPO65Atyw
+         fTrQ==
+X-Forwarded-Encrypted: i=1; AHgh+Roo+Msa68E4iXZlkAXS2qgnWP3lQgZG2Jahqzo0p9wv87RZiB4hEeo3jAqJLw3YyicB1gcuUzyVyCbL@vger.kernel.org
+X-Gm-Message-State: AFuF++kDpSUgcSSG00qPNFFlNLHfmRtWhIII2cw3vYhREtQOs6Yc6nJf
+	VD8I1Q/HP/fg2Xgx86YKU1tf1xfbRo4MJ58hRy6o4mG1ZncHHBGZU2sF8KYDVVgLH37SLAzLu1Q
+	NiiV1RrDI2KUJqWD2uu8QwcaR9RvkfujcRotWXoCPVokQ9hHuNrh42qxNgpdGex8P
+X-Gm-Gg: AR+sD11w+JnodQ0E4/YjYa68dXOM5k44Zs/BY94zdLeFzX01wAH0AxjIyzhpxTsRsAY
+	Za3dnjjynEgmapNu8gNTv58saEWT0dJyrR+83w1iuEX7oW3a8T8Ct2mUqR6PRqBnoHNoqRj3mXA
+	MWPquUN+jy0PG6rwpsjXFuyCGSyu5wz8piXA3a/8ZnH0cR2uchYGR2QQ7zQQxz2Wybv187vkr/4
+	hN0lf45V+4pFQvKBJ4FoMHT4tVs/3onhelkWt6Fi1cX+ddV7iBg5lxbrJ1whbhZHKq392rsy8OB
+	MhulHE/KaWss53ANQ5+Jcq7IGmXOFPLhZCKILdEv3tGdUeQ9rAsKKcOMegkg/SmZPfgdVSxAIC+
+	PbjjvsHre7sGH
+X-Received: by 2002:a05:622a:1b25:b0:52d:f376:c254 with SMTP id d75a77b69052e-52e422cbe1fmr59964551cf.10.1787742304420;
+        Wed, 26 Aug 2026 04:05:04 -0700 (PDT)
+X-Received: by 2002:a05:622a:1b25:b0:52d:f376:c254 with SMTP id d75a77b69052e-52e422cbe1fmr59963661cf.10.1787742303900;
+        Wed, 26 Aug 2026 04:05:03 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.13])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a6fda4fsm496909466b.16.2026.08.26.04.05.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 04:05:02 -0700 (PDT)
+Date: Wed, 26 Aug 2026 14:05:00 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/4] pmdomain: qcom: rpmhpd: Add NMXC power domain for
+ Nord
+Message-ID: <24kdkayk7odpbojcvbhzwupzvhqgtlei7d2bvbrjpi372z7hnh@7fte77gqooaa>
+References: <20260826102746.633076-1-shengchao.guo@oss.qualcomm.com>
+ <20260826102746.633076-3-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826102746.633076-3-shengchao.guo@oss.qualcomm.com>
+X-Proofpoint-GUID: rprxZBbECdQUCkPLveh7mC1fSNXv5wDS
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDA5MiBTYWx0ZWRfX451JjIta3+Ux
+ Xc/wnl9dexhoC5XYJcrOlSCONSSs6ADjEnnjr2xI5pPajD7jqNof2zO7V5o49QB2BFNHOjErvp/
+ zI1pTI2eYTy71pSUeV4KmD3wFwtHEF/yAqn2LGWwKqLyldwW5luJfeLZHqhITbqjtqDvmC95F9/
+ ko4tP+Md1fSv7qlGTT8AVqTcJRUqgf+3mQ73nid9KyJPgL0JPzh4eZ2O0u3MANLNtokbFMe6/XB
+ RfvrWyqyVjH27rnxqhSXhrxFmMF6nmh2VgacfrewIBwK6pH0DU2NoWBuVO+1/GUEfhz26NZNYxC
+ trqA1oZiH2i0bfKNdG7R18c5kz0O3erYSd/Gvd8jsMipNz38Rn/ToY8lcBcQH3oZ1QLEdvxAxnQ
+ M1s+iUEtCJgrw584+s1eArHzUlyHVLjjqsOFb5Ye0OYoGlBuhf5gAKZHN0sKB/rfep1Tziu4qWA
+ i/d/j5Yzirtpu4ObPJA==
+X-Authority-Analysis: v=2.4 cv=Xfq5Co55 c=1 sm=1 tr=0 ts=6a8ec861 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=clBUptZa5v5FR042Ey+sjA==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=WUwTdx2_Dbflg4nuc2oA:9 a=CjuIK1q_8ugA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDA5MiBTYWx0ZWRfX9O4eam8Er5ty
+ 8tZG3TP54yoS6z0MhlNxGwuU2e/c2ximRa9L4Mw4swNikQm/NqYWsWZlCf280wmrKcIm4czC5XK
+ Fw4pjaTxe0H6WVIgT1JoGGMLIdAT3ak=
+X-Proofpoint-ORIG-GUID: rprxZBbECdQUCkPLveh7mC1fSNXv5wDS
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-26_03,2026-08-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 priorityscore=1501
+ bulkscore=0 clxscore=1015 malwarescore=0 adultscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260092
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Critical] Freeing `i3c_hub_dev_data` while it may still be referenced by=
- the parent controller's asynchronous IBI path leads to a Use-After-Free.
-- [High] Dynamic downstream devices discovered via DAA are erroneously regi=
-stered to the parent controller's bus, making them completely unreachable f=
-or subsequent transfers on port-switching hubs.
-- [High] Reserved address slots on the parent bus are permanently leaked wh=
-en the hub driver is removed.
-- [Medium] Forwarding broadcast CCCs to the parent controller breaks virtua=
-l bus isolation by unintentionally affecting the entire parent bus.
---
+On 26-08-26 18:27:44, Shawn Guo wrote:
+> From: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+> 
+> Add the nmxc.lvl RPMh resource and register it in the Nord power domain
+> table. Nord supplies the NSP memory rail from this dedicated resource
+> rather than from the shared MX rail, so consumers need it exposed as its
+> own power domain.
+> 
+> Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 
-commit 94c62ce56dcc9d461749adc3db10a8061865dc9b
-Author: Lakshay Piplani <lakshay.piplani@nxp.com>
-
-    i3c: hub: Add support for the I3C interface in the I3C hub
-   =20
-    Add virtual I3C bus support for the hub and provide interface to enable
-    or disable downstream ports.
-
-> diff --git a/drivers/i3c/hub.c b/drivers/i3c/hub.c
-> new file mode 100644
-> index 0000000000000..6f5227215ae22
-> --- /dev/null
-> +++ b/drivers/i3c/hub.c
-> @@ -0,0 +1,798 @@
-[ ... ]
-> +static void i3c_hub_detach_i3c_dev(struct i3c_dev_desc *dev)
-> +{
-> +	struct i3c_hub_dev_data *data =3D i3c_dev_get_master_data(dev);
-> +	struct i3c_master_controller *parent;
-> +
-> +	if (!data)
-> +		return;
-> +
-> +	parent =3D i3c_dev_get_master(&data->parent_desc);
-> +
-> +	/*
-> +	 * parent_desc.ibi should already be cleared by i3c_hub_free_ibi()
-> +	 * before we get here. If it is still set, the kfree(data) below frees
-> +	 * a descriptor the parent controller can still reach via un-flushed
-> +	 * asynchronous IBI work (use-after-free, not just a leak).
-> +	 */
-> +	WARN_ON_ONCE(data->parent_desc.ibi);
-> +
-> +	if (parent) {
-> +		i3c_bus_maintenance_lock(&parent->bus);
-> +		i3c_master_detach_i3c_dev_controller_locked(&data->parent_desc);
-> +		i3c_bus_maintenance_unlock(&parent->bus);
-> +	}
-> +
-> +	i3c_dev_set_master_data(dev, NULL);
-> +	mutex_destroy(&data->parent_desc.ibi_lock);
-> +	kfree(data);
-
-[Severity: Critical]
-Does this code introduce a use-after-free when IBI is still active?
-
-If data->parent_desc.ibi is not NULL, as explicitly checked by the
-WARN_ON_ONCE, the parent controller's asynchronous IBI path may still
-have a work item queued referencing data->parent_desc. By unconditionally
-calling kfree(data), we allow the pending async work to dereference
-freed memory when it executes.
-
-> +}
-> +
-> +/**
-> + * i3c_hub_do_daa() - Perform DAA via hub port
-> + * @hub: Hub instance
-> + * @controller: Virtual controller for a hub port
-> + *
-> + * Enables the port connection, performs DAA on the parent controller,
-> + * then disables the connection.
-> + */
-> +static int i3c_hub_do_daa(struct i3c_hub *hub,
-> +			  struct i3c_master_controller *controller)
-> +{
-> +	struct i3c_master_controller *parent;
-> +	int ret;
-> +
-> +	if (!hub || !hub->hub_dev)
-> +		return -ENODEV;
-> +
-> +	parent =3D i3c_dev_get_master(hub->hub_dev->desc);
-> +	if (!parent)
-> +		return -ENODEV;
-> +
-> +	/*
-> +	 * Lock order: hub routing mutex before the parent bus lock (taken here
-> +	 * inside i3c_master_do_daa()). The depth-keyed lockdep classes above
-> +	 * keep this nesting acyclic when the parent is itself a hub.
-> +	 */
-> +	mutex_lock(&hub->lock);
-> +	i3c_hub_enable_port(controller);
-> +
-> +	/*
-> +	 * Downstream devices reachable through hub target-port routes share the
-> +	 * parent controller's I3C address space. The hub gates access to a
-> +	 * target-port network, but it does not create an independent dynamic
-> +	 * address domain per virtual bus.
-> +	 *
-> +	 * Run DAA on the parent controller so dynamic addresses remain unique
-> +	 * across all downstream devices, even when they are behind different
-> +	 * target ports.
-> +	 */
-> +	ret =3D i3c_master_do_daa(parent);
-
-[Severity: High]
-Does delegating DAA to the physical parent controller break reachability
-for downstream devices?
-
-When devices respond to ENTDAA, they are instantiated on the parent bus
-rather than the virtual bus. If drivers subsequently initiate transfers, th=
-ey
-use the parent controller's transfer operations directly, bypassing the
-hub's i3c_hub_master_priv_xfers(). As a result, the hub target port is
-never enabled during the transfer, leaving these downstream devices
-permanently unreachable.
-
-> +	i3c_hub_disable_port(controller);
-> +	mutex_unlock(&hub->lock);
-> +
-> +	return ret;
-> +}
-[ ... ]
-> +static int i3c_hub_send_ccc_cmd(struct i3c_hub *hub,
-> +				struct i3c_master_controller *controller,
-> +				struct i3c_ccc_cmd *cmd)
-> +{
-> +	struct i3c_master_controller *parent;
-> +	int ret;
-> +
-> +	if (!hub || !hub->hub_dev)
-> +		return -ENODEV;
-> +
-> +	parent =3D i3c_dev_get_master(hub->hub_dev->desc);
-> +	if (!parent)
-> +		return -ENODEV;
-> +
-> +	mutex_lock(&hub->lock);
-> +	i3c_hub_enable_port(controller);
-> +	ret =3D i3c_master_send_ccc_cmd(parent, cmd);
-
-[Severity: Medium]
-Can forwarding unfiltered broadcast CCCs to the parent controller break
-virtual bus isolation?
-
-If a driver on a specific virtual bus issues broadcast commands (such as
-SETMRL, SETMWL, or ENEC), this forwards them to the parent controller which
-broadcasts them globally. This will unintentionally alter the configuration
-or event state of all peer devices on the parent bus and other open target
-ports.
-
-> +	i3c_hub_disable_port(controller);
-> +	mutex_unlock(&hub->lock);
-> +
-> +	return ret;
-> +}
-[ ... ]
-> +int i3c_hub_reserve_parent_addrslots_from_dt(struct i3c_hub_controller *=
-hubc,
-> +					     struct device_node *node)
-> +{
-> +	struct i3c_master_controller *parent =3D hubc->parent;
-> +	enum i3c_addr_slot_status status;
-> +	u32 assigned_addr;
-> +	u32 reg[3];
-> +	int ret;
-> +
-> +	if (!parent || !node)
-> +		return -ENODEV;
-> +
-> +	for_each_available_child_of_node_scoped(node, child) {
-> +		/*
-> +		 * Only consider addressable bus nodes: a valid "reg" is
-> +		 * required to describe a device, but its static-address value
-> +		 * does not affect the reservation below.
-> +		 */
-> +		ret =3D of_property_read_variable_u32_array(child, "reg", reg, 1, 3);
-> +		if (ret < 0)
-> +			continue;
-> +
-> +		ret =3D of_property_read_u32(child, "assigned-address", &assigned_addr=
-);
-> +		if (ret)
-> +			continue;
-> +
-> +		/* Skip nodes without a usable dynamic address. */
-> +		if (!assigned_addr || assigned_addr > I3C_MAX_ADDR)
-> +			continue;
-> +
-> +		i3c_bus_maintenance_lock(&parent->bus);
-> +		status =3D i3c_bus_get_addr_slot_status(&parent->bus,
-> +						      assigned_addr);
-> +		if (status =3D=3D I3C_ADDR_SLOT_FREE)
-> +			i3c_bus_set_addr_slot_status(&parent->bus,
-> +						     assigned_addr,
-> +						     I3C_ADDR_SLOT_I3C_DEV);
-
-[Severity: High]
-Does this code permanently leak parent bus address slots when the hub driver
-is removed?
-
-The address slots in the parent bus state are set to I3C_ADDR_SLOT_I3C_DEV.
-However, there appears to be no corresponding teardown mechanism provided
-to revert these slots to I3C_ADDR_SLOT_FREE when the virtual controllers
-are destroyed or the hub driver is unbound. This leak can eventually exhaust
-the address space and cause failures for subsequent devices.
-
-> +		i3c_bus_maintenance_unlock(&parent->bus);
-> +	}
-> +	return 0;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260826103819.1614=
-843-1-lakshay.piplani@nxp.com?part=3D6
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
