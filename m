@@ -1,328 +1,127 @@
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D8002D5932
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 17:31:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787765485; cv=pass; b=WqrYVGNlNjrNbomm735OvS4CUip8G+yBnSL+1UwSbF6LFQ5751oZh89CZaHRA8MEtY4PKl3lG2VQZMtQbo+XMquLA5yfi2ddJyV1ayf/v8bB8GA2M+4QsUm27uBa0C/4hjsDoHDdjWAgyDXjKUNOl09gujHkuKcl1w6CJcWfMkk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787765485; c=relaxed/simple;
-	bh=QS4t0KIz5+aRl13D78MAuDKkz9gtSRjE4nHMnOJfEgA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=h8G1o6Wx+CLAbgQv9xxJUdPmu7hC854nrCcOeCQWzKuqXJfiDJ1SqZPwdnSIgmUzdVh7sMWsFcRuFVaTMQYe/5/vwT9uO7/ffeGZCKyezPA+ibrV6zubgemfbaDG8uiETBrfzWTehjbvD23y+iZAniPHBnPymky41QADy3maNLQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b00IKxk0; arc=pass smtp.client-ip=209.85.167.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4544446F493
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 17:49:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787766556; cv=none; b=GvOxDxQSAefZw+P4hmAATzg6nLFLlWapybrV7KFChmJB7z1G3GnNt22eS83IojarUSWiVI/0JjeRf7eC5sGBqrPqIacuxQnvChYOkD+wox/QPKHQpXkL25lJrKuFYW8ebHDMMFne55ONtJphwPV9rQok51Chbh4arwE1psDS2Cg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787766556; c=relaxed/simple;
+	bh=ywTK2DeK7x/fgkvo5FtlN8KM8nTduWZcKwVxsajGRbU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=W28HZU9Fnr9dvwLoiXj1mD/yDYXpEJkbG+dglISp37j88uS+8Wih4of/PU59a+rzUpBwvLjLvG1sF2tfwN3ebRdHXbOKBNpC41GrDzDZ7hmO25De+UPx5BW1H159ODwaFvJsB05LwMmNQhnBlMccanUctr2o39p1iJY2KdaOPKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yg+1r55x; arc=none smtp.client-ip=209.85.218.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b00IKxk0"
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5b45f2e5f58so1088866e87.0
-        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 10:31:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787765458; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nJRsYe94Y5DewTgOQVIwD0XuUMfgEM3geYDrYgzaiCrjmw3mCzzRxRMZTJUHlCF1Bq
-         kcserajrhJKAPiuWc/UmgGUMCPK5imd/RuYUGFk+zYAqnpTvoGiPmepr7YAhtAOBqED1
-         AhacpuYWpBGub7yH9nYEykp133aegCWY+2VoEefnRbyTs4nnZbQGY6k2h+obWfnUqXSo
-         M9GN8Eo9aEdiyOoNongjjlLQ07ynAScpJujtlYw7YRXr6bTJ5amnzC98UJLu+NAfGKWN
-         GwFcwLEqHeuAuBiOkbk3RAhkS7zrL4P3rpEh+OcPKBTek+EEBKdCfFtL0VjAr17KmJN6
-         C8lQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=aepQBBl1ZVrjONLqFCXAT39woE5BLBq6aJtCXC3NyuA=;
-        fh=LC+7YnXKCTvxTUI+LSm15MvhRMlXIuNOVjKbOXMSdvE=;
-        b=F6+UHXzhXsJ83RJkCKDqb/DaPwyWHVd+8nurEAcAF1n+D2VhCBKawnB3+xRu2K37Yd
-         ou23xvJcpmi/EhOwyAPwZI0xcK4iDK/EAiMyEXWcnIc/tgHqus3oVdTFp49q2SVMcrwX
-         oY3BB62N4afwpPYK997b43RJIy9428f2dirJ7ScftjyuSZ2knsoU0NHdlQqgSmrWxqLd
-         gwyO25qtKIoanzsQBOEqsU+XLSbjoEBgxNsSWnJX19e2/u+tqKmYLOY9lBKalKJYy2wj
-         dmLF5UldJv7KpbNYIuyE46DJOJ8/xlATgd4y2f0kRSGu2XO3appyPVHsVdH4WFcXnoJY
-         MnFQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yg+1r55x"
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c253358b121so50447666b.1
+        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 10:49:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787765458; x=1788370258; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=aepQBBl1ZVrjONLqFCXAT39woE5BLBq6aJtCXC3NyuA=;
-        b=b00IKxk0gfKCFEskNFhBRLbdRaczDwUf/XNYlJ5W8ogbmVhik/cMhmBlJ2E7YZ7M8L
-         C5RqBSP7RT+ffD5LnOqLmZBlx0OxDCWlnoqvhOqMrEWa3g8icfPVmr/vw0SoEDkOcBvK
-         5B8iufBOtb5Uix6b/aAV9bflzdwQRzLLcvNGyW4vgdYAAPQYxZR+hhjRvk6STEZAQjTJ
-         YtIVHhk3L1WH2gY8ObKe/xds5Vc1mxCDPSvnm//4dJqPCQdqjup/Pf8is2wE0BjN0gl5
-         gwoarDlk7iNW/o6z3wyx+F55C2voiuESjp/E9ZHAJNE+8ZpUw5RhQnIG9UKGltF7pqSB
-         xUXA==
+        d=gmail.com; s=20251104; t=1787766546; x=1788371346; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=H+p8g90ua/VmPeeYb2h2bDZ1FPwrIxPT5htOXu5iw3A=;
+        b=Yg+1r55x5+gexqA2HILICtrF/8Z6OJ6lgunOVRzIByPj3xm7NKYnmzCAHD4eUx1z/H
+         ZKB0zBdny++JvR0zo4Gcj/oARNGBiFFBrN8wwFjYP46gcIlGVO7GOwDJF4mcAryLLPiZ
+         Bd4HDa3WGNS+A4VYCf0Zv3jReNzbTLj3K837uBe5goirw4uxxeOavFsEg9FDMIBBu39I
+         P4UhKiTXjmX4Ez+lWD8YWGU9SI0YDBk6infGBNCU9pHq17ZjaPTVJQ/49miT4YdWP3D3
+         JOgs+4Wyi++UJWeHrb703x2x/2BHXsOrx9Idl03bpDM3hIoYhgBouduJ+IBmm965CBQE
+         V96Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787765458; x=1788370258;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aepQBBl1ZVrjONLqFCXAT39woE5BLBq6aJtCXC3NyuA=;
-        b=Rr4vUHtnlJRCq/rI5gURh9wtiz7qWEI4xsZBaRCjhCV7P1NqKQUIkpW90EFPIEWt1h
-         ZmqpcoYrNjRrN7HbMw6USngEbByaTh8xcYlaU+Rme/PuH48iaCZ/F03wJcJ+FzpCYYN5
-         vBVEdyrmPElANuD6FNQtnzJFLKbz8DR8lfQIfoT5wTRqhNWgrya3srU/72TG1FfJ91hE
-         KmqfXsYfRrjmg7NWkmn/yWCK9algDZspuV2lKt3Ea5xwhK/iKCRIYd37Mqd+5/CA1F+J
-         6YNUfo2e5iP3VfshCbV4BukrNKPI9uwDlA0t6BFbbm42Ew335zI0VZL5jAAI53laJbLX
-         2lug==
-X-Forwarded-Encrypted: i=1; AHgh+RrqthYiIN6x+gHA3kSfjNrGPn4Xd73594fIcObuEaQS09Cw/p1mGmWpmTPL2nIPXGGPNzNP1p2fMIcA@vger.kernel.org
-X-Gm-Message-State: AFuF++nJgFxRL+z4si5RVMaRy375ffAmB88/t5CnRiY5SR47oeIc9rR1
-	UKoEK13qQv+Eu6YDrfntn1L3F/6aOtJ1BcjQprO4v36kFeEDibM2ybEXA2n/QgVmVyDgTVkqN2Y
-	I7g0wTCTCyJrm2fxVJZJfvYe/xWhRw+0=
-X-Gm-Gg: AR+sD102KcZwzrWNl5oWtz7XImkx0HWGwhPBNj8BnwOluatzxUgt/oxxvx7kuDeJ21m
-	uNiH0owHQsCVtz+4siD+xPhKeSDNyz/8pucpZx/jzUx2YG5IIvnu74PzbXgzIgKtoXwhpQbUUsc
-	qRhBH5rerw/BnbeCQ+LYppE1lLuPmpKTv/a8WNeuBfsWueW0RRsKGkQOC5fZIxMOkBEkdYvM2/7
-	MjcYUjReEeK8XnU49fsFs0gJMom9oTGM7i3rSyk4mQgyo0S3x9d7Z20ihKM/o1R6WAsScXkAqeu
-	+MbPdlHyxt8lv89LFn7XX+saXJYfrrz6rmOHf6edyZMwP6IHxuKq4f/6v64ENnSbPQyjasdFk+N
-	BX+GGyrBSPVdOJPhqxZWKMCOlaVkOkw==
-X-Received: by 2002:a05:6512:ace:b0:5b4:a9e1:b8a4 with SMTP id
- 2adb3069b0e04-5b4a9e1baf0mr2342711e87.25.1787765458127; Wed, 26 Aug 2026
- 10:30:58 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787766546; x=1788371346;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=H+p8g90ua/VmPeeYb2h2bDZ1FPwrIxPT5htOXu5iw3A=;
+        b=la4ntLRJCbxOyAg3WraVbOJ8zPROU0t65jwoOSBOrgyd4eRk53+H1iGVLY5Zn86KK3
+         dhDI6uudAAOKtcjahayKJSr8dkTIsrdEkGayQ4zmJDo7jz8k9DBZtREezmgksqdHIcTh
+         9piF4BP62+eidZwz+657sRVTmM+lwsQljI8z6SKrV+U/Q85K4YyB0fXj7x3eMfdd+k3N
+         HDBVOSC5DahCcCFLmKj78qt2x01RRIjzBC4aQO4IjQe3zRQwpFWyMu7RY7Efe8YuOWQl
+         eN5oTxLOqfkhnwi1pnopP2HNkiarXr3p+vGES+ygpvFo9cvd4ihXasq0iAv07jaa5KvS
+         twZg==
+X-Forwarded-Encrypted: i=1; AHgh+RoSONVrpbFUNv9n3JT1KDi0Uy8wHXnZ2w1CJijIZBzT6aKdY4NsP4VSzsRltWK3c2Z2kA/YoyzxS/6T@vger.kernel.org
+X-Gm-Message-State: AFuF++lRwdOa0SixHmJWaVa+pYi/5aMkv6RCdwuVBXdwVLPXTiJpngM6
+	eYI2Ckhl0hL2t3tsCjnuTan7ax2SdItu4CARcTI/PXmuOsKfko0eU/AB
+X-Gm-Gg: AR+sD122evLJBvi94cUvOJA0Vfe0gg0qAiLdQax9J+yCjuSwUv37lAwBbOYBQArU7N1
+	3gNbESdUuuURPS/phCV9EjJlb4Tx1xlUUtdGhM2B554lq/JqXc8ySPFfDRG1ABRW/iyGPKpYukf
+	zqClYFrDd14XlbDyoNPRq+qZY4k34UD5UNGnhstj6nX4JSmpPddeac1S4J2hJUkZZRAHv7si2AG
+	FzEaDnES8HUE+2xBrREc6noltPLvWvHmLV66YWe89x5IXxjfowS6+LVMpTqYa+kNJO+PcIhaGxA
+	qxmj8nleSNz5Q/6mngjxMqdwesP7UcdoxiLtufdzYbeT7UiQGhqI6WpAkrW965yaYyb48gUewTC
+	pcG/TCf0CvvOMaiRw7Jn/kevpXPbwkgQpUH8GLLJu1b4zUv4H1QR4pWYy5oN+9D1iQyagHq01fk
+	AUR2XWMqy7jJhhNylQN301m0qV14xnsudh0aXRNKB1yOX7qpvvHLoohPd8cLtjeu7TivbQBtyU8
+	50RDEHQb08H+cCbjy7HuCSj
+X-Received: by 2002:a17:907:948a:b0:c20:f95c:907a with SMTP id a640c23a62f3a-c250c318b25mr986184366b.17.1787766546005;
+        Wed, 26 Aug 2026 10:49:06 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:23c4:a702:d301:aa64:3da0:a259:ecd5])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a88ac7fsm777752766b.30.2026.08.26.10.49.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 10:49:05 -0700 (PDT)
+From: Biju <biju.das.au@gmail.com>
+X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH v3 08/13] arm64: dts: renesas: r9a08g046: Add fcpvd node
+Date: Wed, 26 Aug 2026 18:48:42 +0100
+Message-ID: <20260826174854.199139-9-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260826174854.199139-1-biju.das.jz@bp.renesas.com>
+References: <20260826174854.199139-1-biju.das.jz@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260814-rp6-panel-v1-0-111c1aeccf0f@gmail.com>
- <20260814-rp6-panel-v1-3-111c1aeccf0f@gmail.com> <007e73a9-8220-46bb-89c6-2354740392c8@linaro.org>
-In-Reply-To: <007e73a9-8220-46bb-89c6-2354740392c8@linaro.org>
-From: Aaron Kling <webgeek1234@gmail.com>
-Date: Wed, 26 Aug 2026 12:30:45 -0500
-X-Gm-Features: AcwNN1V4UisMbD-bFUDbYmUeDVAuB_RlKd5IteIsWY5CDvuDkOAStLPqNpNdF9M
-Message-ID: <CALHNRZ9rKk3jkR9-sfVUyWgPOn=Prqwus+TRsj5A6H+Ze4AgZg@mail.gmail.com>
-Subject: Re: [PATCH 3/4] drm/panel: visionox-vtdr6130: Modularize panel config
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Jessica Zhang <jesszhan0024@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 26, 2026 at 4:53=E2=80=AFAM Neil Armstrong
-<neil.armstrong@linaro.org> wrote:
->
-> On 8/14/26 20:17, Aaron Kling via B4 Relay wrote:
-> > From: Aaron Kling <webgeek1234@gmail.com>
-> >
-> > The vtdr6130 is a DDIC, a common chip that is used by multiple panels.
-> > Prepare the driver for more panels.
-> >
-> > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> > ---
-> >   drivers/gpu/drm/panel/panel-visionox-vtdr6130.c | 95 ++++++++++++++++=
-+--------
-> >   1 file changed, 65 insertions(+), 30 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c b/drivers/=
-gpu/drm/panel/panel-visionox-vtdr6130.c
-> > index b66d6c7128c75..805c9846c2a0b 100644
-> > --- a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
-> > +++ b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
-> > @@ -19,11 +19,28 @@
-> >
-> >   struct visionox_vtdr6130 {
-> >       struct drm_panel panel;
-> > -     struct drm_dsc_config dsc;
-> > +     struct drm_connector *connector;
->
-> Why ? connector is unused in this patch.
+From: Biju Das <biju.das.jz@bp.renesas.com>
 
-I forgot to strip this when removing multiple mode support. Will fix.
+Add fcpvd node to RZ/G3L SoC DTSI.
 
-> >       struct mipi_dsi_device *dsi;
-> >       struct gpio_desc *reset_gpio;
-> >       struct regulator_bulk_data *supplies;
-> >       enum drm_panel_orientation orientation;
-> > +     struct visionox_vtdr6130_desc *desc;
-> > +};
-> > +
-> > +struct visionox_vtdr6130_desc {
-> > +     unsigned int width_mm;
-> > +     unsigned int height_mm;
-> > +
-> > +     unsigned int bpc;
-> > +     unsigned int lanes;
-> > +     unsigned long mode_flags;
-> > +     enum mipi_dsi_pixel_format format;
-> > +
-> > +     const struct drm_display_mode *modes;
-> > +     unsigned int num_modes;
-> > +     int (*init_sequence)(struct visionox_vtdr6130 *ctx);
-> > +
-> > +     struct drm_dsc_config dsc;
-> >   };
-> >
-> >   static const struct regulator_bulk_data visionox_vtdr6130_supplies[] =
-=3D {
-> > @@ -162,7 +179,7 @@ static int visionox_vtdr6130_prepare(struct drm_pan=
-el *panel)
-> >
-> >       visionox_vtdr6130_reset(ctx);
-> >
-> > -     ret =3D visionox_vtdr6130_on(ctx);
-> > +     ret =3D ctx->desc->init_sequence(ctx);
-> >       if (ret < 0) {
-> >               gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> >               regulator_bulk_disable(ARRAY_SIZE(visionox_vtdr6130_suppl=
-ies),
-> > @@ -187,34 +204,58 @@ static int visionox_vtdr6130_unprepare(struct drm=
-_panel *panel)
-> >       return 0;
-> >   }
-> >
-> > -static const struct drm_display_mode visionox_vtdr6130_mode =3D {
-> > -     .clock =3D (1080 + 20 + 2 + 20) * (2400 + 20 + 2 + 18) * 144 / 10=
-00,
-> > -     .hdisplay =3D 1080,
-> > -     .hsync_start =3D 1080 + 20,
-> > -     .hsync_end =3D 1080 + 20 + 2,
-> > -     .htotal =3D 1080 + 20 + 2 + 20,
-> > -     .vdisplay =3D 2400,
-> > -     .vsync_start =3D 2400 + 20,
-> > -     .vsync_end =3D 2400 + 20 + 2,
-> > -     .vtotal =3D 2400 + 20 + 2 + 18,
-> > +static const struct drm_display_mode visionox_vtdr6130_modes[] =3D {
-> > +     {
-> > +             .clock =3D (1080 + 20 + 2 + 20) * (2400 + 20 + 2 + 18) * =
-144 / 1000,
-> > +             .hdisplay =3D 1080,
-> > +             .hsync_start =3D 1080 + 20,
-> > +             .hsync_end =3D 1080 + 20 + 2,
-> > +             .htotal =3D 1080 + 20 + 2 + 20,
-> > +             .vdisplay =3D 2400,
-> > +             .vsync_start =3D 2400 + 20,
-> > +             .vsync_end =3D 2400 + 20 + 2,
-> > +             .vtotal =3D 2400 + 20 + 2 + 18,
-> > +     },
-> > +};
-> > +
-> > +static struct visionox_vtdr6130_desc visionox_vtdr6130_panel_desc =3D =
-{
-> > +     .modes =3D visionox_vtdr6130_modes,
-> > +     .num_modes =3D ARRAY_SIZE(visionox_vtdr6130_modes),
-> >       .width_mm =3D 71,
-> >       .height_mm =3D 157,
->
-> Why did you move the width/height out of the mode ?
->
-> Leave it in the mode, since you don't even use the same mode for the Retr=
-oid 6 panel
+Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+---
+v2->v3:
+ * No change.
+v1->v2:
+ * No change.
+---
+ arch/arm64/boot/dts/renesas/r9a08g046.dtsi | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-It was moved to support multiple modes, because duplicating the
-dimensions across modes is wasteful. This can be deferred to when
-multiple modes are supported.
+diff --git a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
+index 9f5ea62efc2c..ad38aee2efb3 100644
+--- a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
++++ b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
+@@ -696,6 +696,17 @@ ssi3: ssi@100e4c00 {
+ 			status = "disabled";
+ 		};
+ 
++		fcpvd: fcp@10880000 {
++			compatible = "renesas,r9a08g046-fcpvd", "renesas,fcpv";
++			reg = <0 0x10880000 0 0x10000>;
++			clocks = <&cpg CPG_MOD R9A08G046_LCDC_CLK_A>,
++				 <&cpg CPG_MOD R9A08G046_LCDC_CLK_P>,
++				 <&cpg CPG_MOD R9A08G046_LCDC_CLK_D>;
++			clock-names = "aclk", "pclk", "vclk";
++			resets = <&cpg R9A08G046_LCDC_RESET_N>;
++			power-domains = <&cpg>;
++		};
++
+ 		gpu: gpu@108b0000 {
+ 			compatible = "renesas,r9a08g046-mali",
+ 				     "arm,mali-bifrost";
+-- 
+2.43.0
 
-But on that note, has anything happened with implementing the atomic
-changes which were going to be a better way to handle multiple modes?
-If not, is the handling you asked to be removed from the icna35xx
-change [0] still a hard block? Because that does work now to support
-multiple modes and I'm currently carrying downstream changes across
-several panel drivers to support those. And I'd really like to
-eliminate as many downstream changes as I can.
-
-> > +     .bpc =3D 8,
-> > +     .lanes =3D 4,
-> > +     .format =3D MIPI_DSI_FMT_RGB888,
-> > +     .mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_NO_EOT_PACKET=
- |
-> > +                   MIPI_DSI_CLOCK_NON_CONTINUOUS,
-> > +     .init_sequence =3D visionox_vtdr6130_on,
-> > +     .dsc =3D {
-> > +             .dsc_version_major =3D 0x1,
-> > +             .dsc_version_minor =3D 0x2,
-> > +             .slice_height =3D 40,
-> > +             .slice_width =3D 540,
-> > +             .slice_count =3D 2,
-> > +             .bits_per_component =3D 8,
-> > +             .bits_per_pixel =3D 8 << 4,
-> > +             .block_pred_enable =3D true,
-> > +     },
-> >   };
-> >
-> >   static int visionox_vtdr6130_get_modes(struct drm_panel *panel,
-> >                                      struct drm_connector *connector)
-> >   {
-> > +     struct visionox_vtdr6130 *ctx =3D to_visionox_vtdr6130(panel);
-> >       struct drm_display_mode *mode;
-> >
-> > -     mode =3D drm_mode_duplicate(connector->dev, &visionox_vtdr6130_mo=
-de);
-> > +     mode =3D drm_mode_duplicate(connector->dev, ctx->desc->modes);
-> >       if (!mode)
-> >               return -ENOMEM;
-> >
-> >       drm_mode_set_name(mode);
-> >
-> >       mode->type =3D DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED;
-> > -     connector->display_info.width_mm =3D mode->width_mm;
-> > -     connector->display_info.height_mm =3D mode->height_mm;
-> > +     connector->display_info.width_mm =3D ctx->desc->width_mm;
-> > +     connector->display_info.height_mm =3D ctx->desc->height_mm;
->
-> Drop this change, take them from the mode.
-
-Ack.
-
-> >       drm_mode_probed_add(connector, mode);
-> >
-> >       return 1;
-> > @@ -284,23 +325,17 @@ static int visionox_vtdr6130_probe(struct mipi_ds=
-i_device *dsi)
-> >               return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-> >                                    "Failed to get reset-gpios\n");
-> >
-> > +     ctx->desc =3D (struct visionox_vtdr6130_desc *)of_device_get_matc=
-h_data(dev);
-> > +     if (!ctx->desc)
-> > +             return -ENODEV;
-> > +
-> >       ctx->dsi =3D dsi;
-> >       mipi_dsi_set_drvdata(dsi, ctx);
-> >
-> > -     ctx->dsc.dsc_version_major =3D 0x1;
-> > -     ctx->dsc.dsc_version_minor =3D 0x2;
-> > -     ctx->dsc.slice_height =3D 40;
-> > -     ctx->dsc.slice_width =3D 540;
-> > -     ctx->dsc.slice_count =3D 2;
-> > -     ctx->dsc.bits_per_component =3D 8;
-> > -     ctx->dsc.bits_per_pixel =3D 8 << 4;
-> > -     ctx->dsc.block_pred_enable =3D true;
-> > -
-> > -     dsi->dsc =3D &ctx->dsc;
-> > -     dsi->lanes =3D 4;
-> > -     dsi->format =3D MIPI_DSI_FMT_RGB888;
-> > -     dsi->mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_NO_EOT_PA=
-CKET |
-> > -                       MIPI_DSI_CLOCK_NON_CONTINUOUS;
-> > +     dsi->dsc =3D &ctx->desc->dsc;
-> > +     dsi->lanes =3D ctx->desc->lanes;
-> > +     dsi->format =3D ctx->desc->format;
-> > +     dsi->mode_flags =3D ctx->desc->mode_flags;
-> >       ctx->panel.prepare_prev_first =3D true;
-> >
-> >       ret =3D drm_of_get_panel_orientation(dev->of_node, &ctx->orientat=
-ion);
-> > @@ -322,7 +357,7 @@ static int visionox_vtdr6130_probe(struct mipi_dsi_=
-device *dsi)
-> >   }
-> >
-> >   static const struct of_device_id visionox_vtdr6130_of_match[] =3D {
-> > -     { .compatible =3D "visionox,vtdr6130" },
-> > +     { .compatible =3D "visionox,vtdr6130", .data =3D &visionox_vtdr61=
-30_panel_desc },
-> >       { /* sentinel */ }
-> >   };
-> >   MODULE_DEVICE_TABLE(of, visionox_vtdr6130_of_match);
-> >
->
-> Thanks,
-> Neil
->
-
-Aaron
-
-[0] https://lore.kernel.org/dri-devel/6dd8f137-a4df-4602-9536-b73abff5e7d1@=
-linaro.org/
