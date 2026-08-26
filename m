@@ -1,150 +1,221 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE9036997A
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 11:06:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C65B3BF68F
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 11:10:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787742413; cv=none; b=lEvFOGkbIB1kSsaH9iPCxJZx8pj9Rf2Ytxxy7uMqhYWlWLJaPiq/IK4M8GKKeXqV8y1ebRG04ezACaT7BOrHbG4FKQq16y3ELYUzj4PMH/Gijwvro9QPabkD/es0ZxEFieeBYngtd0xKGB56fJqlGhd76RzOmSw0IAtWu7CJl4A=
+	t=1787742646; cv=none; b=QyfGh8fv1kMzUP9tTDDmEkqPsdOKD4cvnB5+ZQCX/jQCHYgR+04F/kfPtT8j/Ce13fvEQk3kp1MFsvZAzRsD997mLFO9MOobUETTy6N8jLpTOlUUltrqFQ2vHUvPsqSYyas2AvFRkUvMXiZIVHlbanHkLA1OKUY8xoZ7qmxL+MQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787742413; c=relaxed/simple;
-	bh=QXD+KMdenghMXKt2asCQrmIZhSFh3ss1fUfzTg5sbtU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eplVgs0K4TtWxBraTPc9VZ3UJVn+itlhvr6LC42nxoz87T2UeVoxuHlvDxLidQ2wm6UbIc6Mrj09THg8rHrPfAkwo9gnNRMGWrpJrfWlAZKaq9/Zk3ocpW+mC6OwQKB4tpyIYniy9eW8EB18eRIozpjhq/zYhhsuG8NhiMMa/J4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VizyG0ZA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YFnLHIVT; arc=none smtp.client-ip=205.220.180.131
+	s=arc-20240116; t=1787742646; c=relaxed/simple;
+	bh=42IyvtEwaJBu89wXeBQMKR97aEKu9kfjgmjSlOW0fV8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TUembInfBV7EDoauOJ1V4sg9NdzZOYPG/7FHipN4MjNQE+4H7knLJ8CPmIWdZQW8PBw0YbrMOc1opXVJCi6nbBJ1qd7k6ekPLBAC/5laTkyPO/SuSYuZQruWy23g+SIFnO32oiwa6t0NfZ3bjAHe0FDaynie+eWV7u+YSBg9f8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ne9IMMZ5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QXmymuGA; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VizyG0ZA";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YFnLHIVT"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QAHuVr519849
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 11:06:41 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ne9IMMZ5";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QXmymuGA"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QAHfOR109234
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 11:10:36 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=3akmcxmoJl2rrZnwVhPbG7VW
-	IuceBca40SU704s+Vjo=; b=VizyG0ZAQLnp/gh09NW5WeC+tMxNpzP/CBa01hSC
-	iEkUEd8xrnER2mZzLqYUIdGQZKa2LBlPVWEEVeWqQQBh2o2DXSlrXDssioB7/SM0
-	yOyB2XQbBJp7dFZOlh5Rr0Lwidqv5Q0iVHfNp/18kqyxSoorf0H5Wd3N6dOG7Bu3
-	dd3PDI6Sel/AcUJDXOFVBCmSNNxStGQCpZnCBaLPjFvZIsWAGCUQbTWvQN7etV0t
-	Yr3kfVOqZCjebTbX0YmvgroYGPJCcOna0XPFgt2kNR9HnegzXPAvCN0RiwOOgEru
-	sbRYh+QLtR8Ko2TZ6yDQctphrzGadSQN9kc6DJ5wNYF+HA==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9x2n0773-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ICx3dXS4wPUw3d8og8xbxa80/mdBIRAb+uYv0BpUUvk=; b=Ne9IMMZ55nG+OeVs
+	qKlnCJe06/DBXik3oR6snU/PltUFJoUMxsH92DIKIAKTziCT5cDmdHvmtVSxzcsG
+	oFMYCcjYzKgaSC9f+TNWmaNe3431Ab0PmlhZNoQN9oczBCfvGfunNENhyJIbDuPz
+	ZAdFRe2Y4Faq0Kdjtpw9wFzdmJM73OBkAc6rj5k3N4gr1ueLtg8XPVwzIDA5WTuA
+	dTq4Xo+apoPzFmb1iWAJLkpdnHjqcFMYrt1UFp/b0Mc7ApnC72M+bvznn0F8Uy/J
+	vzI0lk0Xd2Va6SQtx73z9o9CektZKdIcVC4sek4r2UgAP0rOvvl8sJIAkRIx9PgD
+	4cI0MA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9s9g9gv8-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 11:06:41 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5174a23afcbso11806681cf.3
-        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 04:06:41 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 11:10:36 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-52d9cef8d15so16105951cf.0
+        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 04:10:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787742401; x=1788347201; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3akmcxmoJl2rrZnwVhPbG7VWIuceBca40SU704s+Vjo=;
-        b=YFnLHIVTsJwmYk/1N7Otva2/MA/oSZFMHYKBN8XIVPp0EBRD98xs+OIrAZuqfSjKw0
-         RL8X5Z6jaNL2dL/mJlQk9QuCAYXjM731Uv98pyI4RpPTpQGm2/X3JAKyDXl70XZygCvZ
-         q3gAXb0TIrwNGszSRB+4m1NJyMVeOfP/jjyyNAkv/w0TAT4G/H9fCYz7Dw41nkdC/qSm
-         hpciw8pMxUWMT1oa+8sriJu8hFD0iGgGEzQLPOU3oFhrDAvf3XpA5sRBPdeEIriroi0s
-         LAbzg8qUgzaKLocxeJ551VrDUbl8/AECmgjrDnGiiCN9MXH8ozfMJie6Cm07brLxaGKf
-         tDxQ==
+        d=oss.qualcomm.com; s=google; t=1787742636; x=1788347436; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ICx3dXS4wPUw3d8og8xbxa80/mdBIRAb+uYv0BpUUvk=;
+        b=QXmymuGADyvW2djHGU685sWJ818zzHKavfhpDAfWM98tkwTo5OmSouEuVLy6l78VC3
+         Qz6ywdntk+5jxIuTSJAdJ+dlEuQntjm8pXmg67CyL1WeloU4Qt+GuNdW/I2k2qCvc6ZP
+         NLDr/ChAQNpmntSiB4VvRyoANxDnmpjVD26xR37xdPWpsbAInDUJHFjIPGxQl9YBfV4R
+         /AXvso/NtOH4n52fynFHuSXunR4ZiWT3xjwNfNC5M5ho17n727eytPteG2GfsjFTA0Az
+         jZqBNzVNbaQNhM0DvTZg6XFHXVg7i2rcwDh0wfYLy0QWx2y7dAWzD0Qv6yHtOBL0jy1U
+         L0ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787742401; x=1788347201;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3akmcxmoJl2rrZnwVhPbG7VWIuceBca40SU704s+Vjo=;
-        b=OoqrBkaZCj5hhrrVI1PchMaIN7/Yl94hq86Lfgp9x16jysWN0yVlghZBDPH3SI8g5o
-         JlIiIEbuKiGAfVUOVwp3zHStf+1mOM+rd4Ge7vc+ax7qmnWkuqivsVDwOUfOq40PrUf/
-         jFO4KlRJpXMA6HTRlLaPkKL8uJZ41EkdEgz4SLdVk0N2bSSvMksjl2Llh1FY9F+yT05q
-         RzgFRcTT5+S2a1RNq/h1TViyn/PgW2mW88ZnQ0pUyQSxjJwwoA1OL7KnKv7NWfhU+xMo
-         9b4dmbmo9WnOXcz5AJepX/FEzCOkZbsor/FSrna1Au1KOFyh6NzgG7fkEztCYBioIyuj
-         jvVQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrfCUM3MdtPu0gygX/kyjtUbRWhrBBo9KwbcT4DdGBwpTI0Wa3qZFgxX/rxCeS03MB2Cg9bUJG4WiaV@vger.kernel.org
-X-Gm-Message-State: AFuF++mSVhgTPHvvxdW41y1OugTA8z3wO/Xcb+YSAN/MApG0dXTzcO7m
-	6L8zAcR7hRBdrrIWWTYlVpkIX1rkHbokTG9bwBa6lgkxCUf8r9ozt+vd1y8TRgOkIkll2XiGJuN
-	rYda5GI/yiqvstx87S2Hhg9T2nTZg0yuJl5wOt4vjFf/j7ptLmMNYHMn3N6Euri7S
-X-Gm-Gg: AR+sD10fFpkyxXD3qLxUn5ORy0D/V9s7aDiS89Cesqvsznyo1aBepyLDZrTiwrisU+L
-	5EfxoR6Sl5UCBeOzBxIlAvJT47JClNTiuVFgmK6YLzQLpmV42QRbFPS4fgNYNFdrGGlRIaQQjvv
-	j9sIPy7TPVKkXjJ6t0ALjGuy5G23nNS5mRBcYFIXxCluOTqoq0RMRMLei5Y0MA5XMpavEaoFFgy
-	Pg5MWkiE5dX8NN7YSQ154FEElZ2huhe9XeBYMwmStX+5kY6UjepklI9KVqD+zTOqC7fuGucoSPY
-	IuerTm3XWHSlZNkKtDHVehPOM0kYxCjAzs8N7uj4GA7DzPMI25krREhiVAJNEm428UAEpyjYouH
-	ay3fHBkpgKIlCsQ==
-X-Received: by 2002:a05:622a:1786:b0:52d:6afd:7d9c with SMTP id d75a77b69052e-52e4236c916mr51625551cf.29.1787742400639;
-        Wed, 26 Aug 2026 04:06:40 -0700 (PDT)
-X-Received: by 2002:a05:622a:1786:b0:52d:6afd:7d9c with SMTP id d75a77b69052e-52e4236c916mr51624871cf.29.1787742400131;
-        Wed, 26 Aug 2026 04:06:40 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.13])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a88ac7fsm566727466b.30.2026.08.26.04.06.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 04:06:38 -0700 (PDT)
-Date: Wed, 26 Aug 2026 14:06:36 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/4] remoteproc: qcom: pas: Switch Nord CDSPs from MX to
- NMXC
-Message-ID: <etena7qgrcb334rtkkctjdvojxeu4m2nxbhhg2tygq5wg2zmgc@5lgkk44lxgqi>
-References: <20260826102746.633076-1-shengchao.guo@oss.qualcomm.com>
- <20260826102746.633076-5-shengchao.guo@oss.qualcomm.com>
+        d=1e100.net; s=20251104; t=1787742636; x=1788347436;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ICx3dXS4wPUw3d8og8xbxa80/mdBIRAb+uYv0BpUUvk=;
+        b=Any4yP9K598oyieFJdDSxYAj8GfwGcNw5YhZk20Ijvhwe1an03o+o60hoamg4Q7Lw8
+         BWXQMdS0zzcdYTKJOvYBzC0SObezuWGAyQnMP5EfqLdahrleuuuLdpTqCNZzb84VU1B7
+         joU1/RtYj6xO84/DNWJ6Bq7kLgEsVYjmjf7Zl45JlGhSOOfhbBaVS+MALwfvC331h9N4
+         ZXdnfEQNQ/+X2zbpOtzqZYXvSJOvMiBnw9khH7v5UQSB27oAu2DwlXY1qDvaXZr4F0rL
+         LFNeno6nd09Fbb+FbDYdqC8Xw+1Z8x8YUDgEflwmFPz3zzy8k5zlH4EALibbvMy5o9S9
+         jYLg==
+X-Forwarded-Encrypted: i=1; AHgh+Rq834kvUX0FlQmCHgFc9/Sw4axZ4x/96s8IxvatByvTRZP4IGmMFykRN1T4Xjb9yBnV8hgPbsEYJxk6@vger.kernel.org
+X-Gm-Message-State: AFuF++lOqvU5KuBXbqpfSZhkZgVVlz7hlzJu4YBbAYjfSQhpsSFnH8s4
+	DqlhnpE47Qzw0CTLArvrTjR8qiChMCyrgjvrCHNKLKdexfuDPnxwUlpPlLaOp8ynaYbnhWqrOSd
+	7KlWDMAq0Gbk8XAm7VVTNVJgyahpxU6lzN8obq7VyYkcUUPugkzRtjhpqV3A7pkGR
+X-Gm-Gg: AR+sD11vaPRT+aQOFsENPkhkF5bs5Ac4BjBmFcuF9rywNr5DVj4RzvCVvF6ZQcCQ+oK
+	UkaDGCcza/lGy8X8tntWvUCAbItAlTznXYbu3d9f0refwRUfttxKOO3rQlW83Mq0+MPooDmk6c4
+	vkeltyqzR/8Vh/va+feXG6LNE1/a3uvZjN5uWJSdhU2o+EWmiAqhZsYfgMyr6opNgjbjpb92JaO
+	JbYeg5/9YT7U5hdKNQKDUkAOUg2chhFSiZas+awhe+WNVge2ihUig/aidZ+7op1BjCQeY2Z8HT9
+	FhRKYQBVuBCMIUHoMvpjVCvbNMr7OE3YEMVBi8Sn+DQ2A+pr7tKntksxlMu36UsTZXExweNHfZ5
+	dE9budyWfAX1Ys4aBYgnhqfCGucbB
+X-Received: by 2002:ac8:7d93:0:b0:52d:9dd9:63bd with SMTP id d75a77b69052e-52e42275bcdmr49651881cf.10.1787742635645;
+        Wed, 26 Aug 2026 04:10:35 -0700 (PDT)
+X-Received: by 2002:ac8:7d93:0:b0:52d:9dd9:63bd with SMTP id d75a77b69052e-52e42275bcdmr49651351cf.10.1787742635201;
+        Wed, 26 Aug 2026 04:10:35 -0700 (PDT)
+Received: from [192.168.1.110] ([178.197.219.214])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a9b16afsm338296466b.47.2026.08.26.04.10.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 26 Aug 2026 04:10:34 -0700 (PDT)
+Message-ID: <47e4355a-8658-4dca-9593-5d1735188950@oss.qualcomm.com>
+Date: Wed, 26 Aug 2026 13:10:32 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826102746.633076-5-shengchao.guo@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: Cr4sy8ml8SuQNNIfxk89Hw90nv5uphqv
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDA5MyBTYWx0ZWRfXxlvcPwuTMlrY
- 6J7AW4scLl9WU+D1ICRT46uUKm30F7DhDGGRPC3/bdBOG3WRvBiGjUaw4f4XqDbqnXw51wvX/Iq
- DNojcMY+xG8RKF9IYicKsUMlehqU07s=
-X-Proofpoint-GUID: Cr4sy8ml8SuQNNIfxk89Hw90nv5uphqv
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDA5MyBTYWx0ZWRfX+XeF51/emBWf
- eQ7uO5/1wlMoxwFq2RagJV2lH6MjQpen13xfcd18j/fkaQgqIUC16o3jAGI/HQZ5Irb7eDN8J1V
- imPF2xgR58uW1GXUG3g51fANCVmm5bH0PQUziKQFhczhtLWkuwm7StV07fRlCNH/xrMuXadogPe
- gtwldlu5jTrKNqRokJ67PV4uZgZCPtJAl7UmxD8ga1fTcr5jYS5Cix8vp8sZzh8sm7aJN1+ZuwP
- LSREsOmzk8413SRMqKEidyDtDJXeu6FBd92/WZjGpF9xadapbwGVXsnIN7xBsqIlHtDZh6bcjGA
- qKkkY+Ygy3bTojQqzBnOvSOMIBIC0mxRbmkvK9hTg/VSKrD9tr+kAboYJEUQX6K8k6vXbajWdi7
- mPw6VFUPpXAYrUzWid5GTgvc7coEVtGwj79/aCTjADixeyYqOYBB/RZ8LbCoO1TeUys+4KbjgHk
- XFIis/z541w6EeCOI8Q==
-X-Authority-Analysis: v=2.4 cv=PPQ/P/qC c=1 sm=1 tr=0 ts=6a8ec8c1 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=clBUptZa5v5FR042Ey+sjA==:17
- a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=GZsi8ShKKcF_LqxBH-EA:9 a=CjuIK1q_8ugA:10
- a=a_PwQJl-kcHnX1M80qC6:22
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 03/10] dtc: dt-check-style: Fix alignment of values in
+ continued property lines
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+References: <20260826-n-dts-style-checker-continued-v5-0-fdd16ca6e771@oss.qualcomm.com>
+ <20260826-n-dts-style-checker-continued-v5-3-fdd16ca6e771@oss.qualcomm.com>
+ <20260826103400.74D2C1F00A3A@smtp.kernel.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20260826103400.74D2C1F00A3A@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: cx3Uw3exUGtMEO9IhnQupAoeFsbEXrb2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDA5MyBTYWx0ZWRfXx9E8ssclfqQx
+ A28Ubzgu8h3XCWRUTF3ALI9ulmxW2CW+6w4q6Pqgfna8/NKTurkTY8oNYjAaytCK6k3DkaPbX0B
+ GoMKCvNHUt9eAIMhD8K+4MObg4b4S4tJB13robj73J3XnTL9suQgyhSJ3qnnqdt59ekEFsQLQVq
+ FHppVHCqgQk93rOEUF01M70a4mFFR2t/6cVm7/js0TiEjI1F8unbYS68doXf8l3xdkzAP/Xg8jn
+ kIbQgLuqbBl99xD9F2KijcQFv1NYirJ0y/uCSJ2+dCF6fFze9hoRmB1eF/fJ3QB2OczuAl7VHAO
+ gRT8JM0tNhwVMyKi3INWCFzQC7V3iliKWbHgZ2UuVFaw3NPd5V/QwdKg16ne6mFU3hIISOTzWWP
+ JMuE7B+4yulE/9KhJ50TI76qiOYFZosHvL783+mDu6ztUu9cyfw/9x0zWcDRzhaeTa8RuRQwPMB
+ pwmnNjPPv61B8t7mPWA==
+X-Authority-Analysis: v=2.4 cv=Xfq5Co55 c=1 sm=1 tr=0 ts=6a8ec9ac cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=XmQq5QGuDZr-Ig0OuBIA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDA5MyBTYWx0ZWRfXyL/JNq4CfhwM
+ u8SXHTQhDRZdh67cExvVa03TGfFfcdRDa4qlHQAER2koLgafY5FU/TwcghwYaHBhocaFlpoW2XN
+ gH9r18/74PfE6EXUsML36YqLK4ug4tM=
+X-Proofpoint-ORIG-GUID: cx3Uw3exUGtMEO9IhnQupAoeFsbEXrb2
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-26_03,2026-08-26_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 malwarescore=0 lowpriorityscore=0
- clxscore=1015 suspectscore=0 impostorscore=0 spamscore=0 adultscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608260093
+ spamscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 priorityscore=1501
+ bulkscore=0 clxscore=1015 malwarescore=0 adultscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260093
 
-On 26-08-26 18:27:46, Shawn Guo wrote:
-> From: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
-> 
-> The Nord CDSP subsystems keep their memory rail on the dedicated NMXC
-> resource, not on the shared MX rail. Replace "mx" with "nmxc" in the proxy
-> power domain list of all four CDSP resources so the correct rail is held
-> during PAS authentication and boot.
-> 
-> Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+On 26/08/2026 12:34, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [Medium] String index calculated from stripped string is used to slice the unstripped string, causing incorrect column alignment if a comment precedes the first '<' or '"'. The `check_continuation_alignment` function uses `_strip_strings_and_comments` to strip comments from `rest`, reducing its length. It then runs `re.search` on `rest` to find `<` or `"`. The resulting match index (`m.start(1)`) is then incorrectly used to slice the original unstripped `dl.raw` string. If a block comment exists between `=` and the first value, the slice truncates prematurely, discarding the visual width of the comment and resulting in a `target_col` that is too small.
+> - [Medium] Incomplete detection of closed values for space-separated arrays and concatenated strings causes false positive alignment errors. The `check_continuation_alignment` function tracks whether a value block is closed using `endswith('",') or endswith('>,')`. This strict check assumes that completed values must end with a comma. In valid DTS, cell arrays or strings can be concatenated across lines without commas (e.g., `ranges = <...>
+> <...>;` or `prop = "first"
+> "second";`). If a line ends with `>` or `"` without a comma, the block is closed, but `dl_value_complete` incorrectly evaluates to `False`. The script then unconditionally applies `target_offset = 1` to the subsequent line, improperly demanding that the new `<...>` or string be indented one space to the right (aligned with inner values) rather than aligning with the leading `<` or `"`.
+> --
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+All rejected.
+
+> 
+> commit 3c5fcc59a610ff8a5dc6318a90c848ba441566f3
+> Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> 
+> dtc: dt-check-style: Fix alignment of values in continued property lines
+> 
+> Continued lines in property assignments should be indented to opening
+> '<' or '"' if they also start with that character. If the continued line
+> is part of previous phandle, then alignment should be to inner values to
+> make it more readable.
+> 
+>> diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
+>> --- a/scripts/dtc/dt-check-style
+>> +++ b/scripts/dtc/dt-check-style
+>> @@ -938,17 +939,26 @@ def check_continuation_alignment(ctx):
+>>          eq = dl.raw.find('=')
+>>          if eq < 0:
+>>              continue
+>> -        # First '<' or '"' after '='
+>> -        rest = dl.raw[eq + 1:]
+>> -        m = re.search(r'[<"]', rest)
+>> +        # First '<' or '"' after '=', but ignore comments and strip trailing
+>> +        # whitespace (e.g. remaining after removing the comment)
+>> +        rest = _strip_strings_and_comments(dl.raw[eq + 1:]).rstrip()
+>> +        m = re.search(r'\s*([<"])', rest)
+>>          if not m:
+>>              continue
+>> -        target_col = _display_col(dl.raw[:eq + 1 + m.start()])
+>> +        dl_value_complete = rest.endswith('",') or rest.endswith('>,')
+> 
+> [Severity: Medium]
+> Does this strict check correctly identify closed values in space-separated
+> arrays and concatenated strings?
+> 
+> In valid DTS, cell arrays or strings can be concatenated across lines without
+> commas:
+> 
+>     ranges = <...>
+>              <...>;
+
+Not a valid DTS.
+
+> 
+> If a line ends with a closing bracket or double quote without a comma, the
+> block is closed, but dl_value_complete will incorrectly evaluate to False here.
+> 
+>> +        target_col = _display_col(_strip_strings_and_comments(dl.raw[:eq + 1 + m.start(1)]))
+> 
+> [Severity: Medium]
+> Will this calculate the correct column alignment if a block comment exists
+> between the = and the first opening bracket or double quote?
+
+Might not, but that's not the code we want.
+
+> 
+> Because rest is populated using _strip_strings_and_comments(), any block
+> comments are removed, shortening the string. Using m.start(1) from this
+> stripped string as an index to slice the unstripped dl.raw discards the
+> visual width of those block comments, resulting in a target_col that is
+> too small.
+> 
+>>          for cont in dl.continuations:
+>> -            if _display_col(cont.indent_str) != target_col:
+>> +            target_offset = 0
+>> +            err_msg_explanation = 'to < or "'
+>> +            if not dl_value_complete:
+>> +                target_offset = 1
+>> +                err_msg_explanation = 'to the value under <'
+> 
+> [Severity: Medium]
+> Since dl_value_complete evaluates to False for comma-less concatenations as
+> noted above, doesn't this unconditionally apply target_offset = 1?
+
+Comma-less concatenations are not accepted.
+
+> 
+> This would force developers to misalign their properly styled code by adding
+> an extra space, producing a false positive warning in the style checker.
+> 
+Best regards,
+Krzysztof
