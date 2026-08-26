@@ -1,137 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from meve.dewith.io (meve.dewith.io [157.90.20.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 358583AD526
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 07:31:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F343B0AC4;
+	Wed, 26 Aug 2026 07:33:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=157.90.20.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787729487; cv=none; b=rr2j7uREzzxs8hMWHnh6Ps9HkBvGoJfVFuQ/QH2LN8OMlSAl4EIFsxHtDid0DAQ5hSah4xKdIx6AXPUgbDN2mH7ZS9kxabsSrj+pQ9m/DufD4q2kFpsqcg/VQ7m98VCTNL1jQ8CNl8DhMWZf7Cquno+Xt+ImCqF63ByeOgwOwtQ=
+	t=1787729616; cv=none; b=Nk4tOU4FqFkSsnJGWdUf+OlwRjFlut2tbH6BD0bGZmJb+2N6SPcQvYyi0yVYyxh5AKw5Z1ZroMnYVUeINJduNAglVVkl5XEMVHVHXBcbSNqjMoCf40WPzgmkS7CbkNBUmtI1rAiw9ZyHDzrUcwJzDRR3R7utlJQ3OyFE48ham80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787729487; c=relaxed/simple;
-	bh=kYT8eYzeSHMZzrBWqZsq7zrmBv2ytOGRsTbU5lB3xQ4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Z9YC8SxoKy9iC+9JL472DpaQqf26mSorv85QEmNBq6yfne0Bw65/ZcAXvC+oepw8/K3sNo59F9G12DlIFZzyp0GC0nllPItrI/gHsjCeQJqFM1GGQbCC0KXd9M1TkVocg1N9eTgrvgTrCh4FUIOJcSlZ5dNuKEQplFr7jFtJIl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NDzDb63Q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787729616; c=relaxed/simple;
+	bh=2kkGWDFGI/OD7dmBUn3UVn1bLSIqWcPVbyKZgfQWbns=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Rq/77mV0LRU65oxcD24j2yG7V2/lM0e6FfPf6QamzKhLpG84RNrrXKR2+VrYJ2YIxSxJNMZE1zhbsAHijwwLhJb7rJW9KKpS1hM698xjdeuMqYHCWtsQQs+2cJn+tio9qpu3X7nxYt61sYF/H5RrzLNbLcqtro8BpLziksAkI7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=dewith.io; spf=pass smtp.mailfrom=dewith.io; dkim=pass (1024-bit key) header.d=dewith.io header.i=@dewith.io header.b=fZSPTl2c; arc=none smtp.client-ip=157.90.20.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=dewith.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dewith.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NDzDb63Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B942D1F000E9;
-	Wed, 26 Aug 2026 07:31:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787729484;
-	bh=yGQhi7B3EaXW61g0nxZIk02cX+WNvsjxMDXQIn4C+dQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NDzDb63QG9XHdmJGPhutafZ+y23H9uYJaNxPm1ne+uVL2c5JWFztIl6/BK412nbc7
-	 422zMkTQM29EJ6LeKhTGdjUIWUj5IFPTbgdRwgdWNq7qKYG+GsEMq2rqKDHx+//qph
-	 R9qQ7jk86za8/OnSqKVIyjGawoAD8Z36pqVzGIVUu+0/4VaSDBKAdr6jOEoKtnw3gT
-	 vjzURqPWE1023gojR0HnI9ddgKqSsNgZkz3258Szy2sBmthksrhtEMEpzOvR3w6bQj
-	 TSvtmV8Qv7tEAWAwIxrXdGiHIf/1gsFtjRtbr6dmNwgZS2teRqqodRCYN6gfHYhCra
-	 /rz7VzZi7lBjg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] media: i2c: Add driver for OmniVision OV32C4
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Robert Bozik" <robertbozik@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20260826072002.14357-3-robertbozik@gmail.com>
-References: <20260826072002.14357-1-robertbozik@gmail.com>
- <20260826072002.14357-3-robertbozik@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 26 Aug 2026 07:31:23 +0000
-Message-Id: <20260826073123.B942D1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=dewith.io header.i=@dewith.io header.b="fZSPTl2c"
+Received: from localhost (70-26-208-87.ftth.glasoperator.nl [87.208.26.70])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by meve.dewith.io (Postfix) with ESMTPSA id 1E67624F7A;
+	Wed, 26 Aug 2026 07:23:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dewith.io; s=default;
+	t=1787729025;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=QAUOj2QAkKl6zEzdhup86/l49AfWYPOJZzp6vrxeQlI=;
+	b=fZSPTl2cq6asaC+h1SoLhhFJG4IvcGBV4fIApcJ9IYPbx1Y2/3B7GWEZeumCYh0c7D2v4l
+	UWXKUkVMWNNf1zkl4Tst6H8BMgQzU+MZsPMROd/SKdhguqkq+ee7AU53K8NCA+3hCbcsZG
+	M4A6USD34H0/PRKHgRNcLeMc9jcNr2s=
+From: Wim de With <wf@dewith.io>
+Subject: [PATCH v4 0/2] backlight: Add support for Orient Chip OCP8178
+Date: Wed, 26 Aug 2026 09:23:09 +0200
+Message-Id: <20260826-ocp8178-backlight-v4-0-47d7acce882e@dewith.io>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23OzW7CMBAE4FdBPneR/5I6PfU9Kg6Os8YLLUa2C
+ a1Q3h0besiB40gzn+bGMibCzD42N5ZwpkzxVIN+2zAX7GmPQFPNTHLZc8MNRHc24t3AaN3xm/a
+ hwIB2Ujgojl6xujsn9PT7ML92z5wv4wFdaVBr+BR/oIRUhyu7l1x0WmwFF4prEHD1nxNeqYQtx
+ TYLlEtMf4+vs2z8/1TIF7dmCRy0nYQZtRnRmxXWbs1qLfSvBFUFZ/3QOd0p1/G1sCzLHaoaE1Y
+ 9AQAA
+X-Change-ID: 20260808-ocp8178-backlight-9ead3e930ef3
+To: Wim de With <wf@dewith.io>, Lee Jones <lee@kernel.org>, 
+ Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>
+Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-fbdev@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] Incorrect use of pm_sleep_ptr() for the dev_pm_ops structure poi=
-nter disables runtime PM when CONFIG_PM_SLEEP is disabled.
-- [Medium] Memory leak of V4L2 control handler resources on the probe error=
- path if ov32c4_init_controls() fails.
---
+The ClockworkPi uConsole[1] is a modular handheld console manufactured
+by Clockwork Tech that runs Linux. It consists of a mainboard which
+connects a number of peripherals, such as the screen, batteries and
+keyboard. This mainboard hosts a system on a module (SoM), such as the
+Raspberry Pi Compute Module as a so-called core to provide the compute
+for the device. The device supports different kinds of SoM as cores. The
+mainboard is shared between different devices, such as the DevTerm[2].
 
-commit 86444baf0012dbc98352979b151e14a3e84e5a51
-Author: Robert Bozik <robertbozik@gmail.com>
-Subject: media: i2c: Add driver for OmniVision OV32C4
+Currently, the uConsole requires a number of out-of-tree drivers to
+support the hardware. In addition, most (if not all) supported SoMs
+require vendor kernels. In practice, this means that kernel support for
+the device is scattered across various repositories in the form of
+patches with dubious quality.
 
-This commit adds a new V4L2 I2C sensor driver for the OmniVision OV32C4
-camera. It configures the sensor for a 3264x1840 at 30 fps mode and includes
-controls for exposure, gain, blanking, along with runtime PM support.
+This patch series is the first in an attempt to upstream as many of the
+needed drivers as possible. The goal is to support at least the
+mainboard and the peripherals of the uConsole in the upstream kernel.
+These drivers should find their way downstream to the SoM vendor kernels
+eventually.
 
-> diff --git a/drivers/media/i2c/ov32c4.c b/drivers/media/i2c/ov32c4.c
-> new file mode 100644
-> index 0000000000000..4039aa85cf5e8
-> --- /dev/null
-> +++ b/drivers/media/i2c/ov32c4.c
-[ ... ]
-> +static int ov32c4_init_controls(struct ov32c4 *ov32c4)
-> +{
-> +	struct v4l2_ctrl_handler *ctrl_hdlr =3D &ov32c4->ctrl_handler;
-[ ... ]
-> +	ret =3D v4l2_fwnode_device_parse(ov32c4->dev, &props);
-> +	if (ret)
-> +		return ret;
-> +
-> +	v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &ov32c4_ctrl_ops, &props);
-> +
-> +	if (ctrl_hdlr->error)
-> +		return ctrl_hdlr->error;
-> +
-> +	ov32c4->sd.ctrl_handler =3D ctrl_hdlr;
-> +
-> +	return 0;
-> +}
-[ ... ]
-> +static int ov32c4_probe(struct i2c_client *client)
-> +{
-[ ... ]
-> +	ret =3D ov32c4_init_controls(ov32c4);
-> +	if (ret) {
-> +		dev_err_probe(ov32c4->dev, ret, "failed to init controls\n");
-> +		goto probe_error_v4l2_ctrl_handler_free;
-> +	}
-[ ... ]
-> +probe_error_v4l2_ctrl_handler_free:
-> +	v4l2_ctrl_handler_free(ov32c4->sd.ctrl_handler);
+This series adds the driver for the backlight controller, the Orient
+Chip OCP8178. I wrote the driver from scratch using the datasheet, to
+avoid any copyright or attribution problems.
 
-[Severity: Medium]
-If ov32c4_init_controls() fails (e.g. because v4l2_fwnode_device_parse()
-fails or ctrl_hdlr->error is set), it returns early without assigning
-ov32c4->sd.ctrl_handler =3D ctrl_hdlr.
+[1]: https://www.clockworkpi.com/home-uconsole
+[2]: https://www.clockworkpi.com/home-devterm
 
-Since the pointer remains NULL, does the probe cleanup path leak the
-allocated V4L2 controls when it calls v4l2_ctrl_handler_free(NULL)? Should
-this explicitly free the embedded &ov32c4->ctrl_handler instead?
+---
+Changes in v4:
+No functional changes
+- Collect Reviewed-by trailers
+- Link to v3: https://patch.msgid.link/20260816-ocp8178-backlight-v3-0-caf95c453c50@dewith.io
 
-[ ... ]
-> +static DEFINE_RUNTIME_DEV_PM_OPS(ov32c4_pm_ops, ov32c4_power_off,
-> +				 ov32c4_power_on, NULL);
-[ ... ]
-> +static struct i2c_driver ov32c4_i2c_driver =3D {
-> +	.driver =3D {
-> +		.name =3D "ov32c4",
-> +		.pm =3D pm_sleep_ptr(&ov32c4_pm_ops),
+Changes in v3:
+- Rename enable-gpios to ctrl-gpios
+- Remove probe debug message
+- Remove onewire debug message
+- Link to v2: https://patch.msgid.link/20260812-ocp8178-backlight-v2-0-4ad18b48bef8@dewith.io
 
-[Severity: Medium]
-Is pm_sleep_ptr() the correct wrapper for &ov32c4_pm_ops here?
+Changes in v2:
+- Add a note in the commit message that the 1-Wire protocol is not the
+  one implemented in drivers/w1
+- Explicitly reject sleepable GPIO and don't use _cansleep() functions
+- Fix bug where interrupts were restored during timing-critical section
+- Remove unnecessary logging
+- Add missing \n to dev_err_probe message
+- Remove linux/mod_devicetable.h include
+- Remove struct init padding
+- Remove unnecessary backlight_is_blank() check
+- Use appropriate delay functions
+- Set RFA explicitly and move comment
+- Format DT binding YAML
+- Link to v1: https://patch.msgid.link/20260806201541.101304-1-wf@dewith.io
 
-The ov32c4_pm_ops structure is defined using DEFINE_RUNTIME_DEV_PM_OPS()
-which relies on CONFIG_PM. By wrapping it with pm_sleep_ptr(), the entire
-dev_pm_ops structure pointer evaluates to NULL when CONFIG_PM_SLEEP is
-disabled, even if CONFIG_PM is enabled.
+---
+Wim de With (2):
+      dt-bindings: backlight: Add Orient Chip OCP8178
+      backlight: Add support for Orient Chip OCP8178
 
-Does this unintentionally disable runtime PM callbacks in configurations
-without sleep support? Should this use pm_ptr() instead?
+ .../bindings/leds/backlight/ocs,ocp8178.yaml       |  47 +++++
+ MAINTAINERS                                        |   6 +
+ drivers/video/backlight/Kconfig                    |  10 +
+ drivers/video/backlight/Makefile                   |   1 +
+ drivers/video/backlight/ocp8178_bl.c               | 231 +++++++++++++++++++++
+ 5 files changed, 295 insertions(+)
+---
+base-commit: 315f4bd234b3b8a3ed3a71fd4c53b110cf373720
+change-id: 20260808-ocp8178-backlight-9ead3e930ef3
 
-> +		.acpi_match_table =3D ACPI_PTR(ov32c4_acpi_ids),
-> +		.of_match_table =3D ov32c4_of_match,
-> +	},
-> +	.probe =3D ov32c4_probe,
-> +	.remove =3D ov32c4_remove,
-> +};
+Best regards,
+--  
+Wim de With <wf@dewith.io>
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260826072002.1435=
-7-1-robertbozik@gmail.com?part=3D2
