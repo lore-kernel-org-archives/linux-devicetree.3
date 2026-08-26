@@ -1,230 +1,216 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11021107.outbound.protection.outlook.com [40.107.208.107])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC9B433ADB1
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 10:06:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DFCA31D39A;
+	Wed, 26 Aug 2026 10:10:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.107
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787738783; cv=pass; b=dduO7mEjSiV/Pp7jcJXgV7LdxqsQhOScVQuU5DHIz056N6lXlSZIJie+4vlgsCq0Iy6eHTTg+dAZiKJRFUv42pVPWhWKK/4yN0l8MiK4mwqx7Y3OIcGm7lsrcB2JCvqoBeiGKKp/fHvoKOU3fOjBgxhHt5EWPc0Pq5yorfkif3M=
+	t=1787739018; cv=fail; b=DvpadP4cD/rgMxCc1qm6Ek0LMJ01KrDbLlrH2BNs9mH4cqwUwKc8lR9CPsajEJxnEgkKnPPZWuCMxkIjSGWZqi8VUy4baoskNiVeK07R5E3ExSdqTO/m0ywQVKX6D6GtIi4FUbBBCFPEHTpxqKzTX96x/EUNUfJ+TVpx3v5gTks=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787738783; c=relaxed/simple;
-	bh=nfELzI6wU4evonO0YYA+RMq5+zcUXrzVSFYbXEchPEQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ryKbuwvrW8yCa65+PHPdiUo+Aaub3L98GxI5LQe9oJ6QOSVrNpyhdowDPxa+b9NZrcVGSNXtJMfyKOe89Wcr3kn0rJt9MzAt6mPS/k9UW+Rjap3ClfgQPYYXieNiqH4ZbLgNgMVCt27RwXnl8FGsptu7GsOPQBXH8VVLB+exYaE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XOs7roEY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XzINPo4h; arc=pass smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787739018; c=relaxed/simple;
+	bh=DHeJIaseeLD/6I4QdVk4iGuHGxAUNPDA8pbuPo3m3k4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=CARS68oqAgErGljWVkzgAtHuVUQIY6LKuo2JPiibQgwM/Q5gOf2ao3fZ3a8dPmOCyXpawuKhaBsUJInQSEFj+96TTvNV+1V116R+CsMQDoYeJou5WWmwsRmJSKPAUwndWjOkr1yBTP4tpM0hX4T4gNO9UNawB2hEoSpGooA0UYQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=rkWUktpY; arc=fail smtp.client-ip=40.107.208.107
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XOs7roEY";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XzINPo4h"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67Q9CfYm500922
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 10:06:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	RbBqoVCT+i35n1aDZvg1l2JvcEYCQIUQpQ62IsExkuY=; b=XOs7roEYF98cF8UA
-	EBClHsfAsyb/XmzpzgmQr6MO+65KofxyZJhEjs5s8456kU5/m59bMv7mEUMxJep0
-	FK5K8Oycx5yRJz89PpUVs45wx8xVyOvAVdoayJuNPBtCmjPfXryldHfnElMYye3P
-	eDZQEkWw2HWKjioth0UlIQa2BNe/JC6ltJ1FQtL8IqcThiHJ0DNqsOzT1nYmydfx
-	u2kRxdrp50ypyk/oDIdbD5fnNqwfeh1p7zYQ3NL3zL8OQh8kNMHVe8GHrzTm5hJ/
-	YYIlKP/5MKdCNnCFyxRj8YfwI7yLtghOTUL1VJr82RqLJA8Rm4dg5VlVUXI7Ewx8
-	IWTkkw==
-Received: from mail-yx1-f72.google.com (mail-yx1-f72.google.com [74.125.224.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9g4mu48e-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 10:06:20 +0000 (GMT)
-Received: by mail-yx1-f72.google.com with SMTP id 956f58d0204a3-66cc65a15dfso1010806d50.0
-        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 03:06:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787738780; cv=none;
-        d=google.com; s=arc-20260327;
-        b=q2HZu3+KjWKYZ8Fi9rCdkzMBKBGEsgFIsdQmSyjQVteteEBl2dGx2b8YG+sly4lC4p
-         w50P0LvbCsBbjmrRVvDHCay7Rj1MYi1koUL2QOBBGqY+FLel9PpwHf64yJ7aiCUucyDP
-         5MM4zFpV3SuMJnwOCOCa7meM2mTIYTp1nqDgN+J4nX32bZRD5Y7j2qDgrxFac1Q3qKck
-         wYjlZFirssi0bd9a2Sc4nTyaD2+DuRj7RJ5sL09KeAQaBmsXx9TVWDdKIbtNMZtwq3EW
-         OOTrwMZYXbwQPZttYFIbt5Q496ZDEjgoEvdiWbk9+fflLA7PQCne4ROx2a1RGAGRtmcx
-         gtyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=RbBqoVCT+i35n1aDZvg1l2JvcEYCQIUQpQ62IsExkuY=;
-        fh=LSQrW0T50uC+mQ2phcxjf2kJ/+ev/frqQsKBpjsfPAU=;
-        b=DdCVGC5Wi6XaE4LI8oiqau+h3j2RCe/p/aJ0hWoUvFvGt2FFoivNEhFmND6qhMT6L8
-         wf55YDigaUNy3IgTFvyuI2BN+G/7+Wom3sxEAsKq4zy8I+xhduGhB9sGGpqWISN6kDKZ
-         ypOZ3tJAlXJPFgPH5/ChoobpEoKI3X5TXjso239ng4A6BWcH/63vaeliV5lp4nWIcVEy
-         NJYT/tU2GHaysRgAR/RWX7n1V2s4LjEuNqe9/r9VRPsUiDsrmhDHIC7xIa3fkrYyajcM
-         Za7DCB9BpanR16bAkBpChjpChdaqbv9QRw5Q4dWMr5BmjGnqCC2hJ0CD1Tn08c/IVx/P
-         iarg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787738780; x=1788343580; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RbBqoVCT+i35n1aDZvg1l2JvcEYCQIUQpQ62IsExkuY=;
-        b=XzINPo4hN6lDWmJ162u7zGQqr7IRys+shJLPCuJqUUunujNdtGHHNIdyAjCUhIR/kC
-         gfTK7nc0W02FJWa5GwgvXBtD+LpGjGmU5oMnwHAImQN26fKVQXr7btKe8MVZZlsYDXuQ
-         WsO9h3Whg6i334xn/0ttokivVPqQDJRZwOUKQvMnckVe8Cyrq40cdpbHcAgFgdqQUOMn
-         7SxCqwibl79vcRho5rg1bfQPmXkhaltSRYB9Xj0u3T7N1gSSWVcy17yEOvBKeavn8Bth
-         PqZMOFV/xQ+xrQ8IICPWbvwRU8bIqXGeBxGhmKQV8HpGOPipUtrY9vSCwLqbfbFnq5rK
-         KOdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787738780; x=1788343580;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RbBqoVCT+i35n1aDZvg1l2JvcEYCQIUQpQ62IsExkuY=;
-        b=HDDijAmaiOpBZ8INcDNDLwB6h23yKYm0xhQSwqz4KnBDKOO0KzgwzAKYyNVa5qO1zM
-         Phbl65zKxP6ex6kgItl6vXZhKaVDeI5K4HaN4TzQEvgSTM5j4cCpLtoYN3fxaF32OnEB
-         vEOAXeFSQbOHRbyNkISXiF/lcEdI82QuspX+64v7WcG7LVXTVDIYBQhVpKXQBt8XMe6r
-         dIbignChisHEuLvQVpi/CrQhRW0WwLqaoiFdKl8Kj0US91WWC2X60RYVlPZr2aiVNids
-         7lK9HEGU/kSTdpbCwrfEuBJ3/cAJzUBTZirDVY+en6b9dILKOYWpT4oJYsuJAfu+Oibe
-         +JGw==
-X-Forwarded-Encrypted: i=1; AHgh+Rpm6TG4v4nZgt/kFN0etR1AjB+Hzd2kwKuefbwDwD4X41Prnw+HH5EqkznJoxXZd+WoPfEiEKaqaexB@vger.kernel.org
-X-Gm-Message-State: AFuF++mc/r8nLJVj7HdBi2t1fRH8RYBbHLde3JLnm8IduOXFzX7Sxq0I
-	ezQlAxspHJydYLzYu/W+DIoOk4BEurjtqg0HhI49wnbL17BMtx0Hq4OWKdmyHCIfPHfdjbXlQKQ
-	56i+rf33gJp+d2nCgQHG7RbC3zncx4F/rNY8JB9RIYeZ3fBsZYLZ7et02tbeBRs/uKquJelwpbm
-	nf/I67sTEioFsxYiXylz8E7BMP14mKxlx1MeJJJqdSegtiaKA4dA==
-X-Gm-Gg: AR+sD11gVsTpLmK9JNk4hRhEzqzuCl+qz/XCD2wwyakGc5rAgJ8KJQxihmw/E9TE52z
-	nPp/8CzZXBCGoNuujEIxhnlpB8jNuWDM80jyERDeKNGrrV9mJbauWRlyBMLksJYdqKYOBnBWAll
-	1vIDR7jE+wT3xudpy9LrHjP6/Ykh7YIH+kckG+Av4HxfY/QSbCLRVtoHjtJw==
-X-Received: by 2002:a53:d642:0:b0:66d:26f2:6e42 with SMTP id 956f58d0204a3-66d26f27338mr1101713d50.30.1787738777871;
-        Wed, 26 Aug 2026 03:06:17 -0700 (PDT)
-X-Received: by 2002:a53:d642:0:b0:66d:26f2:6e42 with SMTP id
- 956f58d0204a3-66d26f27338mr1101703d50.30.1787738777434; Wed, 26 Aug 2026
- 03:06:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="rkWUktpY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=j/mJM9xyVmIEUsR4z1a+1y/EsOaL4l0Z/rxVa8QLh9l4VjYBkRajl381N4RVh0uIGdJttjqWxfEurSFXniwBREOe8MCyNmUTOFvAOVZHa6Zgd5Ctg0M3wHLuoRHlpcsNOwtTw16lmeWeXCTpTCHsoY/Wa8lBJpQYl+3jVLERf0DeXg5GF8PnRTwlyNr97XKvbsVbIslXbmR/uZ7T3QaNnXL+dQvyk2+WwGTO1S3DIOLqZ9SzyqHVM7m7hyOAjipgepNDwGj6kRK2uEPDuMEtvFVbqwpAywJEGbweXDTiQvVfey8PAXqk6MIa1tfTmPsYEGPSW3wB2qSjnNqywAgJdg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bWq2ToMMyXzSZSO9Kp8KcnHp/iXqQGSVbh9ui6a+4/o=;
+ b=CwEzhNTreEPE7fxhnxtJKp8Djt3a023fB50B48i385AAhTZ/dTf+/b7bdM2zm+8NtamzVwY/j4KtAJPmX2pj8oiKxkb2SMip435PNqE0zotkZD0GXfmPsqWIOOFOt8P4aOhOGIQSpBe9D6UUymn3I1YV9MB153c9CBXH9lNksbfOEgQ4e1bqm7qf4KBurh7cPPb0h/UKArRUdc9gHswkG11GeBaXu++FKR/8iFA86TNj1GRRrBNb46mm4sgvz1KT9GwlcOlCHDl3xR+QhBSiHqnrhP6bGpiuy73am1MfK8FMhpyr+XBtsGFPzP6b8aVU87IB7vAhFiTxLCc8ptDDyA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 64.62.143.114) smtp.rcpttodomain=axiado.com smtp.mailfrom=axiado.com;
+ dmarc=none action=none header.from=axiado.com; dkim=none (message not
+ signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bWq2ToMMyXzSZSO9Kp8KcnHp/iXqQGSVbh9ui6a+4/o=;
+ b=rkWUktpYyBKL9lD7EpTpihczVlZo4jji5pxRmcEd+XXLKW1CJ96M9lilhukrCo8h9raeL39ExkytHV2XlSflqCAXLy9jlGmaAkHobtUAKXU2LUqNYEl0K6y/iY/adejr+wtIHO2dUnJQS+5O8arLVereRnLafNzjaocX6IMNZ6o6JH6hCPhOEqSO/QDLTFYZ0eqGJAmx62Vyw7B6a9wOymE+SeaPqRU0UTCknPw7YDA9GXziA8drX+zApVca5y+2fwnJpGKPmcqJrru7WMJIYegZ7UiUBnWUuipNfWik5iRvKLISPO8WQO4cJap6rFOm+jalaEhjh9NFS5/r/+P5jQ==
+Received: from PH0PR07CA0048.namprd07.prod.outlook.com (2603:10b6:510:e::23)
+ by SA1PR18MB4791.namprd18.prod.outlook.com (2603:10b6:806:1de::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Wed, 26 Aug
+ 2026 10:10:12 +0000
+Received: from SJ1PEPF000023D9.namprd21.prod.outlook.com
+ (2603:10b6:510:e:cafe::4f) by PH0PR07CA0048.outlook.office365.com
+ (2603:10b6:510:e::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.6 via Frontend Transport; Wed, 26
+ Aug 2026 10:10:12 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 64.62.143.114)
+ smtp.mailfrom=axiado.com; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axiado.com;
+Received-SPF: Fail (protection.outlook.com: domain of axiado.com does not
+ designate 64.62.143.114 as permitted sender) receiver=protection.outlook.com;
+ client-ip=64.62.143.114; helo=smtp.corp.axiado.com;
+Received: from smtp.corp.axiado.com (64.62.143.114) by
+ SJ1PEPF000023D9.mail.protection.outlook.com (10.167.244.74) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.0
+ via Frontend Transport; Wed, 26 Aug 2026 10:10:11 +0000
+Received: from axz-uw1-build-vm02.corp.axiado.com (unknown [10.14.1.22])
+	by smtp.corp.axiado.com (Postfix) with ESMTPS id 889DC4186B51;
+	Wed, 26 Aug 2026 03:10:11 -0700 (PDT)
+From: Swark Yang <syang@axiado.com>
+Subject: [PATCH v4 0/2] arm64: Add Axiado AX3005 SoC and EVK support
+Date: Wed, 26 Aug 2026 03:10:05 -0700
+Message-Id: <20260826-ax3005-dts-v4-v4-0-a7702a3ace0e@axiado.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824063627.3595610-1-harendra.gautam@oss.qualcomm.com>
- <20260824063627.3595610-2-harendra.gautam@oss.qualcomm.com>
- <bf6e42b4-ff21-4b6c-a7d5-024e5b9a7da4@oss.qualcomm.com> <CAC-tS8CaVN8YgkUHJVvLcU1xWB3V5dOgS07CHVOBUnPtMjNxTg@mail.gmail.com>
- <08b6fd88-84b3-4b3f-a8c5-dd6bfd39403f@oss.qualcomm.com> <CAC-tS8CtA+wRuucDskRXSc=AHgNdbuq+khj85pFmCG8dGS3Njw@mail.gmail.com>
- <137d4a06-4542-488d-91e2-d338ffb9d47d@kernel.org>
-In-Reply-To: <137d4a06-4542-488d-91e2-d338ffb9d47d@kernel.org>
-From: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-Date: Wed, 26 Aug 2026 15:36:06 +0530
-X-Gm-Features: AcwNN1UcHyQxyDgxCtp2jNw1Hyii6iQM8K7os2ERH6A2exggOEYymSFD-EPOOdw
-Message-ID: <CAC-tS8ACnv2rb0k5u1bLR=EeVtZFXiByke1TFhM_n-WBqJ+dFA@mail.gmail.com>
-Subject: Re: [PATCH v3 1/9] ASoC: dt-bindings: qcom,qaif-cpu: Add binding
-To: Srinivas Kandagatla <srini@kernel.org>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
-        Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
-        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDA4MiBTYWx0ZWRfX1+Qcv7Q+YRXy
- z6B2k3paVB0qZJo52F+aiqhtTWbDZyz8fsHio6v72RgTltSPn35gJTiB1A+2bx/dJa3WCWyPk6V
- MYwHGUYhPtgLo+vcf1IVbc5/KaSLnYo=
-X-Proofpoint-ORIG-GUID: g2zYpiD1naJFu9VG6yg5ZlLmn8qW7jqx
-X-Authority-Analysis: v=2.4 cv=eYgNubEH c=1 sm=1 tr=0 ts=6a8eba9c cx=c_pps
- a=VEzVgl358Dq0xwHDEbsOzA==:117 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=f6IBhYKpExAqpe2A64UA:9 a=QEXdDO2ut3YA:10 a=uujmmnXaIg8lM0-o0HFK:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDA4MiBTYWx0ZWRfX9PLuDyYv5i1N
- mzn3UEEqW8sss1BDmz5T9YmOzLHBS4MGTeE9er+lj7KzE1ehm8H8e5OaV7d92ZMEQORDuDTPB/h
- Di0Tcvo9Q+3T5Naxl7xRoiiC1NA1mV9IrD11D8d4ovR0S2A3O9GTK1GtHm6HZ5hZF1P7aFFUZZ0
- 4+h2scbK5eHqHrR8Zqwn6HvFBow5FzhvVFO2zrja8t3tiE6xxnPdtBow4tJmeqm/H0bFhL2WWG5
- DqhN7VmRlbtGfhe/y7AZCLSUFRXpi1eQ0eDHAlm6bM6FND6JmGYWUHD17t4+SFceNF7EMWEw22h
- 7oweMp1xcor2PDdbJeftn+iqoB8QbdJd4XK/TlrlVwKYGRzX23qYgi9cLwvAorwao5PNvYdVimf
- x0Yn+v8OEFQMnR6Vfw0TtnpgdhhmxMiFSTDHi+hq/Ya2mjF6L0AAmlLi8+/yd0Nttq+hd1uYwzN
- Qj5uWSBHe8OE9EO/6SQ==
-X-Proofpoint-GUID: g2zYpiD1naJFu9VG6yg5ZlLmn8qW7jqx
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-26_02,2026-08-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 priorityscore=1501 impostorscore=0 suspectscore=0
- clxscore=1015 lowpriorityscore=0 bulkscore=0 phishscore=0 spamscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608260082
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAH27jmoC/x3MQQqAIBBA0avErBswdTK6SrSQnGo2FhohRHdPW
+ r7F/w9kTsIZxuaBxLdkOWKFbRtYdh83RgnVoJXu1aAJfTFKEYYr422RHNHKnTPeEtTmTLxK+X/
+ T/L4fZYAUz18AAAA=
+X-Change-ID: 20260825-ax3005-dts-v4-5755fe173a45
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Prasad Bolisetty <pbolisetty@axiado.com>, Tzu-Hao Wei <twei@axiado.com>, 
+ Karthikeyan Mitran <kmitran@axiado.com>, Harshit Shah <hshah@axiado.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Marc Zyngier <maz@kernel.org>, 
+ Swark Yang <syang@axiado.com>, Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4202; i=syang@axiado.com;
+ h=from:subject:message-id; bh=DHeJIaseeLD/6I4QdVk4iGuHGxAUNPDA8pbuPo3m3k4=;
+ b=owGbwMvMwCHWlWK8+EozbyzjabUkhqy+3c25K08eXs0/T1us/NCzjuuzy3ZrSV39JKI3S3me6
+ fXvPi8KOkpZGMQ4GGTFFFm+6nzLP5mrfa9z78pSmDmsTCBDGLg4BWAi1ZUM/4ySdS4rVAr1v1GV
+ Wnbd10QnVei98gLtVxpT3BPmhU+5NZHhr3zDj7NzKsprjhzVNbn442rv3iUpU41+LxZLuXOoM5S
+ XhwsA
+X-Developer-Key: i=syang@axiado.com; a=openpgp;
+ fpr=F52CF66FC96D2BDE89BDA9758A6433A3D4830D5D
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D9:EE_|SA1PR18MB4791:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2daccd3c-0476-4627-ca95-08df035a374c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|23010399003|36860700016|376014|10067099003|3023799007|18002099003|56012099006|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	wkCKbb7qbheZZojOosnZLoqq+Ih5TdPWZPXkWsUJl+REXjMZ5WnEEafZ51Bqa0saI5xZMvFGtc87tfKFH+SPP7Vhs2Hgaxoy9caRI5EMebArT6WpzkHW43I9pol447VZNBoVsgXQTMJL9WjjnV4S8djojZ4ue+VqA/AzHq4NUqwz3es7dDHpbI0KHduW91DAlfhTjBQIKgBXRMMnWchHaWe3aZVtidiNhRicZjGZ/7PIZBShNjTCll22LA+wdA8g6FMlG73ZU+O56sYfhbJvFOR+fzcdC7HXGXr+K0Itv0w7ipTsdQcBWK3NY4PmDtFLfGd38dl7Dmq/4SGql2SMtbXg03Ccx+gjx2OZn38JBp7Qjqy1p44NZvqOByqd2iaPUz11/bpCqTehKFIzBMX/47HLt/3Sf6FcAo0317J7QinQr06LWyWCYnxe9dRvClOYhh0KXyonhBPvCwS1DWFyMtdztgab0mMR1TEGJDOiJ+UBfFyuYWnuvC6ujFVpe04U8ur6tqEbkHfb7cqHio7vY6/7B4fmQOXqlJY5iVFqvRPFEcncX76vER6jQKrhPitpQohJfZv3v/Rc0D7GJlmJWQPrIdij7YYDYQBnMQI3KQt77Y96RPYqrXoxtG7h9SpYOBg9gzjkbCYqUlFOJAyj6jWdFZ+qlV0F8JfT+zncvJVwl4j0VKWmC2kQxwwLzoCDSDxd57naV800x/Wnogw+CQ==
+X-Forefront-Antispam-Report:
+	CIP:64.62.143.114;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtp.corp.axiado.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(23010399003)(36860700016)(376014)(10067099003)(3023799007)(18002099003)(56012099006)(13003099007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	rvRQG6u5UorIZh7bulP5WAVrAxNJkhtpEKP1/jBS6vABC0S4M4ycmXX9Q0KWY3JcnIpl6kLYh4PpdNUMG9CYMeJPSL/tcbRNNpzIGJS2RX8wiFwqO/G/hjjLBjbXju3b6VVCLkVTu4Uu788MpAOuj9eiz7itLow0ViPF3JhA66q7be6/wgo81/uU57iOEONwkKnT966nrNQw9KW69pR76JJR/ZjyPOQbjuJRzrzy+nTVSmnickaObGm1YU2Rwr2XBFMqIv1dHoKtkOBxgQIKX9IJ4knmybEgB68q1Psqq/DJ64haWKc1Hyz/FzvMYTNuaelN21ycDWLgRmw29uKP9wYuYX5v6p7eyA8UDaYjWR4gjgS3DmPDOWrcSai0m7XDJnqOmWzNhl9En3W8Pzr1EQ+a7SrUeQg28LZa/HLukyHnkUAzuQg9yhp3SlK34VVv
+X-OriginatorOrg: axiado.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 10:10:11.9168
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2daccd3c-0476-4627-ca95-08df035a374c
+X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=ff2db17c-4338-408e-9036-2dee8e3e17d7;Ip=[64.62.143.114];Helo=[smtp.corp.axiado.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000023D9.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR18MB4791
 
-On Wed, Aug 26, 2026 at 3:31=E2=80=AFPM Srinivas Kandagatla <srini@kernel.o=
-rg> wrote:
->
->
->
-> On 8/26/26 10:55 AM, Harendra Gautam wrote:
-> > On Wed, Aug 26, 2026 at 3:13=E2=80=AFPM Srinivas Kandagatla
-> > <srinivas.kandagatla@oss.qualcomm.com> wrote:
-> >>
-> >>
-> >>
-> >> On 8/26/26 10:39 AM, Harendra Gautam wrote:
-> >>>>> + * CIF (Codec Interface) VA TX DAI IDs -- capture from voice activ=
-ity codec.
-> >>>>> + * WRDMA channels collect audio from the VA codec and write it to =
-memory.
-> >>>>> + */
-> >>>>> +#define QAIF_CDC_DMA_VA_TX0  246
-> >>>>> +#define QAIF_CDC_DMA_VA_TX1  247
-> >>>>> +#define QAIF_CDC_DMA_VA_TX2  248
-> >>>>> +#define QAIF_CDC_DMA_VA_TX3  249
-> >>>>> +#define QAIF_CDC_DMA_VA_TX4  250
-> >>>>> +#define QAIF_CDC_DMA_VA_TX5  251
-> >>>>> +#define QAIF_CDC_DMA_VA_TX6  252
-> >>>>> +#define QAIF_CDC_DMA_VA_TX7  253
-> >>>>> +#define QAIF_CDC_DMA_VA_TX8  254
-> >>>>> +#define QAIF_CDC_DMA_VA_TX9  255
-> >>>>> +
-> >>>> These DAI IDs exceed the LPASS_MAX_PORT limit, which will cause soun=
-d
-> >>>> card registration to fail.
-> >>>>
-> >>>> Check sound/soc/qcom/common.c, as the current indices (246-255) are
-> >>>> beyond the supported LPASS port range.
-> >>>>
-> >>>> Best Regards,
-> >>>> Rafi.
-> >>> Thanks for pointing this out. We can either add the range check for
-> >>> min/max QAIF DAI IDs in qcom/common.c or introduce a common helper in
-> >>> qcom/common.h to validate the supported DAI IDs across Qualcomm
-> >>> platforms.
-> >>
-> >> You should add these ids to
-> >> include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h instead to avoid
-> >> conflicts with common code.
-> >>
-> >> --srini
-> > Thanks for the suggestion. qcom,q6dsp-lpass-ports.h is specific to Q6
-> > DSP/AFE virtual port IDs. Since QAIF is a direct MMIO driver with no
-> > Q6 DSP involvement, would adding QAIF IDs there not be misleading?
->
-> These are IDs that will be reused across both dsp and non-dsp solution.
-> So it makes more sense to keep it in one single place to allow the
-> hardware description (DT) unchanged across different software solutions.
->
->
-> > would it be better to update the range check in common.c/common.h to
-> > accommodate both LPASS and QAIF DAI ID ranges instead?
-> No, that does not make sense because these numbering might conflicting
-> with other ports in future.
->
-> --srini
-Thanks for the clarification. Will add QAIF DAI IDs in qcom,q6dsp-lpass-por=
-ts.h.
--Harendra
->
->
-> THat
-> > -Harendra
-> >>> -Harendra
-> >>
->
+This series adds initial device tree support for the Axiado AX3005 SoC
+and its evaluation board (EVK).
+
+The AX3005 uses Cadence-derived UART, I2C, I3C and GPIO controllers,
+Synopsys DesignWare SPI controllers, and generic xHCI-compatible USB
+controllers. The AX3005-specific compatibles for these controllers were
+previously included in the same multi-subsystem series.
+
+Following maintainer feedback, the subsystem binding updates have now
+been split into separate submissions to their respective subsystem
+maintainers. This series therefore contains only the Axiado platform
+binding update and the ARM64 device tree support.
+
+The current status of the corresponding subsystem bindings is:
+
+- GPIO: merged into mainline
+- I2C: merged into mainline
+- I3C: merged into mainline
+- SPI: merged into mainline
+- UART: received two Acked-by tags and is pending application
+- USB: received a Reviewed-by tag and is pending application
+
+Pending binding dependencies:
+- UART:
+  "[PATCH v4] dt-bindings: serial: cdns: add Axiado AX3005 UART variant"
+  https://lore.kernel.org/all/20260805-upstrea-ax3005-uart-v4-v4-1-8399f0773b13@axiado.com/
+
+- USB:
+  "[PATCH v4] dt-bindings: usb: generic-xhci: add Axiado AX3005 xHCI variant"
+  https://lore.kernel.org/all/20260805-upstrea-ax3005-usb-v4-v4-1-796af97bfce4@axiado.com/
+
+Patch 1 adds the AX3005 SoC and EVK compatible strings to the Axiado
+platform binding.
+
+Patch 2 adds the AX3005 SoC dtsi, the EVK board dts, and the Makefile
+entry. The EVK describes the CPUs, architectural timer, GIC, GPIO, UART,
+I2C, I3C, SPI and USB controllers.
+
+Validated with:
+- make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- \
+  O=out-arm64 CHECK_DTBS=y axiado/ax3005-evk.dtb
+  with the pending AX3005 UART and USB binding patches applied
+- make dt_binding_check DT_SCHEMA_FILES=axiado.yaml
+- boot-tested on the AX3005 EVK
+
+Signed-off-by: Swark Yang <syang@axiado.com>
+
+---
+Changes in v4:
+- Collected Tzu-Hao Wei's Acked-by tag for the Axiado platform binding.
+- Split the GPIO, I2C, I3C, UART, SPI and USB binding updates from the
+  original multi-subsystem series into separate subsystem submissions.
+- Dropped the subsystem binding patches from this series. GPIO, I2C,
+  I3C and SPI bindings have since been merged into mainline.
+- Addressed Marc Zyngier's GIC review comments:
+  - Added the GICC, GICH and GICV register regions.
+  - Dropped the redundant #redistributor-regions property.
+- Link to v3:
+  https://lore.kernel.org/r/20260716-upstream-axiado-ax3005-upstream-v3-0-c429095143ec@axiado.com
+
+Changes in v3:
+- Added SoC-specific compatibles (e.g. axiado,ax3005-gpio) with
+  appropriate fallbacks to all IP blocks (UART, I3C, I2C, SPI, USB,
+  GPIO).
+- Added corresponding dt-bindings patches for all updated IPs.
+- Renamed l2-cache0 node to l2-cache to drop the unnecessary unit
+  address.
+- Fixed DT node sorting.
+- Link to v2:
+  https://lore.kernel.org/r/20260705-upstream-axiado-ax3005-upstream-v2-0-2dfbd1448f81@axiado.com
+
+Changes in v2:
+- Confirmed with internal team that AX3005 BootROM multiplexes the
+  single release address for SMP bring-up.
+- Corrected architectural timer PPIs and VGIC maintenance interrupt
+  polarity to active-low.
+- Aligned memory node unit-address with reg base address (@81000000).
+- Removed 'arm,cpu-registers-not-fw-configured' property from the timer
+  node.
+- Collected Conor Dooley's Acked-by for the dt-binding patch.
+- Link to v1:
+  https://lore.kernel.org/r/20260624-upstream-axiado-ax3005-upstream-v1-0-c05bd0bc9124@axiado.com
+
+---
+Swark Yang (2):
+      dt-bindings: arm: axiado: add AX3005 EVK
+      arm64: dts: axiado: Add initial support for AX3005 SoC and eval board
+
+ Documentation/devicetree/bindings/arm/axiado.yaml |   6 +
+ arch/arm64/boot/dts/axiado/Makefile               |   1 +
+ arch/arm64/boot/dts/axiado/ax3005-evk.dts         | 327 +++++++++
+ arch/arm64/boot/dts/axiado/ax3005.dtsi            | 844 ++++++++++++++++++++++
+ 4 files changed, 1178 insertions(+)
+---
+base-commit: 66498c75b4f8017f62d720d9b59675bdf3abce91
+change-id: 20260825-ax3005-dts-v4-5755fe173a45
+
+Best regards,
+-- 
+Swark Yang <syang@axiado.com>
+
