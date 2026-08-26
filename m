@@ -1,210 +1,143 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013017.outbound.protection.outlook.com [52.101.72.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F6443F824D
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 15:59:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787760000; cv=fail; b=oZuCbVuuk2Q3y+zHft/YrBjTAjjgzXdroxTvsgOSpTUEWp/KK1QU4+dt2hQsB1yrHagig630JjsbzQXi81x36QXNas7EbNU0KLWjidn4RTg6mhfN8A+VfyTbMu/kjwlMdKxraSBSyHC6OpcVEAhcDSKpbNhLEDtC2HEjiGlCr2k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787760000; c=relaxed/simple;
-	bh=zsm4AvylXipP/p5PpezupoFnsRxQWylqNWoA2slS7EE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=j7E+4eFb/quFC6gzrdowTi9dV6h2xz688FntzKB7uNw04mGkJgF/+lc/5lHv8vGfrq9h5k7EtZVMJPcpbQ7pI6DgnQrrjqTM4MtPpS5qAq3nXarN6eF68wXU02TGEW8oDAaWqiDBeOoSKYZcaEPCxTNJAaoO2/578akP9a9EPbg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=oVkysQqB; arc=fail smtp.client-ip=52.101.72.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 616882E7391;
+	Wed, 26 Aug 2026 16:01:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787760092; cv=none; b=IloZt1KuWyr/FyFuNWiBP8bLWZuwHNma26rRy1uZFCxFQDPTgjkgbghavlr4GIg7xd/SwoEaQJvrCJf0AQLwfPlKaW4O1Rb6bvCpfcy3TUFSN3AGNHBNmCYdtQVC0f09P9ua3JbjgEnzpW8dy0k9xYPRPz17VC6kGINOv2tKdCc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787760092; c=relaxed/simple;
+	bh=lVHf+Gvn3rmZVmMJJ4PkKLNngXr6ygOAY1JW9Mjty8g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dIepC72MQB6n12AVxRJTXsMaQs6FYjhn2qP616mJsXoy8lCX9BCevNE3lXvM5iym2QzHnPWYHzCC3lpITinI6ef82ktFmoD5DRTc4iMuox/8j4gWkHTqVYg9Oe1BSvEHJMpk8jV/rV/vt8P0ZxmDjc0PLuy3/mVueQegPbDaIg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wx/C6OJ4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="oVkysQqB"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NxU+9H/nQCF/OxZbuJd8fTH7ZxmxLXiKh+nNxVWVQOP7lWk4WNCat/jTwYvO8TRLh4J+250ZW8HpIGx81/Yiiu35R18hb06f1UovERe/k8iUfS7qTNwjT6d+dA6BQUIFX7b9Nfac/aYdvKF2UmH4bHrEkFhAnDSZb1aNNlSTjypVlsSpYjxPXJ5/3eNPJCCjyq1J60jol5JsyD+C1eFh+m4MiBwPxNICN9RrQs13YRk+XtMdyKQg4N2EXwArtoJLN/XJS+Jz2NO74a87+zhSZipnw2SYvPwP/uER/JpN7F5mAFJpEEZ9YgtyWs4QCsd5vgBrimuJALNEYe+c0pFG8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PiN1jyk71nki+2XjEqKzxM8TAYZkH+OoxHg3LPtgbm0=;
- b=RdxYYDVQOsY2ouDyhdu3v/FojVqrNrEQtFsO4kY4ShqA9Zc1wu6RStIK9Wy6sBYTHJVOmIguGPcC2iYWYEAO+BS1svkkzs0U55fZc/O47Zk4Qy7cmODWzpCuc+5bNB39QJhmz8FCicObEa0tIs0R0iNQk3k+mY0axbh+CQny3U8nBeanr7APnThDl6hpj9NJRM22KUb9dnMMtYifLPbRHPPScu7us1Uw3lgAp3P2BTfH7YBWEsMOpVaRAnb9YmnTI8VKjVCYA5BRE45j6YvJtMujsCwj979FKk9MJ8OKFjdFIyYPcx+PdLjXHrWgD3eRpB7OHeOS4w4vtFBkLeIiwQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PiN1jyk71nki+2XjEqKzxM8TAYZkH+OoxHg3LPtgbm0=;
- b=oVkysQqBRJ0A/UVav6r4UAmyldjXZBFjuUoqvcIjXGvE7ZCCwL/k4U+mAJOf3aI5ARsAIMC6GGfMCzi5lemmx09RdL2Mn5lw40DDjGL2GmFybTdiVLbniEWGzgBGKEm5IxllMf4O/WxMhbKWD5QWSd4um9LD4/QAaoRqLVtczM0yH2fNnhhw8jo1Ng2s6iBOSvmGJtWmQfPrNTLl3LBdSV771eam+fHhN9eSJBhMjfDgLC5afCi3bLBIwHfP1BIgdILE+CCwUSWnLfQi0ALEdS7p8jnmKwTd6zz+y4k6RH3azUXMGYFsg/2ht4DaaVkDx14/+cv7kZhSrgIuRjUg5Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by GVXPR04MB10201.eurprd04.prod.outlook.com (2603:10a6:150:1b7::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Wed, 26 Aug
- 2026 15:59:56 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0339.012; Wed, 26 Aug 2026
- 15:59:55 +0000
-Date: Wed, 26 Aug 2026 10:59:47 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Stefano Radaelli <stefano.radaelli21@gmail.com>
-Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org,
-	imx@lists.linux.dev, devicetree@vger.kernel.org,
-	Frank.Li@kernel.org, robh@kernel.org
-Subject: Re: [PATCH v5 2/3] ARM: dts: imx7d: add Variscite VAR-SOM-MX7 support
-Message-ID: <ao8Ncyeuu8XrmE5B@SMW015318>
-References: <cover.1787674237.git.stefano.r@variscite.com>
- <749f32d1a92ec87ce76f1ac0ce0d780c431fdde2.1787674237.git.stefano.r@variscite.com>
- <20260826083133.C97A21F000E9@smtp.kernel.org>
- <ao6lTMiwplBt-4zm@GLaDOS.station>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ao6lTMiwplBt-4zm@GLaDOS.station>
-X-ClientProxiedBy: SA9PR13CA0102.namprd13.prod.outlook.com
- (2603:10b6:806:24::17) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wx/C6OJ4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A4391F000E9;
+	Wed, 26 Aug 2026 16:01:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787760091;
+	bh=HKu0+MQ/CsGRSjRAPzNW/D1HhsHLTAjhUx06OW9NRSU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Wx/C6OJ4nVwBR1WYCJ/p1IXmhwG8Bef1giEp7MP1cAEjvcuen/1/9Zw1IvjBCVnyd
+	 325dmg92bAt6AQAurk2kbKIgKgoISNqOm8isIRx25d7jrelMaXazQICHx2XNTJ5nw4
+	 GSUHw39VqTbABkYl3A7ZkytBgZKK0ktLfhOhA3SQqQDDBEIz38/ZkqjfbH3FOEebub
+	 Z86E/oyPWVw7Z6T8NrsFabQusjVyv1UqHfOCDtjHzBZC2ps1ysoJqX+rO6ojmoCj6A
+	 zlmpqoYI1PCpKoDyVvQvsUhx381Q6bFtkypAC06u7WalRTwTSn0HfwbYnAtsEUq0qf
+	 7JyIgBJpYtVsA==
+Date: Wed, 26 Aug 2026 17:01:26 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Andrew Davis <afd@ti.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] dt-bindings: dp83867: add binding for
+ output-impedance
+Message-ID: <20260826-salutary-skype-524c69932dc2@spud>
+References: <20260826-v7-2-topic-dp83867-v2-0-a97b4cec6e93@pengutronix.de>
+ <20260826-v7-2-topic-dp83867-v2-2-a97b4cec6e93@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GVXPR04MB10201:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1f244dbc-60e8-4bea-bf65-08df038b1251
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|376014|366016|23010399003|1800799024|10067099003|56012099006|4143699003|6133799003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	OmNbpiTU/C5Mdy0sgIpEtVUVGhSEhvMvasekgeWppmjJrQ3HFdhYLNVn8//8yrEA3b5Bf3I6rqQvzuFjWeFKUdF+0VysQ6PZ9FcYJtF8c5SSRSsT/nGDXI6UxGRUZTRZmpCn/pv28LqQKgwCMdWCKiK5cQjhtTKXScLZD3jHXLYVSvC3gcNDw12M0sMnUluvn2PIwJEUXpPW/vq/LJXDy/xf/eGutTRbVdUjDirXj9oPOh2gNOW34+weGA64UcnrkhvsV0y8PrxTMgxxFshMh+pJ18fWdKoQRpvHSUpMNlyvcTYc+XjaAXCK5REHd9NSKC2vydXybAC4wA8yz8cj6Wlj16VRuhRDBtSMR+82ODsYLPraqCAA9iQQ8CUvrfBMWY2KwWtudYWes4HBCuMaDDJsJPgbFNEPsRlfKl9mQAgucxwQLfHhs4piRJSkuRRkY7LJYK7nyZywJaU0n6Nyo8/eFYxgi7CIUTVR8Lsu8PuixDuiYYa7YSE8Tl4ShvPC4Ac2jsU0d052z51cgvzRggUlNDXF5K/GFDivE6xuOfGmvCGOYr8cTrlHhdiTyq1flyM2TRdyj/XJsTTvj3oMIHTH/arl1PseDNZSntBtmNxOYWACBYSzD39nUU/YFQ6c9kGD02y0RDqqyBvp33UTpiVBJK6QqpFdyDcn+OMQHco=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(366016)(23010399003)(1800799024)(10067099003)(56012099006)(4143699003)(6133799003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?zgy+cCuHzZVz8C9sVx0EOZO7y/MenUkkpPyRFHJteFC9vXKpaSUmyWjHNhiv?=
- =?us-ascii?Q?XfMS1r0SSaJVAPeOnATFLH0ZHvu508jIpnH2UfOz6zn5tj3lg3kZ0ijErPsx?=
- =?us-ascii?Q?GWnNQedJ4dHVoklgj3vX8Q1HJcmaTj45tMq9STdqVYJzCA6dZlomxv6O4tJk?=
- =?us-ascii?Q?w0reTxuYEm7lvx8ww5FEZW69BqC+dU+MhYQUhuO3cwT2Y9ms6XBUZ5FrzvCi?=
- =?us-ascii?Q?gVu0EQboAar8rngx5ibVX+TzQkPQOMSpNBcDtgYqGLfIN61JkGcDGCKAcXK4?=
- =?us-ascii?Q?eUhOd6PAr8ZukFuA+nwgK8krH9A/I/Vi6QSCOXP1w+UpvxS0j1Rwkzmlv2wL?=
- =?us-ascii?Q?iG+m1MEp/kWV6rEaGOPvHegEAfbhxnf1GAhVneaLVhZuj4R00wv9FcZFYFjn?=
- =?us-ascii?Q?e/4uDnKXR/oKXvVovqrjWnjpccmgAefgxshEGCMEprHWEZ0GrEa8t5YCBRXm?=
- =?us-ascii?Q?579r76SJ3GLaDR+5Ip5EM/m27ZHL4DMcfsZL1rMwxftcUoukBxWtjoJDmqkm?=
- =?us-ascii?Q?ktJKp1wfis9bEJq20QLNb/xct2ESk8oBeLZjmyYs3FJv1Yczc38alAWQJm/X?=
- =?us-ascii?Q?gyj0vUktla0pumwXh1lSrj4mvsaNsxT2vyUfYR1kAkuBAZFvtz6qEG7Hj5uJ?=
- =?us-ascii?Q?0XGAr9tggdM+nBElEmo+jATmng2ZGxrOl37oXMVNAWkjcZbifuA29TXNOOLM?=
- =?us-ascii?Q?DCzBNbq9GgMm1yl5envmRNu59DVbfaIP5UElk175rIiuV+aJB9UpaHD9c5He?=
- =?us-ascii?Q?rTUSdsFwemWLO0a2VZo56deW0Ma8oyWt6itdYr0beMBTgqPxLTMXax+4QkuK?=
- =?us-ascii?Q?x32/xjTQP8ZMnrFAnCKKCFcDWGBYC5k8qkSDcUXKOI/HsYAzu3FE2QX1PmCg?=
- =?us-ascii?Q?5oSTqsJuY7/kU9u5DxKvcVKgeopl18TZ7RIV/qzYaGc0r71iJJt7WDtYNoXB?=
- =?us-ascii?Q?IPXARNzuydS4RP4rbExRWRmmqlkbB5kb7+e7Lr9tuhbnokJLRakTHdsBR6sg?=
- =?us-ascii?Q?DRJX+14S3XNEMgr5Yp2w7Yz3Sx49fqC3ZM0UGgTjNq8MlU2y+stfWfNeHn++?=
- =?us-ascii?Q?26p5Igbg++GC7HVaWuDWvH8HamBIsIT62YCwf1rfRmOj4vmFOJzdEHXMxT/O?=
- =?us-ascii?Q?qwriFw+rGpoqGZB1fsxyVwSB5ikEp68Z8sQkmm2INWTNRKSS9V/jdmqihHF5?=
- =?us-ascii?Q?nYX/kxCOpB0Bk3xJ6khABxcONeWg6R4Rd49Pea/t2RQreMggoZnA8/SuppEs?=
- =?us-ascii?Q?eXivVqzGpaenLyHsHlLFUq+AOzkEF+LxYsJlHc9/ml42JomrPLRhIqntn0DT?=
- =?us-ascii?Q?A9TLW4wlLDJDj9kbihSgsbxQqx1qqLAaYqwRrWbS9NuDQGXDzMjxJGb4aPaO?=
- =?us-ascii?Q?WNtVBRpVx4MerM8tDYk0aosZlPT9EYeKBJtdin7sHzDE0cNoCX/sK0EI0Bep?=
- =?us-ascii?Q?s5FufPFCPHQKloaNZ4ESxpFrLN+bzaTMKLBZSFBUtlHoTW6Wzr1Ze4s940N4?=
- =?us-ascii?Q?osR+rN5yCE+bTwZ1+GKYpskNHTbV26no9L7Y7eWFNxkiqkmQNGPDOlDWpOsA?=
- =?us-ascii?Q?F0KVJvOaQRwlED2zKtRxJ5/NVNdJX3u+BX+6FOo06+entkpkiX8W/KovETbi?=
- =?us-ascii?Q?Db8Bw9lfu1u+5XTYsAvBm8Wtj1tO0VHN0a3TeUW/AjlGGXvhDN+bxAAhE8Fk?=
- =?us-ascii?Q?fKjIILHBTILvoJswXc4QMxSHr9w1ga3EVNk6wMeO/O5ekcPIkhrakrGEK1u/?=
- =?us-ascii?Q?ZS/OYGZdOk90TypIc4n5l5a10MW6ftd8+HbCEjcwkulQ35a11r9B?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f244dbc-60e8-4bea-bf65-08df038b1251
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 15:59:55.5409
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 43Iu5Xk0ll8eUUvEoqHQHEDzUFr+Gx9b/GKlWoFpyUdgJ8HeGx5rvRmYzp31EYaPTonmg6rQ7tViHGDNhgl1FIYSI6AHrrm0u+Vomn0eWr6LAky/k6b7eg/vaMUutyyd
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10201
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5aasveUrcJSeX1iD"
+Content-Disposition: inline
+In-Reply-To: <20260826-v7-2-topic-dp83867-v2-2-a97b4cec6e93@pengutronix.de>
 
-On Wed, Aug 26, 2026 at 10:35:24AM +0200, Stefano Radaelli wrote:
-> On Wed, Aug 26, 2026 at 08:31:32AM +0000, sashiko-bot@kernel.org wrote:
-> > > diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-var-som-mx7customboard.dtsi b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-mx7customboard.dtsi
-> > > index 0000000000000..aecc8c747f041
-> > > --- /dev/null
-> > > +++ b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-mx7customboard.dtsi
-> > [ ... ]
-> > > +&usdhc1 {
-> > > +	pinctrl-names = "default", "state_100mhz", "state_200mhz";
-> > > +	pinctrl-0 = <&pinctrl_usdhc1>, <&pinctrl_usdhc1_gpio>;
-> > > +	pinctrl-1 = <&pinctrl_usdhc1_100mhz>, <&pinctrl_usdhc1_gpio>;
-> > > +	pinctrl-2 = <&pinctrl_usdhc1_200mhz>, <&pinctrl_usdhc1_gpio>;
-> > > +	cd-gpios = <&gpio5 0 GPIO_ACTIVE_LOW>;
-> > > +	no-1-8-v;
-> >
-> > [Severity: Medium]
-> > Does including the no-1-8-v property here needlessly cap SD card performance
-> > by explicitly disabling all 1.8V capabilities and preventing UHS-I
-> > negotiation?
-> >
-> > The pinctrl configurations below for SD1_VSELECT prove the hardware supports
-> > 1.8V switching:
-> >
-> > > +	pinctrl_usdhc1_gpio: usdhc1-gpiogrp {
-> > > +		fsl,pins = <
-> > > +			MX7D_PAD_SD1_CD_B__GPIO5_IO0		0x59
-> > > +			MX7D_PAD_GPIO1_IO08__SD1_VSELECT	0x59
-> > > +		>;
-> > > +	};
-> >
-> > With no-1-8-v present, the MMC subsystem will never switch to 1.8V, rendering
-> > the UHS-I pinctrl states dead code and capping speeds at 50MHz.
->
-> This is intentional. The board does not support reliable 1.8V signaling
-> on this SD interface, so no-1-8-v is required despite the presence of
-> the VSELECT pinmux.
+--5aasveUrcJSeX1iD
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+On Wed, Aug 26, 2026 at 02:48:40PM +0200, Steffen Trumtrar wrote:
+> Currently, the output-impedance can only be set to default, minimum or
+> maximum or via a nvmem cell.
+> In cases where there is no backend for a nvmem cell, a value can not be
+> set.
+>=20
+> Add a DT binding, 'ti,output-impedance-ohms', for specifying the
+> output-impedance via a fixed value. The existing boolean values for
+> minimum and maximum still take precedence over the new value.
+>=20
+> Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+> ---
+>  Documentation/devicetree/bindings/net/ti,dp83867.yaml | 16 +++++++++++++=
++++
+>  1 file changed, 16 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/net/ti,dp83867.yaml b/Docu=
+mentation/devicetree/bindings/net/ti,dp83867.yaml
+> index 7a6fe516bab27..49fafe3ce6f47 100644
+> --- a/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+> +++ b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+> @@ -38,6 +38,16 @@ properties:
+>      items:
+>        - const: io_impedance_ctrl
+> =20
+> +  ti,output-impedance-ohms:
+> +    description: |
+> +      MAC Interface Impedance control to set the programmable output imp=
+edance.
+> +      Valid range is 0x00 to 0x1f (32 steps).
+> +      - 0x1f =3D 35 ohms (minimum impedance)
+> +      - 0x00 =3D 70 ohms (maximum impedance)
+> +      - Step size varies with process.
+> +    minimum: 0
+> +    maximum: 31
 
-Needn't pinctrl_usdhc1_100mhz and pinctrl_usdhc1_200mhz if don't support
-sd3.0
+Your property is named in ohms, but not implemented in ohms.
+pw-bot: changes-requested
 
-Frank
->
-> >
-> > > diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-var-som.dtsi b/arch/arm/boot/dts/nxp/imx/imx7d-var-som.dtsi
-> > > index 0000000000000..158158afc3391
-> > > --- /dev/null
-> > > +++ b/arch/arm/boot/dts/nxp/imx/imx7d-var-som.dtsi
-> > [ ... ]
-> > > +	codec_wm8904: sound {
-> > > +		compatible = "simple-audio-card";
-> > > +		simple-audio-card,bitclock-master = <&dailink_master>;
-> > > +		simple-audio-card,format = "i2s";
-> > > +		simple-audio-card,frame-master = <&dailink_master>;
-> > > +		simple-audio-card,name = "wm8904-audio";
-> > > +		simple-audio-card,routing =
-> > > +			"Headphone Jack", "HPOUTL",
-> > > +			"Headphone Jack", "HPOUTR",
-> > > +			"IN2L", "Line In Jack",
-> > > +			"IN2R", "Line In Jack",
-> > > +			"IN1L", "Microphone Jack",
-> > > +			"IN1R", "Microphone Jack",
-> > > +			"Microphone Jack", "MICBIAS";
-> >
-> > [Severity: Medium]
-> > Does this routing contradict the configuration of IN1L as a digital input?
-> >
-> > The routing maps the analog Microphone Jack to IN1L. However, the wm8904
-> > node configures IN1L as a digital microphone input via wlf,in1l-as-dmicdat1:
-> >
-> > > +	wm8904: audio-codec@1a {
-> > > +		compatible = "wlf,wm8904";
-> > > +		reg = <0x1a>;
-> > [ ... ]
-> > > +		/* DMIC is connected to IN1L */
-> > > +		wlf,in1l-as-dmicdat1;
-> > > +	};
-> >
-> > Because IN1L is placed in digital mode, does this cause the analog signal
-> > from the Microphone Jack to be ignored and break analog audio capture?
->
->
-> This is intentional. IN1L is used as DMICDAT1, while the analog
-> microphone path is handled through the remaining codec input routing.
-> The current routing matches the board hardware configuration.
->
-> Stefano
+Can't you just achieve the same result using the existing max property?
+I don't get the use case where you specify a max, but then don't want to
+use that max. Just set the max to what you actually want?
+
+Thanks,
+Conor.
+
+> +
+>    ti,min-output-impedance:
+>      type: boolean
+>      description: |
+> @@ -121,6 +131,12 @@ allOf:
+>        required: [nvmem-cells, "ti,min-output-impedance"]
+>    - not:
+>        required: [nvmem-cells, "ti,max-output-impedance"]
+> +  - not:
+> +      required: [nvmem-cells, "ti,output-impedance-ohms"]
+> +  - not:
+> +      required: ["ti,output-impedance-ohms", "ti,min-output-impedance"]
+> +  - not:
+> +      required: ["ti,output-impedance-ohms", "ti,max-output-impedance"]
+> =20
+>  required:
+>    - reg
+>=20
+> --=20
+> 2.54.0
+>=20
+
+--5aasveUrcJSeX1iD
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCao8N1QAKCRB4tDGHoIJi
+0kq4APoCzvw4l7ecgIaAmNRRokOfSS6ygTNzDBI5uUoRR4uWCQD/ZuaNbazbM0QU
+fkxAkzNcXif3RRAYNi5zb5r3vMDb3A8=
+=rFze
+-----END PGP SIGNATURE-----
+
+--5aasveUrcJSeX1iD--
