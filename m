@@ -1,186 +1,178 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011050.outbound.protection.outlook.com [52.101.70.50])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7582D439F80;
-	Wed, 26 Aug 2026 13:41:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787751694; cv=fail; b=J0zjuzIYOMfpjLj5Y8ASWnNuvIs0PBzNbqOZXmuZTH2TfbLoFWiJYH9tgt1+I4hbA+PZq4LOKa9i1/ZNKcw+kWLdJOZLr7uV+z+SJq0Wm+qJeAvfLS/Fx3q6EZwB604QzH4xiLffJik6ja8WyFzZT5DhGcb/ZedJ2Zr/CSNawgQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787751694; c=relaxed/simple;
-	bh=8du+yZi5AZdJaX5pFpA2+37se4g5AAlqd61T1eO+BsY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=M0oQz30EuwXhTPfVt25nnNr48NvXvNH8ujI53rV+XMl+bSdJxRhBag7KvZRSBYcOOzzSSzC4SR/faCCcifU+qKZazY05c7KOcSWeRit8qXne2zJFhjcp/Tb+RU82aVMkrCniBJJepxqQ0cgI7+G/EhmVX+gwrspIRjUD8ycbe0s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=I6psuXVw; arc=fail smtp.client-ip=52.101.70.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D182A3E16A9
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 13:45:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787751946; cv=none; b=T6zoIrRLtvFPiLUVRnz+ENY7lRYUyzqycCiq7Xj7Yrq2ig0PZtRWdbEeUCSAhAc6/s9MiVDfON0KEAESB8UzJ4vFZffae3Gkjt2LwbS0GDE5ST4jxYsJy4vTk6qmnMr9kQLZ8anzewah7mJ7dx7TCzuIGwsTAZ2vHTVq7q024XM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787751946; c=relaxed/simple;
+	bh=WJ5A6g2AyAUYhKt6bEG0t9fhcEc7yO1zTPWtDuWwUBA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=fsiHuvxUenU1nDq1Bq56yKmDT5BJmiyKd7hHrs7pzh+PSqsjFOG4KTQOTYQUIQT3OB97FklIgSCjnbc9wol1WwjasXQ6WyZ2zbQ7oHstoCGWFG+r9uswX1P9OiueqB+pI6VFCBxj2isqPrh+6VaNrI97x2ykydka9jejFeOWkCo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GCUkAh62; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="I6psuXVw"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SntUvktY8FrUy8lu4uGdXdsc/WRRZ84EH/Go4MLLBAebXUeOlFDcqCKDw7F6/SOzFxP4IcgGL7GvpuxzraQD4WXc/jZd4oIooWlUcWLch1gdznBncR3BrHB5KWnThwPWkNg8Dn8UDAr3gtNAJvyfK/z/mX70RIlla4BlP2I6p/DHIxyLM1J7ZBqy7WmgUHeu2rif1LftrMt2uko2/ORPEjZGD7KXU++eIY6mw3fny0xqy0NJPOKj60APXWnFKXABetfKaPVow+ss52LrD+E/AhFwRDuhYYS8cd+OPRIEXoSx21a/O7jayP3zLpgtsIHrHsQwPOtulNOOe38KHuFAVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S7eOlcE/MrbQgmawDnbaXovUJ0y1hnFx7/DZQXlzyNY=;
- b=K3O/6eELEX+TQ677AO/SXSRpg8WdXKmCq3w90RYEB43XF23geTlDeN/kep2oWjRHpIDS8fSgLfhHD9Lky3++DFAfxQJgxPYNEPpp/TTQXyuIhb5tmNjgR3So2GNe+PYUpsXzFVpwAiwGtxwcAugsFHwwF1B619IEQ6NCp8X/6XQA4VODmJx5MkHcZsnS702kyTSmzcbTHjrdfETEXtHjEdKOEC7VhbnxWCI+N1g2AoLq/qeRh1D1O4rZwIa1/fUPJLM0rM/s2TANELtbI41D2cX/k6OAPJKqnY3TZvb0jP8RFoCveP3QDXSnJfzZhtEY/cZWL1tqkNgAUU8WqkdFWQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S7eOlcE/MrbQgmawDnbaXovUJ0y1hnFx7/DZQXlzyNY=;
- b=I6psuXVwm58UzGzHywr5lSFIJ0+u8CBLI4Sx54D5VWIq7s4n4aHF43uiXm2JT+bsVrqR3oEy69S0imRNapOAhb1F9JM4R/QGPCZhebhRNEuyiPa48N2sCpfMvASNf3rgNhbXkxrTVLbk19fKM2GdYk+oI2GvzC0JS47ZHmDpXLYM55PjnOofQbmJoTluveO52cjuG30C5XRCFkM9JLz2Qw+mxgZKPzxpzerGasDdc4qW31yXI6uOuL4t2SspHtZI4pKS+zLNte2kwCyBzUGfT2AGJo1cY5hSevano+GbrPrcBUMKbu2FIxZGQirEL5Qwh23DyKxtCZNP3j0Ld14TPA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
- (2603:10a6:150:368::10) by GV2PR04MB11862.eurprd04.prod.outlook.com
- (2603:10a6:150:2f8::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Wed, 26 Aug
- 2026 13:41:10 +0000
-Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
- ([fe80::cd9f:102:ea58:4c49]) by GV2PR04MB12558.eurprd04.prod.outlook.com
- ([fe80::cd9f:102:ea58:4c49%6]) with mapi id 15.21.0360.006; Wed, 26 Aug 2026
- 13:41:10 +0000
-From: Larisa Grigore <larisa.grigore@oss.nxp.com>
-To: Larisa Grigore <larisa.grigore@oss.nxp.com>,
-	NXP S32 Linux Team <s32@nxp.com>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Avri Altman <avri.altman@sandisk.com>,
-	Bart Van Assche <bvanassche@acm.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
-	Ajay Neeli <ajay.neeli@amd.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Pedro Sousa <pedrom.sousa@synopsys.com>,
-	clizzi@redhat.com,
-	aruizrui@redhat.com,
-	eballetb@redhat.com,
-	echanude@redhat.com
-Cc: linux-scsi@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org
-Subject: [PATCH 09/10] arm64: dts: freescale: s32n79-rdb: Enable UFS
-Date: Wed, 26 Aug 2026 15:40:47 +0200
-Message-ID: <20260826134048.854748-10-larisa.grigore@oss.nxp.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260826134048.854748-1-larisa.grigore@oss.nxp.com>
-References: <20260826134048.854748-1-larisa.grigore@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0426.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:d1::9) To GV2PR04MB12558.eurprd04.prod.outlook.com
- (2603:10a6:150:368::10)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GCUkAh62"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87D201F000E9;
+	Wed, 26 Aug 2026 13:45:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787751937;
+	bh=rmDd62rIRYn6TIf+Bj7/wbRACHQk6VDo+E9/bAH62JY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=GCUkAh62cqsmIfz3tnJr4ZnmE/EUFMjzOk0z5j/wHQaEdOrEMGbbsl4V01M4Bgzw2
+	 85zEK1XVmbeisuE/Jcs7dOQmHNJlXDqVupT4+F4JRb0kgP21SORvzCyp+XeS36HwXD
+	 sHUR4sI9Je0RodkJn7ofSyNz0tfkkwswGR0fHGZrrPAhgWrCihBceuVVjrL2CZZOPh
+	 sAnCPATQ4ep4K/WpFPdj6kjawUP9DCxT4xFO97CeyUT2p1n3Q4dnntuZXZ14D8tyQB
+	 h5iUcQE5fEDYxm8DWPY/5KUGJAyzBU25kmHVP5kbA77cbJUOmlSqTn88u006hn3rj5
+	 3djR7Vk47/jig==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 1/3] misc: fastrpc: iterate CB nodes manually instead
+ of of_platform_populate
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vinayak Katoch" <vinayak.katoch@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
+In-Reply-To: <20260826-dup-sessions-v4-1-35555d2bfed4@oss.qualcomm.com>
+References: <20260826-dup-sessions-v4-0-35555d2bfed4@oss.qualcomm.com>
+ <20260826-dup-sessions-v4-1-35555d2bfed4@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 26 Aug 2026 13:45:36 +0000
+Message-Id: <20260826134536.87D201F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12558:EE_|GV2PR04MB11862:EE_
-X-MS-Office365-Filtering-Correlation-Id: b3b3aced-ff4b-42bb-237d-08df0377b02d
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|1800799024|23010399003|7416014|19092799006|376014|366016|921020|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
- fhAOjpEpR3ve8xwI0zX20eFCYNzI6TDpc1F7aM9o0MQX2Qj0Owp9S+Ye4LeF9YnD7112DeIXh3R5KZa3l+8jk8O3a5xYznp68xZ8jzB4f8T/jidousiYU1iS8pqZ8Z81dy+CYDKeMtJ/7C409TpXYZPZlgHsorTqKQf5oc4eb9sBrlC7we9zYgcyZ49JmhfELWbEvbFWVsjRQC8l8TeV+caz77l+q9Aw0HmQCh45iKMdnYXISfX/e/GjSm/k3ZvLZ4HJ7w+UbuGWfWlaN83hcMEteD+oEGAYBS0c/5/r+NkBC/4QPmRvWGfQjhCwrpmKZlLKKhCaxENAtMEhQ1QfFlzFO7tE63SlRSr9I7g0UQwuoIBGve72O8KY3RSMuOG4dwk9FmXYrc9JiSqm85xbxxgquwofncCSD+0DwjWidVi1CybHT/lNnvryrcYM7EW/Q2ph50BSq1lyvaLBWjOPY5ArbRE0Zd+9f+7JiHcVSI7pa/wUCz6aDF3h8pBisZRTHjSsFtMJxm6V6s/gHSRJG84lVaNAKUSCuggDRQlEmTb1yPnmthsiOjeBBrNvoiqWBNC9+Qc+XRLfTcHMLDVaS/NBnC9eTj+qVrpKZvMa6vE5cakP46g2eji6QkjBSQPvLlzhDXilSqDVX/2PjPyGxluPjn2r/91Xuo4zpJGuaGDvakSRcZrMCUm9kUFzK1wZ2mgXLPYKUPsFABKt40AHww==
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12558.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(19092799006)(376014)(366016)(921020)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?UjdWYnp6cG5xaGNYNXFqTTM5YkxRUkE4QlZtcVNPckE5UkZuUWI2MDR0bUov?=
- =?utf-8?B?NGxZM0FTckFJVlNJYzJXd2dRSk9tT09IOFdkMXBhTm4xSTd0dVZmeHZYM2hY?=
- =?utf-8?B?Nkpod2RYVnFMR044VjV1aE8wQW9kcWk5WDl4RWNMQ05sbThXa3hBZk9kZXJW?=
- =?utf-8?B?bG1yWFJ5NTlLSkFMd2NVQUtmSjB2VUpRbGFDWmFTbDVxeU45NFQrQ3UyNVpV?=
- =?utf-8?B?OU5jQmNwMXFqU3QrU3loUkFnck5TVUc5MWJMaFFiY1IrSHJUMkhDUVBSVVQy?=
- =?utf-8?B?V3oyQ1BMb1VzSDRGMHFRNVpGUHljdTN3YklCRko3Q3VwVVE2WlJwSnBNM2ta?=
- =?utf-8?B?UkFkV0RCb0hRZXJBSlRWMjdUelRSNHB0WkhzQ0N5ZWUvTnp4R29NSkRsTkp5?=
- =?utf-8?B?NnhiRUZjM0lIUHF1RFJiSTlXUzd5QXZCdDJCL1ZJWTljbWRYeE9yMHBXbWR5?=
- =?utf-8?B?RVl1Yk81bU9zVncxMVJhd1l5ZS9vbHdzQ1cxZnJkSCtUN1I3ZGhVR3N1cnlq?=
- =?utf-8?B?UTVwRUwvdVJzTnF6SFdpOXFhbjRqSFJBTGt6VklDQmp6UkREd2NmeGUzU1VM?=
- =?utf-8?B?VVUyRHliYlVaK0F2cTdnVUlVdlZxRC8rVWw5WDBPZytuVEJBV3hrS2RuMko5?=
- =?utf-8?B?eWRlN2ZhUlVMaUZ1MWs4VHM2VFo1MjlGaFRFWUpuSFAzbVNLVDQraERIUU5w?=
- =?utf-8?B?cVZxRHVmMHphREtqeXYzZGxEWHJMOTJtU3VrZXhITmhpbzBOZzZnRlpzeFg1?=
- =?utf-8?B?ekVySEF2cS9vcXBYcHhYWXE4bXo5NndNWGZ2ZWtsZlpRVlIyZWNtTnppcE9Y?=
- =?utf-8?B?UmJBeXdtUGEvL2pEeXhydG5lMmE3dVZwR21xM29valN5eXVQOTQvTHIzNWgr?=
- =?utf-8?B?NmhRLzBRUGxSM0hFMzhpMHFxdDJmR0ZvS3E4Z0x0Q3ZKSU04dGFQVHlCZ2tm?=
- =?utf-8?B?TXJmTWNOOEJ1TExML0ZRQUo0VVRGZjZROFRZVEJkcHdkZnJEbEtNSVkxdjVj?=
- =?utf-8?B?dzlka3NsdUlZSWhNSnJVQ0dwTk15eXBIWlh5STdUbGdWaVUxMnNsVzcyOTNm?=
- =?utf-8?B?Uno0T1J5Umd3R1d0M0FacDNWUDdnL1NhdUQrTjFGUDd3OGxLMG8wQ3NBTm5W?=
- =?utf-8?B?d3FpL1o3d29yUWNPN3d0U0tvaCt2bzZCTjZpcUphenBvQ056azAxTUgybWlO?=
- =?utf-8?B?QzAyRStRdFJnZUlqejJMVHF1WnhBc0U5SnBtaWgwQWFndURCOTd4OWVtV3l6?=
- =?utf-8?B?RXZXRDg0VmM2a2lpMnRFOVl6R3Y3eVowSWF3Skt6cm1uWEpzNTZHUW5XdVRy?=
- =?utf-8?B?bG53dFhOQmdKWndEeG0zb2ZaNTVHTnIyeGZuaHg4MXpIcGZiOVkvUzg1V1BP?=
- =?utf-8?B?MHRwYmt0d2xrbkc0YVo5d3RZUzRLcFlRNzlUZEhqWlZjeWdHTm9jQU1zUitx?=
- =?utf-8?B?ZHlZeHVweFVHaXpWS01NZjFWaXBTSTd2dVM1enVmakZUMitzMisxdm5KRS9p?=
- =?utf-8?B?SHZnRjhtTGFVdmdvUVBKL096Wk1LQis0d1JDa3hYeVNKVjdZRDdYYWlLcjVZ?=
- =?utf-8?B?UlFXRk93YWVSTE1aQTlNMmJCY0VPcDA1UVhlN3NtNHhVcThMOTM0eWdHRjBT?=
- =?utf-8?B?UjhlcjBVZE5XWU5xREQwV3FXZyt0UytubnVmL1NIaWppNmZlVjVmbXJwVzcx?=
- =?utf-8?B?S1NxRzdmTDdHOGRzTXZXTEJsNHZkcE5xM2ZNdW1UdDh6TkEyMTNQUWYrZmd1?=
- =?utf-8?B?eVBNSktrVFZhdkR3RWFIM3JLdjFTeTdjeGt0TGxpOVRHdEZ1Y1c4T1JyMnZF?=
- =?utf-8?B?eHpQV0NqcGE4ekU0MWh0Ykh6ZUl1MGd4UngvZ2R1bklHZ2cxbStoc3YvVXU5?=
- =?utf-8?B?QTV5bFVqa2hnUnFkWDZnTlo1SHNwMW9yd01LWmIxZlhaVFJiVGJXWFFMQkJW?=
- =?utf-8?B?bFNlWWZ4MFkyLzNWNUJQUk9jZURBR0s0TmZiYUJ3Q0c1MDhNdTNUSDlPMkIv?=
- =?utf-8?B?QW9YOWl5Qk42Vkk1NVhqVE9LUmdoN3dCeVU1R3dmNmlDM3FOckJRVzdieTcw?=
- =?utf-8?B?a1FJZ2RQSFE5djZLeThUaFpLdHVvRStoVkd4M2g3cnBTdk9PSEU1eXFpdmlz?=
- =?utf-8?B?VFYvU0g4WGlVcWtJV0hnb1ZmVzM3NStnS0VhUUg5QlpTL0l0K29zVUNxcFhv?=
- =?utf-8?B?MEZHbTk4elhsQ1lPcGVYU2o4U2doZjIxdTQrWGFCUTZQK0JQMnQ4cDU5MGcz?=
- =?utf-8?B?WHlyb1ZZSTA2cVlaRnlETm9pUFRIV2RxbWkrbjBwY0RmM0xrQXE5U0VJZ2RG?=
- =?utf-8?B?VDdWeXBIMHRZYVM5TXI5Nk01dS8xdG1BTFE5U2d0NkNMVEFaOXBvNitsUEVy?=
- =?utf-8?Q?HDZiL4WvDbdYH8B0=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b3b3aced-ff4b-42bb-237d-08df0377b02d
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12558.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 13:41:10.2363
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aLODwXwTBVcphgvuDh5kmsKJHqaGJ0AZ+p6xPP5/uSTdHiHX37b2Nn/HmhFC1KyAxLQmTyLdi4ohZIxxGjsYvw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB11862
 
-Enable the UFS host controller on the S32N79 RDB and select the M-PHY
-boot mode. Configure the controller for two lanes per direction.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
----
- arch/arm64/boot/dts/freescale/s32n79-rdb.dts | 6 ++++++
- 1 file changed, 6 insertions(+)
+Pre-existing issues:
+- [Critical] Critical Use-After-Free and uninitialized state exposure when =
+`fastrpc_rpmsg_probe` fails after prematurely registering the misc device.
+- [High] Preexisting Use-After-Free in `fastrpc_rpmsg_probe()` where `rdev-=
+>dma_mask` is left pointing to freed memory on error paths.
+- [High] Use-After-Free of context bank devices (`sess->dev`) upon fastrpc =
+channel removal due to missing device references.
+--
 
-diff --git a/arch/arm64/boot/dts/freescale/s32n79-rdb.dts b/arch/arm64/boot/dts/freescale/s32n79-rdb.dts
-index 1feccd61258e..ff0c2b638037 100644
---- a/arch/arm64/boot/dts/freescale/s32n79-rdb.dts
-+++ b/arch/arm64/boot/dts/freescale/s32n79-rdb.dts
-@@ -63,6 +63,12 @@ &uart7 {
- 	status = "okay";
- };
- 
-+&ufshc {
-+	nxp,mphy-boot-mode = "rom";
-+	lanes-per-direction = <2>;
-+	status = "okay";
-+};
-+
- &usdhc0 {
- 	disable-wp;
- 	no-sdio;
--- 
-2.43.0
+commit e928c95aa5ca7ef57a0d4943351ae2891fcf2b1c
+Author: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
 
+    misc: fastrpc: iterate CB nodes manually instead of of_platform_populate
+   =20
+    of_platform_populate() only guarantees that child devices are registere=
+d,
+    not that their probes have completed before it returns. This creates a
+    window where fastrpc_cb_init() may not have run for all context bank
+    nodes, leaving the channel context partially initialised.
+
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index d4fac2caca867..a153107d00853 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+> @@ -2363,7 +2363,7 @@ static const struct file_operations fastrpc_fops =
+=3D {
+>  	.compat_ioctl =3D fastrpc_device_ioctl,
+>  };
+> =20
+> -static int fastrpc_cb_probe(struct platform_device *pdev)
+> +static int fastrpc_cb_init(struct platform_device *pdev)
+>  {
+>  	struct fastrpc_channel_ctx *cctx;
+>  	struct fastrpc_session_ctx *sess;
+> @@ -2385,7 +2385,7 @@ static int fastrpc_cb_probe(struct platform_device =
+*pdev)
+>  	spin_lock_irqsave(&cctx->lock, flags);
+>  	if (cctx->sesscount >=3D FASTRPC_MAX_SESSIONS) {
+>  		spin_unlock_irqrestore(&cctx->lock, flags);
+> -		dev_err(&pdev->dev, "too many sessions\n");
+> +		dev_err(dev, "too many sessions\n");
+>  		return -ENOSPC;
+>  	}
+>  	dma_bits =3D cctx->soc_data->dma_addr_bits_default;
+
+[Severity: High]
+This is a pre-existing issue, but does fastrpc_cb_init() save the child
+device pointer without holding a reference to it?
+
+If sess->dev is assigned without get_device(dev), and fastrpc_rpmsg_remove()
+calls of_platform_depopulate(), the child platform devices are destroyed.
+
+Since active file descriptors aren't revoked, could an active ioctl later
+call fastrpc_dmabuf_alloc() and invoke dma_alloc_coherent() on fl->sctx->de=
+v,
+using the dangling pointer and leading to a use-after-free?
+
+[ ... ]
+
+> @@ -2642,12 +2610,29 @@ static int fastrpc_rpmsg_probe(struct rpmsg_devic=
+e *rpdev)
+>  	data->rpdev =3D rpdev;
+>  	dev_set_drvdata(&rpdev->dev, data);
+> =20
+> -	err =3D of_platform_populate(rdev->of_node, NULL, NULL, rdev);
+> -	if (err)
+> -		goto err_deregister_fdev;
+> +	of_node_set_flag(rdev->of_node, OF_POPULATED_BUS);
+> +
+> +	for_each_available_child_of_node_scoped(rdev->of_node, np) {
+> +		struct platform_device *pdev;
+> +
+> +		if (!of_device_is_compatible(np, "qcom,fastrpc-compute-cb"))
+> +			continue;
+> +
+> +		pdev =3D of_platform_device_create(np, NULL, rdev);
+> +		if (!pdev) {
+> +			err =3D -EINVAL;
+> +			goto err_depopulate;
+> +		}
+> +
+> +		err =3D fastrpc_cb_init(pdev);
+> +		if (err)
+> +			goto err_depopulate;
+
+[Severity: Critical]
+This is a pre-existing issue, but is it possible that this error path leads
+to a use-after-free and uninitialized state exposure?
+
+Earlier in fastrpc_rpmsg_probe(), fastrpc_device_register() is called, which
+makes the misc device available to userspace. A userspace program can then
+open the device, acquiring a reference to the data structure.
+
+If fastrpc_cb_init() fails here, the code jumps to err_depopulate, and
+eventually calls kfree(data).
+
+Since userspace could already have an open file descriptor pointing to data,
+would this kfree() result in a use-after-free when subsequent ioctls or
+close() are called?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the same error path lea=
+ve
+rdev->dma_mask pointing to freed memory?
+
+Earlier in fastrpc_rpmsg_probe(), rdev->dma_mask is redirected to point
+to the dynamically allocated &data->dma_mask.
+
+If this probe function fails and frees data via kfree(data), the rpmsg
+device remains in the system unbound.
+
+Will a userspace read of /sys/devices/.../dma_mask_bits trigger a read from
+freed memory through dma_mask_bits_show() since rdev->dma_mask wasn't
+restored to its original value?
+
+> +	}
+> =20
+>  	return 0;
+> =20
+> +err_depopulate:
+> +	of_platform_depopulate(rdev);
+>  err_deregister_fdev:
+>  	if (data->fdevice)
+>  		misc_deregister(&data->fdevice->miscdev);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260826-dup-sessio=
+ns-v4-0-35555d2bfed4@oss.qualcomm.com?part=3D1
