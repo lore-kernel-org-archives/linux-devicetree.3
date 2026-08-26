@@ -1,130 +1,98 @@
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6ADE30F526
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 23:09:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C81B396D28;
+	Wed, 26 Aug 2026 23:32:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787785797; cv=none; b=SGKlXYhN74R5WzXACgKZZtazSJ222181vyPQitGTqcfxXW4HGaVIYr3zLY5aNjIY9phb/J/hAlmA1xDec0KlJNdrJsTGRjQMSpMraKV9h50F0UsXCgAgA7tmuN0YvR2n+/wiNQymMuVdQePd882cpbXNXuDB8YWh/pUGW5ILaWg=
+	t=1787787175; cv=none; b=AHwLybR9WtJHSkhkIzRO2ph2VE4Kwc9QZVZgyF6vm4D6++0RFe1isjPGDWxjm+pUzQHGZhUnGrSyVXR6tdY0YpnJNU1Rj+dM+Yl6ndFQ3t/MgSvGly68YiZGhf46HJHv3vXPPBPo/9iMbZMrkUtv3fBwZkzbl89PQOnj6yOzNAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787785797; c=relaxed/simple;
-	bh=ieQZ0ZJLMkaYypZKk4REVcl+38yii0go1+lUmv8JC94=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bBAEDQUzgwlUlKlRrJvaj0c1J/S0YXMj8aMUzAnxP9N0RWw+A/q7+kVCBH00RCx3Knwe2ySTOn6sATrJm9LG57gkRc4WeyFkPjvfvdtetsAw8SwrUoqIVrMW7SdbDAMhPDm8Mwr/SyMYtSuCLlFfRk0zrbvg16Irm/ZZ7Lb3gC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bCJsIuCd; arc=none smtp.client-ip=209.85.221.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787787175; c=relaxed/simple;
+	bh=QGAKNpqilNv4syG/BG3ldOkWpfQTkD8Rgp/ahyxg3JE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DbiSQQ7XgLq0oXrdlc85vVne4+zT+mz0Rr4yCBZwIRGgqTQSCeXKuKLcXd5KUroZVS+l07RCi0LcISCEjcL13lELxe8hoCjP4AOBhWOFVOjtJtDkNQOSeY5Q4HCYV1lUVIXtk3UrwEZsf3axKHc386kqlUgxG5iEP39HYavzTTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l82nydLK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bCJsIuCd"
-Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5bfb5e20a90so1275507e0c.2
-        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 16:09:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787785794; x=1788390594; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rBDSwIVuGClC2U8jcOy/ySqyjLGwgvu0rHcFGCcBek4=;
-        b=bCJsIuCdgEd7IccecMhyaksieVMvXgvAOvVJm3AE3Pz/BNjUPY8yJmCrf+T7pCFmuy
-         27SR8fqW7zArHoctnxTGL/RVaUBecJpA1A+NbTFjITJHbL/Bz10O7XNyAfFvkFv+gz/Q
-         dOpb9/x8XeEFHnFGCJDB8qoK0fY2xTRGFaiQo2gA+/462zWHpH7vhMURX16KOLbh1aAH
-         wM6z19tgZNeDtsnOZfasfnvRZx7t7TAIF/3i1Fos3538B6P6VXD9DXncSaAWhYB1pULh
-         Y2XHZgNl01LWraktqZocsHXaXi2TWoyHrBP2NqOuwbwkJUmhtpVPBIlAceXY4hxRjFuw
-         RBBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787785794; x=1788390594;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rBDSwIVuGClC2U8jcOy/ySqyjLGwgvu0rHcFGCcBek4=;
-        b=bvYTvTx88B4V3JulDDrlCTQRt4d69h5fy7fKwZu2CPTrOJDy3iZsA/A+pfmvXR9ljl
-         8u7/2Q4xqdoutBRteOZJW+68erRO4xNJrSIfqOPQ/eMBNjUNjTGEhQk/vngGhLcK5UND
-         3fYh3Aa1NBuZmhiMNarW4gmVA8jmVNfHcfSbl/W7FaGC9Q1q8roueJ0MvMDS0GqDHwkM
-         ZR48hvoOQBfH52hCW5mMVAGiQDDfVwrTeZydJvYKpngOJH46OkKmDeCt8vQiAmOtM/lf
-         X7xaGYugVrX/UswR7Vd5H6I0Z2kYDDFi7Jgmi6hXO7X4EutmlA+3gAFGEZqQ9uYVaA9p
-         ATMA==
-X-Forwarded-Encrypted: i=1; AHgh+RoHcPaUiv0mvjdyvmFvuCorN8+1KN3u65rfhVp97+/oXwSVArQ3UPNjIl3juPQYns2Vleq8Z1ycOVYP@vger.kernel.org
-X-Gm-Message-State: AFuF++ncs3tUjErtZCLPEEXohZRQQaDwkqksxdiv63vRrScqc0TdCmER
-	PgtugfbtbKbl0p0oqwKH0APqEJUu7J8/yx2ZriapxK10hl4+9CLWfxhv
-X-Gm-Gg: AR+sD13t3wxiztOPkdHuUy61q0u7ICfkcviPCdeKVBSlfJ1K4Qlar/QbbRBY3phmRas
-	mlmQwXeyueNC2swMj90A1fGEAXJv3DqAlZe9jywdKp9ZsuIYL7mIgaWeRH9SYvE0s6g63N9VuIl
-	+uqcNuCs3oaDWm7P8hFAi8AvQpE8MG5xV2xZfFeSzI7R4XodcVARjM1dwvyXchUzMg2hN3Spb1+
-	9KPiWfgsChBhp8RJs/14iAeoRmQ6QX+A5/rRNcCOl6fwtlPFK3PrgNSmnjC0I/BUong7fsEKFOq
-	mwPyqHbJpkPI5Xaxa5wRwmhXJGuxUsi4WGXZLjOE0v3Cls+vvw/cArGuqaNlUgKGfx6K3lUlsYd
-	h00WNMNQFXOUz3BVNcRrUpriF4oYPq0yAOutOOivaDU66utsx7tnv4P1pB5M0FB7AJVPBEzbRDD
-	z4GHea4AlnBU3xtFdW2L1rAZta8R3sanD5wkMnisaOTSPj5m5548rOP+qBrkj0xRdiaxgh/kZGa
-	Y6Hiz5YlyLgT9jXyqFDp2k2UqaYliLaIgSz1f8K3Js2aZfIytkfvmOA3aggFTPQm+I2ppg=
-X-Received: by 2002:a05:6122:1826:b0:5bf:d3cd:3d64 with SMTP id 71dfb90a1353d-5c65b56d0c8mr4542431e0c.0.1787785794612;
-        Wed, 26 Aug 2026 16:09:54 -0700 (PDT)
-Received: from MaquinaLab.. ([179.179.239.222])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c65fe7d777sm2727980e0c.6.2026.08.26.16.09.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 16:09:54 -0700 (PDT)
-From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-To: Enzo Adriano <enzo.adriano.code@gmail.com>
-Cc: Junhui Liu <junhui.liu@pigmoral.tech>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Maxime Ripard <mripard@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-sunxi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 0/4] arm64: dts: allwinner: add A733/Cubie A7S DTS support
-Date: Wed, 26 Aug 2026 20:09:40 -0300
-Message-ID: <20260826230942.466219-1-vinicius.eduardo.pedrosa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260613-a733-dts-v1-public-ready-v1-0-7787c94681db@gmail.com>
-References: <20260613-a733-dts-v1-public-ready-v1-0-7787c94681db@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l82nydLK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1E7F1F000E9;
+	Wed, 26 Aug 2026 23:32:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787787173;
+	bh=w++uE1hbu24F3aiE2gO1EvdP5Mu8DsKn4/cJzh33mQk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=l82nydLKDpF2VxdZvEbPkxofMC9e0MnGeJNdrCl73pdFhRc2nsNH6plbAfRlVo3Fn
+	 q5Fgzbdt0VCG3lY+nzwn0xuEPuCmA9bwtsy+5nGVHhKbpdimJbSZb5nnM5unplezrP
+	 00YC0TfE2M+pT1VAqHxUXW1OjS8a+v01jWLJGLwPPE4LBldRpyRI7zLdMqc+WirBnU
+	 uF9gcwI+0bm+ftaMsiFIGY/9z2U9HDff5e8FTKcBV7SJhHRNCmjV1L4TB08xy7oQGT
+	 Hlj+hOD2WdY+/e1N4gxHl+UJxgGdGU0NsSS2cn415p4ITJzMXhGfg1b6PpyjsJVIPv
+	 2e3pOseUgSQBw==
+Date: Thu, 27 Aug 2026 00:32:47 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: Harendra Gautam <harendra.gautam@oss.qualcomm.com>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
+	Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>
+Subject: Re: [PATCH v3 1/9] ASoC: dt-bindings: qcom,qaif-cpu: Add binding
+Message-ID: <d59bd8cc-8b88-4529-8a3c-45358f9ba6c1@sirena.org.uk>
+References: <20260824063627.3595610-1-harendra.gautam@oss.qualcomm.com>
+ <20260824063627.3595610-2-harendra.gautam@oss.qualcomm.com>
+ <bf6e42b4-ff21-4b6c-a7d5-024e5b9a7da4@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="OlcSBZzqcGkzr3xy"
+Content-Disposition: inline
+In-Reply-To: <bf6e42b4-ff21-4b6c-a7d5-024e5b9a7da4@oss.qualcomm.com>
+X-Cookie: Obey all traffic laws.
 
-Hi Enzo,
 
-Two findings from building this series locally on top of the A733 CCU v2,
-plus one note for the DTSI move you already agreed to with Jernej. Both
-findings reproduce on your own Cubie A7S DTB. Junhui and Jerome on Cc.
+--OlcSBZzqcGkzr3xy
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-1. Schema evidence for the clock list Jerome already questioned.
+On Wed, Aug 26, 2026 at 02:01:52PM +0530, Mohammad Rafi Shaik wrote:
+>=20
+>=20
+> On 8/24/2026 12:06 PM, Harendra Gautam wrote:
+> > QAIF routes audio between system memory, external PCM/TDM/MI2S serial
+> > interfaces and the internal Bolero/WCD codec. Platform Devicetree files
+> > need a binding to describe the controller resources, DAI cells and per-
+> > interface AIF configuration, and named constants to avoid raw numeric I=
+Ds
+> > in sound-dai references and child-node reg values.
 
-Jerome raised the xtal rate and the naming of the node feeding the CCU. A
-full CHECK_DTBS=y run - the whole schema set, not a selected binding -
-rejects that node outright:
+Please delete unneeded context from mails when replying.  Doing this
+makes it much easier to find your reply in the message, helping ensure
+it won't be missed by people scrolling through the irrelevant quoted
+material.
 
-  sun60i-a733-cubie-a7s.dtb: clock-controller@2002000
-  (allwinner,sun60i-a733-ccu):
-    clock-names: ['hosc', 'losc', 'iosc'] is too short
-    clocks: [[3], [4], [5]] is too short
-      from schema: allwinner,sun60i-a733-ccu.yaml
+--OlcSBZzqcGkzr3xy
+Content-Type: application/pgp-signature; name="signature.asc"
 
-The posted binding wants more clock entries than the DTSI supplies. This
-may be the same problem Jerome described rather than a second one, and
-whatever resolves his point probably resolves this too. I am sending the
-diagnostic because it gives you a check that either passes or does not.
+-----BEGIN PGP SIGNATURE-----
 
-2. /soc raises a W=1 warning.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqPd54ACgkQJNaLcl1U
+h9Avxwf/Wguq/Ho9ljE0UDWZisjdl0Th051ywArm/+8Ij9ov/Ch5+CVn1h55nLSI
+CuXqgjZ7fBlhiSoNMpmeD6KBdAAY3YEI8G/iIiXZ8T+YVpxR8ScVzif8t9OiZ2Xt
+LT0/1tEhNvo3S2krpWJA3BRaBcXJC1QLTJpQ0Go14SpoYRizhCvniIDbIqmqf6sI
+lTosNdBlwiAVx0m63O8qvFWmYi/vjthOcWbwX/Omixf51BHYGLOIIRs9DK3auslM
+zhKHU0CP54Iggw+wsKEucQTpWNkWxTbhwll3Fdicg890LoI5a4LWhjO00ObNgyG3
+sDMjsDrr7D9KFaxwcdfoSa1Ir60pQw==
+=vAdf
+-----END PGP SIGNATURE-----
 
-  sun60i-a733.dtsi:116.6-197.4: Warning (unit_address_vs_reg): /soc: node
-  has a reg or ranges property, but no unit name
-
-It is the only diagnostic this series adds over an unmodified tree in my
-W=1 comparison - 499 unique diagnostics before, 500 after.
-
-3. When the UART0 pins move into the DTSI, they will need
-allwinner,pinmux.
-
-allwinner,sun55i-a523-pinctrl.yaml has listed allwinner,pinmux under
-required since d626d248caae, and the A733 compatible joins that schema in
-the pinctrl RFC. uart0_pb9_pb10_pins currently sets only pins and
-function. Nothing catches it today, because the A733 compatible has no
-schema yet - but it will fail validation once the pinctrl series lands,
-which is likely around when you send v2.
-
-Static evidence only - no A733 hardware here.
-
-Vinicius
+--OlcSBZzqcGkzr3xy--
