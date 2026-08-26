@@ -1,353 +1,348 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012006.outbound.protection.outlook.com [52.101.66.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 313CD347FCD;
-	Wed, 26 Aug 2026 17:02:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787763755; cv=none; b=gMqDaYM00Q9bt3/3n9Bjz/UPJFCIOOuNnWrFUZTyW12adq6SpCm/nR+qlx3vjLH4Dv+gPIuT4ChKCzkrb4bLjBWIxQjq+oRBXbqOfJIpwSLGfjqlHoL9lLrbpNc5IlKn7KfnocwdFnel55lOwQOJhxEkInN0ycCAbJHjWllB6sQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787763755; c=relaxed/simple;
-	bh=u0RKM02wOzuvhntRLoFKu9oNmuIfFheu6cW7Dr4jCJQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iEcEt6X6aK0VV/mHNisM6hNSIkGmvbQ+biu3WYJhuJlWOL2EzZvrtqISjw5gHSTTmvHEOqmBCtJ9qysG3DNFprQnn6GCh8ZWqniYA1CTjBxhAcA3kR+7K9pMxTzJxPmYAbDD6VjzQ7eQKPE8/WjOk2UNWGlcoOPgXFQYv2EYHkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bn/DiV/G; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB5263A784F
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 17:02:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.6
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787763785; cv=fail; b=ef6hjZ9QhRO5Ee0MQmFPvyV3Wuxhe0+Wnu5yL/kAw4TBR5DhFzoxkkwgVbIZ2MAkkIFQE99KmV7CqL990GsbQlirASYl305JiZu+H8KQ1X6y1xpyxTGWq9q/IxQa6y4fgCaioRW+82WaM9fEW/CR2JdiIZKIr2prADxzMsa1jYQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787763785; c=relaxed/simple;
+	bh=oZlGAcFvEsLCWHoSnZqq16n+CrOGwhRa6oZZ7WvIVtQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=RpRwp5YZkpSZ2dp9NQTFuLC5tn+vHlAILSFniVkECBhjVMCj8JFWFI2TGKJzrh+AfdijTxgM8DxdG12UQk73B7nwie/3i6wMBZM9gqXu5xydicHa+Yc+RvkxHwpwX+Tjm1Spds/zubY57paNbBb1g66joRlL52SsisX9B3qL0C8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ob9u+NdB reason="signature verification failed"; arc=fail smtp.client-ip=52.101.66.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bn/DiV/G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2EBA1F000E9;
-	Wed, 26 Aug 2026 17:02:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787763743;
-	bh=PvMhOpMtgahb/2g6h4rPwkBMlykF3l7pKxLhOb+mM+E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Bn/DiV/GuREkqk9gLaLx9oQOgG/zG/4wjB0MvEVME582wC2HbgYlUE3fOR/KD8sYK
-	 oCBf2UdqvnKJ9wytcgrqwQVTkbinysLZ0yZz5oPZlMo9pSqLwYCsXEQhrrzYoxBA0R
-	 wEnMTcMArz+ogjjsExgFwpAwuLvyJovUy67/4qFCwoMeD++JRnmcm4KbH+lKP2QajX
-	 C+XapE8uFFYdvM+bW+q8IsgbwPhHCO9diw1dha1JdZgQBacL8KU9dtB/xdES3J1ndv
-	 vC0o3AN8uuJla0rAs/LFvDPR/bq6bkALmlomtA/wkxeSOibPN2luyhIryddfiEse/P
-	 ilQneArTa5cxg==
-Date: Wed, 26 Aug 2026 18:02:16 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Alex Ousherovitch <aousherovitch@rambus.com>
-Cc: Albert Ou <aou@eecs.berkeley.edu>, Conor Dooley <conor+dt@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>,
-	Shuah Khan <shuah@kernel.org>, Alexandre Ghiti <alex@ghiti.fr>,
-	devicetree@vger.kernel.org,
-	Joel Wittenauer <Joel.Wittenauer@cryptography.com>,
-	linux-api@vger.kernel.org, linux-crypto@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-riscv@lists.infradead.org,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Thi Nguyen <thin@rambus.com>
-Subject: Re: [PATCH v4 01/19] dt-bindings: crypto: add Rambus CryptoManager
- Hub
-Message-ID: <20260826-unwritten-marshland-47cdf3c17cad@spud>
-References: <20260825221539.255951-1-aousherovitch@rambus.com>
- <20260825221539.255951-2-aousherovitch@rambus.com>
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ob9u+NdB"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xriAw2P2I8TeAsR6wtDZYq3P6fnq+5NKXHluhS5pIHbWiaTdztRjPrcSRtZH351BQdkosHsykYPYDurBq7b1t8nAKJdHQ1NF5w3bFpKLU8nepiboHokMKw0kYqp6m7JeMVJ5NVjZBMuKaFL2W20yP/eo6zLpOD2BLxFrnBNnlZdNDGE6tkuMHLbUI5oF9fkmjSHzTc9xMhzHY5Qn004f6Mb3aEW9Tfk0HTtvKdFTyCvXiqAtFb3n9B9n4wwlSBAX09goHKlxgpEeKq7SfHD75nTKd5UC/PcO8NFHq8p2z8A7PlEa+Lr8cFhiyA7NT2XN0FgrKHniZ984bhj/bTRBbA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=c1agTrQ1EMQhbfoUw3uLoSQwjB09JKIdHxMnlK72o9A=;
+ b=qL8+MnLSU4hzCDraPK4mw6dPqyeK7xRxTZ193KQJxL4hFRK55VIgfIGer4NdoZrK23O8WQ0j+y78CRXrXRWAS1eZNfQNJxxZsX/BltdDb1+OtoywgcctkbZOuYyiKHn5E1bad+LJtq9q4RLizO/JCRiuWHYup3MmaKUzza62Gr2UIW+oX1LUms2R5GaMdMqIAAWOi8gJwRK+VrDoe4w5iBK/I7bRk01c7Vm4719bqgJtAAUxxPuOm2PylH9MnUcGyHas7+rb9o0laWNv0389btEjHQkIO60bms+Vs+LF4RieQvJx9+M1CnmoSMLlCH7aQSmUWE4pjpFAX3Ub2jSlJA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=c1agTrQ1EMQhbfoUw3uLoSQwjB09JKIdHxMnlK72o9A=;
+ b=ob9u+NdBvKFOREEDardfd4KB9y+WMusdj0ZkpFOIdxB+/afHLk26ppzwstS0Uwcc+XsjZ/9Tmy4L7ddlXoxUi3N0+HcL5neHkRAKTdjWMhgaTdMkZxblIjQb+0cf4WP3JU1Axh0cDxJqCv1ygXG8ByuVDEtfXoFPYXbxar8ZEzJapt9okhPiKQWRmh7zNLAL/mpBMI29RHD2YvulMKAY0NWjYffcmGsj9J0DVwinhHUtRgAQlcXjW7EYEI27wi7xrAD2RUGZkgjBS7wY/kCAifU6XIe01Qi/cttDowQE62dB9hA1OLWzL0vQ0gvG3UIEg6xAE/mNEsUjspkFCtmF6w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from VI0PR04MB11784.eurprd04.prod.outlook.com
+ (2603:10a6:800:2ea::12) by VI1PR04MB6941.eurprd04.prod.outlook.com
+ (2603:10a6:803:12e::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Wed, 26 Aug
+ 2026 17:02:51 +0000
+Received: from VI0PR04MB11784.eurprd04.prod.outlook.com
+ ([fe80::d486:debf:a139:2953]) by VI0PR04MB11784.eurprd04.prod.outlook.com
+ ([fe80::d486:debf:a139:2953%5]) with mapi id 15.21.0360.006; Wed, 26 Aug 2026
+ 17:02:51 +0000
+Date: Wed, 26 Aug 2026 13:02:44 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Lakshay Piplani <lakshay.piplani@nxp.com>, Frank.Li@kernel.org,
+	devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org,
+	linux-i3c@lists.infradead.org,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>
+Subject: Re: [PATCH v16 6/8] i3c: hub: Add support for the I3C interface in
+ the I3C hub
+Message-ID: <ao8cNDN1IeD8teUs@lizhi-Precision-Tower-5810>
+References: <20260826103819.1614843-1-lakshay.piplani@nxp.com>
+ <20260826103819.1614843-7-lakshay.piplani@nxp.com>
+ <20260826110407.8FF461F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260826110407.8FF461F000E9@smtp.kernel.org>
+X-ClientProxiedBy: PH5P220CA0009.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:34a::14) To VI0PR04MB11784.eurprd04.prod.outlook.com
+ (2603:10a6:800:2ea::12)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ijLsa67cbXpBs7zp"
-Content-Disposition: inline
-In-Reply-To: <20260825221539.255951-2-aousherovitch@rambus.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VI0PR04MB11784:EE_|VI1PR04MB6941:EE_
+X-MS-Office365-Filtering-Correlation-Id: 017ec154-141d-446d-2c54-08df0393dd02
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|19092799006|376014|366016|23010399003|11063799006|6133799003|4143699003|10067099003|56012099006|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	x1BYw2iah+rsGphCiCwCLsh4r13z7YT6dNDrJcwE0pFUvXZUgkqtyTy2rGDmHI5fFc90wCJ90BxHHBLX3QOVEiewYnvm5IeWt3Qz0jh/YiUwb7qWp2Tn4P07YSff8M/85iSmUokwveDKERHbnM9W86fgae+fz0vEYy4O7q26YvrMD1JiBmWJguiQ5BjkMCNt6h/wIWxIyISIQOywSvaaKp0nX8h3uTOu7KYpxgXSSEReJxZcYYlvQ+I5LzQOgF8jg6UqG2o5TmsWpkmaezAsrbngI2oP+x49u1TaGy4zt7rONbsTUXp00h5LT2oIpGe/gZUP1hQ55yoqD881HkKqQfuyq8TVqkxtw2aZc99Tm32FNPo1EIa4ECQhqJCUBQbEz626NY298/vPWu2XDTg+wJXhiQikqe7rJFiT6aX87rF7ouBhmxXVSroEHBWt+Frnvifn4spzqcvKSDLfyzQKbeavSxiOQQtAqX70baEy8wxp5uIN4ZZctija5uPXylrO/GtWYCN2k+1LgbLT+F4Z8MKC/LVC4YTPM7VUpcRlKcEIi+eacgxoWdAq3K23l9XFmD/sWdC1bCCWTQm+pYgO5EiXwcgh9oHFW3a3q8t6ciM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI0PR04MB11784.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(376014)(366016)(23010399003)(11063799006)(6133799003)(4143699003)(10067099003)(56012099006)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?iso-8859-1?Q?pA9FRA3DdJYBoAdPr54BhrZt27eI4ZpwZQCgO0XqMQ4jhcUwfNy25cize3?=
+ =?iso-8859-1?Q?lxX0Z570AmxjhLD0TQSLZ1OxhWu9eXwA3VXJ7dNRAAfGDKpi3E1eBKlI2+?=
+ =?iso-8859-1?Q?w/YlZ46kTeLOUg/iDxJVkk0s/mnQ/i5AFK4XZsyDlomeJ+TjFQnw0Dn9A3?=
+ =?iso-8859-1?Q?vR/4Z/UUnqq6yvVH9eBG8KY1RJ6ahDAo2V3A68rsBK4gcXvjQGulsB5jwe?=
+ =?iso-8859-1?Q?UjH3vOzB8iGT1hrWmbdyhlnejLVXw178GqgZL0POB2dHED8qZuvhYy/Hlj?=
+ =?iso-8859-1?Q?5PlxUq0bvPOivQ5xLrQT9Kyg9BHfQPUHJAAFuRixl8D6RcTe6/+g2hcJvW?=
+ =?iso-8859-1?Q?p3pa39t1wmshU+EvNhApTHMOgcmswJgvfDswDBPW+rN6Lx16uTD7qcZF6z?=
+ =?iso-8859-1?Q?9FLjMLcqm60bz1pVD0c+fnDHf1w62LjrUUwEkiPMWFPowxQw+L9I8mF+uL?=
+ =?iso-8859-1?Q?Wyeg2kuZ6VJs3+FV46PEAdNJRib7YXciVqHEy2/bTX/MVZmRqJBVuALAuR?=
+ =?iso-8859-1?Q?1n2a9OV/umR+ehm6Q332jOVvUXPPhm9lOO3F0zeRyzctujmOIzFHR2S65i?=
+ =?iso-8859-1?Q?rhp4hQWh83kktzFlhRP5ZMMZHh4BM046yHxpcXkIxTdlw4Q5aKkCrMPiAK?=
+ =?iso-8859-1?Q?5+1zxSx9bZzEhruBk5AIy5FK05H3IbgQiJp78Y3D0oY7H1+fHzZYGtD7Zs?=
+ =?iso-8859-1?Q?BBXgtRw+XD6lszm745e+0KhZm3OMf7/Ks7PcvtBE8/+IcBImuy+yZaBFtb?=
+ =?iso-8859-1?Q?UccdE9ekdZqERwLI9SB6Ja/QULO8uFl9d2EM3hkp4VK5hiZ6kNHmmCGQyt?=
+ =?iso-8859-1?Q?75Drbs+xx/7zJC182zImu8Y9DP1Gadpds+9of6XJ2BLNTk1idF9LoVDlw6?=
+ =?iso-8859-1?Q?zeu+1mAuejgO56MWoX9C1WGW6Cy8lA6mN/DnHN5rGdNqxbQ+doBnENJmNV?=
+ =?iso-8859-1?Q?UEYvWqMAYo4sDuwYnog2ZfhE8Ns9uL4RUR09C6AIAmCFE+AJpeu6mzBJ6O?=
+ =?iso-8859-1?Q?YcMX4UUJti19Cx7Jr7pRrxzhhBlpWiwwWEytgwcIib0RpzWqd234dCWdNq?=
+ =?iso-8859-1?Q?IrsUXlxF/MSaYmc/nvmdTrAP4uzli1Xugg5Q6SUd5DfjlO5Z3VeQe8YMLT?=
+ =?iso-8859-1?Q?C4HkQgVL/vAiyna2Zl4r4zMmtwJdSYHlUtq8D9iwq+S0DqekGvzn7eUSIB?=
+ =?iso-8859-1?Q?bcUF6gZqBMOEmpsrM513UC3njZh7V/GLg8JAlAycCzNprUffadgh0jgzkr?=
+ =?iso-8859-1?Q?wOaqlC5n5gRwR+bIQnUGAk0QzYPpGWBQi6LU180HW86CU4b/JoNmsXn5hz?=
+ =?iso-8859-1?Q?RCilEzmq6VrjKxn0VYoq7MKpIWO0KPsIf6jGUIxWrQbYravQkeDC3BAaB8?=
+ =?iso-8859-1?Q?nrfiajY8jkDMyTuEg182XCDuev7S/GhBh0s1mXpfFLAUVVPqup9YT45PHh?=
+ =?iso-8859-1?Q?JwIMLGgO+pl+SQz1Syf81z/COpOwJ8OMWz05zi4jLXM5iiIekyKiIOsFMF?=
+ =?iso-8859-1?Q?O/FFSxPrxV2bjHtmsXrIHUAci7DCjgPx0pnKu8zUNKfSreSiQuNiL33n5A?=
+ =?iso-8859-1?Q?6bd0l/kav1S4uHUh2h5CQKFxvxOd8zyV8AQYcTYjc0YTFv9eVObOV20I9v?=
+ =?iso-8859-1?Q?XwxH86HewdXJ/ifWgPw1aIcvXT2aTa6E3NoXdAq06/BFBtA5TMSge8RV4O?=
+ =?iso-8859-1?Q?wj8ca59s6IAp5UrMILJwhyxeHCNHI9ftJwnEEltAfUvScd05k7E6TjdKsl?=
+ =?iso-8859-1?Q?LZFPFnvoQHP6oFYqFToxO0ftSLXGouwJ817IlZznmRb3Yixbh8WteV4jba?=
+ =?iso-8859-1?Q?GYh2gmaWAkVJHIRD6uFe9Nen59LmkbUkcDjJ1CQnJZ4UvT82yV4j?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 017ec154-141d-446d-2c54-08df0393dd02
+X-MS-Exchange-CrossTenant-AuthSource: VI0PR04MB11784.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 17:02:51.5583
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XBVr4TpM96MSaZbVaVY327DpRVLqDUldMXSs1Wn5wHupgNJn2Nbrqgj5Z5e1CZtl39Mn1p1U+ZOKYsfHW2bh7Ee9EB2mCcfXw/gMrZ6Wj584rPjGIJLPKhZ6ppWPYdGa
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6941
 
---ijLsa67cbXpBs7zp
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Wed, Aug 26, 2026 at 11:04:07AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 4 potential issue(s) to consider:
+> - [Critical] Freeing `i3c_hub_dev_data` while it may still be referenced by the parent controller's asynchronous IBI path leads to a Use-After-Free.
+> - [High] Dynamic downstream devices discovered via DAA are erroneously registered to the parent controller's bus, making them completely unreachable for subsequent transfers on port-switching hubs.
+> - [High] Reserved address slots on the parent bus are permanently leaked when the hub driver is removed.
+> - [Medium] Forwarding broadcast CCCs to the parent controller breaks virtual bus isolation by unintentionally affecting the entire parent bus.
+> --
+>
+> commit 94c62ce56dcc9d461749adc3db10a8061865dc9b
+> Author: Lakshay Piplani <lakshay.piplani@nxp.com>
+>
+>     i3c: hub: Add support for the I3C interface in the I3C hub
+>
+>     Add virtual I3C bus support for the hub and provide interface to enable
+>     or disable downstream ports.
+>
+> > diff --git a/drivers/i3c/hub.c b/drivers/i3c/hub.c
+> > new file mode 100644
+> > index 0000000000000..6f5227215ae22
+> > --- /dev/null
+> > +++ b/drivers/i3c/hub.c
+> > @@ -0,0 +1,798 @@
+> [ ... ]
+> > +static void i3c_hub_detach_i3c_dev(struct i3c_dev_desc *dev)
+> > +{
+> > +	struct i3c_hub_dev_data *data = i3c_dev_get_master_data(dev);
+> > +	struct i3c_master_controller *parent;
+> > +
+> > +	if (!data)
+> > +		return;
+> > +
+> > +	parent = i3c_dev_get_master(&data->parent_desc);
+> > +
+> > +	/*
+> > +	 * parent_desc.ibi should already be cleared by i3c_hub_free_ibi()
+> > +	 * before we get here. If it is still set, the kfree(data) below frees
+> > +	 * a descriptor the parent controller can still reach via un-flushed
+> > +	 * asynchronous IBI work (use-after-free, not just a leak).
+> > +	 */
+> > +	WARN_ON_ONCE(data->parent_desc.ibi);
+> > +
+> > +	if (parent) {
+> > +		i3c_bus_maintenance_lock(&parent->bus);
+> > +		i3c_master_detach_i3c_dev_controller_locked(&data->parent_desc);
+> > +		i3c_bus_maintenance_unlock(&parent->bus);
+> > +	}
+> > +
+> > +	i3c_dev_set_master_data(dev, NULL);
+> > +	mutex_destroy(&data->parent_desc.ibi_lock);
+> > +	kfree(data);
+>
+> [Severity: Critical]
+> Does this code introduce a use-after-free when IBI is still active?
+>
+> If data->parent_desc.ibi is not NULL, as explicitly checked by the
+> WARN_ON_ONCE, the parent controller's asynchronous IBI path may still
+> have a work item queued referencing data->parent_desc. By unconditionally
+> calling kfree(data), we allow the pending async work to dereference
+> freed memory when it executes.
+>
+> > +}
+> > +
+> > +/**
+> > + * i3c_hub_do_daa() - Perform DAA via hub port
+> > + * @hub: Hub instance
+> > + * @controller: Virtual controller for a hub port
+> > + *
+> > + * Enables the port connection, performs DAA on the parent controller,
+> > + * then disables the connection.
+> > + */
+> > +static int i3c_hub_do_daa(struct i3c_hub *hub,
+> > +			  struct i3c_master_controller *controller)
+> > +{
+> > +	struct i3c_master_controller *parent;
+> > +	int ret;
+> > +
+> > +	if (!hub || !hub->hub_dev)
+> > +		return -ENODEV;
+> > +
+> > +	parent = i3c_dev_get_master(hub->hub_dev->desc);
+> > +	if (!parent)
+> > +		return -ENODEV;
+> > +
+> > +	/*
+> > +	 * Lock order: hub routing mutex before the parent bus lock (taken here
+> > +	 * inside i3c_master_do_daa()). The depth-keyed lockdep classes above
+> > +	 * keep this nesting acyclic when the parent is itself a hub.
+> > +	 */
+> > +	mutex_lock(&hub->lock);
+> > +	i3c_hub_enable_port(controller);
+> > +
+> > +	/*
+> > +	 * Downstream devices reachable through hub target-port routes share the
+> > +	 * parent controller's I3C address space. The hub gates access to a
+> > +	 * target-port network, but it does not create an independent dynamic
+> > +	 * address domain per virtual bus.
+> > +	 *
+> > +	 * Run DAA on the parent controller so dynamic addresses remain unique
+> > +	 * across all downstream devices, even when they are behind different
+> > +	 * target ports.
+> > +	 */
+> > +	ret = i3c_master_do_daa(parent);
+>
+> [Severity: High]
+> Does delegating DAA to the physical parent controller break reachability
+> for downstream devices?
+>
+> When devices respond to ENTDAA, they are instantiated on the parent bus
+> rather than the virtual bus. If drivers subsequently initiate transfers, they
+> use the parent controller's transfer operations directly, bypassing the
+> hub's i3c_hub_master_priv_xfers(). As a result, the hub target port is
+> never enabled during the transfer, leaving these downstream devices
+> permanently unreachable.
 
-On Tue, Aug 25, 2026 at 03:15:20PM -0700, Alex Ousherovitch wrote:
-> Add device tree binding schema for the Rambus CryptoManager Hub (CMH)
-> hardware crypto accelerator.  The binding describes the parent
-> SoC-level node with its SIC register region and one queue@N child
-> node per mailbox the host owns, each carrying a reg (mailbox instance
-> index), an optional interrupt, VCQ ring geometry (rambus,num-slots /
-> rambus,slot-stride-bytes) and a rambus,cores affinity list.  Which crypto=
- cores
-> are present is discovered from the SIC CORE_ENABLE register at probe,
-> not described in the device tree.
->=20
-> Register the 'rambus' vendor prefix for Rambus Inc.
->=20
-> Signed-off-by: Alex Ousherovitch <aousherovitch@rambus.com>
-> Co-developed-by: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.=
-com>
-> Signed-off-by: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.co=
-m>
-> ---
->  .../bindings/crypto/rambus,cmh-v1030.yaml     | 194 ++++++++++++++++++
->  .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
->  2 files changed, 196 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/crypto/rambus,cmh-v=
-1030.yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.ya=
-ml b/Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.yaml
-> new file mode 100644
-> index 000000000000..d9598b0f3bbc
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.yaml
-> @@ -0,0 +1,194 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/crypto/rambus,cmh-v1030.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Rambus CryptoManager Hub (CMH) Hardware Crypto Accelerator
-> +
-> +maintainers:
-> +  - Alex Ousherovitch <aousherovitch@rambus.com>
-> +  - Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
-> +  - Joel Wittenauer <Joel.Wittenauer@cryptography.com>
-> +
-> +description: |
-> +  The Rambus CryptoManager Hub (CMH) is a hardware cryptographic acceler=
-ator
-> +  accessed via a mailbox-based VCQ (Virtual Command Queue) interface.  T=
-he
-> +  host writes VCQ command sequences into per-mailbox DMA queue buffers a=
-nd
-> +  rings a doorbell; the CMH eSW processes them and signals completion via
-> +  interrupt.
-> +
-> +  The management host statically partitions the hardware mailboxes across
-> +  the SoC's host interfaces at integration time; the set of mailboxes a
-> +  given host owns is therefore fixed and not runtime-discoverable (a
-> +  mailbox locked to a host reads as unavailable in the SIC availability
-> +  register).  Each owned mailbox is described by a child node.  Which
-> +  crypto cores are present is a fixed silicon-build property indicated by
-> +  the SIC CORE_ENABLE register, so cores are not described in the device
-> +  tree.
-> +
-> +  CMH gates access to a locked mailbox by a hardware HOST ID presented on
-> +  the bus with every access, permitting only the owning host's ID.  An
-> +  integration must present a single, stable HOST ID for all accesses to a
-> +  given mailbox, independent of the issuing CPU (relevant on SMP hosts
-> +  whose interconnect encodes the issuing CPU in the HOST ID).
-> +
-> +properties:
-> +  compatible:
-> +    const: rambus,cmh-v1030
-> +    description:
-> +      Identifies the CryptoManager Hub v1.030 IP revision (register map =
-and
-> +      command ABI).  A specific SoC integration should list its own
-> +      "<vendor>,<soc>-cmh" compatible first with "rambus,cmh-v1030" as a
-> +      fallback; that extended form will be added when such a platform is
-> +      upstreamed.
+where reorder port, is it true?
 
-This commentary should just not be here.
-Instead, do what's been done in sifive,clint.yaml for the clint2. I
-don't feel great about suggesting that, and it feels like it's becoming
-more common - although maybe that's a good thing because it means IP
-vendors are being more proactive about upstreaming.
+>
+> > +	i3c_hub_disable_port(controller);
+> > +	mutex_unlock(&hub->lock);
+> > +
+> > +	return ret;
+> > +}
+> [ ... ]
+> > +static int i3c_hub_send_ccc_cmd(struct i3c_hub *hub,
+> > +				struct i3c_master_controller *controller,
+> > +				struct i3c_ccc_cmd *cmd)
+> > +{
+> > +	struct i3c_master_controller *parent;
+> > +	int ret;
+> > +
+> > +	if (!hub || !hub->hub_dev)
+> > +		return -ENODEV;
+> > +
+> > +	parent = i3c_dev_get_master(hub->hub_dev->desc);
+> > +	if (!parent)
+> > +		return -ENODEV;
+> > +
+> > +	mutex_lock(&hub->lock);
+> > +	i3c_hub_enable_port(controller);
+> > +	ret = i3c_master_send_ccc_cmd(parent, cmd);
+>
+> [Severity: Medium]
+> Can forwarding unfiltered broadcast CCCs to the parent controller break
+> virtual bus isolation?
+>
+> If a driver on a specific virtual bus issues broadcast commands (such as
+> SETMRL, SETMWL, or ENEC), this forwards them to the parent controller which
+> broadcasts them globally. This will unintentionally alter the configuration
+> or event state of all peer devices on the parent bus and other open target
+> ports.
 
-> +
-> +  reg:
-> +    maxItems: 1
-> +    description:
-> +      SIC (System Interface Controller) MMIO region.  The registers of
-> +      mailbox instance N are at offset N * 0x1000 within this region.
-> +
-> +  clocks:
-> +    minItems: 1
-> +    items:
-> +      - description: Main functional clock ("core").
-> +      - description:
-> +          Half-rate "core-div2" clock (present only on configurations wi=
-th
-> +          side-channel-protected cores) or the "rt" real-time tick clock.
-> +      - description: Real-time tick clock ("rt") for the internal timer.
-> +
-> +  clock-names:
-> +    oneOf:
-> +      - items:
-> +          - const: core
-> +      - items:
-> +          - const: core
-> +          - const: core-div2
-> +      - items:
-> +          - const: core
-> +          - const: rt
-> +      - items:
-> +          - const: core
-> +          - const: core-div2
-> +          - const: rt
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +    description:
-> +      Host-controlled reset for the CryptoManager Hub.  The hub has two
-> +      external, active-low reset inputs -- a power-on reset and a hard
-> +      reset; where a board routes one of them to a host GPIO, that line =
-is
-> +      described here.
-> +
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    const: 0
-> +
-> +patternProperties:
-> +  "^queue@[0-9a-f]+$":
-> +    type: object
-> +    description:
-> +      One node per hardware mailbox (VCQ command queue) this host owns.
-> +      The set of owned mailboxes is fixed by the management host at
-> +      integration time and enumerated here.
-> +    properties:
-> +      reg:
-> +        maxItems: 1
-> +        description:
-> +          0-based mailbox instance index.  The instance's registers are
-> +          at reg * 0x1000 within the SIC region.
-> +
-> +      interrupts:
-> +        maxItems: 1
-> +        description: Completion/error interrupt for this mailbox.
-> +
-> +      rambus,num-slots:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        enum: [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 819=
-2,
-> +               16384, 32768]
-> +        default: 64
-> +        description:
-> +          Number of VCQ ring slots for this mailbox's command queue in
-> +          host DMA memory.  This is a per-board, per-mailbox host-memory
-> +          ring geometry -- boards built around the same SoC (hence the
-> +          same compatible) may use different ring sizes, so it is
-> +          described per mailbox rather than derived from the compatible.
-> +
-> +      rambus,slot-stride-bytes:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        enum: [128, 256, 512, 1024]
-> +        default: 512
-> +        description:
-> +          Stride in bytes between consecutive VCQ ring slots for this
-> +          mailbox's command queue.  Like rambus,num-slots this is a
-> +          per-board host-memory ring geometry, not derived from the
-> +          compatible.
-> +
-> +      rambus,cores:
-> +        $ref: /schemas/types.yaml#/definitions/uint32-array
-> +        items:
-> +          enum: [0x02, 0x03, 0x04, 0x05, 0x08, 0x09, 0x0a, 0x18]
-> +        description: |
-> +          Core-affinity list: the hardware core IDs whose work is
-> +          dispatched to this mailbox.  A core ID may appear on at most o=
-ne
-> +          mailbox.  Cores not listed on any mailbox are load-balanced
-> +          across all mailboxes.  Optional (default: none -- the mailbox
-> +          only serves the load-balanced pool).
-> +
-> +          Because each core instance has a distinct ID, separate
-> +          instances of the same core type can be pinned to different
-> +          mailboxes.
-> +
-> +          Core IDs:
-> +            0x02 HC, 0x03 AES, 0x04 SM4, 0x05 SM3,
-> +            0x08 HCQ, 0x09 QSE, 0x0a PKE, 0x18 CCP.
+Look like system design limiation, add comments here incase it happen.
 
-You could just make this a string array, and then you'd not need this
-mapping of unintelligible hex values. Of course then your driver has to
-do it, but I'd rather see understandable (and portable, since a new
-revision could change the IDs) values in DT.
+>
+> > +	i3c_hub_disable_port(controller);
+> > +	mutex_unlock(&hub->lock);
+> > +
+> > +	return ret;
+> > +}
+> [ ... ]
+> > +int i3c_hub_reserve_parent_addrslots_from_dt(struct i3c_hub_controller *hubc,
+> > +					     struct device_node *node)
+> > +{
+> > +	struct i3c_master_controller *parent = hubc->parent;
+> > +	enum i3c_addr_slot_status status;
+> > +	u32 assigned_addr;
+> > +	u32 reg[3];
+> > +	int ret;
+> > +
+> > +	if (!parent || !node)
+> > +		return -ENODEV;
+> > +
+> > +	for_each_available_child_of_node_scoped(node, child) {
+> > +		/*
+> > +		 * Only consider addressable bus nodes: a valid "reg" is
+> > +		 * required to describe a device, but its static-address value
+> > +		 * does not affect the reservation below.
+> > +		 */
+> > +		ret = of_property_read_variable_u32_array(child, "reg", reg, 1, 3);
+> > +		if (ret < 0)
+> > +			continue;
+> > +
+> > +		ret = of_property_read_u32(child, "assigned-address", &assigned_addr);
+> > +		if (ret)
+> > +			continue;
+> > +
+> > +		/* Skip nodes without a usable dynamic address. */
+> > +		if (!assigned_addr || assigned_addr > I3C_MAX_ADDR)
+> > +			continue;
+> > +
+> > +		i3c_bus_maintenance_lock(&parent->bus);
+> > +		status = i3c_bus_get_addr_slot_status(&parent->bus,
+> > +						      assigned_addr);
+> > +		if (status == I3C_ADDR_SLOT_FREE)
+> > +			i3c_bus_set_addr_slot_status(&parent->bus,
+> > +						     assigned_addr,
+> > +						     I3C_ADDR_SLOT_I3C_DEV);
+>
+> [Severity: High]
+> Does this code permanently leak parent bus address slots when the hub driver
+> is removed?
+>
+> The address slots in the parent bus state are set to I3C_ADDR_SLOT_I3C_DEV.
+> However, there appears to be no corresponding teardown mechanism provided
+> to revert these slots to I3C_ADDR_SLOT_FREE when the virtual controllers
+> are destroyed or the hub driver is unbound. This leak can eventually exhaust
+> the address space and cause failures for subsequent devices.
 
-> +
-> +    required:
-> +      - reg
-> +
-> +    additionalProperties: false
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - "#address-cells"
-> +  - "#size-cells"
+I suppose if hub have hotplug later, we have to reserver all static/assigned
+address. Can you add comments here.
 
-Surely clocks are also mandatory?
+Thank you for great work, fixed the most problem.
 
-pw-bot: changes-requested
-
-Cheers,
-Conor.
-
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    soc {
-> +        #address-cells =3D <2>;
-> +        #size-cells =3D <2>;
-> +
-> +        crypto@a4800000 {
-> +            compatible =3D "rambus,cmh-v1030";
-> +            reg =3D <0x0 0xa4800000 0x0 0x41000>;
-> +            clocks =3D <&cmh_core_clk>;
-> +            clock-names =3D "core";
-> +            #address-cells =3D <1>;
-> +            #size-cells =3D <0>;
-> +
-> +            /* Fast symmetric cores dedicated to mailbox 0:
-> +             * HC 0x02, AES 0x03, SM4 0x04, SM3 0x05, CCP 0x18 */
-> +            queue@0 {
-> +                reg =3D <0>;
-> +                interrupts =3D <1>;
-> +                rambus,cores =3D <0x02 0x03 0x04 0x05 0x18>;
-> +            };
-> +
-> +            /* Slow asymmetric/PQC cores dedicated to mailbox 1:
-> +             * HCQ 0x08, QSE 0x09, PKE 0x0a */
-> +            queue@1 {
-> +                reg =3D <1>;
-> +                interrupts =3D <2>;
-> +                rambus,cores =3D <0x08 0x09 0x0a>;
-> +                rambus,num-slots =3D <64>;
-> +                rambus,slot-stride-bytes =3D <512>;
-> +            };
-> +        };
-> +    };
-> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Doc=
-umentation/devicetree/bindings/vendor-prefixes.yaml
-> index 396044f368e7..8b1a8f0a673d 100644
-> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> @@ -1371,6 +1371,8 @@ patternProperties:
->      description: RaidSonic Technology GmbH
->    "^ralink,.*":
->      description: Mediatek/Ralink Technology Corp.
-> +  "^rambus,.*":
-> +    description: Rambus Inc.
->    "^ramtron,.*":
->      description: Ramtron International
->    "^raspberrypi,.*":
-> --=20
-> 2.43.7
->=20
-
---ijLsa67cbXpBs7zp
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCao8cGAAKCRB4tDGHoIJi
-0sjsAQCs5O4ETXRJy6kouRnk1/OQzmyoUsRPrpeb9rM/21hfJAD9EpAJQfU5xwoJ
-RERZNwRIPTsmZQlDVlrThF4+t3HV5wM=
-=dVOj
------END PGP SIGNATURE-----
-
---ijLsa67cbXpBs7zp--
+Frank
+>
+> > +		i3c_bus_maintenance_unlock(&parent->bus);
+> > +	}
+> > +	return 0;
+> > +}
+>
+> --
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260826103819.1614843-1-lakshay.piplani@nxp.com?part=6
