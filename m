@@ -1,175 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012017.outbound.protection.outlook.com [52.101.43.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E75E46AA97
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 18:07:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787767660; cv=none; b=nZB1jcijfSi923XL0Xx6OYJ7gCQat2uNDHwSAXw6a+INSXCS/uU5U6lzmx4+NHFqFnreoMlw7PofIDbJD69nNh0ZLa4yZ+iSeEbzSy9C14D4QwjxfyuOVsSkz3g9Cj9F8HOP+fhF+VyB0BzS3hf413bDX3IeQJimHtOXhbPihWY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787767660; c=relaxed/simple;
-	bh=hToXz3TBPEgoP3ypBlW47W+9Fa9h+4YHpQjIMK8NETQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Zb9Tauom5D6S+q3dt5j8o/f59xUYvzPeeW5lWm2aNrC+krVbERfLmKrMw4/LYeAcUoUbwt7rbuxyyu7QmUcm/tpu3O2i7d4EpeZgAmDscG3x5zQGVoZIQsa5LzcULPqCcN5REKYeEB4LiIReCLEEINF6EBZEM6nlsGh02KcB3nM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L0I8vUTC; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5053D396D03;
+	Wed, 26 Aug 2026 18:18:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787768349; cv=fail; b=TPfv+VS+Qag3pkfksXM3rwzzfIR2Qy3Tthh/49sfmzDvLcn31tfGBUq5hkYQaB7fFN49L18MY+V23avNt+Vx2Yx/Fz3ftYwLJOBvn1/fez3mepCBpj9R1po5mWs55+ZGuVsiFIdvME29HRenWrDthljTgaVGiGZRXIL+uLmC9E0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787768349; c=relaxed/simple;
+	bh=Hh9Dbn3lwoZXLjsYFsh4sg/Li+WgY8IQkaD2niw7VL4=;
+	h=Content-Type:Subject:From:To:Cc:In-Reply-To:References:Date:
+	 Message-Id:MIME-Version; b=lmCLUhr0ojR35M/efV33sielnXOiXC6+BRJvtXwSN3r5prmBQCZvhJsKBDYeu6RSKVSX/wrphmy9mLmQ4yN7kMrBKkNP4KnbUmSl8XsbSfXcLQJC+/jQog7taRSmeSrGPQxAWyLvheG5mpXtuvJpAdQ8EGxoPZM+LqOVpkG581M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=JXtM2AF7; arc=fail smtp.client-ip=52.101.43.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L0I8vUTC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBA9D1F000E9;
-	Wed, 26 Aug 2026 18:07:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787767649;
-	bh=Wgo8HOEqLU3HdcMI6z2gRPZAspMgtBfaDmObGSu1hb8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=L0I8vUTC0Z73CQrRSqCPDAO/5QpwNxKkk9GQ0loM15dKAkfskDunP9w5ehLoUYUuo
-	 0EqYsS6G9f1cuZPIMecUl08X0ykiRe0+so96+dT3G8jE56G71pZvmfuSdl7l/sbvZn
-	 Pqao/njye6UScXsON+/JbzDcr0raE7DlR+SVI7mYP/ThJ4JZuzwhqz7JwHw37AtjaW
-	 HgiqsNvexVQPbLp6dEqYUtEBl5NLMvqv4Y5oEYe1C1w5EvdCsGD0/MJAU/LcfpCUIb
-	 J4UIGxARj4lrY9hkHRFClRcFs6wWVsb4eRPV+RWwos7wY/JiLo6D1tRltSAnEcrGfp
-	 GYHJp9zriktZw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/5] iio: light: stk3310: move the data registers
- into the channel address
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jorijn van der Graaf" <jorijnvdgraaf@catcrafts.net>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260826175409.326131-4-jorijnvdgraaf@catcrafts.net>
-References: <20260826175409.326131-1-jorijnvdgraaf@catcrafts.net>
- <20260826175409.326131-4-jorijnvdgraaf@catcrafts.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 26 Aug 2026 18:07:28 +0000
-Message-Id: <20260826180728.EBA9D1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="JXtM2AF7"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dCKV3pqrDpoGJIU9ukNDIh+gS6Zi+mtflOZqCVZzV8PsviEbfMVDoNblDEovvtWBiIm73crhTEQBIY+5gj/WWwpYO8pbVKS0r4MYxJ4reJel0CF1XRCVlIL+4zTASX74+ikcqqL5pYe95n6S5wi7Kh+qDIoQbZ20tshBiYrYAIOMl3mGOzCz5aD6Jj+6BGEygg6KfI9XtMPxnk6rfb4dhDMMgeq/ZkC0ZU/mJniRbK/KS5HMqvx1WCY2LSTOT3+daxmLAMaqcaJCJ43PN7Pf1An3/DUPVrZlUNV3hWKRnm5xB/kKomfO3Y5iDWPprI1s/GLUrihn7buf087GhxKDVw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wdQirvkgfGU1wylee9k5+VS64sXWRurrqgI/ua7BbNE=;
+ b=iWEfzSuMuNWmAdCSPoAA74If9ob7d6TWh3pwpw/nhK64E8aMJlIg9p1OmEVUy5VtGZkIAbVczz3dydChAxxxcaKryl9UImBO1XnWVuJhA5UXZVlUK1/hQCO0E8f9Prt7C99TcN+A2SNbg55fxlcP9AigGvV/i5TciiDcN4m71nLwK0ACeh01X6yPL4OK0fV/UFFK6C2aH9hK7d5w/gHWACxz4j1UhGwDA071lkFN6GpZktfWoOCGc6vR+N99ynTE+kx092bQgIcvd57l71KbYkk6spdfcpYXPslKrbhyzXvF5MQgn3LsKKHBDFbrjC4dBQf1blSzAVNuJA2obXTxYw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wdQirvkgfGU1wylee9k5+VS64sXWRurrqgI/ua7BbNE=;
+ b=JXtM2AF7pPWMpVPF+VdR4ZNlPVXdBCu5aaJ4wERlBHUGRra9SbEVOuQzy0fhh26pLv8iiGbNsLL+cVUDWmjnFGK+6g7nxfdYI1clpjX5ty2oeKo82iTygKvwKb4FnqDtXwc6aADkmJG58dwemf2C6ydkEiGWL7KgzUXGUPxWmsaQwAVLCZwadZYM024zdr7r5/y429xQ9hukLK04oF8T/SxihE79kzx4/7CR8skccLxy2SionSMyYFMOqNmXyV9q4Jm3p6jPF2q/wHqE2yiNbvD+SnQypaAhFsrfW2+q+tpxTCOqmB3MrXubwFxNW5ZLDp1w2cXV0w1iyvSijm46oQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ by MW4PR12MB7437.namprd12.prod.outlook.com (2603:10b6:303:21a::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Wed, 26 Aug
+ 2026 18:18:44 +0000
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0360.006; Wed, 26 Aug 2026
+ 18:18:44 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3 3/5] iommu/generic_pt: Add Broadcom BCM2712 page
+ table format
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Daniel Drake <dan@reactivated.net>
+Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, nick.hollinghurst@raspberrypi.com, 
+ james.quinlan@broadcom.com, Jason Gunthorpe <jgg@ziepe.ca>
+In-Reply-To: <20260825-bcm2712-iommu-submit-v3-3-7f143e7289b6@reactivated.net>
+References: <20260825-bcm2712-iommu-submit-v3-0-7f143e7289b6@reactivated.net>
+ <20260825-bcm2712-iommu-submit-v3-3-7f143e7289b6@reactivated.net>
+Date: Wed, 26 Aug 2026 15:18:41 -0300
+Message-Id: <178776832179.3356902.2549494595646134732.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-ClientProxiedBy: CH2PR14CA0056.namprd14.prod.outlook.com
+ (2603:10b6:610:56::36) To LV8PR12MB9620.namprd12.prod.outlook.com
+ (2603:10b6:408:2a1::19)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|MW4PR12MB7437:EE_
+X-MS-Office365-Filtering-Correlation-Id: b11b7582-265e-4191-9ba8-08df039e76c8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|366016|11063799006|56012099006|10067099003|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	N6fc5aMVWNkYS5cE2LJDK7yixm0yfIAnb2dGVamP111+eFXAflz5MWjEtfoQi/JmCIQRAZcus7fJtndujCsLPkMhNb7UTxkB6dSC5wLaEXWZ/R0nqikBeGI9GMMG+FP5AEOE6xpkny5+Il1fHgPbxM3oFqAD8+jMglLSV7hHkIBxvtvJdMk779JrwaTjOLyzoPS0lg+UU3wLZbsVxLYa+X3cdPnZyOtBIajpgbsF7XBlPb2mvWFyEGi8VN5Rjsb5OdMTPxtuw8wCB2/2NGvmn9zR/Z7XdjM10FKvH+3GDLFmbJNJbm2JgTBQAx+Lb59cIdG9APCyCdSPPkeV9jw/35F2fwUg9MK/wx5irdf8aTfxwL1IMLXT8VNtvwTKJ2zMwl+52MkVWBPWrlxc8RhaXA7CcUpb5kgtCbjUGZ32zy9v+TnBhuNiT89yqMY4V0zapRFxMjux+/ycgHBoHD8JzPaRHckZsF1WXMUGjDrrLVvRVOqQbqXIDkfJmTgnKVxZralLLSXRKMBFY/foXCusQNRgIyKqTqpWZDert2LKOrafYj/gjexxIv2JwcF6onKGnSMMfpvEMAvc8n7rCL8D/dgCC6xBLSzaYBIewn17nrolBCwHK6C2uoWol1CLMrrEdFNTaMZoQyxyob+AczHpG95MlnuhVVKEZWXju/VrejA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(11063799006)(56012099006)(10067099003)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?emRHcVRjUGx3SFpmcllFT3h3MmZPczlzU3BZRDdxbnZ5cHlWYmlqQWhEMm9B?=
+ =?utf-8?B?NG5KVlVaZDJCMHJWRzQxMDV2V0ZkSk1vTEdlRUIzOFlmQ0ZkZG5SdUkyai9v?=
+ =?utf-8?B?YVZXbDM2NHhUamRtQlcwdmNTSVoyM0xPNlZ5Z1dMaURxSmFVQ0h2VS9lVXN2?=
+ =?utf-8?B?bHdGUkpLMXAzZlA5MHltS2hDQlNoWjlvRWw4aWFtQjRwb0RDMHFLWWYvRmhH?=
+ =?utf-8?B?cDdIdlJZd1NrQ0t4LzM3YTJQeldvb1NlZWdCUWcyNWJ3bXVMZ2dzbmNtaW15?=
+ =?utf-8?B?OWprREtnU0liRG16d0lHU1EwL2plNFJSc0pLdWhyaDFZTUt0ZVR4d2FmRXlB?=
+ =?utf-8?B?dzVxT2RwaHhJcEFoSXBvWUVTNFZvcUpLVVZ0ZzBXUmRwc3JHb1Rwb0t1VFQ0?=
+ =?utf-8?B?azZTU2tmaXIrYitqTXpMb3BjKzhPT3NpdloyTzFpaEhUSUpPTUZQdUFiRGRx?=
+ =?utf-8?B?ODBsUXRGTmdMaEMwNlZIOVA4NVNFREZCWEFPeDk2Q3N4UlpZdnVKR0VjOWEw?=
+ =?utf-8?B?Q1lISUxQS0JIZjBaNFRFNDNiVEZKQXYyalVkRmI4S0RnclhrYmZoNEM3ZHBE?=
+ =?utf-8?B?TkJyaW5mYkVIN3A2M0E2NW80UklERVZKeU4rUUhaMW1PNStHSXh1Zm9zeHFj?=
+ =?utf-8?B?akJtbjB3Q3d1eWJ6V3FpcEYzbG5XYTZFUU95eXJBT1RVZzFDV0RsdkFFMVhN?=
+ =?utf-8?B?S25QWWZGUE0xb2RxYmlXSTcxSW9mUDVTdVZOK3YxSFV1YmVJUHRLSjREOGNp?=
+ =?utf-8?B?aDJPNCtDeTVEbkRMbjFHV05hUG5GZTZPaHFvU09JSUkzY0ZjSUljalZvK1J5?=
+ =?utf-8?B?MTg0QUczN3RVM2tDb3hFZjRCUWl3NTN2NHJMRFpyUGIrVzhGM2E1T1ZPUk5I?=
+ =?utf-8?B?TjltS005NzRLTGJkVzR1ckdCdVhzSkpuQWNmVFRjSHVxYTBZWDJudzAvWngy?=
+ =?utf-8?B?R256Zjg4M0kxZTZXNm5PaXRNaDZ3US9DTWFvOTlERzYrZ3M1cmdBSDY1RUs5?=
+ =?utf-8?B?NDVubnpmMHkzV2J6dUhvV2FxVGREckpCcG1KNmo1R2xiQzZTKzdDSGRZeGNp?=
+ =?utf-8?B?RkdHdVJ5OGN4NHd1N3NONEhHRG9QenR1VE1DVU80T25hTVAvMGF3VTFOeVYy?=
+ =?utf-8?B?elJ6VmpWN1hleTRjTy94SUtoZDV3OXFpYXEzcm95SndIRG02OHMyTlRid2I3?=
+ =?utf-8?B?L0I2SmQyTjQybEs3dm5ybWJ4Y3l4VURJM283T05CT1M4bU54ZkNIaGtkLy9P?=
+ =?utf-8?B?SVNGQ2xGNm5JZ3dlaHVIUE9PK294VFE4RlVzTnlIQlJ0VHgrV0JFcG1VQmRG?=
+ =?utf-8?B?ZDdidm1RSzNvWFUyZS81ZHhTQlNCSTlBYnNOeUYvTmxmUEhWY2FyNDVIR0lq?=
+ =?utf-8?B?WFJWK2RLNFRUVVNnQ1gyOWowdmF4MytMUzZQZW9BNXl3bUxVV2xWcytUZjNv?=
+ =?utf-8?B?QkRTUXNON2dJSkdVTVNMQnVKSGRKWkI2azZxbkl2UDk2R0dDbUlNT09rN1VZ?=
+ =?utf-8?B?REttbm5VcThxQjRhTi9VY1ZjeEZITmh1Zk1OSnRBeVVDRWRlL29aQ0Y1dTVu?=
+ =?utf-8?B?d1oybWRscmlZSUR3elFBU0w4SWRVR3pMODJ0WkRHM0d6aDN5RHdaS1dRNS9Y?=
+ =?utf-8?B?eVQ0QzJoWTQ0WTRyR1FFNlN6emJIUVlLN0prU0lQOUFhNC81Y1lFNDRGYnRl?=
+ =?utf-8?B?cU1SbEY4YkhwNTM5Wlk4blRkeTdzNFJRdlBMN0RzSTZmVmJNY2x6WWdKQ0Qx?=
+ =?utf-8?B?YkV1aTgycm5zTlIxbUdreUU1S3BKUGR0eHRQYnkxeHdVcHhUa1Z2WDUvdUY1?=
+ =?utf-8?B?UmQyM051Rm5SZmU1Q0NxenNNUGhaMThqUkVSZ3dlWjFaOHRpb2ovMGQzWXBi?=
+ =?utf-8?B?bkRyWW1ST0JsZmNxK2RiUnhRRUxZSDdWY2JWd0V5ZjNUeEd3NkNlNHlybkQ4?=
+ =?utf-8?B?WDNFUEdqb0RBazJ1Ym1NcDVpdDZsb2YrMGR0M1N1YTZsUW4rOWNlcUc3YStz?=
+ =?utf-8?B?TGwvSW5tUVdmUDNocStxbDlwNVY5Q1J5NDJsUG9oZGR2WE9QY2lEUU14aTZQ?=
+ =?utf-8?B?MnBRcEMyMHhCNE5YNjVOVmRqYy9PT1FKaVlFdW12d0VyZzF6RkVKd1JqalJW?=
+ =?utf-8?B?SThlZkl3b3VsVE1EYlNkbmM1by9LSDJHTGtXdlUxWnlUM2FvQUZ4aUFPY0Vk?=
+ =?utf-8?B?NURBcHpwOFI4enl0eGR6RWNDVm1BK3UzaWZ3U1JKYlNhU2s1d2JNekJkU3Zk?=
+ =?utf-8?B?VGlXb1l2Z0c3cTBhRzM2MmpqUWp3U090MWN3c0pORkxqZzFoYjBZRm52Q0tW?=
+ =?utf-8?Q?5O6sfhJJB0yHucZfOU?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b11b7582-265e-4191-9ba8-08df039e76c8
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 18:18:44.6022
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: s7TIPm4CLsiM1+6Cj92pz4WUkpolhq5R27jliej+r2sYVI6/JT/RU6uzSVjDmv38
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7437
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Tue, 25 Aug 2026 21:56:06 +0100, Daniel Drake <dan@reactivated.net> wrote:
+> Implement generic_pt support for the 2-level page table format used by
+> the BCM2712 IOMMUs.
+> 
+> Adapted from Raspberry Pi's downstream bcm2712-iommu driver (original
+> author Nick Hollinghurst).
+> 
+> 
+> [...]
 
-Pre-existing issues:
-- [High] Possible Use-After-Free of `event_interface` in `iio_push_event` o=
-n the `iio_device_register` error path.
-- [High] Missing locking in `stk3310_write_event` leading to state mismatch=
- between hardware and software.
---
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 
-commit 0d9aa45c0bb9cd3c7c737938875870bc51a8c0be
-Author: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-
-iio: light: stk3310: move the data registers into the channel address
-
-The RAW read selects its data register with a per-channel-type branch.
-Record each channel's data register in its .address field and read
-from there, so adding a channel does not grow the branch.
-
-> diff --git a/drivers/iio/light/stk3310.c b/drivers/iio/light/stk3310.c
-> index 5b5b6812edc75..156888969366c 100644
-> --- a/drivers/iio/light/stk3310.c
-> +++ b/drivers/iio/light/stk3310.c
-
-[ ... ]
-
-> @@ -370,25 +372,20 @@ static int stk3310_read_raw(struct iio_dev *indio_d=
-ev,
->  			    struct iio_chan_spec const *chan,
->  			    int *val, int *val2, long mask)
->  {
-> -	u8 reg;
->  	__be16 buf;
->  	int ret;
->  	unsigned int index;
->  	struct stk3310_data *data =3D iio_priv(indio_dev);
->  	struct i2c_client *client =3D data->client;
-> +	struct regmap *map =3D data->regmap;
-> =20
->  	if (chan->type !=3D IIO_LIGHT && chan->type !=3D IIO_PROXIMITY)
->  		return -EINVAL;
-> =20
->  	switch (mask) {
->  	case IIO_CHAN_INFO_RAW:
-> -		if (chan->type =3D=3D IIO_LIGHT)
-> -			reg =3D STK3310_REG_ALS_DATA_MSB;
-> -		else
-> -			reg =3D STK3310_REG_PS_DATA_MSB;
-> -
->  		mutex_lock(&data->lock);
-> -		ret =3D regmap_bulk_read(data->regmap, reg, &buf, sizeof(buf));
-> +		ret =3D regmap_bulk_read(map, chan->address, &buf, sizeof(buf));
->  		if (ret < 0) {
->  			dev_err(&client->dev, "register read failed\n");
->  			mutex_unlock(&data->lock);
-
-[Severity: High]
-This is a pre-existing issue, but is there missing locking in
-stk3310_write_event()?
-
-drivers/iio/light/stk3310.c:stk3310_write_event() {
-	...
-	buf =3D cpu_to_be16(val);
-	ret =3D regmap_bulk_write(data->regmap, reg, &buf, sizeof(buf));
-	if (ret < 0) {
-		dev_err(&client->dev, "failed to set PS threshold!\n");
-		return ret;
-	}
-
-	if (reg =3D=3D STK3310_REG_THDH_PS)
-		data->ps_thdh =3D val;
-	else
-		data->ps_thdl =3D val;
-	...
-}
-
-Can concurrent sysfs writes to the event threshold file cause the hardware
-configuration and software state to diverge?
-
-If two threads call stk3310_write_event() concurrently without data->lock
-being held, could they interleave their regmap_bulk_write() and software
-state updates?=20
-
-For example, if Thread A writes 10 and Thread B writes 20, can the hardware
-be set to 20 while the software state incorrectly records 10, leading to
-stk3310_resume() restoring the wrong state later?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but could there be a
-use-after-free in the probe error path?
-
-drivers/iio/light/stk3310.c:stk3310_probe() {
-	...
-	if (client->irq > 0) {
-		ret =3D devm_request_threaded_irq(&client->dev, client->irq,
-						stk3310_irq_handler,
-						stk3310_irq_event_handler,
-						IRQF_TRIGGER_FALLING |
-						IRQF_ONESHOT,
-						"stk3310_event", indio_dev);
-		if (ret)
-			goto err_standby;
-	}
-
-	ret =3D iio_device_register(indio_dev);
-	if (ret < 0) {
-		dev_err(&client->dev, "device_register failed\n");
-		goto err_standby;
-	}
-	...
-}
-
-If iio_device_register() fails, does this code leave the IRQ active?
-
-Since devm_request_threaded_irq() is called before iio_device_register(), a
-failure in iio_device_register() will clean up the event interface and
-free it.=20
-
-Because the IRQ is still active and not disabled on this error path, an
-interrupt could fire concurrently.
-
-If that happens, would stk3310_irq_event_handler() call iio_push_event()
-and dereference the freed event interface pointer, resulting in memory
-corruption?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260826175409.3261=
-31-1-jorijnvdgraaf@catcrafts.net?part=3D3
+-- 
+Jason
