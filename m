@@ -1,124 +1,149 @@
-Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com [209.85.217.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CD22450F2
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 13:47:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02CF6393DDD
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 13:55:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787752080; cv=none; b=L6VippRgxzXNTSUzKmUaSB2nCDLZ2tOh22RLNwOYktvVBOVjc+eUkohdjjZvuKqJZ69AORY5249H3JtXpY9XqDQq09jIIjuq/pWnCCrDzZOAsLkDQ1PyclVqTvxTuW5Ki9FLGgRT9UeUnsqsXxnj7aLvTGFtGO21isfCPGSL6hk=
+	t=1787752550; cv=none; b=UvyYdIGTTU5/cqowZ+Fa5lqtHjdm/Xwtdp445zpD4Mnbj0euOUZT50FM3cJn/ydrxySxtLOmv3apNtDAUDeUQul9jt+xKOXyyTASwGCueqCmTwYvEzuo8ay0f26EvISga8+zVzpVYdYZr2220TvZGkzPswrLyZ/16EHl9wnKLhg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787752080; c=relaxed/simple;
-	bh=4R80M2uSqG8aB/kf7mO/4PkvyywvIIAoS2BoNshLVNc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ixjZA0+WZ9q9Gg0vmfpNPMshLoPtfIj7An8/bgtqoRaKzn4VmjqOgh9kSSI8DTSnudvLl554OmfgBsc6mj1ZdI1txmcNujoUzIXD5RzmWJbLSo7j0xVjfJjw81rmpYvNzc+PUiEjuLB/t7IqNgSzbmP1YWfr6zfpBU9/3+k/oSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-7466771f1caso263051137.0
-        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 06:47:56 -0700 (PDT)
+	s=arc-20240116; t=1787752550; c=relaxed/simple;
+	bh=5wPjaxtMp1EHMGKTxlI06Ij5iAmSt2E0j+sKRMrOd5s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DQbZGRkR3GujJaihJmmeZYhd0wwVHKbMAZCPEmQ4pi7WfQCrK0KrTcx9eKQ+mA8RXpVcrBipp81+cfJ0sODa1CGmtCzEim9ZlcBrosb3OBitRwXoDZ6MHRgm2kcY+9F9Zk7BidG32tHQUzn5wjyGiYpHNMjezz5SfQ6VCwiuQRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UrBvDCsE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=No45AArK; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UrBvDCsE";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="No45AArK"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QCCHQ9882087
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 13:55:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=UQO1dGe3cg8EAKayarH9DjqZHYpySqBTnoI
+	XACsELTw=; b=UrBvDCsEQlaa8965zjpCp7JLorVgE23f6gC/PYVNep7GlZCGFiS
+	2KkMw4aba9FsBzQ0aFqGODeJgwY56b1cXrYbZpNB9/+CE4RThAN6/x1NqOCb5WQV
+	9KdCCoSzWZfEC920A1qhlIa8andQPtGGmLRtMawXT3zKnI7l2xeT1SLbMZHPTlJp
+	wvVD8vBftmx3tWt+Z9uCqFBudz9Bq088x5ur+ZW08GvpxipnNfMBHwJsdRJ5hR0R
+	n4lEJQCyl0fKFcefLlVpw9nUku7JKB5NTQ76WmJBCxvM+2Tya5EmVuTuqW89Vd/w
+	9cbm5fAgo6WjogcUA4y/bg5sSIiOjEjt32g==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9r0k2egn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 13:55:46 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38dc085b0a7so2047746a91.2
+        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 06:55:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787752546; x=1788357346; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UQO1dGe3cg8EAKayarH9DjqZHYpySqBTnoIXACsELTw=;
+        b=No45AArK8Z57aGjzkic7BR7YeDA7OvALzNpseXz7y1EP7GE1cZ+T1ua23E5bX50k2k
+         Xmgdm2hbRPgeXVcjYrQW/0Z24Z9onxYZI4D/qmwAD7LH3SlJbAtw4XDhjFw5YjqOjCru
+         9WLthQ5H6p0VpcFqp/A1HimFIKVyKWysk2ldFDNKWnk+GoBuJZVRiTvwQ8nRCZowNf94
+         0AS3dgcXe0JX7pRHXeX2ZT2M45HHnNv2YjTu5k92gLNRCd/KURar4+5ANcJQ9MzWWJfq
+         3M7CVxQQpCxRfNyN4hVDsaQLw859Eg/VFopfvUHKR+12Wf3qXxJxVb+H2X+2w6fX1R6i
+         +wxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787752076; x=1788356876;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=J5AEkQkjMT9TtrBnAvVUmmFOsLJwXzQTGULTsLF/WhM=;
-        b=BryBDOI7RbOgR6+eLaKF4o/+xlRNABM9S5+Gx7GYf1QPdE+ttKPHasBfhLzF/C3Ky3
-         jnI2/pXmrtCPZSPEiRfca25KLMfW3gjToSI+Ku+xJd3doMy2RR+epICha5OAmVlpdIyK
-         u0Xy0va0QzSp98RCnUdpTboJGncRuRbwkaGr+iI/4eja3OH3dSK7aF/ID6nZOE40WrnA
-         iANbwMu9gZ87QYVDx/uM1l5WttMW8nm1M68iINWpXYlrMPJsegT1Gg9U553MKnYs8I7j
-         w4Rsk9X8seULIXMu/FLWdydEPvSxHn/SVCMUe/aP3hDEn54/EV0+qNYI/B6ep1xErD1Y
-         uhpA==
-X-Forwarded-Encrypted: i=1; AHgh+RqM+hf98toENfQbHS8RIPwB6TKkht5u4/+R+YwW3DgEaZZR8LBc0MfbtX2vO8kBACceUHyRxCPiinAY@vger.kernel.org
-X-Gm-Message-State: AFuF++nKVABO/hjSfzmDUbs00AKvYLpBpoKi+cBtJC5BZivDc+H4OQJ6
-	tCPWZcgcUVhNn0rBw26XlX1wQHl+stJNxk5RevavpF81QyLkRpeYu4F/Fj5QSg+Uxiw=
-X-Gm-Gg: AR+sD13ncJMZ3W9hbkGpd96/DXwxuxbuHqwUq1fW7OZJFD14KyIjhGO4/EYg2XPc6mI
-	ei4d25QUqyBy5JM5GfMm9V+A/Fvrt3DHJNAQ4IIVkRilmeHVlLIcWtbi7fWPui3veU7FQnYDYNu
-	N46o4c4zGT+2tjgQ3RNea8HtpvNFJUoTbBZarPlUvueHoMryXPqulhtiaa/hjxNxbLov7RNTeQ3
-	WOdsPM9XU0iN0xOE1MSHJUlN5C2DdZxjoct3U8rkWjWCGDvNxBNUg1+Xv0yiKYBtqgXSh6xVVcY
-	58gApbhWvKV5NQTevQR2/y2UktgFb4asz2UiHUMNI/2zIYQZhtdMFHlbe+ZLbBWCZ6Cae4VC5wR
-	L5RGkzM5EQCynZ9CL92vDNoa8lVqD4yzqJU7wgDJehsmNmLFYPZPJjG7nJGPkIL13L4GYRlDGpy
-	LSNQ1NaXj+5fYmtBB5HG/aucDJSU+K5nWQwASoNX18BGXjShgxgPHGGi8pX3wPUQRWR5jBxtI/H
-	D7YjeFwn01aq8Z864/i5b2eAA==
-X-Received: by 2002:a05:6102:3353:b0:781:210d:2897 with SMTP id ada2fe7eead31-782c1804fa7mr2012805137.9.1787752075908;
-        Wed, 26 Aug 2026 06:47:55 -0700 (PDT)
-Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com. [209.85.217.50])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-97cbe311309sm1683946241.9.2026.08.26.06.47.54
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 26 Aug 2026 06:47:55 -0700 (PDT)
-Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-765c077b5c1so324461137.3
-        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 06:47:54 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rpn91rmLYPnzP+ehLXSxQDecaMHrAUJynEUBWN0Vu5JL933JBdOM88tvXzlCOwyMIGkOebSHrVDV6n6@vger.kernel.org
-X-Received: by 2002:a05:6102:c91:b0:778:721:53db with SMTP id
- ada2fe7eead31-782bca45c59mr1975967137.0.1787752074443; Wed, 26 Aug 2026
- 06:47:54 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787752546; x=1788357346;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UQO1dGe3cg8EAKayarH9DjqZHYpySqBTnoIXACsELTw=;
+        b=H6KZxLaH5xTMn95tZB5c5W5pN0v8ux6IXYEC+cQFqEuujB1cxnTvoNzDFNO6ya4WHO
+         7gonxRxNn04S82KM7L6+QH2AaQONSVRoH8S+bIHkqtIF7Tl2c4TSnDwdV5cPgxQcAa6W
+         6VcL0pppaBHjD9GYcquqQWkVoLDAoAnGADVGMBJ2eir3spPEnP58NpR68Wld4HQY5BRs
+         myIhNSnvFveoKqtHSdp8pbcqlTST3lXuGiqjL998qR0Pjr5NB1fCjwzkXdry07MBcWzE
+         HHb4Uud1sBw1dcMij8ryCMgglNcMVVGD/URsJTUbfVruNzzqd3Zx+fWveagrS3QyOBvZ
+         7VaQ==
+X-Forwarded-Encrypted: i=1; AHgh+RohoAsBSMgktmUz2jOORdbHkSI8cHQj20e3B5M9CFVc47kz1uQyTgN5aiwXj7xMTlQOyiZWV8wO2jtx@vger.kernel.org
+X-Gm-Message-State: AFuF++n43duAoDXv8ng92piiffCl+o3768f/1h0HRUIpF9hyy1PuP4Ud
+	RA3V6j3wD9tgiR7Cv5d9lnMrZWdEZYLaBWeuw4Bipz5MuC1VoGufJC2NNFP4U2yTYb2fVEO9ekV
+	4xRz53G6svdqn5FgOiiNMvdz5JMjVF80B750vNPIWJJmOAFEfhDXHA4Q/jDJed8eH
+X-Gm-Gg: AR+sD10BvJwOl7mh3Uo2dPNx1NFRRvErQSNPcCy0x5aJxfK/ifq1QnA0BL/O5cuEIrl
+	ivJhP2ibDRKl0R7oihm5UQeUxMnLnEymqL0iHAlZhPAWRzKf2TQOOBeyKWgWZUdIXBTNh/oK3i7
+	0HUIcndqLAfs1sZ65ssrJV9bSW/9xuRhCZvY02Qu431HQI2c3F+6Zeuuj6v3nGLS8TfyqL9uk4z
+	thXzghJHJQPlBU3cRvHyeVT70mTW66HVDy+IvwADooQ2KytMtvCS8KN3KaOYFW5Gmu96t0RPJ5m
+	mF+e+8TtFrryGCBy/dajvsfGe3PIjeV9E6Ibgm7aVw75IsEscitpE6p/16Wp/HceYmEM37DQJST
+	As4kVJcHa9rg/kTdimfftjqsxS1Kj6ofBGb3mRDzejh/9vGc33z6AUxYe19bX
+X-Received: by 2002:a17:90a:d2cb:b0:36a:5d1f:7b6 with SMTP id 98e67ed59e1d1-3966d36df78mr15644678a91.2.1787752545683;
+        Wed, 26 Aug 2026 06:55:45 -0700 (PDT)
+X-Received: by 2002:a17:90a:d2cb:b0:36a:5d1f:7b6 with SMTP id 98e67ed59e1d1-3966d36df78mr15644505a91.2.1787752544964;
+        Wed, 26 Aug 2026 06:55:44 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39668a573a1sm4347911a91.14.2026.08.26.06.55.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 06:55:44 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Ulf Hansson <ulfh@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH v2 0/2] Add NMXC power domain for Nord SoC
+Date: Wed, 26 Aug 2026 21:54:52 +0800
+Message-ID: <20260826135454.658615-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826112821.194877-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <20260826112821.194877-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 26 Aug 2026 15:47:43 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWWxLXA+Y1sK-AFrx6Z0DkZ0xvrZbqCU_wcrfFyaKArAg@mail.gmail.com>
-X-Gm-Features: AcwNN1WNtag92uCqJjbPhiZSsO7JkAmcuVOcn1wehvKzSdLbU4TwbVG4gtD6TYg
-Message-ID: <CAMuHMdWWxLXA+Y1sK-AFrx6Z0DkZ0xvrZbqCU_wcrfFyaKArAg@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: renesas: rzt2h-n2h-evk: Mark XSPI1 boot
- partitions read-only
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=fPEJG5ae c=1 sm=1 tr=0 ts=6a8ef062 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=Y7D3pg133TmPf0Y34y0A:9 a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDExNSBTYWx0ZWRfX2+UB/nNsd8S1
+ FN3qzZ3oZEe+aQHqjQIbXTLEAnFQPLBInsR8Pz4pnpXW8o6up7If2w7245cSAaoYeht9yCnL5kT
+ LVLyQ6HMJKrI9v1xYri+kdA22Z6nFkE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDExNSBTYWx0ZWRfXyTTFBA+OtIXz
+ YiF6KYoURclXPL6RDsN6L1A8gjNobLYchz5h3xtqvGIE6nxI3z8Tp0xT5AcN+WlJZD8p23OLqIC
+ IPQzpPMDkFQ5reIvVafLSn/vNPPzj1afiYv6C15PLG/rQIMQpNu3T40SlkPUvqEbcNVnPX6dahM
+ ppLGi5v+OMO5mwsxrxqSIH5hrufGls46Hbg/tgqDVrqUDDAav9g7/zRAyNoEFzfg5b2jwr8X2D+
+ gqGe75owMuh8GZ/ABvrKaqKlILxIhic6KtUBKgI/49TIaiwCEVPjEEl4b7l1F6wv2v3per8oqHX
+ fcvnSzYXWyNvzm7hXeJ6xwfrM2Kg3kdxfPryAPH1JIeHDsgYmdjt3p6v4z3YQkEIUDAHi2DnaAI
+ 2QQhGOvGuEjstYIT/zzFT6QGql6mI+8JsqxIpvkbFK+rPZBBk5N5HZ0/sqA/hU44wUklxpxsaEO
+ 7Gx6+91rao5oLQTv0qQ==
+X-Proofpoint-ORIG-GUID: xhOPP66t5QpEd6JrHbIXlnRZ7H4ybXD_
+X-Proofpoint-GUID: xhOPP66t5QpEd6JrHbIXlnRZ7H4ybXD_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-26_03,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 suspectscore=0 impostorscore=0 malwarescore=0
+ clxscore=1015 adultscore=0 phishscore=0 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260115
 
-Hi Prabhakar,
+The Nord CDSP subsystems do not take their memory rail from the shared
+MX rail like all other Qualcomm SoCs, but from a dedicated NMXC RPMh
+resource. Add the nmxc.lvl RPMh resource and register it in the Nord
+power domain table.
 
-On Wed, 26 Aug 2026 at 13:28, Prabhakar <prabhakar.csengg@gmail.com> wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->
-> Mark the BL2 and FIP partitions on XSPI1 as read-only to prevent them
-> from being modified through the MTD partition interface.
->
-> The corresponding boot partitions on XSPI0 are already marked
-> read-only.
->
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Changes for v2:
+- Drop remoteproc changes since "mx" of remoteproc is just the name of
+  memory rail input which can be wired up to NMXC power domain in DT
+- Link to v1: https://lore.kernel.org/all/20260826102746.633076-1-shengchao.guo@oss.qualcomm.com/
 
-Thanks for your patch!
+Anurag Pateriya (2):
+  dt-bindings: power: qcom,rpmhpd: Add NMXC power domain index
+  pmdomain: qcom: rpmhpd: Add NMXC power domain for Nord
 
-> --- a/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi
-> @@ -825,11 +825,13 @@ partitions {
->                         partition@0 {
->                                 label = "bl2-1";
->                                 reg = <0x00000000 0x00060000>;
-> +                               read-only;
->                         };
->
->                         partition@60000 {
->                                 label = "fip-1";
->                                 reg = <0x00060000 0x007a0000>;
-> +                               read-only;
->                         };
->
->                         partition@800000 {
-
-Makes sense. However, what is the recommended interface to update
-the bootloader in these partitions?
-
-Gr{oetje,eeting}s,
-
-                        Geert
+ drivers/pmdomain/qcom/rpmhpd.c          | 6 ++++++
+ include/dt-bindings/power/qcom,rpmhpd.h | 1 +
+ 2 files changed, 7 insertions(+)
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.43.0
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
