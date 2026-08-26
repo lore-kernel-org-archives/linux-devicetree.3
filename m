@@ -1,63 +1,65 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37B8D31327D
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 07:20:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7953933F5B3
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 07:20:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787728808; cv=none; b=AQae8MvxFAszyTqn1m6IiP3pwFMKw8hyvbBrapt7ujSZe4hctS2XJX1FqhnhETqWjygiw8LPS6l/xR9JFLskX/NKB9rjJI2EdMj8OpgflouMbAt5uuIY5QaYt88/ZdX701Fzjl4/4lCJKTgAmgDlPt0sK2imz8Ih8ByiA7UI1zc=
+	t=1787728810; cv=none; b=g7D96I9FgZumtM4GAeuYIUHXK5rCPNEqqQYjnLzWeEEYN/Zuhdj0kRf3+Zuv5Xb2KsLGM28gZmO2TV2AU8rul6EsiEfP0/wWwgeMV9e9eevAVzHD7ak6eQBG3mVqt6eAzGuZJ1N2EFx0TzhNkluZyE/PLzrsP2dnzUmTqgNsmDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787728808; c=relaxed/simple;
-	bh=vy8Ll/AycZbpw+f2cz8tgPAK4o7hWqqt7l2npRAvbDw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NGTCfr8VlDPAQ6o67s06+yS+EnQa9bc8WO0aZOXU/J38WPwdhJgvjp4H9/Vm0krVn+5GiCqgFBBnagrne12utwV6zGqpA2XehoHJ1KnXlnO/fgbxylaSdRQ4yXvAkEmStnYEnOyPoh3p7niR7oEL60XXMKOVpowJq+k4ZI4GGFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LN6NHQdV; arc=none smtp.client-ip=209.85.218.43
+	s=arc-20240116; t=1787728810; c=relaxed/simple;
+	bh=jEy3yL5RUfAsDcn/zNbn505GnHPHKqrXy/5TKsxDzZE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XyNni0txg1DgD8/qTGAAOvMyc6lsLJaj/UR+D1hABwIjU+JrR4aQBme412adnNe/Dk544vtUTqdamxB9u5GrTqlv6eKeSoL4P8SZYer09CJSg7kE+A3uBcFRQkkQaPXBk+bGhsxTHpd02sima/4fX09Q4LqXQzrNzTimoeVlxoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nQ8LteRv; arc=none smtp.client-ip=209.85.208.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LN6NHQdV"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c2022323c37so72947066b.0
-        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 00:20:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nQ8LteRv"
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a0a4aa99bdso1028270a12.1
+        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 00:20:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787728805; x=1788333605; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=63WMvfGt0l8uKyqa59ng0l7805UdsP0VhhUF8Ue2fVE=;
-        b=LN6NHQdVs/Q+8MeiPZ0cdGkoEFSosQocW4IkNRRWBbNdVKltfYN0bFiVU71E8cKnBT
-         gkPbxvPlCOLJnmASCNlJ7qrSv0av96ul7T3aWE/OfUTmpisX9FJlV0AJb9ch8HHRVOCv
-         DTCWZTr4m2DUaG7NLF25ByjCtMUsOPfVrA7Fy1ke9gU72daTk9dCpci0iTIwp4P7ZdpI
-         HC2MaQxhvA5ks7XO9qVxP5t6BbbLv0wt/gWfiQaf2lX9j2y2+xQqn3naIj4nfauhVaYw
-         EFElsM55nQE5oGKASCx+KHvIVxkeQbN7Oqa6FJPyH41A7T2ujeYcctXMcBsCkP4BoMvU
-         QdAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787728805; x=1788333605;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1787728807; x=1788333607; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=63WMvfGt0l8uKyqa59ng0l7805UdsP0VhhUF8Ue2fVE=;
-        b=ciUUT0cbrSMCac+YJ/0txuPxqlIuoEawHOLlPKcwfEFOUsv9Zg7daBuXxI/ju6sa28
-         HaL/4DKZEwswRhNVWON6YfGo3D1GrdKgKgbKGJ97ysHJbcFE/ffYcJs4IkbN2qkkvK2e
-         yzQs91AgUKYeYKpuys7FpEcFmPXM+BgTR5tOnsPYbb65Zh3whSFTJLO2xk1xEDcVbLJN
-         om/DMPlOxL8/xqI9xplYO47exKSA3Vm2IbVuXEnvlz+xFNwKwxSbz4bJAkHnAXBiEA4M
-         6sPVSyZ/FIYD7mI4Flk1p3Gk23TCusunQ30H4IGOvwcxOfnrzH+2tbkxQsEeGzYlI0Lg
-         kjJA==
-X-Forwarded-Encrypted: i=1; AHgh+RquGkDpQLhSyO4dLV5tq3oF/pG8Edd1dgE28qN2pcSCQ4ZPdZD+tV8uBZRLc8M0ojCAPrfM/5RCqtuD@vger.kernel.org
-X-Gm-Message-State: AFuF++nCqpukmAlbH9L2V5nprJ4C5KVM8HR+3Q7ETxSAXmWExCRvo4cY
-	8Jj2ErFeAQrCCU4IODvCTWEzL28ZUo33/HgaMIgktaZFo+4x6yjZnvna
-X-Gm-Gg: AR+sD11JEM+KLmqzgdlQBcFPEFhvtlIt2GaHxvTySmn6Iq/herDldS8biCeg2WbnTHX
-	iQSgdsoqGgRrPTcy7TR7werK/Uy+c2pNT3Nip1yqxDm7fZN8aP+/yggIVpaA/D+HJoyeQseYXYL
-	KSye57suT/dAHfsHrnLM7iOo3AghW4h3BAKVvljiHKhTM3AJA0REwLuHD+M6lD9ntSU2RzAWvb5
-	MFmjPjsl01GdTM2H5fpgVlrGUe/PtPm4MTicbm7YO8B2188/N8czs2XeazRcOMS8H+3WFpuhm8q
-	azwYj6ZFluyJ//qbUB+JkbkB203O3ZcM9rifqFTC/VPBsoxY1Z93dmNoqKP5U2qm3skYHZhdra5
-	rYyFmBJbH/CpPS9UkDdWHM90zdCxb3XCC4IAGtHvfa8cWteypLwRYB2+XQaE1D/muPuNPG1JFIh
-	QYHWo0n0c7j10S1yrwh/C2ee1JrVaby5+zVHu077G88JY79afmhy/JJW9Os7KSdAjsglh0jkdgv
-	02oeYNHs1VIHXhiof9ZfruTBEe6x83184qDTFl4xD/B5RBCACe0u9vooOB16Z+2/gKvZJijSvLi
-	KYt+8RWQsqJa+yo=
-X-Received: by 2002:a17:906:4fc6:b0:c21:9870:c4f7 with SMTP id a640c23a62f3a-c250c32b599mr576411466b.20.1787728805329;
-        Wed, 26 Aug 2026 00:20:05 -0700 (PDT)
+        bh=myrpAtIJyMGLn7pcJThOKxb65pIvWEB4lz0gBXx62Hs=;
+        b=nQ8LteRvEHnE++ZAu4t+mR73Rnp0OJTWE1ZJhAgNuD95Yq64+uENjQbUT4POhbUkx9
+         e3B9sQ8zllV5cK34G5NOil+jYYqNkU90gm6dO9RVnE2R1iwQ6bkqUPJ3D6HLz6xjczQD
+         t4sn2hzwnnPTS8NE0bgLiCi9rJiueNa6RqDTWg6dxUz7+FFNy4NFIY0A4lCVhXyXAbFM
+         +tR/4z5Id/qvwW2BRQkHMqlqxPqyZRNGgHkfXbhu57YhqqFd/42JG/CJIDpLr69yBYGI
+         MsOvOF1sDKi0E498Rtfel/lpF9YTVCHvI2ru0kepGqi55oMf6k6PpWLM8RHUPgM3WJnk
+         uUtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787728807; x=1788333607;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=myrpAtIJyMGLn7pcJThOKxb65pIvWEB4lz0gBXx62Hs=;
+        b=GENGj0FZYKnjOrLO10yMCVYri6L1qufbXNuUbvCL3bkLeLxcitbrHNzNYbUy70WqGg
+         76w8FFJswD4yV7IcroEuF3LqAYN8FJSNAc8jwrW9Ix3PbQeBI3w1AVWM5RDDMzEr+anL
+         d4aJIknmAGIEsdPKiOt2FDf+dMXLiVLRr69y1fQz2uP4Ih+RQU71IX6sBceJPnYB+8QR
+         eJ6ins480rIfUP0ktYf1IChlWQkxUSQcm1CyDzpALjB1NSpqcnI0G7vNJyvPC77QhLns
+         4MtqabuqzQ/PCdDJFc3RPeP829tHOb0K8PLMTp21TK1Ci4ZiABwB5JGZyzQi28vaa/aY
+         eTpw==
+X-Forwarded-Encrypted: i=1; AHgh+Rqw5K4bnl5aBzWg816oOIBPluOZ0jJGkNh6yzk4Sp5bLOcKqvhrr++ZCOVq65ztHxgRqMMqIzZVold+@vger.kernel.org
+X-Gm-Message-State: AFuF++mhYoU80SDdT3cuw+gVgMhkJKnWB70BdqMSDA39+y4nu9qoH2Zy
+	E7Kc7ucB9HY/4vAgin0Jj/jobPWmwwel6cNCSvk2JwHTgZUh+EkL5P77
+X-Gm-Gg: AR+sD109Mp108mklWxhDalztCkQihhXlcqpoyPhGiuFhtVUDQ/5mcHkcgJjnFlDF/hy
+	UPRSZ+CprxHhxvfJ3pJ97pL15+XkURcbt6t4p5tyVw4fdTfM20QnRMZ0+koH8F9e+9IixZSQPjq
+	xgmTlGbTZN6jPBe3HJwwypIw5VPYaSmcVDn4mOvyI3UG5DMm3YUPXljSCQKp3gv+EGI/48mIysw
+	ZpwpIn5vdP69+BBO138cpZ8Oo6lvO2rpjia23Y5ww0gKvw+VQVbcZ6MDdZ7x572UDUQOPPbvKnB
+	zjDNuYWq1z3fYnvVh7N5rn2P48HCHc+FMs19b9aODhipjH1UgcajfFSJotTKExmxqq1rzQKm+1X
+	u/Fl/CfEAl5rPP+JRKtHYaD3xtSQfAon9fs9zjQE4yTliNu3ro/OWpN/cq4vVGHaHDJW1pZ7f5o
+	OxvjkMhrk0NdaOxsmZ2MqYutXhlZ2vzv+l5Edvd/6CSXBYw/UYup7CHNyT+EDXAjzrzsgyQIqJy
+	hiDPPU8NiRwWgfmzoX3ZiAAI3HYVN5l/XL8ZsH2wWO0vaB/M4f+l00P1YoefNcrWAeikMEclxcs
+	m2dsVR6XAR1Qhek=
+X-Received: by 2002:a17:907:3ea8:b0:c24:6445:d19 with SMTP id a640c23a62f3a-c250c32b5e2mr549036966b.17.1787728806694;
+        Wed, 26 Aug 2026 00:20:06 -0700 (PDT)
 Received: from robert-83cx (static-dsl-191.87-197-115.telecom.sk. [87.197.115.191])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a88ab59sm298340066b.41.2026.08.26.00.20.04
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a88ab59sm298340066b.41.2026.08.26.00.20.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 00:20:04 -0700 (PDT)
+        Wed, 26 Aug 2026 00:20:06 -0700 (PDT)
 From: Robert Bozik <robertbozik@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
@@ -68,10 +70,12 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Robert Bozik <robertbozik@gmail.com>
-Subject: [PATCH 0/3] media: Add OmniVision OV32C4 sensor driver
-Date: Wed, 26 Aug 2026 09:19:59 +0200
-Message-ID: <20260826072002.14357-1-robertbozik@gmail.com>
+Subject: [PATCH 1/3] dt-bindings: media: i2c: Add OmniVision OV32C4
+Date: Wed, 26 Aug 2026 09:20:00 +0200
+Message-ID: <20260826072002.14357-2-robertbozik@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260826072002.14357-1-robertbozik@gmail.com>
+References: <20260826072002.14357-1-robertbozik@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -80,135 +84,137 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+Add a binding for the OmniVision OV32C4, a 32 megapixel RGBC CMOS image
+sensor with on-chip 4-cell fusion, a 4-lane MIPI CSI-2 D-PHY transmitter
+and the standard SCCB command interface.
 
-this series adds a driver for the OmniVision OV32C4, a 32 megapixel RGBC
-CMOS image sensor. It ships as the under-display camera in the Lenovo
-Yoga Slim 9 14ILL10, where it is enumerated through ACPI (_HID
-"OVTI32C4") behind an INT3472 discrete control logic node and feeds an
-Intel IPU7. The last patch adds the sensor to ipu-bridge; without it the
-bridge builds no fwnode graph for the sensor and the driver never binds.
+The sensor ships in laptops as an under-display camera, where it is
+described by ACPI; the binding follows ovti,ov08x40.yaml, which covers
+the closest relative already in tree.
 
-The driver supports 3264x1840 at 30 fps, 10-bit Bayer, 4 CSI-2 lanes at
-a 400 MHz link frequency, with exposure, analogue gain, digital gain,
-vblank, hblank and flip controls, runtime PM and .get_selection.
-
-Tested on the machine above: the sensor probes, streams continuously at
-a measured 30.00 fps, and the frames arrive complete (60 frames =
-720691200 bytes = 60 * 3264 * 1840 * 2, V4L2_PIX_FMT_SGRBG10 carrying
-one 16-bit sample per pixel). The full path up to a processed image was
-exercised with libcamera's software ISP.
-
-There is no public datasheet for this sensor, so a note on where the
-numbers come from, since that is the first thing a reviewer will want to
-know:
-
-  - The mode register table is the verbatim initialisation sequence from
-    the vendor Windows driver: 1787 writes, strictly ascending, copied
-    1:1 with nothing added or reordered.
-  - The register meanings the controls depend on (exposure 0x3500,
-    analogue gain 0x3508, digital gain 0x350a, VTS 0x380e, and the rule
-    exposure_max = VTS - 32) were read out of the same binary and then
-    confirmed against the values the chip reports.
-  - The derived timings were checked against reality: the computed
-    320000000 / (4080 * 2614) = 30.005 fps matches the measured 30.00.
-  - The 6560x4928 pixel array and the 6528x4896 active area reported by
-    .get_selection follow from the window registers of the mode table
-    and agree with the vendor's published product brief.
-
-The gain ranges in this series were measured on the sensor, not
-inherited: the vendor driver clamps gain a layer above and carries no
-limits of its own, and the obvious donor - ov13b10, same registers -
-puts analogue unity at 0x80, which turned out to be wrong here. Analogue
-response is exactly proportional between 0x100 and 0x7c0 (1x to 7.75x,
-0x100 also being the power-up value); digital gain is proportional with
-1024 as unity and clips to black one step above 16383. I mention it
-because these are the kind of constants that get copied between
-OmniVision drivers unchecked.
-
-Flip handling was measured the same way. This sensor preserves the Bayer
-order across mirror and flip, so the driver only toggles the bits and the
-media bus code never changes. I mention it because ov13b10 compensates the
-crop window by one pixel on the same registers to undo a Bayer shift; doing
-that here introduces one rather than removing it, which is easy to copy
-across by accident.
-
-Two things I would like reviewers to look at, because I am not confident
-they are right:
-
-1) The sensor core rail is gated by a companion chip that ACPI lists as
-   the second I2C resource of _CRS and that ipu-bridge instantiates as a
-   VCM. Without a single write of 0x04 to register 0x1001 on that chip,
-   the sensor does not answer on I2C at all. The driver currently does
-   that write itself with a bare i2c_transfer(), deliberately not
-   claiming the address so the VCM driver can still have it.
-
-   I am aware this bypasses both the I2C device model and the regulator
-   framework, and that the architecturally correct answer is probably a
-   regulator provided by the VCM driver, consumed here as dvdd-supply.
-   I did not want to redesign ipu-bridge's VCM handling as part of an
-   initial sensor submission, so I am asking rather than assuming. If
-   the bare write is not acceptable, I am happy to do it properly -
-   I would just like guidance on the shape.
-
-2) While streaming, the IPU7 receiver reports exactly one
-
-     csi2-0 error: Received packet is too long
-
-   per frame. It is not a lost or corrupted frame: bit 2 of the D-PHY
-   error register ("unrecognised data type") never fires, the image data
-   is complete, and the byte count above is exact.
-
-   I could not make it go away from the sensor side. All of 0x4800-0x48FF
-   and 0x3800-0x38FF were swept register by register - 512 measurements -
-   and no value silences it while streaming continues. The vendor driver
-   does not suppress it either; it exposes EnableEmbeddedData next to the
-   MIPI link parameters and the Windows IPU stack has a matching
-   GetEmbeddedData path, i.e. Windows receives that extra packet rather
-   than turning it off.
-
-   Receiving it on Linux would need metadata capture in the IPU7 driver,
-   which is marked as a TODO there today, plus a second frame descriptor
-   entry - and adding that entry alone makes the IPU7 wait for a second
-   capture node that does not exist in the graph, so streaming stops.
-   I therefore left the driver reporting a single stream and am
-   documenting the warning here rather than papering over it.
-
-Tooling disclosure, as asked for by Documentation/process/generated-content.rst:
-this series was written with the help of an AI coding assistant (Claude,
-Anthropic; claude-opus-5 for the early work, claude-fable-5 for the rest)
-in an extended interactive session. The assistant drafted the driver
-source, the binding and this cover letter from my descriptions of the
-hardware and of the vendor driver; every register meaning, gain range and
-timing in it was measured by me on the sensor as described above, I ran
-all of the tests, and I have reviewed and understand all of the code and
-take responsibility for it. The mode register table was copied 1:1 from
-the vendor driver, not generated. Static checks used: checkpatch.pl
---strict, sparse (C=1), W=1 and dt_binding_check. The individual patches
-carry Assisted-by tags.
-
-The series applies to media_stage.git; base-commit is below.
-
-Thanks,
-Robert
-
-Robert Bozik (3):
-  dt-bindings: media: i2c: Add OmniVision OV32C4
-  media: i2c: Add driver for OmniVision OV32C4
-  media: ipu-bridge: Add OmniVision OV32C4
-
- .../bindings/media/i2c/ovti,ov32c4.yaml       |  109 +
- MAINTAINERS                                   |    8 +
- drivers/media/i2c/Kconfig                     |   11 +
- drivers/media/i2c/Makefile                    |    1 +
- drivers/media/i2c/ov32c4.c                    | 2839 +++++++++++++++++
- drivers/media/pci/intel/ipu-bridge.c          |   10 +
- 6 files changed, 2978 insertions(+)
+Signed-off-by: Robert Bozik <robertbozik@gmail.com>
+Assisted-by: Claude:claude-opus-5 sparse
+Assisted-by: Claude:claude-fable-5 sparse
+---
+ .../bindings/media/i2c/ovti,ov32c4.yaml       | 109 ++++++++++++++++++
+ 1 file changed, 109 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/media/i2c/ovti,ov32c4.yaml
- create mode 100644 drivers/media/i2c/ov32c4.c
 
-
-base-commit: 4900cad020c0580dfb1be27776ff10a4ef110cfa
+diff --git a/Documentation/devicetree/bindings/media/i2c/ovti,ov32c4.yaml b/Documentation/devicetree/bindings/media/i2c/ovti,ov32c4.yaml
+new file mode 100644
+index 000000000..be6067c75
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/ovti,ov32c4.yaml
+@@ -0,0 +1,109 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/ovti,ov32c4.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: OmniVision OV32C4 Image Sensor
++
++maintainers:
++  - Robert Bozik <robertbozik@gmail.com>
++
++description:
++  The OmniVision OV32C4 is a 32 megapixel RGBC (red, green, blue and clear)
++  CMOS image sensor in a 4-cell arrangement, with on-chip 4-cell fusion and
++  binning. It has a 6528x4896 active pixel array, a 4-lane MIPI CSI-2 D-PHY
++  transmitter and the standard SCCB command interface. The driver supports
++  3264x1840 at 30 fps, 10-bit Bayer, at a link frequency of 400 MHz.
++
++allOf:
++  - $ref: /schemas/media/video-interface-devices.yaml#
++
++properties:
++  compatible:
++    const: ovti,ov32c4
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++    description: Input clock (XVCLK), 19.2 MHz.
++
++  avdd-supply:
++    description: Analogue circuit voltage supply.
++
++  dovdd-supply:
++    description: I/O circuit voltage supply.
++
++  dvdd-supply:
++    description: Digital core voltage supply.
++
++  reset-gpios:
++    maxItems: 1
++    description: Active low GPIO connected to the XSHUTDOWN pad of the sensor.
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    additionalProperties: false
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        additionalProperties: false
++
++        properties:
++          data-lanes:
++            items:
++              - const: 1
++              - const: 2
++              - const: 3
++              - const: 4
++          link-frequencies: true
++          remote-endpoint: true
++
++        required:
++          - data-lanes
++          - link-frequencies
++          - remote-endpoint
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        camera@36 {
++            compatible = "ovti,ov32c4";
++            reg = <0x36>;
++
++            clocks = <&ov32c4_clk>;
++            assigned-clocks = <&ov32c4_clk>;
++            assigned-clock-rates = <19200000>;
++
++            avdd-supply = <&vreg_2p8>;
++            dovdd-supply = <&vreg_1p8>;
++            dvdd-supply = <&vreg_1p1>;
++
++            reset-gpios = <&tlmm 111 GPIO_ACTIVE_LOW>;
++
++            port {
++                ov32c4_ep: endpoint {
++                    remote-endpoint = <&csiphy0_ep>;
++                    data-lanes = <1 2 3 4>;
++                    link-frequencies = /bits/ 64 <400000000>;
++                };
++            };
++        };
++    };
++...
 -- 
 2.53.0
 
