@@ -1,587 +1,372 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FC023B47F9
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 08:32:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B4103B71C3;
+	Wed, 26 Aug 2026 08:32:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787733125; cv=none; b=uHEUUDa6wqHTRo9DJaiO3dG4DvQMdVX7iwOb/TCJ+bXJDUNCp8jJt7MEkleL2YD3YO0mqnXmbla8m6wWPlp4+Dvzjg74G9Hu1nJJ2e7uNS56i4E3s2tDL4R3noick/3KHh9JeGHtRsNYBm2cb0FopVrTTVLLxCwtFhZ9laXWiXk=
+	t=1787733149; cv=none; b=ateUIOCPjRdWqUYa5mF0h7odCN7qA3cTLGg17o1n2AwyUHsaepA1mjLv2ktt6WIsAfqjIsB0iQLWpFnEx9bXHZRkeTKXPrqXPKxxJ9x1Am4zbBhb4UYBBH3k95W1tp1FTjtJLk+Gu7UnHQnjLHkhIO16CGS23j0rk3TmU+gL7gA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787733125; c=relaxed/simple;
-	bh=molx6wNHpVFD8dERoMWxzC8GZ4abm1OM/aZ1U1Kc+FM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JPoUNoGKrl85tym5fL5ox+yNHUM5xakU2Rj20uzHgcVd9MIKEaoXobZZU0DO8p3GbsllSWI4FSzBLuxEjORwxsW1r8i3x1C1n3gc1CGhP6w1gc+GyPxfhic1JczA9QvwKTeO4S2KyKobEhrh1n5B2rGffC5TUtE81LIIupPQFZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MDIeXVl4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WpjTfJ7b; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787733149; c=relaxed/simple;
+	bh=XuEyL2T1VZz8TQ+8TN2gsz+OVuBAabLPOqtCCc25DqM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=AAEFlpufl1enUEPAYFmfLanZwbx/+8NZ527waBrvML9Dv0WiMNrEeNIbnhifTMXsvuKJj6RpvIRnWBzyV80NizY8i6xm0A24nPzDdn7XKgAAIam7dvp58RlazhsMeg7T9iAgZkZ1hekIebbIy6DYNS2Dz3rqyfqg0wUI1hT2uLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=fWUvqX7z; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MDIeXVl4";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WpjTfJ7b"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67Q6RqWH3210724
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 08:32:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	z9yMdtZ98NKucFL3fT0eal4xYtf0G2Y1o3E3Y+hKYm8=; b=MDIeXVl40BRL4bQ/
-	Ndr9FKsUOoPNoQuPMTV5mNNJcD+g/MAWbGvfawdjCLWVOmG5BJzy6NTyFvf3tivy
-	xDKr8elEym3qTioG3ZGVEWtilBfnnZOM8S3GJo/9SQqAHej6oqnSl8p6uGXik/4J
-	5ZN4Gjc6nMbFU708Bf/Tmtiw8NN7NyhBfZbP4yYxX9MCP19MSxi56MqDSWdU0Dlj
-	ffE9Rk29+x6CziwbsYosm8cCf7PJpzF75RsJjhxkFQj7d+dcYxCpjGObFG4bd3o+
-	UPmMGRAEVuLU6Y9ht08R/rWBDAF3mm4t1hY+np+Mi8y2lFsBWI8rT1PJABSwFlX5
-	ljEdsw==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9fgraxy1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 08:32:01 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3950b1371a7so1377470a91.2
-        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 01:32:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787733121; x=1788337921; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z9yMdtZ98NKucFL3fT0eal4xYtf0G2Y1o3E3Y+hKYm8=;
-        b=WpjTfJ7bZZZLX0UQvNGAtRIM+p+O3inFISZxKnlXG5l6rchGailT0YUCRfzDEPdDdj
-         DAyEl82iN6n/Rg3TbwmrDSvXtdvcg+R2+mccDSJ/6prYhaI4LNu+yYgl/2q52D74BDwQ
-         BgvmPVHtMwrnJAMqArcG0ZllQrXVpaO8GjV6JK6eL+w6NyU7TX+pZA4M0dJc1kZm860Q
-         H3xhB6sUUm3guSohriKjjqv0K+d4+dv+/KvBW4KE4Hb0oreWb+qwjx8ZbPV+BxzTwpIM
-         2BFxq696k8ShZ6iboeQcyr/sSo+vsrHtoA3CvCVOSBOIW4vHNnGMMEHhZx/VJJbqkJYu
-         O2BQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787733121; x=1788337921;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=z9yMdtZ98NKucFL3fT0eal4xYtf0G2Y1o3E3Y+hKYm8=;
-        b=NlvbaZ6zC1k5M3h8YMXI+Vq5fgznS/PEHop3LOw8QO5l5lxR6KUjPv8RsXuDh4WtAn
-         si0+FF9XX9rcHPFhRUYBMWO0PzBb6n28lhIg/FzfVI+weAHgL1wNIhZIFYLiFwcOnE32
-         V2Ld0/hLUMUhe05HnF1zBo+j9eevq1xI+0SN7j6BHhfYW+miAI9MNO0YeltJcgrsdllb
-         iYKy5SXnMc57c6snaKZ/hR4VMclHwTHXaSczWqsdDZ4L+g3J6oGoGz0DAgwBJ2DT6n22
-         IBHxR+xQnVMWnpKOjXyngokj6GfSUU0o6NFIMEfiNUQ3hE8FxY9/2KbGW4XdN/mH84uE
-         gB+g==
-X-Forwarded-Encrypted: i=1; AHgh+RoPcHNkCFAsmqDBdN6u8na6jmSYuIyidFvO10r/3DXFrjE0RQSAoYMtkjRCkd4mKnxFtdjN6bRmyV0/@vger.kernel.org
-X-Gm-Message-State: AFuF++kYnw0UyW8INZU/80iMsC7JE7Tk6DJ0T81midmHMRm3Q7nORBg/
-	jZQpCbCpFAMMkHj/QI2LoJWgUCIOuGPxWWS0yUT0z4QdO7/5N8lg6ExMwgpbifryRz96+42ZNHs
-	MSyKObBGdtBD+NcKI0VJCSa9ltbzcaSmblhlPW/d28B+sWi0KGM6LcSLQZ+9SuqLn
-X-Gm-Gg: AR+sD10d3+PboeUw/QoX9/i9Ha0IszZFj5FcI5jAWY203FMGU+0GsWT/EQbspEO12cD
-	ae4hycidi6HfV2rnXd79f1cnN54P0JtNgm6KQtoESlIXk3oGN5AV11epvUVPQR5mMzRtfnS0s/g
-	7H0yOhL/Li03z7403XAFvbmwmU8vi7UB4c98XuvhXQVyyJ2Kis5wJ9RSu7s50bZf9Ti4Vsn6Yc2
-	cFq2nSiTydIK+Ay9pC0qCQhaclihwB5i6vBV56ltIFg774ZpYERkMd65VPF6hRV6BoE7trH8X0Q
-	y5v1M1YkPucQff4d5Dtv5AVvT0QRAAeCb3/13p4sHNH53Q0aFCKyDsjx3+QLzUy/tI6vBTQwai3
-	Bpzcq4GRDoApv7dN2LD/7JYQqLSvvnM+6sZPJNLA=
-X-Received: by 2002:a17:90b:1dcf:b0:38f:57f0:1f5d with SMTP id 98e67ed59e1d1-3966d461cc7mr11565268a91.15.1787733120742;
-        Wed, 26 Aug 2026 01:32:00 -0700 (PDT)
-X-Received: by 2002:a17:90b:1dcf:b0:38f:57f0:1f5d with SMTP id 98e67ed59e1d1-3966d461cc7mr11565126a91.15.1787733120100;
-        Wed, 26 Aug 2026 01:32:00 -0700 (PDT)
-Received: from [10.218.21.154] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283da08e23sm6434631eec.29.2026.08.26.01.31.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 26 Aug 2026 01:31:59 -0700 (PDT)
-Message-ID: <bf6e42b4-ff21-4b6c-a7d5-024e5b9a7da4@oss.qualcomm.com>
-Date: Wed, 26 Aug 2026 14:01:52 +0530
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="fWUvqX7z"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 1C9E34E413BC;
+	Wed, 26 Aug 2026 08:32:22 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E142A604EC;
+	Wed, 26 Aug 2026 08:32:21 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7B26F11C7AC7A;
+	Wed, 26 Aug 2026 10:32:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1787733136; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=iHf3NfwJeH5Imme6IQkkY+C70LdYj3DtXtyLsu2TBno=;
+	b=fWUvqX7zfMrC6WJNIL57SLFPkPSu04SaIWjW7vMEVBawnqvsZSr9D2VsIG6scGiNHTNVJo
+	W5hRZz7OumsNenQeEGKC1q0nW2sVkAyUbGk1eU8mLtaTqtV8/Lk9ZRwduDWhwGoCsSN7BS
+	z2xARKH033rr7+d4gI8PdZsRIGp+U+EkEiR5wstvkuptPniNyDru38bcrUS2gNGyGzxN8j
+	v/K9SCMXXUWkeYfGVfPHX66lRmng9BC2SuDKxP0fJLrvcYDhO9uAs2xMongKrJn/PYKafd
+	rQN5C4HJ63AkuqKuRKEa41sywV3chTHBgRuwSNRFAoUuiuIq1iu0vCNCx7ODFQ==
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Herve Codina <herve.codina@bootlin.com>
+Subject: [PATCH v3 00/15] Add support for structured tags and v18 dtb version
+Date: Wed, 26 Aug 2026 10:31:31 +0200
+Message-ID: <20260826083146.304291-1-herve.codina@bootlin.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/9] ASoC: dt-bindings: qcom,qaif-cpu: Add binding
-To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>,
-        Srinivas Kandagatla <srini@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
-        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>
-References: <20260824063627.3595610-1-harendra.gautam@oss.qualcomm.com>
- <20260824063627.3595610-2-harendra.gautam@oss.qualcomm.com>
-Content-Language: en-US
-From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-In-Reply-To: <20260824063627.3595610-2-harendra.gautam@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: pSSc4eeK5WWNyZBBGogRliCMi3LkDZjp
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDA3MCBTYWx0ZWRfXyeonh1a6CHaB
- LJnaLF3QINQJVBC+LNr4v9EbbC/+JeM6ueRYw8xw2s6B75JMsn7e40IeqQu5PwBGyD5RuRxwkhs
- IOStd41hMKQTI40qxSFvekTwf+IkwtkZv6cXyl1hsZqq3h71Eevt2GhY64M3eQyu1QCEO1Fg/N/
- FH0FnXXOwkPxbI61gzv5s7jqeuNTKKFM3iZLip2NP1N6t0MKR0vuWXzb80nqwpLyicOL7vYS5Ff
- QQXWX4O7cW/ehk1ZVD8vP7asQSjL931KI8ew8PIU6M8ZWbiF3XK6h1ZBlzxKtxmVQJEJkXrCbat
- ZCqlEhZJgHr7+Vr6KZwRe9vytcEkEyFdzcEiQHWbmxCLQBImpzm2eUDJZRRrC4vIkDq8s/PrKOq
- Sb/i7NVSuqfadV13oQQ+MIi7lYD1CaqW1jjhELrVEApoyP9gvBQQ3SyOZ6jKiTcy9W0JjirW54j
- taTZJ9Aq9B96+cXT0kQ==
-X-Authority-Analysis: v=2.4 cv=d8LFDxjE c=1 sm=1 tr=0 ts=6a8ea481 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=KZlKgKkt_G_pPc5fHyQA:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-ORIG-GUID: pSSc4eeK5WWNyZBBGogRliCMi3LkDZjp
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDA3MCBTYWx0ZWRfX+eumatRf4Qyf
- dpQ5oAQd/ZPjVBf1dthylspsHVV4pAmoDrrdVFalthu8HjZnyKVImuMfwLUNV7HZvWui1pzx00A
- QMBWmobjMtFYugLD+Vxh8Gj8BHGE1vc=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-26_02,2026-08-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0
- bulkscore=0 priorityscore=1501 adultscore=0 spamscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260070
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
+Previously, I sent a RFC series related to support for metadata and
+addon device-trees [1].
 
+During the discussion the concept of structured tags and "unknown" tags
+emerged as well as the need to have them handled as a prerequisite of
+support for metadata and addon.
 
-On 8/24/2026 12:06 PM, Harendra Gautam wrote:
-> QAIF routes audio between system memory, external PCM/TDM/MI2S serial
-> interfaces and the internal Bolero/WCD codec. Platform Devicetree files
-> need a binding to describe the controller resources, DAI cells and per-
-> interface AIF configuration, and named constants to avoid raw numeric IDs
-> in sound-dai references and child-node reg values.
-> 
-> Describe the MMIO region, interrupt, clocks, DMA IOMMU mapping and
-> aif-interface child nodes required by the controller.
-> 
-> Signed-off-by: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-> ---
->   .../bindings/sound/qcom,qaif-cpu.yaml         | 307 ++++++++++++++++++
->   include/dt-bindings/sound/qcom,qaif.h         |  97 ++++++
->   2 files changed, 404 insertions(+)
->   create mode 100644 Documentation/devicetree/bindings/sound/qcom,qaif-cpu.yaml
->   create mode 100644 include/dt-bindings/sound/qcom,qaif.h
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,qaif-cpu.yaml b/Documentation/devicetree/bindings/sound/qcom,qaif-cpu.yaml
-> new file mode 100644
-> index 000000000000..134356114733
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/qcom,qaif-cpu.yaml
-> @@ -0,0 +1,307 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/qcom,qaif-cpu.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm Audio Interface (QAIF) CPU DAI Controller
-> +
-> +maintainers:
-> +  - Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-> +
-> +description: |
-> +  The Qualcomm Audio Interface (QAIF) is a fully configurable DMA-based
-> +  audio subsystem controller. It serialises and deserialises PCM audio
-> +  between system memory and external serial audio peripherals (PCM, TDM,
-> +  I2S, MI2S) through the AIF path, and transfers parallel audio between
-> +  memory and an internal WCD codec through the CIF path.
-> +
-> +  AIF (Audio Interface): up to 13 multi-lane Unified Audio Interfaces,
-> +  each supporting up to 8 independent data lanes. Each lane is individually
-> +  configurable as TX (output/speaker) or RX (input/mic). All lanes of an
-> +  interface share a single bit clock and frame sync. Supported modes are
-> +  PCM (short/long sync), TDM, and MI2S (stereo/mono). Per-interface
-> +  configuration includes sync source (master/slave), sync mode, sync delay,
-> +  sync inversion, slot width (8/16/24/32-bit), sample width, active slot
-> +  masks (up to 32 slots), bits-per-lane frame size, lane enable/direction
-> +  masks, loopback, output-enable control, and full-cycle path support for
-> +  long chip-to-chip connections.
-> +
-> +  CIF (Codec Interface): up to 10 RDDMA (playback) and 10 WRDMA (capture)
-> +  channels connecting to an internal codec over a parallel bus. Each channel
-> +  supports active-channel enable mask (up to 16 channels), frame-sync
-> +  selection, frame-sync delay, frame-sync output gating, dynamic clock
-> +  gating, and 16-bit packing/unpacking.
-> +
-> +  Note on RX/TX naming convention: in QAIF, TX refers to the output
-> +  (speaker/playback) direction and RX refers to the input (mic/capture)
-> +  direction. This applies to both AIF lane directions and CIF slot/mask
-> +  properties.
-> +
-> +  DMA engine: RDDMA fetches audio from DDR/TCM/LPM into a shared SRAM
-> +  latency buffer (SHRAM) and drains it to the interface. WRDMA collects
-> +  data from the interface into SHRAM and writes it to memory. Each DMA
-> +  owns a private SHRAM region defined by start address and length registers.
-> +  Burst sizes of 1/2/4/8/16 beats (64-bit) are supported with up to 4
-> +  outstanding transactions per DMA. Two QSB master ports (QXM0 for TCM,
-> +  QXM1 for DDR/LPM) provide the memory interface.
-> +
-> +  Resources are partitioned among up to 5 Execution Engines (EEs) via
-> +  EE map registers. Each EE owns a set of DMAs, audio interfaces, and
-> +  interface groups, and receives its own independent interrupt output.
-> +  The interrupt hierarchy has a two-level structure: a summary register
-> +  identifies the event class (DMA period, underflow/overflow, error
-> +  response, audio interface underflow/overflow, group done, rate detector,
-> +  VFR), and per-resource status registers identify the specific channel.
-> +
-> +  Interface grouping (bonding) allows up to 6 groups of audio and codec
-> +  interfaces to start synchronously and align their DMA period interrupts
-> +  within half a frame duration using the RDDMA padding feature.
-> +
-> +  Two rate detector blocks measure the frequency of incoming frame sync or
-> +  word select signals and generate interrupts on rate change, undetected
-> +  rate, or sync timeout.
-> +
-> +  Block diagram::
-> +
-> +    System Memory (DDR / LPM / TCM)
-> +    +---------------------------------+
-> +    |  Circular Buffers (ping-pong)   |
-> +    +----------+----------+-----------+
-> +               |          ^
-> +         64-bit AXI  64-bit AXI
-> +               |          |
-> +    +----------v----------+-----------+
-> +    |        QSB Master Ports         |
-> +    |  +----------+  +----------+     |
-> +    |  |   QXM0   |  |   QXM1   |     |
-> +    |  +----+-----+  +-----+----+     |
-> +    +-------|--------------|----------+
-> +            |              |
-> +    +-------v--------------v----------+
-> +    |         Shared RAM (SHRAM)       |
-> +    |  +------------+  +------------+ |
-> +    |  | QXM0 Read  |  | QXM0 Write | |
-> +    |  | SHRAM      |  | SHRAM      | |
-> +    |  +------------+  +------------+ |
-> +    |  +------------+  +------------+ |
-> +    |  | QXM1 Read  |  | QXM1 Write | |
-> +    |  | SHRAM      |  | SHRAM      | |
-> +    |  +------------+  +------------+ |
-> +    +---+--------+--------+-------+---+
-> +        |        |        |       |
-> +    +---v--+  +--v---+ +--v---+ +-v----+
-> +    |RDDMA |  |RDDMA | |WRDMA | |WRDMA |
-> +    | AIF  |  | CIF  | | AIF  | | CIF  |
-> +    |[0..n]|  |[0..n]| |[0..n]| |[0..n]|
-> +    +--+---+  +--+---+ +--+---+ +-+----+
-> +       |         |       ^          ^
-> +       | TX      | TX    | RX       | RX
-> +       v         v       |          |
-> +    +--+--------------------+  +----+----------+
-> +    |  Unified Audio Intf   |  | Codec DMA     |
-> +    |  (AIF 0..12)          |  | Interface     |
-> +    |                       |  | (CIF)         |
-> +    |  AUD_INTFa block:     |  |               |
-> +    |  - Serializer (TX)    |  | RDDMA: DDR -> |
-> +    |  - De-serializer (RX) |  |   internal    |
-> +    |  - Sync gen/detect    |  |   codec       |
-> +    |  - Up to 8 data lanes |  | WRDMA: codec  |
-> +    |  - PCM / TDM / MI2S   |  |   -> DDR      |
-> +    |  - Near Pad Logic     |  | Up to 16 ch   |
-> +    +--+--------------------+  +----+----------+
-> +       |  Lane 0..7 (TX/RX)       |  Parallel bus
-> +       |  Bit clk + Frame sync    |  + Frame sync
-> +       v                          v
-> +    +--+--------+          +------+------+
-> +    | External  |          | Internal    |
-> +    | Serial    |          | Digital     |
-> +    | Peripherals|         | Codec       |
-> +    | (PCM/TDM/ |          | (Bolero/    |
-> +    |  MI2S)    |          |  WCD)       |
-> +    +-----------+          +-------------+
-> +
-> +allOf:
-> +  - $ref: dai-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: qcom,shikra-qaif-cpu
-> +
-> +  reg:
-> +    maxItems: 1
-> +    description: QAIF core registers
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +    description:
-> +      QAIF summary interrupt for this Execution Engine. Signals DMA period
-> +      completion, buffer underflow/overflow, error response, audio interface
-> +      underflow/overflow, interface-group done, rate detector and VFR events.
-> +
-> +  iommus:
-> +    maxItems: 1
-> +    description: Phandle to apps_smmu node with sid mask
-> +
-> +  dma-coherent: true
-> +
-> +  clocks:
-> +    minItems: 5
-> +    maxItems: 9
-> +
-> +  clock-names:
-> +    description:
-> +      The first five clocks are always required. Any further entries are the
-> +      per-AIF bit clocks (aif_if<N>_ibit), supplied in order starting from
-> +      AIF interface 0 for as many serial AIF interfaces as the board uses.
-> +    minItems: 5
-> +    items:
-> +      - const: lpass_config
-> +      - const: lpass_core_axim
-> +      - const: aud_dma
-> +      - const: aud_dma_mem
-> +      - const: bus
-> +      - const: aif_if0_ibit
-> +      - const: aif_if1_ibit
-> +      - const: aif_if2_ibit
-> +      - const: aif_if3_ibit
-> +
-> +  '#sound-dai-cells':
-> +    const: 1
-> +
-> +  '#address-cells':
-> +    const: 1
-> +
-> +  '#size-cells':
-> +    const: 0
-> +
-> +patternProperties:
-> +  '^aif@[0-9a-f]+$':
-> +    type: object
-> +    description:
-> +      QAIF AIF interface child node for PCM, TDM or MI2S configuration.
-> +
-> +    properties:
-> +      reg:
-> +        maxItems: 1
-> +        description:
-> +          DAI ID of the AIF interface (QAIF_MI2S_AIF* or QAIF_TDM_AIF*).
-> +
-> +      dai-format:
-> +        description: Serial audio interface format (MI2S, TDM or PCM).
-> +        enum: [i2s, dsp_a, dsp_b]
-> +
-> +      dai-tdm-slot-width:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        enum: [8, 16, 24, 32]
-> +        description:
-> +          Slot width in bits.
-> +
-> +      dai-tdm-slot-num:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        description:
-> +          Number of slots per lane.
-> +        minimum: 1
-> +        maximum: 32
-> +
-> +      dai-tdm-slot-rx-mask:
-> +        $ref: /schemas/types.yaml#/definitions/uint32-array
-> +        description:
-> +          Active RX slots, one entry per slot. A nonzero value marks the
-> +          slot as active.
-> +        minItems: 1
-> +        maxItems: 32
-> +
-> +      dai-tdm-slot-tx-mask:
-> +        $ref: /schemas/types.yaml#/definitions/uint32-array
-> +        description:
-> +          Active TX slots, one entry per slot. A nonzero value marks the
-> +          slot as active.
-> +        minItems: 1
-> +        maxItems: 32
-> +
-> +      qcom,qaif-aif-lane-map:
-> +        $ref: /schemas/types.yaml#/definitions/uint32-array
-> +        description:
-> +          Per-lane direction map, one entry per lane starting from lane 0.
-> +          Use 0 for TX (output/speaker) and 1 for RX (input/mic).
-> +        minItems: 1
-> +        maxItems: 8
-> +        items:
-> +          enum: [0, 1]
-> +
-> +    required:
-> +      - reg
-> +      - dai-format
-> +      - qcom,qaif-aif-lane-map
-> +
-> +    if:
-> +      properties:
-> +        dai-format:
-> +          enum: [dsp_a, dsp_b]
-> +    then:
-> +      required:
-> +        - dai-tdm-slot-width
-> +        - dai-tdm-slot-num
-> +        - dai-tdm-slot-rx-mask
-> +        - dai-tdm-slot-tx-mask
-> +
-> +    additionalProperties: false
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - iommus
-> +  - clocks
-> +  - clock-names
-> +  - '#sound-dai-cells'
-> +  - '#address-cells'
-> +  - '#size-cells'
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    soc {
-> +        #address-cells = <2>;
-> +        #size-cells = <2>;
-> +
-> +        qaif_cpu: audio-controller@a000000 {
-> +            compatible = "qcom,shikra-qaif-cpu";
-> +            reg = <0x0 0x0a000000 0x0 0x20000>;
-> +            interrupts = <0 331 4>;
-> +            iommus = <&apps_smmu 0x1c0 0x0>;
-> +            clocks = <&gcc 213>,
-> +                     <&gcc 214>,
-> +                     <&audiocorecc 15>,
-> +                     <&audiocorecc 17>,
-> +                     <&audiocorecc 18>,
-> +                     <&audiocorecc 5>,
-> +                     <&audiocorecc 8>,
-> +                     <&audiocorecc 11>,
-> +                     <&audiocorecc 14>;
-> +            clock-names = "lpass_config",
-> +                          "lpass_core_axim",
-> +                          "aud_dma",
-> +                          "aud_dma_mem",
-> +                          "bus",
-> +                          "aif_if0_ibit",
-> +                          "aif_if1_ibit",
-> +                          "aif_if2_ibit",
-> +                          "aif_if3_ibit";
-> +            #sound-dai-cells = <1>;
-> +            #address-cells = <1>;
-> +            #size-cells = <0>;
-> +
-> +            aif@d7 {
-> +                reg = <215>;
-> +                dai-format = "dsp_a";
-> +                dai-tdm-slot-width = <32>;
-> +                dai-tdm-slot-num = <2>;
-> +                dai-tdm-slot-rx-mask = <1 1>;
-> +                dai-tdm-slot-tx-mask = <1 1>;
-> +                qcom,qaif-aif-lane-map = <1 0>;
-> +            };
-> +        };
-> +    };
-> diff --git a/include/dt-bindings/sound/qcom,qaif.h b/include/dt-bindings/sound/qcom,qaif.h
-> new file mode 100644
-> index 000000000000..24706efd07d1
-> --- /dev/null
-> +++ b/include/dt-bindings/sound/qcom,qaif.h
-> @@ -0,0 +1,97 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + *
-> + * DAI IDs for the Qualcomm Audio Interface (QAIF) controller.
-> + * QAIF_MI2S_AIF* and QAIF_TDM_AIF* values are used in sound-dai
-> + * references and as the reg value of aif@N child nodes.
-> + * QAIF_CDC_DMA_* values are for sound-dai references only and must
-> + * not be used as aif@N child node reg values.
-> + */
-> +#ifndef __DT_QCOM_QAIF_H
-> +#define __DT_QCOM_QAIF_H
-> +
-> +/*
-> + * MI2S DAI IDs -- one per physical AIF port in MI2S mode.
-> + * Each port supports up to 2 channels (stereo I2S) over a single
-> + * data lane sharing a bit clock and frame sync.
-> + */
-> +#define QAIF_MI2S_AIF0		200
-> +#define QAIF_MI2S_AIF1		201
-> +#define QAIF_MI2S_AIF2		202
-> +#define QAIF_MI2S_AIF3		203
-> +#define QAIF_MI2S_AIF4		204
-> +#define QAIF_MI2S_AIF5		205
-> +#define QAIF_MI2S_AIF6		206
-> +#define QAIF_MI2S_AIF7		207
-> +#define QAIF_MI2S_AIF8		208
-> +#define QAIF_MI2S_AIF9		209
-> +#define QAIF_MI2S_AIF10		210
-> +#define QAIF_MI2S_AIF11		211
-> +#define QAIF_MI2S_AIF12		212
-> +
-> +/*
-> + * TDM DAI IDs -- one per physical AIF port in TDM mode.
-> + * Each port supports up to 8 channels over up to 8 independent data
-> + * lanes sharing a single bit clock and frame sync.
-> + */
-> +#define QAIF_TDM_AIF0		213
-> +#define QAIF_TDM_AIF1		214
-> +#define QAIF_TDM_AIF2		215
-> +#define QAIF_TDM_AIF3		216
-> +#define QAIF_TDM_AIF4		217
-> +#define QAIF_TDM_AIF5		218
-> +#define QAIF_TDM_AIF6		219
-> +#define QAIF_TDM_AIF7		220
-> +#define QAIF_TDM_AIF8		221
-> +#define QAIF_TDM_AIF9		222
-> +#define QAIF_TDM_AIF10		223
-> +#define QAIF_TDM_AIF11		224
-> +#define QAIF_TDM_AIF12		225
-> +
-> +/*
-> + * CIF (Codec Interface) RX DAI IDs -- playback to internal codec.
-> + * RDDMA channels fetch audio from memory and drain it to the codec.
-> + */
-> +#define QAIF_CDC_DMA_RX0	226
-> +#define QAIF_CDC_DMA_RX1	227
-> +#define QAIF_CDC_DMA_RX2	228
-> +#define QAIF_CDC_DMA_RX3	229
-> +#define QAIF_CDC_DMA_RX4	230
-> +#define QAIF_CDC_DMA_RX5	231
-> +#define QAIF_CDC_DMA_RX6	232
-> +#define QAIF_CDC_DMA_RX7	233
-> +#define QAIF_CDC_DMA_RX8	234
-> +#define QAIF_CDC_DMA_RX9	235
-> +
-> +/*
-> + * CIF (Codec Interface) TX DAI IDs -- capture from internal codec.
-> + * WRDMA channels collect audio from the codec and write it to memory.
-> + */
-> +#define QAIF_CDC_DMA_TX0	236
-> +#define QAIF_CDC_DMA_TX1	237
-> +#define QAIF_CDC_DMA_TX2	238
-> +#define QAIF_CDC_DMA_TX3	239
-> +#define QAIF_CDC_DMA_TX4	240
-> +#define QAIF_CDC_DMA_TX5	241
-> +#define QAIF_CDC_DMA_TX6	242
-> +#define QAIF_CDC_DMA_TX7	243
-> +#define QAIF_CDC_DMA_TX8	244
-> +#define QAIF_CDC_DMA_TX9	245
-> +
-> +/*
-> + * CIF (Codec Interface) VA TX DAI IDs -- capture from voice activity codec.
-> + * WRDMA channels collect audio from the VA codec and write it to memory.
-> + */
-> +#define QAIF_CDC_DMA_VA_TX0	246
-> +#define QAIF_CDC_DMA_VA_TX1	247
-> +#define QAIF_CDC_DMA_VA_TX2	248
-> +#define QAIF_CDC_DMA_VA_TX3	249
-> +#define QAIF_CDC_DMA_VA_TX4	250
-> +#define QAIF_CDC_DMA_VA_TX5	251
-> +#define QAIF_CDC_DMA_VA_TX6	252
-> +#define QAIF_CDC_DMA_VA_TX7	253
-> +#define QAIF_CDC_DMA_VA_TX8	254
-> +#define QAIF_CDC_DMA_VA_TX9	255
-> +
+The conclusion was the need for a new dtb version (v18) with support
+for:
+  - Structured tags and based on them, "unknown" tags.
+    Those structured tags allow to have an standardized definition of
+    tags with the capability of skipping a tag and its related data
+    when a "unknown" tag is incountered by a given version of libfdt,
+    dtc and tools. Those "unknown" tags are tags defined in future
+    versions. Even if they exact meaning is unknown for an 'old'
+    version, they structure is understood and the 'old' version can skip
+    them without any errors if allowed.
 
-These DAI IDs exceed the LPASS_MAX_PORT limit, which will cause sound 
-card registration to fail.
+  - Flags in the dtb header (dt_flags).
+    The goal of this field is to have a placeholder to specify the
+    type of dtb we are dealing with. For instance, addons dtb will set a
+    flag in this placeholder
 
-Check sound/soc/qcom/common.c, as the current indices (246-255) are 
-beyond the supported LPASS port range.
+  - A last compatible version for writing purpose.
+    The goal of the new dtb header field (last_comp_version_w) is to
+    disable globally any modification. It works similarly to
+    last_comp_version but for modification. It can be used to avoid any
+    modification that could be done by an 'old' version and could lead
+    to inconsistencies between the modification itself and some
+    "unknown" tags.
 
-Best Regards,
-Rafi.
+This current series implements those features and leads to the v18 dtb
+version.
 
-> +#endif /* __DT_QCOM_QAIF_H */
+First patch is a fix/improvement of fdtget. IMHO, this patch could be
+taken even if other patches in the series lead to discussion.
+
+Patches 2 to 4 add support (and update tests) for a possible FDT_NOP tag
+at offset 0. Here also, those patches are fixes patches.
+
+Patch 5 is a preparation patch improving the test treegen tool.
+
+Patch 6 introduces the structured tags. The patch gives definitions
+needed to handle those tags.
+
+Patches 7, 8 and 9 handles "unknown" tags in fdtdump, dtc and libfdt.
+This is the reading part implementation related to "unknown" tags in
+tools and lib.
+
+Patch 9 to 13 are preparation commits for patch 14 and patch 14 itself
+is handling modifications (writing part) when unknown tags are involved.
+
+The last patch (patch 15) bumps the dtb version including changes that
+cannot be moved out of the version bump without having a v18 without all
+expected features.
+
+Also, several tests are added as soon as the related feature is
+supported. Those tests are part of the last commit adding the feature.
+
+As already said, this current series is a prerequisite to the support
+for metadata and addons. The RFC series related to metadata and addons
+[1] will be rebased on top of this prerequisite. Please, keep that in
+mind for the review of this current prerequisite series.
+
+[1] https://lore.kernel.org/all/20260112142009.1006236-1-herve.codina@bootlin.com/
+
+This v3 iteration is rebased on top of the last upstream code with also
+several additional modification mostly related to:
+  - feedback received on v2
+  - nopulate test improvement (FDT_NODE at offset 0)
+  - wip (write in place) modification missed in previous iteration
+
+Best regards,
+Hervé
+
+Changes:
+
+v2 -> v3
+  v2: https://lore.kernel.org/devicetree-compiler/20260409115426.352214-1-herve.codina@bootlin.com/
+
+  Rebase on top of the last master branch of the dtc repository.
+
+  Even if Frank Li has sent his 'Reviewed-by' tag on all v2 patches,
+  his 'Reviewed-by' tag is not added on patches having substantial
+  modification in this v3.
+
+  - Patch 1 (New patch):
+    Remove open coded loops in fdtget.
+
+  - Patch 2 (patch 1 and 2 in v2):
+    Squash v2 patch 1 and patch 2
+    Rename fdt_first_node() to fdt_root_offset()
+    Make fdt_root_offset() accessible from users of libfdt library.
+    Fix libfdt functions that must take care of root node offset vs
+    offset 0 (identified thanks to nopulate update and missed in v2):
+       - fdt_get_name(),
+       - fdt_first_property_offset(),
+       - fdt_supernode_atdepth_offset(),
+       - fdt_node_depth(),
+       - fdt_add_property_().
+    Update commit log
+    Add 'Reviewed-by: Frank Li'
+
+  - Patch 3 (new patch):
+    Update tests to avoid considering offset 0 as the expected offset
+    for the root node.
+
+  - Patch 4 (new patch):
+    Improve nopulate to add a FDT_NOP tag at offset 0 (i.e. before the
+    root node).
+
+  - Patch 5 (patch 3 in v2)
+    Port modification done on tree.S in v2 to the treegen tool
+
+  - Patch 6 (patch 4 in v2)
+    Force structured tags to be unsigned. This avoids later
+    signed/unsigned mismatch.
+    Add 'Reviewed-by: Frank Li'
+
+  - Patch 7 (patch 5 in v2)
+    Use treegen tool to generate unknown_tags_can_skip.dtb and
+    unknown_tags_no_skip.dtb.
+    Slightly modified unknown_tags_can_skip.dtb content.
+    Add 'Reviewed-by: Frank Li'
+
+  - Patch 8 (patch 6 in v2)
+    Update expected dtbs due to slightly modification in
+    unknown_tags_can_skip.dtb
+    Add 'Reviewed-by: Frank Li'
+
+  - Patch 9 (patch 7 in v2)
+    Rename fdt_is_unknown_tag() to fdt_tag_is_unknown()
+    Add 'Reviewed-by: Frank Li'
+
+  - Patch 10 (patch 8 in v2)
+    Add 'Reviewed-by: Frank Li'
+
+  - Patch 11 (New patch)
+    Introduce fdt_getprop_by_offset_w() and its related test.
+    This new function is needed for later fdt_wip modifications.
+
+  - Patch 12 (New patch)
+    Introduce fdt_getprop_offset_namelen() and its simple variant
+    fdt_getprop_offset(). This new function is needed for later fdt_wip
+    modifications
+
+  - Patch 13 (New patch)
+    Introduce wip_func, a test utility to call wip (write inplace)
+    functions family. This allows to write test with custom scenario
+    when unknown tags are involved.
+
+  - Patch 14 (patch 9 in v2)
+    Handle modification done using inplace functions (fdt_wip.c). Those
+    were missed in previous v2.
+    Add a test involving wip functions when unknown tags are present.
+    Update expected dtbs due to slightly modification in
+    unknown_tags_can_skip.dtb
+
+  - Patch 15 (patch 10 in v2)
+    Add a test for the dt_flags default value
+    Update header generation in treegen tool and use treegen tool to
+    generate last_comp_version_w.dtb
+    Add 'Reviewed-by: Frank Li'
+
+v1 -> v2
+  v1: https://lore.kernel.org/devicetree-compiler/20260316171640.6fb0d952@bootlin.com/T/#t
+
+  Rebase on top of the last master branch of the dtc repository.
+  Remove the RFC tag.
+
+  - Patches 1, 2, 3, 4 and 7 in v1: Removed
+    Already applied.
+
+  - Patch 1 (5 in v1)
+    Update the commit log.
+
+  - Patch 2 (6 in v1)
+    Fix a typo in the commit log.
+    Add a comment related to 'offset <= 0' in fdt_next_node().
+
+  - Patch 3 (8 in v1)
+    No change
+
+  - Patch 4 (9 in v1)
+    Fix typos in commit log.
+    Replace DATA_LNG_ENCODING by DATA_LEN_ENCODING in commit log.
+    Use SKIP_SAFE instead of CAN_SKIP in commit log.
+    Rename FDT_TAG_DATA_LNG to FDT_TAG_DATA_VARLEN in tags definition.
+    Rename FDT_TEST_LNG_CAN_SKIP to FDT_TEST_VARLEN_CAN_SKIP.
+
+  - Patch 5 (10 in v1)
+    Use FDT_TAG_DATA_VARLEN instead of FDT_TAG_DATA_LNG.
+    Use FDT_TEST_VARLEN_CAN_SKIP instead of FDT_TEST_LNG_CAN_SKIP.
+    Update values used in the unknown_tags_can_skip dtb test file.
+    Use 'len' instead of 'lng'
+    Update the '-uu' option help message.
+    Update the fdtdump test to be stricter (avoid removing some specific
+    comments related to unknown tags in sed command used in the test).
+
+  - Patch 6 (11 in v1)
+    Use FDT_TAG_DATA_VARLEN instead of FDT_TAG_DATA_LNG.
+    Update the dtc test due to unknown_tags_can_skip dtb changes.
+    Add 'Reviewed-by: Luca Ceresoli'
+
+  - Patch 7 (12 in v1)
+    Replace fdt_get_next() by fdt_next_tag() in commit title and log.
+    Fix a typo in commit log.
+    Use FDT_TAG_DATA_VARLEN instead of FDT_TAG_DATA_LNG.
+    Update the fdtget test due to unknown_tags_can_skip dtb changes.
+    Add 'Reviewed-by: Luca Ceresoli'
+
+  - Patch 8 (13 in v1)
+    Fix commit log.
+    Add 'Reviewed-by: Luca Ceresoli'
+
+  - Patch 9 (14 in v1)
+    Update the fdtput test due to unknown_tags_can_skip dtb and
+    fdtdump changes.
+    Add a missing ')' in commit log
+    Add 'Reviewed-by: Luca Ceresoli'
+
+  - Patch 10 (15 in v1)
+    Fix typos and clarify several parts of the commit log.
+
+Herve Codina (15):
+  fdtget: Use libfdt iterators instead of open coded loops
+  libfdt: Don't assume the root node is available at offset 0
+  tests: Don't assume the root node is available at offset 0
+  tests/nopulate: Add a FDT_NOP before the root node
+  tests: treegen: Introduce emit_fdt_header_vers()
+  Introduce structured tag value definition
+  fdtdump: Handle unknown tags
+  flattree: Handle unknown tags
+  libfdt: Handle unknown tags in fdt_next_tag()
+  libfdt: Introduce fdt_ptr_offset_()
+  libfdt: Introduce fdt_getprop_by_offset_w()
+  libfdt: Introduce fdt_getprop_offset_namelen()
+  tests: Add wip_func utility
+  libfdt: Handle unknown tags on dtb modifications
+  Introduce v18 dtb version
+
+ dtc.h                                         |   2 +-
+ fdtdump.c                                     |  53 ++++-
+ fdtget.c                                      |  73 ++----
+ flattree.c                                    | 102 +++++++-
+ libfdt/fdt.c                                  | 114 ++++++++-
+ libfdt/fdt.h                                  |  28 +++
+ libfdt/fdt_ro.c                               |  70 +++++-
+ libfdt/fdt_rw.c                               | 161 ++++++++++++-
+ libfdt/fdt_sw.c                               |   3 +
+ libfdt/fdt_wip.c                              |  28 ++-
+ libfdt/libfdt.h                               |  28 ++-
+ libfdt/libfdt_internal.h                      |  19 ++
+ libfdt/version.lds                            |   1 +
+ pylibfdt/libfdt.i                             |  18 ++
+ tests/.gitignore                              |   1 +
+ tests/Makefile.tests                          |   8 +-
+ tests/dtflags_default.dtb.expect              |   1 +
+ tests/dtflags_default.dts                     |  10 +
+ tests/get_prop_offset_w.c                     |  84 +++++++
+ tests/meson.build                             |   5 +
+ tests/node_offset_by_compatible.c             |   4 +-
+ tests/node_offset_by_prop_value.c             |  11 +-
+ tests/nopulate.c                              |   3 +
+ tests/path_offset.c                           |  13 +-
+ tests/pylibfdt_tests.py                       |  10 +-
+ tests/root_node.c                             |   6 +-
+ tests/run_tests.sh                            | 152 +++++++++++-
+ tests/tests.h                                 |   1 +
+ tests/testutils.c                             |  20 +-
+ tests/treegen.c                               | 219 +++++++++++++++++-
+ tests/unknown_tags_can_skip.dtb.dts.expect    |  19 ++
+ tests/unknown_tags_can_skip.dtb.expect        |  29 +++
+ ...own_tags_can_skip.fdtput.test.dtb.0.expect |  32 +++
+ ...own_tags_can_skip.fdtput.test.dtb.1.expect |  36 +++
+ ...own_tags_can_skip.fdtput.test.dtb.2.expect |  34 +++
+ ...own_tags_can_skip.fdtput.test.dtb.3.expect |  36 +++
+ ...own_tags_can_skip.fdtput.test.dtb.4.expect |  35 +++
+ ...own_tags_can_skip.fdtput.test.dtb.5.expect |  33 +++
+ ...own_tags_can_skip.fdtput.test.dtb.6.expect |  28 +++
+ ...nknown_tags_can_skip.wip.test.dtb.0.expect |  32 +++
+ ...nknown_tags_can_skip.wip.test.dtb.1.expect |  36 +++
+ ...nknown_tags_can_skip.wip.test.dtb.2.expect |  38 +++
+ ...nknown_tags_can_skip.wip.test.dtb.3.expect |  39 ++++
+ tests/wip_func.c                              | 127 ++++++++++
+ 44 files changed, 1688 insertions(+), 114 deletions(-)
+ create mode 100644 tests/dtflags_default.dtb.expect
+ create mode 100644 tests/dtflags_default.dts
+ create mode 100644 tests/get_prop_offset_w.c
+ create mode 100644 tests/unknown_tags_can_skip.dtb.dts.expect
+ create mode 100644 tests/unknown_tags_can_skip.dtb.expect
+ create mode 100644 tests/unknown_tags_can_skip.fdtput.test.dtb.0.expect
+ create mode 100644 tests/unknown_tags_can_skip.fdtput.test.dtb.1.expect
+ create mode 100644 tests/unknown_tags_can_skip.fdtput.test.dtb.2.expect
+ create mode 100644 tests/unknown_tags_can_skip.fdtput.test.dtb.3.expect
+ create mode 100644 tests/unknown_tags_can_skip.fdtput.test.dtb.4.expect
+ create mode 100644 tests/unknown_tags_can_skip.fdtput.test.dtb.5.expect
+ create mode 100644 tests/unknown_tags_can_skip.fdtput.test.dtb.6.expect
+ create mode 100644 tests/unknown_tags_can_skip.wip.test.dtb.0.expect
+ create mode 100644 tests/unknown_tags_can_skip.wip.test.dtb.1.expect
+ create mode 100644 tests/unknown_tags_can_skip.wip.test.dtb.2.expect
+ create mode 100644 tests/unknown_tags_can_skip.wip.test.dtb.3.expect
+ create mode 100644 tests/wip_func.c
+
+-- 
+2.55.0
 
