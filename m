@@ -1,86 +1,115 @@
-Received: from mta1.migadu.com (out-98.mta1.migadu.com [95.215.58.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73DD73655C4
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 11:22:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE8DB331200
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 11:23:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787743373; cv=none; b=UYIwt0PQaKqyaNWq0NLB47+sg4n00HCUFfmL8Uq28hRR1AGc4FL1UT0aFgMytUMw9ic1XCFlJzJAmv4H0Bg/9tHXFA/M4REGSVhBS4VNJUa45h1cdHwZWNX74Puh2cJG4rEUZyNDjO3MTAaq0+rzLIvWySBEjUcjdOi2h9ZHRLk=
+	t=1787743424; cv=none; b=Ffh/Wu/bZ2yGXZ+fOpLr69aet+hzznqtHDgdZZhfK08QEZrXOBKTaPGrFsrFvW+ae6PUmCyreJhxRkL8fh5xTkDSh3N7ETrl3fh/3xnhNRYu8mhDZiqA8iTw3RY14QWzWux6WIMq9YVce9rCY8/WPOGoX9efpe3wvf7xbzQikRo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787743373; c=relaxed/simple;
-	bh=fOb2OVVG3XUMB7ptZ91It5aeyBt3Cm8/AvkE/9QGcOI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=NJTkKNwWSTrHybPqC/qvEnGnVca7zZvgLzoGG/64bRQjNpvDrzT7AQA1mKqbQFenIcMmBdPRVJwFE3lgjhk+OBk3M7bxDTHYCyHP337GiyTLKxheyhC/IBdzVzavUf71OMoCJ65buQniOedn5rMqbvt0HHYCnFKBFaOXt0lf1nA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qTVAUsz5; arc=none smtp.client-ip=95.215.58.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787743424; c=relaxed/simple;
+	bh=j1Ye1/FYGOeZazO4RIxw3LOLwps9bDLaEAh2LI/8P/Q=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=gG707VFk7lqJnPBo6Aofix3ojMmIuv0Lo1TFHBuuOQQ9zbuWoPVcWoBAgTprgVYeGhTGnI7X19S0PJWBA1D1OsC5gDe01RVGhOVnYw5RNbs539P2s9pIOULxjmMwsrN+JqvUgjV+rsbfuNU6iqNylF6uMJnmnnf7iJz0KihR19k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VQZhqz2F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qTVAUsz5"
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=fOb2OVVG3XUMB7ptZ91It5aeyBt3Cm8/AvkE/9QGcOI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787743369; v=1; x=1788348169;
- b=qTVAUsz56kdWzKHXD7Sxq+c9REwCKBeXG6iAA+abv5HxIXmMd+HIShDgDSF/XB7svBItpKo6
- L6YLf0ZgWY2Th+xQCDZlcoFxaJtl48IIcVJ8osbuqRfrxvvSSqjgfe9bzrysJJSlp0PtXZNEiMw
- 92FjFCGxoaBgClS8prPlrCQY=
-X-Envelope-To: devicetree@vger.kernel.org
-Received: from claudy.local (2a01:4b00:ad36:1d00:3a05:25ff:fe33:35a9)
-	by smtp.migadu.com with ESMTPS id 4d6852ff7c79a2e6;
-	Wed, 26 Aug 2026 11:22:39 +0000
-X-Mizu-Trace-ID: 4d6852ff7c79a2e6
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>,
-	Will Deacon <will@kernel.org>,
-	Fuad Tabba <tabba@google.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] of/irq: Fix device node refcount leak in of_irq_get_affinity()
-Date: Wed, 26 Aug 2026 12:22:34 +0100
-Message-Id: <20260826112234.1033974-1-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VQZhqz2F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BF861F000E9;
+	Wed, 26 Aug 2026 11:23:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787743422;
+	bh=nDSsta1UhWkbWEV2l3sMGfrYpZab5LdWGuVzRkOEoLM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VQZhqz2F0IwB8C0FXZhWWa4qHxE8U5sQlRU1/w8MPTjnuC/tP/yoPevgLG6ZwDfPR
+	 Ya7Rtgd/ldvq4wd+iq0JO6lm4axVx0TxIC/kxQ6S3JImLAa+kVhL/J5zAFXvZnO2at
+	 P72m1d7eDByC6fqU429AsZnxt/5P8WsOr7SHRlP8pf/EPOi4KSELwzzoyBNGc5iRoP
+	 lWPh/lO5IjgxXOwdkmCTUGGqkaOrPOUOBWETjxYZsKT4In0tcvpG1rnIs1x70anjYT
+	 MkYXFiGGLzAvDoUCKsBTES1yscQDlx9nzolauTRTHpjaBp8n/ai5nXBnqD+w+2bYFs
+	 /5e9oP1LxjcSg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 03/10] dtc: dt-check-style: Fix alignment of values
+ in continued property lines
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260826-n-dts-style-checker-continued-v6-3-f270b1e81f8e@oss.qualcomm.com>
+References: <20260826-n-dts-style-checker-continued-v6-0-f270b1e81f8e@oss.qualcomm.com>
+ <20260826-n-dts-style-checker-continued-v6-3-f270b1e81f8e@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 26 Aug 2026 11:23:42 +0000
+Message-Id: <20260826112342.7BF861F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-of_irq_parse_one() raises the refcount of the interrupt controller node
-on success, and of_irq_get_affinity() returns without putting it, so
-every call past the parse leaks one reference. It is reached from
-platform_get_irq_affinity(), used by arm_pmu, arm_spe_pmu and
-coresight-trbe.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Incorrect continuation alignment target column calculation when =
+block comments precede the first '<' or '"'.
+--
 
-Put it once irq_populate_fwspec_info() has run: no in-tree
-->get_fwspec_info() returns a mask that lives in the node.
+commit 88a2bc80735f633fd569467a745101b91a3872d0
+Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Fixes: 5404f5c06dd4 ("of/irq: Add interrupt affinity reporting interface")
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
- drivers/of/irq.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+dtc: dt-check-style: Fix alignment of values in continued property lines
 
-diff --git a/drivers/of/irq.c b/drivers/of/irq.c
-index 967c191008797..ec035367c9500 100644
---- a/drivers/of/irq.c
-+++ b/drivers/of/irq.c
-@@ -563,7 +563,9 @@ const struct cpumask *of_irq_get_affinity(struct device_node *dev, int index)
- 	of_phandle_args_to_fwspec(oirq.np, oirq.args, oirq.args_count,
- 				  &fwspec);
- 
--	if (irq_populate_fwspec_info(&fwspec, &info))
-+	rc = irq_populate_fwspec_info(&fwspec, &info);
-+	of_node_put(oirq.np);
-+	if (rc)
- 		return NULL;
- 
- 	return info.affinity;
+This patch updates dt-check-style to check alignment of continued property
+values to inner values if they are part of a previous phandle. It ignores
+comments and trailing whitespace when determining the continuation alignment
+target column.
 
-base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
--- 
-2.39.5
+> diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
+> index 22e1ceac7f8b7..eb5045f0ad9e4 100755
+> --- a/scripts/dtc/dt-check-style
+> +++ b/scripts/dtc/dt-check-style
 
+[ ... ]
+
+> @@ -938,17 +939,26 @@ def check_continuation_alignment(ctx):
+>          eq =3D dl.raw.find('=3D')
+>          if eq < 0:
+>              continue
+> -        # First '<' or '"' after '=3D'
+> -        rest =3D dl.raw[eq + 1:]
+> -        m =3D re.search(r'[<"]', rest)
+> +        # First '<' or '"' after '=3D', but ignore comments and strip tr=
+ailing
+> +        # whitespace (e.g. remaining after removing the comment)
+> +        rest =3D _strip_strings_and_comments(dl.raw[eq + 1:]).rstrip()
+> +        m =3D re.search(r'\s*([<"])', rest)
+>          if not m:
+>              continue
+> -        target_col =3D _display_col(dl.raw[:eq + 1 + m.start()])
+> +        dl_value_complete =3D rest.endswith('",') or rest.endswith('>,')
+> +        target_col =3D _display_col(_strip_strings_and_comments(dl.raw[:=
+eq + 1 + m.start(1)]))
+
+[Severity: Medium]
+Will this calculate an incorrect target column if a block comment precedes
+the first '<' or '"'?
+
+In check_continuation_alignment(), m.start(1) provides an index derived
+from rest, which has had comments stripped via _strip_strings_and_comments(=
+).=20
+However, it is then used to slice dl.raw, which is the original unstripped=
+=20
+string.=20
+
+If a device tree property assignment contains a block comment between the=20
+'=3D' sign and the first '<' or '"' (for example: reg =3D /* comment */ <..=
+.>),=20
+the m.start(1) index will be too small. This will prematurely truncate=20
+dl.raw during the slice (often in the middle of the comment), causing=20
+_display_col() to evaluate a much smaller target column than expected.=20
+
+This can lead to false positive warnings for correctly aligned property
+continuations.
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260826-n-dts-styl=
+e-checker-continued-v6-0-f270b1e81f8e@oss.qualcomm.com?part=3D3
