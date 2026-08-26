@@ -1,146 +1,157 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ADCC3D9547
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 11:36:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF25F3B6C16
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 11:46:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787744165; cv=none; b=CRNej/9iT5FwEnfhM+4FoQVB0uCXT1xkpO58EbHYTMEhnK/ZPeHIalC6D9Jp4SQhX7zCYeD/m4FlE/GdlDRwFfHycf0R7RygIofPWKdja/C/+3wVotnSTUsC9IUAPB+ABz27/uluET6x+GD2Bk2PZpGTammwYHHRvHEfHxCuBmY=
+	t=1787744785; cv=none; b=lqdbc89BBqj0a/WGlpKWBKtmmIx6JYIeT9P0NhE1lPZs8bkQjzDugGwPIAjGYAWs2xlc34OTchEn6NRC2uTZ+HOB6uHgs/XRO+6CGr62t0m8Wpfw5+qHJ7REsgauuTYAXByL5Vpde2z/dLPmD8TNnYkKvAyApVwqAw2KTvI4+qE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787744165; c=relaxed/simple;
-	bh=6Ugk8Mngf5Dc03u6UaLr8GjpblBbn7SrwcChYLyz+ek=;
+	s=arc-20240116; t=1787744785; c=relaxed/simple;
+	bh=rsEyCYfaJXRIK/DP4ZF0hlH18mSArjU0HP0c7J5+gK0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=to0tyOcJlmvEu9A47EW2xwhH9fLjA2ecgGhuiUqs2OQfJwRvigkYwbYyXzIjmo+hYvnT1eIEf0+jI9NVqsXgt0YylcAzjdrcUWJBJasWSv+qpJUclYSrfB78shJO75dzp7YKzlZkTh6vdAkHCGAxonsWWTT1/qmEnUxbWBL3zHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UrHAifol; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=fP4FaIrs9OvSWK7rYoSNAB45po8fBZJi7sUCRsBrrDPY+xLZkgmCwb6zNvnSB7GpSeD+U3l0RL63B3vXup1UGhm1aBlXB3xutSegG3acDOiKwI9I5iHqTnxgvPtOXqCfmeLZ+OJ5qZv1SfjJbHK2fK9eTY7EjnQdGpYzoBK1wso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F9nIzljX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UrHAifol"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 010C01F000E9;
-	Wed, 26 Aug 2026 11:36:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F9nIzljX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BECA1F000E9;
+	Wed, 26 Aug 2026 11:46:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787744164;
-	bh=a60xpuJ3U3PQOvyqmUNzFKTf/u4xyp6rZ8M+0cQkjbk=;
+	s=k20260515; t=1787744783;
+	bh=bsGNMvRxMjlQJ8o90+JyviLsHwnh2qQ1sDFr3+1wwZk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UrHAifolgZ/FEVGQrnlUX9j6rqlXy6s2Xu7+TaYqgTEB1tcvlRw0h6VnVvyOl/JDa
-	 RKX5lvIFwsSytpCnps9uDdcofrh6yHlQoUz7+hATbRV27rOUvfsqVJMuNEcoxhE26M
-	 TUxAp1+rL2RgCxA2Mgv8k11CYZ24z59OB0HYJBhGT8jB//zr0RZWDGQ+iwEn/S+521
-	 2eaNFEEWXQKwAsO8lhdWCRMsw6bIwnMlIPuGrtOZaic9pb8LKQ5fxnDGDEbbu0BEeo
-	 KXsRqdP3TtlUyBA/hSttu0dMXNfD4yqSCEuT9lBC1ar7s8LawnzyoNHKs1tSS8LP4I
-	 dKhiGDpaJkdPg==
+	b=F9nIzljXkt3OT80fqNPzdgmOhnUrUI+H9hZiBJKeataTAilnn43lI5j9dufVmpWAy
+	 WI1AjfFrFLMCjmPBfW0EqYhQkE7uHvnWRDpQhdIIB3BfsoZolddbmVUjQHqEJG/7uG
+	 D0EBSF+b3YQhy8CiYby4hlHFrOSJFy0zzTtRIlWvxCDGrK+hPAFq7jgGNewzwRXnHl
+	 7ljcycm8baEBrUVSQHjf2hAhlqF1oA3SZiI8LcFOnESOBqcAYCpYb5iQx6hGrzngp7
+	 AzNyMQcObDzrvI3QibtQqejBfR4ueR4I3mSAHloHv402i6dyVTY8z46+Hxiyg8jhXn
+	 mn1X7KSKPZJhw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] of/irq: Fix device node refcount leak in
- of_irq_get_affinity()
+Subject: Re: [PATCH RESEND v1 2/2] arm64: dts: qcom: lemans-evk: Add SDHCI
+ support for eMMC via overlay
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Fuad Tabba" <fuad.tabba@linux.dev>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260826112234.1033974-1-fuad.tabba@linux.dev>
-References: <20260826112234.1033974-1-fuad.tabba@linux.dev>
+To: "Monish Chunara" <monish.chunara@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260826113206.488991-3-monish.chunara@oss.qualcomm.com>
+References: <20260826113206.488991-1-monish.chunara@oss.qualcomm.com>
+ <20260826113206.488991-3-monish.chunara@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 26 Aug 2026 11:36:03 +0000
-Message-Id: <20260826113604.010C01F000E9@smtp.kernel.org>
+Date: Wed, 26 Aug 2026 11:46:22 +0000
+Message-Id: <20260826114623.4BECA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Device node reference count leak when resolving MSI domain RID via=
- 'msi-parent' fallback.
-- [High] Pre-existing memory leak of device node reference in `gic_irq_get_=
-fwspec_info`.
+- [High] The eMMC device tree overlay creates dummy fixed regulators instea=
+d of referencing the existing PMIC RPMH regulators.
+- [Low] Unused device tree binding includes in lemans-evk-emmc.dtso.
+- [Low] Inconsistent indentation in clock and clock-names assignments.
 --
 
-commit 105954fbf27e6537ca0c4da266eb89a3c31643fd
-Author: Fuad Tabba <fuad.tabba@linux.dev>
+commit 093f95690ab8c3394206ae0a37d52aa9b43fdb76
+Author: Monish Chunara <monish.chunara@oss.qualcomm.com>
 
-of/irq: Fix device node refcount leak in of_irq_get_affinity()
+arm64: dts: qcom: lemans-evk: Add SDHCI support for eMMC via overlay
 
-This commit fixes a device node reference count leak in of_irq_get_affinity=
-().
-The of_irq_parse_one() call raises the refcount of the interrupt controller
-node on success, and of_irq_get_affinity() returns without putting it. The
-fix drops the reference once irq_populate_fwspec_info() has run.
+Enable the SDHCI controller for eMMC functionality on the lemans EVK
+using a device tree overlay. Configure the corresponding address space
+and resources for eMMC.
 
-> diff --git a/drivers/of/irq.c b/drivers/of/irq.c
-> index 967c191008797..ec035367c9500 100644
-> --- a/drivers/of/irq.c
-> +++ b/drivers/of/irq.c
-> @@ -563,7 +563,9 @@ const struct cpumask *of_irq_get_affinity(struct devi=
-ce_node *dev, int index)
->  	of_phandle_args_to_fwspec(oirq.np, oirq.args, oirq.args_count,
->  				  &fwspec);
-> =20
-> -	if (irq_populate_fwspec_info(&fwspec, &info))
-> +	rc =3D irq_populate_fwspec_info(&fwspec, &info);
-> +	of_node_put(oirq.np);
-> +	if (rc)
->  		return NULL;
-> =20
->  	return info.affinity;
+[ ... ]
+> diff --git a/arch/arm64/boot/dts/qcom/lemans-evk-emmc.dtso b/arch/arm64/b=
+oot/dts/qcom/lemans-evk-emmc.dtso
+> new file mode 100644
+> index 0000000000000..52739d39a1ff8
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/lemans-evk-emmc.dtso
+> @@ -0,0 +1,64 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +/dts-v1/;
+> +/plugin/;
+> +
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/clock/qcom,rpmh.h>
+> +#include <dt-bindings/clock/qcom,sa8775p-gcc.h>
+
+[Severity: Low]
+Are these include directives necessary? It looks like the definitions from
+these headers are never used in this overlay, which might just add
+unnecessary code clutter.
+
+> +
+> +/ {
+> +	vmmc_sdc1: regulator-l8c {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "vreg-sdc1";
+> +
+> +		regulator-min-microvolt =3D <2960000>;
+> +		regulator-max-microvolt =3D <2960000>;
+> +	};
+> +
+> +	vqmmc_sdc1: regulator-s4a {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "vqmmc-sdc1";
+> +
+> +		regulator-min-microvolt =3D <1800000>;
+> +		regulator-max-microvolt =3D <1800000>;
+> +	};
+> +};
+> +
+> +&sdhc {
+> +	vmmc-supply =3D <&vmmc_sdc1>;
+> +	vqmmc-supply =3D <&vqmmc_sdc1>;
 
 [Severity: High]
-This isn't a bug introduced by this patch, but there appears to be a
-device node reference count leak when resolving MSI domain RID via
-msi-parent fallback.
+Does wiring the SDHC controller to these dummy fixed regulators prevent
+actual hardware control?
 
-drivers/pci/msi/irqdomain.c:pci_msi_domain_get_msi_rid()
-> 	of_node =3D irq_domain_get_of_node(domain);
-> 	rid =3D of_node ? of_msi_xlate(&pdev->dev, &of_node, rid) :
-> 			iort_msi_map_id(&pdev->dev, rid);
->=20
-> 	return rid;
+By defining these fixed regulators instead of referencing the real PMIC RPMH
+regulators (vreg_l8c and vreg_s4a which are already defined in the base
+device tree), the kernel might not issue the actual RPMh commands to enable,
+disable, or configure voltage for the eMMC.
 
-If the mapping falls back to msi-parent in of_msi_xlate(), the
-un-refcounted of_node pointer is overwritten with a newly refcounted
-pointer in of_check_msi_parent():
+Could this cause initialization failures if the bootloader has not
+pre-configured them, or lead to power management regressions during
+suspend/resume where the kernel incorrectly assumes the hardware is
+powered down?
 
-drivers/of/irq.c:of_check_msi_parent()
-> 	if (!ret) {
-> 		/* Return with a node reference held */
-> 		*msi_node =3D msi_spec.np;
-> 		return 0;
-> 	}
+[ ... ]
+> diff --git a/arch/arm64/boot/dts/qcom/lemans.dtsi b/arch/arm64/boot/dts/q=
+com/lemans.dtsi
+> index 353a6e6fd3acb..9f54d69c1be63 100644
+> --- a/arch/arm64/boot/dts/qcom/lemans.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/lemans.dtsi
+[ ... ]
+> @@ -4311,9 +4313,11 @@ sdhc: mmc@87c4000 {
+>  					  "pwr_irq";
+> =20
+>  			clocks =3D <&gcc GCC_SDCC1_AHB_CLK>,
+> -				 <&gcc GCC_SDCC1_APPS_CLK>;
+> +				<&gcc GCC_SDCC1_APPS_CLK>,
+> +				<&rpmhcc RPMH_CXO_CLK>;
 
-Since pci_msi_domain_get_msi_rid() returns the mapped RID without calling
-of_node_put() on the updated of_node, does this leak the MSI controller
-device node on every invocation?
+[Severity: Low]
+This isn't a bug, but is the indentation on the newly added clock items
+meant to align with the first item in the list? It looks like it is slightly
+misaligned compared to the original styling in the block.
 
-[Severity: High]
-This is a pre-existing issue, but is there also a memory leak of the
-device node reference in gic_irq_get_fwspec_info()?
-
-drivers/irqchip/irq-gic-v3.c:gic_irq_get_fwspec_info()
-> 		fw =3D of_fwnode_handle(of_find_node_by_phandle(fwspec->param[3]));
-> 		if (!fw)
-> 			return -ENOENT;
->=20
-> 		for (int i =3D 0; i < gic_data.nr_parts; i++) {
-> 			if (gic_data.parts[i].partition_id =3D=3D fw) {
-> 				mask =3D &gic_data.parts[i].mask;
-> 				break;
-> 			}
-> 		}
->=20
-> 		if (!mask)
-> 			return -ENOENT;
-> 	} else {
-> 		mask =3D cpu_possible_mask;
-> 	}
->=20
-> 	info->affinity =3D mask;
-> 	info->flags =3D IRQ_FWSPEC_INFO_AFFINITY_VALID;
->=20
-> 	return 0;
-
-The call to of_find_node_by_phandle() acquires a new reference on the
-device node, but the function returns on various error and success paths
-without calling of_node_put() to drop it. Does this leak the GIC PPI
-partition device nodes during IRQ affinity retrieval?
+>  			clock-names =3D "iface",
+> -				      "core";
+> +				      "core",
+> +				      "xo";
+> =20
+>  			interconnects =3D <&aggre1_noc MASTER_SDC QCOM_ICC_TAG_ALWAYS
+>  					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260826112234.1033=
-974-1-fuad.tabba@linux.dev?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260826113206.4889=
+91-1-monish.chunara@oss.qualcomm.com?part=3D2
