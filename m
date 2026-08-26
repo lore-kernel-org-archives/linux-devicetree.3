@@ -1,107 +1,118 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3AC937CD29;
-	Wed, 26 Aug 2026 12:49:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84434388E44
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 12:49:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787748544; cv=none; b=V3q3+2j68gTtV1w59Pt2c0uHt+XMgX5kz/MqgAgjFlturmBE+zDEu6G0YDaGl16ZMtQwDRO4oLvwoEu0RYsZ2nJ/7tgkftbWnv+ilvlo8DUKYNxwmhFFvHUbZl3Fnuh/ykzVUW5maxJmQZ8G0UAfVySVmLb+KgZc1bS6FPlqbDQ=
+	t=1787748593; cv=none; b=hRMKHQ7Jl3lQtL1URPvuKUvgB34hUfFT6SDG3+ph2c/0Ic/Mvyqr0ouW25SfyalvGHQjuS45MmbJnyDJysVaLTpjg+Jo2NvpayxIKAb4zn9950e3FaYt00BmS9v7bmyfUlyzgQzj2BFdOw2mubNK06t4n2gpOozGYFTeUtI/LNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787748544; c=relaxed/simple;
-	bh=mUrPlJT0hJRrTfA5qoFrn9r4BgqyF0M1XSh9PhhKE4g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SUcJ5t9vjn5PIW5o2JUjGjJgOUARLkb43vVdx0TxKrrsLt6JQ8iM3SA8XOv4UOsNtHnm9CMWs1l4sO8kpJthAdH/ukTJfmJ8f9YyC5c9AmEzbYlcVvl9HSslD0yB8Rkg/rRvOHGDYEro7nfYvaMj7Fn1uRiLXQ0xSFvesKvq1iw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id D67D8202101;
-	Wed, 26 Aug 2026 14:48:55 +0200 (CEST)
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=ratatoskr.trumtrar.info)
-	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
-	(envelope-from <s.trumtrar@pengutronix.de>)
-	id 1wzD3n-003RRH-2J;
-	Wed, 26 Aug 2026 14:48:55 +0200
-From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Date: Wed, 26 Aug 2026 14:48:39 +0200
-Subject: [PATCH v2 1/3] dt-bindings: net: dp83867: make exclusivity
- explicit
+	s=arc-20240116; t=1787748593; c=relaxed/simple;
+	bh=qC5ivVBc46oj3P71ToO454+n+irzIYTZnK33a1eCNk0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=q/BIx1fHlJDRjLqN+mcSCb36qHZ6Xd+ZqyCT7CY7PYrjylzlO11/NvNSdeY0Bxa19MkAIh5QbE3fq6SmIqoXQzzdcOEzP9zseDj9ytCm07r5AxshzOic/2xTBPru0tbaXyInBvwTyo8gufFjS8BBoApd3NSgbs7hSHdbRFfrx88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hRV4ZLoH; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hRV4ZLoH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D9041F00A3A;
+	Wed, 26 Aug 2026 12:49:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787748590;
+	bh=MJABSHQXgtG8wL6xDsCQLCdU8nGFmXe71QzCWKIPexk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hRV4ZLoHnj1vHXJ6vBpa+B/MwV/kleczJ2IjS2SXz1t4HAJQA9Wie/KVCiO//IMIP
+	 yQetZBmTD7ZHDA+GsdI4yNwcRqG6RTMV1Zod0F2DmYTwUalU/TKkyceCS/3dE6UBnP
+	 EkG99EdQmFPkx+X2lbm0lxDgN1FOzylmnwStZXzKLV9MHCLRcQy/pZzkbOzfNEOC5M
+	 pEp5A2NoAfs85dPnyqE3GwWHkw0RxGEoo0sH7tmxY9FWD8i4N8ALAy5sM5aTxtJlYW
+	 jEKixSXdGnkv5Y5MH+vQdcos2lNirWFjWR59j6hbCxUqZM5jv8LN/up2YuezQ0nO0k
+	 i/+kpCspaJ7/g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] phy: mediatek: xsphy: add optional repeater support
+ for USB2 ports
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Julien Massot" <julien.massot@collabora.com>
+Cc: conor+dt@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, robh@kernel.org, devicetree@vger.kernel.org, linux-phy@lists.infradead.org, vkoul@kernel.org
+In-Reply-To: <20260826-mtk-usb2-repeater-usb2-v1-2-e8e48e2fd6d8@collabora.com>
+References: <20260826-mtk-usb2-repeater-usb2-v1-0-e8e48e2fd6d8@collabora.com>
+ <20260826-mtk-usb2-repeater-usb2-v1-2-e8e48e2fd6d8@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 26 Aug 2026 12:49:49 +0000
+Message-Id: <20260826124950.5D9041F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260826-v7-2-topic-dp83867-v2-1-a97b4cec6e93@pengutronix.de>
-References: <20260826-v7-2-topic-dp83867-v2-0-a97b4cec6e93@pengutronix.de>
-In-Reply-To: <20260826-v7-2-topic-dp83867-v2-0-a97b4cec6e93@pengutronix.de>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Andrew Davis <afd@ti.com>, 
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
- Russell King <linux@armlinux.org.uk>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Steffen Trumtrar <s.trumtrar@pengutronix.de>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1475;
- i=s.trumtrar@pengutronix.de; h=from:subject:message-id;
- bh=mUrPlJT0hJRrTfA5qoFrn9r4BgqyF0M1XSh9PhhKE4g=;
- b=owGbwMvMwCUmtVehiCsuTInxtFoSQ1bfg20TTXRZou8mcm43YI17X292J+6LiTJjo2umm1/sa
- bHJpbM7SlkYxLgYZMUUWVQWVvCJenzwjJwmwgUzh5UJZAgDF6cATOTTNUaGleuaPFhS+fkYXbx4
- v9/bW6EfyJu6TNxtilWT4B+XwgYehv/Z0TNuxLV2ZSyY3LIyUyG3ubHOKZub49SjPYuOhmlGT2Y
- CAA==
-X-Developer-Key: i=s.trumtrar@pengutronix.de; a=openpgp;
- fpr=24A1780E1548F0495996140A1ABD20720A5E5622
 
-The properties nvmem-cells and ti,{min,max}-output-impedance are
-mutually exclusive as already noted in the ti,max-output-impedance
-description.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Missing PHY operation delegation for `.power_on` and `.power_off=
+`.
+--
 
-As this is only stated in the description and not made explicit in the
-schema, the binding checker will not catch if this condition is ignored.
+commit 8dbeea901dbdb1f9b33b21bd4a5f16b9ad7a5a78
+Author: Julien Massot <julien.massot@collabora.com>
 
-Make it explicit in the schema, that nmvem-cells can not be used with
-ti,min-output-impedance or ti,max-output-impedance.
+    phy: mediatek: xsphy: add optional repeater support for USB2 ports
+   =20
+    USB2 PHY port sub-nodes may carry an optional phys property referencing
+    an external eUSB2 repeater.
+   =20
+    Fetch the repeater during probe using devm_of_phy_optional_get(),
+    initialize and exit it alongside the USB2 PHY, and propagate USB mode
+    changes to it.
 
-Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
----
- Documentation/devicetree/bindings/net/ti,dp83867.yaml | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+> diff --git a/drivers/phy/mediatek/phy-mtk-xsphy.c b/drivers/phy/mediatek/=
+phy-mtk-xsphy.c
+> index cc1d66954212a..7bc3d6794d7b9 100644
+> --- a/drivers/phy/mediatek/phy-mtk-xsphy.c
+> +++ b/drivers/phy/mediatek/phy-mtk-xsphy.c
 
-diff --git a/Documentation/devicetree/bindings/net/ti,dp83867.yaml b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
-index 4bc1f98fd9fe5..7a6fe516bab27 100644
---- a/Documentation/devicetree/bindings/net/ti,dp83867.yaml
-+++ b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
-@@ -7,9 +7,6 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
- 
- title: TI DP83867 ethernet PHY
- 
--allOf:
--  - $ref: ethernet-controller.yaml#
--
- maintainers:
-   - Andrew Davis <afd@ti.com>
- 
-@@ -118,6 +115,13 @@ properties:
-       Transmitt FIFO depth- see dt-bindings/net/ti-dp83867.h for applicable
-       values.
- 
-+allOf:
-+  - $ref: ethernet-controller.yaml#
-+  - not:
-+      required: [nvmem-cells, "ti,min-output-impedance"]
-+  - not:
-+      required: [nvmem-cells, "ti,max-output-impedance"]
-+
- required:
-   - reg
- 
+[ ... ]
 
--- 
-2.54.0
+> @@ -438,7 +444,11 @@ static int mtk_phy_exit(struct phy *phy)
+>  {
+>  	struct xsphy_instance *inst =3D phy_get_drvdata(phy);
+> =20
+> +	if (inst->type =3D=3D PHY_TYPE_USB2)
+> +		phy_exit(inst->repeater);
+> +
+>  	clk_disable_unprepare(inst->ref_clk);
+> +
+>  	return 0;
+>  }
 
+[Severity: Medium]
+If an external repeater PHY relies on the PHY framework's phy_power_on()
+(e.g., to enable core-managed regulators, resume runtime PM, or invoke its
+own .power_on callback), will it silently remain unpowered and inactive
+because mtk_phy_power_on() does not call phy_power_on(inst->repeater)?
+
+For example, mtk_phy_power_on() currently only powers the internal instance:
+
+static int mtk_phy_power_on(struct phy *phy)
+{
+	...
+	if (inst->type =3D=3D PHY_TYPE_USB2) {
+		u2_phy_instance_power_on(xsphy, inst);
+		u2_phy_slew_rate_calibrate(xsphy, inst);
+	}
+	...
+}
+
+Similarly, could the missing call to phy_power_off(inst->repeater) in
+mtk_phy_power_off() cause imbalanced power tracking or resource leaks in
+the repeater PHY?
+
+static int mtk_phy_power_off(struct phy *phy)
+{
+	...
+	if (inst->type =3D=3D PHY_TYPE_USB2)
+		u2_phy_instance_power_off(xsphy, inst);
+	...
+}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260826-mtk-usb2-r=
+epeater-usb2-v1-0-e8e48e2fd6d8@collabora.com?part=3D2
