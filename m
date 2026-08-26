@@ -1,154 +1,458 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012017.outbound.protection.outlook.com [52.101.43.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f226.google.com (mail-pf1-f226.google.com [209.85.210.226])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BF2E3955CA;
-	Wed, 26 Aug 2026 18:19:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787768368; cv=fail; b=lfF0NDcXqlsh4ssaFCrRUlwlfxsvXGMzX4O+jcfvyk5IcQyEZYrxvaPkqjFVOsFl/Ui2GlkmQvgh4BOGDBs9iUGpD+piHg8pWB3f0D6GwUoUHk982OROhCgdQa4T9Vek6MS2+xoAHVJNmBv23Z6GWWlJEl1GKxYbgIexhxXRPCA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787768368; c=relaxed/simple;
-	bh=6IwFBG2rXn7AR1lGq/oiBT5HWYmxp/WIE+5PoVs+INc=;
-	h=Content-Type:Subject:From:To:Cc:In-Reply-To:References:Date:
-	 Message-Id:MIME-Version; b=T5/e0Co6TXkQojR2BWF6Xhh9URA2fLFw8r6Jzz06KJWcJ4sUjJHI4m33ZrzYfuBC1qS1C7BkKM1DQbhUHgZ7NFtC6diX2urY4t+P1IGWzkwNWH6VgX4QkcpNR2rYsBiasHoES5SK2OBzUkHVRqB9APiBds/mp6a/N8GbkUs5rug=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=WF7pxVRk; arc=fail smtp.client-ip=52.101.43.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C0C39A7EF
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 18:34:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.226
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787769252; cv=none; b=teyy4jNykX39ItOgjs9c0Di43nsbAjrx+6MhP5AURIuBwKuc4PGtVTIL5Jvmc7Y5/P9CXwWBXHLwNqaeH2AkuON67BkTAE27v5PjWobh4UyTOpuzH5XbABiBHzI8b2Aqb3MkX0fZQ/NDkWzBVi67FNLWQ4nytoKx1LD2xXMZdXY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787769252; c=relaxed/simple;
+	bh=rFb4YF4y/8+Ns7seiIauq1qemz5qrJSqAKh/5d3IsEw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FN67QK26hbxUR7u8XXY7CfWv0ZPDL69m/J/QsMpvnVrkS4/mRNWB1XjWu1BGeBLvsdVtAaTwEVncxIVEZhOdvUCoc8i/rIngtpE7Hj04C3MOwVvcYCwX31+kES3dRT5sS5u7mX/DQe57j7dlO3RFMF/zMfHoHG8zAyB4r+HV4As=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=XK0SHRR1; arc=none smtp.client-ip=209.85.210.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="WF7pxVRk"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RjudGqdrv72vFMNxEH1xtqy/xwNXUvOQ4g2H+29myNUFAzTrfTTx4yf6hvjpGDpHeDQpctoOg9qoT0HhdYgKzm/l5+BKJM+WEYKLKveWt3XDHm3Uph/K/E1hi5wGpCmoWiaVdcK2xu5PWC8HCOukmFcpFvCP94GC/6BKEkxIzMIupz28oR5sSy594D/D4Mq/bntn+K41vT4/J1nP2j4Xm8Rcg0yuyEYbM1QWaPxfn57thrH3bb2ntWS/nag1dTtdT1cE/dJmoVNa33/pjE0rAmAsWZrACX30rG0XWcMs5aa1xk+0WaO6TcC87CREl2ldHOBIzDsQcMe9hl7j7M/09g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cSJK7e31lPxbgSRKKKsrkS4NHvMC+icNFjexTeZNSys=;
- b=eBOAtckMExT+vz87tKJnkiRbTXZ2prxfHPj39CjYpcyJSVx4JZhMt5shdt8rroUBSVnOrXrDBWcGuPVfb0cRzQNebY+sXMlSj3mFDgErgAqlaBaT0FSJ6Nx7+3JMy9yljhHSSFYNRN4ZswhlWxn3W6LP77S5VdJdXEqUYVrLc37KTlZ9WAjJjuw3guzxcMkg8TjdRB99IJT4roefcB54qIpv8M5D8QSZnkoTww6IwhN5K7wCa5RwM+iEFKxdT/j42ooqBkZEHTm29+hyI2SV3WPySwBfgPiCQ6aAlhRE35/cATE0xPyiE5sJMj3Wxg/jvaGUSORvPMgdWWAsqmwCrg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cSJK7e31lPxbgSRKKKsrkS4NHvMC+icNFjexTeZNSys=;
- b=WF7pxVRkJIR7JIuWA5d5tRPo3m957oY5B/rPzfuzthB3Wc6AfNe08m/ygLp5tVZOFKDnuXC4LkDCMHFyqA/yo+J3iQUC4UnIlorq4CWVmiT5Z96jubcoJOT/BoVQRwkK44WaOBPXvXiiOU728BDteJkwi5ChRQhGKtOp4HzHqwwQUjtnGMOGPxSn6l+vQW56xYtETzUty9ErRjEkLXkuSJxAELJkzmumqO21r5AW+CFbMS0wq1jpvVwfOXrnnqx7S9jpiZxpxi07TnurneIDVfG4cgSECjwlh/7BmILeidVcBt5zXkQt7+OgGYIpgI07GVi0GM0PZISK2VEIL4xHoA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
- by MW4PR12MB7437.namprd12.prod.outlook.com (2603:10b6:303:21a::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Wed, 26 Aug
- 2026 18:18:49 +0000
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0360.006; Wed, 26 Aug 2026
- 18:18:49 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v3 1/5] iommu_pt: Fix test_pgsize_boundary() failure on
- narrow-OA formats
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Daniel Drake <dan@reactivated.net>
-Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, nick.hollinghurst@raspberrypi.com, 
- james.quinlan@broadcom.com, Jason Gunthorpe <jgg@ziepe.ca>
-In-Reply-To: <20260825-bcm2712-iommu-submit-v3-1-7f143e7289b6@reactivated.net>
-References: <20260825-bcm2712-iommu-submit-v3-0-7f143e7289b6@reactivated.net>
- <20260825-bcm2712-iommu-submit-v3-1-7f143e7289b6@reactivated.net>
-Date: Wed, 26 Aug 2026 15:18:41 -0300
-Message-Id: <178776832178.3356902.10335417913508692093.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-ClientProxiedBy: CH2PR14CA0036.namprd14.prod.outlook.com
- (2603:10b6:610:56::16) To LV8PR12MB9620.namprd12.prod.outlook.com
- (2603:10b6:408:2a1::19)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="XK0SHRR1"
+Received: by mail-pf1-f226.google.com with SMTP id d2e1a72fcca58-84f3ab8750cso1015206b3a.0
+        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 11:34:00 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787769235; x=1788374035;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=cmDnM9N/sExPW4FxItBgnf7fP+GVZqQ5yB6g4L/QzrE=;
+        b=rghHkJ/hyQi9iRIyTDpm/mZR+tKXwGDPR5qP28N8KXiCbkNqJ9rDp9jJHKaqncymu1
+         muUCi3jSpR2SGm7qCX3NWYkbM/vVP8jvKMtq1xhuiTJ7PIZD8Qgerjw6LzK4PLCCavu6
+         hXIgMiSsg2x3N+ezwtgWm5KpdENQDeW7Ptuyj+MFbGST6f2JRyzCJxAnwc1HZSMD8QDB
+         YvkD+bZcSjO+iyajBvOSUuqrWZyrWyqBIRYZruy0N+wS/pkUg87BP0w5Mo/Zmgt5Q2Ic
+         x3mlg/TtvZTqGiRpERnmfYu+jasOv7yRyVoH91CXRWDlZm6e5T22wo1HVfjslGBWQD0O
+         Ojow==
+X-Forwarded-Encrypted: i=1; AHgh+Rq9R8wqyW98FEWXdh2NfRFREJ00IpSC9XI4fEySL31tZaIkAR6n4tA8VtjI/PoRZOTUJrcLtV9ybKMP@vger.kernel.org
+X-Gm-Message-State: AFuF++ktbostMZvweiYgmCsFJ+sW/OQ6hQTxahvYyEfwQVw8/ls7ELX8
+	KIIdjuPb8kt8bKnQdhWFJHh6lLtOZ6SDAQr2wSTutOzNYO3YWvnDd1s4xlvaGKxjbkqlKeh2vpo
+	J/0Bg6Mq1mhaNs4Pm+IYEVyON8rKoMwyC9O8o65A35enOUFGgNHQCSZSsSfotZZghPRNnMrTE/w
+	ENcrgyH/Pt2tKRoQTGoz+v50EFC9S8BLGA0xwAPByJUin9ylN6VoRTQ/MGuwuT5DFqeRhd13xMq
+	z0J3k8kD16dESko4kaPDQ==
+X-Gm-Gg: AR+sD10OpNtwssNFYzxMBXnyom4GiBj8gK/qPcctkH/YsY3/moikbSqWceNayd0ssyG
+	YBA2pk+NBH/SZSCSxNwr/HEpzdd55NUyudzD6eLpFichz8+o7zsmUwwjmr6s919aOK59dr13yaO
+	+O7T4AL+9XUr3HZ1se6uW1hxM4KLY1ToZKXcXu3esCVtNUkymT3H2ZnsdoMdN/GPTix4MsnbpVA
+	hQ2WyFPIyKqwe9L29gaA4dOtFxAPtBcbjNCabuIui2QjV01z9itqwFhovhh4l4/2Lc5uBIsIaaI
+	BExyMrVVTEcW0xJaesFVqkDhllzZRaR+V/m5+qN5wI340xTRkoKBHheEOqUEQALHrqx6+o/gy5h
+	UxSR/QaYTKc1EQFuwGE61+fO44VINXN1o9MmNi3LPoSq29O1eFYER9Iwm9VbmJxqhbqBMQE18vL
+	Zz9YnNHbNOjidDoCUmwUyeAS2edLcGmp0dUlfUV31c
+X-Received: by 2002:a05:6a21:4cc3:b0:3d0:8cbb:8c2d with SMTP id adf61e73a8af0-3d08cbb8ccamr8214404637.4.1787769234687;
+        Wed, 26 Aug 2026 11:33:54 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-20.dlp.protect.broadcom.com. [144.49.247.20])
+        by smtp-relay.gmail.com with ESMTPS id 41be03b00d2f7-cc1c7490771sm575573a12.3.2026.08.26.11.33.54
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 26 Aug 2026 11:33:54 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cbb20f82a0eso927194a12.0
+        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 11:33:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1787769233; x=1788374033; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cmDnM9N/sExPW4FxItBgnf7fP+GVZqQ5yB6g4L/QzrE=;
+        b=XK0SHRR1MItglTI/ym8PAvofftRYIMtPY3BuKawOV3DyYOdSVCfXq3+BqT1Zua5FzC
+         zGxbAdcJFvwHRMxbKXcV+qbNA6pxykehOxe3z9c52MT+DL39Fm0lox1+/43LffhHwBh/
+         ZoWdb4WEp6zgqz4LtimNW2//DvPSvU8zemOVQ=
+X-Forwarded-Encrypted: i=1; AHgh+RqQcCdg3+cRIjLjkPvTxEeVpegIDc5v8h338y1kBIlYvb3au1Ua+qcPwL+bXcqyG6yJMLg1P/Q0p5U/@vger.kernel.org
+X-Received: by 2002:a17:90b:3cc3:b0:393:194d:5366 with SMTP id 98e67ed59e1d1-3966d85de70mr19581747a91.10.1787769232839;
+        Wed, 26 Aug 2026 11:33:52 -0700 (PDT)
+X-Received: by 2002:a17:90b:3cc3:b0:393:194d:5366 with SMTP id 98e67ed59e1d1-3966d85de70mr19581640a91.10.1787769232285;
+        Wed, 26 Aug 2026 11:33:52 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283fa89e8fsm15006063eec.8.2026.08.26.11.33.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 26 Aug 2026 11:33:51 -0700 (PDT)
+Message-ID: <635282ef-5c24-4820-abfa-7eaaea6e7f0e@broadcom.com>
+Date: Wed, 26 Aug 2026 11:33:49 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|MW4PR12MB7437:EE_
-X-MS-Office365-Filtering-Correlation-Id: efdb525d-c124-40b7-4722-08df039e76dc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|366016|6133799003|11063799006|3023799007|56012099006|10067099003|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	qsXuTaRQKFuywC/RMguZ1XZTyubs+o7VAoiS2lkbHSpLQocZ1wEZLJWISkepFks2LGGJ77KJlgTCdrDfJYjkgXMlK40t/mqefnUzPeQYxd4+IhqsY5bxgum4lU1WncM6r+h9Gq6lW1RdO2rTtv9ILFLxOi0/RjrhYoAds0xxNwTR7+ZAeLCGWjSUy/SBDZaTWMwDh4rmOTm7pOchHdkkGePYNCC6vx6+4k4UQcqKCvpfFseTDbM1YkLlZGfq0BKOkxoXtJRJRUeoiR53Gba/RLEXTettY0TUlC6+/47lpdTQ1vbnteT40rMeQ/AeY1kLxjx5NXOVFxz2JmIeRBUAF6PKAcnvOf5u+/YBeLoNxzYxZcOQgTbeuL+u3/PZipL7KRDYOxuiTEAcFttCJBHNkN97qxUNfPQ/bRSoRT+Xx+Pg80JQI+Uxr57HrsSjVsvXI9Zhe4aoJWKRV7Wf6p6xYgNUGfFFyc4oyX5ycP7Pr5u/uVx4/4ZDS+ksgofEtZKM78H0NFT4qpLe/IIhN40fcY/za4O1+0oVAK07EdF7uVQEP1asvXPyaARmHlIFJB9Iney1CzjODKFQrPPp6pTog864X6NAs3X6o55/Cvx1bTyTykp0HkZs56IKyIiCCoYOE9LcYzHYEgMbpgR7DXanzhTtJYLg99Gw2wQkFiRZ4nw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(6133799003)(11063799006)(3023799007)(56012099006)(10067099003)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?V2xnNlozc2FuVXFoWVdSTUtaVmE5MExpd0g4SzhxdGV4UnJNMG80Q0Rrd2RW?=
- =?utf-8?B?MDEwWlF0Z1lKSUQ2TEprZlRYVmNmczVCclZ3cmtFZjV1QUE0UElXZnA5c1R1?=
- =?utf-8?B?bFBNcmt3NHhVWGdob1BrMWJ6VHh0ejdSdHd2RTZMaFFmMmNpa1RhZVNtRGI0?=
- =?utf-8?B?c0xsRDg3ckpRWk9Jb2RjcTF6U3BDOXF0Rlc3MjRKNXZPWG5tVlRhNjRSYXJM?=
- =?utf-8?B?blA0MWtlR1poTlpOaFh4RWVxa2JvSDFKV0JxeFQ3dHFiV00rQWpvUThaTUdz?=
- =?utf-8?B?eGRTZk1nOElTamdJT1hMSy8ybjhVTnhBbmZGclhONy9rOVhpbEtyd0RyZkFF?=
- =?utf-8?B?YTVsSnhZZGVXUHhDM1dMNzZPTnBOSXZwUy9BUjFCeWhlVFBOM2pUZ1Bva3JT?=
- =?utf-8?B?ZlYvYWI4SjNsMnlqUks1WGZNNGNBT0tqa01qTTRtaDRCM1VFU2w5TFg1TzhR?=
- =?utf-8?B?d1hUcU1YOUFWWHg3S3pkNUl1SkVGUU8xUGRYSlFUdVFQbHZPZzVKdHFBSklN?=
- =?utf-8?B?b2xSZncrS2d3N0d3cU95UVljTnpyM3VyUk1BYTZlMWNzc0FqV1RsY3pYNDU3?=
- =?utf-8?B?YzdiMkJXT2RLeS85SmN3dDJKM0gvZHNDQmFzMktJelBDUHVPZmZhbmNxTnhQ?=
- =?utf-8?B?Q0Z0OWpqMWQ5VXpBZ2FnRGVaeWlpMStsTFkyLzRzd1g5bTYyRWV5K29vck9w?=
- =?utf-8?B?Q2hpUDdUVk00WTJpdmdGeHZWYTE3Vm5XSHJWV3VkMmRvNERQM0hyQ29wd2ps?=
- =?utf-8?B?SEg4MENXWnRrTWtmTkQ1WmxrMzJoelVRRU9rR2l5WFJNQjhhbE9vS0p2cEh0?=
- =?utf-8?B?WUc3WUo0Vk9NallHbTcxczZ5MHpZQTZ4YzYyd0lTMndrZGI4SHBJY0tWK0NH?=
- =?utf-8?B?OTZVSkNRaEQxcUl6MDRvSHdlS1BWc21Na21QL082S2c5MEFGTDdTb09NN1Jp?=
- =?utf-8?B?TlcxMGg3bkFvdG8yV3JmeFphZllQandZVDh4NWpmU2E4cURISU9nVFFUdGRJ?=
- =?utf-8?B?aWZFZ1FnVEJ0RVZ3VjM5MytmeWRNSytPYWthYTRWQ1dyVGNhbkl6eDN6YUFw?=
- =?utf-8?B?SmpydkFEOU84anNocHYrcjFnQm5nSWtnbjdaK3Z0U1RBYTRwcVNVMjZpUit5?=
- =?utf-8?B?SnlUcS95TG9kaDRkNjc0THJpdHZNMFoyb1pTdkRPR2J3Y3cvRitweks2aEhq?=
- =?utf-8?B?L3NDWVdLNGdPdVZpcGRCSEhzbXlFNFYvMExQUG85NzhqMFpMOW1qR3NQZ1dk?=
- =?utf-8?B?L05SdEJTV29CcWFyV3JQM09MWHBiazJham0rTGNaMjZITHBVTVZ2NmF2TlBL?=
- =?utf-8?B?dUFGbmxWaTFjOHpPYUdnbm5VSTlxMElOYmdEbGVYUDJMWG11K2JLVk1DcnJj?=
- =?utf-8?B?dTFIdE1WNThjWVhHRzJ1dHhTWG5FL3RncU9SeHpKODNmbWZBWG4zRm41dTR1?=
- =?utf-8?B?TUNUdC80UUNXYWdaWEFUNG82LzM2R2hmbVZ1cHdNdVBnQlh6Ulp6Kzc5N0g5?=
- =?utf-8?B?TXJFNUpseWdhZXRiUGdWOHVVa01BcVVEVVh5ZFluaU44WlpzSXpsZjUrRzlS?=
- =?utf-8?B?WWpEMjhNcXlJLzUyTUpVTVdkWlhWaTVPbVA1eXIyNHdqZEN3WnFpNVFncnRO?=
- =?utf-8?B?R0k5cVlRa3JqQThwd2haR3RJSm12eGVCWjcrRmp1RjR6VU1VbEQzMVVRYk03?=
- =?utf-8?B?MFQ4Vm84SGJlVUZ3aTRXSTZOZi9ZR2RHSVdkNXYvU3p1M2pCWUozRTR1Rk4z?=
- =?utf-8?B?RVpGRTNVSHJ1WHpUelRjT1dsS2hmbGxGL1RFNjdFMXhONTRHVjNFa2VCYnM0?=
- =?utf-8?B?S0REVDZJb2RIODdFWlAyak5DWXlCZi9rUUNodUx2UXFiaUtXMkwweVpMZlg0?=
- =?utf-8?B?M280K2ovbDZra3RQNGVEZHlxcHlEVFdaK3dhQ2ZCbGdXQ3dvS1dJQTlPcHpJ?=
- =?utf-8?B?ZGNPdmYzQXJXbVJPUXVrbVh0bVBueDB1UlpRUUNGQkdkdGtuUEh4K0JsRnJo?=
- =?utf-8?B?OU8yaDR4NncvbllYNDA4bUdQV3pFanNsbGxtNFpYZEhVNm56d3NCdGRSck5Z?=
- =?utf-8?B?ZEtZeE16M1RKWlpEOVpWSzdpSmd1Lzdma0duLzZlREEvZFp0Y1ZzbkFqVXUz?=
- =?utf-8?B?aDZ2aWRqMUFhYjNWTzVLYjZVSkMya3ViOUxXRUN2RHJWVkkxM2ZqRW1FMUFJ?=
- =?utf-8?B?RHl1RnkvMmdmQ2hVcFhFcFpIWmNHVExkZTU5Vk51TDVad08vMTJ0dEJ2MzVE?=
- =?utf-8?B?Vk4zYjZXYmxic0dTdy9sV1FRK29SRWVoWG1KMDZVVi9xMExMa3lXWVFSZWU1?=
- =?utf-8?Q?7dMlfa/X9aS2eQENec?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: efdb525d-c124-40b7-4722-08df039e76dc
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 18:18:44.7884
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: p/ymVvVr07S+EuBIg6En9eUJiBwUwerNZ31yDw0NjkuFBjlZzKGOa6j7lrFfLmXc
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7437
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/5] iommu: Add Broadcom BCM2712 IOMMU driver
+To: Daniel Drake <dan@reactivated.net>, "Joerg Roedel (AMD)"
+ <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, nick.hollinghurst@raspberrypi.com,
+ james.quinlan@broadcom.com, Jason Gunthorpe <jgg@ziepe.ca>
+References: <20260825-bcm2712-iommu-submit-v3-0-7f143e7289b6@reactivated.net>
+ <20260825-bcm2712-iommu-submit-v3-4-7f143e7289b6@reactivated.net>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <20260825-bcm2712-iommu-submit-v3-4-7f143e7289b6@reactivated.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On Tue, 25 Aug 2026 21:56:04 +0100, Daniel Drake <dan@reactivated.net> wrote:
-> test_pgsize_boundary() tests boundary mapping with a hardcoded physical
-> address that requires 38 bits of physical address space. However, the
-> upcoming page table format for the Broadcom BCM2712 IOMMU only supports
-> 37 bits of output address space.
+On 8/25/26 13:56, Daniel Drake wrote:
+> This IOMMU translates memory access requests for the VC6 display
+> pipeline and various multimedia devices in the Broadcom BCM2712 SoC used
+> on Raspberry Pi 5.
 > 
-> This causes a test failure as iommu_map() rejects the large address
-> with -ERANGE.
+> The driver uses the generic_pt framework to manage the 2-level page
+> tables. It also provides support for the centralized L2 TLB (IOMMUC),
+> which is shared across the SoC's IOMMU instances and must be flushed
+> when modifying or unmapping page table entries.
 > 
-> [...]
+> Adapted from Raspberry Pi's downstream bcm2712-iommu driver
+> (original author Nick Hollinghurst).
+> 
+> Signed-off-by: Daniel Drake <dan@reactivated.net>
+> ---
+>   drivers/iommu/Kconfig               |  15 +
+>   drivers/iommu/Makefile              |   1 +
+>   drivers/iommu/bcm2712-iommu-cache.c |  83 ++++++
+>   drivers/iommu/bcm2712-iommu-cache.h |   9 +
+>   drivers/iommu/bcm2712-iommu.c       | 556 ++++++++++++++++++++++++++++++++++++
+>   5 files changed, 664 insertions(+)
+> 
+> diff --git a/drivers/iommu/Kconfig b/drivers/iommu/Kconfig
+> index 6e07bd69467a..f2c8788158b0 100644
+> --- a/drivers/iommu/Kconfig
+> +++ b/drivers/iommu/Kconfig
+> @@ -386,6 +386,21 @@ config VSI_IOMMU
+>   	  Say Y here if you want to use this IOMMU in front of these
+>   	  hardware blocks.
+>   
+> +config BCM2712_IOMMU
+> +	bool "BCM2712 IOMMU driver"
+> +	depends on (ARCH_BCM && ARM64) || COMPILE_TEST
+> +	select IOMMU_API
+> +	select GENERIC_PT
+> +	select IOMMU_PT
+> +	select IOMMU_PT_BCM2712
+> +	help
+> +	  Support for IOMMU on BCM2712 SoC. This IOMMU can be used by the
+> +	  display controller and various multimedia devices to perform
+> +	  efficient memory management.
+> +
+> +	  Say Y here if you want to use this IOMMU in front of these
+> +	  hardware blocks.
+> +
+>   config IOMMU_DEBUG_PAGEALLOC
+>   	bool "Debug IOMMU mappings against page allocations"
+>   	depends on DEBUG_PAGEALLOC && IOMMU_API && PAGE_EXTENSION
+> diff --git a/drivers/iommu/Makefile b/drivers/iommu/Makefile
+> index 2f05725eaab1..29a26d2a3af1 100644
+> --- a/drivers/iommu/Makefile
+> +++ b/drivers/iommu/Makefile
+> @@ -37,4 +37,5 @@ obj-$(CONFIG_IOMMU_IOPF) += io-pgfault.o
+>   obj-$(CONFIG_SPRD_IOMMU) += sprd-iommu.o
+>   obj-$(CONFIG_APPLE_DART) += apple-dart.o
+>   obj-$(CONFIG_VSI_IOMMU) += vsi-iommu.o
+> +obj-$(CONFIG_BCM2712_IOMMU) += bcm2712-iommu.o bcm2712-iommu-cache.o
+>   obj-$(CONFIG_IOMMU_DEBUG_PAGEALLOC) += iommu-debug-pagealloc.o
+> diff --git a/drivers/iommu/bcm2712-iommu-cache.c b/drivers/iommu/bcm2712-iommu-cache.c
+> new file mode 100644
+> index 000000000000..040cfc4ccf9f
+> --- /dev/null
+> +++ b/drivers/iommu/bcm2712-iommu-cache.c
+> @@ -0,0 +1,83 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * IOMMU driver for BCM2712 TLB cache
+> + *
+> + * Copyright (c) 2023 Raspberry Pi Ltd.
+> + * Copyright (c) 2026 Daniel Drake
+> + *
+> + * The BCM2712 IOMMUC is a centralized TLB which accelerates address translation
+> + * across the SoC's IOMMU devices. If an address mapping is not found in the
+> + * IOMMU's local TLB cache, then this IOMMUC is consulted. The IOMMUC must be
+> + * explicitly invalidated when modifying or unmapping IOMMU page tables.
+> + */
+> +
+> +#include <linux/cleanup.h>
+> +#include <linux/err.h>
+> +#include <linux/of_platform.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/spinlock.h>
+> +#include <linux/iopoll.h>
+> +
+> +#include "bcm2712-iommu-cache.h"
+> +
+> +struct bcm2712_iommu_cache {
+> +	struct device *dev;
+> +	spinlock_t hw_lock;
+> +	void __iomem *reg_base;
+> +};
+> +
+> +#define MMUC_CONTROL_ENABLE   1
+> +#define MMUC_CONTROL_FLUSH    2
+> +#define MMUC_CONTROL_FLUSHING 4
 
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Those should be BIT(0), BIT(1) and BIT(2) respectively.
 
+> +
+> +void bcm2712_iommu_cache_flush(struct bcm2712_iommu_cache *cache)
+> +{
+> +	u32 val;
+> +	int ret;
+> +
+> +	scoped_guard(spinlock_irqsave, &cache->hw_lock) {
+> +		writel(MMUC_CONTROL_ENABLE | MMUC_CONTROL_FLUSH,
+> +		       cache->reg_base);
+> +
+> +		ret = readl_poll_timeout_atomic(cache->reg_base, val,
+> +						!(val & MMUC_CONTROL_FLUSHING),
+> +						0, 50);
+> +	}
+> +
+> +	if (ret)
+> +		dev_err_ratelimited(cache->dev, "cache flush timed out\n");
+> +}
+> +
+> +static int bcm2712_iommu_cache_probe(struct platform_device *pdev)
+> +{
+> +	struct bcm2712_iommu_cache *cache;
+> +
+> +	cache = devm_kzalloc(&pdev->dev, sizeof(*cache), GFP_KERNEL);
+> +	if (!cache)
+> +		return -ENOMEM;
+> +
+> +	cache->dev = &pdev->dev;
+> +	spin_lock_init(&cache->hw_lock);
+> +
+> +	cache->reg_base = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(cache->reg_base))
+> +		return PTR_ERR(cache->reg_base);
+> +
+> +	platform_set_drvdata(pdev, cache);
+> +	return 0;
+> +}
+> +
+> +static const struct of_device_id bcm2712_iommu_cache_of_match[] = {
+> +	{ .compatible = "brcm,bcm2712-iommuc" },
+> +	{ /* sentinel */ },
+> +};
+> +
+> +static struct platform_driver bcm2712_iommu_cache_driver = {
+> +	.probe = bcm2712_iommu_cache_probe,
+> +	.driver = {
+> +		.name = "bcm2712-iommu-cache",
+> +		.of_match_table = bcm2712_iommu_cache_of_match,
+> +		.suppress_bind_attrs = true,
+> +	},
+> +};
+> +builtin_platform_driver(bcm2712_iommu_cache_driver);
+> diff --git a/drivers/iommu/bcm2712-iommu-cache.h b/drivers/iommu/bcm2712-iommu-cache.h
+> new file mode 100644
+> index 000000000000..d2f7851831cc
+> --- /dev/null
+> +++ b/drivers/iommu/bcm2712-iommu-cache.h
+> @@ -0,0 +1,9 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +#ifndef _BCM2712_IOMMU_CACHE_H
+> +#define _BCM2712_IOMMU_CACHE_H
+> +
+> +struct bcm2712_iommu_cache;
+> +
+> +void bcm2712_iommu_cache_flush(struct bcm2712_iommu_cache *cache);
+> +
+> +#endif
+> diff --git a/drivers/iommu/bcm2712-iommu.c b/drivers/iommu/bcm2712-iommu.c
+> new file mode 100644
+> index 000000000000..1bb456a83df5
+> --- /dev/null
+> +++ b/drivers/iommu/bcm2712-iommu.c
+> @@ -0,0 +1,556 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * IOMMU driver for Broadcom BCM2712
+> + *
+> + * Copyright (c) 2023-2025 Raspberry Pi Ltd.
+> + * Copyright (c) 2026 Daniel Drake
+> + *
+> + * Each BCM2712 IOMMU has multiple devices hardwired into it, whose
+> + * DMA transactions all route through the IOMMU. There is no stream ID tagging
+> + * or any other kind of segmentation to differentiate between requests from
+> + * different devices. It is also not possible to toggle a specific device
+> + * between iommu-mapped and bypass modes.
+> + *
+> + * The hardware supports the simultaneous configuration of a bypass window
+> + * (where memory accesses operate in identity mode) and a translation aperture
+> + * (supporting page mapping). While combining these two would allow for
+> + * GART-like operation, this driver's paging domain implementation configures
+> + * only the translation aperture (starting at IOVA 0) offering a degree of
+> + * memory protection.
+> + *
+> + * The page table format is a two-level format handled by generic_pt/bcm2712.
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/dma-mapping.h>
+> +#include <linux/err.h>
+> +#include <linux/iommu.h>
+> +#include <linux/iopoll.h>
+> +#include <linux/of_platform.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/spinlock.h>
+> +#include <linux/sizes.h>
+> +#include <linux/generic_pt/iommu.h>
+> +
+> +#include "bcm2712-iommu-cache.h"
+> +#include "dma-iommu.h"
+> +#include "iommu-pages.h"
+> +
+> +/* BCM2712 IOMMU is organized around 4Kbyte pages */
+> +#define IOMMU_PAGE_SHIFT       12
+> +#define IOMMU_PAGE_SIZE        (1ul << IOMMU_PAGE_SHIFT)
+> +/* A PTE is 4 bytes */
+> +#define PTE_SIZE_SHIFT         2
+> +/* L1/L2 table sizing (IOMMU hardware pages): 1024 entries per page */
+> +#define PTES_PER_IOPG_SHIFT    (IOMMU_PAGE_SHIFT - PTE_SIZE_SHIFT)
+> +
+> +#define MMMU_CTRL_OFFSET                       0x00
+> +#define MMMU_CTRL_CAP_EXCEEDED                 BIT(27)
+> +#define MMMU_CTRL_CAP_EXCEEDED_ABORT_EN        BIT(26)
+> +#define MMMU_CTRL_CAP_EXCEEDED_INT_EN          BIT(25)
+> +#define MMMU_CTRL_CAP_EXCEEDED_EXCEPTION_EN    BIT(24)
+> +#define MMMU_CTRL_PT_INVALID                   BIT(20)
+> +#define MMMU_CTRL_PT_INVALID_ABORT_EN          BIT(19)
+> +#define MMMU_CTRL_PT_INVALID_INT_EN            BIT(18)
+> +#define MMMU_CTRL_PT_INVALID_EXCEPTION_EN      BIT(17)
+> +#define MMMU_CTRL_PT_INVALID_EN                BIT(16)
+> +#define MMMU_CTRL_WRITE_VIOLATION              BIT(12)
+> +#define MMMU_CTRL_WRITE_VIOLATION_ABORT_EN     BIT(11)
+> +#define MMMU_CTRL_WRITE_VIOLATION_INT_EN       BIT(10)
+> +#define MMMU_CTRL_WRITE_VIOLATION_EXCEPTION_EN BIT(9)
+> +#define MMMU_CTRL_BYPASS                       BIT(8)
+> +#define MMMU_CTRL_TLB_CLEARING                 BIT(7)
+> +#define MMMU_CTRL_STATS_CLEAR                  BIT(3)
+> +#define MMMU_CTRL_TLB_CLEAR                    BIT(2)
+> +#define MMMU_CTRL_STATS_ENABLE                 BIT(1)
+> +#define MMMU_CTRL_ENABLE                       BIT(0)
+> +
+> +#define MMMU_CTRL_OPERATING_FLAGS (\
+> +	MMMU_CTRL_CAP_EXCEEDED_ABORT_EN    | \
+> +	MMMU_CTRL_PT_INVALID_ABORT_EN      | \
+> +	MMMU_CTRL_PT_INVALID_EN            | \
+> +	MMMU_CTRL_WRITE_VIOLATION_ABORT_EN | \
+> +	MMMU_CTRL_STATS_ENABLE             | \
+> +	MMMU_CTRL_ENABLE)
+> +
+> +#define MMMU_PT_PA_BASE_OFFSET                 0x04
+> +
+> +#define MMMU_ADDR_CAP_OFFSET                   0x14
+> +#define MMMU_ADDR_CAP_ENABLE                   BIT(31)
+> +#define ADDR_CAP_SHIFT                         ilog2(SZ_256M)
+> +
+> +#define MMMU_SHOOT_DOWN_OFFSET                 0x18
+> +#define MMMU_SHOOT_DOWN_SHOOTING               BIT(31)
+> +#define MMMU_SHOOT_DOWN_SHOOT                  BIT(30)
+> +
+> +#define MMMU_BYPASS_START_OFFSET               0x1c
+> +#define MMMU_BYPASS_START_ENABLE               BIT(31)
+> +
+> +#define MMMU_BYPASS_END_OFFSET                 0x20
+> +#define MMMU_BYPASS_END_ENABLE                 BIT(31)
+> +
+> +#define MMMU_MISC_OFFSET                       0x24
+> +#define MMMU_MISC_SINGLE_TABLE                 BIT(31)
+> +
+> +#define MMMU_ILLEGAL_ADR_OFFSET                0x30
+> +#define MMMU_ILLEGAL_ADR_ENABLE                BIT(31)
+> +
+> +#define MMMU_DEBUG_INFO_OFFSET                 0x38
+> +#define MMMU_DEBUG_INFO_VERSION_MASK           0x0000000Fu
+> +#define MMMU_DEBUG_INFO_VA_WIDTH_MASK          0x000000F0u
+> +#define MMMU_DEBUG_INFO_PA_WIDTH_MASK          0x00000F00u
+> +#define MMMU_DEBUG_INFO_BIGPAGE_WIDTH_MASK     0x000FF000u
+> +#define MMMU_DEBUG_INFO_SUPERPAGE_WIDTH_MASK   0x0FF00000u
+> +#define MMMU_DEBUG_INFO_BYPASS_4M              BIT(28)
+> +#define MMMU_DEBUG_INFO_BYPASS                 BIT(29)
+> +
+> +struct bcm2712_iommu {
+> +	struct device *dev;
+> +	struct iommu_device iommu;
+> +	struct bcm2712_iommu_domain *domain;
+> +	struct bcm2712_iommu_cache *cache;
+> +	void __iomem *reg_base;
+> +	spinlock_t hw_lock;
+> +	size_t bigpage_size;
+> +	size_t superpage_size;
+> +};
+> +
+> +struct bcm2712_iommu_domain {
+> +	union {
+> +		struct iommu_domain base;
+> +		struct pt_iommu_bcm2712 pt;
+> +	};
+> +	struct bcm2712_iommu *mmu;
+> +	void *default_page;
+> +};
+> +
+> +#define MMU_WR(off, val)  writel(val, mmu->reg_base + (off))
+> +#define MMU_RD(off)       readl(mmu->reg_base + (off))
+
+I would prefer using static inline wrappers here because it gets super 
+easy to just instrument those with debug prints by adding a couple of 
+lines, it also gives you type validation at the same time.
+
+[snip]
+
+> +static struct iommu_domain bcm2712_blocking_domain = {
+> +	.type = IOMMU_DOMAIN_BLOCKED,
+> +	.ops = &(const struct iommu_domain_ops) {
+> +		.attach_dev = bcm2712_iommu_blocking_attach,
+> +	},
+> +};
+> +
+> +static int bcm2712_iommu_enable_and_clear_tlb(struct bcm2712_iommu *mmu)
+
+Maybe add __must_hold() here to indicate when this is called?
+
+The rest looks good to me, but I defer to Jim for the functional review.
 -- 
-Jason
+Florian
