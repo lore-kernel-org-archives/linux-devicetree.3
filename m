@@ -1,185 +1,215 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011069.outbound.protection.outlook.com [52.101.65.69])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 502BF40681A;
-	Wed, 26 Aug 2026 09:53:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.69
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787738011; cv=fail; b=symVw9Wwi4o0erDenGOYqbhfmxDZDcbvUU5fzcJP9L7JkvGoWyf8zHixQWE1JxWQf+X/fu1dDcnH3APEn850wDIwmkgjenSmupegDkDA2x0SOecDncQc3SLmx9bhw+lulTSKOYquX9HvCVPOficFreL5iS8l2FCbHvPBMyUkhuE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787738011; c=relaxed/simple;
-	bh=TZK++mmqodgZAXGtqFFDJu1E09kYPk7jBX28pslehVM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=hNwvGcQkufeTOkmTH8zqydM2D6iZ5JUiO5G7dr3/hCMkAuA42BGd/9/vqMYtSat2BiGTeL6zkKy1hHogZIAMUEVhY+by2KuEiLOxlhxkAOXEeXbm6+aVmlT404WntVqUj79+CF9rL0TK7ipPoY3xtgg/9k3VcAXBhJNBdusoI7s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=PntvUC3C; arc=fail smtp.client-ip=52.101.65.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2831940B0EC
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 09:53:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787738013; cv=none; b=NLgFRH36Fb4j19PnKTSyx2UEYijnjEp9jtgMF5G/YhdCvkhmoogHACOALiqw4naknndmmRJBvTUmoDhvv1YpcEL00MdP/cvvMCa07c5N2o8FJsARSeTpj3GOGvKEWGfJ9rV7e3+v90rsIzVrJfdTesHso03Q60tp2iqJHsEvdSI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787738013; c=relaxed/simple;
+	bh=0t1gShhLMnScFlc+HTpNW7ec8b22R5S/ZlxX5BW8A0Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Qqmeh6aqUWpz41KWrK5oweOdrirprxLkWS9BHoRcO6ZEthAB4nHdSPQQG4+TtYBM7IBvUcyx2vkDQ5PZDxlqTo9JkPzKq/4cvrYStnfmJ9P2v/hNq8I5qWw+TeTQRORsIm+l7bDH5v3VDrd8VpsRIPQu93oHtqjx2WmaxveaowA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=eR8ZkU/F; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="PntvUC3C"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SUmdG1NjNJXShYWGwK85dq/lBDMJpAh85DWL/d7qB3J1QHrmVWOldw4tK73tSr4b/ye9uPkbmqQKdUISG/Nm+aXkdDxNwfIEDXamc+xC54tIn+kSXNvCn2xTvefaauzM57TLLpyU7fVpxYt7zMVDwQDPlqjnheO1xm6J+jsjxhuR9DXKFM/UFnqH+CcBGl2BcRj1WVftATiAo9tk3uJOCI+d+7/am+nrXstqONbCzrKnWTKz8jexd9Y1/pjgt+jyl12OQjmNFGLS/g1s7UfLMm6qumOD6h7pTg6OFREYxUP7F6Uv5lRBqm7Kx6gad15y2FF6EMXBB6HTzhgHc0cTMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GwDI9vNnklp08M6popwu3Mt4+lnTeEPq8PaJ55hoTPw=;
- b=XxyZOw9RoahFYFA/kOHUa0vIzxKtxkzSCvWodkVK1wDQyLKqi3T1M6e4UYBcOz/eEzs9C766yXoSQ2m+cYPb7O8CQvrnBv5OZjBoGEgwhvky6HrPq3Ed86wFe7pcRzui32Nhc5yOhfgHl0drA4XH28puEV9LZ1zQmW/ZWq8Hur84KolUFknsb7Cv21x7dGo0yeMa6rDEsP4ZBOzQlb4sBdB8y/fUxHT33mWYhI1ecntpHAuKZ47Ftiulrz4tsPrU/D1enwhdS5mSUDt6mfQ98uDILsMIm82DAFLWKT3ndg+Z5XUFQ5iq+o+/eUX7/1DLLc7eQexYGSCR3XHg/nmElQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GwDI9vNnklp08M6popwu3Mt4+lnTeEPq8PaJ55hoTPw=;
- b=PntvUC3Cd1iZchtJhtvL7xChUwrH8PuNnx9vStPPbcTpU+2k7U079q9VWPodj5CJh3w4s9eC8eLBJdv89FmtYxd81fDFNjQtkiq0UqJTKKVZ6thNBZ0MRAwxqBwRD8MRpeWTqeabWf2mssflvU//et2ZqYKq7IzBleA+5C7BU1JpPoeLp5vH+at9hSKS5MJsINBpSAnDNil58L6CWi4LJs0UDrCKh+mjslc6j8api3FBcNxvBwL79C5iu4YTNhWV9KEuv0uRaZLQ56F0fm0nmazAw/Kib8oRqYR5a14Tx8gqgNB1r1JHynls9Z8zeIM0GrJEXORti0u8fcreBB2Q0g==
-Received: from DUZPR01CA0030.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:46b::19) by AS8PR10MB7451.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:20b:5ab::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Wed, 26 Aug
- 2026 09:53:25 +0000
-Received: from DU2PEPF00028D10.eurprd03.prod.outlook.com
- (2603:10a6:10:46b:cafe::4e) by DUZPR01CA0030.outlook.office365.com
- (2603:10a6:10:46b::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.8 via Frontend Transport; Wed, 26
- Aug 2026 09:53:24 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- DU2PEPF00028D10.mail.protection.outlook.com (10.167.242.24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Wed, 26 Aug 2026 09:53:24 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 26 Aug
- 2026 11:58:43 +0200
-Received: from localhost (10.252.23.181) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 26 Aug
- 2026 11:53:23 +0200
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Date: Wed, 26 Aug 2026 11:53:14 +0200
-Subject: [PATCH v2 2/2] usb: typec: mux: gpio-sbu: enable when only used
- for orientation
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="eR8ZkU/F"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id E1A761A183A;
+	Wed, 26 Aug 2026 09:53:30 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id B4426604EC;
+	Wed, 26 Aug 2026 09:53:30 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C8F9D11C7ACD5;
+	Wed, 26 Aug 2026 11:53:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1787738009; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=8Z2TBvTt/Hk4pcXSEPftx1bbUO6H0/gNDTyYJFD44vA=;
+	b=eR8ZkU/FsWft8t9dGEWyED8pD8kkMWBvinkPgZ+KLLUVzScEJ2RhZXmPguf9o30FJsb4T9
+	ELpu+BDsr/WSMdh8tr+6Z4tM3kx8WEyGb3VNFpryV1p7/VT1otfTLkWJ8elM2OnYr29JuN
+	vFsegwT8cDWXHE8VOggx09wkms5Z9xlUwIgd3qQitV2jV3HM/aDxJ8xNL40mb4wi5gaiqH
+	MPYulgE0xeo3ILT5txNo1+M7yv78LPhTBCnpJd87YpBQbsa0jiQuwGyhqfDDL2pD/4MJZM
+	h5JXMdLhveunKGjRl9GvV0z1Oj+egvMd131lH49E6DQAuZpLn8oqyxmWsIVCnw==
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Herve Codina <herve.codina@bootlin.com>
+Subject: [RFC PATCH v2 56/74] tests: metadata: Add a test related to orphan node merging
+Date: Wed, 26 Aug 2026 11:49:25 +0200
+Message-ID: <20260826094950.1088288-57-herve.codina@bootlin.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260826094950.1088288-1-herve.codina@bootlin.com>
+References: <20260826094950.1088288-1-herve.codina@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260826-usb-fusb340-v1-v2-2-994a03c9ae45@foss.st.com>
-References: <20260826-usb-fusb340-v1-v2-0-994a03c9ae45@foss.st.com>
-In-Reply-To: <20260826-usb-fusb340-v1-v2-0-994a03c9ae45@foss.st.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, "Heikki
- Krogerus" <heikki.krogerus@linux.intel.com>
-CC: Marek Vasut <marex@nabladev.com>, <linux-usb@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-stm32@st-md-mailman.stormreply.com>, Fabrice Gasnier
-	<fabrice.gasnier@foss.st.com>
-X-Mailer: b4 0.16.0
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PEPF00028D10:EE_|AS8PR10MB7451:EE_
-X-MS-Office365-Filtering-Correlation-Id: 746ad98f-07fc-4631-4176-08df0357deb0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|7416014|1800799024|23010399003|82310400026|10067099003|56012099006|11063799006|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	dzTBJk1nD1Z+QHhxqI9xqz81uA9VtGsb+GjBcFd1xI13BFG+q/qPw2VBUaNbAc1bu+BJI4IODAf4vgO3k/XR99Hqy8y2Tr6QNnsezpjAIpTnegid3buPNjoKiNNBuEHFrPKAmfPqiO2lzk4SKHI/0PoF01kjog7nuxWYVPBHH8HpK/v1F68H0bxcDLYdC/T78fUTyl5UYYlxj95vWyaN9G3RsbsQMPXWZiMs13xRFYmeFaVZGC4/1QKi3ddazKZz65CKH5vu5WU+cx7+Lm407fb4VINUoBnlzYMryRARpqQbqfrK2Asvgr+XixEc2vFgmnyeB0pOSQZxtzO600iyUDMURt70x0jds0+sCzqkMDA+lvnmrqR/fTGY5UNcoDKeS5CI91JbJ52Auz4rHvH8pJJ6YhykhtZar4LrYC7ErOzq6Flotre3BeLbFerrfL5LiE26m144kp0W6axDwudrNyUIDaTz/d+gR18Ch9E8hNT9tiVUT5Fulygj05VmJVxz1LImSiIlb8pqdmAGawoZG93sXRHYz2NYBDRifYvedh417TIF/biKuAkCfmx795Cp+le/VNsBC5oTLLuZKpH9KG9PDxmE4Qqf2xGk1F8gofWAGedzLBfpv1yMxBW+Hl6CTen+3ma+1p4DKGaEtF/CRCY6yNR04iB+xTwgwZnZ3oMYrWIWqbTpHkgEAIYOV94KNlSsn7z19uuNjdLgtEXXwQ==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(7416014)(1800799024)(23010399003)(82310400026)(10067099003)(56012099006)(11063799006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	LUDavp5npY7G+S4pZ+T7w0q8Zt0G1fF9VdITNt3xG5wB+/v9D/h5pFyQQTtj0UDboyej1Wkj+GbRlV/RUs5GmHHj6p0v0v2CLayrU7BCQqmruXoUlzFfOTH/0/nOJMaar5eoUZvQOLGkAmnEH9ieI72e7TAfk6gOs7FvzVNunTTketodrpKStLeM4pSrThTNWHuCRA2D8F+a9sIVncyXy3QidNj0hE0qGiK1wnsc6jpBf12HMgOuBmlcYi2Oym+DdSKA1kL+GR+2r2+P8+pwGPe5W1EgTdWHv08X++HqYRxEGUFLlSQr8VGM+WqtC/Yv3DX9fmwhfV/USj01scxRkKxS4Xs17HasqSvwKqt2YQIabg+YRwh75YlV4Pde8i7szB7wH3Qh+gz28JUoU894ciKSP78+PKGF9/sAtFVtDA+WBzITqF09IQb7pch2T83u
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 09:53:24.1756
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 746ad98f-07fc-4631-4176-08df0357deb0
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DU2PEPF00028D10.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR10MB7451
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-When used as orientation-switch only (no mode-switch, e.g. no altmode),
-the optional enable gpio remains disabled.
-Enable it from the switch_set() routine, in this case, when the
-orientation is set and the enable-gpios property has been provided.
-Move enable GPIO configuration after the swapped configuration has
-been done, to avoid possible glitches in case both signals are changed.
+Merging orphan node is supported.
 
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Add a test for this feature.
+
+Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 ---
-Changes in v2
-- fix issues reported by Sashiko: probe mode-switch property before
-  registering Type-C switch, to avoid possible race. Configure enable
-  GPIO after swapp GPIO has been configured, in case both transition.
----
- drivers/usb/typec/mux/gpio-sbu-mux.c | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
+ tests/metadata_addon_orphan3.dtb.dts.expect | 22 ++++++++++++++++
+ tests/metadata_addon_orphan3.dtb.expect     | 17 +++++++++++++
+ tests/metadata_addon_orphan3.dts            | 28 +++++++++++++++++++++
+ tests/metadata_addon_orphan3.dts.dts.expect | 22 ++++++++++++++++
+ tests/run_tests.sh                          |  3 ++-
+ 5 files changed, 91 insertions(+), 1 deletion(-)
+ create mode 100644 tests/metadata_addon_orphan3.dtb.dts.expect
+ create mode 100644 tests/metadata_addon_orphan3.dtb.expect
+ create mode 100644 tests/metadata_addon_orphan3.dts
+ create mode 100644 tests/metadata_addon_orphan3.dts.dts.expect
 
-diff --git a/drivers/usb/typec/mux/gpio-sbu-mux.c b/drivers/usb/typec/mux/gpio-sbu-mux.c
-index 1834f1a2dd9d..120f1ab5dbcb 100644
---- a/drivers/usb/typec/mux/gpio-sbu-mux.c
-+++ b/drivers/usb/typec/mux/gpio-sbu-mux.c
-@@ -17,6 +17,7 @@ struct gpio_sbu_mux {
- 
- 	struct typec_switch_dev *sw;
- 	struct typec_mux_dev *mux;
-+	bool mode_switch;
- 
- 	struct mutex lock; /* protect enabled and swapped */
- 	bool enabled;
-@@ -40,19 +41,24 @@ static int gpio_sbu_switch_set(struct typec_switch_dev *sw,
- 		enabled = false;
- 		break;
- 	case TYPEC_ORIENTATION_NORMAL:
-+		if (!sbu_mux->mode_switch)
-+			enabled = true;
- 		swapped = false;
- 		break;
- 	case TYPEC_ORIENTATION_REVERSE:
-+		if (!sbu_mux->mode_switch)
-+			enabled = true;
- 		swapped = true;
- 		break;
- 	}
- 
--	if (enabled != sbu_mux->enabled)
--		gpiod_set_value_cansleep(sbu_mux->enable_gpio, enabled);
--
- 	if (swapped != sbu_mux->swapped)
- 		gpiod_set_value_cansleep(sbu_mux->select_gpio, swapped);
- 
-+	/* If both enabled and swapped transition, set enable GPIO after to avoid glitches */
-+	if (enabled != sbu_mux->enabled)
-+		gpiod_set_value_cansleep(sbu_mux->enable_gpio, enabled);
+diff --git a/tests/metadata_addon_orphan3.dtb.dts.expect b/tests/metadata_addon_orphan3.dtb.dts.expect
+new file mode 100644
+index 00000000..2605e1b6
+--- /dev/null
++++ b/tests/metadata_addon_orphan3.dtb.dts.expect
+@@ -0,0 +1,22 @@
++/dts-v1/;
++/addon/;
 +
- 	sbu_mux->enabled = enabled;
- 	sbu_mux->swapped = swapped;
- 
-@@ -125,6 +131,8 @@ static int gpio_sbu_mux_probe(struct platform_device *pdev)
- 		return dev_err_probe(dev, PTR_ERR(sbu_mux->sw),
- 				     "failed to register typec switch\n");
- 
-+	sbu_mux->mode_switch = device_property_read_bool(dev, "mode-switch");
 +
- 	mux_desc.drvdata = sbu_mux;
- 	mux_desc.fwnode = dev_fwnode(dev);
- 	mux_desc.set = gpio_sbu_mux_set;
-
++&base1 {
++
++	addon-node1 {
++		prop1 = <0x01>;
++		prop2 = <0x02>;
++	};
++
++	addon-node2 {
++		prop3 = <0x03>;
++	};
++};
++
++&base2 {
++
++	addon-node {
++		prop = <0x00>;
++	};
++};
+diff --git a/tests/metadata_addon_orphan3.dtb.expect b/tests/metadata_addon_orphan3.dtb.expect
+new file mode 100644
+index 00000000..5a654831
+--- /dev/null
++++ b/tests/metadata_addon_orphan3.dtb.expect
+@@ -0,0 +1,17 @@
++/dts-v1/;
++/addon/;
++
++&base1 {
++    addon-node1 {
++        prop1 = <0x00000001>;
++        prop2 = <0x00000002>;
++    };
++    addon-node2 {
++        prop3 = <0x00000003>;
++    };
++};
++&base2 {
++    addon-node {
++        prop = <0x00000000>;
++    };
++};
+diff --git a/tests/metadata_addon_orphan3.dts b/tests/metadata_addon_orphan3.dts
+new file mode 100644
+index 00000000..0fe52ec3
+--- /dev/null
++++ b/tests/metadata_addon_orphan3.dts
+@@ -0,0 +1,28 @@
++// SPDX-License-Identifier: (GPL-2.0-or-later OR BSD-2-Clause)
++/*
++ * Copyright (C) 2026 Bootlin
++ */
++
++/dts-v1/;
++/addon/;
++
++&base1 {
++	addon-node1 {
++		prop1 = <1>;
++	};
++};
++
++&base2 {
++	addon-node {
++		prop = <0>;
++	};
++};
++
++&base1 {
++	addon-node1 {
++		prop2 = <2>;
++	};
++	addon-node2 {
++		prop3 = <3>;
++	};
++};
+diff --git a/tests/metadata_addon_orphan3.dts.dts.expect b/tests/metadata_addon_orphan3.dts.dts.expect
+new file mode 100644
+index 00000000..2605e1b6
+--- /dev/null
++++ b/tests/metadata_addon_orphan3.dts.dts.expect
+@@ -0,0 +1,22 @@
++/dts-v1/;
++/addon/;
++
++
++&base1 {
++
++	addon-node1 {
++		prop1 = <0x01>;
++		prop2 = <0x02>;
++	};
++
++	addon-node2 {
++		prop3 = <0x03>;
++	};
++};
++
++&base2 {
++
++	addon-node {
++		prop = <0x00>;
++	};
++};
+diff --git a/tests/run_tests.sh b/tests/run_tests.sh
+index e099bd39..ab09d745 100755
+--- a/tests/run_tests.sh
++++ b/tests/run_tests.sh
+@@ -1251,7 +1251,8 @@ metadata_tests() {
+ 	for dt in metadata_propdata_phandle_local metadata_propdata_phandle_ref \
+ 		  metadata_addon_base metadata_exportsyms_local \
+ 		  metadata_exportsyms_ref metadata_importsyms \
+-		  metadata_addon_orphan1 metadata_addon_orphan2; do
++		  metadata_addon_orphan1 metadata_addon_orphan2 \
++		  metadata_addon_orphan3; do
+ 		run_dtc_test -I dts -O dts -o $dt.dts.dts "$SRCDIR/$dt.dts"
+ 		base_run_test check_diff $dt.dts.dts "$SRCDIR/$dt.dts.dts.expect"
+ 		run_dtc_test -I dts -O dtb -o $dt.dtb "$SRCDIR/$dt.dts"
 -- 
-2.43.0
+2.55.0
 
