@@ -1,173 +1,119 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46254311C1B
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 07:06:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99C61311C1B
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 07:13:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787728004; cv=none; b=Zx5d6he4Lpgs8pPzDMRbrXPGBtxgagxpRxv+p+NU2MRPfN5gxkOLXvrg4pD+E+RVO5jThkN12A1QQujFQ+4sC9gDQjeHYsvsRWBnTflBgIQ6jCLzCYAilizZDTbgndMztkmLTh2KKuXO/CvjQ56271GCLu+5nqz248MetthebIU=
+	t=1787728427; cv=none; b=dymcMz7j7f1AINFJC7zS1+6KNet+M3vutJTe+ixqFP8QAER+IbioSU3WteSoCmB0lGTFn70i20f+4DAMxbBdMUx8ev8kcXn23b0lkJxvA2qRczfbZPaJgXE2tbtt21eJ6TZX3U7QpPuF37tjN7LrX1fUkfYM0XGbofjIKV7D3io=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787728004; c=relaxed/simple;
-	bh=dKa0bkhQNHGF3ECM0RaphHFXMQfLxiwcJfDby9lcfX4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=aRqf80/6hijy7OQdObyL6Jm0ZI+nE+P5GxkTQ8oFFabXviIpOzHnNckXFNb/gKi53jOFf4NrhakRmydLjDaS4aR9t3T6azjI8CFKzkmQ6Rf08ny+agKDbH3okPpl6BpUh6WgkyTV5larE/CuCSWP1NN3aNsnoVzJf93vfwL5FG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=O0kq42e3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Vrk6lEBk; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787728427; c=relaxed/simple;
+	bh=UDTCDlmgjO3UbATIKWOslb3WJwfkL8E874LPnW6bbgk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=NaSF1jHheXgQlwl7zL2sG7qVPnscWvyor5G2W1Qd9wU+vdkjbLhPUpeF1BS1KQqMeHlh2MGKFAt0ymUh7OhrbGvT3jAmW7bffH0RYBEDPDjhPxTGhxMFSh92Z65Rm8K8a0oRrfEJsqWmNxH7V7H8EFowFrtx8tqA5KQvfANrEGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vm9oy3yO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="O0kq42e3";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Vrk6lEBk"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67Q6RcQd3794497
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 07:06:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	9iZ9pKopk4L7oAcIHq+UKI461gaq/BVhdXcIs0vKk0Q=; b=O0kq42e33eFECsEJ
-	jE0ydvtG+Th2MWSkDcPqMU67VOc0M6OR8GqKh1Um9fAhVy1dSx78NVIrthun9MQw
-	GcHGaaKWO9zUNBV+c3IftoVPQrayiCn71KX6rcas5otLhvzmtsnoQcPVHmEME1cE
-	G5RrSa0tBgMHAWL3/TN1RBRjwdcHJaJbJ9r4LH2ZyGeaYLYu39COgQwXdSTrlzOl
-	2Q6S91X6ONwaqS+Fpwj7MPQrBHxfe5EXRqEnKlehfe0vQebmqFQr5eN3WexBYW74
-	a+v4PoVuCWbCqUVhLcWeRbQL+wjMSHFCghF6HB6jHRERvH7OCkHf0N19LB4qp2mC
-	h8PLUQ==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9smx8fn7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 07:06:35 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-90cc915d1d9so7434456d6.2
-        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 00:06:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787727994; x=1788332794; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9iZ9pKopk4L7oAcIHq+UKI461gaq/BVhdXcIs0vKk0Q=;
-        b=Vrk6lEBkj4tT3Gegk6kkJDrgvHb7R6JyHbSIlYE64Bahypd6iHsF2w9eioWyWTMymg
-         DSstuT5m4W+UYCPwOIu+qi8B86c+4jRtnpk02jae0ZVVkz8pPYfJ6073pVZoE7epyX05
-         t+O+oIqxp2ak8pIZtiZLo3XEW+EPARGbkAUNS35Abfq376rxFBnSdjVK7R7sNPM9nN5f
-         1E668ovC9LXtCNhW+U0yMJlEMGjINtWkt2+2MyB1aV6dD/yHOnqAd9SpEvIMWpVpkglO
-         QaV7nmCzOf4Q8vj8E6I/Jl+CJlryUxa7mQpQwZF1mdc0y2NLnUTOWKnAbtAlX7CEoLwn
-         fBtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787727994; x=1788332794;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9iZ9pKopk4L7oAcIHq+UKI461gaq/BVhdXcIs0vKk0Q=;
-        b=R2hCY3lWfaDikq+IlM5COheQ0fSWD6RGuFv/h6rV4KEl5CdqwkTqYjAaYjYYop6kKN
-         t0B2DydLX4RRttNsyKq3S1Ge14hMcGw4JtacpRp98uGCuBHf5QZCjdj2YsATW1i7NZux
-         +2sYAh8/SplBT2sLiHF7/3Ni0VB6IYcb3SBDGNU39LhM7xEZhy98+dHfXtcUfovB79c2
-         kjHPDCvz/kEmZSaEwcK4MvQi1HI5avPUnAR5C1peIt59MowaBaUTg4MCodFPRnRHrXSV
-         pH2BrkJ/K885o9j6Srvto97hLzQDP4m/JCr6F/1WOoGASjaIsJP/JpmHywihihBXt/bE
-         eTkQ==
-X-Gm-Message-State: AFuF++lTZ5CGrvynHtPjppKwatG8l3SbLCsRSjT05CqHeNQRF//f04kE
-	GA8Vmd3luUaw1Sb0vUMwfU5nJGk109dbCtVlJHUyON1bN9sh+b4DlU0aeM6Bsox2Tghz/Cduaro
-	JU8pnvzjolT/1Ju4RL61ssktAG97irZzFt8B3kEiGkAt1WFX42CnCI9jnb0y3JdGX
-X-Gm-Gg: AR+sD11SOw0f9G1GBPIMMOUsrlavnRBJls56tdyl1M359N6NAi7O1eZpwCKEeTHUSpa
-	GzN2kxkfpUjyr8bAU/hTUck1qXjpwwut2IxsEMvQqsc78QQ0HWIv1qb87lx3ElCTLyjX6Q5/uB8
-	/uoZ7TTldFzSI+ri67rnfCOTwitFDZ9wN6rva68eVBBmL+zpd7Gk26XufMkz4Wri/dJ3xZtoimY
-	Hj6xOgDMlMfkbSbNtaI811GKM+eqTBBZX8zS9mTDF+sDr20I/Wi1/SRkhFQmMa0pXDqUrSQhljR
-	P3Apet+NZKezomFdwNf7nVXMLPjJnFI7uSk3S3YQFJ00Gcq3fwWZjmhZXePCFYnQRAYEjIZMULI
-	VMKnH1y5XZ31CB2IC31Be/U8=
-X-Received: by 2002:a05:622a:1f16:b0:51c:ace:de6a with SMTP id d75a77b69052e-52e4230e4b2mr46715381cf.18.1787727994140;
-        Wed, 26 Aug 2026 00:06:34 -0700 (PDT)
-X-Received: by 2002:a05:622a:1f16:b0:51c:ace:de6a with SMTP id d75a77b69052e-52e4230e4b2mr46714881cf.18.1787727993491;
-        Wed, 26 Aug 2026 00:06:33 -0700 (PDT)
-Received: from [127.0.1.1] ([178.197.219.214])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a88ab82sm366812966b.31.2026.08.26.00.06.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 00:06:32 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Date: Wed, 26 Aug 2026 09:06:03 +0200
-Subject: [PATCH v4 10/10] MAINTAINERS: dt-bindings: Include dt-check-style
- in DT binding entry
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vm9oy3yO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3C2E1F000E9;
+	Wed, 26 Aug 2026 07:13:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787728425;
+	bh=lGlsPiZu17Mwo1XgevcdcC+jaG4iKfTOJO7wqfo+D6c=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Vm9oy3yO+EYM65Q0gwKaUpt45B/RU1WEJeQdb117/QLWEv3ZRErAMIPPTwnCaOAOp
+	 MxzmIKhvXJRIxoOYZNRUd06qWXhKSgkYEokeU8SGHvYHdHfFn2ErTIBOD5lExxglPo
+	 SyZ2bdw3dpuvHnxjuB41CKT2Jugs3c0LPpeYtkHcyzUsnvmNEdWpY3Q1KibHO+Pe0Q
+	 E+r181GtTdiMFQGDJkwupIAnHap/MmkxGBJCUDRyA9bpBHH/d5FujN6tTErYFmLKCc
+	 rwELI9HJ43L0sQHtfBaigdiGvu3r+5yGuEg3hfHNT+n8s61owK6/sIraKIkQiXkbXR
+	 SlmmaIoWnsVxw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 03/10] dtc: dt-check-style: Fix alignment of values
+ in continued property lines
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260826-n-dts-style-checker-continued-v4-3-022e60091965@oss.qualcomm.com>
+References: <20260826-n-dts-style-checker-continued-v4-0-022e60091965@oss.qualcomm.com>
+ <20260826-n-dts-style-checker-continued-v4-3-022e60091965@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 26 Aug 2026 07:13:45 +0000
+Message-Id: <20260826071345.A3C2E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260826-n-dts-style-checker-continued-v4-10-022e60091965@oss.qualcomm.com>
-References: <20260826-n-dts-style-checker-continued-v4-0-022e60091965@oss.qualcomm.com>
-In-Reply-To: <20260826-n-dts-style-checker-continued-v4-0-022e60091965@oss.qualcomm.com>
-To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=825;
- i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
- bh=dKa0bkhQNHGF3ECM0RaphHFXMQfLxiwcJfDby9lcfX4=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqjpBhjTAFGa+82WPqytj3/s9gJnvpLpQff87Ed
- b+gLJ7NvJKJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCao6QYQAKCRDBN2bmhouD
- 16G/EACTfW7rzaruhsV6mJNWw7rp3sm0yF1+ODrx0N2HEnahV5ghhLZ/FhGJ/7GKmSoHiqBu+jn
- X1VZJlnbgO8NH8qlYVXC+4B7rJ0n1U7KVoioPM7eR1fsbbCv3pfHfa9YE820SVzc2w6JS1oX2QU
- XnSwAU+78IqMkLNl7HFOdFm4h9mF73ZzhjqpQkgspe/DMfDiTNJc1oX8D5gPZ+dWJh2P9gHuhbV
- IguilxKXS17eSO81vWqGVCOINGw4Uo9H1u34YTeLriIVM0yknqL2ItORCP+v3Vccs7sts+/E6zn
- 2npydVeNPc+WS07BR8N17nfBjQDA012krDfQ2oEGedHh1adWWPutPzRwht7wfMoo7DrSW5SKOoj
- ll7Lt9gNP7S1X/3PeaBZbxCG/JN+9XlEvRjy/ru9Vh9h75bKU/UcgilJ23Dzl3Bh4RQTgdmYhj8
- zOC2FkN6gW++0n4vOr8U/+OZS+/4jVQAgRsjbSMbON3sZbNx2UtH67vsnxJsc0Oogqonh4v0vX1
- dOkV/JItC29XSWskpvJepPSiZG67/BOv0bumgiKhyh/TgDnsbv3fP9nozCcdKdFMih8l2TqnLmj
- CeMjnMMCONFj643iqIxIxCJcro4EE85NWbJ3n+Jz6ZSzfT12Ur1+52/gSNNAoNvX8qs4P0YhsVD
- qvazow20QKsVz2g==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
- fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-X-Authority-Analysis: v=2.4 cv=O/oJeh9W c=1 sm=1 tr=0 ts=6a8e907b cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=hdCJvu6vi-O6ykQZt0QA:9 a=QEXdDO2ut3YA:10
- a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-GUID: 17CNP7dJMIRDXG04w84pSMxpERbKXjiF
-X-Proofpoint-ORIG-GUID: 17CNP7dJMIRDXG04w84pSMxpERbKXjiF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDA1OCBTYWx0ZWRfX8dcFro6j4CjG
- bMmd5+PWejKge5Vq+cNrXYuJkeqqCY47THtkQGdu2XoeC4vi2d9jmcPBu/sDkxrc5dLLZjpXHC1
- bLdE09N9ELobRPOOW0Cos3kdAu5unsFUbozr6cOfOCJWyxeEM2k9TBZ/mYtFWU9H6iUsrhkP3Da
- 2WI6uGJm4933EtB4IvbpeUkbEzDOyZG+6wMuQxpZflXCVSkQC2jUvmUn0WFQgMSSic26H4xdlLO
- FcfFuzo2fgIGFMFd6MfDw34RM9doY5L/nK0fAKHfWdI4c4+vN3Y4XIZdbjaC0UMyHr8MJFEfUqO
- w/TQWI8JCTKiUrGcXaysxtx9oDY/UffSGWZkOqhg34wiCP5nJ3Z2J8Klb/JuKhQ4qE7Bq+Za4k+
- GaD5xQZfCdU/u1lMxXWs5dG2AniotoEq7Jpfe7bJKzgWRwOW5fLgMOME5IEVS8KIItfrByRO/Su
- 7254Ic6iRFzo13Yd0VA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDA1OCBTYWx0ZWRfXz2seQtcTpqwC
- 0txTRkERbg3o6g+9fJQVIn2/2WcklvyJPRDPZL7r1ztNbD0MEsDmi/KkpKD1RpsrhXpaWEhpwMK
- YZNxwVtwHXVTa/CQCNC+NgVKjYYwuh0=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-26_02,2026-08-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 spamscore=0 adultscore=0 impostorscore=0
- lowpriorityscore=0 clxscore=1015 bulkscore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260058
 
-The dt-check-style tool is in interest of Devicetree bindings
-maintainers, not only the driver OF-core (where it is covered through
-"F: scripts/dtc/"), because it covers the DTS and the bindings.  Add it
-to the DT bindings maintainers entry.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Trailing whitespace or comments break multi-line property alignment=
+ validation.
+--
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
- MAINTAINERS | 2 ++
- 1 file changed, 2 insertions(+)
+commit aff0e119d6465ed21424e22c5bbba8149c80bcf4
+Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index fe10d29b7657..59ec34fc9682 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -20488,6 +20488,8 @@ F:	Documentation/devicetree/
- F:	Documentation/process/maintainer-devicetree.rst
- F:	arch/*/boot/dts/
- F:	include/dt-bindings/
-+F:	scripts/dtc/dt-check-style
-+F:	scripts/dtc/dt-style-selftest/
- 
- OPENCOMPUTE PTP CLOCK DRIVER
- M:	Vadim Fedorenko <vadim.fedorenko@linux.dev>
+dtc: dt-check-style: Fix alignment of values in continued property lines
 
--- 
-2.53.0
+This commit updates the device tree style checker to properly enforce
+alignment rules for continued property lines. It adds logic to ensure inner
+values inside phandles or strings are aligned correctly based on the
+previous line's completion status.
 
+> diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
+> index 833f8a03ddc9b..486dd1d6bb9a7 100755
+> --- a/scripts/dtc/dt-check-style
+> +++ b/scripts/dtc/dt-check-style
+[ ... ]
+> @@ -940,15 +941,23 @@ def check_continuation_alignment(ctx):
+>              continue
+>          # First '<' or '"' after '=3D'
+>          rest =3D dl.raw[eq + 1:]
+> -        m =3D re.search(r'[<"]', rest)
+> +        m =3D re.search(r'\s*([<"])', rest)
+>          if not m:
+>              continue
+> -        target_col =3D _display_col(dl.raw[:eq + 1 + m.start()])
+> +        dl_value_complete =3D rest.endswith('",') or rest.endswith('>,')
+
+[Severity: Low]
+Does this evaluation properly handle trailing inline comments or whitespace?
+
+If the rest string retains trailing characters like inline comments=20
+(e.g. >, /* foo */) or unexpected whitespace, endswith() will return false=
+=20
+even if the value is complete. This could cause the script to incorrectly=20
+conclude the property is incomplete and mandate an incorrect indentation=20
+for the continuation line.
+
+> +        target_col =3D _display_col(dl.raw[:eq + 1 + m.start(1)])
+>          for cont in dl.continuations:
+> -            if _display_col(cont.indent_str) !=3D target_col:
+> +            target_offset =3D 0
+> +            err_msg_explanation =3D 'to < or "'
+> +            if not dl_value_complete:
+> +                target_offset =3D 1
+> +                err_msg_explanation =3D 'to the value under <'
+> +            if _display_col(cont.indent_str) !=3D target_col + target_of=
+fset:
+>                  yield (cont.lineno,
+>                         'continuation should align to column %d '
+> -                       '(under < or ")' % (target_col + 1))
+> +                       '(%s)' % (target_col + target_offset + 1, err_msg=
+_explanation))
+> +            # Align to the value within <> or "" of continuation (so the=
+ previous line)
+> +            dl_value_complete =3D cont.stripped.endswith('",') or cont.s=
+tripped.endswith('>,')
+
+[Severity: Low]
+Can this cause false positives for chained continuation lines?
+
+Similarly to the rest variable above, if cont.stripped retains trailing
+comments, endswith() will evaluate to false. Could this result in the same
+false-positive warnings when checking the next continuation line?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260826-n-dts-styl=
+e-checker-continued-v4-0-022e60091965@oss.qualcomm.com?part=3D3
