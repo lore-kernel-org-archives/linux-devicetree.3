@@ -1,107 +1,162 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5CC2385D78
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 08:35:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DEE9285041
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 08:35:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787733333; cv=none; b=SZLSLTDuC1NITiNB3TE30dvh6topr1W8kiqZ4ttuHtJfwfR7NVSijQYUUVcXls1AJk00AIgXyx0ZKKG/mlUhDYxyPeSrcZFWgmZw20Bw6b9TU2sVUBeUC87ONPgDQcR4fPxrQLu5sDNjSupF3+ysC/zC9FA3dYa+lIbxGuVlgaY=
+	t=1787733337; cv=none; b=VRan/GUmyQ9U/pq81/4LV/lPb6h99ZA8sdU8K3hntCjjQLgiCKacFfxrbdySDS2M2bcKNI2R1uLVZSiRHt0a5KiDJbrh6quW9duv6vKFnxeruup3AFXjkNP/o+Xw8RE9cwo2IqZZscQ28IAroMPU00015VAn5X2jlpdVJyMBzIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787733333; c=relaxed/simple;
-	bh=8UkJs7+Yd83Q9YwRtqpurP1qoy033P6wwjcxhPZj8ek=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q+8x5/Ef6aJD5qszOfMpO+0vWwD4l+Na8Iwgz2kl5gSLxgDf35hpLVgpd377CdMDzcF3yvd8QHt6hg0u68FB/hAWJ0A2/Tv2sfJiXVl1RZC1IHFsXFdqQQpnymdtPSTqLYy9k+Fl5TRh8iC7mJ9BcKhqYF1FcXkQToOINiJPAaY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=F7nYnkRP; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1787733337; c=relaxed/simple;
+	bh=SJLeWOvQD8dXdtuDXo1OetRS6dL6iFPDYQiXDDBpRro=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Rhw+5eJI+oCM4EivZxsFPg/GPb+EdWxvx/xSt/olXZkCeWSpQ8S/hcKlwED8gzvO+kNYhB81dCy0P0Nt6pOPbnqeN0tf4ufixQN8vUjVAxIQEiQ/ZndSXpHKP002nJ0kZ6Hp/MMaZPijjmDxLtqGixSNJSIVjiLtzHPaeDzKqzw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vw9UKUyi; arc=none smtp.client-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="F7nYnkRP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=from:to:cc:subject:date:message-id
-	:mime-version:content-transfer-encoding; s=k1; bh=vmwm2m/Tv9tEIQ
-	bYfD+UllBk4kUwIEKqx5biQMcjaRY=; b=F7nYnkRPA7keDGmNekZsWZeeePQZcu
-	fYQRpPYZnOZssShs6wmtE01ZFN9Qo3A29kTiaMLMdm9J/hvAFPhu8EHzJ3IcXtW0
-	/cBBUwdZsZi9VBFF4QNODa0rKuKBH2ATnatQx6EoTffFxC8bigb6a6EVEZa5Xo7y
-	DDXenFwHtWjkYrzR+ch8ZgJbFUHl3X+84TOuwkKqpKwtApno94JmG+WY9iT/pzVc
-	DO+8XkmHgVtQUMinlFLviUG1hPpqGMtlOycBeqvlR0Ee2wm7FWDnV6LismWJv8SJ
-	qsglpdsZnTGbJdwrqELAk8I+x9dS084HcCBjPSwoS4DCmV2FCEsYJCuA==
-Received: (qmail 788513 invoked from network); 26 Aug 2026 10:35:28 +0200
-Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 26 Aug 2026 10:35:28 +0200
-X-UD-Smtp-Session: l3s3148p1@EPz+Ge9ZHOMujnsh
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: linux-renesas-soc@vger.kernel.org
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH v2] dt-bindings: i2c: renesas,rcar-i2c: allow 6 DMA channels
-Date: Wed, 26 Aug 2026 10:34:23 +0200
-Message-ID: <20260826083524.6056-2-wsa+renesas@sang-engineering.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vw9UKUyi"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c197e7e4e94so99178666b.2
+        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 01:35:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787733333; x=1788338133; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Xw7LZB2HbfnwC4ej5Y9HAOHCayPzVl8tY+L3ByVWnVI=;
+        b=Vw9UKUyiVdDcf10C502jmB10FRBP2gctnfjcsXHrORbyvhogb+6FgMUD9RUdMSbmDI
+         qF+LG5V6HoBXck+1iqAhiUupe9o9csIQf2cdQLxsyGvOLH6hYgNVILKWQWz2OMwACRxH
+         PeAh1kVdZBeJBYxOn1fdz3d1hdYCxTDwYnirDj55evtuO1V9FDjaFIO1Le1QknRZmDWB
+         Au6rSfIAB/AHtrmzLjUoG2MMzTXPU6x/S5R0uf/Agig1FjaK31xJDl0KwfnTRsfBOK9c
+         +FduHq1Q51sFz9rJC9ITpGUNDQ1Qg50s1eAYGA1185qN71iuAtpTxJ7yoai9+7s46L23
+         557Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787733333; x=1788338133;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Xw7LZB2HbfnwC4ej5Y9HAOHCayPzVl8tY+L3ByVWnVI=;
+        b=cCbM3OswPh5c2qvDmu8QkRItQafIU+jJrUDiETpyEcs6z0++HnkDDW3zCWRKMlqWCT
+         YODIuuAGQ48yVsu8IsUgzCWvC/TdyxJlS3dq4KgYrK/1xQlpQgj8d0rhi6ywWmcWSnVQ
+         iv4sEM8iuUCGigqj2I/tPENUFPMXYNUzkUZX3h3zcy7kgNxQK6sTEtb0cWiHb+QleNPV
+         pZJf2qawJ4+I/rysx7dHo7ar7kBvRRKtPh4GYm+lfqeNcy0newINdaEcoryKAli3Shk4
+         Xzlj0TIIzwUPXYri0YVXf1NfebuKWTeBQYUlTA4Dq8Fse3YYxIfnfNCMjC8qEh63Ua3M
+         T4Ig==
+X-Forwarded-Encrypted: i=1; AHgh+RqUkH3A+Xp51FPw/hMpEnUH2d2x9t1NsGMuOkq8Pv8+YhIVMyqmtysrSXtTsUZerUCa59TTyXX+kYNc@vger.kernel.org
+X-Gm-Message-State: AFuF++kAUcQAKvqslH8TYNMz2jkEbyqYgNix60v5EALN5+C5vyFBzbMg
+	+y1a+ukODJ1OfICllJoCBWemQW/MCyrXwDSknOfad6Tyew6aYkk+i+4+9F+PLQ==
+X-Gm-Gg: AR+sD13KYlRdbFEoqwKi/NhjlePFUqyyJlw3MtYeWjIL+Kvn7pbqX9a4put22AICAIh
+	hLGFu/Q8EAeyWGmEJHTLOjYyGAOh8fqmEbJcLicEwAi9c0a4BGkLJQqAZMP5O1bea48ufQzOJFO
+	293NVVE38O8B3pQazZfwlpXVUqFYZD4UMolSpbvmMB6XWlnWucVtkqJXAFcKRYHyndp9L8C0nfq
+	6pdRfU7GLkHstZUpRhyyC79Fyr5ZT3nI+cyPh93Za+McVO5hQpFDR2vtHWtOHi4R1prLSFbRn89
+	60OWIW93ttsJ3AeaPzCeU3DslWblcxDI1U+ajgz6a4BtnkPxG4ygiIgqhpD6lT4SvTWAr1TBRTA
+	XK+0ep0IF/HVI54Jv91RY2p5HAeG4zhTgKSxGiZvTBgTSvQdsTEg+M3BhwobU8elIiJ+m9k0Zdy
+	YAdsgz50/4cs5r3J8w4Fpjb9Nxu6iUfEu312anTUNZmNauMcxeupMbQCj0qatY1HsGlFuZM1Na5
+	9YdLXP6AgjY5VVKXPTGMCArRQliFw==
+X-Received: by 2002:a17:907:1b24:b0:c20:7cb1:9046 with SMTP id a640c23a62f3a-c250bbce005mr609918466b.8.1787733332977;
+        Wed, 26 Aug 2026 01:35:32 -0700 (PDT)
+Received: from GLaDOS.station ([91.80.77.66])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a7303casm498326866b.25.2026.08.26.01.35.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 01:35:32 -0700 (PDT)
+Date: Wed, 26 Aug 2026 10:35:24 +0200
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org,
+	Frank.Li@kernel.org, robh@kernel.org
+Subject: Re: [PATCH v5 2/3] ARM: dts: imx7d: add Variscite VAR-SOM-MX7 support
+Message-ID: <ao6lTMiwplBt-4zm@GLaDOS.station>
+References: <cover.1787674237.git.stefano.r@variscite.com>
+ <749f32d1a92ec87ce76f1ac0ce0d780c431fdde2.1787674237.git.stefano.r@variscite.com>
+ <20260826083133.C97A21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826083133.C97A21F000E9@smtp.kernel.org>
 
-R-Car Gen5 can make use of it.
+On Wed, Aug 26, 2026 at 08:31:32AM +0000, sashiko-bot@kernel.org wrote:
+> > diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-var-som-mx7customboard.dtsi b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-mx7customboard.dtsi
+> > index 0000000000000..aecc8c747f041
+> > --- /dev/null
+> > +++ b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-mx7customboard.dtsi
+> [ ... ]
+> > +&usdhc1 {
+> > +	pinctrl-names = "default", "state_100mhz", "state_200mhz";
+> > +	pinctrl-0 = <&pinctrl_usdhc1>, <&pinctrl_usdhc1_gpio>;
+> > +	pinctrl-1 = <&pinctrl_usdhc1_100mhz>, <&pinctrl_usdhc1_gpio>;
+> > +	pinctrl-2 = <&pinctrl_usdhc1_200mhz>, <&pinctrl_usdhc1_gpio>;
+> > +	cd-gpios = <&gpio5 0 GPIO_ACTIVE_LOW>;
+> > +	no-1-8-v;
+> 
+> [Severity: Medium]
+> Does including the no-1-8-v property here needlessly cap SD card performance
+> by explicitly disabling all 1.8V capabilities and preventing UHS-I
+> negotiation?
+> 
+> The pinctrl configurations below for SD1_VSELECT prove the hardware supports
+> 1.8V switching:
+> 
+> > +	pinctrl_usdhc1_gpio: usdhc1-gpiogrp {
+> > +		fsl,pins = <
+> > +			MX7D_PAD_SD1_CD_B__GPIO5_IO0		0x59
+> > +			MX7D_PAD_GPIO1_IO08__SD1_VSELECT	0x59
+> > +		>;
+> > +	};
+> 
+> With no-1-8-v present, the MMC subsystem will never switch to 1.8V, rendering
+> the UHS-I pinctrl states dead code and capping speeds at 50MHz.
 
-Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
----
+This is intentional. The board does not support reliable 1.8V signaling
+on this SD interface, so no-1-8-v is required despite the presence of
+the VSELECT pinmux.
 
-Change since v1: add check for limit on Gen3/4.
+> 
+> > diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-var-som.dtsi b/arch/arm/boot/dts/nxp/imx/imx7d-var-som.dtsi
+> > index 0000000000000..158158afc3391
+> > --- /dev/null
+> > +++ b/arch/arm/boot/dts/nxp/imx/imx7d-var-som.dtsi
+> [ ... ]
+> > +	codec_wm8904: sound {
+> > +		compatible = "simple-audio-card";
+> > +		simple-audio-card,bitclock-master = <&dailink_master>;
+> > +		simple-audio-card,format = "i2s";
+> > +		simple-audio-card,frame-master = <&dailink_master>;
+> > +		simple-audio-card,name = "wm8904-audio";
+> > +		simple-audio-card,routing =
+> > +			"Headphone Jack", "HPOUTL",
+> > +			"Headphone Jack", "HPOUTR",
+> > +			"IN2L", "Line In Jack",
+> > +			"IN2R", "Line In Jack",
+> > +			"IN1L", "Microphone Jack",
+> > +			"IN1R", "Microphone Jack",
+> > +			"Microphone Jack", "MICBIAS";
+> 
+> [Severity: Medium]
+> Does this routing contradict the configuration of IN1L as a digital input?
+> 
+> The routing maps the analog Microphone Jack to IN1L. However, the wm8904
+> node configures IN1L as a digital microphone input via wlf,in1l-as-dmicdat1:
+> 
+> > +	wm8904: audio-codec@1a {
+> > +		compatible = "wlf,wm8904";
+> > +		reg = <0x1a>;
+> [ ... ]
+> > +		/* DMIC is connected to IN1L */
+> > +		wlf,in1l-as-dmicdat1;
+> > +	};
+> 
+> Because IN1L is placed in digital mode, does this cause the analog signal
+> from the Microphone Jack to be ignored and break analog audio capture?
 
- .../bindings/i2c/renesas,rcar-i2c.yaml         | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/i2c/renesas,rcar-i2c.yaml b/Documentation/devicetree/bindings/i2c/renesas,rcar-i2c.yaml
-index f9ede03c3287..bfd486be0109 100644
---- a/Documentation/devicetree/bindings/i2c/renesas,rcar-i2c.yaml
-+++ b/Documentation/devicetree/bindings/i2c/renesas,rcar-i2c.yaml
-@@ -83,14 +83,14 @@ properties:
- 
-   dmas:
-     minItems: 2
--    maxItems: 4
-+    maxItems: 6
-     description:
-       Must contain a list of pairs of references to DMA specifiers, one for
-       transmission, and one for reception.
- 
-   dma-names:
-     minItems: 2
--    maxItems: 4
-+    maxItems: 6
-     items:
-       enum:
-         - tx
-@@ -137,6 +137,20 @@ allOf:
-         dmas: false
-         dma-names: false
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - renesas,rcar-gen3-i2c
-+              - renesas,rcar-gen4-i2c
-+    then:
-+      properties:
-+        dmas:
-+          maxItems: 4
-+        dma-names:
-+          maxItems: 4
-+
-   - if:
-       properties:
-         compatible:
--- 
-2.47.3
+This is intentional. IN1L is used as DMICDAT1, while the analog
+microphone path is handled through the remaining codec input routing.
+The current routing matches the board hardware configuration.
 
+Stefano
