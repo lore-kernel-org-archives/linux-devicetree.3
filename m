@@ -1,87 +1,87 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D1BB381EA9
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 07:06:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C25380FC5
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 07:06:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787727988; cv=none; b=rhQ82M+/+kqr1jXeUNe8uZ66uNASeVbbgT4PtRMvBSNZpHJSdF7CsDkY0382kuKHWLcSgSk9ZC6oey+QHMboI+xMhGVOb3iZFBAyMK3vwVTQRlSzb6svFh74sfllDg6Gx3HxJ17NLKmtmZelq/3TSsLHcfD52KJX8EWhQ1Lt7k4=
+	t=1787727991; cv=none; b=QFYHusvv2sObI4D6r4wJi/O99ud6LRQEq4S0Zy4Z7wrpdAT5dVGKWd2e7s002++wUiI8jnskjl55ghXC3nux8q8/f1o/PPju652WfnNiXfvUZlzz85xRgHYeERGQkl3aYAl4x8Z+uoTEGRs6RUOs0tGki2oi5+ihD6dN0FEYzmQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787727988; c=relaxed/simple;
-	bh=Mw4XHK/Oa8T91FeM/cqkEoaBFhwKmiLgbMkHNgJqgVo=;
+	s=arc-20240116; t=1787727991; c=relaxed/simple;
+	bh=WraPvDvGy9Jufn+SaJj9rOm1t1/Kyu0YxlWrUpE8/SU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hrxfFeh0bzavmGe9F2XBstOBJ/X7t0LyLDTcoBSVA+5w8Yl71N41m7N57ddfMZzWPrMDvdC0nVRdXb67tsOESRPAq4+7woVaTDuAVhdpCOeQBBuijXnWp89jUmgJOkvQ4pQFJQmoTTQ882pIRt3ZELr4Sn7CYGYn5RCXS4bOyZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QDm0X9b3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Rjz/JO5r; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=OQw0bLyoMHJD5b/O6VzCt/aGSXr9jtqRBGhNNTYhKWcG069v+sHKZXfweMtGqRBdRjEwcHjBLt6CskI7b66vJ/VgZWlfE2bMSq0kqSXPfvSBkzKp3DdWkkJpFr9LqAVEb5FzXS0sOUSE9SbjqLbVCMA59WncffuPiW8KP0JmN0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Taysm9hD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=f+avweMR; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QDm0X9b3";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Rjz/JO5r"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67Q6Rc2n3794471
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 07:06:24 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Taysm9hD";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="f+avweMR"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67Q6Ruj5122868
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 07:06:27 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	k+8vOI27ZV6IEvlCRSpFBL4FoDTBUBGz58m5JqF/ZMQ=; b=QDm0X9b30PzlKvGf
-	Vp3pCn2mmFhJy5TTjLhZBpgNJr18AulHm8Uf4ZY+T9E2dhCL9yvQvf7yy0rxV+ry
-	4lAUVYaeK+Z/6wVi6BDd/yaVWxGPO4+OgyyCIOTn+5fO6wq+wYMBNlQIYqbQztsg
-	Zldr03k1o0Beixq0p1hh0H940V87SiCH8MrXKPvTrnhoeq6nrIlruYP0K1MbI4MJ
-	5doBFQK6kpfJtw1lVCpWTQ9i5I2op/GYh8GsppgV9K6bpBadeGW5Iif/n/+QQWAB
-	A8+n44U1pvT9+aqLNflcZwvxvMxJr8dcoAiqUZob1sHrGl31zVpN+I0uKzjPnP5T
-	blVxLA==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9smx8fk4-1
+	tMLzRjPVGu4PMTor9KIPBTRmzx8WfZ7yvrm4g26Ni+I=; b=Taysm9hDgfZkcwdg
+	bvMG/eEPFlMewlfkQEeaJNWUxVBjru+qR7RtDrbNGzz2ZPuEKepCcv88VWdBE9TX
+	u93al02drXQuvSOs/KzdhvJvQHixx2Jy1g3TvNWELGfnw4xoCpxqrfazBlNKpQ03
+	GgWETcV332Z3fTUar4SeeuVT03FnDY/AX6FKrhn68KMs5h5wY9Z6wjUa4sqUG7SV
+	MSvI31nE6Jj8d1vmxX6jLmVHiQXYyTYPYHTD/jUXphBuiArVfmaIoMMalK/opMxs
+	TYD5VmDt8stTT1jfqavGfQdFoxUahzghe1QmSLMB9zF+2wausi7/IYPQiutL7oBc
+	mEEFDw==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9g4mtckg-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 07:06:23 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-90ccb6102baso2578366d6.1
-        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 00:06:23 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 07:06:27 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-52dd69b00cfso7357101cf.3
+        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 00:06:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787727983; x=1788332783; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1787727986; x=1788332786; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=k+8vOI27ZV6IEvlCRSpFBL4FoDTBUBGz58m5JqF/ZMQ=;
-        b=Rjz/JO5rMEpfVPV8InS/sEhzvYRMVLjzcT43t73JscEZkSWmCgPqLxbtOc+ETbLpI2
-         hO7Wt+T0Rx9XhUzGUD9WWOh+tGnx8XWT2sfBTcKfsc5NpKtSroPRcovmNC+OvnDkusw4
-         GP2igEWJs9JsMfdCxYgNqjaOsSOIuzKxARTrt0fBDRZ7IIuf3QrcDeZbxw2bin+W03XD
-         aFjimapJUGmx3ZmFqmcP/TD3b1drkU5coJnFpe/dZY/uTI0Q/G6w0RH9n3+Xc9FA23JR
-         ZysQ/Y9vTGP0nOcpfTLbRhJHjbOdUn2ecFYlU57LvuxglWkQcUPvTeoQWuhqEi2UV3y9
-         wrSw==
+        bh=tMLzRjPVGu4PMTor9KIPBTRmzx8WfZ7yvrm4g26Ni+I=;
+        b=f+avweMRchb8mxUCk7d8+RJY8A2liTp89gUkQPKvDhqdVqopHPaWalmHfIYPFGPOBc
+         oz7l2Ux3kdIXdzOSUxm60hc8hh2iUoSDvdlaftPBlfHLNBqDqbIdOjsXijAQ1U4dWagl
+         XUU2hMbjLVeBPBE9PmAfyQF2vpnWuCjjO5XcJJCHp4v2q1ldlHhkgw2CuPHHvcNA6F4Q
+         JqQPQ/9b81or3uSoFk2nzh5WEhjfm4uscG89NV1jCtHvKRmbkHuNqQ+4W0U41KG0K93q
+         vSiNR+sgzjy0xLGXAoXqHrFhkMJQOLQ0ooFp6A5eRDcELaHXPu5Ouyasmpw34sIqgFEw
+         cbgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787727983; x=1788332783;
+        d=1e100.net; s=20251104; t=1787727986; x=1788332786;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=k+8vOI27ZV6IEvlCRSpFBL4FoDTBUBGz58m5JqF/ZMQ=;
-        b=slfFoxQ6e9bpPLJQjHC/2OchxdkPw9S9qnxEOYZn9ZMNl2IaJiHZdB9k5cXkZuAK2k
-         rkZYMviRY+AdXiUNvDJNgTs0H/jZ0vDobzgMnqKjDQsUssEwR6WKCYBQSBctD+CL3e4h
-         XdOEugyIMa5N9lqeSC8cwRwgNLOG77bFrEI1/B0G0c4NwxwZodyuKtzWUKLd7oOjt2hd
-         lAZVvSQdrEFeIelWj5EOmi8Ae+nI2b876fIPvIjxjJ4xjvo8Ai3XPYZMbp5Y3soyn0CX
-         gW3QW1Wx/bEJqmSLra7LM4slA5dDTnXfsE8MH9m0r1FwSiqSiI1ns0yKATxu62vPOIOK
-         mFxA==
-X-Gm-Message-State: AFuF++kGFqxD8Bb+AtzSPkWXvkoAqv1FWqk7W1sX7aKQeYuUPj6F16hM
-	FBG4TAiuWik2kq5tRGRM9cmYhzq4TyT3XumOxaUe4nY5oAoFQwsVqZinmalZXk2cPO203GO90GO
-	jrhjDiyRYil8AOPFTF39XW9j6Kk3/c6/hlgsBFSC8B2fzQGFguKEPEHrNxtJksXIf
-X-Gm-Gg: AR+sD12YNRWXgd/U1NUJX8fy1Tz2djjO154hw8uJDue+W6dUUTGhQhB2XQduZlydChH
-	638h825+6LMz7mnEW5wiHPtBn9s39MeJ6Y74riBWK3Zi9a3PG1hGrwghgtx3oiyjD5aRFYXAVln
-	O68CjY0sQvWztOa8hrOuNX/QW8jADKbtl8TXSm/JduVrAJN3njBk9YTDiahnJiiJ019773lJUpG
-	EsP2Fb5QVS0gg/q1UzZ8i0dL6xlaxf++iC61ceg7whICslaj9dkV1X2g5atuV0bKR4xXCrUB2qC
-	+UIjwPiDHH8BuT0zR91jXpx/FWWt61uSkZSR2ngmHsIp91Lvv78aIhmBIsRacFmndsEAAWcY3Ws
-	qqkoFRDPVSkO4M9B6SV9ToJk=
-X-Received: by 2002:a05:622a:30f:b0:52e:3f51:b791 with SMTP id d75a77b69052e-52e422132d8mr44219631cf.5.1787727982786;
-        Wed, 26 Aug 2026 00:06:22 -0700 (PDT)
-X-Received: by 2002:a05:622a:30f:b0:52e:3f51:b791 with SMTP id d75a77b69052e-52e422132d8mr44219261cf.5.1787727982392;
-        Wed, 26 Aug 2026 00:06:22 -0700 (PDT)
+        bh=tMLzRjPVGu4PMTor9KIPBTRmzx8WfZ7yvrm4g26Ni+I=;
+        b=LJjB4s44SElRCt7R3vtHLWVI2UNvC1K9aBqw4eMCdQbSYSGEpzUE5g8B6UtzumEqUR
+         LoI7cs4R10Cj7V1IghKld5ZpFAxbUyU/g/PaqpGx6WahC0jS0/pUms/ZhNaRwqWWk8Te
+         jzf5edHrVjl8qR+47ITtKivRw2MijcyqR09PuUjrxoub1e24HzDlXTfuZj1FU6epzEoT
+         HxNgfmko9luYLfcBzZgJc5d6qnm3qF3KrgHdU8Jj3/FUngRSlycsipi3ot8QhZSolgtG
+         804Cn1yUcsylLvHeeoFIt6KuTa5YYamR8BhUVd71wVi31ngF/X78vJDdY0vHgZsFzLdQ
+         D/RA==
+X-Gm-Message-State: AFuF++nPsZhG1y9KQhEysxQjUnx90JGBrX9JWDCe8yx6o1utszeKryST
+	XakAcE1uQ86fiGeyEo3JaXc4auA/QlAhEGNfCo3M/kgahJb18D0LP055fLohO8BalJelv9SUc3J
+	bSQORsZenW9jwkETeaibdADXKMJD6Yqd7OESFY19KuP32905MneUgy4o7pDjvYhXU
+X-Gm-Gg: AR+sD10OjCWux1V4mS8iu67AaVCTYAZ1knPsZMd81/vOaoXUhFDPwGB5RrEb1HmbfXg
+	TuS2hilVaCktkpp+9CYmJLBWoJyvmOaYD/V7FWGu8anqU9xh7eoMKS2C2psfqdv3BaVGArwcoXR
+	hvQtP5EW+TMA+8z0A9wxc2HH0VSu/6WKBdb7ox0wiDowkLZNGZwv0RF7DSW3U3ARfZAso8H1kgt
+	Q1E6krnTpw3lHTaBYeNVBAlxtP6l3Hu1FSskbonE4qLzeF83ljIYufwtQCEWfI8P7h2RcvtQhKs
+	2vpTM7fiyd3uRluWV4+KNNHY/ExpRzhR7PLXRl8vxezsv8JtB8akmqg3KJHEVlmmRiA+tH56vwv
+	ZAj4ExXiFu8bEpyduZ4M1VPE=
+X-Received: by 2002:a05:622a:30c:b0:52d:a4e5:6b3c with SMTP id d75a77b69052e-52e42290632mr45389091cf.15.1787727986307;
+        Wed, 26 Aug 2026 00:06:26 -0700 (PDT)
+X-Received: by 2002:a05:622a:30c:b0:52d:a4e5:6b3c with SMTP id d75a77b69052e-52e42290632mr45388831cf.15.1787727985773;
+        Wed, 26 Aug 2026 00:06:25 -0700 (PDT)
 Received: from [127.0.1.1] ([178.197.219.214])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a88ab82sm366812966b.31.2026.08.26.00.06.20
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a88ab82sm366812966b.31.2026.08.26.00.06.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 00:06:21 -0700 (PDT)
+        Wed, 26 Aug 2026 00:06:24 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Date: Wed, 26 Aug 2026 09:05:57 +0200
-Subject: [PATCH v4 04/10] dtc: dt-check-style: Consistently call 'kind' as
- 'file_type'
+Date: Wed, 26 Aug 2026 09:05:59 +0200
+Subject: [PATCH v4 06/10] dtc: dt-check-style: Replace Test User email with
+ Rob Herring
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,7 +90,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260826-n-dts-style-checker-continued-v4-4-022e60091965@oss.qualcomm.com>
+Message-Id: <20260826-n-dts-style-checker-continued-v4-6-022e60091965@oss.qualcomm.com>
 References: <20260826-n-dts-style-checker-continued-v4-0-022e60091965@oss.qualcomm.com>
 In-Reply-To: <20260826-n-dts-style-checker-continued-v4-0-022e60091965@oss.qualcomm.com>
 To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
@@ -99,145 +99,439 @@ To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3656;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=17204;
  i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
- bh=Mw4XHK/Oa8T91FeM/cqkEoaBFhwKmiLgbMkHNgJqgVo=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqjpBct6FLatngNABGCvSUr1gI9O3M1PsEMHrE+
- 6ejmnSKeQKJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCao6QXAAKCRDBN2bmhouD
- 18j2D/9lyf8WOgUhHR1gGJmWkghgz9Ex3a+Byf2LixGOD/WfhBKVrUETREapb8VDN5FmHes515d
- 3VhF676ZT8CyLNsKkKRKjoIk8L6FeDB4ddYtjwUii6gEhSKp2ZP5rv3wHiEtE6evBEtpePlBO1w
- eAlFeyUviPFyv420yjs6EwQ5Ppk6Vb0Z+Mx9TqyUfsQMCPayctg5asIKY1f5RyLgDXmfbtppzI1
- 6OIQebF9kBsc5gtmMADHYCZoO37SXCSkJfg4n8dd6RJRX4tLcCGU/MYQXBmJCKvibQgwa3WadDg
- u4X81KZg3Q8jiizX0FbnVYzXGbhyjkQPVR5ZQ6mAbYPehfPZP5w1YtwN3HU5kVZQ1prJp1wRXLW
- BxfyIsEs+qmcbH1S2tJ+wHoY9fViBH8Ahs+H0yqC7gKeyeHp+jAtuvcFUH8TA5L56HM2h9ysFkY
- qAf1BMebTi2NuVZYjwyV1jgQWgtRvlEysBICkN01VPkt3YutewLJ7ypaJRjrB9Y5icTPJFtaYSn
- EvLkREEH/mwVNh8VmHNFqUl+GKi+Gb41Qfz1tpVf1dfTxkpvrFtPh0DhVaRYAnPrntA4hJDyTzr
- OLFA3aXGcz38GOiYG7rJtdIsgxTQViYD7ephMfD+KJFW2yeCykTWd1C4eVAlhSBpJQHmay0l1NM
- K2HX1/DwuonQuKA==
+ bh=WraPvDvGy9Jufn+SaJj9rOm1t1/Kyu0YxlWrUpE8/SU=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqjpBeYVcLSsQ/DHVo2OomV7xt6AhLoT9tfN6bc
+ 5kPb/aFO96JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCao6QXgAKCRDBN2bmhouD
+ 1wk0EACatyZEOK+ra3Gq21YMlw7x935mcm8viXWRLNK/YWV6+6TPnMB059yeWZhtMhvViYMOrmQ
+ 0PmHoezmBlZmN7d6ntXJy3I9/2rHf+TTVgL3gE1gsgBfrZJHz1EKMOMzJgkN8V+50CCnv4JDXfG
+ gT5xUcAf2Xwuo50i7lQxu+xUMk5gKJP0/vippj2Fy3n8j3ELfPnSiDC6RizSKn+9ymzYCdrQ4wu
+ 7BztgGFbCL1o4xQI0c8WaCWxzskF65JXTyTBmEJKMiH9e0acCJdoK7fMiWD5dqVC1uL9mx3w20Z
+ iZnKV4tteRQLx5WydmJeYHyBNDJRbh9leMkgIyUsU3TDlxvKwmBQqZqOeoycX+/pUBxblFRB8lP
+ sbC/CCbglE0PcHaJM3TyYqaS/m1CIsodCpKWPkye7FEGX1noDV35UEnukoA6bGtbsEkSH+Hoqxk
+ kguQhWHOiHkEE9eIeJTT16AcjXTFDc5DPrBRdvds947aNmV67udNxlA5MUMqq6ZNTg0izNOP58a
+ D4zlSKC2SMUf4f22O3Qi3NQgxA8/2V/WjCqDuR2NTBjqvGgiS2vxHugQqJ1XpJOMTsINoxRkNCN
+ z9XPSI/xeFSxumFhC6HKuHccH+8XQkwT+ZZit/1YprK9d5Y/0Vz2n8O2EakS+Cycw2ROzkjkzmK
+ jZUWBcGZ8RLfstg==
 X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-X-Authority-Analysis: v=2.4 cv=O/oJeh9W c=1 sm=1 tr=0 ts=6a8e9070 cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDA1OCBTYWx0ZWRfX93XzX38z2OIM
+ Ci9RsMyJXFzdv7ef9SixLvyXIHB87D3AAvJ5YjiOpdDmHy436PlhPZz4Jbdv+L7Op8rwAqiSBgO
+ p3IRuQZI8qRStKak62W90fcq4ylAfPw=
+X-Proofpoint-ORIG-GUID: 3_tYo-MNDyNFSHFrXKCr262th0bgnO-G
+X-Authority-Analysis: v=2.4 cv=eYgNubEH c=1 sm=1 tr=0 ts=6a8e9073 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
  a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=6JaV1sFd9OF9Hac_-DgA:9 a=QEXdDO2ut3YA:10
- a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-GUID: mzu-lSH0X6VgmHYRKPGPyAY2nga6RGa7
-X-Proofpoint-ORIG-GUID: mzu-lSH0X6VgmHYRKPGPyAY2nga6RGa7
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDA1OCBTYWx0ZWRfX6cbk85OACQt2
- iiU62nsb27iXPS2qSeMkxVELxpvLVDhIhhQDRBQ0y3b7WHfor8QnAVOz6kZ9y1oeoff9Y2P5xKp
- JKRBUu5aioLme2gXOHs69T1ZaAmJX0TfM6mrK9KXkd5GEmnAHAzo8VmoaKk3DGDgR2ethl02Pca
- j4SUNi+86dwc2uftPiGPeYqsSQZ3XWIEDDfw+O7Dj5e6WgnZcmMVBVZZgOX4/CnD3TOsJsfDve8
- HqllJOWn5iX8DQJC17DjD9hVYR9/pGmvtCr7ugrVGMnEmo/282X66G/DutejmZMD2xp/CtKGE4o
- f4OVxrcjuo7TrKLjthhZ2EpHcZUSZ3p3fyAhWUkRA75a1pP/odZ3nnjdqR7pzo2OcnRLg6++F27
- Wv/gQjMCy1zAPqNoIyShNsE+/kNO5qdZhyi40ch8FCkV75PXOTN9rc8UhWQFkCbDOw3787hrR23
- Heka3Mcl+hIX2v4cpEw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDA1OCBTYWx0ZWRfX7hoAeUPh2NEt
- frFesaBrSFZuyObYV6QJ39w0KdcZnJcOsLH/Y1vceEmeJCl/bndZyk+TkA0mhlegSokHx9t+jB7
- o2Ifc19v22beDYmKffo9B772nTmRJ3c=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=gEfo2CItAAAA:8 a=A1X0JdhQAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8
+ a=Lkbq6ki4aylNsx_sLmcA:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
+ a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDA1OCBTYWx0ZWRfXxX9IogrdNqCR
+ AyguxvnSYICZFT0iArTRz7hivNkhb39nviSf0eCiaEGCD5F4Uzh+7FxJw/47pgDtcq0HImWhOQl
+ N1FgEXce543se/jD/j3imLAZEDCpRnagORtQGJh8CnIlBgthIfeEv0fAL/0tKfmI+rP+BksFOSZ
+ e2XeHHm0O0iDBKaJllPv1P4oneWHskmLESKofPffCG406qVmrDuEWyTCeazQJdEiUj72bChu0fd
+ nvENcGAvxeUt0mZh/UgbOW49/jbpiueyggwIvlxl2s9XCpPjzfaQeB5NmKEuCeHt2Kn+1LxXxxN
+ v+wATxonXbPxZi1K5CTA36ddwtYhXM32D8EE9ZQocXgzaESw/HT1OJUFYpzvzNKx6Y2Nt3ONevl
+ CWHd1RYbVXknXpZrsBsuZ/w6yFTR/1HHxhvwUuoifVl+sEkTXqAR5A0+Y9ItPsJEJFWLX4EXt/m
+ r0Ut5HlB+SlczNQ+DsQ==
+X-Proofpoint-GUID: 3_tYo-MNDyNFSHFrXKCr262th0bgnO-G
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-26_02,2026-08-24_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 spamscore=0 adultscore=0 impostorscore=0
- lowpriorityscore=0 clxscore=1015 bulkscore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260058
+ malwarescore=0 priorityscore=1501 impostorscore=0 suspectscore=0
+ clxscore=1015 lowpriorityscore=0 bulkscore=0 phishscore=0 spamscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608260058
 
-Script was using different names for variables or attributes with the
-same meaning: the type of file (YAML, DTS, DTSI, DTSO).  Unify 'kind',
-'input_kind' and function input_kind() to consistent 'file_type'.
+scripts/get_maintainer.pl reports email from the example binding
+fixtures, so let's spare someone at @example.com from receiving bunch
+of odd emails.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- scripts/dtc/dt-check-style | 26 +++++++++++++-------------
- 1 file changed, 13 insertions(+), 13 deletions(-)
+ scripts/dtc/dt-style-selftest/bad/yaml-child-addr-order.yaml       | 2 +-
+ scripts/dtc/dt-style-selftest/bad/yaml-child-name-order.yaml       | 2 +-
+ scripts/dtc/dt-style-selftest/bad/yaml-cont-align.yaml             | 2 +-
+ scripts/dtc/dt-style-selftest/bad/yaml-digit-node-order.yaml       | 2 +-
+ scripts/dtc/dt-style-selftest/bad/yaml-hex-case.yaml               | 2 +-
+ scripts/dtc/dt-style-selftest/bad/yaml-indent-strict.yaml          | 2 +-
+ scripts/dtc/dt-style-selftest/bad/yaml-label-in-string.yaml        | 2 +-
+ scripts/dtc/dt-style-selftest/bad/yaml-line-length.yaml            | 2 +-
+ scripts/dtc/dt-style-selftest/bad/yaml-mixed-indent.yaml           | 2 +-
+ scripts/dtc/dt-style-selftest/bad/yaml-multi-close.yaml            | 2 +-
+ scripts/dtc/dt-style-selftest/bad/yaml-node-close.yaml             | 2 +-
+ scripts/dtc/dt-style-selftest/bad/yaml-prop-order-device-type.yaml | 2 +-
+ scripts/dtc/dt-style-selftest/bad/yaml-prop-order.yaml             | 2 +-
+ scripts/dtc/dt-style-selftest/bad/yaml-prop-pairing.yaml           | 2 +-
+ scripts/dtc/dt-style-selftest/bad/yaml-required-blank.yaml         | 2 +-
+ scripts/dtc/dt-style-selftest/bad/yaml-tab.yaml                    | 2 +-
+ scripts/dtc/dt-style-selftest/bad/yaml-trailing-comment.yaml       | 2 +-
+ scripts/dtc/dt-style-selftest/bad/yaml-trailing-ws.yaml            | 2 +-
+ scripts/dtc/dt-style-selftest/bad/yaml-unclosed-comment.yaml       | 2 +-
+ scripts/dtc/dt-style-selftest/bad/yaml-unit-addr-prefix.yaml       | 2 +-
+ scripts/dtc/dt-style-selftest/bad/yaml-unit-addr.yaml              | 2 +-
+ scripts/dtc/dt-style-selftest/bad/yaml-unused-label.yaml           | 2 +-
+ scripts/dtc/dt-style-selftest/bad/yaml-value-ws-multiline.yaml     | 2 +-
+ scripts/dtc/dt-style-selftest/bad/yaml-value-ws.yaml               | 2 +-
+ scripts/dtc/dt-style-selftest/good/yaml-4space.yaml                | 2 +-
+ scripts/dtc/dt-style-selftest/good/yaml-cont-align.yaml            | 2 +-
+ scripts/dtc/dt-style-selftest/good/yaml-tricky-parsing.yaml        | 2 +-
+ 27 files changed, 27 insertions(+), 27 deletions(-)
 
-diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
-index 486dd1d6bb9a..a8a3b6e0f7db 100755
---- a/scripts/dtc/dt-check-style
-+++ b/scripts/dtc/dt-check-style
-@@ -314,13 +314,13 @@ def collect_labels_and_refs(text):
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-child-addr-order.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-child-addr-order.yaml
+index 3df56e69a1ff..7c3b731e059a 100644
+--- a/scripts/dtc/dt-style-selftest/bad/yaml-child-addr-order.yaml
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-child-addr-order.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Test fixture with addressed children out of order
  
- class Ctx:
-     """Context passed to each rule check. Carries the parsed lines,
--    raw text, mode and kind."""
-+    raw text, mode and file_type."""
+ maintainers:
+-  - Test User <test@example.com>
++  - Rob Herring <robh@kernel.org>
  
--    def __init__(self, lines, text, mode, kind):
-+    def __init__(self, lines, text, mode, file_type):
-         self.lines = lines
-         self.text = text
-         self.mode = mode               # 'relaxed' or 'strict'
--        if kind in DTS_FAMILY:
-+        if file_type in DTS_FAMILY:
-             self.file_type = 'dts'
-         else:
-             self.file_type = 'yaml'
-@@ -1070,14 +1070,14 @@ RULES = [
- ]
+ properties:
+   compatible:
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-child-name-order.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-child-name-order.yaml
+index 35d85e5573c2..f3483033859a 100644
+--- a/scripts/dtc/dt-style-selftest/bad/yaml-child-name-order.yaml
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-child-name-order.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Test fixture with unaddressed children out of name order
  
+ maintainers:
+-  - Test User <test@example.com>
++  - Rob Herring <robh@kernel.org>
  
--def select_rules(mode, input_kind):
-+def select_rules(mode, file_type):
-     """Return rules that apply to the given mode and input type."""
-     rank = {'relaxed': 0, 'strict': 1}
-     out = []
-     for r in RULES:
-         if rank[r.mode] > rank[mode]:
-             continue
--        if input_kind not in r.applies_to:
-+        if file_type not in r.applies_to:
-             continue
-         out.append(r)
-     return out
-@@ -1087,12 +1087,12 @@ def select_rules(mode, input_kind):
- # Block runner
- # ---------------------------------------------------------------------------
+ properties:
+   compatible:
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-cont-align.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-cont-align.yaml
+index d4662acc7b8f..ebb35deabbd5 100644
+--- a/scripts/dtc/dt-style-selftest/bad/yaml-cont-align.yaml
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-cont-align.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Test fixture with mis-aligned multi-line property
  
--def check_block(text, mode, input_type):
-+def check_block(text, mode, file_type):
-     """Run all selected rules on a single block of DTS text. Returns a
-     list of (lineno, rule_name, message) tuples."""
-     lines = classify_lines(text)
--    ctx = Ctx(lines, text, mode, input_type)
--    rules = select_rules(mode, input_type)
-+    ctx = Ctx(lines, text, mode, file_type)
-+    rules = select_rules(mode, file_type)
-     findings = []
-     for r in rules:
-         for lineno, msg in r.check(ctx):
-@@ -1149,7 +1149,7 @@ def iter_dts_file(filepath):
- # Top-level processing
- # ---------------------------------------------------------------------------
+ maintainers:
+-  - Test User <test@example.com>
++  - Rob Herring <robh@kernel.org>
  
--def input_kind(filepath):
-+def get_file_type(filepath):
-     p = filepath.lower()
-     if p.endswith('.yaml') or p.endswith('.yml'):
-         return 'yaml'
-@@ -1169,17 +1169,17 @@ DTS_FAMILY = ('dts', 'dtsi', 'dtso')
- def collect_findings(filepath, mode):
-     """Return a (lines, count) pair for filepath. lines is a list of
-     formatted output strings; count is the number of findings."""
--    kind = input_kind(filepath)
--    if kind == 'yaml':
-+    file_type = get_file_type(filepath)
-+    if file_type == 'yaml':
-         iterator = iter_yaml_examples(filepath)
--    elif kind in DTS_FAMILY:
-+    elif file_type in DTS_FAMILY:
-         iterator = iter_dts_file(filepath)
-     else:
-         return (['%s: unknown file type, skipping' % filepath], 0)
+ properties:
+   compatible:
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-digit-node-order.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-digit-node-order.yaml
+index 44a9d25e5ba0..068542a98576 100644
+--- a/scripts/dtc/dt-style-selftest/bad/yaml-digit-node-order.yaml
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-digit-node-order.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Test fixture with digit-leading nodes out of address order
  
-     out = []
-     for text, base, idx in iterator:
--        for lineno, rule, msg in check_block(text, mode, kind):
-+        for lineno, rule, msg in check_block(text, mode, file_type):
-             abs_line = base + lineno - 1
-             ex_tag = '' if idx is None else ' example %d' % idx
-             out.append('%s:%d:%s [%s] %s' %
+ maintainers:
+-  - Test User <test@example.com>
++  - Rob Herring <robh@kernel.org>
+ 
+ properties:
+   compatible:
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-hex-case.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-hex-case.yaml
+index b26d1bf58de9..c55359a4ca68 100644
+--- a/scripts/dtc/dt-style-selftest/bad/yaml-hex-case.yaml
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-hex-case.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Test fixture with uppercase hex literals
+ 
+ maintainers:
+-  - Test User <test@example.com>
++  - Rob Herring <robh@kernel.org>
+ 
+ properties:
+   compatible:
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-indent-strict.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-indent-strict.yaml
+index bee4cf118d73..155060a79887 100644
+--- a/scripts/dtc/dt-style-selftest/bad/yaml-indent-strict.yaml
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-indent-strict.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Test fixture using 2-space indent (rejected by strict mode)
+ 
+ maintainers:
+-  - Test User <test@example.com>
++  - Rob Herring <robh@kernel.org>
+ 
+ properties:
+   compatible:
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-label-in-string.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-label-in-string.yaml
+index ba512869b702..4a69b503af4b 100644
+--- a/scripts/dtc/dt-style-selftest/bad/yaml-label-in-string.yaml
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-label-in-string.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Test fixture where a label is only "referenced" inside a string
+ 
+ maintainers:
+-  - Test User <test@example.com>
++  - Rob Herring <robh@kernel.org>
+ 
+ properties:
+   compatible:
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-line-length.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-line-length.yaml
+index 64427bf1c385..6e4140e500b5 100644
+--- a/scripts/dtc/dt-style-selftest/bad/yaml-line-length.yaml
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-line-length.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Test fixture exceeding 80 columns
+ 
+ maintainers:
+-  - Test User <test@example.com>
++  - Rob Herring <robh@kernel.org>
+ 
+ properties:
+   compatible:
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-mixed-indent.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-mixed-indent.yaml
+index 5401d1a423a1..c25a0d1a999e 100644
+--- a/scripts/dtc/dt-style-selftest/bad/yaml-mixed-indent.yaml
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-mixed-indent.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Test fixture mixing tabs and spaces in indent
+ 
+ maintainers:
+-  - Test User <test@example.com>
++  - Rob Herring <robh@kernel.org>
+ 
+ properties:
+   compatible:
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-multi-close.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-multi-close.yaml
+index 4d9fa27b50a2..afc202a698eb 100644
+--- a/scripts/dtc/dt-style-selftest/bad/yaml-multi-close.yaml
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-multi-close.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Test fixture with two closing braces on one line
+ 
+ maintainers:
+-  - Test User <test@example.com>
++  - Rob Herring <robh@kernel.org>
+ 
+ properties:
+   compatible:
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-node-close.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-node-close.yaml
+index e107659fd9e8..9e714f7e7d47 100644
+--- a/scripts/dtc/dt-style-selftest/bad/yaml-node-close.yaml
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-node-close.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Test fixture with closing brace not on its own line
+ 
+ maintainers:
+-  - Test User <test@example.com>
++  - Rob Herring <robh@kernel.org>
+ 
+ properties:
+   compatible:
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-prop-order-device-type.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-prop-order-device-type.yaml
+index e2c69e9ff452..c71fb2c0a3e5 100644
+--- a/scripts/dtc/dt-style-selftest/bad/yaml-prop-order-device-type.yaml
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-prop-order-device-type.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Test fixture with device_type
+ 
+ maintainers:
+-  - Test User <test@example.com>
++  - Rob Herring <robh@kernel.org>
+ 
+ properties:
+   compatible:
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-prop-order.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-prop-order.yaml
+index 75582a3d2f6e..bf1480e97209 100644
+--- a/scripts/dtc/dt-style-selftest/bad/yaml-prop-order.yaml
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-prop-order.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Test fixture with reg before compatible
+ 
+ maintainers:
+-  - Test User <test@example.com>
++  - Rob Herring <robh@kernel.org>
+ 
+ properties:
+   compatible:
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-prop-pairing.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-prop-pairing.yaml
+index 767ab21c39f3..51abc540af11 100644
+--- a/scripts/dtc/dt-style-selftest/bad/yaml-prop-pairing.yaml
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-prop-pairing.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Test fixture exercising <x>-names and pinctrl-names pairing
+ 
+ maintainers:
+-  - Test User <test@example.com>
++  - Rob Herring <robh@kernel.org>
+ 
+ properties:
+   compatible:
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-required-blank.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-required-blank.yaml
+index 8bb53240cffa..0036d5e0c4ea 100644
+--- a/scripts/dtc/dt-style-selftest/bad/yaml-required-blank.yaml
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-required-blank.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Test fixture missing required blank lines
+ 
+ maintainers:
+-  - Test User <test@example.com>
++  - Rob Herring <robh@kernel.org>
+ 
+ properties:
+   compatible:
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-tab.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-tab.yaml
+index 487d07ff8cb6..937ecdd923b0 100644
+--- a/scripts/dtc/dt-style-selftest/bad/yaml-tab.yaml
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-tab.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Test fixture with a tab in a DTS line
+ 
+ maintainers:
+-  - Test User <test@example.com>
++  - Rob Herring <robh@kernel.org>
+ 
+ properties:
+   compatible:
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-trailing-comment.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-trailing-comment.yaml
+index 2368ada8106f..695d046e8454 100644
+--- a/scripts/dtc/dt-style-selftest/bad/yaml-trailing-comment.yaml
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-trailing-comment.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Test fixture with properties out of order behind trailing comments
+ 
+ maintainers:
+-  - Test User <test@example.com>
++  - Rob Herring <robh@kernel.org>
+ 
+ properties:
+   compatible:
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-trailing-ws.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-trailing-ws.yaml
+index 5c4b4bd833c5..f338c14174e6 100644
+--- a/scripts/dtc/dt-style-selftest/bad/yaml-trailing-ws.yaml
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-trailing-ws.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Test fixture with trailing whitespace
+ 
+ maintainers:
+-  - Test User <test@example.com>
++  - Rob Herring <robh@kernel.org>
+ 
+ properties:
+   compatible:
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-unclosed-comment.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-unclosed-comment.yaml
+index 63c1c08712a5..191ed775384b 100644
+--- a/scripts/dtc/dt-style-selftest/bad/yaml-unclosed-comment.yaml
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-unclosed-comment.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Test fixture with an unclosed /* block comment
+ 
+ maintainers:
+-  - Test User <test@example.com>
++  - Rob Herring <robh@kernel.org>
+ 
+ properties:
+   compatible:
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-unit-addr-prefix.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-unit-addr-prefix.yaml
+index 9b3fe508c5fd..62590948d2de 100644
+--- a/scripts/dtc/dt-style-selftest/bad/yaml-unit-addr-prefix.yaml
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-unit-addr-prefix.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Test fixture with 0x-prefixed unit address
+ 
+ maintainers:
+-  - Test User <test@example.com>
++  - Rob Herring <robh@kernel.org>
+ 
+ properties:
+   compatible:
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-unit-addr.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-unit-addr.yaml
+index 93705cd45410..5bb19fba5c19 100644
+--- a/scripts/dtc/dt-style-selftest/bad/yaml-unit-addr.yaml
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-unit-addr.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Test fixture with malformed unit address
+ 
+ maintainers:
+-  - Test User <test@example.com>
++  - Rob Herring <robh@kernel.org>
+ 
+ properties:
+   compatible:
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-unused-label.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-unused-label.yaml
+index 28d7176cbf08..7f862ae5a175 100644
+--- a/scripts/dtc/dt-style-selftest/bad/yaml-unused-label.yaml
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-unused-label.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Test fixture with an unused label
+ 
+ maintainers:
+-  - Test User <test@example.com>
++  - Rob Herring <robh@kernel.org>
+ 
+ properties:
+   compatible:
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-value-ws-multiline.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-value-ws-multiline.yaml
+index 504bf0931c27..1d7bc8142fd7 100644
+--- a/scripts/dtc/dt-style-selftest/bad/yaml-value-ws-multiline.yaml
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-value-ws-multiline.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Test fixture with extra whitespace in a multi-line cell array
+ 
+ maintainers:
+-  - Test User <test@example.com>
++  - Rob Herring <robh@kernel.org>
+ 
+ properties:
+   compatible:
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-value-ws.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-value-ws.yaml
+index 342ab9f399f1..a5082a158155 100644
+--- a/scripts/dtc/dt-style-selftest/bad/yaml-value-ws.yaml
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-value-ws.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Test fixture with extra whitespace inside <...>
+ 
+ maintainers:
+-  - Test User <test@example.com>
++  - Rob Herring <robh@kernel.org>
+ 
+ properties:
+   compatible:
+diff --git a/scripts/dtc/dt-style-selftest/good/yaml-4space.yaml b/scripts/dtc/dt-style-selftest/good/yaml-4space.yaml
+index 1502f803c24c..b91b8a8a9512 100644
+--- a/scripts/dtc/dt-style-selftest/good/yaml-4space.yaml
++++ b/scripts/dtc/dt-style-selftest/good/yaml-4space.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Test fixture for dt-check-style
+ 
+ maintainers:
+-  - Test User <test@example.com>
++  - Rob Herring <robh@kernel.org>
+ 
+ properties:
+   compatible:
+diff --git a/scripts/dtc/dt-style-selftest/good/yaml-cont-align.yaml b/scripts/dtc/dt-style-selftest/good/yaml-cont-align.yaml
+index 2e7b8582bb7c..8463075f9f4c 100644
+--- a/scripts/dtc/dt-style-selftest/good/yaml-cont-align.yaml
++++ b/scripts/dtc/dt-style-selftest/good/yaml-cont-align.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Test fixture with aligned multi-line property
+ 
+ maintainers:
+-  - Test User <test@example.com>
++  - Rob Herring <robh@kernel.org>
+ 
+ properties:
+   compatible:
+diff --git a/scripts/dtc/dt-style-selftest/good/yaml-tricky-parsing.yaml b/scripts/dtc/dt-style-selftest/good/yaml-tricky-parsing.yaml
+index a836d5f36b93..a95d07f883ef 100644
+--- a/scripts/dtc/dt-style-selftest/good/yaml-tricky-parsing.yaml
++++ b/scripts/dtc/dt-style-selftest/good/yaml-tricky-parsing.yaml
+@@ -17,7 +17,7 @@ description: |
+       not leave the parser in block-comment state.
+ 
+ maintainers:
+-  - Test User <test@example.com>
++  - Rob Herring <robh@kernel.org>
+ 
+ properties:
+   compatible:
 
 -- 
 2.53.0
