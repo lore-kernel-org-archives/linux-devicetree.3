@@ -1,118 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95CF83E3156
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 10:52:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D19B23E5A0C;
+	Wed, 26 Aug 2026 10:53:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787741569; cv=none; b=d2DG3yexGbJyHfhHnTGDvalzWz2+uzIavkw9FNtV2o8z6jS4EUi/DByP0+iR6X6HIVsDlkytoGyZK3HZvdvRLqX2d2alk2J6rIb6zeC05RP4VtfvbGDHjaXhv2n3h6Mm3BPXGJCM+/j9reth527X2LDWgU5x9uUUkPI7h5kSKXM=
+	t=1787741596; cv=none; b=G/Tth1UGLwe0brtlNSbULb+A0W7nMVmxzgmmCeiUy3HE3DW4pN8oJ+CNyZnhd39AA5kTo0Q0iTyy/GRQPNlu1XeofWuYhqYFGuj1ZGpbJGhfxWp8pCY2eptmaRcGhWeio/plOcoKikX5eHWY9Q8Kh33oKuvRI5Q6KsrrWN5QTW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787741569; c=relaxed/simple;
-	bh=H/P0/OKywne6byVHECm6KCdWcF+LcQSCv0bo6NlHHYw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cZV64rQ/DgiaLZbkL0YRqzqz/aWe6bQfFLvPVWSPnSAt5Q/tPVFTZmdDUnN2gWmaMEwzSI5ItiMZdKhlLl1rn/6YQXOme+oywSyJqutpl6QSrygz8q+1Xa5domdL5dyRizHFjYNtVB1yJlhlDJYTRhJKq3piWaCubdZbU3QmiHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SWAfIOsB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787741596; c=relaxed/simple;
+	bh=/UacBLoGcMB9zLAU9jMbtSM3o5RdK2Bxf4dOMT0ihgc=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:To:From:
+	 References:In-Reply-To; b=tg7444SCPZF0iT0yxdcoDaAdNBoTroz7RACEKpSbpanzRYJHAz48ZXsCctX16s2wLafdN5z+V9kbF/ANA4fkuYXVPAjfQRbgYzhHV3eZ7NfwYB0hsHSKeSDrgJQQs0je91BVHQFwYGOyd031itAmjeoAS988k1UjOc1Sug4hR7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=YwzOoaUv; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SWAfIOsB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2BF91F000E9;
-	Wed, 26 Aug 2026 10:52:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787741562;
-	bh=abZ99My9Qae/qtii2IQ4mJ0HjFfZtD/2RL9o4UAtJ5w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SWAfIOsBePrtq4vmnGb9PifQxA/N0Up2Cyc8qWJCkAE5mD5drTpQijA2FZs+IHrCK
-	 FpeXHgrhF3ZKdXdANUoDXUSZckt0Jf27C98URk2Y0tR5z+LX0D6fHWRoR5yC8H3Kha
-	 7e0EEnW1ceBLAKZZTWUFLnU8uSRCZ+YFCq9JMu2VhHprzgcSPmMdDZC53x+8idOLDG
-	 jH/NBCKKqZ/jX9X/5CfA5r4pxMZmgu89LKpBECePK5RtIIU+kCjcg950/LnpiDshWi
-	 XorfAOIYtsc+K3WHYyzurp2Zh3XaU9wkBl72FCExhy2OgX17vV9nX8yuvWKGcJGupW
-	 SuRmWdSJfcuEQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v16 1/8] i3c: master: Add APIs for I3C hub support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>, Frank.Li@kernel.org, linux-i3c@lists.infradead.org, devicetree@vger.kernel.org
-In-Reply-To: <20260826103819.1614843-2-lakshay.piplani@nxp.com>
-References: <20260826103819.1614843-1-lakshay.piplani@nxp.com>
- <20260826103819.1614843-2-lakshay.piplani@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 26 Aug 2026 10:52:41 +0000
-Message-Id: <20260826105241.E2BF91F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="YwzOoaUv"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 72AB54E41317;
+	Wed, 26 Aug 2026 10:52:57 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 28841604ED;
+	Wed, 26 Aug 2026 10:52:57 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 23C1A11C7AC46;
+	Wed, 26 Aug 2026 12:52:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1787741569; h=from:subject:date:message-id:to:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Ey9RYH2RFNaz6azoD+KUbSwAq0kYLs0uc4QHAcA42gw=;
+	b=YwzOoaUvCBxvOqya44IQRmcChvhXL8vgHGxbcCmbhbmECnpLcwRQMcP313YXEjBjIbGjtb
+	I3Wid39NLAGygcDi2YmXtYo3AnvhAC8qiwoT3eV4cBJRzRjsj5XRyCYrw6G4qiA7F8Zjly
+	vEXRD7XVgML/YjQ2Uyrc+ngfVs8rycv3oyvd6Hm0WMNZvz7S4w0rvpxlqOaEK5j0BYuwCJ
+	L8Oeso8gBo83WUUPKcbxUYj/zwWIS4h0vUpJl6+JVbBurpBXA6XJKvKWQUQD1lfPaBrb6L
+	0YOhDZdzMEyQk7IuWvSDDzCZv3a6OjEkFdKfO+U7ZZbKTgyueYwGfJ0tIk2zlA==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 26 Aug 2026 12:52:21 +0200
+Message-Id: <DKYTHI4WWQ6V.2CAMI1VACSS7N@bootlin.com>
+Subject: Re: [PATCH] dt-bindings: Drop redundant white-space around values
+ in <>
+To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>, "Suzuki K
+ Poulose" <suzuki.poulose@arm.com>, "Mike Leach" <mike.leach@arm.com>,
+ "James Clark" <james.clark@linaro.org>, "Leo Yan" <leo.yan@arm.com>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
+ <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>, "David Airlie" <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "Michal Simek"
+ <michal.simek@amd.com>, "Andi Shyti" <andi.shyti@kernel.org>, "Jonathan
+ Cameron" <jic23@kernel.org>, "David Lechner" <dlechner@baylibre.com>,
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy Shevchenko"
+ <andy@kernel.org>, "Dmitry Torokhov" <dmitry.torokhov@gmail.com>, "Mirela
+ Rabulea" <mirela.rabulea@nxp.com>, "Mauro Carvalho Chehab"
+ <mchehab@kernel.org>, "Frank Li" <Frank.Li@nxp.com>, "Sascha Hauer"
+ <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
+ <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Lee Jones"
+ <lee@kernel.org>, "Xiaowei Song" <songxiaowei@hisilicon.com>, "Binghui
+ Wang" <wangbinghui@hisilicon.com>, "Bjorn Helgaas" <bhelgaas@google.com>,
+ "Lorenzo Pieralisi" <lpieralisi@kernel.org>,
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, "Manivannan
+ Sadhasivam" <mani@kernel.org>, "Dvorkin Dmitry" <dvorkin@tibbo.com>, "Wells
+ Lu" <wellslutw@gmail.com>, "Linus Walleij" <linusw@kernel.org>, "Chin-Ting
+ Kuo" <chin-ting_kuo@aspeedtech.com>, =?utf-8?q?C=C3=A9dric_Le_Goater?=
+ <clg@kaod.org>, "Mark Brown" <broonie@kernel.org>, "Joel Stanley"
+ <joel@jms.id.au>, "Andrew Jeffery" <andrew@codeconstruct.com.au>, "Ryan
+ Chen" <ryan_chen@aspeedtech.com>, "Billy Tsai" <billy_tsai@aspeedtech.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, "Daniel Lezcano"
+ <daniel.lezcano@kernel.org>, "Zhang Rui" <rui.zhang@intel.com>, "Lukasz
+ Luba" <lukasz.luba@arm.com>, "Boris Brezillon" <bbrezillon@kernel.org>,
+ <info@mocean-labs.com>, "Olof Johansson" <olof@lixom.net>, "Shree
+ Ramamoorthy" <s-ramamoorthy@ti.com>, <coresight@lists.linaro.org>,
+ <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-i2c@vger.kernel.org>, <linux-iio@vger.kernel.org>,
+ <linux-input@vger.kernel.org>, <imx@lists.linux.dev>,
+ <linux-media@vger.kernel.org>, <mfd@lists.linux.dev>,
+ <linux-pci@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
+ <linux-aspeed@lists.ozlabs.org>, <openbmc@lists.ozlabs.org>,
+ <linux-spi@vger.kernel.org>, <linux-pm@vger.kernel.org>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.22.0
+References: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Wed Aug 26, 2026 at 12:20 PM CEST, Krzysztof Kozlowski wrote:
+> Correct a few white-space issues around <>, which will be flagged by
+> dt-check-style.  No functional changes.
+>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Pre-existing issues:
-- [High] Failure in i3c_bus_init() causes i3c_masterdev_release() to errone=
-ously remove ID 0 from the IDR.
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+
 --
-
-commit 1f089e3141f5a635df33d2273d7de2114b2f6ef5
-Author: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
-
-    i3c: master: Add APIs for I3C hub support
-   =20
-    Add CCC helpers to check CCC support and send CCC commands, address slot
-    helpers to query and update I3C bus address slot state, registering vir=
-tual
-    masters with an explicit firmware node, and exposing the bus maintenance
-    lock helpers.
-
-> diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-> index f1be38a640ca1..03fb41f0786c5 100644
-> --- a/drivers/i3c/master.c
-> +++ b/drivers/i3c/master.c
-
-[ ... ]
-
-> @@ -3195,34 +3267,31 @@ static int i3c_master_check_ops(const struct i3c_=
-master_controller_ops *ops)
->  }
-> =20
->  /**
-> - * i3c_master_register() - register an I3C master
-> + * i3c_master_register_fwnode() - register an I3C master with a custom f=
-wnode
->   * @master: master used to send frames on the bus
-> - * @parent: the parent device (the one that provides this I3C master
-> - *	    controller)
-> + * @parent: the parent device providing this I3C master controller
-> + * @fwnode: firmware node describing this I3C bus, or NULL
->   * @ops: the master controller operations
-> - * @secondary: true if you are registering a secondary master. Will retu=
-rn
-> - *	       -EOPNOTSUPP if set to true since secondary masters are not yet
-> - *	       supported
-> + * @secondary: true if registering a secondary master
-
-[ ... ]
-
-> @@ -3352,6 +3427,39 @@ int i3c_master_register(struct i3c_master_controll=
-er *master,
-> =20
->  	return ret;
->  }
-> +EXPORT_SYMBOL_GPL(i3c_master_register_fwnode);
-
-[Severity: High]
-This is a pre-existing issue, but can a failure in i3c_bus_init() cause
-i3c_masterdev_release() to erroneously remove ID 0 from the IDR?
-
-If idr_alloc() fails in i3c_bus_init(), i3cbus->id remains 0. The error
-path in i3c_master_register_fwnode() branches to err_put_dev, calling
-put_device(), which invokes i3c_masterdev_release() and unconditionally
-calls i3c_bus_cleanup().
-
-This executes idr_remove(&i3c_bus_idr, 0), removing whatever valid bus
-happens to own ID 0. This corrupts the IDR, breaking bus lookups for bus 0
-and potentially leading to a use-after-free or a double allocation of ID 0
-later.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260826103819.1614=
-843-1-lakshay.piplani@nxp.com?part=3D1
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
