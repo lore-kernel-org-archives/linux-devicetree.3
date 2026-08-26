@@ -1,206 +1,319 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD931385D78;
-	Wed, 26 Aug 2026 08:47:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=210.61.82.184
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787734062; cv=fail; b=U5EQSkSZIgNO+OJOOTX6IMiQsJaBDSUQ29xNN3HGg7WEnZcILK/2hQQSCjYQbhBQUX/DM8bBL47Lmq+7iZVxph6UTSiGm/98VPrBn28h6v9cYKyzH5fOIVKtpV0bKTUGJN/vdHPyZ04HrKJ2pfGALNumVt729zOQXc64+JLkBy8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787734062; c=relaxed/simple;
-	bh=Q4YWpzF5zWg8+6QvDKW/JSQjgAAxbYydaD1HMHBQsSM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ZdrBlBrRis94nVwvjOhc8Ilst6pFwE4hUlJgGZ808GX8Fpmd6vdP9Lk624KSwoXvMhR1aGlUAM2CixneqQJ+XLTWSk02vzuQmPrBPGaH9P6N5+q50utEy7hrAteg3jlVPolP743Rc+k5RKD8YYpfJJ1S93Chuaj+qlT0NoSe360=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=BnO8IK0W; dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b=uxS1lNXD; arc=fail smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2986E3B8111
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 08:53:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787734440; cv=none; b=GPO5udl0ESYFHyP9tFhJMw5GfKqe7IbUqfNV+t+aTlN76qSJetBSC0zXkAImtNVzwp/OB6H9FtCi+hOoYpRCobCQbM3TPqSufN5o0prvRhTsw+AFE4WSTmbkBPs3AWbfKm8XTFitm4QPI8tdHa1KRvekxVDhZHp5K+xS0vUfrc0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787734440; c=relaxed/simple;
+	bh=Cjo3b1ABP7zrifgwNg/VCukO2mM4fCZjoET0N4dKyB4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jrD/F7IEKIFF1Z3DWB+C5t5tNo5t/6PFJJ5epbboRg6LsQValRNb5wTRdIvCaCYA5WeUJ2Npt1gqjxXp6WO3IPzbLlBjgW9WlpHGwDzjWt3St/Ru0CZ2GgO9ZIXVcCFVMbNeU8MhAR9Ky2enSV3tPmTz0kRHdftUTOzN0+Dj1H0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JDODQNNX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EcsbcpQm; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="BnO8IK0W";
-	dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b="uxS1lNXD"
-X-UUID: c715afe6a12a11f18dc8c9802ae25ab1-20260826
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From; bh=Q4YWpzF5zWg8+6QvDKW/JSQjgAAxbYydaD1HMHBQsSM=;
-	b=BnO8IK0WnTj7WfMtdBz9DWkKNdGqqb1i52rDUXM+KWGjefuT2t4NV2fVzRZ7D8Jl94UsL8ApVlMbREaOucXtorInPU4LbAwUY5+2mPzNfuCNNhtR+aTZWydb+GSIoLxcOdwBd5r6jgTYD5pWzuIfgLJ771pNsW6rhsHvZ+vl9b8=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:e92e2c9e-94c3-448b-9cb4-3cf722540d90,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:98ffa754-04ed-42ef-be1d-d95d8495efc4,B
-	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|110|111|136|836|865|888|898,TC
-	:-5,Content:0|15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:
-	nil,BEC:-1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC
-	:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: c715afe6a12a11f18dc8c9802ae25ab1-20260826
-Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by mailgw02.mediatek.com
-	(envelope-from <ck.hu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 527076429; Wed, 26 Aug 2026 16:47:32 +0800
-Received: from mtkmbs10n2.mediatek.inc (172.21.101.183) by
- MTKMBS09N2.mediatek.inc (172.21.101.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Wed, 26 Aug 2026 16:47:31 +0800
-Received: from SI4PR04CU002.outbound.protection.outlook.com (172.21.101.237)
- by mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Wed, 26 Aug 2026 16:47:31 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cNGBnrlwf19Ew20UXCFi5+m3kk+aRmPu7nyI5YMa5ie8/Rv+IuacF4xEGPvGGAQmjqIzEMijb0QjhdgshQdw05DVdMRKgTVI/OPakkekBLhAKldpcz4AZaiNmU/U8P6ZiT0lao0x3/gfCLc9645reMKLUc6KV7KCJqAcytFEX/hHRxMksuRuGpzufdNcHiHMLLQYAmnWZ9aEflDqFH3MKvQDFBHXiXfY3mgDDwIaenlD6BLEFqGsiPoihha9BEOBR17r0KUnoIyTvf1elfbjyvz5R+QREyIY74sRKqSR9qm4GMA0ILeSmOsvlKEAD026qNdJB/ENUz5hhkRVMpY/2A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Q4YWpzF5zWg8+6QvDKW/JSQjgAAxbYydaD1HMHBQsSM=;
- b=hgXXG5MrHBB/WojXXMIPGGS0eYFf5E4NCJO7l5gw9GVLxMeE6WSNsbKFpJ23nb6SiLYq8YX+2Xf9mLrU4DY8vXL8GcdQ83R3CPDLVdVOvcgYuedSsckneQXErzU4thFwBy3wHN68vmDkKeXk+e2j75JCwVhNdoD+etU0OPG4nAlJ2SyuCUSvV/ew1OdtSIjF7Nf1nFRpINQrud7xfBkIXVBBZQ+nf+u9qtODBjwGlpXlzU/uaJIKyDHm3jlvTJpGZ8i7eGN8zZyT5lxCQ5xhTNWqYAhREkZJ0G3nKAjhuzQ5hk7e6+Vm1MwoCO8LDrUxvI1hvo7rxH2Fuhxgxv6E/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
- dkim=pass header.d=mediatek.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JDODQNNX";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EcsbcpQm"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67Q6RuSS451442
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 08:53:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=5uS0/faMQ3MvU0X+b4yCA4xc8M+/0GLQE7v
+	v+ceiR8g=; b=JDODQNNXPuPenA9iZ6BCf6eKeCJvV2AuK9TRAKANxfPH/5dGH3J
+	VmrP7ixmWnjz2WaSyHiK0qoXqn+/3eN6QGD7VpQI3wDZziDmFC23UtZZA1IeY4/9
+	L50TE9mLK6NIFs614eZDYApic0cNxpn9pu3z1Bv0vXUbfKcO9f4T47K54N90iJn7
+	869ZqkAt1f/0LAYYpZWnmMzTBN4bNrqPbdbkk/5sCjJQPhk8NdBLFhr11TNRQCve
+	VHKcrkCq6dt0lABZKDRkt6Ct2UD67IH2lpPqoauWlGJ3up5qQZxf+n12cO8Nikv7
+	8owHcR9ig+bmI0eu/Yu5BHh/GfcRGMNEgoQ==
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9r1gh8px-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 08:53:56 +0000 (GMT)
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4a7de733fa9so1471232b6e.3
+        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 01:53:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q4YWpzF5zWg8+6QvDKW/JSQjgAAxbYydaD1HMHBQsSM=;
- b=uxS1lNXDpae8tbAYvn8hkC1Q/8AmbMbbkddAzDLgk7ZhQ87jlDHfjxdJoaatlpNhTGiZwxylOnWkKiCELPCY2U0Ewzl+moyCendA1FMI9YYP0K5zbopCerAlA2IbOKkCo2r0CYXompUwQe+vc/Lu8OWK7NR1fHxBMQ9Zzx3IHBU=
-Received: from TYZPR03MB6624.apcprd03.prod.outlook.com (2603:1096:400:1f4::13)
- by TYSPR03MB8060.apcprd03.prod.outlook.com (2603:1096:400:479::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Wed, 26 Aug
- 2026 08:47:26 +0000
-Received: from TYZPR03MB6624.apcprd03.prod.outlook.com
- ([fe80::a3c2:b94a:70f:e640]) by TYZPR03MB6624.apcprd03.prod.outlook.com
- ([fe80::a3c2:b94a:70f:e640%4]) with mapi id 15.21.0339.012; Wed, 26 Aug 2026
- 08:47:26 +0000
-From: =?utf-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	"chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
-CC: "kernel@collabora.com" <kernel@collabora.com>, "robh@kernel.org"
-	<robh@kernel.org>, "tzimmermann@suse.de" <tzimmermann@suse.de>,
-	"simona@ffwll.ch" <simona@ffwll.ch>, "mripard@kernel.org"
-	<mripard@kernel.org>, =?utf-8?B?Sml0YW8gU2hpICjnn7PorrDmtpsp?=
-	<jitao.shi@mediatek.com>, "linux-mediatek@lists.infradead.org"
-	<linux-mediatek@lists.infradead.org>, "maarten.lankhorst@linux.intel.com"
-	<maarten.lankhorst@linux.intel.com>, "dri-devel@lists.freedesktop.org"
-	<dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "p.zabel@pengutronix.de"
-	<p.zabel@pengutronix.de>, "airlied@gmail.com" <airlied@gmail.com>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "matthias.bgg@gmail.com"
-	<matthias.bgg@gmail.com>, =?utf-8?B?SnVzdGluIFllaCAo6JGJ6Iux6IyCKQ==?=
-	<Justin.Yeh@mediatek.com>, =?utf-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?=
-	<Jason-JH.Lin@mediatek.com>
-Subject: Re: [PATCH v6 04/11] drm/mediatek: mtk_dsi: Cleanup encoder if reset
- fails during bind
-Thread-Topic: [PATCH v6 04/11] drm/mediatek: mtk_dsi: Cleanup encoder if reset
- fails during bind
-Thread-Index: AQHdFGHiYhwNXYNm6UChHrbWspcHJbawRkSA
-Date: Wed, 26 Aug 2026 08:47:26 +0000
-Message-ID: <26ecf87fe39728ab2dc9e9591a9b59b268ce013a.camel@mediatek.com>
-References: <20260715135703.46540-1-angelogioacchino.delregno@collabora.com>
-	 <20260715135703.46540-5-angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20260715135703.46540-5-angelogioacchino.delregno@collabora.com>
-Accept-Language: zh-TW, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.52.3-0ubuntu1 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mediatek.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYZPR03MB6624:EE_|TYSPR03MB8060:EE_
-x-ms-office365-filtering-correlation-id: f69939df-e32f-4bda-2df3-08df034ea773
-x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|376014|7416014|42112799006|1800799024|23010399003|10067099003|11063799006|4143699003|56012099006|6133799003|18002099003|22082099003|38070700021;
-x-microsoft-antispam-message-info: Tjnq1wR8a1Loc2dOaiy2a46MzJaA3MLZrWBlE/qkkJJs0jpRY78US3aCnhgDTLq0lfsQQ64uLnAwIXodbEPcK1e8V2lDa8apCCzMxHACX33aDSB7fuN+rrF/V4ucEx9E4Ev5/KEe2z+GyE4ikKNi56BmKiHW4VI6MNfhD+qvNWjL8mS09UVmEV1O1AcewfU5osm6ORjLvxINhm0heGNM7lF9QLfATH9331wqakkBeKXozsq0Iy3rG/PcDY1Q7d/y7WELr0k4SO7d3GkIS/9AJqvjjGGJftkhHTh7PYj/WaeB2Gg+yNdtlPt8HE/we2+m36U+UBeDEseyuLjPr5yDu/8D2faMX9LxBAgDQNb32kswOIIkGlXJBibW+WUxnTrTJPIzm5J7nAaA5Y5J1XFxRHIfSkwqWgGxauSU/tuxr5n/n6hD+Sm1okIiBvrIEwgT/43bCG1vs8VRtdhSEt/dUq1ZYIuXDSqRBonj1Z5egu5S2UMfW8op6W/lFVTQCcgXB2SNyPVYH4/p/FXmznKJIEW5YZ8h3Lf9EsG1WISWe7GUmxAnyTKUgt2nUfIK4AC/D6GLks6LkYLbWoBEFDl4e8MkjtZSgPHYP0V0+KA9xC/UFp4RHOZLORrspOAHZ1bOYrbi526CbAgiR1gbw03HiYhs4ux8lRGkJ5YbYr4nwamGh3isN69XB7ug7feiVD3TtvQJFBcooAhKx7SJ0N4/2SsT5d+/XtTrEBHBnKeWDQI=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6624.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(42112799006)(1800799024)(23010399003)(10067099003)(11063799006)(4143699003)(56012099006)(6133799003)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?TDNtZjNNUlRENmR1VFk1WWVLYVlpb3FsWmVaTnJ6T3gvNU9EYVZwYnp3RmVY?=
- =?utf-8?B?MnlBNmJQRmdXczRJNlVlZ25VYXpWUDhjL0djR2xMUHd5UDNuNWkzRExKWFN0?=
- =?utf-8?B?b2N1OUJSbk5QZGRJRm56V1NkczJUQlR6a0VsRFg4K3MxN1RlU2ZnNTFxYXNy?=
- =?utf-8?B?K2J3Sis5OTdGZms4bUxXTnhveDV3ejE3cUxFM1lXelpCTkJzdzhVeVF6TjY0?=
- =?utf-8?B?TTdzWWsrTWFLb0xIU1VQVktwUUZRZmFlaExvMWlyVGd3YUF6RXdTVlNsZHg4?=
- =?utf-8?B?dW8wTHBLNGc5eEU0VWpqR3hhTTQwYllKVWZhSjhyQnRwSG02VDg4cnE3WGdC?=
- =?utf-8?B?dkI1U3htZm91UzlHVWtlUFp6R254MVk5RkdXaTZJYlg4WHRYQWgzT1l1cjFn?=
- =?utf-8?B?cmRtSkxPMEUwR1RVQy92TlRpK08wQ2RjeWRKMnpvQXJJSmpSVzM1aExpbzEz?=
- =?utf-8?B?NU5GZFpvblF6MG5FVmo2Q2hGOVB6aWE5WHZVS3l2M1B4YXp3VUM5ZDZPNmU2?=
- =?utf-8?B?L3kvMkNzTFpDeWkwTzdYdUtQR05iSENjOEd5WndCeGpSTWtEK2gxQkg3SzhJ?=
- =?utf-8?B?R1ZaZFBzbWlMbGtBOVRaWEQrNXFuREtaSE5IcjBma1B1UGdCQVBtOU9yOTYw?=
- =?utf-8?B?SDFIUCtFUTIzRDVpZW54U3ZzaEh1aWRPMk1WbEEvQis3eGNPclJhVEZVZUtQ?=
- =?utf-8?B?QjFjTVlzZmp2Z1EraldjTC9GMStBcHYzM0NqUDhiaVdLa0pZNWVJdlpyN205?=
- =?utf-8?B?L2FvV25ESno1VDhWTHBFNHhqdXFGaWlOVlRSbHNUdEJBRTdMNzlSUVo1OURp?=
- =?utf-8?B?TFFRanRtYnZkbklvcDVuT2p1SWlnb0s2TXhKdnBpQ0pONStuZmY2YkVzN29X?=
- =?utf-8?B?dGJiSkE2L1JSbzM3cWoxT3diYmdmN1NwbWhndllibnhpbG9VcG9ob1RDT1RJ?=
- =?utf-8?B?VzFPR0RIV28xQjdHZmMxbUd0b2tpRXBBZ2lUaWxJS25jb2dsWFhaQnZ5MnhE?=
- =?utf-8?B?YUdYbW1TYWZuR0F0YUk4MEdiWEdOUWtmQUdMdjF3aytSK1JHQStETXc1cngx?=
- =?utf-8?B?OExGcHhla3VxMUNZWVNySzczR1hoY3RiR3VIam9pWk1uOXZpQ3lmMk5sd0xz?=
- =?utf-8?B?aHI0bTdER2pPZ3JkK0dCWmQ1dDcwUVJTdHJWOFIrcVROcFZDOHdwVVNiVmhR?=
- =?utf-8?B?NHJxdm5pVTBaRXZPbXppRE5kU1AySGJIakNWcGExbTlLTjR1aDFYSkJNN3NG?=
- =?utf-8?B?enZHcU54UklncHUvUTBOTndXbFlyS1phVXpWN25FWnV5NDVIQjcyZzE1Z3Rp?=
- =?utf-8?B?bHQvK0xtZUF6Q0lrU25QVHN2cEhmQ2NpbGxIM2lpRnNUM1NEM0Q0M24rT1RG?=
- =?utf-8?B?WEg4ZzM2YzBZMjFlSU1adzBSWVV6YmpkNlhFaFdJOCtRR0Vvak1yTytoMEpC?=
- =?utf-8?B?VnkzcFZBNjZnUitIellvVVBXMTdzOWE3dFlvcEFnalgyTlZoaHRKd3hGQmRo?=
- =?utf-8?B?azdrMXJ3WXZZMDUxMzVQZ2xrRFhydTVlNGNzY2U5UUdBNTROR2xWOGhDVmpV?=
- =?utf-8?B?RnFzUk9FZ0xKUXBRanlJbmszSTlTVExLVHRyMURNVjdIUm9XRlNITHQ0NzNX?=
- =?utf-8?B?VlM3VTJ0bWdEeWhDNGpKN2ViOE0wSndtdS9SRVRzSXJmUjMxcHJ6THhTcmdB?=
- =?utf-8?B?YW4xdjVrMTMrblZ0VmIwTXczbjV2amVZSG1qSW1HM3M3eW1pWnY5dzNsekFN?=
- =?utf-8?B?RkNQVFRkSHNHNEVSbFMvbGxnOUtWbmpSMTBXQVZORy9VSFVsRklqWm9ZMTV1?=
- =?utf-8?B?dUJhaEJmUWIwWlZMZVM4eC94ZjF2ZGY0OVJZZTUxQUZpalpEenBYUHB3T0Vt?=
- =?utf-8?B?T3QxSkJWVldnazAwamREeWV4SUFHTzVtZk1ReUJEV1JYTGpUc2hUSmxibEpJ?=
- =?utf-8?B?MmVRYXBvd2ZnQ2xjSGF5OW5HdUhFbkZWWFg5M290T3kzUTM0WjIxZEh5S0xh?=
- =?utf-8?B?K3VJRkpaaVVZbGg4N0JhMFN6VnFnWndWMERwVitQVUYrTEZoOWNGNXRtaVFX?=
- =?utf-8?B?d04yUlB4dVdwaktBN3VJK05lRE1PL3NsVkREU1pUekpMenh6YkhseGhPbWJJ?=
- =?utf-8?B?NmtZZ3BlZDFyV25tMFliSkVWd2s1UzNJY2lqeGMxT3dZSWNJWVpXWWFYVnEz?=
- =?utf-8?B?WTJTaEdDY0Nlb0Jkc2E5UThyQ0dhN0VLTmxqQlpJRWxFeDF2K0RqTXQ0WXVE?=
- =?utf-8?B?QnBPRTlKSFdsSmJqdEYwalpJNWFocXBlTDlrdExXTHphM3ZPYUk0eS85MlVt?=
- =?utf-8?B?dnM4WS9rK0htb2xIUzNnN0lLOHptbmZ6clF1Um5zamUxRUlMcFBGZz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <229E21722077A048BBD7A97DDD2FB352@apcprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+        d=oss.qualcomm.com; s=google; t=1787734436; x=1788339236; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5uS0/faMQ3MvU0X+b4yCA4xc8M+/0GLQE7vv+ceiR8g=;
+        b=EcsbcpQm/UwLES6IJQA/oKyxSKAuF/Io948vJzmHSLF57DJyHd/JiQhkhUfBKquXMm
+         ZUki2a1/bpDCJCf5B7e7ShNL/JeRSfLZWC4gIZ1juwtBvyI5SxZRzcYLF8xify5Cq9tl
+         gF0k/qo8VUmmc1gltR9d2dsIMY6mMXMQZgyRQFrFbFnYvwN9Lu2pEif3KUQI6sXzOQOv
+         tQ0Dj2GYTf6scAqZ1o792l1lkWRuAmVdy7Yajp1OuKjNFtcyxwvBohW7XiWQawCIjDMr
+         Y3TyWwyxnjogOCwsqcobUTkOz/Ckt7Ff3294Bu0LvC6ba7av0AlETpDG/8riGf1qDqyo
+         N5jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787734436; x=1788339236;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5uS0/faMQ3MvU0X+b4yCA4xc8M+/0GLQE7vv+ceiR8g=;
+        b=CVG963a31ylWeK2M6d+kKI4B7JROdw+8ca+wcCeQcgltVLjW+6C/WqIN+gfeLUVALb
+         0ZMmo6Z/t/L83gSKMj6nMMvWQ/E66Xn40PUt/2CSLZ8RAwdawQ0XEimFgdK0UEKqPBAJ
+         wfsANNSZUstBVP0nJYNDWjJZ0gR6Fm2CKQLi62icAAMM1mH6saMbMouhO2IYwmZyCReQ
+         SpA2cm+rXfJVtU4F25aWRpTcB2O87N0aZvX55ai6m2jGGb6Jdm55s817a+hMO+Qn27D8
+         VFk+8tSzY3begf6oPzQff0WdqCn+MKq4LLcewnC1DpvBkFMPTpC3II97wP/jol4pjaoQ
+         nucw==
+X-Forwarded-Encrypted: i=1; AHgh+RrfYrML5gotwyxn4ActQA6SeVD7QXwyUial8vDJOHcLnSZNsOuSQwiEGIFuX2zyNfliGCSK6WnaLJp9@vger.kernel.org
+X-Gm-Message-State: AFuF++m59/JsovYoJSnE/faitifNZXOuPvtwRn0IX+9VyPkQ7wObdryh
+	WS9bAS3AeTX5r+K2F/PrrerHiASVspa2BmvUJNYhn8Qn21ELxLjIKsE5TvE78yp/THKTy08E8Zb
+	clHf9KTX33ZUBFNrJGY5TAJMRH18Y++pwUMLi7CbdroFzykQBOsq1XTE6GhbWtsjD
+X-Gm-Gg: AR+sD11qZ/Ic1Yd2i6s+QEpvEx1wvvkSbo00AjOoCyg/iRX6SyTE2LQTmYo8gXj2ado
+	C/ANav37p94vkb+XFfpRc3qXtuo/1dnl8m3N5uMu3XpnOh7sY+8oQaUJ9FTYebNXLvcAE7OT5Y/
+	/D2rxeFSEGdvWl2OvLtw5Sai5rDBHzmZL3UkA3nbxLLxR2YAxNyRb1JC55E9YCQkl8fNLrq3is8
+	LS6mj6xWJV6oW+3vuyyxbBK9pQZWQPnnvIb3SARFIgcVRUJNtSYbET6UAAxMHVKNp1TNWul1O7L
+	R/mPVATaxQfK8QPllfjhKukgLtvAX5lx3BY0suMhrqrzHJQwz1i52+TViCHjBDpC5jimHfpWOKN
+	4Gfs8wCnWY+WES4mTAof+sj0klIApvbwmvH05z3xkfADvGJ9t3fVMyJDkcyX5
+X-Received: by 2002:a05:6820:82b:b0:6ac:a45e:ff84 with SMTP id 006d021491bc7-6b1a03fbc5fmr4569161eaf.13.1787734435818;
+        Wed, 26 Aug 2026 01:53:55 -0700 (PDT)
+X-Received: by 2002:a05:6820:82b:b0:6ac:a45e:ff84 with SMTP id 006d021491bc7-6b1a03fbc5fmr4569140eaf.13.1787734435403;
+        Wed, 26 Aug 2026 01:53:55 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b1a250f5b0sm1223020eaf.6.2026.08.26.01.53.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 01:53:55 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH] arm64: dts: qcom: Drop redundant qcom-rpmpd.h includes
+Date: Wed, 26 Aug 2026 16:53:23 +0800
+Message-ID: <20260826085323.539860-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: rPBWQh/Q5Am23w4FNVQQL+vIAGxuM0A/p0bhEJn5pe03QV6OxmIenXvXmCimUeomQ5RGq/JFH3xMFpo46A8JOmCHMeFNJCXq4B2H6uX1cmkDd+T1eL9JeWAmMIa4IzEOTIl8WBMoBv7j782dIEMU55DZt+CTtCLW9QXcrkIYoM/CqroldzNTzTwLwT+50ncgkaT4z/QCLVVA8d/ATc6dxUdrZLTIkPHipqoeYMAAMe2zN0TAUsKcqxs6rTkBtnEgSug+AAvA5fj6TJdbRKB0hw/KdtPqm9dqBLa0e6ujz8R6a01XDM96DIlBbodFcrtjPZiJftByZKnRDV+tIeKMbw==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6624.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f69939df-e32f-4bda-2df3-08df034ea773
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Aug 2026 08:47:26.1497
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: KOxjCYoXpGUkFZdw+YW4RZFI/bKFS4i1xw/AqXZZSZaMEy6Y897GIPukx3ji3IAWbkGCtxjjb6rVf0pufIeNfA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYSPR03MB8060
-X-MTK: N
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: nedTRwqKgRXbWlO_Gx6pvhe1yOmd5zfi
+X-Authority-Analysis: v=2.4 cv=FPMrAeos c=1 sm=1 tr=0 ts=6a8ea9a4 cx=c_pps
+ a=4ztaESFFfuz8Af0l9swBwA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=maVgyc_Z7UK29R2IGXMA:9 a=TPnrazJqx2CeVZ-ItzZ-:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDA3MyBTYWx0ZWRfX7jEq51Y7AUW3
+ n+nE7t0133YOjEAczDal4BLyI4TSBG2OCV39U5NaAUE2w4tqD7sQlX1UbkRILwtCKtQiv16VB/b
+ LJOjCYKm/xjDDaGD4KV3hvRF0+QNcWc=
+X-Proofpoint-ORIG-GUID: nedTRwqKgRXbWlO_Gx6pvhe1yOmd5zfi
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDA3MyBTYWx0ZWRfXzqfpCi2JDOqG
+ 42ZLt7i8D1p+6yCE5LlQxMjg9ps9N3MV7XmjHl+VlmcMF3BUwcdNxvtuomisoC1ZCcncvhvsY0W
+ Dg9B2pK19OsIH5zPn+FqWg7zl0XqcGyiA17wUJBBm6qB+KQ5mfjMh4e1/BV+3lu5ViRWXrpkSyL
+ O/kOIkqM0HZE1A9DR3pYErapsjOZrtJNhHB7WmrmmJl155z7qm84UKZRLbnJiBZj2lwKI8Tlqk8
+ HsSNJXPQ+pJGyGKKHYapl7Kr0JWXdV4sbGSHcylCAV7GaFugPDncMLuNtpFGJZyBdGcAGOTRNt9
+ wb3eOSQJHydRUUwwNiplehh224YwSl3DS61+VboigccJaoJQuBigWmhrFsUA57g8WlE2TCU7tX6
+ ABYYlC7++7uIRSakG4lRw1lrv9A8SxlMatOre982F1wX6bPcyVdLeas1CjTsx69xgFP4aVjWlWH
+ w8BAEDgKxxtrCgnye9g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-26_02,2026-08-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 priorityscore=1501 clxscore=1015
+ lowpriorityscore=0 suspectscore=0 adultscore=0 spamscore=0 phishscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608260073
 
-T24gV2VkLCAyMDI2LTA3LTE1IGF0IDE1OjU2ICswMjAwLCBBbmdlbG9HaW9hY2NoaW5vIERlbCBS
-ZWdubyB3cm90ZToNCj4gV2hlbiBiaW5kaW5nIHRoZSBkc2kgY29tcG9uZW50LCB0aGUgLmJpbmQo
-KSBjYWxsYmFjayBpbml0aWFsaXplcw0KPiB0aGUgZW5jb2RlciwgYW5kIHRoZW4gd2lsbCBvcHRp
-b25hbGx5IHRyaWdnZXIgcmVzZXRzLg0KPiANCj4gU2hvdWxkIHRoYXQgbGFzdCBvcGVyYXRpb24g
-ZmFpbCwgYmluZGluZyB3aWxsIGFzIHdlbGwgZmFpbCBidXQNCj4gdGhlIGVuY29kZXIgaXMgbmV2
-ZXIgcmVtb3ZlZCBmcm9tIHRoZSBEUk0gZW5jb2RlciBsaXN0IGFuZCBpZg0KPiB0aGUgZHJpdmVy
-IGdldHMgcmVtb3ZlZCBhZnRlcndhcmRzLCB0aGlzIG1heSBjcmFzaCB0aGUga2VybmVsDQo+IGJl
-Y2F1c2Ugb2YgYW4gdXNlLWFmdGVyLWZyZWUgY29uZGl0aW9uLg0KPiANCj4gSW4gb3JkZXIgdG8g
-YXZvaWQgdGhhdCwgY2xlYW51cCB0aGUgZW5jb2RlciB1cG9uIHJlc2V0IGZhaWx1cmUuDQoNClJl
-dmlld2VkLWJ5OiBDSyBIdSA8Y2suaHVAbWVkaWF0ZWsuY29tPg0KDQo+IA0KPiBGaXhlczogNjA1
-YzgzNzUzZDk3ICgiZHJtL21lZGlhdGVrOiBtdGtfZHNpOiBSZXNldCB0aGUgZHNpMCBoYXJkd2Fy
-ZSIpDQo+IFNpZ25lZC1vZmYtYnk6IEFuZ2Vsb0dpb2FjY2hpbm8gRGVsIFJlZ25vIDxhbmdlbG9n
-aW9hY2NoaW5vLmRlbHJlZ25vQGNvbGxhYm9yYS5jb20+DQo+IC0tLQ0KPiAgZHJpdmVycy9ncHUv
-ZHJtL21lZGlhdGVrL210a19kc2kuYyB8IDggKysrKysrKy0NCj4gIDEgZmlsZSBjaGFuZ2VkLCA3
-IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2RzaS5jIGIvZHJpdmVycy9ncHUvZHJtL21lZGlhdGVrL210
-a19kc2kuYw0KPiBpbmRleCA4YWI1YzM0MzFkYmIuLmUzZDczMzhjMzVlMyAxMDA2NDQNCj4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL21lZGlhdGVrL210a19kc2kuYw0KPiArKysgYi9kcml2ZXJzL2dw
-dS9kcm0vbWVkaWF0ZWsvbXRrX2RzaS5jDQo+IEBAIC0xMDkwLDcgKzEwOTAsMTMgQEAgc3RhdGlj
-IGludCBtdGtfZHNpX2JpbmQoc3RydWN0IGRldmljZSAqZGV2LCBzdHJ1Y3QgZGV2aWNlICptYXN0
-ZXIsIHZvaWQgKmRhdGEpDQo+ICAJaWYgKHJldCkNCj4gIAkJcmV0dXJuIHJldDsNCj4gIA0KPiAt
-CXJldHVybiBkZXZpY2VfcmVzZXRfb3B0aW9uYWwoZGV2KTsNCj4gKwlyZXQgPSBkZXZpY2VfcmVz
-ZXRfb3B0aW9uYWwoZGV2KTsNCj4gKwlpZiAocmV0KSB7DQo+ICsJCWRybV9lbmNvZGVyX2NsZWFu
-dXAoJmRzaS0+ZW5jb2Rlcik7DQo+ICsJCXJldHVybiByZXQ7DQo+ICsJfQ0KPiArDQo+ICsJcmV0
-dXJuIDA7DQo+ICB9DQo+ICANCj4gIHN0YXRpYyB2b2lkIG10a19kc2lfdW5iaW5kKHN0cnVjdCBk
-ZXZpY2UgKmRldiwgc3RydWN0IGRldmljZSAqbWFzdGVyLA0KDQo=
+qcom-rpmpd.h already includes qcom,rpmhpd.h via its own #include
+directive, so any DTS file including both headers carries a redundant
+include.  All affected files only reference RPMH_* constants (defined
+in qcom,rpmhpd.h) and none use RPMPD_* constants, so drop the
+superfluous qcom-rpmpd.h includes.
+
+Assisted-by: LLM
+Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/glymur.dtsi   | 1 -
+ arch/arm64/boot/dts/qcom/hamoa.dtsi    | 1 -
+ arch/arm64/boot/dts/qcom/milos.dtsi    | 1 -
+ arch/arm64/boot/dts/qcom/monaco.dtsi   | 1 -
+ arch/arm64/boot/dts/qcom/sar2130p.dtsi | 1 -
+ arch/arm64/boot/dts/qcom/sdx75.dtsi    | 1 -
+ arch/arm64/boot/dts/qcom/sm4450.dtsi   | 1 -
+ arch/arm64/boot/dts/qcom/sm8250.dtsi   | 1 -
+ arch/arm64/boot/dts/qcom/sm8350.dtsi   | 1 -
+ arch/arm64/boot/dts/qcom/sm8450.dtsi   | 1 -
+ arch/arm64/boot/dts/qcom/sm8550.dtsi   | 1 -
+ arch/arm64/boot/dts/qcom/sm8650.dtsi   | 1 -
+ arch/arm64/boot/dts/qcom/sm8750.dtsi   | 1 -
+ arch/arm64/boot/dts/qcom/talos.dtsi    | 1 -
+ 14 files changed, 14 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
+index f04058d2e089..d24a538651ab 100644
+--- a/arch/arm64/boot/dts/qcom/glymur.dtsi
++++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
+@@ -21,7 +21,6 @@
+ #include <dt-bindings/mailbox/qcom-ipcc.h>
+ #include <dt-bindings/phy/phy-qcom-qmp.h>
+ #include <dt-bindings/power/qcom,rpmhpd.h>
+-#include <dt-bindings/power/qcom-rpmpd.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+ #include <dt-bindings/soc/qcom,gpr.h>
+ #include <dt-bindings/soc/qcom,rpmh-rsc.h>
+diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
+index 8a96ea1bdb9c..0a95a91d426b 100644
+--- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
++++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
+@@ -19,7 +19,6 @@
+ #include <dt-bindings/mailbox/qcom-ipcc.h>
+ #include <dt-bindings/phy/phy-qcom-qmp.h>
+ #include <dt-bindings/power/qcom,rpmhpd.h>
+-#include <dt-bindings/power/qcom-rpmpd.h>
+ #include <dt-bindings/soc/qcom,gpr.h>
+ #include <dt-bindings/soc/qcom,rpmh-rsc.h>
+ #include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
+diff --git a/arch/arm64/boot/dts/qcom/milos.dtsi b/arch/arm64/boot/dts/qcom/milos.dtsi
+index aad8bf678916..99af314d7de4 100644
+--- a/arch/arm64/boot/dts/qcom/milos.dtsi
++++ b/arch/arm64/boot/dts/qcom/milos.dtsi
+@@ -18,7 +18,6 @@
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
+ #include <dt-bindings/mailbox/qcom-ipcc.h>
+ #include <dt-bindings/power/qcom,rpmhpd.h>
+-#include <dt-bindings/power/qcom-rpmpd.h>
+ #include <dt-bindings/soc/qcom,gpr.h>
+ #include <dt-bindings/soc/qcom,rpmh-rsc.h>
+ #include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
+diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/qcom/monaco.dtsi
+index cfe39f923224..395d32d36844 100644
+--- a/arch/arm64/boot/dts/qcom/monaco.dtsi
++++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
+@@ -18,7 +18,6 @@
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
+ #include <dt-bindings/mailbox/qcom-ipcc.h>
+ #include <dt-bindings/power/qcom,rpmhpd.h>
+-#include <dt-bindings/power/qcom-rpmpd.h>
+ #include <dt-bindings/soc/qcom,gpr.h>
+ #include <dt-bindings/soc/qcom,rpmh-rsc.h>
+ #include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
+diff --git a/arch/arm64/boot/dts/qcom/sar2130p.dtsi b/arch/arm64/boot/dts/qcom/sar2130p.dtsi
+index a2d93fd68299..2ecead79806c 100644
+--- a/arch/arm64/boot/dts/qcom/sar2130p.dtsi
++++ b/arch/arm64/boot/dts/qcom/sar2130p.dtsi
+@@ -15,7 +15,6 @@
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
+ #include <dt-bindings/mailbox/qcom-ipcc.h>
+ #include <dt-bindings/phy/phy-qcom-qmp.h>
+-#include <dt-bindings/power/qcom-rpmpd.h>
+ #include <dt-bindings/power/qcom,rpmhpd.h>
+ #include <dt-bindings/soc/qcom,gpr.h>
+ #include <dt-bindings/soc/qcom,rpmh-rsc.h>
+diff --git a/arch/arm64/boot/dts/qcom/sdx75.dtsi b/arch/arm64/boot/dts/qcom/sdx75.dtsi
+index 85cc9c6e6f83..0fa4cd81bb86 100644
+--- a/arch/arm64/boot/dts/qcom/sdx75.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdx75.dtsi
+@@ -15,7 +15,6 @@
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
+ #include <dt-bindings/mailbox/qcom-ipcc.h>
+ #include <dt-bindings/power/qcom,rpmhpd.h>
+-#include <dt-bindings/power/qcom-rpmpd.h>
+ #include <dt-bindings/soc/qcom,rpmh-rsc.h>
+ 
+ / {
+diff --git a/arch/arm64/boot/dts/qcom/sm4450.dtsi b/arch/arm64/boot/dts/qcom/sm4450.dtsi
+index b7dc40f3778c..bc9c788b92b1 100644
+--- a/arch/arm64/boot/dts/qcom/sm4450.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm4450.dtsi
+@@ -11,7 +11,6 @@
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
+ #include <dt-bindings/power/qcom,rpmhpd.h>
+-#include <dt-bindings/power/qcom-rpmpd.h>
+ #include <dt-bindings/soc/qcom,rpmh-rsc.h>
+ 
+ / {
+diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+index 90f8b091634e..8483a1bc56f4 100644
+--- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+@@ -16,7 +16,6 @@
+ #include <dt-bindings/interconnect/qcom,sm8250.h>
+ #include <dt-bindings/mailbox/qcom-ipcc.h>
+ #include <dt-bindings/phy/phy-qcom-qmp.h>
+-#include <dt-bindings/power/qcom-rpmpd.h>
+ #include <dt-bindings/power/qcom,rpmhpd.h>
+ #include <dt-bindings/soc/qcom,apr.h>
+ #include <dt-bindings/soc/qcom,rpmh-rsc.h>
+diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+index 32b47f5ec1f6..100faea925a3 100644
+--- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+@@ -18,7 +18,6 @@
+ #include <dt-bindings/interconnect/qcom,sm8350.h>
+ #include <dt-bindings/mailbox/qcom-ipcc.h>
+ #include <dt-bindings/phy/phy-qcom-qmp.h>
+-#include <dt-bindings/power/qcom-rpmpd.h>
+ #include <dt-bindings/power/qcom,rpmhpd.h>
+ #include <dt-bindings/reset/qcom,sm8350-videocc.h>
+ #include <dt-bindings/soc/qcom,apr.h>
+diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+index b8793482b181..484ec8ec8c10 100644
+--- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+@@ -17,7 +17,6 @@
+ #include <dt-bindings/mailbox/qcom-ipcc.h>
+ #include <dt-bindings/phy/phy-qcom-qmp.h>
+ #include <dt-bindings/power/qcom,rpmhpd.h>
+-#include <dt-bindings/power/qcom-rpmpd.h>
+ #include <dt-bindings/interconnect/qcom,icc.h>
+ #include <dt-bindings/interconnect/qcom,sm8450.h>
+ #include <dt-bindings/reset/qcom,sm8450-gpucc.h>
+diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+index 0e701e709235..57d36e1086dd 100644
+--- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+@@ -19,7 +19,6 @@
+ #include <dt-bindings/interconnect/qcom,sm8550-rpmh.h>
+ #include <dt-bindings/interconnect/qcom,osm-l3.h>
+ #include <dt-bindings/mailbox/qcom-ipcc.h>
+-#include <dt-bindings/power/qcom-rpmpd.h>
+ #include <dt-bindings/power/qcom,rpmhpd.h>
+ #include <dt-bindings/soc/qcom,gpr.h>
+ #include <dt-bindings/soc/qcom,rpmh-rsc.h>
+diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/qcom/sm8650.dtsi
+index b679fd8afb7d..7e397a09b6ff 100644
+--- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
+@@ -21,7 +21,6 @@
+ #include <dt-bindings/mailbox/qcom-ipcc.h>
+ #include <dt-bindings/phy/phy-qcom-qmp.h>
+ #include <dt-bindings/power/qcom,rpmhpd.h>
+-#include <dt-bindings/power/qcom-rpmpd.h>
+ #include <dt-bindings/reset/qcom,sm8650-gpucc.h>
+ #include <dt-bindings/soc/qcom,gpr.h>
+ #include <dt-bindings/soc/qcom,rpmh-rsc.h>
+diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+index dd738d13df8e..c5240a08c04e 100644
+--- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+@@ -20,7 +20,6 @@
+ #include <dt-bindings/mailbox/qcom-ipcc.h>
+ #include <dt-bindings/phy/phy-qcom-qmp.h>
+ #include <dt-bindings/power/qcom,rpmhpd.h>
+-#include <dt-bindings/power/qcom-rpmpd.h>
+ #include <dt-bindings/soc/qcom,gpr.h>
+ #include <dt-bindings/soc/qcom,rpmh-rsc.h>
+ #include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
+diff --git a/arch/arm64/boot/dts/qcom/talos.dtsi b/arch/arm64/boot/dts/qcom/talos.dtsi
+index eedfdce3c479..531cf41b94dc 100644
+--- a/arch/arm64/boot/dts/qcom/talos.dtsi
++++ b/arch/arm64/boot/dts/qcom/talos.dtsi
+@@ -17,7 +17,6 @@
+ #include <dt-bindings/interconnect/qcom,qcs615-rpmh.h>
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
+ #include <dt-bindings/phy/phy-qcom-qmp.h>
+-#include <dt-bindings/power/qcom-rpmpd.h>
+ #include <dt-bindings/power/qcom,rpmhpd.h>
+ #include <dt-bindings/soc/qcom,gpr.h>
+ #include <dt-bindings/soc/qcom,rpmh-rsc.h>
+-- 
+2.43.0
+
