@@ -1,48 +1,48 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011042.outbound.protection.outlook.com [52.101.65.42])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010044.outbound.protection.outlook.com [52.101.84.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC005472798;
-	Wed, 26 Aug 2026 16:36:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF06B47140B;
+	Wed, 26 Aug 2026 16:42:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.44
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787762226; cv=fail; b=mDDvIa2JXiZtFX0R6Gr8VIVKFAZpXGcATD1Wi91c/cTpruilVkNaZdBtEpNLgHh+LPTrlY7yqrnZAXxhTIj5gPdOjPRiUlRNjKPfXOarr4rY+4GVEAkrsLwHe0+5SM5VJ49gwEpzGyAfTEosHPtv6muUGfsQeoZuVbIwMUqlQUY=
+	t=1787762575; cv=fail; b=EAI0YPdJTJMGBbq1wrazL06iNPi6d5gU1aSejtNXk+nmIXKRWcGFSYvEjenT+sKzlkIor6dkS2JUYtHAvLPmIGFXSaUlLkYPCN9FGJy7afYH44QcwOM3wVWP/Wdw4P7dXyqH7lRfSjHgbfA+//v4I2n1G9sASAfOppBYxEOz1Lg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787762226; c=relaxed/simple;
-	bh=jLjJDtKKELiWbu+UGT1La4cHAsN11aE4mPBQ/D5jTeY=;
+	s=arc-20240116; t=1787762575; c=relaxed/simple;
+	bh=ogSMMvxo5uMbBTFmrFN6AsIm3428dApvgojTW+VJvp0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=ImLGK/k4VDQOyIaKPKMhc8VJbEtrMRRINPqeHj/TA5HNtX0L9eJJK88JrNvDqEHqZAbq2rHYK2myfu/a/rmyrGtIrgvhsP3ldrux6xGGKxyXuLbNYFj6ofaJsYnd3U+uc5quWB32yxGrDJXgf10uPYqFpkeHX8Rbq7oVPenf1kI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=HU2J3wXG; arc=fail smtp.client-ip=52.101.65.42
+	 Content-Disposition:In-Reply-To:MIME-Version; b=hFbqCYCqnOGDo0p69yHkaDLtoK2K33RYF9Rw06urSHJ5AlUCcSEA4U4Nqggi4/5uPnoAtPd16mPOohq5kqNqSbPoWT+aETMIeGg+WlmtNdZQX9lnlDzc76ntRB6SMiHJlpQmifoNkm1geNX6gzOUiRd18S1dgDU9rNAyrnzxWGw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=vr8pj0GR; arc=fail smtp.client-ip=52.101.84.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="HU2J3wXG"
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="vr8pj0GR"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JjcKb+ZdcXwth5IO1ogzZNoQYDJzZvvhbz/Bxs4PcG+0UejplexZeRREMQa2NNZQTlC4ZnFXkM7Sw2twTd2GdRqDmLETGZ6/5gmKmmdnxc6SB7AnVrZRs0epQi5CVFLIJNFoPktWhDzd31wHliyPih3TIbG2TEShJpsWIUrK9HF1zfl3rDe/I0p0Nim1vo/j2XO3QXig/p5UiSr7l/oskEeibMaAnRjhjs1OaSIAUjhXWD8iup8UnMNfrcvWohG6D76tHApHkrjLXI+6LUSf77qmg9HGU0Zkfx7lai7KN4tS4n3mWHoglSEeMe39cfEeY8zuuJAxm393vH5V504RLQ==
+ b=vejRYoelz5kTcyswbRgCIFEh/DfXp2ZhbXCT7CiZ5ZqkXu4tvPOktVALTQpIX5dFNNfjAomwz6aqJ2VzPAkAaBNE6Dz8HZu5GshwRLHyaTqKjumOWnSDF+qGjLjPms/nNC3bqZWxeOmfkBFBe6k7R2dhG1h3xRY3oTG/gPVHJ7HqYn1xB3ep4CB+0mZ2wdF9fkQ+CzO7Vk0pe2mqHy0+6u5D2PYolLhl7gZ/7h16FrnQdkDkJxB4Kh2c6uZQuh7pfbHjA6wr263PlCAbqdEIvpXn3vI3gA/pLE35XdGXkAXe1n+0GLftcLsHc3x0g5Y+gVUZcJHd85e5MOLeQfgHKw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NGJ71KWRTU4QUg3Td2j2OetWll5GcEL3IyxI8QwoAgc=;
- b=Vzd65qSU0cpIvWMBONfmiVmJbnyd4P+1Z2jQBKbB0WHPVr3fSQo8ezIzOBPmAghictGeKJshtJlb7IJDMtfVbq9/PlXd1MzxEJeUQq+nJhhXja0YO70T0AY7I3Q4uVD6dL2VcBgA9us48OPJjiZ3ljPYxSmt4MdnsJ+glMFXq5vtA47af9Juj7D4w7reCEfGZWeEo828g0ko/CKjDWqcHMDqHNXKEC7fHFjKVJB5A0joV3qeRd8KW7XOIwwfygNVaSJM4ZMIp4vvt3mOE6IWUdvhmS0c0SD9N/ARagW57Izc99trGuYTY+5AW5pfFegGTdiPf9++7GAYN7ctn0nTaA==
+ bh=4L5O+tx27yNK/hhObOtqszWrXZ28lMo7My4Jb2hRTyE=;
+ b=d1TVJr2s9UK8QqNgIjf00h8TmlGsmnakzhjMdOS5zdavXGDDpeXGnexTD5Yc28MDM/S3IqcW7VCw+4tUmSGF2rUo9JMB5k+yxYgsH1QsWdYsixyFtLUbQxmAU9io5zi090FnVZvtpm31zEvRShXXE4r+j1h7GIsVjfGQB9gY4jIpufJMVUiqzbTm+050BFTxzqCVnNxd4W2magiaHpo2f0Z8Kn/Lo+IMaQvgMfwSC24v1t3CrGaZDAcjgseDMEKWHvAiqnp/eUgDa06vmHNgR6UQ+EnwPALs60l6Et4qttAUF83qUlKUVk0luYE16fwA6xhGO+eqD31QGuOORaQz8Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
  s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NGJ71KWRTU4QUg3Td2j2OetWll5GcEL3IyxI8QwoAgc=;
- b=HU2J3wXGuwT2A9Xy2IU7EG8bSYTf/CYUurtzC+opIpOWHswEBZ7I83dngSyK34bgLdmevKANnlD2VPgoTme5K7rZ3b/k6sYlUxMY7WRpoAQ09PNc8UCErYj54SkBJneLJ8zMIZiZ8dD7pp0j7HJ+4LuYzegeGZJcWvd10T2gWmAup/zOzhB2ixQMr2D7KJf45wLhaUzidFt8Ua+L1jZh51fZaiEaM2knB7EOvgMMI4jf8UEjWvlqVwCNhQJRFJKAlrDmDsNgnRlqoME5wk6upBfnfPwtVtEYv8Cp3+pHbAIWlVpQGoDSvNBpPn76Xe4CVS4QtYe1lkCoazSvUX2LQw==
+ bh=4L5O+tx27yNK/hhObOtqszWrXZ28lMo7My4Jb2hRTyE=;
+ b=vr8pj0GRJvfZhUcQ3LyJ2whyf21Ppmuz9WSWa9aJM/onOMJwNEnHJwbxO31fau4WZDKYBwVdyvNPey2kAQrOmjk3097UwIm4Y7qdI250wTjNMdeUvzB8X1Q+xKETiu+FQ5XmNOqWUkdnBkTiz/9Wr5jfz28KaPyDgIyzyVCdROeZQ+Og7Xw7+TTvDalRCp7FmCS0o2urpkZAMz4/pcPRdUjMumxKeKdjmGW971Pd4FKyJHDwgw2VqbnTrZTUISPWQCvKawh+TJhElnzxHR5SFmoNVmHCzdIQy2X3jDAWthInDF6Lts3F9M18zWAW2FLqODKHSuRwxwKe1Oyjn2zdLw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 Received: from VI0PR04MB11784.eurprd04.prod.outlook.com
  (2603:10a6:800:2ea::12) by PAXPR04MB9569.eurprd04.prod.outlook.com
  (2603:10a6:102:24c::21) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Wed, 26 Aug
- 2026 16:36:39 +0000
+ 2026 16:42:13 +0000
 Received: from VI0PR04MB11784.eurprd04.prod.outlook.com
  ([fe80::d486:debf:a139:2953]) by VI0PR04MB11784.eurprd04.prod.outlook.com
  ([fe80::d486:debf:a139:2953%5]) with mapi id 15.21.0360.006; Wed, 26 Aug 2026
- 16:36:39 +0000
-Date: Wed, 26 Aug 2026 12:36:31 -0400
+ 16:42:13 +0000
+Date: Wed, 26 Aug 2026 12:42:05 -0400
 From: Frank Li <Frank.li@oss.nxp.com>
 To: Lakshay Piplani <lakshay.piplani@nxp.com>
 Cc: linux-kernel@vger.kernel.org, linux-i3c@lists.infradead.org,
@@ -51,15 +51,16 @@ Cc: linux-kernel@vger.kernel.org, linux-i3c@lists.infradead.org,
 	lee@kernel.org, Frank.Li@nxp.com, lgirdwood@gmail.com,
 	vikash.bansal@nxp.com, priyanka.jain@nxp.com,
 	aman.kumarpandey@nxp.com
-Subject: Re: [PATCH v16 1/8] i3c: master: Add APIs for I3C hub support
-Message-ID: <ao8WD4Ql9Zdo3nOh@lizhi-Precision-Tower-5810>
+Subject: Re: [PATCH v16 2/8] i3c: master: Add controller-only device
+ operation helpers
+Message-ID: <ao8XXagBAhl6zANu@lizhi-Precision-Tower-5810>
 References: <20260826103819.1614843-1-lakshay.piplani@nxp.com>
- <20260826103819.1614843-2-lakshay.piplani@nxp.com>
+ <20260826103819.1614843-3-lakshay.piplani@nxp.com>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260826103819.1614843-2-lakshay.piplani@nxp.com>
-X-ClientProxiedBy: SN7PR04CA0174.namprd04.prod.outlook.com
- (2603:10b6:806:125::29) To VI0PR04MB11784.eurprd04.prod.outlook.com
+In-Reply-To: <20260826103819.1614843-3-lakshay.piplani@nxp.com>
+X-ClientProxiedBy: SA9PR10CA0001.namprd10.prod.outlook.com
+ (2603:10b6:806:a7::6) To VI0PR04MB11784.eurprd04.prod.outlook.com
  (2603:10a6:800:2ea::12)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -69,457 +70,109 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: VI0PR04MB11784:EE_|PAXPR04MB9569:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8a6b6b89-985a-4bcc-10f7-08df03903384
+X-MS-Office365-Filtering-Correlation-Id: 09e9715b-af7c-4172-d809-08df0390fac3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|19092799006|6133799003|11063799006|10067099003|56012099006|4143699003|22082099003|18002099003|3023799007;
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|19092799006|6133799003|11063799006|10067099003|56012099006|4143699003|5023799004|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	P3QEn75zkqAV6CWGbGdanuS4mKmLJXEL6YPseg/oCpLBxJiXdBjDdrPE87tQYA+CPe+YH4D15kY0WyJcNPTGMrni009CGl8QGvIGhSn8kfvkjSDuTuIeMUfs/bxfS2wL7NqY2avhQJrUPmTYVr+V4/uvLHfKPckgXIdE/2Tn3g4q57SzdMEDsSy4bWwTuVMYyp77KnQ56HQHtUvQWCs2M6UKiRLd2TO4EccT8ncpbXqPBQNxViNrQPR2NMZjsQ/QPBzQs8TyQljgjXnU9Hyn2B1D4HQgj99XPawAY3Ul+3XgDZUbsVY/OopdZuvBJWaFWpmFtGgIR2b9oW9RfvB+63To8F8fLnghAvNZL+dnKw8TqXGjNAFLwcaQ8B+mfY6EglvpBLSq3pQMck2CwEd11V62YEMXKArIgohPyMmsG5L+5dKfWGwu3a7CJ0krAXpFdIHKtOGCsc8VLaEIMt3Fe+fYZxk5fhKKJEWL2j2pck4uH7lwu1w4y+QNqB64X87fv2LE9jmPvFUQyPP/Cdhfmj77Mxr29TQW0ks1oIR8mz74sCIKCTbG0oj3zcYvVaYtZcmbMa/6qVjOxvIvlsTVXAuBR/ZaqCSKUwWGDYCz28tWfvpoi6P7H45tjopT8vGcqGQeMn2XGWV5qUyMEywfDC3FGlMfhEo/dlSuTvXXYvY=
+	L84o62rfLq2GjZ5/n4XwWsTTxzLK37TlZsXQ3wskD4UmlyU7PcahJW0wY2UGu5Q8teoptLb47AZ/Fvq9Ut60l6aPmjcenaDRLJty8T9cKBy6N+jddApD5vXTRVga11+53KqBjPG+p6CZszEPu6PE7G7CO6LLxFutHIwkLIFleQO6b4PFFLOxBxCjFDOHgBeToQaFeDLKwaMNNLJfG8cndv4E62nPrnZhYItf+OrHI9828RO88nRyi2wD7g1P5Jh3c6WIceFuJpxZ7vtM9PMsPdEffp0cNaYQaGzuFi8UTGxlKqVqdrnUT6omut4E+PrPqo6nY3Harrge/wbvexqB4XB7ZifLmEyDg5gKKbimXgn1uJbBmOhSi8XB0JpsnXHIEZ6vOYVOxhLCtx6YSthqLTgVfOrrkEk1WGMM0vz6acSqWhc8IBUPSeEoFlQ2pclnFeW90zEw4GSDv90xAFNgXYUfLV15p+2NdX1B99CZ87F/c7lkU+VMU/h8yZ+D5sD0xh1YC5b1mTwwqyXyGO52s3hBpIUkVbvD7A5U2O/RIYVghxhqYH8GVL4vS+4iEPnQIRKJQlpbaJBjTW2EP3zyT1r11cqltjxOuJrY8ibS3blxjHPO+/S4Ra9CV8lzRm+IWsFJ+gDJJ/9259K5TZdPJbnZnQkvtPTbBQh/KCBkNX8=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI0PR04MB11784.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(19092799006)(6133799003)(11063799006)(10067099003)(56012099006)(4143699003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI0PR04MB11784.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(19092799006)(6133799003)(11063799006)(10067099003)(56012099006)(4143699003)(5023799004)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?QMq33S09N3Fa3QJrlSGpEljz+kKMXXVp1EbDgfouZQxie/B9CQ86tvQg8uzI?=
- =?us-ascii?Q?W6gMRWJV8GhVDSFu35rksOQjZDYibN8MQAGn6Vb15euH8oymwng2+W+QOIK4?=
- =?us-ascii?Q?J6PLQd64aksQzOgPy4lXVIjq/Yamlp8RbTQ9pOoayVKhuNDENmqKCfEsvlAW?=
- =?us-ascii?Q?skuk5KyJ6vc9jaeJ8LpyCPBAX+OJPiuzkQsEEMDhDLE65fHrd6UC+GmozCX9?=
- =?us-ascii?Q?tsFR+ihbru/j1t0Y9rME+bpB6HCtldTBxdi8dGSu8yDYdRBLFZag3qgoWoiC?=
- =?us-ascii?Q?MewH1sF3pCHgucggLcFoa6pVcNJgYlhLBIabHCmTgwtg86NvbXnoJt28kd5+?=
- =?us-ascii?Q?pezkwFDsL+xpud16H4wTzMkuIdRgXEIxO/S9CAWt+DmrDg0swYMhPKI0Oek5?=
- =?us-ascii?Q?Dli1d099aCi7l0JcXX/rv6cKBZsX+x6j08BENAH9FKoPpNVWS+j2KCsktKkN?=
- =?us-ascii?Q?Cd4WER+x5/EUxwHbuiHA9OC0NG8+iE3MCg8rSLOo6CcjR0qLSSm6pS0WUmel?=
- =?us-ascii?Q?26zGIG01nSWaezt8bg+hrxxZLTJ5utXqu8dwwJQwPrqXGrC5N8Yw19YYV2lE?=
- =?us-ascii?Q?kXpKha4XzExSdFifPPjPHLIiPywfEny9yGT1Nj9fvYE+eEK89WjYPPcR6gES?=
- =?us-ascii?Q?BPL6tOwR+ID+yjA7nijdaOjFtbBcpbXfYngWG1Fi/6IWU8S6oVCDYOcHOrM3?=
- =?us-ascii?Q?2IWbP1Qs98o2/My3mUYhzfKLuYcZ7KGZmddKejXMsSJGTF6hc/7MhDZtTTQP?=
- =?us-ascii?Q?lEKlLC29yLXCzuKGYgt9lDa6GWfgWj1Ro/zJgqmqPTmTJaYSPtTz2LQwxaOr?=
- =?us-ascii?Q?V5AFKgrYQD5Ifz5iQ0S1rGrUlURjvDGaIlGeufJA5Ip02lDUoMaU/XCHAg42?=
- =?us-ascii?Q?AeV1nCbXNARUg9FIDdRtABJuEP+8ex5v5Ch7Yu0A60B43sxHt+CGVNwyIqdz?=
- =?us-ascii?Q?4luy+CjqIzw7X/ApSoKKL2Pc4c2aiNZk/6g3o48uMtzFJVlaaTrGYG86IW6R?=
- =?us-ascii?Q?ehzlxTHP8K7YOzEkTpoBj+WR7TkdFGJ7vu3/IZ9Rpw62hAYwC83/ro+gKmq7?=
- =?us-ascii?Q?KLjocOebpFJQdaazYrS6Br9yIXsz3qh6Sm+81ex/N7hGHvfvYhEznZZl6aP1?=
- =?us-ascii?Q?mVxzTbhfZzJPIzZDQW9O9NcMUgAXHNSgx45hkIwdoMuB1ZP3f/ojWiOjEMQS?=
- =?us-ascii?Q?9JvBeIz2PGzQ+pvpx3O47dpiK9wmqdAUkQLYrJpyRg2zujEtz/C0KoC8vIRI?=
- =?us-ascii?Q?dE9UIDXXTEY+1VA6lKahNXVijnNpPLup5uC40WLA8SW0VvtPHYsVvfkvkgqo?=
- =?us-ascii?Q?cUH9GAWQWwTmn3aHVZ1+KbaFuZzJh1I8QTcgC8OJ4AvrcB1Ym9hMtxdkq/hJ?=
- =?us-ascii?Q?A2rtuS/YZPzOBZGK6wNm5Jq+IVCsHAZCEiRJdNxfIWG31GXcOBm/k30QCQOM?=
- =?us-ascii?Q?FHpB1QMdFrdhWnvYJmg/b7TXSjl4Nfdvac54K0ELJYsdko6vRxmxVaDuu9vf?=
- =?us-ascii?Q?EFXF9cQeono0by1Mbn3pxg4DgtpHgjA67KTeaOwkAzuPNLU5l0G5L82HJesv?=
- =?us-ascii?Q?xfqkxq2F40fpBoXZGo/N3vfzXzojq3A4k2NqxX3YJ+mT2n56i6THjMDW4AOk?=
- =?us-ascii?Q?Nrn3wccDWeVMYroczQr2kgT4qpVoRPc4u8rhU0Sh6GY+mRYL8zhOo7NMPXM1?=
- =?us-ascii?Q?5kIvLhi+q8R4xObSVxWcgWZaAIjWXBqwVzbsn6tjUBIc1qwZ6C/mSp727X+l?=
- =?us-ascii?Q?JPzsp5jaEHX1U3+ubRj0GrN832WRj4mPMqEQ3wWJKH9vcl1OGZvB?=
+	=?us-ascii?Q?Mp/vrEmMjH/ydf59KdcWftIKIOkOuapTVo1NNYWzIB1zWC0z0V4FeVgzNoZI?=
+ =?us-ascii?Q?7yjwPhaYT3OrPFB3i/Gz6GTJ5EKM98FgYn3dvgBmP5umweViYj1Ht+wdd/pB?=
+ =?us-ascii?Q?PSPOYdLYIrpMYntqQteYXRINw1e+raGhHytxQQds2y932+OjGYsRkB0WYSYb?=
+ =?us-ascii?Q?ngWZ5gNW/sdSl+EL+g2luObOul4D9+PiNONsfSonbjpp33pomgWPsV6y6HHw?=
+ =?us-ascii?Q?hJ31HL8qwyPTPwwOe44TcXwzqVs6dqcPc4SaMVOjREG5Qcxtby0KGPsr85lm?=
+ =?us-ascii?Q?vdGlhmUsglLjHcV4YpUZTpM95jg8OBCEIKCAddpz7p+oBBa7kREASbbKnrvl?=
+ =?us-ascii?Q?gOsgDhtLCQulH25azF6O9w0cda0zBYh2Mq0qfnEaw1Adv1oJRkAg9zOJfuEm?=
+ =?us-ascii?Q?Z9txmXW5m0b2r3bx+ftABB7b2u2/2HFYE+tcuOZ4iEmLX5vX/AphJohFpBnM?=
+ =?us-ascii?Q?Lq2lHRxzgTWxbFI8ahCzxhvZ4A0jgWn6kCj1SHrQ0eGiqM2VDecTllpmcReH?=
+ =?us-ascii?Q?TInqK3lO4fXJXHgvOF1NobpAqMjTAAukKNbrPw/wYNd30U1yclckQ9XchtQE?=
+ =?us-ascii?Q?vNyPl+LOe+AYhCy7CPy0NPFVqavcLmipacoiflHTPwzzpcz1sTzBQcGXsnyG?=
+ =?us-ascii?Q?x/MqJi+ZMx44QOi1iWIYYsFE4FaANraVPvHoxLeszh+m9cfv3K3sKHKSn/45?=
+ =?us-ascii?Q?FM7YWqpCB7NkFkF6mF4kUxy6QxZBltt9OAYlU5atR5FFWhqAE8a3fxkHw24n?=
+ =?us-ascii?Q?+/2wn4RumkQALekJVarBGJTN96LDaAxflFIMDRJx0adS10DJuCIlcw9HAqIQ?=
+ =?us-ascii?Q?dldwwWGiPoB2oQhPskLkCh49xQfpNdAnSzpTkxrms34o9s8oMjyQCf4/RtKD?=
+ =?us-ascii?Q?m/9TOleYIQXrWYqCaCvdSkmUMxtubcF4ArVxt7jvaNQ8rx/QWmgJwi7gLufh?=
+ =?us-ascii?Q?b8QnTEhZOtXOOdEZY7x51UvKltzZj1bnTJvqRonwEzRRDz86es4ZjEWUJcEy?=
+ =?us-ascii?Q?PgBDuSV7Yl5F1NnCbdITDIX2iHYluGqh5/gW9Y8h94IDJ5pl2OWgulg0M02a?=
+ =?us-ascii?Q?jF03VUPdFh3zyusTYnGtmzX2f2BEdfBp+xRF6EnH4nGmNXYl7MPlG0tSFkeS?=
+ =?us-ascii?Q?3Co3iS2i9o+bvQ05cD+WCNFl4skSRsL0Sh+5Wot5Domp588np8TJ03pEoNjv?=
+ =?us-ascii?Q?Gp0pE6PZ5CAZzIpsweiRU160239VBCjqa37+CMnNRl9z7zBx78bp9QkSvqMM?=
+ =?us-ascii?Q?nGfZSMGwjvjUtBuPeJJIqFnqexXPd35kAreQkg/BF8Py9zycNHrWuF9EXv+f?=
+ =?us-ascii?Q?acMmSYU39BbmUiEM99o0JbVIuF4CC/Cs8DgHA86rWq9jdWe2zTIiKEEM6gG5?=
+ =?us-ascii?Q?O+wSkwqCp2UGJZrV5gwK747nAJP+wXZyZ7ubgy2pBOvzr5EHrUJw9yrG3wv0?=
+ =?us-ascii?Q?cDwBh/+DerhDQkMNekh+QSGfihhy0oeys6MuHpqf2BGaqsU2sT6DScVPULfu?=
+ =?us-ascii?Q?4nYQmDj3UsIgUhEPmq+OwVmVlwZvgKyTKow/OTvYwhpPJA/UOoik/TyY+pcL?=
+ =?us-ascii?Q?66oL7p5UIBwIjAhOQtMxXFz9lkf1MuGiUmC6aPbvxlKJb1//5vy53deJvULM?=
+ =?us-ascii?Q?iKg1D9OGwP2SRfzKqwHWKFIBMrNTQoK7o49xNcnfThjripkZwCH2dgzTsFm8?=
+ =?us-ascii?Q?JJDHDCHg5O5RIHIxZ3tD7AOnCimtGxXl26UdB3AQKMAYmXGU2QWObp/L7kfY?=
+ =?us-ascii?Q?uSuagRxF3DH3Yp5oNo4XX8xWwbrechg6NyWlGDh8GFNFFV80vkQU?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a6b6b89-985a-4bcc-10f7-08df03903384
+X-MS-Exchange-CrossTenant-Network-Message-Id: 09e9715b-af7c-4172-d809-08df0390fac3
 X-MS-Exchange-CrossTenant-AuthSource: VI0PR04MB11784.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 16:36:38.9450
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 16:42:12.9967
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fjyObuWBwDpjQ+rZkJXXN1FS8JsZvp5gY1dzuezRVC+zYuoG4MFxFBFxedBnU76LGOmR6Xw0sGbmA3xvNhFfmumguRV4uspGCjerGMBOeVnVbbweQxDTJdsJp3WECb1u
+X-MS-Exchange-CrossTenant-UserPrincipalName: KnzAfofe4ji2RTtkDTD3CLhIoq9a7eNUqv9Wf0NZO619L6O7yBOZKvRaefK9fSxp5Pw/v4YlQFiqjIMKljQIm3JzAE3IYLFC6mZh7xp78KUDeXmSBURpVRu798kykvdF
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9569
 
-On Wed, Aug 26, 2026 at 04:08:12PM +0530, Lakshay Piplani wrote:
-> From: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+On Wed, Aug 26, 2026 at 04:08:13PM +0530, Lakshay Piplani wrote:
+> The generic I3C device attach and IBI paths perform both core-level
+> bookkeeping and controller-specific operations. An I3C hub, however,
+> maintains a logical device descriptor on the virtual downstream bus and
+> a separate parent-facing descriptor used by the physical parent
+> controller.
 >
-> Add CCC helpers to check CCC support and send CCC commands, address slot
-> helpers to query and update I3C bus address slot state, registering virtual
-> masters with an explicit firmware node, and exposing the bus maintenance
-> lock helpers.
+> Add controller-only helpers that invoke the controller callbacks
+> without updating the bus device list, address-slot state, or generic IBI
+> lifecycle. This allows the hub framework to keep the logical descriptor
+> associated with the virtual controller while using a permanent
+> parent-facing descriptor for operations handled by the physical
+> controller.
 >
-> These additions prepare for I3C hub support. A hub driver needs to reserve
-> and query parent bus address slots, forward CCC commands, register virtual
-> target port controllers using the target-port firmware node, and serialize
-> operations against the parent bus maintenance lock.
+> Add helpers for:
+>   - attaching, reattaching, and detaching a device from a controller;
+>   - requesting and freeing controller IBI resources;
+>   - enabling and disabling IBIs at the controller;
+>   - recycling controller IBI slots.
 >
-> The hub also forwards private transfers via i3c_dev_do_xfers_locked() and
-> serializes its IBI and private-transfer paths against the shared lock, so
-> the normal-use lock/unlock pair is exposed alongside the maintenance-lock
-> helpers.
+> Refactor the existing generic core paths to use these helpers, keeping
+> the current behaviour unchanged for regular I3C devices.
 >
-> i3c_master_register_fwnode() allows virtual I3C masters to register using a
-> firmware node different from their parent device node without temporarily
-> modifying parent->of_node.
+> Also release the generic IBI workqueue and state when the controller
+> request callback fails.
 >
-> The new helpers are:
-> 1) i3c_master_send_ccc_cmd()
-> 2) i3c_master_supports_ccc_cmd()
-> 3) i3c_bus_get_addr_slot_status()
-> 4) i3c_bus_set_addr_slot_status()
-> 5) i3c_bus_maintenance_lock()
-> 6) i3c_bus_maintenance_unlock()
-> 7) i3c_master_register_fwnode()
-> 8) i3c_bus_normaluse_lock()
-> 9) i3c_bus_normaluse_unlock()
-> 10) i3c_dev_do_xfers_locked()
+> The helpers are declared in the I3C internal header because they are
+> intended for use by the generic I3C hub framework rather than by
+> individual controller drivers.
 >
-> Signed-off-by: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
 > Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
+> Signed-off-by: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
 > Signed-off-by: Vikash Bansal <vikash.bansal@nxp.com>
+>
+> ---
+...
+>
+> +/**
+> + * i3c_dev_recycle_ibi_slot_controller() - Recycle an IBI slot through
+> + *					   the current controller
+> + * @dev: I3C device descriptor
+> + * @slot: IBI slot to recycle
+> + *
+> + * Invoke the current controller's IBI slot recycling callback.
+> + *
+> + * The controller is responsible for synchronizing access to its IBI pool.
+> + */
+> +void i3c_dev_recycle_ibi_slot_controller(struct i3c_dev_desc *dev,
+> +					 struct i3c_ibi_slot *slot)
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+does this one need hold lock?
 
->
-> ---
-> Changes in v16:
->  - Rewrite the commit message to match the code, It now describes only
->    the helpers actually exported
->
-> Changes in v15:
->  - Drop the direct attach and detach helpers that also modified address-slot
->    state
->  - Export these APIs:
->    - i3c_bus_normaluse_lock()
->    - i3c_bus_normaluse_unlock()
->    - i3c_dev_do_xfers_locked()
->
-> Changes in v14:
->  - Add i3c_master_register_fwnode() to register virtual I3C masters with an
->    explicit firmware node
->  - Export i3c_bus_maintenance_lock() and i3c_bus_maintenance_unlock()
->  - Add runtime PM get/put around i3c_master_send_ccc_cmd()
->  - Make i3c_master_supports_ccc_cmd() return false when the controller does
->    not implement send_ccc_cmd()
->
-> Changes in v13:
->  - Fix address handling in direct attach by using i3c_master_get_i3c_addrs() and
->    adding rollback on failure to prevent bus address collisions
->  - Fix detach path by clearing master_priv and releasing addresses to avoid use-after-free
->    and stale state issues
->  - Export address slot helper APIs and add kernel-doc for them
->
-> Changes in v12:
->  - Add address check in i3c_master_direct_detach_i3c_dev_locked() to skip
->    detach for unaddressed devices.
->
-> Changes in v11:
->  - Convert i3c_master_supports_ccc_cmd() to return bool and align
->    semantics with CCC support checks used by the I3C core
->
-> Changes in v10:
->  - Rename i3c_master_direct_attach_i3c_dev and i3c_master_direct_detach_i3c_dev
->    APIs to *_locked, as these APIs must be called with the bus lock held in
->    write mode
->
-> Changes in v9:
->  - No change
->
-> Changes in v8:
->  - No change
->
-> Changes in v7:
->  - Update commit message to clarify purpose (prepare for I3C hub support)
->
-> Changes in v6:
->  - Split the patch into two parts:
->         1) expose the existing API
->         2) add new APIs.
-> ---
-> ---
->  drivers/i3c/master.c       | 155 +++++++++++++++++++++++++++++++------
->  include/linux/i3c/master.h |  17 ++++
->  2 files changed, 149 insertions(+), 23 deletions(-)
->
-> diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-> index f1be38a640ca..03fb41f0786c 100644
-> --- a/drivers/i3c/master.c
-> +++ b/drivers/i3c/master.c
-> @@ -44,10 +44,11 @@ static BLOCKING_NOTIFIER_HEAD(i3c_bus_notifier);
->   * logic to rely on I3C device information that could be changed behind their
->   * back.
->   */
-> -static void i3c_bus_maintenance_lock(struct i3c_bus *bus)
-> +void i3c_bus_maintenance_lock(struct i3c_bus *bus)
->  {
->  	down_write(&bus->lock);
->  }
-> +EXPORT_SYMBOL_GPL(i3c_bus_maintenance_lock);
->
->  /**
->   * i3c_bus_maintenance_unlock - Release the bus lock after a maintenance
-> @@ -58,10 +59,11 @@ static void i3c_bus_maintenance_lock(struct i3c_bus *bus)
->   * i3c_bus_maintenance_lock() for more details on what these maintenance
->   * operations are.
->   */
-> -static void i3c_bus_maintenance_unlock(struct i3c_bus *bus)
-> +void i3c_bus_maintenance_unlock(struct i3c_bus *bus)
->  {
->  	up_write(&bus->lock);
->  }
-> +EXPORT_SYMBOL_GPL(i3c_bus_maintenance_unlock);
->
->  /**
->   * i3c_bus_normaluse_lock - Lock the bus for a normal operation
-> @@ -83,6 +85,7 @@ void i3c_bus_normaluse_lock(struct i3c_bus *bus)
->  {
->  	down_read(&bus->lock);
->  }
-> +EXPORT_SYMBOL_GPL(i3c_bus_normaluse_lock);
->
->  /**
->   * i3c_bus_normaluse_unlock - Release the bus lock after a normal operation
-> @@ -96,6 +99,7 @@ void i3c_bus_normaluse_unlock(struct i3c_bus *bus)
->  {
->  	up_read(&bus->lock);
->  }
-> +EXPORT_SYMBOL_GPL(i3c_bus_normaluse_unlock);
->
->  static struct i3c_master_controller *
->  i3c_bus_to_i3c_master(struct i3c_bus *i3cbus)
-> @@ -385,11 +389,19 @@ i3c_bus_get_addr_slot_status_mask(struct i3c_bus *bus, u16 addr, u32 mask)
->  	return status & mask;
->  }
->
-> -static enum i3c_addr_slot_status
-> +/**
-> + * i3c_bus_get_addr_slot_status() - Get I3C bus address slot status
-> + * @bus: I3C bus.
-> + * @addr: I3C address to query.
-> + *
-> + * Return: Address slot status for @addr.
-> + */
-> +enum i3c_addr_slot_status
->  i3c_bus_get_addr_slot_status(struct i3c_bus *bus, u16 addr)
->  {
->  	return i3c_bus_get_addr_slot_status_mask(bus, addr, I3C_ADDR_SLOT_STATUS_MASK);
->  }
-> +EXPORT_SYMBOL_GPL(i3c_bus_get_addr_slot_status);
->
->  static void i3c_bus_set_addr_slot_status_mask(struct i3c_bus *bus, u16 addr,
->  					      enum i3c_addr_slot_status status, u32 mask)
-> @@ -405,11 +417,18 @@ static void i3c_bus_set_addr_slot_status_mask(struct i3c_bus *bus, u16 addr,
->  	*ptr |= ((unsigned long)status & mask) << (bitpos % BITS_PER_LONG);
->  }
->
-> -static void i3c_bus_set_addr_slot_status(struct i3c_bus *bus, u16 addr,
-> -					 enum i3c_addr_slot_status status)
-> +/**
-> + * i3c_bus_set_addr_slot_status() - Set I3C bus address slot status
-> + * @bus: I3C bus.
-> + * @addr: I3C address to update.
-> + * @status: Address slot status to set.
-> + */
-> +void i3c_bus_set_addr_slot_status(struct i3c_bus *bus, u16 addr,
-> +				  enum i3c_addr_slot_status status)
->  {
->  	i3c_bus_set_addr_slot_status_mask(bus, addr, status, I3C_ADDR_SLOT_STATUS_MASK);
->  }
-> +EXPORT_SYMBOL_GPL(i3c_bus_set_addr_slot_status);
->
->  static bool i3c_bus_dev_addr_is_avail(struct i3c_bus *bus, u8 addr)
->  {
-> @@ -2548,6 +2567,59 @@ static void i3c_master_reconcile_dyn_addrs(struct i3c_master_controller *master)
->  	}
->  }
->
-> +/**
-> + * i3c_master_supports_ccc_cmd() - check CCC command support
-> + * @master: I3C master controller
-> + * @cmd: CCC command to verify
-> + *
-> + * Return: true if @cmd is supported, false otherwise.
-> + */
-> +bool i3c_master_supports_ccc_cmd(struct i3c_master_controller *master,
-> +				 const struct i3c_ccc_cmd *cmd)
-> +{
-> +	if (!master || !cmd)
-> +		return false;
-> +
-> +	if (!master->ops->send_ccc_cmd)
-> +		return false;
-> +
-> +	if (!master->ops->supports_ccc_cmd)
-> +		return true;
-> +
-> +	return master->ops->supports_ccc_cmd(master, cmd);
-> +}
-> +EXPORT_SYMBOL_GPL(i3c_master_supports_ccc_cmd);
-> +
-> +/**
-> + * i3c_master_send_ccc_cmd() - send a CCC command
-> + * @master: I3C master controller issuing the command
-> + * @cmd: CCC command to be sent
-> + *
-> + * This function sends a Common Command Code (CCC) command to devices on the
-> + * I3C bus. It acquires the bus maintenance lock, executes the command, and
-> + * then releases the lock to ensure safe access to the bus.
-> + *
-> + * Return: 0 on success, or a negative error code on failure.
-> + */
-> +int i3c_master_send_ccc_cmd(struct i3c_master_controller *master,
-> +			    struct i3c_ccc_cmd *cmd)
-> +{
-> +	int ret;
-> +
-> +	ret = i3c_master_rpm_get(master);
-> +	if (ret)
-> +		return ret;
-> +
-> +	i3c_bus_maintenance_lock(&master->bus);
-> +	ret = i3c_master_send_ccc_cmd_locked(master, cmd);
-> +	i3c_bus_maintenance_unlock(&master->bus);
-> +
-> +	i3c_master_rpm_put(master);
-> +
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(i3c_master_send_ccc_cmd);
-> +
->  /**
->   * i3c_master_do_daa_ext() - Dynamic Address Assignment (extended version)
->   * @master: controller
-> @@ -3195,34 +3267,31 @@ static int i3c_master_check_ops(const struct i3c_master_controller_ops *ops)
->  }
->
->  /**
-> - * i3c_master_register() - register an I3C master
-> + * i3c_master_register_fwnode() - register an I3C master with a custom fwnode
->   * @master: master used to send frames on the bus
-> - * @parent: the parent device (the one that provides this I3C master
-> - *	    controller)
-> + * @parent: the parent device providing this I3C master controller
-> + * @fwnode: firmware node describing this I3C bus, or NULL
->   * @ops: the master controller operations
-> - * @secondary: true if you are registering a secondary master. Will return
-> - *	       -EOPNOTSUPP if set to true since secondary masters are not yet
-> - *	       supported
-> + * @secondary: true if registering a secondary master
->   *
-> - * This function takes care of everything for you:
-> + * This helper is useful for virtual I3C masters whose firmware node is not
-> + * the same as @parent's firmware node.
->   *
-> - * - creates and initializes the I3C bus
-> - * - populates the bus with static I2C devs if @parent->of_node is not
-> - *   NULL
-> - * - registers all I3C devices added by the controller during bus
-> - *   initialization
-> - * - registers the I2C adapter and all I2C devices
-> + * Only OF-backed fwnodes are supported for now, because the I3C core still
-> + * stores the bus node in master->dev.of_node and populates the bus using OF.
->   *
->   * Return: 0 in case of success, a negative error code otherwise.
->   */
-> -int i3c_master_register(struct i3c_master_controller *master,
-> -			struct device *parent,
-> -			const struct i3c_master_controller_ops *ops,
-> -			bool secondary)
-> +int i3c_master_register_fwnode(struct i3c_master_controller *master,
-> +			       struct device *parent,
-> +			       struct fwnode_handle *fwnode,
-> +			       const struct i3c_master_controller_ops *ops,
-> +			       bool secondary)
->  {
->  	unsigned long i2c_scl_rate = I3C_BUS_I2C_FM_PLUS_SCL_MAX_RATE;
->  	struct i3c_bus *i3cbus = i3c_master_get_bus(master);
->  	enum i3c_bus_mode mode = I3C_BUS_MODE_PURE;
-> +	struct device_node *np = NULL;
->  	struct i2c_dev_boardinfo *i2cbi;
->  	int ret;
->
-> @@ -3234,8 +3303,14 @@ int i3c_master_register(struct i3c_master_controller *master,
->  	if (ret)
->  		return ret;
->
-> +	if (fwnode) {
-> +		np = to_of_node(fwnode);
-> +		if (!np)
-> +			return -EINVAL;
-> +	}
-> +
->  	master->dev.parent = parent;
-> -	master->dev.of_node = of_node_get(parent->of_node);
-> +	master->dev.of_node = of_node_get(np);
->  	master->dev.bus = &i3c_bus_type;
->  	master->dev.type = &i3c_masterdev_type;
->  	master->dev.release = i3c_masterdev_release;
-> @@ -3352,6 +3427,39 @@ int i3c_master_register(struct i3c_master_controller *master,
->
->  	return ret;
->  }
-> +EXPORT_SYMBOL_GPL(i3c_master_register_fwnode);
-> +
-> +/**
-> + * i3c_master_register() - register an I3C master
-> + * @master: master used to send frames on the bus
-> + * @parent: the parent device (the one that provides this I3C master
-> + *	    controller)
-> + * @ops: the master controller operations
-> + * @secondary: true if you are registering a secondary master. Will return
-> + *	       -EOPNOTSUPP if set to true since secondary masters are not yet
-> + *	       supported
-> + *
-> + * This function takes care of everything for you:
-> + *
-> + * - creates and initializes the I3C bus
-> + * - populates the bus with static I2C devs if @parent->of_node is not
-> + *   NULL
-> + * - registers all I3C devices added by the controller during bus
-> + *   initialization
-> + * - registers the I2C adapter and all I2C devices
-> + *
-> + * Return: 0 in case of success, a negative error code otherwise.
-> + */
-> +int i3c_master_register(struct i3c_master_controller *master,
-> +			struct device *parent,
-> +			const struct i3c_master_controller_ops *ops,
-> +			bool secondary)
-> +{
-> +	return i3c_master_register_fwnode(master, parent,
-> +					  parent->of_node ?
-> +					  of_fwnode_handle(parent->of_node) : NULL,
-> +					  ops, secondary);
-> +}
->  EXPORT_SYMBOL_GPL(i3c_master_register);
->
->  /**
-> @@ -3412,6 +3520,7 @@ int i3c_dev_do_xfers_locked(struct i3c_dev_desc *dev, struct i3c_xfer *xfers,
->
->  	return master->ops->i3c_xfers(dev, xfers, nxfers, mode);
->  }
-> +EXPORT_SYMBOL_GPL(i3c_dev_do_xfers_locked);
->
->  /**
->   * i3c_dev_disable_ibi_locked() - Disable IBIs coming from a specific device
-> diff --git a/include/linux/i3c/master.h b/include/linux/i3c/master.h
-> index 4d2a68793324..32c686ae5d62 100644
-> --- a/include/linux/i3c/master.h
-> +++ b/include/linux/i3c/master.h
-> @@ -627,9 +627,18 @@ DEFINE_FREE(i3c_master_dma_unmap_single, void *,
->
->  int i3c_master_reattach_i3c_dev_locked(struct i3c_dev_desc *dev,
->  				       u8 old_dyn_addr);
-> +int i3c_master_send_ccc_cmd(struct i3c_master_controller *master,
-> +			    struct i3c_ccc_cmd *cmd);
-> +bool i3c_master_supports_ccc_cmd(struct i3c_master_controller *master,
-> +				 const struct i3c_ccc_cmd *cmd);
->  int i3c_master_set_info(struct i3c_master_controller *master,
->  			const struct i3c_device_info *info);
->
-> +int i3c_master_register_fwnode(struct i3c_master_controller *master,
-> +			       struct device *parent,
-> +			       struct fwnode_handle *fwnode,
-> +			       const struct i3c_master_controller_ops *ops,
-> +			       bool secondary);
->  int i3c_master_register(struct i3c_master_controller *master,
->  			struct device *parent,
->  			const struct i3c_master_controller_ops *ops,
-> @@ -752,4 +761,12 @@ void i3c_for_each_bus_locked(int (*fn)(struct i3c_bus *bus, void *data),
->  int i3c_register_notifier(struct notifier_block *nb);
->  int i3c_unregister_notifier(struct notifier_block *nb);
->
-> +enum i3c_addr_slot_status
-> +i3c_bus_get_addr_slot_status(struct i3c_bus *bus, u16 addr);
-> +
-> +void i3c_bus_set_addr_slot_status(struct i3c_bus *bus, u16 addr,
-> +				  enum i3c_addr_slot_status status);
-> +
-> +void i3c_bus_maintenance_lock(struct i3c_bus *bus);
-> +void i3c_bus_maintenance_unlock(struct i3c_bus *bus);
->  #endif /* I3C_MASTER_H */
-> --
-> 2.25.1
->
+Frank
