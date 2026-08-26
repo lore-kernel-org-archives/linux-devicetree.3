@@ -1,94 +1,151 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FE503E557B
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 10:48:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E17C437AA79
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 10:50:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787741336; cv=none; b=te5f4kEhyoxALyMCtFL9oWSZNDfsnL8WFxRMw4bxAu8qoigqKujMqLc0147JYDQNRMivKJ5hCY0SBvLiT1kHJAGsqSa5WSkvPHbG35WBeXbgVsuh/e+tTq00EMo3wwO5r2UsmDa5UJ0I/K51tt4xfD3foI7Bi0gxrpeYvEHT600=
+	t=1787741462; cv=none; b=biq5p3bqlMKs9cK6HwUB57GmNP80B3roYHR9VdGvc/01SjXdt5UV0PYaP9YSYqycyrSxki3mxxeTNfx4g+REOdShrEkl2eNmX/+EthD+5DwX1GDjpT8nRxlfXoosdidQu06MPtEwLu2HsnM2GijdcGHnYFgpPJ/h7afa8zYgxsE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787741336; c=relaxed/simple;
-	bh=7+Nit2vONnXM3RV+nM1TrimxvDI5VQnjHLPfDm5U6Lg=;
+	s=arc-20240116; t=1787741462; c=relaxed/simple;
+	bh=i/A6bdZ7KJmyziyRnpqMarB0JrRrD2m/3fAAiA7tzf8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=sSM36t/ucCKFpAFcCO3peRY9iYOH7MLTDkPR/WxwmjlM6CUrykM13weqCT4S6m2TMiv5a7hBj5J8YkO86FKTE0/E/04NVYxPs7hbxC+OTZiCnytOlxgPiyggKdvZ9Ng1qV0iRnIuTFPnQzzyQsX/kAIwzprVPgnAyCciTootmhc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QBQEpieo; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=j/j4nM3dmTmyWO18zNPm+qkysKUYKzYxBR1brAgERbcwrCFwJAWaFi6Da/MNhWStR1nT8s5zGU/uiGVZv/qUGgt+tDn5ZHJYic8o4CLgQ5ppW6z33P0jLL1fSnAmkOHPWaEbYF1O1UHjBODW+tQy2TOUMoweGFcZPPgy6MIJtCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RNAScqSz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QBQEpieo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36E8A1F00A3A;
-	Wed, 26 Aug 2026 10:48:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RNAScqSz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3DA21F000E9;
+	Wed, 26 Aug 2026 10:50:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787741322;
-	bh=7+Nit2vONnXM3RV+nM1TrimxvDI5VQnjHLPfDm5U6Lg=;
+	s=k20260515; t=1787741446;
+	bh=YtDaSLVh0eAnWe9c7pCY+O1a4NZv1iXPrGsIhLqFcAU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QBQEpieo+jG9Cm21vjjK0+RigO8esQlwhCmDkuuFLpg3dgESeEKgYp50gcIgzo9xF
-	 S3vwss8z5Z3yGz7ZiGjvFvxkwrpEGMmJSHXDBfo98Di0BykyY27+mEwwrZYhw3Du/E
-	 P7vxZhc4aleL9NY3XcIxbXtkCZ3S6xN9lSlp/ub/tnoIa1y6cxJss0p0VjeUo5hBKL
-	 FV0J2J/GX+AxRf0U3kuXYigE//UCmTKO/70oX4MFEEpNG1GgNOn5D1tC1bsJqBP4XJ
-	 0OXp0eqKmXDBCdrhBAuW8V/71GTkQ4+O3p7+rTdVuD2RcsY5BMtRNuLTWqWndJiLAO
-	 OPVIyvaiEVk9A==
+	b=RNAScqSzwiCffQ8dSN8nhNAxS4OcaeWh+jfYO82JrhBV1Ew/ofdriceaxl9vgcRFv
+	 xzyRnBhkvlrUpDep8+rRrj7K0rn3uvabLBZML8NjMLSi0k4fyMOae/o5m4sIwYacT0
+	 DzP20Kj1kuVu+GxAvLyFB6dRixUEc+kMrlH9OW6w0yDqO9yaPVi/fL++414GfoR7G0
+	 6qXVNEu/MPTYXmF4gsHPwxgU3siNyO0T0/Ax7A2Gp/obpURTdmxMw+u+BB6qToZVYx
+	 YGmogEAvgjTFQiwVaO0bCYutmF45uL52mm/kQ4DbWf2omm+Q5Ph94z2QTFMZhTA+9k
+	 3rxA405UkUV1g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v16 5/8] regulator: p3h2x4x: Add driver for on-die
- regulators in NXP P3H2x4x i3c hub
+Subject: Re: [PATCH v16 2/8] i3c: master: Add controller-only device
+ operation helpers
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
-Cc: linux-i3c@lists.infradead.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>
-In-Reply-To: <20260826103819.1614843-6-lakshay.piplani@nxp.com>
+Cc: linux-i3c@lists.infradead.org, Frank.Li@kernel.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260826103819.1614843-3-lakshay.piplani@nxp.com>
 References: <20260826103819.1614843-1-lakshay.piplani@nxp.com>
- <20260826103819.1614843-6-lakshay.piplani@nxp.com>
+ <20260826103819.1614843-3-lakshay.piplani@nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 26 Aug 2026 10:48:41 +0000
-Message-Id: <20260826104842.36E8A1F00A3A@smtp.kernel.org>
+Date: Wed, 26 Aug 2026 10:50:45 +0000
+Message-Id: <20260826105045.B3DA21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] Driver-specific header file is incorrectly placed in the global inc=
-lude/linux/mfd/ directory.
+
+New issues:
+- [Medium] Unnecessary heavy workqueue allocation and teardown when a contr=
+oller does not support IBIs.
+
+Pre-existing issues:
+- [Critical] Potential use-after-free of generic IBI pool slots and `dev->i=
+bi` when disabling an active IBI fails during teardown.
 --
 
-commit f0356d778985b362783f95ecd394c166098e5c31
-Author: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+commit f38c11b5d94a35f5b99f6a1f23bbb449f122ded4
+Author: Lakshay Piplani <lakshay.piplani@nxp.com>
 
-regulator: p3h2x4x: Add driver for on-die regulators in NXP P3H2x4x i3c hub
+i3c: master: Add controller-only device operation helpers
 
-This commit introduces a driver for the on-die regulators of the NXP P3H2x4x
-i3c hub family. It registers the regulators via the MFD framework and expos=
-es
-them to the regulator subsystem.
+The generic I3C device attach and IBI paths perform both core-level
+bookkeeping and controller-specific operations. Add controller-only helpers
+that invoke the controller callbacks without updating the bus device list,
+address-slot state, or generic IBI lifecycle. Also release the generic IBI
+workqueue and state when the controller request callback fails.
 
-> diff --git a/drivers/regulator/p3h2840_i3c_hub_regulator.c b/drivers/regu=
-lator/p3h2840_i3c_hub_regulator.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/regulator/p3h2840_i3c_hub_regulator.c
-> @@ -0,0 +1,284 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright 2025-2026 NXP
-> + * NXP P3H2X4X regulator driver file contain functions for enable/disabl=
-e regulator
-> + * and voltage set/get.
-> + */
-> +#include <linux/bitfield.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/mfd/p3h2840.h>
+> diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
+> index 03fb41f0786c5..88379b6809a64 100644
+> --- a/drivers/i3c/master.c
+> +++ b/drivers/i3c/master.c
+[ ... ]
+> @@ -3600,13 +3752,9 @@ EXPORT_SYMBOL_GPL(i3c_dev_enable_ibi_locked);
+>  int i3c_dev_request_ibi_locked(struct i3c_dev_desc *dev,
+>  			       const struct i3c_ibi_setup *req)
+>  {
+> -	struct i3c_master_controller *master =3D i3c_dev_get_master(dev);
+>  	struct i3c_device_ibi_info *ibi;
+>  	int ret;
+> =20
+> -	if (!master->ops->request_ibi)
+> -		return -EOPNOTSUPP;
+> -
+>  	if (dev->ibi)
+>  		return -EBUSY;
+> =20
+[ ... ]
+> @@ -3627,8 +3775,15 @@ int i3c_dev_request_ibi_locked(struct i3c_dev_desc=
+ *dev,
+>  	ibi->num_slots =3D req->num_slots;
+> =20
+>  	dev->ibi =3D ibi;
+> -	ret =3D master->ops->request_ibi(dev, req);
+> +	ret =3D i3c_dev_request_ibi_controller_locked(dev, req);
+>  	if (ret) {
+> +		/*
+> +		 * The controller request callback failed, so tear down the
+> +		 * workqueue allocated above before freeing the IBI object.
+> +		 * This is the owner of the workqueue, so it must destroy it
+> +		 * here to avoid leaking it on the error path.
+> +		 */
+> +		destroy_workqueue(ibi->wq);
+>  		kfree(ibi);
+>  		dev->ibi =3D NULL;
+>  	}
 
-[Severity: Low]
-Does this driver-specific header need to be placed in the global
-include/linux/mfd/ directory?=20
+[Severity: Medium]
+Since the check for master->ops->request_ibi was moved into
+i3c_dev_request_ibi_controller_locked(), this code now unconditionally
+creates a new ordered workqueue during device probe even when the
+underlying controller doesn't support IBIs.
 
-According to MFD subsystem guidelines, driver-specific header files that are
-only used by the parent and its immediate children should be kept local to
-drivers/mfd/ rather than cluttering the global include space. The commit
-message explicitly notes that this header is "used only by the parent and
-its children".
+Does this unnecessary allocation and destruction of a workqueue thread
+(which involves sysfs registration and RCU synchronization) add a noticeable
+performance delay for devices on controllers without IBI support?
+
+[ ... ]
+> @@ -3667,7 +3843,7 @@ void i3c_dev_free_ibi_locked(struct i3c_dev_desc *d=
+ev)
+>  			dev_err(&master->dev, "Failed to disable IBI before freeing\n");
+>  	}
+> =20
+> -	master->ops->free_ibi(dev);
+> +	i3c_dev_free_ibi_controller_locked(dev);
+> =20
+>  	if (dev->ibi->wq) {
+>  		destroy_workqueue(dev->ibi->wq);
+
+[Severity: Critical]
+This is a pre-existing issue, but can calling
+i3c_dev_free_ibi_controller_locked() before destroy_workqueue(dev->ibi->wq)
+cause a use-after-free?
+
+If i3c_dev_disable_ibi_locked() fails (e.g. due to a bus timeout), the
+teardown continues and invokes the controller's free_ibi callback, which
+immediately frees the generic IBI pool memory.
+
+If there are still pending IBI work items because destroy_workqueue() hasn't
+been called to drain them yet, will the workqueue process them and
+dereference the freed generic IBI slots?
+
+Additionally, could an active hardware interrupt still fire and race with
+the controller's free_ibi callback, leading to memory corruption inside the
+interrupt handler?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260826103819.1614=
-843-1-lakshay.piplani@nxp.com?part=3D5
+843-1-lakshay.piplani@nxp.com?part=3D2
