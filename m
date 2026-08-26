@@ -1,124 +1,140 @@
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE84B37B01E
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 08:24:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9879B28851F;
+	Wed, 26 Aug 2026 08:31:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787732689; cv=none; b=dgq3R5FbsCBrrqy/8Z4HRE9G2si35zXl768Qtg4Yoa2HqenIKmeainsdfX7ke4KlBrqsPf4bMU8gEgQE6JurdCfWKbBWnF+BuTwdZwxr1NkUOW1xkTZi7FTb1Km5b4ZXgcnp15YcODB3mAJYhJcCBLdg7KtWBqXC42as/vbQzOI=
+	t=1787733095; cv=none; b=AkZzgPFBgjFwVjsRXQj7HcJ3HEGXLv0Z2JWjx7NRfusQEEfCzH5VQkVqFmIxIOd2Xh/H4N6L02l/BYofIjPO+K3EYys1Bj/D8098lvnSzNvr4TWqPBOJs4fB3hCNVCbBDpkZc0F/tVAXhnr8COdQ9uiwC1a5hO3l+513jtwDh+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787732689; c=relaxed/simple;
-	bh=Y8zx2w1AIDgfPowWVDAXwKwQkjMhicPcg6v2Sd+OOqg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hNV9ntjtH1XpIwPiqWQBcwEfV+ZRnL4VXq7XFehyKEdftN/lKIXsfo4asUydY9grX7+/ZFJ6LzR/WrwHZJKZWtoCbro+P0otrtzNXOpspTuJtLry4tEh/Olm15Qck47YzzjHtxBiAJv7/vokK1P6kJ5HPqqNXiGD/5qPknWGNs4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eR/YvpEP; arc=none smtp.client-ip=209.85.218.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787733095; c=relaxed/simple;
+	bh=bIu8tI3yU6X1BL4P5b+SxJlNy4ULld7e9CXtqTwT/ME=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=SDMKtKB1q/J3hpBhhiHq9p8Hieg5ogoOHAhPCIhm+3Tr5+F63qiyUN65eCrjpPok6YBDa8XD/PHtIFclR9a/ML9PvB63F+LcE30ey94g7AY3dYfkjF1U156rUngK/90z3o6sqe5mQSJvVyh9nqgnSxtFiWSbv5msmSnDN2kfqRk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A50cAfaZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eR/YvpEP"
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c2519b8d330so64078466b.0
-        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 01:24:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787732683; x=1788337483; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ir5Os0CQnbQuxUCzuubgRfeVAkcH8JmP+kvrHlYfrQQ=;
-        b=eR/YvpEPf/GJCTOdYh96a4H9GujEDhlWcU6R4VCxNfmKreE9KGAL2iq3XEi3/KNJwY
-         P8Pz/ML2CAIwzA4ReEDSnZi1NqnfLU8AAe3KHgMFELuBQY4Llu7sDCduMhx+NKJ8A9XI
-         wpYwalXiMXUK8BRtxRAUxzKPes34f+uVyTYRx86xVGKOCopK4ccM8aNv1+atkwRkCXKC
-         FgVjm0Y1WttlAwsCULc29rCvWmg1iqPHCOgtjgoduJd21OOzHWtzoowzXENJjpIbg413
-         0z9/jcrLxELndGZ2tVBzEf8al1f7fcfEkh8sLhSkGew2K4NSxCnSaRHht1xw4TBvI/es
-         ETsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787732683; x=1788337483;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ir5Os0CQnbQuxUCzuubgRfeVAkcH8JmP+kvrHlYfrQQ=;
-        b=lwVMMFsL89jS4AU/kPzVSnDaprGf0OB/jmxRQj9msZiICypOkohEXtnWtSUL2xJr3v
-         ScaOm2Mqe8k+DtDfjbTIvRdrCHfYBmQ++/aqjWY8YLYey8P2PotpMTzJpPBLy7uyg/Lz
-         tQKW78mGUE/WKz1VA5Op+LfcylM/SAmgGcKnz/Boc9Iu4xQH4kJ9aKoK8EHauu3zbo9V
-         D8LqormlIUt0r2UEfhoBMGRnUQLEQo4uCGEBam+VUl/G0IzYO7Xj0u+Y2Iw+I9vndizy
-         DVV6iy+RqAU9H5RYAidnBUGYzn9CIW37PNh2Zad1YfuKakY9njbFjF9ShH+w1iQFWRKO
-         d2fw==
-X-Forwarded-Encrypted: i=1; AHgh+RqnfjE0SrTvMjgxJPn3+UXhsmRlDVAq/34cCrT5vfP8ThwmqRu489sbU+8ypowJzKtxxHG4yaHBtVTi@vger.kernel.org
-X-Gm-Message-State: AFuF++kyuMiEi+ei5fS8k/5AaMAf++Rv0/rseJek2wmHnvBfF5hFBPs4
-	Qj0dfvWEB960MsF9eaV85rmL8lGN58tQYTkkaVP4FytiHFZL0bPY2sl+
-X-Gm-Gg: AR+sD13I/DfxvStlWWfI/cnHe3Un9wns+zqZXFPYedG5Iup03X1jaBy9FyDLMvxoGdS
-	l4WdNua0qYazlV9Hvmh5hXmj+wFtrE659iiCYSg+IZE4uNgPRcByY88G4qEdm/dMM5lAVcK42Kf
-	LkeRv99XU9lJibdGpyBWzPO7ysEOqbIJ64ki+OI4/R65js1F3GV9z3GwtKvaJOqyPFu6vdGfp1q
-	jy4RN5U/60aG3jPKXoBzeSWir6tQTotYhZfLOkAeQ7BI4OvoVELCtvMI6A9EBV4eZKe4jNEKo3g
-	MdW1OdNVNH+nFMJ7+pyGffRa6vrEQH4Z8Rr8sw9j4svEL27+FM8lSUq/urjTBqcyxzXRjZC5KZt
-	IMhHK3QFW8KkoBueAmARI22no3pKFOpxBeMkRxFtFlX5ZzdrsjoFgmFvqrKTAxekNch9SR5sUtC
-	ewIF5OiKisyRr8cPD0BE5hBS+2JwPTq2qoKnC1eQLUfKAOxOTgC0+0j2RwXtGT7N1I6UZFpwhn2
-	9B4QrRZrcMgKDu6kBp+rQ==
-X-Received: by 2002:a17:907:3cd6:b0:c1f:922d:34c3 with SMTP id a640c23a62f3a-c250c308f96mr539179466b.14.1787732683231;
-        Wed, 26 Aug 2026 01:24:43 -0700 (PDT)
-Received: from [10.25.211.251] ([128.77.115.158])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a5d6acasm419960366b.9.2026.08.26.01.24.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 01:24:42 -0700 (PDT)
-Message-ID: <1c5e12af-927b-40c3-b682-8f432a0d9907@gmail.com>
-Date: Wed, 26 Aug 2026 01:24:39 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A50cAfaZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C97A21F000E9;
+	Wed, 26 Aug 2026 08:31:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787733094;
+	bh=ZvoUOKFF0fE0YJD0y3CsTSCPhtjPOzRw+3qgOUmTpw4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=A50cAfaZFhH4L1mcg7ORk9RwHX+NY+jsZRPXJV2SuUWAnw2VpBz6ubaiIr9n/wzMv
+	 vbIEBT96KruBCcuf+hugtzHqhO5CC78OSzet3gz5WtcFFfxGPH9qIfp9NoejSw0C9B
+	 KIbwU3KYlR4DfhxjPhfro8MkF7QbccNecF8h9ZFUnlUknbsvDtxc7AH0yXX9uWqMYk
+	 5RYKq9ilhb2Y9sIBKdHNZofq/ZG1Ek9c8KHmb0Khlz7nDypvbtRdJ0WIDbFbOyq/TX
+	 ABajQ1ZSsS1ovcTotoNbhj5NAMuZ0gk7RO3zdBBKVP2HXYUD6oHsrgHcLOtLbqVWEU
+	 92+hQF7WUM96w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/3] ARM: dts: imx7d: add Variscite VAR-SOM-MX7
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
+Cc: conor+dt@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org, Frank.Li@kernel.org, robh@kernel.org
+In-Reply-To: <749f32d1a92ec87ce76f1ac0ce0d780c431fdde2.1787674237.git.stefano.r@variscite.com>
+References: <cover.1787674237.git.stefano.r@variscite.com>
+ <749f32d1a92ec87ce76f1ac0ce0d780c431fdde2.1787674237.git.stefano.r@variscite.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 26 Aug 2026 08:31:32 +0000
+Message-Id: <20260826083133.C97A21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: dts: freescale: add MR-NAVQ95 basic board
- support
-To: Fabio Estevam <festevam@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, elena.popa@nxp.com,
- cosmin.stoica@nxp.com, Pengutronix Kernel Team <kernel@pengutronix.de>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-References: <20260825120812.2152-1-laurentiumihalcea111@gmail.com>
- <20260825120812.2152-3-laurentiumihalcea111@gmail.com>
- <CAOMZO5B7Cn_qRq=_9ALXHx9svU8WQZbaaL_jXJorhux1L-JoPA@mail.gmail.com>
-Content-Language: en-US
-From: Laurentiu Mihalcea <laurentiumihalcea111@gmail.com>
-In-Reply-To: <CAOMZO5B7Cn_qRq=_9ALXHx9svU8WQZbaaL_jXJorhux1L-JoPA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] Contradictory microphone routing disables analog capture on WM89=
+04.
+- [Medium] Contradictory `no-1-8-v` property in usdhc1 disables UHS SD card=
+ speeds despite hardware support.
+--
 
+commit 5821f4e873dc44e1cfd4f21d2d7e03f1e0298edd
+Author: Stefano Radaelli <stefano.r@variscite.com>
 
-On 8/25/2026 2:52 PM, Fabio Estevam wrote:
-> Hi Laurentiu,
-> 
-> On Tue, Aug 25, 2026 at 9:11 AM Laurentiu Mihalcea
-> <laurentiumihalcea111@gmail.com> wrote:
->>
->> From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
->>
->> Add basic support for NXP's MR-NAVQ95 board. This board is designed for
->> robotics applications (e.g. drones, rovers, humanoids, etc..) and has the
->> following hardware feats (list is not exhaustive):
->>
->> * based on i.MX95 19x19 SoC
->> * 64GB eMMC
->> * up to 16GB of LPDDR5 memory
->> * 1 x USB 2.0 TypeC
->> * 1 x USB 3.0 TypeC
->> * 1 x RJ45 port with RTL8211 PHY
->>
->> The support targets revision B of the board.
-> 
-> Please add the bootph- properties as well.
-> 
-> Elena plans to support this board in U-Boot where they are needed.
-> 
-> For reference, here is a commit that adds the bootph- properties to
-> the frdm board:
-> https://git.kernel.org/pub/scm/linux/kernel/git/frank.li/linux.git/commit/?h=imx/dt64-intend&id=50c0d934698f7602d579ba21262fcca3643c5464
+ARM: dts: imx7d: add Variscite VAR-SOM-MX7 support
 
+Add device tree support for the Variscite VAR-SOM-MX7 system on module.
+The module is based on the NXP i.MX7Dual SoC and is available in
+multiple configurations and hardware revisions.
 
-thanks for the idea and the reference Fabio! let me try this locally and will update in V2 if all's good.
+Link: https://variscite.com/system-on-module-som/i-mx-7/var-som-mx7/
 
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-var-som-mx7customboard.dtsi =
+b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-mx7customboard.dtsi
+> index 0000000000000..aecc8c747f041
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/nxp/imx/imx7d-var-som-mx7customboard.dtsi
+[ ... ]
+> +&usdhc1 {
+> +	pinctrl-names =3D "default", "state_100mhz", "state_200mhz";
+> +	pinctrl-0 =3D <&pinctrl_usdhc1>, <&pinctrl_usdhc1_gpio>;
+> +	pinctrl-1 =3D <&pinctrl_usdhc1_100mhz>, <&pinctrl_usdhc1_gpio>;
+> +	pinctrl-2 =3D <&pinctrl_usdhc1_200mhz>, <&pinctrl_usdhc1_gpio>;
+> +	cd-gpios =3D <&gpio5 0 GPIO_ACTIVE_LOW>;
+> +	no-1-8-v;
+
+[Severity: Medium]
+Does including the no-1-8-v property here needlessly cap SD card performance
+by explicitly disabling all 1.8V capabilities and preventing UHS-I
+negotiation?
+
+The pinctrl configurations below for SD1_VSELECT prove the hardware supports
+1.8V switching:
+
+> +	pinctrl_usdhc1_gpio: usdhc1-gpiogrp {
+> +		fsl,pins =3D <
+> +			MX7D_PAD_SD1_CD_B__GPIO5_IO0		0x59
+> +			MX7D_PAD_GPIO1_IO08__SD1_VSELECT	0x59
+> +		>;
+> +	};
+
+With no-1-8-v present, the MMC subsystem will never switch to 1.8V, renderi=
+ng
+the UHS-I pinctrl states dead code and capping speeds at 50MHz.
+
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-var-som.dtsi b/arch/arm/boot=
+/dts/nxp/imx/imx7d-var-som.dtsi
+> index 0000000000000..158158afc3391
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/nxp/imx/imx7d-var-som.dtsi
+[ ... ]
+> +	codec_wm8904: sound {
+> +		compatible =3D "simple-audio-card";
+> +		simple-audio-card,bitclock-master =3D <&dailink_master>;
+> +		simple-audio-card,format =3D "i2s";
+> +		simple-audio-card,frame-master =3D <&dailink_master>;
+> +		simple-audio-card,name =3D "wm8904-audio";
+> +		simple-audio-card,routing =3D
+> +			"Headphone Jack", "HPOUTL",
+> +			"Headphone Jack", "HPOUTR",
+> +			"IN2L", "Line In Jack",
+> +			"IN2R", "Line In Jack",
+> +			"IN1L", "Microphone Jack",
+> +			"IN1R", "Microphone Jack",
+> +			"Microphone Jack", "MICBIAS";
+
+[Severity: Medium]
+Does this routing contradict the configuration of IN1L as a digital input?
+
+The routing maps the analog Microphone Jack to IN1L. However, the wm8904
+node configures IN1L as a digital microphone input via wlf,in1l-as-dmicdat1:
+
+> +	wm8904: audio-codec@1a {
+> +		compatible =3D "wlf,wm8904";
+> +		reg =3D <0x1a>;
+[ ... ]
+> +		/* DMIC is connected to IN1L */
+> +		wlf,in1l-as-dmicdat1;
+> +	};
+
+Because IN1L is placed in digital mode, does this cause the analog signal
+from the Microphone Jack to be ignored and break analog audio capture?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1787674237.gi=
+t.stefano.r@variscite.com?part=3D2
