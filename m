@@ -1,112 +1,130 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F542373BE6;
-	Wed, 26 Aug 2026 21:20:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5153F3B14B3;
+	Wed, 26 Aug 2026 21:43:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787779240; cv=none; b=pWPbMGGoyu4ZSfuEhLQFOXP20qVBAeAeHMVGPFQKl8j8wpfpCgYsJnIM2IYi2OUtmCnASJ05oke+eWGVMav6ua2iuMN9JQfDEucxfTC6IuLhAAyoaqCn6Gocj18JJxyhD7B+J7L5oHnIspmr0jdXEVHfWkXeHjuDLttTlEIzdgU=
+	t=1787780625; cv=none; b=hJ2ED4S/YCNm0WQzrwDdkAhzd8YrXRFb3mLLQqXv4Sv/04PFyu9E1QF47OiZraZA5cvlNNgHL1zwbEn6NVHw5GJPV0Z2ZRWunGDmZ6TW8rsopia+cVVZygnm1UpKgIjQVE7u1HcjkA9Is70fPe5wT75QHVBiXw/lu/CasXhEujQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787779240; c=relaxed/simple;
-	bh=m6nWbVfcM524XJ12bTWfUpN9Gy7qAf9dBIh0E9hZO2A=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=R9ibC+HzeLFw7eZX8jOOwB/S4voRjmgOeEmvQutCWR112M8IOiICZIP6QuujIldEO6fMMf/7XFerLP5T3yQ0lDef9feifdMoKTSh94IdrOsOdxcSn1OZXjgRIeb9HM380Rs06cLR6EDhXekkq1rPVXw2/7p3t3ZidsV2hxxyDw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KMs7xP1Q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787780625; c=relaxed/simple;
+	bh=KodbtscHuhyT4e9uaCejK1SwHL6vJcWIU4ma3ia0xtI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LFKNZlNEnsfYDMQKu6+u1VvN5G4u37RZb5CLffOzEX74P2xlhv86BvgKwtFq6PIbT4Eu1YJQXbv5djfb6mAZG7b1uOKFomDCSoDMZc8P3eUveeLnZhQ/NqxpyJ6ciUQ3+vW6ch95M66Mioii1BZIvVfsdMG1LTmJDcApF2LXTyw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ChqqMJa3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KMs7xP1Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8151E1F000E9;
-	Wed, 26 Aug 2026 21:20:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ChqqMJa3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2D011F000E9;
+	Wed, 26 Aug 2026 21:43:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787779238;
-	bh=cxWXhplIFcNz2SxfiCbCqovzVaOJLrwvdcTXT/Fx7pY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KMs7xP1QhtA/rFUO3ZH7zyF7VGP1TTQAuxVaqb6VFRHcBh4xtgzuoo8j3aTEiLntf
-	 kScMhDzW8sS1cqXe3hWFVGtx1u4QILt99JHrv+aiSvHGqWYXD5CCBWAfVPahQ3EuP+
-	 /3J16hu5Z4HQFHC4k30nGHmQJZ7NRv2qLfJr7vdMa3UgZZmCUxToiQzFgH5EgQh33e
-	 XMCQeWAXgTKKW8e9BzaQRTsZi25XkGZt4YMQUp6v0baDEpYVq8Ehvn/J4ZA+shYMxB
-	 3OqnF8EiKvZZOmjKSS/YMW5BzF6qgXJ240p6XEiy1L5lKFPGiaQZl3OhBhzEdPR3ge
-	 +RBhktnvJGvpw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/1] dt-bindings: hwmon: tmp102: move ti,tmp103 out of
- trivial-devices.yaml
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Frank.Li@oss.nxp.com
-Cc: linux-hwmon@vger.kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org, robh@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org
-In-Reply-To: <20260826211422.3299728-1-Frank.Li@oss.nxp.com>
-References: <20260826211422.3299728-1-Frank.Li@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 26 Aug 2026 21:20:38 +0000
-Message-Id: <20260826212038.8151E1F000E9@smtp.kernel.org>
+	s=k20260515; t=1787780623;
+	bh=PSSo4bsAC2cEjTDtAnRZIQ9NfAW3QdjZrYCnvuLAkE4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ChqqMJa3vxAiQad8g3dw8iasniT73h2asuuBLUzmnNANnaUP31o+KyDZuOY0hQQnl
+	 zLsEAHlr8uMYX3p4oSKLfjQocnhfkDYH/F6ZyJRg8KM05kmGKdEyiaIPPoMPieiB4j
+	 L4dXQO7wnmoNHCJCrEoQtICccHRvv0ix+og7ZY+w7eFblO2IZXSzL3poAsP8kEQt+v
+	 jHCKPMZMYXhBFNsQyCoUbJCEIAMipli3CTwlvrV50S0JF/9WW1sjl4ahjBEmHHHilX
+	 pZE3mp3iCJBd0iYDyqbt6mlLXWULkkl5JsyDsgNpP2076JFQ4gm73DXIbD+p1CdFtd
+	 YLUD5MdlyMjnA==
+Date: Wed, 26 Aug 2026 22:43:38 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Santhosh Kumar K <s-k6@ti.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
+	pratyush@kernel.org, mwalle@kernel.org,
+	takahiro.kuwano@infineon.com, linux-spi@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mtd@lists.infradead.org, praneeth@ti.com,
+	sebin.francis@ti.com, u-kumar1@ti.com, a-dutta@ti.com
+Subject: Re: [PATCH v9 08/18] spi: cadence-quadspi: add PHY tuning support
+Message-ID: <8aac0c42-fad5-4146-a2a3-b60bdab71a20@sirena.org.uk>
+References: <20260825171737.776052-1-s-k6@ti.com>
+ <20260825171737.776052-9-s-k6@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="nryroxhrKHKI4MVn"
+Content-Disposition: inline
+In-Reply-To: <20260825171737.776052-9-s-k6@ti.com>
+X-Cookie: Obey all traffic laws.
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The `#thermal-sensor-cells` property is defined with an `enum` i=
-nstead of a `const` constraint, violating DT binding rules.
-- [Medium] The `ti,tmp103` compatible string is added to a schema that glob=
-ally allows the `interrupts` property, despite the TMP103 hardware lacking =
-an interrupt pin.
---
 
-commit 8ed50c8d65316077824330117ca798258a318903
-Author: Frank Li <Frank.Li@nxp.com>
+--nryroxhrKHKI4MVn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-dt-bindings: hwmon: tmp102: move ti,tmp103 out of trivial-devices.yaml
+On Tue, Aug 25, 2026 at 10:47:27PM +0530, Santhosh Kumar K wrote:
+> The Cadence QSPI controller supports a delay-line PHY for high-speed
+> operation. Without calibration the PHY is unused and read capture relies
+> on a fixed delay, limiting throughput at frequencies above the base
+> operating speed.
 
-Move the ti,tmp103 binding from trivial-devices.yaml to ti,tmp102.yaml.
-Both devices are single temperature sensors. This commit also updates the
-"#thermal-sensor-cells" property to accept values 0 and 1.
+> Add an execute_tuning callback that performs delay-line calibration using
+> a known data pattern written to a dedicated flash region. The pattern is
+> either read from a NOR partition identified by the DT property
+> spi-phy-pattern-partition, or written to the NAND page cache before
+> each calibration read.
 
-> diff --git a/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml b/Doc=
-umentation/devicetree/bindings/hwmon/ti,tmp102.yaml
-> --- a/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
-> +++ b/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
-> @@ -13,6 +13,7 @@ properties:
->    compatible:
->      enum:
->        - ti,tmp102
-> +      - ti,tmp103
-> =20
->    interrupts:
->      maxItems: 1
+>  struct cqspi_flash_pdata {
 
-[Severity: Medium]
-Does adding ti,tmp103 here without additional constraints allow device trees
-to incorrectly define an interrupts property for the TMP103?
+> +	bool			use_dqs;
+> +	bool			use_tuned_phy;
 
-The TMP103 hardware lacks an interrupt pin. Because the interrupts property
-is globally permitted in this schema, the schema validation might silently
-pass invalid configurations that declare interrupts for ti,tmp103 nodes.
+The AM65x has a fun erratum i2189 which mentions that it requires=20
+disabling DQS for writes:
 
-Should there be an allOf: if: conditional block to explicitly restrict the
-interrupts property only to compatibles that actually support it?
+   https://www.ti.com.cn/lit/er/sprz452i/sprz452i.pdf
 
-[ ... ]
+which suggests we might need separate controls for read and write
+operation.
 
-> @@ -25,7 +26,7 @@ properties:
->        A descriptive name for this channel, like "ambient" or "psu".
-> =20
->    "#thermal-sensor-cells":
-> -    const: 1
-> +    enum: [0, 1]
+> +static int cqspi_write_pattern_to_cache(struct cqspi_flash_pdata *f_pdat=
+a,
+> +					struct spi_mem *mem,
+> +					const struct spi_mem_op *write_op)
+> +{
+> +	struct spi_controller *ctlr =3D mem->spi->controller;
+> +	struct device *dev =3D &f_pdata->cqspi->pdev->dev;
+> +	struct spi_mem_op op =3D *write_op;
+> +	int ret;
+> +
+> +	op.max_freq =3D mem->spi->max_speed_hz;
+> +	op.data.nbytes =3D sizeof(phy_tuning_pattern);
+> +	op.data.buf.out =3D phy_tuning_pattern;
+> +
+> +	ret =3D ctlr->mem_ops->exec_op(mem, &op);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to write PHY pattern to cache: %d\n", ret);
+> +		return ret;
+> +	}
+> +	dev_dbg(dev, "PHY pattern (%zu bytes) written to cache\n",
+> +		sizeof(phy_tuning_pattern));
+> +
+> +	return 0;
+> +}
 
-[Severity: Medium]
-Does changing this constraint to an enum bypass the device tree binding
-rules?
+spinand_write_page() has a multi-operation sequence, I've not checked if
+any fancy flashes with DQS support actually need that.  _read_page()
+looks more straightforward.
 
-Subsystem guidelines indicate that cell-count properties need a strict const
-constraint matching the hardware. If the schema allows both 0 and 1 cells
-for all hardware configurations, it might fail to catch incorrect cell count
-assignments in device tree nodes during build-time validation.
+--nryroxhrKHKI4MVn
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Would it be better to enforce const: 0 or const: 1 for specific hardware
-variants using conditional blocks based on the compatible string?
+-----BEGIN PGP SIGNATURE-----
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260826211422.3299=
-728-1-Frank.Li@oss.nxp.com?part=3D1
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqPXgkACgkQJNaLcl1U
+h9CVpgf+IEFBtsEfC8voVsHpmOfwjvGr+ozW/f+mGll/kPgYXkUFR5UgVC+QMaF6
+3S6zPGMFpJNRm4DAo3iIaiXXgiZ7DMkjr7Q7ougvDy7JVJWv3csUMu/RKZIy++Dx
+o2K1Da6/W4AzDrQExhVklMLQpa0wTaMav8FeEv23oOvFqPmwPBIryDzQRUB5Xz4Z
+MCPmMvgG8wCXG3bPk/Ueigap6FXN3Xh7dVR9PEFEnYVrxj6DD4ladF9bc6GGd25x
+4e/rMV2ra6P84FeUryMHBpbXwAv6/tq2UZS3Tijf6bF17giPvx2EAelgwdpA9OCg
+a/Fbtj+DnJpFaO8EnzNiYorzzawsQg==
+=f6hj
+-----END PGP SIGNATURE-----
+
+--nryroxhrKHKI4MVn--
