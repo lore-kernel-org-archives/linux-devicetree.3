@@ -1,141 +1,146 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35F943B14A7
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 11:35:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ADCC3D9547
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 11:36:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787744105; cv=none; b=Dm4TJ7LhgoD4WFLHM5shQ2XVDmo+I1PF+wm2B1kRl82+u4KfnNyIGJbsGiPx4P0mzDvJVgy1GTQDle2+98MqY6D1BPDoip1VOehDjawuU8FRLw+Xewkhi8KiHmsIEpCsn1VwZwcyViFYBwpITABtX5QQ/o62G1dB8yxQRO7JlSE=
+	t=1787744165; cv=none; b=CRNej/9iT5FwEnfhM+4FoQVB0uCXT1xkpO58EbHYTMEhnK/ZPeHIalC6D9Jp4SQhX7zCYeD/m4FlE/GdlDRwFfHycf0R7RygIofPWKdja/C/+3wVotnSTUsC9IUAPB+ABz27/uluET6x+GD2Bk2PZpGTammwYHHRvHEfHxCuBmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787744105; c=relaxed/simple;
-	bh=UFOAhtkXj+Njp50viA3sghYbMFaFxtcYisj2WSpIzjo=;
+	s=arc-20240116; t=1787744165; c=relaxed/simple;
+	bh=6Ugk8Mngf5Dc03u6UaLr8GjpblBbn7SrwcChYLyz+ek=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ap9kVskOCN43JEIuHRtlAA+yCY4Iry/dVd/69yOTiI38sBjbfXBXkusdWuXiAfp1jVRaXvr59mh+bQBMVhPKjJ1XbCRrYh0SikQHyhKpg+lPH3fGPd3TfQRNGZOnMhkeGp8kLkGbNHRxRJmQuOJEm4KxpB2piZSCjXWKGqehczU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gnSIfIYH; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=to0tyOcJlmvEu9A47EW2xwhH9fLjA2ecgGhuiUqs2OQfJwRvigkYwbYyXzIjmo+hYvnT1eIEf0+jI9NVqsXgt0YylcAzjdrcUWJBJasWSv+qpJUclYSrfB78shJO75dzp7YKzlZkTh6vdAkHCGAxonsWWTT1/qmEnUxbWBL3zHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UrHAifol; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gnSIfIYH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 397D51F000E9;
-	Wed, 26 Aug 2026 11:35:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UrHAifol"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 010C01F000E9;
+	Wed, 26 Aug 2026 11:36:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787744103;
-	bh=BuvayPehLXKeaSiBKsST30khfkKAzIoE6sQI38z2shw=;
+	s=k20260515; t=1787744164;
+	bh=a60xpuJ3U3PQOvyqmUNzFKTf/u4xyp6rZ8M+0cQkjbk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gnSIfIYHl0i0xYkHbcQnKg5vt4z9ysQtP7zUoV9COqIPtPRka4yapPEqkxivDgt0a
-	 c/VPStNCCAkscVgr2nzyybAdHJeIrTh+Co+6D0TZZuid4tgxr845ncnyLIkYt5Wqcq
-	 0utO4ylwb42ATXQz7PrpCGcpKe0EHGnS7ZFxICya23tFayZElLx6qdPEL6uZl2LAER
-	 Ha+asUDYfmntQc6f+sIj4f/MzThIhnLykIxl7Bc4fHvMGhu3dUKttTtPZBv1rzo9Hd
-	 K2Km2HsGIHUe+ADcx3X1297qWnMnYjjuJZjvfwpEAuau3+9XLaBzqsMRNFp3glWsXV
-	 yBqzJ3BNuR1uw==
+	b=UrHAifolgZ/FEVGQrnlUX9j6rqlXy6s2Xu7+TaYqgTEB1tcvlRw0h6VnVvyOl/JDa
+	 RKX5lvIFwsSytpCnps9uDdcofrh6yHlQoUz7+hATbRV27rOUvfsqVJMuNEcoxhE26M
+	 TUxAp1+rL2RgCxA2Mgv8k11CYZ24z59OB0HYJBhGT8jB//zr0RZWDGQ+iwEn/S+521
+	 2eaNFEEWXQKwAsO8lhdWCRMsw6bIwnMlIPuGrtOZaic9pb8LKQ5fxnDGDEbbu0BEeo
+	 KXsRqdP3TtlUyBA/hSttu0dMXNfD4yqSCEuT9lBC1ar7s8LawnzyoNHKs1tSS8LP4I
+	 dKhiGDpaJkdPg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V5 2/3] arm64: dts: qcom: monaco-evk: Enable SDHCI for
- SD Card via overlay
+Subject: Re: [PATCH] of/irq: Fix device node refcount leak in
+ of_irq_get_affinity()
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Monish Chunara" <monish.chunara@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260826112456.482982-3-monish.chunara@oss.qualcomm.com>
-References: <20260826112456.482982-1-monish.chunara@oss.qualcomm.com>
- <20260826112456.482982-3-monish.chunara@oss.qualcomm.com>
+To: "Fuad Tabba" <fuad.tabba@linux.dev>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260826112234.1033974-1-fuad.tabba@linux.dev>
+References: <20260826112234.1033974-1-fuad.tabba@linux.dev>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 26 Aug 2026 11:35:02 +0000
-Message-Id: <20260826113503.397D51F000E9@smtp.kernel.org>
+Date: Wed, 26 Aug 2026 11:36:03 +0000
+Message-Id: <20260826113604.010C01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] Contradictory `no-1-8-v` property cripples SD card performance a=
-nd renders 1.8V configurations unreachable dead code.
+
+Pre-existing issues:
+- [High] Device node reference count leak when resolving MSI domain RID via=
+ 'msi-parent' fallback.
+- [High] Pre-existing memory leak of device node reference in `gic_irq_get_=
+fwspec_info`.
 --
 
-commit 4879ab8dba79e898a8b5716011659f84e4632a0e
-Author: Monish Chunara <monish.chunara@oss.qualcomm.com>
+commit 105954fbf27e6537ca0c4da266eb89a3c31643fd
+Author: Fuad Tabba <fuad.tabba@linux.dev>
 
-arm64: dts: qcom: monaco-evk: Enable SDHCI for SD Card via overlay
+of/irq: Fix device node refcount leak in of_irq_get_affinity()
 
-This commit modifies the base monaco-evk device tree to make it storage
-agnostic by removing eMMC-specific configuration. It introduces a new device
-tree overlay to explicitly enable the SD Host Controller Interface for SD
-cards.
+This commit fixes a device node reference count leak in of_irq_get_affinity=
+().
+The of_irq_parse_one() call raises the refcount of the interrupt controller
+node on success, and of_irq_get_affinity() returns without putting it. The
+fix drops the reference once irq_populate_fwspec_info() has run.
 
-> diff --git a/arch/arm64/boot/dts/qcom/monaco-evk-sd-card.dtso b/arch/arm6=
-4/boot/dts/qcom/monaco-evk-sd-card.dtso
-> new file mode 100644
-> index 0000000000000..bc4ea12587a2e
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/monaco-evk-sd-card.dtso
-> @@ -0,0 +1,72 @@
-[ ... ]
-> +        vreg_sdc: regulator-sdc {
-> +		compatible =3D "regulator-gpio";
-> +
-> +		regulator-name =3D "vreg_sdc";
-> +		regulator-type =3D "voltage";
-> +		regulator-min-microvolt =3D <1800000>;
-> +		regulator-max-microvolt =3D <2950000>;
-> +
-> +		gpios =3D <&expander1 7 GPIO_ACTIVE_HIGH>;
-> +		states =3D <1800000 1>, <2950000 0>;
+> diff --git a/drivers/of/irq.c b/drivers/of/irq.c
+> index 967c191008797..ec035367c9500 100644
+> --- a/drivers/of/irq.c
+> +++ b/drivers/of/irq.c
+> @@ -563,7 +563,9 @@ const struct cpumask *of_irq_get_affinity(struct devi=
+ce_node *dev, int index)
+>  	of_phandle_args_to_fwspec(oirq.np, oirq.args, oirq.args_count,
+>  				  &fwspec);
+> =20
+> -	if (irq_populate_fwspec_info(&fwspec, &info))
+> +	rc =3D irq_populate_fwspec_info(&fwspec, &info);
+> +	of_node_put(oirq.np);
+> +	if (rc)
+>  		return NULL;
+> =20
+>  	return info.affinity;
 
-[Severity: Medium]
-Is this 1.8V regulator state reachable? Later in this overlay, the sdhc_1
-node specifies the no-1-8-v property. Since that prevents the MMC core
-from switching to 1.8V I/O, it seems this state might act as dead code.
+[Severity: High]
+This isn't a bug introduced by this patch, but there appears to be a
+device node reference count leak when resolving MSI domain RID via
+msi-parent fallback.
 
-> +
-> +		startup-delay-us =3D <100>;
-> +        };
-> +};
-> +
-> +&sdhc_1 {
-> +	vmmc-supply =3D <&vmmc_sdc>;
-> +	vqmmc-supply =3D <&vreg_sdc>;
-> +
-> +	pinctrl-0 =3D <&sdc1_state_on>, <&sd_cd>;
-> +	pinctrl-1 =3D <&sdc1_state_off>, <&sd_cd>;
-> +	pinctrl-names =3D "default", "sleep";
-> +
-> +	cap-sd-highspeed;
-> +	no-1-8-v;
+drivers/pci/msi/irqdomain.c:pci_msi_domain_get_msi_rid()
+> 	of_node =3D irq_domain_get_of_node(domain);
+> 	rid =3D of_node ? of_msi_xlate(&pdev->dev, &of_node, rid) :
+> 			iort_msi_map_id(&pdev->dev, rid);
+>=20
+> 	return rid;
 
-[Severity: Medium]
-Does this restriction unintentionally cripple the SD card performance?
-This property forces the MMC core to disable UHS modes, capping the SD card
-at 50MHz High Speed mode. If the hardware supports UHS-I modes, should this
-property be omitted so the 1.8V states and higher frequency OPPs can be
-utilized?
+If the mapping falls back to msi-parent in of_msi_xlate(), the
+un-refcounted of_node pointer is overwritten with a newly refcounted
+pointer in of_check_msi_parent():
 
-> +
-> +	bus-width =3D <4>;
-> +	cd-gpios =3D <&tlmm 11 GPIO_ACTIVE_LOW>;
-> +	no-mmc;
-> +	no-sdio;
-> +
-> +	status =3D "okay";
-> +};
-> +
-> +&sdhc1_opp_table {
-> +	opp-100000000 {
-> +		opp-hz =3D /bits/ 64 <100000000>;
-> +		required-opps =3D <&rpmhpd_opp_low_svs>;
-> +	};
-> +
-> +	opp-202000000 {
-> +		opp-hz =3D /bits/ 64 <202000000>;
-> +		required-opps =3D <&rpmhpd_opp_svs_l1>;
-> +	};
+drivers/of/irq.c:of_check_msi_parent()
+> 	if (!ret) {
+> 		/* Return with a node reference held */
+> 		*msi_node =3D msi_spec.np;
+> 		return 0;
+> 	}
 
-[Severity: Medium]
-Can these higher frequency OPPs ever be requested? Since the sdhc_1 node
-includes the no-1-8-v property, the MMC core is restricted to non-UHS speed=
-s.
-This appears to make the 100MHz and 202MHz OPP configurations unreachable.
+Since pci_msi_domain_get_msi_rid() returns the mapped RID without calling
+of_node_put() on the updated of_node, does this leak the MSI controller
+device node on every invocation?
 
-> +};
+[Severity: High]
+This is a pre-existing issue, but is there also a memory leak of the
+device node reference in gic_irq_get_fwspec_info()?
+
+drivers/irqchip/irq-gic-v3.c:gic_irq_get_fwspec_info()
+> 		fw =3D of_fwnode_handle(of_find_node_by_phandle(fwspec->param[3]));
+> 		if (!fw)
+> 			return -ENOENT;
+>=20
+> 		for (int i =3D 0; i < gic_data.nr_parts; i++) {
+> 			if (gic_data.parts[i].partition_id =3D=3D fw) {
+> 				mask =3D &gic_data.parts[i].mask;
+> 				break;
+> 			}
+> 		}
+>=20
+> 		if (!mask)
+> 			return -ENOENT;
+> 	} else {
+> 		mask =3D cpu_possible_mask;
+> 	}
+>=20
+> 	info->affinity =3D mask;
+> 	info->flags =3D IRQ_FWSPEC_INFO_AFFINITY_VALID;
+>=20
+> 	return 0;
+
+The call to of_find_node_by_phandle() acquires a new reference on the
+device node, but the function returns on various error and success paths
+without calling of_node_put() to drop it. Does this leak the GIC PPI
+partition device nodes during IRQ affinity retrieval?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260826112456.4829=
-82-1-monish.chunara@oss.qualcomm.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260826112234.1033=
+974-1-fuad.tabba@linux.dev?part=3D1
