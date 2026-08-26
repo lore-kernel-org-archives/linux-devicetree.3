@@ -1,191 +1,98 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4720037A84F
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 10:28:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D96903B4EA2
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 10:30:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787740117; cv=none; b=WKRI9IjPqrGW9JpqOn6KjaRk1tOMkQpw9Mqk8hLXuWKIGy0z7YWdGNgnNySl4JrFnvHaWaB7CTyzB7qff3FgpXEbLxNHiVGZxJTOjnB3hAzZiaFhpKm4CGiLwHrmbb8j8/RTifd3jN+Nq6cZyZ3LofN8SSvJ4yFug1pB3gSE98o=
+	t=1787740233; cv=none; b=g/qkg/SlWORZaMpwgY5cZpi1XsTwR8sMraZw9VcNWPxd4lRV0dYreS23XavV9RxnrE3cuEu8KsSqVehd55WQoMeWAtDJzVT4iztY0v+2SIlzAeEJ6CLz86NNCEboUqcmI6vo88WzSm6kKf/LkYhV8e9LufE0MxsQn+cJI7s3RFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787740117; c=relaxed/simple;
-	bh=DOrShS5Fw9vASx3hDYSvjTUK0Jh5D8pXnuu6PUkXK8o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Tu/oqCC+lPrBq1PwNsaSiZU61NeAdziw1DH7FVjcpS+F/VQ9RIa3fEeNoL7vLYzPXCtIYONY3oHLgQcG2KFniK7av9/7CzDFNrQY3U70IawuQFHA+L/+XN+qlatkzdoSyzFgxYgp6cMGsBnV3BqVTS/MwNJqk3jn79HBzGuSRRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IgsebSlE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GCMiy/Dk; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787740233; c=relaxed/simple;
+	bh=4XA0RfVzkd09iMip4Tkqxsp0TmfE0yJgyEs9cb3lWgs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=g0ZlD5NPbwsZPWQevCp/txhOg54HF3N5IwdRZzfxZl3T0IgSFdzFQw0cpBGsmfmFA/IwmEDSMDK7Hak98z+lk9+FnR+2bsyxJSfPT7ZWRK6DwQ9/IAwNeNt1gUJLlOeZIS0fkrACTITG/TfTorBrDgHJDzJlLVCVZkieAezN47o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZtmjmMbh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IgsebSlE";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GCMiy/Dk"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QAGpiY972270
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 10:28:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=V81GetfDZGr
-	aM3UzapUPoHJT/LXOGeWlsYECpijykio=; b=IgsebSlE6+wokvA7azwz642K0gh
-	yb3fgHH3xjr8XylZOskYMWopkQSb7d/NSd40YQXK7MiQbQQZElLNLKSpOh8qfCWL
-	gz7zkaWynQ6yyj6vBxq/GuleYuvkdx71jrlusRR0Wv97/nwEkTv9SdnZN5kwgJ1L
-	kkDRwbQYfpjxeqIVrxDYfn6+KpY9DfWXwU52wCIAjZJ5V4Alylvo3Xv2x2wzQMuW
-	ZM3U3Pol6bG2U0RRh4+cXuevN4cxndN+eGjg3EfGxQV6viZ1q51zJE4A2rtLHbAv
-	2Q3XZxF70vKyVCG5sxsi1Km0E3lZTzZE6Ku69saGNp3Vcq+2TlKVRTy0DnQ==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9r1ghkfq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 10:28:34 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2ccb687f82eso11605225ad.3
-        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 03:28:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787740114; x=1788344914; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=V81GetfDZGraM3UzapUPoHJT/LXOGeWlsYECpijykio=;
-        b=GCMiy/DkYYlvWNC1InqPGsOIOK7t4rq8IvJn+E/8V3RD4Q632g85UCwEs/lcaPfnv+
-         DdVhKWvwwI0JSjN5O+64KPnHu0ix1UDsphJVrXrxOglLq+L0qx7VXFNCDj/t3Q6jHQXE
-         3QA8HO933zacceNuwgey8lU65STA5w2/lf4uQLQnIOHdlzgKWDTDC8IfCDtgFvvwLgaY
-         4BATNf4huPeh1J5GV+ahPX67r5kw4zNDX2QV4WxR5NEZ0nwESxj+idg55rDuEMq8y41T
-         xG/wWDwv2ypS8oyd7BpMSIoqjox/EAa3slYixdc+STQah9n3Ms443FzsRGzAnCi64oMk
-         SVvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787740114; x=1788344914;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=V81GetfDZGraM3UzapUPoHJT/LXOGeWlsYECpijykio=;
-        b=CYNHFPNs/BVAJMJZEVCmnQ+BWyGkHLaM4eJLBXKGzhGK9AxygLk/FSB+iditnLhsO4
-         1gtz5bDtyi4uXgm996Qm37DcvJnL3iSdBh0wRPhnSXytqh55t5LNpQQqC2aPglCOYADI
-         MOqW3OJk2WeWl3hJSag/OivK0y8uO5INLp8siT0nhuuFEI+FaG/XSJG6SnzYUQwtiwbT
-         tecYFY0d00u7w73EAW3Uyv1jK2a2s9GeVpfoDZBWMqPpgAuxSttZLGHIHSYwwzQ+MRgR
-         ElWte0phAOMWdAcxew9KvSGCSgjYsKb2/5hHg2MvkUkA6qv24GOub5vrtxk2csnXf6V0
-         QTNA==
-X-Forwarded-Encrypted: i=1; AHgh+RoXtyXfI9BUGVr3ccphDUXtZqdtk/WwQvSQI/8+cCS5X2HiBpQzyHGGkoN4pSMrDVOUUNjQWEIbusMf@vger.kernel.org
-X-Gm-Message-State: AFuF++nUfNraqroi11BNvupFFXB4c6F9RmBFOJCjcAVCcZacRq0UtgbD
-	SOZfQW7uqD8Z1N1hGcMsSkdIclKek92K7VaPc8yTwGHG2CqQmOpP+uHod3Kq6VGOixSQ6osqnf/
-	IK2ffabI5zaav6J98mOUG/rlMBb+ih2fL6wS8p7n7CKuRyywQlWN0z/TDbepIwZ3j
-X-Gm-Gg: AR+sD11xPgft/SaYKbQcWVMeTu99Tzq5LrjFdxEnuAxisr1oTEkD0ZGwVXVIGG2QeWH
-	eMgj2bmIO0+u7y2hWKPZZ+9G2psI/u2a9G00mxFYuW/FizrpVKGfVl/y/4Y/0LmfdpqawoqvDGb
-	a5q2pINVPGPDiXmhA4nMWLjkAiVbWMl1cHFkr8n6hDSPoNslLDJu7tILSuTwXQHmteMbHRxgE/g
-	x5+XjXMQld0yHVVbYK+yvLEQlGbNF+mvDmxHDNtFa6nsY610bkXhdofBr2ALXDV3xscfE/hEPgZ
-	iUgdmJo9Y/OmHLtACoWPl0h2XQBLEHYWviRq2w8lxh7xOq81+pmTSQs0eiIfve29l42dZ5XsG9G
-	P9llyzg7zc1A3xZy9L7Fu2wOTNHpgH/6mMnDAm7ynapa4OvVmYmenvl7BLRZd
-X-Received: by 2002:a17:902:e549:b0:2d6:fec3:bd51 with SMTP id d9443c01a7336-2d707a069c4mr83279495ad.5.1787740113564;
-        Wed, 26 Aug 2026 03:28:33 -0700 (PDT)
-X-Received: by 2002:a17:902:e549:b0:2d6:fec3:bd51 with SMTP id d9443c01a7336-2d707a069c4mr83278655ad.5.1787740113162;
-        Wed, 26 Aug 2026 03:28:33 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d60c291sm12935669eec.6.2026.08.26.03.28.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 03:28:32 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>
-Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH 4/4] remoteproc: qcom: pas: Switch Nord CDSPs from MX to NMXC
-Date: Wed, 26 Aug 2026 18:27:46 +0800
-Message-ID: <20260826102746.633076-5-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260826102746.633076-1-shengchao.guo@oss.qualcomm.com>
-References: <20260826102746.633076-1-shengchao.guo@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZtmjmMbh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56BD01F000E9;
+	Wed, 26 Aug 2026 10:30:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787740232;
+	bh=xpZjTV7UWMBXweGTK7d7jOYsLX8v/Wm/xH+rSSzF/fk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZtmjmMbhRcp/qXgoVRaNHjx3427s8/Anr1uBKtqTjnMpApG2Cn/NzAX1mWGqIyTO5
+	 y8Sqq1ibIHHQwcD7E869sXrv+PSvgzmWW+au0asrNI6CcRDmS2KSoF6tqax8D3lETm
+	 8cb7f9M7V8axAkHxN0IfBkUwO/fdJNhlw/poV0YGpBn7tEI2sULGQVqXF3f6DbJzKs
+	 jWmh1C1NFYqHbvgKU30EB17vKW8yhoYIq8YosFCgBH6s1reZIPueIeU6ah0RQZP6e4
+	 jhg/+Y3Fm28qDCEdc/9eHBXtG+iEuk5lqtn95GjbvoVyn1/l3KPvTsR+Y7U+aZHYR1
+	 mxl+XARhWB7Lg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 01/10] dtc: dt-check-style: Handle sorting of
+ top-level nodes and properties
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260826-n-dts-style-checker-continued-v5-1-fdd16ca6e771@oss.qualcomm.com>
+References: <20260826-n-dts-style-checker-continued-v5-0-fdd16ca6e771@oss.qualcomm.com>
+ <20260826-n-dts-style-checker-continued-v5-1-fdd16ca6e771@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 26 Aug 2026 10:30:31 +0000
+Message-Id: <20260826103032.56BD01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: jz0rmPBh5tmniQCwUO9NcR3iT8enjPfd
-X-Authority-Analysis: v=2.4 cv=FPMrAeos c=1 sm=1 tr=0 ts=6a8ebfd2 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=DpeyPZAO3b19OXZAH4MA:9 a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDA4NyBTYWx0ZWRfX4dIfJ6Qnr7v0
- 7uR9odB6uB0Cex9kbOs/rCPpiabrhZw+jT4bisGJ/qZNzDW8pYJ9WSkQ2jjMH7IjskkYKIKzzOp
- 8wZhx5Ua51Iu8Bkfg4Dird4dC3SUdfs=
-X-Proofpoint-ORIG-GUID: jz0rmPBh5tmniQCwUO9NcR3iT8enjPfd
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDA4NyBTYWx0ZWRfX29MIG4v4rJWt
- fFyOWoOxoXVkCioPya4qGzb2vaE6kZbGtDW2kGaSYiHY9WGrqG33YOhUzxSjy0En0MlPEuj7Roo
- jmHG0PZ8GK1fbrVDihX3PrIT/eixfH9Apj1r6p47AYDUMwnHwkluu+p8GqmF4HZkrsSqKaypF1U
- XDAjIhL8LLoYiICTXHQ3BqrYwzqP4biwEd/GBy9tmz8hnqshkgsGi8BqX8InI8bjeStl8j2VhUK
- A6oXN0qDvmwNI6XpJqWyTBdZUnTX+99QbA4rQ0aZR4EsvydmWgoJk8VAkmbERHqDCi7oWs8fCeQ
- o+USDI5FfrBs7zuldLURMwARHJA7z1xWkiVOuoaKsoLwZ5K3mHuoY5S7FBryCQBYQT4A4P7zI7J
- pQeXY+GXEd3TJT/AkP0le8trWn5P1xbdGHelLy8O6Vpwh2eta8xnSLf4arlNakCAqPos0hQAUPu
- KbStBfVxKYiiwoLJ1eQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-26_03,2026-08-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 priorityscore=1501 clxscore=1015
- lowpriorityscore=0 suspectscore=0 adultscore=0 spamscore=0 phishscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608260087
 
-From: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Strict string equality check for root node overlays fails on var=
+iable whitespace.
+--
 
-The Nord CDSP subsystems keep their memory rail on the dedicated NMXC
-resource, not on the shared MX rail. Replace "mx" with "nmxc" in the proxy
-power domain list of all four CDSP resources so the correct rail is held
-during PAS authentication and boot.
+commit f8f70e68a9d636c397e92564f4d820f3585db82c
+Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
----
- drivers/remoteproc/qcom_q6v5_pas.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+dtc: dt-check-style: Handle sorting of top-level nodes and properties
 
-diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
-index ca8e61254c44..5dd954b57852 100644
---- a/drivers/remoteproc/qcom_q6v5_pas.c
-+++ b/drivers/remoteproc/qcom_q6v5_pas.c
-@@ -1469,7 +1469,7 @@ static const struct qcom_pas_data nord_cdsp0_resource = {
- 	.auto_boot = true,
- 	.proxy_pd_names = (char*[]){
- 		"cx",
--		"mx",
-+		"nmxc",
- 		"nsp",
- 		NULL
- 	},
-@@ -1490,7 +1490,7 @@ static const struct qcom_pas_data nord_cdsp1_resource = {
- 	.auto_boot = true,
- 	.proxy_pd_names = (char*[]){
- 		"cx",
--		"mx",
-+		"nmxc",
- 		"nsp",
- 		NULL
- 	},
-@@ -1511,7 +1511,7 @@ static const struct qcom_pas_data nord_cdsp2_resource = {
- 	.auto_boot = true,
- 	.proxy_pd_names = (char*[]){
- 		"cx",
--		"mx",
-+		"nmxc",
- 		"nsp",
- 		NULL
- 	},
-@@ -1532,7 +1532,7 @@ static const struct qcom_pas_data nord_cdsp3_resource = {
- 	.auto_boot = true,
- 	.proxy_pd_names = (char*[]){
- 		"cx",
--		"mx",
-+		"nmxc",
- 		"nsp",
- 		NULL
- 	},
--- 
-2.43.0
+Top-level DTS has two nodes with unit-addresses (memory@ and soc@) where
+sorting typically prefers node name over unit address. This patch updates
+the style checker to apply special sorting rules for the root node,
+including placing the model property before compatible.
 
+> diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
+> index 96deffc0d8a7c..e5f26d3e2792b 100755
+> --- a/scripts/dtc/dt-check-style
+> +++ b/scripts/dtc/dt-check-style
+[ ... ]
+> @@ -228,7 +230,10 @@ def classify_lines(text):
+>              continue
+> =20
+>          if code.endswith('{'):
+> -            dl =3D DtsLine(i, raw, LineType.NODE_OPEN, depth, indent_str=
+, code)
+> +            is_root =3D False
+> +            if code =3D=3D '&{/} {' or re.search(r'^/\s*\{$', code):
+
+[Severity: Medium]
+Will this strict string equality check fail to identify root node overlays =
+if
+there is any variation in whitespace before the opening brace, such as
+&{/}{ or &{/}  {?
+
+If this fails to identify them as root nodes, does the script fall back to
+standard node rules and incorrectly produce false positive style warnings
+for root node overlays?
+
+> +                is_root =3D True
+> +            dl =3D DtsLine(i, raw, LineType.NODE_OPEN, depth, indent_str=
+, code, is_root=3Dis_root)
+>              parse_node_header(dl)
+>              out.append(dl)
+>              depth +=3D 1
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260826-n-dts-styl=
+e-checker-continued-v5-0-fdd16ca6e771@oss.qualcomm.com?part=3D1
