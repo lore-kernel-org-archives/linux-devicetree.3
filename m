@@ -1,173 +1,122 @@
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBDB63B0598
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 19:51:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=121.127.44.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 633D33B058E;
+	Wed, 26 Aug 2026 20:13:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787773887; cv=none; b=uhaIK8BfUxgyEfQczwKltmIBgy9LPrDpHQfcnXGO5sxJcNYPUm7N5YIKZPebgI5L7fRI8dHm3nQCjGJtLQ/qrghlxLyzkcILuIPkmslUhYRDmbn+mF5eCRzt4CBzyupNNMzgS70Ax4Bj5LkEOoExYUL5pFOwAnbCNqFi7eViFBc=
+	t=1787775185; cv=none; b=dM5rIS1i1mnWMgIPElSBMlTzV1gH8iZygRyHzYOas97RTM8A73Lz6jmMHrjUq2Jj7vusMtkOOj2zFWwcSKQehJ+mYPj1HeBIAUmyZmr89+RQ0Zyeza8FYO8nVSmU2JI+3DfgALOQrs6jdTEvtRSgy5RC/B/wLmrixmt8vRE+N6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787773887; c=relaxed/simple;
-	bh=ciMaZJFcjYFc+Da0mP+Le2loRZABOtV5XJdSvpXhzgg=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=LyyjQdTyvoFTmzP1SKCNWy+Owp2tUxISelE3+cC0KKeou4nPR4D9G9dj6/UV0LycnMT7AK7D2pzeVfILwWUDo/f1Td3pCkxn93ragYiavwjI8fgGo8/WEI3z/0g+UJhKhjlG0ZMxJerO67oC0TcSAJoqcCpgvarxXIISMXp60VU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org; dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b=YHrpEeFw; arc=none smtp.client-ip=121.127.44.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org
+	s=arc-20240116; t=1787775185; c=relaxed/simple;
+	bh=LDMs7gSle0lyiqX72kem48vDFieKIgrgVU1BTFLr9Fs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uFY8FbcR8EbSgrYvbYWLHvv3d451fyEbdek2n9IV8ums3cvIKIyaMEIltqQyYUerEJEO3dVlWHWNO5GKj628fsyMEHUsUB9ocdIODuOzRwMcZ68QHyWaxFDAWjs9JUGlxWeIOBazEegeLNVJVIgt3WmdVBQUCVwJEoF/TWuk7bI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kWa2eaT3; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b="YHrpEeFw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lineageos.org;
- h=Content-Transfer-Encoding: Content-Type: In-Reply-To: References: Cc:
- To: From: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
- s=fe-2eefaa527c; t=1787773882;
- bh=ciMaZJFcjYFc+Da0mP+Le2loRZABOtV5XJdSvpXhzgg=;
- b=YHrpEeFwo7vUc9Mqu1HT3QdqSEf9gXgiRstNlQ7wZULDnh7Xs4rP9GBWurAWDgkd0Yh2kcD8G
- /6bGwICOK3lBKzd4Vu4DjXqB6tGcAum/Y3sboNpbBRFPLyZXan2lT/Oad8A7pmcm7BVyXhTWals
- FSeZt3RJ+ciFVLqED04SLfY=
-X-Forward-Email-ID: 6a8f43b9a86b7caee499143c
-X-Forward-Email-Sender: rfc822; tturner@lineageos.org,
- smtp.forwardemail.net, 121.127.44.66
-X-Forward-Email-Version: 2.13.16
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-Message-ID: <2731b56e-0559-4395-ae92-6940054a053b@lineageos.org>
-Date: Wed, 26 Aug 2026 20:51:15 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kWa2eaT3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787775183; x=1819311183;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=LDMs7gSle0lyiqX72kem48vDFieKIgrgVU1BTFLr9Fs=;
+  b=kWa2eaT3t0XxkrJqMBavcqGbpnsdLgl3bXqd5PwF9zJPTK8KJQ5cAiLu
+   cgeaFcFHcC7vhxwgw3dfLCU4FntvWbSqCB/ZIu6Jtke0S9PwfWTvG2CFt
+   Zz4Q3o5EkEqn2wefwK7hWGAMehx9mqEj3GEmeNpbxzicNROqSgSgZSEkf
+   ZIKdc9YBJ9f/rw9jRCzpFQM7CbS47YWc9KTwLJMqYMGyYjJwBs520YoN1
+   VT6auOtNToON7A419bJar45jN0NiYGSBHd6ygoA9NNspLsmVFFa1hACJ3
+   RBxBP+d6HhucIwD9/Z7U1nIApm1oEKPN8wC8qNTCFR4incbUUoi0+pTQB
+   g==;
+X-CSE-ConnectionGUID: EFWjAWzcQs625HwwOaUWNA==
+X-CSE-MsgGUID: d16QtXL1TLKi0IUabglrIA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="87209967"
+X-IronPort-AV: E=Sophos;i="6.25,245,1779174000"; 
+   d="scan'208";a="87209967"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 13:13:01 -0700
+X-CSE-ConnectionGUID: +xVZBjtEQQKh96mnxngFvA==
+X-CSE-MsgGUID: mH4Qdk5gT/+/zUNjSOJjKw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,245,1779174000"; 
+   d="scan'208";a="291194289"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.97])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 13:12:58 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 1217A11F82E;
+	Wed, 26 Aug 2026 23:13:11 +0300 (EEST)
+Date: Wed, 26 Aug 2026 23:13:10 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: David Heidelberg <david@ixit.cz>
+Cc: Alexander Martinz <amartinz@shiftphones.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, phone-devel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: media: i2c: dongwoon,dw9714:
+ Document DW9714A and V variant
+Message-ID: <ao9I1jtPJZKj6C0J@kekkonen.localdomain>
+References: <20260803-dw9714v-v3-0-8e10278dcd0d@ixit.cz>
+ <20260803-dw9714v-v3-1-8e10278dcd0d@ixit.cz>
+ <anmcEvEwld-ZV9WE@kekkonen.localdomain>
+ <de220aa4-2bf1-4cf3-8d59-904fefa7e815@ixit.cz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] Exynos850 GPU support
-From: Thomas Turner <tturner@lineageos.org>
-To: Alexey Klimov <alexey.klimov@linaro.org>,
- Sam Protsenko <semen.protsenko@linaro.org>
-Cc: "robh@kernel.org" <robh@kernel.org>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,
- krzysztof.kozlowski@oss.qualcomm.com, peter.griffin@linaro.org,
- alim.akhtar@samsung.com, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org
-References: <GVYP280MB12139AB976CA7ACF49FEB768A1A52@GVYP280MB1213.SWEP280.PROD.OUTLOOK.COM>
- <CAPLW+4kQTUX8QhKnAP7bg=iCw5hhNQZoW7cuOpTdvvAUpGaicg@mail.gmail.com>
- <135d48e7-58ac-48b8-8fa5-c2548e2f3ae9@lineageos.org>
- <DKZ3X5VUHJSK.1KSJR6K8FATGV@linaro.org>
- <5e8698db-974c-4f8b-8939-bcdf8a47743d@lineageos.org>
-Content-Language: en-GB
-In-Reply-To: <5e8698db-974c-4f8b-8939-bcdf8a47743d@lineageos.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <de220aa4-2bf1-4cf3-8d59-904fefa7e815@ixit.cz>
 
-Hi,
+Hi David,
 
-Forgot to attach the eglinfo -B logs I get in the previous email so here it is:
-This is using wayland on phosh UI from [1]
+On Mon, Aug 10, 2026 at 12:24:58PM +0200, David Heidelberg wrote:
+> On 10/08/2026 11:38, Sakari Ailus wrote:
+> > Hi David,
+> > 
+> > On Mon, Aug 03, 2026 at 11:50:25AM +0200, David Heidelberg via B4 Relay wrote:
+> > > From: David Heidelberg <david@ixit.cz>
+> > > 
+> > > DW9714A is successor of DW9714 and DW9714V is successor of the DW9714A.
+> > > 
+> > > All actuators are backward compatible, but they do introduce new features,
+> > > such as Smart Actuator Control (SAC) mode which can minimize the
+> > > mechanical vibration and achieve very fast mechanical settling time.
+> > > Support for SAC can be implemented in the future.
+> > 
+> > What kind of configuration does SAC require? Such things generally aren't
+> > configured from the userspace, compare e.g. with the dw9719 bindings
+> > discussion.
+> 
+> I don't have extra deep insight (except basic how the sensor works).
+> 
+> By default all dw9714* sensors starts in the default "legacy" mode.
+> 
+> The clanker after looking at datasheets and kernel struct produced, if it
+> make sense:
+> 
+> the mode and the vibration period (SAC_CFG/PRESC/SACT) have to match
+> the mechanical tVIB of the actuator and lens assembly of the given camera
+> module, the same way dongwoon,aac-mode/aac-timing/clock-presc do for
+> dongwoon,dw9768 and dongwoon,sac-mode/vcm-prescale for dongwoon,dw9719.
+> Those properties are left out until there is driver support and measured
+> values; note the DW9714V mode set differs from DW9719's, so its enum cannot
+> be reused as is.
 
+I guess this is fine, but without the configuration there's not much
+benefit knowing the VCM is actually a bit more sophisticated one.
 
-samsung-a21s:~$ eglinfo -B
-GBM platform:
-EGL API version: 1.5
-EGL vendor string: Mesa Project
-EGL version string: 1.5
-EGL client APIs: OpenGL OpenGL_ES
-OpenGL core profile vendor: Mesa
-OpenGL core profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL core profile version: 3.1 (Core Profile) Mesa 26.1.6
-OpenGL core profile shading language version: 1.40
-OpenGL compatibility profile vendor: Mesa
-OpenGL compatibility profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL compatibility profile version: 3.1 (Core Profile) Mesa 26.1.6
-OpenGL compatibility profile shading language version: 1.40
-OpenGL ES profile vendor: Mesa
-OpenGL ES profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL ES profile version: OpenGL ES 3.1 Mesa 26.1.6
-OpenGL ES profile shading language version: OpenGL ES GLSL ES 3.10
-
-Wayland platform:
-EGL API version: 1.5
-EGL vendor string: Mesa Project
-EGL version string: 1.5
-EGL client APIs: OpenGL OpenGL_ES
-OpenGL core profile vendor: Mesa
-OpenGL core profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL core profile version: 3.1 (Core Profile) Mesa 26.1.6
-OpenGL core profile shading language version: 1.40
-OpenGL compatibility profile vendor: Mesa
-OpenGL compatibility profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL compatibility profile version: 3.1 (Core Profile) Mesa 26.1.6
-OpenGL compatibility profile shading language version: 1.40
-OpenGL ES profile vendor: Mesa
-OpenGL ES profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL ES profile version: OpenGL ES 3.1 Mesa 26.1.6
-OpenGL ES profile shading language version: OpenGL ES GLSL ES 3.10
-
-X11 platform:
-eglinfo: eglInitialize failed
-
-Surfaceless platform:
-EGL API version: 1.5
-EGL vendor string: Mesa Project
-EGL version string: 1.5
-EGL client APIs: OpenGL OpenGL_ES
-OpenGL core profile vendor: Mesa
-OpenGL core profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL core profile version: 3.1 (Core Profile) Mesa 26.1.6
-OpenGL core profile shading language version: 1.40
-OpenGL compatibility profile vendor: Mesa
-OpenGL compatibility profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL compatibility profile version: 3.1 (Core Profile) Mesa 26.1.6
-OpenGL compatibility profile shading language version: 1.40
-OpenGL ES profile vendor: Mesa
-OpenGL ES profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL ES profile version: OpenGL ES 3.1 Mesa 26.1.6
-OpenGL ES profile shading language version: OpenGL ES GLSL ES 3.10
-
-Device platform:
-Device #0:
-
-Platform Device platform:
-EGL API version: 1.5
-EGL vendor string: Mesa Project
-EGL version string: 1.5
-EGL client APIs: OpenGL OpenGL_ES
-OpenGL core profile vendor: Mesa
-OpenGL core profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL core profile version: 3.1 (Core Profile) Mesa 26.1.6
-OpenGL core profile shading language version: 1.40
-OpenGL compatibility profile vendor: Mesa
-OpenGL compatibility profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL compatibility profile version: 3.1 (Core Profile) Mesa 26.1.6
-OpenGL compatibility profile shading language version: 1.40
-OpenGL ES profile vendor: Mesa
-OpenGL ES profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL ES profile version: OpenGL ES 3.1 Mesa 26.1.6
-OpenGL ES profile shading language version: OpenGL ES GLSL ES 3.10
-
-Device #1:
-
-Platform Device platform:
-EGL API version: 1.5
-EGL vendor string: Mesa Project
-EGL version string: 1.5
-EGL client APIs: OpenGL OpenGL_ES
-OpenGL core profile vendor: Mesa
-OpenGL core profile renderer: llvmpipe (LLVM 22.1.8, 128 bits)
-OpenGL core profile version: 4.6 (Core Profile) Mesa 26.1.6
-OpenGL core profile shading language version: 4.60
-OpenGL compatibility profile vendor: Mesa
-OpenGL compatibility profile renderer: llvmpipe (LLVM 22.1.8, 128 bits)
-OpenGL compatibility profile version: 4.6 (Compatibility Profile) Mesa 26.1.6
-OpenGL compatibility profile shading language version: 4.60
-OpenGL ES profile vendor: Mesa
-OpenGL ES profile renderer: llvmpipe (LLVM 22.1.8, 128 bits)
-OpenGL ES profile version: OpenGL ES 3.2 Mesa 26.1.6
-OpenGL ES profile shading language version: OpenGL ES GLSL ES 3.20
-
+-- 
 Regards,
-Tom
 
-[1] https://wiki.postmarketos.org/wiki/Phosh
+Sakari Ailus
