@@ -1,98 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C81B396D28;
-	Wed, 26 Aug 2026 23:32:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A2C43B5318
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 23:38:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787787175; cv=none; b=AHwLybR9WtJHSkhkIzRO2ph2VE4Kwc9QZVZgyF6vm4D6++0RFe1isjPGDWxjm+pUzQHGZhUnGrSyVXR6tdY0YpnJNU1Rj+dM+Yl6ndFQ3t/MgSvGly68YiZGhf46HJHv3vXPPBPo/9iMbZMrkUtv3fBwZkzbl89PQOnj6yOzNAg=
+	t=1787787513; cv=none; b=SIjv2hbWUhzamtYTSeYRf6NF9ZYRGPGyZsSBj/W+ApE7wDyrkfFWcMFDlvUhKt0ONbljMQ1v+kkju7TTx/hWoyiaxCxHAdaY0FzSxQGtXjX1YkNjX1WZiXsyCyHumH1nCl9whyvfbOpM05VAMmfPdzREExgmqY1bmnie99m4PZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787787175; c=relaxed/simple;
-	bh=QGAKNpqilNv4syG/BG3ldOkWpfQTkD8Rgp/ahyxg3JE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DbiSQQ7XgLq0oXrdlc85vVne4+zT+mz0Rr4yCBZwIRGgqTQSCeXKuKLcXd5KUroZVS+l07RCi0LcISCEjcL13lELxe8hoCjP4AOBhWOFVOjtJtDkNQOSeY5Q4HCYV1lUVIXtk3UrwEZsf3axKHc386kqlUgxG5iEP39HYavzTTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l82nydLK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787787513; c=relaxed/simple;
+	bh=Ks97iZYDefkxuuXZdEEEwMFqACfSJ7anPx9rAcG522s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VgUw+0RzbtoQrNEmT22hP+t5s3vbSIKsr93kP6YvxoO7kKdP9mQTDA6hYSFLpTUz5Sb/sfA23db8DGRIK3XCXH37waO2/npuqjM4zhKot0ZeZh8aV+utgJXI6ZhgC5GkhXX3WLnwvajPU36IVt7mepRAz5YKGipa7F4F+CBRxFI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aMbd5GS6; arc=none smtp.client-ip=209.85.208.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l82nydLK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1E7F1F000E9;
-	Wed, 26 Aug 2026 23:32:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787787173;
-	bh=w++uE1hbu24F3aiE2gO1EvdP5Mu8DsKn4/cJzh33mQk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=l82nydLKDpF2VxdZvEbPkxofMC9e0MnGeJNdrCl73pdFhRc2nsNH6plbAfRlVo3Fn
-	 q5Fgzbdt0VCG3lY+nzwn0xuEPuCmA9bwtsy+5nGVHhKbpdimJbSZb5nnM5unplezrP
-	 00YC0TfE2M+pT1VAqHxUXW1OjS8a+v01jWLJGLwPPE4LBldRpyRI7zLdMqc+WirBnU
-	 uF9gcwI+0bm+ftaMsiFIGY/9z2U9HDff5e8FTKcBV7SJhHRNCmjV1L4TB08xy7oQGT
-	 Hlj+hOD2WdY+/e1N4gxHl+UJxgGdGU0NsSS2cn415p4ITJzMXhGfg1b6PpyjsJVIPv
-	 2e3pOseUgSQBw==
-Date: Thu, 27 Aug 2026 00:32:47 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Cc: Harendra Gautam <harendra.gautam@oss.qualcomm.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aMbd5GS6"
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-39da69c5ba3so12537551fa.1
+        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 16:38:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787787509; x=1788392309; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Pn5cuibYSV1eGH20SoQ75z6FLNMGEndFYPOvwFpT6w4=;
+        b=aMbd5GS6znl027MTkpR9BsaCElgxZNisqvUwdWkAk8orLyOkJPsuVciMP70Bx2c453
+         +AihopAuglpwsX4wIZybx5IhND+we58KYClYTBV9zNrSBn+BF04V/BpUS/kU66SQtah9
+         eLvNC3AJ0kIYRxTSeGNPd6L+BzXCeXxl2krlbxfz04AR2p6/hwW69CJ2ayWg2oWW+uH7
+         6lW2WTbkDdjD2pDJyJMfih/JVaaSpOcHK2Bs1oljN1Oh1hYplOyphHkL2++4ogp11O9k
+         OKkSkvOLL/xRNGJGBnVwS7XWrhGSYqgHstHrhwvP/5HaWjmfwLje0Aa6EjxP9ngEctEV
+         BK2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787787509; x=1788392309;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Pn5cuibYSV1eGH20SoQ75z6FLNMGEndFYPOvwFpT6w4=;
+        b=h0Ow6V6PRzvNSveFBtvbkYvbgtpU+w6sP8k++7s2nnNdnMv8+P1rVuP9zXSKDmCxyR
+         LnHxou3dbr4mYow15eJ0btsA7ivbF5/4xsiZ70Q5su4+t5cwKFpoFuZ8WLoDYsgeDpsx
+         CXEEGS2ZwkEEywCwUwc9w9VNK9nFt6PANsI8fq8aDOD278oAYWzd5jKU9le/E9B3UjMR
+         kHroB2vmHtxHvDfP9g7qIhiCWFqkwACMYqJ0Hy2Xq6g2bEKdchot53/E4xZUDwvwnTRv
+         QGtmcw6rlKWlmvxx6xnYffLzdKy/XV34A8vh63FebzZGD8SMG184h8j2cBfMMx/M8Dh0
+         yjiA==
+X-Forwarded-Encrypted: i=1; AHgh+RrjbOXIxOduWe0e4pb6DxxubGD8YHKF4aZZr9uXyAu0Le3g/eehVafwxrj4EbLKTRQNImpp1V4g5N3f@vger.kernel.org
+X-Gm-Message-State: AFuF++mGzEL6wHAg2CHdfOg0QYRfyKH+c1W4SG+Xa44vTyqG845yv15L
+	LSGu5+TXdB4Kst46PJaUWt8+LLu0XI934CJoVbOOXY9tRYbdIaS/dwOgTrQiyKzb2Us=
+X-Gm-Gg: AR+sD10K2JfAApO/Ubtje8nfKGAbrZx0CevC2QZWw6dJnXSCSQhJ3GRbCKGVh0DD1Sc
+	ml3ZzRkEdWXOVXd2T1Mvjgp+GX1o3Ts2iu7RggPFJ6mhSzfmS4B9sti5mU/5ilR2nz/SuTS3Fob
+	cAu5+bJicvOzm1I2ILTO1kaDNXTi5dw8iChIC9EtJr/o/XnjvJ71NlJlOTSNERkkt9E6BI0OtdP
+	TBNDF/T0OMLitNeLuh9iEm2nHl3tr76SKjhqsUT+3xvuKaAXRxm5z7F/gSEA+RU45+OynfZgSWK
+	UyX9fsMrqauryMk8AX0Igw/GhmGa92shFJVYcX2GctoRB+ckZDdmJKwApddQZQSz86kA/1rX8IF
+	EWqPKT9fAyfQtWfB5u6gLzGNxMNwuJKtJgMpltsh7DwFLrv9gRcx9O46I0YHls7IMXwaUcMpNXi
+	L+kDyowjBsDH8WFPJLFuExCNESTg/Ipl/qy6Q0OkCQKRH032fmIPPanoqQnyvI+RYaPGAKtlTn1
+	Mt5GS0YQGXuC8M1W/KksFtcV8pAstaamLNfu0Oy
+X-Received: by 2002:a05:6512:3b83:b0:5b4:74ca:b5c4 with SMTP id 2adb3069b0e04-5b4a909b296mr3384719e87.17.1787787508779;
+        Wed, 26 Aug 2026 16:38:28 -0700 (PDT)
+Received: from notebook ([93.189.200.242])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b4a41ae602sm873550e87.56.2026.08.26.16.38.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 16:38:28 -0700 (PDT)
+From: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
-	Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>
-Subject: Re: [PATCH v3 1/9] ASoC: dt-bindings: qcom,qaif-cpu: Add binding
-Message-ID: <d59bd8cc-8b88-4529-8a3c-45358f9ba6c1@sirena.org.uk>
-References: <20260824063627.3595610-1-harendra.gautam@oss.qualcomm.com>
- <20260824063627.3595610-2-harendra.gautam@oss.qualcomm.com>
- <bf6e42b4-ff21-4b6c-a7d5-024e5b9a7da4@oss.qualcomm.com>
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Caleb Connolly <caleb@connolly.tech>,
+	Frederic Laing <dev@fredfunk.tech>,
+	Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
+Subject: [PATCH] arm64: dts: qcom: sdm845-oneplus: fix fuel gauge compatible
+Date: Thu, 27 Aug 2026 02:38:18 +0300
+Message-ID: <20260826233818.124278-1-rinat.muhamedgaliev@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="OlcSBZzqcGkzr3xy"
-Content-Disposition: inline
-In-Reply-To: <bf6e42b4-ff21-4b6c-a7d5-024e5b9a7da4@oss.qualcomm.com>
-X-Cookie: Obey all traffic laws.
+Content-Transfer-Encoding: 8bit
 
+The fuel gauge at I2C address 0x55 on OnePlus 6T (fajita) reports
+DeviceType 0x0541, identifying it as a TI bq27541 rather than bq27411.
 
---OlcSBZzqcGkzr3xy
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Binding it as bq27411 selects the wrong register map and produces
+invalid voltage, state-of-charge, and temperature readings. Use the
+bq27541 compatible and rename the shared label along with its fajita
+and enchilada consumers.
 
-On Wed, Aug 26, 2026 at 02:01:52PM +0530, Mohammad Rafi Shaik wrote:
->=20
->=20
-> On 8/24/2026 12:06 PM, Harendra Gautam wrote:
-> > QAIF routes audio between system memory, external PCM/TDM/MI2S serial
-> > interfaces and the internal Bolero/WCD codec. Platform Devicetree files
-> > need a binding to describe the controller resources, DAI cells and per-
-> > interface AIF configuration, and named constants to avoid raw numeric I=
-Ds
-> > in sound-dai references and child-node reg values.
+Tested on OnePlus 6T (fajita): queried DeviceType directly over I2C,
+built the DTB, booted it once with fastboot boot, then installed a
+locally built postmarketOS kernel package. Before the change, readings
+included about 65 V, over 10000% SOC, and -273.1 C. Afterward, the
+bq27xxx driver bound as ti,bq27541 and reported 3.835 V, 42% SOC, and
+33.3 C.
 
-Please delete unneeded context from mails when replying.  Doing this
-makes it much easier to find your reply in the message, helping ensure
-it won't be missed by people scrolling through the irrelevant quoted
-material.
+Fixes: 12dfb002ca01 ("arm64: dts: qcom: sdm845-oneplus-*: add fuel gauge")
+Closes: https://gitlab.com/sdm845-mainline/linux/-/issues/36
+Link: https://gitlab.com/sdm845-mainline/linux/-/merge_requests/148
+Signed-off-by: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
+---
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi   | 4 ++--
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts | 2 +-
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts    | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
---OlcSBZzqcGkzr3xy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqPd54ACgkQJNaLcl1U
-h9Avxwf/Wguq/Ho9ljE0UDWZisjdl0Th051ywArm/+8Ij9ov/Ch5+CVn1h55nLSI
-CuXqgjZ7fBlhiSoNMpmeD6KBdAAY3YEI8G/iIiXZ8T+YVpxR8ScVzif8t9OiZ2Xt
-LT0/1tEhNvo3S2krpWJA3BRaBcXJC1QLTJpQ0Go14SpoYRizhCvniIDbIqmqf6sI
-lTosNdBlwiAVx0m63O8qvFWmYi/vjthOcWbwX/Omixf51BHYGLOIIRs9DK3auslM
-zhKHU0CP54Iggw+wsKEucQTpWNkWxTbhwll3Fdicg890LoI5a4LWhjO00ObNgyG3
-sDMjsDrr7D9KFaxwcdfoSa1Ir60pQw==
-=vAdf
------END PGP SIGNATURE-----
-
---OlcSBZzqcGkzr3xy--
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+index 948a0dd18..0c6203fa8 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+@@ -790,8 +790,8 @@ &i2c10 {
+ 	status = "okay";
+ 	clock-frequency = <100000>;
+ 
+-	bq27441_fg: bq27441-battery@55 {
+-		compatible = "ti,bq27411";
++	bq27541_fg: bq27541-battery@55 {
++		compatible = "ti,bq27541";
+ 		status = "okay";
+ 		reg = <0x55>;
+ 	};
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+index 5f01115e2..21ebd3f67 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+@@ -44,7 +44,7 @@ main_cam_ois: main-cam-ois-regulator {
+ 	};
+ };
+ 
+-&bq27441_fg {
++&bq27541_fg {
+ 	monitored-battery = <&battery>;
+ };
+ 
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts b/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
+index 7ffcad24d..d640b38b5 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
+@@ -67,7 +67,7 @@ tfa9894_codec: tfa9894@34 {
+ 
+ };
+ 
+-&bq27441_fg {
++&bq27541_fg {
+ 	monitored-battery = <&battery>;
+ };
+ 
+-- 
+2.55.0
