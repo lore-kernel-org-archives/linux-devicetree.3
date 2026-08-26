@@ -1,38 +1,38 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50B973B7B6B
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 09:50:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40FA53C2B80
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 09:51:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787737862; cv=none; b=Mi+X84fkHDIgAee4jvKDpSuVoGS9AwRJTA4E25X9ortm83Ud+h6j41dl6taSYexImiJ6uKAc303CILiWJrGVe9++XAFcQMRAf34UwlWXBYR3pGFycQs21rNy1FM0NfdlZsb0EiBRg77cwt9Ip8VqfIrEzH5K2d5Gj/tFxEFPFkg=
+	t=1787737869; cv=none; b=teaeihLe3qATb0GoLSwtowN7js/L/SzaE86mJPNfxMo0Zdu9WTxw8C8GC8qVi03cqHcCvqlT4/i2m/ysMQAiDwa/eGrsMEJYyhdvxx7CX8TnPFQnwrs3f2AlqqrdFt/+UHkKkwO2wlYagbLgWrM0qPNFxV9dvAJMUjcwxf6dRx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787737862; c=relaxed/simple;
-	bh=RdBFkMecL4wuSKPo/cQyMycG1M2ORqtMZfHz2lQEras=;
+	s=arc-20240116; t=1787737869; c=relaxed/simple;
+	bh=OSkeY49k2KlTNyWcWpeZ9nLjye2bfNs0OFn7IHaXvDM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=B5XxddcfbP5vst6PfTUfcAOP2rbMiHRFlbMHDZIcb7KfcZ8IG3JXRkWUaPuTGqtvndVBPIESXb5m8J/uQVRC/lBC2pIMIKSpGgM8zRaQ/Wv1AuvKi9qnCDKQo0dtWkt3WxmDAdcMQ5ULrbtH+XbH9RAW31YcOODorCHJBROrdhM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=TO4rmgGI; arc=none smtp.client-ip=185.246.84.56
+	 MIME-Version; b=gW3SYNXBEU8ljUqp4Z/VO+gavPKvPqvixWsr++73m7g13zzCUQ+2Y5sZQO2CXjvvRsdww4j7cMjEKLmvfBt3XC+a7wRc6MZ+UGuUeWSjPjNc0wvmwziTSIrcyDIRJ9Rtr3X/pWkgWwgXX8hzPsTl5gQt75Eb4PrWJYxNcL06Oo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=iqIQxSwq; arc=none smtp.client-ip=185.246.85.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="TO4rmgGI"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="iqIQxSwq"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id C51591A183D;
-	Wed, 26 Aug 2026 09:50:54 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 56C064E413BF;
+	Wed, 26 Aug 2026 09:51:01 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 999F3604EC;
-	Wed, 26 Aug 2026 09:50:54 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3943111C7AD5A;
-	Wed, 26 Aug 2026 11:50:48 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2B34E604EC;
+	Wed, 26 Aug 2026 09:51:01 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2BCEA11C7AD61;
+	Wed, 26 Aug 2026 11:50:54 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1787737849; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1787737856; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=zbpn10RhSC4nlm/nIJyNq6oASYUb80vxfi05iGG20Rw=;
-	b=TO4rmgGI2YGv547V0QFMU9Lb/A/DZc/pXe3EZScI6iyFMjlF0spVxShKljrXZoGWaH5C7v
-	ekT5e8Mh0WOU+YM87kTocLgyeIYOL0V/pWi3z80HW+JCmTzDpjtgil8EGITalDAUQgWEgU
-	xDbfYFHyQ58XYNqRRgcGVfV+LSJFcH510D5veHTWGHN1u8LrnfIGTxAhvELkN+V4QG8dVl
-	vgxRGogDMbLoYO6VMM6UBmFmcw/P36e0AD8ojxko4Miit8oCNPwWlcnFGXHINi0ieP949M
-	bseoSBY9EaY1TtqA4C5y+jTXCGxP8V7j+tMCq5ppRklhCBBAEuyCQ4VrbxD8bg==
+	bh=f6y/P7CZOWm5zA57Sd5S8uAf7L/L4YoA6b7jKbkk6fo=;
+	b=iqIQxSwqV7NKJ075Y7P1WyA+xiljOgqluXP7muLs27LGf+Xw+ukAnEH+CKUtUEgaNJFS2J
+	bpoFqpVZIc06ePOxO5EZeViWDoTEpsgiV9iZaZuBhrzW6tfH4MabIXfnBvQ2jqVfdkninQ
+	AtdQS4ZLYAxiLK3+0BQ+OKphbQe0j2knofsdHnAHX7dkYxt69DLdgtgBYT+FV1eS54gIIt
+	VwBmjTmwU/0epZdgTFM4aIcaX8I6naUCRSIXT9ls1QgK8x7ZAnE7XuXOd/wKJBkuuu4XF3
+	oX70qqt62mngGZw1+pC06u24gLH7D3hKbGB3KUywENupieOoDA50QN4kx5BYiw==
 From: Herve Codina <herve.codina@bootlin.com>
 To: David Gibson <david@gibson.dropbear.id.au>,
 	Rob Herring <robh@kernel.org>,
@@ -51,9 +51,9 @@ Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
 	Luca Ceresoli <luca.ceresoli@bootlin.com>,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
 	Herve Codina <herve.codina@bootlin.com>
-Subject: [RFC PATCH v2 08/74] livetree: Improve get_node_by_phandle()
-Date: Wed, 26 Aug 2026 11:48:37 +0200
-Message-ID: <20260826094950.1088288-9-herve.codina@bootlin.com>
+Subject: [RFC PATCH v2 09/74] dtc: Complete REF_PHANDLE markers with ref strings and is_local flags
+Date: Wed, 26 Aug 2026 11:48:38 +0200
+Message-ID: <20260826094950.1088288-10-herve.codina@bootlin.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260826094950.1088288-1-herve.codina@bootlin.com>
 References: <20260826094950.1088288-1-herve.codina@bootlin.com>
@@ -66,72 +66,123 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-get_node_by_phandle() allows to get a node based on its phandle value.
-It checks the phandle value against value available in internal node
-structure.
+REF_PHANDLE markers lack either the ref string or the is_local flag
+depending on the device-tree input format used.
 
-This internal phandle value is updated during process_check() and so,
-get_node_by_phandle() cannot give correct results before the
-process_check() call.
+When the marker is created from a dtb blob (via FDT_PROPDATA_PHANDLE),
+only the raw phandle value is available. When created from dts source,
+the ref string is present but the is_local flag is not set.
 
-Improve get_node_by_phandle() to look at node phandle properties when
-the internal phandle value is not valid.
+Add complete_references() to fill in the missing information.
 
-This allows to return a correct matching node even if process_check()
-was not called yet.
-
-With the recently introduced FDT_PROPDATA_HANDLE dtb tag, this will be
-needed to update internal phandle references before the call to
-process_check(). Indeed, this tag allows to identify phandles and
-internal references need to be updated based on the phandle value before
-the process_check() call.
+Call the new function from build_dt_info() in order ensure that a
+dt_info is always fully complete and consistent.
 
 Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 ---
- livetree.c | 21 ++++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
+ livetree.c | 82 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 82 insertions(+)
 
 diff --git a/livetree.c b/livetree.c
-index abe73de1..a9f8c5d2 100644
+index a9f8c5d2..2ad7fd09 100644
 --- a/livetree.c
 +++ b/livetree.c
-@@ -628,16 +628,35 @@ struct node *get_node_by_label(struct node *tree, const char *label)
- 	return NULL;
+@@ -465,6 +465,82 @@ static void fill_fullpaths(struct node *tree, const char *prefix)
+ 		fill_fullpaths(child, tree->fullpath);
  }
  
-+static cell_t get_node_phandle_existing(struct node *node)
++static void complete_ref_and_is_local(struct dt_info *dti, char **ref,
++				      bool *is_local, cell_t phandle)
 +{
-+	struct property *prop;
++	struct node *refnode;
 +
-+	if (phandle_is_valid(node->phandle))
-+		return node->phandle;
++	/*
++	 * When created from a dts, the reference is available but the is_local
++	 * flag is not set.
++	 *
++	 * When created from a dtb, the is_local flag is set (and a valid
++	 * phandle value is available) but not the reference.
++	 *
++	 * Complete both ref and is_local based on existing values.
++	 */
 +
-+	prop = get_property(node, "phandle");
-+	if (!prop) {
-+		prop = get_property(node, "linux,phandle");
-+		if (!prop)
-+			return 0;
++	if (*ref) {
++		refnode = get_node_by_ref(dti->dt, *ref);
++		if (refnode)
++			*is_local = true;
++		else
++			*is_local = false;
++		return;
 +	}
 +
-+	return propval_cell(prop);
++	if (*is_local) {
++		refnode = get_node_by_phandle(dti->dt, phandle);
++		if (!refnode)
++			die("Node not found for phandle 0x%"PRIx32"\n", phandle);
++
++		*ref = refnode->fullpath;
++		return;
++	}
++
++	die("Cannot have a non local reference without a reference\n");
 +}
 +
- struct node *get_node_by_phandle(struct node *tree, cell_t phandle)
- {
- 	struct node *child, *node;
-+	cell_t tree_phandle;
++static void complete_references_internal(struct dt_info *dti, struct node *node)
++{
++	struct property *prop;
++	struct marker *m;
++	struct node *c;
++	cell_t phandle;
++
++	/*
++	 * In order to have a complete state, a REF_PHANDLE marker needs to
++	 * have a reference set (either a label or a path) and the is_local
++	 * flag must be also correctly set.
++	 *
++	 * When created from dtb, references are not present in REF_PHANDLE
++	 * markers created from the FDT_PROPDATA_PHANDLE tag. Indeed, only a
++	 * phandle value is available with this tag.
++	 *
++	 * When created from dts, references are available for REF_PHANDLE
++	 * markers but 'is_local' flag is not set.
++	 *
++	 * Completing a REF_PHANDLE marker consists in setting those fields.
++	 */
++	for_each_property(node, prop) {
++		m = prop->val.markers;
++		for_each_marker_of_type(m, REF_PHANDLE) {
++			phandle = propval_cell_n(prop,
++						 m->offset / sizeof(cell_t));
++			complete_ref_and_is_local(dti, &m->ref, &m->is_local,
++						  phandle);
++		}
++	}
++
++	for_each_child(node, c)
++		complete_references_internal(dti, c);
++}
++
++static void complete_references(struct dt_info *dti)
++{
++	complete_references_internal(dti, dti->dt);
++}
++
+ struct dt_info *build_dt_info(unsigned int dtsflags,
+ 			      struct reserve_info *reservelist,
+ 			      struct node *tree, uint32_t boot_cpuid_phys)
+@@ -479,6 +555,12 @@ struct dt_info *build_dt_info(unsigned int dtsflags,
  
- 	if (!phandle_is_valid(phandle)) {
- 		assert(generate_fixups);
- 		return NULL;
- 	}
+ 	fill_fullpaths(dti->dt, "");
  
--	if (tree->phandle == phandle) {
-+	tree_phandle = get_node_phandle_existing(tree);
-+	if (phandle_is_valid(tree_phandle) && tree_phandle == phandle) {
- 		if (tree->deleted)
- 			return NULL;
- 		return tree;
++	/*
++	 * Complete references (REF_PHANDLE).
++	 * Set ref strings and set is_local flags
++	 */
++	complete_references(dti);
++
+ 	return dti;
+ }
+ 
 -- 
 2.55.0
 
