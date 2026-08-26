@@ -1,200 +1,326 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A184F3C4552
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 10:38:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787740685; cv=pass; b=XIqz0BX4HdJGVaPO5g6vd3GQCPXpbJN26DB5L8xLNCA+mHdtrvaSlITzcF/vqF1c1dBhrlADVqIhUt0fuxfI6asPTx9au6RpQ3wVowWbZnk6su9WLKdtp2xHPLVSWS6yc0CtPkz8uzEQLQGrJI3zgu2eLw4SUNSNMlK4cjiJH1Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787740685; c=relaxed/simple;
-	bh=e/Lr729rJWGz+ybwYNJEv1Gw8F8Cga9cb4fE+B3gek0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jJiuPKgAu//Kf9YoeBDLelDICsDv/kC60kP1S7e2Ne8tLjaafAFxcDu6vEYLcHCzftaOmzF9QAwZ3OyJCz0Es8zacBQzqx3gqg+3fQMtEerJ0vJgCBv1gHCA3uEDYaUVcpQtPlvOtOmAKLXrOLqpLWr1mEQrtSZdQXsFgfFwp/c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XMIxFJEK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UTkDceyZ; arc=pass smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XMIxFJEK";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UTkDceyZ"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QAHAVr122208
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 10:38:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+Mlmuxjem4aPLL7xfct0+PRJEG19R04ojiMOoV/zU4c=; b=XMIxFJEK32OQPk/z
-	l1RXhzcHK9j6Ha9Hj3X4vMewANPLELNstzY4RnhxpU9nJkFenrNSul5bFOcTdWD3
-	ACQ1CIo/S0FHpTbYF2ZIbKhKxHDMBnjad4rRjM0ZtOuFpQ0k3a31hcu6u1z+VpcP
-	0sJkwdngSscMpLMkbk7QfgOttHNzcjasSxF4QTh8KdCY3K5RMn28loi6E9qM+94V
-	DYoCwTLFis+LoNov4b2JbmeOiVJttG62Qhu88mZMqgw45sYqRKlQ6A/8ZYQztf5B
-	5DvpNAQW1EhA4vwVHiU9syfNsEIifBxvfC7GMKxXSLnsjp5JUGDO2vMnPEj4cA5Z
-	/hUlYg==
-Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com [209.85.128.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9smx9c20-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 10:38:01 +0000 (GMT)
-Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-836cfd56077so12167767b3.1
-        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 03:38:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787740680; cv=none;
-        d=google.com; s=arc-20260327;
-        b=I82XmOhUnswUeUMfJi+Hfi/ILrpz31MhtTwV2extlMUbl5/TUuKOPdaFUtTRSdXI8R
-         TDV+GPGsU/kZY2YMNG/hJM8Bug/SS9QCVQKOxYKNHzvXaqTikN7w7lV/jSDgC8J/LgSY
-         7T7X2v6hnwWHoww0YIsl0f/21aZc9/68CBeMmtcC2arSic7mq2SFExzfxL2xRKVyhIXA
-         Xe6BcrtU1PaN1fnBh4cLkY1CReaa2wPxM6Tl4wzw+ft/TcCPSoD+h9G4bUBiUwqskYqR
-         2PLNOApqxgFySg5TwqQ8XkcKRxjx7/irQn+MVAzXTBHMQ2x7lS7j/2efqARGUeFSHz4T
-         PSHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+Mlmuxjem4aPLL7xfct0+PRJEG19R04ojiMOoV/zU4c=;
-        fh=ks8FoELjrwH0M6Vk4EYT6I0njkgKUiQs1kAybhLXfmE=;
-        b=H77Kp+wKm+u1Wr3VF8VRj8+71EAdQg5PO3FG/AMRAWMaOEDzCE3TAIDXvAGDJVBegf
-         swRk2qN/HAPM5F9/8wubcjOQOmtcflNLGNokQqOG7+so+QSPKLLjPNRCeejD5g0cgDET
-         4QkT1VnplKOt3DMZ1dCm80w3uTRI5uIJ7fIRh6ax5tRn86sMGTMpKU9G9Rq5Z3xe+v3g
-         IYDASjbovaW5uEVawJgIDnOH0z6HCkoh/iiO1h4MjY4RdSQB4IBStm05TJhWARg1DinS
-         WaHKobgf+ET+fyG2wsjY/r7rnPMI42VaZLQCTL+DTmtn0FGeMHVnYAcK+I42lS4JUGIG
-         N6Pw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787740680; x=1788345480; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+Mlmuxjem4aPLL7xfct0+PRJEG19R04ojiMOoV/zU4c=;
-        b=UTkDceyZqKC7cInfxQmy1WsIMpCQyUoOA4xOZBTwJn8yZJlU9ZvIqqr2xPHHE1m8/0
-         OUbgZ9pW4aFsLiVGSzz2K+vmgyGh0xGG/JQHw1nJei2z11ErzJALGVr5DuLS/1qgrOaA
-         1HJVOYvRfhsruG3vqvCYLqljy6+1S4aPIRZqisuuk+Ol8rem+ZgK4PWLPmb0TenEa9Nr
-         Eq+g0K6uhkk8snlARMz7O/rcQuT5aGE2zYpuuO5zNfINtlEaxqyLSqJq3fb+UYvfP809
-         9mH8IZy8efQJek9tWCRYad/2d8cshHh8gOofbcnvloqx08MGDt1vrfXr8UzhuGcIjmgX
-         Bnlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787740680; x=1788345480;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+Mlmuxjem4aPLL7xfct0+PRJEG19R04ojiMOoV/zU4c=;
-        b=fN5HVhXqZ8ObxcxeohEyiAjnbF+71hM8fuWy7nMnA4he3EwKsSVDXrrzbe4ZAdAD5Y
-         Bym8Ur9f7MQrJL0sBVnMmeeaUtBKBXAJ2AChqcIpijAm+I0+j2y7vofJpWIByH/EKX16
-         /4R58j9Oc+NRx5p6gHox0EZcqEKb81m8dw/Sw8zg0IULdqEftZRApbWP8w+Ll/2HhpB7
-         LqfTfxi3TujP0Jbx5F7C4UpIb3pBMK7wFZenqf+2JadrzDjbL64+WYMtYcxZ6SjvcN7+
-         Rjtn6Rkib6nWCfLqqyjwadEo3h3EKHF2oK6jMoV8h3WTI3HFQhBO+0wP1q5fRZcC2PqH
-         673A==
-X-Forwarded-Encrypted: i=1; AHgh+Rq5THwlk139HkwLoterybkK35c0TGtW7ZY1PO976/8LHFLP1thlI94zLqjBg81eJkZETyq9LX3By6HQ@vger.kernel.org
-X-Gm-Message-State: AFuF++mQlZDsA2YypmAgyQnf9uLw9si3Wp+swTQIK8jAQxiFIFUDQgK2
-	eoYaILtxU30lKl06cJLUD1rlfDGAbxDJ53C6sr7IZgVXhuQ8AboWSuMmhW6XuRYTZn9PORQJrzW
-	QJsjXtwHVLBvJYX47FWaSBk1HLvsdcWCfmCraGUiReU7apRioOIs3jUcpMcVWuWD1OOvv9ekl2O
-	kcZ4dKJAtEOZ/AAKPv/y347HIIhprzS7Kzzbzq7cA=
-X-Gm-Gg: AR+sD12Ip7wGhwkJ1Lzk/D26qZFBK/I+1U/7f2x6blfxDGBEncTdB8qiaVKp+vHGp9W
-	KKs/6ALtBKH3T/c/NkFKfKenMt3olPmn6BRJWWLV+0XCj0nlgaAkxd+bNZtFfjJ5kM4ICTMTbSL
-	YeRm/s24fC4Mf3s2fJhavhv7C+2lgbC5utuKF66m4ncNaEGoC+vVfKhP7AWA==
-X-Received: by 2002:a05:690c:1a:b0:845:1064:5c03 with SMTP id 00721157ae682-8573fadc903mr27120697b3.23.1787740680143;
-        Wed, 26 Aug 2026 03:38:00 -0700 (PDT)
-X-Received: by 2002:a05:690c:1a:b0:845:1064:5c03 with SMTP id
- 00721157ae682-8573fadc903mr27120457b3.23.1787740679756; Wed, 26 Aug 2026
- 03:37:59 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E39237F322;
+	Wed, 26 Aug 2026 10:38:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.13
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787740720; cv=none; b=qIa2zh1OcsZtsSvmLVY/aUrKgYnbgBYMbizbqd5UOqC1OQHm8vkk4BD2pwhjXgJ1hPVps0AV6hWzN7wWfFpOI2x2HGj7e60fWEED24gUco8s5T/z/XF1EphVoxAoJ3I+8DRFgrwwl7LviS3XobvviHbKUadQVJWZWj9CHrcxS0E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787740720; c=relaxed/simple;
+	bh=x3IBDZqUSfFdfRql+lG30P0pSFWg+80ZFgi2I8N/dxc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ppI3XP9svEqR3lHgh8mUJ49HEC5zJz18Y5PV4ZCo6m2nz3Mn9E7q0DGW/Tx05zQd3h9en8Dh85enyyTvd3ziTv736h9HmHUc0TYEIe8oq5jPnx7ywtHVAHOCudakctM3cHNuWF7ZhoSX+rfQEstOlqQog3Ww9fvjIzZeil635kg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 4DF371A00C8;
+	Wed, 26 Aug 2026 12:38:30 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id EC12A1A02D8;
+	Wed, 26 Aug 2026 12:38:29 +0200 (CEST)
+Received: from lsv03900.swis.in-blr01.nxp.com (lsv03900.swis.in-blr01.nxp.com [10.12.177.15])
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 817E718000B6;
+	Wed, 26 Aug 2026 18:38:28 +0800 (+08)
+From: Lakshay Piplani <lakshay.piplani@nxp.com>
+To: linux-kernel@vger.kernel.org,
+	linux-i3c@lists.infradead.org,
+	alexandre.belloni@bootlin.com,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	broonie@kernel.org,
+	lee@kernel.org,
+	Frank.Li@nxp.com,
+	lgirdwood@gmail.com
+Cc: vikash.bansal@nxp.com,
+	priyanka.jain@nxp.com,
+	aman.kumarpandey@nxp.com,
+	Lakshay Piplani <lakshay.piplani@nxp.com>
+Subject: [PATCH v16 0/8] Add support for NXP P3H2x4x I3C hub driver
+Date: Wed, 26 Aug 2026 16:08:11 +0530
+Message-Id: <20260826103819.1614843-1-lakshay.piplani@nxp.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824063627.3595610-1-harendra.gautam@oss.qualcomm.com>
- <20260824063627.3595610-9-harendra.gautam@oss.qualcomm.com>
- <9c1dddb8-5f1b-4b7c-b810-64cbd6f7ccac@oss.qualcomm.com> <CAC-tS8Bwgqd8_dZcG50bbFCcVPX+=KMVzx=3Q_zh9dAzQiqSbw@mail.gmail.com>
- <d03353cd-90c2-4042-b7e5-2cab5bfd484a@oss.qualcomm.com>
-In-Reply-To: <d03353cd-90c2-4042-b7e5-2cab5bfd484a@oss.qualcomm.com>
-From: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-Date: Wed, 26 Aug 2026 16:07:48 +0530
-X-Gm-Features: AcwNN1XBYCuPhgbUzFIDpZZP4PB_1GNeNQnN5gU4WnrdKYte1HfRJE3iB1kMShw
-Message-ID: <CAC-tS8CSyrxdLJ773WA2uvXry3=Gwiks1TFG4z8N7rs2d3EHKQ@mail.gmail.com>
-Subject: Re: [PATCH v3 8/9] ASoC: qcom: Add Shikra QAIF support
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Cc: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
-        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=O/oJeh9W c=1 sm=1 tr=0 ts=6a8ec209 cx=c_pps
- a=72HoHk1woDtn7btP4rdmlg==:117 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8 a=ykc42Gtf8Ew0kkRZKZcA:9
- a=QEXdDO2ut3YA:10 a=kA6IBgd4cpdPkAWqgNAz:22
-X-Proofpoint-GUID: l8CJ9JqYgF5VUNqtgOtjI7yWFrdumZkx
-X-Proofpoint-ORIG-GUID: l8CJ9JqYgF5VUNqtgOtjI7yWFrdumZkx
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDA4OCBTYWx0ZWRfX6M2wzYTDRz7d
- dpyV3kv9LCTiIVSia6oOyCTOhWIoS4QrMu1H9jQb8k8WgKWxyy6fPdmM5Bf8InMpWPh1bXOhgXg
- woH9tGDgMDnFOTtOAOJsi6rOrTuqioF4MCFEYhzjKSMn7PGv8A/biYTRb1VBXHw/x1iULhXcBv5
- bQOg33BfKgqO/nR1Xdz774WojzUujBfG/1p2HQCX0bYoU+h4u4dcPorbae6h7+IJPzvs7Elru0j
- fKRoQ9E72P6XYgpFHPqGU3GpXR7Svv1gI08PLnS4jLMQWQXeifTnp/Z01crSy+zL1iGj9kjeHhI
- mexJIcfxYf4MjCcT3JEZIePQZOyuwkJhxocHqkL/IQcZjQFMyrTS2QDuuSkNLABr3PR98Ki/lwv
- MADCyvswfQEoFoDeEYBtkCEbCIHGeQruUyCBrOscHJgEewHW0zwFAgEK19k2D1raKSKHw4aNz7z
- /ooZpm9/yUYRcZz+jHg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDA4OCBTYWx0ZWRfX0ykJdQPxCSd/
- I/KhWbv14FK+rA+5wOzRQHQmIdSp5RizztXuCsNtr46sPshWgnYwlcCivclQnPoDpKKdZvjHeMX
- SQuO44qikmDz2qLjqJVRzPiJFsIzo6s=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-26_03,2026-08-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 spamscore=0 adultscore=0 impostorscore=0
- lowpriorityscore=0 clxscore=1015 bulkscore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260088
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-On Wed, Aug 26, 2026 at 3:43=E2=80=AFPM Srinivas Kandagatla
-<srinivas.kandagatla@oss.qualcomm.com> wrote:
->
-> On 8/26/26 9:58 AM, Harendra Gautam wrote:
-> >>> +             .id =3D QAIF_CDC_DMA_RX0,
-> >>> +             .name =3D "CDC DMA RX0",
-> >>> +             .playback =3D {
-> >>> +                     .stream_name =3D "WCD Playback0",
-> >>> +                     .formats =3D SNDRV_PCM_FMTBIT_S16,
-> >>> +                     .rates =3D SNDRV_PCM_RATE_48000,
-> >>> +                     .rate_min       =3D 48000,
-> >>> +                     .rate_max       =3D 48000,
-> >>> +                     .channels_min   =3D 1,
-> >>> +                     .channels_max   =3D 2,
-> >>> +             },
-> >>> +             .ops    =3D &asoc_qcom_qaif_cif_dai_ops,
-> >>> +     }, {
-> >>> +             .id =3D QAIF_CDC_DMA_RX1,
-> >>> +             .name =3D "CDC DMA RX1",
-> >>> +             .playback =3D {
-> >>> +                     .stream_name =3D "WCD Playback1",
-> >> No dai for WCD capture (or) it's missing in this patch.
-> >>
-> >>
-> >> Best Regards,
-> >> Rafi.
-> >>
-> > On Shikra, capture is always through the VA Macro, irrespective of
-> > whether the source is WCD AMIC or MSM DMIC and the stream_name is only
-> > a descriptive identifier.
->
-> WCD naming is totally incorrect w.r.t this driver, WCD is external
-> codec, which can be connected to any dai. QAIF just exposes FE dais It
-> should not have any codec level information either as names or any other.
-> Pl remove and use the correct naming which reflect the dai name w.r.t to
-> QAIF.
->
-> --srini
-Thanks for the suggestion. Will have consistent and correct naming in
-the next version.
--Harendra
->
-> > -Harendra
->
+This series adds support for the NXP P3H2x4x family of multi-port I3C
+hub devices, including their on-die regulators and downstream I3C/SMBus
+target ports
+
+The series introduces:
+- Core I3C master enhancements required for hub support
+- Generic I3C hub framework
+- MFD driver with regulator and I3C hub child drivers for the P3H2x4x I3C hub
+
+The dependency order within the series is:
+
+- Patches 1 and 2 provide the I3C core helpers required by the generic
+  I3C hub framework
+- Patch 3 provides the P3H2x4x Device Tree binding
+- Patch 4 provides the MFD parent required by both the regulator and
+  P3H2x4x I3C hub child drivers
+- Patch 5 provides the regulator child driver and depends on patch 4
+- Patch 6 provides the generic I3C hub framework and depends on the
+  I3C core changes in patches 1 and 2
+- Patch 7 provides the P3H2x4x I3C hub child driver and depends on
+  patches 4 and 6
+- Patch 8 extends the P3H2x4x hub driver with SMBus slave mode support
+  and depends on patch 7
+
+Changes in v16:
+- Rename the controller-only helpers with a "_locked" suffix to
+  make the parent-bus locking contract explicit, route IBI slot recycling
+  through the controller helper, and destroy the generic IBI workqueue when
+  request_ibi() fails
+- Fix a lockdep "recursive locking" false positive on the hub forwarding path
+  by giving the virtual bus lock and hub routing mutex per-nesting-depth
+  lockdep classes
+- Fix parent-bus dynamic-address reservation to reserve by assigned-address
+  and only when the slot is free, avoiding ENTDAA collisions
+- Make downstream reattach atomic against asynchronous IBI and reject it while
+  an IBI is live; detach IBI-lifetime invariant documented and checked with
+  WARN_ON_ONCE; underlying core IBI teardown fix deferred (known I3C-core
+  limitation)
+- Tighten the target-port reg schema (explicit minimum 0, maximum 7, and
+  maximum 3 for four-port variants)
+- Do not ignore regulator-enable failures during hub configuration
+- Widen the SMBus poll deadline to the datasheet SDA-stuck/SCL-low recovery
+  window and use DMA-safe buffers for controller-agent and SMBus-agent
+  transfers over I3C
+- Advertise I2C_FUNC_SLAVE only when CONFIG_I2C_SLAVE is enabled, reject slave
+  registration unless the upstream I3C device and IBI path are available, and
+  always clear the software slave state on unregister
+- Validate the SMBus-agent IBI payload length and bound the target-port loop
+  by num_target_ports before dispatching receive events
+- Link to v15: https://lore.kernel.org/linux-i3c/20260817103844.2142802-1-lakshay.piplani@nxp.com/T/#u
+
+Changes in v15:
+- Replace the direct attach and detach APIs with controller-only helpers
+  that do not modify address-slot state, device lists or generic IBI
+  lifecycle state
+- Add controller-only helpers for device attach, reattach and detach,
+  and for requesting, freeing, enabling, disabling and recycling IBI
+  resources
+- Rework the generic hub architecture to keep downstream logical device
+  descriptors associated with their virtual controllers
+- Add a permanent parent-facing descriptor for each downstream device
+  and use it for operations handled by the physical parent controller
+- Remove temporary descriptor reparenting and temporary hub dynamic
+  address replacement from downstream transfer paths
+- Forward downstream private transfers and the complete IBI lifecycle,
+  including IBI slot recycling, through the parent-facing descriptor
+  with appropriate parent-bus locking
+- Add binding and MFD support for the P3H2440, P3H2441, P3H2840 and
+  P3H2841 variants
+- Fix the target-port reg schema and update the binding examples to use
+  SMBus target-port nodes
+- Read the device capability register to determine whether the device
+  provides four or eight target ports
+- Configure and register only the target ports implemented by the
+  selected device variant
+- Preserve the MFD parent's driver data and store the hub context in the
+  shared MFD structure for use by IBI callbacks
+- Validate target-port types and indices while ignoring non-target-port
+  children, such as the regulators node, during Device Tree parsing
+- Correct the SMBus transfer timeout calculation for 400 kHz operation
+- Use I2C adapter quirks to enforce the maximum supported read and write
+  payload lengths
+- Publish callback-visible SMBus adapter state before adapter
+  registration and roll it back if registration fails
+- Rework SMBus slave registration and unregistration to use the shared
+  protected-register lock and update software state only after the
+  corresponding hardware operation succeeds
+- Update the MFD source description to identify the device as an NXP
+  P3H2x4x multi-port I3C hub instead of referring to it as an "MFD
+  device driver"
+- Link to v14: https://lore.kernel.org/linux-i3c/20260714092053.2461482-1-lakshay.piplani@nxp.com/T/#u
+
+Changes in v14:
+- Add i3c_master_register_fwnode() for virtual I3C masters and use it instead of temporarily changing
+  parent dev->of_node
+- Add runtime PM handling in i3c_master_send_ccc_cmd()
+- Export i3c_bus_maintenance_lock()/unlock() and use them in hub paths
+- Fix IBI request/free cleanup to handle forwarded callbacks that clear dev->ibi, and destroy the
+  allocated IBI workqueue on request failure
+- Add a shared MFD protected_reg_lock and use it for protected register accesses across P3H2X4X
+  child drivers
+- Rework regulator protected-register handling to restore the original protection state after
+  each operation
+- Serialize hub route selection around DAA, CCC, private transfer and IBI paths
+- Hold the parent maintenance lock across temporary hub address reattach, transfer and address
+  restore
+- Fix SMBus polling interval calculation
+- Clean up already registered SMBus adapters on adapter allocation or registration failure
+- Fix SMBus slave receive status handling by clearing receive flags on error paths, using FIELD_GET()
+  and explicitly clearing overflow status
+- Link to v13: https://lore.kernel.org/linux-i3c/20260701065755.2067793-1-lakshay.piplani@nxp.com/T/#u
+
+Changes in v13:
+- Fix I3C master address management in direct attach/detach paths by using i3c_master_get_i3c_addrs()
+  adding rollback on failure, skipping master self attach/detach, and properly releasing addresses to
+  avoid stale state and use-after-free issues.
+- Export and document address slot helper APIs for I3C hub support.
+- Reserve parent bus address slots for downstream devices with identical static and assigned addresses
+  by parsing target-port DT nodes prior to virtual controller registration, preventing DAA conflicts.
+- Keep broadcast RSTDAA blocked with added documentation, and clarify intentional no-op callbacks
+  and pending TODOs (e.g., IBI slot recycle).
+- Rework SMBus transaction handling to use polling instead of fixed delays
+  avoiding premature reads and data corruption.
+- Fix DT handling issues by preventing duplicate target-port node leaks and restoring dev->of_node
+  after temporary modification.
+- Improve resource management using devm-based cleanup for DT nodes, IBI setup, adapter unregister
+  and register relock paths.
+- Make IBI setup optional and robust to avoid probe failures on unsupported platforms, with proper cleanup.
+- Fix SMBus slave receive path by improving buffer handling, event delivery, and handling of unregistered ports.
+- Strengthen concurrency handling with proper locking around shared state.
+- Link to v12: https://lore.kernel.org/linux-i3c/20260617110355.1591844-1-lakshay.piplani@nxp.com/T/#u
+
+Changes in v12:
+- Rebased on i3c/next
+- Dropped patches 1/9 and 2/9 from v11 as they are already applied
+- Add address check in i3c_master_direct_detach_i3c_dev_locked() to skip
+  detach for unaddressed devices
+- Drop redundant depends on I3C from config I3C_HUB
+- Return -EOPNOTSUPP for unsupported I2C transfers in the generic hub ops
+- Correct default pull-up and drive-strength values
+- Add devm cleanup for the IBI request/enable path
+- Remove dead code and simplify cleanup by relying on devm-managed resources
+- Fix SMBus slave client NULL handling and unregister cleanup
+- Link to v11: https://lore.kernel.org/linux-i3c/20260612111816.3688240-1-lakshay.piplani@nxp.com/T/#u
+
+Changes in v11:
+- Convert i3c_master_supports_ccc_cmd() to return bool and align
+  semantics with CCC support checks used by the I3C core
+- Use MFD_CELL_NAME() for child device registration
+- Rename driver names to follow subsystem conventions:
+     - Use '-' instead of '_' in driver names
+     - Drop the "_drv" suffix from driver names
+- Fix virtual hub address reattach handling and parent bus locking
+- Fix IBI request and cleanup error paths
+- Improve SMBus slave mode payload validation and parsing
+- Link to v10: https://lore.kernel.org/linux-i3c/20260525064209.2263045-1-lakshay.piplani@nxp.com/T/#u
+
+Changes in v10:
+- Rename i3c_master_reattach_i3c_dev() to *_locked to reflect required
+  bus locking
+- Rename i3c_master_direct_attach_i3c_dev() and i3c_master_direct_detach_i3c_dev()
+  to *_locked, as these APIs must be called with the bus lock held for write
+- Drop redundant is_p3h2x4x_in_i3c flag from p3h2840.h
+- Remove unnecessary ibi_lock handling in request/enable/disable/free
+  IBI APIs
+- Remove redundant parent pointer from struct i3c_hub and derive upstream
+  master from hub_dev
+- Split SMBus target/slave mode support, including IBI and MCTP receive handling,
+  into a separate patch
+- Link to v9: https://lore.kernel.org/linux-i3c/20260420105222.1562243-1-lakshay.piplani@nxp.com/T/#u
+
+Changes in v9:
+- Renamed macros to follow consistent uppercase naming conventions
+- Made REGMAP selects in the P3H2X4X MFD Kconfig conditional, to avoid I3C/I2C dependency issues
+- Referenced i3c.yaml and i2c-controller.yaml for child bus nodes
+- Dropped unnecessary #address-cells and #size-cells from child nodes
+- Added CONFIG_I2C_SLAVE guards where necessary to avoid build errors when I2C slave support is disabled
+- Link to v8: https://lore.kernel.org/linux-i3c/20260323062737.886728-1-lakshay.piplani@nxp.com/T/#u
+
+Changes in v8:
+- Add compatible in i3c example
+- Link to v7: https://lore.kernel.org/linux-i3c/20260319112441.3888957-1-lakshay.piplani@nxp.com/T/#u
+
+Changes in v7:
+- Fix kernel-doc warnings across I3C core and hub code
+- Rework DT binding schema and examples to pass dt_binding_check
+- Update MFD Kconfig to use I3C_OR_I2C
+- Convert CONFIG_I3C_HUB to tristate
+- Remove unnecessary CONFIG_I2C_SLAVE guards
+- Replace custom helpers with find_closest()
+- Use devm_regulator_get_enable_optional()
+- Link to v6: https://lore.kernel.org/linux-i3c/64c5070c-aa9e-427a-933e-91e168f0510c@kernel.org/T/#u
+
+Changes in v6:
+- Update DT binding with vendor-prefixed properties
+- Add generic I3C hub support
+- Remove generic code from P3H2x4x driver
+- Link to v5: https://lore.kernel.org/linux-i3c/20260206120121.856471-1-aman.kumarpandey@nxp.com/T/#u
+
+Changes in v5:
+- Update supply naming and descriptions
+- Improve MFD Kconfig/Makefile ordering
+- Link to v4: https://lore.kernel.org/linux-i3c/20260113114529.1692213-2-aman.kumarpandey@nxp.com/T/#u
+
+Changes in v4:
+- Split driver into MFD, regulator and I3C hub parts
+- Update I3C master for hub support
+- Fix DT binding issues
+- Link to v3: https://lore.kernel.org/linux-i3c/20250811-bittern-of-abstract-prestige-aaeda9@kuoka/T/#u
+
+Changes in v3:
+- Add MFD support for hub and regulators
+- Add regulator integration
+- Link to v2: https://lore.kernel.org/linux-i3c/17145d2f-5d07-4939-8381-74e27cde303c@kernel.org/T/#u
+
+Changes in v2:
+- Fix DT binding warnings
+- Refine DT parsing logic
+- Link to v1: https://lore.kernel.org/linux-i3c/822d6dca-b2c6-4439-ade5-219620ebc435@kernel.org/T/#u
+
+Aman Kumar Pandey (5):
+  i3c: master: Add APIs for I3C hub support
+  dt-bindings: i3c: Add NXP P3H2x4x i3c-hub support
+  mfd: p3h2x4x: Add driver for NXP P3H2x4x i3c hub and on-die regulator
+  regulator: p3h2x4x: Add driver for on-die regulators in NXP P3H2x4x
+    i3c hub
+  i3c: hub: p3h2x4x: Add support for NXP P3H2x4x I3C hub functionality
+
+Lakshay Piplani (3):
+  i3c: master: Add controller-only device operation helpers
+  i3c: hub: Add support for the I3C interface in the I3C hub
+  i3c: hub: p3h2x4x: Add SMBus slave mode support
+
+ .../devicetree/bindings/i3c/nxp,p3h2840.yaml  | 324 +++++++
+ MAINTAINERS                                   |  15 +
+ drivers/i3c/Kconfig                           |  15 +
+ drivers/i3c/Makefile                          |   2 +
+ drivers/i3c/hub.c                             | 798 ++++++++++++++++++
+ drivers/i3c/hub/Kconfig                       |  11 +
+ drivers/i3c/hub/Makefile                      |   4 +
+ drivers/i3c/hub/p3h2840_i3c_hub.h             | 362 ++++++++
+ drivers/i3c/hub/p3h2840_i3c_hub_common.c      | 416 +++++++++
+ drivers/i3c/hub/p3h2840_i3c_hub_i3c.c         | 171 ++++
+ drivers/i3c/hub/p3h2840_i3c_hub_smbus.c       | 654 ++++++++++++++
+ drivers/i3c/internals.h                       |  14 +
+ drivers/i3c/master.c                          | 395 +++++++--
+ drivers/mfd/Kconfig                           |  13 +
+ drivers/mfd/Makefile                          |   1 +
+ drivers/mfd/p3h2840.c                         | 168 ++++
+ drivers/regulator/Kconfig                     |  10 +
+ drivers/regulator/Makefile                    |   1 +
+ drivers/regulator/p3h2840_i3c_hub_regulator.c | 284 +++++++
+ include/linux/i3c/device.h                    |   2 +
+ include/linux/i3c/hub.h                       |  94 +++
+ include/linux/i3c/master.h                    |  17 +
+ include/linux/mfd/p3h2840.h                   |  41 +
+ 23 files changed, 3757 insertions(+), 55 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
+ create mode 100644 drivers/i3c/hub.c
+ create mode 100644 drivers/i3c/hub/Kconfig
+ create mode 100644 drivers/i3c/hub/Makefile
+ create mode 100644 drivers/i3c/hub/p3h2840_i3c_hub.h
+ create mode 100644 drivers/i3c/hub/p3h2840_i3c_hub_common.c
+ create mode 100644 drivers/i3c/hub/p3h2840_i3c_hub_i3c.c
+ create mode 100644 drivers/i3c/hub/p3h2840_i3c_hub_smbus.c
+ create mode 100644 drivers/mfd/p3h2840.c
+ create mode 100644 drivers/regulator/p3h2840_i3c_hub_regulator.c
+ create mode 100644 include/linux/i3c/hub.h
+ create mode 100644 include/linux/mfd/p3h2840.h
+
+-- 
+2.25.1
+
