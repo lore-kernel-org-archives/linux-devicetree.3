@@ -1,348 +1,187 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012006.outbound.protection.outlook.com [52.101.66.6])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB5263A784F
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 17:02:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.6
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787763785; cv=fail; b=ef6hjZ9QhRO5Ee0MQmFPvyV3Wuxhe0+Wnu5yL/kAw4TBR5DhFzoxkkwgVbIZ2MAkkIFQE99KmV7CqL990GsbQlirASYl305JiZu+H8KQ1X6y1xpyxTGWq9q/IxQa6y4fgCaioRW+82WaM9fEW/CR2JdiIZKIr2prADxzMsa1jYQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787763785; c=relaxed/simple;
-	bh=oZlGAcFvEsLCWHoSnZqq16n+CrOGwhRa6oZZ7WvIVtQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=RpRwp5YZkpSZ2dp9NQTFuLC5tn+vHlAILSFniVkECBhjVMCj8JFWFI2TGKJzrh+AfdijTxgM8DxdG12UQk73B7nwie/3i6wMBZM9gqXu5xydicHa+Yc+RvkxHwpwX+Tjm1Spds/zubY57paNbBb1g66joRlL52SsisX9B3qL0C8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ob9u+NdB reason="signature verification failed"; arc=fail smtp.client-ip=52.101.66.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD3033939DB
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 17:03:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787763820; cv=none; b=M8S7sfTgmtGusbWBwUZV3X/TAEPLNH6iebuCDvsaKAuPS04S9xdpwsHLHEQ2BRCmVZfaxJgK4tPHvF2onsov6LM2QE2phTW1cHA7BVkEYNT/Bf2QuTdu9ORSOQW4LmiTeEPj0lCNlGYvP0USN1NJNe6qONtM409GbeMTQlrxT1Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787763820; c=relaxed/simple;
+	bh=Lg7dXbsjKWPkmEu+dtLIuTi/8F0mqFp8EHzxlsCI39I=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=EW3bBII1c7R7pj7pcC/N19QmoRqAicMkMU6MllE3KPB6MPCbRBvmiW/W83WheawPRWviooz9KzkcyoI+bOxS4Md6t6a2aD7uV2ay6SkdWRxIjcN7pAfUTsemRlQZhGCkSMtD4NTT3WvIoX4G7L3uLI655LxcCFigdY2SZvEWEXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=F0bRzxKr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=G2U0BV+m; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ob9u+NdB"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xriAw2P2I8TeAsR6wtDZYq3P6fnq+5NKXHluhS5pIHbWiaTdztRjPrcSRtZH351BQdkosHsykYPYDurBq7b1t8nAKJdHQ1NF5w3bFpKLU8nepiboHokMKw0kYqp6m7JeMVJ5NVjZBMuKaFL2W20yP/eo6zLpOD2BLxFrnBNnlZdNDGE6tkuMHLbUI5oF9fkmjSHzTc9xMhzHY5Qn004f6Mb3aEW9Tfk0HTtvKdFTyCvXiqAtFb3n9B9n4wwlSBAX09goHKlxgpEeKq7SfHD75nTKd5UC/PcO8NFHq8p2z8A7PlEa+Lr8cFhiyA7NT2XN0FgrKHniZ984bhj/bTRBbA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=c1agTrQ1EMQhbfoUw3uLoSQwjB09JKIdHxMnlK72o9A=;
- b=qL8+MnLSU4hzCDraPK4mw6dPqyeK7xRxTZ193KQJxL4hFRK55VIgfIGer4NdoZrK23O8WQ0j+y78CRXrXRWAS1eZNfQNJxxZsX/BltdDb1+OtoywgcctkbZOuYyiKHn5E1bad+LJtq9q4RLizO/JCRiuWHYup3MmaKUzza62Gr2UIW+oX1LUms2R5GaMdMqIAAWOi8gJwRK+VrDoe4w5iBK/I7bRk01c7Vm4719bqgJtAAUxxPuOm2PylH9MnUcGyHas7+rb9o0laWNv0389btEjHQkIO60bms+Vs+LF4RieQvJx9+M1CnmoSMLlCH7aQSmUWE4pjpFAX3Ub2jSlJA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c1agTrQ1EMQhbfoUw3uLoSQwjB09JKIdHxMnlK72o9A=;
- b=ob9u+NdBvKFOREEDardfd4KB9y+WMusdj0ZkpFOIdxB+/afHLk26ppzwstS0Uwcc+XsjZ/9Tmy4L7ddlXoxUi3N0+HcL5neHkRAKTdjWMhgaTdMkZxblIjQb+0cf4WP3JU1Axh0cDxJqCv1ygXG8ByuVDEtfXoFPYXbxar8ZEzJapt9okhPiKQWRmh7zNLAL/mpBMI29RHD2YvulMKAY0NWjYffcmGsj9J0DVwinhHUtRgAQlcXjW7EYEI27wi7xrAD2RUGZkgjBS7wY/kCAifU6XIe01Qi/cttDowQE62dB9hA1OLWzL0vQ0gvG3UIEg6xAE/mNEsUjspkFCtmF6w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from VI0PR04MB11784.eurprd04.prod.outlook.com
- (2603:10a6:800:2ea::12) by VI1PR04MB6941.eurprd04.prod.outlook.com
- (2603:10a6:803:12e::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Wed, 26 Aug
- 2026 17:02:51 +0000
-Received: from VI0PR04MB11784.eurprd04.prod.outlook.com
- ([fe80::d486:debf:a139:2953]) by VI0PR04MB11784.eurprd04.prod.outlook.com
- ([fe80::d486:debf:a139:2953%5]) with mapi id 15.21.0360.006; Wed, 26 Aug 2026
- 17:02:51 +0000
-Date: Wed, 26 Aug 2026 13:02:44 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Lakshay Piplani <lakshay.piplani@nxp.com>, Frank.Li@kernel.org,
-	devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org,
-	linux-i3c@lists.infradead.org,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>
-Subject: Re: [PATCH v16 6/8] i3c: hub: Add support for the I3C interface in
- the I3C hub
-Message-ID: <ao8cNDN1IeD8teUs@lizhi-Precision-Tower-5810>
-References: <20260826103819.1614843-1-lakshay.piplani@nxp.com>
- <20260826103819.1614843-7-lakshay.piplani@nxp.com>
- <20260826110407.8FF461F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260826110407.8FF461F000E9@smtp.kernel.org>
-X-ClientProxiedBy: PH5P220CA0009.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:34a::14) To VI0PR04MB11784.eurprd04.prod.outlook.com
- (2603:10a6:800:2ea::12)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="F0bRzxKr";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="G2U0BV+m"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QGuqNr1541304
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 17:03:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	5AJD+AzP+JrrmWgE0Y5phGOHovi+llbm6aiOxr2aNhs=; b=F0bRzxKriPz3/sTj
+	2WfrgNYsR+/ABpVIeI8jZe4zgbl+25JRBrkhYloN+vFFnleIHAEvbxW3HOBFMSbd
+	Lr3FaX5JPGoBNO4AXNvchMIeI91yo6MGnzYNXe+6vKFvc0cbsfEWWEvQNVQ78EK/
+	q2cPluhf8OZ+e9tMgdZXucEsy97p6Bi3vTLqPbmv8W+empWGB1BiIHjCDp6dErEF
+	TZsNF4jzQb5NrIMIyEH8wNzERo2O2APJivTK3ngv6Ivd0q8VgtSJ2cW0m7qmdUQd
+	5ksvnXBY+XFGK9Zx5ssnRE0DwWxorDryf+eNPLF+Cvy1GKoqUy6B+4Ko1pbJyZMS
+	GEvBAg==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ga0759468-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 17:03:22 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2d6df0a1e18so17173305ad.1
+        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 10:03:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787763802; x=1788368602; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5AJD+AzP+JrrmWgE0Y5phGOHovi+llbm6aiOxr2aNhs=;
+        b=G2U0BV+mijkwAE9n0wMQ99F87jOPtBEl31BBYEf6vgbN7zYYqgJdLz9AAAOhdFL47p
+         XDdt4TKetkrWnHOd+p1FqFh2/BqfiZCA/0Ge5uDprckr3W+gPQdm1lUI6ROM7UF45Atq
+         sY6zJHt6ji9hOQvygqHBAUB00sjp5KqVeNM6oRHL4rWL3ZztXO6aAbJb/dESN9Q86wyg
+         Nu1CAR1+njpu32S9ucFF4GO4j6j0QTYEgmKfhTQT6YwVjUtVj0gKjFMjrTN0OuPKdeLP
+         gtoEFN5xO7l56nOMuB1mYsxsPSkmqIv9T0db5i6YbDm/zCTBcvyXMnq+qGhgQMEHH4+O
+         n0/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787763802; x=1788368602;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5AJD+AzP+JrrmWgE0Y5phGOHovi+llbm6aiOxr2aNhs=;
+        b=Yi67BItmix5TimD2b3dcS+GMDs1KoEsiRTozrukr7ZQP3ye8ivBKdH6xjmwlsT69xf
+         P75C6UTDEvNesM6Q9Q9wgSGzFlhDJYwePKYuNc3e2/RDFnRzB5IgmIfuNMDSEvPWPcjJ
+         LA/OzLS/MMeerPRD4vZNVu+9dFOkGa0QAGM8yIZ71yjkC+4uMi8zHRYWWyaj5rsXIh9+
+         2/eEAxYEJp0CAdyLWmdl+ahTXD6fvIKecmmlDzet8f1e4sXY/2Mlp1GMdKJurUighaS3
+         wdn90T7SrEO/9fIvIIcvPw1px/OldfuCWWfYiZH6srdBPkR7YvA7Gi4SlHbjrhS1VkEG
+         K9tg==
+X-Forwarded-Encrypted: i=1; AHgh+Roo2tH+UM/+YBFqq9WzLtOYrQQmzy02taG6mbAnENuH1BAeFqS85TKz5ApdQzqpyntji+IAke0TJOKn@vger.kernel.org
+X-Gm-Message-State: AFuF++luuz+OEIH6H0vxdZWXyk4n7bpmHX2er3mUHmsaM+yhiveo/8FO
+	sC3Mbqjxifov692QGpE0XtNyDTft2MaUYlZO/k71uTfwDp7NLbzy0Bx0DWK/m4y8jZ7tE2rrFFw
+	JqvvKNrKUmG2B9s46GxN634R6i7U47yFa4PMeMU99LmdmuNnnG+z6QG8j1vn+Uy77
+X-Gm-Gg: AR+sD13sSDbQeFjEFHji+PBAbf0wRcWq15vDnJDb/fZIgIHH/XF+Qk46JaHjWe+NkLY
+	4PiqDkuICYyAYIJSXi1jdUcIF8gNBF3XFHTlK03XVflhSGUrpv+ocqLUVHXs8YPYg8LbXL941b0
+	ClJjDyEeojkJEEZ7bXjyfMWBI7c+JD2WvmVha443jnjXDSZvSw/39RQNoTbn9CRVuC4/07n6aMc
+	/aSi7uNcr+aj53UN+U3kYGzefnAjbhil8O0MK9T+ABg5O4F1RdTRjz0L2l4abRM7fFMbIEMC1nA
+	m/mcYhIyjQcuVvO7Ehb+qTGo6Zkh5YMPDQKuK0EzpeprpvtJoM/1H3X3PHSSgMOA316f40fibBO
+	Mrm69duBHusYTBRiU9HYacX9ikA0H82irtCr0bsn2A7qYn6CLxxCRCWB/FtGvXQt9CmYwKw==
+X-Received: by 2002:a17:903:4b24:b0:2d6:d3f9:d394 with SMTP id d9443c01a7336-2d707833c29mr149993745ad.0.1787763801488;
+        Wed, 26 Aug 2026 10:03:21 -0700 (PDT)
+X-Received: by 2002:a17:903:4b24:b0:2d6:d3f9:d394 with SMTP id d9443c01a7336-2d707833c29mr149992545ad.0.1787763800999;
+        Wed, 26 Aug 2026 10:03:20 -0700 (PDT)
+Received: from hu-kriskura-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d70498ca3csm9938285ad.31.2026.08.26.10.03.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 10:03:20 -0700 (PDT)
+From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Date: Wed, 26 Aug 2026 22:32:51 +0530
+Subject: [PATCH v6 1/5] dt-bindings: phy: Add PHY_TYPE_EUSB2 definition
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VI0PR04MB11784:EE_|VI1PR04MB6941:EE_
-X-MS-Office365-Filtering-Correlation-Id: 017ec154-141d-446d-2c54-08df0393dd02
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|19092799006|376014|366016|23010399003|11063799006|6133799003|4143699003|10067099003|56012099006|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	x1BYw2iah+rsGphCiCwCLsh4r13z7YT6dNDrJcwE0pFUvXZUgkqtyTy2rGDmHI5fFc90wCJ90BxHHBLX3QOVEiewYnvm5IeWt3Qz0jh/YiUwb7qWp2Tn4P07YSff8M/85iSmUokwveDKERHbnM9W86fgae+fz0vEYy4O7q26YvrMD1JiBmWJguiQ5BjkMCNt6h/wIWxIyISIQOywSvaaKp0nX8h3uTOu7KYpxgXSSEReJxZcYYlvQ+I5LzQOgF8jg6UqG2o5TmsWpkmaezAsrbngI2oP+x49u1TaGy4zt7rONbsTUXp00h5LT2oIpGe/gZUP1hQ55yoqD881HkKqQfuyq8TVqkxtw2aZc99Tm32FNPo1EIa4ECQhqJCUBQbEz626NY298/vPWu2XDTg+wJXhiQikqe7rJFiT6aX87rF7ouBhmxXVSroEHBWt+Frnvifn4spzqcvKSDLfyzQKbeavSxiOQQtAqX70baEy8wxp5uIN4ZZctija5uPXylrO/GtWYCN2k+1LgbLT+F4Z8MKC/LVC4YTPM7VUpcRlKcEIi+eacgxoWdAq3K23l9XFmD/sWdC1bCCWTQm+pYgO5EiXwcgh9oHFW3a3q8t6ciM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI0PR04MB11784.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(376014)(366016)(23010399003)(11063799006)(6133799003)(4143699003)(10067099003)(56012099006)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?pA9FRA3DdJYBoAdPr54BhrZt27eI4ZpwZQCgO0XqMQ4jhcUwfNy25cize3?=
- =?iso-8859-1?Q?lxX0Z570AmxjhLD0TQSLZ1OxhWu9eXwA3VXJ7dNRAAfGDKpi3E1eBKlI2+?=
- =?iso-8859-1?Q?w/YlZ46kTeLOUg/iDxJVkk0s/mnQ/i5AFK4XZsyDlomeJ+TjFQnw0Dn9A3?=
- =?iso-8859-1?Q?vR/4Z/UUnqq6yvVH9eBG8KY1RJ6ahDAo2V3A68rsBK4gcXvjQGulsB5jwe?=
- =?iso-8859-1?Q?UjH3vOzB8iGT1hrWmbdyhlnejLVXw178GqgZL0POB2dHED8qZuvhYy/Hlj?=
- =?iso-8859-1?Q?5PlxUq0bvPOivQ5xLrQT9Kyg9BHfQPUHJAAFuRixl8D6RcTe6/+g2hcJvW?=
- =?iso-8859-1?Q?p3pa39t1wmshU+EvNhApTHMOgcmswJgvfDswDBPW+rN6Lx16uTD7qcZF6z?=
- =?iso-8859-1?Q?9FLjMLcqm60bz1pVD0c+fnDHf1w62LjrUUwEkiPMWFPowxQw+L9I8mF+uL?=
- =?iso-8859-1?Q?Wyeg2kuZ6VJs3+FV46PEAdNJRib7YXciVqHEy2/bTX/MVZmRqJBVuALAuR?=
- =?iso-8859-1?Q?1n2a9OV/umR+ehm6Q332jOVvUXPPhm9lOO3F0zeRyzctujmOIzFHR2S65i?=
- =?iso-8859-1?Q?rhp4hQWh83kktzFlhRP5ZMMZHh4BM046yHxpcXkIxTdlw4Q5aKkCrMPiAK?=
- =?iso-8859-1?Q?5+1zxSx9bZzEhruBk5AIy5FK05H3IbgQiJp78Y3D0oY7H1+fHzZYGtD7Zs?=
- =?iso-8859-1?Q?BBXgtRw+XD6lszm745e+0KhZm3OMf7/Ks7PcvtBE8/+IcBImuy+yZaBFtb?=
- =?iso-8859-1?Q?UccdE9ekdZqERwLI9SB6Ja/QULO8uFl9d2EM3hkp4VK5hiZ6kNHmmCGQyt?=
- =?iso-8859-1?Q?75Drbs+xx/7zJC182zImu8Y9DP1Gadpds+9of6XJ2BLNTk1idF9LoVDlw6?=
- =?iso-8859-1?Q?zeu+1mAuejgO56MWoX9C1WGW6Cy8lA6mN/DnHN5rGdNqxbQ+doBnENJmNV?=
- =?iso-8859-1?Q?UEYvWqMAYo4sDuwYnog2ZfhE8Ns9uL4RUR09C6AIAmCFE+AJpeu6mzBJ6O?=
- =?iso-8859-1?Q?YcMX4UUJti19Cx7Jr7pRrxzhhBlpWiwwWEytgwcIib0RpzWqd234dCWdNq?=
- =?iso-8859-1?Q?IrsUXlxF/MSaYmc/nvmdTrAP4uzli1Xugg5Q6SUd5DfjlO5Z3VeQe8YMLT?=
- =?iso-8859-1?Q?C4HkQgVL/vAiyna2Zl4r4zMmtwJdSYHlUtq8D9iwq+S0DqekGvzn7eUSIB?=
- =?iso-8859-1?Q?bcUF6gZqBMOEmpsrM513UC3njZh7V/GLg8JAlAycCzNprUffadgh0jgzkr?=
- =?iso-8859-1?Q?wOaqlC5n5gRwR+bIQnUGAk0QzYPpGWBQi6LU180HW86CU4b/JoNmsXn5hz?=
- =?iso-8859-1?Q?RCilEzmq6VrjKxn0VYoq7MKpIWO0KPsIf6jGUIxWrQbYravQkeDC3BAaB8?=
- =?iso-8859-1?Q?nrfiajY8jkDMyTuEg182XCDuev7S/GhBh0s1mXpfFLAUVVPqup9YT45PHh?=
- =?iso-8859-1?Q?JwIMLGgO+pl+SQz1Syf81z/COpOwJ8OMWz05zi4jLXM5iiIekyKiIOsFMF?=
- =?iso-8859-1?Q?O/FFSxPrxV2bjHtmsXrIHUAci7DCjgPx0pnKu8zUNKfSreSiQuNiL33n5A?=
- =?iso-8859-1?Q?6bd0l/kav1S4uHUh2h5CQKFxvxOd8zyV8AQYcTYjc0YTFv9eVObOV20I9v?=
- =?iso-8859-1?Q?XwxH86HewdXJ/ifWgPw1aIcvXT2aTa6E3NoXdAq06/BFBtA5TMSge8RV4O?=
- =?iso-8859-1?Q?wj8ca59s6IAp5UrMILJwhyxeHCNHI9ftJwnEEltAfUvScd05k7E6TjdKsl?=
- =?iso-8859-1?Q?LZFPFnvoQHP6oFYqFToxO0ftSLXGouwJ817IlZznmRb3Yixbh8WteV4jba?=
- =?iso-8859-1?Q?GYh2gmaWAkVJHIRD6uFe9Nen59LmkbUkcDjJ1CQnJZ4UvT82yV4j?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 017ec154-141d-446d-2c54-08df0393dd02
-X-MS-Exchange-CrossTenant-AuthSource: VI0PR04MB11784.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 17:02:51.5583
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XBVr4TpM96MSaZbVaVY327DpRVLqDUldMXSs1Wn5wHupgNJn2Nbrqgj5Z5e1CZtl39Mn1p1U+ZOKYsfHW2bh7Ee9EB2mCcfXw/gMrZ6Wj584rPjGIJLPKhZ6ppWPYdGa
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6941
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260826-eusb2-interrupt-v6-v6-1-ae2601cfa80c@oss.qualcomm.com>
+References: <20260826-eusb2-interrupt-v6-v6-0-ae2601cfa80c@oss.qualcomm.com>
+In-Reply-To: <20260826-eusb2-interrupt-v6-v6-0-ae2601cfa80c@oss.qualcomm.com>
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-usb@vger.kernel.org,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787763791; l=1817;
+ i=krishna.kurapati@oss.qualcomm.com; s=20260707; h=from:subject:message-id;
+ bh=Lg7dXbsjKWPkmEu+dtLIuTi/8F0mqFp8EHzxlsCI39I=;
+ b=GIIEjwxF5gDLt8j08B+e2UqpwO40cuL6q6UDIW7iwYrh1atZKUMPjOEFGIZJiGVjqxJdkQW2O
+ fIfW2rXT9nQAG5baVP94QA21FpyFq3cW+fMYUKBhbuwECiTvLZ2tk+E
+X-Developer-Key: i=krishna.kurapati@oss.qualcomm.com; a=ed25519;
+ pk=6PmiuwGCdov3wRO+bdmRlRxRtmJyDKz3ED57LLPVgds=
+X-Proofpoint-ORIG-GUID: h0iaetrc_kzBrLjx0CT2iSpcDzHXMVuh
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDE0MSBTYWx0ZWRfX7IqKhvKzhO6R
+ a6e+bf+UAKB4fPYVZPG6p7W/r6grfUPt26eZkjHHeb35mfbaUklPGuKyrE7ZqrHe+VEhHXbtgci
+ dzpKkc1RexdT5bqvV2fKY80R1pG8JBdPWgw2oF1MAn09uxFCAD8DwWeK0EiYYJM5AVIgk3jLp/g
+ UnO06IsnQ7Q4R3f+ylVhxcYbyq0io5u4egvt+sItzcuTGnW3atMdk+JWhGDPPR/SUgSivQNbybq
+ zRkZIEu42rKvyiY6iKR2foKe4b6gj32JFTfRhKrMqzGbSUNwqQimS8nMxoDMbZ+8kpWGnNAY3uU
+ OOzNGICBJ6dGTilP0JKCfN1WIYx8WDSLgCNtKj3bCIiz6jp9OCbeEn3eVsa0EWF6UNea9dxrkEO
+ /vWnzKM3FoVW04+Mc7XYWTyfW9bAFbJMLSWkSYYUBRP62CVF5ilGW1p7+1iYqvmV1vFjestHWun
+ AFmbvvtgZIhDZrvYj5g==
+X-Proofpoint-GUID: h0iaetrc_kzBrLjx0CT2iSpcDzHXMVuh
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDE0MSBTYWx0ZWRfX1hXPV4Nv+f3p
+ GEDi5G3krefrcFpOOtr7C7G72lPvzHzKHzIDPpZNb0RnMUX7H5Rp+uXmwZORn6RBm0lR4MUoDPV
+ nGtlpLxOhTM20Z4qn1iZlHfQoLwka9E=
+X-Authority-Analysis: v=2.4 cv=RPiD2Yi+ c=1 sm=1 tr=0 ts=6a8f1c5a cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=L1EOSesq0gyy4kqEYQ0A:9 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-26_05,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 priorityscore=1501 spamscore=0 lowpriorityscore=0
+ malwarescore=0 phishscore=0 suspectscore=0 bulkscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260141
 
-On Wed, Aug 26, 2026 at 11:04:07AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 4 potential issue(s) to consider:
-> - [Critical] Freeing `i3c_hub_dev_data` while it may still be referenced by the parent controller's asynchronous IBI path leads to a Use-After-Free.
-> - [High] Dynamic downstream devices discovered via DAA are erroneously registered to the parent controller's bus, making them completely unreachable for subsequent transfers on port-switching hubs.
-> - [High] Reserved address slots on the parent bus are permanently leaked when the hub driver is removed.
-> - [Medium] Forwarding broadcast CCCs to the parent controller breaks virtual bus isolation by unintentionally affecting the entire parent bus.
-> --
->
-> commit 94c62ce56dcc9d461749adc3db10a8061865dc9b
-> Author: Lakshay Piplani <lakshay.piplani@nxp.com>
->
->     i3c: hub: Add support for the I3C interface in the I3C hub
->
->     Add virtual I3C bus support for the hub and provide interface to enable
->     or disable downstream ports.
->
-> > diff --git a/drivers/i3c/hub.c b/drivers/i3c/hub.c
-> > new file mode 100644
-> > index 0000000000000..6f5227215ae22
-> > --- /dev/null
-> > +++ b/drivers/i3c/hub.c
-> > @@ -0,0 +1,798 @@
-> [ ... ]
-> > +static void i3c_hub_detach_i3c_dev(struct i3c_dev_desc *dev)
-> > +{
-> > +	struct i3c_hub_dev_data *data = i3c_dev_get_master_data(dev);
-> > +	struct i3c_master_controller *parent;
-> > +
-> > +	if (!data)
-> > +		return;
-> > +
-> > +	parent = i3c_dev_get_master(&data->parent_desc);
-> > +
-> > +	/*
-> > +	 * parent_desc.ibi should already be cleared by i3c_hub_free_ibi()
-> > +	 * before we get here. If it is still set, the kfree(data) below frees
-> > +	 * a descriptor the parent controller can still reach via un-flushed
-> > +	 * asynchronous IBI work (use-after-free, not just a leak).
-> > +	 */
-> > +	WARN_ON_ONCE(data->parent_desc.ibi);
-> > +
-> > +	if (parent) {
-> > +		i3c_bus_maintenance_lock(&parent->bus);
-> > +		i3c_master_detach_i3c_dev_controller_locked(&data->parent_desc);
-> > +		i3c_bus_maintenance_unlock(&parent->bus);
-> > +	}
-> > +
-> > +	i3c_dev_set_master_data(dev, NULL);
-> > +	mutex_destroy(&data->parent_desc.ibi_lock);
-> > +	kfree(data);
->
-> [Severity: Critical]
-> Does this code introduce a use-after-free when IBI is still active?
->
-> If data->parent_desc.ibi is not NULL, as explicitly checked by the
-> WARN_ON_ONCE, the parent controller's asynchronous IBI path may still
-> have a work item queued referencing data->parent_desc. By unconditionally
-> calling kfree(data), we allow the pending async work to dereference
-> freed memory when it executes.
->
-> > +}
-> > +
-> > +/**
-> > + * i3c_hub_do_daa() - Perform DAA via hub port
-> > + * @hub: Hub instance
-> > + * @controller: Virtual controller for a hub port
-> > + *
-> > + * Enables the port connection, performs DAA on the parent controller,
-> > + * then disables the connection.
-> > + */
-> > +static int i3c_hub_do_daa(struct i3c_hub *hub,
-> > +			  struct i3c_master_controller *controller)
-> > +{
-> > +	struct i3c_master_controller *parent;
-> > +	int ret;
-> > +
-> > +	if (!hub || !hub->hub_dev)
-> > +		return -ENODEV;
-> > +
-> > +	parent = i3c_dev_get_master(hub->hub_dev->desc);
-> > +	if (!parent)
-> > +		return -ENODEV;
-> > +
-> > +	/*
-> > +	 * Lock order: hub routing mutex before the parent bus lock (taken here
-> > +	 * inside i3c_master_do_daa()). The depth-keyed lockdep classes above
-> > +	 * keep this nesting acyclic when the parent is itself a hub.
-> > +	 */
-> > +	mutex_lock(&hub->lock);
-> > +	i3c_hub_enable_port(controller);
-> > +
-> > +	/*
-> > +	 * Downstream devices reachable through hub target-port routes share the
-> > +	 * parent controller's I3C address space. The hub gates access to a
-> > +	 * target-port network, but it does not create an independent dynamic
-> > +	 * address domain per virtual bus.
-> > +	 *
-> > +	 * Run DAA on the parent controller so dynamic addresses remain unique
-> > +	 * across all downstream devices, even when they are behind different
-> > +	 * target ports.
-> > +	 */
-> > +	ret = i3c_master_do_daa(parent);
->
-> [Severity: High]
-> Does delegating DAA to the physical parent controller break reachability
-> for downstream devices?
->
-> When devices respond to ENTDAA, they are instantiated on the parent bus
-> rather than the virtual bus. If drivers subsequently initiate transfers, they
-> use the parent controller's transfer operations directly, bypassing the
-> hub's i3c_hub_master_priv_xfers(). As a result, the hub target port is
-> never enabled during the transfer, leaving these downstream devices
-> permanently unreachable.
+eUSB2 (Embedded USB2) is a MIPI Alliance standard for chip-to-chip USB2
+signaling. Unlike standard USB2, which uses 3.3V signaling, eUSB2 uses
+low-voltage differential signaling (~0.4V) and requires a repeater to
+interface with external USB2 ports. Because of these differences, eUSB2
+PHY initialization sequences, voltage tuning, and register configuration
+are distinct from USB2.
 
-where reorder port, is it true?
+Additionally, eUSB2 targets handle wakeup interrupts differently
+depending on device speed when operating in host mode. According to the
+eUSB2 specification, remote wakeup signaling in host mode is detected
+via different data-line assertions based on the connected device speed:
 
->
-> > +	i3c_hub_disable_port(controller);
-> > +	mutex_unlock(&hub->lock);
-> > +
-> > +	return ret;
-> > +}
-> [ ... ]
-> > +static int i3c_hub_send_ccc_cmd(struct i3c_hub *hub,
-> > +				struct i3c_master_controller *controller,
-> > +				struct i3c_ccc_cmd *cmd)
-> > +{
-> > +	struct i3c_master_controller *parent;
-> > +	int ret;
-> > +
-> > +	if (!hub || !hub->hub_dev)
-> > +		return -ENODEV;
-> > +
-> > +	parent = i3c_dev_get_master(hub->hub_dev->desc);
-> > +	if (!parent)
-> > +		return -ENODEV;
-> > +
-> > +	mutex_lock(&hub->lock);
-> > +	i3c_hub_enable_port(controller);
-> > +	ret = i3c_master_send_ccc_cmd(parent, cmd);
->
-> [Severity: Medium]
-> Can forwarding unfiltered broadcast CCCs to the parent controller break
-> virtual bus isolation?
->
-> If a driver on a specific virtual bus issues broadcast commands (such as
-> SETMRL, SETMWL, or ENEC), this forwards them to the parent controller which
-> broadcasts them globally. This will unintentionally alter the configuration
-> or event state of all peer devices on the parent bus and other open target
-> ports.
+- Low-speed devices: the host repeater drives eD+ to logic '1' upon
+  detecting a K-state on the USB lines during remote wakeup (eUSB2
+  spec, Section 5.5.14).
+- Full-speed/high-speed devices: the host repeater drives eD- to
+  logic '1' upon detecting a K-state during remote wakeup (eUSB2 spec,
+   Sections 5.5.15 and 5.5.18).
 
-Look like system design limiation, add comments here incase it happen.
+Since the eUSB2 PHY's DP and DM lines need to be configured differently
+from USB2 PHYs, controllers should be able to query the PHY type and
+configure wakeup interrupts accordingly.
 
->
-> > +	i3c_hub_disable_port(controller);
-> > +	mutex_unlock(&hub->lock);
-> > +
-> > +	return ret;
-> > +}
-> [ ... ]
-> > +int i3c_hub_reserve_parent_addrslots_from_dt(struct i3c_hub_controller *hubc,
-> > +					     struct device_node *node)
-> > +{
-> > +	struct i3c_master_controller *parent = hubc->parent;
-> > +	enum i3c_addr_slot_status status;
-> > +	u32 assigned_addr;
-> > +	u32 reg[3];
-> > +	int ret;
-> > +
-> > +	if (!parent || !node)
-> > +		return -ENODEV;
-> > +
-> > +	for_each_available_child_of_node_scoped(node, child) {
-> > +		/*
-> > +		 * Only consider addressable bus nodes: a valid "reg" is
-> > +		 * required to describe a device, but its static-address value
-> > +		 * does not affect the reservation below.
-> > +		 */
-> > +		ret = of_property_read_variable_u32_array(child, "reg", reg, 1, 3);
-> > +		if (ret < 0)
-> > +			continue;
-> > +
-> > +		ret = of_property_read_u32(child, "assigned-address", &assigned_addr);
-> > +		if (ret)
-> > +			continue;
-> > +
-> > +		/* Skip nodes without a usable dynamic address. */
-> > +		if (!assigned_addr || assigned_addr > I3C_MAX_ADDR)
-> > +			continue;
-> > +
-> > +		i3c_bus_maintenance_lock(&parent->bus);
-> > +		status = i3c_bus_get_addr_slot_status(&parent->bus,
-> > +						      assigned_addr);
-> > +		if (status == I3C_ADDR_SLOT_FREE)
-> > +			i3c_bus_set_addr_slot_status(&parent->bus,
-> > +						     assigned_addr,
-> > +						     I3C_ADDR_SLOT_I3C_DEV);
->
-> [Severity: High]
-> Does this code permanently leak parent bus address slots when the hub driver
-> is removed?
->
-> The address slots in the parent bus state are set to I3C_ADDR_SLOT_I3C_DEV.
-> However, there appears to be no corresponding teardown mechanism provided
-> to revert these slots to I3C_ADDR_SLOT_FREE when the virtual controllers
-> are destroyed or the hub driver is unbound. This leak can eventually exhaust
-> the address space and cause failures for subsequent devices.
+Add PHY_TYPE_EUSB2 to distinguish eUSB2 PHYs from standard USB2 PHYs.
 
-I suppose if hub have hotplug later, we have to reserver all static/assigned
-address. Can you add comments here.
+Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+---
+ include/dt-bindings/phy/phy.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-Thank you for great work, fixed the most problem.
+diff --git a/include/dt-bindings/phy/phy.h b/include/dt-bindings/phy/phy.h
+index 979b5dfd8353..555a022c8c0b 100644
+--- a/include/dt-bindings/phy/phy.h
++++ b/include/dt-bindings/phy/phy.h
+@@ -24,6 +24,7 @@
+ #define PHY_TYPE_CPHY		11
+ #define PHY_TYPE_USXGMII	12
+ #define PHY_TYPE_XAUI		13
++#define PHY_TYPE_EUSB2		14
+ 
+ #define PHY_POL_NORMAL		0
+ #define PHY_POL_INVERT		1
 
-Frank
->
-> > +		i3c_bus_maintenance_unlock(&parent->bus);
-> > +	}
-> > +	return 0;
-> > +}
->
-> --
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260826103819.1614843-1-lakshay.piplani@nxp.com?part=6
+-- 
+2.34.1
+
