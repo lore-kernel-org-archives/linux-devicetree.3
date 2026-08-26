@@ -1,166 +1,328 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A2C63655CC
-	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 17:29:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D8002D5932
+	for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 17:31:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.43
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787765366; cv=pass; b=G3z+5YMexZ2AspN6jqkw7yx9e1ckHojgNbzIQXn2Bw1aLsEKmsBSxUDCZrogiFfvaHIGfjjlbKZouPrg87Tk/bcCV7q713H/Szcx6jADF1WoUaRTc/5v1j2+CMyLOHRpq/uw3gfXliJBft0Gw/FMylq3KV2XRylyH05rRfnrsxo=
+	t=1787765485; cv=pass; b=WqrYVGNlNjrNbomm735OvS4CUip8G+yBnSL+1UwSbF6LFQ5751oZh89CZaHRA8MEtY4PKl3lG2VQZMtQbo+XMquLA5yfi2ddJyV1ayf/v8bB8GA2M+4QsUm27uBa0C/4hjsDoHDdjWAgyDXjKUNOl09gujHkuKcl1w6CJcWfMkk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787765366; c=relaxed/simple;
-	bh=PIULD2sfSK88keFpIH5V5f8s/UfnOznWi0dgeAPq4gc=;
+	s=arc-20240116; t=1787765485; c=relaxed/simple;
+	bh=QS4t0KIz5+aRl13D78MAuDKkz9gtSRjE4nHMnOJfEgA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Vy++1qCroA4ffnxu1wjHgWN4xC8ivfWKozdtlcCKxW7idCrx/6rxM+qbx/2SXYDb67cq8OU0+cnJKZjhsVWJcdcXlWFkxvPpt2fPwveLK5XekDFP79+/0KtkaJC6FMqr0aNEO434q3+Xn4/cvBbNZKxICe7dSpio1efRtDe9JpM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E05CsRpE; arc=pass smtp.client-ip=209.85.128.47
+	 To:Cc:Content-Type; b=h8G1o6Wx+CLAbgQv9xxJUdPmu7hC854nrCcOeCQWzKuqXJfiDJ1SqZPwdnSIgmUzdVh7sMWsFcRuFVaTMQYe/5/vwT9uO7/ffeGZCKyezPA+ibrV6zubgemfbaDG8uiETBrfzWTehjbvD23y+iZAniPHBnPymky41QADy3maNLQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b00IKxk0; arc=pass smtp.client-ip=209.85.167.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E05CsRpE"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49a97714f5dso4256375e9.0
-        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 10:29:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787765350; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b00IKxk0"
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5b45f2e5f58so1088866e87.0
+        for <devicetree@vger.kernel.org>; Wed, 26 Aug 2026 10:31:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787765458; cv=none;
         d=google.com; s=arc-20260327;
-        b=LFz7MwMrWX2EtqZjJmgMFZH3sUNFFqeTLfYFmlMNyN74Rff7kxs4c7Qd2ARgPskuCO
-         58Y274apfojlrTB06yhFgIJFfG/f1l+FFUIKJTN/luOSI2BnRCqHNxi9UhwDb5O1cEcT
-         VbtM9aorMZo3VukJw0/vhZkRYILsoMci3Nhe2rxfv0HQseO+94pQfaggMb43PfS1URys
-         LJOW9KuYO500c9zgDpr/3BWsWdVOXgMxCBUZ/jBiR76z2KIN0g6RvLE+lanWOA16QevD
-         IWRn3XviWnRur6/mVPMbhJcIYHsWOjEYCfkpOKfiDZ859+OgRTqw7imgTS1riztwWRxw
-         N2lw==
+        b=nJRsYe94Y5DewTgOQVIwD0XuUMfgEM3geYDrYgzaiCrjmw3mCzzRxRMZTJUHlCF1Bq
+         kcserajrhJKAPiuWc/UmgGUMCPK5imd/RuYUGFk+zYAqnpTvoGiPmepr7YAhtAOBqED1
+         AhacpuYWpBGub7yH9nYEykp133aegCWY+2VoEefnRbyTs4nnZbQGY6k2h+obWfnUqXSo
+         M9GN8Eo9aEdiyOoNongjjlLQ07ynAScpJujtlYw7YRXr6bTJ5amnzC98UJLu+NAfGKWN
+         GwFcwLEqHeuAuBiOkbk3RAhkS7zrL4P3rpEh+OcPKBTek+EEBKdCfFtL0VjAr17KmJN6
+         C8lQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=QXN0egExQUN8IBSJ2IqvNwpvhI9gdkWCNjlrCbNq1Z8=;
-        fh=WaHooJrqsWG7NOSHryMMyzIWtkrutjeUKsVfYO29bfg=;
-        b=QJappxOLcXmySqres9SiYcyTHNm7igGH1K9zEXw6GMDGFJvK24l5vxRPrY7RUVx1WC
-         FTT5UVAfsH6Ec48xHTbXDhcNqQiw7Py6pgHY+E2Yg/rLqKHb3tJWLq5Ga4Q559GydjfR
-         /aGHOoAZQEVoiH2cki6M1VdMVzrqZnEeV0vKbyXI8VK2ag1Fz/Kc6B/QdPJqJHi8F21g
-         IBUJXWeiS0TW0tT10RG4SypmQv8t1GDX6MqCYM0q5akeSoK+h3hElxLJFzE0yu2uBlxK
-         v/1GIXcVPyOMmXrMjpEE117Q/rL9TPpdNuApxVNAdTKUnw4+UAbSRGfShFCaf7cYmtSo
-         /cFw==;
+        bh=aepQBBl1ZVrjONLqFCXAT39woE5BLBq6aJtCXC3NyuA=;
+        fh=LC+7YnXKCTvxTUI+LSm15MvhRMlXIuNOVjKbOXMSdvE=;
+        b=F6+UHXzhXsJ83RJkCKDqb/DaPwyWHVd+8nurEAcAF1n+D2VhCBKawnB3+xRu2K37Yd
+         ou23xvJcpmi/EhOwyAPwZI0xcK4iDK/EAiMyEXWcnIc/tgHqus3oVdTFp49q2SVMcrwX
+         oY3BB62N4afwpPYK997b43RJIy9428f2dirJ7ScftjyuSZ2knsoU0NHdlQqgSmrWxqLd
+         gwyO25qtKIoanzsQBOEqsU+XLSbjoEBgxNsSWnJX19e2/u+tqKmYLOY9lBKalKJYy2wj
+         dmLF5UldJv7KpbNYIuyE46DJOJ8/xlATgd4y2f0kRSGu2XO3appyPVHsVdH4WFcXnoJY
+         MnFQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787765350; x=1788370150; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787765458; x=1788370258; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=QXN0egExQUN8IBSJ2IqvNwpvhI9gdkWCNjlrCbNq1Z8=;
-        b=E05CsRpE02vTA5otmhUKSb0EWvky69+A+daxwQjuLewClNxTHdCzxP0AbZkpfPl56U
-         Rgmtdi9UZDJrX4i+jALLAePZpRHUtuhBAASzJFpuuXQ8HoFAJH7W4pwFpZp02EeGzqfc
-         XmFmpx+PAYWaIx09oXhE5U7beVbTqb4+Csa+sCo+C7LgXo6LByAAitmlSVNSLcvNEamI
-         lKe3bzxaM6RxbZdbqJHaFLFIpaBDVZC27QjAGnV3f7HxuFlXPHmpZ2Gvp0VYjFFh9qFH
-         UIVWgLyNrYq/ifJDDjDpgcisIN/EpvHipKcW2cwZ4O2JSu6pI+5Gpsl/rIBbmrUqnBJ3
-         C3qQ==
+        bh=aepQBBl1ZVrjONLqFCXAT39woE5BLBq6aJtCXC3NyuA=;
+        b=b00IKxk0gfKCFEskNFhBRLbdRaczDwUf/XNYlJ5W8ogbmVhik/cMhmBlJ2E7YZ7M8L
+         C5RqBSP7RT+ffD5LnOqLmZBlx0OxDCWlnoqvhOqMrEWa3g8icfPVmr/vw0SoEDkOcBvK
+         5B8iufBOtb5Uix6b/aAV9bflzdwQRzLLcvNGyW4vgdYAAPQYxZR+hhjRvk6STEZAQjTJ
+         YtIVHhk3L1WH2gY8ObKe/xds5Vc1mxCDPSvnm//4dJqPCQdqjup/Pf8is2wE0BjN0gl5
+         gwoarDlk7iNW/o6z3wyx+F55C2voiuESjp/E9ZHAJNE+8ZpUw5RhQnIG9UKGltF7pqSB
+         xUXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787765350; x=1788370150;
+        d=1e100.net; s=20251104; t=1787765458; x=1788370258;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=QXN0egExQUN8IBSJ2IqvNwpvhI9gdkWCNjlrCbNq1Z8=;
-        b=eQ3ZdG3ROcT8IwbKeV+N5CCBJ+qxIl4biaOfNaq/pjy1cJl6V03foyg98/9+8g8VAa
-         vfBu0I/slnsW9nqH/D5T9Ryzh04M7nmoAib77TBC3a/M6GLBzbmrpH96SYf8wuoVGQd6
-         gcy3HBCEitimMQwr+22hj2muyABFsdC/p1wcbfDkPn4ZpHIAPbcmRTCeLUs2EBnenDxS
-         egkqzQdayg0GG/cmlBVjN2XWi23nnKF5ODqHhOCopjeOS2GyFttTqT1EcPzesTgnoLts
-         +372bVTJQN8Cn54Zi7bZTUFsDpTfhwjCNX+fCaziXQJXQSEleRLcpdE5bTr5RaadF754
-         Ypmw==
-X-Forwarded-Encrypted: i=1; AHgh+RqX0NG94JxRL5bC3gqiCOXOYNCD4QNY6Hb43lmome8dcba4mNyn8jW6hKT3VrVI3gz85frpqwY5lX3Y@vger.kernel.org
-X-Gm-Message-State: AFuF++kUAHV7/hnmK09D3XBMRDJHqhgtqKHS5ZEaY4rAG205S8ZK5Tdm
-	cIiMVRSb022Udwu9JixDMDXp/DRnXMS/IMbQqg0WThSON+mlSLtIPLPzbzLj7l4iwPTAOt93Nrx
-	gAXr/zoJU4Fn6cisTO3axpTjgJqgZSl0=
-X-Gm-Gg: AR+sD121OlP5Q8L79daDjQt2AEzXcO9UY70/EMB8G0Rbo5ClnNj6kkeITm7iq5ciXOk
-	PQXNiIG5+GaLi7yP0aAiVlAQmSLhzDSgRnC2izYxdGdQkUPgwd2vD2UC49ifLc/9xoYbBCGybFA
-	IModtkSm7xOWduordDNvBnYlfSH5ZMsBmmaidPjQe95MzTCJYsKBwfLuxyEGDtwLOIG/uKViLy8
-	x1W4wBKr7j2KAuP6mOq7OGc6r2slfq2/NYtuDHS0vYScKcgMWr1q+fIRLj3OMprbWX7v5ABfcb3
-	iKi8sICifKT4mrieGBTcujJO0qqYfTbGw7YDf+ekhB8Rxg9YcZHAwcgaP3kVWfhb4Qbc80DB0Vc
-	5o0CuDFW2QPKd8OpFQlKJokmPEAkW0CGclGPU7NcU8UNeWEGQ4BWGDxjJuAHtokyhqw==
-X-Received: by 2002:a05:600c:1552:b0:490:e5c1:b8bf with SMTP id
- 5b1f17b1804b1-499dc822d91mr79612305e9.13.1787765349355; Wed, 26 Aug 2026
- 10:29:09 -0700 (PDT)
+        bh=aepQBBl1ZVrjONLqFCXAT39woE5BLBq6aJtCXC3NyuA=;
+        b=Rr4vUHtnlJRCq/rI5gURh9wtiz7qWEI4xsZBaRCjhCV7P1NqKQUIkpW90EFPIEWt1h
+         ZmqpcoYrNjRrN7HbMw6USngEbByaTh8xcYlaU+Rme/PuH48iaCZ/F03wJcJ+FzpCYYN5
+         vBVEdyrmPElANuD6FNQtnzJFLKbz8DR8lfQIfoT5wTRqhNWgrya3srU/72TG1FfJ91hE
+         KmqfXsYfRrjmg7NWkmn/yWCK9algDZspuV2lKt3Ea5xwhK/iKCRIYd37Mqd+5/CA1F+J
+         6YNUfo2e5iP3VfshCbV4BukrNKPI9uwDlA0t6BFbbm42Ew335zI0VZL5jAAI53laJbLX
+         2lug==
+X-Forwarded-Encrypted: i=1; AHgh+RrqthYiIN6x+gHA3kSfjNrGPn4Xd73594fIcObuEaQS09Cw/p1mGmWpmTPL2nIPXGGPNzNP1p2fMIcA@vger.kernel.org
+X-Gm-Message-State: AFuF++nJgFxRL+z4si5RVMaRy375ffAmB88/t5CnRiY5SR47oeIc9rR1
+	UKoEK13qQv+Eu6YDrfntn1L3F/6aOtJ1BcjQprO4v36kFeEDibM2ybEXA2n/QgVmVyDgTVkqN2Y
+	I7g0wTCTCyJrm2fxVJZJfvYe/xWhRw+0=
+X-Gm-Gg: AR+sD102KcZwzrWNl5oWtz7XImkx0HWGwhPBNj8BnwOluatzxUgt/oxxvx7kuDeJ21m
+	uNiH0owHQsCVtz+4siD+xPhKeSDNyz/8pucpZx/jzUx2YG5IIvnu74PzbXgzIgKtoXwhpQbUUsc
+	qRhBH5rerw/BnbeCQ+LYppE1lLuPmpKTv/a8WNeuBfsWueW0RRsKGkQOC5fZIxMOkBEkdYvM2/7
+	MjcYUjReEeK8XnU49fsFs0gJMom9oTGM7i3rSyk4mQgyo0S3x9d7Z20ihKM/o1R6WAsScXkAqeu
+	+MbPdlHyxt8lv89LFn7XX+saXJYfrrz6rmOHf6edyZMwP6IHxuKq4f/6v64ENnSbPQyjasdFk+N
+	BX+GGyrBSPVdOJPhqxZWKMCOlaVkOkw==
+X-Received: by 2002:a05:6512:ace:b0:5b4:a9e1:b8a4 with SMTP id
+ 2adb3069b0e04-5b4a9e1baf0mr2342711e87.25.1787765458127; Wed, 26 Aug 2026
+ 10:30:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826112821.194877-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <CAMuHMdWWxLXA+Y1sK-AFrx6Z0DkZ0xvrZbqCU_wcrfFyaKArAg@mail.gmail.com>
-In-Reply-To: <CAMuHMdWWxLXA+Y1sK-AFrx6Z0DkZ0xvrZbqCU_wcrfFyaKArAg@mail.gmail.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Wed, 26 Aug 2026 18:28:43 +0100
-X-Gm-Features: AcwNN1XTZI4bYMbcU-2XeKqWyg1OIm4BXC0WXAgrgMa6hG5Leq-MAga-Sg1fRPY
-Message-ID: <CA+V-a8vWaxPyhyBF3wHKrTj0WnimyjxmU7HCD+aD_BazZGdOgg@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: renesas: rzt2h-n2h-evk: Mark XSPI1 boot
- partitions read-only
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260814-rp6-panel-v1-0-111c1aeccf0f@gmail.com>
+ <20260814-rp6-panel-v1-3-111c1aeccf0f@gmail.com> <007e73a9-8220-46bb-89c6-2354740392c8@linaro.org>
+In-Reply-To: <007e73a9-8220-46bb-89c6-2354740392c8@linaro.org>
+From: Aaron Kling <webgeek1234@gmail.com>
+Date: Wed, 26 Aug 2026 12:30:45 -0500
+X-Gm-Features: AcwNN1V4UisMbD-bFUDbYmUeDVAuB_RlKd5IteIsWY5CDvuDkOAStLPqNpNdF9M
+Message-ID: <CALHNRZ9rKk3jkR9-sfVUyWgPOn=Prqwus+TRsj5A6H+Ze4AgZg@mail.gmail.com>
+Subject: Re: [PATCH 3/4] drm/panel: visionox-vtdr6130: Modularize panel config
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
- Hi Geert,
+On Wed, Aug 26, 2026 at 4:53=E2=80=AFAM Neil Armstrong
+<neil.armstrong@linaro.org> wrote:
+>
+> On 8/14/26 20:17, Aaron Kling via B4 Relay wrote:
+> > From: Aaron Kling <webgeek1234@gmail.com>
+> >
+> > The vtdr6130 is a DDIC, a common chip that is used by multiple panels.
+> > Prepare the driver for more panels.
+> >
+> > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> > ---
+> >   drivers/gpu/drm/panel/panel-visionox-vtdr6130.c | 95 ++++++++++++++++=
++--------
+> >   1 file changed, 65 insertions(+), 30 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c b/drivers/=
+gpu/drm/panel/panel-visionox-vtdr6130.c
+> > index b66d6c7128c75..805c9846c2a0b 100644
+> > --- a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
+> > +++ b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
+> > @@ -19,11 +19,28 @@
+> >
+> >   struct visionox_vtdr6130 {
+> >       struct drm_panel panel;
+> > -     struct drm_dsc_config dsc;
+> > +     struct drm_connector *connector;
+>
+> Why ? connector is unused in this patch.
 
-On Wed, Aug 26, 2026 at 2:47=E2=80=AFPM Geert Uytterhoeven <geert@linux-m68=
-k.org> wrote:
->
-> Hi Prabhakar,
->
-> On Wed, 26 Aug 2026 at 13:28, Prabhakar <prabhakar.csengg@gmail.com> wrot=
-e:
-> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> >
-> > Mark the BL2 and FIP partitions on XSPI1 as read-only to prevent them
-> > from being modified through the MTD partition interface.
-> >
-> > The corresponding boot partitions on XSPI0 are already marked
-> > read-only.
-> >
-> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->
-> Thanks for your patch!
->
-> > --- a/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi
-> > +++ b/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi
-> > @@ -825,11 +825,13 @@ partitions {
-> >                         partition@0 {
-> >                                 label =3D "bl2-1";
-> >                                 reg =3D <0x00000000 0x00060000>;
-> > +                               read-only;
-> >                         };
-> >
-> >                         partition@60000 {
-> >                                 label =3D "fip-1";
-> >                                 reg =3D <0x00060000 0x007a0000>;
-> > +                               read-only;
-> >                         };
-> >
-> >                         partition@800000 {
->
-> Makes sense. However, what is the recommended interface to update
-> the bootloader in these partitions?
->
-The BSP supports updates via the flashwriter tool; there is no
-recommended way as such. Are you hinting to allow this to be done via
-Linux?
+I forgot to strip this when removing multiple mode support. Will fix.
 
-Cheers,
-Prabhakar
+> >       struct mipi_dsi_device *dsi;
+> >       struct gpio_desc *reset_gpio;
+> >       struct regulator_bulk_data *supplies;
+> >       enum drm_panel_orientation orientation;
+> > +     struct visionox_vtdr6130_desc *desc;
+> > +};
+> > +
+> > +struct visionox_vtdr6130_desc {
+> > +     unsigned int width_mm;
+> > +     unsigned int height_mm;
+> > +
+> > +     unsigned int bpc;
+> > +     unsigned int lanes;
+> > +     unsigned long mode_flags;
+> > +     enum mipi_dsi_pixel_format format;
+> > +
+> > +     const struct drm_display_mode *modes;
+> > +     unsigned int num_modes;
+> > +     int (*init_sequence)(struct visionox_vtdr6130 *ctx);
+> > +
+> > +     struct drm_dsc_config dsc;
+> >   };
+> >
+> >   static const struct regulator_bulk_data visionox_vtdr6130_supplies[] =
+=3D {
+> > @@ -162,7 +179,7 @@ static int visionox_vtdr6130_prepare(struct drm_pan=
+el *panel)
+> >
+> >       visionox_vtdr6130_reset(ctx);
+> >
+> > -     ret =3D visionox_vtdr6130_on(ctx);
+> > +     ret =3D ctx->desc->init_sequence(ctx);
+> >       if (ret < 0) {
+> >               gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> >               regulator_bulk_disable(ARRAY_SIZE(visionox_vtdr6130_suppl=
+ies),
+> > @@ -187,34 +204,58 @@ static int visionox_vtdr6130_unprepare(struct drm=
+_panel *panel)
+> >       return 0;
+> >   }
+> >
+> > -static const struct drm_display_mode visionox_vtdr6130_mode =3D {
+> > -     .clock =3D (1080 + 20 + 2 + 20) * (2400 + 20 + 2 + 18) * 144 / 10=
+00,
+> > -     .hdisplay =3D 1080,
+> > -     .hsync_start =3D 1080 + 20,
+> > -     .hsync_end =3D 1080 + 20 + 2,
+> > -     .htotal =3D 1080 + 20 + 2 + 20,
+> > -     .vdisplay =3D 2400,
+> > -     .vsync_start =3D 2400 + 20,
+> > -     .vsync_end =3D 2400 + 20 + 2,
+> > -     .vtotal =3D 2400 + 20 + 2 + 18,
+> > +static const struct drm_display_mode visionox_vtdr6130_modes[] =3D {
+> > +     {
+> > +             .clock =3D (1080 + 20 + 2 + 20) * (2400 + 20 + 2 + 18) * =
+144 / 1000,
+> > +             .hdisplay =3D 1080,
+> > +             .hsync_start =3D 1080 + 20,
+> > +             .hsync_end =3D 1080 + 20 + 2,
+> > +             .htotal =3D 1080 + 20 + 2 + 20,
+> > +             .vdisplay =3D 2400,
+> > +             .vsync_start =3D 2400 + 20,
+> > +             .vsync_end =3D 2400 + 20 + 2,
+> > +             .vtotal =3D 2400 + 20 + 2 + 18,
+> > +     },
+> > +};
+> > +
+> > +static struct visionox_vtdr6130_desc visionox_vtdr6130_panel_desc =3D =
+{
+> > +     .modes =3D visionox_vtdr6130_modes,
+> > +     .num_modes =3D ARRAY_SIZE(visionox_vtdr6130_modes),
+> >       .width_mm =3D 71,
+> >       .height_mm =3D 157,
+>
+> Why did you move the width/height out of the mode ?
+>
+> Leave it in the mode, since you don't even use the same mode for the Retr=
+oid 6 panel
 
+It was moved to support multiple modes, because duplicating the
+dimensions across modes is wasteful. This can be deferred to when
+multiple modes are supported.
 
-> Gr{oetje,eeting}s,
+But on that note, has anything happened with implementing the atomic
+changes which were going to be a better way to handle multiple modes?
+If not, is the handling you asked to be removed from the icna35xx
+change [0] still a hard block? Because that does work now to support
+multiple modes and I'm currently carrying downstream changes across
+several panel drivers to support those. And I'd really like to
+eliminate as many downstream changes as I can.
+
+> > +     .bpc =3D 8,
+> > +     .lanes =3D 4,
+> > +     .format =3D MIPI_DSI_FMT_RGB888,
+> > +     .mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_NO_EOT_PACKET=
+ |
+> > +                   MIPI_DSI_CLOCK_NON_CONTINUOUS,
+> > +     .init_sequence =3D visionox_vtdr6130_on,
+> > +     .dsc =3D {
+> > +             .dsc_version_major =3D 0x1,
+> > +             .dsc_version_minor =3D 0x2,
+> > +             .slice_height =3D 40,
+> > +             .slice_width =3D 540,
+> > +             .slice_count =3D 2,
+> > +             .bits_per_component =3D 8,
+> > +             .bits_per_pixel =3D 8 << 4,
+> > +             .block_pred_enable =3D true,
+> > +     },
+> >   };
+> >
+> >   static int visionox_vtdr6130_get_modes(struct drm_panel *panel,
+> >                                      struct drm_connector *connector)
+> >   {
+> > +     struct visionox_vtdr6130 *ctx =3D to_visionox_vtdr6130(panel);
+> >       struct drm_display_mode *mode;
+> >
+> > -     mode =3D drm_mode_duplicate(connector->dev, &visionox_vtdr6130_mo=
+de);
+> > +     mode =3D drm_mode_duplicate(connector->dev, ctx->desc->modes);
+> >       if (!mode)
+> >               return -ENOMEM;
+> >
+> >       drm_mode_set_name(mode);
+> >
+> >       mode->type =3D DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED;
+> > -     connector->display_info.width_mm =3D mode->width_mm;
+> > -     connector->display_info.height_mm =3D mode->height_mm;
+> > +     connector->display_info.width_mm =3D ctx->desc->width_mm;
+> > +     connector->display_info.height_mm =3D ctx->desc->height_mm;
 >
->                         Geert
+> Drop this change, take them from the mode.
+
+Ack.
+
+> >       drm_mode_probed_add(connector, mode);
+> >
+> >       return 1;
+> > @@ -284,23 +325,17 @@ static int visionox_vtdr6130_probe(struct mipi_ds=
+i_device *dsi)
+> >               return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
+> >                                    "Failed to get reset-gpios\n");
+> >
+> > +     ctx->desc =3D (struct visionox_vtdr6130_desc *)of_device_get_matc=
+h_data(dev);
+> > +     if (!ctx->desc)
+> > +             return -ENODEV;
+> > +
+> >       ctx->dsi =3D dsi;
+> >       mipi_dsi_set_drvdata(dsi, ctx);
+> >
+> > -     ctx->dsc.dsc_version_major =3D 0x1;
+> > -     ctx->dsc.dsc_version_minor =3D 0x2;
+> > -     ctx->dsc.slice_height =3D 40;
+> > -     ctx->dsc.slice_width =3D 540;
+> > -     ctx->dsc.slice_count =3D 2;
+> > -     ctx->dsc.bits_per_component =3D 8;
+> > -     ctx->dsc.bits_per_pixel =3D 8 << 4;
+> > -     ctx->dsc.block_pred_enable =3D true;
+> > -
+> > -     dsi->dsc =3D &ctx->dsc;
+> > -     dsi->lanes =3D 4;
+> > -     dsi->format =3D MIPI_DSI_FMT_RGB888;
+> > -     dsi->mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_NO_EOT_PA=
+CKET |
+> > -                       MIPI_DSI_CLOCK_NON_CONTINUOUS;
+> > +     dsi->dsc =3D &ctx->desc->dsc;
+> > +     dsi->lanes =3D ctx->desc->lanes;
+> > +     dsi->format =3D ctx->desc->format;
+> > +     dsi->mode_flags =3D ctx->desc->mode_flags;
+> >       ctx->panel.prepare_prev_first =3D true;
+> >
+> >       ret =3D drm_of_get_panel_orientation(dev->of_node, &ctx->orientat=
+ion);
+> > @@ -322,7 +357,7 @@ static int visionox_vtdr6130_probe(struct mipi_dsi_=
+device *dsi)
+> >   }
+> >
+> >   static const struct of_device_id visionox_vtdr6130_of_match[] =3D {
+> > -     { .compatible =3D "visionox,vtdr6130" },
+> > +     { .compatible =3D "visionox,vtdr6130", .data =3D &visionox_vtdr61=
+30_panel_desc },
+> >       { /* sentinel */ }
+> >   };
+> >   MODULE_DEVICE_TABLE(of, visionox_vtdr6130_of_match);
+> >
 >
-> --
-> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m6=
-8k.org
+> Thanks,
+> Neil
 >
-> In personal conversations with technical people, I call myself a hacker. =
-But
-> when I'm talking to journalists I just say "programmer" or something like=
- that.
->                                 -- Linus Torvalds
+
+Aaron
+
+[0] https://lore.kernel.org/dri-devel/6dd8f137-a4df-4602-9536-b73abff5e7d1@=
+linaro.org/
