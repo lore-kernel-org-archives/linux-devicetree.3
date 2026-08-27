@@ -1,350 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B79813CB574
-	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 08:13:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 64A133DB64B;
+	Thu, 27 Aug 2026 08:17:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787818426; cv=none; b=e6JTDDBMmnjAfWARMTamwc0KvSAREYMO2u2wXfyVOpzieGsKKcJ9ublFJzf73fP6dlBUJunODOY+NOFS8BNgcTbsXS8jx9HNJAwEINxNUUbJVEE78T93d8sHGH0adeBWIhc1jinq9zUT3u1BQV7rWvw4KAcRWxGPlXjvVffGo1Y=
+	t=1787818683; cv=none; b=mU7HbzohjpyAgNfK+kwTWx3ai8SWmBosnAMXd/tfrt75K0aycHDf0eRLxDqhBlF28uUt6EVUpRS5IRXGtVD9bCeL9WJ8uAWiKyJPDp8U/rsKEHuyeDMRb4CWTwTMaqPLGPnP8xQZfxsI9lHpQ6itZIKWc3ZU3Oan2eIlxTOgCzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787818426; c=relaxed/simple;
-	bh=nkIIQWBryudLs4D9pMiquDy9alQgIUc7r/yAAQefTrM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Jd9jdmYmKbSOa7sY8A4qCguromhHdhEgOvENWI9e/9+IDjWjubhUzqAmEjewoCMBHFR7AzXUVwpZhzjSDd8Ey9fWpYD6pC2+fojxJ15XenUak10Msqqyqae34RqQuIqswsT2KXf1t1aq3QzmV3ehQhLGJ852Nk8YNOnxC5jWKNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h5mAY5w5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787818683; c=relaxed/simple;
+	bh=5BaBaUpgbE7yZAPVZNeV57kX7ae+OLSMniMswhoEkkw=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=NUjJqaotUxOj+UOsX0Ohl9yiG4WIqFp06ZVpspInUM5KueqMsX0dK/gjdoxeKmTEARR78C5lTiaof0UdO7fREn4Snr/HdzLnBdsQbNrMrcAbP1RVONJzVu4LH7waCN1dLkGyURPkGlwkZ5nIL50JqOl7S7q9FwwbY/sYpE6vTpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=qFsXo8DW; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h5mAY5w5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B7931F000E9;
-	Thu, 27 Aug 2026 08:13:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787818415;
-	bh=yfi6Cw+GVIFf2aHxuRikoIMhgtrF941LbQS8J1Fdppw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=h5mAY5w5HQFf1/aES0eZ6Dkbf6MFw17PerRHSxRdBrAv7SHhjT3BOkZZau/Xm0Uu9
-	 L1fhhOErF0yqBIdXQQsj6zAVYp58KrYkrpfLb4OxD2EX+WgV+Soo7oEySdrqZOzWTA
-	 UmSiBO21jRBEqwo3AAScnqqUm9RrpY5nekmf29WKi33NkHzfczj7fPpSmPBjEjVxzY
-	 U2lBYb2VPo6q4DZ6yMKJO0/tZBkrZB6ozzo1xkeJUEcuEgbacqu9BB6PdeP9qnWiiS
-	 SmOph62/snMdHWrkrB7Kvs7h3Vr28TO8JCmJTmSYHORNq38jd4QSPNTW58xiWa95VV
-	 sTOb5hfnq8Gfw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 7/7] greybus: Add Rust UART node driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ayush Singh" <ayush@beagleboard.org>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, ojeda@kernel.org
-In-Reply-To: <20260827-gb-uart-transport-v2-7-a03bb1f5fbd1@beagleboard.org>
-References: <20260827-gb-uart-transport-v2-0-a03bb1f5fbd1@beagleboard.org>
- <20260827-gb-uart-transport-v2-7-a03bb1f5fbd1@beagleboard.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 27 Aug 2026 08:13:34 +0000
-Message-Id: <20260827081335.6B7931F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="qFsXo8DW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	References:Date:Message-Id; bh=qJn7wJbUMWgChHPDDyLMAt32tsdxeqxOd
+	//ZEjwgzPE=; b=qFsXo8DW3ymaL/dtk0EINHI7KkhHPMs9yCPEQqLlrzcMnVVGe
+	c8QTLOmFyHsjEE1LI8F98ftxeTEGWBoA7YoeRYGyXCkXRT1qx/Gk3PwzAXH6MBoq
+	9Ex+LFy66KozxrJg3/r6cCwkZioTmcAoriIgH85uCPgxKCzC2rWy6/M9HU=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwB3V86Z8o9qyloBAA--.426S2;
+	Thu, 27 Aug 2026 16:17:29 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 08/12] dt-bindings: net: snps,dwmac: Add compatible for
+ UltraRISC DP1000 SoC
+From: Jia Wang <wangjia@ultrarisc.com>
+To: Jia Wang <wangjia@ultrarisc.com>
+Cc: Conor Dooley <conor@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Anup Patel <anup@brainfault.org>, Mark Brown <broonie@kernel.org>, 
+ Andi Shyti <andi.shyti@kernel.org>, 
+ Mika Westerberg <mika.westerberg@linux.intel.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
+ Jose Abreu <joabreu@synopsys.com>, 
+ Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, 
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@sifive.com>, devicetree@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-spi@vger.kernel.org, linux-i2c@vger.kernel.org, 
+ netdev@vger.kernel.org, dmaengine@vger.kernel.org
+In-Reply-To: <178765275795.744215.4911904858473260204.b4-reply@b4>
+References: <20260824-ultrarisc-dts-v1-0-61ab7aebe9e5@ultrarisc.com>
+ <20260824-ultrarisc-dts-v1-8-61ab7aebe9e5@ultrarisc.com>
+ <20260824-bride-food-052b313e4b76@spud>
+ <20260824-blimp-spirited-01365897db24@spud>
+ <178765275795.744215.4911904858473260204.b4-reply@b4>
+Date: Thu, 27 Aug 2026 16:17:16 +0800
+Message-Id: <178781863615.2006105.6267469136684218126.b4-reply@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787818636; l=2733;
+ i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
+ bh=5BaBaUpgbE7yZAPVZNeV57kX7ae+OLSMniMswhoEkkw=;
+ b=yY3yRewGFr8detGpKXWyntfFHN5tgfDhLwzMiCHKFuFC9QP8BaO4Ra35Xa9Z5GUaqytZylF/o
+ TBafhCLJFs0CdSTIHPO0SFPDgpPeTVPXfGX+6IafSoBj78xUPCINNMC
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
+X-CM-TRANSID:AQAAfwB3V86Z8o9qyloBAA--.426S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxWF4DWrykZF13Zr4fWr4rXwb_yoW5Jw13pF
+	yrAFWjkF47Jr13Jw1kt3WxGF1jvr4SkrW8Xr4rtr1UKF90gFnYqrsrKw15W3Z5Zr4rGFy2
+	vrWUuw13J3WjvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBEb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_Gr1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IE
+	rcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWrXVW3AwCY02Avz4vE-s
+	yl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWU
+	JVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26rWY6r4UJwCIc40Y0x
+	0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8
+	JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIx
+	AIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0pKiifUUUUUU
+	=
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAMEWqPrHsAIQAAsP
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
-s) to consider:
-- [High] Strict 256-byte capacity limitation in HDLC buffers will drop vali=
-d Greybus messages.
-- [High] Incorrect RX buffer overflow handling treats the tail of oversized=
- frames as new messages.
-- [High] Dropping `gb_softsvc::Module` while holding a spinlock causes slee=
-ping in atomic context (deadlock/panic).
-- [High] `GbNode::write` unsafely assumes the serdev device is bound and ra=
-ces with driver `unbind`, leading to Use-After-Free.
-- [High] Concurrent calls to `GbNode::write` lack serialization, corrupting=
- the HDLC protocol stream.
-- [Medium] Unbounded log spam in the UART RX path when receiving overlong f=
-rames or invalid CRCs.
-- [Low] The config `GREYBUS_UART_NODE` depends on a non-existent config sym=
-bol, making it impossible to enable the driver.
-- [Low] Import formatting violates the vertical import style guideline.
-- [Low] Makefile comments contain copy-paste errors referencing the wrong s=
-ubsystem (`nova-core`).
---
+On 2026-08-25 18:12 +0800, Jia Wang wrote:
+> On 2026-08-24 18:13 +0100, Conor Dooley wrote:
+> > On Mon, Aug 24, 2026 at 06:09:48PM +0100, Conor Dooley wrote:
+> > > On Mon, Aug 24, 2026 at 01:54:21PM +0800, Jia Wang via B4 Relay wrote:
+> > > > From: Jia Wang <wangjia@ultrarisc.com>
+> > > > 
+> > > > Add the SoC-specific compatible string for the UltraRISC DP1000 GMAC
+> > > > controller to the DesignWare MAC binding.
+> > > > 
+> > > > Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+> > > 
+> > > The dts may not be right, but I am also a bit concerned here.
+> > > 
+> > > This binding permits 100s of combinations of properties, of which only
+> > > a very limited set can be correct for your device. Just adding the
+> > > compatible permits all of this variation.
+> > > 
+> > > Please add some restrictions.
+> > 
+> > In fact, it's particularly bad here because you don't even restrict
+> > which fallback compatibles are used, so there's no guidance on what
+> > version of the IP is even in use!
+> > 
+> 
+> I have rechecked the DTS against the hardware. The controller uses a
+> DesignWare GMAC IP from the 5.20 series, with "snps,dwmac-5.20" as its
+> version-specific fallback.
+> 
+> In the next version, I will restrict the fallback compatibles and add
+> DP1000-specific constraints for its hardware resources.
+> 
 
-commit 3bb7b1d9bc5abe108b82d7471de8f5bbfb1088d6
-Author: Ayush Singh <ayush@beagleboard.org>
+Following the discussion in patch 11, I will drop this patch from v2. I
+will first submit the dedicated DP1000 GMAC binding and DWMAC glue driver
+as a separate series, and then send v2 of this DTS series with that
+dependency recorded.
 
-greybus: Add Rust UART node driver
-   =20
-Add a driver for Greybus nodes attached over a plain serial port. The
-node is registered with the software SVC (gb-softsvc), which handles the
-SVC protocol on behalf of the AP, so no dedicated coprocessor running
-SVC firmware is needed.
+> > > 
+> > > pw-bot: changes-requested
+> > > 
+> > > Thanks,
+> > > Conor.
+> > >
+> 
+> Best regards,
+> Jia Wang
+>  
 
-Link: https://lore.kernel.org/all/20260622-nova-exports-v5-0-6191773fc977@n=
-vidia.com/
+Best regards,
+Jia Wang
 
-> diff --git a/drivers/greybus/Kconfig b/drivers/greybus/Kconfig
-> index 381d1a6ee135c..34de913af287e 100644
-> --- a/drivers/greybus/Kconfig
-> +++ b/drivers/greybus/Kconfig
-> @@ -60,5 +60,20 @@ config GREYBUS_SOFTSVC
->  	  To compile this code as a module, choose M here: the module
->  	  will be called gb-softsvc.ko
-> =20
-> +config GREYBUS_UART_NODE
-> +	tristate "Greybus UART node transport"
-> +	depends on RUST
-> +	depends on GREYBUS_SOFTSVC
-> +	depends on RUST_SERIAL_DEV_BUS_ABSTRACTIONS
+> > > > ---
+> > > >  Documentation/devicetree/bindings/net/snps,dwmac.yaml | 1 +
+> > > >  1 file changed, 1 insertion(+)
+> > > > 
+> > > > diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > > > index 2449311c6d28..2ed4564ae99d 100644
+> > > > --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > > > +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > > > @@ -119,6 +119,7 @@ properties:
+> > > >          - starfive,jh7110-dwmac
+> > > >          - tesla,fsd-ethqos
+> > > >          - thead,th1520-gmac
+> > > > +        - ultrarisc,dp1000-gmac
+> > > >  
+> > > >    reg:
+> > > >      minItems: 1
+> > > > 
+> > > > -- 
+> > > > 2.34.1
+> > > > 
+> > > > 
+> > > > 
+> > > > _______________________________________________
+> > > > linux-riscv mailing list
+> > > > linux-riscv@lists.infradead.org
+> > > > http://lists.infradead.org/mailman/listinfo/linux-riscv
+> > 
+> > 
+> 
+> 
+> 
 
-[Severity: Low]
-Is RUST_SERIAL_DEV_BUS_ABSTRACTIONS defined anywhere in the kernel tree?
 
-It appears this config symbol does not exist, which causes an unmet depende=
-ncy
-that will silently break the build configuration and prevent this driver fr=
-om
-being compiled.
-
-[ ... ]
-> diff --git a/drivers/greybus/Makefile b/drivers/greybus/Makefile
-> index e6f5941288027..81151963c01ea 100644
-> --- a/drivers/greybus/Makefile
-> +++ b/drivers/greybus/Makefile
-[ ... ]
-> +# Output nova-core's crate metadata for use by nova-drm at compile time.
-> +RUSTFLAGS_gb_softsvc.o +=3D \
-> +	--emit=3Dmetadata=3D$(objtree)/$(obj)/libgb_softsvc.rmeta
-> +
-> +# Allow nova-drm to import nova-core's types.
-
-[Severity: Low]
-This isn't a bug, but should these comments be updated to reflect the Greyb=
-us
-subsystem instead of nova-core and nova-drm?
-
-> +$(obj)/gb_uart_node.o: $(obj)/gb_softsvc.o
-> +RUSTFLAGS_gb_uart_node.o :=3D -L $(objtree)/$(obj) --extern gb_softsvc
-> diff --git a/drivers/greybus/gb_uart_node.rs b/drivers/greybus/gb_uart_no=
-de.rs
-> new file mode 100644
-> index 0000000000000..3eb4f8ab36554
-> --- /dev/null
-> +++ b/drivers/greybus/gb_uart_node.rs
-> @@ -0,0 +1,245 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +//! Greybus UART Node driver
-> +
-> +use kernel::{
-> +    alloc::Flags,
-> +    crc_ccitt::crc_ccitt,
-> +    device::{
-> +        AsBusDevice,
-> +        Bound,
-> +        Core, //
-> +    },
-> +    error::code,
-> +    new_spinlock, of,
-
-[Severity: Low]
-This isn't a bug, but does this formatting follow the kernel vertical import
-style guideline? Putting new_spinlock and of on the same line violates the
-one-item-per-line rule.
-
-> +    prelude::*,
-> +    serdev,
-> +    sync::{
-> +        aref::ARef,
-> +        Arc,
-> +        SpinLock, //
-> +    },
-> +};
-> +
-> +use zerocopy::little_endian;
-> +use zerocopy_derive::{FromBytes, Immutable, KnownLayout};
-> +
-> +const HDLC_MAX_FRAME_LEN: usize =3D 256;
-
-[Severity: High]
-Does a strict 256-byte capacity limitation in HDLC buffers drop valid Greyb=
-us
-messages?
-
-Greybus protocol supports dynamic payload sizes that can easily exceed 256
-bytes. Furthermore, HDLC byte escaping (fill_buf) can double the size of the
-payload on the wire.
-
-Any message exceeding 256 bytes (after escaping) will cause
-push_within_capacity() to fail, resulting in valid messages being dropped.
-
-> +
-> +const HDLC_FRAME: u8 =3D 0x7E;
-[ ... ]
-> +impl HdlcRx {
-> +    fn new(sdev: ARef<serdev::Device>, node: gb_softsvc::Module) -> Resu=
-lt<Self> {
-> +        Ok(Self {
-> +            node,
-> +            sdev,
-> +            rx_buf: KVec::with_capacity(HDLC_MAX_FRAME_LEN, GFP_KERNEL)?,
-> +            rx_in_esc: false,
-> +        })
-> +    }
-> +
-> +    fn frame_finish(&self) -> Result<()> {
-> +        if self.rx_buf.len() < 4 {
-> +            return Err(code::EFAULT);
-> +        }
-> +
-> +        let crc =3D crc_ccitt(0xffff, &self.rx_buf);
-> +        if crc !=3D HDLC_EXPECTED_CRC {
-> +            dev_warn!(self.sdev.as_ref(), "CRC failed {}", crc);
-
-[Severity: Medium]
-Could this dev_warn!() be used to flood the kernel log?
-
-If an attacker or a noisy line continuously sends invalid frames at high ba=
-ud
-rates, it would cause a Denial of Service. Should this be
-dev_warn_ratelimited!()?
-
-> +            return Ok(());
-> +        }
-[ ... ]
-> +    fn rx(&mut self, data: &[u8]) -> usize {
-> +        for i in data.iter() {
-> +            match *i {
-> +                HDLC_FRAME =3D> {
-> +                    if !self.rx_buf.is_empty() {
-> +                        if let Err(e) =3D self.frame_finish() {
-> +                            dev_warn!(self.sdev.as_ref(), "bad frame: {e=
-:?}\n");
-> +                        }
-> +                    }
-> +
-> +                    self.rx_buf.clear();
-> +                    self.rx_in_esc =3D false;
-> +                }
-> +                HDLC_ESC =3D> self.rx_in_esc =3D true,
-> +                _ =3D> {
-> +                    let c =3D if self.rx_in_esc { *i ^ HDLC_XOR } else {=
- *i };
-> +                    self.rx_in_esc =3D false;
-> +
-> +                    if self.rx_buf.push_within_capacity(c).is_err() {
-> +                        dev_warn!(self.sdev.as_ref(), "buffer overflow. =
-Dropping frame");
-> +
-> +                        self.rx_buf.clear();
-> +                        self.rx_in_esc =3D false;
-
-[Severity: High]
-Does clearing the buffer here correctly discard the rest of the overgrown f=
-rame?
-
-The loop continues processing the remaining bytes of the exact same oversiz=
-ed
-frame, erroneously pushing them into the newly empty buffer.
-
-When the HDLC_FRAME delimiter arrives to mark the end of the oversized mess=
-age,
-frame_finish() is incorrectly called on this trailing garbage, which could =
-lead
-to corrupted data being processed if the CRC randomly matches.
-
-Additionally, could this dev_warn!() cause an unbounded log spam?=20
-dev_warn_ratelimited!() is generally preferred when reading from noisy line=
-s.
-
-> +                    }
-> +                }
-> +            }
-> +        }
-> +
-> +        data.len()
-> +    }
-> +}
-[ ... ]
-> +impl gb_softsvc::InterfaceOps for GbNode {
-> +    fn write(&self, data: &[u8], cport: u16, gfp_mask: Flags) -> Result<=
-()> {
-> +        // SAFETY: `GbNode` only exists while its serdev driver is bound=
-, so the device is in the
-> +        // `Bound` state for the duration of this call.
-> +        let bound: &serdev::Device<Bound> =3D
-> +            unsafe { serdev::Device::from_device(self.sdev.as_ref().as_b=
-ound()) };
-
-[Severity: High]
-Does this unsafely assume the serdev device is bound and race with driver u=
-nbind?
-
-GbNode::write can be invoked asynchronously by the Greybus core. When the
-device is removed, GbUartNode::unbind drops the subsystem state but does not
-synchronize with concurrently executing write calls.
-
-This casts the serdev device to Bound without taking any locks that would
-serialize it against unbind. If write is preempted and executes concurrently
-with or finishes after unbind returns, it will call bound.write_all on an
-unbound or freed serdev device, leading to a Use-After-Free.
-
-> +
-> +        let mut buf =3D KVec::with_capacity(HDLC_MAX_FRAME_LEN, gfp_mask=
-)?;
-> +
-> +        let mut crc =3D 0xffff;
-> +
-> +        buf.push_within_capacity(HDLC_FRAME)?;
-> +
-> +        crc =3D Self::fill_buf(crc, &[ADDRESS_GREYBUS, 0x03], &mut buf)?;
-> +        crc =3D Self::fill_buf(crc, &cport.to_le_bytes(), &mut buf)?;
-> +        crc =3D Self::fill_buf(crc, data, &mut buf)?;
-> +
-> +        crc ^=3D 0xffff;
-> +        Self::fill_buf(crc, &crc.to_le_bytes(), &mut buf)?;
-> +
-> +        buf.push_within_capacity(HDLC_FRAME)?;
-> +
-> +        bound.write_all(&buf, 0)?;
-
-[Severity: High]
-Is it possible for concurrent calls to GbNode::write to interleave bytes he=
-re?
-
-The Greybus subsystem can submit messages concurrently from multiple connec=
-tions
-or cports, leading to parallel calls to GbNode::write.
-
-Because there is no SpinLock or Mutex in GbNode to serialize these writes,
-concurrent executions of write_all will interleave bytes from different fra=
-mes
-at the serdev layer, completely destroying the HDLC protocol stream and
-resulting in unparsable messages at the receiver.
-
-> +
-> +        Ok(())
-> +    }
-> +}
-[ ... ]
-> +    fn unbind<'bound>(_: &'bound serdev::Device<Core<'_>>, this: Pin<&Se=
-lf::Data<'bound>>) {
-> +        // Getting a bound device is not possible after this point. So d=
-rop HdlcRx.
-> +        let _ =3D this.rx.lock().take();
-
-[Severity: High]
-Does dropping this.rx.lock().take() directly cause a panic due to sleeping =
-in atomic context?
-
-In Rust, 'let _ =3D expr;' evaluates expr as a temporary, which drops at th=
-e end
-of the statement in reverse order of creation. So the Option<HdlcRx> (creat=
-ed
-second by take()) drops before the SpinLockGuard (created first by lock()).
-
-Dropping HdlcRx drops gb_softsvc::Module, which deregisters the Greybus host
-device. This operation sleeps and acquires mutexes. Doing this while the
-spinlock is held will trigger a "scheduling while atomic" BUG or deadlock.
-
-> +    }
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260827-gb-uart-tr=
-ansport-v2-0-a03bb1f5fbd1@beagleboard.org?part=3D7
