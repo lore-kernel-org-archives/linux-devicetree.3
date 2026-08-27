@@ -1,91 +1,202 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f44.google.com (mail-vs1-f44.google.com [209.85.217.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48D1D381B0D;
-	Thu, 27 Aug 2026 18:42:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAD764C9010
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 18:45:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787856143; cv=none; b=uzYEORYyE0n61oBSSpsDOK9T2Z7SAWfpHVf0JZFf9g00OuBtSbXbSOpRUrbKDP160WPouewMuAj1Db3IZNilWVRcL+WteLr/YCSNq/u1KMqN6YdWy6srBLVfpiOOBsV0dHgnYHbfQzImmjgXYPCLzOCtD+Gnj/tJma/SCLunjc4=
+	t=1787856329; cv=none; b=qh17uNnI1mvj5teNs3A0494Y1W6sGTpJd/YRBtB38/ycI3nNX/ptyDp79ZeXwJ/bL2Dur6N2YEPoaQdv8GJUGttiee4yJcKPiy9L5fbYr4rLPvwA+ZIKvFeLZOPOIfhydpeVbdOga2eZpEp0Wvrhtg0GcH51Rp0ianUjTMGcgs4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787856143; c=relaxed/simple;
-	bh=BQxeBCzlpdIBx1IQubyGP4cIIBLKUfAEpmsojcE+y0o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WwsbLJhSSRzo88WJWhuniaWbY4xu29Ut8jBgjORiPVs2rGKhGTArm3SMAcR3ZKJ/tK+Iy3HeRrKn71WcDNZ+Ec7PiLq9vbpwniYoJ2hImfrFFvdtMRglRJ4Vaj/RItdkbmRFbpDttQ+74yVutyzvYQ9fmBY3MBKw/yQn1eRfc2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JGyGZ1iF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787856329; c=relaxed/simple;
+	bh=i8ymRyp4e60Xjd+PpOlDes/VCNeSWWlD7ldvgNuYrOg=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=MP7pTl32zEAmOe7qu0mqUlxm0HReFbKx/7p+AywTbG+OeeOZLN/4z31CYZVBCxe7odt7aE1rgu5lTd+YxeC2FXP5rJ8iTUT/2QJB2QAfR93G5uqpLevv6AJ3q3G8rAADBLwqEP5+WMYXw0LNjnawVzBErWcPyzn/ZPa4xSH5NZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b73X64yZ; arc=none smtp.client-ip=209.85.217.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JGyGZ1iF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5E891F000E9;
-	Thu, 27 Aug 2026 18:42:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787856141;
-	bh=KHhkLS/1kvPLnma3IR3pFI9fv8AtiL1iUd3rkfzN1lg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JGyGZ1iFBz3zCcmK5s+YpaPPkJwF8HLlFKvCFOqnrCOgPcUbrmKgH4FEBYa/xbr7a
-	 h/1ZV4SVVbM08ujfZXsGjzeLQi4WVe7WUlIBnKyfNROLYwwBE28tqTXgbthsIqCcr9
-	 ZTWE0eGpePQDRxQ4T0lnMZV/0ukCtizTYpLByJER98aCyL6tH9cbxgroRedeTOZdvL
-	 L4OLoDn9U3H0qcxLGzwu9kX45We7ZNJbUcASVdMW9I5BuakpxhZ1Nj+jjlWmKwxDYc
-	 IT4Z/cvAibf/UWNXsYhG8Xs0ZCsGG25RgCt0UAQWvVjYpyNU/7Ig3ny/dkKNLseFfP
-	 aDTjGRsQ/HeTg==
-Date: Thu, 27 Aug 2026 18:42:19 +0000
-From: Eric Biggers <ebiggers@kernel.org>
-To: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
-Cc: axboe@kernel.dk, mst@redhat.com, jasowangio@gmail.com,
-	James.Bottomley@hansenpartnership.com, martin.petersen@oracle.com,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	linux-block@vger.kernel.org, linux-crypto@vger.kernel.org,
-	linux-scsi@vger.kernel.org, virtualization@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	neeraj.soni@oss.qualcomm.com, gaurav.kashyap@oss.qualcomm.com,
-	mani@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
-	bvanassche@acm.org, alim.akhtar@samsung.com,
-	avri.altman@sandisk.com, stefanha@redhat.com, pbonzini@redhat.com,
-	eperezma@redhat.com, xuanzhuo@linux.alibaba.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 00/11] FBE virtualization: inline encryption for
- virtio-blk guests
-Message-ID: <20260827184219.GB2137493@google.com>
-References: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b73X64yZ"
+Received: by mail-vs1-f44.google.com with SMTP id ada2fe7eead31-779d18ef706so87435137.2
+        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 11:45:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787856326; x=1788461126; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=8Zft/vSIa73biU2xBfrEJch6tyNiIXvMhfWRYn9XxXw=;
+        b=b73X64yZQCKSF4EZ5sKVrKHx9Ip+l+WUdRkNVTzRRyueWosqhcbwZ6ng7l+2ufTkRQ
+         CPu5F7FFUevZS5yFb8tq9bW+IK4Z7KppBpcBVJ81aMvfjsLXHCkbVNcHHO563nYlQn21
+         aDptEwreG6eMijzyasNKoyi83J3F8AEmaUCvZr7yJHcMn5wsVQ6gpQ6FTZY4l6Uzli7P
+         +a7w/Eox+vBBucOtN8dfoXKCF1OWFEOCiG5At+RDbKIjF3OxRu31fLBAFcvxd5XWiZDp
+         l++6WTfRdoWCWwzRxP8vGV34HdMzWJ94PmBGF704WCLM4zBPNihN4ONHivtVdOB4NKiv
+         aziQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787856326; x=1788461126;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8Zft/vSIa73biU2xBfrEJch6tyNiIXvMhfWRYn9XxXw=;
+        b=Kry0YdU2dlxoSN5brpJeZncMFioeBqPawhhMJiFLU+yNZsQiIIvcIbPfN/0gPtlB8d
+         WBrnRHH2jgqSgEId7DCHmxyBLJb98yhngyvV75cC0JNfXP5pHRi/MfIklX9O7FF7EKr/
+         eO7np59mITUMade0U7LpKmQCyte1RTAwi4WWUZk+V6MbVcsMQ8X/FLJdRWgT9nIaAAml
+         MTd0t6mh5S7H6y5SLBeg91YxBXfd+YgeBx5UckYLdAVRuW/K1SIQhey+u370Co4jZt58
+         JU6Zcs1Jfh0GCW2hsVDWuFaS8wahfOA6WwF6q+dYUgLv9BPTsPlixberTNs8RNNpZilE
+         koVQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rq8VOWgAlafsYP/MTVf2XC3UhzwcqMRaCYB6yerO8n39cpYmJgWNf66I5sHqvtVePdJ5dapLG9MP/1q@vger.kernel.org
+X-Gm-Message-State: AFuF++m9g71hSka0kCPrwFvDOjHGjVvte5V/FssftHI9ccjycJ0FVIrH
+	Z9e97+Ja+wn3FRce2zR4iliQmLy1WHc45rxGBDVHbIJ4ASdDMT4EkDem
+X-Gm-Gg: AR+sD12C+qb/n2lweJlBXJe3XujfGH2arwlsC/4mTRTb0dyZ82vV+1P7vIb3dV1fhJS
+	4uCKHBKkBjNzMCg0ond3sIOiZaxvt4rteUrhqpTSjNXwUCj33cVPK/X3def/uS3ICvdsUrntyYE
+	UK3XJnz7AkW747i2V8tsOZcBkHzM5fs585nEOqB2o/Rfol6sOrZ5ldHct+f0JGFM6qi6+m7t1tp
+	2wl/kHVA+YxpnzNPdSeNDc3v3grukqPa/0Y/fpHtg1Wo5Sj8pv98zztbozWsKGVQfMcr8ucYz6i
+	M0M8yu+rF2hMGf5pAUTT6zgePUlc/6fB4nMpk9dB6raBzmn+CemzRVCtQjx860uQ3NpmgBv4B9r
+	oaAIUQXZqqAbIgcr9a9PD9tMQNi67eB1OCra+Z6cjeq8GOPIw+i6paTPso+tH57NFtRquVwIaJT
+	ZIpwYOdSPlfx9/f6+F876QjZiNdnrTFqAXYFnZd95bywPKTapPCG7d
+X-Received: by 2002:a05:6102:3a09:b0:783:cba3:cf0c with SMTP id ada2fe7eead31-785977fdf41mr160038137.6.1787856325569;
+        Thu, 27 Aug 2026 11:45:25 -0700 (PDT)
+Received: from localhost ([2800:bf0:82:11a2:7ac4:1f2:947b:2b6])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-97cbe34c7c8sm5365290241.11.2026.08.27.11.45.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 27 Aug 2026 11:45:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 27 Aug 2026 13:45:17 -0500
+Message-Id: <DKZY65U6LPP1.AIH4CZKUGVWJ@gmail.com>
+Cc: "David Lechner" <dlechner@baylibre.com>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Linus Walleij" <linusw@kernel.org>,
+ "Bartosz Golaszewski" <brgl@kernel.org>, =?utf-8?q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>,
+ <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-gpio@vger.kernel.org>
+Subject: Re: [PATCH v3 7/9] iio: adc: ti-ads1262: support triggered buffer
+ sampling
+From: "Kurt Borja" <kuurtb@gmail.com>
+To: "Jonathan Cameron" <jic23@kernel.org>, "Kurt Borja" <kuurtb@gmail.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260807-ads126x-v3-0-f89925d72792@gmail.com>
+ <20260807-ads126x-v3-7-f89925d72792@gmail.com>
+ <1b6b6981-1a08-42a2-a03a-4366b980da13@baylibre.com>
+ <DKK9S36LB543.2T124NE3TNETN@gmail.com>
+ <f3ea3859-aff1-4c15-9302-095119faec78@baylibre.com>
+ <DKME9LSBXSXA.28PS1V6ZAH79O@gmail.com>
+ <20260816225424.27c9d223@jic23-huawei>
+In-Reply-To: <20260816225424.27c9d223@jic23-huawei>
 
-On Thu, Aug 27, 2026 at 09:07:09AM -0700, Linlin Zhang wrote:
-> From: linlzhan <linlin.zhang@oss.qualcomm.com>
-> 
-> Current virtio-blk does not provide a mechanism for a guest to
-> program hardware keys or submit encrypted I/O using pre-programmed
-> keyslots.  It drops the crypto context when issuing a bio request
-> to the virtio-blk queue, preventing inline-encryption-based FBE
-> on virtio block devices.
-> 
-> This series enables File-Based Encryption in guest VMs on Qualcomm
-> GVM platforms where the ICE inline encryption hardware is shared
-> between the host and guests.  In this environment the guest kernel
-> has no access to the ICE hardware directly; it supplies a virtual
-> keyslot index and data unit number with each encrypted I/O request
-> via VIRTIO_BLK_F_INLINE_ENCRYPTION, and the host must translate the
-> virtual slot to a physical ICE keyslot and submit the bio — without
-> transferring raw key material across the VM boundary.
+On Sun Aug 16, 2026 at 4:54 PM -05, Jonathan Cameron wrote:
+> On Tue, 11 Aug 2026 15:24:46 -0500
+> "Kurt Borja" <kuurtb@gmail.com> wrote:
+>
+>> On Mon Aug 10, 2026 at 11:31 AM -05, David Lechner wrote:
+>> > On 8/9/26 3:28 AM, Kurt Borja wrote: =20
+>> >> On Sat Aug 8, 2026 at 1:39 PM -05, David Lechner wrote: =20
+>> >>> On 8/7/26 10:58 PM, Kurt Borja wrote: =20
+>> >>>> Add triggered buffer support and a data-ready (DRDY) hardware trigg=
+er.
+>> >>>> =20
+>> >
+>> > ...
+>> > =20
+>> >>> =20
+>> >>>> +	u8 tx[11] __aligned(IIO_DMA_MINALIGN);
+>> >>>> +	u8 rx[11] __aligned(IIO_DMA_MINALIGN); =20
+>> >>>
+>> >>> don't need second one to be aligned, they aren't independent. =20
+>> >>=20
+>> >> Ah, I forgot this observation in the last version. These are used in =
+a
+>> >> full-duplex transfer, wouldn't that require for both to be on its own
+>> >> cache line? I just started learning about DMA. =20
+>> >
+>> > No. In this case, it works roughly like this...
+>> >
+>> > - We fill the TX buffer before the transfer. (CPU access to memory may
+>> >   just live in the cache at this point and not actually be sent to RAM=
+)
+>> > - We request to start the SPI transfer.
+>> > - The core SPI code flushes (or maybe I should say invalidates) the ca=
+che
+>> >   on the TX buffer. This ensures that what we wrote with the CPU avail=
+able
+>> >   to DMA.
+>
+> Extra fun - it has to flush the rx buffer too.  Because...
+>> > - The actual SPI transfer happens that uses DMA to access both TX and
+>> >   RX buffers. (Again, could just live in a cache and not be sent to RA=
+M)
+>> > - The SPI core code flushes the cache on the RX buffer. This ensures
+>> >   that when the CPU reads the memory, it will see what the DMA just
+>> >   wrote. =20
+> If the RX buffer had old dirty lines (could have been used for something
+> completely different) in it, that is modified data that hadn't
+> been written back to RAM, then this flush would wipe out the hardwork of
+> the DMA by writing those CPU cache held rx bytes over the top.
 
-This seems to be designed incorrectly by not making virtio-blk itself
-support key programming and eviction.  That complicates things
-significantly by then having to handle the key programming and eviction
-out-of-band using Qualcomm-specific SCM calls.  It also means that
-adding other implementations of this would be very difficult.
+Makes sense too. In this case, if both buffers share the same cache
+line, I *guess* that would just be a redundant flush.
 
-There are some claims that not transmitting keys across the VM boundary
-is desirable.  But that doesn't seem meaningful, given that all the I/O
-is transmitted across that boundary in plaintext anyway, and also it
-seems that hardware-wrapped keys will be supported too.
+>
+> (Next bit is just to scare anyone who thinks they know how this all works=
+ -
+> completely irrelevant here :)
+> Don't get me started on architectures that do clean write back (occasiona=
+lly).
+> Thankfully I don't believe any of them also have non coherent DMA as to
+> be able to do that nasty hack you have to know no one can see it.
 
-Please make virtio-blk support the key programming, eviction, and
-HW-wrapped key management operations that are needed for this to work.
+With "clean write back" are you referring to a write back without
+invalidating the line?
 
-- Eric
+> For more fun, one large CPU vendor thought that was the case and there is
+> a spec out there that has a magic flag to let the OS know it does this
+> because there are cases where you care.
+> </rant>
+>
+>>=20
+>> Oh, this makes a lot of sense.
+>>=20
+>> >
+>> > Since there isn't a time when CPU and DMA both write to the cache line
+>> > at the same time before a flush, there is never a time we could have
+>> > an issue with stale data replacing data that had not been flushed.
+>> >
+>> > It does mean that we can't update the tx buffer for the next message
+>> > until after this message is done, but we have to do that anyway.
+>> >
+>> > What does cause problems is if we just had a regular unrelated variabl=
+e
+>> > after this in the cache line and the driver updated it during a SPI
+>> > transfer. If this new value was just living in the CPU cache, then
+>> > when the RX flush happened, it would write over that new value with
+>> > stale data from the DMA's version of the cache. =20
+>>=20
+>> Thanks! I'll look deeper into DMA, it's very interesting.
+>>=20
+> Wolfram Sang did a nice ELCE talk on the more normal flows for this a
+> few years back when he was working on reducing copies in the i2c subsyste=
+m.
+> https://www.youtube.com/watch?v=3DJDwaMClvV-s&pp=3DygUQd29sZnJhbSBzYW5nIG=
+RtYQ%3D%3D
+> Is the one I think.
+
+Very interesting talk, DMA is way messier than I thought. I guess it's
+the price of supporting so many different architectures.
+
+I recently got my hands on an FPGA board so I'm gonna be playing with
+it, although it seems DMA is still way out of my reach :p.
+
+...
+
+Thanks for your review! I already finished v4 and I should be able to
+submit it tonight.
+
+--=20
+Thanks,
+ ~ Kurt
