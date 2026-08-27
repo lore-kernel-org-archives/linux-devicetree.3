@@ -1,135 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D4E9427F93;
-	Thu, 27 Aug 2026 18:23:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48D1D381B0D;
+	Thu, 27 Aug 2026 18:42:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787855004; cv=none; b=KHF4A82Z3DhnJipy3I/qs4N8kWA+6f9wMEB5DQ+F0JCWJvKsMnE8sRLdAaLtnss8fPkBit5yLXhCJj9lxUOC1RaaOmEQjTie8lQSYUjzVtRwzx93Hmj/KnHBxOoUhl1qcV7UGw7tV424YU3t4SBo18DJKCv1NG7uG1VhzwlPHrg=
+	t=1787856143; cv=none; b=uzYEORYyE0n61oBSSpsDOK9T2Z7SAWfpHVf0JZFf9g00OuBtSbXbSOpRUrbKDP160WPouewMuAj1Db3IZNilWVRcL+WteLr/YCSNq/u1KMqN6YdWy6srBLVfpiOOBsV0dHgnYHbfQzImmjgXYPCLzOCtD+Gnj/tJma/SCLunjc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787855004; c=relaxed/simple;
-	bh=C4KUYnC+6cLY5EE5qau7bMQnH2q3SW44K5cRKaDJEd4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gdd+RB/xNEglNR+JtqkFEEUlDM4w8Z5HWQZrBlYRKrqOXOsao4dC1LSNGTAtWTzTif9fMchjTkhDLelXP849RKxVEQP/X3VfEQUcw1vTjXxRkvq9KslssY4LuJOwBJ4ngl1FP2Aozv7wUCd6uZze2dGczyGdhCEoNO5kaOS2VS4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qlror62l; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787856143; c=relaxed/simple;
+	bh=BQxeBCzlpdIBx1IQubyGP4cIIBLKUfAEpmsojcE+y0o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WwsbLJhSSRzo88WJWhuniaWbY4xu29Ut8jBgjORiPVs2rGKhGTArm3SMAcR3ZKJ/tK+Iy3HeRrKn71WcDNZ+Ec7PiLq9vbpwniYoJ2hImfrFFvdtMRglRJ4Vaj/RItdkbmRFbpDttQ+74yVutyzvYQ9fmBY3MBKw/yQn1eRfc2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JGyGZ1iF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qlror62l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A1B01F000E9;
-	Thu, 27 Aug 2026 18:23:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JGyGZ1iF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5E891F000E9;
+	Thu, 27 Aug 2026 18:42:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787855002;
-	bh=jlxQuoObuutJ0TlgvA6sol+E59zkVWzvDAmLokqmA+s=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Qlror62lfuZjYSR7dQ0VS0X6JGerXTnyq1iPV7SfUq/u7M8RnGPAEGqcRYLZ/SLWu
-	 e6Lqkz/D4ObwJToO7kc+hGRNrmroTvt4pCyEDyzNK5dE6vtep8dvjCuufyN6utKmc8
-	 5dF+Pg9V6slPZvLtk+QVcoXxcmJ/SZE19reblWP72EHfd55+czoPz90ReY5DYVKXwT
-	 TirNXtTRm/MtRV64X/fep5U5CDuhEIsl4wB3Cg8gDz7652Qrhhn828gSbkydHeVTiE
-	 3tv8npJa2FHJpgfe77CCY2mWWtGoh4yWSI0NqzHMUZZFPrY79EBqp+vlev1g5AYpTV
-	 sxAsL/7VCRyUg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 07/15] interconnect: qcom: Add Kuno interconnect
- provider driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hardeep Sharma" <hardeep.sharma@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260827-kuno-soc-support-v5-7-6d47636a8f09@oss.qualcomm.com>
-References: <20260827-kuno-soc-support-v5-0-6d47636a8f09@oss.qualcomm.com>
- <20260827-kuno-soc-support-v5-7-6d47636a8f09@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 27 Aug 2026 18:23:22 +0000
-Message-Id: <20260827182322.7A1B01F000E9@smtp.kernel.org>
+	s=k20260515; t=1787856141;
+	bh=KHhkLS/1kvPLnma3IR3pFI9fv8AtiL1iUd3rkfzN1lg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JGyGZ1iFBz3zCcmK5s+YpaPPkJwF8HLlFKvCFOqnrCOgPcUbrmKgH4FEBYa/xbr7a
+	 h/1ZV4SVVbM08ujfZXsGjzeLQi4WVe7WUlIBnKyfNROLYwwBE28tqTXgbthsIqCcr9
+	 ZTWE0eGpePQDRxQ4T0lnMZV/0ukCtizTYpLByJER98aCyL6tH9cbxgroRedeTOZdvL
+	 L4OLoDn9U3H0qcxLGzwu9kX45We7ZNJbUcASVdMW9I5BuakpxhZ1Nj+jjlWmKwxDYc
+	 IT4Z/cvAibf/UWNXsYhG8Xs0ZCsGG25RgCt0UAQWvVjYpyNU/7Ig3ny/dkKNLseFfP
+	 aDTjGRsQ/HeTg==
+Date: Thu, 27 Aug 2026 18:42:19 +0000
+From: Eric Biggers <ebiggers@kernel.org>
+To: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
+Cc: axboe@kernel.dk, mst@redhat.com, jasowangio@gmail.com,
+	James.Bottomley@hansenpartnership.com, martin.petersen@oracle.com,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-block@vger.kernel.org, linux-crypto@vger.kernel.org,
+	linux-scsi@vger.kernel.org, virtualization@lists.linux.dev,
+	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	neeraj.soni@oss.qualcomm.com, gaurav.kashyap@oss.qualcomm.com,
+	mani@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+	bvanassche@acm.org, alim.akhtar@samsung.com,
+	avri.altman@sandisk.com, stefanha@redhat.com, pbonzini@redhat.com,
+	eperezma@redhat.com, xuanzhuo@linux.alibaba.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 00/11] FBE virtualization: inline encryption for
+ virtio-blk guests
+Message-ID: <20260827184219.GB2137493@google.com>
+References: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Thu, Aug 27, 2026 at 09:07:09AM -0700, Linlin Zhang wrote:
+> From: linlzhan <linlin.zhang@oss.qualcomm.com>
+> 
+> Current virtio-blk does not provide a mechanism for a guest to
+> program hardware keys or submit encrypted I/O using pre-programmed
+> keyslots.  It drops the crypto context when issuing a bio request
+> to the virtio-blk queue, preventing inline-encryption-based FBE
+> on virtio block devices.
+> 
+> This series enables File-Based Encryption in guest VMs on Qualcomm
+> GVM platforms where the ICE inline encryption hardware is shared
+> between the host and guests.  In this environment the guest kernel
+> has no access to the ICE hardware directly; it supplies a virtual
+> keyslot index and data unit number with each encrypted I/O request
+> via VIRTIO_BLK_F_INLINE_ENCRYPTION, and the host must translate the
+> virtual slot to a physical ICE keyslot and submit the bio — without
+> transferring raw key material across the VM boundary.
 
-Pre-existing issues:
-- [High] Dangling pointers in statically allocated `qcom_icc_node` structs =
-cause Use-After-Free on driver rebind or deferred probe.
---
+This seems to be designed incorrectly by not making virtio-blk itself
+support key programming and eviction.  That complicates things
+significantly by then having to handle the key programming and eviction
+out-of-band using Qualcomm-specific SCM calls.  It also means that
+adding other implementations of this would be very difficult.
 
-commit 247254381db99e8828d00f4e780472baac9636d1
-Author: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+There are some claims that not transmitting keys across the VM boundary
+is desirable.  But that doesn't seem meaningful, given that all the I/O
+is transmitted across that boundary in plaintext anyway, and also it
+seems that hardware-wrapped keys will be supported too.
 
-interconnect: qcom: Add Kuno interconnect provider driver
-   =20
-This commit adds a new interconnect provider driver for the Qualcomm Kuno
-SoC. It defines the interconnect nodes and BCM structures, and registers
-the interconnect provider using the common RPMh probe and remove functions.
+Please make virtio-blk support the key programming, eviction, and
+HW-wrapped key management operations that are needed for this to work.
 
-> diff --git a/drivers/interconnect/qcom/kuno.c b/drivers/interconnect/qcom=
-/kuno.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/interconnect/qcom/kuno.c
-> @@ -0,0 +1,988 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#include <linux/device.h>
-> +#include <linux/interconnect.h>
-> +#include <linux/interconnect-provider.h>
-> +#include <linux/module.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/regmap.h>
-> +
-> +#include <dt-bindings/interconnect/qcom,kuno.h>
-> +
-> +#include "bcm-voter.h"
-> +#include "icc-rpmh.h"
-> +
-> +static struct qcom_icc_node qup0_core_slave =3D {
-> +	.name =3D "qup0_core_slave",
-> +	.channels =3D 1,
-> +	.buswidth =3D 4,
-> +	.num_links =3D 0,
-> +};
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the use of statically
-allocated nodes like qup0_core_slave in kuno.c create a risk of a dangling
-pointer?
-
-When the driver binds, qcom_icc_rpmh_probe() allocates dynamic icc_node
-structures and caches them in the node field of these static definitions.
-
-On driver unbind or deferred probe error paths, qcom_icc_rpmh_remove()
-frees those structures via kfree(). However, the static pointers in the
-qcom_icc_node arrays are never cleared to NULL.
-
-If a privileged user unbinds and rebinds the driver via sysfs, or if a
-deferred probe is triggered on startup, could the new probe call bypass the
-if (!qn->node) check, reuse the freed pointer in icc_node_set_name() or
-icc_node_add(), and result in memory corruption or a use-after-free?
-
-[ ... ]
-
-> +static struct platform_driver qnoc_driver =3D {
-> +	.probe =3D qcom_icc_rpmh_probe,
-> +	.remove =3D qcom_icc_rpmh_remove,
-> +	.driver =3D {
-> +		.name =3D "qnoc-kuno",
-> +		.of_match_table =3D qnoc_of_match,
-> +		.sync_state =3D icc_sync_state,
-> +	},
-> +};
-
-[Severity: High]
-This isn't a bug introduced by this patch, but since qnoc_driver registers
-with qcom_icc_rpmh_probe and qcom_icc_rpmh_remove, does it inherit the
-unbind and rebind issue described above?
-
-Because qcom_icc_rpmh_remove() does not clear the cached pointers from the
-static node arrays provided by this driver, could a deferred probe or sysfs
-rebind result in dereferencing freed memory?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260827-kuno-soc-s=
-upport-v5-0-6d47636a8f09@oss.qualcomm.com?part=3D7
+- Eric
