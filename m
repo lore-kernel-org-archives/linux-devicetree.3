@@ -1,88 +1,89 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 504C74C77A0
-	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 17:53:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73A114B0481
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 17:53:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787853199; cv=none; b=KCVV7YSlqi/VT+D3sfaQ+Ar0aApm1vt6/9pvK1FMffIEFfafQKDpttMiulTdF+RPtSWUsnscUCrLm+sEvy5mj4XueGjvZM7EP8mpEHvJscOUtR5lf2epWOcJJDcgRXjGpWol9Xzu06NqfvA5FZEWS1ovy87qC522BtSZeGoVqJs=
+	t=1787853208; cv=none; b=nfgQ36zc1Y1OxXxJivA6T1QG0luZrrFay6im1U4f3Lxo+3ISSyPwjss3oOVKLTr3XItZ51Ej1WTfI1RRfuOK/WM2twp05OdO94/n94vDR7shhR9oG1pioR+u24VpmsqWcPuHLy/ouOip2rBx9tl5f5LTc7vc3WTzMn5SpBwrGzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787853199; c=relaxed/simple;
-	bh=ItYoLNnh/itsBdfqIb42AjjkJMdlnXNAkIHidF5zyeE=;
+	s=arc-20240116; t=1787853208; c=relaxed/simple;
+	bh=VMPk8iPi43dEtmYkKXt01Gm+7aUp6TmVF3AL6pfOShE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Yz7c37SrWWLdeqhLkq8OA3a5TyMp19bmY6VF7VxXkNWklg+xFUJbqzGaintareqd3DTYtq6XMi1pzKuIzJSIz1GLF/LMH3hRNSAuUIpq0u+Dwzx9OYO6TQRcdkFpG2J6HOth5U2chvRCHo53WiW99tjbofF8aDWGmJmxZeidnCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RkHbSgXe; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ID8kaomV; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=L5QIwR+NrDlFmiQxhqDQ+/VOIelYfiMvmBZWW4PTNjwQdKE8kX5NLkI+Rv3X10SZ8edKWwT9KxRiijh4/NPdh3d/WRHZlFoty7risd6kUfhcwNoDa9+6J63XwmljlDhEzDN4CHPvBbRDP36hylwmrQxoo3lk1FKqrZGxU8r+ugs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RoUyBHsB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PXUP7Y/u; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RkHbSgXe";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ID8kaomV"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67RHXhmV000691
-	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 17:53:16 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RoUyBHsB";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PXUP7Y/u"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67RHXdkQ1568341
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 17:53:25 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	C6e0CuKO+gMRclt1VJTiG7s7VdbGf2b3bc5vZVAaf7s=; b=RkHbSgXez7KatwTr
-	4FyAAyx7HlHKvwwXWKclK5ehgzUEX8GPZaG1PwKPW5brqgytQ1+6FlTccR0L167g
-	aO8kSI57OUH8P1JlGgdmDH8bRhwEvnaAPI8mapMy324ajW+igDqlk3VcZSsJLJ5O
-	YUFh55k6n6/NCgKS4QJZ1T0aSO/ffUU2ULuMEQim9tpiBa8/yHufcvUdK0a7KF7r
-	74K0zSMt3QRQ7BCG5TMljp+ZTy/f8qyoES6OAnBLpDswdsajiGAS5sN1D/7gBqcE
-	jnGsN+HeN7NuCOB6KNqr+OcscHsJlNw9c9wB+oCi4up1j90UXj9ggsMrexuUlVlm
-	0LpWNA==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ga6etvt14-1
+	1CyKk8AZ6pREhlf/bx2YZm9z4JF80rBaz1RtOIA/3FU=; b=RoUyBHsBNWngjiyx
+	SC1e6d0HWVnKGmJ8HNlTIUMdtGU3iHaWs3e7KWnZkkgChLn2oGxbhaIsTSniPDux
+	hNieNIaNyYoc39YMW1tmeqjJaeIS8vMSlF6x0e3x4n4llI5TQ7yurd63dB4ZqZP+
+	HdZ1k44v7jO/akgmufKvUkP0UizoYcw935/eoG03uKPfdrGaM5aoWY421uZgjCvh
+	Fr3ov+9NxOLXdl/4KZNNaIwD3q911gtlKGVcuoiiKlQVAz1IcXnOlo1T5qpdPILQ
+	duXE+Uh/EBTaV5jzrIuZw0UmuQB7ntdmEMJtr0yR9QgOuI2QwnFOZi/802ioRZ2n
+	y7W1Vw==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ga8m5magx-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 17:53:16 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cbe77d6864dso189456a12.2
-        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 10:53:16 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 17:53:25 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc12e8e22b7so297322a12.0
+        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 10:53:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787853196; x=1788457996; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1787853205; x=1788458005; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=C6e0CuKO+gMRclt1VJTiG7s7VdbGf2b3bc5vZVAaf7s=;
-        b=ID8kaomVzq7hvUeNWx7gd8GZZXDdeepUCel+kNgDnEsyR2EppxujUFaOYD8WE2s6Tw
-         /g9nQPbtkGI1Q+0WLqmYKet/OMl1D/PElMh5j0GfYpDfuSSwAXNBgvAJf2nhEFZZD9OV
-         uQvmlioalWi7Vt8Ku0flC8asWPKzrgodpFwH7Rj/tX1b+Aqfg4DkaARsK50kkmZXTsJU
-         7xyiZosN8HY6/K0NOPD1xWYHilHPnWpCZFjYDTX/fWX4KJS7WamRCOMlVDsANikGs44b
-         BPPF+/uwmwLquV6Lh5c7xIKU84+36pUMX24hqyW/rtCiNcu7ObnqJB5SEXH/ur2bP0es
-         funA==
+        bh=1CyKk8AZ6pREhlf/bx2YZm9z4JF80rBaz1RtOIA/3FU=;
+        b=PXUP7Y/uJam+upzx5BCAFoDzmu4en6lR+z42MslLkguZAKwTpH6SCs2XRrGPCTSNF5
+         9LjdrC4g/cwCPcdbwMPY9+HNzcL1heki35EZ9jlP1D3k+qGJ+1rkBnEo9NWFceWfvj4D
+         +USMcm51trociDdbBEdXjA5lAgHHRcT4kmxs8TKERSlRLsCizAQ1e79xZibNml08ZQiP
+         GySNCmWA2lnTmoLoB9yBs8cER5yq8BzXz/sZZ4Nt3XGhvpCGK4C7fgvZcLic3YbgS/uX
+         w0+1bF5KwI+Aznrg8P7j9iwpiHGZW4xX7o/pqhjm9GKNa6hdtKnYV93z4ghZQADL3ReC
+         Fwvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787853196; x=1788457996;
+        d=1e100.net; s=20251104; t=1787853205; x=1788458005;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=C6e0CuKO+gMRclt1VJTiG7s7VdbGf2b3bc5vZVAaf7s=;
-        b=LqpCGmDyMF19h3KOQThjQukzXpKOJHU80IIzUoTE27IKVzsDgxdDOsDLc5+6FMxoI2
-         SomeNAsLSqcl83oq+CN6oZunM3nZWgdYL/Tknktlmw7HsBQ4+foeNsKFCsRWtvSs6GiL
-         0FrsveQ0pWbjV+L6lgw15kFNM9rTGFRvM90S61H/Jz2XF3EhpDarabAHJgQOG/evzrAJ
-         ftZVE8kPzFiE+97r53W6i8rMYN2QrRYiM360YYfZU+jX2f9NYzfkTH/ywf/L/CoFT6hn
-         7KroTSo0q5GWNcnir1hvYipbOg+PU2f/WkMTVjs+OAIw+RpQFV9kqi+KSQj9D7nDO8Dq
-         U9UA==
-X-Forwarded-Encrypted: i=1; AHgh+Rrhot5tzxaaL/QZvCNgv51tfH3CHNmMyItqyYE8yw1Bgn65lepbO6XgY1SeK6aU7fWbx16d3O822OHo@vger.kernel.org
-X-Gm-Message-State: AFuF++m5zVC+Gr8EgzhHZw4yxHu5JZUdnC6VgWLXsNpR69A6TaUNGssF
-	O8t4EREWMXoXh1Od+xbGiVecRImDzcn87h/9pwsQhuZuXq+D87YjgjjHPAPV0eU9ce+rog4waJR
-	3puET4yFR6nE1unS8Wce8Phgq5yYqo8iKPenaw1J/gtNpDW1CPMK4/XMOrTSFe2oN
-X-Gm-Gg: AR+sD13SO/k9HZKic0mSw9Vrdx/C0DWSMsWmo9H0xIq/jotgMJGTD6xywB7X4xizF1F
-	AQZgNyoixODQu9VyezUKKU7s97+IVTsUqr4mxMAvxk5qxNhCeQsmelbCeiJVPKjz9qj7uBw8use
-	xdnvGbC0McvKxVeYamf6+f3VtVhjJcF+bnnRPzSP0EyQLjEFQEpIkVORFgYzWXI3mdDWcTF5adq
-	T9hu2OSsoWhugku9asbphdiT0MnpYtXYoUjjcXdimKR0mem/dLjRkZQ1B5EyGUeNQRfm184lTGC
-	EsNyUlRtJ7NgNtxu39DHfpNthis7BC8YvlNGMAWCH29HXCKW6ixqAMiwmELFjZ20V3mzGelvtC8
-	kIb2dPoNSv+ysJVEipcOKP7YycGoON0sH9H1+0U2xlXHGwGhRI74kukeMKhkcZ2W2irDQj/R3+o
-	xI/ZNcHCi5mRqd7Drnovxyr+0=
-X-Received: by 2002:a05:6a21:496:b0:3c4:1916:9d40 with SMTP id adf61e73a8af0-3d2672043dfmr1491368637.12.1787853195996;
-        Thu, 27 Aug 2026 10:53:15 -0700 (PDT)
-X-Received: by 2002:a05:6a21:496:b0:3c4:1916:9d40 with SMTP id adf61e73a8af0-3d2672043dfmr1491257637.12.1787853195497;
-        Thu, 27 Aug 2026 10:53:15 -0700 (PDT)
+        bh=1CyKk8AZ6pREhlf/bx2YZm9z4JF80rBaz1RtOIA/3FU=;
+        b=MGIlUnVkgtfX6TTiKL9A/HN9hpwen/vzoS7x5jHssygj/Skq4WKiv29O/CQLrhtdqs
+         pLo3P2Kl5gdj4BjDL1XkdG7XmS2kDvyvnJla5rCaoogbp84OAMHMFsiVXQ0cMnn89E9s
+         Jp0KvISncVdJ6cl3IRyjOKIgv+kGmmSl87wTP1YOxhG6dl1FVsrNCr4ijn62nH+e4cVr
+         Jr80ucLaPi/gtQLyAKB0t3jNubSNLKklfLcBZ4CV6gMPiI53WZQZnVGK7c9nmQNYk374
+         tfvBuPVQpARRMdyHHrfBrvsnDg6nmYYNtidfanMUeaSIMT3zX+JNqeazzGsHtjrLsan8
+         THMw==
+X-Forwarded-Encrypted: i=1; AHgh+Rpkejv12OakID77M7ZKtIDU0Xsu32VRoHFbbYXxgCKa/DrW/hovZzZ3YYOLmDpHVVbm/ZfwQYAG1hrN@vger.kernel.org
+X-Gm-Message-State: AFuF++mbsoVo6ide+8wFTnVArSbkqMIOU77MM8FYCW9DvX8gdNffVeX7
+	79Lw3mhTgKshLArNaTKKWpBfed/w5zDUxdYlhAY4/zfVvTaotXR3hU+JOksnZC2xL+OwamPrRlq
+	QTq3chbLfXjRxpyO2GnHWWwiLW/QeZLhc07L9+P4/9iwrPKZ501NvjxJpdosJZ7SBPa0X3KuZ
+X-Gm-Gg: AR+sD10iwPKenwyIFoZ5GDDx5OvGyP8bCOfwJSo9Kg1ReLYDyFwmIZM//Mjp863cRhH
+	Dp5gTUN1n0t0RmDp4OLcIzpBLjGGKmCD4W/qmEhdOQ3ALqmFNQLP6a4xKN/kdkRhawn4u7Jcqvy
+	frigXDCe2k0yHi4uaQHE87F5tuuX1g5eGKJUgFMbTruPijUZDAWxOxJeoV02ZH9VovYZBgqT+4Y
+	quVZ/D3sjSFwZl9m05kKIVgsA9OGvwEZg8a4dRIMQy3v/ElOxr0LNiwYYFZ54JGFUoRNI4KfK9N
+	sWJDJmpInYc5iuJ3cw+jAfZaO6F6sIUztdbqgoxHmwclnpWGU3A6TF8JcUTsZ2MkS93G5Z9zWZK
+	MJ3r/8/DYHpGaXWcJIYtbWyJ2YYt/4XalevBZ4UEw43f4wXDnBu3KC0FxpIb8xHp9ZeJAFVVcO3
+	N/nBDYP2btxY2VmraBRL+NQrs=
+X-Received: by 2002:a05:6a20:4327:b0:3c4:1493:6822 with SMTP id adf61e73a8af0-3d268397a7dmr1297301637.18.1787853204797;
+        Thu, 27 Aug 2026 10:53:24 -0700 (PDT)
+X-Received: by 2002:a05:6a20:4327:b0:3c4:1493:6822 with SMTP id adf61e73a8af0-3d268397a7dmr1297174637.18.1787853204196;
+        Thu, 27 Aug 2026 10:53:24 -0700 (PDT)
 Received: from hu-hardshar-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d60d25esm23889316eec.4.2026.08.27.10.53.07
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d60d25esm23889316eec.4.2026.08.27.10.53.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 10:53:15 -0700 (PDT)
+        Thu, 27 Aug 2026 10:53:23 -0700 (PDT)
 From: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
-Date: Thu, 27 Aug 2026 23:21:17 +0530
-Subject: [PATCH v5 14/15] dt-bindings: arm: qcom: Document Kuno IDP board
+Date: Thu, 27 Aug 2026 23:21:18 +0530
+Subject: [PATCH v5 15/15] ARM: dts: qcom: Add initial device tree for Kuno
+ SoC
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,7 +92,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260827-kuno-soc-support-v5-14-6d47636a8f09@oss.qualcomm.com>
+Message-Id: <20260827-kuno-soc-support-v5-15-6d47636a8f09@oss.qualcomm.com>
 References: <20260827-kuno-soc-support-v5-0-6d47636a8f09@oss.qualcomm.com>
 In-Reply-To: <20260827-kuno-soc-support-v5-0-6d47636a8f09@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
@@ -113,93 +114,538 @@ Cc: linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
         linux-pm@vger.kernel.org, linux-clk@vger.kernel.org,
         linux-gpio@vger.kernel.org,
         Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
 X-Mailer: b4 0.15-dev-47773
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787853069; l=2321;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787853069; l=12320;
  i=hardeep.sharma@oss.qualcomm.com; s=20260204; h=from:subject:message-id;
- bh=ItYoLNnh/itsBdfqIb42AjjkJMdlnXNAkIHidF5zyeE=;
- b=C22RJD5sgzvXUOzBpV9SoyCEBIxzbYbYsy92vpBFw5E8Raay6bzCVz+AMEy5zCta5NZdYmEjX
- +fifQkm05AXCQk5irvSl1ZhVhXNOkL2Zm9HU3RI5mZzga5NYVGEcGxq
+ bh=VMPk8iPi43dEtmYkKXt01Gm+7aUp6TmVF3AL6pfOShE=;
+ b=JY8a8bNF+NhKBRGw0iQbbCEsNI0isE3kg2wH/V6ufIlGCglawxYxcoumT06soZ38H1K1n15bJ
+ CxF8dJp1b03DQ2QMsSF2K9bANUnsHT1apA29ap2ir+wh8sCWL19llne
 X-Developer-Key: i=hardeep.sharma@oss.qualcomm.com; a=ed25519;
  pk=IvwPDKA2xr6jWaCIBBY2ran/H0124QUzVfun+CtEikM=
-X-Authority-Analysis: v=2.4 cv=NrThtcdJ c=1 sm=1 tr=0 ts=6a90798c cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Proofpoint-ORIG-GUID: WyU-i48EBf9N_55Xds18AsgVy91qsM6a
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDE1MSBTYWx0ZWRfX1hYHgTQwEDQE
+ zB43VV10sgsaOZ1yAtxzFNlnG6iaQZUcqysIIesXSs8slaFvEHyxjolKTCtJaINKw5dJ+qcJ+fo
+ pA6KDEyRBH9DRSevnpo+0cIvizFdluE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDE1MSBTYWx0ZWRfX06LTUwIMvI6j
+ XU1Us4MnfQd7LlpABkKxQuUFxEeY0T4ZCyaUeDha3Sfa7pyT4ldo1hBXsRzZLJgRj9N5qNoGoPL
+ y3hN7lOmDkuajYToYntKy8qqat+Mltc3dHj3Xnx2v7+0OYGslecJNV5EQCOMbk1H9EN63GZMIDX
+ cI6uV1kB/TSFCNo64RgPP/wv5a18pbQgo9dkS6VFc3vqyqCHrM30onafMsEibMhUKkT7zU1Cb5I
+ oHTAX/W2yOomarc9ZEjKLMF8zs+/t3EpT8myPK12TbAKTJYrI+XlTqZfRWboeA53bl0xUI4tAbv
+ q51BsqWaVFhMxH+kLv0bwrjagAwGEYPuIGJzh3pruo/LMd/4UGZT8WA9OoY17GQgYZg4q2zp6x0
+ Fcn1t+zkRf3593dPqr1YtUIKwgi2AwEZWWpgwAOnOLStPbFNLrXpYmHgw8EgxHp5OjEGNpryBEy
+ krtC9g5AoSgc98wjq6g==
+X-Proofpoint-GUID: WyU-i48EBf9N_55Xds18AsgVy91qsM6a
+X-Authority-Analysis: v=2.4 cv=SomgLvO0 c=1 sm=1 tr=0 ts=6a907995 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=vXfy1ps2I0IJequeNBIA:9 a=QEXdDO2ut3YA:10
- a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-ORIG-GUID: Re2CUHLG4nKZLgm-Fd2U4CN9sFVxJDek
-X-Proofpoint-GUID: Re2CUHLG4nKZLgm-Fd2U4CN9sFVxJDek
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDE1MSBTYWx0ZWRfX0nVeCGAULyff
- fqe3U264ONWwOnd38dIC/R9JydUTXCkeBGGUqu5jqQc6pAobYDjs7TFrPLFLhj6g77dzsl/SEhb
- Pi/e50Xw90AnuWdwkzPirmEVEXNcW1LSJDePupI/VkmIcVPU2gciL15ZXoK20knHVTCKqEHXdpb
- pHuCAgjL3ZayaMRbEXuvrQZHVVoIGm8XskHadWp5JJXtPHWCgy4gHzM3c/fp36wjmO3+VgBs6iQ
- 7gp1iNp2oUgAse3ccrsdAdDluZlXr7FRVoFm0OR5KDqoUY9e0c3YsjxXv9/f05K/DYCKVob+lLV
- qkqTwswZ1oPZRB5CbZm6OPn0nT4lf76AU6jtf1D3eD41wEQxtypLatZXOr/GuRQyrB69VciIg8/
- Zt3qfSSAcC17LBw3ZlHjG+wirjJ/VIT7NFzEENKhg/3ztt3sf+n8j30p+8qgn8vUKmg9GFW8PJ1
- F1s4IqsgrTj0cr9kwRw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDE1MSBTYWx0ZWRfXyxVjm+UWQqfI
- OtoOQytSgdyNr6FBMfROx5SsAlrh+QgaPWxm0/5Htm+dBzfGe3+hhdaGT0H6Qu8vBmOZGY/4aCj
- u5w6m/K3+nZoScmChwUosSJDsin39sY=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=lKFnvmfiA1OmcLezn0cA:9 a=QEXdDO2ut3YA:10
+ a=bFCP_H2QrGi7Okbo017w:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-27_07,2026-08-27_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 adultscore=0 suspectscore=0 phishscore=0
- priorityscore=1501 lowpriorityscore=0 malwarescore=0 clxscore=1015
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608270151
+ malwarescore=0 clxscore=1015 phishscore=0 spamscore=0 priorityscore=1501
+ suspectscore=0 bulkscore=0 impostorscore=0 lowpriorityscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608270151
 
-Document the Qualcomm Kuno IDP board and register the "kuno"
-codename in the SoC naming convention schema.
+Add SoC-level DTSI (qcom-kuno.dtsi) and IDP board DTS
+(qcom-kuno-idp.dts) for the Qualcomm Kuno SoC.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Peripherals included in this initial set:
+  - Single Cortex-A7 CPU with PSCI idle states
+  - RPMh RSC with clock controller, power domains, and BCM voter
+  - GCC (Global Clock Controller)
+  - TLMM pin controller (110 GPIOs)
+  - Interconnect (aggre-noc, cnoc-main)
+  - GENI UART console (QUP SE3)
+  - SMEM, hardware spinlocks (TCSR mutex)
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
 ---
- Documentation/devicetree/bindings/arm/qcom-soc.yaml | 4 ++--
- Documentation/devicetree/bindings/arm/qcom.yaml     | 5 +++++
- 2 files changed, 7 insertions(+), 2 deletions(-)
+ arch/arm/boot/dts/qcom/Makefile          |   1 +
+ arch/arm/boot/dts/qcom/qcom-kuno-idp.dts |  25 ++
+ arch/arm/boot/dts/qcom/qcom-kuno.dtsi    | 423 +++++++++++++++++++++++++++++++
+ 3 files changed, 449 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/arm/qcom-soc.yaml b/Documentation/devicetree/bindings/arm/qcom-soc.yaml
-index e7160b63d814..179aadc86a9f 100644
---- a/Documentation/devicetree/bindings/arm/qcom-soc.yaml
-+++ b/Documentation/devicetree/bindings/arm/qcom-soc.yaml
-@@ -30,7 +30,7 @@ select:
-       contains:
-         oneOf:
-           - pattern: "^qcom,.*(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sar|sc|sd[amx]|sm|x1[ep])[0-9]+.*$"
--          - pattern: "^qcom,.*(eliza|kaanapali|glymur|hawi|mahua|maili|milos|nord|shikra).*$"
-+          - pattern: "^qcom,.*(eliza|kaanapali|kuno|glymur|hawi|mahua|maili|milos|nord|shikra).*$"
-   required:
-     - compatible
- 
-@@ -42,7 +42,7 @@ properties:
-         - pattern: "^qcom,(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+(pro)?-.*$"
-         - pattern: "^qcom,sar[0-9]+[a-z]?-.*$"
-         - pattern: "^qcom,(sa|sc)8[0-9]+[a-z][a-z]?-.*$"
--        - pattern: "^qcom,(eliza|kaanapali|glymur|hawi|mahua|maili|milos|nord|shikra)-.+$"
-+        - pattern: "^qcom,(eliza|kaanapali|kuno|glymur|hawi|mahua|maili|milos|nord|shikra)-.+$"
- 
-         # Legacy namings - variations of existing patterns/compatibles are OK,
-         # but do not add completely new entries to these:
-diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-index ff8a35df7862..ca02a2f0396f 100644
---- a/Documentation/devicetree/bindings/arm/qcom.yaml
-+++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-@@ -175,6 +175,11 @@ properties:
-               - qcom,kaanapali-qrd
-           - const: qcom,kaanapali
- 
-+      - items:
-+          - enum:
-+              - qcom,kuno-idp
-+          - const: qcom,kuno
+diff --git a/arch/arm/boot/dts/qcom/Makefile b/arch/arm/boot/dts/qcom/Makefile
+index 026d5b682b2b..7327a7b8180e 100644
+--- a/arch/arm/boot/dts/qcom/Makefile
++++ b/arch/arm/boot/dts/qcom/Makefile
+@@ -26,6 +26,7 @@ dtb-$(CONFIG_ARCH_QCOM) += \
+ 	qcom-ipq4019-ap.dk07.1-c2.dtb \
+ 	qcom-ipq8064-ap148.dtb \
+ 	qcom-ipq8064-rb3011.dtb \
++	qcom-kuno-idp.dtb \
+ 	qcom-msm8226-microsoft-dempsey.dtb \
+ 	qcom-msm8226-microsoft-makepeace.dtb \
+ 	qcom-msm8226-microsoft-moneypenny.dtb \
+diff --git a/arch/arm/boot/dts/qcom/qcom-kuno-idp.dts b/arch/arm/boot/dts/qcom/qcom-kuno-idp.dts
+new file mode 100644
+index 000000000000..c2f6650d3fe6
+--- /dev/null
++++ b/arch/arm/boot/dts/qcom/qcom-kuno-idp.dts
+@@ -0,0 +1,25 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
 +
-       - items:
-           - enum:
-               - qcom,mahua-crd
++/dts-v1/;
++
++#include "qcom-kuno.dtsi"
++
++/ {
++	model = "Qualcomm Technologies, Inc. Kuno IDP";
++	compatible = "qcom,kuno-idp", "qcom,kuno";
++
++	aliases {
++		serial0 = &uart3;
++	};
++
++	chosen {
++		stdout-path = "serial0:115200n8";
++	};
++};
++
++&uart3 {
++	status = "okay";
++};
+diff --git a/arch/arm/boot/dts/qcom/qcom-kuno.dtsi b/arch/arm/boot/dts/qcom/qcom-kuno.dtsi
+new file mode 100644
+index 000000000000..d0c6e3f21a14
+--- /dev/null
++++ b/arch/arm/boot/dts/qcom/qcom-kuno.dtsi
+@@ -0,0 +1,423 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++#include <dt-bindings/clock/qcom,kuno-gcc.h>
++#include <dt-bindings/clock/qcom,rpmh.h>
++#include <dt-bindings/interrupt-controller/arm-gic.h>
++#include <dt-bindings/power/qcom,rpmhpd.h>
++#include <dt-bindings/power/qcom-rpmpd.h>
++#include <dt-bindings/soc/qcom,rpmh-rsc.h>
++
++/ {
++	#address-cells = <1>;
++	#size-cells = <1>;
++	interrupt-parent = <&intc>;
++
++	clocks {
++		xo_board: xo-board {
++			compatible = "fixed-clock";
++			clock-frequency = <38400000>;
++			#clock-cells = <0>;
++		};
++
++		sleep_clk: sleep-clk {
++			compatible = "fixed-clock";
++			clock-frequency = <32000>;
++			#clock-cells = <0>;
++		};
++	};
++
++	cpus {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		cpu0: cpu@0 {
++			device_type = "cpu";
++			compatible = "arm,cortex-a7";
++			reg = <0x0>;
++			enable-method = "psci";
++			cpu-idle-states = <&little_cpu_sleep_0>,
++					  <&little_cpu_sleep_1>;
++			power-domains = <&cpu_pd0>;
++			power-domain-names = "psci";
++		};
++
++		idle-states {
++			entry-method = "psci";
++
++			little_cpu_sleep_0: cpu-sleep-0 {
++				compatible = "arm,idle-state";
++				idle-state-name = "standalone-pc";
++				entry-latency-us = <350>;
++				exit-latency-us = <450>;
++				min-residency-us = <1774>;
++				arm,psci-suspend-param = <0x40000003>;
++				local-timer-stop;
++			};
++
++			little_cpu_sleep_1: cpu-sleep-1 {
++				compatible = "arm,idle-state";
++				idle-state-name = "pc";
++				entry-latency-us = <550>;
++				exit-latency-us = <750>;
++				min-residency-us = <6700>;
++				arm,psci-suspend-param = <0x40000004>;
++				local-timer-stop;
++			};
++		};
++
++		domain-idle-states {
++			cluster_sleep_0: cluster-sleep-0 {
++				compatible = "domain-idle-state";
++				idle-state-name = "cx-min";
++				entry-latency-us = <750>;
++				exit-latency-us = <2350>;
++				min-residency-us = <9144>;
++				arm,psci-suspend-param = <0x40000008>;
++			};
++		};
++	};
++
++	firmware {
++		scm {
++			compatible = "qcom,scm-kuno", "qcom,scm";
++		};
++	};
++
++	memory {
++		device_type = "memory";
++		/* Bootloader will fill base and size */
++		reg = <0x0 0x0>;
++	};
++
++	psci {
++		compatible = "arm,psci-1.0";
++		method = "smc";
++
++		cpu_pd0: power-domain-cpu0 {
++			#power-domain-cells = <0>;
++			power-domains = <&cluster_pd>;
++		};
++
++		cluster_pd: power-domain-cluster {
++			#power-domain-cells = <0>;
++			domain-idle-states = <&cluster_sleep_0>;
++		};
++	};
++
++	reserved-memory {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		quickboot@82100000 {
++			reg = <0x82100000 0x100000>;
++			no-map;
++		};
++
++		aop-image@82200000 {
++			reg = <0x82200000 0x20000>;
++			no-map;
++		};
++
++		aop-cmd-db@82220000 {
++			compatible = "qcom,cmd-db";
++			reg = <0x82220000 0x20000>;
++			no-map;
++		};
++
++		aop-config@82240000 {
++			reg = <0x82240000 0x20000>;
++			no-map;
++		};
++
++		uefi-log@82260000 {
++			reg = <0x82260000 0x10000>;
++			no-map;
++		};
++
++		ipa-fw@82270000 {
++			reg = <0x82270000 0x10000>;
++			no-map;
++		};
++
++		smem@82280000 {
++			compatible = "qcom,smem";
++			reg = <0x82280000 0xc0000>;
++			hwlocks = <&tcsr_mutex 3>;
++			no-map;
++		};
++
++		tme-crashdump@82340000 {
++			reg = <0x82340000 0x40000>;
++			no-map;
++		};
++
++		tme-log@82380000 {
++			reg = <0x82380000 0x4000>;
++			no-map;
++		};
++
++		access-control-db@82384000 {
++			reg = <0x82384000 0x40000>;
++			no-map;
++		};
++
++		secdata@823c4000 {
++			reg = <0x823c4000 0x1000>;
++			no-map;
++		};
++
++		modem-efs@823c5000 {
++			reg = <0x823c5000 0x10000>;
++			no-map;
++		};
++
++		cpucp-fw@82400000 {
++			reg = <0x82400000 0x80000>;
++			no-map;
++		};
++
++		xbl-dt-log@824c0000 {
++			reg = <0x824c0000 0x20000>;
++			no-map;
++		};
++
++		qtee@82500000 {
++			reg = <0x82500000 0x180000>;
++			no-map;
++		};
++
++		trusted-apps@82680000 {
++			reg = <0x82680000 0x600000>;
++			no-map;
++		};
++
++		mpss-audio@82e00000 {
++			reg = <0x82e00000 0x5a00000>;
++			no-map;
++		};
++	};
++
++	soc: soc@0 {
++		compatible = "simple-bus";
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges = <0 0 0xffffffff>;
++
++		gcc: clock-controller@80000 {
++			compatible = "qcom,kuno-gcc";
++			reg = <0x00080000 0x1f4200>;
++			clocks = <&rpmhcc RPMH_CXO_CLK>,
++				 <&rpmhcc RPMH_CXO_CLK_A>,
++				 <&sleep_clk>,
++				 <0>;
++			#clock-cells = <1>;
++			#reset-cells = <1>;
++			#power-domain-cells = <1>;
++		};
++
++		qup0: geniqup@9c0000 {
++			compatible = "qcom,geni-se-qup";
++			reg = <0x009c0000 0x2000>;
++			clocks = <&gcc GCC_QUPV3_WRAP_0_M_AHB_CLK>,
++				 <&gcc GCC_QUPV3_WRAP_0_S_AHB_CLK>;
++			clock-names = "m-ahb", "s-ahb";
++			#address-cells = <2>;
++			#size-cells = <2>;
++			ranges = <0x0 0x0 0x0 0x0 0x1000000>;
++
++			uart3: serial@98c000 {
++				compatible = "qcom,geni-debug-uart";
++				reg = <0x0 0x0098c000 0x0 0x4000>;
++				interrupts = <GIC_SPI 58 IRQ_TYPE_LEVEL_HIGH>;
++				clocks = <&gcc GCC_QUPV3_WRAP0_S3_CLK>;
++				clock-names = "se";
++				pinctrl-0 = <&uart_console_active>;
++				pinctrl-1 = <&uart_console_sleep>;
++				pinctrl-names = "default", "sleep";
++
++				status = "disabled";
++			};
++		};
++
++		cnoc_main: interconnect@1580000 {
++			compatible = "qcom,kuno-cnoc-main";
++			reg = <0x01580000 0x19200>;
++			#interconnect-cells = <1>;
++			qcom,bcm-voters = <&apps_bcm_voter>;
++		};
++
++		aggre_noc: interconnect@1640000 {
++			compatible = "qcom,kuno-aggre-noc";
++			reg = <0x01640000 0x33400>;
++			clocks = <&gcc GCC_SYS_NOC_USB_SF_AXI_CLK>,
++				 <&rpmhcc RPMH_IPA_CLK>;
++			#interconnect-cells = <1>;
++			qcom,bcm-voters = <&apps_bcm_voter>;
++		};
++
++		tcsr_mutex: hwlock@1f40000 {
++			compatible = "qcom,tcsr-mutex";
++			reg = <0x01f40000 0x40000>;
++			#hwlock-cells = <1>;
++		};
++
++		pdc: interrupt-controller@b220000 {
++			compatible = "qcom,kuno-pdc", "qcom,pdc";
++			reg = <0x0b220000 0x10000>;
++			qcom,pdc-ranges = <1 148 6>,
++					  <9 156 2>,
++					  <17 164 7>;
++			#interrupt-cells = <2>;
++			interrupt-parent = <&intc>;
++			interrupt-controller;
++		};
++
++		restart@c264000 {
++			compatible = "qcom,pshold";
++			reg = <0x0c264000 0x1000>;
++		};
++
++		tlmm: pinctrl@f000000 {
++			compatible = "qcom,kuno-tlmm";
++			reg = <0x0f000000 0x400000>;
++			interrupts = <GIC_SPI 212 IRQ_TYPE_LEVEL_HIGH>;
++			gpio-controller;
++			#gpio-cells = <2>;
++			gpio-ranges = <&tlmm 0 0 110>;
++			interrupt-controller;
++			#interrupt-cells = <2>;
++
++			uart_console_active: uart-console-active-state {
++				pins = "gpio8", "gpio9";
++				function = "qup0_se3_mira";
++				drive-strength = <2>;
++				bias-disable;
++			};
++
++			uart_console_sleep: uart-console-sleep-state {
++				pins = "gpio8", "gpio9";
++				function = "gpio";
++				drive-strength = <2>;
++				bias-pull-down;
++			};
++		};
++
++		intc: interrupt-controller@17000000 {
++			compatible = "qcom,msm-qgic2";
++			reg = <0x17000000 0x1000>,
++			      <0x17002000 0x1000>;
++			interrupt-controller;
++			#interrupt-cells = <3>;
++		};
++
++		timer@17020000 {
++			compatible = "arm,armv7-timer-mem";
++			reg = <0x17020000 0x1000>;
++			#address-cells = <1>;
++			#size-cells = <1>;
++			ranges;
++
++			frame@17021000 {
++				reg = <0x17021000 0x1000>,
++				      <0x17022000 0x1000>;
++				frame-number = <0>;
++				interrupts = <GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>,
++					     <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
++			};
++		};
++
++		apps_rsc: rsc@17040000 {
++			compatible = "qcom,rpmh-rsc";
++			reg = <0x17040000 0x10000>,
++			      <0x17050000 0x10000>,
++			      <0x17060000 0x10000>;
++			reg-names = "drv-0",
++				    "drv-1",
++				    "drv-2";
++			interrupts = <GIC_SPI 16 IRQ_TYPE_LEVEL_HIGH>,
++				     /* drv-1: placeholder (unused) */
++				     <GIC_SPI 17 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 17 IRQ_TYPE_LEVEL_HIGH>;
++			qcom,tcs-offset = <0xd00>;
++			qcom,drv-id = <2>;
++			qcom,tcs-config = <ACTIVE_TCS 2>,
++					  <SLEEP_TCS 3>,
++					  <WAKE_TCS 3>,
++					  <CONTROL_TCS 1>;
++			power-domains = <&cluster_pd>;
++
++			rpmhcc: clock-controller {
++				compatible = "qcom,kuno-rpmh-clk";
++				clocks = <&xo_board>;
++				clock-names = "xo";
++				#clock-cells = <1>;
++			};
++
++			rpmhpd: power-controller {
++				compatible = "qcom,kuno-rpmhpd";
++				#power-domain-cells = <1>;
++				operating-points-v2 = <&rpmhpd_opp_table>;
++
++				rpmhpd_opp_table: opp-table {
++					compatible = "operating-points-v2";
++
++					rpmhpd_opp_ret: opp1 {
++						opp-level = <RPMH_REGULATOR_LEVEL_RETENTION>;
++					};
++
++					rpmhpd_opp_min_svs: opp2 {
++						opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
++					};
++
++					rpmhpd_opp_low_svs: opp3 {
++						opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
++					};
++
++					rpmhpd_opp_svs: opp4 {
++						opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
++					};
++
++					rpmhpd_opp_svs_l1: opp5 {
++						opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
++					};
++
++					rpmhpd_opp_nom: opp6 {
++						opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
++					};
++
++					rpmhpd_opp_nom_l1: opp7 {
++						opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
++					};
++
++					rpmhpd_opp_nom_l2: opp8 {
++						opp-level = <RPMH_REGULATOR_LEVEL_NOM_L2>;
++					};
++
++					rpmhpd_opp_turbo: opp9 {
++						opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
++					};
++
++					rpmhpd_opp_turbo_l1: opp10 {
++						opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
++					};
++				};
++			};
++
++			apps_bcm_voter: bcm-voter {
++				compatible = "qcom,bcm-voter";
++			};
++		};
++	};
++
++	timer {
++		compatible = "arm,armv7-timer";
++		interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>,
++			     <GIC_PPI 12 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>,
++			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>,
++			     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>;
++	};
++};
 
 -- 
 2.43.0
