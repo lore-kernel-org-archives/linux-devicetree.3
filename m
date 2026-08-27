@@ -1,123 +1,164 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47B773859D4;
-	Thu, 27 Aug 2026 17:01:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABBF041D628;
+	Thu, 27 Aug 2026 17:01:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787850064; cv=none; b=svxc3rzFgLPfqPgsPeos82YDdAWtUkI8ddqbMXLyUgb3Ri/gKE/Db3eoXGHGDqGDR9bMxCwtmAGR5Dal5UMf1vtiAGENgyxGY7M/1ypkIMWgrn2Hofh20SXa0/NthJX3j+s3foj7fld6xhNsBetomy2RXVv0geEFGKaY+s/8ewE=
+	t=1787850097; cv=none; b=rHvn7zfNT2t90y7KY/MYRokY6nMfO6von4T5ZSE4z/TIypj32N+ujS2fbppca88A4RvURktAdMxb8uaMxoaQwG1jl034ovV2VIM25x4Ivjo6R+BuWUrbAu0RD9LNAEg7yBY0H3cSe7i8QIcn9qCWfwxwS8tU7nCaZ9DMyxJSHTw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787850064; c=relaxed/simple;
-	bh=hQk5qeUVo9BQ2yw1VhAcNzwnwAePCbrZFzJLkEp7GxM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AWoNTBbYLHqGF1tb1do4UGTCJSTG1M934q7rbysRldKyxN1rKWi0f0geydVfGUeBrRqZUauBnA3ixXIAbzYrV+ZQKyI1M44n/W2mKL72aF+6vEE7WlcTt2VB862sjf4u7hFFhsz1spiA4Iw19DGfpq8JkLCbp/ccQE6TUPJx6Mw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=XFaEo5+3; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1787850097; c=relaxed/simple;
+	bh=nP1BAOK13Iaaxhmj8/SQpfYfixH2N8GcCObbunsd9TY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rnlVZIFRA2RAzhM40LR1L4z54aKe+h3WPUKAtAYvKZSO67F/fMcjEYS0ZKEAgfWsLKvwDwY03/j+ThLNakOPF1dn7aeeVswqjO77/zFtXrT7L/TPUKESMbd6jGAUVHnGasBBAJ4SmgimwKTs6uTIdJ06pvrqYVnGCmsf7KoIGLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kz8vGjN0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="XFaEo5+3"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8A81211D061;
-	Thu, 27 Aug 2026 19:00:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1787850056;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=7V05cWEhDJOIL3jV+PILUA2/oARzJG7AGMv5EpJMUbc=;
-	b=XFaEo5+34Mllhz+TYYXDDc5LVW3eTq3XprquZjmo3/8fJxWSMmE4YBR4beBWqKt6TeHV4Y
-	y4rVMhgdN+41NJ7As+u3AvDOmkP9QxWs5o7NPlW/UEplcSobe0QbLzBI8H3Un99TuXWCbP
-	/mo+iwOGSpmTaQjX7UNIV5WGhkZL3vTnMgbsIxGKXf6vuO6LFwxEwVpXWZOv4jPvEQlFps
-	9DQa1jKE2wyjAHccidt3l7fwiQ0nmSqk4o4BpyprnOebRiRNpmFyB92cPKVRKKIHXs3cgX
-	v6EsrWPyifrNDPtlNqvtRWXxOKzclnVl/v+7h2cgHSnTwOBFE/QPRBzh4OlPxg==
-Message-ID: <0825c182-7eba-47d7-9b1c-6979aac1dd96@nabladev.com>
-Date: Thu, 27 Aug 2026 18:52:20 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kz8vGjN0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 320471F000E9;
+	Thu, 27 Aug 2026 17:01:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787850092;
+	bh=QrfCtURGKGftDusM3epVvUzOHv7Dl/l68YZYJ7kvjZA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kz8vGjN0NHssLGxSJP1T6MKmU4hBkdcx/UEcB3xQCgo14Is2rRk0BQGllrux9wEd3
+	 zsS/bZebEegjmwHOVitF6gZ2b05volv0cqP7jiGNGvhh/aRGYhqpqW6ac0mkpbvdLn
+	 AyMX/mZIAjYK8HjvmepJ9RdWv7ySptLUXjdbD/seFFVg5zohO1uVcyClSvQrngu15e
+	 hDy3OXQ277PZgs/DJ2zBqw72S7oBm/6MxfGZpisKDQbcbEKdDbW1a4F5Jaxdj4OgTh
+	 h3C16DkTB9CNhMJsxJ8TvV+YrzcpBXgtOo9Ij4TkPRG+D7T1m2S9YdmkSZ4uWNqKJx
+	 Aj/jokslwgUnQ==
+Date: Thu, 27 Aug 2026 18:01:28 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Flaviu Nistor <flaviu.nistor@gmail.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Jean Delvare <jdelvare@suse.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: hwmon: national,lm90: Fix channel
+ constraints for temperature offset
+Message-ID: <20260827-stooge-polish-b23739e44224@spud>
+References: <20260826184750.4798-1-flaviu.nistor@gmail.com>
+ <20260826184750.4798-2-flaviu.nistor@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/9] phy: stm32: Add support for ST STM32MP25
- USB2-FEMTO PHY
-To: Vinod Koul <vkoul@kernel.org>
-Cc: linux-usb@vger.kernel.org, fabrice.gasnier@foss.st.com,
- Pankaj Dev <pankaj.dev@st.com>, Rahul Kumar <rahul.kumar05@st.com>,
- Christian Bruel <christian.bruel@foss.st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Conor Dooley <conor+dt@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Rosen Penev <rosenp@gmail.com>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
- devicetree@vger.kernel.org, kernel@dh-electronics.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-References: <20260822074816.548662-1-marex@nabladev.com>
- <20260822074816.548662-3-marex@nabladev.com> <apBfHzD5TfryaEW0@vaman>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <apBfHzD5TfryaEW0@vaman>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="FcJi8mongErY1AVh"
+Content-Disposition: inline
+In-Reply-To: <20260826184750.4798-2-flaviu.nistor@gmail.com>
 
-On 8/27/26 6:00 PM, Vinod Koul wrote:
+--FcJi8mongErY1AVh
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-[...]
+On Wed, Aug 26, 2026 at 09:47:48PM +0300, Flaviu Nistor wrote:
+> Limit temperature-offset-millicelsius to remote channels only, since
+> channel 0 is local and this property does not apply to it.
+> Channel 2 is only valid on devices with two remote sensors, so reject
+> channel 2 for compatibles that do not support a second remote channel.
+>=20
+> Signed-off-by: Flaviu Nistor <flaviu.nistor@gmail.com>
+> ---
+> Changes in v2:
+> - Use else statement in if/then block as suggested by Conor Dooley.=20
+> - Link to v1: https://lore.kernel.org/all/20260824183900.8983-2-flaviu.ni=
+stor@gmail.com/
+>=20
+>  .../bindings/hwmon/national,lm90.yaml         | 28 +++++++++++++++++--
+>  1 file changed, 25 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/hwmon/national,lm90.yaml b=
+/Documentation/devicetree/bindings/hwmon/national,lm90.yaml
+> index 164068ba069d..a8b2a24501b3 100644
+> --- a/Documentation/devicetree/bindings/hwmon/national,lm90.yaml
+> +++ b/Documentation/devicetree/bindings/hwmon/national,lm90.yaml
+> @@ -113,6 +113,23 @@ allOf:
+>        properties:
+>          ti,extended-range-enable: false
+> =20
+> +  - if:
+> +      not:
+> +        properties:
+> +          compatible:
+> +            contains:
+> +              enum:
+> +                - adi,adt7481
+> +                - dallas,max6695
+> +                - dallas,max6696
+> +    then:
 
->> +static int stm32_usb2phy_enable(struct stm32_usb2phy *phy_dev)
->> +{
->> +	const struct stm32mp2_usb2phy_hw_data *phy_data = phy_dev->hw_data;
->> +	unsigned int refsel;
->> +	unsigned long rate;
->> +	int ret;
->> +
->> +	/* Check if a phy is already init or clkpll in use */
->> +	if (atomic_inc_return(&phy_dev->en_refcnt) > 1)
->> +		return 0;
->> +
->> +	rate = clk_get_rate(phy_dev->phyref);
->> +	if (rate == 19200000)
->> +		refsel = 0;
->> +	else if (rate == 20000000)
->> +		refsel = 1;
->> +	else if (rate == 24000000)
->> +		refsel = 2;
->> +	else
->> +		return -EINVAL;
-> 
-> Would a switch not be better here?
+> +      patternProperties:
+> +        "^channel@[0-1]$":
+> +          properties:
+> +            reg:
+> +              enum: [0, 1]
 
-I think here it is a matter of taste, switch would use a few more lines, 
-so would a look up table. If you insist on a switch, I'll turn this into 
-a switch.
+Is this needed? If channel@2 is false, then you won't be able to get to
+this point to begin with, right?
 
-[...]
+Conor.
 
->> +static int stm32_usb2phy2_init(struct phy *phy)
->> +{
->> +	struct stm32_usb2phy *phy_dev = phy_get_drvdata(phy);
->> +	int ret;
->> +
->> +	ret = stm32_usb2phy_enable(phy_dev);
->> +	if (ret)
->> +		return ret;
->> +
->> +	if (phy_dev->mode != PHY_MODE_INVALID) {
->> +		ret = stm32_usb2phy_set_mode(phy, phy_dev->mode, USB_ROLE_NONE);
->> +		if (ret) {
->> +			stm32_usb2phy_disable(phy_dev);
->> +			return ret;
->> +		}
->> +	}
-> 
-> so what is the diff b/w these two phys that we need to check invalid
-> only here?
-For this particular case -- One PHY is connected to host-only EHCI/OHCI 
-controller, so it does not do mode set. The other PHY is connected to 
-DWC3 DRD controller which can do either Host/Peripheral and does mode 
-set, but that can only be done if a valid mode is already configured. 
-Hence the conditional here.
+> +        "channel@2": false
+> +
+>    - if:
+>        properties:
+>          compatible:
+> @@ -134,6 +151,11 @@ allOf:
+>          "^channel@([0-2])$":
+>            properties:
+>              temperature-offset-millicelsius: false
+> +    else:
+> +      patternProperties:
+> +        "channel@0":
+> +          properties:
+> +            temperature-offset-millicelsius: false
+> =20
+>    - if:
+>        properties:
+> @@ -149,7 +171,7 @@ allOf:
+>                - onnn,nct1008
+>      then:
+>        patternProperties:
+> -        "^channel@([0-2])$":
+> +        "^channel@([1-2])$":
+>            properties:
+>              temperature-offset-millicelsius:
+>                maximum: 127750
+> @@ -172,7 +194,7 @@ allOf:
+>                - winbond,w83l771
+>      then:
+>        patternProperties:
+> -        "^channel@([0-2])$":
+> +        "^channel@([1-2])$":
+>            properties:
+>              temperature-offset-millicelsius:
+>                maximum: 127875
+> @@ -186,7 +208,7 @@ allOf:
+>                - ti,tmp461
+>      then:
+>        patternProperties:
+> -        "^channel@([0-2])$":
+> +        "^channel@([1-2])$":
+>            properties:
+>              temperature-offset-millicelsius:
+>                maximum: 127937
+> --=20
+> 2.34.1
+>=20
 
-[...]
+--FcJi8mongErY1AVh
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapBtaAAKCRB4tDGHoIJi
+0on2AQCfdtHpo59/qQNwC0Z9FJI7YX0IrI2xHnVnyJoEDRRDagD/elBK22Uzi5ST
+cpY5dNU3Go8pF6ewbeb/Rjo/VMB2SgU=
+=COuj
+-----END PGP SIGNATURE-----
+
+--FcJi8mongErY1AVh--
