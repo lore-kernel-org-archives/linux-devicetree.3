@@ -1,126 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96C57448BB8;
-	Thu, 27 Aug 2026 12:46:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77176448D03;
+	Thu, 27 Aug 2026 12:47:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787834765; cv=none; b=GnVVUAfXqop9kUC+X1UC5qZw1rDSWjKULF18d1FxLq1aYITkc6azhJJw/aye4iR1gi03X8tl8sMvH1V/uuc/coZNb4ssNeYVJ++tLF/K4II/aLyA2B69rxS4/Av3nO+/N26Z9xzrL9mcUyQfWK+FfID+2N/vogMP+1duzEL65U0=
+	t=1787834884; cv=none; b=XQjMU7ZzoT4USUns/3UwUi8RboiBsZ7jaPaMDEB0jZY7x9qOl4AhMaay7a+gzaDTEJqjSk7Sbkzw+t/pX7B1q77EiP1SsbsSCC7Dil+ZQpqVxG5aKKfQtrOPgHz1uE5mvYO1ee+/xTLanV8CUM3MVeTSVLqIm6c34oTmIO/8Kh4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787834765; c=relaxed/simple;
-	bh=4TGEQlmOAwBLPiZtNtS5rn6bKGl17x/a8r/1ran7K28=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=na7iI1dl9nB71wkfDyVw/X0VFQ2ja+lu08rWcBu/n/6u3UIVOTO6Ahm9B0TLDEHyBYAq1fu7wTcawlMFhzCi3m8TewDIvNTwsVZNZMYab/flz9s3yhleV2kpSHy7sVeaOLBxEoi61trsGVUgp3OCOMhr+zxgD3tZuXMRmYFG5nk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ivOFOESm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787834884; c=relaxed/simple;
+	bh=v1JaVfxuyGv/K74VJD51tsMnf1tz0lr+uJWFqv3nvvA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AR/lWPb9ELUfH61+ScARpKa9RX6RN6Md03XjOtojRvARmzyt5wNQ4vZJxeHinkgT8ZcvfBnGNSzrjuyvfep1ydoydtG7qJPEZcEpFQ2AZauDZgX2tOSV6ImIk8/uUFcQ+d9hOHJ92qEyw4D+W5ERC4SbFJgrJPlYKPjJkeIMrbo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=JA111HCB; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ivOFOESm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27F4B1F000E9;
-	Thu, 27 Aug 2026 12:45:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787834758;
-	bh=+sYt7i5XntU1/U2nUgpYrTTnvRfhUvlGBRLHyY9vjIo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ivOFOESmg1g2mD8iA2YNmQu+3hN27qXYTyJc0jKlpLDxxMUTMpx16MBAGz/VLfJ3X
-	 vSXrDAY29nLjOekBeDtQXUMqR9DBP0gTeaCRRkhqnPZQ8rArhx3+UlNzVPErHj9dvO
-	 nUKIK6qYEvoPxUsM0BEyJbzLFN7Tcd7PRmaR/1WD7otr1ibnNwyN5HPzuF+gh6WW3D
-	 TUzcnn6tf/lP/1aOecHd3BOXmFxXFq3i4/0REey89Hshsushu4nUczJtOkH88RTw3N
-	 RSYmfLJlhCayC1vlPABAZ8Zy0mcloZeOhh46fxg/gksJmzkd8Fa+4yTfDNi6G2a8s3
-	 EJ6L2c+IwTLuw==
-Message-ID: <86441e95-d335-4ce5-8e8a-7abdb541f9d7@kernel.org>
-Date: Thu, 27 Aug 2026 14:45:46 +0200
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="JA111HCB"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=9GvVHe0werWHOnB5OKAezI41CKNF471yfbWq1NBqM6I=; b=JA111HCBUnv1a1obfctaO5gAQG
+	5zsPQXXv8AndgRDdRiSQgyzO1z3QZJL6rvZVgu2I5kFTsMM3r1azON03fbAv37lovBdcbLtUdzSka
+	1i7qY5qj2LuSAVHe0etcDlBIvj2I0DW8ZsUJBcdpwwFkoxknUyUYeBzqxp4ql9B0Vvwg=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wzZVy-001fK9-19; Thu, 27 Aug 2026 14:47:30 +0200
+Date: Thu, 27 Aug 2026 14:47:30 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Cc: Conor Dooley <conor@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Andrew Davis <afd@ti.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] dt-bindings: dp83867: add binding for
+ output-impedance
+Message-ID: <d944329d-9ad5-4acf-a7d3-b2f8eaf1e92c@lunn.ch>
+References: <20260826-v7-2-topic-dp83867-v2-0-a97b4cec6e93@pengutronix.de>
+ <20260826-v7-2-topic-dp83867-v2-2-a97b4cec6e93@pengutronix.de>
+ <20260826-salutary-skype-524c69932dc2@spud>
+ <87ik4wgfbc.fsf@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/16] Add support for USB Type-C on STM32MP25
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Christian Bruel <christian.bruel@foss.st.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
- Marek Vasut <marex@nabladev.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Pankaj Dev <pankaj.dev@st.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
- Thomas Bourgoin <thomas.bourgoin@foss.st.com>
-References: <20260821-ucpd-host-fusb340-v7-2-rfc-v1-0-c5e27cbc0795@foss.st.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260821-ucpd-host-fusb340-v7-2-rfc-v1-0-c5e27cbc0795@foss.st.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87ik4wgfbc.fsf@pengutronix.de>
 
-On 21/08/2026 18:23, Fabrice Gasnier wrote:
-> Add support for the UCPD controller found in STM32MP23 and STM32MP25 platforms.
-> It is tigtly coupled with external TCPP02/03 I2C companion chip to interface
-> and to protect UCB-C DRP port.
+On Thu, Aug 27, 2026 at 10:04:07AM +0200, Steffen Trumtrar wrote:
+> On 2026-08-26 at 17:01 +01, Conor Dooley <conor@kernel.org> wrote:
 > 
-> Purpose is to propose a complete set of drivers and bindings to enable USB
-> Type-C support on STM32MP25 reference design boards, EVAL and DK, compared
-> to alternate UCPD series [1].
+> > On Wed, Aug 26, 2026 at 02:48:40PM +0200, Steffen Trumtrar wrote:
+> > > Currently, the output-impedance can only be set to default, minimum or
+> > > maximum or via a nvmem cell.
+> > > In cases where there is no backend for a nvmem cell, a value can not be
+> > > set.
+> > > > Add a DT binding, 'ti,output-impedance-ohms', for specifying the
+> > > output-impedance via a fixed value. The existing boolean values for
+> > > minimum and maximum still take precedence over the new value.
+> > > > Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+> > > ---
+> > >  Documentation/devicetree/bindings/net/ti,dp83867.yaml | 16 ++++++++++++++++
+> > >  1 file changed, 16 insertions(+)
+> > > > diff --git a/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+> > b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+> > > index 7a6fe516bab27..49fafe3ce6f47 100644
+> > > --- a/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+> > > +++ b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+> > > @@ -38,6 +38,16 @@ properties:
+> > >      items:
+> > >        - const: io_impedance_ctrl
+> > >  > +  ti,output-impedance-ohms:
+> > > +    description: |
+> > > +      MAC Interface Impedance control to set the programmable output impedance.
+> > > +      Valid range is 0x00 to 0x1f (32 steps).
+> > > +      - 0x1f = 35 ohms (minimum impedance)
+> > > +      - 0x00 = 70 ohms (maximum impedance)
+> > > +      - Step size varies with process.
+> > > +    minimum: 0
+> > > +    maximum: 31
+> > 
+> > Your property is named in ohms, but not implemented in ohms.
 > 
-> This is an on-going work on top of over series [2] and [3].
-> 
-> [1] https://lore.kernel.org/all/20260819163410.119755-1-marex@nabladev.com/
-> [2] https://lore.kernel.org/linux-phy/20260816213849.1044073-1-marex@nabladev.com/
-> [3] https://lore.kernel.org/linux-usb/20260817163101.6203-1-fabrice.gasnier@foss.st.com/
+> So without the -ohms?
 
-Why? This makes review difficult and inflates the patch count for no
-real gain.
+No. DT uses real unit, Ohms, Meters, Volts, Degrees Centigrade, Seconds
+etc.
 
-Above patches have issues, so just reply there and tell what is the
-issue instead of fixing it here!
+Have the driver do the conversion from Ohms to the magical register
+value.
 
-Best regards,
-Krzysztof
+	Andrew
