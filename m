@@ -1,339 +1,307 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013011.outbound.protection.outlook.com [40.107.159.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2BC247F76A;
-	Thu, 27 Aug 2026 16:00:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787846437; cv=none; b=jdrMdlzTS+1/Vn842gwLH6hLz0OZelOGwcbYd1er3ux2q9jRSxD5GBH7S8VG9kJMHo6bS2iGOU/DQTLwPzzfJv3BnzzM9eMIsSKB9LEGVbxJoFw/oFarkn7rE05FIQLuzd+l9TPds9Tfv/q40HYHnj7EMlvFcOXFqqxfC2DrpkQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787846437; c=relaxed/simple;
-	bh=zKFIRLAhJS6PJ1Yb7jdzpeW3qub/vxs18IBdz5YyO8o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GTUgY32oqHXwUVEa9s2bAQQtoTT516CpK4EEhqJw1OMlHHfMQf9M9jNckA+DxmwgK4KqSWaJ3PClsx24SPa2DMH6RKxJV3+IzhKvLG62FFcHfGPwmThpGXWdyP/ak5b2Apj86b2pihYzahSmY+2CNSAI9Vzd4nWFNa8R7986tUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QtrYgCCZ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF1E61E1A3D;
+	Thu, 27 Aug 2026 16:03:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787846611; cv=fail; b=Yc6RsX5YiGgK9+0uzVRtyaAGmfvUydrxtu5ygBQpaMadp94VTvaEgK9xs3GHZKxx8aiNbNYgjhWKQAOfgWrnImdwWSmTNV96fHdt1pdPCWPkVtha90FWjxTB36RQlRv1M65fg6OKWtTiqWSeECRBajtZV16tV/WPbsBIkxuHXEk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787846611; c=relaxed/simple;
+	bh=vP1tsGBTLDsY16WfZTUqpuROL4qcK4OrgY5ozMBceQs=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=bRQVzgfMNlBcTXBPJkiByvOgqr/HZrOUaD39do2A740uvXZRBWC5wNec8JgoTFangJr8xPqETRBrxYtlTmFXy6AWdZ6C3v7t0CnLSBcvtAvQWEz2RtasaoRkFJiTkyiEe7i23nboLtUX2snWDWVTvxSvkNANKHMJu/rB3o+ZzLk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=gRzBU7VM; arc=fail smtp.client-ip=40.107.159.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QtrYgCCZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0E831F000E9;
-	Thu, 27 Aug 2026 16:00:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787846435;
-	bh=mc9UqifGDes7aqOfgsJlG3V88rf8KQlsEq8wthV3IEk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QtrYgCCZ+k2VUTD2+vb3c3oCDpu0y0MrozeRvCXQQxFL4CH9XjueJ7EcjvDSvuJDN
-	 /1lWbHKCTRoU/QyUFkbf3bszPZHHMAadCQ3wgyrc+XaEDy0XdJXT0BteBZWXS6LqcO
-	 /g1hHlAvdJh2FjxgpKbb8mse83Lo+hNWLB7sYt141MJ+bEr/MQ0HnYu/WJr3hQ2usM
-	 5WBXy173K3VJiJCvoeONgKfSFY7mC0kq/CIPE8Fc1I7d3giBaCl69vTGfXp6YhO7DC
-	 mBwNeP6hobSvVdVVsRjv30VyGRFouWWvBRHrsNzQnzVN2XB4w9fmEwU1/xRIXtfQne
-	 o7J5UGgmCzFlA==
-Date: Thu, 27 Aug 2026 21:30:31 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Marek Vasut <marex@nabladev.com>
-Cc: linux-usb@vger.kernel.org, fabrice.gasnier@foss.st.com,
-	Pankaj Dev <pankaj.dev@st.com>, Rahul Kumar <rahul.kumar05@st.com>,
-	Christian Bruel <christian.bruel@foss.st.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="gRzBU7VM"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qAE6qF9jQjw2dvY4kuvc1dspD78JSwXAykh3U6owSN4OCiGBiGrTti0tlBuxQBY9gXQWPCy4yIu+5mv+r7gUEwk45V8NIlL5Im7lLqLvA91CaJbkdMCJECoDbkcsydp/s8EKQqjgy8P/6MYTewNTieq4MdaD7hdJw8X8dBfYjx4eWiQKaaC6ALRHNwv0uMQHYfVuT+7340Kj0yu2vJu830p22GjMwxD5OmDYGhZXIiPbjOk2cVRIxM0lhiovRyRtZ0ramuMP4DeZprMZWdvsFYTnrhcLr/qfLLgNUu9RsW9B31ia9nX/C66lUJ/Biu3ccKsG7Z1SVt7yBhxcBcLEwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cKNjK52vYZgD5oUPy99FkvuX4ZAhDME6ywfveYU7b/g=;
+ b=yF1jcF5wQeCh7nrntCHO64ahOEYpHUW+VDeJ4S+nOtmhQUB1fjeFZPlnB+r+efYYQ4ngOwmaCMtgz5Uqv2BhqTm1iGyDArsYm/dff1wk78w7J1Gp8655JD4VGTsmK2DJegL9IpPiwCgHTHzN/5kthf/R+UOmOKG5eaqH2x3wT1vZczt3T2hDfhS4K0vYnO94NQqzqSwgTyvZFNS0vAF5YhYrfmwm/2UxBCrmR5x3J3P99dcTuIHHzCgpPrvHBGHERAfX9ergZpr1RtfCPQ9KMtl1rcJPCLbWuha5q2gzBgdtmm6c/Ovb3LxWHf20nyhXqk/25UQ/IudXumap3QcQWQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cKNjK52vYZgD5oUPy99FkvuX4ZAhDME6ywfveYU7b/g=;
+ b=gRzBU7VMYJSjfeFTllN+hkT8yyak4zXqZgmQr7Bgw5pKB8ohgENuFaP0FrK6NcW1GkPRpG11Gc9P7tOMpchqnjbEoGu/2ktK4PbwBqpdNcQt+EEN6Z5aJq5iAExedwlCJuVxok9uOBEXzKrPXmuMwRs5FAoZrtAxrYjangy5VSyWAc6qdSgaWnUn7aTHgvdLP97yCDnzI5Ah22zmqaEV8xIy8RKRzITdF4jUjKHkP8SbYAlcLQyvTVKUyklbkIGCFcCu+Jo7wzGRtJUq0jmelXUyqGBGH+aO5Vc8fLTuZ51nuhJ/X79wyYz1Pxr/gg4v3lhHizuFBPlPu4UJGdWq2g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PA1PR04MB11407.eurprd04.prod.outlook.com (2603:10a6:102:4f7::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 16:03:26 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 16:03:25 +0000
+From: Frank.Li@oss.nxp.com
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Rob Herring <robh@kernel.org>, Rosen Penev <rosenp@gmail.com>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	devicetree@vger.kernel.org, kernel@dh-electronics.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [PATCH v3 2/9] phy: stm32: Add support for ST STM32MP25
- USB2-FEMTO PHY
-Message-ID: <apBfHzD5TfryaEW0@vaman>
-References: <20260822074816.548662-1-marex@nabladev.com>
- <20260822074816.548662-3-marex@nabladev.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	linux-media@vger.kernel.org (open list:MEDIA INPUT INFRASTRUCTURE (V4L/DVB)),
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-kernel@vger.kernel.org (open list)
+Cc: imx@lists.linux.dev
+Subject: [PATCH v1 1/1] media: dt-bindings: tc358743: Convert to YAML
+Date: Thu, 27 Aug 2026 12:03:07 -0400
+Message-ID: <20260827160312.4113159-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PH7PR10CA0002.namprd10.prod.outlook.com
+ (2603:10b6:510:23d::28) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260822074816.548662-3-marex@nabladev.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA1PR04MB11407:EE_
+X-MS-Office365-Filtering-Correlation-Id: f7a76bfc-c542-4615-401c-08df0454ba0e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|23010399003|1800799024|376014|10067099003|3023799007|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	8PVFmT0qJi+EhV4AbzuGTObY/wkknwKkXUcvlLjZZtJ1/R39kTJSamKYsasNh3qGK4K+4d2WHpV6v9639xdYYp54Ow5V5bE6PI+wCViSMaIPoRPsFOWs0o753wccd2LHMzGXOZcXIC4uTnB+WEEivIM2PVVo1ld6omd4YuLSNGLI273OIcQrrl02iIWkZt7aUi8fTT1OadD1HTkGA/fHUqLVd/+9Ej6AsNb6Gbru1RaQkBcKCtM5Z7ItjtLY6rwlxhmepu0NeC1CKjOy1RQeGI3zIjjhLCA3OT5hy1Z1c8PXey4zt9O9ls4M4rr3e8TWPEL0CUrLuwyxak512T/w27ArzGvSbPKBUaNccDTgRYkMlWflFtatqphfTMJL2+NyGfxNY5xl3Rfg0Z4w2PIv0fUZkO4BtKX6EjBXj+oYPMMeHYgl9WyzvFAQStBl3yrXNuTj35ZBn3KYKDEDYkGA4zosy6wR3T6aCsmkXZI8LVz5yRwTpyWShblB+rzE/B93PSiVz95SodQIhWTI77APWED/n/kPlGPPPzWXfM9oboOX/WH87VqayUeFHOaSMHQLfMeA2Pyj37DexDIYPmwmBvhLIUMQc/PvKxY5cVWCBejL9VMfRLGHYpiNUcuLgqkh
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(23010399003)(1800799024)(376014)(10067099003)(3023799007)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?y9ba/DnDSpSOdhB8efU0qND+Lzf1Y4Blo8Xe/GnuBm1qL+ewFfuSObKIjBgH?=
+ =?us-ascii?Q?dlGH6EfXXKJVA2pBEJ0mOrBvlrpFoof+eEt6i/ia31sN+vnxut6spxulekI7?=
+ =?us-ascii?Q?MDWRmCasH652O2Ent02WTFf5Z+HU9bQJsoNkQgHDtPRWzwfPFtTk0BB+w6bE?=
+ =?us-ascii?Q?jTkew0gyRAAIZAlzUsaDDU5eS3KiU911+NLfKuocNnpqN+ntD6dndsmwxqI9?=
+ =?us-ascii?Q?48H2aFpxRxw7jBkY1ByNGNH64rE9zkLcQ+7irky0/x6Ah+VSGxgFs2AdbT9L?=
+ =?us-ascii?Q?6kgJTBxbre/T0w3S6yq2LL2AfgViDfp3DLUpYbED9nrj9PvBqhEYoBTnyI4V?=
+ =?us-ascii?Q?qE+9KpgvMFN62XWKt7ePXzFM1IL7vocv7J522pABPofpqlx3VGqTB2GrTkQr?=
+ =?us-ascii?Q?xo8w+5Fhz+2t+x+ctv5bsmvpLwUbqC/JB6ckHX1gXXDXmtPltHbRiVBHGVFk?=
+ =?us-ascii?Q?pEj1+JlbmMbjngmlFjrWAqsL8h9NN0XwgDwef5+Osd6iYDbIEDAaR2VTo4WQ?=
+ =?us-ascii?Q?FqBGIFiPO9BjYYa7MQTDd8SXaE/mBJG47nx6jMtpFKKjosqYtwrj1kpt7KZa?=
+ =?us-ascii?Q?BpFqjRWf7qzJ3Yw/XTfkEyGmASnPHYJpNqPpR03Wczo/oGKhsKN5r4usS9IF?=
+ =?us-ascii?Q?3yjEzhVOwH3l6WPNQT04mR70sYb43i7W5ux1NHHaF2tKuu7D4P2B3KhOePLw?=
+ =?us-ascii?Q?QTiCFW2Y41xZo9sLWwYGGtE7tbm4rNuXJ5Id9IMZ2/3tWhIOiqN4f0mP16c3?=
+ =?us-ascii?Q?hIjCdKiZRFDWnH8xq83SvESXevoX5IvmsmwphYQu3/4ssSuxy4GknMBcvdua?=
+ =?us-ascii?Q?NgRKPDvr87evZJamFJgdnknPwtAzrjeN8ObLs70b1015HQcRDW1vzgrxXsxH?=
+ =?us-ascii?Q?wzm5Ux/WH9Q/eDHTJq5tQFReL2X9n/BXsdQtZQ6TWI+438+zr/31yJpMIURF?=
+ =?us-ascii?Q?OQm7n6Xr8vjvmVHaDESElBIS6gbiKQYZI054HvjLcV+4NWcJgggYMrfvuJbt?=
+ =?us-ascii?Q?aB8K3uKBNPUnEcYNaCKzAIcOCooQsPjK9c6bkkzjtriPjtgT55JRB4Yzi2z+?=
+ =?us-ascii?Q?9pUoOjuRz+OTUdJkaWVVKpo7jVYQS2UZM2dkezWjRwqujmW0aSmqpQXwpa9G?=
+ =?us-ascii?Q?4DgHeYsySjpRL4mJxhOP4s02FSHGSbcABHRgYI9oGq0tgdjouEr818YWYUwy?=
+ =?us-ascii?Q?nQWytM3/eav3I1p8jFtdivc2PxVzPqNCKMtKnC83X2K3oggoLlqBRvDWKpWe?=
+ =?us-ascii?Q?OazGeQviVGkZ0XlkYG3Lw8bvusBCUoGkvfkwiwJJoDGNNhAuKiXtOfe847t9?=
+ =?us-ascii?Q?aJQw4BmChXOasN9M+TcAFmuX9EthuC2CBbE5nDN6+ZuCfStfO2X914gu8Hyc?=
+ =?us-ascii?Q?eefiArJBL/IpjLe4cd5BKsVjDwXZkRTGzjP7Va9ihrg9wV5ehHubrHdlHDKr?=
+ =?us-ascii?Q?oB2n8UqRsl1pbLfsgkMgnlkx7dPGCiUzyt0fXydO+RSUqLCez0rcJ8YJydi1?=
+ =?us-ascii?Q?yFIcumf/396yJRBpPXEbciHvQH1OxvKres5gRtgIJQEpMqOU260DeJEZhpCN?=
+ =?us-ascii?Q?EEBuO+TkIROZsa0tF5j7WWIRqhTVIWtMTB3XjZlsu8so0y3plYUXFzglxAJN?=
+ =?us-ascii?Q?X8nsehY4xTuQVr0wk2pmsqO7zprtT7eSk8dpstpNjVNvS1Z8hOrpBB4FxvIZ?=
+ =?us-ascii?Q?AdJ7d6MgPfy3Rz0F07nI3eA+PIaUsQLg1sf6dKnPUoaVZfNZK1EQc1T3tPpP?=
+ =?us-ascii?Q?4CpcIJX1tZHpeAGpX1xubW96prUGICM=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f7a76bfc-c542-4615-401c-08df0454ba0e
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 16:03:25.6859
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mz5GG5V5eu7V7ZDD7AO3MXDlfQB30UHRH2LzFMQ+O4NSHK+QNXgfU7YnZCBBTpooio0giC5WYq5AirbB0CST81kAHf8VYhNIPNbT445BkHI6ZqCT6F8GlT6tKGbRQCcV
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB11407
 
-On 22-08-26, 09:46, Marek Vasut wrote:
-> From: Pankaj Dev <pankaj.dev@st.com>
-> 
-> Add USB2 PHY driver for STM32MP25 USB2 controllers, which includes the
-> USB2.0 host-only controller and USB 2.0 part of the DWC3 controller.
-> Two such PHYs in total are present in STM32MP25 SoC, they both are
-> slightly different, therefore they use different compatible string
-> to discern them.
-> 
-> Signed-off-by: Pankaj Dev <pankaj.dev@st.com>
-> Co-developed-by: Rahul Kumar <rahul.kumar05@st.com>
-> Signed-off-by: Rahul Kumar <rahul.kumar05@st.com>
-> Co-developed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> Co-developed-by: Christian Bruel <christian.bruel@foss.st.com>
-> Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
-> Co-developed-by: Marek Vasut <marex@nabladev.com>
-> Signed-off-by: Marek Vasut <marex@nabladev.com>
-> ---
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Christian Bruel <christian.bruel@foss.st.com>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Neil Armstrong <neil.armstrong@linaro.org>
-> Cc: Pankaj Dev <pankaj.dev@st.com>
-> Cc: Rahul Kumar <rahul.kumar05@st.com>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Rosen Penev <rosenp@gmail.com>
-> Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-> Cc: Vinod Koul <vkoul@kernel.org>
-> Cc: devicetree@vger.kernel.org
-> Cc: kernel@dh-electronics.com
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-phy@lists.infradead.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> Cc: linux-usb@vger.kernel.org
-> ---
-> V2: - Fix up Sob/Cdb lines
->     - Operate PHY as a syscon subnode
-> V3: - Update copyright years
->     - Register two sets of clock, one 480 MHz PLL and one CMN
->     - Split PHY ops per PHY, since the PHY2 does not have set mode ops
->     - Fix up Sob/Cdb lines further
-> ---
->  drivers/phy/st/Kconfig             |  10 +
->  drivers/phy/st/Makefile            |   1 +
->  drivers/phy/st/phy-stm32-usb2phy.c | 406 +++++++++++++++++++++++++++++
->  3 files changed, 417 insertions(+)
->  create mode 100644 drivers/phy/st/phy-stm32-usb2phy.c
-> 
-> diff --git a/drivers/phy/st/Kconfig b/drivers/phy/st/Kconfig
-> index 49206185e5633..2835bb67bca9e 100644
-> --- a/drivers/phy/st/Kconfig
-> +++ b/drivers/phy/st/Kconfig
-> @@ -58,3 +58,13 @@ config PHY_STM32_USBPHYC
->  	  used by an HS USB Host controller, and the second one is shared
->  	  between an HS USB OTG controller and an HS USB Host controller,
->  	  selected by a USB switch.
-> +
-> +config PHY_STM32_USB2PHY
-> +	tristate "STMicroelectronics STM32MP25 USB2.0 PHY Controller driver"
-> +	depends on ARCH_STM32 || COMPILE_TEST
-> +	depends on COMMON_CLK
-> +	select GENERIC_PHY
-> +	help
-> +	  Enable this to support the High-Speed USB 2.0 transceivers that are
-> +	  part of the STMicroelectronics STM32MP25 SoCs. The PHY itself is a
-> +	  Synopsys FEMTO-PHY.
-> diff --git a/drivers/phy/st/Makefile b/drivers/phy/st/Makefile
-> index cb80e954ea9f0..4945df5ed78a8 100644
-> --- a/drivers/phy/st/Makefile
-> +++ b/drivers/phy/st/Makefile
-> @@ -5,3 +5,4 @@ obj-$(CONFIG_PHY_ST_SPEAR1340_MIPHY)	+= phy-spear1340-miphy.o
->  obj-$(CONFIG_PHY_STIH407_USB)		+= phy-stih407-usb.o
->  obj-$(CONFIG_PHY_STM32_COMBOPHY)	+= phy-stm32-combophy.o
->  obj-$(CONFIG_PHY_STM32_USBPHYC) 	+= phy-stm32-usbphyc.o
-> +obj-$(CONFIG_PHY_STM32_USB2PHY) 	+= phy-stm32-usb2phy.o
-> diff --git a/drivers/phy/st/phy-stm32-usb2phy.c b/drivers/phy/st/phy-stm32-usb2phy.c
-> new file mode 100644
-> index 0000000000000..8c68b2d208d73
-> --- /dev/null
-> +++ b/drivers/phy/st/phy-stm32-usb2phy.c
-> @@ -0,0 +1,406 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * STMicroelectronics STM32 USB2 PHY Controller driver
-> + * Currently Only supported for STM32MP25
-> + *
-> + * Copyright (C) 2022-2026 STMicroelectronics
-> + * Author(s): Pankaj Dev <pankaj.dev@st.com>.
-> + */
-> +#include <linux/bitfield.h>
-> +#include <linux/clk.h>
-> +#include <linux/clk-provider.h>
-> +#include <linux/io.h>
-> +#include <linux/kernel.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/of_address.h>
-> +#include <linux/of_platform.h>
-> +#include <linux/phy/phy.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/regmap.h>
-> +#include <linux/reset.h>
-> +#include <linux/usb/role.h>
-> +#include <linux/mfd/syscon.h>
-> +
-> +#define SYSCFG_USB2PHY2CR_USB2PHY2CMN		BIT(2)
-> +#define SYSCFG_USB2PHY2CR_VBUSVALID		BIT(4)
-> +#define SYSCFG_USB2PHY2CR_VBUSVLDEXTSEL		BIT(5)
-> +#define SYSCFG_USB2PHY2CR_VBUSVLDEXT		BIT(6)
-> +
-> +#define USBH_NUM_CLK				2
-> +
-> +struct stm32_usb2phy {
-> +	struct phy				*phy;
-> +	struct regmap				*regmap;
-> +	struct device				*dev;
-> +	struct reset_control			*rstc;
-> +	struct clk				*phyref;
-> +	struct regulator			*vdd33;
-> +	const struct stm32mp2_usb2phy_hw_data	*hw_data;
-> +	atomic_t				en_refcnt;
-> +	enum phy_mode				mode;
-> +	u32					cr_offset;
-> +	bool					is_init;
-> +	struct clk_hw				clkpll_hw;
-> +	struct clk_hw				clkcmn_hw;
-> +	/* Must be last */
-> +	struct clk_hw_onecell_data		onecell;
-> +};
-> +
-> +struct stm32mp2_usb2phy_hw_data {
-> +	u32			phyrefsel_mask;
-> +	const struct phy_ops	*phy_ops;
-> +};
-> +
-> +static int stm32_usb2phy_enable(struct stm32_usb2phy *phy_dev)
-> +{
-> +	const struct stm32mp2_usb2phy_hw_data *phy_data = phy_dev->hw_data;
-> +	unsigned int refsel;
-> +	unsigned long rate;
-> +	int ret;
-> +
-> +	/* Check if a phy is already init or clkpll in use */
-> +	if (atomic_inc_return(&phy_dev->en_refcnt) > 1)
-> +		return 0;
-> +
-> +	rate = clk_get_rate(phy_dev->phyref);
-> +	if (rate == 19200000)
-> +		refsel = 0;
-> +	else if (rate == 20000000)
-> +		refsel = 1;
-> +	else if (rate == 24000000)
-> +		refsel = 2;
-> +	else
-> +		return -EINVAL;
+From: Frank Li <Frank.Li@nxp.com>
 
-Would a switch not be better here?
+Convert the Toshiba TC358743 HDMI-RX to MIPI CSI2-TX bridge device
+tree binding from txt to YAML format.
 
-> +
-> +	ret = regmap_update_bits(phy_dev->regmap,
-> +				 phy_dev->cr_offset,
-> +				 phy_data->phyrefsel_mask,
-> +				 field_prep(phy_data->phyrefsel_mask, refsel));
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regulator_enable(phy_dev->vdd33);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = clk_prepare_enable(phy_dev->phyref);
-> +	if (ret)
-> +		goto error_regdis;
-> +
-> +	ret = reset_control_deassert(phy_dev->rstc);
-> +	if (ret)
-> +		goto error_clkdis;
-> +
-> +	return 0;
-> +
-> +error_clkdis:
-> +	clk_disable_unprepare(phy_dev->phyref);
-> +error_regdis:
-> +	regulator_disable(phy_dev->vdd33);
-> +
-> +	return ret;
-> +}
-> +
-> +static int stm32_usb2phy_disable(struct stm32_usb2phy *phy_dev)
-> +{
-> +	int ret;
-> +
-> +	/* Check if a phy is still init or clkpll in use */
-> +	if (atomic_dec_return(&phy_dev->en_refcnt) > 0)
-> +		return 0;
-> +
-> +	ret = reset_control_assert(phy_dev->rstc);
-> +	if (ret)
-> +		return ret;
-> +
-> +	clk_disable_unprepare(phy_dev->phyref);
-> +
-> +	return regulator_disable(phy_dev->vdd33);
-> +}
-> +
-> +static int stm32_usb2phy_set_mode(struct phy *phy, enum phy_mode mode, int submode)
-> +{
-> +	struct stm32_usb2phy *phy_dev = phy_get_drvdata(phy);
-> +	u32 mask = SYSCFG_USB2PHY2CR_USB2PHY2CMN |
-> +		   SYSCFG_USB2PHY2CR_VBUSVALID |
-> +		   SYSCFG_USB2PHY2CR_VBUSVLDEXT;
-> +	u32 val = 0;
-> +	int ret;
-> +
-> +	if (mode == PHY_MODE_USB_HOST) {
-> +		if (submode != USB_ROLE_NONE)
-> +			val = SYSCFG_USB2PHY2CR_VBUSVALID;
-> +	} else if (mode == PHY_MODE_USB_DEVICE) {
-> +		val = SYSCFG_USB2PHY2CR_USB2PHY2CMN |
-> +		      SYSCFG_USB2PHY2CR_VBUSVLDEXTSEL;
-> +		if (submode != USB_ROLE_NONE)
-> +			val |= SYSCFG_USB2PHY2CR_VBUSVLDEXT;
-> +		mask |= SYSCFG_USB2PHY2CR_VBUSVLDEXTSEL;
-> +	} else {
-> +		return -EINVAL;
-> +	}
-> +
-> +	ret = regmap_update_bits(phy_dev->regmap, phy_dev->cr_offset, mask, val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	phy_dev->mode = mode;
-> +
-> +	return 0;
-> +}
-> +
-> +static int stm32_usb2phy1_init(struct phy *phy)
-> +{
-> +	struct stm32_usb2phy *phy_dev = phy_get_drvdata(phy);
-> +	int ret;
-> +
-> +	ret = stm32_usb2phy_enable(phy_dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	phy_dev->is_init = true;
-> +
-> +	return 0;
-> +}
-> +
-> +static int stm32_usb2phy2_init(struct phy *phy)
-> +{
-> +	struct stm32_usb2phy *phy_dev = phy_get_drvdata(phy);
-> +	int ret;
-> +
-> +	ret = stm32_usb2phy_enable(phy_dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (phy_dev->mode != PHY_MODE_INVALID) {
-> +		ret = stm32_usb2phy_set_mode(phy, phy_dev->mode, USB_ROLE_NONE);
-> +		if (ret) {
-> +			stm32_usb2phy_disable(phy_dev);
-> +			return ret;
-> +		}
-> +	}
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+ .../bindings/media/i2c/toshiba,tc358743.txt   | 48 ----------
+ .../bindings/media/i2c/toshiba,tc358743.yaml  | 93 +++++++++++++++++++
+ MAINTAINERS                                   |  2 +-
+ 3 files changed, 94 insertions(+), 49 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.txt
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.yaml
 
-so what is the diff b/w these two phys that we need to check invalid
-only here?
-
+diff --git a/Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.txt b/Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.txt
+deleted file mode 100644
+index 59102edcf01ea..0000000000000
+--- a/Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.txt
++++ /dev/null
+@@ -1,48 +0,0 @@
+-* Toshiba TC358743 HDMI-RX to MIPI CSI2-TX Bridge
+-
+-The Toshiba TC358743 HDMI-RX to MIPI CSI2-TX (H2C) is a bridge that converts
+-a HDMI stream to MIPI CSI-2 TX. It is programmable through I2C.
+-
+-Required Properties:
+-
+-- compatible: value should be "toshiba,tc358743"
+-- clocks, clock-names: should contain a phandle link to the reference clock
+-		       source, the clock input is named "refclk".
+-
+-Optional Properties:
+-
+-- reset-gpios: gpio phandle GPIO connected to the reset pin
+-- interrupts: GPIO connected to the interrupt pin
+-- data-lanes: should be <1 2 3 4> for four-lane operation,
+-	      or <1 2> for two-lane operation
+-- clock-lanes: should be <0>
+-- clock-noncontinuous: Presence of this boolean property decides whether the
+-		       MIPI CSI-2 clock is continuous or non-continuous.
+-- link-frequencies: List of allowed link frequencies in Hz. Each frequency is
+-		    expressed as a 64-bit big-endian integer. The frequency
+-		    is half of the bps per lane due to DDR transmission.
+-
+-For further information on the MIPI CSI-2 endpoint node properties, see
+-Documentation/devicetree/bindings/media/video-interfaces.txt.
+-
+-Example:
+-
+-	tc358743@f {
+-		compatible = "toshiba,tc358743";
+-		reg = <0x0f>;
+-		clocks = <&hdmi_osc>;
+-		clock-names = "refclk";
+-		reset-gpios = <&gpio6 9 GPIO_ACTIVE_LOW>;
+-		interrupt-parent = <&gpio2>;
+-		interrupts = <5 IRQ_TYPE_LEVEL_HIGH>;
+-
+-		port {
+-			tc358743_out: endpoint {
+-				remote-endpoint = <&mipi_csi2_in>;
+-				data-lanes = <1 2 3 4>;
+-				clock-lanes = <0>;
+-				clock-noncontinuous;
+-				link-frequencies = /bits/ 64 <297000000>;
+-			};
+-		};
+-	};
+diff --git a/Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.yaml b/Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.yaml
+new file mode 100644
+index 0000000000000..29dd1d58f766f
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.yaml
+@@ -0,0 +1,93 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/toshiba,tc358743.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Toshiba TC358743 HDMI-RX to MIPI CSI2-TX Bridge
++
++maintainers:
++  - Hans Verkuil <hverkuil@kernel.org>
++
++description:
++  The Toshiba TC358743 HDMI-RX to MIPI CSI2-TX (H2C) is a bridge that converts
++  a HDMI stream to MIPI CSI-2 TX. It is programmable through I2C.
++
++properties:
++  compatible:
++    const: toshiba,tc358743
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  clock-names:
++    const: refclk
++
++  reset-gpios:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    unevaluatedProperties: false
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          data-lanes:
++            oneOf:
++              - items:
++                  - const: 1
++                  - const: 2
++              - items:
++                  - const: 1
++                  - const: 2
++                  - const: 3
++                  - const: 4
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - port
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        bridge@f {
++            compatible = "toshiba,tc358743";
++            reg = <0x0f>;
++            clocks = <&hdmi_osc>;
++            clock-names = "refclk";
++            reset-gpios = <&gpio6 9 GPIO_ACTIVE_LOW>;
++            interrupt-parent = <&gpio2>;
++            interrupts = <5 IRQ_TYPE_LEVEL_HIGH>;
++
++            port {
++                 endpoint {
++                     remote-endpoint = <&mipi_csi2_in>;
++                     data-lanes = <1 2 3 4>;
++                     clock-lanes = <0>;
++                     clock-noncontinuous;
++                     link-frequencies = /bits/ 64 <297000000>;
++                 };
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index fe10d29b7657b..9abeaa3f31ca8 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -27673,7 +27673,7 @@ TOSHIBA TC358743 DRIVER
+ M:	Hans Verkuil <hverkuil@kernel.org>
+ L:	linux-media@vger.kernel.org
+ S:	Maintained
+-F:	Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.txt
++F:	Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.yaml
+ F:	drivers/media/i2c/tc358743*
+ F:	include/media/i2c/tc358743.h
+ 
 -- 
-~Vinod
+2.43.0
+
