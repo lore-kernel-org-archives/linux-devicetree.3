@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F98F411F8B;
-	Thu, 27 Aug 2026 09:14:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CDB8417D9C;
+	Thu, 27 Aug 2026 09:15:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787822054; cv=none; b=NdFpyow/cmlfkbc7EHOU3eFDngP8rodcn3g1xDcVXQ0idKUg6jlp1xRYUPIcnSzAZeix9Fg3nHpEqCMTLj/HhYRODEU+ht0k8cCiuNd7gE9KFLYu1Aj+Dsme3r7s8WHwUrcxoTfvQE+KHSs33bHLjzMzF+Zca+lh0opdiqH4k/4=
+	t=1787822118; cv=none; b=CwO7m3agABES7Xh4n2KBSnQVyXLIry7LqAiyRLGEBZFgRb8OUYutMD0K/4F3xKSxa44MCEHy0ZXmqzYJZOXA2QMzgxE6euTDCc2HhdcZl6kOgULSW+T42qgvi1AmN3iTf4OgWffV+ZG9NT6Sc4gfj6tkUJ5FhYyp8u+O2FCkmbs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787822054; c=relaxed/simple;
-	bh=1H7jJiy6pBcezk80GtTvIBe6Ej5Ee/8GQrt+JKZH3V8=;
+	s=arc-20240116; t=1787822118; c=relaxed/simple;
+	bh=Kr7o/zNjit8WWWD191s7+7OMGGaB7zhVZg4obMvI8pA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HuINtDx+JLS1RQi2Dnpe/9DDZZdUDtyIXybEj0QJ234s6kI0T69T5Q+ze6INdwI5UvKxpBL5R7UxTFkM2IPuqcjTeRR2TjImWk7oonDYMiNzfQKbAKuGHt+bnQnOfODoUe1LssQTABIkrxbvsFucgAkixMn8Xf58BJDVt5YFXvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XxUw2I3F; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Kq3/aEqX1EET3pYuojH/OxEc4SWWCZj7SHGIDb+8ZZGpSREd1WLQwwwI75L+4KSc2ptyM9L+vFDVF5zIa0RH2sVtFvLk0j3OtVXFSMJzSoGtR4CBtRMdMxjrsmEANgtOJD4lmcpttjZAXtqN79/l2Onc08oSA9fa9uDOShhkyeY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ix+B0AWX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XxUw2I3F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFDF31F000E9;
-	Thu, 27 Aug 2026 09:14:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ix+B0AWX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7306C1F000E9;
+	Thu, 27 Aug 2026 09:15:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787822048;
-	bh=XJMCCQCa99Qt9iNwiG0ECbGzzcH7vIVg5plEC6uf1JU=;
+	s=k20260515; t=1787822106;
+	bh=LdRXpOvpY8MU9GMUpEh8fPVPCUtndoEd5nrLrISpGFs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XxUw2I3Fo6ESeGCVoqCixg/LvtYDcaDlEmkYtdvP7a0b9NNHYV/1fD39rqQIfffnf
-	 A0BK+XwGnnqDe4RDGkwQ0Mbc2PeV1uFkrksNoswrp5ADqCBYjiop/ocLXXlj1TGbpB
-	 veHCxCiIKsNPBJfDhg/tughiksZgfvEtgmwmjfitv11MgG2E8+OKvsVAYo2yvcC62d
-	 QsmwJn1XBavtSL4xJsSU8S6ocsQ3hmsFQsa3JPzUInmk/QpRb98ob2MlIZQnPc18vz
-	 viTL3XDTWGINSnn56Rna9FKrRtrn2uWd/mOfZxnh2KKVStfwnWb3QrDqDdF8Xn0vGL
-	 8Jg9cO/a2i+ng==
-Date: Thu, 27 Aug 2026 11:14:04 +0200
+	b=Ix+B0AWXNJJWen1w78P2vTxR1ovIcsbPrDM3oBaZYsZ4Yz8UODavHLF+fd+FrxlDr
+	 69z/8n1uDLFKPcqThIe5Iu5S71zbYi1h/pJgVMcSDTTFkNlsKDw/cJ8opO0GLNl5T1
+	 yjtEvDmUWBi5wfgVsrGmCxmx1gSSpuzQKjz5IGDMecu9z4W68jHDm3FxFvg+NIHA29
+	 w+cbIdrpKCwBd1Z8XyAhWPA8fiORQjalN8SYdigZ+DI8D3ohOA6IZTKVcjMCDiaq+o
+	 MdHb8OFuC6c3HfN2NzgpBUUeFDFeRfCH7yje8CF7v4kX3aCkbSRZYjKeN9gyC2EQOw
+	 7KfuTHRDBTpPA==
+Date: Thu, 27 Aug 2026 11:15:03 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Stefan Popa <stefan.popa@analog.com>
-Cc: linux-iio@vger.kernel.org, jic23@kernel.org, lars@metafoo.de, 
-	Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	andy@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com, 
-	siratul.islam@linux.dev, u.kleine-koenig@baylibre.com, linux@roeck-us.net, 
-	joshua.crofts1@gmail.com, ciprian.hegbeli@analog.com, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 1/2] dt-bindings: iio: adc: add adi,max40080
-Message-ID: <20260827-robust-lion-of-recreation-31314d@quoll>
-References: <20260818142928.8244-1-stefan.popa@analog.com>
- <20260818142928.8244-2-stefan.popa@analog.com>
+To: Sasha Finkelstein <k@chaosmail.tech>
+Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+	Neal Gompa <neal@gompa.dev>, Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, asahi@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v7 1/6] dt-bindings: spmi: apple,spmi: Add t603x and t8122
+Message-ID: <20260827-curvy-competent-bee-fcd81d@quoll>
+References: <20260818-t603x-spmi-v7-0-dafebe6e7739@chaosmail.tech>
+ <20260818-t603x-spmi-v7-1-dafebe6e7739@chaosmail.tech>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,20 +45,43 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260818142928.8244-2-stefan.popa@analog.com>
+In-Reply-To: <20260818-t603x-spmi-v7-1-dafebe6e7739@chaosmail.tech>
 
-On Tue, Aug 18, 2026 at 05:29:27PM +0300, Stefan Popa wrote:
-> Add device tree bindings for the Analog Devices MAX40080 bidirectional
-> current-sense amplifier with a 12-bit ADC and an I2C/SMBus interface.
+On Tue, Aug 18, 2026 at 08:32:40PM +0200, Sasha Finkelstein wrote:
+> Add t603x and t8122 compatibles, interrupt support, and support for
+> SPMI controllers that are not always-on.
 > 
-> Signed-off-by: Stefan Popa <stefan.popa@analog.com>
+> Reviewed-by: Janne Grunau <j@jannau.net>
+> Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
 > ---
->  .../bindings/iio/adc/adi,max40080.yaml        | 65 +++++++++++++++++++
->  MAINTAINERS                                   |  8 +++
->  2 files changed, 73 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/adc/adi,max40080.yaml
+>  Documentation/devicetree/bindings/spmi/apple,spmi.yaml | 37 ++++++++++++++++++++++++++++++++++---
+>  1 file changed, 34 insertions(+), 3 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/spmi/apple,spmi.yaml b/Documentation/devicetree/bindings/spmi/apple,spmi.yaml
+> index 3e5b14bc8c31..1d14025b44c5 100644
+> --- a/Documentation/devicetree/bindings/spmi/apple,spmi.yaml
+> +++ b/Documentation/devicetree/bindings/spmi/apple,spmi.yaml
+> @@ -20,8 +20,11 @@ properties:
+>        - items:
+>            - enum:
+>                - apple,t6020-spmi
+> +              - apple,t6030-spmi
+> +              - apple,t6031-spmi
+>                - apple,t8012-spmi
+>                - apple,t8015-spmi
+> +              - apple,t8122-spmi
+>            - const: apple,t8103-spmi
+>        - items:
+>            - enum:
+> @@ -34,9 +37,37 @@ properties:
+>    reg:
+>      maxItems: 1
+>  
+> -required:
+> -  - compatible
+> -  - reg
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+This stays. Which device does not need reg or compatible? I think none.
 
 Best regards,
 Krzysztof
