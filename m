@@ -1,771 +1,758 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013038.outbound.protection.outlook.com [52.101.72.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 198BE47D95E;
-	Thu, 27 Aug 2026 14:39:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787841566; cv=none; b=nT6DNZgE8UK1ctcbwhh610kLVKpShHcCHOcpUOJYst3YhZY4EbqRxjfJgLrTglYhObup4pQeoNegYH1u1OaVFe824+GfrVXTV7jD5QYvAniS+eSkn1WA46tDLmMQDobCzp3Vu2qj/j/TMlqX6Ym0ZgXdcWPCjOuX3vfyKF0tHMA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787841566; c=relaxed/simple;
-	bh=4CAvsdNuYr1TOINvsiS1bTij7h5KBCM5YfX9B09fXK0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KWjEdrlYcjBZOpAvPCifNQESDlc33jyaFXcoZQ9bUNNNlDIA4d33OgY2iH5HnbxfpG8agGhUsuEmoSVOcXtxfKk0NPEfxKHtn9Or9nXYQkvZzZcg7ZCM+d80EHD/zoyudhyXwv8XRJZDceAl3jLCAjBBns2g4ul6wl2F3W6RwdA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nVvwoMql; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5C81445AFB;
+	Thu, 27 Aug 2026 14:44:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.38
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787841854; cv=fail; b=FiHPo7wDSwug6/1fgqtANuVsiQJa5CIQcqHJzP8gpOm9dykVVE0enoiQDEebXdZRdKWz+Dns/KCCuOpRqO+rXEP6XwXRMcl9VyJr/efHLxzABzghJhEx8gyRUIchybuS11XDaJY+3udhluZ2kvLE6fvvNiv/vwnJui2LYwtU8H4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787841854; c=relaxed/simple;
+	bh=vHFWy6FpMBkPMh35ULP8sXDmc0QywDV+eMPoMlLArd0=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=NasshItkDYLQGOrpHbdk9StEgca90TN9eqJA7CrnYdsuFaES3//EiIJ666hsc3nYHFcYLN9Hlo99PEsftbY9dauTdFLY6CVV1EskM4Pl+p6N+s8LKVrOwz0YPleHHUp6neFNCTyZeXiHUXXu/+P28i2ui3ssyp9bX9l1J0HTVkk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=f/tQ9cpE; arc=fail smtp.client-ip=52.101.72.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nVvwoMql"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A09F41F00A3F;
-	Thu, 27 Aug 2026 14:39:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787841555;
-	bh=X3ZQPN6AFGtjHd4y95l29Jb5lUMLezaPvyPRtl/8seI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nVvwoMqlk2UIZNrdBfIvjkaZ+8qULJhY6MvieEbF8RiXDCh0dOWWV2ok6CHDSCnEA
-	 xsMKkCQhpbs9vCf1hCULVkYJ+jwqwb6SgZoy/g826vM9ZdPtTnu645sbvpT1mXX45F
-	 Oh2sVf7eCpTeNBbTFjtjI/gUXgCF5++gnFCGNapKzAWe7mg3quutilvpBOg9xVBp8e
-	 ykgehE2av2EIl7jE/kJjXz8ILPfdhmsafZwGV9y5lsAYhcZI9F1BKenMwWfLj8TE/G
-	 Xgr17owP+gFamRO3btbFUiXdC1RDDWSGSDVJCCg5qJRW8ttjKiivGOjhQ3wiGBjkBR
-	 5H8eMtyysZmcw==
-Message-ID: <4a493c7f-a248-4896-890d-3aa55e074ddd@kernel.org>
-Date: Thu, 27 Aug 2026 22:38:54 +0800
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="f/tQ9cpE"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tQonZPoFQ9ti8PQ2HPQltLOzrWFiHIxrGnhV2eqmUn+AyMtulEFlxx10+qd5TQ38RhKl2Clxq+SlfY6TLcnikNsZhfC9xFfubPkh1w65z4X4c+Nv53NfXplNiMDMNX3JTbC9rKecbJ2ws9lF37QbAeOgWnm6mc4TJY8L81PlCD408x6MJRYJWZSWEnTzylbSndWz9pEjLX+99f7Xffn523B8mqBXANv8fdsipuoW3xWgUaqwMVKOjaqR7yEG6MdEfM9grMunkoLqSeW4h/00Vzh8Q2fe2BoZj2FIdllACyXrYIHlAlTDhr6phFlYfzAFzySvwJVMsLM1EsDKy3ClrA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Tje+ok/0kIQDgguTQ3Rhlfe1B638QyP6uNh8VPFhWHo=;
+ b=tfewIhs+bktaLd+GG0DFz1xKuR7Sv9czagkyovCDNksIexNWh1T8JaectL6zRzOEimLwIJg/laOney3/5CS1WzpXFm1/WTl2tDVjyBXDT1od7TvoksIM2of7Giz6Nvg+u976+3o631kYTUUKyJ7ASddo8ZVgIYtbCAWQPXPmlo8DMVWxNM0p5kV83Ww38hOCaTeAo5Zdhh7LLhelwc+AFjgcUrNv5w9aGPqszGsA7vj+UaVu2zUxcVvmG/MLmQivNkFVVm77euLirTojsovtsoa+TjekxxmWCuAYHH0IFwbEhBGn5cmDaZ+CQbKxoNA1CGL10M9x8EsFFN7eI/q6XA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Tje+ok/0kIQDgguTQ3Rhlfe1B638QyP6uNh8VPFhWHo=;
+ b=f/tQ9cpESYpstZ8/xsxMx7zQ95ul2Vfozejr6l8YsAABqJLB27KDvToxB9R++254sWwo7abR+4pATyZSssSdX/h+NrqR/qciAkwPNY4+nFe/NZFhNGwQ8dYCOq5RJViXDRtCkem2cYyZBKiAGDkAhA/Qs5gNosa37CuqCFKUzuf+zLLoKOPXplFic3z/yXLS35z63AYQ0aUCsEUSLuH6NZc1hB4nm97Dlx5YT+cboIl7f2uwTEFy/pHft9n9brtcXzuuY1I5SulNgfO2GGmYyMY1xSaSeU0/iW1ROvJazXgEoPL2ypekrFhm3Gbz0L23/sMmENFW3Z0iqHHCeCymHQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
+ (2603:10a6:150:368::10) by BR0PR04MB944139.eurprd04.prod.outlook.com
+ (2603:10a6:2c8:46::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 14:44:07 +0000
+Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
+ ([fe80::cd9f:102:ea58:4c49]) by GV2PR04MB12558.eurprd04.prod.outlook.com
+ ([fe80::cd9f:102:ea58:4c49%6]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 14:44:07 +0000
+Message-ID: <d4be0a92-bf08-492e-8238-7354efeec101@oss.nxp.com>
+Date: Thu, 27 Aug 2026 17:44:03 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 07/10] scsi: ufs: Add NXP S32N79 UFS host controller
+ driver
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: NXP S32 Linux Team <s32@nxp.com>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K . Petersen" <martin.petersen@oracle.com>,
+ Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+ Ajay Neeli <ajay.neeli@amd.com>, Manivannan Sadhasivam <mani@kernel.org>,
+ Pedro Sousa <pedrom.sousa@synopsys.com>, clizzi@redhat.com,
+ aruizrui@redhat.com, eballetb@redhat.com, echanude@redhat.com,
+ linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org
+References: <20260826134048.854748-1-larisa.grigore@oss.nxp.com>
+ <20260826134048.854748-8-larisa.grigore@oss.nxp.com>
+ <ao8LBwXonNzjSQZ9@SMW015318>
+Content-Language: en-US
+From: Larisa Ileana Grigore <larisa.grigore@oss.nxp.com>
+In-Reply-To: <ao8LBwXonNzjSQZ9@SMW015318>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS4PR09CA0011.eurprd09.prod.outlook.com
+ (2603:10a6:20b:5e0::13) To GV2PR04MB12558.eurprd04.prod.outlook.com
+ (2603:10a6:150:368::10)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] clk: socfpga: agilex72: add clock manager driver for
- Agilex72
-Content-Language: en-US
-To: evon.chiam@altera.com, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>
-Cc: Lothar Rubusch <l.rubusch@gmail.com>, Ng Tze Yee <tzeyee.ng@altera.com>,
- Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>,
- Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>,
- Brian Masney <bmasney@redhat.com>, devicetree@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <cover.1786006669.git.evon.chiam@altera.com>
- <97675c0efd40a9407b6b1a1941cc73b73dd45d39.1786006669.git.evon.chiam@altera.com>
-From: Dinh Nguyen <dinguyen@kernel.org>
-In-Reply-To: <97675c0efd40a9407b6b1a1941cc73b73dd45d39.1786006669.git.evon.chiam@altera.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB12558:EE_|BR0PR04MB944139:EE_
+X-MS-Office365-Filtering-Correlation-Id: 967a5d1a-554f-464f-5c68-08df0449a5c6
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|19092799006|366016|23010399003|376014|7416014|1800799024|10067099003|6133799003|4143699003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+ jBeW2YjQQmKD0HGgRGYl4CUJlP+j2/+grLFbiGrdHnBF6pKsdizNnahpXVxHeTS8aNhC9PS+8WaEq3NcBxzAsbdAhOQZx5I8OB5hyIpBhA/5lPShL3mZlicYa26lmQmgY703v2sFRGKyCZvU0sqWvKuxJ6FHIWtjnX8X4K6FLXd1sBmE5ZnDyeIqq5CF/wmeo+DZ+lIYf6B32B9BHG4VNAHdHHXxJfYfj0YXQz7GoLnT2memb53EnLXh2dnolicEPNO3wIMKjNTfSUlTWHeds/7aKBowWDjCWPBMmp4nPmq74X1ITItfdubcwFRdENT0lQHoECYrpPwl7dglBNai1yRnATTPj4zjX63Bs/pLONGbajfYulGYUDzYlVOK5146bSSH1OmMRssrdMINnSGEy3gzM7Z0rW9QJDfIy8yb4VNCk7HBs1hJ0dZMP5QIh7jrEv7Q61BGMoI79tNtaiqoaUIb1RIWs+O1ad7lRhABVPMp2ZyzjT6ESCvvBM5ZagGWxBs98ulIdSfVCEPS6BE4n5yq5UWehQdQLARJbZ/nveqa/324l0u9Lvklx6aZcUJJNfIq18WOlhORFWGUxEAAs6ehNRk5sn9pJDYP7JcIr6fS7jc7WfLyXYpkNUVJWxHya+7iWzwlzbiQJlwhkKS3rLu/geVv+dlsWf3cCg5MuOg=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12558.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(23010399003)(376014)(7416014)(1800799024)(10067099003)(6133799003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?SkZqUGY5bno1emVHSmxRT3QySVRON21sY3pQQWVVTlFmdTE3SkNWZDl5cmFh?=
+ =?utf-8?B?QUdkQTEwV2dtTXV5YTBQZmtmblA5WVVUOG4wT04wb0Z1L3BsaXFTekVWSzVQ?=
+ =?utf-8?B?cmJpdGllT3YrM0UraFRlY0NITEF1NEx2WFNhK2swSlIybGZUMUNBTFZBYXFn?=
+ =?utf-8?B?ZUoxNUZLUjZaYWNubHNIb05hdVI1SXREVnBJUTF4VlhNZDZuNEJFTnhnZkFy?=
+ =?utf-8?B?c2dIWVBTNGpSUWF5Y2ZnQ29tUmYvNSs1VjVBQ0N3SU5YaE9acFNjTVlqTFFM?=
+ =?utf-8?B?RlpmdkF6UFRjSVVPelQ0dXdjd01TVWVWS3pXR2cvczI3ZnZEcjFGWUtXSGRi?=
+ =?utf-8?B?Q2hzQzJ6OU83Rlk4bVNDMDZGV295VzlQUEltdHhuUEM0cjkvVTRsRFRwNDEy?=
+ =?utf-8?B?MWp2Ry9WYmFsYlZWUHRSblNYdnBJV1dkbmtxNzQ1MTZwWHVHNVJoRExzOVBM?=
+ =?utf-8?B?dWNwNHIxekJnK1FXbis1VDNZbXVqalJUanIzZkhCYjF4a1ZlUEw1ZzgrS2hW?=
+ =?utf-8?B?bjFvQjRJNWhwSDNzaXhLZzQwZHVRYngwOUNxL25tRmhPczlESjRnSUVZcTho?=
+ =?utf-8?B?M1QxU2ZkR281TXJ2WUJ0Vm42ck5zaWZWZnVCTlhXVGxUWXplVk9XNStkOEts?=
+ =?utf-8?B?NERUL1VTWUtCZnc1WENkYlZweW55dC8wbDA2bExnbmh3bXFwMStpK01TdTEr?=
+ =?utf-8?B?cFpOUkZxU3NRamxsclBYeFZUMnlEOWlXRjEvYTlwV1JLekhIc1p3UXAzTzhn?=
+ =?utf-8?B?Y0lQeVZNOC9NYzBnZGZPVVJEdjRnMmVpQXBjMkF1Z1JIakRDQVlaS0M2Z1c1?=
+ =?utf-8?B?V2FiamZWVUhjbWt6dEo5eGZDeUR1b0FQWEdZeDA0bzZBYWpvWklBR1N5bkVO?=
+ =?utf-8?B?NkxyMU5EOVdFS2FQYzIrT0xzK3V5d3RFanBvVFU0OUJvRTlWVUZPNExqazdl?=
+ =?utf-8?B?N0JGWkRkV2RsblN2MU5TaS81RFo3N01SQVZEYVVjV3JBNkRPK2dtNzZZZU84?=
+ =?utf-8?B?cjd6STNyd2RpcDQvZVYwV2xvYVFERmk1YWFCeDhhbml0enBhTlF4S2dWNFVV?=
+ =?utf-8?B?Z2Qzcm9rNmFUQTdJbjhSY2RzMEpqMkxheTRISEgwaXlhYWdHaXVnbFIwZzVR?=
+ =?utf-8?B?TFdUbVZjM1h5R1h2cVMwQUROdUdmVVZUbW90OUhRdTNlRVJnZDBYS21Sb2Ri?=
+ =?utf-8?B?aHpabzJkNElBVEJkYnZoMWtzK0tCV2l5Zks3NjlUWnhMWkszZVhBWEtaRm9P?=
+ =?utf-8?B?MUdteEdKeklTZkpLQ3Q0UXBoQ1NnaGp0K2N4VU5aUnhvMC9wS3RHaU40MTd4?=
+ =?utf-8?B?bVN2Y1RnOVRrMGx3ZUlaclhrU2tEREZ5amRtdXR5Z3FJS0RGazl3cldCNFlO?=
+ =?utf-8?B?blVtMHhMS21UR0ExS0poUW9nckxzdUZTVFNWNjNCTFJtRGpNT1VrT25lWUVw?=
+ =?utf-8?B?QzNsQ1laMHZVSUpPcGcyeTBNczJOKzRIQzIvUzhmL3hKT0dnY1d0NXVIZThx?=
+ =?utf-8?B?NEZHRTRwOWRqN1A5TWVOaTBWL0gzRVNFT1g1ZWtrV0hrUFF3aEZ3aHAxY1F4?=
+ =?utf-8?B?QWVRNXlsemlnVFU5clRFQjh4Y1FMVGIxeERGRDNScjdqNHAzRFJKMy9Qbklx?=
+ =?utf-8?B?TUVNM0VHSGdra1ZJd0xvTVBjdmgxNGFPTTBFa2d2YjlKa1JaaVNncTczTEY5?=
+ =?utf-8?B?UWRzVGJYUGhZRkhRVDMvQ2RYM0xLU3Z1TmhEUGJ0VjlZN2JpRzVUYW9WcFdp?=
+ =?utf-8?B?UXJMeFcrZWEyVTA0b2xBLzVxejlhbXg2ZkRxcVI2Nmx5SDNyc0ZxQmpHQ3dy?=
+ =?utf-8?B?Z3RjMmxUSStlVzR4dTl2TlRrckcxYjBUVmdwbW1rb1hHRzNMRTJKcUpzbjA0?=
+ =?utf-8?B?SmJOOHVoc2ljc0d2UnVqZ3d4cmNvcWZDSW1MbmMrZjhuZEt3K2lLTG1iU28y?=
+ =?utf-8?B?S0YvcTREUGpGTjMwaWRudWJwb3VPUGthM2twc1BUZVQwQ2JyMjhTU1ZEelp0?=
+ =?utf-8?B?cjZMVnJDQ3BESlF3M0xkTTd1K2MvSmp6Z3E2Rk9SVkJvVEhTOWJnR0NJb2FZ?=
+ =?utf-8?B?YzRUOTlEUlREWWFKQmpZVEx0UGpWdkl5Z0J2KzZyQzlYZlhBRjFVYldMeWk2?=
+ =?utf-8?B?VFNrakxQM3VIY1pDMjVIczNjM2phS0R5QkZFK3FIb01ZWjBpR3ZTelVHRXZQ?=
+ =?utf-8?B?SHFXRktEMjhPbHFSRys1T2tBdmU1WU9Ra3hGaERjMUxxcDlhYXhZZ1F1QzNl?=
+ =?utf-8?B?elhBb3VIZ0hSVzdITEU1cHNXMDFNRFREc2xjanZrYjBYZG84dnFmaFJHRFg1?=
+ =?utf-8?B?eDB4UWNESmQrcytYdG55WmhEbmwveDJNaUVwazhjLzdUV3htMlZQTjJUTlNi?=
+ =?utf-8?Q?FFwnpGWM4UbjBGEw=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 967a5d1a-554f-464f-5c68-08df0449a5c6
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12558.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 14:44:07.1794
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: i10hTCb4vwNRlMKWVII+inCmgFjVLMdxZ7+/CufYA2rgEwRE+RpQw/SzlyvTh4K+jZKJV9g9/7M0dfOfglGNtg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR0PR04MB944139
 
-
-
-On 8/6/26 17:25, evon.chiam@altera.com wrote:
-> From: "Chiam, Evon" <evon.chiam@altera.com>
+On 8/26/2026 6:49 PM, Frank Li wrote:
+> On Wed, Aug 26, 2026 at 03:40:45PM +0200, Larisa Grigore wrote:
+>>
+>> Add support for the UFS host controller on the NXP S32N79 SoC, built on
+>> the Synopsys DesignWare (DWC) UFS architecture, using the UFSHCD DWC and
+>> UFSHCD platform glue.
+>>
+>> This controller requires S32N79-specific initialization prior to
+>> UIC_LINKSTARTUP, including:
+>>    - programming SCM.ONE_US_TICK and HC.HCLKDIV based on the core clock,
+>>    - applying the vendor-defined M-PHY calibration sequence, and
+>>    - performing post-link calibration steps needed for HS operation.
+>>
+>> The M-PHY boot mode is selected via the 'nxp,mphy-boot-mode' device tree
+>> property. If the property is omitted, M-PHY initialization is assumed to
+>> be handled by external firmware or by a simulation environment.
 > 
-> Add new Clock manager driver to support new Altera Agilex72 platform
+> Is "simulation environment" productionable?
+
+Thank you! I will remove any references to the simulation environment in v2.
+
 > 
-> Signed-off-by: Chiam, Evon <evon.chiam@altera.com>
-> ---
->   MAINTAINERS                        |    5 +
->   drivers/clk/socfpga/Kconfig        |    3 +-
->   drivers/clk/socfpga/Makefile       |    2 +-
->   drivers/clk/socfpga/clk-agilex72.c | 1181 ++++++++++++++++++++++++++++
->   drivers/clk/socfpga/clk-agilex72.h |   91 +++
->   5 files changed, 1280 insertions(+), 2 deletions(-)
->   create mode 100644 drivers/clk/socfpga/clk-agilex72.c
->   create mode 100644 drivers/clk/socfpga/clk-agilex72.h
+>>
+>> Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
+>> ---
+>>   drivers/ufs/host/Kconfig         |  12 +
+>>   drivers/ufs/host/Makefile        |   1 +
+>>   drivers/ufs/host/ufs-nxp-s32n7.c | 464 +++++++++++++++++++++++++++++++
+>>   drivers/ufs/host/ufshcd-dwc.h    |   9 +-
+>>   4 files changed, 484 insertions(+), 2 deletions(-)
+>>   create mode 100644 drivers/ufs/host/ufs-nxp-s32n7.c
+>>
+>> diff --git a/drivers/ufs/host/Kconfig b/drivers/ufs/host/Kconfig
+>> index ff170c0b6da0..e8ee7dd05f1a 100644
+>> --- a/drivers/ufs/host/Kconfig
+>> +++ b/drivers/ufs/host/Kconfig
+>> @@ -168,3 +168,15 @@ config SCSI_UFS_AMD_VERSAL2
+>>
+>>            Select this if you have UFS controller on AMD Versal Gen 2 SoC.
+>>            If unsure, say N.
+>> +
+>> +config SCSI_UFS_S32N7
+>> +       tristate "NXP S32N7 platform driver"
+>> +       depends on SCSI_UFSHCD_PLATFORM && (ARCH_S32 || COMPILE_TEST)
+>> +       help
+>> +         This selects the S32N7 specific additions on top of the UFSHCD DWC
+>> +         and UFSHCD platform driver. UFS host on S32N79 needs some vendor
+>> +         specific configurations like PHY and vendor specific register accesses
+>> +         before accessing the hardware.
+>> +
+>> +         Select this if you have UFS controller on an S32N7 based board.
+>> +         If unsure, say N.
+>> diff --git a/drivers/ufs/host/Makefile b/drivers/ufs/host/Makefile
+>> index 65d8bb23ab7b..0381750a35d3 100644
+>> --- a/drivers/ufs/host/Makefile
+>> +++ b/drivers/ufs/host/Makefile
+>> @@ -2,6 +2,7 @@
+>>
+>>   obj-$(CONFIG_SCSI_UFS_DWC_TC_PCI) += tc-dwc-g210-pci.o ufshcd-dwc.o tc-dwc-g210.o
+>>   obj-$(CONFIG_SCSI_UFS_DWC_TC_PLATFORM) += tc-dwc-g210-pltfrm.o ufshcd-dwc.o tc-dwc-g210.o
+>> +obj-$(CONFIG_SCSI_UFS_S32N7) += ufs-nxp-s32n7.o ufshcd-dwc.o
 > 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 15011f5752a9..1b850dc3d6b6 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -3581,6 +3581,11 @@ S:	Maintained
->   F:	Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml
->   F:	drivers/media/platform/samsung/s5p-mfc/
->   
-> +ARM/SOCFPGA AGILEX72 CLOCK DRIVER
-> +M:	Chiam, Evon <evon.chiam@altera.com>
-> +S:	Maintained
-> +F:	drivers/clk/socfpga/clk-agilex72.[ch]
-> +
+> It is not related with your patch, but multi ufshcd-dwc.o may link many
+> times if other ufs host driver also build, modern link can remove duplicate
+> symbal, but not sure what happen if one build as module, one buildin.
+> 
+>>   obj-$(CONFIG_SCSI_UFS_CDNS_PLATFORM) += cdns-pltfrm.o
+>>   obj-$(CONFIG_SCSI_UFS_QCOM) += ufs-qcom.o
+>>   obj-$(CONFIG_SCSI_UFS_EXYNOS) += ufs-exynos.o
+>> diff --git a/drivers/ufs/host/ufs-nxp-s32n7.c b/drivers/ufs/host/ufs-nxp-s32n7.c
+>> new file mode 100644
+>> index 000000000000..8a125105536b
+>> --- /dev/null
+>> +++ b/drivers/ufs/host/ufs-nxp-s32n7.c
+>> @@ -0,0 +1,464 @@
+>> +// SPDX-License-Identifier: (GPL-2.0-or-later OR BSD-3-Clause)
+>> +/*
+>> + * Copyright 2026 NXP
+>> + *
+>> + */
+>> +
+>> +#include <linux/clk.h>
+>> +#include <linux/iopoll.h>
+>> +#include <linux/kernel.h>
+>> +#include <linux/module.h>
+>> +#include <linux/of.h>
+>> +#include <linux/platform_device.h>
+>> +
+>> +#include "ufshcd-pltfrm.h"
+>> +#include "ufshcd-dwc.h"
+>> +#include "ufshci-dwc.h"
+>> +
+>> +/* SCM Register Offsets. */
+>> +#define SCM_ONE_US_TICK                        0x2CU
+>> +#define SCM_STATUS                     0x30
+>> +
+>> +/* SCM_ONE_US_TICK Register. */
+>> +#define SCM_ONE_US_TICK_MASK           GENMASK(8, 0)
+>> +
+>> +/* SCM_MPHY_RAM_CONFIG_STATUS Register Fields. */
+>> +#define SCM_STATUS_PHY_RESET_MASK              BIT(0)
+>> +#define SCM_STATUS_SRAM_BYPASS_MASK            BIT(1)
+>> +#define SCM_STATUS_SRAM_INIT_DONE_MASK         BIT(16)
+>> +
+>> +#define SCM_STATUS_PHY_RESET(val)              \
+>> +       FIELD_PREP(SCM_STATUS_PHY_RESET_MASK, val)
+>> +
+>> +#define SCM_STATUS_SRAM_BYPASS(val)            \
+>> +       FIELD_PREP(SCM_STATUS_SRAM_BYPASS_MASK, val)
+>> +
+>> +/* Timeout values. */
+>> +#define CFG_MPHY_INIT_TIMEOUT_VALUE_US 3000000
+>> +
+>> +/* Clock validation limits. */
+>> +#define MAX_VALID_ONE_US_TICK          SCM_ONE_US_TICK_MASK
+>> +
+>> +/* CPort definitions */
+>> +#define CPORT_0                                0
+>> +
+>> +/* Hibern8 state poll timeout. */
+>> +#define HBRN8_POLL_TOUT_MS      1000
+> 
+> Does this value is spec defined or just engineering choose?
 
-I'll just maintain it for now under all socfpga.
->   ARM/SOCFPGA ARCHITECTURE
->   M:	Dinh Nguyen <dinguyen@kernel.org>
->   S:	Maintained
-> diff --git a/drivers/clk/socfpga/Kconfig b/drivers/clk/socfpga/Kconfig
-> index d88277e2a898..40cac9428fbe 100644
-> --- a/drivers/clk/socfpga/Kconfig
-> +++ b/drivers/clk/socfpga/Kconfig
-> @@ -13,7 +13,8 @@ config CLK_INTEL_SOCFPGA32
->   	default ARM && ARCH_INTEL_SOCFPGA
->   
->   config CLK_INTEL_SOCFPGA64
-> -	bool "Intel Stratix / Agilex / N5X / Agilex5 clock controller support" if COMPILE_TEST && (!ARM64 || !ARCH_INTEL_SOCFPGA)
-> +	bool "Intel Stratix / Agilex / N5X / Agilex5 / Agilex72 clock controller support" \
-> +		if COMPILE_TEST && (!ARM64 || !ARCH_INTEL_SOCFPGA)
->   	default ARM64 && ARCH_INTEL_SOCFPGA
->   
->   endif # CLK_INTEL_SOCFPGA
-> diff --git a/drivers/clk/socfpga/Makefile b/drivers/clk/socfpga/Makefile
-> index a1ea2b988eaf..97af3dfdbbad 100644
-> --- a/drivers/clk/socfpga/Makefile
-> +++ b/drivers/clk/socfpga/Makefile
-> @@ -3,4 +3,4 @@ obj-$(CONFIG_CLK_INTEL_SOCFPGA32) += clk.o clk-gate.o clk-pll.o clk-periph.o \
->   				     clk-pll-a10.o clk-periph-a10.o clk-gate-a10.o
->   obj-$(CONFIG_CLK_INTEL_SOCFPGA64) += clk-s10.o \
->   				     clk-pll-s10.o clk-periph-s10.o clk-gate-s10.o \
-> -				     clk-agilex.o clk-agilex5.o
-> +				     clk-agilex.o clk-agilex5.o clk-agilex72.o
-> diff --git a/drivers/clk/socfpga/clk-agilex72.c b/drivers/clk/socfpga/clk-agilex72.c
-> new file mode 100644
-> index 000000000000..e350d8a9bb4d
-> --- /dev/null
-> +++ b/drivers/clk/socfpga/clk-agilex72.c
-> @@ -0,0 +1,1181 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (C) 2026, Altera Corporation
-> + */
-> +#include <linux/slab.h>
-> +#include <linux/clk-provider.h>
-> +#include <linux/io.h>
-> +#include <linux/of.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/string.h>
-> +#include <dt-bindings/clock/altr,agilex72-clkmgr.h>
-> +#include "clk-agilex72.h"
-> +
-> +#define EMAC_BYPASS_OFFSET          0x10
-> +#define CLK_MGR_FREE_SHIFT          16
-> +#define CLK_MGR_FREE_MASK           0x7
-> +#define PERI_CLK_CNT_DIV_WIDTH      11
-> +#define BOOTCLKSRC_MASK             0x2000000
-> +#define BOOTCLKSRC_SHIFT            25
-> +#define SOCFPGA_PLL_POWER           0
-> +#define BOOT_CLK                    "boot_clk"
-> +#define CLK_MGR_PLL_CLK_SRC_SHIFT   27
-> +#define CLK_MGR_PLL_CLK_SRC_MASK    0x3
-> +#define PLL_RATE_REG_OFFSET         0x4
-> +#define PLL_CR_N_HI_MASK            0xFF
-> +#define PLL_CR_N_LO_MASK            0x1FE00
-> +#define PLL_CR_N_LO_SHIFT           9
-> +#define PLL_CRHI_M_MASK             0x1FF00000
-> +#define PLL_CRHI_M_SHIFT            20
-> +#define PLL_CR_C_MASK               0xFF
-> +#define PLL_CR_BYPASS_DIV_MASK      0x100
-> +#define PLL_FRACT_DIV_REG_OFFSET    0x5c
-> +#define PLL_CR_FRACT_DIV_MASK       0xFFFFFF
-> +
-> +static bool agilex72_gate_is_emac(const char *name);
-> +static u8 agilex72_parent_index(const char * const *parents,
-> +				size_t num_parents, const char *parent_name);
-> +static unsigned long agilex72_boot_clk_recalc_rate(struct clk_hw *hwclk,
-> +						   unsigned long parent_rate);
-> +static unsigned long agilex72_clk_pll_recalc_rate(struct clk_hw *hwclk,
-> +						  unsigned long parent_rate);
-> +static unsigned long agilex72_peri_c_clk_recalc_rate(struct clk_hw *hwclk,
-> +						     unsigned long parent_rate);
-> +static unsigned long
-> +agilex72_clk_peri_cnt_clk_recalc_rate(struct clk_hw *hwclk,
-> +				      unsigned long parent_rate);
-> +static unsigned long agilex72_gate_clk_recalc_rate(struct clk_hw *hwclk,
-> +						   unsigned long parent_rate);
-> +static u8 agilex72_boot_get_parent(struct clk_hw *hwclk);
-> +static u8 agilex72_clk_pll_get_parent(struct clk_hw *hwclk);
-> +static u8 agilex72_peri_c_clk_get_parent(struct clk_hw *hwclk);
-> +static u8 agilex72_clk_periclk_get_parent(struct clk_hw *hwclk);
-> +static u8 agilex72_gate_get_parent(struct clk_hw *hwclk);
-> +
-> +/* External parent clocks come from DT via fw_name */
-> +static const char * const boot_pll_parents[] = {
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +};
-> +
-> +static const char * const gppll0_clk_parents[] = {
-> +	"osc1",
-> +	"cb-intosc-div10-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const gppll1_clk_parents[] = {
-> +	"osc1",
-> +	"cb-intosc-div10-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const gppll2_clk_parents[] = {
-> +	"osc1",
-> +	"cb-intosc-div10-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +/* Core free muxes */
-> +static const char * const comp0_free_mux[] = {
+This is engineering choose. I will update the commit message. Thanks!
 
-Do you mean core0 here?
+>> +
+>> +/**
+>> + * enum mphy_boot_mode - MPHY boot mode options
+>> + * @MPHY_BOOT_NONE: Skip MPHY initialization
+>> + * @MPHY_BOOT_ROM: Running MPHY from internal FW ROM
+>> + */
+>> +enum mphy_boot_mode {
+>> +       MPHY_BOOT_NONE = 0,
+>> +       MPHY_BOOT_ROM = 1,
+>> +};
+>> +
+>> +/**
+>> + * struct s32n_ufs - S32N7 UFS host controller data
+>> + * @hba: UFS host controller instance
+>> + * @reg_scm: SCM register base address
+>> + * @core_clk: core reference clock used to derive ONE_US_TICK/HCLKDIV
+>> + * @mphy_boot_mode: MPHY boot mode configuration
+>> + */
+>> +struct s32n_ufs {
+>> +       struct ufs_hba *hba;
+>> +       void __iomem *reg_scm;
+>> +       struct clk *core_clk;
+>> +       enum mphy_boot_mode mphy_boot_mode;
+>> +};
+>> +
+>> +/**
+>> + * struct phy_reg_cfg - PHY register configuration entry
+>> + * @reg: Register offset/address
+>> + * @val: Value to write
+>> + */
+>> +struct phy_reg_cfg {
+>> +       u32 reg;
+>> +       u32 val;
+>> +};
+>> +
+>> +/**
+>> + * ufs_s32n_phy_write_sequence - Write a sequence of PHY registers
+>> + * @hba: UFS host controller instance
+>> + * @cfg: Array of register configurations
+>> + * @count: Number of entries in the array
+>> + *
+>> + * Return: 0 on success, error code on failure
+>> + */
+>> +static int ufs_s32n_phy_write_sequence(struct ufs_hba *hba,
+>> +                                      const struct phy_reg_cfg *cfg,
+>> +                                      size_t count)
+>> +{
+>> +       int ret;
+>> +       size_t i;
+>> +
+>> +       for (i = 0; i < count; i++) {
+>> +               ret = ufshcd_dwc_phy_reg_write(hba, cfg[i].reg, cfg[i].val);
+>> +               if (ret) {
+>> +                       dev_err(hba->dev,
+>> +                               "Failed to write PHY reg 0x%x = 0x%x (step %zu)\n",
+>> +                               cfg[i].reg, cfg[i].val, i);
+>> +                       return ret;
+>> +               }
+>> +       }
+>> +
+>> +       return 0;
+>> +}
+>> +
+>> +static unsigned long ufs_s32n_calculate_us_tick(unsigned long clk_rate)
+>> +{
+>> +       return clk_rate / USEC_PER_SEC;
+>> +}
+>> +
+>> +static int ufs_s32n_configure_clocks(struct ufs_hba *hba)
+>> +{
+>> +       struct s32n_ufs *ufs = ufshcd_get_variant(hba);
+>> +       struct device *dev = hba->dev;
+>> +       unsigned long clk_rate = 0;
+>> +       unsigned long one_us_tick;
+>> +
+>> +       if (!ufs->core_clk) {
+> 
+> suppose return failure at probe if no core_clk, needn't check here
 
-> +	"gppll1-c0",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const core2_free_mux[] = {
-> +	"gppll2-c0",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const core3_free_mux[] = {
-> +	"gppll2-c1",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const dsu_free_mux[] = {
-> +	"gppll1-c1",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const ccu_free_mux[] = {
-> +	"gppll0-c0",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const hsp_noc_free_mux[] = {
-> +	"gppll0-c0",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const lsp_noc_free_mux[] = {
-> +	"gppll0-c1",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const trace_free_mux[] = {
-> +	"gppll0-c2",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const emaca_free_mux[] = {
-> +	"gppll0-c0",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const emacb_free_mux[] = {
-> +	"gppll0-c0",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const emac_ptp_free_mux[] = {
-> +	"gppll0-c0",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const gpio_db_free_mux[] = {
-> +	"gppll0-c1",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const usb31_free_mux[] = {
-> +	"gppll0-c0",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const s2f_user0_free_mux[] = {
-> +	"gppll0-c1",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const s2f_user1_free_mux[] = {
-> +	"gppll0-c1",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const xspi_phy_clk_mux[] = {
-> +	"gppll0-c3",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const memdevice_phy_clk_mux[] = {
-> +	"gppll0-c3",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +/* Secondary muxes between free_clk and boot_clk */
-> +static const char * const comp0_mux[] = {
+You are correct. Thank you!
 
-core0?
+> 
+>> +               dev_err(dev, "Invalid core_clk.\n");
+>> +               return -EINVAL;
+>> +       }
+>> +
+>> +       clk_rate = clk_get_rate(ufs->core_clk);
+>> +       if (!clk_rate) {
+>> +               dev_err(dev, "Failed to get valid clock rate.\n");
+>> +               return -EINVAL;
+>> +       }
+>> +
+>> +       one_us_tick = ufs_s32n_calculate_us_tick(clk_rate);
+>> +       if (one_us_tick == 0 || one_us_tick > MAX_VALID_ONE_US_TICK) {
+>> +               dev_err(dev, "Invalid one_us_tick value: %lu (clk_rate: %lu Hz).\n",
+>> +                       one_us_tick, clk_rate);
+>> +               return -EINVAL;
+>> +       }
+>> +
+>> +       dev_dbg(dev, "Core clock rate: %lu Hz, one_us_tick = %lu.\n",
+>> +                clk_rate, one_us_tick);
+>> +
+>> +       /*
+>> +        * Configure the micro-second tick rate generator based on core
+>> +        * clock rate.
+>> +        */
+>> +       writel(one_us_tick, ufs->reg_scm + SCM_ONE_US_TICK);
+>> +       ufshcd_dwc_program_clk_div(hba, one_us_tick);
+>> +
+>> +       return 0;
+>> +}
+>> +
+>> +static int ufs_s32n_phy_initial_calib(struct ufs_hba *hba)
+>> +{
+>> +       static const struct phy_reg_cfg initial_calib[] = {
+>> +               { FAST_FLAGS(0), 0x6 },
+>> +               { FAST_FLAGS(1), 0x6 },
+>> +               { RX_DAC_CTRL_OVRD(0), 0x1 },
+>> +               { RX_DAC_CTRL_OVRD(1), 0x1 },
+>> +               { RX_DAC_CTRL(0), 0x8E },
+>> +               { RX_DAC_CTRL(1), 0x91 },
+>> +               { RX_DAC_CTRL_SEL(0), 0x1 },
+>> +               { RX_DAC_CTRL_SEL(1), 0x1 },
+>> +               { RX_DAC_CTRL_EN(0), 0x1 },
+>> +               { RX_DAC_CTRL_EN(1), 0x1 },
+>> +               { RX_DAC_CTRL_OVRD(0), 0x0 },
+>> +               { RX_DAC_CTRL_OVRD(1), 0x0 },
+>> +               { RX_DAC_CTRL_OVRD(0), 0x1 },
+>> +               { RX_DAC_CTRL_OVRD(1), 0x1 },
+>> +               { RX_DAC_CTRL(0), 0x71 },
+>> +               { RX_DAC_CTRL(1), 0x7F },
+>> +               { RX_DAC_CTRL_SEL(0), 0x2 },
+>> +               { RX_DAC_CTRL_SEL(1), 0x2 },
+>> +               { RX_DAC_CTRL_EN(0), 0x1 },
+>> +               { RX_DAC_CTRL_EN(1), 0x1 },
+>> +               { RX_DAC_CTRL_OVRD(0), 0x0 },
+>> +               { RX_DAC_CTRL_OVRD(1), 0x0 },
+>> +               { FW_CALIB_CCFG(0), 0x100 },
+>> +               { FW_CALIB_CCFG(1), 0x100 },
+>> +       };
+> 
+> Can you put this data to platform data in case difference data for differe
+> soc in future?
 
-> +	"comp0_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const core2_mux[] = {
-> +	"core2_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const core3_mux[] = {
-> +	"core3_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const mpu_mux[] = {
-> +	"dsu_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const ccu_mux[] = {
-> +	"ccu_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const hsp_noc_mux[] = {
-> +	"hsp_noc_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const lsp_noc_mux[] = {
-> +	"lsp_noc_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const cs_at_mux[] = {
-> +	"lsp_noc_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const cs_pdbg_mux[] = {
-> +	"lsp_noc_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const cs_trace_mux[] = {
-> +	"trace_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const emac_mux[] = {
-> +	"emaca_div_clk",
-> +	"emacb_div_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const emac_ptp_mux[] = {
-> +	"emac_ptp_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const gpio_db_mux[] = {
-> +	"gpio_db_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const usb31_mux[] = {
-> +	"usb31_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const s2f_user0_mux[] = {
-> +	"s2f_user0_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const s2f_user1_mux[] = {
-> +	"s2f_user1_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const xspi_mux[] = {
-> +	"xspi_phy_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const memdevice_phy_mux[] = {
-> +	"memdevice_phy_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const struct agilex72_pll_clock pll_clks[] = {
-> +	{
-> +		.id = AGILEX72_BOOT_CLK,
-> +		.name = BOOT_CLK,
-> +		.parent_names = boot_pll_parents,
-> +		.num_parents = ARRAY_SIZE(boot_pll_parents),
-> +		.offset = 0x4,
-> +	},
-> +	{
-> +		.id = AGILEX72_GPPLL0_CLK,
-> +		.name = "gppll0",
-> +		.parent_names = gppll0_clk_parents,
-> +		.num_parents = ARRAY_SIZE(gppll0_clk_parents),
-> +		.offset = 0x160,
-> +	},
-> +	{
-> +		.id = AGILEX72_GPPLL1_CLK,
-> +		.name = "gppll1",
-> +		.parent_names = gppll1_clk_parents,
-> +		.num_parents = ARRAY_SIZE(gppll1_clk_parents),
-> +		.offset = 0x80,
-> +	},
-> +	{
-> +		.id = AGILEX72_GPPLL2_CLK,
-> +		.name = "gppll2",
-> +		.parent_names = gppll2_clk_parents,
-> +		.num_parents = ARRAY_SIZE(gppll2_clk_parents),
-> +		.offset = 0x60,
-> +	},
-> +};
-> +
-> +static const struct agilex72_perip_c_clock main_perip_c_clks[] = {
-> +	{ AGILEX72_GPPLL0_C0_CLK,
-> +	  "gppll0-c0", "gppll0", 1, 0x24, 23,  0, 8, 8 },
-> +	{ AGILEX72_GPPLL0_C1_CLK,
-> +	  "gppll0-c1", "gppll0", 1, 0x28, 14, 23, 8, 8 },
-> +	{ AGILEX72_GPPLL0_C2_CLK,
-> +	  "gppll0-c2", "gppll0", 1, 0x2c,  0,  9, 8, 8 },
-> +	{ AGILEX72_GPPLL0_C3_CLK,
-> +	  "gppll0-c3", "gppll0", 1, 0x30,  0,  9, 8, 8 },
-> +	{ AGILEX72_GPPLL0_C4_CLK,
-> +	  "gppll0-c4", "gppll0", 1, 0x38,  0,  9, 8, 8 },
-> +	{ AGILEX72_GPPLL0_C5_CLK,
-> +	  "gppll0-c5", "gppll0", 1, 0x3c,  0,  9, 8, 8 },
-> +	{ AGILEX72_GPPLL0_C6_CLK,
-> +	  "gppll0-c6", "gppll0", 1, 0x40,  0,  9, 8, 8 },
-> +	{ AGILEX72_GPPLL1_C0_CLK,
-> +	  "gppll1-c0", "gppll1", 1, 0x24, 23,  0, 8, 8 },
-> +	{ AGILEX72_GPPLL1_C1_CLK,
-> +	  "gppll1-c1", "gppll1", 1, 0x28, 14, 23, 8, 8 },
-> +	{ AGILEX72_GPPLL2_C0_CLK,
-> +	  "gppll2-c0", "gppll2", 1, 0x24, 23,  0, 8, 8 },
-> +	{ AGILEX72_GPPLL2_C1_CLK,
-> +	  "gppll2-c1", "gppll2", 1, 0x28, 14, 23, 8, 8 },
-> +};
-> +
-> +/* Non-SW clock-gated enabled clocks */
-> +static const struct agilex72_perip_cnt_clock main_perip_cnt_clks[] = {
-> +	{ AGILEX72_COMP0_FREE_CLK, "comp0_free_clk",
-> +	  comp0_free_mux, ARRAY_SIZE(comp0_free_mux), 0xbc },
-> +	{ AGILEX72_CORE2_FREE_CLK, "core2_free_clk",
-> +	  core2_free_mux, ARRAY_SIZE(core2_free_mux), 0xb8 },
-> +	{ AGILEX72_CORE3_FREE_CLK, "core3_free_clk",
-> +	  core3_free_mux, ARRAY_SIZE(core3_free_mux), 0xb4 },
-> +	{ AGILEX72_DSU_FREE_CLK, "dsu_free_clk",
-> +	  dsu_free_mux, ARRAY_SIZE(dsu_free_mux), 0xc0 },
-> +	{ AGILEX72_CCU_FREE_CLK, "ccu_free_clk",
-> +	  ccu_free_mux, ARRAY_SIZE(ccu_free_mux), 0xc4 },
-> +	{ AGILEX72_HSP_NOC_FREE_CLK, "hsp_noc_free_clk",
-> +	  hsp_noc_free_mux, ARRAY_SIZE(hsp_noc_free_mux), 0x104 },
-> +	{ AGILEX72_LSP_NOC_FREE_CLK, "lsp_noc_free_clk",
-> +	  lsp_noc_free_mux, ARRAY_SIZE(lsp_noc_free_mux), 0x108 },
-> +	{ AGILEX72_TRACE_FREE_CLK, "trace_free_clk",
-> +	  trace_free_mux, ARRAY_SIZE(trace_free_mux), 0x144 },
-> +	{ AGILEX72_EMAC_A_FREE_CLK, "emaca_free_clk",
-> +	  emaca_free_mux, ARRAY_SIZE(emaca_free_mux), 0x128 },
-> +	{ AGILEX72_EMAC_B_FREE_CLK, "emacb_free_clk",
-> +	  emacb_free_mux, ARRAY_SIZE(emacb_free_mux), 0x12c },
-> +	{ AGILEX72_EMAC_PTP_FREE_CLK, "emac_ptp_free_clk",
-> +	  emac_ptp_free_mux, ARRAY_SIZE(emac_ptp_free_mux), 0x130 },
-> +	{ AGILEX72_GPIO_DB_FREE_CLK, "gpio_db_free_clk",
-> +	  gpio_db_free_mux, ARRAY_SIZE(gpio_db_free_mux), 0x134 },
-> +	{ AGILEX72_USB31_FREE_CLK, "usb31_free_clk",
-> +	  usb31_free_mux, ARRAY_SIZE(usb31_free_mux), 0x140 },
-> +	{ AGILEX72_S2F_USER0_FREE_CLK, "s2f_user0_free_clk",
-> +	  s2f_user0_free_mux, ARRAY_SIZE(s2f_user0_free_mux), 0x138 },
-> +	{ AGILEX72_S2F_USER1_FREE_CLK, "s2f_user1_free_clk",
-> +	  s2f_user1_free_mux, ARRAY_SIZE(s2f_user1_free_mux), 0x13c },
-> +	{ AGILEX72_XSPI_PHY_FREE_CLK, "xspi_phy_free_clk",
-> +	  xspi_phy_clk_mux, ARRAY_SIZE(xspi_phy_clk_mux), 0x154 },
-> +	{ AGILEX72_MEMDEVICE_PHY_FREE_CLK, "memdevice_phy_free_clk",
-> +	  memdevice_phy_clk_mux, ARRAY_SIZE(memdevice_phy_clk_mux), 0x148 },
-> +};
-> +
-> +static const char * const hsp_mp_clk_parent[] = { "hsp_mp_clk" };
-> +static const char * const lsp_main_parent[] = { "lsp_main_clk" };
-> +static const char * const lsp_mp_parent[] = { "lsp_mp_clk" };
-> +static const char * const lsp_sp_parent[] = { "lsp_sp_clk" };
-> +static const char * const usb31_bus_clk_early_parents[] = { "hsp_main_clk" };
-> +static const char * const emaca_div_parents[] = { "emaca_free_clk" };
-> +static const char * const emacb_div_parents[] = { "emacb_free_clk" };
-> +
-> +/* SW Clock gate enabled clocks */
-> +static const struct agilex72_gate_clock gate_clks[] = {
-> +	{ AGILEX72_COMP0_CLK, "comp0_clk", comp0_mux,
+Thanks for the sugestion! I will add both initial_calib and post_calib.
 
-CORE0?
+> 
+>> +       int ret;
+>> +
+>> +       /* Clock Control */
+>> +       ret = ufshcd_dme_set(hba, UIC_ARG_MIB_SEL(CBREFCLKCTRL2, 0), 0x80);
+>> +       if (ret)
+>> +               return ret;
+>> +
+>> +       ret = ufshcd_dme_set(hba, UIC_ARG_MIB_SEL(VS_MPHYCFGUPDT, 0), 0x1);
+>> +       if (ret)
+>> +               return ret;
+>> +
+>> +       /* Initial calibration sequence */
+>> +       return ufs_s32n_phy_write_sequence(hba, initial_calib,
+>> +                                          ARRAY_SIZE(initial_calib));
+>> +}
+>> +
+>> +static int ufs_s32n_link_startup_pre_change(struct ufs_hba *hba)
+>> +{
+>> +       struct s32n_ufs *ufs = ufshcd_get_variant(hba);
+>> +       struct device *dev = hba->dev;
+>> +       int ret;
+>> +       u32 reg;
+>> +
+>> +       /*
+>> +        * There are two supported MPHY boot options implemented:
+>> +        * - Running MPHY from internal FW ROM:
+>> +        *  MPHY_RAM_CONFIG_STATUS.SRAM_BYPASS = 1
+>> +        *  MPHY_RAM_CONFIG_STATUS.SRAM_EXT_LD_DONE = 0
+>> +        * - Skip M-PHY initialization when it is handled externally.
+>> +        */
+>> +       if (ufs->mphy_boot_mode == MPHY_BOOT_NONE) {
+>> +               dev_dbg(dev, "Skipping UFS MPHY init.\n");
+>> +               return 0;
+>> +       }
+>> +
+>> +       ret = ufs_s32n_configure_clocks(hba);
+>> +       if (ret)
+>> +               return ret;
+>> +
+>> +       /* Reset SCM.MPHY_RAM_CONFIG_STATUS to default value; keep MPHY in reset. */
+>> +       writel(SCM_STATUS_PHY_RESET(1), ufs->reg_scm + SCM_STATUS);
+>> +       if (ufs->mphy_boot_mode == MPHY_BOOT_ROM) {
+>> +               /* ROM Mode. */
+>> +               writel(SCM_STATUS_PHY_RESET(1) | SCM_STATUS_SRAM_BYPASS(1),
+>> +                      ufs->reg_scm + SCM_STATUS);
+>> +       }
+>> +
+>> +       ret = ufshcd_dme_set(hba, UIC_ARG_MIB_SEL(CBCRCTRL, 0), 0x1);
+>> +       if (ret)
+>> +               return ret;
+>> +
+>> +       ret = ufshcd_dme_set(hba, UIC_ARG_MIB_SEL(VS_MPHYCFGUPDT, 0), 0x1);
+>> +       if (ret)
+>> +               return ret;
+>> +
+>> +       /* Release PHY_RESET. */
+>> +       writel(readl(ufs->reg_scm + SCM_STATUS) & ~SCM_STATUS_PHY_RESET_MASK,
+>> +              ufs->reg_scm + SCM_STATUS);
+>> +
+>> +       /* Wait until SRAM_INIT_DONE = 1. */
+>> +       ret = readl_poll_timeout(ufs->reg_scm + SCM_STATUS, reg,
+>> +                       reg & SCM_STATUS_SRAM_INIT_DONE_MASK,
+>> +                       1000, CFG_MPHY_INIT_TIMEOUT_VALUE_US);
+>> +       if (ret) {
+>> +               dev_err(dev, "UFS MPHY init not done!\n");
+>> +               return ret;
+>> +       }
+>> +
+>> +       /* Start of initial calibration */
+>> +       ret = ufs_s32n_phy_initial_calib(hba);
+>> +       if (ret) {
+>> +               dev_err(dev, "UFS MPHY initial calibration failed!\n");
+>> +               return ret;
+>> +       }
+>> +
+>> +       ret = ufshcd_dme_set(hba, UIC_ARG_MIB_SEL(VS_MPHYDISABLE, 0), 0x0);
+>> +       if (ret)
+>> +               return ret;
+>> +
+>> +       ret = ufshcd_dme_set(hba, UIC_ARG_MIB_SEL(VS_MPHYCFGUPDT, 0), 0x1);
+>> +       if (ret)
+>> +               return ret;
+>> +
+>> +       /* Set Local DeviceID. */
+>> +       ret = ufshcd_dme_set(hba, UIC_ARG_MIB_SEL(N_DEVICEID, 0), 0x0);
+>> +       if (ret)
+>> +               return ret;
+>> +
+>> +       /* End of Gear1 settings */
+>> +
+>> +       return ufshcd_check_hibern8(hba, hba->lanes_per_direction,
+>> +                                   HBRN8_POLL_TOUT_MS);
+>> +}
+>> +
+>> +static int ufs_s32n_link_startup_post_change(struct ufs_hba *hba)
+>> +{
+>> +       static const struct ufshcd_dme_attr_val cport_setup[] = {
+>> +               { UIC_ARG_MIB_SEL(T_CONNECTIONSTATE, CPORT_0),
+>> +                               CPORT_IDLE, DME_LOCAL },
+>> +               { UIC_ARG_MIB_SEL(T_CPORTFLAGS, CPORT_0),
+>> +                               CPORT_DEF_FLAGS, DME_LOCAL },
+>> +               { UIC_ARG_MIB_SEL(T_CONNECTIONSTATE, CPORT_0),
+>> +                               CPORT_CONNECTED, DME_LOCAL },
+>> +       };
+>> +       static const struct phy_reg_cfg post_calib[] = {
+>> +               { RX_OVRD_IN_1(0), 0xc },
+>> +               { RX_OVRD_IN_1(1), 0xc },
+>> +               { RX_OVRD_IN_1(0), 0x8 },
+>> +               { RX_OVRD_IN_1(1), 0x8 },
+>> +               { RX_OVRD_IN_1(0), 0x0 },
+>> +               { RX_OVRD_IN_1(1), 0x0 },
+>> +       };
+>> +       struct s32n_ufs *ufs = ufshcd_get_variant(hba);
+>> +       unsigned int data = 0;
+>> +       int ret;
+>> +
+>> +       if (ufs->mphy_boot_mode == MPHY_BOOT_NONE)
+>> +               return 0;
+>> +
+>> +       /* Set Connection State to IDLE (it allows CPort Attributes to be set). */
+>> +       ret = ufshcd_dwc_dme_set_attrs(hba, cport_setup, ARRAY_SIZE(cport_setup));
+>> +       if (ret)
+>> +               return ret;
+>> +
+>> +       ret = ufshcd_dme_get(hba, UIC_ARG_MIB_SEL(T_CONNECTIONSTATE, CPORT_0), &data);
+>> +       if (ret)
+>> +               return ret;
+>> +
+>> +       if (data != CPORT_CONNECTED)
+>> +               return -EIO;
+>> +
+>> +       /* Post Link Startup Calibration sequence */
+>> +       ret = ufs_s32n_phy_write_sequence(hba, post_calib,
+>> +                                          ARRAY_SIZE(post_calib));
+>> +       if (ret)
+>> +               return ret;
+>> +
+>> +       /*
+>> +        * Performing MPHY configuration for rate change:
+>> +        * CB rate selection: 0 - rate A, 1 - rate B;
+>> +        */
+>> +       ret = ufshcd_dme_set(hba, UIC_ARG_MIB_SEL(CBRATESEL, 0), 0x1);
+>> +       if (ret)
+>> +               return ret;
+>> +
+>> +       ret = ufshcd_dme_set(hba, UIC_ARG_MIB_SEL(VS_MPHYCFGUPDT, 0), 0x1);
+>> +       if (ret)
+>> +               return ret;
+>> +
+>> +       /* End of Gear4 calibration */
+>> +       return 0;
+>> +}
+>> +
+>> +static int ufs_s32n_link_startup_notify(struct ufs_hba *hba,
+>> +                            enum ufs_notify_change_status status)
+>> +{
+>> +       int err;
+>> +
+>> +       if (status == PRE_CHANGE) {
+>> +               err = ufs_s32n_link_startup_pre_change(hba);
+>> +               if (err) {
+>> +                       dev_err(hba->dev, "MPHY setup failed (%d).\n", err);
+>> +                       return err;
+>> +               }
+>> +               return 0;
+>> +       }
+>> +
+>> +       /* POST_CHANGE */
+>> +       err = ufshcd_dwc_link_is_up(hba);
+>> +       if (err) {
+>> +               dev_err(hba->dev, "Link is not up.\n");
+>> +               return err;
+>> +       }
+>> +
+>> +       err = ufs_s32n_link_startup_post_change(hba);
+>> +       if (err)
+>> +               dev_err(hba->dev, "Connection setup failed (%d).\n", err);
+>> +
+>> +       return err;
+>> +}
+>> +
+>> +static int ufs_s32n_init(struct ufs_hba *hba)
+>> +{
+>> +       struct device *dev = hba->dev;
+>> +       struct platform_device *pdev = to_platform_device(dev);
+>> +       struct device_node *np = dev->of_node;
+>> +       const char *mphy_boot_mode;
+>> +       struct s32n_ufs *ufs;
+>> +       int ret;
+>> +
+>> +       ufs = devm_kzalloc(dev, sizeof(*ufs), GFP_KERNEL);
+>> +       if (!ufs)
+>> +               return -ENOMEM;
+>> +
+>> +       ufs->hba = hba;
+>> +       ufs->mphy_boot_mode = MPHY_BOOT_NONE;
+>> +
+>> +       hba->quirks |= UFSHCD_QUIRK_BROKEN_AUTO_HIBERN8;
+>> +       hba->quirks |= UFSHCD_QUIRK_PERFORM_LINK_STARTUP_ONCE;
+>> +       hba->spm_lvl = UFS_PM_LVL_5;
+>> +
+>> +       ret = of_property_read_string(np, "nxp,mphy-boot-mode", &mphy_boot_mode);
+>> +       if (ret || !mphy_boot_mode) {
+>> +               dev_dbg(dev,
+>> +                       "nxp,mphy-boot-mode property not found. UFS MPHY init will be skipped.\n");
+>> +               goto init_out;
+>> +       }
+>> +
+>> +       if (!strcmp(mphy_boot_mode, "rom")) {
+>> +               ufs->mphy_boot_mode = MPHY_BOOT_ROM;
+>> +       } else {
+>> +               return dev_err_probe(dev, -EINVAL,
+>> +                                    "Unrecognized nxp,mphy-boot-mode property. UFS MPHY init will be skipped.\n");
+>> +       }
+>> +
+>> +       ufs->reg_scm = devm_platform_ioremap_resource_byname(pdev, "scm");
+>> +       if (IS_ERR(ufs->reg_scm))
+>> +               return dev_err_probe(dev, PTR_ERR(ufs->reg_scm),
+>> +                                    "ioremap failed for SCM registers.\n");
+>> +
+>> +       ufs->core_clk = devm_clk_get(dev, "core_clk");
+>> +       if (IS_ERR(ufs->core_clk))
+>> +               return dev_err_probe(dev, PTR_ERR(ufs->core_clk),
+>> +                                    "Failed to get core clock.\n");
+>> +
+>> +init_out:
+>> +       ufshcd_set_variant(hba, ufs);
+>> +
+>> +       return 0;
+>> +}
+>> +
+>> +static const struct ufs_hba_variant_ops ufs_hba_s32n79_vops = {
+>> +       .name = "s32n79",
+>> +       .init = ufs_s32n_init,
+>> +       .link_startup_notify = ufs_s32n_link_startup_notify,
+>> +};
+>> +
+>> +static const struct of_device_id ufs_s32n7_match[] = {
+>> +       {
+>> +               .compatible = "nxp,s32n79-ufshc",
+>> +               .data = &ufs_hba_s32n79_vops,
+>> +       },
+>> +       { /* sentinel */ }
+>> +};
+>> +MODULE_DEVICE_TABLE(of, ufs_s32n7_match);
+>> +
+>> +static int ufs_s32n7_probe(struct platform_device *pdev)
+>> +{
+>> +       const struct ufs_hba_variant_ops *vops;
+>> +
+>> +       vops = device_get_match_data(&pdev->dev);
+>> +       if (!vops)
+>> +               return -ENODEV;
+>> +
+>> +       return ufshcd_pltfrm_init(pdev, vops);
+>> +}
+>> +
+>> +static void ufs_s32n7_remove(struct platform_device *pdev)
+>> +{
+>> +       ufshcd_pltfrm_remove(pdev);
+>> +}
+>> +
+>> +static const struct dev_pm_ops ufs_s32n7_pm_ops = {
+>> +       SET_SYSTEM_SLEEP_PM_OPS(ufshcd_system_suspend, ufshcd_system_resume)
+>> +       SET_RUNTIME_PM_OPS(ufshcd_runtime_suspend, ufshcd_runtime_resume, NULL)
+> 
+> Use  SYSTEM_SLEEP_PM_OPS()
+> 
+>> +       .prepare        = ufshcd_suspend_prepare,
+>> +       .complete       = ufshcd_resume_complete,
+>> +};
+>> +
+>> +static struct platform_driver ufs_s32n7_driver = {
+>> +       .probe = ufs_s32n7_probe,
+>> +       .remove = ufs_s32n7_remove,
+>> +       .driver = {
+>> +               .name   = "ufs-s32n7",
+>> +               .pm     = &ufs_s32n7_pm_ops,
+> 
+> pm_ptr(&ufs_s32n7_pm_ops)
+> 
+> Frank
 
-> +	  ARRAY_SIZE(comp0_mux), 0x30, 8, 0, 0, 0, 0x3c, 5, 0 },
-> +	{ AGILEX72_CORE2_CLK, "core2_clk", core2_mux,
-> +	  ARRAY_SIZE(core2_mux), 0x30, 10, 0, 0, 0, 0x3c, 10, 0 },
-> +	{ AGILEX72_CORE3_CLK, "core3_clk", core3_mux,
-> +	  ARRAY_SIZE(core3_mux), 0x30, 11, 0, 0, 0, 0x3c, 11, 0 },
-> +	{ AGILEX72_MPU_CLK, "mpu_clk", mpu_mux,
-> +	  ARRAY_SIZE(mpu_mux), 0x30, 7, 0, 0, 0, 0x3c, 4, 0 },
-> +	{ AGILEX72_CCU_CLK, "ccu_clk", ccu_mux,
-> +	  ARRAY_SIZE(ccu_mux), 0x30, 6, 0, 0, 0, 0x3c, 3, 0 },
-> +	{ AGILEX72_APU_SYS_FREE_CLK, "apu_sys_free_clk", ccu_mux,
-> +	  ARRAY_SIZE(ccu_mux), 0, 0, 0x50, 22, 2, 0x3c, 3, 0 },
-> +	{ AGILEX72_HSP_SYS_FREE_CLK, "hsp_sys_free_clk", hsp_noc_mux,
-> +	  ARRAY_SIZE(hsp_noc_mux), 0, 0, 0x10c, 8, 2, 0xf0, 9, 0 },
-> +	{ AGILEX72_HSP_MAIN_FREE_CLK, "hsp_main_free_clk", hsp_noc_mux,
-> +	  ARRAY_SIZE(hsp_noc_mux), 0, 0, 0, 0, 0, 0xf0, 9, 0 },
-> +	{ AGILEX72_HSP_MAIN_CLK, "hsp_main_clk", hsp_noc_mux,
-> +	  ARRAY_SIZE(hsp_noc_mux), 0xe0, 1, 0, 0, 0, 0xf0, 9, 0 },
-> +	{ AGILEX72_HSP_MP_CLK, "hsp_mp_clk", hsp_noc_mux,
-> +	  ARRAY_SIZE(hsp_noc_mux), 0xe0, 2, 0x10c, 10, 2, 0xf0, 9, 0 },
-> +	{ AGILEX72_HSP_SP_CLK, "hsp_sp_clk", hsp_noc_mux,
-> +	  ARRAY_SIZE(hsp_noc_mux), 0xe0, 3, 0x10c, 12, 2, 0xf0, 9, 0 },
-Are any of these clock critical? Meaning, they cannot get gated off?
+I will address these comments in v2.
 
+Best regards,
+Larisa
 
-> +	{ AGILEX72_USB2OTG_HCLK, "usb2otg_hclk", hsp_mp_clk_parent,
-> +	  1, 0xe0, 0, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_LSP_SYS_FREE_CLK, "lsp_sys_free_clk", lsp_noc_mux,
-> +	  ARRAY_SIZE(lsp_noc_mux), 0, 0, 0x10c, 2, 2, 0xf0, 9, 0 },
-> +	{ AGILEX72_LSP_MAIN_FREE_CLK, "lsp_main_free_clk", lsp_noc_mux,
-> +	  ARRAY_SIZE(lsp_noc_mux), 0xe0, 0, 0, 0, 0, 0xf0, 9, 0 },
+> 
+>> +               .of_match_table = ufs_s32n7_match,
+>> +       },
+>> +};
+>> +
+>> +module_platform_driver(ufs_s32n7_driver);
+>> +
+>> +MODULE_AUTHOR("Larisa Grigore <larisa.grigore@oss.nxp.com>");
+>> +MODULE_DESCRIPTION("NXP S32N7 UFS Host Controller platform driver");
+>> +MODULE_LICENSE("Dual BSD/GPL");
+>> diff --git a/drivers/ufs/host/ufshcd-dwc.h b/drivers/ufs/host/ufshcd-dwc.h
+>> index 53b523ef59df..747383cfb839 100644
+>> --- a/drivers/ufs/host/ufshcd-dwc.h
+>> +++ b/drivers/ufs/host/ufshcd-dwc.h
+>> @@ -13,8 +13,7 @@
+>>   #include <ufs/ufshcd.h>
+>>
+>>   /* RMMI Attributes */
+>> -#define CBREFCLKCTRL2          0x8132
+>> -#define CBCRCTRL               0x811F
+>> +#define RXSQCONTROL            0x8009
+>>   #define CBC10DIRECTCONF2       0x810E
+>>   #define CBRATESEL              0x8114
+>>   #define CBCREGADDRLSB          0x8116
+>> @@ -24,10 +23,16 @@
+>>   #define CBCREGRDLSB            0x811A
+>>   #define CBCREGRDMSB            0x811B
+>>   #define CBCREGRDWRSEL          0x811C
+>> +#define CBCRCTRL               0x811F
+>> +#define CBREFCLKCTRL2          0x8132
+>>
+>>   #define CBREFREFCLK_GATE_OVR_EN                BIT(7)
+>>
+>>   /* M-PHY registers */
+>> +#define RX_DAC_CTRL(n)         (0x10AF + ((n) * 0x100))
+>> +#define RX_DAC_CTRL_OVRD(n)    (0x10B0 + ((n) * 0x100))
+>> +#define RX_DAC_CTRL_SEL(n)     (0x10B1 + ((n) * 0x100))
+>> +#define RX_DAC_CTRL_EN(n)      (0x10B8 + ((n) * 0x100))
+>>   #define RX_OVRD_IN_1(n)                (0x3006 + ((n) * 0x100))
+>>   #define RX_PCS_OUT(n)          (0x300F + ((n) * 0x100))
+>>   #define FAST_FLAGS(n)          (0x401C + ((n) * 0x100))
+>> --
+>> 2.43.0
+>>
+>>
 
-Does this clock really share the same gate as the usb2otg_hclk?
-> +	{ AGILEX72_LSP_MAIN_CLK, "lsp_main_clk", lsp_noc_mux,
-> +	  ARRAY_SIZE(lsp_noc_mux), 0xe0, 1, 0, 0, 0, 0xf0, 9, 0 },
-
-Are you sure this clock share the same enable bit as the hsp_main_clk?
-
-> +	{ AGILEX72_LSP_MP_CLK, "lsp_mp_clk", lsp_noc_mux,
-> +	  ARRAY_SIZE(lsp_noc_mux), 0xe0, 2, 0x10c, 4, 2, 0xf0, 9, 0 },
-
-Also here, the hsp_mp_clk has the same enable bit?
-
-> +	{ AGILEX72_LSP_SP_CLK, "lsp_sp_clk", lsp_noc_mux,
-> +	  ARRAY_SIZE(lsp_noc_mux), 0xe0, 3, 0x10c, 6, 2, 0xf0, 9, 0 },
-> +	{ AGILEX72_SPIM_0_CLK, "spim_0_clk", lsp_main_parent,
-> +	  1, 0xd0, 11, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_SPIM_1_CLK, "spim_1_clk", lsp_main_parent,
-> +	  1, 0xd0, 12, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_SPIS_0_CLK, "spis_0_clk", lsp_main_parent,
-> +	  1, 0xd0, 13, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_SPIS_1_CLK, "spis_1_clk", lsp_main_parent,
-> +	  1, 0xd0, 14, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_DMA_0_CORE_CLK, "dma_0_core_clk", lsp_main_parent,
-> +	  1, 0xd0, 15, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_DMA_0_HS_CLK, "dma_0_hs_clk", lsp_mp_parent,
-> +	  1, 0xd0, 15, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_DMA_1_CORE_CLK, "dma_1_core_clk", lsp_main_parent,
-> +	  1, 0xd0, 16, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_DMA_1_HS_CLK, "dma_1_hs_clk", lsp_mp_parent,
-> +	  1, 0xd0, 16, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_I3C_0_CORE_CLK, "i3c_0_core_clk", lsp_mp_parent,
-> +	  1, 0xd0, 22, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_I3C_1_CORE_CLK, "i3c_1_core_clk", lsp_mp_parent,
-> +	  1, 0xd0, 23, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_I2C_0_PCLK, "i2c_0_pclk", lsp_sp_parent,
-> +	  1, 0xd0, 17, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_I2C_1_PCLK, "i2c_1_pclk", lsp_sp_parent,
-> +	  1, 0xd0, 18, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_I2C_EMAC0_PCLK, "i2c_emac0_pclk", lsp_sp_parent,
-> +	  1, 0xd0, 19, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_I2C_EMAC1_PCLK, "i2c_emac1_pclk", lsp_sp_parent,
-> +	  1, 0xd0, 20, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_I2C_EMAC2_PCLK, "i2c_emac2_pclk", lsp_sp_parent,
-> +	  1, 0xd0, 21, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_UART_0_PCLK, "uart_0_pclk", lsp_sp_parent,
-> +	  1, 0xd0, 23, 0, 0, 0, 0, 0, 0 },
-
-Are you sure this clock share the same enable bit as the i3c_1_core_clk?
-
-> +	{ AGILEX72_UART_1_PCLK, "uart_1_pclk", lsp_sp_parent,
-> +	  1, 0xd0, 24, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_UART_2_PCLK, "uart_2_pclk", lsp_sp_parent,
-> +	  1, 0xd0, 25, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_SPTIMER_0_PCLK, "sptimer_0_pclk", lsp_sp_parent,
-> +	  1, 0xd0, 29, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_SPTIMER_1_PCLK, "sptimer_1_pclk", lsp_sp_parent,
-> +	  1, 0xd0, 30, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_CS_AT_CLK, "cs_at_clk", cs_at_mux,
-> +	  ARRAY_SIZE(cs_at_mux), 0xe0, 4, 0x10c, 24, 2, 0xf0, 9, 0 },
-> +	{ AGILEX72_CS_PDBG_CLK, "cs_pdbg_clk", cs_pdbg_mux,
-> +	  ARRAY_SIZE(cs_pdbg_mux), 0xe0, 4, 0x10c, 28, 2, 0xf0, 9, 0 },
-> +	{ AGILEX72_CS_TRACE_CLK, "cs_trace_clk", cs_trace_mux,
-> +	  ARRAY_SIZE(cs_trace_mux), 0xe0, 4, 0x10c, 26, 2, 0xf0, 10, 0 },
-> +	{ AGILEX72_EMACA_DIV_CLK, "emaca_div_clk", emaca_div_parents,
-> +	  1, 0, 0, 0x118, 8, 2, 0, 0, 0 },
-> +	{ AGILEX72_EMACB_DIV_CLK, "emacb_div_clk", emacb_div_parents,
-> +	  1, 0, 0, 0x118, 10, 2, 0, 0, 0 },
-> +	{ AGILEX72_EMAC0_CLK, "emac0_clk", emac_mux,
-> +	  ARRAY_SIZE(emac_mux), 0xd0, 0, 0, 0, 0, 0x100, 26, 0 },
-> +	{ AGILEX72_EMAC1_CLK, "emac1_clk", emac_mux,
-> +	  ARRAY_SIZE(emac_mux), 0xd0, 1, 0, 0, 0, 0x100, 27, 0 },
-> +	{ AGILEX72_EMAC2_CLK, "emac2_clk", emac_mux,
-> +	  ARRAY_SIZE(emac_mux), 0xd0, 2, 0, 0, 0, 0x100, 28, 0 },
-> +	{ AGILEX72_EMAC_PTP_CLK, "emac_ptp_clk", emac_ptp_mux,
-> +	  ARRAY_SIZE(emac_ptp_mux), 0xd0, 3, 0, 0, 0, 0xf0, 2, 0 },
-> +	{ AGILEX72_GPIO_DB_CLK, "gpio_db_clk", gpio_db_mux,
-> +	  ARRAY_SIZE(gpio_db_mux), 0xd0, 4, 0x114, 0, 16, 0xf0, 3, 1 },
-> +	{ AGILEX72_USB31_SUSPEND_CLK, "usb31_suspend_clk", usb31_mux,
-> +	  ARRAY_SIZE(usb31_mux), 0xe0, 7, 0x118, 12, 6, 0xf0, 7, 1 },
-> +	{ AGILEX72_USB31_BUS_CLK_EARLY, "usb31_bus_clk_early",
-> +	  usb31_bus_clk_early_parents, 1, 0xe0, 7, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_S2F_USER0_CLK, "s2f_user0_clk", s2f_user0_mux,
-> +	  ARRAY_SIZE(s2f_user0_mux), 0xd0, 27, 0, 0, 0, 0xf0, 4, 0 },
-> +	{ AGILEX72_S2F_USER1_CLK, "s2f_user1_clk", s2f_user1_mux,
-> +	  ARRAY_SIZE(s2f_user1_mux), 0xd0, 28, 0, 0, 0, 0xf0, 5, 0 },
-> +	{ AGILEX72_XSPI_PCLK, "xspi_pclk", lsp_mp_parent,
-> +	  1, 0xd0, 9, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_XSPI_CLK, "xspi_clk", xspi_mux,
-> +	  ARRAY_SIZE(xspi_mux), 0xd0, 9, 0x110, 8, 2, 0xf0, 14, 0 },
-> +	{ AGILEX72_XSPI_PHY_CLK, "xspi_phy_clk", xspi_mux,
-> +	  ARRAY_SIZE(xspi_mux), 0xd0, 9, 0x110, 8, 2, 0xf0, 14, 0 },
-> +	{ AGILEX72_SDMMC0_SDPHY_REG_CLK, "sdmmc0_sdphy_reg_clk",
-> +	  lsp_mp_parent, 1, 0xd0, 5, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_SDMMC1_SDPHY_REG_CLK, "sdmmc1_sdphy_reg_clk",
-> +	  lsp_mp_parent, 1, 0xd0, 7, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_SDMMC0_SDMCLK, "sdmmc0_sdmclk", memdevice_phy_mux,
-> +	  ARRAY_SIZE(memdevice_phy_mux), 0xd0, 5, 0x110, 4, 2, 0xf0, 15, 0 },
-> +	{ AGILEX72_SDMMC1_SDMCLK, "sdmmc1_sdmclk", memdevice_phy_mux,
-> +	  ARRAY_SIZE(memdevice_phy_mux), 0xd0, 7, 0x110, 6, 2, 0xf0, 15, 0 },
-> +	{ AGILEX72_SDMMC0_PHY_CLK, "sdmmc0_phy_clk", memdevice_phy_mux,
-> +	  ARRAY_SIZE(memdevice_phy_mux), 0xd0, 5, 0x110, 4, 2, 0xf0, 15, 0 },
-> +	{ AGILEX72_SDMMC1_PHY_CLK, "sdmmc1_phy_clk", memdevice_phy_mux,
-> +	  ARRAY_SIZE(memdevice_phy_mux), 0xd0, 7, 0x110, 6, 2, 0xf0, 15, 0 },
-> +};
-> +
-
-<snip>
-
-> diff --git a/drivers/clk/socfpga/clk-agilex72.h b/drivers/clk/socfpga/clk-agilex72.h
-> new file mode 100644
-> index 000000000000..e120fe97fd65
-> --- /dev/null
-> +++ b/drivers/clk/socfpga/clk-agilex72.h
-> @@ -0,0 +1,91 @@
-> +/* SPDX-License-Identifier:    GPL-2.0 */
-> +/*
-> + * Copyright (C) 2026, Altera Corporation
-> + */
-> +
-> +#ifndef	__AGILEX72_CLK_H
-> +#define	__AGILEX72_CLK_H
-> +
-> +#include <linux/clk-provider.h>
-> +
-> +struct agilex72_clock_data {
-> +	/*
-> +	 * MMIO bases ioremapped from DT resources with "reg-names" property
-> +	 * in probe:
-> +	 *   [0] - "clkmgr"  : main clock manager register block
-> +	 *   [1] - "gppll0"  : GP PLL 0 register block
-> +	 *   [2] - "gppll1"  : GP PLL 1 register block
-> +	 *   [3] - "gppll2"  : GP PLL 2 register block
-> +	 */
-> +	void __iomem *base[4];
-> +
-> +	/* Must be last */
-> +	struct clk_hw_onecell_data	clk_data;
-> +};
-> +
-> +struct agilex72_pll {
-> +	struct clk_gate     hw;
-> +	void __iomem       *pll_base;
-> +};
-> +
-> +struct agilex72_periph_clk {
-> +	struct clk_gate  hw;
-> +	void __iomem    *div_reg;
-> +	u8               div_lo_shift;
-> +	u8               div_hi_shift;
-> +};
-> +
-> +struct agilex72_gate_clk {
-> +	struct clk_gate hw;
-> +	bool div_linear;
-> +	void __iomem *div_reg;
-> +	void __iomem *bypass_reg;
-> +	u8  div_width;	/* only valid if div_reg != 0 */
-> +	u8  div_shift;	/* only valid if div_reg != 0 */
-> +	u8  bypass_shift;      /* only valid if bypass_reg != 0 */
-> +};
-> +
-> +struct agilex72_pll_clock {
-> +	unsigned int	id;
-> +	const char	*name;
-> +	const char	* const *parent_names;
-> +	u8	num_parents;
-> +	unsigned long   offset;
-> +};
-> +
-> +struct agilex72_perip_c_clock {
-> +	unsigned int		id;
-> +	const char		*name;
-> +	const char		*parent_name;
-> +	u8			num_parents;
-> +	unsigned long		div_offset;
-> +	u8			div_lo_shift;
-> +	u8			div_hi_shift;
-> +	u8			div_lo_width;
-> +	u8			div_hi_width;
-
-I don't see div_lo_width and div_hi_width get used at all?
-
-> +};
-> +
-> +struct agilex72_perip_cnt_clock {
-> +	unsigned int		id;
-> +	const char		*name;
-> +	const char	* const *parent_names;
-> +	u8			num_parents;
-> +	unsigned long		offset;
-> +};
-> +
-> +struct agilex72_gate_clock {
-> +	unsigned int		id;
-> +	const char		*name;
-> +	const char	* const *parent_names;
-> +	u8			num_parents;
-> +	unsigned long		gate_reg;
-> +	u8			gate_idx;
-> +	unsigned long		div_reg;
-> +	u8			div_offset;
-> +	u8			div_width;
-> +	unsigned long		bypass_reg;
-> +	u8			bypass_shift;
-> +	bool			div_linear;
-> +};
-> +
-> +#endif	/* __AGILEX72_CLK_H */
-
-If clk-agilex72.c is the only consumer of this .h file, then just move 
-the declarations to the top of the C file. Or take a look at
-2050b57ecda0 ("clk: socfpga: agilex5: add clock driver for Agilex5") as 
-an example.
-
-Dinh
