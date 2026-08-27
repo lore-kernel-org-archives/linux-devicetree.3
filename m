@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9382F40A929;
-	Thu, 27 Aug 2026 15:29:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B09473B5304;
+	Thu, 27 Aug 2026 15:31:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787844591; cv=none; b=kkwvxwc9CzJWtr5fg1c/LFfBIzBsrjLNKePPSWvo4SkrwTu8Di9W2pGp6hGz6ejQzPawK1StHo5n5hzukwKln8RlF8CNEh3za/GrrE3EoKCr+6rjuG/OlLphmtAFIoOifxgXjUytu7P8JCmknGVXMaey3xAlvu7TP1qPQ31HoDY=
+	t=1787844703; cv=none; b=f1Oh81LTRYXV1VNTYxXCbb2ioyjtC7L6cTXL+nxjTwDkoRA3rhZG7c50wHOyLAfooXmepil8qSlBGdkJkDD12tPdL8sw8MUOZa4YHho1/TJ2VsDsgGvRNXwIQhYdKdaatxEQh+ph0a/lFcygCRbUm2qENwiCOTOYds5xKv0OacQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787844591; c=relaxed/simple;
-	bh=gv5MeneO8rGeIoHG17wQ9Y+dy5Jv31dQhwVK5ld31Bk=;
+	s=arc-20240116; t=1787844703; c=relaxed/simple;
+	bh=IbZDvx1ZxaYcQqLta32Pj3RvUkwae4KK9cXQ7UUZTr8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ROaEKib7+YG9qliYdDbL7z93uukOo/SxbmU5xTUMLF9/X8+71mziO43jesNvsHWlTwFF6ADssZLEnO/ieBuMP3OAXGGyUdByg3bLoHtaauVWmJOP+L1lSCVoP4jJ/Hpu3uxeR2x3GbhV475h2AmTMB99zqtKgtljz1J13NWkphg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EGiOkJYx; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=MNtJv9CUBLJaWt6R2h1VCTTa7sggO9OTOhBLQLt3cd7VG2r4sQE4UH4jVs2NFB/D/hThjpsw8f7dxJ94TqfQ8tiFKFhPsUQGdPBhH+OBkQHSY6DVO4LfTsIkf9i0BVwKGXcPTUNS88DL/+IqqYP79Ed2T5Rh7+e74ihPCLlgnTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MBy/zndM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EGiOkJYx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 223E71F000E9;
-	Thu, 27 Aug 2026 15:29:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MBy/zndM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14ACF1F000E9;
+	Thu, 27 Aug 2026 15:31:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787844590;
-	bh=n7xbdIKtruRdpyinp4Husr0KtpkuCgvJXKNeylEh/HU=;
+	s=k20260515; t=1787844702;
+	bh=zOcoi4jHu+T1Dl4zlPXslQUWfUwJL1m96r6RTqcs/tk=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=EGiOkJYxUIujF18dWtIw1SA6hnsLwUbrxNZOugHHuwt8No+4r9DuYwkCvvM1lhEFm
-	 7D+cWrBeCw5k8A3jP/GfMYtbIniTdOSOpAgjiVc+uuZ6CcaPZ5IG0m4J+biqHzrXwt
-	 T8UXlp8HkEvMyUs66QDRoEHdn2FuBJ9DjPhzb7GC84w6Wv31vVFXcbIwZKolaYx9DM
-	 NXqUd8S7QPo5tG0DN0K2QLkcurKkX+WzyR0SvyRbRLZuyOU5+zmfct8ebK+BnoshDk
-	 W9kzUxwUjAplKz/JyzJx1UkRMvJuRC1K+8IyPOPIFudpkMHh2o9On7Nax0aXDGzXPm
-	 6m5BuBncZJcMw==
-Message-ID: <9df516ad-ba24-4f2f-886e-195d93a11c6d@kernel.org>
-Date: Thu, 27 Aug 2026 17:29:42 +0200
+	b=MBy/zndMJBNpPo83fJILf0E8EfNgtywMzYfWf8R81GCh2kvJF0WodQyNledMebvI9
+	 MK/CvmaEPKOWQV6ZDDil2JHOqVAktxcasL3B2HM0OdJxV40oya0cmBF+NF0+jIecqK
+	 obCw6akJZ0L2OiIwqEqRNSswy701ClV3Cd9iZRc4kV7L0/de0Bu3NaQ1ZFiVdqgod9
+	 1xOu2ypytX+uwMelwLaierY3m8eSYtGRduffCMQFJRWqMVwyXQPW61lt2aOBN9jSjA
+	 uO1KJYgV2sC+nhUaa3zAHDM4OqbBl9hpQucSU8NpebmU5bJLqzCBJ/pzYQ+Dk6naHh
+	 Arl5QBFTNc54w==
+Message-ID: <3d662b34-61ed-4a30-a52c-f86bc70162ca@kernel.org>
+Date: Thu, 27 Aug 2026 17:31:30 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,22 +35,22 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/7] watchdog: mediatek: Add wdt/toprgu resets for
- mt6589
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Cc: linux-mediatek@lists.infradead.org,
- Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
- <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-watchdog@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260819101853.44681-1-l.scorcia@gmail.com>
- <20260819101853.44681-3-l.scorcia@gmail.com>
- <20260827-clever-cherry-zebu-6a98f1@quoll>
- <CAORyz2KCAzEEsCifDF4+_wKmi=M6t4EKVVqys-H5wOQqzBeVzw@mail.gmail.com>
+Subject: Re: [PATCH v6 1/3] dt-bindings: net: wireless: add flag
+ marvell,invalid-reg-hint-in-rom
+To: George Valkov <gvalkov@gmail.com>
+Cc: briannorris@chromium.org, johannes@sipsolutions.net, andrew@lunn.ch,
+ krzk+dt@kernel.org, francesco@dolcini.it, johannes.berg@intel.com,
+ kees@kernel.org, miriam.rachel.korenblit@intel.com, wenst@chromium.org,
+ rafael.beims@toradex.com, avraham.stern@intel.com, error27@gmail.com,
+ s.kerkmann@pengutronix.de, gregory.clement@bootlin.com,
+ sebastian.hesselbarth@gmail.com, robh@kernel.org, conor+dt@kernel.org,
+ Frank.Li@nxp.com, chunfan.chen@gmail.com, arend.vanspriel@broadcom.com,
+ peddolla.reddy@oss.qualcomm.com, linux-arm-kernel@lists.infradead.org,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, stable@vger.kernel.org
+References: <20260821010728.45065-1-gvalkov@gmail.com>
+ <20260827-helpful-icy-donkey-9bfdaf@quoll>
+ <CADOrJmaF0UpRefk1+BDyn5iU5La4ke1gFWwzyRr5-9wp7Zr2+A@mail.gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -96,35 +96,52 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <CAORyz2KCAzEEsCifDF4+_wKmi=M6t4EKVVqys-H5wOQqzBeVzw@mail.gmail.com>
+In-Reply-To: <CADOrJmaF0UpRefk1+BDyn5iU5La4ke1gFWwzyRr5-9wp7Zr2+A@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 27/08/2026 16:28, Luca Leonardo Scorcia wrote:
->>>  drivers/watchdog/mtk_wdt.c | 7 ++++++-
->>>  1 file changed, 6 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/watchdog/mtk_wdt.c b/drivers/watchdog/mtk_wdt.c
->>> index 91d110646e16..f8208fb0f723 100644
->>> --- a/drivers/watchdog/mtk_wdt.c
->>> +++ b/drivers/watchdog/mtk_wdt.c
->>> @@ -10,6 +10,7 @@
->>>   */
->>>
->>>  #include <dt-bindings/reset/mt2712-resets.h>
->>> +#include <dt-bindings/reset/mediatek,mt6589-wdt.h>
+On 27/08/2026 15:08, George Valkov wrote:
+> On Thu, 27 Aug 2026 at 13:34, Krzysztof Kozlowski <krzk@kernel.org> wrote:
 >>
->> I do not see how you use the bindings here, so my previous comments
->> stay. You just ignored it and never replied. In such case:
+>> On Fri, Aug 21, 2026 at 04:07:26AM +0300, Georgi Valkov wrote:
+>>> WRT3200ACM and WRT32x routers always report a fixed US regulatory domain
+>>> from the mwifiex ROM, which conflicts with the platform regulatory
+>>> configuration on units sold outside the US market. For example:
+>>> - phy0 mwlwifi 5 GHz, hard-coded region 98 EU mapped to FR
+>>> - phy1 mwlwifi 2.4 GHz, hard-coded region 98 EU mapped to FR
+>>> - phy2 mwifiex 2.4 and 5 GHz, hard-coded region US
+>>>
+>>> When the system boots, it detects a conflict between the user selected
+>>> region and the radios, e.g. BG FR US, and applies extreme restrictions,
+>>> preventing phy0 from starting on any DFS channel. phy2 works.
+>>>
+>>> Add a device-tree flag, which allows affected devices, where the radio
+>>> conflicts with the platform to ignore the incorrect regulatory hint in
+>>> the ROM of the radio, so the platform regulatory domain can be used.
+>>> This does not allow the user to change the regulatory configuration of
+>>> any radio. It only allows phy0 to start and operate according to its
+>>> certified configuration.
+>>>
+>>> [1] https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
+>>> [2] https://github.com/openwrt/openwrt/issues/9956
+>>>
+>>> Cc: stable@vger.kernel.org
 >>
->> NAK
+>> I don't think there is any bug to be fixed here. Support was incomplete,
+>> so you add a missing quirk, but there was no bug in the binding.
+>> Binding was correct.
+>>
+>> With stable dropped:
+>>
+>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 > 
-> The mtk_wdt driver requires the total number of available resets to
-> register the reset controller. This was defined as
-> MT6589_TOPRGU_SW_RST_NUM in the binding header, therefore the need for
-> including it.
+> I added Reviewed-by to the first patch and sent v7 with these changes:
+> 1. drop Cc: stable, the first patch only documents a binding
+> 2. restore colon after Tested-on as requested by openwrt-ai
 
-Number of signals almost never a binding. How do you even use it in DTS?
+Hm? You cannot test a binding. Please ignore completely openwrt-ai, it's
+apparently hallucinating. Anyway, OpenWRT process does not matter to
+upstream kernel.
 
 Best regards,
 Krzysztof
