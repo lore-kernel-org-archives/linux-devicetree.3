@@ -1,123 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E568243D50D;
-	Thu, 27 Aug 2026 10:03:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B95941DED8;
+	Thu, 27 Aug 2026 10:05:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787825004; cv=none; b=V5c8Sf6YPGU99kl3E1o1wEJEE9W+YXfZbsKrAX4BTpfZGuN6x+fJTeT57SFcUewfrXdwPAHWVptl4RHLkGXvivOSXh4ZNUKcQOSuKinnpoYLOWiOSk3RClSdTckXprP2itByXW99Dy0QQRgn/NqS0o5XgWCgdRQ/quS0y+NvuMs=
+	t=1787825146; cv=none; b=KByDR43nf7OhnaMM/YhWgQwn+GaOW/oLaCd/RhXS42AfHiYXIshQdMfvrgwoZ9LLNayleIeHB9Bm9iA/YK0uQDuPuZWPS45D7eHsXIPDiXWhmg0ApqN3zWncv5XT+KyRGvhhkC3RivrNg6TR6GAeySpeiIowL26lV+QTU3KP2zY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787825004; c=relaxed/simple;
-	bh=X/IPA38FPRbY+F+YHdGuTnWDWZMrN0CzQ0l8cvp0h00=;
+	s=arc-20240116; t=1787825146; c=relaxed/simple;
+	bh=Zg+xzYqsJDz4GvbzB5MfmE4qx6NC0uREgdC6HS42Whw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=M9tSYkAo1TJnBCtmsyM1KOAFNk9Tt4kMfIilojzjrbMunAnw/jKzOqr+9mO/WQ1SqNClsEZwL4DCgB3uzFonpA5ExXfW/nUP3qf1YxKsqNZxeiGTyQL2HNh13Xi7P4PtZGwW6t8k5xRhsZiRTww3wBrgB1D7BB8j0f/jClfLSeg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TiNVpR6+; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=NMyGQ16WhNjDNrvBNJdKGBOdRYjQbXo21zcMz3O1UVqkKAYokcAQZmWtuE58jP0tbjO8QVATbnUQCG/w2kzshsEeQpUbGtfkLUOlZD5B/xOFoF22zdoVkZVUJCMVhr4Rnh2A/6H9rI5neqQFlGzvPktwijOD714nBPHv50lIu9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=Duc8GFbu; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TiNVpR6+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 638E41F000E9;
-	Thu, 27 Aug 2026 10:03:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787824988;
-	bh=cmiVNo81tZM/K5dCG3g7BxmRqbw/xaUsPhoPQNl1Zvg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=TiNVpR6+sOt3gHQ2H9FHjIhGrKxGB8hJu84iHOUGbVClf1gQEIwRvqJYpC31Wpv9U
-	 s1Qnd1QVvTNz9E5hH3dFdSbDNJJNryaO4e4/KI9kYg53iBYt8l3tr3lAUUcjW1Ava7
-	 RKf4okMeFFbZXVgPTs5Ow0BxOsapouGq922nDv4RLj0FsUF3Jp8ex6wzilNumhDM+d
-	 Q28QVSYF24CQJ1wJh6EIszv4skSDl2XqG6s3UpZXWIpFKvwf7v54LizHjvSbNskhvj
-	 zx2RuDvubi9GvseAgKdBIPPtvfFY8HM5NhsQVi3TPYywhHP9URk/5ckf32burS9HGz
-	 xFRAxbZmCWQnA==
-Message-ID: <43e67e46-f93e-4cad-81c6-d489663aa7c0@kernel.org>
-Date: Thu, 27 Aug 2026 12:03:00 +0200
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Duc8GFbu"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hVxwT4swpz8v3Q;
+	Thu, 27 Aug 2026 12:05:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1787825129;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rT9jGsnzQt8jVZd0P1GTYtlT1Q4XIEZ5DAw0yokRbVQ=;
+	b=Duc8GFbu4jJZNviW5hgQdoxnTUItbmRaO1crVK9mry4f9EICjviTDG1pbEvfZbiKNEr6RQ
+	1+zJ9LyrNaw5vhjKf1F2/e3wRd/4HGpiRDoz5kgmyMIWOP2CV9YZbeUCwV5w4Z2VuR/0i6
+	9nLx0XoTXmOCdbqiSRfAJYlJq/PR+7vKxDXEqWoSyNBicDEmTpsPUx22FUbo4L6VULgkV4
+	go5TVUnrYRK1t69u5nIqbBBxImOyGrNN1rRXSX0C61lJ1CWPVkoYp0FU8vLJIOUj3HJaEM
+	/yvU0k06tApRrf8VHLDX4g5Ys1/y5jzaREhRppY9gbk5y4HdKFpMI97Cy6Q4yw==
+Message-ID: <8d10ebf5-bd75-4566-96f9-b34aa1104ee5@mailbox.org>
+Date: Thu, 27 Aug 2026 12:05:25 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 4/8] mfd: p3h2x4x: Add driver for NXP P3H2x4x i3c hub
- and on-die regulator
-To: Lakshay Piplani <lakshay.piplani@nxp.com>, linux-kernel@vger.kernel.org,
- linux-i3c@lists.infradead.org, alexandre.belloni@bootlin.com,
- krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, broonie@kernel.org, lee@kernel.org,
- Frank.Li@nxp.com, lgirdwood@gmail.com
-Cc: vikash.bansal@nxp.com, priyanka.jain@nxp.com, aman.kumarpandey@nxp.com
-References: <20260826103819.1614843-1-lakshay.piplani@nxp.com>
- <20260826103819.1614843-5-lakshay.piplani@nxp.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v4 2/2] usb: dwc3: dwc3-generic-plat: Add Renesas R-Car
+ Gen5 DWC3 xHCI USB controller glue
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Cc: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ Thanh Quan <thanh.quan.xn@renesas.com>, Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>
+References: <20260819050109.681890-1-marek.vasut+renesas@mailbox.org>
+ <20260819050109.681890-2-marek.vasut+renesas@mailbox.org>
+ <ao4yJCNXAHDYm8Bf@vbox>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260826103819.1614843-5-lakshay.piplani@nxp.com>
-Content-Type: text/plain; charset=UTF-8
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <ao4yJCNXAHDYm8Bf@vbox>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-MBO-RS-META: k1ipuhbrr43ak4uwm7d3zmaqpnjrxb6z
+X-MBO-RS-ID: ebb8eb120446e72f90e
 
-On 26/08/2026 12:38, Lakshay Piplani wrote:
+On 8/26/26 2:35 AM, Thinh Nguyen wrote:
 
-> +
-> +static const struct i3c_device_id p3h2x4x_i3c_ids[] = {
-> +	I3C_CLASS(I3C_DCR_HUB, NULL),
-> +	{ /* sentinel */ },
-> +};
-> +MODULE_DEVICE_TABLE(i3c, p3h2x4x_i3c_ids);
-> +
-> +static const struct i2c_device_id p3h2x4x_i2c_id_table[] = {
-> +	{ .name = "nxp-i3c-hub" },
-> +	{ /* sentinel */ }
-> +};
-> +MODULE_DEVICE_TABLE(i2c, p3h2x4x_i2c_id_table);
-> +
-> +static const struct of_device_id p3h2x4x_i2c_of_match[] = {
-> +	{ .compatible = "nxp,p3h2440", },
-> +	{ .compatible = "nxp,p3h2441", },
-> +	{ .compatible = "nxp,p3h2840", },
-> +	{ .compatible = "nxp,p3h2841", },
+Hello Thinh,
 
-So devices are fully compatible? Why isn't this expressed in the
-binding? Or explained in the commit msg?
-
-
-Best regards,
-Krzysztof
+>> +static int dwc3_renesas_rcar_gen5_init(struct dwc3_generic *dwc3g)
+>> +{
+>> +	struct device *dev = dwc3g->dev;
+>> +	struct platform_device *pdev = to_platform_device(dev);
+>> +	enum usb_device_speed speed = usb_get_maximum_speed(dev);
+>> +	bool usb2only = false;
+>> +	void __iomem *glue;
+>> +
+>> +	/* Wireless USB is not supported */
+>> +	if (speed == USB_SPEED_WIRELESS)
+>> +		return dev_err_probe(dev, -EINVAL, "Wireless USB not supported\n");
+>> +
+>> +	/* No USB 3 PHY in DT means this is surely USB 2 controller */
+>> +	if (device_property_match_string(dev, "phy-names", "usb3-phy") < 0)
+>> +		usb2only = true;
+>> +
+>> +	/*
+>> +	 * Controller can be limited to USB 2 via optional maximum-speed DT
+>> +	 * property. If the DT property is not present, default to maximum
+>> +	 * controller capabilities.
+>> +	 */
+> 
+> Minor nit: This comment does not give any new info than what's
+> documented in the maximum-speed property, do we need to repeat it here?
+> 
+>> +	if (speed >= USB_SPEED_LOW && speed <= USB_SPEED_HIGH)
+>> +		usb2only = true;
+> 
+> We don't support low speed or wireless, just check for speed <=
+> USB_SPEED_HIGH should be sufficient. The rest looks fine.
+I will fix that in V5 and submit it shortly, thanks !
