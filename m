@@ -1,112 +1,96 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 339B344606D;
-	Thu, 27 Aug 2026 13:33:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5E4E3515D6;
+	Thu, 27 Aug 2026 13:42:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787837625; cv=none; b=uDpwGGfYYf/omMmXc429T+x4w8qEoskyPtyTjP9Rs2CNUdLDPvOl3II+lZWvOFalwESjhpERxNvTIUvKRAhE1B/PsEtN86pEBf2a+BYqQjNYy1eEie5aEV9X8cq1Brqw4paqhAR7GRochaOfxg/ryzPbHWeMzAZmjhi5O8VGznQ=
+	t=1787838160; cv=none; b=hUTnjOsEOeNpv8MAxpmeaaGJuQs9L51h6vtZtXp1Ywi8qnKg8EqB817JRnzyGuS69jyHZymAlBXRRhyPwhZqm6v0wBL+eqkLqm/q9+r4DffmITIkXcpG1aUrmI2VSKoLQOgUkuOSndryc3dpR3zZtMmbnhtffGCblxnosc/GCWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787837625; c=relaxed/simple;
-	bh=aikjkH4eA9w6grwtrnwsLSLiV0hqYSJ5yEX6K35R6h4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=dwzEguP4ufmdKAOY966DpKHI0CHtEGIQMB/hccF2WujM6z0qSM503qFFsbSHcLp5tP1fs6WKjuvwk25VkChRHC88MzKG67H/j8tZxweCtw1TcW8IzwHcq7ZGbFhrvktmlCBwUzOOQ09rFJ5Slu7o9yHd1qLGvfGY6/oEuQwvpts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from ratatoskr.pengutronix.de (unknown [IPv6:2a0a:edc0:0:701:c3a7:c242:e5e7:34c7])
-	(Authenticated sender: str@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 41D9B201B99;
-	Thu, 27 Aug 2026 15:33:32 +0200 (CEST)
-From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Conor Dooley <conor@kernel.org>,  Andrew Lunn <andrew+netdev@lunn.ch>,
-  "David S. Miller" <davem@davemloft.net>,  Eric Dumazet
- <edumazet@google.com>,  Jakub Kicinski <kuba@kernel.org>,  Paolo Abeni
- <pabeni@redhat.com>,  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
- <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Andrew Davis
- <afd@ti.com>,  Heiner Kallweit <hkallweit1@gmail.com>,  Russell King
- <linux@armlinux.org.uk>,  netdev@vger.kernel.org,
-  devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] dt-bindings: dp83867: add binding for
- output-impedance
-In-Reply-To: <d944329d-9ad5-4acf-a7d3-b2f8eaf1e92c@lunn.ch> (Andrew Lunn's
-	message of "Thu, 27 Aug 2026 14:47:30 +0200")
-References: <20260826-v7-2-topic-dp83867-v2-0-a97b4cec6e93@pengutronix.de>
-	<20260826-v7-2-topic-dp83867-v2-2-a97b4cec6e93@pengutronix.de>
-	<20260826-salutary-skype-524c69932dc2@spud>
-	<87ik4wgfbc.fsf@pengutronix.de>
-	<d944329d-9ad5-4acf-a7d3-b2f8eaf1e92c@lunn.ch>
-User-Agent: mu4e 1.14.3; emacs 30.2
-Date: Thu, 27 Aug 2026 15:33:31 +0200
-Message-ID: <87a4q74ris.fsf@pengutronix.de>
+	s=arc-20240116; t=1787838160; c=relaxed/simple;
+	bh=xe1CZsAvd5Nq5l/fok0ta53MNzxV2VToxAiFMkpBL2I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BoRtuk2ucd1ibbbxn5YNjrLroVbYpFKsK/ySDXnOoK8Vdm7GGNqH7vAlSELc1AzZ8TwxGZ3GgbSkCnLnWcKWJMkORGuZ2NXUDK7pFuI+scFqu8eoDZpeJys51DlsfhO11YcEbOH9f+smrjIpNYI34+RDggOBRSW2+AN+5EOS49k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H5VKWu0l; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H5VKWu0l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDC9A1F000E9;
+	Thu, 27 Aug 2026 13:42:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787838159;
+	bh=sBv9iEZo6l85AKyt8o4k3+fBgY61bCbpkMe6Pz/qcIQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H5VKWu0laRUZ2P+Q6/d5Ql+0z2gjeETBRdiT1K6vvWwBUZBXg95b6t+rmEDmyveHY
+	 YQWs7/IAdRm7mIBqSdeOPdX9ysCwFAg8vrberZKKYLgd/QJZGTh+47C+aWrNX+hn6U
+	 1hbLx+BbFDmsno2xLSFLhumzQkzBGvpY47QdfC/aIX6s33RtydACrrrf/zU2ZfPSES
+	 OyL2L7ZnKtmBocbruBwxgvVdHNzSmCl/W1Ni3t8IBgLiCo+BhU7zUYB0uM6INMfxaS
+	 noxrH1t2lfNDwSCmoRnIPK+xV5wV/DXoybdzd+d9ry7SB8OYX+EB8I5xHQBR7VDpKH
+	 pUHpP0VnSxEgA==
+Date: Thu, 27 Aug 2026 14:42:35 +0100
+From: Lee Jones <lee@kernel.org>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: sashiko-bot@kernel.org, Mark Brown <broonie@kernel.org>,
+	sashiko-reviews@lists.linux.dev, robh@kernel.org,
+	mfd@lists.linux.dev, conor+dt@kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH RESEND v6 4/5] mfd: axp20x: Add support for AXP318W PMIC
+Message-ID: <20260827134235.GN770273@google.com>
+References: <20260812-axp318-regulator-v6-0-d6b84b55c000@baylibre.com>
+ <20260812-axp318-regulator-v6-4-d6b84b55c000@baylibre.com>
+ <20260812214019.CDF921F000E9@smtp.kernel.org>
+ <1jldaafmpd.fsf@starbuckisacylon.baylibre.com>
+ <20260813095600.GA1072730@google.com>
+ <1j33wg6cpk.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; format=flowed
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1j33wg6cpk.fsf@starbuckisacylon.baylibre.com>
 
-On 2026-08-27 at 14:47 +02, Andrew Lunn <andrew@lunn.ch> wrote:
+On Fri, 14 Aug 2026, Jerome Brunet wrote:
 
-> On Thu, Aug 27, 2026 at 10:04:07AM +0200, Steffen Trumtrar wrote:
-> > On 2026-08-26 at 17:01 +01, Conor Dooley <conor@kernel.org> wrote:
-> > 
-> > > On Wed, Aug 26, 2026 at 02:48:40PM +0200, Steffen Trumtrar wrote:
-> > > > Currently, the output-impedance can only be set to default, minimum or
-> > > > maximum or via a nvmem cell.
-> > > > In cases where there is no backend for a nvmem cell, a value can not be
-> > > > set.
-> > > > > Add a DT binding, 'ti,output-impedance-ohms', for specifying the
-> > > > output-impedance via a fixed value. The existing boolean values for
-> > > > minimum and maximum still take precedence over the new value.
-> > > > > Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-> > > > ---
-> > > >  Documentation/devicetree/bindings/net/ti,dp83867.yaml | 16 ++++++++++++++++
-> > > >  1 file changed, 16 insertions(+)
-> > > > > diff --git a/Documentation/devicetree/bindings/net/ti,dp83867.yaml
-> > > b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
-> > > > index 7a6fe516bab27..49fafe3ce6f47 100644
-> > > > --- a/Documentation/devicetree/bindings/net/ti,dp83867.yaml
-> > > > +++ b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
-> > > > @@ -38,6 +38,16 @@ properties:
-> > > >      items:
-> > > >        - const: io_impedance_ctrl
-> > > >  > +  ti,output-impedance-ohms:
-> > > > +    description: |
-> > > > +      MAC Interface Impedance control to set the programmable output impedance.
-> > > > +      Valid range is 0x00 to 0x1f (32 steps).
-> > > > +      - 0x1f = 35 ohms (minimum impedance)
-> > > > +      - 0x00 = 70 ohms (maximum impedance)
-> > > > +      - Step size varies with process.
-> > > > +    minimum: 0
-> > > > +    maximum: 31
-> > > 
-> > > Your property is named in ohms, but not implemented in ohms.
-> > 
-> > So without the -ohms?
+> On dim. 13 janv. 2008 at 11:56, Lee Jones <lee@kernel.org> wrote:
 > 
-> No. DT uses real unit, Ohms, Meters, Volts, Degrees Centigrade, Seconds
-> etc.
+> > On Thu, 13 Aug 2026, Jerome Brunet wrote:
+> >
+> >> On sam. 12 janv. 2008 at 23:40, sashiko-bot@kernel.org wrote:
+> >> 
+> >> > Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> >> > - [High] The corresponding regulator driver lacks support for
+> >> > `AXP318_ID`, causing the `axp20x-regulator` child device probe to fail.
+> >> 
+> >> Funny sashiko did not pick up on this when v6 was first sent. This is an
+> >> ordering problem. The regulator part should be applied before the mfd
+> >> one.
+> >> 
+> >> I could reorder here but there is not much point since the 2 changes will
+> >> land in different subsystems but it does bring a valid question:
+> >> 
+> >> Lee, Mark, are you OK with picking the patches indended for your
+> >> subsystem or would you prefer that I split the series, regulator on one
+> >> side, mfd on the other (with a dep on the regulator one, of course) ?
+> >
+> > Does this break existing devices or simply delay support for this new one?
 > 
-> Have the driver do the conversion from Ohms to the magical register
-> value.
+> Existing device are fine and untouched.
+> 
+> I've just checked and if someone tried to run without PATCH 5 (regulators),
+> the main axp driver loads fine but the regulator part gives this
+> 
+> axp20x-regulator axp20x-regulator.0: Unsupported AXP variant: 8
 
-Fair enough and I agree, but the datasheet says:
+Can you not enforce the deps with Kconfig?
 
-Output impedance approximate range from 35-70 Ohm in 32 steps. Lowest being 11111 and highest being 00000. Range and step size will vary with process.
-
-I mean, the difference will be miniscule, but the binding can't specify the exact ohm value, because it is not guaranteed to be correct. There are more values than steps and even the range is only an approximate range.
-
-So, just allow values between 35 and 70 in the binding and then convert that value to something near the truth in the driver?
-
-
-Best regards,
-Steffen
+> Seems sane enough if the regulator part is not present (and no board
+> using it has landed yet)
+> 
+> To completly avoid this, the ID would need to be in its own patch,
+> then the regulators, finally the MFD. It seems like an unecessary churn
+> but I can do that if you prefer.
 
 -- 
-Pengutronix e.K.                | Dipl.-Inform. Steffen Trumtrar |
-Steuerwalder Str. 21            | https://www.pengutronix.de/    |
-31137 Hildesheim, Germany       | Phone: +49-5121-206917-0       |
-Amtsgericht Hildesheim, HRA 2686| Fax:   +49-5121-206917-5555    |
+Lee Jones
