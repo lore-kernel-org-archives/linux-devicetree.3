@@ -1,144 +1,203 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 103F8455173;
-	Thu, 27 Aug 2026 12:59:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67A7840B116
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 13:03:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787835606; cv=none; b=AKIt+CLnGcV6t0awaUmiviiqdwYc758bvaSJrJbJWbgeUo+yddbB5f2Ms4Ls0lpJyMCryHelIHmH6G5FFP0VVcwfcqgQPERVck2pxkG2TDyctsaAVyv2R+zgBJ01HB+hYYzGgXWdWBRHngILiTPJv1XkkK/bD7NtjMC0bWMQNgE=
+	t=1787835846; cv=none; b=djQ5GSWLg6cMTda+ABCENRDEhc4znRnVDdyLpTi6yO8PHPjaqo0fvneyKQDZqRTFRMJicPNGGW7iSrrZZzbdTs26lejr3vq08OXD1zPzmoLxlX7uQFMdBEqJmI750eCMHrKg3zp3GZsBEWnbjCO/gKcdFS59tdfvgWp98/4l6nA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787835606; c=relaxed/simple;
-	bh=DmYQHPvuzN7w14pM+qNa9bDK8VfqhPzHtWD+USU/0mc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dZF3TWyqIrz7GvvNvhi55ql6vr5qx05cVSIcY0zydx5vMAl0CjFUOQh6BxO99/arUTaMEDxNnTxbGhFvyv20HchUA/FLwKwlwdFRFVvMRStponPxCgt67F80Ldr3Qsja5X3vM4p/isdHQnCaau1c5a0jl0I+fmNIIMd2LAHNars=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PQNM85ra; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787835846; c=relaxed/simple;
+	bh=+DL9LZKznnwk8GOx61vpD1OEMGHGZYiiUREj1sCBmQs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HdhY0FTEpL200fErAehi+YUmIoDBjeP8VybfHVLHP5Ph/Xd/S5SSFyJyEt079BxWVt9XkCFI+T+MjZrLUZRL/s1fptgB8L8M4HMEGZrBvPJfkNwxBFKeQ/QloNghiEUSRFortDQBeRDWNVqWGhFZgA2gD/zD3cP7PtP+tmuSDeo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IZoWULO8; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PQNM85ra"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BFCE1F000E9;
-	Thu, 27 Aug 2026 12:59:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787835587;
-	bh=nHj2MclCk+X9SP4Q2c6F2gv56YQ8ZRF79zdrdZI3CCo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PQNM85raTj4YxX05iQsQNYL4K3pmBOKj8+SY1N9Rp95qrAdSBNPQIqAfAt0N7Vo1O
-	 NUYMPl6VlmBXwIrdldCjY4vNMB6OsVK4vkFWm7sxWj4PjKwVLR0zN/qZvt14DUaoLf
-	 q9Pq3dvGmHhK9MlVQjaEbrWrWt0aNCj0qjPhJAlHVvGj/ckov8IuZ4aFQfa3yXPeCB
-	 Islc4QKwFb5jcnOPcOztzUx/OH4NAHHo3hGLz2TIDrqjvbbEgG9sIwCwfP3BFY5Bn4
-	 E7dbYjLKuSnj1BcIn2sIt4/eW/yUz8VFsdOg3WOpUNoxy5pMTVw9cj+jtoN6G50PmZ
-	 LV1uSKjxDdaXQ==
-Date: Thu, 27 Aug 2026 14:59:44 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Marek Vasut <marex@nabladev.com>
-Cc: linux-usb@vger.kernel.org, fabrice.gasnier@foss.st.com, 
-	Pankaj Dev <pankaj.dev@st.com>, 
-	=?utf-8?Q?Cl=C3=A9ment?= Le Goffic <clement.legoffic@foss.st.com>, Gatien Chevallier <gatien.chevallier@foss.st.com>, 
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, Christian Bruel <christian.bruel@foss.st.com>, 
-	Conor Dooley <conor+dt@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rahul Kumar <rahul.kumar05@st.com>, 
-	Rob Herring <robh@kernel.org>, Rosen Penev <rosenp@gmail.com>, 
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org, 
-	kernel@dh-electronics.com, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [PATCH v3 5/9] dt-bindings: usb: dwc3: Document ST STM32MP2 DWC3
- xHCI USB controller
-Message-ID: <20260827-strategic-hallowed-lynx-ca3bcc@quoll>
-References: <20260822074816.548662-1-marex@nabladev.com>
- <20260822074816.548662-6-marex@nabladev.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IZoWULO8"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-499ac87c92bso19093235e9.1
+        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 06:03:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787835831; x=1788440631; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fnPxGtE/YvJh9NvWxjMwiLTzPApsKlz9gccpke1iOiI=;
+        b=IZoWULO87LXUq5fNPvgS+PlWfh/e1Jdk0JYWAAby+pMlCiFfMAskWrnQAybYZ4hizY
+         i5jGYBNY7SLby4uLrGEEh5FEK20hHwq0gj2XP0eiOiJ80ruCR6iayHMvbgSmxwbxtSuh
+         +EtfelgzAdVvZaj9np1ZFzkUJEbJz8Af2fnXaixgpa0W0n3QBDDXfT7JRTP/dtcdxfwY
+         GBC4OBRQq0B4vQW1d5bT4CDUSt8N/C3d9j3VXfaIzCgeTCrpZrEQdzVznoYg4NmpfXhY
+         UwUws/OlRlJmptNfglQ11NbKtrNPUMzjDbQKZL6mhMAg+epL7oqeBdXMcJCoIAlWBZSu
+         F0Fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787835831; x=1788440631;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fnPxGtE/YvJh9NvWxjMwiLTzPApsKlz9gccpke1iOiI=;
+        b=aTlo2fmPK806S2Ws/U+grabro6C9q4znGaAf7XIaMimjz3SJrlehfDyILddQzD00kP
+         44PpS5ejKs9Sc8sLmK6gyL3WdJVgl56A3MRbm6UhuMY3gg9aOyo8ZOWN0onNC8sffc6g
+         MXZJ0kdyerNBAzLxc88vU6VKvDmgDUUR0eT09NrjjV1OMSJsJFFpXPyEL9HDweiVD0IH
+         lOD48SMVSpv2ZhupJ2gI+laMFRb+ClZoo7j2k/geqKZqwL9ubOezB/p0iagBLBaZkZUk
+         1dZKdxVVIh0P+aTVp+ynkoOg4swTj855lpRcIiVKdPmED6Q4AWxohCMtpgXOjAh+3tR3
+         BD0Q==
+X-Forwarded-Encrypted: i=1; AHgh+RpC7ZtLzU0skr5WTughtqpON1T+oJuuIte404+YV4Jmzgj77Xj5OVhqT+HEazgmskLlM9dOudWop4uZ@vger.kernel.org
+X-Gm-Message-State: AFuF++nnXTMyVNH+PUSzY32HxOH9dtQR6lagYxhtF0iB4s3yMXvGQ/cI
+	OFcTQbRpfmSSqxeh4gSnAG4i3gJ1UMEyJ/he7NBAeU4fBsGB0RDIRGf4
+X-Gm-Gg: AR+sD13uoWTemO5jBD7AIZ7/BBPB7aEZgl+aJ6URIJ+uqUSJ3YUO7kPr2Yp8OFTojhb
+	71J7XGeoY2pgvedYi910J4zUuYR+C2xfKQnK36TDZatRIiwWosX8oe8Px71O02QzEuOnsx8Mbod
+	JgfW6JLfCH9m1qXIqpaht7vfVqIroVetXQSV5Rf/lA44yUeUFXSfMJC7ep6dKR8iGrDv86vWlKU
+	RfNU0n6XuWFKd7hFU0W0JnNFi7TpMTBSn7/uXDtvA1jXSHslq4JMWfaVpj+Aq7C+VQycpDtqdMi
+	tGtwAeBjlb76XfI5Z1aR1b6GaShEFY5qnVocXqe72p3dKJB+53HTfwGP6/LSE3P/JpMeZMpYINm
+	GoayYuo8XI0x9V7QxXObdbkCLoC+XPaeaKdSxX6QQW5iqqGhPqBp4422AUpmyWBEeuQ9hRPFwpI
+	Ght0Wu+TsjBXdVb9eow1jwcFfMHSqEVqMkxbE15hRPV3xZcN42AnuTvF0F6kJsKZFVOetHf513k
+	YzOdqL8xxeO37UZI7n6cQFMZ0+Yn7DK3on8fCbAUxJyiTHWXSRXMrFDCTjX/6qpql81cVxk/kU=
+X-Received: by 2002:a05:600c:4592:b0:499:b402:6c0 with SMTP id 5b1f17b1804b1-499dc6eac3bmr172187105e9.3.1787835830323;
+        Thu, 27 Aug 2026 06:03:50 -0700 (PDT)
+Received: from localhost.localdomain ([2a01:5a8:737:d4a7:e53b:30a6:3c0f:1dad])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b49610170sm116081285e9.6.2026.08.27.06.03.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 06:03:49 -0700 (PDT)
+From: Georgi Valkov <gvalkov@gmail.com>
+To: briannorris@chromium.org,
+	johannes@sipsolutions.net,
+	andrew@lunn.ch,
+	krzk+dt@kernel.org
+Cc: francesco@dolcini.it,
+	johannes.berg@intel.com,
+	kees@kernel.org,
+	miriam.rachel.korenblit@intel.com,
+	rongqianfeng@vivo.com,
+	wenst@chromium.org,
+	rafael.beims@toradex.com,
+	avraham.stern@intel.com,
+	error27@gmail.com,
+	s.kerkmann@pengutronix.de,
+	gregory.clement@bootlin.com,
+	sebastian.hesselbarth@gmail.com,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	Frank.Li@nxp.com,
+	chunfan.chen@gmail.com,
+	arend.vanspriel@broadcom.com,
+	peddolla.reddy@oss.qualcomm.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	stable@vger.kernel.org,
+	gvalkov@gmail.com,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v7 1/3] dt-bindings: net: wireless: add flag marvell,invalid-reg-hint-in-rom
+Date: Thu, 27 Aug 2026 16:03:33 +0300
+Message-ID: <20260827130335.6606-1-gvalkov@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260822074816.548662-6-marex@nabladev.com>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Aug 22, 2026 at 09:46:38AM +0200, Marek Vasut wrote:
-> The ST STM32MP2 SoC contains single instance of DWC3 USB controller with
-> glue logic wrapper around it controlled by syscon. Document the glue
-> logic and DWC3 controller.
->=20
-> Co-developed-by: Pankaj Dev <pankaj.dev@st.com>
-> Signed-off-by: Pankaj Dev <pankaj.dev@st.com>
-> Co-developed-by: Cl=C3=A9ment Le Goffic <clement.legoffic@foss.st.com>
-> Signed-off-by: Cl=C3=A9ment Le Goffic <clement.legoffic@foss.st.com>
-> Co-developed-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
-> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
-> Signed-off-by: Marek Vasut <marex@nabladev.com>
-> ---
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Christian Bruel <christian.bruel@foss.st.com>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Neil Armstrong <neil.armstrong@linaro.org>
-> Cc: Pankaj Dev <pankaj.dev@st.com>
-> Cc: Rahul Kumar <rahul.kumar05@st.com>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Rosen Penev <rosenp@gmail.com>
-> Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-> Cc: Vinod Koul <vkoul@kernel.org>
-> Cc: devicetree@vger.kernel.org
-> Cc: kernel@dh-electronics.com
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-phy@lists.infradead.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> Cc: linux-usb@vger.kernel.org
-> ---
-> V2: Fix up Sob/Cdb lines
-> V3: - Document maximum-speed
->     - Switch resets to maxItems: 1
->     - Drop label from example
->     - Use generic over-current-active-low
->     - Use ref: snps,dwc3-common.yaml and drop generic dr_mode/maximum-spe=
-ed/phys/phy-names
-> ---
->  .../bindings/usb/st,stm32mp25-dwc3.yaml       | 97 +++++++++++++++++++
->  1 file changed, 97 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/usb/st,stm32mp25-dw=
-c3.yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/usb/st,stm32mp25-dwc3.yaml=
- b/Documentation/devicetree/bindings/usb/st,stm32mp25-dwc3.yaml
-> new file mode 100644
-> index 0000000000000..96bd557327252
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/usb/st,stm32mp25-dwc3.yaml
-> @@ -0,0 +1,97 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/usb/st,stm32mp25-dwc3.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: STMicroelectronics STM32 MPU DWC3 USB SoC controller
-> +
-> +description:
-> +  The STM32 MPU DWC3 USB SoC controller block supports both
-> +  Host(SS/HS/FS/LS) and Device(SS/HS/FS) mode operation
-> +
-> +maintainers:
-> +  - Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> +  - Marek Vasut <marex@nabladev.com>
-> +
-> +allOf:
-> +  - $ref: snps,dwc3-common.yaml#
+WRT3200ACM and WRT32x routers always report a fixed US regulatory domain
+from the mwifiex ROM, which conflicts with the platform regulatory
+configuration on units sold outside the US market. For example:
+- phy0 mwlwifi 5 GHz, hard-coded region 98 EU mapped to FR
+- phy1 mwlwifi 2.4 GHz, hard-coded region 98 EU mapped to FR
+- phy2 mwifiex 2.4 and 5 GHz, hard-coded region US
 
-Honestly, I am lost. It seems this resolves my comment at v2, but now I
-went through patchset from Fabrice Gasnier which was ON TOP of this
-patch adding this line.
+When the system boots, it detects a conflict between the user selected
+region and the radios, e.g. BG FR US, and applies extreme restrictions,
+preventing phy0 from starting on any DFS channel. phy2 works.
 
-It is not your fault, although if there are pending comments expressed
-not via review but via patchses on top of things being reviewed, then
-can you check for them?
+Add a device-tree flag, which allows affected devices, where the radio
+conflicts with the platform to ignore the incorrect regulatory hint in
+the ROM of the radio, so the platform regulatory domain can be used.
+This does not allow the user to change the regulatory configuration of
+any radio. It only allows phy0 to start and operate according to its
+certified configuration.
 
-Best regards,
-Krzysztof
+[1] https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
+[2] https://github.com/openwrt/openwrt/issues/9956
+
+Signed-off-by: Georgi Valkov <gvalkov@gmail.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+v7:
+1. drop Cc: stable, the first patch only documents a binding
+2. restore colon after Tested-on as requested by openwrt-ai
+3. mention the added wifi@1 node
+
+v6:
+Rename flag:
+marvell,ignore-regulatory-hint -> marvell,invalid-reg-hint-in-rom
+
+Clarify commit description:
+The patch series allows affected devices, where the radio conflicts with
+the platform to ignore the incorrect regulatory hint in the ROM of the
+radio, so the platform regulatory domain can be used.
+
+This does not allow the user to change the regulatory configuration of
+any radio. It only allows phy0 to start and operate according to its
+certified configuration.
+
+The change affects only platforms which explicitly define this flag, and
+helps overcome the incorrect behaviour of proprietary radio firmware.
+
+Rearrange patches so that the flag is implemented in the driver, before
+being added to the board for WRT3200ACM.
+
+Link:
+https://lore.kernel.org/linux-wireless/20260728103536.25012-1-gvalkov@gmail.com/T/#u
+
+v5:
+1. description: remove tag Tested-on
+2. add #address-cells = <1>, #size-cells = <0> to fix a warning:
+arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts:183.3-13:
+Warning (reg_format): /soc/internal-regs/sdhci@d8000/wifi@1:reg:
+property has invalid length (4 bytes) (#address-cells == 2, #size-cells == 1)
+
+3. description: add info about testing
+
+v4:
+1. Add binding documentation for flag marvell,ignore-regulatory-hint
+2. Add dt for sd8897 and move the flag there, I used sample from docs
+3. Use device_property_read_bool in the driver
+
+v3:
+I implemented and tested a better approach with no board specific code:
+1. check for a device-tree flag in mwifiex_register_cfg80211in()
+  !of_property_read_bool(of_root, "marvell,ignore-regulatory-hint")
+2. add this flag to the root device tree of each affected board
+Currently this affects only armada-385-linksys-rango.dts,
+because Linux has no dts for venom. OpenWrt will take care of that.
+This approach is more flexible and scalable, because the flag can
+also be used in other drivers, e.g. mwlwifi (not part of Linux).
+
+v2:
+Replace the compatible device names, which are currently only available on
+OpenWrt with board names which are available on both Linux and OpenWrt.
+
+ .../devicetree/bindings/net/wireless/marvell,sd8787.yaml    | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml b/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml
+index 930b700b73d0..9f905ef5c2c0 100644
+--- a/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml
++++ b/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml
+@@ -59,6 +59,12 @@ properties:
+     description: Calibration data for sub-band 3 in the 5GHz band.
+     maxItems: 502
+ 
++  marvell,invalid-reg-hint-in-rom:
++    $ref: /schemas/types.yaml#/definitions/flag
++    description:
++      The regulatory hint in ROM conflicts with platform configuration.
++      It should be ignored, so the platform regulatory domain can be used.
++
+   marvell,wakeup-pin:
+     $ref: /schemas/types.yaml#/definitions/uint32
+     description:
+-- 
+2.55.0
 
