@@ -1,132 +1,111 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DDC0480DC0;
-	Thu, 27 Aug 2026 14:54:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C84B9483BD8
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 14:54:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787842494; cv=none; b=GtbiFQJkgG52uULqO4YTJLa4AGoBwc0RImnPMC3orPGQToV4/206BV/DG2DTLgL5hlHcgpedhhDLqDVRUiigZVxwtPtAXR12q/UMXTeDfORLrC7RY+yibJUN6sTNAhmKeLaAuKS2jly9aXPxyINalOQ/ut26ltpY4SiJxh4Ukgs=
+	t=1787842496; cv=none; b=JDusHULT21X8J5jnKJogpX5gdgr0gf1zwieoRDriWY8UYYKhmswSWKEZx5gnYBFsgg87y6dNbirsmOnR3iXNtPNMyfBbYcU5w8qL+Ae3RgYSbCZdnWBLHqIcTI+QSviukjX6kyVQfN0pr8mfmZVCdtBvEZ1QmILUQm+9nGuk9nw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787842494; c=relaxed/simple;
-	bh=ZoLnrbq9OmhUOt3YPM41FbeK/hzc3j3UfOvoooT8Ui8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KJVlWOQortJPcbJ6/Y9MY0BpB4oIDaKNNJTnqxd0HT2RdCg6l/3+i7Fxjcrim5fV1xUfEmX69+YzTKOtcQc1GQMxUg8pi/BOEubHYpaVO+vhL3teXj3QARhmKdb2kcYWhQqVICYbe/xXz7HFYitpc3TYY6N+xCV082W5Lzq53MI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hNfxjmXQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787842496; c=relaxed/simple;
+	bh=wV8Tdr+3o2ldCeZZGWe6b0OPnYN0YfcAS6hhwx9CQyo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=g5Bf8rZy/XCduSgC15FnoXNIxCNXAYwhaYpOL4iDzjzP/ykuF6Pz8zWk8htPjalkh2yXo7+QFOHmTqauMexJNaZIklNN8ThUQ2w3vF3tpB/yhCKVe9wDarlR5dxIJeNmkekwmSkSiLHU1J0gBe7nMfjyfuW+iQq6P6ik0HugXlc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ow2ehcD9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hNfxjmXQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 106521F00A3D;
-	Thu, 27 Aug 2026 14:54:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ow2ehcD9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 250BF1F000E9;
+	Thu, 27 Aug 2026 14:54:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787842481;
-	bh=0oQZFi64KowCZClI/Y3BcpoEfkQNo4XtG7Tc8TCq14U=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=hNfxjmXQ5s5Zcv2JOTuiG8BUFmJkDr1X8gsh33aGWNtypSPL0kKqY01wsHQY1Qodr
-	 8gUyqLqwh4Hi3DylXfNZNGs08EVZw7+0UV8aPcgbtZ42FWOs616D+0NRJx9NeKduUb
-	 dtp+/qmepnpKq4/SuSPNUxms8jkKwBM3vIYC1qkrJ0LklV07M2GjyqWCrP2cVrWRwb
-	 8h93V4yTK16dJEyA84M6no9hLw4f5DlBNkQ2Gm8IztQLx5i2ps5o6cO+b+FZvP1L8M
-	 Lol8Sf1bMU+eo+WkWmzQXsCTo6vUOAvE7o0xxFtxJytiqhK/Gj0Joau+NY9dfCtdNo
-	 B9xsoxASQeVvA==
-From: Thierry Reding <thierry.reding@kernel.org>
-Date: Thu, 27 Aug 2026 16:54:19 +0200
-Subject: [PATCH 2/2] arm64: tegra: Enable GPIO keys on Jetson AGX Thor
+	s=k20260515; t=1787842489;
+	bh=F9gjmLNztO+Z/em0rHGVpXoK9dQ4tzH36wyde5fjfd4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Ow2ehcD9IvLYds6oHm7Scp1LBPMJvoYqfdaBEycnplnxk8PZfwdD/KTsmvKOEHaEy
+	 Gz5luigghr6yvzRhwNJr3qsrewWqr+3SiM9OBnkCX1sXmatBa3CPsbzoqHhi3fsrNQ
+	 gB6QqxLVF88Tp2SqELUfzFVrlnjQd/BTGl0TH5VL/L9NDjMyV0fjm++xNVELaPuDwD
+	 IBSK6W9ClReLn5e/xXVjqiVlhFn+EZQ6rhbuwjUrfQysFCml0J0p+Q2ND6aZqeOj8Z
+	 /wI6daf+B+bITRg58VHnC4bGomYVpC3WX4TLNUQpvfKB6/7IALJPLs0H89hlMgrQMv
+	 3WHu5B8Q1vZPg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/2] gpio: realtek-otto: add pinctrl support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Michael Zavertkin" <misha.zavertkin@mail.ru>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <adce57b3797cae6f6a3486eb1d21c33be61f14dc.1787830440.git.misha.zavertkin@mail.ru>
+References: <cover.1787830440.git.misha.zavertkin@mail.ru>
+ <adce57b3797cae6f6a3486eb1d21c33be61f14dc.1787830440.git.misha.zavertkin@mail.ru>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 27 Aug 2026 14:54:48 +0000
+Message-Id: <20260827145449.250BF1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260827-tegra264-gpio-keys-v1-2-89518c5fb29f@nvidia.com>
-References: <20260827-tegra264-gpio-keys-v1-0-89518c5fb29f@nvidia.com>
-In-Reply-To: <20260827-tegra264-gpio-keys-v1-0-89518c5fb29f@nvidia.com>
-To: Thierry Reding <thierry.reding@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>
-Cc: devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2178; i=treding@nvidia.com;
- h=from:subject:message-id; bh=FMUT29d0gCBS+bbRE+EGDX8krEn2mKOQhio+Xait+6k=;
- b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBqkE+pPrnDS1pI49XnNisF6K4gMUx/YUPJhJPiF
- ZH6rWuF8KGJAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCapBPqQAKCRDdI6zXfz6z
- oSAsD/9nSoo30uOOCcMh8ApfoFsKtresvBXQLySXEqqOfVzj/wn9HVylR+Os8xFhe/3CVeyKVM7
- w77RuCDPYwA4hsM0Ylh2sMnxdGbUJkFxybdzLYCYep+5lSfAt+z/pHB/RwVrnAequ7A6gCnV4tU
- HnQEs9BZljcg1fsvLsOemZwg9Z4TBpBmtgDwwRlVwcXLYYiYLOMSDOmlnVUhinrlhlkqC/vrGbI
- W6ho70k06lTNiQJSha5PKfPGGfHZhLqpy1up4bgHsmzeZrFCVJzn0SlEvCc+oy4ZjsRetXw7eb8
- Mfr+zTmm3V1JpqZMmX/riEqJ7lBEJO3Z9IasSd2CGxRd1eQNNfxZ2gGIGUTAiIBCJ7ek1gNA0xw
- deCYJ/ofMF+U1o/srKI+yqgpJt1XOZmGQQc/lPkKQzPE4USueTctCz/vg11Ga48spRp+NedKf/r
- onnWCYvmbvomHI8AEPN3uQza5mcWtNJQsojiiDLlL0UFFuGM43fcVYfYhbYtGta6hRUk9jydaL4
- AqeTh/5Dl6n76pEJdRjB8rrZ1EUglZeNh1p/w6PtmuxnmhEpU39VT2K4Jdi3EzbnximoxEcFxqY
- UXIzpded3Ibtz9MR/XhROQRhSvwv0XZbtNCT6EaIfC3slA3W5z6VphD2FEX6hgCs5P5+ywOIUU6
- k3389co6S3FWnNA==
-X-Developer-Key: i=treding@nvidia.com; a=openpgp;
- fpr=88EAC3080149CCF7C08DC89FDD23ACD77F3EB3A1
 
-From: Thierry Reding <treding@nvidia.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Unconditional use of GPIO_GENERIC_PINCTRL_BACKEND breaks GPIO requ=
+ests and direction configuration on SoCs without a pinctrl driver.
+--
 
-The power and force-recovery keys are mapped to standard GPIOs so they
-can be enabled for all derived boards. In addition, the power key can be
-used to wake the system from sleep, so it needs to be marked as a wakeup
-source.
+commit e286232a1c082edc58e67d8d4c62156ff41a0294
+Author: Michael Zavertkin <misha.zavertkin@mail.ru>
 
-Signed-off-by: Thierry Reding <treding@nvidia.com>
----
- .../boot/dts/nvidia/tegra264-p4071-0000+p3834.dtsi | 23 ++++++++++++++++++++++
- arch/arm64/boot/dts/nvidia/tegra264.dtsi           |  1 +
- 2 files changed, 24 insertions(+)
+gpio: realtek-otto: add pinctrl support
 
-diff --git a/arch/arm64/boot/dts/nvidia/tegra264-p4071-0000+p3834.dtsi b/arch/arm64/boot/dts/nvidia/tegra264-p4071-0000+p3834.dtsi
-index 45f8df9bbfd6..c4ba3322ed9a 100644
---- a/arch/arm64/boot/dts/nvidia/tegra264-p4071-0000+p3834.dtsi
-+++ b/arch/arm64/boot/dts/nvidia/tegra264-p4071-0000+p3834.dtsi
-@@ -1,5 +1,8 @@
- // SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
- 
-+#include <dt-bindings/input/linux-event-codes.h>
-+#include <dt-bindings/input/gpio-keys.h>
-+
- / {
- 	aliases {
- 		serial0 = &{/bus@0/serial@c4e0000};
-@@ -9,4 +12,24 @@ aliases {
- 	chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
-+
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+
-+		key-force-recovery {
-+			label = "Force Recovery";
-+			gpios = <&gpio_aon TEGRA264_AON_GPIO(EE, 1) GPIO_ACTIVE_LOW>;
-+			linux,input-type = <EV_KEY>;
-+			linux,code = <KEY_SLEEP>;
-+		};
-+
-+		key-power {
-+			label = "Power";
-+			gpios = <&gpio_aon TEGRA264_AON_GPIO(AA, 5) GPIO_ACTIVE_LOW>;
-+			linux,input-type = <EV_KEY>;
-+			linux,code = <KEY_POWER>;
-+			wakeup-event-action = <EV_ACT_ASSERTED>;
-+			wakeup-source;
-+		};
-+	};
- };
-diff --git a/arch/arm64/boot/dts/nvidia/tegra264.dtsi b/arch/arm64/boot/dts/nvidia/tegra264.dtsi
-index 013228a81723..a1a86022d638 100644
---- a/arch/arm64/boot/dts/nvidia/tegra264.dtsi
-+++ b/arch/arm64/boot/dts/nvidia/tegra264.dtsi
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
- 
- #include <dt-bindings/clock/nvidia,tegra264.h>
-+#include <dt-bindings/gpio/nvidia,tegra264-gpio.h>
- #include <dt-bindings/interrupt-controller/arm-gic.h>
- #include <dt-bindings/mailbox/tegra186-hsp.h>
- #include <dt-bindings/memory/nvidia,tegra264.h>
+This commit adds pinctrl backend support to the realtek-otto GPIO driver
+so that RTL9607C can use pinctrl to request pins.
 
--- 
-2.55.0
+> diff --git a/drivers/gpio/gpio-realtek-otto.c b/drivers/gpio/gpio-realtek=
+-otto.c
+> index 37ef56f453187..b53c2a9a04c76 100644
+> --- a/drivers/gpio/gpio-realtek-otto.c
+> +++ b/drivers/gpio/gpio-realtek-otto.c
+> @@ -394,13 +394,14 @@ static int realtek_gpio_probe(struct platform_devic=
+e *pdev)
+> =20
+>  	raw_spin_lock_init(&ctrl->lock);
+> =20
+> +	gen_gc_flags =3D GPIO_GENERIC_PINCTRL_BACKEND;
+> +
 
+[Severity: High]
+Does unconditionally setting GPIO_GENERIC_PINCTRL_BACKEND break GPIO
+functionality for SoCs that lack a pinctrl driver?
+
+When a GPIO is requested or its direction is set on an SoC without a pinctrl
+driver, gpio_generic_chip_init() routes the calls to pinctrl_gpio_request()=
+ and
+pinctrl_gpio_direction().=20
+
+Because pinctrl_gpio_direction() calls pinctrl_get_device_gpio_range(), it =
+will
+return -EPROBE_DEFER when no pinctrl device overlaps with the GPIO chip. Th=
+is
+would cause all GPIO requests and direction configurations to fail indefini=
+tely,
+rendering GPIO unusable and breaking dependent devices on hardware like RTL=
+8380
+or RTL9300, which the commit message acknowledges might have pinctrl drivers
+implemented later.
+
+Should this backend flag only be set conditionally, perhaps by checking for
+gpio-ranges in the device tree?
+
+>  	if (dev_flags & GPIO_PORTS_REVERSED) {
+> -		gen_gc_flags =3D 0;
+>  		ctrl->bank_read =3D realtek_gpio_bank_read;
+>  		ctrl->bank_write =3D realtek_gpio_bank_write;
+>  		ctrl->line_imr_pos =3D realtek_gpio_line_imr_pos;
+>  	} else {
+> -		gen_gc_flags =3D GPIO_GENERIC_BIG_ENDIAN_BYTE_ORDER;
+> +		gen_gc_flags |=3D GPIO_GENERIC_BIG_ENDIAN_BYTE_ORDER;
+>  		ctrl->bank_read =3D realtek_gpio_bank_read_swapped;
+>  		ctrl->bank_write =3D realtek_gpio_bank_write_swapped;
+>  		ctrl->line_imr_pos =3D realtek_gpio_line_imr_pos_swapped;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1787830440.gi=
+t.misha.zavertkin@mail.ru?part=3D2
