@@ -1,156 +1,181 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013006.outbound.protection.outlook.com [40.107.159.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDD4D47F2CA
-	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 15:36:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787844986; cv=none; b=KOKLhNPVUPty9M6Oaviur/K4Tgmjyj0jdsPCF0u5zHJlxjMUSTP6bWlwiosBgIjnqd9UFwT3n945Rfv/iPqpu9VmV0wvFsYhI5NtwRMKI5eFMVVyluFVMAjkI9k4XhiIG/vzpyCiruOiLt3FdfixJoS0BXK79jK5g/bYlBMePRw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787844986; c=relaxed/simple;
-	bh=IXit39jokJOkDKdV9ozjAq5puFGqOrTpsC39d5ly7YQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lZO9oKTpHhp7VFpoA14Omfqgp2RiJfKcUk1oTxCW8mT0Rp97mpd5F8hviQoX9mTyhoG1U8j0YPpcOide0eZazM9GnBKztNORJ+/B+hJfa8d84C3pYiInhr5kw7hr+A+Ko+tSmayl2286kLmdouGHQk8/GEoTK0hIurM70OjCnGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ndE2+w2+; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27AB52248B3
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 15:54:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.6
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787846089; cv=fail; b=g0htCmfJCHorZrcGcOeb7YiJCFAwdcGGtzpKqsZWpnMjaGYV4kIXXi2vmMT2MNHwv8n2KTW3Xir3BBwyc0RXmzzneh3yzdTbR9FWJnbqUpnswarGdbCKRnDqXyGFN1Yb9HMrjBARPLHdcateX8HRxTMMzEvykWa29Dbpgozb2c8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787846089; c=relaxed/simple;
+	bh=UbstB8AtPeEQduBtP1K4ImuEVtVacE/P2CpESkXtDbU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=j78Ys6ae4Pd1P31yWD52CkhqVTMBwhcW1q5hBVsiwwyHmxUMboP5ZpMSAI5SOyZ3KgVfn9l4qsDHwJmLL0VKi6HLRR7KXrEJ3025IARHZ1cjDO9TYbzflgDbrWU3fCmNj+3tjbZKOV7oMotRQeP08MN/72shXBhZ9NiPCQL2qDc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=lbvx32wh reason="signature verification failed"; arc=fail smtp.client-ip=40.107.159.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ndE2+w2+"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-38dc69c74b8so138822a91.0
-        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 08:36:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1787844984; x=1788449784; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=u0GbLwFaHwwzrHQZ6KyEJK5JW6SPWToNlMJADlPNRPk=;
-        b=ndE2+w2++9Cg8O4juXiYVelRJmQ8+HFiDcLp7iuv2/g7qeuZ7eILSSdAxdPszUz7Ru
-         2wdqKVTcdG4fFxooYcxMwvcd48PmQYg9OnSktXlAtGgzXVuWhF7323RDH/BceKPxVGl9
-         HZxfOc3C1ZZ584so24PKu3406w1E3Chggu+jPmz8dhJcJqcHPIcCJLC2HWvVoFcbxNq7
-         6BcamcvNRXPIyXosEwaDEpEEAfjtdzd2gDDajE53qYvQeB46xQJIPmae0qfhglOxForA
-         RZ6ubRz/zBjMWcj8WQKKz2h7UFeLPdh2FPgTU2Aig03NFM8CrzTHhUBSci1vLGA7tU4+
-         Rsdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787844984; x=1788449784;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=u0GbLwFaHwwzrHQZ6KyEJK5JW6SPWToNlMJADlPNRPk=;
-        b=PgjOf4UJDBKao1VuTblUsLCa8VbWcX9nIL+6Qv7yTOTCD04LApNe9ULWaYu2/08WeP
-         o3TPo8VTRFVprA+HpxjFWsZMhKV1WjBX1VpbiTYBa/KsB97RgoW+bCpZPy+9E8epwwIL
-         JV1zGmVVE7PPoWDqjRYNOeH/A2RM/dyYcaD9SFdac5vA4YS6ex5/D7FTpact9TT4DabV
-         lPYZ8YXj0IDTX0qAnl3nyLYLhfP5/e8G6Ox1olMtAclmhLNZIQyl2rpt0EBpxZLg9AjD
-         JgRkpWndHg4vqCCqkU+gOjIUmYboqF3ZpZE4FQjPYDwwRaGbgQHOrDCbB9Ypf4B316Lj
-         uGzQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrHt4nF590f9dbtQ502qTogQ77+/YVPDK+iPMtYbyPAlZ/Bd1FsF9rehvChYVLiyIRquCJrjqzMw4x3@vger.kernel.org
-X-Gm-Message-State: AFuF++mAfGNyd4Il6R4vqqfk6tP8VLBDDE/A9hcdX3Jr05dE3TewwCLh
-	er2EdaCh2iWX9s8Vq5xfDNErLBSJ7w5z7hw4U61u6I38a++WgAhP9tsuz32M5sXaSFc=
-X-Gm-Gg: AR+sD126YnKy5BOzBABkzg0kZpBobEe86wyyvyDExET6dTB5MQt0qzXtNloJ4dudgEC
-	EgtuP877QzcE/ILDxJFbpIsfttb1vUascohommowmOft1tshfAvNSJ/Wl8BN+fSxLCz7qCBwVSY
-	LnCIDKDXNKLcfajK/bmYjGg0pVDm15gNjBvwtEzIzGTIXuUWEwzSyRlJtgHAmgD2xpMwKdSUf6k
-	r6TZDvewL3wSHkzj34hXh1zSkmuhnfkw1PvhWp2SMtPzuJRz6zfu9fTxkRXICz+ZQfASyhBwrqp
-	S85wAdw+VaScpL93oEfMbhUpYWGnzObBt0Wq81F1rxVVx6UQpO5TySJlaP8tkCyv1Q5YxpUlGgo
-	TQL94aJzWxQxyytuaxPP4jddBacx7+ywfiMFhPU9G7KmLxdcBBUK01B22/0QIHq9wa13nj8orPM
-	xHAueVxLBzwS/K9tBmCB7abdBeSF/FyV/EY+ehF+rxnrZ7hGjwM3bBEpflYt2/vdO0
-X-Received: by 2002:a17:90b:5188:b0:396:5fce:8e24 with SMTP id 98e67ed59e1d1-396d0ea530emr169425a91.4.1787844984074;
-        Thu, 27 Aug 2026 08:36:24 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:887f:45b3:fb30:8d79])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0fd5c34sm3187307a91.8.2026.08.27.08.36.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 08:36:23 -0700 (PDT)
-Date: Thu, 27 Aug 2026 09:36:20 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: "Shenwei Wang (OSS)" <shenwei.wang@oss.nxp.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>, Frank Li <frank.li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Shenwei Wang <shenwei.wang@nxp.com>, Peng Fan <peng.fan@nxp.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	dl-linux-imx <linux-imx@nxp.com>,
-	Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>,
-	"b-padhi@ti.com" <b-padhi@ti.com>, Andrew Lunn <andrew@lunn.ch>
-Subject: Re: [PATCH v15 2/5] dt-bindings: remoteproc: imx_rproc: Add "rpmsg"
- subnode support
-Message-ID: <apBZdNozfoCUp515@p14s>
-References: <20260721204704.400781-1-shenwei.wang@oss.nxp.com>
- <20260721204704.400781-3-shenwei.wang@oss.nxp.com>
- <CANLsYkxZbr9hKaJJGXwYXErLwQ-A07eb-oeNXY1CceHHa0Tdmg@mail.gmail.com>
- <PAXPR04MB8093FA9283357BF9604BE39F89AE2@PAXPR04MB8093.eurprd04.prod.outlook.com>
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="lbvx32wh"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KMwQotmSWAwZAZiHXZQwsM7MEWuktjXUK87hYbFnuwqPJ1UFViAvAaj7q+pUb9TM+oVdrH1LO8mv0FgrAtUGcDShfNSFyY46Lnp5hHQDLkoQGIkcFKK55Kr6lifVuu+P9t2exsJlueCAweMWOUjxPcUdqQXUMHsDQXk51IssjKB3kLQwMEgRminqVQFuucQmVIGdrWOxS791Jd0ZyLyG/OAij1ah7HOlyOzoJdwbLEfs533KybUfEaGV5gk8jfYnSLjmhLRCjysM/kcn1+X30+u3YuCVZvFQUK6gxHM8t7mO8Wh70jAiTtTmpS8QlwaA8lr/6tX+ZBRoB2c0sDyw7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=t54iGCttFWbhDNNwyj61i1OnqmlzWGpOly6xghMNE7k=;
+ b=ypQeY4XjUWuqsKH+fnm3jmOHxtD2vOqFy/H3TyZcqrRS9vRduEXfkAaC5dJyKWbefr6b80ROFtznfMz+a1v/J5sXeaAA2yHaWMHDDVBZ3uVZ45uBIy6httoqcNIy9Mu4ACeKzk5l/GWtQIZ7Cv6tY4wllzxkOHzxnJCs3n3+M/P+Dge0iQyXmtUaJvgRnwR0kqQBU+s7sl2FDRSxkd0BhOpUrzb3SXCUg+ie39rDjIKFSIY2l/aQl4tLq11O66ikfB410TS3JAgHJmThr/9UJ/saKt9qfB/nWA1z34YxtPymtWtOj7du0Q79etuDqWvu8+qpLdZLIglv55xTaapJgw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=t54iGCttFWbhDNNwyj61i1OnqmlzWGpOly6xghMNE7k=;
+ b=lbvx32whDT7FOTX0WJqjQ7LteN2b4Dr5TUhY3ly38xXFhZpShuP/bXMWpLGVHf+DdfmFe1+geRXqJ1NnlHszovbrI3q5GjOdbp5Gx4Bw06q2IaTckC/JIhRYdYOoRM5NWvCELO7W4kDZz8ncSOcesOKTZUdl9FbQS6+VFHVnOQ56zNxfUFDzNd4N6xLeDlfpmFqbrJCbIUru5+A1NE37ZB/UIO2UdA/DteQIFkYIBaRzaK3pVu4tVMyPN2LQ+7b2Zaw3k+Vn6szAfMh7Dw7BMzw7wVlvCvTTQruW9D6R1L8gPB9sDj2MylCvh3tEwscg8VMvhemQbcO8njCw7UMoTQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PAXPR02MB8173.eurprd04.prod.outlook.com (2603:10a6:102:23f::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.9; Thu, 27 Aug
+ 2026 15:54:43 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 15:54:42 +0000
+Date: Thu, 27 Aug 2026 10:54:34 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Laurentiu Mihalcea <laurentiumihalcea111@gmail.com>,
+	conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
+	Frank.Li@kernel.org, imx@lists.linux.dev
+Subject: Re: [PATCH v2 2/2] arm64: dts: freescale: add MR-NAVQ95 basic board
+ support
+Message-ID: <apBdulE2q97HWScJ@SMW015318>
+References: <20260827150657.1657-1-laurentiumihalcea111@gmail.com>
+ <20260827150657.1657-3-laurentiumihalcea111@gmail.com>
+ <20260827151549.8815F1F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260827151549.8815F1F000E9@smtp.kernel.org>
+X-ClientProxiedBy: SA0PR11CA0007.namprd11.prod.outlook.com
+ (2603:10b6:806:d3::12) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <PAXPR04MB8093FA9283357BF9604BE39F89AE2@PAXPR04MB8093.eurprd04.prod.outlook.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PAXPR02MB8173:EE_
+X-MS-Office365-Filtering-Correlation-Id: beb004c3-e8ae-46d6-160f-08df04538248
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|376014|23010399003|1800799024|11063799006|6133799003|10067099003|56012099006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	XXeu3S5qSGekznMx4qNmj6CB4twHjGvCaXxHBd+npVcQU/TCZvxucOibQU8SGjftomKxteMBQ6NKYvq+btBj/mJJBPDE+TYnaGwXk6bwFCmR/NIGOLxactCrhKwURQz1D4/kwx/cphpPNdoPNE3Uf2v0K1obFcqw6ESETZJMMMds1YEOohTrg3e9p0cUkYI9kXBu1A/oWwVO4HoeeeyYH1tcnqOp2aAaW4omoF4QcEnh9AEfXMKHDS/I7M+y4fbpLEd7k/ACl9ckbSI+b6GyOaljDsmahp0Q1j3sN28D7aI91VPMXsbQgBvD1wGHHyEcE4+Ny/p6sA3H5wM+YRCNljlpMXLDZNgUrnDrWIEPskcgiUZBl1ZhotYpFbyatcRFSNtge3g6Pbq4ORt4qCwNhp2ZgflSyS0Mrb5rQ2EENacpa1BO5yD+2/wfbZ+pFm0qQPf+BiDM8lFrbUI32sLgKePO9kVt5IdZmp5awFo+V0BHYpf+MURiVntKNMw9XcVb0yalRhZLyS+bkbyyxRSuLg6sZuCnK2dDeMivbHQF7n43b+kGXf0gNpfqHFTjf8st/2GM3YBiCru8ZUXxSqf5jUYYXkUGy2Lb7Fu4Cpq0A1M=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(376014)(23010399003)(1800799024)(11063799006)(6133799003)(10067099003)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?iso-8859-1?Q?Jfuus0IQOjeqpmlMp7+rmNHzAfnK6kOgUmyBWlKvfpTiZVu08CA178Yexs?=
+ =?iso-8859-1?Q?D0H+7fcoXjHTHve9FV3aovADNw2buJ1UIIQWzaT1r6DiMaSqtWODM1SMwh?=
+ =?iso-8859-1?Q?sZyL6cJS7i/3NEBoesd14435zxE0LKWDFj5UBrk6L0Ndkb2tVltHZzGDnx?=
+ =?iso-8859-1?Q?eoQZES5jc3cx5HIB3UHKV1BloW3KGjaKL9B6QYVZ6po4wd+/I+mvfuc8iw?=
+ =?iso-8859-1?Q?Q7BkUdr1zgaOgrKBUyreSdWKtX1LNXA2TO6OOfawYfa2LWj1BuWNNVsr1Q?=
+ =?iso-8859-1?Q?qMUcaT7yQdQA3KlVxaj3t98nkkpOWajQfg8awkr1ji1HfHTnl+la2FXCHL?=
+ =?iso-8859-1?Q?x+4fc2MLZIEq/uFSBXbxoPJjSmNMRkaBKfle+fyBphOj5hMoo30IYlmJ8u?=
+ =?iso-8859-1?Q?mBxAiKWJjR/pY8xrXnft7BNGVNQtYVD5MnRLkpvNmMKqsjm6K3uKRbfKWC?=
+ =?iso-8859-1?Q?IQMw6gg3T7z50t19Vlceu9yodZBGaYY13sWiSBcFIB2JYDeLnKPN/7Wvzw?=
+ =?iso-8859-1?Q?Rk3CYijpV+D1IR9zHxSKi2uPrxhDz2otx4SdSvngi91rjqJkj+BA/33okx?=
+ =?iso-8859-1?Q?DIeHCHS5ZIq3UjNDxZQ0DpMTAJvAFyWrV5fPPJrLHPlKxFssKxwjUMkIXa?=
+ =?iso-8859-1?Q?1zZk7jyrXdKe2quPiyju8DB+1WjYHDN+KDBFvKRwthzS9QzRMpfqXzpAAP?=
+ =?iso-8859-1?Q?fF8Juj57zB9faKU9b0FxL7jCwgankkpRbKwuFaBkrJ3N3g8I6F3DNbfPy1?=
+ =?iso-8859-1?Q?f+uuoepVL8vXIviVriITvZvt/4qAOhnDphTHUZzU7B5uJ2EQ3rKBhn5+B0?=
+ =?iso-8859-1?Q?Z7mzO1ZJiomIix44V6k8+L43Zm6Opl7YXVLjhQbyS2sxKlz8DSOqdFAUiD?=
+ =?iso-8859-1?Q?8AUFax1Rsxp25Y9ExMRSVGS0n2xuVkiFwR2f3+CM4Gs+PVOfuEZkHmNqf7?=
+ =?iso-8859-1?Q?ohxl4UZw6+5OgN3Gv6YPH8xA8nLBqHQuhQILLTiKTwSp51PkZjQ8jYNHFO?=
+ =?iso-8859-1?Q?BKwlS0ESGl06/i7+WKULJH3GN5DuvY5JulVYRBHfzo6ymFMrq5LI+tPcn1?=
+ =?iso-8859-1?Q?axp0Cf1Y4BS+sUT67QJaNKZEssYjYkJCmZD925te17qGB7ABdyCYJ6b6P4?=
+ =?iso-8859-1?Q?mcX/sauauaj+K0Hcqt5Sa/r6gAwQ3a1dKSD/MT1BzlhaqyCGN8GkNPwfHN?=
+ =?iso-8859-1?Q?ylOQetc2hKYfTQ9rFU0vxL09C/q774mQsDCsMsOjbDG7VV59/qgi/xfHO3?=
+ =?iso-8859-1?Q?U+CtZ6jXxqiz1MJLd2LkXEKQS7h6po0eLuaSGJJnHX9JrFJ0c6FqyMxsUT?=
+ =?iso-8859-1?Q?F3tsWiREzJHCR+Z5l5RacEpjqv46LlCcmc7ui4yyd7ePHXIVwo/xSEBTEw?=
+ =?iso-8859-1?Q?sZQeJgBijMNDvti07DmUsTDQouhvawAIiqIyw9BKqw+Xwc29xTO0vEHzMe?=
+ =?iso-8859-1?Q?A5RyT56O1CaLlZ+J9LmyutGkjoTdzBN1coj6qgwsf7rDhTliiMhPtd6YNs?=
+ =?iso-8859-1?Q?iXCxQNB22UyFWHCjdvN9c139giaOfZ5KN5a/d1ZP/Lnl2HNGneXZ4KJKQq?=
+ =?iso-8859-1?Q?1sjDP105+rxXkC1htZA1CoryzAhBuKbkQfpmmhuJg/vBUXX8CN3SysT6FV?=
+ =?iso-8859-1?Q?/fikmdlg2rXUgLR8JByevHYPBwygkT2pX6yNv7JTwrdxSfVBjQ2giwk101?=
+ =?iso-8859-1?Q?GCeA6dkp8SQNYgF679J/JQIEGoaWjXXW3FReSBE1rk4eJTHviWpVnVVHG3?=
+ =?iso-8859-1?Q?HCtx7tPr8tGMw8zgHmUA5heKJZuTl+uo9fSQBIk8rrLKlOjElYwfk9cGfB?=
+ =?iso-8859-1?Q?EXK51CPMdWgMhpb0FzUlNloZ986KA6ERWTyPU43dJx8io+3WHEMN?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: beb004c3-e8ae-46d6-160f-08df04538248
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 15:54:42.8094
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aymJYV9Sm5hI/mT1sXKCXCS4Fy4T9JKEquNIUwG1/MNGgerdPjjIqWYKDE4IL4xI5IAH0F4Ux0rFqXQWsEDtQoKvJYZ6jSwY0ewo4GpSS/z6MMaGXnJaMMepx/Uby10a
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR02MB8173
 
-On Wed, Aug 26, 2026 at 06:36:54PM +0000, Shenwei Wang (OSS) wrote:
-> 
-> 
-> 
-> NXP Public
-> > -----Original Message-----
-> > From: Mathieu Poirier <mathieu.poirier@linaro.org>
-> > Sent: Monday, August 24, 2026 9:39 AM
-> > To: Shenwei Wang (OSS) <shenwei.wang@oss.nxp.com>
-> > Cc: Linus Walleij <linusw@kernel.org>; Bartosz Golaszewski <brgl@kernel.org>;
-> > Jonathan Corbet <corbet@lwn.net>; Rob Herring <robh@kernel.org>; Krzysztof
-> > Kozlowski <krzk+dt@kernel.org>; Conor Dooley <conor+dt@kernel.org>; Bjorn
-> > Andersson <andersson@kernel.org>; Frank Li <frank.li@nxp.com>; Sascha Hauer
-> > <s.hauer@pengutronix.de>; Shuah Khan <skhan@linuxfoundation.org>; linux-
-> > gpio@vger.kernel.org; linux-doc@vger.kernel.org; linux-kernel@vger.kernel.org;
-> > Pengutronix Kernel Team <kernel@pengutronix.de>; Fabio Estevam
-> > <festevam@gmail.com>; Shenwei Wang <shenwei.wang@nxp.com>; Peng Fan
-> > <peng.fan@nxp.com>; devicetree@vger.kernel.org; linux-
-> > remoteproc@vger.kernel.org; imx@lists.linux.dev; linux-arm-
-> > kernel@lists.infradead.org; dl-linux-imx <linux-imx@nxp.com>; Arnaud
-> > POULIQUEN <arnaud.pouliquen@foss.st.com>; b-padhi@ti.com; Andrew Lunn
-> > <andrew@lunn.ch>
-> > Subject: Re: [PATCH v15 2/5] dt-bindings: remoteproc: imx_rproc: Add "rpmsg"
-> > subnode support
-> > > +          gpio@1 {
-> > > +            compatible = "rpmsg-gpio";
-> > > +            reg = <1>;
-> > > +            gpio-controller;
-> > > +            #gpio-cells = <2>;
-> > > +            #interrupt-cells = <2>;
-> > > +            interrupt-controller;
-> > > +          };
-> > > +        };
-> >
-> > As I (and Arnaud) have stated before, I don't think this is the best way to lay out
-> > bindings for rpmsg-gpio nodes.  I am currently thinking about a representation
-> > that aligns better with other virtio devices.
-> >
-> 
-> Hi Mathieu,
-> 
-> Would you prefer that I wait until you finalize the layout before submitting the next version?
+On Thu, Aug 27, 2026 at 03:15:49PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [Medium] Missing USB configuration despite commit message claims.
+> - [Low] Usage of deprecated 'gpio' property in fixed-regulator
+> --
 >
+> commit 5ca41dda85cf11b2d0c2fcf857ba3ebeca18e3d8
+> Author: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
+>
+> arm64: dts: freescale: add MR-NAVQ95 basic board support
+>
+> Add basic support for NXP's MR-NAVQ95 board. This includes features like 64GB
+> eMMC, up to 16GB LPDDR5, USB and RJ45 ports.
+>
+> >     * based on i.MX95 19x19 SoC
+> >     * 64GB eMMC
+> >     * up to 16GB of LPDDR5 memory
+> >     * 1 x USB 2.0 TypeC
+> >     * 1 x USB 3.0 TypeC
+> >     * 1 x RJ45 port with RTL8211 PHY
+>
+> [Severity: Medium]
+> The commit message explicitly lists '1 x USB 2.0 TypeC' and '1 x USB 3.0
+> TypeC' as hardware features of the board, but the device tree does not appear
+> to enable any USB controllers (like &usb2, &usb3) or define Type-C connectors.
+>
+> Are these nodes missing from the device tree, or should the commit message be
+> updated to reflect the current level of implementation?
+>
+> > diff --git a/arch/arm64/boot/dts/freescale/imx95-navq.dts b/arch/arm64/boot/dts/freescale/imx95-navq.dts
+> > new file mode 100644
+> > index 0000000000000..7458e77dc2ae5
+> > --- /dev/null
+> > +++ b/arch/arm64/boot/dts/freescale/imx95-navq.dts
+> [ ... ]
+> > +	reg_usdhc2_vmmc: regulator-usdhc2 {
+> > +		compatible = "regulator-fixed";
+> > +		pinctrl-names = "default";
+> > +		pinctrl-0 = <&pinctrl_reg_usdhc2_vmmc>;
+> > +		regulator-name = "VDD_SD2_3V3";
+> > +		regulator-min-microvolt = <3300000>;
+> > +		regulator-max-microvolt = <3300000>;
+> > +		gpio = <&gpio3 7 GPIO_ACTIVE_HIGH>;
+>
+> [Severity: Low]
+> Could this use the plural "gpios" property instead? While the singular "gpio"
+> is still parsed by the gpiolib fallback logic, it is deprecated for new
+> devicetree submissions.
 
-Let's wait until the DT format if is finalised.
- 
-> Shenwei
-> 
-> > > +      };
-> > >      };
-> > >  ...
-> > > --
-> > > 2.43.0
-> > >
+Yes, now prefer "s" version. please fix it.
+
+Frank
+
+>
+> --
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260827150657.1657-1-laurentiumihalcea111@gmail.com?part=2
