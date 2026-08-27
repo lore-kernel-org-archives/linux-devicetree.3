@@ -1,181 +1,339 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013006.outbound.protection.outlook.com [40.107.159.6])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27AB52248B3
-	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 15:54:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.6
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787846089; cv=fail; b=g0htCmfJCHorZrcGcOeb7YiJCFAwdcGGtzpKqsZWpnMjaGYV4kIXXi2vmMT2MNHwv8n2KTW3Xir3BBwyc0RXmzzneh3yzdTbR9FWJnbqUpnswarGdbCKRnDqXyGFN1Yb9HMrjBARPLHdcateX8HRxTMMzEvykWa29Dbpgozb2c8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787846089; c=relaxed/simple;
-	bh=UbstB8AtPeEQduBtP1K4ImuEVtVacE/P2CpESkXtDbU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=j78Ys6ae4Pd1P31yWD52CkhqVTMBwhcW1q5hBVsiwwyHmxUMboP5ZpMSAI5SOyZ3KgVfn9l4qsDHwJmLL0VKi6HLRR7KXrEJ3025IARHZ1cjDO9TYbzflgDbrWU3fCmNj+3tjbZKOV7oMotRQeP08MN/72shXBhZ9NiPCQL2qDc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=lbvx32wh reason="signature verification failed"; arc=fail smtp.client-ip=40.107.159.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2BC247F76A;
+	Thu, 27 Aug 2026 16:00:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787846437; cv=none; b=jdrMdlzTS+1/Vn842gwLH6hLz0OZelOGwcbYd1er3ux2q9jRSxD5GBH7S8VG9kJMHo6bS2iGOU/DQTLwPzzfJv3BnzzM9eMIsSKB9LEGVbxJoFw/oFarkn7rE05FIQLuzd+l9TPds9Tfv/q40HYHnj7EMlvFcOXFqqxfC2DrpkQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787846437; c=relaxed/simple;
+	bh=zKFIRLAhJS6PJ1Yb7jdzpeW3qub/vxs18IBdz5YyO8o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GTUgY32oqHXwUVEa9s2bAQQtoTT516CpK4EEhqJw1OMlHHfMQf9M9jNckA+DxmwgK4KqSWaJ3PClsx24SPa2DMH6RKxJV3+IzhKvLG62FFcHfGPwmThpGXWdyP/ak5b2Apj86b2pihYzahSmY+2CNSAI9Vzd4nWFNa8R7986tUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QtrYgCCZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="lbvx32wh"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KMwQotmSWAwZAZiHXZQwsM7MEWuktjXUK87hYbFnuwqPJ1UFViAvAaj7q+pUb9TM+oVdrH1LO8mv0FgrAtUGcDShfNSFyY46Lnp5hHQDLkoQGIkcFKK55Kr6lifVuu+P9t2exsJlueCAweMWOUjxPcUdqQXUMHsDQXk51IssjKB3kLQwMEgRminqVQFuucQmVIGdrWOxS791Jd0ZyLyG/OAij1ah7HOlyOzoJdwbLEfs533KybUfEaGV5gk8jfYnSLjmhLRCjysM/kcn1+X30+u3YuCVZvFQUK6gxHM8t7mO8Wh70jAiTtTmpS8QlwaA8lr/6tX+ZBRoB2c0sDyw7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=t54iGCttFWbhDNNwyj61i1OnqmlzWGpOly6xghMNE7k=;
- b=ypQeY4XjUWuqsKH+fnm3jmOHxtD2vOqFy/H3TyZcqrRS9vRduEXfkAaC5dJyKWbefr6b80ROFtznfMz+a1v/J5sXeaAA2yHaWMHDDVBZ3uVZ45uBIy6httoqcNIy9Mu4ACeKzk5l/GWtQIZ7Cv6tY4wllzxkOHzxnJCs3n3+M/P+Dge0iQyXmtUaJvgRnwR0kqQBU+s7sl2FDRSxkd0BhOpUrzb3SXCUg+ie39rDjIKFSIY2l/aQl4tLq11O66ikfB410TS3JAgHJmThr/9UJ/saKt9qfB/nWA1z34YxtPymtWtOj7du0Q79etuDqWvu8+qpLdZLIglv55xTaapJgw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t54iGCttFWbhDNNwyj61i1OnqmlzWGpOly6xghMNE7k=;
- b=lbvx32whDT7FOTX0WJqjQ7LteN2b4Dr5TUhY3ly38xXFhZpShuP/bXMWpLGVHf+DdfmFe1+geRXqJ1NnlHszovbrI3q5GjOdbp5Gx4Bw06q2IaTckC/JIhRYdYOoRM5NWvCELO7W4kDZz8ncSOcesOKTZUdl9FbQS6+VFHVnOQ56zNxfUFDzNd4N6xLeDlfpmFqbrJCbIUru5+A1NE37ZB/UIO2UdA/DteQIFkYIBaRzaK3pVu4tVMyPN2LQ+7b2Zaw3k+Vn6szAfMh7Dw7BMzw7wVlvCvTTQruW9D6R1L8gPB9sDj2MylCvh3tEwscg8VMvhemQbcO8njCw7UMoTQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by PAXPR02MB8173.eurprd04.prod.outlook.com (2603:10a6:102:23f::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.9; Thu, 27 Aug
- 2026 15:54:43 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
- 15:54:42 +0000
-Date: Thu, 27 Aug 2026 10:54:34 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Laurentiu Mihalcea <laurentiumihalcea111@gmail.com>,
-	conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
-	Frank.Li@kernel.org, imx@lists.linux.dev
-Subject: Re: [PATCH v2 2/2] arm64: dts: freescale: add MR-NAVQ95 basic board
- support
-Message-ID: <apBdulE2q97HWScJ@SMW015318>
-References: <20260827150657.1657-1-laurentiumihalcea111@gmail.com>
- <20260827150657.1657-3-laurentiumihalcea111@gmail.com>
- <20260827151549.8815F1F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260827151549.8815F1F000E9@smtp.kernel.org>
-X-ClientProxiedBy: SA0PR11CA0007.namprd11.prod.outlook.com
- (2603:10b6:806:d3::12) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QtrYgCCZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0E831F000E9;
+	Thu, 27 Aug 2026 16:00:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787846435;
+	bh=mc9UqifGDes7aqOfgsJlG3V88rf8KQlsEq8wthV3IEk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QtrYgCCZ+k2VUTD2+vb3c3oCDpu0y0MrozeRvCXQQxFL4CH9XjueJ7EcjvDSvuJDN
+	 /1lWbHKCTRoU/QyUFkbf3bszPZHHMAadCQ3wgyrc+XaEDy0XdJXT0BteBZWXS6LqcO
+	 /g1hHlAvdJh2FjxgpKbb8mse83Lo+hNWLB7sYt141MJ+bEr/MQ0HnYu/WJr3hQ2usM
+	 5WBXy173K3VJiJCvoeONgKfSFY7mC0kq/CIPE8Fc1I7d3giBaCl69vTGfXp6YhO7DC
+	 mBwNeP6hobSvVdVVsRjv30VyGRFouWWvBRHrsNzQnzVN2XB4w9fmEwU1/xRIXtfQne
+	 o7J5UGgmCzFlA==
+Date: Thu, 27 Aug 2026 21:30:31 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Marek Vasut <marex@nabladev.com>
+Cc: linux-usb@vger.kernel.org, fabrice.gasnier@foss.st.com,
+	Pankaj Dev <pankaj.dev@st.com>, Rahul Kumar <rahul.kumar05@st.com>,
+	Christian Bruel <christian.bruel@foss.st.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>, Rosen Penev <rosenp@gmail.com>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	devicetree@vger.kernel.org, kernel@dh-electronics.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH v3 2/9] phy: stm32: Add support for ST STM32MP25
+ USB2-FEMTO PHY
+Message-ID: <apBfHzD5TfryaEW0@vaman>
+References: <20260822074816.548662-1-marex@nabladev.com>
+ <20260822074816.548662-3-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PAXPR02MB8173:EE_
-X-MS-Office365-Filtering-Correlation-Id: beb004c3-e8ae-46d6-160f-08df04538248
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|366016|376014|23010399003|1800799024|11063799006|6133799003|10067099003|56012099006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	XXeu3S5qSGekznMx4qNmj6CB4twHjGvCaXxHBd+npVcQU/TCZvxucOibQU8SGjftomKxteMBQ6NKYvq+btBj/mJJBPDE+TYnaGwXk6bwFCmR/NIGOLxactCrhKwURQz1D4/kwx/cphpPNdoPNE3Uf2v0K1obFcqw6ESETZJMMMds1YEOohTrg3e9p0cUkYI9kXBu1A/oWwVO4HoeeeyYH1tcnqOp2aAaW4omoF4QcEnh9AEfXMKHDS/I7M+y4fbpLEd7k/ACl9ckbSI+b6GyOaljDsmahp0Q1j3sN28D7aI91VPMXsbQgBvD1wGHHyEcE4+Ny/p6sA3H5wM+YRCNljlpMXLDZNgUrnDrWIEPskcgiUZBl1ZhotYpFbyatcRFSNtge3g6Pbq4ORt4qCwNhp2ZgflSyS0Mrb5rQ2EENacpa1BO5yD+2/wfbZ+pFm0qQPf+BiDM8lFrbUI32sLgKePO9kVt5IdZmp5awFo+V0BHYpf+MURiVntKNMw9XcVb0yalRhZLyS+bkbyyxRSuLg6sZuCnK2dDeMivbHQF7n43b+kGXf0gNpfqHFTjf8st/2GM3YBiCru8ZUXxSqf5jUYYXkUGy2Lb7Fu4Cpq0A1M=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(376014)(23010399003)(1800799024)(11063799006)(6133799003)(10067099003)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?Jfuus0IQOjeqpmlMp7+rmNHzAfnK6kOgUmyBWlKvfpTiZVu08CA178Yexs?=
- =?iso-8859-1?Q?D0H+7fcoXjHTHve9FV3aovADNw2buJ1UIIQWzaT1r6DiMaSqtWODM1SMwh?=
- =?iso-8859-1?Q?sZyL6cJS7i/3NEBoesd14435zxE0LKWDFj5UBrk6L0Ndkb2tVltHZzGDnx?=
- =?iso-8859-1?Q?eoQZES5jc3cx5HIB3UHKV1BloW3KGjaKL9B6QYVZ6po4wd+/I+mvfuc8iw?=
- =?iso-8859-1?Q?Q7BkUdr1zgaOgrKBUyreSdWKtX1LNXA2TO6OOfawYfa2LWj1BuWNNVsr1Q?=
- =?iso-8859-1?Q?qMUcaT7yQdQA3KlVxaj3t98nkkpOWajQfg8awkr1ji1HfHTnl+la2FXCHL?=
- =?iso-8859-1?Q?x+4fc2MLZIEq/uFSBXbxoPJjSmNMRkaBKfle+fyBphOj5hMoo30IYlmJ8u?=
- =?iso-8859-1?Q?mBxAiKWJjR/pY8xrXnft7BNGVNQtYVD5MnRLkpvNmMKqsjm6K3uKRbfKWC?=
- =?iso-8859-1?Q?IQMw6gg3T7z50t19Vlceu9yodZBGaYY13sWiSBcFIB2JYDeLnKPN/7Wvzw?=
- =?iso-8859-1?Q?Rk3CYijpV+D1IR9zHxSKi2uPrxhDz2otx4SdSvngi91rjqJkj+BA/33okx?=
- =?iso-8859-1?Q?DIeHCHS5ZIq3UjNDxZQ0DpMTAJvAFyWrV5fPPJrLHPlKxFssKxwjUMkIXa?=
- =?iso-8859-1?Q?1zZk7jyrXdKe2quPiyju8DB+1WjYHDN+KDBFvKRwthzS9QzRMpfqXzpAAP?=
- =?iso-8859-1?Q?fF8Juj57zB9faKU9b0FxL7jCwgankkpRbKwuFaBkrJ3N3g8I6F3DNbfPy1?=
- =?iso-8859-1?Q?f+uuoepVL8vXIviVriITvZvt/4qAOhnDphTHUZzU7B5uJ2EQ3rKBhn5+B0?=
- =?iso-8859-1?Q?Z7mzO1ZJiomIix44V6k8+L43Zm6Opl7YXVLjhQbyS2sxKlz8DSOqdFAUiD?=
- =?iso-8859-1?Q?8AUFax1Rsxp25Y9ExMRSVGS0n2xuVkiFwR2f3+CM4Gs+PVOfuEZkHmNqf7?=
- =?iso-8859-1?Q?ohxl4UZw6+5OgN3Gv6YPH8xA8nLBqHQuhQILLTiKTwSp51PkZjQ8jYNHFO?=
- =?iso-8859-1?Q?BKwlS0ESGl06/i7+WKULJH3GN5DuvY5JulVYRBHfzo6ymFMrq5LI+tPcn1?=
- =?iso-8859-1?Q?axp0Cf1Y4BS+sUT67QJaNKZEssYjYkJCmZD925te17qGB7ABdyCYJ6b6P4?=
- =?iso-8859-1?Q?mcX/sauauaj+K0Hcqt5Sa/r6gAwQ3a1dKSD/MT1BzlhaqyCGN8GkNPwfHN?=
- =?iso-8859-1?Q?ylOQetc2hKYfTQ9rFU0vxL09C/q774mQsDCsMsOjbDG7VV59/qgi/xfHO3?=
- =?iso-8859-1?Q?U+CtZ6jXxqiz1MJLd2LkXEKQS7h6po0eLuaSGJJnHX9JrFJ0c6FqyMxsUT?=
- =?iso-8859-1?Q?F3tsWiREzJHCR+Z5l5RacEpjqv46LlCcmc7ui4yyd7ePHXIVwo/xSEBTEw?=
- =?iso-8859-1?Q?sZQeJgBijMNDvti07DmUsTDQouhvawAIiqIyw9BKqw+Xwc29xTO0vEHzMe?=
- =?iso-8859-1?Q?A5RyT56O1CaLlZ+J9LmyutGkjoTdzBN1coj6qgwsf7rDhTliiMhPtd6YNs?=
- =?iso-8859-1?Q?iXCxQNB22UyFWHCjdvN9c139giaOfZ5KN5a/d1ZP/Lnl2HNGneXZ4KJKQq?=
- =?iso-8859-1?Q?1sjDP105+rxXkC1htZA1CoryzAhBuKbkQfpmmhuJg/vBUXX8CN3SysT6FV?=
- =?iso-8859-1?Q?/fikmdlg2rXUgLR8JByevHYPBwygkT2pX6yNv7JTwrdxSfVBjQ2giwk101?=
- =?iso-8859-1?Q?GCeA6dkp8SQNYgF679J/JQIEGoaWjXXW3FReSBE1rk4eJTHviWpVnVVHG3?=
- =?iso-8859-1?Q?HCtx7tPr8tGMw8zgHmUA5heKJZuTl+uo9fSQBIk8rrLKlOjElYwfk9cGfB?=
- =?iso-8859-1?Q?EXK51CPMdWgMhpb0FzUlNloZ986KA6ERWTyPU43dJx8io+3WHEMN?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: beb004c3-e8ae-46d6-160f-08df04538248
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 15:54:42.8094
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aymJYV9Sm5hI/mT1sXKCXCS4Fy4T9JKEquNIUwG1/MNGgerdPjjIqWYKDE4IL4xI5IAH0F4Ux0rFqXQWsEDtQoKvJYZ6jSwY0ewo4GpSS/z6MMaGXnJaMMepx/Uby10a
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR02MB8173
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260822074816.548662-3-marex@nabladev.com>
 
-On Thu, Aug 27, 2026 at 03:15:49PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [Medium] Missing USB configuration despite commit message claims.
-> - [Low] Usage of deprecated 'gpio' property in fixed-regulator
-> --
->
-> commit 5ca41dda85cf11b2d0c2fcf857ba3ebeca18e3d8
-> Author: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
->
-> arm64: dts: freescale: add MR-NAVQ95 basic board support
->
-> Add basic support for NXP's MR-NAVQ95 board. This includes features like 64GB
-> eMMC, up to 16GB LPDDR5, USB and RJ45 ports.
->
-> >     * based on i.MX95 19x19 SoC
-> >     * 64GB eMMC
-> >     * up to 16GB of LPDDR5 memory
-> >     * 1 x USB 2.0 TypeC
-> >     * 1 x USB 3.0 TypeC
-> >     * 1 x RJ45 port with RTL8211 PHY
->
-> [Severity: Medium]
-> The commit message explicitly lists '1 x USB 2.0 TypeC' and '1 x USB 3.0
-> TypeC' as hardware features of the board, but the device tree does not appear
-> to enable any USB controllers (like &usb2, &usb3) or define Type-C connectors.
->
-> Are these nodes missing from the device tree, or should the commit message be
-> updated to reflect the current level of implementation?
->
-> > diff --git a/arch/arm64/boot/dts/freescale/imx95-navq.dts b/arch/arm64/boot/dts/freescale/imx95-navq.dts
-> > new file mode 100644
-> > index 0000000000000..7458e77dc2ae5
-> > --- /dev/null
-> > +++ b/arch/arm64/boot/dts/freescale/imx95-navq.dts
-> [ ... ]
-> > +	reg_usdhc2_vmmc: regulator-usdhc2 {
-> > +		compatible = "regulator-fixed";
-> > +		pinctrl-names = "default";
-> > +		pinctrl-0 = <&pinctrl_reg_usdhc2_vmmc>;
-> > +		regulator-name = "VDD_SD2_3V3";
-> > +		regulator-min-microvolt = <3300000>;
-> > +		regulator-max-microvolt = <3300000>;
-> > +		gpio = <&gpio3 7 GPIO_ACTIVE_HIGH>;
->
-> [Severity: Low]
-> Could this use the plural "gpios" property instead? While the singular "gpio"
-> is still parsed by the gpiolib fallback logic, it is deprecated for new
-> devicetree submissions.
+On 22-08-26, 09:46, Marek Vasut wrote:
+> From: Pankaj Dev <pankaj.dev@st.com>
+> 
+> Add USB2 PHY driver for STM32MP25 USB2 controllers, which includes the
+> USB2.0 host-only controller and USB 2.0 part of the DWC3 controller.
+> Two such PHYs in total are present in STM32MP25 SoC, they both are
+> slightly different, therefore they use different compatible string
+> to discern them.
+> 
+> Signed-off-by: Pankaj Dev <pankaj.dev@st.com>
+> Co-developed-by: Rahul Kumar <rahul.kumar05@st.com>
+> Signed-off-by: Rahul Kumar <rahul.kumar05@st.com>
+> Co-developed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> Co-developed-by: Christian Bruel <christian.bruel@foss.st.com>
+> Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
+> Co-developed-by: Marek Vasut <marex@nabladev.com>
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
+> ---
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: Christian Bruel <christian.bruel@foss.st.com>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Neil Armstrong <neil.armstrong@linaro.org>
+> Cc: Pankaj Dev <pankaj.dev@st.com>
+> Cc: Rahul Kumar <rahul.kumar05@st.com>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Rosen Penev <rosenp@gmail.com>
+> Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+> Cc: Vinod Koul <vkoul@kernel.org>
+> Cc: devicetree@vger.kernel.org
+> Cc: kernel@dh-electronics.com
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-phy@lists.infradead.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> Cc: linux-usb@vger.kernel.org
+> ---
+> V2: - Fix up Sob/Cdb lines
+>     - Operate PHY as a syscon subnode
+> V3: - Update copyright years
+>     - Register two sets of clock, one 480 MHz PLL and one CMN
+>     - Split PHY ops per PHY, since the PHY2 does not have set mode ops
+>     - Fix up Sob/Cdb lines further
+> ---
+>  drivers/phy/st/Kconfig             |  10 +
+>  drivers/phy/st/Makefile            |   1 +
+>  drivers/phy/st/phy-stm32-usb2phy.c | 406 +++++++++++++++++++++++++++++
+>  3 files changed, 417 insertions(+)
+>  create mode 100644 drivers/phy/st/phy-stm32-usb2phy.c
+> 
+> diff --git a/drivers/phy/st/Kconfig b/drivers/phy/st/Kconfig
+> index 49206185e5633..2835bb67bca9e 100644
+> --- a/drivers/phy/st/Kconfig
+> +++ b/drivers/phy/st/Kconfig
+> @@ -58,3 +58,13 @@ config PHY_STM32_USBPHYC
+>  	  used by an HS USB Host controller, and the second one is shared
+>  	  between an HS USB OTG controller and an HS USB Host controller,
+>  	  selected by a USB switch.
+> +
+> +config PHY_STM32_USB2PHY
+> +	tristate "STMicroelectronics STM32MP25 USB2.0 PHY Controller driver"
+> +	depends on ARCH_STM32 || COMPILE_TEST
+> +	depends on COMMON_CLK
+> +	select GENERIC_PHY
+> +	help
+> +	  Enable this to support the High-Speed USB 2.0 transceivers that are
+> +	  part of the STMicroelectronics STM32MP25 SoCs. The PHY itself is a
+> +	  Synopsys FEMTO-PHY.
+> diff --git a/drivers/phy/st/Makefile b/drivers/phy/st/Makefile
+> index cb80e954ea9f0..4945df5ed78a8 100644
+> --- a/drivers/phy/st/Makefile
+> +++ b/drivers/phy/st/Makefile
+> @@ -5,3 +5,4 @@ obj-$(CONFIG_PHY_ST_SPEAR1340_MIPHY)	+= phy-spear1340-miphy.o
+>  obj-$(CONFIG_PHY_STIH407_USB)		+= phy-stih407-usb.o
+>  obj-$(CONFIG_PHY_STM32_COMBOPHY)	+= phy-stm32-combophy.o
+>  obj-$(CONFIG_PHY_STM32_USBPHYC) 	+= phy-stm32-usbphyc.o
+> +obj-$(CONFIG_PHY_STM32_USB2PHY) 	+= phy-stm32-usb2phy.o
+> diff --git a/drivers/phy/st/phy-stm32-usb2phy.c b/drivers/phy/st/phy-stm32-usb2phy.c
+> new file mode 100644
+> index 0000000000000..8c68b2d208d73
+> --- /dev/null
+> +++ b/drivers/phy/st/phy-stm32-usb2phy.c
+> @@ -0,0 +1,406 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * STMicroelectronics STM32 USB2 PHY Controller driver
+> + * Currently Only supported for STM32MP25
+> + *
+> + * Copyright (C) 2022-2026 STMicroelectronics
+> + * Author(s): Pankaj Dev <pankaj.dev@st.com>.
+> + */
+> +#include <linux/bitfield.h>
+> +#include <linux/clk.h>
+> +#include <linux/clk-provider.h>
+> +#include <linux/io.h>
+> +#include <linux/kernel.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/of_address.h>
+> +#include <linux/of_platform.h>
+> +#include <linux/phy/phy.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/regmap.h>
+> +#include <linux/reset.h>
+> +#include <linux/usb/role.h>
+> +#include <linux/mfd/syscon.h>
+> +
+> +#define SYSCFG_USB2PHY2CR_USB2PHY2CMN		BIT(2)
+> +#define SYSCFG_USB2PHY2CR_VBUSVALID		BIT(4)
+> +#define SYSCFG_USB2PHY2CR_VBUSVLDEXTSEL		BIT(5)
+> +#define SYSCFG_USB2PHY2CR_VBUSVLDEXT		BIT(6)
+> +
+> +#define USBH_NUM_CLK				2
+> +
+> +struct stm32_usb2phy {
+> +	struct phy				*phy;
+> +	struct regmap				*regmap;
+> +	struct device				*dev;
+> +	struct reset_control			*rstc;
+> +	struct clk				*phyref;
+> +	struct regulator			*vdd33;
+> +	const struct stm32mp2_usb2phy_hw_data	*hw_data;
+> +	atomic_t				en_refcnt;
+> +	enum phy_mode				mode;
+> +	u32					cr_offset;
+> +	bool					is_init;
+> +	struct clk_hw				clkpll_hw;
+> +	struct clk_hw				clkcmn_hw;
+> +	/* Must be last */
+> +	struct clk_hw_onecell_data		onecell;
+> +};
+> +
+> +struct stm32mp2_usb2phy_hw_data {
+> +	u32			phyrefsel_mask;
+> +	const struct phy_ops	*phy_ops;
+> +};
+> +
+> +static int stm32_usb2phy_enable(struct stm32_usb2phy *phy_dev)
+> +{
+> +	const struct stm32mp2_usb2phy_hw_data *phy_data = phy_dev->hw_data;
+> +	unsigned int refsel;
+> +	unsigned long rate;
+> +	int ret;
+> +
+> +	/* Check if a phy is already init or clkpll in use */
+> +	if (atomic_inc_return(&phy_dev->en_refcnt) > 1)
+> +		return 0;
+> +
+> +	rate = clk_get_rate(phy_dev->phyref);
+> +	if (rate == 19200000)
+> +		refsel = 0;
+> +	else if (rate == 20000000)
+> +		refsel = 1;
+> +	else if (rate == 24000000)
+> +		refsel = 2;
+> +	else
+> +		return -EINVAL;
 
-Yes, now prefer "s" version. please fix it.
+Would a switch not be better here?
 
-Frank
+> +
+> +	ret = regmap_update_bits(phy_dev->regmap,
+> +				 phy_dev->cr_offset,
+> +				 phy_data->phyrefsel_mask,
+> +				 field_prep(phy_data->phyrefsel_mask, refsel));
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regulator_enable(phy_dev->vdd33);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = clk_prepare_enable(phy_dev->phyref);
+> +	if (ret)
+> +		goto error_regdis;
+> +
+> +	ret = reset_control_deassert(phy_dev->rstc);
+> +	if (ret)
+> +		goto error_clkdis;
+> +
+> +	return 0;
+> +
+> +error_clkdis:
+> +	clk_disable_unprepare(phy_dev->phyref);
+> +error_regdis:
+> +	regulator_disable(phy_dev->vdd33);
+> +
+> +	return ret;
+> +}
+> +
+> +static int stm32_usb2phy_disable(struct stm32_usb2phy *phy_dev)
+> +{
+> +	int ret;
+> +
+> +	/* Check if a phy is still init or clkpll in use */
+> +	if (atomic_dec_return(&phy_dev->en_refcnt) > 0)
+> +		return 0;
+> +
+> +	ret = reset_control_assert(phy_dev->rstc);
+> +	if (ret)
+> +		return ret;
+> +
+> +	clk_disable_unprepare(phy_dev->phyref);
+> +
+> +	return regulator_disable(phy_dev->vdd33);
+> +}
+> +
+> +static int stm32_usb2phy_set_mode(struct phy *phy, enum phy_mode mode, int submode)
+> +{
+> +	struct stm32_usb2phy *phy_dev = phy_get_drvdata(phy);
+> +	u32 mask = SYSCFG_USB2PHY2CR_USB2PHY2CMN |
+> +		   SYSCFG_USB2PHY2CR_VBUSVALID |
+> +		   SYSCFG_USB2PHY2CR_VBUSVLDEXT;
+> +	u32 val = 0;
+> +	int ret;
+> +
+> +	if (mode == PHY_MODE_USB_HOST) {
+> +		if (submode != USB_ROLE_NONE)
+> +			val = SYSCFG_USB2PHY2CR_VBUSVALID;
+> +	} else if (mode == PHY_MODE_USB_DEVICE) {
+> +		val = SYSCFG_USB2PHY2CR_USB2PHY2CMN |
+> +		      SYSCFG_USB2PHY2CR_VBUSVLDEXTSEL;
+> +		if (submode != USB_ROLE_NONE)
+> +			val |= SYSCFG_USB2PHY2CR_VBUSVLDEXT;
+> +		mask |= SYSCFG_USB2PHY2CR_VBUSVLDEXTSEL;
+> +	} else {
+> +		return -EINVAL;
+> +	}
+> +
+> +	ret = regmap_update_bits(phy_dev->regmap, phy_dev->cr_offset, mask, val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	phy_dev->mode = mode;
+> +
+> +	return 0;
+> +}
+> +
+> +static int stm32_usb2phy1_init(struct phy *phy)
+> +{
+> +	struct stm32_usb2phy *phy_dev = phy_get_drvdata(phy);
+> +	int ret;
+> +
+> +	ret = stm32_usb2phy_enable(phy_dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	phy_dev->is_init = true;
+> +
+> +	return 0;
+> +}
+> +
+> +static int stm32_usb2phy2_init(struct phy *phy)
+> +{
+> +	struct stm32_usb2phy *phy_dev = phy_get_drvdata(phy);
+> +	int ret;
+> +
+> +	ret = stm32_usb2phy_enable(phy_dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (phy_dev->mode != PHY_MODE_INVALID) {
+> +		ret = stm32_usb2phy_set_mode(phy, phy_dev->mode, USB_ROLE_NONE);
+> +		if (ret) {
+> +			stm32_usb2phy_disable(phy_dev);
+> +			return ret;
+> +		}
+> +	}
 
->
-> --
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260827150657.1657-1-laurentiumihalcea111@gmail.com?part=2
+so what is the diff b/w these two phys that we need to check invalid
+only here?
+
+-- 
+~Vinod
