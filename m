@@ -1,164 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABBF041D628;
-	Thu, 27 Aug 2026 17:01:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8977495530
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 17:01:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787850097; cv=none; b=rHvn7zfNT2t90y7KY/MYRokY6nMfO6von4T5ZSE4z/TIypj32N+ujS2fbppca88A4RvURktAdMxb8uaMxoaQwG1jl034ovV2VIM25x4Ivjo6R+BuWUrbAu0RD9LNAEg7yBY0H3cSe7i8QIcn9qCWfwxwS8tU7nCaZ9DMyxJSHTw=
+	t=1787850119; cv=none; b=dqEPNlykZkxvPyfU2k34q1ZsEpm3dIyyVfecCvKotQfiGnbbIyWIQ+FFmYCjmsdW33zyjikU8MBDwGOP8qrmMAckuZymaRRuRWfoAv89QZCPbxIEJRTxfJ+4bHAkQKVGt4C6GVJeRIqMDSZmjXzOrj/VBrHqNcBxbqOXEuUmvQg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787850097; c=relaxed/simple;
-	bh=nP1BAOK13Iaaxhmj8/SQpfYfixH2N8GcCObbunsd9TY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rnlVZIFRA2RAzhM40LR1L4z54aKe+h3WPUKAtAYvKZSO67F/fMcjEYS0ZKEAgfWsLKvwDwY03/j+ThLNakOPF1dn7aeeVswqjO77/zFtXrT7L/TPUKESMbd6jGAUVHnGasBBAJ4SmgimwKTs6uTIdJ06pvrqYVnGCmsf7KoIGLM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kz8vGjN0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787850119; c=relaxed/simple;
+	bh=VLth3SEu7qG3r5aWNeqIN5rjqfJQ3Q9Ak0EseKunHjM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=l12gqRRscX/GfquM96YH6MTe8rv1ToJ9JEa0DItle/dQ+a6slGgBe+/PK7r6P4bgzhfafqtpCTk3fS+ZPzJFtBhieKHUPWiAq3ZzXJdS3B6pK7c3yqKzX2vWtodYCTYbFtC4jcX/jvGDO2ts0BEYaLxGM6fen90KjDExfEqfx9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jecm9R01; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Umlqj17J; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kz8vGjN0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 320471F000E9;
-	Thu, 27 Aug 2026 17:01:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787850092;
-	bh=QrfCtURGKGftDusM3epVvUzOHv7Dl/l68YZYJ7kvjZA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kz8vGjN0NHssLGxSJP1T6MKmU4hBkdcx/UEcB3xQCgo14Is2rRk0BQGllrux9wEd3
-	 zsS/bZebEegjmwHOVitF6gZ2b05volv0cqP7jiGNGvhh/aRGYhqpqW6ac0mkpbvdLn
-	 AyMX/mZIAjYK8HjvmepJ9RdWv7ySptLUXjdbD/seFFVg5zohO1uVcyClSvQrngu15e
-	 hDy3OXQ277PZgs/DJ2zBqw72S7oBm/6MxfGZpisKDQbcbEKdDbW1a4F5Jaxdj4OgTh
-	 h3C16DkTB9CNhMJsxJ8TvV+YrzcpBXgtOo9Ij4TkPRG+D7T1m2S9YdmkSZ4uWNqKJx
-	 Aj/jokslwgUnQ==
-Date: Thu, 27 Aug 2026 18:01:28 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Flaviu Nistor <flaviu.nistor@gmail.com>
-Cc: Guenter Roeck <linux@roeck-us.net>, Jean Delvare <jdelvare@suse.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: hwmon: national,lm90: Fix channel
- constraints for temperature offset
-Message-ID: <20260827-stooge-polish-b23739e44224@spud>
-References: <20260826184750.4798-1-flaviu.nistor@gmail.com>
- <20260826184750.4798-2-flaviu.nistor@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jecm9R01";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Umlqj17J"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67RFbhWD1310842
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 17:01:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	6ZGn09uCQecSpHGhjI37UCupzc36L0CgFZmzAcMQoKM=; b=jecm9R016Au4SOfa
+	9DHqvLJPactOk7aQdK/C4SVlQIDFnr46AJq3kT1lRpuuzEuEStjSDhuWZmBgFhwz
+	+tgf26c9sVpNxGmxBxVJKgPo8eW8YRfojy/11FRy9/tXbIUvFT1TfgQ4KI2g3dio
+	U/qubr+FLspGfIB0dJYsqmwmjLn+q2pPEB5ISe67RM2QzunWZDMDi+jnlzc7hGIH
+	vBhKrjHxmmNe63U6F8+esRq4NhYizZhKei7/m+4Ujojc7EZ7NDs7M5w7jdR5CEPh
+	yVwGzKt9J5X8o3P1gx6ZSVuO8ThEdUAk+MeKeJl9E8tazr0mt+TLc3A1As2Jakl0
+	MWu9Bg==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ga8m5kvpu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 17:01:50 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-85415923c8fso150999b3a.2
+        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 10:01:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787850110; x=1788454910; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6ZGn09uCQecSpHGhjI37UCupzc36L0CgFZmzAcMQoKM=;
+        b=Umlqj17JRtiVoyDa42/OpuypxTSUCM5VnbGWWtbswpMLHiBHT5hTTbPanOvf0ZZNxA
+         cjH1odyx6JVeqB9gbobnGy/ckw1ECn/E/sTWLIPiZYD7r2eLkBI3G3qwu8JMWHi+lKAp
+         1S+30KAJcQSav1Orw2k65VMWmV5l48SId+D0jPoS+nMw5vEM4WByBWuzPWoSDXziZi/Z
+         zJUD4OKDkfU/5pnQe43nbEsND+OTR5JFqCBvNCsp9de+8p4CMTNhzU6ABkpkoC63hrQV
+         7xLJSqTmKe00JuOrD3k0M5TQCVXejmzcx1LMCnQonknkBsQO1OtLfF+myeyNMtxMCkj+
+         bS/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787850110; x=1788454910;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6ZGn09uCQecSpHGhjI37UCupzc36L0CgFZmzAcMQoKM=;
+        b=DlvP4cRWgS3HAucLPTxm7DOviHpyuvAOPBpoIHyUaIbSeBDxumTkVPYDtkci4L1Gqz
+         RzhTtA+bbmkaKevBvOrevlO2oyXsektjgF7GsUSt5dmH1WzEEm9vw9jR1gcbB2cK1r/d
+         t8oGqVIESTJYnwdeggMYCOfCOROAOLwbrEIgv1MDtpdhsa+/0/NSBqfyJIS3ildLsTrE
+         fPAXPTNtf2/NsY2EKec6oHlIaaoENsa/ZCEYpGGOMmtdpMhy0lH+OK+HlK/lBuS0u9h6
+         24/E+i3/Vdr0JM8NkMOp2N0yUUeA22lIHzNV4C5lRu+rSTsgUm/uhYFE43jkKjYUhY42
+         Baww==
+X-Forwarded-Encrypted: i=1; AHgh+RqFwdWxsZufYzQqi4n5GMwRz2lCiB8tMvg2TNrQM7vPZg8mS/3GrcAiVTssaG1L2MCJ0g1SrSHRkP8W@vger.kernel.org
+X-Gm-Message-State: AFuF++ldIbjNR33VW3pOWqHO9S7EXhOyx4Yk6XRSu2Q1Bo3HDIXUCz1y
+	qjtSnh2/z6vxzwYc3Y4H5D2oZg/0exAmejjGL7hCYQDUO4GTABHqkbakCAJeW0h5Tywxc5gxHq9
+	+aCB23xoJLsdKPHlS1PPw+Q4+rca+dOHvARjZx87s92IFP/MwD6HgQTmWShf1jGgS
+X-Gm-Gg: AR+sD11xN/l7HVudiC6mUJhn1Hjm2OYU1+hXvY8Jy2D3/rLdV2fVXTp3hXlfg6Zo4El
+	YESu1ikouMegVmDyNDwlDVnqS0Z26j/W365g0iWdGsbVMSgDKaqnhRYSJCnmJnFmpAvFsSvAO+1
+	jwmNZYUVyXIiSeOjeJtpwWE9GizmoZQ1O7W1tH7XjsTbextnaJeBMpyjZQ2MBR2l93Zc/ECb1UF
+	9dZbTe1dHL1bAW9QHPRtWqGwopAyHhD/VS5gDozu08ACk6Az3so7j7mL1zfEy47kRQi3nvPcZGd
+	Six368HVYG5BlpyX9VJrqwXKMo4e7m5qnlD45U/kcywc89o12hDmjOZZr1gmYvIGa8gbe5RSn6M
+	XswiKhK1sClWC63XZNzrVJiCXlRt6MhM=
+X-Received: by 2002:a05:6a00:4b41:b0:847:9aa8:d3bb with SMTP id d2e1a72fcca58-8562953f64dmr1115438b3a.12.1787850109603;
+        Thu, 27 Aug 2026 10:01:49 -0700 (PDT)
+X-Received: by 2002:a05:6a00:4b41:b0:847:9aa8:d3bb with SMTP id d2e1a72fcca58-8562953f64dmr1115017b3a.12.1787850107481;
+        Thu, 27 Aug 2026 10:01:47 -0700 (PDT)
+Received: from [192.168.1.6] ([122.171.23.69])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8535cd81d22sm2404824b3a.35.2026.08.27.10.01.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 27 Aug 2026 10:01:47 -0700 (PDT)
+Message-ID: <4466c3eb-4de1-4240-8fec-765a4910b217@oss.qualcomm.com>
+Date: Thu, 27 Aug 2026 22:31:38 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="FcJi8mongErY1AVh"
-Content-Disposition: inline
-In-Reply-To: <20260826184750.4798-2-flaviu.nistor@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 06/15] dt-bindings: interconnect: Add Qualcomm Kuno NoC
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Taniya Das <quic_tdas@quicinc.com>, Georgi Djakov <djakov@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+        Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>,
+        Guru Das Srinagesh <linux@gurudas.dev>, linux-arm-msm@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
+        linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org
+References: <20260821-kuno-soc-support-v3-0-196e2b306368@oss.qualcomm.com>
+ <20260821-kuno-soc-support-v3-6-196e2b306368@oss.qualcomm.com>
+ <20260827-predictable-mauve-catfish-3d5ad0@quoll>
+Content-Language: en-US
+From: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+In-Reply-To: <20260827-predictable-mauve-catfish-3d5ad0@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: epx9SyR-uw2nE-6KQtd7w6TGRwEb057J
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDE0NCBTYWx0ZWRfX3VcIezxRBd9+
+ la3jjk9OxnRPeE8/GW6kiFnZXOT7/0LSCRI7UjVb2G9XMl72wnOp8A3sOmujAVMinhJ4XX/wg5q
+ ne0+KcqOUZLQMJP9elkg9RdHeDDOi+0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDE0NCBTYWx0ZWRfX7fsQXGSzEpNI
+ X6QFUO3wzJGF29c9I/RjesZU+QdKSf0e7lk/pp1/T6U9wprfQp3jXj0PsRDpntLG1A1AhxMQ/Q4
+ xX28XF6ykfWuw55BxYYRkkxU/82O9MpAB4u5zEVF5i1sVwbPyugOBImqb485/WhEvCBrC55LKZz
+ YJZ8H07XWDy3pH6VhOu1NXpDZN3GoIQjeAEeLJPVWRNrFg6R1UqpbX43/CDJtyK6C++I5+dvhHp
+ OTf8RcekJZJMc5KAldu2PW3LxlnSg8Lq8D92O3KtasjJDAkADnTTHiyAGSjhV3q6+HiiK9x1l1R
+ 5/bz+b16mY/ApwB/Sp/Zg+3M8M6ARXFJI93gXkRYv/LLyuKjdqwyp4LUR/n2wkkoiiojHXxlsen
+ X3zr1bOe/0uXcenX497QnCjSrM1ASZERmfJn9Gq3I6xXvnidqeZKSOMNkkexpPGdYhCRCIPII8E
+ XqJE1aQb3DhzAfeovLA==
+X-Proofpoint-GUID: epx9SyR-uw2nE-6KQtd7w6TGRwEb057J
+X-Authority-Analysis: v=2.4 cv=SomgLvO0 c=1 sm=1 tr=0 ts=6a906d7e cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=WTDSa4fX56zQulHxy5BIwg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=XeEooGCi7Zy1lAdgIjAA:9 a=QEXdDO2ut3YA:10
+ a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-27_07,2026-08-27_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 clxscore=1015 phishscore=0 spamscore=0 priorityscore=1501
+ suspectscore=0 bulkscore=0 impostorscore=0 lowpriorityscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608270144
 
---FcJi8mongErY1AVh
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Aug 26, 2026 at 09:47:48PM +0300, Flaviu Nistor wrote:
-> Limit temperature-offset-millicelsius to remote channels only, since
-> channel 0 is local and this property does not apply to it.
-> Channel 2 is only valid on devices with two remote sensors, so reject
-> channel 2 for compatibles that do not support a second remote channel.
->=20
-> Signed-off-by: Flaviu Nistor <flaviu.nistor@gmail.com>
-> ---
-> Changes in v2:
-> - Use else statement in if/then block as suggested by Conor Dooley.=20
-> - Link to v1: https://lore.kernel.org/all/20260824183900.8983-2-flaviu.ni=
-stor@gmail.com/
->=20
->  .../bindings/hwmon/national,lm90.yaml         | 28 +++++++++++++++++--
->  1 file changed, 25 insertions(+), 3 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/hwmon/national,lm90.yaml b=
-/Documentation/devicetree/bindings/hwmon/national,lm90.yaml
-> index 164068ba069d..a8b2a24501b3 100644
-> --- a/Documentation/devicetree/bindings/hwmon/national,lm90.yaml
-> +++ b/Documentation/devicetree/bindings/hwmon/national,lm90.yaml
-> @@ -113,6 +113,23 @@ allOf:
->        properties:
->          ti,extended-range-enable: false
-> =20
-> +  - if:
-> +      not:
-> +        properties:
-> +          compatible:
-> +            contains:
-> +              enum:
-> +                - adi,adt7481
-> +                - dallas,max6695
-> +                - dallas,max6696
-> +    then:
+On 8/27/2026 5:50 PM, Krzysztof Kozlowski wrote:
+> On Fri, Aug 21, 2026 at 09:38:59PM +0530, Hardeep Sharma wrote:
+>> +properties:
+>> +  compatible:
+>> +    enum:
+>> +      - qcom,kuno-aggre-noc
+>> +      - qcom,kuno-clk-virt
+>> +      - qcom,kuno-cnoc-main
+>> +      - qcom,kuno-dc-noc
+>> +      - qcom,kuno-mc-virt
+>> +      - qcom,kuno-mem-noc
+>> +      - qcom,kuno-pcie-anoc
+>> +      - qcom,kuno-system-noc
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  clocks:
+> Missing minItems. I asked to open other bindings to see how this is
+> done. So for example you took qcom,maili-rpmh.yaml. What do you see
+> there but you do not see here?
+>
+> Best regards,
+> Krzysztof
+Apologies!!
 
-> +      patternProperties:
-> +        "^channel@[0-1]$":
-> +          properties:
-> +            reg:
-> +              enum: [0, 1]
+You're right, minItems was missing. Fixed in v4 by adding it to the 
+clocks property.
 
-Is this needed? If channel@2 is false, then you won't be able to get to
-this point to begin with, right?
+v4 : 
+https://lore.kernel.org/all/20260827-kuno-soc-support-v4-0-dd34f235fc1a@oss.qualcomm.com/ 
 
-Conor.
 
-> +        "channel@2": false
-> +
->    - if:
->        properties:
->          compatible:
-> @@ -134,6 +151,11 @@ allOf:
->          "^channel@([0-2])$":
->            properties:
->              temperature-offset-millicelsius: false
-> +    else:
-> +      patternProperties:
-> +        "channel@0":
-> +          properties:
-> +            temperature-offset-millicelsius: false
-> =20
->    - if:
->        properties:
-> @@ -149,7 +171,7 @@ allOf:
->                - onnn,nct1008
->      then:
->        patternProperties:
-> -        "^channel@([0-2])$":
-> +        "^channel@([1-2])$":
->            properties:
->              temperature-offset-millicelsius:
->                maximum: 127750
-> @@ -172,7 +194,7 @@ allOf:
->                - winbond,w83l771
->      then:
->        patternProperties:
-> -        "^channel@([0-2])$":
-> +        "^channel@([1-2])$":
->            properties:
->              temperature-offset-millicelsius:
->                maximum: 127875
-> @@ -186,7 +208,7 @@ allOf:
->                - ti,tmp461
->      then:
->        patternProperties:
-> -        "^channel@([0-2])$":
-> +        "^channel@([1-2])$":
->            properties:
->              temperature-offset-millicelsius:
->                maximum: 127937
-> --=20
-> 2.34.1
->=20
+Best Wishes
+Hardeep Sharma
 
---FcJi8mongErY1AVh
-Content-Type: application/pgp-signature; name=signature.asc
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapBtaAAKCRB4tDGHoIJi
-0on2AQCfdtHpo59/qQNwC0Z9FJI7YX0IrI2xHnVnyJoEDRRDagD/elBK22Uzi5ST
-cpY5dNU3Go8pF6ewbeb/Rjo/VMB2SgU=
-=COuj
------END PGP SIGNATURE-----
-
---FcJi8mongErY1AVh--
