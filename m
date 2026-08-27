@@ -1,121 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 150D03A383C
-	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 08:02:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BCD53B9617;
+	Thu, 27 Aug 2026 08:04:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787817765; cv=none; b=qRhmiKvSvQ8sX9slkU0CIsF1DlKtOP+0+JKSj1P6FOFmoGsPJtmxLwO67+GzTrHDmDOleMd17D8fVl0qjqencfQwVE8VCEntoqdEHGLrnMPiO7vpMSsOd0Z39vEZyhFWiB5cV6N++hiUpK77sQOkHe7YqgCrxFSPHzyQtmft/yU=
+	t=1787817867; cv=none; b=t1lh55Hq/R2xGyf8t75GEVsR7pMz/9XlCtTn5sCdoBrzBVb75bGiTLGq7K7CYoXtVMpnv1223ZG7qmEWP4HeZw+5vJetrTann4Wu1ixd8bjz6U5T/at7ulr1ntSF7oh3ZmPX6pP12xEF/1FuJIbLw9r6ttylGH2AGPk85BBzxAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787817765; c=relaxed/simple;
-	bh=n7mC8yrofsnqYCErYbnAAfalnfrcrl65lPNLQx0dhqk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SaX2Vf6D6H2GT7hTLCINsoGt1EUci+UW4RgDI/+fKCXLQQ4ZEd1jHYnWxuPY30mSYANXsFz9doDDld9CoAeheg1qxR1DXRjfBieexjhGgRNP2ORNBZGKnlxhNQptX1ZUPyOZGnJv4uwA113fxj+vvezc/jODMiekQsCxhqwsB9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mqxsee+D; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mqxsee+D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B1F01F000E9;
-	Thu, 27 Aug 2026 08:02:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787817763;
-	bh=gQf67oxu9Db5Xs6mBPXjNtrU8uM9WV61r/QyUVqpSlM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mqxsee+Dn/CLPeQc0otwXrAPVMBuc/QEzJHvRxw0BXAJ7LPEo0CPAB05miEGYWwpf
-	 EhYTucvM/ljN9cqy9qrYBoFuiGRAMrmlEIG2LSqS+AJEdxxZhAQJ+CUiW2IP5RjZIA
-	 mAZ4SZp+QW/CO7R/JdsTy1bBH9DtbuMxyQ3OJ6RvAf6NzhO1EALzyE9J41MA41xCsn
-	 opVXUuDMYUuUX8a43Nb+yMGexO8G2IDq+tOvOlxs28gLak/Jnt0DI9+ZqG4WqAwEVr
-	 DPyvvLVVqA/JmYDjJeFBKCBFQFoy5NqL07NRaHTUezUTLqDh/8ZhWbmQen69E6pgzK
-	 Db+/CnxD83R4Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 6/7] dt-bindings: beagle: Add BeagleConnect Freedom
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ayush Singh" <ayush@beagleboard.org>
-Cc: ojeda@kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260827-gb-uart-transport-v2-6-a03bb1f5fbd1@beagleboard.org>
-References: <20260827-gb-uart-transport-v2-0-a03bb1f5fbd1@beagleboard.org>
- <20260827-gb-uart-transport-v2-6-a03bb1f5fbd1@beagleboard.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 27 Aug 2026 08:02:42 +0000
-Message-Id: <20260827080243.5B1F01F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1787817867; c=relaxed/simple;
+	bh=SNyRT5rxQCCe6lGK+DFiDOerNMLATPQpc/CAw0TIWBU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=vDpq37WTosnJxhR355OGyDpob1E+d+0+kOJWoBH6coydrT3TxRoU5ezxys2OW2ctlZMjnSdDN08aHo4sRWnhz8wV4Q8aEaBzcc11mJz7Wt1k+ybscBX6bdaqEfwO8vFeOlYJSzYSKaUljjXbvq7wl+KO7/utxwpG7Zv7kww8kb0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 13989202200;
+	Thu, 27 Aug 2026 10:04:12 +0200 (CEST)
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=ratatoskr.pengutronix.de)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <s.trumtrar@pengutronix.de>)
+	id 1wzV5n-003ZJW-32;
+	Thu, 27 Aug 2026 10:04:12 +0200
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+To: Conor Dooley <conor@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,  "David S. Miller"
+ <davem@davemloft.net>,  Eric Dumazet <edumazet@google.com>,  Jakub
+ Kicinski <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>,  Rob Herring
+ <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor
+ Dooley <conor+dt@kernel.org>,  Andrew Davis <afd@ti.com>,  Andrew Lunn
+ <andrew@lunn.ch>,  Heiner Kallweit <hkallweit1@gmail.com>,  Russell King
+ <linux@armlinux.org.uk>,  netdev@vger.kernel.org,
+  devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] dt-bindings: dp83867: add binding for
+ output-impedance
+In-Reply-To: <20260826-salutary-skype-524c69932dc2@spud> (Conor Dooley's
+	message of "Wed, 26 Aug 2026 17:01:26 +0100")
+References: <20260826-v7-2-topic-dp83867-v2-0-a97b4cec6e93@pengutronix.de>
+	<20260826-v7-2-topic-dp83867-v2-2-a97b4cec6e93@pengutronix.de>
+	<20260826-salutary-skype-524c69932dc2@spud>
+User-Agent: mu4e 1.14.3; emacs 30.2
+Date: Thu, 27 Aug 2026 10:04:07 +0200
+Message-ID: <87ik4wgfbc.fsf@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha512; protocol="application/pgp-signature"
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The binding incorrectly enforces SPI constraints globally and re=
-jects standard properties for non-SPI buses.
-- [Medium] Typographical error in the maintainer email domain causes misdir=
-ection of patches.
---
+--=-=-=
+Content-Type: text/plain; format=flowed
 
-commit c9a38c235f36e95264430893cbbb7407d8fc8ad8
-Author: Ayush Singh <ayush@beagleboard.org>
+On 2026-08-26 at 17:01 +01, Conor Dooley <conor@kernel.org> wrote:
 
-dt-bindings: beagle: Add BeagleConnect Freedom
+> On Wed, Aug 26, 2026 at 02:48:40PM +0200, Steffen Trumtrar wrote:
+> > Currently, the output-impedance can only be set to default, minimum or
+> > maximum or via a nvmem cell.
+> > In cases where there is no backend for a nvmem cell, a value can not be
+> > set.
+> > 
+> > Add a DT binding, 'ti,output-impedance-ohms', for specifying the
+> > output-impedance via a fixed value. The existing boolean values for
+> > minimum and maximum still take precedence over the new value.
+> > 
+> > Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+> > ---
+> >  Documentation/devicetree/bindings/net/ti,dp83867.yaml | 16 ++++++++++++++++
+> >  1 file changed, 16 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/net/ti,dp83867.yaml b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+> > index 7a6fe516bab27..49fafe3ce6f47 100644
+> > --- a/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+> > +++ b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+> > @@ -38,6 +38,16 @@ properties:
+> >      items:
+> >        - const: io_impedance_ctrl
+> >  
+> > +  ti,output-impedance-ohms:
+> > +    description: |
+> > +      MAC Interface Impedance control to set the programmable output impedance.
+> > +      Valid range is 0x00 to 0x1f (32 steps).
+> > +      - 0x1f = 35 ohms (minimum impedance)
+> > +      - 0x00 = 70 ohms (maximum impedance)
+> > +      - Step size varies with process.
+> > +    minimum: 0
+> > +    maximum: 31
+> 
+> Your property is named in ohms, but not implemented in ohms.
 
-This commit adds devicetree bindings for the BeagleBoard.org BeagleConnect
-Freedom board based on the TI CC1352P7. The board exposes an MCU that can
-be attached to a host over USB, UART, SPI, or I2C. It also adds a new
-MAINTAINERS entry for the Greybus UART node drivers.
+So without the -ohms?
 
-> diff --git a/Documentation/devicetree/bindings/beagle/beagle,beagleconnec=
-t-freedom.yaml b/Documentation/devicetree/bindings/beagle/beagle,beagleconn=
-ect-freedom.yaml
-> new file mode 100644
-> index 0000000000000..be051a39acdc6
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/beagle/beagle,beagleconnect-freed=
-om.yaml
-[ ... ]
-> +required:
-> +  - compatible
-> +
-> +allOf:
-> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
+> pw-bot: changes-requested
+> 
+> Can't you just achieve the same result using the existing max property?
 
-[Severity: Medium]
-The commit message mentions this MCU can be attached to a host over USB,
-UART, SPI, or I2C. Does this unconditional reference to the SPI peripheral
-properties combined with unevaluatedProperties: false prevent standard bus
-properties from passing dt_binding_check?
+The max property is a boolean which just says "use 70ohms".
 
-For example, if the device is configured on a UART bus with a standard
-property like current-speed =3D <115200>;, the toolchain will reject it bec=
-ause
-it is not in the local schema or the referenced SPI schema. Additionally,
-does this inadvertently enforce SPI constraints, such as limiting reg values
-to a maximum of 256, on I2C addresses?
+> I don't get the use case where you specify a max, but then don't want to
+> use that max. Just set the max to what you actually want?
 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 61f3fd5c509ca..a9888ace2f916 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-[ ... ]
-> @@ -11271,6 +11271,12 @@ L:	greybus-dev@lists.linaro.org (moderated for n=
-on-subscribers)
->  S:	Maintained
->  F:	drivers/greybus/gb_softsvc.rs
-> =20
-> +GREYBUS UART NODE DRIVERS
-> +M:	Ayush Singh <ayush@beagleboard.com>
+That's why I added the exclusion in the binding, because having nvmem-cells and/or any of the other output-impedance bindings doesn't make any sense.
 
-[Severity: Medium]
-This isn't a runtime bug, but is the email address domain in the MAINTAINERS
-entry correct?
+Best regards,
+Steffen
 
-The patch authorship and the dt-binding maintainer field both use
-@beagleboard.org, but this entry uses @beagleboard.com. Will this cause
-scripts/get_maintainer.pl to return an incorrect email address and misdirect
-future patches?
+-- 
+Pengutronix e.K.                | Dipl.-Inform. Steffen Trumtrar |
+Steuerwalder Str. 21            | https://www.pengutronix.de/    |
+31137 Hildesheim, Germany       | Phone: +49-5121-206917-0       |
+Amtsgericht Hildesheim, HRA 2686| Fax:   +49-5121-206917-5555    |
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260827-gb-uart-tr=
-ansport-v2-0-a03bb1f5fbd1@beagleboard.org?part=3D6
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJAEARYKADgWIQQkoXgOFUjwSVmWFAoavSByCl5WIgUCao/vdxoccy50cnVtdHJh
+ckBwZW5ndXRyb25peC5kZQAKCRAavSByCl5WItC/AQD1VMwEkHhE52B58HmnCX+b
+wCkD46VgGZCu2CgbHn2j2wEA8NSy176kK7DWYdHnOtnWGgxAiFb0WzEbthvpscfI
+/Ak=
+=VG6h
+-----END PGP SIGNATURE-----
+--=-=-=--
