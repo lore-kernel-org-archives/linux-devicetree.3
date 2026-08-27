@@ -1,240 +1,411 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013031.outbound.protection.outlook.com [52.101.72.31])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 478B73FC5BE
-	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 08:59:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787821157; cv=none; b=UsgoKQjL0UwOTPBv1VJ9kYcs99XqdukurjHaafNOMGVDKqVlaZA76yNy4X9ZuDjTbR8B6Bm3e+MwdRY9W7D21uDFrLCeVGle8O9r1LF8BxUwvSlQVswmslpPMfNHU+wpwGfw3SFbURBmrmVT927IhpOJOv3QWHJCm+atqaDmSf8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787821157; c=relaxed/simple;
-	bh=zzhlf4+jUfBlJNrGaKzSC1O9BLhDPiELfCIr+nFD0lk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=MQUGfxahloXapV0izfMSVpXaTbFZfVoMjdQqaJ3zuzNWYegCs74jLFb/l0uCJxcXQxtM6IifLo14GMZpJytehdKVI7GnQ8kRNQEYu37nIWDhOZvvwOm8WiHuXNakDkTugQUQKwDUnEIxEj0Hr3Oo38sNaCaVntHPj2uY2BY18mY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sF0RIPC4; arc=none smtp.client-ip=209.85.216.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F91D3E314F;
+	Thu, 27 Aug 2026 09:10:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.31
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787821843; cv=fail; b=Gmt474EAiTJVeEFzpKa82m0PEsvfzZI3dbAG3QY6qDWh00cysiuABksVKT/OxJaCwBtVm5uIimfLyvV5AY53l+BozVc+I4FKStvojr9ZFEOzJXZlXdEbWyC5SEhtjdBkMASi7P3Rna8KqQcNgYnPy2UzDJz+5WiegceCJlO/DOY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787821843; c=relaxed/simple;
+	bh=NyrUNpUUQ021TRHC6vBQvX2pM1eWu+XQSNktW9zf0NM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=slSGNyoiEopcVhnS9nn56x3UPXo2ELIqwQOp9vtb7Igda8py3V1OV+J3NF+Ypy+1KIfeRKUAcmlBP4qcPPAZejXPEvQOwV8Yt55/EHuURjhALMo1T359QZBGhYeynSL695Thn9euyqyCNOtLLsjNSD/ok5Wir5gIyxWOL4eG104=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=EUWMCS0t; arc=fail smtp.client-ip=52.101.72.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sF0RIPC4"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso2469570a91.3
-        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 01:59:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787821155; x=1788425955; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=6FJk5sSpUYCZaCWQu6q12Fb7frJaBEAwqRpT4oETPJs=;
-        b=sF0RIPC4mcPn2qj8IL2weVY04NHW54bQB7t/H5RbrRmGejHTzf+cv37O3YbwnqeRNL
-         eyRSumL5fd/bo3Kz8O3IfoZFR5nrEn2rQROhFUIA5NtL1ogvgKBLDxkgGnfN1b4IWFQ7
-         wwXMsT5MiQPPMgcBkGsu/6PBRXGq4pRLm/ah8JfN+LHFYLfoHjwsgBE1I6j9Nhpi/CLd
-         8s2pAQq1sncm4XcjItR9XmTxC66kV00ZQWSq7MT/NfmsbHru041dnJwwXsatM9/Sh77y
-         NJJH73J1vns+76B0THcpvQEz7arU03FcFPDnzye5XlsaUMn1b1se9Is7GM0zhLcShoAY
-         wjuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787821155; x=1788425955;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=6FJk5sSpUYCZaCWQu6q12Fb7frJaBEAwqRpT4oETPJs=;
-        b=gNMXoRh6rHCet7JmPVs0vgauJPH7s6QP7bUr7PnO5l+IyGywBZF38HvLpQi7mvlhn/
-         VI8XZU8h05/4mjyKKCPViMsljl8jt0LFVOJiyX2lawC4/OvcG3nsGpQPdMbcipzCt52e
-         sV6XgZv7TUeTGo7clDmDWvYcAIbSuh9Gl+/TaGlE0yG8e9Wl6ufzqoTBuER94QRPN6fB
-         TBkbpT27eFSqeZcBwtbVsQToidDuLrSgJuREaYH+Mb87BacYQ/0JpoRHLel5E0pVCsh8
-         eazXd8gT/oa1/ArQcJ6PfU9YQ3BYrH5Xl5UVL51/55pkv+Sjid7uAEVeXIQHRk2EWZkf
-         o9oQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrxvbTKiTYjMBbKQLN4uHU4f1zxkUVWwWzMApOSHbo4rYsPZ3CBY0MIjjjc9s9Tr5qrh5X6xPo/13eG@vger.kernel.org
-X-Gm-Message-State: AFuF++l+xszY8TnLkuc2I/qzelqMNmlvMOt6q2ezbJws0x3Du/rco4Dj
-	6Sy3uGqDR0nhC4NJs+zIiSm3etFsCZdBu6/MhwbIguJA1Bg+OdzLdu8i
-X-Gm-Gg: AR+sD10clF0bx0wmKJ7oEE/RO1YpUEs9qQ1WDe1cgLBUbx2BwqCHMkGSsTInk2jZg6b
-	iwVr3rXxYgHu3PoLEtwKJdZt+aW95MaJRNy8ASIjyqV6oMnxMAaypySATnJgdwJdSQOlQE7WXmG
-	1d9LkvCxjcdtuxHH93uwr8QdCm9/yIZ7iozi+rRHM+BwFybjQRBfFK2RYdkuKRD80bw/YmZmF3D
-	qb7Q0Xqz9gfxO6sYdJ58jd76xXHWyEwPDlvE9d5C1/ntqZmkvEXWPnsHkQYutD6dJx5flZYPago
-	bs14441jvjqywC49V0UOAqTqrxzntLjG6P6ecpfOurYe8iAd36dcjQDmk62dEIEYp7XMcUqiVFO
-	Ej85o4Dfql6EX3a2+9yhYHHmQy6pjt6cyxgDbNx9zp+OmLc1asfWbyYj7YkpQsj0giNHI5XeJp5
-	MjVKXacypltp9ByO/O7GpGqITkzjDFi/roQGe+51+mgmgeWkwJgSzk+Sx772PTXwIUKbF/
-X-Received: by 2002:a17:90a:d44c:b0:396:5f7f:52f5 with SMTP id 98e67ed59e1d1-3966d366aa3mr28117709a91.3.1787821155094;
-        Thu, 27 Aug 2026 01:59:15 -0700 (PDT)
-Received: from [127.0.1.1] ([103.218.174.23])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a905c18bsm15803800c88.14.2026.08.27.01.59.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 01:59:14 -0700 (PDT)
-From: Abhishek Thomas Varghese <tessolveupstream@gmail.com>
-Date: Thu, 27 Aug 2026 14:28:55 +0530
-Subject: [PATCH] arm64: dts: qcom: talos: Add RPi Touch Display 2 5-inch
- overlay
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="EUWMCS0t"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Shvjz7euLSShyGlE7Q9HZ6NyuCPhfSPMzWW/rNUkdw/6xmtWq2DC3TmWAXsl2Gcn2jv34R2wWJnjiSNkbPOsYiDivlGk/8hjDSlN1UpTeonQuAu+jQrk3lmqjNI+jyarGWpzj4G1QwNrrK7HhXuRLJ6xGRGSm86aNG9ndKaNTPct5Rk/7h3mEu47DqD10LLoXaen+DoRRgJYbERP6M1MtsYAXx0CcCdROLYAroKkdGAbGJEKyVkoWBMw4isTzZwdgL1o/FOYs10vX5qKghp36uLNS2LO2TQU9CkLtq7zmmm2INqCL2iPEamLn0XPM6kiM0OWee2yLL9uaUJEqO5g3w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=h0Lri72eQ11l1JvNFay/wXwoOq/3rEJlmOnzdjKRQMk=;
+ b=gXS0wE+E9uEu4EFvel4aiDiumHsEQlHXVhbbUlIskS2B7ENW4lJNC3gKf9JOG1+LRQsTmZ4lie/hIAAqzgWPXezs+IdNTWVfv+adqO0dI09IJ8k/pEyQ6qPIe4qzP2NGp39YFc2a7+ytJLr3yxh9ameDnjN2Jgc+rlnmhMKDR6Bexe4ntsRaNk0Yi0NJioQ1DCLWuE2VplsEUoe3BbnVfdvUcl2dk8FpCh3t62emoKOUm2TqrB7TesYGM/AEARcxObJ5MrDS7UTfxK153VlvMOdgVkswX1B9SBoUlhWBMUQwmsC6i+WPyGaT220lehNjgsoUbNFlk72KxpK0MiNVfg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=h0Lri72eQ11l1JvNFay/wXwoOq/3rEJlmOnzdjKRQMk=;
+ b=EUWMCS0tLp82RRwq8o+XmM7sJbI4c9P6LItlVwr0o17D63LCEJ6eYUpmnTkWto/cy00p4mflrn2rgZNe6m9TsltCDlwszYVLJdBgEhryWVRqbHcio7n5Hb0P+X+MqkoyKf/SsBI7s7r571NqLMsfAl/f+23JZ3HskmXWJfHJguC1hbzBWc3XvECW9wiCt5oO90s6RqwCmYHizG8y6vOdzlYz8wdkkVJlzcQUgO4RAXso2UelIx8VIDTJ/Nfm1n1bEBxcTuuYBKNXrSUDRmajjaZXjstqIsTHwRIh/A1YJ6xUJFoiQw4Ro4I39OEQw4g3kC6RId17sG2gzXhVVHur5Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from PA6PR04MB11909.eurprd04.prod.outlook.com
+ (2603:10a6:102:51c::22) by AS8PR04MB8946.eurprd04.prod.outlook.com
+ (2603:10a6:20b:42d::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 09:10:37 +0000
+Received: from PA6PR04MB11909.eurprd04.prod.outlook.com
+ ([fe80::a4b:fa4e:7fe7:e6a2]) by PA6PR04MB11909.eurprd04.prod.outlook.com
+ ([fe80::a4b:fa4e:7fe7:e6a2%7]) with mapi id 15.21.0360.006; Thu, 27 Aug 2026
+ 09:10:37 +0000
+Date: Thu, 27 Aug 2026 17:14:40 +0800
+From: Bough Chen <haibo.chen@oss.nxp.com>
+To: Larisa Grigore <larisa.grigore@oss.nxp.com>
+Cc: NXP S32 Linux Team <s32@nxp.com>, Alim Akhtar <alim.akhtar@samsung.com>,
+	Avri Altman <avri.altman@sandisk.com>,
+	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+	Ajay Neeli <ajay.neeli@amd.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Pedro Sousa <pedrom.sousa@synopsys.com>, clizzi@redhat.com,
+	aruizrui@redhat.com, eballetb@redhat.com, echanude@redhat.com,
+	linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH 03/10] ufs: host: Add common Hibern8 TX FSM polling helper
+Message-ID: <20260827091440.6iqfhvyihrxqv4bp@shlinux89>
+References: <20260826134048.854748-1-larisa.grigore@oss.nxp.com>
+ <20260826134048.854748-4-larisa.grigore@oss.nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826134048.854748-4-larisa.grigore@oss.nxp.com>
+X-ClientProxiedBy: SI2P153CA0034.APCP153.PROD.OUTLOOK.COM
+ (2603:1096:4:190::17) To PA6PR04MB11909.eurprd04.prod.outlook.com
+ (2603:10a6:102:51c::22)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260827-talos-rpi-touch-display-v1-1-911705fe6d6d@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAE78j2oC/x3MQQqEMAxA0atI1hOIgZEyVxlclDbVgNjSqIyId
- 5/i8i3+v8Ckqhh8uguqHGqa14b+1UGY/ToJamwGJh7I8YCbX7JhLYpb3sOMUa0s/sTEyYW3Iya
- K0OpSJenvOX/H+/4DqSw21WkAAAA=
-X-Change-ID: 20260826-talos-rpi-touch-display-f2f8c580200d
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Abhishek Thomas Varghese <tessolveupstream@gmail.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787821151; l=4503;
- i=tessolveupstream@gmail.com; s=20260826; h=from:subject:message-id;
- bh=zzhlf4+jUfBlJNrGaKzSC1O9BLhDPiELfCIr+nFD0lk=;
- b=zZrsrfeGCvIijlJeCCkhXO9zu84SitzdNAruwO36FyuxgItAEkZM1VWQUiP6P6v10ujzVP8y9
- Vu6aBxfq5sXCS1ywkh68ryTzt4n5AYQyfHYkwLWSM0it6TmHXJd0hOi
-X-Developer-Key: i=tessolveupstream@gmail.com; a=ed25519;
- pk=0KMY9Olg1jw9bWLd5hZXnm7zZLgGk5yq+WqoY7YLkzY=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA6PR04MB11909:EE_|AS8PR04MB8946:EE_
+X-MS-Office365-Filtering-Correlation-Id: d82ca5a2-2fb9-418e-463e-08df041b0e84
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|7416014|376014|19092799006|1800799024|366016|23010399003|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+ 567j+4P490lPYQI//4uiHQYzAnm5nfJx/SXHHtVZYXytFIuquNZPcz11w3yIeocOLdG1z2GeyfdVPvsgDp5TBW02k7OIfR1XqO0gCcw8ykaA+PbghaghzXDIUFojUa0iQgz+pa+XYTIcUXIFdojzeuNxhKiFhQJ++OPg+gs2INePY2fBujGq+EzYMluHiYHl6anTGKCr4BkT5NPujlfz/X2jr7wMLrW/XfJW+8jr21M8W6AvsYrGAwT0mfJL2bzh3c1hedmGhjO3qzLQqx2Rbdc9bgP65ycmGKmJH3NzIv0y1ozxivyHxzqKa6020wg2oXwbLxUA/8bxONHEWb4NG4G7fMu3y/OaQ4katHuqf5dmjvmCx5cNlSReG+s/LBoJUKnD54vc4sa+NoxE+SMPq1IgWKNKsuj5YdhJDjddBbV/k/r8DszclIuXWKaeQhWzVGP1Ne9pRQCPEHnfEaOjLShSjIxAKsLn0uDqE22kvSOXVmZbUP/fiS6XHDczHbGjua49wjrxuMyNgPzEFtTdOdPqOg3EV0zCFdNWd2+r4KUPf172fN5ZpmwyKWlpHOrKs56swgoIMWEdRMbM6aopR/RFliCAR3WuQ8DsvVMRbjUCXM3n8G4fSbvfBeSraGJor3fVBy+rfsz4YovPfnRHotR03AJmIZRkDPk9wrRUST8=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA6PR04MB11909.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(19092799006)(1800799024)(366016)(23010399003)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?Aw0jWXqw4MbHNBCGG1QkMCQkSGyl4/vq5OsOrwZWYXzI5QUy8qGDUY6M/JI2?=
+ =?us-ascii?Q?lgsSKSP0/Hmid6nbc/oOirraEbEiX4mYJrfmJmkr9Av/uBGyPUPxJ4IcF8gw?=
+ =?us-ascii?Q?Yhemt2IwC4BzxFMlCYwkkuuqV9rBVut0+wHql9Ay7qEUfhUKHrOqZ7fJxFvU?=
+ =?us-ascii?Q?/ueAJmzybu24rVOR7M+wnrzNfWA7DGbm3JGU4hU9giu4ePvQZ5M9LFL0fut2?=
+ =?us-ascii?Q?EK9VnzQ6uh0OIo/gDOyjyngCL+mf1sjss2ygrWpE0MrAZdjCBO1wpK3JQ/O8?=
+ =?us-ascii?Q?chDceWcG/bwoLv63buq758gOwXpsRKP4ylsGcp6K93bJxAPP+XnOJQUKakTd?=
+ =?us-ascii?Q?pFN6SdHvGr9y19HXFXonT9N9EdVKXCwaj7LMVmrGE5zGxckB0Lv7jiTmPcZ4?=
+ =?us-ascii?Q?5cVX8TT3ZdMqICvKMiBluzkd6ARdrigkoA7YanryGAkuVn1wdV7P5GoXc+cP?=
+ =?us-ascii?Q?gYXBDPGOesWuem6h4d10rrat09ZM8dzwPvp1OjyqLEIcALrUA8w3BlKVaEAx?=
+ =?us-ascii?Q?aVRxRQI4kJoQKM82A8WXDQQ+R9jvx7bBM7YGh5ncaM/novRVHikVue5lzADU?=
+ =?us-ascii?Q?pVuS/L5qjRKIxW0QXKXRH0dXEiclyXDoF9d89Z3zm4/BL5cgM4uXcKZXf2DE?=
+ =?us-ascii?Q?ZpNPzx3S+pgnM2zPjZK5tngcOjpumCwYX4qfJibL97vaWXWvnq/1JN6JdKeP?=
+ =?us-ascii?Q?CQGOSxJQouTicLQY9rjVH2kD3b1Uv/4Ngc5dSPYTyIqCc2who2xkPkzdMKZH?=
+ =?us-ascii?Q?1VE8SWIdhTj6boGY6D1ilK8ZreDx7kKoFiDor0qHgzqi1Q5jfuS24TNvRzJn?=
+ =?us-ascii?Q?nuZrGkdBrZqmXaigMbIutWqIysLZYi2EonP9IqAzV9MxK7xMnzE3/qUA27aY?=
+ =?us-ascii?Q?AStTt9LJzKl8/GxgwxoKMaT1ZraDHHYAlRYDVsKLnFjiZLU3c2lxPF2nbxoR?=
+ =?us-ascii?Q?DONtfNG6Cig9GziLTet/OW5e/fv8qPGzoUc4Xg5+TeDIKbmEcpsC02UvyTBo?=
+ =?us-ascii?Q?JAzhhH3wSR/J5fTesUZcYc6Ogi7c+FgrDsgvB/Wp7CMn0ADyuNj5/4iTYM6x?=
+ =?us-ascii?Q?uCzQtJtCeJcSEqxLwXFqio8pEqWn2h5dQc7uF9vvZ7YroK4jB7oM/lCRJfYZ?=
+ =?us-ascii?Q?DMNqlkj1wm6Z+6WK6a2W1topDWEN0/OEho7KMEeriZZGVDWqYGNCVJgEwOxb?=
+ =?us-ascii?Q?LfQiJcdlLXJb5PTyx7wdJkgwqAdWo1ng6HWKS58mLfdx3/l41rIa4PckEYvo?=
+ =?us-ascii?Q?hhciDawHJcOq5q+GbptytkAcsToB4KbyyWD6mNl30OzjrH0VeNv9kQ+P1gX6?=
+ =?us-ascii?Q?NoJI2K05ZQjcdfuQNPXNs/NNuzMFUgA2nx70YcMqu5gUh/tULVsg2eMob7is?=
+ =?us-ascii?Q?iPJSBWA9bP8V4ibNaXJcYyfno0KTpOoV6/Fj0ypGwNVQ6R/DONrBORGPAOJF?=
+ =?us-ascii?Q?0Ijst8VCTh8D2286gxbvnk5gliKAdE2hCD3oBO4E2pw1AkJXDCYxZgfzDZ4C?=
+ =?us-ascii?Q?O7kq+7BXzTa7U+fSUQ7Paq71oeY2JuDbixJUoM+qhYNEY4QixYZbROQNyRlb?=
+ =?us-ascii?Q?YBI93X+6IwFmoVR48jVRIhFuHOHqG8r3zR745Vp3d5AU/iAlSn1XpEw5uFVP?=
+ =?us-ascii?Q?xRSQ9z19iZX8U6yO9TfzYY15V/uR+v+ljXMgmjayDd6/4JKu0EhOYUP54xoi?=
+ =?us-ascii?Q?i/HjjyMuKhsl3XiNUnUDp83k28MIFasZa71oNdeTAkwdXZWt3HlRoQ4TEVdO?=
+ =?us-ascii?Q?ARzmUs/fe8FhK3cpve6GgCo+zWEpCTII6FQ9o2xzn7MK1uOR5nFp?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d82ca5a2-2fb9-418e-463e-08df041b0e84
+X-MS-Exchange-CrossTenant-AuthSource: PA6PR04MB11909.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 09:10:37.1643
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Q1ndvWdzOZTaScis1iYSyjU+UkDUoB0x3X4nkTBQty+fPRZVaVl7kp93uuj3xiRLWZT5ZXN/VDOZMvaminpO5hEI1h8/r37cvZkEBLwsLnmf4R4DS60W5mEGLalkY9wC
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8946
 
-Add a DT overlay to connect the Raspberry Pi Touch Display 2 5-inch
-panel to DSI0 on the Qualcomm IQ615/QCS615 EVK.
+On Wed, Aug 26, 2026 at 03:40:41PM +0200, Larisa Grigore wrote:
+> Factor out the common logic used to poll TX_FSM_STATE until the TX lanes
+> enter Hibern8 into ufshcd_check_hibern8().
+> 
+> The HiSilicon and Qualcomm drivers currently implement similar checks
+> using the UniPro TX_FSM_STATE attribute after link/PHY bring-up. Move
+> this logic to a common helper in ufshcd-pltfrm so it can be shared
+> across host controller drivers.
+> 
+> Switch the HiSilicon and Qualcomm drivers to use the new helper and drop
+> their local implementations.
 
-The overlay describes the display controller, panel, touch
-controller, power supplies, and backlight. Disable the ADV7511
-bridge to avoid a conflicting device on DSI virtual channel 0.
+The code change the error return value for qcom and hisi, better to point this
+out like the following, so that QCOM/HISI guys may pay attention on it:
 
-Display output, touch input, backlight control, and concurrent
-DisplayPort operation have been tested.
+"While at it, normalize the "TX lane failed to reach Hibern8" error path to
+return -ETIMEDOUT instead of the raw TX_FSM_STATE value (qcom) or -1 (hisi),
+so all callers get a proper errno. This is an intentional, harmless change of
+the returned error value; the pass/fail behaviour at the call sites is
+unchanged."
 
-Signed-off-by: Abhishek Thomas Varghese <tessolveupstream@gmail.com>
----
-This single-patch series adds support for the Raspberry Pi Touch
-Display 2 5-inch panel on the Qualcomm IQ615/QCS615 Talos EVK.
-
-The overlay describes the ILI9881C-based panel, Goodix GT911
-touchscreen, display controller, power supplies, and backlight.
-It also disables the ADV7511 bridge to avoid a conflicting device
-on DSI virtual channel 0.
-
-The following functionality has been tested:
- - Display output at 720x1280.
- - Touch input.
- - Backlight control.
- - Concurrent DisplayPort operation.
-
-Please consider this series for the Qualcomm Device Tree branch.
----
- arch/arm64/boot/dts/qcom/Makefile                  |  3 +
- .../boot/dts/qcom/talos-evk-rpi-display-2-5in.dtso | 87 ++++++++++++++++++++++
- 2 files changed, 90 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 1c86e7e98f55d539f5292816ce06c9a46bd4904c..7fbf79f65ecb8283e572554838c044d24298d360 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -421,6 +421,9 @@ dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk-camera-imx577.dtb
- talos-evk-lvds-auo,g133han01-dtbs	:= \
- 	talos-evk.dtb talos-evk-lvds-auo,g133han01.dtbo
- dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk-lvds-auo,g133han01.dtb
-+talos-evk-rpi-display-2-5in-dtbs	:= \
-+	talos-evk.dtb talos-evk-rpi-display-2-5in.dtbo
-+dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk-rpi-display-2-5in.dtb
- x1e001de-devkit-el2-dtbs	:= x1e001de-devkit.dtb x1-el2.dtbo
- dtb-$(CONFIG_ARCH_QCOM)	+= x1e001de-devkit.dtb x1e001de-devkit-el2.dtb
- x1e78100-lenovo-thinkpad-t14s-el2-dtbs	:= x1e78100-lenovo-thinkpad-t14s.dtb x1-el2.dtbo
-diff --git a/arch/arm64/boot/dts/qcom/talos-evk-rpi-display-2-5in.dtso b/arch/arm64/boot/dts/qcom/talos-evk-rpi-display-2-5in.dtso
-new file mode 100644
-index 0000000000000000000000000000000000000000..35de7643026e3b5282bd990f7ede6e410603404e
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/talos-evk-rpi-display-2-5in.dtso
-@@ -0,0 +1,87 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+&{/} {
-+	display_bl: backlight {
-+		compatible = "pwm-backlight";
-+		pwms = <&mcu 0 255 0>;
-+	};
-+
-+	reg_display: regulator-display {
-+		compatible = "regulator-fixed";
-+		regulator-name = "rpi-display";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+	};
-+
-+	reg_dsi_touch: regulator-dsi-touch {
-+		compatible = "regulator-fixed";
-+		gpio = <&mcu 1 GPIO_ACTIVE_HIGH>;
-+		regulator-name = "rpi-touch";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		startup-delay-us = <50000>;
-+		enable-active-high;
-+	};
-+};
-+
-+&i2c1 {
-+	clock-frequency = <400000>;
-+	status = "okay";
-+
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	hdmi_bridge: bridge@3d {
-+		reg = <0x3d>;
-+		status = "disabled";
-+	};
-+
-+	mcu: gpio@45 {
-+		compatible = "raspberrypi,touchscreen-panel-regulator-v2";
-+		reg = <0x45>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+		#pwm-cells = <3>;
-+	};
-+
-+	touchscreen@5d {
-+		compatible = "goodix,gt911";
-+		reg = <0x5d>;
-+		AVDD28-supply = <&reg_dsi_touch>;
-+		touchscreen-size-x = <720>;
-+		touchscreen-size-y = <1280>;
-+	};
-+};
-+
-+&mdss_dsi0 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	status = "okay";
-+
-+	panel: panel@0 {
-+		compatible = "raspberrypi,dsi-5inch", "ilitek,ili9881c";
-+		reg = <0>;
-+
-+		backlight = <&display_bl>;
-+		power-supply = <&reg_display>;
-+		reset-gpios = <&mcu 0 GPIO_ACTIVE_LOW>;
-+
-+		port {
-+			panel_in: endpoint {
-+				remote-endpoint = <&mdss_dsi0_out>;
-+			};
-+		};
-+	};
-+};
-+
-+&mdss_dsi0_out {
-+	remote-endpoint = <&panel_in>;
-+	data-lanes = <0 1>;
-+};
-
----
-base-commit: 6a746cd265aed59107ebdaa9ce039bb832922969
-change-id: 20260826-talos-rpi-touch-display-f2f8c580200d
-
-Best regards,
--- 
-Abhishek Thomas Varghese <tessolveupstream@gmail.com>
-
+Regards
+Haibo Chen
+> 
+> This also prepares for reusing the same UniPro-specific Hibern8 check in
+> a subsequent commit.
+> 
+> Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
+> ---
+>  drivers/ufs/host/ufs-hisi.c      | 48 +------------------
+>  drivers/ufs/host/ufs-qcom.c      | 42 +----------------
+>  drivers/ufs/host/ufshcd-pltfrm.c | 79 ++++++++++++++++++++++++++++++++
+>  drivers/ufs/host/ufshcd-pltfrm.h |  2 +
+>  4 files changed, 84 insertions(+), 87 deletions(-)
+> 
+> diff --git a/drivers/ufs/host/ufs-hisi.c b/drivers/ufs/host/ufs-hisi.c
+> index bd223bda1ce2..76d77bc30322 100644
+> --- a/drivers/ufs/host/ufs-hisi.c
+> +++ b/drivers/ufs/host/ufs-hisi.c
+> @@ -22,50 +22,6 @@
+>  #include <ufs/ufshci.h>
+>  #include <ufs/ufs_quirks.h>
+>  
+> -static int ufs_hisi_check_hibern8(struct ufs_hba *hba)
+> -{
+> -	int err = 0;
+> -	u32 tx_fsm_val_0 = 0;
+> -	u32 tx_fsm_val_1 = 0;
+> -	unsigned long timeout = jiffies + msecs_to_jiffies(HBRN8_POLL_TOUT_MS);
+> -
+> -	do {
+> -		err = ufshcd_dme_get(hba, UIC_ARG_MIB_SEL(TX_FSM_STATE, 0),
+> -				      &tx_fsm_val_0);
+> -		err |= ufshcd_dme_get(hba,
+> -		    UIC_ARG_MIB_SEL(TX_FSM_STATE, 1), &tx_fsm_val_1);
+> -		if (err || (tx_fsm_val_0 == TX_STATE_HIBERN8 &&
+> -			tx_fsm_val_1 == TX_STATE_HIBERN8))
+> -			break;
+> -
+> -		/* sleep for max. 200us */
+> -		usleep_range(100, 200);
+> -	} while (time_before(jiffies, timeout));
+> -
+> -	/*
+> -	 * we might have scheduled out for long during polling so
+> -	 * check the state again.
+> -	 */
+> -	if (time_after(jiffies, timeout)) {
+> -		err = ufshcd_dme_get(hba, UIC_ARG_MIB_SEL(TX_FSM_STATE, 0),
+> -				     &tx_fsm_val_0);
+> -		err |= ufshcd_dme_get(hba,
+> -		 UIC_ARG_MIB_SEL(TX_FSM_STATE, 1), &tx_fsm_val_1);
+> -	}
+> -
+> -	if (err) {
+> -		dev_err(hba->dev, "%s: unable to get TX_FSM_STATE, err %d\n",
+> -			__func__, err);
+> -	} else if (tx_fsm_val_0 != TX_STATE_HIBERN8 ||
+> -			 tx_fsm_val_1 != TX_STATE_HIBERN8) {
+> -		err = -1;
+> -		dev_err(hba->dev, "%s: invalid TX_FSM_STATE, lane0 = %d, lane1 = %d\n",
+> -			__func__, tx_fsm_val_0, tx_fsm_val_1);
+> -	}
+> -
+> -	return err;
+> -}
+> -
+>  static void ufs_hisi_clk_init(struct ufs_hba *hba)
+>  {
+>  	struct ufs_hisi_host *host = ufshcd_get_variant(hba);
+> @@ -224,9 +180,9 @@ static int ufs_hisi_link_startup_pre_change(struct ufs_hba *hba)
+>  
+>  	/* Unipro VS_mphy_disable */
+>  	ufshcd_dme_set(hba, UIC_ARG_MIB_SEL(0xD0C1, 0x0), 0x0);
+> -	err = ufs_hisi_check_hibern8(hba);
+> +	err = ufshcd_check_hibern8(hba, 2, HBRN8_POLL_TOUT_MS);
+>  	if (err)
+> -		dev_err(hba->dev, "ufs_hisi_check_hibern8 error\n");
+> +		dev_err(hba->dev, "hibern8 TX FSM check failed\n");
+>  
+>  	if (!(host->caps & UFS_HISI_CAP_PHY10nm))
+>  		ufshcd_writel(hba, UFS_HCLKDIV_NORMAL_VALUE, UFS_REG_HCLKDIV);
+> diff --git a/drivers/ufs/host/ufs-qcom.c b/drivers/ufs/host/ufs-qcom.c
+> index b2081ed6197a..c94488661bcf 100644
+> --- a/drivers/ufs/host/ufs-qcom.c
+> +++ b/drivers/ufs/host/ufs-qcom.c
+> @@ -382,46 +382,6 @@ static int ufs_qcom_init_lane_clks(struct ufs_qcom_host *host)
+>  	return 0;
+>  }
+>  
+> -static int ufs_qcom_check_hibern8(struct ufs_hba *hba)
+> -{
+> -	int err;
+> -	u32 tx_fsm_val;
+> -	unsigned long timeout = jiffies + msecs_to_jiffies(HBRN8_POLL_TOUT_MS);
+> -
+> -	do {
+> -		err = ufshcd_dme_get(hba,
+> -				UIC_ARG_MIB_SEL(TX_FSM_STATE,
+> -					UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)),
+> -				&tx_fsm_val);
+> -		if (err || tx_fsm_val == TX_STATE_HIBERN8)
+> -			break;
+> -
+> -		/* sleep for max. 200us */
+> -		usleep_range(100, 200);
+> -	} while (time_before(jiffies, timeout));
+> -
+> -	/*
+> -	 * we might have scheduled out for long during polling so
+> -	 * check the state again.
+> -	 */
+> -	if (time_after(jiffies, timeout))
+> -		err = ufshcd_dme_get(hba,
+> -				UIC_ARG_MIB_SEL(TX_FSM_STATE,
+> -					UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)),
+> -				&tx_fsm_val);
+> -
+> -	if (err) {
+> -		dev_err(hba->dev, "%s: unable to get TX_FSM_STATE, err %d\n",
+> -				__func__, err);
+> -	} else if (tx_fsm_val != TX_STATE_HIBERN8) {
+> -		err = tx_fsm_val;
+> -		dev_err(hba->dev, "%s: invalid TX_FSM_STATE = %d\n",
+> -				__func__, err);
+> -	}
+> -
+> -	return err;
+> -}
+> -
+>  static void ufs_qcom_select_unipro_mode(struct ufs_qcom_host *host)
+>  {
+>  	ufshcd_rmwl(host->hba, QUNIPRO_SEL, QUNIPRO_SEL, REG_UFS_CFG1);
+> @@ -607,7 +567,7 @@ static int ufs_qcom_hce_enable_notify(struct ufs_hba *hba,
+>  		break;
+>  	case POST_CHANGE:
+>  		/* check if UFS PHY moved from DISABLED to HIBERN8 */
+> -		err = ufs_qcom_check_hibern8(hba);
+> +		err = ufshcd_check_hibern8(hba, 1, HBRN8_POLL_TOUT_MS);
+>  		ufs_qcom_enable_hw_clk_gating(hba);
+>  		ufs_qcom_ice_enable(host);
+>  		ufs_qcom_config_ice_allocator(host);
+> diff --git a/drivers/ufs/host/ufshcd-pltfrm.c b/drivers/ufs/host/ufshcd-pltfrm.c
+> index c2dafb583cf5..034ee988924a 100644
+> --- a/drivers/ufs/host/ufshcd-pltfrm.c
+> +++ b/drivers/ufs/host/ufshcd-pltfrm.c
+> @@ -9,6 +9,7 @@
+>   */
+>  
+>  #include <linux/clk.h>
+> +#include <linux/delay.h>
+>  #include <linux/module.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/pm_opp.h>
+> @@ -563,6 +564,84 @@ void ufshcd_pltfrm_remove(struct platform_device *pdev)
+>  }
+>  EXPORT_SYMBOL_GPL(ufshcd_pltfrm_remove);
+>  
+> +/**
+> + * ufshcd_check_hibern8 - Check if all TX lanes entered Hibern8 state
+> + * @hba: host controller instance
+> + * @num_lanes: number of TX lanes to check
+> + * @timeout_ms: timeout in milliseconds for all lanes
+> + *
+> + * Return: 0 on success, negative errno on failure.
+> + */
+> +int ufshcd_check_hibern8(struct ufs_hba *hba, unsigned int num_lanes,
+> +			 unsigned int timeout_ms)
+> +{
+> +	unsigned long timeout;
+> +	u32 tx_fsm_val = 0;
+> +	unsigned int i;
+> +	bool success;
+> +	int err;
+> +
+> +	if (!num_lanes)
+> +		return -EINVAL;
+> +
+> +	timeout = jiffies + msecs_to_jiffies(timeout_ms);
+> +
+> +	do {
+> +		success = true;
+> +
+> +		for (i = 0; i < num_lanes; i++) {
+> +			err = ufshcd_dme_get(hba,
+> +					UIC_ARG_MIB_SEL(TX_FSM_STATE,
+> +						UIC_ARG_MPHY_TX_GEN_SEL_INDEX(i)),
+> +					&tx_fsm_val);
+> +			if (err) {
+> +				dev_err(hba->dev,
+> +						"%s: unable to get TX_FSM_STATE for lane %u, err %d\n",
+> +						__func__, i, err);
+> +				return err;
+> +			}
+> +
+> +			if (tx_fsm_val != TX_STATE_HIBERN8) {
+> +				success = false;
+> +				break;
+> +			}
+> +		}
+> +
+> +		if (success)
+> +			return 0;
+> +
+> +		/* sleep for max. 200us */
+> +		usleep_range(100, 200);
+> +	} while (time_before(jiffies, timeout));
+> +
+> +	/*
+> +	 * We might have been scheduled out for long during polling, so do
+> +	 * one final check before reporting timeout.
+> +	 */
+> +	for (i = 0; i < num_lanes; i++) {
+> +		err = ufshcd_dme_get(hba,
+> +				UIC_ARG_MIB_SEL(TX_FSM_STATE,
+> +					UIC_ARG_MPHY_TX_GEN_SEL_INDEX(i)),
+> +				&tx_fsm_val);
+> +		if (err) {
+> +			dev_err(hba->dev,
+> +					"%s: unable to get TX_FSM_STATE for lane %u, err %d\n",
+> +					__func__, i, err);
+> +			return err;
+> +		}
+> +
+> +		if (tx_fsm_val != TX_STATE_HIBERN8) {
+> +			dev_err(hba->dev,
+> +					"%s: timeout waiting for lane %u to enter HIBERN8, TX_FSM_STATE=%u\n",
+> +					__func__, i, tx_fsm_val);
+> +			return -ETIMEDOUT;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(ufshcd_check_hibern8);
+> +
+>  MODULE_AUTHOR("Santosh Yaragnavi <santosh.sy@samsung.com>");
+>  MODULE_AUTHOR("Vinayak Holikatti <h.vinayak@samsung.com>");
+>  MODULE_DESCRIPTION("UFS host controller Platform bus based glue driver");
+> diff --git a/drivers/ufs/host/ufshcd-pltfrm.h b/drivers/ufs/host/ufshcd-pltfrm.h
+> index 0a18a8aed94d..ec2a8013e975 100644
+> --- a/drivers/ufs/host/ufshcd-pltfrm.h
+> +++ b/drivers/ufs/host/ufshcd-pltfrm.h
+> @@ -35,5 +35,7 @@ int ufshcd_pltfrm_init(struct platform_device *pdev,
+>  void ufshcd_pltfrm_remove(struct platform_device *pdev);
+>  int ufshcd_populate_vreg(struct device *dev, const char *name,
+>  			 struct ufs_vreg **out_vreg, bool skip_current);
+> +int ufshcd_check_hibern8(struct ufs_hba *hba, unsigned int num_lanes,
+> +			 unsigned int timeout_ms);
+>  
+>  #endif /* UFSHCD_PLTFRM_H_ */
+> -- 
+> 2.43.0
+> 
