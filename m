@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 578441A6806;
-	Thu, 27 Aug 2026 21:35:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E547236E48D;
+	Thu, 27 Aug 2026 21:43:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787866513; cv=none; b=nbkQ1okI26PtHtOlUdxWns5+X77ta+2ofIf9Ww0IsjlAIAzWhUf4XGLeFmADdnvT29jfYhKoOL3OI186IFXPBwvTv8S0RfZBlr06+GE3FsVE2IpHoahQw88HzF4ykz8nsiYygaQ3A8tP41XECPtOReBWrOH+33Sk3QfL2ON7mJE=
+	t=1787866996; cv=none; b=FG+AyOa+wItJSfShG0jPAh6XweBKSBz0uDmTmOts/WIMYcfmdegBiWP63Mz0T7Mp28Fol7cBhkfyxc6wokZk6WFZ9YTI7QNo+04m6zRgBqhFt9kZBpKCx0tz0UnpJEWgpPDNODH/hsCLYD/WovM8qRgVv9fsRDqz84MXMDGoLSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787866513; c=relaxed/simple;
-	bh=iDG3uG/NsgmUQeqNnURTGnpePLGCtwQ+EDifwqxWHFk=;
+	s=arc-20240116; t=1787866996; c=relaxed/simple;
+	bh=92Dv57M7Xdm8lma4PWfeskzuUst5H/MnbaNH6KnTzuM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BGWkWuQtBOCD8YSI7lQHazgn+73sJJ77xAzDj97ieaf/9uk/Jy4ZTGtkuQaa/hwg++HLGo2wtFz5/7gsglxI4TDDJ2C6C+HoncvEsPNr5vm76qO+TVUvL2eqlfevVW6YJELkQsWvmE5hYfn4B8uiEWXbMtBWhN9ShFE7kVLanbc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kv31tegt; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=QlRi8hMLCAcuHCoAk7jf9yUyy+9Dr18MYIIpZLHJd4pwbfbgaq0TgkI8QR3mWxog0C9B0G3/AOuBVer7tMzgEivqXOhcEJImXMipOb6UBnKtBzEzm3pwkap/xWSeWIDzt5ujjnLATgUhxkhUVYqIP+OaRou+zu5GvQM7D1MFOuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gO4snFbY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kv31tegt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3B061F000E9;
-	Thu, 27 Aug 2026 21:35:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gO4snFbY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 099C21F000E9;
+	Thu, 27 Aug 2026 21:43:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787866511;
-	bh=fMgwm7oAdbEbWShlMjn5W9P2IwFpciRIvrfJQ3hlebs=;
+	s=k20260515; t=1787866994;
+	bh=4JuAU+RlRFFgowlE8y5vu246G7lREQ6bpVyCNH9/6jU=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Kv31tegt83bsz+VlPCa34qRYWSmnWi5RV8Xs155GFSTnKHvQIbr2IokQ0nBGQCBcj
-	 e70dR8XXatKAmItuZF9ah71o499QQRbJYkHL5H8RCz1J+4ZiPbH49KVhHAm1OZH3yL
-	 FbcDzmBahzHi9083Jj4sD6b9eV1C4Pxt5p4zXxqSK9ZcvGLeCCmM0t3SJgmReEzsVT
-	 H6sV9jF+zGY+ln3GNPdx3VEaijc04/g4lAT4rE6odXvGx1dTcYXX5sB+OUNYme1ijN
-	 B51dmO0oeMMBotXi1AZsK9tmEjMOEJxWscPji4rEiexejSp+u17Fj0HKCLjqN6UjfI
-	 /Rfn+NkzAXzQQ==
-Message-ID: <3264c2d2-4c53-44c0-8164-d2d83f75c175@kernel.org>
-Date: Thu, 27 Aug 2026 23:35:01 +0200
+	b=gO4snFbY8kph8z5xcQ1LBM9FCXgPvSqOQ3NwWm6jmVsgwG4sYazcOU1OOp0hq+JvB
+	 HzY3W26KeqQA8dljBWoFjh3aUba6EfIara8M80sluJGemipVWfbla7Xd2qfLntvn3X
+	 t2WYPNIv7xxdir9rwbOhy2VOIEVpxwOGFV2EUkzraqeEJORWtKlkz6L4dUMSllVOgk
+	 URV5wyEdUsoIjVhrrZAt8f1FBaH2m70xDOCgV7t+Iwt6Wfa3K2MhRjgNZEiC866bJf
+	 GPehPaBwWVghZvWVLEwj0k+D7r3lwjUdzx9wmjmR3SEzpjiCuXY10ss+b92q1yOf0w
+	 ZGPIg9vOZ9IRw==
+Message-ID: <205a39ec-712c-42f3-8c5d-12a66e07a0a5@kernel.org>
+Date: Thu, 27 Aug 2026 23:43:07 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,27 +35,16 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 7/9] dt-bindings: arm: stm32: Switch
- st,stm32mp23/25-syscfg into simple-mfd
-To: Marek Vasut <marex@nabladev.com>
-Cc: linux-usb@vger.kernel.org, fabrice.gasnier@foss.st.com,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Christian Bruel <christian.bruel@foss.st.com>,
- Conor Dooley <conor+dt@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Pankaj Dev <pankaj.dev@st.com>,
- Rahul Kumar <rahul.kumar05@st.com>, Rob Herring <robh@kernel.org>,
- Rosen Penev <rosenp@gmail.com>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
- Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org,
- kernel@dh-electronics.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <20260822074816.548662-1-marex@nabladev.com>
- <20260822074816.548662-8-marex@nabladev.com>
- <20260827-skilled-optimal-shellfish-c548e5@quoll>
- <9b197208-dbb4-44dd-b0c0-b4dcaa57c403@nabladev.com>
+Subject: Re: [PATCH] arm64: dts: qcom: sdm845-oneplus: fix fuel gauge
+ compatible
+To: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Caleb Connolly <caleb@connolly.tech>, Frederic Laing <dev@fredfunk.tech>
+References: <20260826233818.124278-1-rinat.muhamedgaliev@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -101,30 +90,60 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <9b197208-dbb4-44dd-b0c0-b4dcaa57c403@nabladev.com>
+In-Reply-To: <20260826233818.124278-1-rinat.muhamedgaliev@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 27/08/2026 17:04, Marek Vasut wrote:
-> On 8/27/26 3:07 PM, Krzysztof Kozlowski wrote:
->>
->> OTOH2, you have now patchset dependency which is nowwhere explained.
->> Merging constraints are the most important part of cover letter so must
->> be clearly stated. IMO, should be stated also here, because many
->> maintainers do not read cover letters. Or just decouple dependencies
->> with using 'compatibles' pattern (see Qualcomm msm/mdss display
->> bindings).
-> I wonder, wouldn't it be better to write a driver which binds to 
-> st,stm32mp25-syscfg , handles the SYSCFG clock, and does some 
-> of_platform_populate() to bring up the PHYs (DT subnodes) ?
+On 27/08/2026 01:38, Rinat Muhamedgaliev wrote:
+> The fuel gauge at I2C address 0x55 on OnePlus 6T (fajita) reports
+> DeviceType 0x0541, identifying it as a TI bq27541 rather than bq27411.
 > 
-> I think that would resolve the ABI break problem, since we wouldn't need 
-> the simple-mfd compatible anymore. And it would also correctly handle 
-> the SYSCFG clock.
+> Binding it as bq27411 selects the wrong register map and produces
+> invalid voltage, state-of-charge, and temperature readings. Use the
+> bq27541 compatible and rename the shared label along with its fajita
+> and enchilada consumers.
 > 
-> What do you think ?
+> Tested on OnePlus 6T (fajita): queried DeviceType directly over I2C,
+> built the DTB, booted it once with fastboot boot, then installed a
+> locally built postmarketOS kernel package. Before the change, readings
+> included about 65 V, over 10000% SOC, and -273.1 C. Afterward, the
+> bq27xxx driver bound as ti,bq27541 and reported 3.835 V, 42% SOC, and
+> 33.3 C.
+> 
+> Fixes: 12dfb002ca01 ("arm64: dts: qcom: sdm845-oneplus-*: add fuel gauge")
+> Closes: https://gitlab.com/sdm845-mainline/linux/-/issues/36
 
-Yes, it is better and more flexible approach. Solves ABI impact.
+This is fine.
+
+> Link: https://gitlab.com/sdm845-mainline/linux/-/merge_requests/148
+
+But link seems irrelevant here. We do not reference downstream PRs in
+upstream commits, because it should go the other way.
+
+Please drop it.
+
+
+> Signed-off-by: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
+> ---
+>  arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi   | 4 ++--
+>  arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts | 2 +-
+>  arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts    | 2 +-
+>  3 files changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+> index 948a0dd18..0c6203fa8 100644
+> --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+> @@ -790,8 +790,8 @@ &i2c10 {
+>  	status = "okay";
+>  	clock-frequency = <100000>;
+>  
+> -	bq27441_fg: bq27441-battery@55 {
+> -		compatible = "ti,bq27411";
+> +	bq27541_fg: bq27541-battery@55 {
+
+If renaming it, then node name should be fuel-gauge@.
+
 
 Best regards,
 Krzysztof
