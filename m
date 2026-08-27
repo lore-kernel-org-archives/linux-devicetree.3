@@ -1,148 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33E574503EC;
-	Thu, 27 Aug 2026 17:03:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C63A41D21A
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 17:12:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787850189; cv=none; b=fmHvN8NNRSlbkJTYlyC//fTMDEgK6NrM/c4/xGv2JWuewoRYqxTEFwf/Ry1VO0xRn2z0HBZ+PRP6WNgKPell6fPRJqoXdwfwmrRh3vmRNtZxudiaf+lIlmN+JeP8E2/3vvdwpSD2I/dW9Y6sd96GxOKfnheeWxvrqgPI4irayz8=
+	t=1787850779; cv=none; b=Vt9laMrO/Etx5YIs7VhsonTiaUYW4bs4ofKWB+HqqQqZffBrnoDaqIYY/wY2FJzNcgz0dgx7vxE0VhY4sSBX1ZV/uKYZLO7DzScZiinP7cM6SmxX+CRQaBchWy0T5enBn7B01VXRWQBYFBn1CrPf9haRiJ5DPf3wl7uNo3wMCYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787850189; c=relaxed/simple;
-	bh=YfVyNI9c9azuVieacpxUOb6yNvbNo1dV0E31hl56n/8=;
+	s=arc-20240116; t=1787850779; c=relaxed/simple;
+	bh=G05FvWZ3ROG79TGw2T2POGYVVd9pzh+yGgHjP3yfwrY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XFeZ86Ck56TSE9mitkXJq+SOElL0jGDEt2st6tsNfICdFMTJAm+D6an9mwnIAREfFwm5xUlqMR2l3vyi2Vsic3hKJ8tZ7y0ADrM2041SPzivWt7HiN1amLZnopil08rfDeKUUED+zY482pIdQOWONY8PgyjRccHid/IWLCziTEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sxz6S1N4; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Mv+rge3wKb/reQMNDlzRnu2S83kRzQEdKn+QI55yDn8fFdF/fdkA7MkKnPNn8Gn4riFKAiGcxRlTSy0SzXfeFFYooYHfnzFjt4Lyrnn00NHyJVaArk2P7tzRtNEfA+GSs2/p1wkAwKJWERPPxZR7ca1//vjPYtR7G/nH+nq1c1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us; spf=none smtp.mailfrom=resnulli.us; dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b=d8kjHvLI; arc=none smtp.client-ip=209.85.208.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=resnulli.us
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sxz6S1N4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F1BF1F000E9;
-	Thu, 27 Aug 2026 17:03:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787850185;
-	bh=zKmwoEwzdTZwEdpvUj5AMclNii4LDqHyo+svB88BdpA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Sxz6S1N4JOc3d5vGHNPprv4A/0VWeWwYco1y4dh8YodMwPyZ3y/ESJnqHFUzuXpbt
-	 Yrzr7SAbkhn/0+UQ8xLpU8LwNCYXMoUZujn7TNotc/x8kG/5VxVx8109QXZckfm1LP
-	 39qf7EgYMi43CJEJEo1tMaJDQ07LClFNW6Wtswk0lDnyhgTaMT8rGlnHfHHYjUEFi1
-	 QzlmdZFksZMp3wjDzibT6WrfNqkBHXVD//NoBX+jJqdjz4q1iN6JBhVtD4WFTHKNas
-	 jELAX1y1JKOT8Y9gxVW/FbZjffKEBeRtOOE9eNt1x5B0Be4KEN4PyWfurgCiGit4g3
-	 D+sr4VM60qr3g==
-Date: Thu, 27 Aug 2026 18:03:01 +0100
-From: Lee Jones <lee@kernel.org>
-To: Stefan Wahren <wahrenst@gmx.net>
-Cc: sashiko-reviews@lists.linux.dev, linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
-	Jonas Rebmann <jre@pengutronix.de>
-Subject: Re: [PATCH V4] leds: rgb: leds-group-multicolor: Implement
- default-intensity
-Message-ID: <20260827170301.GI2943942@google.com>
-References: <20260813091428.9072-1-wahrenst@gmx.net>
- <20260813092522.0228D1F00A3A@smtp.kernel.org>
- <20260813095330.GZ1072730@google.com>
- <aaeb87f7-5a04-4592-ab59-b4114b005aab@gmx.net>
+	dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b="d8kjHvLI"
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-39da69c5ba3so604731fa.1
+        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 10:12:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=resnulli-us.20251104.gappssmtp.com; s=20251104; t=1787850773; x=1788455573; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=G05FvWZ3ROG79TGw2T2POGYVVd9pzh+yGgHjP3yfwrY=;
+        b=d8kjHvLI2KlB16hQnNc8jmPycUPw0Jvs4sFNtxiCtp4fnRvNJlZK68xhLGocVJqDkC
+         u2gfv93duOM+0d6lYP+ID4c3CzXVUXGHFf22dlCUAomy5f+kdGY8RC9hhN+AuzInw+Uv
+         Yj3i2pDHVv8W3Zm9WMzzZoeU680WM76SaacajWw2fpszXddtfOZunQhsq7f5v/Gwz9HV
+         CIliovyz2ZJjEZsm0/mRM1MHOrBQM5Khc9x0mVZZ28qdWylY7G4R1jMrOTRxQvBFwcXr
+         wtENCFpjBPX+QfNAU350zl8wCc32TPbPXF51W+p2LZaTms+VuPmi+LhN4ZQRt2sactnA
+         UluQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787850773; x=1788455573;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=G05FvWZ3ROG79TGw2T2POGYVVd9pzh+yGgHjP3yfwrY=;
+        b=omYB5YKUPp1syK9EKmm/b9l2uWoWvuqt+PTusX9zOPIlffM1KTeKZ37IzaEKX40hCS
+         a0luoXdWeuk03JT1OKHPjxUoJnGjPP1fjJ5cG0eQ6VYUk5GaGJEhpGFobkbpcoMpVhE1
+         RqrVUjAcQu3am69k1PTz2Ek2Tduk4NjeNEQLw8a5cB+9+G2cRH3BJg94Oj0OGJ0PUgAV
+         16Rcn68QvOhARa0/eWKEMINmYHR+jJIwXHwXV45BFT7jYquMIJmrEsXLmDbfjwNMkqZ8
+         arhax3K7S4TR9LoRpcS1iR/wV5jjE9+cAyWoGZNQoUYND9B9xaphr6EMRi0yR24ZKvb7
+         KVJQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqjQAI6Rl0XukUcWlTbQYX49a7Ou5LmGO4oDbO3f8XmrAfdyRjm0QBvbOV+oAfRmWGY/WDrqv453SeI@vger.kernel.org
+X-Gm-Message-State: AFuF++nxlqs1eKPYxa0/EpXUOIXL6Tl8lhxN5OzJH2FOeL/GtJNUzeQ5
+	1PGabsm/QAwUKbumAr2Kx73CCUu8d6fylYz9rP8jBYaQa5U7jS/cE611aG75YFTvsAM=
+X-Gm-Gg: AR+sD10LkHmYEPbfogfCNvIwCEs3E/dz4EgphxYanThG4V7n9K8rN80zNRbaf9hxVhm
+	41ZZ44yEHf+HLZXON8RAxLWZTWcMjHDoW57Zij+JM46QqFUD1InNa2djU7E0q9qUmHDLaNq/UmR
+	grfefw+wIscXxdZvKA/V6S1YGKXBvPe0kQIIt0XftmyvTRHfwjz72j7P6Ofy1J1fY7qhYgZhefo
+	NmLbXz+bk/BHfcVVzb3JTs3c/1poAxFl+WPY0+4cBWGCxNo4PSIScZo4vdYvtjVlHLeWbNpvg0C
+	RgBDji0G2tH8mY8+9mvRtH3Ty/toBa1tBZF73LT86lA5hK2FdZbnb7099FceUL9Byaa4AgVEjm/
+	+t8ktsBZh2XX8I4LwQfIV7yseUXd78bZpGG8rPH7Fy8jum7wBv01TVoafuYBfEQ+mNDt8VnM6+t
+	bz8+HDPxdNNIIx8p/OAEEEQz1wDCm7LzMnFFRvnWvMXSUYUdEnL7kEywEq4BCP1FzFUCWbEPm6r
+	nqb6odHlw==
+X-Received: by 2002:a05:651c:30ca:b0:3a1:5172:c287 with SMTP id 38308e7fff4ca-3a1fd4a1fb5mr44250431fa.5.1787850772908;
+        Thu, 27 Aug 2026 10:12:52 -0700 (PDT)
+Received: from localhost ([140.209.217.211])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a26be2acfesm6108311fa.21.2026.08.27.10.12.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 10:12:52 -0700 (PDT)
+Date: Thu, 27 Aug 2026 19:12:48 +0200
+From: Jiri Pirko <jiri@resnulli.us>
+To: Ali Rouhi <arouhi@sitime.com>
+Cc: "vadim.fedorenko@linux.dev" <vadim.fedorenko@linux.dev>, 
+	"ivecera@redhat.com" <ivecera@redhat.com>, "kuba@kernel.org" <kuba@kernel.org>, 
+	"arkadiusz.kubalewski@intel.com" <arkadiusz.kubalewski@intel.com>, "robh@kernel.org" <robh@kernel.org>, 
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>, 
+	"cjubran@nvidia.com" <cjubran@nvidia.com>, 
+	"Oleg.Zadorozhnyi@devoxsoftware.com" <Oleg.Zadorozhnyi@devoxsoftware.com>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net-next v7 3/3] dpll: add SiTime SiT9531x DPLL clock
+ driver
+Message-ID: <apBv_Kik3Mak3GzL@FV6GYCPJ69>
+References: <20260815221919.64226-1-arouhi@sitime.com>
+ <20260815221919.64226-4-arouhi@sitime.com>
+ <6a529684-bd6a-4187-9ed9-bb40f4b98065@linux.dev>
+ <ao1Zh0uHO0mWj-2t@FV6GYCPJ69>
+ <20260825215523.84195-1-arouhi@sitime.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aaeb87f7-5a04-4592-ab59-b4114b005aab@gmx.net>
+In-Reply-To: <20260825215523.84195-1-arouhi@sitime.com>
 
-On Thu, 13 Aug 2026, Stefan Wahren wrote:
+Tue, Aug 25, 2026 at 11:55:24PM +0200, arouhi@sitime.com wrote:
+>On 25/08/2026 11:00, Jiri Pirko wrote:
+>> It's a new driver. Linear review in one hunk. I think it is better that
+>> way as you see the whole thing right away.
+>
+>Jiri, Vadim, Ivan - the reviews point in opposite directions, so I would
+>rather ask than guess.
+>
+>Vadim asked for a split. Ivan agreed with him, suggested low-level ops,
+>then core ops, then features one by one, and pointed at the zl3073x git
+>history as the example to follow. I agreed to that, and the plan for v8
+>was 13 patches on that shape, each building and working on its own, with
+>the end state identical to v7. Jiri would rather it stayed one patch.
 
-> Hi,
-> 
-> Am 13.08.26 um 11:53 schrieb Lee Jones:
-> > On Thu, 13 Aug 2026, sashiko-bot@kernel.org wrote:
-> > 
-> > > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> > > - [Medium] The `default-intensity` property read from individual monochromatic LED nodes is applied to the multicolor group without rescaling, causing incorrect brightness calculations.
-> > Please review, explain or fix the Sashiko review(s).
-> > 
-> > If this is a set, this request includes the other patches too.
-> Sorry, I don't get the problem with "incorrect brightness calculation", I
-> tought the intensity setting is independent from the brightness. Btw the
-> intensity is applied to the monochromatic LED not to the group itself.
-> hallucination?
-> 
-> Does mixing PWM and GPIO LED in a RGB multicolor group make sense at all?
+I don't care that much.
 
-I asked my little helper for you:
-
-<gemini>
-
-While mixing a GPIO LED (essentially binary) and a PWM LED in a single
-multicolor group is technically possible, it is indeed highly unusual and
-unlikely to produce a desirable colour-mixing effect in practice.
-
-Regarding the Sashiko review, there is a valid point hidden in the noise.
-The multicolor framework uses 'subled[i].intensity' as a relative ratio
-against the overall group's 'max_brightness'. If a sub-LED's native
-intensity scale differs from the group's scale, assigning the raw value
-from the 'default-intensity' property directly without scaling it could
-lead to unexpected dimness or brightness. Should we look into whether we
-need to normalise this value against 'max_brightness' to maintain
-consistency?
-
-</gemini>
-
-Hope it helps.
-
-> > 
-> > > --
-> > > 
-> > > --- Patch [1]: [PATCH V4] leds: rgb: leds-group-multicolor: Implement default-intensity ---
-> > > commit 13399f1aaceaf09afa7e252e35000d7d61ab1925
-> > > Author: Stefan Wahren <wahrenst@gmx.net>
-> > > 
-> > > leds: rgb: leds-group-multicolor: Implement default-intensity
-> > > 
-> > > This commit introduces support for the default-intensity property during
-> > > boot for LED multicolor groups. If the property is missing, the code falls
-> > > back to the previous behavior of configuring the sub-LED intensity to its
-> > > maximum.
-> > > 
-> > > > diff --git a/drivers/leds/rgb/leds-group-multicolor.c b/drivers/leds/rgb/leds-group-multicolor.c
-> > > > --- a/drivers/leds/rgb/leds-group-multicolor.c
-> > > > +++ b/drivers/leds/rgb/leds-group-multicolor.c
-> > > > @@ -108,8 +108,10 @@ static int leds_gmc_probe(struct platform_device *pdev)
-> > > >   		subled[i].color_index = led_cdev->color;
-> > > > -		/* Configure the LED intensity to its maximum */
-> > > > -		subled[i].intensity = max_brightness;
-> > > > +		ret = device_property_read_u32(led_cdev->dev, "default-intensity",
-> 
-> Should we verify if 'led_cdev->dev' is the correct device to query here?
-> Normally, 'led_cdev->dev' is the class device and might not have the fwnode
-> associated directly in the same way as the underlying platform or fwnode
-> device. Would using 'led_cdev->dev->parent' or querying the fwnode directly
-> be safer?
-> 
-> > > > +					       &subled[i].intensity);
-> > > > +		if (ret || subled[i].intensity > max_brightness)
-> > > > +			subled[i].intensity = max_brightness;
-> > > [Severity: Medium]
-> > > Does this logic properly scale the intensity when the individual LEDs in the
-> > > group have different maximum brightness values?
-> > > 
-> > > If a multicolor group consists of LEDs with vastly different maximum brightness
-> > > capabilities (like a GPIO LED maxing at 1 and a PWM LED maxing at 255), the
-> > > overall group max_brightness will evaluate to 255.
-> > > 
-> > > When reading the default-intensity from the device tree, the value is typically
-> > > specified on the scale of the individual sub-LED's max brightness. If this
-> > > value is assigned directly to subled[i].intensity without being scaled up to
-> > > the group's max_brightness, the sub-LED might be initialized with only a tiny
-> > > fraction of its intended intensity, often resulting in the LED being completely
-> > > unlit instead of at the requested intensity.
-> > > 
-> > > >   	}
-> > > >   	/* Initialise the multicolor's LED class device */
-> > > -- 
-> > > Sashiko AI review · https://sashiko.dev/#/patchset/20260813091428.9072-1-wahrenst@gmx.net?part=1
-> 
-> 
-
--- 
-Lee Jones
+>
+>The breakdown is in my reply of 21 August, in case it did not reach your
+>mailbox:
+>
+>https://lore.kernel.org/netdev/20260821010556.95192-1-arouhi@sitime.com/
+>
+>Tell me which you would rather have and I will do that. My default is to
+>go ahead with the split.
+>
+>Thanks,
+>Ali
+>This email message and any attachments are for the sole use of the intended recipient and contain proprietary and/or confidential information that may be privileged or otherwise protected from disclosure. Any unauthorized review, use, disclosure, copying or distribution of the information included in this message and any attachment is prohibited and may be unlawful. If you are not an intended recipient, please contact the sender by reply email and permanently delete and destroy the original message and any attachments, and any printouts or copies of the message and attachments to the original message. Thank you.
