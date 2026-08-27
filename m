@@ -1,208 +1,161 @@
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36F6E3F1052;
-	Thu, 27 Aug 2026 20:07:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.152.168
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787861269; cv=fail; b=h4lSL7hj2E/YFop/BFMg2fzlwAEUwMoWeNiTS0V5TlcBgX3Rp+z/caae6gaJq4GiJrBQmr5gjs8vUrBkgNKP84wAkA8nZzGSTtBIeH+WWUM8WWIfXnrXkZTn3SA4pB598KW5ps36PfmyHQ0CiwfwLDqjhMLlsiRqst79cNrdmX0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787861269; c=relaxed/simple;
-	bh=4L7WJsAtqX9Ph0Y5x2OONMGrKb2lj4EAsssoZLO4nfM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Md9lbpzjU5nS7lUUtoVrJ6I0LDfTU+9GF2gc5H7StRdZYSbsLrbOx3OShMHL8VPr0Gr/jUu4z7AH1JagC4JYKzYMbWlrfInoWCbdIk71Qqcx4cK/oeC8xdEQCuhWZl0U9zCqWBhh3iHy82Ffdyi/f2oor5obuhS7EImfJHS9jRU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=ktAx7ggo; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=w/woaVcX; arc=fail smtp.client-ip=67.231.152.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FA5436E470
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 20:20:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787862039; cv=none; b=H6yGWDwDKMPppL/mTwUlN+8g7+fq3g3vTuRJ6eAwmVWgi46rQ9PtM0lFUTYrRIm6UqZCGAhIe0tXo4u+IKx46Q7TPUnnVg1HnqX4OPz6uEqlsKZVfXm9Lr2W5mgvWeQRA6Ck6pMNEI8ndEjREC6WmWzvpecq46W0dvU5rbG545s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787862039; c=relaxed/simple;
+	bh=tJimLvz8hros9dSmfDJysxYfTDWnrLxW/FoUjUs23dg=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=FnMEhILPnQ+sJnukjMhRErXmtOtEms0TO9/tCaN86k01iASO+yL+FGeu3jVuYfF9sLbgw3DS7dDJRo8/xnR7dNZBTk6BhLzaZoXONOoKPB5f9SxjRXgA0Lw7yjvX9/Qvt7tGzimHc8ksfzXMl1FXAbYGdR3H1sD0oKSTQuYEmNI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=Fx7Khppj; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="ktAx7ggo";
-	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="w/woaVcX"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67REWVjW3597208;
-	Thu, 27 Aug 2026 15:07:24 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	PODMain02222019; bh=0+fnAGhreg25LE8MUBg4la5k2QtOpwOJfV7ll5dCqr4=; b=
-	ktAx7ggoGHwk4tLWB70EaASm2kWDuxQ8zt8wtU6AYYEFK3oqbv0QL26ZFZUOCJGz
-	G3IeES4ip65TynqSwTM8ntOigtrJNwClu8A3V+8TVZVvvbyPmb5NJqaR9L+D3E7i
-	XbWRMXGoJMIQMDMdAH5JC0Uvm2Sha2OOtgUj1e0EdFCTyFE3u6HuzF7+4IP8f4fs
-	A5yeRfZB4/2Q/DLVEWqP02fD16UWFKcph7ngVpWQ+cO/wBeZgGPLtj6ZlEdSChGh
-	hS86iXb78zQw92+4lX+QgfOEi6x9BMnunnzWTE1vqTgsc/tkfENqjRztdHTvJmqy
-	QkHnyO9eI6CZYKTbQZh/Kg==
-Received: from ph7pr06cu001.outbound.protection.outlook.com (mail-westus3azon11020122.outbound.protection.outlook.com [52.101.201.122])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4ga4qh1u9b-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 27 Aug 2026 15:07:24 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FsOBcGSfWACQmfUg/R6MSukjR+5WCLCt3oKC6SUWKeVumxCGddnEA/DpS5obge7WMUZYzBfKMiSLzRElpt9cdHgOUhws+RCTuh10cbRzg1ZRj0105blQJSxvAUNEvsV3IiytzihDx4DmBcX5rAXf6bYvfqNP5CWUoxcJ0wk7PuBFxt511Pfrwg+dcAQ8mPK49CzsL378wub8wZQUwUaJeJ3rDYj0tuGFU8kPQZufsSWdc53ghiD9QzFFSTKQjCFdjn4DTFGz7xzhNO47/Nq5Dp1Fca2zFB/1yvSFcMyMqtczp5t+ohRnKjywDpXU0CewJ3+BacmwKvQ6S58vEpGvTA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0+fnAGhreg25LE8MUBg4la5k2QtOpwOJfV7ll5dCqr4=;
- b=rSNtJfF5XBBhuUTXdqw8RKhsRC1sbcQoJ/0IDfvgLHn3wcuiBKEVULl0eMD6ODWP/Ws1pIv98GibDLTQzPkFYrglHzcm8V8n4tRE/YvzkRUAzXGJjhzuJiORChRbXiNsIEXh/BXgt4jLUn9M9QRsdZ3GLnuU1PDX2q8db2CKv0qna2qPy/PXPwIQNxJlF44A3f+UmfpDJc03mAVxHye3tTe23HNMZzpWLhBhNDF+2vHUuw5ijZo8zrVUx+5/L6JKXZo+EHpJGlYtPOytq9UaWECZDGBe4ewaZ9ZB4yThOePIKuU/ayHYecia+A7YURZ0wlbsryJXKbdFDAIsQ0rGuw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=cirrus.com
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
+	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="Fx7Khppj"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2cace91f112so1082305ad.0
+        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 13:20:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0+fnAGhreg25LE8MUBg4la5k2QtOpwOJfV7ll5dCqr4=;
- b=w/woaVcX248PZaM0a2XeYB3He6+lbJLNJLULxJAUIYAvsY2pZ4GQUBG7b3yHmkPy3eJmoXZrRIZYaxVYdAxkPMsBciBQ4vEoprNfm2ajDy6BDbAw4Xfetm1rZgqs5G8pPDs0cJ6XjQmzcxLK73epxuDwRT9oDo7o2hiUj7y5Ymo=
-Received: from SJ0PR13CA0054.namprd13.prod.outlook.com (2603:10b6:a03:2c2::29)
- by PH3PPFD6D301256.namprd19.prod.outlook.com (2603:10b6:518:1::c54) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
- 2026 20:07:18 +0000
-Received: from SJ1PEPF000026C4.namprd04.prod.outlook.com
- (2603:10b6:a03:2c2:cafe::8) by SJ0PR13CA0054.outlook.office365.com
- (2603:10b6:a03:2c2::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.7 via Frontend Transport; Thu, 27
- Aug 2026 20:07:18 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 84.19.233.75)
- smtp.mailfrom=opensource.cirrus.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- SJ1PEPF000026C4.mail.protection.outlook.com (10.167.244.101) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.3
- via Frontend Transport; Thu, 27 Aug 2026 20:07:17 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id AE828406541;
-	Thu, 27 Aug 2026 20:07:15 +0000 (UTC)
-Received: from [141.131.156.229] (unknown [141.131.156.229])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id B712C82024B;
-	Thu, 27 Aug 2026 20:07:13 +0000 (UTC)
-Message-ID: <6f621efb-c7ba-45e4-a700-45844b89b8ef@opensource.cirrus.com>
-Date: Thu, 27 Aug 2026 15:07:07 -0500
+        d=nexthop.ai; s=google; t=1787862037; x=1788466837; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bXvemU9UFXdH/gZ9SK0wu8lR8TFV/Zr9aPAhcoeF+/4=;
+        b=Fx7Khppj3qKTx42ADj79xuMpvxt7qK8gGEkl5SSXq1olQUdnl3wNGj0sJ9ts3Xikyy
+         LZptGpZpN86NakQXGMNNrCo+V2hTy1WC+M1Oyeho45EjhLFglmhnj0mz3nJTjq2kQBs8
+         xPgLtTVFvSpyIyTOoVeZQ/Lb+66orPQtpvMsHQjStaIw2gsLP9PnwU3cYoNQjWWOchfn
+         GdXUeWei9WiihxomN4pXD7zgFKhRtbPbbtEBDisjEdxatY0OC9oK3HLmlKJrYwquWUh5
+         SfpyEI0J6wmE5HTeWhpL0122cQZjnDOs7DalYEr6wmpCcgtHjzuGvaP0ohLu3LXbYGjo
+         9F4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787862037; x=1788466837;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bXvemU9UFXdH/gZ9SK0wu8lR8TFV/Zr9aPAhcoeF+/4=;
+        b=HmKRwpZNp/jvpvGsfTcTc/ZH1zXphNdrui5K3lJr/OjMqSNlejSX37qlf+rcz1OpED
+         CeBkV7r+Q9w3s2LtOPJ2eY8ZE8n0Lu8KWQsFt7YEAHIWI8LqadgGiBc/jfRlMrEcAwf4
+         Yy/lRrYTaazztW3cDcDExkigwPlN5O/tED8SAt/MP9OLJOz+A1nP641w0+vrFZMrx7mX
+         I7Zc1xYKAkayjyiEh50qffvfIuCWv/7tNNJLi5sd43Nro9KQCIhZ3j7oj8IT8E5/7dSn
+         kLCqmC7rnIVa+z4sZcMg8Cbx4HGDMkYKQZiCiU5MIiGADHXxy+I9JMpn6zkz1EWvKHcP
+         0ZTQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpG7b1LxE8kH+eTyTY5pYNoxfWa/NFI3So5MlVTs2dIE0DenLYUHk7RkdXBNVuthwSSHrGNMk3D2M2B@vger.kernel.org
+X-Gm-Message-State: AFuF++nCBBI9Er3L5YZk/ncwL03DlDF9S74IX+d8zkUq2q0kcGzFvOre
+	OSp2jBLkkgMulxDA5bSPvYOZvDtyl70kDyT8/nLw+zE3Xuw2vKOArIygSLy6fl2FpOA=
+X-Gm-Gg: AR+sD12p6Wq8zpseZWGBRxYH4nkh8OZ1HxfyOYiej8hAHrbiVkunlsKl6uOhUCqy5Um
+	KtFlbeSkIHYQAROPOTfWMz9MY4J9GMZyErRQ9uiSxbuu0pe9ArHt1phr3e3qvMHYLPQMtRMirUN
+	BDTac1bQUyF/h5MfwN5hroDqEKewDJHKakrpyDMPc+Qb8j/dFGyg+pdm8NllclNdcWh/nsSxmrh
+	iqvXtLrCOTRtFbsZgcU8INtkLXnBo3yjpzpqq2opuIi6cTR6Ye7Q2zODDqj3gwgBFGjCV+BClzo
+	8t44fFUAg1n6O3HLHwQlTggzcXMuR1zcaJDezJuOZ6UxSy6/EReUW3nmxnJKQ7OymenYwlcBoXc
+	/VcaRQJ4gqsUyd7Ozpi8EiZEf8RWF0Pd2C/Y81cztBauyWHZhKWQdSDP7mu41JStghgy3A++U7V
+	1vHwNk/e6yuXHQeOXXYkoFHjwF2DFDrQ3ii1Sa6F+AEl5uCO2uhHuRuecGxVM8
+X-Received: by 2002:a17:902:e751:b0:2d6:7409:7145 with SMTP id d9443c01a7336-2d74dbfe91dmr20727125ad.1.1787862036843;
+        Thu, 27 Aug 2026 13:20:36 -0700 (PDT)
+Received: from localhost ([50.145.100.174])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d60d25esm24757559eec.4.2026.08.27.13.20.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 27 Aug 2026 13:20:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] ASoC: dt-bindings: cs35l45: Adds SYNC properties
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-        David Rhodes <david.rhodes@cirrus.com>,
-        Richard Fitzgerald <rf@opensource.cirrus.com>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260821-sound-for-next-cs35l45-sync-v4-v4-0-20d3a07c3b8d@opensource.cirrus.com>
- <20260821-sound-for-next-cs35l45-sync-v4-v4-1-20d3a07c3b8d@opensource.cirrus.com>
- <12761d4c-3f06-43ac-9f22-5d13e95e935e@kernel.org>
-Content-Language: en-US
-From: Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
-In-Reply-To: <12761d4c-3f06-43ac-9f22-5d13e95e935e@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C4:EE_|PH3PPFD6D301256:EE_
-X-MS-Office365-Filtering-Correlation-Id: 79a633e5-bd54-468d-f8db-08df0476cba7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|61400799027|23010399003|82310400026|376014|7416014|36860700016|6133799003|10067099003|921020|11063799006|4143699003|56012099006|16102099003|22082099003|18002099003|4076005;
-X-Microsoft-Antispam-Message-Info:
-	B0BH52f9ZuA7/mQ7y6uOHfQvkyBR1sOHjaRBowxIKz/Dl31ewY0G2X3lp/WA8JNrAhKVoLH4YPjf55RbC+C76/GaiJXC5TsISGFkaRDx66E0oGGlALZkK0eGcehzFZN4FXkqpyFKSNINhMB4MBWDEzmjyQmVV+JR7+hyLZtY+Pn7MwLVypkdFTJc3EJ/In5lD2KmctrRlNtJchoy1O96XoSukbcq8qSoUD/M6EX5/z1FoxJRNU6qmezDEgdyf61F42V1yzLofJh44SE1AxhBkNQLrsAX6EslXUBvCAzzp5Gvsb46gF209YHYF9D3czG7u3LfCzkgpzQPf0bFKbqbeznLnrovF/Ze/adk4mlAKrc4LWyrUeXd+TD6mc/qu5MVWBbQf9oXqc/4kwQ47kuGyH4joNNFAqQs3JQ0hH0x5IZdrOuiaX0x4FAx+bl8CRsVs5UKzf+lHJ4gbXMbP27SXgDIjL26Ya+D99wku0DZHva7Q32JYJ2HRAQ2cDMR2TzQLs+3UPH0BtKmRf99hCdfVWiUpqje0ti0wDKISfOv+c5HT/98DtmumAHX64r3yFhkMh3ho6ii4I4MXnW7UJRqBdEZK80BCXqokpWXbH7UkcXHf1NTMOWcGW5vs3CZVPYWpDK3J2biqGVWnpZwe8fPGX9GGYPQ6I/eLpmJHfe22G4tIRVdkr9l06vebxtAEc11NC24tJ2sozqmGZiGTvfoh6R4fg74hc12rJi9cRu7bnBW9v6Og3Vcus6GoVRCUbhQLDLtFdWEYndvVeez/bHMTA==
-X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(61400799027)(23010399003)(82310400026)(376014)(7416014)(36860700016)(6133799003)(10067099003)(921020)(11063799006)(4143699003)(56012099006)(16102099003)(22082099003)(18002099003)(4076005);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	hYGnFjkyGXG+HTZChco40i10Bx6xGrAA4n8khCvkKiLnwUNVuNrNbW9Lf7TzbIj38YVMotwP5evcRJcrYy0L7WibGE2rTM6b0bWS8xqVwUOAWvJha+ZtW5ILqFXEANc2q5GungBJx1/Bmhem6psrY2c2dBHtNmh0IxizLnV0Dp6PB232Ji1AUWpWQETlZRVArxwltYMquPLV2j9MdHEEDyZM5VJa7hSB/n0U97qSzZW5A5Us2N425i3z6caqiGjOVPM3IpL3+Nd/ZfxKOloux6Fov7x8sc20brgnDPnfNBJ8kXTTO77dQFsJcUKGVME+rEijEScAN5g3a8vi5okzHhKbuykM4qb5coR7gnWI0ObFta0JCSsXUYkeTzr6CNoJZZXVtt7i/wRpQV+Tt9cvCP7yz/edff2NSW7ZUyxOZv4izxNi78UEwELBJnAWvgTc
-X-Exchange-RoutingPolicyChecked:
-	bbyZMjC1ZWmre7hLN7YuBjdrskZqvoubD3AEdgerhMqbi0Yt8u9Ba1zsYLnoPnWcx9bzF+Z0NiNTVt034cRnkz7qUOMuVdT5Pbbu6K5JsJSCvdTNRm22band0tvHnvUpcc71ug4t/qex+/DDUeSPtTsNdUWsVnIakhBcCNLYRfBfL1mM3DJP16VOPC8t9dBwvB903IK/jQ1RcdOdXJcHWee3LVC5RXLep7M6zN6htWSe0pSYMFxMNGF2fHGUXzxaDp6O7Wbd0+N8QGVHv5BbGOpq4d8gJou41DC9jyLluFOwLdUiG1PeZP3A5ma6IZn0zOKlhnEoOPHfJBRNsNRbeA==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 20:07:17.6081
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79a633e5-bd54-468d-f8db-08df0476cba7
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-SJ1PEPF000026C4.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH3PPFD6D301256
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDE3MCBTYWx0ZWRfXz+ugyADjwxHb
- XYyei5mOx+QOpnOHwTn/L4hn8mVvwunPzEBhWjIDyob+n2ZJ9D2XsZDH47b7Lmg+0WU1S7KmEJs
- 1H7md43RVy+UVS77vVDxhentc64pM/eZs10fSFmMkRVwptCye/qCvZuQoZEJEY0w+tk4h3PnlOJ
- 6UXlNc69P10vsBe6H4zYzmfMLUZaIcr5P46Ya7QOz7T2F0ZpHIjIN9Xq846sI9lRMnNAdcfbiV3
- yX0FbmJE2lb0Ag++Bts0C0wL0fzHPn14QjJr9pu+hzxAAMABRsXlIi+1vrbMK6hhYR/Bx4FhFeu
- JJFvTeeoi5kl/O0wGPUH4f9UhudWWp9KBhZQ5yZCfAB1yioXfGymQKfkYPFMmxMuKBz8CYnqhuS
- aL8fVaLBSIWmteLc4/WwnAGiLIzjqBN1ct7o9TnjBuGzj61ta/PVAf/35Ae2olJ2hS9RX2Z8MYb
- uBE2GQ+Qu09pdlFyxHg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDE3MCBTYWx0ZWRfXxevdOh+wEI9l
- A3l4u08rFi6y3VxyjQvwsDvLPkpZVtd693vhBQ6Q701JTsVdslf2TBoknYhC9c7ksmqnifaGuPW
- vBaA9nPNIIJq1bBgtKmyVBjqBlp3C2I=
-X-Proofpoint-ORIG-GUID: YcvDpGRhugKzCYeW0OdamrutaqF-47rn
-X-Proofpoint-GUID: YcvDpGRhugKzCYeW0OdamrutaqF-47rn
-X-Authority-Analysis: v=2.4 cv=VoYTxe2n c=1 sm=1 tr=0 ts=6a9098fc cx=c_pps
- a=sTZbCbQesDggSpYbwUb/cw==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
- a=w1d2syhTAAAA:8 a=gRarUAPjLaUzCu7U7ewA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Reason: safe
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 27 Aug 2026 13:20:35 -0700
+Message-Id: <DL0074F6I9HO.5OPQ5ABY74KS@nexthop.ai>
+Cc: "Saravana Kannan" <saravanak@kernel.org>, "Frank Rowand"
+ <frowand.list@gmail.com>, "David S. Miller" <davem@davemloft.net>, "Shawn
+ Guo" <shawn.guo@linaro.org>, "Grant Likely" <grant.likely@secretlab.ca>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v6 02/10] of: hold a reference on of_aliases during
+ alias path resolution
+From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
+To: "Rob Herring" <robh@kernel.org>, "Abdurrahman Hussain"
+ <abdurrahman@nexthop.ai>
+X-Mailer: aerc 0.21.0
+References: <20260805-nh-of-alias-overlay-v6-0-74f21d440819@nexthop.ai>
+ <20260805-nh-of-alias-overlay-v6-2-74f21d440819@nexthop.ai>
+ <20260827145237.GA3212208-robh@kernel.org>
+In-Reply-To: <20260827145237.GA3212208-robh@kernel.org>
 
-
-
-On 8/27/26 7:31 AM, Krzysztof Kozlowski wrote:
-> On 22/08/2026 00:41, Ricardo Rivera-Matos wrote:
->> Introduces support for the multidevice synchronization (SYNC)
->> bus. The properties introduced allow for the configuration
->> of the device's transmitter IDs.
->>
->> Signed-off-by: Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
+On Thu Aug 27, 2026 at 7:52 AM PDT, Rob Herring wrote:
+> On Wed, Aug 05, 2026 at 01:31:01PM -0700, Abdurrahman Hussain wrote:
+>> of_find_node_opts_by_path() walks the property list of of_aliases
+>> without taking a reference on the node and passes pp->value straight
+>> to of_find_node_by_path().
+>>=20
+>> Take a reference across the walk. The walk itself stays lock-free
+>> like every other property iteration: it can race property surgery and
+>> see a stale view (a removed property's ->next is repointed at the
+>> deadprops list), but nothing it can reach is freed while the node
+>> reference is held. devtree_lock covers only the pointer load,
+>> pairing it with a later patch in this series that clears of_aliases
+>> and drops its reference when the node is detached at runtime.
+>>=20
+>> Validate the value before resolving it. of_alias_value_ok() requires
+>> a non-empty, NUL-terminated, absolute path:
+>>=20
+>>   - an empty property has a NULL value and crashes in strchr()
+>>   - a value without a NUL inside the property is read past its end
+>>   - a relative value naming another alias (loop =3D "loop") recurses
+>>     through of_find_node_by_path() until the stack is exhausted
+>>=20
+>> All three are reachable with a malformed boot FDT today.
+>>=20
+>> The name comparison loses its redundant strlen() pass while here.
+>>=20
+>> Assisted-by: Claude:claude-fable-5 [Claude Code]
+>> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 >> ---
->>   .../devicetree/bindings/sound/cirrus,cs35l45.yaml  | 27 ++++++++++++++++++++++
->>   1 file changed, 27 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml b/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
->> index 70f6c62aedca..20d758dc442f 100644
->> --- a/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
->> +++ b/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
->> @@ -53,6 +53,29 @@ properties:
->>       maximum: 3
->>       default: 2
->>   
->> +  sync:
-> 
-> Same comment. You did not respond to Sashiko report because "it
-> contradicts itself" is pointless. It did not... unless you meant
-> irrelevant part about example. But that is just irrelevant to the binding.
+>>  drivers/of/base.c       | 20 +++++++++++++++-----
+>>  drivers/of/of_private.h |  8 ++++++++
+>>  2 files changed, 23 insertions(+), 5 deletions(-)
+>>=20
+>> diff --git a/drivers/of/base.c b/drivers/of/base.c
+>> index 477017ed6f49..eca1f55eee87 100644
+>> --- a/drivers/of/base.c
+>> +++ b/drivers/of/base.c
+>> @@ -995,6 +995,8 @@ struct device_node *of_find_node_opts_by_path(const =
+char *path, const char **opt
+>> =20
+>>  	/* The path could begin with an alias */
+>>  	if (*path !=3D '/') {
+>> +		struct device_node *aliases;
+>> +		const char *value =3D NULL;
+>>  		int len;
+>>  		const char *p =3D strchrnul(path, '/');
+>> =20
+>> @@ -1002,16 +1004,24 @@ struct device_node *of_find_node_opts_by_path(co=
+nst char *path, const char **opt
+>>  			p =3D separator;
+>>  		len =3D p - path;
+>> =20
+>> -		/* of_aliases must not be NULL */
+>> -		if (!of_aliases)
+>> +		/* the load pairs with writers that retire the node */
+>> +		raw_spin_lock_irqsave(&devtree_lock, flags);
+>> +		aliases =3D of_node_get(of_aliases);
+>> +		raw_spin_unlock_irqrestore(&devtree_lock, flags);
+>
+> There's no need to take the spinlock for just a get. Furthermore, as=20
+> long as the of_aliases pointer is exposed to the rest of the kernel, a=20
+> reference should always be held. Not that you should rely on that=20
+> here...
+>
+> Rob
 
-I will explain the contradiction again. Pay close attention to the word bus.
+Agreed, dropped the lock for v7 (here and around the of_aliases
+updates in the notifier patch, which are already serialized by
+aliases_mutex).
 
-Sashiko says "This commit introduces support for the multidevice 
-synchronization (SYNC) bus".
+Since patch 1 is applied, I'll drop it and rebase the rest on dt/next
+unless you prefer otherwise.
 
-Sashiko and I agree, it is a bus.
-
-Sashiko then complains "Is it necessary to use a child node here just to 
-group configuration properties? In Device Tree design, child nodes 
-usually represent distinct hardware components, sub-devices, buses, or 
-standardized structural elements rather than serving as logical folders 
-to group related configuration properties."
-
-I am confused, do buses merit a child node or not? This is a 
-contradiction without additional context. Do certain kinds of buses get 
-child nodes and others do not?
-
-Sashiko is an automated review tool that is being ambiguous. I need a 
-human maintainer decision made here. Does a bus merit a child node, yes 
-or no?
-
-> 
-> Best regards,
-> Krzysztof
-
-Ricardo
-
+Thanks,
+Abdurrahman
