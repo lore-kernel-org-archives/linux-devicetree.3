@@ -1,288 +1,253 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC29472543
-	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 13:14:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E6F4468C22
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 13:16:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787836477; cv=none; b=Sv1COF0rX9e4cz01mfRU7daQmTdFvS/oB5JOp0Tl+v/hnK7W8Uxi8OxQ6KWd5B7S4MxoLL79xppwYiY/mHeHoQahGUxffqKoDR+1+lx2/+2Ir2Kvk2MU8qFhFSKh5ApR/O4cnNYX4tMMqSpXZtK44aFWQ1h9Qfyf3dExIE71tKU=
+	t=1787836575; cv=none; b=MnMzGdfs4e6E9Ip0iBNfyC5r00tgqfHWG76LgREcoSure/b7pBabdaYsP3TYNa+cUHNjTGNnOSkpoITxKoGYEwZG1IZxYV72W0coh20x6u3on6IbKltX39osA0OgoZSY/FPIupCDM64zzpJ4HSJYKrrlcJhH/x9myVGxQhj2jog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787836477; c=relaxed/simple;
-	bh=Oo3Yt40dEl6CkZSwjQb88RYZpWxLTUVv2MFoBUQqnXo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LE7fVOguL+9vEDa19SAnxnjqfkIsnqjzT3Ofjf/by0el4eLT7n3bQd/xZg7IabtmwXaHnLhYdZnSfxswuCtnxAJsoahglqVEzofH8/jXw/3oNrop3+KCBiWsp70nSnbPEPkqDoe3KJsXCl5LLkD7pvFnE1WvZ/Gzg0+k/VHjCV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bKtF7ft8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=d98OHm7x; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787836575; c=relaxed/simple;
+	bh=cfYLMttHm5lYFRShaioVB/9FzuF8nxuxPzPW7wPQFvY=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PYhZNob6zJTi5r/bUjkIQgzXldf6aEPQuVDlu6hDfmjo+dIZLmy/NvI9vvCsasZ8j7EDQTRvgig3hTxzhibC2PP0T7i4fQsf05UcYP/nXIAH2ydZgqd0vGY+y8i0XaZrl3iohi+gi8h53PcJMz6+3CkOargPWGwfiWyJpRZcgEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CNddpMjm; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bKtF7ft8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="d98OHm7x"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67RCBRqx411660
-	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 13:14:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	/LWQOzPDF8CiYTUrB5PDXuRkR+MWprvD6jrLx2fEfZE=; b=bKtF7ft8Wr9jv1Wm
-	8PYao3pX9yc4I/IrRqIPrJt5TBuMYVQ4NB8Aj9GGhCTtxwoAKFEZ082teGpeGpdd
-	gGa99bTZBJtPZYTR1gaikmvlcIu4PEj+p3JPq8rKKbpplMIQYjUwgIyjNCyBzFLf
-	+CVhtInilKb4DrNUrqGyudlMG1f2/0nmTZV/8uci4l0pMGlXdqTXHnwbG6jr3iS3
-	rvUTaIFKHRbbjKN9wyVaHf9Z5Qp1a6gBcGFH76znaD6wNqn0NesaaXla3gzyzyzH
-	deRQWRYLgA9ezyYrv75u6+x7Owag+L8Pt10Ce4qFEuztL7cjhl81ZLuw9msQyhXj
-	BJt2DQ==
-Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ga0wbvtgx-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 13:14:28 +0000 (GMT)
-Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-464fb819ac5so694890fac.1
-        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 06:14:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CNddpMjm"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49557167508so7410795e9.1
+        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 06:16:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787836468; x=1788441268; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/LWQOzPDF8CiYTUrB5PDXuRkR+MWprvD6jrLx2fEfZE=;
-        b=d98OHm7xtA+HUjL1anTCyRMk4az1R3Puqvhnup14fPsLFQ27d8PqmA8xeqrDSyvV7U
-         9mee04LGH+yfRJ8yDnUIJkhTxX/k2L1/y0qRppgeQRxXkmKx68fpvyR+I/SQQSlrP2mc
-         dkBB66VawYjCWQ+vXnuzqPLZMORr14Lp9ll0JvvKcPCCHNlTBRd2/FIgM8e2F9Cm55E8
-         CRUL7jLguGNCmxw2rLI/orGH8FaxjvibkMfWBHdm9pb6PMCXt3bOnVdAXRbuiVR0TRmR
-         0xmZfzdWGyY8nTBhDz5n0rlkkrsyV1I3PzTwc6iamKWOjue/YFmamzOoGluXgUJpoai4
-         FRkg==
+        d=gmail.com; s=20251104; t=1787836561; x=1788441361; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=XDY73W5+DrXEydXQR2nkbVBUMArg5jEL4W2f2kgOO8w=;
+        b=CNddpMjmPnV3DrhHV6NZetJs7JJCu6CCehp+OeHjbTFHlFFMQuUjLgewaMCEx9h1q+
+         9x/0EhI2UbXgKzxXFf2xcjXQc8UungWx310XAn1COzuOCySm7RXB5wixvb1Lqfi2f/BS
+         MlhMTXN28RU6GbwhhcJFLFOZIncM5NzivLkZ7Edu5OgnXweuj/n0Cx5Rn16QvzX2h1JI
+         +N+MtqJsiVCH4c5ODEP5HuQrAfp4VaTZbPGJWzJB4IZ9bouwvpbv6Cfmf30ncZqy5uZf
+         Z+iFhUUbj0/8Nqar36V70SYiXx7io/7xqOXTcNJtmjcYQWWJ4nBV8hSndRduQ10ygZl9
+         Cp1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787836468; x=1788441268;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/LWQOzPDF8CiYTUrB5PDXuRkR+MWprvD6jrLx2fEfZE=;
-        b=kXJvN0XDjSOJZI8J15YE3+RzZjBxmuiXqojgfq3Wjutlsh/+7udaOJofqzVGfUj6JW
-         dgAyzb6FOieMJSd6NhKmnmbKUbNNM4GklDqzn5WYAefgWhJLZvLIsyVvQaiptnS8G2YK
-         8VQwtQJvriPxdJ4orQv1KVBEPJstHQU7YTuImDNdlseaLnaYbtCgON9Wfe8nZwijWKpn
-         aiTQTGJ4xfKrI7zM8dlsjJq+v0POcyaEzl2z52/fmXEGopYnrFH5TnwuIrZMbzo8C/lb
-         myQ1kSuLfCKlodKC96e6cZesFmafOlomOqEM/S0cqijurfD3293N2BMPQgbvT2OCAYxX
-         EVNg==
-X-Forwarded-Encrypted: i=1; AHgh+RrKvgcRmtKFu5tEf8jEAbE8THcd5uQ4BHkKvwyDaUCiJswfyKwOUeSko5x0zkw2Snr5hsbUdC7AdKaj@vger.kernel.org
-X-Gm-Message-State: AFuF++mddyo+JmtURUZKEdxLepjhXwBgLCe/Czp/tGjNre4NMoVOb9VM
-	7W2foYdxFeckN/ACcO0Eyb/gScfsel87ZALy8AyMJXPl97lTU8myp+g5lGM/1ek77wDpSOA7QSu
-	YQ56Yzg9jXn2rso99LTT5aBgBI7CjvZvp+qUZPGPKf3Z5fEGzoCIO5daq0i3Gzq2BuOy61AmN
-X-Gm-Gg: AR+sD11PtyiLnJn+Vdcp4h2G+taqNIkVu2BFEYjBdUGuZc0v66V3Ja164yh9nSuwFY0
-	g2+esebIdIgTyhBjBDpBq1EvqqsKUsJP6TD7MmvTWjPxgrydNejJthuPU7cLQRA7uIxnGWI+OVI
-	drvDOCSYVV6O8+4oUXLX8lOnOuw4/ZBDyL5kHdNBFSEYpm43UVoq+eEeryFH/cYdnvP3OfA+gEa
-	FHvxmPWV50fIPN7Lh6/95603iH3WittFOAWnyOV1oV+P3xULZT6//rjWglBgAK6RIxLndJN+mN9
-	vZQqKypuUQm+WLzwqwpbyH3Naqo+RKeAvnbfvNX4+0pGognFf5zhNF7GMuc9G3w2xCyBD8m7N/Y
-	L27/okQMJerhpxAlXTnO7kdFxel5rwHIi
-X-Received: by 2002:a05:6820:a513:20b0:6a3:a335:1ccd with SMTP id 006d021491bc7-6b1a03b1915mr11386432eaf.8.1787836468093;
-        Thu, 27 Aug 2026 06:14:28 -0700 (PDT)
-X-Received: by 2002:a05:6820:a513:20b0:6a3:a335:1ccd with SMTP id 006d021491bc7-6b1a03b1915mr11386389eaf.8.1787836467566;
-        Thu, 27 Aug 2026 06:14:27 -0700 (PDT)
-Received: from [10.218.4.101] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b1a268023asm4383447eaf.13.2026.08.27.06.14.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 27 Aug 2026 06:14:27 -0700 (PDT)
-Message-ID: <5c6b120d-f791-424b-a41a-6c82de73000f@oss.qualcomm.com>
-Date: Thu, 27 Aug 2026 18:44:21 +0530
+        d=1e100.net; s=20251104; t=1787836561; x=1788441361;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=XDY73W5+DrXEydXQR2nkbVBUMArg5jEL4W2f2kgOO8w=;
+        b=pAUT1ovr1d45OaV9pUwIcZqGfvN2vngKgUgXvDunNJp+eRRZEq7QIni8WWs616s1r4
+         8Ln8J/zPLXR1ifvPFDkaUonBnHKfl9chiLX1npoxeCNtW1AePTPmR7GASgf4kRwFpqLB
+         sHNySr/rKlewNN5O5GeRJdVadbRutUxxKI+fcit/PLu1FMbcKeIxrxFUXM++ZI9zk025
+         N3qTMsNMzqs/ThS8BMmKNkxfJwXlAThPUsrqv2tmUBfZAy6gXYyN2Q6aJY0H7hMNVHTh
+         UGEBT8lhD8kaKntOWrfc6XgsleFQz5Cqt3JqWkrERHWZ1F+gshpseiEukgiEyDYCgzui
+         cV8A==
+X-Forwarded-Encrypted: i=1; AHgh+Rpt58/Zpev9dMOyJQhTNSHh+n7n6HIgxYo0CPxIfwLwKxD3wXvm1/sT+l+zJdzpEgY1fYGy4/YFYOHg@vger.kernel.org
+X-Gm-Message-State: AFuF++m2oNddhzG9jpyGMk/CloZkiYCw66cNDfP1IHl9JSTlYmAGryY5
+	em43Ltm/HxlkNSaHx9hTIKeax1m3p0DdEjXSr6o97bTRLUvQ34qFGzNf
+X-Gm-Gg: AR+sD13L8JcDczTTI7DTEYvxwKJQSDv/5/wfI86LNdAl4HOUuy2D6GhGhh/8R+DojP7
+	lDPw6wQw3YeLYaFeXa5Hf91saa3MHY75lUn8D/UufXE1b76QZfSXXlI2vGFtUdaAHrxktxlT13E
+	E7dW9vnVMBTm6CAbdr/vwMU0AudyenP8bOOyhOQ+FT4WreIO1p5HNy/vjh3EdD5KqasBdO6PaL3
+	VOyKS2P3Jkw+gxT0oE3u2SeQst1VFGw5ct5uxcItxslLf7XVFrJRYoxeGu9nkkdp9DoIPLownPB
+	vzXEYJBGsr0fnYqOK5tIJHnMUuCRxTXenQjj02OFr6sNOa9xQ4jKWcRUaYRPjD+L6T4lo/wkXEp
+	jIGp87r5Flt5bXwkLhzuAMNmontZp2SkSKzmuiOZxpCfPIxUHqp/huyHIwqy5Xa2hqPAAFh+VgL
+	6Cyv/sjEJ2c3c6NB43TmDu6gp5KWzvhepAe8xwQHGXypsAzmP1vrgmR//OmnBQsVJOCvlEfJ8Ig
+	xC9a8MxIPBkWIJHuAt49ZkATUZRgZk37EqL+lDA+EbNvxXLJ8ft8BkbRgl4o6Q=
+X-Received: by 2002:a05:600c:3b0e:b0:499:dbba:9859 with SMTP id 5b1f17b1804b1-499dc701419mr155135385e9.5.1787836560352;
+        Thu, 27 Aug 2026 06:16:00 -0700 (PDT)
+Received: from Ansuel-XPS24.localdomain (host-79-26-252-140.retail.telecomitalia.it. [79.26.252.140])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-482e28dc3f5sm9367192f8f.21.2026.08.27.06.15.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 06:15:59 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 1/3] dt-bindings: phy: airoha: Document support for AN7583 USB PHY
+Date: Thu, 27 Aug 2026 15:15:45 +0200
+Message-ID: <20260827131551.26725-2-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260827131551.26725-1-ansuelsmth@gmail.com>
+References: <20260827131551.26725-1-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] i2c: qcom-target: Add driver for Qualcomm I2C
- target controller
-To: Andi Shyti <andi.shyti@kernel.org>
-Cc: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260813-i2c-qcom-slave-v3-0-1d3742e2ad47@oss.qualcomm.com>
- <20260813-i2c-qcom-slave-v3-2-1d3742e2ad47@oss.qualcomm.com>
- <ao7vB8cDufnJZKAI@zenone.zhora.eu>
-Content-Language: en-US
-From: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-In-Reply-To: <ao7vB8cDufnJZKAI@zenone.zhora.eu>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: TXOwWTAObPhMwfp1H-uutD35snSMw110
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDExMCBTYWx0ZWRfX2YlebQJ3xbWY
- r5znEUHZwm52c11fGdxrwG5Gd5PPKVH5cVT6+sHhXKVv474mW/DOX0qCvWx772ZMw7tHmmXSOoc
- EJGz0SaY0kozN+2htZxjq2lrgwf4zWQ=
-X-Proofpoint-GUID: TXOwWTAObPhMwfp1H-uutD35snSMw110
-X-Authority-Analysis: v=2.4 cv=SoCgLvO0 c=1 sm=1 tr=0 ts=6a903834 cx=c_pps
- a=Z3eh007fzM5o9awBa1HkYQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=8fm-Ily114xI1oIpI2QA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=eBU8X_Hb5SQ8N-bgNfv4:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDExMCBTYWx0ZWRfXxTn3Opa0aAWG
- P7N5+TYsjGZoL0NqD1ckdkbcuOFMuYMso3pN0JeXs0v+YU3VHRTz/zyk7OQDYZGAnLk+WSOTD+i
- eprfL3xNi9iQO6Q2cjTXBJ+dtXelXeU9utgnkjElc7cv0KOWEHZ2Is+Ybu3SBFf9APPYUsCDMSJ
- rdERvEOHCmqDGsZFJdtxrH6Fj5mqDfG9VQpdk5xbTjgis+XBDxmqoyoMorAv4gDgbNMDnt4k1js
- VEx5fwcIouD6xWmKr6f19NoNN9QsNzsGM8D72yr0xwVw/yc5UYWrMAkBoDM7AW1Unbo3JZKxSpA
- xXem5FPTNBgdHM94l9FAquxQpW3UvIo6Rvb6tVznpIfl5goZ4DBYfse15LAsI+tmF57fvrpWG/i
- iJHYQutzfHMGSR1ZqHV7GnwfG85LyHwsnFgYtwj0JNXni3JTyowA9bqN2mK9ehddYFVl7lWQ1a3
- oQkLt7OuHHSa1DkdorQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-27_05,2026-08-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 impostorscore=0 malwarescore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 priorityscore=1501 suspectscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608270110
 
+Add documentation for Airoha AN7583 USB PHY that describe the USB PHY
+for the USB controller.
 
+Airoha AN7583 SoC support a maximum of 2 USB port. The USB 2.0 mode is
+always supported. The USB 3.0 mode is optional and depends on the Serdes
+mode currently configured on the system for the relevant USB port.
 
-On 8/26/2026 7:27 PM, Andi Shyti wrote:
-> Hi Viken,
-> 
-> just a quick look here.
-> 
-> ...
-> 
->> +static void qcom_i2c_target_hw_reset(struct qcom_i2c_target *target)
->> +{
->> +	/* Clear error bits before SW_RESET; the reset may not be instantaneous */
->> +	writel(BIT(ERR_CONDITION) | BIT(CLOCK_LOW_TIMEOUT),
->> +	       target->base + I2C_S_IRQ_CLR);
->> +	writel(SW_RESET, target->base + I2C_S_SW_RESET_REG);
->> +	/*
->> +	 * I2C_S_SW_RESET_REG is write-only so completion cannot be polled.
->> +	 * Use a conservative delay to allow the reset to finish before
->> +	 * reconfiguring the controller.
->> +	 */
->> +	usleep_range(10, 20);
-> 
-> This is also called in atomic context from the irq handler.
-> Please avoid using usleep_range(), perhaps you can put this in a
-> thread.
-> 
+To correctly calibrate, the USB 2.0 port require correct value in
+"airoha,usb2-monitor-clk-sel" property. Both the 2 USB 2.0 port permit
+selecting one of the 4 monitor clock for calibration (internal clock not
+exposed to the system) but each port have only one of the 4 actually
+connected in HW hence the correct value needs to be specified in DT
+based on board and the physical port. Normally it's monitor clock 1 for
+USB1 and monitor clock 2 for USB2.
 
-Thanks for the review. The delay is only 20 µs, so we were
-thinking of replacing usleep_range() with udelay() instead of
-converting to a threaded IRQ, to avoid the added complexity on
-all the normal fast paths.
+To correctly setup the Serdes mode attached to the USB 3.0 mode, a phys
+property is required with the phandle pointing to the correct Serdes port
+provided by the SCU node. Providing the phys property is optional if USB
+3.0 is not used.
 
->> +	qcom_i2c_target_hw_init(target);
->> +	writel(target->slave->addr, target->base + I2C_S_DEVICE_ADDR);
->> +	writel(I2C_S_CORE_EN, target->base + I2C_S_CONFIG);
->> +}
->> +
->> +static irqreturn_t qcom_i2c_target_handle_error(struct qcom_i2c_target *target,
->> +						u32 irq_stat)
->> +{
->> +	u8 val = 0;
->> +
->> +	if (irq_stat & BIT(ERR_CONDITION))
->> +		dev_err(target->dev, "Error condition: unexpected Start/Stop bits\n");
->> +	else
->> +		dev_err(target->dev, "Clock low timeout\n");
->> +	qcom_i2c_target_dump_regs(target);
->> +	qcom_i2c_target_hw_reset(target);
->> +	i2c_slave_event(target->slave, I2C_SLAVE_STOP, &val);
->> +	target->status = 0;
->> +	return IRQ_HANDLED;
->> +}
-> 
-> ...
-> 
->> +static irqreturn_t qcom_i2c_target_irq(int irq, void *dev)
->> +{
->> +	struct qcom_i2c_target *target = dev;
->> +	u32 irq_stat, rx_bits;
->> +
->> +	/*
->> +	 * Dispatch priority (highest first):
->> +	 *   ERR_CONDITION / CLOCK_LOW_TIMEOUT  — hardware error, triggers SW reset
->> +	 *   STOP_DETECTED                      — end of transaction, clears all state
->> +	 *   RESTART_DETECTED                   — repeated start, resets state before
->> +	 *                                        any data phase in the same snapshot
->> +	 *   STRCH_RD                           — read-phase data supply
->> +	 *   RX_FIFO_FULL / RX_DATA_AVAIL /
->> +	 *   STRCH_WR                           — write-phase Rx, coalesced into one drain
->> +	 */
->> +	irq_stat = readl_relaxed(target->base + I2C_S_IRQ_STATUS);
->> +	if (!irq_stat)
->> +		return IRQ_NONE;
->> +
->> +	dev_dbg(target->dev, "IRQ status: 0x%x\n", irq_stat);
->> +
->> +	/*
->> +	 * Load target->slave once. Both reg_slave() and unreg_slave() disable
->> +	 * the IRQ before writing the pointer, so it cannot change while this
->> +	 * handler runs. Sub-handlers may dereference target->slave directly.
->> +	 *
->> +	 * The core is enabled only in reg_slave() and disabled in unreg_slave(),
->> +	 * so no bus activity is expected here. Clear and discard any stale IRQ.
->> +	 */
->> +	if (!READ_ONCE(target->slave)) {
->> +		writel(irq_stat, target->base + I2C_S_IRQ_CLR);
->> +		return IRQ_HANDLED;
->> +	}
->> +
->> +	if (irq_stat & (BIT(ERR_CONDITION) | BIT(CLOCK_LOW_TIMEOUT)))
->> +		return qcom_i2c_target_handle_error(target, irq_stat);
->> +
->> +	if (irq_stat & BIT(STOP_DETECTED))
->> +		return qcom_i2c_target_handle_stop(target, irq_stat);
-> 
-> ...
-> 
->> +	target->xo_clk = devm_clk_get(dev, "xo");
->> +	if (IS_ERR(target->xo_clk))
->> +		return dev_err_probe(dev, PTR_ERR(target->xo_clk),
->> +				     "failed to get XO clock\n");
->> +
->> +	target->ahb_clk = devm_clk_get(dev, "ahb");
->> +	if (IS_ERR(target->ahb_clk))
->> +		return dev_err_probe(dev, PTR_ERR(target->ahb_clk),
->> +				     "failed to get AHB clock\n");
->> +
->> +	ret = clk_prepare_enable(target->xo_clk);
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "failed to enable XO clock\n");
->> +
->> +	ret = clk_prepare_enable(target->ahb_clk);
->> +	if (ret) {
->> +		clk_disable_unprepare(target->xo_clk);
->> +		return dev_err_probe(dev, ret, "failed to enable AHB clock\n");
->> +	}
-> 
-> The problem is that these clocks are not disabled in the returns
-> below.
+Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+---
+ .../bindings/phy/airoha,an7583-usb-phy.yaml   | 133 ++++++++++++++++++
+ 1 file changed, 133 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
 
-Sure, I will add the missing clock cleanup paths in the next revision.
-> 
-> Thanks,
-> Andi
-> 
->> +
->> +	target->irq = platform_get_irq(pdev, 0);
->> +	if (target->irq < 0)
->> +		return target->irq;
->> +
->> +	ret = qcom_i2c_target_icc_init(target);
->> +	if (ret)
->> +		return ret;
->> +
->> +	ret = devm_request_irq(dev, target->irq, qcom_i2c_target_irq, 0,
->> +			       dev_name(dev), target);
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "request_irq failed for IRQ %d\n",
->> +				     target->irq);
->> +
->> +	qcom_i2c_target_hw_init(target);
->> +
->> +	platform_set_drvdata(pdev, target);
->> +
->> +	ret = qcom_i2c_target_adap_init(target);
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "i2c_add_adapter failed\n");
->> +
->> +	return 0;
->> +}
+diff --git a/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml b/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
+new file mode 100644
+index 000000000000..7ec655253a8e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
+@@ -0,0 +1,133 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/phy/airoha,an7583-usb-phy.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Airoha AN7581 SoC USB PHY
++
++maintainers:
++  - Christian Marangi <ansuelsmth@gmail.com>
++
++description: >
++  The Airoha AN7583 SoC USB PHY describes the USB PHY for the USB controller..
++
++  Airoha AN7583 SoC support a maximum of 2 USB port. The USB 2.0 mode is
++  always supported. The USB 3.0 mode is optional and depends on the Serdes
++  mode currently configured on the system for the relevant USB port.
++
++  On Airoha AN7583 there is an unified PHY implementation where a single
++  PHY provide support for both the 2 USB 2.0 port and
++  optionally one 3.0 USB.
++
++properties:
++  compatible:
++    const: airoha,an7583-usb-phy
++
++  reg:
++    items:
++      - description: phy register
++      - description: ana register
++      - description: pma register
++      - description: dig register
++
++  reg-names:
++    items:
++      - const: phy
++      - const: ana
++      - const: pma
++      - const: dig
++
++  '#address-cells':
++    const: 1
++
++  '#size-cells':
++    const: 0
++
++  usb3-phy:
++    type: object
++
++    properties:
++      phys:
++        items:
++          - description: phandle to Serdes PHY
++
++      '#phy-cells':
++        description: The cell contains the mode, PHY_TYPE_USB2 or PHY_TYPE_USB3,
++          as defined in dt-bindings/phy/phy.h.
++        const: 1
++
++    required:
++      - phys
++      - '#phy-cells'
++
++    additionalProperties: false
++
++patternProperties:
++  '^usb2-phy@[0-9-a-f]+$':
++    type: object
++
++    properties:
++      reg:
++        enum: [0x0, 0x1000]
++
++      airoha,usb2-monitor-clk-sel:
++        description: Describe what oscillator across the available 4
++          should be selected for USB 2.0 Slew Rate calibration.
++        $ref: /schemas/types.yaml#/definitions/uint32
++        enum: [0, 1, 2, 3]
++
++      '#phy-cells':
++        description: The cell contains the mode, PHY_TYPE_USB2 or PHY_TYPE_USB3,
++          as defined in dt-bindings/phy/phy.h.
++        const: 1
++
++    required:
++      - reg
++      - airoha,usb2-monitor-clk-sel
++      - '#phy-cells'
++
++    additionalProperties: false
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - '#address-cells'
++  - '#size-cells'
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    phy@1fac0000 {
++        compatible = "airoha,an7583-usb-phy";
++        reg = <0x1fac0000 0x11ff>,
++              <0x1fa6f000 0xff>,
++              <0x1fa6e000 0x3ff>,
++              <0x1fa6a000 0x8ff>;
++        reg-names = "phy", "ana", "pma", "dig";
++
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        usb2-phy@0 {
++            reg = <0x0>;
++            airoha,usb2-monitor-clk-sel = <0>;
++
++            #phy-cells = <1>;
++        };
++
++        usb2-phy@1000 {
++            reg = <0x1000>;
++            airoha,usb2-monitor-clk-sel = <1>;
++
++            #phy-cells = <1>;
++        };
++
++        usb3-phy {
++            phys = <&serdes_phy>;
++
++            #phy-cells = <1>;
++        };
++    };
+-- 
+2.53.0
 
