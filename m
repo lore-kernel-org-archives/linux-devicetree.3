@@ -1,98 +1,122 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A5734562BC;
-	Thu, 27 Aug 2026 13:18:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B72B47126A
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 13:23:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787836717; cv=none; b=AdAugyODRXZEKg4DU7lA58B7c6+7VD72lt0W13y+fqopnj73huxs2vrsd2Aoz+KH5fsfXc32Yo2y//fQewKmXt8Jk1+8VhvFLN32Ae3eYOgZGLOhkJiP/jFdccNSz6vCo74L+5H9bqStLWP3Kd0CpOvKENjVdq607xxh8g3fmio=
+	t=1787836998; cv=none; b=aUPVE+gfAfttoUb3qZTnFnMGNqV0Z2ji1XpcRKZjcW/r0Rj0PbZSkGt312hfPl3RndJ+5g5ei6VTVlWhdyvBqKBZ6FaL1+bbCyLJHMhB86CIc3ZyJnpP4oT7jHPYo6TakmWw9BAY2/lAKU1nGnDJg+lxqwDcEQm27RqIbnri2AY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787836717; c=relaxed/simple;
-	bh=B66mz+YFJrAe/yeE4I2n7SIpyvkUG/BmfyEb57FexH8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rrNlSOlQ8wMQuZzzcU5y/Teg/5+OYDI2brSNXPHP1uynCXBTI8XieWm2czRII3v4IcmBtx1FjiRr2LElB/2E4upTu58UxPXn9ECiskWhqbFwxQweXUEOF2ak/jhK3LONLvERf1u471Ta1bIB6wb7J3lsZqq6yz6Wobf3ms7GfkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=agEWkwM+; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1787836998; c=relaxed/simple;
+	bh=D5D4Qvuw2J7F3KPWGJJ3lGNXwqBqQ5PCbq3gRqLQKuM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=tPcIeeigZ880/1S363+yKyEu/W6LxBnLtHKkikOoHfN6bP3QqRVrV8E/kCdFrYuyhKgdC/vzxVfPY6RCZ1aaJrR3ET+YSMGC7NZHH7+vUZ2nXGkle1YZJ49M7P9Z7zZnzue3Bwen91tIfSMNZoc5B4mAcMHt10FUx5xm1Jt/asQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hebwfOWX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="agEWkwM+"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=CzaEaww3RehmTxZoTFC0+nmKVn2a5jG0MJBF8jSy9E8=; b=agEWkwM+QabT/9AAY9/u8DTOi/
-	Q6bkFcme660Fid9hG/hflDOPqSksKYMgmA+mj9zY7Lzyn2MN7bbsf/QF8gGzNCiovwqtE5C+PT3DP
-	liPPghPC8DgNQNpY+JQIMv/IyaQJez2XAVDT2VwPMgpsUibLemZAufRoGZPcZkoNeRMsaqtBPMjzv
-	1/nc3uX+lNIriOAWkRM/6cennlMzOUUDvXBob473Fjl2KAKwbK57QcmSJZW316y+AGX+J2a6ECVoq
-	hycitnTJFFloj932b4/3a3shegCHcdFaMvNemgfO2WISwXjLjOm6zbPNjDuZG1RGlqoIj1iJsz1Zb
-	EFzTtsgg==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Rudi Heitbaum <rudi@heitbaum.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- rudi@heitbaum.com
-Subject:
- Re: [PATCH] arm64: dts: rockchip: rk3399pro-vmarc-som: add i2c2 scl timing
-Date: Thu, 27 Aug 2026 15:18:01 +0200
-Message-ID: <6298523.lOV4Wx5bFT@phil>
-In-Reply-To: <aou1Q5-hdF7kRVpe@0d3a7a881997>
-References: <aou1Q5-hdF7kRVpe@0d3a7a881997>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hebwfOWX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D5231F00A3A;
+	Thu, 27 Aug 2026 13:23:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787836994;
+	bh=S+vtg+DIQfssWs98xvhGpRu8Li1wu1OsFzS1bFiuqdc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hebwfOWXISMD9hNZMcwbuCt57m/aJZ+ybKmOyk7o9qMZa3QaeCBw4/pFwBs26B+Qi
+	 tia0PhxQCCoWIdNxQkdhqwyVMZx/sjRJ8pMxNE6u3W63c7AjyuMaMlLWolR6KoScBM
+	 wkwxEl6ZgGxLTPpDkBWpgWZ8yu6CcKyfhFlxyr0MzU7iiI4Kyh0YfeWH2kHKZekdNw
+	 AUtR0DdvFsZYH8FkS0eG3kL8I+FOmlgRUz/l08pyYm0ZoulotVF2z+V2uZfPi5FwXH
+	 2+5vcF/7tWKmb8YLY5KQ09RHaGx/kfWK3i7LvHsIXiJxHkc6wHNGb12QraGYem83bT
+	 b6gJCbmABs6ew==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/3] dt-bindings: phy: airoha: Document support for
+ AN7583 Gen2 PCIe PHY
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Marangi" <ansuelsmth@gmail.com>
+Cc: robh@kernel.org, vkoul@kernel.org, linux-phy@lists.infradead.org, olteanv@gmail.com, neil.armstrong@linaro.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260827131551.26725-3-ansuelsmth@gmail.com>
+References: <20260827131551.26725-1-ansuelsmth@gmail.com>
+ <20260827131551.26725-3-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 27 Aug 2026 13:23:13 +0000
+Message-Id: <20260827132314.0D5231F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 
-Hi Rudi,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Low] The binding title incorrectly refers to 'AN7581' instead of 'AN7583=
+'.
+- [Low] The register sizes in the example are off-by-one, incorrectly using=
+ the maximum offset instead of the byte count.
+- [Low] The binding filename 'airoha,an7583-pcie-gen2-phy.yaml' does not ma=
+tch the compatible string 'airoha,an7583-pcie-phy'.
+--
 
-Am Montag, 24. August 2026, 05:06:43 Mitteleurop=C3=A4ische Sommerzeit schr=
-ieb Rudi Heitbaum:
-> The hym8563 on i2c2 does not ack:
->=20
->   rtc-hym8563 2-0051: could not init device, -6
->=20
-> It is also the ext_clock for sdio-pwrseq, so wifi does not come up
-> either.
->=20
-> i2c2 runs at 400 kHz with no scl edge times. The core defaults both to
-> 300 ns and rk3x-i2c calculates a 900 ns high period, which is short for
-> this bus - it acks at 100 kHz. Set the edges to the values i2c3 already
-> uses, giving 1050 ns at 400 kHz.
->=20
-> Tested on a Radxa ROCK Pi N10: rtc0 registers and keeps time across a
-> reboot, and wifi activates.
+commit a30f9e597cd1c12059c1c3ca3b0550d5e5800f4d
+Author: Christian Marangi <ansuelsmth@gmail.com>
+Subject: dt-bindings: phy: airoha: Document support for AN7583 Gen2 PCIe PHY
 
-You tested on a Radxa Rock PI N10, but are changing the vmarc-som?
-I'm not really understanding this.
+This commit documents support for the AN7583 Gen2 PCIe PHY, which is used
+to make the Gen2 PCIe port work. It adds the required registers to configure
+the PCIe PHY and provides a usage example.
 
+> diff --git a/Documentation/devicetree/bindings/phy/airoha,an7583-pcie-gen=
+2-phy.yaml b/Documentation/devicetree/bindings/phy/airoha,an7583-pcie-gen2-=
+phy.yaml
+> new file mode 100644
+> index 0000000000000..f31d838871fc1
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/phy/airoha,an7583-pcie-gen2-phy.y=
+aml
+> @@ -0,0 +1,63 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/phy/airoha,an7583-pcie-gen2-phy.yaml#
 
-Heiko
+[Severity: Low]
+Should the filename (and consequently the $id path) match the defined
+compatible string airoha,an7583-pcie-phy? The extraneous 'gen2-' in the
+filename causes it to diverge from the compatible string, which typically
+triggers a schema validation warning when running dt_binding_check.
 
->=20
-> Signed-off-by: Rudi Heitbaum <rudi@heitbaum.com>
-> ---
->  arch/arm64/boot/dts/rockchip/rk3399pro-vmarc-som.dtsi | 2 ++
->  1 file changed, 2 insertions(+)
->=20
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3399pro-vmarc-som.dtsi b/arch=
-/arm64/boot/dts/rockchip/rk3399pro-vmarc-som.dtsi
-> index 64e6ba345739..074f09c6d11c 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3399pro-vmarc-som.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3399pro-vmarc-som.dtsi
-> @@ -296,6 +296,8 @@ &i2c1 {
-> =20
->  &i2c2 {
->  	clock-frequency =3D <400000>;
-> +	i2c-scl-falling-time-ns =3D <15>;
-> +	i2c-scl-rising-time-ns =3D <450>;
->  	status =3D "okay";
-> =20
->  	hym8563: rtc@51 {
->=20
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Airoha AN7581 SoC PCIe Gen2 PHY
 
+[Severity: Low]
+Does this title incorrectly refer to AN7581 instead of the intended target
+AN7583?
 
+[ ... ]
 
+> +examples:
+> +  - |
+> +    phy@1fa5f000 {
+> +        compatible =3D "airoha,an7583-pcie-phy";
+> +        reg =3D <0x1fa5f000 0xff>,
+> +              <0x1fa5e000 0x3ff>,
+> +              <0x1fa5a000 0x8ff>;
 
+[Severity: Low]
+Are these register sizes in the example off-by-one? The sizes 0xff, 0x3ff,
+and 0x8ff (255, 1023, and 2303 bytes) are not multiples of 4, meaning the
+final byte of the last 32-bit register is excluded from the memory region.
+
+A developer copying this example verbatim might create an invalid device
+tree that could cause out-of-bounds accesses when the driver reads the final
+register.
+
+> +        reg-names =3D "ana", "pma", "dig";
+> +
+> +        phys =3D <&serdes_phy>;
+> +
+> +        #phy-cells =3D <0>;
+> +    };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260827131551.2672=
+5-1-ansuelsmth@gmail.com?part=3D2
