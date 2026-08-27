@@ -1,114 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F0F2481AAC;
-	Thu, 27 Aug 2026 14:52:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E7D4483802;
+	Thu, 27 Aug 2026 14:54:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787842369; cv=none; b=isMbquVFhkcxyGUUMwwK0Fhu6GgRzWvi1UkEypPwdHNx2EQuYhtmM5KMIhsiwVTrbNTYmAQ4pm18I7T5LFNKnkB3KW9cLfj52i9kqusZXIda/ea1bPv2ajAlR8QQsOcA5wmRthhL0DwKcuaEoOrxLR3FGnOvtJUCFh7o3QxmQ4k=
+	t=1787842484; cv=none; b=lSxDnbctxb3yhqvSYylnqqjYfn50V8DQWKQI4MvuT6EYdrleacwM4dDref99dKBBYDU7u5BNdcNdaU2j0kd5Bqq9UlNUfnbURdwHCLt5c1e2roU2eUFQLmb0a7220cFRVnzazJd9dnY9zjrIMJhP5ciIF3a7y6Qo8uQMj16eOhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787842369; c=relaxed/simple;
-	bh=TOwwUCm3aMU3KaYZSXThW3DCIQz1ArqP+11cnzza8rk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GJhl9c/gzL87Z0pm2avMR51VlfUoHoLeYENvUDoCug7wrjVPV6iczoodh34two7Uo378WoRyIGZLTJFKUAL2v/fSc6kFsxxKPcA/0hso3lZW1mxtXMVd65XbH1dhaB1U1gnN1PgnmVJJ1TI38e6C1pCaHs91p/xRedD4wMXrVDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W/Wrgi1c; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787842484; c=relaxed/simple;
+	bh=G63TH+jenKq9CRzuy0d7OB3ZgIqHK+kY9EYYADOADOo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=MXSsy0NXuaMRLDcpZBtFQlqnTIOFwUpE8R/10wJ9w6M5NUlfeMzrj7D5BlTzW/3CbQjOSKDku6QQMHyBlO90jczrL9ktqGaOLHE396aw0fy08SWhpL7jvIHui0Q42ppsz2ZTL3r7j2TwfVBF8H3fu68JqUgujJeAVFgaXhChinw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HooiMZAT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W/Wrgi1c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8BF71F000E9;
-	Thu, 27 Aug 2026 14:52:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HooiMZAT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16E611F000E9;
+	Thu, 27 Aug 2026 14:54:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787842359;
-	bh=j6K2IwFpe5CIehfsd9uWcWn+lN920C2qwKtqbLQ7Ggk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=W/Wrgi1cgPXGQr7nZnU2yykJLHlcAqRYK5r781zx3+yA+pCBpNZGLISHJr7oQ9FU8
-	 yS3dYforbQCQWwRWGC/w/BkvlZg3qAp9Y+I8HID2xb3dFamTJ45UmIBJtDD3nf8NSg
-	 hY6yZKwGj6SylM0ZXmoqhpJWO2pwXIYA3Wjngnuv6xXyG7JUwD1eHcRlqhheVvGxIz
-	 LFB5vxQ0jPAAr4IfdDeME4Sb2rKFSsSliwOUa6ZXz4kQItQHJGXphr2XuXrywMWij7
-	 4pEw7VQaeRVg5eHJz9O/On7XF0Jyum/ftLq7NpoErdje9XHs7R+m9OO0UXc6/tI7x8
-	 FpIIMPG7gXjzA==
-Date: Thu, 27 Aug 2026 09:52:37 -0500
-From: Rob Herring <robh@kernel.org>
-To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Cc: Saravana Kannan <saravanak@kernel.org>,
-	Frank Rowand <frowand.list@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Shawn Guo <shawn.guo@linaro.org>,
-	Grant Likely <grant.likely@secretlab.ca>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 02/10] of: hold a reference on of_aliases during alias
- path resolution
-Message-ID: <20260827145237.GA3212208-robh@kernel.org>
-References: <20260805-nh-of-alias-overlay-v6-0-74f21d440819@nexthop.ai>
- <20260805-nh-of-alias-overlay-v6-2-74f21d440819@nexthop.ai>
+	s=k20260515; t=1787842475;
+	bh=oBtnrZz9Wo+EtBTQxkVDPZizsIqsBSgf5yJTcxel/78=;
+	h=From:Subject:Date:To:Cc;
+	b=HooiMZATcz18jtzoAOspcG+fjXIsl2yMZsEvlxQVVe13o5Hk1t44fYqCXFVbH1JlO
+	 2twPAKQbQDmXCeGMBW8yjv8JlrO6HoXNFp7AbmDrb4Xz1KyYMZhAlJ+G2zwtwGghuK
+	 FiV/lCGlA7L05wU3FmejmILQ+RcFFnBa6+g7J5fqo0saQpWroV3edKLzO5Qv21jFUc
+	 MTc12r3GhhwXVeiGW5px6Fol63cq3ZlAPN6XtZ+n0B1X2Ko+dm2TGB7naS0ph+a5po
+	 W9gVZVLxB/YTK1F+cyLQP1rap7Xe9pf3Z6lv1ZrmBsu5Zs6ykY3oK8CErZJJrzYZn+
+	 PB3490J0csMSg==
+From: Thierry Reding <thierry.reding@kernel.org>
+Subject: [PATCH 0/2] arm64: tegra: Add gpio-keys for Jetson AGX Thor DevKit
+Date: Thu, 27 Aug 2026 16:54:17 +0200
+Message-Id: <20260827-tegra264-gpio-keys-v1-0-89518c5fb29f@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260805-nh-of-alias-overlay-v6-2-74f21d440819@nexthop.ai>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBG4avIrDugwWrTqxQXGn/jtKCSUWkR7
+ 96oy2/x3kaKIFB6JhsFrKIyDhHZLSHX14MHSxtNJjVF+shKnuFDbYqc/SQjf/BTtve8tGhaazt
+ HMZwCOvme01d1WZfmDTcfJ9r3P5+32xh2AAAA
+X-Change-ID: 20260817-tegra264-gpio-keys-95479ebd99fc
+To: Thierry Reding <thierry.reding@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>
+Cc: devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=975; i=treding@nvidia.com;
+ h=from:subject:message-id; bh=G63TH+jenKq9CRzuy0d7OB3ZgIqHK+kY9EYYADOADOo=;
+ b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBqkE+lB3chB/mTsVQiJqANwBPR6k2alrLGV70qc
+ Rmx9GWyKvSJAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCapBPpQAKCRDdI6zXfz6z
+ odCVD/0T44jNJpHhoXewhvKWd5U1WyqbnhOh9CjSQCpBSimjxGgbIKZTjxZU+eR86fRI4AtQ4yC
+ z0jAyEw8JLeoC6dmmJtgJjPJsDBb6GI+oBjwLq1PAQAryN384DdlsJf8Ecd8Bvz+lePbb7XQCUE
+ zdMFZKaVLvtVeeAaDkskfyYHfFx77+dZRlNZoihZUrlhb912xnioB1SeyEfzRnbn7lZ/QJDpoW1
+ 0emLEUBjvXnXmkho9PVytcAFW+kvPb77D7EmN4Pm/AOdphXoBdDe1Q1rPZEtcS/R7U1FOaNwwMg
+ u9KnlcJeXmkdTbFRTce417jV6ou69I3QTpNvv9Ef8DTR5sjFb6aDUXnEr+2EiY1DVtRk6vX8MB2
+ uPftzDje177eH5egLq5o9DXhsI+ICgBO0vx6KVFfwf11M6qZ+jf57m5FRGzWXB8pKHTueWKLtOg
+ kLam8+n4mFeNqvCB8lsT8o5y6k6KtLdKOTPfKF7Pidhfnyj2WSZmLxavJM39yEZO8qKJIKVEVME
+ cI/SO/3wPQXQ9yykrSwqM8UzwxatrQWeqB9xYe0lJQ5R8XzJj3CWeNmKesR8YCIzGCpFxCD3gnS
+ i3KqWy7LlAPcz5cn9oLTlq+8bULWO1ir0pw+kET2H8zlyWO3W2GJDtusZ1lwef5vWqQNAoQEWyZ
+ jZfdivtTPUBS00w==
+X-Developer-Key: i=treding@nvidia.com; a=openpgp;
+ fpr=88EAC3080149CCF7C08DC89FDD23ACD77F3EB3A1
 
-On Wed, Aug 05, 2026 at 01:31:01PM -0700, Abdurrahman Hussain wrote:
-> of_find_node_opts_by_path() walks the property list of of_aliases
-> without taking a reference on the node and passes pp->value straight
-> to of_find_node_by_path().
-> 
-> Take a reference across the walk. The walk itself stays lock-free
-> like every other property iteration: it can race property surgery and
-> see a stale view (a removed property's ->next is repointed at the
-> deadprops list), but nothing it can reach is freed while the node
-> reference is held. devtree_lock covers only the pointer load,
-> pairing it with a later patch in this series that clears of_aliases
-> and drops its reference when the node is detached at runtime.
-> 
-> Validate the value before resolving it. of_alias_value_ok() requires
-> a non-empty, NUL-terminated, absolute path:
-> 
->   - an empty property has a NULL value and crashes in strchr()
->   - a value without a NUL inside the property is read past its end
->   - a relative value naming another alias (loop = "loop") recurses
->     through of_find_node_by_path() until the stack is exhausted
-> 
-> All three are reachable with a malformed boot FDT today.
-> 
-> The name comparison loses its redundant strlen() pass while here.
-> 
-> Assisted-by: Claude:claude-fable-5 [Claude Code]
-> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-> ---
->  drivers/of/base.c       | 20 +++++++++++++++-----
->  drivers/of/of_private.h |  8 ++++++++
->  2 files changed, 23 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/of/base.c b/drivers/of/base.c
-> index 477017ed6f49..eca1f55eee87 100644
-> --- a/drivers/of/base.c
-> +++ b/drivers/of/base.c
-> @@ -995,6 +995,8 @@ struct device_node *of_find_node_opts_by_path(const char *path, const char **opt
->  
->  	/* The path could begin with an alias */
->  	if (*path != '/') {
-> +		struct device_node *aliases;
-> +		const char *value = NULL;
->  		int len;
->  		const char *p = strchrnul(path, '/');
->  
-> @@ -1002,16 +1004,24 @@ struct device_node *of_find_node_opts_by_path(const char *path, const char **opt
->  			p = separator;
->  		len = p - path;
->  
-> -		/* of_aliases must not be NULL */
-> -		if (!of_aliases)
-> +		/* the load pairs with writers that retire the node */
-> +		raw_spin_lock_irqsave(&devtree_lock, flags);
-> +		aliases = of_node_get(of_aliases);
-> +		raw_spin_unlock_irqrestore(&devtree_lock, flags);
+This set of patches cleans up some existing gpio-keys DT nodes and adds
+support for the power and force-recovery keys on Jetson AGX Thor.
 
-There's no need to take the spinlock for just a get. Furthermore, as 
-long as the of_aliases pointer is exposed to the rest of the kernel, a 
-reference should always be held. Not that you should rely on that 
-here...
+Signed-off-by: Thierry Reding <treding@nvidia.com>
+---
+Thierry Reding (2):
+      arm64: tegra: Use consistent key code for force-recovery button
+      arm64: tegra: Enable GPIO keys on Jetson AGX Thor
 
-Rob
+ arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts |  2 +-
+ .../boot/dts/nvidia/tegra234-p3737-0000+p3701.dtsi |  9 +--------
+ .../dts/nvidia/tegra234-p3740-0002+p3701-0008.dts  |  9 +--------
+ .../boot/dts/nvidia/tegra234-p3768-0000+p3767.dtsi |  2 +-
+ .../boot/dts/nvidia/tegra264-p4071-0000+p3834.dtsi | 23 ++++++++++++++++++++++
+ arch/arm64/boot/dts/nvidia/tegra264.dtsi           |  1 +
+ 6 files changed, 28 insertions(+), 18 deletions(-)
+---
+base-commit: 6a746cd265aed59107ebdaa9ce039bb832922969
+change-id: 20260817-tegra264-gpio-keys-95479ebd99fc
+
+Best regards,
+--  
+Thierry Reding <treding@nvidia.com>
+
