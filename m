@@ -1,141 +1,165 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from cp2.siel.si (cp2.siel.si [46.19.12.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0072E43E071
-	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 11:40:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA7C3115A2
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 11:40:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.19.12.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787830825; cv=none; b=MiAchndAXXaQDKvy8XYWhA5gXLGJe61DIE/tECuMx8+u/RKAklCj7j7XXIC+R+EBIyI4ueQB7n2miLEc16a5G3mKve3mmodiIVDj/P9TZTu3P2zvJVX0yLzyNSVWva9vb+hHM5+tIWx/XriJc7y3mo3jMQaHpsjHl2vNAIjHJHI=
+	t=1787830846; cv=none; b=Z7XvByJy/3x1n4rpZrptxj6cskilVVEV4LFT+vUL5OTfw+clNzf3RlYCfNnMubS80aumbY3A11MHJmammor22Wjo6vLW7EojD6/f9WN9zhECrlAb6alLFaLr0cbS6XHzD4rJDs+rdfCnvl+T5K08G3qTwzm89tSrs99EaxPOHlM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787830825; c=relaxed/simple;
-	bh=OAKm82vaMaMeu3/aB1+1/H8WkwsDwUkXROpGLq6zs3M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a8S6Q3DhjQxy8VEWJXODEuW+d2QJjj5WIyYrmFJ4o+wyLb7UzhcUlowfl5QC6QrBVuvbe9vTClqOxEqIq63UojUGaEaeU5fmDdVKsVqXUwC8O3Tdtaz7Sym8Jf9DGw63SPCrQR8W5/Dv9Y2tW9rqHyxJqvSgSzr2xyFChrTsSv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=N6AN7QCd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OKbZl1dN; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787830846; c=relaxed/simple;
+	bh=5HLWpG4MMXBNUTo7bfA+tQVUa3AWtUneHeNjgfaQ6QA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LD18uXYbwXgvlsLhPjPCye/l48MMywtzSFhTwhG17B+PRpvdVbtCjFT8C4IrGOQgxQefYclyA+3G2srqFlp2ZGrQSNUEr3gL9YUolTHm4JLF6Rda23kU34T3kcm3Q8rOb9I/YKgJ5t7ICD6iM1CpRgTqw8GbUSkIHJq94kCMb7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com; spf=pass smtp.mailfrom=norik.com; dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b=Dk+9iEEt; arc=none smtp.client-ip=46.19.12.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=norik.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="N6AN7QCd";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OKbZl1dN"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67R9I1kN3978105
-	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 11:40:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=/9K2OuhX2ub4vyYxG2pgMBrg
-	twR0S0sr9MtCBKOh4LM=; b=N6AN7QCdHiz/dxrxUu8KV0VPvKaBZGoMzd7KWkJA
-	9IA1Op630EJcxvWJOplFwHSnEOpNpI6Zzu4yjsZyBSohtxFgqsQsRJMwKWDOU9wS
-	SGuhHlIcET/0i1pAGFy+jwo+Kxmnh938WUIPefBZwjOz9q5AYiv+/TPim6YoyZ0r
-	ed6+xI+Mdw0ubvYQT5CKXEsCtPgas1slo7+rPLETuBTusXc59YubHL9qBly6gakD
-	hlF9SIjiT8jOsGb+mgg/nG+xFaAY+FPjY1MpPvVrH02HUVn373Xm+L2jIAHFdK6b
-	NUT1g9wJ5GwYl1pw4oYkqMc2T6vXqwWoQhy/Dj5Wg5OQWg==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ga4egkj3a-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 11:40:21 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-9375d92d8cdso267704485a.2
-        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 04:40:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787830821; x=1788435621; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/9K2OuhX2ub4vyYxG2pgMBrgtwR0S0sr9MtCBKOh4LM=;
-        b=OKbZl1dNgZFQPqPdYukyOu9l/kJOv+f1N7bXbSKJbJrud7X7nxWSooT5HUCPiafGsW
-         13A/T4seoUdgOVZXXwxF85WdCR8Jv9GfQAvFUfqojPCpppr91S0LD6C858etq7mwnS3K
-         Fqa/1ZEFhZ+uvJ1GN7+tNvswCZnzO5ZTLhVxTFC9lt4GAG710IdpTC9hpqusFUzhEtHP
-         5EKgm+IgtgqnrviOziebSwIud4uYWHPxnxAHXvwHw8swW3I69yJnHw4CEas0B1YT+GjR
-         quevBwJdRhKwjvma6W5HNuuJvgYyRCImQCZOMJSMKhMmqAvvb9MZhnLuFF03n8/PLt+q
-         s4yQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787830821; x=1788435621;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/9K2OuhX2ub4vyYxG2pgMBrgtwR0S0sr9MtCBKOh4LM=;
-        b=XiCeejZF6OrzHA4uhUFaSVmuL/zvUHlTvjUIxPQlgLUTY0DS4lrm+jN/4bY0gjvBgH
-         oh00NTRcLnNr4SVNV9Hh7Zk9rz2pLEQBfvBHcKvjYbNO86bcY82I5/5rIU4k21LwkuTM
-         3Ca5FMN3zk3F3SFYRMyphDnwYG0Vkn+hV5IAaI3FrvOiD77/dCm30aiB5Jc96qzojtEd
-         ZdWlRVMwEFmZZChuK6r43L5sD90kvgsRRnbBrBKN0GPyHlqkC6XlDKcwt6VqQ2v1HQvO
-         Hbds3aSDLHQZm1UoDtxtgpTE/zHeQQbDx1T64JNWQSM47Q86j2NEQgF5PQ92Lbb74G0r
-         uXRw==
-X-Forwarded-Encrypted: i=1; AHgh+RqGK0hpwZubgt5O+rZvNAPLpD5vSPZcVKs7UENaOF6ZBR9h1bKmxlkUaPBq8kT6eIIf75d9YLs7wDgt@vger.kernel.org
-X-Gm-Message-State: AFuF++kBuJvqHveV9lQcqiP/TujNMvgRZxhKYZUozF3mpa/K93aURTu0
-	l+w6QIYapGzD7bupIEFqq9RYfZPDZAkF3wQ4E4lZIsH0qVhPgF+OVdYOyT/kY1Xtin0I8M9NmXr
-	8pjmzUQUN2tW7PQrLQdd46BLQFyl/TL4lwnen4JFdmqqLZs/FyL0IGc5uOhWPII0OZEZXFXE+
-X-Gm-Gg: AR+sD12aUWgO4c2IFZlSGn0lZfY7kqb4fdi7m6mqdHS3y1UVxAbm7jtsgrf9kWp5nK4
-	TJtsFmwM82JRJ65vRv/vUzJu5AZ0cGfbAhQjVT2UA9jgxlJAGO26y4QPBxt3LWHCMX9nD5AHecj
-	ENE1hu/+BsZQ+8SwsD8q/tjNPomelfv1BIOpJ8XCYcho+lo+Ev0OFzicic4LR0uxft3NCTtWpdE
-	YNsYMMnpW5xpyt+33vdn8L34SpXlMTr1XbX96n/8SqjSkzW6aI++ztu/nDTnQbpAoqfmeDrtFSl
-	wQOo120lwvsqAuLMop0GyZEz9xzmhCzdoJK+9BEgpQ8iuRmX5JCSzs1e/JRPZ5ZjoSTAiNtr+A5
-	eNhPi96NIA8Wq
-X-Received: by 2002:a05:622a:844a:20b0:52d:f484:eefe with SMTP id d75a77b69052e-52f9f9ce476mr55498271cf.35.1787830821116;
-        Thu, 27 Aug 2026 04:40:21 -0700 (PDT)
-X-Received: by 2002:a05:622a:844a:20b0:52d:f484:eefe with SMTP id d75a77b69052e-52f9f9ce476mr55497921cf.35.1787830820613;
-        Thu, 27 Aug 2026 04:40:20 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.13])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b4c321184sm57928725e9.11.2026.08.27.04.40.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 04:40:19 -0700 (PDT)
-Date: Thu, 27 Aug 2026 14:40:18 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: jens.glathe@oldschoolsolutions.biz
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] arm64: dts: qcom: sc8280xp-x13s: Enable HBR3 on
- external DPs
-Message-ID: <kz3r6x77eo7547qwjcboajzhqdc45qo4p5ko5kntwrerwke4wz@bwcedtixhzbm>
-References: <20260827-x13s-dpaudio-v1-0-da73414c6ab5@oldschoolsolutions.biz>
- <20260827-x13s-dpaudio-v1-1-da73414c6ab5@oldschoolsolutions.biz>
+	dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b="Dk+9iEEt"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=norik.com;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=RFOfrqWy0gy9lPAGRhmq5L9wkrlW1ajf+5MBiyuIZYc=; b=Dk+9iEEt8hfjrR4MD3AvCHzkvV
+	4U1JtXrrCqHACyq/gKBe8oAumvubY4EGyxbx3DDkXV1xkxH9y5LAmn4cL5tSgXMop8AooJtnoRqSx
+	woarNzCRyNXZH3WpsuYkbsU0q6xfGpzWBnd3PZzrby6XYsdzS621J9pFCY3H/6QJj3bPNQxRNN3/p
+	d4be6gZkPYrztHlenjS13e+HAPSwgb9feDqAAKqTz67qphFfdxwr1osd+yx/qdGxroQPhs2tDhnWl
+	9au6KXuaSL5owErP+Swi6ddT2TgrDzg8XXRK/krYaEY8aS/9eYBffFJeAPADn/pdD3om+ydRnuw22
+	LkyN5ESg==;
+Received: from 89-212-21-243.static.t-2.net ([89.212.21.243]:52902 helo=[192.168.69.116])
+	by cp2.siel.si with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.99.5)
+	(envelope-from <primoz.fiser@norik.com>)
+	id 1wzYTK-00000008605-2QQO;
+	Thu, 27 Aug 2026 13:40:42 +0200
+Message-ID: <9e84fa38-597d-4e6e-9aef-f4fd8ff083ed@norik.com>
+Date: Thu, 27 Aug 2026 13:40:40 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827-x13s-dpaudio-v1-1-da73414c6ab5@oldschoolsolutions.biz>
-X-Proofpoint-GUID: b84OAc_i39wvTaIRiGLgHxm1tOm2YtjI
-X-Proofpoint-ORIG-GUID: b84OAc_i39wvTaIRiGLgHxm1tOm2YtjI
-X-Authority-Analysis: v=2.4 cv=DsRmPm/+ c=1 sm=1 tr=0 ts=6a902225 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=clBUptZa5v5FR042Ey+sjA==:17
- a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=gxl3bz0cAAAA:8 a=EUspDBNiAAAA:8 a=Uer6SED5Sbd5OPh8DIMA:9 a=CjuIK1q_8ugA:10
- a=NFOGd7dJGGMPyQGDc5-O:22 a=kiRiLd-pWN9FGgpmzFdl:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDA5NiBTYWx0ZWRfX+V0azRAGh2KR
- JWVJg52wIxKpA+BdApB4d6x/KSH9z65Bx5EWk5sW3gaexPqd+dy1mChydSsnPimr+IVPwcfSiM5
- z7sQRmXvAh/cfgxnCXe4a0KgbIucelg8XMZrzX5vvzwPOBsKX2ustHRnY3MSTk92KcqfH6sKfNe
- D6VlLkyDqKcNF078mI7gzvpxPRHyCpjWV4j+oBLG/r4pNdBE3eFBrcZzl56qVTEof4794YMHhOu
- HSJxxo7is6cMjQlRTqn71N8haVcCeF6LlVaUv9TxNNC4Z2+N1g0Mq45Z4EGxX0RDz3HqXskpoLk
- GJxlQrjugnRqoX2/5GBOjiTojU2FL/3o7JXeiK8fmXk29vXdPklBAlUoRNoVgW8PQzUShduOb4c
- 2vEkj1l+WHSz5VdrPw9AGpatShbq4x8uCIw/WRwAbUwGDBCzq3R9t0+y8GF6ZhQVkHTpwRMGKKu
- DPuQuBVe2f67tdB4VOg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDA5NiBTYWx0ZWRfX6zZxT7dn6tVI
- hLzVb/3R/HvgXqmLQQiVN8ZvkFtoYwb9koAhocFXIB6OxsfYJ1lWJUqPEELTfSnTAwnfYZisoL7
- WGjnpKjIos+yXBSf/3C7UvBHL4ng+R4=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-27_04,2026-08-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0 malwarescore=0
- clxscore=1015 priorityscore=1501 phishscore=0 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608270096
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: imx8mp-phyboard-pollux: add PEB-WLBT-07
+ expansion board
+To: sashiko-reviews@lists.linux.dev
+Cc: imx@lists.linux.dev, conor+dt@kernel.org, robh@kernel.org,
+ Frank.Li@kernel.org, devicetree@vger.kernel.org
+References: <20260827075754.2739119-1-primoz.fiser@norik.com>
+ <20260827081042.BE81B1F000E9@smtp.kernel.org>
+Content-Language: en-US
+From: Primoz Fiser <primoz.fiser@norik.com>
+Autocrypt: addr=primoz.fiser@norik.com; keydata=
+ xjMEZrROOxYJKwYBBAHaRw8BAQdAADVOb5tiLVTUAC9nu/FUl4gj/+4fDLqbc3mk0Vz8riTN
+ JVByaW1veiBGaXNlciA8cHJpbW96LmZpc2VyQG5vcmlrLmNvbT7CiQQTFggAMRYhBK2YFSAH
+ ExsBZLCwJGoLbQEHbnBPBQJmtE47AhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQagttAQducE+T
+ gAD+K4fKlIuvH75fAFwGYG/HT3F9mN64majvqJqvp3gTB9YBAL12gu+cm11m9JMyOyN0l6Os
+ jStsQFghPkzBSDWSDN0NzjgEZrROPBIKKwYBBAGXVQEFAQEHQP2xtEOhbgA+rfzvvcFkV1zK
+ 6ym3/c/OUQObCp50BocdAwEIB8J4BBgWCAAgFiEErZgVIAcTGwFksLAkagttAQducE8FAma0
+ TjwCGwwACgkQagttAQducE8ucAD9F1sXtQD4iA7Qu+SwNUAp/9x7Cqr37CSb2p6hbRmPJP8B
+ AMYR91JYlFmOJ+ScPhQ8/MgFO+V6pa7K2ebk5xYqsCgA
+Organization: Norik systems d.o.o.
+In-Reply-To: <20260827081042.BE81B1F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - cp2.siel.si
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - norik.com
+X-Get-Message-Sender-Via: cp2.siel.si: authenticated_id: primoz.fiser@norik.com
+X-Authenticated-Sender: cp2.siel.si: primoz.fiser@norik.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On 26-08-27 09:52:48, Jens Glathe via B4 Relay wrote:
-> From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-> 
-> When no link frequencies are set, the msm/dp driver defaults to HBR2.
-> Explicitly list the supported rates including HBR3 (8.1 Gbps) on both
-> USB-C DisplayPort endpoints so high-resolution docks and monitors can
-> train above 5.4 Gbps.
-> 
-> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+Hi,
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+On 8/27/26 10:10, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] Missing `post-power-on-delay-ms` in the MMC power sequence for the NXP IW612 Wi-Fi/BT module.
+> --
+> 
+> commit 60b0b6fcfb75ad1ee4054d84dfea3d70e8467993
+> Author: Primoz Fiser <primoz.fiser@norik.com>
+> 
+> arm64: dts: imx8mp-phyboard-pollux: add PEB-WLBT-07 expansion board
+> 
+> Add support for PEB-WLBT-07 which is an expansion board that provides WiFi 6
+> and Bluetooth 5.4 LE functionality. It features the u-blox MAYA-W2 module
+> with the NXP IW612 chipset.
+> 
+> [ ... ]
+> 
+>> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-phyboard-pollux-peb-wlbt-07.dtso b/arch/arm64/boot/dts/freescale/imx8mp-phyboard-pollux-peb-wlbt-07.dtso
+>> new file mode 100644
+>> index 0000000000000..008b6f9f46e59
+>> --- /dev/null
+>> +++ b/arch/arm64/boot/dts/freescale/imx8mp-phyboard-pollux-peb-wlbt-07.dtso
+>> @@ -0,0 +1,76 @@
+>> +// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
+>> +/*
+>> +* Copyright (C) 2026 PHYTEC Messtechnik GmbH
+>> +*/
+>> +
+>> +#include <dt-bindings/clock/imx8mp-clock.h>
+>> +#include <dt-bindings/gpio/gpio.h>
+>> +#include <dt-bindings/interrupt-controller/irq.h>
+>> +#include "imx8mp-pinfunc.h"
+>> +
+>> +/dts-v1/;
+>> +/plugin/;
+>> +
+>> +&{/} {
+>> +	usdhc1_pwrseq: pwr-seq {
+>> +		compatible = "mmc-pwrseq-simple";
+>> +		reset-gpios = <&gpio2 7 GPIO_ACTIVE_LOW>;
+>> +	};
+> 
+> [Severity: Medium]
+> Is it possible that the usdhc1_pwrseq node needs a post-power-on-delay-ms
+> property here?
+> 
+> When the MMC core powers up the SDIO bus, it deasserts the reset GPIO and
+> immediately proceeds to probe the module with no explicit delay. If the
+> SDIO host controller probes the IW612 module immediately after the reset
+> deassertion and the hardware is not yet stabilized, could this cause SDIO
+> enumeration failures during device boot or resume?
+> 
+> Other in-tree configurations for the IW61x chipset, such as those in
+> imx8mm-var-som-wifi-bt-iw61x.dtsi, explicitly configure a delay like
+> post-power-on-delay-ms = <100>. While there might be an on-board hardware
+> RC delay on the MAYA-W2 module that mitigates the missing software delay,
+> adding the explicit software delay might be necessary to guarantee stability.
+
+The same PEB-WLBT-07 expansion board on i.MX93 also doesn't use
+post-power-on-delay-ms property, see
+arch/arm64/boot/dts/freescale/imx93-phyboard-nash-peb-wlbt-07.dtso.
+
+So far no issues without post-power-on-delay-ms property.
+
+I would like to avoid adding such properties "just in case" for now.
+
+Thanks,
+BR,
+Primoz
+
+
+> 
+> [ ... ]
+> 
+
+-- 
+Primoz Fiser
+phone: +386-41-390-545
+email: primoz.fiser@norik.com
+--
+Norik systems d.o.o.
+Your embedded software partner
+Slovenia, EU
+phone: +386-41-540-545
+email: info@norik.com
+
