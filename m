@@ -1,120 +1,117 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013010.outbound.protection.outlook.com [52.101.72.10])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011067.outbound.protection.outlook.com [52.101.65.67])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A4FC2E736F;
-	Thu, 27 Aug 2026 07:02:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ECA736074F
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 07:07:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.67
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787814135; cv=fail; b=qGXHSbipkDLPmArmGKJkw3oqwjEo2b67XBYsY5BmO7WmOvGreh9SCqN0KKqUk+DIYykNyg8BOBxSUxULdNPON0G3Bd0e21e6c511TiKsu2r4vCYTJstk2PVXQDogOKKK0TiuFDmthAntqTV0A4cx5EqMrCuKCIQibxgMCbHuK0g=
+	t=1787814447; cv=fail; b=JVNplnI6O0MYGlXj140avXfcKs7LuRakC9LInbcAJIbqV1tMYRwinr8KkS+rD0sYLGuE1C6kaNtmdunr/kQ5qt0EGmASWq9KJ/pr/pPNkHkBoVIbT5HQL27iV0KDV6Ion7s3T3zkHs3xngFGGdcrp4YVaSDKQL6Jo0u9ASpuaSs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787814135; c=relaxed/simple;
-	bh=fOBBLW8DUJy9wMWqvaHlsSK4iZpwhc0fvoLi1VotnB4=;
+	s=arc-20240116; t=1787814447; c=relaxed/simple;
+	bh=BxmnR2mylv0ANE1jrbzQ3fhI8j1spccjBgbScg51u1U=;
 	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=hbWoRws/cMNO/hfgN7G5wEl4Sok8JPEkA4UAnncFUChsFm0KTTGWM6CNdvELNH145/JWvCNYPHGdCjqrUTBEykuaWk6xha1tjGEcSGQPrX5T8kzUkNIZPPnYIHbhrJe0cFd8I1b3/3sqL2kqkQGg62XYTzSPyHd1x+NtXi+wGng=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=UnO2jZg4; arc=fail smtp.client-ip=52.101.72.10
+	 Content-Type:MIME-Version; b=Ri/q+PKd5VtUeTRW0uzRczEREJXyKfzuBT2RQgYTKgD17JtvvJ8q3YLN4MQgPZjBWxMY1oN/XvJqPaZ2Xz/UaPKzFzzuCXbFg2knIiirAvkaUsEj5XlvMmf/jhOqOgOKcc3jNtf+JghUhcX0k/wfRV5B/oQD5m/U25KAleBvC/s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=ax1qSn3D; arc=fail smtp.client-ip=52.101.65.67
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="UnO2jZg4"
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="ax1qSn3D"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JLdBrp0wNLjFIug2FXRYtsCsq4Y99w2TmW/dYJmFwkRt8BxFgHMbvLa3ZXncviqpOQxEjAw/boUe/1YyCojNTGlwVcLCbCRkaahdZqEkdJ2TVB/aXs9BEwPPe4+azHjOyrtT1VY6HdAq0rhowlP/LQPJKcenbOcmk+AMG+eyVTL4r2jyl2RdEJmJP371sVcHurP9jLTF7875TgI1n/Tv3MTkFGHsj6KUBYS5nkGcQm8EusTp5C+23/pPdwDP87Rnan7aNu97yLs2SEI6py6N+8B5TuF8S/G5oppSCRChI+Yn9cf1J2Zfvx1UX3RtJh+9tg7RdZ0IOo5enQuxbCaU8w==
+ b=TMGp6KPrL8YF7zPavs8bhbGhhujLPfDQvHzQHJYyt4qyA0MR/e+BYrW7MThEYlAnW6c1cxhuy2n9I0NyAsFfA6AZZLbuM5kqGPJ2Xp8FDvpeA3DlIZ8Bsv8qolBcR4MW21FsWLuhWgdh5MUorursb9XLO4kIYY+yLuaHCuOILZCd+lvkF28L3wHLL+b/l+lsobKgpwQEZRuvejOZFpYZ9FPF16TLIX+835K6fOb+aT1b1tDJlLQvVssQhLP5k3wOoAhLRGA3lLtj6pRDHE+trcG9cbqS0mIx1sVmkh1KbDTOZ9grojf1pKNzFMc74I/7LM29TYW2avQF6ZVm1jBqOQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tZ8nqO2jb0FUxVeezvzmEySjIixnggCU8/+kvRM86ME=;
- b=PYAPubzLSK9wYVTkUCEQF3rBqXbW3paKr/8o5j1EbM3+H5aZpiBLi+gBwa1bKB3TZJPIp9mPzJ/3ajBrf84s7LMHkvHmcAVd3Kj+xGEQW+TfXdNhT3gMWAuVijQyxiRG/Z4JJuVT16iLYGS/KHrbpQn8aPmSl+cZSk3cMAS2iRrni4l8+GJOLR6ykOMxCtucS7B4c5RMZuMJVnXtChsscHP+LUs4Vw/bW8jfUBF/u3ytQZLyKf3JFMWChzpbH/TSQV7MNFdlMTGsyd0r0pbn/p/hM/62Zshw2Fk+aK2K4ou2D5lJ73wPSYsyhETaukPSBIKPsjJbhM1jUC1kfnAPiQ==
+ bh=QlvrEAbjN3270M/AKeh12fEzRrZJdu8Ybu1UgJ2nm7Q=;
+ b=pnYQJAuX6p1l0p2KaufBhAzztDg04B5JymPloGebQifsFRVkXpdeZBvUopbBAEtC051xEtD/LGajfvmAbHRrR6MLfLeVftQT1T+WgviIg1DIFpz1+ylqUOnbWcp+rF9IFuAoc+N1qgvLQ5iR+w/m/vsGFahFx9vmMQBEZVkiBKIHygpjUXZBu1PsBIHyXAA1yZog64GKY9BR1Uo/PSvc/vHU0j1g1TdDktktJfyl/a0aNtrwtoc83psG6GG2KBhArp9BlGvUoCfYrt5OI3b1aRIUFX6VJ1H3zDCYPf23738/XPHShiKCk6kK6lgynLKqzyrvyDGCzsUHXUK8dFexdA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
  header.d=nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tZ8nqO2jb0FUxVeezvzmEySjIixnggCU8/+kvRM86ME=;
- b=UnO2jZg4Vpkc/nx6DrjsItVThsfXOwYV9T38M1fSSr5JCdi8oCAcecwfqA4HFYYZkOsvRQcnQAR/0SOAgnF+XFkY7BETJITi9zNQT5OpfKgBga1kiiUT/kSDjmIB/11ztGQKyqa/BlyI+2fuF3YOS1r+8Vyce1Kq8Px2pxc5hahG+iMQaM113nGZq+pCrttN/dbXu8twl/ursHYFTcT2VEdW6/PyF7iOBtdYPeYaTZ+YhcXMK9zNgAKeG+SvVJLWceM/UAVHcCWNh/BfVix7wv3FOr0yyV+vQYQJQhx3wTQ3awO7FOpxwcL8f1KtL5DXgKb4BNrWq3eyk66r//V0dQ==
+ bh=QlvrEAbjN3270M/AKeh12fEzRrZJdu8Ybu1UgJ2nm7Q=;
+ b=ax1qSn3DciakW4LjfipLDPiZESIqLtXf3kMEgdYAqpmU1JiRNrBB93SjHUD7jepqQWDPK5jI8mccdc4Wkq8mETq6+XbDsXh5M1d+q1mOhJSVJh+0Lx0Swc+kaHchQtOMnjcvuXDd8VwhLgdsKR96InpQ7u3PMTAqbV47Jxj897TfwQe37dFJJG6c10Un5+CK2n8/0ctofF+tal8Gcw7/Zhj/4SH4n42xVR1VfSHyTmEKAR/plX3rBoeU/iUHuLmeNFGh57Da9ctXls3/AKwXjbSpJBsg9sU8yPpsh5096rkBGl089IzDJxFOG9ZZ9XkRwWXsV2M/NEqoSCVxxG6AkA==
 Received: from AS4PR04MB9362.eurprd04.prod.outlook.com (2603:10a6:20b:4e7::9)
- by AS8PR04MB9111.eurprd04.prod.outlook.com (2603:10a6:20b:44a::17) with
+ by GV4PR04MB11451.eurprd04.prod.outlook.com (2603:10a6:150:29b::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Thu, 27 Aug
- 2026 07:02:09 +0000
+ 2026 07:07:21 +0000
 Received: from AS4PR04MB9362.eurprd04.prod.outlook.com
  ([fe80::abe7:4a6e:a51:baf0]) by AS4PR04MB9362.eurprd04.prod.outlook.com
  ([fe80::abe7:4a6e:a51:baf0%6]) with mapi id 15.21.0360.006; Thu, 27 Aug 2026
- 07:02:09 +0000
+ 07:07:21 +0000
 From: Lakshay Piplani <lakshay.piplani@nxp.com>
-To: "Frank Li (OSS)" <frank.li@oss.nxp.com>
-CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-i3c@lists.infradead.org" <linux-i3c@lists.infradead.org>,
-	"alexandre.belloni@bootlin.com" <alexandre.belloni@bootlin.com>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "robh@kernel.org"
-	<robh@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"broonie@kernel.org" <broonie@kernel.org>, "lee@kernel.org" <lee@kernel.org>,
-	Frank Li <frank.li@nxp.com>, "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
-	Vikash Bansal <vikash.bansal@nxp.com>, Priyanka Jain <priyanka.jain@nxp.com>,
-	Aman Kumar Pandey <aman.kumarpandey@nxp.com>
-Subject: RE: [PATCH v16 2/8] i3c: master: Add controller-only device operation
- helpers
-Thread-Topic: [PATCH v16 2/8] i3c: master: Add controller-only device
- operation helpers
-Thread-Index: AQHdNUcP3TjGiB9Bnk+X0ioOoWtULbawiRmAgADvlNA=
-Date: Thu, 27 Aug 2026 07:02:08 +0000
+To: "Frank Li (OSS)" <frank.li@oss.nxp.com>, "sashiko-reviews@lists.linux.dev"
+	<sashiko-reviews@lists.linux.dev>
+CC: "Frank.Li@kernel.org" <Frank.Li@kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"robh@kernel.org" <robh@kernel.org>, "linux-i3c@lists.infradead.org"
+	<linux-i3c@lists.infradead.org>, Alexandre Belloni
+	<alexandre.belloni@bootlin.com>
+Subject: RE: [PATCH v16 6/8] i3c: hub: Add support for the I3C interface in
+ the I3C hub
+Thread-Topic: [PATCH v16 6/8] i3c: hub: Add support for the I3C interface in
+ the I3C hub
+Thread-Index: AQHdNXy8pVJMAHMCNkqAf6BO1NgveraxeTGA
+Date: Thu, 27 Aug 2026 07:07:20 +0000
 Message-ID:
- <AS4PR04MB9362C41BA3DB8DEFEFDAFEA2FBAD2@AS4PR04MB9362.eurprd04.prod.outlook.com>
+ <AS4PR04MB93620ABA477555D42B400D25FBAD2@AS4PR04MB9362.eurprd04.prod.outlook.com>
 References: <20260826103819.1614843-1-lakshay.piplani@nxp.com>
- <20260826103819.1614843-3-lakshay.piplani@nxp.com>
- <ao8XXagBAhl6zANu@lizhi-Precision-Tower-5810>
-In-Reply-To: <ao8XXagBAhl6zANu@lizhi-Precision-Tower-5810>
+ <20260826103819.1614843-7-lakshay.piplani@nxp.com>
+ <20260826110407.8FF461F000E9@smtp.kernel.org>
+ <ao8cNDN1IeD8teUs@lizhi-Precision-Tower-5810>
+In-Reply-To: <ao8cNDN1IeD8teUs@lizhi-Precision-Tower-5810>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
 X-MS-TNEF-Correlator:
 msip_labels:
- MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_Enabled=True;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_SiteId=686ea1d3-bc2b-4c6f-a92c-d99c5c301635;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_SetDate=2026-08-27T06:59:34.0000000Z;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_Name=NXP
+ MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_Enabled=True;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_SiteId=686ea1d3-bc2b-4c6f-a92c-d99c5c301635;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_SetDate=2026-08-27T07:02:54.0000000Z;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_Name=NXP
  Confidential;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_ContentBits=3;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_Method=Standard
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nxp.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AS4PR04MB9362:EE_|AS8PR04MB9111:EE_
-x-ms-office365-filtering-correlation-id: 8da8fecf-731b-4973-aed9-08df04091c8c
+x-ms-traffictypediagnostic: AS4PR04MB9362:EE_|GV4PR04MB11451:EE_
+x-ms-office365-filtering-correlation-id: 18f40df8-6f6e-4140-6f65-08df0409d69c
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|366016|19092799006|7416014|376014|23010399003|22082099003|18002099003|38070700021|10067099003|11063799006|4143699003|56012099006|5023799004|6133799003;
+ BCL:0;ARA:13230040|19092799006|376014|1800799024|23010399003|366016|10067099003|56012099006|11063799006|5023799004|4143699003|6133799003|3023799007|22082099003|18002099003|38070700021;
 x-microsoft-antispam-message-info:
- 8BCZQLFq4BO8e7yCBsTiwnO2A+CNUq31R1fioyR4wjnRxnRqWXkB7+fEp2SXLdpqmR9LLeJhpgj45938Ckk18DGHXGtHa2lvxxQgz8iH9wnL6FMSlL4INUB8E1Fi7NRPhyogh4HhX+DTXUrfuj3RdCP4d20pPVaBBwbAAewwOPyBJf1qA6vE5CUrEEnwiY7GM+cZsgs/Kab2BvxY/9eZT01l9Mxa0lu12Lv0NEcgyvZ1bs+S/s+PcZZAPYx81yaI7FER84iDISbZi1pH7KiW1DzwE/gYrDpuJA972Pa1kjJpFqC6xXJaix7Mt/53eDW8D1lh6qZ0dzcpT/fIXpLdQwveGI2saG0ehvEr6hO1vKTLwTy/aUmn0iCmoqoPEIHuWqSkpGwGQ3vUODESgX11VOScRdRsBD6SM69RCI2QbV3hrje+XKp5cdMnZfDM5TW4NtZFXfWqoa41n1nFrnwij28pQjYOtwLOqfXLNKuApBqdiUzJyfW4C8h2qjYzUhe7U77cUfNKk0ZPJLGbzRLVpVfsSE8qEGRAroCuCMIlQc0y5NVNuCaTAcjq7wsN9qM0S4aiOwobIGAG5XK16x1h7rlRL8SXAL640kE5U1jpJlUYhaOwnirvWRvgj0BN2v20ItcX+Ex5waH92B8bUIKPZVzg1ycG/wE+X95uDk3c9kKq2bVRW4lsOJLm4nfZAZWa3F3ALcDjUjw6Jj+uGRsNTg==
+ Li+X6FbHvSCkofLvyOiJSqBGMZdJAZDAlKkcRDKyLz4QB7VqudBba9fOS7FuV1vIscposoQJ3QLGpNHhvwwgOIAQfbHhhOGLgNmWI7c2MbjAwzb4G4WSvA409DDGuA6ln6MgrjLRtewnhFjtcRguuY9VqxDRkXJyrZwylxBlQYi6034AW3OTpgv9kOYAFTQ4kYG3O2m60YiFTGRDRSYD2z+6sbivfsBo1Mwk2LrKzIe9MvoMnGP2RZgBvvI4kSF3eLOo2/k4kklduws8n1o+dOpQ5CH6LM5KiHmkCccCToe/kt3t2v+PbwidPmzDHJ469gpbRic+1yksety1zqwqRP7PeZQGB/GF2oDbheoNs5472xT/ISYIvuY56pUuAl7suZ7oxnACyNoaSMEU0wqhF5aSitrvpKk1oSYxR+xRapXBQoz9SzW8tm//fq/geAaI/3nS1a5U+lYQRZOyjQTf/urKoVx/tfVxo/MnDK+w5+WfbCO8R4SpTLOqDVy3UlHQ5MWpJ3B4WOjpiBob2B3OH/BFEQbRsxuxWqcSDPb/AJ4QKBm9HEsn23D7UsB5gP37uxqHIR32rSDZ/gie+LEiGvuwqSbkTy8qSjnQWeYZgzZ1/1n/VAyorvarWtjKXH5GsgRl+0qUZ34akTt4MKGTvt8q3hHJ9BFYI6pvfb2cXYcuZ2V5KtjhvQUIr+Ip2+N4hQUQ3zgVT5MJ/2lGYt8Ol7j7hJ1/8MmE264FC9uFn2A=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4PR04MB9362.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(19092799006)(7416014)(376014)(23010399003)(22082099003)(18002099003)(38070700021)(10067099003)(11063799006)(4143699003)(56012099006)(5023799004)(6133799003);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4PR04MB9362.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(1800799024)(23010399003)(366016)(10067099003)(56012099006)(11063799006)(5023799004)(4143699003)(6133799003)(3023799007)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?3TBKHU2khane2dHIvgIqHtijcrAWg0G7bxO2UT6GpXwNDBdVresUXkWdPGb7?=
- =?us-ascii?Q?gCNyjuwV9Q8Fvvn76FIF60pEoY5LD987J+aqDQQ8n47IglxPXGfHlkz0RG1k?=
- =?us-ascii?Q?/K9DC/3Jb65sLEmBLOX5itwj6tWHscWhQ6x6stRf6p81jpimb/9wn/sIGFbr?=
- =?us-ascii?Q?qfqKO5x2+stXAynj00XTmqHwihX1FBkymuObetBmobIXDUwdu3JVhUVUjJFO?=
- =?us-ascii?Q?WHCx9Yx3TK4nNDmvOmvklAkYmsrQx/oO11L5/nSyukyxzXzDlY4NqEVkhTJF?=
- =?us-ascii?Q?rGxN7sshjoip3Ue787XafAhPIvxHgmuEwcVJ38V2+8mNeNelH3O+6jMPxFb8?=
- =?us-ascii?Q?v8tWGPzdwL8Jmwk/Fzuxv6IaJVG043bAyNBD+m/XQ62/lgNKRP0HSJWLOWRp?=
- =?us-ascii?Q?2VRAQAYTf+fwWZiQO52WXQmv5C4J7TCxKHrnbugNMHB/ABJoa6uQ3Qycl8fH?=
- =?us-ascii?Q?IWj4yu+97Vsc6BSL/w2UVTNg5S62E4VVgVMU0jKr+3V8Pg+tr93NL+jYGY3f?=
- =?us-ascii?Q?3LZyl1xuqBvHIz6LQnCFoYXkOF7qQmTZpGL+4rAlRnfCHWGrrUy31SNZ7k47?=
- =?us-ascii?Q?JZmd0YBocuposIJQ2U+UUGzsjGj92tqs99DIgO7ILL9PfgY2D9zIwaDu+E4y?=
- =?us-ascii?Q?0PvD4g1bx0AFYUEU0igDIPdDSM1kNynfM3d2wkgV0ULwqsQP9mAI/5eTLydz?=
- =?us-ascii?Q?1lGfhD8wfmQwhRbUcq5Nm5YEhzGlJAzNlhF7AoXcTMK9NJRaRNLDQbqme1hQ?=
- =?us-ascii?Q?rvbSnheecye287yvANt6CUXhlbmy6mtuWgAQcxST64nl8Z5mRRe8XaTcmth0?=
- =?us-ascii?Q?WwAJ4CwCrjSrKsCSmpF9EZvCXyaLkK8iMvziS4QDHTjMFhpSitDbOBhk4Lz0?=
- =?us-ascii?Q?3afA76rZeUuj5E/KVhcH1b7mh5dy7IdJrq2AeLIxNKo3+0s60l7d3cEMnabR?=
- =?us-ascii?Q?VlDy8/Vqn4e9tuoWH6qjPpG7hLZQTOdVJUWpiU9hqAR3xlZiOwOO0EmRzB+2?=
- =?us-ascii?Q?tFEIC+XQFukFrDhHy5Xn4rNViEHUA9XJZLS7PtmUD0unSMBNdIw4fD7OP0IN?=
- =?us-ascii?Q?ow/1pjtEsA+e8JBblMPwK/3pk0ltIN+jCUm9xche44wgUCk34DRJcoPTbs3d?=
- =?us-ascii?Q?NQSneqMoHA/cYMNjeY8ApmHQ+xBp+ESd2Qvv/L1SrjDGpQzajvBnRVXjVCJh?=
- =?us-ascii?Q?NedPo2WC0qsLI+40DLyXe6vvzA0TGYhAZuzzuRD3zCI9hDwU7PZJVw4tMnVP?=
- =?us-ascii?Q?oszwVK/QAyg59U4qOUXdoOeTBgMdhRwfopmdga3fK7EvJ8Ldt2kk7WXyErjZ?=
- =?us-ascii?Q?vKJVDjgmdsEP/V9P3X9ZlRTr7VIvSx61i7QbtLL6m1rAEuB0SFtq5pXavJBt?=
- =?us-ascii?Q?+ngNuceJ4SbfVm4fkFuXIRwfreo3Yaz98pZqUG6Vhz0tr5DC87IbNvQFRi8S?=
- =?us-ascii?Q?dssDRhZ1ybZthdzFJaHTMFmQSigdsL1wt1ONgiMF8O4S7+HjZgtRsWOpLurI?=
- =?us-ascii?Q?YgPC193kkn/f1F9fRFiqYKtXB3427wiqVa7XJFM+K8GqrII4Jgb52VG4aa9j?=
- =?us-ascii?Q?e07SChljXG44vWa75wlovr+hvxCrs1l5R9gdUfvLmPk68wv44dyc8xaBV/mH?=
- =?us-ascii?Q?5TxUq0qWGyBfGk4MPeceYJxOkk6fbwr5w88FBqYRiSZFi3KiABfgS3Msf2vB?=
- =?us-ascii?Q?E7Q086h+gV+5CmQ5DC4CDKgFpCT1tp2VLaFPTYfBKXbWA3P5VEulJPsDlOrm?=
- =?us-ascii?Q?9h9/fH3u7g=3D=3D?=
+ =?us-ascii?Q?9PGbtBmSkczrP6W8ArHGhVZnTnCiGXV8yX5ylB+7VlPnU7YNXjN8fB28+bZ2?=
+ =?us-ascii?Q?epMTArbb+NeWRt8/SaAcuO+58YU24nO8nfg4uGXOlxKws59WvNvJonQTLjmz?=
+ =?us-ascii?Q?BWtcpI1GM2hDaswN2pvo93m2PgNlsalXQzNUE4ikZct3ypIt//5egOw2QoUy?=
+ =?us-ascii?Q?+2A0O277wgKSLaQ5OssSGL7oliD4EOq4di8pRx7ALzMl3QpS6eRqpALeOd8y?=
+ =?us-ascii?Q?pRe66YfgkifRFQ22jSWeae2EA8FuAYq7288WNRE2vFrHYo8YtlYSGIp/VKlJ?=
+ =?us-ascii?Q?kpy+1q2Y/ACL/7pyADvIkIztAWU9jC942lP+/v2NFYgrWNNAbXgX/dMcIvDP?=
+ =?us-ascii?Q?4OuU1LWW14slnZglgd3zAcuHJgKGKO5Y6H/BuAKAURjQuPm/YMq17gg7PdZ5?=
+ =?us-ascii?Q?5ArUwTZNBSpYbrwCdroeOH5t8LCFzVsXcj6nD60N5XoF6UBMg1My8fj6fHI0?=
+ =?us-ascii?Q?5ZhwrhVLuF+bNQVWeayNrb8pnWFF8TU2xZ4AnqAtniSigCnwwjCTL5qgycBK?=
+ =?us-ascii?Q?ngf01T4M2B1e88mb2wZUew8rAKfo0ELpq6vw7kCFQhepd0XYKSu7P9g3eWih?=
+ =?us-ascii?Q?sVbxdr4YT9aTY9qiS1OX9ylm4j+8bEunXRViPzZ0QhY6eMhSTpaHHn4SnJe7?=
+ =?us-ascii?Q?w7I2a+9QduZwmASkqMY2nP5dbc8M4M/8/frZwpc1wIH/Wo+L35WDdkIVsNJp?=
+ =?us-ascii?Q?0CefZLwj6zemmtFSXfpkURLUqUB+WlDlUReGs9t9pnaN84CbY5JMVrpA+MdB?=
+ =?us-ascii?Q?TsV2OKeZg9Q6PxMUxS3t6B5QWV5ysIzKpGU+qqp3uMrSGh2aupVB4rzee8Pl?=
+ =?us-ascii?Q?EY4HgTb0wku7h71RfHbLKoYQIKFsEQ2n3/yU17SigAbZJY40OP1cqC7ubGVF?=
+ =?us-ascii?Q?rE5K9t52qfzAVj3jne/mb6xz6uA6DpLk2J1CwU9bLNCSsxWL7hkhED9lG4uJ?=
+ =?us-ascii?Q?kiHrrLj6n3RSR7DQN0/ITcpEoltoxIpauTLbqyixIFbR/GVQEtfOQ+iYRFoP?=
+ =?us-ascii?Q?pyoClVxMMRou434NzUVh+6503gNgME7CBii/Bo8vPOk9/v792pqJ567dImqn?=
+ =?us-ascii?Q?oNb04pA0Dmo+GVnnhJw5cdlNLYWrZDBunJ3+2jwsLCfLdnCwxKk29uHKdWPX?=
+ =?us-ascii?Q?vibTBuz5ZGMqy60J5DfDy6jMcXT0pO0SZyAGTuxtlv6mmE4nwHKuA3vCk8MS?=
+ =?us-ascii?Q?zoybG4gITlBHgO1Y0U4h9jpcCwOV0ce18xFcYxLwMhKeOYJZ379O8arA1s2G?=
+ =?us-ascii?Q?SVcYxBDXzFDBCiIoiQLWTmRUGkEp2yJPnwmsGnd0et58NHZLCOH2LF/fwuRI?=
+ =?us-ascii?Q?M/GKHHESxQNJsY6SK73hGB8QPAHkgdlvAcS/BYxTJduOgkU+SaxcP9dNcwO+?=
+ =?us-ascii?Q?DlLkrGbbAptMrBgjdxzxpsyjjZSganJayNriE8AT5iWqV9vvkIGpUvhnfqi+?=
+ =?us-ascii?Q?tTlZkExv25te0Y0hqpJGd6NavsFQ6GkPp72m4rkGDB/a9rGemcuj49Lwu6Ij?=
+ =?us-ascii?Q?maZ3pgkHJ+3p4K8cIM3Ss9cSC4bCuy8jH3dxSm6Mtk50GYp2FlpqZLE8NlNS?=
+ =?us-ascii?Q?E+h6uj5kNuluaEVq3Abd9TPwD4RU/utDKq1wvTcf75I6/M174+i1VlImIdzS?=
+ =?us-ascii?Q?hL9kXcZu/Zyr+L6MtCUBjrEcC/bAZk06ZlFefCpPuyLpflWhXzvatSbFaGaZ?=
+ =?us-ascii?Q?9RJD9A3t9zF0dsJsAsQXFW0lszt0PGgbOquJkUc+tThdtorq9UiAhfQ0/B1Z?=
+ =?us-ascii?Q?u9dcYMx8CQ=3D=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
@@ -126,46 +123,216 @@ MIME-Version: 1.0
 X-OriginatorOrg: nxp.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: AS4PR04MB9362.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8da8fecf-731b-4973-aed9-08df04091c8c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Aug 2026 07:02:08.9542
+X-MS-Exchange-CrossTenant-Network-Message-Id: 18f40df8-6f6e-4140-6f65-08df0409d69c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Aug 2026 07:07:20.9324
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: kDDwJfZFXrMTe+H6pDxTnPUlpCXKkbkGk5SklR+8yjtlPK7jYTAgPPIC97LVMkdxi35U2HH5jAMHueFe/A1YEw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB9111
+X-MS-Exchange-CrossTenant-userprincipalname: 45tfA1I8/QkFH+upN0Endo6JlZg5xJAGgGXExWf1INDgn9MJU3O4mMkGGzYeKmSyHI9zTVSh+RVs/xsob4CYxQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV4PR04MB11451
 
 Hi Frank,
 
 Thanks for the review.
 
-> > +/**
-> > + * i3c_dev_recycle_ibi_slot_controller() - Recycle an IBI slot through
-> > + *                                    the current controller
-> > + * @dev: I3C device descriptor
-> > + * @slot: IBI slot to recycle
-> > + *
-> > + * Invoke the current controller's IBI slot recycling callback.
-> > + *
-> > + * The controller is responsible for synchronizing access to its IBI p=
-ool.
-> > + */
-> > +void i3c_dev_recycle_ibi_slot_controller(struct i3c_dev_desc *dev,
-> > +                                    struct i3c_ibi_slot *slot)
+> > > +/**
+> > > + * i3c_hub_do_daa() - Perform DAA via hub port
+> > > + * @hub: Hub instance
+> > > + * @controller: Virtual controller for a hub port
+> > > + *
+> > > + * Enables the port connection, performs DAA on the parent
+> > > +controller,
+> > > + * then disables the connection.
+> > > + */
+> > > +static int i3c_hub_do_daa(struct i3c_hub *hub,
+> > > +                   struct i3c_master_controller *controller) {
+> > > + struct i3c_master_controller *parent;
+> > > + int ret;
+> > > +
+> > > + if (!hub || !hub->hub_dev)
+> > > +         return -ENODEV;
+> > > +
+> > > + parent =3D i3c_dev_get_master(hub->hub_dev->desc);
+> > > + if (!parent)
+> > > +         return -ENODEV;
+> > > +
+> > > + /*
+> > > +  * Lock order: hub routing mutex before the parent bus lock (taken =
+here
+> > > +  * inside i3c_master_do_daa()). The depth-keyed lockdep classes abo=
+ve
+> > > +  * keep this nesting acyclic when the parent is itself a hub.
+> > > +  */
+> > > + mutex_lock(&hub->lock);
+> > > + i3c_hub_enable_port(controller);
+> > > +
+> > > + /*
+> > > +  * Downstream devices reachable through hub target-port routes shar=
+e
+> the
+> > > +  * parent controller's I3C address space. The hub gates access to a
+> > > +  * target-port network, but it does not create an independent dynam=
+ic
+> > > +  * address domain per virtual bus.
+> > > +  *
+> > > +  * Run DAA on the parent controller so dynamic addresses remain
+> unique
+> > > +  * across all downstream devices, even when they are behind differe=
+nt
+> > > +  * target ports.
+> > > +  */
+> > > + ret =3D i3c_master_do_daa(parent);
+> >
+> > [Severity: High]
+> > Does delegating DAA to the physical parent controller break
+> > reachability for downstream devices?
+> >
+> > When devices respond to ENTDAA, they are instantiated on the parent
+> > bus rather than the virtual bus. If drivers subsequently initiate
+> > transfers, they use the parent controller's transfer operations
+> > directly, bypassing the hub's i3c_hub_master_priv_xfers(). As a
+> > result, the hub target port is never enabled during the transfer,
+> > leaving these downstream devices permanently unreachable.
 >
-> does this one need hold lock?
+> where reorder port, is it true?
+>
+
+
+No, P3H2x4x never re-orders or re-switches ports. All I3C ports are connect=
+ed once at probe and stay connected (always_enable makes enable/disable_por=
+t no-ops), so a prior DAA never goes stale.
+DAA runs on the parent on purpose: all downstream devices share the parent'=
+s single address domain, so addresses stay unique across ports.
+DT addresses are reserved for the parent-bus lifetime and aren't freed on a=
+ port toggle, so enable/disable only gates reachability, never reallocates.=
+ I'll add a comment.
+(enable/disable_port are kept as part of the generic hub op set and would b=
+e the hook for optional sysfs port control later - out of scope here.)
+
+> >
+> > > + i3c_hub_disable_port(controller);
+> > > + mutex_unlock(&hub->lock);
+> > > +
+> > > + return ret;
+> > > +}
+> > [ ... ]
+> > > +static int i3c_hub_send_ccc_cmd(struct i3c_hub *hub,
+> > > +                         struct i3c_master_controller *controller,
+> > > +                         struct i3c_ccc_cmd *cmd)
+> > > +{
+> > > + struct i3c_master_controller *parent;
+> > > + int ret;
+> > > +
+> > > + if (!hub || !hub->hub_dev)
+> > > +         return -ENODEV;
+> > > +
+> > > + parent =3D i3c_dev_get_master(hub->hub_dev->desc);
+> > > + if (!parent)
+> > > +         return -ENODEV;
+> > > +
+> > > + mutex_lock(&hub->lock);
+> > > + i3c_hub_enable_port(controller);
+> > > + ret =3D i3c_master_send_ccc_cmd(parent, cmd);
+> >
+> > [Severity: Medium]
+> > Can forwarding unfiltered broadcast CCCs to the parent controller
+> > break virtual bus isolation?
+> >
+> > If a driver on a specific virtual bus issues broadcast commands (such
+> > as SETMRL, SETMWL, or ENEC), this forwards them to the parent
+> > controller which broadcasts them globally. This will unintentionally
+> > alter the configuration or event state of all peer devices on the
+> > parent bus and other open target ports.
+>
+> Look like system design limiation, add comments here incase it happen.
+>
+
+Agreed - it's a system limitation, I'll note that a broadcast CCC on a virt=
+ual bus has parent-bus scope. RSTDAA stays blocked, as forwarding it would =
+reset the hub's own address.
+
+> >
+> > > + i3c_hub_disable_port(controller);
+> > > + mutex_unlock(&hub->lock);
+> > > +
+> > > + return ret;
+> > > +}
+> > [ ... ]
+> > > +int i3c_hub_reserve_parent_addrslots_from_dt(struct i3c_hub_controll=
+er
+> *hubc,
+> > > +                                      struct device_node *node) {
+> > > + struct i3c_master_controller *parent =3D hubc->parent;
+> > > + enum i3c_addr_slot_status status;
+> > > + u32 assigned_addr;
+> > > + u32 reg[3];
+> > > + int ret;
+> > > +
+> > > + if (!parent || !node)
+> > > +         return -ENODEV;
+> > > +
+> > > + for_each_available_child_of_node_scoped(node, child) {
+> > > +         /*
+> > > +          * Only consider addressable bus nodes: a valid "reg" is
+> > > +          * required to describe a device, but its static-address va=
+lue
+> > > +          * does not affect the reservation below.
+> > > +          */
+> > > +         ret =3D of_property_read_variable_u32_array(child, "reg", r=
+eg, 1,
+> 3);
+> > > +         if (ret < 0)
+> > > +                 continue;
+> > > +
+> > > +         ret =3D of_property_read_u32(child, "assigned-address",
+> &assigned_addr);
+> > > +         if (ret)
+> > > +                 continue;
+> > > +
+> > > +         /* Skip nodes without a usable dynamic address. */
+> > > +         if (!assigned_addr || assigned_addr > I3C_MAX_ADDR)
+> > > +                 continue;
+> > > +
+> > > +         i3c_bus_maintenance_lock(&parent->bus);
+> > > +         status =3D i3c_bus_get_addr_slot_status(&parent->bus,
+> > > +                                               assigned_addr);
+> > > +         if (status =3D=3D I3C_ADDR_SLOT_FREE)
+> > > +                 i3c_bus_set_addr_slot_status(&parent->bus,
+> > > +                                              assigned_addr,
+> > > +                                              I3C_ADDR_SLOT_I3C_DEV)=
+;
+> >
+> > [Severity: High]
+> > Does this code permanently leak parent bus address slots when the hub
+> > driver is removed?
+> >
+> > The address slots in the parent bus state are set to I3C_ADDR_SLOT_I3C_=
+DEV.
+> > However, there appears to be no corresponding teardown mechanism
+> > provided to revert these slots to I3C_ADDR_SLOT_FREE when the virtual
+> > controllers are destroyed or the hub driver is unbound. This leak can
+> > eventually exhaust the address space and cause failures for subsequent
+> devices.
+>
+> I suppose if hub have hotplug later, we have to reserver all static/assig=
+ned
+> address. Can you add comments here.
+
+Agreed - I'll add a comment. The reserved addresses come from the fixed DT =
+topology and are held for the parent-bus lifetime. If the hub is removed an=
+d comes back, it re-reads the same DT and reserves the same addresses again=
+, so nothing is used up over time.
+
+>
+> Thank you for great work, fixed the most problem.
 >
 > Frank
 
-No. It's called from i3c_master_handle_ibi() in workqueue context and just =
-forwards to ops->recycle_ibi_slot(); the controller synchronizes its own po=
-ol (generic pool uses its own spinlock).  I'll document the calling context=
-.
+Thanks, Frank. I appreciate your reviews and feedback throughout this serie=
+s.
 
-Thanks
+Regards
 Lakshay
-
-
-
 
 NXP Confidential
