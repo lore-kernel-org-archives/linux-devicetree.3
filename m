@@ -1,82 +1,82 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2350415F39
-	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 16:08:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1DF0488230
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 16:08:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787846913; cv=none; b=Oq/US8SjiLiXZEf92RP8aYsyNM14lVOe/ULPED9DF4DJxK9azDSEW86iD1CKp2dOTD28OvMCqt2ES/6MIyK2y1J/V4AmWf7dHKAWFXFFDEXiwa1HiE2TACEB16wmbVLatTZKwOuHlQe7Y3O548IZ29fqaf2R2OYaFD/78kvPfu8=
+	t=1787846916; cv=none; b=Qs4WMUKghCdBN2wbcvbBjJtI4PGw23Bfw+UaE5aJ87mORxFH7Vo8Aq44ZAtO7EZmc55ifJi3d0mlB09N8At9EaMcpGGFwxa6FScaH9GAeyV+XDaSfyM1fVOGufeA5iOnzRIQzOflezOvUCMl7gIurEidbbl96QnwnPpSnvs0kXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787846913; c=relaxed/simple;
-	bh=Ro1Tw7bimijLX+zSbVZzcIcnTuF4NWioN9yBfIv7fvA=;
+	s=arc-20240116; t=1787846916; c=relaxed/simple;
+	bh=oSgJwGLxnmoFdZg1kjVbiBRTTxyJZh2fbQVmNPq59Ts=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OPXiDUpGtsHY7MYGX23yEAK/Gd7PZZC6IAX7+XU5FNuNbqVXwAzRbEf773FihfGPelEmw7JfeyLrSRWDS54iKCN9QCIUUxlzRmYVY5KLSg8uXtSJDpjoABpDyqE7bKgXPxgxgs4EQutjvpBNlzY8Y9eYAqnIOx+2FSCJNL7B3wE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=c2BXcxZ5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YwnJeKO2; arc=none smtp.client-ip=205.220.168.131
+	 MIME-Version; b=lGK1C7onCxq+AjRHtU6Y3RV9qSNdDopxeUyu6L8CGYdDy7o3zSUw2DOplkR5MKLZmeofsmfATdJEz3Am6nGu4UJ7TwVs5MvIIVqqO5m4EeeyKF2eoxjTDQ1aJPht2Owi0jcqXarx0baz741/sUHUVTizqUDjXcpPI2p+q0MGMgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AK9S4frc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LTMfGyY/; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="c2BXcxZ5";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YwnJeKO2"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67RFbetX865924
-	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 16:08:31 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AK9S4frc";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LTMfGyY/"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67RG4AZp342095
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 16:08:33 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=szEkNwgY771
-	Xv6m8T3J/mh1f/ayBeeTB35yTWk5lZdE=; b=c2BXcxZ5dH6V7p/j2Ymmx/kbwuk
-	5ypm5J+Gy/Xe/Rzmh16ripn5C4xaaNvcWhKVxilUrwSyL8ZaX1EONIWOJxKjHI6C
-	9r8+zMkdIft7vyYF67XPAqAb/fze38RxCGxangfO7+n4KFZc/us+ZyuwC1j8Pr3q
-	nXuWhE9t3ykQ9oKvWijc/LsP+z+xEZF0jnxEn6d6IoUsbP/bqvHFOuCzr7iOGEzf
-	VCs/kF+aS58KXOsQVJPfBiAwXVM6ag2XRg296GLNCNw+hk8XAYYcFSzNfjV+8JVZ
-	KwOz7DPYZ1w7iq4y7PTnCS311Urm9TKF4Q9jj4hYpivdxTMopVBqWIF3hQQ==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gapgv8m7j-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=jGZdyNVRoPn
+	uELHhGohR0kdLBQlQJfa6SSwFJk/s1LQ=; b=AK9S4frci4VDxG5fjZmeGLlcArg
+	21kvuLV7nGYyMKq2nOsG1bclVR3sNLOSNIEQoH0liMGj1xNKjBIg91nFoPQqrsNH
+	KSp/ldhVpnxCIZKoY+0njofJOZeeyTOqkuLa6mn28tUkr1HvzMXI23XbLYRLQfjz
+	caEJ1wsxuhTTMP7Ycxf14SibStJWAa/FvFp2M2Nar4Dii40yWq5A6+3zcK6e4zC6
+	AGeUEPvemGNe+EaQO5RixKWWdz9MFahfjgDnjYrkUq6YNB2wg5w35k8tGBs9X0SG
+	JAFl7zAbMBRYCqncKCK1tQ6dKItBof2hAGj5wVLKfP2jnTaJq3yD6EI60Gg==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4garee00qr-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 16:08:31 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-395543dc382so138856a91.0
-        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 09:08:30 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 16:08:33 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc12e8e22b7so102781a12.0
+        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 09:08:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787846910; x=1788451710; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1787846912; x=1788451712; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=szEkNwgY771Xv6m8T3J/mh1f/ayBeeTB35yTWk5lZdE=;
-        b=YwnJeKO2/tETm1YssmAf9TuooyWNueZxp1Euin/EvJkcr3V5Xs00frbqR/HUafhpsR
-         eN+sfQu3vXfq3oDcqTmu5aKObZrHfsqjOLbWr2+fP+2ctrl9Q6EQfNI4bVW+9mwqo86u
-         9KEnHqd3ndoKfKYaSfAUVR0ekjhqLxODL1hUGbwWCpu64rmILLLv9NHqQK9+DRfCXIml
-         l/uBJ1mR6aXlfnxxf5NfGKq3epzIVB0nSp72EsyYQFNenrjr64mzNQZYYKMQESJ7qhhT
-         mUJthEbCcqc5YlGie7Sm+IuA05xiMz9RCUJ7d/oAwdpFNpRgy9i4xuRhKA0YOqK2pK2n
-         W2Ug==
+        bh=jGZdyNVRoPnuELHhGohR0kdLBQlQJfa6SSwFJk/s1LQ=;
+        b=LTMfGyY/yicjQ79NOzaXtxqHg9qybxyxXqkFqK9c16CDguYZPzB5uun9b1b0tXTqig
+         aNLH+5C1Ni9u5ZrLd5qzgfKekniyEkobYCLTIfAfX6vdeF2ON/YVtwZtlHrYBR0iT0FG
+         JDO/eEy/uez2O9Pr4yQOPyrvJa8Zv+SgQPVgDMXzLy/S0iqviYkzlS8tJ9Zse2EVQGzd
+         Nu74T1exIGGE2xAT6F3WgbDT0ZYcmzcfZrVRzeYe1UkpsSU5dlT0GPzhZoU11zZJl4GJ
+         7TJhJJRyuSkKcUoA0Eitmt+Xxq0mpS5Ytn2lJytPqKoSstN09lAzWtOAFyr7V+6oNA1G
+         2b6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787846910; x=1788451710;
+        d=1e100.net; s=20251104; t=1787846912; x=1788451712;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=szEkNwgY771Xv6m8T3J/mh1f/ayBeeTB35yTWk5lZdE=;
-        b=EcfXFSQjy6UoXMyn8KQTAAdourFSfRbBuHfvaTAIn1t17PYkVMRbK10JdZAYOOGCMn
-         tJ5cVX/lx5Sl/V8lrqyIIPUR1v6YyQlPhz2k7fab2+0qaZkHhJRU6e8SxzzNQDcA0m1l
-         4fPP2+78B2I7+Z6W2PBbWB+pb4bmAsCyA3QsdlZ/n64uK1uh8pNoZtc26G9/x9hVBVZC
-         tjbNTNBJ0iRgSnVTAOHL8MInDk9NHnLgkBNxcyCsvbFBvTgfZhiY8pmwq0SVNbAw/1ou
-         ANYooPQbeBuKy32DQ5c/8NoRjf9iUnO8KTPfs2ol2xgQQAmpmP/0bFC24nsMjU5y/1vF
-         vghQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rq9xzHw2cOjSQkj3UP3K9ZI5KbxgUF5Sy3Zb9gW1RbDI99hfZodIUEtFw7eVvz+WZb0MNqk/NtuHFvA@vger.kernel.org
-X-Gm-Message-State: AFuF++mA8BJwIOxYG6gIl9r4CBPXDaHaHF1m2PfFvBVYFyOn1wUmfrtA
-	0S0R9KbeOLwPr1UwuCMYdRS4yLCW+eBQkjTzpdwKwBq1x2JPLnWxQoadXKy8rNLzg4cUBkrXMhx
-	Z7lx/x9sLKlduYHsU9P0s/wLs7UlzVpMF8xDdtk0QVFey1bPMhlhuoFHOEeyiUN5p
-X-Gm-Gg: AR+sD124ab330eQGHVm6cM7GvLVJ7xEq8sJDViwtg3gc8/YmGhsLqAH2KIz4bRCpA6W
-	u4hWsPGOhjP4lYPPbkzhdquCLi1JVQEv3J/3yOB9D7Kt70uDL/teAJi4uXZ+0UY/gBSLL8GwWtM
-	mQwBjjOrMTvRa3mJ+W6ls+y913PDS30EBHr7LHr9HjpEvS06zVnzo1UoJX29J3yKzZ5af2YfGma
-	WWyHoXZtGnV+O729VDBOKkv0UmKtuvdCUlKoMuavO6UPNKhQIuvXWMi/Ks5ZSvqo1Hje1ng4aXw
-	y+8bkA8AfmTKfxCC8CXxFQc2f9e2VUG+VCw0dG7uBhMLPAEVGg4WuSYnPo0tZ1Ga0xJKkSlgMUl
-	Xs6zs4awW0r5caMPFv3FhkwYY/jAYBK2VD/V55EUuXPN0qojEZ0pB9REmCNw=
-X-Received: by 2002:a17:90b:3c47:b0:38d:f5bb:e0f4 with SMTP id 98e67ed59e1d1-396d0e27e11mr634856a91.1.1787846910202;
-        Thu, 27 Aug 2026 09:08:30 -0700 (PDT)
-X-Received: by 2002:a17:90b:3c47:b0:38d:f5bb:e0f4 with SMTP id 98e67ed59e1d1-396d0e27e11mr634645a91.1.1787846909524;
-        Thu, 27 Aug 2026 09:08:29 -0700 (PDT)
+        bh=jGZdyNVRoPnuELHhGohR0kdLBQlQJfa6SSwFJk/s1LQ=;
+        b=HeOOIqOeOHOJKCculNxvCMbpTL1/CrVgKY8HSXkjTsd4zF7SP/2K0ZNUeWCSrF3uOx
+         CXF97NXaNWaW0eTAwaffDwB3nl0ZtFCyHlh+4Fufy/o0geKIeJ/luIHxrJ+P8nz7BzLh
+         mxq3s01l/aoInAt3+/JkVXHFiMYDAZj+mEEC2Rwst7WEvgq8tN9ToKullCGxUS+QyKEj
+         dOOdOtuLXLqX3EUx1pP95ETF2E6P9+V52ngx0nR2bRLgLgBROynsCaTSMvc44HzswCzV
+         eEnFln/5GvcslNocE9G9Nhz/sOjnYpeXEnefVpPyuqqx+Dg4YqZ45SZ/HdqOT1MNCFP0
+         gAbw==
+X-Forwarded-Encrypted: i=1; AHgh+Rrm0yBlC6fGv+jLyQkjPgt18eI1cq4cAnzzCeAaVdKfHYl/BCmFwmtHzwHVb0//9ypYrvOCLf2s2W2x@vger.kernel.org
+X-Gm-Message-State: AFuF++mEStfhVPGv7wll6TZxYFVDwbJWbkp9be0IoNq/oADd4biICRyl
+	9XEYuGHNYNXXLbcy/Lny/WcMnrVDogYqunkt+0uCgY8WMQQPNwOysc5D8eAUb6+wL2FUcQTPFZi
+	bfWaxjKhtDZgxJss6q2XyYyiOFBN7UqDr0KSk0IUOfppR/QhA7GgpRFVn3f+qJIZY
+X-Gm-Gg: AR+sD13tNMKg8BYUOHBMMWGz1SKsT3N5ELg6hWOl3uRd7MJJDfta3WiEk8ZFw5GtcyL
+	otrKZAsSszJFgOiuLKMz/Ssi0cTJlLpaTZ52of5zqOmqAkYXiazHFoA3Y9XVJ+Lkbt9+nZPBvxF
+	amlO1EuOXHepLUKfuD9xtZaN6i5MyZ1dZ9B0NgfbCqPH1w0X8GE0YqnN/RJRk4AuC2jnqqTcFbT
+	V7kA3tJJnfDlYYZV+RyVc+20cji3XJOljMtGpY1d9WuEfumhECDyLLZ3xmliAxpNo9FgKhQ8vaw
+	HPXwaa7iLsNgwMlyzht+6f4Isn0nRY3UUpsu5cNkJeeixrOdrYD3qXfV0ims6IJ2NEoxjpmQgIq
+	qqrazFm9RSa7/NmWDA4KlphSM6I6lBiE2uXDnZJLfo2vDsO0qROSCr2lVDac=
+X-Received: by 2002:a17:90b:264c:b0:396:61f1:da5c with SMTP id 98e67ed59e1d1-396d0e86577mr565934a91.4.1787846912410;
+        Thu, 27 Aug 2026 09:08:32 -0700 (PDT)
+X-Received: by 2002:a17:90b:264c:b0:396:61f1:da5c with SMTP id 98e67ed59e1d1-396d0e86577mr565806a91.4.1787846911952;
+        Thu, 27 Aug 2026 09:08:31 -0700 (PDT)
 Received: from u24-san1p10108.qualcomm.com (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0fd9085sm3245892a91.12.2026.08.27.09.08.27
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0fd9085sm3245892a91.12.2026.08.27.09.08.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 09:08:29 -0700 (PDT)
+        Thu, 27 Aug 2026 09:08:31 -0700 (PDT)
 From: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
 To: ebiggers@kernel.org, axboe@kernel.dk, mst@redhat.com, jasowangio@gmail.com,
         James.Bottomley@HansenPartnership.com, martin.petersen@oracle.com,
@@ -89,9 +89,9 @@ Cc: neeraj.soni@oss.qualcomm.com, gaurav.kashyap@oss.qualcomm.com,
         bvanassche@acm.org, alim.akhtar@samsung.com, avri.altman@sandisk.com,
         stefanha@redhat.com, pbonzini@redhat.com, eperezma@redhat.com,
         xuanzhuo@linux.alibaba.com, linux-kernel@vger.kernel.org
-Subject: [PATCH v1 04/11] dt-bindings: soc: qcom: add binding for qcom,crypto-virt
-Date: Thu, 27 Aug 2026 09:07:13 -0700
-Message-ID: <20260827160806.1295313-5-linlin.zhang@oss.qualcomm.com>
+Subject: [PATCH v1 05/11] blk-crypto: add slot-based inline encryption path
+Date: Thu, 27 Aug 2026 09:07:14 -0700
+Message-ID: <20260827160806.1295313-6-linlin.zhang@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
 References: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
@@ -102,95 +102,238 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: svCOByPS1PtqFsileowmZ3pYqo2kwQMa
-X-Proofpoint-GUID: svCOByPS1PtqFsileowmZ3pYqo2kwQMa
-X-Authority-Analysis: v=2.4 cv=FpU1OWrq c=1 sm=1 tr=0 ts=6a9060ff cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDEzNiBTYWx0ZWRfX5cKecRxdN0z7
+ b8yu0oOVo/dWUVfqWvYBfv8LDVjBMqcDIz7TfAduXD2H4mS2LEY0JcSh0aJtDZ5OefQyAdj3fPu
+ y5iW54HtlMAf7WczszhMh2+h/upFj9RXTVdXMScw587g16c/H+mDbDM+Z3l+OYN6p2MNVhAnb4S
+ uSxDvf2kxhr7brM5uwPnyclCbiiVL2qZBs13WfNzkaBbJpnTIuJFlY93aEtFMux/eFQmeOt4ATU
+ 3cQFOXsJShofWveEvPXdusRM7ZRTyrTtdg5/B34EEx0cVuSVik5SawaDAxzj2QUUpg/ixRSA3fH
+ j8/9XXv9xKBc2rNzmz5laJBJMxaF+O1xQWA96Tr76KnByvfLr3HiEaUfvAtooDRMWPeexEm67iR
+ OPG2SRlXnyVM2rR6g0PiiEVQ/A+la2PDZ9/khmfHAK0r+RlWa4jaN7SVfCFdEovSB1sMvbXxmUS
+ Qmc+p1oPGv7ylbgnGbQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDEzNiBTYWx0ZWRfX6B2pKhlQR1fl
+ bIFN0NaisJbmU+PDxS906h9NFHYqUXxi8VQJKt1eDHcy9+G+YU+YiVTQs9XdsuSW71KFdUO8im+
+ OYt2ZcgE5jX1GqG8wWk6H6NHATjm/fk=
+X-Proofpoint-ORIG-GUID: YCxFCwiFeAIEzPrCpVRnGBR5tdghG50Y
+X-Proofpoint-GUID: YCxFCwiFeAIEzPrCpVRnGBR5tdghG50Y
+X-Authority-Analysis: v=2.4 cv=e8E2j6p/ c=1 sm=1 tr=0 ts=6a906101 cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
  a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=gEfo2CItAAAA:8
- a=EUspDBNiAAAA:8 a=S71HXAmslS2k5ljwlz8A:9 a=uKXjsCUrEbL0IQVhDsJ9:22
- a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDEzNiBTYWx0ZWRfX1KSyRM5QwFRB
- xAuWb/i5Lf7m2GG4kETk6OJpw0mDeKMyBwv1YmeTutXdEkNlhfImuFjSL2SDBIgigIudQj68L3B
- SSrhziIfYyw+jBt/7ujQwlOYylzb5ej0D0l0lGVZqgTvjaw8LNe3jSGCvtOrqNdXRHcPnj1gS0h
- /U9X5tBqr53S93pOxf/any4BvKO+eyJur1vtiimhKuW4RPAqOsLQUdYJm6bti0BtC3kZFZSO+UK
- HJP8VsWTrW8X3RQriELrtd1VyUEqYZVXMB3U6nNTFlWvpzgb7JDT9n4YQ5Gg30nk2NQ55Sy1AHE
- OKCggbzebbOTEO+kWPD6usAD1e0k/c5GxE8Lup5WMB/ViahbR9LMqr17F5MCDcAnWYxVJWGo8M5
- NvfCdNyVFNIXGQfcIrQFXsqS2guHQHPhXWZ+KxJsSw9SdfXI30aJtOt6O9O+57lT9oAzeNmfp4/
- 83xWZiPUdSD7+aVkymA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDEzNiBTYWx0ZWRfX+0qnbOisztd3
- rje3R2O3kkYg9TfYgFJWqjKOKja9x18Ngv5RPNf4mnv3X7JBIF+P9+YxDRRQ7pXwSSY8rMkmdsY
- 5+6ZcrnEvxS6NDhKzFwVMiMkB8sVZ2w=
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=0coNgh9vqHAzk87cOx8A:9 a=3WC7DwWrALyhR5TkjVHa:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-27_07,2026-08-27_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 adultscore=0 suspectscore=0 impostorscore=0 phishscore=0
- spamscore=0 bulkscore=0 malwarescore=0 priorityscore=1501 lowpriorityscore=0
+ lowpriorityscore=0 clxscore=1015 phishscore=0 adultscore=0 priorityscore=1501
+ bulkscore=0 malwarescore=0 suspectscore=0 spamscore=0 impostorscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608270136
 
 From: linlzhan <linlin.zhang@oss.qualcomm.com>
 
-Document the device tree binding for the Qualcomm GVM crypto-virt node,
-which provides the wrapped-key buffer size needed by the QCOM_CRYPTO_VIRT
-driver to perform hardware-wrapped-key SCM operations backing virtio_blk's
-inline crypto layer.
+For the virtio-blk inline encryption use case, the guest kernel goes
+through the normal blk_crypto_key programming flow via SMC call in a
+virtual slot format before I/O starts.  It then requests the host to
+handle that I/O with the key programmed into the corresponding physical
+keyslot.
 
-The host does not report this size over virtio, so it is supplied via DT
-through the optional qcom,wrapped-key-size property.
+Introduce a "slot path" that lets a bio carry a pre-programmed physical
+ICE keyslot index rather than a blk_crypto_key pointer.  Add struct
+blk_crypto_slot, containing the physical slot index (phy_slot) and
+data_unit_size_bits, and embed it in struct bio_crypt_ctx alongside the
+existing bc_key pointer.  A NULL bc_key indicates the slot path.
+
+Provide bio_crypt_set_ctx_by_slot() as the caller-facing API for this
+path.  Update the internal consumers of bio_crypt_ctx to handle both
+paths:
+
+  - __bio_crypt_advance() and bio_crypt_dun_is_contiguous() use
+    bc_slot.data_unit_size_bits to update the DUN when bc_key is NULL.
+  - bio_crypt_ctx_compatible() compares phy_slot and data_unit_size_bits
+    when bc_key is NULL, preserving request-merging for slot-based bios.
+  - __blk_crypto_submit_bio() short-circuits for the slot path: if the
+    device exposes a crypto_profile the bio is passed through as-is;
+    otherwise it fails with BLK_STS_NOTSUPP.  The software fallback is
+    not attempted since the guest has no key material.
+  - blk_crypto_rq_get_keyslot() skips kernel-side keyslot allocation
+    when bc_key is NULL.
+
+There is no functional change to the existing key-based path.
 
 Signed-off-by: linlzhan <linlin.zhang@oss.qualcomm.com>
 ---
- .../bindings/soc/qcom/qcom,crypto-virt.yaml   | 39 +++++++++++++++++++
- 1 file changed, 39 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/soc/qcom/qcom,crypto-virt.yaml
+ block/blk-crypto-internal.h |  2 +-
+ block/blk-crypto.c          | 57 ++++++++++++++++++++++++++++++++++---
+ include/linux/blk-crypto.h  | 25 ++++++++++++++++
+ 3 files changed, 79 insertions(+), 5 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,crypto-virt.yaml b/Documentation/devicetree/bindings/soc/qcom/qcom,crypto-virt.yaml
-new file mode 100644
-index 000000000000..5eb204f29762
---- /dev/null
-+++ b/Documentation/devicetree/bindings/soc/qcom/qcom,crypto-virt.yaml
-@@ -0,0 +1,39 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/soc/qcom/qcom,crypto-virt.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/block/blk-crypto-internal.h b/block/blk-crypto-internal.h
+index 2c7a0446572a..04035d237f03 100644
+--- a/block/blk-crypto-internal.h
++++ b/block/blk-crypto-internal.h
+@@ -176,7 +176,7 @@ static inline void bio_crypt_do_front_merge(struct request *rq,
+ blk_status_t __blk_crypto_rq_get_keyslot(struct request *rq);
+ static inline blk_status_t blk_crypto_rq_get_keyslot(struct request *rq)
+ {
+-	if (blk_crypto_rq_is_encrypted(rq))
++	if (blk_crypto_rq_is_encrypted(rq) && rq->crypt_ctx->bc_key)
+ 		return __blk_crypto_rq_get_keyslot(rq);
+ 	return BLK_STS_OK;
+ }
+diff --git a/block/blk-crypto.c b/block/blk-crypto.c
+index bc3a9f59574b..2212d06d3c11 100644
+--- a/block/blk-crypto.c
++++ b/block/blk-crypto.c
+@@ -113,11 +113,31 @@ void bio_crypt_set_ctx(struct bio *bio, const struct blk_crypto_key *key,
+ 
+ 	bc->bc_key = key;
+ 	memcpy(bc->bc_dun, dun, sizeof(bc->bc_dun));
++	memset(&bc->bc_slot, 0, sizeof(bc->bc_slot));
+ 
+ 	bio->bi_crypt_context = bc;
+ }
+ EXPORT_SYMBOL_GPL(bio_crypt_set_ctx);
+ 
++void bio_crypt_set_ctx_by_slot(struct bio *bio,
++			       const struct blk_crypto_slot *slot,
++			       const u64 dun[BLK_CRYPTO_DUN_ARRAY_SIZE],
++			       gfp_t gfp_mask)
++{
++	struct bio_crypt_ctx *bc;
 +
-+title: QCOM GVM Crypto Virt driver
++	WARN_ON_ONCE(!(gfp_mask & __GFP_DIRECT_RECLAIM));
 +
-+description: |
-+  GVM-side hardware-wrapped-key SCM operations backing virtio_blk's inline
-+  crypto layer. The host does not report a wrapped key size over virtio, so
-+  it is provided here instead.
++	bc = mempool_alloc(bio_crypt_ctx_pool, gfp_mask);
 +
-+maintainers:
-+  - Linlin Zhang <linlin.zhang@oss.qualcomm.com>
++	bc->bc_key = NULL;
++	bc->bc_slot = *slot;
++	memcpy(bc->bc_dun, dun, sizeof(bc->bc_dun));
 +
-+properties:
-+  compatible:
-+    const: qcom,crypto-virt
++	bio->bi_crypt_context = bc;
++}
++EXPORT_SYMBOL_GPL(bio_crypt_set_ctx_by_slot);
 +
-+  qcom,wrapped-key-size:
-+    description: |
-+      Size, in bytes, of the hardware-wrapped key generated/prepared/imported
-+      via SCM calls.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    minimum: 64
-+    maximum: 128
+ void __bio_crypt_free_ctx(struct bio *bio)
+ {
+ 	mempool_free(bio->bi_crypt_context, bio_crypt_ctx_pool);
+@@ -156,8 +176,12 @@ void __bio_crypt_advance(struct bio *bio, unsigned int bytes)
+ {
+ 	struct bio_crypt_ctx *bc = bio->bi_crypt_context;
+ 
+-	bio_crypt_dun_increment(bc->bc_dun,
+-				bytes >> bc->bc_key->data_unit_size_bits);
++	if (bc->bc_key)
++		bio_crypt_dun_increment(bc->bc_dun,
++					bytes >> bc->bc_key->data_unit_size_bits);
++	else if (bc->bc_slot.data_unit_size_bits)
++		bio_crypt_dun_increment(bc->bc_dun,
++					bytes >> bc->bc_slot.data_unit_size_bits);
+ }
+ 
+ /*
+@@ -169,7 +193,14 @@ bool bio_crypt_dun_is_contiguous(const struct bio_crypt_ctx *bc,
+ 				 const u64 next_dun[BLK_CRYPTO_DUN_ARRAY_SIZE])
+ {
+ 	int i;
+-	unsigned int carry = bytes >> bc->bc_key->data_unit_size_bits;
++	unsigned int carry;
 +
-+required:
-+  - compatible
++	if (bc->bc_key)
++		carry = bytes >> bc->bc_key->data_unit_size_bits;
++	else if (bc->bc_slot.data_unit_size_bits) {
++		carry = bytes >> bc->bc_slot.data_unit_size_bits;
++	} else
++		return false;
+ 
+ 	for (i = 0; i < BLK_CRYPTO_DUN_ARRAY_SIZE; i++) {
+ 		if (bc->bc_dun[i] + carry != next_dun[i])
+@@ -198,7 +229,12 @@ static bool bio_crypt_ctx_compatible(struct bio_crypt_ctx *bc1,
+ 	if (!bc1)
+ 		return !bc2;
+ 
+-	return bc2 && bc1->bc_key == bc2->bc_key;
++	if (bc1->bc_key)
++		return bc2 && bc1->bc_key == bc2->bc_key;
++	else
++		return bc2 && !bc2->bc_key &&
++		       bc1->bc_slot.phy_slot == bc2->bc_slot.phy_slot &&
++		       bc1->bc_slot.data_unit_size_bits == bc2->bc_slot.data_unit_size_bits;
+ }
+ 
+ bool bio_crypt_rq_ctx_compatible(struct request *rq, struct bio *bio)
+@@ -260,6 +296,19 @@ bool __blk_crypto_submit_bio(struct bio *bio)
+ 		return false;
+ 	}
+ 
++	if (!bc_key) {
++		/*
++		* Slot path: the ICE keyslot was pre-programmed by the
++		* hypervisor. The target device must natively support inline
++		* encryption; there is no fallback for slot-based crypto.
++		*/
++		if (!bdev_get_queue(bdev)->crypto_profile) {
++			bio_endio_status(bio, BLK_STS_NOTSUPP);
++			return false;
++		}
++		return true;
++	}
 +
-+additionalProperties: false
+ 	/*
+ 	 * If the device does not natively support the encryption context, try to use
+ 	 * the fallback if available.
+diff --git a/include/linux/blk-crypto.h b/include/linux/blk-crypto.h
+index 938ff536838c..33ae52b77522 100644
+--- a/include/linux/blk-crypto.h
++++ b/include/linux/blk-crypto.h
+@@ -119,9 +119,28 @@ struct blk_crypto_key {
+ #define BLK_CRYPTO_MAX_IV_SIZE		32
+ #define BLK_CRYPTO_DUN_ARRAY_SIZE	(BLK_CRYPTO_MAX_IV_SIZE / sizeof(u64))
+ 
++/**
++ * struct blk_crypto_slot - physical slot context for slot-based inline crypto
++ * @phy_slot:           Physical ICE keyslot index (already resolved from virt).
++ * @data_unit_size_bits: log2 of the encryption data unit size; used by
++ *                       __bio_crypt_advance() to increment the DUN correctly
++ *                       when a bio is split.  0 means unknown/unset.
++ *
++ * Used when a bio carries inline crypto context by physical slot index rather
++ * than by a blk_crypto_key pointer (i.e. bc_key == NULL in bio_crypt_ctx).
++ * Set by crypto_vblk when building the bio for a GVM VIRTIO_BLK_T_CRYPTO_IN/OUT
++ * request; left zeroed for all other bio types.
++ */
++struct blk_crypto_slot {
++	unsigned int phy_slot;
++	unsigned int data_unit_size_bits;
++};
 +
-+examples:
-+  - |
-+    crypto_virt {
-+        compatible = "qcom,crypto-virt";
-+        qcom,wrapped-key-size = <100>;
-+    };
+ /**
+  * struct bio_crypt_ctx - an inline encryption context
+  * @bc_key: the key, algorithm, and data unit size to use
++ * @bc_slot: physical slot + data_unit_size_bits for slot-based crypto
++ *           (used when bc_key == NULL)
+  * @bc_dun: the data unit number (starting IV) to use
+  *
+  * A bio_crypt_ctx specifies that the contents of the bio will be encrypted (for
+@@ -130,6 +149,7 @@ struct blk_crypto_key {
+  */
+ struct bio_crypt_ctx {
+ 	const struct blk_crypto_key	*bc_key;
++	struct blk_crypto_slot		 bc_slot;
+ 	u64				bc_dun[BLK_CRYPTO_DUN_ARRAY_SIZE];
+ };
+ 
+@@ -152,6 +172,11 @@ void bio_crypt_set_ctx(struct bio *bio, const struct blk_crypto_key *key,
+ 		       const u64 dun[BLK_CRYPTO_DUN_ARRAY_SIZE],
+ 		       gfp_t gfp_mask);
+ 
++void bio_crypt_set_ctx_by_slot(struct bio *bio,
++			       const struct blk_crypto_slot *slot,
++			       const u64 dun[BLK_CRYPTO_DUN_ARRAY_SIZE],
++			       gfp_t gfp_mask);
++
+ bool bio_crypt_dun_is_contiguous(const struct bio_crypt_ctx *bc,
+ 				 unsigned int bytes,
+ 				 const u64 next_dun[BLK_CRYPTO_DUN_ARRAY_SIZE]);
 -- 
 2.34.1
 
