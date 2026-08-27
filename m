@@ -1,236 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3DFB41E6C0;
-	Thu, 27 Aug 2026 16:26:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E5433FFD;
+	Thu, 27 Aug 2026 16:35:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787848020; cv=none; b=g0cvgtzTnx/nXqHtXE+EcBSa9olE+5oOorpnN2wRduKjA8NSn+eoLDtKJVI494rTMdxnpUDe3kIBNnxluDp68xR9vFehX0Wqn097Bmx89eMpkI121EqHjJmv/A5P3b1Bn6+ym0C/9qqlLQ3tpwJ+ELTATppSStEqjFX0aSgU0Qc=
+	t=1787848534; cv=none; b=gjg1ioCn6UVBf5hPqltefIDWAauvZB0NQHMnQ7WZcCAPmptOpcn282SY33ZCdbYxrz9qzylzdhd7QeKECNIVoJM/OlN42lcFQ5m77icXs9HkVR3Pyjq0yxlHByqSqsbBJ60Sivm6t6WF2DxUrYQmTszHlt0P7Z2I2g2NMUoQKGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787848020; c=relaxed/simple;
-	bh=gAdJXDRpYEMMfANpfQ3gpkV9HRAngObsmbAWocXYzbk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QM3IL+qcXJ3PW+qSamCAwLG++xjHW8c/LzTS1Nk507NsCOqzpHeS5qWs3zR2nc7EVUkjWnLve5OAHwDWoLEOOsMeyB5Dhzt5XpJ2kEfoIOwLt89Y17Bi6BgiBcmYyu7QVn2b/rahSaVrYCQ+L8BTwNv2FHbI/WglkQgq92UdNWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LMYLaqQm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787848534; c=relaxed/simple;
+	bh=FMOa7K8c9ntfrDsnr/HJ1yPnOO249osGs33iCOsn7Zk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qa6/8KwuUhIcmH2X2IDZQ8oRdwrXtBlNeyQA1z1J2x3R94RNf+Ed1W02yQgVaahLpTIwX0KIDKVFnSBxDl0wf5Y9mL2nFWpb5qo+2NRdTHRplLcLUeitq8H31ep/jGCU+6UOgTZ28s5ZPnFvqn5+uCsENOfwdVsnRjJT5g3fGYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OqtrQ3UO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LMYLaqQm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB0131F000E9;
-	Thu, 27 Aug 2026 16:26:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OqtrQ3UO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9F731F000E9;
+	Thu, 27 Aug 2026 16:35:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787848019;
-	bh=Lvw/o5uIn8t0KutwqrHBSFx2SbtdFgUpMJWjvUXVS5o=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LMYLaqQmQaZvBK2Wm0ZgqRIhePk6kVUE7RdMsOJC2DnZ2XCU75D5ENoQmp8r8RnQ8
-	 4CoXeoa9EdLHvAoipE/XrTPxaWVImdbYq2LRcY2mhvhHhP2Fuc+BDyrLSHbpoRYw7E
-	 PWf5gihTpckKfdIGX0kL9/FZ1NNwvkEGQDNyb+mfJWUwarzrBuiy7Hy2trpWuQIHk5
-	 LVt8pyskM0x7ip7qFQC3eNGTCU9GGoENqNmBvidjYnZSTNz9M5eq0d5aZ5ZcUKF90a
-	 suuyZ7J9Eyy+kRY1ih/KaRBCusr65k+l/6KMKg2E9+5xR978VH37YNwBUwW/7cGYV5
-	 eOGuMvqf9AmyQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 05/11] blk-crypto: add slot-based inline encryption
- path
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Linlin Zhang" <linlin.zhang@oss.qualcomm.com>
-Cc: linux-scsi@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260827160806.1295313-6-linlin.zhang@oss.qualcomm.com>
-References: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
- <20260827160806.1295313-6-linlin.zhang@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 27 Aug 2026 16:26:58 +0000
-Message-Id: <20260827162658.CB0131F000E9@smtp.kernel.org>
+	s=k20260515; t=1787848532;
+	bh=UkC+ptFG83CHhhlpQRvkIDNUp0LPgh2nBFtJOu4cRYk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OqtrQ3UO5DK5ea7IutsBW0fKPbPHZ3JqecFipin5mSzscVkAtNQ+Ty9+jliAFK4Zt
+	 g15Qi+KZlP/yiux+fX3lJ4bUzm7zMOW5vWhnPEbxGjCbQV+ZlJh/gyViUhDHbCq4xw
+	 crwLqTzYEvyQxhKYOMg8UuPIlqgZ0owmUkH43f/c9UjzfkQAmwcNHYIECT/uWbBvy6
+	 gnHZi+/H8z7ZThawDtjTuqcXoYnXGlTCfSgUCFosG9tHcgclDHoUwKW5WoYJKmbz6C
+	 nC43AcrVTtC90M6Ont11jqNz6ty1+ZT/4vzL1AVi0WLUKqz3IBh1HFw97z2ku9bchh
+	 MN80ZQQOtj/Sw==
+Date: Thu, 27 Aug 2026 17:35:28 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+	Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH 2/4] dt-bindings: thermal: Add Tegra264 header
+Message-ID: <20260827-riverbank-cinema-d898d4e5a522@spud>
+References: <20260827-tegra264-fan-v1-0-3c55f0c748b1@nvidia.com>
+ <20260827-tegra264-fan-v1-2-3c55f0c748b1@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="j61CVKVvUtbZjtu/"
+Content-Disposition: inline
+In-Reply-To: <20260827-tegra264-fan-v1-2-3c55f0c748b1@nvidia.com>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Critical] Multiple core block layer and driver functions unconditionally=
- dereference the `bc_key` pointer in a bio's crypto context for slot-based =
-bios, leading to kernel panics.
-- [High] Standard block drivers fail to retrieve a keyslot for slot-path bi=
-os and silently drop encryption, leading to incorrectly encrypted data bein=
-g written to disk.
-- [High] Bio splitting causes silent Initialization Vector (IV) reuse and b=
-reaks cryptographic confidentiality if `data_unit_size_bits` is 0.
-- [High] Missing bounds check on `data_unit_size_bits` causes Undefined Beh=
-avior during bit shift operations.
---
+--j61CVKVvUtbZjtu/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit ecf24121b79d01c98765828aa3d5cd87595d9349
-Author: linlzhan <linlin.zhang@oss.qualcomm.com>
+On Thu, Aug 27, 2026 at 05:07:51PM +0200, Thierry Reding wrote:
+> From: Thierry Reding <treding@nvidia.com>
+>=20
+> This header file defines the set of thermal zones exposed by the BPMP on
+> Tegra264.
 
-blk-crypto: add slot-based inline encryption path
+Does this need to be a binding, since you're just using it in the dts?
+Can it just go into your dts directory insteaD?
 
-For the virtio-blk inline encryption use case, the guest kernel goes
-through the normal blk_crypto_key programming flow via SMC call in a
-virtual slot format before I/O starts.  It then requests the host to
-handle that I/O with the key programmed into the corresponding physical
-keyslot.
+Cheers,
+Conor.
 
-> diff --git a/block/blk-crypto-internal.h b/block/blk-crypto-internal.h
-> index 2c7a0446572aa..04035d237f039 100644
-> --- a/block/blk-crypto-internal.h
-> +++ b/block/blk-crypto-internal.h
-> @@ -176,7 +176,7 @@ static inline void bio_crypt_do_front_merge(struct re=
-quest *rq,
->  blk_status_t __blk_crypto_rq_get_keyslot(struct request *rq);
->  static inline blk_status_t blk_crypto_rq_get_keyslot(struct request *rq)
->  {
-> -	if (blk_crypto_rq_is_encrypted(rq))
-> +	if (blk_crypto_rq_is_encrypted(rq) && rq->crypt_ctx->bc_key)
->  		return __blk_crypto_rq_get_keyslot(rq);
->  	return BLK_STS_OK;
->  }
-
-[ ... ]
-
-> diff --git a/block/blk-crypto.c b/block/blk-crypto.c
-> index bc3a9f59574b1..2212d06d3c112 100644
-> --- a/block/blk-crypto.c
-> +++ b/block/blk-crypto.c
-[ ... ]
-> @@ -113,11 +113,31 @@ void bio_crypt_set_ctx(struct bio *bio, const struc=
-t blk_crypto_key *key,
-[ ... ]
-> +void bio_crypt_set_ctx_by_slot(struct bio *bio,
-> +			       const struct blk_crypto_slot *slot,
-> +			       const u64 dun[BLK_CRYPTO_DUN_ARRAY_SIZE],
-> +			       gfp_t gfp_mask)
-> +{
-> +	struct bio_crypt_ctx *bc;
+>=20
+> Signed-off-by: Thierry Reding <treding@nvidia.com>
+> ---
+>  include/dt-bindings/thermal/nvidia,tegra264-bpmp.h | 20 ++++++++++++++++=
+++++
+>  1 file changed, 20 insertions(+)
+>=20
+> diff --git a/include/dt-bindings/thermal/nvidia,tegra264-bpmp.h b/include=
+/dt-bindings/thermal/nvidia,tegra264-bpmp.h
+> new file mode 100644
+> index 000000000000..b32739691385
+> --- /dev/null
+> +++ b/include/dt-bindings/thermal/nvidia,tegra264-bpmp.h
+> @@ -0,0 +1,20 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> +/* SPDX-FileCopyrightText: Copyright (c) 2023-2025 NVIDIA CORPORATION & =
+AFFILIATES. All rights reserved. */
 > +
-> +	WARN_ON_ONCE(!(gfp_mask & __GFP_DIRECT_RECLAIM));
+> +#ifndef DT_BINDINGS_THERMAL_NVIDIA_TEGRA264_BPMP_H
+> +#define DT_BINDINGS_THERMAL_NVIDIA_TEGRA264_BPMP_H
 > +
-> +	bc =3D mempool_alloc(bio_crypt_ctx_pool, gfp_mask);
+> +#define TEGRA264_THERMAL_ZONE_TJ_MAX		0
+> +#define TEGRA264_THERMAL_ZONE_TJ_MIN		1
+> +#define TEGRA264_THERMAL_ZONE_GPU_AVG		2
+> +#define TEGRA264_THERMAL_ZONE_CPU_AVG		3
+> +#define TEGRA264_THERMAL_ZONE_SOC_012_AVG	4
+> +#define TEGRA264_THERMAL_ZONE_SOC_45_AVG	5
+> +#define TEGRA264_THERMAL_ZONE_SOC_3_AVG		6
+> +#define TEGRA264_THERMAL_ZONE_GPU_MAX		7
+> +#define TEGRA264_THERMAL_ZONE_CPU_MAX		8
+> +#define TEGRA264_THERMAL_ZONE_SOC_012_MAX	9
+> +#define TEGRA264_THERMAL_ZONE_SOC_345_MAX	10
+> +#define TEGRA264_THERMAL_ZONE_TJ_AVG		11
 > +
-> +	bc->bc_key =3D NULL;
+> +#endif /* DT_BINDINGS_THERMAL_NVIDIA_TEGAR264_BPMP_H */
+>=20
+> --=20
+> 2.55.0
+>=20
 
-[Severity: Critical]
-If we set bc_key to NULL here for slot-based bios, will this cause kernel
-panics in core block layer and driver functions that unconditionally
-dereference it?
+--j61CVKVvUtbZjtu/
+Content-Type: application/pgp-signature; name=signature.asc
 
-For example, when submit_bio_noacct() calls blk_crypto_supported(), it
-evaluates &bio->bi_crypt_context->bc_key->crypto_cfg and passes a NULL
-pointer:
+-----BEGIN PGP SIGNATURE-----
 
-block/blk-crypto-internal.h:blk_crypto_supported() {
-    ...
-    return blk_crypto_config_supported_natively(bio->bi_bdev,
-                    &bio->bi_crypt_context->bc_key->crypto_cfg);
-}
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapBnUAAKCRB4tDGHoIJi
+0q4DAP44AXo8+VuIeThg7JueM2wliz1yUngCjU3ZDbI7xRjAQAD/TljVAvfIa4lF
+NFgx3cC+O8jitOvsYhKJwceeVuZPGQc=
+=VgGR
+-----END PGP SIGNATURE-----
 
-The native configuration check then dereferences this config, causing an
-immediate crash.
-
-Similarly, won't functions like bio_split_io_at() in block/blk-merge.c
-unconditionally dereference bc_key when constructing DMA alignment masks?
-
-block/blk-merge.c:bio_split_io_at() {
-    ...
-    start_align_mask |=3D (bc->bc_key->crypto_cfg.data_unit_size - 1);
-    ...
-}
-
-And virtblk_setup_cmd() in drivers/block/virtio_blk.c also appears to
-blindly dereference it:
-
-drivers/block/virtio_blk.c:virtblk_setup_cmd() {
-    ...
-    unsigned int data_unit_size_bits =3D req->crypt_ctx->bc_key->data_unit_=
-size_bits;
-    ...
-}
-
-Could a guest VM trigger this trivially via the host proxy?
-
-> +	bc->bc_slot =3D *slot;
-> +	memcpy(bc->bc_dun, dun, sizeof(bc->bc_dun));
-> +
-> +	bio->bi_crypt_context =3D bc;
-> +}
-> +EXPORT_SYMBOL_GPL(bio_crypt_set_ctx_by_slot);
-> +
-
-[ ... ]
-
-> @@ -156,8 +176,12 @@ void __bio_crypt_advance(struct bio *bio, unsigned i=
-nt bytes)
->  {
->  	struct bio_crypt_ctx *bc =3D bio->bi_crypt_context;
-> =20
-> -	bio_crypt_dun_increment(bc->bc_dun,
-> -				bytes >> bc->bc_key->data_unit_size_bits);
-> +	if (bc->bc_key)
-> +		bio_crypt_dun_increment(bc->bc_dun,
-> +					bytes >> bc->bc_key->data_unit_size_bits);
-> +	else if (bc->bc_slot.data_unit_size_bits)
-
-[Severity: High]
-If an untrusted guest proxy provides a data_unit_size_bits of 0, won't this
-condition silently bypass incrementing the DUN array?
-
-If a bio exceeds hardware limits, bio_split_io_at() splits it and calls
-__bio_crypt_advance(). If the increment is bypassed, both halves of the
-split bio would be submitted to hardware using the exact same Initialization
-Vector (IV) for different data sectors. Does this silent IV reuse break
-cryptographic confidentiality?
-
-> +		bio_crypt_dun_increment(bc->bc_dun,
-> +					bytes >> bc->bc_slot.data_unit_size_bits);
-
-[Severity: High]
-Additionally, is there a missing bounds check on data_unit_size_bits here?
-
-If a guest provides a value of 32 or greater, this right shift on the 32-bit
-bytes unsigned integer will trigger undefined behavior.
-
->  }
-
-[ ... ]
-
-> @@ -260,6 +296,19 @@ bool __blk_crypto_submit_bio(struct bio *bio)
->  		return false;
->  	}
-> =20
-> +	if (!bc_key) {
-> +		/*
-> +		* Slot path: the ICE keyslot was pre-programmed by the
-> +		* hypervisor. The target device must natively support inline
-> +		* encryption; there is no fallback for slot-based crypto.
-> +		*/
-> +		if (!bdev_get_queue(bdev)->crypto_profile) {
-> +			bio_endio_status(bio, BLK_STS_NOTSUPP);
-> +			return false;
-> +		}
-> +		return true;
-
-[Severity: High]
-If we allow the bio to proceed to the low-level driver here, are standard
-block drivers prepared to handle a NULL keyslot for slot-based bios?
-
-Because blk_crypto_rq_get_keyslot() bypasses allocation when bc_key is
-NULL, req->crypt_keyslot will be uninitialized. In drivers like MMC,
-this NULL keyslot is ignored, failing to populate the physical keyslot inde=
-x:
-
-drivers/mmc/core/crypto.c:mmc_crypto_prepare_req() {
-    ...
-    keyslot =3D req->crypt_keyslot;
-    if (keyslot)
-        mrq->crypto_key_slot =3D blk_crypto_keyslot_index(keyslot);
-    ...
-}
-
-This leaves the internal keyslot index defaulting to 0. Will this hardware
-proceed encrypting with keyslot 0, leading to data corruption or a silent
-leak of poorly encrypted data?
-
-> +	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260827160806.1295=
-313-1-linlin.zhang@oss.qualcomm.com?part=3D5
+--j61CVKVvUtbZjtu/--
