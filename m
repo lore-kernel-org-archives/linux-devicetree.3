@@ -1,124 +1,317 @@
-Received: from send147.i.mail.ru (send147.i.mail.ru [89.221.237.242])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011062.outbound.protection.outlook.com [40.107.130.62])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C6AE47A865;
-	Thu, 27 Aug 2026 14:45:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=89.221.237.242
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787841908; cv=none; b=XwRAtBql/Q31HRSWPpVE/q+wVEalnR8cMhrnOrIud+0z+NKARkfecPO9/j6MCY/9RWRXcdWTp847BP/haHh3EOZEohDIPFNoM7DBBV/Na2I+f2dqy5QHpjAH9X/WErb5yZQr3OXPRWbClIJCPTz/2syGOJBfcEVPgvIRX30aceM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787841908; c=relaxed/simple;
-	bh=III9DD4RJFxOiMBJTA7dulNQyODzWbim2gbISV9krTM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eFLD4olu4B31K8QUd2y+vbNlJ3yxeupiAid/qlbeNilu2EnTlHbYm79j9R9KFjgLgf1M7uyB5ybYzj3mZoLstP2sbLq1OhPCQIjbYMob6fIiu3RZgOO2tdO3Li5mT9vXLknIpyGVRgIRRG7D1SSf8yjW54X0rp7HPSIcOk68yp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mail.ru; spf=pass smtp.mailfrom=mail.ru; dkim=pass (2048-bit key) header.d=mail.ru header.i=@mail.ru header.b=wPNZavKt; dkim=pass (2048-bit key) header.d=mail.ru header.i=@mail.ru header.b=ReTRSrmt; arc=none smtp.client-ip=89.221.237.242
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mail.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28E7633ADB3;
+	Thu, 27 Aug 2026 14:46:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.62
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787841990; cv=fail; b=FJT+pNh13jJ9xJhm/yiurB+CEYNE0JLV+RExQPtOx2Ofg68nxr+GuUVE8aDJZuiL23fRs3b7ir4ygeOjm6HNBoOjN1SXWFvNALLzQilXOKNAIq+NCySnTXMd6WETvbx1DCeuiMK3dlx84HmQYtloMzoJql61GerMokvFqgrNoj8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787841990; c=relaxed/simple;
+	bh=sgwLG/D/JoOjlltNKr6VIFQyt3YJY2wY6rdSy7Tn9xY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Aui0lYHNuTw4gOG4EWETNEMkibtPKQyOo7M9ETCX7jucYjFU3T6I94l8JeRTXCvSosfTT+77wxf4LSXIux7CJmwi89sudRCJ9BlCWPoTEG3u3BlXGER5Ug5vEWgxk6UXXjKwKUn7MO0OXMs4CZc8mUjycJxN3QQi9Ovs6tmHMtI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=hGZT+Z7t; arc=fail smtp.client-ip=40.107.130.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mail.ru header.i=@mail.ru header.b="wPNZavKt";
-	dkim=pass (2048-bit key) header.d=mail.ru header.i=@mail.ru header.b="ReTRSrmt"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru;
-	s=mail4; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
-	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive:X-Cloud-Ids;
-	bh=Lf5H28g8wCJv/ntfYUV0bOXDq6hNp839bO1sadch4yg=; t=1787841904; x=1787931904; 
-	b=wPNZavKtAm2oBrItNBNGJfFXFqumsGpnDZ6H4+8SUUBsyf6Q2/+fPfa9nrVqJ/Wd0OH8GqClCr9
-	10U1G9pY88WYSKC7IWcQiQbFmrL/mLFPgYygKi59PX6Emn5EyZk5xq2oXX/zpwChtFOlFABeq14vl
-	zp1LpWvlyQl5jFliBXITe6X6uF+bI167KSJtkC5+kIsMGwWJEf5vgZUvNwX43wq5/OsL8vlA1IlUx
-	8oEnZfvJLCRkIp8/q2uri9panexbXKHwvvEKiLA0J31rDHpZbKa6fgPHDvlECwKUpfUer7CyV+WBe
-	sGLSYkLQjoIATPwvZD+vTKaWlCoxpukv63gQ==;
-Received: from [10.113.249.115] (port=51580 helo=send174.i.mail.ru)
-	by exim-fallback-cc5d6c65-g2rtc with esmtp (envelope-from <misha.zavertkin@mail.ru>)
-	id 1wzb70-000000002AE-1CjZ; Thu, 27 Aug 2026 17:29:50 +0300
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru;
-	s=mail4; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
-	Message-ID:Date:Subject:Cc:To:From:From:Sender:Reply-To:To:Cc:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive:
-	X-Cloud-Ids:Disposition-Notification-To;
-	bh=Lf5H28g8wCJv/ntfYUV0bOXDq6hNp839bO1sadch4yg=; t=1787840990; x=1787930990; 
-	b=ReTRSrmtpAT5kx5IaqdR8VNnaG4gDsD9T+w/LesEKLekADg7Dxnlik0DM8gbcC2pUAjZuExDAYt
-	Q1I3wPjXjJsHj+tlCXOp0XhN2gL4FEoCNOMGoFKPP52B1+bh37wYxD5eKWtEpMPHPXzA57MDLoZ4K
-	Go7+k/Jrr5LMl/X9A2xq8PJIy2zHruTMpK0WUopZXhX1aZjeyaczKrpcgPuAKQ9ZCHT9fIc02twph
-	iHElHOa+A8DmYrYuONBOPbFwwe0DH9OrjX9i7LeRzoL6UWi3eGp4IvzgIaCL3Ju1k3l4flpIiNWoA
-	IpTfixE+kuhxjZ5IT8atJjihQDnXxa0pn2xg==;
-Received: by exim-smtp-67896c5f6-rv4rd with esmtpa (envelope-from <misha.zavertkin@mail.ru>)
-	id 1wzb6q-00000000RL6-2sbT; Thu, 27 Aug 2026 17:29:41 +0300
-From: Michael Zavertkin <misha.zavertkin@mail.ru>
-To: linux-gpio@vger.kernel.org
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="hGZT+Z7t"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=a94ncca1qpXRF2NHR7rLDo3GhYVtoElGAIT7xrbiEQoVCT63W2uiIy8JFYhMA2wsCLEGJQ1+ZiRoqt2Yd2oUxsFvYoiMpJBGQ0VOzmFDxTNtarAuP5SL5hatEDv/y36U0gadlzr8bNbGApLBmIFUjbTITStu2CMwioMUrgaJrbM09gdMQ9ZYV3Vozh3trhoDxZA9SWMDBm8BhwEwE4F4XQ0bkJ1LdPFLmijzAuBJLeeEFiIT7B5ERVKgMPUo941Sc8MhcftYvWMtGEUCbVFSqK4gx0AbuXzV4n1pjsS1V0aMiPdVuHduWYK69rMj+qeaoT4LqxnoxryXBQLtm2esJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kqzHX3PjvaKGiG9oZ24IXsSCpIlD3GTPoZV7PmlD7rI=;
+ b=GnvGWJWa3wTJURCEfK/S+Id8hnzZW/GOQGhOHYUXpgaixiOtjVZ+sjg1Yx6crilg4N+ZtUVnw2CIUpuGF1hZmPj38Z9VdIVojATDF5R20VimfoOoICb17t9hnPIC4GmyLCwsbh44WPzmIMVGP4umN7tW2VssHjtobZXm/bJWoDcrAeMnrUdBCK4JxyPzmBmYi4ALuNDEGZuS7oK8ggw/CmrhQdpA5uMTJhOioYGkUwsJt+hYqk6CB3pLtKe54v7yYkXlmDM45fg7nTcoRFNG7mLMBL9CB0V/4/PeFpOqK+bRUzJsE8RvjPQfnrrXBRb964iNY3Xs+RPYLTWKFCsUhw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kqzHX3PjvaKGiG9oZ24IXsSCpIlD3GTPoZV7PmlD7rI=;
+ b=hGZT+Z7tpJROWu6/UAUjr1rFMTFVEC+hyDfmKou2qccWlo9UeB1LnR/6l7/4k2laJGKt4+izkWUtrRzSpPctJdNrDx3ivEqP5KRugTgZQSwmFklXZs+dI12Mli4feI8YhQoCGlDcfdg0xn2VvG/5gknV08jtodh+w3TRFvYHDQGA3gE0jL5CwU2YpZLQWvi2oLL/tg1SM74ZHjepf8kJ5SNJlcbewElQILCNRFFZWMHXfEpL5MwQAQ+NtJfsHG4xi5oR9QgY7HkRCAG5pYq3HNjOIIB5h9hvuPOF4pArHzQQ6Z2bZ6n5IZiyrWD6wVDONQLlPfzD33ssNatnQboyMw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PA1PR04MB10817.eurprd04.prod.outlook.com (2603:10a6:102:485::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Thu, 27 Aug
+ 2026 14:46:11 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 14:46:11 +0000
+Date: Thu, 27 Aug 2026 09:45:59 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Larisa Ileana Grigore <larisa.grigore@oss.nxp.com>
+Cc: NXP S32 Linux Team <s32@nxp.com>, Alim Akhtar <alim.akhtar@samsung.com>,
+	Avri Altman <avri.altman@sandisk.com>,
+	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sander Vanheule <sander@svanheule.net>,
-	Bert Vermeulen <bert@biot.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Michael Zavertkin <misha.zavertkin@mail.ru>
-Subject: [PATCH v4 2/2] gpio: realtek-otto: add pinctrl support
-Date: Thu, 27 Aug 2026 21:29:31 +0700
-Message-ID: <adce57b3797cae6f6a3486eb1d21c33be61f14dc.1787830440.git.misha.zavertkin@mail.ru>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <cover.1787830440.git.misha.zavertkin@mail.ru>
-References: <cover.1787830440.git.misha.zavertkin@mail.ru>
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+	Ajay Neeli <ajay.neeli@amd.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Pedro Sousa <pedrom.sousa@synopsys.com>, clizzi@redhat.com,
+	aruizrui@redhat.com, eballetb@redhat.com, echanude@redhat.com,
+	linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH 06/10] dt-bindings: ufs: Add compatibles for S32N79 Host
+ Controller platform driver
+Message-ID: <apBNp1ybnHsNrHSL@SMW015318>
+References: <20260826134048.854748-1-larisa.grigore@oss.nxp.com>
+ <20260826134048.854748-7-larisa.grigore@oss.nxp.com>
+ <ao75lU2zYDeOZi2f@SMW015318>
+ <ccacc3bc-7f81-4363-a273-a6076e468618@oss.nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ccacc3bc-7f81-4363-a273-a6076e468618@oss.nxp.com>
+X-ClientProxiedBy: SA9PR13CA0178.namprd13.prod.outlook.com
+ (2603:10b6:806:28::33) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailru-Src: smtp
-X-7564579A: B8F34718100C35BD
-X-77F55803: 4F1203BC0FB41BD9F3C3C83612863844C555F43638CF11EDEFD3FF12AD1B7E5B00894C459B0CD1B97DCD4105A765527203AAE3001806DF104FCA9F0EEDE0C4257265915FB86A6BCF4A43D3E7D3A7B3F6
-X-7FA49CB5: FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE7085F8A46B177A11EEA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F7900637AC83A81C8FD4AD23D82A6BABE6F325AC2E85FA5F3EDFCBAA7353EFBB55337566165720108E41FA505E173DCC7611E5C8032F9033EE524EC8AC260B9555E3CAC08EEF46B7454FC60B9742502CCDD46D0D6030639D0DAF385DF6B57BC7E64490618DEB871D839B73339E8FC8737B5C22494280523C145DA091CC7F00164DA146DAFE8445B8C89999729449624AB7ADAF37F6B57BC7E64490611E7FA7ABCAF51C92176DF2183F8FC7C0E8801E8C4F941C018941B15DA834481F9449624AB7ADAF37BA3038C0950A5D3613377AFFFEAFD2690E30A4C9C8E338DA58EA3B67F1D5C7297B076A6E789B0E97A8DF7F3B2552694AD5FFEEA1DED7F25D49FD398EE364050F1C1080093C09B836E0F2381F647739FAB3661434B16C20ACC84D3B47A649675FE827F84554CEF5019E625A9149C048EE9ECD01F8117BC8BEE2021AF6380DFAD18AA50765F790063735872C767BF85DA227C277FBC8AE2E8B2D678E2D2B35076FEFF80C71ABB335746BA297DBC24807EABDAD6C7F3747799A
-X-C1DE0DAB: 0D63561A33F958A572DBA5F118FF20AF5002B1117B3ED696D94A6D5509FE96EE484B8D70797403F6823CB91A9FED034534781492E4B8EEADAEB4DDBFD72C8FA1C79554A2A72441328621D336A7BC284946AD531847A6065A535571D14F44ED41
-X-C8649E89: 1C3962B70DF3F0AD73CAD6646DEDE191716CD42B3DD1D34C77DD89D51EBB774225B6776AC983F447FC0B9F89525902EE6F57B2FD27647F25E66C117BDB76D65911DCCB6DEDC6AFB1D4C3B7288BEA7A168E27FC300272EE8472C98E3AC83C746BB894F4CC25338046B8341EE9D5BE9A0A72580D5F6CC4A3717C3E33BCC1A74864B9170EF3C7D5D04652EE4E5D9E54FDA4A7285BF96B6084FC8511FE41C8941D68F571C199C4BE91E79E69A34BD5DD98C9F0A6D2C91ED28CB6
-X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu53w8ahmwBjZKM/YPHZyZHvz5uv+WouB9+ObcCpyrx6l7KImUglyhkEat/+ysWwi0gdhEs0JGjl6ggRWTy1haxBpVdbIX1nthFXMZebaIdHP2ghjoIc/363UZI6Kf1ptIMVd9Ysz+d4RqW6CIaBgpzwyk=
-X-Mailru-Sender: FD65D7C492470CAE95745CB8A15E0A69A51BBE932795F37B0623C2DC5F880BF907A56692A1F09ADCCA964D05DEAC15EEF767ED260C4F5E398B67290C0B8F2C0D0ACA136676B1AD1C82BADC8C81B40964835B6B713A4867D9C77752E0C033A69E3453F38A29522196
-X-Mras: Ok
-X-Mailru-Src: fallback
-X-7564579A: 646B95376F6C166E
-X-77F55803: 6242723A09DB00B44E72EF7427BD9C08E5321CD87E45F53017937B926352F403049FFFDB7839CE9ED6DF2CF6B6DF36CDC240EED9BE2D894F0ED40AFACE84C3A4F00587F7B8ABBCFB1FE499864FF0858F
-X-7FA49CB5: 0D63561A33F958A58633F8C0712A4B025002B1117B3ED6964E6A7AB8A4134F1AA92FD30A1C74D94802ED4CEA229C1FA827C277FBC8AE2E8B54F520D093A0DF28
-X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu53w8ahmwBjZKM/YPHZyZHvz5uv+WouB9+OYcBso8Zm+oliTz8oZwnDrFsY77LZRcHyw5ht0smWrfSeTW5FiI8avd9v29gUBslpEZ9wIMwqVP4jLQVQ+dVm7x9BpDHadBV9RMjI809PraZOCqjzNVgV4/zOOaknfrqlQ==
-X-Mailru-MI: 20000000020000000000000800
-X-Mras: Ok
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA1PR04MB10817:EE_
+X-MS-Office365-Filtering-Correlation-Id: d475b4d6-55ef-4164-434e-08df0449ef7f
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|23010399003|19092799006|376014|7416014|1800799024|366016|10067099003|56012099006|4143699003|6133799003|11063799006|3023799007|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+ GEoqqsc7FCzhDFvzXk3gtCthSTgIkn9jrsBYQi7Z5O5Xb/YVs3qbUvp9k60cnDred3jNFCVILV3V4GIVfmF/fFsaC+l1XSxgEhTd57JVyD+nLKbMGOLgE7tMjpiwLw/Zo2X4wXu9hG+HW1mFhmTTlazVTdep10bZ3q3oN4d+ij5b4uRc04O8hSJh51WaGFesLwf3CAyORB55NZ+tCdaq5RWNyRZ8B/cN/wgLscstdKqTEFYnZ6GD+nQljAQNj0tjK1Gg0EyKyLGhFKD6fJMs16fk2hdQrz8MvvcLYqJngC9RSDuGUiR/R0pfHmpWzWXuMXegIfDLgcIOFgN+/XFv9ApRfQazu3OE0TyxAzeBefXubgoeq0DhNGOxRATF7CluylO2lCBsF7/hQbeIpnRzUlBr1exuwfxNAoqFemphUFYZ1e8PhN8AfnjNrxTrRM5SHGkW8CBSt1ULHMnprgFdqnHSCTvjXL9kH9PqLlCK0rvFeImP5xBNa9Nj6RDHPt28L7bBBZnrIDgwDd6IoPRnUM7wWOMq4XF7FOPX7IGHvL1MXH1ZDSwGuZUqw1GRgvxRthLH6C4q0znYEJBupJqoWwbi3whwbUz8Z0ZLMdIDcmtVGoHRFFuTMv1ZTUFa2Pl5
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(376014)(7416014)(1800799024)(366016)(10067099003)(56012099006)(4143699003)(6133799003)(11063799006)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?kHYV2sMVG9r0PwAKxwg3mYOL1R8HdKtsar4h4Vs11KJoyfQIkA/8CNl176Pp?=
+ =?us-ascii?Q?X6sGgYdX3s6Jg/Iil47UPp4xEmP95w6wUnpDFOit2t3Fz5TSpG+nGVfkIu4F?=
+ =?us-ascii?Q?JQew7hGslrIw+rFFTYF9CVIOkzUWWMYutQkI2AoblLsXc7aTYeU6XvP4Pzp7?=
+ =?us-ascii?Q?1Kn8o4FX7D9/OkxyBi3bZRI7r7i2ci9Llkzr2GI7t0dSus/iGj4xMPY4Q3HZ?=
+ =?us-ascii?Q?cIJuw4lPrNGs2UXeSP48snphO/Vl7Mmbj9FQfn1c83p/MziWQnEqN5STqwbr?=
+ =?us-ascii?Q?5jd9G24IYbhptvGZjyMBdD+Gw0eY9QPu4dnTdAFS3LczXin0bcFriPrnOzK4?=
+ =?us-ascii?Q?hc/OVtVoK2mAPSX2lEA5UgiYekC6CXA1XqbUCZlQA3HVR7rewEM88GehU+hy?=
+ =?us-ascii?Q?vYUEII2smM24cMjs1j5Ml7Eas1iEbBrVQBgwK8SJJjIeVAt4Tk2+wayHCC6L?=
+ =?us-ascii?Q?rsLcDpYtY0rScf+BnDe8W8ukkCZgk3/vVasntwZxb5mDkB6fWgaXsDPocaGA?=
+ =?us-ascii?Q?TKnpUrjelvwIc49GZN3E+5gGxHgLwNQwpmPvSMBwuycJ4BjRZZSiSJF5vC99?=
+ =?us-ascii?Q?tY1IVVGr3c/HiI8H/RtimceH3TZEzZxpyaHO1dA3RxP6+72u1Ys8GiVQyHGS?=
+ =?us-ascii?Q?75DzR92wzke2Dx70WBwkdowOMCRnq/6SZJOjHukEcW1AqYw1jZyOQepzxSEF?=
+ =?us-ascii?Q?EyXAZd7VzgR9khuzK2Zzd+Px9NH7dCTNBTw9GuQJTlpYF0C2Jejuksy5Q57h?=
+ =?us-ascii?Q?RXqFgy3fIDGiyT0vHU9aw7WuuI7C3qVMcmiAIDF3/Zw1ykIIF5OAiQlHmlbQ?=
+ =?us-ascii?Q?loKOdf2wWzvnbleT6kkS6iyBRWSaXMnpDxC95lfhOtdaBGC/4VE26NcEcfjx?=
+ =?us-ascii?Q?4+rK8C01WF7T+kXmjFEErXo2Q3rXRmP/gyWaNund6DsdtJWyxLKAmt9JouIh?=
+ =?us-ascii?Q?ADE9LZMyQnZxY30UnS3u8/Yoyv7f+yZN5+mAiwwmmA9iqzyVZyP8mWnIxf4C?=
+ =?us-ascii?Q?vX9ynsMIgeUmrb8eGUd3bW3pa6+n1+JSso00RKHePmFllI7Ayc5/+bXDGX4x?=
+ =?us-ascii?Q?uqG9Vh7REJl2BHm6+LCVYpsQb/5oX4nWp9wf9d1OEFo0LwX8CpsOnZHp0wbi?=
+ =?us-ascii?Q?as65D4n38QxOs6JqBFAGnW4mCSGgiTBCgzorB9rbwTE57cSfyqp9e2tPKVu+?=
+ =?us-ascii?Q?p0V9smE+oJA4dunls1MHKSuR52ZXdmKGIHpo9NgyqAhVStyP0HG9E0ieR6TQ?=
+ =?us-ascii?Q?UEXgvvAok737ZkOLuBIiyY4fVbTtQmSrV0B7jZuOg19zWjluRGy+yKuLx4Cw?=
+ =?us-ascii?Q?gb+PEn3fxq5VikKaOfwfSqn8yg+jhE6F3b6UHZITdlv8jOjzOZDraTFHvot/?=
+ =?us-ascii?Q?hzr19PnIyK6Uq0PuwuXeFUkg3/V0bDDJ9Z5Mk8tVA23tHzzZns+ZkZBGT6qJ?=
+ =?us-ascii?Q?3KzsFKz6tpdfjnIuomqsjt9FcgBCYLVZ5wBSEIcHEDG33q/kta2bBkPE2iw1?=
+ =?us-ascii?Q?tNqqw7NVZIwP+jseKCU64Tj45HyOEdTesy/AjX0Ptr8rXTecfW+RZd77Cgfg?=
+ =?us-ascii?Q?MfKEGVPmVz1/f28v07WFHuelX7k/gm5Ta5QJIeUtZKIIXpPEXQaYF4mH1s9X?=
+ =?us-ascii?Q?oKI62vVouoCIHQWpu7xfgZ2swaQOsnWNnbRyO9jvTtBDuI8WhDSos9TR4l3o?=
+ =?us-ascii?Q?W/tXbPt+qWD0RovMdcuR6+mQxOlCs3IYXA9VY6aq5vkrFwbPkohL42S2YwJu?=
+ =?us-ascii?Q?dJVSdnLe9dbcIbBkUXomkklSWS7Jl3Q3auQkT4/MtWzIeJfF2u6M?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d475b4d6-55ef-4164-434e-08df0449ef7f
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 14:46:11.4806
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qJLHFjGCnVcj4wE3PBb7NEYSsi+0Z6vyFuF13ulSuoj6nYc3Sw+s5xc8N6/ztG8N4q1lopInl9s23CUPECt6AyGpKu9Z0w3DrETheQVqM8liNaYD8XZdOua4s9Z+i8Vp
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10817
 
-RTL9607C relies on pinctrl to mux SoC pins. Use pinctrl to request pins
-for GPIO.
-pinctrl driver for other SoCs might be implemented later.
+On Thu, Aug 27, 2026 at 05:36:27PM +0300, Larisa Ileana Grigore wrote:
+> On 8/26/2026 5:35 PM, Frank Li wrote:
+> > On Wed, Aug 26, 2026 at 03:40:44PM +0200, Larisa Grigore wrote:
+> > > [You don't often get email from larisa.grigore@oss.nxp.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> > >
+> > > Document the device tree binding for the NXP S32N79 DWC-based UFS host
+> > > controller which is compliant with JESD-223D "Universal Flash Storage Host
+> > > Controller Interface" v3.0.
+> > >
+> > > The controller requires access to the SCM register block and the core
+> > > clock rate when M-PHY initialization is performed. Add the optional
+> > > nxp,mphy-boot-mode property to select the M-PHY firmware execution
+> > > environment.
+> > > Currently, the M-PHY firmware can only run from ROM. If the property is
+> > > omitted, M-PHY initialization is assumed to be handled externally.
+> > >
+> > > Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
+> > > ---
+> > >   .../bindings/ufs/nxp,s32n7-ufshc.yaml         | 99 +++++++++++++++++++
+> > >   1 file changed, 99 insertions(+)
+> > >   create mode 100644 Documentation/devicetree/bindings/ufs/nxp,s32n7-ufshc.yaml
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/ufs/nxp,s32n7-ufshc.yaml b/Documentation/devicetree/bindings/ufs/nxp,s32n7-ufshc.yaml
+> > > new file mode 100644
+> > > index 000000000000..d9d5669be313
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/ufs/nxp,s32n7-ufshc.yaml
+> > > @@ -0,0 +1,99 @@
+> > > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> > > +%YAML 1.2
+> > > +---
+> > > +$id: http://devicetree.org/schemas/ufs/nxp,s32n7-ufshc.yaml#
+> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > +
+> > > +title: NXP S32N79 Universal Flash Storage (UFS) Controller
+> > > +
+> > > +maintainers:
+> > > +  - Larisa Grigore <larisa.grigore@oss.nxp.com>
+> > > +
+> > > +# Select only our matches, not all jedec,ufs
+> > > +select:
+> > > +  properties:
+> > > +    compatible:
+> > > +      contains:
+> > > +        const: nxp,s32n79-ufshc
+> > > +  required:
+> > > +    - compatible
+> > > +
+> > > +properties:
+> > > +  compatible:
+> > > +    items:
+> > > +      - const: nxp,s32n79-ufshc
+> > > +      - const: jedec,ufs-3.0
+> >
+> > Any place actually use this fallback?
+>
+> You're right Frank! I will switch to `jedec,ufs-2.0` in v2.
+>
+> >
+> > > +
+> > > +  reg:
+> > > +    minItems: 1
+> > > +    items:
+> > > +      - description: UFS Host Controller registers
+> > > +      - description: System Control Module registers
+> > > +
+> > > +  reg-names:
+> > > +    description: |
+> > > +      Names for the register regions. The first entry must be "ufshc".
+> > > +      The second entry "scm" is mandatory only when nxp,mphy-boot-mode
+> > > +      property is present.
+> >
+> > you already us if - else branch to restrict this limition, needn't
+> > description here.
+>
+> Thank you! Will drop reg-names description in v2.
+>
+> > > +    minItems: 1
+> > > +    items:
+> > > +      - const: ufshc
+> > > +      - const: scm
+> > > +
+> > > +  clocks:
+> > > +    maxItems: 1
+> > > +    description: UFS core clock
+> > > +
+> > > +  clock-names:
+> > > +    items:
+> > > +      - const: core_clk
+> >
+> > Needn't suffix _clk, just "core", generally needn't clock-names if only
+> > one clocks.
+>
+> I will rename it to "core" in v2, if that works for you.
+>
+> > > +
+> > > +  nxp,mphy-boot-mode:
+> > > +    description: |
+> > > +      MPHY initialization mode. Defines how the MPHY firmware should be
+> > > +      initialized and executed during UFS controller startup.
+> > > +      If this property is not specified, MPHY initialization will be skipped.
+> > > +    $ref: /schemas/types.yaml#/definitions/string
+> > > +    enum:
+> > > +      - rom
+> >
+> > why not use standard "phy" property, if no "phy" means ROM init it.
+>
+> First, apologies for not including enough background in the commit message.
+>
+> On the S32N79, the M-PHY firmware can be brought up in one of three ways,
+> selected through the SoC's SCM MPHY_RAM_CONFIG_STATUS register:
+>
+> 1. running MPHY from internal FW ROM,
+> 2. running MPHY from a (modified) FW ROM copy in external SRAM, or
+> 3. running MPHY from a FW image in external SRAM.
+>
+> `nxp,mphy-boot-mode` was introduced to select which of these boot sequences
+> the controller driver programs. Today only option 1, "rom", is implemented
+> and validated, but the property was meant to leave room for the two
+> SRAM-based modes.
 
-Signed-off-by: Michael Zavertkin <misha.zavertkin@mail.ru>
----
- drivers/gpio/gpio-realtek-otto.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpio/gpio-realtek-otto.c b/drivers/gpio/gpio-realtek-otto.c
-index 4a606bad5848..01be8baa25c3 100644
---- a/drivers/gpio/gpio-realtek-otto.c
-+++ b/drivers/gpio/gpio-realtek-otto.c
-@@ -393,13 +393,14 @@ static int realtek_gpio_probe(struct platform_device *pdev)
- 
- 	raw_spin_lock_init(&ctrl->lock);
- 
-+	gen_gc_flags = GPIO_GENERIC_PINCTRL_BACKEND;
-+
- 	if (dev_flags & GPIO_PORTS_REVERSED) {
--		gen_gc_flags = 0;
- 		ctrl->bank_read = realtek_gpio_bank_read;
- 		ctrl->bank_write = realtek_gpio_bank_write;
- 		ctrl->line_imr_pos = realtek_gpio_line_imr_pos;
- 	} else {
--		gen_gc_flags = GPIO_GENERIC_BIG_ENDIAN_BYTE_ORDER;
-+		gen_gc_flags |= GPIO_GENERIC_BIG_ENDIAN_BYTE_ORDER;
- 		ctrl->bank_read = realtek_gpio_bank_read_swapped;
- 		ctrl->bank_write = realtek_gpio_bank_write_swapped;
- 		ctrl->line_imr_pos = realtek_gpio_line_imr_pos_swapped;
--- 
-2.54.0
+You need define all options in binding.  who load FW?
 
+Frank
+
+>
+> Given this setup, what would you suggest as the appropriate DT
+> representation? I would greatly appreciate any guidance you can provide.
+>
+> > Frank
+> > > +
+> > > +required:
+> > > +  - compatible
+> > > +  - reg
+> > > +
+> > > +allOf:
+> > > +  - $ref: ufs-common.yaml
+> > > +  - if:
+> > > +      required:
+> > > +        - nxp,mphy-boot-mode
+> > > +    then:
+> > > +      properties:
+> > > +        reg:
+> > > +          minItems: 2
+> > > +        reg-names:
+> > > +          minItems: 2
+> > > +      required:
+> > > +        - reg-names
+> > > +        - clocks
+> > > +        - clock-names
+> > > +    else:
+> > > +      properties:
+> > > +        reg:
+> > > +          maxItems: 1
+> > > +        reg-names:
+> > > +          maxItems: 1
+> > > +
+> > > +unevaluatedProperties: false
+> > > +
+> > > +examples:
+> > > +  - |
+> > > +    ufshc@4ac80000 {
+> > > +        compatible = "nxp,s32n79-ufshc", "jedec,ufs-3.0";
+> > > +        reg = <0x4ac80000 0x1000>, <0x4ac40000 0x1000>;
+> > > +        reg-names = "ufshc", "scm";
+> > > +        interrupt-parent = <&irqsteer_coss>;
+> > > +        interrupts = <211>;
+> > > +        clocks = <&sys_clk>;
+> > > +        clock-names = "core_clk";
+> > > +        nxp,mphy-boot-mode = "rom";
+> > > +    };
+> > > --
+> > > 2.43.0
+> > >
+> > >
+>
