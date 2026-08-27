@@ -1,150 +1,277 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35E93F8251;
-	Thu, 27 Aug 2026 08:45:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4AA13DB320
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 08:47:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787820342; cv=none; b=QLDrMiwHRD08YlyGzhcw1DNwkQlmdDIwxLPHs+RSyZf0y4n/1l23Our5z53P1UZ5qsC7pqoxDUJAanWmgVHmwm255sNKRog0U3lXULNRahmpgJ9D85CwjphunTIj5tYSVwxqdrAiVP1E+tE19C1SyfY3wqTg2YOR1A7cWH4sCb4=
+	t=1787820451; cv=none; b=LEca3ROQx+sv/g4KjB03O2r1T+wCVOq9yUETT+Am9ypdA95KgPQrhTKazRDmHOkrFymXSLO7PgOZJa6zW+8IoZwKbgaDl3Lc+iZeboo5oc9FTlfF2xIXwn7F2amLCNyTUbjECH0bBZ0gfo32gUuUlyzN359QGyg0MoGmHZi2LXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787820342; c=relaxed/simple;
-	bh=Bun68MjdXjqcRgCBPm51Kng9cowX31nQxyMJXlq0bt0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QH79QzwDSdlJfuetMx7cZd8kcFxn1ciewMOk0fBFTNekTEcMi88e9RXRkQ49KdepdSSc3oQf7uuv7OXMt0VhMt4TwKTprCOdN4Xf6rnR2MEgxQh0q/t+Pnb84VvST6Aqzd4TpDNYtJRl1fj/Wn/2hIVn3NbQ5NjbVZDSQsZEams=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ad90LDso; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1787820451; c=relaxed/simple;
+	bh=vrbhiR3PK4jrUtXVrhoenEmdgV/uw+Y9zmgumy2GNWs=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Om90dZXK7i+kBt5YIetofHzkkpFUR2N8MMo+LETLJDAJ7i2cToQiYuSTW9uCC8f4uvQYnsgZ6As26Nk7JULPg944LqL6VsnibpmP5ITeCIxGYPzjy0+FHx7+U1fuWu3aiAu5i5TuH/u8ylT1EUfN08jz67FvpYmLU31fKEWtLvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=idFaoAwg; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ad90LDso"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787820340; x=1819356340;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Bun68MjdXjqcRgCBPm51Kng9cowX31nQxyMJXlq0bt0=;
-  b=ad90LDsoJdhSGLyhsjnRkVPV4JWmgSTjPpSLhIx2uGbopF63nYF2N9TL
-   3yjuDa0PrBv44XmhDZQ/2eq2KgukqwnvTJKjc17Llmvz6vLOAjPxNBFjw
-   elRdMg0Wej97KUw1QwYXU7wxfvDS1BjgeJXjI1T05+XC1VVY4heR1aozO
-   MXYOPCPct9kaGBEsMi4PlwAaAsG7rGx3PgWMXX0ETF/czvnpRx6IbEY8B
-   XuqpSDLnYBAROZECkGLsf6mHxNEhgKUyaeNUzn2SdKKbwhiLlUWHk+cm0
-   cdyXTy7e5/2KCCcrMAUG8AqA7cGqdIkN2d/nZAWPCg2CTWnb0OaMiMYz1
-   w==;
-X-CSE-ConnectionGUID: FBKftvZZSVauFY1geyqfDQ==
-X-CSE-MsgGUID: VgHHO20ZTDyW2kgBvAldqg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="88235710"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="88235710"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 01:45:39 -0700
-X-CSE-ConnectionGUID: l6yvOl/tRBClXA/x6DaMPQ==
-X-CSE-MsgGUID: zHoUCxLMRBOEJZKFuX2TIA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="266513466"
-Received: from amilburn-desk.amilburn-desk (HELO kekkonen.fi.intel.com) ([10.245.244.174])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 01:45:34 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 2F24B120C1D;
-	Thu, 27 Aug 2026 11:45:32 +0300 (EEST)
-Date: Thu, 27 Aug 2026 11:45:32 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: dumitru.ceclan@analog.com, mitrutzceclan@gmail.com,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-gpio@vger.kernel.org,
-	Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
-	Martin Hecht <Martin.Hecht@avnet.eu>,
-	Andrian Suciu <Adrian.Suciu@analog.com>,
-	Cosmin Tanislav <demonsingur@gmail.com>,
-	Vivekananda Dayananda <vivekana@amd.com>,
-	Cory Keitz <ckeitz@amazon.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Julien Massot <julien.massot@collabora.com>,
-	Rob Herring <robh@kernel.org>,
-	Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund@ragnatech.se>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH v15 00/22] media: i2c: add Maxim GMSL2/3 serializer and
- deserializer drivers
-Message-ID: <ao_5LDgGjzvPZVXU@kekkonen.localdomain>
-References: <20260807-gmsl2-3_serdes-v15-0-7212e9e5156a@analog.com>
- <d0537d7f-6e74-4cca-93ae-398530c5cd51@ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="idFaoAwg"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-482e067e908so1230042f8f.2
+        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 01:47:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1787820447; x=1788425247; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lJ8X5HHLYHRd3Rsk9popednopgUL8bXt5+/MmAQMSNo=;
+        b=idFaoAwgwqSFiQgYp+dHYK58uZU6SCr1ERMfm7nA38J5M3B6mBBzHYdQqHcBHC+E7b
+         W+bi5068kZQ4tK4QLmTv+AT478xwykqLxYIkY7NRZXi1ECMzMoNSjQwciMfGe/WtNsUZ
+         Ozl9KReGiB2FLGE5JroFheAF/XOKawenqH+tq7c4bkhroyMHhlMeU5WwzC2ba+/RRGPW
+         DuRtOV7J9wUauAtq+1haAivSlGL2zUOj+g7iJ2mXMWj42HXH8bjtJcU+PChKcMP4Yc2O
+         aDChSePiEctwBRYrgrhVVUX53l8jXJmRa+RnIuxOFn2Ijca/aJHO26N5o7lB4DiXpLkl
+         Kgaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787820447; x=1788425247;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lJ8X5HHLYHRd3Rsk9popednopgUL8bXt5+/MmAQMSNo=;
+        b=DJuTxik0URFIg7tmMqKyXbw35u+g6Ruk5ern1HojAWlxIc+AJ2+IPXt+UCO+/HzLCa
+         +PnvoAs9nPN/LakBbTo0MzwBYzjxDcASI9fFkg5EC4OENrJ5mflkaCk+koZmPO1wMP8S
+         tJOICH7m+g8d4sNfqj+o2arcQ6Agtv7Nf0v7ekEbwfdHeEuWWFwwL7ATmrqXlQx19HJp
+         i26/mwcI4M1Vn7gFi69YkwzdADiJWT0Bv44UM5xJ8UwnZX4BCb7lP7nkoYhWA1JsSm0Q
+         oWJl6QigKiiQtGvEgmYL1JBL+UAPgZ1SMrcEaS6m2E6HvJSS0wtf2ddgPGZ1Xg6rUZUM
+         ArpA==
+X-Forwarded-Encrypted: i=1; AHgh+Rqm44jLrs2iLNVr1luuLaLEzpKvr7nenDTKTaU8GBYPS/lsGtdtwPbmgeS5o6J1FhyYdtUL4Wg2TgV1@vger.kernel.org
+X-Gm-Message-State: AFuF++lYicygHSJotWRwdHTlaAZTabhUc4zveBNM7Yaxw58pYopVxoT5
+	LkpmDdt9psVXSt/8jLqKg3b1Z62UB3r3z785ruUWiWruHvTZHtYWoWsAwZzlybx0ED8=
+X-Gm-Gg: AR+sD12Oov+z2hfn7Sse8Ztx/0zFddMIURFgO7fUhcO7LYsAlK4fR4QZ9pCtPyYdLiZ
+	h5UNjaZGrXgXkVerUYTDRIH2Di3V0XRf/qbpgWeiZgBGKNDvaajZxTEhVZgao6iW8FaVtrI7oDf
+	WB/N1O5kyBKZaoCFERSQ5b4OSM9eSslVdcag3Ri45OZ0whLUj/Z+2NIzPH6hhLKDvMb1xmqreQ1
+	6N+luwvQltoGpx+wIyIn+ZxlppYNCKY3oNgdhOe44yrG6rxiLOLAPsyf2btqaJOjtNdeP5IKZsN
+	Ofz/hb/VkgDNGUWIOpxVMu07KAsm7zG4Fy/sGd3xgWivIIlhOhiyuLUnhUhzJ2yURtyd/3qsRQf
+	2UBWVkzHX2TJmYMJK1rFhIwIkfj9it/mzI0SOaSV8JhdDHjMTShi9MGM/+h9jRDLTYK4Yndvxzi
+	YD5CAmgJd1BXqDSgvkxqC0+QXlBJpu1KJgz+E1LWH0JaZgi74vLZ5lbeVDo8Lk5PQty816
+X-Received: by 2002:adf:e002:0:10b0:482:e1ce:d45c with SMTP id ffacd0b85a97d-482e26fbe90mr13212969f8f.21.1787820446621;
+        Thu, 27 Aug 2026 01:47:26 -0700 (PDT)
+Received: from [172.20.10.4] ([37.165.68.39])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e28dc134sm7420726f8f.20.2026.08.27.01.47.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 27 Aug 2026 01:47:26 -0700 (PDT)
+Message-ID: <7c6b5334-c0ce-42d5-8548-c025acdc895b@linaro.org>
+Date: Thu, 27 Aug 2026 10:45:06 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d0537d7f-6e74-4cca-93ae-398530c5cd51@ideasonboard.com>
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 1/2] arm64: dts: amlogic: t7: use the real UART pclk
+To: Ronald Claveau <linux-kernel-dev@aliel.fr>,
+ Lucas Tanure <tanure@linux.com>, Xianwei Zhao <xianwei.zhao@amlogic.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Kevin Hilman <khilman@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+References: <20260818191159.11523-1-tanure@linux.com>
+ <20260818191159.11523-2-tanure@linux.com>
+ <c428305a-265c-4cc5-be01-be5b21dc22ca@amlogic.com>
+ <6673edea-6822-4368-9374-29f92195fcf5@aliel.fr>
+ <0969d872-faff-4b0f-81ad-972b7aa9bb7f@linux.com>
+ <78721fe3-d9d0-4f85-a1ec-a01ebbf4f9a3@aliel.fr>
+ <7c7f447d-8796-4f6e-b607-5251d9129665@linux.com>
+ <5c8babac-0434-46fa-8919-a527d4179f7c@aliel.fr>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <5c8babac-0434-46fa-8919-a527d4179f7c@aliel.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hei Tomi,
-
-On Wed, Aug 26, 2026 at 01:15:03PM +0300, Tomi Valkeinen wrote:
-> Hi,
+On 8/25/26 10:54, Ronald Claveau wrote:
+> On 8/24/26 11:32 AM, Lucas Tanure wrote:
+>> On 24/08/2026 10:15, Ronald Claveau wrote:
+>>> On 8/23/26 1:39 PM, Lucas Tanure wrote:
+>>>> On 19/08/2026 08:25, Ronald Claveau wrote:
+>>>>> On 8/19/26 4:39 AM, Xianwei Zhao wrote:
+>>>>>> Hi Lucas,
+>>>>>>
+>>>>>> On 2026/8/19 03:11, Lucas Tanure wrote:
+>>>>>>> uart_a lists the 24MHz crystal for all three of its clocks, because
+>>>>>>> the T7 clock controller driver did not exist when these boards were
+>>>>>>> added.
+>>>>>>>
+>>>>>>> That leaves the real UART bus clock without a user, so the kernel
+>>>>>>> turns it off when it disables unused clocks at the end of boot, and
+>>>>>>> the board hangs.
+>>>>>>>
+>>>>>>> Point uart_a at the real clocks, the way meson-s4.dtsi does, and drop
+>>>>>>> the placeholders from the two board files.
+>>>>>>>
+>>>>>>> Fixes: 4fef056588f5 ("arm64: dts: amlogic-t7-a311d2-khadas-vim4: add
+>>>>>>> initial device-tree")
+>>>>>>> Fixes: 6f048cc7a635 ("arm64: dts: add board AN400")
+>>>>>>> Signed-off-by: Lucas Tanure<tanure@linux.com>
+>>>>>>> Assisted-by: Claude:claude-fable-5
+>>>>>>> ---
+>>>>>>>      arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts
+>>>>>>> | 2 --
+>>>>>>>      arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+>>>>>>> | 2 --
+>>>>>>>      arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi                   | 4
+>>>>>>> ++++
+>>>>>>>      3 files changed, 4 insertions(+), 4 deletions(-)
+>>>>>>>
+>>>>>>> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts
+>>>>>>> b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts
+>>>>>>> index cab2ee9ea0d3..dcbcd08a78b9 100644
+>>>>>>> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts
+>>>>>>> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts
+>>>>>>> @@ -33,7 +33,5 @@ xtal: xtal-clk {
+>>>>>>>      };
+>>>>>>>
+>>>>>>>      &uart_a {
+>>>>>>> -       clocks = <&xtal>, <&xtal>,
+>>>>>>> <&xtal>;
+>>>>>>> -       clock-names = "xtal", "pclk", "baud";
+>>>>>>>             status = "okay";
+>>>>>>>      };
+>>>>>>> diff --git
+>>>>>>> a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+>>>>>>> b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+>>>>>>> index c41525a34b72..677069e58f30 100644
+>>>>>>> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+>>>>>>> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+>>>>>>> @@ -266,6 +266,4 @@ &sd_emmc_c {
+>>>>>>>
+>>>>>>>      &uart_a {
+>>>>>>>             status = "okay";
+>>>>>>> -       clocks = <&xtal>, <&xtal>,
+>>>>>>> <&xtal>;
+>>>>>>> -       clock-names = "xtal", "pclk", "baud";
+>>>>>>>      };
+>>>>>>> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+>>>>>>> b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+>>>>>>> index cc371fcd1896..7847582e77ed 100644
+>>>>>>> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+>>>>>>> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+>>>>>>> @@ -587,6 +587,10 @@ uart_a: serial@78000 {
+>>>>>>>                                     compatible = "amlogic,t7-uart",
+>>>>>>> "amlogic,meson-s4-uart";
+>>>>>>>                                     reg = <0x0 0x78000 0x0 0x18>;
+>>>>>>>                                     interrupts = <GIC_SPI 168
+>>>>>>> IRQ_TYPE_EDGE_RISING>;
+>>>>>>> +                               clocks = <&xtal>,
+>>>>>>> +                                        <&clkc_periphs
+>>>>>>> CLKID_SYS_UART_A>,
+>>>>>>> +                                        <&xtal>;
+>>>>>>> +                               clock-names = "xtal", "pclk", "baud";
+>>>>>>>                                     status = "disabled";
+>>>>>>>                             };
+>>>>>>
+>>>>>> I agree with moving the UART clock configuration to the DTSI file.
+>>>>>> However, it seems a little odd to keep the XTAL clock definition in
+>>>>>> the
+>>>>>> DTS, as the alias may not be consistent across different boards, which
+>>>>>> could result in compilation errors. Could we move the XTAL clock
+>>>>>> definition to the DTSI as well, similar to other Amlogic SoCs?
+>>>>>
+>>>>> It seems similar to changes in this series :
+>>>>>
+>>>>> https://lore.kernel.org/all/20260420-add-bluetooth-t7-vim4-
+>>>>> v4-0-9505df0e7016@aliel.fr/
+>>>>>
+>>>>> What do you think ?
+>>>>>
+>>>> Thanks for pointing out that series, though I wasn't aware of it.
+>>>> And after reading I don't agree with it. The clocks are not redundant,
+>>>> they are there because we agreed sometime ago that xtal belongs to the
+>>>> board files.
+>>>> So I still vote for my change in v2, that I will send in a few minutes.
+>>>
+>>> I don't get why it would be better to define the exact same clocks in
+>>> each DTS file.
+>>>
+>>> The xtal recommended characteristics provided at the SOC level can be
+>>> defined in the DTSI and overridden, if really necessary, in the DTS.
+>>>
+>> Hi Ronald,
+>>
+>> The preference for keeping xtal in board-specific .dts files rather than
+>> the SoC .dtsi comes down to DT hardware modeling principles and upstream
+>> maintainer guidelines:
+>>
+>> Hardware Topology: The xtal is physically located on the board PCB, not
+>> inside the SoC silicon. The .dtsi file models the SoC silicon internal
+>> architecture (clock controllers, IPs, registers), whereas .dts files
+>> describe the physical board layout surrounding it.
+>>
+>> Avoiding Implicit Assumptions: Defining a default 24MHz xtal in .dtsi
+>> assumes every T7 board will use the same oscillator configuration. If a
+>> custom board design uses a different crystal frequency or an external
+>> clock generator/TCXO, overriding a .dtsi-level node can lead to messy DT
+>> overrides or silent clock rate mismatches if forgotten.
+>>
+>> Upstream DT Maintainer Policy: Kernel DT maintainers consistently push
+>> to keep board-level hardware explicitly declared in the board .dts files
+>> to reflect actual physical board components.
+>>
+>> That said, I acknowledge the trade-off is minor boilerplate duplication
+>> across board DTS files. If the Amlogic SoC maintainers prefer setting a
+>> default 24MHz xtal in amlogic-t7.dtsi to match older SoC generations, I
+>> am open to updating it—provided the maintainers explicitly prefer that
+>> tradeoff over strict DT topology modeling.
+>>
 > 
-> On 07/08/2026 16:02, Dumitru Ceclan via B4 Relay wrote:
-> > This series adds new drivers for multiple Maxim GMSL2 and GMSL3 devices,
-> > replacing the few GMSL2 drivers already in upstream, and introducing a
-> > common framework that can be used to implement such GMSL chips, which
-> > avoids code duplication while also adding support for previously
-> > unsupported features.
-> If you send a series, it needs your Signed-off-by.
+> Hi Lucas,
+> 
+> Thank you for this detailed explanation.
+> I was referring to the last paragraph of the DTS coding style:
+> 
+> Hardware components that are present on the board shall be placed in the
+> board DTS, not in the SoC or SoM DTSI. A partial exception is a common
+> external reference SoC input clock, which could be coded as a
+> fixed-clock in the SoC DTSI with its frequency provided by each board DTS.
 
-Thanks for testing this. It's been out for review for long but without much
-attention. :-\
+This is what was done for qualcomm SoCs, we could do it for Amlogic aswell.
 
 > 
-> This series also depends on the internal pad, which is not upstream and is
-> not just a straightforward add-a-define case. Sakari's "[PATCH v12 00/86]
-> Generic line based metadata support, internal pads" has it, and additional
-> patches around it. For the time being, I think the internal pad
-> unfortunately blocks merging this.
-
-I've briefly discussed this with Laurent and it seems we both think the
-internal pads could be introduced for this purpose. I don't see this being
-an issue; we still need to pay attention to how they are used which we'd
-need to do in any case.
-
+> I understand going to strict topology is better, that means we must
+> apply the same rules to new Amlogic SOCs, right ?
 > 
-> However, (correct me if I'm wrong) the internal pad is only required for
-> TPG. An option would be to remove the TPG support (or at least the parts
-> that make it visible, i.e. you could keep the internal functionality), thus
-> removing the blocker. The TPG could be added later on top.
-
-That's an option, yes, but I'd just merge the internal pad patch.
-
+> Do we need to move other clocks and assigned-clocks properties which use
+> the xtal to the board DTS as well (such as clkc_periphs or sd_emmc)?
 > 
-> I tested the series on Xilinx Kria KV260 and on TI AM62A SK, both with
-> max96716 deserializer and two max96717 serializers with imx219. On Xilinx I
-> used RAW8, with and without embedded data. On AM62A I used RAW8 and RAW10.
-> 
-> The deserializer TPG gives me no frames at all. I recall the clocking for
-> the TPG was quite a challenge on at least some max96 serializers, so maybe
-> it's related to that.
-> 
-> The serializer TPG worked, although I think there's something funny with it:
-> the initial frames (maybe just the first one) seem to be truncated a bit,
-> there's black at the bottom. Another, a bit more unclear, is that sometimes
-> ser tpg stops working. If I'm not mistaken, what I did was run cam0-tpg +
-> cam1-tpg. Then I tried des tpg. Then cam0-tpg, but it gives me nothing.
-> Streaming with cam0+cam1 video "resets" things and it all works again. I've
-> seen this a few times, but there seems to be some randomness so I haven't
-> been able to pinpoint it, but feels like there's some extra state that's
-> left behind into the HW.
-> 
-> All in all, the normal case (non-tpg) works ok for me:
 
-I'd indeed either fix the TPG before merging the set or postpone adding it
-for this reason. :-)
+No since it describes a SoC configuration using XTAL, it should be in the dtsi.
 
-> 
-> Tested-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Neil
 
--- 
-Terveisin,
-
-Sakari Ailus
