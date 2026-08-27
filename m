@@ -1,60 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91CE4448393;
-	Thu, 27 Aug 2026 17:14:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E2611940B0;
+	Thu, 27 Aug 2026 17:17:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787850868; cv=none; b=WNy3UqV3Gg9Fy77+7f4Qr2x9lnEOvaxGmKgFN3XJ6UoxdLVg11LYPsFNcBcwW9C9KPMZvPGDSzti+WPqlwGLA+y0l61/xaRpo5i3EU1jerDMr9uPmDjWtzcUNT/ueaOx0IygumuBU3Hfr7lM7tIV/XendpFKBjShSpxLzJLwOT4=
+	t=1787851039; cv=none; b=m3WmuxgtipPEVC+LBzgewwzEc0eorhu+rEfAFghLc++5KRi/IQrCxnxNNgvCPoizv6059NTe4hmv2Ck/tbCdmZPQ/clVKy6BTsISVFcAfwhmshtoRPbrHh9e9yILxP7bLWM1+Y4gByYWE/XNqCpp0w+t0vnqt9RQTjtC/bzNQ3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787850868; c=relaxed/simple;
-	bh=98EnpPCM7ehXne7kJF3UPBdleYIe55GtAC+8kpokhpE=;
+	s=arc-20240116; t=1787851039; c=relaxed/simple;
+	bh=7UOQHNXVkSIHrnBWEaQCbGWTy0LYXQDSOVpqYzYWwYE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HpRNdcJyF5uVmJDQdQqaxn7LFuMcWTY2tkfa7oShKqC3RpjBJ/UQz2aR5c2t3cUr6a3ZEL5unMgAVZgIUWBxRQ/dyBDACdy8ZPM90M5IOgv1foENy4DVCYcccOlfruT51k0izqHmHqfyZsoj2JbYCy3ErRb8HOzFwqfEdH0K6tU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JCSVox6G; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=WzWInPizKsfKH3x1HKFXbgztTPq6qUlr6cSXeFKiMm9w8xRIw320cHZVT2Ufk4/+++6igrcyPZJXJdYhdzVBIpqFqf7qCuVpcFxHOTqF8mAGLWuzzKLrMsNONsOKuyqIoTeyXe0u3461RSog9WolIg7i5rmOFwE8HL7DOVv2xp0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M3c1brqZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JCSVox6G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B6881F000E9;
-	Thu, 27 Aug 2026 17:14:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M3c1brqZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8588A1F000E9;
+	Thu, 27 Aug 2026 17:17:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787850867;
-	bh=4lm/k56nr7IHGEr+v1yjkGgSAWBS975WgKpRUfju9b8=;
+	s=k20260515; t=1787851038;
+	bh=7UOQHNXVkSIHrnBWEaQCbGWTy0LYXQDSOVpqYzYWwYE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JCSVox6GL19a1MTaGMX1VoBUpxeEk51N0QWkSBIaHhujZm9iUPhOUm9Xgpbkd7JZE
-	 a3pL4vSkeI8SVuclpzWy452xIPJC/6fz4FQzcBhyDDfM1pIhBwFNAotSj2W5B2z7Qp
-	 S82CaLweYkZnhheouvTqSWOdOBcKQ88ir5fZuxzmRiNqhPXQ6OeuVCROsQAy85nIQG
-	 iwqGqpl61SDgQjqyiDF6nhCoNkPec6JITmHYh039Xu8xm/8q0zJV2RxsAx1BZS/BYy
-	 /eB/d9RgLwScRO9DvSiaNXdzYOIKF+nKaXhAa5x91SDuar5TmnX4JABSlzXWNypJWb
-	 ADT6YNf+Pwkcw==
-Date: Thu, 27 Aug 2026 18:14:21 +0100
-From: Conor Dooley <conor@kernel.org>
-To: "Ousherovitch, Alex" <aousherovitch@rambus.com>
-Cc: Albert Ou <aou@eecs.berkeley.edu>, Conor Dooley <conor+dt@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	"Krishnamoorthy, Saravanakrishnan" <skrishnamoorthy@rambus.com>,
-	Shuah Khan <shuah@kernel.org>, Alexandre Ghiti <alex@ghiti.fr>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"Wittenauer, Joel" <Joel.Wittenauer@cryptography.com>,
-	"linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
-	"linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	"Nguyen, Thi" <thin@rambus.com>
-Subject: Re: [PATCH v4 01/19] dt-bindings: crypto: add Rambus CryptoManager
- Hub
-Message-ID: <20260827-crust-giddy-6888a52871a5@spud>
-References: <20260825221539.255951-1-aousherovitch@rambus.com>
- <20260825221539.255951-2-aousherovitch@rambus.com>
- <20260826-unwritten-marshland-47cdf3c17cad@spud>
- <SA3PR04MB9001B48FBE7B7C3EB81C5338D7AD2@SA3PR04MB9001.namprd04.prod.outlook.com>
+	b=M3c1brqZPBzQoxr0HQ2oPhtaKfEEkhu9eW3leG67p4qXW5/5tK95d2MEoS6aJf1I2
+	 qwXHzyjg4DOxOMWfNEMeg5KxQjKl7+UJa4LW5pngtYf3ryfkiszBiXLwAIpAKT7LWO
+	 M7X82gN/5UY4cy3rofVJNxQmPar9TteuOYS+4kWjDkmL64tFIZJd0i9RBecsra9wCp
+	 PiCrgS7hWnMRwrlUAmiIQWRcJRIl+g/Zlq8xBfJJlMnw8QaUUQmqAiNebFZE03Irep
+	 6a5vKF4nrem2yW1WPKM3CzKUKNMCc7BFO4XKoKEEYaT1OGdRKSGl6Ow3B4yvDCv06o
+	 C/LOh4dfOsOug==
+Date: Thu, 27 Aug 2026 19:17:15 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH 2/4] dt-bindings: thermal: Add Tegra264 header
+Message-ID: <apBwZwOkctBETKVJ@orome>
+References: <20260827-tegra264-fan-v1-0-3c55f0c748b1@nvidia.com>
+ <20260827-tegra264-fan-v1-2-3c55f0c748b1@nvidia.com>
+ <20260827-riverbank-cinema-d898d4e5a522@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -62,123 +45,56 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fecVinCGlQpVGphf"
+	protocol="application/pgp-signature"; boundary="cr2ptokaig36ntnn"
 Content-Disposition: inline
-In-Reply-To: <SA3PR04MB9001B48FBE7B7C3EB81C5338D7AD2@SA3PR04MB9001.namprd04.prod.outlook.com>
+In-Reply-To: <20260827-riverbank-cinema-d898d4e5a522@spud>
 
---fecVinCGlQpVGphf
-Content-Type: text/plain; charset=us-ascii
+
+--cr2ptokaig36ntnn
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 2/4] dt-bindings: thermal: Add Tegra264 header
+MIME-Version: 1.0
 
-On Thu, Aug 27, 2026 at 01:39:35AM +0000, Ousherovitch, Alex wrote:
-> On Wed, Aug 26, 2026 at 06:02:16PM +0100, Conor Dooley wrote:
-> > On Tue, Aug 25, 2026 at 03:15:20PM -0700, Alex Ousherovitch wrote:
-> > > +      command ABI).  A specific SoC integration should list its own
-> > > +      "<vendor>,<soc>-cmh" compatible first with "rambus,cmh-v1030" =
-as a
-> > > +      fallback; that extended form will be added when such a platfor=
-m is
-> > > +      upstreamed.
-> >
-> > This commentary should just not be here.
-> > Instead, do what's been done in sifive,clint.yaml for the clint2.
+On Thu, Aug 27, 2026 at 05:35:28PM +0100, Conor Dooley wrote:
+> On Thu, Aug 27, 2026 at 05:07:51PM +0200, Thierry Reding wrote:
+> > From: Thierry Reding <treding@nvidia.com>
+> >=20
+> > This header file defines the set of thermal zones exposed by the BPMP on
+> > Tegra264.
 >=20
-> Will do -- I'll drop the prose and model the compatible on sifive,clint2
-> so the schema itself requires an SoC-specific compatible ahead of the IP
-> fallback:
->=20
->     compatible:
->       items:
->         - {}
->         - const: rambus,cmh-v1030
->=20
-> Since that makes the two-item form the only valid one, I'll also move the
-> binding example (and our test DTs) to it, using a placeholder SoC-specific
-> compatible under the now-registered rambus prefix, e.g.
->=20
->     compatible =3D "rambus,<soc>-cmh", "rambus,cmh-v1030";
->=20
-> and swap in the real "<vendor>,<soc>-cmh" string once the first integrati=
-ng
-> platform is upstreamed.
+> Does this need to be a binding, since you're just using it in the dts?
+> Can it just go into your dts directory insteaD?
 
-With the correct syntax, which I think the sifive example I copied from
-doesn't have, but
-Documentation/devicetree/bindings/crypto/inside-secure,safexcel-eip93.yaml
-does, fake compatibles won't be permitted (and we would probably object
-to seeing them too). What we want is the binding to force people to use
-a soc-specific one to pass validation. Unfortunately this does mean you
-can't have an example because it won't pass the validation, which is
-annoying!
+I don't think we've ever used these headers outside of DTS files, so,
+yes, they could go into the DTS directory.
 
->=20
-> > > +      rambus,cores:
-> > > +        $ref: /schemas/types.yaml#/definitions/uint32-array
-> > > +        items:
-> > > +          enum: [0x02, 0x03, 0x04, 0x05, 0x08, 0x09, 0x0a, 0x18]
-> > [...]
-> >
-> > You could just make this a string array, and then you'd not need this
-> > mapping of unintelligible hex values. Of course then your driver has to
-> > do it, but I'd rather see understandable (and portable, since a new
-> > revision could change the IDs) values in DT.
->=20
-> Agreed, that's clearly better.  The next revision makes rambus,cores a
-> string array and maps the names to core IDs in the driver, so the
-> numbering can change across IP revisions without touching the DT:
->=20
->     rambus,cores:
->       $ref: /schemas/types.yaml#/definitions/string-array
->       items:
->         enum: [hc, aes, sm4, sm3, hcq, qse, pke, ccp]
->=20
-> (keeping the affinity semantics in the description -- a core appears on at
-> most one queue, unlisted cores are load-balanced -- just without the hex
-> table.)
->=20
-> > > +required:
-> > > +  - compatible
-> > > +  - reg
-> > > +  - "#address-cells"
-> > > +  - "#size-cells"
-> >
-> > Surely clocks are also mandatory?
->=20
-> They can't be mandatory for this binding -- there may be no clock provider
-> for the node to reference:
->=20
-> - CMH is shared between hosts.  The SIC presents up to four host
->    interfaces; a designated management host owns the privileged
->    configuration (clock, reset and power) while the other hosts are
->    granted only a subset of mailboxes.  A node describing a non-management
->    host therefore has no clock/reset provider to point at -- those lines
->    are driven by the management host or an SoC power controller.
->=20
-> - Even where a provider exists, only the main "core" clock is always
->    fitted; "core-div2" is present only on builds that include the
->    side-channel-protected slow cores, and "rt" is the real-time tick,
->    which is why clock-names is a oneOf of subsets rather than a fixed
->    list.
->=20
-> So I'd keep clocks (and reset-gpios) optional.  I can add a one-line,
-> hardware-framed note to the description if you'd like that rationale on
-> record.
+We've never done that before and there's a bunch of Tegra-specific files
+that would be in the same basket. What's your recommendation for any of
+the existing headers? Should I move those into the DTS directory, too?
+If they are not used outside, that is? Or not worth the churn?
 
-Please do, yeah.
+Thierry
 
-Thanks,
-Conor.
-
---fecVinCGlQpVGphf
-Content-Type: application/pgp-signature; name=signature.asc
+--cr2ptokaig36ntnn
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapBwbQAKCRB4tDGHoIJi
-0tg1AQDJxvd89lNx3GSYKYhVSI+ByKuzMH06Aat4j5i/Er7GCAD/bUIEGNkrxnPj
-TriUguZYuEpl11M5MLqp9TSVpc3RUQw=
-=+I7h
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqQcRsACgkQ3SOs138+
+s6E9zw/7BYRPip5eGaJjGlRHxKU9JFf1MDCM2ANmadWagLsvPusHvkDECCFGsGYJ
+AYrX9toQAj8dIfPTdY3u919LJYiuf6rUl0OsEARnyfCPlh4DIUejVrZNSSdLxI0E
+IE7a+4cxSmNzkHfhReReZb5N05+hMw81X+L4jlmnJv2LSbo06oCT6yJB758JpQyU
+Kd3k920QFeEM/g5izLDFZjlejmO20WT3fsEPCi1KTuAlDLyD6JJcynP1pfQ+yH7I
+f1kjTq2RK5AzadxOHAW7IJtuzUumzsqCX5ocbrmjyObrRfiBJMUJhLVYFFnV22EL
+9AWjB233dbuf6UchldTeDVpRvLAJrYvvdMKrxb52v4l3uccrO9+VCjRqnTvO4ZQP
+qoHf6EEb2NMA/27dWgVTYFGV5Qxv72KmyxIOgRqCHGeF2sdrn0ITeoOQJBJpmOIt
+qjYtlREsdjWTDGIpyxSV/8WtsWrtCBgHJ1uIqPiCJI0YhWmsfLbz1koF4Bu+qjCU
+xS6YRq7WNdWMo3eErbEB1gC8sZ00Q41dP/6+QJ+dZoOChGe8iiF8q4rZuymPAK1q
+aHCFmA9Snc8fMjiWgdQLCKg0VaDteeL4Xwpphm9SHCC8TPgxFw4JasULNNZdVtie
+a54J+OpqWtJB//RoVVS57bCCzC7NYHIlz4pWm414NFsURW4pck8=
+=hw6n
 -----END PGP SIGNATURE-----
 
---fecVinCGlQpVGphf--
+--cr2ptokaig36ntnn--
