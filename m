@@ -1,205 +1,208 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07CD240B6D4
-	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 17:17:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787851075; cv=pass; b=OS/koHjtic1b6TKCGqmC3HCu5FvMnTjsHkdAWzc5oklC26y8hnkNX10gjt67BCAAlZt9hAq3kwAChabkSgVnaKbWF2PPpKPj77iC4cLo1VRFCPz8SwrPPsB6fJCJBU1oLsWBHNdzj3lcWQJ3A/A+ju1SrLZf2PcUTJljUk7wqR0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787851075; c=relaxed/simple;
-	bh=nx6pzOW5pT8Lijs8fAgCGx8cLsTrEkgcyr1BexTuz+w=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UEj7SynJyIQSgSvO7jj7WWw1JzinxRAbiczmpvbjJkPimYxkvv8pYs5xqHUGe5W3QiPiZuaCw8M4x1tXRlAsVG2ljGNvVEKJD61P/IX7XBVhdeOOQeqWVEDuvtWwi/CH8p4p4W/8mf4LkfrBWr5Nz3wuyRNnc8yduHp07MW9i0I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PnaunlPV; arc=pass smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04BE4963CC
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 17:19:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787851194; cv=none; b=os2UAYjutsvx7SayDcMcKEatfqJ9nBTB6VN9W2x79JKEBGRAf4KagcGM/TRronhPD7jonAL1MgWgO1vv+eBIHodqOxIr7Mehcd+0OI4UWdhLZkBtIuyrikziS+etrua67QBhsdeSrCo0rZS22sc/h6rM4j29oF3HPGzqS9inBhs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787851194; c=relaxed/simple;
+	bh=vQQ1JnsJulU0igW0FVrOEjyJXmT5ZAzjD0E0C16Fd6Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HhJ8Nh6ZJGlTpwLDepCeu53TbSOyv4M9rKxIzzW1ZYKnE+zqEP3Up2mAXJ5ky5ODzj10CUfpy+wYHbU3ByJ3uL0pWGTXICBksin3J/SKjZV+i1m6O2p0UTjB/Ik8VgUaQpEsQUM1Xo6XMk2sVD4QQhs5gAkxVnI5naJiHd0gabk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rc5P9d4w; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PnaunlPV"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2caed617615so837535ad.3
-        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 10:17:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787851073; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eqSNIYC00ili3Jcxi9EFRAQFGyFMFxpzLv9D/jsXNjiC6gKRxfbGsAb1mY2VBA1Lqd
-         /mr7WyDWfF7yeuNv6XUUmQ/zXzw1zTsREkY+W830/8jMCs6gTYUJ6IrziRwTMepYFHLR
-         Jrz8B2CCPQz+n79ryVEWMCWW95m9CMsqlN0W5ywJJUFuwwkaJSNTaX6T0+eaygaOKbBG
-         4COo7IQ0OeAEpW07dg8qHC3laiPRISDVF84peGA6KcGmsXyx9tDpWm21nwXO3wbAv0Ob
-         qSof6NrAHecQxGK7YuqCTkWM/blJ4+yDSyA0F7RQ+OTx6x5oHoBOm+sTbyHKCnfhe/2k
-         uwoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=M8SDq5h0rGl3va3b86tmLr/VrLxThW4gkkY/ckQ/2dA=;
-        fh=8G5FGytzdCENVIjzYpxO/1fSmrMsHLb+9qC7zus5M58=;
-        b=nQSuzGb0786d9cV+WRlzcTld17d6QRRcvKXqINIjkIlTH/ZzIpiAndU8+3eg3Ac9ob
-         GiXScY39uOhCZiFZLY1dx1kD4Yl1LJOCdGGaVfvmC87i0wjvgGSm3+lT9pGaFt4wTA4E
-         nzKr/Votr2l8H7d7gru0GgZnM0+lKu/ViCL9op9SMRWxc9wIV7MNBznU0/o5bz1lxAJU
-         nUagY3eV2A0hsEVnEI4ao0h2D0CJ38sQNYYyniSgWL030+rYyyRU/6aoYbry2tSI18L2
-         4IoQZTikKIFCrEdBo6JznpxP7bLAi/ahmfjLlx2fvzd7zYLdHeJ9b0arw/KI+LV4/NSc
-         7XFg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rc5P9d4w"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-499840a2575so15507025e9.3
+        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 10:19:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787851073; x=1788455873; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=M8SDq5h0rGl3va3b86tmLr/VrLxThW4gkkY/ckQ/2dA=;
-        b=PnaunlPVlR9vSA3adN2cXs0v4MY+HMHLDn2/pIypwBIYua3I/ulnZEUMKMQAQPf883
-         SpxK+yLnrph0EMCsHuAkUI0LlNxLEy0avxjVucLz+4g9OcZBIairx1PNko8FHw+jmjzZ
-         +vE3/vlrwTJCE9xd3Citp+EmaVINBvk6nd0onnvEoRukFcrSe2V75fGL+VJxWK07Y162
-         dezI13xM5r9LoXwqGPQq51/1p82bm9LjSCpHHnaqkC/JuyxWrZbJYl9041Pn6ISiLWhG
-         r/19omgJZHjuu6gI3Qi4h5qTcXk+0UWOl/ws+7jd2/h2N43zn3LtP13TtBOBuZiTO64K
-         N1UQ==
+        d=gmail.com; s=20251104; t=1787851191; x=1788455991; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3toHgNm1X+G4rSZPEb0QgIDLq/CBLmilUIyHXoikIUk=;
+        b=Rc5P9d4w1goaCsSA4seFhk/EHmyAbKR/+t1XDQr8cYSX0EezH0/jiS5SlT9wawGjab
+         JjidL6vl2liM7vB6Ec1emHroqNm+7z4M/RupTC1tb7T0vQ1laBo2uQckz5FAMTOd7hmJ
+         FHT/P0FQ9C0XzOS5yF1/IBmdRPnTGlNy1EfRJMkwJwz765zoop9pTl43PLJykp1SBCFN
+         dknhxtkoa7LZafCraELRyfVONGFD20iFBmblH+UMAn4TTB8c/tDSXQcU0T82AacPsQVx
+         7kLCAwYCRRyN0NbbCtlx4f64ifuLvtgnjrqE8qzGdImqTOoWUZTHC/PORWQcHp6XLx+h
+         Qyfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787851073; x=1788455873;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=M8SDq5h0rGl3va3b86tmLr/VrLxThW4gkkY/ckQ/2dA=;
-        b=kdozmyvPveRtcI+s2kn/fijG5hdkWgMaci++jcgoj0T+BwPh94fePLnPvBue/Rkpnl
-         zlzMdTFK6pmo1sOPeXl3jmimXOSxzfh42ekXlfMukWxcqjt8v4L7tUNH287+KgMXNz2X
-         PU6NsJ0WTnyg3G7vHvVLELTXKEnXMiquTjSdYu4g8shlGp+kiM6VDD2Ci8Rzzw6aW5eF
-         UCxcW3xHWbvI184lgJEuPGJOh3+PwT6ePB1pH0eiW1M0yKzFpZZevFlPtltlNROepmdb
-         BGAGh9O7Xog7Uur9zQWWfzpyGHBWoJakyTpbC7V4zMe+GvE/9/1cxMdvcBU3PfSMz7TI
-         vEHA==
-X-Forwarded-Encrypted: i=1; AHgh+RrKg+e+vH56lWN71Tzcygscrv5c2SEpDfm1rOcdVwqCRpuNH6XDXJrdjdGO2wQK0dP3xfr/mduzMYHr@vger.kernel.org
-X-Gm-Message-State: AFuF++labERvZsIyVoGedYNWC+yvZ/2i2fvX5YNTue9xswXWRCg3DXck
-	r/KbsIpQncqWg1i4DAdqC0zNCsMWp6l3FeTCMKn1ockG9Rur9dDJH66yDtCTyDK0c3pLBAizoE4
-	joX+x9TlnKrdKmzcNBe5ptIKPaNzp+8E=
-X-Gm-Gg: AR+sD10mwktInBc/lx+Ypmjj1hKSi3QOpPoAtLmG59ThaaWv/1mMfTXWPGdAgxxj38K
-	xVh+kt7pipk8bcyAEA8iYgP0elfyI493ZnZlCYkZwT+fHL9W8L9quXNSeWBo2i8fLSBspKPICyw
-	SN6h3KXWg6jQ30pzQZBgY+cOwZUA/1MlpzLXYsEiaQaUj2Lq61SUW8ccbCFuN/Gr+MbIRs7ta4y
-	PF+gc6ZslyGqgT7bE+fBJaJHuHyazgEkoHdeQbbQaRpa/gpc0EsFOHH1xIMqwF38ELPxE956Tx5
-	cf8y+Z+iK7CECgDQSYkJxyiDtAkQIbH9ib43sodpj0T+BZgXSAZaxELt722mOvojkEOsX1PK7sF
-	oMg==
-X-Received: by 2002:a17:90b:1c0a:b0:396:54ba:8932 with SMTP id
- 98e67ed59e1d1-396d104e722mr868167a91.16.1787851073075; Thu, 27 Aug 2026
- 10:17:53 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787851191; x=1788455991;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3toHgNm1X+G4rSZPEb0QgIDLq/CBLmilUIyHXoikIUk=;
+        b=V262PemzH4VnHY6wWXT3KG2pfEuFKKeejtGUYJsCGe/VtJUbcxwXUe5RqsIVkjyYik
+         +8LepOmuW1DKzHzpvra4IoGiUD4Audlr/McULTvCkfRNwxLqxTF5h5h8RjZhRAK85/q2
+         AREvwfwan9KVqEV+QoV4aSkfJB9CXBJZt3hFMep6R8dDol6C4niVkNc7yXoc+DtJu+ir
+         b3yZDJ7YXEuj+LFcxAvfbek5ATduOWSn2xdsfE/HadqPTvgVzDYp61yqzi01irANwEOD
+         s43wAq/leh5lyR1yKJr+5dV423Zqiukf8AyXMXhAh1uCqbua1C113BAuDhtabQOcFm5y
+         /OJw==
+X-Forwarded-Encrypted: i=1; AHgh+Rqqh1nU6/j/3j6RgtoU+3uTBfxgoYZEwZ10x+leFyTnyCym2yZqHg/e32GGahqJUZX0ooB9iaZoYSof@vger.kernel.org
+X-Gm-Message-State: AFuF++kCS+Gy/XerbNu50kGkAJu66BEVSgxF6RCucxXuJQykFSiGZsrs
+	Ezzk00o249QPJBeiZeD3j0hNw6SBmz1C+CqWTT21Sf8ZPp5OkKWPqjf/
+X-Gm-Gg: AR+sD1183/1AZNpk4RVPznEX20zksBwazTewuFxzzpWMy1QJHBCygZqcwTtabiHPeCu
+	emdvzRYe3TwPPmf8X9/VMO49m9nXqy9ZgdanwxwI//7tUSCgqidoZ1hzoOokW0T9W1DTwtU8mZ3
+	oQkSA1Lv71G593dRv4QGSgvpFxduXDg1U5jsr6FptdzQaR0HBP/8upJeL4ebgDMK4t98FfFRA1l
+	Jxki53scL53YHdEBNWiZYQRoq57n8IZCn4lFT6ImI5Dd+hY734CKUzAc/jvZtqp+ZJGlBcuFjnR
+	XwdoemxojOOMn+9yKknqdMlcXmJxq92kZ0h7AOlazLQZ//LfZH5dCve4RjyghE9Va3TNco7ZdFh
+	fzYdLFKAvgjXZjaY1v16qO94Bn3hviYfZeDjqPt8p058O0Uu87HKw7W8lDacFvnxL3Qs7CUQZXy
+	RGv3LnmW/pmlhx6uRPtKQh70BL39CqjPPr3OxlI1VH8rQNi6wm9IcJuceg6li6dWXZiQ93Gnj00
+	rIMhTb+ba6Z/5Nfrt2DoeXzkhVlq0pE71qUJMk42VodwwiTsGUH2jqpC+a9wrOA
+X-Received: by 2002:a05:600c:1d15:b0:499:d366:f572 with SMTP id 5b1f17b1804b1-49b91c4338cmr5523315e9.10.1787851190868;
+        Thu, 27 Aug 2026 10:19:50 -0700 (PDT)
+Received: from localhost.localdomain ([85.118.83.238])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b4ad16262sm54259995e9.11.2026.08.27.10.19.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 10:19:50 -0700 (PDT)
+From: Georgi Valkov <gvalkov@gmail.com>
+To: briannorris@chromium.org,
+	johannes@sipsolutions.net,
+	andrew@lunn.ch,
+	krzk+dt@kernel.org
+Cc: francesco@dolcini.it,
+	johannes.berg@intel.com,
+	kees@kernel.org,
+	miriam.rachel.korenblit@intel.com,
+	rongqianfeng@vivo.com,
+	wenst@chromium.org,
+	rafael.beims@toradex.com,
+	avraham.stern@intel.com,
+	error27@gmail.com,
+	s.kerkmann@pengutronix.de,
+	gregory.clement@bootlin.com,
+	sebastian.hesselbarth@gmail.com,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	Frank.Li@nxp.com,
+	chunfan.chen@gmail.com,
+	arend.vanspriel@broadcom.com,
+	peddolla.reddy@oss.qualcomm.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	stable@vger.kernel.org,
+	gvalkov@gmail.com,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v8 1/3] dt-bindings: net: wireless: add flag marvell,invalid-reg-hint-in-rom
+Date: Thu, 27 Aug 2026 20:19:35 +0300
+Message-ID: <20260827171937.28878-1-gvalkov@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260721095654.429346-1-clamor95@gmail.com> <CAPVz0n3u0D=0swsO4n6LROFurO=as1w-ZRwaje08BN9dY=JhXQ@mail.gmail.com>
- <20260827141457.GA2943942@google.com>
-In-Reply-To: <20260827141457.GA2943942@google.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Thu, 27 Aug 2026 20:17:41 +0300
-X-Gm-Features: AcwNN1WUBCKfKNTF0yfYVgSgr_Ph4Fu9hbLSdLwMiZnrAraJvVZlotiakM6hXUQ
-Message-ID: <CAPVz0n03znVtUaO9qo9zoC71NQsiVJK4sMLcyi_TWCUL8V1O9A@mail.gmail.com>
-Subject: Re: [PATCH v7 0/6] mfd: cpcap: convert documentation to schema and
- add Mot board support
-To: Rob Herring <robh@kernel.org>, Lee Jones <lee@kernel.org>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org, 
-	Conor Dooley <conor+dt@kernel.org>, Pavel Machek <pavel@kernel.org>, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-=D1=87=D1=82, 27 =D1=81=D0=B5=D1=80=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 17:1=
-5 Lee Jones <lee@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Wed, 19 Aug 2026, Svyatoslav Ryhel wrote:
->
-> > =D0=B2=D1=82, 21 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 12:57 =
-Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> > >
-> > > The initial goal was only to add support for the CPCAP used in the Mo=
-t
-> > > Tegra20 board; however, since the documentation was already partially
-> > > converted, I decided to complete the conversion to schema too.
-> > >
-> > > The CPCAP regulator, leds, rtc, pwrbutton and core files were convert=
-ed
-> > > from TXT to YAML while preserving the original structure. Mot board
-> > > compatibility was added to the regulator and core schema. Since these
-> > > were one-line patches, they were not separated into dedicated commits=
-;
-> > > however, the commit message notes this for both cases.
-> > >
-> > > Finally, the CPCAP MFD was slightly refactored to improve support for
-> > > multiple subcell compositions.
-> > >
-> > > ---
-> > > Changes in v2:
-> > > - fixed code style
-> > > - rtc conversion was picked, so patch dropped
-> > > - added audio ports description into mfd schema
-> > > - splitted schema conversion and compatible addition
-> > > - minor style improvements and typo fixes
-> > >
-> > > Changes in v3:
-> > > - added regulator node names list into pattern
-> > > - filled spi_device_id with driver data
-> > > - ADC patches were picked, so changes dropped
-> > >
-> > > Changes in v4:
-> > > - dropped regulator patches (applied)
-> > >
-> > > Changes in v5:
-> > > - switched to MFD_CELL_* macros
-> > > - switched to use determinator of model
-> > > - switched to spi_get_device_match_data
-> > >
-> > > Changes in v6:
-> > > - removed address-cells and size-cells from main node
-> > > - changed macros formatting and OF matches
-> > > - factored out common devices and made device addition staged
-> > > - dropped cpcap->variant check for 0
-> > > - EINVAL > ENODEV in variant checking switch
-> > >
-> > > Changes in v7:
-> > > - adjusted spi_device_id entries (name/driver_data)
-> > > ---
-> > >
-> > > Svyatoslav Ryhel (6):
-> > >   dt-bindings: leds: leds-cpcap: convert to DT schema
-> > >   dt-bindings: input: cpcap-pwrbutton: convert to DT schema
-> > >   dt-bindings: mfd: motorola-cpcap: convert to DT schema
-> > >   dt-bindings: mfd: motorola-cpcap: document Mapphone and Mot CPCAP
-> > >   mfd: motorola-cpcap: diverge configuration per-board
-> > >   mfd: motorola-cpcap: add support for Mot CPCAP composition
-> > >
-> > >  .../bindings/input/cpcap-pwrbutton.txt        |  20 -
-> > >  .../input/motorola,cpcap-pwrbutton.yaml       |  32 ++
-> > >  .../devicetree/bindings/leds/leds-cpcap.txt   |  29 --
-> > >  .../bindings/leds/motorola,cpcap-leds.yaml    |  42 ++
-> > >  .../bindings/mfd/motorola,cpcap.yaml          | 408 ++++++++++++++++=
-++
-> > >  .../bindings/mfd/motorola-cpcap.txt           |  78 ----
-> > >  drivers/mfd/motorola-cpcap.c                  | 143 +++---
-> > >  include/linux/mfd/motorola-cpcap.h            |   7 +
-> > >  8 files changed, 571 insertions(+), 188 deletions(-)
-> > >  delete mode 100644 Documentation/devicetree/bindings/input/cpcap-pwr=
-button.txt
-> > >  create mode 100644 Documentation/devicetree/bindings/input/motorola,=
-cpcap-pwrbutton.yaml
-> > >  delete mode 100644 Documentation/devicetree/bindings/leds/leds-cpcap=
-.txt
-> > >  create mode 100644 Documentation/devicetree/bindings/leds/motorola,c=
-pcap-leds.yaml
-> > >  create mode 100644 Documentation/devicetree/bindings/mfd/motorola,cp=
-cap.yaml
-> > >  delete mode 100644 Documentation/devicetree/bindings/mfd/motorola-cp=
-cap.txt
-> > >
-> > > --
-> > > 2.53.0
-> > >
-> >
-> > Hello Lee! May you please pick this patch set? I have included changes
-> > asked by Rob and Uwe. Thank you!
->
-> Nope! =3D:-)
->
-> There are still a bunch of unanswered Sashiko reviews and one from Rob's =
-bot.
->
-> --
-> Lee Jones
+WRT3200ACM and WRT32x routers always report a fixed US regulatory domain
+from the mwifiex ROM, which conflicts with the platform regulatory
+configuration on units sold outside the US market. For example:
+- phy0 mwlwifi 5 GHz, hard-coded region 98 EU mapped to FR
+- phy1 mwlwifi 2.4 GHz, hard-coded region 98 EU mapped to FR
+- phy2 mwifiex 2.4 and 5 GHz, hard-coded region US
 
-Hello Rob! May you clarify if those are relevant?
+When the system boots, it detects a conflict between the user selected
+region and the radios, e.g. BG FR US, and applies extreme restrictions,
+preventing phy0 from starting on any DFS channel. phy2 works.
+
+Add a device-tree flag, which allows affected devices, where the radio
+conflicts with the platform to ignore the incorrect regulatory hint in
+the ROM of the radio, so the platform regulatory domain can be used.
+This does not allow the user to change the regulatory configuration of
+any radio. It only allows phy0 to start and operate according to its
+certified configuration.
+
+[1] https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
+[2] https://github.com/openwrt/openwrt/issues/9956
+
+Signed-off-by: Georgi Valkov <gvalkov@gmail.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+v8:
+1. no change
+2. drop invalid tag Tested-on, replace it with description of the fix
+3. no change
+
+v7:
+1. drop Cc: stable, the first patch only documents a binding
+2. restore colon after Tested-on as requested by openwrt-ai
+3. mention the added wifi@1 node
+
+v6:
+Rename flag:
+marvell,ignore-regulatory-hint -> marvell,invalid-reg-hint-in-rom
+
+Clarify commit description:
+The patch series allows affected devices, where the radio conflicts with
+the platform to ignore the incorrect regulatory hint in the ROM of the
+radio, so the platform regulatory domain can be used.
+
+This does not allow the user to change the regulatory configuration of
+any radio. It only allows phy0 to start and operate according to its
+certified configuration.
+
+The change affects only platforms which explicitly define this flag, and
+helps overcome the incorrect behaviour of proprietary radio firmware.
+
+Rearrange patches so that the flag is implemented in the driver, before
+being added to the board for WRT3200ACM.
+
+Link:
+https://lore.kernel.org/linux-wireless/20260728103536.25012-1-gvalkov@gmail.com/T/#u
+
+v5:
+1. description: remove tag Tested-on
+2. add #address-cells = <1>, #size-cells = <0> to fix a warning:
+arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts:183.3-13:
+Warning (reg_format): /soc/internal-regs/sdhci@d8000/wifi@1:reg:
+property has invalid length (4 bytes) (#address-cells == 2, #size-cells == 1)
+
+3. description: add info about testing
+
+v4:
+1. Add binding documentation for flag marvell,ignore-regulatory-hint
+2. Add dt for sd8897 and move the flag there, I used sample from docs
+3. Use device_property_read_bool in the driver
+
+v3:
+I implemented and tested a better approach with no board specific code:
+1. check for a device-tree flag in mwifiex_register_cfg80211in()
+  !of_property_read_bool(of_root, "marvell,ignore-regulatory-hint")
+2. add this flag to the root device tree of each affected board
+Currently this affects only armada-385-linksys-rango.dts,
+because Linux has no dts for venom. OpenWrt will take care of that.
+This approach is more flexible and scalable, because the flag can
+also be used in other drivers, e.g. mwlwifi (not part of Linux).
+
+v2:
+Replace the compatible device names, which are currently only available on
+OpenWrt with board names which are available on both Linux and OpenWrt.
+
+ .../devicetree/bindings/net/wireless/marvell,sd8787.yaml    | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml b/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml
+index 930b700b73d0..9f905ef5c2c0 100644
+--- a/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml
++++ b/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml
+@@ -59,6 +59,12 @@ properties:
+     description: Calibration data for sub-band 3 in the 5GHz band.
+     maxItems: 502
+ 
++  marvell,invalid-reg-hint-in-rom:
++    $ref: /schemas/types.yaml#/definitions/flag
++    description:
++      The regulatory hint in ROM conflicts with platform configuration.
++      It should be ignored, so the platform regulatory domain can be used.
++
+   marvell,wakeup-pin:
+     $ref: /schemas/types.yaml#/definitions/uint32
+     description:
+-- 
+2.55.0
+
