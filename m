@@ -1,165 +1,177 @@
-Received: from cp2.siel.si (cp2.siel.si [46.19.12.180])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA7C3115A2
-	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 11:40:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.19.12.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52128441619
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 11:42:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787830846; cv=none; b=Z7XvByJy/3x1n4rpZrptxj6cskilVVEV4LFT+vUL5OTfw+clNzf3RlYCfNnMubS80aumbY3A11MHJmammor22Wjo6vLW7EojD6/f9WN9zhECrlAb6alLFaLr0cbS6XHzD4rJDs+rdfCnvl+T5K08G3qTwzm89tSrs99EaxPOHlM=
+	t=1787830953; cv=none; b=cSqH0tXdyM9xdYQZiBvUPWp77bUObw9Q6akihzhnBYGmryTfI1ocgUrNT04xuQG7gEpiIYa2VzwJrPx6cT9jWznSKfn+lL2YdlY93/YCIOmfkOCDmXL7bTGHa+koyDpolcqeKjH+cPAIl0h7KKQKs7Ej2bFiamdCyYt0fTyVQWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787830846; c=relaxed/simple;
-	bh=5HLWpG4MMXBNUTo7bfA+tQVUa3AWtUneHeNjgfaQ6QA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LD18uXYbwXgvlsLhPjPCye/l48MMywtzSFhTwhG17B+PRpvdVbtCjFT8C4IrGOQgxQefYclyA+3G2srqFlp2ZGrQSNUEr3gL9YUolTHm4JLF6Rda23kU34T3kcm3Q8rOb9I/YKgJ5t7ICD6iM1CpRgTqw8GbUSkIHJq94kCMb7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com; spf=pass smtp.mailfrom=norik.com; dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b=Dk+9iEEt; arc=none smtp.client-ip=46.19.12.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=norik.com
+	s=arc-20240116; t=1787830953; c=relaxed/simple;
+	bh=HfczaBEIeRcH5RSOIJyuVs9L3ILxl3LXvTn5FoFJ760=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oc4EtA/snUsggosVfcqDTtXnvoDfHfyWLebakPS1Cplq2ByWw/l/qS0msvMo1TxQM6tmZRCgOGjqk6EZ3O7jNi3P3GqgGIhb0bjdXKcH42Q9Nsby7VO0IS6Kxw6OrL09Cxko2mIPyhxo9VkIQznQUomc28wZ4B4ruivGYcWropY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=T5skCl0S; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gXOKGSVu; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b="Dk+9iEEt"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=norik.com;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=RFOfrqWy0gy9lPAGRhmq5L9wkrlW1ajf+5MBiyuIZYc=; b=Dk+9iEEt8hfjrR4MD3AvCHzkvV
-	4U1JtXrrCqHACyq/gKBe8oAumvubY4EGyxbx3DDkXV1xkxH9y5LAmn4cL5tSgXMop8AooJtnoRqSx
-	woarNzCRyNXZH3WpsuYkbsU0q6xfGpzWBnd3PZzrby6XYsdzS621J9pFCY3H/6QJj3bPNQxRNN3/p
-	d4be6gZkPYrztHlenjS13e+HAPSwgb9feDqAAKqTz67qphFfdxwr1osd+yx/qdGxroQPhs2tDhnWl
-	9au6KXuaSL5owErP+Swi6ddT2TgrDzg8XXRK/krYaEY8aS/9eYBffFJeAPADn/pdD3om+ydRnuw22
-	LkyN5ESg==;
-Received: from 89-212-21-243.static.t-2.net ([89.212.21.243]:52902 helo=[192.168.69.116])
-	by cp2.siel.si with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.99.5)
-	(envelope-from <primoz.fiser@norik.com>)
-	id 1wzYTK-00000008605-2QQO;
-	Thu, 27 Aug 2026 13:40:42 +0200
-Message-ID: <9e84fa38-597d-4e6e-9aef-f4fd8ff083ed@norik.com>
-Date: Thu, 27 Aug 2026 13:40:40 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="T5skCl0S";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gXOKGSVu"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67R9HvXc3978036
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 11:42:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=1wwrKlt9+TZD++ZfuGZ3Nrsi
+	+gQaVMa+KeHyXcEKbLo=; b=T5skCl0SWih5GmnQySXiFpi+EyO6eo8VFqon8BOF
+	yTVKYWPcXAmWwRfvwXsQvSp/CYfUE9vTp50RgwTrLXTAFqWxnDSEhWWTyl/Z1Rrp
+	8RWKq3BAgWRpC9ccqQd1ogTHdpHgddkfbuKiQUelC2+zmnLW9qMMO09bbgKgJNpg
+	CErPxvXpuEGm/59wua+ZxrxUD1FL1i3lwXXyVb5pqgvBq67oClTeYnokh/S8zuw4
+	T+C6rh941paqNs/uh7tmj/OaLrDEAZA+NzqLw2R7rB7hUSwPm2F+q1z5/S24w3/c
+	QQFGlhbwmwM7iwLKI5yhE+tTgzRSCgqcS2UqsV3LtysU1g==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ga4egkj9c-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 11:42:29 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38f283baf1fso3286794a91.3
+        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 04:42:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787830949; x=1788435749; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1wwrKlt9+TZD++ZfuGZ3Nrsi+gQaVMa+KeHyXcEKbLo=;
+        b=gXOKGSVuCqQ8IXnUGz7rKGOZBloC/V/OnxYXEW6XZwEKx+yniImhL00Hu0djYIKS21
+         TCV0sgqzmj4Jkh9FSPJw8LN110LenSC55WPMuFzaTyniaaf/Hd2fEVlLejK7UpLILcl+
+         2pMD9bZ4AJkY6vrBQBiXOZ2zeThKeVkisLYry+kGmZ15WTI0OTnTs20fygY6UNpEgfCZ
+         IGdre+lsCxgtlqPmK35ds1oTcf7RWXjpwqdp5V6ipp0uEdF+ne6j2mG963EZMmDYZ2iJ
+         zvAl7xwWHDpxidK3tMlA4I0kIwmYEAd0l667S7VM6Bl06oXivw1SDHM0sRICCdFlACeb
+         zo9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787830949; x=1788435749;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1wwrKlt9+TZD++ZfuGZ3Nrsi+gQaVMa+KeHyXcEKbLo=;
+        b=Mp5M0LIooHNf+J5Vs4eBhtDa9ejxTywdgsQYWV1xnbkYA4E5/ZCCzr/tXYrUQeI/KX
+         Amd0qhbe549zhPrnWdjKulvPZiOySgX+hISj6Xc2dlNxQqfZ63O/Jo3U3SlsixBcVDQy
+         S+geelqVeXc5I/k4y5z/WoTdDznsDNqX3gsdL6svRKOlbwflldkqCRreLRaWXGtko2P1
+         VjXtY2pV5mFlGhNpRzP9dxkCZWcDhQ4rJIzXN+P/UBGzkV4bTeVl0UFWFHJ7evCyjyM6
+         IQ2f/lw0HYxaNRAKFRda55EnKS6moSn0IsgIqQD7F0+6ED4PewnrPKdHG8kdYSCbadT2
+         DtFA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq0BQtq9qLIZpWA9dapECkZ/6CDcUvZQObafz1yau8jEZ9wPdKlKvZPCfpMxljPifrltI6PGqHkZPoB@vger.kernel.org
+X-Gm-Message-State: AFuF++lkKjbjoufFfwYCHjYx03rUrprxqbghU3H1ZoDJC1YsxJ2jZeku
+	hYM69vVzeuFQX2SZ9eF+/qO7Lbx9HKsvhaOJ8W7wtpd0jD0BF2xkXurcJaizQSvDoA/4BDrIYpC
+	dFCLKowk7ICgCtmv2TW0CBYgBdYXkZAfusp+bRBJOuDctSs4Hc0wdwnanO3z5Hebh
+X-Gm-Gg: AR+sD13WXaggfmtgSuYVQPll7YcZQSu2huZwcnHoj6lX1QgaUOadXl8zfSr/P2XrYea
+	ihMaevL+EH/bf43FaYLIY4eMJbxGXEZxQZCJuE6hCOUM5gcxHgCqx9cLIw9kUiXsXSsFdDYHX6H
+	JkY/YpWoYwund9ieCleptxs6vakOEtuc2fqFhzcCRVlBpJiXFYqkl7wKSuwcn5XfHQJJxg4MSBj
+	4IJlb+LS3SPanhUIxq6l/lZ7IgzxBL8iNgV0jJ2vHXa0pgYKNNAxIgchmLSukqaB0Et65Bb0ah7
+	kkOEzJdzvaUxa99qxU2cVV3dPZKhqXt0Huo6y2b9BS7XEKMaBHoa1vEKqw/6akv1ppe0fSic+jp
+	a4OU2FvpnZlWa9FkIJt7DARomPm05e4kRG/gfSZf2B4zuaykM6KELtVVFArOIcEOoEb5UUc3SCT
+	4AtsRNIPJU/i4oxqM0WFv2U8Y5DtlP/g==
+X-Received: by 2002:a17:90a:e70e:b0:38e:524:8797 with SMTP id 98e67ed59e1d1-3966d4503ccmr30898824a91.13.1787830948912;
+        Thu, 27 Aug 2026 04:42:28 -0700 (PDT)
+X-Received: by 2002:a17:90a:e70e:b0:38e:524:8797 with SMTP id 98e67ed59e1d1-3966d4503ccmr30898684a91.13.1787830948341;
+        Thu, 27 Aug 2026 04:42:28 -0700 (PDT)
+Received: from hu-varada-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a8eefd98sm30723893c88.3.2026.08.27.04.42.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 04:42:27 -0700 (PDT)
+Date: Thu, 27 Aug 2026 17:12:20 +0530
+From: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+To: george.moussalem@outlook.com
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Wesley Cheng <quic_wcheng@quicinc.com>,
+        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/9] usb: dwc3: qcom: Add support for selecting UTMI as
+ reference clock
+Message-ID: <apAinJ1TEFL8t3ub@hu-varada-blr.qualcomm.com>
+References: <20260825-ipq-flatten-usb-v1-0-5c1f3170bbe9@outlook.com>
+ <20260825-ipq-flatten-usb-v1-3-5c1f3170bbe9@outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: imx8mp-phyboard-pollux: add PEB-WLBT-07
- expansion board
-To: sashiko-reviews@lists.linux.dev
-Cc: imx@lists.linux.dev, conor+dt@kernel.org, robh@kernel.org,
- Frank.Li@kernel.org, devicetree@vger.kernel.org
-References: <20260827075754.2739119-1-primoz.fiser@norik.com>
- <20260827081042.BE81B1F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: Primoz Fiser <primoz.fiser@norik.com>
-Autocrypt: addr=primoz.fiser@norik.com; keydata=
- xjMEZrROOxYJKwYBBAHaRw8BAQdAADVOb5tiLVTUAC9nu/FUl4gj/+4fDLqbc3mk0Vz8riTN
- JVByaW1veiBGaXNlciA8cHJpbW96LmZpc2VyQG5vcmlrLmNvbT7CiQQTFggAMRYhBK2YFSAH
- ExsBZLCwJGoLbQEHbnBPBQJmtE47AhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQagttAQducE+T
- gAD+K4fKlIuvH75fAFwGYG/HT3F9mN64majvqJqvp3gTB9YBAL12gu+cm11m9JMyOyN0l6Os
- jStsQFghPkzBSDWSDN0NzjgEZrROPBIKKwYBBAGXVQEFAQEHQP2xtEOhbgA+rfzvvcFkV1zK
- 6ym3/c/OUQObCp50BocdAwEIB8J4BBgWCAAgFiEErZgVIAcTGwFksLAkagttAQducE8FAma0
- TjwCGwwACgkQagttAQducE8ucAD9F1sXtQD4iA7Qu+SwNUAp/9x7Cqr37CSb2p6hbRmPJP8B
- AMYR91JYlFmOJ+ScPhQ8/MgFO+V6pa7K2ebk5xYqsCgA
-Organization: Norik systems d.o.o.
-In-Reply-To: <20260827081042.BE81B1F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - cp2.siel.si
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - norik.com
-X-Get-Message-Sender-Via: cp2.siel.si: authenticated_id: primoz.fiser@norik.com
-X-Authenticated-Sender: cp2.siel.si: primoz.fiser@norik.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260825-ipq-flatten-usb-v1-3-5c1f3170bbe9@outlook.com>
+X-Proofpoint-GUID: D-5qA8SWs2rNRfIOv7RJYMVfegRE1BEQ
+X-Proofpoint-ORIG-GUID: D-5qA8SWs2rNRfIOv7RJYMVfegRE1BEQ
+X-Authority-Analysis: v=2.4 cv=DsRmPm/+ c=1 sm=1 tr=0 ts=6a9022a5 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=L3BjEaeBWuRv9D3tqyQA:9 a=CjuIK1q_8ugA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDA5NyBTYWx0ZWRfX7ZnNl1IHgiID
+ AqasW6JwTcafiupx+0l6QwAv3+kk/eUX1pTCdPH16a2rMwnI7LZJ6V5TlczkpvOLEGv2JQ+jBl8
+ ffpfpX1Hucd3zcSQzGG8yr60hJjvFxARQ83Hc9Qp/KssSTRRzoj/1TEjorGW3IDmm8z0iVKFTvS
+ x4a52lj3ZD6WPHgH88ltao0w8RNDFKHs5Un4rKGFuKaQf064KxPrPREeOmC6prCNgNaJld3pxT9
+ B3HXiCUMbO2hRtc/l9fDv7xZ58dGaEGB16NDxttrGVpodpRV+Glp1qmPK/IRt8t8lgwCnV/DIFy
+ mioe12Mi7zGZvGYeXH4HwWdNFQEUVqgPTPKOcDXwFTS+cjz3CB12F+xQnoIueluj0w60TeWn0tw
+ HV1oWCqUkl0EBFgd/EZsoMn9wwEzt67pxhROF4vJWYRAiR5ASi982hEif7KJMVcjPHR/VoKfsj5
+ Y62uQcODth8TKuiw6Aw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDA5NyBTYWx0ZWRfX/xAWxoORHm9E
+ e3gnaVBOhwC242un4y6OCUo8UF+3WI57dNta/musDCm/j5YpDdZaDpmi8xD17NkvsPDLaJimdzo
+ 3gG0UWi5TFR+WQKuZsWVUUy6qn7CxsE=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-27_04,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0 malwarescore=0
+ clxscore=1015 priorityscore=1501 phishscore=0 adultscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608270097
 
-Hi,
+[...]
+> diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
+> index ac68b4218b56..17292517c594 100644
+> --- a/drivers/usb/dwc3/dwc3-qcom.c
+> +++ b/drivers/usb/dwc3/dwc3-qcom.c
+> @@ -617,6 +617,8 @@ static int dwc3_qcom_probe(struct platform_device *pdev)
+>  	int			ret;
+>  	bool			ignore_pipe_clk;
+>  	bool			wakeup_source;
+> +	bool			select_utmi_as_ref_clk;
+> +	struct clk		*ref_clk;
 
-On 8/27/26 10:10, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] Missing `post-power-on-delay-ms` in the MMC power sequence for the NXP IW612 Wi-Fi/BT module.
+Any reason why glue layer can't send the ref_clk_rate directly?
+
+-Varada
+
+>  	qcom = devm_kzalloc(&pdev->dev, sizeof(*qcom), GFP_KERNEL);
+>  	if (!qcom)
+> @@ -698,6 +700,18 @@ static int dwc3_qcom_probe(struct platform_device *pdev)
+>  			qcom->current_role = USB_ROLE_DEVICE;
+>  	}
+>
+> +	select_utmi_as_ref_clk = device_property_read_bool(dev,
+> +					"qcom,select-utmi-as-ref-clk");
+> +	if (select_utmi_as_ref_clk) {
+> +		ref_clk = devm_clk_get_optional(dev, "mock_utmi");
+> +		if (IS_ERR(ref_clk)) {
+> +			ret = PTR_ERR(ref_clk);
+> +			dev_warn(dev, "failed to get ref clock: %d\n", ret);
+> +		} else {
+> +			probe_data.ref_clk = ref_clk;
+> +		}
+> +	}
+> +
+>  	qcom->dwc.glue_ops = &dwc3_qcom_glue_ops;
+>
+>  	qcom->dwc.dev = dev;
+>
 > --
-> 
-> commit 60b0b6fcfb75ad1ee4054d84dfea3d70e8467993
-> Author: Primoz Fiser <primoz.fiser@norik.com>
-> 
-> arm64: dts: imx8mp-phyboard-pollux: add PEB-WLBT-07 expansion board
-> 
-> Add support for PEB-WLBT-07 which is an expansion board that provides WiFi 6
-> and Bluetooth 5.4 LE functionality. It features the u-blox MAYA-W2 module
-> with the NXP IW612 chipset.
-> 
-> [ ... ]
-> 
->> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-phyboard-pollux-peb-wlbt-07.dtso b/arch/arm64/boot/dts/freescale/imx8mp-phyboard-pollux-peb-wlbt-07.dtso
->> new file mode 100644
->> index 0000000000000..008b6f9f46e59
->> --- /dev/null
->> +++ b/arch/arm64/boot/dts/freescale/imx8mp-phyboard-pollux-peb-wlbt-07.dtso
->> @@ -0,0 +1,76 @@
->> +// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
->> +/*
->> +* Copyright (C) 2026 PHYTEC Messtechnik GmbH
->> +*/
->> +
->> +#include <dt-bindings/clock/imx8mp-clock.h>
->> +#include <dt-bindings/gpio/gpio.h>
->> +#include <dt-bindings/interrupt-controller/irq.h>
->> +#include "imx8mp-pinfunc.h"
->> +
->> +/dts-v1/;
->> +/plugin/;
->> +
->> +&{/} {
->> +	usdhc1_pwrseq: pwr-seq {
->> +		compatible = "mmc-pwrseq-simple";
->> +		reset-gpios = <&gpio2 7 GPIO_ACTIVE_LOW>;
->> +	};
-> 
-> [Severity: Medium]
-> Is it possible that the usdhc1_pwrseq node needs a post-power-on-delay-ms
-> property here?
-> 
-> When the MMC core powers up the SDIO bus, it deasserts the reset GPIO and
-> immediately proceeds to probe the module with no explicit delay. If the
-> SDIO host controller probes the IW612 module immediately after the reset
-> deassertion and the hardware is not yet stabilized, could this cause SDIO
-> enumeration failures during device boot or resume?
-> 
-> Other in-tree configurations for the IW61x chipset, such as those in
-> imx8mm-var-som-wifi-bt-iw61x.dtsi, explicitly configure a delay like
-> post-power-on-delay-ms = <100>. While there might be an on-board hardware
-> RC delay on the MAYA-W2 module that mitigates the missing software delay,
-> adding the explicit software delay might be necessary to guarantee stability.
-
-The same PEB-WLBT-07 expansion board on i.MX93 also doesn't use
-post-power-on-delay-ms property, see
-arch/arm64/boot/dts/freescale/imx93-phyboard-nash-peb-wlbt-07.dtso.
-
-So far no issues without post-power-on-delay-ms property.
-
-I would like to avoid adding such properties "just in case" for now.
-
-Thanks,
-BR,
-Primoz
-
-
-> 
-> [ ... ]
-> 
-
--- 
-Primoz Fiser
-phone: +386-41-390-545
-email: primoz.fiser@norik.com
---
-Norik systems d.o.o.
-Your embedded software partner
-Slovenia, EU
-phone: +386-41-540-545
-email: info@norik.com
-
+> 2.53.0
+>
+>
