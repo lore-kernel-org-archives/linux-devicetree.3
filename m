@@ -1,149 +1,193 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B4CA44237F
-	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 11:03:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B60D043F8B8
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 11:05:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787828604; cv=none; b=ayfz1QNvp9h0ZmRy/DNoAaFIcrXW/1g5JcIzbXXO7Vv9ONwEo64pCOIIFzKjKL3cc3CeKMY2ohFBtEtF1Zovialoz8FVVuM6RXoQYDWh8eAuf2D+/+0OnO8NJR/JMh3YtwvWyOYkOVtDryd9PrIxSpZA76cZ0IFSbJnrlYaa8BE=
+	t=1787828728; cv=none; b=u+qVOqYeBydjgfn1snSormeilCMed/7qWImvy48Jh8pc8jIxPveNGDqCyfbPUl/HjoKGMYYMWh1ZP+uaeR+Dkqj9xmorBCBj5jVIaRjHa8qE/O655/pOn6+sSKllUymxhO15mTKkxMxpe3eBQej/NJjANMHS8VRh5dpTkviHIkI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787828604; c=relaxed/simple;
-	bh=8urEIkOEgNg/W0WfryJCD+eWZUJUCTF8wpI/6h2nZwI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=URZ92ju/lQe69CxsvjwPT//SFdy/r+foK5wsHyLUQRbBzYx8LNJJDhXaPg8NXUiLdduPA8fINCu6LogeD4l3CYcRxwftW75LMsgaXVtqVsd/zRwwweJT5i5I4RD0FDvM3miiJYl+2jzzIgH5yjLLmb2ZC8TxNP31Aljh7dpeKNg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=synaptics.corp-partner.google.com; spf=pass smtp.mailfrom=synaptics.corp-partner.google.com; dkim=pass (2048-bit key) header.d=synaptics-corp-partner-google-com.20251104.gappssmtp.com header.i=@synaptics-corp-partner-google-com.20251104.gappssmtp.com header.b=NB2GU9cd; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=synaptics.corp-partner.google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=synaptics.corp-partner.google.com
+	s=arc-20240116; t=1787828728; c=relaxed/simple;
+	bh=40tI74NNIApr8onynOZ6aGVhvic7TfIGM7RLSVuLZMw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=uqqcaePAXR8H6LGmWkj7KChc51CUcEH1YJKwzhdLx75BREudVF0QMeffjxMiAGky6yf871v1qfDdxFSp+kcwrE4cyZxKsv0yKuGR+AMt16++Y2iL+rmrax89BvdTgUtKe5G4WswtEK8zQkjO+iM/2rIdmcO/1BB5KVNezOdMDe4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ok/6G6wi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=synaptics-corp-partner-google-com.20251104.gappssmtp.com header.i=@synaptics-corp-partner-google-com.20251104.gappssmtp.com header.b="NB2GU9cd"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d58efc7356so23833225ad.1
-        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 04:03:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=synaptics-corp-partner-google-com.20251104.gappssmtp.com; s=20251104; t=1787828601; x=1788433401; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Fj+fXTtu50ERwc8Uhij96oNyWIgOxu7AHbjsaE81Xyc=;
-        b=NB2GU9cdGqOurno5IEO8+wdLCK52SDYGmTwVmjFAd9O+6gTL8v9GxibsbPBXmdjTdN
-         qIPkVtdKxQynXVjbH203cfXvodknyipvgZlFUpGq+Tc74agcTFN/ibhMe+TbPIEwz2Na
-         zwp0RGZ0lwzrs8f0kB6NL7QfO0gXqqUkTEDHRCCw9qe3hXCvSnkrnblXFB0pkRljy3jY
-         Q0cuYdFQifiAOswl7YNd6cC3EOc6dcAfStTATXl1ENSZZYVxIgTma+P06jJ7h6kZmaeS
-         dvTUl5qmn5I2xurqcarfGmEh9sIxfHG0lBv6Rte4jahLhBSNqg30zoyu3H8zXaDFdZwv
-         8Qog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787828601; x=1788433401;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Fj+fXTtu50ERwc8Uhij96oNyWIgOxu7AHbjsaE81Xyc=;
-        b=HmXKGWjWZplVr1XIM2slEQMtRIUzTsHOLXJZNDXa9RxaEgNrI5/sYN0TyMaY+c17Am
-         2kf9caZAGeU9Ua0sUj6mXzLIm+1eqEpD4tOkHKKY2HupqcgYiGLVf7oY423H4zC6dAlh
-         Drbe3AQPXNmxwNyIjAFpOwnw7VNn7yKMaxsW0+OS/c0D7y3QOPMAC94UCv1GQW7VzIKV
-         sW5teinVAK3EsJIrw7iooHxQ9Po1dqGnsG+kWkmi0pHox5tM1JDVF0XJTYHWL44aG08w
-         YL+VU70IVim/pAir+TMs2TFgGRDerEnnRgdxFsDU5+KXrDyzQY811h/Yh3dPrMUdtEwY
-         XU7Q==
-X-Forwarded-Encrypted: i=1; AHgh+RqwFNU6WZdtqY1qrvo9ZC9ZDtr1fm3SZJUfvPqmSW/cuxqs2ebN0mKbIRMFhQGIh1to3/3q9tr3nEqp@vger.kernel.org
-X-Gm-Message-State: AFuF++lbTP/pYGmtLKBrXOeGsViMUSFA9I1y8MMJfALfWsr00eA+/mh7
-	851p2HzEgnuK4hWSEzy7T2dc0G19duCvpuqLq/kd+dTuNpsmqEV3/eqeNMkHWlWHSRE=
-X-Gm-Gg: AR+sD12puF5r4owbtqovyQ419Y1DYygVIfV8yotbXsRqmmK6npQXoe2haRdAk0/mjwT
-	85QvJzPwJMEz6UrcEJPd+RUDVJXeVh2vLMCL+I4cbHN782xi5MdKQvDIu3BGpKCGdVbo2leeyHF
-	NYATCe+G5YrVXMj365ZH/JkfmEN8LXutHkQ0EIR+gA/boJoPwkXsKHYWQAxStTeJsOwI2xXy5RL
-	dm0GH09JTHXGDZArn/Ay/pK1CtvYAcEIyw5frs6A7+xLAqvlyZ+XTv11mMFEbLoHSLS+pgLlUdS
-	8PsOk9Cjjr8pZjsSYOCRE0lr/lAHZDJ4H9AEsG3ZxIpI7XT2rp1xcm/m7dRAMQLJ8YH3LXFgcZQ
-	/jcFisC4Oigk45H7wmc4fL0G+UXtK9EJzMl6FKjxFiUYJwK4VT9SU0EuNkej8u79ea/0y6mYRfM
-	VmdLlMurPEtYAxtRsAidkcNptSXaOkJO3edhouNjJ9z1sZBrjvy1w3wHzWeLma1DvLNL2nCsiOq
-	vsv0Rm/edez1YdCVpgaBUZV4PgQt6KKpBWlOlQQA7l0X8LlMfNNOR6mK9e/d+ub1nPk4U1mlBF2
-	PzFdAf8=
-X-Received: by 2002:a17:903:1ae8:b0:2d6:f3f0:3e7a with SMTP id d9443c01a7336-2d707957143mr256210645ad.3.1787828601192;
-        Thu, 27 Aug 2026 04:03:21 -0700 (PDT)
-Received: from bt-tpe-server.synaptics-inc.local (59-124-75-166.hinet-ip.hinet.net. [59.124.75.166])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d704c4bea8sm15081585ad.82.2026.08.27.04.03.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 04:03:18 -0700 (PDT)
-From: Andy Chang <andy.chang@synaptics.corp-partner.google.com>
-To: linux-bluetooth@vger.kernel.org,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Linus Walleij <linusw@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Andy Chang <andy.chang@synaptics.corp-partner.google.com>
-Subject: [PATCH v1 2/2] Bluetooth: btbcm: Add Synaptics 4384 chip support
-Date: Thu, 27 Aug 2026 19:02:42 +0800
-Message-Id: <20260827110242.1203546-3-andy.chang@synaptics.corp-partner.google.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260827110242.1203546-1-andy.chang@synaptics.corp-partner.google.com>
-References: <20260827110242.1203546-1-andy.chang@synaptics.corp-partner.google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ok/6G6wi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B80561F00A3D;
+	Thu, 27 Aug 2026 11:05:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787828723;
+	bh=cdHuo8j7afbgm28XMc3Q9+xyIUAKcxw2qI5wn36LWJM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Ok/6G6wilpoy/+5SzEgmTs/6ZDkOJeOc3cUWI4A0ZS4y3GQAqa8xNvG1b+Wx3DFmR
+	 qybvsfIMws2K03Nn70vE47PqWzlh49GTTyyayGRTD+ggafOXm/5DY2ShI04AET2+dx
+	 VobkIi8QjdAvjsFskqRivCTOXhWfmkkAYiMunBnwEQeDnKUgak+ZCKQli3PfVUNhK2
+	 PqbdvrEPQyzXV/z+oN6IwiWn92iKoaMh4L8JRUXfk7B1W8rUthAYALPNhykKL3w8UC
+	 RfTANBvxn1novbvZAkxxKLpaMq2FqbX8cjSfYeOvUTf5Hob9IVmS+ckV7zhwogYbVv
+	 vNv/cEw3Zscqw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/5] media: rkisp2: Add parameters output video node
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Paul Elder" <paul.elder@ideasonboard.com>
+Cc: robh@kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260827-rkisp2-v3-2-e91ff0a604d6@ideasonboard.com>
+References: <20260827-rkisp2-v3-0-e91ff0a604d6@ideasonboard.com>
+ <20260827-rkisp2-v3-2-e91ff0a604d6@ideasonboard.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 27 Aug 2026 11:05:22 +0000
+Message-Id: <20260827110522.B80561F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add support for the Synaptics 4384 Bluetooth controller
-by adding the corresponding chip IDs.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Critical] The parameter buffer validation checks the userspace-mapped me=
+mory instead of the internal kernel copy, creating a Time-Of-Check to Time-=
+Of-Use (TOCTOU) vulnerability that can lead to out-of-bounds memory access.
+- [High] The first queued parameter buffer is permanently leaked every time=
+ streaming starts because it is dequeued but never completed.
+- [Medium] Mutex and media entity resources are leaked on the error path if=
+ `video_register_device` fails.
+--
 
-Tested on the VIM3 platform. Verified that the controller initializes
-successfully and that firmware loading and basic Bluetooth operation
-work as expected.
+commit 29257cb1b743c9d1fdc2e61085bac5b0b1b5d99d
+Author: Paul Elder <paul.elder@ideasonboard.com>
 
-The VIM3 is a Khadas single-board computer that I used as the host
-platform for testing the BCM4384 Bluetooth controller.
+media: rkisp2: Add parameters output video node
+   =20
+Implement support for setting parameters on the ISP by queueing
+parameter buffers to rkisp2.
 
-Signed-off-by: Andy Chang <andy.chang@synaptics.corp-partner.google.com>
----
- drivers/bluetooth/btbcm.c   | 6 +++++-
- drivers/bluetooth/hci_bcm.c | 1 +
- 2 files changed, 6 insertions(+), 1 deletion(-)
+> diff --git a/drivers/media/platform/rockchip/rkisp2/rkisp2-params.c b/dri=
+vers/media/platform/rockchip/rkisp2/rkisp2-params.c
+> index 0000000000000..07f57f26c7b0e
+> --- /dev/null
+> +++ b/drivers/media/platform/rockchip/rkisp2/rkisp2-params.c
+[ ... ]
+> +static int rkisp2_params_vb2_buf_prepare(struct vb2_buffer *vb)
+> +{
+> +	struct rkisp2_params *params =3D vb->vb2_queue->drv_priv;
+> +	struct vb2_v4l2_buffer *vbuf =3D to_vb2_v4l2_buffer(vb);
+> +	struct rkisp2_params_buffer *params_buf =3D to_rkisp2_params_buffer(vbu=
+f);
+> +	struct v4l2_isp_params_buffer *cfg =3D vb2_plane_vaddr(&vbuf->vb2_buf, =
+0);
+> +	size_t payload_size =3D vb2_get_plane_payload(vb, 0);
+> +	int ret;
+> +
+> +	ret =3D v4l2_isp_params_validate_buffer_size(params->rkisp2->dev, vb,
+> +						   v4l2_isp_buffer_size(RKISP2_PARAMS_MAX_SIZE));
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * Copy the parameters buffer to the internal scratch buffer to avoid
+> +	 * userspace modifying the buffer content while the driver processes it.
+> +	 */
+> +	memcpy(params_buf->cfg, cfg, payload_size);
+> +
+> +	return v4l2_isp_params_validate_buffer(params->rkisp2->dev, vb, cfg,
+> +				rkisp2_params_block_types_info,
+> +				ARRAY_SIZE(rkisp2_params_block_types_info));
+> +}
 
-diff --git a/drivers/bluetooth/btbcm.c b/drivers/bluetooth/btbcm.c
-index 463d59890bef..63c4c788d9c4 100644
---- a/drivers/bluetooth/btbcm.c
-+++ b/drivers/bluetooth/btbcm.c
-@@ -31,6 +31,7 @@
- #define BDADDR_BCM4334B0 (&(bdaddr_t) {{0x00, 0x00, 0x00, 0xb0, 0x34, 0x43}})
- #define BDADDR_BCM4345C5 (&(bdaddr_t) {{0xac, 0x1f, 0x00, 0xc5, 0x45, 0x43}})
- #define BDADDR_BCM43341B (&(bdaddr_t) {{0xac, 0x1f, 0x00, 0x1b, 0x34, 0x43}})
-+#define BDADDR_BCM4384B0 (&(bdaddr_t) {{0x93, 0x76, 0x00, 0xb0, 0x84, 0x43}})
- 
- #define BCM_FW_NAME_LEN			64
- #define BCM_FW_NAME_COUNT_MAX		4
-@@ -130,7 +131,8 @@ int btbcm_check_bdaddr(struct hci_dev *hdev)
- 	    !bacmp(&bda->bdaddr, BDADDR_BCM4345C5) ||
- 	    !bacmp(&bda->bdaddr, BDADDR_BCM43430A0) ||
- 	    !bacmp(&bda->bdaddr, BDADDR_BCM43430A1) ||
--	    !bacmp(&bda->bdaddr, BDADDR_BCM43341B)) {
-+	    !bacmp(&bda->bdaddr, BDADDR_BCM43341B) ||
-+	    !bacmp(&bda->bdaddr, BDADDR_BCM4384B0)) {
- 		/* Try falling back to BDADDR EFI variable */
- 		if (btbcm_set_bdaddr_from_efi(hdev) != 0) {
- 			bt_dev_info(hdev, "BCM: Using default device address (%pMR)",
-@@ -514,6 +516,8 @@ static const struct bcm_subver_table bcm_uart_subver_table[] = {
- 	{ 0x4106, "BCM4335A0"	},	/* 002.001.006 */
- 	{ 0x410c, "BCM43430B0"	},	/* 002.001.012 */
- 	{ 0x2119, "BCM4373A0"	},	/* 001.001.025 */
-+	{ 0x2128, "BCM4384A0"	},	/* 001.001.040 */
-+	{ 0x4119, "BCM4384B0"	},	/* 002.001.025 */
- 	{ }
- };
- 
-diff --git a/drivers/bluetooth/hci_bcm.c b/drivers/bluetooth/hci_bcm.c
-index 9a103db7e355..e70b9f3fd968 100644
---- a/drivers/bluetooth/hci_bcm.c
-+++ b/drivers/bluetooth/hci_bcm.c
-@@ -1593,6 +1593,7 @@ static const struct of_device_id bcm_bluetooth_of_match[] = {
- 	{ .compatible = "brcm,bcm4349-bt", .data = &bcm43438_device_data },
- 	{ .compatible = "brcm,bcm43540-bt", .data = &bcm4354_device_data },
- 	{ .compatible = "brcm,bcm4335a0" },
-+	{ .compatible = "brcm,bcm4384-bt" },
- 	{ .compatible = "cypress,cyw4373a0-bt", .data = &cyw4373a0_device_data },
- 	{ .compatible = "infineon,cyw55572-bt", .data = &cyw55572_device_data },
- 	{ },
--- 
-2.25.1
+[Severity: Critical]
+Can this introduce a TOCTOU (Time-Of-Check to Time-Of-Use) regression?
 
+The code correctly copies the userspace buffer to an internal scratch buffer
+(params_buf->cfg) to prevent concurrent modification. However,
+v4l2_isp_params_validate_buffer() is then called on the mutable userspace
+pointer (cfg) rather than the safe internal copy (params_buf->cfg).
+
+A malicious userspace program could submit invalid data, wait for the memcp=
+y()
+to finish, and then overwrite the shared memory with valid data before the
+validation step completes.
+
+Since the driver later uses the internal copy, it might end up consuming an
+unvalidated parameter block type and using it to index rkisp2_params_handle=
+rs[],
+which can lead to out-of-bounds memory access.
+
+[ ... ]
+> +void rkisp2_params_post_configure(struct rkisp2_params *params)
+> +{
+> +	struct rkisp2_params_buffer *buf;
+> +
+> +	spin_lock_irq(&params->buf_lock);
+> +	buf =3D list_first_entry_or_null(&params->params,
+> +				       struct rkisp2_params_buffer, queue);
+> +	if (buf)
+> +		list_del(&buf->queue);
+> +	spin_unlock_irq(&params->buf_lock);
+> +
+> +	if (!buf)
+> +		return;
+> +
+> +	rkisp2_params_configure(params, buf, RKISP2_PARAMS_CONFIG_PRIO_POST);
+> +}
+
+[Severity: High]
+Is a buffer permanently leaked here when streaming starts?
+
+When the ISP starts, the first queued parameter buffer is removed from the =
+list
+via list_del(&buf->queue) and passed to rkisp2_params_configure() with
+RKISP2_PARAMS_CONFIG_PRIO_POST.
+
+However, rkisp2_params_configure() explicitly checks for
+RKISP2_PARAMS_CONFIG_PRIO_NONE before calling vb2_buffer_done():
+
+static void rkisp2_params_configure(struct rkisp2_params *params,
+...
+	if (prio =3D=3D RKISP2_PARAMS_CONFIG_PRIO_NONE)
+		vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
+}
+
+Since the buffer is no longer on the params->params list and vb2_buffer_don=
+e()
+is skipped, it seems the buffer will never be returned to vb2. This could f=
+reeze
+the pipeline or result in a WARN_ON during stop_streaming() due to left beh=
+ind
+active buffers.
+
+[ ... ]
+> +int rkisp2_params_register(struct rkisp2_device *rkisp2)
+> +{
+[ ... ]
+> +	node->pad.flags =3D MEDIA_PAD_FL_SOURCE;
+> +	ret =3D media_entity_pads_init(&vdev->entity, 1, &node->pad);
+> +	if (ret)
+> +		goto err_media;
+> +
+> +	ret =3D video_register_device(vdev, VFL_TYPE_VIDEO, -1);
+> +	if (ret) {
+> +		dev_err(rkisp2->dev,
+> +			"failed to register %s, ret=3D%d\n", vdev->name, ret);
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +
+> +err_media:
+> +	media_entity_cleanup(&vdev->entity);
+> +	mutex_destroy(&node->vlock);
+> +	return ret;
+> +}
+
+[Severity: Medium]
+Are resources leaked on this error path if video_register_device() fails?
+
+If video_register_device() returns an error, the code returns the error code
+directly instead of jumping to the err_media cleanup block. This leaves the
+media entity and node->vlock uncleaned, leaking these resources.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260827-rkisp2-v3-=
+0-e91ff0a604d6@ideasonboard.com?part=3D2
