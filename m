@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40D3941BA75;
-	Thu, 27 Aug 2026 09:56:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00C2643C056;
+	Thu, 27 Aug 2026 09:59:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787824629; cv=none; b=qkuXYwFbMvwqzxHjHfRoiZAceOdCcz+HnJjkCnTZAdT0bTenT9fGBk6yCZpR3Vniwpd4WGTC5X8rDVw3zs54viBf0DvIOpVqtv5RzDEOYhV0y3g1hhMxcaC7XXCtyIm1qkIrgw9DNme6IPC3p3QVUbq4rZSFpmNFpoiGrlSlVJk=
+	t=1787824762; cv=none; b=e1IUS/tBjOtQOUSwCAVFkbSjDPIF5iozdBKopgAgugEYNRAl4N63G+fdZQIMmPK1RgOW1yogruIsGOdBP0ErkDuLhr12Ni5lXyXe7FwOJKwxoqAgs7xx8TnMo9LHXvqoNRYl1S3UvLgqjvY8RxqnKYSQIIesrVWS7ABM8kPtyQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787824629; c=relaxed/simple;
-	bh=w2SbV+cDaoRuc/Ag2AC8B7T+GF2xhaclc/K3IDr1sH0=;
+	s=arc-20240116; t=1787824762; c=relaxed/simple;
+	bh=11xTUziSXOWeD1l036NtA0/JdbzanihkUFlJwi/WPnA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pASo65wjf99de/3/HbAXKNKpKp8jqvHJ5joO3YLmLuH0l9SXn33qtWLZTxducXTiLWTlywoFoPNmVSQ/hSoOHRNCsI3d3NJUmCHJtu+eHaQ7CvK8fzUz7IAj6S1KbJzMvgnySzuWYN1iSFrQJakBdB+sNV8LzcWSW9L56gLpqDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KOjAI6mo; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z4EGyWtJ7AkjYZr+wFOuGQOqg3yz8sVvcmnosMOPAaqyUWb/XdG0E8ZB6UqDz/SZZKHxhE8EA5NxjWMf7+Rv+yNi1hKLwtEPbnIjKCe1GzsZ/zjPdjOJMKCchusjSBLbrBXElMmmYAXE7EX88MvanS1iw1T0XePxUAfunpDpOm8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P7Zn/qNm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KOjAI6mo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB82B1F000E9;
-	Thu, 27 Aug 2026 09:56:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P7Zn/qNm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E2B41F000E9;
+	Thu, 27 Aug 2026 09:58:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787824615;
-	bh=eM8IL9Cxec1l7gBf3o+/kxSCxhuKoi3aRZYzDtuag7o=;
+	s=k20260515; t=1787824739;
+	bh=TQj16CCr2B2MSXP+Sd9+unNSviyC1x9pzIHtFVBLCuQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KOjAI6mo3ZVsb4UTxH32cxM18SUbZ2LbqpvWEjYSEUbMlhihx3rsfg8cIH8/x4ZL5
-	 Dg1MOlh2T2SerCtqKJD5g1exoe6g7a9ixNMZF8F35M23lGdgfxoyWOJglg6j+wQuK5
-	 eTHjL+m1az3haYd6XBPf4OFI+GdxgfVyHS+Zygs1XXchxH6wlwAR5ylBXR/tT5bTSD
-	 sSrVDF0HX7kHoUCP2hMdkrSdMwrv3SjOgFFOOT9nuH+kpqIpLyNBceo2aSOJBaAJWk
-	 V0munLl9GWOTtkNEx/B5TF05/4bsAYNMm8n9kqHvl+1vx+Hesq/zvND3uh9XOMtT52
-	 zzL4m00blQp9Q==
-Date: Thu, 27 Aug 2026 11:56:52 +0200
+	b=P7Zn/qNmLTpk8BR6IdMutbvvaCsdQMUxQ7khEQo7SvAR6Y0u/oOMTBwvpHMLlDnQx
+	 DGOA8Ulon9IpHf6XIYAQPbqPgJLp315jae8GjlnbMdrz5RtV/A1yyOiET32lyLs5q5
+	 NmD6Wj71JZ+TMZjIquryrb3qbD1QWof4F4oJhLOBGEeIxt9WAZAVRX8PLRbuD9AAKf
+	 9+LzyhGVnFr7ZNHLClV0QYQE22MDECEmrMJvIs+QHdP822Y+i0GszS99yri7AnsBgq
+	 boLYl7YMIlgtPLIsqcxH4T1zs7t9RbZdj68gnpcD3PNdML0JCCt1DvScKmwZBWNVPL
+	 zDWlkghZ4HImg==
+Date: Thu, 27 Aug 2026 11:58:54 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Alexander Shiyan <eagle.alexander923@gmail.com>
 Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
@@ -36,7 +36,7 @@ Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
 	Dave Stevenson <dave.stevenson@raspberrypi.com>
 Subject: Re: [PATCH v3 1/2] dt-bindings: media: i2c: Add onsemi AR0234 image
  sensor binding
-Message-ID: <20260827-legendary-viridian-tamarin-4e56e5@quoll>
+Message-ID: <20260827-chubby-refined-partridge-2efca6@quoll>
 References: <20260820075524.2056029-1-eagle.alexander923@gmail.com>
  <20260820075524.2056029-2-eagle.alexander923@gmail.com>
 Precedence: bulk
@@ -54,86 +54,17 @@ On Thu, Aug 20, 2026 at 10:55:23AM +0300, Alexander Shiyan wrote:
 > 
 > Signed-off-by: Alexander Shiyan <eagle.alexander923@gmail.com>
 > ---
->  .../bindings/media/i2c/onnn,ar0234.yaml       | 121 ++++++++++++++++++
->  1 file changed, 121 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
->
 
-Unanswered Sashiko comments.
+Plus, there was already v3 here:
+<20260306103614.3208182-1-eagle.alexander923@gmail.com>
 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml b/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
-> new file mode 100644
-> index 000000000000..ee321acf22b5
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
-> @@ -0,0 +1,121 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/i2c/onnn,ar0234.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: ON Semiconductor AR0234 1/2.6-inch CMOS Digital Image Sensor
-> +
-> +maintainers:
-> +  - Alexander Shiyan <eagle.alexander923@gmail.com>
-> +
-> +description:
-> +  The AR0234 is a 1/2.6-inch CMOS digital image sensor with a pixel
-> +  array of 1940x1220 pixels, capable of 1920x1200 resolution at up
-> +  to 120 fps. It supports MIPI CSI-2 output with 2 or 4 data lanes,
-> +  color raw Bayer (8/10-bit) or monochrome output.
-> +
-> +allOf:
-> +- $ref: /schemas/media/video-interface-devices.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - onnn,ar0234cssc
-> +      - onnn,ar0234cssm
-> +      - onnn,ar0234cs
-> +    description:
-> +      The AR0234 sensor exists in two different models, a colour variant
-> +      (AR0234CSSC) and a monochrome variant (AR0234CSSM). The device exposes
-> +      the model through registers, allowing for auto-detection with a common
-> +      "onnn,ar0234cs" compatible string.
-
-So all devices are compatible? Then why compatibility is not expressed?
-What are the actual programming differences between sc, sm and "none"
-variants?
-
-...
+so how are we supposed to compare this?
+Did you address v3 feedback in this v3+1 version?
 
 
-> +  vddio-supply:
-> +    description: I/O (1.8V-2.8V) supply regulator
-> +
-> +  port:
-> +    $ref: /schemas/graph.yaml#/$defs/port-base
-> +    description: CSI-2 transmitter port
-> +    additionalProperties: false
-> +
-> +    properties:
-> +      endpoint:
-> +        $ref: /schemas/media/video-interfaces.yaml#
-> +        unevaluatedProperties: false
-> +
-> +        properties:
-> +          data-lanes:
-> +            oneOf:
-> +              - items:
-> +                  - const: 1
-> +                  - const: 2
-> +              - items:
-> +                  - const: 1
-> +                  - const: 2
-> +                  - const: 3
-> +                  - const: 4
-> +
-> +          link-frequencies: true
-
-Drop
+Drop second/last, redundant "bindings". The "dt-bindings" prefix is
+already stating that these are bindings.  See also:
+https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
 
 Best regards,
 Krzysztof
