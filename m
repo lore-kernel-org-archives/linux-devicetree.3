@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6829F3F105D;
-	Thu, 27 Aug 2026 21:26:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39CAE349CD2;
+	Thu, 27 Aug 2026 21:32:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787865985; cv=none; b=hlIw6wYAynpgvXZj6GT2KOnhwJnYYnb95LGA5jMag11SzDWBIR1lxfoCVfvGJXYYLvqTpt/7zAX1GD+hatVneRuDTpBFL93ANov3aqR6Q54O+FX1tpReuEW6rQ3pAk08npcAGzBx10j+PArFzqKVfOSvuFLk/QjAu1V8so9uF18=
+	t=1787866370; cv=none; b=QKiOv9eMUefLjXnnU/mM4bCe6geeg01ocsg7h9rPClta8+WqCEpzP6QjwsGMYqGBq3wEk9V3VVJkwUV6ZMZQgqJR9JrwHGuZwrK6Ajx02OXd9UOyfVNPZWG4KU+hUJ2NlthQuO3hu0nfY5UIbM8g8kt+M0g+glee27djCe7ZxG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787865985; c=relaxed/simple;
-	bh=/TGNR/VRuLfaEEcj5Ib0NuMQgbaw/aSIid5PvwIQWbI=;
+	s=arc-20240116; t=1787866370; c=relaxed/simple;
+	bh=Nr0Cy+uBT0Flm2v7WVmkxQoA9wjhO9C0Wl0ja0+g8yg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QCqBQ2FKOihs6c4fIJiAA4P6aVGofWT2xqD+8aezSfMHRFIP3NEdveVM9kjXJPEkCivs1nsnAJ/2LXbLOehRQM9iDAdiY6mniGODgD2vZRSy2rllt/zhcJ0Eww5iN/5MFa7EQ+gnFnz7Z3tVE3bzzrkNNyonkiQhM4BCtdl/arI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HreL+XwS; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=DA/5jfYwUxJ8jbOCJfopQShVCzzC+0UBbLO1FxoTx+2pRaxeMhmBt2H/kQXtYDVqh5seyGLfiL60T1cWO2Mezhd1FDnF3nZTxCk92aOo2kdmCgAtcnWouqw5L1RF6IQASUX4QNX3VA3Ybn74rq8bnczDefn9yFq0wL6ue846BkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=edygtnii; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HreL+XwS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FF211F000E9;
-	Thu, 27 Aug 2026 21:26:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="edygtnii"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46ACC1F000E9;
+	Thu, 27 Aug 2026 21:32:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787865980;
-	bh=5F+WGCC79kxIPTjWWeDjo4oecMi9lsR/vM/DFzsdBTk=;
+	s=k20260515; t=1787866368;
+	bh=LkJBPyUwA+hyO/JesG4AiAf3V7aNlVVXoW+RmWZs2F4=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=HreL+XwSaP2GYDFVBa3V3Dm/yCXoo9IDdYq/jaVqruw/MWZaCwjFpVi9zKkqsviaD
-	 UYno1u7+rQOxEe6UVQk9Q/UKLjnTsCha8E2A8dKSGu6ksDrN5eIhAXm1I1iOMvMSU+
-	 ZeMaqWG5sjR5yDOP/dV5MrC+5tQonwJCkPXVFAyP/dOm9jr1YhC8Z9b4b7CiNoPY7n
-	 kmGyhxI4bGIqfH19f72szvo7J5Q9jjbs+d0MVTyTY5A21qWLTc3Ed3WdyXNFewNbPk
-	 VjERcT48KnnL7zQ3DBvITmjN8rJXAK5yQzpLeOhTRtYxU61hDZRPwSRQaY4kKsy+2i
-	 1piT+wN6ilxpg==
-Message-ID: <fb86b050-c03a-483f-a4c8-cb71d8b2adac@kernel.org>
-Date: Thu, 27 Aug 2026 23:26:12 +0200
+	b=edygtnii9K6HXbSrjcTddfpEsrJ3lPRpekgDoU9c+ejrv97vEuWw7hayd6mX76tse
+	 RpsRg76wTwrW04lUOZ+4xjGfSXEJRWsNvttoa1AGgmgIHtbRkhxuwwjNABf2fVOeU2
+	 ORI9eBfeEDmAxX3CF24bt3lnEpidjRD1wbuYOGjwn0/N7DWCY/VsAHoDcBJvTRr14p
+	 LEiBb4OgbOtb3p/Kjg3+v/h3yxq1NRXnYgU28jWWgzIjMoSDAUyVLCB8VqDPAfYNo9
+	 K4sY0ejVdaNvY+nnRuurlKdNDejPCqmFSvVGP+v9WYCQg9+7W4+Cw6Sn7gYpsGfTnI
+	 60UomytggBGeA==
+Message-ID: <164b4f99-a642-4c88-8ff9-78930264d093@kernel.org>
+Date: Thu, 27 Aug 2026 23:32:37 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,20 +35,23 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] ASoC: dt-bindings: cs35l45: Adds SYNC properties
-To: Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260821-sound-for-next-cs35l45-sync-v4-v4-0-20d3a07c3b8d@opensource.cirrus.com>
- <20260821-sound-for-next-cs35l45-sync-v4-v4-1-20d3a07c3b8d@opensource.cirrus.com>
- <12761d4c-3f06-43ac-9f22-5d13e95e935e@kernel.org>
- <6f621efb-c7ba-45e4-a700-45844b89b8ef@opensource.cirrus.com>
+Subject: Re: [PATCH v7 2/3] wifi: mwifiex: add dt flag to avoid conflict with
+ platform reg domain
+To: George Valkov <gvalkov@gmail.com>
+Cc: briannorris@chromium.org, johannes@sipsolutions.net, andrew@lunn.ch,
+ krzk+dt@kernel.org, francesco@dolcini.it, johannes.berg@intel.com,
+ kees@kernel.org, miriam.rachel.korenblit@intel.com, rongqianfeng@vivo.com,
+ wenst@chromium.org, rafael.beims@toradex.com, avraham.stern@intel.com,
+ error27@gmail.com, s.kerkmann@pengutronix.de, gregory.clement@bootlin.com,
+ sebastian.hesselbarth@gmail.com, robh@kernel.org, conor+dt@kernel.org,
+ Frank.Li@nxp.com, chunfan.chen@gmail.com, arend.vanspriel@broadcom.com,
+ peddolla.reddy@oss.qualcomm.com, linux-arm-kernel@lists.infradead.org,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, stable@vger.kernel.org
+References: <20260827130335.6606-1-gvalkov@gmail.com>
+ <20260827130335.6606-2-gvalkov@gmail.com>
+ <fbde1932-5433-48e8-b352-bf27eb545149@kernel.org>
+ <CADOrJmY5jZvn8zEu-jCntGChXSY9wRd3bsOy1GB0EWNTY9GK6Q@mail.gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -94,70 +97,28 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <6f621efb-c7ba-45e4-a700-45844b89b8ef@opensource.cirrus.com>
+In-Reply-To: <CADOrJmY5jZvn8zEu-jCntGChXSY9wRd3bsOy1GB0EWNTY9GK6Q@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 27/08/2026 22:07, Ricardo Rivera-Matos wrote:
-> 
-> 
-> On 8/27/26 7:31 AM, Krzysztof Kozlowski wrote:
->> On 22/08/2026 00:41, Ricardo Rivera-Matos wrote:
->>> Introduces support for the multidevice synchronization (SYNC)
->>> bus. The properties introduced allow for the configuration
->>> of the device's transmitter IDs.
+On 27/08/2026 19:27, George Valkov wrote:
+> On Thu, 27 Aug 2026 at 18:33, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>> [1] https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
+>>> [2] https://github.com/openwrt/openwrt/issues/9956
 >>>
->>> Signed-off-by: Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
->>> ---
->>>   .../devicetree/bindings/sound/cirrus,cs35l45.yaml  | 27 ++++++++++++++++++++++
->>>   1 file changed, 27 insertions(+)
->>>
->>> diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml b/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
->>> index 70f6c62aedca..20d758dc442f 100644
->>> --- a/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
->>> +++ b/Documentation/devicetree/bindings/sound/cirrus,cs35l45.yaml
->>> @@ -53,6 +53,29 @@ properties:
->>>       maximum: 3
->>>       default: 2
->>>   
->>> +  sync:
+>>> Tested-on: WRT3200ACM, OpenWrt
 >>
->> Same comment. You did not respond to Sashiko report because "it
->> contradicts itself" is pointless. It did not... unless you meant
->> irrelevant part about example. But that is just irrelevant to the binding.
+>> OK, so this comment from v6 was not about binding, but this is still
+>> wrong - there is no such tag. Just make it a standard sentence.
+>>
+>> Do not introduce OpenWRT rules in to the upstream kernel.
 > 
-> I will explain the contradiction again. Pay close attention to the word bus.
-> 
-> Sashiko says "This commit introduces support for the multidevice 
-> synchronization (SYNC) bus".
-> 
-> Sashiko and I agree, it is a bus.
-> 
-> Sashiko then complains "Is it necessary to use a child node here just to 
-> group configuration properties? In Device Tree design, child nodes 
-> usually represent distinct hardware components, sub-devices, buses, or 
-> standardized structural elements rather than serving as logical folders 
-> to group related configuration properties."
-> 
-> I am confused, do buses merit a child node or not? This is a 
-> contradiction without additional context. Do certain kinds of buses get 
-> child nodes and others do not?
-> 
-> Sashiko is an automated review tool that is being ambiguous. I need a 
-> human maintainer decision made here. Does a bus merit a child node, yes 
-> or no?
+> Dropped the invalid tag. I hope this is suitable:
+> The change has been tested on OpenWrt and fixes the issue where
+> phy0 does not start on WRT3200ACM-EU when a DFS channel is used
 > 
 
-I understand now your judgment.
-
-Skipping then whatever Sashiko invented, I do not see there a bus
-represented by that "sync" node. Bus in DT comes with children, thus
-sync would have children. Or your DEVICE is a bus, then sync would be a
-child of that bus.
-
-But your description clearly says it is not a bus. It is a "bus
-configuration". Configuration is not a bus and configuration does not
-receive separate device nodes.
+Thanks.
 
 Best regards,
 Krzysztof
