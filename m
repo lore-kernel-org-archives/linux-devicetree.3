@@ -1,135 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47765451998;
-	Thu, 27 Aug 2026 15:33:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDD4D47F2CA
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 15:36:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787844797; cv=none; b=DZwJcOxiU0dWEg3zRYfVNwL0m/eRwgP3pZTg7R015+jW8xjFVI+Wx5cBqHyijyrAMGAJfIstnCeqKKNCB81kEg6LT8iZJo8EMDMvrmSWTsaXnRpf7Od0tfhLJjsx6naFhzPaLrt1XIrFGv5+TtDBUn+m1SVSX9lPtf6bu3Senwg=
+	t=1787844986; cv=none; b=KOKLhNPVUPty9M6Oaviur/K4Tgmjyj0jdsPCF0u5zHJlxjMUSTP6bWlwiosBgIjnqd9UFwT3n945Rfv/iPqpu9VmV0wvFsYhI5NtwRMKI5eFMVVyluFVMAjkI9k4XhiIG/vzpyCiruOiLt3FdfixJoS0BXK79jK5g/bYlBMePRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787844797; c=relaxed/simple;
-	bh=drsQcz7vpLHCPTbJHf54XFIKntywsoBGoQH3UYvoEbE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LkMoR1szY9e+YGwrNKwPtqfcZCHmVeS55jL3aXlkYQYmLWd12pePS2ZGztVDDcu2EgpsOeSaWQI0H8z/npvmg3JSAaEepOACdVzDcra9moYeJC0q0pb+/aahgJbKf8czGYs03MYblQCTN6CZQ0JXhNpl+6Ta/mrtXwsDaOI88No=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EkNYY/2T; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787844986; c=relaxed/simple;
+	bh=IXit39jokJOkDKdV9ozjAq5puFGqOrTpsC39d5ly7YQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lZO9oKTpHhp7VFpoA14Omfqgp2RiJfKcUk1oTxCW8mT0Rp97mpd5F8hviQoX9mTyhoG1U8j0YPpcOide0eZazM9GnBKztNORJ+/B+hJfa8d84C3pYiInhr5kw7hr+A+Ko+tSmayl2286kLmdouGHQk8/GEoTK0hIurM70OjCnGo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ndE2+w2+; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EkNYY/2T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCE3B1F000E9;
-	Thu, 27 Aug 2026 15:33:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787844796;
-	bh=4oPsdO8UvwcZK2FdI47sHipp2PYwd210CEtnNDq551M=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=EkNYY/2TymrOw7w04hBE9IzFqwAjn5BgIOiM6RWUrh5Qfag3j75kKyb4vFjwl82Y5
-	 eN4wrbtBg7rSkenawg9mXdvqwt8Gxnn0qe0Xsh1uhNF5NTiNml1qchqWzC0fOcXsd1
-	 6O9D1qnQsjw4oie5swpFjwE790AdyxOibGLbMp0zdm+9+WmnVSbmke7Cg34vww2oz1
-	 tlmx7K/+Mv1dzXxGj4bLlUMFgcA7+iBh0b4S3ZZTNqomzOB086eTD/mOYn/QnvVFd0
-	 SzDsoGoZUCnzIHbfVnon2aV2/STL73s7N5BvjyFTuCO3CeJUcDP6vVqv8+Ny7aYpI0
-	 3iJd3sClIgkYg==
-Message-ID: <fbde1932-5433-48e8-b352-bf27eb545149@kernel.org>
-Date: Thu, 27 Aug 2026 17:33:02 +0200
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ndE2+w2+"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-38dc69c74b8so138822a91.0
+        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 08:36:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1787844984; x=1788449784; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=u0GbLwFaHwwzrHQZ6KyEJK5JW6SPWToNlMJADlPNRPk=;
+        b=ndE2+w2++9Cg8O4juXiYVelRJmQ8+HFiDcLp7iuv2/g7qeuZ7eILSSdAxdPszUz7Ru
+         2wdqKVTcdG4fFxooYcxMwvcd48PmQYg9OnSktXlAtGgzXVuWhF7323RDH/BceKPxVGl9
+         HZxfOc3C1ZZ584so24PKu3406w1E3Chggu+jPmz8dhJcJqcHPIcCJLC2HWvVoFcbxNq7
+         6BcamcvNRXPIyXosEwaDEpEEAfjtdzd2gDDajE53qYvQeB46xQJIPmae0qfhglOxForA
+         RZ6ubRz/zBjMWcj8WQKKz2h7UFeLPdh2FPgTU2Aig03NFM8CrzTHhUBSci1vLGA7tU4+
+         Rsdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787844984; x=1788449784;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=u0GbLwFaHwwzrHQZ6KyEJK5JW6SPWToNlMJADlPNRPk=;
+        b=PgjOf4UJDBKao1VuTblUsLCa8VbWcX9nIL+6Qv7yTOTCD04LApNe9ULWaYu2/08WeP
+         o3TPo8VTRFVprA+HpxjFWsZMhKV1WjBX1VpbiTYBa/KsB97RgoW+bCpZPy+9E8epwwIL
+         JV1zGmVVE7PPoWDqjRYNOeH/A2RM/dyYcaD9SFdac5vA4YS6ex5/D7FTpact9TT4DabV
+         lPYZ8YXj0IDTX0qAnl3nyLYLhfP5/e8G6Ox1olMtAclmhLNZIQyl2rpt0EBpxZLg9AjD
+         JgRkpWndHg4vqCCqkU+gOjIUmYboqF3ZpZE4FQjPYDwwRaGbgQHOrDCbB9Ypf4B316Lj
+         uGzQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrHt4nF590f9dbtQ502qTogQ77+/YVPDK+iPMtYbyPAlZ/Bd1FsF9rehvChYVLiyIRquCJrjqzMw4x3@vger.kernel.org
+X-Gm-Message-State: AFuF++mAfGNyd4Il6R4vqqfk6tP8VLBDDE/A9hcdX3Jr05dE3TewwCLh
+	er2EdaCh2iWX9s8Vq5xfDNErLBSJ7w5z7hw4U61u6I38a++WgAhP9tsuz32M5sXaSFc=
+X-Gm-Gg: AR+sD126YnKy5BOzBABkzg0kZpBobEe86wyyvyDExET6dTB5MQt0qzXtNloJ4dudgEC
+	EgtuP877QzcE/ILDxJFbpIsfttb1vUascohommowmOft1tshfAvNSJ/Wl8BN+fSxLCz7qCBwVSY
+	LnCIDKDXNKLcfajK/bmYjGg0pVDm15gNjBvwtEzIzGTIXuUWEwzSyRlJtgHAmgD2xpMwKdSUf6k
+	r6TZDvewL3wSHkzj34hXh1zSkmuhnfkw1PvhWp2SMtPzuJRz6zfu9fTxkRXICz+ZQfASyhBwrqp
+	S85wAdw+VaScpL93oEfMbhUpYWGnzObBt0Wq81F1rxVVx6UQpO5TySJlaP8tkCyv1Q5YxpUlGgo
+	TQL94aJzWxQxyytuaxPP4jddBacx7+ywfiMFhPU9G7KmLxdcBBUK01B22/0QIHq9wa13nj8orPM
+	xHAueVxLBzwS/K9tBmCB7abdBeSF/FyV/EY+ehF+rxnrZ7hGjwM3bBEpflYt2/vdO0
+X-Received: by 2002:a17:90b:5188:b0:396:5fce:8e24 with SMTP id 98e67ed59e1d1-396d0ea530emr169425a91.4.1787844984074;
+        Thu, 27 Aug 2026 08:36:24 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:887f:45b3:fb30:8d79])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0fd5c34sm3187307a91.8.2026.08.27.08.36.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 08:36:23 -0700 (PDT)
+Date: Thu, 27 Aug 2026 09:36:20 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: "Shenwei Wang (OSS)" <shenwei.wang@oss.nxp.com>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>, Frank Li <frank.li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Shenwei Wang <shenwei.wang@nxp.com>, Peng Fan <peng.fan@nxp.com>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
+	"imx@lists.linux.dev" <imx@lists.linux.dev>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	dl-linux-imx <linux-imx@nxp.com>,
+	Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>,
+	"b-padhi@ti.com" <b-padhi@ti.com>, Andrew Lunn <andrew@lunn.ch>
+Subject: Re: [PATCH v15 2/5] dt-bindings: remoteproc: imx_rproc: Add "rpmsg"
+ subnode support
+Message-ID: <apBZdNozfoCUp515@p14s>
+References: <20260721204704.400781-1-shenwei.wang@oss.nxp.com>
+ <20260721204704.400781-3-shenwei.wang@oss.nxp.com>
+ <CANLsYkxZbr9hKaJJGXwYXErLwQ-A07eb-oeNXY1CceHHa0Tdmg@mail.gmail.com>
+ <PAXPR04MB8093FA9283357BF9604BE39F89AE2@PAXPR04MB8093.eurprd04.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/3] wifi: mwifiex: add dt flag to avoid conflict with
- platform reg domain
-To: Georgi Valkov <gvalkov@gmail.com>, briannorris@chromium.org,
- johannes@sipsolutions.net, andrew@lunn.ch, krzk+dt@kernel.org
-Cc: francesco@dolcini.it, johannes.berg@intel.com, kees@kernel.org,
- miriam.rachel.korenblit@intel.com, rongqianfeng@vivo.com,
- wenst@chromium.org, rafael.beims@toradex.com, avraham.stern@intel.com,
- error27@gmail.com, s.kerkmann@pengutronix.de, gregory.clement@bootlin.com,
- sebastian.hesselbarth@gmail.com, robh@kernel.org, conor+dt@kernel.org,
- Frank.Li@nxp.com, chunfan.chen@gmail.com, arend.vanspriel@broadcom.com,
- peddolla.reddy@oss.qualcomm.com, linux-arm-kernel@lists.infradead.org,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, stable@vger.kernel.org
-References: <20260827130335.6606-1-gvalkov@gmail.com>
- <20260827130335.6606-2-gvalkov@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260827130335.6606-2-gvalkov@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <PAXPR04MB8093FA9283357BF9604BE39F89AE2@PAXPR04MB8093.eurprd04.prod.outlook.com>
 
-On 27/08/2026 15:03, Georgi Valkov wrote:
-> WRT3200ACM and WRT32x routers always report a fixed US regulatory domain
-> from the mwifiex ROM, which conflicts with the platform regulatory
-> configuration on units sold outside the US market. For example:
-> - phy0 mwlwifi 5 GHz, hard-coded region 98 EU mapped to FR
-> - phy1 mwlwifi 2.4 GHz, hard-coded region 98 EU mapped to FR
-> - phy2 mwifiex 2.4 and 5 GHz, hard-coded region US
+On Wed, Aug 26, 2026 at 06:36:54PM +0000, Shenwei Wang (OSS) wrote:
 > 
-> When the system boots, it detects a conflict between the user selected
-> region and the radios, e.g. BG FR US, and applies extreme restrictions,
-> preventing phy0 from starting on any DFS channel. phy2 works.
 > 
-> Add a device-tree flag, which allows affected devices, where the radio
-> conflicts with the platform to ignore the incorrect regulatory hint in
-> the ROM of the radio, so the platform regulatory domain can be used.
-> This does not allow the user to change the regulatory configuration of
-> any radio. It only allows phy0 to start and operate according to its
-> certified configuration.
 > 
-> The change affects only platforms which explicitly define this flag, and
-> helps overcome the incorrect behaviour of proprietary radio firmware.
+> NXP Public
+> > -----Original Message-----
+> > From: Mathieu Poirier <mathieu.poirier@linaro.org>
+> > Sent: Monday, August 24, 2026 9:39 AM
+> > To: Shenwei Wang (OSS) <shenwei.wang@oss.nxp.com>
+> > Cc: Linus Walleij <linusw@kernel.org>; Bartosz Golaszewski <brgl@kernel.org>;
+> > Jonathan Corbet <corbet@lwn.net>; Rob Herring <robh@kernel.org>; Krzysztof
+> > Kozlowski <krzk+dt@kernel.org>; Conor Dooley <conor+dt@kernel.org>; Bjorn
+> > Andersson <andersson@kernel.org>; Frank Li <frank.li@nxp.com>; Sascha Hauer
+> > <s.hauer@pengutronix.de>; Shuah Khan <skhan@linuxfoundation.org>; linux-
+> > gpio@vger.kernel.org; linux-doc@vger.kernel.org; linux-kernel@vger.kernel.org;
+> > Pengutronix Kernel Team <kernel@pengutronix.de>; Fabio Estevam
+> > <festevam@gmail.com>; Shenwei Wang <shenwei.wang@nxp.com>; Peng Fan
+> > <peng.fan@nxp.com>; devicetree@vger.kernel.org; linux-
+> > remoteproc@vger.kernel.org; imx@lists.linux.dev; linux-arm-
+> > kernel@lists.infradead.org; dl-linux-imx <linux-imx@nxp.com>; Arnaud
+> > POULIQUEN <arnaud.pouliquen@foss.st.com>; b-padhi@ti.com; Andrew Lunn
+> > <andrew@lunn.ch>
+> > Subject: Re: [PATCH v15 2/5] dt-bindings: remoteproc: imx_rproc: Add "rpmsg"
+> > subnode support
+> > > +          gpio@1 {
+> > > +            compatible = "rpmsg-gpio";
+> > > +            reg = <1>;
+> > > +            gpio-controller;
+> > > +            #gpio-cells = <2>;
+> > > +            #interrupt-cells = <2>;
+> > > +            interrupt-controller;
+> > > +          };
+> > > +        };
+> >
+> > As I (and Arnaud) have stated before, I don't think this is the best way to lay out
+> > bindings for rpmsg-gpio nodes.  I am currently thinking about a representation
+> > that aligns better with other virtio devices.
+> >
 > 
-> [1] https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
-> [2] https://github.com/openwrt/openwrt/issues/9956
+> Hi Mathieu,
 > 
-> Tested-on: WRT3200ACM, OpenWrt
+> Would you prefer that I wait until you finalize the layout before submitting the next version?
+>
 
-OK, so this comment from v6 was not about binding, but this is still
-wrong - there is no such tag. Just make it a standard sentence.
-
-Do not introduce OpenWRT rules in to the upstream kernel.
-
-Best regards,
-Krzysztof
+Let's wait until the DT format if is finalised.
+ 
+> Shenwei
+> 
+> > > +      };
+> > >      };
+> > >  ...
+> > > --
+> > > 2.43.0
+> > >
