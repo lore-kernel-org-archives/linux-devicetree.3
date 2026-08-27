@@ -1,184 +1,148 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8977495530
-	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 17:01:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33E574503EC;
+	Thu, 27 Aug 2026 17:03:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787850119; cv=none; b=dqEPNlykZkxvPyfU2k34q1ZsEpm3dIyyVfecCvKotQfiGnbbIyWIQ+FFmYCjmsdW33zyjikU8MBDwGOP8qrmMAckuZymaRRuRWfoAv89QZCPbxIEJRTxfJ+4bHAkQKVGt4C6GVJeRIqMDSZmjXzOrj/VBrHqNcBxbqOXEuUmvQg=
+	t=1787850189; cv=none; b=fmHvN8NNRSlbkJTYlyC//fTMDEgK6NrM/c4/xGv2JWuewoRYqxTEFwf/Ry1VO0xRn2z0HBZ+PRP6WNgKPell6fPRJqoXdwfwmrRh3vmRNtZxudiaf+lIlmN+JeP8E2/3vvdwpSD2I/dW9Y6sd96GxOKfnheeWxvrqgPI4irayz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787850119; c=relaxed/simple;
-	bh=VLth3SEu7qG3r5aWNeqIN5rjqfJQ3Q9Ak0EseKunHjM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=l12gqRRscX/GfquM96YH6MTe8rv1ToJ9JEa0DItle/dQ+a6slGgBe+/PK7r6P4bgzhfafqtpCTk3fS+ZPzJFtBhieKHUPWiAq3ZzXJdS3B6pK7c3yqKzX2vWtodYCTYbFtC4jcX/jvGDO2ts0BEYaLxGM6fen90KjDExfEqfx9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jecm9R01; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Umlqj17J; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787850189; c=relaxed/simple;
+	bh=YfVyNI9c9azuVieacpxUOb6yNvbNo1dV0E31hl56n/8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XFeZ86Ck56TSE9mitkXJq+SOElL0jGDEt2st6tsNfICdFMTJAm+D6an9mwnIAREfFwm5xUlqMR2l3vyi2Vsic3hKJ8tZ7y0ADrM2041SPzivWt7HiN1amLZnopil08rfDeKUUED+zY482pIdQOWONY8PgyjRccHid/IWLCziTEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sxz6S1N4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jecm9R01";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Umlqj17J"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67RFbhWD1310842
-	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 17:01:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	6ZGn09uCQecSpHGhjI37UCupzc36L0CgFZmzAcMQoKM=; b=jecm9R016Au4SOfa
-	9DHqvLJPactOk7aQdK/C4SVlQIDFnr46AJq3kT1lRpuuzEuEStjSDhuWZmBgFhwz
-	+tgf26c9sVpNxGmxBxVJKgPo8eW8YRfojy/11FRy9/tXbIUvFT1TfgQ4KI2g3dio
-	U/qubr+FLspGfIB0dJYsqmwmjLn+q2pPEB5ISe67RM2QzunWZDMDi+jnlzc7hGIH
-	vBhKrjHxmmNe63U6F8+esRq4NhYizZhKei7/m+4Ujojc7EZ7NDs7M5w7jdR5CEPh
-	yVwGzKt9J5X8o3P1gx6ZSVuO8ThEdUAk+MeKeJl9E8tazr0mt+TLc3A1As2Jakl0
-	MWu9Bg==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ga8m5kvpu-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 17:01:50 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-85415923c8fso150999b3a.2
-        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 10:01:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787850110; x=1788454910; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6ZGn09uCQecSpHGhjI37UCupzc36L0CgFZmzAcMQoKM=;
-        b=Umlqj17JRtiVoyDa42/OpuypxTSUCM5VnbGWWtbswpMLHiBHT5hTTbPanOvf0ZZNxA
-         cjH1odyx6JVeqB9gbobnGy/ckw1ECn/E/sTWLIPiZYD7r2eLkBI3G3qwu8JMWHi+lKAp
-         1S+30KAJcQSav1Orw2k65VMWmV5l48SId+D0jPoS+nMw5vEM4WByBWuzPWoSDXziZi/Z
-         zJUD4OKDkfU/5pnQe43nbEsND+OTR5JFqCBvNCsp9de+8p4CMTNhzU6ABkpkoC63hrQV
-         7xLJSqTmKe00JuOrD3k0M5TQCVXejmzcx1LMCnQonknkBsQO1OtLfF+myeyNMtxMCkj+
-         bS/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787850110; x=1788454910;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6ZGn09uCQecSpHGhjI37UCupzc36L0CgFZmzAcMQoKM=;
-        b=DlvP4cRWgS3HAucLPTxm7DOviHpyuvAOPBpoIHyUaIbSeBDxumTkVPYDtkci4L1Gqz
-         RzhTtA+bbmkaKevBvOrevlO2oyXsektjgF7GsUSt5dmH1WzEEm9vw9jR1gcbB2cK1r/d
-         t8oGqVIESTJYnwdeggMYCOfCOROAOLwbrEIgv1MDtpdhsa+/0/NSBqfyJIS3ildLsTrE
-         fPAXPTNtf2/NsY2EKec6oHlIaaoENsa/ZCEYpGGOMmtdpMhy0lH+OK+HlK/lBuS0u9h6
-         24/E+i3/Vdr0JM8NkMOp2N0yUUeA22lIHzNV4C5lRu+rSTsgUm/uhYFE43jkKjYUhY42
-         Baww==
-X-Forwarded-Encrypted: i=1; AHgh+RqFwdWxsZufYzQqi4n5GMwRz2lCiB8tMvg2TNrQM7vPZg8mS/3GrcAiVTssaG1L2MCJ0g1SrSHRkP8W@vger.kernel.org
-X-Gm-Message-State: AFuF++ldIbjNR33VW3pOWqHO9S7EXhOyx4Yk6XRSu2Q1Bo3HDIXUCz1y
-	qjtSnh2/z6vxzwYc3Y4H5D2oZg/0exAmejjGL7hCYQDUO4GTABHqkbakCAJeW0h5Tywxc5gxHq9
-	+aCB23xoJLsdKPHlS1PPw+Q4+rca+dOHvARjZx87s92IFP/MwD6HgQTmWShf1jGgS
-X-Gm-Gg: AR+sD11xN/l7HVudiC6mUJhn1Hjm2OYU1+hXvY8Jy2D3/rLdV2fVXTp3hXlfg6Zo4El
-	YESu1ikouMegVmDyNDwlDVnqS0Z26j/W365g0iWdGsbVMSgDKaqnhRYSJCnmJnFmpAvFsSvAO+1
-	jwmNZYUVyXIiSeOjeJtpwWE9GizmoZQ1O7W1tH7XjsTbextnaJeBMpyjZQ2MBR2l93Zc/ECb1UF
-	9dZbTe1dHL1bAW9QHPRtWqGwopAyHhD/VS5gDozu08ACk6Az3so7j7mL1zfEy47kRQi3nvPcZGd
-	Six368HVYG5BlpyX9VJrqwXKMo4e7m5qnlD45U/kcywc89o12hDmjOZZr1gmYvIGa8gbe5RSn6M
-	XswiKhK1sClWC63XZNzrVJiCXlRt6MhM=
-X-Received: by 2002:a05:6a00:4b41:b0:847:9aa8:d3bb with SMTP id d2e1a72fcca58-8562953f64dmr1115438b3a.12.1787850109603;
-        Thu, 27 Aug 2026 10:01:49 -0700 (PDT)
-X-Received: by 2002:a05:6a00:4b41:b0:847:9aa8:d3bb with SMTP id d2e1a72fcca58-8562953f64dmr1115017b3a.12.1787850107481;
-        Thu, 27 Aug 2026 10:01:47 -0700 (PDT)
-Received: from [192.168.1.6] ([122.171.23.69])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8535cd81d22sm2404824b3a.35.2026.08.27.10.01.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 27 Aug 2026 10:01:47 -0700 (PDT)
-Message-ID: <4466c3eb-4de1-4240-8fec-765a4910b217@oss.qualcomm.com>
-Date: Thu, 27 Aug 2026 22:31:38 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sxz6S1N4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F1BF1F000E9;
+	Thu, 27 Aug 2026 17:03:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787850185;
+	bh=zKmwoEwzdTZwEdpvUj5AMclNii4LDqHyo+svB88BdpA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Sxz6S1N4JOc3d5vGHNPprv4A/0VWeWwYco1y4dh8YodMwPyZ3y/ESJnqHFUzuXpbt
+	 Yrzr7SAbkhn/0+UQ8xLpU8LwNCYXMoUZujn7TNotc/x8kG/5VxVx8109QXZckfm1LP
+	 39qf7EgYMi43CJEJEo1tMaJDQ07LClFNW6Wtswk0lDnyhgTaMT8rGlnHfHHYjUEFi1
+	 QzlmdZFksZMp3wjDzibT6WrfNqkBHXVD//NoBX+jJqdjz4q1iN6JBhVtD4WFTHKNas
+	 jELAX1y1JKOT8Y9gxVW/FbZjffKEBeRtOOE9eNt1x5B0Be4KEN4PyWfurgCiGit4g3
+	 D+sr4VM60qr3g==
+Date: Thu, 27 Aug 2026 18:03:01 +0100
+From: Lee Jones <lee@kernel.org>
+To: Stefan Wahren <wahrenst@gmx.net>
+Cc: sashiko-reviews@lists.linux.dev, linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
+	Jonas Rebmann <jre@pengutronix.de>
+Subject: Re: [PATCH V4] leds: rgb: leds-group-multicolor: Implement
+ default-intensity
+Message-ID: <20260827170301.GI2943942@google.com>
+References: <20260813091428.9072-1-wahrenst@gmx.net>
+ <20260813092522.0228D1F00A3A@smtp.kernel.org>
+ <20260813095330.GZ1072730@google.com>
+ <aaeb87f7-5a04-4592-ab59-b4114b005aab@gmx.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 06/15] dt-bindings: interconnect: Add Qualcomm Kuno NoC
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Taniya Das <quic_tdas@quicinc.com>, Georgi Djakov <djakov@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-        Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>,
-        Guru Das Srinagesh <linux@gurudas.dev>, linux-arm-msm@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org
-References: <20260821-kuno-soc-support-v3-0-196e2b306368@oss.qualcomm.com>
- <20260821-kuno-soc-support-v3-6-196e2b306368@oss.qualcomm.com>
- <20260827-predictable-mauve-catfish-3d5ad0@quoll>
-Content-Language: en-US
-From: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
-In-Reply-To: <20260827-predictable-mauve-catfish-3d5ad0@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: epx9SyR-uw2nE-6KQtd7w6TGRwEb057J
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDE0NCBTYWx0ZWRfX3VcIezxRBd9+
- la3jjk9OxnRPeE8/GW6kiFnZXOT7/0LSCRI7UjVb2G9XMl72wnOp8A3sOmujAVMinhJ4XX/wg5q
- ne0+KcqOUZLQMJP9elkg9RdHeDDOi+0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDE0NCBTYWx0ZWRfX7fsQXGSzEpNI
- X6QFUO3wzJGF29c9I/RjesZU+QdKSf0e7lk/pp1/T6U9wprfQp3jXj0PsRDpntLG1A1AhxMQ/Q4
- xX28XF6ykfWuw55BxYYRkkxU/82O9MpAB4u5zEVF5i1sVwbPyugOBImqb485/WhEvCBrC55LKZz
- YJZ8H07XWDy3pH6VhOu1NXpDZN3GoIQjeAEeLJPVWRNrFg6R1UqpbX43/CDJtyK6C++I5+dvhHp
- OTf8RcekJZJMc5KAldu2PW3LxlnSg8Lq8D92O3KtasjJDAkADnTTHiyAGSjhV3q6+HiiK9x1l1R
- 5/bz+b16mY/ApwB/Sp/Zg+3M8M6ARXFJI93gXkRYv/LLyuKjdqwyp4LUR/n2wkkoiiojHXxlsen
- X3zr1bOe/0uXcenX497QnCjSrM1ASZERmfJn9Gq3I6xXvnidqeZKSOMNkkexpPGdYhCRCIPII8E
- XqJE1aQb3DhzAfeovLA==
-X-Proofpoint-GUID: epx9SyR-uw2nE-6KQtd7w6TGRwEb057J
-X-Authority-Analysis: v=2.4 cv=SomgLvO0 c=1 sm=1 tr=0 ts=6a906d7e cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=WTDSa4fX56zQulHxy5BIwg==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=XeEooGCi7Zy1lAdgIjAA:9 a=QEXdDO2ut3YA:10
- a=IoOABgeZipijB_acs4fv:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-27_07,2026-08-27_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015 phishscore=0 spamscore=0 priorityscore=1501
- suspectscore=0 bulkscore=0 impostorscore=0 lowpriorityscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608270144
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aaeb87f7-5a04-4592-ab59-b4114b005aab@gmx.net>
 
+On Thu, 13 Aug 2026, Stefan Wahren wrote:
 
-On 8/27/2026 5:50 PM, Krzysztof Kozlowski wrote:
-> On Fri, Aug 21, 2026 at 09:38:59PM +0530, Hardeep Sharma wrote:
->> +properties:
->> +  compatible:
->> +    enum:
->> +      - qcom,kuno-aggre-noc
->> +      - qcom,kuno-clk-virt
->> +      - qcom,kuno-cnoc-main
->> +      - qcom,kuno-dc-noc
->> +      - qcom,kuno-mc-virt
->> +      - qcom,kuno-mem-noc
->> +      - qcom,kuno-pcie-anoc
->> +      - qcom,kuno-system-noc
->> +
->> +  reg:
->> +    maxItems: 1
->> +
->> +  clocks:
-> Missing minItems. I asked to open other bindings to see how this is
-> done. So for example you took qcom,maili-rpmh.yaml. What do you see
-> there but you do not see here?
->
-> Best regards,
-> Krzysztof
-Apologies!!
+> Hi,
+> 
+> Am 13.08.26 um 11:53 schrieb Lee Jones:
+> > On Thu, 13 Aug 2026, sashiko-bot@kernel.org wrote:
+> > 
+> > > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> > > - [Medium] The `default-intensity` property read from individual monochromatic LED nodes is applied to the multicolor group without rescaling, causing incorrect brightness calculations.
+> > Please review, explain or fix the Sashiko review(s).
+> > 
+> > If this is a set, this request includes the other patches too.
+> Sorry, I don't get the problem with "incorrect brightness calculation", I
+> tought the intensity setting is independent from the brightness. Btw the
+> intensity is applied to the monochromatic LED not to the group itself.
+> hallucination?
+> 
+> Does mixing PWM and GPIO LED in a RGB multicolor group make sense at all?
 
-You're right, minItems was missing. Fixed in v4 by adding it to the 
-clocks property.
+I asked my little helper for you:
 
-v4 : 
-https://lore.kernel.org/all/20260827-kuno-soc-support-v4-0-dd34f235fc1a@oss.qualcomm.com/ 
+<gemini>
 
+While mixing a GPIO LED (essentially binary) and a PWM LED in a single
+multicolor group is technically possible, it is indeed highly unusual and
+unlikely to produce a desirable colour-mixing effect in practice.
 
-Best Wishes
-Hardeep Sharma
+Regarding the Sashiko review, there is a valid point hidden in the noise.
+The multicolor framework uses 'subled[i].intensity' as a relative ratio
+against the overall group's 'max_brightness'. If a sub-LED's native
+intensity scale differs from the group's scale, assigning the raw value
+from the 'default-intensity' property directly without scaling it could
+lead to unexpected dimness or brightness. Should we look into whether we
+need to normalise this value against 'max_brightness' to maintain
+consistency?
 
+</gemini>
 
+Hope it helps.
+
+> > 
+> > > --
+> > > 
+> > > --- Patch [1]: [PATCH V4] leds: rgb: leds-group-multicolor: Implement default-intensity ---
+> > > commit 13399f1aaceaf09afa7e252e35000d7d61ab1925
+> > > Author: Stefan Wahren <wahrenst@gmx.net>
+> > > 
+> > > leds: rgb: leds-group-multicolor: Implement default-intensity
+> > > 
+> > > This commit introduces support for the default-intensity property during
+> > > boot for LED multicolor groups. If the property is missing, the code falls
+> > > back to the previous behavior of configuring the sub-LED intensity to its
+> > > maximum.
+> > > 
+> > > > diff --git a/drivers/leds/rgb/leds-group-multicolor.c b/drivers/leds/rgb/leds-group-multicolor.c
+> > > > --- a/drivers/leds/rgb/leds-group-multicolor.c
+> > > > +++ b/drivers/leds/rgb/leds-group-multicolor.c
+> > > > @@ -108,8 +108,10 @@ static int leds_gmc_probe(struct platform_device *pdev)
+> > > >   		subled[i].color_index = led_cdev->color;
+> > > > -		/* Configure the LED intensity to its maximum */
+> > > > -		subled[i].intensity = max_brightness;
+> > > > +		ret = device_property_read_u32(led_cdev->dev, "default-intensity",
+> 
+> Should we verify if 'led_cdev->dev' is the correct device to query here?
+> Normally, 'led_cdev->dev' is the class device and might not have the fwnode
+> associated directly in the same way as the underlying platform or fwnode
+> device. Would using 'led_cdev->dev->parent' or querying the fwnode directly
+> be safer?
+> 
+> > > > +					       &subled[i].intensity);
+> > > > +		if (ret || subled[i].intensity > max_brightness)
+> > > > +			subled[i].intensity = max_brightness;
+> > > [Severity: Medium]
+> > > Does this logic properly scale the intensity when the individual LEDs in the
+> > > group have different maximum brightness values?
+> > > 
+> > > If a multicolor group consists of LEDs with vastly different maximum brightness
+> > > capabilities (like a GPIO LED maxing at 1 and a PWM LED maxing at 255), the
+> > > overall group max_brightness will evaluate to 255.
+> > > 
+> > > When reading the default-intensity from the device tree, the value is typically
+> > > specified on the scale of the individual sub-LED's max brightness. If this
+> > > value is assigned directly to subled[i].intensity without being scaled up to
+> > > the group's max_brightness, the sub-LED might be initialized with only a tiny
+> > > fraction of its intended intensity, often resulting in the LED being completely
+> > > unlit instead of at the requested intensity.
+> > > 
+> > > >   	}
+> > > >   	/* Initialise the multicolor's LED class device */
+> > > -- 
+> > > Sashiko AI review · https://sashiko.dev/#/patchset/20260813091428.9072-1-wahrenst@gmx.net?part=1
+> 
+> 
+
+-- 
+Lee Jones
