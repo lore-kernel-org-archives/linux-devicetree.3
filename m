@@ -1,397 +1,196 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010037.outbound.protection.outlook.com [52.101.228.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C96D647426A
-	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 13:26:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787837221; cv=none; b=pjD7Qzo7ohRYLKqDaHrdfEM4hvjqkMERfqpP/fGTlCLNMwgIkYO4VXPaBoc1i9EuMOBDfuBpbDjBB/2y2LbEu97HHy+DE4i8to0SpDz7J5kf+1N45jWzB6ZFklKzzp7ogSj+E28T+4wN93G4wt+Edx+F8NuIxKQi6rz2hflg8Kg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787837221; c=relaxed/simple;
-	bh=3q+VUn9NaYhAmskuQyNSDF6I2dtW4rB/VBzFtDR+Pg4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=qLyOMM8Nyk/j7u4CVC3jFQ0/1REuqnBZa2gV/vTtVuiMt0stOaa3zkERGk4PnYMrmJmBbwWADglSMw7Z+SFzJCXayLlLpJYOZLV0tOYe/f2ot2R09rzkJpmWXjJqfL4Kewl7QxhnoVtijZS7IiK3VGqK9pLJm4uyo3gCWV1Y208=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nqp2Ey3H; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2DBF47427B;
+	Thu, 27 Aug 2026 13:33:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.37
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787837606; cv=fail; b=GsKRkPdTLKO5bjEVkQ5y31RPPThTeIP2RGgrhcM3fbrd/UA03EO18f2Dx9aki4T4FI5GHGPHJ+SpZIAXhPEMwWnQTKRilPzoSFt2ScgJRo8d7/TgYxUiWiDb+3+p8ygfwvwqlFa9NN7h/HdDb9VR/JeZh2NwMo9wsKdEPUjhqWo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787837606; c=relaxed/simple;
+	bh=N+FNJ7wGQCawVdTZQ/BWO+GXxabF223/mUk62gLd2MA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=oXZLTV+jTgAvxz7KRO5c7ZVrdsWBmwI+dEPR5ov7lxHy2iFENemCdIojNYFk1oDrp+c8SocAPLobGg4KzyAf9Fq5PCNObGKOLmYlTjJd8X6+/SuvW5oVF2GO8drE5asQkUuHrBSBF6PqZ+I+MJeDXVy1AcauG8XtZQJ1tFoiqsI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=CZ+IRXza; arc=fail smtp.client-ip=52.101.228.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nqp2Ey3H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E137A1F000E9;
-	Thu, 27 Aug 2026 13:26:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787837211;
-	bh=LtCVUJazwoQ7zB+f+5caGH5GuyOSXRHlJB94JFJRrRQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nqp2Ey3H2N+AvEeoNj9EMhb2kkHtZGqfqohACnnpFuqxV+XKGXbi20J8uicY3A1Ns
-	 b+agFO8fnObcFSxBHfsLCdDYp+xIkwubLztB+Irh8nuAaPUlk6xnRz2LaI+XKfkO8R
-	 CZp8GnnsFl/AD6am9X6U6mDl/OuRSPgWTcWsAblYkzC5+iXG88JO+6V2Odv9kPqIZr
-	 bcXilQSJudPDhb3PPtOpME+mMfkWg6sorKGvGUAN259kGCdiXW1PW8N45ElGjPOJTe
-	 kTd6kQ6E9OqBkbw22OnjJgsk7IpYK/HIebyV5/OLBgW5ob0D6iqcLCvT70dwq4f4FB
-	 Yy0zBO/k4/RDw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/3] phy: airoha: Add support for Airoha AN7583 USB
- PHY
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: vkoul@kernel.org, olteanv@gmail.com, conor+dt@kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, neil.armstrong@linaro.org, devicetree@vger.kernel.org
-In-Reply-To: <20260827131551.26725-4-ansuelsmth@gmail.com>
-References: <20260827131551.26725-1-ansuelsmth@gmail.com>
- <20260827131551.26725-4-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 27 Aug 2026 13:26:50 +0000
-Message-Id: <20260827132650.E137A1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="CZ+IRXza"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=k44odh9JxhZ8klyVgQZ4s15VxMcEsHJCwhEwtil2g+IvfuMkcs4ZAsorjh4n2H9jJ/uytAkwbup478tHRC/Ug4Hlxn5BmGIjl3On39kxsPFv4wrtwotY1RshBsU190lAEOJEmw4IZRA5V+p10YdHy5ObHxYM+a947G3WcNnMxeyRNkP4EuH+T1zWO8/u00FQ3hJXhDLpAqcWtC+vVWzSq2O5y5Dw0ZPrEZB8JyC9P9tNEErvMPF/C1KNF3z3XD1K7iztz7FDrzRYGWjkPhMcnV0Shwo5pDnsu5dSOmcRqujH812nxiUcFN2PJO6/xG4KrBd+TtfSdxux2JxA5sWLng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=docHcXUwyqUVR6hvcRJjWqpxghBctU9ZItOJHqA03ZA=;
+ b=mjlNCJPW6oeHqfNufm1vDVSM9HLDwfbdz1ZtoSGuYVXF/8JOM6HK4j1cJ5+yngYxMxtC8ChIvZKTk2edQwA1Cpua4C8DRtYoVYX7PiEMIx2nqkY9dcEiDnLGiD1K4MXjtmJqI7jJojqYCdmCm1hd1UxE9nIkTwBq9/6WDqexaFAa4OI6sKqD2cl5sV58FU7GeG8zDtgC0nv94dn91WTYiF7/WxafKb/az0S0Vsk16SUcErMyBNsAqQkpcuY6otkpqXD5lnLGHZ36A1MU4lriRVoY2SaddpgOBHmf3Ev97LifpnGXsEN3VrUBAvhdNqPWyyRELpEEwxa3bmiKtn/pvg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=docHcXUwyqUVR6hvcRJjWqpxghBctU9ZItOJHqA03ZA=;
+ b=CZ+IRXzabgjoKdiizcacu+lh+rU/20dzoFAPn3vLFSEqbcNbf9DuCGZjm1ZQAcBGq1n8L981LguX2EEXJc4+CEYn8i9EPXy5DfGdwu3TFkXgOl+hnFcuUv0YOwWw1snZwPT036/KpL8FsKFAgqrM6+cUjah/aE9NETnwIe2Higw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
+ by TYCPR01MB6736.jpnprd01.prod.outlook.com (2603:1096:400:9f::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 13:33:08 +0000
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 13:33:08 +0000
+Date: Thu, 27 Aug 2026 15:32:51 +0200
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: Biju <biju.das.au@gmail.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v3 11/13] arm64: dts: renesas: r9a08g046: Add LVDS node
+Message-ID: <apA8gw3o27nJQTHF@tom-desktop>
+References: <20260826174854.199139-1-biju.das.jz@bp.renesas.com>
+ <20260826174854.199139-12-biju.das.jz@bp.renesas.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826174854.199139-12-biju.das.jz@bp.renesas.com>
+X-ClientProxiedBy: FR4P281CA0211.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e4::7) To TYRPR01MB13588.jpnprd01.prod.outlook.com
+ (2603:1096:405:18d::7)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|TYCPR01MB6736:EE_
+X-MS-Office365-Filtering-Correlation-Id: ce9963cc-45e0-44a8-031c-08df043fbb2d
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|52116014|10067099003|22082099003|18002099003|11063799006|4143699003|56012099006|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	3CI2tRhlhlBG21TPcU8JhM3hTbfdpqiVOMTRCxTYim1FqBQRdrVtBHb8+ra5gy5fEPrHWE3A26ZQN41FgEghvxawjHquyTQgbmeeCNJzcC6V8xeIH4VZ6lI9ghoo5c9VdhBtCdK4QOjzEIJuWi9Hurk2h/1ZCz7t9g/5uo/aLummS2RTM5oN5oPrQIfS5nSpkWZkZY1KgjhqoP/dZoeurNjYAZOaveLrMTM5r0VHCenTF86BB7LwzZZind+2+n2RXOkISXYxmb0o7QFvAWxFiyXURmX4dYKZL/M+3/FMsY20Ytt7dSLQ00mx9fjscso3bcZsSF4ifXjkqYSsLPeNX+KlxlL6HFhdMI0ThZ6s6bReCVXMsoGAOVIO27I3Xj+/BWmgKeUA0I1yV5dvw3HUDiOp1kX98GC1u5Ls75MhggrzgEkxoopm5sw5tfkNLF7XYSv50q12L7n363L/5TINOh7uztRugi6tq/17WTQLCg9YRHfOSd3Z3G6Y24kbsgrUfQf+B/X7ZaGP2AguAUDICHgth6qeKsc2yX3kho4rq4vQSkmZyhbCCHAxWDsOPK6HcXAt9ovxaY5gv7p3vLYrotdw3NpQhjV1wnGGHHDjOOuFaCZ3YuFJMQC9WDU1TKi8Qv9/FxlXI13jeAtbvnWPFoB2nQarGWpbzydoDFkBPdWqFkepxXJRtijp2uu/57q0w9FwdQY6+3zfSmf1hbMrYLFaObD1lJ3NF6twytSTDkY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB13588.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(52116014)(10067099003)(22082099003)(18002099003)(11063799006)(4143699003)(56012099006)(38350700014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?AkWnctTCo9biNrWW1FLqDHfrco8ToBfIQsnyXsqspl8t0l9qTn+GWCym8ni6?=
+ =?us-ascii?Q?TY5Wjt8EA43GcdT6zptBQXZzHM7KXeCjitSPrVuBMAbOxVldy8JM4odlbZy0?=
+ =?us-ascii?Q?j6WktkbtESsdp1HnMmGGD7jMwXGIuwttJhEsSoiVqBmQlRZGLbNGMHsE9euD?=
+ =?us-ascii?Q?wq6C9hTiCHA8bnPXZtf1tfkbi590DC65XTY3cHE0HtaxTwtGH1mwhFnJlM4y?=
+ =?us-ascii?Q?6sfkUYO4bWC5XmPo0vrvUy8DsAWL1MfAHiBACLICTKw0ZFuuUIh4G2dSblmL?=
+ =?us-ascii?Q?9ckrm5dqlZY8pA3p+9yZrdfv0YuxCrQ2/VsqOWuacxqMYk8aPrR3yoFF8SMP?=
+ =?us-ascii?Q?gqYFkYJTCyA65VhH0M8i0XY0+/GUE++QjRMMlyRL4CLZ/nKwhx/7hSwxzyUW?=
+ =?us-ascii?Q?CJ7JRnCcMnDutgSzAgf/1spnTgbCkryBNJ7YDpBYbJppWgx+CISERU159ZY1?=
+ =?us-ascii?Q?YPbpBn4wQFinsMC1zYCkey+7qOkwwmdQFpHmx8nMGDXD4yrV2MB6v3l8KQlt?=
+ =?us-ascii?Q?9ifGlv0hwiFLIwaY6jtc9QWtGoku7J3z2ldtwAWbveKfopyVWifzTse+ofKc?=
+ =?us-ascii?Q?eTR7iivNL1jFwrqTQsz8inU6uiVumRwH+TpJoFgL2sLmf3Fd+V5b1Ypz1uS+?=
+ =?us-ascii?Q?D0teALUHqRHjQ1KxEJ27/PLQ8zmcY56ws1Chd+hieYvyYS+N9r4QOHwZavZa?=
+ =?us-ascii?Q?HyhzxrS3tZcQxwM8qnQXcB/JUcBSiygnlpfuUo1gKBm9aE5LjoVL8lqB5yYK?=
+ =?us-ascii?Q?uifvFxa4N2uuCNKeRNUg8NJrSQAETiN8ndYmIgUQXwgo7SPN/vW6Ude8yJzi?=
+ =?us-ascii?Q?YftTCmsJ9RkSR12O+Ks+NO+BSlOMk5VnvW5uWljpvP1PJpeEknEZq0Ed/8LO?=
+ =?us-ascii?Q?YGximWFmonUXpS2aTaYz3N9hrAbhjEOINGPAuHLGdg6LnPQHm6+rfkEX5fve?=
+ =?us-ascii?Q?uRfx2opCFzj8aA+lmnooUchNh7SCcbuyX8xqIES5yF4jICELNXCtFKzz98hQ?=
+ =?us-ascii?Q?RL2YflG0cM/f4xn6YrwUJ/TsGkFPSTblTEUBoYhCcZjcGLQQxv+8xrvDus7x?=
+ =?us-ascii?Q?3eMjt5eBOJnxLvCgRSPkdhXS6OM7jzKs/YSsZGQzf+hpv+3OzoAQCiqExpNV?=
+ =?us-ascii?Q?jQaqmjH9Wl5FMex2HcBluQjpqQfuBUStwH/+oYDOlCgzNprLvJy42HZe5BgZ?=
+ =?us-ascii?Q?GbT5yzZaUd0dItmtXA/GJpbOBdmwmten94pnthaO92wkAobZINjhE+K3432c?=
+ =?us-ascii?Q?9UN3kSeZNMEzw/ksF+svBJAJCrD1F8r3T6UwiUWfjEImwVmxOPPuqRewxxtZ?=
+ =?us-ascii?Q?mORCclufp8ptQSLQU+gluYzT8Lqmy5aHIwcB44o73m6kL+bVQoHWVihmjjC3?=
+ =?us-ascii?Q?3z7TMODmclH24JT7kausg3LVm0mAV3zJbVLJJ59QMiWxX5hgogC3RgKsM2lX?=
+ =?us-ascii?Q?QiSV3E5ud2vsSin+tili5oOsOPvuEa319CIG2hwdQVf2gXRyKkU1MQYeDd0z?=
+ =?us-ascii?Q?/ewWVZd48iSZO29yEGr+Ihv5KqfDUQSS80IkhlqBUbanrKTt9+/T+RWTPiiY?=
+ =?us-ascii?Q?dRCEbFG8LzRQjGkx28S28Y0iFGBTa06/najkM06LKvufy2kvQPTXr5RhQNj5?=
+ =?us-ascii?Q?7bjtUo+s4nyDCxSZV5uecndhwP9b5/YcfmDIVhLajI+dH06z9TB7JBZcNsoI?=
+ =?us-ascii?Q?l0Q9PZ6OnnBlfpfLGibH8SYMGO0EQFgwqM/JknKyLEUJ7/NLO3HDP2IwQBqS?=
+ =?us-ascii?Q?t/1zVZPjS+e1XSAllsKgxnGaC1LU17UXaETADLIziHtOBtzOZyFH?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ce9963cc-45e0-44a8-031c-08df043fbb2d
+X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 13:33:08.4116
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +aGXknQC2zcGroQpKLl6Qb6wfQjSOjeruvjQGsa8lB0Sh4POKDrRPUKBahr3sXzQ0LoDQiVesmsABqnQT+nAHPebu30CVnkMAtO07iSYbY4pMCiWQ5L4DS5T6fxjbe5k
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB6736
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
-s) to consider:
-- [High] Off-by-one error in array bounds check allows out-of-bounds array =
-write.
-- [High] Incorrect device node is used to fetch the per-port serdes PHY.
-- [High] Missing per-port register offset in `an7583_usb_phy_u2_set_mode` c=
-auses cross-instance state corruption.
-- [Medium] Uninitialized variable `ret` is used as an error return code in =
-`an7583_usb_phy_parse_ports`.
-- [Medium] `fm_out` may be evaluated uninitialized if the regmap polling ma=
-cro fails.
-- [Medium] The PHY initialization error codes for USB3 and PCIe are silentl=
-y ignored.
-- [Medium] Nested acquisition of same-class PHY mutex triggers lockdep warn=
-ing.
-- [Medium] Excessive busy-waiting using mdelay() in PHY initialization loop=
-s.
-- [Low] Missing `fallthrough;` annotation in switch statements triggers imp=
-licit fallthrough warnings.
---
+On Wed, Aug 26, 2026 at 06:48:45PM +0100, Biju wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+> 
+> Add LVDS node to RZ/G3L SoC DTSI.
+>
 
-commit e08eb2476fb864bd66e0895961c95bf0fbc89352
-Author: Christian Marangi <ansuelsmth@gmail.com>
+Reviewed-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 
-phy: airoha: Add support for Airoha AN7583 USB PHY
-
-Adds support for USB PHY on Airoha AN7583 SoC, supporting two U2 ports and
-one U3 port via a single USB PHY instance, plus a second instance for
-PCIe Gen2.
-
-> diff --git a/drivers/phy/airoha/phy-an7583-usb.c b/drivers/phy/airoha/phy=
--an7583-usb.c
-> new file mode 100644
-> index 0000000000000..33915c9f4a0de
-> --- /dev/null
-> +++ b/drivers/phy/airoha/phy-an7583-usb.c
-> @@ -280,18 +280,18 @@ static int an7583_usb_phy_u2_slew_rate_calibration(=
-struct phy *phy)
->  	/* Timeout can happen and we will apply workaround at the end */
->  	regmap_read_poll_timeout(priv->regs[AIROHA_USB_PHY_PHY],
->  				 AIROHA_USB_PHY_FMMONR0 + offset,
->  				 fm_out, fm_out, AIROHA_USB_PHY_FREQDET_SLEEP,
->  				 AIROHA_USB_PHY_FREQDET_TIMEOUT);
-> =20
->  	/* Disable Frequency meter */
->  	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
->  			  AIROHA_USB_PHY_FMCR0 + offset,
->  			  AIROHA_USB_PHY_FREQDET_EN);
-> =20
->  	/* Disable Free run clock */
->  	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
->  			  AIROHA_USB_PHY_FMMONR1 + offset,
->  			  AIROHA_USB_PHY_FRCK_EN);
-> =20
->  	/* Disable HS TX SR calibration */
->  	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
->  			  AIROHA_USB_PHY_USBPHYACR5 + offset,
->  			  AIROHA_USB_PHY_USB20_HSTX_SRCAL_EN);
-> =20
->  	usleep_range(1000, 1500);
-> =20
->  	/* Frequency was not detected, use default SR calibration value */
->  	if (!fm_out) {
-
-[Severity: Medium]
-If the regmap read returns an error here in
-an7583_usb_phy_u2_slew_rate_calibration(), regmap_read_poll_timeout()
-will terminate early without initializing fm_out.
-
-Will this cause the subsequent check if (!fm_out) to evaluate garbage data?
-
-[ ... ]
-
-> @@ -340,11 +340,11 @@ static bool an7583_usb_phy_u3_kband_is_calibrated(s=
-truct an7583_usb_phy_priv *pr
->  	/* Read KBand */
->  	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_ANA],
->  			  AIROHA_USB_ANA_TDC_FT_CK_EN,
->  			  AIROHA_USB_ANA_PLL_DEBUG_SEL);
-> =20
->  	mdelay(5);
-
-[Severity: Medium]
-Can this delay in an7583_usb_phy_u3_kband_is_calibrated() cause excessive
-CPU stalling?
-
-It uses mdelay(5) twice per loop, and is called up to 50 times in
-an7583_usb_phy_u3_init(). Because mdelay spins the CPU instead of sleeping,
-this could freeze the CPU for up to 500ms during hardware initialization
-failures.
-
-Should this be using usleep_range() or msleep() instead?
-
-[ ... ]
-
-> @@ -1020,16 +1020,16 @@ static int an7583_usb_phy_init(struct phy *phy)
->  	struct an7583_usb_phy_instance *instance =3D phy_get_drvdata(phy);
-> =20
->  	switch (instance->type) {
->  	case PHY_TYPE_USB2:
->  		an7583_usb_phy_u2_init(phy);
->  		break;
->  	case PHY_TYPE_USB3:
->  		if (phy_get_mode(phy) =3D=3D PHY_MODE_ETHERNET)
->  			return 0;
-> =20
->  		an7583_usb_phy_u3_init(phy);
->  		break;
->  	case PHY_TYPE_PCIE:
->  		if (phy_get_mode(phy) =3D=3D PHY_MODE_ETHERNET)
->  			return 0;
-> =20
->  		an7583_usb_phy_pcie_init(phy);
-
-[Severity: Medium]
-Both an7583_usb_phy_u3_init() and an7583_usb_phy_pcie_init() return an
-error code (-EINVAL) when calibration fails, but those values are ignored
-here.
-
-Does this falsely notify the PHY framework of a successful initialization?
-
->  		break;
->  	default:
->  		return -EINVAL;
->  	}
-
-[ ... ]
-
-> @@ -1176,8 +1176,8 @@ static int an7583_usb_phy_u2_set_mode(struct phy *p=
-hy, enum phy_mode mode)
->  	case PHY_MODE_USB_HOST:
->  		val |=3D AIROHA_USB_PHY_FORCE_IDDIG;
->  		break;
->  	case PHY_MODE_USB_OTG:
->  		break;
->  	default:
->  		return 0;
->  	}
-> =20
->  	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PHY], AIROHA_USB_PHY_U2PHY=
-DTM1,
-
-[Severity: High]
-Does this code in an7583_usb_phy_u2_set_mode() write to the base register
-space of port 0 instead of the correct port?
-
-Unlike other functions (e.g., power_on or init), this directly accesses
-AIROHA_USB_PHY_U2PHYDTM1 without adding instance->offset. If mode
-configuration is applied to a secondary port, it seems like this will corru=
-pt
-port 0's state.
-
->  			   AIROHA_USB_PHY_FORCE_IDDIG |
->  			   AIROHA_USB_PHY_IDDIG, val);
-
-[ ... ]
-
-> @@ -1193,12 +1193,12 @@ static int an7583_usb_phy_u3_set_mode(struct phy =
-*phy, enum phy_mode mode,
->  				      int submode)
->  {
->  	struct an7583_usb_phy_instance *instance =3D phy_get_drvdata(phy);
->  	int ret;
-> =20
->  	switch (mode) {
->  	case PHY_MODE_ETHERNET:
->  		if (submode !=3D PHY_INTERFACE_MODE_SGMII &&
->  		    submode !=3D PHY_INTERFACE_MODE_1000BASEX &&
->  		    submode !=3D PHY_INTERFACE_MODE_2500BASEX)
->  			return -EOPNOTSUPP;
->  	case PHY_MODE_USB_DEVICE_SS:
-
-[Severity: Low]
-Is this an intentional fallthrough?
-
-If so, this switch block needs a fallthrough annotation to prevent compiler
-warnings.
-
->  		break;
->  	default:
->  		return -EOPNOTSUPP;
->  	}
-> =20
->  	ret =3D phy_set_mode_ext(instance->serdes_phy, mode, submode);
-
-[Severity: Medium]
-Will this nested call to phy_set_mode_ext() in an7583_usb_phy_u3_set_mode()
-trigger a lockdep warning?
-
-The core PHY framework invokes the driver's set_mode callback with the
-primary phy->mutex held. Calling phy_set_mode_ext() on the secondary PHY
-attempts to acquire the secondary PHY's mutex, which belongs to the same
-lock class.
-
-[ ... ]
-
-> @@ -1215,12 +1215,12 @@ static int an7583_usb_phy_pcie_set_mode(struct ph=
-y *phy, enum phy_mode mode,
->  					int submode)
->  {
->  	struct an7583_usb_phy_instance *instance =3D phy_get_drvdata(phy);
->  	int ret;
-> =20
->  	switch (mode) {
->  	case PHY_MODE_ETHERNET:
->  		if (submode !=3D PHY_INTERFACE_MODE_SGMII &&
->  		    submode !=3D PHY_INTERFACE_MODE_1000BASEX &&
->  		    submode !=3D PHY_INTERFACE_MODE_2500BASEX)
->  			return -EOPNOTSUPP;
->  	case PHY_MODE_PCIE:
-
-[Severity: Low]
-Is this an intentional fallthrough?
-
-If so, this switch block needs a fallthrough annotation to prevent compiler
-warnings.
-
->  		break;
->  	default:
->  		return -EOPNOTSUPP;
->  	}
-> =20
->  	ret =3D phy_set_mode_ext(instance->serdes_phy, mode, submode);
-
-[Severity: Medium]
-Will this nested call to phy_set_mode_ext() in an7583_usb_phy_pcie_set_mode=
-()
-trigger a lockdep warning?
-
-The core PHY framework invokes the driver's set_mode callback with the
-primary phy->mutex held. Calling phy_set_mode_ext() on the secondary PHY
-attempts to acquire the secondary PHY's mutex, which belongs to the same
-lock class.
-
-[ ... ]
-
-> @@ -1297,29 +1297,29 @@ static int an7583_usb_phy_parse_ports(struct devi=
-ce *dev,
->  				      struct an7583_usb_phy_priv *priv,
->  				      int index, struct device_node *subnode)
->  {
->  	const struct an7583_usb_phy_match_data *data;
->  	struct an7583_usb_phy_instance  *instance;
->  	struct phy *phy;
->  	int ret;
-> =20
->  	data =3D of_device_get_match_data(dev);
-> =20
->  	if (index > data->max_instance)
-
-[Severity: High]
-Should this bounds check use >=3D instead of > in an7583_usb_phy_parse_port=
-s()?
-
-The max_instance is the size of the array (3 for USB), so allowing index to
-equal max_instance will cause an out-of-bounds write when priv->phys[index]
-is assigned later.
-
->  		return -EINVAL;
-> =20
->  	if (!of_device_is_available(subnode))
->  		return 0;
-> =20
->  	instance =3D devm_kzalloc(dev, sizeof(*instance), GFP_KERNEL);
->  	if (!instance)
->  		return -ENOMEM;
-> =20
->  	instance->serdes_phy =3D devm_phy_optional_get(dev, NULL);
-
-[Severity: High]
-Does devm_phy_optional_get() fetch the per-port serdes PHY from the parent
-device node rather than the specific port subnode?
-
-Because it uses dev and not subnode, it appears all subnodes will resolve to
-the exact same PHY instance, which would misclassify every port as
-PHY_TYPE_USB3 and break USB2 port initialization.
-
-Should this use devm_of_phy_optional_get(dev, subnode, NULL)?
-
->  	if (IS_ERR(instance->serdes_phy))
->  		return dev_err_probe(dev, PTR_ERR(instance->serdes_phy), "error on ser=
-des phy for USB 3.0\n");
-> =20
->  	if (!instance->serdes_phy &&
->  	    !of_property_present(subnode, "airoha,usb2-monitor-clk-sel"))
->  		return dev_err_probe(dev, ret, "monitor clock selection or serdes PHY =
-is mandatory for USB PHY\n");
-
-[Severity: Medium]
-If the subnode lacks both the serdes_phy and the airoha,usb2-monitor-clk-sel
-properties, the error path returns the uninitialized ret variable.
-
-Can this return a garbage error code (or 0) leading to silent initialization
-failures?
-
-> =20
->  	if (instance->serdes_phy) {
->  		instance->type =3D PHY_TYPE_USB3;
->  	} else {
->  		ret =3D of_property_read_u32(subnode, "airoha,usb2-monitor-clk-sel",
->  					   &instance->monclk_sel);
->  		if (ret)
->  			return dev_err_probe(dev, ret, "failed to parse Monitor clock selecti=
-on\n");
-> =20
->  		ret =3D of_property_read_u32(subnode, "reg",
->  					   &instance->offset);
->  		if (ret)
->  			return dev_err_probe(dev, ret, "missing reg for U2 PHY\n");
-> =20
->  		instance->type =3D PHY_TYPE_USB2;
->  	}
-> =20
->  	phy =3D devm_phy_create(dev, subnode, &airoha_phy);
->  	if (IS_ERR(phy))
->  		return dev_err_probe(dev, PTR_ERR(phy), "failed to create phy\n");
-> =20
->  	priv->phys[index] =3D phy;
-
-[ ... ]
-
-> @@ -1341,12 +1341,12 @@ static int airoha_pcie_phy_parse_ports(struct dev=
-ice *dev,
->  				       struct an7583_usb_phy_priv *priv,
->  				       int index, struct device_node *subnode)
->  {
->  	const struct an7583_usb_phy_match_data *data;
->  	struct an7583_usb_phy_instance  *instance;
->  	struct phy *phy;
-> =20
->  	data =3D of_device_get_match_data(dev);
-> =20
->  	if (index > data->max_instance)
-
-[Severity: High]
-Should this bounds check use >=3D instead of > in airoha_pcie_phy_parse_por=
-ts()?
-
-The max_instance is the size of the array (1 for PCIe), so allowing index to
-equal max_instance will cause an out-of-bounds write when priv->phys[index]
-is assigned later.
-
->  		return -EINVAL;
-> =20
->  	if (!of_device_is_available(subnode))
->  		return 0;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260827131551.2672=
-5-1-ansuelsmth@gmail.com?part=3D3
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+> ---
+> v2->v3:
+>  * No change.
+> v1->v2:
+>  * No change.
+> ---
+>  arch/arm64/boot/dts/renesas/r9a08g046.dtsi | 37 ++++++++++++++++++++++
+>  1 file changed, 37 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
+> index cc8bfb24da87..f652ad3f1d1a 100644
+> --- a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
+> @@ -794,6 +794,43 @@ port@1 {
+>  
+>  				port@2 {
+>  					reg = <2>;
+> +					du_out_lvds: endpoint {
+> +						remote-endpoint = <&lvds_in>;
+> +					};
+> +				};
+> +			};
+> +		};
+> +
+> +		lvds: lvds@108a0000 {
+> +			compatible = "renesas,r9a08g046-lvds";
+> +			reg = <0 0x108a0000 0 0x10000>;
+> +			clocks = <&cpg CPG_MOD R9A08G046_MIPI_DSI_PCLK>,
+> +				 <&cpg CPG_MOD R9A08G046_LVDS_PLLCLK>,
+> +				 <&cpg CPG_MOD R9A08G046_LVDS_CLK_DOT0>;
+> +			clock-names = "pclk", "phyclk", "dotclk";
+> +			resets = <&cpg R9A08G046_LVDS_RESET_N>,
+> +				 <&cpg R9A08G046_MIPI_DSI_PRESET_N>,
+> +				 <&cpg R9A08G046_MIPI_DSI_CMN_RSTB>,
+> +				 <&cpg R9A08G046_MIPI_DSI_ARESET_N>;
+> +			reset-names = "lvdrst", "prst", "rst", "arst";
+> +			power-domains = <&cpg>;
+> +			status = "disabled";
+> +
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				port@0 {
+> +					reg = <0>;
+> +					lvds_in: endpoint {
+> +						remote-endpoint = <&du_out_lvds>;
+> +					};
+> +				};
+> +
+> +				port@1 {
+> +					reg = <1>;
+> +					lvds_out: endpoint {
+> +					};
+>  				};
+>  			};
+>  		};
+> -- 
+> 2.43.0
+> 
