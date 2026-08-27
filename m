@@ -1,118 +1,184 @@
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C63A41D21A
-	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 17:12:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91CE4448393;
+	Thu, 27 Aug 2026 17:14:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787850779; cv=none; b=Vt9laMrO/Etx5YIs7VhsonTiaUYW4bs4ofKWB+HqqQqZffBrnoDaqIYY/wY2FJzNcgz0dgx7vxE0VhY4sSBX1ZV/uKYZLO7DzScZiinP7cM6SmxX+CRQaBchWy0T5enBn7B01VXRWQBYFBn1CrPf9haRiJ5DPf3wl7uNo3wMCYQ=
+	t=1787850868; cv=none; b=WNy3UqV3Gg9Fy77+7f4Qr2x9lnEOvaxGmKgFN3XJ6UoxdLVg11LYPsFNcBcwW9C9KPMZvPGDSzti+WPqlwGLA+y0l61/xaRpo5i3EU1jerDMr9uPmDjWtzcUNT/ueaOx0IygumuBU3Hfr7lM7tIV/XendpFKBjShSpxLzJLwOT4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787850779; c=relaxed/simple;
-	bh=G05FvWZ3ROG79TGw2T2POGYVVd9pzh+yGgHjP3yfwrY=;
+	s=arc-20240116; t=1787850868; c=relaxed/simple;
+	bh=98EnpPCM7ehXne7kJF3UPBdleYIe55GtAC+8kpokhpE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Mv+rge3wKb/reQMNDlzRnu2S83kRzQEdKn+QI55yDn8fFdF/fdkA7MkKnPNn8Gn4riFKAiGcxRlTSy0SzXfeFFYooYHfnzFjt4Lyrnn00NHyJVaArk2P7tzRtNEfA+GSs2/p1wkAwKJWERPPxZR7ca1//vjPYtR7G/nH+nq1c1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us; spf=none smtp.mailfrom=resnulli.us; dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b=d8kjHvLI; arc=none smtp.client-ip=209.85.208.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=resnulli.us
+	 Content-Type:Content-Disposition:In-Reply-To; b=HpRNdcJyF5uVmJDQdQqaxn7LFuMcWTY2tkfa7oShKqC3RpjBJ/UQz2aR5c2t3cUr6a3ZEL5unMgAVZgIUWBxRQ/dyBDACdy8ZPM90M5IOgv1foENy4DVCYcccOlfruT51k0izqHmHqfyZsoj2JbYCy3ErRb8HOzFwqfEdH0K6tU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JCSVox6G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b="d8kjHvLI"
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-39da69c5ba3so604731fa.1
-        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 10:12:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=resnulli-us.20251104.gappssmtp.com; s=20251104; t=1787850773; x=1788455573; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=G05FvWZ3ROG79TGw2T2POGYVVd9pzh+yGgHjP3yfwrY=;
-        b=d8kjHvLI2KlB16hQnNc8jmPycUPw0Jvs4sFNtxiCtp4fnRvNJlZK68xhLGocVJqDkC
-         u2gfv93duOM+0d6lYP+ID4c3CzXVUXGHFf22dlCUAomy5f+kdGY8RC9hhN+AuzInw+Uv
-         Yj3i2pDHVv8W3Zm9WMzzZoeU680WM76SaacajWw2fpszXddtfOZunQhsq7f5v/Gwz9HV
-         CIliovyz2ZJjEZsm0/mRM1MHOrBQM5Khc9x0mVZZ28qdWylY7G4R1jMrOTRxQvBFwcXr
-         wtENCFpjBPX+QfNAU350zl8wCc32TPbPXF51W+p2LZaTms+VuPmi+LhN4ZQRt2sactnA
-         UluQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787850773; x=1788455573;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=G05FvWZ3ROG79TGw2T2POGYVVd9pzh+yGgHjP3yfwrY=;
-        b=omYB5YKUPp1syK9EKmm/b9l2uWoWvuqt+PTusX9zOPIlffM1KTeKZ37IzaEKX40hCS
-         a0luoXdWeuk03JT1OKHPjxUoJnGjPP1fjJ5cG0eQ6VYUk5GaGJEhpGFobkbpcoMpVhE1
-         RqrVUjAcQu3am69k1PTz2Ek2Tduk4NjeNEQLw8a5cB+9+G2cRH3BJg94Oj0OGJ0PUgAV
-         16Rcn68QvOhARa0/eWKEMINmYHR+jJIwXHwXV45BFT7jYquMIJmrEsXLmDbfjwNMkqZ8
-         arhax3K7S4TR9LoRpcS1iR/wV5jjE9+cAyWoGZNQoUYND9B9xaphr6EMRi0yR24ZKvb7
-         KVJQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqjQAI6Rl0XukUcWlTbQYX49a7Ou5LmGO4oDbO3f8XmrAfdyRjm0QBvbOV+oAfRmWGY/WDrqv453SeI@vger.kernel.org
-X-Gm-Message-State: AFuF++nxlqs1eKPYxa0/EpXUOIXL6Tl8lhxN5OzJH2FOeL/GtJNUzeQ5
-	1PGabsm/QAwUKbumAr2Kx73CCUu8d6fylYz9rP8jBYaQa5U7jS/cE611aG75YFTvsAM=
-X-Gm-Gg: AR+sD10LkHmYEPbfogfCNvIwCEs3E/dz4EgphxYanThG4V7n9K8rN80zNRbaf9hxVhm
-	41ZZ44yEHf+HLZXON8RAxLWZTWcMjHDoW57Zij+JM46QqFUD1InNa2djU7E0q9qUmHDLaNq/UmR
-	grfefw+wIscXxdZvKA/V6S1YGKXBvPe0kQIIt0XftmyvTRHfwjz72j7P6Ofy1J1fY7qhYgZhefo
-	NmLbXz+bk/BHfcVVzb3JTs3c/1poAxFl+WPY0+4cBWGCxNo4PSIScZo4vdYvtjVlHLeWbNpvg0C
-	RgBDji0G2tH8mY8+9mvRtH3Ty/toBa1tBZF73LT86lA5hK2FdZbnb7099FceUL9Byaa4AgVEjm/
-	+t8ktsBZh2XX8I4LwQfIV7yseUXd78bZpGG8rPH7Fy8jum7wBv01TVoafuYBfEQ+mNDt8VnM6+t
-	bz8+HDPxdNNIIx8p/OAEEEQz1wDCm7LzMnFFRvnWvMXSUYUdEnL7kEywEq4BCP1FzFUCWbEPm6r
-	nqb6odHlw==
-X-Received: by 2002:a05:651c:30ca:b0:3a1:5172:c287 with SMTP id 38308e7fff4ca-3a1fd4a1fb5mr44250431fa.5.1787850772908;
-        Thu, 27 Aug 2026 10:12:52 -0700 (PDT)
-Received: from localhost ([140.209.217.211])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a26be2acfesm6108311fa.21.2026.08.27.10.12.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 10:12:52 -0700 (PDT)
-Date: Thu, 27 Aug 2026 19:12:48 +0200
-From: Jiri Pirko <jiri@resnulli.us>
-To: Ali Rouhi <arouhi@sitime.com>
-Cc: "vadim.fedorenko@linux.dev" <vadim.fedorenko@linux.dev>, 
-	"ivecera@redhat.com" <ivecera@redhat.com>, "kuba@kernel.org" <kuba@kernel.org>, 
-	"arkadiusz.kubalewski@intel.com" <arkadiusz.kubalewski@intel.com>, "robh@kernel.org" <robh@kernel.org>, 
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>, 
-	"cjubran@nvidia.com" <cjubran@nvidia.com>, 
-	"Oleg.Zadorozhnyi@devoxsoftware.com" <Oleg.Zadorozhnyi@devoxsoftware.com>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net-next v7 3/3] dpll: add SiTime SiT9531x DPLL clock
- driver
-Message-ID: <apBv_Kik3Mak3GzL@FV6GYCPJ69>
-References: <20260815221919.64226-1-arouhi@sitime.com>
- <20260815221919.64226-4-arouhi@sitime.com>
- <6a529684-bd6a-4187-9ed9-bb40f4b98065@linux.dev>
- <ao1Zh0uHO0mWj-2t@FV6GYCPJ69>
- <20260825215523.84195-1-arouhi@sitime.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JCSVox6G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B6881F000E9;
+	Thu, 27 Aug 2026 17:14:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787850867;
+	bh=4lm/k56nr7IHGEr+v1yjkGgSAWBS975WgKpRUfju9b8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JCSVox6GL19a1MTaGMX1VoBUpxeEk51N0QWkSBIaHhujZm9iUPhOUm9Xgpbkd7JZE
+	 a3pL4vSkeI8SVuclpzWy452xIPJC/6fz4FQzcBhyDDfM1pIhBwFNAotSj2W5B2z7Qp
+	 S82CaLweYkZnhheouvTqSWOdOBcKQ88ir5fZuxzmRiNqhPXQ6OeuVCROsQAy85nIQG
+	 iwqGqpl61SDgQjqyiDF6nhCoNkPec6JITmHYh039Xu8xm/8q0zJV2RxsAx1BZS/BYy
+	 /eB/d9RgLwScRO9DvSiaNXdzYOIKF+nKaXhAa5x91SDuar5TmnX4JABSlzXWNypJWb
+	 ADT6YNf+Pwkcw==
+Date: Thu, 27 Aug 2026 18:14:21 +0100
+From: Conor Dooley <conor@kernel.org>
+To: "Ousherovitch, Alex" <aousherovitch@rambus.com>
+Cc: Albert Ou <aou@eecs.berkeley.edu>, Conor Dooley <conor+dt@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	"Krishnamoorthy, Saravanakrishnan" <skrishnamoorthy@rambus.com>,
+	Shuah Khan <shuah@kernel.org>, Alexandre Ghiti <alex@ghiti.fr>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"Wittenauer, Joel" <Joel.Wittenauer@cryptography.com>,
+	"linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
+	"linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	"Nguyen, Thi" <thin@rambus.com>
+Subject: Re: [PATCH v4 01/19] dt-bindings: crypto: add Rambus CryptoManager
+ Hub
+Message-ID: <20260827-crust-giddy-6888a52871a5@spud>
+References: <20260825221539.255951-1-aousherovitch@rambus.com>
+ <20260825221539.255951-2-aousherovitch@rambus.com>
+ <20260826-unwritten-marshland-47cdf3c17cad@spud>
+ <SA3PR04MB9001B48FBE7B7C3EB81C5338D7AD2@SA3PR04MB9001.namprd04.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fecVinCGlQpVGphf"
+Content-Disposition: inline
+In-Reply-To: <SA3PR04MB9001B48FBE7B7C3EB81C5338D7AD2@SA3PR04MB9001.namprd04.prod.outlook.com>
+
+--fecVinCGlQpVGphf
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260825215523.84195-1-arouhi@sitime.com>
+Content-Transfer-Encoding: quoted-printable
 
-Tue, Aug 25, 2026 at 11:55:24PM +0200, arouhi@sitime.com wrote:
->On 25/08/2026 11:00, Jiri Pirko wrote:
->> It's a new driver. Linear review in one hunk. I think it is better that
->> way as you see the whole thing right away.
->
->Jiri, Vadim, Ivan - the reviews point in opposite directions, so I would
->rather ask than guess.
->
->Vadim asked for a split. Ivan agreed with him, suggested low-level ops,
->then core ops, then features one by one, and pointed at the zl3073x git
->history as the example to follow. I agreed to that, and the plan for v8
->was 13 patches on that shape, each building and working on its own, with
->the end state identical to v7. Jiri would rather it stayed one patch.
+On Thu, Aug 27, 2026 at 01:39:35AM +0000, Ousherovitch, Alex wrote:
+> On Wed, Aug 26, 2026 at 06:02:16PM +0100, Conor Dooley wrote:
+> > On Tue, Aug 25, 2026 at 03:15:20PM -0700, Alex Ousherovitch wrote:
+> > > +      command ABI).  A specific SoC integration should list its own
+> > > +      "<vendor>,<soc>-cmh" compatible first with "rambus,cmh-v1030" =
+as a
+> > > +      fallback; that extended form will be added when such a platfor=
+m is
+> > > +      upstreamed.
+> >
+> > This commentary should just not be here.
+> > Instead, do what's been done in sifive,clint.yaml for the clint2.
+>=20
+> Will do -- I'll drop the prose and model the compatible on sifive,clint2
+> so the schema itself requires an SoC-specific compatible ahead of the IP
+> fallback:
+>=20
+>     compatible:
+>       items:
+>         - {}
+>         - const: rambus,cmh-v1030
+>=20
+> Since that makes the two-item form the only valid one, I'll also move the
+> binding example (and our test DTs) to it, using a placeholder SoC-specific
+> compatible under the now-registered rambus prefix, e.g.
+>=20
+>     compatible =3D "rambus,<soc>-cmh", "rambus,cmh-v1030";
+>=20
+> and swap in the real "<vendor>,<soc>-cmh" string once the first integrati=
+ng
+> platform is upstreamed.
 
-I don't care that much.
+With the correct syntax, which I think the sifive example I copied from
+doesn't have, but
+Documentation/devicetree/bindings/crypto/inside-secure,safexcel-eip93.yaml
+does, fake compatibles won't be permitted (and we would probably object
+to seeing them too). What we want is the binding to force people to use
+a soc-specific one to pass validation. Unfortunately this does mean you
+can't have an example because it won't pass the validation, which is
+annoying!
 
->
->The breakdown is in my reply of 21 August, in case it did not reach your
->mailbox:
->
->https://lore.kernel.org/netdev/20260821010556.95192-1-arouhi@sitime.com/
->
->Tell me which you would rather have and I will do that. My default is to
->go ahead with the split.
->
->Thanks,
->Ali
->This email message and any attachments are for the sole use of the intended recipient and contain proprietary and/or confidential information that may be privileged or otherwise protected from disclosure. Any unauthorized review, use, disclosure, copying or distribution of the information included in this message and any attachment is prohibited and may be unlawful. If you are not an intended recipient, please contact the sender by reply email and permanently delete and destroy the original message and any attachments, and any printouts or copies of the message and attachments to the original message. Thank you.
+>=20
+> > > +      rambus,cores:
+> > > +        $ref: /schemas/types.yaml#/definitions/uint32-array
+> > > +        items:
+> > > +          enum: [0x02, 0x03, 0x04, 0x05, 0x08, 0x09, 0x0a, 0x18]
+> > [...]
+> >
+> > You could just make this a string array, and then you'd not need this
+> > mapping of unintelligible hex values. Of course then your driver has to
+> > do it, but I'd rather see understandable (and portable, since a new
+> > revision could change the IDs) values in DT.
+>=20
+> Agreed, that's clearly better.  The next revision makes rambus,cores a
+> string array and maps the names to core IDs in the driver, so the
+> numbering can change across IP revisions without touching the DT:
+>=20
+>     rambus,cores:
+>       $ref: /schemas/types.yaml#/definitions/string-array
+>       items:
+>         enum: [hc, aes, sm4, sm3, hcq, qse, pke, ccp]
+>=20
+> (keeping the affinity semantics in the description -- a core appears on at
+> most one queue, unlisted cores are load-balanced -- just without the hex
+> table.)
+>=20
+> > > +required:
+> > > +  - compatible
+> > > +  - reg
+> > > +  - "#address-cells"
+> > > +  - "#size-cells"
+> >
+> > Surely clocks are also mandatory?
+>=20
+> They can't be mandatory for this binding -- there may be no clock provider
+> for the node to reference:
+>=20
+> - CMH is shared between hosts.  The SIC presents up to four host
+>    interfaces; a designated management host owns the privileged
+>    configuration (clock, reset and power) while the other hosts are
+>    granted only a subset of mailboxes.  A node describing a non-management
+>    host therefore has no clock/reset provider to point at -- those lines
+>    are driven by the management host or an SoC power controller.
+>=20
+> - Even where a provider exists, only the main "core" clock is always
+>    fitted; "core-div2" is present only on builds that include the
+>    side-channel-protected slow cores, and "rt" is the real-time tick,
+>    which is why clock-names is a oneOf of subsets rather than a fixed
+>    list.
+>=20
+> So I'd keep clocks (and reset-gpios) optional.  I can add a one-line,
+> hardware-framed note to the description if you'd like that rationale on
+> record.
+
+Please do, yeah.
+
+Thanks,
+Conor.
+
+--fecVinCGlQpVGphf
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapBwbQAKCRB4tDGHoIJi
+0tg1AQDJxvd89lNx3GSYKYhVSI+ByKuzMH06Aat4j5i/Er7GCAD/bUIEGNkrxnPj
+TriUguZYuEpl11M5MLqp9TSVpc3RUQw=
+=+I7h
+-----END PGP SIGNATURE-----
+
+--fecVinCGlQpVGphf--
