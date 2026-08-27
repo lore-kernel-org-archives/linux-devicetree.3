@@ -1,89 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D76C72F28FF;
-	Thu, 27 Aug 2026 18:06:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16277385D8A;
+	Thu, 27 Aug 2026 18:09:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787853995; cv=none; b=upE8GqvjH7LMDk5VaTk74iYvZwczDzjAtDVpoJwFf6DEx9Dco+wvfr8gOQZlVDxYEamqFDSXv7uIoaKh3qvf5Og/VC2f8pGM0nVsqXz67UAPjLT03ryOKhht2jxsvRYIayLxx/S/G82ZTRsTI+iEHnFcdOEX+Xr285DFAwOOMxQ=
+	t=1787854166; cv=none; b=Ugsg7KJCJHUjrqgDo/7mkMh3FNdkvC1/pSbehnOn+MguZDdPD8vAvZcKFGjOAytdarzntQ9zMafSJwTJlMG5vdUgVqjo61LfgbPjKM2L5uomTAIuaE2L93v4dl+6s69caDFE/uSGIsyXSKwzLNe4/XuKRQi7as9i9e7pJ7HjVPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787853995; c=relaxed/simple;
-	bh=GDQ4qyxjyiQjJXedyvUnkzGEolv8uzyDYtIRBse2+QI=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=WCh8ejXRgKS5WhLhS6Ld1lKDVTYMhgeUNGxzuYizeC+Gliff/IBJF5oei3AbvDXGzm5Z0vqG6ER26Mo6EyyVRWdVSbf9pa6wmh+uQOgcXHGjilkKOLErfnoMIjUhYFvzkjbX8gd5GSNQl16DjvSfsoiYk3ppUsgWWlaCCIa+IFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MsMeXLkR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787854166; c=relaxed/simple;
+	bh=QmnGXpSLhCVI3BavvS2xul6VgRjauDuWDchnsEQbP0M=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=GOpPAhoG+CkZRgQBglvlREzPP2PPhZ+fm/AhLR/EjB0VIy52Vaixk55UI0sFsDOV6HBkm6x18VMGOsq2ikjvE+xlZyNh0p1AfH5H8oaw+bi251UBAXh4W3d/VWLom5TVmp/vYj0ZOrmwdqwTWcavbzTyL14gFs8cbrkGEbHV6lc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PjNkMQPu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MsMeXLkR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52CEC1F000E9;
-	Thu, 27 Aug 2026 18:06:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PjNkMQPu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 687881F000E9;
+	Thu, 27 Aug 2026 18:09:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787853994;
-	bh=9v8mS/PK2gekS2IrJ6zb4wTI1VOvdN51N156CQzs2So=;
-	h=Date:From:To:Cc:Subject;
-	b=MsMeXLkR0v1ivkiEdTAHHNR2waV7TyzKg7zK4I2GzR0mo2yzKT6RTJaMpLt+1F5le
-	 4Vmk9LDN01MdujK44obT0rNPCFu/uqRKDBb2ffSjDymoaQQdXjOmflI0udrCJMzfap
-	 UQ9Fwy5g/DD4oxRLPnijfHnHC1Eco+hWRocxlx8XTrOzQRV4FewxVwjn00wbJzY1wq
-	 yzz1cgnasdLpAdBHgLLR9A4G5Dr9nt/eAY4cBbZ84yKboD77KibNNKjlAzdgoV8Fi2
-	 PzE4Pkgt1Aj1aAxDKCXlUd7lNotQMtYHdVcQVHuLgkFFHmZ+FEFCvEgl9m10bGe4sZ
-	 ANndXMgxi+snA==
-Date: Thu, 27 Aug 2026 13:06:33 -0500
-From: Rob Herring <robh@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Saravana Kannan <saravanak@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [GIT PULL] Devicetree fixes for v7.3, part 1
-Message-ID: <20260827180633.GA3385724-robh@kernel.org>
+	s=k20260515; t=1787854164;
+	bh=wVA/VMjBsr1b1JlR5xmRQ9oiQdkeE5iSiO+7fIZ8Keg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=PjNkMQPuahY50gI5D1tnLPC1wmvDNLe/fLuHMlqZpCnlD4hoEXDCwYV5ru1n33WSC
+	 QHBAIu2rBDFqrmb4oJVzAEQ+hypsnb97ye5NTesPz5aLEbUaveIAju+Ws6qnicr68u
+	 /Y4mFBsgmEXj81fjBK5Fl5tAj+Nv9000egkGlPio8EFMrSk/srNqJcLL26TbaxDCs3
+	 QFawuQX+vpb7PZl8zsG1SVCoCUHqwxpd4uIs+Izvya1PrPGoU95dKyVnVpnh/A0nzp
+	 idoOY7GqK9dFyg92+ESpwUwWfdbjGeCeuAKGmt1XWjxFLeCl/bhL1bk4A/EV1rIhxF
+	 /ga9eFdcCRL6w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 15/15] ARM: dts: qcom: Add initial device tree for
+ Kuno SoC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Hardeep Sharma" <hardeep.sharma@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, linux-clk@vger.kernel.org
+In-Reply-To: <20260827-kuno-soc-support-v5-15-6d47636a8f09@oss.qualcomm.com>
+References: <20260827-kuno-soc-support-v5-0-6d47636a8f09@oss.qualcomm.com>
+ <20260827-kuno-soc-support-v5-15-6d47636a8f09@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 27 Aug 2026 18:09:24 +0000
+Message-Id: <20260827180924.687881F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-Linus,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The TLMM (pinctrl) node is missing the `wakeup-parent =3D <&pdc>;`=
+ property.
+- [High] Incorrect architected timer GIC PPI mapping and ordering.
+- [Medium] The `ranges` property in the `soc` node truncates the bus mappin=
+g by one byte.
+--
 
-Please pull a few DT fixes for v7.3.
+commit 429df2d2736988037173b656c9a9508e2e6b4476
+Author: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
 
-Rob
+ARM: dts: qcom: Add initial device tree for Kuno SoC
 
+This adds the initial device tree source and include files for the
+Qualcomm Kuno SoC and IDP board. It includes initial peripheral
+nodes such as PSCI, RPMh, GCC, TLMM, interconnects, and UART.
 
-The following changes since commit e1c13aed4a1641550e8c9518c96f016e1d52d09b:
+> diff --git a/arch/arm/boot/dts/qcom/qcom-kuno.dtsi b/arch/arm/boot/dts/qc=
+om/qcom-kuno.dtsi
+> new file mode 100644
+> index 0000000000000..d0c6e3f21a14f
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/qcom/qcom-kuno.dtsi
+[ ... ]
+> +	soc: soc@0 {
+> +		compatible =3D "simple-bus";
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <1>;
+> +		ranges =3D <0 0 0xffffffff>;
 
-  dt-bindings: interconnect: qcom-bwmon: Add Maili cpu-bwmon compatible (2026-08-15 15:46:52 -0500)
+[Severity: Medium]
+Does this truncate the 32-bit address space bus mapping by one byte?
+A size of 0xffffffff leaves the final byte of the 4GB address space unmappe=
+d.
+Should this use an empty ranges property to map the entire address space
+correctly?
 
-are available in the Git repository at:
+[ ... ]
+> +		tlmm: pinctrl@f000000 {
+> +			compatible =3D "qcom,kuno-tlmm";
+> +			reg =3D <0x0f000000 0x400000>;
+> +			interrupts =3D <GIC_SPI 212 IRQ_TYPE_LEVEL_HIGH>;
+> +			gpio-controller;
+> +			#gpio-cells =3D <2>;
+> +			gpio-ranges =3D <&tlmm 0 0 110>;
+> +			interrupt-controller;
+> +			#interrupt-cells =3D <2>;
 
-  ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/robh/linux.git tags/devicetree-fixes-for-7.3-1
+[Severity: High]
+Is the tlmm node missing the wakeup-parent property?
+Without chaining the TLMM to the Power Domain Controller (pdc node) via
+wakeup-parent, any GPIOs configured as wakeup sources cannot wake the system
+from deep sleep states.
 
-for you to fetch changes up to 5bb01c657ff9fc807c2c592ca18af34c4fc3bc6f:
+[ ... ]
+> +	timer {
+> +		compatible =3D "arm,armv7-timer";
+> +		interrupts =3D <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LO=
+W)>,
+> +			     <GIC_PPI 12 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>,
+> +			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>,
+> +			     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>;
+> +	};
+> +};
 
-  of: fix out-of-bounds read in of_alias_scan() stem parser (2026-08-27 09:36:05 -0500)
+[Severity: High]
+Are these GIC PPI numbers correctly mapped and ordered?
+The non-secure timer appears to be incorrectly set to PPI 12 instead of 14,
+and the virtual and hypervisor interrupts (10 and 11) seem to be swapped.
+This incorrect mapping will cause the kernel to request the wrong IRQs and
+can lead to early boot hangs when timer interrupts fail to arrive.
 
-----------------------------------------------------------------
-Devicetree fixes for v7.3, part 1:
-
-- Fix possible out-of-bounds access in of_alias_scan()
-
-- Fix refcount leak in of_irq_get_affinity()
-
-- Add Qualcomm SPMI PMIC haptics input which is already referenced
-
-----------------------------------------------------------------
-Abdurrahman Hussain (1):
-      of: fix out-of-bounds read in of_alias_scan() stem parser
-
-Fenglin Wu (1):
-      dt-bindings: input: Add Qualcomm SPMI PMIC haptics
-
-Fuad Tabba (1):
-      of/irq: Fix device node refcount leak in of_irq_get_affinity()
-
- .../bindings/input/qcom,spmi-haptics.yaml          | 116 +++++++++++++++++++++
- drivers/of/base.c                                  |   2 +-
- drivers/of/irq.c                                   |   4 +-
- 3 files changed, 120 insertions(+), 2 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/input/qcom,spmi-haptics.yaml
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260827-kuno-soc-s=
+upport-v5-0-6d47636a8f09@oss.qualcomm.com?part=3D15
