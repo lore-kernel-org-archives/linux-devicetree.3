@@ -1,146 +1,288 @@
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 802A446DFF0
-	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 13:09:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787836152; cv=pass; b=cbCNBsjzgL7eX5SEIhcXPLh8q0Pw3EjZkSm5lqiAFB76LX7e1WOz98AhmqUiCBHHPbgi7wbihDzfoSvxMqFcl77ciNwCprzWIfZpHDn5Jd4ZZKGAkwNeHJ2kQ+RTx9fwdeQAp8BRhyrOPmkH1WZUFwo2dxlV3pxSbprT9KeTyMQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787836152; c=relaxed/simple;
-	bh=yVbl3Z9HVr6Uibx2P5f7A2CJaisyDJjFLYgGyEoH47M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mrEtSLhywDVBOb6jVyMIBuUqzRbfM3tNMFUoc4C+2igy30F+qxKWUcQqnnzyUUE3M9DVUO/U3MNK1pikuV0A60hSg35WgkzbZIg+07HMZv+2unYLh9zEg+sz+UHo7Fu1lZOQXXgI4yVhQ2x9DLhCxHb71goOYplNWWcU5V1KMWw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lRcTrciv; arc=pass smtp.client-ip=209.85.167.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC29472543
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 13:14:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787836477; cv=none; b=Sv1COF0rX9e4cz01mfRU7daQmTdFvS/oB5JOp0Tl+v/hnK7W8Uxi8OxQ6KWd5B7S4MxoLL79xppwYiY/mHeHoQahGUxffqKoDR+1+lx2/+2Ir2Kvk2MU8qFhFSKh5ApR/O4cnNYX4tMMqSpXZtK44aFWQ1h9Qfyf3dExIE71tKU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787836477; c=relaxed/simple;
+	bh=Oo3Yt40dEl6CkZSwjQb88RYZpWxLTUVv2MFoBUQqnXo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LE7fVOguL+9vEDa19SAnxnjqfkIsnqjzT3Ofjf/by0el4eLT7n3bQd/xZg7IabtmwXaHnLhYdZnSfxswuCtnxAJsoahglqVEzofH8/jXw/3oNrop3+KCBiWsp70nSnbPEPkqDoe3KJsXCl5LLkD7pvFnE1WvZ/Gzg0+k/VHjCV8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bKtF7ft8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=d98OHm7x; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lRcTrciv"
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5b15c6fb864so2034250e87.1
-        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 06:09:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787836145; cv=none;
-        d=google.com; s=arc-20260327;
-        b=E3wUM7qnqzEHCfK1hJ5fj3oKz+Vri2ONg7vP1zB2nynIIfUO4LmjEzkqoiI+cLazJJ
-         +ZwptixraM7DO8zof7uBQTdpZLyZ4K+gEwIdM2nzzml4oj/yidFLPh/amo8RSkXrcqWS
-         sJsi8Rjur78z/xPBDF2GtHVtLkCkf0sqWzZW7vLsLxGNH91rTHX39vNsjM0kO9MIqpK1
-         mPoNUl60UvqF+5ObobIiTJN/hTKtk9gsnUxedqkbWgculqBKyQ2H5ZnYtWeOJl4IoXoJ
-         uG49dLGLGeioR1nTvgYFiSZw9RXR6c5m1H4qAAZ0N0+69aeTnVPPOr9lHKutkT5dtE+9
-         Y4sA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=yVbl3Z9HVr6Uibx2P5f7A2CJaisyDJjFLYgGyEoH47M=;
-        fh=l+gYlUMu4uAiW1Def/FXxOcYkr60ppQNnkoam+zlqHU=;
-        b=BOjJkiQvQPGo7cYf+MMgbN4IqnT3+DqzXgLozMLUc/VUwwBC6AXnNDlDnhUovozhGn
-         h3PKnBsvaZH4OerlmG5xO9EaxKpQZrEZNyNiz3Uz+fRMEeoluw5EKjkDi1WbZ3OKOFjw
-         H45hdoNdStvSRW81cfUIKOUBxdbj34UZcNmy0hQTykwbp6Al/rRm2/ZNlbYFUmr6WDTE
-         +E2x5GdmsbBFlCamrsuGWjNByR51mrywoGQKbPxsrsKJg/4ET5nG1EGcZ75qZDvnXQyr
-         d4kujVLX/tdziZCZ6ssg8aOZ1tPSFxj2B8yfiZT7MUaosQUPesJtF6FB+xagB1VKMzPd
-         w8ag==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bKtF7ft8";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="d98OHm7x"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67RCBRqx411660
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 13:14:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	/LWQOzPDF8CiYTUrB5PDXuRkR+MWprvD6jrLx2fEfZE=; b=bKtF7ft8Wr9jv1Wm
+	8PYao3pX9yc4I/IrRqIPrJt5TBuMYVQ4NB8Aj9GGhCTtxwoAKFEZ082teGpeGpdd
+	gGa99bTZBJtPZYTR1gaikmvlcIu4PEj+p3JPq8rKKbpplMIQYjUwgIyjNCyBzFLf
+	+CVhtInilKb4DrNUrqGyudlMG1f2/0nmTZV/8uci4l0pMGlXdqTXHnwbG6jr3iS3
+	rvUTaIFKHRbbjKN9wyVaHf9Z5Qp1a6gBcGFH76znaD6wNqn0NesaaXla3gzyzyzH
+	deRQWRYLgA9ezyYrv75u6+x7Owag+L8Pt10Ce4qFEuztL7cjhl81ZLuw9msQyhXj
+	BJt2DQ==
+Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ga0wbvtgx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 13:14:28 +0000 (GMT)
+Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-464fb819ac5so694890fac.1
+        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 06:14:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787836145; x=1788440945; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1787836468; x=1788441268; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yVbl3Z9HVr6Uibx2P5f7A2CJaisyDJjFLYgGyEoH47M=;
-        b=lRcTrciv1tpI+038IVPgCI2tC2Pcj6vTAlv+YwTWScJuGM4KIs5fvLPs3iLlRepcd8
-         AdoyoJLWwxxvYyFHX1e8Vrly9rpYjMkUYmPfyLUB3ebqKwIBSdiB7pXJwi8iA9WaMSxB
-         IBhFCqTLUDfJ+VQjvOtZ8RDl5NdtzoxL1rUDrKwfTkkgAOA8khrsn12UMfyXWZmOne/l
-         AcMVSb5VCFypAc8pyurjApvpr2NtCKy7Z/KKJsMWspF8VIFzfY6Sd4qGkDwseP32tF54
-         mxNQtguRbY57Gfq7Ease6C27QqN7v8YjofkIHg1zkG0uKKk69kos5EZ+laUGa7rZA1c4
-         mOVg==
+        bh=/LWQOzPDF8CiYTUrB5PDXuRkR+MWprvD6jrLx2fEfZE=;
+        b=d98OHm7xtA+HUjL1anTCyRMk4az1R3Puqvhnup14fPsLFQ27d8PqmA8xeqrDSyvV7U
+         9mee04LGH+yfRJ8yDnUIJkhTxX/k2L1/y0qRppgeQRxXkmKx68fpvyR+I/SQQSlrP2mc
+         dkBB66VawYjCWQ+vXnuzqPLZMORr14Lp9ll0JvvKcPCCHNlTBRd2/FIgM8e2F9Cm55E8
+         CRUL7jLguGNCmxw2rLI/orGH8FaxjvibkMfWBHdm9pb6PMCXt3bOnVdAXRbuiVR0TRmR
+         0xmZfzdWGyY8nTBhDz5n0rlkkrsyV1I3PzTwc6iamKWOjue/YFmamzOoGluXgUJpoai4
+         FRkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787836145; x=1788440945;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=yVbl3Z9HVr6Uibx2P5f7A2CJaisyDJjFLYgGyEoH47M=;
-        b=Edx8DsIYl9tMgECZnU9ay1V04H7B09J28sqqLj+iAG5ibBGT+gSk2YkYXzibgbmxm+
-         vb58SCsZMFMvuFjpZxHXWoGZdL+/z6v/2810Wpbj0h3F0v6odSIpNGpEhfh8LWp7ki6h
-         uv6SzQCJR9zgtefSq4y2ha+DSqoDYThBfdshhoZyEN4x6wICG6/vXpu0yN/FN5wzDqs/
-         5NK/Miy9oz0HRQlCD0OmoSznc2s+FAZfvuhzhvQWvrx4Ve1+HR/Oa/2zYp1n9z8qZFoG
-         gLnKzKcBcD7yzj+Gl79ELbeQdo1gYLeREV10aFz2TnlxUht1KcRSsKnepVBWXHDnjvFe
-         8R5g==
-X-Forwarded-Encrypted: i=1; AHgh+RrdwgeucuUhiHy7KWLOhdwkJM3SiXXtK3v1wlagwbjRaSDgGI4FPplkXWzNMOoARd7qFcR1RTn0mgB1@vger.kernel.org
-X-Gm-Message-State: AFuF++lgUrLRxr0qwnprpqUfPaNO0CXWZ9WT+LdSDnre5CWzJI2nygCS
-	lMl+JTDtJGyX6p5doREA+58urNcAzxH339UvPkIa2u/oGbShYNGXcAW+zkMJp6micpN516/aM7g
-	u7LBHyKH8jEtm5kIT7wGW8kCNiCE8LBA=
-X-Gm-Gg: AR+sD13d8VsFjY9vqXWIW9pCcxf47n5rASvyJwZoIkU2ek+Jhe9flK69X+grSXM8tGv
-	MUF3QLkgcjtBU5tp3px3U/P8l0JNQgFPaqHbVx2aYYh1r6ZKH+QKCIrROeiFENs1k9EU/eyDveK
-	DaWAUJZmKlwsqbadwG0UcBdzP0OagYyMw+La+9/u+EFDx4+XDHfHge5UIpIjy0wWkd198rqU8Vw
-	HYHRno1n2Bpa/WCLPwglQfH7Khxx0y2/hHkkTPLn5XZ3u/mDf5/KMb2HIUnR6nW7cj9pfHmUaPm
-	mTy3sbJbyySo6LlMJtdI6CtCp4NoN2FpXO0rby6VBooZboiBwWl20bLoZL1AXmBCt390guTvazx
-	TRR+3z6eUg2QD9MyJ2DK+oqt4+fvaQ+TDOnhKvVaEBAqpcBkj3hcAP+2ldg==
-X-Received: by 2002:a2e:be27:0:b0:3a1:d468:f988 with SMTP id
- 38308e7fff4ca-3a1fd453e09mr37025921fa.1.1787836144417; Thu, 27 Aug 2026
- 06:09:04 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787836468; x=1788441268;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/LWQOzPDF8CiYTUrB5PDXuRkR+MWprvD6jrLx2fEfZE=;
+        b=kXJvN0XDjSOJZI8J15YE3+RzZjBxmuiXqojgfq3Wjutlsh/+7udaOJofqzVGfUj6JW
+         dgAyzb6FOieMJSd6NhKmnmbKUbNNM4GklDqzn5WYAefgWhJLZvLIsyVvQaiptnS8G2YK
+         8VQwtQJvriPxdJ4orQv1KVBEPJstHQU7YTuImDNdlseaLnaYbtCgON9Wfe8nZwijWKpn
+         aiTQTGJ4xfKrI7zM8dlsjJq+v0POcyaEzl2z52/fmXEGopYnrFH5TnwuIrZMbzo8C/lb
+         myQ1kSuLfCKlodKC96e6cZesFmafOlomOqEM/S0cqijurfD3293N2BMPQgbvT2OCAYxX
+         EVNg==
+X-Forwarded-Encrypted: i=1; AHgh+RrKvgcRmtKFu5tEf8jEAbE8THcd5uQ4BHkKvwyDaUCiJswfyKwOUeSko5x0zkw2Snr5hsbUdC7AdKaj@vger.kernel.org
+X-Gm-Message-State: AFuF++mddyo+JmtURUZKEdxLepjhXwBgLCe/Czp/tGjNre4NMoVOb9VM
+	7W2foYdxFeckN/ACcO0Eyb/gScfsel87ZALy8AyMJXPl97lTU8myp+g5lGM/1ek77wDpSOA7QSu
+	YQ56Yzg9jXn2rso99LTT5aBgBI7CjvZvp+qUZPGPKf3Z5fEGzoCIO5daq0i3Gzq2BuOy61AmN
+X-Gm-Gg: AR+sD11PtyiLnJn+Vdcp4h2G+taqNIkVu2BFEYjBdUGuZc0v66V3Ja164yh9nSuwFY0
+	g2+esebIdIgTyhBjBDpBq1EvqqsKUsJP6TD7MmvTWjPxgrydNejJthuPU7cLQRA7uIxnGWI+OVI
+	drvDOCSYVV6O8+4oUXLX8lOnOuw4/ZBDyL5kHdNBFSEYpm43UVoq+eEeryFH/cYdnvP3OfA+gEa
+	FHvxmPWV50fIPN7Lh6/95603iH3WittFOAWnyOV1oV+P3xULZT6//rjWglBgAK6RIxLndJN+mN9
+	vZQqKypuUQm+WLzwqwpbyH3Naqo+RKeAvnbfvNX4+0pGognFf5zhNF7GMuc9G3w2xCyBD8m7N/Y
+	L27/okQMJerhpxAlXTnO7kdFxel5rwHIi
+X-Received: by 2002:a05:6820:a513:20b0:6a3:a335:1ccd with SMTP id 006d021491bc7-6b1a03b1915mr11386432eaf.8.1787836468093;
+        Thu, 27 Aug 2026 06:14:28 -0700 (PDT)
+X-Received: by 2002:a05:6820:a513:20b0:6a3:a335:1ccd with SMTP id 006d021491bc7-6b1a03b1915mr11386389eaf.8.1787836467566;
+        Thu, 27 Aug 2026 06:14:27 -0700 (PDT)
+Received: from [10.218.4.101] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b1a268023asm4383447eaf.13.2026.08.27.06.14.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 27 Aug 2026 06:14:27 -0700 (PDT)
+Message-ID: <5c6b120d-f791-424b-a41a-6c82de73000f@oss.qualcomm.com>
+Date: Thu, 27 Aug 2026 18:44:21 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260821010728.45065-1-gvalkov@gmail.com> <20260827-helpful-icy-donkey-9bfdaf@quoll>
-In-Reply-To: <20260827-helpful-icy-donkey-9bfdaf@quoll>
-From: George Valkov <gvalkov@gmail.com>
-Date: Thu, 27 Aug 2026 16:08:52 +0300
-X-Gm-Features: AcwNN1UImZDtg3-upEabUa_XGggulmtbmlnjP2_UXhZYxbNMdjonIxEdG5ok4DI
-Message-ID: <CADOrJmaF0UpRefk1+BDyn5iU5La4ke1gFWwzyRr5-9wp7Zr2+A@mail.gmail.com>
-Subject: Re: [PATCH v6 1/3] dt-bindings: net: wireless: add flag marvell,invalid-reg-hint-in-rom
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: briannorris@chromium.org, johannes@sipsolutions.net, andrew@lunn.ch, 
-	krzk+dt@kernel.org, francesco@dolcini.it, johannes.berg@intel.com, 
-	kees@kernel.org, miriam.rachel.korenblit@intel.com, wenst@chromium.org, 
-	rafael.beims@toradex.com, avraham.stern@intel.com, error27@gmail.com, 
-	s.kerkmann@pengutronix.de, gregory.clement@bootlin.com, 
-	sebastian.hesselbarth@gmail.com, robh@kernel.org, conor+dt@kernel.org, 
-	Frank.Li@nxp.com, chunfan.chen@gmail.com, arend.vanspriel@broadcom.com, 
-	peddolla.reddy@oss.qualcomm.com, linux-arm-kernel@lists.infradead.org, 
-	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] i2c: qcom-target: Add driver for Qualcomm I2C
+ target controller
+To: Andi Shyti <andi.shyti@kernel.org>
+Cc: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260813-i2c-qcom-slave-v3-0-1d3742e2ad47@oss.qualcomm.com>
+ <20260813-i2c-qcom-slave-v3-2-1d3742e2ad47@oss.qualcomm.com>
+ <ao7vB8cDufnJZKAI@zenone.zhora.eu>
+Content-Language: en-US
+From: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+In-Reply-To: <ao7vB8cDufnJZKAI@zenone.zhora.eu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: TXOwWTAObPhMwfp1H-uutD35snSMw110
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDExMCBTYWx0ZWRfX2YlebQJ3xbWY
+ r5znEUHZwm52c11fGdxrwG5Gd5PPKVH5cVT6+sHhXKVv474mW/DOX0qCvWx772ZMw7tHmmXSOoc
+ EJGz0SaY0kozN+2htZxjq2lrgwf4zWQ=
+X-Proofpoint-GUID: TXOwWTAObPhMwfp1H-uutD35snSMw110
+X-Authority-Analysis: v=2.4 cv=SoCgLvO0 c=1 sm=1 tr=0 ts=6a903834 cx=c_pps
+ a=Z3eh007fzM5o9awBa1HkYQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=8fm-Ily114xI1oIpI2QA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=eBU8X_Hb5SQ8N-bgNfv4:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDExMCBTYWx0ZWRfXxTn3Opa0aAWG
+ P7N5+TYsjGZoL0NqD1ckdkbcuOFMuYMso3pN0JeXs0v+YU3VHRTz/zyk7OQDYZGAnLk+WSOTD+i
+ eprfL3xNi9iQO6Q2cjTXBJ+dtXelXeU9utgnkjElc7cv0KOWEHZ2Is+Ybu3SBFf9APPYUsCDMSJ
+ rdERvEOHCmqDGsZFJdtxrH6Fj5mqDfG9VQpdk5xbTjgis+XBDxmqoyoMorAv4gDgbNMDnt4k1js
+ VEx5fwcIouD6xWmKr6f19NoNN9QsNzsGM8D72yr0xwVw/yc5UYWrMAkBoDM7AW1Unbo3JZKxSpA
+ xXem5FPTNBgdHM94l9FAquxQpW3UvIo6Rvb6tVznpIfl5goZ4DBYfse15LAsI+tmF57fvrpWG/i
+ iJHYQutzfHMGSR1ZqHV7GnwfG85LyHwsnFgYtwj0JNXni3JTyowA9bqN2mK9ehddYFVl7lWQ1a3
+ oQkLt7OuHHSa1DkdorQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-27_05,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 impostorscore=0 malwarescore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 priorityscore=1501 suspectscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608270110
 
-On Thu, 27 Aug 2026 at 13:34, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->
-> On Fri, Aug 21, 2026 at 04:07:26AM +0300, Georgi Valkov wrote:
-> > WRT3200ACM and WRT32x routers always report a fixed US regulatory domain
-> > from the mwifiex ROM, which conflicts with the platform regulatory
-> > configuration on units sold outside the US market. For example:
-> > - phy0 mwlwifi 5 GHz, hard-coded region 98 EU mapped to FR
-> > - phy1 mwlwifi 2.4 GHz, hard-coded region 98 EU mapped to FR
-> > - phy2 mwifiex 2.4 and 5 GHz, hard-coded region US
-> >
-> > When the system boots, it detects a conflict between the user selected
-> > region and the radios, e.g. BG FR US, and applies extreme restrictions,
-> > preventing phy0 from starting on any DFS channel. phy2 works.
-> >
-> > Add a device-tree flag, which allows affected devices, where the radio
-> > conflicts with the platform to ignore the incorrect regulatory hint in
-> > the ROM of the radio, so the platform regulatory domain can be used.
-> > This does not allow the user to change the regulatory configuration of
-> > any radio. It only allows phy0 to start and operate according to its
-> > certified configuration.
-> >
-> > [1] https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
-> > [2] https://github.com/openwrt/openwrt/issues/9956
-> >
-> > Cc: stable@vger.kernel.org
->
-> I don't think there is any bug to be fixed here. Support was incomplete,
-> so you add a missing quirk, but there was no bug in the binding.
-> Binding was correct.
->
-> With stable dropped:
->
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-I added Reviewed-by to the first patch and sent v7 with these changes:
-1. drop Cc: stable, the first patch only documents a binding
-2. restore colon after Tested-on as requested by openwrt-ai
-3. mention the added wifi@1 node
-https://lore.kernel.org/linux-wireless/20260827130335.6606-1-gvalkov@gmail.com/T/#t
 
-Thank you for your help and patience!
-Georgi Valkov
+On 8/26/2026 7:27 PM, Andi Shyti wrote:
+> Hi Viken,
+> 
+> just a quick look here.
+> 
+> ...
+> 
+>> +static void qcom_i2c_target_hw_reset(struct qcom_i2c_target *target)
+>> +{
+>> +	/* Clear error bits before SW_RESET; the reset may not be instantaneous */
+>> +	writel(BIT(ERR_CONDITION) | BIT(CLOCK_LOW_TIMEOUT),
+>> +	       target->base + I2C_S_IRQ_CLR);
+>> +	writel(SW_RESET, target->base + I2C_S_SW_RESET_REG);
+>> +	/*
+>> +	 * I2C_S_SW_RESET_REG is write-only so completion cannot be polled.
+>> +	 * Use a conservative delay to allow the reset to finish before
+>> +	 * reconfiguring the controller.
+>> +	 */
+>> +	usleep_range(10, 20);
+> 
+> This is also called in atomic context from the irq handler.
+> Please avoid using usleep_range(), perhaps you can put this in a
+> thread.
+> 
+
+Thanks for the review. The delay is only 20 µs, so we were
+thinking of replacing usleep_range() with udelay() instead of
+converting to a threaded IRQ, to avoid the added complexity on
+all the normal fast paths.
+
+>> +	qcom_i2c_target_hw_init(target);
+>> +	writel(target->slave->addr, target->base + I2C_S_DEVICE_ADDR);
+>> +	writel(I2C_S_CORE_EN, target->base + I2C_S_CONFIG);
+>> +}
+>> +
+>> +static irqreturn_t qcom_i2c_target_handle_error(struct qcom_i2c_target *target,
+>> +						u32 irq_stat)
+>> +{
+>> +	u8 val = 0;
+>> +
+>> +	if (irq_stat & BIT(ERR_CONDITION))
+>> +		dev_err(target->dev, "Error condition: unexpected Start/Stop bits\n");
+>> +	else
+>> +		dev_err(target->dev, "Clock low timeout\n");
+>> +	qcom_i2c_target_dump_regs(target);
+>> +	qcom_i2c_target_hw_reset(target);
+>> +	i2c_slave_event(target->slave, I2C_SLAVE_STOP, &val);
+>> +	target->status = 0;
+>> +	return IRQ_HANDLED;
+>> +}
+> 
+> ...
+> 
+>> +static irqreturn_t qcom_i2c_target_irq(int irq, void *dev)
+>> +{
+>> +	struct qcom_i2c_target *target = dev;
+>> +	u32 irq_stat, rx_bits;
+>> +
+>> +	/*
+>> +	 * Dispatch priority (highest first):
+>> +	 *   ERR_CONDITION / CLOCK_LOW_TIMEOUT  — hardware error, triggers SW reset
+>> +	 *   STOP_DETECTED                      — end of transaction, clears all state
+>> +	 *   RESTART_DETECTED                   — repeated start, resets state before
+>> +	 *                                        any data phase in the same snapshot
+>> +	 *   STRCH_RD                           — read-phase data supply
+>> +	 *   RX_FIFO_FULL / RX_DATA_AVAIL /
+>> +	 *   STRCH_WR                           — write-phase Rx, coalesced into one drain
+>> +	 */
+>> +	irq_stat = readl_relaxed(target->base + I2C_S_IRQ_STATUS);
+>> +	if (!irq_stat)
+>> +		return IRQ_NONE;
+>> +
+>> +	dev_dbg(target->dev, "IRQ status: 0x%x\n", irq_stat);
+>> +
+>> +	/*
+>> +	 * Load target->slave once. Both reg_slave() and unreg_slave() disable
+>> +	 * the IRQ before writing the pointer, so it cannot change while this
+>> +	 * handler runs. Sub-handlers may dereference target->slave directly.
+>> +	 *
+>> +	 * The core is enabled only in reg_slave() and disabled in unreg_slave(),
+>> +	 * so no bus activity is expected here. Clear and discard any stale IRQ.
+>> +	 */
+>> +	if (!READ_ONCE(target->slave)) {
+>> +		writel(irq_stat, target->base + I2C_S_IRQ_CLR);
+>> +		return IRQ_HANDLED;
+>> +	}
+>> +
+>> +	if (irq_stat & (BIT(ERR_CONDITION) | BIT(CLOCK_LOW_TIMEOUT)))
+>> +		return qcom_i2c_target_handle_error(target, irq_stat);
+>> +
+>> +	if (irq_stat & BIT(STOP_DETECTED))
+>> +		return qcom_i2c_target_handle_stop(target, irq_stat);
+> 
+> ...
+> 
+>> +	target->xo_clk = devm_clk_get(dev, "xo");
+>> +	if (IS_ERR(target->xo_clk))
+>> +		return dev_err_probe(dev, PTR_ERR(target->xo_clk),
+>> +				     "failed to get XO clock\n");
+>> +
+>> +	target->ahb_clk = devm_clk_get(dev, "ahb");
+>> +	if (IS_ERR(target->ahb_clk))
+>> +		return dev_err_probe(dev, PTR_ERR(target->ahb_clk),
+>> +				     "failed to get AHB clock\n");
+>> +
+>> +	ret = clk_prepare_enable(target->xo_clk);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "failed to enable XO clock\n");
+>> +
+>> +	ret = clk_prepare_enable(target->ahb_clk);
+>> +	if (ret) {
+>> +		clk_disable_unprepare(target->xo_clk);
+>> +		return dev_err_probe(dev, ret, "failed to enable AHB clock\n");
+>> +	}
+> 
+> The problem is that these clocks are not disabled in the returns
+> below.
+
+Sure, I will add the missing clock cleanup paths in the next revision.
+> 
+> Thanks,
+> Andi
+> 
+>> +
+>> +	target->irq = platform_get_irq(pdev, 0);
+>> +	if (target->irq < 0)
+>> +		return target->irq;
+>> +
+>> +	ret = qcom_i2c_target_icc_init(target);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ret = devm_request_irq(dev, target->irq, qcom_i2c_target_irq, 0,
+>> +			       dev_name(dev), target);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "request_irq failed for IRQ %d\n",
+>> +				     target->irq);
+>> +
+>> +	qcom_i2c_target_hw_init(target);
+>> +
+>> +	platform_set_drvdata(pdev, target);
+>> +
+>> +	ret = qcom_i2c_target_adap_init(target);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "i2c_add_adapter failed\n");
+>> +
+>> +	return 0;
+>> +}
+
