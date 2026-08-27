@@ -1,228 +1,771 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013037.outbound.protection.outlook.com [40.107.159.37])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBAA1379960;
-	Thu, 27 Aug 2026 14:37:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787841444; cv=fail; b=pd5zJwdHqHHDaxXFbv9zcYIwiy8bya4OgDY9hsEU/NRZsXLdrvRh93IpKr0HljOW1CZq/VE+tiaO7WBeg2is/p6fUYPeCSeYeWSTEBraW2qu0pKzoQymyOS/GH83YEMdVwLkRGCISMHtMbizpLng0vOVWnHOF1jsPCanqxrnLWU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787841444; c=relaxed/simple;
-	bh=urFwOgdd1VxhBXFA8nF0acycax4Z1TbK5yaxUQFj08w=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=nKd9xWnHuprtCOfVA9DPun/79DsJVxAsg8q8+wxBH3JNR1QAMryAsmZls658jJQrm4YRj18h2FV6/kX83jAQKwpm3MraqT0SAUg5troItiqy2wdtVCgf+73zdJuFyIi/YeUL4VEU2O9iIdVLdU3henmfESeZDbv5mOuVGv0jUjI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=udsDG8to; arc=fail smtp.client-ip=40.107.159.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 198BE47D95E;
+	Thu, 27 Aug 2026 14:39:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787841566; cv=none; b=nT6DNZgE8UK1ctcbwhh610kLVKpShHcCHOcpUOJYst3YhZY4EbqRxjfJgLrTglYhObup4pQeoNegYH1u1OaVFe824+GfrVXTV7jD5QYvAniS+eSkn1WA46tDLmMQDobCzp3Vu2qj/j/TMlqX6Ym0ZgXdcWPCjOuX3vfyKF0tHMA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787841566; c=relaxed/simple;
+	bh=4CAvsdNuYr1TOINvsiS1bTij7h5KBCM5YfX9B09fXK0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KWjEdrlYcjBZOpAvPCifNQESDlc33jyaFXcoZQ9bUNNNlDIA4d33OgY2iH5HnbxfpG8agGhUsuEmoSVOcXtxfKk0NPEfxKHtn9Or9nXYQkvZzZcg7ZCM+d80EHD/zoyudhyXwv8XRJZDceAl3jLCAjBBns2g4ul6wl2F3W6RwdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nVvwoMql; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="udsDG8to"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uz/GlCj6a/Ivq/fMhjNA4W3zCGW5qkZSg/9bMQ0/uKxGyufP3woqn+iffMG8OWcaE01En7I4tMINr2Ni6Q2pH4O9FUP1DnYOrHO7nLPOtF6bER3r4f2Xx5AnLEYWtNlFi8TGNLd0TPvx4obBEJthYtvZrqxc73tgFPxU1rWsZe/mj0U2JKKiYLTHyym7w15Zz2RQyR1azwmwU6TZmcHj8dXj2fYiK+EkfDGVX29ldwHTXPOAaFvf7J0JjqokQ/aUOOR1mv55ywOgepRZlixIAE+M6sR6VRmcv59emxEkGWEDOg4QQVWaHnXjT/6BtCrflBCn1Vr6L4+NOcJYLDcNRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xFMdgByWIMAFnZIreIY8pVtiw3Vum/lJr4WpQlXvqXY=;
- b=I6wwR5CmG6vUSaSwGfEocQsRUn2MHM6HfZCEm6hNzUoVNHXPUwjbpRBy/x6HMLtzgZnw+vYlv6CI83tfl1bI6PYgvaQRWG4jYBTn4m91th0YejrYO2wQ3xQaHuvdqDKADw3fvfY42w1ItImJhJliv/v8anJ+SZe28BMFk1cyvVU8hWwTJNqoRjCYpjbB/mgQUwx5fV/ICfnWUjPYY0+0e1MHE/+hb3QOXLk8J3an4livJjV6HiAyHfm8ih828yKihn6uCpI7iY3lF4K8t6m/fLaM6Ta1GDTJv0XBuJlPQFvmjy/uPXJ02fp6HK89Jqb0NkOVuSBz0uZaDK2KuZhdHg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xFMdgByWIMAFnZIreIY8pVtiw3Vum/lJr4WpQlXvqXY=;
- b=udsDG8towFdPc75EIxH0Xyo8oYU9IH+3ZFHAx+bti145T8ov8i/7v7PUvgicmV/d22GWNgsYcZf3j4ekRcOa3BD3SLB5TBYmwy13u0PdpiCYmFpBJ+Mq/0g1HnSQ04nJMtNFKbso/3Z0s79FsK+EOdfxgHzJtI3ht3aF/Nj+QTmkNWZpNHV9qX33yGSkptdziHMHWU8Cf4PSNXPL/9k7pphiVWRR1IesIyP7bM7vEnbrl2uoe+r5PV4HXX+8g5rmPMG9WbSyxE20PiDukM01ZY9j9ga2QlUFSS2HDKReouN8o+ju/vCIX1J6vjDMaPJ4xDYE9u5nQP9dqOB8j8IFsw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
- (2603:10a6:150:368::10) by PAXPR04MB9021.eurprd04.prod.outlook.com
- (2603:10a6:102:217::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
- 2026 14:37:18 +0000
-Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
- ([fe80::cd9f:102:ea58:4c49]) by GV2PR04MB12558.eurprd04.prod.outlook.com
- ([fe80::cd9f:102:ea58:4c49%6]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
- 14:37:18 +0000
-Message-ID: <f9a9273a-3c00-407f-8c35-c07d367954d0@oss.nxp.com>
-Date: Thu, 27 Aug 2026 17:37:14 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/10] dt-bindings: ufs: Add compatibles for S32N79 Host
- Controller platform driver
-To: Conor Dooley <conor@kernel.org>, Frank Li <Frank.li@oss.nxp.com>
-Cc: NXP S32 Linux Team <s32@nxp.com>, Alim Akhtar <alim.akhtar@samsung.com>,
- Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K . Petersen" <martin.petersen@oracle.com>,
- Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
- Ajay Neeli <ajay.neeli@amd.com>, Manivannan Sadhasivam <mani@kernel.org>,
- Pedro Sousa <pedrom.sousa@synopsys.com>, clizzi@redhat.com,
- aruizrui@redhat.com, eballetb@redhat.com, echanude@redhat.com,
- linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org
-References: <20260826134048.854748-1-larisa.grigore@oss.nxp.com>
- <20260826134048.854748-7-larisa.grigore@oss.nxp.com>
- <ao75lU2zYDeOZi2f@SMW015318> <20260826-surely-sandal-64ca2d2c4481@spud>
-Content-Language: en-US
-From: Larisa Ileana Grigore <larisa.grigore@oss.nxp.com>
-In-Reply-To: <20260826-surely-sandal-64ca2d2c4481@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS4P251CA0025.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:20b:5d3::12) To GV2PR04MB12558.eurprd04.prod.outlook.com
- (2603:10a6:150:368::10)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nVvwoMql"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A09F41F00A3F;
+	Thu, 27 Aug 2026 14:39:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787841555;
+	bh=X3ZQPN6AFGtjHd4y95l29Jb5lUMLezaPvyPRtl/8seI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=nVvwoMqlk2UIZNrdBfIvjkaZ+8qULJhY6MvieEbF8RiXDCh0dOWWV2ok6CHDSCnEA
+	 xsMKkCQhpbs9vCf1hCULVkYJ+jwqwb6SgZoy/g826vM9ZdPtTnu645sbvpT1mXX45F
+	 Oh2sVf7eCpTeNBbTFjtjI/gUXgCF5++gnFCGNapKzAWe7mg3quutilvpBOg9xVBp8e
+	 ykgehE2av2EIl7jE/kJjXz8ILPfdhmsafZwGV9y5lsAYhcZI9F1BKenMwWfLj8TE/G
+	 Xgr17owP+gFamRO3btbFUiXdC1RDDWSGSDVJCCg5qJRW8ttjKiivGOjhQ3wiGBjkBR
+	 5H8eMtyysZmcw==
+Message-ID: <4a493c7f-a248-4896-890d-3aa55e074ddd@kernel.org>
+Date: Thu, 27 Aug 2026 22:38:54 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12558:EE_|PAXPR04MB9021:EE_
-X-MS-Office365-Filtering-Correlation-Id: ee176b99-1638-4d20-2017-08df0448b226
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|23010399003|19092799006|376014|7416014|366016|1800799024|10067099003|56012099006|11063799006|4143699003|6133799003|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
- bl05BJf4FOe9woWlN2FLC+eI9E66JLlNDkrPnAPzk0ipjHDzU+Ff5p4qRhkBkTNwWFbmdPtWHKc8ZQGN0ZQUrds5AirNBZXLQqPY5jkmkZXrgcJWS4YfL5aED73YsLf9KJR7QYM1k4XM6NdSFM4dmwEspgva0dPcLv2V/NbdeNZTFDh/j9bAmYXVsRJLfH246k9XIxwcdXXpfU4P0Ewj7caEctRx6xmnup92yDkUvGFxKzfY5jnyvUEb0V15ee+bj4p5CDNnrm2X6z80gugxW44XOrOq8jmi7+pUoP3D4o0DRGSq9pfPJOTdqB663muudYwVKmYzMdrC0bp9naBN7512VupGWdjZrjPGc69JmoCBFFgroPcgcbF5iHM61gC/ZLC0k7jzUvmmaK6rFhCuUVKZ5iP3PAnuocs92Vzj3pUmAwN/mt7phAkVadCaxwcvTUPWAzl0I/bxihlv5TOQxkJiMikvR91AoIIMtGya+g1oPlQjrhcAbIHIevJ8pmB9jup/YEF1paBDsl7SKz15E0OrOg4ev4+63yxuBj9gHiQxb4NOtnG11aYhiI1WK9RDoZ1RQFk9ezS8EiviKOsNRQ+ABrGXRPz0CYSIJunb2/S8kqf7ENVSvUzotJyZSwpE
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12558.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(376014)(7416014)(366016)(1800799024)(10067099003)(56012099006)(11063799006)(4143699003)(6133799003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?bjVqV1Q5VjJkY2ttRFV6akxTUEx2YkxRaUREN0w4WVQyV3dQOW42UllpNjcx?=
- =?utf-8?B?VFNGLzNnRFU3Slo4QnpxK0lNVTd4WTNsZXpxaUhZTHpNajBjZTR6OFMvQ3Q0?=
- =?utf-8?B?M09VcnlzZlRwTjVwZ2cyQ3dTanlOKzA0Z2dJYVNvdDR1M0lJSnNMWEhLZkxz?=
- =?utf-8?B?YWFKanlQZHpkUysxSG1WRjBnSStBbm9OeGF4WXdJb2VRM2ZHbXhKY05sUnV1?=
- =?utf-8?B?amFLaVAxSDA3K0hHbjhld1dCOVhySEdkTnFHZjkvZzYxQ0krK0U0Ui82dU9J?=
- =?utf-8?B?QXVmK2VDODIvN0Y3TEd2MUVoNXlOL2dNaUg5RU56LzFmVURyb1pURFRpa2hE?=
- =?utf-8?B?RHFZYjNZV2VMblh0Z2gvaUJRZGFxOS9aRGJMUGM5aTVZYk50dTVBZ2c0dDVF?=
- =?utf-8?B?WkdMK0pFM295dDArc05Lak0zT1o4SHQwSDUzUjVCNFR1TWdGaFp5N2QzRU1j?=
- =?utf-8?B?K1JNNitqbUZWRlBSYVJ4U2hrbE1OZVE4bVB6ZkFFcDh0QWIzK21UNHRoVGNq?=
- =?utf-8?B?RmJWNXJQV25zdmdKTmZGREZZVDhqclg1NkR5ZEdnbFgrTjNoK0Y2STZwNWgy?=
- =?utf-8?B?NGhnZ0xWU0FyNXdhMGRVRGRNTXloZ2t4dEtZZW1BVkhLM1pNQzBNbjJCNlh6?=
- =?utf-8?B?U3Z6Y0ROZk00QjdqYUJ0anRURThGMmYwOFo4NXZ3TVV0clhza0p3SnFiUktU?=
- =?utf-8?B?VWNKVEsva3BBRHlYRXBuT0UwaWk3ZXFjbXBkSUZZT2YwTUhWbDF5UFVPYitt?=
- =?utf-8?B?Zkc4VjhheTN6ZDIveXdSUGRGVlNoaG5NaW9wc2MyV0JJRHRRbThLUTBKQmVS?=
- =?utf-8?B?a3plVWNaOUVrNXNSNVRwRHllY25rUGhldS91SUlIc0RqUkF4ZW5uRWttMGkx?=
- =?utf-8?B?aVVMcXBpQUNUa1dLVjZUWTd2MDNkTElZKy9lcFprWmFGMVkxTE9YbHJyOXN0?=
- =?utf-8?B?VG0yVTBzcDhLSVBsUEEyWVFTajNrNEpUdm5GYzhGTnlmUnJsQTJuaFdhbzRt?=
- =?utf-8?B?ODBUSVhQKy9yM243VzdXWUFuNmtBQ2NMZzdYckxMbE0vU0I3YnN5c1VSUWVz?=
- =?utf-8?B?bEhXaFBhR1htdThjWXJpaFdoWmx3TW1XdnBjSnM5ZlU4UFFkU0VOV3Evd0pK?=
- =?utf-8?B?RkJ3T2Q3YkJqSGxqenR3SitLNmJwRXlkMHBMaldURVVJRm5icjQvRUkvNGZo?=
- =?utf-8?B?VERkOUZadEtEYlZtK1lERzEyZDN0aUo1WTQ5YWVuQjBPYkVhSG95SjFoTXBZ?=
- =?utf-8?B?blNnLzEveWJoMzR6NVlQUUY0NE1kUFJaNWVxVC95K0JwNldXRmtzeW1GWSsy?=
- =?utf-8?B?UTNwV3RNQzdCUUE1NFpGamNTTlkwelZYdHdpVU9kS0ZKelF3SkwrOGtLdmgw?=
- =?utf-8?B?ZFJHbGswQzNkY2FZTkJoNDdnamNRNXBqbEdQQUtiMjJIZ1oxK1pyaXgwREZD?=
- =?utf-8?B?UzI1NmlkWXBYUlY3bTMwVXYzVW0vV0VlKzRmT0hjdXdpWWE0SWswY0JyUGZt?=
- =?utf-8?B?anM1ME4vbmlxSUtKcEd6SEdTMmxqOVFZN1BTdWQ2MUdhVlhCbGFLUW91YUlO?=
- =?utf-8?B?L2pRNFVxRklyL0hURXQ1Ui93R3BlVWVtd0gzdVFEQXVreU9zWWdwYnNIN2Jn?=
- =?utf-8?B?VmFVT2NLNFZvMkRqSmIrbDlNT1lhckZ1SWpOTVJVOElwdy9OUndnWHhNdHh2?=
- =?utf-8?B?ZTJqN2Zud1pSbUdHZyt6Z096UmphVS90UW1UUlBOaElqdDhzZG51Q2wzbkNv?=
- =?utf-8?B?S0hlRWRrek56WEdJRkNDSXNSQzBrNEpFaHhLZjF0cTM5QzNUNkl5cmhIdUF0?=
- =?utf-8?B?bUtYd0VKWFZyYmVNcHRTZmNsc1BZYWw0NHZnT29RYld2bWpXaXBuaWoxTDFn?=
- =?utf-8?B?ZDlzVmRSOUtFNWFHY2hNSzIvdmRHODFORCswck1QTS92S0FGeEVsTjVtMDZw?=
- =?utf-8?B?bXhhWWQrMzdUS09wd3dyWHZqamVWdm9KRWdXSG94Q0R0aEZ3MWdNN01mb3Z5?=
- =?utf-8?B?N0ZJRXE1YThnOEs3eXRhZzc1aTZUQk82QkNEMHhFS2tuUEUwdklXVmRBeVdD?=
- =?utf-8?B?SEJ3SkJsbE5uSDdiUkczS0NLaVJNUGxuM3lRTms4UkI5Z3h2WjdLcUNwVXZ0?=
- =?utf-8?B?SEN0ekRzbUEwNkZXMG5UQTkvRDliSEpHdDJRbEtTOHhGczAyUmZkRVJLZXFV?=
- =?utf-8?B?azJObzdSVFVuVzhNS3VXdmFxWlFUVzlyK2dnd1RlSDVhakYzaWhsa0xyUXNy?=
- =?utf-8?B?ZDA3d0NYdUtpRWZaSmlieHN5Q0s1YmNuOXhJNk5qVVJWOXd3aWRlMTNkcG90?=
- =?utf-8?B?bFl2MWRFMW1GU0xYYzFqbDFmUjlkeHpPdm1CeWZkZmNNRFVWRFlhUkZVcmtO?=
- =?utf-8?Q?HJG8VOPyFr49FXQ0=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee176b99-1638-4d20-2017-08df0448b226
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12558.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 14:37:18.4003
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: H+e+zM1Ua5l2WwFSGz3zswRH9WP6gzNEclXaT5qjDYt5NXH9lvprgJbapHaJmb7Az0VeM+pNe84g/kAVDdvuFQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9021
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/5] clk: socfpga: agilex72: add clock manager driver for
+ Agilex72
+Content-Language: en-US
+To: evon.chiam@altera.com, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>
+Cc: Lothar Rubusch <l.rubusch@gmail.com>, Ng Tze Yee <tzeyee.ng@altera.com>,
+ Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>,
+ Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>,
+ Brian Masney <bmasney@redhat.com>, devicetree@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <cover.1786006669.git.evon.chiam@altera.com>
+ <97675c0efd40a9407b6b1a1941cc73b73dd45d39.1786006669.git.evon.chiam@altera.com>
+From: Dinh Nguyen <dinguyen@kernel.org>
+In-Reply-To: <97675c0efd40a9407b6b1a1941cc73b73dd45d39.1786006669.git.evon.chiam@altera.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 8/26/2026 6:57 PM, Conor Dooley wrote:
-> On Wed, Aug 26, 2026 at 09:35:01AM -0500, Frank Li wrote:
->> On Wed, Aug 26, 2026 at 03:40:44PM +0200, Larisa Grigore wrote:
->>> [You don't often get email from larisa.grigore@oss.nxp.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
->>>
->>> Document the device tree binding for the NXP S32N79 DWC-based UFS host
->>> controller which is compliant with JESD-223D "Universal Flash Storage Host
->>> Controller Interface" v3.0.
->>>
->>> The controller requires access to the SCM register block and the core
->>> clock rate when M-PHY initialization is performed. Add the optional
->>> nxp,mphy-boot-mode property to select the M-PHY firmware execution
->>> environment.
->>> Currently, the M-PHY firmware can only run from ROM. If the property is
->>> omitted, M-PHY initialization is assumed to be handled externally.
->>>
->>> Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
->>> ---
->>>   .../bindings/ufs/nxp,s32n7-ufshc.yaml         | 99 +++++++++++++++++++
->>>   1 file changed, 99 insertions(+)
->>>   create mode 100644 Documentation/devicetree/bindings/ufs/nxp,s32n7-ufshc.yaml
->>>
->>> diff --git a/Documentation/devicetree/bindings/ufs/nxp,s32n7-ufshc.yaml b/Documentation/devicetree/bindings/ufs/nxp,s32n7-ufshc.yaml
->>> new file mode 100644
->>> index 000000000000..d9d5669be313
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/ufs/nxp,s32n7-ufshc.yaml
->>> @@ -0,0 +1,99 @@
->>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
->>> +%YAML 1.2
->>> +---
->>> +$id: http://devicetree.org/schemas/ufs/nxp,s32n7-ufshc.yaml#
->>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>> +
->>> +title: NXP S32N79 Universal Flash Storage (UFS) Controller
->>> +
->>> +maintainers:
->>> +  - Larisa Grigore <larisa.grigore@oss.nxp.com>
->>> +
->>> +# Select only our matches, not all jedec,ufs
->>> +select:
->>> +  properties:
->>> +    compatible:
->>> +      contains:
->>> +        const: nxp,s32n79-ufshc
->>> +  required:
->>> +    - compatible
->>> +
->>> +properties:
->>> +  compatible:
->>> +    items:
->>> +      - const: nxp,s32n79-ufshc
->>> +      - const: jedec,ufs-3.0
->>
->> Any place actually use this fallback?
+
+
+On 8/6/26 17:25, evon.chiam@altera.com wrote:
+> From: "Chiam, Evon" <evon.chiam@altera.com>
 > 
-> I don't think that this exists anywhere already:
-> https://lore.kernel.org/all/?q=%22jedec%2Cufs-3.0%22
-> $ git checkout korg-next/master
-> Previous HEAD position was 2697ef8943c9 Add linux-next specific files for 20260813
-> HEAD is now at f82a5da2f049 Add linux-next specific files for 20260826
-> $ rg jedec,ufs-3.0
-> $
+> Add new Clock manager driver to support new Altera Agilex72 platform
 > 
-> So not entirely sure what the point of this actually is, if the driver
-> doesn't use the fallback.
+> Signed-off-by: Chiam, Evon <evon.chiam@altera.com>
+> ---
+>   MAINTAINERS                        |    5 +
+>   drivers/clk/socfpga/Kconfig        |    3 +-
+>   drivers/clk/socfpga/Makefile       |    2 +-
+>   drivers/clk/socfpga/clk-agilex72.c | 1181 ++++++++++++++++++++++++++++
+>   drivers/clk/socfpga/clk-agilex72.h |   91 +++
+>   5 files changed, 1280 insertions(+), 2 deletions(-)
+>   create mode 100644 drivers/clk/socfpga/clk-agilex72.c
+>   create mode 100644 drivers/clk/socfpga/clk-agilex72.h
 > 
-> pw-bot: changes-requested
->
-Thank you! Will address it in v2.
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 15011f5752a9..1b850dc3d6b6 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -3581,6 +3581,11 @@ S:	Maintained
+>   F:	Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml
+>   F:	drivers/media/platform/samsung/s5p-mfc/
+>   
+> +ARM/SOCFPGA AGILEX72 CLOCK DRIVER
+> +M:	Chiam, Evon <evon.chiam@altera.com>
+> +S:	Maintained
+> +F:	drivers/clk/socfpga/clk-agilex72.[ch]
+> +
 
-Regard,
-Larisa
+I'll just maintain it for now under all socfpga.
+>   ARM/SOCFPGA ARCHITECTURE
+>   M:	Dinh Nguyen <dinguyen@kernel.org>
+>   S:	Maintained
+> diff --git a/drivers/clk/socfpga/Kconfig b/drivers/clk/socfpga/Kconfig
+> index d88277e2a898..40cac9428fbe 100644
+> --- a/drivers/clk/socfpga/Kconfig
+> +++ b/drivers/clk/socfpga/Kconfig
+> @@ -13,7 +13,8 @@ config CLK_INTEL_SOCFPGA32
+>   	default ARM && ARCH_INTEL_SOCFPGA
+>   
+>   config CLK_INTEL_SOCFPGA64
+> -	bool "Intel Stratix / Agilex / N5X / Agilex5 clock controller support" if COMPILE_TEST && (!ARM64 || !ARCH_INTEL_SOCFPGA)
+> +	bool "Intel Stratix / Agilex / N5X / Agilex5 / Agilex72 clock controller support" \
+> +		if COMPILE_TEST && (!ARM64 || !ARCH_INTEL_SOCFPGA)
+>   	default ARM64 && ARCH_INTEL_SOCFPGA
+>   
+>   endif # CLK_INTEL_SOCFPGA
+> diff --git a/drivers/clk/socfpga/Makefile b/drivers/clk/socfpga/Makefile
+> index a1ea2b988eaf..97af3dfdbbad 100644
+> --- a/drivers/clk/socfpga/Makefile
+> +++ b/drivers/clk/socfpga/Makefile
+> @@ -3,4 +3,4 @@ obj-$(CONFIG_CLK_INTEL_SOCFPGA32) += clk.o clk-gate.o clk-pll.o clk-periph.o \
+>   				     clk-pll-a10.o clk-periph-a10.o clk-gate-a10.o
+>   obj-$(CONFIG_CLK_INTEL_SOCFPGA64) += clk-s10.o \
+>   				     clk-pll-s10.o clk-periph-s10.o clk-gate-s10.o \
+> -				     clk-agilex.o clk-agilex5.o
+> +				     clk-agilex.o clk-agilex5.o clk-agilex72.o
+> diff --git a/drivers/clk/socfpga/clk-agilex72.c b/drivers/clk/socfpga/clk-agilex72.c
+> new file mode 100644
+> index 000000000000..e350d8a9bb4d
+> --- /dev/null
+> +++ b/drivers/clk/socfpga/clk-agilex72.c
+> @@ -0,0 +1,1181 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (C) 2026, Altera Corporation
+> + */
+> +#include <linux/slab.h>
+> +#include <linux/clk-provider.h>
+> +#include <linux/io.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/string.h>
+> +#include <dt-bindings/clock/altr,agilex72-clkmgr.h>
+> +#include "clk-agilex72.h"
+> +
+> +#define EMAC_BYPASS_OFFSET          0x10
+> +#define CLK_MGR_FREE_SHIFT          16
+> +#define CLK_MGR_FREE_MASK           0x7
+> +#define PERI_CLK_CNT_DIV_WIDTH      11
+> +#define BOOTCLKSRC_MASK             0x2000000
+> +#define BOOTCLKSRC_SHIFT            25
+> +#define SOCFPGA_PLL_POWER           0
+> +#define BOOT_CLK                    "boot_clk"
+> +#define CLK_MGR_PLL_CLK_SRC_SHIFT   27
+> +#define CLK_MGR_PLL_CLK_SRC_MASK    0x3
+> +#define PLL_RATE_REG_OFFSET         0x4
+> +#define PLL_CR_N_HI_MASK            0xFF
+> +#define PLL_CR_N_LO_MASK            0x1FE00
+> +#define PLL_CR_N_LO_SHIFT           9
+> +#define PLL_CRHI_M_MASK             0x1FF00000
+> +#define PLL_CRHI_M_SHIFT            20
+> +#define PLL_CR_C_MASK               0xFF
+> +#define PLL_CR_BYPASS_DIV_MASK      0x100
+> +#define PLL_FRACT_DIV_REG_OFFSET    0x5c
+> +#define PLL_CR_FRACT_DIV_MASK       0xFFFFFF
+> +
+> +static bool agilex72_gate_is_emac(const char *name);
+> +static u8 agilex72_parent_index(const char * const *parents,
+> +				size_t num_parents, const char *parent_name);
+> +static unsigned long agilex72_boot_clk_recalc_rate(struct clk_hw *hwclk,
+> +						   unsigned long parent_rate);
+> +static unsigned long agilex72_clk_pll_recalc_rate(struct clk_hw *hwclk,
+> +						  unsigned long parent_rate);
+> +static unsigned long agilex72_peri_c_clk_recalc_rate(struct clk_hw *hwclk,
+> +						     unsigned long parent_rate);
+> +static unsigned long
+> +agilex72_clk_peri_cnt_clk_recalc_rate(struct clk_hw *hwclk,
+> +				      unsigned long parent_rate);
+> +static unsigned long agilex72_gate_clk_recalc_rate(struct clk_hw *hwclk,
+> +						   unsigned long parent_rate);
+> +static u8 agilex72_boot_get_parent(struct clk_hw *hwclk);
+> +static u8 agilex72_clk_pll_get_parent(struct clk_hw *hwclk);
+> +static u8 agilex72_peri_c_clk_get_parent(struct clk_hw *hwclk);
+> +static u8 agilex72_clk_periclk_get_parent(struct clk_hw *hwclk);
+> +static u8 agilex72_gate_get_parent(struct clk_hw *hwclk);
+> +
+> +/* External parent clocks come from DT via fw_name */
+> +static const char * const boot_pll_parents[] = {
+> +	"osc1",
+> +	"cb-intosc-div2-clk",
+> +};
+> +
+> +static const char * const gppll0_clk_parents[] = {
+> +	"osc1",
+> +	"cb-intosc-div10-clk",
+> +	"f2s-free-clk",
+> +};
+> +
+> +static const char * const gppll1_clk_parents[] = {
+> +	"osc1",
+> +	"cb-intosc-div10-clk",
+> +	"f2s-free-clk",
+> +};
+> +
+> +static const char * const gppll2_clk_parents[] = {
+> +	"osc1",
+> +	"cb-intosc-div10-clk",
+> +	"f2s-free-clk",
+> +};
+> +
+> +/* Core free muxes */
+> +static const char * const comp0_free_mux[] = {
 
-> Thanks,
-> Conor.
+Do you mean core0 here?
 
+> +	"gppll1-c0",
+> +	"osc1",
+> +	"cb-intosc-div2-clk",
+> +	"f2s-free-clk",
+> +};
+> +
+> +static const char * const core2_free_mux[] = {
+> +	"gppll2-c0",
+> +	"osc1",
+> +	"cb-intosc-div2-clk",
+> +	"f2s-free-clk",
+> +};
+> +
+> +static const char * const core3_free_mux[] = {
+> +	"gppll2-c1",
+> +	"osc1",
+> +	"cb-intosc-div2-clk",
+> +	"f2s-free-clk",
+> +};
+> +
+> +static const char * const dsu_free_mux[] = {
+> +	"gppll1-c1",
+> +	"osc1",
+> +	"cb-intosc-div2-clk",
+> +	"f2s-free-clk",
+> +};
+> +
+> +static const char * const ccu_free_mux[] = {
+> +	"gppll0-c0",
+> +	"osc1",
+> +	"cb-intosc-div2-clk",
+> +	"f2s-free-clk",
+> +};
+> +
+> +static const char * const hsp_noc_free_mux[] = {
+> +	"gppll0-c0",
+> +	"osc1",
+> +	"cb-intosc-div2-clk",
+> +	"f2s-free-clk",
+> +};
+> +
+> +static const char * const lsp_noc_free_mux[] = {
+> +	"gppll0-c1",
+> +	"osc1",
+> +	"cb-intosc-div2-clk",
+> +	"f2s-free-clk",
+> +};
+> +
+> +static const char * const trace_free_mux[] = {
+> +	"gppll0-c2",
+> +	"osc1",
+> +	"cb-intosc-div2-clk",
+> +	"f2s-free-clk",
+> +};
+> +
+> +static const char * const emaca_free_mux[] = {
+> +	"gppll0-c0",
+> +	"osc1",
+> +	"cb-intosc-div2-clk",
+> +	"f2s-free-clk",
+> +};
+> +
+> +static const char * const emacb_free_mux[] = {
+> +	"gppll0-c0",
+> +	"osc1",
+> +	"cb-intosc-div2-clk",
+> +	"f2s-free-clk",
+> +};
+> +
+> +static const char * const emac_ptp_free_mux[] = {
+> +	"gppll0-c0",
+> +	"osc1",
+> +	"cb-intosc-div2-clk",
+> +	"f2s-free-clk",
+> +};
+> +
+> +static const char * const gpio_db_free_mux[] = {
+> +	"gppll0-c1",
+> +	"osc1",
+> +	"cb-intosc-div2-clk",
+> +	"f2s-free-clk",
+> +};
+> +
+> +static const char * const usb31_free_mux[] = {
+> +	"gppll0-c0",
+> +	"osc1",
+> +	"cb-intosc-div2-clk",
+> +	"f2s-free-clk",
+> +};
+> +
+> +static const char * const s2f_user0_free_mux[] = {
+> +	"gppll0-c1",
+> +	"osc1",
+> +	"cb-intosc-div2-clk",
+> +	"f2s-free-clk",
+> +};
+> +
+> +static const char * const s2f_user1_free_mux[] = {
+> +	"gppll0-c1",
+> +	"osc1",
+> +	"cb-intosc-div2-clk",
+> +	"f2s-free-clk",
+> +};
+> +
+> +static const char * const xspi_phy_clk_mux[] = {
+> +	"gppll0-c3",
+> +	"osc1",
+> +	"cb-intosc-div2-clk",
+> +	"f2s-free-clk",
+> +};
+> +
+> +static const char * const memdevice_phy_clk_mux[] = {
+> +	"gppll0-c3",
+> +	"osc1",
+> +	"cb-intosc-div2-clk",
+> +	"f2s-free-clk",
+> +};
+> +
+> +/* Secondary muxes between free_clk and boot_clk */
+> +static const char * const comp0_mux[] = {
+
+core0?
+
+> +	"comp0_free_clk",
+> +	BOOT_CLK,
+> +};
+> +
+> +static const char * const core2_mux[] = {
+> +	"core2_free_clk",
+> +	BOOT_CLK,
+> +};
+> +
+> +static const char * const core3_mux[] = {
+> +	"core3_free_clk",
+> +	BOOT_CLK,
+> +};
+> +
+> +static const char * const mpu_mux[] = {
+> +	"dsu_free_clk",
+> +	BOOT_CLK,
+> +};
+> +
+> +static const char * const ccu_mux[] = {
+> +	"ccu_free_clk",
+> +	BOOT_CLK,
+> +};
+> +
+> +static const char * const hsp_noc_mux[] = {
+> +	"hsp_noc_free_clk",
+> +	BOOT_CLK,
+> +};
+> +
+> +static const char * const lsp_noc_mux[] = {
+> +	"lsp_noc_free_clk",
+> +	BOOT_CLK,
+> +};
+> +
+> +static const char * const cs_at_mux[] = {
+> +	"lsp_noc_free_clk",
+> +	BOOT_CLK,
+> +};
+> +
+> +static const char * const cs_pdbg_mux[] = {
+> +	"lsp_noc_free_clk",
+> +	BOOT_CLK,
+> +};
+> +
+> +static const char * const cs_trace_mux[] = {
+> +	"trace_free_clk",
+> +	BOOT_CLK,
+> +};
+> +
+> +static const char * const emac_mux[] = {
+> +	"emaca_div_clk",
+> +	"emacb_div_clk",
+> +	BOOT_CLK,
+> +};
+> +
+> +static const char * const emac_ptp_mux[] = {
+> +	"emac_ptp_free_clk",
+> +	BOOT_CLK,
+> +};
+> +
+> +static const char * const gpio_db_mux[] = {
+> +	"gpio_db_free_clk",
+> +	BOOT_CLK,
+> +};
+> +
+> +static const char * const usb31_mux[] = {
+> +	"usb31_free_clk",
+> +	BOOT_CLK,
+> +};
+> +
+> +static const char * const s2f_user0_mux[] = {
+> +	"s2f_user0_free_clk",
+> +	BOOT_CLK,
+> +};
+> +
+> +static const char * const s2f_user1_mux[] = {
+> +	"s2f_user1_free_clk",
+> +	BOOT_CLK,
+> +};
+> +
+> +static const char * const xspi_mux[] = {
+> +	"xspi_phy_free_clk",
+> +	BOOT_CLK,
+> +};
+> +
+> +static const char * const memdevice_phy_mux[] = {
+> +	"memdevice_phy_free_clk",
+> +	BOOT_CLK,
+> +};
+> +
+> +static const struct agilex72_pll_clock pll_clks[] = {
+> +	{
+> +		.id = AGILEX72_BOOT_CLK,
+> +		.name = BOOT_CLK,
+> +		.parent_names = boot_pll_parents,
+> +		.num_parents = ARRAY_SIZE(boot_pll_parents),
+> +		.offset = 0x4,
+> +	},
+> +	{
+> +		.id = AGILEX72_GPPLL0_CLK,
+> +		.name = "gppll0",
+> +		.parent_names = gppll0_clk_parents,
+> +		.num_parents = ARRAY_SIZE(gppll0_clk_parents),
+> +		.offset = 0x160,
+> +	},
+> +	{
+> +		.id = AGILEX72_GPPLL1_CLK,
+> +		.name = "gppll1",
+> +		.parent_names = gppll1_clk_parents,
+> +		.num_parents = ARRAY_SIZE(gppll1_clk_parents),
+> +		.offset = 0x80,
+> +	},
+> +	{
+> +		.id = AGILEX72_GPPLL2_CLK,
+> +		.name = "gppll2",
+> +		.parent_names = gppll2_clk_parents,
+> +		.num_parents = ARRAY_SIZE(gppll2_clk_parents),
+> +		.offset = 0x60,
+> +	},
+> +};
+> +
+> +static const struct agilex72_perip_c_clock main_perip_c_clks[] = {
+> +	{ AGILEX72_GPPLL0_C0_CLK,
+> +	  "gppll0-c0", "gppll0", 1, 0x24, 23,  0, 8, 8 },
+> +	{ AGILEX72_GPPLL0_C1_CLK,
+> +	  "gppll0-c1", "gppll0", 1, 0x28, 14, 23, 8, 8 },
+> +	{ AGILEX72_GPPLL0_C2_CLK,
+> +	  "gppll0-c2", "gppll0", 1, 0x2c,  0,  9, 8, 8 },
+> +	{ AGILEX72_GPPLL0_C3_CLK,
+> +	  "gppll0-c3", "gppll0", 1, 0x30,  0,  9, 8, 8 },
+> +	{ AGILEX72_GPPLL0_C4_CLK,
+> +	  "gppll0-c4", "gppll0", 1, 0x38,  0,  9, 8, 8 },
+> +	{ AGILEX72_GPPLL0_C5_CLK,
+> +	  "gppll0-c5", "gppll0", 1, 0x3c,  0,  9, 8, 8 },
+> +	{ AGILEX72_GPPLL0_C6_CLK,
+> +	  "gppll0-c6", "gppll0", 1, 0x40,  0,  9, 8, 8 },
+> +	{ AGILEX72_GPPLL1_C0_CLK,
+> +	  "gppll1-c0", "gppll1", 1, 0x24, 23,  0, 8, 8 },
+> +	{ AGILEX72_GPPLL1_C1_CLK,
+> +	  "gppll1-c1", "gppll1", 1, 0x28, 14, 23, 8, 8 },
+> +	{ AGILEX72_GPPLL2_C0_CLK,
+> +	  "gppll2-c0", "gppll2", 1, 0x24, 23,  0, 8, 8 },
+> +	{ AGILEX72_GPPLL2_C1_CLK,
+> +	  "gppll2-c1", "gppll2", 1, 0x28, 14, 23, 8, 8 },
+> +};
+> +
+> +/* Non-SW clock-gated enabled clocks */
+> +static const struct agilex72_perip_cnt_clock main_perip_cnt_clks[] = {
+> +	{ AGILEX72_COMP0_FREE_CLK, "comp0_free_clk",
+> +	  comp0_free_mux, ARRAY_SIZE(comp0_free_mux), 0xbc },
+> +	{ AGILEX72_CORE2_FREE_CLK, "core2_free_clk",
+> +	  core2_free_mux, ARRAY_SIZE(core2_free_mux), 0xb8 },
+> +	{ AGILEX72_CORE3_FREE_CLK, "core3_free_clk",
+> +	  core3_free_mux, ARRAY_SIZE(core3_free_mux), 0xb4 },
+> +	{ AGILEX72_DSU_FREE_CLK, "dsu_free_clk",
+> +	  dsu_free_mux, ARRAY_SIZE(dsu_free_mux), 0xc0 },
+> +	{ AGILEX72_CCU_FREE_CLK, "ccu_free_clk",
+> +	  ccu_free_mux, ARRAY_SIZE(ccu_free_mux), 0xc4 },
+> +	{ AGILEX72_HSP_NOC_FREE_CLK, "hsp_noc_free_clk",
+> +	  hsp_noc_free_mux, ARRAY_SIZE(hsp_noc_free_mux), 0x104 },
+> +	{ AGILEX72_LSP_NOC_FREE_CLK, "lsp_noc_free_clk",
+> +	  lsp_noc_free_mux, ARRAY_SIZE(lsp_noc_free_mux), 0x108 },
+> +	{ AGILEX72_TRACE_FREE_CLK, "trace_free_clk",
+> +	  trace_free_mux, ARRAY_SIZE(trace_free_mux), 0x144 },
+> +	{ AGILEX72_EMAC_A_FREE_CLK, "emaca_free_clk",
+> +	  emaca_free_mux, ARRAY_SIZE(emaca_free_mux), 0x128 },
+> +	{ AGILEX72_EMAC_B_FREE_CLK, "emacb_free_clk",
+> +	  emacb_free_mux, ARRAY_SIZE(emacb_free_mux), 0x12c },
+> +	{ AGILEX72_EMAC_PTP_FREE_CLK, "emac_ptp_free_clk",
+> +	  emac_ptp_free_mux, ARRAY_SIZE(emac_ptp_free_mux), 0x130 },
+> +	{ AGILEX72_GPIO_DB_FREE_CLK, "gpio_db_free_clk",
+> +	  gpio_db_free_mux, ARRAY_SIZE(gpio_db_free_mux), 0x134 },
+> +	{ AGILEX72_USB31_FREE_CLK, "usb31_free_clk",
+> +	  usb31_free_mux, ARRAY_SIZE(usb31_free_mux), 0x140 },
+> +	{ AGILEX72_S2F_USER0_FREE_CLK, "s2f_user0_free_clk",
+> +	  s2f_user0_free_mux, ARRAY_SIZE(s2f_user0_free_mux), 0x138 },
+> +	{ AGILEX72_S2F_USER1_FREE_CLK, "s2f_user1_free_clk",
+> +	  s2f_user1_free_mux, ARRAY_SIZE(s2f_user1_free_mux), 0x13c },
+> +	{ AGILEX72_XSPI_PHY_FREE_CLK, "xspi_phy_free_clk",
+> +	  xspi_phy_clk_mux, ARRAY_SIZE(xspi_phy_clk_mux), 0x154 },
+> +	{ AGILEX72_MEMDEVICE_PHY_FREE_CLK, "memdevice_phy_free_clk",
+> +	  memdevice_phy_clk_mux, ARRAY_SIZE(memdevice_phy_clk_mux), 0x148 },
+> +};
+> +
+> +static const char * const hsp_mp_clk_parent[] = { "hsp_mp_clk" };
+> +static const char * const lsp_main_parent[] = { "lsp_main_clk" };
+> +static const char * const lsp_mp_parent[] = { "lsp_mp_clk" };
+> +static const char * const lsp_sp_parent[] = { "lsp_sp_clk" };
+> +static const char * const usb31_bus_clk_early_parents[] = { "hsp_main_clk" };
+> +static const char * const emaca_div_parents[] = { "emaca_free_clk" };
+> +static const char * const emacb_div_parents[] = { "emacb_free_clk" };
+> +
+> +/* SW Clock gate enabled clocks */
+> +static const struct agilex72_gate_clock gate_clks[] = {
+> +	{ AGILEX72_COMP0_CLK, "comp0_clk", comp0_mux,
+
+CORE0?
+
+> +	  ARRAY_SIZE(comp0_mux), 0x30, 8, 0, 0, 0, 0x3c, 5, 0 },
+> +	{ AGILEX72_CORE2_CLK, "core2_clk", core2_mux,
+> +	  ARRAY_SIZE(core2_mux), 0x30, 10, 0, 0, 0, 0x3c, 10, 0 },
+> +	{ AGILEX72_CORE3_CLK, "core3_clk", core3_mux,
+> +	  ARRAY_SIZE(core3_mux), 0x30, 11, 0, 0, 0, 0x3c, 11, 0 },
+> +	{ AGILEX72_MPU_CLK, "mpu_clk", mpu_mux,
+> +	  ARRAY_SIZE(mpu_mux), 0x30, 7, 0, 0, 0, 0x3c, 4, 0 },
+> +	{ AGILEX72_CCU_CLK, "ccu_clk", ccu_mux,
+> +	  ARRAY_SIZE(ccu_mux), 0x30, 6, 0, 0, 0, 0x3c, 3, 0 },
+> +	{ AGILEX72_APU_SYS_FREE_CLK, "apu_sys_free_clk", ccu_mux,
+> +	  ARRAY_SIZE(ccu_mux), 0, 0, 0x50, 22, 2, 0x3c, 3, 0 },
+> +	{ AGILEX72_HSP_SYS_FREE_CLK, "hsp_sys_free_clk", hsp_noc_mux,
+> +	  ARRAY_SIZE(hsp_noc_mux), 0, 0, 0x10c, 8, 2, 0xf0, 9, 0 },
+> +	{ AGILEX72_HSP_MAIN_FREE_CLK, "hsp_main_free_clk", hsp_noc_mux,
+> +	  ARRAY_SIZE(hsp_noc_mux), 0, 0, 0, 0, 0, 0xf0, 9, 0 },
+> +	{ AGILEX72_HSP_MAIN_CLK, "hsp_main_clk", hsp_noc_mux,
+> +	  ARRAY_SIZE(hsp_noc_mux), 0xe0, 1, 0, 0, 0, 0xf0, 9, 0 },
+> +	{ AGILEX72_HSP_MP_CLK, "hsp_mp_clk", hsp_noc_mux,
+> +	  ARRAY_SIZE(hsp_noc_mux), 0xe0, 2, 0x10c, 10, 2, 0xf0, 9, 0 },
+> +	{ AGILEX72_HSP_SP_CLK, "hsp_sp_clk", hsp_noc_mux,
+> +	  ARRAY_SIZE(hsp_noc_mux), 0xe0, 3, 0x10c, 12, 2, 0xf0, 9, 0 },
+Are any of these clock critical? Meaning, they cannot get gated off?
+
+
+> +	{ AGILEX72_USB2OTG_HCLK, "usb2otg_hclk", hsp_mp_clk_parent,
+> +	  1, 0xe0, 0, 0, 0, 0, 0, 0, 0 },
+> +	{ AGILEX72_LSP_SYS_FREE_CLK, "lsp_sys_free_clk", lsp_noc_mux,
+> +	  ARRAY_SIZE(lsp_noc_mux), 0, 0, 0x10c, 2, 2, 0xf0, 9, 0 },
+> +	{ AGILEX72_LSP_MAIN_FREE_CLK, "lsp_main_free_clk", lsp_noc_mux,
+> +	  ARRAY_SIZE(lsp_noc_mux), 0xe0, 0, 0, 0, 0, 0xf0, 9, 0 },
+
+Does this clock really share the same gate as the usb2otg_hclk?
+> +	{ AGILEX72_LSP_MAIN_CLK, "lsp_main_clk", lsp_noc_mux,
+> +	  ARRAY_SIZE(lsp_noc_mux), 0xe0, 1, 0, 0, 0, 0xf0, 9, 0 },
+
+Are you sure this clock share the same enable bit as the hsp_main_clk?
+
+> +	{ AGILEX72_LSP_MP_CLK, "lsp_mp_clk", lsp_noc_mux,
+> +	  ARRAY_SIZE(lsp_noc_mux), 0xe0, 2, 0x10c, 4, 2, 0xf0, 9, 0 },
+
+Also here, the hsp_mp_clk has the same enable bit?
+
+> +	{ AGILEX72_LSP_SP_CLK, "lsp_sp_clk", lsp_noc_mux,
+> +	  ARRAY_SIZE(lsp_noc_mux), 0xe0, 3, 0x10c, 6, 2, 0xf0, 9, 0 },
+> +	{ AGILEX72_SPIM_0_CLK, "spim_0_clk", lsp_main_parent,
+> +	  1, 0xd0, 11, 0, 0, 0, 0, 0, 0 },
+> +	{ AGILEX72_SPIM_1_CLK, "spim_1_clk", lsp_main_parent,
+> +	  1, 0xd0, 12, 0, 0, 0, 0, 0, 0 },
+> +	{ AGILEX72_SPIS_0_CLK, "spis_0_clk", lsp_main_parent,
+> +	  1, 0xd0, 13, 0, 0, 0, 0, 0, 0 },
+> +	{ AGILEX72_SPIS_1_CLK, "spis_1_clk", lsp_main_parent,
+> +	  1, 0xd0, 14, 0, 0, 0, 0, 0, 0 },
+> +	{ AGILEX72_DMA_0_CORE_CLK, "dma_0_core_clk", lsp_main_parent,
+> +	  1, 0xd0, 15, 0, 0, 0, 0, 0, 0 },
+> +	{ AGILEX72_DMA_0_HS_CLK, "dma_0_hs_clk", lsp_mp_parent,
+> +	  1, 0xd0, 15, 0, 0, 0, 0, 0, 0 },
+> +	{ AGILEX72_DMA_1_CORE_CLK, "dma_1_core_clk", lsp_main_parent,
+> +	  1, 0xd0, 16, 0, 0, 0, 0, 0, 0 },
+> +	{ AGILEX72_DMA_1_HS_CLK, "dma_1_hs_clk", lsp_mp_parent,
+> +	  1, 0xd0, 16, 0, 0, 0, 0, 0, 0 },
+> +	{ AGILEX72_I3C_0_CORE_CLK, "i3c_0_core_clk", lsp_mp_parent,
+> +	  1, 0xd0, 22, 0, 0, 0, 0, 0, 0 },
+> +	{ AGILEX72_I3C_1_CORE_CLK, "i3c_1_core_clk", lsp_mp_parent,
+> +	  1, 0xd0, 23, 0, 0, 0, 0, 0, 0 },
+> +	{ AGILEX72_I2C_0_PCLK, "i2c_0_pclk", lsp_sp_parent,
+> +	  1, 0xd0, 17, 0, 0, 0, 0, 0, 0 },
+> +	{ AGILEX72_I2C_1_PCLK, "i2c_1_pclk", lsp_sp_parent,
+> +	  1, 0xd0, 18, 0, 0, 0, 0, 0, 0 },
+> +	{ AGILEX72_I2C_EMAC0_PCLK, "i2c_emac0_pclk", lsp_sp_parent,
+> +	  1, 0xd0, 19, 0, 0, 0, 0, 0, 0 },
+> +	{ AGILEX72_I2C_EMAC1_PCLK, "i2c_emac1_pclk", lsp_sp_parent,
+> +	  1, 0xd0, 20, 0, 0, 0, 0, 0, 0 },
+> +	{ AGILEX72_I2C_EMAC2_PCLK, "i2c_emac2_pclk", lsp_sp_parent,
+> +	  1, 0xd0, 21, 0, 0, 0, 0, 0, 0 },
+> +	{ AGILEX72_UART_0_PCLK, "uart_0_pclk", lsp_sp_parent,
+> +	  1, 0xd0, 23, 0, 0, 0, 0, 0, 0 },
+
+Are you sure this clock share the same enable bit as the i3c_1_core_clk?
+
+> +	{ AGILEX72_UART_1_PCLK, "uart_1_pclk", lsp_sp_parent,
+> +	  1, 0xd0, 24, 0, 0, 0, 0, 0, 0 },
+> +	{ AGILEX72_UART_2_PCLK, "uart_2_pclk", lsp_sp_parent,
+> +	  1, 0xd0, 25, 0, 0, 0, 0, 0, 0 },
+> +	{ AGILEX72_SPTIMER_0_PCLK, "sptimer_0_pclk", lsp_sp_parent,
+> +	  1, 0xd0, 29, 0, 0, 0, 0, 0, 0 },
+> +	{ AGILEX72_SPTIMER_1_PCLK, "sptimer_1_pclk", lsp_sp_parent,
+> +	  1, 0xd0, 30, 0, 0, 0, 0, 0, 0 },
+> +	{ AGILEX72_CS_AT_CLK, "cs_at_clk", cs_at_mux,
+> +	  ARRAY_SIZE(cs_at_mux), 0xe0, 4, 0x10c, 24, 2, 0xf0, 9, 0 },
+> +	{ AGILEX72_CS_PDBG_CLK, "cs_pdbg_clk", cs_pdbg_mux,
+> +	  ARRAY_SIZE(cs_pdbg_mux), 0xe0, 4, 0x10c, 28, 2, 0xf0, 9, 0 },
+> +	{ AGILEX72_CS_TRACE_CLK, "cs_trace_clk", cs_trace_mux,
+> +	  ARRAY_SIZE(cs_trace_mux), 0xe0, 4, 0x10c, 26, 2, 0xf0, 10, 0 },
+> +	{ AGILEX72_EMACA_DIV_CLK, "emaca_div_clk", emaca_div_parents,
+> +	  1, 0, 0, 0x118, 8, 2, 0, 0, 0 },
+> +	{ AGILEX72_EMACB_DIV_CLK, "emacb_div_clk", emacb_div_parents,
+> +	  1, 0, 0, 0x118, 10, 2, 0, 0, 0 },
+> +	{ AGILEX72_EMAC0_CLK, "emac0_clk", emac_mux,
+> +	  ARRAY_SIZE(emac_mux), 0xd0, 0, 0, 0, 0, 0x100, 26, 0 },
+> +	{ AGILEX72_EMAC1_CLK, "emac1_clk", emac_mux,
+> +	  ARRAY_SIZE(emac_mux), 0xd0, 1, 0, 0, 0, 0x100, 27, 0 },
+> +	{ AGILEX72_EMAC2_CLK, "emac2_clk", emac_mux,
+> +	  ARRAY_SIZE(emac_mux), 0xd0, 2, 0, 0, 0, 0x100, 28, 0 },
+> +	{ AGILEX72_EMAC_PTP_CLK, "emac_ptp_clk", emac_ptp_mux,
+> +	  ARRAY_SIZE(emac_ptp_mux), 0xd0, 3, 0, 0, 0, 0xf0, 2, 0 },
+> +	{ AGILEX72_GPIO_DB_CLK, "gpio_db_clk", gpio_db_mux,
+> +	  ARRAY_SIZE(gpio_db_mux), 0xd0, 4, 0x114, 0, 16, 0xf0, 3, 1 },
+> +	{ AGILEX72_USB31_SUSPEND_CLK, "usb31_suspend_clk", usb31_mux,
+> +	  ARRAY_SIZE(usb31_mux), 0xe0, 7, 0x118, 12, 6, 0xf0, 7, 1 },
+> +	{ AGILEX72_USB31_BUS_CLK_EARLY, "usb31_bus_clk_early",
+> +	  usb31_bus_clk_early_parents, 1, 0xe0, 7, 0, 0, 0, 0, 0, 0 },
+> +	{ AGILEX72_S2F_USER0_CLK, "s2f_user0_clk", s2f_user0_mux,
+> +	  ARRAY_SIZE(s2f_user0_mux), 0xd0, 27, 0, 0, 0, 0xf0, 4, 0 },
+> +	{ AGILEX72_S2F_USER1_CLK, "s2f_user1_clk", s2f_user1_mux,
+> +	  ARRAY_SIZE(s2f_user1_mux), 0xd0, 28, 0, 0, 0, 0xf0, 5, 0 },
+> +	{ AGILEX72_XSPI_PCLK, "xspi_pclk", lsp_mp_parent,
+> +	  1, 0xd0, 9, 0, 0, 0, 0, 0, 0 },
+> +	{ AGILEX72_XSPI_CLK, "xspi_clk", xspi_mux,
+> +	  ARRAY_SIZE(xspi_mux), 0xd0, 9, 0x110, 8, 2, 0xf0, 14, 0 },
+> +	{ AGILEX72_XSPI_PHY_CLK, "xspi_phy_clk", xspi_mux,
+> +	  ARRAY_SIZE(xspi_mux), 0xd0, 9, 0x110, 8, 2, 0xf0, 14, 0 },
+> +	{ AGILEX72_SDMMC0_SDPHY_REG_CLK, "sdmmc0_sdphy_reg_clk",
+> +	  lsp_mp_parent, 1, 0xd0, 5, 0, 0, 0, 0, 0, 0 },
+> +	{ AGILEX72_SDMMC1_SDPHY_REG_CLK, "sdmmc1_sdphy_reg_clk",
+> +	  lsp_mp_parent, 1, 0xd0, 7, 0, 0, 0, 0, 0, 0 },
+> +	{ AGILEX72_SDMMC0_SDMCLK, "sdmmc0_sdmclk", memdevice_phy_mux,
+> +	  ARRAY_SIZE(memdevice_phy_mux), 0xd0, 5, 0x110, 4, 2, 0xf0, 15, 0 },
+> +	{ AGILEX72_SDMMC1_SDMCLK, "sdmmc1_sdmclk", memdevice_phy_mux,
+> +	  ARRAY_SIZE(memdevice_phy_mux), 0xd0, 7, 0x110, 6, 2, 0xf0, 15, 0 },
+> +	{ AGILEX72_SDMMC0_PHY_CLK, "sdmmc0_phy_clk", memdevice_phy_mux,
+> +	  ARRAY_SIZE(memdevice_phy_mux), 0xd0, 5, 0x110, 4, 2, 0xf0, 15, 0 },
+> +	{ AGILEX72_SDMMC1_PHY_CLK, "sdmmc1_phy_clk", memdevice_phy_mux,
+> +	  ARRAY_SIZE(memdevice_phy_mux), 0xd0, 7, 0x110, 6, 2, 0xf0, 15, 0 },
+> +};
+> +
+
+<snip>
+
+> diff --git a/drivers/clk/socfpga/clk-agilex72.h b/drivers/clk/socfpga/clk-agilex72.h
+> new file mode 100644
+> index 000000000000..e120fe97fd65
+> --- /dev/null
+> +++ b/drivers/clk/socfpga/clk-agilex72.h
+> @@ -0,0 +1,91 @@
+> +/* SPDX-License-Identifier:    GPL-2.0 */
+> +/*
+> + * Copyright (C) 2026, Altera Corporation
+> + */
+> +
+> +#ifndef	__AGILEX72_CLK_H
+> +#define	__AGILEX72_CLK_H
+> +
+> +#include <linux/clk-provider.h>
+> +
+> +struct agilex72_clock_data {
+> +	/*
+> +	 * MMIO bases ioremapped from DT resources with "reg-names" property
+> +	 * in probe:
+> +	 *   [0] - "clkmgr"  : main clock manager register block
+> +	 *   [1] - "gppll0"  : GP PLL 0 register block
+> +	 *   [2] - "gppll1"  : GP PLL 1 register block
+> +	 *   [3] - "gppll2"  : GP PLL 2 register block
+> +	 */
+> +	void __iomem *base[4];
+> +
+> +	/* Must be last */
+> +	struct clk_hw_onecell_data	clk_data;
+> +};
+> +
+> +struct agilex72_pll {
+> +	struct clk_gate     hw;
+> +	void __iomem       *pll_base;
+> +};
+> +
+> +struct agilex72_periph_clk {
+> +	struct clk_gate  hw;
+> +	void __iomem    *div_reg;
+> +	u8               div_lo_shift;
+> +	u8               div_hi_shift;
+> +};
+> +
+> +struct agilex72_gate_clk {
+> +	struct clk_gate hw;
+> +	bool div_linear;
+> +	void __iomem *div_reg;
+> +	void __iomem *bypass_reg;
+> +	u8  div_width;	/* only valid if div_reg != 0 */
+> +	u8  div_shift;	/* only valid if div_reg != 0 */
+> +	u8  bypass_shift;      /* only valid if bypass_reg != 0 */
+> +};
+> +
+> +struct agilex72_pll_clock {
+> +	unsigned int	id;
+> +	const char	*name;
+> +	const char	* const *parent_names;
+> +	u8	num_parents;
+> +	unsigned long   offset;
+> +};
+> +
+> +struct agilex72_perip_c_clock {
+> +	unsigned int		id;
+> +	const char		*name;
+> +	const char		*parent_name;
+> +	u8			num_parents;
+> +	unsigned long		div_offset;
+> +	u8			div_lo_shift;
+> +	u8			div_hi_shift;
+> +	u8			div_lo_width;
+> +	u8			div_hi_width;
+
+I don't see div_lo_width and div_hi_width get used at all?
+
+> +};
+> +
+> +struct agilex72_perip_cnt_clock {
+> +	unsigned int		id;
+> +	const char		*name;
+> +	const char	* const *parent_names;
+> +	u8			num_parents;
+> +	unsigned long		offset;
+> +};
+> +
+> +struct agilex72_gate_clock {
+> +	unsigned int		id;
+> +	const char		*name;
+> +	const char	* const *parent_names;
+> +	u8			num_parents;
+> +	unsigned long		gate_reg;
+> +	u8			gate_idx;
+> +	unsigned long		div_reg;
+> +	u8			div_offset;
+> +	u8			div_width;
+> +	unsigned long		bypass_reg;
+> +	u8			bypass_shift;
+> +	bool			div_linear;
+> +};
+> +
+> +#endif	/* __AGILEX72_CLK_H */
+
+If clk-agilex72.c is the only consumer of this .h file, then just move 
+the declarations to the top of the C file. Or take a look at
+2050b57ecda0 ("clk: socfpga: agilex5: add clock driver for Agilex5") as 
+an example.
+
+Dinh
