@@ -1,150 +1,198 @@
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3AC2C2D0C7E;
-	Thu, 27 Aug 2026 04:55:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 102F131F98B
+	for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 05:04:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787806533; cv=none; b=QUiMsgzcS5HQr0JA+zHzl3YzuxAQd2mjk9n7OGm36MM4sOrcyPUf9Qw4+FsthLoJY1/Btovi8AMlc3Iv7PgQ6Fc/Hjqu8biCfmDdMzx4DLp0S83XC8tPF/9fg9FuH3am2gA6SztQmeBrW3+g6Y8AApkOX9/rq+jfzmJOInuVzCY=
+	t=1787807085; cv=none; b=vDULaZgoOIbjoHQFbXFmYO94UG9OLcvYjCQM03MsDGiSuDiQn42mEdkO+aerOXtNvTQf+7Nxp/0ORaxnShLhM8wZTGOwlUNweMozfquhxzhS5vWDw8qmwGhyRg9HzpVo6fsvjkqus6bUnYXXK8FZjx4DWhFVRMGJSS2GnX8a7Oo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787806533; c=relaxed/simple;
-	bh=90tsSyDLBX0Cz3GrAAWW/LutBnaIZV2qndroWkPLluk=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=BHsr3zs0XtsVQsvcXph1w8ivNnD9Wu4pQsG6yoieYz3Kyolm8U2b4SUOjByWF4Gk0J+ii6WcaxXHTe7v/d7Gh3YVOwJxh/hl1ln49RxgC5FxdNrOAydFkJ2dO570h2MHE4ituHg51XrFXqzqgAfSy9qXnLmn3qTEuu4m3gB0LQA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=Wq9KEZpQ; arc=none smtp.client-ip=218.76.62.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
+	s=arc-20240116; t=1787807085; c=relaxed/simple;
+	bh=gCKBW/tFA6PbCzt5m9nqSHErtXxfR+Of+zTI+yZLSEQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=tyqQ2xRblvfgQPPBejUjYMA0AA/+kuVDJJgCJLCN09L5tqJQZPvn68VCIKiqReJ3KLe4/kg8UNdmycqWUSoITmUPXHZwhPHQVn8HfbuJ0eFWLckdD0HITJRah70LK91d56Bw/lLPIDKBHpqIRpeL2vZvc3RzBy0vW0ySXJGCj2I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nCjGRlQt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="Wq9KEZpQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	References:Date:Message-Id; bh=/vtHaHrw6VqvnjqtqCEIU3jfkZsq9QIio
-	bIZuMjLspc=; b=Wq9KEZpQYp4DqLt0IQiwZVH6ErO3Mj9uNJEdMLRLW5R4aaBvo
-	mdqXox0mVyR8F//CeNYbjrJgI50P9tMTxirp5DjxFdHUHpQzwyWbOPVOgTZT+sko
-	kAzuemtAEl7tFCpZF7K1WQntCHMLsAe0fQkOKSvedgpjUVCqEnk3pD8Po8=
-Received: from [127.0.0.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwCXxs0rw49qQFkBAA--.434S2;
-	Thu, 27 Aug 2026 12:55:07 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nCjGRlQt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6644A1F000E9;
+	Thu, 27 Aug 2026 05:04:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787807083;
+	bh=yt+48EuYJgfZmJe2zrmot8+7pRygMXJyfjs/w/dZ8s4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nCjGRlQttXlDZWZV9Efe6IFEpFqx0lWiyeb+TpBCJwxaRqYMugRyezAJwITIYEVgJ
+	 Eo8gUAUWaRjenxI0qwhCE8JJiKyM1Q7kajypL//ZIwb3HkgWJhQcQi3eV0eOWiWyD5
+	 QQQGWWeMQEozZSXazbudDwXS6wno/Tw9M6WqIIRIX8jM0oqUTaBB6TbX88Mi08dvKA
+	 NjFlI98/iOz1v8Nix0WMhc3mueol2XMPP5z+8tkPk0/mRK/CMvV0+5yfm/FtaSrM8H
+	 21pztQA50ZhXo9s6W0Pipp5Ms2BB7wiW2nPrlt19N5hYx3O57wn+65yEmZWfvcmQ2r
+	 VfGOSGIRLNomA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v23 2/4] crypto: spacc - Add SPAcc ahash support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Pavitrakumar Managutte" <pavitrakumarm@vayavyalabs.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260827044349.826534-3-pavitrakumarm@vayavyalabs.com>
+References: <20260827044349.826534-1-pavitrakumarm@vayavyalabs.com>
+ <20260827044349.826534-3-pavitrakumarm@vayavyalabs.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 27 Aug 2026 05:04:42 +0000
+Message-Id: <20260827050443.6644A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 11/12] riscv: dts: ultrarisc: Add Shenzhen Rongda M0
- board device tree
-From: Jia Wang <wangjia@ultrarisc.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Jia Wang <wangjia@ultrarisc.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, 
- Samuel Holland <samuel.holland@sifive.com>, 
- Anup Patel <anup@brainfault.org>, Mark Brown <broonie@kernel.org>, 
- Andi Shyti <andi.shyti@kernel.org>, 
- Mika Westerberg <mika.westerberg@linux.intel.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
- Jose Abreu <joabreu@synopsys.com>, 
- Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, 
- Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
- Paul Walmsley <paul.walmsley@sifive.com>, 
- Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org, 
- linux-i2c@vger.kernel.org, netdev@vger.kernel.org, 
- dmaengine@vger.kernel.org
-In-Reply-To: <db174bcd-3b21-464f-ab56-439d65e2a064@lunn.ch>
-References: <20260824-ultrarisc-dts-v1-0-61ab7aebe9e5@ultrarisc.com>
- <20260824-ultrarisc-dts-v1-11-61ab7aebe9e5@ultrarisc.com>
- <d93868e7-00c7-4251-9b23-8b3ed0535185@lunn.ch>
- <178779718359.1423015.16616466921659081322.b4-reply@b4>
- <db174bcd-3b21-464f-ab56-439d65e2a064@lunn.ch>
-Date: Thu, 27 Aug 2026 12:54:53 +0800
-Message-Id: <178780649385.1608658.14465948095163858225.b4-reply@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787806494; l=2092;
- i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
- bh=90tsSyDLBX0Cz3GrAAWW/LutBnaIZV2qndroWkPLluk=;
- b=UNtZghpp8iIE5tWCpGGJhUnNUY4ikL3VrrbizN1JtzpGTGYZP4oq9qfaPCSasOkkUmdlClkG4
- lScRZMeQkt/DZlkXjkc0Jp0wzBPkf16XErs6jp0+2r+I1LEU+z1NUua
-X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
- pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
-X-CM-TRANSID:AQAAfwCXxs0rw49qQFkBAA--.434S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7ury8XFyktw4fXryxKF4xtFb_yoW8Zrykpa
-	y5G3W7tFZ8tr4xCFn29w4IqasI9ayxGr1jqr1kJ34rA3Z8KF1rtr1Ig3yUuasrGrs5XF1j
-	9ay0qa9xGan0yaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9K14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJV
-	WxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Wrv_ZF1lc2xSY4AK6svPMxAIw28IcxkI7VAKI48JMx
-	C20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAF
-	wI0_JrI_JrWlx4CE17CEb7AF67AKxVWrXVW8Jr1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2
-	IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxK
-	x2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI
-	0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjTRJMa0UUUUU
-X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAMEWqPrHsABwAAsp
 
-On 2026-08-27 04:46 +0200, Andrew Lunn wrote:
-> On Thu, Aug 27, 2026 at 10:19:43AM +0800, Jia Wang wrote:
-> > On 2026-08-24 15:02 +0200, Andrew Lunn wrote:
-> > > > +&ethernet {
-> > > > +	phy-handle = <&phy0>;
-> > > > +	/*
-> > > > +	 * YT8531 RGMII timing on this board requires no PHY internal delays.
-> > > 
-> > > Please extend this sentence with an explanation why it needs no delay?
-> > > 
-> > > There are times this is correct, but it is also mostly wrong. Without
-> > > an explanation, i cannot say if this is correct or not.
-> > > 
-> > 
-> > Thanks for the review.
-> > 
-> > The DP1000 SoC integration provides the required TX and RX RGMII clock
-> > skew, so enabling the YT8531 internal delays would apply the delay twice.
-> 
-> Please take a read of
-> 
-> https://elixir.bootlin.com/linux/v6.15/source/Documentation/devicetree/bindings/net/ethernet-controller.yaml#L287
-> 
-> You need to make the MAC driver do the correct thing:
-> 
-> # There are a small number of cases where the MAC has hard coded
-> # delays which cannot be disabled. The 'phy-mode' only describes the
-> # PCB.  The inability to disable the delays in the MAC does not change
-> # the meaning of 'phy-mode'. It does however mean that a 'phy-mode' of
-> # 'rgmii' is now invalid, it cannot be supported, since both the PCB
-> # and the MAC and PHY adding delays cannot result in a functional
-> # link. Thus the MAC should report a fatal error for any modes which
-> # cannot be supported. When the MAC implements the delay, it must
-> # ensure that the PHY does not also implement the same delay. So it
-> # must modify the phy-mode it passes to the PHY, removing the delay it
-> # has added. Failure to remove the delay will result in a
-> # non-functioning link.
-> 
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [Critical] Teardown race in `spacc_crypto_remove()` allows the crypto eng=
+ine to dispatch requests to the hardware after interrupts are disabled and =
+DMA pools are destroyed.
+- [High] Deadlock and missed wakeup due to late `atomic_inc` of `dma_ref_cn=
+t`.
+- [Medium] Silent failure if `spacc_xof_stringsize_autodetect` fails.
+- [Medium] The `aad_copy` flag is silently dropped for buffered jobs.
+--
 
-Thanks for the clarification.
+commit 20cca9a22d8fa57ea670b157f7fd94bce9ee94e2
+Author: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
+crypto: spacc - Add SPAcc ahash support
 
-I will update the DTS to use "rgmii-id" and add a small DP1000 stmmac
-glue driver. The driver will account for the fixed TX and RX MAC delays
-using phy_fix_phy_mode_for_mac_delays(), reject unsupported modes, and
-pass "rgmii" to the PHY.
+This commit adds ahash support to the SPAcc driver. It introduces multiple
+hashing algorithms, including AES-CMAC, SM4-CMAC, and various SHA/MD5 varia=
+nts.
+It also sets up DMA pools and adds the corresponding hardware interaction
+routines.
 
->     Andrew
-> 
+> diff --git a/drivers/crypto/dwc-spacc/spacc_ahash.c b/drivers/crypto/dwc-=
+spacc/spacc_ahash.c
+> --- /dev/null
+> +++ b/drivers/crypto/dwc-spacc/spacc_ahash.c
+> @@ -539,26 +539,24 @@ static int spacc_hash_do_one_request(struct crypto_=
+engine *engine, void *areq)
+[ ... ]
+>  	rc =3D spacc_packet_enqueue_ddt(&priv->spacc, ctx->acb.new_handle,
+>  			&ctx->src, &ctx->dst, req->nbytes,
+>  			0, req->nbytes, 0, 0, 0, false);
+>  	if (rc < 0) {
+[ ... ]
+>  		return 0;
+>  	}
+> =20
+>  	/*
+>  	 * Job accepted by hardware. Balanced by the atomic_dec in
+>  	 * spacc_digest_cb() when the completion callback has run and the
+>  	 * job's DMA buffers are safe to reclaim.
+>  	 */
+>  	atomic_inc(&priv->dma_ref_cnt);
 
-Best regards,
-Jia Wang
+[Severity: High]
+Could the atomic_inc() of dma_ref_cnt here race with the interrupt handler =
+and
+cause a missed wakeup? Since spacc_packet_enqueue_ddt() drops the spinlock
+before returning, a fast hardware completion could trigger spacc_digest_cb()
+and its atomic_dec_and_test() before the atomic_inc() runs here. This would
+decrement the counter from 0 to -1 (missing the wake_up), and the subsequent
+atomic_inc() would return it to 0 without waking up any threads waiting in
+spacc_crypto_remove().
 
+> diff --git a/drivers/crypto/dwc-spacc/spacc_core.c b/drivers/crypto/dwc-s=
+pacc/spacc_core.c
+> --- /dev/null
+> +++ b/drivers/crypto/dwc-spacc/spacc_core.c
+> @@ -775,12 +775,10 @@ int spacc_init(void __iomem *baseaddr, struct spacc=
+_device *spacc,
+[ ... ]
+>  	/* autodetect and set string size setting */
+>  	if (spacc->config.version =3D=3D 0x61 || spacc->config.version >=3D 0x6=
+5)
+>  		spacc_xof_stringsize_autodetect(spacc);
+> =20
+>  	return 0;
 
+[Severity: Medium]
+What happens if spacc_xof_stringsize_autodetect() fails here? It appears the
+error code is ignored, meaning that on an allocation failure,
+spacc->config.string_size could remain 0, which would leave XOF hashing
+operations misconfigured. Should this check the return code and handle the
+error?
+
+> @@ -1277,13 +1277,10 @@ int spacc_packet_enqueue_ddt_ex(struct spacc_devi=
+ce *spacc, int use_jb,
+[ ... ]
+>  	if (_spacc_fifo_full(spacc, prio)) {
+>  		if (use_jb)
+>  			goto fifo_full;
+>  		else
+>  			return -EBUSY;
+>  	}
+
+[Severity: Medium]
+Will the aad_copy flag be lost for jobs that get buffered? In
+spacc_packet_enqueue_ddt_ex(), if the hardware FIFO is full, it jumps to
+fifo_full before setting the aad_copy flag in the control register. The
+spacc_job_buffer struct doesn't have a field to store this flag.
+
+> diff --git a/drivers/crypto/dwc-spacc/spacc_device.c b/drivers/crypto/dwc=
+-spacc/spacc_device.c
+> --- /dev/null
+> +++ b/drivers/crypto/dwc-spacc/spacc_device.c
+> @@ -242,15 +242,16 @@ static void spacc_crypto_remove(struct platform_dev=
+ice *pdev)
+[ ... ]
+>  	wait_event(priv->drain_wq, !atomic_read(&priv->dma_ref_cnt));
+> =20
+>  	spin_lock_irqsave(&priv->spacc.lock, flags);
+>  	spacc_irq_glbl_disable(&priv->spacc);
+>  	spin_unlock_irqrestore(&priv->spacc.lock, flags);
+> =20
+>  	devm_free_irq(&pdev->dev, priv->irq, &pdev->dev);
+> =20
+>  	if (priv->spacc_wq)
+>  		destroy_workqueue(priv->spacc_wq);
+> =20
+>  	if (priv->engine)
+>  		crypto_engine_exit(priv->engine);
+
+[Severity: Critical]
+Is it safe to exit the crypto engine after waiting for the inflight hardware
+jobs to drain? In spacc_crypto_remove(), wait_event() will succeed when the=
+re
+are no jobs actively running on the hardware (dma_ref_cnt =3D=3D 0). Howeve=
+r, the
+engine may still have jobs queued in software. Because crypto_engine_exit()=
+ is
+called after interrupts are disabled and DMA pools are destroyed, couldn't =
+the
+crypto engine dispatch those pending software requests to the hardware duri=
+ng
+teardown, leading to memory corruption or a device hang?
+
+> diff --git a/drivers/crypto/dwc-spacc/spacc_manager.c b/drivers/crypto/dw=
+c-spacc/spacc_manager.c
+> --- /dev/null
+> +++ b/drivers/crypto/dwc-spacc/spacc_manager.c
+> @@ -274,13 +274,10 @@ int spacc_process_jb(struct spacc_device *spacc, un=
+signed long *lock_flag)
+[ ... ]
+>  		if (spacc->job_buffer[tail].active) {
+>  			ret =3D spacc_packet_enqueue_ddt_ex
+>  			      (spacc, 0, spacc->job_buffer[tail].job_idx,
+>  			       spacc->job_buffer[tail].src,
+>  			       spacc->job_buffer[tail].dst,
+>  			       spacc->job_buffer[tail].proc_sz,
+>  			       spacc->job_buffer[tail].aad_offset,
+>  			       spacc->job_buffer[tail].pre_aad_sz,
+>  			       spacc->job_buffer[tail].post_aad_sz,
+>  			       spacc->job_buffer[tail].iv_offset,
+>  			       spacc->job_buffer[tail].prio, false, lock_flag);
+
+[Severity: Medium]
+Additionally, when spacc_process_jb() unbuffers the job, it calls
+spacc_packet_enqueue_ddt_ex() with aad_copy hardcoded to false. Doesn't this
+corrupt data for any crypto operations that originally required aad_copy?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260827044349.8265=
+34-1-pavitrakumarm@vayavyalabs.com?part=3D2
