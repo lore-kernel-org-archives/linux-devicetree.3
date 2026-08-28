@@ -1,68 +1,68 @@
-Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com [209.85.221.171])
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 249AA3CD8D7
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 06:38:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 337A141C6A
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 06:38:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787899124; cv=none; b=drOQVSBFdsSsjmQ3/kkxOvBhw4X627bUqsmlMbrZZbZYB5Q5U4horjv29UiZhwSbTgvNKMOhKhLSRRXOXwsUiUHIQNycikIf6Aa4SucvNjS4A+UvmLqaT2fqE7L3EomVVql2U6HEJXbe80cmWJJhtNxgqkAN2rXkiDAoNVEUuh8=
+	t=1787899130; cv=none; b=fgmjN5+vQxbklJLzhMmXD0NDzvILSD4NWrvrLw+LgZ5ljLoayWT6P05EAt7pTMqX3Kyz10LDPHahH2zn3nCUIiQwI7ZcDB/4i9oPGh9EAFSlmcuHYtZFGjbQa9Xeb50n9ymiH3ViS4RCDaDuPBh94aknTzgbusXNBvd6xITc/UE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787899124; c=relaxed/simple;
-	bh=Krf4k0YzPCfh28rpFAoWa340zlykWxBJ3urBqYrCa2I=;
+	s=arc-20240116; t=1787899130; c=relaxed/simple;
+	bh=DDo13wwLlYbjGc+vmoTMKrXc8Q3Ay18o6BblG/u9PbA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=j+VQb4ycvbvCFpMVAtFQMtHNpOaD+RjicxL8tI65w2XmK4zyeN3eJK6OMHrCVjZL8lAwTHiH4AGqn17pGD2XQ5nl21F3GaY9dusa/gsszggXBzcLcIBJkZc6XXlrJB5sj3jm/w329qa+u4Up0RtUZmvXj6BBZcVvqTa1k1r0M7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GmGFXTob; arc=none smtp.client-ip=209.85.221.171
+	 In-Reply-To:To:Cc; b=dHKSSuz+25FOwSP0PGCy+AblvT9oHR6cvjlsq3T3jiqhbiOaIXxow4AF/wFK0C8WMgnbw301757716ZhjW3S0cw9M+Vnmd5RnKHi/oQOZfJeWquTMV9bk9H1QhFSayrsSIj56ENCs3kUMb2mNH/8za7wcwCGRF9dW2m6+z6Mxc8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZbOHUpAT; arc=none smtp.client-ip=209.85.221.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GmGFXTob"
-Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-5c5ac25089bso299017e0c.0
-        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 23:38:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZbOHUpAT"
+Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5c2ae02f69eso536118e0c.2
+        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 23:38:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787899121; x=1788503921; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787899123; x=1788503923; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=G5Uw2bvQ4z3aZMIzs9KIbg95WFBUx0+3WqEMDxXt7kU=;
-        b=GmGFXTobeFsXTikgNUeZbAhWQZwkLC70u0zFLf4r09SaFFxZzfY8tF1kvIGq+NeGKc
-         yk3+XD0K6LuZZh4rxnWej/79GKV8DjaFNK/1X5nXco+TmZaF9Qe0r0RgJGoXLuFw8JfS
-         zvBAjiYO4SnEq3FyvfUF2bkEKdX0L/7hZG3Bhk1WpfeXhPCBW6mDK16XlCCVzqvsHkA1
-         egl+TL5j0bFOJ1DAVjID7iSIjNEdCThwm//fibFQV668GL8jShEMDMtDz41V4u4QfqSE
-         4jwbSBaGgBjyOv0LVvco9veW1VlXuOh/TKsQb30kP7BEUeUKFobZb52WHCWFOem2R9fm
-         rZAg==
+        bh=jbHEcSo0Yi8Hel90njrfpBZZr+GuK02w+zwFa8IkLTQ=;
+        b=ZbOHUpATu0ftaVFshrVS57VUljA2YRwYwmDV0pRbt/Kq2vThwN1lZMjiQ1tUX/fAvL
+         2SUKmdvNAKq99hyfaYhPFtMqy2h/yAJqEOY38kWtXyc4jXMxNInpPhdvDm9KrkVuuy/n
+         7XwKhaiUHPplzuH56CNuZzfRooB/UxjE0pYAreHp5poom+WVHDa2r5Nf/p4SKfDugn23
+         H/TumWQtjxHsWjcsFaDpFQ84sZ07mgmpXxZc+M804oohlLq7ZTNjVeVCtlD4WCHgKt/X
+         49Lj7jdPZkAnmLGduHIepBcUzf+mcVMfY0AgoEpawwd6CLAGLOoWTZE/3y9orD3gz3vI
+         QITg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787899121; x=1788503921;
+        d=1e100.net; s=20251104; t=1787899123; x=1788503923;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=G5Uw2bvQ4z3aZMIzs9KIbg95WFBUx0+3WqEMDxXt7kU=;
-        b=BHIhCZfPRzxqb7OqCPbbJUybBKcFbEUTe/fYnKK/aYPbK8qp+uTP8WPVRH4Wufv6ni
-         MurB4HuYT/65a44M1JLLE8rIfcTacYJ74BpEuSN+0FfSZbuyg8nKeHjDgzQLSKQY4DQl
-         0gJTheg6GgwABx+5EM1umAvfUvsgS9LE/KzcDZMYBx4F6VB8fBJymXi9d3yUoxnUK839
-         xhS2zTB90a6RJu0I2A2EL2x0XyCZ33O1BBaIIoD/+g6E5+3IdeXtYwlIEm/wjt+otImd
-         TkP/tW83vzRhuIWs6uoBNpE3m5STirpBj3qc0YSLoxYNvUqBs+GV98nwNz4IDIiFuibY
-         TezA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp4U+jYmwFu9WGd79s+Nd6ueg6VznX7cvLXaXOMOQKeQ5WPywzLjK+F0OqoMUlNdgopLBAT6wIqfBK8@vger.kernel.org
-X-Gm-Message-State: AFuF++nLJMEIYx3lnjbY1I9mVrsV6JTeszSGyv7HkGODiEgpdpXfkv42
-	koVVDtn+S0XwUtiuMvw8DLCpk1gbqjVpR7KWdZLQtmby3KKDekjYahQcITDrMw==
-X-Gm-Gg: AR+sD13Oi719GZO79Gpz5us+NmNymxBbtmTH+Rj+TYe1a14CTZI4Su49vC9HQ3vVADQ
-	TeDX46HSSbAXJfDR8ZOK+RONZzDnQovXtfBuKh7ak8z+7Cy4cVmuZd5pBiVv5qlzv16WcuNHQVR
-	OGMTNYV/IPTkg4mak72qQresvlv059Qcf8UspOdWCoMGobjduuHq4CoYE2XhSq8/3hyXI7tFExt
-	+Mzii/c4hPbUrMmsQ7GIjXURlAyjSY4yftjuAELl4R8r+9Ek0lumriXq1rP0cb8/HSYDHPvWk06
-	goXw/jrH9Y7jxUs91wNR6w77U2JU9ANFjieTEHWfSanOXynsW6d9p8FEiRrOIFpG5zLzVDeXjBY
-	y8OxJtkUDoI6cvzoFYT2hRw05nWZXc6/HkHXj0l4NKhJuoQ5vAkP6tQj5XAFKvJLwAYfVHHT6Fj
-	/LLjl5HTAi02fG/xtL3gS7n9rqnqm0m4zjBEUaIvZRmdPI88gMMZOUytlwmddTSk9P
-X-Received: by 2002:a05:6102:50a9:b0:783:79ac:9dc3 with SMTP id ada2fe7eead31-7859a49efb7mr1250451137.10.1787899120853;
-        Thu, 27 Aug 2026 23:38:40 -0700 (PDT)
+        bh=jbHEcSo0Yi8Hel90njrfpBZZr+GuK02w+zwFa8IkLTQ=;
+        b=roOvUWvS1z2+skZXzWrGqgrXUgdszuQwfZ1OK+BeyuepWFO6PCOAO/TI7RsXbW2dpY
+         T4pJZiTkC2jwYXeTJTLdp/97FdawVCWjiMS3Ec2jbdrVlRtsuf/z4K0LkCfWpceQOjbe
+         tehZAMwY8hJ8Xkd14qvwA4+idT7ALsFrN/jSNP5QRURrbv73CiOJ87HEyfUwXPdOvhzc
+         EYyo3sFQbEXZOz4zOL7DqLPNXIW5MmJIp+vvNSt6qx+MegKQeKr+b59Go2QtV0YY4EWE
+         pdAtUoNNjcpks52wvgFQCVkmGhtI3zf0TuGg/XpVvUsL7gygK8FqCt/70dsCNyU0E6VV
+         FV4g==
+X-Forwarded-Encrypted: i=1; AHgh+RrHySHA/s5cCAMicLFOvbf0tszejat1sRFbS/OLhCRown2YCVjhYWnZmxqP4xVMmKpY/oXN5ny2o5b/@vger.kernel.org
+X-Gm-Message-State: AFuF++noeZlS53ZrhMCIMag5oIV/gwmKDbEpeDqb5N46Tl9WMSx6E4ws
+	zJ4o44xh7qW9z2IZWaouRXs7Xh2Nhyfw9JC+yXFg2vVmL7trd6rqT2asO3ZYCg==
+X-Gm-Gg: AR+sD13t0KAWZeiHTI7luGiDWlRGD65F8zLFZ+PJmbOa+wXdyfzkzBY2qLsOiIsF1Q6
+	O1/SSxy3b/LqdvSHy+WR8nDYCF584bWDy/j/j4j7SCPH8z+7mYsMJRBIVyuDLru5+YAg6Kiuidl
+	bRHWAsgB3pck/6ro5rtELwf+CKo2JTmhl4eGUxfk3w+fwprzjq0sGtWmmh2CWAI8bTCeHslchsS
+	0820PKusXH1jKEoXuGPPk9raIjQkn4rMXmzKPzP8yr+LnALYDqeZPTSVPrIr5CHaGZJrcPcRIBw
+	ILyHw/xzUb+5BSBaCAsaNgxReYtNOZmTIHd1vqzIJIBRfuxWIrKRG0FnRpqrMLsxBhMDiWNAmox
+	30cT6Nerb/GMU1Vp387lAS2Tu6ulxUeLGDkwsrX/5pio9OBT0yF5vFgv9C8usVpZ651Fg1ha9FK
+	JDO0vTTPwncWfaB3KSO24ND6ui21ThfhsEwc37W2fTjGzvZP6rIeoJSQL00XIfoxOn
+X-Received: by 2002:a05:6122:9001:b0:5c6:7f44:b001 with SMTP id 71dfb90a1353d-5c680967056mr2104219e0c.0.1787899122940;
+        Thu, 27 Aug 2026 23:38:42 -0700 (PDT)
 Received: from [192.168.100.153] ([2800:bf0:61:1127:ab87:5602:531c:8dfb])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-97e849d8494sm454195241.1.2026.08.27.23.38.39
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-97e849d8494sm454195241.1.2026.08.27.23.38.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 23:38:40 -0700 (PDT)
+        Thu, 27 Aug 2026 23:38:42 -0700 (PDT)
 From: Kurt Borja <kuurtb@gmail.com>
-Date: Fri, 28 Aug 2026 01:38:16 -0500
-Subject: [PATCH v4 01/10] dt-bindings: adc: add excitation-current-chopping
- property
+Date: Fri, 28 Aug 2026 01:38:17 -0500
+Subject: [PATCH v4 02/10] dt-bindings: iio: adc: support the TI ADS126x ADC
+ family
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,8 +70,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260828-ads126x-v4-1-1dc27e9c0260@gmail.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260828-ads126x-v4-2-1dc27e9c0260@gmail.com>
 References: <20260828-ads126x-v4-0-1dc27e9c0260@gmail.com>
 In-Reply-To: <20260828-ads126x-v4-0-1dc27e9c0260@gmail.com>
 To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>, 
@@ -81,49 +81,432 @@ Cc: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
  Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1728; i=kuurtb@gmail.com;
- h=from:subject:message-id; bh=Krf4k0YzPCfh28rpFAoWa340zlykWxBJ3urBqYrCa2I=;
- b=owGbwMvMwCUmluBs8WX+lTTG02pJDFkTdV6nztI6r94nsmnC0cozS0t97H71Wx9POvfO6799z
- e4NuhObO0pZGMS4GGTFFFnaExZ9exSV99bvQOh9mDmsTCBDGLg4BWAiCz8x/I+pOmUWk+7zpujz
- sgPLnpsK3Pr67MmKF9V3j0XGMOzPPreG4X9pp4TFsyO/Qx81JLz/8OD4xu646ikr3p+3sl15SEP
- 0zj1OAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=12770; i=kuurtb@gmail.com;
+ h=from:subject:message-id; bh=DDo13wwLlYbjGc+vmoTMKrXc8Q3Ay18o6BblG/u9PbA=;
+ b=owGbwMvMwCUmluBs8WX+lTTG02pJDFkTdd7sqJ1hvVd+1nN9pvPXmsoEpA4vq/xzR2pPcXxtk
+ ejaP+xLO0pZGMS4GGTFFFnaExZ9exSV99bvQOh9mDmsTCBDGLg4BWAi75cz/E9T1Amct+/um/lu
+ 6/rVc99f6DZyDvyZf/FRz0u21+6WfncZ/uk/61i/tlA6QFqx6ib32VcKOx/p7H30feWHyXwpsy7
+ UpHACAA==
 X-Developer-Key: i=kuurtb@gmail.com; a=openpgp;
  fpr=54D3BE170AEF777983C3C63B57E3B6585920A69A
 
-Add a generic excitation-current-chopping property. This is a feature
-seen frequently in ADCs that are designed to ratiometrically measure
-resistive loads, such as RTDs and strain gauges. Enabling this can
-reduce any error due to excitation current mismatch by swapping
-excitation sources of alternate conversions. This can have side-effects
-in timing and filter response, so it is not always desirable to enable
-this feature in some applications. Therefore, it is best to make this a
-property that can be enabled or disabled in the device tree.
+The ADS1262 and ADS1263 are 32-bit, 38.4-kSPS delta-sigma ADCs with an
+integrated PGA, internal reference, excitation and burn-out current
+sources for sensor biasing and diagnostics. The ADS1263 is compatible
+with ADS1262, but includes a second auxiliary ADC (ADC2) to perform main
+channel (ADC1) cross-checking measurements, system background
+measurements, or temperature compensation of the primary sensor.
 
-Suggested-by: David Lechner <dlechner@baylibre.com>
+Both parts can configure per-channel voltage reference source,
+excitation current sources (IDAC), plus input and IDAC chopping for
+offset and IDAC mismatch cancellation. This lets the device drive and
+ratiometrically measure RTDs and other resistive sensors.
+
 Signed-off-by: Kurt Borja <kuurtb@gmail.com>
 ---
- Documentation/devicetree/bindings/iio/adc/adc.yaml | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ .../devicetree/bindings/iio/adc/ti,ads1262.yaml    | 376 +++++++++++++++++++++
+ MAINTAINERS                                        |   6 +
+ 2 files changed, 382 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/adc.yaml b/Documentation/devicetree/bindings/iio/adc/adc.yaml
-index b673eaa5d072..fe20aa8f1bfc 100644
---- a/Documentation/devicetree/bindings/iio/adc/adc.yaml
-+++ b/Documentation/devicetree/bindings/iio/adc/adc.yaml
-@@ -109,6 +109,14 @@ properties:
-       sources. The index in the array corresponds to the same index in the
-       excitation-channels array.
- 
-+  excitation-current-chopping:
-+    type: boolean
-+    description:
-+      If set, the excitation current sources are swapped and averaged on every
-+      other conversion to reduce current mismatch. This generally comes at the
-+      expense of added settling time between conversions, so should be omitted
-+      on systems with high-frequency signals or high data rate requirements.
+diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads1262.yaml b/Documentation/devicetree/bindings/iio/adc/ti,ads1262.yaml
+new file mode 100644
+index 000000000000..7e26572388e4
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/adc/ti,ads1262.yaml
+@@ -0,0 +1,376 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/adc/ti,ads1262.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-   burn-out-current-nanoamp:
-     description:
-       Burn-out current sources provide current to the channel's input pins for
++title: TI ADS1262/ADS1263 analog to digital converter
++
++maintainers:
++  - Kurt Borja <kuurtb@gmail.com>
++
++description: |
++  The ADS1262 and ADS1263 are 38.4-kSPS, delta-sigma (ΔΣ) ADCs with an
++  integrated PGA, reference, and internal fault monitors. The ADS1263 integrates
++  an auxiliary, 24-bit, ΔΣ ADC intended for background measurements.
++
++  Datasheets:
++    - ADS126x: https://www.ti.com/lit/ds/symlink/ads1262.pdf
++
++properties:
++  compatible:
++    oneOf:
++      - const: ti,ads1262
++      - items:
++          - const: ti,ads1263
++          - const: ti,ads1262
++
++  reg:
++    maxItems: 1
++
++  '#address-cells':
++    const: 1
++
++  '#size-cells':
++    const: 0
++
++  spi-max-frequency:
++    maximum: 8000000
++
++  spi-cpha: true
++
++  interrupts:
++    minItems: 1
++    maxItems: 2
++    description: Data ready (DRDY) interrupt lines.
++
++  interrupt-names:
++    description:
++      The data ready (DRDY) signal has two independent interrupt lines. A
++      dedicated DRDY pin and a pin shared with the serial interface MISO pin,
++      which is called DOUT/DRDY.
++    minItems: 1
++    maxItems: 2
++    items:
++      enum: [drdy, doutdrdy]
++
++  start-gpios:
++    description: Start conversion control.
++    maxItems: 1
++
++  reset-gpios:
++    maxItems: 1
++
++  dvdd-supply:
++    description: Digital power supply.
++
++  avdd-supply:
++    description:
++      Analog power supply. In bipolar supply configurations, the reported
++      voltage should be in reference to DGND.
++
++  avss-supply:
++    description:
++      Negative analog power supply for bipolar configurations. AVSS can only be
++      at or below the ground reference (DGND). If not described, AVSS is assumed
++      to be connected to ground (0V).
++
++  clocks:
++    maxItems: 1
++
++  '#io-channel-cells':
++    minimum: 1
++    maximum: 2
++    description: |
++      The first cell selects the channel by its reg. The second cell selects
++      between the main ADC (ADC1) and the auxiliary ADC (ADC2) as follows:
++        0: ADC1
++        1: ADC2
++
++  '#gpio-cells':
++    const: 2
++
++  gpio-controller: true
++
++  regulators:
++    type: object
++    description:
++      List of regulators provided by this chip.
++
++    properties:
++      vbias:
++        $ref: /schemas/regulator/regulator.yaml#
++        type: object
++        description:
++          Level-shift voltage output on the AINCOM pin. Its output is the
++          mid-voltage of the analog supply, (AVDD + AVSS) / 2, and is used to
++          shift floating sensors to within the ADC input range.
++        unevaluatedProperties: false
++
++      refout:
++        $ref: /schemas/regulator/regulator.yaml#
++        type: object
++        description:
++          Buffered internal voltage reference output on the REFOUT pin.
++        unevaluatedProperties: false
++
++    additionalProperties: false
++
++patternProperties:
++  "^ain([0-9]|com)-supply$":
++    description:
++      Common-mode voltage supply connected to AIN<N> or AINCOM.
++
++  "^refp[1-3]-supply$":
++    description:
++      Positive voltage reference connected to REFP1 (AIN0), REFP2 (AIN2) or
++      REFP3 (AIN4). If this regulator is not described and a channel selects
++      it as a reference source, then it's assumed to be connected to ground
++      (0V).
++
++  "^refn[1-3]-supply$":
++    description:
++      Negative voltage reference connected to REFN1 (AIN1), REFN2 (AIN3) or
++      REFN3 (AIN5). If this regulator is not described and a channel selects
++      it as a reference source, then it's assumed to be connected to ground
++      (0V).
++
++  "^ti,refp[1-3]-refn[1-3]-resistor-ohms$":
++    description:
++      Magnitude of the external reference resistor connected between REFP<N>
++      and REFN<M>. In ratiometric configurations, such as RTD measurements, the
++      IDAC excitation current returns through this resistor, generating the
++      reference voltage for the conversion.
++
++  "^channel@[0-9a-f]+$":
++    $ref: /schemas/iio/adc/adc.yaml#
++    unevaluatedProperties: false
++
++    properties:
++      reg:
++        maxItems: 1
++
++      single-channel:
++        minimum: 0
++        maximum: 10
++
++      common-mode-channel:
++        minimum: 0
++        maximum: 10
++        default: 10
++
++      diff-channels:
++        items:
++          minimum: 0
++          maximum: 10
++
++      input-chopping: true
++
++      reference-sources:
++        minItems: 2
++        description:
++          Indicates the reference sources for this channel. The first and second
++          items are the positive (REFP) and negative (REFN) sources of the main
++          ADC (ADC1). The third item is the reference source of the secondary
++          ADC (ADC2) and must always have a positive differential voltage.
++        items:
++          - enum: [internal-p, refp1, refp2, refp3, avdd]
++          - enum: [internal-n, refn1, refn2, refn3, avss]
++          - enum: [internal, refp1-refn1, refp2-refn2, refp3-refn3, avdd-avss]
++
++      ti,reference-reversal:
++        $ref: /schemas/types.yaml#/definitions/flag
++        description:
++          Indicates that the ADC1 (this has no effect on ADC2) reference voltage
++          for this channel has negative polarity and thus should be internally
++          reversed.
++
++      excitation-channels:
++        minItems: 1
++        maxItems: 2
++        description:
++          Selects the pins for the IDAC sources from 0 (AIN0) to 10 (AINCOM).
++          The first value corresponds to IDAC1 and the second to IDAC2.
++        items:
++          minimum: 0
++          maximum: 10
++
++      excitation-current-nanoamp:
++        minItems: 1
++        maxItems: 2
++        description:
++          The first value corresponds to IDAC1 and the second to IDAC2.
++        items:
++          enum: [50000, 100000, 250000, 500000, 750000, 1000000, 1500000,
++                 2000000, 2500000, 3000000]
++
++      excitation-current-chopping: true
++
++      burn-out-current-nanoamp:
++        description:
++          Selects current magnitude for the sensor bias current source.
++        enum: [500, 2000, 10000, 50000, 200000]
++
++      ti,burn-out-resistor:
++        $ref: /schemas/types.yaml#/definitions/flag
++        description:
++          Instead of a fixed current, the sensor bias (burn-out) current source
++          can be pulled using an internal 10 MΩ resistor.
++
++      ti,burn-out-polarity:
++        $ref: /schemas/types.yaml#/definitions/string
++        description:
++          The sensor bias can be configured to either pull-up or pull-down mode.
++          In pull-up mode, the current flows into the positive input and flows
++          out of the negative input. In pull-down mode, the polarities are
++          reversed.
++        enum: [pull-up, pull-down]
++        default: pull-up
++
++    dependencies:
++      excitation-channels: [excitation-current-nanoamp]
++      excitation-current-nanoamp: [excitation-channels]
++      burn-out-current-nanoamp:
++        not:
++          required:
++            - ti,burn-out-resistor
++
++    required:
++      - reg
++
++    allOf:
++      - if:
++          properties:
++            excitation-channels:
++              maxItems: 1
++          required:
++            - excitation-channels
++        then:
++          properties:
++            excitation-current-nanoamp:
++              maxItems: 1
++        else:
++          properties:
++            excitation-current-nanoamp:
++              minItems: 2
++
++    oneOf:
++      - required: [single-channel]
++      - required: [diff-channels]
++
++dependencies:
++  interrupts: [interrupt-names]
++  interrupts-extended: [interrupt-names]
++
++required:
++  - compatible
++  - reg
++  - spi-cpha
++  - avdd-supply
++  - dvdd-supply
++  - '#address-cells'
++  - '#size-cells'
++
++allOf:
++  - $ref: /schemas/spi/spi-peripheral-props.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: ti,ads1263
++    then:
++      properties:
++        '#io-channel-cells':
++          minimum: 1
++          maximum: 2
++      patternProperties:
++        "^channel@[0-9]+$":
++          properties:
++            reference-sources:
++              minItems: 3
++              maxItems: 3
++              default: [internal-p, internal-n, internal]
++    else:
++      properties:
++        '#io-channel-cells':
++          const: 1
++      patternProperties:
++        "^channel@[0-9]+$":
++          properties:
++            reference-sources:
++              minItems: 2
++              maxItems: 2
++              default: [internal-p, internal-n]
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    spi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        adc@0 {
++            compatible = "ti,ads1262";
++            reg = <0>;
++            spi-max-frequency = <8000000>;
++            spi-cpha;
++            avdd-supply = <&avdd>;
++            dvdd-supply = <&dvdd>;
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            interrupts-extended = <&gpio 0 IRQ_TYPE_EDGE_FALLING>;
++            interrupt-names = "drdy";
++
++            /* Typical common mode voltage configuration */
++            aincom-supply = <&ads1262_vbias>;
++
++            regulators {
++                ads1262_vbias: vbias { };
++            };
++
++            channel@0 {
++                reg = <0>;
++                single-channel = <0>;
++                /* The VBIAS is enabled on pin 10 (AINCOM) */
++                common-mode-channel = <10>;
++            };
++        };
++    };
++
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    spi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        adc@0 {
++            compatible = "ti,ads1263", "ti,ads1262";
++            reg = <0>;
++            spi-max-frequency = <8000000>;
++            spi-cpha;
++            avdd-supply = <&avdd>;
++            dvdd-supply = <&dvdd>;
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            interrupts-extended = <&gpio 0 IRQ_TYPE_EDGE_FALLING>;
++            interrupt-names = "drdy";
++
++            ti,refp2-refn2-resistor-ohms = <3520>;
++
++            channel@0 {
++                reg = <0>;
++                diff-channels = <4 5>;
++                reference-sources = "refp2", "refn2", "refp2-refn2";
++                excitation-channels = <1 6>;
++                excitation-current-nanoamp = <500000 500000>;
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index f3be900e5b9d..7593e33c5346 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -27019,6 +27019,12 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/iio/adc/ti,ads1018.yaml
+ F:	drivers/iio/adc/ti-ads1018.c
+ 
++TI ADS1262 ADC DRIVER
++M:	Kurt Borja <kuurtb@gmail.com>
++L:	linux-iio@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/iio/adc/ti,ads1262.yaml
++
+ TI ADS7924 ADC DRIVER
+ M:	Hugo Villeneuve <hvilleneuve@dimonoff.com>
+ L:	linux-iio@vger.kernel.org
 
 -- 
 2.55.0
