@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2498E3803F9;
-	Fri, 28 Aug 2026 06:36:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01C6C340401;
+	Fri, 28 Aug 2026 06:37:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787898996; cv=none; b=tAFZj2zMa1sR51YsSRhdkD9wl9vzQTKjbSLTIqUJNy0Ude3i04txIGDal7JwNNzgdWkUZse0qqmzn3z6EVnm/EVQounSx37/1Px5NN5RB7gBm1pfomDmuVcVzV0FNEdTMj4zAcjfxruM4QXNCvLVDRJMmQ3X2ozd8UUWd9ubqck=
+	t=1787899060; cv=none; b=Sjb+Lj+Fyteh8ORgFgHEyNKh/Zg6CRk6GcZt1phzwvL7aSIoGgzIOPlNMfiCNa37TqHuXvAtZ8ro7dG1ocWU9B9jzEsuCMuZ+XLjwJ+EA8sPwyhq36AuD2ZrHGa0SPkLf9Hevu+YfC7HDUZjBU896sI3QwC/4euJ82PZldlIduY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787898996; c=relaxed/simple;
-	bh=mKyJGr0xXsffdv0VlNpwMXOCX1B0klmbMpV+oundKQQ=;
+	s=arc-20240116; t=1787899060; c=relaxed/simple;
+	bh=4lTjn++J8zQS3iUxuL05tEh+l5195RqVkf27xkVE2i0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eOVuWnFdg8H/F43sHxUJa5E8NAb3ybwqq4h86NMeLoGBPuIyQXON6cCnlYL3gesAqo463BUb5yNAwiEnZqaITZhE03Vj1rOLDPKmrRq6W8/fsQ6YSd8+rTVreD4P8Wmr8HeTpARSNWtG4tsAVWVdFQmvshpljJiM0cpmZ1S+C4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k2p92F6v; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=iLAR4KZn2Itv0XB5+XclyEPHK3yydTlxAZ+mr8lN7HN9T3buruc71/TdCrWIzspQE6ncf8FD3R7y6Fn5jdKFX7omYOTeaqzpVl/Sd8PJkjKalfceLV2B3DcZl9I5JBmJM8ZL7lNpjqvQHs1RvhJhWFqIej0PY0BJsbocxxFU/zw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AZ+WrHq1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k2p92F6v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD7E51F000E9;
-	Fri, 28 Aug 2026 06:36:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AZ+WrHq1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CAF61F000E9;
+	Fri, 28 Aug 2026 06:37:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787898994;
-	bh=YYjgr1O1eqSfiDf48+HBf+HsSZb6YSwqsVnmyCy40/M=;
+	s=k20260515; t=1787899058;
+	bh=3H4EoVXJ4IMJ0GbBjlrwyyJVCkd+CZt4ut1EDis3HKE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=k2p92F6v7/Z6dejV9xCz4FtNyADbz4xhvY4/Zhn6Xk8AvN87B1SXodDDRGEGL5MM9
-	 TvglwUs4/JSHe2thoLeZwbdtz6yukkmMAQ4sD4WvSYTprp9LmnEqEWpICamqUKSRBW
-	 nhg5GWcuU6NLSdFEG9BgeMVdmmXld6iAYJMNtlhM4Wx2E6md7rwQ4NXvID2WkGTqoo
-	 H5fubEk/dVddMwvbk2e2smiKM07O9HXbd1f906lOZM4ZPLkNALmjhP/Gl8UUmiEmvY
-	 Z9tK6XB58bFHSS7lW2LVLwq2HiMpfzo34Yg5TRPvO96KIMcvCtVIJ9wgy7eXUSvt/e
-	 IxTnENw3qCShw==
-Message-ID: <21dec355-0cd7-4250-a7f4-e93f3e446504@kernel.org>
-Date: Fri, 28 Aug 2026 08:36:29 +0200
+	b=AZ+WrHq17G6HVcBIKNjONnllcjj9O6qpNkmw0PAr3zntbuOCg1zyzat5PHpipgoik
+	 YtoBFkqr7AP3AAxnfKBi+Fw7E87Vw1TWVc4QILLwtlvJ2PVQAHP2hD2QBMgw2WPoiw
+	 L8nw0RCnGHm+T0Tw2iiwtzb8ZQpJ2juEDqDVGUN5miSg8/EU+Brrh5K0YTmYNlGZdc
+	 kiQ/TtP2bo+DorqBE85dkOP9I3RwuKOQdSrEH9KjdPwhPbiYx1tPKuBrQhGig11Yzm
+	 xWpZg+F4lLqDBmowccVXvVS6TNCOQ+IQknEmqK49hvjgJWlV8TFGA23KuCdXdpA2hT
+	 fe5k2ZK8AD6dg==
+Message-ID: <fcab4f39-87b4-4fd9-bcc3-12159591d946@kernel.org>
+Date: Fri, 28 Aug 2026 08:37:27 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,20 +35,30 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] dt-bindings: media: i2c: Add onsemi AR0234 image
- sensor binding
-To: Alexander Shiyan <eagle.alexander923@gmail.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Hans Verkuil <hverkuil+cisco@kernel.org>,
- Quentin Freimanis <quentin@q-lab.dev>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>
-References: <20260820075524.2056029-1-eagle.alexander923@gmail.com>
- <20260820075524.2056029-2-eagle.alexander923@gmail.com>
- <20260827-legendary-viridian-tamarin-4e56e5@quoll>
- <CAP1tNvSg4yWHCJW6UNZ4yQv5FCjz9u5ZLpuW5Z9skkjQYbS9AA@mail.gmail.com>
+Subject: Re: [PATCH v3 1/9] dt-bindings: phy: Document ST STM32MP25 USB2-FEMTO
+ PHY
+To: Marek Vasut <marex@nabladev.com>, linux-usb@vger.kernel.org
+Cc: fabrice.gasnier@foss.st.com, Pankaj Dev <pankaj.dev@st.com>,
+ Rahul Kumar <rahul.kumar05@st.com>,
+ =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clement.legoffic@foss.st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Christian Bruel <christian.bruel@foss.st.com>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Rosen Penev <rosenp@gmail.com>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+ Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org,
+ kernel@dh-electronics.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+References: <20260822074816.548662-1-marex@nabladev.com>
+ <20260822074816.548662-2-marex@nabladev.com>
+ <7a16614a-bd1b-462a-be13-4a9c22aa588e@kernel.org>
+ <34c48ff1-524f-4d24-b53f-99e7171d08db@nabladev.com>
+ <25e10cfe-40dc-45f4-8a92-cd81263420ea@kernel.org>
+ <84bd4b0b-69c3-451e-9e0b-690191f52537@nabladev.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -94,66 +104,57 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <CAP1tNvSg4yWHCJW6UNZ4yQv5FCjz9u5ZLpuW5Z9skkjQYbS9AA@mail.gmail.com>
+In-Reply-To: <84bd4b0b-69c3-451e-9e0b-690191f52537@nabladev.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28/08/2026 07:51, Alexander Shiyan wrote:
-> Hello.
-> 
->> On Thu, Aug 20, 2026 at 10:55:23AM +0300, Alexander Shiyan wrote:
->>> Add devicetree binding for the onsemi AR0234 CMOS image sensor.
->>> Signed-off-by: Alexander Shiyan <eagle.alexander923@gmail.com>
->>> ---
->>>  .../bindings/media/i2c/onnn,ar0234.yaml       | 121 ++++++++++++++++++
->>>  1 file changed, 121 insertions(+)
->>>  create mode 100644 Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
+On 28/08/2026 01:14, Marek Vasut wrote:
+> On 8/27/26 11:33 PM, Krzysztof Kozlowski wrote:
+>> On 27/08/2026 16:53, Marek Vasut wrote:
+>>> On 8/27/26 2:54 PM, Krzysztof Kozlowski wrote:
+>>>> On 22/08/2026 09:46, Marek Vasut wrote:
+>>>>> +description:
+>>>>> +  USB2 PHY block in STM32 is attached to USB 2.0 Host controller and
+>>>>> +  USB 2.0 side of DWC3 DRD controller, and provides the USB LS/FS/HS
+>>>>> +  connectivity. Both PHYs are the FEMTO-PHY, but their configuration
+>>>>> +  bits in the system control register are different for each variant.
+>>>>> +
+>>>>> +maintainers:
+>>>>> +  - Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+>>>>> +  - Marek Vasut <marex@nabladev.com>
+>>>>> +  - Pankaj Dev <pankaj.dev@st.com>
+>>>>> +
+>>>>> +properties:
+>>>>> +  compatible:
+>>>>> +    enum:
+>>>>> +      - st,stm32mp25-usb2phy1
+>>>>> +      - st,stm32mp25-usb2phy2
+>>>>> +
+>>>>> +  "#clock-cells":
+>>>>> +    const: 1
+>>>>> +
+>>>>
+>>>> As pointed out by different patchset built on top of it, this is wrong.
+>>>
+>>> What is wrong in this (V3) of the patchset ? I think the ST patches were
+>>> fixing up V2 and what they were fixing up is already fixed here in V3.
 >>
->> Unanswered Sashiko comments.
+>> Probably I got confused... but I had impression the ST patches were
+>> adding here "reg" property, no?
+> It is there in V3:
 > 
-> I do not understand this remark.
-> The corrections based on sashiko-bot's feedback are included in the
-> cover letter.
-> Is something wrong?
+> "
+> +  "#clock-cells":
+> +    const: 1
+> +
+> +  "#phy-cells":
+> +    const: 0
+> +
+> +  reg: <------------------ HERE
+> +    maxItems: 1
+> +
 
-You received here Sashiko report which looks reasonable and you did not
-answer it. At least I could not find such answer.
-
-> 
->>> diff --git a/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml b/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
-> ...
->>> +properties:
->>> +  compatible:
->>> +    enum:
->>> +      - onnn,ar0234cssc
->>> +      - onnn,ar0234cssm
->>> +      - onnn,ar0234cs
->>> +    description:
->>> +      The AR0234 sensor exists in two different models, a colour variant
->>> +      (AR0234CSSC) and a monochrome variant (AR0234CSSM). The device exposes
->>> +      the model through registers, allowing for auto-detection with a common
->>> +      "onnn,ar0234cs" compatible string.
->>
->> So all devices are compatible? Then why compatibility is not expressed?
->> What are the actual programming differences between sc, sm and "none"
->> variants?
-> 
-> Perhaps I need to revert to the compatibility strings that were used
-> in version 2
-> (https://patchwork.kernel.org/project/linux-media/patch/20260807102847.1813059-2-eagle.alexander923@gmail.com/).
-> 
-> From a programming standpoint, it makes almost no difference which
-> sensor is used
-> - the only differences are in the output format and the format count.
-> Either way, the driver always uses the sensor model determined via
-> register reads.
-> If the specified type does not match the detected one, only a warning
-> will be printed.
-
-Devices should be made compatible with the fallback or even the color
-and mono variants could be dropped. That depends on the difference
-between color/mono.
-
+Ah, indeed. BTW, reg usually follows compatible.
 
 Best regards,
 Krzysztof
