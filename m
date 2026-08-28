@@ -1,174 +1,138 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6566E3C3F73
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 06:52:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50AC53D7D72
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 06:53:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787899934; cv=none; b=Df/Wuv/dx85byfT66F+oh2MhX76yNgxIDNhUf6N3NfpsLxO+0Nnj9/k2t3SvNDFN5nEggCUQ0NqPWcBIxgcNOp27pnlqHUKKrZ2ozynq3Pj8eGMWs7aV3fClcFO2AdqbU6cglUGigE8rM+QMc3/B/7LzVXHktseyHUl1QG7c6wk=
+	t=1787899989; cv=none; b=bShhULmnqvRxJcfyg1vTGNE3MD3P5Wx4zIVURRNCedRAKQmuP5Ei7nDklrxuLuKt/dUEZNMktvTRGQB2IqjMrx4wHO8WpmJAZyzr3oufYK61YeQJCq1Rcglzb1BS6Swrs6gdUVLcJyfO2LH3wCeBWQNwugufEx1AXpK405B7KrU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787899934; c=relaxed/simple;
-	bh=1fGHVxHfar5c1RoQtk+SABuC9qUUa+9uH/FCid7McAg=;
+	s=arc-20240116; t=1787899989; c=relaxed/simple;
+	bh=zjDzq2tM8dHvbDV4z/A+aC4fSFYPgLvc0sMIRrqQ3rA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=VHgh+28n2J0R/iiYwk1CZAQjeEXORvhW3mOQEp4SyEEGSZiDlnUJwIqpHAV8Sajlm09Y3zgnf+2HUXsTDjxT4k1jlg7DHFVTP7hzSLrpSosVXMt/uOoKMgm/F5LrAmx5uiY3CpgGuHjdexANkqMINjx5nUBEif1P5lxmC0iCBxg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CSlJbP+7; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=L33HPVwaR3Rl4iC/PYqalU7HOK/XaLiM96jU7SXXz2iG9YAcg1LHT+T7/bVOnJ/mbGPWZXRfJARzwU97MqKD6p2lfBM4JKUh9nH6ZSsm92IPF/S40AsqOEp7IZivWwDDof6nsJq2uMsj6Astwq1WoeWAQVeyWcR5kOBqBYTfvsU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oCduSXaE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CSlJbP+7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C05B11F00A3F;
-	Fri, 28 Aug 2026 06:52:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oCduSXaE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9006E1F00A3D;
+	Fri, 28 Aug 2026 06:53:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787899932;
-	bh=Ax7xGqUtVBzsbyHIDZXYzQYWViUlWcsy1Mhg0hteugY=;
+	s=k20260515; t=1787899987;
+	bh=T8Ni++JT7sgcySCZgEh0z8wGtLe/sgpGIYkKf0mfNJM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CSlJbP+7Zwz73O15AeGbgLl/R9Fx6GJKEJsaHCvIVWadciNpBfAsdOy+urPQcDE6O
-	 TaNacIHDr8g6y8WC+x9fb2Ps7p2iKbak+KLTxqP/dV4o955YgR3gYQcUTd7rSLRWqo
-	 O4A/iwRBfV18j5YhNaTXVH8HcEZgS/EMQOj05ExlWqxGnWRMVeD150lqSkZ636G00m
-	 LpCqAuClKVxd9P+MgguR6csw1ZaaH6gWnW3tl9FUUXxBHmnForlMOvmkCNdtrd/j2u
-	 AinIg3I5O6/3ZXdEzXQLWw0W62trNupJF/zV+94YQd09blEPH/r6FxnmwRdTrGDW9l
-	 5zX5eqbFpIz1A==
+	b=oCduSXaEz760hEw+N+jTwf950Y2ofLxyCjhg/NIEcwxc/NQtjcZJNbUCWW00EEkNg
+	 dxCx98tP7MzGvrwCpvf6wiJ6cR8jATQmeTWr9ZhTym9xSHPRCMWQ7wrU/EkQXFDbxe
+	 hf1l7ly2YT08bOSYJlWBazg2bpBcjHKnXQC0PEfFVs2z7+JyLil15j32xghRLlb3it
+	 NEa+zHd4E9iTluZRAhi4lpVCvexyCcfwf24QszWjVx8RTKISu8geFQgeiDzXzDj9es
+	 EfrWaq44dn/Og2JCAIIlPxMqOgDHfcnSCT978lnWNwt1Is8J191LZef7mClogJaSjD
+	 kuHsWcfZaRlvA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 03/10] iio: adc: add the ti-ads1262 driver
+Subject: Re: [PATCH v4 09/10] iio: adc: ti-ads1262: support REFOUT and VBIAS
+ regulators
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Kurt Borja" <kuurtb@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260828-ads126x-v4-3-1dc27e9c0260@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260828-ads126x-v4-9-1dc27e9c0260@gmail.com>
 References: <20260828-ads126x-v4-0-1dc27e9c0260@gmail.com>
- <20260828-ads126x-v4-3-1dc27e9c0260@gmail.com>
+ <20260828-ads126x-v4-9-1dc27e9c0260@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 28 Aug 2026 06:52:11 +0000
-Message-Id: <20260828065211.C05B11F00A3F@smtp.kernel.org>
+Date: Fri, 28 Aug 2026 06:53:07 +0000
+Message-Id: <20260828065307.9006E1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Regmap debugfs accesses bypass the driver's custom xfer_lock, tr=
-iggering lockdep splats and risking SPI message corruption.
-- [Medium] Missing device stop on interrupted conversion causes a race cond=
-ition and data desynchronization.
-- [Low] Incompatible pointer type passed to `regmap_read`.
+- [High] Calling regulator_get_voltage() on a regulator's own supply from w=
+ithin its .get_voltage() callback causes a recursive locking self-deadlock.
 --
 
-commit 6093db1ff45e9e897720bc6b278550ffbef67e85
+commit ea8c096c3d3561a926dd5bc84b789c153ef1db68
 Author: Kurt Borja <kuurtb@gmail.com>
 
-iio: adc: add the ti-ads1262 driver
+iio: adc: ti-ads1262: support REFOUT and VBIAS regulators
 
-Add the ti-ads1262 driver with initial support for the primary ADC (ADC1).
-Various features such as accurate timeout delays, per-channel reference
-sources, scale, offset, and diagnostics are intentionally left out for
-future support.
+This commit registers the "refout" and "vbias" regulators in the ti-ads1262
+driver to enable their use as common mode supplies.
 
 > diff --git a/drivers/iio/adc/ti-ads1262.c b/drivers/iio/adc/ti-ads1262.c
-> new file mode 100644
-> --- /dev/null
+> index 3f6d34a08b296..4784142f35c9d 100644
+> --- a/drivers/iio/adc/ti-ads1262.c
 > +++ b/drivers/iio/adc/ti-ads1262.c
 
 [ ... ]
 
-> +static int ads1262_channel_read(struct iio_dev *indio_dev,
-> +				const struct iio_chan_spec *spec, __be32 *val)
-> +{
-> +	struct ads1262 *st =3D iio_priv(indio_dev);
-> +	int ret;
-> +
-> +	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-> +	if (IIO_DEV_ACQUIRE_FAILED(claim))
-> +		return -EBUSY;
-> +
-> +	ret =3D ads1262_set_runmode(st, ADS1262_RUNMODE_PULSE);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D ads1262_channel_enable(st, spec);
-> +	if (ret)
-> +		return ret;
-> +
-> +	reinit_completion(&st->drdy);
-> +
-> +	ret =3D ads1262_dev_start_one(st);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D ads1262_wait_for_conversion(st);
-> +	if (ret)
-> +		return ret;
-
-[Severity: Medium]
-Does this error path leave the hardware running if the wait is interrupted?
-
-If ads1262_wait_for_conversion() returns an error (like -ERESTARTSYS from
-a signal), the driver exits immediately without stopping the hardware. If a
-subsequent read calls reinit_completion(&st->drdy), but the abandoned
-hardware conversion finishes and asserts the DRDY interrupt right after,
-could the new read prematurely fetch stale data from the old conversion?
-
-Should this path ensure the hardware is stopped and synchronized with the
-interrupt handler on timeout or interrupt?
+> @@ -1132,6 +1133,120 @@ static irqreturn_t ads1262_irq_handler(int irq, v=
+oid *dev_id)
+>  	return IRQ_HANDLED;
+>  }
+> =20
 
 [ ... ]
 
-> +static int ads1262_dev_configure(struct ads1262 *st)
+> +static int ads1262_vbias_get_voltage(struct regulator_dev *rdev)
 > +{
-> +	struct device *dev =3D &st->spi->dev;
-> +	int id, ret;
+> +	struct ads1262 *st =3D rdev_get_drvdata(rdev);
+> +	int avdd_uV, avss_uV;
 > +
-> +	ret =3D ads1262_dev_reset(st);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to reset device\n");
-> +
-> +	guard(mutex)(&st->xfer_lock);
-> +
-> +	ret =3D regmap_read(st->regmap, ADS1262_ID_REG, &id);
+> +	avdd_uV =3D regulator_get_voltage(st->avdd_supply);
 
-[Severity: Low]
-Is the type of id correct here?
+[Severity: High]
+Does this cause a recursive locking self-deadlock?
 
-The regmap_read() API expects an unsigned int * for its third argument, but
-id is declared as an int. Could this trigger a -Wpointer-sign compiler
-warning?
+When a consumer or sysfs triggers a voltage query on vbias, the regulator
+core calls regulator_lock_dependent(), which safely locks vbias and
+recursively locks all of its supplies, including avdd.
+
+The core then invokes vbias's .get_voltage callback, mapping to
+ads1262_vbias_get_voltage(). Inside this callback, regulator_get_voltage()
+acts as an external API: it initializes a new lock context and attempts
+to lock avdd_supply again.
+
+Because the current thread already holds the mutex for avdd, attempting
+to lock it again with a new lock context results in a self-deadlock. A
+thread attempting to read the vbias voltage will deadlock indefinitely,
+causing a hang on that code path.
+
+Could this approach use the unlocked internal API
+regulator_get_voltage_rdev(rdev->supply->rdev) to get the supply's
+voltage from within a regulator op instead?
+
+> +	if (avdd_uV < 0)
+> +		return avdd_uV;
+> +
+> +	avss_uV =3D st->avss_supply ? regulator_get_voltage(st->avss_supply) : =
+0;
+> +	if (avss_uV < 0)
+> +		return avss_uV;
+> +
+> +	return DIV_ROUND_CLOSEST(avdd_uV - avss_uV, 2);
+> +}
 
 [ ... ]
 
-> +static const struct regmap_config ads1262_regmap_config =3D {
-> +	.reg_bits =3D 8,
-> +	.val_bits =3D 8,
-> +	.writeable_reg =3D ads1262_writeable_reg,
-> +	.readable_reg =3D ads1262_readable_reg,
-> +	.volatile_reg =3D ads1262_volatile_reg,
-> +	.reg_defaults =3D ads1262_reg_defaults,
-> +	.num_reg_defaults =3D ARRAY_SIZE(ads1262_reg_defaults),
-> +	.max_register =3D ADS1262_ADC2FSC1_REG,
-> +	.can_sleep =3D true,
-> +	.cache_type =3D REGCACHE_MAPLE,
+> +static const struct regulator_desc ads1262_vbias_regulator_desc =3D {
+> +	.name =3D "vbias",
+> +	.of_match =3D "vbias",
+> +	.regulators_node =3D "regulators",
+> +	.supply_name =3D "avdd",
+
+[Severity: High]
+This line establishes avdd as the upstream supply for vbias, which
+instructs the regulator core that avdd is a strict dependency of vbias
+and must be locked before dispatching operations to vbias ops. This is
+what triggers the self-deadlock described above when
+regulator_get_voltage() is called.
+
+> +	.ops =3D &ads1262_vbias_regulator_ops,
+> +	.type =3D REGULATOR_VOLTAGE,
+> +	.owner =3D THIS_MODULE,
 > +};
-
-[ ... ]
-
-> +static int ads1262_regmap_read(void *context, const void *reg_buf,
-> +			       size_t reg_size, void *val_buf, size_t val_size)
-> +{
-> +	struct ads1262 *st =3D context;
-> +	u8 tx[2];
-> +
-> +	lockdep_assert_held(&st->xfer_lock);
-
-[Severity: Medium]
-Will this lockdep assertion fail if the register is read via debugfs?
-
-Because ads1262_regmap_config does not set disable_locking =3D true and does
-not provide custom lock/unlock callbacks, regmap uses its own internal
-mutex. When regmap's debugfs interface is read, the regmap core acquires
-its internal mutex and calls the driver's ads1262_regmap_read() callback
-without holding st->xfer_lock.
-
-Could this bypass the xfer_lock, triggering the lockdep splat and allowing
-debugfs SPI operations to interleave with driver-initiated SPI transactions?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828-ads126x-v4=
--0-1dc27e9c0260@gmail.com?part=3D3
+-0-1dc27e9c0260@gmail.com?part=3D9
