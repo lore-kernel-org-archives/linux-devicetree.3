@@ -1,268 +1,147 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C45A284690
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 15:38:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7507372EE4;
+	Fri, 28 Aug 2026 15:47:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787931489; cv=none; b=cwYuuXS+vywlHk/PwUGvmI6f+r245QjcalT6X1powXD19WM+FmLECBaIxu5UKEJTp1EwnKVuTfmrNREFaajXXI02maX/T33M3l4s2uDk0KDg0vyyH5SlP3VsbZmeKG4i2ldn5oVH4efKjvnCzV7L0BFW6+EmzVbwaZzAOnorm/E=
+	t=1787932028; cv=none; b=L/5m8twJQwqKhZw/guLx3lmWKG3IMHP4/TqcqITPcVUyvKgKBQIc4m5Lzhx90RJNnStrD3JJIAC+P5J7dSR5J87xcayqjNSzkKsfNFGdhQSgYhsteU+EwqY8sDuCMP/RjBiZhP2ZXrBbY0wGbml7N7k88wSu4JAr34n7UE3uo+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787931489; c=relaxed/simple;
-	bh=cz3F+ErOy0RXfPiWVt2Rk09qsZ11xAKIDCmzOQpDc10=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NIkhrF2tkLeIjN8d0WnNEg8IUCN9LTethMfbNMhxJVll/Sc55pnJ18dTpn7o+5sWfZ3YLBQtC7NXth66/IiFz1z3QJ/6ov4QDyL5g2v5+9JgWPuuNfMd8Ftd+1VCcfgcMfqjHUfiZJsr0j4G0kJRYOQ+2WiC5fq4/jE4FEDTDHU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=K92Tm9LY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kDXgz7Rk; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787932028; c=relaxed/simple;
+	bh=9n3GMVHASBJlOdY01+HlIVjXCtXLY0HHZhso+k8GU98=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hNxvSUOmehBz1Ii4PHXHpDxIS1b2NunwIjd+kTwuUwJzd5TzsXzI6h6g/UsZIWVswg4cjLt+iZENWVDkksLvNIVU/uS66JAsLRIa7vuUxyMFDFjmcBfxfmkwGMOfyXqT/qXEfGNeEzi2IX02HEbnlXzDGhiUB2zILIp2fBF9U2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KOslPNrK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="K92Tm9LY";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kDXgz7Rk"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67SDkfIF3790314
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 15:38:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	BJdt0aDQo3QWYjdT6UEMt92s1/oBkWrWP3BZCycXw4Y=; b=K92Tm9LY6warnFMn
-	r+KgWglRN5lTmnNv4TYdixWUW6+LNsArcFIQRkefUgXn/+GVgm1HHB88snwc8YWk
-	EW4K64uIBy6dTmpLtqj+AjTGh9Vdh0EjPhFic6UXf8P3SCkwVsGsbq8ZF5Z6kSKO
-	SGmJo81d+l6vdqdOmM2lMkUEqoj4z85gHnp1IfCicCqL/suABpsn+Jd3mpcAvQ8+
-	OHf+bhdX6IrbS7YloXPyPevYHkCpedIznh9wsz+fLli61XmyFFADDoyacKHNH1+K
-	ewHwLWtaer9PqpugYeNWIFwKeX9mCLHkdmvdeZyCLVkBCBbuFUGCbRhrzZEbwsaZ
-	1JX+4A==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gb42pa9p7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 15:38:06 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38dde0df80bso2361957a91.3
-        for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 08:38:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787931486; x=1788536286; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BJdt0aDQo3QWYjdT6UEMt92s1/oBkWrWP3BZCycXw4Y=;
-        b=kDXgz7Rkj0/gSnRi//S0ycxr6nu4QTNh4Lpm/YK+JKwhHuQUet3w3LIGGP5+pva4cw
-         JrHNHyibZbjlEiQk5JkqvylwtHe9VSIDZ4P5mFTJynHZ9ON4CLTLFXa9eL4/wTNFdMTy
-         pzq5aynGweDQhLEB1LSQstWPJPChmZSh0uJustGMSrK2i63a2mz/GRwD6PGL9uUkQQ1j
-         jIobLQYCe3H3ufcJpUeX6uuHWnqMqsbI3vZov/7BqGaiGJTzJ9OK9ShOqxw7k02uuR9D
-         3rS66xCd6i5ubfS1XvKquUfqHE30BverZ+HpbUyk6+qRmy7KY78ov2rltnOxWKuJLPbT
-         tRVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787931486; x=1788536286;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BJdt0aDQo3QWYjdT6UEMt92s1/oBkWrWP3BZCycXw4Y=;
-        b=SE70accAKt0jmLZ3/UlacGclgbA6tJ2j6SkCuTrJ3yDdrw46JZ5IlPKlw1nhQN6d5U
-         2syc3emy9L0LeIpfzaMYl9DD5n8PEhF9pFLqjCUErBbH7RrmY9meKsaZoOLwxPiPU2Ut
-         lgoM+TBu3qqAm1rDhKbPUVvrE39TbZZaW2aW7VLrWTtoT8uSCI0w8RsBUhxJilveTNNl
-         ONjpHVJU94+VQ5JppR6e3GRZ6eXvALvARWTMCLcekl+DYfX2lqnnKLyN8f3Cc5WPqDHT
-         MHf1VFq6O79Of8+t+UdNy9m/FSLiVWFcSdBgM5dSB5u/md60sPKW0ooclDF2eXJ+ILSX
-         JJpw==
-X-Forwarded-Encrypted: i=1; AHgh+RrqRdpJicFVrRDfeKRt/r6DbhAu35dsnOPVb/LTjyoGgYFs7I+Nr/f/4M4feIvtrbuFFb35CWTkliqp@vger.kernel.org
-X-Gm-Message-State: AFuF++lppWQFv+hU/wGwfoR8YJ5Bd8CvBrDJjkGgGI0vIt0yJuyTFdvo
-	PwufBFohHSN2zLLvJmct5zi5tUPwZRe/+7bE/fuq+M9nKODTmKcjoVjJ3BKWsFD0fjKSSqQ8Xm6
-	ZZhU1CWL8GgwRPHLhq+HYfkdxpjrmzxhGmnWni0Q5lIp7pFEVlaRWPX2SHH4d0+ft
-X-Gm-Gg: AR+sD11PqI2af50Q6JImZ+1cJzZ+UdnnOH1qkMyVqHDpXSh6ISMMpb5Ui9LBR3yI4jU
-	pW0nGaN7Rgd2j6dIGgc7F1Yc4r7/7FHCwJj0SiTAz65i3+7swnWHJCBfdvQRF+7qXIY5TgTeOta
-	Az/HrLt8p72GrlC1wOFqwPpwhudZ1a/0ulbQURTYYLHZiSGSc2sNhsOoaDwzZuZDB5dXCDtgfFt
-	vvTFwH8blnKxbuoKLFY3H3f+yx+Gq55wpL/5MfidrwgcqnJGeJT5FY7Vh//I5pQRynCaaW9imwW
-	RbR1tmMZGL7zAM8qFx5gJZIibOM91l1EhPhK0zhOK3rR53O/7/5Kjr7tHWLoEDB8WHo2OLVp9pL
-	opcdrfqbf7ZvfHJQFcoyoug8bIld9WNSxC2pfsTZGJbBIN8/IHq49pyBhQ6M=
-X-Received: by 2002:a17:90a:d44d:b0:38e:c7b0:84ad with SMTP id 98e67ed59e1d1-396d0c15f3cmr16719893a91.0.1787931485846;
-        Fri, 28 Aug 2026 08:38:05 -0700 (PDT)
-X-Received: by 2002:a17:90a:d44d:b0:38e:c7b0:84ad with SMTP id 98e67ed59e1d1-396d0c15f3cmr16719807a91.0.1787931485324;
-        Fri, 28 Aug 2026 08:38:05 -0700 (PDT)
-Received: from [10.110.102.109] (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0de4d92sm6485178c88.13.2026.08.28.08.37.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 28 Aug 2026 08:38:04 -0700 (PDT)
-Message-ID: <d81e347e-8ca7-40a1-a428-5bce6f0d4b02@oss.qualcomm.com>
-Date: Fri, 28 Aug 2026 23:37:57 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KOslPNrK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA8AE1F000E9;
+	Fri, 28 Aug 2026 15:46:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787932015;
+	bh=oG4XzSrbBIQnwN0trQXME6j9eahVX1tKyL/6Zu2qJ54=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KOslPNrKaId5FN7FYjGworIMoFLf4ctYktQ+kWdpNr9oU26SZz/kwuQezO+5LWuVy
+	 L6TpchSU3OGBzAq0AgwDnJFFZU92mlFujF9opAGajvT0obuZ78Qc8ELMp7aoysdGCc
+	 TNuUTdUrqaAxJA3jreWPyvgjVAO7I0KoH1RKfYnCNfvJuVJGR99NyOfJ41ewyed3LX
+	 CxrgC7tqw9SNZXe+3/M7eqO/vx4Y0c+GTNmv7A1kGC59He/qtMee7TgOwpSOZKR6H+
+	 tn8BVEbn2tMa7nd9UUQ00UCEahmAUFaIO5FLMeecdvNvO8m4IxI0aQ3cVij9s8Ggf4
+	 p6qE1gDv+jCEw==
+Date: Fri, 28 Aug 2026 16:46:50 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Kendall Willis <k-willis@ti.com>,
+	Markus Schneider-Pargmann <msp@baylibre.com>,
+	Marc Kleine-Budde <mkl@pengutronix.de>,
+	Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chandrasekar Ramakrishnan <rcsekar@samsung.com>,
+	s-kochidanadu@ti.com, a-kaur@ti.com, s-tripathi1@ti.com,
+	vishalm@ti.com, linux-can@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: can: m_can: add out-band-wakeup
+ property
+Message-ID: <20260828-ladle-hurry-d6f63c45fd19@spud>
+References: <20260821-temp-v3-0-9ac1f8806929@ti.com>
+ <20260821-temp-v3-1-9ac1f8806929@ti.com>
+ <20260821-regulate-recharger-2e984e9591ef@spud>
+ <20260821190511.jwdgox4uocbf4brd@uda0506412>
+ <20260824-public-mashing-252473f928c3@spud>
+ <20260828-antique-lumpy-donkey-51ff42@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 00/11] FBE virtualization: inline encryption for
- virtio-blk guests
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: axboe@kernel.dk, mst@redhat.com, jasowangio@gmail.com,
-        James.Bottomley@hansenpartnership.com, martin.petersen@oracle.com,
-        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        linux-block@vger.kernel.org, linux-crypto@vger.kernel.org,
-        linux-scsi@vger.kernel.org, virtualization@lists.linux.dev,
-        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        neeraj.soni@oss.qualcomm.com, gaurav.kashyap@oss.qualcomm.com,
-        mani@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
-        bvanassche@acm.org, alim.akhtar@samsung.com, avri.altman@sandisk.com,
-        stefanha@redhat.com, pbonzini@redhat.com, eperezma@redhat.com,
-        xuanzhuo@linux.alibaba.com, linux-kernel@vger.kernel.org
-References: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
- <20260827184219.GB2137493@google.com>
-Content-Language: en-US
-From: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
-In-Reply-To: <20260827184219.GB2137493@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: QHi0USPCPRCxGI78QcRDLGLNhmlBvDJk
-X-Authority-Analysis: v=2.4 cv=ToDWQjXh c=1 sm=1 tr=0 ts=6a91ab5e cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=Z1znHgkL5aNkaA1FTC0A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-GUID: QHi0USPCPRCxGI78QcRDLGLNhmlBvDJk
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDEzNiBTYWx0ZWRfXxDsUVdp8Evs9
- aAYHg7rewHLVfY4+nN2QD1Xic+Btlxplrwyyg8yOXSyXe5iHKsmI1S3Va+mg4q6WNm5cdgGlRo+
- woFoXr8gxktmtqLepJCafOQ0fWmOFWY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDEzNiBTYWx0ZWRfX4V+zUlTzrMhr
- WJWsDtmG6JARAaV1k3vzww/gQPXqjwwuGGEy8iuq7NppHnH2QyUZjmy/NXHjsGnVpHQ2R3Yud5R
- JS2ElDOJ9zGlYEDNvyk5V/RrhtQdreR4g6H5SM5IdEmhouQXpOlsOSZ+/u2VhIXsfeD3Uvc11Nv
- ngfcw03rWtZSv9ruBVV/MyRIOfjisr+qSlIo/GFbw+ibKcdwooddpzo6ik2xOBKkCWHMiGlAPwF
- zF4gI7+5TqKgEGVBkhRvttzKOg7c8II/Tx6f79KoGNKp0u0aQDteDH8W1qNZxXlp1z2Q49VKECv
- xwBhlYq9tYwBh4gl2sU2CnQc/R8AVs9smAKiYdmGiW2Ev9NTiK42N6FywwBNMtpqrYgKUbBv2jN
- MA5dtpQkoKB16rM7ymaSUSHQuFajYd/btPTSJzbUZK/ClykRK9v5Tcepd4wm6QioNabOO3W7kR+
- sRY3dR3Dde+9fvI961A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-28_04,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 adultscore=0 impostorscore=0 bulkscore=0
- lowpriorityscore=0 suspectscore=0 phishscore=0 spamscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608280136
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="DdnUpmEe7GeazCUr"
+Content-Disposition: inline
+In-Reply-To: <20260828-antique-lumpy-donkey-51ff42@quoll>
 
+--DdnUpmEe7GeazCUr
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+On Fri, Aug 28, 2026 at 11:07:29AM +0200, Krzysztof Kozlowski wrote:
+> On Mon, Aug 24, 2026 at 05:50:20PM +0100, Conor Dooley wrote:
+> > On Fri, Aug 21, 2026 at 02:05:11PM -0500, Kendall Willis wrote:
+> > > On 17:45-20260821, Conor Dooley wrote:
+> > > > On Fri, Aug 21, 2026 at 11:07:00AM -0500, Kendall Willis wrote:
+> > > > > Add the out-band-wakeup property as a possible property. The prop=
+erty
+> > > > > indicates that the device can wakeup the system even when its pow=
+er
+> > > > > domain is off.
+> > > > >=20
+> > > > > Signed-off-by: Kendall Willis <k-willis@ti.com>
+> > > > > ---
+> > > > >  Documentation/devicetree/bindings/net/can/bosch,m_can.yaml | 2 ++
+> > > > >  1 file changed, 2 insertions(+)
+> > > > >=20
+> > > > > diff --git a/Documentation/devicetree/bindings/net/can/bosch,m_ca=
+n.yaml b/Documentation/devicetree/bindings/net/can/bosch,m_can.yaml
+> > > > > index 2c9d37975bedd652b3060ab11ba75c37565edaad..0663beaa532bcc4a7=
+1cd6ad01520a4dfea294d0c 100644
+> > > > > --- a/Documentation/devicetree/bindings/net/can/bosch,m_can.yaml
+> > > > > +++ b/Documentation/devicetree/bindings/net/can/bosch,m_can.yaml
+> > > > > @@ -150,6 +150,8 @@ properties:
+> > > > >      description:
+> > > > >        List of phandles to system idle states in which mcan can w=
+akeup the system.
+> > > > > =20
+> > > > > +  out-band-wakeup: true
+> > > >=20
+> > > > Where is "-wakeup" defined genericly, or out-band-wakeup defined th=
+at
+> > > > you're getting the property definition from?
+> > >=20
+> > > I sent a PR to define out-band-wakeup in the wakeup-source.yaml bindi=
+ng
+> > > in dt-schema repo. I figured it made more sense to be defined in the
+> > > wakeup-source.yaml binding to allow other drivers the option to use i=
+t.
+> > >=20
+> > > dt-schema PR:
+> > > https://github.com/devicetree-org/dt-schema/pull/205
+> >=20
+> > This sounds like something you should be able to determine from
+> > device specific compatibles for these platforms. Not sure why they are
+> > not used for this particular device, but this is an indication to me
+> > that that is a mistake.
+>=20
+> Yeah, it looks a bit too much replicating Linux PM detail. I can imagine
+> that some devices on some board are capable of waking up the system even
+> when power domain is off, but this does not look like a capability of
+> the actual device, but power domain. Device does not have different
+> wakeups. (by device I mean this individual schema - Bosch CAN)
+>=20
+> Happy to see some bigger picture through DTS or board layouts. Actually
+> DTS, showing same Bosch CAN devices which are different on a board -
+> some are wakeups and some out of band wakeups - would illustrate it
+> better.
 
-On 8/28/2026 2:42 AM, Eric Biggers wrote:
-> On Thu, Aug 27, 2026 at 09:07:09AM -0700, Linlin Zhang wrote:
->> From: linlzhan <linlin.zhang@oss.qualcomm.com>
->>
->> Current virtio-blk does not provide a mechanism for a guest to
->> program hardware keys or submit encrypted I/O using pre-programmed
->> keyslots.  It drops the crypto context when issuing a bio request
->> to the virtio-blk queue, preventing inline-encryption-based FBE
->> on virtio block devices.
->>
->> This series enables File-Based Encryption in guest VMs on Qualcomm
->> GVM platforms where the ICE inline encryption hardware is shared
->> between the host and guests.  In this environment the guest kernel
->> has no access to the ICE hardware directly; it supplies a virtual
->> keyslot index and data unit number with each encrypted I/O request
->> via VIRTIO_BLK_F_INLINE_ENCRYPTION, and the host must translate the
->> virtual slot to a physical ICE keyslot and submit the bio — without
->> transferring raw key material across the VM boundary.
-> 
-> This seems to be designed incorrectly by not making virtio-blk itself
-> support key programming and eviction.  That complicates things
-> significantly by then having to handle the key programming and eviction
-> out-of-band using Qualcomm-specific SCM calls.  It also means that
-> adding other implementations of this would be very difficult.
-> 
-> There are some claims that not transmitting keys across the VM boundary
-> is desirable.  But that doesn't seem meaningful, given that all the I/O
-> is transmitted across that boundary in plaintext anyway, and also it
-> seems that hardware-wrapped keys will be supported too.
-> 
-> Please make virtio-blk support the key programming, eviction, and
-> HW-wrapped key management operations that are needed for this to work.
-> 
-> - Eric
+As far as I could make out when I looked at the patch, "Bosch CAN" is an
+IP that can be integrated on an SoC rather than a device on the board,
+so I'm doubting that there's any difference in capability to wake up the
+device caused by the board at all. If there is, it's between different
+power domains on the SoC, as you say.
 
-Thanks for your comments!
+>=20
+> Best regards,
+> Krzysztof
+>=20
 
-Not making virtio-blk itself support key programming and eviction is
-something done deliberately. Based on that HW-wrapped key management
-operations are also handled in the out-of-band path.
+--DdnUpmEe7GeazCUr
+Content-Type: application/pgp-signature; name=signature.asc
 
-There are bellow 2 approaches I investigated to let virtio-blk programming
-the key.
+-----BEGIN PGP SIGNATURE-----
 
-  1. virtio_blk implements blk_crypto_ll_ops interfaces, including program
-     key and evict key interfaces.(Same to 'the virtio-blk interface standardized
-     blk_crypto_ll_ops requests' mentioned by Stefan in the virtio SPEC thread)
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapGtZgAKCRB4tDGHoIJi
+0qGmAP92rgbaMRQvJuWSPl4CPO4Jy2snrCn+oZiFpvtzxoXBxwD/Rr1rcXToj+fC
+TkoqqP9x1N4eAT8m9hkWu6odSSduaQw=
+=sVzk
+-----END PGP SIGNATURE-----
 
-     The guest's block crypto profile manages the keyslot in virtual slot
-     format in this scenario.
-
-      - block crypto key and virt_slot index it passed to the hypervisor's
-       (EL2) device emulation (QEMU, using QEMU in the following) which
-       runs in userspace of the host. Besides of transferring the virtual
-       slot to the physical slot, a programming block crypto key UAPI need
-       be added. Follow current blk-crypto design, it may be like
-       BLKCRYPTOGENERATEKEY. I thought this results in a security risk that
-       allows userspace process a key into a key slot.
-
-     - For key eviction, it's similar to above key programming handling, also
-       need a key eviction in blk IOCTLs, but leads to the security risk
-       that allow userspace client to evict a key in a key slot.
-
-    virt_slot, DUN and DUSize is appended to virtblk request during crypto
-    I/O.
-
-  2. virtio_blk implements blk_crypto_ll_ops interfaces, excluding program
-     key and evict key interfaces.
-
-     The guest's block crypto profile doesn't manage keyslot for the guest,
-     the host's block crypto profile manages keyslot for both the guest and
-     the host. The trigger of key programming operation is moved from the
-     guest to the host.
-
-       - The whole block crypto key (key size, key bytes, blk_crypto_config)
-         and DUN are appended to the virtblk request during IO, a little
-         high payload.
-
-         The backend parses the crypto message in the virtio queue and
-         construct a block crypto key and DUN for the bio_crypto_ctx
-         set to the BIO. So that the IO flow in the host can program
-         the key. 
-
-         The question is that the blk-crypto-profile distinguishs the
-         block crypto key via the key's address. But the host has
-         different key addresses for the programming and eviction key
-         operations of the same block crypto key from GVM, because the
-         key is re-constructed in the host for the key program and
-         eviction operations. 
-
-         To fix it, the approach I thought is maintaining a new key
-         hash table in the backend, and comparing the block crypto key
-         content and DUN parsed from virtio queue with that in the key
-         hash table. 
-         My major concern is that this need keep the keys synchronization
-         b/w this new hash table and the blk-crypto-profile's hash table
-         carefully, avoiding that key is still present in the
-         blk-crypto-profile's hash table, but removed in backend hash
-         table. Another point is that the whole block crypto key and
-         DUN are appended into virtio block request per crypto I/O.
-
-       - For key eviction, adding a key eviction in blk IOCTLs allows
-         userspace client to evict a key in a key slot. I thought this
-         is a security concern.
-
-
-     This option doesn't need map virt_slot to physical one.
-
-
-Taking all the above into account, I made a compromise to implement
-blk_crypto_ll_ops interfaces in a out-of-band path, which lets the virtio
-blk only need focus on the data path. I agree that it is complex than
-the second option mentioned in the above, but small payload (only
-virt_slot, DUN, DUSize) in the virtio block request and no security
-risk of key eviction from userspace.
-
-
-I would like to hear your thoughts about the above and am appreciated
-if you could share your insights about the design of inline
-encryption in virtio block.
-
-Regards,
-Linlin
-
-
-
+--DdnUpmEe7GeazCUr--
