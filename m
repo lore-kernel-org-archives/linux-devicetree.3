@@ -1,57 +1,48 @@
-Received: from mail-244107.protonmail.ch (mail-244107.protonmail.ch [109.224.244.107])
+Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6C4A41C6A;
-	Fri, 28 Aug 2026 06:20:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.107
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C89A018A6DB
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 06:26:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787898042; cv=none; b=mlsUfxvwb3PwuikhuNTrTs6MCD0Q3cdjDK18d7LQoeYFnXNRZrO4vMUnFEfO09jdSm6cRxqUnLtvwfTkgMQ9U8RQ1uenoDov+fxJtKLpQZAPO8FxJ0vXYUxY/CNy9QiZg7FEaL9oN8ZQ/BoXY+icyAbC2U5BrZVFTK6UOXrHpmY=
+	t=1787898390; cv=none; b=lSo6ankhTSwWGde4llTR99DyMXOh+ORH2/VPDFyoDabYTg76o8lbX3+/+D4rLAee2AatrZux5s8HvVr13UnwICdMA0q1QUyEXiKXN00gk4WLC8eeVPzNW85W6EI/6tfyAfEjB351HrcaC0cZdQjRh8Zt+ugIAb2eyfL+H0eR2pQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787898042; c=relaxed/simple;
-	bh=FREm71o6dPjk31ExHIEHYZuqEUeAt9RXIVG2nH9eNm8=;
+	s=arc-20240116; t=1787898390; c=relaxed/simple;
+	bh=dlW18YWNxkC2fSzEk8876nnvyCStamQX34bD9p999SE=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=JJeBYs7gZEmr1GaC2K00UxAX+jNmhpv9EjLbA6P8qwTrCCN0te33WaJlVgPqzmuoVN7Hu0pnflS7Kj6tZK4109jVh5LMrQkWPdZx4UmYKYfUNhBGb1Jga6xKerrFsf9C4wCdtfB0Yb0w/XMGTlub1tLe+nDXo4wpoweF0WhlLpE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=7rlzOgsz; arc=none smtp.client-ip=109.224.244.107
+	 MIME-Version:Content-Type; b=o5OTm+Vih9Zp8U2pOmAsF2CnGkyD+wznGZaxMZGPFhdakqH4yNVJ5wldxPHVI8mgnLahwrsiEJLHepTMTv35Cp8Gg9qr8rPcGn2c73lBrYZaDY1+Ck8+hgE4aDwGRjMsTsRi96c15yh+u0ZiUeU7noBOAtucKFGt1ZQ9jm9nPKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=202hciAQ; arc=none smtp.client-ip=185.70.43.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="7rlzOgsz"
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="202hciAQ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1787898029; x=1788157229;
-	bh=72FNFjvXuvv7RR0zBq6mGBBDujFULPjmI+aWuE4Uis4=;
+	s=protonmail; t=1787898381; x=1788157581;
+	bh=dlW18YWNxkC2fSzEk8876nnvyCStamQX34bD9p999SE=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
 	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=7rlzOgszNoZmv4MAFiSALgtSUmnSUu1DrzEW19ikt7BmCqMZ1ulGPBhX1SShgrKVN
-	 Cc7fraWr5r+wiQXBC1U3b7ss8C/+0LXfiS+YIlLXgNdijNnIy6TlWzZeQHF1Bt0Aws
-	 cupOlKoO6IidiXp3IAhbJ6lsE2dRhAeqMZZbByRMV3kio7SYtym1lN7PBNK8XBnrUB
-	 wS6C7OsS+kme8rwTSSC7/JKPj3ei/w4RLy8A3N0V/seimEE51MPJagCaeSj26fRUr/
-	 UrmxjIVD5Q5Ch6UvzWnev754bj+q8EvxGLoUUFRht5j3B2k/IvXRllW4doTw5As3Yu
-	 vUIwP9INvy9cQ==
-X-Pm-Submission-Id: 4hWStL36Yxz2SchS
+	b=202hciAQwTWc3Xf0boDKSPlxWSYfNfphBCcX6uYBF4Z1XDkz17/NU+w0MySfhtfXS
+	 IM7zI7wZ8/Gazb/jQ9uxGSzyaLim09jkZX6AZCqA+iCVOhjvkkVxCFiyikzrLhIiw5
+	 kZzxepYbeVZAz7uVvxnhoEL4MIVsW/2HTEKjPlo0JsLKNYAtjOA1v0vTCr/M80jh2c
+	 G85xd5dCtZt9+e0Lz9L5uuZFSK3ts1YJf8S8ZzbM3l5f6fu26g8GAmGaT1qeHgaOhm
+	 JFx9lwRQ4yctW3yxmNYGaGNd+mytSZMgWiXZnCbUiYv3MCrO4mnoZhjls6bJpGWYcz
+	 isF7T62aaT22A==
+X-Pm-Submission-Id: 4hWT176rjLz1DFFC
 From: Esben Haabendal <esben@geanix.com>
-To: "Andy Shevchenko" <andriy.shevchenko@intel.com>
-Cc: "Jonathan Cameron" <jic23@kernel.org>,  "Lars-Peter Clausen"
- <lars@metafoo.de>,  "Rob Herring" <robh@kernel.org>,  "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,  "Conor Dooley" <conor+dt@kernel.org>,
-  "Martin Kepplinger" <martink@posteo.de>,  "Sean Nyekjaer"
- <sean@geanix.com>,  "David Lechner" <dlechner@baylibre.com>,  Nuno
- =?utf-8?Q?S=C3=A1?=
- <nuno.sa@analog.com>,  "Andy Shevchenko" <andy@kernel.org>,  "Martin
- Kepplinger" <martin.kepplinger@theobroma-systems.com>,  "Christoph
- Muellner" <christoph.muellner@theobroma-systems.com>,
-  <linux-iio@vger.kernel.org>,  <devicetree@vger.kernel.org>,
-  <linux-kernel@vger.kernel.org>,  "Joshua Crofts"
- <joshua.crofts1@gmail.com>
-Subject: Re: [PATCH v6 6/9] iio: accel: mma8452: Reuse existing dev pointer
- in mma8452_probe()
-In-Reply-To: <ao6Vbm59IX1cl7tj@ashevche-desk.local> (Andy Shevchenko's message
-	of "Wed, 26 Aug 2026 10:27:42 +0300")
+To: <sashiko-bot@kernel.org>
+Cc: <sashiko-reviews@lists.linux.dev>,  <conor+dt@kernel.org>,
+  <robh@kernel.org>,  <devicetree@vger.kernel.org>
+Subject: Re: [PATCH v6 8/9] iio: accel: mma8452: Fix use-after-free bug in
+ error error path
+In-Reply-To: <20260825084130.89DBB1F00A3A@smtp.kernel.org>
+	(sashiko-bot@kernel.org's message of "Tue, 25 Aug 2026 08:41:30
+	+0000")
 References: <20260825-mma8452-open-drain-v6-0-9b252804ee80@geanix.com>
-	<20260825-mma8452-open-drain-v6-6-9b252804ee80@geanix.com>
-	<1lSq7y7LYcNpJGnkxSN5o1d9skFu9meHSq1iRHldMT9IJT8osgJ8U-ZkfcufpJRVR-2vXYISbJUQhkFo5QIHcg==@protonmail.internalid>
-	<ao6Vbm59IX1cl7tj@ashevche-desk.local>
-Date: Fri, 28 Aug 2026 08:20:25 +0200
-Message-ID: <87bjamzryu.fsf@geanix.com>
+	<20260825-mma8452-open-drain-v6-8-9b252804ee80@geanix.com>
+	<W9ZqRehtE7ZLcZllxMFSwVPYmZeL0o9GGwdGth47b0VSuTt7i_F0DOJmyxWZItNG8rE2dmmNYGAaay_mk-xATQ==@protonmail.internalid>
+	<20260825084130.89DBB1F00A3A@smtp.kernel.org>
+Date: Fri, 28 Aug 2026 08:26:19 +0200
+Message-ID: <877blazrp0.fsf@geanix.com>
 User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -59,45 +50,35 @@ List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-"Andy Shevchenko" <andriy.shevchenko@intel.com> writes:
+<sashiko-bot@kernel.org> writes:
 
-> On Tue, Aug 25, 2026 at 10:27:44AM +0200, Esben Haabendal wrote:
->> In commit 32a5c04d4575 ("iio: accel: mma8452: Use dev_err_probe()") the
->> struct device * pointer was assigned to local variable dev, so we can just
->> as well reuse that throughout the function for sligthly more readable code.
+> Thank you for your contribution! Sashiko AI review found 4 potential issu=
+e(s) to consider:
 >
-> ...
->
->>  static int mma8452_runtime_suspend(struct device *dev)
->>  {
->> -	struct iio_dev *indio_dev = i2c_get_clientdata(to_i2c_client(dev));
->> +	struct i2c_client *client = to_i2c_client(dev);
->> +	struct iio_dev *indio_dev = i2c_get_clientdata(client);
->
-> This change is unrelated and should be as simple as
->
-> 	struct iio_dev *indio_dev = dev_get_drvdata(dev);
->
-> OTOH, this might require the full device.h to be included...
-> Either way, it's not for this patch.
+> Pre-existing issues:
+> - [High] The device is left in ACTIVE mode on probe failure paths, potent=
+ially draining power and asserting interrupts indefinitely.
+> - [High] The driver leaks the PM runtime usage count on multiple error pa=
+ths when I2C reads/writes fail after acquiring a runtime PM reference.
+> - [High] Time-of-check to time-of-use (TOCTOU) race condition during read=
+-modify-write of I2C event configuration registers.
 
-It is dropped for next version.
+I will address these 3 in a new patch series after this one is merged.
 
->>  	struct mma8452_data *data = iio_priv(indio_dev);
->>  	int ret;
->
->>  	ret = mma8452_standby(data);
->>  	mutex_unlock(&data->lock);
->>  	if (ret < 0) {
->> -		dev_err(&data->client->dev, "powering off device failed\n");
->> +		dev_err(&client->dev, "powering off device failed\n");
->>  		return -EAGAIN;
->>  	}
->
-> Why? Just use given 'dev' as is.
+> - [High] In `mma8452_runtime_suspend()`, if disabling the second regulator
+> fails, the first regulator remains disabled but the PM state is left as
+> RPM_ACTIVE.
 
-Next version :)
+This is fixed by patch from Sanjay Chitroda [1], which is currently in
+iio testing branch.
+
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825-mma8452-=
+open-drain-v6-0-9b252804ee80@geanix.com?part=3D8
+
+[1] https://lore.kernel.org/all/20260808-15-apr-pm-iio-mma8452-v4-temp-v5-1=
+-d177e93ce3f8@gmail.com/
 
 /Esben
