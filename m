@@ -1,192 +1,134 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 920612D2495
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 04:17:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A978B3AE713
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 05:31:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787890652; cv=none; b=FE9SM6kz3GlshJqsCL0Bydutcw6i0Qoif1K08MujjLSlFy108LHqT+cTIaLivOZNJHF5ZIvSJmbGUNaOTDJ+3oz3R+EMQWlzWQ+yXLCza2B+KOr7/W39taF2vnOvqlqVEf+R1yjL1AZ1dTkiracKQZgtDVvCCYeBfpQS81t+r8s=
+	t=1787895076; cv=none; b=qYoWJzHYVuZZDbOEJu4e+OeaZS4afpScolpt1Y6oaritcsNSs4+66Q6Bg5/p2S0Ow29ECiS9hi8LJb3gJxYZeQfuSrzNHu4DYg6uu6wKFO1/t7kS1ra0gc+DIVOVH61P3jVptCW1DvvzWGvDG+ipazlDpACoupvWEpDJeNTsnNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787890652; c=relaxed/simple;
-	bh=pTqidcm3PAu7POfuygrHb1YbhgmYvPuj7LrPfVSm1kM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s5qomQi2DfSLC/t0iK3ydTvk9vciHdJIhJudy5QjVKmonT6RTf6fNITX1K8a6WjLCiNTYOEU+avzsAxvxiUVFRgznIl0VV5sWUH5DZqORs62odoz9xfmdyb4nrA/FO7BHIXtKt970lLyGxKrHfXzK67kclG6Hr7mEWWUL8WVs/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xa4MbNqS; arc=none smtp.client-ip=209.85.216.48
+	s=arc-20240116; t=1787895076; c=relaxed/simple;
+	bh=YTFU0gE23Yv3Z9Pp7jwGWPqFlGbCbnRmk0EujK9qIPY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZZBWR5/93JItOdJGs1tC+QCXMgaHw+QA2iHUTYyee3SfQl5wgVOoZaNguqLjTgWQDDTEC4vFHBXeAjnHFm9uc3cr7MOA75m5x7hgks8cj2Jcu0z2UeyH36RyOLCzkk+RcuT9NGOGNzqjpEz2Uhwb5Eq3n0XqhWIjMOw3p23wg+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cxqgF7Cn; arc=none smtp.client-ip=209.85.128.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xa4MbNqS"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3964e76d0f4so481587a91.3
-        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 21:17:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cxqgF7Cn"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49954b88fffso3704175e9.0
+        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 22:31:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787890651; x=1788495451; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gO0v4/V9YgV4PqtgQrf2yHSlli7ph+LMnJojXZKVqJY=;
-        b=Xa4MbNqSKvXsKGW4bSdxAvYMg9nGINKU8AszGNhh4DjiKGYa4B6pzt1jb1agr1QebN
-         feSOZsIzZFkt8dftkzdyLZgRnCRKc9YEJcHAaSPQ29BCiW4aMWBwT5Q0/Tm1lsp4HYNH
-         d8dFA/9+tKqKGKvdDYkPw+mcLBqGoVh6TV9op0Lo5CVzXp3ApdHKw/YatDtFWiXVtWJ5
-         1GZ4pBzPwn77WdE/+qmfApJbIDwHCDjGPlmJvYY2tPQOI33bv7bMlaxgGj2gzrdA1M+5
-         XW8gamS5pbjXcVrp8zK3K4SfLy7YtF0aLFd5sEFVnlk6PTDIYMUpwMijx1E+Nm3b5hdN
-         8tDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787890651; x=1788495451;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1787895073; x=1788499873; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gO0v4/V9YgV4PqtgQrf2yHSlli7ph+LMnJojXZKVqJY=;
-        b=j2Wcj6Qpeqdckw0Q9N3JSFG3KGJPuTK0e4cMygueqMMikY80+n3bi2y2/RtSrtV0MK
-         KAPkLvrvYH/6JSRQ+QCI+7Q8/dSfEaGTTr+c2MjYEr006MtO+fTTb04X1WQtZ1j0+vBD
-         H7epQhxc2ULFjlYS0A6VH7itH1wG0bMdAj3ayawrMZrJS9drnvysmC3BKKiXfcZrCZOM
-         shlcPOf2vbYIfvXycc+xuL+PulBLKma/tBPeLKgaHsxAwEddD8H+UCuWA7pAm5te8XUu
-         aAdbAdpLJv0/tUStESI4RzP/KAosw+EnzDRQVR7nM90hF+n4wkvGgzRrq8DNOX7A+4kz
-         w0gw==
-X-Forwarded-Encrypted: i=1; AHgh+Rra4xuDxTyKo/XwNkFnJczq4mlDPedgMBXsK6G8Ms9SJq74XZVdlXsTL/eNPrT5Rmln3IxCd4a/YQOA@vger.kernel.org
-X-Gm-Message-State: AFuF++m1M/BF1SIvrwo928Wxwb5rHgDQDSurw7kjjNldSeE4EQoY4yBT
-	5dLCp08uzT2usLRpwwfoJF8eNh5QUO49zJm/q61BCaT8joioS5BEZyJ4
-X-Gm-Gg: AR+sD12aRtnXNRneLV64hp/lnF0M3A3G/9OxVkB7VDN8ImJOZt/ZhAVOpDr/XDQZHYT
-	Klnp6B4sTS58Y2PrXMdECtoMLEOev1MBf/olGZvr1aNXVzF2mwfAmAInfCjpCZ/GGPajmMvHtiv
-	LW1ERs7Xef7/6Ugafo11zH6uI3vmFN2fe5r67SJyDjsFLsKjM8UAsX1K/H2pEmu7vxSsk0PtX3Z
-	DB0P2S7XUDsSNFrg2uhv8i1/J17CFFBNfpi+RjIlIlZoHuNkmGw9IGUtfJjAsfk9QIIa4i4AEOQ
-	6GhLDZoWB9JSzs6MYTsRLwOgua9A7G/DUUDCvpYXJroyxFrXpULTNRw+u53HxHa0fmbitrUJyj8
-	+eMZHRxoPrEWY+RKznx+YelYBmjfQLzLNPzlE0SPbegqvec+jkIEOkUxfkPwksxU33pCZ9XYQNy
-	KxusHWjwuEoWjuBdDGWfhPgTN2fWLkhztjjxcZJSq5CjP7KNOUVG7MMTOgIjd82C9/m2v4aA==
-X-Received: by 2002:a17:90a:dfd0:b0:38e:b400:a860 with SMTP id 98e67ed59e1d1-396d0fccf78mr8786188a91.13.1787890650739;
-        Thu, 27 Aug 2026 21:17:30 -0700 (PDT)
-Received: from localhost ([2804:30c:97d:e800:9454:1179:18df:ab33])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0d1b38esm1896535c88.3.2026.08.27.21.17.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 21:17:30 -0700 (PDT)
-Date: Fri, 28 Aug 2026 01:18:18 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
-	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Luca Weiss <luca.weiss@fairphone.com>
-Subject: Re: [PATCH v2 5/5] iio: light: stk3310: support the Sensortek
- STK36C61
-Message-ID: <apEMCqQXyj1tAMoP@debian-BULLSEYE-live-builder-AMD64>
-References: <20260826175409.326131-1-jorijnvdgraaf@catcrafts.net>
- <20260826175409.326131-6-jorijnvdgraaf@catcrafts.net>
+        bh=PAtkq/Rf9tx3iqD7FVH2UaRrUXSVTeHKGxvC6wVqwgI=;
+        b=cxqgF7CnZRrMSQd9epSUaCyOAHnFdorOEDbcKOGzIA+OYO/ZytsQ8mhn4XhqNzu7X4
+         DwhcfMj5CyaGEOi0LLuGj3hTm7YLGTs391BuGd69f9fHKIE/q+EO4QmVDdP1hyRLUzh2
+         LjvrXuT8b6PazThtCWLIX5b/Vn3bYV16Y0zPr+RvKe8G+KQlD9MQAPMSGnbvRSUGFEBI
+         A73Dsf3U7vpPrfH3bpJeDRNt0UqM794hb5b7ytjSkyTJ/PU/j8H0ZjFYA0ktPw24bU+O
+         n2FUdJQavQkArFHM2nsh/QIRMi96Xf2HypdnUlWw9Qsyn0tFm4ofsXqYv/ImJmakBxBE
+         iXIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787895073; x=1788499873;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PAtkq/Rf9tx3iqD7FVH2UaRrUXSVTeHKGxvC6wVqwgI=;
+        b=RDKQ8w9ctO08ngM3lQ+y2UmYUtTD2ibhzHNz2KlRAYE2RDAGspD9XhnDmPyK4pBHSZ
+         pjrNoCNQW3cr3mHB2ShSdkVnLgY7R3tE2HoTWesvd8ZrNE/WplHvnFHoGKpdrm5gldoF
+         oTyQyl+0EelCmoJWlF3E56cIq4yai9CZE2cwaxWZydVQCbZxwfu8R6jScl7shLiRrbZk
+         ZEo5fdzf2DnD8AdGzYsWkaHs/uWGj77yNy0ytUUd72WVLbI26YeRdIQivnE8wn4Fqo47
+         c1yhWKL+TlJRraSB527p96agj8vHsznljhvikKQjVv9Dj7zreg0h7bjw83xjfcSpoXhw
+         4JTQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrWoN+PAmP5Dgck3jhQ61WyNY+yxFQ6sTHYZ02h7scJ/FWcfhTbvZbI65FongQRo2czB4xLDimeM2Ko@vger.kernel.org
+X-Gm-Message-State: AFuF++nFx4Dq4JXOiXhjW2pqjDTFB2V0O3QOIx08HHVsA6XTp8RXVlCO
+	nhSz3MtOD1sqoGTrnbx+tehvkeCJ0aJw80JrvzwO+5PA7lSh00NtDXPD
+X-Gm-Gg: AR+sD1057J5jr5HpLQDhGlltQIPdJ14gaYgHGCFknz6Fnr1gPb8134uBTPdwb/+qy/b
+	e8hdsMGhXJJuiuhhAW+rsMx6RT7oc07GytJWwukNNS6mwC3O0Rh3cqcrVpdszjnassyXVTDggGD
+	MetOA/GaKJ4uajTQuTQwZtd5wmP4K16a/KYXqcMemDPTlsCUqidgIxgWuV3X4bUIREPPdBJyFoo
+	umvGwwlTFx3bdLKpXiAQuPZ/1tBaLgFq0/j71fsd6rxQKt691/r7Y/ZsrQJI2zW2nYsYzuUgWvr
+	p1xBGhi6r7D/tjTeeI49qOyypKyoeEBdE3rKLjyogf87BuTKQkkcu9DUKUnLHXaa3d/B9oB+/AP
+	Kr8ad6DgwHO0yve2f+rskuCmMObpIbpB9NblbPpoJk3mDdtdzmMvJ0sZyJpcoXmFKNL/A6dQRPf
+	XXm2yXrAAl9A3A1FFIhNS++Wu/gVIvLO8vKv7vXjh7qBrUEdVNLxtb8LSj4gli0hlZfpM7JJOpl
+	mNzlA==
+X-Received: by 2002:a05:600c:c4ac:b0:499:a5fc:2087 with SMTP id 5b1f17b1804b1-49b91c20e36mr56718415e9.6.1787895072612;
+        Thu, 27 Aug 2026 22:31:12 -0700 (PDT)
+Received: from [10.51.121.166] ([193.118.38.99])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b4e2c1af7sm102633975e9.15.2026.08.27.22.31.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 27 Aug 2026 22:31:11 -0700 (PDT)
+Message-ID: <cfac0540-4f08-45b6-8d01-71080e0fcb47@gmail.com>
+Date: Fri, 28 Aug 2026 07:31:10 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826175409.326131-6-jorijnvdgraaf@catcrafts.net>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/2] dt-bindings: Add GPIO-locked fixed clock
+To: Conor Dooley <conor@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Vyacheslav Yurkov
+ <V.Yurkov.EXT@bruker.com>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Brian Masney <bmasney@redhat.com>,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20260726-feature-clock-guard-v4-0-e9c8b372b71c@bruker.com>
+ <20260726-feature-clock-guard-v4-1-e9c8b372b71c@bruker.com>
+ <20260810164000.GA1846263-robh@kernel.org>
+ <20260810165403.GA2145873-robh@kernel.org>
+ <20260810-smilingly-kung-1fddc5e18df6@spud>
+ <c53ce2d5-4674-4bda-9e92-fb4fbdc32da8@gmail.com>
+ <20260827-parcel-isotope-22b344bace78@spud>
+Content-Language: en-US
+From: Vyacheslav Yurkov <uvv.mail@gmail.com>
+In-Reply-To: <20260827-parcel-isotope-22b344bace78@spud>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hello Jorijn, few questions inline.
+On 27.08.2026 18:55, Conor Dooley wrote:
 
-On 08/26, Jorijn van der Graaf wrote:
-> The Sensortek STK36C61 is a 3-in-1 ambient light / proximity / RGB
-> colour sensor (chip ID 0x95) found in the Fairphone 6. Its register
-> interface is compatible with the feature set this driver uses: the
-> STATE/FLAG bit layout, the data and threshold registers and the gain
-> and integration-time fields, verified on that device (the ALS and
-> proximity readings scale with their gain and integration-time fields,
-> thresholds written through the event interface read back from the
-> chip, and the FLAG near/far bit crosses with them). Add its chip ID to
-> the known-ID list and the device table entries.
+>> It is n input clocks and 1 output clock. It is kind of a mux, but the CPU
+>> doesn't control the clocks or GPIO signals. The whole idea is that
+>> peripherals check the output clock, when it's locked that means _all_ the
+>> clocks are locked and GPIOs are in expected state. That's why the selection
+>> operation is not really implemented.
+>>
+>> Actually the number of input clocks don't have to correspond to the number
+>> of the GPIOs, because the GPIO signals indicate the locked state of the
+>> clocks that are not accessible to the CPU.
 > 
-...
+> I'm not entirely sure what you mean by this, but it is starting to sound
+> like you're only having one output because that's the minimum you need to do
+> to ensure that this driver has probed before the peripheral(s) using the
+> N input clocks.
+
+That's exactly the idea. How else I would ensure in peripheral's probe 
+driver that clocks are locked?
+
+> Requiring other input clocks to be stable before
+> declaring the input that's actually connected to the output stable
+> appears to be a shortcut/hack rather than an accurate description of the
+> hardware. If that's the case, I'd be much happier with this if this was
+> implemented as either a) N inputs with N gpios and N outputs, or b) 1 input,
+> M gpios (if multiple represent the stability of that input) and 1 output,
+> with N instances, one for each clock.
+
+How having N outputs would help? It looks like it would just move the 
+job I do here into each peripheral driver instead.
+
+> On the other hand, if this is genuinely a mux, then the binding should
+> reflect that, rather than only describe a subset of what you can do and
+> the driver should only check the actual parent out the output, rather
+> than the N-1 other inputs.
 > 
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-> ---
-...
-> @@ -417,10 +459,10 @@ static int stk3310_read_raw(struct iio_dev *indio_dev,
->  		mutex_unlock(&data->lock);
->  		return IIO_VAL_INT;
->  	case IIO_CHAN_INFO_INT_TIME:
-> -		if (chan->type == IIO_LIGHT)
-> -			ret = regmap_field_read(data->reg_als_it, &index);
-> -		else
-> +		if (chan->type == IIO_PROXIMITY)
->  			ret = regmap_field_read(data->reg_ps_it, &index);
-> +		else
-> +			ret = regmap_field_read(data->reg_als_it, &index);
-The above seems unnecessary. Why changing the comparison from IIO_LIGHT to IIO_PROXIMITY?
-After the proposed update we would have the integration time for both light and
-intensity channels being read from the same register field?
+> Thanks,
+> Conor.
 
->  		if (ret < 0)
->  			return ret;
->  
-> @@ -428,10 +470,12 @@ static int stk3310_read_raw(struct iio_dev *indio_dev,
->  		*val2 = stk3310_it_table[index][1];
->  		return IIO_VAL_INT_PLUS_MICRO;
->  	case IIO_CHAN_INFO_SCALE:
-> -		if (chan->type == IIO_LIGHT)
-> -			ret = regmap_field_read(data->reg_als_gain, &index);
-> -		else
-> +		if (chan->type == IIO_PROXIMITY)
->  			ret = regmap_field_read(data->reg_ps_gain, &index);
-> +		else if (chan->channel2 == IIO_MOD_LIGHT_CLEAR)
-> +			ret = regmap_field_read(data->reg_clear_gain, &index);
-> +		else
-> +			ret = regmap_field_read(data->reg_als_gain, &index);
-Similar question here. What do we accomplish by comparing to proximity instead
-of light? Is the gain info the same for light and intensity red/green/blue channels?
 
->  		if (ret < 0)
->  			return ret;
->  
-> @@ -451,7 +495,8 @@ static int stk3310_write_raw(struct iio_dev *indio_dev,
->  	int index;
->  	struct stk3310_data *data = iio_priv(indio_dev);
->  
-> -	if (chan->type != IIO_LIGHT && chan->type != IIO_PROXIMITY)
-> +	if (chan->type != IIO_LIGHT && chan->type != IIO_PROXIMITY &&
-> +	    chan->type != IIO_INTENSITY)
->  		return -EINVAL;
->  
->  	switch (mask) {
-> @@ -462,10 +507,10 @@ static int stk3310_write_raw(struct iio_dev *indio_dev,
->  		if (index < 0)
->  			return -EINVAL;
->  		mutex_lock(&data->lock);
-> -		if (chan->type == IIO_LIGHT)
-> -			ret = regmap_field_write(data->reg_als_it, index);
-> -		else
-> +		if (chan->type == IIO_PROXIMITY)
->  			ret = regmap_field_write(data->reg_ps_it, index);
-> +		else
-> +			ret = regmap_field_write(data->reg_als_it, index);
-Same pattern, same questions.
-
->  		if (ret < 0)
->  			dev_err(&data->client->dev,
->  				"sensor configuration failed\n");
-> @@ -479,10 +524,12 @@ static int stk3310_write_raw(struct iio_dev *indio_dev,
->  		if (index < 0)
->  			return -EINVAL;
->  		mutex_lock(&data->lock);
-> -		if (chan->type == IIO_LIGHT)
-> -			ret = regmap_field_write(data->reg_als_gain, index);
-> -		else
-> +		if (chan->type == IIO_PROXIMITY)
->  			ret = regmap_field_write(data->reg_ps_gain, index);
-> +		else if (chan->channel2 == IIO_MOD_LIGHT_CLEAR)
-> +			ret = regmap_field_write(data->reg_clear_gain, index);
-> +		else
-> +			ret = regmap_field_write(data->reg_als_gain, index);
-And here.
-
->  		if (ret < 0)
->  			dev_err(&data->client->dev,
->  				"sensor configuration failed\n");
-
-With best regards,
-Marcelo
+Slava
