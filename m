@@ -1,210 +1,183 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Received: from mx07-001d1705.pphosted.com (mx07-001d1705.pphosted.com [185.132.183.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2249B352C3C;
-	Fri, 28 Aug 2026 06:48:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=210.61.82.184
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787899701; cv=fail; b=D/DneCfmFwvkB+nC8+VIYGxpcMcIurHWlNKOnFKQERQqVkwR/CpKE8np4M+ppJ/Y0Fq4N6oaaBh6x4GpsxovIlm+YhlhKsyy3psGMMyeE+RhWidd5CgVdCxh4cpJ2FtYdsk1JEvJJCsANA82IdyRQ3aMwcbf5thdcHFubJSKdXw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787899701; c=relaxed/simple;
-	bh=DOqeylZ3tOkPMkhTDvPIK2b46nZjqjkeRoswg2h/dRg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ssiE4IZ8jq25LU3Ud9sQPslFupU9m0uD6PfXUOUHqALoEKRCVa6Mhq10Ok40t7HQBXHMm6YEI9RFOs1kLwtabSZiANFFxDvjT+fcSO44sxuezVMoBJk6I9mlBCZ7D8lprCC35k11314l+41Wy0/CVmgMKepzD+AEqxMRgzP9KY4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=Ql49Kh/l; dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b=m40gva1N; arc=fail smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5B823D091A;
+	Fri, 28 Aug 2026 06:49:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.132.183.11
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787899765; cv=none; b=cADi+1HJYu9S+4j71ywQJOYexH5oe5hVjlC/dLQFFP2rQugWt//+aK8HohI+RepbsZ93fzadx9C6XoSBD44b3j5fFoqrKu7N3ir+sNGLagfBGU7sU3DpEye0mCLhdEr/Bu4rgbpP/lLXDo5LPbvYVtyNGPqlrjiZ+egPLrAJCpA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787899765; c=relaxed/simple;
+	bh=AfzNrjZNXaS03XpUg5u1BNBiMSo5HU62ts88+NZV17U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UEXa1Ti4WoEP++N7NTdOXRQNnxVGDCoj10SCw5eLdo1rQoyhXqECCbTz3zoPZ8149Mzq4E48ZjshnZDDGCar/qJfKnCHvQ0jFNIf/mlkbRN34iFqziQTYbcmTfVkILFft+0ARcwYy8RR/1cN8HSgpUqd0z3v7aLXRKbj3onAKQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com; spf=pass smtp.mailfrom=sony.com; dkim=pass (2048-bit key) header.d=sony.com header.i=@sony.com header.b=PRG1zl14; arc=none smtp.client-ip=185.132.183.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sony.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="Ql49Kh/l";
-	dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b="m40gva1N"
-X-UUID: 7057952ea2ac11f18dc8c9802ae25ab1-20260828
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From; bh=DOqeylZ3tOkPMkhTDvPIK2b46nZjqjkeRoswg2h/dRg=;
-	b=Ql49Kh/l1RPHVHUf+1XVSVgsI+doH8GbnSq8vWtTteRtzzrg7la1J67n/WYxktPJeAzM/So4MAXdr4hUw1unsxKMsjH0eIyFmnvpZw9cvrpi5nHbMAHunWdcgFF66wmhbvDSJQyJWLi9MiTMVfUSlLRlZpkV2eIawcRw4rCpmQw=;
-X-CID-CACHE: Type:Local,Time:202608281448+08,HitQuantity:1
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:65a2b051-5896-4514-9452-3e03715a97a0,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:b28affd9-399d-4fb2-bf59-1c094fb0e05e,B
-	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|110|111|136|836|865|888|898,TC
-	:-5,Content:0|15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:
-	nil,BEC:-1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC
-	:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 7057952ea2ac11f18dc8c9802ae25ab1-20260828
-Received: from mtkmbs09n1.mediatek.inc [(172.21.101.35)] by mailgw02.mediatek.com
-	(envelope-from <ck.hu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1167537693; Fri, 28 Aug 2026 14:48:12 +0800
-Received: from mtkmbs10n1.mediatek.inc (172.21.101.34) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Fri, 28 Aug 2026 14:48:11 +0800
-Received: from SI4PR04CU002.outbound.protection.outlook.com (172.21.101.237)
- by mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Fri, 28 Aug 2026 14:48:11 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LHAx2j3mFC37xBafSuy1oJ2tQC0iy7zKlJgqYO4+yGrHoshMS8i0jXfvaFNB7Se52X8y9doSe5SgPGrHzg3vApeQwRFd9aYAQoZfP/ot1YjgABbzzDaV9XFMEjo0NS6G4KV1gPdkZ875QCl/55VvKtu4m5EdiJvPCMzKMgrJDd6LomeryFNHa7LRFpjK2qTDgS0DeB3GK8klBkz8em0yAt7nSKjZ5SeJq7T31tBatNBBKGekviQR1KItVoY+Yn4l8VZOGeOMBaQkpf5A7j4DkbqrdEM2WwjqPoKrvch4IekM6CUkyAZEliKBJ6PsNLnWxCuLeD0zkqRxBvkbgLooeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DOqeylZ3tOkPMkhTDvPIK2b46nZjqjkeRoswg2h/dRg=;
- b=e7UeEPMqiA9d1Eoc8qCfSFWILhGYSkYP0GhA8b3cv5p3J7Oj+XEXxsDgJzpqq9LIlb6HmJDf7SL62QiFYTADCM8URaSPH5+NSrXHSEyyAbealmLiHunS3NtigIOLXmsRtt2P1eqsSzvelSYkcCToiUimQybcUZhUb1KPsD8c9azw8ZK6L6eupW/HuZnn+uRPCGhjdYQuvlW5BDFTQPRrToQn84m92sP9kc++5p2LkN3vS+9dxutPZqwF5joDYYJ1umOBNeaSU46B+MdNkXmYWZnQ6kGD7olBY0Bw5MwwyCV6HalPaGMZyylkrNAhmZ+YuKpkO67Nzxs7wVRw/ZsPDg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
- dkim=pass header.d=mediatek.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DOqeylZ3tOkPMkhTDvPIK2b46nZjqjkeRoswg2h/dRg=;
- b=m40gva1NIVnF7RE/sLdIFWhvZ1lZhPi/DSMkHlN23UYFNgoeejH37UvH2N8IABIVMhTpKIzrWrGwvrTi5ylnXnCkMWky84V9WRwsMi8gszE3TUTxJ02XMjIM1EWcycgM/yEpBo1+VZqVKRysPbaBTc/tp7uhZzAolF0AaHGL6fQ=
-Received: from TYZPR03MB6624.apcprd03.prod.outlook.com (2603:1096:400:1f4::13)
- by SEYPR03MB6769.apcprd03.prod.outlook.com (2603:1096:101:68::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
- 2026 06:48:06 +0000
-Received: from TYZPR03MB6624.apcprd03.prod.outlook.com
- ([fe80::a3c2:b94a:70f:e640]) by TYZPR03MB6624.apcprd03.prod.outlook.com
- ([fe80::a3c2:b94a:70f:e640%4]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
- 06:48:05 +0000
-From: =?utf-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	"chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
-CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"kernel@collabora.com" <kernel@collabora.com>, "robh@kernel.org"
-	<robh@kernel.org>, Alexandre Mergnat <amergnat@baylibre.com>,
-	"tzimmermann@suse.de" <tzimmermann@suse.de>, "dmitry.osipenko@collabora.com"
-	<dmitry.osipenko@collabora.com>, =?utf-8?B?Sml0YW8gU2hpICjnn7PorrDmtpsp?=
-	<jitao.shi@mediatek.com>, "simona@ffwll.ch" <simona@ffwll.ch>,
-	"mripard@kernel.org" <mripard@kernel.org>,
-	"maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
-	=?utf-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?= <Jason-JH.Lin@mediatek.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "granquet@baylibre.com"
-	<granquet@baylibre.com>, "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
-	"airlied@gmail.com" <airlied@gmail.com>,
-	=?utf-8?B?SnVzdGluIFllaCAo6JGJ6Iux6IyCKQ==?= <Justin.Yeh@mediatek.com>,
-	"matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>,
-	=?utf-8?B?UmV4LUJDIENoZW4gKOmZs+afj+i+sCk=?= <Rex-BC.Chen@mediatek.com>
-Subject: Re: [PATCH v4 10/12] drm/mediatek: mtk_dp: Add support for HotPlug
- Detection in DP AUX
-Thread-Topic: [PATCH v4 10/12] drm/mediatek: mtk_dp: Add support for HotPlug
- Detection in DP AUX
-Thread-Index: AQHdD5av2q2OR1TkdkixzewHOFxL0LazUy2A
-Date: Fri, 28 Aug 2026 06:48:05 +0000
-Message-ID: <8cdcf1554c6dcaebf2e10a742deab7a37cdbc858.camel@mediatek.com>
-References: <20260709113148.49090-1-angelogioacchino.delregno@collabora.com>
-	 <20260709113148.49090-11-angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20260709113148.49090-11-angelogioacchino.delregno@collabora.com>
-Accept-Language: zh-TW, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.52.3-0ubuntu1 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mediatek.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYZPR03MB6624:EE_|SEYPR03MB6769:EE_
-x-ms-office365-filtering-correlation-id: 8951e7bd-7550-4aea-37d9-08df04d05045
-x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|42112799006|366016|23010399003|7416014|376014|1800799024|10067099003|4143699003|11063799006|56012099006|18002099003|22082099003|38070700021;
-x-microsoft-antispam-message-info: h7gS67Snb/ZFrX5EhDhR6mrTe1xJS7seqMzIbyVAaxp9IU9o0focofDX5DbzrT7j31RHG2cui5Is4JDEhzz8/5/vLP5B7daB8q4ElgrfejscoZPcl2tWYZTlD/Srsq2ZtouPhKsvxE40IQRJJONB/5kYvsD7TeWRepjy+TWwvuT1+BoPGJufqxRxVHHXJ8fYpjiiFArfSr2akPoP/P3a4CFp1IraWqUzHHfhmT9ktkWce9GYpVQSspHTEkV6aJBqnU7qshtU6Eh558dmYv3yy5gh0QiVyQ522/N0a6DhhXg7v3/mF+/qAAsUB3QAGgK5QPUbqdg0lRh606SVwxs3A+u2jJd/AO9i6MQHp34raaLpyq38hFJxpMwsMS1HAHDninX+YdRaVPEu9xnEsPX8lRkFZB+Rz9Ugyj5uCvKS76CB78n6iJmdwEqJ6QDO2YTggyzilZOyUi3sbrtLV14KdqpOoOV6a/XiEr9dSNxgElKPuBZQjIsSfMiweSIrO8i+JlTL9U9IfpRhXsg8OKWGInYT/HcwzuNXsF3rN+ytYbi/Mod9JFUK+Yvpnoz9YIQt4Aqz/lDeoLt6c7+td5hUF0nyIaJgm2tJwdV7H7AEsd0v1d8fYhHN1jESj/bUVxxo7DdCHgggyu8nXkFDrLBWIALDgUe3zIYzgkPDOFu43M7FFD0/s5QNRVg4uZnoc3LNqHPJPjoTgBNaP7/fJke7Ew==
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6624.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(42112799006)(366016)(23010399003)(7416014)(376014)(1800799024)(10067099003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?RkkvVUsvbnF3YThtWmkrS2xpd1JNT05wcWRTYURqaU5vMjA0TlBOWWh1Z2U1?=
- =?utf-8?B?YmZpN0pCNUxvR0FQZVF5cEU2eFFtay9kQzRJWktrem93dzNvL05pMHo4TmRH?=
- =?utf-8?B?NXBrYlh3QVJLeWZzMklpR0l5SnZSTlFSOWFRcjlWYUxpaVRzS2F2VTVweGlE?=
- =?utf-8?B?akJqN3NTcjJuYUNHREhNSG1ua2x3ZFI5aGVjekppMDZTT3dnNTREUWJ1RWx4?=
- =?utf-8?B?MTBZSnluaFlrQWtIMzVKanpjaDVoQThXSitodC9BOG9qdEdGSXlKZTdLRXhr?=
- =?utf-8?B?aUZvVWY1bjhVcDdvS29tdjQ5WXNWTXJVSkhhS3BrbEFGZStGSTlLNngwRzZF?=
- =?utf-8?B?VzRiTWxSN0pkcDRPbFNpVFZ0Zzc0RkM1cFNiU0w3cUZQYjdYS2VzMm16aTl5?=
- =?utf-8?B?UWNOMmlSZld1aHlCM21zRWdYUGJVa3Z2QXZHRkU1eFhrQXhZeVpYQ2c5SmlR?=
- =?utf-8?B?ZTFWOFBVbzZmWCs2aTJ6bklodThkMjUxa0lnekcyVS8xYTFJaDlaRXlYNWdU?=
- =?utf-8?B?SDdIMDI0UHVSTXIzejdrZ0tzVTg2MTZtSGY3cHBzbk1PUzVwSHBoYWVmTmhZ?=
- =?utf-8?B?YmlJM1NUVkR1LzBGN0puWFBCOStBUVpHalFsZXRVNHhwZjlJM1dFN1g4ckpu?=
- =?utf-8?B?SG04MG4zMHFGbmJ3UHBFUnl1TzhZYTdxeHJpdGZldGxXS3JGeDZjU2xjNUFI?=
- =?utf-8?B?MHE2bzMwRWREOGlLcllSQTVqa1IyZmJNS2RIQjdHVEJTcCtFZ1U0YnNVSFpT?=
- =?utf-8?B?bjBIM0VoWFRZcUtGMkhEbzNXTGsrbFhWODlzclROM2htSkZpY2M0UmdDdGZ5?=
- =?utf-8?B?dVhKVlkwdGFGYTlnQWdPaXVKb2NOYVNyY0RwUXhTc3dHVW1GZW5sSlpaeGlw?=
- =?utf-8?B?ZmtZeWJzem1NbCtqOHpCU0U1Vkt4QmNqM1BRMm4wSVJ0ZE5XSndDL24yNGxm?=
- =?utf-8?B?L3BuaVg4dDlEK3dLcWtPV09XcGFpd3VPUzFQa2VaRUZvdWZQYkVnaFpJc2Nk?=
- =?utf-8?B?eFBwT09JcnR3VENMOWNVMW9OeUFMR0ZGNlJOMG5FdkRTYjdia244TG10bmd3?=
- =?utf-8?B?UldabCtoZGFCRXZDd09OcVRqN0xCdU1oTjE5cmlHM3d3VFpFWTVpRDRFeGpC?=
- =?utf-8?B?Qm5SRlp5aisvTFhPaXk3WjlQL2pYUFdNM3dhd1UwdGhJa3FqVTVETkhWWGl6?=
- =?utf-8?B?bEJVNG9zNW9iQXltMWpRZlZ6N0tLa2srRVA1M2Y2ZHp2TWJHRjFlczdSS0xI?=
- =?utf-8?B?cVRBSDA0UnZKblRmZU05OUNFOGdRTzh1U0pHTCtQRXFoS2VKb0o5Znc2R2hQ?=
- =?utf-8?B?eUl4Z3FyQnE5Qm1MQUNFMHZ2azlHdW0vNGt2N0hMNHNEUTZRNldCYTlRSFo1?=
- =?utf-8?B?ZHlNUlJHZEdrbm8zemRpcXB6SDJDbXRqeG50cGdUSlJnanlQY3FUM09McXI2?=
- =?utf-8?B?ZXdxSUJoUjlRaWVMNmxhWUV4MVZPMkk2N3pIaTRZRi9ZUm9WZVZ6TnlvRU52?=
- =?utf-8?B?bnFpa3RudGVuSitRMFFrNCs3YWhwNlVzb25aRXFUM3VmcXFGMXB2UzdSVUpB?=
- =?utf-8?B?Wkp3Nk1FTjZqUkRxaUhCZXNsOWN1Rko1c3l3a1NDRjFoTVlrTklZYzRtZEFC?=
- =?utf-8?B?enkyOG9KNUtuNlRpYTBLcnJjcXlISkFOanU1WUVRZEhyTW1Kdld5RFkxZkZG?=
- =?utf-8?B?YVUrelNvYmo4azhJYUQ4WnhhWU81VHVnTmlHemFZVHY3VlJUVGF6UnBabGtx?=
- =?utf-8?B?MHF5ZkZlMWt5R0dRcU03VDBxZlJyczZ3ck9HanN2TmFlbk52QU5wM3hmekl1?=
- =?utf-8?B?dWdXYTQ2aFJQUm9kb0h1WHAzRk9vRjFJdXpzQ3lYaUJvMTFXVGsyM2xlRDdn?=
- =?utf-8?B?ckFyWU5lSVp3VURydGxURlFuTUxsbUdpdGxCK0hvcXdrUFoyckIzNE9xTU9I?=
- =?utf-8?B?SlFULzAydzZIQ0dmbnEzOVAzUUZoUjRJc3N1YVZqd2kwdU1uQWNaY20vQmZQ?=
- =?utf-8?B?Wld3dEUzNkZBY1ZBSnkzeXg1c0tvTkhJclUrdHpxRXd6ZksybnlHeC9sR1p1?=
- =?utf-8?B?TTVZSHdMU0hYc014dTd4V2FPTmczSXhEUmFlM1F5cEVXR3RFU3J5V09uREVw?=
- =?utf-8?B?N2FzOVFWcElXcVlOcHd1V0E0ZSs1blFqV0U4djRxUVZCb3NUdEJTSXgyU0JW?=
- =?utf-8?B?ME1VMVU5VzZ5eDhXUkVheEZ1cWZhYlA4eHdmcFVzVFJaNURsc2t5TGRrc3I1?=
- =?utf-8?B?T3VKaHA3dFRGTFhaQWNKbHFwL3kvUnN0M3dYcnpYSGZJMTBnUnIvZGlsZHVS?=
- =?utf-8?B?VjZUV29yRTVPQXdqRkFINXkxWkRsczVTVDJBQW1OWTUwdFFOenBhdz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <F9F48A572A05E34CA9B3593C2AA859F7@apcprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=sony.com header.i=@sony.com header.b="PRG1zl14"
+Received: from pps.filterd (m0209329.ppops.net [127.0.0.1])
+	by mx08-001d1705.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67S66l5Y1794040;
+	Fri, 28 Aug 2026 06:49:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sony.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=p1; bh=ctqwZs+DjyXTsAc59QIiOHkITK6ZzPrJsaI7cc76vM
+	A=; b=PRG1zl14pBy+R9MDLfykfNwLKJoe62+L2pxrV4Ygo0Y5ttf+h+ZiARCbEt
+	odoNNITnr/ET9BrkRVvIZWr073OAOVCmewodIDHzQ3Lln1pRHaybppJZDqSvVRCH
+	yTuDBk/I0fUEGDR935LvZ1wXBZ4u5WbBMHd0wnXRRW9koL+M1wPHu+v7tNQUwBi6
+	VYYgazK7vrW2PxOxn+5t8WBbnF/aIabbFbLtESjFWVCmACRlu4CBl3JShMJwbOq1
+	4V7rLFF+lGE2hKiUSjO9CGNoFZV2EWFx1ZQNOV2lK4HzuASDZBc/XqAtCyamxfiv
+	I9FKBwDMVE35b/GVlgvTOJRQ22Ow==
+Received: from sgppsem01v.sg.gdce.sony.com.sg ([121.100.43.221])
+	by mx08-001d1705.pphosted.com (PPS) with ESMTPS id 4g72dy7fh0-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+	Fri, 28 Aug 2026 06:49:01 +0000 (GMT)
+Received: from pps.filterd (SGPPSEM01v.sg.gdce.sony.com.sg [127.0.0.1])
+	by SGPPSEM01v.sg.gdce.sony.com.sg (8.18.1.11/8.18.1.11) with ESMTP id 67S65poi959602;
+	Fri, 28 Aug 2026 06:48:59 GMT
+Received: from sgppsba03v.s.gdce.sony.com.sg ([146.215.113.220])
+	by SGPPSEM01v.sg.gdce.sony.com.sg (PPS) with ESMTPS id 4g9jrhu204-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 28 Aug 2026 06:48:59 +0000 (GMT)
+Received: from pps.filterd (SGPPSBA03v.s.gdce.sony.com.sg [127.0.0.1])
+	by SGPPSBA03v.s.gdce.sony.com.sg (8.18.1.11/8.18.1.11) with ESMTP id 67S661uf3766270;
+	Fri, 28 Aug 2026 06:48:59 GMT
+Received: from localhost.localdomain ([146.215.113.251])
+	by SGPPSBA03v.s.gdce.sony.com.sg (PPS) with ESMTP id 4g7amfpntm-1;
+	Fri, 28 Aug 2026 06:48:58 +0000 (GMT)
+From: Lachlan Michael <lachlan.michael@sony.com>
+To: mchehab@kernel.org, sakari.ailus@linux.intel.com,
+        hverkuil+cisco@kernel.org, laurent.pinchart@ideasonboard.com,
+        linux-media@vger.kernel.org, devicetree@vger.kernel.org
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        kieran.bingham@ideasonboard.com, jai.luthra@ideasonboard.com,
+        Ryuichi.Tadano@sony.com, Kengo.Hayasaka@sony.com, Tim.Bird@sony.com,
+        Kazumi.A.Sato@sony.com, Yuji.John.Takahashi@sony.com,
+        linux-kernel@vger.kernel.org,
+        Lachlan Michael <lachlan.michael@sony.com>
+Subject: [PATCH v3 0/2] Add bindings and driver for Sony IMX908
+Date: Fri, 28 Aug 2026 15:48:41 +0900
+Message-ID: <20260828064843.65047-1-lachlan.michael@sony.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: y1+0yFisCzEcd/FsZf6X+FoKM33qe7yTnqO+SKq7CLV+xOqpjPJeC8N/CI30kFBY+8wGzbqMQUeQWVpw/F8mzHR2kjO17uiM3gKQppAaRTBnsGpFTaaEnV2tL+qyK65n+35ThVr1ewIJN6wNZUqOxwnKCjtMpKFDzFBpovEBuE1bo6ogCvCOpb2d0JESilcy2V99CLpa+tD3gbsXFzqfu2P86lcTZUOCWZvbOog+rbB5xAx/CBvFHryKlKqgEDZ4MsnRZQaCR/aLbMg+E08BuoGnBj7mq6lyH33zR5jCB/xt7kuSUSsc/eJZs5wXEMSp4wYZcH33Dt4LhO2y3Ru+lg==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6624.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8951e7bd-7550-4aea-37d9-08df04d05045
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Aug 2026 06:48:05.5321
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: aN68o/2ijOz28JaS7/1WRjOkjjggWtFzbUqwQbMBC93fn15Gptd2+DBf3y2pGLdwoJ+1MG0WZjrSDjQt3oazYw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR03MB6769
-X-MTK: N
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Sony-BusinessRelay-GUID: FHqI1NjQiCWpIy5D4tUss16OCTN26VVV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-28_02,2026-08-27_02,2025-10-01_01
+X-Sony-EdgeRelay-GUID: 8GSZy33ouLCFMU_RsSmkfhUN8jSzFWcp
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-28_02,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDA1NiBTYWx0ZWRfXzt8ElVc/6PBL
+ YK6YWoC4SY1s1eSDwmOFmzElhAzV9aHglh1Glyuz/oFsbM94XdclWarYC+YErjjr/BHqKet6xis
+ rA7ceOnGaLd5TQo5hS8Ko28ygAquTIop60NybPdgt1VVhk/92gtNy4DjJjRV+2Gude686cJ1xI3
+ F0SA9h9EuAoqrxpVNeMEoN4O85Oqnd8yMEkY+QkPiCt2Zjyn4dtsTf7M10mGZEz5ycMylTND3TT
+ PCxf50iOdzRrbS3THs+x2lKJCMos+Wf1jXr6U3fE47lvVSbQ+Z+b6VkFU/8gTJGwiOh6B29v0SB
+ xjvCDbAV2Lkij5UJ5galB8w+hbglWHtXLLZcOQ9PDMRXCr/ihUugxUNKOBPRCeMvA2GcErbb8Sn
+ ZGU9W0dnHNr9O3PPSh+2u2KxtZNLHarO4KVqklqKTEGVh/vggu9Nwp/sgee+lK/ezdzJKmnkmtz
+ rGoz1OH1VNiOXqZG55w==
+X-Proofpoint-GUID: bwMAYTm45PaferXfF77XmZVzugn9mWXW
+X-Proofpoint-ORIG-GUID: bwMAYTm45PaferXfF77XmZVzugn9mWXW
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDA1NiBTYWx0ZWRfX/7ViKdQN835y
+ j2EApIHKhJ9xnA8ZwW6TyjcCK8NDM7d60wDMzuLZwAmtHoHZ3+sR21PCP0XjG+Mv+lNkb1mJ5YE
+ a/v6iY6vr6DmhFVZv/SSu957v9WjzNtY/wznQAvWb6LqMJ0Vz+9b
+X-Authority-Analysis: v=2.4 cv=S9fpBosP c=1 sm=1 tr=0 ts=6a912f5d cx=c_pps
+ a=5iEaAFJ3UIynSlflvg1n/g==:117 a=5iEaAFJ3UIynSlflvg1n/g==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=KAb5x4SsHD3PzxGk7EmX:22
+ a=pQehfwC0D4oxWvs5GOjV:22 a=VwQbUJbxAAAA:8 a=z6gsHLkEAAAA:8
+ a=6QaAi6oYJ9h2ZkgG6q4A:9
+X-Sony-Outbound-GUID: bwMAYTm45PaferXfF77XmZVzugn9mWXW
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-28_02,2026-08-27_02,2025-10-01_01
 
-T24gVGh1LCAyMDI2LTA3LTA5IGF0IDEzOjMxICswMjAwLCBBbmdlbG9HaW9hY2NoaW5vIERlbCBS
-ZWdubyB3cm90ZToNCj4gTmV3ZXIgTWVkaWFUZWsgRGlzcGxheVBvcnQgSVBzIGNhbiBmaW5hbGx5
-IHVzZSB0aGUgQVVYIHRvIHBlcmZvcm0NCj4gaG90cGx1ZyBkZXRlY3Rpb24gKEhQRCkgd2l0aG91
-dCBoYXZpbmcgdG8gcG93ZXIgdXAgdGhlIGVudGlyZSBlRFANCj4gb3IgRFAgSVAgKHRyYW5zbWl0
-dGVyLCBlbmNvZGVyLCBldGMpLg0KPiANCj4gRW5hYmxlIHN1cHBvcnQgZm9yIGNvbmZpZ3VyaW5n
-IGFuZCBwZXJmb3JtaW5nIEhQRCBpbiBBVVggYW5kIGNoZWNrDQo+IHRoZSBjb3JyZWN0IEhQRCBz
-dHJhdGVneSB3aXRoIGEgbmV3IHBsYXRmb3JtIGRhdGEgdmFyaWFibGUuDQo+IFRoaXMgaXMgZG9u
-ZSBpbiBwcmVwYXJhdGlvbiBmb3IgYWRkaW5nIHN1cHBvcnQgZm9yIHRoZSBlbWJlZGRlZA0KPiBE
-aXNwbGF5UG9ydCAoZURQKSBJUCBmb3VuZCBpbiB0aGUgTVQ4MTk2IFNvQy4NCj4gDQo+IFNpZ25l
-ZC1vZmYtYnk6IEFuZ2Vsb0dpb2FjY2hpbm8gRGVsIFJlZ25vIDxhbmdlbG9naW9hY2NoaW5vLmRl
-bHJlZ25vQGNvbGxhYm9yYS5jb20+DQo+IC0tLQ0KDQpbc25pcF0NCg0KPiAgc3RhdGljIHZvaWQg
-bXRrX2RwX2h3aXJxX2VuYWJsZShzdHJ1Y3QgbXRrX2RwICptdGtfZHAsIGJvb2wgZW5hYmxlKQ0K
-PiAgew0KPiArCXUzMiBtYXNrLCB2YWw7DQo+ICsNCj4gKwkvKiBPbiBTb0NzIHdpdGggd29ya2lu
-ZyBBVVggSFBELCB0aGUgdHJhbnNtaXR0ZXIgSFBEIHJlZ2lzdGVyIGlzIGlnbm9yZWQgYnkgSFcg
-Ki8NCj4gKwlpZiAoZW5hYmxlKSB7DQo+ICsJCW1hc2sgPSBIUERfQ09OTkVDVF9FVkVOVCB8IEhQ
-RF9JTlRFUlJVUFRfRVZFTlQgfCBIUERfRElTQ09OTkVDVF9FVkVOVDsNCj4gKwkJdmFsID0gMDsN
-Cj4gKwl9IGVsc2Ugew0KPiArCQltYXNrID0gRFBfVFhfQVVYX0lOVF9NQVNLOw0KPiArCQl2YWwg
-PSBEUF9UWF9BVVhfSU5UX01BU0s7DQo+ICsJfQ0KPiArCW10a19kcF91cGRhdGVfYml0cyhtdGtf
-ZHAsIE1US19EUF9UWF9BVVhfSU5UX01BU0tJTkcsIHZhbCwgbWFzayk7DQoNCldoeSBub3QgcmVm
-ZXIgdG8gYmVsb3cgY29kaW5nPw0KDQpSZWdhcmRzLA0KQ0sNCg0KPiArDQo+ICAJbXRrX2RwX3Vw
-ZGF0ZV9iaXRzKG10a19kcCwgTVRLX0RQX1RSQU5TX1AwXzM0MTgsDQo+ICAJCQkgICBlbmFibGUg
-PyAwIDoNCj4gIAkJCSAgIElSUV9NQVNLX0RQX1RSQU5TX1AwX0RJU0NfSVJRIHwNCj4gQEAgLTEw
-ODksOSArMTEzMywzNCBAQCBzdGF0aWMgdm9pZCBtdGtfZHBfaW5pdGlhbGl6ZV9zZXR0aW5ncyhz
-dHJ1Y3QgbXRrX2RwICptdGtfZHApDQo+ICAJCQkgICBJUlFfTUFTS19BVVhfVE9QX0lSUSwgSVJR
-X01BU0tfQVVYX1RPUF9JUlEpOw0KPiAgfQ0KPiAgDQoNCj4gIA0KDQo=
+This series adds device tree bindings and a V4L2 sub-device driver for
+the Sony IMX908 image sensor.
+
+The IMX908 is an 8.39 MP (3856x2176) CMOS image sensor with a MIPI CSI-2
+output interface. The driver supports RAW10 and RAW12 output formats,
+exposure and analogue gain controls, image flipping, blanking controls,
+window cropping and test pattern generation.
+
+HDR modes and RAW16 output are not currently supported.
+
+The driver has been tested with libcamera on Raspberry Pi 5 based
+hardware.
+
+Changes in v3:
+PATCH 1:
+-  Adjust the binding description to match the actual hardware: the I2C
+   target address is selected by the SLAMODE pins, not fixed to 0x1A.
+-  Add the standard video-interface schema reference so the endpoint and
+   remote-endpoint validation match the media DT conventions.
+   
+PATCH 2:
+- Correct link-frequency indexing mapping to match the sensor
+  DATARATE_SEL values and the frequency ordering
+- Changed the pixel_rate to 16-pixel-per-clocks based on datasheet
+  mode values
+- Clean up the constant names, register definitions and comments in
+  response to review feedback.
+- Remove various (uneeded) checks in code based on feedback
+- Remove cached vmax/hmax and recalculated where necessary
+- Drop pixel_rate and test_pattern pointers from struct
+- Remove read-only controls set_ctrl switch
+- Remove event handlers
+- Remove uneeded delays at startup 
+- Simplify runtime_resume/suspend functions
+- Remove the 4k recording-area in favour of larger active area
+- Use the same constraints for VMAX for crop and all pixel mode to
+  simplify the driver logic by removing branching
+- Rework HMAX based on the fact that the whole line is always read
+  even in crop mode. HMAX varies in all modes now, but not with 
+  horizontal crop.
+- Minor edits and bugfixes 
+
+Link to v2: https://lore.kernel.org/r/20260806070934.21764-1-lachlan.michael@sony.com/
+
+Changes in v2:
+PATCH 1:
+- Reword subject to drop the redundant "bindings" suffix.
+- Reference video-interfaces.yaml for the endpoint and switch to
+  unevaluatedProperties, fixing the remote-endpoint check.
+- Drop "link-frequencies: true".
+- MAINTAINERS: drop the L: line.
+- MAINTAINERS: move the driver F: line to patch 2.
+
+PATCH 2:
+- Treat the pixel rate as a fixed sensor property (594 MHz, 8 px/clock),
+  read-only.
+- Compute HMAX from both the array and MIPI link floors.
+- Express HBLANK in pixels with a step of 8; keep HMAX fixed in crop
+  mode.
+- Drop struct imx908_mode; cache hmax/vmax directly.
+- Change the link-frequency table to s64.
+- Fix the probe error-unwind ordering.
+- Be silent on success (chip ID print is now dev_dbg).
+- Drop redundant comments.
+- Kconfig: fix a "module will be called" typo.
+
+Link to v1: https://lore.kernel.org/r/20260730021525.166811-1-lachlan.michael@sony.com
+
+Lachlan Michael (2):
+  media: dt-bindings: imx908: Add Sony IMX908 sensor
+  media: i2c: Add Sony IMX908 image sensor driver
+
+ .../bindings/media/i2c/sony,imx908.yaml       |  108 ++
+ MAINTAINERS                                   |    6 +
+ drivers/media/i2c/Kconfig                     |   11 +
+ drivers/media/i2c/Makefile                    |    1 +
+ drivers/media/i2c/imx908.c                    | 1367 +++++++++++++++++
+ 5 files changed, 1493 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
+ create mode 100644 drivers/media/i2c/imx908.c
+
+-- 
+2.47.3
+
