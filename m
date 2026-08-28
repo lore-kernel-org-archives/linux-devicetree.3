@@ -1,112 +1,124 @@
-Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6824A19CD0A;
-	Fri, 28 Aug 2026 06:29:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1C763BE146;
+	Fri, 28 Aug 2026 06:32:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787898584; cv=none; b=UfU9D7rDrhCfdvP9d7Ta5txvOaljlT/lNRwe4/ejwRN1Ggn7/iMI5Sbm5onPOnzrCU+DLswVHueXtf0FUSLf+LTXvZ5jMY8IUf3xMDQ2xiopAYlbYpIga+Z5Xl7ey7uDnQcPTI6f66lLVFHJ0BX0gTk/GpJS/zRCcB8m1BJVjY4=
+	t=1787898731; cv=none; b=Kl71pWHHhAkqxq+nXKggjZgdwGuPlbL074FNiRC9kKeq+YxkjZbB3BiuBPnkdLGlfQngw6fvPm2m2/kRO58gmBheryg3XewU4p+XcWtU4onPM6dd3DJxyBOHWKi8FnCla29HIBre/LiBWdqaYeNbfb3RR2W1AO2SomtFMkUnHvU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787898584; c=relaxed/simple;
-	bh=p/lam6beXF9NEb011PkJ3Hnm/hG7y91uny9lzu8lsDE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=UUQ+ZGKBmQq9JA6mTjzM1PZnAHCuMcJpo1Ikxg83oTCUfinH4QCUXTP/0G+p84SNkgr1zo2Rd5RIVuQb4S+SF7RkD3UeUbTbn7Qz7nYIObwv6dcgK5O5aVu9VI5PwBtlN+4xKnuQ9bkTs6DZapyc19v5v+Cb5SntApYiywQcUdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=ze1c2MUA; arc=none smtp.client-ip=79.135.106.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1787898731; c=relaxed/simple;
+	bh=hH6hUAGeUnPR6MZg9HrHEK7ZzG+4+Gt8ogtcHdFz3KI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jHsRl9eQ0at3ptj8K7fEeho1/RkI0XZ7764jO6tmDhTy6H6ELHyj4cPNaOT/lR46BFTcT15VrFHuB1ng/D/Ei6neb3o5GJKj7N1weMK65Ze1gEZsmm/aZXmW5bKovIQ7Hg008su6kuG9/WE/R49g1KWX2K+Rf9G2j+3j4xATwRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IDuD9fMD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="ze1c2MUA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1787898573; x=1788157773;
-	bh=lEtX1Yhb7j1CGhPByWl7XUi0pduY0cmPFFbTecpZ0cg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=ze1c2MUA/AeDoENRlEb4WP/uRfK4CFtfHsGhxTEs1UVczLvKdT4H4Fm98XW1TAQqk
-	 c0ZwnWqmnIUA04QqoMnyzwFfrZVpEfcP0uMqo3evZy9ZTvNpIYaKQlinXyL5wRfP+W
-	 lNX6IqHy5kw3/doSW00L4kjCW7VFGrxUDOjrLhfRrFx7R6ghJsuUFZB+cG0u9n8BfO
-	 wSHuWE15pGbcTXhIaMuTZMWVWEuZWXHprFGFsM9/gm3jnxsu07xF6gsVdYRVfD7ZMj
-	 Uyxw2//eNCJBdplVVY5Dena/wz9Wag3rySiXbHc1tSGoUKjZQbBlhxv1ZRLiAjUiGp
-	 dxXaJL1+rELsw==
-X-Pm-Submission-Id: 4hWT4q3n4Nz1DDXG
-From: Esben Haabendal <esben@geanix.com>
-To: "Joshua Crofts" <joshua.crofts1@gmail.com>
-Cc: <linux-iio@vger.kernel.org>,  <devicetree@vger.kernel.org>,  "Jonathan
- Cameron" <jic23@kernel.org>,  "Lars-Peter Clausen" <lars@metafoo.de>,
-  "Rob Herring" <robh@kernel.org>,  "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>,  "Conor Dooley" <conor+dt@kernel.org>,  "Martin
- Kepplinger" <martink@posteo.de>,  "Sean Nyekjaer" <sean@geanix.com>,
-  "David Lechner" <dlechner@baylibre.com>,  Nuno =?utf-8?Q?S=C3=A1?=
- <nuno.sa@analog.com>,
-  "Andy Shevchenko" <andy@kernel.org>,  "Martin Kepplinger"
- <martin.kepplinger@theobroma-systems.com>,  "Christoph Muellner"
- <christoph.muellner@theobroma-systems.com>,
-  <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v6 7/9] iio: accel: mma8452: Drop unneeded lock acquire
- on read
-In-Reply-To: <20260825121704.00004ed3@gmail.com> (Joshua Crofts's message of
-	"Tue, 25 Aug 2026 12:17:04 +0200")
-References: <20260825-mma8452-open-drain-v6-0-9b252804ee80@geanix.com>
-	<20260825-mma8452-open-drain-v6-7-9b252804ee80@geanix.com>
-	<UFc9cC1VeohKw6lxQ8uulsfj9wJ_OqGUgGPTUnTX-zssKZ97aEC0Xi9nsAxv-tcf2DP5e85ElFZ8wPgxwG8l3g==@protonmail.internalid>
-	<20260825121704.00004ed3@gmail.com>
-Date: Fri, 28 Aug 2026 08:29:30 +0200
-Message-ID: <87y0dqycz9.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IDuD9fMD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 327051F000E9;
+	Fri, 28 Aug 2026 06:32:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787898729;
+	bh=Akoqu3LxWnr+IajCtPHrY7pZSRRiFcamgzMXWg1g02g=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=IDuD9fMDxCSj8TxbbxYFXHMomyvBs1NhxxDqkCN692tD28eLDeQUZ18OsGu7FCY7x
+	 PGIJDR8RonslWqRbMtMpEw36Jn4EzjUAK8jO6PWgmjaTWWfNKWkPyHa8PKUAB5s5lK
+	 mbYXuAMftou9OHF5gnouHQ5heszYUHVGoQ+DIDhx/MxMnKlH5kk9oDn5wwIlCJurPC
+	 wBngH5ZYTxbdCaU8QLT9mIuPcXMGTBOo1TzY+ydn8YkcZZ79TasNQ09qb8AsEsXdMb
+	 nEreZ8atWr/5L3/pPeUAwpauq10ErVwfXnSKFPOT0EgWJE/GzuGxXCPSMzyWt2KD3X
+	 8WM/Xyvx7RaAA==
+Message-ID: <cefc0fb5-581c-4c77-a13f-13c3f72ea68d@kernel.org>
+Date: Fri, 28 Aug 2026 08:32:02 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] dt-bindings: media: i2c: Add onsemi AR0234 image
+ sensor binding
+To: Alexander Shiyan <eagle.alexander923@gmail.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>,
+ Quentin Freimanis <quentin@q-lab.dev>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>
+References: <20260820075524.2056029-1-eagle.alexander923@gmail.com>
+ <20260820075524.2056029-2-eagle.alexander923@gmail.com>
+ <20260827-chubby-refined-partridge-2efca6@quoll>
+ <CAP1tNvS1nKEh=O1e6NGXFu0L2DWgEcC-kmRkfPXqGOoTvdFLsg@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CAP1tNvS1nKEh=O1e6NGXFu0L2DWgEcC-kmRkfPXqGOoTvdFLsg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-"Joshua Crofts" <joshua.crofts1@gmail.com> writes:
+On 28/08/2026 07:34, Alexander Shiyan wrote:
+> Hello.
+> 
+>> On Thu, Aug 20, 2026 at 10:55:23AM +0300, Alexander Shiyan wrote:
+>>> Add devicetree binding for the onsemi AR0234 CMOS image sensor.
+>>> Signed-off-by: Alexander Shiyan <eagle.alexander923@gmail.com>
+>>> ---
+>> Plus, there was already v3 here:
+>> <20260306103614.3208182-1-eagle.alexander923@gmail.com>
+>> so how are we supposed to compare this?
+>> Did you address v3 feedback in this v3+1 version?
+> 
+> Version v3, which was introduced about six months ago, was labeled
+> with the 'RFC' prefix.
 
-> On Tue, 25 Aug 2026 10:27:45 +0200
-> Esben Haabendal <esben@geanix.com> wrote:
->
->> There is no need to acquire data->lock when calling mma8452_read(), and
->> dropping that makes it less likely to end up in an AB-BA deadlock
->> situation.
->>
->> Signed-off-by: Esben Haabendal <esben@geanix.com>
->> ---
->>  drivers/iio/accel/mma8452.c | 2 --
->>  1 file changed, 2 deletions(-)
->>
->> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
->> index 7ef1a9a91c31..9ae2c3e60576 100644
->> --- a/drivers/iio/accel/mma8452.c
->> +++ b/drivers/iio/accel/mma8452.c
->> @@ -504,9 +504,7 @@ static int mma8452_read_raw(struct iio_dev *indio_dev,
->>  		if (!iio_device_claim_direct(indio_dev))
->>  			return -EBUSY;
->>
->> -		mutex_lock(&data->lock);
->>  		ret = mma8452_read(data, buffer);
->> -		mutex_unlock(&data->lock);
->>  		iio_device_release_direct(indio_dev);
->>  		if (ret < 0)
->>  			return ret;
->>
->
-> Sashiko has something to say and I tend to agree at the moment:
->
-> Could removing this lock expose mma8452_read() to race conditions with PM
-> auto-suspend and event configuration?
->
-> mma8452_read() can be interrupted by the PM auto-suspend worker, which puts
-> the device in STANDBY and disables regulators while mma8452_drdy() is actively
-> polling over I2C. This can lead to I/O timeouts or errors.
->
-> Additionally, concurrent sysfs writes to event configurations invoke
-> mma8452_change_config(), which puts the hardware into STANDBY to modify
-> registers. The Standby transition flushes the hardware FIFO. If this occurs
-> between the mma8452_drdy() check and the i2c_smbus_read_i2c_block_data() in
-> mma8452_read(), the block read will fetch flushed or stale data.
+Label does not matter, it was still v3 and this is v3. Again - try
+comparing them yourself:
 
-I have been working on fixes to these problems, and all the other issues
-concerning runtime PM and state and read-modify-write synchronization. I
-will post a patch series with the work once this series is merged.
+b4 diff '<20260820075524.2056029-1-eagle.alexander923@gmail.com>'
 
-/Esben
+Which version is used for comparing?
+
+Best regards,
+Krzysztof
