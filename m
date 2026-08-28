@@ -1,130 +1,167 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDE823CF678
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 06:57:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A72A3CF678
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 06:57:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787900232; cv=none; b=C4pHtOPfewsaa2759ox3DBBEuDuXJFzKwAHa1QXKZ6jbx8+5fb9mBqhr8UgRSXkR0GHuNJfS+pMr5lfCEAS6aw9yXwQDr2dBw9Q+n6XXTM9LkRgX/+tlEXJsJ4uC9n4rT5GJal8Fp0SyMNXE5LfK9moaa4pCReIrxBYdRdDQLv8=
+	t=1787900238; cv=none; b=BsQ6xnOwFm7+nlqahofNCBp4hxsM8aPoj3YO42rimiUcBeAybUyARm9/0ccSjBBltRGMonWkX87+yqeZ5+On7rydM7sDTGvOQ5luvsKz2Wm3nC0y2WEWwqp+uAVJlFZKrGZvoTc8ACrdw4JTiHojE4WKXmfHqpbVQwGZry47B6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787900232; c=relaxed/simple;
-	bh=WshRva789d0hF4zd0pGM9CTViq9gJ9gvRodHi+i4WeE=;
+	s=arc-20240116; t=1787900238; c=relaxed/simple;
+	bh=wYlVDZiOMbt3KeytAEBSwXHy9SeaqkWrzUO4wSvbhEs=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UycAL9YXEOM3M1+9dnyzSD/XZMfoyjDBbtHOTiYpsGWcvb1gIVuFE4UgvuY1nPI8CidDs+5Ue537ZVkLaH3X6JMRNN6L/EObzudnqK7C/pc8gBEZucTHyCCHcCzzW8DlZKePT3XRt/VbvYjAVhelVHOIR1IYYOgNJiTf8P8U4KQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dv9B42ZF; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=eRYr7/43gRrAFVgI3CNbg4Akgie92t7LJpY38lVdjYES+wMtM+UdU/s82SpFvkBy96IWyazpxo1x+t4PtPt5nbM8f/uP7K5oDOj1mcurLVxoh37FmkHWInzsjQldA3iXXrdRMcqsbVhkdPNKSdqMNheron8aA2osoHi56eEkaGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yy/6D7/w; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dv9B42ZF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 653641F000E9;
-	Fri, 28 Aug 2026 06:57:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yy/6D7/w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 350741F000E9;
+	Fri, 28 Aug 2026 06:57:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787900231;
-	bh=2Wmnz+skobVyyWDFY3kVCgR5UOSk/8HoEqlwn7wlliI=;
+	s=k20260515; t=1787900237;
+	bh=V+sCFQiDb8iMri+hsUKKUN/WFNCmTC/EgwHvwHUHn+s=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Dv9B42ZFDSj0IFcQUPQGSK5Fc9kH9vg8V4H9ZmzFUWZRgWEr5NgDSjp5dfgGwOPi/
-	 3JIvR3wjElOI23FKo/4HryVfpYXadiyddhVssQ5lG0hlNwMIA1g0ukt/uxIXUP31SD
-	 lKzSDFjJ/gwByCGZCrkGavT9bNwBxLcWIyPiDFYzY6pVXcRiaWL9HvRVPppGE17vgT
-	 bPlps0GTNrYYCMRQMW0pS4qORJZuOOkpDuqNnLJM3hPwIV9JKQWNpuyba7cSpiqJjr
-	 cTzimdB6cnHuzG4MWU8Dai6IVWZC1ykpTXJhvEB/NnSLrL9C3ikdxulEO5KeQVuyOk
-	 4nTWKFLs3B3pA==
+	b=Yy/6D7/wtbffp0ePBsVpnB3unhZ+iXIiywnuXsnYDYTJrPAaZHvc1aHBVlbjFCzSF
+	 aSqEYiza+OCzuglSfcr+QJGNJkdnN5zTqgj7DffXO85/R5FFOnR4rHn+UBawtjzna6
+	 CR81uxgDefnWQog+hLwDI0p7YUlAqzOPtinzWEqNMfYxkbP3C6+48uSJAmord83KCl
+	 86cKgUhHdHL+G9Jkrv4myjAU4FlTbTdocBebvitdNBhctJiXooYTOLvocaLnqOkgh1
+	 yZKumH5R9vmdEeU3kyVs8xhQQyweIRJN7enqPid+AwgvmkeaZcU6w4ygy45Ce5znNR
+	 d/Pfbm71fmHgw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 07/10] iio: adc: ti-ads1262: support excitation
- currents
+Subject: Re: [PATCH v4 08/10] iio: adc: ti-ads1262: support triggered buffer
+ sampling
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Kurt Borja" <kuurtb@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260828-ads126x-v4-7-1dc27e9c0260@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260828-ads126x-v4-8-1dc27e9c0260@gmail.com>
 References: <20260828-ads126x-v4-0-1dc27e9c0260@gmail.com>
- <20260828-ads126x-v4-7-1dc27e9c0260@gmail.com>
+ <20260828-ads126x-v4-8-1dc27e9c0260@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 28 Aug 2026 06:57:10 +0000
-Message-Id: <20260828065711.653641F000E9@smtp.kernel.org>
+Date: Fri, 28 Aug 2026 06:57:16 +0000
+Message-Id: <20260828065717.350741F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Low] Using `min()` with variables of different signedness (`int` and `si=
-ze_t`) triggers a `BUILD_BUG_ON` compiler error from the kernel's `<linux/m=
-inmax.h>`.
+- [High] The `rx` buffer in `struct ads1262` lacks the `__aligned(IIO_DMA_M=
+INALIGN)` attribute, causing it to be placed at an unaligned memory offset =
+and sharing a cacheline with the `tx` buffer.
+- [High] The driver fails to filter out the IIO soft timestamp channel when=
+ iterating over `active_scan_mask`, treating it as a hardware channel. This=
+ leads to out-of-bounds array reads and writes, including a potential `FORT=
+IFY_SOURCE` kernel panic.
+- [High] The driver dynamically modifies a pre-optimized SPI transfer buffe=
+r without cache synchronization, breaking DMA coherency on architectures wi=
+thout hardware cache coherency.
 --
 
-commit b2756d4b7fc670f092613a6125bee27988772b27
+commit 21b4fc84b4dd63fd1e3310ee7b41df30e8039785
 Author: Kurt Borja <kuurtb@gmail.com>
+Subject: iio: adc: ti-ads1262: support triggered buffer sampling
 
-iio: adc: ti-ads1262: support excitation currents
-
-Support the two IDAC excitation current sources. Each channel can route
-its IDAC1/IDAC2 outputs to a pin via the "excitation-channels" property
-and select a magnitude via "excitation-current-nanoamp".
+Add triggered buffer support and a data-ready (DRDY) hardware trigger.
 
 > diff --git a/drivers/iio/adc/ti-ads1262.c b/drivers/iio/adc/ti-ads1262.c
-> index 4d38da092001b..04566d00d7cb8 100644
+> index 04566d00d7cb8..3f6d34a08b296 100644
 > --- a/drivers/iio/adc/ti-ads1262.c
 > +++ b/drivers/iio/adc/ti-ads1262.c
-
 [ ... ]
+> @@ -232,6 +239,11 @@ struct ads1262 {
+>  	u32 rref_ohms[ADS1262_EXT_REF_COUNT][ADS1262_EXT_REF_COUNT];
+>  	int refp_uV[ADS1262_EXT_REF_COUNT];
+>  	int refn_uV[ADS1262_EXT_REF_COUNT];
+> +	IIO_DECLARE_BUFFER_WITH_TS(__be32, scan_buffer,
+> +				   ADS1262_FW_CHANNEL_COUNT +
+> +				   ADS1262_MON_CHANNEL_COUNT);
+> +	u8 tx[ADS1262_SPI_XFER_SZ] __aligned(IIO_DMA_MINALIGN);
+> +	u8 rx[ADS1262_SPI_XFER_SZ];
 
-> @@ -1356,7 +1393,51 @@ static int ads1262_parse_channel_node(struct ads12=
-62 *st,
->  		}
->  	}
+[Severity: High]
+Does the rx buffer need the __aligned(IIO_DMA_MINALIGN) attribute as well?
+
+Without it, rx might be placed at an unaligned memory offset and share a
+cacheline with the tx buffer. Since they are mapped for DMA in opposite
+directions (DMA_TO_DEVICE and DMA_FROM_DEVICE), mapping overlapping
+cachelines can violate the DMA API and cause memory corruption on
+non-cache-coherent architectures.
+
+>  };
 > =20
-> +	if (fwnode_property_present(node, "excitation-channels")) {
-> +		count =3D fwnode_property_count_u32(node, "excitation-channels");
-> +		if (count < 0)
-> +			return dev_err_probe(dev, count,
-> +					     "%pfwP: failed to count excitation-channels\n", node);
+>  static const char * const ads1262_device_id_to_name[] =3D {
+[ ... ]
+> @@ -837,10 +849,284 @@ static const struct iio_info ads1262_iio_info =3D {
+[ ... ]
+> +static int ads1262_fill_buffer_mult(struct iio_dev *indio_dev)
+> +{
+> +	struct ads1262 *st =3D iio_priv(indio_dev);
+> +	unsigned int chan;
+> +	int i =3D -1;
+> +	int ret;
 > +
-> +		pins[0] =3D ADS1262_IDACMUX_NO_CONN;
-> +		pins[1] =3D ADS1262_IDACMUX_NO_CONN;
-> +		ret =3D fwnode_property_read_u32_array(node, "excitation-channels",
-> +						     pins, min(count, ARRAY_SIZE(pins)));
-                                                                   ^^^^^^^^=
-^^^^^^^^^^^^^^^^
+> +	/*
+> +	 * This routine enables and reads channels in a full-duplex fashion.
+> +	 *
+> +	 * When a channel is enabled, the previous conversion is clocked out of
+> +	 * the shift data register on the same transfer (Section 9.4.7.1). This
+> +	 * allows for low latency software sequencing but forbids any
+> +	 * communication with the chip in-between or data corruption may occur,
+> +	 * hence the need to take the xfer_lock for the whole operation.
+> +	 */
+> +	guard(mutex)(&st->xfer_lock);
+> +
+> +	iio_for_each_active_channel(indio_dev, chan) {
+> +		ads1262_channel_prep_tx(st, &indio_dev->channels[chan]);
 
-[Severity: Low]
-Does this code trigger a build failure from a BUILD_BUG_ON() in the min()
-macro?
+[Severity: High]
+Is it possible for this loop to iterate over the IIO soft timestamp channel?
 
-The min() macro enforces strict type checking. The count variable is a sign=
-ed
-int, while ARRAY_SIZE(pins) evaluates to an unsigned size_t. Would it be
-better to use min_t(size_t, count, ARRAY_SIZE(pins)) here?
+If the timestamp channel is enabled and its bit is set in active_scan_mask,
+iio_for_each_active_channel() will yield the timestamp channel's index.
+
+This would cause ads1262_channel_prep_tx() to perform an out-of-bounds read
+on the st->channels array since the timestamp channel is treated as a
+hardware channel:
+
+	struct ads1262_channel *chan =3D &st->channels[spec->scan_index];
+
+Additionally, the extra loop iteration could cause the following memcpy to
+write past the bounds of the scan_buffer array when all channels are active:
+
+	memcpy(&st->scan_buffer[i], st->rx, sizeof(st->scan_buffer[i]));
+
+> +
+> +		reinit_completion(&st->drdy);
+> +
+> +		ret =3D spi_sync(st->spi, &st->msg);
+
+[Severity: High]
+Could this sequence break DMA coherency on architectures without hardware
+cache coherency?
+
+If the SPI message is permanently mapped for DMA in
+ads1262_buffer_postenable_mult() via spi_optimize_message():
+
+	return spi_optimize_message(st->spi, &st->msg);
+
+And then on every trigger event, ads1262_channel_prep_tx() dynamically writ=
+es
+new register commands directly into the st->tx buffer from the CPU:
+
+	st->tx[0] =3D ADS1262_MODE0_REG | ADS1262_OPCODE_WREG;
+
+When ads1262_fill_buffer_mult() later calls spi_sync(), the message is
+already marked as pre-optimized, so dma_sync_single_for_device() might
+be skipped. Will the SPI controller fetch stale cached data instead of
+the newly written configuration commands?
 
 > +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "%pfwP: failed to read excitation-channels\n", node);
-> +		if (pins[0] > ADS1262_IDACMUX_NO_CONN || pins[1] > ADS1262_IDACMUX_NO_=
-CONN)
-> +			return dev_err_probe(dev, -EINVAL,
-> +					     "%pfwP: excitation-channels not in range\n", node);
-> +		chan->idac_mux[0] =3D pins[0];
-> +		chan->idac_mux[1] =3D pins[1];
-> +
-> +		mags[0] =3D 0;
-> +		mags[1] =3D 0;
-> +		ret =3D fwnode_property_read_u32_array(node, "excitation-current-nanoa=
-mp",
-> +						     mags, min(count, ARRAY_SIZE(mags)));
-                                                                   ^^^^^^^^=
-^^^^^^^^^^^^^^^^
-
-[Severity: Low]
-Does this min() macro invocation also trigger a build failure due to the sa=
-me
-mismatched types?
-
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "%pfwP: failed to read excitation-current-nanoamp\n",
-> +					     node);
-> +
-> +		ret =3D ads1262_find_one(ads1262_idac_mags_nA,
+> +			return ret;
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828-ads126x-v4=
--0-1dc27e9c0260@gmail.com?part=3D7
+-0-1dc27e9c0260@gmail.com?part=3D8
