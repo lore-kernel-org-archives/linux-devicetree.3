@@ -1,181 +1,132 @@
-Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com [209.85.222.48])
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D54063D3CEA
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 06:38:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 888423C1F57;
+	Fri, 28 Aug 2026 06:40:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787899142; cv=none; b=hF1AmYf7NZxOe18Hulr8IN/W0fbfY0dfS9ZoVJl5Y+a0a9+7Q1X/BzuSa5h7lrLn32MCNlxYDznxlAXEeQT47nC/0JqzNs/BKXMvhV0+wq7/hwoJPveZocmUsWe9FQ8G9eDCwxxFJTc87e1A39+OREVuPNsGvOj6DejMl3E1OK4=
+	t=1787899203; cv=none; b=fzWrSDYsuxiAtgFh80GCGQf1b2eTBZ4MkRMzwRHjMhdxCGVqWvHSp6korymiZNA1Q3v1oHNt98dZYQlV7zSuKvCco33i0IA32hGxL3mmpmBitMq46gW6Osf/i/Mp3HpuU/LJa+XLkuo3CP63ZWSWOIIINLPFk8s/sgfw/tP4XQQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787899142; c=relaxed/simple;
-	bh=kIuk2ofxCh+dUdzkbAX8VlLSbdR9YEZLCsPMWA1qZzM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GtVSHGEc+mrowc11dh4XESTnpVn3ISa2R3BR8HqIbc4jPL/AIUQxdIcwqmG31PY9I1+iyztRG6DlSVSpI4Ga/BHUCxTOKGDsV61Q16Kt4rwCTk1rA6ufIHah60sj5/cEWONhRUgQtMZi6AvnkWaqmgSqaHHxI/b2yuNCRG4+1/k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oU/PGske; arc=none smtp.client-ip=209.85.222.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787899203; c=relaxed/simple;
+	bh=mYM0QuKOcduK6Gp9GXzDfG45WKu2zz5egHZM03P8ZFs=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=ULh92XcxlHAlfxmYHom35AQpRSE4otxDPWhzHOg3N5zTGuP7dEpl/OxUpEC3YqmXzym8cSSotv7jIYt0yckmECMRTC0HD3i8OAU7gMykoaW1eNICI3YSq5t4MlkX/Fxa/gW/l/2xezgR/tSycfN4DUnDkyY/uQxBakNZY4Xt2h8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=LOK4CB3L; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oU/PGske"
-Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-9693bbb962eso481471241.2
-        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 23:38:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787899138; x=1788503938; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HWgdfydiuC7rf3YRqBTUUeAY2p6P2oJlqHhrcTc/eMA=;
-        b=oU/PGskeFPP8KhKis06W3gbQ9JaAHNKkhB8bNSX7PBSswdxF4zSBye4/lZ5dIJBSIV
-         vGuZ3OZBNi7jz+DNuu0YRwrLrCyFtVIJqD1nPEMGH5duK9eG1UupTHHTkLIB9pgCl6EI
-         inHMlOw61bHLwA5o4BjwBf64XDuQ0dv9+Sg8vFoVzAoNTXhC3u3FQEn4BsBQXyrYH+Xn
-         ZTQna+UPs2B1q0wEc9eFi7eZNuVZWQS1gzJ9eSXcpGIuPkHW+Xy7R2lg0PW/qOw8b/c9
-         XizFRTD2dbRA4MTHQxrqIiYB/6Sl0KEuVmEoROtusNX1nhKBgLneBw9JPUdpu8SbZj8m
-         PCkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787899138; x=1788503938;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HWgdfydiuC7rf3YRqBTUUeAY2p6P2oJlqHhrcTc/eMA=;
-        b=HQMf2kldU00v/qXeikqzCL9KVF0BHEOI2ErdpY27qNqQC4Zx21ryO+HkYaLt1714Nl
-         h4Du5C+5CXakOu3HQBe4NklWqTMPFKEoNj0xNes11HOy+ctyYAfzKcbqzakrg1EufNpi
-         SBrUhXSsCDiRJyZk9grM6I5WFu1MDUK2kCtXWC2pU/D3PF9Gxlgs8DQdqoBB1GZprlWW
-         M+lZF5+JoX1BANGIJ0QRj2MmXBHPqt/2I9oFJjOf/+ggKvV/B8PCPbfcmwyuqXWUWNNo
-         8U/u3yxLDJC/5VHoIT1xtJNeGbgQVCjRx/ZLWyQ9Ho7u8RKnCcpae85COl6Jat57ojtE
-         Q1+w==
-X-Forwarded-Encrypted: i=1; AHgh+Ro/DK602MWA90vbSPeboVhV8NfrnqfYbu7tIimXGBOQzeQZJ6741oi2elsXKmpG9a9b0/79z5di+Cp3@vger.kernel.org
-X-Gm-Message-State: AFuF++nGlkYIvjiSXw0feGv0ENKxckHnLd8QaWrguGqrqtC04RHWbTEX
-	2EcD6416aEhXlA+Rkv9bCZVZJNfboW5Bg7YLKBKhDhJlAuvhLJqPPxXT95BOHQ==
-X-Gm-Gg: AR+sD13ZuwsqNpt9ayZ61uXuGhywNundMxZkBT7EWdTKjibwWJoBaUD8DzJjvx/MyFk
-	dAuBmxalfn8sEqhnVAlGegB4+B4wsmuKf0TYuob3quffpb187hMUWIQzUtUcj6c2b7LF8n8/Kte
-	oy4RYBwx9hqn1iI/YYfhY8pdSeJ7O2hZ56vcH5pnA4mLL2qn0b60U8666vONso9rxldWCl/Olgl
-	qmBZKFKTIEzLz0zYBekXQvvGP5TkVKXoqg3myonvY5dprd5ckSEjpxW4o0npdT2UCq6EwvOcVFx
-	C9BpG9OVgTGNUVpbxzy50wQzhFzjcG57JghnePpWsOgXRgYGnPgngPh11gpX2dyP5TTbGgwFITm
-	R7FHsrQB/UzkhdRwWFMr7rNGVIfeC1wy4rKzDgxIJjhw+/e80AvrKIsGZKsIHv7bBqY+AmYT+iR
-	Z246MwluW31enhXAWL+wCw6OOd4gNiEfJsbv0cu3ZDaURgvjy23odpcdMGtw5vE8qV
-X-Received: by 2002:a05:6102:149e:b0:785:5a17:739b with SMTP id ada2fe7eead31-785939481a8mr1780174137.0.1787899138581;
-        Thu, 27 Aug 2026 23:38:58 -0700 (PDT)
-Received: from [192.168.100.153] ([2800:bf0:61:1127:ab87:5602:531c:8dfb])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-97e849d8494sm454195241.1.2026.08.27.23.38.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 23:38:58 -0700 (PDT)
-From: Kurt Borja <kuurtb@gmail.com>
-Date: Fri, 28 Aug 2026 01:38:25 -0500
-Subject: [PATCH v4 10/10] iio: adc: ti-ads1262: support common mode
- supplies
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="LOK4CB3L"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 67S6d58y92240244, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1787899145; bh=mYM0QuKOcduK6Gp9GXzDfG45WKu2zz5egHZM03P8ZFs=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=LOK4CB3Loll4qGfbnHB/SDi40UIabunI8l49uHSTf4Kzba86ewZtTUGuqMCbaHwwZ
+	 D2D4/fEgdzUX6eeNTovkhOHsIbMU5I60BwqOZjghLgks61fKweB5MOU7kfOEx0AwUW
+	 Ivg+wJvoyAEhaKemqpCsTymuwZUbU17ZVy3uW347ZQER4xdlz6RueWhjDVHXmGGe1f
+	 6EqFDn03LL20iCh8a7IEt/y78rPiyUoGR86LPqagXGj4Vv5j/pPt6h5oFs6Jg2MC+E
+	 BLGmCqWu04fJCnsWnxfIiqKG1mdmRS6rvn112HegicRYJ38IBfvI7xyASqxV0zO8Ri
+	 T5cmdcBu+aPZw==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 67S6d58y92240244
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 28 Aug 2026 14:39:05 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Fri, 28 Aug 2026 14:39:05 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::126f:59ad:658:674d%10]) with mapi id
+ 15.02.2562.043; Fri, 28 Aug 2026 14:39:05 +0800
+From: =?big5?B?WXUtQ2h1biBMaW4gW6pMr6enZ10=?= <eleanor.lin@realtek.com>
+To: Brian Masney <bmasney@redhat.com>
+CC: "mturquette@baylibre.com" <mturquette@baylibre.com>, "sboyd@kernel.org"
+	<sboyd@kernel.org>, "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+	=?big5?B?RWRnYXIgTGVlIFun9anTv9ld?= <cylee12@realtek.com>,
+	"afaerber@suse.com" <afaerber@suse.com>, =?big5?B?SnlhbiBDaG91IFupUKrppndd?=
+	<jyanchou@realtek.com>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-clk@vger.kernel.org"
+	<linux-clk@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>,
+	"linux-realtek-soc@lists.infradead.org"
+	<linux-realtek-soc@lists.infradead.org>, =?big5?B?SmFtZXMgVGFpIFvAuafTrnBd?=
+	<james.tai@realtek.com>, =?big5?B?Q1lfSHVhbmdbtsDgsq7LXQ==?=
+	<cy.huang@realtek.com>, =?big5?B?U3RhbmxleSBDaGFuZ1up96h8vHdd?=
+	<stanley_chang@realtek.com>
+Subject: RE: [PATCH v13 04/11] clk: realtek: Introduce common probe() and
+ remove()
+Thread-Topic: [PATCH v13 04/11] clk: realtek: Introduce common probe() and
+ remove()
+Thread-Index: AQHdKf98tGU4ULZZCkawWMV9VkFKTbas76AAgAYrYeA=
+Date: Fri, 28 Aug 2026 06:39:05 +0000
+Message-ID: <9642b853a9c24ba6b11c81e95341bfbd@realtek.com>
+References: <20260812020009.3480538-1-eleanor.lin@realtek.com>
+ <20260812020009.3480538-5-eleanor.lin@realtek.com>
+ <aoxv9PJd6r_8DaNA@redhat.com>
+In-Reply-To: <aoxv9PJd6r_8DaNA@redhat.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260828-ads126x-v4-10-1dc27e9c0260@gmail.com>
-References: <20260828-ads126x-v4-0-1dc27e9c0260@gmail.com>
-In-Reply-To: <20260828-ads126x-v4-0-1dc27e9c0260@gmail.com>
-To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>
-Cc: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2778; i=kuurtb@gmail.com;
- h=from:subject:message-id; bh=kIuk2ofxCh+dUdzkbAX8VlLSbdR9YEZLCsPMWA1qZzM=;
- b=owGbwMvMwCUmluBs8WX+lTTG02pJDFkTdd5oJopumcNwqnO9zPc702t2xVY/XeTq51qZURJzv
- P3+qzMvOkpZGMS4GGTFFFnaExZ9exSV99bvQOh9mDmsTCBDGLg4BWAiadMYGT7bqqrs3aJ1aH6u
- r9u30iXndi5qMWG7xW12/NSHZxlVp+wYGY5yzMxfUbYnZOGh+VtvHMrtkT+x2PrumcJwheX36/f
- diuADAA==
-X-Developer-Key: i=kuurtb@gmail.com; a=openpgp;
- fpr=54D3BE170AEF777983C3C63B57E3B6585920A69A
 
-Enable common mode regulators. The usual configuration is to have our
-own 'vbias' regulator connected internally as common mode voltage on the
-AINCOM pin.
-
-Signed-off-by: Kurt Borja <kuurtb@gmail.com>
----
- drivers/iio/adc/ti-ads1262.c | 37 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 37 insertions(+)
-
-diff --git a/drivers/iio/adc/ti-ads1262.c b/drivers/iio/adc/ti-ads1262.c
-index 4784142f35c9..c7ad1cf1a15d 100644
---- a/drivers/iio/adc/ti-ads1262.c
-+++ b/drivers/iio/adc/ti-ads1262.c
-@@ -240,6 +240,7 @@ struct ads1262 {
- 	u32 rref_ohms[ADS1262_EXT_REF_COUNT][ADS1262_EXT_REF_COUNT];
- 	int refp_uV[ADS1262_EXT_REF_COUNT];
- 	int refn_uV[ADS1262_EXT_REF_COUNT];
-+	int common_mode_uV[ADS1262_INPMUX_AINCOM + 1];
- 	IIO_DECLARE_BUFFER_WITH_TS(__be32, scan_buffer,
- 				   ADS1262_FW_CHANNEL_COUNT +
- 				   ADS1262_MON_CHANNEL_COUNT);
-@@ -695,6 +696,13 @@ static int ads1262_read_raw(struct iio_dev *indio_dev,
- 						      scale * ADS1262_TEMP_SLOPE_uV_C);
- 			iio_val_s64_decompose(offset, val, val2);
- 
-+			return IIO_VAL_INT_64;
-+
-+		case IIO_VOLTAGE:
-+			offset = mul_u64_u64_div_u64(st->common_mode_uV[chan->channel2],
-+						     NANO, scale);
-+			iio_val_s64_decompose(offset, val, val2);
-+
- 			return IIO_VAL_INT_64;
- 		default:
- 			return -EOPNOTSUPP;
-@@ -1133,6 +1141,28 @@ static irqreturn_t ads1262_irq_handler(int irq, void *dev_id)
- 	return IRQ_HANDLED;
- }
- 
-+static int ads1262_parse_common_mode_supplies(struct ads1262 *st)
-+{
-+	struct device *dev = &st->spi->dev;
-+	char name[sizeof("aincom")];
-+	int ret;
-+
-+	for (unsigned int i = 0; i <= ADS1262_INPMUX_AINCOM; i++) {
-+		if (i < ADS1262_INPMUX_AINCOM)
-+			scnprintf(name, sizeof(name), "ain%u", i);
-+		else
-+			scnprintf(name, sizeof(name), "aincom");
-+
-+		ret = devm_regulator_get_enable_read_voltage(dev, name);
-+		if (ret < 0 && ret != -ENODEV)
-+			return dev_err_probe(dev, ret,
-+					     "failed to get common mode supply: %s\n", name);
-+		st->common_mode_uV[i] = ret != -ENODEV ? ret : 0;
-+	}
-+
-+	return 0;
-+}
-+
- static int ads1262_vbias_enable(struct regulator_dev *rdev)
- {
- 	struct ads1262 *st = rdev_get_drvdata(rdev);
-@@ -1902,6 +1932,9 @@ static int ads1262_parse_channels(struct iio_dev *indio_dev)
- 		spec->info_mask_separate_available = BIT(IIO_CHAN_INFO_SAMP_FREQ) |
- 						     BIT(IIO_CHAN_INFO_SCALE);
- 
-+		if (!chan->is_resistance && !spec->differential)
-+			spec->info_mask_separate |= BIT(IIO_CHAN_INFO_OFFSET);
-+
- 		i++;
- 	}
- 
-@@ -2058,6 +2091,10 @@ static int ads1262_spi_probe(struct spi_device *spi)
- 	if (ret)
- 		return ret;
- 
-+	ret = ads1262_parse_common_mode_supplies(st);
-+	if (ret)
-+		return ret;
-+
- 	ret = ads1262_populate_tables(indio_dev);
- 	if (ret)
- 		return ret;
-
--- 
-2.55.0
-
+SGkgQnJpYW4sDQoNCj4gSGkgWXUtQ2h1biwNCj4gDQouLi4NCg0KPiA+ICtpbnQgcnRrX2Nsa19w
+cm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2LCBjb25zdCBzdHJ1Y3QNCj4gPiArcnRr
+X2Nsa19kZXNjICpkZXNjKSB7DQo+ID4gKyAgICAgc3RydWN0IGRldmljZSAqZGV2ID0gJnBkZXYt
+PmRldjsNCj4gPiArICAgICBzdHJ1Y3QgcmVnbWFwICpyZWdtYXA7DQo+ID4gKyAgICAgc3RydWN0
+IGNsa19odyAqaHc7DQo+ID4gKyAgICAgaW50IGksIHJldDsNCj4gPiArDQo+ID4gKyAgICAgcmVn
+bWFwID0gZGV2aWNlX25vZGVfdG9fcmVnbWFwKGRldi0+b2Zfbm9kZSk7DQo+IA0KPiBMb29raW5n
+IGF0IHRoZSBTYXNoaWtvIGNvbW1lbnRzIGZvciB0aGlzIHNlcmllcy4gZGV2aWNlX25vZGVfdG9f
+cmVnbWFwKCkgaGFzDQo+IHRoaXMgbm90ZSBpbiBkcml2ZXJzL21mZC9zeXNjb24uYzoNCj4gDQo+
+IC8qKg0KPiAgKiBkZXZpY2Vfbm9kZV90b19yZWdtYXAoKSAtIEdldCBvciBjcmVhdGUgYSByZWdt
+YXAgZm9yIHNwZWNpZmllZCBkZXZpY2UNCj4gbm9kZQ0KPiAgKiBAbnA6IERldmljZSB0cmVlIG5v
+ZGUNCj4gICoNCj4gICogR2V0IGEgcmVnbWFwIGZvciB0aGUgc3BlY2lmaWVkIGRldmljZSBub2Rl
+LiBJZiB0aGVyZSdzIG5vdCBhbiBleGlzdGluZw0KPiAgKiByZWdtYXAsIHRoZW4gb25lIGlzIGlu
+c3RhbnRpYXRlZC4gVGhpcyBmdW5jdGlvbiBzaG91bGQgbm90IGJlIHVzZWQgaWYgdGhlDQo+ICAq
+IGRldmljZSBub2RlIGhhcyBhIGN1c3RvbSByZWdtYXAgZHJpdmVyIG9yIGhhcyByZXNvdXJjZXMg
+KGNsb2NrcywgcmVzZXRzKSB0bw0KPiAgKiBiZSBtYW5hZ2VkLiBVc2Ugc3lzY29uX25vZGVfdG9f
+cmVnbWFwKCkgaW5zdGVhZCBmb3IgdGhvc2UgY2FzZXMuDQo+ICAqDQo+ICAqIFJldHVybjogcmVn
+bWFwIHB0ciBvbiBzdWNjZXNzLCBuZWdhdGl2ZSBlcnJvciBjb2RlIG9uIGZhaWx1cmUuDQo+ICAq
+Lw0KPiANCj4gU2hvdWxkIHRoaXMgYmUgbW92ZWQgdG8gc3lzY29uX25vZGVfdG9fcmVnbWFwKCk/
+DQo+IA0KDQpZb3UgYXJlIHJpZ2h0IHRoYXQgdXNpbmcgZGV2aWNlX25vZGVfdG9fcmVnbWFwKCkg
+aXMgaW5hcHByb3ByaWF0ZSBoZXJlLg0KSG93ZXZlciwgdGhlc2UgY2xvY2sgZG9tYWlucyBoYXZl
+IHRoZWlyIG93biBkZWRpY2F0ZWQgcmVnaXN0ZXJzIGFuZCBhcmUgbm90DQpzaGFyZWQgd2l0aCBh
+bnkgb3RoZXIgZHJpdmVycy4NCg0KSSB3aWxsIGRyb3AgZGV2aWNlX25vZGVfdG9fcmVnbWFwKCkg
+YW5kIGluaXRpYWxpemUgdGhlIHJlZ21hcCB2aWENCmRldm1fcmVnbWFwX2luaXRfbW1pbygpIGlu
+c3RlYWQuIFNpbmNlIHRoZXkgYWxsIHNoYXJlIHRoZSBleGFjdCBzYW1lIHJlZ2lzdGVyDQpmb3Jt
+YXQsIEkgd2lsbCBkZWZpbmUgYSBzaGFyZWQgcmVnbWFwX2NvbmZpZyBpbiBjbGstcnRrLWNvbW1v
+bi5jLg0KDQo+ID4gKyAgICAgaWYgKElTX0VSUihyZWdtYXApKQ0KPiA+ICsgICAgICAgICAgICAg
+cmV0dXJuIGRldl9lcnJfcHJvYmUoZGV2LCBQVFJfRVJSKHJlZ21hcCksICJmYWlsZWQgdG8NCj4g
+PiArIGdldCByZWdtYXBcbiIpOw0KPiA+ICsNCj4gPiArICAgICBmb3IgKGkgPSAwOyBpIDwgZGVz
+Yy0+bnVtX2Nsa3M7IGkrKykNCj4gPiArICAgICAgICAgICAgIGRlc2MtPmNsa3NbaV0tPnJlZ21h
+cCA9IHJlZ21hcDsNCj4gPiArDQo+ID4gKyAgICAgZm9yIChpID0gMDsgaSA8IGRlc2MtPmNsa19k
+YXRhLT5udW07IGkrKykgew0KPiA+ICsgICAgICAgICAgICAgaHcgPSBkZXNjLT5jbGtfZGF0YS0+
+aHdzW2ldOw0KPiA+ICsgICAgICAgICAgICAgaWYgKCFodykNCj4gPiArICAgICAgICAgICAgICAg
+ICAgICAgY29udGludWU7DQo+ID4gKw0KPiA+ICsgICAgICAgICAgICAgcmV0ID0gZGV2bV9jbGtf
+aHdfcmVnaXN0ZXIoZGV2LCBodyk7DQo+ID4gKyAgICAgICAgICAgICBpZiAocmV0KQ0KPiA+ICsg
+ICAgICAgICAgICAgICAgICAgICByZXR1cm4gZGV2X2Vycl9wcm9iZShkZXYsIHJldCwgImZhaWxl
+ZCB0byByZWdpc3Rlcg0KPiBodyBvZiBjbGslZFxuIiwgaSk7DQo+ID4gKyAgICAgfQ0KPiA+ICsN
+Cj4gPiArICAgICByZXQgPSBkZXZtX29mX2Nsa19hZGRfaHdfcHJvdmlkZXIoZGV2LCBvZl9jbGtf
+aHdfb25lY2VsbF9nZXQsDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIGRlc2MtPmNsa19kYXRhKTsNCj4gPiArICAgICBpZiAocmV0KQ0KPiA+ICsgICAgICAgICAg
+ICAgcmV0dXJuIGRldl9lcnJfcHJvYmUoZGV2LCByZXQsICJmYWlsZWQgdG8gYWRkIGNsb2NrDQo+
+ID4gKyBwcm92aWRlclxuIik7DQo+ID4gKw0KPiA+ICsgICAgIHBsYXRmb3JtX3NldF9kcnZkYXRh
+KHBkZXYsICh2b2lkICopZGVzYyk7DQo+ID4gKw0KPiA+ICsgICAgIHJldHVybiBydGtfcmVzZXRf
+Y29udHJvbGxlcl9yZWdpc3RlcihkZXYsIGRlc2MtPmF1eF9uYW1lLA0KPiA+ICtyZWdtYXApOyB9
+IEVYUE9SVF9TWU1CT0xfTlNfR1BMKHJ0a19jbGtfcHJvYmUsICJDTEtfUkVBTFRFSyIpOw0KPiA+
+ICsNCj4gPiArdm9pZCBydGtfY2xrX3JlbW92ZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2
+KSB7DQo+ID4gKyAgICAgY29uc3Qgc3RydWN0IHJ0a19jbGtfZGVzYyAqZGVzYyA9IHBsYXRmb3Jt
+X2dldF9kcnZkYXRhKHBkZXYpOw0KPiA+ICsNCj4gPiArICAgICBpZiAoIWRlc2MpDQo+ID4gKyAg
+ICAgICAgICAgICByZXR1cm47DQo+ID4gKw0KPiA+ICsgICAgIGZvciAoaW50IGkgPSAwOyBpIDwg
+ZGVzYy0+bnVtX2Nsa3M7IGkrKykNCj4gPiArICAgICAgICAgICAgIGRlc2MtPmNsa3NbaV0tPnJl
+Z21hcCA9IE5VTEw7DQo+IA0KPiBMb29raW5nIGF0IHRoZSBTYXNoaWtvIGNvbW1lbnRzLCBpcyB0
+aGlzIHJlbW92ZSBjYWxsYmFjayByZWFsbHkgbmVlZGVkPw0KPiANCg0KV2lsbCBkcm9wLg0KDQpC
+ZXN0IFJlZ2FyZHMsDQpZdS1DaHVuDQoNCj4gQnJpYW4NCg==
