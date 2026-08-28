@@ -1,167 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m21472.qiye.163.com (mail-m21472.qiye.163.com [117.135.214.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A72A3CF678
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 06:57:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E97B3D4119;
+	Fri, 28 Aug 2026 06:57:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.214.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787900238; cv=none; b=BsQ6xnOwFm7+nlqahofNCBp4hxsM8aPoj3YO42rimiUcBeAybUyARm9/0ccSjBBltRGMonWkX87+yqeZ5+On7rydM7sDTGvOQ5luvsKz2Wm3nC0y2WEWwqp+uAVJlFZKrGZvoTc8ACrdw4JTiHojE4WKXmfHqpbVQwGZry47B6Y=
+	t=1787900248; cv=none; b=jmHoadtX+ZxPYL0+jLqSNkRWo4tAW6VNrpqb5yCnEFfO9HMxByPTD7QEjSj0DpbMPJadRjy5zHo3xQezfzAmoVcHE53YJP3YDmbBUzU0p1ufPbu/VVkvEcqFcfRNqR/q926UjF3D771rKJdNrrP2cAOFWUVGPLLmVHu46teGL3U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787900238; c=relaxed/simple;
-	bh=wYlVDZiOMbt3KeytAEBSwXHy9SeaqkWrzUO4wSvbhEs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=eRYr7/43gRrAFVgI3CNbg4Akgie92t7LJpY38lVdjYES+wMtM+UdU/s82SpFvkBy96IWyazpxo1x+t4PtPt5nbM8f/uP7K5oDOj1mcurLVxoh37FmkHWInzsjQldA3iXXrdRMcqsbVhkdPNKSdqMNheron8aA2osoHi56eEkaGs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yy/6D7/w; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787900248; c=relaxed/simple;
+	bh=Y2hwC6HB/PlSar3c1yv/Z5mk8yEnHxfNWGCAraG2jVw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jos+rhzYAk/HtFc2ufaROK5jVRAZnghtstaE0++2L4KrnE7guN787WwjZ3ZWeJWFUiYLFMqxIS/SbMqxR2sWCQ9HhJqdAGPV0RCE93+T1c3A68clk5V9vUQBjlW6OEdZN35vtQEOaiQnukLzrgWHEHFCAtryqPQHB72S+vihvio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=WVMILWJc; arc=none smtp.client-ip=117.135.214.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yy/6D7/w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 350741F000E9;
-	Fri, 28 Aug 2026 06:57:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787900237;
-	bh=V+sCFQiDb8iMri+hsUKKUN/WFNCmTC/EgwHvwHUHn+s=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Yy/6D7/wtbffp0ePBsVpnB3unhZ+iXIiywnuXsnYDYTJrPAaZHvc1aHBVlbjFCzSF
-	 aSqEYiza+OCzuglSfcr+QJGNJkdnN5zTqgj7DffXO85/R5FFOnR4rHn+UBawtjzna6
-	 CR81uxgDefnWQog+hLwDI0p7YUlAqzOPtinzWEqNMfYxkbP3C6+48uSJAmord83KCl
-	 86cKgUhHdHL+G9Jkrv4myjAU4FlTbTdocBebvitdNBhctJiXooYTOLvocaLnqOkgh1
-	 yZKumH5R9vmdEeU3kyVs8xhQQyweIRJN7enqPid+AwgvmkeaZcU6w4ygy45Ce5znNR
-	 d/Pfbm71fmHgw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 08/10] iio: adc: ti-ads1262: support triggered buffer
- sampling
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kurt Borja" <kuurtb@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260828-ads126x-v4-8-1dc27e9c0260@gmail.com>
-References: <20260828-ads126x-v4-0-1dc27e9c0260@gmail.com>
- <20260828-ads126x-v4-8-1dc27e9c0260@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 28 Aug 2026 06:57:16 +0000
-Message-Id: <20260828065717.350741F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="WVMILWJc"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4bab2d582;
+	Fri, 28 Aug 2026 14:52:02 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sandy Huang <hjc@rock-chips.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v8 0/5] Add eDP lane mapping support
+Date: Fri, 28 Aug 2026 14:51:48 +0800
+Message-Id: <20260828065153.590802-1-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa04723c63e03a8kunm9cc188d518831f
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQ0hNHlYeQhgfHkkYHh
+	4ZQkhWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSEpKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=WVMILWJcBzV6eYWE+qJSZLa1Tskj+ReLam0Ikoo9j1KGwt7fsyffBUVJltHgeDr6uavrZT+73hAj8CeSZIVFerWoWgNE6m31ub0cmaIk8z54+D86aTe4RGlkS7ZVl7m9gF0h4RwYoNwCvXBegjWO5UWBDYXfQEUR+MKcpuBuSxc=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=xUWryYLszvMhpY9lSrgXJtpEJ4lE5ULsbA6OqmZWLbc=;
+	h=date:mime-version:subject:message-id:from;
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] The `rx` buffer in `struct ads1262` lacks the `__aligned(IIO_DMA_M=
-INALIGN)` attribute, causing it to be placed at an unaligned memory offset =
-and sharing a cacheline with the `tx` buffer.
-- [High] The driver fails to filter out the IIO soft timestamp channel when=
- iterating over `active_scan_mask`, treating it as a hardware channel. This=
- leads to out-of-bounds array reads and writes, including a potential `FORT=
-IFY_SOURCE` kernel panic.
-- [High] The driver dynamically modifies a pre-optimized SPI transfer buffe=
-r without cache synchronization, breaking DMA coherency on architectures wi=
-thout hardware cache coherency.
---
+This series adds configurable eDP physical lane mapping support via
+device tree data-lanes property.
 
-commit 21b4fc84b4dd63fd1e3310ee7b41df30e8039785
-Author: Kurt Borja <kuurtb@gmail.com>
-Subject: iio: adc: ti-ads1262: support triggered buffer sampling
+Lane mapping is mainly used for below scenarios:
+1. Correct PCB lane swap and differential line routing crossover
+   without hardware changes;
+2. Adapt mismatched lane pin definitions between SoC and eDP panel;
+3. Support multiple panel hardware variants on the same board
+   by configuring data-lanes in device tree only.
 
-Add triggered buffer support and a data-ready (DRDY) hardware trigger.
+The series includes driver implementation and device tree binding
+updates to support custom lane mapping configuration from endpoint
+node, and keeps default linear lane order if no configuration is given.
 
-> diff --git a/drivers/iio/adc/ti-ads1262.c b/drivers/iio/adc/ti-ads1262.c
-> index 04566d00d7cb8..3f6d34a08b296 100644
-> --- a/drivers/iio/adc/ti-ads1262.c
-> +++ b/drivers/iio/adc/ti-ads1262.c
-[ ... ]
-> @@ -232,6 +239,11 @@ struct ads1262 {
->  	u32 rref_ohms[ADS1262_EXT_REF_COUNT][ADS1262_EXT_REF_COUNT];
->  	int refp_uV[ADS1262_EXT_REF_COUNT];
->  	int refn_uV[ADS1262_EXT_REF_COUNT];
-> +	IIO_DECLARE_BUFFER_WITH_TS(__be32, scan_buffer,
-> +				   ADS1262_FW_CHANNEL_COUNT +
-> +				   ADS1262_MON_CHANNEL_COUNT);
-> +	u8 tx[ADS1262_SPI_XFER_SZ] __aligned(IIO_DMA_MINALIGN);
-> +	u8 rx[ADS1262_SPI_XFER_SZ];
+Patch 1: Add endpoint data-lanes property to analogix-dp binding
+Patch 2: Add DRM DP helper API to validate DP lane counts
+Patch 3: Restore mandatory for samsung,link-rate and samsung,lane-count
+         properties
+Patch 4: Add validation for samsung,lane-count property as preparation
+Patch 5: Implement lane mapping in analogix_dp driver
 
-[Severity: High]
-Does the rx buffer need the __aligned(IIO_DMA_MINALIGN) attribute as well?
+Damon Ding (5):
+  dt-bindings: display: bridge: analogix-dp: Add data-lanes support for
+    endpoint
+  drm/dp: Add helper to validate DP lane counts
+  drm/bridge: analogix_dp: Restore mandatory samsung DP DT properties
+  drm/bridge: analogix_dp: Add validation for samsung,lane-count
+    property
+  drm/bridge: analogix_dp: Add support for optional data-lanes mapping
 
-Without it, rx might be placed at an unaligned memory offset and share a
-cacheline with the tx buffer. Since they are mapped for DMA in opposite
-directions (DMA_TO_DEVICE and DMA_FROM_DEVICE), mapping overlapping
-cachelines can violate the DMA API and cause memory corruption on
-non-cache-coherent architectures.
+ .../bindings/display/bridge/analogix,dp.yaml  | 19 +++--
+ .../rockchip/rockchip,analogix-dp.yaml        |   1 +
+ .../drm/bridge/analogix/analogix_dp_core.c    | 84 ++++++++++++++++++-
+ .../drm/bridge/analogix/analogix_dp_core.h    |  4 +-
+ .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 15 ++--
+ .../gpu/drm/bridge/analogix/analogix_dp_reg.h |  4 +
+ include/drm/display/drm_dp_helper.h           |   6 ++
+ 7 files changed, 115 insertions(+), 18 deletions(-)
 
->  };
-> =20
->  static const char * const ads1262_device_id_to_name[] =3D {
-[ ... ]
-> @@ -837,10 +849,284 @@ static const struct iio_info ads1262_iio_info =3D {
-[ ... ]
-> +static int ads1262_fill_buffer_mult(struct iio_dev *indio_dev)
-> +{
-> +	struct ads1262 *st =3D iio_priv(indio_dev);
-> +	unsigned int chan;
-> +	int i =3D -1;
-> +	int ret;
-> +
-> +	/*
-> +	 * This routine enables and reads channels in a full-duplex fashion.
-> +	 *
-> +	 * When a channel is enabled, the previous conversion is clocked out of
-> +	 * the shift data register on the same transfer (Section 9.4.7.1). This
-> +	 * allows for low latency software sequencing but forbids any
-> +	 * communication with the chip in-between or data corruption may occur,
-> +	 * hence the need to take the xfer_lock for the whole operation.
-> +	 */
-> +	guard(mutex)(&st->xfer_lock);
-> +
-> +	iio_for_each_active_channel(indio_dev, chan) {
-> +		ads1262_channel_prep_tx(st, &indio_dev->channels[chan]);
+---
 
-[Severity: High]
-Is it possible for this loop to iterate over the IIO soft timestamp channel?
+Changes in v2:
+- Add lane mapping application scenarios in commit message.
+- Remove redundant deprecated property 'data-lanes' for eDP node.
+- Update port@1 $ref to /schemas/graph.yaml#/$defs/port-base.
 
-If the timestamp channel is enabled and its bit is set in active_scan_mask,
-iio_for_each_active_channel() will yield the timestamp channel's index.
+Changes in v3:
+- Squash [PATCH v2 2/3] into [PATCH v2 1/3].
+- Add unevaluatedProperties: false to both the port@1 and endpoint
+  nodes.
 
-This would cause ads1262_channel_prep_tx() to perform an out-of-bounds read
-on the st->channels array since the timestamp channel is treated as a
-hardware channel:
+Changes in v4:
+- Add validation for samsung,lane-count property as preparation.
 
-	struct ads1262_channel *chan =3D &st->channels[spec->scan_index];
+Changes in v5:
+- Add DRM DP helper API to validate DP lane counts.
+- Apply DRM DP helper API to check the validity of samsung,lane-count
+  property.
+- Add Acked-by and Reviewed-by tags.
 
-Additionally, the extra loop iteration could cause the following memcpy to
-write past the bounds of the scan_buffer array when all channels are active:
+Changes in v6:
+- Add a separate commit to restore mandatory samsung DP DT properties.
+- Add Reviewed-by tag.
 
-	memcpy(&st->scan_buffer[i], st->rx, sizeof(st->scan_buffer[i]));
+Changes in v7:
+- Add Reviewed-by tag.
 
-> +
-> +		reinit_completion(&st->drdy);
-> +
-> +		ret =3D spi_sync(st->spi, &st->msg);
+Changes in v8:
+- Expand the commit message of [PATCH v7 3/5] with the detailed link
+  training failure analysis, and add 'Cc: stable'.
+- Fix reg parameter of of_graph_get_endpoint_by_regs() from -1 to 0
+  in [PATCH v7 5/5].
+- Rename 'tmp' to 'lane_idx' and add comment to explain the lane map
+  fill loop in [PATCH v7 5/5].
+- Add Reviewed-by tags.
 
-[Severity: High]
-Could this sequence break DMA coherency on architectures without hardware
-cache coherency?
+-- 
+2.34.1
 
-If the SPI message is permanently mapped for DMA in
-ads1262_buffer_postenable_mult() via spi_optimize_message():
-
-	return spi_optimize_message(st->spi, &st->msg);
-
-And then on every trigger event, ads1262_channel_prep_tx() dynamically writ=
-es
-new register commands directly into the st->tx buffer from the CPU:
-
-	st->tx[0] =3D ADS1262_MODE0_REG | ADS1262_OPCODE_WREG;
-
-When ads1262_fill_buffer_mult() later calls spi_sync(), the message is
-already marked as pre-optimized, so dma_sync_single_for_device() might
-be skipped. Will the SPI controller fetch stale cached data instead of
-the newly written configuration commands?
-
-> +		if (ret)
-> +			return ret;
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828-ads126x-v4=
--0-1dc27e9c0260@gmail.com?part=3D8
