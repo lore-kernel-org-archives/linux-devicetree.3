@@ -1,213 +1,102 @@
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011011.outbound.protection.outlook.com [40.107.74.11])
+Received: from mail-43102.protonmail.ch (mail-43102.protonmail.ch [185.70.43.102])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB593423E99;
-	Fri, 28 Aug 2026 12:23:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787919821; cv=fail; b=T4x0+s/WfyHd4GqfYZVp8qLUxZlEaatzDUjtFVHzYcfCkilclOiFbebtKl2aarL0GHrAEFi/qctiv+7DY4MnfqE6ki9MUseMACShYJomcR54Y36ZJV/gUB3VkEMvOtkrREO6YF3VMpLN4352wLGB5NbTOusG3QMfjBdm9FrF3fY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787919821; c=relaxed/simple;
-	bh=fkCH9QdtDcz03XIhmJad0Sq8D4GF/y3FMQlgIAzmMfQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Szr11j6bBT8gt/YaJZU/fL2TwlikDWtTsETBagILxE8VL27vXI7+0uDRD51Ij7lq0We4/nhIckj7uJUGL3lkiDz1AHpBInnqy7w7DTmXqNLV1E80m33ebeNwOmddAtkdnssddOUK/oXkueZYrOwzrobjoLzQbB6eR9PJlQaJdCI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=Nkwq46ya; arc=fail smtp.client-ip=40.107.74.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4444828506F;
+	Fri, 28 Aug 2026 12:25:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.102
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787919942; cv=none; b=oMoUDUU+rCEvgJMQ+wP+DFjnuONkNb0MCRptCdmw/Qhu2nqDbiZI35Ekj6bEVWqgp8CW6UPF1TpGRfVV3hhor0K6aB8hMEPoVLVNQrAZItIkB6DdNRsgXe/i/MBUu6cQhuvKCrRSFcRN4PTR2c/xN6WrI4JpYeo3HNPFAwoSq7E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787919942; c=relaxed/simple;
+	bh=IFJThm7Quy7+3iM7IFmU2YRvj6HpIh0yQPYV1PnWIXs=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=l7KyhZjn9oc4vk5Z0NVHeEkV3ZVjAuNaJ5Q2PYvJE8rFoCXN0l631zznLbpI+vFI+1HedxCeyOWBBxWT29pYjO7HSoamT2lHef1SRbNKwdNV+y6K1GaBlv27AOCBGvprxKVJYFvKj8szmj/3BMIOu5rAZfWktlhwIPGsw1FPs0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=J6DxClv7; arc=none smtp.client-ip=185.70.43.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="Nkwq46ya"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hvfoRiuPezUqp+T593NLgfnsE+ZJGnArEBrpHe+jgVwvrg3omzdY/0GPIXihWr/1UsM2zahdbRwc1r+Qix5zRRR/tD028dUQVILeWsCjHdvz8N9DAeVjlsLe3onN0/XyPkRotgBDISiGep8nRBYUI+wmsyB/8PLgaoA3BIsiL3Pop5tqqGopfzxSQYcqvfLLJQLkp/ZGYmvAD1vXsXg2A2HiW9Kl1fUOtpvgDsKEEQ73fXGk05jawSJdHZrEN1wdDe3FwsBEL2SGaQbq0AL47XIQO7KLFlQ2SPJycHXYlicjd4PMb4K5xcEt3UbC0fjpk7nrTzl9t8lYfYf/c8xeBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dIM/vncSEdDh5Xn+pWgw8p1MTeaxT9/w7TBHe8DQH3M=;
- b=oEi28ew+rdbs+nJ/QCrKQZomXq9eI61ar8mtrjLnRverbLVLRZGpGLrIaO2PvcXfCCPLSN2EjEULUWyh+Qb5TW/O7dblWbOl4C7Xvp6OxLqe0HG13o8UuPz9M9/3dFVVEj7fjHJPa09NFyUYDH4H18uHvCRv/xpww3uWBJuXzoEs7zGxROOx87kjch8fJh9NHH2O/4qVYp0RAENDpXpbH/vt0+qViGtWIYL6FneHdcfXeD5O+p1mc5/IeBLgcIonuYTHuG77/2LmT+brh75w1kFuRA3oKuDx3ia2C4u+wXf2qv+aYEp2csIcaXwyH5kVKkJ2h9RGo532bV/TCKSTeA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dIM/vncSEdDh5Xn+pWgw8p1MTeaxT9/w7TBHe8DQH3M=;
- b=Nkwq46ya2sxnThuzoOibWCoWPfzOd3xbfauEfjr7eDL75vzsHmEQJDpi1y6Pcrl9EWa4/7AosFomcY1VM4X5XQUznuW+eOf9+TgBxRC8Odw5dVoHDYIiWaZldMy2kqZ/7FcFvksMqB8pa1ifcLfiYqT5W5bD+7Ys31vMdGOff6Q=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
- by TY6PR01MB17444.jpnprd01.prod.outlook.com (2603:1096:405:360::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
- 2026 12:22:51 +0000
-Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
- ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
- ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
- 12:22:51 +0000
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-To: tomm.merciai@gmail.com
-Cc: linux-renesas-soc@vger.kernel.org,
-	biju.das.jz@bp.renesas.com,
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v8 9/9] arm64: dts: renesas: r9a09g047: Add DU node
-Date: Fri, 28 Aug 2026 14:21:12 +0200
-Message-ID: <20260828122113.1426778-10-tommaso.merciai.xr@bp.renesas.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260828122113.1426778-1-tommaso.merciai.xr@bp.renesas.com>
-References: <20260828122113.1426778-1-tommaso.merciai.xr@bp.renesas.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: LO4P265CA0311.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:391::16) To TYRPR01MB13588.jpnprd01.prod.outlook.com
- (2603:1096:405:18d::7)
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="J6DxClv7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1787919917; x=1788179117;
+	bh=ioc7N/DHyC2OCX29/pnKy6AAZr4x86kUrEuq9zrZ/tg=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=J6DxClv7WR0xRLaoZXGbJ2zqHH4sC45IKmRr+N1Odo/Iskc0A1vfmUjoR+sS/dWLO
+	 T0f/O+3XHUCToC7OTdirKFNiWxTbqWikoNn3UAFEgIERnGP8gHCilM6IK8WXUgOkiw
+	 zggRsCGmU0+2sk7e68nVD+iuZB1k5geuxDdEpl1QsZSO8AWcBHOmskGR1m49M2RLt0
+	 mt2h3btoqHaitC+G5UCzc7EbQhaGpH97/O2UOU6dniylocOciuI6G9KPhvI80/KAAq
+	 ZXPD6ewphszrss7KWa0wvTQf2XuaAJDfZtCDD1LY052FKav9eJBCz/Up5C51FccRKJ
+	 A57Vdfmy/kVwA==
+Date: Fri, 28 Aug 2026 12:25:11 +0000
+To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, Miguel Ojeda <ojeda@kernel.org>
+From: Nils Lehnen <nils.lehnen@proton.me>
+Cc: Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Gary Guo <gary@garyguo.net>, Boqun Feng <boqun@kernel.org>, Bjorn Roy Baron <bjorn3_gh@protonmail.com>, Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, Onur Ozkan <work@onurozkan.dev>, Moritz Zielke <moritz.zielke@gmail.com>, devicetree@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, Nils Lehnen <nils.lehnen@proton.me>
+Subject: [PATCH] rust: of: replace `core::mem::zeroed` with `pin_init::zeroed`
+Message-ID: <20260828122444.475-1-nils.lehnen@proton.me>
+Feedback-ID: 188354734:user:proton
+X-Pm-Message-ID: 7c6534725af5e162780d73ab9d99593e74e429ce
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|TY6PR01MB17444:EE_
-X-MS-Office365-Filtering-Correlation-Id: d14458d7-ca62-4154-8ff5-08df04ff144c
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|52116014|376014|1800799024|366016|22082099003|18002099003|56012099006|11063799006|10067099003|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	khraZvscBRF2akmPJbZq3+jhurItzUJYq3SqmujEpupwyXFUYcEvdRaDdrzV7LVyhniyp/2heok9gqvDTt0vHC9wZKOUE153knd36GXbe5LRXCmpv7PKKKzsC2HtEaTP7SFPY+OuWZmsTJkRqdC3mzGdFU9guM4PnCbSZyW/q+bSdnVc31RyCElkxs8h9TTRMXtaqPn3xXSNKxN7k2jhk8EMb9uHGNf+LfVhXpzho/t8tqDAebKbjxp87BeEThJbrWC8svZyS5YCUdrvlYa3o4Eg5WqqJkXoJFdHtlMm/ahZn3WYLsQcYLOZmenJLctbeATUGEZaU072Me4KNyc6PDKqE4VRhnEnSbtwJgT0FhysUN8z4nLzq+tD38u07N2QLA4arSqTEPGZbuajoKgpiqSEQrT2MJ6h+qTBoLKHaOLJ9vzQxQCCmUMy7x1Pb/zscR+bfCxYuwxVrkr5y8qmEPWXc2MRcMLBWdfeUURx3PRMqZl+HUFG7/7cGLEsytoKau/yhAD8Nl+sjlUVnP2/wu2/nLfi0v4pfN7rr1iP9pMf2BlIYH7UojimCoQor7ukVIwgBH3Q9A1PF6e3tuQUnFidA91OU/g5Bo/ih6aguUKBtk55QsXcBWChkWBzop54Xg8Lv9/AJrM17CD+aO1CwG+kVCmDhqHLjrqCGrqA/CnWl2K8gYrVSzWKi0WpNe94xm8FgT501FJwa/U+5/SbTFNTvID5O/IyZCvpXqRXnRQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB13588.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(52116014)(376014)(1800799024)(366016)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003)(38350700014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?0eYP8o/BmCZGpU1WOWiVbXe8pqGnjUrSoMDyapT00hmzSFyj/J2yBSQt4SpJ?=
- =?us-ascii?Q?Q9MSIFlCbZ3t2qzSTbOT4fJ70UWLQdVsnEoTUOG55kTzFHMlcWh9ODQLBA4o?=
- =?us-ascii?Q?lS9608SO7nLEjZ4ILC6mKUXJuUl0ikM/jhgOnUbDpsDhNUdP3b3ivP7nNE7z?=
- =?us-ascii?Q?rTJNE6kdxqxidAgKiB9Rx22ZphoHE3F7Coex4CSE3MsqV1jkWDSJLVuEKHuw?=
- =?us-ascii?Q?WPunJmtvr8c15pM1e+Ttpz0pOtPMjyiCnG8llxEkKBBujnKsZF4Na6ea3be1?=
- =?us-ascii?Q?APFTqVFL68PwFp5VWemZDuEnehunrwcvI+5gWPN+r5bHqvrFs2iSbB9dxH0U?=
- =?us-ascii?Q?RIaui5iXEWXrbZiDSRLg6fnnLfhfFQWK4pLSV+U4wOvMCBlCECF2fMWL0e3C?=
- =?us-ascii?Q?EDHHzkFFUj6kHmpv7Tydqmt8Omr3uJXQVjouaygV89PdfcN2HHMUOLMjmDh9?=
- =?us-ascii?Q?SSlqYmvufg36pykoroIceoPjt78RoeF9zvpq/AQfFZQpcsYuMOB1ad1P1yF9?=
- =?us-ascii?Q?EHXL3AHgH6MHlU/2Dx+EWcv+W+vZzWwr7saAgX405+UtyS2dkmq7xKHMhpXM?=
- =?us-ascii?Q?msO70iXImzEEBCci1kBF7HxgMkhZowr1tZf1I/5hDM7ohGe6ZEplYRStH0ae?=
- =?us-ascii?Q?8q6hnGCUXiB2fsVqzFm6B1kekIn9HCkKSb6E1IqBsiOb8y/FSY41dTuWQfoW?=
- =?us-ascii?Q?nygi2vG6bgKBDhvH551uLqX8OgyAzT7Pd83qBclGBDN3FZtXEKz+gn5bHOxq?=
- =?us-ascii?Q?azfnuafgVIAdwtLn5ch5o4fOxdhllorcrXeO1G6Io34dOOmj5Irtcz1DrdGJ?=
- =?us-ascii?Q?vsrnvJEtDy7JczfznwxHoU9pYnjxKUes82me4QbnynBt0rVbyyCqErNwI/Is?=
- =?us-ascii?Q?ZceTFvWhwsb5aVGdAg1GZlofXUwl+P7/ORky1x0Ot2DRL5DiFB/3VuD9v2A9?=
- =?us-ascii?Q?ye+/RaQ5vtdV6Y2Q4TsoKz0D9iDKHSnjoFNQmtoDGYjp8kEGm1Po3OWH2jX0?=
- =?us-ascii?Q?XN0sCHtt+oqF4cPbtUxSu1xjBj5wmq+97kuI0ox9JYOgv/p+vVnUCpKFbQX+?=
- =?us-ascii?Q?uO0g8YWWdZwmT9zcQsJIvkr8Setf6rX3RBTf7Gg1z6pIkadkhM/71yMyMVmr?=
- =?us-ascii?Q?uwxu/YdYfvsE2I4sGwdAYplyKud6oxnJ68Fy9OTSoyydNh6OmkTBV/dEwwDm?=
- =?us-ascii?Q?/qYRBpWQl7x3q48dV450/YkwXcZ8/SpriJzAaa9RFBBvvVveRphYVO+5yOcd?=
- =?us-ascii?Q?d1d5/94jsBWAbehJRCXGXJHjj5tkqtprS/HeoJWZNTVW6M49r96vZR4/ivAN?=
- =?us-ascii?Q?Gd0iN/1dn4vogBQEHcIIBE49iTCCgFr59DqXirPYrNOCO6YuP/Z7CKEIxrGG?=
- =?us-ascii?Q?2VfHTy73fVIbr+KPl0jC/B5xMbJFgM9jOczANzPFi2+vsB7RhiB/a101YfzG?=
- =?us-ascii?Q?fgPY/HUDR+mugjHwLx/FLAlxjowqeoZaYR4lUK6OBoKAk2buExokckyhdCRG?=
- =?us-ascii?Q?7yD4/2Ql6NUKCwd9p6IJk4w9+O+YrhGSst9NKSbh5CoaAXGNU4qt6ByBBobo?=
- =?us-ascii?Q?LZ/TEMGAlhQhmQPTzUnn/zNrrCPsbqz70fwYtWINs9V4RhrD5heZh6evhWtv?=
- =?us-ascii?Q?Lu7suGhEKNST0bGIkJ6xfQTpsMq8FKr1tU9Dxb3BBsb+afFw1v7fNDXnzXGt?=
- =?us-ascii?Q?N/NhsNnSVCFwZq2vlUgLH6optVvx+UYf6vEB20gTnex0iN8kSK+2vRrhsKTJ?=
- =?us-ascii?Q?KkNP3Mk1CmWNvYEe8Mnl5SJoUk6t77NKEZyI794g7o4MqF+93ghl?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d14458d7-ca62-4154-8ff5-08df04ff144c
-X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 12:22:51.6822
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0XF+FPVmsGtZmeGisWzg/mDdmokDc+RCZP/KthFmJDGDAToOASoWgu+WTSoSjJpSXyRy0BmCa88c3yI6TZxkQo+sd7eovPs1U+yksHAumjkyLgghl4wqdgy0CaRAy4H+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY6PR01MB17444
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Add DU node to RZ/G3E SoC DTSI.
+From: Benno Lossin <lossin@kernel.org>
 
-Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+All types in `bindings` implement `Zeroable` if they can, so use
+`pin_init::zeroed` instead of relying on `unsafe` code.
+
+If this ends up not compiling in the future, something in bindgen or on
+the C side changed and is most likely incorrect.
+
+Link: https://patch.msgid.link/20250814093046.2071971-7-lossin@kernel.org
+Link: https://github.com/Rust-for-Linux/linux/issues/1189
+Signed-off-by: Benno Lossin <lossin@kernel.org>
+Signed-off-by: Nils Lehnen <nils.lehnen@proton.me>
 ---
-v7->v8
- - New patch.
+Resend of Benno's patch from the Zeroable series [1], as the issue [2]
+asks; same shape as the security.rs resend Miguel confirmed today [3].
+Rebased onto rust-next: one context conflict from the
+`as_bytes_with_nul` -> `to_bytes_with_nul` rename, resolved keeping the
+current name; the change itself is Benno's, unmodified. An incremental
+defconfig build with CONFIG_RUST=3Dy passes, so `pin_init::zeroed()` is
+fine in the `const fn` context.
 
- arch/arm64/boot/dts/renesas/r9a09g047.dtsi | 52 ++++++++++++++++++++++
- 1 file changed, 52 insertions(+)
+Moritz sent an equivalent patch earlier [4]; Miguel's review asked only
+for a formatting fix and no v2 followed.
 
-diff --git a/arch/arm64/boot/dts/renesas/r9a09g047.dtsi b/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
-index 73757e8e2197..4f95b0d7e8ab 100644
---- a/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
-+++ b/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
-@@ -2105,6 +2105,58 @@ csi2cru: endpoint@0 {
- 			};
- 		};
- 
-+		du: display@16460000 {
-+			compatible = "renesas,r9a09g047-du";
-+			reg = <0 0x16460000 0 0x10000>,
-+			      <0 0x16490000 0 0x10000>;
-+			reg-names = "du.0", "du.1";
-+			interrupts = <GIC_SPI 882 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 922 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "du.0", "du.1";
-+			clocks = <&cpg CPG_MOD 0xed>,
-+				 <&cpg CPG_MOD 0xee>,
-+				 <&cpg CPG_MOD 0xef>,
-+				 <&cpg CPG_MOD 0x1a8>,
-+				 <&cpg CPG_MOD 0x1a9>,
-+				 <&cpg CPG_MOD 0x1aa>;
-+			clock-names = "aclk", "pclk", "vclk",
-+				      "aclk1", "pclk1", "vclk1";
-+			resets = <&cpg 0xdc>, <&cpg 0x11e>;
-+			reset-names = "resetn", "resetn1";
-+			power-domains = <&cpg>;
-+			renesas,vsps = <&vspd0 0>, <&vspd1 0>;
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					du_out_dsi: endpoint {
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					du_out_rgb: endpoint {
-+					};
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+					du_out_lvds0: endpoint {
-+					};
-+				};
-+
-+				port@3 {
-+					reg = <3>;
-+					du_out_lvds1: endpoint {
-+					};
-+				};
-+			};
-+		};
-+
- 		fcpvd0: fcp@16470000 {
- 			compatible = "renesas,r9a09g047-fcpvd",
- 				     "renesas,fcpv";
--- 
-2.54.0
+[1] https://lore.kernel.org/r/20250814093046.2071971-1-lossin@kernel.org
+[2] https://github.com/Rust-for-Linux/linux/issues/1189
+[3] https://lore.kernel.org/r/CANiq72mn2vvCL2VP8yJxmzXM4n+jfV4R7arUcj4UXSi0=
+4y5sfQ@mail.gmail.com
+[4] https://lore.kernel.org/r/20251030-zeroed-of-rs-v1-1-1c46d025128e@gmail=
+.com
+
+ rust/kernel/of.rs | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/rust/kernel/of.rs b/rust/kernel/of.rs
+index d0318f62afd7..75d5004d2221 100644
+--- a/rust/kernel/of.rs
++++ b/rust/kernel/of.rs
+@@ -31,9 +31,7 @@ impl DeviceId {
+     /// Create a new device id from an OF 'compatible' string.
+     pub const fn new(compatible: &'static CStr) -> Self {
+         let src =3D compatible.to_bytes_with_nul();
+-        // Replace with `bindings::of_device_id::default()` once stabilize=
+d for `const`.
+-        // SAFETY: FFI type is valid to be zero-initialized.
+-        let mut of: bindings::of_device_id =3D unsafe { core::mem::zeroed(=
+) };
++        let mut of: bindings::of_device_id =3D pin_init::zeroed();
+=20
+         // TODO: Use `copy_from_slice` once stabilized for `const`.
+         let mut i =3D 0;
+
+base-commit: 73e3f0710014fe6d4ed98cfc02292f6121db7558
+--=20
+2.43.0
+
 
