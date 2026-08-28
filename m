@@ -1,80 +1,80 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32771367B9C
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 15:35:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37267360ED6
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 15:35:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787931309; cv=none; b=p8nRtNhyngRK+3aVmJ/BCFlBfh32yt30ri99AHWE8xrBOjciPRdTNok5JIFauoAxYn9M00PHcEHNgJJ7i0ZmjLGfcmKYiB4o4EfPVnKiJYzbTCwLog202I9GSJTACa41da+kcD1Qkjlvx8mjsq8qs9AFku/FShgsINT42lPM1IM=
+	t=1787931332; cv=none; b=AdsSAVwIIJePYBqDikBr+5MgYHDmMQlTw7t9XpA7w40WzFTOUUWx9e0/JCkT91p5U7G5L2L5wZhruawR1oh2jXaj2rkpNFbxE2gHPBeUpERrJSqqU7cmC00ZFCKL0aPjHNwQkLkxlkWOZRXfPNX3bYIfBm7WuRtI4isucEpisMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787931309; c=relaxed/simple;
-	bh=+6KGxcGGDwc73riwb5otRlgUrSwJkffaC6ls1E91zck=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Jf6UDQ2k51k8YxCe1ZPdeFFJFKfxLPIXB0O2ADbl2LVi535xkdcYi5dhQnqdhyFBS8Lr+yurOm2+tumS2De7T54nfcvifzWMSVePUOsyJEZ38o8CbZ7cImM4EX621lhBoy3kkVafC4S1yvm/fx8cJQDYFCGjVYq9jbndiuQRfD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ig8K9w7d; arc=none smtp.client-ip=209.85.128.43
+	s=arc-20240116; t=1787931332; c=relaxed/simple;
+	bh=csZZhW2kTQDC7OmCQK09jSOUeljVKRXJMg7XkzOcdAQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Lzoxvwn2YVg7/hHQKB07a7VeNRR1l4PAy2E2xa6eUMQAdcrNuidiXd7RjEnSA4ppM1ByUo/UcaXQ4kjDCgraoAowoa09v24JUOu7t6S/PNZaBp+Hn9LwnaRFAYlLiJz2d4Epy7rO8o6CCL68evAyou9onGhGVmo//2Q1+M2Pjwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s9IITnGG; arc=none smtp.client-ip=209.85.214.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ig8K9w7d"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49b392ccaacso13667865e9.2
-        for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 08:35:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s9IITnGG"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d58efc7356so11236115ad.1
+        for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 08:35:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787931305; x=1788536105; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yaOfa8z6OMzLtYhT5SId13Mw9otf98/zrSeAtowlsB0=;
-        b=Ig8K9w7dkZp2wti+wQurSX1ZrOfJh0J7dXpwjL3e8IFY0MAmi5A0gdmPN/atFJIufU
-         3IGLbSNpTk8uHmITSJWSBX88IjSX3et0pNVXR9qmkdJzm9WjD1ye6dvbtg5u2fvvs8H7
-         re2WGSfEMJQZGA1nMJmKfV2mBiIKSHIjhhqiuxZpq9OT8G0387NClsINRGokoPvxHb86
-         e+mOmLmOZRuCMiujts30PSRrKQZSRoBRcMZYpTXKV/NO8gqDx2dCwCnsnl+H0KrsntaZ
-         GFDpGQOHZ4zlBN1eE/v1ujUa4lTzBZBmp5NLb14P5fqZ12FjMQZX7qf2eNv3sy+lUZ8k
-         oByg==
+        d=gmail.com; s=20251104; t=1787931331; x=1788536131; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rQup+UUtgEL0yAVMr8c4LZuaauGy5rlbpwT/5caEB14=;
+        b=s9IITnGGGbMH83F3qNM3dRZ18d3Ovxh/siPs3/e7XeUC46rzDZnoOJy2o6518HMAgd
+         IocSsgJgW24jRFtjfsDpeywkR8yEYWa6fkP8ii7HF5o3mIiKByxiU6Q5HdjstoyaEYn/
+         6K+dgPyDSdsJfMokeUFDaFJG0T7OuyOZF6UqgNmt3qRgERIkX15xItEpjwQfJiaYhkVy
+         0ZTSi5KuI0ySH5sot6IZGLSG3MTRyzT9qY4dWx9PFyWKgemFsE2KrxRUE1aVUgan8lnY
+         CFkil7nHGVasUyhKkT19vgbVv9BnnuA6cPnL/ZKqSMinHAIfjK+i01Cf9jNZf1IX8Yrz
+         SILg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787931305; x=1788536105;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yaOfa8z6OMzLtYhT5SId13Mw9otf98/zrSeAtowlsB0=;
-        b=hlB0kglHDPE5SC5fuLOTk9vJABWRah0jrtezzZZnlFYta/J8SKWDFvHzpN3JuCYM/G
-         Dwf76VT70m1oB3Fw3g969f5R0gGpnin70KOphL+LJiG1fnKIL69MtTvBs36hnA8cDrZo
-         m0mbru3zSiriejpeCHsNXbQkxgt0hQ4TUTzMuj7KZ4BQ657lqoTqSBbLjuJD/UxrMBz6
-         LxhdpwD6wwqtULN2urYH2kQkCzzVz0Xe13AVWNqVtp3HLX/kcZAnQHgjjGCUl49k/odF
-         7CV/FBrV7zE/CO1Egpu3uIY0izzVkEQV1BBJsLUOwGdE+H6JExOt4QYQwyH93HAehjas
-         JNgg==
-X-Forwarded-Encrypted: i=1; AHgh+Rqtvql0xXcXWGvjLqvd389bDeBMs2ZqLmw3KOU+0A1EvjGbHtoQqgAI0DhgNl0u6jrJjjWb4Ld1tCdo@vger.kernel.org
-X-Gm-Message-State: AFuF++mlYruq6M0VuEq1m63oTUCjCqpCbJ78yNY8rcAEBi8vtvwA+lR5
-	CwvAk565q98sISKLBItdGqlJX3KVDlF1Itt85KCy544d2zUjXe9yriYd
-X-Gm-Gg: AR+sD12op5wdeTQt2EDbykSWUKgryEcjRVrZNIx5mkszKkd3gbk+vblklSMT376NhBq
-	X/pYhv2q3mJuCjuUNP7p6FGHhH4shVgS1ud5aCfWzXBfsDzInTzUyPceypF+WyahoF26zwvwIQH
-	y65w0fjhCHOFdOQ/JQOck5CmKxJxlTrtVsovAGshLxtuwX0SgpTTF6poe4P2XqjPaFMsyBjn/gZ
-	UhHaAaDvnm65uT9eG1IY/1gcr8wmf3oJxqBmj9QU8gklD+IBsz6afzaxMXSTdbM1KgIT7FmuyBF
-	yNZaDSUxASiJTV1BlPf3up9Qblax8/RZf+NNOOS7LFHAISmgho0SPOgM+buIv6Gh6PkrxfNyDyi
-	xJxIPpo68MP7MmM0hmJEyNzp5VZ2ps4lI6Yf2Ng81SaJzuq1ir3zkfDeqOsyEcIf/psLmDVKdXP
-	4wPGD5R7yBz3bPzpy9dZshJ4mucPwkTsgfxQOPZb+mqwgpw8ncTfmZZw4Nru5lYC7h185DfbG6Y
-	TKzGUevyMtHVMWcWYLWHTOsnOHof/HxnEBa6DpSegGg+Gia6+3Lh1rheHVCj0qVHIXfNoOUODuD
-	7aVttsygYv8s0A8=
-X-Received: by 2002:a05:600c:3e18:b0:49a:77c1:d246 with SMTP id 5b1f17b1804b1-49b91c4e073mr129859625e9.15.1787931305285;
-        Fri, 28 Aug 2026 08:35:05 -0700 (PDT)
-Received: from robert-83cx (static-dsl-191.87-197-115.telecom.sk. [87.197.115.191])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbab3fcesm4453038f8f.5.2026.08.28.08.35.03
+        d=1e100.net; s=20251104; t=1787931331; x=1788536131;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rQup+UUtgEL0yAVMr8c4LZuaauGy5rlbpwT/5caEB14=;
+        b=V8G4Kr5UgavF9XA7xqxuGqPdc4hCvE4625iqqrpYekArjBkn7evc2FcJLHxRZzJOlJ
+         qgoryxKWz+2oLVFOIDe8qAqdtxFo6bbnTx844aMUG4DaXeo8PdmIyNE39XV0vkpF5KJB
+         H9ZLF1bqz/tIA4e2F4EnkNNspEqxgnkDFLdZzXG2BorqLknLlGWOckkRFvoQpv1DRNE5
+         WhSFglJJCOl0LWaatL2S8vPhJAEThizSnbwzyMjSeCJo71JxSULSmFccpQ0lSU6B34/T
+         /JqYpWdIJzeYJlEqzfKF891snE+2LsNyfiw7Vh2yGENhZIOiSkGVlx4KFHVG67uejzME
+         O5+w==
+X-Forwarded-Encrypted: i=1; AHgh+Rqrg6RdkALCyWkZwIp2iVXhJt1AGKSViJ2Eg06xL1JJ/dBB/LeoGmUbPZoL7wunBH1QsiZKBxphk8S0@vger.kernel.org
+X-Gm-Message-State: AFuF++nUsPB/jtem/LHPuXUrDqS+iACZ39EIC3lZ62fIvnX4EwwD17rd
+	+Dgg/Cr6GjMJqP99b6WisHWozoALH48ams8rw0NElbEkZ3TmUepBi+XH
+X-Gm-Gg: AR+sD13pW34XcnMpfZRRIEsLMqrqUKvO0Bst2yQ35FklWoArjTK0T1/Neqk/XBtijin
+	o6cOFEjWmvjYZe4cL8aLmKTIbk/tSVHOLQZHNZ/1owIRsZvTa7cb1uBEI0yMdOt+h6jcZrCffc7
+	r2s+AscBCkWs1qUd2wv7rl5S+Des/5diko8GWOp1zKp0CpzR6j8ddCxA/333UP7OCRg3QMmhF5W
+	HzZVIUN9AdvscKtYRnOH8Q4OiXrlAxMOp1c/iYhEx5OJWxdkGhtZmHM6Y1OMPBJDErgXsGnj1r4
+	Yv01elv84oklxGDFfObL2eRKMAnOaQYa5ma4mctawSrjwUxIVzu68BKhIdqg9/1vwngD1QEd5PR
+	y/9zJ4HxTPliQLWqwykxrCc/VfKtpAmEighocBWOwdlZHVG5XZ60dnQ/CaSt6CH4HZ69JxoSdoo
+	EZQY2YInjp39Fh/uX6e8xuI9NYKLEljMGHuxLqoMC0EMR/aoZ+xfqDWV6RpG8KE9xAzYinQDp/9
+	dhMETWeY+8=
+X-Received: by 2002:a17:903:286:b0:2c8:248a:5dbb with SMTP id d9443c01a7336-2d74dcbe867mr167466245ad.7.1787931330475;
+        Fri, 28 Aug 2026 08:35:30 -0700 (PDT)
+Received: from DESKTOP-TIT0J8O.dm.ae ([157.51.224.60])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f9e2a95sm6256824eec.23.2026.08.28.08.35.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 08:35:03 -0700 (PDT)
-From: Robert Bozik <robertbozik@gmail.com>
-To: sakari.ailus@linux.intel.com
-Cc: linux-media@vger.kernel.org,
-	mchehab@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
+        Fri, 28 Aug 2026 08:35:29 -0700 (PDT)
+From: Ahmed Naseef <naseefkm@gmail.com>
+To: linux-gpio@vger.kernel.org
+Cc: Ahmed Naseef <naseefkm@gmail.com>,
+	Benjamin Larsson <benjamin.larsson@genexis.eu>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>,
+	Rob Herring <robh@kernel.org>,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] media: ipu-bridge: Add OmniVision OV32C4
-Date: Fri, 28 Aug 2026 17:34:59 +0200
-Message-ID: <20260828153500.31556-2-robertbozik@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <apGn9PvuUw_AODd-@kekkonen.localdomain>
-References: <20260828132104.21473-1-robertbozik@gmail.com> <20260828132104.21473-4-robertbozik@gmail.com> <apGn9PvuUw_AODd-@kekkonen.localdomain>
+	linux-kernel@vger.kernel.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH v2 0/3] pinctrl: airoha: add EcoNet EN7528 pin controller support
+Date: Fri, 28 Aug 2026 19:35:12 +0400
+Message-Id: <cover.1787931313.git.naseefkm@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -83,17 +83,113 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Sakari,
+The EcoNet EN7528 is a MIPS SoC that uses the same pin controller and GPIO
+IP as the Airoha SoCs, so it reuses the shared driver code introduced by
+the split into per-SoC drivers. Its register layout differs from every
+existing variant though: all IOMUX mode bits live in a single CHIP SCU
+register plus a few spill-over bits in IOMUX Control 3, EJTAG has its own
+enable register, and every pin configuration register is at a different
+offset than on EN7523.
 
-> This bit could go to the driver but the IPU bridge isn't the right place to
-> document this.
+It also differs in a way the shared code did not model: only GPIO0-GPIO15
+are wired to the interrupt controller, while the driver assumed all
+AIROHA_NUM_PINS GPIOs could raise an interrupt. Patch 1 adds a
+num_irq_pins field to the per-SoC match data to describe that, bounds the
+interrupt callbacks and handler with it, and feeds it to gpiolib through
+gpio_irq_chip::init_valid_mask so gpiod_to_irq() fails up front for a pin
+that can never be an interrupt source. All existing SoCs pass
+AIROHA_NUM_PINS and are unaffected.
 
-Agreed. In v3 the entry gets a plain
+Patch 2 documents the binding, patch 3 adds the driver.
 
-	/* Omnivision OV32C4 */
+The series is based on linux-pinctrl/for-next, as it depends on the
+per-SoC driver split and on the CHIP SCU lookup by "airoha,chip-scu"
+phandle that landed there.
 
-like its neighbours, and where the link frequency comes from is
-documented in the sensor driver instead.
+Tested on a DASAN H660GM-A (EN7528, Airtel), booting OpenWrt.
 
-Thanks,
-Robert
+Changes in v2:
+- 2/3: move patternProperties after properties, and allOf to the end before
+  additionalProperties (Krzysztof Kozlowski).
+- Rebased on linux-pinctrl/for-next.
+- Link to v1:
+  https://lore.kernel.org/linux-gpio/cover.1786262697.git.naseefkm@gmail.com/
+
+Ahmed Naseef (2):
+  pinctrl: airoha: limit GPIO interrupts to interrupt-capable pins
+  dt-bindings: pinctrl: Add EcoNet EN7528 pin controller
+
+Benjamin Larsson (1):
+  pinctrl: airoha: add support of en7528 SoC
+
+ .../pinctrl/econet,en7528-pinctrl.yaml        |  190 +++
+ drivers/pinctrl/airoha/Kconfig                |   15 +-
+ drivers/pinctrl/airoha/Makefile               |    1 +
+ drivers/pinctrl/airoha/airoha-common.h        |    3 +
+ drivers/pinctrl/airoha/pinctrl-airoha.c       |   33 +-
+ drivers/pinctrl/airoha/pinctrl-an7563.c       |    1 +
+ drivers/pinctrl/airoha/pinctrl-an7581.c       |    1 +
+ drivers/pinctrl/airoha/pinctrl-an7583.c       |    1 +
+ drivers/pinctrl/airoha/pinctrl-en7523.c       |    1 +
+ drivers/pinctrl/airoha/pinctrl-en7528.c       | 1204 +++++++++++++++++
+ 10 files changed, 1443 insertions(+), 7 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/econet,en7528-pinctrl.yaml
+ create mode 100644 drivers/pinctrl/airoha/pinctrl-en7528.c
+
+Range-diff against v1:
+1:  5a7f97adbca7 ! 1:  420a5e385cf7 pinctrl: airoha: limit GPIO interrupts to interrupt-capable pins
+    @@ Commit message
+         instead of deferring the failure to request_irq().
+     
+         Signed-off-by: Ahmed Naseef <naseefkm@gmail.com>
+    +    Reviewed-by: Benjamin Larsson <benjamin.larsson@genexis.eu>
+     
+      ## drivers/pinctrl/airoha/airoha-common.h ##
+     @@ drivers/pinctrl/airoha/airoha-common.h: struct airoha_pinctrl {
+2:  7e6150b186c2 ! 2:  c20005a81b40 dt-bindings: pinctrl: Add EcoNet EN7528 pin controller
+    @@ Documentation/devicetree/bindings/pinctrl/econet,en7528-pinctrl.yaml (new)
+     +  '#interrupt-cells':
+     +    const: 2
+     +
+    -+allOf:
+    -+  - $ref: pinctrl.yaml#
+    -+
+    -+required:
+    -+  - compatible
+    -+  - airoha,chip-scu
+    -+  - interrupts
+    -+  - gpio-controller
+    -+  - gpio-ranges
+    -+  - "#gpio-cells"
+    -+  - interrupt-controller
+    -+  - "#interrupt-cells"
+    -+
+     +patternProperties:
+     +  '-pins$':
+     +    type: object
+    @@ Documentation/devicetree/bindings/pinctrl/econet,en7528-pinctrl.yaml (new)
+     +
+     +    additionalProperties: false
+     +
+    ++required:
+    ++  - compatible
+    ++  - airoha,chip-scu
+    ++  - interrupts
+    ++  - gpio-controller
+    ++  - gpio-ranges
+    ++  - "#gpio-cells"
+    ++  - interrupt-controller
+    ++  - "#interrupt-cells"
+    ++
+    ++allOf:
+    ++  - $ref: pinctrl.yaml#
+    ++
+     +additionalProperties: false
+     +
+     +examples:
+3:  c3b785d8463e = 3:  ea5b2ce92136 pinctrl: airoha: add support of en7528 SoC
+
+base-commit: d067f0f4c96cb5402a111cf649b7bf9c5771ec74
+-- 
+2.34.1
+
