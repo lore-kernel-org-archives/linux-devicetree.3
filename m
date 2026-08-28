@@ -1,45 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D287337BE9E;
-	Fri, 28 Aug 2026 16:30:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C92838642A;
+	Fri, 28 Aug 2026 16:32:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787934624; cv=none; b=mhDltaZehy9elMkfWKQCMJ3QwptOJCRUkhJX52HoixcCsPYxq3wqWu+12UkfANrtykKPGT+K2XtxzzrTPwHhlcNdI2lM3TmRvTaoIC6S7Ylkt3FVZWh2AHucJ0xbhwjejCiUCEplQEkXV31zuuVtdZ6TPvQi4TW11Ch0Ybvo8TI=
+	t=1787934734; cv=none; b=OquQ0iHNVjFcIcwR/mzamxWV/uRsZ+1cm0uVwDFiBL6dg8MD3b5Dq1ZZcOK2XshESIoqx7/rXuR6CNaolrmKLGTNFHBJ0dr4pPqk3n5n0uyS6J8F1t70dF2SYCIbeiRYqEClPIeN3/up8e5n96OVDmbZ6itZDDLjMk4icrtJO6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787934624; c=relaxed/simple;
-	bh=9AczKV9fr7mHCvrrXvP/w5fRYMZr5vsSP92/Adanj/c=;
+	s=arc-20240116; t=1787934734; c=relaxed/simple;
+	bh=njILdYWzrPKAMv8FuiQxSWnVfxjzgLDz6ZD28Fr5mB4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XldhLindIOUam70s8gduYpaqYyohCK4Je9geawMwyq6b9ywk8RJqtDVfE4mOaDYGx2fP4jCNS4cZFHU5t/KWhEoMcj3v9Kih9p2exLHjU+eV/pUgcNF1BSHjvE3H7Fm4Z5gN67OKudV87cqlB10TMCJpx0N3whFGPG7n3MxHanw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cQKq5xOo; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=YCquCq3ehIJb0EyNp5Wrs/Fu9tLhl8ty0Yh1lfisEeYQfQUJmIMJ1UxtQIY5EAtgLnuyv38ZjqIb3bWo+823HqFzpUTzqbQ6UQLPJDKlAUoTmZ8vRfQN7vt26T+bOvRFCbNtYzZVCJF8Lep5kyEuZCjaJxhtujw2GNnU4XCXaPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dKF76TUt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cQKq5xOo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7A031F000E9;
-	Fri, 28 Aug 2026 16:30:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dKF76TUt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85EC41F00A3D;
+	Fri, 28 Aug 2026 16:32:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787934622;
-	bh=rlOkBHzBvasYYnkUVjzKqrztOu7qV8bIX60v6CRdSPA=;
+	s=k20260515; t=1787934730;
+	bh=njILdYWzrPKAMv8FuiQxSWnVfxjzgLDz6ZD28Fr5mB4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cQKq5xOoOY5/B5Z4Vh2n01MowTbjOl8QdmjxZZswLx+1H1N0vFGl5cIjnsMfxJODM
-	 rNYP8TYCDJnjQuprO1UHyigYqD5O3bKnlg5r6v6gYzPRaNg9rzyBHllpmOlcBpERMz
-	 A5fqjaA+HpgyVHLiP7p0wLPvQqTb1n96g9Ah3TYx14DrI5FGxb/Mk0ImGh+OYJsP5w
-	 aqYlYGS1p30URzwWnSabeypeQq163aSYX2YRFkYFTnifNIeQgN55kdT9qvopkWDOVS
-	 3PC/KjZAVnfkMCDvzyENC4hnBI6Oie2wp9o7y6npdrpnrXO+jOaWM14i23RM7qP+5P
-	 lROvk/HXmu+sg==
-Date: Fri, 28 Aug 2026 17:30:17 +0100
+	b=dKF76TUtthzkUDfKUzttCut0Jicjf7g4vNfbgCo/PS+wZeWmCfF4VGbQ9z05FBiAz
+	 gyjh4JnIkafdxE2KvtzJNBohHJM+BsU2mcGUwCfogEzx9SZiMBIqjW3Szui0ErCD0S
+	 b4v/e59GFuSx197hzgelX49k2QqkqUFidmssEjMD9Q6lYZZ0hhA17tEyTwgExSGZbz
+	 EvswYa6VD+6ab76q4Y7WqIm7y7anczrv2HP74PUU6SWbIy99Lf/Hz0x7nN0lKq59pB
+	 mIJmiUD63F8RXG6K5xP3R1kZuil98RQ6sgB/cp0xKWFj4ho6O33TP45LdFqybQGP6s
+	 m/AduVLpbIlAw==
+Date: Fri, 28 Aug 2026 17:32:05 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Sasha Finkelstein <k@chaosmail.tech>
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>, Stephen Boyd <sboyd@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v8 1/6] dt-bindings: spmi: apple,spmi: Add t603x and t8122
-Message-ID: <20260828-stiffness-activator-d294624667ae@spud>
-References: <20260828-t603x-spmi-v8-0-708d4d12e0fd@chaosmail.tech>
- <20260828-t603x-spmi-v8-1-708d4d12e0fd@chaosmail.tech>
+To: Lachlan Michael <lachlan.michael@sony.com>
+Cc: mchehab@kernel.org, sakari.ailus@linux.intel.com,
+	hverkuil+cisco@kernel.org, laurent.pinchart@ideasonboard.com,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	kieran.bingham@ideasonboard.com, jai.luthra@ideasonboard.com,
+	Ryuichi.Tadano@sony.com, Kengo.Hayasaka@sony.com, Tim.Bird@sony.com,
+	Kazumi.A.Sato@sony.com, Yuji.John.Takahashi@sony.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] media: dt-bindings: imx908: Add Sony IMX908 sensor
+Message-ID: <20260828-hedging-olive-eaea0b4027a0@spud>
+References: <20260828064843.65047-1-lachlan.michael@sony.com>
+ <20260828064843.65047-2-lachlan.michael@sony.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,107 +48,26 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="kr68XvzKP7bsDbmd"
+	protocol="application/pgp-signature"; boundary="VvzjIjB4ZnlO6lyl"
 Content-Disposition: inline
-In-Reply-To: <20260828-t603x-spmi-v8-1-708d4d12e0fd@chaosmail.tech>
+In-Reply-To: <20260828064843.65047-2-lachlan.michael@sony.com>
 
---kr68XvzKP7bsDbmd
+--VvzjIjB4ZnlO6lyl
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 28, 2026 at 10:58:57AM +0200, Sasha Finkelstein wrote:
-> Add t603x and t8122 compatibles, interrupt support, and support for
-> SPMI controllers that are not always-on.
->=20
-> Reviewed-by: Janne Grunau <j@jannau.net>
-> Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
-> ---
->  Documentation/devicetree/bindings/spmi/apple,spmi.yaml | 31 ++++++++++++=
-+++++++++++++++++++
->  1 file changed, 31 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/spmi/apple,spmi.yaml b/Doc=
-umentation/devicetree/bindings/spmi/apple,spmi.yaml
-> index 3e5b14bc8c31..09d383bb4fec 100644
-> --- a/Documentation/devicetree/bindings/spmi/apple,spmi.yaml
-> +++ b/Documentation/devicetree/bindings/spmi/apple,spmi.yaml
-> @@ -20,8 +20,11 @@ properties:
->        - items:
->            - enum:
->                - apple,t6020-spmi
-> +              - apple,t6030-spmi
-> +              - apple,t6031-spmi
->                - apple,t8012-spmi
->                - apple,t8015-spmi
-> +              - apple,t8122-spmi
->            - const: apple,t8103-spmi
->        - items:
->            - enum:
-> @@ -34,10 +37,38 @@ properties:
->    reg:
->      maxItems: 1
-> =20
-> +  interrupts:
-> +    maxItems: 1
-> +    description: Optional, operates in polled mode if not present
-> +
-> +  interrupt-controller: true
-> +
-> +  "#interrupt-cells":
-> +    const: 2
-> +
-> +  power-domains:
-> +    maxItems: 1
-> +
->  required:
->    - compatible
->    - reg
-> =20
-> +if:
-> +  properties:
-> +    compatible:
-> +      contains:
-> +        enum:
-> +          - apple,t8122-spmi
-> +          - apple,t6030-spmi
-> +          - apple,t6031-spmi
-> +then:
-> +  required:
-> +    - compatible
-> +    - reg
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-This duplicates the unconditional required bit, I would drop it so that
-you can add an else condition and rule out the interrupt related stuff
-on the devices where it may not apply?
-Even if the itnerrupt stuff is possible elsewhere, please drop the
-duplicated part.
-
-Thanks,
-Conor.
-pw-bot: changes-requested
-
-> +    - interrupt-controller
-> +    - "#interrupt-cells"
-> +    - interrupts
-> +
->  unevaluatedProperties: false
-> =20
->  examples:
->=20
-> --=20
-> 2.55.0
->=20
-
---kr68XvzKP7bsDbmd
+--VvzjIjB4ZnlO6lyl
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHQEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapG3mQAKCRB4tDGHoIJi
-0hBLAPdO6fCWIe7lCGuZKPTY7tTNQreiZQ7KMfF54OHN9jIPAP9UkSq+u+UDSm9B
-NwDr89Jrz4qy63kCjhxx8iIj5bWTCA==
-=ayCU
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapG4BQAKCRB4tDGHoIJi
+0vEDAP9Y5r8QxUbjfWR6ImpEelzBAsd21ww9C7zBt5XbY14WHgEA1IyJXsR2sK3t
+57X8B7PzRHm44B0V2Ud2NqWGJmUKrgI=
+=IbDy
 -----END PGP SIGNATURE-----
 
---kr68XvzKP7bsDbmd--
+--VvzjIjB4ZnlO6lyl--
