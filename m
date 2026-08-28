@@ -1,112 +1,202 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80B65371CFF;
-	Fri, 28 Aug 2026 15:53:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FDC3367F26
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 15:54:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787932409; cv=none; b=D3ZWExFJi/MUgUat8fUe+acaCNXXXaojX92VfW806DHiaHCXT9VrcTE4SK1P087nKuL2KZgVC2sIL7p3wP3+uiH+4IDQY99Sl001R2c5/xsVuKOKw2ePk8RGP6aaLGcDWR9ujAM4ODcHiF8/OB0lfMNgvwBPit/LaynTzUSQeQ4=
+	t=1787932496; cv=none; b=SSeIsiOyPo7iQZe1YXB/VX7AX9Cr9aGSGS02GFIksIBG4YJTFcdIybbJIem2rkx/13RpIHm4V47cPwy6GS1YznyI1sYhfaCnTC5G1fflVcJzX5lXfKxwvls7J2rtvV/NpcWjUjhX3z7n3In6jIlqTWou9fPf594l6iyOm1B2UMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787932409; c=relaxed/simple;
-	bh=rul8oV4bLn598lIb6gr2RKI0bv1EPl+VpXNSLDe180g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=UYXOwRhwG1D232Akp6R7saZI1GdZOKE39gm5Mdyjun+dW906KHp5tvCkGV057WRlWRlbGqG3wpOBItdzqTFrsiRN2cvB8Mx+RpW7txAsS49FUVa3hR2sEqkRSQzpgjKhYwUI9CkiTw8/i6pEYdEn5TrTN/VvhISbmMwm+TjnNVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=zcysypdu; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1787932496; c=relaxed/simple;
+	bh=/YUkk2oL8J2c9x2ZMrrT+zRp55kHgcpvY/KKF5ODoek=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=PKOgcG0Aj9WX6pMAOxP9PZV7Fix6xj9v0iFn0SGB59+ZgDriq4wmg86cMHSbNznT/GcJHsgxeE83P+Tb1PolSCnQFH9KjDsJIlLcqbBpn69Dk1+OybC4M3xaZ1c732elAKG2h9+JGhLUGuz78RETvZN4x3SQ7gv7y+TPJbaOsXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=IPrYL6Ez; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="zcysypdu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1787932408; x=1819468408;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=rul8oV4bLn598lIb6gr2RKI0bv1EPl+VpXNSLDe180g=;
-  b=zcysypduE/ffseUJT/bwtmMi5xxfHq/9F6NbRAA9QNVTgImcpt8r2Fij
-   IvgmPqB6iDEjhglNvyrRnpukVoX6vX53NaBA45XLEyLgd11Kt9Ozh8bCd
-   e7vzo+SUkhZ55cAM4qNCh5DSITZPGQaNqwvO1Seq4sapGAjmmVl8NEVE/
-   YMxbxJQK9zStaYSSamV19NutXh3Jdp6/IfbYzUFQ2mOaB27BxjTsiBtxr
-   kE46f8xOLA2swMrXQDPcjsrb2bON/nePd3wmiX+NzOKQB2zL0/SNEtky3
-   +faU7EMLqWr1NPKwP1QWxqEhZWo+n8Cqb7J2TQ3CfIVpOuiESiEc3X0K3
-   g==;
-X-CSE-ConnectionGUID: j5/KmXZdQsSFlgTWsaTc8g==
-X-CSE-MsgGUID: N2KYhVp+QAqc84LomdPdzg==
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="63124554"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 28 Aug 2026 08:53:22 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Fri, 28 Aug 2026 08:53:21 -0700
-Received: from ROU-LL-M19942.mpu32.int (10.10.85.11) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Fri, 28 Aug 2026 08:53:18 -0700
-From: Cyrille Pitchen <cyrille.pitchen@microchip.com>
-Date: Fri, 28 Aug 2026 17:52:25 +0200
-Subject: [PATCH v8 4/5] ARM: dts: microchip: sam9x7: Add GFX2D GPU
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="IPrYL6Ez"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-482ddbc11aaso853287f8f.3
+        for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 08:54:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1787932493; x=1788537293; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=9y4LFg6yvTjsxuVx9xI+CfaKWUbNOzH9RLH+rTwjQJw=;
+        b=IPrYL6EzORo2pxUMQpc13b8RidVTTmcYCOMTty+ysPHc7pBS+zt8pmdY1vmSb/IZyS
+         zDRszXD+JpUk80tR24tA04xebTeWv5blmf0X5l6cOkcr3VdbT5rdPYt1ob98hJQ0Zq5s
+         WyLHEVy5W5aa12c2BGR9ooPqWyegFYnKCxpENo07x9f+l+B2JZWUjFesI0fOKPVxgQeo
+         zNzm9pMOsn6E+pqrGF4yD/2kTwZ6O2XVgrsU71Bgs0QNRSHzmF105zeoHB7Z1YwZ+jGX
+         Yg5uk9mM9d3XOeqQfvygIJddzMKAanSOd+yRqLA4AzP1BOA7ZKnQiNjCLJq/2MBmNKal
+         lKoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787932493; x=1788537293;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9y4LFg6yvTjsxuVx9xI+CfaKWUbNOzH9RLH+rTwjQJw=;
+        b=e0SP6k3k1k5HVtZ//O1HzvTCLOSpYIOTyRneFOdGyw+1+vdWMco2hWuHYciB2Rjoyq
+         7WhQndeopoRwvP3Lsua5IUVojx3F3vCDzy10jW79U1VjBj2NVNXjsh0Tqc2NAav4nMwH
+         DLGzC2M/s9XdaYUAtvYzW4vRGiaUM+B3s4LhQxm+E8Ln8G4goEn0Z0WX+Enm0SVCu7MV
+         hfYrEKcVapIkop0ghWYP1uHGUp8VyBMi5qMUag0MlhuypYbPVejX0GxsbzSbhGVqB/zf
+         4nEbeuhBwCNnIMyzPiDUkto6lQjiVk5noeSxob59D9Q75miwg3mflKARBQbPCpyQoBB4
+         Duag==
+X-Forwarded-Encrypted: i=1; AHgh+Ro/ZUO9h+pghZ+ZnDNQ/wKLGTezuXWea+2oP9ID4toxqz1GQUy5Owk1ohTJoXEYA0ghTkSLoY0fGULt@vger.kernel.org
+X-Gm-Message-State: AFuF++kxN44+5qUph/y8DS3CSav7CHVd11cyfnI/Dh3MGkngUSRB4W/I
+	p8Bg6Xl0ajSWkI02Stvu27Y8zwzJ4MbUXBDCtTPdY6Binwoaio7d2RKecgfob36XCss=
+X-Gm-Gg: AR+sD12u8NiYhmqgP+Z2H5KGWWhjv8ja+SYBl7NYaAAF3r3tnGkzXJh7llzD3kS9phj
+	R4SUBawW2Fyb09dDDZAs8ntEx2TBAq7u+ckQFHl1O6WT72Tu7SC/yQgzT8wmc4OOnwjkCEbBAVW
+	JhG4IKFXU9bnV822cRfLfUn3ydLubn7XDgnn78K+3R6gQaGm1og25b1pXDTYa23jROKcD9WZezq
+	5JnHEqRlznvpNtKW9X9KTCW+nxHyxqVJKT+JdjEQ6y9ccqSNmzt+INbNyXfiipjq69cq0hSGOex
+	f7gQMcOFNrVb6Z7cem4B1cKVnmjZ6eJfsC/Z7wXw7ZrvsHiqhZGFw10VrViKKw0QohIWUtZQmrm
+	GMYl/CXSrzX481kQxfL64pxRmrZp1KkUqlr7WF1rNEauK9wV/d8j2ZpaBMPZFqjp6fF9iUgj8gK
+	8EzS/VkBTJ/AasphOOLCNqYMZSw9xbNWsU4vpCc65fMh5FsbXSgzLZWC5iqxgMabkgX8n73iRLD
+	mnsNAAGqFNwyulLWGOsH9pv5Mbzj9Mm3SvVANKRxorc/vT5D47PZEe6c9an
+X-Received: by 2002:a05:6000:2589:b0:47d:eedb:ee62 with SMTP id ffacd0b85a97d-482f79e0b63mr13842837f8f.14.1787932492661;
+        Fri, 28 Aug 2026 08:54:52 -0700 (PDT)
+Received: from localhost ([94.4.85.166])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbab3f45sm7473298f8f.7.2026.08.28.08.54.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 28 Aug 2026 08:54:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260828-cpitchen-mainline_gfx2d-v8-4-378374559738@microchip.com>
-References: <20260828-cpitchen-mainline_gfx2d-v8-0-378374559738@microchip.com>
-In-Reply-To: <20260828-cpitchen-mainline_gfx2d-v8-0-378374559738@microchip.com>
-To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	"Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
-	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
-	"Alexandre Belloni" <alexandre.belloni@bootlin.com>, Claudiu Beznea
-	<claudiu.beznea@tuxon.dev>, Russell King <linux@armlinux.org.uk>
-CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	Cyrille Pitchen <cyrille.pitchen@microchip.com>, Manikandan Muralidharan
-	<manikandan.m@microchip.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=946;
- i=cyrille.pitchen@microchip.com; h=from:subject:message-id;
- bh=rul8oV4bLn598lIb6gr2RKI0bv1EPl+VpXNSLDe180g=;
- b=owGbwMvMwCXmf6yzKqEsVIbxtFoSQ9bEdXcDmQKiv+4W+ZKx9vNx9Zl1P0KmW97a8fXYidgTr
- 547FW2T7ihlYRDjYpAVU2Q59GZrb+bxV4/tXolKwcxhZQIZwsDFKQATeSfKyDD74pPJHl9eLnXR
- WnVCXC5W334n1x157gPfnPxYJ8nJvZBk+B+unJ3qKNIW0LFgxVbZAqXtNzYKTz2c4Srxa3LikRX
- q/hwA
-X-Developer-Key: i=cyrille.pitchen@microchip.com; a=openpgp;
- fpr=7A21115D7D6026585D0E183E0EF12AA1BFAC073D
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 28 Aug 2026 16:54:51 +0100
+Message-Id: <DL0P67CVWELH.1WDA9P8IZXKJH@linaro.org>
+Cc: "Alexey Klimov" <alexey.klimov@linaro.org>, "Sam Protsenko"
+ <semen.protsenko@linaro.org>, "robh@kernel.org" <robh@kernel.org>,
+ "krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
+ <conor+dt@kernel.org>, <krzysztof.kozlowski@oss.qualcomm.com>,
+ <alim.akhtar@samsung.com>, <linux-arm-kernel@lists.infradead.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-samsung-soc@vger.kernel.org>
+Subject: Re: [PATCH v2 0/2] Exynos850 GPU support
+From: "Alexey Klimov" <alexey.klimov@linaro.org>
+To: "Peter Griffin" <peter.griffin@linaro.org>, "Thomas Turner"
+ <tturner@lineageos.org>
+X-Mailer: aerc 0.21.0
+References: <GVYP280MB12139AB976CA7ACF49FEB768A1A52@GVYP280MB1213.SWEP280.PROD.OUTLOOK.COM> <CAPLW+4kQTUX8QhKnAP7bg=iCw5hhNQZoW7cuOpTdvvAUpGaicg@mail.gmail.com> <135d48e7-58ac-48b8-8fa5-c2548e2f3ae9@lineageos.org> <DKZ3X5VUHJSK.1KSJR6K8FATGV@linaro.org> <5e8698db-974c-4f8b-8939-bcdf8a47743d@lineageos.org> <CADrjBPrhaQHyQX-+FEHYH5rCwh9_fMUVsV5fpvRkR-RF_9Erkg@mail.gmail.com>
+In-Reply-To: <CADrjBPrhaQHyQX-+FEHYH5rCwh9_fMUVsV5fpvRkR-RF_9Erkg@mail.gmail.com>
 
-Add support for the GFX2D GPU.
+On Fri Aug 28, 2026 at 10:35 AM BST, Peter Griffin wrote:
+> Hi Thomas, Alexey, Sam
+>
+> On Wed, 26 Aug 2026 at 20:44, Thomas Turner <tturner@lineageos.org> wrote=
+:
+>>
+>> On 26/08/2026 20:02, Alexey Klimov wrote:
+>> > On Tue Aug 25, 2026 at 10:05 PM BST, Thomas Turner wrote:
+>> >> Hi Sam and Alexey,
+>> >>
+>> >> On 19/08/2026 20:51, Sam Protsenko wrote:
+>> >>> Can you please tell us a bit about how you tested this patch, and on
+>> >>> which board? As DPU is not currently enabled on Exynos850 SoC, I'm n=
+ot
+>> >>> sure how exactly GPU can be useful. If you have a use case or a
+>> >>> testing procedure we can run on the E850-96 board, please share.
+>> >>>
+>> >>
+>> >> Sam, Alexey could you please test GPU on the E850-96 board by followi=
+ng
+>> >> these instructions:
+>> >>
+>> >> 1) Apply this patch series locally
+>> >> 2) Change status=3D"disabled"; to status=3D"okay";
+>> >> 3) Make sure these configs are enabled:
+>> >> CONFIG_DRM_SIMPLEDRM=3Dy
+>> >> CONFIG_DRM_PANFROST=3Dy
+>> >> 4) In terms of regulators we set up a basic mali regulator via our
+>> >> secondary bootloader [1] and configured with this dts setup [2], NOTE
+>> >> you may be able to get away with a dummy regulator so try that first.
+>> >> If not I am sure you can replicate something simple with u-boot PMIC.
+>> >> 5) Boot a GUI, I saw Debian was used for the bring-up, that should wo=
+rk
+>> >> 6) Run the following command:
+>> >> $ dmesg | grep "panfrost"
+>> >> 7) Compare that to the output at [3]
+>> >
+>> > Your email subject still seems to be null.
+>> >
+>> > [   15.206193] panfrost 11500000.gpu: clock rate =3D 377000000
+>> > [   15.206322] panfrost 11500000.gpu: error -ENODEV: _opp_set_regulato=
+rs: no regulator (mali) found
+>> > [   15.206513] panfrost 11500000.gpu: supply mali not found, using dum=
+my regulator
+>> > [   15.206840] panfrost 11500000.gpu: mali-g52 id 0x7212 major 0x0 min=
+or 0x0 status 0x0
+>> > [   15.213137] panfrost 11500000.gpu: features: 00000000,00000df7, iss=
+ues: 00000000,00000400
+>> > [   15.221271] panfrost 11500000.gpu: Features: L2:0x07100206 Shader:0=
+x00000000 Tiler:0x00000809 Mem:0x1 MMU:0x00002830 AS:0xff JS:0x7
+>> > [   15.233080] panfrost 11500000.gpu: shader_present=3D0x1 l2_present=
+=3D0x1
+>> > [   15.240488] panfrost 11500000.gpu: [drm] Using Transparent Hugepage
+>> > [   15.250497] [drm] Initialized panfrost 1.6.0 for 11500000.gpu on mi=
+nor 0
+>>
+>> You seemed to have missed out step (4) of my instructions, if you set-up
+>> regulators correctly this error will disappear.
+>>
+>> > [root@e850usb ~]# uname -a
+>> > Linux e850usb 7.2.0-next-20260825-00009-g647b48e80572-dirty #8 SMP PRE=
+EMPT Wed Aug 26 17:05:45 BST 2026 aarch64 GNU/Linux
+>> >
+>> > I have different DRM_SIMPLEDRM options and related  enabled but nothin=
+g
+>> > pops up via HDMI (at least I tried simple xorg-server things).
+>> > Is it possible that your bootloader initilises some framebuffer and in=
+serts
+>> > it into DTB that passed to kernel? Or you have some other pieces in
+>> > kernel/dt that implement missing functionality?
+>>
+>> Our bootloader does intialise a framebuffer, and we have a node in our d=
+evice
+>> tree which makes it usable. Not sure how exactly the e850-96 device sets
+>> things up but you can take a look at our fork if you want, [1].
+>>
+>> > Here it seems there are no outputs:
+>> > [root@e850usb ~]# ls -al /dev/fb*
+>> > ls: cannot access '/dev/fb*': No such file or directory
+>> >
+>> > and there no simle framebuffer or related logs. "DPU is not currently
+>> > enabled on Exynos850 SoC" looks like the reason.
+>>
+>> hm, I am pretty sure our bootloader configures DPU for us so that might =
+be
+>> why it works for us and not for you.
 
-Reviewed-by: Manikandan Muralidharan <manikandan.m@microchip.com>
-Signed-off-by: Cyrille Pitchen <cyrille.pitchen@microchip.com>
----
- arch/arm/boot/dts/microchip/sam9x7.dtsi | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Yes, exactly, and see below too please.
 
-diff --git a/arch/arm/boot/dts/microchip/sam9x7.dtsi b/arch/arm/boot/dts/microchip/sam9x7.dtsi
-index c680a5033b6b..5450fddf89dd 100644
---- a/arch/arm/boot/dts/microchip/sam9x7.dtsi
-+++ b/arch/arm/boot/dts/microchip/sam9x7.dtsi
-@@ -292,6 +292,14 @@ AT91_XDMAC_DT_PERID(26))>,
- 			status = "disabled";
- 		};
- 
-+		gpu: gpu@f0018000 {
-+			compatible = "microchip,sam9x7-gfx2d";
-+			reg = <0xf0018000 0x100>;
-+			interrupts = <36 IRQ_TYPE_LEVEL_HIGH 0>;
-+			clocks = <&pmc PMC_TYPE_PERIPHERAL 36>;
-+			status = "disabled";
-+		};
-+
- 		i2s: i2s@f001c000 {
- 			compatible = "microchip,sam9x7-i2smcc", "microchip,sam9x60-i2smcc";
- 			reg = <0xf001c000 0x100>;
+> @Alexey - I think the LK bootloader leaves DPU framebuffer updates off
+> to ensure a seamless handover from the bootsplash to the full DRM
+> driver. We have the following DPU poke in gs101 (which if I recall
+> correctly we got the inspiration for this from uniloader)
+> https://gitlab.com/LinaroLtd/googlelt/meta-bsp-google-gs/-/commit/4057117=
+e4bc6e08fbb6ff281cbfef8782a68ec0a
+>
+> So for the E850 board, you likely need to do something similar, either
+> in LK or like the above poke. If UniLoader is already doing this for
+> the e850 SoC then hopefully you can check there to see the address of
+> the register etc. That should then able you to have simple-framebuffer
+> enabled.
 
--- 
-2.53.0
+Am not an expert in grapics but from all observations I see, that even
+if bootloader (say LK) sets up DECON/DPU and ley them stream DSI,
+then we are still missing support for Lonthium MIPI/DSI-to-HDMI bridge
+to output anything via HDMI on Winlink E850-96 board.
+There is high-speed connector though.
+
+For smartphones with simple panels with DSI interface all that actually
+could work if bootloader takes care about initial set up (exactly what is
+done in referenced repos of uniLoader AFAICS).
+
+BR,
+Alexey
 
