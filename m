@@ -1,200 +1,242 @@
-Received: from SY8PR01CU002.outbound.protection.outlook.com (mail-australiaeastazon11020078.outbound.protection.outlook.com [52.101.150.78])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazolkn19012076.outbound.protection.outlook.com [52.103.11.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43A183F1066;
-	Fri, 28 Aug 2026 10:50:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.150.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A07C3A4F33;
+	Fri, 28 Aug 2026 10:52:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.11.76
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787914244; cv=fail; b=LKpJaQAnq3ys5mm4RjDn/BjXkAAOOp9lNFvQ85Mnk/BEnYqezORz/VCJKmSEFJJhzfg2fBd8N5CQoWl5MNDurQM1s12HYPFJRi4t3szduGszB8Wom5ULHbXcFlxNWohQNB+UjvU4ImE+DKUMWp4J2Tr1ib/T/IUea06bJNAjyVQ=
+	t=1787914327; cv=fail; b=rmbxIaCUYiTrK1PyKc2PiYeYmREp1cA3/6BfSTzmahS2LaZivtvl9TSR+Wok5Kd9PkY/Kd67EFVp0KyIzeum1t7HjDxaZG7a1M3t1By9TeaBCZIUP85pLdngSKdojOc8iI9X7tDvxAhHDQTHmxnN7BVcgypTPmj6bhckjzQNfGU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787914244; c=relaxed/simple;
-	bh=DsMNJs1KA+LNMjVWNqJB/VDxRZ+tDGOeJj6BMMMrFcw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=c8Ru5gIZ7cl8MtJTEvb1wESEto61IsPchEcpwdDq1+w1WaC9B+q/viWpKvqTOj/dDW8vWsY4WnAp0/iAqxS52JyEW/L/kEqL+dnpbg3twE0BTGnpSG1cFogon0a8kn3WONwSBJXTvcR8FVwgvVNdoH9OUUIhoy07HcT9UVezk/M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=heitbaum.com; spf=pass smtp.mailfrom=heitbaum.com; dkim=fail (2048-bit key) header.d=heitbaum.com header.i=@heitbaum.com header.b=H6ZSttm8 reason="signature verification failed"; arc=fail smtp.client-ip=52.101.150.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=heitbaum.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=heitbaum.com
+	s=arc-20240116; t=1787914327; c=relaxed/simple;
+	bh=W0sdK+GkKi1fIlYLMW/VtewvZiSWUSYM+DU+DoQnffs=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=nTimS4HSxsmqm57l1diVx1RmKNCZsAk2aJPEaJlJmcfWXesKDbvG/StVIwHhfyw4ZPOJDF+JHakJ0InUWDFenMaOy9hZyykBm5JQJz6XFKiL9JAQ6DoXwdPJAt4f6tvQbSdcPgQKJyHd3C31qSzOnpuSY5hgC7Xvh4oj5ttHuqI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=vKi/iXqK; arc=fail smtp.client-ip=52.103.11.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=heitbaum.com header.i=@heitbaum.com header.b="H6ZSttm8"
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="vKi/iXqK"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ok+Qd//AMFbEAJJ/XdSuGutLOtXHTORlW2kT4kJEATCNk72tnCUp8g+RS6PvjLFTD3jTMlZVzB5qcCnvyHInrOKkNtmBgQbpL5qEm+sx8+3vmWs/5YGNdIOfhVismqrBsi/C1XeyGPFZO3R/rM8nckDNVE5OG/dRh1RjEtEj797lJGGWvE66Rt6a1/8G6QrPTS0KXmNYcWVJTOhMVNj4tJ69+vEG8FsKfK2Fip1gZA/QUML2KWcYe4qPA0EDl+GKYNhqabPHcq0UAcdRQYbYsN81tBICrQevBE0VvBSKlFeanS+RhXsn85PatcBFQD2/+yZPVmhzXyoRhpCMkw4MyA==
+ b=WHxBxvRyK8V3P0lm4cO+mfM6Jkwcrp0RBIvn3w29HhUEG8asYn18oKxe7bjsAAYSGJDbI0DZNclJkpJmJi3TaemyxkhFdV0tTMpQr8qH5JfhJEDSCWPwBoLgXboXxWoqxNORgJHDKTL2C80dRDomkwjbmj9Jf0n3EzxZUlcZtttcDp7RvX7D8Wb1mrTnXwW2RaiFrl/POX+/KZGdXmD3MPP/MroMt10gb5MqTvkKIpPkVlVKH2X/WPPjDnBZ/1VS+tlFcunVH1su5ia0L7860xeabm8Dm0sKCTGmuy36aoJD6TWiKJSAfMorEGuSHl4ARrcgxtmhM4/Mj9sMU+hTSw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Jj3i/f++guyvvv37GtQcyxTfuNpt6xoSHOVY9ZaZeSs=;
- b=xCohbBK4+t1UtyUfvjaLTGG59xTX90vK2/vHFGIiC6psDFct5x4YzW6c+Xwiq3VYWiPguk4gTFJJqUqoEyBRAtq8naZWkK2EwfV8ZZAD301zccOwDnCe3mYe1eGd9kcqjt7lhLELJ5HGy49cbrrRgLyJ1Nb4WMkpsTZ6OB/FwGTwlfV+WB+xdF2PZKAJgUDEEo0rcL37AroGKXKSCtxkouI99A6DOaavJzKWVCmTg3LHgxXqyu51rF1FHZ/E6ghiPNrJLX/7GkTGL5qUyHKKdN6BvGQgfspBOA8/fH4aqOy/5YZt/SyZa+20yXtzK/3xvIWEQo5PswGgR9l5JPtxtA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=heitbaum.com; dmarc=pass action=none header.from=heitbaum.com;
- dkim=pass header.d=heitbaum.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=heitbaum.com;
+ bh=U97FrOhtmvjdVGzcrMwoquLpToaN+RPvx4WRg2HtAKw=;
+ b=rJOqCCIzqEpfMrtTtMfrQfZ68c5L7E6lHmKQonU5awXuw9KcsmbNrgQFR/xDxYH/28fx8HWKrrJxplrFCkVUQZ+OOPbpLnUXKRXhrLXiTS+YIgsDt2i2DtnI0OHaGm/4T2deS0SLzJCGPO+K990bkUNzcvtzpiMC22AOlHBoxVOrzLQtdb4j/delb/yy2KU5XNX1rE/+4h8GMYI/AZmoRi+CJ0AGKsO0rb6Qz/QWhH4+yeQFHlm39FMsbAwaPZc5RRPoucJiPSsJ9m+Y/8zUXf9SEsUUo3CgBMcmY+sAU05NdAN8YyTLHUg0/T2YA6QtjPA0LYfV4ZyA/tpc8l+YAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Jj3i/f++guyvvv37GtQcyxTfuNpt6xoSHOVY9ZaZeSs=;
- b=H6ZSttm887XtGh7cYC8RF5+7ozAXn1NdtBOcol31QOXIVdwD/sqkB28jgKwZy0+s36nI84q+G0cujE9Pk4JH3uYjk5JOjcynPd5BRXff9Lu4hdf4d+d5/Prgb38ZGL3qYPXfUkVNfw3HiuyDhLMfazJ9OGMB+so+0YmsHn+34cnFgCp9sOOs+8yqY4Roq1bHPYgAx+Z5ibMD7YtDZIx6HNvs6R/qZ94rZ+7vWwMZfWiBpsArCxwkKRLsrgIQSk6HmbLa6TNbQYyIImupxRRF+byMuT1c7H/Sciu8No9vKtWZIZEpSWZ5V5E26hWpsgBFr3Gl1qaNQLS4kxCOKKg8gg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=heitbaum.com;
-Received: from SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM (2603:10c6:10:279::22)
- by ME4P282MB0758.AUSP282.PROD.OUTLOOK.COM (2603:10c6:220:94::12) with
+ bh=U97FrOhtmvjdVGzcrMwoquLpToaN+RPvx4WRg2HtAKw=;
+ b=vKi/iXqKlh7gsGfY7Zfni+7ioVW5eYR+P5VO3Uq0YYMa3dE+H0RQ/+cEUzwhdci7ORQFp2rtcE6baSCCNR2z08JEmebpeNz6CnVpWHCQDBdeyOBbFnobkQoZzbPvGpyp0qqvpsub3WiR+zNXiL22+KJLGW88Hw2s/mwn6Tvhpc+fXhUImO6EDPgsZOf+6BRgZ0tSYnHxX7mvs5gt9Vgjnh6NUsSN1z/D4lbiqzAaGhSjZC0/eQZxbViu8QyEluznQwLa+T8/aNtXd/CoYLgEd/Suvuxqdm0AjWUP9Og385cpbJnJc9egHefKjEYLzDl+VgW2km+a3EDE8NeQGBBdOg==
+Received: from SN7PR19MB6736.namprd19.prod.outlook.com (2603:10b6:806:263::12)
+ by SA1PR19MB5039.namprd19.prod.outlook.com (2603:10b6:806:1ab::17) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Fri, 28 Aug
- 2026 10:50:37 +0000
-Received: from SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
- ([fe80::21b6:91f8:614d:1fdd]) by SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
- ([fe80::21b6:91f8:614d:1fdd%4]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
- 10:50:36 +0000
-Date: Fri, 28 Aug 2026 10:50:17 +0000
-From: Rudi Heitbaum <rudi@heitbaum.com>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: rockchip: rk3399pro-vmarc-som: add i2c2 scl
- timing
-Message-ID: <apFn6U6Vq0nwaAMo@5be1eda4e59e>
-References: <aou1Q5-hdF7kRVpe@0d3a7a881997>
- <6298523.lOV4Wx5bFT@phil>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <6298523.lOV4Wx5bFT@phil>
-X-ClientProxiedBy: MEWP282CA0130.AUSP282.PROD.OUTLOOK.COM
- (2603:10c6:220:1d1::15) To SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
- (2603:10c6:10:279::22)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Fri, 28 Aug
+ 2026 10:52:02 +0000
+Received: from SN7PR19MB6736.namprd19.prod.outlook.com
+ ([fe80::4b6c:b84f:b71c:d0a]) by SN7PR19MB6736.namprd19.prod.outlook.com
+ ([fe80::4b6c:b84f:b71c:d0a%3]) with mapi id 15.21.0315.011; Fri, 28 Aug 2026
+ 10:52:02 +0000
+Message-ID:
+ <SN7PR19MB6736B881B203BF5746F0DEE39DAC2@SN7PR19MB6736.namprd19.prod.outlook.com>
+Date: Fri, 28 Aug 2026 14:51:53 +0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 01/12] dt-bindings: phy: qcom,ipq5332-uniphy-pcie:
+ Change to PCIe/USB3 combo PHY
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Praveenkumar I <praveenkumar.i@oss.qualcomm.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
+ Nitheesh Sekar <quic_nsekar@quicinc.com>,
+ Wesley Cheng <quic_wcheng@quicinc.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
+References: <20260825-ipq5018-usb3-v3-0-39be0955a6aa@outlook.com>
+ <20260825-ipq5018-usb3-v3-1-39be0955a6aa@outlook.com>
+ <20260828-wisteria-fennec-from-arcadia-a44ebe@quoll>
+Content-Language: en-US
+From: George Moussalem <george.moussalem@outlook.com>
+In-Reply-To: <20260828-wisteria-fennec-from-arcadia-a44ebe@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: VI1PR07CA0127.eurprd07.prod.outlook.com
+ (2603:10a6:802:16::14) To SN7PR19MB6736.namprd19.prod.outlook.com
+ (2603:10b6:806:263::12)
+X-Microsoft-Original-Message-ID:
+ <7986716a-1d6a-477e-99bb-1a0c8709a342@outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SY7P282MB4909:EE_|ME4P282MB0758:EE_
-X-MS-Office365-Filtering-Correlation-Id: 831cc8b1-4ad0-4347-eb29-08df04f230d6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
+X-MS-TrafficTypeDiagnostic: SN7PR19MB6736:EE_|SA1PR19MB5039:EE_
+X-MS-Office365-Filtering-Correlation-Id: c2c07e64-c25f-4ad0-15a8-08df04f2642d
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|10067099003|4143699003|56012099006|18002099003|22082099003;
+	BCL:0;ARA:14566002|51005399006|4140399003|5072599009|24021099003|6090799003|25010399006|15080799012|23021999003|19110799012|8060799015|37011999003|440099028|3412199025|4302099013|40105399003|2607281247196008|1602099012|10035399007;
 X-Microsoft-Antispam-Message-Info:
-	2ZH+ScBjouBk8OWMlmGLbk95FdGSbgsYguatI48tc7sCujo1ueXrIRUAzuKMI5K8yllZvodFPNMehnHhIxcEtIQdHPWZaug+zjzyAya6dVA40lLmL6V5LtubPbYE4HWchOaDq7Em83XHUWhthBX+VufbdEOh9xYCKCenROkBdp2Jq/d5SsNqEn0ewaBT786t+Z4X+sqLUmgymsVyPEmhbunsPQPP6Xt/4bJsaUOfOJZvdM4b4ioG1VD05DTL4JNBUF+6pJ5JvuyqfNBYBJy4itanauguOjh4RHohuyHZKE4RQv1tYC+j60a6rdmXsRrmsdgaJHhs/DQ2lcAbMgwHPLdQjWNtbfjB5Xz/i1es9XznBVnoP7VT91Zi0Nqzu8oepqMXC2Ix9kNr0QuLuP6lBNl3tFrZvJ/0DdS+Ku5hV6b+2xq9hqdYK/YYqkVLo4AeMGpcSqh2onxww+TET440Ko6Yi/VmiTo7W2WYOMC7q3svEspsLKylehbA5FFRi9Vy3Gpo3b+lmCm1DF3640QiNVkmBv07F/a/iUXwohu9mvbHIWDWqOexnEsEscZeWHlsLayKqwmKSO6cvNY0a1N8Xhfpg31L02BrO6bchU6y4zPEqxQR207qj2yofvV+zmAVuY4GY8d6XlmB+c0Fm5+I0v2rjW8Mkoc8FfXQP4VfcGM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(10067099003)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+	=?utf-8?B?Y0pHckZnMnJyOGZLYy9SRGErcm5rWSs0d2Nwb3JoblNzNGFKaGNsTUphQk53?=
+ =?utf-8?B?ZlUrZXN3eFUvNysyMG1LSE91MGp5NGVjbFR6eDlOcW9XUGhBNlRsbWFyUHgw?=
+ =?utf-8?B?ZWtkY3hSSi9QK1N1VkVrNTRMZU1CVTd5RjdMek4yS3RFSURGVmFDd2ZJTmZ1?=
+ =?utf-8?B?aFE2YWVFR0xTT00yQ2Fhb2ozRTJKU0pNYzZsdWEzVCtQSzc5TldJYkx3MXVD?=
+ =?utf-8?B?aFlDclBzeTNhdHF5QVZUa0pWcXowVldIcWlJT3phNklXVURPK3d6RFM4QVNM?=
+ =?utf-8?B?eEdyVzdWTE50dVRHdDlGckNIR1l2MEVQelF4UUFxQndDekVoY1VDODNkaTNB?=
+ =?utf-8?B?Q1pvTHlwNFJ6em1ic1BPQTMxdExobC9pa3g3ZUpzRlVXWHJjdFMrTnFLdUk4?=
+ =?utf-8?B?YkZwMDd5ZXpmaUhFUnB4QTcrbkRNOGhBLzBTK3hhYkVVdzlPT1ZWYmlyM1Z0?=
+ =?utf-8?B?aGUwK0R0OGszQmh2QjBTSHR1dW83RXc4RzdxbGFmeEFKcVhyWkFLZDcyZk5s?=
+ =?utf-8?B?L3NlUGJkcXFXUlNONmlWVlFSWCtOYjkxa2s1R1BNdHI2aWxibFJvOU9hTjRr?=
+ =?utf-8?B?Z05yL01PMW1XTzVVZVZxeUk5YWx5WUlrNjU2SWR1TkVuL0lzNlFvT0R2RXVI?=
+ =?utf-8?B?NzNFOGFYNmdRUzRDZWcvN0tWL1NkWmZxcFFFWTJvMjdaeWNhSGtiTDcxTlNM?=
+ =?utf-8?B?ODArbUJxU2lYU0VrOVNQMFhsMmowYS9EM21aYVNDU1FzMUsxMUwxS3hGWTJq?=
+ =?utf-8?B?dkFlK1h0U2FSb2xBTklaVk1EMTBOOFZyZlRINGtFVzRNV0IzaVN2WjVNWWpJ?=
+ =?utf-8?B?Slg2Z3JvNEVIZjFJQ05wT0FnR0JJWCtVMmhWYnRzb3VpdThPM1llUTREZlc3?=
+ =?utf-8?B?M0tjZDlvc2Z4Mk1OTG1mWUsxS0U0RkE5bmZOZDRiTGNOWVoxNmF6VGkyM1pY?=
+ =?utf-8?B?OEMvSkIrQUhRZGI1dHcyd1hFU3krejRNbHRURS9rTFRNV3JnSW9nc0dxNUV2?=
+ =?utf-8?B?WXBpNFJVMkZIL2d0eW1DVnFZWmVyb1NkUnRwYVZYckI2RTdwT3Z0amtxZUI5?=
+ =?utf-8?B?cWNnb3VSNEVRQnlUSU10Q2ZWdmlYUGVsKzJyZzJKTW1qRjgrandMZDNTTGRx?=
+ =?utf-8?B?ZnNDcjlwWW9qUTZLd1V2YUpkTytCUnlweVJpQVJDamV4MWNxWmNOenByWUgy?=
+ =?utf-8?B?YWZWQWlWdkxWdms0cE1HTU1BVW14eWduUU1pa2gyUUJxbXBvOVFkbjRmY1lH?=
+ =?utf-8?B?Z2VTd2RJQ3g1YzZXb3F5ZUQ4WUNDOWlhMEVEY1E0MUpvRTJFeXorOVdDYndk?=
+ =?utf-8?B?UG5xM1VRM2JKOVBQV3hSMUNDcXJGQ3BmR1FJanNwdHkrMG1sZVhFMmNsbjJW?=
+ =?utf-8?B?N3RVSHNLaWNKa0hleVlqcXJ6UHI2UVZzYi9KZHpsc1FmWDlmSGNDU1VSc0tJ?=
+ =?utf-8?B?SlRoOE5WLzIrNGVrQkNEcTE1UEVXWFR3eEQzeXhRPT0=?=
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?zLWesyqckoiNZ9UEHHpUP6JErI9fHvRarq6JNgh8Zo5RSpJt8zw4DjOmex?=
- =?iso-8859-1?Q?oMcXbKP932d53kdS88Scebkb4uHQSYNil7shoZ3YHi/I3uNj546jmve5zV?=
- =?iso-8859-1?Q?kRkpVgmGE4CieDAVNyw+/nJ74B1GdtEEynVxZ/nzVNOCrhoJPAINWHAkmD?=
- =?iso-8859-1?Q?sKsvGH3mdF/ftC4ywijakf9kHfCFt4pAjl9k8oGmSWKv1OGEV9ZIibExRr?=
- =?iso-8859-1?Q?nHyeErzpO8IUpMeRBzsOBYrT8SdtYriJflv+VJfBp6KbBuFLqZEGpERp34?=
- =?iso-8859-1?Q?HCxnwrfP0+iFfeUkUqvdKJDvORnAsItj4T7BBhvN/LsTBXIU0jRrJqI9Lx?=
- =?iso-8859-1?Q?YcKXXqdb+X5Z2DqvHScM9SkJmXSEc7QS05C/NZbP4DRhHfgMCyjFGxARZG?=
- =?iso-8859-1?Q?/dO2mZuaaZa5naKS1AaCKkwbv7xrb52jIZfnODyQY3dZszgS7bKBBRyR+4?=
- =?iso-8859-1?Q?weng7nEq7267VbS4eJUQZpZuL6wIBK4kWQHVV/cWX5CET9O4ySl6O9mGA5?=
- =?iso-8859-1?Q?xfCkm9LQa80gseE5U1DqZpx9gE0ngp4ebhf6dUsL4h6lBekOhGhh2t4+UL?=
- =?iso-8859-1?Q?f785CC2F5gVJJDrXLOm/niGEkaus/8eqqi94KFeeFkr06tO14UIwCXo47M?=
- =?iso-8859-1?Q?p3c78RMer8fpQyiuJOe7yY/I+LWyLzepcwPZfIs3VWJUhYtytXErBEI5aa?=
- =?iso-8859-1?Q?zQKJG+OVTyTdLcc0kcwBaSiVJ6ow8u4LARDqVV6y/wKfIBNA//dHYK7kf/?=
- =?iso-8859-1?Q?vU8kMcZ0o76LtEHf7Te/IHZv4jFK2PCsiwXW4wPBOAd3IKpK3eX8lE5Aep?=
- =?iso-8859-1?Q?wydzBynzKcBHgcbpRD6Y1WSAyPGA0nUV7hzNee+Xo6ws6ULhXLPwgyo3Df?=
- =?iso-8859-1?Q?edbL2NtvmKMFZUUTeXomUrX1qOkTcGgiLZWpCVskdZ8tzgNeMEYY0jnbO6?=
- =?iso-8859-1?Q?rMRajosPv+s6zRaIPrKf2m+hL9fUdHNCA3dk85MhNcxfN90f9RO0DS8ed6?=
- =?iso-8859-1?Q?pNeakfFTmL938n1ByVV6oS75XRlUB8r3lBuQOTiCRNzaZDUpPJatu4RVRo?=
- =?iso-8859-1?Q?x3Im+mPYKph7vxAJn0qpw87mZDeSvOMbolHsMlT31sRgoNdDPiHhDcjljv?=
- =?iso-8859-1?Q?ihTWdjKgZ/Cgm/Jll/BCHoyzley0x5JJp+WgYSHwz+442MX3fdqIVBv+4m?=
- =?iso-8859-1?Q?FIf/0p2zlAK/nKJytfW/UD4f5mq5RiGJiZ3/PT7mbZSbes414eCgh/ZJf0?=
- =?iso-8859-1?Q?cTaIz8VwHE+TEty/rEPrBkrFS06hBGXDnU0FXLTV/EcVGjLPbUzk9T9Io5?=
- =?iso-8859-1?Q?7pV99lSUhsfwTo21Rlf/bM8n9ENX9Zu1VWqcYeyHH/GSzoVuWAfcQJJ/i7?=
- =?iso-8859-1?Q?OF/w0d3eS8tX6gyxt2xTUepYa2a1DjcCqdsnzQveY9krObF+Rwub2YBjDY?=
- =?iso-8859-1?Q?byDB2qr3Z4PKjgIxnXyxdpjo4NhHijvnhMd3APqTgMkmDacrCmsDuzf12G?=
- =?iso-8859-1?Q?2uhJnKmKRLW59Af6ggkuMzJuZ0lfpjoWPhPM5O6V2zfifGT0GRV8kpr6Xp?=
- =?iso-8859-1?Q?6WyGtsfGefoUAL1Idg8yTOIryAyOlxv7Z2Q4dk3Z6OENKJLRrKli5+/A2L?=
- =?iso-8859-1?Q?8ptM9S5q9I6//l6VzK9TCl5l5zUxPW+WHtnwt2mKo8WHOWCqoD20RAcfir?=
- =?iso-8859-1?Q?6Y1jP/6KSjT1b40NbLjluRakbJSbOXr5t5fcM3jAhGTTS7zjL1VYQyIf0n?=
- =?iso-8859-1?Q?74ffq5wrr90MrhUovxCFxNrSao2Dp4n1aaRoq/XOhNt1mc?=
-X-OriginatorOrg: heitbaum.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 831cc8b1-4ad0-4347-eb29-08df04f230d6
-X-MS-Exchange-CrossTenant-AuthSource: SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
+	=?utf-8?B?NnpHN2htcHBwMEdZZ243S3RhNkxQR2F6SjFVRnBnYVNHdk9IZmxHTGVTZm1o?=
+ =?utf-8?B?K3RpQnA2R1E0alBJejRrSFJSVS9ZSFZSdlh5K3ZjSW42bDNhaXZuNWg5Zk9O?=
+ =?utf-8?B?TTN5WlZSZVpCVkUxWDdqeVhFLzA3a2l2Y2NwOWhacWNnSHY0bm9nSXAyVU5z?=
+ =?utf-8?B?UGdCQnlSZDFXaGtGcHRWN1hMNjZ6S2tjdDdTSHJNMmwwbkdRendvZFBnem1s?=
+ =?utf-8?B?SEFyNmxQRlpTOHBYc09Jd1V6elIwR1o3bjdpVmI2bHNMb2dadFhESE9EQ2Nk?=
+ =?utf-8?B?ZEJzVmhRVS94WGxoczhBZEhNMVhISTRUellSQXR2SXh4b0tkZDVoNm9vOUZB?=
+ =?utf-8?B?czZ6L1hEUjBMYWpOZG9aY2FmN3JNM3NCOEk3Q211cUdvTmI2aFF1Z3FtL0Zx?=
+ =?utf-8?B?Z2dsMFR5VEc2OGo1YnNTZTZMbVlTUUNRZWhodFhCOU4ramxLU2VNeXg2Q2l5?=
+ =?utf-8?B?VjQ3MnhjV0dIZXB5dm1UYVJON2NrSlE5Tml3L0UrU2lnMlQvYlZlelluNlV2?=
+ =?utf-8?B?QVVTZWEwY21mbDF0Y1Y0WXova244N1Y4Si9qdi9NVExoL1lwd1Fua1pYSGZZ?=
+ =?utf-8?B?dVQ2d3MzUHRuNk1aTTdBc0x5M29nUU42YzFIWkhyT0ZNUkdvZWk3QzMzNGUy?=
+ =?utf-8?B?RHIxdHJaVmRLNkFyMzZ3L2gveXA1M2F1RFFRc3cwRXJyY2NLdHgyTTV4ck9l?=
+ =?utf-8?B?YWR1YXdkKzBOWEpqNHExUFB4dk1ZK21wSXVMZzliS1E0TzdiZ3M4K21pbjBG?=
+ =?utf-8?B?RGFtVlNOblRSNGZFNktvclNWZ2dlSzR6azhGb3VxRkYxRHprQ084MXZWNm1a?=
+ =?utf-8?B?aDFIZXhlT242Yk5tTlhjOVNTR2IzUXhDZG5kZWxPY2V3eGpHQ1V4RnhCelov?=
+ =?utf-8?B?eU83dEdUVm1XSlh3M3Y1U0FlQ2hlVHhvcnZJU2p3UkV1b3JHWjRsL3BMYlBK?=
+ =?utf-8?B?MUN3VUI0bXVodlR3cnZocEdnb0xHeUJYS2d6ZnVHSEtKQW5CN09WOXJZL2Vr?=
+ =?utf-8?B?RVpLL0FiVFNIbXQvcTFINGxZVDA2bTJsWlJOM0laVWYyaUQyV3NsTVZlK2t5?=
+ =?utf-8?B?alhPbmRCUUpZb0srb1J1ODBLaU42QmYrS1I0NS9hYzBBWkFja0NzSGM2K3NS?=
+ =?utf-8?B?Y0dzQ2Q4WFNLTkJvN2phU2R3dVZsVHNiVnRmaG5YSEVTUDBlSTVab2FRbFFh?=
+ =?utf-8?B?bWZ5L2ZUdERHUU92M2k1QU9OTUhXajZqeEVYM2hRK3IvVDBScHFTVmdWSkVy?=
+ =?utf-8?B?dWR4SHZqS1U3c1FRVlk3UXpCcms3QzdXYkswY0RSeitqbHRiN1hCVlBBeGx6?=
+ =?utf-8?B?bFpGc0hWcmpNTnlrUmoza290bm1HRXZWeHp1VzVKYnI4Y3hOcE9pUmYrT1Jt?=
+ =?utf-8?B?bGxtcWtmSFo2em1UeU5sejZBUEpkTGFFQmFzZ1gxNC95MnJtNWdEd2JBM0hY?=
+ =?utf-8?B?UUZUMjZTVUpWWFczclovYlo0a3pRQ0RHV09MRFlFS0hqQjdiSktxbHFrK25M?=
+ =?utf-8?B?Q2JvVDJ1Nmh2YUlDZjUweTRmUlk3ZzFzL2JDUXhaYVJ5VkMrZjc5QjZGeHcr?=
+ =?utf-8?B?UlVkVk5XSzhxQTRTcTZFQ0lYY09rUUNZS3hDNTJVRzhPQ0RoZEpJY3A2dFlO?=
+ =?utf-8?B?YzN4VkUxVlQrK0RtcWJtaWUrVUo2RENaODArdnlWU1FyT0l2QTQwRURqN3Vh?=
+ =?utf-8?B?QWJROWloeTFVdVNkbFVjaXJLc1JXWWp3TzB4Zmo5YVo5VmhjZHVrdUZ5M2h3?=
+ =?utf-8?B?MXlWZEprdFpBMnBqd3htT1p4cTlxWmJ1THhRL3h5czliWGl6ZU1sb25EcGpz?=
+ =?utf-8?B?U2FPMWRvY1hTV0JtSTJqNVdoUlVxcW5nRXFrZldFa0dwMkd3eERESHJERzlO?=
+ =?utf-8?B?RTlkeXZrN1NCSGdsbXUrOGVkVW41OFpuWXBlQmx4Q1JCWXc9PQ==?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c2c07e64-c25f-4ad0-15a8-08df04f2642d
+X-MS-Exchange-CrossTenant-AuthSource: SN7PR19MB6736.namprd19.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 10:50:35.9230
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 10:52:02.4797
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 35ffebb5-7282-4da6-8519-efab29b0108e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ts1XtMnXWNCuZd707PjBdH4BdvywoJSqoxCBU0OnrkOzV6LaQSll4OqjlNBpuFfJQ9kIXovmbTjUwBHvQ/H/2Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ME4P282MB0758
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR19MB5039
 
-On Thu, Aug 27, 2026 at 03:18:01PM +0200, Heiko Stuebner wrote:
-> Hi Rudi,
+On 8/28/26 14:09, Krzysztof Kozlowski wrote:
+> On Tue, Aug 25, 2026 at 04:37:18PM +0400, George Moussalem wrote:
+>> This PHY is a PCIE/USB3 multi-purpose PHY. Initial support was added for
+>> PCIe only, so rename the binding and add support for USB3 PHY mode.
+>>
+>> The PCIe and USB physical pads are muxed and selection is done via a
+>> control register in TCSR. Add a new property to the binding to enable
+>> switching the default PCIe mux selection to USB3 mode.
+>>
+>> In addition, USB3 mode requires a 5V supply, so add a vdd-supply
+>> property for it.
+>>
+>> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+>> ---
+>>  .../bindings/phy/qcom,ipq5332-uniphy-pcie-phy.yaml | 109 ----------------
+>>  .../phy/qcom,ipq5332-uniphy-pcie-usb3-phy.yaml     | 141 +++++++++++++++++++++
+>>  include/dt-bindings/phy/phy-qcom-qmp.h             |   4 +
+>>  3 files changed, 145 insertions(+), 109 deletions(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/phy/qcom,ipq5332-uniphy-pcie-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,ipq5332-uniphy-pcie-phy.yaml
+>> deleted file mode 100644
+>> index 6e9df81441e9..000000000000
 > 
-> Am Montag, 24. August 2026, 05:06:43 Mitteleuropäische Sommerzeit schrieb Rudi Heitbaum:
-> > The hym8563 on i2c2 does not ack:
-> > 
-> >   rtc-hym8563 2-0051: could not init device, -6
-> > 
-> > It is also the ext_clock for sdio-pwrseq, so wifi does not come up
-> > either.
-> > 
-> > i2c2 runs at 400 kHz with no scl edge times. The core defaults both to
-> > 300 ns and rk3x-i2c calculates a 900 ns high period, which is short for
-> > this bus - it acks at 100 kHz. Set the edges to the values i2c3 already
-> > uses, giving 1050 ns at 400 kHz.
-> > 
-> > Tested on a Radxa ROCK Pi N10: rtc0 registers and keeps time across a
-> > reboot, and wifi activates.
+> Please do not rename the binding. Old name was correct. New one is not,
+> otherwise please point me to the compatible like that.
+
+I thought we had come to the conclusion it's the same device in the
+discussion in v2:
+https://lore.kernel.org/all/gn43qixdtbq5iyfqvzibdtx4lmwpkt2ieahr7oqsxxjfpldb6d@xbxhbdrq4e6b/
+
+I've split up this series into 3 as in the cover letter:
+1. Flatten USB Controller Nodes on IPQ SoCs
+   link:
+https://lore.kernel.org/r/20260825-ipq-flatten-usb-v1-0-5c1f3170bbe9@outlook.com
+2. Enable USB3 for Qualcomm IPQ5018 (this patch series)
+3. Enable USB3 for Qualcomm IPQ5332 (to be submitted)
+
+Since 2 is dependent on 1, I thought I'd wait for the feedback first on
+1, then submit 3 which is dependent on 2.
+
+But eventually, the IPQ5332 combo PHY looks like:
+
+	pcie0_phy: phy@4b0000 {
+		compatible = "qcom,ipq5332-uniphy-pcie-usb3-phy";
+		reg = <0x004b0000 0x800>;
+		clocks = <&gcc GCC_PCIE3X1_0_PIPE_CLK>,
+			 <&gcc GCC_PCIE3X1_PHY_AHB_CLK>,
+			 <&gcc GCC_USB0_PIPE_CLK>,
+			 <&gcc GCC_USB0_PHY_CFG_AHB_CLK>;
+		clock-names = "pcie-pipe",
+			      "pcie-ahb",
+			      "usb3-pipe",
+			      "usb3-cfg-ahb";
+
+		resets = <&gcc GCC_PCIE3X1_0_PHY_BCR>,
+			 <&gcc GCC_PCIE3X1_PHY_AHB_CLK_ARES>,
+			 <&gcc GCC_PCIE3X1_0_PHY_PHY_BCR>,
+			 <&gcc GCC_USB0_PHY_BCR>;
+		reset-names = "pcie-phy",
+			      "pcie-ahb",
+			      "pcie-cfg",
+			      "usb3-phy";
+
+		#clock-cells = <1>;
+		#phy-cells = <1>;
+
+		num-lanes = <1>;
+
+		status = "disabled";
+	};
+
+I have the patches ready. Let me know if you'd like them submitted.
+The idea was to prepare the binding for both IPQ5018 USB3 and IPQ5332
+PCIe/USB3, hence the rename from pcie -> pcie-usb3
+
 > 
-> You tested on a Radxa Rock PI N10, but are changing the vmarc-som?
-> I'm not really understanding this.
-
-Hi Heiko,
-
-Thanks for looking at this. The rk3399pro-vmarc-som and the dalang-carrier
-are sold by Radxa as a Rock-Pi-N10. Radxa sold the Rock-Pi-N8 with the
-Dalang carrier but with a RK3288 som (I have taken this into account when
-making the changes to the dts files).
-
-I had previously looked at completing the bringup done for this SBC,
-but on revisiting the bringup now have been able to complete the bring
-up of all IO on this board, but have considered that the dts needs to
-be broken across all of the 3 .dts files.
-
-The fix 4 patches that I have submitted so far are the dependencies for
-the dts to work.
-- arm64: dts: rockchip: rk3399pro-vmarc-som: add i2c2 scl timing
-- usb: onboard_dev: add the Rockchip rk1808
-- Bluetooth: btsdio: Do not bind to non-removable BCM4359
-- dt-bindings: regulator: fan53555: add tcs,tcs4526
-
-The followup commits are to the dts files:
-- arch/arm/boot/dts/rockchip/rockchip-radxa-dalang-carrier.dtsi
-- arch/arm64/boot/dts/rockchip/rk3399pro-vmarc-som.dtsi
-- arch/arm64/boot/dts/rockchip/rk3399pro-rock-pi-n10.dts
-
-https://github.com/heitbaum/linux/compare/1b78070aaef63512688aebfbc82365ef9d6660f1...58aad007a1866bfbab8393f779687ff1ec005209
-
-Thanks
-Rudi
- 
-> Heiko
+> Best regards,
+> Krzysztof
 > 
-> > 
-> > Signed-off-by: Rudi Heitbaum <rudi@heitbaum.com>
-> > ---
-> >  arch/arm64/boot/dts/rockchip/rk3399pro-vmarc-som.dtsi | 2 ++
-> >  1 file changed, 2 insertions(+)
-> > 
-> > diff --git a/arch/arm64/boot/dts/rockchip/rk3399pro-vmarc-som.dtsi b/arch/arm64/boot/dts/rockchip/rk3399pro-vmarc-som.dtsi
-> > index 64e6ba345739..074f09c6d11c 100644
-> > --- a/arch/arm64/boot/dts/rockchip/rk3399pro-vmarc-som.dtsi
-> > +++ b/arch/arm64/boot/dts/rockchip/rk3399pro-vmarc-som.dtsi
-> > @@ -296,6 +296,8 @@ &i2c1 {
-> >  
-> >  &i2c2 {
-> >  	clock-frequency = <400000>;
-> > +	i2c-scl-falling-time-ns = <15>;
-> > +	i2c-scl-rising-time-ns = <450>;
-> >  	status = "okay";
-> >  
-> >  	hym8563: rtc@51 {
-> > 
-> 
-> 
-> 
-> 
+
+Best regards,
+George
+
