@@ -1,97 +1,224 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF3DE3F1075;
-	Fri, 28 Aug 2026 09:59:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E209402442
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 10:00:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787911174; cv=none; b=czDTUyjGo19cMjI7HaSE6po5+kjAEW8yKqitRtUHWn4M2OnrhVf5FA0enCe/zdiykft+Ln2zxWM5jmOPv7UdWIIbtG5HtEp3PuE03Akt1hYXN3vhOfe2R6IJ9ZSCA44vuIww8iAStA3colM9azwWJmFIlW+0T4raLeg714R3DoY=
+	t=1787911222; cv=none; b=oAMT1e2MxCgRUcgxhaw4q9bGbluGZGsANn6MnQ9lILGlv5oIEzUvn5ga26Ay8MylOPMPZQS5Lsb0ZVbj49Nttvdl+7m59UBU17Lx88d6SJ8wMZIGtRfAqbmYz9Y09FIKRSOixfGmyihQEuebGec2ZrWtc2/yzTQHpXL5wHghknM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787911174; c=relaxed/simple;
-	bh=q+OqUY9U7dAIurBx97+xmYwmAEUVAcyK1ky6iCedwA8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=RxNt73ZvS5iAW2GHN0VITrGB7fEFJl4n5NMGL5DjoGu0ctmEMLCH5NMCLEyWoQSrMINUCfrOMbu+Ri/suU0X7T1u2mtu9i1iMk0aiwz2qAP5aRVCHjiTeYac5HdMhesBvxJh504NifMt4sfmSd01nsV8p1QQe8okL4Iq0HinoPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G1LblrIR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787911222; c=relaxed/simple;
+	bh=iBOyV8R0sA6BILHO3RmTUOYCnic4haZ9Opz5CAaQiaU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=bq/mBmDF81vFuKZCfhroJEQqCck30iQ6AGqNLY72kqWnsZCHE3HBc/phxjIwkg5rEp+hvGMWH6tf70iS90tmFrI4J8DhfPpZFhx/izLlO/evU21NXcFP5RUeWQ9J4tOLiGq7g0pDSqxnxXUhSHu+pSt7WUgE5l8p9m8YDKs/GIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=TpGeLH8r; arc=none smtp.client-ip=185.70.43.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G1LblrIR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF7541F000E9;
-	Fri, 28 Aug 2026 09:59:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787911173;
-	bh=4XSVL4EAvhWFKOoWDe6/AiQQA/jQL8MeC70q6Ta6vWA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=G1LblrIR8mXxBmWYhjwynQOd7z3G0wSbj0UNR5Uu42CxTMFf2kTbORF4EYMa+Rub4
-	 1637JYDtKp4WJTsw2VP1z9P+eUzpfzOgZy7HfQARfvLEZkr7K35CBbtVTrPb7PzLXy
-	 EpFoZlR/yhBBWjS+eO5CojZ6kiVxvNS3qQEqD7Tb0zNGul9FJFdO2/awvJ8ajP5ygu
-	 QSZdrc+BD72ocKEBdmmJxo/9Du89OykYCbcWjQKV5DATchUoHYjTRBnWG6P2/l1bbY
-	 WYbbYGv1gAkNUzj5ViAqRtCc7vDogEMcKsk+uMujIOqaDfOgdIJfGySLxylgQayxPa
-	 2I0svF4PjeXAQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 1/2] dt-bindings: input: Add Qualcomm SPMI PMIC
- haptics
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Fenglin Wu" <fenglin.wu@oss.qualcomm.com>
-Cc: dmitry.torokhov@gmail.com, devicetree@vger.kernel.org, conor+dt@kernel.org, linux-input@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260828-qcom-spmi-haptics-v7-1-0367b3ac2e1e@oss.qualcomm.com>
-References: <20260828-qcom-spmi-haptics-v7-0-0367b3ac2e1e@oss.qualcomm.com>
- <20260828-qcom-spmi-haptics-v7-1-0367b3ac2e1e@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 28 Aug 2026 09:59:32 +0000
-Message-Id: <20260828095932.EF7541F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="TpGeLH8r"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1787911215; x=1788170415;
+	bh=aL8dOK0Z12/AeZreZ5ToySnMoJipK21wXJHe9zbA5LY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=TpGeLH8r4im+hfNOVZVFoidShe/vutPhm8zzwZnlp2xIKy7TefvY602tO1dix+X5+
+	 qLXRhqLQJApFX/36WtNoCtPOI0Z8Tfh+jC0mMdjy16DG8EYT2nXIir4/T9iVurlZ/P
+	 NDJfZMtogZWmpeHLzKVhEPt/8IX9QVjYOqygktzZwBUzMSa6HBuCVce/y0PD/PujW/
+	 ZlS8AFgSjnxKqZ939O5oA4CKSi3Bj/okyNNThcsKGnr8qxBo8mt3tmBwsSFBiqb+c7
+	 gVQTxqi+httzAmMTFcBJ6qY6LqUitcLgFBJMbmgKsjdE2bQiFj9wAKGeVzfK9IveZi
+	 GntvPWlRfdt+w==
+X-Pm-Submission-Id: 4hWYlx61YGz1DDXH
+From: Esben Haabendal <esben@geanix.com>
+To: <sashiko-bot@kernel.org>
+Cc: <sashiko-reviews@lists.linux.dev>,  <conor+dt@kernel.org>,
+  <devicetree@vger.kernel.org>,  <robh@kernel.org>
+Subject: Re: [PATCH v6 2/9] iio: accel: mma8452: Optimize struct
+ mma8452_data member orders
+In-Reply-To: <20260825083858.A5F391F000E9@smtp.kernel.org>
+	(sashiko-bot@kernel.org's message of "Tue, 25 Aug 2026 08:38:58
+	+0000")
+References: <20260825-mma8452-open-drain-v6-0-9b252804ee80@geanix.com>
+	<20260825-mma8452-open-drain-v6-2-9b252804ee80@geanix.com>
+	<52mazOc3yYsstoPliCVc4oyvGKzUi8nU5NIjPfVBcXZ7qAvSjQtfOaXWc0_nQJgs0iCKMoowMZjilbzv5JbIVw==@protonmail.internalid>
+	<20260825083858.A5F391F000E9@smtp.kernel.org>
+Date: Fri, 28 Aug 2026 12:00:12 +0200
+Message-ID: <87h5key383.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The new `haptics` device tree node will cause validation failures b=
-ecause it is not permitted by its parent MFD schema.
---
+<sashiko-bot@kernel.org> writes:
 
-commit 69b46ca6dd857a336fadfc81c3a26d260c9c10ea
-Author: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+> Thank you for your contribution! Sashiko AI review found 4 potential issu=
+e(s) to consider:
+>
+> Pre-existing issues:
+> - [High] Short I2C reads lead to an uninitialized kernel stack memory lea=
+k to userspace.
+> - [Medium] Runtime PM reference leak on I2C communication failure.
+> - [Medium] Unbalanced regulator disable and unpowered I2C access during m=
+odule removal.
+> - [Medium] Data race during read-modify-write of event configuration regi=
+sters.
+> --
+>
+> --- Patch [2]: [PATCH v6 2/9] iio: accel: mma8452: Optimize struct mma845=
+2_data member orders ---
+> commit 26f60bee6a5ce9626d25a99fe80c0216eb010682
+> Author: Esben Haabendal <esben@geanix.com>
+>
+> iio: accel: mma8452: Optimize struct mma8452_data member orders
+>
+> Reorder struct mma8452_data members to avoid holes.
+>
+>> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
+>> index 7d683686dd9d6..f645a5c6fd1c2 100644
+>> --- a/drivers/iio/accel/mma8452.c
+>> +++ b/drivers/iio/accel/mma8452.c
+>> @@ -106,10 +106,7 @@ struct mma8452_data {
+>>  	struct i2c_client *client;
+>>  	struct mutex lock;
+>>  	struct iio_mount_matrix orientation;
+>> -	u8 ctrl_reg1;
+>> -	u8 data_cfg;
+>>  	const struct mma_chip_info *chip_info;
+>> -	int sleep_val;
+>>  	struct regulator *vdd_reg;
+>>  	struct regulator *vddio_reg;
+>>
+>> @@ -118,6 +115,10 @@ struct mma8452_data {
+>>  		__be16 channels[3];
+>>  		aligned_s64 ts;
+>>  	} buffer;
+>> +
+>> +	int sleep_val;
+>> +	u8 ctrl_reg1;
+>> +	u8 data_cfg;
+>>  };
+>
+> [Severity: Medium]
+> This is a pre-existing issue, but does this early return leak the runtime=
+ PM
+> reference count?
+>
+> drivers/iio/accel/mma8452.c:mma8452_read() {
+> ...
+> 	ret =3D i2c_smbus_read_i2c_block_data(data->client, MMA8452_OUT_X,
+> 					    3 * sizeof(__be16), (u8 *)buf);
+> 	if (ret < 0)
+> 		return ret;
+> ...
+> }
+>
+> If i2c_smbus_read_i2c_block_data() fails, the function returns directly,
+> skipping the mma8452_set_runtime_pm_state() call.
+>
+> A similar issue appears in mma8452_data_rdy_trigger_set_state() where a
+> failure during i2c_smbus_read_byte_data() skips dropping the autosuspend
+> reference if state was true.
 
-dt-bindings: input: Add Qualcomm SPMI PMIC haptics
+Adressed in follow-up patch series.
 
-Add binding document for the haptics module inside Qualcomm PMIC PMIH0108.
+> [Severity: Medium]
+> This isn't a bug introduced by this patch, but during module removal, does
+> mma8452_remove() execute operations on an already suspended device?
+>
+> drivers/iio/accel/mma8452.c:mma8452_remove() {
+> ...
+> 	pm_runtime_disable(&client->dev);
+> 	pm_runtime_set_suspended(&client->dev);
+>
+> 	if (client->irq)
+> 		free_irq(client->irq, indio_dev);
+>
+> 	iio_triggered_buffer_cleanup(indio_dev);
+> 	mma8452_trigger_cleanup(indio_dev);
+> 	mma8452_standby(iio_priv(indio_dev));
+>
+> 	regulator_disable(data->vddio_reg);
+> 	regulator_disable(data->vdd_reg);
+> ...
+> }
+>
+> If the module is removed while the device is in a runtime-suspended state,
+> pm_runtime_disable() does not wake up the device. Subsequent calls to
+> mma8452_standby() and regulator_disable() are then executed on an unpower=
+ed
+> device.
 
-> diff --git a/Documentation/devicetree/bindings/input/qcom,spmi-haptics.ya=
-ml b/Documentation/devicetree/bindings/input/qcom,spmi-haptics.yaml
-> new file mode 100644
-> index 0000000000000..ce2c9e893a0d7
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/input/qcom,spmi-haptics.yaml
+> [Severity: Medium]
+> This is a pre-existing issue, but can concurrent sysfs writes cause a data
+> race when updating event configuration registers?
+>
+> drivers/iio/accel/mma8452.c:mma8452_write_event_config() {
+> ...
+> 	case IIO_EV_DIR_RISING:
+> 		val =3D i2c_smbus_read_byte_data(data->client, ev_regs->ev_cfg);
+> 		if (val < 0)
+> 			return val;
+> ...
+> 		return mma8452_change_config(data, ev_regs->ev_cfg, val);
+> ...
+> }
+>
+> The read-modify-write sequence is performed without acquiring the internal
+> driver lock.
+>
+> If two threads concurrently write to different event attributes in sysfs,
+> could the initial read and bitwise modifications race, overwriting each
+> other's configuration bits?
 
-[ ... ]
+Adressed in follow-up patch series.
 
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +    #include <dt-bindings/spmi/spmi.h>
-> +
-> +    pmic@7 {
-> +        compatible =3D "qcom,pmih0108", "qcom,spmi-pmic";
-> +        reg =3D <0x7 SPMI_USID>;
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        haptics@f000 {
-> +            compatible =3D "qcom,pmih0108-haptics", "qcom,spmi-haptics";
+> [Severity: High]
+> This isn't a bug introduced by this patch, but can a short I2C read result
+> in uninitialized stack memory being leaked to userspace?
+>
+> drivers/iio/accel/mma8452.c:mma8452_read() {
+> ...
+> 	ret =3D i2c_smbus_read_i2c_block_data(data->client, MMA8452_OUT_X,
+> 					    3 * sizeof(__be16), (u8 *)buf);
+> 	if (ret < 0)
+> 		return ret;
+>
+> 	ret =3D mma8452_set_runtime_pm_state(data->client, false);
+>
+> 	return ret;
+> }
+>
+> If i2c_smbus_read_i2c_block_data() encounters a short read, it returns a
+> positive number less than the requested size. The condition ret < 0 is fa=
+lse,
+> so the code proceeds and overwrites ret with the return value of
+> mma8452_set_runtime_pm_state(), which is 0.
+>
+> When mma8452_read() returns 0 instead of propagating the short read:
+>
+> drivers/iio/accel/mma8452.c:mma8452_read_raw() {
+> ...
+> 		ret =3D mma8452_read(data, buffer);
+> ...
+> 		*val =3D sign_extend32(be16_to_cpu(
+> 			buffer[chan->scan_index]) >> chan->scan_type.shift,
+> 			chan->scan_type.realbits - 1);
+> ...
+> }
+>
+> Does the caller process and return the uninitialized stack memory from bu=
+ffer
+> via *val?
 
-[Severity: Low]
-Will the haptics child node cause device tree validation failures against t=
-he
-parent MFD schema?
+I will be converting the i2c register access to regmap in the follow-up
+patch series I am working on, and the regmap API does not have this
+issue, so should resolve this issue also.
 
-The parent schema for qcom,spmi-pmic enforces additionalProperties: false,
-but it does not define a patternProperties regular expression that permits
-a haptics node. Running dt_binding_check or dtbs_check on this example, or
-any actual device tree using this node under the SPMI PMIC, will fail
-validation.
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825-mma8452-=
+open-drain-v6-0-9b252804ee80@geanix.com?part=3D2
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828-qcom-spmi-=
-haptics-v7-0-0367b3ac2e1e@oss.qualcomm.com?part=3D1
+/Esben
