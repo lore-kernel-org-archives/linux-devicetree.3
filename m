@@ -1,195 +1,305 @@
-Received: from mail-244106.protonmail.ch (mail-244106.protonmail.ch [109.224.244.106])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B71732DC783
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 09:48:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E33D63F7AB7
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 09:49:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787910544; cv=none; b=WjJCFP7mlIA32/SYFw90NnpB8pNdNfhT1fiTjVXzwLPvoYhq07o8OAgkjQsMqnTBuGyUuJDs8wBFZXU32lGSFlaY4/L776BXiefRCVcim0d/lKpjfjnqPr8mEKdGsTMPJZvpbsCTI768NpjcmGzHlgqsoXLdh7Bq9WqmEKsb4P0=
+	t=1787910595; cv=none; b=tVSduJ6/+7vC+2g29diFP1UEDuRixiOlvK2nZFwROOgQU7KC2/RMvmBW2I2jxHiB+ptW8M65CuJFAmG5ujK63t8PufBfKeT4dv8G8yT9ObrjZQmmQ9skV3l9KxVHetyBA9AsrR3N+4Suz3kMuctBY/vT01nbT0Z80PEou3ggOSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787910544; c=relaxed/simple;
-	bh=gyEwjDQX5VV+UdPvflvnW1P3eKMDH9aIV3pqtqu1sVY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=BxAj35OHKsT5sIHfo86XAlJM1fdhCM+HU5F9E/V2Y7ZkWJgNsFQJOljBB9QXOhJso3R6i+JVYy9RNRoErxuoZstUd15RH1U1kbdHKorGyX9MzT1YTzqMPbFH4GsNf3j+vX/u7czg28knNtzOxhrEs8+XPn4SRrNdM/URPrhJPHc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=jczetslD; arc=none smtp.client-ip=109.224.244.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1787910595; c=relaxed/simple;
+	bh=YcJzWuwZ1RPM60Xmk1Fr6v59EnVXQyCH0dMpsNpXZwI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=haUtTQuZoPDtPLrO6B02dbOBY2XohgDaU2MBvytJ6+UE0lSb5dcZqppA+4HM5H9m9qeeZMzT7DTEhl5m8q8AnAUfBg2nzOEbfktCq3wNuw8JfEfNpeFXLa7u8GFKn4D8pp1knVLzfwTjSfjd5ZOm6EHlcVlQcaxRigB7ges/6yE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AtIQ/bsW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ecc9mkSm; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="jczetslD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1787910537; x=1788169737;
-	bh=rW15CYA/EMGbIe1SxeRDk5T+UlCxQGsFm4K0icrLJ/o=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=jczetslDpvlOuEpk/QfP01aNtZlK0/gy/WLVRlPmOX9m5LAFRHitay/tMoxobS0Sx
-	 Dv06C7SrBPGrNJrvfpBy7yNKcqmaayWl1bOV75JoBtBh9Xq0J6cghN1559EdlJQglX
-	 2C1X/R8+tzX6WAOInPVIyLqEnpSqFrq2cF0AhbEiKZnAednWXq8ABoBCmKkeZqojun
-	 8hKnArddRuGcVNKTtJP55Qyd3XwPCY7PoFwczBnr3q6eaGKCYTJd0kwECNmHEVEy87
-	 i1DgV7+LwE4st8ilB+l0b3Hu4vvUsJyP2DBsTJNS/C9nZE2BNXdn1myTNWgLboCj5y
-	 cDohV2PC1BdUA==
-X-Pm-Submission-Id: 4hWYVv6J6hz2ScqT
-From: Esben Haabendal <esben@geanix.com>
-To: <sashiko-bot@kernel.org>
-Cc: <sashiko-reviews@lists.linux.dev>,  <devicetree@vger.kernel.org>,
-  <conor+dt@kernel.org>,  <robh@kernel.org>
-Subject: Re: [PATCH v6 3/9] iio: accel: mma8452: Only apply trigger type
- when not set by firmware
-In-Reply-To: <20260825084323.958231F000E9@smtp.kernel.org>
-	(sashiko-bot@kernel.org's message of "Tue, 25 Aug 2026 08:43:23
-	+0000")
-References: <20260825-mma8452-open-drain-v6-0-9b252804ee80@geanix.com>
-	<20260825-mma8452-open-drain-v6-3-9b252804ee80@geanix.com>
-	<BaLTqEBVCiV-7hbOg20nTT4QDrR0LaQRblwUv33XNEQoyujWN2CUBawLF2kbNChLMGNZ5rJ1Jnx5GfUvBJNSOA==@protonmail.internalid>
-	<20260825084323.958231F000E9@smtp.kernel.org>
-Date: Fri, 28 Aug 2026 11:48:55 +0200
-Message-ID: <87ld9qy3qw.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AtIQ/bsW";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ecc9mkSm"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67S66gdo2196683
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 09:49:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	hYYmAr/X6jkEKVI/rUiLckvRRdWrzEQRkaCP6T8C01U=; b=AtIQ/bsWp4n3wEmX
+	1y+L3yXaOGP/lQ+xPwRu/e1Zed2KvnRK249wWj0M1s9GmVJ5HeJcSCkkhMpB4/79
+	owJVeRS9vwkWbKuCRtyG4VAmuGhodlL5A0iJ039bXbwutvb6K/bOgqPmBMPzj3gf
+	dYAoK6C5I/agpX74vm/OQKdgip4lKVxrpMDXroQOB8HXL51h0P7oasl+yV7I8goY
+	x2+q2u38jXdNr/iqAmTSgyMJ2cKXparjO6LeS0mObNeFkwnLKb1I+Gfu0ZfwTxRA
+	aDbsmV/J22Lm+6C6zGITlhLcrF0meh4+R7l1S0coOrrd7/icBTyyhzTBF9PZZVFC
+	UJfJ3Q==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gb3mxs521-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 09:49:37 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc15155cde2so1016357a12.2
+        for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 02:49:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787910577; x=1788515377; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hYYmAr/X6jkEKVI/rUiLckvRRdWrzEQRkaCP6T8C01U=;
+        b=Ecc9mkSm5+pr0UC/mYybbmN5qm2sDKLivLbOQqktkAOeZTqe/F0y1acQrI/LjlOFCJ
+         wEpMbxc7h2kl6lDQFzF26E7OklY3OAPGzwR1X3wrd//c7d8tPLiTdsP2uiMn2TsYt+ma
+         F5BSC14SxFvPY9xQcknsgyHO5Dnd5jyQ7QkexliO+OJh6gFzgeCXrE8lLEkMo31mcLAv
+         9oXzURH40LIltjcB2xLUQZQSzXyFrq6AGKwjjWwenWTIKy8MS9n42ftS/aFM6UVSFVEF
+         Defzy1N3D5lNk51/YlCRe4yiRGksqESxe062e16kB9+djXg8n+Ca4r+cp9B7tn4Lp3NU
+         FzKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787910577; x=1788515377;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hYYmAr/X6jkEKVI/rUiLckvRRdWrzEQRkaCP6T8C01U=;
+        b=f2w9MttpCt9xNstq5dr9MEhfDUARB9JV51AaTA2gA+hbPjcb+IZjTTJ41dfhTnE7Zw
+         9RIRAtKF2WitOIcfVLPWfuCt+v4QJFBm7s8O6GkYvBaTRnVZaSfELqxGqoJL1XrXvop+
+         ICbbsWzTeNLLfuWEv3NsN5XnU8/TfGJrI1q8Pniudo+ttbZpP2fY9xBKjyYcllEiuPHn
+         c2Z+g41ebjwN9p2mS6Ktt9y+jlv48ZZECkorphz8cPuMpdILCnqUckritwWkBCgkoqhD
+         v3KTOtq+8Dq6Q1ckVSAEj/PO7dhVwo2PMAl1W1C1X72h+9G57rrjVWKoKJjeT/3o+5Gc
+         uX8A==
+X-Forwarded-Encrypted: i=1; AHgh+RrividJesSdEw296b/bKPl3fclyL8hPNKOZBPpypqBi5XBZtGwWm+skb80PsKNZBKmZDPwhmJGkYXfI@vger.kernel.org
+X-Gm-Message-State: AFuF++npyNJRrahZkBS0rhKiAwL4ZG9WaTtZTsPAOaGtZHMaTiLf1VuR
+	pVp9u3hukgT+qKdqBOFpHoRAINfq0HBkfzysWAhFuqrHk0clU0yxlQVBL39hPJnYNnexQmmyZBM
+	ExMob+63rYNyS/v4bnnGNWPF5oQNkLHJQXwRex3XSSurYJbPf9viilBbsUoUWdXcS2kmCmrxSvn
+	Y=
+X-Gm-Gg: AR+sD11zm5GZmvR5E2RccJqI3hLnBn73tVU3zlhRnUmXq+ttN6rm1yCsZIqbTe7LF2/
+	MwNVPwjGpNVZCc92NMD7OyJ/v6woocwgTHpFuMaj8QISrNT2PxNYmyqJc01mrMoNOpfJDcXG2pw
+	7SSjr0g1E9aEP1X/cQs79yP7t5jNcWc9gyum3Z32kDswXeqWmEyo5zYQPr4qqnYEGxYfW6Zqp0/
+	xM+0BulGtQeQ8OR3FSxN3pxMpSjO3V2iMFH3elf6dz+n5ekofkhjBDYSztKFQbsYNv3kt3saCAU
+	8/voupRM64YVbXdCJ3GyjPZiz5zoYh4lTXgsKdKUY6iJu90g2PeoxLmJQ4LHTdn4GGdYcrTh6Lz
+	rbeuF5antcunMABUMu1mAIlslCMw7j5evtEB0UOhZUH6XIfaECPwV
+X-Received: by 2002:a05:6a20:db0a:b0:3d0:ba81:79b7 with SMTP id adf61e73a8af0-3d26784f3a8mr12211054637.12.1787910576801;
+        Fri, 28 Aug 2026 02:49:36 -0700 (PDT)
+X-Received: by 2002:a05:6a20:db0a:b0:3d0:ba81:79b7 with SMTP id adf61e73a8af0-3d26784f3a8mr12210707637.12.1787910574941;
+        Fri, 28 Aug 2026 02:49:34 -0700 (PDT)
+Received: from hu-fenglinw-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f783c57sm4851549eec.4.2026.08.28.02.49.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 02:49:34 -0700 (PDT)
+From: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+Date: Fri, 28 Aug 2026 02:49:19 -0700
+Subject: [PATCH v7 1/2] dt-bindings: input: Add Qualcomm SPMI PMIC haptics
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260828-qcom-spmi-haptics-v7-1-0367b3ac2e1e@oss.qualcomm.com>
+References: <20260828-qcom-spmi-haptics-v7-0-0367b3ac2e1e@oss.qualcomm.com>
+In-Reply-To: <20260828-qcom-spmi-haptics-v7-0-0367b3ac2e1e@oss.qualcomm.com>
+To: linux-arm-msm@vger.kernel.org, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: David Collins <david.collins@oss.qualcomm.com>,
+        Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
+        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+        linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, David Heidelberg <david@ixit.cz>,
+        Fenglin Wu <fenglin.wu@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.16-dev-17187
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787910573; l=6461;
+ i=fenglin.wu@oss.qualcomm.com; s=20260324; h=from:subject:message-id;
+ bh=YcJzWuwZ1RPM60Xmk1Fr6v59EnVXQyCH0dMpsNpXZwI=;
+ b=K90zooDTYZ589cAtVeKL9aS4swwJGlljOoatZpGEue6YcxFrgVCTUelwbtQ/p7C9g7QCr1hmw
+ dOwWvkfzbXpC/vmYQrnY5kv6zRrbZN6IzuY+Rxq0Pz4wprBWHueR4FS
+X-Developer-Key: i=fenglin.wu@oss.qualcomm.com; a=ed25519;
+ pk=hJdt3E7o54lql+miD2GaxwF74cDyhgNwMbmFOZ46bRU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDA4MyBTYWx0ZWRfX2UdPVg+73oqd
+ JdqKjOG3xo7VMxs+Jf51qO3+w1kOS7VxqMFWBZIrCm21eVWYTodCdSTYI13YkTHnrQ4ob3Xu6/q
+ xDGU7y0EXh5q2yCAihkgwrxynu6VUy0ufLlCu4B0eN7qpzv/Y3MU7lX7y/PmuE3IwcE5i9bWS5b
+ hmNQV/IfuCyyJsXNECPzWANCf0uBpmWHhjbxcKAHK+JYQhCrP/p3p/fFHG1e1v+QCGBjuOeRBog
+ grsrsj7n5Jpac5B73iSBXBmUcYqJcic8BwuzTqBl/BEaRhw0/MUSf5KqyEfiUwK4v0fk/H2kQNC
+ sCMeupkqhw8k6NrxDomx+zGrKkwbXbmoaz3ccZq2lqpeBeuZkJ7d7ZIoJdW/APW1NgSYZE5hM0H
+ ml2oO0oOmAEK+i0llGSbIO3PM6giHr9Q5uppHkjbJHxDeEcfyOt0Agujz17rK5VVQvP3v7BeX2u
+ tAVi1Pp6MNcOOBvvXpQ==
+X-Authority-Analysis: v=2.4 cv=MONQXsZl c=1 sm=1 tr=0 ts=6a9159b1 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=bI6yuv9Qsz7HNVLwNVgA:9 a=QEXdDO2ut3YA:10
+ a=bFCP_H2QrGi7Okbo017w:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDA4MyBTYWx0ZWRfX/pd12XSNVDYx
+ xegxANyO+RJN8oCV8vIpZsqUxGpcUlneeomdZ0bRAFaa5frVJ7elbrfEADvJEUvUyXyoxacYoUj
+ 89Kzyyf1KNYXOfIzakUJgj9dqxJ+1J0=
+X-Proofpoint-ORIG-GUID: 7xTvGsMPRooeYIhC5IgK-Ly82vb3wkig
+X-Proofpoint-GUID: 7xTvGsMPRooeYIhC5IgK-Ly82vb3wkig
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-28_02,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 bulkscore=0
+ impostorscore=0 spamscore=0 priorityscore=1501 clxscore=1015 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608280083
 
-<sashiko-bot@kernel.org> writes:
+Add binding document for the haptics module inside Qualcomm PMIC
+PMIH0108.
 
-> Thank you for your contribution! Sashiko AI review found 3 potential issu=
-e(s) to consider:
->
-> New issues:
-> - [Medium] Hardware-Software Polarity Mismatch
->
-> Pre-existing issues:
-> - [High] PM runtime usage counter leaks permanently on I2C read/write err=
-ors.
-> - [High] Hardware state is accessed over I2C before acquiring runtime PM =
-references, failing if the device is suspended.
-> --
->
-> --- Patch [3]: [PATCH v6 3/9] iio: accel: mma8452: Only apply trigger typ=
-e when not set by firmware ---
-> commit b862ff26c69f226387993dc22a2537b8dc72d9fd
-> Author: Esben Haabendal <esben@geanix.com>
->
-> iio: accel: mma8452: Only apply trigger type when not set by firmware
->
-> This patch modifies the mma8452 driver to only apply a default active-low
-> trigger type if the firmware does not specify one. This aims to improve
-> backward compatibility while respecting firmware configuration.
->
->> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
->> index f645a5c6fd1c2..1fb43c5b0b72f 100644
->> --- a/drivers/iio/accel/mma8452.c
->> +++ b/drivers/iio/accel/mma8452.c
->
-> [ ... ]
->
->> @@ -1683,9 +1683,16 @@ static int mma8452_probe(struct i2c_client *clien=
-t)
->>  		goto trigger_cleanup;
->>
->>  	if (client->irq) {
->> +		unsigned long irq_flags;
->> +
->> +		irq_flags =3D irq_get_trigger_type(client->irq);
->> +		if (irq_flags =3D=3D IRQ_TYPE_NONE) {
->> +			dev_info(dev, "invalid irq type, setting default active low\n");
->> +			irq_flags =3D IRQF_TRIGGER_LOW;
->> +		}
->> +		irq_flags |=3D IRQF_ONESHOT;
->>  		ret =3D request_threaded_irq(client->irq, NULL, mma8452_interrupt,
->> -					   IRQF_TRIGGER_LOW | IRQF_ONESHOT,
->> -					   client->name, indio_dev);
->> +					   irq_flags, client->name, indio_dev);
->
-> [Severity: Medium]
-> Does this configuration leave the hardware and software out of sync?
->
-> The code reads the firmware's IRQ trigger type and requests the IRQ with
-> it, but the actual MMA8452 sensor hardware polarity doesn't appear to be
-> updated. If the firmware requests an active-high or rising-edge trigger,
-> the host interrupt controller is configured for active-high, but the sens=
-or
-> would continue to drive its default active-low signal.
->
-> Unless there is an external hardware inverter on the board, could this
-> mismatch break interrupts? Should the driver read the requested trigger t=
-ype
-> and configure the IPOL bit in CTRL_REG3 to match?
+Assisted-by: Claude:claude-4-8-opus
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+---
+ .../bindings/input/qcom,spmi-haptics.yaml          | 139 +++++++++++++++++++++
+ 1 file changed, 139 insertions(+)
 
-This has been discussed during this series.
+diff --git a/Documentation/devicetree/bindings/input/qcom,spmi-haptics.yaml b/Documentation/devicetree/bindings/input/qcom,spmi-haptics.yaml
+new file mode 100644
+index 000000000000..ce2c9e893a0d
+--- /dev/null
++++ b/Documentation/devicetree/bindings/input/qcom,spmi-haptics.yaml
+@@ -0,0 +1,139 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/input/qcom,spmi-haptics.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Haptics device inside Qualcomm Technologies, Inc. PMIC
++
++maintainers:
++  - Fenglin Wu <fenglin.wu@oss.qualcomm.com>
++
++description: |
++  Certain Qualcomm PMICs integrate a haptics module, such as the HAP530_HV haptics
++  module in the PMIH0108 PMIC, which drives an LRA (Linear Resonant Actuator) with
++  an output voltage up to 10 V. Several play modes are supported in HAP530_HV:
++
++    DIRECT_PLAY: The hardware outputs sinusoidal waveforms whose period is
++      defined by qcom,lra-period-us and whose peak voltage is defined by
++      qcom,vmax-microvolt. The driving amplitude can be scaled in the range
++      [0, 255] via a single register byte.  Hardware-based LRA auto-resonance
++      tracking is enabled by default in this mode, allowing the haptics engine
++      to follow the actual resonant frequency of the LRA and update the driving
++      period accordingly to achieve stronger vibration magnitude.
++
++    FIFO: The hardware can play an arbitrary waveform composed of a sequence
++      of 8-bit samples at a configurable play rate.  Samples are pre-filled
++      into the internal FIFO memory of the haptics module and continuously
++      replenished via the FIFO-empty IRQ until all samples have been played.
++      An 8K-byte FIFO memory bank is available in the HAP530_HV haptics module,
++      shared between the FIFO and PAT_MEM play modes. The memory partition
++      between the two modes is configurable via registers, and FIFO mode always
++      uses the 1st partition starting from offset 0.
++
++    PAT_MEM: This mode is very similar to FIFO streaming mode but without the
++      data refilling capability. It is designed mainly for short, latency-critical
++      vibrations. The memory space for PAT_MEM mode must be reserved for dedicated
++      usage, and the waveform data should be preloaded and remain unchanged
++      thereafter. The haptics module can play the waveform data from the memory
++      region specified by the PAT_MEM play start address and length registers.
++
++    In either FIFO mode or PAT_MEM mode, the following play rates are supported:
++      -- 0(T_LRA): each FIFO byte drives one full sinusoidal cycle with the
++        period defined in qcom,lra-period-us.
++      -- 1/2/3(T_LRA_DIV_2/4/8): each FIFO byte drives a half/quarter/eighth
++        sinusoidal cycle with the period defined in qcom,lra-period-us.
++      -- 4/5/6(T_LRA_X_2/4/8): each FIFO byte drives 2/4/8 sinusoidal cycles
++        with the period defined in qcom,lra-period-us.
++      -- 8/9/10/11/12/13(8KHz/16KHz/24KHz/32KHz/44.1KHz/48KHz): the FIFO
++        data is treated as PCM samples and drives the output with an
++        arbitrarily shaped waveform.  This mode is typically used to define
++        custom driving waveforms for specific vibration effects such as fast
++        attack, crisp brake, etc.
++
++    The drive voltage in FIFO or PAT_MEM mode can exceed the value defined in
++    qcom,vmax-microvolt to achieve a special vibration effect, but the waveform
++    must be short enough to prevent the LRA from being damaged by operating at
++    an overvoltage.
++
++    Also, hardware-based LRA auto-resonance tracking is normally disabled in
++    FIFO or PAT_MEM mode, as these modes are intended to drive arbitrary
++    waveforms that may not follow the resonant frequency; autonomous hardware
++    resonance correction would interfere with the intended output.
++
++properties:
++  compatible:
++    items:
++      - const: qcom,pmih0108-haptics
++      - const: qcom,spmi-haptics
++
++  reg:
++    items:
++      - description: HAP_CFG module base address
++      - description: HAP_PTN module base address
++
++  reg-names:
++    items:
++      - const: cfg
++      - const: ptn
++
++  interrupts:
++    maxItems: 1
++
++  interrupt-names:
++    items:
++      - const: fifo-empty
++
++  qcom,vmax-microvolt:
++    description:
++      Maximum allowed output driving voltage in microvolts, must be a multiple
++      of 50,000 uV. This is the peak driving voltage in DIRECT_PLAY mode,
++      which outputs sinusoidal waveforms. The value should be equal to the
++      square root of 2 times the Vrms voltage of the LRA.
++    minimum: 50000
++    maximum: 10000000
++    multipleOf: 50000
++
++  qcom,lra-period-us:
++    description:
++      LRA actuator initial resonance period in microseconds
++      (1,000,000 / resonant_freq_hz).  Used to configure T_LRA-based play
++      rates and the auto-resonance zero-crossing window. It could be also used
++      as the initial period if the LRA wants to be driven off resonance.
++    minimum: 5
++    maximum: 20475
++    multipleOf: 5
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - interrupts
++  - interrupt-names
++  - qcom,vmax-microvolt
++  - qcom,lra-period-us
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/spmi/spmi.h>
++
++    pmic@7 {
++        compatible = "qcom,pmih0108", "qcom,spmi-pmic";
++        reg = <0x7 SPMI_USID>;
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        haptics@f000 {
++            compatible = "qcom,pmih0108-haptics", "qcom,spmi-haptics";
++            reg = <0xf000>, <0xf100>;
++            reg-names = "cfg", "ptn";
++            interrupts = <0x7 0xf0 0x1 IRQ_TYPE_EDGE_RISING>;
++            interrupt-names = "fifo-empty";
++
++            qcom,vmax-microvolt = <1300000>;
++            qcom,lra-period-us = <5880>;
++        };
++    };
 
-We don't want to modify MMA8452 irq polarity based on firmware IRQ
-trigger type. If IRQ polarity should be modified, we should add a
-separate device-tree property for that.
+-- 
+2.43.0
 
-This way we can support designs that inverts polarity in hardware.
-
->
->>  		if (ret)
->>  			goto buffer_cleanup;
->>  	}
->
->
-> While reviewing the I2C handling in this driver, I also noticed a couple =
-of
-> other issues.
->
-> [Severity: High]
-> This is a pre-existing issue, but I noticed a potential leak of the runti=
-me
-> PM usage counter when handling I2C errors.
->
-> In mma8452_read(), the device is woken up, incrementing the PM counter:
->
-> mma8452_read() {
->     ...
->     ret =3D mma8452_set_runtime_pm_state(data->client, true);
->     ...
->     ret =3D i2c_smbus_read_i2c_block_data(data->client, ...);
->     if (ret < 0)
->         return ret;
-> }
->
-> If the I2C read fails, the function returns immediately and bypasses the
-> matching mma8452_set_runtime_pm_state() false call. Could this permanently
-> prevent the device from re-entering autosuspend?
->
-> A similar pattern appears to exist in mma8452_write_event_config() where
-> an early return on a failed I2C read skips restoring the PM state.
-
-I will address this in a follow-up patch series.
-
-> [Severity: High]
-> This is a pre-existing issue, but could some I2C accesses fail if the
-> device is currently suspended?
->
-> In mma8452_read(), the code checks for data readiness before waking up the
-> device:
->
-> mma8452_read() {
->     ...
->     ret =3D mma8452_drdy(data);
->     if (ret < 0)
->         return ret;
->
->     ret =3D mma8452_set_runtime_pm_state(data->client, true);
-> }
->
-> Because mma8452_drdy() executes an I2C read against the MMA8452_STATUS
-> register, it happens before the power regulators are enabled. If the devi=
-ce
-> has already autosuspended (after 2 seconds of inactivity), will this I2C
-> read hit powered-off silicon and fail?
->
-> A similar direct I2C read without a runtime PM reference seems to happen
-> in mma8452_read_raw() for IIO_CHAN_INFO_CALIBBIAS.
-
-I will address this in a follow-up patch series.
-
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825-mma8452-=
-open-drain-v6-0-9b252804ee80@geanix.com?part=3D3
-
-/Esben
