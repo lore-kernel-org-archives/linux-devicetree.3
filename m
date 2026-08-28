@@ -1,74 +1,218 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC6C34A79D;
-	Fri, 28 Aug 2026 15:51:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B2622F8E8E;
+	Fri, 28 Aug 2026 15:53:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787932320; cv=none; b=UWteEadpMAWEd2/c2n9DbG7CfR0z/XAfW6jGsdN99hFhoFcx0TdBWg68n99pyhbc/8nKGJ3fRKUzEjmwMNbI2CIr0JziEQOI9oPWlo/XbX0QZCHXYRJ0F6gfmlBXAODS3bnvBlxdCUgu0WwAWuxmIGq8abC5ydyRPO0Y0NRE28Q=
+	t=1787932395; cv=none; b=JZZDkzqOxweJEOMJTud9XBlSWydQPRC2BTguBfxir9b0PpYWSWiHgYA8kB7hb2b+v20pj6YpqA6y1khWFWOCvf7tEv/TF1vV9jxcaHGPujd2/Brvqu1WtQ687lWroO9o4xVVHa3ETrCCUEe6QZqEFAa3wAQCgZiTG5+CuzRaxug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787932320; c=relaxed/simple;
-	bh=rwoehGGBAhR0cagkpPRWd/9sXoKfT5de8DDZI2psrzc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nP+BkaakYtCzESRxUy9aYGHfsg346w2rIK9Pb9dlzCy558ogUeE8kGyQn109QtvqQoA0SIJXojI6bEITf9nsTFp2BFN/hDSxbKsLQEQInLsk1mywqZwy/tieaFUkkN8RuCM4dlqmd9YkGGhEh3VPO7z0ykK+TpeLX2+UM4nI++Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nYOIB0VV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787932395; c=relaxed/simple;
+	bh=JHLPEKgfsP9MvmVv/cGgt6zDwOxMhNFE+QT3OOCSVdE=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=Id1Q5ByRiJRqqq/Gcf2kzHaBssOxgVqGdpQ53kAlTJzb8BfEpQ8A3ERqmBL0KbIt7WPFMmnsU+uYy4VRsx0RMmOB0eSoJw9BiB+1nn/spc1caDNFHDXKyZ1fyJBsfTbExCanqSz1gpMatRFnGSgEIn/OASVlCysZjNUXvFdlOJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=js2B2xeA; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nYOIB0VV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EB071F000E9;
-	Fri, 28 Aug 2026 15:51:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787932318;
-	bh=rwoehGGBAhR0cagkpPRWd/9sXoKfT5de8DDZI2psrzc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nYOIB0VVHL879W4CZ+t6ZiPdxa00oVDK6k1Qp4kHhNNKKL3LOKMko+hY4KCBSxURn
-	 GZRgjEdMfKk1K+J6u724ez/Ln24vGwRSI+dAbPcc523LlAMB4VJQEX3vFXSAmwdQV1
-	 QzITqOV6jBFZx9CN6LYI+VPeY3Kk3Ovbx6MZ/Q3kCbkN7QD4rMPEl3jB9yFjPDn4pj
-	 kETgi2Pmf3Tqhi3zLcBmAUcC3EsfVjMQ5fBUbb62R9Unqg5aguJvtl4nhdzJFquhvi
-	 +8dgkia09fTEjt5TJbJUCc0MICC75IjL5ql0TxTKxhPGIc8R7grrLye5oxpzWpmC9Y
-	 1HMod6uyozqkA==
-Date: Fri, 28 Aug 2026 16:51:54 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Marek Vasut <marex@nabladev.com>
-Cc: linux-arm-kernel@lists.infradead.org,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com, linux-usb@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: usb: generic-ehci: Document ST
- STM32MP1 SoC compatibles
-Message-ID: <20260828-frisk-mantra-08f44931ffd2@spud>
-References: <20260828152130.176171-1-marex@nabladev.com>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="js2B2xeA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1787932394; x=1819468394;
+  h=from:subject:date:message-id:mime-version:
+   content-transfer-encoding:to:cc;
+  bh=JHLPEKgfsP9MvmVv/cGgt6zDwOxMhNFE+QT3OOCSVdE=;
+  b=js2B2xeAObxVjsjkPM48R9Q4qOpHLBG5Vh4Lj/KNkgQFGKf9Pj5OluLK
+   +iignZm4sJWOZpRUgx7FDcppNjP6B0J7dvJe7ZR2vr6bSjkwOmm+vEb/Z
+   N7n780BNvVdb5id2DZxMqPdDoXevP+dOVqKWxlGxV3dXTETrbGOsed18g
+   z123wauh9NgLR0lXJxh0aRgxUkIAhhcFnjb3j6K+4xmRcqNkF2W0Doom1
+   EILnUWLBkELVsC99j9vQ0vCCOdSBJ2yHR9gdjCJ2vagLBL4ImoXS9bEh2
+   sNLiC1OaX6RUod9SkX1HrKbxShpKK1wO9z/AVeA4TnjJUqPnkiUmT3xex
+   g==;
+X-CSE-ConnectionGUID: bqM2aEUwT3ubm5XuymnrZA==
+X-CSE-MsgGUID: vhrporboQ6iDYT1P6WmGAQ==
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="294208074"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 08:53:07 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
+ chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.45; Fri, 28 Aug 2026 08:53:06 -0700
+Received: from ROU-LL-M19942.mpu32.int (10.10.85.11) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Fri, 28 Aug 2026 08:53:02 -0700
+From: Cyrille Pitchen <cyrille.pitchen@microchip.com>
+Subject: [PATCH v8 0/5] drm/microchip: add GFX2D support for SAM9X60 and
+ SAM9X75
+Date: Fri, 28 Aug 2026 17:52:21 +0200
+Message-ID: <20260828-cpitchen-mainline_gfx2d-v8-0-378374559738@microchip.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="SCyc/uFZ5vKiW8zS"
-Content-Disposition: inline
-In-Reply-To: <20260828152130.176171-1-marex@nabladev.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XN20rEMBDG8VdZcm1kZpLmsFe+h4ikOWwD9kC7l
+ JWl7266oBZp8fL/wfzmzqY45jix8+nOxjjnKfddCfN0Yr5x3SXyHEozAqrAInI/5KtvYsdbl7u
+ P3MX3S7pR4EoJjFZU5JJm5XoYY8q3h/z6VrrJ07UfPx+PZlzX/80ZOfCgk6vRCYMxvrTZj71v8
+ vDs+5at7kxbyxxbVCzlk/M2VEoh7Vnix0IkeWyJ1QKdjJegyag9S35bCgp2bMliJUIAiS4IKfa
+ samuJY6sqlvXB1SY5ZW29Z6mNRXBsqWKhQ+UDBg212bP0r0Vgjy1dLPBIUUkHtoK/1rIsX0F29
+ 46KAgAA
+X-Change-ID: 20250911-cpitchen-mainline_gfx2d-6631e9352af7
+To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	"Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
+	"Alexandre Belloni" <alexandre.belloni@bootlin.com>, Claudiu Beznea
+	<claudiu.beznea@tuxon.dev>, Russell King <linux@armlinux.org.uk>
+CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	Cyrille Pitchen <cyrille.pitchen@microchip.com>, Conor Dooley
+	<conor.dooley@microchip.com>, Manikandan Muralidharan
+	<manikandan.m@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6120;
+ i=cyrille.pitchen@microchip.com; h=from:subject:message-id;
+ bh=JHLPEKgfsP9MvmVv/cGgt6zDwOxMhNFE+QT3OOCSVdE=;
+ b=owGbwMvMwCXmf6yzKqEsVIbxtFoSQ9bEdRfl+ue1bH0qtVlmenXGge+Xn/kpWgo93NfL++Vy0
+ bePPSfcOkpZGMS4GGTFFFkOvdnam3n81WO7V6JSMHNYmUCGMHBxCsBE5msz/NO2cLjAcedjgfXd
+ uT2Zwf+Nq+80nrqub7onf/F0W17T75YM//Qe/DjRm+9+KH7h/2z9lc7TZ8TOP71iu9DD+Svkbhq
+ YqbMCAA==
+X-Developer-Key: i=cyrille.pitchen@microchip.com; a=openpgp;
+ fpr=7A21115D7D6026585D0E183E0EF12AA1BFAC073D
 
---SCyc/uFZ5vKiW8zS
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Hi all,
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+This series of patches adds GFX2D support.
+The GFX2D is a 2D GPU embedded in some Microchip SoCs such as the
+SAM9X60 and SAM9X75.
 
---SCyc/uFZ5vKiW8zS
-Content-Type: application/pgp-signature; name=signature.asc
+Patches have been developped on top the 'linux-6.12-mchp' branch of the
+https://github.com/linux4microchip/linux.git repository and tested on
+mainly on a sam9x75-curiosity board and also on a sam9x60-ek board.
 
------BEGIN PGP SIGNATURE-----
+Then patches have been rebased on top of the 'drm-misc-next' branch
+of the https://gitlab.freedesktop.org/drm/misc/kernel.git repository
+for mainlining.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapGumQAKCRB4tDGHoIJi
-0h6ZAQDgyIwsLmoo0BKJh3n9Hrqwx3SjWARrWkEMMmEeISZDuQEA9dj8KZ2AT0Ui
-O68HKHtNqAQW+EMjpxySCU5lMLFcmAo=
-=m18u
------END PGP SIGNATURE-----
+Moreover, the patches have also been rebased on the WIP 'linux-6.18-mchp'
+branch of the https://github.com/linux4microchip/linux.git repository
+then tested on a sam9x75-curiosity board.
 
---SCyc/uFZ5vKiW8zS--
+About the tests, the GFX2D driver was used with the M2D (Multi 2D)
+library: https://github.com/linux4sam/libm2d
+
+This is an open source library that abstracts 2D GPUs like the Microchip
+GFX2D (and later the Vivante GC520UL), providing graphics applications
+of libraries with a unified API, inspired from OpenGL but focused on 2D
+GPUs. The libm2d library itself relies on the libdrm library to send
+commands to the relevant DRM driver in the Linux kernel.
+
+M2D comes with a m2d_test program to run basic unitary tests.
+In addition, libm2d has been integrated to two graphics frameworks:
+- EGT: https://github.com/linux4sam/egt
+- LVGL: https://github.com/lvgl/lvgl/pull/8729
+
+BR,
+
+Cyrille
+
+Signed-off-by: Cyrille Pitchen <cyrille.pitchen@microchip.com>
+---
+Changes in v8:
+- Rebased onto the 'drm-misc-next' branch on 2026-08-28.
+- Collected Reviewed-by tags from Manikandan Muralidharan on patches 3
+  and 4
+- Replaced kzalloc() with kzalloc_obj() in patch 2 as suggested by
+  checkpatch.pl.
+- Link to v7: https://lore.kernel.org/r/20260209-cpitchen-mainline_gfx2d-v7-0-0c12e64a0950@microchip.com
+
+Changes in v7:
+- Rebased onto the 'drm-misc-next' branch on 2026-02-09.
+- Rewored patch 2:
+  + Reworked the former valid_pixel_format() function into the new
+    mchp_gfx2d_valid_buffer_params() function, which is called from both
+    the mchp_gfx2d_ioctl_{alloc,import}_buffer() functions and now checks
+    the `width` and `stride` parameters in addition to the `format` one.
+  + Added the mchp_gfx2d_valid_size() function, which is called from both
+    the mchp_gfx2d_ioctl_{alloc,import}_buffer() functions and checks
+    (`stride` * `height`) against `size` as suggested by Daniel Stone.
+- Link to v6: https://lore.kernel.org/r/20260120-cpitchen-mainline_gfx2d-v6-0-1a16cd1d70b8@microchip.com
+
+Changes in v6:
+- Shrank the size of the register set in the device tree from 0x4000
+  down to 0x100 (patches 1, 3 and 4).
+- Collected Reviewed-by and Acked-by tags from Nicolas Ferre on patches
+  1 and 5.
+- Rebased onto the 'drm-misc-next' branch on 2026-01-20.
+- Link to v5: https://lore.kernel.org/r/20260113-cpitchen-mainline_gfx2d-v5-0-9cdab8fa699b@microchip.com
+
+Changes in v5:
+- Fixed compilation issues in patch 2:
+  + Included <drm/drm_print.h> from mchp_gfx2d_cmd.c, mchp_gfx2d_drv.c
+    and mchp_gfx2d_gem.c.
+  + Replaced '.remove_new' with '.remove' in definition of 'struct
+    platform_driver mchp_gfx2d_platform_driver' to match the latest
+    definition of 'struct platform_driver'.
+  + Removed the '.date' member from the definition of 'struct drm_driver
+    mchp_gfx2d_drm_driver' since this 'date' member has been removed from
+    'struct drm_driver'.
+- Fixed typos in doxygen documentations of two functions:
+  + mchp_gfx2d_process_completed_commands()
+  + mchp_gfx2d_init_command_queue()
+- Link to v4: https://lore.kernel.org/r/20260112-cpitchen-mainline_gfx2d-v4-0-f210041ad343@microchip.com
+
+Changes in v4:
+- Rebased onto the 'drm-misc-next' branch on 2026-01-12.
+- Link to v3: https://lore.kernel.org/r/20251124-cpitchen-mainline_gfx2d-v3-0-607f8c407286@microchip.com
+
+Changes in v3:
+- Collected Acked-by tag from Conor Dooley on patch 1
+- Rebased onto the 'drm-misc-next' branch on 2025-11-24.
+- Link to v2: https://lore.kernel.org/r/20250918-cpitchen-mainline_gfx2d-v2-0-6cfac9d56612@microchip.com
+
+Changes in v2:
+- Renamed microchip,gfx2d.yaml into microchip,sam9x60-gfx2d.yaml.
+- Removed the 'clock-names' property from the DT bindings.
+- Renamed the GPU node from 'gfx2d' to 'gpu' in sam9x{60,7}.dtsi files.
+- Link to v1: https://lore.kernel.org/r/20250911-cpitchen-mainline_gfx2d-v1-0-d7fab1a381ee@microchip.com
+
+---
+Cyrille Pitchen (5):
+      dt-bindings: gpu: add bindings for the Microchip GFX2D GPU
+      drm/microchip: add a driver for the Microchip GFX2D GPU
+      ARM: dts: microchip: sam9x60: Add GFX2D GPU
+      ARM: dts: microchip: sam9x7: Add GFX2D GPU
+      ARM: configs: at91_dt_defconfig: enable GFX2D driver
+
+ .../bindings/gpu/microchip,sam9x60-gfx2d.yaml      |   46 +
+ MAINTAINERS                                        |   10 +
+ arch/arm/boot/dts/microchip/sam9x60.dtsi           |    8 +
+ arch/arm/boot/dts/microchip/sam9x7.dtsi            |    8 +
+ arch/arm/configs/at91_dt_defconfig                 |    1 +
+ drivers/gpu/drm/Kconfig                            |    1 +
+ drivers/gpu/drm/Makefile                           |    1 +
+ drivers/gpu/drm/microchip/Kconfig                  |   21 +
+ drivers/gpu/drm/microchip/Makefile                 |    8 +
+ drivers/gpu/drm/microchip/mchp_gfx2d_cmd.c         | 1809 ++++++++++++++++++++
+ drivers/gpu/drm/microchip/mchp_gfx2d_cmd.h         |  169 ++
+ drivers/gpu/drm/microchip/mchp_gfx2d_drv.c         |  350 ++++
+ drivers/gpu/drm/microchip/mchp_gfx2d_drv.h         |  132 ++
+ drivers/gpu/drm/microchip/mchp_gfx2d_gem.c         |  264 +++
+ drivers/gpu/drm/microchip/mchp_gfx2d_gem.h         |   90 +
+ drivers/gpu/drm/microchip/mchp_gfx2d_ioctl.c       |  302 ++++
+ drivers/gpu/drm/microchip/mchp_gfx2d_ioctl.h       |   17 +
+ include/uapi/drm/microchip_drm.h                   |  286 ++++
+ 18 files changed, 3523 insertions(+)
+---
+base-commit: f9c2f70ee41544717b3c209083073db1e21f919b
+change-id: 20250911-cpitchen-mainline_gfx2d-6631e9352af7
+
+Best regards,
+-- 
+Cyrille Pitchen <cyrille.pitchen@microchip.com>
+
