@@ -1,301 +1,163 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 804793F3269
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 09:49:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7CC5389E07
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 09:55:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787910608; cv=none; b=jRa7KMSxl0E0/cWlm3hUlSbn5udpqdw2o0XydxJpiV9AxUgjmUwPC10/c6PW7g6dGtfwClsjxTi3xHjtvjHf6T51hkitG2qwnPKdawon314GU6sE8uqywrByRVG/f84r2d4Kfp7ZJwEv9mbmZPnlU0ipyTVuUGFyc8SYkODM5xM=
+	t=1787910920; cv=none; b=HHuPiqEiGyJakMv4GUh5/1luWhsVZmoHLmnlAkT2J2kV5ZTqscxJavfeS3nY+CiX98GpaOnarC9+un/8YTYK/5HSLtdKb3Mf8Ct11XU9h4cpFocmShrbTSOHMqQzyVE0t/CDiYuu7ic+yu/b07MtK1SfdXHjuA8FDs9g1kfx/SQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787910608; c=relaxed/simple;
-	bh=UfX/VZAbb9MiaHqAuge1t7Yg3AdH2rRALezQYvqgGbA=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Hvg+fNtsHUJfFhg/7XC58qKAaGXhx9uE01baBG6aZneN/AKi4KmXhndgkayUYtn/peRb8Kbdu6FtOSXUJAp7NRkhz47UscOjiXI7V95dcJEx6nKy35c+TCcjbsFo+aI7n31N1ZvofI6WueHx8c5p4TREY6M5pxyFacWOaTOkgX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RnW71Wsj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fJvLpzU5; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787910920; c=relaxed/simple;
+	bh=H9cY3HUqGT9SKI+YapI58fZaNOQJ3Bii6JWiY3YZ3sg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HLHtRgcL9D3X+806jj+7VJBYRFS8vfMlHBXHFLcFfHecRCPNchQkHhCtZRqp/NbbXsh5Dw/odIcp1wFWFmolY5iqgTaLHj1Sz2Yu6aK3tTZ/tAZ3xmdLDB9XVplMfNzO5rQQM0Wec6SToiRAbdRcF7jvEXtJZ9PsBhBT8Eu9SK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ahmab0ox; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RnW71Wsj";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fJvLpzU5"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67S66s8c3206248
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 09:49:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=xjhWodfBwaGvCcHRv1IRif
-	J/k8PHq34//wXyMh5PdiY=; b=RnW71Wsjph/wz7kVvccyKAfrRXWLtbolWqva9D
-	os5PnV4btuHe+cNpddNj5RuooEvSDRosNquV4ZJMqQVUOuMRKIIO1FEBoYxeqvoJ
-	XrcepNnYxl1ZBdAYSJ5VhxDzpxf475VY3AKsPLWf36vN9LnFpzwfU8xYY8HW3z9i
-	jlyxYe3807Q0VBSM4y6ycqemD291+YUSOyLz93Bik31krcHrJUZpmzIf8puN+Jd9
-	WOrTvL+5AUX7Li9ajv8qjnEVwC6pVUe58xO6OfzxKgcUxeNZl7+VhANmh1dMyPRs
-	9eqOcvDJu/QCxp6oHnTrd3lrCUxYkKUajlHw22U/jnDT/TUg==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gatfxke3q-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 09:49:35 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc1c5810451so1316630a12.1
-        for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 02:49:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ahmab0ox"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3969e82ff8fso833373a91.0
+        for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 02:55:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787910575; x=1788515375; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=xjhWodfBwaGvCcHRv1IRifJ/k8PHq34//wXyMh5PdiY=;
-        b=fJvLpzU5htFPpfbJZogJZcGC3znLiasAKPYOeXriCilK77XCcb0BLbl5CQaIi8D9vI
-         6E0qwyFysz9WgiUBzv8D4gEIXiaCMHRCTwDvYQz99erF/SXzI28W6v/ZXYOdl7YHnRHh
-         d4Q/+Oa9B3O+a3LXhDODGZ1ryKFmTUTOLQl7VhsDEoSegpt+SoGsnhahM5XcszqG6CTg
-         WWZh2JlrzQrInCw7dupzydsFHesDgL3XpiSIXc054dON6hjaKrGE5+ijorjK+mtj5SwO
-         YJdy3+bXfxpGf7qLNwml+xtG+VN9QOo2XSWKYqnW26WQyvit26hrZYo+XExxXkSSTNzy
-         knRg==
+        d=gmail.com; s=20251104; t=1787910918; x=1788515718; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CkZTYKwU4CakfzDfQMMLG1JWh0tvz+y04iItJyhiZG8=;
+        b=ahmab0oxT8Fa6k5GNQSMwTjCqCY9Oc6v7Tk5JV690yv+0YATqCa8Yr/9eEXhJFJ1Cd
+         yUhwWK3EDEoGU2PZRn9pjuYSuscyzz/TPybdKIXvlbeGNhoJJcBBPjxM8r/kHQGC1T1H
+         z9qYUuZhpDSof/UsWlE/SYok0PebPNrC7EWS+vfrQBt8gJTc5iVyhwEbdk24fk/RdmPc
+         EHaAHytu+r6JuaTllP1UHCDn7honIrtv/xbX74OlW+a32+W1xLrZmciTZwjBZ9i6K/gE
+         +hL5lGtQ2c3ReWYscp9HV7XfeOQN46H+x/XAAE0fW7Hkn1CKCWU4b2YaNyA+Dg+UmLjG
+         fkcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787910575; x=1788515375;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=xjhWodfBwaGvCcHRv1IRifJ/k8PHq34//wXyMh5PdiY=;
-        b=qeEmQSeHlTUEyTxmVS07SBgcVz2UDcGgDVWsED/KpED8OHfoIdezhju+iHs6wejhSr
-         9j1PRyN5jl84B3QePmKMd8Sl2VhJWhopqDyue4rnnHdJzJOO899pW99Piky3K3/pY5fb
-         YGO8tN4L27MwuUe/L1sEw1oSC8Oyk+VbZwuRPQnKvcwXDSG3bH7jxY3szyWonxH2zyxS
-         0WQlwFjyR1IQo1twCJciwqcs4SkAuDBiKoLb5sEapCMDm+wGO/gnXjzGenIqWLVDEDAY
-         Bmp9x5AoWdRchO/MAjssu2cjH5/oHymyiYtY6KIYZwG7i3NW1ekVYLp+xj9AGYt9AL81
-         vKzA==
-X-Forwarded-Encrypted: i=1; AHgh+Roy0UmaFhBiodFBHDzvaWCeK8kYhpvB4wF6aD5e1pO8mW74sI74L/3ajIL/tD5Cd+eq7ZoYMKx5MIOb@vger.kernel.org
-X-Gm-Message-State: AFuF++mIGWAzncLRKgTdPXwhq1i6WB05oz1RGh6L2rL8jD9GQch6QcMr
-	XqLkWDSS8elhlzIJ1ZY3duAhB1ufXflMMZFNO/I0aWylhGLkR+6lkryAiNHzDTGB1SBE3Ff15Le
-	fTQ14A+gQVKha3ANplX380epaF9XJjycEPUu4kuHrIOF5QLJV5fBpI93zh64BaINF
-X-Gm-Gg: AR+sD12PNbBTSESoTy+tu/DL36wPwatrrkVx+gmlDER2po6RLzWJhiEYhdyU6Gvbma+
-	CzVdkm1r9WX5P5hBuk3ufGVu0GT46a3AUyKTLUSMUmG1v7RtwIcKxqQO7sOC9ZXnA8TvQZSXZSz
-	hK1gsfuVL9iXwiv/MLDuZFNmyRASUUYlq3OxrLgDWXR8o5NKnIJ3rz9PhUDRps9i7e8NjnbYLQn
-	tTG9azBTQ6Gs9QAbZZvGgLPOhWthDzqQuVQhPEYRU924U40lfldNU4325GZLX8ZyGG34yjMALug
-	GPdabVq8XjRGzNM22y2WjqEID6yjgGSqSIeHbBdTvnihGRqeCEFhbssQaMwC1LloX+jjPhUZ/Yj
-	pKvs24mCBp1xx1VHCmieitIK/1GWN6i2NbAUa/l2IvJzNvxC9bEny
-X-Received: by 2002:a05:6a21:3390:b0:3cd:7ba2:e669 with SMTP id adf61e73a8af0-3d2686a3386mr9620288637.10.1787910574628;
-        Fri, 28 Aug 2026 02:49:34 -0700 (PDT)
-X-Received: by 2002:a05:6a21:3390:b0:3cd:7ba2:e669 with SMTP id adf61e73a8af0-3d2686a3386mr9620167637.10.1787910574020;
-        Fri, 28 Aug 2026 02:49:34 -0700 (PDT)
-Received: from hu-fenglinw-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f783c57sm4851549eec.4.2026.08.28.02.49.33
+        d=1e100.net; s=20251104; t=1787910918; x=1788515718;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CkZTYKwU4CakfzDfQMMLG1JWh0tvz+y04iItJyhiZG8=;
+        b=brug42kwcOZXOee2rJwrr9uZNo9YakWWQ7FrMMLdElzo5gJwS4uDsIF997gIs1WiEX
+         ZQjVy6ZBgrwIIFL638/vOVPCXxE6qyPIR5sYlxrkmkmF8ZFDjXu0iARbP0Z1wRGqn56P
+         yKe1iPRnXDzu9KbgrrNk/Y1/0nOt2QYhjMj53lv3sxsXssNzNjTIdscMUYprbcuOW+MP
+         44op+Vrc8lPvQVcaxZGlXygEEsKxs7Onb1GvI6FR0C5qmnRFBIYoMW4OKmGc9JFCQchX
+         ea0TooSsm5d98eAmWeltYgtGtKHQArnXlNYRpjNGvwNkRFPFD5F4RliIXR1d2ohGiKjM
+         UFcg==
+X-Forwarded-Encrypted: i=1; AHgh+RqQ+SH+KS5GJNcJkbKWWRDmeK6O/56drAuG9HiU3yDjrYFSRwyecUbKcdBf4cViECDC7Y5YX9P7uvwO@vger.kernel.org
+X-Gm-Message-State: AFuF++nPZTfSuGH7qURgsrsGgmvYDHnCFh5Dlskw2sLUbShNRKtWnq+1
+	x+FuVhJacQ4axec0YN5NR9CWlZznEqgGd1u2roDgu4H7QHlWqs+goIH1
+X-Gm-Gg: AR+sD12KCl5wYE6dzHSOaqEN6SKgxzE4aj3N71gydV1cn4YoT+P3adpNPl+eATKbJBC
+	7xcavqO6Vxui4o3+aK7Zfl9k22VkvheD8Mk5iwYEmAKs+BZ2K9qwFQsFFRNC27RTMiOL2Qm4lpt
+	pruI+diMhCR8D+D3aNgmmaRL4LJgGds2jH6v4+FutuFgZOO0eqdVeGpqUsv89Q1IoR5UvZPjirV
+	dY7EkZgVhxm65z8Jr3VH67tuMjLaEnfJtinRlq6jBuRJMM80lhFvaIAbIzzZ4RAc7sC2uTOinSG
+	1yQdCh6/vwRPdy3BzMeEr7rM0U2jM4DwCgBs1EozaGQQ87ipHHHMFkZCb6kgRHChFqqCEC6z2mX
+	H0R5KfnxME9sZdERfNjTgGDMz+aZLEJ+/iP+Uz9iv5XIa8U6NWvrQSvLFExsxqYjxJrwLpbWGfY
+	JTt+VlOJ3pzpIQVSOGG240TAWY/jr6Zb7ljFYFoO+gt43CcK+P0iyeDLPVa9BxXfFpWi0zrTkKH
+	L04fGKMk0kjGFveQnp8sht5uvWHJdnHwFveJZ6ylYtXDYFY/1B4
+X-Received: by 2002:a17:90b:51c7:b0:38f:5801:dc0e with SMTP id 98e67ed59e1d1-396d0f52b2amr11522464a91.15.1787910917577;
+        Fri, 28 Aug 2026 02:55:17 -0700 (PDT)
+Received: from hanzj-mi.. (ec2-99-79-140-187.ca-central-1.compute.amazonaws.com. [99.79.140.187])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396dda7aaaasm1872577a91.6.2026.08.28.02.55.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 02:49:33 -0700 (PDT)
-From: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-Subject: [PATCH v7 0/2] input: misc: Add an initial driver for haptics
- inside Qcom PMIH010x PMIC
-Date: Fri, 28 Aug 2026 02:49:18 -0700
-Message-Id: <20260828-qcom-spmi-haptics-v7-0-0367b3ac2e1e@oss.qualcomm.com>
+        Fri, 28 Aug 2026 02:55:17 -0700 (PDT)
+From: Zhijian Han <hanzhijian1991@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Robert Marko <robert.marko@sartura.hr>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	Zhijian Han <hanzhijian1991@gmail.com>
+Subject: [PATCH v2] dt-bindings: fix typos in various bindings
+Date: Fri, 28 Aug 2026 17:54:59 +0800
+Message-ID: <20260828095459.834657-1-hanzhijian1991@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260821105605.1967718-1-hanzhijian1991@gmail.com>
+References: <20260821105605.1967718-1-hanzhijian1991@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJ5ZkWoC/33QwW7DIAwG4FepOI8KDIGw095j2iGAWZCWJg1dt
- KnKu8/ppTmQXZB+hD/b3FnBOWNhr6c7m3HJJY8XCvblxELfXT6R50iZgQAjjDT8GsaBl2nIvO+
- mWw6FqxCcRetBATKqm2ZM+edhvn9Q7nO5jfPvo8Uit9v/tEVywSNo1AARjddvYynn63f3RU+HM
- x1sQxfYQaBrEBDknZQtGpEUqgNIPSErVQ1SBAWnpPc2eKfTAaT3kK1BeptIJBQYlWi1O4CaJ9S
- K6moNQdZKaNH7GCEeQGYPVT/bECRdChhiA6K62rquf29T7qomAgAA
-X-Change-ID: 20260616-qcom-spmi-haptics-3cc97e7b232e
-To: linux-arm-msm@vger.kernel.org, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: David Collins <david.collins@oss.qualcomm.com>,
-        Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        linux-input@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, David Heidelberg <david@ixit.cz>,
-        Fenglin Wu <fenglin.wu@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.16-dev-17187
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787910573; l=7897;
- i=fenglin.wu@oss.qualcomm.com; s=20260324; h=from:subject:message-id;
- bh=UfX/VZAbb9MiaHqAuge1t7Yg3AdH2rRALezQYvqgGbA=;
- b=jrEP0VjomIgeeart8kpKLkcc51M67lQzus3E6hyYfd2SgdbkoIRgQ8mL/BOJY47cuH5220MbW
- sBYs0OuIxEmAIWCe07f0UWP0oc85/0pnQJbxgbuWYXf6U+LIYjieR5/
-X-Developer-Key: i=fenglin.wu@oss.qualcomm.com; a=ed25519;
- pk=hJdt3E7o54lql+miD2GaxwF74cDyhgNwMbmFOZ46bRU=
-X-Authority-Analysis: v=2.4 cv=UKLt2ify c=1 sm=1 tr=0 ts=6a9159af cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=wl7bymLZXRVIGl6rzDwA:9
- a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-GUID: nK4i7nx-8hpr_YcoACbfhlIMlq6GQX7F
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDA4MyBTYWx0ZWRfX0c/dBQbUA5Kh
- wCCHEj4uZ/7JZjvYmQUuC7LpYWVf8/zvaFNvi4w4tgkrko6Kva1YyEMRSIv5mnYVFp0kmmCV5JB
- 2bDmQuA4S/rSPNfh8+usk2279XdIkybT6kF/go6jno9iAt96T3op8SMkhqHJAKyia4BrgitIOXE
- PHUJOmS2AfsXcYIomeNICOqfAZWORR7OulMgRG0BejEvUaLpaG2wkR2g4qcwPWECE150ycvdT++
- VJIQl9lgWqirH2ioSR3TIZcszIa2E+iOCQSLo1wkAaKmfKw57lYpX+jnp4C3yhmSrM9MfXSclxo
- Cy7bH41WrQKiTFSZVsO7TuSrV2fGVhjgJ+Q1K2fyfvFijjEfV8JAlrRIeYiqUFog4Awbcq8JD/v
- 1oNEknd3NQ+ZBiOONnrq6DSb6kaqvOBJraAvTqkfbjiwSN7BBlvBbC1JfYekr6FqolgpNvbmbry
- fA/zaXIVAhZeWT3zKSQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDA4MyBTYWx0ZWRfXylwwviqBuvZ1
- BU5QdWxEJKLkwbmBNlXOnB6EztHRpjWOEPJ0ODbm3GcIofhbjiSaSEmJCfeMmBzHxX/x8Jk498I
- rwfOEEuxxVHLYSYkHE1PfSfAq3ZEWGM=
-X-Proofpoint-ORIG-GUID: nK4i7nx-8hpr_YcoACbfhlIMlq6GQX7F
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-28_02,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 bulkscore=0 suspectscore=0 lowpriorityscore=0
- clxscore=1015 phishscore=0 malwarescore=0 priorityscore=1501 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608280083
+Content-Transfer-Encoding: 8bit
 
-Qualcomm PMIH0108 PMIC has a haptics module inside and it could drive
-a LRA actuator with several play modes, including: DIRECT_PLAY, FIFO,
-PAT_MEM, SWR, etc. Add an initial driver to support two of the play
-modes using the input force-feedback framework:
+Fix spelling errors found by the kernel's scripts/spelling.txt
+and codespell in several devicetree binding documents:
 
--- FF_CONSTANT effect for DIRECT_PLAY mode which drives sinusoidual
-  waveforms with fixed period and amplitude, which would generate
-  a constant vibration effect on the LRA actuator.
+  - "curent" -> "current" in adi,ltc2991.yaml
+  - "deivce" -> "device" in zii,rave-sp-eeprom.yaml
+  - "ouput" -> "output" in delta,tn48m-gpio.yaml
+  - "redudant" -> "redundant" in trivial-devices.yaml
 
--- FF_PERIODIC effect with FF_CUSTOM for FIFO streaming mode, which
-  can play an arbitrary waveform composed of a sequence of 8-bit
-  samples at a configurable play rate.
-
-Also, add the device node in the existing pmih0108 dtsi files, and enble
-the haptics device for several boards by updating the vmax and
-lra-period sttings according to the LRA components that mounted on each
-of them.
-
-Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+Signed-off-by: Zhijian Han <hanzhijian1991@gmail.com>
 ---
-Changes in v7:
-- In the binding change, add specific pmih0108 compatible in the parent node of
-  the example for completeness. It doesn't change the schema itself so
-  previous Reviewed-by is still retained.
-- Remove checking "h->stop_timeline" agaist 0 value in haptics_stop_work()
-  to ensure the stop when it's wrapped around to 0.
-- Link to v6: https://patch.msgid.link/20260806-qcom-spmi-haptics-v6-0-19fcecd5204f@oss.qualcomm.com
+v2:
+- Use consistent identity "Zhijian Han" instead of the login-style name
+  "hanzhijian"
 
-Changes in v6:
- Drop patch [2/3] as it has been applied in
-  https://lore.kernel.org/linux-input/178602255123.2917765.7426706813083510078.b4-ty@b4/
+ Documentation/devicetree/bindings/gpio/delta,tn48m-gpio.yaml    | 2 +-
+ Documentation/devicetree/bindings/hwmon/adi,ltc2991.yaml        | 2 +-
+ Documentation/devicetree/bindings/nvmem/zii,rave-sp-eeprom.yaml | 2 +-
+ Documentation/devicetree/bindings/trivial-devices.yaml          | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
 
- Fixed Sashiko review comments:
- - Add FF_SINE waveform support since FF_RUMBLE would be converted to FF_PERIODIC
-   effect with FF_SINE waveform, and it is required to be supported. Also, clamp the
-   FIFO play length with replay.length, also document the limitation of supporting
-   replay.delay, u.periodic.magnitude and the envelope
- - Add a separate worker to handle timeout stop, which gives a clear
-   way to distinguish timeout stop requests from actual play stop requests.
- - Replace disable_delayed_work_sync() in close() to cancel_delayed_work_sync()
-   as it caused an issue that the work would be disabled permanently.
- - Move haptics_enable_module(h, false) into the reset action(). Calling it
-   in close() would desynchronize the runtime PM state and could cause issues
-   if a play is triggered after close() and before the auto suspend timer
-   expires.
- - Link to v5: https://patch.msgid.link/20260804-qcom-spmi-haptics-v5-0-77128ebbdd2d@oss.qualcomm.com
-
-Changes in v5:
- Fixed review comments from Dmitry:
- - Change to use "err" for the "ret" which hold error code
- - Remove "haptics_queue_pending(...)" functtion and inline it into the
-   caller.
- - In haptics_fifo_empty_irq() when writing FIFO chunk failed, instead of
-   stop the plan immediately, just clear the FIFO threshold to mask the
-   interrupt.
- - Add "lockdep_assert_held(&h->play_lock)" for the helper functions
-   which require to be called when the lock is held.
- - Add "gain_work" to handle set_gain() immediately.
- - Set input device bus_type to "BUS_HOST".
- - Move the remove teardown to input device close()
- - Link to v4: https://patch.msgid.link/20260717-qcom-spmi-haptics-v4-0-b0fe0ed30849@oss.qualcomm.com
-
-Changes in v4:
- Fixed Sashiko AI review comments in the driver:
- - In haptics_start_fifo(), remove the goto and do the clear in the error
-   paths directly, also add a comment to explain that disabling the IRQ
-   synchronously won't cause a deadlock.
- - When data refilling failed in IRQ handler, stop the play and disable
-   the IRQ to avoid the potential IRQ storming issue
- - in play_work(), check if the effect_id in the request is the one which
-   under playing before stopping the play.
- - Link to v3: https://patch.msgid.link/20260713-qcom-spmi-haptics-v3-0-c931bb7cb94f@oss.qualcomm.com
-
- Also, add trailers in the binding changes.
-
-Changes in v3:
-
- In the binding:
- - Removed the ref for qcom,vmax-microvolt as the property with standard
-   unit already has a ref in dtschema
- - Added 'qcom,pmih0108-haptics' as a device-specific compatible
+diff --git a/Documentation/devicetree/bindings/gpio/delta,tn48m-gpio.yaml b/Documentation/devicetree/bindings/gpio/delta,tn48m-gpio.yaml
+index e3e668a12..698cc14b0 100644
+--- a/Documentation/devicetree/bindings/gpio/delta,tn48m-gpio.yaml
++++ b/Documentation/devicetree/bindings/gpio/delta,tn48m-gpio.yaml
+@@ -14,7 +14,7 @@ description: |
+   details see ../mfd/delta,tn48m-cpld.yaml.
  
- In the driver, fixed Sashiko AI review comments with below changes:
- - Added a list to queue and serialize all of the request, which helps to
-   avoid the races between playback(), which is protected by evdev's event_lock,
-   and play_work(), which is protected by play_lock.
- - Changed to use guard(mutex) or scoped_guard(mutex, ) for cleaner mutex logic
-   usages, and update protection section to prevent race conditions.
- - Added runtime pm control in haptics_stop() function, use it as an unified interface
-   under the guard of 'play_lock' in play_work()/erase()/remove()/suspend(),
-   to ensure the runtime pm control correctness in race conditions.
- - Removed unnecessary stop play sequence in fifo_empty_irq() as the HW would
-   automatically stop after the FIFO samples are played out.
- - Added a common interface haptics_clear_effect() to clear the FIFO data with gaurd
-   of 'fifo_lock', and use it before upload() and in erase() to prevent race
-   condition.
- - used __free() for safe memory cleanup
- - Checked play_rate against negative value when loading FF_PERIOD effect
- - Limited the custom_data length to 48K prevent potential OOM
+   Delta TN48M has an onboard Lattice CPLD that is used as an GPIO expander.
+-  It provides 12 pins in total, they are input-only or ouput-only type.
++  It provides 12 pins in total, they are input-only or output-only type.
  
- - Link to v2: https://patch.msgid.link/20260624-qcom-spmi-haptics-v2-0-b9118e60f3e3@oss.qualcomm.com
-
-Changes in v2:
-
- Dropped dtsi change and I will resend them after the driver and binding changes get accepted.
+ properties:
+   compatible:
+diff --git a/Documentation/devicetree/bindings/hwmon/adi,ltc2991.yaml b/Documentation/devicetree/bindings/hwmon/adi,ltc2991.yaml
+index 1ff44cb22..2210764a8 100644
+--- a/Documentation/devicetree/bindings/hwmon/adi,ltc2991.yaml
++++ b/Documentation/devicetree/bindings/hwmon/adi,ltc2991.yaml
+@@ -49,7 +49,7 @@ patternProperties:
  
- Updated haptics binding and addressed review comments from Krzysztof and Konrad:
- - Extended the description to clarify the 'PAT_MEM' mode (not yet supported in the driver)
-   by comparing it with the 'FIFO' mode.
- - Updated the compatible string to 'qcom,spmi-haptics' to match the file name and removed
-   the PMIC wildcard.
- - Simplified register names to 'cfg' and 'ptn'.
- - Corrected the unit naming for the 'qcom,vmax-microvolt' property.
- - Added an additional clarification for the 'qcom,lra-period-us' property.
+       shunt-resistor-micro-ohms:
+         description:
+-          The value of curent sense resistor in micro ohms. Pin configuration is
++          The value of current sense resistor in micro ohms. Pin configuration is
+           set for differential input pair.
  
- Updated the driver to address review comments from Konrad and Julian:
- - In haptics_write_fifo_chunk(), separated variable declaration and assignment, and added
-   comments explaining the 4-byte and 1-byte FIFO writes.
- - Replaced manual 'x * n / d' calculations with mult_frac().
- - Switched to disable_irq() to prevent late IRQs after device removal.
- - Replaced property reads with device_property_read_u32().
- - Remove the 'INPUT' dependency in Kconfig
+       adi,temperature-enable:
+diff --git a/Documentation/devicetree/bindings/nvmem/zii,rave-sp-eeprom.yaml b/Documentation/devicetree/bindings/nvmem/zii,rave-sp-eeprom.yaml
+index d073c51c2..e0aacecd6 100644
+--- a/Documentation/devicetree/bindings/nvmem/zii,rave-sp-eeprom.yaml
++++ b/Documentation/devicetree/bindings/nvmem/zii,rave-sp-eeprom.yaml
+@@ -27,7 +27,7 @@ properties:
+     $ref: /schemas/types.yaml#/definitions/string
+     description:
+       Unique EEPROM identifier describing its function in the
+-      system. Will be used as created NVMEM deivce's name.
++      system. Will be used as created NVMEM device's name.
  
- Updated the driver to address feedback from Sashiko AI:
- - Guarded pm_runtime_resume()/suspend() with 'pm_ref_held' to prevent runtime PM reference leaks.
- - Replaced spinlock with a mutex to protect FIFO data during playback and avoid calling
-   sleepable regmap APIs under spinlock.
- - Adjusted suspend/remove() sequence to stop playback before canceling work, and freed
-   FIFO buffers to prevent potential memory leaks.
- - In FF_PERIODIC handling, allocated 'fifo_data' before assigning data to ensure its
-   consistency with 'data_len'.
- - Registered the input device after enabling runtime PM.
- - Unify to use 'h->dev' pointer in probe()
- 
- - Link to v1: https://patch.msgid.link/20260616-qcom-spmi-haptics-v1-0-d24e422de6b4@oss.qualcomm.com
-
----
-Fenglin Wu (2):
-      dt-bindings: input: Add Qualcomm SPMI PMIC haptics
-      input: misc: Add Qualcomm SPMI PMIC haptics driver
-
- .../bindings/input/qcom,spmi-haptics.yaml          |  139 +++
- drivers/input/misc/Kconfig                         |   11 +
- drivers/input/misc/Makefile                        |    1 +
- drivers/input/misc/qcom-spmi-haptics.c             | 1251 ++++++++++++++++++++
- 4 files changed, 1402 insertions(+)
----
-base-commit: 66725039f7090afe14c31bd259e2059a68f04023
-change-id: 20260616-qcom-spmi-haptics-3cc97e7b232e
-
-Best regards,
---  
-Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-
+ required:
+   - compatible
+diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
+index 2de8eb09c..719b82490 100644
+--- a/Documentation/devicetree/bindings/trivial-devices.yaml
++++ b/Documentation/devicetree/bindings/trivial-devices.yaml
+@@ -186,7 +186,7 @@ properties:
+           - injoinic,ip5306
+             # Inspur Power System power supply unit version 1
+           - inspur,ipsps1
+-            # Intel common redudant power supply crps185
++            # Intel common redundant power supply crps185
+           - intel,crps185
+             # Intersil ISL29028 Ambient Light and Proximity Sensor
+           - isil,isl29028
