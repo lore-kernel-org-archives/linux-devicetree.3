@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D58F3502A3
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 15:28:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6B9235674A
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 15:30:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787930940; cv=none; b=K63LKlbl7w5hJcoWz2jtesDHI+Ou8kliPqMmIleAzRZNFJ+WhuR+k5DaRr/C1taOe6TKW+Pmvkg9SsUslkvSLUPOwQrj6IGqC3Le9FilMK32HRzkz3/QGzyFiEyegoCUYdJwlNVl0y/NtFbS3y3G/kwTUaWqBfZz3VPutdsO1GU=
+	t=1787931006; cv=none; b=TSNfxdqjMpOI1uEGzBPU2wy0XrACkbUaJpw3XQZB50rsvNQYiUiPKsqgwQnbLs4pC5e3sQEirEgbwE3aeFvvvKI3bjyf+eyo4GNPBSZNCYHYRJ72W5JByHy8qMJKlOo7cp2xyJV3MN82VG38d8TfRJ9De5p+9AM2bTM3edJ86cM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787930940; c=relaxed/simple;
-	bh=zRJbEvc/Cai1G37TKLyuLQVn3nQDWICBPpFD4CPulq8=;
+	s=arc-20240116; t=1787931006; c=relaxed/simple;
+	bh=oRHDxyOsq+Oav2d9Zkeiup5QJBXT9p39UOPOD4OJWqA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=BKj+QkYSNI7dqxYei3sXr3+dx53kv/Z2oDRwtU5JBHa+DuG8/BRjZAtLpgyEpq0fcTk+tRPehfcYEhDuQvl8J29ca9oMkyqtYEl8qcLXJEPYJMG3eoRsfmGZgGGoNJWznuxYnKxs9nN2ANZX30RL5avlwEU+OVwQDE7cijkdd1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EOwSmKlz; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=KwzSctPn8b3wdzGr9tQMdh5WSV52oLDrbpNhCo7fCbr+5LfSEFuz40swnlEYe8yHKO4N98+gquCqmLQnk3LGgtRg+sXmhul+2Df0lVEDQBUL58f/qNJmyulADLgzbmMfCx+lJfrkaXs1nVK5GsXewnOmTmGvHdzGyvUwMMBdV0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PaqXmbg0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EOwSmKlz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AFA91F000E9;
-	Fri, 28 Aug 2026 15:28:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PaqXmbg0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4045E1F000E9;
+	Fri, 28 Aug 2026 15:30:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787930938;
-	bh=bi8aKnmgbudjQiXYbPWdnE0QDlb1het5d4ucF7BotKU=;
+	s=k20260515; t=1787931004;
+	bh=bepVBFyA/L6gV+/W49VxF8D4+QtKUSTRjSOlh6kDbVg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EOwSmKlzEveh6h+TvQ/nOhS6xFG0kagqeKoKzxL2JjYZF3UGi+0O7Flzx56tyGkMD
-	 UFbh7zH0bia+51vXMtNlewRYPwA5nRgffuK8Kb5fpkXkobcDRBz+ZDsR5cVzc1OdHB
-	 kIKUEZk7mBl5SjdcYbsjnQE7JJX388lHQLbaugj963QYvjZhndykjvqXUMwWX3M75f
-	 oiaZ1Sn2j5aTLT+zYrL5NbRr4db1bT2Joa3nZVvivjx7F553xPHEDHOB+k79P/3SMw
-	 mLehuZNrjYbMpvmnKOajC0w4n8+bbwM8OddQ6eblNZb/D5XiQfkq6fNo5Xjdr/PkgP
-	 nEQg4fWUBuxKg==
+	b=PaqXmbg0EsdzFzOwckX3QkwIFx2qwUW4i4DoTXTMOArLs7Qo1j7MahWxhlg2Sq2fO
+	 7/weItmt0SC7fJ8giKORdMqYvSUXLeWjou/eu1FWPjuihk69v8340DinIGjBvLdBFp
+	 lUIVFMFhJyySKyQP9sStabZKRqS09EnpIybxhAAZvvLci1/CMsxk3gDbIZwMYpbEqI
+	 9sqbuKaAX3nARjUD5VXJxCheMzW03HGwKbAqy8x2VAB44z3Hvzd3cLpsfZ3LIa28oS
+	 27SAQO6Bi9yVvzb9aMlrFzke2weVl0gjwR+pJRHctbFhri1s/Co9x7zYxptRS6jNu6
+	 sCjrVk4rysm/Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: usb: dwc3: Document ST STM32MP2
- DWC3 xHCI USB controller
+Subject: Re: [PATCH v4 2/2] usb: dwc3: dwc3-generic-plat: Add ST STM32MP2
+ DWC3 xHCI USB controller glue
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Marek Vasut" <marex@nabladev.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260828150937.174735-1-marex@nabladev.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260828150937.174735-2-marex@nabladev.com>
 References: <20260828150937.174735-1-marex@nabladev.com>
+ <20260828150937.174735-2-marex@nabladev.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 28 Aug 2026 15:28:57 +0000
-Message-Id: <20260828152858.6AFA91F000E9@smtp.kernel.org>
+Date: Fri, 28 Aug 2026 15:30:03 +0000
+Message-Id: <20260828153004.4045E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,54 +47,98 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Introduction of an un-prefixed, undocumented generic property `over=
--current-active-low`.
+- [Medium] STM32MP25 USB3 syscfg register configuration is permanently lost=
+ after a suspend/resume cycle.
 --
 
-commit 5c70b019c9a119b961b9928eb41cf7a19bb476a6
+commit e3287a65c05b7a190b49e2a633f70e39f4bce365
 Author: Marek Vasut <marex@nabladev.com>
 
-dt-bindings: usb: dwc3: Document ST STM32MP2 DWC3 xHCI USB controller
+usb: dwc3: dwc3-generic-plat: Add ST STM32MP2 DWC3 xHCI USB controller glue
+   =20
+The ST STM32MP2 SoC contains one instance of DWC3 USB controller with
+a glue logic wrapper around it controlled by syscon. This commit extends
+the generic DWC3 platform driver with ST STM32MP2 glue logic specifics.
 
-This commit documents the ST STM32MP2 SoC single instance of the DWC3 USB
-controller. It details the glue logic wrapper controlled by syscon along
-with the controller itself.
+> diff --git a/drivers/usb/dwc3/dwc3-generic-plat.c b/drivers/usb/dwc3/dwc3=
+-generic-plat.c
+> index ca69ac0eb07ce..bb2be75a82875 100644
+> --- a/drivers/usb/dwc3/dwc3-generic-plat.c
+> +++ b/drivers/usb/dwc3/dwc3-generic-plat.c
 
-> diff --git a/Documentation/devicetree/bindings/usb/st,stm32mp25-dwc3.yaml=
- b/Documentation/devicetree/bindings/usb/st,stm32mp25-dwc3.yaml
-> new file mode 100644
-> index 0000000000000..96bd557327252
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/usb/st,stm32mp25-dwc3.yaml
 [ ... ]
-> +  interrupts:
-> +    maxItems: 1
+
+> @@ -85,6 +92,38 @@ static int dwc3_spacemit_k1_init(struct dwc3_generic *=
+dwc3g)
+>  	return 0;
+>  }
+> =20
+> +static int dwc3_stm32mp25_init(struct dwc3_generic *dwc3g)
+> +{
+> +	struct device *dev =3D dwc3g->dev;
+> +	bool ovrcur_polarity_low =3D device_property_read_bool(dev, "over-curre=
+nt-active-low");
+> +	bool prt_pwr_ctrl =3D device_property_read_bool(dev, "st,enable-port-po=
+wer-control");
+> +	bool usb2only_conf =3D device_property_match_string(dev, "phy-names", "=
+usb3-phy") < 0;
+> +	bool vbusen_polarity_low =3D device_property_read_bool(dev, "st,vbusen-=
+active-low");
+> +	struct regmap *regmap;
+> +	u32 drcr;
 > +
-> +  resets:
-> +    maxItems: 1
+> +	regmap =3D syscon_regmap_lookup_by_phandle_args(dev->of_node, "st,syscf=
+g", 1, &drcr);
+> +	if (IS_ERR(regmap))
+> +		return dev_err_probe(dev, PTR_ERR(regmap), "No st,syscfg phandle speci=
+fied\n");
 > +
-> +  over-current-active-low:
-> +    type: boolean
-> +    description: Over-Current signal polarity is active-low
+> +	return regmap_update_bits(regmap, drcr,
+> +				  STM32MP2_USB3DRCR_HOST_PORT_POWER_CONTROL_PRESENT |
+> +				  STM32MP2_USB3DRCR_OVRCUR_POLARITY |
+> +				  STM32MP2_USB3DRCR_VBUSEN_POLARITY |
+> +				  STM32MP2_USB3DRCR_USB2ONLYD |
+> +				  STM32MP2_USB3DRCR_USB2ONLYH,
+> +				  FIELD_PREP(STM32MP2_USB3DRCR_HOST_PORT_POWER_CONTROL_PRESENT,
+> +					     prt_pwr_ctrl) |
+> +				  FIELD_PREP(STM32MP2_USB3DRCR_OVRCUR_POLARITY,
+> +					     ovrcur_polarity_low) |
+> +				  FIELD_PREP(STM32MP2_USB3DRCR_VBUSEN_POLARITY,
+> +					     vbusen_polarity_low) |
+> +				  FIELD_PREP(STM32MP2_USB3DRCR_USB2ONLYD,
+> +					     !!usb2only_conf) |
+> +				  FIELD_PREP(STM32MP2_USB3DRCR_USB2ONLYH,
+> +					     !!usb2only_conf));
 
-[Severity: Low]
-Should this property include a vendor prefix?
+[Severity: Medium]
+Will this STM32MP25 USB3 syscfg register configuration be permanently lost
+after a system suspend and resume cycle?
 
-Since this property is defined locally rather than inheriting from a common
-core USB schema, introducing over-current-active-low as a generic un-prefix=
-ed
-property could violate devicetree naming conventions for custom properties.=
-=20
+This function configures vital USB hardware behaviors (over-current polarit=
+y,
+VBUS polarity, power control, USB2-only mode) via a syscfg regmap update
+during probe.
 
-Would it be safer to prefix this, such as st,over-current-active-low, to
-prevent namespace pollution and avoid conflicts if the subsystem later
-standardizes a property with the identical name but different semantics?
+However, dwc3_generic_resume() does not appear to re-invoke the initializat=
+ion
+callback or provide a mechanism to restore this state on resume:
 
-> +
-> +  st,syscfg:
-> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+static int dwc3_generic_resume(struct device *dev)
+{
+...
+	ret =3D clk_bulk_prepare_enable(dwc3g->num_clocks, dwc3g->clks);
+...
+	ret =3D dwc3_pm_resume(dwc);
+...
+}
+
+If this configuration is lost during deep sleep, could this regression
+cause the USB port to fail to function correctly after resuming?
+
+> +}
+
 [ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828150937.1747=
-35-1-marex@nabladev.com?part=3D1
+35-1-marex@nabladev.com?part=3D2
