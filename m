@@ -1,35 +1,35 @@
-Received: from mta0.migadu.com (out-56.mta0.migadu.com [91.218.175.56])
+Received: from mta0.migadu.com (out-49.mta0.migadu.com [91.218.175.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2F124457A6
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 11:45:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E801C446BEA
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 11:45:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787917563; cv=none; b=FLsQ7zwXrGgCI/8dzH33d+SxTouHY51AcwYnwQxOiGDhHyY+Fbw+ykMissWKYCIkE4sRw8+0cUx+P6x79LkL1hfnjIDhkKRygKSPzmBQkoDXPopAGf+8+s6IOczwiNCzBFZmruC7NdLC8rwoIhiS0eY3CKCnSlmQ/EqIk+gYIRs=
+	t=1787917567; cv=none; b=Zd5GohkIH9HppEfhxuoqclYKh1F9ksV4BP6r4mYLmwFVhy845lbpqkyB+eHd0R6/Cw+JLYUtBcIWYqQ6bAiocMFzsnc2+82d3N6TcSRIzhX5WyB8V4/TJM4/9B0fAvaNf3RbSknm0YeGH+UytcQpxgIBFeIEt2Bhlee5mSiLMeQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787917563; c=relaxed/simple;
-	bh=uapX6PXhcBGDCmHV05L6QsA4dUHjroApJlX837g50MY=;
+	s=arc-20240116; t=1787917567; c=relaxed/simple;
+	bh=bVACo8v5FEqx+4/0ojCAbrd58C/+n+Gtjw1O0FYevc8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gObC26fX0ydHy0RgHwKd+6Qu3TR/5uaeYVTz5jCLxA+oNZwHssPMyB9Gn75AUwkbNoIgNkM40f0VAwfVHEMCnaif+0nyNGS1otzm5RRMpZzwZFYUc23J15wvE25ecuDn4ABF62fl+C+e1juuxeyIErvuwcWmO31YdtAk++XxMXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=I2p4hb0S; arc=none smtp.client-ip=91.218.175.56
+	 MIME-Version; b=n2KI2BS29J1rb9a1D6WuQTDgPWQ6cf1yemFRYte4NVMvxr5iuRWimqG6HHuVqwvf2DYtL9NDfZFF5USmv2+wkRvnY2tmuZMQxMgNnJFgN0yqDk57jSH2xMM6f3lCG5LFqmk4U8uJhR4av/8pbiX6Im3RW81msh/KsooTp34mJtc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=cihW0Gc+; arc=none smtp.client-ip=91.218.175.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="I2p4hb0S"
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="cihW0Gc+"
 X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=uapX6PXhcBGDCmHV05L6QsA4dUHjroApJlX837g50MY=;
+DKIM-Signature: a=rsa-sha256; bh=bVACo8v5FEqx+4/0ojCAbrd58C/+n+Gtjw1O0FYevc8=;
  c=simple/simple; d=cknow-tech.com;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787917556; v=1; x=1788522356;
- b=I2p4hb0SJ6TaUY31a5B+6yE26Potg1KenkyTVWcMN1iBnk+AN0ncdIVH6qPALitif4YZZ6Ca
- pjkfY7k8NsJZuQIPzlyq4uWeJIEl/GWv/poK8jSLuJGYvLQllTs6KouwXNIIlN8PNnPAoMpggTq
- knCpn3xNY77whepV3hRPTkS/GMVriD8q/5c/mo4A71cz0J4gRCtn9DRjyejfqR0YLBEBsMSI1/0
- x7MotC25z4Ee5u1AacytyI3pFh6S2Esw3P8vHVRzEf2h29xP9nlstKZ+vkHENOEbQ/Y6ZANFPp2
- qrbjyqh9A1PWnZfnv3BeFrDHFra/YkAbOArBOuFWc9Hzg==
+ t=1787917551; v=1; x=1788522351;
+ b=cihW0Gc+3f3bgK24aeajsH2tVR6faDKSCqHTJQimjA8KO7WMo4B67RMhs/4msb0uIptkXCf7
+ qM6cebNW56cHouyAtq1LgCH+To/HH9PbC94A1byX3o9otcRfLYQRFJbxXba51cQ1I9AaOWaF03K
+ f2lH5CJrjSCYOEZWSTUtC6oTbbTUwuJHdVdbd/3GWHRHpHNUgDatMUxKQpnuDdsdYd69gX6EVpt
+ Lf1bDMvfnERny+WNZJQ2OYaCoHTgwZC+zyoNhRyZ0ZfYFq+805Mhg0RRFYT/YRP/G1W9trT7F4G
+ NP/KwjvzDEeH7BOOTY0qdWOUKtXm9upODa2zLcYTQP/1g==
 X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 071f6fa85d8f0328;
-	Fri, 28 Aug 2026 11:45:56 +0000
-X-Mizu-Trace-ID: 071f6fa85d8f0328
+Received: by smtp.migadu.com with ESMTPS id aac531fba34cc0c3;
+	Fri, 28 Aug 2026 11:45:50 +0000
+X-Mizu-Trace-ID: aac531fba34cc0c3
 X-Migadu-Flow: FLOW_OUT
 From: Diederik de Haas <diederik@cknow-tech.com>
 To: Rob Herring <robh@kernel.org>,
@@ -45,9 +45,9 @@ Cc: Ricardo Pardini <ricardo@pardini.net>,
 	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Diederik de Haas <diederik@cknow-tech.com>
-Subject: [PATCH 4/7] arm64: dts: rockchip: Don't pull up rtc int pin on NanoPC-T6
-Date: Fri, 28 Aug 2026 13:43:04 +0200
-Message-ID: <20260828114530.1315798-5-diederik@cknow-tech.com>
+Subject: [PATCH 3/7] arm64: dts: rockchip: Fix hym8563 pinctrl name and sorting on NanoPC-T6
+Date: Fri, 28 Aug 2026 13:43:03 +0200
+Message-ID: <20260828114530.1315798-4-diederik@cknow-tech.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260828114530.1315798-1-diederik@cknow-tech.com>
 References: <20260828114530.1315798-1-diederik@cknow-tech.com>
@@ -59,27 +59,40 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-All NanoPC-T6 boards have a pull up resistor for the RTC pin, so there's
-no need for the SoC to pull it up.
+Use the pinctrl names as used in the schematics and use natural sort order
+by property names for the hym8563 RTC node.
 
 Signed-off-by: Diederik de Haas <diederik@cknow-tech.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
-index 84bfb33a4774..2c9390d2968c 100644
+index 16c35250bacf..84bfb33a4774 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
-@@ -705,7 +705,7 @@ hp_det: hp-det {
- 
- 	hym8563 {
- 		rtc_int_l_pin: rtc-int-l-pin {
--			rockchip,pins = <0 RK_PB0 RK_FUNC_GPIO &pcfg_pull_up>;
-+			rockchip,pins = <0 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
- 		};
+@@ -536,10 +536,10 @@ hym8563: rtc@51 {
+ 		reg = <0x51>;
+ 		#clock-cells = <0>;
+ 		clock-output-names = "hym8563";
+-		pinctrl-names = "default";
+-		pinctrl-0 = <&hym8563_int>;
+ 		interrupt-parent = <&gpio0>;
+ 		interrupts = <RK_PB0 IRQ_TYPE_LEVEL_LOW>;
++		pinctrl-0 = <&rtc_int_l_pin>;
++		pinctrl-names = "default";
+ 		wakeup-source;
+ 	};
+ };
+@@ -704,7 +704,7 @@ hp_det: hp-det {
  	};
  
+ 	hym8563 {
+-		hym8563_int: hym8563-int {
++		rtc_int_l_pin: rtc-int-l-pin {
+ 			rockchip,pins = <0 RK_PB0 RK_FUNC_GPIO &pcfg_pull_up>;
+ 		};
+ 	};
 -- 
 2.55.0
 
