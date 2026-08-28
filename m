@@ -1,111 +1,80 @@
-Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 740B63F3260;
-	Fri, 28 Aug 2026 08:59:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.81.229.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F47F57C9F;
+	Fri, 28 Aug 2026 09:00:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787907560; cv=none; b=DfOKMmsTPFMsGdh+jBSPWRKydUfQ5ECwRo89XeyQP6d++ZzA/ihmQHwYmkSCKGihQwDT3MDzzSLRKlhGwQ6O08zwK+QVc/wfWm/F9Nx8yf3OUTQgFvQJ8w0JarqI5FCoVjCdMbiHkzvT4tQl9Gz62s18j+n0E9xBStDQO0OpXeY=
+	t=1787907635; cv=none; b=Ufo8cKRDleZMnxWXz6xEFTakmgJ8yd2CpTdCfHC94ihuCoSYSpFiN3w07CQ6iZoDbg9tggcDd1V7Tu7Ei4iubGuVY/1oUVnuu4HA9I/IyZP+9r/lSihEc0ONqVkf09CmT3We4+TT/vEspNpU26XfthkK1OoDcv0L15dFztOQrFc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787907560; c=relaxed/simple;
-	bh=FY6nUFUsg5ykRDaCyNCZU21elpZrnVLRtGzYwII8m2U=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qwpX2BgMbjIToTI1C6VmC1Bj1+WUlm1x2nQKjVkCUG61YBVe8JKlZ+6K/gtwQDTJVsdkWyFxs52l1mBMwplMZVabzgRI1xnPJ8EK04LoWc+ZfwBYmK7FMyl2+JKyse0J8eqP0uKxPM2/0UDe0BPvZwmaUQCCUwBNBjvBPks6ezk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=qXbezgFJ; arc=none smtp.client-ip=77.81.229.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
+	s=arc-20240116; t=1787907635; c=relaxed/simple;
+	bh=HzJo9X/GHj0KdA/Oytf9ZOr3X4GryInLd/+c5MlJlzQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=t5PuWMAn9L5n7NCyHtcN1AdVPefsV7PjiiaVyJpNLWyFTCAGfkNJnm6lmXg4Dk3RRcZ0T1YXcjm2LiHTqfj9dVllWmnQMAa3fFA+G7vn/43gge0XBJZ4honNwPlTRPZ9p/KOS57F+nRtQF85TGSlA0+r91x6wOhw4hSysEXBbRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fm32441u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="qXbezgFJ"
-Received: by chaosmail.tech (Postfix) id 4394B1CC17E;
-	Fri, 28 Aug 2026 08:59:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
-	s=mail; t=1787907548;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wVHbMMgwTRdvhl3Xmvr04M/6W1HqFA3Q/iNZoN90xm8=;
-	b=qXbezgFJ+EVp1HKwvDHhnigrozPU75e8tM48R/huH9iNeOoWxWmvVT3fwKZZ/8sQVkm1Cl
-	LanHby2RTAVDqZiq9yqInmtEqsRrQmrIudNUX46eRvtAR3D+NOTkVPSzlOhEgEdpWrE035
-	hdBB/dK0KWqTjFjrA9J+X/8Sl/z7AAc=
-From: Sasha Finkelstein <k@chaosmail.tech>
-Date: Fri, 28 Aug 2026 10:59:01 +0200
-Subject: [PATCH v8 5/6] spmi: apple: lock around FIFOs
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fm32441u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAA991F00A3A;
+	Fri, 28 Aug 2026 09:00:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787907633;
+	bh=l98xIy55knSNDWbjx9VGLix+RpwvD+inMHMWp1tpjFg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fm32441uh815AjOn4sWiRU7kPXbj9zKXtM/Y95eOT0WTz04OOF4zXmO9yE9VBc/F4
+	 3cGHcEiz6DelClc2EsKOImgUjmi4MfAxzD3ErmLdY7DPN6rZGGjEt7lOSf7HqaeSF+
+	 pB40uMBhsthC+Tu8vJeLwJHbXRc13OQixVqcNySVzijXPhcoDcxhoKKrIcXrto9hxG
+	 W5UqFAVBVaLmhz6YEPNGl/8iOWP/e2+e8uBf2hqy9IOVY9JGcf8MYtfC3iKF3WGCa6
+	 +KqiNKJ00s4DXlTh4phMhghf92bDTsvTC4Dm98NH/lcDZPrXfYNoaJ9DpqfXcYr9yv
+	 wS6ilD8PY7TAg==
+Date: Fri, 28 Aug 2026 11:00:30 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: hanzhijian <hanzhijian1991@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Guenter Roeck <linux@roeck-us.net>, Srinivas Kandagatla <srini@kernel.org>, 
+	Robert Marko <robert.marko@sartura.hr>, Antoniu Miclaus <antoniu.miclaus@analog.com>, 
+	Frank Li <Frank.Li@nxp.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-hwmon@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: fix typos in various bindings
+Message-ID: <20260828-stalwart-brave-zebra-02e72c@quoll>
+References: <20260821105605.1967718-1-hanzhijian1991@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260828-t603x-spmi-v8-5-708d4d12e0fd@chaosmail.tech>
-References: <20260828-t603x-spmi-v8-0-708d4d12e0fd@chaosmail.tech>
-In-Reply-To: <20260828-t603x-spmi-v8-0-708d4d12e0fd@chaosmail.tech>
-To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
- Neal Gompa <neal@gompa.dev>, Stephen Boyd <sboyd@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- Sasha Finkelstein <k@chaosmail.tech>, Alba Mendez <me@alba.sh>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787907544; l=1392;
- i=k@chaosmail.tech; s=20241124; h=from:subject:message-id;
- bh=/okjDmX4WP5ORuj7W0YBcJBa1hZOvGWaK9RmHtLYrOM=;
- b=9OoJExJftqrBBYs8Fb4Yj7w5aoNFCuhmQ1XPufl8ePj6MgdtVCalKohDMT+1XYkPT3QQtO/Mp
- DvwiLzad068A/YNqVZc8jPa/o/0kUYY6aZVJW3s4BV8L6t/4L9bMBae
-X-Developer-Key: i=k@chaosmail.tech; a=ed25519;
- pk=aSkp1PdZ+eF4jpMO6oLvz/YfT5XkBUneWwyhQrOgmsU=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260821105605.1967718-1-hanzhijian1991@gmail.com>
 
-From: Alba Mendez <me@alba.sh>
+On Fri, Aug 21, 2026 at 06:56:05PM +0800, hanzhijian wrote:
+> Fix spelling errors found by the kernel's scripts/spelling.txt
+> and codespell in several devicetree binding documents:
+> 
+>   - "curent" -> "current" in adi,ltc2991.yaml
+>   - "deivce" -> "device" in zii,rave-sp-eeprom.yaml
+>   - "ouput" -> "output" in delta,tn48m-gpio.yaml
+>   - "redudant" -> "redundant" in trivial-devices.yaml
+> 
+> Signed-off-by: hanzhijian <hanzhijian1991@gmail.com>
 
-The driver was missing locking around register interactions.
+Your name looks a bit like login. Usually Latin transliterations have
+space and use capital letters, but honestly I cannot judge.
 
-Signed-off-by: Alba Mendez <me@alba.sh>
-Reviewed-by: Janne Grunau <j@jannau.net>
-Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
----
- drivers/spmi/spmi-apple-controller.c | 5 +++++
- 1 file changed, 5 insertions(+)
+But here you used different identity:
+https://lore.kernel.org/all/20260825141526.3911472-1-hanzhijian1991@gmail.com/
 
-diff --git a/drivers/spmi/spmi-apple-controller.c b/drivers/spmi/spmi-apple-controller.c
-index 9843dc871d6c..fabccd25aa0d 100644
---- a/drivers/spmi/spmi-apple-controller.c
-+++ b/drivers/spmi/spmi-apple-controller.c
-@@ -16,6 +16,7 @@
- #include <linux/io.h>
- #include <linux/iopoll.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/platform_device.h>
- #include <linux/spmi.h>
- 
-@@ -39,6 +40,7 @@
- 
- struct apple_spmi {
- 	void __iomem *regs;
-+	struct mutex fifo_lock;
- 	bool prev_fail;
- };
- 
-@@ -78,6 +80,8 @@ static int spmi_raw_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid, u16 param,
- 	size_t i = 0, j;
- 	int ret;
- 
-+	guard(mutex)(&spmi->fifo_lock);
-+
- 	if (spmi->prev_fail) {
- 		writel(SPMI_ACT_FIFO_FLUSH, spmi->regs + SPMI_ACT_REG);
- 		spmi->prev_fail = false;
-@@ -195,6 +199,7 @@ static int apple_spmi_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 
- 	spmi = spmi_controller_get_drvdata(ctrl);
-+	mutex_init(&spmi->fifo_lock);
- 
- 	spmi->regs = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(spmi->regs))
+Please use a consistent one.
 
--- 
-2.55.0
+> ---
+>  Documentation/devicetree/bindings/gpio/delta,tn48m-gpio.yaml    | 2 +-
+>  Documentation/devicetree/bindings/hwmon/adi,ltc2991.yaml        | 2 +-
+>  Documentation/devicetree/bindings/nvmem/zii,rave-sp-eeprom.yaml | 2 +-
+>  Documentation/devicetree/bindings/trivial-devices.yaml          | 2 +-
+>  4 files changed, 4 insertions(+), 4 deletions(-)
+
+Best regards,
+Krzysztof
 
