@@ -1,94 +1,208 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78A2D36E49B
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 15:09:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03DDA472F60;
+	Fri, 28 Aug 2026 15:09:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787929755; cv=none; b=QNGYbWwiP2mtv2OAGcBXRw4KE3n8SmeAAErWTwCUsChcnX2TSd5BCee6yIp84lG4dGht5h6NfFY95ZrU3CFjU+j9xZ56ykigepnANHFH67cTJ4roavMyiijV/FQYPAqYvHwt69+N0HcSY6XT3dvqXj7HaJjFn2HZd1tOp2QWd3A=
+	t=1787929790; cv=none; b=Rxu1SNYD1itZqLq29v+IJVkfp3r3yn1OAPHzI9kCOG2CYZLRdwTDhv+C+HyCLXj3LeJLt3UUo34yLVjY/athA7FWJtR3BX2UhCxHey0klOIZg6I4wZ6Bsgwsp2Xf5INt0DPL32PYTBoSht2oVPgpkpSsDwgfm43FFPjENDxCgjI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787929755; c=relaxed/simple;
-	bh=x5uBV/vJ+x34n9hWg7WJS8tY+2cZbHuT14Qi5sczOcI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uiG46tckB/RhryGf84Rb0n6exragiK/frYEoFpjkP5sYLYMW151wROakSxKkiBnn9Rn1HC6TYk6JSl5DBS5pwtIhrFfSnVu/uq84hfL7bQttEUtKJE9xfAOSYqdj+WKClXVGzqEkC0y5ODnt++QrMwngdyxShhPOfanX3Qgbgu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PUBz6jss; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787929790; c=relaxed/simple;
+	bh=UerTMlWHA/YR2+M3GUt0lCADOLRItod+rivNeJGYyMc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=j6LYk+9E05YJyxZI8f4j2dle88x35xAKIDXhu7PbMxJNVUUp2d1m28Ykr9qdeo5cncJVMTrhXOrkaHRkhcgi9Oi6IZxHTIq+JvBW2BUGZzWw0YeKtohU6ilCUBnmaNUbWCups5MrEqq7aeV8YKOdw82JCqI49ij8GNCwV3AItuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=LHcPtoIv; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PUBz6jss"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A43F11F000E9;
-	Fri, 28 Aug 2026 15:09:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787929753;
-	bh=tczmfbB9kc41nLjCZMeQfz6zhgq4l5jWdLJyoiPsQP4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PUBz6jssuTzXuvztEfv/nRo68mVkhYaQ8GbZJGiyeRZRAoUdfD07HY689f8Oi9LB/
-	 oPSmXeTejzqzm8k6JttsEQR+ftCXkC7FI18Su7YYFp6jMZpYno8lbQFAcHosX/cyWO
-	 /zy7e9xt6UB5zUgm/TFogM3uaJ6dwJhtS8HAMctlam2eOevJo/2S/9VpTJLfv5q6jG
-	 8Fv5hueeRPds264N+pQN/x1FhwfKEFFP0mWha2fALCE/YboGNjZGBOC7vTG7lxCF61
-	 L+1i+OpczDvwvjHa69Bwwoc1aYpuPqpLFncHK4NRbowOheFn9QpsPUoiehBOuP3I8l
-	 AmNrh0BTQVZ+w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: usb: generic-ohci: Document ST
- STM32MP1 SoC compatibles
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marek Vasut" <marex@nabladev.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260828150202.173109-1-marex@nabladev.com>
-References: <20260828150202.173109-1-marex@nabladev.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 28 Aug 2026 15:09:13 +0000
-Message-Id: <20260828150913.A43F11F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="LHcPtoIv"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 224CD11BEC6;
+	Fri, 28 Aug 2026 17:09:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1787929782;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=ozKD0N8uJ3vLeWvcaalYvsUuvddSsjd8y/LOkYrjclk=;
+	b=LHcPtoIvFQUwZDxDylbBKu+LBBvIWMxI9filtuOofEmlLTvVi6pA+8KI6/9CJt17Bcaoof
+	tpD0V1D6VQ8XDftoxMAbLvZXvgxcQYRYWzvAW7z0SQkgyJmf5T587LO2K/C2UkNldw3Bl8
+	j0Nn0CP3D/VecsXZqxMesVeod/io3Eqyk+oJFjC3VFz4lPHJIhbmysMoXrfnK1GyINzcEp
+	lNaTXioOC2YQ7ebp7ZzX6fmr0c5kBST+k5P7XcUidsnHZGK4hUNJjVc4fLWYhFkgtCy0OA
+	DpXvxSnJzSA0Dd0yy3M8dYKgeCLsSUFMgMqi9WV7pw0j5afAiJmYxUaxh8JODA==
+From: Marek Vasut <marex@nabladev.com>
+To: linux-usb@vger.kernel.org
+Cc: fabrice.gasnier@foss.st.com,
+	Marek Vasut <marex@nabladev.com>,
+	Pankaj Dev <pankaj.dev@st.com>,
+	=?UTF-8?q?Cl=C3=A9ment=20Le=20Goffic?= <clement.legoffic@foss.st.com>,
+	Gatien Chevallier <gatien.chevallier@foss.st.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	devicetree@vger.kernel.org,
+	kernel@dh-electronics.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: [PATCH v4 1/2] dt-bindings: usb: dwc3: Document ST STM32MP2 DWC3 xHCI USB controller
+Date: Fri, 28 Aug 2026 17:09:14 +0200
+Message-ID: <20260828150937.174735-1-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Incomplete binding family update: missing STM32MP1 EHCI compatib=
-les.
---
+The ST STM32MP2 SoC contains single instance of DWC3 USB controller with
+glue logic wrapper around it controlled by syscon. Document the glue
+logic and DWC3 controller.
 
-commit b94b8c4a5c06e677f1c40f017de92bb5e2ec3002
-Author: Marek Vasut <marex@nabladev.com>
+Co-developed-by: Pankaj Dev <pankaj.dev@st.com>
+Signed-off-by: Pankaj Dev <pankaj.dev@st.com>
+Co-developed-by: Clément Le Goffic <clement.legoffic@foss.st.com>
+Signed-off-by: Clément Le Goffic <clement.legoffic@foss.st.com>
+Co-developed-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+Signed-off-by: Marek Vasut <marex@nabladev.com>
+---
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Marek Vasut <marex@nabladev.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Cc: devicetree@vger.kernel.org
+Cc: kernel@dh-electronics.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-usb@vger.kernel.org
+---
+V2: Fix up Sob/Cdb lines
+V3: - Document maximum-speed
+    - Switch resets to maxItems: 1
+    - Drop label from example
+    - Use generic over-current-active-low
+    - Use ref: snps,dwc3-common.yaml and drop generic dr_mode/maximum-speed/phys/phy-names
+V4: - Split this from series arm64: dts: phy: st: usb: Add STM32MP2 USB support
+      https://lore.kernel.org/all/20260822074816.548662-1-marex@nabladev.com/
+---
+ .../bindings/usb/st,stm32mp25-dwc3.yaml       | 97 +++++++++++++++++++
+ 1 file changed, 97 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/usb/st,stm32mp25-dwc3.yaml
 
-dt-bindings: usb: generic-ohci: Document ST STM32MP1 SoC compatibles
+diff --git a/Documentation/devicetree/bindings/usb/st,stm32mp25-dwc3.yaml b/Documentation/devicetree/bindings/usb/st,stm32mp25-dwc3.yaml
+new file mode 100644
+index 0000000000000..96bd557327252
+--- /dev/null
++++ b/Documentation/devicetree/bindings/usb/st,stm32mp25-dwc3.yaml
+@@ -0,0 +1,97 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/usb/st,stm32mp25-dwc3.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: STMicroelectronics STM32 MPU DWC3 USB SoC controller
++
++description:
++  The STM32 MPU DWC3 USB SoC controller block supports both
++  Host(SS/HS/FS/LS) and Device(SS/HS/FS) mode operation
++
++maintainers:
++  - Fabrice Gasnier <fabrice.gasnier@foss.st.com>
++  - Marek Vasut <marex@nabladev.com>
++
++allOf:
++  - $ref: snps,dwc3-common.yaml#
++
++properties:
++  compatible:
++    const: st,stm32mp25-dwc3
++
++  reg:
++    maxItems: 1
++
++  access-controllers:
++    maxItems: 1
++
++  clocks:
++    minItems: 3
++    maxItems: 3
++
++  clock-names:
++    items:
++      - const: ref
++      - const: bus_early
++      - const: suspend
++
++  interrupts:
++    maxItems: 1
++
++  resets:
++    maxItems: 1
++
++  over-current-active-low:
++    type: boolean
++    description: Over-Current signal polarity is active-low
++
++  st,syscfg:
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    description: Phandle to system configuration controller.
++    items:
++      - items:
++          - description: phandle to syscfg
++          - description: USB3DR control offset within syscfg
++
++  st,enable-port-power-control:
++    type: boolean
++    description: Enable Host-Mode Port Power Control (bit-3 of capability param HCCPARAMS)
++
++  st,vbusen-active-low:
++    type: boolean
++    description: VBUS-ENABLE signal polarity is active-low
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - interrupts
++  - phys
++  - phy-names
++  - resets
++  - st,syscfg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/st,stm32mp25-rcc.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/reset/st,stm32mp25-rcc.h>
++
++    usb@48300000 {
++        compatible = "st,stm32mp25-dwc3";
++        reg = <0x48300000 0x100000>;
++        clocks = <&rcc CK_KER_USB2PHY2>, <&rcc CK_BUS_USB3DR>, <&rcc CK_KER_USB2PHY2>;
++        clock-names = "ref", "bus_early", "suspend";
++        interrupts = <GIC_SPI 228 IRQ_TYPE_LEVEL_HIGH>;
++        phys = <&usb2_phy>, <&usb3_phy>;
++        phy-names = "usb2-phy", "usb3-phy";
++        resets = <&rcc USB3DR_R>;
++        over-current-active-low;
++        st,syscfg = <&syscfg 0x4800>;
++        st,vbusen-active-low;
++    };
+-- 
+2.53.0
 
-This commit documents the SoC-specific compatibles for the ST STM32MP13xx
-and STM32MP15xx series in the generic-ohci binding. This allows the SoC
-DTSI to use these more accurate compatibles instead of just the generic
-fallback.
-
-> diff --git a/Documentation/devicetree/bindings/usb/generic-ohci.yaml b/Do=
-cumentation/devicetree/bindings/usb/generic-ohci.yaml
-> index d42f448fa2044..1b54f0d91061f 100644
-> --- a/Documentation/devicetree/bindings/usb/generic-ohci.yaml
-> +++ b/Documentation/devicetree/bindings/usb/generic-ohci.yaml
-> @@ -49,6 +49,8 @@ properties:
->                - ingenic,jz4740-ohci
->                - rockchip,rk3588-ohci
->                - snps,hsdk-v1.0-ohci
-> +              - st,stm32mp13-ohci
-> +              - st,stm32mp15-ohci
-
-[Severity: Medium]
-Since st,stm32mp13-ohci and st,stm32mp15-ohci are being added here, should
-the companion EHCI compatibles (st,stm32mp13-ehci and st,stm32mp15-ehci)
-also be added to the compatible block in
-Documentation/devicetree/bindings/usb/generic-ehci.yaml?
-
-The device tree bindings subsystem guidelines state that when a binding
-has multiple YAML files for different device types in the same family,
-related files need matching updates. Updating generic-ehci.yaml would
-ensure the EHCI companion controller is documented alongside its OHCI
-counterpart, keeping the entire USB host subsystem on STM32MP1 fully
-documented and future-proofed.
-
->            - const: generic-ohci
->        - enum:
->            - generic-ohci
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828150202.1731=
-09-1-marex@nabladev.com?part=3D1
