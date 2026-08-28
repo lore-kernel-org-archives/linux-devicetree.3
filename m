@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD30E3D3D0C
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 12:03:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D15A448D19
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 12:05:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787918638; cv=none; b=UciJtkYwOwYCdthM8/UakuqbMJJ3TJK0LrVoZr4hv6bjasFjNKSQK911B6laEPKqgkO6U0YYZ/f3Cy/p2F71pN9TZQpWbKYpzgh7Bxt2bx9Q5paOYPRauLfWua4O+iRt/i9OD50V+lGorvnkAQnqiUpg/JjeqQbsbjZNpzvtIB8=
+	t=1787918743; cv=none; b=rb4+ErzOAaNO9aFE5eUAhxQKKaqI0XAjKOX528D98Ra1ZH6CaaVS1EmUuygnEQaYYRK8gWaP7cOLfmWBXOMjhYKf2pMKq6mUKKEUCVbDN8e6cRE8oZXPpjTgTWVx8nQA6zde32f/WOHIV1ZYbVfL6/TcoMssADKQPHHd1OEbrnQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787918638; c=relaxed/simple;
-	bh=wURO0pk0COUFf3KjhYGql7qqr5jh0NjN4A0RKHwFxWY=;
+	s=arc-20240116; t=1787918743; c=relaxed/simple;
+	bh=+tAhIfhSVmX3w/RQYLgYH12NNKwud+ebUOxkiW2Th5w=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=LVLv/PRjRC5oPAf4WYJoorbulrWsL9EBWiSOJRtHdz4s9gbRb+feTZzgtaEyFiGMo3uv4RGD5WR+NyNdvRvnzRjvivlJT79klPWJqKEB974lPHC/pmrtI5Uvvc7Z7Qm7+Q8aMqQYDyxUEFYm24/o9B/qznTjiXrgH9lV3/ffmLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wmmj+1z7; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=NP92bEmB5YrH510fzOwz92Xm8XoA50ksgfxqTei9Zu6mZFqbUxNnJaH5Co7dqqTV5XiuThtBeKcG8iAm1SacfsL5lSTX0tjcn/8R5PKwsw+hPeCnz5zTwtQjM1ynqBwBZy6pVCDo3ldknN2zVBPp2sq26J6xhLmumvTAGe/UG4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=itYvGKqQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wmmj+1z7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08C3F1F000E9;
-	Fri, 28 Aug 2026 12:03:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="itYvGKqQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBDDA1F000E9;
+	Fri, 28 Aug 2026 12:05:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787918629;
-	bh=6vUj2bqvfmV3uPdOQ7vdyxXWfLgvn3AxohLEWLDvthI=;
+	s=k20260515; t=1787918731;
+	bh=BX75IaPasdemQMcxCdNLIYecB/VRYWe16/8imQUNtqQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Wmmj+1z70ThaQ+RVh/NRsUs91VSQbnl7RpWSNER9vcJytoX3bW706dWry4TPpCbUI
-	 w5TIiqVXJH069sC+Tjj/DWiX0/M5mGYZ74JbJ3g1EkHPnLP4wdAbTVpFGKfpFJSYKu
-	 DtGEBHeIusDtCi2jHMiAyDda4Kqdmgxg01/ZHpwleL1pmMa5byAOQM7dmWZ8ndlc9v
-	 CxQRuB8auyCdzTLbTCnBy+9BjElVH/1Rt9PbxTVUrIwtG6OqV85NHrUPmc9mAQH6fX
-	 VxyNDd+uB3O7MKghMj+eZaBk11bV4uEqB45DVynQ8EH9WL4d52S26YtjtsMF2IbxLs
-	 h4njn2Mg/mq3w==
+	b=itYvGKqQhLZGWVL0uoGvLc4apvtmpyuc13yCHB8v51b2/XN2KPwflVdWFAZhnu2hw
+	 08a7aB2fJrLYMf6iAhYrL+aNu7ppLjiKJ39u+fhDwMG62yovIP2qgcT8iXDHDzawRU
+	 cBwN6RcfjJhbR+siw64o7cnV8hL6m9KSQHUYA6pi+rwE15c8PVvRMep/SJ3iYQxMZF
+	 ueiKdjlt5BoZBoUHJ0EgOyDQv0HAFqzSttWEzkFWF1VL3uZRaxMZRF6UnHBGGBBw2K
+	 oZaXYnssEK/l9OR3eavVDy0TlTPh+VJDmqtrjG86vYEGxBUlWBQRLq9YO9ilxBOb3O
+	 4TZem/n9+/ebA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/3] arm64: tegra: Add PWM fan on Jetson AGX Thor
- DevKit
+Subject: Re: [PATCH v2 3/3] arm64: tegra: Add cooling device on Jetson AGX
+ Thor DevKit
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Thierry Reding" <thierry.reding@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260828-tegra264-fan-v2-1-a460389d8ef5@nvidia.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260828-tegra264-fan-v2-3-a460389d8ef5@nvidia.com>
 References: <20260828-tegra264-fan-v2-0-a460389d8ef5@nvidia.com>
- <20260828-tegra264-fan-v2-1-a460389d8ef5@nvidia.com>
+ <20260828-tegra264-fan-v2-3-a460389d8ef5@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 28 Aug 2026 12:03:48 +0000
-Message-Id: <20260828120349.08C3F1F000E9@smtp.kernel.org>
+Date: Fri, 28 Aug 2026 12:05:30 +0000
+Message-Id: <20260828120530.EBDDA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,66 +47,63 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] Incomplete `pwm@c6a0000` node and unit address collision
-- [Low] Missing phandle `&pwm4` causes a fatal DTC build error
+- [Medium] The 'pwm@c6a0000' node incorrectly reuses the unit address of th=
+e 'i2c9' ('i2c@c6a0000') node defined in the base SoC dtsi, and lacks requi=
+red compatible/reg properties.
+- [Low] The device tree references an undefined label '&pwm4' in the 'pwms'=
+ property of the 'pwm-fan' node, causing a DTC compilation failure.
 --
 
-commit 896b2e4dbdcbabef8cf82b66c7dcabdbec8e9800
+commit 73950943498e73365e307610b1d8975ecc5959a4
 Author: Thierry Reding <treding@nvidia.com>
 
-arm64: tegra: Add PWM fan on Jetson AGX Thor DevKit
+arm64: tegra: Add cooling device on Jetson AGX Thor DevKit
 
-Add a PWM fan device node to actively control the PWM, preventing it from
-stopping or running at full speed during boot when the controller's clock
-is turned off.
+Monitor the TJ thermal zone and use the main PWM fan of the Jetson AGX
+Thor Developer Kit to actively cool the device if needed.
 
+[ ... ]
 > diff --git a/arch/arm64/boot/dts/nvidia/tegra264-p4071-0000+p3834.dtsi b/=
 arch/arm64/boot/dts/nvidia/tegra264-p4071-0000+p3834.dtsi
-> index 45f8df9bbfd62..4550e843f513c 100644
+> index 4550e843f513c..dd042e57839a5 100644
 > --- a/arch/arm64/boot/dts/nvidia/tegra264-p4071-0000+p3834.dtsi
 > +++ b/arch/arm64/boot/dts/nvidia/tegra264-p4071-0000+p3834.dtsi
-> @@ -9,4 +9,17 @@ aliases {
->  	chosen {
->  		stdout-path =3D "serial0:115200n8";
->  	};
-> +
-> +	bus@0 {
-> +		pwm@c6a0000 {
-> +			status =3D "okay";
-> +		};
 
 [Severity: Medium]
-Will this node fail to bind the PWM driver? Because the base tegra264.dtsi
-does not define this node, it lacks essential properties like compatible,
-reg, and #pwm-cells.
+Will the pwm@c6a0000 node in this file create a node name collision at unit
+address @c6a0000?
 
-Also, does this cause a unit-address collision warning? The base tree alrea=
-dy
-defines i2c9: i2c@c6a0000 at the exact same address:
+Looking at the node definition in this file:
 
-arch/arm64/boot/dts/nvidia/tegra264.dtsi:bus@0 {
-	...
-	i2c9: i2c@c6a0000 {
-		compatible =3D "nvidia,tegra264-i2c";
-	...
-}
+	bus@0 {
+		pwm@c6a0000 {
+			status =3D "okay";
+		};
+	};
 
-> +	};
-> +
-> +	fan: pwm-fan {
-> +		compatible =3D "pwm-fan";
-> +		cooling-levels =3D <77 102 140 192 255>;
-> +		pwms =3D <&pwm4 0 40000>;
+Could this incorrectly reuse the unit address of the i2c9 (i2c@c6a0000) node
+defined in the base SoC dtsi?
+
+Additionally, this node lacks the compatible and reg properties. Will this
+prevent the PWM hardware from probing, leaving the newly added fan feature
+unconfigured?
+
+> @@ -22,4 +22,56 @@ fan: pwm-fan {
+>  		pwms =3D <&pwm4 0 40000>;
 
 [Severity: Low]
-Does this cause a fatal DTC build error? The label &pwm4 is unresolved
-because it is referenced but never defined in tegra264.dtsi or any included
-file, resulting in a 'label or path not found' syntax error.
+Can this undefined label cause a DTC compilation failure?
 
-> +		#cooling-cells =3D <2>;
-> +	};
->  };
+Since the base tegra264.dtsi does not define a pwm4 label, will this break
+the kernel build with a "Reference to non-existent node or label" error
+when building the DTB?
+
+>  		#cooling-cells =3D <2>;
+>  	};
+> +
+> +	thermal-zones {
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828-tegra264-f=
-an-v2-0-a460389d8ef5@nvidia.com?part=3D1
+an-v2-0-a460389d8ef5@nvidia.com?part=3D3
