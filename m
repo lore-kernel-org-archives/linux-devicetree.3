@@ -1,152 +1,699 @@
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 760C4374190
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 16:07:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787933267; cv=pass; b=g6bcvheZyMZf9UdiUgqWM5PtF5+SwKnkHPOBmGB0yGaodoB10fzmVYxKTeIz4oy7h7f57HPQ1P8YbfMpl6cyYckD+QaMJxzKvCfIZ2pEY8bUIazg+0IXBTjudhKpytj5q3kUUQYK8RzKl5MGf9w6yxjGMKlFBUuRnhZ6MbpzJ5k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787933267; c=relaxed/simple;
-	bh=2x+UF8n18sT4+9jyjBtfMLA3LNRKOdoX1PP1AnaWW3U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DLNCMXw7qxn2BWmk2GnCq9og4GGLDP0kD+cv1rZygWV9mfsM1yIqov7wU9R1Qi5xRfaT5+AqDRuXYed2pJU+TYWBgH4lQWA1JGwYLDpM8/JP8HeGr3+jf4Qpm0cw6TeQIbGZLd9EIpfmdVkXstm7MEzf+nudlihwT5Wtktl798c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=divinehawk.com; spf=pass smtp.mailfrom=divinehawk.com; arc=pass smtp.client-ip=209.85.218.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=divinehawk.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=divinehawk.com
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c169ae1cb26so479450866b.1
-        for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 09:07:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787933265; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LU6vVWiaPjsk9yHi8Y8vMlZXRc4pgb1niopB4GHH4j54P/Uzdkut4cMISyFT8upa6H
-         zAYa8mp5oAxyPspZ1d6w3z4AYGaUGX/b1JKe9pJvXg1xZKY3EdUp6yhcbxa7rs/iu093
-         itIsl1+0Vt0UGTQ7/VECqd7ncUsS0omd4r4ivdu7LI77uHuNvqc2ABSAcHaHJOhjVFzA
-         x+zmAaEIN34rNczmyBe32JRnUkGg6GRGLjgArD055g5qdNhTgGuOe9E0lWazbN5Nz1E1
-         GMl9ENWuZup7+oUFWf5WQUm352aFWHpznn8d3GoDkGvdK82pE40vvg/60ogU6wi53uU1
-         wxZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version;
-        bh=/sRHrsFM0ReOg77NeIRd8xGTZ74lCBqKLjN6+GHojJo=;
-        fh=ajvM1u/9P/dDzhXdqj3mBISc33WkhRz9XItmTae9/Zw=;
-        b=fe3axLZs5Qs2D+1320jG8BnRCy5X4Tv/+U4iRbUMJjqcjdSyPhNXd+iAzJ6D1ea8JE
-         zy9/kf9nnJWqXt6fiX3xcttVVqbo8qXaXrLmgmPfHAu+O328MGRyEfW4e6vqwuNN4eaU
-         ehzOIU91u8t84eWAEGKEHEbIDuGCq0LWa1YzQwBZ5pHoDIypEACTFCS3wVpkUVUjJP+l
-         T57arqnA1Vf1vEotHt9YdLD/2KHMEsqV0AxuZOMcXcYAy1spLQvXOuI3kUskwxqdXFGP
-         YhDJxifGLM/Vq82Jdfej8XjM7OT0n8LowJyQC0eXCWH9SWmTN4bgCKHbZ15MWmS3wa1u
-         0GjA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787933265; x=1788538065;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/sRHrsFM0ReOg77NeIRd8xGTZ74lCBqKLjN6+GHojJo=;
-        b=dR84SbHDXvweG5xuRhw5etTTH7SoFnjmeY3TgN3aH0Rh4rGw63mzDNAMicss7szFfJ
-         Z5H0zP76WJ/ZT0hASAHRJA8OY9EKopktozfm1Gi1b5XF9Rn/fx2dpb0ghIO1b2gNP42w
-         E/njAomGPXai3zgXZGo+cpIyoR3fm8uBK3nG7p9SpIIVrJtGa9CTFEXPy9US4d/YY1d4
-         CsFMEJK4gvAurXfevwy9AZuurIkHonYiylNyBYpSV4qViszi/pMPbeciDCPF6mi22xt8
-         ow2KijMwmY6y0StiowNXcnxoBLh0iHDF/0ZJqrroaJpdWoDzG53YIkRrapvr38lvKLno
-         0Oqg==
-X-Forwarded-Encrypted: i=1; AHgh+RqEp2lJ/9vNr6wvUEdwZz5nqbBcRhSboXYiezaPyCeXQRwLtK7e3QoAxK6yaKtNuBPQYHq5hK49cXS4@vger.kernel.org
-X-Gm-Message-State: AFuF++mCUNLp8P76sB3p8duOLeldSrGvIPboKb3KJgf2uBUCVfRGhvsQ
-	v6JFS4Dtansis8/dbRO6j9LbpJ1CzXVHs8/MZxz0/wr6xCH913yeipgMMNFGVJCkAO3db+WWbXg
-	YvIJMO6qwHdUfI132/x0C+TJh1WnJLL810SPIVsK6
-X-Gm-Gg: AR+sD13UO9oFUwhwGDX4VgT95hHgyM8/6BpFqDQj3AKCTRa5IQ4C3624pttVC/V2unE
-	9kH1W+YBklxJBR3cCFAZbuQw4kNwn78mHZzx8c/MOSVRkRfhYkPocftK+JObqFeycqdcKvNfrau
-	2aJyCOjJ5jLyPuoxrgYPOwJCZq0XKMxgv8Oym5Ut7uDRBCCdvVGty4rzCMjoY4btMrQPaPOzUkF
-	d00CRGMTe6saua5AEKQYHyB61f35prdI7p9ezjRqVKd0+Hr5iBEDQH+Po4H7WxRpDShrSzw5Ld/
-	9071JZH9uvkJmDiwDwmSyjMtZnz1Keu/2PnTeP11eWEoqnDcIz0IvGZf3yc860WmwUF8/ltwWh3
-	qD94=
-X-Received: by 2002:a17:907:3d44:b0:c25:5faf:b216 with SMTP id
- a640c23a62f3a-c256dbc488dmr75904866b.4.1787933264392; Fri, 28 Aug 2026
- 09:07:44 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C085B37C0F5
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 16:08:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787933318; cv=none; b=PyEbCRsW5PxSV+vHvqEZVDpdACK/Vs6BdY9RuFGlV0HLk/Pwbzd2gsyQEng0EYpresQp77RVsp9O8impn6pkhKsIFD3wWVyPgyD8zAGUpsso8odLKe1I6cwqVyjTcBY6t1dKrDuzIM+1gRlyeHFr4c2/ho3rwDnJVStaNOza5dY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787933318; c=relaxed/simple;
+	bh=unBjc76hO1hUwfFoa7JvmstXD+cWnFLxZtHKYwyum14=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=n1LsJwwu3WsBKAjkUoA6DTZq2CL4xeS+DVMEdTz/QKFPNRfd7UtnvOp0ZazSoONPRJBPbbhpljqRZ5mJ/tfdIEsi0mu8W27CQDv4cgdplFqaj4VXHI6RVa0MUDQB4Clw2FNvNUGoC98TSdCST6lI0WDX48bv/8zE0rYovgQK55Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MALC5b0b; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MALC5b0b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE7451F000E9;
+	Fri, 28 Aug 2026 16:08:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787933312;
+	bh=+gEQMekLJ88gGO9h8WjllZEQ78sqqRzKnyDsWAijI0Q=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MALC5b0bQ5favzyRzlEuf6HijRlSKKDFJ1V3VO6Ap2323cmniP0n96cS+Z1Z8gHdr
+	 FMRtyr3XowjI2x77BJgUPnC7D6l6PyZuP9h7ljqSPR2lfs0xnozsP0qQ+Pj6mfdQ8d
+	 A6JmA3BngX9L99yK3fSkLsZQEbGQrhiUnyqwgYKaOLQjIiP2vQTwH0MPbYncvpIYkJ
+	 o6wuN72O1zLDcNYoSXxilSM/g/pV9HtNDaHaUnHrUF1U/TBJSN18u1DM6Dbq9emcB1
+	 cW6mmD1bBbTZDhDngeDW6awPNUFNhTk+DLBuFbMyVlu4jtM7qamIAsBWYgCvKRbg0c
+	 /cIejjmjUKX1A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 2/5] drm/microchip: add a driver for the Microchip
+ GFX2D GPU
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Cyrille Pitchen" <cyrille.pitchen@microchip.com>
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260828-cpitchen-mainline_gfx2d-v8-2-378374559738@microchip.com>
+References: <20260828-cpitchen-mainline_gfx2d-v8-0-378374559738@microchip.com>
+ <20260828-cpitchen-mainline_gfx2d-v8-2-378374559738@microchip.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 28 Aug 2026 16:08:31 +0000
+Message-Id: <20260828160831.EE7451F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260828-xhci-no-soft-retry-v1-0-b9c264b56601@divinehawk.com>
- <20260828-xhci-no-soft-retry-v1-1-b9c264b56601@divinehawk.com>
- <1aa6d82a-0d35-45a4-9ebd-1c3d8929e611@kernel.org> <CABUBpLfsjscV1-ftUPjKbL4EYq-9NSHYSCGJ_vqStM7k4FtkdA@mail.gmail.com>
- <14fd70cb-d07a-456f-9800-d3ece4039529@kernel.org>
-In-Reply-To: <14fd70cb-d07a-456f-9800-d3ece4039529@kernel.org>
-From: Matt Eaton <linux@divinehawk.com>
-Date: Fri, 28 Aug 2026 18:07:32 +0200
-X-Gm-Features: AcwNN1X_eUImfA2GusjfdVKVq99gGElh74I2ER8bxKyHTDCnL8d6gf7e81RmkvY
-Message-ID: <CABUBpLfH+bi3Q5hD+WWG0QnyCfmQMRt9TkUN+zC1pvH44ez90w@mail.gmail.com>
-Subject: Re: [PATCH 1/2] dt-bindings: usb: xhci: add xhci-no-soft-retry-quirk
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Mathias Nyman <mathias.nyman@intel.com>, linux-usb@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 28, 2026 at 3:53=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
->
-> On 28/08/2026 15:18, Matt Eaton wrote:
-> > On Fri, Aug 28, 2026 at 2:39=E2=80=AFPM Krzysztof Kozlowski <krzk@kerne=
-l.org> wrote:
-> >>
-> >> On 28/08/2026 14:37, Matt Eaton via B4 Relay wrote:
-> >>> From: Matt Eaton <linux@divinehawk.com>
-> >>>
-> >>> Document the xhci-no-soft-retry-quirk property, added in the
-> >>> following patch.
-> >>>
-> >>> snps,dwc3-common.yaml refs usb-xhci.yaml for every dr_mode other than
-> >>> peripheral, so a host-mode dwc3 node inherits it and dt_binding_check
-> >>> accepts it there.
-> >>
-> >> I do not understand how this sentence is relevant. Please describe the
-> >> hardware needing this.
-> >
-> > I came across this while porting the UniFi Travel Router (IPQ4018),
-> > the stock Qualcomm kernel is 4.4.60 which predates the soft retry
-> > code. The command ring hangs if you disconnect the device while it's
-> > transmitting. Reproducible consistently when using USB to tether to a
-> > phone.
-> >
-> >>>
-> >>> Signed-off-by: Matt Eaton <linux@divinehawk.com>
-> >>> ---
-> >>>  Documentation/devicetree/bindings/usb/usb-xhci.yaml | 4 ++++
-> >>>  1 file changed, 4 insertions(+)
-> >>>
-> >>> diff --git a/Documentation/devicetree/bindings/usb/usb-xhci.yaml b/Do=
-cumentation/devicetree/bindings/usb/usb-xhci.yaml
-> >>> index 4238ae896ef6..5d67a41658f7 100644
-> >>> --- a/Documentation/devicetree/bindings/usb/usb-xhci.yaml
-> >>> +++ b/Documentation/devicetree/bindings/usb/usb-xhci.yaml
-> >>> @@ -25,6 +25,10 @@ properties:
-> >>>      description: Set if the controller has broken port disable mecha=
-nism
-> >>>      type: boolean
-> >>>
-> >>> +  xhci-no-soft-retry-quirk:
-> >>> +    description: Set if the controller cannot perform xHCI Soft Retr=
-y correctly
-> >>
-> >> Why isn't this implied by compatible? Looks like controller's property=
-.
-> >
-> > The xhci device is created by dwc3 core as a child device, and so
-> > xhci_plat_probe() is used. I think a DT property is the right
-> > approach, similar to quirk-broken-port-ped, but to set
-> > XHCI_NO_SOFT_RETRY.
->
-> Linux driver behavior should not matter here. DT property for telling
-> Linux what to do is not the right approach. As I said, it's implied by
-> compatible unless you bring hardware reasons why it is not. Driver
-> reasons don't matter.
+Thank you for your contribution! Sashiko AI review found 17 potential issue=
+(s) to consider:
+- [Critical] Concurrent WAIT ioctls on the same GEM object corrupt `priv->w=
+list` leading to a double `list_del()` kernel panic.
+- [Critical] Lack of synchronization around static `next_id` causes duplica=
+te command IDs and premature Use-After-Free.
+- [High] Concurrent SUBMIT ioctls on the same file descriptor corrupt the s=
+hared per-file `ctx->rectangles` buffer.
+- [High] Shallow copying `struct vm_area_struct` by value leads to Use-Afte=
+r-Free and API misuse during cache flushing.
+- [High] Hardware exception (bus fault) due to unsafe MMIO register access =
+while the peripheral clock is disabled.
+- [High] `IMPORT_BUFFER` unconditionally overwrites shared GEM buffer metad=
+ata.
+- [High] `SYNC_FOR_CPU` ioctl fails to invalidate CPU caches for noncoheren=
+t buffers.
+- [High] Invalid use of `virt_to_page()` on DMA addresses in `mchp_gfx2d_ge=
+m_object_mmap`.
+- [High] Integer truncation allows userspace to bypass ROP4 mask validation=
+ and trigger a GPU fault.
+- [High] Double-subtraction of `drm_vma_node_start` causes mmap to permanen=
+tly fail with `-ENXIO`.
+- [High] Integer overflow in `round_up(size, PAGE_SIZE)` allows 0-sized all=
+ocation bypassing limits.
+- [High] Use-After-Free in `mchp_gfx2d_ioctl_alloc_buffer` due to exposing =
+the GEM handle before object initialization is complete.
+- [High] The driver fails to reinitialize hardware registers after waking u=
+p from a system suspend, leading to a GPU hang.
+- [Medium] Use of `__kernel_size_t` and implicit padding in UAPI structures=
+ breaks 32-bit compatibility.
+- [Medium] Silent overwrite of `BLEND_SREG` when hardware lacks `DREG` for =
+BLEND instructions.
+- [Medium] Missing upper bound check on `num_rectangles` allows arbitrary l=
+arge memory allocations.
+- [Medium] The interrupt handler silently acknowledges and ignores all GPU =
+hardware error interrupts.
+--
 
-Will rework without DT property. Appreciate the feedback!
+commit 9a29a32449f034a19c84420d0dbfd7fc866315ff
+Author: Cyrille Pitchen <cyrille.pitchen@microchip.com>
 
-Best,
-Matt
+drm/microchip: add a driver for the Microchip GFX2D GPU
+
+This commit adds a DRM driver for the Microchip GFX2D 2D GPU, supporting
+basic graphics instructions like FILL, COPY, BLEND, and ROP. The driver
+handles queueing instructions into a ring buffer and tracks completion
+via a LDR/STR command ID trick to a mailbox in system memory.
+
+> diff --git a/drivers/gpu/drm/microchip/mchp_gfx2d_cmd.c b/drivers/gpu/drm=
+/microchip/mchp_gfx2d_cmd.c
+> index 0000000000000..5b2cc704a336f
+> --- /dev/null
+> +++ b/drivers/gpu/drm/microchip/mchp_gfx2d_cmd.c
+> @@ -96,15 +96,12 @@ static int mchp_gfx2d_alloc_rectangles(struct mchp_gf=
+x2d_command *cmd,
+>  				       size_t num_rectangles)
+>  {
+>  	cmd->num_rects =3D num_rectangles;
+> =20
+>  	if (num_rectangles <=3D ARRAY_SIZE(cmd->ctx->rectangles)) {
+>  		cmd->can_free_rects =3D false;
+>  		cmd->rects =3D cmd->ctx->rectangles;
+>  		return 0;
+>  	}
+
+[Severity: High]
+Can this corrupt graphics instructions if multiple threads use the same file
+descriptor?=20
+
+Unprivileged userspace can spawn threads that concurrently invoke the submit
+ioctl on the same fd. Blindly assigning the shared per-file ctx rectangles
+buffer without synchronization could allow concurrent copy operations to
+overwrite each other's data, leading to arbitrary GPU execution or faults.
+
+[ ... ]
+
+> @@ -616,11 +616,10 @@ static void mchp_gfx2d_run_command(struct mchp_gfx2=
+d_device *priv,
+>  		if (cmd->blend.flags & GFX2D_BLEND_SET_DST_COLOR) {
+>  			enum mchp_gfx2d_reg_id reg =3D priv->caps->has_dreg ?
+>  				BLEND_DREG :
+>  				BLEND_SREG;
+>  			mchp_gfx2d_ldr(priv, reg, cmd->blend.dst_color);
+>  			mchp_gfx2d_trigger(priv);
+>  			cmd->blend.flags &=3D ~GFX2D_BLEND_SET_DST_COLOR;
+>  		}
+>  		if (cmd->blend.flags & GFX2D_BLEND_SET_SRC_COLOR) {
+>  			mchp_gfx2d_ldr(priv, BLEND_SREG, cmd->blend.src_color);
+
+[Severity: Medium]
+If hardware lacks a dedicated destination register, won't this silently
+overwrite the destination color?
+
+The register gets populated with the destination color above, but if the
+source color flag is also set, the exact same register is immediately
+overwritten, causing the operation to execute without the correct destinati=
+on
+color.
+
+[ ... ]
+
+> @@ -1242,15 +1242,14 @@ static int
+>  mchp_gfx2d_set_rop_params(struct mchp_gfx2d_device *priv,
+>  			  struct drm_file *file_priv,
+>  			  const struct drm_mchp_gfx2d_submit *args,
+>  			  struct mchp_gfx2d_command *cmd)
+>  {
+>  	uint32_t handle =3D args->rop.mask_handle;
+> =20
+>  	cmd->rop.mode =3D (u8)args->rop.mode;
+>  	if (cmd->rop.mode > DRM_MCHP_GFX2D_ROP4)
+>  		return -EINVAL;
+> =20
+>  	if (args->rop.mode =3D=3D DRM_MCHP_GFX2D_ROP2 && args->rop.low > 15)
+>  		return -EINVAL;
+> =20
+>  	if (((args->rop.mode =3D=3D DRM_MCHP_GFX2D_ROP4) && !handle) ||
+>  	    ((args->rop.mode !=3D DRM_MCHP_GFX2D_ROP4) && handle))
+>  		return -EINVAL;
+
+[Severity: High]
+Does the integer truncation of the mode allow userspace to bypass mask
+validation?=20
+
+The 32-bit mode is truncated to an 8-bit integer for the bounds check.
+If a user passes 0x10000002, it truncates to 2 (ROP4) and passes the check.
+However, the subsequent validation for a missing mask uses the untruncated
+32-bit value. This could allow a ROP4 command into the pipeline with a null
+mask pointer, potentially hard-faulting the GPU.
+
+[ ... ]
+
+> @@ -1291,15 +1291,14 @@ static struct mchp_gfx2d_command *
+>  mchp_gfx2d_alloc_command(struct mchp_gfx2d_device *priv)
+>  {
+>  	static uint32_t next_id;
+>  	struct mchp_gfx2d_command *cmd =3D NULL;
+
+[ ... ]
+
+>  	memset(cmd, 0, sizeof(*cmd));
+>  	cmd->id =3D next_id++;
+> =20
+>  	return cmd;
+>  }
+
+[Severity: Critical]
+Can this race if multiple threads submit graphics instructions concurrently=
+?=20
+
+Since the identifier is a static variable updated without synchronization,
+concurrent ioctls might assign identical identifiers to different commands.
+If the hardware mailbox reports the most recently completed identifier,
+compleosing the first command could incorrectly signal that both are finish=
+ed.
+This could cause the driver to free the second command and its GEM referenc=
+es
+while the GPU is still executing it.
+
+[ ... ]
+
+> @@ -1513,11 +1513,10 @@ void mchp_gfx2d_cleanup_command_queue(struct mchp=
+_gfx2d_device *priv)
+>  {
+>  	struct device *dev =3D priv->drm.dev;
+>  	struct mchp_gfx2d_command *cmd, *tmp;
+>  	uint32_t i;
+> =20
+>  	writel(GFX2D_IRQ_EXEND, priv->regs + GFX2D_ID);
+
+[Severity: High]
+Does this safely handle hardware accesses if the peripheral clock is gated?
+
+This unconditionally writes to registers, which could trigger a hardware bus
+fault if the clock failed to enable or was disabled by runtime suspend.
+
+[ ... ]
+
+> @@ -1568,14 +1568,13 @@ int mchp_gfx2d_submit(struct mchp_gfx2d_device *p=
+riv,
+>  		      struct drm_file *file_priv,
+>  		      const struct drm_mchp_gfx2d_submit *args)
+>  {
+>  	struct mchp_gfx2d_file *ctx =3D file_priv->driver_priv;
+>  	struct mchp_gfx2d_command *cmd;
+>  	size_t i, num_sources;
+>  	int ret;
+> =20
+>  	if (!args->num_rectangles)
+>  		return -EINVAL;
+> =20
+>  	cmd =3D mchp_gfx2d_alloc_command(priv);
+>  	if (!cmd)
+>  		return -ENOMEM;
+> =20
+>  	cmd->ctx =3D ctx;
+>  	cmd->operation =3D (u8)args->operation;
+>  	drm_dbg(&priv->drm, "cmd %u: allocate command (operation =3D %u)\n",
+>  		cmd->id, cmd->operation);
+> =20
+>  	ret =3D mchp_gfx2d_alloc_rectangles(cmd, args->num_rectangles);
+
+[Severity: Medium]
+Is there a missing upper bound check for the number of rectangles here?
+
+Since this untrusted user value is passed directly to the memory allocation
+routines, an unprivileged user could pass an extremely large value to exhau=
+st
+kernel memory or trigger the OOM killer.
+
+>  	if (ret)
+>  		goto err_release_command;
+> =20
+>  	ret =3D copy_from_user(cmd->rects, u64_to_user_ptr(args->rectangles),
+>  			     args->num_rectangles * sizeof(*cmd->rects));
+
+[Severity: High]
+Can this copy operations corrupt the shared context array?
+
+If multiple threads use the same file descriptor and the shared context buf=
+fer
+is assigned without synchronization, concurrent copies here would overwrite=
+ each
+other's data.
+
+[ ... ]
+
+> @@ -1689,17 +1689,16 @@ int mchp_gfx2d_wait(struct mchp_gfx2d_device *pri=
+v,
+>  		    struct mchp_gfx2d_gem_object *gfx2d_obj,
+>  		    const struct drm_mchp_timespec *timeout)
+>  {
+>  	struct device *dev =3D priv->drm.dev;
+>  	int ret;
+> =20
+>  	ret =3D pm_runtime_resume_and_get(dev);
+>  	if (ret)
+>  		return ret;
+> =20
+>  	(void)mchp_gfx2d_progress(priv);
+> =20
+>  	drm_dbg(&priv->drm, "obj %u: poll object\n", gfx2d_obj->id);
+> =20
+>  	ret =3D mchp_gfx2d_gem_wait(gfx2d_obj, NULL);
+>  	if (!ret || !timeout)
+>  		goto put_autosuspend;
+> =20
+>  	drm_dbg(&priv->drm, "obj %u: wait for object\n", gfx2d_obj->id);
+> =20
+>  	mutex_lock(&priv->wlist_mutex);
+>  	list_add_tail(&gfx2d_obj->w_node, &priv->wlist);
+>  	mutex_unlock(&priv->wlist_mutex);
+> =20
+>  	mchp_gfx2d_enable_exend(priv);
+> =20
+>  	ret =3D mchp_gfx2d_gem_wait(gfx2d_obj, timeout);
+> =20
+>  	mutex_lock(&priv->wlist_mutex);
+>  	list_del(&gfx2d_obj->w_node);
+>  	mutex_unlock(&priv->wlist_mutex);
+
+[Severity: Critical]
+Can this corrupt the linked list?=20
+
+Unprivileged userspace can spawn multiple threads invoking a wait on the sa=
+me
+GEM object concurrently. They will sequentially acquire the mutex and blind=
+ly
+call list_add_tail on the same embedded node. Inserting an already-linked n=
+ode
+corrupts the pointers, and when the threads later attempt to remove it, a
+double-delete kernel panic will occur.
+
+> diff --git a/drivers/gpu/drm/microchip/mchp_gfx2d_drv.c b/drivers/gpu/drm=
+/microchip/mchp_gfx2d_drv.c
+> index 0000000000000..ab8df683f3e00
+> --- /dev/null
+> +++ b/drivers/gpu/drm/microchip/mchp_gfx2d_drv.c
+> @@ -69,14 +69,13 @@ static const struct drm_driver mchp_gfx2d_drm_driver =
+=3D {
+> =20
+>  static irqreturn_t mchp_gfx2d_interrupt(int irq, void *dev_id)
+>  {
+>  	struct mchp_gfx2d_device *priv =3D dev_id;
+>  	u32 status, mask, pending;
+> =20
+>  	status =3D readl(priv->regs + GFX2D_IS);
+
+[Severity: High]
+Does this safely handle spurious interrupts while the peripheral clock is
+gated?=20
+
+Reading an MMIO register without checking if the clock is active might cause
+a synchronous external abort (bus fault) if the driver is runtime suspended.
+
+>  	mask =3D readl(priv->regs + GFX2D_IM);
+>  	pending =3D status & mask;
+> =20
+>  	if (!pending)
+>  		return IRQ_NONE;
+> =20
+>  	if (pending & GFX2D_IRQ_EXEND)
+>  		return IRQ_WAKE_THREAD;
+> =20
+>  	return IRQ_HANDLED;
+>  }
+
+[Severity: Medium]
+Does this intentionally silently acknowledge and ignore GPU hardware error
+interrupts?=20
+
+If the interrupt was triggered by a read error, write error, or illegal
+instruction, falling through without waking up waiters or resetting the GPU
+might cause waiting processes to hang indefinitely until they time out.
+
+[ ... ]
+
+> @@ -212,12 +212,11 @@ static void mchp_gfx2d_remove(struct platform_devic=
+e *pdev)
+>  {
+>  	struct mchp_gfx2d_device *priv =3D platform_get_drvdata(pdev);
+>  	int ret;
+> =20
+>  	drm_dev_unregister(&priv->drm);
+> =20
+>  	ret =3D pm_runtime_resume_and_get(&pdev->dev);
+>  	mchp_gfx2d_cleanup_command_queue(priv);
+
+[Severity: High]
+If the runtime resume fails here, does the cleanup function safely handle
+hardware accesses?=20
+
+The cleanup function unconditionally writes to hardware registers, which co=
+uld
+trigger a hardware bus fault if the clock failed to enable.
+
+[ ... ]
+
+> @@ -279,13 +279,12 @@ static int __maybe_unused mchp_gfx2d_runtime_resume=
+(struct device *dev)
+>  {
+>  	struct mchp_gfx2d_device *priv =3D dev_get_drvdata(dev);
+>  	int ret;
+> =20
+>  	ret =3D clk_enable(priv->pclk);
+>  	if (ret)
+>  		return ret;
+> =20
+>  	mutex_lock(&priv->cmdlist_mutex);
+
+[Severity: High]
+Does the hardware retain its configuration after a system suspend (S3)?=20
+
+If power is lost, waking up and only enabling the clock without restoring
+critical registers like the ring buffer address and global enable flag might
+cause the GPU to permanently stall when subsequent commands are submitted.
+
+> diff --git a/drivers/gpu/drm/microchip/mchp_gfx2d_gem.c b/drivers/gpu/drm=
+/microchip/mchp_gfx2d_gem.c
+> index 0000000000000..66f22cd6ac981
+> --- /dev/null
+> +++ b/drivers/gpu/drm/microchip/mchp_gfx2d_gem.c
+> @@ -23,17 +23,16 @@ static int mchp_gfx2d_gem_object_mmap(struct drm_gem_=
+object *obj,
+>  				      struct vm_area_struct *vma)
+>  {
+>  	struct mchp_gfx2d_gem_object *gfx2d_obj =3D to_mchp_gfx2d_bo(obj);
+>  	int ret;
+> =20
+>  	/*
+>  	 * Clear the VM_PFNMAP flag that was set by drm_gem_mmap(), and set the
+>  	 * vm_pgoff (used as a fake buffer offset by DRM) to 0 as we want to map
+>  	 * the whole buffer.
+>  	 */
+>  	vma->vm_pgoff -=3D drm_vma_node_start(&obj->vma_node);
+
+[Severity: High]
+Could this double-subtraction permanently break the mapping?
+
+The core DRM subsystem already translates and subtracts the offset before
+invoking the driver callback. Doing it a second time here will underflow the
+offset, causing the subsequent mapping call to reject the operation with an
+error.
+
+>  	vm_flags_mod(vma, VM_DONTEXPAND, VM_PFNMAP);
+> =20
+>  	if (gfx2d_obj->direction =3D=3D DMA_NONE) {
+>  		ret =3D dma_mmap_wc(obj->dev->dev, vma, gfx2d_obj->vaddr,
+>  				  gfx2d_obj->dma_addr,
+>  				  vma->vm_end - vma->vm_start);
+>  	} else {
+>  		vma->vm_page_prot =3D vm_get_page_prot(vma->vm_flags);
+> =20
+>  		ret =3D dma_mmap_pages(obj->dev->dev,
+>  				     vma, vma->vm_end - vma->vm_start,
+>  				     virt_to_page(gfx2d_obj->vaddr));
+
+[Severity: High]
+Is virt_to_page() safe to use on DMA addresses here?=20
+
+The virtual address is allocated with the noncoherent dma allocator, which
+on many architectures returns a non-linear vmalloc address. Using this help=
+er
+on non-linear addresses yields a bogus page structure, potentially leading =
+to
+page faults or mapping arbitrary physical memory to userspace.
+
+>  	}
+>  	if (ret)
+>  		drm_gem_vm_close(vma);
+>  	else
+>  		memcpy(&gfx2d_obj->vma, vma, sizeof(gfx2d_obj->vma));
+
+[Severity: High]
+Does this safely handle the lifecycle of the memory management struct?=20
+
+Performing a shallow copy using memcpy means that if the original mapping is
+unmapped, split, or the process exits, this cached copy will contain stale
+pointers that could cause a use-after-free later.
+
+[ ... ]
+
+> @@ -100,12 +100,11 @@ struct mchp_gfx2d_gem_object *
+>  mchp_gfx2d_gem_create(struct drm_device *dev, size_t size,
+>  		      enum dma_data_direction dir)
+>  {
+>  	struct mchp_gfx2d_gem_object *gfx2d_obj;
+> =20
+>  	size =3D round_up(size, PAGE_SIZE);
+
+[Severity: High]
+Can this overflow?=20
+
+If userspace passes an extremely large size close to U32_MAX, this can sile=
+ntly
+wrap to 0. The driver would allocate 0 bytes of physical memory but still
+populate the metadata with the huge dimensions, tricking the GPU into
+out-of-bounds DMA accesses.
+
+[ ... ]
+
+> @@ -132,14 +131,13 @@ mchp_gfx2d_gem_create_with_handle(struct drm_file *=
+file_priv,
+>  				  struct drm_device *dev, size_t size,
+>  				  enum dma_data_direction dir,
+>  				  uint32_t *handle)
+>  {
+>  	struct mchp_gfx2d_gem_object *gfx2d_obj;
+>  	struct drm_gem_object *obj;
+>  	int ret;
+> =20
+>  	gfx2d_obj =3D mchp_gfx2d_gem_create(dev, size, dir);
+>  	if (IS_ERR(gfx2d_obj))
+>  		return gfx2d_obj;
+> =20
+>  	obj =3D &gfx2d_obj->base;
+> =20
+>  	ret =3D drm_gem_handle_create(file_priv, obj, handle);
+>  	/* drop reference from allocate - handle holds it now. */
+>  	drm_gem_object_put(obj);
+>  	if (ret)
+>  		return ERR_PTR(ret);
+> =20
+>  	return gfx2d_obj;
+>  }
+
+[Severity: High]
+Does dropping the reference here expose the object to being concurrently fr=
+eed
+before initialization is complete?=20
+
+Once the handle is registered, it becomes visible to userspace. A concurrent
+thread can immediately issue the free ioctl, releasing the memory. When this
+function returns and its callers subsequently write to the object's propert=
+ies,
+it would result in a use-after-free.
+
+> diff --git a/drivers/gpu/drm/microchip/mchp_gfx2d_ioctl.c b/drivers/gpu/d=
+rm/microchip/mchp_gfx2d_ioctl.c
+> index 0000000000000..2a24738577892
+> --- /dev/null
+> +++ b/drivers/gpu/drm/microchip/mchp_gfx2d_ioctl.c
+> @@ -178,16 +178,15 @@ static int mchp_gfx2d_ioctl_import_buffer(struct dr=
+m_device *dev, void *data,
+>  					  struct drm_file *file_priv)
+>  {
+>  	struct drm_mchp_gfx2d_import_buffer *args =3D data;
+>  	struct mchp_gfx2d_gem_object *gfx2d_obj;
+>  	struct drm_gem_object *obj;
+>  	int ret;
+> =20
+>  	if (!mchp_gfx2d_valid_buffer_params(args->width, args->stride, args->fo=
+rmat))
+>  		return -EINVAL;
+> =20
+>  	ret =3D drm_gem_prime_fd_to_handle(dev, file_priv, args->fd, &args->han=
+dle);
+>  	if (ret)
+>  		return ret;
+> =20
+>  	obj =3D drm_gem_object_lookup(file_priv, args->handle);
+>  	if (!obj)
+>  		return -ENOENT;
+> =20
+>  	if (!mchp_gfx2d_valid_size(args->stride, args->height, obj->size)) {
+>  		drm_gem_object_put(obj);
+>  		drm_gem_handle_delete(file_priv, args->handle);
+>  		return -EINVAL;
+>  	}
+> =20
+>  	gfx2d_obj =3D to_mchp_gfx2d_bo(obj);
+>  	gfx2d_obj->width =3D args->width;
+>  	gfx2d_obj->height =3D args->height;
+>  	gfx2d_obj->stride =3D args->stride;
+>  	gfx2d_obj->format =3D args->format;
+> =20
+>  	drm_gem_object_put(obj);
+> =20
+>  	return 0;
+>  }
+
+[Severity: High]
+Is it safe to unconditionally overwrite these metadata bounds on an imported
+object?=20
+
+If a buffer is exported by one process and imported by another, the importi=
+ng
+process could provide arbitrary dimensions here. This modifies the shared
+object globally, potentially breaking metadata immutability and permitting
+out-of-bounds memory accesses for other processes sharing the object.
+
+[ ... ]
+
+> @@ -206,16 +205,15 @@ static int mchp_gfx2d_ioctl_sync_for_cpu(struct drm=
+_device *dev, void *data,
+>  					 struct drm_file *file_priv)
+>  {
+>  	struct mchp_gfx2d_device *priv =3D drm_to_dev(dev);
+>  	struct drm_mchp_gfx2d_sync_for_cpu *args =3D data;
+>  	const struct drm_mchp_timespec *timeout =3D &args->timeout;
+>  	struct mchp_gfx2d_gem_object *gfx2d_obj;
+>  	struct drm_gem_object *obj;
+>  	int ret;
+> =20
+>  	if (args->flags & ~DRM_MCHP_GFX2D_WAIT_NONBLOCK)
+>  		return -EINVAL;
+> =20
+>  	obj =3D drm_gem_object_lookup(file_priv, args->handle);
+>  	if (!obj)
+>  		return -ENOENT;
+> =20
+>  	gfx2d_obj =3D to_mchp_gfx2d_bo(obj);
+> =20
+>  	if (args->flags & DRM_MCHP_GFX2D_WAIT_NONBLOCK)
+>  		timeout =3D NULL;
+> =20
+>  	ret =3D mchp_gfx2d_wait(priv, gfx2d_obj, timeout);
+> =20
+>  	drm_gem_object_put(obj);
+> =20
+>  	return ret;
+>  }
+
+[Severity: High]
+Does this ioctl intentionally skip invalidating CPU caches?=20
+
+For buffers allocated via the noncoherent allocator, failing to call the CPU
+cache synchronization functions means the CPU might read stale cached data
+instead of the final GPU output once the wait completes.
+
+> @@ -236,13 +234,12 @@ static int mchp_gfx2d_ioctl_sync_for_gpu(struct drm=
+_device *dev, void *data,
+>  					 struct drm_file *file_priv)
+>  {
+>  	struct drm_mchp_gfx2d_sync_for_gpu *args =3D data;
+>  	struct mchp_gfx2d_gem_object *gfx2d_obj;
+>  	enum dma_data_direction dir;
+>  	struct drm_gem_object *obj;
+> =20
+>  	obj =3D drm_gem_object_lookup(file_priv, args->handle);
+>  	if (!obj)
+>  		return -ENOENT;
+> =20
+>  	gfx2d_obj =3D to_mchp_gfx2d_bo(obj);
+> =20
+>  	dir =3D gfx2d_obj->direction;
+>  	if (valid_dma_direction(dir)) {
+>  		struct vm_area_struct *vma =3D &gfx2d_obj->vma;
+> =20
+>  		flush_cache_range(vma, vma->vm_start, vma->vm_end);
+>  	}
+
+[Severity: High]
+Continuing from the shallow copy concern, does the cache flush safely handle
+the copied struct?=20
+
+The architecture-level cache flush can dereference potentially freed proper=
+ties
+if the original mapping was already unmapped or split by the process, leadi=
+ng
+to a use-after-free.
+
+> diff --git a/include/uapi/drm/microchip_drm.h b/include/uapi/drm/microchi=
+p_drm.h
+> index 0000000000000..6be5ea9edd7cd
+> --- /dev/null
+> +++ b/include/uapi/drm/microchip_drm.h
+> @@ -148,15 +148,14 @@ struct drm_mchp_gfx2d_rop {
+>  	__u32 mask_handle;
+>  	enum drm_mchp_gfx2d_rop_mode mode;
+>  	__u8 high;
+>  	__u8 low;
+>  };
+> =20
+>  struct drm_mchp_gfx2d_submit {
+>  	__u64 rectangles;
+>  	__kernel_size_t num_rectangles;
+
+[Severity: Medium]
+Does using this type in a UAPI struct break 32-bit compatibility ioctl
+translations?=20
+
+Its size varies between 32-bit and 64-bit architectures, which typically ca=
+uses
+ABI mismatches.
+
+[ ... ]
+
+> @@ -224,15 +224,14 @@ enum drm_mchp_gfx2d_direction {
+>  	DRM_MCHP_GFX2D_DIR_BIDIRECTIONAL,
+>  	DRM_MCHP_GFX2D_DIR_TO_DEVICE,
+>  	DRM_MCHP_GFX2D_DIR_FROM_DEVICE,
+>  	DRM_MCHP_GFX2D_DIR_NONE,
+>  };
+> =20
+>  struct drm_mchp_gfx2d_alloc_buffer {
+>  	__u32 size;     /* in bytes for mmap() */
+>  	__u16 width;
+>  	__u16 height;
+>  	__u16 stride;
+>  	enum drm_mchp_gfx2d_pixel_format format;
+
+[Severity: Medium]
+Will this 16-bit field followed by a 32-bit enum create implicit padding?
+
+Leaving uninitialized padding in UAPI structures can lead to information le=
+aks
+to userspace.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828-cpitchen-m=
+ainline_gfx2d-v8-0-378374559738@microchip.com?part=3D2
