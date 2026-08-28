@@ -1,199 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 934AB472533
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 15:13:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4BDF472533
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 15:14:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787930032; cv=none; b=EgcRdmklyL0gv2JI1F9SJlB9qZp4zLxniDLOxHkVyv2b9nHnlO+Uj8wqqh/an/0P7giKqNkZEoL1asDMR0gLLcPLN9Y5NRSf2FacxGNjGb14NA55chHjL+7fiY+ll/t6hb8nEsOcwHY9emTFsyi7xEs5h2qeZg/ku4kgy+NAlfc=
+	t=1787930073; cv=none; b=loiBkAT4Wknl8390N7n36U6ZsoKsWLkj9JF9XGk3KKcalSUHYhrzwVCfWjAORSW1Hv9qhDJeOLrLNCNUvwHFam2m3Q1WPNq29agUyoyQOh3wBQzwWNk/vGdcweuRfeqajqqwNcWyWICwLqDPT1yg5DRiVXbef/9hFRWu+iARxlY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787930032; c=relaxed/simple;
-	bh=NGvNWwVDiGLX95W+iCcT7aDFsqV1+ZTKlYik7z2PG0U=;
+	s=arc-20240116; t=1787930073; c=relaxed/simple;
+	bh=sn2pMVMU7IUNkycKgaCGAQRw6LZhMhJVqMMwRJSAP2w=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=awF7TDMLWF0eKUiSXZeDZwqOzlgITh1nP/y/AO8NWn2wsoUqcksuCs1BabuBtJqM5eAcnZHafSEzWEx4yqKazJY64vUttUWJeKYSMvZ0B/rM+2Na7liUu/ecbDaDgWQC236BkZhCg9L6PSTyeFYVs9C32PHq3T2Kfo7lAgw/eJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RbjUKhxh; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Drx/H9hrUSFVL2P11jC3ktYooBMAud++AnzwaT7rlOadSx6HGn7gdyv2CtVeFyB3mtjVNIEIfD2b0tgmtYhGupKP8sTcJ6ntI3aAfzVxC9LuxD/TOgEZJGvh4f4+AU9McedKiTCB4Q7gxY2n/Za6aRxeIRysV4nJyVefLI2gQkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dBHmrLYu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RbjUKhxh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B47AF1F000E9;
-	Fri, 28 Aug 2026 15:13:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dBHmrLYu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACFC21F000E9;
+	Fri, 28 Aug 2026 15:14:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787930031;
-	bh=DMHj2Kf6poQWbYQ9gH3jGFBDTATpS/stjwW6AsP+yHE=;
+	s=k20260515; t=1787930072;
+	bh=6+6/d6j7Rz2jLO9munwkvZSXhqTl/XbU4BfMw5hl5tg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RbjUKhxhf/ywxYduRMeC/kk/K3rrahN1cGcVlNAH9tk/hFs0YXKge+8/H75gZVLje
-	 rHfhzMs9UdRuK9HakyL/zn2sTscVZTmzY/U6KmRNOSO7fDDDVgF6Vf07CsIkf6u4SM
-	 I4MfoAgH5bzPzabLgh6zpn4cypEPahtl8NrUsgRmddWWaRsrOKzvi2Y9jflDVdnKjd
-	 OSldbSLV0dX9LpGDdkbfkDF9s9aC8F/cGoVgA5PSA1VPeaL5QTAKxucVXJHVHOrjPA
-	 3Bk6gQJMMu61QPSvDNIpnIvDUCglQ4YpMjGL3aji+XbhFS0TDh9LQPWqdOH4bvfJRw
-	 SAEtCYNB6wwuQ==
+	b=dBHmrLYuXSUOYW0g2OXSH9VxQfqAyJQ9Bk0OTDknSxeSYAQjzTtu+zHKvoEmZc2+C
+	 4tJ333JT5AETRugL8Jj7yELn1R6jm/6kkk4qQP/csXUCBBfafsQWBi9Pzfx7CKYnEz
+	 SyFc6uQVZfLle2SLZ9p0PNqtZy+C0buiO+Dc5Lf/XKJBYFYdQs2ElWbsu2NB1qF2Oo
+	 4DbLHCsV7SAY9ST+TPlwybAVNtpGib1v6VTGzH/mlJbr23SnApqdJbrm9kzLFWePcG
+	 b124/zWueHXL2DWxYC52tgIIrgPiwX7yEkUciI/7oMNsPQ/0aNfBbEK223H+wV4MTm
+	 i4c8F8v3NuK7g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/9] iio: adc: rzt2h: implement DMA buffer support
+Subject: Re: [PATCH 6/9] iio: adc: rzt2h: expose sampling frequency
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Cosmin Tanislav" <cosmin-gabriel.tanislav.xa@renesas.com>
-Cc: wsa+renesas@sang-engineering.com, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260828145943.2077589-6-cosmin-gabriel.tanislav.xa@renesas.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org
+In-Reply-To: <20260828145943.2077589-7-cosmin-gabriel.tanislav.xa@renesas.com>
 References: <20260828145943.2077589-1-cosmin-gabriel.tanislav.xa@renesas.com>
- <20260828145943.2077589-6-cosmin-gabriel.tanislav.xa@renesas.com>
+ <20260828145943.2077589-7-cosmin-gabriel.tanislav.xa@renesas.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 28 Aug 2026 15:13:50 +0000
-Message-Id: <20260828151350.B47AF1F000E9@smtp.kernel.org>
+Date: Fri, 28 Aug 2026 15:14:31 +0000
+Message-Id: <20260828151431.ACFC21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The cyclic DMA buffer read pointer (`period_index`) permanently lo=
-ses synchronization with the hardware write pointer if the consumer loop ab=
-orts early.
-- [Medium] Missing dma_sync_single_for_device() call after CPU accesses non=
--coherent DMA memory.
-- [Medium] Kthread will enter a 100% CPU infinite loop if it receives a sig=
-nal.
+
+Pre-existing issues:
+- [High] Spurious -ETIMEDOUT on single reads due to extremely short 1-jiffy=
+ completion timeout
 --
 
-commit 39a43c5f71d2917000960d73a8ad0233a9d65f07
+commit c401ad2e533dc2bc5a1b011d098327c8d7400f4f
 Author: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-   =20
-    iio: adc: rzt2h: implement DMA buffer support
 
-This commit implements buffered capture using a cyclic DMA transfer into
-a kfifo buffer for the RZ/T2H ADC. It allocates a non-coherent DMA buffer
-and handles periodic data pushes via a kthread.
+iio: adc: rzt2h: expose sampling frequency
+   =20
+This patch exposes the sampling frequency as a per-channel
+IIO_CHAN_INFO_SAMP_FREQ attribute to allow userspace control over conversion
+time. It derives the frequency from the ADCLK rate and programs the sample
+time into ADSSTRn for each enabled channel.
 
 > diff --git a/drivers/iio/adc/rzt2h_adc.c b/drivers/iio/adc/rzt2h_adc.c
-> index 95bcebdc02cb3..d76226375f220 100644
+> index d76226375f220..2e13f931a2e9a 100644
 > --- a/drivers/iio/adc/rzt2h_adc.c
 > +++ b/drivers/iio/adc/rzt2h_adc.c
 
 [ ... ]
 
-> @@ -151,6 +186,253 @@ static int rzt2h_adc_calibrate(struct rzt2h_adc *ad=
-c)
->  	return 0;
->  }
+> @@ -124,6 +146,8 @@ static int rzt2h_adc_read_single(struct rzt2h_adc *ad=
+c, unsigned int ch, int *va
+>  	/* Enable a single channel */
+>  	writew(RZT2H_ADANSA0_CH_MASK(ch), adc->base + RZT2H_ADANSA0_REG);
 > =20
-> +static void rzt2h_adc_push_period(struct iio_dev *indio_dev, u16 *period,
-> +				  dma_addr_t addr)
-> +{
-> +	struct rzt2h_adc *adc =3D iio_priv(indio_dev);
-> +	u16 *dst =3D adc->buf;
-> +	u16 *src =3D period;
+> +	rzt2h_adc_set_sst(adc, ch, adc->sst[ch]);
 > +
-> +	dma_sync_single_for_cpu(adc->dev, addr, adc->dma.period_bytes,
-> +				DMA_FROM_DEVICE);
-> +
-> +	for (unsigned int sample =3D 0; sample < RZT2H_ADC_DMA_PERIOD_SAMPLES; =
-sample++) {
-> +		for (unsigned int i =3D 0; i < adc->dma.gather_len; i++)
-> +			dst[i] =3D src[adc->dma.gather[i]];
-> +
-> +		src +=3D adc->dma.sample_chans;
-> +
-> +		iio_push_to_buffers(indio_dev, adc->buf);
-> +	}
-
-[Severity: Medium]
-Does this code miss a call to dma_sync_single_for_device()?
-
-The DMA API strictly requires that ownership of non-coherent mapped memory
-be transferred back to the device after CPU access. Failing to do so
-violates the API contract and can lead to the CPU reading stale data due
-to speculative prefetches that overwrite the device's DMA data later.
-
-> +}
-> +
-> +static void rzt2h_adc_advance_period_index(struct rzt2h_adc *adc, unsign=
-ed int i)
-> +{
-> +	adc->dma.period_index +=3D i;
-> +	adc->dma.period_index %=3D RZT2H_ADC_DMA_PERIODS;
-> +}
-> +
-> +static void rzt2h_adc_dma_thread_loop(struct iio_dev *indio_dev)
-> +{
-> +	struct rzt2h_adc *adc =3D iio_priv(indio_dev);
-> +	int pending, drop;
-> +	dma_addr_t addr;
-> +	u16 *period;
-> +
-> +	pending =3D atomic_xchg(&adc->dma.pending_periods, 0);
-> +
-> +	if (pending >=3D RZT2H_ADC_DMA_PERIODS) {
-> +		drop =3D pending - RZT2H_ADC_DMA_PERIODS + 1;
-> +
-> +		rzt2h_adc_advance_period_index(adc, drop);
-> +		pending -=3D drop;
-> +	}
-> +
-> +	for (unsigned int i =3D 0; i < pending; i++) {
-> +		unsigned int backlog =3D atomic_read(&adc->dma.pending_periods) +
-> +				       pending - i;
-> +
-> +		/*
-> +		 * Bail if enough new periods have completed since reading the
-> +		 * pending_periods that the next period about to be read is at
-> +		 * risk of being overwritten.
-> +		 */
-> +		if (backlog >=3D RZT2H_ADC_DMA_PERIODS)
-> +			break;
+>  	rzt2h_adc_start(adc, RZT2H_ADCSR_ADCS_SINGLE);
+> =20
+>  	/*
 
 [Severity: High]
-Does breaking early here cause the read and write pointers to permanently
-lose synchronization?
+This is a pre-existing issue, but does the newly introduced configurable
+sampling frequency exacerbate a spurious timeout bug here?
 
-Since all pending periods were extracted using atomic_xchg() at the start
-of this loop, breaking out without advancing period_index for the skipped
-periods or restoring the pending count permanently discards those periods.
-The cyclic DMA buffer read pointer (period_index) will permanently lose
-synchronization with the hardware write pointer. The consumer kthread will
-then continuously read from the wrong offsets in the DMA cyclic buffer,
-pushing stale or corrupted data to userspace without recovering.
+In rzt2h_adc_read_single(), right below this hunk, the code calls:
 
-> +
-> +		period =3D adc->dma.buf + adc->dma.period_index *
-> +			 RZT2H_ADC_DMA_PERIOD_SAMPLES * adc->dma.sample_chans;
-> +		addr =3D adc->dma.addr + adc->dma.period_index *
-> +		       adc->dma.period_bytes;
-> +
-> +		rzt2h_adc_push_period(indio_dev, period, addr);
-> +		rzt2h_adc_advance_period_index(adc, 1);
-> +	}
-> +}
-> +
-> +static int rzt2h_adc_dma_thread(void *data)
-> +{
-> +	struct iio_dev *indio_dev =3D data;
-> +	struct rzt2h_adc *adc =3D iio_priv(indio_dev);
-> +
-> +	while (!kthread_should_stop()) {
-> +		wait_event_interruptible(adc->dma.wq,
-> +					 atomic_read(&adc->dma.pending_periods) ||
-> +					 kthread_should_stop());
+	ret =3D wait_for_completion_timeout(&adc->completion, usecs_to_jiffies(1));
 
-[Severity: Medium]
-Can this kthread spin in an infinite loop consuming 100% CPU if it receives
-a signal?
+Because usecs_to_jiffies(1) evaluates to 1, the timeout is set to exactly
+1 jiffy, which will expire at the very next timer tick.
 
-By using wait_event_interruptible(), if a signal is delivered to the
-kthread (such as SIGKILL), it will return immediately with -ERESTARTSYS.
-Since the thread does not check signal_pending() or clear the signal,
-and kthread_should_stop() remains false, the loop will instantly restart,
-returning immediately again and spinning forever.
+If the tick fires immediately after the wait starts, it aborts almost
+instantly (returning 0) before the hardware interrupt arrives, causing the
+kernel to intermittently and incorrectly return -ETIMEDOUT to userspace
+instead of the actual ADC reading.
 
-> +
-> +		if (kthread_should_stop())
-> +			break;
-> +
-> +		rzt2h_adc_dma_thread_loop(indio_dev);
-> +	}
-> +
-> +	return 0;
-> +}
+Since the patch now allows increasing the hardware conversion delay (up to
+268 cycles or ~5.36us at 50MHz ADCLK), does this widen the race window and
+significantly increase the probability of this spurious timeout occurring?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828145943.2077=
-589-1-cosmin-gabriel.tanislav.xa@renesas.com?part=3D5
+589-1-cosmin-gabriel.tanislav.xa@renesas.com?part=3D6
