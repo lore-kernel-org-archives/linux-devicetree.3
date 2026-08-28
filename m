@@ -1,109 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D15A448D19
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 12:05:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA50443FD32;
+	Fri, 28 Aug 2026 12:12:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787918743; cv=none; b=rb4+ErzOAaNO9aFE5eUAhxQKKaqI0XAjKOX528D98Ra1ZH6CaaVS1EmUuygnEQaYYRK8gWaP7cOLfmWBXOMjhYKf2pMKq6mUKKEUCVbDN8e6cRE8oZXPpjTgTWVx8nQA6zde32f/WOHIV1ZYbVfL6/TcoMssADKQPHHd1OEbrnQ=
+	t=1787919170; cv=none; b=scqay23/YUOIYedkOR4E0qp6pl4UHoXi9jymly1FW/5Jy2J3HrgPhXee3Gx/ocK3juER6mmEKMDjLPwar384iAQxrRrUEmUF0+jccA0am91+nmC58BfXWNhNVTSXucIrlxkN5fN/JwYwiDmmi4Dc/lkhVDeiWPuwnVyPAz5VJLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787918743; c=relaxed/simple;
-	bh=+tAhIfhSVmX3w/RQYLgYH12NNKwud+ebUOxkiW2Th5w=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NP92bEmB5YrH510fzOwz92Xm8XoA50ksgfxqTei9Zu6mZFqbUxNnJaH5Co7dqqTV5XiuThtBeKcG8iAm1SacfsL5lSTX0tjcn/8R5PKwsw+hPeCnz5zTwtQjM1ynqBwBZy6pVCDo3ldknN2zVBPp2sq26J6xhLmumvTAGe/UG4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=itYvGKqQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787919170; c=relaxed/simple;
+	bh=sYUuNwo4GjCMxDOumVZA51pMc9VSkLkCI2wD2k+x8d0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=V1Vs16v6M8hBhYFpDQHDYosE/n7RbjCgn0swZcmOWuP7/NFMhefA42QBLAhfhiGX5XLtjSM/KD7SDZfAvHSLKCS5rttNyjYQtHmufB7ErTCtQibXAIeBZ+Juy72to5RyUliJZtXVn5bhRyKA7tLJZtAj2W1BbC6Y0HHa9tkpM+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=2jJ4tgFj; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="itYvGKqQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBDDA1F000E9;
-	Fri, 28 Aug 2026 12:05:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787918731;
-	bh=BX75IaPasdemQMcxCdNLIYecB/VRYWe16/8imQUNtqQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=itYvGKqQhLZGWVL0uoGvLc4apvtmpyuc13yCHB8v51b2/XN2KPwflVdWFAZhnu2hw
-	 08a7aB2fJrLYMf6iAhYrL+aNu7ppLjiKJ39u+fhDwMG62yovIP2qgcT8iXDHDzawRU
-	 cBwN6RcfjJhbR+siw64o7cnV8hL6m9KSQHUYA6pi+rwE15c8PVvRMep/SJ3iYQxMZF
-	 ueiKdjlt5BoZBoUHJ0EgOyDQv0HAFqzSttWEzkFWF1VL3uZRaxMZRF6UnHBGGBBw2K
-	 oZaXYnssEK/l9OR3eavVDy0TlTPh+VJDmqtrjG86vYEGxBUlWBQRLq9YO9ilxBOb3O
-	 4TZem/n9+/ebA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] arm64: tegra: Add cooling device on Jetson AGX
- Thor DevKit
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Thierry Reding" <thierry.reding@kernel.org>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260828-tegra264-fan-v2-3-a460389d8ef5@nvidia.com>
-References: <20260828-tegra264-fan-v2-0-a460389d8ef5@nvidia.com>
- <20260828-tegra264-fan-v2-3-a460389d8ef5@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 28 Aug 2026 12:05:30 +0000
-Message-Id: <20260828120530.EBDDA1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="2jJ4tgFj"
+Received: from [10.0.0.32] (unknown [185.110.89.192])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 6A29E53401E6;
+	Fri, 28 Aug 2026 14:12:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1787919142;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=QxdsXA/ZvyTSPjgJ6dSXmUKdhnb8n25QrPrJPCDLRXA=;
+	b=2jJ4tgFjdLCaVewECwxqKu4jVYHM4BQEOBbvP+wcrYVLVoLITqkosG7RZ5DIQ+tGQsAyqE
+	/KfOdGKHf56oyBBAmAxMVQ1EZChmLdBrRPBS05zipodkSLHqVDmbLjh51obJJ//lt773YG
+	FcqsEmrm+5kzQ3mz1SGElJzhLlshRTY=
+Message-ID: <cfa1d6c7-267c-4e9d-b3ab-2c483503a1e6@ixit.cz>
+Date: Fri, 28 Aug 2026 14:12:20 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 2/2] input: misc: Add Qualcomm SPMI PMIC haptics driver
+To: Fenglin Wu <fenglin.wu@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ Stephen Boyd <sboyd@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: David Collins <david.collins@oss.qualcomm.com>,
+ Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
+ Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, linux-input@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260828-qcom-spmi-haptics-v7-0-0367b3ac2e1e@oss.qualcomm.com>
+ <20260828-qcom-spmi-haptics-v7-2-0367b3ac2e1e@oss.qualcomm.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20260828-qcom-spmi-haptics-v7-2-0367b3ac2e1e@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The 'pwm@c6a0000' node incorrectly reuses the unit address of th=
-e 'i2c9' ('i2c@c6a0000') node defined in the base SoC dtsi, and lacks requi=
-red compatible/reg properties.
-- [Low] The device tree references an undefined label '&pwm4' in the 'pwms'=
- property of the 'pwm-fan' node, causing a DTC compilation failure.
---
+On 28/08/2026 11:49, Fenglin Wu wrote:
+> Add an initial driver for the Qualcomm PMIH0108 PMIC haptics module,
+> named as HAP530_HV. This module supports several play modes, including
+> DIRECT_PLAY, FIFO, PAT_MEM, and SWR, each with distinct data sourcing
+> and hardware data handling logic. Currently, the driver provides support
+> for two play modes using the input force-feedback framework: FF_CONSTANT
+> effect for DIRECT_PLAY mode and FF_PERIODIC effect with FF_CUSTOM
+> waveform for FIFO mode.
+> 
+> Assisted-by: Claude:claude-4-8-opus
+> Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+> ---
+>   drivers/input/misc/Kconfig             |   11 +
+>   drivers/input/misc/Makefile            |    1 +
+>   drivers/input/misc/qcom-spmi-haptics.c | 1251 ++++++++++++++++++++++++++++++++
+>   3 files changed, 1263 insertions(+)
+> 
 
-commit 73950943498e73365e307610b1d8975ecc5959a4
-Author: Thierry Reding <treding@nvidia.com>
+[...]
 
-arm64: tegra: Add cooling device on Jetson AGX Thor DevKit
-
-Monitor the TJ thermal zone and use the main PWM fan of the Jetson AGX
-Thor Developer Kit to actively cool the device if needed.
-
-[ ... ]
-> diff --git a/arch/arm64/boot/dts/nvidia/tegra264-p4071-0000+p3834.dtsi b/=
-arch/arm64/boot/dts/nvidia/tegra264-p4071-0000+p3834.dtsi
-> index 4550e843f513c..dd042e57839a5 100644
-> --- a/arch/arm64/boot/dts/nvidia/tegra264-p4071-0000+p3834.dtsi
-> +++ b/arch/arm64/boot/dts/nvidia/tegra264-p4071-0000+p3834.dtsi
-
-[Severity: Medium]
-Will the pwm@c6a0000 node in this file create a node name collision at unit
-address @c6a0000?
-
-Looking at the node definition in this file:
-
-	bus@0 {
-		pwm@c6a0000 {
-			status =3D "okay";
-		};
-	};
-
-Could this incorrectly reuse the unit address of the i2c9 (i2c@c6a0000) node
-defined in the base SoC dtsi?
-
-Additionally, this node lacks the compatible and reg properties. Will this
-prevent the PWM hardware from probing, leaving the newly added fan feature
-unconfigured?
-
-> @@ -22,4 +22,56 @@ fan: pwm-fan {
->  		pwms =3D <&pwm4 0 40000>;
-
-[Severity: Low]
-Can this undefined label cause a DTC compilation failure?
-
-Since the base tegra264.dtsi does not define a pwm4 label, will this break
-the kernel build with a "Reference to non-existent node or label" error
-when building the DTB?
-
->  		#cooling-cells =3D <2>;
->  	};
 > +
-> +	thermal-zones {
-[ ... ]
+> +static const struct of_device_id qcom_haptics_of_match[] = {
+> +	{ .compatible = "qcom,spmi-haptics" },
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828-tegra264-f=
-an-v2-0-a460389d8ef5@nvidia.com?part=3D3
+Hello Fenglin.
+
+Same comment as for v6. As you mentioned, this driver won't work for:
+
+compatible = "qcom,pmi8998-haptics", "qcom,spmi-haptics";
+
+which I'll be upstreaming soon, can you please use device specific compatibles 
+here, thus listing the devices which will work? e.g. qcom,pmih0108-haptics or 
+any other you tested?
+
+Thanks
+David
+
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, qcom_haptics_of_match);
+> +
+> +static struct platform_driver qcom_haptics_driver = {
+> +	.probe  = qcom_haptics_probe,
+> +	.driver = {
+> +		.name		= "qcom-spmi-haptics",
+> +		.of_match_table	= qcom_haptics_of_match,
+> +		.pm		= pm_ptr(&qcom_haptics_pm_ops),
+> +	},
+> +};
+> +module_platform_driver(qcom_haptics_driver);
+> +
+> +MODULE_DESCRIPTION("Qualcomm SPMI PMIC Haptics driver");
+> +MODULE_LICENSE("GPL");
+> 
+
