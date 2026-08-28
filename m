@@ -1,294 +1,201 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02EAC471432
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 14:06:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F8F3D25D2;
+	Fri, 28 Aug 2026 14:06:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787925968; cv=none; b=H7p+hZSUg3JkhqRVUt6G7zoqt62WBhtlElaIxIEoWfyCGG09Oj7EvZO2NAYfRapxDINR5tjGNOUZN7yWKbRvh0R1b7uO6cV+v5Drx5Lx6cyw5bJn/pN09xa2/zVLO61DNxmMRqn73tbsOxPSeJ2BzYDY9zirvI7lN2VzPEb6IaA=
+	t=1787925995; cv=none; b=bP+8BgOvl2PtSswv+/EW8//gdwBKr7bKWWqg9udsZi8tJEpCt4gtjZLxGVqmWHsOAN2Ah8OKyBAQC7gMrGT5l01+D5LZzZV5v1oeu9IZktikkwMt5fMji9jB4Muk5Owyh4Maqu725prf+uWKVM6kBM6qVkSJf9iLZsPORLiBFzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787925968; c=relaxed/simple;
-	bh=1brovUppJvb6ttZNs7kwMEVpoh0akbg09pFKeVhGO2I=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=bM3A5gFb7tfcCiEPImfVLPOIIXrOgmrXtmE2iQ4DJmrKw1m6EzxNQouoGmYV6+vf9n4L3cI25quLq2BYma5fM7RvFbFO+SxelW8ILZ2bC5GDKiyvGaY5idElzEF3Ahp8qjCGHsk+wJ+WnQC1JTRg4zzsXMX1NEJ1CugkF/LHkPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VwCD4dLo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AREJ0ZeR; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787925995; c=relaxed/simple;
+	bh=jmZMnXl3WDqHf8X63yyaKjcB5ogq1Fzlk2XEykl28m8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=lJGOHoYAorWcAIleK5+NZ9qPR2E7c9m8wwUrO5zregiuM/F1nBzCqB80zVyezMlJFhgcvQU0Owf2VPvhLQCK7e0g75J/e6s/vB6WI9xknKwwfMj9Mrb+KVJ+dyGLJjAqTjZdGxxzGGJxesPKSDjibIcSyw6lAcwlx2BexfziHus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E0edP9pp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VwCD4dLo";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AREJ0ZeR"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67SDklHc3280262
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 14:06:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	7S42qkfhoToVEYy/FsQ080jT2C6K7HXx1NfxPU2yAE8=; b=VwCD4dLoAzD8N4dr
-	LLUEvS2ahZRwbDsYPXkb8GI1OEVLwv1y8ArrGOd+5h0/FX22zw29Ck7jZMFy5LCV
-	TRKniVInuRMhWTbUrH1epIu2notpicVY25m4JqBOmH3Z6Ro2X09ORiyFKHykj+X7
-	bAfy/tM6bVMKAC8s8WyxlrRrfX1qm4/oFwnF0aP2iq00BMYvZgP7mcZuzfy/ji/Y
-	UJMQNARJSm0nVp1IKICpIT9xk2+jH6W2QNm7EesVdeh3NibnHH3wT+LcqrWrmTSo
-	ZYan83EWZD/Vz2VYf1mEhGqUPa7KLcE4DapI73IEDQwPI/omNCw9h6cjWYNgHs1B
-	RDAoyw==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gb62h1gnu-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 14:06:03 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-783b725c8c8so888448137.0
-        for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 07:06:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787925963; x=1788530763; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7S42qkfhoToVEYy/FsQ080jT2C6K7HXx1NfxPU2yAE8=;
-        b=AREJ0ZeRhBVKw48i3L9yl8RuZcTsd6UKi9dLtz8NEdoP6Ngq3QU8CwO02GHqnMKzXY
-         ZTdw2/FUFf0gg3UbwhvMrmWDkwJleQvnOYp8VXBfgjTBKK3nY+xedXDLTeczbBDUbovg
-         WtVizu1kblvvMDoqo4HHnsoEfhb8/kyLebmG586T4awGHte3Aele21TqAr5btjrYIWnE
-         hHRD4mhUpTFDjWZwTWXG6AL5mEvR+C8CypLSGEh2wImp1CSb/VPLpRjPQEXrgBGsxiWn
-         cxAJHeCWqyQGl1FiyAAQVB+18/gG3FyvWU2N6i13zrplSiN+psVFQV8fIYLPjftkdR51
-         qBxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787925963; x=1788530763;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7S42qkfhoToVEYy/FsQ080jT2C6K7HXx1NfxPU2yAE8=;
-        b=Zx/8QtHIsX+tTzQnwfR6c8zxjbkGK/0ZOGx5X30UxuvNGJ7Gp6Z+evcAh9lxTpSe5S
-         QN69cvepeWKMdbl2zx0fSaVNPYuxiMhNsCMb060kflx4vq9nQKOonHcczn8NiSKhtq04
-         rNbYKI2SEuZu08FFfKkLUTw6AMbuFgX+yXkoTSYRjwpwg/Dv+1+NbWNMpQdGkvNtMRuB
-         RYnB27TWDVwumlhFmmjdAchiNhoKGOiWCaAgwTlSK0qjjIKFXca6DAuYx4gOxjWlIlRj
-         iRL6Wi1U4bFllUC8/sUU6j/Obgwt+DTpKTTQqm+PCRRRGiMt0hh6uPjY1QhfYXqd4dOo
-         LD7Q==
-X-Forwarded-Encrypted: i=1; AHgh+Rq9SmzY6IN6m/mzbeEKd+DIFKdqgmqjPeqydL8Lajh69gjEjV5rPOKsIr3zsg+cr4ZFJyu031adnAj7@vger.kernel.org
-X-Gm-Message-State: AFuF++lYdlgAWFxZ5N/4656yDkgpM3QWrrOhmvEV84tbNxjqhRAed3pR
-	Pljn39W1rcfeyjvNOKtbvz5tnlsfC9KPFx7abWQ2aCmuC5ZEKQj3Z5RvrnkHEKrzYxmL0i8XlYg
-	9kI0s1PK/sh8OGkWRaEhhhJ/pPQe3I83TC/PQqRQpvIJyk0AnhychTyUxze1Adifx
-X-Gm-Gg: AR+sD10hgFg2YesDzAsERJtV48RPSbhEokc+1HRrmRXG7MiTly78VDkNiwIeQSfoGh2
-	J9GZFhd/N3adoyUgpUAro/a7skBMnotapNGD5bNytEa8HBypYZ6v7YQFQALstipuTcnbXApCQdm
-	YMU+8AP3dhbpJslhHuFPQWxdiB/OLu6vhnw886X3JUQfy1IHfkIEOJvIvT3fndVaaOFcm/BGhJC
-	TUvenoaaI18EbTUEfTiJzieFg8OT5iejqhtEvG/if7hJAnl2Tr13JGgYdvJBX3BztXoobu7kLVU
-	Hdoy+2Zvqm7bTQSJVf2stoPD4WmPJpwOQYm7IyxxAFxG2x6BEfZdD7k6/r5KKqyzY6JDDCOkFFV
-	g97HCTfJq00hwSYpUasOK+MU=
-X-Received: by 2002:a05:6102:14a0:b0:785:8f76:654d with SMTP id ada2fe7eead31-7859996dea3mr2555565137.13.1787925958200;
-        Fri, 28 Aug 2026 07:05:58 -0700 (PDT)
-X-Received: by 2002:a05:6102:14a0:b0:785:8f76:654d with SMTP id ada2fe7eead31-7859996dea3mr2555540137.13.1787925957739;
-        Fri, 28 Aug 2026 07:05:57 -0700 (PDT)
-Received: from [127.0.1.1] ([178.197.219.214])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb20122sm3908633f8f.20.2026.08.28.07.05.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 07:05:56 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Date: Fri, 28 Aug 2026 16:05:09 +0200
-Subject: [PATCH RFC/DO NOT MERGE 11/12] arm64: dts: qcom: eliza: Add HDMI
- display with HDMI PHY
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E0edP9pp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE8C71F000E9;
+	Fri, 28 Aug 2026 14:06:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787925993;
+	bh=2LLM6BK0ct/YxVay0BuKRvKf4IxLqfPOzDDNYwSArWY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=E0edP9ppMgmZIRj1TkDZl/Crulf0KnUqUMSmtRZjo1D74PskIE+6dJbJevW1x7JkS
+	 UtHfvxjlU2YYNY5tGFLDWqiDSxkZ845WxVYiceX0I7Mi1drgVoyyqN4Md6rP24zYcy
+	 E0LHKrlNFnkem7gkGczv5hbJHUkVvUxk/rILdsLW2vPMhbsVMs0qcZwsyM8rA1RLvD
+	 2oWgWlSr4DoXfk7tIHjkq0LYRexeum6HGX2a40xl+ZqmtTfXVxEAcxG6tHwK8QV0Vf
+	 HQqp1MVriwZWwaPUSfNaVBTWrr1Efg5SQbGvuKZ2QhORX2DYr7OmtNAzOfnZiU5NMA
+	 Z/5jevDYQ2+5w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 14/15] riscv: dts: starfive: jh7110: Update DT for
+ display subsystem
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Michal Wilczynski" <m.wilczynski@samsung.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, lee@kernel.org, olteanv@gmail.com, dri-devel@lists.freedesktop.org, vkoul@kernel.org, linux-clk@vger.kernel.org, neil.armstrong@linaro.org, mfd@lists.linux.dev
+In-Reply-To: <20260828-jh7110-clean-send-v2-14-331680c8b9d1@samsung.com>
+References: <20260828-jh7110-clean-send-v2-0-331680c8b9d1@samsung.com>
+ <CGME20260828134839eucas1p2d19363d17d4dbf5a7ae5228444af16fa@eucas1p2.samsung.com>
+ <20260828-jh7110-clean-send-v2-14-331680c8b9d1@samsung.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 28 Aug 2026 14:06:32 +0000
+Message-Id: <20260828140632.AE8C71F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260828-drm-msm-hdmi-eliza-v1-11-67843277de17@oss.qualcomm.com>
-References: <20260828-drm-msm-hdmi-eliza-v1-0-67843277de17@oss.qualcomm.com>
-In-Reply-To: <20260828-drm-msm-hdmi-eliza-v1-0-67843277de17@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        linux-phy@lists.infradead.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3332;
- i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
- bh=1brovUppJvb6ttZNs7kwMEVpoh0akbg09pFKeVhGO2I=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqkZWh434bFUqmEnSRcqsBUTydZhsSgPv4+miDG
- XMlneJoAQ2JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCapGVoQAKCRDBN2bmhouD
- 1wsCD/9Mr2Zz4eadLs8rLbHZ5HLoj8IHcYC6XeDJBJ1hq4JmXgA9jzZ+iJwEmqmCHO+hd3lbluM
- L1ufQWKSIRAP93y/MLCFtw77XbOtvmpCg6nKr1393bd6hMFwzpwJn4E8VlMojR7kl+PnXamsAsh
- pPuK6s6pnv/uY5yZfWO0gMCBdTuwXjpUbpYYnMhP88AgUFUykJ55+9Ba5DSZVAtmK7ZjetkAv61
- I/u2P1IbLdsIKgUUQiR1wbXa0phdVCUoVr8ziBhkOVT60LBNksyXoKjGZPr8EzQpAgU9LUhxJ3d
- TjiM3PLC6Ur1wPvN8ANHOxQtnDkCdY4He9djZ5266iTpV1ZrAHpqGNhbMWnsjXVuTBwv3QeKRXA
- hlppN+whNMClQuLSY12GNHRINbI1bSyh5gWk7bHKsO988VkutbnhSgOnGUTBpjTz1OC5bNaxFNs
- 6pPhgIq8plNv3MOhsu6rpno+QcujtZ4y1k5oIFHp0kbkLK60F5WP5urqGNR0sUBD7XmqwmzlyJs
- eFQYX2MnjvFzese4jNfjZHcapT7f6R8OKRxGRH4kP9pOYIkCkzNQ/tQXxUC/gxdnBigh/riykcV
- O9mPclqIeHGQSjF7S2fHOvChM2pvK5j+L6J4aCQe+FpFYpo7edImd/Kub32vtHP1DtbIKgp6Eb+
- 0RMxMekt3ocM8ZA==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
- fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDEyMiBTYWx0ZWRfXx9ZDac0Zx+PI
- eDuBdMG8W84VoL4TenX3317bldTNnmmPDRenW5we8a4d+a5T1mWTVdD+JfpGBb48bpISjBSiP6n
- h+XOkRy1hLiL254P5+KIXEFYJIo75l4=
-X-Proofpoint-GUID: H9CWVlM1Gl8e6kIEOTdyZ3vjqfx-6j0F
-X-Proofpoint-ORIG-GUID: H9CWVlM1Gl8e6kIEOTdyZ3vjqfx-6j0F
-X-Authority-Analysis: v=2.4 cv=I5dVgtgg c=1 sm=1 tr=0 ts=6a9195cb cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=BhlsTWrtbvULCAht3EwA:9 a=QEXdDO2ut3YA:10
- a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDEyMiBTYWx0ZWRfX33tlvKHgJK35
- DncjeDILB/71FsJRCjOKfPDBylX3baVE7q+Cqpr936Gnk9sA5dvP+eYG83fESRdJ1PhktalG/J1
- XhZjyiyU/gmXDP94VVhNdcozNt/4EJXAmXRoVPi97SXdnIIw6l3jWaVmlNcLb/ZwULMYASU6gLw
- I2YnYsPRyGXc+CFz543/HTFo7u9KWPyVsTmdjYnr7gFYFPdpqZ7wmpbGtwRnnRJIq3p+ygAPEsx
- ND83BMrohIfLIzc4e3+hPDkp+8hx4qiCNcssx2e/5CRRzhZsXDvJse7reBkXVqF/QgzT8MqOVoS
- e6bivnxigNm7C5+tvL/uVDytRc3lNaUa+NIxynJm+zFO49730bNLb4m5L7dBPF2RuACIze9bOW1
- uDa50DIm7QiTSzHdUDe/u1prhcIC+5RzM3Em+3oOtjNlEFT2BpzW8vG2nOO2Yu8Hbt0kyIPvA7C
- NGd5NkSzE0CVV7E7SxA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-28_04,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 impostorscore=0 adultscore=0 priorityscore=1501
- lowpriorityscore=0 spamscore=0 clxscore=1015 malwarescore=0 phishscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608280122
 
-Add device nodes for HDMI (similar to previous one in MSM8998) and HDMI
-PHY (new Synopsys-based block).
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] Hardcoded exact physical address range for CMA reservation restric=
+ts memory allocation and breaks smaller RAM variants.
+- [High] The commit claims genpd powers the PD_VOUT domain on demand, but t=
+his is functionally impossible due to missing PM runtime integration in the=
+ HDMI subsystem driver.
+- [Low] Duplicate 24MHz fixed-clock node introduced for `hdmi_phy`.
+- [Low] The `dc8200` node provides only `"verisilicon,dc"` in its `compatib=
+le` string, which violates the `verisilicon,dc.yaml` binding schema.
+--
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/eliza.dtsi | 94 ++++++++++++++++++++++++++++++++++++-
- 1 file changed, 92 insertions(+), 2 deletions(-)
+commit d117ce22b6b03137e7ca5305371a65afdcd406c9
+Author: Michal Wilczynski <m.wilczynski@samsung.com>
 
-diff --git a/arch/arm64/boot/dts/qcom/eliza.dtsi b/arch/arm64/boot/dts/qcom/eliza.dtsi
-index 66ea4aaafd73..27dd15766f51 100644
---- a/arch/arm64/boot/dts/qcom/eliza.dtsi
-+++ b/arch/arm64/boot/dts/qcom/eliza.dtsi
-@@ -2570,7 +2570,14 @@ dpu_intf0_out: endpoint {
- 							remote-endpoint = <&mdss_dp0_in>;
- 						};
- 					};
--					/* TODO: HDMI */
-+
-+					port@3 {
-+						reg = <3>;
-+
-+						dpu_intf4_out: endpoint {
-+							remote-endpoint = <&mdss_hdmi_in>;
-+						};
-+					};
- 				};
- 
- 				mdp_opp_table: opp-table {
-@@ -2805,6 +2812,89 @@ mdss_dsi1_phy: phy@ae97000 {
- 				status = "disabled";
- 			};
- 
-+			mdss_hdmi: hdmi@aea0000 {
-+				compatible = "qcom,eliza-hdmi-tx";
-+				reg = <0x0 0x0aea0000 0x0 0x1000>,
-+				      <0x0 0x0aee0000 0x0 0x1000>;
-+				reg-names = "core_physical",
-+					    "hdcp_physical";
-+
-+				interrupts-extended = <&mdss 8>;
-+
-+				clocks = <&dispcc DISP_CC_MDSS_HDMI_AHBM_CLK>,
-+					 <&dispcc DISP_CC_MDSS_HDMI_APP_CLK>,
-+					 <&dispcc DISP_CC_MDSS_HDMI_PCLK_CLK>,
-+					 <&dispcc DISP_CC_MDSS_HDMI_INTF_CLK>,
-+					 <&mdss_hdmi_phy>,
-+					 <&dispcc DISP_CC_MDSS_HDMI_PCLK_CLK_SRC>;
-+				clock-names = "iface",
-+					      "core",
-+					      "extp",
-+					      "phy_iface",
-+					      "pll",
-+					      "pixel_src";
-+
-+				operating-points-v2 = <&mdss_hdmi_opp_table>;
-+
-+				phys = <&mdss_hdmi_phy>;
-+				power-domains = <&rpmhpd RPMHPD_CX>;
-+				#sound-dai-cells = <1>;
-+
-+				status = "disabled";
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0>;
-+
-+						mdss_hdmi_in: endpoint {
-+							remote-endpoint = <&dpu_intf4_out>;
-+						};
-+					};
-+
-+					port@1 {
-+						reg = <1>;
-+
-+						mdss_hdmi_out: endpoint {
-+						};
-+					};
-+				};
-+
-+				mdss_hdmi_opp_table: opp-table {
-+					compatible = "operating-points-v2";
-+
-+					opp-150000000 {
-+						opp-hz = /bits/ 64 <150000000>;
-+						required-opps = <&rpmhpd_opp_low_svs_d1>;
-+					};
-+
-+					opp-300000000 {
-+						opp-hz = /bits/ 64 <300000000>;
-+						required-opps = <&rpmhpd_opp_svs>;
-+					};
-+				};
-+			};
-+
-+			mdss_hdmi_phy: phy@aea1000 {
-+				compatible = "qcom,eliza-hdmi-phy";
-+				reg = <0x0 0x0aea1000 0x0 0x1000>;
-+
-+				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+					 <&tcsr TCSR_HDMI_CLKREF_EN>,
-+					 <&bi_tcxo_div2>;
-+				clock-names = "iface",
-+					      "ref",
-+					      "xo";
-+
-+				#clock-cells = <0>;
-+				#phy-cells = <0>;
-+				power-domains = <&rpmhpd RPMHPD_CX>;
-+
-+				status = "disabled";
-+			};
-+
- 			mdss_dp0: displayport-controller@af54000 {
- 				compatible = "qcom,eliza-dp", "qcom,sm8650-dp";
- 				reg = <0x0 0x0af54000 0x0 0x200>,
-@@ -2913,7 +3003,7 @@ dispcc: clock-controller@af00000 {
- 				 <0>,
- 				 <0>, /* dp3 */
- 				 <0>,
--				 <0>; /* HDMI phy */
-+				 <&mdss_hdmi_phy>; /* HDMI phy */
- 
- 			power-domains = <&rpmhpd RPMHPD_MX>;
- 			required-opps = <&rpmhpd_opp_low_svs>;
+riscv: dts: starfive: jh7110: Update DT for display subsystem
 
--- 
-2.53.0
+This commit activates the display subsystem by adding the dc8200, hdmi, and
+voutcrg nodes as direct soc children. It models the monolithic hdmi node as
+a container with hdmi_phy and hdmi_controller children. It also configures
+clock, DMA properties, and CMA reservations.
 
+> diff --git a/arch/riscv/boot/dts/starfive/jh7110-common.dtsi b/arch/riscv=
+/boot/dts/starfive/jh7110-common.dtsi
+> index a7a1c09a2c907..7aadc35f4a6aa 100644
+> --- a/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
+> +++ b/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
+> @@ -33,6 +33,25 @@ memory@40000000 {
+>  		bootph-pre-ram;
+>  	};
+> =20
+> +	reserved-memory {
+> +		#address-cells =3D <2>;
+> +		#size-cells =3D <2>;
+> +		ranges;
+> +
+> +		/* vout applies for space from this CMA
+> +		 * Without this CMA reservation,
+> +		 * vout may not work properly.
+> +		 */
+> +		linux,cma {
+> +			compatible =3D "shared-dma-pool";
+> +			reusable;
+> +			size =3D <0x0 0x20000000>;
+> +			alignment =3D <0x0 0x1000>;
+> +			alloc-ranges =3D <0x0 0x70000000 0x0 0x20000000>;
+> +			linux,cma-default;
+
+[Severity: High]
+Could this alloc-ranges configuration break boot on systems with less
+memory or conflicting bootloader placements?
+
+The property alloc-ranges =3D <0x0 0x70000000 0x0 0x20000000> combined with
+size =3D <0x0 0x20000000> forces the 512MB CMA pool exactly at physical add=
+ress
+0x70000000.
+
+On a board with only 1GB of RAM (ranging from 0x40000000 to 0x80000000),
+the top 256MB of this requested region falls completely outside of physical
+memory, which would guarantee an allocation failure.
+
+Additionally, if a bootloader dynamically places the DTB or initrd anywhere
+within this narrow 512MB slice, CMA reservation will conflict and silently
+fail.
+
+> +		};
+> +	};
+> +
+[ ... ]
+> diff --git a/arch/riscv/boot/dts/starfive/jh7110.dtsi b/arch/riscv/boot/d=
+ts/starfive/jh7110.dtsi
+> index 9c3e4598747eb..024e33b0e97cb 100644
+> --- a/arch/riscv/boot/dts/starfive/jh7110.dtsi
+> +++ b/arch/riscv/boot/dts/starfive/jh7110.dtsi
+[ ... ]
+> @@ -352,6 +346,13 @@ tdm_ext: tdm-ext-clock {
+>  		#clock-cells =3D <0>;
+>  	};
+> =20
+> +	xin24m: xin24m {
+> +		compatible =3D "fixed-clock";
+> +		#clock-cells =3D <0>;
+> +		clock-frequency =3D <24000000>;
+> +		clock-output-names =3D "xin24m";
+> +	};
+> +
+
+[Severity: Low]
+Does this introduce a redundant clock definition?
+
+The jh7110.dtsi and jh7110-common.dtsi files already define an osc clock
+node representing the 24MHz physical oscillator on the board. Introducing a
+new xin24m fixed-clock node with the exact same 24MHz frequency seems
+redundant and creates a hardware modeling flaw in the Device Tree.
+
+Should the hdmi_phy node reference the existing <&osc> clock instead?
+
+>  	soc {
+>  		compatible =3D "simple-bus";
+>  		interrupt-parent =3D <&plic>;
+> @@ -1199,22 +1200,92 @@ csi_phy: phy@19820000 {
+>  			#phy-cells =3D <0>;
+>  		};
+> =20
+> +		dc8200: display@29400000 {
+> +			compatible =3D "verisilicon,dc";
+
+[Severity: Low]
+Is this missing the SoC-specific compatible string required by the binding
+schema?
+
+The verisilicon,dc.yaml schema requires the compatible property to be an
+array of two items: an SoC-specific string (e.g., thead,th1520-dc8200 or
+starfive,jh7110-dc8200) followed by verisilicon,dc.
+
+Specifying only compatible =3D "verisilicon,dc" violates the standard rule =
+for
+IP block instances and will cause dtbs_check validation to fail.
+
+> +			reg =3D <0x0 0x29400000 0x0 0x2800>;
+[ ... ]
+> +		hdmi_subsystem: hdmi@29590000 {
+> +			compatible =3D "starfive,jh7110-hdmi-subsystem";
+> +			reg =3D <0x0 0x29590000 0x0 0x4000>;
+> +
+> +			/*
+> +			 * This MFD's PHY child is the first device in the vout
+> +			 * region to touch registers, so it owns the NoC display
+> +			 * bus clock + reset that gate access to the region.
+> +			 * PD_VOUT is powered on by genpd via power-domains.
+> +			 */
+> +			power-domains =3D <&pwrc JH7110_PD_VOUT>;
+
+[Severity: High]
+Is the claim that genpd powers this domain on demand functionally possible
+without PM runtime integration in the HDMI subsystem driver?
+
+The commit message states "genpd powers the domain on demand", and the
+hdmi_subsystem node relies on this for PD_VOUT. However, the driver in
+drivers/soc/starfive/jh7110-hdmi-subsystem.c does not appear to call
+pm_runtime_enable().
+
+Because the container has PM runtime disabled, any pm_runtime_get_sync()
+calls from its children will return -EACCES and fail to propagate to genpd.
+
+The hardware appears to only work because the voutcrg clock controller
+driver unconditionally calls pm_runtime_resume_and_get() in its probe
+function without releasing it. This forcefully pins the PD_VOUT domain ON
+indefinitely, which circumvents the on-demand power management expectation.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828-jh7110-cle=
+an-send-v2-0-331680c8b9d1@samsung.com?part=3D14
