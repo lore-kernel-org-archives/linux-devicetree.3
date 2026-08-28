@@ -1,230 +1,279 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C85AB39793C;
-	Fri, 28 Aug 2026 03:40:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=210.61.82.184
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787888424; cv=fail; b=gWbmPWBnu2ui72RKZNpBvwx1gEvSW4xTBE6TqQ6uojRN2ejf9dn0F9e3co9RKmNWAA92ZvFomZkkLdkg9qCUbRXHpZDjjVgd1q0nBuSMQ5dMWjfMvUo8Um05X79hte9MzX+i7lL83uHwKN/EqNA0jewJpnTPe5wN6fdgAg65rt4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787888424; c=relaxed/simple;
-	bh=7GwLDXhTmMJb0WhvErEYqGAeDmAZI3CVAmP4cfXxoTY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=fPlxm7Mbq3DqcVr5DGr5H0NatUNABeWCPL7EnHrbCpOf+A8KYVBEhsPS6czqxHuq5n+bucOafx00CtisjmJ2ID1tFb2rboI5vTv8MvBnobLqvWI9CKvytOvtHyIzmqyT+7LuEGJiHok227mGUW5l02l1BLOoJk3ls+NKxiLN33A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=l8TylRtD; dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b=seGSc+AC; arc=fail smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7049D274B53
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 03:50:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787889038; cv=none; b=OdPH2F9AIPztDcq3jL+XNLSrOC/a7zAE4FEKDesM/DoKo+Zuwx40BTwUuqE1ztAy8VDMxN+XlStHJBML540AJ0qA8MBFm+Xf0eWzjksraDY4Lh8w4ZUxA7TNpvsT4rY6uorwoe57kmifar2dDkObRzBjEv3hKyDomFtHX8YKaFw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787889038; c=relaxed/simple;
+	bh=geWrLN1/J+k3Kz2cEBadQ7sZvi2GRaJuUH70TUXL1ic=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ur+OpsY2V91EjveTFojKAgsp8FJsMD0FlyOkUijhYTCbZfYWzznVlrfiaHW8+77/Y/ZYrX3IhBrg4nggzr/0cQzFSXAskEjnEvTq44UG4y1FPKbF3kcdcHUdL3RqWpjUzfJSTbuUYT5gi4xzn1MMO4FnMd/q2bU4+OT+atv6fT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=U49GZ7KB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=I52aShr2; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="l8TylRtD";
-	dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b="seGSc+AC"
-X-UUID: 2e1124baa29211f18dc8c9802ae25ab1-20260828
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From; bh=7GwLDXhTmMJb0WhvErEYqGAeDmAZI3CVAmP4cfXxoTY=;
-	b=l8TylRtD3JR2+ae2yHL4qkb4SYXf4MLeE2GKMGVgyMBoiWGeWdtSoR87cwrTYuPj6N2IyDia2MN2ZwjxyaKhrO/rbmEJO8GHziu3gzQ9w1twCuQHXrfRC8SNwSiukavov/mp8Lueuwd5IiYB7bAMPdMkLkPhzzcvYTL39+vHyXM=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:7cf2c519-6721-48cc-8b90-0b25c0e437c1,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:dcd8fdd9-399d-4fb2-bf59-1c094fb0e05e,B
-	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|110|111|836|865|888|898,TC:-5,
-	Content:0|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-
-	1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 2e1124baa29211f18dc8c9802ae25ab1-20260828
-Received: from mtkmbs09n1.mediatek.inc [(172.21.101.35)] by mailgw02.mediatek.com
-	(envelope-from <ck.hu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 354712880; Fri, 28 Aug 2026 11:40:14 +0800
-Received: from mtkmbs10n1.mediatek.inc (172.21.101.34) by
- MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Fri, 28 Aug 2026 11:40:13 +0800
-Received: from SI4PR04CU002.outbound.protection.outlook.com (172.21.101.237)
- by mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Fri, 28 Aug 2026 11:40:13 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iLjALT16kFTAIP4wwcl41k2/Ds8qJZD6QsWk/f0VKKRbw2eEma13VB98e5kGIrZj2Py0a8oHyNEN2+ei7NYCrYDt/4uXYK+QUQwA9lObZImm/x+CkjvWiTcH+EA+9qhxdhsTdMCZXU4vithr8RGPWx6N8TYe/Uuwg6JtNieIgPUPQSrKA9pAMlyT0gNvCnztISIgUTIIK8IsLDuPcRJ7apGx/J5r3M1jTPKM4JavQ4jLOH9OWpia9u1nrMkEqvunaP6TTUgRTaRe5marO1brbBKG65uoxgjoSDpBcxIq9DGguHna4v2uwb1y2aENfguIIEX6KSU6ixcp5AWRCjuTXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7GwLDXhTmMJb0WhvErEYqGAeDmAZI3CVAmP4cfXxoTY=;
- b=iUaPuGahYxpuf2RMcYtKI7BRJQ0HqEMHqh7No88djZO9MOYmyBgcCtzumIgeVEeerLAC6gK/Q0d/yB57cKpKJdlFGgwxkM8LGZtqVt3eyO1fyxjwqnMy0PPHjlFck2pEquOzH3mZHBgdTYu/6PCyorduP8rSgvXGEz1mL7C2/CeTTSzqC50wlvqgSpl+uBfLR4C+6F4hiFunaTGmpbLcie5ii9UA0/roCRqojnwqfLgv8a6QBzDB70gnmhyLWOpjSnFsWTblyq8OkguNkHS4HasiuXGGJtfEGJ2QG9tnxqXIZzHqoT+OypHyETbjFoEqJRjxpqr/m8Lstel7Zb8R9g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
- dkim=pass header.d=mediatek.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="U49GZ7KB";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="I52aShr2"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67S3Jihu1153396
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 03:50:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=Fa5QEbRUffF9AhLgAoUuujXNq1YP5CuIe3K
+	kAaoOzKE=; b=U49GZ7KB4pPEXmyvVCBq7CRXEEvyJm8SUwjN8yt2CuSx1H5Qq6C
+	I3SpxZnc782VErV49lm2MUkTOzJ8jp2lQige5zlhnJyrGNREyaB49GulGkfWQh6U
+	4t5QVNTtYyKqbFEq/HZbcJxEyUfbrMQ9J+CFbwKKXUzqcOkshlGr+UEc755E95My
+	vgwwLAwlIVHmvyuVUbVkswpQ0XK24f+PO2c971UaYuopEveU8mmV1jy74KHOwh2o
+	gC21P2obMBD/BP7zSbZM2K38Age+WOkMcN3vOByl+ED39axeK8EIb9b4T2m3hHLX
+	O4AtD4nEov+GZ/6IZNAWg0IuRhEVq6s5lMA==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4game7v3eq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 03:50:35 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d6fb956002so6832535ad.1
+        for <devicetree@vger.kernel.org>; Thu, 27 Aug 2026 20:50:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7GwLDXhTmMJb0WhvErEYqGAeDmAZI3CVAmP4cfXxoTY=;
- b=seGSc+ACE7WhQgbpUnQPaGKG0qPs5iMQJG+IIDBEg9IzHx9GaGo8fG48xlulphgjjum+WPVOlJwQlF0LF8eJ8UxnK8ErX9kzbkkRtl3rWKguWIJjlB+ihwAs5LCxF3L0QqVq4jifiBSSTC8NiWNKh9xAxRin4rcMvA2xKcKziw8=
-Received: from TYZPR03MB6624.apcprd03.prod.outlook.com (2603:1096:400:1f4::13)
- by SEZPR03MB7999.apcprd03.prod.outlook.com (2603:1096:101:17d::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
- 2026 03:40:07 +0000
-Received: from TYZPR03MB6624.apcprd03.prod.outlook.com
- ([fe80::a3c2:b94a:70f:e640]) by TYZPR03MB6624.apcprd03.prod.outlook.com
- ([fe80::a3c2:b94a:70f:e640%4]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
- 03:40:07 +0000
-From: =?utf-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	"chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
-CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"kernel@collabora.com" <kernel@collabora.com>, "robh@kernel.org"
-	<robh@kernel.org>, Alexandre Mergnat <amergnat@baylibre.com>,
-	"tzimmermann@suse.de" <tzimmermann@suse.de>, "dmitry.osipenko@collabora.com"
-	<dmitry.osipenko@collabora.com>, =?utf-8?B?Sml0YW8gU2hpICjnn7PorrDmtpsp?=
-	<jitao.shi@mediatek.com>, "simona@ffwll.ch" <simona@ffwll.ch>,
-	"mripard@kernel.org" <mripard@kernel.org>,
-	"maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
-	=?utf-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?= <Jason-JH.Lin@mediatek.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "granquet@baylibre.com"
-	<granquet@baylibre.com>, "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
-	"airlied@gmail.com" <airlied@gmail.com>,
-	=?utf-8?B?SnVzdGluIFllaCAo6JGJ6Iux6IyCKQ==?= <Justin.Yeh@mediatek.com>,
-	"matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>,
-	=?utf-8?B?UmV4LUJDIENoZW4gKOmZs+afj+i+sCk=?= <Rex-BC.Chen@mediatek.com>
-Subject: Re: [PATCH v4 07/12] drm/mediatek: mtk_dp: Use PHY API for PHY power
- sequences
-Thread-Topic: [PATCH v4 07/12] drm/mediatek: mtk_dp: Use PHY API for PHY power
- sequences
-Thread-Index: AQHdD5asd57qBRFowk+c7DWgpDnoTrazHqcA
-Date: Fri, 28 Aug 2026 03:40:07 +0000
-Message-ID: <cc5504c032fea688fd9690298ff6fbd58a998e67.camel@mediatek.com>
-References: <20260709113148.49090-1-angelogioacchino.delregno@collabora.com>
-	 <20260709113148.49090-8-angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20260709113148.49090-8-angelogioacchino.delregno@collabora.com>
-Accept-Language: zh-TW, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.52.3-0ubuntu1 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mediatek.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYZPR03MB6624:EE_|SEZPR03MB7999:EE_
-x-ms-office365-filtering-correlation-id: c941402c-a81d-4d2a-0d84-08df04b60dde
-x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|42112799006|18002099003|22082099003|38070700021|4143699003|6133799003|11063799006|56012099006|10067099003;
-x-microsoft-antispam-message-info: bdcSrTarzz/9ygiRqH/32xbir1Ro/1QaMO0j7enzBidjb+VxTNcLxspS0VSerQB5cfwI1mqesQTsq4FG0nvEiz/yBHytYNgQMb7ngMreC6ZWitmNUKjaxUPhFgD/Tdv393rBeQN3Q8aVT4eIEEJh4FFdjEs+WcdvDcgyvHFageDGnuFCAAZiNocAMzUXxlg+VTZnCcDoYG7G3si1iJo/UWdgcpEzbPznE85/+lYWxWbAhxMY+i11K5MmeMLzxq2SSOK6VArXhfqm1Ml+0tuZRCWbBk0fclSiQhtcIrLiq/ngT++hX22CqUAKwNQvjPEMaktB0p2mkWzkwY4QBMR/ay5q84GFDbnEBRFqYNOmTIG7wx39vWc7JHpwkNC2Qb/D1iC+4a8h6Ayi76chy0fCD8rbehv+7J1gade83wppB6RQ6XAmraNtxHxQQjp3X/tF9ebKw8Ow4PoHhju/WOp0oAisKqXjDWwL7IR+LdnDF2klDJ59K/C2jV75bcqwR3p0aGnKhN5jvQ1PUXkINC/FnKZ/3aMXMxQe7p7SPJA61CUwxvKVmUOIpxUU5kvJ+h17cGS+7cOyNMel9/OY4zDt4lXgKs2Sm2XktMGm/8gAgNmdcYTfco78w8SmdnBcTjfy0aiLjvVrFcMt02lTOClOPHYUOWUje/KF4AmBHB/eGnK+yUXpu5cMy+p88MC8OVLU5SO4BTxNfRDup/XkOuXt/1yeAdl3L55RvA9vRrZ4H4o=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6624.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(42112799006)(18002099003)(22082099003)(38070700021)(4143699003)(6133799003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?b0ZLcytMVHo1MjQ4YVdmWHd5SkZIM0Y2RGNPQURveTY0T2dSbDZ6ZnJjai9U?=
- =?utf-8?B?blpOcUI2azVtdi91QkRocjdSOUlQSjNnRXZtT1lrSG8zU1lDZUkyOUQrUm5r?=
- =?utf-8?B?blIxSmR0RU9xSXJ3Mkk2L3hDR3lXVFRxNW45NGhPdkp5L3ZFYTFXZ1U2S21T?=
- =?utf-8?B?SVJQUGNCaVJkaDVWVzNXeWRaMW9NTmVKWE44TTVjSmdDNmI2WGV4cGhiU3N4?=
- =?utf-8?B?SXkwVjlUOVhIVW43TjRDWGFTNTIwWUllY09BSnEyYlJ5d1R4SUI4SzhTS0Nw?=
- =?utf-8?B?aE5FQmNFcWFHNWZZY3dPMkFxRGxxQU5CenR6RG1jRG1pNXQxMEZXK0svdks4?=
- =?utf-8?B?cGw0cVI2S0JCWjRSc1RHM3dLZjQzRGZQZWYrRXEvR3Ywc2pnYVoyWUtESHhr?=
- =?utf-8?B?VTZRaFFLcFUyUG1BRkZaTkNObnRqSlZqcm1RN2gwYVIzRUtnYXRDWkQ4ekNt?=
- =?utf-8?B?UGtnTnJoRVp4QmE3bEtxek5tdDIzQWdrMVJPRjdQbG9DTU9KL3kwZXRTTW83?=
- =?utf-8?B?TkpQNTQ4bDFBbXE5bHFDdGFwcFlwOEc0aEZ2dFRzVjBwbFNtcXp0ZUJ0eENW?=
- =?utf-8?B?cUtKc2xwZUtEeVRSVlBGQ1pWUXV5ejN6aVNOWU81RjNrY1Z0WDVqV0ZtT0JE?=
- =?utf-8?B?bENRc3dBL3JMS3NDWmpHK0drZlRtYlVvNXZiLzJHbWJENXNxdmswL2x2MEJr?=
- =?utf-8?B?MjBEbUQ2blAwSlZZWXNkNWlCcVB4SFZVZ1gyUE9hSU56bzJDcnRQcmVkSEZQ?=
- =?utf-8?B?NnNMZHhydlhDdmtLdmM4VkpUbmJIbDBWUVVFcE5lZlBUNVdUc0lMWkdXbmNE?=
- =?utf-8?B?cGd5Y3F6ZXp1ZEU4aExTc0p6ZnZGUzFOczFiZ1RLV2VlanhUQ0YrRjRSTCtI?=
- =?utf-8?B?cWd6b3lHM1dYUWFqWndqM29xN1E0OG1Va2gzYmpMRC9oOFErNjZFNGxaWnMr?=
- =?utf-8?B?T3pBUXlBb2pJcW9QckdsVFFaZVBGMEkvUVpTVlA0MFBXVXFyZDY2eHNTbCs3?=
- =?utf-8?B?VlBNbFJGZjcyV1dzcUs1QkhsV0hIMEhmOHV3cmRkcVVJQVJ2VW5UOVZwdmRa?=
- =?utf-8?B?bUxacjFNbEY4d3VxRmdqMGE4NUZ5RUlJcm1wKzVKS3VNc0trWXlMSFcxYmhX?=
- =?utf-8?B?bVo2RWJCOHE0TnByd1pzK2xFaytXREVidkk0dVVsL3pWcjdzWlFPK295MElh?=
- =?utf-8?B?WGNkSmtMVTljVlJFN2k5WURVa0NScklWOERVMTZ6cGdaNnZjR2NwZDhyclBo?=
- =?utf-8?B?a3ZGMnZjVXJiUStBdFc0VGVVTllONmRkdmFKNGhJN2xDb05OK1N0bG45QkY5?=
- =?utf-8?B?N0x5QnB6dkpHNTdoVXByRWNDZ2dpRXMvT1BoN2JHYkxKYnNQWWIzRVFGN1NJ?=
- =?utf-8?B?WGcxWEEycmpTeWkrY0ZlOWQ1NEVQOWlpbnBkL0VQSFB4SEVGdVVKcVRWVGt3?=
- =?utf-8?B?b0lJRlk4OU5nMld5RWU1UjJ2aWNIV1BmeGp5czk5WDJqWGFLS1ZzQnFLODlF?=
- =?utf-8?B?Z0hKdXpxcEtqS0t1S2ljTjgxNUJTSjdWSE9TcWROODRvektLeHdVb0RJbnZC?=
- =?utf-8?B?RXdqL0doUW5laTVxYzFkVEZuZGlhclZXaVlNNTV5LzBha0dpUmdJd1pUckJh?=
- =?utf-8?B?aGdZR3VlMG1WdFVjYTZrUG5GWWJ5MkRyYlJrYlJYN0hhN2RraklVaktPYmRT?=
- =?utf-8?B?aEZoUFZVNHZYNHJrOVI2SjlFR1VIZ0hPaFp0dTlJRFBFbENrQTRsNzd0cTYz?=
- =?utf-8?B?ZTZxcTZsNWJLbzlzMjVwdEpDT09oY0tpSHVjOU1SdFJUNTJxM3VweUxGeGN6?=
- =?utf-8?B?aE5WdCt1dWZYaStacSs1OG5PSU1uc2pjd2lEK1pUVlZkTVZxS2FJbHBFY0xr?=
- =?utf-8?B?dFFnS3lFYXVUYzVZdFdFTzYzSThjWWpta21jZzRxZVBmVXhuVEFqZWhoSWZO?=
- =?utf-8?B?K3ZzeDdES1k1Q2g2UTlRLy9Fb3ExK1dpbThHeUM3elM2ME50V2JsaU9YK1VG?=
- =?utf-8?B?MzJyTTNvcUpQREZVTFBBbDJYb1ljWHBHdzVWMkt2eEpaT28zemxGMHBIMWpt?=
- =?utf-8?B?RUFJNmRyaWZBY1JwLy9sd3Qxbk9ZMFpWYzRLSURTd0E2NmVtTmxDTmJ2Vjhv?=
- =?utf-8?B?S0d2MTRRdnNGVTlSQVltUFprUTR4Mk8rZjJmSnBua2Z3ZzYybWZlVVlFTEVC?=
- =?utf-8?B?RkJIVUxuZ3RyY0NkZllJRFA0QU14QnJNMDJjb0FBYmxDRGM0eWFDNnZ3bzM2?=
- =?utf-8?B?RlVCeHd2Z3d5WXBZU3VFcXJhZTJqekk1U3kxM1NLcnZEaUZVTXY2UFdrNmVY?=
- =?utf-8?B?bTRab2lyQ0FZVEttQVI4dVY1a1pZTW94Y2lLN1RESTVGMStHMk8yQT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <08F4FC0EDE0D314FADF5E23ADFB612A0@apcprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+        d=oss.qualcomm.com; s=google; t=1787889035; x=1788493835; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Fa5QEbRUffF9AhLgAoUuujXNq1YP5CuIe3KkAaoOzKE=;
+        b=I52aShr28Bdpv9VNTG+C44CqbDXmVd9Oz9puazPU/lPmQfghqVqI1gmFVTlvKjD+um
+         1aUxoEoqpWbCms5uphMtordozh0nHNOU/t7N/2I7tZlIZbqlDLzl6aE3GLWpNKHDjdIq
+         GOXfN0NGHIWk2QsvWAl1hvxwWODt5RxViFvsCPIQ6zgP7xuW4dCYJ8war0IIhbYiM3ii
+         S2zIGLBGQ3vwvHY5QXEKd1xHyqeDxT3j2uR9ie6AFg5GOdzj/QQCQXccgpugOhcw1Ray
+         o/u8AURCUyDmzhk4xmvV3Ssojz2pNe74AEXpyoIOhkRTMGAlUf04orWuSod+M5SyDE9K
+         +TZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787889035; x=1788493835;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Fa5QEbRUffF9AhLgAoUuujXNq1YP5CuIe3KkAaoOzKE=;
+        b=DZhbQDPOX2cbftMyTrLJHnNhX30GT7wYtNDOGMaqKfWmUabVq57WgByEFnKQ3bGwiY
+         lk/rVyEesFTG3Ewa97tCiaO0lSPGjS/pIGBBluE6X1wQRcV873dhK1OyvM89zLb6trkW
+         NgV0OMcvqa9zrLsG5E1UH+7fqJqZ3yEQ7QNOMuz8zmg6Sxo9+HoyfoPSCTjM+pVsTBdT
+         /WlBfRSjOw0cpdcmhfqjMsS4SDDZ6LjSJYvvLqvHM988bNJRnf+pssyRhWj3vcNrTgJ0
+         AwAJh5t1IPINvEISA91KhOTDvp2QJT40S/+UHko4UkbTMDak0G0XWAfwElLtqBKamViO
+         QgJA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp7iAENcvzBbiM722mO1L8LWR51z9MKfoxDQ2fp3cTh3++3dBprF6rpZC9/NcNRLBQn3N6CtqpL1/KT@vger.kernel.org
+X-Gm-Message-State: AFuF++n9AHAg/ao7M/Zx3FxQfxmL8LN931ybgKu6lHZi3/+td9TLtSsb
+	WYICH5jrCQ7fgToGJGRkIbYFlj/N9Wu5Ak8hA1Mhj5Ihjutry3WSGKecWjwRChq1gf0rFsdd7mI
+	SYJTV8GOekJI4+xDrTzTvxQ3wFuIKeitIg7+3IJ86g3WZhvIRD2KEPsQVorLzuzRo
+X-Gm-Gg: AR+sD13CxLFfizYLNlQ5CfxGcTrGmu3lhj/MOjSthz4wSH9hre35/5vSfOGenkNG6w0
+	CHOE/UdBllg0Hj77NwGZGhicZTOgXS6ZfjLEry2rjVdSdn5fWZ8RAyCCjF8NBUDechmfirsL34v
+	PUrzvC5nVZemviezVMKDqoqOMFKxqP6T+moCRse4uldj0o/hCUlXJZdq6fsIKAVKD5PBdfksRt0
+	/VBIca9oAtJXvgkZYzRo5+TWizr0ulmFgrQOYFVBXgvQ6RRri0Px9T6jI73tKQHbikV2bTmptiz
+	hxKCYpAOXK2Vpx+FZwgXhTkJp1MFYrE+PeD2G7zZnvofkw6nOl/sdr83oqPCp614sIciuKMZUym
+	oFI3IiLAewQXk31XxZmXumrP6R9XNk2wddZU6UJun35aKuwDcbX2ozkUvH0mu
+X-Received: by 2002:a17:902:ec82:b0:2d6:3c2f:6a4 with SMTP id d9443c01a7336-2d74df293c5mr57232405ad.13.1787889034997;
+        Thu, 27 Aug 2026 20:50:34 -0700 (PDT)
+X-Received: by 2002:a17:902:ec82:b0:2d6:3c2f:6a4 with SMTP id d9443c01a7336-2d74df293c5mr57231075ad.13.1787889034033;
+        Thu, 27 Aug 2026 20:50:34 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f995e60sm1133357eec.22.2026.08.27.20.50.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 20:50:33 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+        Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+        Yadu M G <yadu.mg@oss.qualcomm.com>,
+        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH v13 0/6] Add initial device trees for Nord platform
+Date: Fri, 28 Aug 2026 11:49:52 +0800
+Message-ID: <20260828034958.3165-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: NIoICBrUw6ih0XJWK6By164Vpix9JGDjo3rWHoW4jm8SvMK9UKn8ckk644aCPuVeCJlwHCENT/soirsC6l6B77pIuiriWwmVJAtkwJ3oSmA2ckiXoVAaSTpLHVSqZC2vRLEiY+FjecgbrBwuzGCchQXRvDdb6a3p75ac9JuGr8MATOc7gUcb90wnL2lpNybwhtyFAhy/vOWSmcryTWJ1MsKWQV33ihtJ0vh5yD7jsPyMDJ6rZaw6nndTTYoDZryo4KtJDey6HpnpeEdf/Wr2cwXM/m87fRXn1pWtZ2smC5YpciVzUKgeLCV5jAtK8NRM4NFe1TTNCWi6UYR7l5Mr4A==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6624.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c941402c-a81d-4d2a-0d84-08df04b60dde
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Aug 2026 03:40:07.2606
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: YGyHLaZoo3/E1JiEJWrLu/SdsPfrKu7TzdOiWV25oRsEUvXZsgfZnPr+9tVrKf5tDmg0uWL9lhlOJdojLSW4kg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR03MB7999
-X-MTK: N
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDAyOSBTYWx0ZWRfX0lPmiT1Qheu8
+ ZlsZyTIjhKKNZoAX5lsUw9I+MLQEp3CVK+akIHNGg+QXiTbihPnxdyh0XYVFO9z1n2Lzhokounh
+ fJBLNuY0ZEPyR9e+eaMuqHVSuclbQUNp3NTD/uyUJikqY4EC6YLm/2SV3Kcf4FTfWtugICCy0pz
+ QZEQQ+9SNQOCf+JaQYnvmYTtdgbKKO3z1XqaylY2bhspNy3LcevezDEVrsiHkkjfmXMAISkXEgg
+ WzC9kdALa3yyC9amcehotqHtOdWprBuaaWSk+4PuoWujccK4GHE1nKD4uEJHoCA6Ow7PQz3GAQS
+ MU1bwsqI23mieU8wgOCEd9ccmiAoDQfBLBW58mdejPh3X92HGE7twP9q/WVdswE+qHfngSPbBsd
+ j3BoCv2THJmFzYB3WNRUqqVNhZ9BlpsIYsG1iddHu05ipBLHi3n3A2aM8MyQY/heBoU1EgQHS5j
+ 2YqaPthG7UOdDXfRslA==
+X-Proofpoint-GUID: ZwDAqJ6ENhBHjaYWlwcylpkFr_3E-kxl
+X-Authority-Analysis: v=2.4 cv=Yrc/gYYX c=1 sm=1 tr=0 ts=6a91058b cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=Naiw9UJaHRUbRcGyrnEA:9 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-ORIG-GUID: ZwDAqJ6ENhBHjaYWlwcylpkFr_3E-kxl
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDAyOSBTYWx0ZWRfX2DRAiB2Zjj+E
+ vyEe3PZcyXiPIyneWvXFWdHDmRBxl2ygQCFvmXHQlWT5RQtlG+STKghiruLX8fjQO2ZbTIcjPj0
+ dr7WuAMXou8fRZ/Rg2ES+j96jVHLfG8=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-28_01,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 spamscore=0 priorityscore=1501 adultscore=0
+ impostorscore=0 bulkscore=0 suspectscore=0 lowpriorityscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608280029
 
-T24gVGh1LCAyMDI2LTA3LTA5IGF0IDEzOjMxICswMjAwLCBBbmdlbG9HaW9hY2NoaW5vIERlbCBS
-ZWdubyB3cm90ZToNCj4gVGhlIFBIWSBkcml2ZXIgaGFzIGdhaW5lZCBzdXBwb3J0IGZvciAucG93
-ZXJfb24oKSBhbmQgLnBvd2VyX29mZigpDQo+IGNhbGxiYWNrczogdXNlIHRoZSBBUEkgcHJvdmlk
-ZWQgcGh5X3Bvd2VyX29uKCksIHBoeV9wb3dlcl9vZmYoKQ0KPiBmdW5jdGlvbnMgaW5zdGVhZCBv
-ZiB3cml0aW5nIGludG8gUEhZIHJlZ2lzdGVycyBmcm9tIHRoaXMgZHJpdmVyLg0KPiANCj4gU2ln
-bmVkLW9mZi1ieTogQW5nZWxvR2lvYWNjaGlubyBEZWwgUmVnbm8gPGFuZ2Vsb2dpb2FjY2hpbm8u
-ZGVscmVnbm9AY29sbGFib3JhLmNvbT4NCj4gLS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vbWVkaWF0
-ZWsvbXRrX2RwLmMgfCAzMSArKysrKysrKysrKysrKysrKysrKysrKystLS0tLS0tDQo+ICAxIGZp
-bGUgY2hhbmdlZCwgMjQgaW5zZXJ0aW9ucygrKSwgNyBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2RwLmMgYi9kcml2ZXJzL2dwdS9k
-cm0vbWVkaWF0ZWsvbXRrX2RwLmMNCj4gaW5kZXggYjJlNWZhMDkxNGJjLi4zODNjOGU2NmI1Mjcg
-MTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfZHAuYw0KPiArKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2RwLmMNCj4gQEAgLTE0MDQsNiArMTQwNCw4
-IEBAIHN0YXRpYyB2b2lkIG10a19kcF9hdXhfcGFuZWxfcG93ZXJvbihzdHJ1Y3QgbXRrX2RwICpt
-dGtfZHAsIGJvb2wgcHdyb24pDQo+ICANCj4gIHN0YXRpYyB2b2lkIG10a19kcF9wb3dlcl9lbmFi
-bGUoc3RydWN0IG10a19kcCAqbXRrX2RwKQ0KPiAgew0KPiArCWludCByZXQ7DQo+ICsNCj4gIAlt
-dGtfZHBfdXBkYXRlX2JpdHMobXRrX2RwLCBNVEtfRFBfVE9QX1JFU0VUX0FORF9QUk9CRSwNCj4g
-IAkJCSAgIDAsIFNXX1JTVF9CX1BIWUQpOw0KPiAgDQo+IEBAIC0xNDE0LDIwICsxNDE2LDM1IEBA
-IHN0YXRpYyB2b2lkIG10a19kcF9wb3dlcl9lbmFibGUoc3RydWN0IG10a19kcCAqbXRrX2RwKQ0K
-PiAgCQkJICAgU1dfUlNUX0JfUEhZRCwgU1dfUlNUX0JfUEhZRCk7DQo+ICAJbXRrX2RwX3VwZGF0
-ZV9iaXRzKG10a19kcCwgTVRLX0RQX1RPUF9QV1JfU1RBVEUsDQo+ICAJCQkgICBEUF9QV1JfU1RB
-VEVfQkFOREdBUF9UUExMLCBEUF9QV1JfU1RBVEVfTUFTSyk7DQo+IC0JcmVnbWFwX3dyaXRlKG10
-a19kcC0+cmVncywgRFBfUEhZX0FVWF9SWF9DVEwsDQo+IC0JCSAgICAgUkdfRFBBVVhfUlhfVkFM
-SURfREVHTElUQ0hfRU4gfCBSR19YVFBfR0xCX0NLREVUX0VOIHwNCj4gLQkJICAgICBSR19EUEFV
-WF9SWF9FTik7DQo+IC0JcmVnbWFwX2NsZWFyX2JpdHMobXRrX2RwLT5yZWdzLCBNVEtfRFBfMDAz
-NCwgREFfQ0tNX0NLVFgwX0VOX0ZPUkNFX0VOKTsNCj4gKw0KPiArCWlmIChtdGtfZHAtPnBoeV9k
-ZXYpIHsNCg0KWW91IHVzZSB1bmxpa2VseSBpbiBtdGtfZHBfcG93ZXJfZGlzYWJsZSgpLCBzbyB1
-c2UgaXQgaGVyZS4NCg0KUmVnYXJkcywNCkNLDQoNCj4gKwkJcmVnbWFwX3dyaXRlKG10a19kcC0+
-cmVncywgRFBfUEhZX0FVWF9SWF9DVEwsDQo+ICsJCQkgICAgIFJHX0RQQVVYX1JYX1ZBTElEX0RF
-R0xJVENIX0VOIHwgUkdfWFRQX0dMQl9DS0RFVF9FTiB8DQo+ICsJCQkgICAgIFJHX0RQQVVYX1JY
-X0VOKTsNCj4gKwkJcmVnbWFwX2NsZWFyX2JpdHMobXRrX2RwLT5yZWdzLCBNVEtfRFBfMDAzNCwg
-REFfQ0tNX0NLVFgwX0VOX0ZPUkNFX0VOKTsNCj4gKwl9IGVsc2Ugew0KPiArCQlyZXQgPSBwaHlf
-cG93ZXJfb24obXRrX2RwLT5waHkpOw0KPiArCQlpZiAocmV0KQ0KPiArCQkJZGV2X3dhcm4obXRr
-X2RwLT5kZXYsICJDb3VsZCBub3QgcG93ZXIgb24gUEhZIVxuIik7DQo+ICsJfQ0KPiAgfQ0KPiAg
-DQo+ICBzdGF0aWMgdm9pZCBtdGtfZHBfcG93ZXJfZGlzYWJsZShzdHJ1Y3QgbXRrX2RwICptdGtf
-ZHApDQo+ICB7DQo+ICsJaW50IHJldDsNCj4gKw0KPiAgCW10a19kcF93cml0ZShtdGtfZHAsIE1U
-S19EUF9UT1BfUFdSX1NUQVRFLCAwKTsNCj4gIA0KPiAtCXJlZ21hcF9zZXRfYml0cyhtdGtfZHAt
-PnJlZ3MsIE1US19EUF8wMDM0LCBEQV9DS01fQ0tUWDBfRU5fRk9SQ0VfRU4pOw0KPiArCWlmICh1
-bmxpa2VseShtdGtfZHAtPnBoeV9kZXYpKSB7DQo+ICsJCXJlZ21hcF9zZXRfYml0cyhtdGtfZHAt
-PnJlZ3MsIE1US19EUF8wMDM0LCBEQV9DS01fQ0tUWDBfRU5fRk9SQ0VfRU4pOw0KPiAgDQo+IC0J
-LyogRGlzYWJsZSBSWCAqLw0KPiAtCXJlZ21hcF93cml0ZShtdGtfZHAtPnJlZ3MsIERQX1BIWV9B
-VVhfUlhfQ1RMLCAwKTsNCj4gKwkJLyogRGlzYWJsZSBSWCAqLw0KPiArCQlyZWdtYXBfd3JpdGUo
-bXRrX2RwLT5yZWdzLCBEUF9QSFlfQVVYX1JYX0NUTCwgMCk7DQo+ICsJfSBlbHNlIHsNCj4gKwkJ
-cmV0ID0gcGh5X3Bvd2VyX29mZihtdGtfZHAtPnBoeSk7DQo+ICsJCWlmIChyZXQpDQo+ICsJCQlk
-ZXZfd2FybihtdGtfZHAtPmRldiwgIkNvdWxkIG5vdCBwb3dlciBvZmYgUEhZIVxuIik7DQo+ICsJ
-fQ0KPiAgDQo+ICAJbXRrX2RwX3dyaXRlKG10a19kcCwgTVRLX0RQX1RPUF9NRU1fUEQsDQo+ICAJ
-CSAgICAgMHg1NTAgfCBGVVNFX1NFTCB8IE1FTV9JU09fRU4pOw0KDQo=
+This series adds initial device tree support for Qualcomm's Nord SoC
+and the reference design boards, SA8797P RIDE for Automotive and IQ10 RRD
+for Robotics.
+
+Nord includes two variants, GearVM and Embedded. The GearVM variant has
+platform resources (clocks, regulators, powerdomains, etc.) controlled
+by SCMI server running on a VM. And the Embedded variant has the resources
+directly controlled by the operating system.
+
+SA8797P RIDE board is built on GearVM variant, while IQ10 RRD is built
+on Embedded variant.
+
+Tested on next-20260821.
+
+Changes for v13:
+- Update commit log of patch 2/6 to reflect SCMI channels for I2C/SPI/UART
+- Include qcom,rpmhpd.h instead of qcom-rpmpd.h in nord-embedded.dtsi
+- Link to v12: https://lore.kernel.org/all/20260826041200.528588-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v12:
+- Update interconnect-names to be one-line-per-string style in
+  nord-embedded.dtsi
+- Fix SCMI channel for I2C and SPI in nord-gearvm.dtsi
+- Correct cpu_perf node in nord.dtsi to be a power-domain provider
+- Link to v11: https://lore.kernel.org/all/20260816125413.1635150-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v11:
+- Use hyphen in rpmhpd OPP node names (opp2/opp3 - copy & paste from
+  lemans.dtsi)
+- Link to v10: https://lore.kernel.org/all/20260810114313.776563-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v10:
+- Fix reg size for ICE to match hardware specification (Thanks Kuldeep!)
+- Link to v9: https://lore.kernel.org/all/20260806081554.448531-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v9:
+- Re-add UFS support for gearvm variant as the binding dependency is
+  resolved on linux-next
+- Add #cooling-cells for cpus to make cpu cooling devices available for
+  userspace to control
+- Include CTS/RTS into UART17 pinctrl state to ease the Bluetooth
+  enabling
+- Link to v8: https://lore.kernel.org/all/20260729010022.875799-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v8:
+- Drop UFS support from gearvm variant to clear binding dependency
+- Link to v7: https://lore.kernel.org/all/20260721044005.2882803-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v7:
+- Do not paste the comment of bootloader updating IRQ number for each of
+  the 64 SCMI instances
+- Correct crypto status to be "okay" in nord-embedded.dtsi
+- Drop scmi15 from nord-ride.dts as there is no consumers
+- Drop unneeded LDO/SMPS regulators comment from nord-rrd.dts
+- Drop regulator ufs_vdd_hba and ufs_vccq2 which do not exist on RRD
+- Drop always-on/boot-on flag for vreg_l3e_1p8 and vreg_l2i_1p2 in
+  nord-rrd.dts
+- Drop untested I2C device and add tested EPSON RX8900 RTC for
+  nord-rrd
+- Restrict nord-rrd UFS PHY regulators as HPM only to avoid potential
+  intermittent failures
+- Link to v6: https://lore.kernel.org/all/20260716142605.2398433-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v6:
+- Move ufs_mem_hc reg/reg-names from nord-embedded.dtsi into nord.dtsi
+- Enable crypto by default only for nord-embedded variant 
+- Add a comment above each SCMI 'interrupts' property to clarify that
+  the IRQ number is expected to be updated by the bootloader
+- Improve commit log of Embedded variant patch to be "directly controlled
+  by the operating system"
+- Merge two board binding patches into one
+- Rename sa8797p-ride.dts to nord-ride.dts, iq10-rrd.dts to nord-rrd.dts
+- Expand RRD acronym in DTS patch commit log
+- Fix copyright in RRD DTS file
+- Add firmware path for qupv3 nodes
+- Link to v5: https://lore.kernel.org/all/20260709132013.4096850-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v5:
+- Rename nord-sa8797p.dtsi to nord-gearvm.dtsi
+- Merge scmi-common.dtsi to nord-gearvm.dtsi
+- Drop "qcom,sa8797p" compatible
+- Add Nord Embedded variant and IQ10 RRD board support
+- Link to v4: https://lore.kernel.org/all/20260707123902.3868016-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v4:
+- Rebase on next-20260706
+- 1/4: Drop useless comments from arm,gic-v3 reg property
+- 1/4: One triple per line for qcom,pdc-ranges
+- 2/4: Improve commit log as suggested by Konrad
+- 4/4: Drop 0 polling-delay as that's the default value
+- 4/4: Name PMIC thermal zones with prefix "pmic" rather than "pm"
+- 4/4: Drop 135 C trip point from PMIC thermal zones as hardware will shutdown
+  at 125 C
+- 4/4: Have trip0 at 105 C as passive and trip1 at 115 C as critical for UFS
+  and SDRAM thermal zones
+- Link to v3: https://lore.kernel.org/all/20260526051300.1669201-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v3:
+- Rebase on next-20260525 and drop patches/dependencies that hit linux-next
+- Improve commit log of "Document SA8797P Ride board" to explain the need
+  of SA8797P model compatible
+- Fix the real issues reported by sashiko-bot
+  - Fix unit address of pdp0_a2p node
+  - Add missing compatible for i2c15 and spi15
+  - Drop GIC_CPU_MASK_SIMPLE(8) from arch_timer interrupts property
+  - Update commit log of "Add device tree for Nord SA8797P SoC" to match
+    code change
+  - Sort sa8797p-ride thermal trips in ascending order of temperature
+  - Fix sa8797p-ride thermal zones with identical trip0 and trip1
+- Link to v2: https://lore.kernel.org/all/20260519063505.883379-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v2:
+- Rebase on next-20260518 and drop dependencies that hit linux-next
+- Include SoC ID changes into the series
+- Include ICE binding change into the series as the prerequisite change
+  from Harshal [1] was merged to qcom soc tree instead of crypto
+- Improve commit log of SA8797P Ride binding change
+- Use label in nord-sa8797p.dtsi for referencing nodes defined in
+  the base nord.dtsi
+- Link to v1: https://lore.kernel.org/all/20260427023455.236410-1-shengchao.guo@oss.qualcomm.com/
+
+[1] https://lore.kernel.org/all/20260416-qcom_ice_power_and_clk_vote-v5-1-5ccf5d7e2846@oss.qualcomm.com
+
+
+Deepti Jaggi (2):
+  arm64: dts: qcom: Add device tree for Nord GearVM variant
+  arm64: dts: qcom: Add device tree for Nord Ride board
+
+Shawn Guo (4):
+  arm64: dts: qcom: Add device tree for Nord SoC series
+  arm64: dts: qcom: Add device tree for Nord Embedded variant
+  dt-bindings: arm: qcom: Document Nord reference boards
+  arm64: dts: qcom: Add device tree for Nord RRD board
+
+ .../devicetree/bindings/arm/qcom.yaml         |    6 +
+ arch/arm64/boot/dts/qcom/Makefile             |    2 +
+ arch/arm64/boot/dts/qcom/nord-embedded.dtsi   | 1820 +++++++
+ arch/arm64/boot/dts/qcom/nord-gearvm.dtsi     | 2848 ++++++++++
+ arch/arm64/boot/dts/qcom/nord-ride.dts        |  254 +
+ arch/arm64/boot/dts/qcom/nord-rrd.dts         |  548 ++
+ arch/arm64/boot/dts/qcom/nord.dtsi            | 4605 +++++++++++++++++
+ 7 files changed, 10083 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/nord-embedded.dtsi
+ create mode 100644 arch/arm64/boot/dts/qcom/nord-gearvm.dtsi
+ create mode 100644 arch/arm64/boot/dts/qcom/nord-ride.dts
+ create mode 100644 arch/arm64/boot/dts/qcom/nord-rrd.dts
+ create mode 100644 arch/arm64/boot/dts/qcom/nord.dtsi
+
+-- 
+2.43.0
+
