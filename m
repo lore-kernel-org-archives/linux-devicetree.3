@@ -1,160 +1,270 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011011.outbound.protection.outlook.com [40.107.74.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA50443FD32;
-	Fri, 28 Aug 2026 12:12:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787919170; cv=none; b=scqay23/YUOIYedkOR4E0qp6pl4UHoXi9jymly1FW/5Jy2J3HrgPhXee3Gx/ocK3juER6mmEKMDjLPwar384iAQxrRrUEmUF0+jccA0am91+nmC58BfXWNhNVTSXucIrlxkN5fN/JwYwiDmmi4Dc/lkhVDeiWPuwnVyPAz5VJLE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787919170; c=relaxed/simple;
-	bh=sYUuNwo4GjCMxDOumVZA51pMc9VSkLkCI2wD2k+x8d0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=V1Vs16v6M8hBhYFpDQHDYosE/n7RbjCgn0swZcmOWuP7/NFMhefA42QBLAhfhiGX5XLtjSM/KD7SDZfAvHSLKCS5rttNyjYQtHmufB7ErTCtQibXAIeBZ+Juy72to5RyUliJZtXVn5bhRyKA7tLJZtAj2W1BbC6Y0HHa9tkpM+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=2jJ4tgFj; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 956E62AE8D;
+	Fri, 28 Aug 2026 12:21:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787919737; cv=fail; b=brWrs8DSrPVUPnzbeodOBkuJ7HIzac+wf5mywZCBVF2/YDoD58piHbptD0lMEuzLNRZvrnrORG4Y4UO0oyglbT996UVFP6jRlhEGwMRFYO1O5gL0t9sAhBKnnG1XjRX8EJ6ivEalvZiVL9O7mneLomRFuwNBPV1TLmZEUdKuOGE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787919737; c=relaxed/simple;
+	bh=oL18P9cP7ooUJQoih331sIiiTzGxxwljSadR/+NLXb0=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=lfeZqVcsWlFH1te+Qh4qYMbsGkxpy8R7TU9F1Mws6qDz3Tsj6iw17/P4BLfid4qTFZgbRpWayaxWvY6hquKr9ww3/NaKZrIk4cQG1lHf5UVAfhD0p4sgFb+ewMy/ilMwNO1azpli0oOyYzAMvT8RVd7QjvRFJKfAQd/VPjfCWiM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=FnCWKVuu; arc=fail smtp.client-ip=40.107.74.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="2jJ4tgFj"
-Received: from [10.0.0.32] (unknown [185.110.89.192])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 6A29E53401E6;
-	Fri, 28 Aug 2026 14:12:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1787919142;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=QxdsXA/ZvyTSPjgJ6dSXmUKdhnb8n25QrPrJPCDLRXA=;
-	b=2jJ4tgFjdLCaVewECwxqKu4jVYHM4BQEOBbvP+wcrYVLVoLITqkosG7RZ5DIQ+tGQsAyqE
-	/KfOdGKHf56oyBBAmAxMVQ1EZChmLdBrRPBS05zipodkSLHqVDmbLjh51obJJ//lt773YG
-	FcqsEmrm+5kzQ3mz1SGElJzhLlshRTY=
-Message-ID: <cfa1d6c7-267c-4e9d-b3ab-2c483503a1e6@ixit.cz>
-Date: Fri, 28 Aug 2026 14:12:20 +0200
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="FnCWKVuu"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iGk1/+yQaplu2wQLTdLjWD5W6t6zmkFdoZWaPJ8Vk3xw/zHfRTAavnXo/dRvKuFqVVI8RRD5rbaYipzaLqOFNzSWOli7IWvZv0L1mmoToBtcxlW/ZFo8WJ8gJMceX7q9TLmkoF9JcJHbtkcYlKhuqcl32JvGBH1pD8wHfAgDaqVJlnUnznrwScceTpywBq8i1mUysmEFw9987Sc8O2zuNuV2T8euyHtdVHGMIKD6oNiRBidmhKvpROowS6vU+Vhb9YTsFMhnKdMmY1Cat5PkFLCeL8qrzf9Qmq9+ryWY6as0bkB7ZZxRxZFgtOaXXsk3TnjGBpcydQFt3GcAH44cFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ckV11bm08cfH+9rkLpX5R8njGBxQJA0ed2iuzsS1OL8=;
+ b=nWmDHW8iSympqaahHV5AkwNDnOhRFD6oWKmpLDs61Phbq6W6AXym11zFu3ELhVWzy6QfpddrTThcRs0zzDEFexn11BLw15RvZiD5dpQlt9++sbok8Zc9X0rJPHlIe99BHalB4VjpU9x6iFLKvi35GgXQR475caofp8KHLI1UMKX/wkngm7qfaIym4BnecViZuDCsZILrH71X4I60HI7yq+j5bVCr/hxiC9kGAQwF8tPpFpDVdtmYi8gMVEmBNegbz7ehio+8oyY6j3FyAbicSyLnOgLTKn9tc2X1xW7c4gOqgNB1f4+EqHSejTnH1dZYDygUOtsdmk9kP5Kg+6n35A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ckV11bm08cfH+9rkLpX5R8njGBxQJA0ed2iuzsS1OL8=;
+ b=FnCWKVuurOTVsM7nbM9r2dk87i/JIyVTzc/DkQ4GMu9hmlwhYDfEeFjhrMaXTuxFixx9PdRLI3nXJInNjUkWTlxehFGrp2NKDoQufNV8qIzo/JwzahGCWAvrwj6Al4urGUzQD9850A4SYfOeY0YK1wiyYeiFmMmEPdwqDyjEk7E=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
+ by TY6PR01MB17444.jpnprd01.prod.outlook.com (2603:1096:405:360::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
+ 2026 12:21:54 +0000
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
+ 12:21:51 +0000
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: tomm.merciai@gmail.com
+Cc: linux-renesas-soc@vger.kernel.org,
+	biju.das.jz@bp.renesas.com,
+	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v8 0/9] drm: renesas: rz-du: Add RZ/G3E support
+Date: Fri, 28 Aug 2026 14:21:03 +0200
+Message-ID: <20260828122113.1426778-1-tommaso.merciai.xr@bp.renesas.com>
+X-Mailer: git-send-email 2.54.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: LO4P265CA0311.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:391::16) To TYRPR01MB13588.jpnprd01.prod.outlook.com
+ (2603:1096:405:18d::7)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/2] input: misc: Add Qualcomm SPMI PMIC haptics driver
-To: Fenglin Wu <fenglin.wu@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: David Collins <david.collins@oss.qualcomm.com>,
- Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
- Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, linux-input@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260828-qcom-spmi-haptics-v7-0-0367b3ac2e1e@oss.qualcomm.com>
- <20260828-qcom-spmi-haptics-v7-2-0367b3ac2e1e@oss.qualcomm.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260828-qcom-spmi-haptics-v7-2-0367b3ac2e1e@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|TY6PR01MB17444:EE_
+X-MS-Office365-Filtering-Correlation-Id: e900d074-602e-4989-9c0c-08df04fef08d
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|52116014|376014|1800799024|366016|18002099003|5023799004|56012099006|11063799006|3023799007|6133799003|10067099003|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	9WLJ5i8a3lHRReAu/V1r48wHLRrVqgc3z/dTJ5JbyATE2sdnCAOeYXkca8/Ben5JTBaxZxIiYy5JGujnF74kso1/XtoGQR00zOCtfGXJnIEyC6PZ15Lea2Y9qvNtJYo8klCLjAhvvB2I1qbsSJOf+SgUGnDuGePafolWx5zrgfVU/HCyaLX7fuKwTprX91GYj9THGU8s7sP683ndFrt4avv+u8/2mly+p/IRsHgUbxDAjuOoiJ2CH1wjfY6n28yb4X7IEL06JYOR9Ax87NSgfmNjOwNRqDoCojcxnyGjrOeaHX0iNWavHaK/CqjhqJuF/pb6cO+emEqSEGLevWy9KNo0pnbadnAsTpZKDhkXgxzhtnn7LPMTeaw6s6ofz0GaYD+PXBKM1cY+kI/90K2XDHh6zBoWxpm3Yk9m6OSWRina6I8Tem4OP4oFtkc9+GcY+bwZXEdLnxG0AFmGiAKSBAFt11fF5HZRdZ7xZpk6C9yeKw/R/X5+DafOWDWbHT6NIfAHUTB6TGR0WT8Br4Qc/UrLeLJi+rQoo43Y3s2xcbR4jyhOlXg+wEn15K+RkIe+REA7Jj4eNB7/o2OT8cZe4NMxTX4dVFQsyzG4z8alqlErbQn2QmApwgalbSOceu/mfMi317H7tWse7IvXOZXbkNlFWLqF3Q/yx6kKaHpEZusXveKeGXbVAlgmNAXLREEQKep50MlGKylwRSiXHIgMbNW1b1/wOaTy3oCYvS9Lkl8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB13588.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(52116014)(376014)(1800799024)(366016)(18002099003)(5023799004)(56012099006)(11063799006)(3023799007)(6133799003)(10067099003)(38350700014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?VuaOLt/WUwJ4bEPQPqPntJp9GVG3SDX5Ui3UgvS3h2WomLdsB8r9m1tH2n2r?=
+ =?us-ascii?Q?AX0LRvc1Ph3KlInZBQt5upwd9r5pur8eeUW7SDxafU6CVd6LnM3MsyZDpk9n?=
+ =?us-ascii?Q?DmIXllvxqNK1/Xoa53WvmKgjTC7ndsVvh+8MXl/42Q6Vln0XkgqE0WAPT8mW?=
+ =?us-ascii?Q?29DkuSj5X3DDoBMIAW4i+azi1vRK4k5pREBN+BiiuRWfYRPce/PtYtgyLKxm?=
+ =?us-ascii?Q?6iZwczumBye3pFrw0IGgqmMXtc43InchXL+bQCkMJPjAoQHgcQjxv7A/mHRq?=
+ =?us-ascii?Q?xUaIyqjH+BpISwC5jWJl8MLUp2BVUtX1octv56k6Jk31MaLGSPd+i15GLiIn?=
+ =?us-ascii?Q?EOCJTl+m79VurgtRoOcgAaVulQGJLn0R5aX1PpgWi8XpU7vKTKO73yULn0Wm?=
+ =?us-ascii?Q?SxP14cLU4PaJdWZyfStrMdEaivEUO6+Bn/fpN1Ql0eZh9UJZbBHWvHe5acwk?=
+ =?us-ascii?Q?JHChEAIhSdrKPzAtgZz2KnNeu59sP6XORNnRSJfNyFxlIMPUK6sdXXXFri0b?=
+ =?us-ascii?Q?MRjjn/iR9dk+pGTasOJRSQ8Ql4/l5uLGQVZ+sVeaM8onBgCNhZWrYfikOuxr?=
+ =?us-ascii?Q?5Or7yR4NZkid2/qXvncxLrkYytDU8wr4QmrsiwVAR7s5n9wl6v0qiQmdiGzj?=
+ =?us-ascii?Q?cUyx3T1O96QDa2k1kd7W5crBE4bsUUT+bcySCQG2EoN/SQXbST8295zQwNDu?=
+ =?us-ascii?Q?cIUf5vJO2AmaIZG5jNSpVISX2Zh9/xifB+ARguWi3gGX9LY1HbGKWIP3NFeT?=
+ =?us-ascii?Q?GJOLJaw3GFKx2vY6O1bydHq/MN1eiyiltqTac1zGasIyA4iafyntAQ8vgO0b?=
+ =?us-ascii?Q?UOqd4ghsPJgP3P+DoMqQiYl1nq6rGto5ae5O/9XwTximrBtJHCGcW2IX/eo4?=
+ =?us-ascii?Q?4UrZPihTcIBXmtVDfWCjGfB68hNikG9P445RwyqoLoZ2RQGVU0UqRV73KCF7?=
+ =?us-ascii?Q?Q3NUQ2inFZSUVUQlRNhero5hWp2tg436UWu+OuLs9ioAxjCMGHKbjkSqfkbR?=
+ =?us-ascii?Q?mYql0M5A5tFRCp6OvUU6PpueEkfAxLtBXmiLxok9bDpeudJeXUC/yMnSHGen?=
+ =?us-ascii?Q?eqitnFGJ65dQREUM1K8MRp67Fb9g8gvu7MpBOrDVRw7CbxAEJKALI5qIA1Vs?=
+ =?us-ascii?Q?DcmH5H38Umm5ta5ha7dslXzUqI4h2pFOw6cpWf6gBHIsBuqHC3xnPkcwMqti?=
+ =?us-ascii?Q?rgGySoViIjoHes7sKr43SrIFbrKWdJr/rv+OHCBURbycEq9b1VvbwMONEBRf?=
+ =?us-ascii?Q?DES8h9EpbuTlZgbnrZLtIhwfKLPN6vZ5SIhdf6usmlCuSQP8b5wtNOYNCLn+?=
+ =?us-ascii?Q?5GDX/49gHu+hbVoFZGQpuUPZ0oSbYGe93tTgYF1elma88Q1BG18X5V4DZGhj?=
+ =?us-ascii?Q?0LcukOECmzg4MyGzqdiDfLMniFoV2uy7z32fC9Zawd1c3juDoBagE56k1XDw?=
+ =?us-ascii?Q?T6F1fww2515F5BqU58pX7tG2FE9y+UKSS5i9eHlU7eH4FNpn7XFoUT2ecUoW?=
+ =?us-ascii?Q?Z9xiVi2+3mMsR980e/RYpA/YBIpVeHKbGRA0YWaqNB7PdelKXL6FOnvz9Heb?=
+ =?us-ascii?Q?i2hw9yjno/qOXtLBNg3652ZtrEeAFbdJVaiDosSPLiFDyGwObfk1FuQ4UoIP?=
+ =?us-ascii?Q?Wz21iH5eJ24mNEHhhduSscoAlt7qpQLZ34skp6hE6CJ2MlIR/aMB9ZrNKRAT?=
+ =?us-ascii?Q?ctfS64PIhfHSFVYhAky7XOK+WFzlMBQNln4TW+H0SHnY4wrp+DWEHvfnF8gL?=
+ =?us-ascii?Q?KD7/GVq8TTSzOaa6iW1Wv8mTDpz7pmC4d9nMVhgBb/cJWrFevu5C?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e900d074-602e-4989-9c0c-08df04fef08d
+X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 12:21:51.8462
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jNiHkjqkCQoKN4OeUVE4Bv4gCM+9RR7ts2lp244BQbSIc9Pmrb/A8ZL8nyjCnFoL3bOdN1H1vFU+2xFC3W3NljT9DG64o33/Ko/JZxcA4IbTev6kSIaf7Qr98L/WzPDS
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY6PR01MB17444
 
-On 28/08/2026 11:49, Fenglin Wu wrote:
-> Add an initial driver for the Qualcomm PMIH0108 PMIC haptics module,
-> named as HAP530_HV. This module supports several play modes, including
-> DIRECT_PLAY, FIFO, PAT_MEM, and SWR, each with distinct data sourcing
-> and hardware data handling logic. Currently, the driver provides support
-> for two play modes using the input force-feedback framework: FF_CONSTANT
-> effect for DIRECT_PLAY mode and FF_PERIODIC effect with FF_CUSTOM
-> waveform for FIFO mode.
-> 
-> Assisted-by: Claude:claude-4-8-opus
-> Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-> ---
->   drivers/input/misc/Kconfig             |   11 +
->   drivers/input/misc/Makefile            |    1 +
->   drivers/input/misc/qcom-spmi-haptics.c | 1251 ++++++++++++++++++++++++++++++++
->   3 files changed, 1263 insertions(+)
-> 
+Dear All,
 
-[...]
+This patch series adds DU/DRM support for the 2 Display Units (DUs) interface
+found on the Renesas RZ/G3E SoC.
 
-> +
-> +static const struct of_device_id qcom_haptics_of_match[] = {
-> +	{ .compatible = "qcom,spmi-haptics" },
+RZ/G3E SoC has 2 LCD controller (LCDC0 and LCDC1), both are composed
+of Frame Compression Processor (FCPVD), Video Signal Processor (VSPD),
+and Display Unit (DU).
 
-Hello Fenglin.
+LCDC0 is connected to LVDS (single or dual channel) and DSI.
+LCDC1 is connected to LVDS (single ch), DSI, and GPIO (Parallel I/F).
 
-Same comment as for v6. As you mentioned, this driver won't work for:
+The first patches prepare the driver for SoCs with more than one DU
+channel: the registers, clocks and resets become per channel, and the
+CRTCs are created from the channels_mask of the SoC information.
+The RZ/G3E support and the DU node follow.
 
-compatible = "qcom,pmi8998-haptics", "qcom,spmi-haptics";
+This series apply on top of RZ/G3L du support [1]
 
-which I'll be upstreaming soon, can you please use device specific compatibles 
-here, thus listing the devices which will work? e.g. qcom,pmih0108-haptics or 
-any other you tested?
+[1] https://lore.kernel.org/all/20260826174854.199139-1-biju.das.jz@bp.renesas.com/
 
-Thanks
-David
+Kind regards,
+Tommaso
 
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, qcom_haptics_of_match);
-> +
-> +static struct platform_driver qcom_haptics_driver = {
-> +	.probe  = qcom_haptics_probe,
-> +	.driver = {
-> +		.name		= "qcom-spmi-haptics",
-> +		.of_match_table	= qcom_haptics_of_match,
-> +		.pm		= pm_ptr(&qcom_haptics_pm_ops),
-> +	},
-> +};
-> +module_platform_driver(qcom_haptics_driver);
-> +
-> +MODULE_DESCRIPTION("Qualcomm SPMI PMIC Haptics driver");
-> +MODULE_LICENSE("GPL");
-> 
+v7->v8:
+ - Rebased on top of next-20260827 + [1].
+ - Improved cover letter.
+ - Modelled using ports/port instead of port/ep.
+ - PATCH 01/9: Add RZ/G3E support on top of [1] using R-Car like architecture,
+   improved commit msg and commit body.
+ - PATCH 08/9: Use R-Car like architecture for RZ/G3E and added
+   mode_clock_min, mode_clock_max for parallel output, improved commit msg
+   and commit body.
+
+v6->v7:
+ - Rebased on top of next-20260605
+ - Splitted the original series into smaller chunks for easy review and easy
+   merging. The original series is available here:
+   http://lore.kernel.org/all/cover.1775636898.git.tommaso.merciai.xr@bp.renesas.com/
+ - PATCH 01/13: Collected LPinchart tag. Removed wrong fixes tag.
+ - PATCH 02/13: Rebased on top of [1]. Use single DRM device aggregating
+   both DU instances (1 DU dt node), modelling single port for each DU0,
+   DU1 and multiple endpoints for outputs.
+ - PATCH 12/13: Removed feature flag usage, rebased on top of T2H/N2H LCDC series [1]
+   Reworked commit body as now outputs routing is based on endpoint id
+   instead of port number. Fixed rzg2l_du_r9a09g047_info instead of
+   rzg2l_du_r9a09g047_du_info.
+   Added bump of RZG2L_DU_MAX_CRTCS and RZG2L_DU_MAX_VSPS to 2.
+
+v5->v6:
+ - Rebased on top of next-20260406
+ - PATCH 1: Fixed rzv2h_cpg_plldsi_smux_clk_register() removed u8 width, mask
+   variables and replaced with direct use of smux.width and clk_div_mask(smux.width).
+ - PATCH 9: New patch.
+ - PATCH 10: Extend patternProperties from "^port@[0-1]$" to "^port@[0-3]$" and
+   explicitly disable port@2 and port@3 for existing SoCs that do not expose
+   them. Reworked ports numbering + improved/fixed ports descriptions in the
+   bindings documentation. Improved commit body.
+ - PATCH 15: Aligned ports numbering with the bindings changes.
+ - PATCH 20: Update ports numbering accordingly to the latest DT bindings.
+
+v4->v5:
+ - Rebased on top of next-20260211
+ - PATCH 9: Dropped renesas,id property.
+ - PATCH 10: Collected tag.
+ - PATCH 14: Fixed RG2L_DU_FEATURE_SMUX2_DSI_CLK to RZG2L_DU_FEATURE_SMUX2_DSI_CLK
+             Added features field documentation.
+ - PATCH 19: Rename du0_out_dsi0 into du0_out_dsi.
+             Rename du1_out_dsi0 into du1_out_dsi.
+             Drop renesas,id entry from DU nodes.
+ - PATCH 20: Use DU0 -> DSI instead of DU1 -> DSI.
+
+v3->v4:
+ - Rebased on top of next-20260130
+ - PATCH 1: Fixed build error: https://lore.kernel.org/oe-kbuild-all/202601311423.gWtJuxiU-lkp@intel.com/
+
+v2->v3:
+ - PATCH 1: Added missing defines for duty num/den.
+
+v1->v2:
+ - Rebased on top of next-20260129.
+ - PATCH 1: Added rzv2h_cpg_plldsi_smux_{get,set}_duty_cycle clock
+   operations to allow the DRM driver to query and configure the
+   appropriate clock path based on the required output duty cycle.
+   Updated commit message accordingly.
+ - PATCH 2-5: Collected tags.
+ - PATCH 6: Moved clk_ids to match enum order.
+ - PATCH 7: Collected GUytterhoeven tag. Fixed "dsi_0_vclk2" position
+   to match order.
+ - PATCH 8: Collected GUytterhoeven tag.
+ - PATCH 9: Use single compatible string instead of multiple compatible
+   strings for the two DU instances, leveraging a 'renesas,id' property
+   to differentiate between DU0 and DU1. Updated commit message.
+ - PATCH 10: Removed oneOf from clocks property, which is not sufficient
+   to differentiate between RZ/G3E, RZ/V2H(P) and RZ/G2L. Use the already
+   existing vclk instead of vclk1 for RZ/G3E DSI bindings. Updated allOf.
+ - PATCH 14: Instead of using clk-provider API to select the right parent
+   clock, just set the correct duty cycle based on the output. Updated
+   commit message accordingly.
+ - PATCH 15-16: Collected tags.
+ - PATCH 17: Squashed fcpvd0 and fcpvd1 patches into a single patch.
+   Collected tags.
+ - PATCH 18: Squashed vspd0 and vspd1 patches into a single patch.
+   Collected tags.
+ - PATCH 19: Reworked DU nodes to use single compatible. Use vclk instead
+   of vclk1 for DSI Node and set to the right position.
+ - PATCH 20: Fixed: dsi, du and adv7535 are part of the R9A09G047E57
+   SMARC SoM board then add entries in the rzg3e-smarc-som.dtsi instead
+   of using the r9a09g047e57-smarc-du1-adv7535.dtsi.
+
+Tommaso Merciai (9):
+  dt-bindings: display: renesas,rzg2l-du: Document RZ/G3E SoC
+  drm: renesas: rz-du: Move mmio from rzg2l_du_device to rzg2l_du_crtc
+  drm: renesas: rz-du: crtc: Parameterize rzg2l_du_crtc_create()
+  drm: renesas: rz-du: vsp: Keep the planes in the VSP
+  drm: renesas: rz-du: kms: Enable multi CRTC creation
+  drm: renesas: rz-du: crtc: Support per-channel named resources
+  drm: renesas: rz-du: Rename possible_outputs to possible_crtcs
+  drm: renesas: rz-du: Add RZ/G3E (R9A09G047) DU support
+  arm64: dts: renesas: r9a09g047: Add DU node
+
+ .../bindings/display/renesas,rzg2l-du.yaml    | 95 ++++++++++++++++++-
+ arch/arm64/boot/dts/renesas/r9a09g047.dtsi    | 52 ++++++++++
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c | 88 ++++++++++++-----
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.h |  5 +-
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c  | 50 +++++++---
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h  | 14 +--
+ .../gpu/drm/renesas/rz-du/rzg2l_du_encoder.c  |  3 +-
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c  | 18 +++-
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c  | 21 +---
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h  | 11 +--
+ 10 files changed, 279 insertions(+), 78 deletions(-)
+
+-- 
+2.54.0
 
