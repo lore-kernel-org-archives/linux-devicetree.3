@@ -1,65 +1,65 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2369141D217
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 13:21:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6E48275870
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 13:21:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787923273; cv=none; b=F5qNImn/yw7FEoHUNXG6KS0uM1RZT0wUBHGkDUjmdNbH5FkMOeBfqZbqnokr5XNuAuB4afaBT/lXsBup3OO8l1M/5CYhDxYm9ATx8Xj3y37iMEk6Ht41wLmlaZbI+7Yl6RyXyH6n/8PFHWWj18CuGWk+5Qr5rnlflAgPdNML6Tg=
+	t=1787923279; cv=none; b=qVGCselzLJGJEosITerjCv7Bym94v48h8BX0AwCzFrhgiB+6XmPJ2H/nd3foUyH8QTPjn0esiKuVXEJX5Uphc3ZlZdzp6m+PQUPSAsx4B5XQFoHZiJolqeYJuLmkOipa+JIst+FHKrGdYvVyhJJoQnsAlFQKcuK/ImdRaigUQPY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787923273; c=relaxed/simple;
-	bh=kFR4MwQi9z7jULXGDe0vv1n77N3E+oLRbT5mgeNldF8=;
+	s=arc-20240116; t=1787923279; c=relaxed/simple;
+	bh=+QD66ohnt4455myiMUe0r3VX+Y06LKc4EFoNUQ4895w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=e+7DKUo0DiFPNHKYj1hg+FtMhwWMk+L9X/diSgGsstnLchT4jPWPtXIqVSnH9xQ1ztRqNGJOGmc2AKQJLdup/h/q3HoBsVgH6EXFYlfUPDkbnzi5tTw6uVXt43kzTkZP8D5NRExMjQ6j6SkSy0Rc441dqCfxBoM9W8sNrMWyo1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fzGEffoP; arc=none smtp.client-ip=209.85.128.53
+	 MIME-Version; b=KccqdWvbwGSecVdrm850bmSpyqFhlhtVcQ4MuiYJKyhk4lsCvwmDTOj5qPY3YodyGt8kXpJIAXHz0K/GR/upknP6vL7MLRjD+r1ptgMPMATAoJu9MeAKy9fqrIYuVQ4F5vVU8F1dOj0RGAgxZQKLiPt7kaZ2Is3rkKZiv3J1jkk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Piu+G5eo; arc=none smtp.client-ip=209.85.221.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fzGEffoP"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so7683595e9.0
-        for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 06:21:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Piu+G5eo"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-47fe89fb333so596176f8f.3
+        for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 06:21:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787923270; x=1788528070; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787923275; x=1788528075; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=z/vIfYY7EDJVVWxX84YUGiivV8L6WPZarzAiopUlndY=;
-        b=fzGEffoPJPWrwbL+8ejPv522Cd8SoftnJlsW9+u14+VaqWygLf3a5Fc16EONjjdW7z
-         jI/yuxttrginAGiC2jVgtj9BYt4uvINOiGXMtQc2DbjdQFIjYzoYLXfcizamwl3+9Zpz
-         q8N8SUk2rM5DhSGkVHmUyB7UufzV7kPy/UDq4FyRUoCSGhsOvv0NmoU6WXR3CsvespdA
-         0F1dZsFWY2eTiL6xlWtPG0Z4NRMEn+YxRC7YaYujSrskF8jADj1EFB/0VOXbzgyzoTqF
-         t/s1s/V9mmMFXP/yzQlFh+lOu26Z1ocPlQU6vv6DP/9A0KmQ5JFEbNnAFnt3Gaw6Kss0
-         GJZw==
+        bh=lNWYppkVSiPppKcj5pQcAVUYrxOSKsES5k6fcIP4yAE=;
+        b=Piu+G5eo3IMV7Z7UYX4bDR+4m2xxiXktXBtcmroZkTq+bgzpqlqmtgD8SOJb3K5UBD
+         C1/PROj0ylfLYDBMqfPX0JkQiXlOSpCBxe04B+4381DOReKIX13YHM6xDEUUQgKDy5ss
+         gseBfYahYdkMK/+Mj3LXAzuKYbq/c51rIik/ZY89uOyhs/j1yG9AENQ8A8+SWLBY6b8h
+         iNleWGEgDoLRUgdAr+oMbrbPHePPuj14nPHqQtR6BgBqdhRIrvDfpF+qz+myBUkyYi3u
+         j38oEDBaY0uAurVMmRQJ7j+W5IuC5SX8/KmYMn1d+5h4Q+4q+d9NDha7Jdy+IfLQa+eg
+         oOLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787923270; x=1788528070;
+        d=1e100.net; s=20251104; t=1787923275; x=1788528075;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z/vIfYY7EDJVVWxX84YUGiivV8L6WPZarzAiopUlndY=;
-        b=KZUHGVW2ZNTdLqwoZzQ1lDGVWmrr4lGdFDwc4kLqrwLjK+TikNLnulBVzzhMQn/wri
-         Pte3olUe77chy4TaHrTXEhFyltuUGr+el2qC+0PZxZNT9w6OUICwbu3IYDWQNdUyGIVU
-         lbwihWmFx8Wlltk/lD9qsxpWOwNN3XAD7arlMP1M7DLOa2vemUsAJxlqqyhWh8JjKAO8
-         4GRJ+OpQ8l6JoWpc/yhxMMrtUnb5726UO144BhCFRNDd3X1u2uO06/Iu6cWU8Z2a/T/K
-         RKFDZB54jQH8I3a/boXbt7N758ThaIGjvrj1KTJbLSLMkgW1u8dSs6uGV6uiYEmVOEQY
-         hexw==
-X-Forwarded-Encrypted: i=1; AHgh+RqhYYQ3bCqPbSYDUwT2L73iwBzC33iScIzu+08GfuvDTWE/OkZX3s+eEGbfesZeFu0cxBWtOar5cDXf@vger.kernel.org
-X-Gm-Message-State: AFuF++mAcTdOMh2D2569VB32QvEkcxVSxyKilK+/KhjxzaNgEjWh+8NK
-	/HHl6XJGImoifikfF9fTeOkGh1kyXAn3GwnIfGYVWC6sGTiUnT9yTtuk
-X-Gm-Gg: AR+sD12kuVVivR5gtU9XoVgftJNa69n7r9SMbzw4EVDK0rw4VU4HJrS0bTFn8s6SxD3
-	Q4eh27gR6ekT/caKlxbvpQ4d/Pm+TmPvMLDBIs62rTDO0UjLnRbDmstZ+TKGhREmVVH+eJy9+Gw
-	L3T/NoaHBS3m3QtXNDC3RrFSd7+C2pSLFqYetIjv6tiBuBkSGCoh8SOrBB4//upCr2x9XLev2OF
-	wtFFssvfV14w8/hn8NZf/tabMJuQ0RWA0Zeg9K25YTF+miThPHHYL+kj4f77iiUslRkwCSZ0dp1
-	xZNU4+yZ2eWI7FwKTPdHbGRDYeDiiGZD87Zw4MYehjJNMoIatoViElBuC2PWzYMbPCnfiYZ17wC
-	eCnZgd+TiWGkdj1tRG4upCzuyhC7JAeaPcsH4gVkUX10e5+a9natRZtXiC0ti4DCAE3aP39kMgO
-	zkugc0jIcQ7GmuPq4B1xQOa1fGZJh+FCjNBcaIoracGQr1dnX/QrGRpfHATwh1pgAiVlIlZPApX
-	X/OAShk3BSCgmdLOraxMKVdsUGDvpa8GibIK8MeB6yyM4Ex8eW5qw+DzndQzQafVbe75pX+G4F1
-	PK3l21Ae24e7LSE=
-X-Received: by 2002:a05:600c:858b:b0:49b:928a:3f9e with SMTP id 5b1f17b1804b1-49b928a4006mr68543325e9.5.1787923269757;
-        Fri, 28 Aug 2026 06:21:09 -0700 (PDT)
+        bh=lNWYppkVSiPppKcj5pQcAVUYrxOSKsES5k6fcIP4yAE=;
+        b=g0hE38Z9OuWt5JwcxHVoqDCpg1QgM/gdDsBVfaVU6py3iKB9zXKLUP4XB+Dc5Z0H9u
+         YghTDJteZjOKIw6+SdHPXspd9VBEHlFVwsIEN2FwJ/90RojnA4AcOcvLhpYj0ICXL5Tj
+         Y9pLMXz1gCZTfNkQ0vlnVeGgN5V+qkizy1/ztwXQrT7fId5ZaHeO4buNPRH+7qTrPgYq
+         KnAvKjcqtiCRnfcAOb8xiUWWVym5+8Ky11kEN4OgAj/A6dhGoGD/MQ1ss+tZhZMThHf8
+         qNXJGC8pDR69xZ/KAk8tGoz6CQBhQqp7i5QYntFNcbySB++UCNZS0lyxe2RD1sUOgsdY
+         Q61g==
+X-Forwarded-Encrypted: i=1; AHgh+RoQ16P7Vx4qYEFVcWXJwPxvp6iPbzCWCZL6R7zA6b0vQ1/LJPrnQVIlw0fZ/aKltnLSpbhFAfWjar8s@vger.kernel.org
+X-Gm-Message-State: AFuF++n09R6wOGapFqY9IDMRzIId5X2zaGtwHN8o7+RGC1UuiAHJTdp4
+	kXn4v1qSRRu4wfBOxik3/cLRc5JzFo2YIFKXbskXTtt4GqXOh4Mj8Nni
+X-Gm-Gg: AR+sD12Mtd85kefG7+u38JcQTAfowwO6bIrVlhGwYU896ebPydpohxpHYMWpkjV5okN
+	exaUSdgk613YAvlg9qtdbqs6MC9q0noKL94ldUD4QRcCRThaLGEyc72OZ9hnUqk7/SiUtnPN2dT
+	WMiV148QuvKU2LVhfQbYxf22O8IVUQElwLBF6pdRxRL1byXqZN7Dxx72boB7BCYBQs4WLmvLRIT
+	JMJuVcxZ4KYxb+QfgrynuJAgvmko2PocEq852oWKKFxaXSKbo3nlqdxfn+4gqYzvhnhF7C/SClX
+	qmSzDeUraV35iWh9UOGpy9g4z00608D7VZNpUa2QuLpdrn2F7QwE3t5g69nhyym3egPk58z6c0x
+	VMCphfukWEVrCOC1SJLUj1SW75JOS7CwRqiYeL1f9/ZAhRODxTw10NHYl+X0GSensylxGKwPCZj
+	+LWoXkQajHiyJ3hmU90ha/g2GfKRo9XsvKDlQYuSAr72DQMi0lkVAbt4lIZkdhL1+JG9lEEhkq6
+	sfvSE08KVx6wrelWimR5vHrfU2TemEMeYOINZEbKUUcX62/TLE4MyOZBpwq7MiyhlgJ8Y8xU1FN
+	CP7PoR3rOG8oxS83fgQ6SXGmYQ==
+X-Received: by 2002:a05:6000:310a:b0:482:c0bd:42a9 with SMTP id ffacd0b85a97d-482f7992da1mr8545056f8f.6.1787923275496;
+        Fri, 28 Aug 2026 06:21:15 -0700 (PDT)
 Received: from robert-83cx (static-dsl-191.87-197-115.telecom.sk. [87.197.115.191])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbac526dsm3997335f8f.12.2026.08.28.06.21.07
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbac526dsm3997335f8f.12.2026.08.28.06.21.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 06:21:09 -0700 (PDT)
+        Fri, 28 Aug 2026 06:21:14 -0700 (PDT)
 From: Robert Bozik <robertbozik@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: sakari.ailus@linux.intel.com,
@@ -70,9 +70,9 @@ Cc: sakari.ailus@linux.intel.com,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Robert Bozik <robertbozik@gmail.com>
-Subject: [PATCH v2 1/3] dt-bindings: media: i2c: Add OmniVision OV32C4
-Date: Fri, 28 Aug 2026 15:21:02 +0200
-Message-ID: <20260828132104.21473-2-robertbozik@gmail.com>
+Subject: [PATCH v2 3/3] media: ipu-bridge: Add OmniVision OV32C4
+Date: Fri, 28 Aug 2026 15:21:04 +0200
+Message-ID: <20260828132104.21473-4-robertbozik@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260828132104.21473-1-robertbozik@gmail.com>
 References: <20260828132104.21473-1-robertbozik@gmail.com>
@@ -84,144 +84,43 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a binding for the OmniVision OV32C4, a 32 megapixel RGBC CMOS image
-sensor with on-chip 4-cell fusion, a 4-lane MIPI CSI-2 D-PHY transmitter
-and the standard SCCB command interface.
-
-The sensor ships in laptops as an under-display camera, where it is
-described by ACPI; the binding follows ovti,ov08x40.yaml, which covers
-the closest relative already in tree.
+Add the sensor configuration for the OV32C4, matching the _HID the
+sensor enumerates with. Without this entry the bridge does not build a
+software node graph for the sensor, so its driver defers probing on the
+missing fwnode endpoint forever and the camera never binds.
 
 Assisted-by: Claude:claude-opus-5 sparse
 Assisted-by: Claude:claude-fable-5 sparse
 Signed-off-by: Robert Bozik <robertbozik@gmail.com>
 ---
 Changes in v2:
-- Drop the frequency from the xvclk description. 19.2 MHz is what this
-  platform provides and what the driver's register tables assume, not a
-  requirement of the sensor; the example keeps it in
-  assigned-clock-rates (Conor Dooley).
-- avdd-supply, dovdd-supply and dvdd-supply are now plain "true"; the
-  names already say which rail is which (Conor Dooley).
-- Drop the sentence listing the modes the driver supports. The binding
-  describes the hardware.
 - Signed-off-by placed last in the trailer block (Krzysztof Kozlowski).
+- No other changes.
 
- .../bindings/media/i2c/ovti,ov32c4.yaml       | 105 ++++++++++++++++++
- 1 file changed, 105 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/media/i2c/ovti,ov32c4.yaml
+ drivers/media/pci/intel/ipu-bridge.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/ovti,ov32c4.yaml b/Documentation/devicetree/bindings/media/i2c/ovti,ov32c4.yaml
-new file mode 100644
-index 000000000..804307cd0
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/i2c/ovti,ov32c4.yaml
-@@ -0,0 +1,105 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/i2c/ovti,ov32c4.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: OmniVision OV32C4 Image Sensor
-+
-+maintainers:
-+  - Robert Bozik <robertbozik@gmail.com>
-+
-+description:
-+  The OmniVision OV32C4 is a 32 megapixel RGBC (red, green, blue and clear)
-+  CMOS image sensor in a 4-cell arrangement, with on-chip 4-cell fusion and
-+  binning. It has a 6528x4896 active pixel array, a 4-lane MIPI CSI-2 D-PHY
-+  transmitter and the standard SCCB command interface.
-+
-+allOf:
-+  - $ref: /schemas/media/video-interface-devices.yaml#
-+
-+properties:
-+  compatible:
-+    const: ovti,ov32c4
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+    description: Input clock (XVCLK).
-+
-+  avdd-supply: true
-+
-+  dovdd-supply: true
-+
-+  dvdd-supply: true
-+
-+  reset-gpios:
-+    maxItems: 1
-+    description: Active low GPIO connected to the XSHUTDOWN pad of the sensor.
-+
-+  port:
-+    $ref: /schemas/graph.yaml#/$defs/port-base
-+    additionalProperties: false
-+
-+    properties:
-+      endpoint:
-+        $ref: /schemas/media/video-interfaces.yaml#
-+        additionalProperties: false
-+
-+        properties:
-+          data-lanes:
-+            items:
-+              - const: 1
-+              - const: 2
-+              - const: 3
-+              - const: 4
-+          link-frequencies: true
-+          remote-endpoint: true
-+
-+        required:
-+          - data-lanes
-+          - link-frequencies
-+          - remote-endpoint
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - port
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        camera@36 {
-+            compatible = "ovti,ov32c4";
-+            reg = <0x36>;
-+
-+            clocks = <&ov32c4_clk>;
-+            assigned-clocks = <&ov32c4_clk>;
-+            assigned-clock-rates = <19200000>;
-+
-+            avdd-supply = <&vreg_2p8>;
-+            dovdd-supply = <&vreg_1p8>;
-+            dvdd-supply = <&vreg_1p1>;
-+
-+            reset-gpios = <&tlmm 111 GPIO_ACTIVE_LOW>;
-+
-+            port {
-+                ov32c4_ep: endpoint {
-+                    remote-endpoint = <&csiphy0_ep>;
-+                    data-lanes = <1 2 3 4>;
-+                    link-frequencies = /bits/ 64 <400000000>;
-+                };
-+            };
-+        };
-+    };
-+...
+diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+index 1bb3a3e98..7d3c7e09f 100644
+--- a/drivers/media/pci/intel/ipu-bridge.c
++++ b/drivers/media/pci/intel/ipu-bridge.c
+@@ -93,6 +93,16 @@ static const struct ipu_sensor_config ipu_supported_sensors[] = {
+ 	IPU_SENSOR_CONFIG("OVTIDB10", 1, 560000000),
+ 	/* Omnivision OV2680 */
+ 	IPU_SENSOR_CONFIG("OVTI2680", 1, 331200000),
++	/*
++	 * OmniVision OV32C4.
++	 *
++	 * 400 MHz link frequency, i.e. 800 Mbps per lane. There is no public
++	 * datasheet; the value comes from the vendor Windows driver, which
++	 * carries it as MipiBps, and it is confirmed on hardware: the IPU7
++	 * D-PHY locks and the sensor streams 3264x1840 at a measured
++	 * 30.00 fps, matching pixel_rate / (ppl * vts) exactly.
++	 */
++	IPU_SENSOR_CONFIG("OVTI32C4", 1, 400000000),
+ 	/* Omnivision OV5675 */
+ 	IPU_SENSOR_CONFIG("OVTI5675", 1, 450000000),
+ 	/* Omnivision OV8856 */
 -- 
 2.53.0
 
