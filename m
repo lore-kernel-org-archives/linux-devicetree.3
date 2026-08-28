@@ -1,202 +1,279 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FDC3367F26
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 15:54:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9E9A36C581
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 15:56:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787932496; cv=none; b=SSeIsiOyPo7iQZe1YXB/VX7AX9Cr9aGSGS02GFIksIBG4YJTFcdIybbJIem2rkx/13RpIHm4V47cPwy6GS1YznyI1sYhfaCnTC5G1fflVcJzX5lXfKxwvls7J2rtvV/NpcWjUjhX3z7n3In6jIlqTWou9fPf594l6iyOm1B2UMQ=
+	t=1787932572; cv=none; b=l8zoASF7H1tRNgmHYMFMsYqqgqRoweu8pzfFp2B6Gdy2bn9BPo/biC/JUApSNj76BBrLZynw3ePNgUMEQqj98+n95mpiIHEojxHd3B7EmAan7NZG+RgHZ7yE/VQyOtGophCnfhwzyp4HZ9DBA8++qklEwcAJuVA1NFg5R98FL1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787932496; c=relaxed/simple;
-	bh=/YUkk2oL8J2c9x2ZMrrT+zRp55kHgcpvY/KKF5ODoek=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=PKOgcG0Aj9WX6pMAOxP9PZV7Fix6xj9v0iFn0SGB59+ZgDriq4wmg86cMHSbNznT/GcJHsgxeE83P+Tb1PolSCnQFH9KjDsJIlLcqbBpn69Dk1+OybC4M3xaZ1c732elAKG2h9+JGhLUGuz78RETvZN4x3SQ7gv7y+TPJbaOsXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=IPrYL6Ez; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1787932572; c=relaxed/simple;
+	bh=YPFAfwgLXyRYWu0qKDT7O8z9rx4Le0VUAMpakSNW0Is=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=n2Wey54CS6TXrkqmKOK3wymQX+g3Zzh+Fkdgo+SGtLRhrj6cA1aVlnTOguNCRXCqDc4coc+Sxx2U8GKkVmrf5WD2Pc5wb8HFR2IIz8uHXzoUYGWSFmlwDZpawJc89bydQBZ/80TVQ/7yaq7Z3Cnp9an6kGpB3fvHuaYDhBA8xJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DvsjZ2Ls; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fuBiHdcH; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="IPrYL6Ez"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-482ddbc11aaso853287f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 08:54:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DvsjZ2Ls";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fuBiHdcH"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67SDklWp3205926
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 15:56:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	QWK2pao1WAM8yI8Fl2//fFtzpUUZCvVVyo5r8hizPUA=; b=DvsjZ2LsVsvmIPjD
+	cj7LSSEwmXlDTK+zsDzSAGaxZlfNi+MtDuMlbE9tq/aGlM4kd991+VMkWZITv1AP
+	ZDtm/5x6tea1dQQp/stuFNciPiC2wsHtjI0W83fbewoGJ5F2d2TP0txv23SXXDUM
+	x5Np1nwAagHAeY94LmjuSfTcCpkOiH9FZp8qji89R/Czmwpz+tI78oBJUFIU2OP1
+	EBf64brrOr/k+4w5NENc4R1Nk2xv/skup7H0UdrEVW2pUJ7m0KsZkffsK9fvU/52
+	/NdgLhOuTD28ELOrSvt7RXkv9GjhTKW7Oih9zefr/eASuUxpYJ/q5PdbQfXy24KO
+	/go55w==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gb7eh1e7k-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 15:56:09 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cbb467e56aaso1024854a12.1
+        for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 08:56:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1787932493; x=1788537293; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=9y4LFg6yvTjsxuVx9xI+CfaKWUbNOzH9RLH+rTwjQJw=;
-        b=IPrYL6EzORo2pxUMQpc13b8RidVTTmcYCOMTty+ysPHc7pBS+zt8pmdY1vmSb/IZyS
-         zDRszXD+JpUk80tR24tA04xebTeWv5blmf0X5l6cOkcr3VdbT5rdPYt1ob98hJQ0Zq5s
-         WyLHEVy5W5aa12c2BGR9ooPqWyegFYnKCxpENo07x9f+l+B2JZWUjFesI0fOKPVxgQeo
-         zNzm9pMOsn6E+pqrGF4yD/2kTwZ6O2XVgrsU71Bgs0QNRSHzmF105zeoHB7Z1YwZ+jGX
-         Yg5uk9mM9d3XOeqQfvygIJddzMKAanSOd+yRqLA4AzP1BOA7ZKnQiNjCLJq/2MBmNKal
-         lKoQ==
+        d=oss.qualcomm.com; s=google; t=1787932569; x=1788537369; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QWK2pao1WAM8yI8Fl2//fFtzpUUZCvVVyo5r8hizPUA=;
+        b=fuBiHdcHuZ/XGaCDvtUVfiyfrowD6FYbBDOz3FAV1kEjxIyZq10BJn4BpaNT7NOocM
+         bDLXqdolxBhi7VQt5RwpaYx4fCTlCSQtFuJ8cYIS/y+oVN7cyEphWdnIfG4aCKtcF8Ry
+         42gPeprh1spF1tnYeWmImNJd97e4jfR5KfUbsdCbH4jH/2+zv/cV/k4+zpY1Dn9Ctvhi
+         BFYIVmgjIn7CkLK9DSfglyYCSAJao2vuAQdsAN9XwnFL/A5pnJ+FNu4qu91LWYgXjUlZ
+         Rd3O0/a5l1QS+OBqUCGEK3I+85f8CdjYhOs5yCbP+5Ia22RDkxUBNYjNY+jPunjwxmZr
+         a1Vw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787932493; x=1788537293;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9y4LFg6yvTjsxuVx9xI+CfaKWUbNOzH9RLH+rTwjQJw=;
-        b=e0SP6k3k1k5HVtZ//O1HzvTCLOSpYIOTyRneFOdGyw+1+vdWMco2hWuHYciB2Rjoyq
-         7WhQndeopoRwvP3Lsua5IUVojx3F3vCDzy10jW79U1VjBj2NVNXjsh0Tqc2NAav4nMwH
-         DLGzC2M/s9XdaYUAtvYzW4vRGiaUM+B3s4LhQxm+E8Ln8G4goEn0Z0WX+Enm0SVCu7MV
-         hfYrEKcVapIkop0ghWYP1uHGUp8VyBMi5qMUag0MlhuypYbPVejX0GxsbzSbhGVqB/zf
-         4nEbeuhBwCNnIMyzPiDUkto6lQjiVk5noeSxob59D9Q75miwg3mflKARBQbPCpyQoBB4
-         Duag==
-X-Forwarded-Encrypted: i=1; AHgh+Ro/ZUO9h+pghZ+ZnDNQ/wKLGTezuXWea+2oP9ID4toxqz1GQUy5Owk1ohTJoXEYA0ghTkSLoY0fGULt@vger.kernel.org
-X-Gm-Message-State: AFuF++kxN44+5qUph/y8DS3CSav7CHVd11cyfnI/Dh3MGkngUSRB4W/I
-	p8Bg6Xl0ajSWkI02Stvu27Y8zwzJ4MbUXBDCtTPdY6Binwoaio7d2RKecgfob36XCss=
-X-Gm-Gg: AR+sD12u8NiYhmqgP+Z2H5KGWWhjv8ja+SYBl7NYaAAF3r3tnGkzXJh7llzD3kS9phj
-	R4SUBawW2Fyb09dDDZAs8ntEx2TBAq7u+ckQFHl1O6WT72Tu7SC/yQgzT8wmc4OOnwjkCEbBAVW
-	JhG4IKFXU9bnV822cRfLfUn3ydLubn7XDgnn78K+3R6gQaGm1og25b1pXDTYa23jROKcD9WZezq
-	5JnHEqRlznvpNtKW9X9KTCW+nxHyxqVJKT+JdjEQ6y9ccqSNmzt+INbNyXfiipjq69cq0hSGOex
-	f7gQMcOFNrVb6Z7cem4B1cKVnmjZ6eJfsC/Z7wXw7ZrvsHiqhZGFw10VrViKKw0QohIWUtZQmrm
-	GMYl/CXSrzX481kQxfL64pxRmrZp1KkUqlr7WF1rNEauK9wV/d8j2ZpaBMPZFqjp6fF9iUgj8gK
-	8EzS/VkBTJ/AasphOOLCNqYMZSw9xbNWsU4vpCc65fMh5FsbXSgzLZWC5iqxgMabkgX8n73iRLD
-	mnsNAAGqFNwyulLWGOsH9pv5Mbzj9Mm3SvVANKRxorc/vT5D47PZEe6c9an
-X-Received: by 2002:a05:6000:2589:b0:47d:eedb:ee62 with SMTP id ffacd0b85a97d-482f79e0b63mr13842837f8f.14.1787932492661;
-        Fri, 28 Aug 2026 08:54:52 -0700 (PDT)
-Received: from localhost ([94.4.85.166])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbab3f45sm7473298f8f.7.2026.08.28.08.54.51
+        d=1e100.net; s=20251104; t=1787932569; x=1788537369;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QWK2pao1WAM8yI8Fl2//fFtzpUUZCvVVyo5r8hizPUA=;
+        b=RUYD0OiowiPhZViJaX/EOhg6FBKreiBHVdXfUC/PIPjaEk5c282bLv1j6yNIQcJU/V
+         so/b2uhbHZfj6+67fmGz0Cn5qRnCcCg2o6m0krKnWmvZgqKv3B8EMysRGs9g7y+2Itkm
+         BGuwG/NF52qVMGWHhW/+Hfq0/M7mNHGsgOc3LgDaUfQ6cBVNgITnYyLIOWgtUcasvwwJ
+         LI6j5XukYw2/+XMdRhhUODIjviXoz5fO7hj63AFj+X/QJY5W+nlI/KZKh6xVvynvC6qh
+         Rnt3Ap1gKTUFqlZVrDs1pxNchIxFkq41p2c5GkYFjqLmSkUlMrffS2bUaZEZCsID3Rn3
+         brcg==
+X-Forwarded-Encrypted: i=1; AHgh+RrTbeQGdz95RRCnJwAdvrM9CAV65ToCUVftC0ItbqLxjSfxD8+7qnY5AITT6wUDM8Ki6FqW0bRMFAsx@vger.kernel.org
+X-Gm-Message-State: AFuF++kDXcrEylU2TdcUTp7cC6qh63al79p6VIbH7na52wIqw02w7MQ+
+	iEyo7CD3/iWJQ1rd84CKl39C10XGhjGXorVvkhEUT8BicscmclPB1+mpkUIP+s0tH+dcdgOjRDF
+	sPHuKLgXnVfXysRqf7d3FSPIuxszUVjZP7EDnVHy6vb7cA+VgXjtiAXBRDaRC27El
+X-Gm-Gg: AR+sD12Uwg2695kNn1Z87JgLTv4pC3FRvHbSD333LPJxVRRuUs1Gz52JTtFDfYWeHpm
+	ag2d2Fpu+r2f4MYnFASCWTm1zeFW7k54ocILnoU6OGUtENVCQWM1chmDIA3PYXGt9wL0RVp9n+T
+	P8AxvQuWkQFBvzVISyFAtG8r1E+hNPzPua5vKDlkxJbWLgJnHY2r8Nw3CwBUfS2zFSuklnewJvs
+	K0hvS2PqSDG1PsBrayo4o/1I432FU+uEW2qi6CWZrogORfzxIvMtN9cpguCNzxlmx9ECfG3tJU7
+	A93RsQj+1nVh4MlviOrkHgZi/JSBzfdsoxw093kXyV6YRZw95IurVoUU3W2e2fWPKDSP+OZcaFi
+	MeWUmleojB6bMHq7/c+GDJAloJGkD81I8YFx4h6m5uCoGyZmH92F6kFfI7Fo=
+X-Received: by 2002:a05:6a20:a11c:b0:3d3:adbf:777f with SMTP id adf61e73a8af0-3d3adbf8124mr1206748637.20.1787932568992;
+        Fri, 28 Aug 2026 08:56:08 -0700 (PDT)
+X-Received: by 2002:a05:6a20:a11c:b0:3d3:adbf:777f with SMTP id adf61e73a8af0-3d3adbf8124mr1206667637.20.1787932568530;
+        Fri, 28 Aug 2026 08:56:08 -0700 (PDT)
+Received: from [10.110.102.109] (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-328713b944bsm6433151eec.27.2026.08.28.08.56.02
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 28 Aug 2026 08:54:52 -0700 (PDT)
+        Fri, 28 Aug 2026 08:56:08 -0700 (PDT)
+Message-ID: <431215e8-1c80-4aa4-8407-5b3779c344f8@oss.qualcomm.com>
+Date: Fri, 28 Aug 2026 23:56:00 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 00/11] FBE virtualization: inline encryption for
+ virtio-blk guests
+From: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: axboe@kernel.dk, mst@redhat.com, jasowangio@gmail.com,
+        James.Bottomley@hansenpartnership.com, martin.petersen@oracle.com,
+        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        linux-block@vger.kernel.org, linux-crypto@vger.kernel.org,
+        linux-scsi@vger.kernel.org, virtualization@lists.linux.dev,
+        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        neeraj.soni@oss.qualcomm.com, gaurav.kashyap@oss.qualcomm.com,
+        mani@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+        bvanassche@acm.org, alim.akhtar@samsung.com, avri.altman@sandisk.com,
+        stefanha@redhat.com, pbonzini@redhat.com, eperezma@redhat.com,
+        xuanzhuo@linux.alibaba.com, linux-kernel@vger.kernel.org
+References: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
+ <20260827184219.GB2137493@google.com>
+ <d81e347e-8ca7-40a1-a428-5bce6f0d4b02@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <d81e347e-8ca7-40a1-a428-5bce6f0d4b02@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Fri, 28 Aug 2026 16:54:51 +0100
-Message-Id: <DL0P67CVWELH.1WDA9P8IZXKJH@linaro.org>
-Cc: "Alexey Klimov" <alexey.klimov@linaro.org>, "Sam Protsenko"
- <semen.protsenko@linaro.org>, "robh@kernel.org" <robh@kernel.org>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
- <conor+dt@kernel.org>, <krzysztof.kozlowski@oss.qualcomm.com>,
- <alim.akhtar@samsung.com>, <linux-arm-kernel@lists.infradead.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-samsung-soc@vger.kernel.org>
-Subject: Re: [PATCH v2 0/2] Exynos850 GPU support
-From: "Alexey Klimov" <alexey.klimov@linaro.org>
-To: "Peter Griffin" <peter.griffin@linaro.org>, "Thomas Turner"
- <tturner@lineageos.org>
-X-Mailer: aerc 0.21.0
-References: <GVYP280MB12139AB976CA7ACF49FEB768A1A52@GVYP280MB1213.SWEP280.PROD.OUTLOOK.COM> <CAPLW+4kQTUX8QhKnAP7bg=iCw5hhNQZoW7cuOpTdvvAUpGaicg@mail.gmail.com> <135d48e7-58ac-48b8-8fa5-c2548e2f3ae9@lineageos.org> <DKZ3X5VUHJSK.1KSJR6K8FATGV@linaro.org> <5e8698db-974c-4f8b-8939-bcdf8a47743d@lineageos.org> <CADrjBPrhaQHyQX-+FEHYH5rCwh9_fMUVsV5fpvRkR-RF_9Erkg@mail.gmail.com>
-In-Reply-To: <CADrjBPrhaQHyQX-+FEHYH5rCwh9_fMUVsV5fpvRkR-RF_9Erkg@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: 7meSPYDyPOxZ5QH1s1onucKHmxxaL5qK
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDEzOCBTYWx0ZWRfXxWWvsYk2ZLv2
+ slQMq2ZX62r5YVFukAlfTTTwkl4AmjAl83Rh9HeLzUAvEM6KFsGTyN3XQldyUY0oJCNsmQO2brr
+ L1ZyjwUxYGqXqBYc2wRX01Wf4MZK4jlV7RAhWUdbW7YoO5X+fuM4GvTXL/Au5xnRLdpWm9qspgN
+ pXJFDQiyUXTK+OtUXuXuIEcgLrFAMad17CxNlotdcxTfo6vUTjqQyf5stgJlRWE7YkeVNHLEGEX
+ kTNTLXmrP6YYo+hqGbYXJLcyUMgJM+p5PjU8de4BkpaGb9zf9GOTVXOAXYL56QWIccv8lywci/s
+ E1sKuJAo/NaMs5YHaxGuMgIZlNJpuzuRXj97m4HmICz0HN2GCNU5POspR24nmRFZHBzgrTsZK+s
+ e5jmO/RLh8760AiUEIGk2Cpvm8ZzirbquA3qc7+uDfln6Yc1QvvmGMrrx5EmzNvnvf6VXP5skug
+ Ggu3Mx82yyQRMhVdSLQ==
+X-Proofpoint-ORIG-GUID: 7meSPYDyPOxZ5QH1s1onucKHmxxaL5qK
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDEzOCBTYWx0ZWRfX7AZNXviECYc6
+ uSxrddLTgDQMmPB4A9W+5o0BnHATSznK7Jc/qa9oQf+ktX2ZHWWbtczKENf2STD6FGLuMIkLP29
+ Hs2OIzsHLLcc/L+C3yPfJIW5b1wWgpE=
+X-Authority-Analysis: v=2.4 cv=RoP16imK c=1 sm=1 tr=0 ts=6a91af99 cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=_h6NAR8LnRz2utxSRfIA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-28_04,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 phishscore=0 suspectscore=0 impostorscore=0
+ malwarescore=0 spamscore=0 bulkscore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608280138
 
-On Fri Aug 28, 2026 at 10:35 AM BST, Peter Griffin wrote:
-> Hi Thomas, Alexey, Sam
->
-> On Wed, 26 Aug 2026 at 20:44, Thomas Turner <tturner@lineageos.org> wrote=
-:
->>
->> On 26/08/2026 20:02, Alexey Klimov wrote:
->> > On Tue Aug 25, 2026 at 10:05 PM BST, Thomas Turner wrote:
->> >> Hi Sam and Alexey,
->> >>
->> >> On 19/08/2026 20:51, Sam Protsenko wrote:
->> >>> Can you please tell us a bit about how you tested this patch, and on
->> >>> which board? As DPU is not currently enabled on Exynos850 SoC, I'm n=
-ot
->> >>> sure how exactly GPU can be useful. If you have a use case or a
->> >>> testing procedure we can run on the E850-96 board, please share.
->> >>>
->> >>
->> >> Sam, Alexey could you please test GPU on the E850-96 board by followi=
-ng
->> >> these instructions:
->> >>
->> >> 1) Apply this patch series locally
->> >> 2) Change status=3D"disabled"; to status=3D"okay";
->> >> 3) Make sure these configs are enabled:
->> >> CONFIG_DRM_SIMPLEDRM=3Dy
->> >> CONFIG_DRM_PANFROST=3Dy
->> >> 4) In terms of regulators we set up a basic mali regulator via our
->> >> secondary bootloader [1] and configured with this dts setup [2], NOTE
->> >> you may be able to get away with a dummy regulator so try that first.
->> >> If not I am sure you can replicate something simple with u-boot PMIC.
->> >> 5) Boot a GUI, I saw Debian was used for the bring-up, that should wo=
-rk
->> >> 6) Run the following command:
->> >> $ dmesg | grep "panfrost"
->> >> 7) Compare that to the output at [3]
->> >
->> > Your email subject still seems to be null.
->> >
->> > [   15.206193] panfrost 11500000.gpu: clock rate =3D 377000000
->> > [   15.206322] panfrost 11500000.gpu: error -ENODEV: _opp_set_regulato=
-rs: no regulator (mali) found
->> > [   15.206513] panfrost 11500000.gpu: supply mali not found, using dum=
-my regulator
->> > [   15.206840] panfrost 11500000.gpu: mali-g52 id 0x7212 major 0x0 min=
-or 0x0 status 0x0
->> > [   15.213137] panfrost 11500000.gpu: features: 00000000,00000df7, iss=
-ues: 00000000,00000400
->> > [   15.221271] panfrost 11500000.gpu: Features: L2:0x07100206 Shader:0=
-x00000000 Tiler:0x00000809 Mem:0x1 MMU:0x00002830 AS:0xff JS:0x7
->> > [   15.233080] panfrost 11500000.gpu: shader_present=3D0x1 l2_present=
-=3D0x1
->> > [   15.240488] panfrost 11500000.gpu: [drm] Using Transparent Hugepage
->> > [   15.250497] [drm] Initialized panfrost 1.6.0 for 11500000.gpu on mi=
-nor 0
->>
->> You seemed to have missed out step (4) of my instructions, if you set-up
->> regulators correctly this error will disappear.
->>
->> > [root@e850usb ~]# uname -a
->> > Linux e850usb 7.2.0-next-20260825-00009-g647b48e80572-dirty #8 SMP PRE=
-EMPT Wed Aug 26 17:05:45 BST 2026 aarch64 GNU/Linux
->> >
->> > I have different DRM_SIMPLEDRM options and related  enabled but nothin=
-g
->> > pops up via HDMI (at least I tried simple xorg-server things).
->> > Is it possible that your bootloader initilises some framebuffer and in=
-serts
->> > it into DTB that passed to kernel? Or you have some other pieces in
->> > kernel/dt that implement missing functionality?
->>
->> Our bootloader does intialise a framebuffer, and we have a node in our d=
-evice
->> tree which makes it usable. Not sure how exactly the e850-96 device sets
->> things up but you can take a look at our fork if you want, [1].
->>
->> > Here it seems there are no outputs:
->> > [root@e850usb ~]# ls -al /dev/fb*
->> > ls: cannot access '/dev/fb*': No such file or directory
->> >
->> > and there no simle framebuffer or related logs. "DPU is not currently
->> > enabled on Exynos850 SoC" looks like the reason.
->>
->> hm, I am pretty sure our bootloader configures DPU for us so that might =
-be
->> why it works for us and not for you.
 
-Yes, exactly, and see below too please.
 
-> @Alexey - I think the LK bootloader leaves DPU framebuffer updates off
-> to ensure a seamless handover from the bootsplash to the full DRM
-> driver. We have the following DPU poke in gs101 (which if I recall
-> correctly we got the inspiration for this from uniloader)
-> https://gitlab.com/LinaroLtd/googlelt/meta-bsp-google-gs/-/commit/4057117=
-e4bc6e08fbb6ff281cbfef8782a68ec0a
->
-> So for the E850 board, you likely need to do something similar, either
-> in LK or like the above poke. If UniLoader is already doing this for
-> the e850 SoC then hopefully you can check there to see the address of
-> the register etc. That should then able you to have simple-framebuffer
-> enabled.
+On 8/28/2026 11:37 PM, Linlin Zhang wrote:
+> 
+> 
+> On 8/28/2026 2:42 AM, Eric Biggers wrote:
+>> On Thu, Aug 27, 2026 at 09:07:09AM -0700, Linlin Zhang wrote:
+>>> From: linlzhan <linlin.zhang@oss.qualcomm.com>
+>>>
+>>> Current virtio-blk does not provide a mechanism for a guest to
+>>> program hardware keys or submit encrypted I/O using pre-programmed
+>>> keyslots.  It drops the crypto context when issuing a bio request
+>>> to the virtio-blk queue, preventing inline-encryption-based FBE
+>>> on virtio block devices.
+>>>
+>>> This series enables File-Based Encryption in guest VMs on Qualcomm
+>>> GVM platforms where the ICE inline encryption hardware is shared
+>>> between the host and guests.  In this environment the guest kernel
+>>> has no access to the ICE hardware directly; it supplies a virtual
+>>> keyslot index and data unit number with each encrypted I/O request
+>>> via VIRTIO_BLK_F_INLINE_ENCRYPTION, and the host must translate the
+>>> virtual slot to a physical ICE keyslot and submit the bio — without
+>>> transferring raw key material across the VM boundary.
+>>
+>> This seems to be designed incorrectly by not making virtio-blk itself
+>> support key programming and eviction.  That complicates things
+>> significantly by then having to handle the key programming and eviction
+>> out-of-band using Qualcomm-specific SCM calls.  It also means that
+>> adding other implementations of this would be very difficult.
+>>
+>> There are some claims that not transmitting keys across the VM boundary
+>> is desirable.  But that doesn't seem meaningful, given that all the I/O
+>> is transmitted across that boundary in plaintext anyway, and also it
+>> seems that hardware-wrapped keys will be supported too.
+>>
+>> Please make virtio-blk support the key programming, eviction, and
+>> HW-wrapped key management operations that are needed for this to work.
+>>
+>> - Eric
+> 
+> Thanks for your comments!
+> 
+> Not making virtio-blk itself support key programming and eviction is
+> something done deliberately. Based on that HW-wrapped key management
+> operations are also handled in the out-of-band path.
+> 
+> There are bellow 2 approaches I investigated to let virtio-blk programming
+> the key.
+> 
+>   1. virtio_blk implements blk_crypto_ll_ops interfaces, including program
+>      key and evict key interfaces.(Same to 'the virtio-blk interface standardized
+>      blk_crypto_ll_ops requests' mentioned by Stefan in the virtio SPEC thread)
+> 
+>      The guest's block crypto profile manages the keyslot in virtual slot
+>      format in this scenario.
+> 
+>       - block crypto key and virt_slot index it passed to the hypervisor's
+>        (EL2) device emulation (QEMU, using QEMU in the following) which
+>        runs in userspace of the host. Besides of transferring the virtual
+>        slot to the physical slot, a programming block crypto key UAPI need
+>        be added. Follow current blk-crypto design, it may be like
+>        BLKCRYPTOGENERATEKEY. I thought this results in a security risk that
+>        allows userspace process a key into a key slot.
+> 
+>      - For key eviction, it's similar to above key programming handling, also
+>        need a key eviction in blk IOCTLs, but leads to the security risk
+>        that allow userspace client to evict a key in a key slot.
+> 
+>     virt_slot, DUN and DUSize is appended to virtblk request during crypto
+>     I/O.
+> 
+>   2. virtio_blk implements blk_crypto_ll_ops interfaces, excluding program
+>      key and evict key interfaces.
+> 
+>      The guest's block crypto profile doesn't manage keyslot for the guest,
+>      the host's block crypto profile manages keyslot for both the guest and
+>      the host. The trigger of key programming operation is moved from the
+>      guest to the host.
+> 
+>        - The whole block crypto key (key size, key bytes, blk_crypto_config)
+>          and DUN are appended to the virtblk request during IO, a little
+>          high payload.
+> 
+>          The backend parses the crypto message in the virtio queue and
+>          construct a block crypto key and DUN for the bio_crypto_ctx
+>          set to the BIO. So that the IO flow in the host can program
+>          the key. 
+> 
+>          The question is that the blk-crypto-profile distinguishs the
+>          block crypto key via the key's address. But the host has
+>          different key addresses for the programming and eviction key
+>          operations of the same block crypto key from GVM, because the
+>          key is re-constructed in the host for the key program and
+>          eviction operations. 
+> 
+>          To fix it, the approach I thought is maintaining a new key
+>          hash table in the backend, and comparing the block crypto key
+>          content and DUN parsed from virtio queue with that in the key
+>          hash table. 
+>          My major concern is that this need keep the keys synchronization
+>          b/w this new hash table and the blk-crypto-profile's hash table
+>          carefully, avoiding that key is still present in the
+>          blk-crypto-profile's hash table, but removed in backend hash
+>          table. Another point is that the whole block crypto key and
+>          DUN are appended into virtio block request per crypto I/O.
+> 
+>        - For key eviction, adding a key eviction in blk IOCTLs allows
+>          userspace client to evict a key in a key slot. I thought this
+>          is a security concern.
+> 
 
-Am not an expert in grapics but from all observations I see, that even
-if bootloader (say LK) sets up DECON/DPU and ley them stream DSI,
-then we are still missing support for Lonthium MIPI/DSI-to-HDMI bridge
-to output anything via HDMI on Winlink E850-96 board.
-There is high-speed connector though.
+Do you have any suggestion about the key eviction operation? Could this
+key eviction request triggered in QEMU be accepted? Would you please
+help share insights about how to handle it?
 
-For smartphones with simple panels with DSI interface all that actually
-could work if bootloader takes care about initial set up (exactly what is
-done in referenced repos of uniLoader AFAICS).
+Thanks a lot!
 
-BR,
-Alexey
+> 
+>      This option doesn't need map virt_slot to physical one.
+> 
+> 
+> Taking all the above into account, I made a compromise to implement
+> blk_crypto_ll_ops interfaces in a out-of-band path, which lets the virtio
+> blk only need focus on the data path. I agree that it is complex than
+> the second option mentioned in the above, but small payload (only
+> virt_slot, DUN, DUSize) in the virtio block request and no security
+> risk of key eviction from userspace.
+> 
+> 
+> I would like to hear your thoughts about the above and am appreciated
+> if you could share your insights about the design of inline
+> encryption in virtio block.
+> 
+> Regards,
+> Linlin
+> 
+> 
+> 
 
