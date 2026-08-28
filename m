@@ -1,98 +1,180 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from mail-m1973180.qiye.163.com (mail-m1973180.qiye.163.com [220.197.31.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 022272BEC23
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 11:16:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58CF9420475;
+	Fri, 28 Aug 2026 11:28:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787915800; cv=none; b=AS3g2+LYVt6zGG5QY/WrNsxGNuZ9wUkohFBw2nekzlnR5RGQ6abkj3V2ZwrDCeBJhwI4sUU7IJMX1Rco3LvmW5Rq3ngr5P9N1pHtB9wNvbw9ZDgtjWMJhNCtyV72MvKJXKh70PeikHdCxnEHMJ4xywI4TOgxz0iiRMYHYLByPb4=
+	t=1787916520; cv=none; b=qiGXChnE8DWaeRzfzhyFK4LAtfLyC+/Uxlwe/c2xL7hqphl7PCx64OhisrSyng0DGCB46cL0EiztKJCjC2sSBQ04p7cUQJeBnZWVJcztmPWdKT7IPYN1B4Lp3qpyReN31PCpoJLqT0x2dTfWNBfNLo+5k3L8Xi4zg8T/j3iBO/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787915800; c=relaxed/simple;
-	bh=7ST86KOxx2FCjwOZZT20Nlohz10oiV4iiL0VRbEgSog=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=R1MnWT2NbzVhQTzGFdBzMJ9+lXxbMn6v45vcnBQzI/E9ErziDPnVhqCiF70NsaY1JV91XpCwwVMymigF8P/DkO9rKVp8wsQHam9SbDwjZ6ilWxgr7wWjnfNwhzU51JuDe/kwJRNTiaf1OAQuee6EKDw/GUa1vV5V+E0N6QXwVPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=KuPj7gu0; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1787916520; c=relaxed/simple;
+	bh=IHeGAa96lm6icbclR8lQggZd1zZDtCfIdDQ9Mci1siw=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=kQ39cwS47KCPereX8CIu3QiyhksLahObxb+/1xruFp5F3YBuhs6UMWSItjhZ4H3Owcmw8nPqd5ejONSrnNbb/taR6TGjlATGh0rRqq0igVjRoN3OUgAiILJKf5cbnndNZWLHTblSgIUhgPyNgBBNCzVa6TqPGO5n/AXjGPrk6qA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=ByNkXqq/; arc=none smtp.client-ip=220.197.31.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="KuPj7gu0"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 4C44A4E413FC;
-	Fri, 28 Aug 2026 11:16:37 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 0E57E60537;
-	Fri, 28 Aug 2026 11:16:37 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id ADC5511C78131;
-	Fri, 28 Aug 2026 13:16:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1787915792; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=JqCrFGGm5J7f5kHtiiyfF3IVbiHO0Bhhe0e1xz4ZMJ4=;
-	b=KuPj7gu09Slu8xSV1fhBDNmnzpvBy6oyRgliGMqiV9HPHGtJf5Nka8TLsz6ivSdurNVoGS
-	7PGa4QC8gU+T5P9OBgDtczqcR1Zon1/KccQ8jN0gJ1k7LWgjDVhMEyizzqbKZ43k+IWAYi
-	uaUQ+wNG3WfOu38QEDwwpzsz1fSSARAfR8k45JVnGuoxM6Slkmfe5VjiWBxUQTIHiqdLBr
-	6ir2/p3gfYbJiDtuK/QxXJSG0A7N7mz5aj1xFCFN3bIJYF/6ooadvt7ww3UYhOrgrXf1Ql
-	wql0kwhDRkyU41hjeJARO2aq79LcNhWxNJi19/9XGo+Ax6HBCC2DM+QNkCCRYw==
-From: Gregory CLEMENT <gregory.clement@bootlin.com>
-To: Rosen Penev <rosenp@gmail.com>, devicetree@vger.kernel.org
-Cc: Andrew Lunn <andrew@lunn.ch>, Sebastian Hesselbarth
- <sebastian.hesselbarth@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Thomas Petazzoni
- <thomas.petazzoni@free-electrons.com>, Jason Cooper
- <jason@lakedaemon.net>, "moderated list:ARM/Marvell Kirkwood and Armada
- 370, 375, 38x,..." <linux-arm-kernel@lists.infradead.org>, open list
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] ARM: dts: marvell: add SDHCI clock-names to Armada 38x
-In-Reply-To: <20260823235652.77997-1-rosenp@gmail.com>
-References: <20260823235652.77997-1-rosenp@gmail.com>
-Date: Fri, 28 Aug 2026 13:16:27 +0200
-Message-ID: <87se3ypkac.fsf@BLaptop.bootlin.com>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="ByNkXqq/"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4bab2d5aa;
+	Fri, 28 Aug 2026 14:52:07 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sandy Huang <hjc@rock-chips.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	Damon Ding <damon.ding@rock-chips.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v8 3/5] drm/bridge: analogix_dp: Restore mandatory samsung DP DT properties
+Date: Fri, 28 Aug 2026 14:51:51 +0800
+Message-Id: <20260828065153.590802-4-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260828065153.590802-1-damon.ding@rock-chips.com>
+References: <20260828065153.590802-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa04723dd4503a8kunm9cc188d5188355
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGRhLTVYZHkhKHU1PHk
+	5KQxhWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSEpKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=ByNkXqq/v1UABNZl10lnleLwzvhNuRZWIBYWszscHeWdufztyE7+W7VSC+dWoNFk87VgQlRbjZ7o39DSth9TxFS26u3zjhK8+2phaobHx+y6QNuYEyMfiPhQAzY7SWZl0N3BZr/vBJnJD6dxvMH9k/VuNoSNTPalwSLyugZbZN4=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=Qt759fseXk6TL4BSquCkp6QINrVvbZDF08qVXgT34mA=;
+	h=date:mime-version:subject:message-id:from;
 
-Rosen Penev <rosenp@gmail.com> writes:
+Revert the change that made samsung,link-rate and samsung,lane-count
+optional for Exynos DP. Add error checking to fail probe early if the
+required DT properties are missing.
 
-> The marvell,armada-380-sdhci binding requires clock-names, but the
-> Armada 38x SDHCI node only carries an unnamed clock reference.
-> Add the missing clock name so the node passes schema validation.
->
-> Fixes: 6eccc52b448e ("ARM: mvebu: enable the SDHCI interface on Armada 38=
-5")
-> Assisted-by: opencode:big-pickle
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+If these properties are missing, video_info->max_link_rate and
+video_info->max_lane_count remain zero, and so do link_train.link_rate
+and link_train.lane_count used in the subsequent link training flow,
+resulting in link training failure.
 
-Fix already applied with ARM: dts: marvell: add missing SDHCI clock-names
+There is no way at all a device can work without these properties.
+Here is the code flow when either max_link_rate or max_lane_count is 0:
 
-> ---
->  arch/arm/boot/dts/marvell/armada-38x.dtsi | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/arch/arm/boot/dts/marvell/armada-38x.dtsi b/arch/arm/boot/dt=
-s/marvell/armada-38x.dtsi
-> index 1155bee20523..598022645dd2 100644
-> --- a/arch/arm/boot/dts/marvell/armada-38x.dtsi
-> +++ b/arch/arm/boot/dts/marvell/armada-38x.dtsi
-> @@ -627,6 +627,7 @@ sdhci: mmc@d8000 {
->  					<0x18454 0x4>;
->  				interrupts =3D <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
->  				clocks =3D <&gateclk 17>;
-> +				clock-names =3D "io";
->  				mrvl,clk-delay-cycles =3D <0x1F>;
->  				status =3D "disabled";
->  			};
-> --=20
-> 2.55.0
->
+  analogix_dp_commit()
+    -> analogix_dp_full_link_train(dp, max_lanes = 0, max_rate = 0)
 
---=20
-Gr=C3=A9gory CLEMENT, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+  analogix_dp_full_link_train(max_lanes, max_rate):
+      // Read sink capabilities via DPCD and sanitize them
+      link_rate  = read_dpcd(DP_MAX_LINK_RATE);  // >= 0x06 after fixup
+      lane_count = read_dpcd(DP_MAX_LANE_COUNT); // >= 1 after fixup
+
+      // Clamp by the limits from DT
+      if (link_rate > max_rate)    // 0x06 > 0, always true
+          link_rate = max_rate;    // link_rate = 0
+      if (lane_count > max_lanes)  // 1 > 0, always true
+          lane_count = max_lanes;  // lane_count = 0
+
+      // Configure TX with the zeroed values
+      set_link_bandwidth(link_rate = 0)
+          // writel() is only executed for bwtype == 0x06/0x0a,
+          // so LINK_BW_SET is never written and stays at
+          // reset value; phy_configure() gets link_rate = 0.
+
+      set_lane_count(lane_count = 0)
+          // writel(0, ANALOGIX_DP_LANE_COUNT_SET) enables 0 lanes;
+          // phy_configure() is called with lanes = 0.
+
+      // Program sink for link training
+      drm_dp_dpcd_write(DP_LINK_BW_SET, {link_rate = 0/lane_count = 0})
+          // DP spec requires link rate in {0x06, 0x0a, 0x14} and
+          // lane count in {1, 2, 4}. Writing zeros is illegal, so
+          // the sink cannot enter the training state.
+
+      // Training loop
+      for (lane = 0; lane < lane_count /* 0 */; lane++)
+          // loop body never executes; training_lane[] stays
+          // uninitialized and no training register is programmed
+
+Since the sanitized sink values are always non-zero (link_rate >= 0x06,
+lane_count >= 1), the clamping with a zero maximum unconditionally
+forces the training parameters to zero. Clock recovery can never be
+achieved, so link training fails deterministically.
+
+Consequently, making these properties mandatory again cannot break
+any existing device: a DT without them could never have worked in
+the first place. Failing probe early with a clear error message is
+more helpful than a silent link training failure at runtime.
+
+Fixes: 0d0abd894ead ("drm: bridge: analogix/dp: add max link rate and lane count limit for RK3288")
+Cc: stable@vger.kernel.org
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+
+---
+
+Changes in v8:
+- Expand the commit message with the detailed link training failure
+  analysis,
+- Add Reviewed-by tag.
+---
+ drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index 566f1e5eb8cd..ddb15d6de05f 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -1248,6 +1248,7 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
+ {
+ 	struct device_node *dp_node = dp->dev->of_node;
+ 	struct video_info *video_info = &dp->video_info;
++	u32 val;
+ 
+ 	switch (dp->plat_data->dev_type) {
+ 	case RK3288_DP:
+@@ -1269,10 +1270,14 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
+ 		 * NOTE: those property parseing code is used for
+ 		 * providing backward compatibility for samsung platform.
+ 		 */
+-		of_property_read_u32(dp_node, "samsung,link-rate",
+-				     &video_info->max_link_rate);
+-		of_property_read_u32(dp_node, "samsung,lane-count",
+-				     &video_info->max_lane_count);
++		if (of_property_read_u32(dp_node, "samsung,link-rate", &val))
++			return dev_err_probe(dp->dev, -EINVAL,
++					     "Failed to get samsung,link-rate\n");
++		video_info->max_link_rate = val;
++		if (of_property_read_u32(dp_node, "samsung,lane-count", &val))
++			return dev_err_probe(dp->dev, -EINVAL,
++					     "Failed to get samsung,lane-count\n");
++		video_info->max_lane_count = val;
+ 		break;
+ 	}
+ 
+-- 
+2.34.1
+
