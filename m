@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 472DB354AE3
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 18:51:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA225376A16
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 18:54:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787943115; cv=none; b=E8svo3n19wD6vKkn/CLODS+a8UOfJUk/lPOi//N573vopgWA//oUPMPaMC/rKJ2FhNtOzdNOFItqAuQMkHxUVKjSf1Tejx7JRJK7P4hGADn5EiBorCF2a2iilgdKbZX215JYMhDce0Gwqqnfbq4fnS1k575BTapC6uU9LXTHEoI=
+	t=1787943285; cv=none; b=m3twrjxjyFx9W2BPMCQWj2KxgVq1/U+XSp63eYWR5WI1gykvmMUdgigW69vsQhzK37jQYfpXujStuUqONhkEI/t402zukeNwu/Mlj72UoPddI1GlCc4H3YqsCIeLbTbfRm7FDkFtcAixFvPTry4A6sZR+Pr4NCOGGE5V1jRFvnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787943115; c=relaxed/simple;
-	bh=2x3x/AWXofFz6gmqTfYL/E4l4AWlk2LVYD50VsGNO+E=;
+	s=arc-20240116; t=1787943285; c=relaxed/simple;
+	bh=w2l7myDNFr3pEJ3DAOfN+O21WWHDoCwubKkV5uS/nIg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=V5UOZ+wYMuLZn71fBq4dVYWDJvnkinUDPUxlb9U25DYBtpeEk4M8tycesDLPg0tEIg2pTCkoXgCPixBHN/zQLdJSCwhL85Avycz01BbrrfiyQetBcpyo+Za+hQNjgCTW23/1QI49LJt6oBX8fx4ILYzkrIm3TJWIgsTQuh/p4G4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ld9j6o7e; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=CKUabuRWaXdV+Y0QbnXykxxMdZI7LaJ64fj2SrxQmbaECJ0ld8NLcSSJQuxC2XfNWYhN3ehN0wYgxc/zs+2AajNOgMZTNAW37Wlb1BPn9A2Z0cdUN/KZz0ety/2THBATMnJnKxTlrtGBujrP1hbNSuXzpwh3fdLmj7uqV6eM/3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YInM9m5c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ld9j6o7e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 821D31F000E9;
-	Fri, 28 Aug 2026 18:51:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YInM9m5c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F33681F000E9;
+	Fri, 28 Aug 2026 18:54:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787943113;
-	bh=zdUSXYYuI+TDh4s5nXb7Ip+Fid9dY5ty4iM1ORpcpuo=;
+	s=k20260515; t=1787943280;
+	bh=FpiFr1IEbaqKYIOVUt8sHL9QP/avHxBHtWdmlBvDWAM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ld9j6o7eLWiKzANTrPDrw6ToYMdtkC0ZEAVjxqzWUJD1kT72RrNu7ik65Vo+dwi7H
-	 3g3hS4pSdn92d0KHI3+IOSMvI0zjgd8W0qk26gInrDne8EA/YVhRK2IYSDH0Ttjeyh
-	 oTVMpcsLMtrc3Nuw89EK6g+vyQzuSljPqkyuUoR2sGm2IhVPd3O02SAU+vpQBjqJjB
-	 cQlY7ehUyKOJV5dIo1rI0pnfmBi+70HG8c3eQynvjx/P4DMrpuvroP9ipKbj8AzLUq
-	 uKZ2XQdbsskb1vt8BmVD5B970huUU1tok9MKAmiill8snhBYzahl1sDyaEp5EvVL1U
-	 DbPxaiUrGdbRA==
+	b=YInM9m5c0vDggDC3gDPNrUJWb0dk4r8qvOtkdeZHLtQvmbuTkTCqGhq3gX/Sfl3tv
+	 88KZyhMjiFm6vUBTBfGDyBqGfjWIABt2i8iukjaEr4Ti6Cv43Hz/Qrxc0xzO1obT+R
+	 Ek+opgtKcAQjDn+/ALO3GRC1ZBONvVBLVSH6ns04ZnmgDqCH7ezK+a9dJfi02bGxbn
+	 /GJc1yiup52F767kZu6YLm4/a3mlrjrcsI1fH013guDzp1UDii1EoAV3lGHh0Utehh
+	 gSnHZBrpa/K8NjCHYnDEztyPqBi9lTWh3fsn6y8Zc8xRDcrhoNok5wMkZtViuNpsCT
+	 IRDdXxbcszbqw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/2] usb: dwc3: dwc3-generic-plat: Add Renesas R-Car
- Gen5 DWC3 xHCI USB controller glue
+Subject: Re: [PATCH] ARM: dts: samsung: exynos4210-i9100: Fix Bluetooth node
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marek Vasut" <marek.vasut+renesas@mailbox.org>
-Cc: wsa+renesas@sang-engineering.com, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260828184212.395082-2-marek.vasut+renesas@mailbox.org>
-References: <20260828184212.395082-1-marek.vasut+renesas@mailbox.org>
- <20260828184212.395082-2-marek.vasut+renesas@mailbox.org>
+To: "Paul Cercueil" <paul@crapouillou.net>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260828184331.655804-1-paul@crapouillou.net>
+References: <20260828184331.655804-1-paul@crapouillou.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 28 Aug 2026 18:51:53 +0000
-Message-Id: <20260828185153.821D31F000E9@smtp.kernel.org>
+Date: Fri, 28 Aug 2026 18:54:39 +0000
+Message-Id: <20260828185439.F33681F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,83 +45,62 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The Renesas R-Car Gen5 glue register initialization is lost during=
- system suspend and is never restored upon resume.
+- [High] Baud rate mismatch between Bluetooth controller and host UART due =
+to driver clamping.
 --
 
-commit 83607f1b223c5287acdc795a68974bae2662c342
-Author: Thanh Quan <thanh.quan.xn@renesas.com>
+commit cb253c8ef9aaafc70357be54516beee25ad6e5a6
+Author: Paul Cercueil <paul@crapouillou.net>
 
-usb: dwc3: dwc3-generic-plat: Add Renesas R-Car Gen5 DWC3 xHCI USB controll=
-er glue
+ARM: dts: samsung: exynos4210-i9100: Fix Bluetooth node
 
-The Renesas R-Car Gen5 SoC contains multiple instances of DWC3 USB
-controller with glue logic wrapper around them. Extend the generic
-DWC3 platform driver with Renesas R-Car Gen5 glue logic specifics.
+This commit adds the uart-has-rtscts property to the bluetooth node and
+configures the max-speed property to 4000000 (4 Mbps) to fix choppy audio
+issues on the Galaxy S2.
 
-> diff --git a/drivers/usb/dwc3/dwc3-generic-plat.c b/drivers/usb/dwc3/dwc3=
--generic-plat.c
-> index ca69ac0eb07ce..e8586c40d5006 100644
-> --- a/drivers/usb/dwc3/dwc3-generic-plat.c
-> +++ b/drivers/usb/dwc3/dwc3-generic-plat.c
-
-[ ... ]
-
-> +static int dwc3_renesas_rcar_gen5_init(struct dwc3_generic *dwc3g)
-> +{
-
-[ ... ]
-
-> +	/*
-> +	 * The datasheet describes initialization procedure without full
-> +	 * information about the registers. Therefore, the source code is
-> +	 * based on the bare metal code shared by the board team.
-> +	 */
-> +	writew(0x211, glue + 0x26);
-> +
-> +	/* USB2 does need additional register programming. */
-> +	if (!usb2only)
-> +		return 0;
-> +
-> +	writew(0x11, glue + 0x81c);
-> +	writew(0x0, glue + 0x81a);
-> +	writew(0x1, glue + 0x802);
-> +
-> +	usleep_range(10000, 20000);
-> +
-> +	writew(0x0, glue + 0x802);
-> +	writew(0x1, glue + 0x2a);
-> +	writew(0x1, glue + 0x81a);
+> diff --git a/arch/arm/boot/dts/samsung/exynos4210-i9100.dts b/arch/arm/bo=
+ot/dts/samsung/exynos4210-i9100.dts
+> --- a/arch/arm/boot/dts/samsung/exynos4210-i9100.dts
+> +++ b/arch/arm/boot/dts/samsung/exynos4210-i9100.dts
+> @@ -875,11 +875,14 @@ &serial_0 {
+>  	status =3D "okay";
+> =20
+>  	pinctrl-names =3D "default";
+> +	uart-has-rtscts;
+>  	pinctrl-0 =3D <&bt_en>, <&bt_res>, <&uart0_data>, <&uart0_fctl>;
+> =20
+>  	bluetooth {
+>  		compatible =3D "brcm,bcm4330-bt";
+> =20
+> +		max-speed =3D <4000000>;
 
 [Severity: High]
-Are these glue register settings preserved during a system suspend/resume c=
-ycle?
+Does this configuration cause a baud rate mismatch between the Bluetooth
+controller and the host UART?
 
-On resume, dwc3_generic_resume() restarts the DWC3 core and reenables clock=
-s,
-but it does not provide a mechanism to invoke a platform-specific callback =
-to
-restore custom wrapper register writes:
+When bcm_setup() configures the Broadcom controller to 4,000,000 bps, it th=
+en
+calls host_set_baudrate() to configure the host Exynos UART to match.
 
-	ret =3D clk_bulk_prepare_enable(dwc3g->num_clocks, dwc3g->clks);
-	if (ret)
-		return ret;
+However, the request propagates to the Exynos UART driver in
+drivers/tty/serial/samsung_tty.c, which enforces a hardcoded maximum baud r=
+ate
+of 3,000,000 via s3c24xx_serial_set_termios():
 
-	ret =3D dwc3_pm_resume(dwc);
+    baud =3D uart_get_baud_rate(port, termios, old, 0, 3000000);
 
-If the SoC's power domains are powered down during suspend, could the USB
-controller operate with uninitialized glue logic after waking up?
+Because 4,000,000 exceeds this limit, uart_get_baud_rate() falls back to ma=
+x - 1,
+returning 2,999,999.
 
-Is there a need to add a suspend or resume callback to
-struct dwc3_generic_config to ensure the platform-specific initialization
-is re-applied?
+This creates a baud rate mismatch that introduces framing errors and breaks
+subsequent HCI communication.
 
 > +
-> +	usleep_range(10000, 20000);
-> +
-> +	return 0;
-> +}
+>  		shutdown-gpios =3D <&gpl0 4 GPIO_ACTIVE_HIGH>;
+>  		reset-gpios =3D <&gpl1 0 GPIO_ACTIVE_LOW>;
+>  		device-wakeup-gpios =3D <&gpx3 1 GPIO_ACTIVE_HIGH>;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828184212.3950=
-82-1-marek.vasut+renesas@mailbox.org?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828184331.6558=
+04-1-paul@crapouillou.net?part=3D1
