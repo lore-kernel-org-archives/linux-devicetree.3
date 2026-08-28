@@ -1,166 +1,129 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF23A2F28FF
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 08:15:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 027FB381B0D
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 08:22:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787904953; cv=none; b=k0hR19UJg3gS+JUrN3dpsPkolENs0W/I0O8Ts/ELhhf1LZvG7qjPI2vKjSC9OWW44y3HUn1mnL1kX4HDv83zvG081I9qW4TA5B9YuS1D53Wf/Ca19nbRu32U5i4mQw0cD7EI9WJm59frq7MndrLJUm3QyiHWxecMKS0PUeI5nSI=
+	t=1787905372; cv=none; b=GVctXPZMmyTtq8v0Ou41NshC+Bp+6vHYEGlowZP9muFmGpabrLlRCePkbONJJJ0Q9aCbj7GuiA8302IWCa1t6bSEf7XmzQhzD2m77glCB849MK3IQzcWiVhesFxQG5/OF9JDOqUiA9YDmjPK/xsv/pFcZihal1zNBoUKv8FL0Ts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787904953; c=relaxed/simple;
-	bh=rHwWGwZU0EcalIz4jHl8ygpsL2QmGNrZRsxShRd9WZQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=LxC8lUqEu1Skukqu2y0S4eztmzKOtlPCQsWRNQcz0ko+4q/+u9TT/qZ83C8JkWhEhQnGevej7fGKOLKq1hZr0xQ/kLsVkg/eYvoPXutSlYID59E0gcjERZ/FiAR8KGxMFYuNsbVCqG/IyzlfyEeEc1MhlBe/yA2PY5U+jlMN7oI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LBF9bLkA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hD3dSVtD; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787905372; c=relaxed/simple;
+	bh=6791UxSCWp+c1dgVnPhlEmuv1c0PeOfHdqN+VlYyxcY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rZi+v4T4q8EEdDsSLsNVmI1LTKY1Wd/T78JURnndCBhFcMtUXj2T6ZdufuWM8Seu7UdNUUfO0IvE4AIoMOxGsRsOcpWOXddZvi9+fBPdW7wTc+UVmzRvjsIuH7OFP9CrJK0M8R2/gyvxzIW2nkjL35AjUZnY95tARyoZkXd+Xco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ihe+HLUc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LBF9bLkA";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hD3dSVtD"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67S66d4N1605913
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 08:15:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=qbULV2SnljGNcmRaVKkcLmoVphsQM6DVdSI
-	FokbpMcE=; b=LBF9bLkAAHPH1POj2O9+q0rPee2Mw+GohVyGvFYv1fO0BpKfEzX
-	MGCjdd+3QH1VX/DpaRZObA31M0UjxWswiu8BYOTRGDfZCF2MbhOfqjUBglmfw7TO
-	uwRGxW/RjT8aoYg/n205Vq4LzQVTErc5+DLNQ3j5IEQLfWH59d3wtf4Wo9NoAR0D
-	TjnHqn1Duv7g+1grQYL0F+BHrXgyIN79zdVmwYqsFnisOTx0LUOQJBRUSm5aHcg1
-	bfp3VrNe211vTgRjA+MEfT+rNuc9NQGaSmw+2JhXUtsQW7CgAAQ8em4jOWHMAojR
-	Pm9ccSWYeRYiJmHeqp7TR5BC/NpConvQ3kg==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gb42r8ncw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 08:15:50 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1c18c775eso2246031a12.0
-        for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 01:15:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787904950; x=1788509750; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qbULV2SnljGNcmRaVKkcLmoVphsQM6DVdSIFokbpMcE=;
-        b=hD3dSVtD5yaZDrzuX5N1WS1Ly4MPfACO0txavhlAJ0X3OMUyAr8MgGFnXuC7yqefkJ
-         rRTjpv4ZWrodHm+pDHKBT537FA7v0/Y+98roG0yPFDwW9BWDpzLZcaPtLk7OTlKTLWtd
-         ccfJpfJY/T9ytqo1VZWp47hRGWkFFzam14utsR+T+6wdfsL4BE+lQBbgwNGUuArEiJWx
-         3FNPV0Z6r7cPd9P2jbl8UEAiuIOna5PrQwhS91qOsiVMP2uAjAYWL3En+IbPGLgTjG94
-         U0DrtMuNygIOd/Jd4+HCWq2X6JyOohLJEepR8ucOne3lggd48Bd3ScVnREu1s8fglZqF
-         W6Rg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787904950; x=1788509750;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qbULV2SnljGNcmRaVKkcLmoVphsQM6DVdSIFokbpMcE=;
-        b=stHUi0xb8QOTGNYeINMffa/EzOrqMzr5ZqTl/TprJlFRpL5VF7qYzmO4ezWSIe2ZIX
-         S0O4ZVUHaY1PwtChv2v93UyciXh+Sw8Gm2GFwHLEDsFaJbwhDlz/3Z3zPOopPHe0CxCZ
-         x5UoMrz1hbJlvUeiXmQsUPHDTpW1jtdw8NpxybgIa7jEXOc/hYFutsKmqFucZpzaV3m4
-         VnFjPDqlKJItDTwR6vI553P2uus4os7v7bi9oy+3zcs5ALk716ScurgNZ2719OJhBwf1
-         Bh50J6hJ0mC3UjVeIgyX2eT7zBZ046Y2pGXTV4GbpAykPcKcAwxwvi1mRd9QgEVS6TrB
-         yFuA==
-X-Forwarded-Encrypted: i=1; AHgh+RrXe5+HBfdVJJlsaAbhzL7t2+J9izZW5jKPRM6Mb83bWor7tFeQ6retazP62GC9Q5oeM6d21MP65hxL@vger.kernel.org
-X-Gm-Message-State: AFuF++nyq54DUhVF5oIrEaqR7FnM+7u4L3xLQpoLhqHrRnZYtks9YY0U
-	/Ls/W8qxIgLJBOaxiK5oHTpCuCi6s3o8/WI40FP/NjKZ8XJHUo652zYBATMoVLx3V7CA6PbqnAi
-	Stqa2MnGO/NGgsdHyqjZn1bgrhpv0Bxz/HX2fEMZ2XbIcSFN7Dz3Wv65p78i1EEsU
-X-Gm-Gg: AR+sD10dMVUarICvW2+pum7sZO0zcT7+W2tH5TgqQbq5OG5hfj6FC0k3lv8FdLJ+ca/
-	517HKeA3UafdTIRx0yMXWJ99bZ2r6WtJXCdqjPZiVCdyKfJ/xaati+uVM/Y1DO6qARJeytj9mra
-	Y26fWdpSlWh6CSyv70gArOIvMTb+JGyGpCO41AQCbhMAYl7/zLHgRiqnkXYQ0/Hoar7tpWyxIor
-	Yur+ehr2rpZr6xU60PTCK7LfJVM6obHQbkcfcUrJYuhsvtZLBc5uV7OiNom3y5PCeI5H7ik1EmF
-	t2np+gru4nugbnQXrkobzDASVJFk46AeU5LoCbjlrh7wRd4cvvnpxrLQDo7EFSaYp0JSNrVUO8D
-	ZKzOx4biTC0Av/WUobBYzt9UZanI13FPsvunscuEnoY0+9YEgjVI8/I3U3EoYTuav2IQ3YQ==
-X-Received: by 2002:a17:90b:5281:b0:396:4ce0:6400 with SMTP id 98e67ed59e1d1-3969ba3a303mr19004364a91.2.1787904949682;
-        Fri, 28 Aug 2026 01:15:49 -0700 (PDT)
-X-Received: by 2002:a17:90b:5281:b0:396:4ce0:6400 with SMTP id 98e67ed59e1d1-3969ba3a303mr19004286a91.2.1787904949204;
-        Fri, 28 Aug 2026 01:15:49 -0700 (PDT)
-Received: from hu-kriskura-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0d38207sm3832089c88.5.2026.08.28.01.15.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 01:15:48 -0700 (PDT)
-From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Wesley Cheng <wesley.cheng@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-Subject: [PATCH v2] dt-bindings: usb: qcom,snps-dwc3: Fix glymur binding for non-MP controllers
-Date: Fri, 28 Aug 2026 13:45:42 +0530
-Message-Id: <20260828081542.52796-1-krishna.kurapati@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ihe+HLUc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40C9A1F000E9;
+	Fri, 28 Aug 2026 08:22:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787905369;
+	bh=Y6F4OoW7AGDZc+c/lGGOUcRFjCu5mnvpIjpa+pwqHtA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Ihe+HLUc77miKeZPidXpo5py8QP/G+OAtSFfVQVK3Fn7ey6qG4mAIJSDDSwnGhkUj
+	 5Nlr62uxKdkUhKkqk1tfr35LQs3vJ8UtFnuNZL+5iAl0dhJd/jNDHS5/Nj2sAf1ARI
+	 NMNMoQmmjusDYQ6hnI9UHzkYCmD5n/h3rTHvhnMhCC3+DAULyt+fgWBwMIpSGzPyHM
+	 mGZzbSHAylOr+OGA1OUXiJs/lrUemdfoxWLWjQOJ1dngveB0QQObZnKVf+Yrw5rWyl
+	 U/B9CATbwPmvStCthXvMGN8vNDF3hVBDsMa6jcYSOC700oYASJcUYJUrO7HrPmzhL8
+	 0/0YinhI2XNZQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] dt-bindings: usb: qcom,snps-dwc3: Fix glymur binding
+ for non-MP controllers
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Krishna Kurapati" <krishna.kurapati@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260828081542.52796-1-krishna.kurapati@oss.qualcomm.com>
+References: <20260828081542.52796-1-krishna.kurapati@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 28 Aug 2026 08:22:48 +0000
+Message-Id: <20260828082249.40C9A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: lY4N25Zi38UD0Av0HsZNv9McWkmYQUt1
-X-Proofpoint-ORIG-GUID: lY4N25Zi38UD0Av0HsZNv9McWkmYQUt1
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDA2OSBTYWx0ZWRfXyghu+koZu2hD
- PM4qJf5L/OSIu3ECGoumcql9Bhep47PosNKmpFgjZAXnkEpPgLscYTGuBN1G8+4WusWqDcXNOzN
- xjUM3s0jXr4xmS1k838XIBTPKa34uQiJay3zGiUPqs2l2FoyT2J3K4B/PKkNMTPEn3MRusIFyIm
- IcjesueI0hvwDdGoeu5k1xBauX3W/tPIWK4p7pWX/phIu99/BtEciXUpCJ4uZMRRXYFWqw3BAw/
- K0heoYYehmt+/dB+2ahUfQpptmtrsqNWCJU0T/mcn/qG973zCv4cBFwtjYbeFkJ0hFVPwxdEN6y
- tKE4cb+N8CqgbVvDPQTE+1oJy1j+8V0pgYnX+Zrb6UUMM++yqUsJvq3Bp87b1xIy8Zrvvgg5L+G
- B64b+lahFe7wxCsvKIEiLRxR5ecza395Y61q6wijOPD2+ZKOAQgJpGkzjiVv6zemaasW9OrPUwE
- Spf08kkKLY0GubcMg1w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDA2OSBTYWx0ZWRfX5b9YqB+1cSqo
- PV7Tmd4gpG4kb6ydW7o/146lYImYRgT9xHhzGRXG0Ve/a81FBA6Wr1E6u3qO+HY/xCvbhjHwugL
- Q4EgRUn4f0/mnScBQAMMd7LKkGpbf5w=
-X-Authority-Analysis: v=2.4 cv=Fpo1OWrq c=1 sm=1 tr=0 ts=6a9143b6 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=2POTKgeWoQizHkAibKcA:9 a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-28_02,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 malwarescore=0 lowpriorityscore=0 phishscore=0
- bulkscore=0 adultscore=0 suspectscore=0 priorityscore=1501 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608280069
 
-Currently for Glymur non-multiport USB controllers, number of interrupts
-are limited to a maximum of "5". Either hs_phy_irq or ss_phy_irq are to be
-present.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Moving `qcom,glymur-dwc3` to a different `if-then` conditional blo=
+ck changes the positional requirements of the `interrupt-names` array, brea=
+king ABI and schema validation for existing device trees.
+--
 
-Mark glymur non-multiport controllers to support a maximum of 6 interrupts
-including the hs_phy_irq and ss_phy_irq.
+commit 15d826b7f9c1b0ac7d9038a76e721573a86a768f
+Author: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
 
-Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
----
-Changes in v2:
-- Modified commit text indicating the issue in max interrupt-names for
-  Glymur non-mp controllers.
+dt-bindings: usb: qcom,snps-dwc3: Fix glymur binding for non-MP controllers
 
-Link to v1:
-https://lore.kernel.org/all/20260803-glymur-usb-binding-fixes-v1-1-9ce334777387@oss.qualcomm.com/
----
- Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This commit modifies the device tree binding for the Glymur non-multiport
+USB controllers to allow a maximum of 6 interrupts. It moves the compatible
+string to a different conditional block to accommodate both hs_phy_irq and
+ss_phy_irq.
 
-diff --git a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml b/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
-index ea60f7220afe..3bef18f9557e 100644
---- a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
-+++ b/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
-@@ -524,7 +524,6 @@ allOf:
-         compatible:
-           contains:
-             enum:
--              - qcom,glymur-dwc3
-               - qcom,milos-dwc3
-               - qcom,x1e80100-dwc3
-     then:
-@@ -547,6 +546,7 @@ allOf:
-           contains:
-             enum:
-               - qcom,eliza-dwc3
-+              - qcom,glymur-dwc3
-               - qcom,ipq4019-dwc3
-               - qcom,ipq8064-dwc3
-               - qcom,kaanapali-dwc3
--- 
-2.34.1
+Link: https://lore.kernel.org/all/20260803-glymur-usb-binding-fixes-v1-1-9c=
+e334777387@oss.qualcomm.com/
 
+> diff --git a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml b/=
+Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
+> index ea60f7220afe3..3bef18f9557e1 100644
+> --- a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
+> +++ b/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
+
+[ ... ]
+
+> @@ -547,6 +546,7 @@ allOf:
+>            contains:
+>              enum:
+>                - qcom,eliza-dwc3
+> +              - qcom,glymur-dwc3
+
+[Severity: High]
+Does moving this compatible string to the qcom,eliza-dwc3 conditional block
+inadvertently break the device tree schema ABI for existing platforms?
+
+The original qcom,milos-dwc3 block matched the baseline interrupt sequence
+used by existing device trees, requiring dp_hs_phy_irq at index 2:
+
+allOf / if block for qcom,milos-dwc3:
+        interrupt-names:
+          minItems: 4
+          items:
+            - const: dwc_usb3
+            - const: pwr_event
+            - const: dp_hs_phy_irq
+
+The target qcom,eliza-dwc3 block imposes a different positional requirement,
+expecting hs_phy_irq at index 2 and dp_hs_phy_irq at index 3:
+
+allOf / if block for qcom,eliza-dwc3:
+        interrupt-names:
+          minItems: 5
+          items:
+            - const: dwc_usb3
+            - const: pwr_event
+            - const: hs_phy_irq
+            - const: dp_hs_phy_irq
+
+Looking at existing configurations, such as usb_0 in
+arch/arm64/boot/dts/qcom/glymur.dtsi, the layout defines dp_hs_phy_irq
+as the third interrupt:
+
+arch/arm64/boot/dts/qcom/glymur.dtsi:usb_0 {
+                interrupt-names =3D "dwc_usb3",
+                                  "pwr_event",
+                                  "dp_hs_phy_irq",
+                                  "dm_hs_phy_irq",
+                                  "ss_phy_irq";
+}
+
+Since JSON schema arrays evaluate items positionally, won't this change
+cause existing in-tree device trees to fail dtbs_check validation?
+
+>                - qcom,ipq4019-dwc3
+>                - qcom,ipq8064-dwc3
+>                - qcom,kaanapali-dwc3
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828081542.5279=
+6-1-krishna.kurapati@oss.qualcomm.com?part=3D1
