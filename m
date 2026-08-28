@@ -1,62 +1,64 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37267360ED6
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 15:35:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 583A73624DB
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 15:35:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787931332; cv=none; b=AdsSAVwIIJePYBqDikBr+5MgYHDmMQlTw7t9XpA7w40WzFTOUUWx9e0/JCkT91p5U7G5L2L5wZhruawR1oh2jXaj2rkpNFbxE2gHPBeUpERrJSqqU7cmC00ZFCKL0aPjHNwQkLkxlkWOZRXfPNX3bYIfBm7WuRtI4isucEpisMc=
+	t=1787931338; cv=none; b=OVTNK/k56qKKsu6IQXyjhXeXlOy1QVKE/Ev05vIPFuPSOo2IE2jjSapJp+aRXYR9YgOflwrH5jVU2vGSz7dEWukpNbA0DcnlnW4U82/SVsp458t+5tm/7BsqRrojfvJOgF2RuN6B4Tov6+AHm24qUKqvDy8+6rCcfYoNzbF+Bo4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787931332; c=relaxed/simple;
-	bh=csZZhW2kTQDC7OmCQK09jSOUeljVKRXJMg7XkzOcdAQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Lzoxvwn2YVg7/hHQKB07a7VeNRR1l4PAy2E2xa6eUMQAdcrNuidiXd7RjEnSA4ppM1ByUo/UcaXQ4kjDCgraoAowoa09v24JUOu7t6S/PNZaBp+Hn9LwnaRFAYlLiJz2d4Epy7rO8o6CCL68evAyou9onGhGVmo//2Q1+M2Pjwg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s9IITnGG; arc=none smtp.client-ip=209.85.214.182
+	s=arc-20240116; t=1787931338; c=relaxed/simple;
+	bh=SbhSZ2QAqRTMZFb+7jtsWIf2n79+rPx+nDhlyxQ5rto=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=GqrTajYHyOFBK9LMBjuesCXt1kwRnRpoPRPRqICDIMEIOPvpDFURbexy5shuzKL7x6aDdCZWuJP+xvjpOD/y0te8UqGSNaZDO6QtgAqbK+Uba/x5/Hv/k8KkXBJ0WidKKDDKDxCZ2rZAH5mdMN3Z64+fMe8APujd9MowAb9rAZs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UOACZPbV; arc=none smtp.client-ip=209.85.216.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s9IITnGG"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d58efc7356so11236115ad.1
-        for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 08:35:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UOACZPbV"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-38759bcd877so1105370a91.2
+        for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 08:35:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787931331; x=1788536131; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rQup+UUtgEL0yAVMr8c4LZuaauGy5rlbpwT/5caEB14=;
-        b=s9IITnGGGbMH83F3qNM3dRZ18d3Ovxh/siPs3/e7XeUC46rzDZnoOJy2o6518HMAgd
-         IocSsgJgW24jRFtjfsDpeywkR8yEYWa6fkP8ii7HF5o3mIiKByxiU6Q5HdjstoyaEYn/
-         6K+dgPyDSdsJfMokeUFDaFJG0T7OuyOZF6UqgNmt3qRgERIkX15xItEpjwQfJiaYhkVy
-         0ZTSi5KuI0ySH5sot6IZGLSG3MTRyzT9qY4dWx9PFyWKgemFsE2KrxRUE1aVUgan8lnY
-         CFkil7nHGVasUyhKkT19vgbVv9BnnuA6cPnL/ZKqSMinHAIfjK+i01Cf9jNZf1IX8Yrz
-         SILg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787931331; x=1788536131;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1787931336; x=1788536136; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rQup+UUtgEL0yAVMr8c4LZuaauGy5rlbpwT/5caEB14=;
-        b=V8G4Kr5UgavF9XA7xqxuGqPdc4hCvE4625iqqrpYekArjBkn7evc2FcJLHxRZzJOlJ
-         qgoryxKWz+2oLVFOIDe8qAqdtxFo6bbnTx844aMUG4DaXeo8PdmIyNE39XV0vkpF5KJB
-         H9ZLF1bqz/tIA4e2F4EnkNNspEqxgnkDFLdZzXG2BorqLknLlGWOckkRFvoQpv1DRNE5
-         WhSFglJJCOl0LWaatL2S8vPhJAEThizSnbwzyMjSeCJo71JxSULSmFccpQ0lSU6B34/T
-         /JqYpWdIJzeYJlEqzfKF891snE+2LsNyfiw7Vh2yGENhZIOiSkGVlx4KFHVG67uejzME
-         O5+w==
-X-Forwarded-Encrypted: i=1; AHgh+Rqrg6RdkALCyWkZwIp2iVXhJt1AGKSViJ2Eg06xL1JJ/dBB/LeoGmUbPZoL7wunBH1QsiZKBxphk8S0@vger.kernel.org
-X-Gm-Message-State: AFuF++nUsPB/jtem/LHPuXUrDqS+iACZ39EIC3lZ62fIvnX4EwwD17rd
-	+Dgg/Cr6GjMJqP99b6WisHWozoALH48ams8rw0NElbEkZ3TmUepBi+XH
-X-Gm-Gg: AR+sD13pW34XcnMpfZRRIEsLMqrqUKvO0Bst2yQ35FklWoArjTK0T1/Neqk/XBtijin
-	o6cOFEjWmvjYZe4cL8aLmKTIbk/tSVHOLQZHNZ/1owIRsZvTa7cb1uBEI0yMdOt+h6jcZrCffc7
-	r2s+AscBCkWs1qUd2wv7rl5S+Des/5diko8GWOp1zKp0CpzR6j8ddCxA/333UP7OCRg3QMmhF5W
-	HzZVIUN9AdvscKtYRnOH8Q4OiXrlAxMOp1c/iYhEx5OJWxdkGhtZmHM6Y1OMPBJDErgXsGnj1r4
-	Yv01elv84oklxGDFfObL2eRKMAnOaQYa5ma4mctawSrjwUxIVzu68BKhIdqg9/1vwngD1QEd5PR
-	y/9zJ4HxTPliQLWqwykxrCc/VfKtpAmEighocBWOwdlZHVG5XZ60dnQ/CaSt6CH4HZ69JxoSdoo
-	EZQY2YInjp39Fh/uX6e8xuI9NYKLEljMGHuxLqoMC0EMR/aoZ+xfqDWV6RpG8KE9xAzYinQDp/9
-	dhMETWeY+8=
-X-Received: by 2002:a17:903:286:b0:2c8:248a:5dbb with SMTP id d9443c01a7336-2d74dcbe867mr167466245ad.7.1787931330475;
-        Fri, 28 Aug 2026 08:35:30 -0700 (PDT)
+        bh=EVgxh9oUlB3e4bZmBcCaqz9cii+hpvVBbhiEnaUJ6LQ=;
+        b=UOACZPbVn1rODBqTKSudUGB5Wvk4kU+tO3uH7zg0vgVDteq3e5OGsIDjKOn1rISnAL
+         Yd33ms9E2Csep5l5lHzgtmvJuj5Vg5bKbfNZWo3ADxc9HZV8sar+ToGiVEFCGm4b5fcC
+         dTQ7+u0qb+J2MGqyGQP29dyYWGp9nyeQhp1Q4jWNApP6FgSYkuLUra8Nws++OOaUq4wq
+         LPsjWHR1eKW2HZD5A7LOJNufC/fL5XLKiu7Uk7e2la3SK0xw5HFILKqvBZYLN3EkzrB5
+         a3nFUC239Y09u+0o+mTA2d8w4BZLQAlSdVLsnHlFjl90rOO+i6flN1KSjEmuE+Jd+j+c
+         8ESw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787931336; x=1788536136;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EVgxh9oUlB3e4bZmBcCaqz9cii+hpvVBbhiEnaUJ6LQ=;
+        b=GxdslfsguJnA4tZs84S4d20tX5n75196/Si6BXdsjPqpQ0PPwRxwa3BwSCiolt7gOZ
+         bTufzT+yQweoA3WcugQrVG4tAF7UFA9dgQFySqAABC2xCGQnRviPzxWEUyt1sVsme1PJ
+         +fCfbKAjH1gSj2igWSB4NO7FfB1QV2R8oUXIAousj/ST5ztFgtf1U5IbQDGSRTgcNyPb
+         dbh+RcKSPK141cKO47lbyTfHoAsZhqrLC0ZORw72UqC80CugSlDavcFPak2FHpBwmj2A
+         ks7yWikeP6ZB/Qz+/euANwTTtXUdxcdPhtrvXBIjebvUEhC5bpngYt876FKBOSceVk5k
+         l4kg==
+X-Forwarded-Encrypted: i=1; AHgh+RrSU/85uEYuI6nR8TcOuVEYHi8s5l6KJRXHkFF5SOWykAeod9ectamASvytlFnTDrNAVcKZAEq25Q23@vger.kernel.org
+X-Gm-Message-State: AFuF++n3OdLqI/uKXtQgeLsrR8Wu0vMxK3DZMvOBAVyYpciOPPJRVAEL
+	MVQrQTGj5/WHsVj9LthD0UiXbqjK8GdYSWf+4gDnpaKVs86YJHpsGA+ysVy3q01hrGw=
+X-Gm-Gg: AR+sD11spxXYoiA20FqfB7i6h43ZvMde6bAhPqGPCLAkAyefUQKtQSDgVvFKO4Y+3UL
+	u5FSNMAjHn1vc2wHWsQq8a8zsD9BUsC/QvV9nLhsRN9TojvNVcPtpg2uo2Vork+C40b+Gt//ozt
+	hFsRkcmDV3cWsN07E6KC28hWbiPr/gGI6iimB+kRwQfJ73BCmkEJUT/Sdpv8so80AV/l3Mrlae1
+	RRlrlBIZAgT6bDDR8i9fBeJmjS2/TmHGMK6IIp7ghGAAvfaRYzkrTaILix4JGXrGHIGdeD+dzxv
+	7WNOYH1hi7ejeVKRDMCQcfhIAgcWpRwiSUvmynYoGULIGc7TTQexcpXHHIZG6JNyEME6CzTp2Hz
+	ajjcX/JVatKddvgkNRc5NO9YEQS28G0Abhh9f8Pri2wE/j2ISgIfMFWHPS9HpsCvF178SVnzqXp
+	bUdM6BuBMh+lfFaZwEzooneMrnNfuG1RIcO2K6fElR7B5Dn9Qmbs8Bu8VR4i9DRyejNV5HtJP+/
+	/KMIWtTxvE=
+X-Received: by 2002:a17:90b:1d52:b0:38e:11ba:992c with SMTP id 98e67ed59e1d1-396d10154abmr16419573a91.12.1787931336367;
+        Fri, 28 Aug 2026 08:35:36 -0700 (PDT)
 Received: from DESKTOP-TIT0J8O.dm.ae ([157.51.224.60])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f9e2a95sm6256824eec.23.2026.08.28.08.35.25
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f9e2a95sm6256824eec.23.2026.08.28.08.35.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 08:35:29 -0700 (PDT)
+        Fri, 28 Aug 2026 08:35:35 -0700 (PDT)
 From: Ahmed Naseef <naseefkm@gmail.com>
 To: linux-gpio@vger.kernel.org
 Cc: Ahmed Naseef <naseefkm@gmail.com>,
@@ -71,10 +73,12 @@ Cc: Ahmed Naseef <naseefkm@gmail.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-mediatek@lists.infradead.org
-Subject: [PATCH v2 0/3] pinctrl: airoha: add EcoNet EN7528 pin controller support
-Date: Fri, 28 Aug 2026 19:35:12 +0400
-Message-Id: <cover.1787931313.git.naseefkm@gmail.com>
+Subject: [PATCH v2 1/3] pinctrl: airoha: limit GPIO interrupts to interrupt-capable pins
+Date: Fri, 28 Aug 2026 19:35:13 +0400
+Message-Id: <420a5e385cf7204318cdc1cc86a99570162e9b35.1787931313.git.naseefkm@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1787931313.git.naseefkm@gmail.com>
+References: <cover.1787931313.git.naseefkm@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -83,113 +87,196 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The EcoNet EN7528 is a MIPS SoC that uses the same pin controller and GPIO
-IP as the Airoha SoCs, so it reuses the shared driver code introduced by
-the split into per-SoC drivers. Its register layout differs from every
-existing variant though: all IOMUX mode bits live in a single CHIP SCU
-register plus a few spill-over bits in IOMUX Control 3, EJTAG has its own
-enable register, and every pin configuration register is at a different
-offset than on EN7523.
+The driver assumes that every one of the AIROHA_NUM_PINS GPIOs can raise
+an interrupt. That holds for the SoCs supported so far, but not for every
+member of the family: on EN7528 only GPIO0-GPIO15 are wired to the
+interrupt controller.
 
-It also differs in a way the shared code did not model: only GPIO0-GPIO15
-are wired to the interrupt controller, while the driver assumed all
-AIROHA_NUM_PINS GPIOs could raise an interrupt. Patch 1 adds a
-num_irq_pins field to the per-SoC match data to describe that, bounds the
-interrupt callbacks and handler with it, and feeds it to gpiolib through
-gpio_irq_chip::init_valid_mask so gpiod_to_irq() fails up front for a pin
-that can never be an interrupt source. All existing SoCs pass
-AIROHA_NUM_PINS and are unaffected.
+Without this the driver hands out interrupts for GPIOs that can never
+fire, and the interrupt handler reads status registers that are not
+backed by any pin.
 
-Patch 2 documents the binding, patch 3 adds the driver.
+Add a num_irq_pins field to the per-SoC match data and use it to bound
+the interrupt callbacks and to size the loop in the interrupt handler.
+Feed it to gpiolib through gpio_irq_chip::init_valid_mask as well, so
+that gpiod_to_irq() fails for a pin that cannot be an interrupt source
+instead of deferring the failure to request_irq().
 
-The series is based on linux-pinctrl/for-next, as it depends on the
-per-SoC driver split and on the CHIP SCU lookup by "airoha,chip-scu"
-phandle that landed there.
+Signed-off-by: Ahmed Naseef <naseefkm@gmail.com>
+Reviewed-by: Benjamin Larsson <benjamin.larsson@genexis.eu>
+---
+ drivers/pinctrl/airoha/airoha-common.h  |  3 +++
+ drivers/pinctrl/airoha/pinctrl-airoha.c | 33 +++++++++++++++++++++----
+ drivers/pinctrl/airoha/pinctrl-an7563.c |  1 +
+ drivers/pinctrl/airoha/pinctrl-an7581.c |  1 +
+ drivers/pinctrl/airoha/pinctrl-an7583.c |  1 +
+ drivers/pinctrl/airoha/pinctrl-en7523.c |  1 +
+ 6 files changed, 35 insertions(+), 5 deletions(-)
 
-Tested on a DASAN H660GM-A (EN7528, Airtel), booting OpenWrt.
-
-Changes in v2:
-- 2/3: move patternProperties after properties, and allOf to the end before
-  additionalProperties (Krzysztof Kozlowski).
-- Rebased on linux-pinctrl/for-next.
-- Link to v1:
-  https://lore.kernel.org/linux-gpio/cover.1786262697.git.naseefkm@gmail.com/
-
-Ahmed Naseef (2):
-  pinctrl: airoha: limit GPIO interrupts to interrupt-capable pins
-  dt-bindings: pinctrl: Add EcoNet EN7528 pin controller
-
-Benjamin Larsson (1):
-  pinctrl: airoha: add support of en7528 SoC
-
- .../pinctrl/econet,en7528-pinctrl.yaml        |  190 +++
- drivers/pinctrl/airoha/Kconfig                |   15 +-
- drivers/pinctrl/airoha/Makefile               |    1 +
- drivers/pinctrl/airoha/airoha-common.h        |    3 +
- drivers/pinctrl/airoha/pinctrl-airoha.c       |   33 +-
- drivers/pinctrl/airoha/pinctrl-an7563.c       |    1 +
- drivers/pinctrl/airoha/pinctrl-an7581.c       |    1 +
- drivers/pinctrl/airoha/pinctrl-an7583.c       |    1 +
- drivers/pinctrl/airoha/pinctrl-en7523.c       |    1 +
- drivers/pinctrl/airoha/pinctrl-en7528.c       | 1204 +++++++++++++++++
- 10 files changed, 1443 insertions(+), 7 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/pinctrl/econet,en7528-pinctrl.yaml
- create mode 100644 drivers/pinctrl/airoha/pinctrl-en7528.c
-
-Range-diff against v1:
-1:  5a7f97adbca7 ! 1:  420a5e385cf7 pinctrl: airoha: limit GPIO interrupts to interrupt-capable pins
-    @@ Commit message
-         instead of deferring the failure to request_irq().
-     
-         Signed-off-by: Ahmed Naseef <naseefkm@gmail.com>
-    +    Reviewed-by: Benjamin Larsson <benjamin.larsson@genexis.eu>
-     
-      ## drivers/pinctrl/airoha/airoha-common.h ##
-     @@ drivers/pinctrl/airoha/airoha-common.h: struct airoha_pinctrl {
-2:  7e6150b186c2 ! 2:  c20005a81b40 dt-bindings: pinctrl: Add EcoNet EN7528 pin controller
-    @@ Documentation/devicetree/bindings/pinctrl/econet,en7528-pinctrl.yaml (new)
-     +  '#interrupt-cells':
-     +    const: 2
-     +
-    -+allOf:
-    -+  - $ref: pinctrl.yaml#
-    -+
-    -+required:
-    -+  - compatible
-    -+  - airoha,chip-scu
-    -+  - interrupts
-    -+  - gpio-controller
-    -+  - gpio-ranges
-    -+  - "#gpio-cells"
-    -+  - interrupt-controller
-    -+  - "#interrupt-cells"
-    -+
-     +patternProperties:
-     +  '-pins$':
-     +    type: object
-    @@ Documentation/devicetree/bindings/pinctrl/econet,en7528-pinctrl.yaml (new)
-     +
-     +    additionalProperties: false
-     +
-    ++required:
-    ++  - compatible
-    ++  - airoha,chip-scu
-    ++  - interrupts
-    ++  - gpio-controller
-    ++  - gpio-ranges
-    ++  - "#gpio-cells"
-    ++  - interrupt-controller
-    ++  - "#interrupt-cells"
-    ++
-    ++allOf:
-    ++  - $ref: pinctrl.yaml#
-    ++
-     +additionalProperties: false
-     +
-     +examples:
-3:  c3b785d8463e = 3:  ea5b2ce92136 pinctrl: airoha: add support of en7528 SoC
-
-base-commit: d067f0f4c96cb5402a111cf649b7bf9c5771ec74
+diff --git a/drivers/pinctrl/airoha/airoha-common.h b/drivers/pinctrl/airoha/airoha-common.h
+index c1acbfb7426e..16f7abcdfb83 100644
+--- a/drivers/pinctrl/airoha/airoha-common.h
++++ b/drivers/pinctrl/airoha/airoha-common.h
+@@ -127,6 +127,7 @@ struct airoha_pinctrl {
+ 
+ 	struct gpio_chip gpiochip;
+ 	struct airoha_gpiochip_regs *gpio_regs;
++	unsigned int num_irq_pins;
+ };
+ 
+ struct airoha_pinctrl_match_data {
+@@ -140,6 +141,8 @@ struct airoha_pinctrl_match_data {
+ 	const struct airoha_pinctrl_func *funcs;
+ 	const unsigned int num_funcs;
+ 	const struct airoha_pinctrl_confs_info confs_info[AIROHA_PINCTRL_CONFS_MAX];
++	/* number of GPIOs wired to the interrupt controller */
++	const unsigned int num_irq_pins;
+ };
+ 
+ int airoha_pinctrl_probe(struct platform_device *pdev);
+diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/airoha/pinctrl-airoha.c
+index f505a3f69c5d..52a768c859b7 100644
+--- a/drivers/pinctrl/airoha/pinctrl-airoha.c
++++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
+@@ -213,7 +213,7 @@ static void airoha_irq_unmask(struct irq_data *data)
+ 	u32 mask = GENMASK(2 * offset + 1, 2 * offset);
+ 	u32 val = BIT(2 * offset);
+ 
+-	if (WARN_ON_ONCE(data->hwirq >= AIROHA_NUM_PINS))
++	if (WARN_ON_ONCE(data->hwirq >= pinctrl->num_irq_pins))
+ 		return;
+ 
+ 	gpiochip_enable_irq(gc, irqd_to_hwirq(data));
+@@ -249,7 +249,7 @@ static void airoha_irq_mask(struct irq_data *data)
+ 	u8 index = data->hwirq / AIROHA_REG_GPIOCTRL_NUM_PIN;
+ 	u32 mask = GENMASK(2 * offset + 1, 2 * offset);
+ 
+-	if (data->hwirq >= AIROHA_NUM_PINS)
++	if (data->hwirq >= pinctrl->num_irq_pins)
+ 		return;
+ 
+ 	regmap_clear_bits(pinctrl->regmap, gpio_regs->level[index], mask);
+@@ -265,7 +265,7 @@ static void airoha_irq_ack(struct irq_data *data)
+ 	u8 offset = data->hwirq % AIROHA_PIN_BANK_SIZE;
+ 	u8 index = data->hwirq / AIROHA_PIN_BANK_SIZE;
+ 
+-	if (data->hwirq >= AIROHA_NUM_PINS)
++	if (data->hwirq >= pinctrl->num_irq_pins)
+ 		return;
+ 
+ 	regmap_write(pinctrl->regmap, gpio_regs->status[index], BIT(offset));
+@@ -273,7 +273,10 @@ static void airoha_irq_ack(struct irq_data *data)
+ 
+ static int airoha_irq_type(struct irq_data *data, unsigned int type)
+ {
+-	if (data->hwirq >= AIROHA_NUM_PINS)
++	struct gpio_chip *gc = irq_data_get_irq_chip_data(data);
++	struct airoha_pinctrl *pinctrl = gpiochip_get_data(gc);
++
++	if (data->hwirq >= pinctrl->num_irq_pins)
+ 		return -EINVAL;
+ 
+ 	if (type == IRQ_TYPE_NONE) {
+@@ -304,9 +307,11 @@ static irqreturn_t airoha_irq_handler(int irq, void *data)
+ {
+ 	struct airoha_pinctrl *pinctrl = data;
+ 	bool handled = false;
++	unsigned int nbanks;
+ 	int i;
+ 
+-	for (i = 0; i < ARRAY_SIZE(irq_status_regs); i++) {
++	nbanks = DIV_ROUND_UP(pinctrl->num_irq_pins, AIROHA_PIN_BANK_SIZE);
++	for (i = 0; i < nbanks; i++) {
+ 		struct gpio_irq_chip *girq = &pinctrl->gpiochip.irq;
+ 		u32 regmap;
+ 		unsigned long status;
+@@ -340,6 +345,22 @@ static const struct irq_chip airoha_gpio_irq_chip = {
+ 	GPIOCHIP_IRQ_RESOURCE_HELPERS,
+ };
+ 
++/*
++ * Mark the GPIOs that are not wired to the interrupt controller as not
++ * valid, so that gpiod_to_irq() fails for them with -ENXIO instead of
++ * handing out an interrupt that can never fire.
++ */
++static void airoha_gpio_init_valid_mask(struct gpio_chip *gc,
++					unsigned long *valid_mask,
++					unsigned int ngpios)
++{
++	struct airoha_pinctrl *pinctrl = gpiochip_get_data(gc);
++	unsigned int num_irq_pins = pinctrl->num_irq_pins;
++
++	if (num_irq_pins < ngpios)
++		bitmap_clear(valid_mask, num_irq_pins, ngpios - num_irq_pins);
++}
++
+ static int airoha_pinctrl_add_gpiochip(struct airoha_pinctrl *pinctrl,
+ 					struct platform_device *pdev)
+ {
+@@ -362,6 +383,7 @@ static int airoha_pinctrl_add_gpiochip(struct airoha_pinctrl *pinctrl,
+ 
+ 	girq->default_type = IRQ_TYPE_NONE;
+ 	girq->handler = handle_bad_irq;
++	girq->init_valid_mask = airoha_gpio_init_valid_mask;
+ 	gpio_irq_chip_set_chip(girq, &airoha_gpio_irq_chip);
+ 
+ 	irq = platform_get_irq(pdev, 0);
+@@ -848,6 +870,7 @@ int airoha_pinctrl_probe(struct platform_device *pdev)
+ 	pinctrl->grps = data->grps;
+ 	pinctrl->funcs = data->funcs;
+ 	pinctrl->confs_info = data->confs_info;
++	pinctrl->num_irq_pins = data->num_irq_pins;
+ 
+ 	err = pinctrl_enable(pinctrl->ctrl);
+ 	if (err)
+diff --git a/drivers/pinctrl/airoha/pinctrl-an7563.c b/drivers/pinctrl/airoha/pinctrl-an7563.c
+index 40cbbe90cc46..f011c6c9ccce 100644
+--- a/drivers/pinctrl/airoha/pinctrl-an7563.c
++++ b/drivers/pinctrl/airoha/pinctrl-an7563.c
+@@ -1069,6 +1069,7 @@ static const struct airoha_pinctrl_match_data pinctrl_match_data = {
+ 	.num_grps = ARRAY_SIZE(pinctrl_groups),
+ 	.funcs = pinctrl_funcs,
+ 	.num_funcs = ARRAY_SIZE(pinctrl_funcs),
++	.num_irq_pins = AIROHA_NUM_PINS,
+ 	.confs_info = {
+ 		[AIROHA_PINCTRL_CONFS_PULLUP] = {
+ 			.confs = pinctrl_pullup_conf,
+diff --git a/drivers/pinctrl/airoha/pinctrl-an7581.c b/drivers/pinctrl/airoha/pinctrl-an7581.c
+index 2fcf88106e11..bfb777594811 100644
+--- a/drivers/pinctrl/airoha/pinctrl-an7581.c
++++ b/drivers/pinctrl/airoha/pinctrl-an7581.c
+@@ -1441,6 +1441,7 @@ static const struct airoha_pinctrl_match_data pinctrl_match_data = {
+ 	.num_grps = ARRAY_SIZE(pinctrl_groups),
+ 	.funcs = pinctrl_funcs,
+ 	.num_funcs = ARRAY_SIZE(pinctrl_funcs),
++	.num_irq_pins = AIROHA_NUM_PINS,
+ 	.confs_info = {
+ 		[AIROHA_PINCTRL_CONFS_PULLUP] = {
+ 			.confs = pinctrl_pullup_conf,
+diff --git a/drivers/pinctrl/airoha/pinctrl-an7583.c b/drivers/pinctrl/airoha/pinctrl-an7583.c
+index 2c3a75c35915..1cd0f442ddc1 100644
+--- a/drivers/pinctrl/airoha/pinctrl-an7583.c
++++ b/drivers/pinctrl/airoha/pinctrl-an7583.c
+@@ -1471,6 +1471,7 @@ static const struct airoha_pinctrl_match_data pinctrl_match_data = {
+ 	.num_grps = ARRAY_SIZE(pinctrl_groups),
+ 	.funcs = pinctrl_funcs,
+ 	.num_funcs = ARRAY_SIZE(pinctrl_funcs),
++	.num_irq_pins = AIROHA_NUM_PINS,
+ 	.confs_info = {
+ 		[AIROHA_PINCTRL_CONFS_PULLUP] = {
+ 			.confs = pinctrl_pullup_conf,
+diff --git a/drivers/pinctrl/airoha/pinctrl-en7523.c b/drivers/pinctrl/airoha/pinctrl-en7523.c
+index 5aa39bacf460..b0c5e60f0aeb 100644
+--- a/drivers/pinctrl/airoha/pinctrl-en7523.c
++++ b/drivers/pinctrl/airoha/pinctrl-en7523.c
+@@ -1113,6 +1113,7 @@ static const struct airoha_pinctrl_match_data pinctrl_match_data = {
+ 	.num_grps = ARRAY_SIZE(pinctrl_groups),
+ 	.funcs = pinctrl_funcs,
+ 	.num_funcs = ARRAY_SIZE(pinctrl_funcs),
++	.num_irq_pins = AIROHA_NUM_PINS,
+ 	.confs_info = {
+ 		[AIROHA_PINCTRL_CONFS_PULLUP] = {
+ 			.confs = pinctrl_pullup_conf,
 -- 
 2.34.1
 
