@@ -1,119 +1,87 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFDBB32BF4B;
-	Thu, 27 Aug 2026 23:14:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A0B4632;
+	Fri, 28 Aug 2026 00:02:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787872468; cv=none; b=GC/VXffzmIrqayLJatL4y5YPJkBNvAxWivQ4x7Wjp30FjVzBu1ypKVvvHWVAijwyv0Gwz86M5zM0PGxacF/tKeNIuxcvtpsB7IEcX/n4ZyPkama/QWeH0wuP4z+9hJY6R9ooiSWIUpWgD8a85ak9xAf8uSW+BAHwnsFvUfAg4D8=
+	t=1787875330; cv=none; b=i4gqsy5rq0Z3mxca8X7XTY0FD/xV45lJDR/og9Cv/C52e15N2OlJJG5a1oaOxDYvK0ZTSEhk15kkRjF8LpvP0fp1Be6iIQx3ts5NyE6QerEXHmCp/rkrIulG2ZFKJyoDipA8ESszohsIv4eTr8fHs/vLwaPFkTBUovPzH7n2sNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787872468; c=relaxed/simple;
-	bh=U04iR+qtdCoxG9gK1Z5LrwRMGX8xdLDMkZOI3f7jHsQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NTPNa4IDUNj3OLz2pvRB/etnOR9+xZPM+pFm++54ADpIqXnWTqZfq6LYaqi8rIJ23rGBD5bjpbI9n5A0CY08Pa2v0RV3UiCLY07pFAvozR/NcNl/8YLcuqOF8MKXRHqP5Qu+UIWmGrPBw3Khd/N+aEvBw5WCIwFPUPkcpwJT0p8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=i7CL2o6S; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1787875330; c=relaxed/simple;
+	bh=Q2EApNucrjQCycJCwTJJ7KSLBvRHP+dkVje3vtRbMEM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gRzX4RCteaFLLeJxBaIS9veo1p7lS/yoC+sNRNl/POxtmBvfEkoWctFY9HQp9scGT0kt1Y0ZMD5QdEbGdKnBujuww0xCoGdijOZ/35q/BYfr9zS+lxTf/zyaJQ4JZ+YVJNLyTFMVF+TZuVo8z3sm7pR6Gg7XFRyj0LVCl0FWzd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TD9oxJZ1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="i7CL2o6S"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C1AA711C5D3;
-	Fri, 28 Aug 2026 01:14:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1787872460;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=gjJ6weS85s22FsCPd+HQktbWCP2SfOGkFBLAdeRpKpo=;
-	b=i7CL2o6SLSrZdwX0d5+AsU2vabHXYQ1NNmnV/xx2ISa23sMUmdIGRb53cNIhJNGVbZsTdx
-	WAdF9ERf6Uf1CaoM097RPCbumDaf+d475mXRefKf7E7+X43sCbomSMuwll7k0fkXQffzdB
-	SBs+jMee+mA+bafgxAFrGyRltI7WCGMsa1gPCTxJpGarj6jWNq8H4dKdfA97nEK9HNF9m6
-	+eoWKLE7AVgdSFiIdQW8feBK8viOr+0M1k4N8Bivc0VUQEMLpewdXAcly+bg2aBeCZgbl9
-	h8RkaXiO6LcP9y7SaIxMYoqAi+28TMwMG5q2J5j9uzvv/EIWpD+n0M2ipwuSbA==
-Message-ID: <84bd4b0b-69c3-451e-9e0b-690191f52537@nabladev.com>
-Date: Fri, 28 Aug 2026 01:14:16 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TD9oxJZ1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BDD71F000E9;
+	Fri, 28 Aug 2026 00:02:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787875328;
+	bh=uP8PzH06X2d2GtT40EhpNuEEHZf3jPKOe/5hko2G++g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TD9oxJZ10Esj3gThEM9WUy0RExJWT2wSJfW91pFCsJGYmVeq6H8oT50OIgQgeHoyR
+	 GTxR1TX3uVFIyip+MHPzYWFZQ8c/aoU40KMaCKa5OSa5IKwdKwmoSO/PwGFCcbym6Y
+	 Fv+m7HpbI+pP4k2YQtRFJceaJgk1EMpAtLEBBp1dHMEKatMqc9La5h/ZlH41j7yiX3
+	 vny/SMuUZbIdyI17YhNdWkRA/19i8RomJdqomh9pkKG7YbW/HtK1pL6Reoot1Vh9Jr
+	 KGh6zyUFqsFiS3X8ZKn+aMkcQKcFdv+UVeHQ62//3jadLasBiG9F7PCJ7ZQ2YKoCt2
+	 GufWwQh0hbThQ==
+Date: Fri, 28 Aug 2026 02:02:06 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+Cc: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] i2c: qcom-target: Add driver for Qualcomm I2C
+ target controller
+Message-ID: <apDPu_uJBTT9GPmZ@zenone.zhora.eu>
+References: <20260813-i2c-qcom-slave-v3-0-1d3742e2ad47@oss.qualcomm.com>
+ <20260813-i2c-qcom-slave-v3-2-1d3742e2ad47@oss.qualcomm.com>
+ <ao7vB8cDufnJZKAI@zenone.zhora.eu>
+ <5c6b120d-f791-424b-a41a-6c82de73000f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/9] dt-bindings: phy: Document ST STM32MP25 USB2-FEMTO
- PHY
-To: Krzysztof Kozlowski <krzk@kernel.org>, linux-usb@vger.kernel.org
-Cc: fabrice.gasnier@foss.st.com, Pankaj Dev <pankaj.dev@st.com>,
- Rahul Kumar <rahul.kumar05@st.com>,
- =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clement.legoffic@foss.st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Christian Bruel <christian.bruel@foss.st.com>,
- Conor Dooley <conor+dt@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Rosen Penev <rosenp@gmail.com>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
- Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org,
- kernel@dh-electronics.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <20260822074816.548662-1-marex@nabladev.com>
- <20260822074816.548662-2-marex@nabladev.com>
- <7a16614a-bd1b-462a-be13-4a9c22aa588e@kernel.org>
- <34c48ff1-524f-4d24-b53f-99e7171d08db@nabladev.com>
- <25e10cfe-40dc-45f4-8a92-cd81263420ea@kernel.org>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <25e10cfe-40dc-45f4-8a92-cd81263420ea@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=iso-8859-15
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <5c6b120d-f791-424b-a41a-6c82de73000f@oss.qualcomm.com>
 
-On 8/27/26 11:33 PM, Krzysztof Kozlowski wrote:
-> On 27/08/2026 16:53, Marek Vasut wrote:
->> On 8/27/26 2:54 PM, Krzysztof Kozlowski wrote:
->>> On 22/08/2026 09:46, Marek Vasut wrote:
->>>> +description:
->>>> +  USB2 PHY block in STM32 is attached to USB 2.0 Host controller and
->>>> +  USB 2.0 side of DWC3 DRD controller, and provides the USB LS/FS/HS
->>>> +  connectivity. Both PHYs are the FEMTO-PHY, but their configuration
->>>> +  bits in the system control register are different for each variant.
->>>> +
->>>> +maintainers:
->>>> +  - Fabrice Gasnier <fabrice.gasnier@foss.st.com>
->>>> +  - Marek Vasut <marex@nabladev.com>
->>>> +  - Pankaj Dev <pankaj.dev@st.com>
->>>> +
->>>> +properties:
->>>> +  compatible:
->>>> +    enum:
->>>> +      - st,stm32mp25-usb2phy1
->>>> +      - st,stm32mp25-usb2phy2
->>>> +
->>>> +  "#clock-cells":
->>>> +    const: 1
->>>> +
->>>
->>> As pointed out by different patchset built on top of it, this is wrong.
->>
->> What is wrong in this (V3) of the patchset ? I think the ST patches were
->> fixing up V2 and what they were fixing up is already fixed here in V3.
+Hi Viken,
+
+On Thu, Aug 27, 2026 at 06:44:21PM +0530, Viken Dadhaniya wrote:
+> On 8/26/2026 7:27 PM, Andi Shyti wrote:
+> > ...
+> > 
+> >> +static void qcom_i2c_target_hw_reset(struct qcom_i2c_target *target)
+> >> +{
+> >> +	/* Clear error bits before SW_RESET; the reset may not be instantaneous */
+> >> +	writel(BIT(ERR_CONDITION) | BIT(CLOCK_LOW_TIMEOUT),
+> >> +	       target->base + I2C_S_IRQ_CLR);
+> >> +	writel(SW_RESET, target->base + I2C_S_SW_RESET_REG);
+> >> +	/*
+> >> +	 * I2C_S_SW_RESET_REG is write-only so completion cannot be polled.
+> >> +	 * Use a conservative delay to allow the reset to finish before
+> >> +	 * reconfiguring the controller.
+> >> +	 */
+> >> +	usleep_range(10, 20);
+> > 
+> > This is also called in atomic context from the irq handler.
+> > Please avoid using usleep_range(), perhaps you can put this in a
+> > thread.
+> > 
 > 
-> Probably I got confused... but I had impression the ST patches were
-> adding here "reg" property, no?
-It is there in V3:
+> Thanks for the review. The delay is only 20 µs, so we were
+> thinking of replacing usleep_range() with udelay() instead of
+> converting to a threaded IRQ, to avoid the added complexity on
+> all the normal fast paths.
 
-"
-+  "#clock-cells":
-+    const: 1
-+
-+  "#phy-cells":
-+    const: 0
-+
-+  reg: <------------------ HERE
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  resets:
-+    maxItems: 1
-"
+perhaps before sleeping you could check the context you are
+executing (with an explaining comment).
+
+Thanks,
+Andi
