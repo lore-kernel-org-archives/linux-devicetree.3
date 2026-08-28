@@ -1,192 +1,165 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2129.outbound.protection.partner.outlook.cn [139.219.17.129])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-39.mta0.migadu.com [91.218.175.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3AD33CF69F;
-	Fri, 28 Aug 2026 11:32:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.129
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787916728; cv=fail; b=GHfHuxJwwTYxCZvThvtITNwe9zPYbtTVIyz0NoDcweyFmaDlwdJpBOwCnC5aBUvQU8bwXjcVqg54IIpDGUpgwZ3+uXl1viYMpJtn/G0I/jxVunag1mzbOZCksO/IZVcYXcMwn9Wyo3s/9wrNYUkhT6qpmy9B5bPBhi/+cPXLyv4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787916728; c=relaxed/simple;
-	bh=bkzPstVN1lUd7+ObvCLSJi945OAgUQkWqyaK7jO8oQg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Ep97S41ptWM9BZYaWZCLthm5WB3iZZeIKg7qimLvtkNvKYe7a66+jrTnU1OTSVdtkOBja9Wtzzr+LZX7+86Y6ozcuozzq/uvwGF4qiahkkp+Vqz8cggg1uzTmrjhMEar2ArUUZAXdzx5SZNEy6SNmYc/n2WmrOKDLl/Ur1p7BKs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ODiicN46aM3DLh5vyLDx3JHCDeozky5AxyCNCJCIAf2mlBIJy9PHYZMtd58kA88v9xi2wvY09B6uCsjG2I81D0XBbzymJfFWjaOY6PhfcXiD01s79VJlVSDzIszHsOLm9bSwxhTQ11jh2Jg/gD6iLZAvQ73G7fDZ4mVzmXUe6qkTyKDGHJFMTN7e5YCVc91YhlDuGUMXI7PGymPbNb0AJx0vBq1OcTgcs1C4JVgOGVhXJocW42N+n7deFhOtsNDoI1ZbGxgpjICT1MYwg9vxGWspougIz0JlBPRbZKSVfzWuOGn9hk6lXHQxcSsd55Va6o53dhqrMUtvsX/u9cTQLA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ak97mMsm5zVvi9rr7ZL8RvZur96iFxmWabLHjSQvUcc=;
- b=m4t3RwEICjjePpNG/Armm/a1kDLqkFXQZv6Ai2GhF98ZEVlYoJhxUSxhr+iPw4vnyxVvOcwq+ks/vwlt+1cpAGYY5/VXV0tDwRfxfri9AT0cWSRCGFH2HbtsXmC2tu0OK2IUirrsH8KaiqFjxcqVMfvfhusGq3qgUbtpzHfABs2hIG4Rpkkp4SZ+VeXUncj+BSfrSOh+rToTMXsBHzlYfpC+HzuLDVs65E71PyxPnVrzR+KKoCOkN3z/2zGva/JiKF2xi7l2dWxRxFS7ZiiWSnU5pTdRtUNRwkM0ow1Rpe5WCQz0tYQcG+GZO1rv7ORFvRI4OUcnj+d3GHDjR4Xc1A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1203.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:15::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Fri, 28 Aug
- 2026 09:56:27 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0315.011; Fri, 28 Aug 2026 09:56:27 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Michael Turquette <mturquette@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE0314483A0
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 11:45:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.39
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787917561; cv=none; b=ox5V63wSDe910NdGRLZ08jpnF7aboVf/2nMd5EOEOM9IeVro5wQI4wxZGv2e+ygmnJkpCdlA/zlDSWSjufUOOeMdL6SkJM96qeTvOKWd+7uejVJOoig4GLhnutJd5w2M8QPPo5lnv65HeuoIYlTJy/ivBWd/uzCiyGAtG7+vmOk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787917561; c=relaxed/simple;
+	bh=KJSKVfVDA4BnilE2RrZaUQRN55DrOrdNl6twBREZKDE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nkwTTIO8Y83p0kWfY37U1TlOgGTs9Rge+/xacfXraP8MZ4FQwYNZICjYm07A7j74YnLOhzNXwGK+EBZA7Af9jQcq/j7t15rxJqiwYDjIKX4t0la1GUAGIj/MAonwm8KPCAufu7I6Urq7mC5EJl2j+qXPrewtWI3LyjkR/46NuyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=TPXSYFoP; arc=none smtp.client-ip=91.218.175.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="TPXSYFoP"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=KJSKVfVDA4BnilE2RrZaUQRN55DrOrdNl6twBREZKDE=;
+ c=simple/simple; d=cknow-tech.com;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787917550; v=1; x=1788522350;
+ b=TPXSYFoP/8A/ZLUBCcG3l83HNSxL733EySUyQJOHgcdsOA3xFtxJFQPmegZaWAhRIV/2aX/m
+ v33V+nVnUU2H0glHWsPIVuCPhO1ygQvneBTU3s3wwNFenf9Tc40//xkaiCk2fbROvBlklklTxY1
+ Yx/PuG8cmDGU0tIg+mk2fjg9RUS4n6Zpalqbelylzy2n+bKUCBN90U8WkkN1nm8QwVn3zTUsehk
+ gxsMGOGTzlB66D1NY6qMXS9ytqTGvu2225ggV9kKQU6irYpnijOVZE7QlrRs9lDE5hcHtLfTO2Y
+ sS9h4pxUrKnSihqHJipfQvvD3RUZKe9ktvwcW2IaEP8WA==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 326993ff3a397364;
+	Fri, 28 Aug 2026 11:45:50 +0000
+X-Mizu-Trace-ID: 326993ff3a397364
+X-Migadu-Flow: FLOW_OUT
+From: Diederik de Haas <diederik@cknow-tech.com>
+To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney@redhat.com>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Emil Renner Berthing <kernel@esmil.dk>
-Cc: Chen Wang <unicorn_wang@outlook.com>,
-	Inochi Amaoto <inochiama@gmail.com>,
-	Alexey Charkov <alchark@gmail.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Keguang Zhang <keguang.zhang@gmail.com>,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Ricardo Pardini <ricardo@pardini.net>,
+	Marcin Juszkiewicz <marcin@juszkiewicz.com.pl>,
+	Daniele Briguglio <hello@superkali.me>,
+	Hugh Cole-Baker <sigmaris@gmail.com>,
 	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Changhuang Liang <changhuang.liang@starfivetech.com>,
-	Hal Feng <hal.feng@starfivetech.com>
-Subject: [PATCH v5 5/8] reset: starfive: Introduce active_low
-Date: Fri, 28 Aug 2026 02:56:05 -0700
-Message-Id: <20260828095608.19955-6-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260828095608.19955-1-changhuang.liang@starfivetech.com>
-References: <20260828095608.19955-1-changhuang.liang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: NT0PR01CA0028.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:c::15) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6)
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Diederik de Haas <diederik@cknow-tech.com>
+Subject: [PATCH 2/7] arm64: dts: rockchip: Fix PCIe 2 pinctrl names and sorting on NanoPC-T6
+Date: Fri, 28 Aug 2026 13:43:02 +0200
+Message-ID: <20260828114530.1315798-3-diederik@cknow-tech.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260828114530.1315798-1-diederik@cknow-tech.com>
+References: <20260828114530.1315798-1-diederik@cknow-tech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1203:EE_
-X-MS-Office365-Filtering-Correlation-Id: 64356b87-899c-465e-0e91-08df04eaa0ca
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|52116014|1800799024|376014|23010399003|366016|56012099006|10067099003|18002099003|22082099003|38350700014|921020;
-X-Microsoft-Antispam-Message-Info:
-	aF1SZQ1MMCMEmDgxuJsiPvBaeAxytXpKjUoPuR0Gsx4jRNJk922SnVdulp8SbFBwPsgCmSFbjBR3vWBe7DHTTyq2Pzb4B4+p355m/0Y1tQzy5Tcunm7+17Sh56tmV1vtUmOHbIvO+wvjHaT7cvCJORMGW1gYc55MxdatLFkRYSdiIRIw+dirYJGAZc0ujRKlNgbodPFhxsfPepFmg3odvrDRjxQ3CQ6XH12Y6pfv5TeZmEtOK9/tXSiBSMhvpTxVWnBlTRigaRzf8ztNGQ1PDEWXHRzaRLYoou7h6vcfxoxH74BcD8igjtx2rm9AajfYYYE8eXgzMjPfchRa9AbjPja8X2aC6GTMENinFyV91EjV44ljtT9tBekwZBNnWyAzgKu7q8pm9m8eMxBbuWlVl4mZCWotzMAh6lRKl8S19vTLwygBWuwcd0PSgqwnqBvMPdOXP7/CzFqM2PdZ66AgMJkWHMcamiw6JelvXu0igSomFFKRgzMDcK4rmR8r5+N+nXaBIifr2e/VIellniG6lSsK5rxS2wFcBSiADxdScc46PH1tcL80ygI60g6uJAjRKJUcO+OtmjBtDDMbsiiTsw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(7416014)(52116014)(1800799024)(376014)(23010399003)(366016)(56012099006)(10067099003)(18002099003)(22082099003)(38350700014)(921020);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?oZVRu2NzonNb7aDkbcgqA1I6JmkXPejDIRRClym3i2qjMbcMJnKSU7Ev5/Hs?=
- =?us-ascii?Q?1PFs7tSW0bjG2RRM0RC215pK2/IvCg3wGgiCAtj7lt/69sMHUz3MkOQIar5V?=
- =?us-ascii?Q?EZsQfVsVosytzT19Bjje7FzNL/fA1tVe0y5/ppohS1/SItMvVDxMe0yY83vB?=
- =?us-ascii?Q?Q1a1DXs10/CnDuX/OC4/aWj0KCxHn7H73zs7ISgmmrMSbEtSRodN60orbk1z?=
- =?us-ascii?Q?QoDKLpPbwDIhUXaGAPd8T+CUCBxDMm7bHEYSyp8mzptsKx2iFzEQwZOI5NHy?=
- =?us-ascii?Q?GwrwxDfvd9k/lWq4kPcGQ2vbgE9Pf6CCeLZ8zHkECW0EnzBSceVJP7gp2aC2?=
- =?us-ascii?Q?ghEoHQ42sGUiR3hVnpeLruVtsDdk4YhGCkF70dWEB9K6urDz4swP1QJX8hWz?=
- =?us-ascii?Q?GP+FMmk/yXjaWZDzWiVLC68Pk+GCxbhvfRYSbwAmjkHcV9/WLejdj+OFi86j?=
- =?us-ascii?Q?IWBF+vE9XWt0IOuE9ya7ZLvUPtB1qv5p5+w3o1JAytDeRqnKlJ24ZaVXbLc/?=
- =?us-ascii?Q?imRotdris+Lgn6FnsXPu6npY6BOX0DCAkF4qIwYtQhdMJAVZmnt9k14keC1W?=
- =?us-ascii?Q?Crxmz/phLIByDvAI05slB2PaXEiP+F6tt4OSJBhtiChSZhg3WUsEYsIqXwND?=
- =?us-ascii?Q?cKwps6GZWXq+X+uTCnfHwOk95J656nhOljYdJwcQZla7tvMZZqDPKuhx2wnI?=
- =?us-ascii?Q?JAYmxHcI5ztVtBNSztSpJA06a0Tf4F1QhPWZxKdvw8vUY9tK+JOChD/ma9+o?=
- =?us-ascii?Q?A5Qktb78sh45/nhLFB2BWjsgsgoLw1GsjyyCKcdzRJAQL2ShSXKRPmVu6Fi0?=
- =?us-ascii?Q?Kww0MId7tQ5Hdh8QpN4mD/IR7z/mLtjtx1F2YkE0PsgMVU8n6afR19PctCS3?=
- =?us-ascii?Q?PcVZij3W2H1dfMA/V/u/RRsfObBWwKxbWi5YpUbQCgCtPGBmvTethTrRaohR?=
- =?us-ascii?Q?S8aIKZeSgVX/wQDtx8FwPx95wsNGd1NPPdTsCE85RSsoQrAUy7VxMm25m/nL?=
- =?us-ascii?Q?x17xtH02EfxJj2g1MHT/XbPSzWCJFBcFbWvFA7i6NwmApvh7m7iLV0P+xhJA?=
- =?us-ascii?Q?vlg4R66UIdlIBcWKKmDvMkbunM+4Dx6Tgo3/zCuJKndoibbuwquaUqpDW99Z?=
- =?us-ascii?Q?dTT/42ajOY0L9BzuNs3Z6xx2Cdwe9OgKHXeceq2eDQs+I+DoaMqPIVXCLhx6?=
- =?us-ascii?Q?CcP14XbcrY9Ix4kZP9HyNlAFLPMb7BzeLNBYRkSYI92yuBiHjzCdN2V7Q6gz?=
- =?us-ascii?Q?Bysp53JNy9+/EVbcMZlAEYvCQTqR67cecwrhwhfnsYyTJMBbdHRgk0I7Ae8w?=
- =?us-ascii?Q?LGXQGEO1thO8agxru2mCm2tgOXraaztnpu3SRQ7d1zdI4esyG23wvu8l6Fy3?=
- =?us-ascii?Q?VO7pS8jDBg7uMMyfh9wdCmk+uSjRTAZHHOAkZoEleTGbNDD5+Dvy9t3WzRGX?=
- =?us-ascii?Q?DEO/gpqe/wnuTSsLb6ZfMp5W2y1JCb7ZDWLFrMF9IuowI16kZljMdq/CziLi?=
- =?us-ascii?Q?hsYMuqtlVv5H6+j9eCw0rkiYBZoP2KpTbHEEJ+XZ94erhZH/+2t+jEzL2nq1?=
- =?us-ascii?Q?xnd9CkaQpVmTqCsGruv4zcKEUicU23Ly69Q9YSASXFav6pdENjzmmwppSSJN?=
- =?us-ascii?Q?GuDtFYx59rCnhe7ESvseDuQaDnENbYG/P6jlUwW4zry27H5n/WuT6cPS4quI?=
- =?us-ascii?Q?Y13kG64tIxQXzdZHBguYQKClxC/YyDB+45jJxQMeFbIjmweVdqBp4LaJbDzm?=
- =?us-ascii?Q?hgJiVyV0d20yJwZs+9j82DdOhldJrqtyzaBmNmLFhdxdBToBO8PH?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 64356b87-899c-465e-0e91-08df04eaa0ca
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 09:56:27.8195
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xWPUByaM64NZplrCV5/AGIjy+e8OEW1dYN+Rp3ZoJSwMHWLEUx+t1WDKzG/pigMAnbnjCSYtqStsAZHjwnLR2Qp7UiXKr1foEB4fOqP7/BN+XzfIPdCKcPn3RZ5s1lSq
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1203
+Content-Transfer-Encoding: 8bit
 
-The JHB100 SoC supports inverted operations for reset
-assertion/deassertion, introducing an active_low field to distinguish
-between different operation logics.
+Use the pinctrl names as used in the schematics and use natural sort order
+by property names for the PCIe 2 nodes.
 
-Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+Signed-off-by: Diederik de Haas <diederik@cknow-tech.com>
 ---
- drivers/reset/starfive/reset-starfive-common.c | 6 +++++-
- drivers/reset/starfive/reset-starfive-common.h | 6 ++++++
- 2 files changed, 11 insertions(+), 1 deletion(-)
+ .../boot/dts/rockchip/rk3588-nanopc-t6.dtsi   | 36 +++++++++----------
+ 1 file changed, 18 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/reset/starfive/reset-starfive-common.c b/drivers/reset/starfive/reset-starfive-common.c
-index 86dbb33bb216..7723520637ca 100644
---- a/drivers/reset/starfive/reset-starfive-common.c
-+++ b/drivers/reset/starfive/reset-starfive-common.c
-@@ -52,12 +52,16 @@ static int starfive_reset_update(struct reset_controller_dev *rcdev,
- 				 unsigned long id, bool assert)
- {
- 	struct starfive_reset *data = starfive_reset_from(rcdev);
-+	bool active_low = data->info && data->info->active_low;
- 	unsigned long offset, flags;
- 	void __iomem *reg_assert;
- 	void __iomem *reg_status;
- 	u32 mask, done, value;
- 	int ret;
- 
-+	if (active_low)
-+		assert = !assert;
-+
- 	if (data->info && data->info->discontiguous) {
- 		id = starfive_reset_id_to_hw_id(data->info->map, data->info->nr_resets, id);
- 		if (id == STARFIVE_RESET_ID_INVALID)
-@@ -70,7 +74,7 @@ static int starfive_reset_update(struct reset_controller_dev *rcdev,
- 	reg_status = data->status + offset * sizeof(u32);
- 	done = data->asserted ? data->asserted[offset] & mask : 0;
- 
--	if (!assert)
-+	if (active_low == assert)
- 		done ^= mask;
- 
- 	spin_lock_irqsave(&data->lock, flags);
-diff --git a/drivers/reset/starfive/reset-starfive-common.h b/drivers/reset/starfive/reset-starfive-common.h
-index 0d4e634de58e..c7f80e744700 100644
---- a/drivers/reset/starfive/reset-starfive-common.h
-+++ b/drivers/reset/starfive/reset-starfive-common.h
-@@ -15,6 +15,12 @@ struct starfive_reset_info {
- 	unsigned int nr_resets;
- 	unsigned int assert_offset;
- 	unsigned int status_offset;
-+
-+	/* If active_low is false, setting the bit to 1 asserts
-+	 * the signal while clearing it to 0 deasserts it, and vice
-+	 * versa.
-+	 */
-+	bool active_low;
- 	bool discontiguous;
- 	const struct starfive_reset_map *map;
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
+index fc49b927ef73..16c35250bacf 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
+@@ -195,8 +195,8 @@ vdd_mpcie_3v3: regulator-vdd-mpcie-3v3 {
+ 		compatible = "regulator-fixed";
+ 		enable-active-high;
+ 		gpio = <&gpio4 RK_PC2 GPIO_ACTIVE_HIGH>;
++		pinctrl-0 = <&pcie_m2_1_pwren_pin>;
+ 		pinctrl-names = "default";
+-		pinctrl-0 = <&pcie_m2_1_pwren>;
+ 		regulator-name = "vdd_mpcie_3v3";
+ 		regulator-min-microvolt = <3300000>;
+ 		regulator-max-microvolt = <3300000>;
+@@ -207,8 +207,8 @@ vcc3v3_pcie_m2_0: regulator-vcc3v3-pcie-m2-0 {
+ 		compatible = "regulator-fixed";
+ 		enable-active-high;
+ 		gpios = <&gpio2 RK_PC5 GPIO_ACTIVE_HIGH>;
++		pinctrl-0 = <&pcie_m2_0_pwren_pin>;
+ 		pinctrl-names = "default";
+-		pinctrl-0 = <&pcie_m2_0_pwren>;
+ 		regulator-name = "vcc3v3_pcie_m2_0";
+ 		regulator-min-microvolt = <3300000>;
+ 		regulator-max-microvolt = <3300000>;
+@@ -629,26 +629,26 @@ map1 {
  };
+ 
+ &pcie2x1l0 {
++	pinctrl-0 = <&pcie_25glan_perstb_b_pin>;
++	pinctrl-names = "default";
+ 	reset-gpios = <&gpio4 RK_PB3 GPIO_ACTIVE_HIGH>;
+ 	vpcie3v3-supply = <&vcc_3v3_s3>;
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&pcie2_0_rst>;
+ 	status = "okay";
+ };
+ 
+ &pcie2x1l1 {
++	pinctrl-0 = <&pcie_wifi_perstn_pin>;
++	pinctrl-names = "default";
+ 	reset-gpios = <&gpio4 RK_PA2 GPIO_ACTIVE_HIGH>;
+ 	vpcie3v3-supply = <&vdd_mpcie_3v3>;
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&pcie2_1_rst>;
+ 	status = "okay";
+ };
+ 
+ &pcie2x1l2 {
++	pinctrl-0 = <&pcie_25glan_perstb_pin>;
++	pinctrl-names = "default";
+ 	reset-gpios = <&gpio4 RK_PA4 GPIO_ACTIVE_HIGH>;
+ 	vpcie3v3-supply = <&vcc_3v3_s3>;
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&pcie2_2_rst>;
+ 	status = "okay";
+ };
+ 
+@@ -716,25 +716,25 @@ ir_receiver_pin: ir-receiver-pin {
+ 	};
+ 
+ 	pcie {
+-		pcie2_0_rst: pcie2-0-rst {
+-			rockchip,pins = <4 RK_PB3 RK_FUNC_GPIO &pcfg_pull_none>;
+-		};
+-
+-		pcie2_1_rst: pcie2-1-rst {
+-			rockchip,pins = <4 RK_PA2 RK_FUNC_GPIO &pcfg_pull_none>;
++		pcie_25glan_perstb_pin: pcie-25glan-perstb-pin {
++			rockchip,pins = <4 RK_PA4 RK_FUNC_GPIO &pcfg_pull_none>;
+ 		};
+ 
+-		pcie2_2_rst: pcie2-2-rst {
+-			rockchip,pins = <4 RK_PA4 RK_FUNC_GPIO &pcfg_pull_none>;
++		pcie_25glan_perstb_b_pin: pcie-25glan-perstb-b-pin {
++			rockchip,pins = <4 RK_PB3 RK_FUNC_GPIO &pcfg_pull_none>;
+ 		};
+ 
+-		pcie_m2_0_pwren: pcie-m20-pwren {
++		pcie_m2_0_pwren_pin: pcie-m2-0-pwren-pin {
+ 			rockchip,pins = <2 RK_PC5 RK_FUNC_GPIO &pcfg_pull_none>;
+ 		};
+ 
+-		pcie_m2_1_pwren: pcie-m21-pwren {
++		pcie_m2_1_pwren_pin: pcie-m2-1-pwren-pin {
+ 			rockchip,pins = <4 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>;
+ 		};
++
++		pcie_wifi_perstn_pin: pcie-wifi-perstn-pin {
++			rockchip,pins = <4 RK_PA2 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
+ 	};
+ 
+ 	usb {
 -- 
-2.25.1
+2.55.0
 
