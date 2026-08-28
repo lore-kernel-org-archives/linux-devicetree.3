@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D4B224AF9;
-	Fri, 28 Aug 2026 09:55:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E1453F7AB7;
+	Fri, 28 Aug 2026 09:56:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787910939; cv=none; b=g5udTupvi5bsbE7nVhPfU2Uv50/8EDfpbihbomYm5bF7ilOXwoy0Udz7WURegirbenwEGELh4xIrXMe/IjphXz0XSnMUoKC7PnZhepB6iyUJiwmi5PollTgVK2AgpM2jKHUxOB5BV4FYBM0geQva7kEFa2ChLOPYuuy2pOyJX3c=
+	t=1787910998; cv=none; b=cQWZgSSMAqF22RAsUh7DY7MDZ/15CRd3XHlzIe+FSM7NXzmp2Co9Cvy3gBN9bytmQG9yHygYlUNiKJciepBDhWmpUCQtqBesI9+F5lze1SYW22D/D5WjMyDM5oQH/CfHMFP9qK4QGm1RzQAIOLQP7OxbGBbZ9j8o1uFVIsS0f1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787910939; c=relaxed/simple;
-	bh=Oiv1fjwE0fPV25G5MaQnpthHmH1NJ4nT1lnP2cUqPYM=;
+	s=arc-20240116; t=1787910998; c=relaxed/simple;
+	bh=lXETUQg915sztNxwiHH1Fjms2j4DOHmuRNr3d+j19+w=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z1iT4WWrcc+6rXqzyHfkYxcPcdZxIGoFP/uG48Wm1+7XINgdKFzJpvAyWah7VdbvOPNZSyOstcign9HPxw3VsZlny0JYKDWYnd6FR01V2qVdLG2dntQiObmk0DUBd7OPkZTf7NDXLe14trvT/2UZ+s3BiXrjqovX5kJ8x+hMcYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PdyweBkM; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Tl/azddtLHENf0tMuREMwA0Byty264QqelOcxFQNvAI95YqmT596AdBBM/Dcorvu33RHU5BZLCBg85XxNRPFpKnPoFWZGWID8+bMjbTdpT2dPCUfu1LUaHGXmJVyXG4DY+/k7A/5arwz9UNAaHFK62kSy65uJvjCvSuLLRw9Uz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lyHpHyTW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PdyweBkM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E1521F000E9;
-	Fri, 28 Aug 2026 09:55:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lyHpHyTW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A8A41F00A3A;
+	Fri, 28 Aug 2026 09:56:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787910938;
-	bh=SSMioLvP13rH7vJ6xy9EE9Tee9tSJjfjWuEz//5SyOA=;
+	s=k20260515; t=1787910993;
+	bh=HleWmOudSXdQ5Id/XLyTjYYYma/Xr4bAKsDrP2oCuYE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PdyweBkMNT/MnU+hZuFpiTG0pN4bWJ3wyNuG8vrKdlbUejUqbMM9+L9M5qg4CDdMu
-	 EEEcdS4FFsO69PB/zO8GWH3bfoSJTiaQNOGWjcCYAlOmnq8dT/uS7Hx/IMZYsAlMZD
-	 pOVhA+hO31UX79npR+7L5EzWn8vxrLwm1gZuViCykbGvFU2GZ4QHdZkBeSv4Pm1nIA
-	 hTDLAtN5fgdIL646uge+j+/WI4sq3aqrTGwaez/rqnLgIQYZZkwz2cg05YyMeYEPVD
-	 8CgChy1w5PqeQOJWr8jsYFL5MNnwBGj596JV9v18KBhOEex1+bzkuSlqmnexqtVXS7
-	 aP11ZdK+CMafQ==
-Date: Fri, 28 Aug 2026 11:55:35 +0200
+	b=lyHpHyTWKzzuVKi5W+RuZq6xLiX1JXFAmsHlAe33/VhcAj/GuE078k8ZBD+r9oves
+	 CDinIFeKc0Q/PZZ4tadN57nZu2heXw48mwPWQZOEBKFPhCsKw/gTxx/c7eWt8K61et
+	 r0M6mbObNgJeOJuQ/vu3Y4TqjPq299lvoKdLnGZYZGs3EpI2MXkH+6sa+OE6a69afQ
+	 PKeTFL4gfBsK0N4QC1+xKnMvM/NG9MHK0FzSWkZ2XJzDeYvJ4TTsKrpq6vXwE0PnDF
+	 WBnpz2g6GoxzF0rIUKDa36yb/gkMFLfY4z/9rf/229Y7E0HLUKD2S9MECQGt27reOh
+	 74mr7/IvMYYuA==
+Date: Fri, 28 Aug 2026 11:56:30 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Praveen Talari <praveen.talari@oss.qualcomm.com>
-Cc: konrad.dybcio@oss.qualcomm.com, Mark Brown <broonie@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, chandana.chiluveru@oss.qualcomm.com, 
-	linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] spi: dt-bindings: Document ready-gpios property
-Message-ID: <20260828-tremendous-honored-dragonfly-b54f7e@quoll>
-References: <20260824-use_gpio_to_notify_master_of_spi_target_activity-v4-0-fde2ebf043db@oss.qualcomm.com>
- <20260824-use_gpio_to_notify_master_of_spi_target_activity-v4-1-fde2ebf043db@oss.qualcomm.com>
+To: Sreeshankar K <sreeshankar0910@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	andersson@kernel.org, mturquette@baylibre.com, sboyd@kernel.org, rafael@kernel.org, 
+	viresh.kumar@linaro.org, konradybcio@kernel.org, tglx@kernel.org, ulfh@kernel.org, 
+	bmasney@redhat.com, radu@rendec.net, abel.vesa@oss.qualcomm.com, 
+	lpieralisi@kernel.org, taniya.das@oss.qualcomm.com, danila@mainlining.org, 
+	davidwronek@gmail.com, mani@kernel.org, robimarko@gmail.com, linux@gurudas.dev, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-pm@vger.kernel.org
+Subject: Re: [PATCH v6 00/13] Add initial support for Qualcomm SM7250 SoC
+Message-ID: <20260828-liberal-jumping-quokka-cff4da@quoll>
+References: <20260824150156.1310-1-sreeshankar0910@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,23 +48,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260824-use_gpio_to_notify_master_of_spi_target_activity-v4-1-fde2ebf043db@oss.qualcomm.com>
+In-Reply-To: <20260824150156.1310-1-sreeshankar0910@gmail.com>
 
-On Mon, Aug 24, 2026 at 07:55:59PM +0530, Praveen Talari wrote:
-> When operating in SPI target (slave) mode, the GENI SPI controller can
-> use an external GPIO to notify the SPI master about the target's
-> active state.
+On Mon, Aug 24, 2026 at 03:01:43PM +0000, Sreeshankar K wrote:
+> This patchset introduces foundational upstream support for the Qualcomm SM7250
+> SoC (internally codenamed Lito).
 > 
-> Document the optional ready-gpios property for the qcom,spi-geni-qcom
-> and qcom,sa8255p-geni-spi bindings, restricted to spi-slave nodes.
+> SM7250 is an ARMv8.2-A platform manufactured on a 7nm process, featuring an
+> octa-core Kryo 475 CPU configuration (1x Prime Cortex-A76, 1x Gold Cortex-A76,
+> and 6x Silver Cortex-A55) and Adreno 620 GPU.
 > 
-> Signed-off-by: Praveen Talari <praveen.talari@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/spi/qcom,sa8255p-geni-spi.yaml | 9 +++++++++
->  Documentation/devicetree/bindings/spi/qcom,spi-geni-qcom.yaml    | 9 +++++++++
->  2 files changed, 18 insertions(+)
+> This patchset is organized as follows:
+> > Document relevant device tree bindings (SoC ID, Kryo 475 CPUs, SCM, PDC,
+> RPMh clocks/power domains, GCC and cpufreq hardware).
+> > Add driver support for SM7250 in socinfo, rpmh-clk, rpmhpd, and GCC.
+> > Add the base SoC DTSI (sm7250.dtsi) defining the cpus, PSCI,
+> interrupt controllers, clock providers, power domains, and reserved memory.
+> 
+> Dependencies:
+> This patchset depends on the following patch:
+> > [PATCH] dt-bindings: clock: qcom,sm6375-gcc: Merge SM7150 into SM6375
+> Link: https://lore.kernel.org/linux-arm-msm/20260817082457.64797-2-krzysztof.kozlowski@oss.qualcomm.com/T/#t
+> 
+> [PATCH v5] Link: https://lore.kernel.org/linux-arm-msm/20260824130437.2771-1-sreeshankar0910@gmail.com/T/#t
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Please keep the previous changelogs and links.
 
 Best regards,
 Krzysztof
