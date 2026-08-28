@@ -1,111 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail-m19731119.qiye.163.com (mail-m19731119.qiye.163.com [220.197.31.119])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E0663AA1BF;
-	Fri, 28 Aug 2026 07:35:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07399347BAF;
+	Fri, 28 Aug 2026 08:07:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.119
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787902553; cv=none; b=RV0ujBLXxBafzb/IAoZmcTUDrtkue0hpn4mVNjplCE3t7LQFj7AXX6FnLgRwteAp/lBJ7GHvlxaFD1yrILgFDSPwfUrnJQ5DGYUsuTTSmx36DZ6wI6vLLGifJ9DXPCuYtn//V+bJu2bWYtSU6/ec8JRmapier+OKGSy0HjzOZfM=
+	t=1787904479; cv=none; b=HekrpDH3h/NRvPra8PlpjiJcNvTrHJ5/cxSbYZJx03tepfG9rmhnOWjxkYLPt1SykIRwqBitA2sgvh2eUXkeJEQBma8RWFJnFNx+8KfVRHUe7ifuKQOHeVYzgeo4Zgi0v4sehDpvMKzD3WWQObwTHkdBTZvK3m4xMzT5Yy92wwM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787902553; c=relaxed/simple;
-	bh=ZOBCA19VLQ1IKCeBijN70gbTvNCwCmZyIOxmk5n/RS0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ED65gQuWSrxyNoIzR4LqRfuCzOwcWia/XVaNYUbEEx49Jehq9idK2v5EuXeoD4F72/5TFBYPG80L9jU53ZvBW4OaPFgp/cXbO1uujTFkjDYQdGyrTt1i4C4Qu7xYP3Ycs4ydmfMGQdXTGw/kZ8TRL+iLiFPrzirRUjYJv/ifmxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P6fcJnYB; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1787904479; c=relaxed/simple;
+	bh=86qE8iNc3OeLJsjSXl4KK/izOp1Dpd0rOju/tB9fP+M=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=ppHEG5wTGi7ec9GPYUcS5oVedLiN6fE3bfY63bNKfgoc8CVz6qYcid2zwptJC3SzMujYmANVuPkJOQrLDZjmmBkPUhbxTE/OJB2CkP1utNLy1GyJuYQoZ8hgwrNkXxevCjC1FQQBlMMiYQLVF+JkACBgL22xACmWVUd1IYfrZco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=Ljed/ziL; arc=none smtp.client-ip=220.197.31.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P6fcJnYB"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BBA88C2BCC7;
-	Fri, 28 Aug 2026 07:35:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1787902552;
-	bh=ZOBCA19VLQ1IKCeBijN70gbTvNCwCmZyIOxmk5n/RS0=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=P6fcJnYBFAFPNb+rLD734AKtJZcm1UY1AB47GGgxYNn4IbpsJSChO+h5+D5yJlZse
-	 RIAWAI0xYunON7sNE00ky5MVvuK7wJyfEXeJ3CbLzjCBZPUD2Mu5AR1bsFLW6ufFRV
-	 x0jdeRZhGN+f5/AGL3NDJxAvma3nYOG27SN9zo3gpV3u0b3yk8CQUw1s341F9rg1TP
-	 cYkWPTlHp9qGMcritB4wmWw4wupiVMVckfHJKgeSGekD4TOnrRWmXBDzHaLUlYMl2E
-	 mV+rkDDq1qMiKYU2bhuB8hCatrtWC8wApefGpj3/C0YQkP+P4M3c2+lMG4PstWkZTE
-	 lrZU0yfETzXEQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 99041C61DCD;
-	Fri, 28 Aug 2026 07:35:52 +0000 (UTC)
-From: Dirk Chen via B4 Relay <devnull+dirkchen.amd.com@kernel.org>
-Date: Fri, 28 Aug 2026 15:35:38 +0800
-Subject: [PATCH] ARM: dts: aspeed: anacapa: Add MCTP I2C controller node
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="Ljed/ziL"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4bab2d593;
+	Fri, 28 Aug 2026 14:52:04 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sandy Huang <hjc@rock-chips.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	Damon Ding <damon.ding@rock-chips.com>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v8 1/5] dt-bindings: display: bridge: analogix-dp: Add data-lanes support for endpoint
+Date: Fri, 28 Aug 2026 14:51:49 +0800
+Message-Id: <20260828065153.590802-2-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260828065153.590802-1-damon.ding@rock-chips.com>
+References: <20260828065153.590802-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260828-anacapa-dts-amc-v1-1-463eb4e6a6a2@amd.com>
-X-B4-Tracking: v=1; b=H4sIAEk6kWoC/x3MPQqAMAxA4atIZgO2hfpzFXEINWoGa2lEBPHuF
- sdveO8B5SysMFQPZL5E5YgFpq4gbBRXRpmLwTbWN53tkCIFSoTzqUh7QN8aG9reO14clCplXuT
- +j+P0vh9XFmTzYQAAAA==
-X-Change-ID: 20260828-anacapa-dts-amc-6712c7963ef3
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Ryan Chen <ryan_chen@aspeedtech.com>, 
- Billy Tsai <billy_tsai@aspeedtech.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
- Dirk Chen <dirkchen@amd.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787902540; l=1212;
- i=dirkchen@amd.com; s=20260202; h=from:subject:message-id;
- bh=rEGeEm+ATZyoe3HxKSYL2gspIoEHBpWwgs2ytKBM6Z4=;
- b=Z63sFH/O7K+hj/ourvWsfKtVprO2gAFZc2jSHH6Tbxnbat8MpVQlRfpYi3XVYZFUWaSrvasBs
- +1b7UiNVonCDvhTqDRb4Ig/k6pcCe5oU0prhRBDgXib5zdgVH7BKUkW
-X-Developer-Key: i=dirkchen@amd.com; a=ed25519;
- pk=NBIyLsVg/YYtGLruq9XLdLWx2PP/1MH4jDDQ1V+7wes=
-X-Endpoint-Received: by B4 Relay for dirkchen@amd.com/20260202 with
- auth_id=622
-X-Original-From: Dirk Chen <dirkchen@amd.com>
-Reply-To: dirkchen@amd.com
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa04723ce3f03a8kunm9cc188d5188338
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQ0xKS1YdSEhMTh5LTR
+	hISElWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSEpKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=Ljed/ziL5cCkMGijIK1KOZtH1Vil1rHKaBmH09fh4U6BYzvb02NYrmVqlDCeuUV/Kf4kiCI8shVBRFYb5aY5yLaWgfI+s3Wd8eptjWi2SSnSj5HGaGRixQ8Nu4RYZHph3Y5swHR+DfaKbZrUc9s5FksIvNB4i7jId7Gi2WaKRNI=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=gbO4NOwH9/N0sj4hUDr89N79K9dV9ulbx0CXUgmsDFg=;
+	h=date:mime-version:subject:message-id:from;
 
-From: Dirk Chen <dirkchen@amd.com>
+Add data-lanes property support to the port@1 endpoint for physical
+lane mapping configuration.
 
-The Facebook Anacapa BMC uses I2C5 as an MCTP (Management Component
-Transport Protocol) bus. This patch enables the controller by
-adding the mctp-i2c-controller node under I2C5, with multi-master
-support.
+Lane mapping is mainly used for below scenarios:
+1. Correct PCB lane swap and differential line routing crossover
+   without hardware changes;
+2. Adapt mismatched lane pin definitions between SoC and eDP panel;
+3. Support multiple panel hardware variants on the same board
+   by configuring data-lanes in device tree only.
 
-Signed-off-by: Dirk Chen <dirkchen@amd.com>
+Additionally, add data-lanes setting in Rockchip eDP DT node example
+to show actual lane mapping usage.
+
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+
 ---
-The Facebook Anacapa platform uses I2C5 as an MCTP (Management
-Component Transport Protocol) bus for communication with the AMC.
----
- arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts | 8 ++++++++
- 1 file changed, 8 insertions(+)
 
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
-index 1fddf3a5d138..6073a643ea80 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
-@@ -433,6 +433,14 @@ i2c4mux0ch7: i2c@7 {
- // AMC
- &i2c5 {
- 	status = "okay";
-+
-+	mctp-controller;
-+	multi-master;
-+
-+	mctp@10 {
-+		compatible = "mctp-i2c-controller";
-+		reg = <(0x10 | I2C_OWN_SLAVE_ADDRESS)>;
-+	};
- };
+Changes in v2:
+- Add lane mapping application scenarios in commit message.
+- Remove redundant deprecated property 'data-lanes' for eDP node.
+- Update port@1 $ref to /schemas/graph.yaml#/$defs/port-base.
+
+Changes in v3:
+- Squash data-lanes adjustment of Rockchip eDP DT example into this
+  commit.
+- Add unevaluatedProperties: false to both the port@1 and endpoint
+  nodes.
+
+Changes in v5
+- Add Acked-by and Reviewed-by tags.
+
+Changes in v8
+- Add Reviewed-by tags.
+---
+ .../bindings/display/bridge/analogix,dp.yaml  | 19 ++++++++++++++-----
+ .../rockchip/rockchip,analogix-dp.yaml        |  1 +
+ 2 files changed, 15 insertions(+), 5 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml b/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
+index 62f0521b0924..ecf206871cdd 100644
+--- a/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
++++ b/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
+@@ -42,13 +42,22 @@ properties:
+     properties:
+       port@0:
+         $ref: /schemas/graph.yaml#/properties/port
+-        description:
+-          Input node to receive pixel data.
++        description: Input node to receive pixel data.
  
- // MB
-
----
-base-commit: 3d83758432b5e6ed9507500a57efb0f3af41ee7d
-change-id: 20260828-anacapa-dts-amc-6712c7963ef3
-
-Best regards,
+       port@1:
+-        $ref: /schemas/graph.yaml#/properties/port
+-        description:
+-          Port node with one endpoint connected to a dp-connector node.
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
++        description: Port node with one endpoint connected to sink device node.
++        properties:
++          endpoint:
++            $ref: /schemas/media/video-interfaces.yaml#
++            unevaluatedProperties: false
++            properties:
++              data-lanes:
++                minItems: 1
++                maxItems: 4
++                items:
++                  enum: [ 0, 1, 2, 3 ]
+ 
+     required:
+       - port@0
+diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+index 6548f157fd96..39dafe75a680 100644
+--- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
++++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+@@ -160,6 +160,7 @@ examples:
+           reg = <1>;
+ 
+           edp_out_panel: endpoint {
++            data-lanes = <0 1>;
+             remote-endpoint = <&panel_in_edp>;
+           };
+         };
 -- 
-Dirk Chen <dirkchen@amd.com>
-
+2.34.1
 
