@@ -1,114 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5AF53B14BC
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 10:13:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787912008; cv=none; b=M9jNDpCgYwPI2ZOEBsz2IrhvpKVrz6yaPBYHA/8MWqKUUKHjSxlaTaSsbIHZlnezqQ0/XVtY4meqKhwFh5oGdsyex5xN8UoTT143DUHvF7gObtk/7jTCyftHhjDiwb786GLQyzwNKAafyzsJ7z+1C2Ws+sq8vmCUgKFw0Wnpj8U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787912008; c=relaxed/simple;
-	bh=5eRbIFWzDLpxk1mb+r8+weV3Mo4gZDUA1iNFeCxVux8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XJZb3AyW99jNzg+EYcu8KZzcT3+m+IguYULiH1oP2bqDyx0yVF7b1rD+MWktqcim3Uw6asCanW/NRcj4G3pBhk8J2bLx7npQLvEKrD3tOWuQp6VH1xcQ7zvZUZGZ4mDNxdrduTV9WKrZO9fj98rAGkLVtPOGqnWw8Ow4g+78DnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iv22HHNN; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAB483B4EA2
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 10:14:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787912098; cv=pass; b=ON+NmnOhX+khrqqoMMb0UOXmBFtChVD8PwP5ELDQ5hu3QAvieBHwVHW9OdXP2mA5B92tZ8oxy5aLq5Pb0lJ/F3gVCvDSTOm6x6DObE4r3rSw5kewAkcfibMefoUgll9rtGPVHGZaxkVSt7tN9l8kOyDf22HngvPmU3EkpgegVTw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787912098; c=relaxed/simple;
+	bh=1v0dWB6wdPLQarMGeRV+L7km+yD5Klgx/RyILbyOSMo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tcd09BktUnhDPm+AcywNRRlL4nsvkZ4SzcZwt8kpEUQI0MKDvklakWLFL0Jv5S6RPcjGQ3921PuD4Bwrfflv4xko+h2pP6sk0u6ZrfE9XuD/3uLOIcWlTwXKK0UZoo0r2ih9we45yoYnj7gNeFrv7HySZH+q91lzoXqeybf5LuI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=no6m/T5B; arc=pass smtp.client-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iv22HHNN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A3361F000E9;
-	Fri, 28 Aug 2026 10:13:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787912007;
-	bh=oVZ2TIyp6j6jztQqy5lxwEvhHd6GuXOyZMFL5p5Lt7k=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iv22HHNNFP4GQEOfXPf3tWDKzDeT3LYwkKQwO2j90BSMxdSXIwcox8LQy2GozDH6k
-	 Pi5lWWAozXcIH3SH+2BbT8TF0RHd1N28R2IeaxVEz8yPc1rBbmiNd69fKCGNqefddT
-	 Wrx0fALGSqSC8YoAgl7FmjVVtF9Vl4HJoCJ/WEs+1eR3iiaGtB3ktf05kyfwebCSkP
-	 oCxitDbh7CjHk3yXEjgUkYMYdWrw4ZDJMFAfwNunZEqo6GYfPlfhwbKd5JRUG1oMYi
-	 EtzzsiSLlmdhlrvut/4nWiLOF7XnxAXP0LqXh3pBuaFD1BAIVyPrIlA1dcA35qRXoW
-	 N9+ovK7Q/o4sw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: mux-controller: ti: add binding for
- event mux router
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rahul Sharma" <r-sharma3@ti.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260828100615.1700223-2-r-sharma3@ti.com>
-References: <20260828100615.1700223-1-r-sharma3@ti.com>
- <20260828100615.1700223-2-r-sharma3@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 28 Aug 2026 10:13:26 +0000
-Message-Id: <20260828101327.0A3361F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="no6m/T5B"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c252e703fa3so125119166b.3
+        for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 03:14:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787912095; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mkojwAbbnaHqx979i7dCfk7J7rhBM53UjSDb3tEMz3oO3arj4xuBRumj1hze+nCRlC
+         XNFEfJcBmCFJCfP/ZTeSx2cufTnLTo0+mZvpfE3abql8J/RSRjfWoP7xY7ekzQcySvb3
+         mLbEcH1qzL5DNOKwUNvptMcVlptjoKRYjbwNIsEXaHQ3a6RVgoeZZYiL/bHtssb5TN/O
+         vNjtgdCYTXrmJbM/A9/Gx04rz3hpnZoeNAlbHJ5hNymtEmPEnvePaoIQM+gC/DIPkFEU
+         y/GAEGgsfjS0D09d3Vk+0OmXaTthUQYumHTPp96wuXrG0EBJl/bObldU1PgyDx5ncfkF
+         WVVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=1v0dWB6wdPLQarMGeRV+L7km+yD5Klgx/RyILbyOSMo=;
+        fh=2uaBnbJYwhjNORk7Qb5q8uuO757jarg8iVo35i/ypzk=;
+        b=Lgsf9I5MpFQzVK/uQWWNyhmJTDDUB6VU11Oe6FTFYx4HRhuCwqHKhJqsmXhgKMbxMM
+         yUw8FEYeFuIb8DXNMubHVEIgnfyDQ4kw2HViEChc4FdRmOdpNTqtgeYAlO19+XC8n0zZ
+         JZfGODsZ2Kd5FMHMsjQNxhOp8BMQBREYEfA1COBIeah4tX8YAhEfOQNOagATMF8o/lUn
+         +30mJlzMX4ZJ7HzSxuwo+XiYiC3KSljPrwlXiEyO99Ur1FJVjPAMpjp4jy1yxQCeXH6z
+         ISAtCxPfLn+dSJzpPPqbaBWsnzdjl56Xy5FZwwhgfJw38vFlq811VmJIpydMIrj/UWHd
+         Tmhg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787912095; x=1788516895; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1v0dWB6wdPLQarMGeRV+L7km+yD5Klgx/RyILbyOSMo=;
+        b=no6m/T5Bw8c0DLSeM5A22ornHVbSjgkRZwqR3U2HtV6WyaEpB6lcmVAz8OpqsWQn6n
+         k0UFY2zZ+AAFgBlq19ptPsX5aS9Ed+lv5FaV0kFkHNi6ULX9Gz7jhCFDC8vZBR19Km12
+         gosgw/9brnv0PsIRROiroFwImYB7XEyZnDc9Eo2ietqRa6WkoLoRLBBn1TrzWQYL9y5n
+         7hJyzBgQsJbv87gqIiQjdo4yHX+TCZ3xBEN7KehsnhAq37TCpJK2KOuJ0NOnVsnKynq0
+         zdQZ42ESzDOPfyH58UrNlbXf/pokJRApl5inRFNmWRWZJP/gF+LHckYfMy3wyAwuzNQ6
+         SPJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787912095; x=1788516895;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=1v0dWB6wdPLQarMGeRV+L7km+yD5Klgx/RyILbyOSMo=;
+        b=dJaBW+junRW5K/VIwsGvNOEHb6YGU5JG+67IEX3hKlTb83ByoWbR3EuozlSpww4Bi/
+         RBJmF16xxPEm3rutM+rR8OKK41xQJdPXAe1/Br/IWPXpyTtv4Qe97490edunfuapBGwx
+         YgHpsDD36hxyUlcTU16hGs653jHSp0PVSUv4U2e9EL+xT7mbE6/ra1lbS7NSHZf30opw
+         NnhL6vIzthLaHOuS9nTKp6kltJT0EB3AY8mVO7+QyO0HGtY7vw/l5z2KfHRdMOVr4FAx
+         dxqD9LaRViX+/DA62nAtE4m/qbMybldC0JWERZ3xfBmgc/2vyqcmFEclj8q01rMJztIY
+         4ZlA==
+X-Forwarded-Encrypted: i=1; AHgh+RolaTXNJHibRltxwmMUxezJbBNivJQnZC9JW5x5ExX6ro1I6iviIgJozCVMFTkNzW4OmKDfRFASmr60@vger.kernel.org
+X-Gm-Message-State: AFuF++lVzi3/0ZI6gH6NtZlJb8U1j6tovyV73yC81LXKsws+4nO6S2RU
+	fdS1M23G1YD7Ya1qyueyRQi47uI/lxNF/WWS9wNeSLUZilQyTImLMgvkIuOKee7TFOOvCw/pT5j
+	8C7lKmIYOeBLDTc2iZ41Vk5vW2KJpwNk=
+X-Gm-Gg: AR+sD12MQx/IMy5MF5dlkIsr3cguw7dXQrNKLIjUIv13hfWUAMAmEqSUHc3ikffiguX
+	F+gcpPVH7wRRqBENo6MwX46aqpqrHxsM0DSZPlgb6bwE3iR4X7Bxa20OqZtpu9qvITKnV9zJBTa
+	XtTSOYbRvUBIbuEbMT5Mwe7n1d8jWjo4SpAv2+kjssuPd4iFBKd9XHnTKHedE6QvQiYSI1y9eWW
+	vyg9smnl8JBtCs13qfeMlB4YJGhLOtwh5rF9O7/zpkpIraIP5Fq4QWPevjRubwI1OLT1zlSig42
+	mc7HYyQxf7NPZql+5cdoIJ5Cd9xatDbgZV3MpvlkVzr4I55ujWpgGzcDQz+AbMchedBRERRlsk4
+	FvXvf
+X-Received: by 2002:a17:907:d0a:b0:c25:32b0:e56c with SMTP id
+ a640c23a62f3a-c2556bc8abfmr482808166b.4.1787912095085; Fri, 28 Aug 2026
+ 03:14:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260824150156.1310-1-sreeshankar0910@gmail.com> <20260828-liberal-jumping-quokka-cff4da@quoll>
+In-Reply-To: <20260828-liberal-jumping-quokka-cff4da@quoll>
+From: Sreeshankar K <sreeshankar0910@gmail.com>
+Date: Fri, 28 Aug 2026 15:44:42 +0530
+X-Gm-Features: AcwNN1WwE4fV98-9nbf9QfdMe5RP3mFos-H2h5xcNNdmEyy-SXjW6DtC1QoidsA
+Message-ID: <CAA-+uk+5zWvmTB5NCbWpBqHSw6MswBAaJHGHw5LnKm4SBhXcLg@mail.gmail.com>
+Subject: Re: [PATCH v6 00/13] Add initial support for Qualcomm SM7250 SoC
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	andersson@kernel.org, mturquette@baylibre.com, sboyd@kernel.org, 
+	rafael@kernel.org, viresh.kumar@linaro.org, konradybcio@kernel.org, 
+	tglx@kernel.org, ulfh@kernel.org, bmasney@redhat.com, radu@rendec.net, 
+	abel.vesa@oss.qualcomm.com, lpieralisi@kernel.org, 
+	taniya.das@oss.qualcomm.com, danila@mainlining.org, davidwronek@gmail.com, 
+	mani@kernel.org, robimarko@gmail.com, linux@gurudas.dev, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Type conflict in `idle-states` prevents usage of `-1` (MUX_IDLE_=
-AS_IS)
---
+On Fri, 28 Aug 2026 at 15:26, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>
+> On Mon, Aug 24, 2026 at 03:01:43PM +0000, Sreeshankar K wrote:
+> > This patchset introduces foundational upstream support for the Qualcomm SM7250
+> > SoC (internally codenamed Lito).
+> >
+> > SM7250 is an ARMv8.2-A platform manufactured on a 7nm process, featuring an
+> > octa-core Kryo 475 CPU configuration (1x Prime Cortex-A76, 1x Gold Cortex-A76,
+> > and 6x Silver Cortex-A55) and Adreno 620 GPU.
+> >
+> > This patchset is organized as follows:
+> > > Document relevant device tree bindings (SoC ID, Kryo 475 CPUs, SCM, PDC,
+> > RPMh clocks/power domains, GCC and cpufreq hardware).
+> > > Add driver support for SM7250 in socinfo, rpmh-clk, rpmhpd, and GCC.
+> > > Add the base SoC DTSI (sm7250.dtsi) defining the cpus, PSCI,
+> > interrupt controllers, clock providers, power domains, and reserved memory.
+> >
+> > Dependencies:
+> > This patchset depends on the following patch:
+> > > [PATCH] dt-bindings: clock: qcom,sm6375-gcc: Merge SM7150 into SM6375
+> > Link: https://lore.kernel.org/linux-arm-msm/20260817082457.64797-2-krzysztof.kozlowski@oss.qualcomm.com/T/#t
+> >
+> > [PATCH v5] Link: https://lore.kernel.org/linux-arm-msm/20260824130437.2771-1-sreeshankar0910@gmail.com/T/#t
+>
+> Please keep the previous changelogs and links.
+>
+> Best regards,
+> Krzysztof
+>
 
-commit 62dcdc2062832a1a63ed2621fea7779807b815a5
-Author: Rahul Sharma <r-sharma3@ti.com>
+I will include changelogs and links of all previous revisions
+in future revision.
 
-dt-bindings: mux-controller: ti: add binding for event mux router
-
-Add binding for the event mux router of TI's K3 based SoC AM62L.
-The TI K3 mux routers route GPIO input events or Time-Sync events between
-peripherals instead of routing to a CPU.
-
-> diff --git a/Documentation/devicetree/bindings/mux/ti,am62l-event-mux-rou=
-ter.yaml b/Documentation/devicetree/bindings/mux/ti,am62l-event-mux-router.=
-yaml
-> new file mode 100644
-> index 0000000000000..a5ba7f78a1567
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/mux/ti,am62l-event-mux-router.yaml
-
-[ ... ]
-
-> +  idle-states:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-
-[Severity: Medium]
-Will this uint32-array type prevent the usage of -1 (MUX_IDLE_AS_IS)?
-
-The idle-states property is locally typed as uint32-array, which conflicts
-with the int32-array definition in the base mux-controller.yaml included
-via allOf.
-
-Since the property description explicitly supports -1 (MUX_IDLE_AS_IS),
-dt-schema validation will fail when a device tree uses it (either because -1
-mapped to an unsigned 32-bit int exceeds the maximum value for int32, or
-because a signed -1 violates the minimum value of 0 for uint32).
-
-> +    description: |
-> +      Idle state for each mux control. Each entry corresponds to a mux c=
-ontrol:
-> +      - 0: clear masked bits when idle, also refers to inactive state
-> +      - 1: set configured value when idle, also refers to active state
-> +      - MUX_IDLE_AS_IS (-1): keep current state when idle
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - '#mux-control-cells'
-> +  - ti,reg-mask-val
-> +  - idle-states
-
-[Severity: Medium]
-Does making this property required prevent users from working around the ty=
-pe
-conflict?
-
-Because the property is mandatory, device tree authors cannot bypass the sc=
-hema
-validation failure by simply omitting the property to achieve the default
-keep-as-is behavior.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828100615.1700=
-223-1-r-sharma3@ti.com?part=3D1
+Thanks,
+Sreeshankar K
