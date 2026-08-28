@@ -1,177 +1,85 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A898F46A603;
-	Fri, 28 Aug 2026 15:09:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36D7346DFFC
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 15:10:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787929795; cv=none; b=TlNLzxzeEMkk17Gg+GE0KfnYg5DFsFnOjBr48OYnmy8bYxpUYCEn6kgw2imqzb6/7z/HNt9RBtiEbl03QZLEOAxTlULTWFQYT3pbSgVXd8DaaciLI8V/JTf1pQa776uQHYskwka5XraEUmbiCkYlyJlBLJEko9qW9WQy2PG1KmY=
+	t=1787929831; cv=none; b=c4WkhlSMezyqHlqWpfhQZ+r1/SmVY11xnjvmhXxMXafQwAQxhZRrlxNCbv60G1D1l245pW6B7gIwrUl8S0FhhK52ytvssRzy4t0R50U8j02QUsgsik/zz26qbXFFDgLdPb3YLzsw9/cP2PVn8S+ublWWYV2ui8coFXkz1tURKmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787929795; c=relaxed/simple;
-	bh=2ht7LSF54lpV7TrPbfz5U6zYSpkXQBDP5kxwisLOc6Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=P6+M7O3xVs61sN82MR3cbRTqWKEP9aTvCQfzstIY82JrCWk9Am8R+PPmbTgGV60M3DEmkMNYYO5VgGkwDvzt+ZsXwml15gqe9J5+5VfmJAv31mMYxnVCq1AG1k0wBfV9YvdD6IB7jt8sRJLkC49pF5kS3urB9C0DOIQWwjyPUmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=Jya9Q8Xk; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1787929831; c=relaxed/simple;
+	bh=UHB5wAimB0XLgtMDONPlKEO/c6uNKd9LGTJakW60IhY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=JjBNYmnfYOKs+36es/DVLYBbnB8wq6Xf6ZbG6CL1iCp33cr5Ebt1wu/HuYfn2GPZPlgsf4K2diTfS13O713cWnv62GDGxrzbvzmDK0Bz+jg5xjdxQWGI6nlkTJjJ2EnjKivL7dmYiT/7sSYY71eDfNXGCUl4QfVSeZyzu5UJizs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QVP5wsum; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="Jya9Q8Xk"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2C08E11D128;
-	Fri, 28 Aug 2026 17:09:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1787929787; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=w4V2xYYZPxGiTt4YXxNmtjNTOnhx0km+lR8iVd4Fx10=;
-	b=Jya9Q8XknBXVZsKtuL1AFEBOuKGqRuCmY2cdxrvpzdJ6zt6Y6+4lhqK0D0zc0wjMuVXOar
-	GOZaRAy+3HQQzUShMt5YZ/ZOeCgb/pWg5v85uReUAFLNsaGiZ9vSQq4a/jTWJ0PR4jcYP0
-	oVpP7leKUAOnYOG4Y2uudcypVi110HZXHfjl9A9VgdUJuYRQbqOOx7R5vNpjGpbDBEOx+Z
-	WzbHqtkTP6h/1B/o6NawYeg07XgcK3HsIAXv2mea7GPmfamUF2SSa79EEM8Zqf/E/m2U4s
-	1i7lWPAw2endyjWicvDMlerFGnHV2zowpgynmzmVbqlzYmIj/wE96z0sDdHbqA==
-From: Marek Vasut <marex@nabladev.com>
-To: linux-usb@vger.kernel.org
-Cc: fabrice.gasnier@foss.st.com,
-	Marek Vasut <marex@nabladev.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	devicetree@vger.kernel.org,
-	kernel@dh-electronics.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: [PATCH v4 2/2] usb: dwc3: dwc3-generic-plat: Add ST STM32MP2 DWC3 xHCI USB controller glue
-Date: Fri, 28 Aug 2026 17:09:15 +0200
-Message-ID: <20260828150937.174735-2-marex@nabladev.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260828150937.174735-1-marex@nabladev.com>
-References: <20260828150937.174735-1-marex@nabladev.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QVP5wsum"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DEB01F000E9;
+	Fri, 28 Aug 2026 15:10:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787929829;
+	bh=U7BpeMG4DAiZ1JfdFeVrqrAjEeetIuHNyrczQhmfPX4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=QVP5wsumoltpyZyaLcDJPKtTjElSx1XWQmxgiPueCqniewjJtNwgpXx+FtqMc/mqv
+	 H7omwjB1lX8DGS0QZtP1iClamotk6sNqxYzyKyJx+0Zf0s2K2ECjFQSiJwIXHMbHsY
+	 lzuLysMkIhdTMNzUKywWB2BdnVsurOaxSOodCVIcpnsjlCm65c2YBPZpBd65E2Q57h
+	 hMWrsAZ9lcuyE6Fzgr1XOVB6U12YNfe+iATKArfSHJ/PyAdpxWNX3wE9lzx6/PzP9Q
+	 UEz9mzDj/PE4aGBS1zdZZbfV+1CDhSSLyOn9r61r/ZXePQgf3WmO/ee+UWAuqdsmXv
+	 xIXnWoeApwZMg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: usb: generic-ehci: Document ST
+ STM32MP1 SoC compatibles
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Marek Vasut" <marex@nabladev.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260828150245.173147-1-marex@nabladev.com>
+References: <20260828150245.173147-1-marex@nabladev.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 28 Aug 2026 15:10:29 +0000
+Message-Id: <20260828151029.8DEB01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-The ST STM32MP2 SoC contains one instance of DWC3 USB controller with
-glue logic wrapper around it controlled by syscon. Extend the generic
-DWC3 platform driver with ST STM32MP2 glue logic specifics.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Alphabetical ordering violation in compatible strings list.
+--
 
-Signed-off-by: Marek Vasut <marex@nabladev.com>
----
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Marek Vasut <marex@nabladev.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Cc: devicetree@vger.kernel.org
-Cc: kernel@dh-electronics.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-usb@vger.kernel.org
----
-V2: No change
-V3: - Use generic over-current-active-low
-V4: - Include bitfield.h
-    - Split this from series arm64: dts: phy: st: usb: Add STM32MP2 USB support
-      https://lore.kernel.org/all/20260822074816.548662-1-marex@nabladev.com/
----
- drivers/usb/dwc3/dwc3-generic-plat.c | 45 ++++++++++++++++++++++++++++
- 1 file changed, 45 insertions(+)
+commit 02866cad5ea0e6cf3b7ff32996fc2ff6f326adb3
+Author: Marek Vasut <marex@nabladev.com>
 
-diff --git a/drivers/usb/dwc3/dwc3-generic-plat.c b/drivers/usb/dwc3/dwc3-generic-plat.c
-index ca69ac0eb07ce..bb2be75a82875 100644
---- a/drivers/usb/dwc3/dwc3-generic-plat.c
-+++ b/drivers/usb/dwc3/dwc3-generic-plat.c
-@@ -7,6 +7,7 @@
-  * Inspired by dwc3-qcom.c and dwc3-of-simple.c
-  */
- 
-+#include <linux/bitfield.h>
- #include <linux/clk.h>
- #include <linux/platform_device.h>
- #include <linux/reset.h>
-@@ -22,6 +23,12 @@
- #define EIC7700_HSP_AXI_LP_XM_CSYSREQ	BIT(0)
- #define EIC7700_HSP_AXI_LP_XS_CSYSREQ	BIT(16)
- 
-+#define STM32MP2_USB3DRCR_HOST_PORT_POWER_CONTROL_PRESENT	BIT(0)
-+#define STM32MP2_USB3DRCR_OVRCUR_POLARITY			BIT(1)
-+#define STM32MP2_USB3DRCR_VBUSEN_POLARITY			BIT(2)
-+#define STM32MP2_USB3DRCR_USB2ONLYH				BIT(3)
-+#define STM32MP2_USB3DRCR_USB2ONLYD				BIT(4)
-+
- struct dwc3_generic {
- 	struct device		*dev;
- 	struct dwc3		dwc;
-@@ -85,6 +92,38 @@ static int dwc3_spacemit_k1_init(struct dwc3_generic *dwc3g)
- 	return 0;
- }
- 
-+static int dwc3_stm32mp25_init(struct dwc3_generic *dwc3g)
-+{
-+	struct device *dev = dwc3g->dev;
-+	bool ovrcur_polarity_low = device_property_read_bool(dev, "over-current-active-low");
-+	bool prt_pwr_ctrl = device_property_read_bool(dev, "st,enable-port-power-control");
-+	bool usb2only_conf = device_property_match_string(dev, "phy-names", "usb3-phy") < 0;
-+	bool vbusen_polarity_low = device_property_read_bool(dev, "st,vbusen-active-low");
-+	struct regmap *regmap;
-+	u32 drcr;
-+
-+	regmap = syscon_regmap_lookup_by_phandle_args(dev->of_node, "st,syscfg", 1, &drcr);
-+	if (IS_ERR(regmap))
-+		return dev_err_probe(dev, PTR_ERR(regmap), "No st,syscfg phandle specified\n");
-+
-+	return regmap_update_bits(regmap, drcr,
-+				  STM32MP2_USB3DRCR_HOST_PORT_POWER_CONTROL_PRESENT |
-+				  STM32MP2_USB3DRCR_OVRCUR_POLARITY |
-+				  STM32MP2_USB3DRCR_VBUSEN_POLARITY |
-+				  STM32MP2_USB3DRCR_USB2ONLYD |
-+				  STM32MP2_USB3DRCR_USB2ONLYH,
-+				  FIELD_PREP(STM32MP2_USB3DRCR_HOST_PORT_POWER_CONTROL_PRESENT,
-+					     prt_pwr_ctrl) |
-+				  FIELD_PREP(STM32MP2_USB3DRCR_OVRCUR_POLARITY,
-+					     ovrcur_polarity_low) |
-+				  FIELD_PREP(STM32MP2_USB3DRCR_VBUSEN_POLARITY,
-+					     vbusen_polarity_low) |
-+				  FIELD_PREP(STM32MP2_USB3DRCR_USB2ONLYD,
-+					     !!usb2only_conf) |
-+				  FIELD_PREP(STM32MP2_USB3DRCR_USB2ONLYH,
-+					     !!usb2only_conf));
-+}
-+
- static int dwc3_generic_probe(struct platform_device *pdev)
- {
- 	const struct dwc3_generic_config *plat_config;
-@@ -231,12 +270,18 @@ static const struct dwc3_generic_config eic7700_dwc3 =  {
- 	.properties = DWC3_DEFAULT_PROPERTIES,
- };
- 
-+static const struct dwc3_generic_config stm32mp25_dwc3 =  {
-+	.init = dwc3_stm32mp25_init,
-+	.properties = DWC3_DEFAULT_PROPERTIES,
-+};
-+
- static const struct of_device_id dwc3_generic_of_match[] = {
- 	{ .compatible = "spacemit,k1-dwc3", &spacemit_k1_dwc3},
- 	{ .compatible = "spacemit,k3-dwc3", },
- 	{ .compatible = "fsl,ls1028a-dwc3", &fsl_ls1028_dwc3},
- 	{ .compatible = "eswin,eic7700-dwc3", &eic7700_dwc3},
- 	{ .compatible = "starfive,jhb100-dwc3", },
-+	{ .compatible = "st,stm32mp25-dwc3", &stm32mp25_dwc3 },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, dwc3_generic_of_match);
--- 
-2.53.0
+dt-bindings: usb: generic-ehci: Document ST STM32MP1 SoC compatibles
 
+This commit adds SoC-specific compatible strings for the ST STM32MP13xx and
+STM32MP15xx series to the generic-ehci device tree binding. This allows for
+more accurate compatible matching in the SoC DTSI files.
+
+> diff --git a/Documentation/devicetree/bindings/usb/generic-ehci.yaml b/Do=
+cumentation/devicetree/bindings/usb/generic-ehci.yaml
+> index 55a5aa7d7a54e..408f9860d8079 100644
+> --- a/Documentation/devicetree/bindings/usb/generic-ehci.yaml
+> +++ b/Documentation/devicetree/bindings/usb/generic-ehci.yaml
+> @@ -54,6 +54,8 @@ properties:
+>                - qca,ar7100-ehci
+>                - rockchip,rk3588-ehci
+>                - snps,hsdk-v1.0-ehci
+> +              - st,stm32mp13-ehci
+> +              - st,stm32mp15-ehci
+>                - socionext,uniphier-ehci
+
+[Severity: Low]
+This isn't a bug, but should these compatible strings be sorted
+alphabetically? Since st comes after socionext, it looks like the st,stm32
+compatibles should be placed after the socionext,uniphier-ehci entry to
+maintain the standard alphabetical ordering.
+
+>            - const: generic-ehci
+>        - items:
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828150245.1731=
+47-1-marex@nabladev.com?part=3D1
