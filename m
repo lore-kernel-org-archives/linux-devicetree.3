@@ -1,763 +1,268 @@
-Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD1373D524B;
-	Fri, 28 Aug 2026 08:32:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787905954; cv=none; b=iHO8VH2zQ+hEPs2o+UVzBy8FBJ8t1BGiMfi0cziGTFUXcW0NrW18J47DTBbSB0QoIlnTHL1/xf2CA/9taN2FfPrZeT/dK4ZMXh0mXhZQ2id6V+A0tr8WuIxjlDyg7OjffgG04SzIR8jmYZqnF0QYb+C91nuN6M4JZaXPE7e6C8s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787905954; c=relaxed/simple;
-	bh=ZbDERpGAS+oSPCTgpYsG4bMBQyZ8HaSAdS0unxRQ6nE=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XWorOnjNPfSwvwhxJYSE+m2gfhwzY1/qZADrXuSeL4xXO2Dx5NnlPHqaLnOXgJgfN3DOafM4lHxbk9j3Vt6EdTg3/q5RIDDxvpU3oyGlOeSuHjrl7tZEOdeKf4hUn5Nf6UI5GiY5HxjZXMSUKXtHRtne76rV1PWPe6pXakZlhSE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=eTKl+3bm; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D603F31B823;
+	Fri, 28 Aug 2026 08:33:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=60.244.123.138
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787906009; cv=fail; b=qJzcKb0zsTH3XYvTxqO0ysP0xrJr52hNOlTOAx4d2nCzFOHpyJHTmDuEQWJcFsK9VCixDGzNE1lZhrUhxbWWOVPDPCz52G/ZAPFx0M2OS+hOInOtC6AFjm/a08mYyUtgZaM/4QwR8//gNEm8Bm1byim/sOxXI3IXihh8BOVmwyE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787906009; c=relaxed/simple;
+	bh=z7+en2aBsjfAx7kAWr8lsI3VQJA48TguJqnPVr4j420=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=rDYkQ4XeDUhr8VRa/7eONkmFHTBAuNudBc0frqzfAU+6HGF6wtXu8wyEeFExF6sS0tOtjO90Y36xE/z2ddy1urrp8xk/aM/jeirbg4ZA8CWyY8fhvuPjwBZkK//2Hq+EIVsfN7lz/nPJ+s1Fr4UAQ886e9Uc6+Cpta8uwdBsg48=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=eyw+T0Sb; dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b=t6cxzDeO; arc=fail smtp.client-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="eTKl+3bm"
-Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
-	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67S65ufS235336;
-	Fri, 28 Aug 2026 04:31:51 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=50mnk
-	bok9sX9WqlC08UiPSMpuTe/G4pH2+UxxXGSgcQ=; b=eTKl+3bmPNH6Dfx2phk1v
-	FbZseP1Ua/ib+lWYNg7qzXKURnLdts511S+N+tB12wLPAjnKfmsXdFNM/KfvnuFF
-	x81tlxG3VI2eA54WXh/wUpwDOAYamB1wakrYMzc+oHLTAfmJJukeCGe0r8WlXbaU
-	DwHrCPTdBrSXD+o8CIEtJy6C27bO4vXP2Jp4S35ae8noq6s4pwyXvjODaWxD4u8D
-	KYdZ/QVZkjOwzPebaDa779vmdrkLDaMx81R7L6AP+1exhs4caEWwyneAv4Zwz2R9
-	UoAFhA8IU3fcnAHnXXCijkHh2D4skxgMJiMGHti1F4bIuCYxpl0VtS4suCSkrorJ
-	g==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4gaj3cnbqe-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 28 Aug 2026 04:31:51 -0400 (EDT)
-Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 67S8VoYP060983
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 28 Aug 2026 04:31:50 -0400
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by ASHBMBX8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Fri, 28 Aug
- 2026 04:31:50 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Fri, 28 Aug 2026 04:31:50 -0400
-Received: from HYB-JRXo5UEs61B.ad.analog.com ([10.66.6.192])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 67S8VQ5d029508;
-	Fri, 28 Aug 2026 04:31:44 -0400
-From: Stefan Popa <stefan.popa@analog.com>
-To: <linux-iio@vger.kernel.org>
-CC: <jic23@kernel.org>, <lars@metafoo.de>, <Michael.Hennerich@analog.com>,
-        <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-        <andy@kernel.org>, <dlechner@baylibre.com>, <nuno.sa@analog.com>,
-        <siratul.islam@linux.dev>, <u.kleine-koenig@baylibre.com>,
-        <linux@roeck-us.net>, <joshua.crofts1@gmail.com>,
-        <ciprian.hegbeli@analog.com>, <krzysztof.kozlowski@oss.qualcomm.com>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        Stefan Popa
-	<stefan.popa@analog.com>
-Subject: [PATCH v8 2/2] iio: adc: add MAX40080 current-sense amplifier driver
-Date: Fri, 28 Aug 2026 11:31:18 +0300
-Message-ID: <20260828083119.54495-3-stefan.popa@analog.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260828083119.54495-1-stefan.popa@analog.com>
-References: <20260828083119.54495-1-stefan.popa@analog.com>
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="eyw+T0Sb";
+	dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b="t6cxzDeO"
+X-UUID: 1f4bf4eaa2bb11f1b1788b6acf885367-20260828
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From; bh=z7+en2aBsjfAx7kAWr8lsI3VQJA48TguJqnPVr4j420=;
+	b=eyw+T0SbSHzNgD87dBIeVhzf5jdDRotpIDJO51sQ2V+psnbPhc+8Q/Dm1MUHH01aXLYLPM7J62AW1+MkNs4zXdNel4J11eG5dOeur1lI8w2Hi1ZN2DJZX7pCdGJRnyLQ58Jni9krQ05e0QtYafTJ8r9A1PodypmwVjXh2w1AfVE=;
+X-CID-CACHE: Type:Local,Time:202608281633+08,HitQuantity:1
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:1744ebec-2c72-4f4d-9c28-7d9907ce3531,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:59e9c796-b5d1-4a50-aaf0-17be89180372,B
+	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|110|111|836|865|888|898,TC:-5,
+	Content:0|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-
+	1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 1f4bf4eaa2bb11f1b1788b6acf885367-20260828
+Received: from mtkmbs13n2.mediatek.inc [(172.21.101.108)] by mailgw01.mediatek.com
+	(envelope-from <ck.hu@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1971763066; Fri, 28 Aug 2026 16:33:19 +0800
+Received: from mtkmbs10n2.mediatek.inc (172.21.101.183) by
+ MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Fri, 28 Aug 2026 16:33:18 +0800
+Received: from SG2PR04CU009.outbound.protection.outlook.com (172.21.101.237)
+ by mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Fri, 28 Aug 2026 16:33:18 +0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aWEVqDDZZ7knl3MbKut8EPol+lThgboDtVLw9DRNpa9A3MNUsC3XqeX/TQLXNLNCV1FopfsgjhT183rDT3XYiYAB8yUMEQxkQoEQD4jKugXkT/E/dhbiwfrMvTVy/0o23n2/raUlaFjXBm1Zq22Aw0Laj7KdyGIeHHgNG99JC0XvD+S/Q1+tpQmx15yDuXUx5ccWbyYW9UgM5vX/CTgNQQJvBps+dE8IIQWCs6gcwMuHU0XctiymuBsTQQIzt7Q4aeFfHlgmP8kpdpwWn7RNqyzRp6NrPcXOLrjzMflgxL084qT+hOnTEzVcYQ7pW6NqLBue1x8UgWKdYgEKP0I2/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=z7+en2aBsjfAx7kAWr8lsI3VQJA48TguJqnPVr4j420=;
+ b=DS38juHUXkRYtEcnXFX5eN66bZqyrVSTQj35S6UeE18F+5yrUB6udmQAX5oCKoibCvugvdcZewKv3SrfNLu7xzS5YNxtUJKud7QUV8hyB6gSMLZMx/qnK7zJTHOP55fs6T57tlnfR3ZQaqg9c0Y38wB5UcKL53vbPuSdREUFbGt/2ZGcDkbUJ3jqDRlgnQFbK0AFCl15XBHf25TrgOhJc5X3SPDwcYPtL573bovZ6tHqyytc5icG15neBfd0FjfzXY7DlhdT1b6Im3f/X7TZkd77oivoYm58Aft0weilYdly/tnlrnucBt9BPrSNDaNlKFFGlMuOJOKD9Ha3noFMuw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
+ dkim=pass header.d=mediatek.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=z7+en2aBsjfAx7kAWr8lsI3VQJA48TguJqnPVr4j420=;
+ b=t6cxzDeOwdr/h/7I//uZ5J52FnvsaWwlNG+C4I9+R1ZjPlCTjptw3QDGMPXZYWSglarxul+rcitzEMGgb6pH3JyYg1Sy2j17q/zwJzVHNmQBddhc5AnVg537cE5g7IBS5nPY6rZjmWfW+0svVRTA1CYplUCVgELJ87aRM8ZbVmw=
+Received: from TYZPR03MB6624.apcprd03.prod.outlook.com (2603:1096:400:1f4::13)
+ by KL1PR03MB8317.apcprd03.prod.outlook.com (2603:1096:820:10b::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
+ 2026 08:33:14 +0000
+Received: from TYZPR03MB6624.apcprd03.prod.outlook.com
+ ([fe80::a3c2:b94a:70f:e640]) by TYZPR03MB6624.apcprd03.prod.outlook.com
+ ([fe80::a3c2:b94a:70f:e640%4]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
+ 08:33:14 +0000
+From: =?utf-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	"chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+	"kernel@collabora.com" <kernel@collabora.com>, "robh@kernel.org"
+	<robh@kernel.org>, Alexandre Mergnat <amergnat@baylibre.com>,
+	"tzimmermann@suse.de" <tzimmermann@suse.de>, "dmitry.osipenko@collabora.com"
+	<dmitry.osipenko@collabora.com>, =?utf-8?B?Sml0YW8gU2hpICjnn7PorrDmtpsp?=
+	<jitao.shi@mediatek.com>, "simona@ffwll.ch" <simona@ffwll.ch>,
+	"mripard@kernel.org" <mripard@kernel.org>,
+	"maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+	=?utf-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?= <Jason-JH.Lin@mediatek.com>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "granquet@baylibre.com"
+	<granquet@baylibre.com>, "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+	"airlied@gmail.com" <airlied@gmail.com>,
+	=?utf-8?B?SnVzdGluIFllaCAo6JGJ6Iux6IyCKQ==?= <Justin.Yeh@mediatek.com>,
+	"matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>,
+	=?utf-8?B?UmV4LUJDIENoZW4gKOmZs+afj+i+sCk=?= <Rex-BC.Chen@mediatek.com>
+Subject: Re: [PATCH v4 12/12] drm/mediatek: mtk_dp: Clarify XTAL freq and
+ Debounce registers
+Thread-Topic: [PATCH v4 12/12] drm/mediatek: mtk_dp: Clarify XTAL freq and
+ Debounce registers
+Thread-Index: AQHdD5au0B8WRlnL1E29sBRuGfF8f7azcIwA
+Date: Fri, 28 Aug 2026 08:33:13 +0000
+Message-ID: <3207851aa09a444d3f57648b2fc3d547730088ea.camel@mediatek.com>
+References: <20260709113148.49090-1-angelogioacchino.delregno@collabora.com>
+	 <20260709113148.49090-13-angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20260709113148.49090-13-angelogioacchino.delregno@collabora.com>
+Accept-Language: zh-TW, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Evolution 3.52.3-0ubuntu1 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=mediatek.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYZPR03MB6624:EE_|KL1PR03MB8317:EE_
+x-ms-office365-filtering-correlation-id: b6f32027-572d-43aa-3f61-08df04df005e
+x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|42112799006|18002099003|22082099003|56012099006|11063799006|38070700021|4143699003|10067099003;
+x-microsoft-antispam-message-info: CiU5xJE1Et83kx+Swg8tcMjQ8KhSN9BoJY58XzjVkHwFCJceE0VVyQhl3ttCecOnwv6Luca60fELSr7CMFWfmiYg77Bxjkvqy+Wp1tAG188FfeODTCYyVzogSw8ierJpFCHPKtn8b5qvrP4ds1UCL07KOrz8y/DOyzhaq3OvH/vi/hUfz6LmENiyZ086bB7ibMsDWoFoEW4aVfg0mil91osigsIVN+/XkumBmswVwI/jIIxSjX9jIBJ5TMTW9HbYMH8ByQxJ57bvOhL6rPcR3P2LvRTDLnH6Lq/zKOhpF31ZduTS3M06Mgsdi7QAz1lR/UP/zJvuKAla9cz3j2uY7a+sePWA53l9DjHrH99PFeKaqSLvMaZ8+MgATpZ/URUXxZDp0d/nEIKUrxWgQvZIkYR+S73pRQ5upaAOmBi3oMk938qVJyb5Ihe7H73xW7V+HZfPHm7diINbgZ3bEjghN2xbIyzDTGAiY10MPBkpr0knQ9zE4QnhQ3EeB+wYojK2SdpZikDy0OOTjxR46a4glx0ZQfuNBCM1mLsPsBsikIUUrZYP2zYT1VT+sWDRlM2p4SWfGVNCrJIycK/3ylTiG6KReD65dQnDHlUlC0YFvAkST6T16JD0ea7jNAht/gtd+NVtqeTzkCPEg3DmzftdcJRL+jFVUso8iaaviuiYaLpvjUubyRGACFqp/CV3CVq2jLq/s/Aoz5Fhl9fVOAeJiQ==
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6624.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(42112799006)(18002099003)(22082099003)(56012099006)(11063799006)(38070700021)(4143699003)(10067099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?cThXTitQREhzc25mT2FhTGkvcjVEZHAzNGRkZXRSMEdUVkIzN0YzRVhNc0lU?=
+ =?utf-8?B?ZlFHdHk4UFU3MUIxM2ZoU25IOWtRcjV5TUdQRm9uQ3ZXak1Qd1crZTJEbVh2?=
+ =?utf-8?B?VjFid1ZtWmVUSk1RT3V2aytKMGhVUGxYSldaVWs1QWtLYXNkaTdraXBQU2p0?=
+ =?utf-8?B?RWhzVDJHckJJblBZemhHSjF2emdlM1VnQW02dHdmc2x5T09DVVk3WVc3VnFM?=
+ =?utf-8?B?RVZNdGwvWXZJYit1cVRnT0pNaVZxajEwcmdzS2hNWUQwTnhvQzRlVWN4QnVa?=
+ =?utf-8?B?OGs5VCtXbndlaTh5VkpRQWQ5K3V0WkIwcGE5T3NTZEs0WW5ZcjdEMlJqK2Rk?=
+ =?utf-8?B?OUVGR0xSbUNFNjczNkI5OTJQdS9pMENFWGF4OWF1NXRUbHltaEtqNGZpNDZv?=
+ =?utf-8?B?MjZ0aGFIQzhsUDMvUmFTeTFpNFFmNzJ0djJnYzV0YnFNOVFaZ3h5MmR0aWt0?=
+ =?utf-8?B?UmlUS1cyWWo2Z2pZNW5jeWtGbCt0ZEZxNm9xTCt4YTkvNWxreFlHTVJFc0lx?=
+ =?utf-8?B?b29SOWQrWTRVQ3ArbFZNa2Z4emVrZkVDNzQ5b0g4bVJpaUxXQW9DaHB4allt?=
+ =?utf-8?B?a1dsbGJvOVBRbFpQQkdYSnJrSUF3MGZoNlN5cTM4VG5lWStnd0orQkVQdTY5?=
+ =?utf-8?B?SStDMzR5MndlblVGZFFabXlVazFldURtKzZiVnEyVWNZam02Q0JtYXQ1QlBa?=
+ =?utf-8?B?ZmtUUG9GdWlGVTN0WGtWTXRTRjRyZFY1d21CZ3R6VjVDRFFZcHU0dXZvWjFW?=
+ =?utf-8?B?cWl2eVFpbVpRNG9OUEZVRW93TllBU09hOUMxaHFWNTM2ZmVYOU9WbEF3eGZo?=
+ =?utf-8?B?cW45ZVFNbFdoTU51dUxHdjFXVlNZNWd1N2RpL3BVSTRjWmkzcmpUejViWGhV?=
+ =?utf-8?B?Vk02ZjBqQVJtaUdDd253NE4vc2tPVWNsOGxyMk9ZR1ZWYnhObkY2QWVTWFdk?=
+ =?utf-8?B?RnBveXlnNjFIRk5hUlRURWRVS1hNbGdteW1yQ3YwZXpPNldHSXRJaDBEQ1BI?=
+ =?utf-8?B?QTg1YVdHdmZUSDdWSk9MdmJkd3VDNTh1NnZTVktBZGZjK1B6TkhXWXNrR3ZU?=
+ =?utf-8?B?c3d3TmloYU9HS1lqS1pSM3BON1JnaVl1N0FLak9LWTBFcnNQT2dGb1B3MlRH?=
+ =?utf-8?B?ME85c1lKbzQ2S05aaHJSNDlVY1M1VDhEbDlHN3Y0WTNaZ1VsbDFBRzBmTlhC?=
+ =?utf-8?B?SjVaeTd1SVFBMXZWUVhWM2szK1VTTnE3eVpDL1p1WWdiZzAxUEp1cW9XN25E?=
+ =?utf-8?B?VUs1Y0xTdEI5cnA3OVNKc3VFSnlVV25jVHpWK3FmZkRiZ2FwWmVUT3h5V29j?=
+ =?utf-8?B?MW1wcUthK1ZVUHpXY3Z0Q1NMalNiWExDUkFGOGdVMnA5S1NqVkd4T1ozSjQz?=
+ =?utf-8?B?VlhDN3huMVdWRnZqUDc1NDdUaXVVem9TWXN0MUg4dTVrWkZKK2xHOU5jdVd4?=
+ =?utf-8?B?bzlMV3Q0Y3duWEZMWVAyN1NlTnhaQVpjalpVL3dJR2cyb2ZoNWNZc2hPeHVM?=
+ =?utf-8?B?dXc3Q0w5V0FzS2NxQWtwYStBRGNhZVFYbTAxZXM3TmdxdGhVd3EwZEl2a0dq?=
+ =?utf-8?B?b3pXVTlFWE0zMzUyTkRRL09pWmtVVVgzOTBaeE0vMXkvdFZWUFltQTBDaUZq?=
+ =?utf-8?B?TWZRZ2ZVazNlS0wvcklJNlY0QmozdXV3UzhzYTU1ajZHNkNjUENBUEtBWFVN?=
+ =?utf-8?B?RldJVFNlS25NeUlWSjR3M3lTUTV1dUNhQ25YSlF6ZFF6enFudkFTa0RBd2d6?=
+ =?utf-8?B?Y3U1Q09HL2Jxb2Jab05FNGZaUXpHU0p3cmF1WC9DYUNldFFGenFXSFhHcGZM?=
+ =?utf-8?B?S1BtUnF6VDd2a3B5UEN6SndQQ0VCWWJjUGN1REVRZkszSGFlL0hJVVVLWlMx?=
+ =?utf-8?B?eWJ0WDFaZ0hTSHozUnRqTVZXaDVTNUt3TmJIbEFLZzBsMHgzd1FaT0l6QlBy?=
+ =?utf-8?B?Z3EvTWxkcVlCL21XdGNQelJQRTZnc3hZTGFEYUwxdTFCZzNFL2NqMGUzL053?=
+ =?utf-8?B?TUxkbmIrbnQvb0pISkhZdVp1K1BxZTF3aSttb1VzaXh1Y1FkVURnS25yNTlu?=
+ =?utf-8?B?TVdoaGVhOXVCYzVNMHBJWUgzNzdMWlp1N3YyZGNEay9La3FHWCtFcy90MXp1?=
+ =?utf-8?B?S1lEVStzVzhLUzlDUGluWGJwVjRmaWsyWG9qVzI3disxUmFNMVVhSDVxM3Qv?=
+ =?utf-8?B?aFRVeVlXM1VGNVM3emtxeUdUTzlxeHRQRVZEcUZRSzFNK01TVUc1a0ZCa1g1?=
+ =?utf-8?B?ZjVxT1BScU1zN0o3d2NXZklIQ1F2QlB4V3B2TUkrU0dYMVo3U1lDaUk2Umth?=
+ =?utf-8?B?L0dSZndnN2l1bVVHQjdlQk9kbGxPcG1RQ2tvSlZjVzJnTjdhQlRZQT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <5D130981319F6640AF9F19467384175C@apcprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-GUID: GGujdUtPkL0UY1cX7tqvP37tL_DbJWGv
-X-Authority-Analysis: v=2.4 cv=erHvCIpX c=1 sm=1 tr=0 ts=6a914777 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=N--XFCr6TIEc_64PeIT2:22 a=gAnH3GRIAAAA:8 a=VwQbUJbxAAAA:8 a=P-IC7800AAAA:8
- a=3eYyrr9eNLywf0p0sAoA:9 a=d3PnA9EDa4IxuAV0gXij:22
-X-Proofpoint-ORIG-GUID: GGujdUtPkL0UY1cX7tqvP37tL_DbJWGv
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDA3MiBTYWx0ZWRfX9a0njFg7d0iI
- 7x7abiFx6dunDlARitX4KmLfa4NGXRbZ+y7C8EjGJyGtx7dtQfj8TTgsCNliAVwPnZHWdD3yC7Z
- P4+Xe34PqvCnhE1LfPP1Xp7T1Ien+f17P+9G1I00vDWm/Fe9owFOmDNzNJOIAik6CR7CtTf9gIu
- PPJGqLjX0kst7ec+SX1MdIrhQGPKIMaRoaP/tAYXry8hW5fVxw3WVrxxNspLfKQeZfHkZHhD6w7
- n4oeunF0LehU984zuhsRgxWGIWnZxWWnlf1E/wS1MWbzHh2/oEoHIdXaztqNPpRKI0b5jbIQafz
- IS8yg+LAr24Rn1XaIfEOd/LhkP5SJE594l8FgOTIGyHY1f66E8UpY9J5SDP5HKmn+nMJ71g9tZ8
- 53QKxVFUk44RlbOZsTBwPxnI8VnAYOThpPJ8sVVAhKRLemfgkCawXQBjM9B11cltLlawkI/i+9V
- PdPKbP73pvdag2C6C7w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDA3MiBTYWx0ZWRfX7f6bzYEAuCQf
- x0lHeMfTDoZHtd8JCbzThy/jPW9VakARIwvBmmYp3LwQajeKXgEkZxwfr54cFl2snfwT4xvJftc
- uqjL/PRt4q8Bp94VE9jSIWvHWHNklV2N7dtq63Ve8IQX/aZPNVh0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-28_02,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 lowpriorityscore=0 bulkscore=0 spamscore=0
- suspectscore=0 malwarescore=0 adultscore=0 clxscore=1015 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608280072
+X-Exchange-RoutingPolicyChecked: pDvRDKpLhJdKsx06B+6PTUhyitUcwg0RqMl89cmm2Yo9w1rYkJHglSxPVyIgMYvHPyPxnulTNov/p0QORC+xw1bSWammV64VRp5vn87HhCWJ3hfjG3guHQj9BMobZM2qzKPMgnPAVfCX0y2NhhuoZCaL43u63Zu1PeRnw1Nu4sGU9tC6TUB8hjpDv0P8wo6CwyQ09S8+p+vEyZX5UXHb/g9+8K31sVA1LQypsMMBCSjOGOfjA1haoJWVhm/KgpyXxw6gX6VhdCPhWv/5423ArCKPXsQsxPrJGiYNyoXBWGOEujvyjz67lAwrjSk2SHunITlnp83CjRGGmZxUJNeptw==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6624.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b6f32027-572d-43aa-3f61-08df04df005e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Aug 2026 08:33:13.9940
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: /KZ3VjPqFrMhIIhCzm9ac4WAzDfmiAT3tHZZHwgfCjXvRQ2lM9UskJjZxMMLoNY4tKQ6sukZqG5bfU+1Z+M87Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR03MB8317
+X-MTK: N
 
-The MAX40080 is a bidirectional current-sense amplifier with an
-integrated 12-bit ADC and an I2C/SMBus interface. It measures the
-voltage across an external shunt resistor and the input bus voltage,
-storing the results in an internal FIFO.
-
-Add a direct-mode IIO driver exposing the current and voltage channels
-with raw, scale and hardware-gain attributes, a configurable
-oversampling (digital averaging) ratio, and PEC-protected register
-access. The current scale is derived from the shunt resistor value
-described in the device tree.
-
-The driver operates in single-measurement mode: each raw read triggers
-an on-demand conversion via SMBus Quick Command and returns a matched
-current/voltage pair. This avoids the latency and complexity of the
-continuous FIFO mode while ensuring each read reflects the current
-state. The two selectable current-sense ranges are exposed through
-scale/scale_available.
-
-Continuous FIFO buffering, threshold events and the alert interrupt are
-intentionally left out of this initial submission and may be added
-later.
-
-Co-developed-by: Ciprian Hegbeli <ciprian.hegbeli@analog.com>
-Signed-off-by: Ciprian Hegbeli <ciprian.hegbeli@analog.com>
-Signed-off-by: Stefan Popa <stefan.popa@analog.com>
-Reviewed-by: Siratul Islam <siratul.islam@linux.dev>
----
- MAINTAINERS                |   1 +
- drivers/iio/adc/Kconfig    |  11 +
- drivers/iio/adc/Makefile   |   1 +
- drivers/iio/adc/max40080.c | 572 +++++++++++++++++++++++++++++++++++++
- 4 files changed, 585 insertions(+)
- create mode 100644 drivers/iio/adc/max40080.c
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c1e5afa42de2e..27f3be3ead889 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -15520,6 +15520,7 @@ L:	linux-iio@vger.kernel.org
- S:	Supported
- W:	https://ez.analog.com/linux-software-drivers
- F:	Documentation/devicetree/bindings/iio/adc/adi,max40080.yaml
-+F:	drivers/iio/adc/max40080.c
- 
- MAXIM MAX7360 KEYPAD LED MFD DRIVER
- M:	Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
-diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-index 58da8255525e4..b651c57bbc3f5 100644
---- a/drivers/iio/adc/Kconfig
-+++ b/drivers/iio/adc/Kconfig
-@@ -1041,6 +1041,17 @@ config MAX34408
- 	  To compile this driver as a module, choose M here: the module will be
- 	  called max34408.
- 
-+config MAX40080
-+	tristate "Analog Devices MAX40080 Current Sense Amplifier"
-+	depends on I2C
-+	help
-+	  Say yes here to build support for the Analog Devices MAX40080
-+	  bidirectional current-sense amplifier with a 12-bit ADC and an I2C
-+	  interface.
-+
-+	  To compile this driver as a module, choose M here: the module will be
-+	  called max40080.
-+
- config MAX77541_ADC
- 	tristate "Analog Devices MAX77541 ADC driver"
- 	depends on MFD_MAX77541
-diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
-index 7cc8f9a12f763..e1953353c68a4 100644
---- a/drivers/iio/adc/Makefile
-+++ b/drivers/iio/adc/Makefile
-@@ -91,6 +91,7 @@ obj-$(CONFIG_MAX1241) += max1241.o
- obj-$(CONFIG_MAX1363) += max1363.o
- obj-$(CONFIG_MAX14001) += max14001.o
- obj-$(CONFIG_MAX34408) += max34408.o
-+obj-$(CONFIG_MAX40080) += max40080.o
- obj-$(CONFIG_MAX77541_ADC) += max77541-adc.o
- obj-$(CONFIG_MAX9611) += max9611.o
- obj-$(CONFIG_MCP320X) += mcp320x.o
-diff --git a/drivers/iio/adc/max40080.c b/drivers/iio/adc/max40080.c
-new file mode 100644
-index 0000000000000..1a6568eabcaa0
---- /dev/null
-+++ b/drivers/iio/adc/max40080.c
-@@ -0,0 +1,572 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * MAX40080 Digital Current-Sense Amplifier driver
-+ *
-+ * Copyright 2026 Analog Devices, Inc.
-+ *
-+ * Datasheet: https://www.analog.com/media/en/technical-documentation/data-sheets/MAX40080.pdf
-+ */
-+
-+#include <linux/array_size.h>
-+#include <linux/bitfield.h>
-+#include <linux/bitops.h>
-+#include <linux/cleanup.h>
-+#include <linux/i2c.h>
-+#include <linux/types.h>
-+#include <linux/iopoll.h>
-+#include <linux/math64.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/property.h>
-+#include <linux/units.h>
-+
-+#include <asm/byteorder.h>
-+
-+#include <linux/iio/iio.h>
-+
-+#define MAX40080_REG_CFG		0x00
-+#define  MAX40080_CFG_MODE_MSK		GENMASK(2, 0)
-+#define  MAX40080_CFG_PEC_EN_MSK	BIT(5)
-+#define  MAX40080_CFG_RANGE_MSK		BIT(6)
-+#define  MAX40080_CFG_FILTER_MSK	GENMASK(14, 12)
-+
-+#define MAX40080_REG_FIFO_CFG		0x0A
-+#define  MAX40080_FIFO_CFG_STORE_IV_MSK	GENMASK(1, 0)
-+
-+#define MAX40080_REG_IV			0x10
-+/* Current is a 13-bit two's-complement value (magnitude + sign bit). */
-+#define  MAX40080_IV_I_MSK		GENMASK(12, 0)
-+#define  MAX40080_IV_I_SIGN_BIT		12
-+#define  MAX40080_IV_V_MAG_MSK		GENMASK(27, 16)
-+#define  MAX40080_IV_VALID_MSK		BIT(31)
-+
-+/* CFG.mode field values. */
-+#define MAX40080_CFG_MODE_STDBY		0x00
-+#define MAX40080_CFG_MODE_SINGLE	0x02
-+
-+/* CFG.range field values. */
-+#define MAX40080_CFG_RANGE_50mV		0
-+#define MAX40080_CFG_RANGE_10mV		1
-+
-+/* FIFO_CFG.store_iv field values. */
-+#define MAX40080_FIFO_CFG_STORE_IV	0x02
-+
-+#define MAX40080_ADC_RES_BITS		12
-+#define MAX40080_INTER_VREF_mV		1250
-+#define MAX40080_V_BUFF_GAIN		30
-+#define MAX40080_CSA_50mV_GAIN		25
-+#define MAX40080_CSA_10mV_GAIN		125
-+
-+/*
-+ * The RANGE field (CFG bit 6) selects one of two current-sense full-scale
-+ * ranges (the MAX40080 supports exactly two: +/-50 mV and +/-10 mV). Indexed
-+ * by the CFG.range field value.
-+ */
-+static const int max40080_csa_gain[] = {
-+	[MAX40080_CFG_RANGE_50mV] = MAX40080_CSA_50mV_GAIN,
-+	[MAX40080_CFG_RANGE_10mV] = MAX40080_CSA_10mV_GAIN,
-+};
-+
-+struct max40080_state {
-+	struct i2c_client *client;
-+	/* Serializes read-modify-write access to the CFG register. */
-+	struct mutex lock;
-+	u32 shunt_resistor_uOhm;
-+	/* Cached configuration: the selected RANGE index and oversampling ratio. */
-+	unsigned int range;
-+	int oversampling_ratio;
-+	/*
-+	 * Precomputed current scale (mA per code) for each RANGE setting, as
-+	 * {integer, nano} pairs for IIO_VAL_INT_PLUS_NANO. The range is
-+	 * selected by writing the corresponding scale.
-+	 */
-+	int current_scale[2][2];
-+};
-+
-+static const int max40080_oversampling_avail[] = { 1, 8, 16, 32, 64, 128 };
-+
-+static int max40080_update_bits(struct max40080_state *st, u8 reg,
-+				u16 mask, u16 val)
-+{
-+	int tmp;
-+
-+	tmp = i2c_smbus_read_word_data(st->client, reg);
-+	if (tmp < 0)
-+		return tmp;
-+
-+	tmp = (tmp & ~mask) | (val & mask);
-+
-+	return i2c_smbus_write_word_data(st->client, reg, tmp);
-+}
-+
-+/*
-+ * In single-measurement mode the device sits idle until it receives an SMBus
-+ * Quick Command, then performs exactly one current and one voltage conversion
-+ * and returns to idle. Triggering on demand this way (rather than running the
-+ * FIFO continuously in active mode) means each read returns a fresh, coherent
-+ * current/voltage pair instead of the oldest queued FIFO entry.
-+ */
-+static int max40080_trigger_measurement(struct max40080_state *st)
-+{
-+	return i2c_smbus_xfer(st->client->adapter, st->client->addr,
-+			      st->client->flags, I2C_SMBUS_WRITE, 0,
-+			      I2C_SMBUS_QUICK, NULL);
-+}
-+
-+/*
-+ * A single measurement holds the matched current/voltage pair in one 32-bit
-+ * word (MAX40080_REG_IV). Reading all four bytes in one transaction returns
-+ * both from the same conversion; reading the separate current (0x0C) and
-+ * voltage (0x0E) registers would decorrelate the two channels.
-+ *
-+ * Unlike the word accesses used elsewhere, this is a plain I2C block read: the
-+ * SMBus layer does not append or verify a PEC byte for it even when PEC is
-+ * otherwise enabled for the device, so this transfer is not PEC protected.
-+ */
-+static int max40080_read_iv_once(struct max40080_state *st, u32 *iv)
-+{
-+	__le32 buf;
-+	int ret;
-+
-+	ret = i2c_smbus_read_i2c_block_data(st->client, MAX40080_REG_IV,
-+					    sizeof(buf), (u8 *)&buf);
-+	if (ret < 0)
-+		return ret;
-+
-+	*iv = le32_to_cpu(buf);
-+
-+	return 0;
-+}
-+
-+static int max40080_read_iv(struct max40080_state *st, u32 *iv)
-+{
-+	u32 tmp = 0;
-+	int ret, io_ret;
-+
-+	guard(mutex)(&st->lock);
-+
-+	ret = max40080_trigger_measurement(st);
-+	if (ret < 0)
-+		return ret;
-+
-+	/*
-+	 * Wait for the conversion to complete by polling the FIFO valid bit
-+	 * (or bail out on an I2C error). Polling the device's own status makes
-+	 * this independent of the actual conversion time, which varies with the
-+	 * oversampling ratio and the bus speed. The timeout is only a safety
-+	 * ceiling: the worst case is the maximum 128x averaging on both the
-+	 * current and voltage channels at the slowest 15 ksps base rate plus the
-+	 * inter-channel switching time, i.e. roughly 20 ms; 50 ms leaves ample
-+	 * margin.
-+	 */
-+	ret = read_poll_timeout(max40080_read_iv_once, io_ret,
-+				io_ret || (tmp & MAX40080_IV_VALID_MSK),
-+				500, 50000, false, st, &tmp);
-+	/*
-+	 * Propagate the last-read value even on timeout so the caller can
-+	 * inspect it for debugging.
-+	 */
-+	*iv = tmp;
-+	if (ret)
-+		return ret;
-+
-+	return io_ret;
-+}
-+
-+static int max40080_get_current(struct max40080_state *st, int *val)
-+{
-+	u32 iv;
-+	int ret;
-+
-+	ret = max40080_read_iv(st, &iv);
-+	if (ret)
-+		return ret;
-+
-+	*val = sign_extend32(FIELD_GET(MAX40080_IV_I_MSK, iv),
-+			     MAX40080_IV_I_SIGN_BIT);
-+
-+	return 0;
-+}
-+
-+static int max40080_get_voltage(struct max40080_state *st, int *val)
-+{
-+	u32 iv;
-+	int ret;
-+
-+	ret = max40080_read_iv(st, &iv);
-+	if (ret)
-+		return ret;
-+
-+	*val = FIELD_GET(MAX40080_IV_V_MAG_MSK, iv);
-+
-+	return 0;
-+}
-+
-+static int max40080_set_range(struct max40080_state *st, unsigned int range)
-+{
-+	int ret;
-+
-+	ret = max40080_update_bits(st, MAX40080_REG_CFG, MAX40080_CFG_RANGE_MSK,
-+				   FIELD_PREP(MAX40080_CFG_RANGE_MSK, range));
-+	if (ret)
-+		return ret;
-+
-+	WRITE_ONCE(st->range, range);
-+
-+	return 0;
-+}
-+
-+/*
-+ * Precompute the current scale (mA per code) for each RANGE setting as
-+ * {integer, nano} pairs. The shunt drop for a full-scale code is
-+ *   Vref[mV] / (BIT(ADC_RES_BITS) * gain)
-+ * and current = Vshunt / Rshunt, so with Rshunt in micro-ohms the scale in
-+ * mA/code is
-+ *   Vref[mV] * NANO * MICRO / (BIT(ADC_RES_BITS) * gain * Rshunt[uOhm])
-+ * expressed as an integer part plus a nano fractional part.
-+ */
-+static void max40080_calc_current_scale(struct max40080_state *st)
-+{
-+	u64 numerator, denominator;
-+	u32 rem;
-+
-+	for (unsigned int i = 0; i < ARRAY_SIZE(max40080_csa_gain); i++) {
-+		numerator = (u64)MAX40080_INTER_VREF_mV * NANO * MICRO;
-+		denominator = BIT_ULL(MAX40080_ADC_RES_BITS) * max40080_csa_gain[i] *
-+			      st->shunt_resistor_uOhm;
-+		numerator = div64_u64(numerator, denominator);
-+		st->current_scale[i][0] = div_u64_rem(numerator, NANO, &rem);
-+		st->current_scale[i][1] = rem;
-+	}
-+}
-+
-+/*
-+ * max40080_oversampling_avail[] is ordered so that its index is the FILTER
-+ * field value (index 0 = no averaging, index 1 = 8x, ...). Return that index
-+ * for an exact match, or -EINVAL for a value that is not on the list.
-+ */
-+static int max40080_oversampling_to_filter(int val)
-+{
-+	for (unsigned int i = 0; i < ARRAY_SIZE(max40080_oversampling_avail); i++) {
-+		if (max40080_oversampling_avail[i] == val)
-+			return i;
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+static int max40080_set_oversampling_ratio(struct max40080_state *st, int val)
-+{
-+	int filter;
-+	int ret;
-+
-+	filter = max40080_oversampling_to_filter(val);
-+	if (filter < 0)
-+		return filter;
-+
-+	ret = max40080_update_bits(st, MAX40080_REG_CFG, MAX40080_CFG_FILTER_MSK,
-+				   FIELD_PREP(MAX40080_CFG_FILTER_MSK, filter));
-+	if (ret)
-+		return ret;
-+
-+	st->oversampling_ratio = val;
-+
-+	return 0;
-+}
-+
-+static int max40080_read_raw(struct iio_dev *indio_dev,
-+			     struct iio_chan_spec const *chan,
-+			     int *val, int *val2, long mask)
-+{
-+	struct max40080_state *st = iio_priv(indio_dev);
-+	unsigned int range;
-+	int ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW:
-+		if (chan->type == IIO_CURRENT) {
-+			ret = max40080_get_current(st, val);
-+			if (ret)
-+				return ret;
-+		} else if (chan->type == IIO_VOLTAGE) {
-+			ret = max40080_get_voltage(st, val);
-+			if (ret)
-+				return ret;
-+		}
-+		return IIO_VAL_INT;
-+	case IIO_CHAN_INFO_SCALE:
-+		if (chan->type == IIO_CURRENT) {
-+			/*
-+			 * The selectable current-sense range is exposed through
-+			 * scale: each RANGE setting has its own precomputed
-+			 * mA-per-code value. Userspace picks the range by writing
-+			 * the matching scale.
-+			 *
-+			 * Use READ_ONCE to ensure the compiler reads st->range
-+			 * exactly once, so val and val2 come from the same setting
-+			 * even if a concurrent write changes st->range.
-+			 */
-+			range = READ_ONCE(st->range);
-+			*val = st->current_scale[range][0];
-+			*val2 = st->current_scale[range][1];
-+			return IIO_VAL_INT_PLUS_NANO;
-+		}
-+		/* voltage[mV] = raw * Vref[mV] * buffer_gain / BIT(ADC_RES_BITS) */
-+		*val = MAX40080_INTER_VREF_mV * MAX40080_V_BUFF_GAIN;
-+		*val2 = MAX40080_ADC_RES_BITS;
-+		return IIO_VAL_FRACTIONAL_LOG2;
-+	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
-+		*val = st->oversampling_ratio;
-+		return IIO_VAL_INT;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int max40080_write_raw(struct iio_dev *indio_dev,
-+			      struct iio_chan_spec const *chan,
-+			      int val, int val2, long mask)
-+{
-+	struct max40080_state *st = iio_priv(indio_dev);
-+
-+	guard(mutex)(&st->lock);
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_SCALE:
-+		/* Only the current channel has a selectable range/scale. */
-+		if (chan->type != IIO_CURRENT)
-+			return -EINVAL;
-+
-+		for (unsigned int i = 0; i < ARRAY_SIZE(max40080_csa_gain); i++) {
-+			if (val == st->current_scale[i][0] &&
-+			    val2 == st->current_scale[i][1])
-+				return max40080_set_range(st, i);
-+		}
-+
-+		return -EINVAL;
-+	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
-+		return max40080_set_oversampling_ratio(st, val);
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int max40080_write_raw_get_fmt(struct iio_dev *indio_dev,
-+				      struct iio_chan_spec const *chan,
-+				      long mask)
-+{
-+	switch (mask) {
-+	case IIO_CHAN_INFO_SCALE:
-+		return IIO_VAL_INT_PLUS_NANO;
-+	default:
-+		return IIO_VAL_INT;
-+	}
-+}
-+
-+static int max40080_read_avail(struct iio_dev *indio_dev,
-+			       struct iio_chan_spec const *chan,
-+			       const int **vals, int *type, int *length,
-+			       long info)
-+{
-+	struct max40080_state *st = iio_priv(indio_dev);
-+
-+	switch (info) {
-+	case IIO_CHAN_INFO_SCALE:
-+		if (chan->type != IIO_CURRENT)
-+			return -EINVAL;
-+
-+		*vals = (int *)st->current_scale;
-+		*length = ARRAY_SIZE(max40080_csa_gain) * 2;
-+		*type = IIO_VAL_INT_PLUS_NANO;
-+		return IIO_AVAIL_LIST;
-+	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
-+		*vals = max40080_oversampling_avail;
-+		*length = ARRAY_SIZE(max40080_oversampling_avail);
-+		*type = IIO_VAL_INT;
-+		return IIO_AVAIL_LIST;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int max40080_reg_access(struct iio_dev *indio_dev, unsigned int reg,
-+			       unsigned int write_val, unsigned int *read_val)
-+{
-+	struct max40080_state *st = iio_priv(indio_dev);
-+	int val;
-+
-+	if (read_val) {
-+		val = i2c_smbus_read_word_data(st->client, reg);
-+		if (val < 0)
-+			return val;
-+
-+		*read_val = val;
-+
-+		return 0;
-+	}
-+
-+	return i2c_smbus_write_word_data(st->client, reg, write_val);
-+}
-+
-+static const struct iio_info max40080_info = {
-+	.read_raw = max40080_read_raw,
-+	.write_raw = max40080_write_raw,
-+	.write_raw_get_fmt = max40080_write_raw_get_fmt,
-+	.read_avail = max40080_read_avail,
-+	.debugfs_reg_access = &max40080_reg_access,
-+};
-+
-+static const struct iio_chan_spec max40080_channels[] = {
-+	{
-+		.type = IIO_CURRENT,
-+		.indexed = 1,
-+		.channel = 0,
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+				      BIT(IIO_CHAN_INFO_SCALE),
-+		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SCALE),
-+		.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
-+		.info_mask_shared_by_all_available =
-+			BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
-+	},
-+	{
-+		.type = IIO_VOLTAGE,
-+		.indexed = 1,
-+		.channel = 0,
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+				      BIT(IIO_CHAN_INFO_SCALE),
-+		.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
-+		.info_mask_shared_by_all_available =
-+			BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
-+	},
-+};
-+
-+/*
-+ * Configure the device from the cached state. The device powers up in standby
-+ * with PEC enabled (CFG POR = 0x0060), so PEC is kept enabled throughout.
-+ */
-+static int max40080_init(struct max40080_state *st)
-+{
-+	u16 fifo_cfg, cfg;
-+	int ret, filter;
-+
-+	filter = max40080_oversampling_to_filter(st->oversampling_ratio);
-+	if (filter < 0)
-+		return filter;
-+
-+	/*
-+	 * Put the device in standby before (re)configuring the FIFO: the FIFO
-+	 * configuration register can only be written while the device is not
-+	 * converting.
-+	 */
-+	cfg = FIELD_PREP(MAX40080_CFG_MODE_MSK, MAX40080_CFG_MODE_STDBY) |
-+	      FIELD_PREP(MAX40080_CFG_PEC_EN_MSK, 1);
-+	ret = i2c_smbus_write_word_data(st->client, MAX40080_REG_CFG, cfg);
-+	if (ret)
-+		return ret;
-+
-+	/* Store a matched current+voltage pair per conversion. */
-+	fifo_cfg = FIELD_PREP(MAX40080_FIFO_CFG_STORE_IV_MSK, MAX40080_FIFO_CFG_STORE_IV);
-+	ret = i2c_smbus_write_word_data(st->client, MAX40080_REG_FIFO_CFG,
-+					fifo_cfg);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Use single-measurement mode: the device stays idle and converts once
-+	 * per SMBus Quick Command (see max40080_trigger_measurement()), so each
-+	 * read returns a fresh sample rather than a queued FIFO entry.
-+	 */
-+	cfg = FIELD_PREP(MAX40080_CFG_MODE_MSK, MAX40080_CFG_MODE_SINGLE) |
-+	      FIELD_PREP(MAX40080_CFG_PEC_EN_MSK, 1) |
-+	      FIELD_PREP(MAX40080_CFG_RANGE_MSK, st->range) |
-+	      FIELD_PREP(MAX40080_CFG_FILTER_MSK, filter);
-+
-+	return i2c_smbus_write_word_data(st->client, MAX40080_REG_CFG, cfg);
-+}
-+
-+static int max40080_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	const char *propname;
-+	struct iio_dev *indio_dev;
-+	struct max40080_state *st;
-+	int ret;
-+
-+	/*
-+	 * The device powers up with PEC enabled (CFG POR = 0x0060) and rejects
-+	 * unprotected transactions, so PEC support is mandatory, along with word
-+	 * access, the I2C block read used for the current/voltage pair, and the
-+	 * Quick Command used to trigger a conversion.
-+	 */
-+	if (!i2c_check_functionality(client->adapter,
-+				     I2C_FUNC_SMBUS_WORD_DATA |
-+				     I2C_FUNC_SMBUS_I2C_BLOCK |
-+				     I2C_FUNC_SMBUS_QUICK |
-+				     I2C_FUNC_SMBUS_PEC))
-+		return -EOPNOTSUPP;
-+
-+	client->flags |= I2C_CLIENT_PEC;
-+
-+	indio_dev = devm_iio_device_alloc(dev, sizeof(*st));
-+	if (!indio_dev)
-+		return -ENOMEM;
-+
-+	st = iio_priv(indio_dev);
-+	st->client = client;
-+
-+	ret = devm_mutex_init(dev, &st->lock);
-+	if (ret)
-+		return ret;
-+
-+	propname = "shunt-resistor-micro-ohms";
-+	ret = device_property_read_u32(dev, propname, &st->shunt_resistor_uOhm);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "can't read %s\n", propname);
-+	if (!st->shunt_resistor_uOhm)
-+		return dev_err_probe(dev, -EINVAL, "%s must be non-zero\n", propname);
-+
-+	max40080_calc_current_scale(st);
-+
-+	/* Defaults: 50 mV range, no averaging. */
-+	st->range = MAX40080_CFG_RANGE_50mV;
-+	st->oversampling_ratio = 1;
-+
-+	indio_dev->name = "max40080";
-+	indio_dev->info = &max40080_info;
-+	indio_dev->modes = INDIO_DIRECT_MODE;
-+	indio_dev->channels = max40080_channels;
-+	indio_dev->num_channels = ARRAY_SIZE(max40080_channels);
-+
-+	ret = max40080_init(st);
-+	if (ret)
-+		return ret;
-+
-+	return devm_iio_device_register(dev, indio_dev);
-+}
-+
-+static const struct i2c_device_id max40080_i2c_ids[] = {
-+	{ .name = "max40080" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, max40080_i2c_ids);
-+
-+static const struct of_device_id max40080_of_match[] = {
-+	{ .compatible = "adi,max40080" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, max40080_of_match);
-+
-+static struct i2c_driver max40080_driver = {
-+	.driver = {
-+		.name = "max40080",
-+		.of_match_table = max40080_of_match,
-+	},
-+	.probe = max40080_probe,
-+	.id_table = max40080_i2c_ids,
-+};
-+module_i2c_driver(max40080_driver);
-+
-+MODULE_AUTHOR("Ciprian Hegbeli <ciprian.hegbeli@analog.com>");
-+MODULE_AUTHOR("Stefan Popa <stefan.popa@analog.com>");
-+MODULE_DESCRIPTION("Analog Devices MAX40080 current-sense amplifier driver");
-+MODULE_LICENSE("GPL");
--- 
-2.53.0
-
+T24gVGh1LCAyMDI2LTA3LTA5IGF0IDEzOjMxICswMjAwLCBBbmdlbG9HaW9hY2NoaW5vIERlbCBS
+ZWdubyB3cm90ZToNCj4gQ2xhcmlmeSB0aGUgbWVhbmluZyBvZiB0aGUgc3ViLWZpZWxkcyBpbiB0
+aGUgY3J5c3RhbCBmcmVxdWVuY3kgYW5kDQo+IHRyYW5zbWl0dGVyIGludGVycnVwdCBkZWJvdW5j
+ZSByZWdpc3RlcnMsIHdpdGggdGhlIG9ubHkgcHVycG9zZSBvZg0KPiBpbmNyZWFzaW5nIGh1bWFu
+IHJlYWRhYmlsaXR5Lg0KPiANCj4gU2lnbmVkLW9mZi1ieTogQW5nZWxvR2lvYWNjaGlubyBEZWwg
+UmVnbm8gPGFuZ2Vsb2dpb2FjY2hpbm8uZGVscmVnbm9AY29sbGFib3JhLmNvbT4NCj4gLS0tDQo+
+ICBkcml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2RwLmMgICAgIHwgMzUgKysrKysrKysrKysr
+KysrKy0tLS0tLS0tLS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2RwX3JlZy5o
+IHwgIDYgKysrLS0NCj4gIDIgZmlsZXMgY2hhbmdlZCwgMjUgaW5zZXJ0aW9ucygrKSwgMTYgZGVs
+ZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL21lZGlhdGVrL210
+a19kcC5jIGIvZHJpdmVycy9ncHUvZHJtL21lZGlhdGVrL210a19kcC5jDQo+IGluZGV4IGZlN2Uw
+NWUyN2Y2Zi4uMTE4MzczOGFiOTAzIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vbWVk
+aWF0ZWsvbXRrX2RwLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL21lZGlhdGVrL210a19kcC5j
+DQo+IEBAIC0xMjE2LDkgKzEyMTYsMTUgQEAgc3RhdGljIHZvaWQgbXRrX2RwX2luaXRpYWxpemVf
+c2V0dGluZ3NfdjJwMShzdHJ1Y3QgbXRrX2RwICptdGtfZHApDQo+ICANCj4gIHN0YXRpYyB2b2lk
+IG10a19kcF9pbml0aWFsaXplX3NldHRpbmdzKHN0cnVjdCBtdGtfZHAgKm10a19kcCkNCj4gIHsN
+Cj4gKwkvKg0KPiArCSAqIFNldCBEUCBYVEFMIGZyZXEgdG8gMjZNSHogYW5kIGFjY3VtdWxhdG9y
+IHRvIDEuDQo+ICsJICogVmFsaWQgdmFsdWVzIGZvciBYVEFMIGZyZXEgYXJlIDEyIGFuZCAyNi4N
+Cj4gKwkgKi8NCj4gIAltdGtfZHBfdXBkYXRlX2JpdHMobXRrX2RwLCBNVEtfRFBfVFJBTlNfUDBf
+MzQyQywNCj4gLQkJCSAgIFhUQUxfRlJFUV9EUF9UUkFOU19QMF9ERUZBVUxULA0KPiAtCQkJICAg
+WFRBTF9GUkVRX0RQX1RSQU5TX1AwX01BU0spOw0KPiArCQkJICAgRklFTERfUFJFUF9DT05TVChY
+VEFMX0ZSRVFfRFBfQUNDVU1fTlVNX01BU0ssIDEpIHwNCj4gKwkJCSAgIEZJRUxEX1BSRVBfQ09O
+U1QoWFRBTF9GUkVRX0RQX0NMT0NLX01IWl9NQVNLLCAyNiksDQo+ICsJCQkgICBYVEFMX0ZSRVFf
+RFBfQUNDVU1fTlVNX01BU0sgfCBYVEFMX0ZSRVFfRFBfQ0xPQ0tfTUhaX01BU0spOw0KPiArDQo+
+ICAJbXRrX2RwX3VwZGF0ZV9iaXRzKG10a19kcCwgTVRLX0RQX1RSQU5TX1AwXzM1NDAsDQo+ICAJ
+CQkgICBGRUNfQ0xPQ0tfRU5fTU9ERV9EUF9UUkFOU19QMCwNCj4gIAkJCSAgIEZFQ19DTE9DS19F
+Tl9NT0RFX0RQX1RSQU5TX1AwKTsNCj4gQEAgLTEyNjAsMjggKzEyNjYsMjkgQEAgc3RhdGljIHZv
+aWQgbXRrX2RwX2luaXRpYWxpemVfYXV4X2hwZF9kZXRlY3Rfc2V0dGluZ3Moc3RydWN0IG10a19k
+cCAqbXRrX2RwKQ0KPiAgDQo+ICBzdGF0aWMgdm9pZCBtdGtfZHBfaW5pdGlhbGl6ZV9ocGRfZGV0
+ZWN0X3NldHRpbmdzKHN0cnVjdCBtdGtfZHAgKm10a19kcCkNCj4gIHsNCj4gLQl1MzIgdmFsOw0K
+PiAtDQo+ICAJLyogTWFzayBBVVggVE9QIGludGVycnVwdCwgYXMgdGhpcyB1c2VzIHRyYW5zbWl0
+dGVyIGZvciBIUEQgKi8NCj4gIAltdGtfZHBfdXBkYXRlX2JpdHMobXRrX2RwLCBNVEtfRFBfVE9Q
+X0lSUV9NQVNLLA0KPiAgCQkJICAgQVVYX1RPUF9JUlFfTVNLLCBBVVhfVE9QX0lSUV9NU0spOw0K
+PiAgDQo+IC0JLyogRGVib3VuY2UgdGhyZXNob2xkICovDQo+ICsJLyogU2V0IEhvdHBsdWcgZGVi
+b3VuY2UgdGhyZXNob2xkIHRpbWU6IHh0YWxfcGVyaW9kICogZGViX3RoZCAqLw0KPiAgCW10a19k
+cF91cGRhdGVfYml0cyhtdGtfZHAsIE1US19EUF9UUkFOU19QMF8zNDEwLA0KPiAgCQkJICAgOCwg
+SFBEX0RFQl9USERfRFBfVFJBTlNfUDBfTUFTSyk7DQo+ICANCj4gLQl2YWwgPSAoSFBEX0lOVF9U
+SERfRFBfVFJBTlNfUDBfTE9XRVJfNTAwVVMgfA0KPiAtCSAgICAgICBIUERfSU5UX1RIRF9EUF9U
+UkFOU19QMF9VUFBFUl8xMTAwVVMpIDw8IDQ7DQoNCkl0IHNlZW1zIHRoZSBvcmlnaW5hbCBjb2Rl
+IGhhcyBidWcgaGVyZS4NCkZpeCB0aGUgYnVnIGZpcnN0IChpdCBjb3VsZCBiZSBiYWNrcG9ydCks
+IGFuZCB0aGVuIGNsYXJpZnkgcmVnaXN0ZXIuDQoNCj4gLQltdGtfZHBfdXBkYXRlX2JpdHMobXRr
+X2RwLCBNVEtfRFBfVFJBTlNfUDBfMzQxMCwNCj4gLQkJCSAgIHZhbCwgSFBEX0lOVF9USERfRFBf
+VFJBTlNfUDBfTUFTSyk7DQo+IC0NCj4gIAkvKg0KPiAtCSAqIENvbm5lY3QgdGhyZXNob2xkIDEu
+NW1zICsgNSB4IDAuMW1zID0gMm1zDQo+IC0JICogRGlzY29ubmVjdCB0aHJlc2hvbGQgMS41bXMg
+KyA1IHggMC4xbXMgPSAybXMNCj4gKwkgKiBTZXQgaW50ZXJydXB0IGRlYm91bmNlIHRocmVzaG9s
+ZCB0aW1lDQo+ICsJICogVkFMICB8ICAwICAgICAxICAgICAyICAgICAzICBJTlRfVEhEDQo+ICsJ
+ICogTG93ICB8IDEwMCAgIDMwMCAgIDUwMCAgIDcwMCB1Uw0KPiArCSAqIEhpZ2ggfCA3MDAgICA5
+MDAgIDExMDAgIDEzMDAgdVMNCj4gIAkgKi8NCj4gLQl2YWwgPSAoNSA8PCA4KSB8ICg1IDw8IDEy
+KTsNCj4gIAltdGtfZHBfdXBkYXRlX2JpdHMobXRrX2RwLCBNVEtfRFBfVFJBTlNfUDBfMzQxMCwN
+Cj4gLQkJCSAgIHZhbCwNCj4gKwkJCSAgIEZJRUxEX1BSRVBfQ09OU1QoSFBEX0lOVF9MT1dfVEhE
+X0RQX1RSQU5TX1AwX01BU0ssIDIpIHwNCj4gKwkJCSAgIEZJRUxEX1BSRVBfQ09OU1QoSFBEX0lO
+VF9ISUdIX1RIRF9EUF9UUkFOU19QMF9NQVNLLCAyKSwNCj4gKwkJCSAgIEhQRF9JTlRfVEhEX0RQ
+X1RSQU5TX1AwX01BU0spOw0KPiArDQo+ICsJLyogQ29ubmVjdGlvbiBhbmQgRGlzY29ubmVjdGlv
+biB0aHJlc2hvbGRzOiAxLjVtcyArICg1IHggMC4xKSBtcyA9IDJtcyAqLw0KPiArCW10a19kcF91
+cGRhdGVfYml0cyhtdGtfZHAsIE1US19EUF9UUkFOU19QMF8zNDEwLA0KPiArCQkJICAgRklFTERf
+UFJFUF9DT05TVChIUERfRElTQ19USERfRFBfVFJBTlNfUDBfTUFTSywgNSkgfA0KPiArCQkJICAg
+RklFTERfUFJFUF9DT05TVChIUERfQ09OTl9USERfRFBfVFJBTlNfUDBfTUFTSywgNSksDQo+ICAJ
+CQkgICBIUERfRElTQ19USERfRFBfVFJBTlNfUDBfTUFTSyB8DQo+ICAJCQkgICBIUERfQ09OTl9U
+SERfRFBfVFJBTlNfUDBfTUFTSyk7DQo+ICAJbXRrX2RwX3VwZGF0ZV9iaXRzKG10a19kcCwgTVRL
+X0RQX1RSQU5TX1AwXzM0MzAsDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbWVkaWF0
+ZWsvbXRrX2RwX3JlZy5oIGIvZHJpdmVycy9ncHUvZHJtL21lZGlhdGVrL210a19kcF9yZWcuaA0K
+PiBpbmRleCA5Y2FmNzQzZjRmZTYuLmNlNDdiOTlkZGRjNCAxMDA2NDQNCj4gLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL21lZGlhdGVrL210a19kcF9yZWcuaA0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
+bWVkaWF0ZWsvbXRrX2RwX3JlZy5oDQo+IEBAIC0yNTMsNiArMjUzLDggQEANCj4gICNkZWZpbmUg
+TVRLX0RQX1RSQU5TX1AwXzM0MTAJCQkJMHgxNDEwDQo+ICAjZGVmaW5lIEhQRF9ERUJfVEhEX0RQ
+X1RSQU5TX1AwX01BU0sJCQkJR0VOTUFTSygzLCAwKQ0KPiAgI2RlZmluZSBIUERfSU5UX1RIRF9E
+UF9UUkFOU19QMF9NQVNLCQkJCUdFTk1BU0soNywgNCkNCj4gKyNkZWZpbmUgSFBEX0lOVF9ISUdI
+X1RIRF9EUF9UUkFOU19QMF9NQVNLCQkJR0VOTUFTSyg3LCA2KQ0KPiArI2RlZmluZSBIUERfSU5U
+X0xPV19USERfRFBfVFJBTlNfUDBfTUFTSwkJCUdFTk1BU0soNSwgNCkNCj4gICNkZWZpbmUgSFBE
+X0lOVF9USERfRFBfVFJBTlNfUDBfTE9XRVJfNTAwVVMJCQkoMiA8PCA0KQ0KPiAgI2RlZmluZSBI
+UERfSU5UX1RIRF9EUF9UUkFOU19QMF9VUFBFUl8xMTAwVVMJCQkoMiA8PCA2KQ0KDQpVc2VsZXNz
+LCByZW1vdmUgaXQuDQoNClJlZ2FyZHMsDQpDSw0KDQo+ICAjZGVmaW5lIEhQRF9ESVNDX1RIRF9E
+UF9UUkFOU19QMF9NQVNLCQkJCUdFTk1BU0soMTEsIDgpDQo+IEBAIC0yNjcsOCArMjY5LDggQEAN
+Cj4gICNkZWZpbmUgSVJRX01BU0tfRFBfVFJBTlNfUDBfSU5UX0lSUQkJCQkoQklUKDMpIDw8IDQp
+DQo+ICAjZGVmaW5lIElSUV9TVEFUVVNfRFBfVFJBTlNfUDBfTUFTSwkJCQlHRU5NQVNLKDE1LCAx
+MikNCj4gICNkZWZpbmUgTVRLX0RQX1RSQU5TX1AwXzM0MkMJCQkJMHgxNDJjDQo+IC0jZGVmaW5l
+IFhUQUxfRlJFUV9EUF9UUkFOU19QMF9ERUZBVUxUCQkJCShCSVQoMCkgfCBCSVQoMykgfCBCSVQo
+NSkgfCBCSVQoNikpDQo+IC0jZGVmaW5lIFhUQUxfRlJFUV9EUF9UUkFOU19QMF9NQVNLCQkJCUdF
+Tk1BU0soNywgMCkNCj4gKyNkZWZpbmUgWFRBTF9GUkVRX0RQX0FDQ1VNX05VTV9NQVNLCQkJCUdF
+Tk1BU0soMSwgMCkNCj4gKyNkZWZpbmUgWFRBTF9GUkVRX0RQX0NMT0NLX01IWl9NQVNLCQkJCUdF
+Tk1BU0soNywgMikNCj4gICNkZWZpbmUgTVRLX0RQX1RSQU5TX1AwXzM0MzAJCQkJMHgxNDMwDQo+
+ICAjZGVmaW5lIEhQRF9JTlRfVEhEX0VDT19EUF9UUkFOU19QMF9NQVNLCQkJR0VOTUFTSygxLCAw
+KQ0KPiAgI2RlZmluZSBIUERfSU5UX1RIRF9FQ09fRFBfVFJBTlNfUDBfSElHSF9CT1VORF9FWFQJ
+CUJJVCgxKQ0KDQo=
