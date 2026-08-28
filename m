@@ -1,95 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A3AF357CEB
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 15:26:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04D1E356754
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 15:27:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787930771; cv=none; b=oQIh14OC/un7Y8hJskaMNDMM4b1odSfJrIXbyhv0ERrfLJ03co1uwm/btexsOwN4xufAEjRwmKfncp6HKLuQ5uQ+9auZNI2psvLjaYdxpzYYPm7l1FC7UNr9qZ30GJzSzYr+bML5wlZ479v+TzUScI+7xjUsk96UiOct4MTUzSg=
+	t=1787930839; cv=none; b=OweSNU0vLP8jm2OQJzUJc5Sop+6Njj70NwN8PrfYQxXSxkDD4yBpp8Ny6+d8QW6zDvj0E5F7j2AOTA/xkWsrxsK0/tcwdCcg+9cHOt5Q4rcbd1ZYMnyLYHV1YTdVfpyILcCzE9//OwNKKH0eIucqBH+/+x8Gaud5+aC30dwq8QU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787930771; c=relaxed/simple;
-	bh=wVvpv1TNCDYG36Lp1/MLiCItxJeYm55M/vEaIoXOLCc=;
+	s=arc-20240116; t=1787930839; c=relaxed/simple;
+	bh=TyLLeIu64BUUSazxOo6thNchzolc0nnqaY8rOCzFCgM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=s3ZeEihmg/o0Kjr1LZ/r8eMPEW3T74euA4g3FuiFwcMi3PvpHMT3vaATIlgiHZKFbiu+uQ/ItaM6sk4WPY+x+EcjhVcz1nx4ZKp3GKz/BsfXBiUe1J+28vU2NTN4Ay69LSCmsri03VdfO4P38RSjDLM3brA8exT1FWCJLPzz+fA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AfGlazCz; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=sgJbR8GJGOiIDz+WJOHoIqMlmBoszvmH41LjTbMswN2QHh72/v8+GPs9RYfDKSPML+9c3DpwadJxsmLPXkqgxuyfJJSyPRxJGQUljbgeQJpvCZYmjiqGTDX5K0QYUGtNavOTTJCFsoquAgpyltau/5MmUqwQLUrn1yI5dy06hic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SsjyCufQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AfGlazCz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0B271F00A3D;
-	Fri, 28 Aug 2026 15:26:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SsjyCufQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C67B1F00A3D;
+	Fri, 28 Aug 2026 15:27:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787930767;
-	bh=+peKumwtJxTgcRLtb0shekQTZ9ay35W4Tc8sb5MP//g=;
+	s=k20260515; t=1787930837;
+	bh=id+oMfMgSs1F/uj8z23l8PZe3GYu+L9wK7zc8+ssHGw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AfGlazCzQHPPh+GrAKz2mvRRSKplTs9KgfUWWxy0ATqpJAq1NEl6LOMvz/LBKBPkA
-	 33YcB/Bl8NGwMwTvaEw4UJPW2OcVR2kyYPj3XBlvbV/PBgaI+S5nz70n6UI/bGAi3i
-	 oSdZtd4lDk7AR23eLMg1KYhctAIA81rjYq6BM24J+hLOcBA2oCW3iOWS69B8gfz1Ij
-	 q/pxjQVzyHTW1RC8qBGelf9vL86rXfivoUXaYfwdfPidEwgqhATpiPIwST88FECo2M
-	 86WdeQT6tl/deA9AjJpIOSseLQhdFtDf1q/X4j9XHp77H9jSmTSKG6j7EktrlWB7HE
-	 e/J3o5GzC5v2w==
+	b=SsjyCufQfd8OE4IVE5lO2udu7FHdgt/RSbRILHumrRygnj6MSxA3YLWL9H5zstsZx
+	 LO6hMc3V5uuvChJhLb0ZJDx0I5srOcfGY5tqKEYtiXb+WvbBCbULvVevJG4jgQcOuY
+	 QxZtxjb9iD3eOTWp3vvnQR+jX1amaqV8xnUgF9g7OvyhB6ihnxRdGEV5ysoRccvesI
+	 SSr2j7W3IVpYWr1EkEG5Q3/0j6TqQ0cXrQEjB/EC1bnvnB4QqhoYThrYbi9N9AIIMy
+	 BL5g8boDvZWvmanP0Q+4ceWFQXZ+zmRmg5zlX8Qwu5Wuhp8bAJqHpp3/cMNU0oT7bp
+	 MqFhBYiRrvOaQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: usb: generic-ehci: Document ST
- STM32MP1 SoC compatibles
+Subject: Re: [PATCH v4 1/2] dt-bindings: arm: stm32: Document
+ st,stm32mp23/25-syscfg subnodes and cells
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Marek Vasut" <marex@nabladev.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260828152130.176171-1-marex@nabladev.com>
-References: <20260828152130.176171-1-marex@nabladev.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260828151216.175020-1-marex@nabladev.com>
+References: <20260828151216.175020-1-marex@nabladev.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 28 Aug 2026 15:26:06 +0000
-Message-Id: <20260828152606.B0B271F00A3D@smtp.kernel.org>
+Date: Fri, 28 Aug 2026 15:27:17 +0000
+Message-Id: <20260828152717.6C67B1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] Incomplete binding update: missing matching SoC compatibles for =
-OHCI
+- [High] The conditional `if` block for `st,stm32mp23-syscfg` and `st,stm32=
+mp25-syscfg` uses `enum` directly instead of `contains: enum`, which fails =
+to match the array-typed `compatible` property and bypasses validation.
+- [Medium] The schema examples section does not include a demonstration of =
+the newly required properties and subnodes, leaving the new variant unteste=
+d.
 --
 
-commit 7095875c29b62fc4da25d15360437f36863e8a6a
+commit 756e633a3636918c549af9224be89571f86da4e0
 Author: Marek Vasut <marex@nabladev.com>
+Subject: dt-bindings: arm: stm32: Document st,stm32mp23/25-syscfg subnodes =
+and cells
 
-dt-bindings: usb: generic-ehci: Document ST STM32MP1 SoC compatibles
+The st,stm32mp23-syscfg and st,stm32mp25-syscfg can have subnodes, which
+represent the USB 2.0 FEMTO-PHY. Document subnodes pattern properties and
+address/size cells.
 
-This commit documents SoC-specific compatibles for the ST STM32MP13xx and
-STM32MP15xx series in the generic-ehci binding. This provides a more
-accurate compatible string for the SoC DTSI than the plain "generic-ehci"
-fallback.
+> diff --git a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.=
+yaml b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+> index 95d2319afe235..d82afa39960b9 100644
+> --- a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+> +++ b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
 
-> diff --git a/Documentation/devicetree/bindings/usb/generic-ehci.yaml b/Do=
-cumentation/devicetree/bindings/usb/generic-ehci.yaml
-> index 55a5aa7d7a54e..a88aa1e1ee59c 100644
-> --- a/Documentation/devicetree/bindings/usb/generic-ehci.yaml
-> +++ b/Documentation/devicetree/bindings/usb/generic-ehci.yaml
-> @@ -55,6 +55,8 @@ properties:
->                - rockchip,rk3588-ehci
->                - snps,hsdk-v1.0-ehci
->                - socionext,uniphier-ehci
-> +              - st,stm32mp13-ehci
-> +              - st,stm32mp15-ehci
->            - const: generic-ehci
+[ ... ]
+
+> @@ -57,10 +68,14 @@ allOf:
+>    - if:
+>        properties:
+>          compatible:
+> -          const: st,stm32mp25-syscfg
+> +          enum:
+> +            - st,stm32mp23-syscfg
+> +            - st,stm32mp25-syscfg
+
+[Severity: High]
+Does checking the array-typed compatible property directly against enum fail
+to match here?
+
+Since the compatible property is defined globally as an array (e.g.,
+["st,stm32mp25-syscfg", "syscon"]), wouldn't evaluating it against a string
+enum evaluate to false and completely bypass the validation constraints?
+
+Should this use contains: enum instead?
+
+>      then:
+>        required:
+>          - "#clock-cells"
+> +        - "#address-cells"
+> +        - "#size-cells"
 
 [Severity: Medium]
-Since the STM32MP13xx and STM32MP15xx hardware includes both EHCI and OHCI
-controllers in a companion setup, should a matching update be made to
-Documentation/devicetree/bindings/usb/generic-ohci.yaml?
+Do the newly authored constraints and phy subnode need to be added to the
+examples section?
 
-Currently, generic-ohci.yaml has an equivalent list of SoC-specific OHCI
-compatibles:
+Currently, the examples only cover the older st,stm32mp157-syscfg variant.
+Does this mean the new requirements for mp23/mp25 aren't validated when
+running make dt_binding_check?
 
-              - ingenic,jz4740-ohci
-              - rockchip,rk3588-ohci
-              - snps,hsdk-v1.0-ohci
-          - const: generic-ohci
-
-Without adding the corresponding ST compatible strings to generic-ohci.yaml,
-the OHCI controller remains documented only as "generic-ohci", which leaves
-it not future proof in the same way generic-ehci was prior to this change.
+> =20
+>  additionalProperties: false
+>
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828152130.1761=
-71-1-marex@nabladev.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828151216.1750=
+20-1-marex@nabladev.com?part=3D1
