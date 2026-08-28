@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1C763BE146;
-	Fri, 28 Aug 2026 06:32:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2498E3803F9;
+	Fri, 28 Aug 2026 06:36:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787898731; cv=none; b=Kl71pWHHhAkqxq+nXKggjZgdwGuPlbL074FNiRC9kKeq+YxkjZbB3BiuBPnkdLGlfQngw6fvPm2m2/kRO58gmBheryg3XewU4p+XcWtU4onPM6dd3DJxyBOHWKi8FnCla29HIBre/LiBWdqaYeNbfb3RR2W1AO2SomtFMkUnHvU=
+	t=1787898996; cv=none; b=tAFZj2zMa1sR51YsSRhdkD9wl9vzQTKjbSLTIqUJNy0Ude3i04txIGDal7JwNNzgdWkUZse0qqmzn3z6EVnm/EVQounSx37/1Px5NN5RB7gBm1pfomDmuVcVzV0FNEdTMj4zAcjfxruM4QXNCvLVDRJMmQ3X2ozd8UUWd9ubqck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787898731; c=relaxed/simple;
-	bh=hH6hUAGeUnPR6MZg9HrHEK7ZzG+4+Gt8ogtcHdFz3KI=;
+	s=arc-20240116; t=1787898996; c=relaxed/simple;
+	bh=mKyJGr0xXsffdv0VlNpwMXOCX1B0klmbMpV+oundKQQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jHsRl9eQ0at3ptj8K7fEeho1/RkI0XZ7764jO6tmDhTy6H6ELHyj4cPNaOT/lR46BFTcT15VrFHuB1ng/D/Ei6neb3o5GJKj7N1weMK65Ze1gEZsmm/aZXmW5bKovIQ7Hg008su6kuG9/WE/R49g1KWX2K+Rf9G2j+3j4xATwRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IDuD9fMD; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=eOVuWnFdg8H/F43sHxUJa5E8NAb3ybwqq4h86NMeLoGBPuIyQXON6cCnlYL3gesAqo463BUb5yNAwiEnZqaITZhE03Vj1rOLDPKmrRq6W8/fsQ6YSd8+rTVreD4P8Wmr8HeTpARSNWtG4tsAVWVdFQmvshpljJiM0cpmZ1S+C4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k2p92F6v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IDuD9fMD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 327051F000E9;
-	Fri, 28 Aug 2026 06:32:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k2p92F6v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD7E51F000E9;
+	Fri, 28 Aug 2026 06:36:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787898729;
-	bh=Akoqu3LxWnr+IajCtPHrY7pZSRRiFcamgzMXWg1g02g=;
+	s=k20260515; t=1787898994;
+	bh=YYjgr1O1eqSfiDf48+HBf+HsSZb6YSwqsVnmyCy40/M=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=IDuD9fMDxCSj8TxbbxYFXHMomyvBs1NhxxDqkCN692tD28eLDeQUZ18OsGu7FCY7x
-	 PGIJDR8RonslWqRbMtMpEw36Jn4EzjUAK8jO6PWgmjaTWWfNKWkPyHa8PKUAB5s5lK
-	 mbYXuAMftou9OHF5gnouHQ5heszYUHVGoQ+DIDhx/MxMnKlH5kk9oDn5wwIlCJurPC
-	 wBngH5ZYTxbdCaU8QLT9mIuPcXMGTBOo1TzY+ydn8YkcZZ79TasNQ09qb8AsEsXdMb
-	 nEreZ8atWr/5L3/pPeUAwpauq10ErVwfXnSKFPOT0EgWJE/GzuGxXCPSMzyWt2KD3X
-	 8WM/Xyvx7RaAA==
-Message-ID: <cefc0fb5-581c-4c77-a13f-13c3f72ea68d@kernel.org>
-Date: Fri, 28 Aug 2026 08:32:02 +0200
+	b=k2p92F6v7/Z6dejV9xCz4FtNyADbz4xhvY4/Zhn6Xk8AvN87B1SXodDDRGEGL5MM9
+	 TvglwUs4/JSHe2thoLeZwbdtz6yukkmMAQ4sD4WvSYTprp9LmnEqEWpICamqUKSRBW
+	 nhg5GWcuU6NLSdFEG9BgeMVdmmXld6iAYJMNtlhM4Wx2E6md7rwQ4NXvID2WkGTqoo
+	 H5fubEk/dVddMwvbk2e2smiKM07O9HXbd1f906lOZM4ZPLkNALmjhP/Gl8UUmiEmvY
+	 Z9tK6XB58bFHSS7lW2LVLwq2HiMpfzo34Yg5TRPvO96KIMcvCtVIJ9wgy7eXUSvt/e
+	 IxTnENw3qCShw==
+Message-ID: <21dec355-0cd7-4250-a7f4-e93f3e446504@kernel.org>
+Date: Fri, 28 Aug 2026 08:36:29 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,8 +47,8 @@ Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
  Dave Stevenson <dave.stevenson@raspberrypi.com>
 References: <20260820075524.2056029-1-eagle.alexander923@gmail.com>
  <20260820075524.2056029-2-eagle.alexander923@gmail.com>
- <20260827-chubby-refined-partridge-2efca6@quoll>
- <CAP1tNvS1nKEh=O1e6NGXFu0L2DWgEcC-kmRkfPXqGOoTvdFLsg@mail.gmail.com>
+ <20260827-legendary-viridian-tamarin-4e56e5@quoll>
+ <CAP1tNvSg4yWHCJW6UNZ4yQv5FCjz9u5ZLpuW5Z9skkjQYbS9AA@mail.gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -94,31 +94,66 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <CAP1tNvS1nKEh=O1e6NGXFu0L2DWgEcC-kmRkfPXqGOoTvdFLsg@mail.gmail.com>
+In-Reply-To: <CAP1tNvSg4yWHCJW6UNZ4yQv5FCjz9u5ZLpuW5Z9skkjQYbS9AA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28/08/2026 07:34, Alexander Shiyan wrote:
+On 28/08/2026 07:51, Alexander Shiyan wrote:
 > Hello.
 > 
 >> On Thu, Aug 20, 2026 at 10:55:23AM +0300, Alexander Shiyan wrote:
 >>> Add devicetree binding for the onsemi AR0234 CMOS image sensor.
 >>> Signed-off-by: Alexander Shiyan <eagle.alexander923@gmail.com>
 >>> ---
->> Plus, there was already v3 here:
->> <20260306103614.3208182-1-eagle.alexander923@gmail.com>
->> so how are we supposed to compare this?
->> Did you address v3 feedback in this v3+1 version?
+>>>  .../bindings/media/i2c/onnn,ar0234.yaml       | 121 ++++++++++++++++++
+>>>  1 file changed, 121 insertions(+)
+>>>  create mode 100644 Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
+>>
+>> Unanswered Sashiko comments.
 > 
-> Version v3, which was introduced about six months ago, was labeled
-> with the 'RFC' prefix.
+> I do not understand this remark.
+> The corrections based on sashiko-bot's feedback are included in the
+> cover letter.
+> Is something wrong?
 
-Label does not matter, it was still v3 and this is v3. Again - try
-comparing them yourself:
+You received here Sashiko report which looks reasonable and you did not
+answer it. At least I could not find such answer.
 
-b4 diff '<20260820075524.2056029-1-eagle.alexander923@gmail.com>'
+> 
+>>> diff --git a/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml b/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
+> ...
+>>> +properties:
+>>> +  compatible:
+>>> +    enum:
+>>> +      - onnn,ar0234cssc
+>>> +      - onnn,ar0234cssm
+>>> +      - onnn,ar0234cs
+>>> +    description:
+>>> +      The AR0234 sensor exists in two different models, a colour variant
+>>> +      (AR0234CSSC) and a monochrome variant (AR0234CSSM). The device exposes
+>>> +      the model through registers, allowing for auto-detection with a common
+>>> +      "onnn,ar0234cs" compatible string.
+>>
+>> So all devices are compatible? Then why compatibility is not expressed?
+>> What are the actual programming differences between sc, sm and "none"
+>> variants?
+> 
+> Perhaps I need to revert to the compatibility strings that were used
+> in version 2
+> (https://patchwork.kernel.org/project/linux-media/patch/20260807102847.1813059-2-eagle.alexander923@gmail.com/).
+> 
+> From a programming standpoint, it makes almost no difference which
+> sensor is used
+> - the only differences are in the output format and the format count.
+> Either way, the driver always uses the sensor model determined via
+> register reads.
+> If the specified type does not match the detected one, only a warning
+> will be printed.
 
-Which version is used for comparing?
+Devices should be made compatible with the fallback or even the color
+and mono variants could be dropped. That depends on the difference
+between color/mono.
+
 
 Best regards,
 Krzysztof
