@@ -1,112 +1,132 @@
-Received: from mail-m15574.qiye.163.com (mail-m15574.qiye.163.com [101.71.155.74])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3C653D668F;
-	Fri, 28 Aug 2026 06:57:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18ACA3D5C3C;
+	Fri, 28 Aug 2026 07:00:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787900249; cv=none; b=mH3fXVLfbXFv1mTfzR4B6edgzaNUXeubzEl5SZ8rkYZsqacp09wJ2rONzOuPY4AjJdF8X61EznZ/V/enAUMQzmp6I0cDcNpAFyB9RLDefOwa+7PlSg6lGCnnPKapn4SIsgtUH1DbtsQgMFWSDckVTx4HM3d4jy8P76nDhoMbpQs=
+	t=1787900404; cv=none; b=fspMjQzCw/xKzm9Z4hw/UsjjyRsm7CZ24eaVeP6P1jFeSQNZlBKjCoWJ1HA0328RrLQYiRMM3LHXkbkOTBLwrPqcxxayflwZ92i/EWDiHo7Tq0Lb5G1S25U+kwno5tUEDPk9qDp6KFBNFCPGebYRL63LghlRaESTcog6LkM/9Tk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787900249; c=relaxed/simple;
-	bh=mowNlomkjWV8WhtYoTKyfiaWwBDsTac8oQVst65R16Q=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=qASareZ+HQq3LAO2KNciJSsw1LwldyZha2wpPjmgJxGmEOY1VjotpyYc+Kh5FOhCivF7PGp1cW8dCoSO23S8Po22b3XTaUe2BClapYPWoID4gOMLmGwErTQYC1EZJX3OtN8sSu/JExSSLNeQuQFT7UFLpQutsPmyaVuHb0lAZc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=J3ln/bxy; arc=none smtp.client-ip=101.71.155.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1787900404; c=relaxed/simple;
+	bh=oyA3xK/3QayanvmoSu85s0Sx5Hri2ay2g0Fl7G7Sqbo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j2v4b6AFszEN7sXUmjZFZ+h5z137U9fC/qD3YjVdxtNtPoQM6V9etIsJzmT8V2073xoOJ5RoSoo/My5e8oRhLc7MYEL2d2Im4UasKPyHsi3myHz/jJRx015erGLhcDMKC6UHrNRLH3sU6ZEIp/yqPFQcES//+gwwXMKzcJah/bY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gnh/OCul; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="J3ln/bxy"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [58.22.7.114])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4bab2d5a4;
-	Fri, 28 Aug 2026 14:52:05 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sandy Huang <hjc@rock-chips.com>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Andy Yan <andy.yan@rock-chips.com>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v8 2/5] drm/dp: Add helper to validate DP lane counts
-Date: Fri, 28 Aug 2026 14:51:50 +0800
-Message-Id: <20260828065153.590802-3-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260828065153.590802-1-damon.ding@rock-chips.com>
-References: <20260828065153.590802-1-damon.ding@rock-chips.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gnh/OCul"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A2DE1F000E9;
+	Fri, 28 Aug 2026 07:00:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787900402;
+	bh=DCV/soKd0vC4UfcJ2C13p0eqWOyka0Ke2GoaHDqUKuQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gnh/OCulUL6Y3OsVq70tRyEABuXlC6JyBU4IJKIYTSOBfZ4+/6Bw7WXuVzHK+5kJ9
+	 03Fo2Di1VsmhoduwYEANkeHL5cWrnSRdAgdIYvdL2mF58MEB/q5IUZVFiRkZ41JsGr
+	 sI3EwmZ1IfP/DvHgkLvTA0kw1htpNhDjSaMWk1JShxcz5Ar1wZFOhyow0nT1TXVe2l
+	 6ERo7Djcf79D4tKnYExFkWm5mk4ugUonqSvW89QFZHD51BHVjhiodkIwKcJMANtxpD
+	 16guQSlCYZKwa8HhCjaW0ScVuhRTDLGkEQhgF20qpmUnxkOend2YTjk3N43msi+UoB
+	 aerprC3a/iqLw==
+Date: Fri, 28 Aug 2026 08:59:57 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Ahmed Naseef <naseefkm@gmail.com>
+Cc: linux-gpio@vger.kernel.org, 
+	Benjamin Larsson <benjamin.larsson@genexis.eu>, Christian Marangi <ansuelsmth@gmail.com>, 
+	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Lorenzo Bianconi <lorenzo@kernel.org>, 
+	Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>, Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH 2/3] dt-bindings: pinctrl: Add EcoNet EN7528 pin
+ controller
+Message-ID: <20260828-adorable-bug-from-arcadia-fcad00@quoll>
+References: <cover.1786262697.git.naseefkm@gmail.com>
+ <7e6150b186c2d16820d7382bce065596a0854a47.1786262697.git.naseefkm@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa04723d5e203a8kunm9cc188d518834a
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGk4aGlYaSEMdSEsZSU
-	IeQ0lWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
-	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=J3ln/bxybGTsOfkGBbZzKL9bXT2jZ9+ygl5ZAisrNMxtrVWSl2FG5ZFDMbj6iGPWwecOCgPNJFC+PF3O1qIsbsDr/VcpySVQUJRnOxamoNBrZvltJ9/Duo8jBMIzVAjRuvyhGVnF5/X9fvXA1sjPqaTYubqoh+eUn2HVj5d3WX0=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=3D3tCxbxiOqvsJFvLlKoOy9RkGLmHyoV0izPMCA9ZDc=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <7e6150b186c2d16820d7382bce065596a0854a47.1786262697.git.naseefkm@gmail.com>
 
-Add a generic helper function drm_dp_lane_count_is_valid() to check
-if a DisplayPort lane count is valid. According to the DP specification,
-only 1, 2, or 4 lanes are supported.
+On Sun, Aug 09, 2026 at 12:04:59PM +0400, Ahmed Naseef wrote:
+> +maintainers:
+> +  - Lorenzo Bianconi <lorenzo@kernel.org>
+> +
+> +description:
+> +  The EcoNet EN7528 pin controller is used to control SoC pins. It shares the
+> +  IP with the Airoha pin controllers, but its IOMUX and pin configuration
+> +  registers have a different layout.
+> +
+> +properties:
+> +  compatible:
+> +    const: econet,en7528-pinctrl
+> +
+> +  airoha,chip-scu:
+> +    description: phandle to the chip SCU syscon
+> +    $ref: /schemas/types.yaml#/definitions/phandle
 
-This helper avoids duplicating DP lane count validation logic across
-individual DisplayPort drivers.
+If the entire address space is part of the SCU, then this device should
+be part of the SCU, e.g. its subnode.
 
-Suggested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  gpio-controller: true
+> +
+> +  '#gpio-cells':
+> +    const: 2
+> +
+> +  gpio-ranges:
+> +    maxItems: 1
+> +
+> +  interrupt-controller: true
+> +
+> +  '#interrupt-cells':
+> +    const: 2
+> +
+> +allOf:
 
----
+This goes to the end of the file, before the additionalProperties.
 
-Changes in v6:
-- Add Reviewed-by tag.
----
- include/drm/display/drm_dp_helper.h | 6 ++++++
- 1 file changed, 6 insertions(+)
+> +  - $ref: pinctrl.yaml#
+> +
+> +required:
+> +  - compatible
+> +  - airoha,chip-scu
+> +  - interrupts
+> +  - gpio-controller
+> +  - gpio-ranges
+> +  - "#gpio-cells"
+> +  - interrupt-controller
+> +  - "#interrupt-cells"
+> +
+> +patternProperties:
+> +  '-pins$':
+> +    type: object
 
-diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-index ab16c1be3900..5b05a7fbe174 100644
---- a/include/drm/display/drm_dp_helper.h
-+++ b/include/drm/display/drm_dp_helper.h
-@@ -139,6 +139,12 @@ bool drm_dp_as_sdp_supported(struct drm_dp_aux *aux, const u8 dpcd[DP_RECEIVER_C
- 
- int drm_dp_psr_setup_time(const u8 psr_cap[EDP_PSR_RECEIVER_CAP_SIZE]);
- 
-+static inline bool
-+drm_dp_lane_count_is_valid(int lane_count)
-+{
-+	return lane_count == 1 || lane_count == 2 || lane_count == 4;
-+}
-+
- static inline int
- drm_dp_max_link_rate(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
- {
--- 
-2.34.1
+"patternProperties" should follow "properties"
+
+> +
+> +    patternProperties:
+> +      '^mux(-|$)':
+> +        type: object
+> +
+> +        description:
+> +          pinmux configuration nodes.
+> +
+> +        $ref: /schemas/pinctrl/pinmux-node.yaml
+> +
+> +        properties:
+> +          function:
+> +            description:
+> +              A string containing the name of the function to mux to the group.
+> +            enum: [gpio, jtag, pcie_reset, pcm, pcm_spi, phy1_led0,
+> +                   phy1_led1, phy2_led0, phy2_led1, phy3_led0, phy3_led1,
+> +                   phy4_led0, phy4_led1, pnand, pon, pwm, sipo, spi, uart]
+
+Best regards,
+Krzysztof
 
