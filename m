@@ -1,157 +1,146 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B2B433F58D
-	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 14:22:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9059A343D7F
+	for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 14:22:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787926942; cv=none; b=o6oyy+PmlHct4xkbv+SlncPyd6OinrMtankrCv9pMnPuljd3LwJ8ep0NPWMA+GZBIqAs5nTHAxd0fovlif/FOCQ5Syb5GxoghY1ChnW2qRDLuG9kNK3rZGEF87JCVbbhqKOgdWyTCz7WhmMkf2lIU/fIbejZfxyZ/jP/1YoppkY=
+	t=1787926954; cv=none; b=QZ5svacNEoWewgsmiZdKwG+C711AizNmtWMj8zv+JMIcvr5E8q1qrj4HGTIbSuQ62Y7d+XWh1ONQIcGrV7gax2D2b51l6PCkDuLQwnDL/4SdxekNATYRT+wwdEZw80kkaOriPq1T47KdnsQz6bdZxv+unFp1Ds51s0FISPuDvdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787926942; c=relaxed/simple;
-	bh=98FAPlWiUBQ2KTZkD1NiHxebfTNkfp4YinxT4qA1ltY=;
+	s=arc-20240116; t=1787926954; c=relaxed/simple;
+	bh=9LmVv53Own3MgB2FtGCCfVEydOOBMPurDJtKvfAvosc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=J0tUX2o770oC1Szev4t4D/8e3GWoxbL4zbzX4a6TCQC7qX8gjgL020hxHaJLrFKCqCQO6kfNOM4uobCrsk42AyAO40Olb9zT0lInNgIu435MZQTQektuTdQ+17rDbN8jC4qVDZubksnbmg4qcr3uyfmmp8rgBYDNpmOuJtH9rHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dDVw5G31; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=DSKSKIkMMn5SpS2HfO238xSZtXPAhrHERtyO15X/oYBPU7hNLaJhNsNjJniRMwrPbn7xsIsItx43S9HInPEXKWGg9W44ptlHfxaR2FLUtJ4EKrhxCNJ7JOlvwx86r+KRYWQISn6enRqEsaMAgVPqycO/qQIYo60wGKYVfHMabsk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oj39tixe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dDVw5G31"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB61C1F000E9;
-	Fri, 28 Aug 2026 14:22:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oj39tixe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81AD01F000E9;
+	Fri, 28 Aug 2026 14:22:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787926941;
-	bh=F9R/jw6fYGhp1qHHGXXhrB4PiqZq9JvnVHSFVZEmj60=;
+	s=k20260515; t=1787926952;
+	bh=USIBPZIIitxiDbYgG5g1JltFJ3mijD2CH92KveFVOAA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dDVw5G315pwn0fGWL6AsIMRtMdil0F89XAJbS0Dz03fjldMTlf09yMSsbjG1yk3B0
-	 5FKHszYwjjo87qz2ZraeG1AuJJjHJCuNNlWEoYEPciEpn8j3D4jwhoHVHrUEmLPdkF
-	 Usm2FkJ/ZSbstnkYDdaO8q6Z7zRx+iAiqF11DpMOeyAw3+p6kReQTsU7iT6BBZuRfz
-	 A7uf8sGVbmBNJSfq5w1KRAWHu8mGxhBmtKZoJDXylPCwexWVnWYPvNfTkJ/OnRURSg
-	 9xvywwUBPEYsuTodARQR87C5ZWGlNUkSEvTJT/GgNvr/Z6dGWdqTO0rb9t4vthmU2j
-	 hCKEvxnT6ml+Q==
+	b=Oj39tixeZdYZ3eLCW62ianppzXL/2NVm3BNkjFOES2g9dJkkH5SsxB/6kJqEhEEKd
+	 8zASF8Y0xtahPOkCVxHZklFa5CNoFkIaaXV8mia95EPOBoljXFmtI+E7zlar1jDfip
+	 GXfkmp4Jxwwxy414GBiNZYyMM2VPMd7JKXuq+loAZUgAfrTqTyTE8by/tsJqzW4glG
+	 Xj4kcsQ/+WIfaE8Vg+oI1TmYo+tazuOY3AxE3KHDg7H/scGtcH4mJNjlHZ0hLg0iQ2
+	 txBjJd0f1yrzSJxTKnX3G/NDzZRa9OuzJdPo/1A9mYdIEuPEEFDbDU1nKkOQ9In0dQ
+	 lzxrgRT/vTxdw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC/DO NOT MERGE 09/12] drm/msm/hdmi: Add HDMI for Eliza
- SoC
+Subject: Re: [PATCH RFC/DO NOT MERGE 07/12] drm/msm/hdmi: Split PHY init
+ from power up
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: vkoul@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, olteanv@gmail.com, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260828-drm-msm-hdmi-eliza-v1-9-67843277de17@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, olteanv@gmail.com, vkoul@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org
+In-Reply-To: <20260828-drm-msm-hdmi-eliza-v1-7-67843277de17@oss.qualcomm.com>
 References: <20260828-drm-msm-hdmi-eliza-v1-0-67843277de17@oss.qualcomm.com>
- <20260828-drm-msm-hdmi-eliza-v1-9-67843277de17@oss.qualcomm.com>
+ <20260828-drm-msm-hdmi-eliza-v1-7-67843277de17@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 28 Aug 2026 14:22:20 +0000
-Message-Id: <20260828142220.AB61C1F000E9@smtp.kernel.org>
+Date: Fri, 28 Aug 2026 14:22:31 +0000
+Message-Id: <20260828142231.81AD01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] The TMDS rate validation for platforms with OPP tables accepts ine=
-xact pixel clocks by skipping clock synthesizability checks.
+
+New issues:
+- [High] The HDMI pixel clock is disabled before the 20ms vblank delay, bre=
+aking the intended shutdown sequence and risking hardware hangs.
+- [Medium] Unconditional clock disable and PHY deinitialization can cause u=
+nbalanced clock teardown or CCF warnings.
+
+Pre-existing issues:
+- [High] Hardware registers are accessed after dropping the runtime PM refe=
+rence.
+- [High] Missing return value checks for hardware initialization functions,=
+ such as `pm_runtime_resume_and_get()` and `msm_hdmi_phy_resource_enable()`.
 --
 
-commit e2e2d112c3fa04206001b8a9cc56acdda995a731
+commit 821f230494b55344c7aaf6bb73ba3e416ff8cb25
 Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: drm/msm/hdmi: Split PHY init from power up
 
-drm/msm/hdmi: Add HDMI for Eliza SoC
-   =20
-This commit adds HDMI support for the Qualcomm Eliza SoC (DPU v12.4). It
-introduces configuration for INTF_11 with new interrupt registers and handl=
-es
-Eliza's distinct clock and power requirements.
+This commit reworks and splits the msm_hdmi_power_on() sequence into
+smaller steps. It separates out runtime PM enablement, introduces a new
+msm_hdmi_phy_init() step, and splits clock preparation and reparenting into
+msm_hdmi_clk_prepare() which runs after PHY initialization.
 
 > diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm=
 /hdmi/hdmi_bridge.c
-> index 17e81628525a9..b5353a1688ddf 100644
+> index 9d027f96ae243..ead6ba3b8192a 100644
 > --- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
 > +++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+> @@ -15,12 +15,18 @@
+> =20
+>  static void msm_hdmi_power_on(struct drm_bridge *bridge)
+>  {
+> -	struct drm_device *dev =3D bridge->dev;
+>  	struct hdmi_bridge *hdmi_bridge =3D to_hdmi_bridge(bridge);
+>  	struct hdmi *hdmi =3D hdmi_bridge->hdmi;
+> -	int ret;
+> =20
+>  	pm_runtime_resume_and_get(&hdmi->pdev->dev);
+
+[Severity: High]
+This is a pre-existing issue, but is it safe to ignore the return value of
+pm_runtime_resume_and_get() here?
+
+If it fails, the power domain is not enabled and the PM usage count is not
+incremented. Proceeding to access hardware registers will cause an SError
+or panic, and the subsequent pm_runtime_put() in the disable path will
+underflow the usage count.
+
+> +}
 
 [ ... ]
 
-> @@ -459,21 +490,47 @@ static enum drm_mode_status msm_hdmi_bridge_tmds_ch=
-ar_rate_valid(const struct dr
->  	 * mdp4/dtv stuff where pixel clk is assigned to mdp/encoder
->  	 * instead):
->  	 */
-> -	if (kms->funcs->round_pixclk)
-> +	if (kms->funcs->round_pixclk) {
->  		actual =3D kms->funcs->round_pixclk(kms,
->  						  tmds_rate,
->  						  hdmi_bridge->hdmi->encoder);
-> -	else if (hdmi->extp_clk)
-> -		actual =3D clk_round_rate(hdmi->extp_clk, tmds_rate);
-> -	else
-> -		actual =3D tmds_rate;
-> -
-> -	DBG("requested=3D%lld, actual=3D%ld", tmds_rate, actual);
-> -
-> -	if (actual !=3D tmds_rate)
-> -		return MODE_CLOCK_RANGE;
-> -
-> -	return 0;
-> +		DBG("requested=3D%lld, actual=3D%ld", tmds_rate, actual);
-> +
-> +		if (actual !=3D tmds_rate)
-> +			return MODE_CLOCK_RANGE;
-> +		return MODE_OK;
-> +	} else if (!dev_pm_opp_get_opp_count(&hdmi->pdev->dev)) {
-> +		if (hdmi->extp_clk)
-> +			actual =3D clk_round_rate(hdmi->extp_clk, tmds_rate);
-> +		else
-> +			actual =3D tmds_rate;
-> +
-> +		if (actual !=3D tmds_rate)
-> +			return MODE_CLOCK_RANGE;
-> +		return MODE_OK;
-> +	} else {
-> +		struct dev_pm_opp *opp;
-> +		unsigned long pclk_rate =3D tmds_rate;
-> +
-> +		if (mode->clock > 600000)
-> +			return MODE_CLOCK_HIGH;
-> +
-> +		opp =3D dev_pm_opp_find_freq_ceil(&hdmi->pdev->dev, &pclk_rate);
-> +		if (!IS_ERR(opp)) {
-> +			dev_pm_opp_put(opp);
-> +		} else if (PTR_ERR(opp) =3D=3D -ERANGE) {
-> +			/*
-> +			 * An empty table is created by devm_pm_opp_set_clkname() even
-> +			 * if there is none. Thus find_freq_ceil will still return
-> +			 * -ERANGE in such case.
-> +			 */
-> +			return MODE_CLOCK_RANGE;
-> +		} else {
-> +			return MODE_ERROR;
-> +		}
-> +
-> +		return MODE_OK;
+> @@ -341,6 +359,8 @@ static void msm_hdmi_bridge_atomic_post_disable(struc=
+t drm_bridge *bridge,
+>  	msm_hdmi_set_mode(hdmi, hdmi->hpd_enabled);
+> =20
+>  	msm_hdmi_phy_powerdown(phy);
+> +	msm_hdmi_clk_unprepare(bridge);
+> +	msm_hdmi_phy_deinit(phy);
+> =20
+>  	if (hdmi->power_on) {
+
+[Severity: Medium]
+Can this unconditional clock disable and PHY deinitialization cause
+unbalanced clock teardown or Common Clock Framework warnings?
+
+If atomic_post_disable() is called to sanitize the hardware during initial
+modeset (where hdmi->power_on is false), msm_hdmi_clk_unprepare() will be
+called without a matching prior enable. This bypasses the state tracking
+guard and triggers a WARN in the CCF.
 
 [Severity: High]
-Does this bypass clock synthesizability checks for platforms with OPP table=
-s?
+Does this code disable the HDMI pixel clock before the 20ms vblank delay
+inside power_off()?
 
-The TMDS rate validation here accepts inexact pixel clocks because it skips
-the exact match check that is enforced in the non-OPP path:
+Because msm_hdmi_clk_unprepare() is called before power_off(), the
+pipeline is frozen mid-frame before the delay executes. Powering down a
+frozen display controller mid-frame frequently causes system-wide bus hangs
+(AXI bus stalls) on ARM SoCs.
 
-	if (hdmi->extp_clk)
-		actual =3D clk_round_rate(hdmi->extp_clk, tmds_rate);
-	...
-	if (actual !=3D tmds_rate)
-		return MODE_CLOCK_RANGE;
+>  		power_off(bridge);
 
-When msm_hdmi_bridge_tmds_char_rate_valid() searches for an OPP entry, it
-uses dev_pm_opp_find_freq_ceil() which finds a ceiling rather than an exact
-match. Because it returns MODE_OK unconditionally upon finding a ceiling,
-it can accept display modes that the hardware clock generator cannot
-exactly synthesize.
+[Severity: High]
+This is a pre-existing issue, but can the code following power_off() access
+hardware registers after the runtime PM reference has been dropped?
 
-Could this result in configuring an inaccurate pixel clock for the display,
-leading to Out of Range errors or visual corruption?
+The power_off() function drops the runtime PM reference via
+pm_runtime_put(). Immediately after, msm_hdmi_bridge_atomic_post_disable()
+calls msm_hdmi_audio_update() if the display info is HDMI.
 
-> +	}
->  }
+This accesses MMIO registers via hdmi_read() and hdmi_write(). It risks an
+asynchronous SError (kernel panic) if the power domain is turned off in the
+background before the accesses complete.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828-drm-msm-hd=
-mi-eliza-v1-0-67843277de17@oss.qualcomm.com?part=3D9
+mi-eliza-v1-0-67843277de17@oss.qualcomm.com?part=3D7
