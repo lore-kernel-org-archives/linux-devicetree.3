@@ -1,136 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4960A24A078;
-	Sat, 29 Aug 2026 07:55:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DFE32D9ECB;
+	Sat, 29 Aug 2026 08:02:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787990117; cv=none; b=cORfqTOEmm2didJkb6NjtaCYGwSMcV8CMYmkn/AUOf3r36/ppU8LrrHyO2Ai9XTS58FooTeGyZ8NNcXSNieUUIhRuoSG5Gh0okLkEBBCMNsC2JMr6IgpfZb6M5WcDWO1ikIn8UWCYOyMcYNXTw1Yzo9487nzCEf5LhKTErtjrAg=
+	t=1787990581; cv=none; b=qimVnBUplNEh9lMKHfab2oGhqjlfwQUtzmBQaU4KkMbEmtYKtJ7w2MajS01TYnTxjAkev7XBCD894dEOrv2mO34S69pg4J6KL2c5JDJ6qm3Z8UWMYvHAQgK/e+5QZxWtJfz1himsIDBVyA8gK1y3dLnH6Ko0cXlqRt8qVhKHzLw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787990117; c=relaxed/simple;
-	bh=FxANAY7SliOvAm/6NUkHq6tagheVLIOMYTmYHBwm0Jw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=qSno6ctGv1RGh2JCKyKsBBhea6EBgukAR7N9Np17Mx3Hv8GRaz73nPNf/2UjgsXwruu9WgPn+IMqfLQvE68iHtPyeFs/VQHCCUgQi7EK1GhXHpQtrcyvq+FmLUOZut0mO29raZJX825O9gHEAsaAU7QFH6b4dETnBc+zoUfjG9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CdvJm0v1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787990581; c=relaxed/simple;
+	bh=PR+BIfn3653UXqkj8yBjU2JpOOE+OBHSW3Z+1r+tG3k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=stgrq37FKsFAVhcQWw8hnnzrlchJc5UbzM4bKyjHq/qztq6lct8ZSack+0S0/W80y6zLDRUjAZ4PIoSsBGQH3yhHse1Zv+uZ7b9sVgVGoiaCLP0kSW+HOdbTZnd6K8k4PruGCBslftnBgp0XTTxbu+MUc4vbEBaJGoKcJclMMnY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KydmdCun; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CdvJm0v1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2674E1F000E9;
-	Sat, 29 Aug 2026 07:55:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KydmdCun"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA9071F000E9;
+	Sat, 29 Aug 2026 08:02:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787990115;
-	bh=4Jrxe2NFe6z+4UAOF/ws4ZtdTGXM1xJAP+l305qoIzk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CdvJm0v11DAJ81+/0gnzAoawf26K9SfFx/5RdiqCE3ylegh65jTAdFJuW81cyx0VV
-	 8MECWtrSSNcya4r9dgGXSeb5XsxUS+z8cWk0fzbiVgaV7NZGyt0K+MM2KeVnWfSOP8
-	 K5K3aXBK1bdLBifgzYcgl6VjaOMsQHLQRilXp6zZ3sUAqm8zVJHYQWK7ZJbd55osFu
-	 LX6sf3FcLFK0wKNSUvv9pirfTiHtaa6HiI4Y/Ef1C7zklBamRlFIXsBlGfF9Szg5Wc
-	 BQVvXRdnH24s4kDdHYtT+kq8RMXhA05Zeisfu5kRdzvHtfDitFPGZ30Nrmp9bz2FGg
-	 x7VswJ6eXKcng==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V1 1/2] scsi: ufs: ufs-qcom: Add specified gear support
- for multi gear scaling
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Nitin Rawat" <nitin.rawat@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-scsi@vger.kernel.org
-In-Reply-To: <20260829074355.946543-2-nitin.rawat@oss.qualcomm.com>
-References: <20260829074355.946543-1-nitin.rawat@oss.qualcomm.com>
- <20260829074355.946543-2-nitin.rawat@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 29 Aug 2026 07:55:14 +0000
-Message-Id: <20260829075515.2674E1F000E9@smtp.kernel.org>
+	s=k20260515; t=1787990579;
+	bh=zBUzO8Dj/vf5qJL5Di4e7l+uaBL4EoFy+oRcvSdhKWA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=KydmdCun6TXb3/1wzjgwG1kIlN48qY6kYXktUD0VhHyfwrKf7kGwOufFAWIHrq4Am
+	 1ySenn7ctl/HqZeHQOk575xqFyxXNiI9qIz9aiG7zwB1Vap3VcACp2VjmNei2V1bCI
+	 DH9ReYPbaubN7Ps6zZu8gGBlB4IvZHUOJUWw6gGRTPiiZp6T2yAz3+9MU/19ZDInYP
+	 rdT0F8LC9YBlAogJ52453aWVEvhKLYUyUtqYGj0wrAA0cfSzeUZprN0ar7fjgGHNcW
+	 C7Lt2/lQWRWQn4DtlxhDrztBqbPTGzLgb+8H8jAUlWi2sMNp96Rl+4n+YdvvEtZFpD
+	 6VWOLJBF531fg==
+Message-ID: <f474f659-8234-4dfb-85cc-06d2cc295107@kernel.org>
+Date: Sat, 29 Aug 2026 10:02:51 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 03/21] dt-bindings: pinctrl: Add
+ starfive,jhb100-sys0-pinctrl
+To: Changhuang Liang <changhuang.liang@starfivetech.com>,
+ Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
+ Paul Walmsley <pjw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Alexandre Ghiti <alex@ghiti.fr>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+ Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+References: <20260829025720.23915-1-changhuang.liang@starfivetech.com>
+ <20260829025720.23915-4-changhuang.liang@starfivetech.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260829025720.23915-4-changhuang.liang@starfivetech.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Valid `opp-level` DT gear configurations are improperly ignored an=
-d downgraded if they exceed the attached device's maximum supported gear, b=
-reaking forward compatibility.
---
-
-commit d0c65635e24a4008e442b75486fc367af65e28be
-Author: Ziqi Chen <ziqi.chen@oss.qualcomm.com>
-
-scsi: ufs: ufs-qcom: Add specified gear support for multi gear scaling
-
-This commit introduces a device tree based configuration interface that all=
-ows
-specifying the HS gear speed for supported operating frequencies using the
-"opp-level" property. If this property is not configured, the driver falls
-back to a default frequency-to-gear mapping table.
-
-> diff --git a/drivers/ufs/host/ufs-qcom.c b/drivers/ufs/host/ufs-qcom.c
-> index 291c434487648..399269c3f0597 100644
-> --- a/drivers/ufs/host/ufs-qcom.c
-> +++ b/drivers/ufs/host/ufs-qcom.c
-
-[ ... ]
-
-> @@ -2490,12 +2491,32 @@ static unsigned long ufs_qcom_opp_freq_to_clk_fre=
-q(struct ufs_hba *hba,
-> =20
->  static u32 ufs_qcom_freq_to_gear_speed(struct ufs_hba *hba, unsigned lon=
-g freq)
->  {
-> -	u32 gear =3D UFS_HS_DONT_CHANGE;
-> +	struct dev_pm_opp *opp;
->  	unsigned long unipro_freq;
-> +	u32 gear =3D UFS_HS_DONT_CHANGE;
-> =20
->  	if (!hba->use_pm_opp)
->  		return gear;
-> =20
-> +	opp =3D dev_pm_opp_find_freq_exact_indexed(hba->dev, freq, 0, true);
-> +	if (IS_ERR_OR_NULL(opp)) {
-> +		dev_err(hba->dev, "%s: Failed to find OPP for exact frequency %lu\n",
-> +			__func__, freq);
-> +		return gear;
-> +	}
+On 29/08/2026 04:57, Changhuang Liang wrote:
+> +#ifndef __DT_BINDINGS_PINCTRL_STARFIVE_JHB100_H__
+> +#define __DT_BINDINGS_PINCTRL_STARFIVE_JHB100_H__
 > +
-> +	/* Get HS gear speed from 'opp-level' */
-> +	gear =3D dev_pm_opp_get_level(opp);
-> +	dev_pm_opp_put(opp);
-> +
-> +	/*
-> +	 * Greater than max gear means that there is no specified gear configur=
-ed in DT
-> +	 * or the specified gear is invalid.
-> +	 */
-> +	if (gear <=3D hba->max_pwr_info.info.gear_rx)
-> +		return gear;
-> +
+> +/* sys0 pad numbers */
+> +#define PADNUM_SYS0_GPIO_A0				0
+> +#define PADNUM_SYS0_GPIO_A1				1
+> +#define PADNUM_SYS0_GPIO_A2				2
+> +#define PADNUM_SYS0_GPIO_A3				3
 
-[Severity: High]
-Does this condition inadvertently downgrade valid DT gear configurations if
-they exceed the attached device's maximum supported gear?
+I could not find how your driver uses these, so are you sure it's a
+binding constant for the SW?
 
-If a platform specifies a valid opp-level (e.g., 5) but the connected UFS
-device supports a lower maximum gear (e.g., gear_rx =3D 4), this check
-evaluates to false. The driver will then incorrectly fall back to the
-legacy hardcoded mapping table instead of using the capped value.
-
-If the frequency is not present in the fallback table, it returns
-UFS_HS_DONT_CHANGE, which can cause a mismatch between the configured clock
-and active gear speed. This mismatch could potentially lead to UFS link dro=
-ps
-and system panics during frequency scaling.
-
-It appears this logic conflates a missing DT property (where gear might
-evaluate to OPP_LEVEL_UNSET or U32_MAX) with a valid property that simply
-exceeds the device capability.
-
-Could this be addressed by explicitly checking if the property was provided,
-and if so, safely capping it to the device's maximum supported gear using
-min_t(u32, gear, hba->max_pwr_info.info.gear_rx)?
-
-> +	gear =3D UFS_HS_DONT_CHANGE;
->  	unipro_freq =3D ufs_qcom_opp_freq_to_clk_freq(hba, freq, "core_clk_unip=
-ro");
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260829074355.9465=
-43-1-nitin.rawat@oss.qualcomm.com?part=3D1
+Best regards,
+Krzysztof
