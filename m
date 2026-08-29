@@ -1,196 +1,291 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C0193C553B
-	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 17:05:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99C1779CD;
+	Sat, 29 Aug 2026 17:36:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788023118; cv=none; b=XN/OLkg5QuzYlYryy/yb1LtLXr9g4h5ulAP0kbLYpHr40ht+FoN7xMKf83M93Gc4RtCA6/ZqTv1NryWpfAscODz5fgPiNzQhsPDYGIUQ6ePv6wwhSdUg8IYa2Aorfpdy/Juoj+whBV91Mkfl0W6apjEjoaY0qWzRYngK0ZH2njY=
+	t=1788025014; cv=none; b=aaYk9/1VcRT+SJuIKz8Eo1oegc9Dvw7Sw+3WKvykf5YzOgX3pIGDhaUTMJHr+aE6okpsvCPhrgHUu4/g5bbDiRUL8ND6/MdGYw1S3Wc7YJu8QH4D0L+UHd3FD/YtMJUM4/ZeXAsngb5J/jwGTtVvCklnFFqiEEPd2wZ5XqwujqA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788023118; c=relaxed/simple;
-	bh=awt/n+oNORYB2YhDK5rTQcAxY6y1IVVts1XEDrCgSzc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mMGPGkzt1nIvG8gomOSK8eoHlQnaIB2qOjq4mJ6EKv6Bw6GWtLmZSKiwnbedtspWCwRboL1nIzSCsv2w94tGCthr/rm8wc6ArBa+jSocr6h89oppbPS5vIz+/z24zVvKliLxFBdJNTnV2mgMzOmjo1yDAQOy6+BKNxk7KVnJZEI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=STYysfgl; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788025014; c=relaxed/simple;
+	bh=srH0E+Bef3FLUxE2WXWOPDWFGjI35lRWb7diZ0584LY=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=G8tKfSAXJIY68zZwyvVEhFS2snSMKBgeqNGKqB/6P6Nq4wyHq3DwyjkDQpCn/SDdjxMJpWh6Rm2eyKb3SdexZyz2QxdEsUljDPzB31MhASBTkV/q2xBBSkUOLOxhbcrO2RPIi5SzioDZte91LZ/1MRtq7Rp+6NEdFIb7NaEb/ts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HzvpSyrw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="STYysfgl"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d71a50caa9so25567025ad.0
-        for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 10:05:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788023117; x=1788627917; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ln2KbbtEjRGd/LI6Li0KRF+ySsS1VE0IamdH6+rdBvI=;
-        b=STYysfgl/OOy37S3XS5JkKuWIWM05EP6PzrVWz+xqrfRFVta+bOCcA/FUgGjmA7OgZ
-         JYXt1Ht5kma7EYTDabLqi6u2JeBL8ytzeHuWskUbKvg7FYqH9+e0mXKZ9m4oYE+06H8H
-         nBIR8lXBXMCtPHTcq6VEonFFwOvlYMsjRweIBaPePgexMkKFlO6xiIECvCOV7sXwulgj
-         TJKalVbRDMBsPhkffXE0mjO/poIa2ylrFeuTZlhPtOZoB58UEu9slqXOuewsEvM02Fs+
-         GvMvm7F7ghFx7WN4RRa8ftukFPGMxF+LDp9gePziiKLHSV+Mi6jECbkCQ/LolRoJNJ82
-         ICNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788023117; x=1788627917;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Ln2KbbtEjRGd/LI6Li0KRF+ySsS1VE0IamdH6+rdBvI=;
-        b=L10EyTsB/oafXqiNErCGQcRk5gxeXTmoHQ1uBNDaGXl4fTn/8apCXcQ7tExOX5FuwN
-         bVc+unGzzCDO/4WCEP9bY6eBijgsUiFCPy2hGiOCNZtWeMRHv4Pg9nYLE9tHB/Qh/fdH
-         do9hi3BZBgn/WiNsleIlFq9I4uMO5440GiiOxHc8NrgEIYMJUntYXQBMkOTEzzNnlGWi
-         wXttkuV8dFVHEvshidqEbGuOom+Eo77hTrBN1iSN+usoNjU0QAr02IUyGQyT4XAtEcrj
-         2xNqC5c/LiMPBN36t6CyZoDnbxNw4JZ9jUn6JH4Gw+2pVMFcEbP1xlo0XNicQ9aSgFhC
-         KMTw==
-X-Gm-Message-State: AFuF++kmgdYHrmRby1mXS+gYF5qnVef2BEcjAmM34Gwb9F71OraggVS2
-	Gq9k8nKMp3SHqjAPwndrwbBsFyir7Jtp4wLZCzSREeughr4QWc+hn7wd
-X-Gm-Gg: AYBFou0tGKqF6m1qiXL7WpiSbLUXh8/Gbo3Ps2pwTffzvrHMppRLDb19gipw4p8GOb6
-	clDGReXHx8WTXceYACeaKUerz2LIRszq4GYclGwMNplNf0W7cMbyeJrmZScAtnsH5U1A1u/WrM/
-	E1Iwn6ZTlW5x+xqPXWzXBNbQe+6m+LTzVn+p6QMoe+RzTfQe9gjFRii1kbmLKx2Qt+a5ItmKDjy
-	gA0YFyAcN0ede881JqcgU5aszNteaCa8ytDbMiQnGii+K23O2//YnDZdnmIXhRiURaV/uf+6RoR
-	75eN9HvgaEcR1C+3ftPSWUwViUYQLzGRdYebUzjiVtRple7h2LwH9seh20DwaRRUwSjqVslVPCW
-	DlRQweFAKHiuSiy0FVm3dVGtM3Ws5zwlHF1oBL1O/BPp8AGPIEicc0aiybH2q0CZP+Ada16NnhK
-	dffPwI1qUAp2x2fruUNEbFSC5vd7WK3l8KqaY544E7aEU8AiwBfa9UoPDA0lfcKalJRuTN2Wo1r
-	oe798hk54eI7vhnxtObR4LFuolF7tUlYlqoug==
-X-Received: by 2002:a17:903:8d0:b0:2d7:4cd4:5a7f with SMTP id d9443c01a7336-2d74def6351mr288967185ad.12.1788023116608;
-        Sat, 29 Aug 2026 10:05:16 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f7be607sm17361289eec.10.2026.08.29.10.05.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 29 Aug 2026 10:05:15 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <89971e52-a88c-49bd-a0a6-17e48820974d@roeck-us.net>
-Date: Sat, 29 Aug 2026 10:05:13 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HzvpSyrw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8E721F000E9;
+	Sat, 29 Aug 2026 17:36:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788025013;
+	bh=arwNI5jvfLFyh17u1JnYh5UjicEST3xS0vCapCq6HXU=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=HzvpSyrwPhC8/ro+FLt23pBGUSoPVX6y+8BZN7Std7iTmfSLArdsqpm5Q1rbFQ3NC
+	 4C2FSiu/M9NTub1Kas7xNpmINb/6x9FZdxxN+x6nKCx5Hn4Btw5xobGLEsh11R9UF8
+	 tfcuidY9ISZFbn0ayT3ct+4kAqr9rsacmTXaKnqXqQqggsz64vzvRnjcRO4P3iJOP9
+	 MKTvbn3TaIqBvNi+FbsbyEbxHwK9omx6V2zOTbEZfwOLBHdbXshiwV5uzfUAA6bBr3
+	 eNyuIjiFp+tCHqU7qWMEygV+n/SaE9h8Y8avZi9wnTZL3Jn57pEuWComSRKG7NLC1C
+	 4MrEJ8SLhO9hA==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] hwmon: (starfive-fan-tach) Add fan tach driver for
- StarFive JHB100
-To: sashiko-reviews@lists.linux.dev,
- Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org,
- conor+dt@kernel.org
-References: <20260824030234.9321-1-changhuang.liang@starfivetech.com>
- <20260824030234.9321-3-changhuang.liang@starfivetech.com>
- <20260824032750.0749D1F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260824032750.0749D1F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4 4/4] iio: dac: ad3530r: add support for
+ AD5710R/AD5711R
+From: Jonathan Cameron <jic23@kernel.org>
+To: Kim Seer Paller <kimseer.paller@analog.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, linux@analog.com, 
+ devicetree@vger.kernel.org
+In-Reply-To: <20260829-iio-ad5710r-upstream-v4-4-8af3121c7d21@analog.com>
+References: <20260829-iio-ad5710r-upstream-v4-0-8af3121c7d21@analog.com>
+ <20260829-iio-ad5710r-upstream-v4-4-8af3121c7d21@analog.com>
+Date: Sat, 29 Aug 2026 18:36:30 +0100
+Message-Id: <178802499067.2615829.14956299998028570684.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7162;
+ i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
+ bh=srH0E+Bef3FLUxE2WXWOPDWFGjI35lRWb7diZ0584LY=;
+ b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqkxii+pi3yvN0pxqP2EwEQzk15cuG/5XNOp6yl
+ kHtKh1ZeAKJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCapMYohEcamljMjNAa2Vy
+ bmVsLm9yZwAKCRBUhTSZxPQWiGSrD/4+3H8g1HAsjTjdGfLbbwpilIetycaQh9ZtEq6AgXnlrf/
+ Sqprc+OzwQf5uC0Bx7CiGr13SSJtocS+0K08G4OmRzv3AkPVZdruiugFRbteoBTFRbmbsatX6BO
+ jcFY+nKnWDhqCpyTMoZWvocWoyNHn4jzRbtn5H4KdWQOdLVEO1y7jZWb+MGS36mSLMd38mF0raq
+ RenLOI91GOrnemVJhSUjxesCrt8cRiiczmLvD2gA+c1FAOlZB93c4jC4tN2RDCByUrzuagHQxst
+ yMFN+aryP9QPZDlKq1Tp+WdrvjXXO1Af100YzAibk9JVLjGhThdh7lFQeM7zpLz71JJt6zcoJw3
+ OCHPIPjI8onqUJtzWiRxgI9xAPjUkE681QcJsC8G7fVpqq5shVjBIbP4dnLwOb3m0XJxC3p9SmI
+ wUEvhrP9gspKF4wa54qUx1iLB8wD5Y6ULnlvKzqy+ecVZYGKQ/SUlFABhP78TTa/lT5eo9JkVMr
+ nOuTooFEZxIaTw8ZKbPDXCnOENRYOpSOSA7dV1Ko8uSTFIFA2YBXdmPukE2kUYLtyvgQVBPI4uO
+ iJsKsw9rwx6PaKjiH6gScDlSbLPcSk9CAzB9UH4I17FtV8w5kBGC+2CWFNfGj73pBGflYTPgxou
+ 7JriFerrWuxuoFVQNOJ0GuFYq/aijv8D0wFfeFA==
+X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
+ fpr=6E2966B387840652912681B154853499C4F41688
 
-On 8/23/26 20:27, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] Missing explicit initialization of interrupt and channel enable registers during probe
-> --
+> Add support for the AD5710R/AD5711R, 8-channel 16-/12-bit configurable
+> IDAC/VDAC parts. They share the AD3530R register map and access model,
+> so fold them into this driver.
 > 
-> --- Patch [2]: [PATCH v3 2/2] hwmon: (starfive-fan-tach) Add fan tach driver for StarFive JHB100 ---
-> commit ea266a681c03cda9faa04f08b171c20f1e003841
-> Author: Changhuang Liang <changhuang.liang@starfivetech.com>
+> Each channel is configured as voltage or current output from its DT
+> channel@N node via adi,ch-func, building the iio_chan_spec dynamically.
+> Voltage channels enable VMODE_EN and report the reference-derived scale,
+> current channels report the 50 mA internal Iref scale. The powerdown
+> mode is read-only and derived from the channel's configured type.
 > 
-> hwmon: (starfive-fan-tach) Add fan tach driver for StarFive JHB100
-> 
-> This commit adds a new driver for the fan tachometer controller found on the
-> StarFive JHB100 SoC. It provides support for up to 16 independent fan
-> tachometer inputs and reports fan speed in RPM through the hwmon sysfs
-> interface.
-> 
->> diff --git a/drivers/hwmon/starfive-fan-tach.c b/drivers/hwmon/starfive-fan-tach.c
->> new file mode 100644
->> index 0000000000000..7f56ecc87c1c8
->> --- /dev/null
->> +++ b/drivers/hwmon/starfive-fan-tach.c
-> [ ... ]
->> +static int starfive_fan_tach_probe(struct platform_device *pdev)
->> +{
-> [ ... ]
->> +	ret = reset_control_deassert(priv->rst);
->> +	if (ret) {
->> +		clk_disable_unprepare(priv->clk);
->> +		return dev_err_probe(dev, ret, "Failed to deassert reset\n");
->> +	}
->> +
->> +	ret = devm_add_action_or_reset(dev, starfive_fan_tach_disable, priv);
->> +	if (ret)
->> +		return ret;
->> +
->> +	writel(STARFIVE_FAN_TACH_STALL_INT_MASK | STARFIVE_FAN_TACH_SLOW_INT_MASK,
->> +	       priv->regs + STARFIVE_FAN_TACH_STATUS);
->> +	writel(priv->clk_rate / STARFIVE_FAN_DEFAULT_MEASURE_RATIO,
->> +	       priv->regs + STARFIVE_FAN_TACH_MEASURE_TIME);
-> 
-> [Severity: Medium]
-> Could this code be susceptible to an interrupt storm if the bootloader leaves
-> the FAN-TACH controller enabled with unmasked interrupts?
-> 
-> Since the driver only deasserts the reset line during probe (and does not
-> assert it first), the hardware state might be retained from before the kernel
-> booted. Any read-modify-write operations on STARFIVE_FAN_TACH_INT_EN and
-> STARFIVE_FAN_TACH_CH_EN later in the driver would then preserve these stray
-> bits.
-> 
-> Once devm_request_irq() is called, any unexpected unmasked interrupts will
-> trigger. If the interrupt condition is continuous (e.g., a disconnected or
-> stalled fan), the ISR will clear the STATUS bit, but the hardware will
-> immediately re-assert it. Because the driver's ISR does not mask unexpected
-> interrupts in INT_EN (it only signals completions if armed_stall or
-> armed_slow are set), wouldn't this lead to an interrupt storm?
-> 
-> Should the interrupt and channel enable registers be explicitly initialized
-> to 0 before requesting the IRQ to ensure a known safe hardware state?
-> 
-Please either implement as suggested or explain why it is not needed.
-In that case, please add a comment into the code explaining the reason.
+> Signed-off-by: Kim Seer Paller <kimseer.paller@analog.com>
+>
+> diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
+> index 3b3c77d8b3e1..f108d5bac572 100644
+> --- a/drivers/iio/dac/Kconfig
+> +++ b/drivers/iio/dac/Kconfig
+> @@ -16,6 +16,7 @@ config AD3530R
+>  	  - AD3530/AD3530R (8-channel)
+>  	  - AD3531/AD3531R (4-channel)
+>  	  - AD3532/AD3532R (16-channel)
+> +	  - AD5710R/AD5711R (8-channel configurable IDAC/VDAC)
+>  
+>  	  To compile this driver as a module, choose M here: the
+>  	  module will be called ad3530r.
+> diff --git a/drivers/iio/dac/ad3530r.c b/drivers/iio/dac/ad3530r.c
+> index 3056593a5ca0..dd8d5547fd16 100644
+> --- a/drivers/iio/dac/ad3530r.c
+> +++ b/drivers/iio/dac/ad3530r.c
+> @@ -3,6 +3,8 @@
+>   * AD3530R/AD3530 8-channel, 16-bit Voltage Output DAC Driver
+>   * AD3531R/AD3531 4-channel, 16-bit Voltage Output DAC Driver
+>   * AD3532R/AD3532 16-channel, 16-bit Voltage Output DAC Driver
+> + * AD5710R 8-channel, 16-bit Configurable IDAC/VDAC Driver
+> + * AD5711R 8-channel, 12-bit Configurable IDAC/VDAC Driver
+>   *
+>   * Copyright 2025 Analog Devices Inc.
 
-Thanks,
-Guenter
+FWIW this is a substantial enough change that I'd kind of expect any update
+on the copywrite to 2025-26.
 
+>   */
+> @@ -27,6 +29,8 @@
+>  #include <linux/types.h>
+>  #include <linux/units.h>
+>  
+> +#include <dt-bindings/iio/addac/adi,ad74413r.h>
+> +
+>  #define AD3530R_INTERFACE_CONFIG_A		0x00
+>  #define AD3530R_OUTPUT_OPERATING_MODE_0		0x20
+>  #define AD3530R_OUTPUT_OPERATING_MODE_1		0x21
+> @@ -39,6 +43,8 @@
+>  #define AD3531R_SW_LDAC_TRIG_A			0xDD
+>  #define AD3531R_INPUT_CH			0xE3
+>  
+> +#define AD5710R_CHN_VMODE_EN			0xFF
+> +
+>  /* AD3532R/AD3532 bank 0 registers (channels 0-7) */
+>  #define AD3532R_INTERFACE_CONFIG_A_0		0x1000
+>  #define AD3532R_OUTPUT_OPERATING_MODE_0		0x1020
+> @@ -62,9 +68,11 @@
+>  #define AD3530R_OUTPUT_CONTROL_RANGE		BIT(2)
+>  #define AD3530R_REFERENCE_CONTROL_SEL		BIT(0)
+>  #define AD3530R_OP_MODE_CHAN_MSK(chan)		(GENMASK(1, 0) << 2 * (chan))
+> +#define AD5710R_CHN_VMODE_EN_BIT(chan)		BIT(chan)
+>  
+>  #define AD3530R_SW_RESET			(BIT(7) | BIT(0))
+>  #define AD3530R_INTERNAL_VREF_mV		2500
+> +#define AD5710R_INTERNAL_IREF_mA		50
+>  #define AD3530R_LDAC_PULSE_US			100
+>  
+>  #define AD3530R_CH_PER_REG			4
+> @@ -99,6 +107,7 @@ struct ad3530r_chip_info {
+>  	unsigned int num_op_mode_regs;
+>  	unsigned int resolution;
+>  	bool internal_ref_support;
+> +	bool channel_configurable;
+
+If respinning for any other reason I think a more specific bool naming
+would likely prove a better bet for the future.
+
+>  };
+
+> +static const char * const ad5710r_powerdown_modes[] = {
+> +	"15kohm_to_gnd",
+> +	"three_state",
+> +};
+
+
+
+> +static const struct iio_enum ad5710r_powerdown_mode_enum = {
+> +	.items = ad5710r_powerdown_modes,
+> +	.num_items = ARRAY_SIZE(ad5710r_powerdown_modes),
+> +	.get = ad5710r_get_powerdown_mode,
+> +};
+
+> +static const struct iio_chan_spec_ext_info ad5710r_ext_info[] = {
+> +	{
+> +		.name = "powerdown",
+> +		.shared = IIO_SEPARATE,
+> +		.read = ad5710r_get_dac_powerdown,
+> +		.write = ad5710r_set_dac_powerdown,
+> +	},
+> +	IIO_ENUM("powerdown_mode", IIO_SEPARATE, &ad5710r_powerdown_mode_enum),
+> +	{ }
+> +};
+
+This doesn't make sense.  The code is I advertising a choice of two power
+own modes, but in reality as you state in the patch description there
+is no choice as it comes from whether it is a voltage or a current
+output channel.
+
+Upshot, you can either not provide powerdown_mode_available (easiest
+path here) or it for some reason userspace expects it, then you need
+to make it only list the variant you want which means you can't use
+the IIO_ENUM stuff to provide it.
+
+> +
+>  #define AD3530R_CHAN(_chan, _ext_info)				\
+>  {								\
+>  	.type = IIO_VOLTAGE,					\
+> @@ -467,6 +574,17 @@ static const struct iio_chan_spec ad3532r_channels[] = {
+>  	AD3530R_CHAN(15, ad3532r_ext_info),
+>  };
+
+...
+
+> +static int ad3530r_parse_channel_cfg(struct iio_dev *indio_dev)
+> +{
+> +	struct ad3530r_state *st = iio_priv(indio_dev);
+> +	struct device *dev = regmap_get_device(st->regmap);
+> +	struct iio_chan_spec *channels;
+> +	unsigned int num_chan, i;
+> +	int ret;
+> +	u32 reg;
+> +
+> +	num_chan = device_get_child_node_count(dev);
+> +	if (!num_chan)
+> +		return dev_err_probe(dev, -ENOENT, "No channels configured\n");
+> +
+> +	channels = devm_kcalloc(dev, num_chan, sizeof(*channels), GFP_KERNEL);
+> +	if (!channels)
+> +		return -ENOMEM;
+> +
+> +	i = 0;
+> +	device_for_each_child_node_scoped(dev, child) {
+> +		unsigned int mode_reg, mode_mask, ch_func;
+> +		enum iio_chan_type chan_type;
+
+I think reg is only used in the loop. If so, declare it here.
+
+> +
+> +		ret = fwnode_property_read_u32(child, "reg", &reg);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to read reg property of %pfwP\n",
+> +					     child);
+> +
+> +		if (reg >= st->chip_info->num_channels)
+> +			return dev_err_probe(dev, -EINVAL,
+> +					     "reg out of range in %pfwP\n",
+> +					     child);
+> +
+> +		ret = fwnode_property_read_u32(child, "adi,ch-func", &ch_func);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Missing adi,ch-func property for %pfwP\n",
+> +					     child);
+> +
+> +		switch (ch_func) {
+> +		case CH_FUNC_VOLTAGE_OUTPUT:
+> +			ret = regmap_set_bits(st->regmap, AD5710R_CHN_VMODE_EN,
+> +					      AD5710R_CHN_VMODE_EN_BIT(reg));
+> +			if (ret)
+> +				return dev_err_probe(dev, ret,
+> +						     "Failed to set voltage output for %pfwP\n",
+> +						     child);
+> +
+> +			chan_type = IIO_VOLTAGE;
+> +			break;
+> +		case CH_FUNC_CURRENT_OUTPUT:
+> +			chan_type = IIO_CURRENT;
+> +			break;
+> +		default:
+> +			return dev_err_probe(dev, -EINVAL,
+> +					     "Invalid adi,ch-func %u for %pfwP\n",
+> +					     ch_func, child);
+> +		}
+> +
+> +		channels[i] = ad5710r_channels[reg];
+> +		channels[i].type = chan_type;
+> +		i++;
+> +
+> +		ad5710r_get_op_mode_reg(reg, &mode_reg, &mode_mask);
+> +
+> +		/* Enable the channel in normal operation mode */
+> +		ret = regmap_update_bits(st->regmap, mode_reg, mode_mask,
+> +					 field_prep(mode_mask, AD3530R_NORMAL_OP));
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to set normal operating mode for %pfwP\n",
+> +					     child);
+> +	}
+> +
+> +	indio_dev->channels = channels;
+> +	indio_dev->num_channels = num_chan;
+> +
+> +	return 0;
+> +}
+> +
+
+Rest looks good to me,
+
+Thanks
+
+Jonathan
+
+-- 
+Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
