@@ -1,327 +1,206 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C9D637C0F0
-	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 06:51:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A56B31F9A4;
+	Sat, 29 Aug 2026 07:29:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787986273; cv=none; b=bEzXKZHQf4IBmBGqJaxxjnvkZvRQYwaVdYXLRk9KgH31iCsUZtHFOdES3xFGivl0djwA3x26DFwW7naUchI5DbZBt0b9UFIHYlEKbco3Nv17Z/galymdEgL3UAKM3/RcZeUgt3qoFYiUkzcte1JCN/gUvPR+czK+cYe6UAaCtgU=
+	t=1787988578; cv=none; b=q99o9a61/giFaUa1Am2wlT2OoevDrMTTjcrOYwI6bzQsluEDK9guo0DNe3dt8rOko7RP6IIj1FXvm+zw9kZ96YY6JQqhXbY6wNXm5ffqVfD/Mil0htFKSkR93hYhIR7DqHMByEwhg6REfbqc4UNM8lGcZfSFLmfA5+pdOYWc8x8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787986273; c=relaxed/simple;
-	bh=ZCv/DMC6/HmL1Shig2QUNxw371uH3Qt5s6ynKwevFRc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kyhOLGMaxmba1Jis69sdZrPYNScHWwm/5+d91hbMprjpaJ6nZfSR4206Xumla7XrqRk8sUazQyUOHGXmKFmf+7C5Z14rL92y0gr6taatkPPzxD9P5vN+eeSdqKfAQbjw6edlzgyHkdjbCQAkzarUwQMkeUtrRRd5xkgxPtI0E98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hx5t73se; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787988578; c=relaxed/simple;
+	bh=KjMMg9KOsR/37eS+nuApKbHCZuneEzWIKQRtj5uivTs=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=OubfuVmO6ATciagW8ymg28AiEbh/flwhZkrTDbOGcxYT9+3D8Q5HCVB7uSKkeXlVhKb267SVbfQagFdhs1yJB+FQ8/TToWvlrCdr913A6M/HncrpIbky0jJdQexLDvszKTerjpvxnWHwlbdX+J1QhP42wjO4waXgeNDwQDIBw1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=I86sxVHV; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hx5t73se"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FFA01F000E9;
-	Sat, 29 Aug 2026 06:51:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787986270;
-	bh=EmdCz56q4QYYBLo0BgJlPbAZRTrA1zY982nZkh34L7k=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hx5t73seKu37zZmqWH5tvQuJo81hxwKAWKq7Yxlur7v73CJX9fQ6rK/sQtDGfUnL9
-	 RroGlGR6W00KoaM94DA+J+eqEfwZxgmL9Oi/SwfTtCniHEwW8puAAF/Idug5H8fHKL
-	 qGf/ZJPEvwaFs+zGHoLGIWfE1PQABlu6Ysc/e2/FEScMvaKrbLDYrxmSvecsbCVppe
-	 Zow6vXvpfOIPDVE52egB6LOGfTizTh8cUHAIUiFzte21+JoYkQgpQTQGZLjinFSK8c
-	 vhQvU9joVc9CxjJGquAq1Xn4TaaCtk2Aa4dg8Gn/Arnj7jPe6S/kae2C3A1sYA7csi
-	 FoFL0ptP7oZPA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/3] drm/ch1115: add support for Chipwealth CH1115
- OLED controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?Tmljb2zDoXMgQW50aW5vcmk=?= <nico.antinori.7@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <cb767f9b1db18f981c363222f96a46061e77e4c7.1787973729.git.nico.antinori.7@gmail.com>
-References: <cover.1787973729.git.nico.antinori.7@gmail.com>
- <cb767f9b1db18f981c363222f96a46061e77e4c7.1787973729.git.nico.antinori.7@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 29 Aug 2026 06:51:10 +0000
-Message-Id: <20260829065110.7FFA01F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="I86sxVHV"
+Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67T5ABNo3386055;
+	Sat, 29 Aug 2026 01:59:50 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=2STPiAWpM9NUgyh/UHC4FPDuABg
+	zamOUYtEMp7PBB5I=; b=I86sxVHVHYBgbq53+b+FIqDtvtEABnvVihq/TJ27pct
+	HOzEI/2T0T/K+2ai49+HlyS7Ki3gcy4544S7nxIjQaKa9w9qcMZDEVSbMAzqYm/d
+	nBypZT4Wea7pKIDzVFs6PWfLe/rSmBaJ+VXS87AL/oolAYwhDsV5CtgITZQ/TszA
+	D7uHpaEAfOAnyA/oAS2QcGfCCWPc5qc4CPFxfG4BkOBNGnl5MZ1T9KVv0rPlLy3H
+	aHTbAColgq7eboZkhubwMZ6qVriqZOyAFSp2uyRzRA5U7lTEmLsE6ovkcWO+AVkb
+	7e2YROjQV7rtDNUpXWuY+refR3P0BFe3gLes4Q5edOg==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4gbqmh8cm5-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sat, 29 Aug 2026 01:59:50 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 67T5xnDU035549
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Sat, 29 Aug 2026 01:59:49 -0400
+Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
+ ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Sat, 29 Aug 2026 01:59:49 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
+ ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Sat, 29 Aug 2026 01:59:49 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Sat, 29 Aug 2026 01:59:48 -0400
+Received: from [10.0.2.15] ([10.66.6.193])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 67T5xYj9027223;
+	Sat, 29 Aug 2026 01:59:38 -0400
+From: Kim Seer Paller <kimseer.paller@analog.com>
+Subject: [PATCH v4 0/4] Add support for AD5710R/AD5711R DAC
+Date: Sat, 29 Aug 2026 13:59:19 +0800
+Message-ID: <20260829-iio-ad5710r-upstream-v4-0-8af3121c7d21@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIADd1kmoC/4XOQQ7CIBAF0KsY1mIYioW68h7GBdBpxWhpoDYa0
+ 7sLdaHGGJc/+fP+3EnE4DCSzeJOAo4uOt+lIJYLYg+6a5G6OmXCGS+ZhJI656mu1xJYoJc+DgH
+ 1maIAyytVgrAlSad9wMZdZ3a3f+Z4MUe0Q7Zy4+Di4MNt3h0h9/5MjEAZRSWUFsZIBs1Wd/rk2
+ 5X1Z5I3Rv6mcPih8KQUXFSiqq3ktf5SipeiQP5QiqykRxppKiuV+VCmaXoAP9kRAlcBAAA=
+X-Change-ID: 20260716-iio-ad5710r-upstream-e41c298614c6
+To: Jonathan Cameron <jic23@kernel.org>,
+        David Lechner
+	<dlechner@baylibre.com>,
+        =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+        "Andy
+ Shevchenko" <andy@kernel.org>,
+        Michael Hennerich
+	<Michael.Hennerich@analog.com>,
+        Rob Herring <robh@kernel.org>,
+        "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "Philipp
+ Zabel" <p.zabel@pengutronix.de>
+CC: <linux-iio@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <linux@analog.com>, <devicetree@vger.kernel.org>,
+        Kim Seer Paller
+	<kimseer.paller@analog.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787983175; l=3708;
+ i=kimseer.paller@analog.com; s=20250213; h=from:subject:message-id;
+ bh=KjMMg9KOsR/37eS+nuApKbHCZuneEzWIKQRtj5uivTs=;
+ b=kxXTUjbB2YDIMItwSe0YTmTOVVJeAqor85QjZm4QlNbP63E3JnYywKo5fb9JeeHcNZmPD0m3O
+ vv/YmI8qVpIBMI+lu0KIKK+7znLLVlZ6gxVWWd4ewSjrfxv1h23cHI7
+X-Developer-Key: i=kimseer.paller@analog.com; a=ed25519;
+ pk=SPXIwGLg4GFKUNfuAavY+YhSDsx+Q+NwGLceiKwm8Ac=
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Authority-Analysis: v=2.4 cv=Yf+NIQRf c=1 sm=1 tr=0 ts=6a927556 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=0sLvza09kfJOxVLZPwjg:22 a=Z0pTeXoby7EwIRygza74:22 a=gAnH3GRIAAAA:8
+ a=bC-a23v3AAAA:8 a=VwQbUJbxAAAA:8 a=IpJZQVW2AAAA:8 a=sA7t8LQeDx_RY9wWMiUA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=FO4_E8m0qiDe52t0p3_H:22
+ a=IawgGOuG5U0WyFbmm1f5:22
+X-Proofpoint-GUID: _ANgz8bwS52WwpSYD75bSSdbghsckE-J
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI5MDA0OSBTYWx0ZWRfX538lt6NvsETB
+ UP+07O7Ti1AOSGhcuioUkgPY5i9+w2tBTGt6n3ygYGx0i0CMjlP4AnOr0aOpAqlzOl1R7KiJjGd
+ VXeC4SOkCgQZRTt/v1DCVO3K/x23ob0Eui5ZYmXPHQI9BzhU3X3zAtsAzpbzXPYqbys10FYGimY
+ gFvkaojljxW/PIF04H7Qa+MHeXSpIkG7KxU/4AQgP8g2p51+IcYkmXr+0iD+C2HqOo/eqG1xCzw
+ 90sXMF5RWYpKpvJRPHChSU9eFQvVR1WVjog2xGHbUi5qzGDMRxnWpa+WSwQKmvlQLMfq9ZKwXww
+ TKf4R1rVn179/OVFg3AOspj/ErtgAeuGnTaHlcE4bBIVTFrQc3GOcuaTPW+hei7INPjBxJf8hj0
+ zrV4AHxc19NY26RRvDpAq0fdVfR+U+CaFktOZFwySBK0aEzwaMl0BVxxffLPycR1gW4ZI0wVafW
+ v6pk4IQOIarTOtrUoLg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI5MDA0OSBTYWx0ZWRfX3Irbu8Dk17GY
+ bqnlln5+AdCCNqOSVSkKg5o9XO/KtrNvtv0JlmynYPGgioEA7IfLPQtEf7mFCiQ1CalFzdJ438z
+ 5vGP+h3qXp8Jq9OCs0yBArRN+Ap/dWejG9b44SQe36CHei/SpMVC
+X-Proofpoint-ORIG-GUID: _ANgz8bwS52WwpSYD75bSSdbghsckE-J
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-29_02,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 bulkscore=0 impostorscore=0 phishscore=0 spamscore=0
+ adultscore=0 lowpriorityscore=0 malwarescore=0 priorityscore=1501
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608290049
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] Sleeping functions are called from DRM atomic context callbacks
-- [High] Heap buffer overflow due to under-allocated unpadded shadow buffer
-- [High] Heap buffer overflow in `row` and `hwbuf` due to Framebuffer vs. P=
-anel coordinate mismatch
-- [Medium] Display corruption due to unaligned damage rect X coordinates
-- [Medium] Hardware misconfiguration due to out-of-range display offset cal=
-culation
---
+The AD5710R (16-bit) and AD5711R (12-bit) are 8-channel, low-power,
+configurable current/voltage output DACs with an on-chip 2.5V reference.
+Each channel can be independently configured as a voltage output
+(0V to VREF or 0V to 2xVREF) or a current output (0mA to 50mA).
 
-commit cf38fdd0d34bcb3a6b00f5ba5e5408b34feba7a9
-Author: Nicol=C3=A1s Antinori <nico.antinori.7@gmail.com>
+This series adds support for these parts:
+ - ABI documentation for the high_z powerdown mode and the current-output
+   powerdown attributes
+ - device tree bindings for the AD5710R/AD5711R
+ - basic IIO DAC driver, supporting per-channel voltage/current output
+   selection, per-channel powerdown, software or hardware (LDAC) DAC
+   updates, optional output range doubling, internal or external
+   reference, and hardware reset (with a software-reset fallback).
 
-drm/ch1115: add support for Chipwealth CH1115 OLED controller
+Datasheet:
+https://www.analog.com/media/en/technical-documentation/data-sheets/ad5711r-ad5710r.pdf
 
-Chipwealth CH1115 is a controller for monochrome dot matrix OLED panels.
-Add DRM support for this chip using i2c bus.
+Signed-off-by: Kim Seer Paller <kimseer.paller@analog.com>
+---
+Changes in v4:
+- Use GENMASK() for the raw write bounds check.
+- Add a comment explaining the AD5710R powerdown mode negation.
+- Return -ENOENT instead of -ENODEV when no channels are found.
+- Link to v3: https://patch.msgid.link/20260817-iio-ad5710r-upstream-v3-0-3a4bf7b9c78b@analog.com
 
-> diff --git a/drivers/gpu/drm/chipwealth/ch1115-i2c.c b/drivers/gpu/drm/ch=
-ipwealth/ch1115-i2c.c
-> new file mode 100644
-> index 0000000000000..2ceb5e948e82f
-> --- /dev/null
-> +++ b/drivers/gpu/drm/chipwealth/ch1115-i2c.c
-[ ... ]
-> +static int ch1115_oled_init(struct ch1115_device *ch1115)
-> +{
-> +	u8 commands[] =3D {
-> +		CH1115_CMD_OFF,
-> +
-> +		CH1115_CMD_CLOCK_DIVIDE_RATIO,
-> +		CH1115_VAL_CLOCK_DIVIDE_RATIO(CH1115_VAL_CLOCK_OSC_FREQ,
-> +					      CH1115_VAL_CLOCK_DIV_RATIO),
-> +
-> +		CH1115_CMD_MUX_RATIO,
-> +		ch1115->height - 1,
-> +
-> +		CH1115_CMD_OFFSET,
-> +		ch1115->flip_vertical
-> +			? ch1115->y_start_offset
-> +			: CH1115_MAX_HEIGHT - ch1115->y_start_offset,
-                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Changes in v3:
+- ad3530r: factor the op-mode register/mask computation into a helper
+  shared by the powerdown access and channel parsing.
+- ad3530r: pass iio_dev into setup/parse and set channels/num_channels
+  directly, dropping the duplicated pointers in driver state.
+- ad3530r: use regmap_test_bits() for the powerdown reads and drop the
+  unused AD5710R_NUM_CHANNELS macro.
+- ad3530r: split the file header comment into separate AD5710R/AD5711R lines.
+- dt-bindings: drop the redundant items wrapper on channel reg and tidy
+  the 2 x Vref wording.
+- Link to v2: https://patch.msgid.link/20260721-iio-ad5710r-upstream-v2-0-324949dc72da@analog.com
 
-[Severity: Medium]
-Is this offset calculation correct when y_start_offset is 0?
+Changes in v2:
+- Drop the standalone ad5710r driver and fold AD5710R/AD5711R support
+  into the existing ad3530r driver.
+- Add a preparatory patch parameterizing the DAC resolution in ad3530r
+  so the 12-/16-bit AD5711R/AD5710R can reuse the raw/scale paths.
+- ABI: drop the "high_z" powerdown mode, which is a synonym of the
+  existing "three_state" and use "three_state" instead.
+- Link to v1: https://patch.msgid.link/20260716-iio-ad5710r-upstream-v1-0-e848a4bb701f@analog.com
 
-In ch1115_oled_init(), CH1115_MAX_HEIGHT - ch1115->y_start_offset evaluates
-to 64 when y_start_offset is 0. However, the CH1115 offset register only
-accepts values up to 63 (0x3F). Could sending an out-of-bounds value of 64
-cause the hardware to misbehave or ignore the command?
+To: Jonathan Cameron <jic23@kernel.org>
+To: David Lechner <dlechner@baylibre.com>
+To: Nuno Sá <nuno.sa@analog.com>
+To: Andy Shevchenko <andy@kernel.org>
+To: Michael Hennerich <Michael.Hennerich@analog.com>
+To: Kim Seer Paller <kimseer.paller@analog.com>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-iio@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux@analog.com
+Cc: devicetree@vger.kernel.org
 
-[ ... ]
-> +static void ch1115_prepare_buffer(struct ch1115_device *ch1115,
-> +				  const struct iosys_map *vmap,
-> +				  struct drm_framebuffer *fb,
-> +				  struct drm_rect *rect,
-> +				  struct drm_format_conv_state *fmtcnv_state)
-> +{
-> +	unsigned int dst_pitch;
-> +	struct iosys_map dst;
-> +
-> +	dst_pitch =3D DIV_ROUND_UP(ch1115->width, 8);
-> +	rect->y1 =3D round_down(rect->y1, CH1115_PAGE_HEIGHT);
-> +	rect->y2 =3D min_t(unsigned int, round_up(rect->y2, CH1115_PAGE_HEIGHT)=
-, ch1115->height);
-> +
-> +	iosys_map_set_vaddr(&dst, ch1115->hwbuf + rect->y1 * dst_pitch + rect->=
-x1 / 8);
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^=
-^^^^^^^^^^^^
+---
+Kim Seer Paller (4):
+      iio: ABI: Add DAC current powerdown attributes and 15kohm_to_gnd mode
+      dt-bindings: iio: dac: add adi,ad5710r.yaml
+      iio: dac: ad3530r: parameterize DAC resolution
+      iio: dac: ad3530r: add support for AD5710R/AD5711R
 
-[Severity: High]
-Can this pointer arithmetic point out of bounds if the framebuffer viewport
-is panned?
+ Documentation/ABI/testing/sysfs-bus-iio            |   5 +
+ .../devicetree/bindings/iio/dac/adi,ad5710r.yaml   | 143 ++++++++++
+ MAINTAINERS                                        |   1 +
+ drivers/iio/dac/Kconfig                            |   1 +
+ drivers/iio/dac/ad3530r.c                          | 306 +++++++++++++++++++--
+ 5 files changed, 434 insertions(+), 22 deletions(-)
+---
+base-commit: 6d44bdb3c696639ed06797c7d33b547a6322550f
+change-id: 20260716-iio-ad5710r-upstream-e41c298614c6
 
-The damage iterator yields coordinates in absolute framebuffer (FB)
-coordinates. If userspace configures a framebuffer larger than the panel
-and pans the source viewport (e.g., src.x1 =3D 64), rect->x1 and rect->y1
-will exceed the bounds of the panel-sized hwbuf. Does the driver need to
-translate FB coordinates to panel-relative coordinates by subtracting
-src.x1 and src.y1?
+Best regards,
+--  
+Kim Seer Paller <kimseer.paller@analog.com>
 
-[Severity: Medium]
-Could an unaligned rect->x1 cause screen corruption?
-
-The damage rectangle Y coordinates are rounded to 8-pixel boundaries above,
-but X coordinates are not. Passing an unaligned rect->x1 to
-drm_fb_xrgb8888_to_mono() will shift the damaged pixels horizontally within
-the target byte, clobbering adjacent unaffected pixels in the process.
-
-> +	drm_fb_xrgb8888_to_mono(&dst, &dst_pitch, vmap, fb, rect, fmtcnv_state);
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^=
-^^^^^
-
-[Severity: High]
-Will this cause a heap buffer overflow for unaligned display dimensions?
-
-The shadow framebuffer hwbuf is allocated in ch1115_probe() as exactly
-(width * height) / 8 bytes. If width or height isn't a multiple of 8
-(e.g., 127x64), integer division truncates the allocation size. However,
-dst_pitch is padded to DIV_ROUND_UP(width, 8). Calling
-drm_fb_xrgb8888_to_mono() will write full padded rows, overflowing the
-unpadded heap allocation.
-
-[Severity: High]
-Is it safe to trigger a GFP_KERNEL allocation here?
-
-This is called from ch1115_primary_plane_helper_atomic_update(). According
-to DRM subsystem guidelines, plane atomic_update callbacks run in atomic
-context during non-blocking commits, where sleeping is forbidden. However,
-drm_fb_xrgb8888_to_mono() can trigger memory allocations with GFP_KERNEL
-inside the format conversion helper.
-
-> +}
-[ ... ]
-> +static int ch1115_fb_update_rect(struct drm_framebuffer *fb, struct drm_=
-rect *rect)
-> +{
-> +	struct ch1115_device *ch1115 =3D drm_to_ch1115(fb->dev);
-> +	char *row =3D ch1115->row;
-> +	int ret;
-> +
-> +	rect->y1 =3D round_down(rect->y1, CH1115_PAGE_HEIGHT);
-> +	rect->y2 =3D min_t(unsigned int, round_up(rect->y2, CH1115_PAGE_HEIGHT)=
-, ch1115->height);
-> +
-> +	for (int y =3D rect->y1; y < rect->y2; y +=3D CH1115_PAGE_HEIGHT) {
-> +		for (int x =3D rect->x1; x < rect->x2; x++)
-> +			row[x] =3D ch1115_transform_xy(ch1115->hwbuf, x, y, ch1115->bytes_per=
-_row);
-                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^=
-^^^^^^^^^^^^^^^^^^^^^^
-
-[Severity: High]
-Does this array access write out of bounds when the CRTC is panned?
-
-Since row is allocated to exactly ch1115->width bytes, an absolute
-framebuffer coordinate like rect->x1 exceeding the panel width will cause
-row[x] to corrupt kernel heap memory. Should the loop index be translated
-to panel-relative coordinates?
-
-> +
-> +		ret =3D ch1115_set_position(ch1115, ch1115->x_start_offset + rect->x1,=
- y);
-> +		if (ret < 0)
-> +			return ret;
-> +
-> +		ret =3D ch1115_draw_screen(ch1115, row + rect->x1, rect->x2 - rect->x1=
-);
-> +		if (ret < 0)
-> +			return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-[ ... ]
-> +static void ch1115_primary_plane_helper_atomic_update(struct drm_plane *=
-plane,
-> +						      struct drm_atomic_commit *state)
-> +{
-> +	struct drm_plane_state *old_plane_state =3D drm_atomic_get_old_plane_st=
-ate(state, plane);
-> +	struct drm_plane_state *plane_state =3D drm_atomic_get_new_plane_state(=
-state, plane);
-> +	struct drm_shadow_plane_state *shadow_plane_state =3D to_drm_shadow_pla=
-ne_state(plane_state);
-> +	struct drm_framebuffer *fb =3D plane_state->fb;
-> +	struct drm_atomic_helper_damage_iter iter;
-> +	struct drm_device *dev =3D plane->dev;
-> +	struct drm_rect damage;
-> +	struct ch1115_device *ch1115 =3D drm_to_ch1115(plane->dev);
-> +	int idx;
-> +
-> +	if (!fb)
-> +		return;
-> +
-> +	if (drm_gem_fb_begin_cpu_access(fb, DMA_FROM_DEVICE))
-> +		return;
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-[Severity: High]
-Does this callback sleep in atomic context?
-
-drm_gem_fb_begin_cpu_access() can block to wait on DMA fences. Since
-ch1115_primary_plane_helper_atomic_update() runs in atomic context during
-non-blocking commits, this can cause might_sleep() warnings and system
-deadlocks.
-
-> +
-> +	if (!drm_dev_enter(dev, &idx))
-> +		goto out_drm_gem_fb_end_cpu_access;
-> +
-> +	drm_atomic_helper_damage_iter_init(&iter, old_plane_state, plane_state);
-> +	drm_atomic_for_each_plane_damage(&iter, &damage) {
-> +		ch1115_prepare_buffer(ch1115,
-> +				      &shadow_plane_state->data[0],
-> +				      fb, &damage,
-> +				      &shadow_plane_state->fmtcnv_state);
-> +
-> +		ch1115_fb_update_rect(fb, &damage);
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-[Severity: High]
-Will this initiate blocking I2C transfers from atomic context?
-
-ch1115_fb_update_rect() calls ch1115_set_position() and ch1115_draw_screen(=
-),
-which perform regmap writes over I2C. I2C transfers lock the bus mutex and
-can sleep, which is forbidden in atomic update paths.
-
-> +	}
-[ ... ]
-> +static void ch1115_encoder_atomic_enable(struct drm_encoder *encoder,
-> +					 struct drm_atomic_commit *state)
-> +{
-> +	struct drm_device *drm =3D encoder->dev;
-> +	struct ch1115_device *ch1115 =3D drm_to_ch1115(drm);
-> +
-> +	ch1115_oled_init(ch1115);
-> +
-> +	u8 command =3D CH1115_CMD_ON;
-> +
-> +	ch1115_send_command_list(ch1115, &command, 1);
-> +
-> +	backlight_enable(ch1115->bl_dev);
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-[Severity: High]
-Is it safe to acquire the backlight mutex here?
-
-ch1115_encoder_atomic_enable() runs in atomic context. Calling
-backlight_enable() acquires the backlight update_lock mutex, which
-will sleep and violate the atomic context constraints.
-
-> +}
-[ ... ]
-> +static int ch1115_probe(struct i2c_client *client)
-> +{
-> +	struct ch1115_device *ch1115;
-> +	struct device *dev;
-> +	struct backlight_device *bl;
-> +	int ret;
-> +
-> +	dev =3D &client->dev;
-> +	ch1115 =3D devm_drm_dev_alloc(&client->dev, &ch1115_driver,
-> +				    struct ch1115_device, dev);
-> +	if (IS_ERR(ch1115))
-> +		return PTR_ERR(ch1115);
-[ ... ]
-> +	ch1115->pages =3D DIV_ROUND_UP(ch1115->height, CH1115_PAGE_HEIGHT);
-> +	ch1115->bytes_per_row =3D DIV_ROUND_UP(ch1115->width, 8);
-> +	ch1115->x_start_offset =3D ch1115->flip_horizontal
-> +		? CH1115_MAX_WIDTH - ch1115->width
-> +		: 0;
-> +	ch1115->mode =3D ch1115_mode(ch1115);
-> +
-> +	ch1115->hwbuf =3D devm_kzalloc(dev, (ch1115->width * ch1115->height) / =
-8,
-> +				     GFP_KERNEL);
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^=
-^^^^
-
-[Severity: High]
-Could this allocation be undersized for unaligned display dimensions?
-
-When width or height is not a multiple of 8, integer division truncates
-the size, leaving hwbuf too small to hold the padded rows written by
-ch1115_prepare_buffer().
-
-> +	if (!ch1115->hwbuf)
-> +		return -ENOMEM;
-> +
-> +	ch1115->row =3D devm_kzalloc(dev, ch1115->width, GFP_KERNEL);
-> +	if (!ch1115->row)
-> +		return -ENOMEM;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1787973729.gi=
-t.nico.antinori.7@gmail.com?part=3D2
