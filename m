@@ -1,122 +1,112 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D944C353A9B
-	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 06:38:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 781EE3F1048
+	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 06:43:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787985503; cv=none; b=NHSquHyj9nTQ5pA0rInCrvH0pnd7+aIMioCcEof3k1FkattVMNBZJ8BOWPBbfGfFBUW3V+oWEy2WGhmeGPa53Dl4KKYprmApyAwCft/DLcBOKH6CQormp5IpRT0Wq6HbPFZhejiTx5u3szOuv3JIHboXfpnb6YiFaGiws5jWBBw=
+	t=1787985829; cv=none; b=GtsBJ+K1tWWimSOL7WU2yR0SrQiNNZQHjHFVcsxKoSRwC1FjZTAnGkax/B7827x4Nakcnc+y4fxTLyb/CUxLaf8p0tMPnrjip4GKQqDZRoNT9Pl+GlUC+H/wMQR7eyaEGlZS4CwQG1k4SUFuJGOOch0cPINUtjBCD88X5NsCsag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787985503; c=relaxed/simple;
-	bh=jP2B8Oq/SxivmT2+4bp6q/xxtMABghG2HFb3rq1F3l4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=V3yzgYFohGaO50I3pDfnZqrxfboDtTvm6lf6wicaAt1TDB8Sn3mOg6NvAimbE62gB0Tm2rUZhz4FjAvGUBy7Ud+cbcxy8EaKWOjoog2NtDVxE3//wQ64nE3X8GBw6Ufqwh1GFFUKjPAdIiCXX8ESnfZoZ8CurLvRzsxL1ZzduGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CUKpH4u4; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787985829; c=relaxed/simple;
+	bh=uImJwW7vh/u2ZEy7q1WuBGCVCt9rL+1nOivWI/9UOyU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=JkAC9c1/fnzLiYgdm5cxHFJmGA43ryFU1LBqZegNF/rzUzr7OMHnPu9ZZsjyQo/Yleu2+x2OE0TaVKXCyGtFt0don7Ye1a8jFb1KZtJv3VKZRRnBjtH4LyinNhybZFmcDjJIYrQKCSEgz+RzRYVOwpQx04dcUSw8jlX4NP3C7fg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nqh+dXdV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CUKpH4u4"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3965d3d9ab8so1314992a91.3
-        for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 23:38:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787985501; x=1788590301; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5O2ZS9+ansg0/IUrCuwtyZKXd4BjLxjahxk05rb1blQ=;
-        b=CUKpH4u4wbfgVsXjqNgQpCom2St/IR3sBjGtAh94rjYSiLD6/Sw1bMDatarQD1we0V
-         qMXeU2RnUrPP5yp14bbSI2ohM2rRQXfFrceyoPj83FJZDORM3p1Ob7vcir+PIx7HsEgP
-         GU/UKwHfR10/YHxVOH/yRGl2SJpKgJtgebIaMMVmS9hO7a44fUXoGB8xqBqcwR8j45O0
-         ZUuEEKZJR1YrFf/wjfJA1hptBqwsa7bRaJI7QKNmU5XTdXcbK5Lyc6xnftGZLK7vX9/z
-         bj8bh9bYzcjUmTRkNexFyWFcgFVN8/ayK1bR+FLYYSNRgJ2n80uL5k9QvkLMQrxzskv6
-         xahA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787985501; x=1788590301;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5O2ZS9+ansg0/IUrCuwtyZKXd4BjLxjahxk05rb1blQ=;
-        b=BCXBztQRYqi4oXD+ga/K/dKm0Fa+KV3yE98mtDk0bAKp5TLsJJTYVbpT2SEetdWror
-         tZZp4ZFBzWIiNsg3zH4x7NoPJTZ3c5eLsoxrni7SUN41nTv0D8PnPvulL+35lhvNGLFO
-         fc1MZ72lW3xn5xTKVPRFuzPW6lLNd5sk3lAk/bbK2BD9OJJhBgGlkSENNPfzfHiRJbgy
-         hTb5YWbJ0oAUdBvvHmlw5eTCvKKg1nJ97BZPphSWEYEurScKYfUxqSe0xs5gt3cdBgF2
-         SGYepjEZsFFc3d00C19GH1PrBfvVLfwEWseQfVi3UcMtLLAY2c25vsMXeGl5e3L5T910
-         9MAA==
-X-Forwarded-Encrypted: i=1; AKwUvBxH2aOgr4bV1OWHGeenxFHwSCpa/5mVUtoDBnQxMS+wC9I1SQIeW44q+v/ewaQLz40jF1jl9fFqKj+p@vger.kernel.org
-X-Gm-Message-State: AFuF++kAzsLxdqdBTdERrm/5/OaEYsvYEwCaSTdBrtwXWCIbjQMBAjvR
-	3BJDJCb+iwdvci6UborffIxaNZvCWLi8O7VNpb58jR36NG8kbe2EMoo=
-X-Gm-Gg: AYBFou2GoNlFh+cNP4CwNM3w5lusLO72fMC65gvqZBkCd71FQRZRJGsKutA7FY8a5Pc
-	B+Gnj+mANSqiiuEMWG8A/U9wo1lNmMIkCurvi5gTmU1udkk8KtH5rg/j+lhOBlWlL0/nXoMR/5h
-	JJWzEyA4wAZNmU3LQM+qshn1Ulhm5IYBsCgDWQe71ezEdThv6+FrYsGYbvlkzV/0IL33CxTiKvh
-	MGL4dD+ohWTYhoesUaw+tLkm50S48+p/0i01rPzCDYbWE1TwbOzNj6YbqZVizbIx7ozvkayNQme
-	xtxKrYsylfOMxRgSeO6s5D8N0PDYcsFiVdcImACogJsggT3YtMZ7cIFzU6N1+RDewhoPodCW0y4
-	PbAeE9sfOTJPz722wTkXBrV4ZzmVYfZLvN1hnsx65XgCoHrIuqsICtliRCoCXiewW3g55eFGbpQ
-	RqQWOJKpMh1m+uhLtOwaIJB7RGhoAT9bYqE6Z0lqf5KiZ2zUWm8eMKe/1Riyppy71XbmuQoqIBh
-	o4c7uLygm0PowFzgrrcnWtxNuj4U/LqH21Q+HwgaWuEnTdI0Q==
-X-Received: by 2002:a17:90b:50c6:b0:38e:97f0:aa4b with SMTP id 98e67ed59e1d1-396d1017316mr22749011a91.13.1787985501343;
-        Fri, 28 Aug 2026 23:38:21 -0700 (PDT)
-Received: from localhost.localdomain ([186.158.238.108])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0d1abbdsm10957539c88.2.2026.08.28.23.38.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 23:38:20 -0700 (PDT)
-From: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>,
-	Brigham Campbell <me@brighamcampbell.com>,
-	Jori Koolstra <jkoolstra@xs4all.nl>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	linux-kernel-mentees@lists.linux.dev
-Subject: [PATCH v3 3/3] MAINTAINERS: add entry for Chipwealth CH1115 OLED Controller
-Date: Sat, 29 Aug 2026 03:32:15 -0300
-Message-ID: <b02861a81badc32b414147f36e0c429969aae225.1787973729.git.nico.antinori.7@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1787973729.git.nico.antinori.7@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nqh+dXdV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA5161F000E9;
+	Sat, 29 Aug 2026 06:43:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787985828;
+	bh=LGI79hyL9oIr4cETOk4NTq0ScfTS4oCmWuqlDQBw3nM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nqh+dXdVYN/vu5jKeJBZmX/qcZtJ9RNe+6ogAZrbM4Lpp5+yZcxeMBRyho6PLkQMI
+	 xWZm0+f4YVf9kll7Aq5uame+Y8P2eo6DqXu6oLmVcN5OKUw7W3VipweEr0egAc7y5x
+	 O6pnpnvQx28NC/Crl5fPYAgpHv+3z/rhutxlHSC0NqsTsSsPRZrOGLloT/eIEdmrDQ
+	 +dqBCafiU6OuHhLPx703Ch0aQbbCnz+cAfQh1SoE5oGUB7uj9AynyUTEC6f+FILHRn
+	 wffRvotYpL4c8qa2K9Jo+obzs4634sYyWdzqfoSOJ8FzvxWXgcfeQpQHRoLHx7wgzl
+	 x483O4tESlHhg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/3] dt-bindings: display: add Chipwealth CH1115 OLED
+ Controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?Tmljb2zDoXMgQW50aW5vcmk=?= <nico.antinori.7@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <5e1a01043e1935d59d48630dc6211652e64b108a.1787973729.git.nico.antinori.7@gmail.com>
 References: <cover.1787973729.git.nico.antinori.7@gmail.com>
+ <5e1a01043e1935d59d48630dc6211652e64b108a.1787973729.git.nico.antinori.7@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 29 Aug 2026 06:43:47 +0000
+Message-Id: <20260829064347.CA5161F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-Add MAINTAINERS entry for the Chipwealth CH1115 dot matrix OLED
-controller.
-
-Signed-off-by: Nicolás Antinori <nico.antinori.7@gmail.com>
----
- MAINTAINERS | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 59d60df34dfa..dff105e5f01b 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8581,6 +8581,12 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
- F:	Documentation/devicetree/bindings/display/panel/samsung,lms380kf01.yaml
- F:	drivers/gpu/drm/panel/panel-widechips-ws2401.c
-
-+DRM DRIVER FOR CHIPWEALTH CH1115 PANELS
-+M:	Nicolás Antinori <nico.antinori.7@gmail.com>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml
-+F:	drivers/gpu/drm/chipwealth/ch1115-i2c.c
-+
- DRM DRIVERS
- M:	David Airlie <airlied@gmail.com>
- M:	Simona Vetter <simona@ffwll.ch>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Use of `additionalProperties: false` instead of `unevaluatedProp=
+erties: false` restricts inherited properties and forces anti-pattern prope=
+rty re-declaration.
 --
-2.47.3
 
+commit 1beb1f223427bea55378a246f7b9205ba032f851
+Author: Nicol=C3=A1s Antinori <nico.antinori.7@gmail.com>
+
+dt-bindings: display: add Chipwealth CH1115 OLED Controller
+   =20
+Chipwealth CH1115 is a controller for monochrome dot matrix OLED panels.
+
+> diff --git a/Documentation/devicetree/bindings/display/chipwealth,ch1115.=
+yaml b/Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml
+> new file mode 100644
+> index 0000000000000..6b037c40242ec
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml
+
+[ ... ]
+
+> +  chipwealth,offset:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    minimum: 0
+> +    maximum: 63
+> +    default: 0
+> +    description:
+> +      Display start line offset. Specifies the vertical alignment and ro=
+w shift
+> +      along the Y-coordinate.
+> +
+> +  width-mm: true
+> +  height-mm: true
+> +  flip-horizontal: true
+> +  flip-vertical: true
+> +  panel-timing: true
+
+[Severity: Medium]
+Since this schema includes panel-common.yaml in its allOf block, are these
+explicit property re-declarations necessary? They appear redundant with the
+inherited schema and can typically be removed when unevaluatedProperties is
+used.
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - width-mm
+> +  - height-mm
+> +  - panel-timing
+> +
+> +additionalProperties: false
+
+[Severity: Medium]
+Does using additionalProperties: false here improperly restrict the
+schema from inheriting standard properties like reset-gpios or
+rotation from panel-common.yaml? Should this be unevaluatedProperties: false
+instead, so that valid common properties aren't falsely rejected during
+board configuration validation?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1787973729.gi=
+t.nico.antinori.7@gmail.com?part=3D1
