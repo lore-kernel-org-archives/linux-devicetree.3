@@ -1,495 +1,118 @@
-Received: from mail.lysator.liu.se (mail.lysator.liu.se [130.236.254.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61EE03976A0;
-	Sat, 29 Aug 2026 15:14:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.236.254.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 534E12EEE7E
+	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 15:20:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788016473; cv=none; b=bqoTJih5hfKJmFrnodUVrmmvhAA5YzhCtOXacHYhAg4Fs7gVAd4szCcGHPiH0KT8LwjOm3Z4w7UAH4x9bqKk8VK4IxX0OxjfyVdDdKWYRQXhFkr6dY/7ld41sqsKvT4N76GTpGf4I2GBOf8IhZi2ZVlpY5jTsu8fiB4ATW5UJwg=
+	t=1788016803; cv=none; b=InG0ae8mT3HldKF1vID+Ivh/lVxa9uDLoMsRSYrNaYxTZSotG1Mx3V7egZGta6e0EUDcUn7oiROwOPVdv8rzam3iU8JfmXnRnYYxTIWOrdYQ4Lkv9yvJArTb5ym06DcUKxB1lz+e9d6AT+Q4XzVpRdfkE7LgrujwytFNZm413Ts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788016473; c=relaxed/simple;
-	bh=4ex8xahwzLjJqgM7Sw6UrYwx0ATqV1/wyw1Wc4CvrXA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W83+bT5Oudylz56zRAkkLTGE5JBJbCnM8raMPdifPEOabWyfhCc9hjDWW1B11RCHBK0HrLb0pNw9OhI/eeSQi3Lfqt7vUjWfmAqzcYGbrMwuTkmFVui7cX7dCmv3ebbqwBC9xha3vBwZxYLDPTj8qEx/C+30YdAs4hlUsYNN+gY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se; spf=pass smtp.mailfrom=lysator.liu.se; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=Ud1E/Amy; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=rzzM+j8j; arc=none smtp.client-ip=130.236.254.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lysator.liu.se
+	s=arc-20240116; t=1788016803; c=relaxed/simple;
+	bh=rRUx/95FOy4sgA5H4dvr49vB4SgWTuJknnNRbGFm4LM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TX8EkSFo2e766HYIoZNw/ErmE2u2gqSqMBU18Y+Kiin2Suicer3tt2pEwnC/ebpomDyp1Pup9jOhGzouI7AIW8SVh23Q5VbEmLM0/Twe2qdV27uiZb86xJSbywFsI+pD+R8TPo4hre/CzZZnt5fSmoQ+Qoync787wdhUmpsuIxU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E34/S85i; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="Ud1E/Amy";
-	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="rzzM+j8j"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
-	s=2026; t=1788016460;
-	bh=4ex8xahwzLjJqgM7Sw6UrYwx0ATqV1/wyw1Wc4CvrXA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Ud1E/AmyGHjmZSgalwjoi/w4rZ+MF7xW5/fqByax4rrJYLCPhj6TY6Sa/MQUND+fh
-	 vN6LbuN+ov7rIzAo1qXYGOb8fB+rYo+g834fCOua2LDXEoZTDGnAeuDg0cMPpmIetm
-	 Y6/Wl6btZMPR0ajAqz9Gkj2DsYsq7PQKW4QVLDF4guSGFvQI6FpZKDBClTu8HQ+JoV
-	 WUcGmhQSI8URPchuR/EiIj2/PT1QlKUBwfEmUzB9PrVs+JsMEbfiHYDhZcXtQ/1Ao8
-	 ln9wqtld4Gduyd1211SnODvYMyX6b2NLAcPyOtjOfe4HYYS+BZfAbheVlbxTVn3R0K
-	 8GA1m8A/kWezA==
-Received: from mail.lysator.liu.se (localhost [127.0.0.1])
-	by mail.lysator.liu.se (Postfix) with ESMTP id 06ACA78D7;
-	Sat, 29 Aug 2026 17:14:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
-	s=2026; t=1788016459;
-	bh=4ex8xahwzLjJqgM7Sw6UrYwx0ATqV1/wyw1Wc4CvrXA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=rzzM+j8jt+AX/0lmM6V5ODRyJaRiYEugjAZplsTd407L/RBV2dlq13QmgKueNougQ
-	 NeNpuiVXhEf2YtcBWZ3+qgQxpSdSssfTgq+wzLepWMLBrT+HAWYH2xKhExsx4P2mZG
-	 M+7zDtSDiYgKDs1/IAgRJC5kF8IFQu2vDnBbNfAz7Ibg/gSzzG6Ca0fVPWSjf/w/bg
-	 QyJOVLPzInerHUtD9cEv9sj+ggj3GFomv4btMjtGd4Fg8QRiCAMyXNa6NfMt132J3/
-	 Wd8RqB7xhQXkai2SUuHVFPs0W9BXyHwg/z86+U7xjvOVWUTqN2uHy+4q4Y5fBEFb1+
-	 nT2xdLl214kZA==
-Received: from gryt (81-225-28-11-no2391.tbcn.telia.com [81.225.28.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by mail.lysator.liu.se (Postfix) with ESMTPSA id 5E231786C;
-	Sat, 29 Aug 2026 17:14:19 +0200 (CEST)
-Date: Sat, 29 Aug 2026 17:14:18 +0200
-From: Peter Rosin <peda@lysator.liu.se>
-To: Rahul Sharma <r-sharma3@ti.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	vigneshr@ti.com,
-	Alvin =?utf-8?Q?=C5=A0ipraga?= <alvin.sipraga@analog.com>
-Subject: Re: [PATCH 2/2] mux-controller: ti: add driver for event mux router
-Message-ID: <apL3StZuqeV-gaIa@gryt>
-References: <20260828100615.1700223-1-r-sharma3@ti.com>
- <20260828100615.1700223-3-r-sharma3@ti.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E34/S85i"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4953e04ef16so19195635e9.2
+        for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 08:20:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788016800; x=1788621600; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=521A9KUhtW0cKM/KRBSLU9rkYQy9/A8z8nlm+NiGrho=;
+        b=E34/S85iky/B/QElnc9GVft7vRCmV4IjASO9Pg6ZvHXDVBN7cyeq5wRMRqRxtoxbxT
+         s9bJ8YJmZK5ZkB2zmBLZA0jHbLup0CkrYbqEwFwbrMI8WSuvgVOdH20Fu2ktlHMYqXPT
+         /Xm6Bdyvm0tgXGfpuoCyaNs+/8g1uej0P0R1o4Iy8x86uFqVYHusOqIvj668DWlZv/ej
+         e8V6FPlZI0IMayFuHH1u7vLE8bP0XeQ5UJraBoHmcggdaBqqucJmzuXFlDxsiyq7DRuL
+         cKJIfI0R2+aCdhPvtj2H7mxedlcjRyoQiYK7xOW7DjXTy2bSiJ7H1STUl41hYmFC5iKI
+         683Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788016800; x=1788621600;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=521A9KUhtW0cKM/KRBSLU9rkYQy9/A8z8nlm+NiGrho=;
+        b=R3yPaXlPrMfQ+SaLAdiWNIJ39A0QhUHkmRU2/9pW/Kqi/dha1yQSk9pOYsZkNrHOdD
+         pErcvsn4+frafM3qfUD4CsVSD+Yyq7kLs8z/gA62zfYPoCXKD84ipZ/AVPtnrmc/+eBK
+         Mm010lcIy7KzXOdgvvave1t6C8hYDPeCs78h+KtfPT26KFpY7to2M6KEbCl0V/wy89z+
+         vTQOW7bqCtBZPs9nPPmT68pWK6fFJ1u8lOFM7bnE0/+wey95IN2ALYUDSmtbXPP6qNPx
+         VhggJKmNiFgxpvT3b1tMpARZt+cvwJk+k7vAKH8VFLItodBxB+i3dnAR9ReD7ZjMKv+O
+         FKtg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr7U71wuIIZLpeaOJ49oRqunXpjrrSm7JW0dT2qipvG0ptJfmtdGv2tTqNuJK9KPOiMaEaZnROBjnY0@vger.kernel.org
+X-Gm-Message-State: AFuF++n/4o5SPD83svN/N1BWCQ21r5uiUhHnNL7eA1oARBN473aXM4qL
+	V9vpV7gMAuxK7+X1ufLNuRLfZH7MBr2GssAMKZXme7LpLpXGdLc/Ltg=
+X-Gm-Gg: AR+sD11hiOVxL5R4p/AA6242rkNgn1JWlD/0XD1tJQaIyQU+9ytNzoqlnzNeYUPBGO5
+	sF8bCXmaaSDCxb7Lz73JZtluRTsQzjd/yEEOlmanOtEIlVBVlyfZBD8lMyMS5otEIwrwFktP0Jd
+	7YewIBEuNoPRjyDjxJAhmT9D0aqG7LADO3zky12vQzwA8cwuH4pxZFVKCGT+/ew3mbVmSu6I2KF
+	kCmLJny28KtnFHPRerQi88qGXYxlaf8pujTCoaE2JF8TF7HNtiQ15WIlKe83BTYlky8kxS5LIlm
+	eR4p0wPg2raLMjz/+ofiPMZ1JvfM1+B1kNSTq2q5Q5On4E5Z9EWr7CJvX2NitQ9m13ovYgimOZ4
+	dk7wXbNxUCm/ZZ2FYPbhv8IazStw0HVO43SsuPuQFWqLsgCEaY5LqlF4LXHOYOMLcHMnSYR2uO4
+	3zYuHZ+n8lT+DglRUjcRRcG9VYCoE5UtH97hH2L4mRE3iAyv5SlWOKjSqZ5OvxzD7sVnLwUx1E9
+	Awvfe+h7fS6HunSTqH5O8YmUdVSS2f23d0zY9tj
+X-Received: by 2002:a05:600c:3546:b0:499:dbc0:370d with SMTP id 5b1f17b1804b1-49b91c1dad9mr216188385e9.2.1788016799980;
+        Sat, 29 Aug 2026 08:19:59 -0700 (PDT)
+Received: from localhost.localdomain ([193.160.247.68])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ccea6b814sm38959855e9.0.2026.08.29.08.19.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 29 Aug 2026 08:19:59 -0700 (PDT)
+From: Andrea Pesaresi <andreapesaresi82@gmail.com>
+To: Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sam Shih <sam.shih@mediatek.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH] arm64: dts: mediatek: mt7986: correct timer frequency
+Date: Sat, 29 Aug 2026 17:19:55 +0200
+Message-ID: <20260829151955.3661893-1-andreapesaresi82@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828100615.1700223-3-r-sharma3@ti.com>
-X-Virus-Scanned: ClamAV using ClamSMTP
+Content-Transfer-Encoding: 8bit
 
-Hi Rahul,
+The MT7986 architected timer runs at 12,986,200 Hz rather than 13 MHz.
+Firmware reports 13 MHz through CNTFRQ_EL0, causing the system clock to
+run slow by about 1062 ppm. This exceeds the kernel's 500 ppm NTP
+correction limit and leaves clock discipline saturated.
 
-I believe you posted something like this as an RFC about half a year
-ago? Please include a pointer to the previous posting along with some
-notes about what changed since the last posting when you update a
-patch series. Thanks!
+The corrected rate comes from MediaTek's downstream OpenWrt feed, where
+it is applied to both MT7986A and MT7986B. Since upstream mt7986b.dtsi
+includes mt7986a.dtsi, add it once to the common timer node so the
+architected timer driver uses the actual counter rate.
 
-And sorry for being so very slow with the review. I intend to be more
-responsive going forward...
+Fixes: 50137c150f5f ("arm64: dts: mediatek: add basic mt7986 support")
+Cc: stable@vger.kernel.org
+Link: https://github.com/mediatek/mtk-openwrt-feeds/commit/6a4c41c41410cd5042ad10c39da6593ba036283c
+Link: https://github.com/openwrt/openwrt/issues/24789
+Signed-off-by: Andrea Pesaresi <andreapesaresi82@gmail.com>
+---
+ arch/arm64/boot/dts/mediatek/mt7986a.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
-Den Fri, Aug 28, 2026 at 03:36:15PM +0530, skrev Rahul Sharma:
-> The driver supports event muxing routers like gpio mux router and timesync
-> router. This driver is adaptation of original reg-mux driver, along with
-> changes specific to support TI's mux router.
-> 
-> The idle states this driver supports are only 2 which active(represented
-> by 1 in dt-node) and in-active(represented by 0 in dt-node).
+diff --git a/arch/arm64/boot/dts/mediatek/mt7986a.dtsi b/arch/arm64/boot/dts/mediatek/mt7986a.dtsi
+index 9ebc19610..318639a7c 100644
+--- a/arch/arm64/boot/dts/mediatek/mt7986a.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt7986a.dtsi
+@@ -657,6 +657,7 @@ cpu_trip_active_low: active-low {
+ 	timer {
+ 		compatible = "arm,armv8-timer";
+ 		interrupt-parent = <&gic>;
++		clock-frequency = <12986200>;
+ 		interrupts = <GIC_PPI 13 IRQ_TYPE_LEVEL_LOW>,
+ 			     <GIC_PPI 14 IRQ_TYPE_LEVEL_LOW>,
+ 			     <GIC_PPI 11 IRQ_TYPE_LEVEL_LOW>,
 
-I don't see the point of using 1 as idle state. Why would anyone
-do that?
+base-commit: cf72cbb39da84b6f02f90c07f33b102fc10b16f0
+-- 
+2.43.0
 
-> 
-> Signed-off-by: Rahul Sharma <r-sharma3@ti.com>
-> ---
->  drivers/mux/Kconfig           |  15 +++
->  drivers/mux/Makefile          |   2 +
->  drivers/mux/ti-k3-event-mux.c | 235 ++++++++++++++++++++++++++++++++++
->  3 files changed, 252 insertions(+)
->  create mode 100644 drivers/mux/ti-k3-event-mux.c
-> 
-> diff --git a/drivers/mux/Kconfig b/drivers/mux/Kconfig
-> index eb34457beaab..58739a01f0d5 100644
-> --- a/drivers/mux/Kconfig
-> +++ b/drivers/mux/Kconfig
-> @@ -83,6 +83,21 @@ config MUX_RZV2H_VBENCTL
->  	  To compile the driver as a module, choose M here: the module will
->  	  be called mux-rzv2h-vbenctl.
->  
-> +config MUX_TI_K3_EVENT_ROUTER
-> +	tristate "TI Event Mux Router using MMIO registers"
-> +	depends on OF && (REGMAP_MMIO || COMPILE_TEST)
-> +	help
-> +	  This is extension of MMIO mux for  timesync router and gpiomux
-> +	  routers on TI K3 SoCs. This driver supports the 3-field format for
-> +	  mux control: <register-offset mask value>.
-
-The first sentence has some grammar issues, and the second talks
-about "the 3-field format" as if that is some well established format.
-How about:
-
-	  This is a mux for timesync and gpiomux routers on TI K3 SoCs.
-	  The driver supports a 3-field format for mux control:
-	  <register-offset mask value>.
-
-> +
-> +	  The driver allows configuration of hardware mux routers using
-> +	  memory-mapped registers. It's based on the mmio-mux driver but
-> +	  supports the extended 3-field format for more precise control.
-
-The person reading this would not care about the code ancestry, that
-info belongs elsewhere, and the 3-field format has already been
-mentioned. Thus, the second sentence can be dropped.
-
-> +
-> +	  To compile the driver as a module, choose M here: the module will
-> +	  be called mux-ti-k3-event.
-> +
->  endmenu
->  
->  endif # MULTIPLEXER
-> diff --git a/drivers/mux/Makefile b/drivers/mux/Makefile
-> index 0854c04613b9..114abf88b75e 100644
-> --- a/drivers/mux/Makefile
-> +++ b/drivers/mux/Makefile
-> @@ -9,6 +9,7 @@ mux-adgs1408-objs		:= adgs1408.o
->  mux-gpio-objs			:= gpio.o
->  mux-mmio-objs			:= mmio.o
->  mux-rzv2h-vbenctl-objs		:= rzv2h-vbenctl.o
-> +mux-ti-k3-event-objs		:= ti-k3-event-mux.o
->  
->  obj-$(CONFIG_MULTIPLEXER)	+= mux-core.o
->  obj-$(CONFIG_MUX_ADG792A)	+= mux-adg792a.o
-> @@ -16,3 +17,4 @@ obj-$(CONFIG_MUX_ADGS1408)	+= mux-adgs1408.o
->  obj-$(CONFIG_MUX_GPIO)		+= mux-gpio.o
->  obj-$(CONFIG_MUX_MMIO)		+= mux-mmio.o
->  obj-$(CONFIG_MUX_RZV2H_VBENCTL)	+= mux-rzv2h-vbenctl.o
-> +obj-$(CONFIG_MUX_TI_K3_EVENT_ROUTER)	+= mux-ti-k3-event.o
-> diff --git a/drivers/mux/ti-k3-event-mux.c b/drivers/mux/ti-k3-event-mux.c
-> new file mode 100644
-> index 000000000000..2469500d1b48
-> --- /dev/null
-> +++ b/drivers/mux/ti-k3-event-mux.c
-> @@ -0,0 +1,235 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * MMIO register bit-field controlled multiplexer driver
-
-This is some left-over I presume?
-
-> + *
-> + * Copyright (C) 2026 Texas Instruments Incorporated - https://www.ti.com
-> + *
-> + * Based on drivers/mux/mmio.c by Philipp Zabel <kernel@pengutronix.de>
-
-So, why did you drop the Pengutronix copyright?
-
-> + * Modified to support 3-field format: reg-offset, mask & value
-> + *
-> + * Author: Rahul Sharma <r-sharma3@ti.com>
-> + */
-> +
-> +#include <linux/bitops.h>
-> +#include <linux/err.h>
-> +#include <linux/mfd/syscon.h>
-> +#include <linux/module.h>
-> +#include <linux/mux/driver.h>
-> +#include <linux/of.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/property.h>
-> +#include <linux/regmap.h>
-> +
-> +#define MUX_ENABLE_INTR BIT(16)
-> +
-> +struct mux_ti_k3_event {
-> +	struct regmap *regmap;
-
-I think this can be a single pointer in the below chip struct
-instead of "wasting" one pointer for each field, no?
-
-> +	u32 reg;
-> +	u32 mask;
-> +	u32 value;
-> +};
-> +
-> +struct mux_ti_k3_event_chip {
-> +	struct mux_chip *mux_chip;
-
-I do not see the need for this back-pointer to the mux chip.
-
-> +	struct mux_ti_k3_event *fields;
-> +	int num_fields;
-
-This is redundant. The mux-control count for a chip is available
-as mux_chip->controllers.
-
-> +	u32 *saved_states;
-> +};
-> +
-> +static int mux_ti_k3_event_suspend(struct device *dev)
-> +{
-> +	struct mux_ti_k3_event_chip *chip = dev_get_drvdata(dev);
-> +	int i, ret;
-> +
-> +	if (!chip->saved_states) {
-> +		chip->saved_states = devm_kcalloc(dev, chip->num_fields,
-> +						  sizeof(u32), GFP_KERNEL);
-
-Why not allocate this up-front during probe? Or, on second thought, why
-not just add a saved_state (non-array) member to struct mux_ti_k3_event?
-
-> +		if (!chip->saved_states)
-> +			return -ENOMEM;
-> +	}
-> +
-> +	for (i = 0; i < chip->num_fields; i++) {
-> +		struct mux_ti_k3_event *field = &chip->fields[i];
-> +
-> +		ret = regmap_read(field->regmap, field->reg,
-> +				  &chip->saved_states[i]);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int mux_ti_k3_event_resume(struct device *dev)
-> +{
-> +	struct mux_ti_k3_event_chip *chip = dev_get_drvdata(dev);
-> +	int i, ret;
-> +
-> +	if (!chip->saved_states)
-> +		return 0;
-> +
-> +	for (i = 0; i < chip->num_fields; i++) {
-> +		struct mux_ti_k3_event *field = &chip->fields[i];
-> +
-> +		ret = regmap_write(field->regmap, field->reg,
-> +				   chip->saved_states[i]);
-
-Should you not apply the mask here?
-
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static DEFINE_SIMPLE_DEV_PM_OPS(mux_ti_k3_event_pm_ops,
-> +				mux_ti_k3_event_suspend,
-> +				mux_ti_k3_event_resume);
-> +
-> +/*
-> + * State behavior:
-> + * - state 0: Clears the mask bits in the target register (inactive state)
-> + * - state 1: Sets both the value bits and enable bit (bit 16) in the register
-> + */
-> +static int mux_ti_k3_event_set(struct mux_control *mux, int state)
-> +{
-> +	struct mux_ti_k3_event *fields = mux_chip_priv(mux->chip);
-> +	struct mux_ti_k3_event *field = &fields[mux_control_get_index(mux)];
-> +
-> +	if (!state)
-> +		return regmap_update_bits(field->regmap, field->reg, field->mask, 0);
-
-This is confusing to me. Why do you elect to leave the enable bit as-is
-and write only the zero value? Would it not be saner to clear out the
-enable bit as well?
-
-You should handle state == MUX_IDLE_DISCONNECT here in the .set function,
-see below for rationale.
-
-> +
-> +	return regmap_update_bits(field->regmap, field->reg, field->mask | MUX_ENABLE_INTR,
-> +		field->value | MUX_ENABLE_INTR);
-> +}
-> +
-> +static const struct mux_control_ops mux_ti_k3_event_ops = {
-> +	.set = mux_ti_k3_event_set,
-> +};
-> +
-> +static const struct regmap_config mux_ti_k3_event_regmap_cfg = {
-> +	.reg_bits = 32,
-> +	.val_bits = 32,
-> +	.reg_stride = 4,
-> +};
-> +
-> +static int mux_ti_k3_event_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	struct device_node *np = dev->of_node;
-> +	struct mux_ti_k3_event_chip *chip;
-> +	struct mux_ti_k3_event *fields;
-> +	struct mux_chip *mux_chip;
-> +	struct regmap *regmap;
-> +	void __iomem *base;
-> +	int num_fields;
-> +	int ret;
-> +	int i;
-> +
-> +	chip = devm_kzalloc(dev, sizeof(*chip), GFP_KERNEL);
-> +	if (!chip)
-> +		return -ENOMEM;
-> +
-> +	base = devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(base)) {
-> +		return dev_err_probe(dev, -ENODEV,
-> +				     "failed to get base address\n");
-> +	} else {
-
-Drop the else + indentation when the if-block always returns.
-
-> +		regmap = devm_regmap_init_mmio(dev, base, &mux_ti_k3_event_regmap_cfg);
-> +	}
-> +	if (IS_ERR(regmap)) {
-> +		iounmap(base);
-
-Why do you need to explicitely unmap base?
-
-> +		return dev_err_probe(dev, PTR_ERR(regmap),
-> +				     "failed to get regmap\n");
-> +	}
-> +
-> +	ret = of_property_count_u32_elems(np, "ti,reg-mask-val");
-> +	if (!ret || ret % 3) {
-> +		ret = -EINVAL;
-> +		dev_err(dev, "ti,reg-mask-val property missing or invalid: %d\n",
-> +			ret);
-> +		return ret;
-> +	}
-> +
-> +	num_fields = ret / 3;
-> +	mux_chip = devm_mux_chip_alloc(dev, num_fields, num_fields *
-> +				       sizeof(*fields));
-> +	if (IS_ERR(mux_chip))
-> +		return PTR_ERR(mux_chip);
-> +
-> +	fields = mux_chip_priv(mux_chip);
-> +	chip->mux_chip = mux_chip;
-
-This feels backwards to me. Should not "chip" be what is returned
-from mux_chip_priv()? I.e. something like this:
-
-	mux_chip = devm_mux_chip_alloc(dev, num_fields, sizeof(*chip));
-	chip = mux_chip_priv(mux_chip);
-	chip->fields = devm_kcalloc(dev, num_fields, sizeof...
-
-(error checking omitted)
-
-> +	chip->fields = fields;
-> +	chip->num_fields = num_fields;
-> +
-> +	platform_set_drvdata(pdev, chip);
-
-I think you should use mux_chip as drvdata. I assume this is why you
-needed the back pointer to the mux_chip at some point.
-
-> +
-> +	for (i = 0; i < num_fields; i++) {
-> +		struct mux_control *mux = &mux_chip->mux[i];
-> +		s32 idle_state = MUX_IDLE_AS_IS;
-> +		u32 reg, mask, value;
-> +
-> +		ret = of_property_read_u32_index(np, "ti,reg-mask-val",
-> +						 3 * i, &reg);
-> +		if (!ret)
-> +			ret = of_property_read_u32_index(np, "ti,reg-mask-val",
-> +							 3 * i + 1, &mask);
-> +		if (!ret)
-> +			ret = of_property_read_u32_index(np, "ti,reg-mask-val",
-> +							 3 * i + 2, &value);
-> +		if (ret < 0) {
-> +			dev_err(dev, "field %d: failed to read ti,reg-mask-val property: %d\n",
-> +				i, ret);
-> +			return ret;
-> +		}
-> +
-> +		/* Validate that value bits are within mask */
-> +		if (value & ~mask) {
-
-This is broken and only works as expected if "mask" is a bitfield
-based at the lsb. You should keep the limitation from the mmio
-driver that "mask" has to be a proper field (without holes)
-and you should shift things such that "value" is what will be
-written to that field, and not what will be written to the whole
-register.
-
-> +			dev_err(dev, "field %d: value 0x%x has bits outside mask 0x%x\n",
-> +				i, value, mask);
-> +			return -EINVAL;
-> +		}
-
-I think you should also check that the mask does not clobber
-the enable bit.
-
-> +
-> +		fields[i].regmap = regmap;
-> +		fields[i].reg = reg;
-> +		fields[i].mask = mask;
-> +		fields[i].value = value;
-> +
-> +		/* This driver supports binary mux (2 states: 0 and active) */
-> +		mux->states = 2;
-
-This is weird. You apparently only have one leg on these muxes,
-and need to turn them on/off with a MUX_IDLE_DISCONNECT idle
-state instead of abusing an extra state that can never be used
-as an actual valid state.
-
-I.e. these things are not really muxes at all, they are more
-like gates, methinks.
-
-And all this indicate that the idle state handling below is
-completely bogus. The only sane idle-state with the current
-patch is zero. So, why require the user to fill that in?
-Why not force it instead? But see above, the idle state
-should not be forced to zero but to MUX_IDLE_DISCONNECT and
-state zero should be the only state and the state that "opens
-the gate" when selected.
-
-With all that said, I worry about what happens if you write
-other values in the reg-field? Since you have added this as
-a mux driver when you really have implemented gates, I have
-this feeling that the hw spec calls these registers muxes
-and that they can be used to wire vastly different things
-together. If so, what if you need some of these other values
-in the register? I don't know where to look and have not gone
-trawling the TI site for details, do you perhaps have some
-reference for how these registers work?
-
-Cheers,
-Peter
-
-> +
-> +		of_property_read_u32_index(np, "idle-states", i,
-> +					   (u32 *)&idle_state);
-> +		if (idle_state != MUX_IDLE_AS_IS) {
-> +			if (idle_state < 0 || idle_state >= mux->states) {
-> +				dev_err(dev, "field: %d: out of range idle state %d\n",
-> +					i, idle_state);
-> +				return -EINVAL;
-> +			}
-> +
-> +			mux->idle_state = idle_state;
-> +		}
-> +	}
-> +
-> +	mux_chip->ops = &mux_ti_k3_event_ops;
-> +
-> +	return devm_mux_chip_register(dev, mux_chip);
-> +}
-> +
-> +static const struct of_device_id mux_ti_k3_event_dt_ids[] = {
-> +	{ .compatible = "ti,am62l-event-mux-router", },
-> +	{ /* sentinel */ }
-> +};
-> +MODULE_DEVICE_TABLE(of, mux_ti_k3_event_dt_ids);
-> +
-> +static struct platform_driver mux_ti_k3_event_driver = {
-> +	.driver = {
-> +		.name = "ti-k3-event-mux",
-> +		.of_match_table	= mux_ti_k3_event_dt_ids,
-> +		.pm = &mux_ti_k3_event_pm_ops,
-> +	},
-> +	.probe = mux_ti_k3_event_probe,
-> +};
-> +module_platform_driver(mux_ti_k3_event_driver);
-> +
-> +MODULE_DESCRIPTION("TI K3 Bit-field Controlled Event Multiplexer driver");
-> +MODULE_AUTHOR("Rahul Sharma <r-sharma3@ti.com>");
-> +MODULE_LICENSE("GPL");
-> -- 
-> 2.34.1
-> 
