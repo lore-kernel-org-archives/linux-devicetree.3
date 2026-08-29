@@ -1,126 +1,170 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA0513F106C
-	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 20:18:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3DA03859D4
+	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 20:19:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788034724; cv=none; b=g+fB3g9N123D1TLA1lLibSEoGAQK38l74ybgEpir6AGnZ+2IigJpfhNd3sA2kv1OB/qeT9sN7RHALCIHaDCq+7pUROUKgZRxyPwh9qnvo2mVG6bQGBtdDN955PCSblIcLBubAXAxBA3XOxtVTPOXnqFVmlIMsDWx3xC9JsDo5Oc=
+	t=1788034773; cv=none; b=j/pRba6IPS1HVLt0BMbsdPi+V+KkC+oU2w1wtd7PUj/cxQXbePESFQcwJtYSuLLfjmNHYQWccoUMI3FgF39F0hVssOo4lUe4y80n9UezFZdxBTMhyL0uyFgVQ3p2SClOlbGVXMF1ya3tF1eF7BB5fochX3cKaQz2JsH0WKEcfFA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788034724; c=relaxed/simple;
-	bh=X1KEZO6u63eMOK44PuiZkrtaZhMnvdNl0vdSm8nwUBM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=k7HUQ/viK99YUDlBzrmA9T3wylPGTOSgH/Cb85wVoQsEjstlOTsPIHDfEmKR6QWE5DPaEaLNCTJ9DHhvLnkMx5kAci0FZ99Ao+7CriFIQBOYOI5471dxb+K1Zo0KpAiSCD0InpWuoXt0ypaLkRosEOGnTHT4BMa46G638TQBc0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=DMse7pzQ; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=UlG2hGF6; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1788034773; c=relaxed/simple;
+	bh=A4T7O94eJqgmVZzZtBILsxdaKnRW7+g99Oke6vvPiFY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=me4gqvGBVOiN3hm+dqhACXp33nnxloyGKcmQYQwSjUN6UXi60snZdPMuIMZiH/DYmYGQR69T8i36HP6CkL1n1VGA5uduqf33QltbFDx3k6U5lMEsuu2FgVxmzSJzZpybIIRQf1bC1PwtmBD4hJ3aQYoQMRETfP2/b95WijIa83Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oStZnHOF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="DMse7pzQ";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="UlG2hGF6"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=From:To:Subject:Date:Message-ID; t=1788034695; bh=99oQqqsmDdYcuU1KZ1BBNtz
-	eXvz/eiQA8iTcrFoXqIQ=; b=DMse7pzQkebE9ELqmn+vxiJj6jWBXBCV+5si2YDBWZEdK+dhgn
-	m1OWgG1o8czZieM+5Qk6arZUiTbW+8+2j5LGv/+/I5yT1DEKrV/VH8HvzlV8QfNwGzg65t03+R9
-	ubaDBpIccNehc9VUPSA5PHUr3APYa7xsbiPgVM+VErO+K8aGBsLfIHEe8jhBh44FwZQe8CVzYQK
-	QJ0pp3Lb4U7PrOrkBq2ZcGg+SJXTDZ3QcEZKGg2RLiNpeUKAE/qSjFWNqCCqp5lc0uPgpGH1pSw
-	biqduohF338vjs1uFJkKbAShvDvcnWGTrIKxyh3QqjNs+WMbGH3+SEPjg3I42yKMJxg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=From:To:Subject:Date:Message-ID; t=1788034695; bh=99oQqqsmDdYcuU1KZ1BBNtz
-	eXvz/eiQA8iTcrFoXqIQ=; b=UlG2hGF6ZkfucljrhX0AKlQZZojfgmvDL/P0ciu+VPUv7kdO3l
-	u+6HiXxMKHT5D9eq8oPbtI/CjMsi8An3PYDA==;
-Message-ID: <6e0e03f6-8ce9-4c01-9f04-206b163d5664@mainlining.org>
-Date: Sat, 29 Aug 2026 23:18:14 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oStZnHOF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BFEB1F000E9;
+	Sat, 29 Aug 2026 20:19:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788034772;
+	bh=V9g6jw5gZW5KjCw3iwR4hXwT7Cp6yjG8hnHrPCPDBAM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=oStZnHOFNwCwa9ylNl9m3CtdlHahl9O7tv8t/1w27KCBM3d2fGvWtwEvY+NOGwmoB
+	 pCEyGzpBjgP8/hZV6rWGMUgYewyrtxHhgYknH1PgplcnD90/gLq+ZBEo3ARXHQYnMF
+	 Ed0GJuMDgGdqlRF5kT16benwSMzlBdut6UNiqKGtwbU3iLtDqvClXB2cKAv926JkTO
+	 4gQNCDLkCwAkz9Y5uGrdURYDQXoPh8LCmQ3mEqZwwKdNB0WlG70CxkxWJQlB+59JMA
+	 YjTuPbs9pGveIQaGj2YBAeUmIzxj8ohrwEj8t5vM2QbCFGxAEFOUO8rdMOrepmaSs0
+	 OOga8tOy0M99g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC 2/2] drivers: gpu: drm: panel: Add BOE NT51021
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Nickolay Goppen" <setotau@mainlining.org>
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260829-qcom-novatek-nt51021-panels-v1-2-cc1ca61bd261@mainlining.org>
+References: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
+ <20260829-qcom-novatek-nt51021-panels-v1-2-cc1ca61bd261@mainlining.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 29 Aug 2026 20:19:31 +0000
+Message-Id: <20260829201932.1BFEB1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 1/2] dt-bindings: display: panel: Add bindings for
- Novatek NT51021
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, conor+dt@kernel.org
-References: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
- <20260829-qcom-novatek-nt51021-panels-v1-1-cc1ca61bd261@mainlining.org>
- <20260829201500.796D31F000E9@smtp.kernel.org>
-Content-Language: ru-RU, en-US
-From: Nickolay Goppen <setotau@mainlining.org>
-In-Reply-To: <20260829201500.796D31F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The panel initialization sequence lacks the DCS 'Set Display On'=
+ (0x29) command.
+- [Medium] Missing reset assertion and stabilization delay during panel pre=
+paration.
+--
 
-29.08.2026 23:14, sashiko-bot@kernel.org пишет:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [Medium] Commit message and schema description contradict the schema's compatible list by claiming to only support 'boe,tv101wum-nx0' while silently including 'boe,tv080wum-nx2'.
-> - [Medium] The description for `reset-gpios` incorrectly specifies the polarity as '(active high)', which contradicts the example and typical panel reset semantics.
-> --
->
-> commit 4949971c710c300054975d637c238b42bc5c2c75
-> Author: Nickolay Goppen <setotau@mainlining.org>
->
-> dt-bindings: display: panel: Add bindings for Novatek NT51021
->
-> This commit introduces device tree bindings for the Novatek NT51021 display
-> driver IC. It explicitly states support is added for the BOE TV101WUM-NX0
-> WUXGA video mode panel.
->
->> diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
->> new file mode 100644
->> index 0000000000000..a3e4ed10e645d
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
->> @@ -0,0 +1,93 @@
-> [ ... ]
->> +description: |
->> +  The NT51021 IC from Novatek is a generic DSI Panel IC used to drive dsi
->> +  panels.
->> +  Right now, support is added only for a BOE WUXGA LCD display panels with a
->> +  resolution of 1200x1920. They are video mode DSI panels.
->> +
->> +allOf:
->> +  - $ref: panel-common.yaml#
->> +
->> +properties:
->> +  compatible:
->> +    items:
->> +      - enum:
->> +          - boe,tv101wum-nx0
->> +          - boe,tv080wum-nx2
-> [Severity: Medium]
-> The commit message and the schema description state that support is added
-> only for the BOE TV101WUM-NX0 panel, but this adds boe,tv080wum-nx2 to the
-> compatible list.
->
-> Is this regression intended, or should the description and commit message be
-> updated to reflect support for both panels?
->
-> [ ... ]
-Will be addressed in v2
->> +  reg:
->> +    maxItems: 1
->> +
->> +  reset-gpios:
->> +    maxItems: 1
->> +    description: phandle of gpio for reset line - This should be 8mA, gpio
->> +      can be configured using mux, pinctrl, pinctrl-names (active high)
-> [Severity: Medium]
-> Could this description cause regressions for users configuring the reset
-> line?
->
-> The text explicitly specifies (active high) for the reset-gpios polarity,
-> but typical panel semantics and the example block further down use active
-> low:
->
->              reset-gpios = <&tlmm 62 GPIO_ACTIVE_LOW>;
->
-> If users follow this text description instead of the example, could they
-> drive the physical line incorrectly and prevent the panel from initializing?
-Will be addressed in v2
+commit 864f3dccc86bc8a97845ebafd73a7df32e9d6b9e
+Author: Nickolay Goppen <setotau@mainlining.org>
 
--- 
-Best regards,
-Nickolay
+drivers: gpu: drm: panel: Add BOE NT51021 driver
 
+This commit adds support for the BOE NT51021-based 8-inch and 10-inch DSI
+video mode panels used in Xiaomi Mi Pad 4 tablets. It includes panel
+initialization sequences and content-adaptive brightness control.
+
+> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt51021.c b/drivers/gpu/=
+drm/panel/panel-novatek-nt51021.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-novatek-nt51021.c
+[ ... ]
+> +static void nt51021_boe_reset(struct boe_nt51021_desc *ctx)
+> +{
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> +	usleep_range(10000, 11000);
+> +}
+
+[Severity: Medium]
+Does the panel require an explicit reset assertion pulse before de-asserting
+the reset line? The current code only de-asserts the reset line here. Witho=
+ut
+an explicit assertion pulse and delay prior to de-assertion, the hardware
+might not be guaranteed a valid minimum reset pulse width once power is sta=
+ble.
+
+[ ... ]
+> +static int nt51021_boe_8_init(struct boe_nt51021_desc *ctx)
+> +{
+> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
+[ ... ]
+> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+> +	mipi_dsi_usleep_range(&dsi_ctx, 5000, 6000);
+> +	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0x00);
+> +	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
+> +
+> +	nt51021_cabc_on(&dsi_ctx);
+> +
+> +	return dsi_ctx.accum_err;
+> +}
+
+[Severity: Medium]
+Does this initialization sequence miss a DCS "Set Display On" command?
+The panel is awakened from sleep mode via mipi_dsi_dcs_exit_sleep_mode_mult=
+i(),
+but it is never explicitly instructed to turn on the display output here in
+nt51021_boe_8_init(). This could cause the panel to remain blank on some DSI
+hosts.
+
+[ ... ]
+> +static int nt51021_boe_10wu_init(struct boe_nt51021_desc *ctx)
+> +{
+> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
+[ ... ]
+> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+> +	mipi_dsi_usleep_range(&dsi_ctx, 5000, 6000);
+> +	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0x00);
+> +	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
+> +
+> +	nt51021_cabc_on(&dsi_ctx);
+> +	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
+> +
+> +	return dsi_ctx.accum_err;
+> +}
+
+[Severity: Medium]
+Similarly to nt51021_boe_8_init(), the 10-inch variant initialization path
+also appears to omit the mipi_dsi_dcs_set_display_on_multi() command.
+
+> +static int nt51021_boe_off(struct boe_nt51021_desc *ctx)
+> +{
+> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
+> +
+> +	nt51021_cabc_off(&dsi_ctx);
+> +
+> +	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0xa5);
+> +	mipi_dsi_msleep(&dsi_ctx, 20);
+> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+
+[Severity: Medium]
+The power-off sequence explicitly turns the display off using
+mipi_dsi_dcs_set_display_off_multi(). Should there be a matching turn-on
+command in the initialization sequences to ensure the display activates
+correctly across power cycles?
+
+[ ... ]
+> +static int nt51021_boe_prepare(struct drm_panel *panel)
+> +{
+> +	struct boe_nt51021_desc *ctx =3D to_boe_panel(panel);
+> +	struct device *dev =3D &ctx->dsi->dev;
+> +	int ret;
+> +
+> +	ret =3D regulator_bulk_enable(ARRAY_SIZE(nt51021_boe_supplies), ctx->su=
+pplies);
+> +	if (ret < 0) {
+> +		dev_err(dev, "Failed to enable regulators: %d\n", ret);
+> +		return ret;
+> +	}
+> +	nt51021_boe_reset(ctx);
+
+[Severity: Medium]
+Does the panel require a stabilization delay after enabling the regulators
+and before de-asserting the reset line? The current code immediately calls
+nt51021_boe_reset(ctx). Without a delay, the reset logic might execute
+before the regulators have fully ramped up, potentially leading to unstable
+hardware initialization.
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260829-qcom-novat=
+ek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org?part=3D2
