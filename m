@@ -1,50 +1,50 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7176D2F3621
-	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 09:48:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99E9A3A9D8D
+	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 09:48:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787996886; cv=none; b=DafxPXwzsvGiYuT9L2Tl4HQow5OWJHhnxTinojDFzEgq0YLM3HsmTYxmbInX3CJB4V/rwSpEipR3v+gftQOte66XE8YZkdlST/xn2RfxDeEMbH4Z8ysFgzpcjXWxq2Cl94qPJR4Dto5j4sOXjn4kmPFgu7UXQwWvJnoremewMTo=
+	t=1787996886; cv=none; b=qEVAxrBlY3vt1zjlmGtuHPSCG9OQlPaclZbF1AOo/zFuekX+AvRMj6Pq6P1cQA6A0OWNnmroGs+R8jNe1S3lkvMqNzKnoYSt+he6eeUnfkYhjTcFtdUgEn+RjfSGB7132TWHxWm7zg+g48C52ndqCzSLP35n52+2/x/kSnkv0aY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787996886; c=relaxed/simple;
-	bh=qtHihgUfVJ7dLLyKBNMnY1uHg9+U0eAjPmJBvsAA+mI=;
+	bh=GuyYXi4ARuef6XgYQVb2CfaQCuutDzHN4PZLQaXdUgA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=s/RUgVcAedV3X9wFZXPPmw25IU7z9N0yKz+Env6L8CZ50rYU1Ca4wAfCc7r8JqAVn5rf4TLPJ2AACS2Jf+sfd/lkgmC70Z/yKnBCtWPp2eULw0B8lUKcfHavUU+8EstlPx9na0xMYNhzJLyZ6Jd+3rmMrFee421Onj6sKzy74f0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.42
+	 MIME-Version; b=I4EjbBe4usi6oDHDctNXxRmb8UQ7uieJ09mauPJqq9jLYd3cT5j6CkQZNE8K18z8k0Vr6aSzKDMGDtsaiDpz5+Vu35934u0kW/DseItEayfPvI1/peFUIggWKB9zElH2zheNC5ndsu/jUte+m4yJs3oEHq9ZRUJxD2uASLw7oq4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-4798bea72f9so1178231f8f.1
-        for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 02:48:02 -0700 (PDT)
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-482e61a34e5so652169f8f.3
+        for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 02:48:04 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787996881; x=1788601681;
+        d=1e100.net; s=20251104; t=1787996883; x=1788601683;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RGDbub8U4HXvEWoNu7b7TUqir4ckSWpnsJ/08Cf1vHM=;
-        b=tFVmADuujbgDnq98NSuapfsdJ2NTxu5FoND67CMcTKX/UMAdbVDlClbJ9xVNLBWjSp
-         Fm9ZwpqF3gSjzRwP+Z7ntTdoz7EcZIX0ex4Mzmbk4sLbN1ijBVi5+KJJEOsEcSQXU8Dv
-         EDKq2kF3q31XBWNelBf2/xkvSFfNt7XI/tMJ8Zyj69DpKbaVtHe2oYqm23VGXpK3NxvO
-         WuzjNDZD/eX0IBwgSnlgi7Jxy4oecWYAjAyssVPAegEyny/OqBo6jhZ046OHB6NEDEQv
-         xzKlLZ+Yhd6sg9GLZ+fYWWX8FLPJqaNbJi5TXjAE6eNo+IZCI2V+waT9tyWaz4uxzWyn
-         dVIQ==
-X-Forwarded-Encrypted: i=1; AKwUvByaPjaA70kuSzcnaTE0Lu2P04mJEZgH62bJLKFZSfPwcL01uGoX8WJQu6A80/Uo2K1wc5Iu/H+w6DZk@vger.kernel.org
-X-Gm-Message-State: AFuF++kh7vNDMyj5HYwXKDolt219XBpwJG5ol7oMlwW2Adw/P8hsnyAC
-	7a6mNke1yLG9kbIn8UU+JmPkqRd5Uk3Qm3qQhn5V3qAbgnphtGfS/Fkl
-X-Gm-Gg: AYBFou2JLMdk+PVL/hIvjr1jALTwC/bzkKtO9lvScrqzZF6nQbGzitKxs+GJOAXdqnW
-	v5Qe5YbDTJIbo/TS/+wTnDHyQK7fdGR5AT04XfMtBV4X2MBfzR4hfF9iHVIHtxNOaHOg/XIbd5g
-	7Ejb2KP9SUHj2XTAjjICv59mPGuFT38GNiEX5l8TzaY+YpM5NWNoyLgo8KHC8VXGCx0eAWZ+MsB
-	077vFvjevja+ejx+7NF4T6FIeE2nZHGyw1ODHquJT8wCzyQR+ZGBSyBiF0LwDyNqwaJMAOaWarQ
-	k9Fdc0GxsBfjsY26U6mcuQldP2izvIy7u8z0BfJ38izvzBTqmrmFy55dSBrO2SJ70v2tEn/jpd1
-	TbcJCFpO5DDrD6A/R0qAlF08hM3gRVcokOkVRBt03ACdkTBHXf3DPIccHJgLP+wr0Km1OhLUphu
-	GZ/mpRaUpJqRKgKUYc+8Rnien6vl6LnJnOz3qRPCDUUg3+WkCY4NbksJ3YUWq74dWErk4cYwB1x
-	jPxNIQii8WOdKyIbbl0PXvaY2w=
-X-Received: by 2002:a05:6000:2207:b0:484:3310:f398 with SMTP id ffacd0b85a97d-4843310f455mr2068417f8f.25.1787996880459;
-        Sat, 29 Aug 2026 02:48:00 -0700 (PDT)
+        bh=zFDWFiuHAiIqLz4eQ4QEpgbBiAo3LhkOv1R/Digehgk=;
+        b=gdYGlLCA7nU8OcKmdTB5Gv9zHv/GsWLfJ53HUrcFpAp+XsRgGYvgoIDpvt53ZtylJI
+         QAu8Lx1hMXr/s8p5zF8R0LEu1yWll1LiqA9j7ZFlAZU+z6+00t2Y9JYAUmu9uSi9sWdL
+         +VIZADm+FXlPvmlZuFK015NszQmEJ8vpF88pJ5d/XM+6wU+3o48blpLz6n/M3YP+i7Xv
+         KKOEn1W1Reqn1esLGyQk1j1u/PSvYJwp6WLfi20BZGht9o7LLVnmh6In7RnVTF42AsRO
+         AjVZuCYDjp5ODcI3zyl593z/Uox7J2StgpXn9oR6WdB3m7Dw11s1KDU/LaHA7sbfblA7
+         lDCw==
+X-Forwarded-Encrypted: i=1; AKwUvBwljo8//tLrA0QaHdPgI1SYUsstDMHL9AmP+CZjCmdgR7hiT1tkiU/QMCRxbtT/G+GggiK7gKUAWAfY@vger.kernel.org
+X-Gm-Message-State: AFuF++kmQaCEAiLxuujXs0HsJeusD4ti7xUTH7A+PngPOpUpUpM/l29h
+	39SyqQYlnFQ7f3YsA0Y2cAs2xsf1ZB4ZT4i+Gz6Y4vm4y3gTmOgEzYBG
+X-Gm-Gg: AYBFou3FBm5mVTOwhjcDEUIWHWwJoCqQmEsb3ZTP20gUYpATAweYfLuXKI7QoHCqG30
+	CbpTa6vv2Yg2vuthFhgSrHVW0lkrf9Yb02dGJdxkmxTYUe9uNJhjJKCgD36QTvXJDQvSInLdHcB
+	gRQ7ssmSGowd0PzTRRVWctOTPhJNksIYCD6a0ZhYb+x8E4vtfQGdNOQNhmi/CAmUH67yiPpAKml
+	/yRmV7WN/qdyug6Z4fzwDr/72Iq57l4bVxz7pbZzTBkO0xszyrQCf4x/rUtaewwhaHLnhFC7YJP
+	fg4wg8CWlux4n+wTDHLmd0v0I+qsrm4YrolaAXeEMUv5ayvmzFjDeZKDck8DmA2VHQA5jIhcPKK
+	xrVa8Aa4wkekzV8sQbsT792gJKjzZ9BHxaW/tWgnexQXeKVuGMnaFPavLs4JYG+3JFzPUUJGOzB
+	nwN6RuohDLFD3aTxuisu7ALsMOn60vEjVgDvMEIzwvJhGEYSenO6a0vZjaJe1IhVvHUfqgz3WdI
+	emd5Q5DYxQ5gp7PYoGaRXHGG5A=
+X-Received: by 2002:a5d:5e8d:0:b0:484:3317:a00 with SMTP id ffacd0b85a97d-48433170b94mr2419990f8f.23.1787996882612;
+        Sat, 29 Aug 2026 02:48:02 -0700 (PDT)
 Received: from threads.localdomain ([83.106.158.114])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb20784sm9661562f8f.18.2026.08.29.02.47.59
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb20784sm9661562f8f.18.2026.08.29.02.48.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 02:48:00 -0700 (PDT)
+        Sat, 29 Aug 2026 02:48:02 -0700 (PDT)
 From: Lucas Tanure <tanure@linux.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
 	Kevin Hilman <khilman@baylibre.com>,
@@ -63,9 +63,9 @@ Cc: Jian Hu <jian.hu@amlogic.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-clk@vger.kernel.org
-Subject: [PATCH 1/4] clk: meson: t7: keep the memory fabric clocks running
-Date: Sat, 29 Aug 2026 10:47:55 +0100
-Message-ID: <20260829094758.23248-2-tanure@linux.com>
+Subject: [PATCH 3/4] arm64: dts: amlogic: t7: khadas-vim4: add the PWM-driven supplies
+Date: Sat, 29 Aug 2026 10:47:57 +0100
+Message-ID: <20260829094758.23248-4-tanure@linux.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260829094758.23248-1-tanure@linux.com>
 References: <20260829094758.23248-1-tanure@linux.com>
@@ -77,47 +77,164 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Four clocks feed the bus that moves data between the peripherals and
-memory. Nothing in Linux claims them, so they were switched off shortly
-after boot, and any device that started a transfer after that point
-simply stopped. The SD card, which comes up about two seconds in, never
-finished reading its identification.
+The board powers its two CPU clusters, the GPU, the NPU, the memory and
+the always-on domain from regulators steered by PWM outputs. None of
+them were described, so Linux treated those outputs as unused and
+switched them off part way through boot. The supplies then drifted away
+from the levels the bootloader had set, which showed up as random hangs
+and memory corruption.
 
-There is no device these clocks belong to, so mark them as always
-needed.
+Describe each supply so it has an owner and is left alone.
 
-Fixes: fab4d651b592 ("clk: meson: t7: add t7 clock peripherals controller driver")
+The voltage ranges are read off the feedback networks on the board
+schematic. VDDNPU is deliberately not the range in Amlogic's own
+device tree: this board fits a different feedback resistor, which
+puts it about 40mV higher at both ends.
+
+Fixes: 8c45bf9ae4ef ("arm64: dts: amlogic: t7: khadas-vim4: Add power regulators")
 Assisted-by: Claude:claude-opus-5
 Signed-off-by: Lucas Tanure <tanure@linux.com>
 ---
- drivers/clk/meson/t7-peripherals.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ .../amlogic/amlogic-t7-a311d2-khadas-vim4.dts | 110 +++++++++++++++++-
+ 1 file changed, 109 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/clk/meson/t7-peripherals.c b/drivers/clk/meson/t7-peripherals.c
-index 214db7850d86..55d09e78593b 100644
---- a/drivers/clk/meson/t7-peripherals.c
-+++ b/drivers/clk/meson/t7-peripherals.c
-@@ -945,11 +945,16 @@ static T7_SYS_PCLK(sys_aucpu,		SYS_CLK_EN0_REG0, 14,	0);
- static T7_SYS_PCLK(sys_cec,		SYS_CLK_EN0_REG0, 16,	0);
- static T7_SYS_PCLK(sys_gdc,		SYS_CLK_EN0_REG0, 17,	0);
- static T7_SYS_PCLK(sys_deswarp,		SYS_CLK_EN0_REG0, 18,	0);
--static T7_SYS_PCLK(sys_ampipe_nand,	SYS_CLK_EN0_REG0, 19,	0);
-+/*
-+ * NOTE: sys_ampipe_nand and sys_am2axi0..2 provide the clock to the AXI bus
-+ * used for DMA between the peripherals and the DRAM. After the clocks are
-+ * disabled, a device that starts a transfer cannot complete it.
-+ */
-+static T7_SYS_PCLK(sys_ampipe_nand,	SYS_CLK_EN0_REG0, 19,	CLK_IS_CRITICAL);
- static T7_SYS_PCLK(sys_ampipe_eth,	SYS_CLK_EN0_REG0, 20,	0);
--static T7_SYS_PCLK(sys_am2axi0,		SYS_CLK_EN0_REG0, 21,	0);
--static T7_SYS_PCLK(sys_am2axi1,		SYS_CLK_EN0_REG0, 22,	0);
--static T7_SYS_PCLK(sys_am2axi2,		SYS_CLK_EN0_REG0, 23,	0);
-+static T7_SYS_PCLK(sys_am2axi0,		SYS_CLK_EN0_REG0, 21,	CLK_IS_CRITICAL);
-+static T7_SYS_PCLK(sys_am2axi1,		SYS_CLK_EN0_REG0, 22,	CLK_IS_CRITICAL);
-+static T7_SYS_PCLK(sys_am2axi2,		SYS_CLK_EN0_REG0, 23,	CLK_IS_CRITICAL);
- static T7_SYS_PCLK(sys_sd_emmc_a,	SYS_CLK_EN0_REG0, 24,	0);
- static T7_SYS_PCLK(sys_sd_emmc_b,	SYS_CLK_EN0_REG0, 25,	0);
- static T7_SYS_PCLK(sys_sd_emmc_c,	SYS_CLK_EN0_REG0, 26,	0);
+diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+index c94afaaf8826..77abfd555ec5 100644
+--- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
++++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+@@ -104,6 +104,66 @@ vcc5v0_usb: regulator-vcc-usb {
+ 		enable-active-high;
+ 	};
+ 
++	vdd_ddr: regulator-vddddr {
++		/*
++		 * SY8003ADFC Regulator.
++		 */
++		compatible = "pwm-regulator";
++		regulator-name = "VDDDDR";
++		regulator-min-microvolt = <690000>;
++		regulator-max-microvolt = <890000>;
++		pwm-supply = <&dc_in>;
++		pwms = <&pwm_ao_gh 0 1500 0>;
++		pwm-dutycycle-range = <100 0>;
++		regulator-boot-on;
++		regulator-always-on;
++	};
++
++	vdd_ee: regulator-vddee {
++		/*
++		 * MP8756GD Regulator.
++		 */
++		compatible = "pwm-regulator";
++		regulator-name = "VDDEE";
++		regulator-min-microvolt = <700000>;
++		regulator-max-microvolt = <922000>;
++		pwm-supply = <&dc_in>;
++		pwms = <&pwm_ao_ab 0 1500 0>;
++		pwm-dutycycle-range = <100 0>;
++		regulator-boot-on;
++		regulator-always-on;
++	};
++
++	vdd_gpu: regulator-vddgpu {
++		/*
++		 * SY8003ADFC Regulator.
++		 */
++		compatible = "pwm-regulator";
++		regulator-name = "VDDGPU";
++		regulator-min-microvolt = <700000>;
++		regulator-max-microvolt = <922000>;
++		pwm-supply = <&dc_in>;
++		pwms = <&pwm_ao_ef 0 1500 0>;
++		pwm-dutycycle-range = <100 0>;
++		regulator-boot-on;
++		regulator-always-on;
++	};
++
++	vdd_npu: regulator-vddnpu {
++		/*
++		 * SY8003ADFC Regulator.
++		 */
++		compatible = "pwm-regulator";
++		regulator-name = "VDDNPU";
++		regulator-min-microvolt = <733000>;
++		regulator-max-microvolt = <933000>;
++		pwm-supply = <&dc_in>;
++		pwms = <&pwm_ao_ef 1 1500 0>;
++		pwm-dutycycle-range = <100 0>;
++		regulator-boot-on;
++		regulator-always-on;
++	};
++
+ 	vddao_1v8: regulator-vddao-1v8 {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "VDDAO_1V8";
+@@ -122,6 +182,36 @@ vddao_3v3: regulator-vddao-3v3 {
+ 		regulator-always-on;
+ 	};
+ 
++	vddcpu_a: regulator-vddcpu-a {
++		/*
++		 * MP8756GD Regulator.
++		 */
++		compatible = "pwm-regulator";
++		regulator-name = "VDDCPU_A";
++		regulator-min-microvolt = <689000>;
++		regulator-max-microvolt = <1049000>;
++		pwm-supply = <&dc_in>;
++		pwms = <&pwm_ao_cd 1 1500 0>;
++		pwm-dutycycle-range = <100 0>;
++		regulator-boot-on;
++		regulator-always-on;
++	};
++
++	vddcpu_b: regulator-vddcpu-b {
++		/*
++		 * MP8756GD Regulator.
++		 */
++		compatible = "pwm-regulator";
++		regulator-name = "VDDCPU_B";
++		regulator-min-microvolt = <689000>;
++		regulator-max-microvolt = <1049000>;
++		pwm-supply = <&dc_in>;
++		pwms = <&pwm_ao_ab 1 1500 0>;
++		pwm-dutycycle-range = <100 0>;
++		regulator-boot-on;
++		regulator-always-on;
++	};
++
+ 	vddio_1v8: regulator-vddio-1v8 {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "VDDIO_1V8";
+@@ -172,9 +262,27 @@ &pwm_ab {
+ 	pinctrl-names = "default";
+ };
+ 
++&pwm_ao_ab {
++	status = "okay";
++	pinctrl-0 = <&pwm_ao_a_pins>, <&pwm_ao_b_pins>;
++	pinctrl-names = "default";
++};
++
+ &pwm_ao_cd {
+ 	status = "okay";
+-	pinctrl-0 = <&pwm_ao_c_d_pins>;
++	pinctrl-0 = <&pwm_ao_c_d_pins>, <&pwm_ao_d_pins>;
++	pinctrl-names = "default";
++};
++
++&pwm_ao_ef {
++	status = "okay";
++	pinctrl-0 = <&pwm_ao_e_pins>, <&pwm_ao_f_pins>;
++	pinctrl-names = "default";
++};
++
++&pwm_ao_gh {
++	status = "okay";
++	pinctrl-0 = <&pwm_ao_g_e_pins>;
+ 	pinctrl-names = "default";
+ };
+ 
 -- 
 2.55.0
 
