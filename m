@@ -1,177 +1,121 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEB353A783D
-	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 19:41:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E171439794B
+	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 19:41:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788032471; cv=none; b=gRm9E7OMXjj+oW0hpm4WfOkxn2LIFR0+xtqZbxA/iNN1BLkt60T8+38e8Dy506J3XYCSWnfJLVc0+XveIFoR7nrq6yC5tI+QkVfroQXOxq4sKimMmtJBndWO4hp3xXn+O0AAhL9M4QKpSI0ytYrbUFPevW5y9DnHyGreN0ZSUNU=
+	t=1788032483; cv=none; b=HfXJS596Q1njlaljPmFOp8gGhyHj96BzZlOflG5kwj5oXGM1CtKPPlQVnqGgX3KZKuy/Tu16Wqx++0DdRh/uTAi4cuLjG1UDSpbSFZy+9l6m6A4V/0M3zNSLKSs+VlEHplum1PwQptUBwb+tk/nts1E/cE7luOW4tdDQOgFkXCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788032471; c=relaxed/simple;
-	bh=lCD2rnWylJ/gXC+S6T2sric6v3SvqHkmqg2cRrHiHMo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Cb0wL+q1DL8YqcFSR1BuNtmNOWQe2bdkW1b972tftHXTfiCacFoUmAPLLKLFz2Ng2L5kGGJUIP2G6lRPojD4IsRY3jUTCmniDsLv5NcpEkaUqKtIDV/xcGiSD4HNYNl8FP6nauq5ATYBH5SSsT+cPcGAwWDxwhIU3cR5VYc3sxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=d/f/+HHK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SULsLshj; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788032483; c=relaxed/simple;
+	bh=wmNj/WZQW/E3vvz97hrwtLTxPDsAvrHiQkKfqWO93Co=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=lsWJwpuN+LSZ93dN9pD5UHiA+nweKhBCcJBDm0HCX8onxMAyvvjD521cWZ5HGg7/7OrD/7ww96iOpB0b998ZjdrS2DrMBwAHCbyP98yxqgw5V731Vk1n3ZvWDgvHGLsnbCVUvVha6kmfJowj31pvrbhAIF72k8Wz5IMDLpPiG5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GcwYIDd2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="d/f/+HHK";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SULsLshj"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67TGx2mX1856545
-	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 19:41:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=Q3ovaYbtyWvTPy1NCdh4shU/gvReKJ7Fezt
-	hyCu9rnE=; b=d/f/+HHKdAQBAqMLf+Af5NPzyxKS9WgTtGkYRmH+Bl5y2xV4Cm6
-	ypdS3X9LxySFt6jQIPdVKvUqJEhIilzGMEJSsHiWFgNoNYzs82B4lnMsDEXRIK42
-	4++oQUB9orkOmUbeDj+NAZuKtXKXhLbgfACn8ulkdT/nFuogYNGgYqyOuP+PIHjp
-	Nm9kUcrKgpIfVc0xI+WoEtxhbbKGlRu/UnF8gZY4qro5eMM6DZf3ql673l5Sjcs9
-	YCluBaPGMX8LDc8/AcKT/jWq5vjH0NaCy8MXBzhEf1cUxxXAL7RUWJXNuyMJxTAc
-	Rd79OWFqwIK+0vD6MyQZPo6jAGuAhTTzytw==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbr6dsj3x-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 19:41:06 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-52dcf1bb6e9so45035261cf.1
-        for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 12:41:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788032466; x=1788637266; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Q3ovaYbtyWvTPy1NCdh4shU/gvReKJ7FezthyCu9rnE=;
-        b=SULsLshjNq19L/PORm9w5m5g8DLMm7ze3qk6w96RPezh3G00hiZ7qMfqKbLADV2czI
-         X8AAn9M65DZVKt2dt3gNAAFvtPIwxE/hh3E2zAMmZue0vTz1Ep9oDEepBouAuMFHlG0F
-         giEE18fNbVX0AxsbMgoorV30HJB02GulYfB4I5E4aXhMMoDli7srmdnRUCEViNP7/MIK
-         crry6ZNbROzhoonVRjTpAFy6eBeGqlyJb70oqvdA+hhT79CF1i0//64Mws+CLn8YE1N6
-         3Q3+Z07Je2SUxRFvkKEr7ZEYX8T2+PSM5ZYesQ54X0NEeIUAUq1qFw98rfGCTCuE6PGj
-         Ttlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788032466; x=1788637266;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Q3ovaYbtyWvTPy1NCdh4shU/gvReKJ7FezthyCu9rnE=;
-        b=R2ypXZfxvdxR7BRJrjt7JSwef87/FmmioLPNGGFRz4iS85wO7swSkdyNuX5hgXYiv/
-         Sfa2eIO6VBOPx4etj5VYMpLecf2NVxu7CZoItLOYqN/LbqCZXUpGEp7X8/dX2aZ6BMbx
-         GcIO1vemcejUYh1nXOCy+ay24cf40oL9RTRkDuKuL8qjVClPepu/3g5oOlaLfWe/286J
-         BQlX2npTsZTM798JaXu6i40bre5M/Zy6OZ5X9wMmSRMdjpdvNAZcpf6DI/ieyIBrL0Bn
-         H7D8vLzFrvbxlw6UNcNfMGr4Y7ovUtLSzbouA+9LlV9dpVc+Vxfk16B07KUvQmmRRdbw
-         7VvA==
-X-Forwarded-Encrypted: i=1; AHgh+RqmRu3VZeF8KTKMJK0hXPv/5C3EJv35ETgiFs9BhJuTjUoAv3+MPkOMTeDFMfATYkrXK7YQ5pCv3n5T@vger.kernel.org
-X-Gm-Message-State: AFuF++nyCwuPEhJCepPfCbCbm85kgQvhVrfKizB0hoMwOpBqdTnGfc83
-	LFk97POA0Y+7JvW7iL5B6piG5M96M/xjURtCVFSg7LZLqyvXY0Uq8cC8lgJMVyYfVVJSPH+OG8Q
-	GsMZQM7RKRMZw4q5qFfQKy3npVJAGFFPFXyeM1JAROh7xdqEkxYoJBX3mhEwPXuOI
-X-Gm-Gg: AR+sD12VbVGCaopl4DYtm9k4zdSjX2x7vkH8UmQTxBKLJqIEmyLNUe0mpsHumAMCrrt
-	RpE57i+avn+4teeKm7YfQai+OiEJ7YfG5vOw+Se6s2znz/BpJ1omSoJpUPSYuN+CMvi60gPeyey
-	I77MHfbBKiYIxnxKE71j72QVeKWEITTE8jysSFORn8JZsRv8CDUzF3goeLHj9vYtKdRmV18EDLw
-	X/IseuYKoYd4f1XMcq0zJ9T2ClwEp4Ex0PYry2U1x9IlWMuIADFljPk7Y8Y1rLK2BBQDcegDP+J
-	0s8AR5ArG1KnsvJzddGG4ikUG/UlABJDQ9eMlesvxRgtrEx0CPwgb87cpl2c3Foji0V4Ko+zzUz
-	wpvsvhKyuZwF8x2A=
-X-Received: by 2002:ac8:6906:0:b0:50e:474a:47e1 with SMTP id d75a77b69052e-52fa1bb79c7mr304455511cf.10.1788032465986;
-        Sat, 29 Aug 2026 12:41:05 -0700 (PDT)
-X-Received: by 2002:ac8:6906:0:b0:50e:474a:47e1 with SMTP id d75a77b69052e-52fa1bb79c7mr304455121cf.10.1788032465612;
-        Sat, 29 Aug 2026 12:41:05 -0700 (PDT)
-Received: from quoll ([178.197.219.214])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b4e2c1af7sm243390275e9.15.2026.08.29.12.41.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 12:41:04 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
-        Andrew Jeffery <andrew@codeconstruct.com.au>,
-        Ryan Chen <ryan_chen@aspeedtech.com>,
-        Billy Tsai <billy_tsai@aspeedtech.com>, devicetree@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
-        linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH] ARM: dts: aspeed: Replace spaces indentation with tabs
-Date: Sat, 29 Aug 2026 21:40:55 +0200
-Message-ID: <20260829194054.107929-2-krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GcwYIDd2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 815D31F000E9;
+	Sat, 29 Aug 2026 19:41:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788032479;
+	bh=VGu3yW7H4Rv/tYMGfEBRnUzUwLGhYF5Cjgev4OynGT8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=GcwYIDd2AWrpSSkioRB+e0bOddpOrefRj/BtALEcpOgBPZwRoTc7DAcobOG60CWDM
+	 aSIgsEPec30xFCcqym0THGIDlKm5QUbkIxJlSYg4kO8z2VmGs5vAtD1EMS2MH3Jk0I
+	 g1wfBYZSEgqK4tPwOOWt8ayXmuolso41E0hDIAmBS+eniqCQMxEfWhXAnov9YOd/eQ
+	 zA7oj83nVWgLOCFBrcDIxg5GmjpWNYVgxtkJBmi/ueO4ecQ53Ox7yHWcRyRRny9dlj
+	 unGJmtoGr1t/QObiiQGIxqeq9WSLhzBEBqWH2D9hKh3POEXWqVTCUGt2ypfe7QVdq4
+	 74fJPEaXqf4SA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: usb: qcom,snps-dwc3: relax interrupt
+ requirements for ipq4019
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Matt Eaton" <linux@divinehawk.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260829-ipq4019-dwc3-migration-v1-1-cc66b54ce21c@divinehawk.com>
+References: <20260829-ipq4019-dwc3-migration-v1-0-cc66b54ce21c@divinehawk.com>
+ <20260829-ipq4019-dwc3-migration-v1-1-cc66b54ce21c@divinehawk.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 29 Aug 2026 19:41:19 +0000
+Message-Id: <20260829194119.815D31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1719; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=lCD2rnWylJ/gXC+S6T2sric6v3SvqHkmqg2cRrHiHMo=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqkzXGQUFLSmG7+ry21ITbphcniWDbQTny9DzW/
- uj6+C8Bx02JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCapM1xgAKCRDBN2bmhouD
- 11eKD/9r3+XtKocDcW+pxNJI51m+1e71/pIgJBXGflKkNxHvdYF5/H1EBW9204QVUbOlY8LHAeo
- 12dvJa2Sj/Yggm6H3VzfBRbGYXsGV905x2qHmiuUeY7SxrM63MydbAmvSSzVm2z5jV46TTOR0hU
- Ed/GK0kBcFijqgjvbmaBBbij3jrqnaXMZYTvmB9IHi0CWTO8Ss4JfyJVSXnKsroc7EaUJJaQ3uV
- 7D4WmDfsAhLi3ux484loF+I6pFnEdkSjQFO/NJIXT5X4vDFymZWDqyd6+zhxQSJor3r2fyp5PnC
- rxB79bTY4vn4so9xauyXexMs9vTkOCas8Nqfqlsfalk6Iibbv63MRGBaSUg/2MDHkd3KPtTaMeR
- yyqtmGj8TjVD2HQbQWKjdsipL91niG7Rdijqq7wdPDAGfczgERm6PqGBJKAqPBAYMY9MODHjwlN
- gOMakH04wqABfZsnu3lvwped9hwDwdfr+qwWPb8y1/oR+s5GGE28iohdQ3QryuQrGU6XV3J7uXR
- KVL4mNUZwyMJfQTPFYOIaFOmwVhL3YwDL1wfYEVTZNdZciWYgm8SUttXDiPBKxAsvAh9jYIHcqA
- aHNuGC9yJewTxdTALu9Rnvoinn57ZKyB++Eys+gK11mu6WjfN6dbZtCKqBqFl/6vDIh0ihWz+iE 29hKMHMetH3UXMg==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI5MDE3MCBTYWx0ZWRfX9Msbxu8ETLwo
- 5qyyDF8er1QhbHv3591CPkHQW8CZT8RdMirHExYsks0uGnYaPH2fg/KtGv5eqv0zB3JSr2qHdPQ
- 3XM2DsPQfgO09l5Tb8fyqiHWuFo5nVh75BSw2FiFGXfl4qJUsvVNDdDaQ8BvcT2vVKU+LxFBl5S
- xGQEXHnytL+YHQnGu1C/o6ovhbSzZ8E4jbbpAqinMh8k4XjKJru1nsbCG7nJ4zMcrnojqXQBqM1
- aymPih0aEZY4rMAp106mdZFDPMOFLqrMbjUfqMzDlZEWFZhum320Wvi+GxuEIdWBUutAESAkcmT
- Ty3rSDQifK3cFzpw4j70h+H2WWSdxXhTckKvurUCruzMBgcIrXCMdZ/E5t1YWbqhEo1nhcWLak5
- v2P0/X4PqF40e/5m9/pL0alSteAwMTzUE4pxTlxSG7gt8Sum7EfrGSxXJ93F/ITBJUIfCyLB7z7
- 39ZtMjyxB1oJgLG5EaA==
-X-Proofpoint-GUID: IDKVuggnXZ3alCvS2g-rZYuTfrlTaxx4
-X-Authority-Analysis: v=2.4 cv=Zakt8MVA c=1 sm=1 tr=0 ts=6a9335d3 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=Ta6ShJ3tCWu1s0TIFCkA:9 a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI5MDE3MCBTYWx0ZWRfXz1pCC1li6ppG
- 5hJLXGRqBgEwtq7lfkYneDwJnaCU4lE1nixwyswi+sQTWyVuMG5ZHOfwmFoG3x1tybtBzYtzoFK
- hm3tnyUZpX/Y1T21yCDgVBlkcfAnEXg=
-X-Proofpoint-ORIG-GUID: IDKVuggnXZ3alCvS2g-rZYuTfrlTaxx4
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-29_05,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
- suspectscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608290170
 
-Replace excessive spaces for aligning indentation into tabs.  This will
-be reported by dt-style-check ("[mixed-indent-chars] too many space
-characters in indent (more than 7)").
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Relaxing the global minimum constraints for 'interrupts' and 'in=
+terrupt-names' unintentionally leaves multiple SoCs underconstrained, allow=
+ing invalid DT configurations to pass validation.
+--
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
- arch/arm/boot/dts/aspeed/aspeed-bmc-opp-witherspoon.dts   | 2 +-
- arch/arm/boot/dts/aspeed/aspeed-bmc-supermicro-x11spi.dts | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+commit 245becf7a38f613732404251842cf1f13abb06d5
+Author: Matt Eaton <linux@divinehawk.com>
+dt-bindings: usb: qcom,snps-dwc3: relax interrupt requirements for ipq4019
 
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-opp-witherspoon.dts
-index 89907b628b65..d235ebc3022a 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-opp-witherspoon.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-opp-witherspoon.dts
-@@ -213,7 +213,7 @@ &gpio {
- 	/*L0-L7*/	"","","","","","","","",
- 	/*M0-M7*/	"","","","","","","","",
- 	/*N0-N7*/	"presence-ps1","","led-rear-fault","led-rear-power",
--		        "led-rear-id","","","",
-+			"led-rear-id","","","",
- 	/*O0-O7*/	"","","","","","","","",
- 	/*P0-P7*/	"","","","","","","","presence-ps0",
- 	/*Q0-Q7*/	"","","","","","","","",
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-supermicro-x11spi.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-supermicro-x11spi.dts
-index b961dff388d1..154a2eaf8596 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-supermicro-x11spi.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-supermicro-x11spi.dts
-@@ -75,7 +75,7 @@ &mac0 {
-     pinctrl-names = "default";
-     pinctrl-0 = <&pinctrl_rmii1_default>;
-     clocks = <&syscon ASPEED_CLK_GATE_MAC1CLK>,
--           <&syscon ASPEED_CLK_MAC1RCLK>;
-+	     <&syscon ASPEED_CLK_MAC1RCLK>;
-     clock-names = "MACCLK", "RCLK";
-     use-ncsi;
- };
--- 
-2.53.0
+This commit lowers the global minimum interrupt count for qcom,snps-dwc3 to=
+ 1
+to accommodate qcom,ipq4019-dwc3, adding a dedicated if-then block for it.
+It also notes that several other SoCs relied on the top-level minimum and
+are subsequently left unconstrained at the low end.
 
+> diff --git a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml b/=
+Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
+> index 7d784a648b7d9..28e78302b814d 100644
+> --- a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
+> +++ b/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
+> @@ -137,11 +137,11 @@ properties:
+>                                 only on SoCs with non-QUSB2 targets with
+>                                 exception of SDM670/SDM845/SM6350.
+>          - ss_phy_irq: Used for remote wakeup in Super Speed mode of oper=
+ation.
+> -    minItems: 3
+> +    minItems: 1
+>      maxItems: 19
+> =20
+>    interrupt-names:
+> -    minItems: 3
+> +    minItems: 1
+
+[Severity: Medium]
+Does lowering the global minimum here unintentionally break validation for
+SoCs that relied on the global minimum? For example, device trees defining
+qcom,ipq5018-dwc3 or qcom,ipq5332-dwc3 with an incomplete interrupt
+specification (like 1 interrupt instead of the required 3 or 4) will no
+longer report an error during dtbs_check.
+
+[ ... ]
+
+> @@ -508,6 +508,25 @@ allOf:
+>            contains:
+>              enum:
+>                - qcom,ipq4019-dwc3
+> +    then:
+> +      properties:
+> +        interrupts:
+> +          minItems: 1
+> +          maxItems: 6
+> +        interrupt-names:
+> +          minItems: 1
+> +          items:
+> +            - const: dwc_usb3
+> +            - const: pwr_event
+> +            - const: hs_phy_irq
+> +            - const: dp_hs_phy_irq
+> +            - const: dm_hs_phy_irq
+> +            - const: ss_phy_irq
+
+[Severity: Medium]
+The commit message explicitly notes that qcom,ipq9574-dwc3,
+qcom,qcm2290-dwc3, qcom,sar2130p-dwc3 and qcom,sm6375-dwc3 are left
+unconstrained at the low end by this change. Should new if-then
+conditional blocks be added here for these SoCs to properly enforce their
+original interrupt minimum counts? Without them, invalid configurations for
+these variants will silently pass validation.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260829-ipq4019-dw=
+c3-migration-v1-0-cc66b54ce21c@divinehawk.com?part=3D1
