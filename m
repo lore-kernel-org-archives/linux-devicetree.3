@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FA1A3603D7
-	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 06:05:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0273644CB
+	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 06:10:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787983554; cv=none; b=SdNGvg++4WccDMq/y920JOCcyD59CzEFWXJxbHDp4DjLiKrQxHc0SS97EvhuNbDrwQR/jjfpPx+Fz89rTROtiXy1ONUAKK1XNIfP9ke/kz3QCbQjKlZmGB79EdL/Ub050pyWw407SI00o3PggNi5m5GA5kXPfLZmwkngnz6gFMs=
+	t=1787983856; cv=none; b=T7uZoMme+n3hT9QLmoc1tB4HjsU3ge3WcJ5+lNVBFN+u3O9LI3gGcGskj3epg/ZYtZ1nilel2kSf4yi+DgwjlRi5k/BMMLkPKD/XbewjWEZ9iLUC2RhQFgaEgIRRatBlE+WEceV9PAW+aqBLWEojw+ceZNPMCWp1/20gx52ealo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787983554; c=relaxed/simple;
-	bh=srsIGBTzPnBYSVqsARBZUdEEhyrfQTldRSlpkoIrrCw=;
+	s=arc-20240116; t=1787983856; c=relaxed/simple;
+	bh=vAhBYxRf/k44OrKcMigp6jFn2COQ9KABXWSPKWqHtyc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JZzGIqGcwMnEvqd0UY3n/XXcAV0h24SXe7Wtax/Jdtrd1bSsfpfBAjbpnWo42MgDqmy7IhR/CjeMdJO8Fy7OUQ+6XLjf93aogFvs/WkrdR4EHQouLRWezwMEAkcxNx2iom5lXjbUwZLaLszdPxGmOgF47dnoqiIGSxod8Nulppg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JrI0aUjT; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=T37rkADkaheZSp6AXyYW83XLEYigNEk71Wij1FOo+1ctkKJMgDOX8tfSrwzK3iiQRLwf4m5OLa9E/bP6yadFTQS+UZmUxE7KkEtQn+YfZKjZWmrzyLFj3/sqbMrDhdFkIh5UjzXm16Zkla6SuRAc6yXl9ZqEO5nYSi1Dl0Z5JMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bob+aqIG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JrI0aUjT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A318F1F000E9;
-	Sat, 29 Aug 2026 06:05:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bob+aqIG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F4A91F000E9;
+	Sat, 29 Aug 2026 06:10:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787983552;
-	bh=ed5xlWTOd3UF7jO7SFQms93M400gqVbBpLnBcbAfuGU=;
+	s=k20260515; t=1787983855;
+	bh=g91ClDow0I/pFL9EwOtBgTcmG49Hqa94l8vuMuG0f3U=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JrI0aUjT1yeOuQG0XosxnY3TM1pGd7lVp2kDgs21Qdi8yOYv/IrR5q9kFqWpMfKi1
-	 /lBmPA8V8VLL8HgjkA7YXkriy3h93FvU7rfX2Xs+FmS5+c8z2GMTlA44FfiTJiFYsG
-	 aE3xxtMVRpK1X1egAzx81fQ6mXdEcUJv6bPocaGwJwwKWS5FRUOSBuw1atzXMUYTnr
-	 Irk6LJdVwD5HzWX1HUGqpUov19+8nzCqM5E7sD7mKgfRwhhVNkuCSFPrGvG5Uoee3H
-	 GWrNdKhnesp0gpC0vVR2hWGJWsLTop2ldoTxZDWQzZ6QgKBbn623PGFfgkTnHPMgDn
-	 X5MqwpQl64seg==
+	b=Bob+aqIGHM+vpDijzs5GW4xkaogKl5RE3EqAQ90NXrGzR1RXtaitzY6em7ZdOsxR5
+	 o5cTuBfwVwY/wYXnSNvXJMlnS38MKFbnnCqMiJBlATF2hlAttWRAHqfTdc6j3g5uyu
+	 1WToc8gWjDjmWHL3smPAVRBquuZ2yxH23Cb8P9YAArx4DiAwz+wDWoVBWeWpabt+Sr
+	 ttgxXSUXvBXW6TrwE3kgOQApXqYyyVPFU2xB3G6rtkuA9X/rr88ZSPc8F+JxY13GqS
+	 jU8vw6PqpQCKw+TWnEr5tRlWKkBO2ZCKvD/Qkx4B5QsVrqZ8PJgZLfrStzaTyQRcVl
+	 KmF78eGumAh+Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/4] iio: ABI: Add DAC current powerdown attributes
- and 15kohm_to_gnd mode
+Subject: Re: [PATCH v4 2/4] dt-bindings: iio: dac: add adi,ad5710r.yaml
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Kim Seer Paller" <kimseer.paller@analog.com>
 Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260829-iio-ad5710r-upstream-v4-1-8af3121c7d21@analog.com>
+In-Reply-To: <20260829-iio-ad5710r-upstream-v4-2-8af3121c7d21@analog.com>
 References: <20260829-iio-ad5710r-upstream-v4-0-8af3121c7d21@analog.com>
- <20260829-iio-ad5710r-upstream-v4-1-8af3121c7d21@analog.com>
+ <20260829-iio-ad5710r-upstream-v4-2-8af3121c7d21@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 29 Aug 2026 06:05:52 +0000
-Message-Id: <20260829060552.A318F1F000E9@smtp.kernel.org>
+Date: Sat, 29 Aug 2026 06:10:54 +0000
+Message-Id: <20260829061055.2F4A91F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,54 +46,59 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Missing ABI documentation for `out_currentY_powerdown_mode_availabl=
-e` and `out_current_powerdown_mode_available` attributes.
+- [Low] The device tree example and schema documentation incorrectly requir=
+e and include a header from an unrelated device (`adi,ad74413r.h`) to confi=
+gure the AD5710R's channel functions.
 --
 
-commit 68e36d76df12ffaaa85169b7c722c98c67e19f8d
+commit 3746051355b5551010e58f435b49ff4409ec4699
 Author: Kim Seer Paller <kimseer.paller@analog.com>
 
-iio: ABI: Add DAC current powerdown attributes and 15kohm_to_gnd mode
+dt-bindings: iio: dac: add adi,ad5710r.yaml
 
-This commit updates the IIO ABI documentation to cover the
-out_currentY_powerdown and out_currentY_powerdown_mode attributes. It also
-introduces a new 15kohm_to_gnd powerdown mode.
+This commit introduces device tree bindings for the Analog Devices
+AD5710R/AD5711R DACs. It defines properties for power supplies, SPI
+configuration, and per-channel output types.
 
-> diff --git a/Documentation/ABI/testing/sysfs-bus-iio b/Documentation/ABI/=
-testing/sysfs-bus-iio
-> index a4f5595722ade..a0f9aada5c62d 100644
-> --- a/Documentation/ABI/testing/sysfs-bus-iio
-> +++ b/Documentation/ABI/testing/sysfs-bus-iio
-> @@ -762,6 +762,8 @@ What:		/sys/bus/iio/devices/iio:deviceX/out_voltageY_=
-powerdown_mode
->  What:		/sys/bus/iio/devices/iio:deviceX/out_voltage_powerdown_mode
->  What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_powerdown_mode
->  What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltage_powerdown_mode
-> +What:		/sys/bus/iio/devices/iio:deviceX/out_currentY_powerdown_mode
-> +What:		/sys/bus/iio/devices/iio:deviceX/out_current_powerdown_mode
->  KernelVersion:	2.6.38
->  Contact:	linux-iio@vger.kernel.org
->  Description:
+> diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5710r.yaml b=
+/Documentation/devicetree/bindings/iio/dac/adi,ad5710r.yaml
+> new file mode 100644
+> index 0000000000000..259866ca87cff
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5710r.yaml
+[ ... ]
+> +      adi,ch-func:
+> +        description:
+> +          Channel output type. Use CH_FUNC_VOLTAGE_OUTPUT for voltage
+> +          output or CH_FUNC_CURRENT_OUTPUT for current output.
 
 [Severity: Low]
-Are the out_currentY_powerdown_mode_available and
-out_current_powerdown_mode_available attributes missing from the
-documentation?
+Does this documentation suggest macros that don't exist for this specific=20
+device? It seems these macros are not provided in any device-specific=20
+header for the AD5710R, which might confuse users trying to configure the=20
+channel output type.
 
-Looking further down in Documentation/ABI/testing/sysfs-bus-iio, the voltage
-and altvoltage variants have their _available attributes explicitly documen=
-ted:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        enum: [1, 2]
+[ ... ]
+> +examples:
+> +  - |
+> +    #include <dt-bindings/iio/addac/adi,ad74413r.h>
 
-What:		/sys/.../iio:deviceX/out_voltageY_powerdown_mode_available
-What:		/sys/.../iio:deviceX/out_voltage_powerdown_mode_available
-What:		/sys/.../iio:deviceX/out_altvoltageY_powerdown_mode_available
-What:		/sys/.../iio:deviceX/out_altvoltage_powerdown_mode_available
+[Severity: Low]
+Is this include directive for an unrelated device intentional here?
 
-Would it make sense to document the current variants alongside these? Witho=
-ut
-them, the documentation is incomplete for the _available attributes that the
-IIO core automatically exposes for enum extensions.
+Including a device-specific header for an entirely different component=20
+creates an illogical dependency. This masks the missing macro definitions=20
+mentioned above by coupling the configuration to an inappropriate source.=20
+
+Could this break or cause confusion if the ad74413r bindings are ever=20
+refactored?
+
+> +
+> +    spi {
+> +        #address-cells =3D <1>;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260829-iio-ad5710=
-r-upstream-v4-0-8af3121c7d21@analog.com?part=3D1
+r-upstream-v4-0-8af3121c7d21@analog.com?part=3D2
