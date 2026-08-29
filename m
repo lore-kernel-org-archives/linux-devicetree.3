@@ -1,146 +1,184 @@
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2094.outbound.protection.partner.outlook.cn [139.219.146.94])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B65C734D385
-	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 20:53:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788036790; cv=none; b=M7Mb3qhUisr8RLuR4zRw1Cnno3fB3kbwBmj2AuHN74FrppG/s0Ds5i74XzEO21btQp/1WlgDejFOpt7ppxVXwvEKO8T4i0u6ZyVqhQKVEJ4ipT2BWw6dpTq93kDN6cMIHwUU4cnEeFHIgXbKJJCkdXNDZEJA67zOHYJKHOoA4SI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788036790; c=relaxed/simple;
-	bh=pT8Ko0/c4eySlc9+PwI5/4NMBjgQS+yfWqpd40NW6pc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IU3eWbpX/WHviYaOo+T2lSERfWb2VshZgfAUlLLj6qBzxbJkK0Ai3MloY9LQeOyBGSaBvivXtphXSlgQrtDD63fOzCuNTB8FqsifCOLYcc7SNEHehYZTly3d25Ifyi+7ZlK1wEGcZWBa+kjQbpHnnbd/5kugjjK3spMt+fT+GVE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LpXBkmQo; arc=none smtp.client-ip=209.85.167.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LpXBkmQo"
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b4a95ab94fso3297775e87.0
-        for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 13:53:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788036787; x=1788641587; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=k3Uy0TOuIul9efNHzUpq/ykIN1z+3xgY/HMWCteDfWM=;
-        b=LpXBkmQokLfMedkHYLtRsh3n4rwFznM7DpwARevOdjTpF8VLWsGnNiSXv2hWkI5cL9
-         635ViI0g5XkPCmmkI3LCCNZmwe7GwwR0PuRRSbOvqjYUKx7egC+iMuTw+RppXlIrrsn9
-         c2G+RLmYwrmc8zRMK/irs5KqU++foe4ruEGkwPiqdI2f7HEKrT2OHdttJqDBznJgV3c2
-         9IYuUJH3v2BGsbBf9RGL9SwUzcKYv1G+i2355BariXTjJYkrobwt5Ez+blhE9Oj+wJkl
-         2Pwq6Wjkqti4wBANnXgVVzwin8VjYbS7bHIwdcgXpVfwsWjgOIVmHEPdmlvMNuMBPhQT
-         3JCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788036787; x=1788641587;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=k3Uy0TOuIul9efNHzUpq/ykIN1z+3xgY/HMWCteDfWM=;
-        b=PPpZmFbetbPKCwmvZV4dJ22YKE2y5k2kIAbe1TULedcWA/8Wtwxikl9WjJA0dd+sYz
-         0u+7qy8A+1XF5EC6PzOD2fJajft0GsRBeo7N7XvIMDLy/8eMgXxJshpHu1dUsvwk8RVc
-         HgeBNzgyvFYpfjfFs8r4iLOwZx1iteRw4aA/REk4/uFppS9HSD8XFCoVrkHAwjcqpYUX
-         1JcpIiP3DoIf32w0+LXxjsYpUjVRgdDE2LePd+Xat4sSlGVlVp64dqtSpTuRoNL5833B
-         q99hUTsKN8lrygLv1Lgp8cNOGusCVxuBUxhp/+KgyXybo3sRvBJLefaw1fINRNnKDwe7
-         RDMA==
-X-Forwarded-Encrypted: i=1; AKwUvBySCodMzpI7lhVhuO2XsWTLcFUzSs4bK8wP7gVa8w9PYIqpXBxwr2LyCj2XnGv0QMvBnn1eeq6MGOoK@vger.kernel.org
-X-Gm-Message-State: AFuF++nIFW+AfpWPV7Y7l0D3RJbAC1WuWBwv1ObqS/TUC1jkA16CDfWV
-	7mVx8cy0gog5IjXk9AqiuFdn7RllOLyzh11SRmwkwZ2zGPj12IuN/nDv
-X-Gm-Gg: AYBFou0olnsK0XgE/UGyHZ6oDgVTd6SiaBpOfdqHqqqs19CooZdy8V2WqkJF1pkA0y3
-	p2bna6G3rN0QMPTyL5bhlTwr9Ly2bOZff3NUOxmA6yN4eIOIzlSktOU2zQp0tWgKUqMItv1h8ir
-	tIVgPuX8dDqUJZwxDRMepLiNsWxcFP8G52jsZ8LC8J8JYtEdv2yMIGXWBbOqk0Kj+ECh3ERb2fQ
-	w4PAYyGi2eRFnMa/W6s5rYIaBpWTh4P8u/0JBqfIyUQavZZ4sIVPCammnN6Vy65ItDRckQXuZVJ
-	bU1zKbVHJq9ZXYYMKwN23Q6NIuvRAyOFtDN+kYtm+VvhDrH2Vpf8WvIM1ZWFlnWMNKXmjlyL2QY
-	jrPNkkLY1Oa765cHAGmLmBLchtCQswb+nnA3bHIJVHQsVbE0mqs1ZLjg2wroRpWJx4S0inNpxiS
-	fC4+tLK6vDAQ+laC1iiVpHCsZXQ5RiVKSPTXuRW3XigQVKtqLCwf817DgbIbGA9PIQP1w4aSkZX
-	Zh/MadgJepFqpXn8yqS35vuK7KMFw==
-X-Received: by 2002:a05:6512:1093:b0:5b0:113e:9c77 with SMTP id 2adb3069b0e04-5b5edba4c66mr2026170e87.4.1788036786257;
-        Sat, 29 Aug 2026 13:53:06 -0700 (PDT)
-Received: from notebook ([93.189.200.242])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b5e8a0f52dsm1192510e87.64.2026.08.29.13.53.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 13:53:05 -0700 (PDT)
-From: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F34841D62C;
+	Sat, 29 Aug 2026 20:56:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.94
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788036995; cv=fail; b=WKjrUDucD560FTPNF+BhMUKzBEH/6I/ki/wde01jKKMoitR37Mdm+1Im61T94ftHEprL91JP0keMkTKr4hqN3oJlKz0UF9Wa+Ih1u38obNDhZeRM+TLfZkXCYOx9Qe8GVFHLUCYQkY9K9qZxOaBZL5+gjn94eFGGanMUibpBBIY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788036995; c=relaxed/simple;
+	bh=iQYQVlCy+IQySs0CLYPFxsWApvzPC8aFHf0hDISerWQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=PxgBxwRO199uM8CROhpJ/s9a2xa9SgddhwknVgl6pemdmpeibbQvciLmyqV+GFb7JCq+O4tGmVLA5IBd3yJyXh7Yl7cqA8eEYs4kpb3VKnNovUKnBqKJL77vl3oyQtNAdRvzKHBRhMiSbMqhRCCLmHOggLrVlDh8Mx3gbPkqOac=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.94
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jaCbOhivUIcLCgvxF9vEMJ9CJAWRoMPuGqjVOERMAQkh7JQ3rKgewXrj6LTTueiN2qAkIK3ukyJUQsiFST4Lm12b8j8pPz68VIIO2smRJGJ6e/RmqYbFxvd3/MF+sLlCf9NzrDphi5D9S3Zh80M/EphgGMLcfulr+mQfdDYg50+IDTqLtHjCUOwH4fIoYjhbx07LtGaXIsQfiQihBFqKhzci7xCbzNCexcZI5ZcxSNPBCFXmSSAYsf4jiwrLLW/9y9PpM9vQCBnpLTeF02XnnvSqxTqqf6C6kDrRLbwmEqlY9JpFd0IyEkoA5Qow9OfRmBO7/ssUBS7KywSnhwld3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=M9g1i6iTFbZ+gpnieiWQgYULXeGpVwZmdfuT/028Ql8=;
+ b=YPp6BEa1qdF+et4nblwGZrzVg5Fk5d/hX6QmNqHpxRjG/jzI1V7fhDfJpriZOY+tErMLkFlvhyibvdXojE36kxrjSZZW3SeBGH81uFcVRJ+pOUd62SqE9ZYZ+4LHRwHjQzxk/bTzbmkw46P+roaHlWSmT+RoYiQbcYHLTlFJsHMVZ9a24qIONcBgqTVv5Go5s+bzWRqdniuGpdaScWEvdF24sg9FAjxApszcqY7IiHNm0RScmDOfRIMSPTBZn5cs1FN5ZeFbkRhvjHiWA7b84RrZg3J1FWYzUrV0qPJCyaOsuZILef9Bpg21V4IAKMk/DJyPWFDGhyQzeiLhS5KfBA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from BJXPR01MB0838.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c211:1b::23) by BJXPR01MB0709.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c211:1b::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Sat, 29 Aug
+ 2026 20:56:18 +0000
+Received: from BJXPR01MB0838.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e644:7bf5:5a3c:e548]) by
+ BJXPR01MB0838.CHNPR01.prod.partner.outlook.cn ([fe80::e644:7bf5:5a3c:e548%3])
+ with mapi id 15.21.0315.011; Sat, 29 Aug 2026 20:56:17 +0000
+From: Joshua Yeong <joshua.yeong@starfivetech.com>
+To: rahul@summations.net,
+	anup@brainfault.org,
+	lftan.linux@gmail.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	ulfh@kernel.org,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu
+Cc: alex@ghiti.fr,
+	joshua.yeong@starfivetech.com,
+	linux-riscv@lists.infradead.org,
+	linux-pm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Caleb Connolly <caleb@connolly.tech>,
-	Frederic Laing <dev@fredfunk.tech>,
-	Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
-Subject: [PATCH v2] arm64: dts: qcom: sdm845-oneplus: fix fuel gauge compatible
-Date: Sat, 29 Aug 2026 23:52:58 +0300
-Message-ID: <20260829205258.26955-1-rinat.muhamedgaliev@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260826233818.124278-1-rinat.muhamedgaliev@gmail.com>
-References: <20260826233818.124278-1-rinat.muhamedgaliev@gmail.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] Add RISC-V RPMI device power service support
+Date: Sun, 30 Aug 2026 04:55:17 +0800
+Message-ID: <20260829205520.1691-1-joshua.yeong@starfivetech.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BJXPR01CA0062.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c211:12::29) To BJXPR01MB0838.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c211:1b::23)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BJXPR01MB0838:EE_|BJXPR01MB0709:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4a1ff247-8f1b-4012-9d38-08df060ff895
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|52116014|23010399003|1800799024|7416014|376014|366016|18002099003|56012099006|10067099003|3023799007|38350700014|6133799003|921020;
+X-Microsoft-Antispam-Message-Info:
+	y5oABsVmHsj7QuRjEk5Bi5PSIzIKEOhM4RKB2K9UQo8azxMh1Mr9Mm4X1nBDWtmFOladG2Z9PbCIP+0ZjHdL8NkCqkVQCkOvh12AjRb8f9ju1r0DwxVbbmjGTjxPgMIbV0+81zSrZNXJzHWKrqVcO9e5rW2IYnUKeFZXgwjuqz/b6Aik/Yska/MOuEyTisX6FwcGjuKsiJP8XX6ww3IDIlvmkxUL7QnyL2RyDuyK9kaZJkQlbefGy35YWAGaTTClSs5yPLyqH4AV4qz78eetinCv9LzhD0FR7p0ynWrc7NgLyX7i6XFe2bjfTzjbDO1AScaorxCFr/rYgllRbwnFsuaj9mjR3rDXZkuX7SQ21iGj5enJpeJ7ZFSWxR19P3vkPllwTJS3Dp4QNiLYi09qKySBSQriFM0RbdozL5M1O1XuDEFI/QvV+1wIPpc0TY1v1bV89NdQVV5DiOxm41Was2cXwAVe+8Jzd/2q2D3Yf/GRxClXlNtH8b5uTBnLQsgzzc2pH9f22xrar0TX2NYxBJOWtk6lIRtIu3olTrq8VcU53taI/36nv0XSr+F3LRP85zTR1XRbEtUHVNMp4Yh82A==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BJXPR01MB0838.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(52116014)(23010399003)(1800799024)(7416014)(376014)(366016)(18002099003)(56012099006)(10067099003)(3023799007)(38350700014)(6133799003)(921020);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?I38AFtD0LaL7nDffBVMCz5S8NSbL9UKFd0P4DXpw5SK0iQ4EAYeWeESCVWPD?=
+ =?us-ascii?Q?NtzJ6RXEQ930sp0THU39JncMWK0RdrYPB+W/Gkj2K/VjK414PoQuuA53ysY6?=
+ =?us-ascii?Q?binFZ5T51Xnh70+LmEsXfBdul+1V1oNPNVZBZHleDWYxWw+kyledFnd9wa6q?=
+ =?us-ascii?Q?Lk2Rvm1L+hU7h11v1qQwLhVYtvXi3VHPHPkSJM6O3e9RarxiEFVA+d0rSfRF?=
+ =?us-ascii?Q?YB3jE0QGt0tJasUjLHUnxBCjLATTjC0x18Sr+rfM2tXy3mnb2CxM5GvHGxGa?=
+ =?us-ascii?Q?ImSP9yI5tzEdc+NKkqTLydXvynGMD18dlXKq/ZCORfyaemLlBw5JfMNSWdN9?=
+ =?us-ascii?Q?BAx4J0GsWT4QU2vrb2YdPwgejG9+QdDi/mu859UTc6wQMS9xlobELw7onihS?=
+ =?us-ascii?Q?M/Y3EuKw1aYyP3i2qpBbXQbww4+19U9LpnAO9mcBumUlmsPq8tGFh1gfCoLm?=
+ =?us-ascii?Q?IXv+jMos11MUqTXVpBd1Y1g7KsJPOlecIvrA9rs16uhbb9i+4QLAjum1Z3ad?=
+ =?us-ascii?Q?R72zxqovNcKx5FtxbQu4OsvUUEOkXuG1peN136xFAktEnYQ+ZO0bgqde9U8J?=
+ =?us-ascii?Q?1Nmzl35cVMRcIQ8RFrGiUyz5ux/Jk4WrLN3opVDFJdbgS8DOnh+gWVoOIggl?=
+ =?us-ascii?Q?oCCsqOtBcGiGQOt8ZvxFFky5Z7KeL7wv6uxX78eLNZItWaEa1X7NF+Ooj3Ka?=
+ =?us-ascii?Q?nwuxkim9k5p6+dSGc6d9ZWaCU6Of5vEdWat12FhMSBi7I3LAOD4f3QoQE5lN?=
+ =?us-ascii?Q?OovhwghQ+b9xE/SVtd86l9Y0F/Q2EW9ubV5+0yY9eLzqtLFfpxevoOQ3iJGB?=
+ =?us-ascii?Q?PBhW+UhxhdPpeU7LeIJ0ofV9aGENhoIc6FM1CyeOt2S8aDNbivrK7q2aFgzl?=
+ =?us-ascii?Q?MC7kikFzkDX6Gp6Htv7aUs0QGX0O3MM9hiNnLAAX0zx/mRYq4xWjUnmy2FCm?=
+ =?us-ascii?Q?zFSDlmVvv7hHINN5Gvde+0zYbnFNhptrFTQAKx5Pov13919sZpY2EIrdf9Pn?=
+ =?us-ascii?Q?jtDGIi8IEIhynJuGANLnP9QhKH1wcqaMeuFjrKw3aUv86xeYISiyLG1q4jV+?=
+ =?us-ascii?Q?+cT/QqjVG8HMEeqFU41v6DJ3GLsAdHRjhFZo2hxs/e44NYv1xbQk2ehTpj5x?=
+ =?us-ascii?Q?WE3EE54s8YyO2fbicmQh+nJ4GYg/i4vubtgqq3mU6/p7WXlxeHYS7vEDWrol?=
+ =?us-ascii?Q?EfBwghSjCMLg3Fqn18MShvX16QgGEgbLyPpvEQrYNfU5uD0MJunUnL9O5zTi?=
+ =?us-ascii?Q?ND4iCM+pzvgAvh+lntyERvkADUin3Xu8ws8F3TrkIPeoegBm7NczmhvZtygz?=
+ =?us-ascii?Q?DJEFVmyom6S7adZuDqNmwuPAjtgqKcGuUfJfp8voqg5owYebLdoOC0raVuTi?=
+ =?us-ascii?Q?IW3xSMg9uMPkcBXG8dtISNvdrgLJR0heQk0UBOkMY3gxl9GvNN6rjzT7CoPK?=
+ =?us-ascii?Q?HH6U6n0oMz18PL/r1d/Llt6RtG9Ii6lLsIgldxUoBKeiduGVydT+rN499uBj?=
+ =?us-ascii?Q?GgPk0G3sS+0+p7W0lKLvRG9uysU+AUdgNeipLvobwI5cirEFoKVH7Cazq8YU?=
+ =?us-ascii?Q?Ae2dij4pEi9EdghWiT8q2t5ZtloAUeoGOB2vgdfRH5H2XckWFijI9bTLPAV7?=
+ =?us-ascii?Q?WGH51MUUndmI92o2V/m3JkpwVpUn8xz/LOmabpMAx8fMVVPFOuhFVHKfqRfV?=
+ =?us-ascii?Q?oZk2Ta42z3MNTZoJf/j1FSMQA8w7RbrQaHDOXPAm/4cYDNk//04w5LsSHcRx?=
+ =?us-ascii?Q?dni28js0326+lJqSDTLr6vg3IYN5bxI=3D?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4a1ff247-8f1b-4012-9d38-08df060ff895
+X-MS-Exchange-CrossTenant-AuthSource: BJXPR01MB0838.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2026 20:56:17.7641
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HnH/lc9gFpJZEAnKk8JZlLMDylbj6OZ2SCgYwnwjH2l50APuBf8jBs5P84A9+cZrsZdd0khuKIS0Kt5pYiqZ/md/RjNjyKCPiqNnjWiHSuI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BJXPR01MB0709
 
-The fuel gauge at I2C address 0x55 on OnePlus 6T (fajita) reports DeviceType 0x0541, identifying it as a TI bq27541 rather than bq27411.
+The RISC-V Platform Management Interface (RPMI) specification defines a
+modular and extensible messaging protocol between the supervisor software
+and a platform microcontroller (PuC). Among the service groups it defines
+is the device power service group (service group ID 0x00009), which allows
+the supervisor to enumerate the power domains of platform devices managed
+by the PuC, query their attributes, and get/set their power state.
 
-Binding it as bq27411 selects the wrong register map and produces invalid voltage, state-of-charge, and temperature readings. Use the bq27541 compatible and rename the shared label along with its fajita and enchilada consumers.
+This series adds supervisor-side support for that service group:
 
-Tested on OnePlus 6T (fajita): queried DeviceType directly over I2C, built the DTB, booted it once with fastboot boot, then installed a locally built postmarketOS kernel package. Before the change, readings included about 65 V, over 10000% SOC, and -273.1 C. Afterward, the bq27xxx driver bound as ti,bq27541 and reported 3.835 V, 42% SOC, and 33.3 C.
+ - DT bindings for the power domain controller exposed to the supervisor
+   ("riscv,rpmi-device-power") and for the SBI MPXY channel that the SBI
+   implementation uses to expose the service group to the supervisor
+   ("riscv,rpmi-mpxy-device-power").
 
-Fixes: 12dfb002ca01 ("arm64: dts: qcom: sdm845-oneplus-*: add fuel gauge")
-Closes: https://gitlab.com/sdm845-mainline/linux/-/issues/36
-Signed-off-by: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
----
- arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi   | 4 ++--
- arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts | 2 +-
- arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts    | 2 +-
- 3 files changed, 4 insertions(+), 4 deletions(-)
+ - A generic power domain (genpd) provider driver under
+   drivers/pmdomain/riscv/ which talks to the PuC over an SBI MPXY
+   mailbox channel. At probe it queries GET_NUM_DOMAINS, then for each
+   domain queries GET_ATTRS for the name and transition latency and
+   GET_STATE for the initial state, and registers the whole set as a
+   onecell genpd provider. Domain power on/off is driven through
+   SET_STATE with the generic ON/OFF power state parameters, so devices
+   can simply reference a domain through the "power-domains" property.
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-index 948a0dd18d13..f3459226bf7b 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-@@ -790,8 +790,8 @@ &i2c10 {
- 	status = "okay";
- 	clock-frequency = <100000>;
- 
--	bq27441_fg: bq27441-battery@55 {
--		compatible = "ti,bq27411";
-+	bq27541_fg: fuel-gauge@55 {
-+		compatible = "ti,bq27541";
- 		status = "okay";
- 		reg = <0x55>;
- 	};
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
-index 5f01115e2322..21ebd3f67155 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
-@@ -44,7 +44,7 @@ main_cam_ois: main-cam-ois-regulator {
- 	};
- };
- 
--&bq27441_fg {
-+&bq27541_fg {
- 	monitored-battery = <&battery>;
- };
- 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts b/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
-index 7ffcad24d505..d640b38b53f4 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
-@@ -67,7 +67,7 @@ tfa9894_codec: tfa9894@34 {
- 
- };
- 
--&bq27441_fg {
-+&bq27541_fg {
- 	monitored-battery = <&battery>;
- };
- 
--- 
-2.55.0
+The series is based on the existing RISC-V RPMI/MPXY infrastructure
+already present in the tree (drivers/mailbox/riscv-sbi-mpxy-mbox.c and
+include/linux/mailbox/riscv-rpmi-message.h), and only adds the device
+power service group definitions on top of it.
 
+Testing
+=======
+
+The series was tested under QEMU with the RPMI device power service
+implemented in firmware.
+
+Components:
+
+ - OpenSBI: latest master branch
+   https://github.com/riscv-software-src/opensbi
+
+ - QEMU: the RPMI-enabled tree at
+   https://github.com/yeongjoshua/qemu/tree/rpmi-v11.1.0
+
+Kernel config: enable CONFIG_RISCV_RPMI_DEVICE_POWER (default y on RISC-V
+when MAILBOX is enabled) along with the SBI MPXY mailbox driver.
+
+Run with:
+
+  qemu-system-riscv64 \
+      -M virt -m 2G -smp 4 \
+      -bios fw_dynamic.bin \
+      -kernel Image \
+      -M rpmi=true \
+      -nographic \
+      -initrd rootfs-busybox.cpio \
+      -append "root=/dev/ram rw console=ttyS0,115200 no_console_suspend mem=2048M earlycon=uart8250,mmio,0x10000000"
+
+The RPMI device power domains advertised by the emulated platform
+microcontroller show up as generic power domains and can be inspected
+through /sys/kernel/debug/pm_genpd/.
+
+--
+2.43.0
