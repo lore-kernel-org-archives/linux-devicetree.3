@@ -1,77 +1,82 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3FAA3451A9
-	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 20:37:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B65C734D385
+	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 20:53:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788035844; cv=none; b=umrIYcgotPHLMQ1/VGEmDLFstAB0QkS6+pbWnyfmDfTZ5iT5aGpjQDty8WZjWwc3ojFPNxjqbYnk9fxpuunfFTp7aWviLW4SmPZZruO9J0QYyp365tI4eQu7tmpzSHJXeFBdsUNxmFWuEaGhzeb8jNp1fe6o8CjlqsdRxY0TXrk=
+	t=1788036790; cv=none; b=M7Mb3qhUisr8RLuR4zRw1Cnno3fB3kbwBmj2AuHN74FrppG/s0Ds5i74XzEO21btQp/1WlgDejFOpt7ppxVXwvEKO8T4i0u6ZyVqhQKVEJ4ipT2BWw6dpTq93kDN6cMIHwUU4cnEeFHIgXbKJJCkdXNDZEJA67zOHYJKHOoA4SI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788035844; c=relaxed/simple;
-	bh=V2EzM9GSZHPxKG42rhvLV4dZm/L2p9HfxEU+IhfD584=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DYAZVsuNMcyE4w9SB48uq/8Ap0W2jjkCSCjXD+t7dFeT36/+qDNx+K4D+kcdSyqtPR2UKWFIeztJlWAUjdAqEarL8nAFZtHbKukqDpgLf/JszOtVCypfxaEve/fjCw1aPH6NsUFUDodDDIgcNyFtW9dRDHoOrtNkkw8zJaoRbQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JCeVsTZr; arc=none smtp.client-ip=209.85.216.45
+	s=arc-20240116; t=1788036790; c=relaxed/simple;
+	bh=pT8Ko0/c4eySlc9+PwI5/4NMBjgQS+yfWqpd40NW6pc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IU3eWbpX/WHviYaOo+T2lSERfWb2VshZgfAUlLLj6qBzxbJkK0Ai3MloY9LQeOyBGSaBvivXtphXSlgQrtDD63fOzCuNTB8FqsifCOLYcc7SNEHehYZTly3d25Ifyi+7ZlK1wEGcZWBa+kjQbpHnnbd/5kugjjK3spMt+fT+GVE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LpXBkmQo; arc=none smtp.client-ip=209.85.167.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JCeVsTZr"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-398c1101c1bso278263a91.1
-        for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 13:37:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LpXBkmQo"
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b4a95ab94fso3297775e87.0
+        for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 13:53:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788035842; x=1788640642; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HZKFaUDOk9+0vR+1B9jj5VFfzdasobPYcBQD01+SUsQ=;
-        b=JCeVsTZrNfX7jxJrOhZeuFWB6/sVC99mGKJINxZMnNlN+rNUXY3IMSxvPY6I7Xf5Fi
-         KDhuBtf907SYaVoxvbE37WuLIxvp84Kt3nXUUb6CQgLcNStoMPMVKTJVwuyC88JieRGW
-         VYmt3fFs28z2JokNu5Jb3vDV80cEbIOn7XEHDcqn9GveJf/8zJqr3SosLdfREg9m/CwM
-         AVsLkyI30za7OJBVgbboqYidPcgWaGjNsTCF772uJ0FR+A1MWwsY8warfyC+03jgddxC
-         AD8HnAxLs0RSxZhqCaehFouezCpo0y4ht5hsknZNnbS1scqqE6Yj1ufqGhwgxitYB43N
-         Wk5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788035842; x=1788640642;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788036787; x=1788641587; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HZKFaUDOk9+0vR+1B9jj5VFfzdasobPYcBQD01+SUsQ=;
-        b=MBOSpeWhuHinBtTi4NDKPjdKVKR4MyliA75+7f7ttFjfsTtZNn420ANJy9AjsXAms+
-         iAINWubyQsQSeV4igmC1pY7jMlrjokUbZ0CZ9VydLpL2f8u+PvfzxXJk+o5l0b66E9lP
-         a8DmFqEBQXaZVR0NcOy/ZSfiSiAi9bBFbXps6GtyzWg5R+bPynmjChGJUwrNlQS0Nuny
-         0P26B/k3qBas8GCjRWx/kpuh9CgkHjDW+Va3o1gXMlaZcsOpGHM9HcmMVozFytcZ9mni
-         eVYVTj/nxUU2gRtUZgLWbLfsEC91lhgGFouayA0J/hPaByCmOvs0cRO7SGnAoKeAVjt6
-         nrsA==
-X-Gm-Message-State: AFuF++mpDM77UVTpF8aNNo96f7kKuqBXiLgE2z3zelZsjeA4DEbwwxpR
-	rLECcp4siLXQXQ6sYxaJUlVHYrSA3Xg4Vhrf4eOSsxHu7rFufTQJlGc4gESXwQ==
-X-Gm-Gg: AYBFou3LVMyQzhTpr8+lVPLGnBZ0XFzUeGiq5mCR5b1IBJ+L76OYK3m/ybzvnPL0pEq
-	BCVCDGfkDR3ErYnM9FY7pQdBpnvShrQO7dkqX0YROp8US9rDlJeoGW1Va7+CB71826T+ktfzXgd
-	G6rFj0/odL1SQMXKHeHJyykpRn3Yvgmv1cLp6EP+m5tTBCCqUVrqYvcqIkXGg0pfHsBATsNM0YF
-	vruc1nYQ2PLa34trFBpe337cfVGH2DMY7BuCcxYNZOg1OwmM2r1CQYbVWnRt9BIVkQFgfjfdcoR
-	MxG57rFIH/olSIYlqbhmy92QyV2nnKIhL9ev3LEBWAx02yR3sMgc5w0WrwxsTvLlUjFOJlqHV8J
-	p9TMhSZy349r/Pbef5EJNBEXxE1dSeHiNkIDmXWNiJdF/LZTBfhjCEvCblWprSR1p6FG2FI298P
-	B2qX0sesEDmS+ndoFe3vu/5Dqss5LCZsGQO/pipftu8SMJ3iH/GUkNM2zrhhxb1zZz0hrnIHvsn
-	GmlbTi544o4WFv9/5I3qVCgXenSoa8L/stkiMStY8P+RDwncai7evaaYqJbqhI0G7znIO8P+pLZ
-	ZnHI6q+RXyFEVV/S1PKc/54Xd/322KEQF7y7QZpy6fNTHSO6
-X-Received: by 2002:a17:90b:1a8e:b0:396:4c63:7193 with SMTP id 98e67ed59e1d1-396d0fe45damr27054160a91.11.1788035842198;
-        Sat, 29 Aug 2026 13:37:22 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-398a2f5187fsm1771407a91.1.2026.08.29.13.37.20
+        bh=k3Uy0TOuIul9efNHzUpq/ykIN1z+3xgY/HMWCteDfWM=;
+        b=LpXBkmQokLfMedkHYLtRsh3n4rwFznM7DpwARevOdjTpF8VLWsGnNiSXv2hWkI5cL9
+         635ViI0g5XkPCmmkI3LCCNZmwe7GwwR0PuRRSbOvqjYUKx7egC+iMuTw+RppXlIrrsn9
+         c2G+RLmYwrmc8zRMK/irs5KqU++foe4ruEGkwPiqdI2f7HEKrT2OHdttJqDBznJgV3c2
+         9IYuUJH3v2BGsbBf9RGL9SwUzcKYv1G+i2355BariXTjJYkrobwt5Ez+blhE9Oj+wJkl
+         2Pwq6Wjkqti4wBANnXgVVzwin8VjYbS7bHIwdcgXpVfwsWjgOIVmHEPdmlvMNuMBPhQT
+         3JCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788036787; x=1788641587;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=k3Uy0TOuIul9efNHzUpq/ykIN1z+3xgY/HMWCteDfWM=;
+        b=PPpZmFbetbPKCwmvZV4dJ22YKE2y5k2kIAbe1TULedcWA/8Wtwxikl9WjJA0dd+sYz
+         0u+7qy8A+1XF5EC6PzOD2fJajft0GsRBeo7N7XvIMDLy/8eMgXxJshpHu1dUsvwk8RVc
+         HgeBNzgyvFYpfjfFs8r4iLOwZx1iteRw4aA/REk4/uFppS9HSD8XFCoVrkHAwjcqpYUX
+         1JcpIiP3DoIf32w0+LXxjsYpUjVRgdDE2LePd+Xat4sSlGVlVp64dqtSpTuRoNL5833B
+         q99hUTsKN8lrygLv1Lgp8cNOGusCVxuBUxhp/+KgyXybo3sRvBJLefaw1fINRNnKDwe7
+         RDMA==
+X-Forwarded-Encrypted: i=1; AKwUvBySCodMzpI7lhVhuO2XsWTLcFUzSs4bK8wP7gVa8w9PYIqpXBxwr2LyCj2XnGv0QMvBnn1eeq6MGOoK@vger.kernel.org
+X-Gm-Message-State: AFuF++nIFW+AfpWPV7Y7l0D3RJbAC1WuWBwv1ObqS/TUC1jkA16CDfWV
+	7mVx8cy0gog5IjXk9AqiuFdn7RllOLyzh11SRmwkwZ2zGPj12IuN/nDv
+X-Gm-Gg: AYBFou0olnsK0XgE/UGyHZ6oDgVTd6SiaBpOfdqHqqqs19CooZdy8V2WqkJF1pkA0y3
+	p2bna6G3rN0QMPTyL5bhlTwr9Ly2bOZff3NUOxmA6yN4eIOIzlSktOU2zQp0tWgKUqMItv1h8ir
+	tIVgPuX8dDqUJZwxDRMepLiNsWxcFP8G52jsZ8LC8J8JYtEdv2yMIGXWBbOqk0Kj+ECh3ERb2fQ
+	w4PAYyGi2eRFnMa/W6s5rYIaBpWTh4P8u/0JBqfIyUQavZZ4sIVPCammnN6Vy65ItDRckQXuZVJ
+	bU1zKbVHJq9ZXYYMKwN23Q6NIuvRAyOFtDN+kYtm+VvhDrH2Vpf8WvIM1ZWFlnWMNKXmjlyL2QY
+	jrPNkkLY1Oa765cHAGmLmBLchtCQswb+nnA3bHIJVHQsVbE0mqs1ZLjg2wroRpWJx4S0inNpxiS
+	fC4+tLK6vDAQ+laC1iiVpHCsZXQ5RiVKSPTXuRW3XigQVKtqLCwf817DgbIbGA9PIQP1w4aSkZX
+	Zh/MadgJepFqpXn8yqS35vuK7KMFw==
+X-Received: by 2002:a05:6512:1093:b0:5b0:113e:9c77 with SMTP id 2adb3069b0e04-5b5edba4c66mr2026170e87.4.1788036786257;
+        Sat, 29 Aug 2026 13:53:06 -0700 (PDT)
+Received: from notebook ([93.189.200.242])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b5e8a0f52dsm1192510e87.64.2026.08.29.13.53.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 13:37:21 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: devicetree@vger.kernel.org
-Cc: Andrew Lunn <andrew@lunn.ch>,
-	Gregory Clement <gregory.clement@bootlin.com>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Rob Herring <robh@kernel.org>,
+        Sat, 29 Aug 2026 13:53:05 -0700 (PDT)
+From: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Dennis Gilmore <dennis@ausil.us>,
-	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Marvell Kirkwood and Armada 370, 375, 38x,...),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] ARM: dts: helios4: fix spi1 location
-Date: Sat, 29 Aug 2026 13:37:20 -0700
-Message-ID: <20260829203720.44633-1-rosenp@gmail.com>
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Caleb Connolly <caleb@connolly.tech>,
+	Frederic Laing <dev@fredfunk.tech>,
+	Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
+Subject: [PATCH v2] arm64: dts: qcom: sdm845-oneplus: fix fuel gauge compatible
+Date: Sat, 29 Aug 2026 23:52:58 +0300
+Message-ID: <20260829205258.26955-1-rinat.muhamedgaliev@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260826233818.124278-1-rinat.muhamedgaliev@gmail.com>
+References: <20260826233818.124278-1-rinat.muhamedgaliev@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -80,62 +85,62 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This spi node is specified in armada-38x.dtsi with proper compatible
-strings whereas they are not present here. Instead of copy and pasting
-various lines, just reference the node in the dtsi.
+The fuel gauge at I2C address 0x55 on OnePlus 6T (fajita) reports DeviceType 0x0541, identifying it as a TI bq27541 rather than bq27411.
 
-This dts seems to predate the move of spi from internal-regs to the soc
-node so this moves it in line there.
+Binding it as bq27411 selects the wrong register map and produces invalid voltage, state-of-charge, and temperature readings. Use the bq27541 compatible and rename the shared label along with its fajita and enchilada consumers.
 
-Allows proper probing of SPI at runtime.
+Tested on OnePlus 6T (fajita): queried DeviceType directly over I2C, built the DTB, booted it once with fastboot boot, then installed a locally built postmarketOS kernel package. Before the change, readings included about 65 V, over 10000% SOC, and -273.1 C. Afterward, the bq27xxx driver bound as ti,bq27541 and reported 3.835 V, 42% SOC, and 33.3 C.
 
-Remove the microsom_spi1_cs_pins pinctrl group and its reference in
-&spi1. The group only muxed mpp59 to the "spi1" function, but that
-pin (SPI1 cs0) is already covered by spi1_pins, which selects the
-same function for mpp56-59 in armada-38x.dtsi.
-
-Fixes: ced8025b569e ("ARM: dts: armada388-helios4")
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Fixes: 12dfb002ca01 ("arm64: dts: qcom: sdm845-oneplus-*: add fuel gauge")
+Closes: https://gitlab.com/sdm845-mainline/linux/-/issues/36
+Signed-off-by: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
 ---
- .../arm/boot/dts/marvell/armada-388-helios4.dts | 17 ++++++-----------
- 1 file changed, 6 insertions(+), 11 deletions(-)
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi   | 4 ++--
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts | 2 +-
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts    | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm/boot/dts/marvell/armada-388-helios4.dts b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-index 9de9a8a4267c..ae03d42f92a0 100644
---- a/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-+++ b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-@@ -254,13 +254,6 @@ sata3: sata-port@1 {
- 				};
- 			};
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+index 948a0dd18d13..f3459226bf7b 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+@@ -790,8 +790,8 @@ &i2c10 {
+ 	status = "okay";
+ 	clock-frequency = <100000>;
  
--			spi@10680 {
--				pinctrl-0 = <&spi1_pins
--					     &microsom_spi1_cs_pins>;
--				pinctrl-names = "default";
--				status = "okay";
--			};
--
- 			sdhci@d8000 {
- 				bus-width = <4>;
- 				cd-gpios = <&gpio0 20 GPIO_ACTIVE_LOW>;
-@@ -327,11 +320,13 @@ helios_fan2_pins: helios_fan2_pins {
- 					marvell,pins = "mpp48", "mpp55";
- 					marvell,function = "gpio";
- 				};
--				microsom_spi1_cs_pins: spi1-cs-pins {
--					marvell,pins = "mpp59";
--					marvell,function = "spi1";
--				};
- 			};
- 		};
+-	bq27441_fg: bq27441-battery@55 {
+-		compatible = "ti,bq27411";
++	bq27541_fg: fuel-gauge@55 {
++		compatible = "ti,bq27541";
+ 		status = "okay";
+ 		reg = <0x55>;
+ 	};
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+index 5f01115e2322..21ebd3f67155 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+@@ -44,7 +44,7 @@ main_cam_ois: main-cam-ois-regulator {
  	};
  };
-+
-+&spi1 {
-+	pinctrl-0 = <&spi1_pins>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+};
+ 
+-&bq27441_fg {
++&bq27541_fg {
+ 	monitored-battery = <&battery>;
+ };
+ 
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts b/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
+index 7ffcad24d505..d640b38b53f4 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
+@@ -67,7 +67,7 @@ tfa9894_codec: tfa9894@34 {
+ 
+ };
+ 
+-&bq27441_fg {
++&bq27541_fg {
+ 	monitored-battery = <&battery>;
+ };
+ 
 -- 
 2.55.0
 
