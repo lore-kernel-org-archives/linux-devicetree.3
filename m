@@ -1,188 +1,129 @@
-Received: from mail2.ecloud.global (mail2.ecloud.global [135.181.6.248])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF91369990;
-	Sat, 29 Aug 2026 18:53:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=135.181.6.248
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788029586; cv=pass; b=Ba5n8lQy8PXkqyEgDXlVQvoZceCX0PPdaP3rtlkzhNkjCIgZozoJmEUItSQbQOfOUn8dq9Z9wP4pIA2IH8GNIBkXapWr8sx2crbnl5OjOhuR2gh+7MZBqcvgW/3urgNHWVw1QTs1zwkcIhYHftn/skaUa8ANLolsMTq75gN5UHo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788029586; c=relaxed/simple;
-	bh=0S3rarkLgm8hZjcdbYjo6il3n4s7fIzlMMRW75K0Z14=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
-	 In-Reply-To:Content-Type; b=KYHcN/Bks5SSfgnX75kUKEDxZTLOIIjiuNTQODJSa3//FSdhoNnEasHnkI+Kj7l2Kso2VZx0YuG2nad86pa08Rf4vunbSIYsUlMOK9gR38xRQ3xVuORj7kL8rl9c0optMHWSW8wyAkM27k/FWvwIOmvqf+m39BGTHCXIK9QiboU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=murena.io; spf=pass smtp.mailfrom=murena.io; dkim=pass (1024-bit key) header.d=murena.io header.i=@murena.io header.b=kJRJxTyy; arc=pass smtp.client-ip=135.181.6.248
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=murena.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=murena.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8478A3AAF70
+	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 18:54:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788029665; cv=none; b=rN6uGTOlMz8KvZgyiHl3jXRB0gui9Sm/lYI/WBGa0TCyarJFT4fp3KTW0qjyuOzV/KKNy4JMUDSlwBQVgWLOOW+/9WjlfgSS+wyRO8hsc/2YIv0M8FYlzKzn/PDb7QkedL7n/jijXp56x9HHfkY8g8KbfWIvNXhIczA28+B9ddY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788029665; c=relaxed/simple;
+	bh=YzdZ6jbwLy3at7lqurwhQxsaQMIbGGM9kBC8GmyDaPE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Y+f/E0/ql/Jiqx3RnbD0dXq1ms7eAeUEd4G+JWpY9+l1UEk9BzPFi8XroHxbQUV4gOWhAsJ1MS1Ns8/DoKq4vV9HBiijD0iEl4hFFLcV4T+h6lFkFVWBSw/wD+TXCimeTC2tczqeLL9SBdA5BKz0Uaccc38R//EHG0Bg2rfvgNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jYRtJAau; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=murena.io header.i=@murena.io header.b="kJRJxTyy"
-Received: from authenticated-user (mail2.ecloud.global [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail2.ecloud.global (Postfix) with ESMTPSA id 5727E721211;
-	Sat, 29 Aug 2026 18:46:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io; s=mail2;
-	t=1788029216;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=b4Ex6rfFvTScbg5DzrJ4/DiARiXFmhIWSUitin0MvHk=;
-	b=kJRJxTyyQMcIlC2MG6VJ+b+oMXJ54a/2zuFGwzTwuo9CZxVz3F08ZVm8APsh+MsNYKfln7
-	tpIsv3BQSMkVO12LdgK9AGcG0V01enJJzYdvOZtfj3rnOzMRJOcEh6TrpCo01U2nha2zrQ
-	J0KsfHnCEfM1FmgUODuLp2W5PkBY6k4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io;
-	s=mail2; t=1788029216;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=b4Ex6rfFvTScbg5DzrJ4/DiARiXFmhIWSUitin0MvHk=;
-	b=iKSP3zjFE39ry20mmXNOJsboV+El7n+ksWSaf4BjAJtPYNi4skVmgJEw/IqLzCMs+NZ86y
-	cHJ15QP8zMHswrrFu0FfNfjOSV/qEbV8Ek28lmHwqTAZKytJ5ty9O6AZACMRpf/g7ac69l
-	DPEMrfrnitQFB0w62FocUPfUBN3mVcU=
-ARC-Authentication-Results: i=1;
-	mail2.ecloud.global;
-	auth=pass smtp.mailfrom=maud_spierings@murena.io
-ARC-Seal: i=1; s=mail2; d=murena.io; t=1788029216; a=rsa-sha256; cv=none;
-	b=PBSzIckDQ9J/rtP8kgKk6YirF5KsP0xzXMGk/+beKynJrp5wESTe2ODak8XzOi5hl0vL2A
-	AuJUpLcNj2cEiZwG9EPCnizlv2HGbZHD4eFqrDaZ7+XptJc8z0BTYKf2fnW0YghpcFzZER
-	e1LilsNtpR7oiPTe54yrwUcb9BlYx2Q=
-Message-ID: <b9d39858-3531-4538-a4ab-eb34a0be6ad5@murena.io>
-Date: Sat, 29 Aug 2026 20:46:53 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jYRtJAau"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCFAE1F000E9;
+	Sat, 29 Aug 2026 18:54:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788029664;
+	bh=8wJl3HQ/vXJDWqnB/+Be7CKn8UTnN566bYzo0iJHwug=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=jYRtJAaubUUiRllwnjBp7FvKttjeT3Dgsua1RITglnYy5TmuBt1oTDS7glSpweaCT
+	 e6Athcub4BQPbfHsskO2SeXuIY5KEwn69D9zszz3bMLnjZkD8k0AP0Vs/XH93Vcnru
+	 XIGigDer30pVmD6gqOyy4yKe8jCYy4Se1gTnirMd6hD/iKS3kXpm9VMGTPJAmFBYox
+	 AYh36OjYSwQsFxpFwco8z6sjBQ1wMuIxDxnRsIU1fhplHnRXjaOaCp1LrjclXBgS5u
+	 MsdIJPzGj6JNJRO3Ta+izBZL3zSnqGN6RHFwfFdy+oLdNeED8EkhBnk5MEz1gEUwro
+	 am0GEYyZb/XjQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 6/8] mmc: sdhci-cadence: refactor driver structure
+ for V6 controller support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Tanmay Kathpalia" <tanmay.kathpalia@altera.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260829184252.27644-7-tanmay.kathpalia@altera.com>
+References: <20260829184252.27644-1-tanmay.kathpalia@altera.com>
+ <20260829184252.27644-7-tanmay.kathpalia@altera.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 29 Aug 2026 18:54:23 +0000
+Message-Id: <20260829185423.BCFAE1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-To: m.wilczynski@samsung.com
-Cc: Laurent.pinchart@ideasonboard.com, airlied@gmail.com, alex@ghiti.fr,
- andrzej.hajda@intel.com, andy.yan@rock-chips.com, andyshrk@163.com,
- aou@eecs.berkeley.edu, bmasney@redhat.com, conor+dt@kernel.org,
- conor@kernel.org, db@domibel.de, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, hal.feng@starfivetech.com, heiko@sntech.de,
- hello@big-grey.co.uk, jernej.skrabec@gmail.com, jonas@kwiboo.se,
- kernel@esmil.dk, krzk+dt@kernel.org, lee@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-riscv@lists.infradead.org, linux-rockchip@lists.infradead.org,
- luca.ceresoli@bootlin.com, m.szyprowski@samsung.com,
- maarten.lankhorst@linux.intel.com, maudspierings@gocontroll.com,
- mfd@lists.linux.dev, mripard@kernel.org, mturquette@baylibre.com,
- neil.armstrong@linaro.org, p.zabel@pengutronix.de, palmer@dabbelt.com,
- pjw@kernel.org, rfoss@kernel.org, robh@kernel.org, sboyd@kernel.org,
- simona@ffwll.ch, tzimmermann@suse.de, uwu@icenowy.me, vkoul@kernel.org
-References: <20260828-jh7110-clean-send-v2-14-331680c8b9d1@samsung.com>
-Subject: Re: [PATCH v2 14/15] riscv: dts: starfive: jh7110: Update DT for
- display subsystem
-Content-Language: en-US
-From: Maud Spierings <maud_spierings@murena.io>
-In-Reply-To: <20260828-jh7110-clean-send-v2-14-331680c8b9d1@samsung.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-Hi Michal,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Very happy to see an update to this series!
+Pre-existing issues:
+- [Critical] Time-of-check to time-of-use (TOCTOU) buffer overflow during d=
+ouble-pass PHY parameter parsing.
+--
 
-I have some very minor nitpicks I found in the devicetree
+commit 63b7c6883f34223180b95652ed2ee59e64bc1fac
+Author: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
 
-> Activate the display subsystem by adding the dc8200, hdmi and voutcrg
-> nodes as direct soc children. Each references the PD_VOUT power domain
-> through power-domains, so genpd powers the domain on demand, and the
-> HDMI-PHY -> voutcrg -> HDMI-controller probe order is resolved by
-> deferred probe.
-> 
-> The monolithic hdmi node is modelled as a container with hdmi_phy
-> and hdmi_controller children. This lets the PHY (clock provider,
-> depending only on xin24m) and the controller (clock consumer) probe
-> independently, breaking the circular clock dependency with voutcrg.
-> 
-> voutcrg consumes the pixel clock from the &hdmi_phy node instead of the
-> old fixed-clock, and dc8200 gets its pixel clocks from voutcrg's MUXes
-> and is marked dma-noncoherent for framebuffer DMA. The old, incorrect
-> hdmitx0-pixel-clock fixed-clock node is removed.
-> 
-> Co-developed-by: Dominique Belhachemi <db@domibel.de>
-> Signed-off-by: Dominique Belhachemi <db@domibel.de>
-> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
-> ---
->  arch/riscv/boot/dts/starfive/jh7110-common.dtsi | 119 +++++++++++++++++++++++-
->  arch/riscv/boot/dts/starfive/jh7110.dtsi        |  87 +++++++++++++++--
->  2 files changed, 196 insertions(+), 10 deletions(-)
-> 
+mmc: sdhci-cadence: refactor driver structure for V6 controller support
 
-[snip]
+This commit refactors the sdhci-cadence driver in preparation for V6
+controller support. It separates PHY parameter handling into a dedicated
+sdhci_cdns4_phy structure and introduces a new probe function. Explicit
+driver data is now required for compatible entries.
 
->  
-> +&dc8200 {
-> +	status = "okay";
+> diff --git a/drivers/mmc/host/sdhci-cadence.c b/drivers/mmc/host/sdhci-ca=
+dence.c
+> --- a/drivers/mmc/host/sdhci-cadence.c
+> +++ b/drivers/mmc/host/sdhci-cadence.c
+
+[ ... ]
+
+> @@ -539,6 +544,24 @@ static void sdhci_cdns_mmc_hw_reset(struct mmc_host =
+*mmc)
+>  	usleep_range(300, 1000);
+>  }
+> =20
+> +static int sdhci_cdns4_phy_probe(struct platform_device *pdev, struct sd=
+hci_cdns_priv *priv)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct sdhci_cdns4_phy *phy;
+> +	unsigned int nr_phy_params;
 > +
-> +	ports {
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
+> +	nr_phy_params =3D sdhci_cdns4_phy_param_count(dev->of_node);
+> +	phy =3D devm_kzalloc(dev, struct_size(phy, phy_params, nr_phy_params), =
+GFP_KERNEL);
+> +	if (!phy)
+> +		return -ENOMEM;
 > +
-> +		dpu_port0: port@0 {
-> +			reg = <0>;
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +
-> +			dpu_out_dpi0: endpoint@0 {
-> +				reg = <0>;
-> +				remote-endpoint = <&hdmi_in>;
-> +			};
-> +		};
-> +
-> +		dpu_port1: port@1 {
-> +			reg = <1>;
-> +		};
-> +	};
-> +};
-> +
->  &dvp_clk {
->  	clock-frequency = <74250000>;
->  };
-> @@ -99,8 +153,31 @@ &gmac1_rmii_refin {
->  	clock-frequency = <50000000>;
->  };
->  
-> -&hdmitx0_pixelclk {
-> -	clock-frequency = <297000000>;
-> +&hdmi_controller {
-> +	status = "okay";
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&hdmi_pins>;
-> +
-> +	ports {
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
-> +		port@0 {
-> +			reg = <0>;
-> +
-> +			hdmi_in: endpoint {
-> +				remote-endpoint = <&dpu_out_dpi0>;
-> +			};
-> +		};
-> +
-> +		hdmi_out_port: port@1 {
-> +			reg = <1>;
+> +	phy->nr_phy_params =3D nr_phy_params;
+> +	sdhci_cdns4_phy_param_parse(dev->of_node, phy);
 
-missing newline here
+[Severity: Critical]
+This is a pre-existing issue, but does this allocation and double-pass
+parsing sequence open a time-of-check to time-of-use window?
 
-> +			hdmi_out_con: endpoint {
-> +				remote-endpoint = <&hdmi_con_in>;
-> +			};
+If a device tree overlay is applied concurrently during driver probe
+(between the count and the parse calls), sdhci_cdns4_phy_param_parse()
+could find more properties than were initially allocated.
+
+Looking at sdhci_cdns4_phy_param_parse(), the pointer p is incremented
+without bounds checking against the allocated size:
+
+static void sdhci_cdns4_phy_param_parse(...)
+{
+        ...
+        ret =3D of_property_read_u32(np, sdhci_cdns4_phy_cfgs[i].property, =
+&val);
+        if (!ret) {
+                p->addr =3D sdhci_cdns4_phy_cfgs[i].addr;
+                p->data =3D val;
+                p++;
+        }
+        ...
+}
+
+Could this lead to a heap buffer overflow overwriting adjacent memory if
+the property list grows between sdhci_cdns4_phy_param_count() and
+sdhci_cdns4_phy_param_parse()?
+
+> +	priv->phy =3D phy;
 > +
+> +	return sdhci_cdns4_phy_init(priv);
+> +}
 
-one newline to much here
-
-> +		};
-> +	};
->  };
->  
-
-Kind regards,
-Maud
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260829184252.2764=
+4-1-tanmay.kathpalia@altera.com?part=3D6
