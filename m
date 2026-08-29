@@ -1,61 +1,63 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA1C13515EC
-	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 05:25:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8660234DCC7
+	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 05:25:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787981158; cv=none; b=Y6lrWXmp4r+HszlBudeAPs+ROx89UPzgTucL0Js/oqj2f4Zl7w9I2Bkxumx7vM6X5V3tbM4R00R4fy613Tq/JNEDpivocUIp/Y+pTMT8hoDD6vndicEhLin9k1qTWzjMuxP9ojoOA3pkO85CdJFqsy1ccvmCpTBxEzTs/ZI6rCM=
+	t=1787981161; cv=none; b=FfEZ3A+NHKQiaenlxp7xfjIsypd7vReCS9xGKCdUY5yLu3UGxG8BJFkaTQNOnawXXR9+p+wUdIA2D3hkVaU2EzCNVztY6GWpicpAWQW/WRbmKOcnwRB+PdzlmRUpBFsFQ+XmAE+fDuPNIF4HVgpeasNgSUHfAu9LW5s10KdbzIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787981158; c=relaxed/simple;
-	bh=9hOIzUfjjBmeboBlxFMJis/Y5G8h1cBRqrNJQC3CHKE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SD2KNiMMtrLFJAJpE3IOcU1Jezrsds8MlqBcX0wFY24NLzSEE4kGr0yE2IWN/8340KKwwK5UQ+faPvsoPMUwHqiHBxWv088wZJ80KxAcvjNsAyCsctxQ+VNvo5H3pG6Avs+912RC1ejjpOzfLS1Crwhz04cTspgRcn+u2DBCtog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=UuOS3iFx; arc=none smtp.client-ip=209.85.218.53
+	s=arc-20240116; t=1787981161; c=relaxed/simple;
+	bh=6smDZg6FX3ydlxDcUe1XoFlk/nAtSbiRQRH7DWbaBw0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VXphwm4YStloqNkKbdBYz5vuJdDIiL4oAWtCEHCv/5ec+0F1w4D4saL4fpqpbWHBq+MYFBOX3YE96iRJ6GV3/0/31gGlyLX8ZoeEE2sod25FCLnZNwUiJXN2u1N7pXeUnGngwgS68fmZZMzA2GtVsWkHTWkyaRWCww6NsFJwxRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=ehErYBPh; arc=none smtp.client-ip=209.85.218.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="UuOS3iFx"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c253425b253so282651366b.1
-        for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 22:25:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="ehErYBPh"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c1c52d920b8so209351466b.2
+        for <devicetree@vger.kernel.org>; Fri, 28 Aug 2026 22:25:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1787981153; x=1788585953; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uJSrXCFowaVDIrPldYmnI+mOM9nXJmwd9fnuaat6Tb4=;
-        b=UuOS3iFxHgl08geV3TPieKkbTNQkdiXiVE5cDVE8YjtZOTgjO/FtrXQ2KQEgOqzjFt
-         iO3CRmHlYyoJaKGbo7uboyzFy2zAiQCuIdKJdk29XbR3qrlMWI2OwpLvtD90VY6sZt/X
-         fxw7qISdq3+BCzGWEbncw7QMhqlhpoiTQMWcxdOS6WVIGwuTSJd0wT2f+/u/W4poWKRQ
-         YEVGsL1D1eIkIk/vznhaoHdJPsngVTME+YFK4vvlNvB9v3tKwslXw0aOzgm449gU5Fh8
-         ogIyfkWmXsTSXgPqpPJwbim6eAWw2eZEdsrqXlmkMuTsmMNtmpFYX3JtlPLMYFHWeZVY
-         xn+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787981153; x=1788585953;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=lex.la; s=google; t=1787981155; x=1788585955; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=uJSrXCFowaVDIrPldYmnI+mOM9nXJmwd9fnuaat6Tb4=;
-        b=XR4YnWDzu231Sh0yfX4rDj6N08k9XtwSKFohBm0/wudIvnMPd6C9fYl9FNF1VkOAmp
-         2FviQBHWSXBV7kJM3sQG3ovo4QWJQfguyr1DEyT8XPF5tQIO1+zUccnr6IdLfj37f6JO
-         rz2XJhZEjYM0tssyJsobRYSGTXEWxo4SA2xmSNZxhpg7K8eNdQKmSS/Ng4DtfxSkxmph
-         hLeJM8vNr88Mc3bK2VGNb14/xRK/5kE/Zevqulfiq7mbluaMksQPufBenmJdkMLmsBLc
-         2DB6yIkLHQyXMjjbHvsS2MxMp0XPeQ9AdVc8IpDMumATTV2kO2Dl2ZjLYWHbuKIM6Elv
-         XPVg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr5KNJe50ItV83XPYghVCsmhE+3zfVbq9c2G6oRZR9UdggPbEHjtXJSIsi9KLUH7M2B9vORMKmANYoB@vger.kernel.org
-X-Gm-Message-State: AFuF++kSjJ8snaX/b1y/oFc342qxCpJczSi/MEkkzZ4cwSDy8rrJd+GV
-	2e/bJo81pOmLysiYrFN5r9UFRJ6CPG7SjYRz1ztTjK6dQP046QCZvz4kvYOe53o0vNI=
-X-Gm-Gg: AR+sD12vlWUVS/kOlasCcXNuoaBBqOSHZgfGpST14YnoLFWioKyXoyErgAN9Cc/fx/x
-	IIvXoehxTQxS0QbADOrSTMTunG3bYDo8xNhBytaeqVf6qwtxOenF4jFnMTzrrdACeRKFoTpThJe
-	h+82TgylFgtJvbhbCY+J7+fCA1eGt5tWNSKU76uM0AAYDaZ1j1rf8/tUQNlzg4mUZTdWmSmh/dm
-	WYmz4+8ckhUV4SnwbIBgVg72BcRoWZBOXXfZ+Jafq7thFlZXsPlOontiXYOG8E2QZnUCKJxNU4c
-	Ff+Kim8JU3VYG9YdhXNj04wBw68hEocJig1URVgVsHCDhvJYdNXJ9opisAuAtLlm73rqxsLhoqY
-	y4J4UdBsT6hbgJ/ojTlclDqtAHVZgGj8r0uAPER3tPEDUIwUZILlPpKZoQV05Z3tDPbpXUEpXPs
-	KgpixlewYQ1osHgo89pZ1cfgO4GTzd7s9D66joRSnK/Q==
-X-Received: by 2002:a17:906:fe04:b0:c24:c24f:e176 with SMTP id a640c23a62f3a-c25571576e4mr790014466b.15.1787981153008;
-        Fri, 28 Aug 2026 22:25:53 -0700 (PDT)
+        bh=G3HUI19LAi4NPu5wR+/Bmyr8Ia2vgCBzo9Z3ziBwtkg=;
+        b=ehErYBPh/TNr/8vuROvsNKoZWiO8vlljLdNuSW/jHczAgqsKWlAr7K5DvV22orT/nY
+         74kri//oT3NRijcDqmvxDIezOcxmLYmg8xWP9I1EUcjmQ3VXGb2qqWXyL1VHtxR0EPkG
+         g0NiOhbUTV2mmgx451GVmVFcmjuThKHsbwOP7a4PcoXVAeeLlFoAksifx7NiNrglS9Vz
+         5UJ5q65Em2Hqb3rTNPMyLqyCW9IuOpAnDzMXWvp6gnUE451zjMw4ic24CJYkwF5WgE3n
+         Rg8OuPrrK2IlAZfUo/+V9LWcq5k621QscWMsQZp2T1EzJnmHo1+SeQ57/u8eTwkTHMn/
+         nZgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787981155; x=1788585955;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=G3HUI19LAi4NPu5wR+/Bmyr8Ia2vgCBzo9Z3ziBwtkg=;
+        b=PNHEI+qe7/aM2dK5DkyG6MrFFjOF7644V1Y3AdzKFBPAYyZhlfGuRyyyQtdV/0xibC
+         /uvPuHOaG0X+0Q0IRoUOIn7QEu/YUk4pU6c1gavGwSjsPdUMsVPwgtmOs6k7fPqfyN70
+         40nf/h1WtSabbK4QwQmICn1D2cT5u0hhgzDls5GKtN6PWvlVsTu0oAfR1tZE4bb0wbws
+         NiMxP283qARDy76neBH2duPUBe2WwyYMjplhk8keXFgnpiX25t1GfPfpNNUz+TXx74RD
+         5ZkbACr5QC+hlWzqFd9zHA29xAsL7nlm7aEgOgAUri9fsnpmcX4xhv1c+XLSshnB8zEe
+         dNGQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpTQZ7WZOeFG2Mbw5kXfMptND9O6I6eeKTE6LWZ08mpPXklNlumxmwlHvOaENG10/ATPRWK9a+Nu6AN@vger.kernel.org
+X-Gm-Message-State: AFuF++keZnE+sJCoheGzgPu8f/G6kuImCXQB9GO/+uo0WzEH/VaBFTb5
+	J+rNR4bS2F+2jZ+m+ghTpj72Vrv8+wolko0h5QDYUPZoHx5PydJtyQp5m4RKTVMH+F8=
+X-Gm-Gg: AYBFou37yKmczfUScbaJgOnO96pEHIQr59KsQdq7vhMNK6t4zBxR03bI3IR4leaxncU
+	Je7fHz5kdSpmzoaJy2/ZkAF3KSpxmsD9kw+ZIT02gWROh8dasXdET6ROUnykNSMrRJV6OrwEZJU
+	Jcnl5+ObyJjmTMVhXnXStkrXD21TMn6Y7TlF3vjxWFl0ticGvo2F1Ossj5jmQblIUIi4iH1yZSh
+	4lPGPzO8kBPFv3gkwh2r1/vW0SBNBAzn5yCGDuCT2/qQoHyVZeNDLLixO+aXNntLW/uoyvlb4PL
+	QdIUQD4Kwkrsck05gfHBSv+hwKNPM5eDS/A8Y/Flv1Ojz0LYxpZytOMQ30fy3BWt4voRmtlq542
+	+MnJLqBciSsy/baLPvXPhPLqw9bdVNIvd83wycM7YzymIirVkB45UxsfgweysRGw+Mw4RuxGkvw
+	EQCGdPJWV97ubP4II79Evvu09gQkKFjA0cgH0fBDJCkA==
+X-Received: by 2002:a17:906:c145:b0:c24:bf0b:6b62 with SMTP id a640c23a62f3a-c2556baeae6mr819278466b.4.1787981155025;
+        Fri, 28 Aug 2026 22:25:55 -0700 (PDT)
 Received: from remote-01 ([45.85.105.214])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255ee75a36sm163750666b.28.2026.08.28.22.25.50
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255ee75a36sm163750666b.28.2026.08.28.22.25.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 22:25:52 -0700 (PDT)
+        Fri, 28 Aug 2026 22:25:54 -0700 (PDT)
 From: Aleksei Sviridkin <f@lex.la>
 To: netdev@vger.kernel.org
 Cc: andrew@lunn.ch,
@@ -71,10 +73,12 @@ Cc: andrew@lunn.ch,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Aleksei Sviridkin <f@lex.la>
-Subject: [RFC PATCH net-next 0/9] net: survive a PHY whose firmware arrives after the MAC probes
-Date: Sat, 29 Aug 2026 05:25:37 +0000
-Message-ID: <20260829052546.1152446-1-f@lex.la>
+Subject: [RFC PATCH net-next 1/9] dt-bindings: net: add Airoha EN8811H PHY MCU
+Date: Sat, 29 Aug 2026 05:25:38 +0000
+Message-ID: <20260829052546.1152446-2-f@lex.la>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260829052546.1152446-1-f@lex.la>
+References: <20260829052546.1152446-1-f@lex.la>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -83,107 +87,119 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Airoha EN8811H answers its PHY ID from power-on, but it is an MD32
-microcontroller until the host loads firmware into its volatile RAM,
-and on systems that keep the firmware files in a filesystem those
-files become readable long after the MDIO bus was scanned. Today the
-DSA port that names such a PHY is dropped at switch probe and stays
-dead for the whole uptime.
+The EN8811H answers its PHY ID from power-on, but a link is only
+possible once its MD32 MCU runs firmware that the host loads over
+MDIO into volatile RAM. On systems that keep the firmware files in
+a filesystem, the files arrive long after the MDIO bus was scanned,
+and the PHY node alone cannot express that gap.
 
-This follows the direction Andrew sketched in [1]: describe the chip
-as an MDIO device that owns the download and the reset line, publish
-the PHY on a child bus only once the firmware runs, and teach phylink
-to wait for a PHY that is expected to probe late.
+Describe the MCU as an MDIO device of its own, with the PHY node on
+a child bus underneath it. The device downloads the firmware when
+the files appear, or adopts firmware the bootloader left running,
+and registers the child bus only then, so the PHY never becomes
+visible before the chip can serve it.
 
-Patches 1-2 add the bindings. Patches 3-5 rework the download into a
-library helper typed on a bus and address, shared per [2]: the PHY
-driver keeps its behavior through wrappers, and the helper skips the
-download when the MD32 already runs firmware - which is what lets the
-MDIO device and the PHY driver coexist, whichever runs first. Patch 6
-adds the MDIO device driver, patch 7 the pass-through bus, patches
-8-9 the phylink half. Patches 8-9 alone carry a board whose chip
-answers its ID before firmware: the MDIO layer buys the general case
-(chips mute before firmware, quad-PHY packages, reset ownership),
-not this board's necessity.
+The reset line belongs to this node, not to the PHY node: firmware
+lives in volatile RAM, so reset may be asserted only while the MCU
+is not executing it. On a PHY node the line would be pulsed by
+every phy_detach() and wipe the running firmware.
 
-Tested on an MT7981B board (MT7531 switch, EN8811H on a 2500base-x
-port), warm boots only - I have no remote way to cut power:
-
- - download path: U-Boot leaves the MD32 in its bootloader on every
-   reboot here, so each boot exercises the MCU driver's pulse-reset
-   and download; ~144KB lands in about half a second and the version
-   register reads back
- - adopt path: rebinding the MDIO device against a running MD32 takes
-   the no-reset branch and registers the bus in ~70ms
- - the PHY driver, probing on the child bus right after, finds the
-   firmware running and skips its own download through the same check
- - phylink attaches the PHY ~0.7s later with its interrupt from DT
-   (the poll-tick latency tax below), the port reaches forwarding,
-   and the interrupt line counts link events across forced
-   renegotiations
- - an ifdown/ifup cycle disconnects and reconnects cleanly
-
-The polling costs latency: the attach lands anywhere in
-[0, poll interval) after the PHY becomes ready. Three consecutive
-boots measured attach timestamps within 47us of each other, which is
-the tick phase showing through; mean tax ~500ms, worst case a full
-second. The exact event exists - BUS_NOTIFY_BOUND_DRIVER fires at
-probe completion - but mdio_bus_type is internal to phylib, so an
-event-driven follow-up means phylib owning the notifier behind a
-small API. Polling first was the plan agreed in [1]. Is that API a
-direction you want?
-
-Two more questions. The property is "slow-to-probe" on the port node,
-documented in ethernet-controller.yaml; better-scoped names welcome.
-And the MCU driver cycles reset only when the MD32 sits in its
-bootloader, since firmware lives in volatile RAM - so on a board
-without a reset line, running older firmware is adopted as-is and a
-newer file on disk takes effect only after a cold start. If that
-trade reads wrong, the alternative is pulsing reset on every probe
-and always downloading.
-
-Known and left out: the retry never gives up, because the errno out
-of a failed bringup cannot distinguish "still filling in link modes"
-from "genuinely incompatible" - the backoff exists since a failed
-bringup ends in phy_detach(), which pulses a PHY-node reset line.
-Unbinding the MDIO device at runtime while the port is up removes
-the child bus under an attached PHY and a later phy_stop() oopses;
-that path predates this series (any mdio-mux unbind does the same)
-and wants a phy-core fix rather than a workaround here.
-
-This is based on net-next at 91ec20351349. It textually overlaps in
-phylink_disconnect_phy() with the pending fix series [3]; a non-RFC
-respin will rebase over whichever lands first.
-
-[1] https://lore.kernel.org/netdev/a230d199-5d4d-4637-aff3-e725a37e1da1@lunn.ch/
-[2] https://lore.kernel.org/netdev/29f973e4-980d-4198-bbec-452f7421d416@lunn.ch/
-[3] https://lore.kernel.org/netdev/20260827211638.63395-1-f@lex.la/
-
-Aleksei Sviridkin (9):
-  dt-bindings: net: add Airoha EN8811H PHY MCU
-  dt-bindings: net: ethernet-controller: add slow-to-probe
-  net: phy: air: type the buckpbus core on the bus and address
-  net: phy: air: move the EN8811H firmware download into the library
-  net: phy: air: skip the download when the MD32 is already running
-  net: mdio: add Airoha EN8811H MDIO device driver
-  net: mdio: en8811h: add the nested pass-through bus
-  net: phylink: wait for PHYs that are known to probe late
-  net: phylink: report no link modes while a late PHY is missing
-
- .../bindings/net/airoha,en8811h-mcu.yaml      |  83 ++++
- .../bindings/net/ethernet-controller.yaml     |   9 +
- MAINTAINERS                                   |   7 +
- drivers/net/mdio/Kconfig                      |  11 +
- drivers/net/mdio/Makefile                     |   1 +
- drivers/net/mdio/mdio-airoha-en8811h.c        | 300 ++++++++++++++
- drivers/net/phy/air_en8811h.c                 | 148 +------
- drivers/net/phy/air_phy_lib.c                 | 381 ++++++++++++++++--
- drivers/net/phy/air_phy_lib.h                 |  27 ++
- drivers/net/phy/phylink.c                     | 225 ++++++++++-
- 10 files changed, 1011 insertions(+), 181 deletions(-)
+Assisted-by: LLM
+Signed-off-by: Aleksei Sviridkin <f@lex.la>
+---
+ .../bindings/net/airoha,en8811h-mcu.yaml      | 83 +++++++++++++++++++
+ 1 file changed, 83 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/net/airoha,en8811h-mcu.yaml
- create mode 100644 drivers/net/mdio/mdio-airoha-en8811h.c
 
+diff --git a/Documentation/devicetree/bindings/net/airoha,en8811h-mcu.yaml b/Documentation/devicetree/bindings/net/airoha,en8811h-mcu.yaml
+new file mode 100644
+index 000000000000..b51a14a3b7b5
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/airoha,en8811h-mcu.yaml
+@@ -0,0 +1,83 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/airoha,en8811h-mcu.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Airoha EN8811H PHY MCU
++
++maintainers:
++  - Aleksei Sviridkin <f@lex.la>
++
++description: |
++  The Airoha EN8811H 2.5G PHY is driven by an MD32 MCU that executes
++  firmware loaded over MDIO into volatile RAM. Until that firmware runs,
++  the chip answers its PHY ID but cannot bring up a link, and the
++  firmware files may live on a filesystem that is not yet mounted when
++  the MDIO bus is scanned.
++
++  This node describes the MCU as an MDIO device in its own right. The
++  driver downloads the firmware once the files become available (or
++  detects firmware already left running by the bootloader) and only
++  then registers the child MDIO bus, so the PHY node below never
++  becomes visible before the chip is able to serve it.
++
++  The reset line is owned by this node rather than by the PHY node:
++  the MD32 keeps its firmware only in volatile RAM, so the reset may
++  be asserted only while the MCU is not executing firmware. A PHY-node
++  reset would be pulsed by phy_detach() on every unbind and wipe the
++  running firmware.
++
++properties:
++  compatible:
++    const: airoha,en8811h-mcu
++
++  reg:
++    maxItems: 1
++
++  reset-gpios:
++    maxItems: 1
++
++  reset-assert-us: true
++
++  reset-deassert-us: true
++
++  mdio:
++    $ref: mdio.yaml#
++    unevaluatedProperties: false
++    description:
++      The child bus holding the PHY itself, at the same address the
++      chip answers on the parent bus.
++
++required:
++  - compatible
++  - reg
++  - mdio
++
++additionalProperties: false
++
++examples:
++  - |
++    mdio {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        ethernet-phy-mcu@d {
++            compatible = "airoha,en8811h-mcu";
++            reg = <0xd>;
++            reset-gpios = <&pio 14 1>;
++            reset-assert-us = <10000>;
++            reset-deassert-us = <20000>;
++
++            mdio {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                ethernet-phy@d {
++                    compatible = "ethernet-phy-id03a2.a411";
++                    reg = <0xd>;
++                    interrupts-extended = <&pio 15 8>;
++                };
++            };
++        };
++    };
 -- 
 2.53.0
 
