@@ -1,171 +1,141 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E54613BCD3B
-	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 20:35:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3FAA3451A9
+	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 20:37:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788035730; cv=none; b=BALyjmSeNsAcs4tdjMw25wYIsCHSPjpVogchNN4Avn2e2HLEZmJwLwleGn64BStv2Kxoqcqx9C276zlHpTTKbzZrqx/Ya4s0wN0gFUgfJWWr5zchsLRTSszS6q4P22EfpgmxTWNOSTrJmF75TRrDhohu+eySUHHQVAl56ufwvaE=
+	t=1788035844; cv=none; b=umrIYcgotPHLMQ1/VGEmDLFstAB0QkS6+pbWnyfmDfTZ5iT5aGpjQDty8WZjWwc3ojFPNxjqbYnk9fxpuunfFTp7aWviLW4SmPZZruO9J0QYyp365tI4eQu7tmpzSHJXeFBdsUNxmFWuEaGhzeb8jNp1fe6o8CjlqsdRxY0TXrk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788035730; c=relaxed/simple;
-	bh=PYYWrSq6umAqqljgngamChzu4Ycr5pm91IxQTMqpDIQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mFNRu/UzAX23jvfI8EPct2AgCgE2tWxfwDdUTR4Q8Ye+nUchobcos838BedCMux55g4XSoHhfoGQBLrCJA5gPni95fc6WrqIDV4atqI26uLzE96qnNBhKJbmEeOUZ4cxWyU1IkRYuxfCWyzFX7LIs9FAYdKRDLmUj+/YlEPTRng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=HDqj+Bcf; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=TW++Hb4n; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1788035844; c=relaxed/simple;
+	bh=V2EzM9GSZHPxKG42rhvLV4dZm/L2p9HfxEU+IhfD584=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DYAZVsuNMcyE4w9SB48uq/8Ap0W2jjkCSCjXD+t7dFeT36/+qDNx+K4D+kcdSyqtPR2UKWFIeztJlWAUjdAqEarL8nAFZtHbKukqDpgLf/JszOtVCypfxaEve/fjCw1aPH6NsUFUDodDDIgcNyFtW9dRDHoOrtNkkw8zJaoRbQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JCeVsTZr; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="HDqj+Bcf";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="TW++Hb4n"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=From:To:Subject:Date:Message-ID; t=1788035714; bh=D9gR527E+crHrw708MCpBEa
-	Z4Y72U3o4s32o2HAIkWA=; b=HDqj+Bcf+gxvZGfa/NKGolduwSX8HUos7+EQ/JOy9gaY40F20h
-	EnKFYgfeGWqqvdcuhtxF/1Qx+383VhffOSLURYqGdgIXTDdk3hI3GKfswC59HO8Kapv08uCv8CJ
-	4CTkccCWQfjEJ1kxn2YyHXuuzi9Mf2akzWNqZCl0j9BoNNfzMjXCmsWSbsdhJp0Q7GpD21bZ39x
-	cqbglG2Pnx+3PH0sa9LUnB/X8kt8CmuHTLyD+3DwmU0nAf68qXIwmWI2p9aqZXnZPJ4NzPc14q5
-	0qlHE3tlTqO6gzXzYsas1ICPmrFtS0D5+M4D0TBVEoQONwp5H7YKEQudF6l1YdEXJNw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=From:To:Subject:Date:Message-ID; t=1788035714; bh=D9gR527E+crHrw708MCpBEa
-	Z4Y72U3o4s32o2HAIkWA=; b=TW++Hb4ny+BHSbjlsDX2npsNK2m4ErIaD6NPlVl6MvPpreFEbj
-	sjlD2ivRfvPA0fInUecx5/lbrevgpFvDIhCg==;
-Message-ID: <7a48378b-4a5d-4dfc-8bf9-9187b6ca6a0c@mainlining.org>
-Date: Sat, 29 Aug 2026 23:35:14 +0300
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JCeVsTZr"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-398c1101c1bso278263a91.1
+        for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 13:37:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788035842; x=1788640642; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HZKFaUDOk9+0vR+1B9jj5VFfzdasobPYcBQD01+SUsQ=;
+        b=JCeVsTZrNfX7jxJrOhZeuFWB6/sVC99mGKJINxZMnNlN+rNUXY3IMSxvPY6I7Xf5Fi
+         KDhuBtf907SYaVoxvbE37WuLIxvp84Kt3nXUUb6CQgLcNStoMPMVKTJVwuyC88JieRGW
+         VYmt3fFs28z2JokNu5Jb3vDV80cEbIOn7XEHDcqn9GveJf/8zJqr3SosLdfREg9m/CwM
+         AVsLkyI30za7OJBVgbboqYidPcgWaGjNsTCF772uJ0FR+A1MWwsY8warfyC+03jgddxC
+         AD8HnAxLs0RSxZhqCaehFouezCpo0y4ht5hsknZNnbS1scqqE6Yj1ufqGhwgxitYB43N
+         Wk5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788035842; x=1788640642;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HZKFaUDOk9+0vR+1B9jj5VFfzdasobPYcBQD01+SUsQ=;
+        b=MBOSpeWhuHinBtTi4NDKPjdKVKR4MyliA75+7f7ttFjfsTtZNn420ANJy9AjsXAms+
+         iAINWubyQsQSeV4igmC1pY7jMlrjokUbZ0CZ9VydLpL2f8u+PvfzxXJk+o5l0b66E9lP
+         a8DmFqEBQXaZVR0NcOy/ZSfiSiAi9bBFbXps6GtyzWg5R+bPynmjChGJUwrNlQS0Nuny
+         0P26B/k3qBas8GCjRWx/kpuh9CgkHjDW+Va3o1gXMlaZcsOpGHM9HcmMVozFytcZ9mni
+         eVYVTj/nxUU2gRtUZgLWbLfsEC91lhgGFouayA0J/hPaByCmOvs0cRO7SGnAoKeAVjt6
+         nrsA==
+X-Gm-Message-State: AFuF++mpDM77UVTpF8aNNo96f7kKuqBXiLgE2z3zelZsjeA4DEbwwxpR
+	rLECcp4siLXQXQ6sYxaJUlVHYrSA3Xg4Vhrf4eOSsxHu7rFufTQJlGc4gESXwQ==
+X-Gm-Gg: AYBFou3LVMyQzhTpr8+lVPLGnBZ0XFzUeGiq5mCR5b1IBJ+L76OYK3m/ybzvnPL0pEq
+	BCVCDGfkDR3ErYnM9FY7pQdBpnvShrQO7dkqX0YROp8US9rDlJeoGW1Va7+CB71826T+ktfzXgd
+	G6rFj0/odL1SQMXKHeHJyykpRn3Yvgmv1cLp6EP+m5tTBCCqUVrqYvcqIkXGg0pfHsBATsNM0YF
+	vruc1nYQ2PLa34trFBpe337cfVGH2DMY7BuCcxYNZOg1OwmM2r1CQYbVWnRt9BIVkQFgfjfdcoR
+	MxG57rFIH/olSIYlqbhmy92QyV2nnKIhL9ev3LEBWAx02yR3sMgc5w0WrwxsTvLlUjFOJlqHV8J
+	p9TMhSZy349r/Pbef5EJNBEXxE1dSeHiNkIDmXWNiJdF/LZTBfhjCEvCblWprSR1p6FG2FI298P
+	B2qX0sesEDmS+ndoFe3vu/5Dqss5LCZsGQO/pipftu8SMJ3iH/GUkNM2zrhhxb1zZz0hrnIHvsn
+	GmlbTi544o4WFv9/5I3qVCgXenSoa8L/stkiMStY8P+RDwncai7evaaYqJbqhI0G7znIO8P+pLZ
+	ZnHI6q+RXyFEVV/S1PKc/54Xd/322KEQF7y7QZpy6fNTHSO6
+X-Received: by 2002:a17:90b:1a8e:b0:396:4c63:7193 with SMTP id 98e67ed59e1d1-396d0fe45damr27054160a91.11.1788035842198;
+        Sat, 29 Aug 2026 13:37:22 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-398a2f5187fsm1771407a91.1.2026.08.29.13.37.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 29 Aug 2026 13:37:21 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: devicetree@vger.kernel.org
+Cc: Andrew Lunn <andrew@lunn.ch>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dennis Gilmore <dennis@ausil.us>,
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Marvell Kirkwood and Armada 370, 375, 38x,...),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] ARM: dts: helios4: fix spi1 location
+Date: Sat, 29 Aug 2026 13:37:20 -0700
+Message-ID: <20260829203720.44633-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 2/2] drivers: gpu: drm: panel: Add BOE NT51021 driver
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, conor+dt@kernel.org
-References: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
- <20260829-qcom-novatek-nt51021-panels-v1-2-cc1ca61bd261@mainlining.org>
- <20260829201932.1BFEB1F000E9@smtp.kernel.org>
-Content-Language: ru-RU, en-US
-From: Nickolay Goppen <setotau@mainlining.org>
-In-Reply-To: <20260829201932.1BFEB1F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+This spi node is specified in armada-38x.dtsi with proper compatible
+strings whereas they are not present here. Instead of copy and pasting
+various lines, just reference the node in the dtsi.
 
-29.08.2026 23:19, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [Medium] The panel initialization sequence lacks the DCS 'Set Display On' (0x29) command.
-> - [Medium] Missing reset assertion and stabilization delay during panel preparation.
-> --
->
-> commit 864f3dccc86bc8a97845ebafd73a7df32e9d6b9e
-> Author: Nickolay Goppen <setotau@mainlining.org>
->
-> drivers: gpu: drm: panel: Add BOE NT51021 driver
->
-> This commit adds support for the BOE NT51021-based 8-inch and 10-inch DSI
-> video mode panels used in Xiaomi Mi Pad 4 tablets. It includes panel
-> initialization sequences and content-adaptive brightness control.
->
->> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt51021.c b/drivers/gpu/drm/panel/panel-novatek-nt51021.c
->> new file mode 100644
->> --- /dev/null
->> +++ b/drivers/gpu/drm/panel/panel-novatek-nt51021.c
-> [ ... ]
->> +static void nt51021_boe_reset(struct boe_nt51021_desc *ctx)
->> +{
->> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
->> +	usleep_range(10000, 11000);
->> +}
-> [Severity: Medium]
-> Does the panel require an explicit reset assertion pulse before de-asserting
-> the reset line? The current code only de-asserts the reset line here. Without
-> an explicit assertion pulse and delay prior to de-assertion, the hardware
-> might not be guaranteed a valid minimum reset pulse width once power is stable.
->
-> [ ... ]
+This dts seems to predate the move of spi from internal-regs to the soc
+node so this moves it in line there.
 
-Downstream reset sequence is just a deassertion of a reset line [1].
+Allows proper probing of SPI at runtime.
 
-[1] 
-https://github.com/xiaomi-sdm660/android_kernel_xiaomi_sdm660/blob/11-EAS/arch/arm/boot/dts/qcom/xiaomi/mi/clover/dsi-panel-nt51021-boe-10wu-video.dtsi#L331
+Remove the microsom_spi1_cs_pins pinctrl group and its reference in
+&spi1. The group only muxed mpp59 to the "spi1" function, but that
+pin (SPI1 cs0) is already covered by spi1_pins, which selects the
+same function for mpp56-59 in armada-38x.dtsi.
 
->> +static int nt51021_boe_8_init(struct boe_nt51021_desc *ctx)
->> +{
->> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-> [ ... ]
->> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
->> +	mipi_dsi_usleep_range(&dsi_ctx, 5000, 6000);
->> +	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0x00);
->> +	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
->> +
->> +	nt51021_cabc_on(&dsi_ctx);
->> +
->> +	return dsi_ctx.accum_err;
->> +}
-> [Severity: Medium]
-> Does this initialization sequence miss a DCS "Set Display On" command?
-> The panel is awakened from sleep mode via mipi_dsi_dcs_exit_sleep_mode_multi(),
-> but it is never explicitly instructed to turn on the display output here in
-> nt51021_boe_8_init(). This could cause the panel to remain blank on some DSI
-> hosts.
->
-> [ ... ]
->> +static int nt51021_boe_10wu_init(struct boe_nt51021_desc *ctx)
->> +{
->> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-> [ ... ]
->> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
->> +	mipi_dsi_usleep_range(&dsi_ctx, 5000, 6000);
->> +	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0x00);
->> +	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
->> +
->> +	nt51021_cabc_on(&dsi_ctx);
->> +	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
->> +
->> +	return dsi_ctx.accum_err;
->> +}
-> [Severity: Medium]
-> Similarly to nt51021_boe_8_init(), the 10-inch variant initialization path
-> also appears to omit the mipi_dsi_dcs_set_display_on_multi() command.
->
->> +static int nt51021_boe_off(struct boe_nt51021_desc *ctx)
->> +{
->> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
->> +
->> +	nt51021_cabc_off(&dsi_ctx);
->> +
->> +	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0xa5);
->> +	mipi_dsi_msleep(&dsi_ctx, 20);
->> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-> [Severity: Medium]
-> The power-off sequence explicitly turns the display off using
-> mipi_dsi_dcs_set_display_off_multi(). Should there be a matching turn-on
-> command in the initialization sequences to ensure the display activates
-> correctly across power cycles?
->
-> [ ... ]
->> +static int nt51021_boe_prepare(struct drm_panel *panel)
->> +{
->> +	struct boe_nt51021_desc *ctx = to_boe_panel(panel);
->> +	struct device *dev = &ctx->dsi->dev;
->> +	int ret;
->> +
->> +	ret = regulator_bulk_enable(ARRAY_SIZE(nt51021_boe_supplies), ctx->supplies);
->> +	if (ret < 0) {
->> +		dev_err(dev, "Failed to enable regulators: %d\n", ret);
->> +		return ret;
->> +	}
->> +	nt51021_boe_reset(ctx);
-> [Severity: Medium]
-> Does the panel require a stabilization delay after enabling the regulators
-> and before de-asserting the reset line? The current code immediately calls
-> nt51021_boe_reset(ctx). Without a delay, the reset logic might execute
-> before the regulators have fully ramped up, potentially leading to unstable
-> hardware initialization.
->
-> [ ... ]
->
+Fixes: ced8025b569e ("ARM: dts: armada388-helios4")
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ .../arm/boot/dts/marvell/armada-388-helios4.dts | 17 ++++++-----------
+ 1 file changed, 6 insertions(+), 11 deletions(-)
+
+diff --git a/arch/arm/boot/dts/marvell/armada-388-helios4.dts b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
+index 9de9a8a4267c..ae03d42f92a0 100644
+--- a/arch/arm/boot/dts/marvell/armada-388-helios4.dts
++++ b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
+@@ -254,13 +254,6 @@ sata3: sata-port@1 {
+ 				};
+ 			};
+ 
+-			spi@10680 {
+-				pinctrl-0 = <&spi1_pins
+-					     &microsom_spi1_cs_pins>;
+-				pinctrl-names = "default";
+-				status = "okay";
+-			};
+-
+ 			sdhci@d8000 {
+ 				bus-width = <4>;
+ 				cd-gpios = <&gpio0 20 GPIO_ACTIVE_LOW>;
+@@ -327,11 +320,13 @@ helios_fan2_pins: helios_fan2_pins {
+ 					marvell,pins = "mpp48", "mpp55";
+ 					marvell,function = "gpio";
+ 				};
+-				microsom_spi1_cs_pins: spi1-cs-pins {
+-					marvell,pins = "mpp59";
+-					marvell,function = "spi1";
+-				};
+ 			};
+ 		};
+ 	};
+ };
++
++&spi1 {
++	pinctrl-0 = <&spi1_pins>;
++	pinctrl-names = "default";
++	status = "okay";
++};
 -- 
-Best regards,
-Nickolay
+2.55.0
 
