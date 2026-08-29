@@ -1,104 +1,91 @@
-Received: from tabos.org (krueger-it.net [145.239.1.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 444FA3264C1;
-	Sat, 29 Aug 2026 05:35:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=145.239.1.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E41624679C
+	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 05:43:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787981705; cv=none; b=Hdke2pdWjvw7ZSRuHBWDkY0Sw//1U+qENgPe4wW8xj9rW+zsx0W36tU1TQkmWJ5dfo1jdI6RK0Nk0xz3BTfFZypy/BfVJXkZB50QieRMUBWmDD3z/GTbgkTFVkiQIfMlapMYz5gxcFF1bfayx1jcGY9K9Zzb2rFANuZaEFeVJWQ=
+	t=1787982218; cv=none; b=b2NJIv21YsJaa2yj8Tf7WeeoxYZP6x9hO9rJgd2Vt9jsxxc1uebIQK58O3+hqWd+kv0D1SeSsmTPEYvfeiPl+ZCUyGezU61gLishZufU4ZoefOqNpCwY1k1BcTaR+fxaf9Bep1FyJvRjslzBcym0YlAh5d0mt6Mhe/OLtwegPsA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787981705; c=relaxed/simple;
-	bh=Ok9Z+aNEAobzVAXg1AwhXnjlhJo+bqUj8lFemWQXKiU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hNY6UwmUE6HDBRUuXyYoKToTLY3he68jSyZiMDMPlpl6bBI6jEtiPrvdgEXz8VQzyWH8fwn05cfw2QFYAbtzEP/8hQ1X4xPFDOgYTPk6ydAr8l2oghQeRvap9oTZiZ+1+4i1vmIVa2SvzQg5t8yhoenuJl22MjDVQTV6e5Qad/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tabos.org; spf=pass smtp.mailfrom=tabos.org; dkim=pass (2048-bit key) header.d=tabos.org header.i=@tabos.org header.b=Ua7OHnaE; arc=none smtp.client-ip=145.239.1.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tabos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tabos.org
+	s=arc-20240116; t=1787982218; c=relaxed/simple;
+	bh=3U1Zhw99QLhu2DhyZ+LPa91kFuYHChtTbxvue56nO1g=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ZcDzY5p6KBBSxuBJhVWCBplZDl7YFDQzBj1IvYit/SbY6fGBV5WsvDXQID1iNc1MzfHtSMDmVcpPM14EcyisY+H6z2w0j8wERWv1ckix//zEwcIQCdypynybU2AUFqQ549pSvcISQwwPNPUMV2EcEdWaMi2aY82TAyInILL3zlM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TKvc69Ln; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tabos.org header.i=@tabos.org header.b="Ua7OHnaE"
-Received: from c0d1ngstat1on.fritz.box (unknown [94.31.74.100])
-	by dserver.krueger-it.net (Postfix) with ESMTPA id 7585762E1411;
-	Sat, 29 Aug 2026 07:25:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tabos.org;
-	s=default; t=1787981126;
-	bh=UdHZK7Mg/NXZyv5cMjzZSaTyOSP+rFTBfvyCEiYkjos=; h=From:To:Subject;
-	b=Ua7OHnaEET0VJSkICT6AvcTf9lM8sIVI+xPVY9kKsQ6dGfTjGmXDhTdlWu8YyIJsD
-	 0u4oZluheeY+KxcLHWPhx0/4ZuRnJ2IpiSKI0DdtRJuCo4CTZa/vJ5Sb1UUieyEGHP
-	 roeuN9hie9KXl2NVhubvSY1/eYfK5a8zxBEqWt9E8p8WgVorFV/ww9d3BWdlWGh1ZP
-	 QnHEak4+r8uBuLGJt6WYhPIAZlWLNcZZpYMUWI+ah+2XOqpbv5d2/s8SjU+gb2y8WE
-	 QdopLBEnHH7kJ501I/k+GOAt4RrLMXMLSTj7BS6tN9dWoH+D9w//CYc9RQN+6p8JQG
-	 7nN6+380tmNaQ==
-Authentication-Results: dserver.krueger-it.net;
-	spf=pass (sender IP is 94.31.74.100) smtp.mailfrom=jan.brummer@tabos.org smtp.helo=c0d1ngstat1on.fritz.box
-Received-SPF: pass (dserver.krueger-it.net: connection is authenticated)
-From: Jan-Michael Brummer <jan.brummer@tabos.org>
-To: linux-media@vger.kernel.org
-Cc: sakari.ailus@linux.intel.com,
-	mchehab@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	tian.shu.qiu@intel.com,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jan-Michael Brummer <jan.brummer@tabos.org>
-Subject: [PATCH 2/2] media: i2c: ak7375: Do not mark the VCM active before powering it
-Date: Sat, 29 Aug 2026 07:25:14 +0200
-Message-ID: <20260829052514.18178-4-jan.brummer@tabos.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260829052514.18178-1-jan.brummer@tabos.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TKvc69Ln"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E3DB1F000E9;
+	Sat, 29 Aug 2026 05:43:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787982216;
+	bh=jlW5/JVyR2ISddejjftdv1LCq4NqPVLCAkHDlykMljg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TKvc69LnNEYvTtxtCfJeSn7jpOLLplMFMZ0wYv2ippj5fNA7J+E0FJxqUu2ze+Xbr
+	 lka6BY7wtHFY5PQ/YTfEfmcZzzpSv6OCv2HLWjhVcMxSV3g8WA1t7jQnbGAnk6QDMI
+	 wVxPr4/ENueHyYr/ueKVg0NJTNy0bQr+li2sNXDntnRN1nsIhfI1lCCSONwrof4ZB7
+	 f1gPg/09j8XIezzd42ImM3Dhp9BEIIkh33T8H39cMl4t5FT5qUp6TsAOhzDWIQaK4u
+	 TdLNiIghp+1HfzTHL/O7hN9NE1VAE3wVUxlVWZgGV1j/DfGe1h4r/K7y21YC2lNE7G
+	 wfJin/aDEtJFQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] media: dt-bindings: ak7375: Add AK7377
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jan-Michael Brummer" <jan.brummer@tabos.org>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20260829052514.18178-2-jan.brummer@tabos.org>
 References: <20260829052514.18178-1-jan.brummer@tabos.org>
+ <20260829052514.18178-2-jan.brummer@tabos.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 29 Aug 2026 05:43:36 +0000
+Message-Id: <20260829054336.9E3DB1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-probe() calls pm_runtime_set_active() while the regulators are still
-off, so runtime PM believes a powered device is present.  The following
-pm_runtime_idle() runs the suspend path against an unpowered chip, which
-fails its I2C writes and then calls regulator_bulk_disable() on
-regulators that were never enabled - later tripping the enable/disable
-balance check in regulator_bulk_free() on unbind.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Missing driver match for newly added compatible string 'asahi-ka=
+sei,ak7377'.
+--
 
-Mark the device suspended instead and drop the idle call, so the first
-resume happens when something actually uses the VCM.  While at it,
-disable the regulators again when resume fails, which leaked an enable
-count for the same reason.
+commit 9537c3ff68990acd9e078305609fb067fe093ae9
+Author: Jan-Michael Brummer <jan.brummer@tabos.org>
 
-Fixes: 90ee26fb2f50 ("media: ak7375: Add ak7375 lens voice coil driver")
-Signed-off-by: Jan-Michael Brummer <jan.brummer@tabos.org>
----
- drivers/media/i2c/ak7375.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+media: dt-bindings: ak7375: Add AK7377
 
-diff --git a/drivers/media/i2c/ak7375.c b/drivers/media/i2c/ak7375.c
-index 4f311c4..2763bbe 100644
---- a/drivers/media/i2c/ak7375.c
-+++ b/drivers/media/i2c/ak7375.c
-@@ -235,9 +235,12 @@ static int ak7375_probe(struct i2c_client *client)
- 	if (ret < 0)
- 		goto err_cleanup;
- 
--	pm_runtime_set_active(&client->dev);
-+	/*
-+	 * The regulators are off at this point, so the device is suspended,
-+	 * not active.
-+	 */
-+	pm_runtime_set_suspended(&client->dev);
- 	pm_runtime_enable(&client->dev);
--	pm_runtime_idle(&client->dev);
- 
- 	return 0;
- 
-@@ -328,6 +331,8 @@ static int __maybe_unused ak7375_vcm_resume(struct device *dev)
- 			       cdef->mode_active, 1);
- 	if (ret) {
- 		dev_err(dev, "%s I2C failure: %d\n", __func__, ret);
-+		regulator_bulk_disable(ARRAY_SIZE(ak7375_supply_names),
-+				       ak7375_dev->supplies);
- 		return ret;
- 	}
- 
+This commit updates the device tree binding for the AK7375 to include the
+AK7377, which is register compatible and driven by the same driver.
+
+> diff --git a/Documentation/devicetree/bindings/media/i2c/asahi-kasei,ak73=
+75.yaml b/Documentation/devicetree/bindings/media/i2c/asahi-kasei,ak7375.ya=
+ml
+> index fe312cc6a8731..c040757eb80c9 100644
+> --- a/Documentation/devicetree/bindings/media/i2c/asahi-kasei,ak7375.yaml
+> +++ b/Documentation/devicetree/bindings/media/i2c/asahi-kasei,ak7375.yaml
+> @@ -18,6 +18,7 @@ properties:
+>      enum:
+>        - asahi-kasei,ak7345
+>        - asahi-kasei,ak7375
+> +      - asahi-kasei,ak7377
+
+[Severity: Medium]
+Should the driver match table in drivers/media/i2c/ak7375.c also be updated
+to include this new compatible string?
+
+Currently, ak7375_of_table only lists the previous models:
+
+static const struct of_device_id ak7375_of_table[] =3D {
+	{ .compatible =3D "asahi-kasei,ak7345", .data =3D &ak7345_cdef, },
+	{ .compatible =3D "asahi-kasei,ak7375", .data =3D &ak7375_cdef, },
+	{ /* sentinel */ }
+};
+
+Without adding the new string here, won't a device declaring only
+"asahi-kasei,ak7377" fail to probe because the driver lacks a matching
+entry?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260829052514.1817=
+8-2-jan.brummer@tabos.org?part=3D1
