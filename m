@@ -1,145 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail2.ecloud.global (mail2.ecloud.global [135.181.6.248])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF56335091
-	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 18:51:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788029479; cv=none; b=j0mCy3KqZBFdnJeODXQDaQHWtDjSvFTn1XSSuJoVR0BJ30HmzXCA9zHBya6GyivYWp3Fg+1FdxF9ABTtiFOWoLcxo8rGDhXwBeRlQ8zu6btDT+q7jwcFsosIEgl98eqsWBjfNbUEnaXnf6twTQTyzq5S0v/jaly8dyT6YOs97NY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788029479; c=relaxed/simple;
-	bh=xQSZsETnqxadcnNErkkRu4U9oo2/cRsWA15Gm/RidWM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OD8PEl56lB404xDjhJEQi3ekRxUZlZh/PPFpc3kY2r7FfsfJYDAA2R9oTENYwqSh0NXYTxAC3SWlpu+UEnREzqp8yQpPeiP66qQ0i0eCDVvSH4LWsnHh/H4BOXbwOCZTujZewGqFC4xs3r+DrsdhmTOc3KgL7FM+axk5nIK9mAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tr1kzp9M; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF91369990;
+	Sat, 29 Aug 2026 18:53:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=135.181.6.248
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788029586; cv=pass; b=Ba5n8lQy8PXkqyEgDXlVQvoZceCX0PPdaP3rtlkzhNkjCIgZozoJmEUItSQbQOfOUn8dq9Z9wP4pIA2IH8GNIBkXapWr8sx2crbnl5OjOhuR2gh+7MZBqcvgW/3urgNHWVw1QTs1zwkcIhYHftn/skaUa8ANLolsMTq75gN5UHo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788029586; c=relaxed/simple;
+	bh=0S3rarkLgm8hZjcdbYjo6il3n4s7fIzlMMRW75K0Z14=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
+	 In-Reply-To:Content-Type; b=KYHcN/Bks5SSfgnX75kUKEDxZTLOIIjiuNTQODJSa3//FSdhoNnEasHnkI+Kj7l2Kso2VZx0YuG2nad86pa08Rf4vunbSIYsUlMOK9gR38xRQ3xVuORj7kL8rl9c0optMHWSW8wyAkM27k/FWvwIOmvqf+m39BGTHCXIK9QiboU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=murena.io; spf=pass smtp.mailfrom=murena.io; dkim=pass (1024-bit key) header.d=murena.io header.i=@murena.io header.b=kJRJxTyy; arc=pass smtp.client-ip=135.181.6.248
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=murena.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=murena.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tr1kzp9M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D520E1F00A3E;
-	Sat, 29 Aug 2026 18:51:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788029478;
-	bh=mm/8uvkdjIhRWbf7OTh+ofcJuSOQ362LOhw06mtvBcI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Tr1kzp9MasWyqbeItdZ0FJboD5YvSps8F/ut9hH3ZbhPqiGgoh5l5ICOPHpkzSO+f
-	 8JKtOXXalTL3SVk09kv1EPmb9XnxYFW2jbepX32lbUFXNAxZnX+NDqUOPClhellGi0
-	 pKjXD5NcofF+xySkFEs2puCt/Z80/YVsKzjs4/6NwJf2oYoEcYOcJtwiw5Nzve5PDk
-	 H+PziUZNvoiMnPrTzlpSFmNxMpywj7FUEN4wEbkfIVhjOQhZYZwX8KBl/L8zXZxJJg
-	 PolOUCUJ3mobstjDvDP2DrhyE67v6irTFGsAlsijC+Jzlqke2nRDrCKo5ILAtFEXmD
-	 /Eyw+9nd9o7tg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 5/8] mmc: sdhci-cadence: rename SD4HC symbols for
- SD6HC groundwork
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Tanmay Kathpalia" <tanmay.kathpalia@altera.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260829184252.27644-6-tanmay.kathpalia@altera.com>
-References: <20260829184252.27644-1-tanmay.kathpalia@altera.com>
- <20260829184252.27644-6-tanmay.kathpalia@altera.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 29 Aug 2026 18:51:17 +0000
-Message-Id: <20260829185117.D520E1F00A3E@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=murena.io header.i=@murena.io header.b="kJRJxTyy"
+Received: from authenticated-user (mail2.ecloud.global [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail2.ecloud.global (Postfix) with ESMTPSA id 5727E721211;
+	Sat, 29 Aug 2026 18:46:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io; s=mail2;
+	t=1788029216;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=b4Ex6rfFvTScbg5DzrJ4/DiARiXFmhIWSUitin0MvHk=;
+	b=kJRJxTyyQMcIlC2MG6VJ+b+oMXJ54a/2zuFGwzTwuo9CZxVz3F08ZVm8APsh+MsNYKfln7
+	tpIsv3BQSMkVO12LdgK9AGcG0V01enJJzYdvOZtfj3rnOzMRJOcEh6TrpCo01U2nha2zrQ
+	J0KsfHnCEfM1FmgUODuLp2W5PkBY6k4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io;
+	s=mail2; t=1788029216;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=b4Ex6rfFvTScbg5DzrJ4/DiARiXFmhIWSUitin0MvHk=;
+	b=iKSP3zjFE39ry20mmXNOJsboV+El7n+ksWSaf4BjAJtPYNi4skVmgJEw/IqLzCMs+NZ86y
+	cHJ15QP8zMHswrrFu0FfNfjOSV/qEbV8Ek28lmHwqTAZKytJ5ty9O6AZACMRpf/g7ac69l
+	DPEMrfrnitQFB0w62FocUPfUBN3mVcU=
+ARC-Authentication-Results: i=1;
+	mail2.ecloud.global;
+	auth=pass smtp.mailfrom=maud_spierings@murena.io
+ARC-Seal: i=1; s=mail2; d=murena.io; t=1788029216; a=rsa-sha256; cv=none;
+	b=PBSzIckDQ9J/rtP8kgKk6YirF5KsP0xzXMGk/+beKynJrp5wESTe2ODak8XzOi5hl0vL2A
+	AuJUpLcNj2cEiZwG9EPCnizlv2HGbZHD4eFqrDaZ7+XptJc8z0BTYKf2fnW0YghpcFzZER
+	e1LilsNtpR7oiPTe54yrwUcb9BlYx2Q=
+Message-ID: <b9d39858-3531-4538-a4ab-eb34a0be6ad5@murena.io>
+Date: Sat, 29 Aug 2026 20:46:53 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+To: m.wilczynski@samsung.com
+Cc: Laurent.pinchart@ideasonboard.com, airlied@gmail.com, alex@ghiti.fr,
+ andrzej.hajda@intel.com, andy.yan@rock-chips.com, andyshrk@163.com,
+ aou@eecs.berkeley.edu, bmasney@redhat.com, conor+dt@kernel.org,
+ conor@kernel.org, db@domibel.de, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, hal.feng@starfivetech.com, heiko@sntech.de,
+ hello@big-grey.co.uk, jernej.skrabec@gmail.com, jonas@kwiboo.se,
+ kernel@esmil.dk, krzk+dt@kernel.org, lee@kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-riscv@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ luca.ceresoli@bootlin.com, m.szyprowski@samsung.com,
+ maarten.lankhorst@linux.intel.com, maudspierings@gocontroll.com,
+ mfd@lists.linux.dev, mripard@kernel.org, mturquette@baylibre.com,
+ neil.armstrong@linaro.org, p.zabel@pengutronix.de, palmer@dabbelt.com,
+ pjw@kernel.org, rfoss@kernel.org, robh@kernel.org, sboyd@kernel.org,
+ simona@ffwll.ch, tzimmermann@suse.de, uwu@icenowy.me, vkoul@kernel.org
+References: <20260828-jh7110-clean-send-v2-14-331680c8b9d1@samsung.com>
+Subject: Re: [PATCH v2 14/15] riscv: dts: starfive: jh7110: Update DT for
+ display subsystem
+Content-Language: en-US
+From: Maud Spierings <maud_spierings@murena.io>
+In-Reply-To: <20260828-jh7110-clean-send-v2-14-331680c8b9d1@samsung.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Hi Michal,
 
-Pre-existing issues:
-- [High] Mismatch between property counting and parsing logic leads to unin=
-itialized array elements being written to PHY registers if a property is ma=
-lformed.
---
+Very happy to see an update to this series!
 
-commit 8f13dab23e01e84497b28e9b7e93c757eb2c1d11
-Author: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
+I have some very minor nitpicks I found in the devicetree
 
-mmc: sdhci-cadence: rename SD4HC symbols for SD6HC groundwork
+> Activate the display subsystem by adding the dc8200, hdmi and voutcrg
+> nodes as direct soc children. Each references the PD_VOUT power domain
+> through power-domains, so genpd powers the domain on demand, and the
+> HDMI-PHY -> voutcrg -> HDMI-controller probe order is resolved by
+> deferred probe.
+> 
+> The monolithic hdmi node is modelled as a container with hdmi_phy
+> and hdmi_controller children. This lets the PHY (clock provider,
+> depending only on xin24m) and the controller (clock consumer) probe
+> independently, breaking the circular clock dependency with voutcrg.
+> 
+> voutcrg consumes the pixel clock from the &hdmi_phy node instead of the
+> old fixed-clock, and dc8200 gets its pixel clocks from voutcrg's MUXes
+> and is marked dma-noncoherent for framebuffer DMA. The old, incorrect
+> hdmitx0-pixel-clock fixed-clock node is removed.
+> 
+> Co-developed-by: Dominique Belhachemi <db@domibel.de>
+> Signed-off-by: Dominique Belhachemi <db@domibel.de>
+> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+> ---
+>  arch/riscv/boot/dts/starfive/jh7110-common.dtsi | 119 +++++++++++++++++++++++-
+>  arch/riscv/boot/dts/starfive/jh7110.dtsi        |  87 +++++++++++++++--
+>  2 files changed, 196 insertions(+), 10 deletions(-)
+> 
 
-This commit renames SD4HC PHY helpers and default operations with a cdns4
-prefix to separate them from the shared driver core. This prepares the
-driver for future SD6HC support by avoiding symbol clashes.
+[snip]
 
-> diff --git a/drivers/mmc/host/sdhci-cadence.c b/drivers/mmc/host/sdhci-ca=
-dence.c
-> index 435603c8c00b2..8a6ef6d9d1dd8 100644
-> --- a/drivers/mmc/host/sdhci-cadence.c
-> +++ b/drivers/mmc/host/sdhci-cadence.c
+>  
+> +&dc8200 {
+> +	status = "okay";
+> +
+> +	ports {
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		dpu_port0: port@0 {
+> +			reg = <0>;
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +
+> +			dpu_out_dpi0: endpoint@0 {
+> +				reg = <0>;
+> +				remote-endpoint = <&hdmi_in>;
+> +			};
+> +		};
+> +
+> +		dpu_port1: port@1 {
+> +			reg = <1>;
+> +		};
+> +	};
+> +};
+> +
+>  &dvp_clk {
+>  	clock-frequency = <74250000>;
+>  };
+> @@ -99,8 +153,31 @@ &gmac1_rmii_refin {
+>  	clock-frequency = <50000000>;
+>  };
+>  
+> -&hdmitx0_pixelclk {
+> -	clock-frequency = <297000000>;
+> +&hdmi_controller {
+> +	status = "okay";
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&hdmi_pins>;
+> +
+> +	ports {
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		port@0 {
+> +			reg = <0>;
+> +
+> +			hdmi_in: endpoint {
+> +				remote-endpoint = <&dpu_out_dpi0>;
+> +			};
+> +		};
+> +
+> +		hdmi_out_port: port@1 {
+> +			reg = <1>;
 
-[ ... ]
+missing newline here
 
-> -static void sdhci_cdns_phy_param_parse(struct device_node *np,
-> -				       struct sdhci_cdns_priv *priv)
-> +static void sdhci_cdns4_phy_param_parse(struct device_node *np, struct s=
-dhci_cdns_priv *priv)
->  {
-> -	struct sdhci_cdns_phy_param *p =3D priv->phy_params;
-> +	struct sdhci_cdns4_phy_param *p =3D priv->phy_params;
->  	u32 val;
->  	int ret, i;
-> =20
-> -	for (i =3D 0; i < ARRAY_SIZE(sdhci_cdns_phy_cfgs); i++) {
-> -		ret =3D of_property_read_u32(np, sdhci_cdns_phy_cfgs[i].property,
-> -					   &val);
-> +	for (i =3D 0; i < ARRAY_SIZE(sdhci_cdns4_phy_cfgs); i++) {
-> +		ret =3D of_property_read_u32(np, sdhci_cdns4_phy_cfgs[i].property, &va=
-l);
->  		if (ret)
->  			continue;
+> +			hdmi_out_con: endpoint {
+> +				remote-endpoint = <&hdmi_con_in>;
+> +			};
+> +
 
-[Severity: High]
-This isn't a bug introduced by this patch, but I noticed a potential
-mismatch in sdhci_cdns4_phy_param_parse between how properties are counted
-and parsed.
+one newline to much here
 
-If a device tree property is present but malformed (for example, defined as
-an empty property or a boolean instead of a u32), of_property_read_u32
-fails and this loop continues without advancing the p pointer.
+> +		};
+> +	};
+>  };
+>  
 
-Because sdhci_cdns4_phy_param_count previously incremented the count
-simply because the property was present, priv->nr_phy_params will end up
-larger than the number of elements actually parsed. This leaves the trailing
-elements in the priv->phy_params array zero-initialized.
-
-> -		p->addr =3D sdhci_cdns_phy_cfgs[i].addr;
-> +		p->addr =3D sdhci_cdns4_phy_cfgs[i].addr;
->  		p->data =3D val;
->  		p++;
->  	}
->  }
-> =20
-> -static int sdhci_cdns_phy_init(struct sdhci_cdns_priv *priv)
-> +static int sdhci_cdns4_phy_init(struct sdhci_cdns_priv *priv)
->  {
->  	int ret, i;
-> =20
->  	for (i =3D 0; i < priv->nr_phy_params; i++) {
-> -		ret =3D sdhci_cdns_write_phy_reg(priv, priv->phy_params[i].addr,
-> -					       priv->phy_params[i].data);
-> +		ret =3D sdhci_cdns4_write_phy_reg(priv, priv->phy_params[i].addr,
-> +						priv->phy_params[i].data);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but following from the parsing
-mismatch above, can this loop write uninitialized array elements to the PHY
-registers?
-
-Since priv->nr_phy_params includes the count of malformed properties,
-sdhci_cdns4_phy_init will iterate over the trailing zero-initialized elemen=
-ts
-in the array.
-
-This would inadvertently write data 0 to address 0, which corresponds to
-SDHCI_CDNS_PHY_DLY_SD_HS. Could this unintentionally corrupt unrelated
-hardware configurations and potentially break SD/eMMC access?
-
->  		if (ret)
->  			return ret;
->  	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260829184252.2764=
-4-1-tanmay.kathpalia@altera.com?part=3D5
+Kind regards,
+Maud
