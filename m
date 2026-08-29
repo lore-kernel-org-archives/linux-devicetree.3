@@ -1,87 +1,68 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E3D83B38AD
-	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 16:48:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C0193C553B
+	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 17:05:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788022101; cv=none; b=Mg5tsF3QVZZ86ByuwI2z98h0S1V1+dT9cgR+OgTtMckDwRvFs2BkoRXbF/EarGtoIaasSADV6iHGdaBPuD61YC6+vQMlRgli+qZlm98z15vq6hvZh5VJZOwTfVUaHT7ICWy/gll8Utk8vDBZjM+mRoHvYUOkmRy6JI5Feyafz1U=
+	t=1788023118; cv=none; b=XN/OLkg5QuzYlYryy/yb1LtLXr9g4h5ulAP0kbLYpHr40ht+FoN7xMKf83M93Gc4RtCA6/ZqTv1NryWpfAscODz5fgPiNzQhsPDYGIUQ6ePv6wwhSdUg8IYa2Aorfpdy/Juoj+whBV91Mkfl0W6apjEjoaY0qWzRYngK0ZH2njY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788022101; c=relaxed/simple;
-	bh=jBpyxIKAfMKLZ4/3cCqUNTosNoFDYK14Zh5fd45UyDE=;
+	s=arc-20240116; t=1788023118; c=relaxed/simple;
+	bh=awt/n+oNORYB2YhDK5rTQcAxY6y1IVVts1XEDrCgSzc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZYGvuYdrLvj5YCuoPrcPOg5aSwrOykIEVR6rnEQPRt0+angRx1/XQhdItdQGU3A7EgSoemjiT1S5DbnH3NOqRhVpNssZoaqEXhuGHq+9BezJEvseC8gBJGcnykQiX15+7CFoxG3L/OKoaO64V0VxVtndsQKONMyp8Cp07A80UmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lRnfKq/h; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ekYuBq76; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=mMGPGkzt1nIvG8gomOSK8eoHlQnaIB2qOjq4mJ6EKv6Bw6GWtLmZSKiwnbedtspWCwRboL1nIzSCsv2w94tGCthr/rm8wc6ArBa+jSocr6h89oppbPS5vIz+/z24zVvKliLxFBdJNTnV2mgMzOmjo1yDAQOy6+BKNxk7KVnJZEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=STYysfgl; arc=none smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lRnfKq/h";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ekYuBq76"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67TE2PtB2061486
-	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 16:48:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	DyNtz9xYx4S4Gb6wibJXt3RyN9cWyWzJC6meo/SzVnU=; b=lRnfKq/hg2GAG043
-	iJejxvgJn3qe091W4+4Buzm/CiXoMigwnA0VQUxVgRfepycvYdVhluBgPjFRD5RJ
-	6Uj2aQX7YVpQwAjNeBTZKWMqn6wIbx+NVBI4A5e9lFQm9hRHEYWmgFUmWwthRSpx
-	7JRNev3At+DFBsJWNMgsr5NtK8PKYjIa9jNhDv83X57oY12uy3VeH9SWxmT/fxW1
-	GUvPMvFwMQisL0Dci491TaMnmG7lREfF0vqXCqrHXQm9xFONJIojXycv0AehIp4b
-	C0qxHW70wR6vYkEY0rc7/JnODaIt5mOMjL8Ul22E/43S+wzPTaWwRdRN4OnJCb9D
-	s21Tkw==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbqn2hc6r-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 16:48:19 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38f5ac7416eso2894949a91.3
-        for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 09:48:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="STYysfgl"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d71a50caa9so25567025ad.0
+        for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 10:05:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788022098; x=1788626898; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
+        d=gmail.com; s=20251104; t=1788023117; x=1788627917; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DyNtz9xYx4S4Gb6wibJXt3RyN9cWyWzJC6meo/SzVnU=;
-        b=ekYuBq76aEC83gpZYbNDghhy+DeBQQIqRd6gNfHuio7IGQLxNd91zP+uH16fONQOFj
-         Xv83y7pz8iPO3uE+A202gbHuBx/iCsihBqDnyjDmQbfCigdbHgjAiB+5ZLNE/GghfbWa
-         TawY99ZDjD7bWfL2Dangj199yS6/SZcdTBGcoASAP+qTcv/eLG7W7LL9nD3bS/KnX+St
-         g/vomJESNE3hYbOAYnrVfU8IJu732SJYJyc1cmkstu/BXMPKDdXtg0Wwkm0Mgg1xEmq0
-         cPyCYcG3jQkOAWLst/1FLId+wzhu9kO+z9Iau1q1u2O04/BjaDPd5IoXYyq4v5ZFWUsO
-         bVPQ==
+        bh=Ln2KbbtEjRGd/LI6Li0KRF+ySsS1VE0IamdH6+rdBvI=;
+        b=STYysfgl/OOy37S3XS5JkKuWIWM05EP6PzrVWz+xqrfRFVta+bOCcA/FUgGjmA7OgZ
+         JYXt1Ht5kma7EYTDabLqi6u2JeBL8ytzeHuWskUbKvg7FYqH9+e0mXKZ9m4oYE+06H8H
+         nBIR8lXBXMCtPHTcq6VEonFFwOvlYMsjRweIBaPePgexMkKFlO6xiIECvCOV7sXwulgj
+         TJKalVbRDMBsPhkffXE0mjO/poIa2ylrFeuTZlhPtOZoB58UEu9slqXOuewsEvM02Fs+
+         GvMvm7F7ghFx7WN4RRa8ftukFPGMxF+LDp9gePziiKLHSV+Mi6jECbkCQ/LolRoJNJ82
+         ICNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788022098; x=1788626898;
-        h=content-transfer-encoding:content-type:in-reply-to:from
+        d=1e100.net; s=20251104; t=1788023117; x=1788627917;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DyNtz9xYx4S4Gb6wibJXt3RyN9cWyWzJC6meo/SzVnU=;
-        b=nCKmtDaoULgWZ56nbvC2Gl/pj+ETsA+rp9fvuN6sUOiNqA29m3McHDftnOU4Mk8EO1
-         uECWdoSye02hveStF8fv53Vx0JmUwk6ybKxMx4q1myMJZuhsz93GwBPG0zYRhdWZL5ng
-         w2Tf1fnIabzT/q87W8rKyZgkg5UD9u7/FzVBItYaIek7MGjAhBRfSnajqqzHdhdN7mia
-         Dilcz2XVLkRAF98bF9SaWv84Mr1OgMMOnzmOFDD6m9dLvekI89zPqvNbxqnb/A45Xmm7
-         UBJtOtZv3H8Ad9jaX2B6hUFbD78cphfcBzhm6ZbB/QuvOc3rfht7luq4vxU9r+U+Ytcz
-         /h4w==
-X-Forwarded-Encrypted: i=1; AKwUvBzQXLj0xHDwBmW/F2parGDPqQhNp5nLrzLXxSn10p02LGGlsWIWwjo5v0b5wzAv3WmCZ685f/qkhSoL@vger.kernel.org
-X-Gm-Message-State: AFuF++k3D0bLSUTM9UkualSwClKN9iuZBJIQy0nuLGzSUjgfpZ15nlFO
-	gYfSbfp3uRfB29SartWNohNkRgrwgvWSVJLxeVWd1XM1rIhkG63jCSl495SkCC6eHNV0O1Ykz+e
-	gmEG0Tt8GPR0y25rP+PTJb09RZhZlm7tiLBT24g2g69D9pNjePsGzBI72vqRH9QGe
-X-Gm-Gg: AYBFou1XdV2KdAW9bokZx0044oNmTR3/syEIKoRaqSXwwf0OsEi3D/IJlhK+8BkAOgH
-	+wlaQ1rDVOAenl8TiNvtjts4VnLpQOekL9TmSQGxox4oNTsiaxa/czRO5Vahu/CjEPegb54jiSe
-	h68nd2XP69owaL7aN29UPVG/mhAQozDVDPvmpWeI/OKzaBNWIB51/h40tctoiQ5ft9ZCAOix4J6
-	KPuuEI9zqOmINcWWOH1zm+FqMOjlM96FlWADdmD9+JK3SlpSvQzF3K/bEc6e86FzefVpuN0+6nD
-	DMFOa7lSuS1YgV8Tm/c2ZkhSGRW9y0Jg57MbsOPbehDjNCXQGmJKBQAr38AOfRzwFJ6Zh+s8gpL
-	zu1xu01oKy5CURDaskP9cnscUjj6ELUPjebEocSadSxvmHMkrlfRcoIJtJLldAt2Dr+0=
-X-Received: by 2002:a17:90b:588f:b0:398:bf7e:b267 with SMTP id 98e67ed59e1d1-398bf7eb378mr3326113a91.2.1788022098233;
-        Sat, 29 Aug 2026 09:48:18 -0700 (PDT)
-X-Received: by 2002:a17:90b:588f:b0:398:bf7e:b267 with SMTP id 98e67ed59e1d1-398bf7eb378mr3326048a91.2.1788022097757;
-        Sat, 29 Aug 2026 09:48:17 -0700 (PDT)
-Received: from [192.168.1.5] ([122.177.241.61])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b186807bsm12915180a91.12.2026.08.29.09.48.13
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Ln2KbbtEjRGd/LI6Li0KRF+ySsS1VE0IamdH6+rdBvI=;
+        b=L10EyTsB/oafXqiNErCGQcRk5gxeXTmoHQ1uBNDaGXl4fTn/8apCXcQ7tExOX5FuwN
+         bVc+unGzzCDO/4WCEP9bY6eBijgsUiFCPy2hGiOCNZtWeMRHv4Pg9nYLE9tHB/Qh/fdH
+         do9hi3BZBgn/WiNsleIlFq9I4uMO5440GiiOxHc8NrgEIYMJUntYXQBMkOTEzzNnlGWi
+         wXttkuV8dFVHEvshidqEbGuOom+Eo77hTrBN1iSN+usoNjU0QAr02IUyGQyT4XAtEcrj
+         2xNqC5c/LiMPBN36t6CyZoDnbxNw4JZ9jUn6JH4Gw+2pVMFcEbP1xlo0XNicQ9aSgFhC
+         KMTw==
+X-Gm-Message-State: AFuF++kmgdYHrmRby1mXS+gYF5qnVef2BEcjAmM34Gwb9F71OraggVS2
+	Gq9k8nKMp3SHqjAPwndrwbBsFyir7Jtp4wLZCzSREeughr4QWc+hn7wd
+X-Gm-Gg: AYBFou0tGKqF6m1qiXL7WpiSbLUXh8/Gbo3Ps2pwTffzvrHMppRLDb19gipw4p8GOb6
+	clDGReXHx8WTXceYACeaKUerz2LIRszq4GYclGwMNplNf0W7cMbyeJrmZScAtnsH5U1A1u/WrM/
+	E1Iwn6ZTlW5x+xqPXWzXBNbQe+6m+LTzVn+p6QMoe+RzTfQe9gjFRii1kbmLKx2Qt+a5ItmKDjy
+	gA0YFyAcN0ede881JqcgU5aszNteaCa8ytDbMiQnGii+K23O2//YnDZdnmIXhRiURaV/uf+6RoR
+	75eN9HvgaEcR1C+3ftPSWUwViUYQLzGRdYebUzjiVtRple7h2LwH9seh20DwaRRUwSjqVslVPCW
+	DlRQweFAKHiuSiy0FVm3dVGtM3Ws5zwlHF1oBL1O/BPp8AGPIEicc0aiybH2q0CZP+Ada16NnhK
+	dffPwI1qUAp2x2fruUNEbFSC5vd7WK3l8KqaY544E7aEU8AiwBfa9UoPDA0lfcKalJRuTN2Wo1r
+	oe798hk54eI7vhnxtObR4LFuolF7tUlYlqoug==
+X-Received: by 2002:a17:903:8d0:b0:2d7:4cd4:5a7f with SMTP id d9443c01a7336-2d74def6351mr288967185ad.12.1788023116608;
+        Sat, 29 Aug 2026 10:05:16 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f7be607sm17361289eec.10.2026.08.29.10.05.14
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 29 Aug 2026 09:48:17 -0700 (PDT)
-Message-ID: <bfb0d840-fc9c-41a2-9b05-959f2222a298@oss.qualcomm.com>
-Date: Sat, 29 Aug 2026 22:18:11 +0530
+        Sat, 29 Aug 2026 10:05:15 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <89971e52-a88c-49bd-a0a6-17e48820974d@roeck-us.net>
+Date: Sat, 29 Aug 2026 10:05:13 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,190 +70,127 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/9] arm64: dts: qcom: ipq6018: Flatten usb controller
- nodes
-To: george.moussalem@outlook.com
-Cc: linux-arm-msm@vger.kernel.org,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Wesley Cheng <quic_wcheng@quicinc.com>,
-        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-References: <20260825-ipq-flatten-usb-v1-0-5c1f3170bbe9@outlook.com>
- <20260825-ipq-flatten-usb-v1-7-5c1f3170bbe9@outlook.com>
+Subject: Re: [PATCH v3 2/2] hwmon: (starfive-fan-tach) Add fan tach driver for
+ StarFive JHB100
+To: sashiko-reviews@lists.linux.dev,
+ Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org,
+ conor+dt@kernel.org
+References: <20260824030234.9321-1-changhuang.liang@starfivetech.com>
+ <20260824030234.9321-3-changhuang.liang@starfivetech.com>
+ <20260824032750.0749D1F000E9@smtp.kernel.org>
 Content-Language: en-US
-From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-In-Reply-To: <20260825-ipq-flatten-usb-v1-7-5c1f3170bbe9@outlook.com>
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260824032750.0749D1F000E9@smtp.kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: -iWsUombjrAHwuVYBpoKjcKeWdeYN7CS
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI5MDE0NSBTYWx0ZWRfX2mSq6rz2TY58
- INFR/nVOb/tEmi6TUs7LXZ4CFmsofYXmp5ChHYQ4oirRbYQjjzUGYc0cXTjmKOZCm/MhcdKtVBy
- UFzvY5gcNBxl+2QHl71IfdbMwp0QvG7/qHWSJmXKFD9pHafXVrq3Nenu0By0PyrcT1oisihmWDu
- hrFPL7RKivl3qoGN1sbHg4fg/LAP8Z/C0HMV2BBgLeKk1uCxUuoKMQcrOrFJAU24njGdE72daXi
- jljrG/h8PULeI0XM8M7a9vhZ/zypnMDLvxDJBmns4IeZMmio9hDvn9m92eZOaWunzpATvhK93RS
- DHawAMTBp5Um5qW0rhjmPgZe50+puYsbCa1H8E7tkh452S2MwomXzZDO563rzLwyMOQHRUAeYcp
- bSbOhW9eA5xGhNzHPQ/WdyHorK2rOMnekVzOp5y7Q2nqjJ4J1ocbMUHmHgEHKclTBTQM4/ZDBYc
- ThdN/YiwdcC4rBFEp8Q==
-X-Proofpoint-GUID: -iWsUombjrAHwuVYBpoKjcKeWdeYN7CS
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI5MDE0NSBTYWx0ZWRfXw829raXVBqjp
- 8oKedMETVgPpnjUjWsDGnh5+HZTW+uti2mVDnMNFCTOIh85oJWhLibT8jQTtSqQ+nejxfAX6ZIG
- KRR4XaznKLtujpOcDd2s1LqSjDgFo3A=
-X-Authority-Analysis: v=2.4 cv=a5kAM0SF c=1 sm=1 tr=0 ts=6a930d53 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=PZ14JaS8AzYbITig/tPzRA==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=UqCG9HQmAAAA:8 a=0nupcxNY4bLKEn-PqUgA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-29_04,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 malwarescore=0 phishscore=0 clxscore=1015
- adultscore=0 priorityscore=1501 spamscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608290145
 
-
-
-On 8/25/2026 4:12 PM, George Moussalem via B4 Relay wrote:
-> From: George Moussalem <george.moussalem@outlook.com>
+On 8/23/26 20:27, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] Missing explicit initialization of interrupt and channel enable registers during probe
+> --
 > 
-> Flatten usb controller nodes and update to using latest bindings and
-> flattened driver approach.
+> --- Patch [2]: [PATCH v3 2/2] hwmon: (starfive-fan-tach) Add fan tach driver for StarFive JHB100 ---
+> commit ea266a681c03cda9faa04f08b171c20f1e003841
+> Author: Changhuang Liang <changhuang.liang@starfivetech.com>
 > 
-> This SoC has two USB controllers of which the USB3 node had a ref clock
-> populated in the DWC3 child node. Add property to the USB3 node only to
-> select UTMI as reference clock for the DWC3 core to calculate the right
-> values for the period and frame length adjustment.
+> hwmon: (starfive-fan-tach) Add fan tach driver for StarFive JHB100
 > 
-> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+> This commit adds a new driver for the fan tachometer controller found on the
+> StarFive JHB100 SoC. It provides support for up to 16 independent fan
+> tachometer inputs and reports fan speed in RPM through the hwmon sysfs
+> interface.
+> 
+>> diff --git a/drivers/hwmon/starfive-fan-tach.c b/drivers/hwmon/starfive-fan-tach.c
+>> new file mode 100644
+>> index 0000000000000..7f56ecc87c1c8
+>> --- /dev/null
+>> +++ b/drivers/hwmon/starfive-fan-tach.c
+> [ ... ]
+>> +static int starfive_fan_tach_probe(struct platform_device *pdev)
+>> +{
+> [ ... ]
+>> +	ret = reset_control_deassert(priv->rst);
+>> +	if (ret) {
+>> +		clk_disable_unprepare(priv->clk);
+>> +		return dev_err_probe(dev, ret, "Failed to deassert reset\n");
+>> +	}
+>> +
+>> +	ret = devm_add_action_or_reset(dev, starfive_fan_tach_disable, priv);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	writel(STARFIVE_FAN_TACH_STALL_INT_MASK | STARFIVE_FAN_TACH_SLOW_INT_MASK,
+>> +	       priv->regs + STARFIVE_FAN_TACH_STATUS);
+>> +	writel(priv->clk_rate / STARFIVE_FAN_DEFAULT_MEASURE_RATIO,
+>> +	       priv->regs + STARFIVE_FAN_TACH_MEASURE_TIME);
+> 
+> [Severity: Medium]
+> Could this code be susceptible to an interrupt storm if the bootloader leaves
+> the FAN-TACH controller enabled with unmasked interrupts?
+> 
+> Since the driver only deasserts the reset line during probe (and does not
+> assert it first), the hardware state might be retained from before the kernel
+> booted. Any read-modify-write operations on STARFIVE_FAN_TACH_INT_EN and
+> STARFIVE_FAN_TACH_CH_EN later in the driver would then preserve these stray
+> bits.
+> 
+> Once devm_request_irq() is called, any unexpected unmasked interrupts will
+> trigger. If the interrupt condition is continuous (e.g., a disconnected or
+> stalled fan), the ISR will clear the STATUS bit, but the hardware will
+> immediately re-assert it. Because the driver's ISR does not mask unexpected
+> interrupts in INT_EN (it only signals completions if armed_stall or
+> armed_slow are set), wouldn't this lead to an interrupt storm?
+> 
+> Should the interrupt and channel enable registers be explicitly initialized
+> to 0 before requesting the IRQ to ensure a known safe hardware state?
+> 
+Please either implement as suggested or explain why it is not needed.
+In that case, please add a comment into the code explaining the reason.
 
-[...]
+Thanks,
+Guenter
 
->   
-> -			interrupts = <GIC_SPI 128 IRQ_TYPE_LEVEL_HIGH>,
-> +			interrupts = <GIC_SPI 99 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 128 IRQ_TYPE_LEVEL_HIGH>,
->   				     <GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>;
-> -			interrupt-names = "pwr_event",
-> +			interrupt-names = "dwc_usb3",
-> +					  "pwr_event",
->   					  "qusb2_phy";
->   
-
-You are adding pwr_event irq here. Do mention that in the commit message 
-or send this particular interrupt addition as a separate patch.
-
->   			resets = <&gcc GCC_USB1_BCR>;
-> -			status = "disabled";
->   
-> -			dwc_1: usb@7000000 {
-> -				compatible = "snps,dwc3";
-> -				reg = <0x0 0x07000000 0x0 0xcd00>;
-> -				interrupts = <GIC_SPI 99 IRQ_TYPE_LEVEL_HIGH>;
-> -				phys = <&qusb_phy_1>;
-> -				phy-names = "usb2-phy";
-> -				tx-fifo-resize;
-> -				snps,is-utmi-l1-suspend;
-> -				snps,hird-threshold = /bits/ 8 <0x0>;
-> -				snps,dis_u2_susphy_quirk;
-> -				snps,dis_u3_susphy_quirk;
-> -				dr_mode = "host";
-> -			};
-> +			phys = <&qusb_phy_1>;
-> +			phy-names = "usb2-phy";
-> +
-> +			tx-fifo-resize;
-> +			snps,is-utmi-l1-suspend;
-> +			snps,hird-threshold = /bits/ 8 <0x0>;
-> +			snps,dis_u2_susphy_quirk;
-> +			snps,dis_u3_susphy_quirk;
-> +			dr_mode = "host";
-> +
-
-If this is HS only, do we need to add "qcom,select-utmi-as-pipe-clk" ?
-
-[...]
-
-> +		usb3: usb@8a00000 {
-> +			compatible = "qcom,ipq6018-dwc3", "qcom,snps-dwc3";
-> +			reg = <0x0 0x08a00000 0x0 0xfc100>;
->   
->   			clocks = <&gcc GCC_SYS_NOC_USB0_AXI_CLK>,
-> -				<&gcc GCC_USB0_MASTER_CLK>,
-> -				<&gcc GCC_USB0_SLEEP_CLK>,
-> -				<&gcc GCC_USB0_MOCK_UTMI_CLK>;
-> +				 <&gcc GCC_USB0_MASTER_CLK>,
-> +				 <&gcc GCC_USB0_SLEEP_CLK>,
-> +				 <&gcc GCC_USB0_MOCK_UTMI_CLK>;
->   			clock-names = "cfg_noc",
-> -				"core",
-> -				"sleep",
-> -				"mock_utmi";
-> +				      "core",
-> +				      "sleep",
-> +				      "mock_utmi";
->   
->   			assigned-clocks = <&gcc GCC_SYS_NOC_USB0_AXI_CLK>,
->   					  <&gcc GCC_USB0_MASTER_CLK>,
-> @@ -692,32 +686,31 @@ usb3: usb@8af8800 {
->   					       <133330000>,
->   					       <24000000>;
->   
-> -			interrupts = <GIC_SPI 134 IRQ_TYPE_LEVEL_HIGH>,
-> +			interrupts = <GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 134 IRQ_TYPE_LEVEL_HIGH>,
->   				     <GIC_SPI 136 IRQ_TYPE_LEVEL_HIGH>,
->   				     <GIC_SPI 220 IRQ_TYPE_LEVEL_HIGH>;
-> -			interrupt-names = "pwr_event",
-> +			interrupt-names = "dwc_usb3",
-> +					  "pwr_event",
->   					  "qusb2_phy",
->   					  "ss_phy_irq";
-
-Same comment as above.
-
->   
->   			resets = <&gcc GCC_USB0_BCR>;
-> -			status = "disabled";
->   
-> -			dwc_0: usb@8a00000 {
-> -				compatible = "snps,dwc3";
-> -				reg = <0x0 0x08a00000 0x0 0xcd00>;
-> -				interrupts = <GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>;
-> -				phys = <&qusb_phy_0>, <&ssphy_0>;
-> -				phy-names = "usb2-phy", "usb3-phy";
-> -				clocks = <&xo>;
-> -				clock-names = "ref";
-> -				tx-fifo-resize;
-> -				snps,parkmode-disable-ss-quirk;
-> -				snps,is-utmi-l1-suspend;
-> -				snps,hird-threshold = /bits/ 8 <0x0>;
-> -				snps,dis_u2_susphy_quirk;
-> -				snps,dis_u3_susphy_quirk;
-> -				dr_mode = "host";
-> -			};
-> +			phys = <&qusb_phy_0>, <&ssphy_0>;
-> +			phy-names = "usb2-phy", "usb3-phy";
-> +
-> +			qcom,select-utmi-as-ref-clk;
-> +
-> +			tx-fifo-resize;
-> +			snps,parkmode-disable-ss-quirk;
-> +			snps,is-utmi-l1-suspend;
-> +			snps,hird-threshold = /bits/ 8 <0x0>;
-> +			snps,dis_u2_susphy_quirk;
-> +			snps,dis_u3_susphy_quirk;
-> +			dr_mode = "host";
-
-This controller is DRD capable. Please move this dr_mode property to DTS 
-file.
-
-Regards,
-Krishna,
