@@ -1,291 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch [79.135.106.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F20936F8EA
-	for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 21:06:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC2CAE56A;
+	Sat, 29 Aug 2026 23:46:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.29
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788037610; cv=none; b=qH02ZrCBwEl+WDW847skhyMh3CUJXc7Imafgug1KWpwV7fw/zNNBH9TsAR9OZNumNcpX4kwubZ7SSo5YbGbhOPCJk2YTeYyyTQ42JkfveP+TsaPil2bz7n9u6ec9PHgwHeAMmIbsVbc9VVR8n767tclmppDCqx9Gwg4p0+8Ncgo=
+	t=1788047191; cv=none; b=j3vilZCANLAxM+mzOf8AZwAtzJGPP8QeD/GLeaxDMFDW8vkAo/1k+rhTp0+lsCxF0PcbRtOiufrzrflHQPs0baAbNRMTSe+OYa7mhOffd2mAofWOA9/3Ry2dBz7s78jYckEfr6H1YYaHQA/M7U2pQMcmPy4IjpcxyMHqZu2dGUk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788037610; c=relaxed/simple;
-	bh=ljlDwxHktzwwNFVL7ZC2GPhxTnyCYzuhVZ5B9iUD+Jc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=O7c6DZgam9fqN0AH3IGEJ8EWl1lXcVjEVPqU2nlSuo8rSxZQMkAbgkGfXOsgqjGj3UuDb+Id47f3zPXaPHH/W2Yf6N1LDpr3RliRLJ2ow77B4lFqe4L7Ff4f1IvP+YK6Df+2oDs4yolbjOq6R3fcwb9lw4vjcK39N2uC6rEakf0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C/pRkr9D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788047191; c=relaxed/simple;
+	bh=mcumBcN5yKWifSPWAmMZ9YRHoxXUOi+FWAA6ioKRna4=;
+	h=Date:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=omVLjznqUP5avBjs4gibdBFQDLElVdaFaALuIMNpyrt4pYUqcXwEmRrOS+OvNZDq3JFNFOQBEZhJ+TYmWyiVZXIzVnan35YddfZrz4rIGOJ10wc+e+kb2I5VE5vaijHf64C2XPuyYacxkWQwIUfYUMQofkgnvm8uUrJi0pjXZwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=eSamu5S8; arc=none smtp.client-ip=79.135.106.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C/pRkr9D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7F491F000E9;
-	Sat, 29 Aug 2026 21:06:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788037609;
-	bh=yJL4GWz5c9TX5YWWb/Y1ndKwkT44Tj2KUaCBVOfWI9g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=C/pRkr9DgDSmf5PJa6fAelxoB9H/XF7P+dvEny8C6dI993WkFZLs2thY5FXNNRijG
-	 j6jIGSmUMEBN8XtI8m5wO0YjmPng2ZZQ44seh3bBgWjrcW5KTEXnkZRN4v+XhYPSO+
-	 /cq97TDmU5tgTL2Y/3lSA/UNBAfs7TkZibACGVazmMpLgXg3e6QhzZt+g6Moc/2JEO
-	 27MJAr2a6vGvilWOmrWmNF2n2BfzamNi4TrN8nbLFOsKvNWZ52k/kenpuUj6gVophe
-	 xMwIri84sX9WFGdUUQF9gtsy4BlX2AK/40x4ZMQ2VnsjhKT5MYqeNjGbu974yI3onJ
-	 rvJwFXz7xeQ8w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] pmdomain: riscv: Add RPMI device power service
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joshua Yeong" <joshua.yeong@starfivetech.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260829205520.1691-3-joshua.yeong@starfivetech.com>
-References: <20260829205520.1691-1-joshua.yeong@starfivetech.com>
- <20260829205520.1691-3-joshua.yeong@starfivetech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 29 Aug 2026 21:06:48 +0000
-Message-Id: <20260829210648.D7F491F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="eSamu5S8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1788047177; x=1788306377;
+	bh=a4pg4wqMVJWarl6zT6e04yafByAvXTwhHsZCoaKMz48=;
+	h=Date:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=eSamu5S8J7AfXJbxfEp8UxNj19uUFfpDtb2ICXeSYRWZdUbbHh77j3C/RUpPH90r1
+	 mzj52x2kbVaePPfUgCKYEpuNsPNShGtxsXU0kanv5E8zF0QakGRhmPjys8jE4rRfaw
+	 kzlmbRijkoTnDILp76piL63/UPUEteLHLiWuN9t4lBsJR4ukBA+HLbEOzmCjbA7Je6
+	 7QgFlvnBfCLw3EG1CPX+DeCCrMA8MU5SsRniGdD781Kb1oaJqzO595fBoiXU42TiqG
+	 pU98AQ00gMHpMH/EvyvMkkpKQGsg4lblTbXsi++RSAAfv+ttPqNNBerRsS/dSnlwuM
+	 Zxcc138nWzmTA==
+Date: Sat, 29 Aug 2026 23:46:10 +0000
+From: Esteban Urrutia <esteuwu@proton.me>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Esteban Urrutia <esteuwu@proton.me>
+Subject: [PATCH v4] dt-bindings: soc: qcom: qcom,pmic-glink: Add compatible string for SM8475
+Message-ID: <20260829-sm8475-pmic-glink-v4-1-0c646c835f7b@proton.me>
+Feedback-ID: 147889766:user:proton
+X-Pm-Message-ID: 06f39685d53e36ae425b5e93f501ffafeb3b0132
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] Missing cleanup of initialized PM domains on the probe error path =
-leads to a Use-After-Free in the global `gpd_list`.
-- [High] Concurrent mailbox accesses cause stack Use-After-Free and queue c=
-orruption due to un-synchronized, non-blocking requests.
-- [High] Ignoring the return value of `pm_genpd_remove()` in the driver rem=
-ove path leaves dangling pointers in the global `gpd_list`.
-- [Medium] Missing little-endian to CPU conversions on RPMI RX message fiel=
-ds causes data corruption on big-endian platforms.
-- [Medium] Domains initialized in the ON state will never be powered off be=
-cause the driver lacks a `sync_state` callback.
-- [Medium] Uninitialized stack memory in RPMI response structures can be ex=
-posed to user-space.
---
+SM8475 is compatible with SM8450 with respect to pmic-glink support.
+Add a compatible string for SM8475 using SM8450 as a fallback.
 
-commit 0568e3713c09ba7a392adb765c276307e1fd7322
-Author: Joshua Yeong <joshua.yeong@starfivetech.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
+---
+This series adds a compatible string for pmic-glink in SM8475 in
+dt-bindings using SM8450 as a fallback to provide support for it.
+---
+Changes in v4:
+- EDITME: describe what is new in this series revision.
+- EDITME: use bulletpoints and terse descriptions.
+- Link to v3: https://patch.msgid.link/20260802-sm8475-pmic-glink-v3-1-4521=
+6e6ec572@proton.me
 
-pmdomain: riscv: Add RPMI device power service
+Changes in v3:
+- Drop patch modifying ucsi_glink (redundant)
+  - Use SM8450 compatible as a fallback instead
+- Link to v2: https://patch.msgid.link/20260731-sm8475-pmic-glink-v2-0-28c0=
+4928ef22@proton.me
 
-Add a generic power domain provider on top of the RISC-V Platform
-Management Interface (RPMI) device power service group, reached through
-an SBI MPXY channel.
+Changes in v2:
+- Apply suggestions from Krzysztof
+- Link to v1: https://patch.msgid.link/20260729-sm8475-pmic-glink-v1-0-c2e1=
+967c04de@proton.me
+---
+ Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-> diff --git a/drivers/pmdomain/riscv/riscv-rpmi-device-power.c b/drivers/p=
-mdomain/riscv/riscv-rpmi-device-power.c
-> new file mode 100644
-> index 0000000000000..f34ef48dff394
-> --- /dev/null
-> +++ b/drivers/pmdomain/riscv/riscv-rpmi-device-power.c
-> @@ -0,0 +1,441 @@
-[ ... ]
-> +static int rpmi_power_state_get(struct rpmi_device_power_domain *mpxy_pm=
-_domain,
-> +				u32 domain_id, u32 *state)
-> +{
-> +	struct rpmi_pm_get_power_state_tx tx;
-> +	struct rpmi_pm_get_power_state_rx rx;
-> +	struct rpmi_mbox_message msg;
-> +	int ret;
-> +
-> +	tx.domain_id =3D cpu_to_le32(domain_id);
-> +
-> +	rpmi_mbox_init_send_with_response(&msg, RPMI_DP_SRV_GET_STATE,
-> +					  &tx, sizeof(tx), &rx, sizeof(rx));
-> +
-> +	ret =3D rpmi_mbox_send_message(mpxy_pm_domain->mpxy_ctx->chan, &msg);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (rx.status)
-> +		return rpmi_to_linux_error(rx.status);
-> +
-> +	*state =3D rx.power_state;
+diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yam=
+l b/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
+index 16ad4f5698fc..d4478d9b3212 100644
+--- a/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
++++ b/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
+@@ -43,6 +43,11 @@ properties:
+               - qcom,sm7325-pmic-glink
+           - const: qcom,qcm6490-pmic-glink
+           - const: qcom,pmic-glink
++      - items:
++          - enum:
++              - qcom,sm8475-pmic-glink
++          - const: qcom,sm8450-pmic-glink
++          - const: qcom,pmic-glink
+       - items:
+           - enum:
+               - qcom,eliza-pmic-glink
 
-[Severity: Medium]
-Will this return corrupted state data on big-endian platforms?
+---
+base-commit: 903c1cf6dff9964e71eda98a39e2e5d442050472
+change-id: 20260729-sm8475-pmic-glink-57e56f98d2b3
 
-The driver correctly uses cpu_to_le32() for TX fields but fails to use
-le32_to_cpu() when reading the raw little-endian power_state field from the
-RPMI RX message.
+Best regards,
+-- =20
+Esteban Urrutia <esteuwu@proton.me>
 
-> +
-> +	return ret;
-> +}
-> +
-> +static int rpmi_power_state_set(struct rpmi_device_power_domain *mpxy_pm=
-_domain,
-> +				u32 domain_id, u32 state)
-> +{
-> +	struct rpmi_pm_set_power_state_tx tx;
-> +	struct rpmi_pm_set_power_state_rx rx;
-> +	struct rpmi_mbox_message msg;
-> +	int ret;
-> +
-> +	tx.domain_id =3D cpu_to_le32(domain_id);
-> +	tx.power_state =3D cpu_to_le32(state);
-> +
-> +	rpmi_mbox_init_send_with_response(&msg, RPMI_DP_SRV_SET_STATE,
-> +					  &tx, sizeof(tx), &rx, sizeof(rx));
-> +	ret =3D rpmi_mbox_send_message(mpxy_pm_domain->mpxy_ctx->chan, &msg);
 
-[Severity: High]
-Can concurrent mailbox accesses cause stack Use-After-Free and queue
-corruption?
-
-Because the mailbox is configured for non-blocking execution in probe
-(tx_block =3D false), mbox_send_message() will asynchronously queue message=
-s if
-the channel is busy. Since msg is stack-allocated, returning from
-rpmi_power_state_set() destroys the message structure while it may still be
-in the mailbox queue.
-
-> +	if (ret)
-> +		return ret;
-[ ... ]
-> +static int rpmi_device_power_get_attrs(u32 domain_id,
-> +				       struct rpmi_device_power_domain *mpxy_pm_domain)
-> +{
-> +	struct rpmi_pm_get_domain_attrs_tx tx;
-> +	struct rpmi_pm_get_domain_attrs_rx rx;
-> +	struct rpmi_mbox_message msg;
-> +	int ret;
-> +
-> +	tx.domain_id =3D cpu_to_le32(domain_id);
-> +
-> +	rpmi_mbox_init_send_with_response(&msg, RPMI_DP_SRV_GET_ATTRS,
-> +					  &tx, sizeof(tx), &rx, sizeof(rx));
-> +	ret =3D rpmi_mbox_send_message(mpxy_pm_domain->mpxy_ctx->chan, &msg);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (rx.status)
-> +		return rpmi_to_linux_error(rx.status);
-> +
-> +	mpxy_pm_domain->transition_latency =3D rx.transition_latency;
-
-[Severity: Medium]
-Is an endianness conversion missing here?
-
-The transition latency field is read directly without little-endian to CPU
-conversion, which could cause incorrect latency evaluations on big-endian
-systems.
-
-> +	strscpy(mpxy_pm_domain->name, rx.name, RPMI_PM_DOMAIN_NAME_LEN);
-
-[Severity: Medium]
-Does unconditionally copying rx.name here expose uninitialized stack memory
-to user-space?
-
-Because the rx struct is uninitialized on the stack, if the RPMI firmware
-returns a success status but populates fewer bytes than the expected size,
-uninitialized stack memory will be copied into the PM domain structure and
-subsequently exposed through sysfs or debugfs.
-
-> +
-> +	return 0;
-> +}
-[ ... ]
-> +static int rpmi_pm_domain_probe(struct platform_device *pdev)
-> +{
-> +	struct device_node *np =3D pdev->dev.of_node;
-> +	struct rpmi_device_power_domain *mpxy_pd;
-> +	struct genpd_onecell_data *mpxy_pd_data;
-> +	struct generic_pm_domain **domains;
-> +	struct device *dev =3D &pdev->dev;
-> +	struct rpmi_ctx *mpxy_ctx;
-> +	u32 num_domains =3D 0;
-> +	int ret;
-> +	u32 i;
-> +
-> +	mpxy_ctx =3D devm_kzalloc(&pdev->dev, sizeof(*mpxy_ctx), GFP_KERNEL);
-> +	if (!mpxy_ctx)
-> +		return -ENOMEM;
-> +
-> +	/* Setup mailbox client */
-> +	mpxy_ctx->client.dev		=3D dev;
-> +	mpxy_ctx->client.rx_callback	=3D NULL;
-> +	mpxy_ctx->client.tx_block	=3D false;
-> +	mpxy_ctx->client.knows_txdone	=3D true;
-
-[Severity: High]
-Does configuring the mailbox client for non-blocking execution
-(tx_block =3D false) require driver-level serialization?
-
-Without synchronization, concurrent state change requests from different
-devices will queue stack-allocated messages and cause a Use-After-Free when
-the calling functions return immediately.
-
-> +	mpxy_ctx->client.tx_tout	=3D 0;
-[ ... ]
-> +	mpxy_pd_data->domains =3D domains;
-> +	mpxy_pd_data->num_domains =3D num_domains;
-> +
-> +	platform_set_drvdata(pdev, mpxy_pd_data);
-> +
-> +	return of_genpd_add_provider_onecell(np, mpxy_pd_data);
-> +}
-
-[Severity: High]
-If of_genpd_add_provider_onecell() fails, does returning the error directly
-leave initialized PM domains dangling in the global gpd_list?
-
-The framework does not clean up individual initialized domains when provider
-registration fails. When devres eventually frees the backing memory, the
-global gpd_list will contain dangling pointers, leading to a Use-After-Free
-and kernel panic.
-
-> +
-> +static void rpmi_pm_domain_remove(struct platform_device *pdev)
-> +{
-> +	struct device_node *np =3D pdev->dev.of_node;
-> +	struct genpd_onecell_data *mpxy_pd_data;
-> +	unsigned int i;
-> +
-> +	of_genpd_del_provider(np);
-> +	mpxy_pd_data =3D platform_get_drvdata(pdev);
-> +	for (i =3D 0; i < mpxy_pd_data->num_domains; i++) {
-> +		if (!mpxy_pd_data->domains[i])
-> +			continue;
-> +		pm_genpd_remove(mpxy_pd_data->domains[i]);
-
-[Severity: High]
-Is it safe to ignore the return value of pm_genpd_remove() here?
-
-If the driver is unbound via sysfs while consumer devices are still attache=
-d,
-pm_genpd_remove() will fail and return -EBUSY. Ignoring this failure allows
-the function to complete and devres to free the memory while the domains are
-still actively linked in the global list, causing a Use-After-Free.
-
-> +	}
-> +}
-> +
-> +static const struct of_device_id rpmi_pm_domain_of_match[] =3D {
-> +	{ .compatible =3D "riscv,rpmi-device-power" },
-> +	{},
-> +};
-> +
-> +MODULE_DEVICE_TABLE(of, rpmi_pm_domain_of_match);
-> +
-> +static struct platform_driver rpmi_pm_domain_platdrv =3D {
-> +	.driver =3D {
-> +		.name =3D "riscv-rpmi-device-power",
-> +		.of_match_table =3D rpmi_pm_domain_of_match,
-> +	},
-> +	.probe =3D rpmi_pm_domain_probe,
-> +	.remove =3D rpmi_pm_domain_remove,
-> +};
-
-[Severity: Medium]
-Will domains initialized in the ON state remain powered on forever?
-
-The platform driver omits a .sync_state callback. Without this callback (or
-setting GENPD_FLAG_NO_STAY_ON), the genpd core sets stay_on =3D true for
-default-ON domains and never clears it, preventing them from being powered
-off.
-
-> +
-> +module_platform_driver(rpmi_pm_domain_platdrv);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260829205520.1691=
--1-joshua.yeong@starfivetech.com?part=3D2
