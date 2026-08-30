@@ -1,175 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EFFA382380;
-	Sun, 30 Aug 2026 08:35:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E665385D62
+	for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 08:40:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788078945; cv=none; b=sk/RXfFv+1Gqys0id5E8Mlg22Lw8f1AWnJEJZs0VDWnJQEQTO+xqxOSnba256029FsrMyY/ly4f5m3gvqp4lhDEUB4ERvijVKTgaWHUdlq1nEharFLZeDfi+8vw/TE/ONN6pAU/v9Rw+pR6qR6vsbr+3Et/481CIbMoOPejRyiY=
+	t=1788079259; cv=none; b=JVipUMUwAQpaxqJIWG/A11NXPSGNtQM/Vsm6Mi1keIFKu9patqQSKXKbXn52/WkwJSmBrv/1u0es+8Rx8r1jFhqrcEwpQ2VXUIPWW4LbKtmqQpBTBkDig4gpLUhFjI9kCFdI+KfrnaotA/+ij9qNu3MqJ5O/G6OgwEpN7x2HV+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788078945; c=relaxed/simple;
-	bh=4ImRa1XNESIUl/suhHZTEHPObbGsxkW/TyzIC8DOkeM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YyxV/xhoNwJ6ARpp3K0x9aGarmLZjrV/FcsQPp4XkRwxpHa3JDkqC4VANdIftM0gyKnfcBquZLvbcC0m8gPWpSYfnUts6vC9sgtYuoXZiAqAgvqJMdrKrK8419a0ahRhqU/A54l1PMAKzrKhW7AgiBJXDZ6KiAMXZWZSxr3cvks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bkHlSqYn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788079259; c=relaxed/simple;
+	bh=xstTPquafbNGlKwlQsKZ7eJq5FPgU6WMbUCfJXuADdE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=m/5ILFmSGz2cHUtSIPJEOhSXExBDJDRtsd9riVtukKYbRfnwpF2772vwztOfuKxcHyOxVFutXoWGql2Hj3fhbE0uzg/jyPOE6Be8dqKHhEyqJVvygKrUmmzbMlBB7/vAbV1WUj5nQAA6kA7qFwYmqJu/ER+5NPLXslySVxUgAWs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=S5IhCqd/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AdgM631C; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bkHlSqYn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D784E1F000E9;
-	Sun, 30 Aug 2026 08:35:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788078944;
-	bh=hTFCf+/WK7bUzDOulou6SgSDwFha6MKK5QsGq8xUtuQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=bkHlSqYnZEO5cbaeV4uD7xXqe/YGRrKTPWZ92KWx2jJW+Db1PJe+haQKq1/8p38JM
-	 3MFVg4xSUhR6ggeZYtFKjubYPXh0DyNv5J8xQvsp/P0miFhOOcmNsvPtCsUnm1WWvI
-	 xHXgU46KHW5kchkLGRutsumBdjd6z+FyUEMp9ibwmy4SY947uz9taLC9JN/gN0V9XR
-	 QyP9x0qMcpffL0DzL0W38+tmZWz6DX//yZpq0q19sgxr3t9R02U8Tjtssia8/AvPWy
-	 fiXL1qx7I0+ka/sfHxQWKF1G58jIT71cEH84tKDUOzOzQDArlXKoAcH/Z4pFzYTwZ3
-	 95oeYQeoWPQFw==
-Message-ID: <417251d0-c2cc-4e10-940d-b75ab20acdec@kernel.org>
-Date: Sun, 30 Aug 2026 10:35:39 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="S5IhCqd/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AdgM631C"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67U5w0so3423100
+	for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 08:40:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=M/Nytepkmt/ZP2rVkdCu7doVcdz2bZqfv3E
+	nSqqfb8w=; b=S5IhCqd/1yiomJiHtcsSCPVCmHL/DPZNP3Afc88iJsUa4NgF2+H
+	+u6Vvasdq3BRQ7Qznqvk8FONNef7TuMqgNfkx6qbWSIDUm0kRgdIBEXZQR5cWxuc
+	5ZXl9nVNrv3H5EZEHgS8OdEMPzuglitZ01eHLTEHuZk9qvjtkK5YJTrlW+wyDsLU
+	7ioH9VrIstWJRr2OmAI/bBMlzJNq6Gf3nXEswresLi5y+1ks02H3qw/cxt9pdbbr
+	34YICvvBsM7o2reA9bngHgAjmWYgr5lXU6VkOgn6+n9Q+NwKFBNuMUqe39Gi2fZu
+	Ar2z0lmKXlxznMXO0fnwsy3soIExWRxUbaQ==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbr6dthus-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 08:40:56 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-52f52ccd459so37013751cf.1
+        for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 01:40:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788079256; x=1788684056; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=M/Nytepkmt/ZP2rVkdCu7doVcdz2bZqfv3EnSqqfb8w=;
+        b=AdgM631CVn6rLFXVMAAQzc15dta9Y1IQcD/2tNHkoY03hSLYSS8ExMm02oap5LJXUw
+         JO7vhFEr4gtiSCLvhCTQ6Mc1FowIA9b97fUb0XGQJTtYD2A97S7jlfPe38Q8J8stvdh0
+         Ofr3Ir/9TNS4TcX5qSdOM/NKy1dbaA1C4RtrxvPcKFgq3j3uW6Qobr9l7O/fA1nfVI/o
+         O7m286U5CXUcCWAkqVrXs5k7RHXEMDTjbd8HCLDrYTzJjDyRZPnmoTs0dlsx+23IjQci
+         AL0un1YHocBTDxG6nBC2qnjyWtbQCbxqc7sV5cFnilElKXynApnJCseOYq7qfBZBtVtq
+         9kqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788079256; x=1788684056;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=M/Nytepkmt/ZP2rVkdCu7doVcdz2bZqfv3EnSqqfb8w=;
+        b=pi5f4l9BWiHdhAbDf7QhNkbKOmKoj15N8DFsFGfMLjOKFzFKfqD1D/S+r1YqXJfxr5
+         Fx99nLr/sEVa7JFQOj3stcmSkpG9QbnF/9ecC0GU8NGRwBF5xfKUvko/L9XFKV4yYo7A
+         Q00/Xn+FnRglRELwTT8gZllFW5LUDhh/ycWrq/O3JD7V4/SnvYwu0+fF01vOKdB9+svf
+         ImYak3yDOHTAo69sHapTbagXhcPkLyYvN5ZH0rrGP40h2Bsph+7Q+z/aOeKfzyFC8E7p
+         TP9HN9lY1YSUCgjfUjjr67Oklc2s8LkyVss0ShzCrXpv7iF/91nejB5IJmYNtHtaJei6
+         S1tw==
+X-Forwarded-Encrypted: i=1; AHgh+RorVO4gzZ1mxejJ6n8Qb0UPv3NXlsYD3oMzeFfayiXd+TtrbKiYG4CjHrALpUKdVQnRyP/LOBVkX/gn@vger.kernel.org
+X-Gm-Message-State: AFuF++lZ+IZMHpso4/WO3DKf68WQrKLaw0dTCb96eNLewfTn3+RMOwgH
+	niOEB0UEykZS1kJGpP/jiqlGTDZ/Ril8cZXIsKxb036VzxhUsVMA+ZBMDTmrYuMI0ruc6sl8ACU
+	jdnr/+hszG+qSU/SojZ1EDXtyUh9ytFPPLqsPHzvpI9ddBFqS6x7MXhmWgn+Vo2tn
+X-Gm-Gg: AR+sD13IAmMCVDtrDe86qcbwUQu7D06y7AKpiojp2mPBS/gKM48Htd6LGGmXl1QjY+F
+	lsKhN9gviobL8FAlDEVb60EW6R9Sy1satJgSfR/nBfaBYYH7wf5iJotClfC2mHCXEwTI6of37Tl
+	pFRtDajlWD1+MQ83vq9KvD2w13qTTPPcHuAWs3BCUHXvOfdLraNrbb7kf+anEinbMhQXy6N9GIW
+	//4Z/Zhop1xaI2uegzlf/28EISt2AcNKNtOwhgkjM2KyhLqCJb8cBIOoLh0rdRksv/HNVOwjeTH
+	+dHPeIn8o0ZIftUXdM+Q6uWKtWrfcqOm7Cziw494tYjSy51GerpmPhE0o/Q238w3vct9OTeaTZF
+	88BPuoJLcv8Yks20=
+X-Received: by 2002:a05:622a:2588:b0:52f:a178:4c59 with SMTP id d75a77b69052e-52fb9657401mr225644561cf.37.1788079255885;
+        Sun, 30 Aug 2026 01:40:55 -0700 (PDT)
+X-Received: by 2002:a05:622a:2588:b0:52f:a178:4c59 with SMTP id d75a77b69052e-52fb9657401mr225644401cf.37.1788079255534;
+        Sun, 30 Aug 2026 01:40:55 -0700 (PDT)
+Received: from quoll ([178.197.219.214])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b963c3c0asm314870005e9.10.2026.08.30.01.40.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 01:40:54 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+        Sascha Hauer <s.hauer@pengutronix.de>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>,
+        Fabio Estevam <festevam@gmail.com>,
+        Oleksij Rempel <o.rempel@pengutronix.de>, linux-sound@vger.kernel.org,
+        devicetree@vger.kernel.org, imx@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v2] ASoC: dt-bindings: imx-audmux: Replace tabs with spaces
+Date: Sun, 30 Aug 2026 10:40:47 +0200
+Message-ID: <20260830084046.14679-2-krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/2] soc: starfive: Add JHB100 UART Routing driver
-To: Changhuang Liang <changhuang.liang@starfivetech.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260830065118.51551-1-changhuang.liang@starfivetech.com>
- <20260830065118.51551-3-changhuang.liang@starfivetech.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260830065118.51551-3-changhuang.liang@starfivetech.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1385; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=xstTPquafbNGlKwlQsKZ7eJq5FPgU6WMbUCfJXuADdE=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqk+yOzvIYQOZZBzBQj6W1Qw9AqvmkZDdJ/+c6L
+ pnuewph0cuJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCapPsjgAKCRDBN2bmhouD
+ 1ytkD/4qT4rdd3yN7yDIh42thkTo+Unwa2sFG31D9cU3y7Mjm2p5Xq0Dg3hI7zzGFyqWeKDZQLd
+ ow5ABRV1PGgwuEic9y2reK+Okt+dWElZBc/09FeWtcJY0hRcUSVZpTqpdSOCPfccLZvWBH44Xko
+ tbK6f7710D+MNASE4jDx0xIyqEdMhSNwiJscYiKUKucg1MOSufYlRYa3sj4E93IWZZF3SOWT5ga
+ r1jT70VNPX7FiVOTquQoanidMyYoZDJvqjx+3MpoDPN79lSK2w1HciOsoD32E6nGW9utrc0kJlx
+ OPbwVKT7gISsR4j4nKtI1PtSY6H3Z76oke4iG+QYkqyESDzfjCFFWhOKK7Mg1FIWsgWTVgAfO0i
+ Kv4P7rzu3/MlT0CdTzBVG7g0mOLLMWfD0FcBypJ45JUxJtdXyEbDVGTf/kJdBT/p5qTUiQKl/wO
+ W5ysEOZiE150cZWvpfrjsobpzeGHXCxpusk9BqLgHLQr5OUlDh1KDV80IhMR2NJtjdxpEubuP2s
+ mBsBXlHJFPCOmiRRwGhs6gwUFzAZBL8ie+o7V5DRnMaztcrN0wPdreMDLCDXheljmOoLfZyhq51
+ O4gPbISfvBcyvAB6QfgVByG7Nm+kk1mB0aC7AXVsxEGWkGSM3BikOf+IC3vXPkbgmE6GVca9zN6 jbEY2GFGR+K9sHg==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMwMDA3MSBTYWx0ZWRfX4jc/0XfjptuL
+ ZsnIIIBkAluJO69DVHbOrC1kMgb5YrBzLoC+RpJeQnc7zoO+GcrXFPnh1X6hBnr05tIYEDnn+G/
+ RjHRH35Tw1Akbdobf/iYPa4mHohk7fmdFWuMh7SLfUc66WYvoVcjfeoFxrS6hpB40Ro/EdOHiJE
+ /e7v4IraVhIv7cmNcu5me5awFldK65XtNPcj7EIKm6jpwiVD1pA/PPp3CApH9/Vn4jPPS2zgJCN
+ +mJMNko1YANeOkpkP+9FqQOqFLedbYS1NebhhQ2oePbM7xrLXeifNNKBZYeMSjzMUqQ55cV70xr
+ AnhfyhyTF44sKIqAYBD8g3X/YlwWe84IT3z6oz0VoSjkPQEypadVaQa9HD4sxHVv7h1SoZ20pw6
+ 7pQGFkr7f1mo56AqfjiPVvN8NQeBmBxntXas8j0pAcvhPbAlL4t1pAwjA0kuUMulb5Rn3114rov
+ uPzUozrnC/Dv1PU0c8w==
+X-Proofpoint-GUID: I9wz6Nt2LEmMCOKYRwvqGWN1CSw2EUuY
+X-Authority-Analysis: v=2.4 cv=Zakt8MVA c=1 sm=1 tr=0 ts=6a93ec98 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=i9mLyMywaSABm-nTGLoA:9 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMwMDA3MSBTYWx0ZWRfX0VHp9BInBres
+ y45rUuja0ap0Hrse3uYZI/uHEjLk03wFzqh72LETXZE38SdDF8maW/5Cyqd1ZpW7z6JxpADqdiF
+ OoyASU+znyOY+Lh60XcH8c85/vxw8qs=
+X-Proofpoint-ORIG-GUID: I9wz6Nt2LEmMCOKYRwvqGWN1CSw2EUuY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-30_02,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 phishscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
+ suspectscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608300071
 
-On 30/08/2026 08:51, Changhuang Liang wrote:
-> Add driver support for JHB100 UART Routing control, allowing runtime
-> configuration of RX muxes between UART controllers and I/O pins.
-> 
-> A sysfs interface is provided for easy checking and updating of routing
-> paths.
-> 
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> ---
->  .../sysfs-driver-starfive-jhb100-uart-routing |  45 +++
->  MAINTAINERS                                   |   7 +
->  drivers/soc/starfive/Kconfig                  |   1 +
->  drivers/soc/starfive/Makefile                 |   1 +
->  drivers/soc/starfive/uart-routing/Kconfig     |  14 +
->  drivers/soc/starfive/uart-routing/Makefile    |   2 +
->  .../uart-routing/jhb100-uart-routing.c        | 262 ++++++++++++++++++
->  7 files changed, 332 insertions(+)
->  create mode 100644 Documentation/ABI/testing/sysfs-driver-starfive-jhb100-uart-routing
->  create mode 100644 drivers/soc/starfive/uart-routing/Kconfig
->  create mode 100644 drivers/soc/starfive/uart-routing/Makefile
->  create mode 100644 drivers/soc/starfive/uart-routing/jhb100-uart-routing.c
-> 
-> diff --git a/Documentation/ABI/testing/sysfs-driver-starfive-jhb100-uart-routing b/Documentation/ABI/testing/sysfs-driver-starfive-jhb100-uart-routing
-> new file mode 100644
-> index 000000000000..2844133bea1b
-> --- /dev/null
-> +++ b/Documentation/ABI/testing/sysfs-driver-starfive-jhb100-uart-routing
-> @@ -0,0 +1,45 @@
-> +What:		/sys/bus/platform/drivers/starfive-jhb100-uart-routing/\*/uart\*
-> +Date:		August 2026
-> +Contact:	Changhuang Liang <changhuang.liang@starfivetech.com>
-> +Description:	Selects the RX source of the UARTx device.
-> +
-> +		When read, each file shows the list of available options with currently
-> +		selected option marked by brackets "[]". The list of available options
-> +		depends on the selected file.
-> +
-> +		e.g.
-> +		cat /sys/bus/platform/drivers/starfive-jhb100-uart-routing/\*.uart-routing/uart1
-> +		io0 [io1] io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14 uart0 uart1
-> +		uart2 uart3 uart4 uart5 uart6 uart7 uart8 uart9 uart10 uart11 uart12 uart13 uart14
-> +
-> +		In this case, UART1 gets its input from IO1 (physical serial port 1).
-> +
-> +		To switch the RX source of UART1 to UART2, write the desired source to the file:
-> +		echo uart2 > /sys/bus/platform/drivers/starfive-jhb100-uart-routing/*.uart-routing/uart1
-> +
-> +		This indicates that UART1 now receives its input from UART2.
-> +
-> +Users:		OpenBMC.  Proposed changes should be mailed to
-> +		openbmc@lists.ozlabs.org
-> +
-> +What:		/sys/bus/platform/drivers/starfive-jhb100-uart-routing/\*/io\*
-> +Date:		August 2026
-> +Contact:	Changhuang Liang <changhuang.liang@starfivetech.com>
-> +Description:	Selects the RX source of IOx serial port. The current selection
-> +		will be marked by brackets "[]". The list of available options
-> +		depends on the selected file.
-> +
-> +		e.g.
-> +		cat /sys/bus/platform/drivers/starfive-jhb100-uart-routing/\*.uart-routing/io9
-> +		uart0 uart1 uart2 uart3 uart4 uart5 uart6 uart7 uart8 [uart9] uart10 uart11 uart12
-> +		uart13 uart14 io0 io1 io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14
-> +
-> +		In this case, IO9 (physical serial port 9) gets its input from UART9.
-> +
-> +		To switch the RX source of IO9 to UART10, write the desired source to the file:
-> +		echo uart10 > /sys/bus/platform/drivers/starfive-jhb100-uart-routing/*.uart-routing/io9
-> +
-> +		This indicates that IO9 now receives its input from UART10.
-> +
-> +Users:		OpenBMC.  Proposed changes should be mailed to
-> +		openbmc@lists.ozlabs.org
+YAML files do not use tabs, even within the values in DTS.  No
+functional change, although dt-style-check will warn about it
+("[tab-in-yaml] tab character not allowed in DTS example").
 
-drivers/soc/ should not define user-space interfaces. This is not the
-place for them. You need to route user-spaces interfaces only through
-one of other approved subsystems, after their review.
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-This looks like pin multiplexing interface.
+---
 
-Best regards,
-Krzysztof
+Changes in v2:
+1. Correct logic in commit msg spaces->tabs
+---
+ Documentation/devicetree/bindings/sound/imx-audmux.yaml | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/sound/imx-audmux.yaml b/Documentation/devicetree/bindings/sound/imx-audmux.yaml
+index dab45c310670..501af1add3c1 100644
+--- a/Documentation/devicetree/bindings/sound/imx-audmux.yaml
++++ b/Documentation/devicetree/bindings/sound/imx-audmux.yaml
+@@ -101,10 +101,10 @@ examples:
+         mux-ssi1 {
+             fsl,audmux-port = <0>;
+             fsl,port-config = <
+-                IMX_AUDMUX_V2_PTCR_SYN		0
+-                IMX_AUDMUX_V2_PTCR_TFSEL(2)	0
+-                IMX_AUDMUX_V2_PTCR_TCSEL(2)	0
+-                IMX_AUDMUX_V2_PTCR_TFSDIR	0
++                IMX_AUDMUX_V2_PTCR_SYN      0
++                IMX_AUDMUX_V2_PTCR_TFSEL(2) 0
++                IMX_AUDMUX_V2_PTCR_TCSEL(2) 0
++                IMX_AUDMUX_V2_PTCR_TFSDIR   0
+                 IMX_AUDMUX_V2_PTCR_TCLKDIR      IMX_AUDMUX_V2_PDCR_RXDSEL(2)
+               >;
+         };
+-- 
+2.53.0
+
