@@ -1,113 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE13C3148A7
-	for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 22:12:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F2C9306B1B;
+	Sun, 30 Aug 2026 22:44:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788127974; cv=none; b=eba3wbGkMHyio9emv5wrzRabugTsPtdCAqxe84IeY2ulpBgcaSNfifUE+6AvbVqwCpmJegU5Pb+EGB92iiOBGKg83Q8L9r/7ufTENefkqhIVz0lr6V/dqZeGOWWly2fvzdot/yAkJVvYpFXCTSqFvmGD7jZyPjEORzF8wuhON6U=
+	t=1788129845; cv=none; b=HW+LzwkFqKxYnawM93oSXhcwMW9EBNEgFloRmGKmzj1L1BTAfEFrmv7FN8ea6kFNiDJgNcCdMREmtTKjlSnNj0EA9GaKQjzQOtmOM3GBClsavH/Oe8gB8QFfswJoa8pahi9BGXplovquY2mxU6QE5pdMb/0DpD16dbjyJr+m6uw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788127974; c=relaxed/simple;
-	bh=0mkqjBFVGTsFt8ZAwCvMpXnOc/Ehk+NHMxwzZ4Am41Y=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JkIJjaipD351owtKnxzTkGk8RAWKKdXvm49N98S/XEAvDZ33HsFQMH9YBZKF26ft9UQlPSNSZltZo2Y0u3zCr/3nJ1CWb2nx+K/iJ85OS7/FeRNsm0UMN1nhOz9Q0RCF8Ej8K/Q+PXG9tOir9635IbnW75eJ5FhlTsT97Q5jnV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XePxhAHy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788129845; c=relaxed/simple;
+	bh=JsAVgbzUCPs1t9Y9SGE/OQ4XAEr9+EPYuj6J/pefiGc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=mVhek1ymAhGIHsImXUWzrPbdCIIpIU6ZewLTKQrSuzck3PuswQGjtkpRgytzzxJFPKKn6Du1W0uaqhA43erO/7K9cwxfSXuLBg/q1rnKPX7XOsVPaXaTy/LJ5gfl2CtjxZZKHx0moxcm4LzCzIPyNi/wOBsURESzO7WXxrLAgVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SPoUCKUM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XePxhAHy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 295271F000E9;
-	Sun, 30 Aug 2026 22:12:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SPoUCKUM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA4121F000E9;
+	Sun, 30 Aug 2026 22:44:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788127972;
-	bh=Fg4cPFtL/PlQuD0lJdABC9jxJ5/Wen+eJwZohQQD8Z8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XePxhAHyER8W8S1hS8FyYQd3TCDQH08CyMLHD73EwpgWxx4fG0gvHuReh4IvgJa3M
-	 qd2V5AkF6On2DIccp8Ub9C7ibEobuifgdKxyk16fhvJx+T6pDzaxQo1dYfF3pcj/Wy
-	 IYJc0ND5OW0PpkzkeeA3WWx7gudVUgrG1Mo1WgbigQP5Zgqim33gsBprxrW+NKJKn5
-	 UNAyohOLDdKmPp/Nzz+3kSHAQ7og4FC1VDni0hIOVhd4omokIqcQn/fjftnJAk+jar
-	 SAG/ZUcblTIK+MwuuWM2JV9gf6sKVVZpYop8VCMg/Es/Zm5xCjDW2enxI4ODPII5ZJ
-	 JkDt2htpJxEdA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] arm64: dts: qcom: add HP OmniBook Ultra 14-kg0xxx
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jason Pettit" <jason.pettit@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260830-x2-hp-omnibook-ship-v1-2-9feada71dc79@oss.qualcomm.com>
-References: <20260830-x2-hp-omnibook-ship-v1-0-9feada71dc79@oss.qualcomm.com>
- <20260830-x2-hp-omnibook-ship-v1-2-9feada71dc79@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 30 Aug 2026 22:12:51 +0000
-Message-Id: <20260830221252.295271F000E9@smtp.kernel.org>
+	s=k20260515; t=1788129843;
+	bh=BY7JnREYbWtqZ4sp4pB1J1VcHjPTw+S3hOw0HIkM4oc=;
+	h=From:Subject:Date:To:Cc;
+	b=SPoUCKUMzAxI5/zmW8BSNFKpTVDKOjvQdx/ZB/EQt4L80V2Im8molhb/dRV6XczIn
+	 3cU3VkbHocIstA0mk/5DFMaCMJkOXa2xv1o3oui2sgc2H9tIfRB40AXZSkffjaHgVn
+	 +HoGjsNGOvA8/i8wge9lbxhUwI0NaXuOMRA6zPcwVW+Xk7WAlWv+FqPQyWHQH2Nih4
+	 VDcyQ6x+IgJ++RfKEpCrP8RG6A9aPOV9DkUsbu5AjU2LbGRQDJL9rg61KCLtyzQb3t
+	 SoP8hWCsiHpf/u5IOMaIOtAlYmBeI4p0fYqOMqIH+IihZcJQwLC52p9Eb28hxKihro
+	 DFzHJ5XI+9u6A==
+From: Linus Walleij <linusw@kernel.org>
+Subject: [PATCH 00/13] Add AB8500 buck regulators to the Ux500 device tree
+Date: Mon, 31 Aug 2026 00:43:29 +0200
+Message-Id: <20260831-ux500-dts-snowball-regulator-v1-0-fe279fff5e18@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MwQrCMAwA0F8ZORuIkar4K+KhtXEGSivJNgdj/
+ 27x+C5vAxdTcbgNG5gs6tpqx/EwwPMd6yiouRuY+ExXJpzXQIR5cvTavimWgibjXOLUDNMpZOb
+ AKYcL9OJj8tL1398f+/4D9+4FvG4AAAA=
+X-Change-ID: 20260820-ux500-dts-snowball-regulator-b35d2252bd57
+To: Stephan Gerhold <stephan@gerhold.net>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Axel Lin <axel.lin@ingics.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>
+Cc: devicetree@vger.kernel.org, mfd@lists.linux.dev, 
+ Linus Walleij <linusw@kernel.org>
+X-Mailer: b4 0.14.3
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] 1.8V regulator applied to 1.2V and 0.95V pins on the WCN7850 PMU, =
-risking hardware damage.
-- [Low] The board device tree references an undefined `&pcie3_phy` label, c=
-ausing a dtc compilation failure.
---
+While working on the Ux500 power domains it became apparent that the
+device trees were using the DB8500 power-domain regulator for supplies
+which actually come from buck converters in the AB8500 PMIC.
 
-commit 4454af8cdf9bffc654c2251cf576014586466b4c
-Author: Jason Pettit <jason.pettit@oss.qualcomm.com>
+First: fix a bunch of bugs. All of these patches have Fixes: tags.
+I do not consider any of them urgent or regressions, they can just
+be queued in front of the new functionality.
 
-arm64: dts: qcom: add HP OmniBook Ultra 14-kg0xxx
-   =20
-Add board support for HP OmniBook Ultra 14" Next Gen AI PC
-(product SKU D29KLAS#ABA, board 8F03), a Snapdragon X2 Elite (Glymur)
-laptop, using the "hp,omnibook-ultra-kg0xxx" / "qcom,glymur" compatible.
+Move some regulators over to using linear ranges before adding new
+stuff since linear ranges are nice.
 
-> diff --git a/arch/arm64/boot/dts/qcom/glymur-hp-omnibook-ultra-kg0xxx.dts=
- b/arch/arm64/boot/dts/qcom/glymur-hp-omnibook-ultra-kg0xxx.dts
-> new file mode 100644
-> index 0000000000000..d1c1880a50b9b
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/glymur-hp-omnibook-ultra-kg0xxx.dts
+Add bindings and regulator driver support for the six SMPS1, SMPS2,
+SMPS3, ARM, APE and MOD buck converters. Instantiate the regulators for
+both AB8500 and AB8505, where the corresponding rails are named VSMPSA,
+VSMPSB, VSAFE, VARM, VSMPSC and VSMPSM, and connect existing consumers
+to the correct SMPS2/VSMPSB supply.
 
-[ ... ]
+The driver follows the active hardware selector, including the
+additional AB8505 selector banks, and uses the variant-specific VARM
+voltage encoding. It provides enable and low-power mode control for the
+three peripheral bucks while leaving the SoC-controlled rails
+voltage-only.
 
-> +	wcn7850-pmu {
-> +		compatible =3D "qcom,wcn7850-pmu";
-> +		vdd-supply =3D <&vreg_wcn_0p95>;
-> +		vddaon-supply =3D <&vreg_l15b_e0_1p8>;
-> +		vdddig-supply =3D <&vreg_l15b_e0_1p8>;
-> +		vddio-supply =3D <&vreg_l15b_e0_1p8>;
-> +		vddio1p2-supply =3D <&vreg_l15b_e0_1p8>;
-> +		vddrfa1p2-supply =3D <&vreg_l15b_e0_1p8>;
-> +		vddrfa1p8-supply =3D <&vreg_l15b_e0_1p8>;
+Since peripheral buck enable state is programmed by OTP and can power
+discrete components outside the device tree, preserve any rail which
+the OTP leaves enabled when regulator constraints are completed.
 
-[Severity: High]
-Does this apply a 1.8V supply (vreg_l15b_e0_1p8) to pins that structurally
-require 1.2V (vddio1p2, vddrfa1p2) and ~0.95V (vddaon, vdddig)?
+The last two patches adding device tree changes I will queue myself
+in the ux500 tree. The rest should go into the regulator tree.
 
-Over-volting these inputs with a 1.8V supply risks permanently damaging the
-WCN7850 PMU or causing system instability. A 1.2V regulator (vreg_l18b_e0_1=
-p2)
-is defined in this file but appears incorrectly unused here.
+Maybe Lee can ack the binding patch once the DT maintainers are happy
+so Mark can merge that with the rest?
 
-[ ... ]
+Assisted-by: LLM
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+Linus Walleij (13):
+      regulator: ab8500: Fix AB8505 VANA voltage selectors
+      regulator: ab8500: Add AB8505 VAUX3 3.05 V setting
+      regulator: ab8500: Handle AB8505 VINTCORE selector 7
+      regulator: ab8500: Treat cut 1.0 VAUX3 as fixed
+      regulator: ab8500: Test dedicated enable bits only
+      regulator: ab8500: Propagate mode enable read errors
+      regulator: ab8500: Use linear ranges for LDO voltages
+      dt-bindings: mfd: ab8500: Add regulators
+      regulator: ab8500: Add buck converter support
+      regulator: ab8500: Preserve OTP-enabled buck regulators
+      regulator: ab8500: Use scoped guard for shared mode mutex
+      ARM: dts: ux500: Add new AB8500/AB8505 regulators
+      ARM: dts: ux500: Fix up regulator assignments
 
-> +&pcie3_phy {
-> +	vdda-phy-supply =3D <&vreg_l3c_e1_0p94>;
-> +	vdda-pll-supply =3D <&vreg_l2c_e1_1p2>;
-> +
-> +	vdda-refgen0p9-supply =3D <&vreg_l1c_e1_0p91>;
-> +	vdda-refgen1p2-supply =3D <&vreg_l4f_e1_1p2>;
-> +
-> +	status =3D "okay";
-> +};
+ .../devicetree/bindings/mfd/stericsson,ab8500.yaml | 102 ++-
+ arch/arm/boot/dts/st/ste-ab8500.dtsi               |  28 +-
+ arch/arm/boot/dts/st/ste-ab8505.dtsi               |  28 +-
+ arch/arm/boot/dts/st/ste-href-stuib.dtsi           |   8 +-
+ arch/arm/boot/dts/st/ste-href-tvk1281618-r2.dtsi   |  14 +-
+ arch/arm/boot/dts/st/ste-href-tvk1281618-r3.dtsi   |  10 +-
+ arch/arm/boot/dts/st/ste-href.dtsi                 |   2 +-
+ arch/arm/boot/dts/st/ste-snowball.dts              |  10 +-
+ arch/arm/boot/dts/st/ste-ux500-samsung-codina.dts  |   4 +-
+ arch/arm/boot/dts/st/ste-ux500-samsung-janice.dts  |   2 +-
+ arch/arm/boot/dts/st/ste-ux500-samsung-kyle.dts    |   4 +-
+ arch/arm/boot/dts/st/ste-ux500-samsung-skomer.dts  |   4 +-
+ drivers/regulator/ab8500.c                         | 748 +++++++++++++++++++--
+ 13 files changed, 869 insertions(+), 95 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260820-ux500-dts-snowball-regulator-b35d2252bd57
 
-[Severity: Low]
-Does this reference an undefined pcie3_phy label?
+Best regards,
+-- 
+Linus Walleij <linusw@kernel.org>
 
-Since pcie3_phy is not defined in glymur.dtsi (unlike older SoCs where it
-might have been copied from), this reference will cause a dtc compilation
-failure when building the device tree.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260830-x2-hp-omni=
-book-ship-v1-0-9feada71dc79@oss.qualcomm.com?part=3D2
