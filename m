@@ -1,108 +1,58 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D57623A16AB
-	for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 18:29:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD3F1F5821;
+	Sun, 30 Aug 2026 19:59:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788114599; cv=none; b=eshEZa+mnJMsp/fs8/TP/VoRqB+oafh/xNbpNWWSVKezF+rwI1qDqWYU88PXthPLoggtjzQBAwxqUDXN0h6sFxcaZG2oFuC7MpByAid1sJ/L8neEMSqVwYLWJSPB1fbRM8WUoeNoKeJr7DKz2TwmTQkYDN9hlaQu6iMvx03GtDE=
+	t=1788119951; cv=none; b=OoYZVk3yGxYjdfco955ITcip8o6mZePqpUpy6tMX3WwIAOzcnTJEWuEdkMaDosXtzyg4Jzh0ITekCitjA6Q+KKo+DNtK4zKYdsaYbHJNakiHkV37pD+maDea9ZCoRo47MZn+WoOupaX7uKWgA8Hn9L1w3l1NfZs4YlGvZlw/BCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788114599; c=relaxed/simple;
-	bh=xi674D62beioQOgA9UvJ/BBKWUh2SR0FlqhBDxlRaog=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Uk0Z2fI/4t7YX1zuh2BpsjvbzlI70s38bBcNG4GzA7irAO3qK2drA0pUVLD67RG1BsborLb/6vMZnrYs12794GyhhYBV040r+ZxTnelV29iW2LHkZxDudxk8NiqBBux6HqM34TJHVaP4mdRci+gAibm/NUk0yl9llChHRUvD0Ec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O4K+RBx6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788119951; c=relaxed/simple;
+	bh=PygCYNHbPB7G7RQaY85P1aC+jsaSv+VfacPaFO0yfM0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OqnneJ0xo9XzXxXN5GOKLEUmrm7KFOzYqXogirCBkSkdGiJjhqz5QZf5KN/SrYCZ8h1VYSBKoJJYejulPnf3fD3wc+lzbhArOXIQ7mK44xdzTW5tDEM9lS0mYsV8YrZjpAAOho21+vywM0OXKQo2j01k+ovZQ/EbTH80Ov5p/Do=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W6w2Pwsc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O4K+RBx6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43FC81F000E9;
-	Sun, 30 Aug 2026 18:29:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W6w2Pwsc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD8941F000E9;
+	Sun, 30 Aug 2026 19:59:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788114598;
-	bh=kkNn6CbfSLzD9OnYWut/0okU7g3jOVtE0IUtLQuhjTc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=O4K+RBx6AZRvnhCywmsuoA/yqgwulRIElpqQ6LHk2V+gZlrcByV/VmwXeEvfACOsw
-	 uxnE3Npl/nEVkaSibmBzAVXlv6OVmdbedjtXhHWEmA93i8IUiKzFoKMC5ChVe3fyVY
-	 zsFpV7L02/pTAgnRp3DUyADed9Qq8cpFV+UUgNwjW5rXdWg04feeoAXKxfVAyUMeSj
-	 GxyfUChsdYju7wySuwIB7cKY82GW0NmusvpX2mdOuLbCfjrpYSMKSbRj+haKvP/3AV
-	 pS4xqMK3q5lHZ9vAIpV5nkogLL0zTiE7CBSNh5vkwjG3WPn0CcO/YxU66e/mztPkS3
-	 LkpEiZgieujqw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] dt-check-style: Handle indented fragments in
- indent-consistent
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sven Peter" <sven@kernel.org>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260830-b4-dts-check-fix-v1-2-e7c1b2774730@kernel.org>
-References: <20260830-b4-dts-check-fix-v1-0-e7c1b2774730@kernel.org>
- <20260830-b4-dts-check-fix-v1-2-e7c1b2774730@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 30 Aug 2026 18:29:57 +0000
-Message-Id: <20260830182958.43FC81F000E9@smtp.kernel.org>
+	s=k20260515; t=1788119949;
+	bh=S11SuWwDx7+Jzwa7DGIwxKCgvwlYSixM4/+w+taxdZc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=W6w2PwscrtYaORiBfn/xnDQE1No14BJp+0LwLUGYxyiQ1Ra5feRRv0rYuwvfs5sZi
+	 I2gnc+CFUFWrMFuOYOT8WDGaZuhN3BOkbaBwDw44cKeqfxLvPY2W6yQZK6f56KbnZL
+	 c4WsnBozV26nZSVCm3xrQWTBkFW+/pJ/EWqBQOir9U6soSOe95cm94On+GwKeWZxvN
+	 19zpZn7STl/VcYPbzxNnTPwpOGGCusn1fPhxsAAMFkyNMvrs6xNWnE8BXQoY5iLK2u
+	 iuvlq56nlTAJmfQnR2XHPzoB/rHg9G4RxUYkLRQZvFZRQLv5731HtKWPEOuAq6Hi44
+	 nEs91Nq/uEYAg==
+Date: Sun, 30 Aug 2026 14:59:09 -0500
+From: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/6] dtc: dt-check-style: Add test for node and property
+ name styles
+Message-ID: <20260830195909.GA151984-robh@kernel.org>
+References: <20260829-dts-style-checker-sort-v1-0-6693a37d7ae1@oss.qualcomm.com>
+ <20260829-dts-style-checker-sort-v1-4-6693a37d7ae1@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260829-dts-style-checker-sort-v1-4-6693a37d7ae1@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The error message for indentation mismatch ignores the newly added =
-fragment prefix, leading to mathematically incorrect and highly confusing f=
-eedback for developers.
---
+On Sat, Aug 29, 2026 at 09:53:20PM +0200, Krzysztof Kozlowski wrote:
+> Common style violation is usage of underscores in node or property
+> names, so add rules for following recommended names.  There is plenty of
+> legacy approach, so add the rules only for 'strict' mode of checking.
 
-commit f969e2d48b468cab099652ff63ddd56c43afbb19
-Author: Sven Peter <sven@kernel.org>
+We already have this in dtc, do we need it here too?
 
-dt-check-style: Handle indented fragments in indent-consistent
-
-This commit updates the indent-consistent check to account for constant
-indentation prefixes in include fragments. It adds the fragment prefix
-to the expected indentation and includes test fixtures.
-
-> diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
-> index 2afc05fa66023..f867cb6d80709 100755
-> --- a/scripts/dtc/dt-check-style
-> +++ b/scripts/dtc/dt-check-style
-[ ... ]
-> @@ -498,7 +499,7 @@ def check_indent_consistent(ctx):
->          # The indent must be 'unit' repeated dl.depth times, exactly.
->          # NODE_CLOSE lines have depth equal to the post-decrement value,
->          # which matches the indent expected.
-> -        expected =3D unit * dl.depth
-> +        expected =3D prefix + unit * dl.depth
->          if dl.indent_str !=3D expected:
->              yield (dl.lineno,
->                     'indent mismatch (expected depth %d * %r)' %
->                     (dl.depth, unit))
-
-[Severity: Low]
-Should the error message be updated to reflect the newly calculated expected
-indentation? Since expected now includes the prefix, printing just=20
-dl.depth * unit could be confusing for developers trying to match the
-indentation required by the tool.
-
-[ ... ]
-> diff --git a/scripts/dtc/dt-style-selftest/expected/dts-fragment-indent.d=
-tsi.txt b/scripts/dtc/dt-style-selftest/expected/dts-fragment-indent.dtsi.t=
-xt
-> new file mode 100644
-> index 0000000000000..84ec8eb734688
-> --- /dev/null
-> +++ b/scripts/dtc/dt-style-selftest/expected/dts-fragment-indent.dtsi.txt
-> @@ -0,0 +1,3 @@
-> +# mode=3Dstrict
-> +bad/dts-fragment-indent.dtsi:9: [indent-consistent] indent mismatch (exp=
-ected depth 2 * '\t')
-> +bad/dts-fragment-indent.dtsi:10: [indent-consistent] indent mismatch (ex=
-pected depth 2 * '\t')
-
-[Severity: Low]
-Does this test case intentionally assert the potentially misleading error=20
-message? If the message in check_indent_consistent is updated to include=20
-the prefix, this expected output would also need to be adjusted.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260830-b4-dts-che=
-ck-fix-v1-0-e7c1b2774730@kernel.org?part=3D2
+Rob
