@@ -1,77 +1,126 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468BA2C0294;
-	Sun, 30 Aug 2026 20:23:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 205F8325485
+	for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 20:28:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788121438; cv=none; b=uZB6P34shOgVv1Yc+2EM3mz09QCpFBac2dayPRehP6+jlDQk8XZy/2SVENn3yYijJWpuPPMu1cishfrXq/i5l3olM0p3HkM1eTdobff/9eRnhhvYwfUfyQYQHimK08It3HKcWJx1ajcBBUBSuiN9aRgNCagy2MTROSjWB031EFs=
+	t=1788121692; cv=none; b=iiRRcFyrJdwNQal1BAXCPT2sJPa8t8Y06Mpd+vQ2YuDc5Q4AYozT5XMdFsC/pfx4R4QEw1Kb2m12uUdAp0HnrVHAWkw8YaDANaC//8J0y3HZYE9nBtVnbiXDIn22hTnaTJ7MOj/gwBNtQt07FZVHXJ8JNYSXmMg0kJ00NFIlmjM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788121438; c=relaxed/simple;
-	bh=I6Qy7c1SCo3kXYxfli+0PRMCzLl4TBog0mFhMqPaqUs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cNv1zHu3ICNM533oqomVncfw46XwL2o7uR2zKwYLB3pyaWvcrU7OsZzTVrxc3xLirvJY43fn8kaBKUd+Y/aBbc8cXXuX9oMOWORlmoPRaqeW96qGR6Sgxyfrj42GFhMrxSQksdDsn24Ii6hSyEhAKjBXmiNyQgqyCIl4jIOTa3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=Vjh/aTjJ; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788121692; c=relaxed/simple;
+	bh=kJro3XSTKHt7Y5Bg3Flj+SXreaC6g1z1RecxqmodcqU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=JtYWV8p1/L+Bw72qHoOvi/oaGVYMJDjSmBFABHrJrIjDQOjlRgZ0iabVwBJ3EklOUSxt/ZIEmQpIs0YGLuomtB5edOR0E0rbf9OiEMA+jqLznkCf2g4PMFjmHJRIADAmgEG9+hw6NvMLaPthEsJ88HG6Z5p3W0/Bws6iQDOy8Zc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WOhE7cPM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="Vjh/aTjJ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=fvp1pXNe5TqeRLtSD0qiAJjH/t/R2XXpNq+2z1rCEXU=; b=Vjh/aTjJEGC3nFUNrV6JDgufiv
-	vaTbt6Pkv5qks/+2yHr3qWO9ssIQ9iRuffyV90OaMvgiW0ifnYe2Pg7a4F03VTx/uWY9qVZHKixg0
-	NV7N/++3Qslszxy654Zlsr/GEnlZhbA2RDY2mHOUyIYOH0Om434kTC0LeTFiMNnsdvrA=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x0m3l-00254S-3T; Sun, 30 Aug 2026 22:23:21 +0200
-Date: Sun, 30 Aug 2026 22:23:21 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-Cc: Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ryan Chen <ryan_chen@aspeedtech.com>,
-	Billy Tsai <billy_tsai@aspeedtech.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 0/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
-Message-ID: <d60f234e-1b9e-44cc-9bad-da79e794fe44@lunn.ch>
-References: <20260830182036.284736-1-prasanth.padarthi10@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WOhE7cPM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 256AD1F000E9;
+	Sun, 30 Aug 2026 20:28:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788121685;
+	bh=YN9C8QVp+Yq+/Hul0T4+HR+gavr/Uj6Kr4s/Um/Gjp4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=WOhE7cPMQiPB4Fw4oNM1r6lsY/HfLOIvJPNOnKALCYsg5mejbx3phk14WPTP6Exee
+	 2TPyNuxj97P4lndXJdqbm7mitJ69US8nAeVAOnOJXUe6sEsK4pChCbdkONCXxQJK75
+	 Xpdf4Czapl8lRtVGw3pdxAjSnzMedITTtzVL26g7em6jSu5qIPvluaCAqPnXhbhTcN
+	 QSpeZExCmJ0plfL962INjzZF/4CPtYoSPWmnKrr3dOXVDjszPY+yjyLb6a/lTvlQ1e
+	 5sr+hA6shRGsoAJeefzuFVT9wJquWfettXCSzpEzGU0QjYBM7kwBXPa6HG3D2ld8rH
+	 cwlZVFa8HzYqw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 12/19] thunderbolt: Add ring_configure to tb_nhi_ops
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sven Peter" <sven@kernel.org>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260830-b4-apple-soc-tbt-v1-12-44bc9348683c@kernel.org>
+References: <20260830-b4-apple-soc-tbt-v1-0-44bc9348683c@kernel.org>
+ <20260830-b4-apple-soc-tbt-v1-12-44bc9348683c@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 30 Aug 2026 20:28:04 +0000
+Message-Id: <20260830202805.256AD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260830182036.284736-1-prasanth.padarthi10@gmail.com>
 
-On Sun, Aug 30, 2026 at 11:50:34PM +0530, Prasanth Kumar Padarthi wrote:
-> Add device tree support for the ASRock Rack B650D4U BMC, which is
-> based on the ASPEED AST2600 SoC.
-> 
-> The series adds the board compatible and describes the BMC memory,
-> SPI NOR flash layout, UART console, and MAC0 connected to an
-> RTL8211F Ethernet PHY.
-> 
-> The MAC0 RGMII timing configuration was validated on B650D4U
-> hardware. With plain "rgmii", the PHY negotiated 1000baseT/Full but
-> received no valid packets and accumulated RX CRC errors. With
-> "rgmii-rxid", a 5000-packet test completed with 0% packet loss and
-> no RX CRC errors. "rgmii-id" was also tested successfully, but the
-> additional TX delay is not required, so "rgmii-rxid" is retained.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Please take a read of:
+Pre-existing issues:
+- [High] Missing memory barrier (dma_rmb) after reading DMA descriptor comp=
+letion flag
+--
 
-https://elixir.bootlin.com/linux/v6.15/source/Documentation/devicetree/bindings/net/ethernet-controller.yaml#L287
+commit 82c2d88f02d2edaeda6c19dd57bec009104cdc30
+Author: Sven Peter <sven@kernel.org>
 
-Does the PCB have 2ns of delay for TX, but notR RX?
+thunderbolt: Add ring_configure to tb_nhi_ops
 
-     Andrew
+The Apple NHI has to configure and enable each ring with a single write
+and uses a separate register range for the receive ring PDF masks. Add
+an optional tb_nhi_ops hook for it which falls back to the standard USB4
+NHI method when it is not set.
+
+> diff --git a/drivers/thunderbolt/nhi.c b/drivers/thunderbolt/nhi.c
+> index 3cb69deec63e8..696da52abff6c 100644
+> --- a/drivers/thunderbolt/nhi.c
+> +++ b/drivers/thunderbolt/nhi.c
+
+[Severity: High]
+This isn't a bug introduced by this patch, but this patchset specifically
+targets arm64 (Apple Silicon), where weak memory ordering will actively
+manifest an issue in the existing code.
+
+In both ring_work() and tb_ring_poll(), the DMA descriptor completion flag
+is checked, and if completed, the other descriptor fields (length, eof, sof)
+are read immediately without enforcing memory read ordering.
+
+drivers/thunderbolt/nhi.c:ring_work() {
+    ...
+	while (!ring_empty(ring)) {
+		if (!(ring->descriptors[ring->tail].flags
+				& RING_DESC_COMPLETED))
+			break;
+		frame =3D list_first_entry(&ring->in_flight, typeof(*frame),
+					 list);
+		list_move_tail(&frame->list, &done);
+		if (!ring->is_tx) {
+			frame->size =3D ring->descriptors[ring->tail].length;
+			frame->eof =3D ring->descriptors[ring->tail].eof;
+			frame->sof =3D ring->descriptors[ring->tail].sof;
+			frame->flags =3D ring->descriptors[ring->tail].flags;
+		}
+    ...
+}
+
+drivers/thunderbolt/nhi.c:tb_ring_poll() {
+    ...
+	if (ring->descriptors[ring->tail].flags & RING_DESC_COMPLETED) {
+		frame =3D list_first_entry(&ring->in_flight, typeof(*frame),
+					 list);
+		list_del_init(&frame->list);
+
+		if (!ring->is_tx) {
+			frame->size =3D ring->descriptors[ring->tail].length;
+			frame->eof =3D ring->descriptors[ring->tail].eof;
+			frame->sof =3D ring->descriptors[ring->tail].sof;
+			frame->flags =3D ring->descriptors[ring->tail].flags;
+		}
+    ...
+}
+
+Could the CPU speculatively reorder these reads?
+
+If it fetches length before the device DMA transaction writing the complete
+descriptor is fully visible, could it result in reading a stale value and
+improper frame handling?
+
+Does this code need a memory barrier like dma_rmb() after reading the
+completion flag?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260830-b4-apple-s=
+oc-tbt-v1-0-44bc9348683c@kernel.org?part=3D12
