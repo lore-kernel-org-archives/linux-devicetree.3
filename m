@@ -1,47 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C788481B1;
-	Sun, 30 Aug 2026 00:59:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0D95145A1F;
+	Sun, 30 Aug 2026 01:36:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788051595; cv=none; b=OXFDGc/OocZvUCBHGxV+6Mv0XDRKOs6pDX+5jilxojwRl6PChBFMIp/PCdl9XoKZrgVUIu48XAW0ZzJVfFdOpBbE4YfdEvj/GhBBRmsA5bFknIPRd9nL1SUPO0bbccdUbzMX9LU5wJsJRfDHsrkDmLC1Ivg2Dohm4bPl7U3V1Dc=
+	t=1788053786; cv=none; b=AFVyTQDf3HGtS9LyLKFJbQ48ZN0yV0McrB/TDneJ9ULGzt6oOMtjpmKW7MnrBvZGVEVtFIGEr+YGL+M1DkNwfMytgUwTxo6++Qsk1q8lKUHwk+F6Vnc5R1SUBjcWTc2QbEvQHr2FVj540C+puT0ImW6yJIIDIyrRpqIgAim17Fg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788051595; c=relaxed/simple;
-	bh=EyB1xNFMYQ2Ew4bqHcCjB4Fg2/pDw+DsZwOOQicwQoo=;
+	s=arc-20240116; t=1788053786; c=relaxed/simple;
+	bh=Vv5i4jqd6MRM17DD001GHFOxW0HC9j2oP47qPtvKzqs=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DMiZ0UdkaaEjUKQEgwmYvdZjnM6dMWncV57FZgLsi+RYyHf2m/CfDcWsLEpkdsOLW723G0tBU8F7a1Ax8toXsnMh+ggPiVfV7dC8nhJ0yY6zzzcvmf+FBMPTbCsz2OWnTgWrm1TpZqtR1KmkW99c4BSHV2TwPGDaKnE/y400rPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K3WOhWoI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=k7gSP41bmruORh6peMZ7epOlFaT+8VddwDIjiqd2+fcBqFzAvn1PFCFwkqkyTxQlMwzSIkAntIhMTZiCow7YZWrCpL+F+xZbxZyhmde10jemzdaUs/n/lpZ+rutbNRn+UUZjsNsjhEPMNMz3AnDk6dSqkqEbkKe/TnFbV6eJrF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ajeeDKkF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K3WOhWoI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2A491F000E9;
-	Sun, 30 Aug 2026 00:59:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ajeeDKkF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59E621F000E9;
+	Sun, 30 Aug 2026 01:36:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788051593;
-	bh=KJWnhFTNLrxaJHUUO4alJfw2twP+v9Y67h4I2HwF9po=;
+	s=k20260515; t=1788053785;
+	bh=UdmgjnbDZPNvfBySictjfkzf6a9ms2p598rmvEHmvDI=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=K3WOhWoIbZ39AY164GV1dGopB4xLc1TMioIRXRwgrITwZkPCMsbCRl7fmc+k9fm61
-	 vQXAYOJCxI/QL7XP5AOKr85dfl1KUQqpevbb3yGYwN7e83t2hAoKpReqMdsYfih6dn
-	 nnD4zRhoNmWdfHgU3i2k0+G43Wpfxu46EPgX6+pajDHoU9xmJtxlZ9DZqn/l1X69Wz
-	 sMpxWb9KDF81qwU4DFBlOClSB9WlC4H/CzhrsF+KADuAvkK+TlvGMUC6cBxSxymTH5
-	 jlEeARcT/47p0VKRs6joBbWe/Qa9++OTUlRu+2hdUoQmgZIPmn22/NV3RbLWI7hC2j
-	 ODJkJFZT743Wg==
-Date: Sun, 30 Aug 2026 01:59:47 +0100
+	b=ajeeDKkFTHUkYeU6OUd2Y/Bsb8ZguFW2xSfmR0ZW0QsQM6JuCly6ue7X0nCi4l/FF
+	 ZEspahW+S4hrguSsm/BJ9fFvMVjaawYRXsaX/2vSk3sL9P7IDv0SgQ1bv1GMfYhxOV
+	 yhxaFQDGSjxJUjcSty3xQIMqNnuRDk4QvRjrK6zWDtn+xQQ446YGNE378rZkPqQdry
+	 bdnuazHauQRhJWdHE0Qszdz3arw4bW8OEQ+5Stht1NZApC/vZoxTxUMk8CSAh6TEEz
+	 P1tp7MT2qyeeQEhlSJxOeoREE02QaHPT/HVuFGzZKHyimFw+5Yjw9sb7c3oD+suLFJ
+	 TLd7lru748j4g==
+Date: Sun, 30 Aug 2026 02:36:19 +0100
 From: Jonathan Cameron <jic23@kernel.org>
-To: Stefan Popa <stefan.popa@analog.com>
-Cc: linux-iio@vger.kernel.org, lars@metafoo.de,
- Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andy@kernel.org, dlechner@baylibre.com,
- nuno.sa@analog.com, siratul.islam@linux.dev, u.kleine-koenig@baylibre.com,
- linux@roeck-us.net, joshua.crofts1@gmail.com, ciprian.hegbeli@analog.com,
- krzysztof.kozlowski@oss.qualcomm.com, devicetree@vger.kernel.org,
+To: Kurt Borja <kuurtb@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
+ <andy@kernel.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 0/2] iio: adc: add MAX40080 current-sense amplifier
- driver
-Message-ID: <20260830015947.5635b3a1@jic23-huawei>
-In-Reply-To: <178805109906.2786293.17524353371768518972.b4-review@b4>
-References: <20260828083119.54495-1-stefan.popa@analog.com>
-	<178805109906.2786293.17524353371768518972.b4-review@b4>
+Subject: Re: [PATCH v4 04/10] iio: adc: ti-ads1262: support per-channel
+ sampling frequency
+Message-ID: <20260830023619.654d1bbe@jic23-huawei>
+In-Reply-To: <20260828-ads126x-v4-4-1dc27e9c0260@gmail.com>
+References: <20260828-ads126x-v4-0-1dc27e9c0260@gmail.com>
+	<20260828-ads126x-v4-4-1dc27e9c0260@gmail.com>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -52,35 +50,94 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Sun, 30 Aug 2026 01:51:39 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
+On Fri, 28 Aug 2026 01:38:19 -0500
+Kurt Borja <kuurtb@gmail.com> wrote:
 
-> > This series adds support for the MAX40080, a bidirectional current-sense
-> > amplifier with an integrated 12-bit ADC.
-> > 
-> > The driver is placed in IIO rather than hwmon because:
-> >   - IIO's scale/raw model naturally exposes the selectable gain ranges and
-> >     lets userspace apply the correct scale per range.  
+> Add per-channel sampling frequency support. The "available" attribute is
+> assigned per-channel too, in order to eventually support per-filter
+> availability.
 > 
-> This one is a bit weaker as autoscaling is possible (if fiddly).
-> 
-> >   - Buffered capture support is planned for a follow-up series -- each
-> >     conversion returns a matched current+voltage pair, which maps cleanly
-> >     to IIO's buffered/triggered model.  
-> 
-> If you have this ready to post, I'd prefer seeing it sooner rather than
-> later just to strengthen the arguement.  A link to a repo would do as well.
-> 
-> Anyhow, just a nice to have!
+> Signed-off-by: Kurt Borja <kuurtb@gmail.com>
+A build issue below.
+
+>  };
+>  
+> +static const struct ads1262_channel ads1262_default_channel = {
+> +	.data_rate = ADS1262_DR_20_SPS,
+> +	.filter = ADS1262_FILTER_FIR,
+> +};
+
+See below - this probably wants to be a slightly more complex define.
+
+
+
+> @@ -763,8 +970,15 @@ static int ads1262_parse_channels(struct iio_dev *indio_dev)
+>  	if (!chan_specs)
+>  		return -ENOMEM;
+>  
+> +	st->num_channels = num_fw_channels + ADS1262_MON_CHANNEL_COUNT;
+> +	st->channels = devm_kcalloc(dev, st->num_channels, sizeof(*st->channels),
+> +				    GFP_KERNEL);
+> +	if (!st->channels)
+> +		return -ENOMEM;
+> +
+>  	device_for_each_named_child_node_scoped(dev, node, "channel") {
+>  		struct iio_chan_spec *spec = &chan_specs[i];
+> +		struct ads1262_channel *chan = &st->channels[i];
+>  
+>  		ret = fwnode_property_read_u32(node, "reg", &reg);
+>  		if (ret)
+> @@ -772,6 +986,8 @@ static int ads1262_parse_channels(struct iio_dev *indio_dev)
+>  		if (reg >= ADS1262_MONITOR_ADDR_OFFSET)
+>  			return dev_err_probe(dev, -EINVAL, "%pfwP: reg out of range\n", node);
+>  
+> +		*chan = (struct ads1262_channel)ads1262_default_channel;
+
+This is giving me a build warning:
+
+drivers/iio/adc/ti-ads1262.c:1913:26: warning: cast to non-scalar
+drivers/iio/adc/ti-ads1262.c:1913:26: warning: cast from non-scalar
+
+So we can't do this... Hmm. It's pretty simply. Use a define for
+the default channel with the (struct adds1262_channel)
+and that should work for us.
+
+> +
+>  		ret = ads1262_parse_channel_node(st, spec, node);
+>  		if (ret)
+>  			return ret;
+> @@ -786,7 +1002,9 @@ static int ads1262_parse_channels(struct iio_dev *indio_dev)
+>  			.storagebits = 32,
+>  			.endianness = IIO_BE,
+>  		};
+> -		spec->info_mask_separate = BIT(IIO_CHAN_INFO_RAW);
+> +		spec->info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+> +					   BIT(IIO_CHAN_INFO_SAMP_FREQ);
+> +		spec->info_mask_separate_available = BIT(IIO_CHAN_INFO_SAMP_FREQ);
+>  
+>  		i++;
+>  	}
+> @@ -795,6 +1013,7 @@ static int ads1262_parse_channels(struct iio_dev *indio_dev)
+>  	       sizeof(ads1262_monitor_chan_specs));
+>  
+>  	for (unsigned int mon = 0; mon < ADS1262_MON_CHANNEL_COUNT; mon++) {
+> +		st->channels[i] = (struct ads1262_channel)ads1262_default_channel;
+Same here - a define would allow this to work rather than giving build
+problems as it currently does.
+
+>  		chan_specs[i].scan_index = i;
+>  		i++;
+>  	}
+> @@ -890,6 +1109,10 @@ static int ads1262_spi_probe(struct spi_device *spi)
+>  
+>  	indio_dev->name = ads1262_device_id_to_name[st->dev_id];
+>  
+> +	ret = ads1262_populate_tables(indio_dev);
+> +	if (ret)
+> +		return ret;
+> +
+>  	/*
+>  	 * REVISIT: This chip has software polling capabilities, which could be
+>  	 * used to stop depending on the DRDY signal.
 > 
 
-The set of changes that Andy and I have asked for are pretty minor
-so I would just have made them as tweaks whilst applying.  However, others
-(e.g. David) have been active in reviewing this series in early versions
-so I want to leave it on list anyway for some more time.
-
-Given Andy's request wasn't entirely trivial, if you have time in a few
-days to do a v9 with that stuff tidied up that'll save me a few mins
-and cut down the possibility of me messing things up!
-
-Jonathan
