@@ -1,264 +1,298 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazolkn19012052.outbound.protection.outlook.com [52.103.20.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 624B5223323
-	for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 03:02:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788058956; cv=none; b=aExGXdCFQxySgHQhQR8RvulBSwsaiSbvNR8MNwxrUXqwsrwtiunF4C86QxEaDl2vTmWsRNAEIqwLsilFRSoRR81g3DiUwDQTGqgVncGBslgxd5T42+kk9BAP4TL2JXyQVPNi+eYpwv0XhaRYCPZeG4ZH/otdu9WV34ycmQU14xs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788058956; c=relaxed/simple;
-	bh=moqTSGv5ENKB5c0/Y4DGniSwhWkDVvYVa6wj3DK41ZA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KB9V6h5NC7EbytbwfgKhrDpgSU7FODpFQoG+UthT0YelX9PiBlhPD7p+N4ycyJaoQzNzV+e6JX6497UXGf8c4buHTFOMK8XnR31DyJuxaz1wH1PYFlggZigccDZHj7BnAf0jWUjYuGg+xC6RL7075+3AqOLa0b1vvHJwNA0FiJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=C07O4Oj4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=X38j7jNC; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F12D26ED40;
+	Sun, 30 Aug 2026 03:12:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.20.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788059551; cv=fail; b=UMhPmpcI2ABgzVC+aVDXi80/am/KDoaYiaaK5/KdLNnLidt63rkZr072qtBD6b1J7ocQw7rPf06dXBzAIUZ/EV+W6rBXoy0sTlpKK9IE+HKXkJtHCxnbQhmcq0tmCmKf+OQu8KNaLCK6vpeCq2Lf3kbSYfYK40nthHoqp9z8mHY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788059551; c=relaxed/simple;
+	bh=7ESd86pAzP3kxxxxWEM3jEoPJ0s8OIX5olmzqldIzKQ=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=ShgcaUn6RZ0bwQyPsqTNy0tUAWDVpINR73RDNbd3/vcROP/WF0bLiYPADaZ9fEBrYV4xZthOC0y0OAZrLCDKsOQctUJtFYKxp/UdQZrZ1gwkr/co5bskNXwfK8rQIJlNQGV/mXlb0P9pXCpmvjfQhQ32WI9Z4rzLxEZS0EVhDb4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=tem003cT; arc=fail smtp.client-ip=52.103.20.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="C07O4Oj4";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="X38j7jNC"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67U2R1VQ3348460
-	for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 03:02:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=s1c25Lyhl5gqP4AaTKFM7nn3FOFd5aFvBEs
-	hY/ARIuA=; b=C07O4Oj4Q1S5lSqvQrd62n/dLGWGm/E3zM2dAvcXcQIL6a23iwK
-	3AjBfiDKXH3Qm3UtVkZvVXpi/LKZGYNdycEylHLAmryWVg7QDD5rjcomKc40EcGR
-	XCfXWljKgA68PRhjpfP+zyS44jXztkCEizYqVdT7WvZxHmrS0nHDz3Z3TPKyTc/z
-	71TFHk8K6QNt3M3UzME3zsT+JF9F7LInFJNIj67wk6ycfMKaaNk2vk1yAC6aXrpr
-	eLkWKDL8PgmRdRvy8rrQEP9aZIyd8VKNRReaMfbjzJbJgMxVf5xB+dWHWcdYa0em
-	2dz7yMAF5NdScaVzliJIDZZ4t9BZTGz2qnQ==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbqe2a8re-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 03:02:26 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38e54b6556aso3018457a91.2
-        for <devicetree@vger.kernel.org>; Sat, 29 Aug 2026 20:02:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788058945; x=1788663745; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=s1c25Lyhl5gqP4AaTKFM7nn3FOFd5aFvBEshY/ARIuA=;
-        b=X38j7jNCuu956sXEzD+AZFY11Fc58+u9EdBFZo2GFMXSQhXWC56myj+rccXSF8zEm/
-         RyUn7BEXESJKVBE+aUhewkwzqF1SoUB77ZfOGuKnaEWcnuO2EbdYn9/DeisMe2OlqHft
-         2/5gk8yrYX2G8FYa9+c7fBCD9golJRvoCUHyNeZGw98EQlx4flI9z6uKKm0EHsF9U8CX
-         iIJ9dZTitTeu/CgAMOQsHLmDp9MDUh0zbar+NevafhhL46iwhq9hqhHmjmRUFhqgknCp
-         EMZHobhrJzLQ8/k48iwHt5F3DZRS7CCO5YKZMbiMgSnIUk/G1Dcr+gjWIJONL3EemUGT
-         9FfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788058945; x=1788663745;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=s1c25Lyhl5gqP4AaTKFM7nn3FOFd5aFvBEshY/ARIuA=;
-        b=fHh+ibEsDgzVIE/rqnIB8HSVPTAPiUBFu07EPG4O8soj7DadhtaVlMHnzOyOrrP6XQ
-         w9sFLpwXiKFeDqZLggefTrDhvzgIfBOYAU7PeSFolpdDXwXC/LUOSshlg6hHzIktDLqM
-         wQoSdT+G4YPg572JsvrjnH5BjoFoUzMyZfQXNkqV7GIkIpUEIVeFa6dJvUYtDRFFXqTn
-         X1yVqiVnoVXugIqhvNFmvCrcwJQZIhbucNmWiBezvZw//qzBIFrs4qJPvvzSea03x8UK
-         xK5aTsdhjwxB1SBO2W4hxaJQ7q2PWaiWR2sdvaQ/1lcbBUPvGupwE+98dlszWQNr/jZ0
-         KP2A==
-X-Forwarded-Encrypted: i=1; AKwUvBw23sKIkovUcY8rqh++Rvg/ubX8cdWp9hreXOKW1rlnq3nRdxgWCtG44JdUh5UNXr/1CXCwFk12Dzok@vger.kernel.org
-X-Gm-Message-State: AFuF++kO3TwrgeAoLBJ3ycTZMXQzTifDP/1n1vCJCnljc4Pf8Kw6appW
-	FaiIfQEX7PPNgdZUz4aiACm3ckprw9B9GZrB2krdvRkigF5QRq98DwidssaWI/X4r1zCCJbjN6q
-	BTcmpxrx3P1Wv7hCwHcFAH2xXypSmci8gpSPcJs1DScmSuYosESlM1acDbeyDTCKJ
-X-Gm-Gg: AYBFou1tjMthMV1ruEoDlfO0VHfV2qDwl9Crpwddyi7GPXx0Tz2kL13cXKw5ItuD32O
-	JllPjx9KXN698TgcOKYQctAnjMgHmDasB7wERLhnhgsGseBKuqLr0kMpUfnuo6G0LxbyzC8+pyI
-	Ki5tpbH9g0VBlbfDX5MTWfbp+2NNQF+MyEy0AXuafpetLBXI9Nw5THGLeMZu7TPN+YY6vikJSWP
-	HKxa18/+umTYpsaM11U+LCTo+d68XtPAbChpREFnx3tLajo9Jc0x7lzVUvJ451vt1A6+L3XV2Fx
-	F4FDCNdorz0gm6QCXZ1HH7AmRsIzPRnFE7HO4H6RNtZ70A6xXNPXoLVg67PdW2Cbn5ljEsdxMqQ
-	8HmvuY0uxNKSnCVy/wZYdI00PrBds/6Qvyvk02LR8IuIly6i70fgcBUxceHkT
-X-Received: by 2002:a17:90b:5284:b0:396:4dfb:5890 with SMTP id 98e67ed59e1d1-396d0e5bbc0mr30797646a91.2.1788058945306;
-        Sat, 29 Aug 2026 20:02:25 -0700 (PDT)
-X-Received: by 2002:a17:90b:5284:b0:396:4dfb:5890 with SMTP id 98e67ed59e1d1-396d0e5bbc0mr30797587a91.2.1788058944696;
-        Sat, 29 Aug 2026 20:02:24 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0bf8a13sm28608046c88.0.2026.08.29.20.02.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 20:02:24 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>, stable@vger.kernel.org
-Subject: [PATCH v2] pinctrl: qcom: nord: Split QUP1 SE2/SE3 into lane-pair functions
-Date: Sun, 30 Aug 2026 11:02:01 +0800
-Message-ID: <20260830030201.135637-1-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="tem003cT"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tUbbvE47z+C/Ql1496UyqDISr7JtXjK7YicZZdRo0v/04vUmWigGv+68uet6XSz8noWRAO3XT7Y99nOQ6cGwgrQFxnbfvD9TUBf7AvPsrqahdp2yEH+lGV1nhr0PIenVQoNhNneht2lXMldnX1iHaL8FcbCx/xavlz84AlnDpGEpRhUp8CLbjuVUS5sSe/wLvEt4m5OfjR6TGORt7KyqHCVUR/hwTziEgF20AJEwDnmIB2OIflWTFKnf3xrdtpZ4Rfn7PSq2qZ0V5DEnItbhnhjzH0CS60frqmCZwE4+X33vlrPnF2RhxbD5qhkNNjGStzClNubUlAkHEazWrBfUSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qVp8U7WuiIFuaBezo2ifBJZiGXx1uwesgPNL07DhKZg=;
+ b=ZyO4n7bZ9Bq3G+fgt3gC8yQiHGPGpAO/kIbxUherkQOo5QyTkeFXFkNjZyAKx0mdFrpDyZZZZxbuPmwnnRLqAVY9bHyGQJnA4FF7S8Oe3HkTyf0pYE+HBCqNYe8foRBuAgnynMspFSxgzzK2LzOt/7aKI+ywrjYR11HuUSpqHioMVCYzexXvoFrBxYmQb4QCNnuhN5/2NIUCh1nJA/jzqzz74u0rBMV0dM5TY/Aew25iw76L3YD4fajlXOYka9SrDgQv1/bXgiwiFvrMZ6vuVEQEOx+QcvekHc8rZw7pDyM4Jh6ae40LR5LfgzcSiwm3y4dKgZcJLAujPOGvKgcxJQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qVp8U7WuiIFuaBezo2ifBJZiGXx1uwesgPNL07DhKZg=;
+ b=tem003cTVrYjMV8ZBgn9wYZs/TgpwgK/JVVjF0Ob6d57Cf6+T9smwSHd2EdeIZFYQSHwTmlFkl9T/CFKXgvMzgoHkLow6ToXDruMDTxKQofO1NEitCyNENzSBAVQlpxNYSwvLNQaEPivsGc7Ou6FPCnzded8Ky97OW9zgopme20+55M6u38tC8BAVlFSoIfS4jK93nMoq6kKWeNHw8dZyZv9wEM9M5EM+rgyXh5nS5v7dQSJ81rmKmoAqGrP7UxkUXKoDqQGWdD19wGpGE8maM3ptV/JNMNTXvemObR1Z8LiH0yLv4EdoAYvU7ToF5VNUGIkq/QCOYZQbxwbpWtcMQ==
+Received: from SN7PR19MB6736.namprd19.prod.outlook.com (2603:10b6:806:263::12)
+ by CH3PR19MB8237.namprd19.prod.outlook.com (2603:10b6:610:195::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.12; Sun, 30 Aug
+ 2026 03:12:27 +0000
+Received: from SN7PR19MB6736.namprd19.prod.outlook.com
+ ([fe80::4b6c:b84f:b71c:d0a]) by SN7PR19MB6736.namprd19.prod.outlook.com
+ ([fe80::4b6c:b84f:b71c:d0a%3]) with mapi id 15.21.0360.008; Sun, 30 Aug 2026
+ 03:12:27 +0000
+Message-ID:
+ <SN7PR19MB67361579E71DBC197E21F44E9DAA2@SN7PR19MB6736.namprd19.prod.outlook.com>
+Date: Sun, 30 Aug 2026 07:12:19 +0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7/9] arm64: dts: qcom: ipq6018: Flatten usb controller
+ nodes
+To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>,
+ Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+References: <20260825-ipq-flatten-usb-v1-0-5c1f3170bbe9@outlook.com>
+ <20260825-ipq-flatten-usb-v1-7-5c1f3170bbe9@outlook.com>
+ <bfb0d840-fc9c-41a2-9b05-959f2222a298@oss.qualcomm.com>
+Content-Language: en-US
+From: George Moussalem <george.moussalem@outlook.com>
+In-Reply-To: <bfb0d840-fc9c-41a2-9b05-959f2222a298@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: DX0P273CA0008.AREP273.PROD.OUTLOOK.COM
+ (2603:1086:300:26::12) To SN7PR19MB6736.namprd19.prod.outlook.com
+ (2603:10b6:806:263::12)
+X-Microsoft-Original-Message-ID:
+ <8f06320c-ac75-4204-906f-c4ada1efcedb@outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=Iskutr/g c=1 sm=1 tr=0 ts=6a939d42 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=hkSOFwkIQQlSBzuAjywA:9 a=O8hF6Hzn-FEA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-GUID: I2SzrMXlC4DyarJOd3quF5lz3ZlsNAyY
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMwMDAyNCBTYWx0ZWRfX8ccGwUkq2g4O
- fKlkxMCyRvaMV2o91sz342PqC5sWUIaZFi/BsSxpcI4Y8e4EbqvT3JCAVFNTOeH5wzC4OmvF7Y5
- QdFtRRERp/0gqyDDzuH3WRA45KB8ZYmg2kIZrhdIM4pVu/nKkIqAyE5GN/LtdWVt89xVFNxAI1l
- ExsW4qZzNJRPF6alEw7Dhh3Cu0m7uhCxSpQ781hQ8/DyArWc+EEMdboWegbMXC/+B/LHWwp0drt
- XJRmPQM6NRZuOAKoWAUlDHsswXXIe952eKQQ5gUzg+wK2Jx1DWkWGqYi+pjc0U7Ry8tbZSgkXgp
- f7Zgj5fZY0tUneyGmkoEGe0HvTPxNmr0LA5M2tesWYpMnCip/dECYddlBqERZIIm8M+NA2KYb7J
- ueEpSk/OHvkHdVDTzo92rx42RPfMqtHggVah250XST1vlngLpi5aFTMTJq2df/rju+43LbRgpFF
- f7VsEMZC2x2vPhN07MA==
-X-Proofpoint-ORIG-GUID: I2SzrMXlC4DyarJOd3quF5lz3ZlsNAyY
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMwMDAyNCBTYWx0ZWRfX32gyLBxqPNNs
- 725AllblwFZcwzCUFJbPRtOAdUR/UsoYgDR5DM63zBo4tg2dvBXgg3rWzDR5W/Xj+XtMDm9yToN
- EtAApOE9/s42k3X6QjPX44Nola9U0nE=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-30_01,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0
- clxscore=1015 priorityscore=1501 impostorscore=0 suspectscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608300024
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN7PR19MB6736:EE_|CH3PR19MB8237:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9fe885d2-f719-41e6-2a21-08df064484b7
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|23021999003|37011999003|19110799012|8060799015|51005399006|15080799012|24021099003|6090799003|5072599009|25010399006|40105399003|2607281247196008|3412199025|440099028;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?U1hEOEtVMGs0WWhPN3kzQkVBald5Z29mVkk2L1ErSmJ4RzFiNEFNcmJSb3Zm?=
+ =?utf-8?B?UjIyOUxwbEZVamNQa3c0SW5HRS9neVpVSzAzQnBNcmdZd1pIbStkTC91a09H?=
+ =?utf-8?B?a0paSUxNbXZ1ODRLdERuaDU4bndERDNnY0xHZE1na2doV3Z2MWFJN2FsRm95?=
+ =?utf-8?B?OSt0ZDdVTXF3R1NOTzBJMWVzeFNWcGcyU0tMME0rb25nbW9oQzBLcGNvK1J4?=
+ =?utf-8?B?MXB4M0wvZ2VVeXFMS0hIbTRaZWJ2MmNUT3p2MG8zOFZSRmpNcVEwRjhIdXA5?=
+ =?utf-8?B?RXpyZ0RLdnFlSThjamptTUQzR2NwNDRNamo2c1hGMzc4cm4zRU0wZnJnZlor?=
+ =?utf-8?B?NDdXeHRvdndiSC92V0Rub0puYkdLeUZDL0QyUUxoRGtXRzdxb3VxeDdvS1o4?=
+ =?utf-8?B?Z2c4cXpqcVY5SzhuRGVDRXpUVTdKS0E0UkdMMDNVZHRNU2xNL1d6MUxZVXNl?=
+ =?utf-8?B?dUFRT3I0ZHlmMXFsK2pTSVVRZkJnYlFlVEtCeitnRWxlNy85clFRTkF5SXBQ?=
+ =?utf-8?B?TjhmRUVMYzhHdlRhaHlyODcyTjcwQndqUDZmSnJVaTkwZ2JPRWErdGJuNVQv?=
+ =?utf-8?B?RTkvdDNtZ3FUMmR0Rm01cUJiS3E1Ry80ejFITzI5OGxiS3RRN05VVENOQ3ln?=
+ =?utf-8?B?MktZNEx0QnJpNEM5RzhmaEYvMnNRSFhkYjZFQ1Y0UUM2cWVoSGhVUFBVbnk1?=
+ =?utf-8?B?TXQ4czc1Yzh4TVIzYVVVZnhFRThGTzlFWmx0dnphZkxseGczMjlqdGkrZVpY?=
+ =?utf-8?B?YWpGOVlQem1qTEJ1Qi9XcXFBUWYzUURBQXg1Q09xSlVLRU96TnhzOHpXRnVa?=
+ =?utf-8?B?N2p0ZGtub0pZdTBKWnM4Q01lQ1NaN3ZTMjVXeUo1Q0wwMkEycGxjUXRremZl?=
+ =?utf-8?B?MVVVRXgxcnBBUm15Sk9SS1BxSDJBUmt4WllZYndWZm1YaUVwV3RpQk5YUlpE?=
+ =?utf-8?B?Q3IrWW1LRnFvOVY1NmpEYm9PSFdDTzB4KzlVUWJEeWI1RzlXQWF4enRIVTRa?=
+ =?utf-8?B?bUlzOVZPMk42aUFWMUEvZGc4dSswenhjVVNMb0FxSC9PZkNZbkVEWUQxRVdr?=
+ =?utf-8?B?eWpGRTlSU3dXYjF1K1VPOWlGbytWOWFUeEdEUkRUd1k3ZkVnejhKQUZLV1Bw?=
+ =?utf-8?B?b0ZGNXhyQUYyaWZmMTUvTDV6Z09OWXZOQ1FCeWZNbTA0Mnh1ZFVaK2ppb3ho?=
+ =?utf-8?B?UHlzdTRaSHI1RFA0aXVQbmF5c2RpTmNhQ0cwb3BtYmZvRGtOdHN0WlU0em44?=
+ =?utf-8?B?V1Nvbkpna1RDZTV2Q2tQaEhyczBlZklZSWxKOW1CdTBicFRaallPVEpjVkIx?=
+ =?utf-8?Q?K2L2td9S3KzdqVOXh0jO/cZXFGvEZHo83D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?S3liZWs5cTBBQVpGRlZXOHBvaUVFek16UWJxY2gyaThJRkkvYm5rbG1uZ3A3?=
+ =?utf-8?B?SWVzWmtTd29LR0gzZ2pnblkxMjZlTXFveWZ4Tkp6TFJoNVNYNmszYW5zK0o0?=
+ =?utf-8?B?a1ZINXU3ZlQyRFJkc2lFNWFTS2tDU2xCRUM1RHQxODFkbUdhdnlCaHpZMjlM?=
+ =?utf-8?B?ZUhMWDY1eXdVZDlBOE8xa05aYk93ZUdvZXBMSmNZRnBuWFE3anJXMUFBMXFH?=
+ =?utf-8?B?WUJ4WnpYUHFDd2o3ZU5FSTRhdU11UFdndU4yaGxUVWVYdFA4NUN4UXdUYnZF?=
+ =?utf-8?B?TnRTZzBCYW1NTlJod0w2VXFtVGorTDQrR241LzBYVW1iMno0c0d4eXRNblNS?=
+ =?utf-8?B?OUR6UU5HSGtJSXg3cDZXRzVxNHFVRmlZSDhBUHZsN1l1T2dLLzNFc0FHOGF0?=
+ =?utf-8?B?clpXMVlSa2xwcGQ3REFtQ2RhQU11Mmttb09OYjhVaFdpb255QmxOblRPZ2Vz?=
+ =?utf-8?B?Q1NNZ3NQU1JkUUhtSTk1Q0NrRlNoaFQwb3EzWXJGbXdoN0VVM2FBd2J2S3Nt?=
+ =?utf-8?B?djJValIyVk9Fakd3M2FmWEVEWU1SWDgzZ29aVUhBTk1rMm1sb2FpakJwTHcz?=
+ =?utf-8?B?WXNKTTYrcE53MmtMT1NlWnhOTDQ2SXRFRHczeVBWb1NHYkJBeEtPLzhlNURq?=
+ =?utf-8?B?RXZTK3o4Q3ZrSEo3RFI1MHJ1SlU4ZmZzZHhUMDk4QmFBa3pvQkprLytJWGM4?=
+ =?utf-8?B?QkFCVm1saENQZ2twbGtTeUNINXBvSTh6VG5YSDlpN0IxUEc2eFRZRkFsaE1r?=
+ =?utf-8?B?cmVlRzQ2OVZ4YWRxK09UR1RUQ1dwWm1RbzVaUnNCc08wTFZLaE5qNHJRTUI0?=
+ =?utf-8?B?bVlnNUJ5d0w2VTUwRHhRMTVmWVdOempGalV0T3FqWWhZUDZYeEtaOTFsbXBi?=
+ =?utf-8?B?Tkhqai83aG1HYXF4ckJVeWVGdThjUy8ycHQ4bCtSUVJHdjAyOUdsbmVXdUhz?=
+ =?utf-8?B?NmhERkZJRDU5VzIySVdDYlI5blRFRmNXZXBma0FGVzMreE81eDAwUFRINnhY?=
+ =?utf-8?B?VWc3VDRaZ3VJUGNCOXllNlZNckszbU5Zb2k5WXBjMTJwbHdHTXYyMnhiUno2?=
+ =?utf-8?B?aHBLYzZ5L21ySFk0S1VTL1NadXIvMk0rQXpwWlRLVnJDRmpJaDJrbUVHWnV6?=
+ =?utf-8?B?R2VtZVpMcER2bTNyL1daeHlHYlA3ZGF6Z0lhZVY4Y01HbHdZWkVtekdVNTlr?=
+ =?utf-8?B?Y05oNEswVUYxZHZUV3lOVXdGVzg4dFFuZDgyMERHNnZxZ1pDWmJ2NGlqb3k0?=
+ =?utf-8?B?dVg5a2RzWitia2cydjhjMVVxcVFwdFY5Nmd5Nnl5eG1WNkd4QnMxeUFMdEll?=
+ =?utf-8?B?bXZjeTdtcURzbWpTQ3ZmRWVab2ZnbG15aVYxWG5SYXo1RTFjNFJHc0pHZ3Ix?=
+ =?utf-8?B?QUdVTysrdDNaQVdpbkFwWHB1bHlpazFrc1dCVitwc21OODgySVNVWkJkT1g1?=
+ =?utf-8?B?Ymx5OWYrYlFXSXRicWxVZ1JlSGIxY2J3MkdwMlN6ZW1yQjFTczJTc1JRc0cy?=
+ =?utf-8?B?cloxNVFrSGxnd3JId0gvRXlqa2IvNTg4anNmOFpNakRyL2xDQTVWODJqOHZh?=
+ =?utf-8?B?SnZoQlZyTVNQNXcwc2xCTzQwSXhReStTalphakN4aW5yaGpUT1FYM1p2eXZn?=
+ =?utf-8?B?cXdMdi9RQVVPMzViQ0tFSnNYSDBtM21hMExqVHk5d3RsVzZ2K1BYdVdyOTF6?=
+ =?utf-8?B?bXNWYnNGamhVWWZEUWJTV0hOeWNTSW1wWm9aOW9kVk1vN0luOWpCeitDMlR1?=
+ =?utf-8?B?UllRYTM3NzNKbmZLNkp5NnpoRzZscmUwaVRoN3k3cXNoZC9FNWVCZnlkckpX?=
+ =?utf-8?B?WTdWQjdWK29xS01ES0Q5dWsxUE5CRHV5ZXBCNk9zcUM3NHBBMkVhRkNGeXVY?=
+ =?utf-8?B?K0IwbmwyWTRUbXM4b3dsMGNHQjMrdlB0NlZEcnRqTzJtYUE9PQ==?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9fe885d2-f719-41e6-2a21-08df064484b7
+X-MS-Exchange-CrossTenant-AuthSource: SN7PR19MB6736.namprd19.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Aug 2026 03:12:26.8418
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR19MB8237
 
-QUP1 SE2 and SE3 pack all four of their lanes pair-wise onto only two
-pins each: lanes 0/1 (I2C SDA/SCL) at mux value 2 and lanes 2/3 (UART
-TX/RX) at mux value 1, on gpio127/gpio128 and gpio129/gpio130
-respectively.
+On 8/29/26 20:48, Krishna Kurapati wrote:
+> 
+> 
+> On 8/25/2026 4:12 PM, George Moussalem via B4 Relay wrote:
+>> From: George Moussalem <george.moussalem@outlook.com>
+>>
+>> Flatten usb controller nodes and update to using latest bindings and
+>> flattened driver approach.
+>>
+>> This SoC has two USB controllers of which the USB3 node had a ref clock
+>> populated in the DWC3 child node. Add property to the USB3 node only to
+>> select UTMI as reference clock for the DWC3 core to calculate the right
+>> values for the period and frame length adjustment.
+>>
+>> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+> 
+> [...]
+> 
+>>   -            interrupts = <GIC_SPI 128 IRQ_TYPE_LEVEL_HIGH>,
+>> +            interrupts = <GIC_SPI 99 IRQ_TYPE_LEVEL_HIGH>,
+>> +                     <GIC_SPI 128 IRQ_TYPE_LEVEL_HIGH>,
+>>                        <GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>;
+>> -            interrupt-names = "pwr_event",
+>> +            interrupt-names = "dwc_usb3",
+>> +                      "pwr_event",
+>>                         "qusb2_phy";
+>>   
+> 
+> You are adding pwr_event irq here. Do mention that in the commit message
+> or send this particular interrupt addition as a separate patch.
 
-Both mux values were named "qup1_se2" (respectively "qup1_se3"), so the
-two distinct lane pairs became indistinguishable. msm_pinmux_set_mux()
-stops at the first entry matching the requested function, which means
-mux value 1 was always selected and the I2C lanes could never be muxed
-out. In practice i2c9 and i2c10 got the UART lanes and did not work,
-while uart9 and uart10 happened to be muxed correctly.
+I think you may have misread, I'm not adding the pwr_event irq. It was
+already there. I'm simply moving up the dwc_usb3 irq from the dwc node.
 
-Give each lane pair its own function, following the _01/_23 naming
-already used for the same hardware arrangement by the shikra, eliza,
-hawi and maili TLMM drivers. Both functions still cover the full pin
-pair, so a single pinctrl state per protocol remains sufficient.
+> 
+>>               resets = <&gcc GCC_USB1_BCR>;
+>> -            status = "disabled";
+>>   -            dwc_1: usb@7000000 {
+>> -                compatible = "snps,dwc3";
+>> -                reg = <0x0 0x07000000 0x0 0xcd00>;
+>> -                interrupts = <GIC_SPI 99 IRQ_TYPE_LEVEL_HIGH>;
+>> -                phys = <&qusb_phy_1>;
+>> -                phy-names = "usb2-phy";
+>> -                tx-fifo-resize;
+>> -                snps,is-utmi-l1-suspend;
+>> -                snps,hird-threshold = /bits/ 8 <0x0>;
+>> -                snps,dis_u2_susphy_quirk;
+>> -                snps,dis_u3_susphy_quirk;
+>> -                dr_mode = "host";
+>> -            };
+>> +            phys = <&qusb_phy_1>;
+>> +            phy-names = "usb2-phy";
+>> +
+>> +            tx-fifo-resize;
+>> +            snps,is-utmi-l1-suspend;
+>> +            snps,hird-threshold = /bits/ 8 <0x0>;
+>> +            snps,dis_u2_susphy_quirk;
+>> +            snps,dis_u3_susphy_quirk;
+>> +            dr_mode = "host";
+>> +
+> 
+> If this is HS only, do we need to add "qcom,select-utmi-as-pipe-clk" ?
 
-Drop gpio129/gpio130 from the SE2 group list, since those pins
-belong to SE3 and were never reachable through the SE2 function.
+No, I've not removed it, I've flattened the node as is.
 
-Also rename QUP1 SE2/SE3 functions in the binding doc accordingly.
+> 
+> [...]
+> 
+>> +        usb3: usb@8a00000 {
+>> +            compatible = "qcom,ipq6018-dwc3", "qcom,snps-dwc3";
+>> +            reg = <0x0 0x08a00000 0x0 0xfc100>;
+>>                 clocks = <&gcc GCC_SYS_NOC_USB0_AXI_CLK>,
+>> -                <&gcc GCC_USB0_MASTER_CLK>,
+>> -                <&gcc GCC_USB0_SLEEP_CLK>,
+>> -                <&gcc GCC_USB0_MOCK_UTMI_CLK>;
+>> +                 <&gcc GCC_USB0_MASTER_CLK>,
+>> +                 <&gcc GCC_USB0_SLEEP_CLK>,
+>> +                 <&gcc GCC_USB0_MOCK_UTMI_CLK>;
+>>               clock-names = "cfg_noc",
+>> -                "core",
+>> -                "sleep",
+>> -                "mock_utmi";
+>> +                      "core",
+>> +                      "sleep",
+>> +                      "mock_utmi";
+>>                 assigned-clocks = <&gcc GCC_SYS_NOC_USB0_AXI_CLK>,
+>>                         <&gcc GCC_USB0_MASTER_CLK>,
+>> @@ -692,32 +686,31 @@ usb3: usb@8af8800 {
+>>                              <133330000>,
+>>                              <24000000>;
+>>   -            interrupts = <GIC_SPI 134 IRQ_TYPE_LEVEL_HIGH>,
+>> +            interrupts = <GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>,
+>> +                     <GIC_SPI 134 IRQ_TYPE_LEVEL_HIGH>,
+>>                        <GIC_SPI 136 IRQ_TYPE_LEVEL_HIGH>,
+>>                        <GIC_SPI 220 IRQ_TYPE_LEVEL_HIGH>;
+>> -            interrupt-names = "pwr_event",
+>> +            interrupt-names = "dwc_usb3",
+>> +                      "pwr_event",
+>>                         "qusb2_phy",
+>>                         "ss_phy_irq";
+> 
+> Same comment as above.
 
-While at it, add missing "gpio", "qup3_se0_mira" and "qup3_se0_mirb"
-to the binding function enum to get the list complete.
+Same reply as above.
+> 
+>>                 resets = <&gcc GCC_USB0_BCR>;
+>> -            status = "disabled";
+>>   -            dwc_0: usb@8a00000 {
+>> -                compatible = "snps,dwc3";
+>> -                reg = <0x0 0x08a00000 0x0 0xcd00>;
+>> -                interrupts = <GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>;
+>> -                phys = <&qusb_phy_0>, <&ssphy_0>;
+>> -                phy-names = "usb2-phy", "usb3-phy";
+>> -                clocks = <&xo>;
+>> -                clock-names = "ref";
+>> -                tx-fifo-resize;
+>> -                snps,parkmode-disable-ss-quirk;
+>> -                snps,is-utmi-l1-suspend;
+>> -                snps,hird-threshold = /bits/ 8 <0x0>;
+>> -                snps,dis_u2_susphy_quirk;
+>> -                snps,dis_u3_susphy_quirk;
+>> -                dr_mode = "host";
+>> -            };
+>> +            phys = <&qusb_phy_0>, <&ssphy_0>;
+>> +            phy-names = "usb2-phy", "usb3-phy";
+>> +
+>> +            qcom,select-utmi-as-ref-clk;
+>> +
+>> +            tx-fifo-resize;
+>> +            snps,parkmode-disable-ss-quirk;
+>> +            snps,is-utmi-l1-suspend;
+>> +            snps,hird-threshold = /bits/ 8 <0x0>;
+>> +            snps,dis_u2_susphy_quirk;
+>> +            snps,dis_u3_susphy_quirk;
+>> +            dr_mode = "host";
+> 
+> This controller is DRD capable. Please move this dr_mode property to DTS
+> file.
 
-Fixes: c24dd0826f06 ("pinctrl: qcom: add the TLMM driver for the Nord platforms")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
----
-Changes for v2:
-- Add missing "gpio" function to binding function enum as well
-- Link to v1: https://lore.kernel.org/all/20260819152356.904023-1-shengchao.guo@oss.qualcomm.com/
+dr_mode was already there. Removing may break existing implementations
+and should require a separate patch.
 
- .../bindings/pinctrl/qcom,nord-tlmm.yaml      |  7 ++--
- drivers/pinctrl/qcom/pinctrl-nord.c           | 34 +++++++++++++------
- 2 files changed, 27 insertions(+), 14 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,nord-tlmm.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,nord-tlmm.yaml
-index 4bb511719f31..56758a85ead8 100644
---- a/Documentation/devicetree/bindings/pinctrl/qcom,nord-tlmm.yaml
-+++ b/Documentation/devicetree/bindings/pinctrl/qcom,nord-tlmm.yaml
-@@ -67,7 +67,7 @@ $defs:
-           Specify the alternative function to be configured for the specified
-           pins.
- 
--        enum: [ aoss_cti, atest_char, atest_usb20, atest_usb21,
-+        enum: [ gpio, aoss_cti, atest_char, atest_usb20, atest_usb21,
-                 aud_intfc0_clk, aud_intfc0_data, aud_intfc0_ws,
-                 aud_intfc10_clk, aud_intfc10_data, aud_intfc10_ws,
-                 aud_intfc1_clk, aud_intfc1_data, aud_intfc1_ws,
-@@ -98,9 +98,10 @@ $defs:
-                 pcie3_clk_req_n, phase_flag, pll_bist_sync, pll_clk_aux,
-                 prng_rosc0, prng_rosc1, pwrbrk_i_n, qdss, qdss_cti, qspi,
-                 qup0_se0, qup0_se1, qup0_se2, qup0_se3, qup0_se4, qup0_se5,
--                qup1_se0, qup1_se1, qup1_se3, qup1_se2, qup1_se4, qup1_se5,
-+                qup1_se0, qup1_se1, qup1_se2_01, qup1_se2_23, qup1_se3_01,
-+                qup1_se3_23, qup1_se4, qup1_se5,
-                 qup1_se6, qup2_se0, qup2_se1, qup2_se2, qup2_se3, qup2_se4,
--                qup2_se5, qup2_se6,
-+                qup2_se5, qup2_se6, qup3_se0_mira, qup3_se0_mirb,
-                 sailss_ospi, sdc4_clk, sdc4_cmd, sdc4_data, smb_alert,
-                 smb_alert_n, smb_clk, smb_dat, tb_trig_sdc4, tmess_prng0,
-                 tmess_prng1, tsc_timer, tsense_pwm, usb0_hs,
-diff --git a/drivers/pinctrl/qcom/pinctrl-nord.c b/drivers/pinctrl/qcom/pinctrl-nord.c
-index 7c21306e77ff..7f37f8e819ba 100644
---- a/drivers/pinctrl/qcom/pinctrl-nord.c
-+++ b/drivers/pinctrl/qcom/pinctrl-nord.c
-@@ -570,8 +570,10 @@ enum nord_functions {
- 	msm_mux_qup0_se5,
- 	msm_mux_qup1_se0,
- 	msm_mux_qup1_se1,
--	msm_mux_qup1_se2,
--	msm_mux_qup1_se3,
-+	msm_mux_qup1_se2_01,
-+	msm_mux_qup1_se2_23,
-+	msm_mux_qup1_se3_01,
-+	msm_mux_qup1_se3_23,
- 	msm_mux_qup1_se4,
- 	msm_mux_qup1_se5,
- 	msm_mux_qup1_se6,
-@@ -1152,11 +1154,19 @@ static const char *const qup1_se1_groups[] = {
- 	"gpio123", "gpio124", "gpio125", "gpio126",
- };
- 
--static const char *const qup1_se2_groups[] = {
--	"gpio127", "gpio128", "gpio129", "gpio130",
-+static const char *const qup1_se2_01_groups[] = {
-+	"gpio127", "gpio128",
- };
- 
--static const char *const qup1_se3_groups[] = {
-+static const char *const qup1_se2_23_groups[] = {
-+	"gpio127", "gpio128",
-+};
-+
-+static const char *const qup1_se3_01_groups[] = {
-+	"gpio129", "gpio130",
-+};
-+
-+static const char *const qup1_se3_23_groups[] = {
- 	"gpio129", "gpio130",
- };
- 
-@@ -1428,8 +1438,10 @@ static const struct pinfunction nord_functions[] = {
- 	MSM_PIN_FUNCTION(qup0_se5),
- 	MSM_PIN_FUNCTION(qup1_se0),
- 	MSM_PIN_FUNCTION(qup1_se1),
--	MSM_PIN_FUNCTION(qup1_se2),
--	MSM_PIN_FUNCTION(qup1_se3),
-+	MSM_PIN_FUNCTION(qup1_se2_01),
-+	MSM_PIN_FUNCTION(qup1_se2_23),
-+	MSM_PIN_FUNCTION(qup1_se3_01),
-+	MSM_PIN_FUNCTION(qup1_se3_23),
- 	MSM_PIN_FUNCTION(qup1_se4),
- 	MSM_PIN_FUNCTION(qup1_se5),
- 	MSM_PIN_FUNCTION(qup1_se6),
-@@ -1633,13 +1645,13 @@ static const struct msm_pingroup nord_groups[] = {
- 			 _, _, _, _, _, _, _),
- 	[126] = PINGROUP(126, qup1_se1, qup1_se0, ccu_i2c_scl, mdp1_vsync_out,
- 			 _, atest_usb20, ddr_pxi, _, _, _, _),
--	[127] = PINGROUP(127, qup1_se2, qup1_se2, _, atest_usb21, ddr_pxi,
-+	[127] = PINGROUP(127, qup1_se2_23, qup1_se2_01, _, atest_usb21, ddr_pxi,
- 			 _, _, _, _, _, _),
--	[128] = PINGROUP(128, qup1_se2, qup1_se2, _, atest_usb20, ddr_pxi,
-+	[128] = PINGROUP(128, qup1_se2_23, qup1_se2_01, _, atest_usb20, ddr_pxi,
- 			 _, _, _, _, _, _),
--	[129] = PINGROUP(129, qup1_se3, qup1_se3, ccu_i2c_sda, mdp1_vsync_out,
-+	[129] = PINGROUP(129, qup1_se3_23, qup1_se3_01, ccu_i2c_sda, mdp1_vsync_out,
- 			 _, atest_usb21, ddr_pxi, _, _, _, _),
--	[130] = PINGROUP(130, qup1_se3, qup1_se3, ccu_i2c_scl, mdp1_vsync_out,
-+	[130] = PINGROUP(130, qup1_se3_23, qup1_se3_01, ccu_i2c_scl, mdp1_vsync_out,
- 			 _, atest_usb20, ddr_pxi, _, _, _, _),
- 	[131] = PINGROUP(131, qup1_se4, qup1_se6, ccu_i2c_sda, mdp1_vsync_out,
- 			 _, atest_usb21, ddr_pxi, _, _, _, _),
--- 
-2.43.0
+> 
+> Regards,
+> Krishna,
 
