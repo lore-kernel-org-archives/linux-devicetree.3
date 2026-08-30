@@ -1,95 +1,97 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E665385D62
-	for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 08:40:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1232039795B
+	for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 08:41:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788079259; cv=none; b=JVipUMUwAQpaxqJIWG/A11NXPSGNtQM/Vsm6Mi1keIFKu9patqQSKXKbXn52/WkwJSmBrv/1u0es+8Rx8r1jFhqrcEwpQ2VXUIPWW4LbKtmqQpBTBkDig4gpLUhFjI9kCFdI+KfrnaotA/+ij9qNu3MqJ5O/G6OgwEpN7x2HV+Q=
+	t=1788079275; cv=none; b=ABdP1OaoKIZxTQXa1jNg7vKmtf/o1z4mwMJN9ryZIbNZ+X2ShabxUh2GQm8oPEll4w7km2yyVley08HL1bXqw/gBK/wUgVIJEjqhRh5Q58kqGViVPTV9Z8EwygFSVQERSkUpaIXhW8cpUCNrxVjHTz8OPouVoGY0qYmWE9Z8nlE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788079259; c=relaxed/simple;
-	bh=xstTPquafbNGlKwlQsKZ7eJq5FPgU6WMbUCfJXuADdE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=m/5ILFmSGz2cHUtSIPJEOhSXExBDJDRtsd9riVtukKYbRfnwpF2772vwztOfuKxcHyOxVFutXoWGql2Hj3fhbE0uzg/jyPOE6Be8dqKHhEyqJVvygKrUmmzbMlBB7/vAbV1WUj5nQAA6kA7qFwYmqJu/ER+5NPLXslySVxUgAWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=S5IhCqd/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AdgM631C; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1788079275; c=relaxed/simple;
+	bh=P5YoXmwsa6Ehsg4LISy8/Uhe1DYRHh5p2rSm5w6dsRM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Irh4j9Hu4bsVSqi9qwMeemVDUs6mo2obhysUX47qkrx3/1FK9y8DkqA6uxxJPDSiMRQoj0pLAOuQa2gOlXJTUowii9CMmLPLtbuehFz1NGZCr8AUPWThksR74lURdo0mqajc9+pYqpG+vQJ8XPn7jxSTKnRXt3R2yrmfo45vCbI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CF2eUxT0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=L8trKw8k; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="S5IhCqd/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AdgM631C"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67U5w0so3423100
-	for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 08:40:57 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CF2eUxT0";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="L8trKw8k"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67U5vUTY3985445
+	for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 08:41:12 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=M/Nytepkmt/ZP2rVkdCu7doVcdz2bZqfv3E
-	nSqqfb8w=; b=S5IhCqd/1yiomJiHtcsSCPVCmHL/DPZNP3Afc88iJsUa4NgF2+H
-	+u6Vvasdq3BRQ7Qznqvk8FONNef7TuMqgNfkx6qbWSIDUm0kRgdIBEXZQR5cWxuc
-	5ZXl9nVNrv3H5EZEHgS8OdEMPzuglitZ01eHLTEHuZk9qvjtkK5YJTrlW+wyDsLU
-	7ioH9VrIstWJRr2OmAI/bBMlzJNq6Gf3nXEswresLi5y+1ks02H3qw/cxt9pdbbr
-	34YICvvBsM7o2reA9bngHgAjmWYgr5lXU6VkOgn6+n9Q+NwKFBNuMUqe39Gi2fZu
-	Ar2z0lmKXlxznMXO0fnwsy3soIExWRxUbaQ==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbr6dthus-1
+	:subject:to; s=qcppdkim1; bh=2hIfk2KsP0EZz3gIHGRsAcT/OdDAxsw1vtQ
+	pagIPDFc=; b=CF2eUxT0WnCj4NZ1wqq7WVGWb0D3x2ATm7Krtj2NVh2ofx7rH3K
+	FTQx3ShfQMHhEnVbGvQpzK5tjpvfrXQrlQ/jfT3emizbVX7PL0MSrrW082874aTo
+	eBdtKmzNp4c5kSLyql+Pb7cB0U+jdkbwcwrj+8otgJrrZjoSz2Kn5mat3emslTSb
+	/Gps/mJGBAH+OJhzD33F9nCR8l6ird0D9A9+j2YVC2YQZg0Ar4441qmEVVQtzhl7
+	2WLdf4FFy8km0PsXmdtywUb9QhRukgb6bHp09AHc7Z0JtjdPkR8RbdZGcqBTU3Xk
+	dLgcfYK/zQm+vv/kszlEbm8pqrwJ850peHA==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbqn2jmx4-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 08:40:56 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-52f52ccd459so37013751cf.1
-        for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 01:40:56 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 08:41:12 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-52fa5c5a4a6so58012131cf.0
+        for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 01:41:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788079256; x=1788684056; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1788079271; x=1788684071; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=M/Nytepkmt/ZP2rVkdCu7doVcdz2bZqfv3EnSqqfb8w=;
-        b=AdgM631CVn6rLFXVMAAQzc15dta9Y1IQcD/2tNHkoY03hSLYSS8ExMm02oap5LJXUw
-         JO7vhFEr4gtiSCLvhCTQ6Mc1FowIA9b97fUb0XGQJTtYD2A97S7jlfPe38Q8J8stvdh0
-         Ofr3Ir/9TNS4TcX5qSdOM/NKy1dbaA1C4RtrxvPcKFgq3j3uW6Qobr9l7O/fA1nfVI/o
-         O7m286U5CXUcCWAkqVrXs5k7RHXEMDTjbd8HCLDrYTzJjDyRZPnmoTs0dlsx+23IjQci
-         AL0un1YHocBTDxG6nBC2qnjyWtbQCbxqc7sV5cFnilElKXynApnJCseOYq7qfBZBtVtq
-         9kqQ==
+        bh=2hIfk2KsP0EZz3gIHGRsAcT/OdDAxsw1vtQpagIPDFc=;
+        b=L8trKw8kAaCYnNXgKy5cDJaLu5iD6H3t2R5wp1z7Ruu3BRUOOsEWRde7acHGmRvg6x
+         TWsfu7BLAUyCGx7RS2Hl84Y6mN5rmGRvpVIB/g6OXV0Bv7Q6nID4o2nuR9MBBOj5jYqz
+         1t/8j/uGB77LrFVhGf3TvxZ+X4dlXLrJrmqZM6dsWvmPoWxOHuyc3BBPW6ZGstgmj5Gx
+         CeH51MlZ49N+HpJjgOKtuOGiVdS67VIjQsfGtPr4H+Q1+qSckkObnhPuBG5UhLIn1BuE
+         tKr0+eLVi+n21N3W8zGltO4NJNgY40IUxi65BOwjehtDydXig73dO/h3r5UbmOfiOKQX
+         Ot9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788079256; x=1788684056;
+        d=1e100.net; s=20251104; t=1788079271; x=1788684071;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=M/Nytepkmt/ZP2rVkdCu7doVcdz2bZqfv3EnSqqfb8w=;
-        b=pi5f4l9BWiHdhAbDf7QhNkbKOmKoj15N8DFsFGfMLjOKFzFKfqD1D/S+r1YqXJfxr5
-         Fx99nLr/sEVa7JFQOj3stcmSkpG9QbnF/9ecC0GU8NGRwBF5xfKUvko/L9XFKV4yYo7A
-         Q00/Xn+FnRglRELwTT8gZllFW5LUDhh/ycWrq/O3JD7V4/SnvYwu0+fF01vOKdB9+svf
-         ImYak3yDOHTAo69sHapTbagXhcPkLyYvN5ZH0rrGP40h2Bsph+7Q+z/aOeKfzyFC8E7p
-         TP9HN9lY1YSUCgjfUjjr67Oklc2s8LkyVss0ShzCrXpv7iF/91nejB5IJmYNtHtaJei6
-         S1tw==
-X-Forwarded-Encrypted: i=1; AHgh+RorVO4gzZ1mxejJ6n8Qb0UPv3NXlsYD3oMzeFfayiXd+TtrbKiYG4CjHrALpUKdVQnRyP/LOBVkX/gn@vger.kernel.org
-X-Gm-Message-State: AFuF++lZ+IZMHpso4/WO3DKf68WQrKLaw0dTCb96eNLewfTn3+RMOwgH
-	niOEB0UEykZS1kJGpP/jiqlGTDZ/Ril8cZXIsKxb036VzxhUsVMA+ZBMDTmrYuMI0ruc6sl8ACU
-	jdnr/+hszG+qSU/SojZ1EDXtyUh9ytFPPLqsPHzvpI9ddBFqS6x7MXhmWgn+Vo2tn
-X-Gm-Gg: AR+sD13IAmMCVDtrDe86qcbwUQu7D06y7AKpiojp2mPBS/gKM48Htd6LGGmXl1QjY+F
-	lsKhN9gviobL8FAlDEVb60EW6R9Sy1satJgSfR/nBfaBYYH7wf5iJotClfC2mHCXEwTI6of37Tl
-	pFRtDajlWD1+MQ83vq9KvD2w13qTTPPcHuAWs3BCUHXvOfdLraNrbb7kf+anEinbMhQXy6N9GIW
-	//4Z/Zhop1xaI2uegzlf/28EISt2AcNKNtOwhgkjM2KyhLqCJb8cBIOoLh0rdRksv/HNVOwjeTH
-	+dHPeIn8o0ZIftUXdM+Q6uWKtWrfcqOm7Cziw494tYjSy51GerpmPhE0o/Q238w3vct9OTeaTZF
-	88BPuoJLcv8Yks20=
-X-Received: by 2002:a05:622a:2588:b0:52f:a178:4c59 with SMTP id d75a77b69052e-52fb9657401mr225644561cf.37.1788079255885;
-        Sun, 30 Aug 2026 01:40:55 -0700 (PDT)
-X-Received: by 2002:a05:622a:2588:b0:52f:a178:4c59 with SMTP id d75a77b69052e-52fb9657401mr225644401cf.37.1788079255534;
-        Sun, 30 Aug 2026 01:40:55 -0700 (PDT)
+        bh=2hIfk2KsP0EZz3gIHGRsAcT/OdDAxsw1vtQpagIPDFc=;
+        b=r7+UsEadx744gz4nFZRizCjeIae5nDITneJhhLEnRatTWuoyfMPSdfBqWov8MNEC1l
+         4ovH0dWi/T8faPfrBuNA/ljWTZr4JLd3G/5ddg8k9m0Bk9e4OXKhh+dTx9YL6g9CNEFL
+         Hm8yUtxEP3CVS8Tn2aSF/GgPuxy5ioKIk0jP/8rPuXmdMwCmGDOAOONbSQDECrOa5Ijr
+         D+VHqjmaS/oXtsTbOK1SrUbAavfS6eO9ynTRXGPKlxKVdzK4UhNizOxdBNC5X0DJvqqR
+         wLMHJ7EDtyNUKKCKLQ9ANMCRQULEk8QG6xms378d9nJr/MptJA5nVLSu6PU000WLgdJj
+         HVwQ==
+X-Forwarded-Encrypted: i=1; AHgh+Ro28ioUxIKNdKOxuET648/8FE0K5C4AHZFZDyTa+iha0Bfw0/VZ2RERs+Tow3ZezQINXSwsB6xSEqSx@vger.kernel.org
+X-Gm-Message-State: AFuF++nFlf7jFRGhQAK3EbgbmBw9fTzGFYUYAixgnlJ3GettilvdTTDN
+	XyK2fQ8O9R18v00pmN+KZpZfeLN+GSfFkwr00OH45SLP94+bOzxr4PX8KIGgZ3/NgSsOoJHe6ea
+	tkMtujephDu0TAN2N68lsuMY5XJesXFhNLEo4ZRrAO9tUxxaYi0eh3+64UVh68842
+X-Gm-Gg: AR+sD13/X/KcXzN6tfD3MaW5/mRxKYYGEwnh9IHAoQzn63H3xK3lBR4XtOffWsHzwzM
+	Gs9sEOci94rXzAyltKZSrrJyy9ta44VvIAKqMo5XD4p2MjtN1os2XEmlgrv6SzIY8gD90ravYU8
+	XsaLansswX6cvWU8fNIT5kmgUJI3VhBXqD8lVxLk0U7S3PYYwTur7Gj0IUNrKbQjHCUer+zvQl3
+	6YWJrd4IHmPPHF50QpSKYqm/7qQZe/no5og1FS5890rKS5Vg253sHg5xb1b1CVszufXgewPi4A3
+	bAZkvre7158ShJGYO4XWQ6n+KQNqW7Cz7QRnslTFAQ3PJVhFVPX6jBrR07Mel9jEHCYrI7mMHdD
+	G94Kw48d4xLy6hZY=
+X-Received: by 2002:a05:622a:1486:b0:52d:8256:ac33 with SMTP id d75a77b69052e-52fb95f4fb5mr214250311cf.28.1788079271272;
+        Sun, 30 Aug 2026 01:41:11 -0700 (PDT)
+X-Received: by 2002:a05:622a:1486:b0:52d:8256:ac33 with SMTP id d75a77b69052e-52fb95f4fb5mr214249981cf.28.1788079270793;
+        Sun, 30 Aug 2026 01:41:10 -0700 (PDT)
 Received: from quoll ([178.197.219.214])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b963c3c0asm314870005e9.10.2026.08.30.01.40.53
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cd2922ebdsm56071755e9.3.2026.08.30.01.41.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 01:40:54 -0700 (PDT)
+        Sun, 30 Aug 2026 01:41:09 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+To: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>,
+        Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>,
+        NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>,
         Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>,
-        Oleksij Rempel <o.rempel@pengutronix.de>, linux-sound@vger.kernel.org,
+        Conor Dooley <conor+dt@kernel.org>,
+        Sascha Hauer <s.hauer@pengutronix.de>, Peng Fan <peng.fan@nxp.com>,
+        Giulio Benetti <giulio.benetti@benettiengineering.com>,
+        Jesse Taube <Mr.Bossman075@gmail.com>, linux-gpio@vger.kernel.org,
         devicetree@vger.kernel.org, imx@lists.linux.dev,
         linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v2] ASoC: dt-bindings: imx-audmux: Replace tabs with spaces
-Date: Sun, 30 Aug 2026 10:40:47 +0200
-Message-ID: <20260830084046.14679-2-krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v2] dt-bindings: pinctrl: fsl: Replace tabs with spaces
+Date: Sun, 30 Aug 2026 10:41:05 +0200
+Message-ID: <20260830084104.14968-2-krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -97,45 +99,45 @@ List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1385; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=xstTPquafbNGlKwlQsKZ7eJq5FPgU6WMbUCfJXuADdE=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqk+yOzvIYQOZZBzBQj6W1Qw9AqvmkZDdJ/+c6L
- pnuewph0cuJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCapPsjgAKCRDBN2bmhouD
- 1ytkD/4qT4rdd3yN7yDIh42thkTo+Unwa2sFG31D9cU3y7Mjm2p5Xq0Dg3hI7zzGFyqWeKDZQLd
- ow5ABRV1PGgwuEic9y2reK+Okt+dWElZBc/09FeWtcJY0hRcUSVZpTqpdSOCPfccLZvWBH44Xko
- tbK6f7710D+MNASE4jDx0xIyqEdMhSNwiJscYiKUKucg1MOSufYlRYa3sj4E93IWZZF3SOWT5ga
- r1jT70VNPX7FiVOTquQoanidMyYoZDJvqjx+3MpoDPN79lSK2w1HciOsoD32E6nGW9utrc0kJlx
- OPbwVKT7gISsR4j4nKtI1PtSY6H3Z76oke4iG+QYkqyESDzfjCFFWhOKK7Mg1FIWsgWTVgAfO0i
- Kv4P7rzu3/MlT0CdTzBVG7g0mOLLMWfD0FcBypJ45JUxJtdXyEbDVGTf/kJdBT/p5qTUiQKl/wO
- W5ysEOZiE150cZWvpfrjsobpzeGHXCxpusk9BqLgHLQr5OUlDh1KDV80IhMR2NJtjdxpEubuP2s
- mBsBXlHJFPCOmiRRwGhs6gwUFzAZBL8ie+o7V5DRnMaztcrN0wPdreMDLCDXheljmOoLfZyhq51
- O4gPbISfvBcyvAB6QfgVByG7Nm+kk1mB0aC7AXVsxEGWkGSM3BikOf+IC3vXPkbgmE6GVca9zN6 jbEY2GFGR+K9sHg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5781; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=P5YoXmwsa6Ehsg4LISy8/Uhe1DYRHh5p2rSm5w6dsRM=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqk+ygy4zLzP+8gDUARwqQa2XhorzTcQB/ozd5X
+ 31/KrTlkKCJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCapPsoAAKCRDBN2bmhouD
+ 16bVD/91ny6FEEHEyeL16IBP1y6/zQD9jvfwVq/7MoXDsPW9dlRIpoHdWs1QXBY1MDsh1rbXBBU
+ HwzUs3JCVRH0T21eYZnlddeMyfmUTZfIIhiPnbOGOdO1skhlwLvbhRGMbDdwvme7aXBxqbl0lu3
+ h4mPQn/7KxDqJLS+dP/H0siwnVi9N8zGuavRt6wgDMjR4SnakDdNVVjQMAvv9LPagFOv/zGRwRt
+ YxqKO6hgNAWK1F/4p04Mk+CzE9kxGQIddiG7zZSWgNZdTQab2BwrBFnNHEj/qznoVoNnVeWofXs
+ jjdwTvoM0yZtqKF/d3zRcPeXK7cw/kDgy38BpECaq49OtzU3I+lBfYvGhcJc2G1b/NUbepBhq23
+ nvhXVdVHnYmOWkvq11he1prYLSS0ojLbR9n8a1wwMZ8zgPFhr73LFFpELZIiOO3z6nDbBd7Voai
+ bOnSt+0Iqbn68tbl+2u6qfxsIRFXdFcup5jNormWTb1vronNxNHz7nkcWVXgxp2rFoNzllXCS1s
+ DoUyqMY79zx5I8GOjt24uoFCTzygTALMe07i/s81J3bXGqr6LCkyTUMafXBlHr2Q1dM3BOiJaJc
+ aw/bBV/+Z2zw0qc66nqFPfthvtwJJtXFGrRK/zDDICBr/6EaZY/tlgMlVaHTtPJ/GAWIs7FSEL4 2tx44dk/5FVA9zw==
 X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMwMDA3MSBTYWx0ZWRfX4jc/0XfjptuL
- ZsnIIIBkAluJO69DVHbOrC1kMgb5YrBzLoC+RpJeQnc7zoO+GcrXFPnh1X6hBnr05tIYEDnn+G/
- RjHRH35Tw1Akbdobf/iYPa4mHohk7fmdFWuMh7SLfUc66WYvoVcjfeoFxrS6hpB40Ro/EdOHiJE
- /e7v4IraVhIv7cmNcu5me5awFldK65XtNPcj7EIKm6jpwiVD1pA/PPp3CApH9/Vn4jPPS2zgJCN
- +mJMNko1YANeOkpkP+9FqQOqFLedbYS1NebhhQ2oePbM7xrLXeifNNKBZYeMSjzMUqQ55cV70xr
- AnhfyhyTF44sKIqAYBD8g3X/YlwWe84IT3z6oz0VoSjkPQEypadVaQa9HD4sxHVv7h1SoZ20pw6
- 7pQGFkr7f1mo56AqfjiPVvN8NQeBmBxntXas8j0pAcvhPbAlL4t1pAwjA0kuUMulb5Rn3114rov
- uPzUozrnC/Dv1PU0c8w==
-X-Proofpoint-GUID: I9wz6Nt2LEmMCOKYRwvqGWN1CSw2EUuY
-X-Authority-Analysis: v=2.4 cv=Zakt8MVA c=1 sm=1 tr=0 ts=6a93ec98 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+X-Proofpoint-ORIG-GUID: 3Z-wKk6V1PIgSCjM--Tfsa4jQcr9a0Cc
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMwMDA3MSBTYWx0ZWRfXz7YEiAqpHlZI
+ 1eHISjhBuQDQ0WgOBeG0rmjBFa8I9TWgUmoROie8Ggooa69uA8qW669BZk+QDkYKgCTvYH2ErnW
+ /EhEW98KFBFmfEsJwovb2tc2nA4P3NTEPknv+s+B3rbJYM7IN21koQTa38ExtANppEEWGReT3S9
+ OqLUEXHhXDPCvWiKaBgbffPkFWzq5yn+zGUEXR1xSRv4NsJsSbzIcyXheeQ3IcEqBmj4qKi9rUG
+ Rk55sp80J0bdtbfDFoCQGTkDy/PzCD1rFSGuWD5fmjSc1TCyEokrZyWBzjgSmSATJ5UyrgMPv9N
+ gD6zEEUiAntVbhdNBifKzeVtz43SVVWjAs8sxvrrP4ord6gfjPX6FckVaaXaM1HXSWmX/mNTd8W
+ wN8pRvsYEOUQstSVFYPB8lX880WM0l6Oq7bnWTDlXA9Jw7ZW198mKA3OLyfkSlHjB3QwFdUoeLm
+ 4tBZUVrCYhI3L9OOdbA==
+X-Proofpoint-GUID: 3Z-wKk6V1PIgSCjM--Tfsa4jQcr9a0Cc
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMwMDA3MSBTYWx0ZWRfX+npFJFcIm+ce
+ WzRi4cSkLYCFs333EcxkX7m2Dr6QRhdKb7vvGkaNuwnoEE3nLAi5AzInZmFJuusHjjHAUHQAuro
+ IKosJvvE8R7nB7U5uJP4MhLrebzFCC8=
+X-Authority-Analysis: v=2.4 cv=a5kAM0SF c=1 sm=1 tr=0 ts=6a93eca8 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
  a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=i9mLyMywaSABm-nTGLoA:9 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMwMDA3MSBTYWx0ZWRfX0VHp9BInBres
- y45rUuja0ap0Hrse3uYZI/uHEjLk03wFzqh72LETXZE38SdDF8maW/5Cyqd1ZpW7z6JxpADqdiF
- OoyASU+znyOY+Lh60XcH8c85/vxw8qs=
-X-Proofpoint-ORIG-GUID: I9wz6Nt2LEmMCOKYRwvqGWN1CSw2EUuY
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=4PiMN3fzvG74CLbEUuQA:9 a=uxP6HrT_eTzRwkO_Te1X:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-30_02,2026-08-27_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
- suspectscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0 bulkscore=0
+ lowpriorityscore=0 bulkscore=0 malwarescore=0 phishscore=0 clxscore=1015
+ adultscore=0 priorityscore=1501 spamscore=0 impostorscore=0 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608300071
 
@@ -150,28 +152,127 @@ Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Changes in v2:
 1. Correct logic in commit msg spaces->tabs
 ---
- Documentation/devicetree/bindings/sound/imx-audmux.yaml | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ .../devicetree/bindings/pinctrl/fsl,imx35-pinctrl.yaml    | 4 ++--
+ .../devicetree/bindings/pinctrl/fsl,imx7d-pinctrl.yaml    | 8 ++++----
+ .../devicetree/bindings/pinctrl/fsl,imx8m-pinctrl.yaml    | 4 ++--
+ .../devicetree/bindings/pinctrl/fsl,imx8ulp-pinctrl.yaml  | 4 ++--
+ .../devicetree/bindings/pinctrl/fsl,imx9-pinctrl.yaml     | 4 ++--
+ .../devicetree/bindings/pinctrl/fsl,imxrt1050.yaml        | 4 ++--
+ .../devicetree/bindings/pinctrl/fsl,imxrt1170.yaml        | 4 ++--
+ 7 files changed, 16 insertions(+), 16 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/imx-audmux.yaml b/Documentation/devicetree/bindings/sound/imx-audmux.yaml
-index dab45c310670..501af1add3c1 100644
---- a/Documentation/devicetree/bindings/sound/imx-audmux.yaml
-+++ b/Documentation/devicetree/bindings/sound/imx-audmux.yaml
-@@ -101,10 +101,10 @@ examples:
-         mux-ssi1 {
-             fsl,audmux-port = <0>;
-             fsl,port-config = <
--                IMX_AUDMUX_V2_PTCR_SYN		0
--                IMX_AUDMUX_V2_PTCR_TFSEL(2)	0
--                IMX_AUDMUX_V2_PTCR_TCSEL(2)	0
--                IMX_AUDMUX_V2_PTCR_TFSDIR	0
-+                IMX_AUDMUX_V2_PTCR_SYN      0
-+                IMX_AUDMUX_V2_PTCR_TFSEL(2) 0
-+                IMX_AUDMUX_V2_PTCR_TCSEL(2) 0
-+                IMX_AUDMUX_V2_PTCR_TFSDIR   0
-                 IMX_AUDMUX_V2_PTCR_TCLKDIR      IMX_AUDMUX_V2_PDCR_RXDSEL(2)
-               >;
+diff --git a/Documentation/devicetree/bindings/pinctrl/fsl,imx35-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/fsl,imx35-pinctrl.yaml
+index 846e110062b2..0a69ed9880e4 100644
+--- a/Documentation/devicetree/bindings/pinctrl/fsl,imx35-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/fsl,imx35-pinctrl.yaml
+@@ -179,7 +179,7 @@ examples:
+ 
+         pinctrl_uart4: uart4grp {
+             fsl,pins =
+-                <0x288 0x658 0x000 0x3 0x0	0x140>,
+-                <0x28c 0x65c 0x938 0x3 0x3	0x140>;
++                <0x288 0x658 0x000 0x3 0x0 0x140>,
++                <0x28c 0x65c 0x938 0x3 0x3 0x140>;
          };
+     };
+diff --git a/Documentation/devicetree/bindings/pinctrl/fsl,imx7d-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/fsl,imx7d-pinctrl.yaml
+index 7bd723ab1281..948160cfbc5f 100644
+--- a/Documentation/devicetree/bindings/pinctrl/fsl,imx7d-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/fsl,imx7d-pinctrl.yaml
+@@ -95,8 +95,8 @@ examples:
+ 
+       pinctrl_uart5: uart5grp {
+         fsl,pins =
+-          <0x0160 0x03D0 0x0714 0x1 0x0	0x7e>,
+-          <0x0164 0x03D4 0x0000 0x1 0x0	0x76>;
++          <0x0160 0x03D0 0x0714 0x1 0x0 0x7e>,
++          <0x0164 0x03D4 0x0000 0x1 0x0 0x76>;
+       };
+     };
+   - |
+@@ -107,7 +107,7 @@ examples:
+ 
+       pinctrl_gpio_lpsr: gpio1-grp {
+           fsl,pins =
+-            <0x0008 0x0038 0x0000 0x0 0x0	0x59>,
+-            <0x000C 0x003C 0x0000 0x0 0x0	0x59>;
++            <0x0008 0x0038 0x0000 0x0 0x0 0x59>,
++            <0x000C 0x003C 0x0000 0x0 0x0 0x59>;
+         };
+     };
+diff --git a/Documentation/devicetree/bindings/pinctrl/fsl,imx8m-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/fsl,imx8m-pinctrl.yaml
+index 6068be11dfe2..2341633943c7 100644
+--- a/Documentation/devicetree/bindings/pinctrl/fsl,imx8m-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/fsl,imx8m-pinctrl.yaml
+@@ -82,8 +82,8 @@ examples:
+ 
+         pinctrl_uart2: uart2grp {
+             fsl,pins =
+-                <0x23C 0x4A4 0x4FC 0x0 0x0	0x140>,
+-                <0x240 0x4A8 0x000 0x0 0x0	0x140>;
++                <0x23C 0x4A4 0x4FC 0x0 0x0 0x140>,
++                <0x240 0x4A8 0x000 0x0 0x0 0x140>;
+         };
+     };
+ 
+diff --git a/Documentation/devicetree/bindings/pinctrl/fsl,imx8ulp-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/fsl,imx8ulp-pinctrl.yaml
+index 7dcf681271d3..dc86bf6e580f 100644
+--- a/Documentation/devicetree/bindings/pinctrl/fsl,imx8ulp-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/fsl,imx8ulp-pinctrl.yaml
+@@ -74,8 +74,8 @@ examples:
+ 
+         pinctrl_lpuart5: lpuart5grp {
+             fsl,pins =
+-                <0x0138 0x08F0 0x4 0x3	0x3>,
+-                <0x013C 0x08EC 0x4 0x3	0x3>;
++                <0x0138 0x08F0 0x4 0x3 0x3>,
++                <0x013C 0x08EC 0x4 0x3 0x3>;
+         };
+     };
+ 
+diff --git a/Documentation/devicetree/bindings/pinctrl/fsl,imx9-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/fsl,imx9-pinctrl.yaml
+index 96e7b6995273..333b2e7fdaac 100644
+--- a/Documentation/devicetree/bindings/pinctrl/fsl,imx9-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/fsl,imx9-pinctrl.yaml
+@@ -78,8 +78,8 @@ examples:
+ 
+         pinctrl_uart3: uart3grp {
+             fsl,pins =
+-                <0x48 0x1f8 0x41c 0x1 0x0	0x49>,
+-                <0x4c 0x1fc 0x418 0x1 0x0	0x49>;
++                <0x48 0x1f8 0x41c 0x1 0x0 0x49>,
++                <0x4c 0x1fc 0x418 0x1 0x0 0x49>;
+         };
+     };
+ 
+diff --git a/Documentation/devicetree/bindings/pinctrl/fsl,imxrt1050.yaml b/Documentation/devicetree/bindings/pinctrl/fsl,imxrt1050.yaml
+index db5fe66ad873..854fbcd8e78a 100644
+--- a/Documentation/devicetree/bindings/pinctrl/fsl,imxrt1050.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/fsl,imxrt1050.yaml
+@@ -73,7 +73,7 @@ examples:
+ 
+         pinctrl_lpuart1: lpuart1grp {
+             fsl,pins =
+-              <0x0EC 0x2DC 0x000 0x2 0x0	0xf1>,
+-              <0x0F0 0x2E0 0x000 0x2 0x0	0xf1>;
++              <0x0EC 0x2DC 0x000 0x2 0x0 0xf1>,
++              <0x0F0 0x2E0 0x000 0x2 0x0 0xf1>;
+         };
+     };
+diff --git a/Documentation/devicetree/bindings/pinctrl/fsl,imxrt1170.yaml b/Documentation/devicetree/bindings/pinctrl/fsl,imxrt1170.yaml
+index 2e880b3e537c..988db9507543 100644
+--- a/Documentation/devicetree/bindings/pinctrl/fsl,imxrt1170.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/fsl,imxrt1170.yaml
+@@ -71,7 +71,7 @@ examples:
+         reg = <0x400e8000 0x4000>;
+         pinctrl_lpuart1: lpuart1grp {
+             fsl,pins =
+-              <0x16C 0x3B0 0x620 0x0 0x0  0xf1>,
+-              <0x170 0x3B4 0x61C 0x0 0x0	0xf1>;
++              <0x16C 0x3B0 0x620 0x0 0x0 0xf1>,
++              <0x170 0x3B4 0x61C 0x0 0x0 0xf1>;
+         };
+     };
 -- 
 2.53.0
 
