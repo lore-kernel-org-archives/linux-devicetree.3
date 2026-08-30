@@ -1,118 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9422184540
-	for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 22:10:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE13C3148A7
+	for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 22:12:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788127833; cv=none; b=CdDyzvftfJzJ8/2J3hT1iM3n8wI9I8WJH6N9hRp8G+WOJHj0gaPxaoG6wYw9f496NJeamgFwA0x2YO75ebi7N8p9cySRaHO+43sH4r6R4QkqJDo3kcAdGvl22O/9psBJnjA3x8yXDTc8Hpysbi5NgMhT84M5jCKkGlbSYU9NGOU=
+	t=1788127974; cv=none; b=eba3wbGkMHyio9emv5wrzRabugTsPtdCAqxe84IeY2ulpBgcaSNfifUE+6AvbVqwCpmJegU5Pb+EGB92iiOBGKg83Q8L9r/7ufTENefkqhIVz0lr6V/dqZeGOWWly2fvzdot/yAkJVvYpFXCTSqFvmGD7jZyPjEORzF8wuhON6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788127833; c=relaxed/simple;
-	bh=g0cfNJdOFDd9VnDszWXMvizBIdpblSfeOCbNWzPu+2I=;
+	s=arc-20240116; t=1788127974; c=relaxed/simple;
+	bh=0mkqjBFVGTsFt8ZAwCvMpXnOc/Ehk+NHMxwzZ4Am41Y=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Od9ExK9PnvxCKSKa9SpslCjurFELXVc7hUp8RYQK+eHBrP2gB0QnqDX6uq+LQgrlNGN95SlNfRef5PNlYdnkS7op2CQV/YN9STAEyOxVRWncR2ljj/+NOWB4VkBlR0B80EkO5HYRyXlaateUc2XB6ceeNNdZs2qixbW/Gb1OuHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SfabWBKw; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=JkIJjaipD351owtKnxzTkGk8RAWKKdXvm49N98S/XEAvDZ33HsFQMH9YBZKF26ft9UQlPSNSZltZo2Y0u3zCr/3nJ1CWb2nx+K/iJ85OS7/FeRNsm0UMN1nhOz9Q0RCF8Ej8K/Q+PXG9tOir9635IbnW75eJ5FhlTsT97Q5jnV8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XePxhAHy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SfabWBKw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F3831F000E9;
-	Sun, 30 Aug 2026 22:10:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XePxhAHy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 295271F000E9;
+	Sun, 30 Aug 2026 22:12:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788127831;
-	bh=shQaCtnXY/shUCjxULCdERvs/b+PKReqX6fXRFjFQJw=;
+	s=k20260515; t=1788127972;
+	bh=Fg4cPFtL/PlQuD0lJdABC9jxJ5/Wen+eJwZohQQD8Z8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SfabWBKwXg9L7bEcZf1hTsWXICZP+d2q5iGfUhPml8gUfmqwUURE4VVSejk7BOZDD
-	 CoBqKlEhRxCZ+4YRLS2aDnnCGi1eebANl/iDdX58Tg1GKQOlrRGN5MSCSIUDNIO4Yq
-	 WsmqcBdq6aUxj9pWULAjky0+0WRrbnX8SWhOwf9TX0RTLvkVyzfPhK44j7Y96sKFDo
-	 ryVw+i66+4UZJWlktWt+Hhver+TKHCvhqiWz33SwRhxE9+W5DM04SHu5c+TKXksQDn
-	 cz367VvR6Bpp4HnN6jrfUd7Jjcy0ohupHUpd2a5bHAfJZx9p4lvS5h7qc8hDhGyaIQ
-	 9IJIuo49rSzqw==
+	b=XePxhAHyER8W8S1hS8FyYQd3TCDQH08CyMLHD73EwpgWxx4fG0gvHuReh4IvgJa3M
+	 qd2V5AkF6On2DIccp8Ub9C7ibEobuifgdKxyk16fhvJx+T6pDzaxQo1dYfF3pcj/Wy
+	 IYJc0ND5OW0PpkzkeeA3WWx7gudVUgrG1Mo1WgbigQP5Zgqim33gsBprxrW+NKJKn5
+	 UNAyohOLDdKmPp/Nzz+3kSHAQ7og4FC1VDni0hIOVhd4omokIqcQn/fjftnJAk+jar
+	 SAG/ZUcblTIK+MwuuWM2JV9gf6sKVVZpYop8VCMg/Es/Zm5xCjDW2enxI4ODPII5ZJ
+	 JkDt2htpJxEdA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] crypto: atmel-ecc - add support for atecc608a
+Subject: Re: [PATCH 2/3] arm64: dts: qcom: add HP OmniBook Ultra 14-kg0xxx
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Thorsten Blum" <blum@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260830220151.21469-4-blum@kernel.org>
-References: <20260830220151.21469-3-blum@kernel.org>
- <20260830220151.21469-4-blum@kernel.org>
+To: "Jason Pettit" <jason.pettit@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260830-x2-hp-omnibook-ship-v1-2-9feada71dc79@oss.qualcomm.com>
+References: <20260830-x2-hp-omnibook-ship-v1-0-9feada71dc79@oss.qualcomm.com>
+ <20260830-x2-hp-omnibook-ship-v1-2-9feada71dc79@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 30 Aug 2026 22:10:30 +0000
-Message-Id: <20260830221031.3F3831F000E9@smtp.kernel.org>
+Date: Sun, 30 Aug 2026 22:12:51 +0000
+Message-Id: <20260830221252.295271F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Use-After-Free due to early return in `atmel_ecc_remove()` missing=
- list deletion.
+- [High] 1.8V regulator applied to 1.2V and 0.95V pins on the WCN7850 PMU, =
+risking hardware damage.
+- [Low] The board device tree references an undefined `&pcie3_phy` label, c=
+ausing a dtc compilation failure.
 --
 
-commit da00b1f7ab58791bf49d80087ba781e30c9433d0
-Author: Thorsten Blum <blum@kernel.org>
+commit 4454af8cdf9bffc654c2251cf576014586466b4c
+Author: Jason Pettit <jason.pettit@oss.qualcomm.com>
 
-crypto: atmel-ecc - add support for atecc608a
+arm64: dts: qcom: add HP OmniBook Ultra 14-kg0xxx
    =20
-The driver already supports the ATECC508A and ATECC608B and uses only
-commands shared by these devices.
+Add board support for HP OmniBook Ultra 14" Next Gen AI PC
+(product SKU D29KLAS#ABA, board 8F03), a Snapdragon X2 Elite (Glymur)
+laptop, using the "hp,omnibook-ultra-kg0xxx" / "qcom,glymur" compatible.
 
-Microchip documents the ATECC608B as a backwards-compatible, functional
-drop-in replacement for the ATECC608A, with the same device structure
-and command interface [1]. Therefore, add support for the ATECC608A.
+> diff --git a/arch/arm64/boot/dts/qcom/glymur-hp-omnibook-ultra-kg0xxx.dts=
+ b/arch/arm64/boot/dts/qcom/glymur-hp-omnibook-ultra-kg0xxx.dts
+> new file mode 100644
+> index 0000000000000..d1c1880a50b9b
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/glymur-hp-omnibook-ultra-kg0xxx.dts
 
-ATECC608A hardware was not available for testing.
+[ ... ]
 
-Link: https://ww1.microchip.com/downloads/en/Appnotes/Migrating-from-the-AT=
-ECC608A-to-the-ATECC608B-DS40002237A.pdf [1]
-
-> diff --git a/drivers/crypto/atmel-ecc.c b/drivers/crypto/atmel-ecc.c
-> index 075f38a67935c..0904bb47fd0a9 100644
-> --- a/drivers/crypto/atmel-ecc.c
-> +++ b/drivers/crypto/atmel-ecc.c
-> @@ -348,6 +348,7 @@ static void atmel_ecc_remove(struct i2c_client *clien=
-t)
+> +	wcn7850-pmu {
+> +		compatible =3D "qcom,wcn7850-pmu";
+> +		vdd-supply =3D <&vreg_wcn_0p95>;
+> +		vddaon-supply =3D <&vreg_l15b_e0_1p8>;
+> +		vdddig-supply =3D <&vreg_l15b_e0_1p8>;
+> +		vddio-supply =3D <&vreg_l15b_e0_1p8>;
+> +		vddio1p2-supply =3D <&vreg_l15b_e0_1p8>;
+> +		vddrfa1p2-supply =3D <&vreg_l15b_e0_1p8>;
+> +		vddrfa1p8-supply =3D <&vreg_l15b_e0_1p8>;
 
 [Severity: High]
-This is a pre-existing issue, but can the early return in atmel_ecc_remove()
-cause a use-after-free?
+Does this apply a 1.8V supply (vreg_l15b_e0_1p8) to pins that structurally
+require 1.2V (vddio1p2, vddrfa1p2) and ~0.95V (vddaon, vdddig)?
 
-If a user unbinds the ATECC device via sysfs while a crypto operation is in
-flight (tfm_count > 0):
+Over-volting these inputs with a 1.8V supply risks permanently damaging the
+WCN7850 PMU or causing system instability. A 1.2V regulator (vreg_l18b_e0_1=
+p2)
+is defined in this file but appears incorrectly unused here.
 
-drivers/crypto/atmel-ecc.c:atmel_ecc_remove() {
-	...
-	if (atomic_read(&i2c_priv->tfm_count)) {
-		dev_emerg(&client->dev, "Device is busy, expect memory corruption.\n");
-		return;
-	}
-	...
-	list_del(&i2c_priv->i2c_client_list_node);
-	...
-}
+[ ... ]
 
-The early return bypasses list_del(&i2c_priv->i2c_client_list_node). The
-driver core then frees the devm_kmalloc-allocated i2c_priv, leaving a freed
-node on the global driver_data.i2c_client_list.
+> +&pcie3_phy {
+> +	vdda-phy-supply =3D <&vreg_l3c_e1_0p94>;
+> +	vdda-pll-supply =3D <&vreg_l2c_e1_1p2>;
+> +
+> +	vdda-refgen0p9-supply =3D <&vreg_l1c_e1_0p91>;
+> +	vdda-refgen1p2-supply =3D <&vreg_l4f_e1_1p2>;
+> +
+> +	status =3D "okay";
+> +};
 
-The next time any crypto operation is requested, atmel_ecc_i2c_client_alloc=
-()
-will iterate over the list and access the freed i2c_priv node, causing a
-use-after-free.
+[Severity: Low]
+Does this reference an undefined pcie3_phy label?
 
-Does it make sense to always remove the node from the list before returning?
-
-> =20
->  static const struct of_device_id atmel_ecc_dt_ids[] =3D {
->  	{ .compatible =3D "atmel,atecc508a", },
-> +	{ .compatible =3D "atmel,atecc608a", },
->  	{ .compatible =3D "atmel,atecc608b", },
->  	{ }
->  };
+Since pcie3_phy is not defined in glymur.dtsi (unlike older SoCs where it
+might have been copied from), this reference will cause a dtc compilation
+failure when building the device tree.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260830220151.2146=
-9-3-blum@kernel.org?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260830-x2-hp-omni=
+book-ship-v1-0-9feada71dc79@oss.qualcomm.com?part=3D2
