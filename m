@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 825C8258EF3;
-	Sun, 30 Aug 2026 08:30:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EFFA382380;
+	Sun, 30 Aug 2026 08:35:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788078648; cv=none; b=b1k1NyXIZ9G/j+1U1GmJT0ZC5m0s/T3b3hYnNXjMzXlWfkXL9jb/Mz3rWIsRvurClEcbCM6FMBC03QvPFyGF2CF5kXpb5wVV2QTjk5gR5GE61fwx1CFAXDwOdfmkUiYXyWGsnVjpKq8GUJ/mn40NHUZce2HI7XSUKUn3rcVn6eI=
+	t=1788078945; cv=none; b=sk/RXfFv+1Gqys0id5E8Mlg22Lw8f1AWnJEJZs0VDWnJQEQTO+xqxOSnba256029FsrMyY/ly4f5m3gvqp4lhDEUB4ERvijVKTgaWHUdlq1nEharFLZeDfi+8vw/TE/ONN6pAU/v9Rw+pR6qR6vsbr+3Et/481CIbMoOPejRyiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788078648; c=relaxed/simple;
-	bh=EE0V+9hvKxThidCRmPLnCawTLyN9e6WCbd5609ZYHFc=;
+	s=arc-20240116; t=1788078945; c=relaxed/simple;
+	bh=4ImRa1XNESIUl/suhHZTEHPObbGsxkW/TyzIC8DOkeM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uMq7BQONaEagNXIEYDKrmmYpof3lmyhf/sGPJFSXe9jiSffmQoBlfWvRawj28kOc3hswzeiszBK0pBpaNwugsQLxY5QRgo53RySqaUwwFpCAW6sWL6b06JDPHNzWY4PcEygjhJLIfQaXnVv2h6TXGLgDMay7XWj7rR+Buk9MMwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GQIuKKEh; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=YyxV/xhoNwJ6ARpp3K0x9aGarmLZjrV/FcsQPp4XkRwxpHa3JDkqC4VANdIftM0gyKnfcBquZLvbcC0m8gPWpSYfnUts6vC9sgtYuoXZiAqAgvqJMdrKrK8419a0ahRhqU/A54l1PMAKzrKhW7AgiBJXDZ6KiAMXZWZSxr3cvks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bkHlSqYn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GQIuKKEh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 105001F000E9;
-	Sun, 30 Aug 2026 08:30:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bkHlSqYn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D784E1F000E9;
+	Sun, 30 Aug 2026 08:35:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788078646;
-	bh=j5sIvsE7M+TOJ0IAY63szxYcPq0HJzF40LgRSxYedZ0=;
+	s=k20260515; t=1788078944;
+	bh=hTFCf+/WK7bUzDOulou6SgSDwFha6MKK5QsGq8xUtuQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=GQIuKKEhRWKaUbc4qLXwDbUoiwiz7PXA1OlmO+/cCaj1G2RP1e/bm70AzkO1CKGj+
-	 EuUJYTX+khYx/1R2nBYLT6LUvvBQw3S0lNGUb1HW2LM/z/exPR03ghi7YMxUyaDeVW
-	 I2Sr+WkXaIRE9k/EDDEgOZFxIi8zNB2VfW0p7upb7n8a0HxrPk74gJGwJbjdYB/cmQ
-	 +73q3wNdk2CIGj/w1puqHhznYkvQoBngv1ec4dkc5cpGYKnnWtjUU0gshLflG34dbd
-	 cERbhDMdAm1kbJtsHLukdE9OLV9dfvW18SPe7ONQWW+tYUDGfYAEc6VPZkvBaV3XIX
-	 E0hdFILXE3/jQ==
-Message-ID: <ac4c6b24-02c7-4dc3-89e4-45aa335255d3@kernel.org>
-Date: Sun, 30 Aug 2026 10:30:37 +0200
+	b=bkHlSqYnZEO5cbaeV4uD7xXqe/YGRrKTPWZ92KWx2jJW+Db1PJe+haQKq1/8p38JM
+	 3MFVg4xSUhR6ggeZYtFKjubYPXh0DyNv5J8xQvsp/P0miFhOOcmNsvPtCsUnm1WWvI
+	 xHXgU46KHW5kchkLGRutsumBdjd6z+FyUEMp9ibwmy4SY947uz9taLC9JN/gN0V9XR
+	 QyP9x0qMcpffL0DzL0W38+tmZWz6DX//yZpq0q19sgxr3t9R02U8Tjtssia8/AvPWy
+	 fiXL1qx7I0+ka/sfHxQWKF1G58jIT71cEH84tKDUOzOzQDArlXKoAcH/Z4pFzYTwZ3
+	 95oeYQeoWPQFw==
+Message-ID: <417251d0-c2cc-4e10-940d-b75ab20acdec@kernel.org>
+Date: Sun, 30 Aug 2026 10:35:39 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,24 +35,13 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 03/21] dt-bindings: pinctrl: Add
- starfive,jhb100-sys0-pinctrl
+Subject: Re: [PATCH v1 2/2] soc: starfive: Add JHB100 UART Routing driver
 To: Changhuang Liang <changhuang.liang@starfivetech.com>,
- Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
- Paul Walmsley <pjw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
- Palmer Dabbelt <palmer@dabbelt.com>, Alexandre Ghiti <alex@ghiti.fr>,
- Philipp Zabel <p.zabel@pengutronix.de>, Bartosz Golaszewski <brgl@kernel.org>
-Cc: "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
- Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-References: <20260829025720.23915-1-changhuang.liang@starfivetech.com>
- <20260829025720.23915-4-changhuang.liang@starfivetech.com>
- <f474f659-8234-4dfb-85cc-06d2cc295107@kernel.org>
- <ZQ4PR01MB1202DDBD0436E8F580EB6575F2AA2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260830065118.51551-1-changhuang.liang@starfivetech.com>
+ <20260830065118.51551-3-changhuang.liang@starfivetech.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -98,36 +87,89 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <ZQ4PR01MB1202DDBD0436E8F580EB6575F2AA2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+In-Reply-To: <20260830065118.51551-3-changhuang.liang@starfivetech.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 30/08/2026 03:29, Changhuang Liang wrote:
-> Hi, Krzysztof
+On 30/08/2026 08:51, Changhuang Liang wrote:
+> Add driver support for JHB100 UART Routing control, allowing runtime
+> configuration of RX muxes between UART controllers and I/O pins.
 > 
-> Thanks for the review.
+> A sysfs interface is provided for easy checking and updating of routing
+> paths.
 > 
->> On 29/08/2026 04:57, Changhuang Liang wrote:
->>> +#ifndef __DT_BINDINGS_PINCTRL_STARFIVE_JHB100_H__
->>> +#define __DT_BINDINGS_PINCTRL_STARFIVE_JHB100_H__
->>> +
->>> +/* sys0 pad numbers */
->>> +#define PADNUM_SYS0_GPIO_A0				0
->>> +#define PADNUM_SYS0_GPIO_A1				1
->>> +#define PADNUM_SYS0_GPIO_A2				2
->>> +#define PADNUM_SYS0_GPIO_A3				3
->>
->> I could not find how your driver uses these, so are you sure it's a binding
->> constant for the SW?
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> ---
+>  .../sysfs-driver-starfive-jhb100-uart-routing |  45 +++
+>  MAINTAINERS                                   |   7 +
+>  drivers/soc/starfive/Kconfig                  |   1 +
+>  drivers/soc/starfive/Makefile                 |   1 +
+>  drivers/soc/starfive/uart-routing/Kconfig     |  14 +
+>  drivers/soc/starfive/uart-routing/Makefile    |   2 +
+>  .../uart-routing/jhb100-uart-routing.c        | 262 ++++++++++++++++++
+>  7 files changed, 332 insertions(+)
+>  create mode 100644 Documentation/ABI/testing/sysfs-driver-starfive-jhb100-uart-routing
+>  create mode 100644 drivers/soc/starfive/uart-routing/Kconfig
+>  create mode 100644 drivers/soc/starfive/uart-routing/Makefile
+>  create mode 100644 drivers/soc/starfive/uart-routing/jhb100-uart-routing.c
 > 
-> Yes, these are not used in the driver, but in PATCH 6/8/10/12, etc., some definitions
-> for other GPIOs are still used. Therefore, I have uniformly defined them in the 
-> binding, and they will be provided to the device tree for use later.
+> diff --git a/Documentation/ABI/testing/sysfs-driver-starfive-jhb100-uart-routing b/Documentation/ABI/testing/sysfs-driver-starfive-jhb100-uart-routing
+> new file mode 100644
+> index 000000000000..2844133bea1b
+> --- /dev/null
+> +++ b/Documentation/ABI/testing/sysfs-driver-starfive-jhb100-uart-routing
+> @@ -0,0 +1,45 @@
+> +What:		/sys/bus/platform/drivers/starfive-jhb100-uart-routing/\*/uart\*
+> +Date:		August 2026
+> +Contact:	Changhuang Liang <changhuang.liang@starfivetech.com>
+> +Description:	Selects the RX source of the UARTx device.
+> +
+> +		When read, each file shows the list of available options with currently
+> +		selected option marked by brackets "[]". The list of available options
+> +		depends on the selected file.
+> +
+> +		e.g.
+> +		cat /sys/bus/platform/drivers/starfive-jhb100-uart-routing/\*.uart-routing/uart1
+> +		io0 [io1] io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14 uart0 uart1
+> +		uart2 uart3 uart4 uart5 uart6 uart7 uart8 uart9 uart10 uart11 uart12 uart13 uart14
+> +
+> +		In this case, UART1 gets its input from IO1 (physical serial port 1).
+> +
+> +		To switch the RX source of UART1 to UART2, write the desired source to the file:
+> +		echo uart2 > /sys/bus/platform/drivers/starfive-jhb100-uart-routing/*.uart-routing/uart1
+> +
+> +		This indicates that UART1 now receives its input from UART2.
+> +
+> +Users:		OpenBMC.  Proposed changes should be mailed to
+> +		openbmc@lists.ozlabs.org
+> +
+> +What:		/sys/bus/platform/drivers/starfive-jhb100-uart-routing/\*/io\*
+> +Date:		August 2026
+> +Contact:	Changhuang Liang <changhuang.liang@starfivetech.com>
+> +Description:	Selects the RX source of IOx serial port. The current selection
+> +		will be marked by brackets "[]". The list of available options
+> +		depends on the selected file.
+> +
+> +		e.g.
+> +		cat /sys/bus/platform/drivers/starfive-jhb100-uart-routing/\*.uart-routing/io9
+> +		uart0 uart1 uart2 uart3 uart4 uart5 uart6 uart7 uart8 [uart9] uart10 uart11 uart12
+> +		uart13 uart14 io0 io1 io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14
+> +
+> +		In this case, IO9 (physical serial port 9) gets its input from UART9.
+> +
+> +		To switch the RX source of IO9 to UART10, write the desired source to the file:
+> +		echo uart10 > /sys/bus/platform/drivers/starfive-jhb100-uart-routing/*.uart-routing/io9
+> +
+> +		This indicates that IO9 now receives its input from UART10.
+> +
+> +Users:		OpenBMC.  Proposed changes should be mailed to
+> +		openbmc@lists.ozlabs.org
 
-I am confused. The driver in these patches 6/8/10/12 does include the
-header but does not use them. Why do you include unused headers? Or what
-is exactly the use?
+drivers/soc/ should not define user-space interfaces. This is not the
+place for them. You need to route user-spaces interfaces only through
+one of other approved subsystems, after their review.
 
+This looks like pin multiplexing interface.
 
 Best regards,
 Krzysztof
