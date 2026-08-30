@@ -1,141 +1,256 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC2DE339705
-	for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 12:31:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F35019049B
+	for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 13:01:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788093118; cv=none; b=uTA0bpiHEoViFHDOjTYG1WNyxe8/lgpC2SDVQkFuvAR4Ke9WItGc6RWbwa4t3IonuBMppwcA1B3LtcoQ7+pxW/C3DpnEMH9r6Dh5CYSxoD2Tu3nuyVv+oASkAADb940b1XtwbLiZAWsPb/QWSQpU7eV8593EwCyR+ey6pAWK/hk=
+	t=1788094867; cv=none; b=qX4v5yKjAoVaYlnLzJ79m//UgX+jYKAdQXJCxriJjLKOYJzgiAYV68QN1zHC/4u2xnR4LS6O3D9GGchh9Kit6UAFgEcHnRGASxtFHNfYKiySC+e//aIxCj2AO2h8fPhwTexDDZRQTj062jsh5nISloOobK7yC5vdDc2TRJsP9Ec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788093118; c=relaxed/simple;
-	bh=rXr6ALkiHMHf713Iew4k9Nwjfd2L6V40hSe8JbjfnkE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fZLKdYKPK9Rd/E45APf8wFGJXS9syU8lO4Lr8zh/N5h8ycYnrFejWlJr8lKTWKlRzP9GQQHqkjNhGsF43Lggs6AbOK6xpiF1ptYrCT3sVx7U0J4pRxJi75NAFTCYeLVVa99qkSnueT8MH4PrFxuQ89W4TqmESk8XcmSYSYEsj7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Y9HvTas0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GC1osOw5; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788094867; c=relaxed/simple;
+	bh=0DRikPuLl1nle7mcVDUoDj5GtLILLiHE0n4FBZIds2w=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=sUe3gAre/D0tLhYsqIbUPMHn6u1S/ABnk7o2USq9Gu7TrVM6ZS/+OrslBNkY85H/jYeuXe0ouS6YHuONVmq13KOJXl/DsQw8bKYyGM7S0RsGypq8zpBEVNr4DeSTyM2bEr4pGBXzb+g+Bs/UBT/oZo5JI6xUQRUmOds25j58SnI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=IKHyJxe0; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Y9HvTas0";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GC1osOw5"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67UA7IK6086426
-	for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 12:31:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=87UiTHIpsbJI0MEwi3jZC7kB
-	bzVbhdVpOgM75F6ZNAU=; b=Y9HvTas0eG2nUXeLARoIJXIZRH2ESGSZyfFXyDxA
-	U9x9Rzrunb4t4jbR6OBKAMifmIUW8DnAtODR4+t7REj8d585QvhTKTEFrN0dRUb9
-	6K4nPKNZAvi9JInF7/4Dsy0p1iRF02KYVotVW1AWVqi9AIXzp/OZlaLei9uaxV0P
-	knjOmCQHllHvciBvP8GH3BARzr2HKothl5P5kRuJhiaRf/8Ec4CUpPxWL3BNlxqg
-	/5ZAi+yUfjileGFMZBVJ+Z/V5vzmxQosN75Vw+owa1dR49L0z1n0wSCHkUx6xINe
-	hs4yFnTQVVDIWcEeU/Bd7YBxjJ1AkmXKsz0FDBFs4WU+HA==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gbqe2b06m-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 12:31:55 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-52dcf1bb6e9so52387851cf.1
-        for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 05:31:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="IKHyJxe0"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48436216a98so302152f8f.0
+        for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 06:01:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788093115; x=1788697915; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=87UiTHIpsbJI0MEwi3jZC7kBbzVbhdVpOgM75F6ZNAU=;
-        b=GC1osOw5TmSNyyv4QAwvI7ctbdZM0PM0U6HZ4w4r6xRkQgpEXDyPXb54+Ar5kFrv2n
-         mVaS1CiaALHXknMT4bOPLx//xFHFvVHV3cfGziCoNCqWHt2t0s64E3LbfHG//taIToD5
-         Wq2SkTpjASlLxHnz94jzSQ/NPVbyrSH+wSCZ2mMNb26V9iiRKS5Xq7K71KG7HzuOE721
-         urq1Z5YT/VvnAwQDzt8uhyDdA1pjslCzM2pDFla4Ej7V82J53fvH9xuoSZrmnq7390UX
-         gdRdLF0ZWkM6YFjJpb1euzsynNp+RpkkVuzGhgA5lwBa9P+jXvaUSM4Fm21y/VLD/wsw
-         Aw8g==
+        d=linaro.org; s=google; t=1788094864; x=1788699664; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sJWD3o3HQBZZ/WZYdRYAGX1zvKwfbjT6qB/Y+mCi/aU=;
+        b=IKHyJxe0QzoXgQLkMqy07d31UEbrsL4/YSoeocsv2d88vKGdopXHtE7ODE+Msf5Iwn
+         jLF2Hj/KzthK3Gsmq68QVqAryEphUKlK3pcT0GsRHbOVre3Edsdw4FrQuUZLn7SKBBIQ
+         TSwyYPvOmBdZF4M+LaZhpbGsPvZtXavMLvp6FmaGA05SRo5aD3xWSUqvA7/+ZLwnRp9Z
+         DKnolOfPhAl0Locx5+x56+vsoAuQ+Wy0OMoQ+89SvM6V+vur1zAVZPFFKHdiVBBU4ICB
+         JaTkOzRgXfolb2kt+Sci7pSS6C4AeUGE38K4bKleZntxDazd3c3OlLUtm/EnSurQK07j
+         kXmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788093115; x=1788697915;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=87UiTHIpsbJI0MEwi3jZC7kBbzVbhdVpOgM75F6ZNAU=;
-        b=FYng1xILMQ0zjMe4GX66vHpG8oaYi3rIJcN+2fvWh0Yn8eC2Db7tx030dFdVCxohyd
-         6YCwf/bmBSQFAtY/X0t7s1JouGm+iQ0Wgj3pkTf9rhXKDMVssnF5wN8s97VQ1ur+KmZb
-         DSIwyO3zFH4ZRxG6/3I9VkT24xChDIMgW7GC0qzZlg2+S3YG5k2wvAY0zTkmIRT1uYWe
-         ScFUX4f88Z/w95cOua3TBJ59+Ug5M1OhRGXL/M5ptfImPVDfTMXcML/XftHcNlScdg6L
-         lowFKvVuRfZA/8xkvrf62lP7v1M4SsDcUJ8yftJkxGt2/3OnQ57XIjxTviuze2YBnT35
-         zKrA==
-X-Forwarded-Encrypted: i=1; AHgh+RrzLPaXplAAL76PXknJDbklJTX8EXHf+m5lKXGOzBVGi9AVisDe42U9f7b44Zo5FOIh580az1ze+Si8@vger.kernel.org
-X-Gm-Message-State: AFuF++lZNas9tz7sautx9koHPfY0Ovd8NVvfc+U7DKuToRJRSNSBJC3u
-	7UnTPLys1VJBoGuuI8wLgbNfjqoTEX2OLWxzwNz8374qW9tHVdbVilKpiTbTFGTB1pEzJDEVzMs
-	3He4e7UNJ6VSC2xKFB+ALb5nmE3Eg+QN8kI7y/J0vOw5ORkvwe8Beq8EbRrB78gpb
-X-Gm-Gg: AR+sD1299rJ4mt5jtdTGSodI2H5Z9iAt00on00bpiV8PAkh4AYtJEJU2yCsDiEYZESH
-	Ix59w0BkQFXeAwd1UONWEOGLamzB1XYWXiyt0cTaU8qntswf112I9b8/RByutR4sgZTXZohA/kI
-	ahBFyehUk3TAtpvf+O3aJhgdlqsvL4J3KNbU7NfYBEfDLnH6pBdb0POFKXwU0MqZOhrd9s1uGnr
-	oAIploEbM6Ymbp3jHHQPaT0JBTlWtT0wiVu5Xcy+tSIrMvvf+Aq0SgzWfQk2Tf/Cmo/hx6ZCoHt
-	AAQFe5XJHmQCvuVsUt4Jnmi1srLEHrNni5BUvUb6W/RwJcA65NNGFK9at1SnZw4vEYPBrLwdF6M
-	F13eYkmIYhZftIg==
-X-Received: by 2002:a05:622a:581b:b0:52f:b77a:fdb4 with SMTP id d75a77b69052e-5300b74845bmr22446471cf.2.1788093114921;
-        Sun, 30 Aug 2026 05:31:54 -0700 (PDT)
-X-Received: by 2002:a05:622a:581b:b0:52f:b77a:fdb4 with SMTP id d75a77b69052e-5300b74845bmr22445931cf.2.1788093114428;
-        Sun, 30 Aug 2026 05:31:54 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.13])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b961820ffsm91156865e9.3.2026.08.30.05.31.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 05:31:53 -0700 (PDT)
-Date: Sun, 30 Aug 2026 15:31:50 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: Drop deprecated qcom,bus-id from SPMI
- nodes
-Message-ID: <3sjdjyd6xgy6il6dsmhd5uak4fms3sh6ltk4y6abvr6gh7gcsx@sqeodm4js5wq>
-References: <20260830122633.203250-1-shengchao.guo@oss.qualcomm.com>
+        d=1e100.net; s=20251104; t=1788094864; x=1788699664;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sJWD3o3HQBZZ/WZYdRYAGX1zvKwfbjT6qB/Y+mCi/aU=;
+        b=msPXoX+D2meRE8GYztBvEKmLrvlTFVZLO6/PCZZRgYnhxfzQlbi1IskcO7bv0dHD5F
+         HqHZiuosCYHd35LfKLd1qgs5SZe8lbbViIg02guqI6AO8N+7OxJDoD9+9Jls5Ybn6iH0
+         V1MNcWUZrnjNXsGh14ocB/xpjDurtlVFMvp1tXlmj7KHNsAJ89aFi9QZWBtgCjLd6RaA
+         BQXpVwXhHwzWDVKujjYaAwVI4LM4n9KUboWGb/84ixpY/nozRQti5Mgm3P3mK0LukuMr
+         6JKOeYImtqKdO3rfDo5zFKrcbXZDsAE1QlTlKzDDCI/orsteeejzIu288y2WhK+5CzIq
+         8law==
+X-Forwarded-Encrypted: i=1; AHgh+RpPXrUXO8ickCy7iJRKCTuBXJkGwFr+Ydk88mAN4qtRcfC5ZNdzoEFSRAKQrfl9DjXqDO/KKpo1iLMq@vger.kernel.org
+X-Gm-Message-State: AFuF++nkPRtjhe2E2qEStYhH34YC2kbWgMKrEM9yeH4qvmV0FM3qvMUp
+	+/1jbG+eP2dXLYhsfl1Kte2qQl0mhLWuHS6BaXyxfaOWTXlV3ANAkmPZYe6YVbVNKgk=
+X-Gm-Gg: AR+sD12XQ9Aw8ooRabJmbZMnaT2cTbEcSJxujfvsegc9WFCdII5kzGRh9YsIX/PiczB
+	vVkhXw0AaaJXTYOLFqzLfkOaL20Oh/X/gf/hzGYdgIEg/T4ud2WZV5z4oYwM213vS+O7VnML9fD
+	5Fvw7Vd9dJazqvMtQOcXioQ8mTfDwVMZtFtOiY6wdNvYQ7cRzPuQSz1V491FBgEdQBpJmWdYNgg
+	uYovvPoceSmuGyEC7B+WZLdQlB1hJWBZfRxO2cgr/BJlmOVTjkQvfz5ctU+6W7WvBZ+Qm6N8lrD
+	dZ5MA0q8qszgWZB8y+KfDInYHBXRcrxs+uzcn2rsrR7SrYYR+FdvcxRcaQmFsvgnepvo4Fr+aPD
+	eGASgDggvHRAu1t6KJEKM3SiTiyahLh4nBaTN4uzlmL5dVvE6px27A8fBQ6HkGEx0kKnN5AaQ9y
+	YY0Xs7/AMIaeFTzfIiMwiL1EDr3R7bkVKj1BGkAHfofWkL6ykJzhPDqHU8N2aJZG2nCA0Jv8vu0
+	Utcpu16NQ==
+X-Received: by 2002:a05:600c:3155:b0:49b:910c:7703 with SMTP id 5b1f17b1804b1-49b91c3dcb4mr278278415e9.9.1788094863617;
+        Sun, 30 Aug 2026 06:01:03 -0700 (PDT)
+Received: from [192.168.1.36] ([83.214.235.72])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ccea87e1asm81979695e9.2.2026.08.30.06.01.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 30 Aug 2026 06:01:03 -0700 (PDT)
+Message-ID: <08cf135f-7fef-4dae-88d5-2ee0a080853d@linaro.org>
+Date: Sun, 30 Aug 2026 14:59:34 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260830122633.203250-1-shengchao.guo@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=Iskutr/g c=1 sm=1 tr=0 ts=6a9422bb cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=clBUptZa5v5FR042Ey+sjA==:17
- a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=Ptejb-WZcwQgoGJDpb0A:9 a=CjuIK1q_8ugA:10 a=zZCYzV9kfG8A:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-GUID: YdUSKjZ6b2EDH84M8zG_NHGZh9mMp0Xf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMwMDEwNiBTYWx0ZWRfX+Q/TYlAiiQmb
- Di44Y5u7TUnHSD9iYeLel7m+SkB5dPbzXriAp/1JDd2C3TtcFxcAh+ez0/NvEMLbpxI70/W+xO9
- 2qEtiDAnvyfdtDhs/DBDmZy0df4gfVhJYxdMljR/Nnz5uvM9qet9ROyjYqkzF1Vi0bF+PFRfGWG
- 7ByvFMFk76QHmfcUzr07wubOSxswRbt1G44SVczYG/5/7GEaLVuzmxJORCwzxt8QCALY3lOHVjA
- 8liQHCfuf0dzYRZFUwC4YykKjyOJNriVEREefToQNozIcazn8CvkZ15vJ9KJ4p4eyk6Ble8yqKR
- vzqkoWgswyw/RxCdIo/b7yz7EwbXVFqVIPhTdjYRXjoxSLEiWkelMMW+N/FAXfBYy/EtnRO/p3j
- VY7oIIi9zJDRxIhA8vPLgimUoxaP5kbsMw3c63VwAPIXON+mnSXbfAamaelv5LiFinc5QpzI4qW
- JCf/sHhyNbYFtVg7OlQ==
-X-Proofpoint-ORIG-GUID: YdUSKjZ6b2EDH84M8zG_NHGZh9mMp0Xf
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMwMDEwNiBTYWx0ZWRfX1HQ1X1jlW0CS
- +s3guvf5Wu+zEHdEwD6HbtHKgdFMVcxQu28sHecFaz3yUO0g+G6EgloITVgRyMl0FpxbxDiJT0+
- UZ+G//CmDCdSTwzahjgdAw6m8iWcS4w=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-30_03,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0
- clxscore=1015 priorityscore=1501 impostorscore=0 suspectscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608300106
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH RFC 1/2] dt-bindings: display: panel: Add bindings for
+ Novatek NT51021
+To: Nickolay Goppen <setotau@mainlining.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
+ <20260829-qcom-novatek-nt51021-panels-v1-1-cc1ca61bd261@mainlining.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260829-qcom-novatek-nt51021-panels-v1-1-cc1ca61bd261@mainlining.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 26-08-30 20:26:33, Shawn Guo wrote:
-> The qcom,bus-id property was deprecated by commit 345fbbca3f76
-> ("dt-bindings: spmi: Deprecate qcom,bus-id"). The property is not
-> referenced anywhere in the spmi-pmic-arb driver, so the value has
-> no effect at all.
+On 8/29/26 22:09, Nickolay Goppen wrote:
+> Novatek NT51021 is a display driver IC that can drive DSI panel. It
+> is also present in the BOE TV101WUM-NX0 video mode panel, which is a WUXGA
+> panel with a resolution of 1200x1920 and 10.1 inches size. It is found in
+> Xiaomi Mi Pad 4 Plus.
 > 
-> Drop it from the remaining users to avoid spreading.  No functional
-> change intended.
+> This patch adds the bindings for display driver for the IC, with support
+> added for this BOE TV101WUM-NX0 WUXGA video mode panel.
 > 
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
+> ---
+>   .../bindings/display/panel/novatek,nt51021.yaml    | 93 ++++++++++++++++++++++
+>   MAINTAINERS                                        |  5 ++
+>   2 files changed, 98 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
+> new file mode 100644
+> index 000000000000..a3e4ed10e645
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
+> @@ -0,0 +1,93 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/panel/novatek,nt51021.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Novatek NT51021 based DSI display Panels
+> +
+> +maintainers:
+> +  - Nickolay Goppen <setotau@mainlining.org>
+> +
+> +description: |
+> +  The NT51021 IC from Novatek is a generic DSI Panel IC used to drive dsi
+> +  panels.
+> +  Right now, support is added only for a BOE WUXGA LCD display panels with a
+> +  resolution of 1200x1920. They are video mode DSI panels.
+> +
+> +allOf:
+> +  - $ref: panel-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - enum:
+> +          - boe,tv101wum-nx0
+> +          - boe,tv080wum-nx2
+> +      - const: novatek,nt51021
+> +    description: This indicates the panel manufacturer of the panel that is
+> +      in turn using the NT51021 panel driver. This compatible string
+> +      determines how the NT51021 panel driver is configured for the indicated
+> +      panel. The novatek,nt51021 compatible shall always be provided as a fallback.
+> +
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+You can drop the description entirely here.
+
+
+> +  reg:
+> +    maxItems: 1
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +    description: phandle of gpio for reset line - This should be 8mA, gpio
+> +      can be configured using mux, pinctrl, pinctrl-names (active high)
+> +
+> +  vdd-supply:
+> +    description: phandle of the regulator that provides the supply voltage
+> +      for digital circuits
+> +
+> +  avdd-supply:
+> +    description: phandle of the regulator that provides the supply voltage
+> +      for analog circuits
+> +
+> +  havdd-supply:
+> +    description: phandle of the regulator that provides the supply voltage
+> +      for analog circuits
+> +
+> +  port: true
+> +  backlight: true
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - vdd-supply
+> +  - avdd-supply
+> +  - havdd-supply
+> +  - reset-gpios
+> +  - port
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |+
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    dsi0 {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        panel@0 {
+> +            compatible = "boe,tv101wum-nx0", "novatek,nt51021";
+> +            reg = <0>;
+> +            vdd-supply = <&lcd_pwr>;
+> +            avdd-supply = <&lcd_pwr>;
+> +            havdd-supply = <&lcd_pwr>;
+> +
+> +            backlight = <&i2c_backlight>;
+> +            reset-gpios = <&tlmm 62 GPIO_ACTIVE_LOW>;
+> +
+> +            port {
+> +                panel_in: endpoint {
+> +                    remote-endpoint = <&dsi0_out>;
+> +                };
+> +            };
+> +        };
+> +    };
+> +
+> +...
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 7291238bc09f..6cbf9ee3fa9b 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -8354,6 +8354,11 @@ S:	Maintained
+>   F:	Documentation/devicetree/bindings/display/panel/novatek,nt37801.yaml
+>   F:	drivers/gpu/drm/panel/panel-novatek-nt37801.c
+>   
+> +DRM DRIVER FOR NOVATEK NT51021 PANELS
+> +M:	Nickolay Goppen <setotau@mainlining.org>
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
+> +
+>   DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS
+>   M:	Lyude Paul <lyude@redhat.com>
+>   M:	Danilo Krummrich <dakr@kernel.org>
+> 
+
+Move the MAINTAINERS change in a separate commit.
+
+Neil
