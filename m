@@ -1,98 +1,103 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D65D749B20F
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 18:20:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F67549B20B;
+	Tue,  1 Sep 2026 18:21:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788286849; cv=none; b=LW93gLiJZ8YA4CiPLb5mpEzFetaLE53dVpTQt0gfMsrwqSEX5EP0I4hux1wZgAVPp6lt0T6bzeRbhTT9XeTVJkSju4phQxJDjbuWD3luEb08H2VNH6i15OzsFM8Rxka0F2vTzWhRGf2lT3PVmwRFOFOK2+iETIvsLQ1r0ZcJm6M=
+	t=1788286862; cv=none; b=fqITSd9QlTfcZJPCF1dOfXJ+QNfUceRwy4e7s6eDTRI1rMCyo+nE+r6WxbGXSo9ms1gPBvm0heRy2lqFTgLTFys5bpIRQ/aJ+N6f/N8zzj2SsVBDxiW9F2o/LMpMG381BsR8+7dHvW77Hy8CfMZPwwRpagYkFgjozXUAQDdWwFA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788286849; c=relaxed/simple;
-	bh=F1uDnLLt09jAu6uPxu4zjvyljq+6I6azGiNzLe8ARLo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z9fy4T2KFyq5S8c/h6MjFykORZUWZNQDaZfNdjNG9dCbigmPX6YKKArfxVRBts7IdXGqvjypdaPg2kWE02gjOKXIxO6SC+aGwBYFwWDv7qpy8oaA3iVvVUaLB3RViMW6t4yVLXc3TL6JAb8t0YEkOgeR+KROGGMYjaRd1ukzY/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WjUr+uqe; arc=none smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788286862; c=relaxed/simple;
+	bh=dsSrzlawcTjVN2geYOpqAWRil+tOQyfB58l5vWcfDaA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=uOmv1RRNTAY1uQgWoW3eC68dZyINArXaqHWeD+xyRWMPeXxMkPljY+21VkUEIdfIc2eGaLsLnrSe4bm2fEDtEbktLtcBehNC+bFLkX/rHp3wVNqEksctRNQ1gSNJAHE+HsPPiu0RRAnJRNqS2Zz61c9zKutHSmLdqImj5GjznK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F2Kee/je; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WjUr+uqe"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2cfbbdfa60bso910305ad.3
-        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 11:20:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788286847; x=1788891647; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=3WURu6MV41ZKEyLd9Tvh5YJYuoHYtnnpkdX51W0dyxc=;
-        b=WjUr+uqeLqs2kJ7kdybTOXpOwsWKQG2KXuUcy/NIAVDOGP8bDle6Pkq0yEYoI6tpP1
-         YUJoOFKNL8/MvoL7GfU/4R/et9UAdazXcTbP2xy9uLXfiyH4wm2tZ7SjXezDAK4yG1/w
-         VkQpQfHg8rGRb826B2pgCPiix3/m4GnV0W8H07W62tlHEiDEdVrAudbbhkuyJdzfZ8kM
-         yHFtsh9Q3sgrUpLNWQhJFP2WYe//c0qy2vshyssjyXLl8MX+RmxQSQSK3HlmIvOCJX/t
-         y2vPX8MpV/OkO0kVOXXk41jgwlHfCWRlZCztpKKmFwiJwfdvTLPTRshULODwZqfDP6Lj
-         OqKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788286847; x=1788891647;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3WURu6MV41ZKEyLd9Tvh5YJYuoHYtnnpkdX51W0dyxc=;
-        b=JxehFVaRDM7fUS6MmUOAd1TqtaSn1iL82uYJhfNFP/VKrQhXgu+4vtWzAdraYShA7N
-         qG5IJXMi8nB10s2pQUq8EZGEr0D6Ffzp4e7wJMkqI0PCbjX61vN9uWYjosCRB4vjAZ1O
-         dhWCXITpYiSKN7Sa0hXnhren9LfqGB+VCMT4fyInFF3dRrAHdle4aIeHHFfgnHOJRpW6
-         60w6lOpRfrpnU28q0EPv8lZaMFrpB/yOXatTzZ0ltg6MRL7CWGYjPpa1iilUu5WtAgeM
-         5whW2rsNOV/HBye9O7xRQiz1SdNgyVoAsFT4QkTs2aTRUDPB7+EJa7n2T4gwH4tWCFQM
-         6wIg==
-X-Forwarded-Encrypted: i=1; AKwUvBwIhN5uHZOZWnvQTlUlsTdi9gXI5xZWhJSsgw3uiozfObpuF7JtQ1rG/rER8Jh+22Thqm5Fa0ixD6+W@vger.kernel.org
-X-Gm-Message-State: AFuF++lSF57bGpbVt0EgR/L8CGNsDFLcvWbuCV/x7hfxisO8SDrxJ5jp
-	rdB5x2Y4TPyauZiM5nFJ2O9VGAnd2bQ/4QcnZGS/nJ7hvsRzc2ALNd1K
-X-Gm-Gg: AYBFou3U4GF6V6kYO+v0AvVTxAH5sA/C9O1o55XuT/+qDTJyywkwSpwzBAgfpTyiXRH
-	McinS2YTIRl9NT0Nd52kk6rQmTCvL7PN8OrOJNVIlGfVo+EFK6Q5qNukbNJb9E6RQfsWsZpESS5
-	wrnd4NXv+FGztAo7EqwRRWr687uVemgrGJAtoNSeaZ69oHCAUPs8P52hmqR+ugDSE4/BChYDhIZ
-	mV7nRgjAg89pDeYMVWQ+3tbnGN4ERjJ8ikgm0erjSvb08GUbtTXXNVzMvhanhJZi3fB1gPqcP3f
-	TkSccK/2Wt2d1AECtPm3oajP3T9Tqawgz2EoJyMFx2dIEyQgBKWA4qOj2brpbiyeGUslXFZlSDh
-	LyAP6mXtpCAPVex3/KlK6fEc5jQqA41Cg+zLzWFiWRMVc5O11fr1/usnZE+P4KPpX+Fu02fPDDv
-	8dmwrYHCJ00O1G3+n1CamT0pFUD2XZFia6sodyS7zcRaQMYJq6Dr/jfV0STPYPgFyGgiNCN7V9N
-	g==
-X-Received: by 2002:a17:903:388e:b0:2d7:44c5:1a13 with SMTP id d9443c01a7336-2d74df17b06mr563832395ad.8.1788286847002;
-        Tue, 01 Sep 2026 11:20:47 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dadd4c4430sm2246455ad.78.2026.09.01.11.20.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 11:20:46 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Tue, 1 Sep 2026 11:20:45 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Marek Vasut <marex@nabladev.com>
-Cc: linux-pm@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
-	Flaviu Nistor <flaviu.nistor@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
-	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] dt-bindings: hwmon: tmp102: Document TMP113
-Message-ID: <8b069d9c-1887-457d-a209-586eb4e05e88@roeck-us.net>
-References: <20260901174847.97261-1-marex@nabladev.com>
- <20260901174847.97261-2-marex@nabladev.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F2Kee/je"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC3BD1F000E9;
+	Tue,  1 Sep 2026 18:20:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788286860;
+	bh=0aquq+0zmJJq1Jw5/6+wicqtQs66ywHtJeJMa69OFkM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=F2Kee/jeLUNuQFnfBmN2R14jZ5PGwRibMLtzwAFU2hauiBuE4KvoO9aClpFDA29PZ
+	 3zsdfWyeVqHLH0h9iAseMBTvllkBu1DTKmAeW2O4EX9BtNm/4dI1NIsW8rHjAtYKXP
+	 s0eHDWZqx+/PUaasxXLXJWQWjit0YMZPoab6PBYkumpbEMVwppYeQCvIEFAM4ofbF1
+	 7mPMgkaJ6XorZoUsF1UWuLHQUXaFz3PEoCt9wL5X+El/gPpvb0Uqg29RF4PB0+/37i
+	 2U+4sRF+suW8fNJ/qJj5AAaog54ULGvOAEv4N96sycGiTLlp4HjwW4dtg0A0jHQE9G
+	 mgRDWPIvpjdSQ==
+From: Mark Brown <broonie@kernel.org>
+To: Neo Chang <YLCHANG2@nuvoton.com>
+Cc: lgirdwood@gmail.com, perex@perex.cz, robh@kernel.org, 
+ krzk+dt@kernel.org, linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+ alsa-devel@alsa-project.org, neo.chang70@gmail.com, kchsu0@nuvoton.com, 
+ sjlin0@nuvoton.com
+In-Reply-To: <20260825021644.1203076-1-YLCHANG2@nuvoton.com>
+References: <20260825021644.1203076-1-YLCHANG2@nuvoton.com>
+Subject: Re: [PATCH v10 0/2] ASoC: codecs: Add Nuvoton NAU83G60 audio codec
+ driver
+Message-Id: <178813028184.13461.14517335323075054558.b4-ty@b4>
+Date: Sun, 30 Aug 2026 23:51:21 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901174847.97261-2-marex@nabladev.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1575; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=dsSrzlawcTjVN2geYOpqAWRil+tOQyfB58l5vWcfDaA=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqlxeI0QbnnuzssYZuy2YP/z2l0mos9U0eQfhHH
+ seOHw3DRtKJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCapcXiAAKCRAk1otyXVSH
+ 0Bj0B/96v4pK3IaBuoH2rTWrK1i/wCW4nCkHpONulByjXFv9Rf6HACa9whmCDfm8zB0UEcHjVqr
+ i5liq7wNqcRJdY2sPz93vxPjKqDi8B9CfqxEbAcyEz9YYdcsQRlXi5wc1cNtPn/2tGYlDqwpP/a
+ aSyegolAA0TLa80YJGTCIBlrpwAB4B3ccBbajOwVAIy40FXwt6bdndZM+7xEdNCT9vvCE0MkMQ5
+ 6uOxBHSpSrS3iibBhNlSBaA2srZ0dU7drM5O9LCYdn1I3s0fs2I+ZCzefqaPqWG+nIgRF95iUKa
+ IDVEgdhUDBt3JYxqvC7yDa6WKwlMqX/rHwwAyAhiMZU/mFjk
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, Sep 01, 2026 at 07:47:55PM +0200, Marek Vasut wrote:
-> The TMP113 temperature sensor part is register compatible with TMP102,
-> document it using a fallback compatible. Unlike TMP102 and TMP110, the
-> TMP113 does have additional unique ID registers, it is up to the driver
-> to handle those.
+On Tue, 25 Aug 2026 10:16:42 +0800, Neo Chang wrote:
+> ASoC: codecs: Add Nuvoton NAU83G60 audio codec driver
 > 
-> Signed-off-by: Marek Vasut <marex@nabladev.com>
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> This patch series adds support for the Nuvoton NAU83G60 audio codec.
+> 
+> The NAU83G60 is a stereo Class-D amplifier with an integrated DSP and
+> I/V-sense capabilities. The driver supports I2C register access through
+> regmap, DAPM widgets and routes, TDM interface configuration, and DSP
+> firmware loading.
+> 
+> [...]
 
-Applied.
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+
+Thanks!
+
+[1/2] ASoC: dt-bindings: nuvoton,nau8360: Add NAU83G60
+      https://git.kernel.org/broonie/sound/c/384a0f7b5adb
+[2/2] ASoC: codecs: nau8360: Add support for NAU83G60 amplifier
+      https://git.kernel.org/broonie/sound/c/be88847a8bb1
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
-Guenter
+Mark
+
