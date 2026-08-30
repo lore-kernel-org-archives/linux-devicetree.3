@@ -1,175 +1,265 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5DBB3B4EAF
-	for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 15:38:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78F40239E7F
+	for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 15:39:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788104294; cv=none; b=HpALKbnPFZa+lSi18rxFKh/S2SKXa1ESB7wLyZ80rkNmFpQtBhvJxHSnFgR42gzlhDblyZIx2GfymIyIHv0PcgN//F0sUgpPazZHIkrMURo/pWHAHnS85/6J5Fk2GyW5RirYuQ9ZGTHHMHTQWNWDN1xWndY0hTvIxJ3rf/pi6Fk=
+	t=1788104391; cv=none; b=ddTLumby69vZNY39Nw5IOimkY3piq6YNq63mAuhjYKy1qFJRINxsQTFmMsA4opWRjOgVsXwr6bszBdBeo3m1jEtAqewKiMV9sjM+IPyzEUfsERxNCJwlv11CxmbG4jueRTsiaZKTjMH8bhQTOd7mekJ7byHlPDML98R6W7bU4pM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788104294; c=relaxed/simple;
-	bh=42a7FeYTUqyvHIggrb14edhLBGxKxj9yK2RL3MdOSbw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ELWeRVrZz3Zb/Xd8leyKFzfV0TIb1eGoL/dQhVTGY/Sc/AzkG2G4j+crfMNylAnYd1GkOICXvkV7rgShs3h8gXOGHaqU80GFx2QAWorTaQDHyn3VbkpDXGZQmA+mW/FTzu+HQ8/dKsXU9P/61W08y8oJlkxq2BuGdaRRbK6lSCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=muvk5iVW; arc=none smtp.client-ip=209.85.215.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788104391; c=relaxed/simple;
+	bh=dFgid8o8RH0efeiEllyJuVcTsPKcYRlXNj+mqYJ1kts=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=gjXNJ0wCgbYLgNB8YN1pJvadgaj0Ox4XImNPBl8iqTC4pGuhw8Qn+3WJaGNa4hlo4wJ4/yGC5jJISPnN4aUTlNijZ9WJkgSeGQczrkFQRoepmJdPcslExtDIhHimbI1geep5s/IY/it+qKHWIMRRvcE5VnzKupYLLo880g0fZWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Im3NiHtL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="muvk5iVW"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc1c73645a1so2010642a12.1
-        for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 08:38:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788104292; x=1788709092; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ciRQvpR+Sh+544fgrHeR8zv7MW8fKoH4Hb2ESodOcd4=;
-        b=muvk5iVWSOPy9xp/zAWa1xVqYPWzkWblqEAhR3RWKJ7VIGsxgYOvepb61JnRTfYpJw
-         r153OEWp+HGEjaB9cgpvFAcl5Ro5kxeexJJdi6e8CQ5tHpryHlp+Q27eOEwPjbot/KbF
-         +PzjUH3Acfnr0XPQtRc446yMTTv4LEeG1XESJAfw+UIyOHTFK1G0I5orWO/32LZf+29z
-         nhhl8fR5SGsDx6xKujmohXbxp1sOg4RQf22xSP+OKgIVW487MyaYLcr9Xqv6CF9LjzBM
-         Ixo1pCRV9vFtja1ylmsdz38DZaM9zkdNzPcJD6rYWPMgxzWfDG0SVMDOfCaSbofVMjYH
-         iAzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788104292; x=1788709092;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ciRQvpR+Sh+544fgrHeR8zv7MW8fKoH4Hb2ESodOcd4=;
-        b=VUv3Y4LIzqHthYaLV5niuR61/KStGTPR06sgU6Ro7VWuEpU/l9la50ta4RjenhFuZM
-         4S1nzGf5XfNic4hBmxwT103Mj5JgM/uecGWfFY80JagM8ea19qGiuRVdtGPfVemi2kBH
-         vDgbmmTv7BFl09MdozYdvjrGB2BSFKsl1w7GsaX+ibz1KfxQvztWqhhL4sGXbsp1aBmw
-         OtmJ3uh7HyYwpP/A0nhYUbSBf2oheYypvnO5H7zS9M0dQr5IRERaNgCIYcI4aT7T1zkQ
-         c/0I1kvK1WRCage081dAZy5rRqVesFAHe6VMHKgt/Rxx5mhd875dzLCxDMiG/ZLC5Y4A
-         q0OA==
-X-Forwarded-Encrypted: i=1; AHgh+Rov20BDulGBWdiOXsls/bmmD8KvtTvW3HTObVPeMe+wQE7sqypl0u59wPc34CxvZY8386zQ8PQViDIZ@vger.kernel.org
-X-Gm-Message-State: AFuF++ktKeFzFT2QuOb7a78778B7ZRliPaCVsw9RDBpxnAvM4bJkJOGI
-	jBZEySaBTLGz8FOrIKgVjlJt8RtqwDlQvADLzyfMYubY4eabQO+g3OE1
-X-Gm-Gg: AR+sD11Ly50WURTasEFOS9l9YWmufrqNspMIVSMNb2zPcsSo6OPonecuCmWgqnOvYue
-	B2x1HL7RiwQ6wAxENKcdXqqSbGNLBjL5uiAtSqR+ttXjqNSyzc35QRCva7kf7cGxfAi+Gehdo6/
-	NwfSpJATRs6eqVYi8O7+oMpZXZvncdORthrVzky9GbeENbmXTE4/S6LkZUYHF3lw/tcp/DgGTCp
-	6BsY8RR0kz3Mkj+ynjsKvpyeTxdnrvUqEMxZ9qMJGccDae1gXutrYMja30OIuePYE/iciv8FOYk
-	PO+j3Gszy5hveV/uA0voK0rbqBbwTIdrcdQB5vH6VZ+VkTY/VaMqxZU0FVMmTSeOP65qihHVQD3
-	cU51j0hCXb2NhOnySI514ZIWferYxu4gPgxuj/IWua06FaTS29YX0ijLL1kkXfSNgstlkr6C/zO
-	D4JMkK0uLXeMgW77aQaJveUzF5/67mzjBKg+4sVMigYBxA/cDG5lLATCcoA/wFLEj+gwsn6tpDn
-	GtNUvf5bRfaUaTtbw/1IVwuV0SiXErT26goUUExpVYo2gDI
-X-Received: by 2002:a05:6a20:7345:b0:3d1:60d3:99f8 with SMTP id adf61e73a8af0-3d266ebc963mr30705222637.5.1788104292060;
-        Sun, 30 Aug 2026 08:38:12 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f36ae4ccsm3055626a12.19.2026.08.30.08.38.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 30 Aug 2026 08:38:11 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <77319f64-75d1-48d6-954d-7e1891362b08@roeck-us.net>
-Date: Sun, 30 Aug 2026 08:38:10 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Im3NiHtL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B7D31F000E9;
+	Sun, 30 Aug 2026 15:39:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788104389;
+	bh=ZRw8MyovjcmersirVy4rZnAqB5NkC8L+Ldik2ZuJ8+E=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Im3NiHtLUi6AKjfjHdq34qFq5Amzezi90PYuK5/KtDTSGg2KXiV7R0jTZA7ZSR7ye
+	 cHaZlaYDQq+zQ5/EZxLZzYVXyef0DbqbrR/eRLg9ZaXpZ5mFbeb+aiS5mk9o1E02BD
+	 DNgvUjlkiVOqft2L5evENthW19QT4rvD0QQOrP64dSaomrIve94HeuMn1HcrcjoZau
+	 ykEnXorUa+r3tAQr3IzFlxCjhUal5yOJQ2yrjtFTxtDUfRdikkLwx5bQM663Tz7qwh
+	 8LiM5elIKRmrCobfuIHXvaCfOa2LQz7OWj0fIvLnKECM6ibpwx2yc4DBAxwer6coFG
+	 C8WFdjAzHffpg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] pmdomain: riscv: Add RPMI device power service
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Joshua Yeong" <joshua.yeong@starfivetech.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260830152812.312663-3-joshua.yeong@starfivetech.com>
+References: <20260830152812.312663-1-joshua.yeong@starfivetech.com>
+ <20260830152812.312663-3-joshua.yeong@starfivetech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 30 Aug 2026 15:39:48 +0000
+Message-Id: <20260830153949.6B7D31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] dt-bindings: hwmon: tmp102: move ti,tmp103 out of
- trivial-devices.yaml
-To: Krzysztof Kozlowski <krzk@kernel.org>, Frank.Li@oss.nxp.com
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Wensheng Wang <wenswang@yeah.net>, Cosmo Chou <chou.cosmo@gmail.com>,
- Colin Huang <u8813345@gmail.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Dixit Parmar <dixitparmar19@gmail.com>,
- Antoni Pokusinski <apokusinski01@gmail.com>,
- Eddie James <eajames@linux.ibm.com>, Thorsten Blum
- <thorsten.blum@linux.dev>,
- "open list:HARDWARE MONITORING" <linux-hwmon@vger.kernel.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>,
- imx@lists.linux.dev
-References: <20260826211422.3299728-1-Frank.Li@oss.nxp.com>
- <20260830-alluring-goldfish-of-cubism-eef6db@quoll>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260830-alluring-goldfish-of-cubism-eef6db@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 8/30/26 02:53, Krzysztof Kozlowski wrote:
-> On Wed, Aug 26, 2026 at 05:14:19PM -0400, Frank.Li@oss.nxp.com wrote:
->> From: Frank Li <Frank.Li@nxp.com>
->>
->> Move ti,tmp103 binding from trivial-devices.yaml to ti,tmp102.yaml. Both
->> devices are single temperature sensors and update "#thermal-sensor-cells"
->> property to accept values 0 and 1 (passing no argument is equivalent to
->> passing 0 as the first argument)
-> 
-> Why updating the property? If there are single sensors, then what is the
-> cell for?
-> 
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] Strict equality check of power state includes context and reserved=
+ bits, breaking domain probe and power off.
+- [High] The driver ignores the return value of `pm_genpd_init()`, which le=
+ads to list corruption and a kernel crash in the error rollback path.
+- [Medium] Missing sync_state callback prevents domains initialized as ON f=
+rom ever powering off.
+- [Low] Kconfig dependency allows compilation without MAILBOX, causing link=
+er errors.
+- [Low] Domain name truncation when hardware provides a full 16-character n=
+ame.
+--
 
-It registers as temperature sensor with the thermal subsystem. The documentation
-of #thermal-sensor-cells states that the property is mandatory and "... Will be
-0 on sensor nodes with only a single sensor". I don't claim to understand how
-this is supposed to work, but the thermal subsystem code looking for it does
-seem to suggest that the property is mandatory, even if there is only a single
-sensor.
+commit c4b30c55f0c6f514e587b60c8050b357cd8cdaaa
+Author: Joshua Yeong <joshua.yeong@starfivetech.com>
 
-Thanks,
-Guenter
+pmdomain: riscv: Add RPMI device power service
 
->>
->> Fix below CHECK_DTBS warnings:
->> arch/arm/boot/dts/nxp/imx/imx6dl-plym2m.dtb: temperature-sensor@70 (ti,tmp103): '#thermal-sensor-cells' does not match any of the regexes: '^pinctrl-[0-9]+$'
->>
->> Signed-off-by: Frank Li <Frank.Li@nxp.com>
->> ---
->>   Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml | 5 +++--
->>   Documentation/devicetree/bindings/trivial-devices.yaml | 2 --
->>   2 files changed, 3 insertions(+), 4 deletions(-)
-> 
-> Best regards,
-> Krzysztof
+This commit adds a generic power domain provider based on the RISC-V RPMI
+device power service group. It enumerates the device power domains, queries
+their attributes and state, and registers them as a genpd provider.
 
+> diff --git a/drivers/pmdomain/riscv/Kconfig b/drivers/pmdomain/riscv/Kcon=
+fig
+> new file mode 100644
+> index 0000000000000..5c2ef53218a3e
+> --- /dev/null
+> +++ b/drivers/pmdomain/riscv/Kconfig
+> @@ -0,0 +1,13 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +
+> +config RISCV_RPMI_DEVICE_POWER
+> +	bool "RISC-V RPMI Based Device Power driver"
+> +	depends on MAILBOX || COMPILE_TEST
+
+[Severity: Low]
+Does this allow the driver to be built when COMPILE_TEST=3Dy and MAILBOX=3D=
+n?
+
+The RISCV_RPMI_DEVICE_POWER driver uses mailbox APIs like
+mbox_request_channel() in drivers/pmdomain/riscv/riscv-rpmi-device-power.c,
+but include/linux/mailbox_client.h does not provide dummy stubs when
+CONFIG_MAILBOX is not set, which could lead to undefined reference linker
+errors.
+
+> +	default RISCV
+> +	select PM_GENERIC_DOMAINS if PM
+
+[ ... ]
+
+> diff --git a/drivers/pmdomain/riscv/riscv-rpmi-device-power.c b/drivers/p=
+mdomain/riscv/riscv-rpmi-device-power.c
+> new file mode 100644
+> index 0000000000000..6590d622c2a44
+> --- /dev/null
+> +++ b/drivers/pmdomain/riscv/riscv-rpmi-device-power.c
+
+[ ... ]
+
+> +struct rpmi_device_power_domain {
+> +	u32 id;
+> +	u32 transition_latency;
+> +	struct device *dev;
+> +	struct rpmi_ctx *mpxy_ctx;
+> +	struct generic_pm_domain genpd;
+> +	char name[RPMI_PM_DOMAIN_NAME_LEN];
+
+[Severity: Low]
+If the hardware provides a full 16-character name in rx.name, does this
+truncate the last character?
+
+In rpmi_device_power_get_attrs(), strscpy() copies into this buffer:
+
+	strscpy(mpxy_pm_domain->name, rx.name, sizeof(mpxy_pm_domain->name));
+
+strscpy() reserves one byte for the NUL terminator, which might cause
+identical names and conflicts in genpd debugfs if the original hardware
+names differ only in the 16th character.
+
+> +};
+
+[ ... ]
+
+> +static int rpmi_pd_power(struct generic_pm_domain *domain, bool power_on)
+> +{
+> +	struct rpmi_device_power_domain *mpxy_pm_domain;
+> +	u32 state, ret_state, domain_id;
+> +	int ret;
+> +
+> +	if (power_on)
+> +		state =3D RPMI_POWER_STATE_GENERIC_ON;
+> +	else
+> +		state =3D RPMI_POWER_STATE_GENERIC_OFF;
+> +
+> +	mpxy_pm_domain =3D to_rpmi_pd(domain);
+> +	domain_id =3D mpxy_pm_domain->id;
+> +
+> +	ret =3D rpmi_power_state_set(mpxy_pm_domain, domain_id, state);
+> +	if (!ret)
+> +		ret =3D rpmi_power_state_get(mpxy_pm_domain, domain_id, &ret_state);
+> +	if (!ret && state !=3D ret_state)
+
+[Severity: High]
+Can this strict equality check fail power state transitions if context bits
+or reserved bits differ?
+
+If the state is set to 3 but the hardware returns 0x10003 (indicating it
+has lost context, with bit 16 set), this check in rpmi_pd_power() will
+result in an -EIO error despite the hardware successfully powering down.
+
+> +		return -EIO;
+> +
+> +	return ret;
+> +}
+
+[ ... ]
+
+> +static int rpmi_pm_domain_probe(struct platform_device *pdev)
+> +{
+
+[ ... ]
+
+> +	for (i =3D 0; i < num_domains; i++, mpxy_pd++) {
+> +		u32 state;
+> +
+> +		mpxy_pd->dev =3D &pdev->dev;
+> +		mpxy_pd->mpxy_ctx =3D mpxy_ctx;
+> +		mpxy_pd->id =3D i;
+> +
+> +		ret =3D rpmi_device_power_get_attrs(i, mpxy_pd);
+> +		if (ret) {
+> +			dev_warn(mpxy_pd->dev,
+> +				 "power domain %d initialization failed\n",
+> +				 mpxy_pd->id);
+> +			domains[i] =3D NULL;
+> +			continue;
+> +		}
+> +
+> +		ret =3D rpmi_power_state_get(mpxy_pd, i, &state);
+> +		if (ret || (state !=3D RPMI_POWER_STATE_GENERIC_OFF &&
+> +			    state !=3D RPMI_POWER_STATE_GENERIC_ON)) {
+
+[Severity: High]
+Can this strict equality check reject domains that have lost context?
+
+If a domain is powered off and has lost context (e.g., bit 16 is set,
+making the state 0x10003), this strict inequality check in
+rpmi_pm_domain_probe() evaluates to true. The domain is discarded (set to
+NULL), causing dependent peripheral devices to permanently fail to probe.
+
+> +			dev_warn(mpxy_pd->dev,
+> +				 "failed to get state for power domain %d\n",
+> +				 mpxy_pd->id);
+> +			domains[i] =3D NULL;
+> +			continue;
+> +		}
+> +
+> +		mpxy_pd->genpd.name =3D mpxy_pd->name;
+> +		mpxy_pd->genpd.power_off =3D rpmi_pd_power_off;
+> +		mpxy_pd->genpd.power_on =3D rpmi_pd_power_on;
+> +
+> +		pm_genpd_init(&mpxy_pd->genpd, NULL,
+> +			      state =3D=3D RPMI_POWER_STATE_GENERIC_OFF);
+
+[Severity: High]
+Does ignoring the return value of pm_genpd_init() here cause a kernel crash
+during error rollback?
+
+If pm_genpd_init() fails, the domain's gpd_list_node remains NULL. If a
+subsequent operation fails (like of_genpd_add_provider_onecell) and
+triggers the error path below, pm_genpd_remove() is called on the
+uninitialized domain, which calls list_del() and dereferences the NULL
+pointers.
+
+> +
+> +		domains[i] =3D &mpxy_pd->genpd;
+> +	}
+> +
+> +	mpxy_pd_data->domains =3D domains;
+> +	mpxy_pd_data->num_domains =3D num_domains;
+> +
+> +	ret =3D of_genpd_add_provider_onecell(np, mpxy_pd_data);
+> +	if (ret) {
+> +		while (i--) {
+> +			if (domains[i])
+> +				pm_genpd_remove(domains[i]);
+> +		}
+> +
+> +		return dev_err_probe(dev, ret, "failed to add genpd provider\n");
+> +	}
+> +
+> +	return 0;
+> +}
+
+[ ... ]
+
+> +static struct platform_driver rpmi_pm_domain_platdrv =3D {
+> +	.driver =3D {
+> +		.name =3D "riscv-rpmi-device-power",
+> +		.of_match_table =3D rpmi_pm_domain_of_match,
+> +		.suppress_bind_attrs =3D true,
+> +	},
+> +	.probe =3D rpmi_pm_domain_probe,
+> +};
+
+[Severity: Medium]
+Are domains initialized as ON at boot able to be powered off?
+
+According to PM domain subsystem guidelines, domains with is_off=3Dfalse get
+the stay_on flag set by pm_genpd_init(). Since this driver neither sets
+GENPD_FLAG_NO_STAY_ON on the domains nor provides a .sync_state callback
+in its platform_driver struct, the stay_on flag is never cleared. This
+leaves the domains powered indefinitely, potentially wasting power and
+blocking regulator cleanup.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260830152812.3126=
+63-1-joshua.yeong@starfivetech.com?part=3D2
