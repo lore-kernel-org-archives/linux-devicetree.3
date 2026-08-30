@@ -1,204 +1,126 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD9A41A6828
-	for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 20:30:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86CA81514F8
+	for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 20:31:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788121834; cv=none; b=EmAZq2wabWmTOaf9igRVJBJ58jd1pC/4fvzK7tT8wTL6N6fhxQljOUpKdXxcUK9m5RIug4t6qGnCXkBjsYrhDX8zWVlM+YLIii1ckHnS8CXbgHAcNjZil2ABcYlk8KqNz1D+bmW32B2QFKsEZnfJlX/oYw3OicbA/lQSkZFYtr4=
+	t=1788121884; cv=none; b=VMDZQbPlSylTlGaVpu8VnlK+xj3ak6ORFGRl8q3jLROKbRJMD7lIbhnUVVyW/Nikn8rKDgUDuY69YhS6qvRR4yqBrGVyRF+8xoYsx1g77i0v40csi41pHnhHgxVEvzqtWLFVcdoAEd64OSk/0ty0HbLj+7OZ1KSau70TMp31fPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788121834; c=relaxed/simple;
-	bh=Z4owJBpDKKcJzeDjfVCKehQ7vClAgnqhstIYwecTgUo=;
+	s=arc-20240116; t=1788121884; c=relaxed/simple;
+	bh=p/mJ3ETGKPLHHj5Pba9Js4bMygVCVxlhAyyNjvqL9as=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=E4IGo5YzBmHoxqRhWSxU6wb5OcDpEBVT0/pgBnRuDFv8dSSLo7vQ1kriorCvwJ2R2L+7Qlmep57prdWtOXPb+4HaznIyVxaYJvXhOYT+L/B1q9Iu9aDkYxpumpvnJ8lqcAhqtMu6E6xE0A7BobtzUb0QKhv51CqnJEm+3KNt1bw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bu6eYiEO; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=EndkaseOTcJzNQT50wOVCqA0YBK0OtbkdKrU2mmIL3YAP+Pj0fvIEXp3baR6Gejqpb/rzA1YdExYPGi04up9IDXdQoFC4gsYcqthXDlohpfAjNpRQ8vNjSu3hdMPA/62Q0gTa27giR4TqOa8FrdqdDcGikBmM7mO80Q7UGYZPWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ipz5owGh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bu6eYiEO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 266FF1F000E9;
-	Sun, 30 Aug 2026 20:30:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ipz5owGh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE5F11F000E9;
+	Sun, 30 Aug 2026 20:31:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788121832;
-	bh=QxCajnppGknjryhB5VcoBlJwO+qC73OJ1A1znE4sKTo=;
+	s=k20260515; t=1788121883;
+	bh=einqyBRLgf5sVejCtrGi2pqlnCnqBmVk9fXJsuxtUEA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bu6eYiEOxTkj1HZ8o2UTbSGSfUKbznT/loVQtXnA2o4Fvyw0/uxn/+ruqy7mDewWi
-	 UrYYotp2IUzBBv/I8S86s4vKUvjTNZfn9QmvpHyfkbgmkAig2xkvjCy5tLDyp/MAYX
-	 Y2Jm6Y3l9rYVG4zBkxmZJTdHu63t64yoWPtb6o7rlEQQc9vfvEilBhQNFjgIJhQT8E
-	 6p9tZZYbWTHVYgHmkpjSMt1Nj8rjVRHtzhhvQSG/d2/Q5Otz0G1/mxd7lomS3cLKjV
-	 7x/bfQecy7l1sEpmc5tU4SkD0LfWbHrpu1GxXSb4myMs+MA5K68+DQsBc374DPcCnW
-	 vK1TXhwblYBIQ==
+	b=Ipz5owGhFAaXNprqyW7DlU/8VkAs24f4oiu6JrKkyt5rO8Ue2cwoQnAtvs27PVVnQ
+	 f8gqB5XiY9lmur8q2nr2hZwRUE6brbncXsh9BeCsxxe4yyMz3dRbEVOzq884Q4zTlf
+	 9D6pIuUREP6Zx39lBuvDjg2qHAA+FJ1tF34RWasgwKoK3BEn+zVpPVQFIbOyd/NqJU
+	 UM0xFptZlaVF9rJ/m2zdFpMfoIJvfNraP8LQg73F1aKp6iMn7WPbLlCjMRfLcyn3VN
+	 voLujXqz4FI/v27GXXi44EGzQNDi1xC3TIpj509hBhLtgBnUiM44Ki+a/yCibex1CN
+	 DZplRpYDmhnjQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 02/19] usb: typec: Add thunderbolt switch
+Subject: Re: [PATCH 05/19] dt-bindings: thunderbolt: Add Apple
+ USB4/Thunderbolt ACIO block
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sven Peter" <sven@kernel.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260830-b4-apple-soc-tbt-v1-2-44bc9348683c@kernel.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260830-b4-apple-soc-tbt-v1-5-44bc9348683c@kernel.org>
 References: <20260830-b4-apple-soc-tbt-v1-0-44bc9348683c@kernel.org>
- <20260830-b4-apple-soc-tbt-v1-2-44bc9348683c@kernel.org>
+ <20260830-b4-apple-soc-tbt-v1-5-44bc9348683c@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 30 Aug 2026 20:30:31 +0000
-Message-Id: <20260830203032.266FF1F000E9@smtp.kernel.org>
+Date: Sun, 30 Aug 2026 20:31:22 +0000
+Message-Id: <20260830203122.EE5F11F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Failure of `try_module_get()` is ignored, allowing the consumer to=
- obtain a switch linked to a module that is being unloaded.
-- [High] Unprotected access to `parent->driver` can cause a fatal NULL poin=
-ter dereference if the parent device is unbound.
-- [High] The `typec_thunderbolt_switch_set()` callback can be invoked after=
- the provider driver has unbound, leading to a Use-After-Free of provider p=
-rivate data.
+- [Low] The schema strictly hardcodes a single IOMMU child node at `iommu@a=
+80000` and uses `additionalProperties: false`, which will likely break vali=
+dation for T6030, T6031, and T8122 variants.
+- [Low] The schema violates device tree binding rules by using `additionalP=
+roperties: false` alongside an `allOf: - $ref` block.
 --
 
-commit 96a5ceca9e0641da0cd0d5f342a8b7d8ed98e9af
+commit 15e396e79f7b850555d7dbc50421194161e71868
 Author: Sven Peter <sven@kernel.org>
 
-usb: typec: Add thunderbolt switch
+dt-bindings: thunderbolt: Add Apple USB4/Thunderbolt ACIO block
 
-On Apple Silicon the USB4/Thunderbolt host router can only be brought
-up after the Type-C PHY has been configured and requires cable details
-known only to the Type-C port controller.
+This commit introduces a device tree binding for the Apple Silicon
+USB4/Thunderbolt host router (ACIO). It describes the co-processor, the USB4
+router, and its adapters, including child nodes for the Native Host Interfa=
+ce
+(NHI) and its DART IOMMU.
 
-> diff --git a/drivers/usb/typec/mux.c b/drivers/usb/typec/mux.c
-> index 9b908c46bd7df..8339846ba355e 100644
-> --- a/drivers/usb/typec/mux.c
-> +++ b/drivers/usb/typec/mux.c
-
-[ ... ]
-
-> +struct typec_thunderbolt_switch *
-> +fwnode_typec_thunderbolt_switch_get(struct fwnode_handle *fwnode)
-> +{
-
-[ ... ]
-
-> +	sw =3D kzalloc_obj(*sw);
-> +	if (!sw) {
-> +		put_device(&sw_dev->dev);
-> +		return ERR_PTR(-ENOMEM);
-> +	}
-> +
-> +	sw->sw_dev =3D sw_dev;
-> +	WARN_ON(!try_module_get(sw_dev->dev.parent->driver->owner));
-
-[Severity: High]
-Does this code handle the case where try_module_get() fails?
-
-If fwnode_typec_thunderbolt_switch_get() is called while the provider module
-is unloading, try_module_get() will return 0. The code triggers a warning b=
-ut
-continues execution, returning a switch backed by a dying module instead of
-returning an error like ERR_PTR(-ENODEV).
-
-When the consumer later calls typec_thunderbolt_switch_set(), it could exec=
-ute
-freed module memory. Furthermore, typec_thunderbolt_switch_put() will
-unconditionally call module_put(), dropping a reference that was never
-acquired.
-
-[Severity: High]
-Can sw_dev->dev.parent->driver be NULL here?
-
-If the provider device is unbound from its driver concurrently (for example,
-via sysfs unbind), the driver core clears parent->driver to NULL.
-Accessing driver->owner unconditionally could result in a fatal NULL pointer
-dereference.
-
-> +
-> +	return sw;
-> +}
-> +EXPORT_SYMBOL_GPL(fwnode_typec_thunderbolt_switch_get);
-> +
-> +/**
-> + * typec_thunderbolt_switch_put - Release handle to USB4/Thunderbolt swi=
-tch
-> + * @sw: USB4/Thunderbolt switch
-> + *
-> + * Decrements the reference count of @sw and releases the handle.
-> + */
-> +void typec_thunderbolt_switch_put(struct typec_thunderbolt_switch *sw)
-> +{
-> +	if (IS_ERR_OR_NULL(sw))
-> +		return;
-> +
-> +	module_put(sw->sw_dev->dev.parent->driver->owner);
-
-[Severity: High]
-Could parent->driver be NULL when this is called during teardown?
-
-If the provider driver has already unbound, parent->driver will have been
-cleared by the driver core. Accessing it unconditionally here to get the ow=
-ner
-could cause a NULL pointer dereference.
-
-> +	put_device(&sw->sw_dev->dev);
-> +	kfree(sw);
-> +}
-> +EXPORT_SYMBOL_GPL(typec_thunderbolt_switch_put);
-> +
-> +/**
-> + * typec_thunderbolt_switch_set - Forward cable details to USB4/Thunderb=
-olt switch
-> + * @sw: USB4/Thunderbolt switch
-> + * @data: Cable state and details
-> + *
-> + * Called by the Type-C port driver to forward the cable details
-> + * out-of-band to the switch handler whenever a USB4/Thunderbolt
-> + * connection comes up or goes away.
-> + */
-> +int typec_thunderbolt_switch_set(struct typec_thunderbolt_switch *sw,
-> +				 const struct typec_thunderbolt_switch_data *data)
-> +{
-> +	if (IS_ERR_OR_NULL(sw))
-> +		return 0;
-> +
-> +	return sw->sw_dev->set(sw->sw_dev, data);
-
-[Severity: High]
-Is it possible for the set() callback to be invoked after the provider driv=
-er
-has unbound?
-
-If a physical Type-C plug event occurs concurrently with a privileged sysfs
-unbind, the consumer driver might call typec_thunderbolt_switch_set(). This
-would blindly invoke the callback, potentially accessing driver-private data
-that was already freed during unbind.
-
-> +}
-> +EXPORT_SYMBOL_GPL(typec_thunderbolt_switch_set);
+> diff --git a/Documentation/devicetree/bindings/thunderbolt/apple,t8103-us=
+b4-acio.yaml b/Documentation/devicetree/bindings/thunderbolt/apple,t8103-us=
+b4-acio.yaml
+> new file mode 100644
+> index 0000000000000..38496ce31d20e
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/thunderbolt/apple,t8103-usb4-acio=
+.yaml
 
 [ ... ]
 
-> +/**
-> + * typec_thunderbolt_switch_unregister - Unregister USB4/Thunderbolt swi=
-tch
-> + * @sw_dev: USB4/Thunderbolt switch
-> + *
-> + * Unregister switch that was registered with
-> + * typec_thunderbolt_switch_register().
-> + */
-> +void typec_thunderbolt_switch_unregister(struct typec_thunderbolt_switch=
-_dev *sw_dev)
-> +{
-> +	if (!IS_ERR_OR_NULL(sw_dev))
-> +		device_unregister(&sw_dev->dev);
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
 
-[Severity: High]
-Should unregistration clear the set callback or synchronize with consumers?
+[ ... ]
 
-Since unregistration does not clear the callback or wait for consumers to
-release it, the provider driver's remove callback will proceed to free its
-private data, leading to the use-after-free mentioned above if consumers
-are still actively invoking sw_dev->set().
+> +  iommu@a80000:
+> +    $ref: /schemas/iommu/apple,dart.yaml#
+> +    description: DART IOMMU exposed by ACIO and used for DMA from the NHI
 
-> +}
-> +EXPORT_SYMBOL_GPL(typec_thunderbolt_switch_unregister);
+[Severity: Low]
+Will this hardcoded child node prevent the use of multiple DART instances on
+variants like T6030?
+
+The T6030 NHI requires 24 streams, but an Apple DART supports a maximum of =
+16
+streams. This implies T6030 must instantiate multiple DART nodes inside the
+ACIO block. Combined with additionalProperties: false below, the schema
+will reject valid device trees that define extra iommu child nodes for these
+variants.
+
+> +
+> +  nhi@f00000:
+> +    $ref: /schemas/thunderbolt/apple,t8103-usb4-nhi.yaml#
+> +    description: Native Host Interface exposed by ACIO
+> +
+> +required:
+
+[ ... ]
+
+> +  - iommu@a80000
+> +  - nhi@f00000
+> +
+> +allOf:
+> +  - $ref: /schemas/usb/usb-switch.yaml#
+> +
+> +additionalProperties: false
+
+[Severity: Low]
+Will this property combination trigger dt-doc-validate linter errors?
+
+According to device tree binding rules, if a schema references another sche=
+ma
+using allOf: - $ref, then unevaluatedProperties: false must be used instead
+of additionalProperties: false.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260830-b4-apple-s=
-oc-tbt-v1-0-44bc9348683c@kernel.org?part=3D2
+oc-tbt-v1-0-44bc9348683c@kernel.org?part=3D5
