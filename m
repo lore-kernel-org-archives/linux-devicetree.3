@@ -1,88 +1,194 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A414276041;
-	Sun, 30 Aug 2026 01:57:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27FA8233920;
+	Sun, 30 Aug 2026 02:03:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788055070; cv=none; b=jgFdXoe3GyW9MshbgQESqbw7o5fCXXS9/mFjn6aTU581ArLkZZ9Hz/WRI3qvx4syJ68R4EyNCnCnBpQ/Hvny29jjGQPCrMnBqZKVnRW+YAlH9LX0ueI7bB29bDR34qHAAotn8OiyN/q+69gTmrBjkcVdyadgtZVfTqbrjgwTBcw=
+	t=1788055392; cv=none; b=HrAxua4dxOFLWRohWbFMD0y2nZs16MWPk7Va7qeki9uXvvna/4ewzsXoLoL/2kSDUpP7Jp7IegD03uOhEciKgWSrQ0k19prsUNPPW2bAOcEOmxtEp/7zfBgDORzOyxz57uAkfPCOiN2UeHtY1w6dIzY95qKMP2kRWvFbnMEpgsA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788055070; c=relaxed/simple;
-	bh=u3E41Z+YKjXyLtxHlZDjpEOydnQ4rtNWatB8xFHkFZk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=eTqjhnTvgzgqpLCt6rcHIqrc6G6cDt+nPbzwXBN60OpxKS1379Pk2WrbeRC17Tz9VXJ7IKHToe07csMjbjgnNwvwWq/sX5ek47N1Qgf3j+qq2XmdOLcn+VwKXyc92goHCu4dzMpq6nm4YGjywzSJDygHR2Aa0wsikU5Da56Qby4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oQJW1YO7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788055392; c=relaxed/simple;
+	bh=VoNfsu5VvErQPBCPoMqHdcWjY9UjqGyv1ZsdN5gf7KI=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=dPcWEtT1NXh6+NrKhtMslJKvzeEJiWDq++szOSLkMKeAOAeKDHh27pp5kBb1mWOx/ydpuwoC5sLT2e7SyxsAD5+D/ihU6eiZGGXzgc76mMYuj7sh4DPMulgJSCgOWdKNGGdI4jN+ShC9EjOLyCjyYo0e5z4KBKzz1cTHwW1AN5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fxyoR8bw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oQJW1YO7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 414091F000E9;
-	Sun, 30 Aug 2026 01:57:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fxyoR8bw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42CAA1F000E9;
+	Sun, 30 Aug 2026 02:03:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788055069;
-	bh=e0JhEpC2MchROPqnxxS3ZC7QejhZgB0QtqKA3dM7w1o=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=oQJW1YO7flgMwxqLGk4V8v79foQVQ/aVN6jnW+W7DDOfqJi1hL74UIPBZ2onnbsXw
-	 ec6F/+/8F9EjoK7YoRgvbXQ6zH1bYRZjzlg6H0jr9XPXbMVQ6Dnn0qHzSnxo2ggKdh
-	 2DGTiQICavq1Ve+3S+gKQUuvg8J3wkAEmhQ5kR1Ue8X+/991Un0rY0maDENZ50Wbps
-	 ZyrZ7qY4GMxg0sz6WShgzqBFRhUfRs7ZIocVnPNWpuBclf4e5MhaTPtgu3GoRk4cHB
-	 TteBwXL1wwBwgsAKmoniomKfeG7uZjnlUihL+ACyDWDKRt27Es8lZEOT/1WDzNmSEu
-	 GLf0pLSOpd4BA==
-Date: Sun, 30 Aug 2026 02:57:43 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Conor Dooley <conor@kernel.org>
-Cc: Kurt Borja <kuurtb@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, David
- Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 02/10] dt-bindings: iio: adc: support the TI ADS126x
- ADC family
-Message-ID: <20260830025743.70dc65e4@jic23-huawei>
-In-Reply-To: <20260828-cartel-willow-9592e4e8b912@spud>
-References: <20260828-ads126x-v4-0-1dc27e9c0260@gmail.com>
-	<20260828-ads126x-v4-2-1dc27e9c0260@gmail.com>
-	<20260828-cartel-willow-9592e4e8b912@spud>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1788055390;
+	bh=AGPn+JSeEy6Wu4RHz3HXB53TjkIxBZthZYcPrGoyEhY=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=fxyoR8bwzhcVClCyk67AWxp4xmDByrCifujOAFkczYby/MeGg8gQ/jTYeLWyrwVB0
+	 5t4hPovU+ohloucCDDiiJCytKJv065+EtxPhqudckfej1c53lEsWzz/SVbfoSz6Hbm
+	 EY2MdTQP5d6FVCcIWE2zshgP/vpTKaUdtiWfu9bEfhwo9sH+qmbFAgG8/jaO8Kfzpo
+	 Vea4HzZLTHs+GgPvd2kx7D28JsNjo4CiEger1tQmEsondEOqIjsUgpCXXi5aqnh8sB
+	 t0KafscUon70meUNvxSx4pPELty/lUbH4ywuEv8Uu8ugWVX4cW09SJ82Bh6N5PnDQQ
+	 j4fTLGHJpA4jg==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4 03/10] iio: adc: add the ti-ads1262 driver
+From: Jonathan Cameron <jic23@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: Kurt Borja <kuurtb@gmail.com>, conor+dt@kernel.org, robh@kernel.org, 
+ devicetree@vger.kernel.org
+In-Reply-To: <20260828065211.C05B11F00A3F@smtp.kernel.org>
+References: <20260828-ads126x-v4-0-1dc27e9c0260@gmail.com>
+ <20260828-ads126x-v4-3-1dc27e9c0260@gmail.com>
+ <20260828065211.C05B11F00A3F@smtp.kernel.org>
+Date: Sun, 30 Aug 2026 03:02:55 +0100
+Message-Id: <178805537532.2788519.12150005140246669583.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4199;
+ i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
+ bh=VoNfsu5VvErQPBCPoMqHdcWjY9UjqGyv1ZsdN5gf7KI=;
+ b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqk49QQj/K4mdBdLg+PAk09Fa2JBiYkSGXPZxcI
+ a/Q9Pq8aUqJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCapOPUBEcamljMjNAa2Vy
+ bmVsLm9yZwAKCRBUhTSZxPQWiAIKD/9M8vNXYNfs5hiLNQv0iI0OQaUm0wazfwqRBslScbEjCTt
+ V4TXo/5qqj0ayKAZddeSO34+s3k6GIQ0RDSAvUYOctCdnxEsIqXPntHlYtTMWja39A/Mgji7g+W
+ RR9oE//2vuYAMbasIyVfZYJJbuv416rfhsC75QYuhVKHoXjgpoczEIQhIg5Ceh+cJr+ZCnvuPwq
+ h4CN9uwZ4CZSnjgQMJdWV+v17ZCeIilur+KCgtDsHxsWCSEh3b7hFbBcpuIpzoybamIEatpMeYi
+ /op++FbUq9TIbpnD5ukT5ytkRBhn4tvRwSSJXq9g4CBqNfF6vshwjKcEwVak/8WpVclWaoV11P5
+ Tf6f02hb33m3i4UwP78e+rUwMRR6D5lVGekBz0vL45w5x+/DArIpoWBu/6sEZ1A2NbW5yKPv8wh
+ GHa0pLHK1EueUadFz3F++/29RFjsqpEf4z3t5ZEzpEkK7QspPHSb8m78u9hdHEufFjt1EhZrWgi
+ G7aTWYK69yWbq3i8mOeXBIXGtBtR4gUlXpnHeM5Dmc9+ZwecQuub6ovbEOogRnD/WAaQxObs5j8
+ dit6duNacYzhJqFJyXJRr5MY3dUez0fdRK7SrGOlUNEJuuRiafrHnYm3TlSkvYdf3bC5mPR8gLo
+ DBkHfDEcYaRlvjeMiQlDhlmU1nz3sZ7Xk/Ie+3w==
+X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
+ fpr=6E2966B387840652912681B154853499C4F41688
 
+> commit 6093db1ff45e9e897720bc6b278550ffbef67e85
+> Author: Kurt Borja <kuurtb@gmail.com>
+> 
+> iio: adc: add the ti-ads1262 driver
+> 
+> Add the ti-ads1262 driver with initial support for the primary ADC (ADC1).
+> Various features such as accurate timeout delays, per-channel reference
+> sources, scale, offset, and diagnostics are intentionally left out for
+> future support.
+
+One particularly interesting point from sashiko about regmap debugfs.
+
+> 
+> > diff --git a/drivers/iio/adc/ti-ads1262.c b/drivers/iio/adc/ti-ads1262.c
+> > new file mode 100644
+> > --- /dev/null
+> > +++ b/drivers/iio/adc/ti-ads1262.c
+> 
+
+> > +static int ads1262_channel_read(struct iio_dev *indio_dev,
+> > +				const struct iio_chan_spec *spec, __be32 *val)
+> > +{
+> > +	struct ads1262 *st = iio_priv(indio_dev);
+> > +	int ret;
 > > +
-> > +  clocks:
-> > +    maxItems: 1  
-> 
-> clock doesn't appear mandatory, what does it do?
-> 
+> > +	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
+> > +	if (IIO_DEV_ACQUIRE_FAILED(claim))
+> > +		return -EBUSY;
 > > +
-> > +  '#io-channel-cells':
-> > +    minimum: 1
-> > +    maximum: 2  
+> > +	ret = ads1262_set_runmode(st, ADS1262_RUNMODE_PULSE);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ret = ads1262_channel_enable(st, spec);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	reinit_completion(&st->drdy);
+> > +
+> > +	ret = ads1262_dev_start_one(st);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ret = ads1262_wait_for_conversion(st);
+> > +	if (ret)
+> > +		return ret;
 > 
-> What's the use case for actually setting this as a single cell? Kinda
-> confused by it.
+> [Severity: Medium]
+> Does this error path leave the hardware running if the wait is interrupted?
+> 
+> If ads1262_wait_for_conversion() returns an error (like -ERESTARTSYS from
+> a signal), the driver exits immediately without stopping the hardware. If a
+> subsequent read calls reinit_completion(&st->drdy), but the abandoned
+> hardware conversion finishes and asserts the DRDY interrupt right after,
+> could the new read prematurely fetch stale data from the old conversion?
+> 
+> Should this path ensure the hardware is stopped and synchronized with the
+> interrupt handler on timeout or interrupt?
 
-Part dependent, but I think we should just make them both take the two
-parameters and have the value of one of those fixed to 0 for some parts.
-Probably easier to understand that way at least.
+For me this is obscure enough I'm not sure we care about stale data.
 
 > 
-> Otherwise, quite frankly, the binding is too complicated for me! I'll
-> have to leave it up to the IIO folks to cover whether what's being done
-> is sane.
+> [ ... ]
+> 
+> > +static int ads1262_dev_configure(struct ads1262 *st)
+> > +{
+> > +	struct device *dev = &st->spi->dev;
+> > +	int id, ret;
+> > +
+> > +	ret = ads1262_dev_reset(st);
+> > +	if (ret)
+> > +		return dev_err_probe(dev, ret, "failed to reset device\n");
+> > +
+> > +	guard(mutex)(&st->xfer_lock);
+> > +
+> > +	ret = regmap_read(st->regmap, ADS1262_ID_REG, &id);
+> 
+> [Severity: Low]
+> Is the type of id correct here?
+> 
+> The regmap_read() API expects an unsigned int * for its third argument, but
+> id is declared as an int. Could this trigger a -Wpointer-sign compiler
+> warning?
 
-I'm rely on David to take a look :)
-
-To me it looks mostly fine but a few odd corners where I'm not sure
-how things are supposed to work.
-
-Jonathan
+This one is minor but good to tidy up.
 
 > 
-> Cheers,
-> Conor.
+> [ ... ]
 > 
+> > +static const struct regmap_config ads1262_regmap_config = {
+> > +	.reg_bits = 8,
+> > +	.val_bits = 8,
+> > +	.writeable_reg = ads1262_writeable_reg,
+> > +	.readable_reg = ads1262_readable_reg,
+> > +	.volatile_reg = ads1262_volatile_reg,
+> > +	.reg_defaults = ads1262_reg_defaults,
+> > +	.num_reg_defaults = ARRAY_SIZE(ads1262_reg_defaults),
+> > +	.max_register = ADS1262_ADC2FSC1_REG,
+> > +	.can_sleep = true,
+> > +	.cache_type = REGCACHE_MAPLE,
+> > +};
+> 
+> [ ... ]
+> 
+> > +static int ads1262_regmap_read(void *context, const void *reg_buf,
+> > +			       size_t reg_size, void *val_buf, size_t val_size)
+> > +{
+> > +	struct ads1262 *st = context;
+> > +	u8 tx[2];
+> > +
+> > +	lockdep_assert_held(&st->xfer_lock);
+> 
+> [Severity: Medium]
+> Will this lockdep assertion fail if the register is read via debugfs?
+> 
+> Because ads1262_regmap_config does not set disable_locking = true and does
+> not provide custom lock/unlock callbacks, regmap uses its own internal
+> mutex. When regmap's debugfs interface is read, the regmap core acquires
+> its internal mutex and calls the driver's ads1262_regmap_read() callback
+> without holding st->xfer_lock.
+> 
+> Could this bypass the xfer_lock, triggering the lockdep splat and allowing
+> debugfs SPI operations to interleave with driver-initiated SPI transactions?
+
+This is a corner I'd not thought about in adding lockdep markings to these
+functions.  Up to you how you want to fix it.
+
+
