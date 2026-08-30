@@ -1,247 +1,322 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazolkn19010006.outbound.protection.outlook.com [52.103.20.6])
+Received: from mail2.ecloud.global (mail2.ecloud.global [135.181.6.248])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58D3726B2CE;
-	Sun, 30 Aug 2026 13:18:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.20.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B54F0218592;
+	Sun, 30 Aug 2026 14:17:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=135.181.6.248
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788095883; cv=fail; b=nxkXBJC7uAYhtl3VTpHXzM8UCrA2kSaKTzgQ7WSNojE2cjc8X6SPq9TVRi9A69nf0I85cRknz4oXRtd810a5Wh1C5ivOxTDHo/tHFGOv9en12S2axi4lm684qhmipDv7JAlqMwt4HqzY3ibycfDhmxvLtWzI5og70ao81EgnG8U=
+	t=1788099448; cv=pass; b=K9X73247W0yIiWHGhCSh7Azx6Fesbq7zX9/PMWMTV3yLstAcjLytI8/fyN9jfKVrX8+WIzVvFOB6ggE/zVGFxs1snuGz3N5hPUV17ddzILF62mJ9DLNwCNXz2jxjiKmtF5AUueP04ARNOaP4fwTrdYET3/mf4GdFpX8iV3rP/rI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788095883; c=relaxed/simple;
-	bh=Nx5tkJJcMM3+GuI023ZicP5XahOSTPco2FRclKXVJSc=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Lm6vQXtTHay/HkBX3wqi6KFGzo4CcTPcnnmw3Kg12clh2WZTQWvnpYrFHmM+uRrKs3u92yModTc8V1xr607N37hO7iCkeltQZA0pd2nLkuhKz8697afZezE802kn6kbnll7LcN9H5hcrEOznE/m86lDlo5QgtS8qh0bv1PiJmvA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=Ho5816xM; arc=fail smtp.client-ip=52.103.20.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	s=arc-20240116; t=1788099448; c=relaxed/simple;
+	bh=WXIPs3OHXr5gdEv8y0pSHHVF8msJQMWorYE0CXR1ldw=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=O2ZNb2MOpuS2mskczxqIY1mTsFGXvJ2/5BqW6lGkmqxuqKfB67MDoQavEzcmwgZn2ow6eRkWxCkbvDL0TDXnSPxiaWpTDKbzufS1y7hpr3n8NTECayQodV+QUq/rgxhCsIo/KGKtLZWfOmNMc3wFSzCHAQ/c9La//F0wsno5qR8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=murena.io; spf=pass smtp.mailfrom=murena.io; dkim=pass (1024-bit key) header.d=murena.io header.i=@murena.io header.b=JUcM+mbm; arc=pass smtp.client-ip=135.181.6.248
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=murena.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=murena.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="Ho5816xM"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vUqHmYNSvG+8pVrkUY4BSQkJVq9uGyUPjmrDXaJvyX9915ci6eH1rNq7kw1vhguNs8akvpz+tIuD65+JZx5UGtEfR1ZGOhnb29kytQzkVW0c4ZvkPXr1zEGFCmtD8zPTIeu/NGa1icT0hAqjMk7hqAMU0YsXplVvrGzNXxfxf+FezVWadvM+Jc8CZ9m639PXcgcmXQ8Nm9fuy0K3Ub88NIl5C64TQNa/y0qKODXLZRyTttGxLTQAPkje9iw94ZAgUyPF1NJliNObURhQV/BOmKtvbWkJQQAhniyiyHAtSPf/r2yVU1x32jgrF69z8DKw7CIjt0lksJjOG71HUhAJnw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IRAA1lZDha0wotdWDnVbbD6WHCsfhHAinh/GQzyNNV4=;
- b=u/GIzD5nPwY7HK0qgsUW1/Om8r/AhH6PlB9eg9mhVWQDs0sU267X+B3pmuWCO5Hjex6KAb5f3M/fP+5Qg0rIZkstnrAr55uS8KRvmhr0/Gp6jK5YGWgxtt2QwPbddsimmB4+mrrEEw0/3oFbxgsIt3RwJnvTaDZclerRz3vioK93UwpMvW931q6TODSlgdL6+r8rBGYfTvXjsFbHsHl1W9XPL1GRXtu6Ho1LU8ttZaBlviAm1DBNdcuqyy9w/bV4bmbBDvHZKzBhJVU5xHpzbOfF6oqiOtixQO8XBLZyVrFlRKGkkcMFqf122Mg+yfOIZ+ggJCV+ygU7NPQvKn8vLw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IRAA1lZDha0wotdWDnVbbD6WHCsfhHAinh/GQzyNNV4=;
- b=Ho5816xMkrXLkLYr+XmD7tnRwDD1+kIM56lysI+L0i6Aic1kHa/CLQn9WgIFsP0Ut0x4X7JASoblwO+Uk0Xn4yH7xiPDq/ByCWcWR4Zj497q2XJJfEKamaHkvOVhh2qPJLBv1M+9eb7c8eBa7DkH75H7pl474+VpjBWMBhSwBr0yUlMeDD/qiatONHx8uk/BXFSDTWgqPXarpDMzyfRtAUxwgqQkqWh9CHPjYmsYX9n5mm165fmLVkE6lYvj0/XcYmshqpOAQNX01x2eSV9O2twOptqKMZM1xf1gc4JDrXFUCA9em34kQc6rUk6phAb/xZMldaa9S8DwjH+a0UCFZQ==
-Received: from SN7PR19MB6736.namprd19.prod.outlook.com (2603:10b6:806:263::12)
- by PH8PR19MB997361.namprd19.prod.outlook.com (2603:10b6:510:3a0::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Sun, 30 Aug
- 2026 13:17:58 +0000
-Received: from SN7PR19MB6736.namprd19.prod.outlook.com
- ([fe80::4b6c:b84f:b71c:d0a]) by SN7PR19MB6736.namprd19.prod.outlook.com
- ([fe80::4b6c:b84f:b71c:d0a%3]) with mapi id 15.21.0360.008; Sun, 30 Aug 2026
- 13:17:58 +0000
-Message-ID:
- <SN7PR19MB6736260F96F41BC5B5F726C39DAA2@SN7PR19MB6736.namprd19.prod.outlook.com>
-Date: Sun, 30 Aug 2026 17:17:50 +0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/9] dt-bindings: usb: qcom,snps-dwc3: Add ability to
- select UTMI as reference clock
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>,
- Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-References: <20260825-ipq-flatten-usb-v1-0-5c1f3170bbe9@outlook.com>
- <20260825-ipq-flatten-usb-v1-1-5c1f3170bbe9@outlook.com>
- <20260830-primitive-faithful-mouse-cdd1e8@quoll>
-Content-Language: en-US
-From: George Moussalem <george.moussalem@outlook.com>
-In-Reply-To: <20260830-primitive-faithful-mouse-cdd1e8@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DX0P273CA0044.AREP273.PROD.OUTLOOK.COM
- (2603:1086:300:58::17) To SN7PR19MB6736.namprd19.prod.outlook.com
- (2603:10b6:806:263::12)
-X-Microsoft-Original-Message-ID:
- <0c4ac162-adaf-4789-b920-35d074a6bec5@outlook.com>
+	dkim=pass (1024-bit key) header.d=murena.io header.i=@murena.io header.b="JUcM+mbm"
+Received: from authenticated-user (mail2.ecloud.global [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail2.ecloud.global (Postfix) with ESMTPSA id DE3A9720B0D;
+	Sun, 30 Aug 2026 14:17:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io; s=mail2;
+	t=1788099439;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mK8lh0Y0gkTG7cyzXErZ1tFBC5ib3dhnp0kbqokxsD4=;
+	b=JUcM+mbmj9P3xVWeKNPmyF9z46+gdIhLA5k8zYF+eY5SM0U5PZHwtV/PaYfqlh5ExKUJzd
+	ucR091UQHn8DrBvjmBMvIUNv9x4DmoeyYzuqZVp2fApFrTDQ/8fKk2BuYyQxITPpuKuq3l
+	aem58g7yguytMOudai8nhwXJz8V7IQ0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io;
+	s=mail2; t=1788099439;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mK8lh0Y0gkTG7cyzXErZ1tFBC5ib3dhnp0kbqokxsD4=;
+	b=F35/nMdya4CidtmSVHlA2Ja4/UvzKQGvV5AONYnZVWcom2VJprbIWYtFOKd5kkusOjomqh
+	LcyX6meOgJ6APp+yy9qZ/KZamfxVP7aPmac9FCsZ9HmyK+HIr+1nNSqNevIelAbZsUF7t5
+	/S7x9fIweT+E4hMfuTZAEdAayAgBt60=
+ARC-Authentication-Results: i=1;
+	mail2.ecloud.global;
+	auth=pass smtp.mailfrom=maud_spierings@murena.io
+ARC-Seal: i=1; s=mail2; d=murena.io; t=1788099439; a=rsa-sha256; cv=none;
+	b=A8lcC8NI4rnAykOHFTGPCpuQ2YRvvYfUdfInx2tbQIrQCrR+g6LHLiCnahOflpl7fWbJzc
+	4zFQl5Ey7g3K/qG9h5/aSTKgu9xPtKLUpvA/rEu4Kvz8pLHvr1ISKLYwZWv+Z+me6OiK4K
+	j1ippoLoUUnmngIeM/LajMWlALXtCMI=
+Message-ID: <e780ecb8-918f-4816-99c8-b69b10b25a18@murena.io>
+Date: Sun, 30 Aug 2026 16:17:16 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN7PR19MB6736:EE_|PH8PR19MB997361:EE_
-X-MS-Office365-Filtering-Correlation-Id: f1590dee-4a2a-42f2-8b12-08df06991bff
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|5072599009|25010399006|6090799003|23021999003|15080799012|8060799015|19110799012|37011999003|24021099003|51005399006|3412199025|440099028|40105399003|2607281247196008;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?YWkwV01jalA2UTlKaGNUTG44YkdMWFkxZEUwc3BGK0lqQ2poT2dJTTdZaUNa?=
- =?utf-8?B?QWtwRkMrclJsSS9rVHpubEpMdHQyUEhiQkxJYXhmamEybzNPVm41SVlKcWRm?=
- =?utf-8?B?UE5jb28rQWFVaWcrWUdyVkg4UTZpVzlZRVBJM2FCMFVIR2V6QXJTUUhQRE1B?=
- =?utf-8?B?U1h2QUt4dk80bXhQdHdacUNEODB6bFdhcmRYUzU3a2Q1ZXpmd3dIUmtTUUJB?=
- =?utf-8?B?QWxMcEZnd2tMZklRSHAzMy9xNnliMWtuWWI5Yi9KaFlKUUJQYm5acmJBdmYw?=
- =?utf-8?B?SDIrYkJ5TEVZaTcvaVpDNEF4cWQ0ajd6Z2xmSmtwd3FudnBzK2UxMFR0Wjly?=
- =?utf-8?B?WmpSamRGQzUrZnFTZTlUbWNxQmc2VDhzdmN4Zmw3R1VBRTUwZEx2b3VGQmt2?=
- =?utf-8?B?bENpZW5nZzBDRTVCZldYVDdHYUhwWVVKcHpPTzZCcEQwWXdpZ2k3UG82RC9X?=
- =?utf-8?B?ZERJL3dOZjNCeHJld1JUYU5DVFRPTURvaVVEVnZLZWV4amMrNFllQ1R4SFdB?=
- =?utf-8?B?Y3ZNWWxaWms0SWI3cUk2dEdMK0w3dEdoVFJWcUlSOVdDZWMyajlmNDhsWWN6?=
- =?utf-8?B?cEpyUjFocWN3MjRFbWVhNlpPb1FQVGlwYWpXT09pYW4xYzJYRU55b29oQkh5?=
- =?utf-8?B?cEhwa2hyd2NDZ0kwM2hOZGNBQi9RczRhamI0M1JDUU9FSnMvQjk5UG9sOFNF?=
- =?utf-8?B?MkRxZUFTN2Y2eHZUOSs0cGJZSzZzSDRMNlI1ZEp6YWRLRHR0TlVSNWJYVGls?=
- =?utf-8?B?U1pRL1FZTUVvZFJSLzFxY05ZUlNVaGoxMVdPOE5FY29waDJ1OXFkeGg3S3RF?=
- =?utf-8?B?YWV0NjQ3aFhUVWhJd1JtbVA1NTk3b01vNzJma0oyQi83OHRZYWR2YWV1U1ZL?=
- =?utf-8?B?Mlo2V3RnK3Y4eW9vdWJHTnFqVGljOGZQMG15d2RMQUpPMUJkUTRtcE80aTJ5?=
- =?utf-8?B?eE0ySnk3NDhqOFpqVGVhbUdkQktZVWx4eFRuaGRuY0dRSm9wd05Ha1VwSkZl?=
- =?utf-8?B?UW14ZzM0b0NFdi9sQTBybjBnTEdCR2lUWjV0TE1XSE85WlZUZ05CMnR0Wk53?=
- =?utf-8?B?RjNBY044SjV4bjNqKzNuRDNEemhsZWJaMTRkcHdiRHZLUDRZRnV6TmJaWno4?=
- =?utf-8?B?bTNSREZLT0hYazdud0c4Mm9WcmVQaDh6WnUvWWU3NFdNSmdNZFVMMGpxSE5k?=
- =?utf-8?B?Y01EdkpEbUtjQ0FkTkk5ZEhJSmR0bGtWTElxZEFNdnJDYUtselJiSzZUaFZu?=
- =?utf-8?B?QkV0aEo5UzBkbkE5YTEwamJXS0diQmFYMUsySDNzeFNFTnNzMG5nOUh3MUx5?=
- =?utf-8?Q?8z9FTRCuLRWM+HoYrHivQ3oojJQg+fIGVb?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OE9iVHlQQ3MrSE4zTEhCR3pvL3l3Y1ZQZE4yYTRRR0U0TGJMdXFReGxTK0Y4?=
- =?utf-8?B?Tlk4cGRhZmVMTUlmQnprcUtzNUJRam9OVk5MOFJYQVJBQ1dkUDBiaGYrS2FR?=
- =?utf-8?B?eTRUdGFVNk1PM2V5bjcxYkxKUkoyemFIMmZaVGFzVWYwSkhWd0w5ZzE2S3FI?=
- =?utf-8?B?d3VTYVZKTERjVzNUbnRVaDNtYlV6NUd4cCt0bGdJd3F3Y2w3WlBwbStGNzFX?=
- =?utf-8?B?QnZzTDNJbENob2FheXFqKys0NHZxWldhK05YZXUyb0pHUlQvbnl0bVlUa2tI?=
- =?utf-8?B?KzVubWtLOUd5OFF3UTBYRHdaYURhL3VxUTJWcmFWZDlTWGRjcFE4Z3RRZlIw?=
- =?utf-8?B?T00zNVo5MlZZSXZGTFgxS0ZEM1pTU1UxdklZcVpEbkVPTE10eTJrdXJ1QnR1?=
- =?utf-8?B?SDQ3T005Tk9obFBXZitncnBCbURxU2ZXdGt1dVdCRUREVjB1aFNMcWJwWDdV?=
- =?utf-8?B?TG1GZEx3aWFTTTlUb2M0dVV5aUovK3l1YjBzOHI1UHJ6STJ6VVNGVWkrZ2c5?=
- =?utf-8?B?TUYvM1hPdlI0c0lXTmh6eVhha3ZKRjAwT3F5a3NuVnlHeUthaW84emdlQWhW?=
- =?utf-8?B?YnY0VTFBZlIzMnFRZ1IvOGRtSmdvaWlrTlROeFgzc295NHpCSWVoZDNDRnJX?=
- =?utf-8?B?c010R3RwZXhVSVpQSER2eXhxSUx6TVJZZDZ2ZEpMU3RFN3hvS1NGdmpRQzV5?=
- =?utf-8?B?WGdNRVc3YzVqNVVsQjgvTFJTNnhNYm9OdHdJeXJ5OVdMWnVxWjFXT1JPNE8y?=
- =?utf-8?B?cEZIaXFLdE1MQTV0c2RMVEhaZkdydzhTMzV0aXpiZ3JiVVBQYnVnQkZ3eFpz?=
- =?utf-8?B?c201SEVrVC80SGE0UU1KN3pab1hYbnNxT3pSSktrR21BRFNtMWN0c1ljdzNY?=
- =?utf-8?B?TjRrclc5c3BXYkhsaFlxWWhSZE1HSHhDZUF0c012S0NhR0NyR1oyeFFRUzRH?=
- =?utf-8?B?V0ZhazBmcGNPUy9KN1JvejBla1NSU0J6TGtHRUpGUE5VOXMyajhDN1dmalk5?=
- =?utf-8?B?S0RGcEN1dUJnRXl4WGppZS81QVV1RmhSZmVwMWQxaWE1RmNzcjVTVnF3akRr?=
- =?utf-8?B?R0hMQk5jdGwyZkE5L0pady94S0FEb05PNzVoeWVxQ29vaEUybmVVMkR0UUti?=
- =?utf-8?B?VlZRN1hyYVRlYndaQXk4R2FHQ08rL0I2NTFjK3J6cUJJSWZXdjY0ekZ0QXhJ?=
- =?utf-8?B?WUx0dEVPakh2QzFLZTNKUFV5dWN6eW1XOGdLWXFLMjdBN0FrbkQxbGFkclhs?=
- =?utf-8?B?SjhPUDhRWWxmN3RxVy9VYnNiYXY2MzV2YkF2QkIzNUtyNkJZdTdpOHVHNmh5?=
- =?utf-8?B?WmtVVUdZaGhWbVNtbTNwNmtWNTZvVDA4RTNkU3A4bzZxRUhXRFdodDVieXBn?=
- =?utf-8?B?U2xUQ05rYUlUOUFCaTlGdXF6ejhmYm9zWXZTRzFudFVmT2xiUHVyWW8wdGVm?=
- =?utf-8?B?Qll0QXdtY0d1K2ZhN3BUNjVMSGVwa1hkYjdNcnNCa053N1VxbW03b0RUcHdK?=
- =?utf-8?B?bVZJNndFd0NlZ1JkWTFJUjdoRGlSZFlpUTFIRXYzczRiN28vRVZ1WGRoYkRY?=
- =?utf-8?B?eWw3dXQ2RCtzSkU2dVZGTFVrcCtBSzRBTXpxUXFYTHBXTVhUcktNbXhsTTd3?=
- =?utf-8?B?TVAyY1lzbjNnVmd4RlBkQkN3N1J5UW8vWE5KSmxyNkp1VldIalRsSExHQ2Np?=
- =?utf-8?B?SDFNSTA1ODUyWjNMd1lvcERRNnNRYXlESlRKWC9ZL2NFV1BHUHNqZklnYzJP?=
- =?utf-8?B?cC9qbTVEejdLWVRMckhqNDYyL1QrR1FWVTFITWtlWjNWdFNNZG9yNlZHVDVj?=
- =?utf-8?B?c3h0OEdabFY3R0dxUmZWN1I2b2dUSzZ6eGRoOXZsTkkxdWZBQUlNK2NoUEZl?=
- =?utf-8?B?SVkyMURPZ0FaazJORXlVMnllRnp2VC9xM0w1dWZURmQ3SkE9PQ==?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f1590dee-4a2a-42f2-8b12-08df06991bff
-X-MS-Exchange-CrossTenant-AuthSource: SN7PR19MB6736.namprd19.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Aug 2026 13:17:58.5361
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR19MB997361
+Subject: Re: [PATCH v2 13/15] phy: starfive: Add jh7110-inno-hdmi-phy driver
+From: Maud Spierings <maud_spierings@murena.io>
+To: m.wilczynski@samsung.com
+Cc: Laurent.pinchart@ideasonboard.com, airlied@gmail.com, alex@ghiti.fr,
+ andrzej.hajda@intel.com, andy.yan@rock-chips.com, andyshrk@163.com,
+ aou@eecs.berkeley.edu, bmasney@redhat.com, conor+dt@kernel.org,
+ conor@kernel.org, db@domibel.de, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, hal.feng@starfivetech.com, heiko@sntech.de,
+ hello@big-grey.co.uk, jernej.skrabec@gmail.com, jonas@kwiboo.se,
+ kernel@esmil.dk, krzk+dt@kernel.org, lee@kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-riscv@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ luca.ceresoli@bootlin.com, m.szyprowski@samsung.com,
+ maarten.lankhorst@linux.intel.com, maudspierings@gocontroll.com,
+ mfd@lists.linux.dev, mripard@kernel.org, mturquette@baylibre.com,
+ neil.armstrong@linaro.org, p.zabel@pengutronix.de, palmer@dabbelt.com,
+ pjw@kernel.org, rfoss@kernel.org, robh@kernel.org, sboyd@kernel.org,
+ simona@ffwll.ch, tzimmermann@suse.de, uwu@icenowy.me, vkoul@kernel.org
+References: <20260828-jh7110-clean-send-v2-13-331680c8b9d1@samsung.com>
+ <0ccb4168-ff88-459c-972d-3c091c155db2@murena.io>
+Content-Language: en-US
+In-Reply-To: <0ccb4168-ff88-459c-972d-3c091c155db2@murena.io>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 8/30/26 13:41, Krzysztof Kozlowski wrote:
-> On Tue, Aug 25, 2026 at 02:42:26PM +0400, George Moussalem wrote:
->> Add ability to select the UTMI clock as reference clock which is passed
->> by the glue layer to the DWC3 core to calculate the reference clock
->> period and frame length adjustment based on its clock rate.
->>
->> In the flattened snsp-dwc3 model, it is currently not possible to pass a
->> reference clock that differs from the default since:
->> commit 613a2e655d4d ("usb: dwc3: core: Expose core driver as library")
->>
->> This prevents moving chipsets such as IPQ5018, IPQ6018, IPQ5332, IPQ5424
->> and IPQ9574 with a reference clock rate different from 19.2 MHz from
->> moving to the flattened model.
->>
->> The Qualcomm takes care of clock and resets management itself and sets
->> the ignore_clocks_and_resets flag in dwc3_probe_data to true, so the
->> core doesn't acquire the reference clock from the devicetree.
->>
->> The existing DT property 'snps,quirk-ref-clk-period-ns' has been
->> deprecated.
+I was still having some glitching happening on the display, but I've 
+found the way to fix that, the question is what is actually happening here.
+
+With just the changes mentioned in my previous email the screen flickers 
+and is very unpleasant. After doing 2 reg writes it behaves as expected:
+   0x29590000 <- 0x00000061
+is 0x00000075 before, difference is v_REG_CLK_INV | v_REG_CLK_SOURCE_SYS 
+in drivers/gpu/drm/bridge/inno-hdmi.c, these bits always get set but 
+that seems to break this display so there must be some way to detect 
+that these should not be set: v_VCLK_NOT_INV | v_REG_CLK_SOURCE_TMDS
+
+   0x29590020 <- 0x00000005
+This one I have no idea, it is 0x00000009 with this patch series but 
+with the vendor kernel I get the value above. When I hook up my external 
+display (regular 1440p) this becomes 0x0000000D on the vendor kernel.
+
+But I can't find this register being written to anywhere there?
+
+Andy, you are credited on the inno-hdmi driver, do you have a datasheet 
+that gives some further info?
+
+kind regards,
+Maud
+
+On 8/29/26 20:54, Maud Spierings wrote:
+> Hi Michal,
 > 
-> There is no such property.
+> Small request for an eventual v3
 > 
-> 
+>> Add the HDMI PHY driver for the StarFive JH7110.
 >>
->> So, add a property to select the UTMI clock used by many (if not all)
->> Qualcomm USB controllers as the reference clock.
+>> This driver binds to the starfive,jh7110-inno-hdmi-phy node and
+>> gets its regmap from the parent. It has no dependencies on voutcrg, only
+>> on its refoclk (xin24m), which breaks the probe-time circular
+>> dependency.
 >>
->> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+>> This driver provides two main functions:
+>>  - Clock Provider: It registers clk_ops to provide the variable pixel
+>>    clock (hdmi_pclk). The .set_rate operation configures the Pre-PLL
+>>    registers (0x1a0+) based on the requested rate.
+>>
+>>  - PHY Provider: It registers phy_ops for the controller. The .power_on
+>>    op configures and enables the Post-PLL and other analog blocks (BIAS,
+>>    LDO, Serializer, etc.).
+>>
+>> The JH7110 instantiates the same Innosilicon IP as the Rockchip RK3328,
+>> with the PHY register block shifted by 0x100 because it sits behind the
+>> HDMI controller in the shared register space. The pre-PLL programming
+>> therefore comes from the common Innosilicon helpers; this driver adds
+>> the JH7110 pixel clock table, the post-PLL and the analog configuration.
+>>
+>> Co-developed-by: Dominique Belhachemi <db@domibel.de>
+>> Signed-off-by: Dominique Belhachemi <db@domibel.de>
+>> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
 >> ---
->>  Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml | 9 +++++++++
->>  1 file changed, 9 insertions(+)
+>>  drivers/phy/starfive/Kconfig                |  20 +
+>>  drivers/phy/starfive/Makefile               |   1 +
+>>  drivers/phy/starfive/phy-jh7110-inno-hdmi.c | 567 +++++++++++++++++++ 
+>> +++++++++
+>>  3 files changed, 588 insertions(+)
 >>
->> diff --git a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml b/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
->> index ea60f7220afe..aa263dfd42a1 100644
->> --- a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
->> +++ b/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
->> @@ -155,6 +155,15 @@ properties:
->>        HS/FS/LS modes are supported.
->>      type: boolean
->>  
->> +  qcom,select-utmi-as-ref-clk:
->> +    description:
->> +      If present, pass the UTMI clock as the reference clock to the DWC3 core to
->> +      use its clock rate to calculate the reference clock period and frame
->> +      length adjustment in GUCTL and GFLADJ registers. This is needed when these
->> +      values based on the standard clock rate deviate from the hardware default
->> +      values. If not set, the hardware default values are used.
 > 
-> Sashiko comment seems valid. You describe Linux behavior. In your commit
-> msg you mention that clock cannot be passed since commit 613a2e655d4d,
-> which is a driver commit. So trivial answer would be: if issue was
-> caused by driver commit, then fix is within driver, not bindings.
-
-The issue stems from collapsing the snps and dwc nodes into one: the
-same clock was passed as "mock_utmi" in snps and as "ref" in the dwc
-child node. In the flattened model, this causes two issues:
-1. the core driver gets the ref clock by name ("ref") but you would
-break the binding by changing the clock name from mock_utmi to ref and
-perhaps causes backwards compatibility issues.
-2. Even if you change the clock name, the new qcom glue layer sets
-ignore_clocks_and_resets to true in the probe_data struct which means
-the core driver doesn't acquire and manage the clocks/resets.
-
+> [snip]
 > 
-> Maybe there is different issue which is not purely-driver specific, but
-> I did not get that from description.
+>> +
+>> +static const struct inno_hdmi_phy_pre_pll_config pre_pll_cfg_table[] = {
+>> +    { 25175000, 25175000, 1, 100, 2, 3, 3, 12, 3, 3, 4, 0, 0xF55555 },
+>> +    { 25200000, 25200000, 1, 100, 2, 3, 3, 12, 3, 3, 4, 0, 0 },
+>> +    { 27000000, 27000000, 1, 90, 3, 2, 2, 10, 3, 3, 4, 0, 0 },
+>> +    { 27027000, 27027000, 1, 90, 3, 2, 2, 10, 3, 3, 4, 0, 0x170A3D },
+>> +    { 28320000, 28320000, 1, 28, 2, 1, 1, 3, 0, 3, 4, 0, 0x51EB85 },
+>> +    { 30240000, 30240000, 1, 30, 2, 1, 1, 3, 0, 3, 4, 0, 0x3D70A3 },
+>> +    { 31500000, 31500000, 1, 31, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
+>> +    { 33750000, 33750000, 1, 33, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
+>> +    { 36000000, 36000000, 1, 36, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>> +    { 40000000, 40000000, 1, 80, 2, 2, 2, 12, 2, 2, 2, 0, 0 },
+>> +    { 46970000, 46970000, 1, 46, 2, 1, 1, 3, 0, 3, 4, 0, 0xF851EB },
+>> +    { 49500000, 49500000, 1, 49, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
+>> +    { 49000000, 49000000, 1, 49, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>> +    { 50000000, 50000000, 1, 50, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>> +    { 54000000, 54000000, 1, 54, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>> +    { 54054000, 54054000, 1, 54, 2, 1, 1, 3, 0, 3, 4, 0, 0x0DD2F1 },
+>> +    { 57284000, 57284000, 1, 57, 2, 1, 1, 3, 0, 3, 4, 0, 0x48B439 },
+>> +    { 58230000, 58230000, 1, 58, 2, 1, 1, 3, 0, 3, 4, 0, 0x3AE147 },
+>> +    { 59341000, 59341000, 1, 59, 2, 1, 1, 3, 0, 3, 4, 0, 0x574BC6 },
+>> +    { 59400000, 59400000, 1, 99, 3, 1, 1, 1, 3, 3, 4, 0, 0 },
+>> +    { 65000000, 65000000, 1, 130, 2, 2, 2, 12, 0, 2, 2, 0, 0 },
+>> +    { 68250000, 68250000, 1, 68, 2, 1, 1, 3, 0, 3, 4, 0, 0x3FFFFF },
+>> +    { 71000000, 71000000, 1, 71, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>> +    { 74176000, 74176000, 1, 98, 1, 2, 2, 1, 2, 3, 4, 0, 0xE6AE6B },
+>> +    { 74250000, 74250000, 1, 99, 1, 2, 2, 1, 2, 3, 4, 0, 0 },
+>> +    { 75000000, 75000000, 1, 75, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>> +    { 78750000, 78750000, 1, 78, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
+>> +    { 79500000, 79500000, 1, 79, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
+>> +    { 83500000, 83500000, 2, 167, 2, 1, 1, 1, 0, 0, 6, 0, 0 },
+>> +    { 83500000, 104375000, 1, 104, 2, 1, 1, 1, 1, 0, 5, 0, 0x600000 },
+>> +    { 85500000, 85500000, 1, 85, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
+>> +    { 85750000, 85750000, 1, 85, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
+>> +    { 85800000, 85800000, 1, 85, 2, 1, 1, 3, 0, 3, 4, 0, 0xCCCCCC },
+>> +    { 88750000, 88750000, 1, 88, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
+>> +    { 89910000, 89910000, 1, 89, 2, 1, 1, 3, 0, 3, 4, 0, 0xE8F5C1 },
+>> +    { 90000000, 90000000, 1, 90, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>> +    { 101000000, 101000000, 1, 101, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>> +    { 102250000, 102250000, 1, 102, 2, 1, 1, 3, 0, 3, 4, 0, 0x3FFFFF },
+>> +    { 106500000, 106500000, 1, 106, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
+>> +    { 108000000, 108000000, 1, 90, 3, 0, 0, 5, 0, 2, 2, 0, 0 },
+>> +    { 119000000, 119000000, 1, 119, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>> +    { 131481000, 131481000, 1, 131, 2, 1, 1, 3, 0, 3, 4, 0, 0x7B22D1 },
+>> +    { 135000000, 135000000, 1, 135, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>> +    { 136750000, 136750000, 1, 136, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
+>> +    { 147180000, 147180000, 1, 147, 2, 1, 1, 3, 0, 3, 4, 0, 0x2E147A },
+>> +    { 148352000, 148352000, 1, 98, 1, 1, 1, 1, 2, 2, 2, 0, 0xE6AE6B },
+>> +    { 148500000, 148500000, 1, 99, 1, 1, 1, 1, 2, 2, 2, 0, 0 },
+>> +    { 154000000, 154000000, 1, 154, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>> +    { 156000000, 156000000, 1, 156, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>> +    { 157000000, 157000000, 1, 157, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>> +    { 162000000, 162000000, 1, 162, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
+>> +    { 174250000, 174250000, 1, 145, 3, 0, 0, 5, 0, 2, 2, 0, 0x355555 },
+>> +    { 174500000, 174500000, 1, 174, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
+>> +    { 174570000, 174570000, 1, 174, 2, 1, 1, 3, 0, 3, 4, 0, 0x91EB84 },
+>> +    { 175500000, 175500000, 1, 175, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
+>> +    { 185590000, 185590000, 1, 185, 2, 1, 1, 3, 0, 3, 4, 0, 0x970A3C },
+>> +    { 187000000, 187000000, 1, 187, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
 > 
-> For example, if given SoC has different rates, then the SoC-specific DWC
-> compatible defines which clock to use and you do not need such property.
-
-That was possible in the 'old' way because it was allowed to pass the
-same clock as both the mock_utmi and ref clock, albeit in different
-nodes targeting snps and dwc respectively.
-
-To solve it in the driver itself means we'd need to create compatible
-specific match data structs which currently aren't in the driver and all
-SoCs that require it (at least the ones in this series) wouldn't be able
-to just use qcom,snps-dwc as the fallback. This would increase
-complexity of the driver (which now is nice and simple) and would
-require a change to the bindings too.
-In addition, for some SoCs such as IPQ6018, we'd need two compatibles
-because it has two USB controllers and only one of them requires setting
-the ref clock.
-
-Kindly advise so I can adjust v-next of the series accordingly.
-
+> add:
+> { 235690000, 235690000, 1, 235, 2, 1, 1, 3, 0, 3, 4, 0, 0xB0A3D6},
 > 
-> Best regards,
-> Krzysztof
+> This matches one of the framework 13 displays (fml13v01 board)
+> 
+> source: [1]
+> 
+> edid:
+> 
+> edid-decode (hex):
+> 
+> 00 ff ff ff ff ff ff 00 09 e5 5f 09 00 00 00 00
+> 17 1d 01 03 80 1c 13 78 02 de 50 a3 54 4c 99 26
+> 0f 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+> 01 01 01 01 01 01 11 5c d0 18 81 e0 2d 50 30 20
+> 36 00 1d be 10 00 00 1a a7 49 d0 18 81 e0 2d 50
+> 30 20 36 00 1d be 10 00 00 1a 00 00 00 fe 00 42
+> 4f 45 20 43 51 0a 20 20 20 20 20 20 00 00 00 fe
+> 00 4e 45 31 33 35 46 42 4d 2d 4e 34 31 0a 01 21
+> 
+> 02 03 19 c1 44 83 10 02 01 23 09 07 07 83 01 00
+> 00 67 03 0c 00 10 00 00 44 11 5c d0 18 81 e0 2d
+> 50 30 20 36 00 1d be 10 00 00 1a 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01
+> 
+> ----------------
+> 
+> Block 0, Base EDID:
+>    EDID Structure Version & Revision: 1.3
+>    Vendor & Product Identification:
+>      Manufacturer: BOE
+>      Model: 2399
+>      Made in: week 23 of 2019
+>    Basic Display Parameters & Features:
+>      Digital display
+>      Maximum image size: 28 cm x 19 cm
+>      Gamma: 2.20
+>      Monochrome or grayscale display
+>      First detailed timing is the preferred timing
+>    Color Characteristics:
+>      Red  : 0.6396, 0.3291
+>      Green: 0.2998, 0.5996
+>      Blue : 0.1494, 0.0595
+>      White: 0.3125, 0.3281
+>    Established Timings I & II: none
+>    Standard Timings: none
+>    Detailed Timing Descriptors:
+>      DTD 1:  2256x1504   59.998513 Hz   3:2     92.938 kHz    235.690000 
+> MHz (285 mm x 190 mm)
+>                   Hfront   48 Hsync  32 Hback  200 Hpol P
+>                   Vfront    3 Vsync   6 Vback   36 Vpol N
+>      DTD 2:  2256x1504   47.998302 Hz   3:2     74.349 kHz    188.550000 
+> MHz (285 mm x 190 mm)
+>                   Hfront   48 Hsync  32 Hback  200 Hpol P
+>                   Vfront    3 Vsync   6 Vback   36 Vpol N
+>      Alphanumeric Data String: 'BOE CQ'
+>      Alphanumeric Data String: 'NE135FBM-N41'
+>    Extension blocks: 1
+> Checksum: 0x21
+> 
+> ----------------
+> 
+> Block 1, CTA-861 Extension Block:
+>    Revision: 3
+>    Underscans IT Video Formats by default
+>    Basic audio support
+>    Native detailed modes: 1
+>    Video Data Block:
+>      VIC   3:   720x480    59.940060 Hz  16:9     31.469 kHz 27.000000 
+> MHz (native)
+>      VIC  16:  1920x1080   60.000000 Hz  16:9     67.500 kHz 148.500000 MHz
+>      VIC   2:   720x480    59.940060 Hz   4:3     31.469 kHz 27.000000 MHz
+>      VIC   1:   640x480    59.940476 Hz   4:3     31.469 kHz 25.175000 MHz
+>    Audio Data Block:
+>      Linear PCM:
+>        Max channels: 2
+>        Supported sample rates (kHz): 48 44.1 32
+>        Supported sample sizes (bits): 24 20 16
+>    Speaker Allocation Data Block:
+>      FL/FR - Front Left/Right
+>    Vendor-Specific Data Block (HDMI), OUI 00-0C-03:
+>      Source physical address: 1.0.0.0
+>      Maximum TMDS clock: 340 MHz
+>    Detailed Timing Descriptors:
+>      DTD 3:  2256x1504   59.998513 Hz   3:2     92.938 kHz    235.690000 
+> MHz (285 mm x 190 mm)
+>                   Hfront   48 Hsync  32 Hback  200 Hpol P
+>                   Vfront    3 Vsync   6 Vback   36 Vpol N
+> Checksum: 0x01  Unused space in Extension Block: 84 bytes
 > 
 > 
+>> +    { 241500000, 241500000, 1, 161, 1, 1, 1, 4, 0, 2, 2, 0, 0 },
+>> +    { 241700000, 241700000, 1, 241, 2, 1, 1, 3, 0, 3, 4, 0, 0xB33332 },
+>> +    { 262750000, 262750000, 1, 262, 2, 1, 1, 3, 0, 3, 4, 0, 0xCFFFFF },
+>> +    { 296500000, 296500000, 1, 296, 2, 1, 1, 3, 0, 3, 4, 0, 0x7FFFFF },
+>> +    { 296703000, 296703000, 1, 98, 0, 1, 1, 1, 0, 2, 2, 0, 0xE6AE6B },
+>> +    { 297000000, 297000000, 1, 99, 0, 1, 1, 1, 0, 2, 2, 0, 0 },
+>> +    { 594000000, 594000000, 1, 99, 0, 2, 0, 1, 0, 1, 1, 0, 0 },
+>> +    { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+>> +};
+>> +
+> 
+> kind regards,
+> Maud
+> 
+> [1]: https://github.com/DC-DeepComputing/fml13v01-linux/ 
+> blob/97c64fe2832b6826914b6da7aa4febcdd4d3d444/drivers/gpu/drm/ 
+> verisilicon/inno_hdmi.c#L112
 
-Thanks,
-George
