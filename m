@@ -1,116 +1,140 @@
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A44F83B9D98;
-	Sun, 30 Aug 2026 15:46:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.145
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 530B43A2E0A
+	for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 16:02:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788104798; cv=none; b=s/QuWTEo5veFlBVWWOWpxFF1PXsPuVCNhUc8VX6wXnxeYkUkX+S7AAY6FUWDihElR6yjs/RElSxkZcCgS7GnDI7517WK07cKi0KrBRDuMTxVfpPjxmbbxaQscPj6tp73NEdb0iDZfiG6RMUW45807JVmXV0Y5sCSCpMvs77vKUM=
+	t=1788105757; cv=none; b=keodmb7rFcYjJzWimTq2w0/y4Ih+dDyj+XtxSt5QBxMMq1uyI9tgjfC3xzEpFP2H3q7xhGvhYQgAZ2m/ZIwkMCnHJSk5pbDHMX1fxgm8xz5U8FAX3OoKElPXNTofpW564OWrCGAI9iTz3SCjU3d9/PL+Srir0Fye1iJUfPLk0tM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788104798; c=relaxed/simple;
-	bh=PnXdbbonI6TDVucUJnB/aGVbLdU6d3iGG+sX+Bz32RU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GKJn8aVh+lXmc4nxrqueoM3RJyZjY2xaitSUO8gCM6GdBqwntElzI8EXNzzu3eGnMxhIDezKvEzUx+a88bUFqabZTdtTsUNt6SaIceUu6ocBV508k4NBxSRDsEfZnOZieL8YAQ2LdwtA1CFEau4l6k+E3sAO0oakBoRwSTXRx50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net; spf=pass smtp.mailfrom=jannau.net; dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b=Awu3naLG; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=PEP181CD; arc=none smtp.client-ip=103.168.172.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
+	s=arc-20240116; t=1788105757; c=relaxed/simple;
+	bh=5I7WZk9Likezcszkxm2f5VMiSja2ZVMFwssHq+M2D28=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sc1koMyGNb0aM40sEI+B6LtA0j4WdiZG4gVfNoIXXltO8K4LB920MTEo9knrOZDP6eFpeL0rveIVCFVYcVgxCrhkWgc0139I3dOaLXUYraaLmZUfzP0cEae5vFNF+dt5IAaSiHhR8ZK05eR5xrLA0svbFUomivqkkN3anrAOBdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kyksnbdq; arc=none smtp.client-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b="Awu3naLG";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="PEP181CD"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.phl.internal (Postfix) with ESMTP id B7088EC0175;
-	Sun, 30 Aug 2026 11:46:35 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Sun, 30 Aug 2026 11:46:35 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm2; t=1788104795; x=1788191195; bh=MihlHA0jeW
-	9cf62qZZuSDAm/xr/Skg1GoMpPWPUioZI=; b=Awu3naLGhxs6DNzMVZ/y5uVxuH
-	mo/jt2sQdf3xqebztoCcdDi5HxuDDLpYAVqXvFpDlTV9+CuQ88IhpOugj2RyspWZ
-	GdDQnJDxwIoA7eNsTbqlN1B6ULQXmXJe+7BLq1T0jEy77YvwL9LBSOw+G5R6isaH
-	Tr29zTOKWoZuz8JQt28Kb/cldynUfVOcea7v8Jr8mrFqWyb1xX50jPgKpKEwdxda
-	bYCb6S34iEAZzs21zqcOSPPsvCIRqUGUzq5zHZbLUfGzK6l3k6r+SHka9LI39LCn
-	BKAJKVrUH5deSkwRD6PbBoDHBTF3vPACB2G+nW3DNiXeKYoi6mJGVLT8rKzg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1788104795; x=1788191195; bh=MihlHA0jeW9cf62qZZuSDAm/xr/Skg1GoMp
-	PWPUioZI=; b=PEP181CDMaZody9j/uydol4/X0uG5oOkaaioYRRHeWHZdhdH9+8
-	RiMROxs8/62QJuhZWbQYLcUS0SguOemsam5DmsT9fMZPBhxxHbj5uIsW0SuonDgh
-	3nN/xmaL3NLaDsUd8h7XErNNrGM7QGjCfwNigfTXL1TjCxGnmSUH68pemkDybSnE
-	lcgNEWhmKcL3ilv/yN9dTGY/iPE63DRjotYoYF54E96e2MOZAjMQ5Gnf9kG+o6yo
-	/FFnvDHv15dR62IUnh1+sBY8dwz5XsfSAEzcSFvH+ebFVQyq5QRsWBUDBz62Ho2C
-	aZW/+t9/k/ursxa3I3sZUA29vQ/6hJsu2Zg==
-X-ME-Sender: <xms:W1CUanVfhvurg80lEyKTCNvzbdgjSzZuSERAXBL6bg6ID9Iz1lOk6w>
-    <xme:W1CUasKpob-wfo0jHe9491cCn5uVeFtmi1QcRXike50lCIc8AlpTiMFdE0PIvOtfz
-    N0E9wi5fv42IEzYerCFvIryHrSrL5mJaJwSEyd3MCiNXES8NsGhUQ>
-X-ME-Received: <xmr:W1CUan3M1wR4M9LP_CwTz7lmuBIHqQuJbUh9DiivOPBfNkrsdBiApwJdrw018Sm3xVEBlBk6slD1txVuXx8o0voDOAhYQpMm6pU>
-X-ME-Proxy-Cause: dmFkZTEOYRK4gF0nS1OU3xem0WZp15SpUOTtBPG0aPfGupIuYPdkf//EB6U20QS5qwMibE
-    5xh3VNHbQsPBXG/WzMft+EW7AUnukz/ERkxvkIAczmn9Y258jeSCGpTxCNUvven2Kxx+JU
-    /eR5GnwCNq0xJCKmedT8YmYPRbtXx3vF1jmbPtdcFR+QipxXHZFc+keCuudFGmpoJGX419
-    KKmLoe2RuisnuCQSErHe+aeQOdLg5w4+3PhUCUQnbPTriE4Iq08GroO9iA1cgQG3zNcKSc
-    6T8v6Sl4d+5howPOj81vFOPmvZj+0Ri9+yj0AMYH4nHLVMkfzjXT9oic2CEPTmSTuO38Jg
-    CIcfGw2h6zpEfHXQ2eEnHK3ACmSZnxW/uUrwn0KGpBxSgT9BOQtCsPs/+F4julBRH1Yhg5
-    BgBRsBn6MLOreK0uviMip8UyEvzMRPLm/6Rljyf4U4ioeH+GSmWMNq4ctEiIz9UB2iiEJb
-    irdWJrOxMLhT3JLNhKEqvBSCbFLyL0VOiZtydeV6mIn+iTfgkDfP3+930ZPjHK0TQXlVAu
-    49+jOmB8QaUXvPvQH8GvalWLWC0TOV/1i782v4fx618ZU/b0YCEUq5pOfcsvgspG4hw0+N
-    JunNhCTJ9JwwqiiLI6nI0+76aSqT4cegUANCcW+1NLD84Z3mygeVK1zp6EQw
-X-ME-Proxy: <xmx:W1CUapJgSwv0S6NbiF_dhTq3QJtGAxrpy4i6GS_92UfcfiTT1BH_wg>
-    <xmx:W1CUaigikYbJQFZdKjtXuXqHfi48-Tu5EAup5DhsjGSitVDLb1C_fg>
-    <xmx:W1CUapDyXbY2XedCU43bJkXxIfk0pk4nVrJz4s07y4ZXSCzwdDMZ1w>
-    <xmx:W1CUak4Qbh6ZdJSZIYIqKUS_v_YU-Ja0Y6Fs8XmdwegztRE6M9X__Q>
-    <xmx:W1CUaoxI285qFTACu9dfBQhKSnolp32zwxlAVlogOEgibArVn9zzgcbx>
-Feedback-ID: i47b949f6:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 30 Aug 2026 11:46:34 -0400 (EDT)
-Date: Sun, 30 Aug 2026 17:46:33 +0200
-From: Janne Grunau <j@jannau.net>
-To: Sven Peter <sven@kernel.org>
-Cc: Neal Gompa <neal@gompa.dev>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kyksnbdq"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8557c3f270eso1823940b3a.3
+        for <devicetree@vger.kernel.org>; Sun, 30 Aug 2026 09:02:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788105754; x=1788710554; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EU/f9ZuMkFjEGmh1dmO/3ytBQ8IveQK8KxWk7ZUANeY=;
+        b=kyksnbdqZ47+kSj+nWGucjW4eEB6AIvW9McJEgCa1C4c9Y1XcU78Nb9VGvvF8DLiVq
+         UMRCJumCfZpR+TZupOv/RGjQxzVz3Udw4dvVYlKswWvSD++w1Oy2A/tPI5Km1z0KKMo5
+         7NP/tPbKZ44VxYfno+ZpuLaoh2VncCJDsDxlUZSLQBU8MtA5GaNHSnsyNdGsHx7D13+e
+         8f9fvprPZnmvgCAh2flwCH8o06sZ6p3h6dQWXYhZ945btkTetrqtBLekyrLsxFX9MQxx
+         64mKJhh+mkuHTcUG7bO1tI7xHbbGYzi/br4Jl/D7XNhAOG4WS5D8Qx0CySOm2cUUBoG7
+         9RPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788105754; x=1788710554;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EU/f9ZuMkFjEGmh1dmO/3ytBQ8IveQK8KxWk7ZUANeY=;
+        b=HCOqBjgjQ2WxLcXAMG0vce+bG9bGZSCGX4l+f7n/gTOEBailJxB81u+lWmsng0H+9D
+         UWnMavzxOE8HvzaELWFfC0Of11nEW5lwmx0dDlmTrhuXKzSOmmMkvLJsT6GUTB/C4ke2
+         4HPShWughhB5+ZXkecCPi9fNZZiGlosS59YN6qLmxUIirxwmOW7sVrxLynvQtuRSLFJN
+         OqjGlW5GeKQDFgfnD8+m7krHhw9UFdgbGrO9IijXU/NpetVGL6QjCD5c0cEFEaqfRss5
+         qwHRqOQwjzWGvS/ICrbImtdaSG90lYthPPS17ZyP835nCqfyEnICNubOY5QyEXTt7EJY
+         RGaw==
+X-Gm-Message-State: AFuF++mpjROYlWRs8uB5r6zvSL5AAF+fXinWE106gjfSRJPa9Mc5bP8B
+	OGJvdGsGWPMoZyyB6Fug3TF3dTFXI0C5YdqKJIFIOsRL9U/MztyV2V9V
+X-Gm-Gg: AR+sD12bp+PYPIVvhpiKPxSApoJQiOoN1PDlz6w24sxgAWjJTE0aLR8YR+aEYVS2DE3
+	v+i78M82HhbDJe6Lhda3os4lMUoursoFcLHFdhutKN9TCwEid7ztCmtbWvi9sk96rQTfYRNFovu
+	BYnWfcDeJ6pTBmjaW+MiuksAet/YStl2EETtHetXpNjr6AqqVLIpxEq/ymt3Jlv4/+h54M+W7/Q
+	Xj3Jxsq26OEUf6/s2yraBOKX/zX8sw8iJTSS1w+z9S9L4EU3bL3Q9sCKnt9cJG2CzjwpH7Rr/9D
+	t9/aMU0lf/EdQINeBF/xFVKfF2m40s0YFgxm77Ctk1yLaLXhz8rmDNoFKXhjVUQCnv4mpfEEteV
+	z6b/WTV4z9jVGnkjBmPof/EsMjduN7hoi0fAzdLxD/kzQtnocqbPAeB2tr3bdZbkuIfVHZFwb1e
+	B6IQhPsgGZxdZEQyIIQmYrYyk5A3GyZGjeisHyd855Esxv6LGlotuacUVhwY5J3kZGgomLqmS41
+	/lm/I0h3WYds5S0eQombqi9FuOUfr6dLRjbeCUMeI7HDlQqNSHrkQ==
+X-Received: by 2002:a05:6a20:729b:b0:3cc:9618:f51a with SMTP id adf61e73a8af0-3d26615ece4mr29016741637.8.1788105754380;
+        Sun, 30 Aug 2026 09:02:34 -0700 (PDT)
+Received: from nuvole (2.248.212.35.bc.googleusercontent.com. [35.212.248.2])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f3312270sm2839584a12.11.2026.08.30.09.02.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 09:02:34 -0700 (PDT)
+From: Pengyu Luo <mitltlatltl@gmail.com>
+To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] arm64: dts: apple: Fix cpus node indentation
-Message-ID: <20260830154633.GA1748618@robin.jannau.net>
-References: <20260830-b4-apple-dts-fixes-v1-0-cc20f8445754@kernel.org>
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Martin Kepplinger-Novakovic <martink@posteo.de>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
+Cc: devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	Pengyu Luo <mitltlatltl@gmail.com>
+Subject: [PATCH v6 0/5] fix and improve for Hi846
+Date: Mon, 31 Aug 2026 00:00:20 +0800
+Message-ID: <20260830160025.211384-1-mitltlatltl@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260830-b4-apple-dts-fixes-v1-0-cc20f8445754@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Aug 30, 2026 at 04:22:06PM +0200, Sven Peter wrote:
-> Hi,
-> 
-> Just a small series to drop a spurious space in our dts file. No
-> functional changes.
-> 
-> Best,
-> 
-> Sven
-> 
-> Signed-off-by: Sven Peter <sven@kernel.org>
-> ---
-> Sven Peter (3):
->       arm64: dts: apple: t602x: Fix cpus node indentation
->       arm64: dts: apple: t6030: Fix cpus node indentation
->       arm64: dts: apple: t6032: Fix cpus node indentation
-> 
->  arch/arm64/boot/dts/apple/t602x-common.dtsi | 2 +-
->  arch/arm64/boot/dts/apple/t6030.dtsi        | 2 +-
->  arch/arm64/boot/dts/apple/t6032.dtsi        | 2 +-
->  3 files changed, 3 insertions(+), 3 deletions(-)
+This series fixes errors blocking Hi846 driver function, fixes
+link frequency and supports 6MP and 8MP modes on Hi846.
 
-whole series
+Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
+---
+Changes in v6:
+- Add link freq ctrl back (Sakari)
+- Use v4l2_link_freq_to_bitmap() to get matched link freqs (Sakari)
+- Move clk_get() before than hi846_parse_dt(), since we use clock in hi846_parse_dt()
+- Add link freq check in filter for v4l2_find_nearest_size_conditional().
+- Link to v5: https://lore.kernel.org/linux-media/20260712115012.91600-1-mitltlatltl@gmail.com
 
-Reviewed-by: Janne Grunau <j@jannau.net>
+Changes in v5:
+- Use separated fields instead of raw register values for PLL cfg (Sakari)
+- Use mul_u64_u32_div() to avoid loss of pricision and u64/u32 issues (Sakari)
+- Use v4l2_find_nearest_size_conditional() to filter for different lane cases. (Sakari)
+- Drop line break (Sakari)
+- Rename post_div to mipi_clk_div
+- Correct div1 number from 1 to 2
+- Link to v4: https://lore.kernel.org/linux-media/20260511103927.279550-1-mitltlatltl@gmail.com
 
-Janne
+Changes in v4:
+- Correct default lane cfg in commit for 'fix link frequency handling'
+- Fix messed header (the Media CI robot)
+- Move constant to the right side when comparsion (the Media CI robot)
+- Link to v3: https://lore.kernel.org/linux-media/20260511090924.269106-1-mitltlatltl@gmail.com
+
+Changes in v3:
+- Fix modes handling for different lane cases (Sebastian)
+- Fix header missing (the Media CI robot)
+- Link to v2: https://lore.kernel.org/linux-media/20260501095433.1609309-1-mitltlatltl@gmail.com
+
+Changes in v2:
+- Remove uncessary `else` (Sakari)
+- Fix link frequency (Sakari)
+- Correct link frequency for DT
+- Link to v1: https://lore.kernel.org/linux-media/20260429070351.1307204-1-mitltlatltl@gmail.com
+
+Pengyu Luo (5):
+  media: hi846: Fix hi846_write_reg_16 handling
+  media: hi846: Fix link frequency handling
+  media: hi846: Fix modes handling for different lane cases
+  media: hi846: Add 6MP and 8MP modes support
+  arm64: dts: imx8mq-librem5: Correct link frequency list
+
+ .../boot/dts/freescale/imx8mq-librem5.dtsi    |   2 +-
+ drivers/media/i2c/hi846.c                     | 370 ++++++++++++++----
+ 2 files changed, 289 insertions(+), 83 deletions(-)
+
+-- 
+2.55.0
+
