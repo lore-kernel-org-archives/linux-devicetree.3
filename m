@@ -1,192 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09E3A42DA20;
-	Mon, 31 Aug 2026 13:36:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D86B74399F2
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 13:36:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183398; cv=none; b=W89FnZS0imKWI+OI3kFTX/SEaDrGK74yvzwnWFOUFuo2qrAFANbZ2W8Ku/0NAXdz38ausnSSz/rlCyarh+FLIy5ATtlRQUcboHcLLFvt+k244Kar6vELX15wi1i7dhwzzRiELGzKWQ7BEIJnl7Co1MFfNjEgcwZWvLi495MRLbg=
+	t=1788183405; cv=none; b=PmAXm040900vz9ZjeUwvFuXEvQSgm+H7v9d216x8fQ48fjijCOQTHkZH21DCruJ0BdkrHw3JYEKd+uRqnQVX9+37c1kdH9d8uscHpc25+/8PJvsTtcOh2Uj8xZl1Gn+MJZszLsBxrqSEszzPiLfP73DdLr2cuF684vdTfUWiGL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183398; c=relaxed/simple;
-	bh=8cEVuI0cwRWEQIB80MzkJ1sJnBDi+nXRRCp/lPNqvOM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hRle+pjOyHOlJPcgDnrRo7zZLxRoarXzkMG08tAWb4VKdbQv9XLZRfiCOjpKE3h7sbDYgUVWayImmccYiMexdu/DW7R8jhFHnU2qRGs3wnKYa+WoED/dk6x4EvooO6mPLUk4UDM/EYAF/GvPCtWm7oeCPcDSBb+KDYSZZlTD1go=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NBXJ4cCh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788183405; c=relaxed/simple;
+	bh=jodCptBrNYlsa9GEhSRvbkL2GC5UsrQBwEN7d7GUbxE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=CJPJ2lU39+nIFWikMBn8PokJ+6oNVlzvOqhyQI+V5EFqrwLVULGBA84lQKLjk/K4WX07k2gVBZrCHMv39ws+kSFyuq0nBHPFTGHP1Mer/RCA2/VPaWinvqDdbA3PQoYO29B1ruHx1lav5Nu0ZfjqaIdCnrfaqXXim4pjyI/0WtE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nX7YpN63; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NBXJ4cCh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7819C1F000E9;
-	Mon, 31 Aug 2026 13:36:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nX7YpN63"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DB421F000E9;
+	Mon, 31 Aug 2026 13:36:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183396;
-	bh=+OMa8Ih155PVJeVTe5EYTcczdcfldm2UcGJZZGpV1go=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NBXJ4cCh9uk/EJzmJDww4u39YjImYD3aZJN5P5vzMd4avGHf3fH/mWqL7EDM1bYni
-	 BidPrGBoTdwysdTmKAh8cqRhgC0QHOpSHyBwEvBUK7r/AFexy9DyC52ZUYrb1ezD0v
-	 ARXImshNKeZdRfdPe8rAi5P4XG+XIDNGnq2tz7NeN8cmBM9RGqRGX8Cr134DFHeGkP
-	 BV/CG+cXRA6y5ka7hbozTz/w1XNPmTgGDhdc335rcijeShZdu8BPqAHmSwMk4w/Wgd
-	 zQxcvGqbsAywoLdwd95rXoBWF7HGkbZ+cAdKgqHv4pUhlxTpg80PzJmprYjZ6GUi05
-	 OmSVnBtYVGASA==
-Date: Mon, 31 Aug 2026 08:36:35 -0500
-From: Rob Herring <robh@kernel.org>
-To: Eduard Bostina <egbostina@gmail.com>
-Cc: Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Lee Jones <lee@kernel.org>, linux-kernel@vger.kernel.org,
-	mfd@lists.linux.dev, daniel.baluta@nxp.com, simona.toaca@nxp.com,
-	goledhruva@gmail.com, m-chawdhry@ti.com
-Subject: Re: [PATCH v3] dt-bindings: mfd: Convert TI TWL6040 to DT schema
-Message-ID: <20260831133635.GA712512-robh@kernel.org>
-References: <20260817100207.2970303-1-egbostina@gmail.com>
+	s=k20260515; t=1788183403;
+	bh=RoI1vsswf1HoDOnd9QqENg0queuP7aQ2TK4oC9uODxA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nX7YpN63PUBlMfdqAndTMzZhNP6qXSr8Iv22ZxJTELGGIWqnoA2d62hDkab4Awljo
+	 A+0ekYX87x3ISvDIP27RM+evNpmdXwZLc4Ca5nnKw054wCJ4Lx9tZC8PTvBTPo6vSR
+	 B4Bn3/WLcM8d+Lwqzcw0/s2F514sIVX9YCwdmWsr8xmIIeIwfBO8IqOsqTFTiwZbfN
+	 4XLBPOT+wkgiBC0gy7niy9hcGMSSfxaK2czXJImLMPiDVY7wBeFwGeKEVUeUwXn6ef
+	 LLQU+vE/k0L+yp28CaLoVNz7fmrHfZ1BhUVdONkKfCot7uiTeMR0iKRX+FW7ebuzPy
+	 86GMgizZfcoHQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v16 12/22] dt-bindings: media: i2c: add MAX9296A,
+ MAX96716A, MAX96792A
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dumitru Ceclan" <dumitru.ceclan@analog.com>
+Cc: devicetree@vger.kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260831-gmsl2-3_serdes-v16-12-4fa6e08bb514@analog.com>
+References: <20260831-gmsl2-3_serdes-v16-0-4fa6e08bb514@analog.com>
+ <20260831-gmsl2-3_serdes-v16-12-4fa6e08bb514@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 31 Aug 2026 13:36:42 +0000
+Message-Id: <20260831133643.6DB421F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260817100207.2970303-1-egbostina@gmail.com>
 
-On Mon, Aug 17, 2026 at 10:02:07AM +0000, Eduard Bostina wrote:
-> Convert the Texas Instruments TWL6040 audio codecs family bindings to DT
-> schema.
-> 
-> During the conversion, the following updates were made:
-> - Changed 'twl6040,audpwron-gpio' to 'ti,audpwron-gpio', which was
->   misnamed in the old txt binding.
-> - Made 'gpio-controller', '#gpio-cells', and 'ti,audpwron-gpio' optional
->   because modern platforms do not require them.
-> - Renamed the vibra 'vddvibl_uV'/'vddvibr_uV' properties to
->   'ti,vddvibl-uV'/'ti,vddvibr-uV', the names actually read by the
->   twl6040-vibra driver.
-> - Required 'vddvibl-supply' and 'vddvibr-supply' when the 'vibra' child
->   node is present, since the twl6040-vibra driver unconditionally
->   requests both.
-> 
-> Signed-off-by: Eduard Bostina <egbostina@gmail.com>
-> ---
-> Changes in v3:
-> - Required 'vddvibl-supply' and 'vddvibr-supply' when the 'vibra' child
->   node is present, since the twl6040-vibra driver requests both
->   unconditionally.
-> 
-> Link to v2: https://lore.kernel.org/all/20260816092847.2522994-1-egbostina@gmail.com/
-> Link to v1: https://lore.kernel.org/all/20260815083451.2147129-1-egbostina@gmail.com/
-> 
->  .../devicetree/bindings/mfd/ti,twl6040.yaml   | 151 ++++++++++++++++++
->  .../devicetree/bindings/mfd/twl6040.txt       |  67 --------
->  2 files changed, 151 insertions(+), 67 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/mfd/ti,twl6040.yaml
->  delete mode 100644 Documentation/devicetree/bindings/mfd/twl6040.txt
-> 
-> diff --git a/Documentation/devicetree/bindings/mfd/ti,twl6040.yaml b/Documentation/devicetree/bindings/mfd/ti,twl6040.yaml
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The `i2c-alias-pool` property is incorrectly restricted to a max=
+imum of 2 aliases, which breaks schema validation for standard dual-link to=
+pologies.
+- [Low] The `#address-cells` and `#size-cells` properties are missing from =
+the `required` list inside the `i2c-atr` node schema.
+--
+
+commit 7472cadfe0a14fe6a0a18b63a3ea7a85e2d94a8a
+Author: Cosmin Tanislav <demonsingur@gmail.com>
+
+dt-bindings: media: i2c: add MAX9296A, MAX96716A, MAX96792A
+
+This commit introduces device tree bindings for the MAX9296A, MAX96716A,
+and MAX96792A GMSL to CSI-2 deserializers. It documents properties for
+I2C address translation, ports, and endpoint configurations.
+
+> diff --git a/Documentation/devicetree/bindings/media/i2c/maxim,max9296a.y=
+aml b/Documentation/devicetree/bindings/media/i2c/maxim,max9296a.yaml
 > new file mode 100644
-> index 000000000000..0d4e620d25a5
+> index 0000000000000..de6bfcec5dc63
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/mfd/ti,twl6040.yaml
-> @@ -0,0 +1,151 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/mfd/ti,twl6040.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +++ b/Documentation/devicetree/bindings/media/i2c/maxim,max9296a.yaml
+[ ... ]
+> +  port0-poc-supply:
+> +    description: Regulator providing Power over Coax for GMSL port 0
 > +
-> +title: Texas Instruments TWL6040 family audio codec
+> +  port1-poc-supply:
+> +    description: Regulator providing Power over Coax for GMSL port 1
 > +
-> +maintainers:
-> +  - Eduard Bostina <egbostina@gmail.com>
-> +
-> +description:
-> +  The TWL6040s are 8-channel high quality low-power audio codecs providing
-> +  audio, vibra and GPO functionality on OMAP4+ platforms. They are connected
-> +  to the host processor via i2c for commands, McPDM for audio data and
-> +  commands.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - ti,twl6040
-> +      - ti,twl6041
-> +
-> +  reg:
-> +    const: 0x4b
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  gpio-controller: true
-> +
-> +  "#gpio-cells":
-> +    const: 1
-> +
-> +  "#clock-cells":
-> +    const: 0
-> +
-> +  ti,audpwron-gpio:
-> +    maxItems: 1
-> +    description: Power on GPIO line for the twl6040
-> +
-> +  vio-supply:
-> +    description: Regulator for the twl6040 VIO supply
-> +
-> +  v2v1-supply:
-> +    description: Regulator for the twl6040 V2V1 supply
-> +
-> +  enable-active-high:
-> +    type: boolean
-> +    description: To power on the twl6040 during boot.
-> +
-> +  clocks:
-> +    minItems: 1
+> +  i2c-alias-pool:
 > +    maxItems: 2
+
+[Severity: Medium]
+Does this maximum item limit of 2 restrict valid hardware configurations?
+
+Device trees that configure more than two remote I2C devices, such as a
+standard dual-link topology with 2 serializers and 2 image sensors, will
+fail schema validation because i2c-alias-pool is strictly limited to a
+maximum of 2 items. The entire deserializer would only be allowed to alloca=
+te
+2 aliases for all downstream devices.
+
 > +
-> +  clock-names:
-> +    minItems: 1
-> +    maxItems: 2
-> +    items:
-> +      enum:
-> +        - clk32k
-> +        - mclk
-> +
-> +  vddvibl-supply:
-> +    description: Regulator for the left vibra motor
-> +
-> +  vddvibr-supply:
-> +    description: Regulator for the right vibra motor
-> +
-> +  vibra:
+> +  i2c-atr:
 > +    type: object
 > +    additionalProperties: false
-
-blank line
-
+> +
 > +    properties:
-> +      ti,vibldrv-res:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        description: Resistance parameter for left driver
+> +      '#address-cells':
+> +        const: 1
+> +
+> +      '#size-cells':
+> +        const: 0
+> +
 
-blank line
+[Severity: Low]
+Should #address-cells and #size-cells be listed under a required block
+for the i2c-atr node schema?
 
-> +      ti,vibrdrv-res:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        description: Resistance parameter for right driver
+Because #address-cells and #size-cells are not listed under required in the
+i2c-atr object schema, a device tree omitting these properties will silently
+pass schema validation, even though it defines unit-addressed children
+(^i2c@[0-1]$).
 
-and so on...
+> +    patternProperties:
+> +      '^i2c@[0-1]$':
+> +        $ref: /schemas/i2c/i2c-controller.yaml#
+[ ... ]
 
-With those fixes,
-
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-
-
-> +      ti,viblmotor-res:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        description: Resistance parameter for left motor
-> +      ti,vibrmotor-res:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        description: Resistance parameter for right motor
-> +      ti,vddvibl-uV:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        description: vddvibl default voltage if it needs to be changed
-> +      ti,vddvibr-uV:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        description: vddvibr default voltage if it needs to be changed
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-gmsl2-3_se=
+rdes-v16-0-4fa6e08bb514@analog.com?part=3D12
