@@ -1,158 +1,199 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23855391E52
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 21:13:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 396D539A7F6;
+	Mon, 31 Aug 2026 21:20:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788210794; cv=none; b=jdjTARCPCZ0GiyWvMJsl2A7Rqt0tVS1DHLTc94iNutbCCBWgligUswtGqgDh0858SaZQhk/mi6ft3mGG7AimbGEe9gPF+NULcMmpSEi3UOXexGPB3gyTPp0xjlmrjzo/A2zd4aAvxICUd1+25zzD2ppFmKR28OSCaU7Sncx+QxE=
+	t=1788211251; cv=none; b=VMfJIxs3gV2yqYqcrgFBFDhSk74/hx0aoeWfxhjDgSvxziK+3huSOASByG2OfhSx+kdfxWhR9XVArdUB7WAi9ulfOG94hUFvllllgGIR9Qf6WVOXKeNLkEDu9wNakDii5nzMm0S28SgXKQsaCgWZeGV60Z6EeXf9cKIywqS37m0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788210794; c=relaxed/simple;
-	bh=4kAdu6nrhMXrY7qC8V/p/u0A07fP7SdJzrV7qOALZoc=;
+	s=arc-20240116; t=1788211251; c=relaxed/simple;
+	bh=X/Pa8P5LM44fYKMsT+VLq76vGR3uFhd1XeHq/WOrFt8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=axeuPuSx7cUaIarLUDnB76q1VEsLGCakrtbsTaQQnqGHnT96DVGRrqFw7PrENRGF16NBZ5tXhnvk0Qp3D9nPaGibQIKhqyznjTEVgm6nfYGy1kmDb2nYBmJfGrCzI9MA34sotR0ArBaO6NYK2yliKQP9nyzQsSLc9CmiHeBLjDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F5OwpA1v; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=WVw5zm3DDNqQyw7lhm/F0THuasIcX1p08o7Zlax2YhUaGw/MMZ15cjDfAGhjFfk0JXYjXx5v6rMEsac2m8buRwvXM2nwHb2WAoUWbLWpZlFXk2by+kzs0IhGt90tqZ33DsQm1qUgDH59rzlRAMTGG6rSz/RQm5LUgzrkPAglmz8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fddsfi2x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F5OwpA1v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD6471F000E9;
-	Mon, 31 Aug 2026 21:13:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fddsfi2x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C7871F000E9;
+	Mon, 31 Aug 2026 21:20:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788210793;
-	bh=pBVMekwLrYrQb0XRB9ApNdgaqQj15uUiA9sV4PlB6is=;
+	s=k20260515; t=1788211250;
+	bh=1hRm9RzNeDtQOdLokfhV9CkpRgp7SDr9Ih5SFIg5TIc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=F5OwpA1vzKmByn7RMrXtA1fiY/6Jffj0QTrQHGKRF8HavfZ6UnErEPJffubOR3NU9
-	 o8i97gf5l8UVAfLhiHcjYX6lnLwX01/NDGC+FbBDBl+6NMBW7jU+fBo1VJhAi1GX7d
-	 tN7W3/zMlV67UmR5vRHi//I1AsLi8iwutWrkpSO7DpKG4JYE3+xykeZ0d6JKTMgekd
-	 Ranz5DM0EJaoc6/0u6h4BVA1EmzGeLiUMLyVFA6L1Mr594SGsU0iw7gwbgQ+YGAdca
-	 jkaua7vOJphs8pieT4PpqaWbMlyi3vYAG8CADw6CVOqfklcAsusLoNZ4J33Ot4CapE
-	 jR+H3CXBTp9qg==
+	b=fddsfi2xAGjNJ+Y0KQUCByuMBLXO4Rd2T16sdsfNhFvWzwm3zY88ZBlmDWRayJagN
+	 R0uC/j1I89skUhxeeq9ija2eaj+0xyjetmpdwPmeBRo1Ces2fPxHudF2t+19JMZJv/
+	 F0UfsrVnZCFRkAMijykMmJ9/TeW9TF/BfDSo1MnQN+mBapTl4JfpRS5T0/XMwGceeD
+	 n0ADKOAyewQFbnbLRiV7Aai41yTQbSW1GJR1VgkL/Sz/C9ndNEjN9uMlHLjvthDftU
+	 YRdMWxKzj8diJSfTrRqDaOCVfh3Ll4LPFGi0igR9t1AIWNsAyTs7z4jPiqOMJIoC+9
+	 rftMwMfIZ5rWQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] staging: iio: accel: remove adis16203, merged into
- mainline adis16201 driver
+Subject: Re: [PATCH v2 2/3] dt-bindings: mfd: st,stmpe: let interrupt
+ property optional
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shehryar Ahmad" <shehryar.amd@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260831184201.34416-3-shehryar.amd@gmail.com>
-References: <20260831184201.34416-1-shehryar.amd@gmail.com>
- <20260831184201.34416-3-shehryar.amd@gmail.com>
+To: Frank.Li@oss.nxp.com
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, robh@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260831-dts-stmpe-v2-2-f93d5f080443@nxp.com>
+References: <20260831-dts-stmpe-v2-0-f93d5f080443@nxp.com>
+ <20260831-dts-stmpe-v2-2-f93d5f080443@nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 21:13:12 +0000
-Message-Id: <20260831211312.BD6471F000E9@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 21:20:49 +0000
+Message-Id: <20260831212049.9C7871F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [Critical] The IIO device name is incorrectly set to the combined SPI dri=
-ver name ('adis16201_adis16203'), breaking userspace ABI.
-- [High] Missing check for spi_get_device_match_data() returning NULL leads=
- to a crash on non-OF probes.
+
+New issues:
+- [Low] The commit message description is not capitalized, violating MFD su=
+bsystem guidelines.
+
+Pre-existing issues:
+- [High] The driver explicitly breaks `interrupts-extended` DT bindings by =
+manually checking for the literal "interrupts" string and overriding the va=
+lid IRQ with -1 if missing.
+- [High] Global static structures `i2c_ci` and `spi_ci` are mutated concurr=
+ently during probe, leading to data races if multiple devices probe simulta=
+neously.
+- [High] Memory and resource leaks exist on error paths in `stmpe_probe` fo=
+r manually enabled regulators and the dynamically created IRQ domain, leadi=
+ng to a Use-After-Free.
+- [High] The driver modifies global shared `mfd_cell` resource arrays at ru=
+ntime by casting away `const`, leading to race conditions and corrupted IRQ=
+ assignments.
 --
 
-commit 4a7d80a7646bf1890c13a1b5b3c99c166b2c3898
-Author: Shehryar Ahmad <shehryar.amd@gmail.com>
+commit 5a672301bc93caad7ec80c8b4ff3ebf32574e530
+Author: Frank Li <Frank.Li@nxp.com>
+Subject: dt-bindings: mfd: st,stmpe: let interrupt property optional
 
-iio: accel: adis16201: merge adis16203 support from staging
-   =20
-This commit merges the ADIS16203 inclinometer driver from staging into the
-mainline ADIS16201 driver. It handles chip differences using a differ_info
-struct passed via of_device_id match data and keeps the channel arrays sepa=
-rate.
-The SPI driver name is also updated to reflect the combined driver support.
+This commit updates the device tree binding for the st,stmpe MFD to make
+the interrupts property optional. It addresses configurations where not all
+boards connect IRQ lines, fixing validation warnings reported by dtbs_check.
 
-> diff --git a/drivers/iio/accel/adis16201.c b/drivers/iio/accel/adis16201.c
-> index 5127e58eebc7d..293655fb00531 100644
-> --- a/drivers/iio/accel/adis16201.c
-> +++ b/drivers/iio/accel/adis16201.c
+> dt-bindings: mfd: st,stmpe: let interrupt property optional
 
+[Severity: Low]
+Is the capitalization correct here? MFD subsystem guidelines require
+capitalizing the description after the subsystem prefix.
+
+> diff --git a/Documentation/devicetree/bindings/mfd/st,stmpe.yaml b/Docume=
+ntation/devicetree/bindings/mfd/st,stmpe.yaml
+> index 592e8f17659f3..6fde068b526a0 100644
+> --- a/Documentation/devicetree/bindings/mfd/st,stmpe.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/st,stmpe.yaml
 [ ... ]
+> @@ -225,7 +225,6 @@ additionalProperties: false
+>  required:
+>    - compatible
+>    - reg
+> -  - interrupts
+> =20
+>  examples:
+>    - |
 
-> @@ -248,56 +301,62 @@ static const struct adis_data adis16201_data =3D {
->  	.timeouts =3D &adis16201_timeouts,
-> =20
->  	.status_error_msgs =3D adis16201_status_error_msgs,
-> -	.status_error_mask =3D BIT(ADIS16201_DIAG_STAT_SPI_FAIL_BIT) |
-> -		BIT(ADIS16201_DIAG_STAT_FLASH_UPT_FAIL_BIT) |
-> -		BIT(ADIS16201_DIAG_STAT_POWER_HIGH_BIT) |
-> -		BIT(ADIS16201_DIAG_STAT_POWER_LOW_BIT),
->  };
-> =20
->  static int adis16201_probe(struct spi_device *spi)
->  {
->  	struct iio_dev *indio_dev;
-> -	struct adis *st;
-> +	struct adis16201_state *st;
-> +	struct adis_data data =3D adis16201_data;
->  	int ret;
-> =20
-> -	indio_dev =3D devm_iio_device_alloc(&spi->dev, sizeof(*st));
-> +	indio_dev =3D devm_iio_device_alloc(&spi->dev, sizeof(struct adis16201_=
-state));
->  	if (!indio_dev)
->  		return -ENOMEM;
-> =20
->  	st =3D iio_priv(indio_dev);
-> +	st->info =3D spi_get_device_match_data(spi);
-> =20
->  	indio_dev->name =3D spi->dev.driver->name;
+While reviewing the interrupt changes, I noticed a few pre-existing
+issues in the stmpe driver that might need addressing.
 
-[Severity: Critical]
-Does this code assign the combined SPI driver name "adis16201_adis16203" to
-the IIO device name? The IIO name attribute is relied upon by applications
-and libraries (like libiio) to identify the specific hardware part.
+In drivers/mfd/stmpe.c:stmpe_probe():
 
-Since the driver name was changed from "adis16201" to "adis16201_adis16203",
-the sysfs name attribute now statically exposes "adis16201_adis16203" for a=
-ll
-instantiated devices regardless of the actual hardware, breaking the usersp=
-ace
-ABI.
+	stmpe_of_probe(pdata, np);
 
->  	indio_dev->info =3D &adis16201_info;
-> -
-> -	indio_dev->channels =3D adis16201_channels;
-> -	indio_dev->num_channels =3D ARRAY_SIZE(adis16201_channels);
-> +	indio_dev->channels =3D st->info->arr_chans;
+	if (!of_property_present(np, "interrupts"))
+		ci->irq =3D -1;
+
+	stmpe =3D devm_kzalloc(ci->dev, sizeof(struct stmpe), GFP_KERNEL);
 
 [Severity: High]
-Can this lead to a NULL pointer dereference during non-OF probes? If the de=
-vice
-is instantiated via legacy SPI board info or sysfs new_device with the driv=
+This is a pre-existing issue, but does this logic break the standard
+interrupts-extended DT binding?=20
+
+If a device tree uses interrupts-extended instead of interrupts, it seems
+of_property_present() will erroneously clobber the valid ci->irq to -1, cau=
+sing
+the probe to fail with -ENODEV or fallback to polling.
+
+Also in drivers/mfd/stmpe.c:stmpe_probe():
+
+	if (stmpe->irq >=3D 0) {
+		ret =3D stmpe_irq_init(stmpe, np);
+		if (ret)
+			return ret;
+
+		ret =3D devm_request_threaded_irq(ci->dev, stmpe->irq, NULL,
+				stmpe_irq, pdata->irq_trigger | IRQF_ONESHOT,
+				"stmpe", stmpe);
+		if (ret) {
+			dev_err(stmpe->dev, "failed to request IRQ: %d\n",
+					ret);
+			return ret;
+		}
+	}
+
+	ret =3D stmpe_devices_init(stmpe);
+	if (!ret)
+		return 0;
+
+	dev_err(stmpe->dev, "failed to add children\n");
+	mfd_remove_devices(stmpe->dev);
+
+	return ret;
+
+[Severity: High]
+This is a pre-existing issue, but are the dynamically created irq_domain
+and enabled regulators leaked on these error paths?=20
+
+If probe fails after stmpe_irq_init(), returning directly without cleanup
+might leave the leaked irq_domain host_data pointing to the devm-freed
+stmpe struct, potentially creating a use-after-free condition.
+
+In drivers/mfd/stmpe-i2c.c:stmpe_i2c_probe():
+
+	i2c_ci.data =3D (void *)id;
+	i2c_ci.irq =3D i2c->irq;
+	i2c_ci.client =3D i2c;
+	i2c_ci.dev =3D &i2c->dev;
+
+And similarly in drivers/mfd/stmpe-spi.c:stmpe_spi_probe():
+
+	spi_ci.irq =3D spi->irq;
+	spi_ci.client =3D spi;
+	spi_ci.dev =3D &spi->dev;
+
+[Severity: High]
+This is a pre-existing issue, but could mutating the global static structur=
+es
+i2c_ci and spi_ci concurrently during probe cause data races?=20
+
+If multiple STMPE devices probe simultaneously, operations like transfers
+might be routed to the wrong device or freed on the wrong unbind due to the
+dev and client pointers pointing to the incorrect instance.
+
+Finally, in drivers/mfd/stmpe.c:stmpe_devices_init():
+
+		for (j =3D 0; j < block->cell->num_resources; j++) {
+			struct resource *res =3D
+				(struct resource *) &block->cell->resources[j];
+
+			/* Dynamically fill in a variant's IRQ. */
+			if (res->flags & IORESOURCE_IRQ)
+				res->start =3D res->end =3D block->irq + j;
+		}
+
+[Severity: High]
+This is a pre-existing issue, but is it safe to cast away the const qualifi=
 er
-name "adis16201_adis16203", the SPI core matches it and calls adis16201_pro=
-be()
-in drivers/iio/accel/adis16201.c.
+on the global mfd_cell resource arrays here?=20
 
-Because it's not an OF/ACPI match, spi_get_device_match_data() falls back to
-checking the driver's id_table. Since the id_table is missing from
-adis16201_driver, spi_get_device_match_data() returns NULL, and dereferenci=
-ng
-it via st->info->arr_chans causes a kernel crash.
-
-> +	indio_dev->num_channels =3D st->info->num_chans;
->  	indio_dev->modes =3D INDIO_DIRECT_MODE;
-> =20
-> -	ret =3D adis_init(st, indio_dev, spi, &adis16201_data);
-> +	data.status_error_mask =3D st->info->diag_stat_mask;
-> +	ret =3D adis_init(&st->adis, indio_dev, spi, &data);
-
-[ ... ]
-
-> @@ -318,10 +372,11 @@ static int adis16201_probe(struct spi_device *spi)
-> =20
->  static struct spi_driver adis16201_driver =3D {
->  	.driver =3D {
-> -		.name =3D "adis16201",
-> +		.name =3D "adis16201_adis16203",
-> +		.of_match_table =3D adis16201_of_match,
->  	},
->  	.probe =3D adis16201_probe,
->  };
+Dynamically modifying this shared state could allow concurrent IRQ writes f=
+rom
+multiple probing instances to overwrite each other, potentially corrupting
+IRQ assignments across the system.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831184201.3441=
-6-1-shehryar.amd@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-dts-stmpe-=
+v2-0-f93d5f080443@nxp.com?part=3D2
