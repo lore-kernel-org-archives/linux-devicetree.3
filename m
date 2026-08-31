@@ -1,201 +1,359 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011000.outbound.protection.outlook.com [52.101.65.0])
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C8F84EBAE8;
-	Mon, 31 Aug 2026 14:35:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.0
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788186908; cv=fail; b=NUhUnDZVyMLgDpKPzVw+hdyaT70OvXIPiyAUzbMpPRzaIE9W05btC7oZVCr+dwIgkQSOtDVnlFe+s4cJIGOAFnTXWQSY1SoKEG28+mCNYyXrMDHZdAWDSQoKh30K5hfPSmtlg+i/eGh6QJlj4nagMN4JUigaXL/92e+u3zH3tTY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788186908; c=relaxed/simple;
-	bh=DKVNyMhcGaZwqbUU6Zeg3cD6LOr37WFHlNqZVEwKX/s=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AD684EC65D;
+	Mon, 31 Aug 2026 14:35:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.15
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788186909; cv=none; b=Wy0U1sPBzmmKWJyjI8v9/yc+zYOM2ow+IRxilR4tXH8iNrBns90TXe61jfVMp0CLhNUW0EShtHhwC/4D6RYANjS+sWZw1Bn591bHulcc2DV7sOnj0niRZR90BfAB606z8pB3wQ6f5TS0EetqMvU1BBGhTKHZDuL1cU5gQHiZmF0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788186909; c=relaxed/simple;
+	bh=jWIyDqZc1Tct+n3F9ss58mpDGbguW8LWOzjn8ciwUSQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Tu0/P08OgV3hPU2Z0z70RfHGRoHCtXIC6I+pRHk1d8oViwUDzVcEjmgvucofZimrdxuoCgIf4a96Dyxr8qgryljVOSIhs/w5SYamINjueLIoI73VqXMQ85KZtj6oIlAZfA4JszPIzy6cAulErAuNHHuyZQLT8r10D8rKhznTdTI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=OiFbnvFn; arc=fail smtp.client-ip=52.101.65.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	 MIME-Version; b=HlTWpUpb3Nr7njX0Re+uwFyAqXezoKV7QUDt0vh7BjkdkQVsABxr1hmJg0jQDInxTUJ9JoU6401hyMD5tI9AUaTfQ7BeFy3q6CfIXKOYsVvtt38xbAi2BYanAMeZTyGVv+9RNYyDCnmOwCKrElormF/XoDL83X3LrQJVpf/95Pk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b=LG5qLhyO; arc=none smtp.client-ip=212.227.15.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="OiFbnvFn"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d882wR7U5E22GrN77a9YPMsgLHAg1oDrPKm6PUtVjTl5nxxHOXSq4fh6zeZCxt5CQiQKugIirqqfZdRd4r3aaHof6HT18lruEsA4j7eyTt+hUpr14CorrLr5FtsWEUVW9PHsL+sg05/CcGJMlxROdenmx63jwdbuZjdERlIjtQWIeItcIyF9Jq87MZZH9sYIrh5AGPdi4mfUhkA6v3CR2pSWJcI88d1Q2cwLghYkH5aeeNj529B8RjfnuidP6q/FSQZaPkxhEk1sMH3lftQP21R9z2SCU78V6ayjxEmZtv8qoek8X06Kgl/LjS3A6ZnoRwfzqVG3bzvpJNRpk7jrHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WYD3+F0uERBlL+FwhIv90oSAF08EjMt7o73FpJQsUwo=;
- b=P8j6hCZ/7HmOO9oGpKfmiqJ+NwTPBTgYVLVUSHMgPJ/VuVLFtf0FHSa0KEFgpfHeT5XTd362fVY7tBwLcsuaD6TrV1AqR+YGA5klpoOyTXQ3d2tOtvLCZf2GTMiGic1c9HGo+pDmaNFFsxMHKnAZYz6h7mSW0y3J/JPtJM0HIRwKUgDcCC8ApM9eoYjwAmEf2c8dlbu3rjT3trgYIlN3GpNT8HGijmeZzWEfl9nu8aP86eCc2uKgX5KycU3ke+U8DwKWP0mZpdPutR4H7AokOJ78ZTIus44CLG+scuMTmNaiSlplWm2UmLgX5HB9k/Bo0yv3z+oSG6vF7YvWeGCRoQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WYD3+F0uERBlL+FwhIv90oSAF08EjMt7o73FpJQsUwo=;
- b=OiFbnvFn1XrIQ0b1skDW9ksFQgzER3hgLuX0ljNaeDUUJYDO9jP+aKY+d/3lnSsQ6vPCRlsqAeGY+fY0bDFHErZGbT7CnI70IeDDExBobG7/nMLTrsz8drqvL3CUNDgTzQ1rBYw2zj9KpadtKnQgu+XGCFQwFWCn6O8V0pRL/zzTvDDGeZKpJ9yoFQRRHE5ZOY1BWRI49Yl5Q39xuE43hEefZggBS66m4m30wH2kbbaY/D0MhgZ/mjquBP2BoNNfDA2331mAlhlmJjl2FoQ4tO2BQlvQP0bZWc3OPpfsizAhDI6Ij1/1+kyPuwxP5ueThiRMFk8iGgr5/GfqyN9U6Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM0PR04MB5858.eurprd04.prod.outlook.com (2603:10a6:208:132::23)
- by AS8PR04MB7606.eurprd04.prod.outlook.com (2603:10a6:20b:23e::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 14:34:58 +0000
-Received: from AM0PR04MB5858.eurprd04.prod.outlook.com
- ([fe80::bdf4:c9d1:4e3f:68c6]) by AM0PR04MB5858.eurprd04.prod.outlook.com
- ([fe80::bdf4:c9d1:4e3f:68c6%3]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 14:34:58 +0000
-From: Ciprian Costea <ciprianmarian.costea@oss.nxp.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Angelo Dureghello <angelo@kernel-space.org>,
-	Frank Li <Frank.Li@nxp.com>
-Cc: linux-can@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	NXP S32 Linux Team <s32@nxp.com>,
-	imx@lists.linux.dev,
-	Christophe Lizzi <clizzi@redhat.com>,
-	Alberto Ruiz <aruizrui@redhat.com>,
-	Enric Balletbo <eballetb@redhat.com>,
-	Eric Chanudet <echanude@redhat.com>,
-	Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>,
-	Andra-Teodora Ilie <andra.ilie@nxp.com>,
-	Larisa Grigore <larisa.grigore@nxp.com>,
-	Haibo Chen <haibo.chen@nxp.com>
-Subject: [PATCH v7 6/6] can: flexcan: add NXP S32N79 SoC support
-Date: Mon, 31 Aug 2026 16:34:49 +0200
-Message-ID: <20260831143449.12828-7-ciprianmarian.costea@oss.nxp.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831143449.12828-1-ciprianmarian.costea@oss.nxp.com>
-References: <20260831143449.12828-1-ciprianmarian.costea@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AM0PR02CA0170.eurprd02.prod.outlook.com
- (2603:10a6:20b:28e::7) To AM0PR04MB5858.eurprd04.prod.outlook.com
- (2603:10a6:208:132::23)
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b="LG5qLhyO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1788186899; x=1788791699;
+	i=markus.stockhausen@gmx.de;
+	bh=2YbZ5ZVxIGA3WanMcnWuJBY7CP91NnQUIAN3Zjr0SvU=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=LG5qLhyO+JcTirSkdESDXgRNYKgommjuPczw5nwzTK3e2ZkkhVc4jUmTH8LNp9Md
+	 EcEXE+eBrOPR07vqjg4x55uuxs3kg9/bwlKQAIbQpC4ejAh2TGHSFn21IF5tUBNMf
+	 hQYhKIlkpYRDL+ZUI3zjAUdXOCOvEbnvERwOL8ub1uZU9Jz12H+G8Tg5VG4pJ7V8t
+	 f8djfm6RmIk7xFUcikVo1aEaaPcx3/HhwntmdtKoAzibPTtMvq84mMdbkBmUz2PpC
+	 +Pc+aeFKlAV8RSsx0wnlRlskkitsJWSCNopOBs2ajCscC8s5UU38rHsCnnG6FUgpU
+	 AYswlf4KqosB47tT4Q==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MOzT4-1xFPeY3Ake-00HiYK; Mon, 31
+ Aug 2026 16:34:58 +0200
+From: Markus Stockhausen <markus.stockhausen@gmx.de>
+To: andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
+	chris.packham@alliedtelesis.co.nz,
+	daniel@makrotopia.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org
+Cc: Markus Stockhausen <markus.stockhausen@gmx.de>
+Subject: [PATCH net-next v15 08/13] net: mdio: realtek-rtl9300: Add page tracking
+Date: Mon, 31 Aug 2026 16:34:34 +0200
+Message-ID: <20260831143439.2404484-9-markus.stockhausen@gmx.de>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260831143439.2404484-1-markus.stockhausen@gmx.de>
+References: <20260831143439.2404484-1-markus.stockhausen@gmx.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB5858:EE_|AS8PR04MB7606:EE_
-X-MS-Office365-Filtering-Correlation-Id: a3a99f61-3aa5-4ac2-b249-08df076d0866
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|376014|7416014|23010399003|19092799006|1800799024|366016|11063799006|10067099003|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
- 8myZN/Wg3yjnmqCoBpT4vVsBgGAoNg6jUfd6ilY/5VP6290YLntXobSZzBVORfDx0mQvARJHXsZwVvL4j9/KDoz4xQ4jo+sTYR3bIjlyYen3VK2Wk7w/a0NuoJvsJ4K+WqdysfudwydqK2qr8CJosM6L66eCN0SP98SG4TWTijnAFXjVZiTpBEA4NnXOPw95ASLYrHcAL2GZrlrcH64tRDCRdqrflIlyk/hAHXNFVE6sFVZ7FabgT91YF+cCrE/fE6ocdb91YpB+OONMYVVlV7eqwJ0eg2OX70lnJa0S94KyAneeCbGKcqZXUG5ryIZEfwqc7Gfoqnpz44SpJGbbs5MbPv10Yzkcf6Vths+6BtBCAOQZyc4/ftOVbbtfPiXXuVDmPNrgTs+cuKuF591vzB1HzYnaW+ihZ7GIn7PSM43ZWvA3EqJ2eCLazhcCZZbYgXKkrXjq9fXwH9riwYMhF3g45rXp2OX69icEjeezg6nqOW2Vr3I93GgEEyyMnRHehtqJYtYv0mZgOZW8dqbyUGw6LccLdBsn+9zZWjHW4ee9iKHivN1daInnIsOOQ1+ISeAgt5dahGfslO0Zn8otmp8PxHzKiOex1fiIg1rSASpRXLWh00eQnuNingNpeFRCgDF5/4n1W+U0k+EgaRG9jFIQbprlxZjBq67+HZdbrpI=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB5858.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(19092799006)(1800799024)(366016)(11063799006)(10067099003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?SzA0ZEJCeWMzbmFjalB0Smd0dStSbFJKQ3ZrclliWWNvOHh0U283NEQ3d3BR?=
- =?utf-8?B?cHg1eFh4aldkeW1lWWNnQjlIRklJcllROXZzeHMyWGxFR2NYTFZKOFh5ZFFO?=
- =?utf-8?B?bDJCenI0TWhEdDFtb3RWVVRiQ3BpYmtIUGJUQnJlZ1FkWTJ1QzVibUxqYStl?=
- =?utf-8?B?MU84Z21QcEorYmdwcVdoNkRhTTFzWUFtNk5zNzdaNmpBQVpvcGxuN2RKV1ZO?=
- =?utf-8?B?eEZQR0hxZThuWmJFVUNiallDVHhNTld6enN5U0tYN3BheEJ3eUQyaEFkRXUv?=
- =?utf-8?B?Y3JSeTZUYTNxTUVsUDhqdkl4cDk2R0c2T29WWEhibnZYaVJmc0xjalhkTjFi?=
- =?utf-8?B?MjJ6ejRscGYvNzQyWGxwVnFFSUhjcHJWbFk5SVBmckJWZlAvRTFpQTNycXBG?=
- =?utf-8?B?STRhdm9hYWZwL1NwVnFNSGNoVVp5dGpYT1p3TjBVdmRtMDl4Zkt0VUkyR0th?=
- =?utf-8?B?L3diUkh0R3dqN3lLcy8yN3dvZ3lBaUdYcXdhMHVNOVQ4ck8zRTYvNXVpRWpB?=
- =?utf-8?B?OEVlclplNW15T1hHOVp2NWN6OXNHaVQvSVVnRVhVa0pZT1BjZlRLOFphOHhi?=
- =?utf-8?B?RFFHVHc2c3hTM0dIY1BGRW9KS0xRZUlPL2NsYmNZLy9kN0dWWCtDdHp2My9u?=
- =?utf-8?B?N3NGWnJJWVdlbE92VGU0V0xGNmFzS2J5YXRROXBVYVBENWd5YWliYlZLanNa?=
- =?utf-8?B?T01lb0FzVjNVenZxd1R1NjRXSml5dU9xNEZLMHBoVTZaY3hRZU9aNzNsZ2p2?=
- =?utf-8?B?WitjOU52M2F0aEJoVzBRbzdZRHlKdmpPN0RBRmFad25iL05WSTNOTmJMbGpm?=
- =?utf-8?B?NVRXeEptWXdjcVQySVY0SU85MlJObEprcVQ4a3NEL1RsQkttS0o3dldrZmcr?=
- =?utf-8?B?VDYyQVRGbWE3dldmVElmNWRYZWZ2ZE50SFc4V2FDdWxHZ3VGMDQwNms1b1lU?=
- =?utf-8?B?cDkzL1NGc2o4R0V6SUoxaEVoSHB2VEZ0b0RmTjd6OXJBdEJwSEpRZGhsWk5y?=
- =?utf-8?B?cmNiNUh5K0RnZmxhcExUUFAzcEc4eE00MnM0b2tQWXh2R2dsaXBwenJnazJo?=
- =?utf-8?B?My9XcmRSYU9TaGZ3dUozQjQ5NmRzWkRFcUFaT2V0dW95ck01bEpsQ2tyZXVH?=
- =?utf-8?B?NHE0dzFqOWhmZVJ0cXZuQmtPcitpZjhTS2lEWkRLMHVROHFJazY4ZmNucEZN?=
- =?utf-8?B?OHlwUE40Z3RnTGZEWE9CdnovSmlTVUx5cGZjRWN3dEw0QVUwUFRqaGNIQ0Jv?=
- =?utf-8?B?b3hGSE10ZmtmaVdqRnNtR3dSOXFnNjI5TWhTQUY1TlAvVXBscTQ0dkZLZ1U5?=
- =?utf-8?B?MnBLUi92d2hTcEJtZ2tTM1oyWmhSWnN5cXhhYkpNOS9aUmxzOWI0Q2VNdG1Y?=
- =?utf-8?B?MERheFlWOHlKUmI5MTRZSHh4R2tJOGtwL2MvbGEwQ1JrYlZ1UjdwUkJZU1NU?=
- =?utf-8?B?U1J1SHo4M3daeUYvSW9aV05FcERrcmh5OE1hVHRhTE8rZ1dwOTc5eWJhVlk0?=
- =?utf-8?B?Vml1Mi84c2JINTF2bzBhRlpRK2FQSGw1SlNsZFpPOHVOb3ZQNU5FRTNxYkJK?=
- =?utf-8?B?ZVYvMGU1NmpXWmVCS3I5bW1LUXF4M1dxbmt0M0pVdWdhbVRwV3R4ODJsZFNS?=
- =?utf-8?B?R3J2OThxc2UwQ3V4a3VBSGJRR1pyVGtQdUZORVdIemVjSzliSEVySWVQckV5?=
- =?utf-8?B?dFZsR2dWU0lmT0ljbVp6OUs4UnNjcHVWV1FrYnJtZmRwTWZhMVEvVHFWM1ZO?=
- =?utf-8?B?UmowL3JiY3duWkFwb2lkRUdTbXJVOVRPUUhidkxmVTlHMm1zSlR5SUtjVFZX?=
- =?utf-8?B?V0E1M1pHSmdXSWluNGxxZC93bkg4NVlGWWx5c2IwSlgrWVZJc2RTaTVObzE4?=
- =?utf-8?B?eStVcnQwZVhpN2lBT3FWVElEcTJJLzh5MkhmOGExbEV6QlhoVHYwQTNBNzRJ?=
- =?utf-8?B?NVNqVlF6MUpyM05vQW5aV1I4Q2JWRUZENEVDS283REpWc3BsRDhub0lEblVM?=
- =?utf-8?B?Q2szNnZYa3BaL0FsQ3Q4OG5XTk1ZZHlINHFHWk0rTThqa0ZIYjgyaUM2dXov?=
- =?utf-8?B?U0t4WXhYbldWUzRnWDJtbC9udjd4elVIem92Q2VUS29OMERzeEI2UG5PRGlN?=
- =?utf-8?B?bmZNSkFGT0Y0ZnRTdmtiNm5UWnVwRm9rMEkzSDAxSE1BcWR3dTFsUFpXcTRo?=
- =?utf-8?B?Rzhla2lTKzE2OGNQZDVESG9Vck10MWExaWljbnhJY3ZZQWQwcmlDcnU2dlZ3?=
- =?utf-8?B?U0pNT2dvVmk5Wjl2bUVmQnZpRmJwNFVwQ0ptRHlSRWk1K3UyaFFPU3pxczBE?=
- =?utf-8?B?RW1XTTU1M2hqN0VCTlgwV1VDOXJKWUZxVFlxcXlCdGI2UnRLQUNWNmpTbXJK?=
- =?utf-8?Q?qFnKDOIzRwD56wBU=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a3a99f61-3aa5-4ac2-b249-08df076d0866
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB5858.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 14:34:58.5599
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CJwqJkPk9oSsw5ekVRRXTEiKkuFAH8K/sO4OVbnwpQcuIzALEVFXV7jnWhplwj2nsELpDu2k65c9WFtAfMUzD3IgxSZ5oybmV9hQWt148n4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7606
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:Ch8DSmN25o0Mupa6ChZM2lDk0St6Pck9lE516jMXaFF2Ssc5PNW
+ 0NBcqCh3dmxUWJrknIh00H0lya8R1EbxBf7ybpTAVHOe/Av1iWr5YcevwvehphIi+E1CqQp
+ jw0pNX1hw8Lfjr1ANRgbcIYv6lpfGE6B75K5xkBNkNcwIIoZ2Udw5xJB71u/4caYjYA7kYq
+ EbTe7l+HSJzlbfcXh7+RA==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:XAK0batboC0=;m3+np3Np8NWlEW7A4poQcMsBIlo
+ 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
+ N8=
 
-From: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
+The hardware polling unit of the Realtek switches has a very special
+handling for c22 PHY register 31 (aka Realtek page register) in place.
 
-Add device data and compatible string for NXP S32N79 SoC.
+- On the RTL838x it is permanently reset to zero.
+- On other devices there is some magic saving/restoring (aka parking)
+  in the background in place.
 
-FlexCAN IP integration on S32N79 SoC uses two interrupts:
-- one for mailboxes 0-127
-- one for signaling bus errors and device state changes
+This makes access to PHYs a gamble.
 
-Co-developed-by: Andra-Teodora Ilie <andra.ilie@nxp.com>
-Signed-off-by: Andra-Teodora Ilie <andra.ilie@nxp.com>
-Co-developed-by: Larisa Grigore <larisa.grigore@nxp.com>
-Signed-off-by: Larisa Grigore <larisa.grigore@nxp.com>
-Signed-off-by: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
-Reviewed-by: Vincent Mailhol <mailhol@kernel.org>
-Reviewed-and-tested-by: Haibo Chen <haibo.chen@nxp.com>
-Tested-by: Enric Balletbo i Serra <eballetb@redhat.com>
----
- drivers/net/can/flexcan/flexcan-core.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+It is vital to keep the polling alive so the MAC layer can rely on
+consistent data. Intercept access to c22 register 31 and handle it
+internally. Store the desired value for each port in the driver. When
+issuing hardware access to other registers add the page to the command
+towards the controller. Given this, the hardware will run two c22
+commands that are not interrupted by polling.
 
-diff --git a/drivers/net/can/flexcan/flexcan-core.c b/drivers/net/can/flexcan/flexcan-core.c
-index 601d88bfcfeb..0533cdf969b2 100644
---- a/drivers/net/can/flexcan/flexcan-core.c
-+++ b/drivers/net/can/flexcan/flexcan-core.c
-@@ -403,6 +403,15 @@ static const struct flexcan_devtype_data nxp_s32g2_devtype_data = {
- 		FLEXCAN_QUIRK_SECONDARY_MB_IRQ,
- };
- 
-+static const struct flexcan_devtype_data nxp_s32n_devtype_data = {
-+	.quirks = FLEXCAN_QUIRK_DISABLE_RXFG | FLEXCAN_QUIRK_ENABLE_EACEN_RRS |
-+		FLEXCAN_QUIRK_DISABLE_MECR | FLEXCAN_QUIRK_USE_RX_MAILBOX |
-+		FLEXCAN_QUIRK_BROKEN_PERR_STATE | FLEXCAN_QUIRK_SUPPORT_FD |
-+		FLEXCAN_QUIRK_SUPPORT_ECC | FLEXCAN_QUIRK_SUPPORT_RX_MAILBOX |
-+		FLEXCAN_QUIRK_SUPPORT_RX_MAILBOX_RTR |
-+		FLEXCAN_QUIRK_IRQ_BERR,
-+};
+  ... hardware poll ...
+  phy_write(phy, 31, page)
+  phy_write(phy, reg, value)
+  ... hardware poll ...
+
+Looking at this implementation one might argue that disabling/enabling
+polling might be a cleaner solution. But one must remember that
+
+- This driver differentiates clearly between C22 and C45 buses. During
+  probing it enables only one of the protocols for a bus.
+- All known devices run RTL8218 (B/D/E) or RTL8214FC on 1G
+- RTL839x gives link flapping when deactivating polling for a port
+
+So a solution for a Realtek-only ecosystem is required. This commit
+copies the downstream-proven driver-only page handling patch without
+any new MDIO callbacks and is the lowest common denominator. If a
+non-Realtek PHY is identified on a c22 bus the attachment aborts. It
+should be noted that bus scan runs with the page handling already in
+place before the check in notify_phy_attach(). This is accepted for
+now.
+
+Remark: To keep this simple, writes to register 31 are only accepted
+if they are lower than the device specific raw page - 0..4094/8190.
+Otherwise -EINVAL is returned. Under the above assumption (Only 1G
+Realtek PHYs on a c22 bus) this is no limitation.
+
+Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+=2D--
+ drivers/net/mdio/mdio-realtek-rtl9300.c | 46 +++++++++++++++++++++----
+ 1 file changed, 39 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/net/mdio/mdio-realtek-rtl9300.c b/drivers/net/mdio/md=
+io-realtek-rtl9300.c
+index a925640290cb..d6027062e452 100644
+=2D-- a/drivers/net/mdio/mdio-realtek-rtl9300.c
++++ b/drivers/net/mdio/mdio-realtek-rtl9300.c
+@@ -179,6 +179,9 @@
+ #define PHY_CTRL_MMD_DEVAD			GENMASK(20, 16)
+ #define PHY_CTRL_MMD_REG			GENMASK(15, 0)
+=20
++#define RTL_VENDOR_ID				0x001cc800
++#define RTL_PAGE_SELECT				31
 +
- static const struct can_bittiming_const flexcan_bittiming_const = {
- 	.name = DRV_NAME,
- 	.tseg1_min = 4,
-@@ -2225,6 +2234,7 @@ static const struct of_device_id flexcan_of_match[] = {
- 	{ .compatible = "fsl,ls1021ar2-flexcan", .data = &fsl_ls1021a_r2_devtype_data, },
- 	{ .compatible = "fsl,lx2160ar1-flexcan", .data = &fsl_lx2160a_r1_devtype_data, },
- 	{ .compatible = "nxp,s32g2-flexcan", .data = &nxp_s32g2_devtype_data, },
-+	{ .compatible = "nxp,s32n79-flexcan", .data = &nxp_s32n_devtype_data, },
- 	{ /* sentinel */ },
- };
- MODULE_DEVICE_TABLE(of, flexcan_of_match);
--- 
-2.43.0
+ #define MAP_ADDRS_PER_REG			6
+ #define MAP_BITS_PER_ADDR			5
+ #define MAP_BITS_PER_BUS			2
+@@ -204,6 +207,7 @@ struct otto_emdio_priv {
+ 	struct regmap *regmap;
+ 	struct mutex lock; /* protect HW access */
+ 	DECLARE_BITMAP(valid_ports, MAX_PORTS);
++	u16 page[MAX_PORTS];
+ 	u8 smi_bus[MAX_PORTS];
+ 	u8 smi_addr[MAX_PORTS];
+ 	bool smi_bus_is_c45[MAX_SMI_BUSSES];
+@@ -355,7 +359,7 @@ static int otto_emdio_9300_read_c22(struct mii_bus *bu=
+s, int port, int regnum, u
+ 	struct otto_emdio_cmd_regs cmd_data =3D {
+ 		.c22_data	=3D FIELD_PREP(RTL9300_PHY_CTRL_REG_ADDR, regnum) |
+ 				  FIELD_PREP(RTL9300_PHY_CTRL_PARK_PAGE, 0x1f) |
+-				  FIELD_PREP(RTL9300_PHY_CTRL_MAIN_PAGE, RAW_PAGE(priv)),
++				  FIELD_PREP(RTL9300_PHY_CTRL_MAIN_PAGE, priv->page[port]),
+ 		.io_data	=3D FIELD_PREP(RTL9300_PHY_CTRL_INDATA, port),
+ 	};
+=20
+@@ -369,7 +373,7 @@ static int otto_emdio_9300_write_c22(struct mii_bus *b=
+us, int port, int regnum,
+ 	struct otto_emdio_cmd_regs cmd_data =3D {
+ 		.c22_data	=3D FIELD_PREP(RTL9300_PHY_CTRL_REG_ADDR, regnum) |
+ 				  FIELD_PREP(RTL9300_PHY_CTRL_PARK_PAGE, 0x1f) |
+-				  FIELD_PREP(RTL9300_PHY_CTRL_MAIN_PAGE, RAW_PAGE(priv)),
++				  FIELD_PREP(RTL9300_PHY_CTRL_MAIN_PAGE, priv->page[port]),
+ 		.io_data	=3D FIELD_PREP(RTL9300_PHY_CTRL_INDATA, value),
+ 		.port_mask_low	=3D BIT(port),
+ 	};
+@@ -409,7 +413,7 @@ static int otto_emdio_9310_read_c22(struct mii_bus *bu=
+s, int port, int regnum, u
+ 	struct otto_emdio_cmd_regs cmd_data =3D {
+ 		.broadcast	=3D FIELD_PREP(RTL9310_BC_PORT_ID, port),
+ 		.c22_data	=3D FIELD_PREP(RTL9310_PHY_CTRL_REG_ADDR, regnum) |
+-				  FIELD_PREP(RTL9310_PHY_CTRL_MAIN_PAGE, RAW_PAGE(priv)),
++				  FIELD_PREP(RTL9310_PHY_CTRL_MAIN_PAGE, priv->page[port]),
+ 	};
+=20
+ 	return otto_emdio_read_cmd(bus, RTL9310_PHY_CTRL_TYPE_C22, &cmd_data,
+@@ -421,7 +425,7 @@ static int otto_emdio_9310_write_c22(struct mii_bus *b=
+us, int port, int regnum,
+ 	struct otto_emdio_priv *priv =3D otto_emdio_bus_to_priv(bus);
+ 	struct otto_emdio_cmd_regs cmd_data =3D {
+ 		.c22_data	=3D FIELD_PREP(RTL9310_PHY_CTRL_REG_ADDR, regnum) |
+-				  FIELD_PREP(RTL9310_PHY_CTRL_MAIN_PAGE, RAW_PAGE(priv)),
++				  FIELD_PREP(RTL9310_PHY_CTRL_MAIN_PAGE, priv->page[port]),
+ 		.io_data	=3D FIELD_PREP(RTL9310_PHY_CTRL_INDATA, value),
+ 		.port_mask_high	=3D (u32)(BIT_ULL(port) >> 32),
+ 		.port_mask_low	=3D (u32)(BIT_ULL(port)),
+@@ -473,8 +477,12 @@ static int otto_emdio_read_c22(struct mii_bus *bus, i=
+nt phy_id, int regnum)
+ 	if (port < 0)
+ 		return port;
+=20
+-	scoped_guard(mutex, &priv->lock)
++	scoped_guard(mutex, &priv->lock) {
++		if (regnum =3D=3D RTL_PAGE_SELECT)
++			return priv->page[port];
++
+ 		ret =3D priv->info->read_c22(bus, port, regnum, &value);
++	}
+=20
+ 	return ret ? ret : value;
+ }
+@@ -495,8 +503,17 @@ static int otto_emdio_write_c22(struct mii_bus *bus, =
+int phy_id, int regnum,
+ 	if (port < 0)
+ 		return port;
+=20
+-	scoped_guard(mutex, &priv->lock)
++	scoped_guard(mutex, &priv->lock) {
++		if (regnum =3D=3D RTL_PAGE_SELECT) {
++			if (value >=3D RAW_PAGE(priv))
++				return -EINVAL;
++
++			priv->page[port] =3D value;
++			return 0;
++		}
++
+ 		ret =3D priv->info->write_c22(bus, port, regnum, value);
++	}
+=20
+ 	return ret;
+ }
+@@ -607,8 +624,9 @@ static int otto_emdio_9310_setup_controller(struct ott=
+o_emdio_priv *priv)
+=20
+ static int otto_emdio_notify_phy_attach(struct phy_device *phydev)
+ {
+-	struct otto_emdio_priv *priv =3D otto_emdio_bus_to_priv(phydev->mdio.bus=
+);
+ 	int port =3D otto_emdio_phy_to_port(phydev->mdio.bus, phydev->mdio.addr)=
+;
++	struct otto_emdio_chan *chan =3D phydev->mdio.bus->priv;
++	struct otto_emdio_priv *priv =3D chan->priv;
+=20
+ 	if (port < 0) {
+ 		/* All subsequent bus operations will fail */
+@@ -616,6 +634,16 @@ static int otto_emdio_notify_phy_attach(struct phy_de=
+vice *phydev)
+ 		return port;
+ 	}
+=20
++	/* "sync" page in case of previously failed attachment */
++	scoped_guard(mutex, &priv->lock)
++		priv->page[port] =3D 0;
++
++	if (!priv->smi_bus_is_c45[chan->mdio_bus] &&
++	    !phy_id_compare_vendor(phydev->phy_id, RTL_VENDOR_ID)) {
++		phydev_err(phydev, "Only Realtek PHYs allowed on C22 bus\n");
++		return -EOPNOTSUPP;
++	}
++
+ 	return otto_emdio_set_port_polling(priv, port, true);
+ }
+=20
+@@ -631,6 +659,10 @@ static void otto_emdio_notify_phy_detach(struct phy_d=
+evice *phydev)
+ 	if (port < 0)
+ 		return;
+=20
++	/* "sync" page for next attachment */
++	scoped_guard(mutex, &priv->lock)
++		priv->page[port] =3D 0;
++
+ 	if (otto_emdio_set_port_polling(priv, port, false))
+ 		dev_err(bus->parent, "failed to disable polling for port %d\n", port);
+ }
+=2D-=20
+2.55.0
 
