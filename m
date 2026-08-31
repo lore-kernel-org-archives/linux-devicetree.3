@@ -1,232 +1,152 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FF503C65FD
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 09:13:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC8F3B14AB;
+	Mon, 31 Aug 2026 09:14:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788167613; cv=none; b=UdLM/d+XgqJJ49YKkB2dXzZnnAFTInhdEqM54PAf15sbr5mv5XYk/akXZmX71Zn3Lltj9jgRh+g99omD72vDXbezWvQdcBwdWdUFfa7W3fi5lAKs3dx9Va2sVtA+50JU1XHtNo8QUzCMylY8eJJ/04WCwRtiKvOC6SErjKTyyoI=
+	t=1788167685; cv=none; b=UkXLMDGiKNWcpZuDa7a5XILcSWYsBIiV4H6n35KDcpYF3Qh0nScHMiioZ5IYSqrHEEJgVWvqMea64BOmEPUngObF2L4DmkjNX88WrypYwCRwsqUslQuv/LL1kqWH1HwHnSbDbTZhTG7Si90oYcS8i6Z/fmWdWIPmvLSjyzAt6s4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788167613; c=relaxed/simple;
-	bh=OOFqx41LFykjkz9aRH9vMHMhx2n6MP96nNu+O65Rj1c=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MazZQVigiU+Wb7xl5cPonKYSFQGdd8KD7llAdtzj5VsvFhlgQARE+mCYMddPzM+IBGz40PRcZnfqlT7hwBcwysy9ij+oItqKCer7Kk6OTQOmvo16Uqv2/DpEI4eRAdBmbNrvcs5s9zFVjpQVUSNbv2o7GnTck6eq+a14sYzdkx0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=C2PMA9MT; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1788167685; c=relaxed/simple;
+	bh=Rb7IEpphvxg0/6xVGqcW+fw+CWtVYh4MJrD6H3m4gHM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=SXX9Ovh71ALFb2jOkZ5qUQgXgmsWxhOt5s+73hen2DvwQYJwvFlX+ywcL434Lus2qtbilAehiYV03RP1hYKE/V7lN6iqlMdgcEh9j1GN6TA0igPKF71a9Nhnwt7l9fySfS+xxSgnoUaKkWP14ppf3pfFEX6oj7XeKNShnaIxK50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=GZlabUyL; arc=none smtp.client-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="C2PMA9MT"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so36987105e9.1
-        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 02:13:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788167609; x=1788772409; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zQlgalu3K21qahFCjl25bBlnBHFG5PlKPdFKLnjYA+o=;
-        b=C2PMA9MTMgn6bf1eTfPtuwlYDnCOYydQnO9Lk3jmx62n8pRam7cwLQijwCvHIbSC8z
-         zcHfWnrBsUvN2lKQb21aFZgPJUWFLxH9U7E/Gw1zXzbg2keeRmVxVp3Oc+SSP6o9tofj
-         IiK/X0BayxaS8U2bA/EDsw7MJtX1NX3EyEv4e8hJuXLvWAtQ3ketWt5lbeCntmkwA7L5
-         EXgOH4pNf+rXoxmqS6DVIJM+nl0ZoQSzQ+G/4U/StqVmJqzAcFfieGEdg6ftA80mtOW2
-         co3BQVAYc99TRmgwMxkrrz17n/c7Cc1nLJWjKoQLXLrZfOF/aOUqRFniY+rFJY5njMnQ
-         LW5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788167609; x=1788772409;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zQlgalu3K21qahFCjl25bBlnBHFG5PlKPdFKLnjYA+o=;
-        b=UkVWQWzE6rhLGzfn6yFUAJIpc3fDIz3X77UxOmP3VlPUsQ4pJAdmR5OBm3yfMR1yPW
-         JCXhXMusIUZYrcL/ofShYFyjq6zliVtpNoWQQFNVv9E/F51i+j/pGF1+Kj9xK1QK0N3y
-         Uc3wsX83P1Bykurcd+SxypOcfWqchysquupj3NGPMHir0pK0LqqG+v0fKYQZqAimCOu5
-         /QYJmtrGgDUGFKQUFtlIcyZLCSU9WS3r7QGKW/JAdIt0iULNqwJkuNlltV9tCC+Cj/0i
-         S1ysKZQYyHCfI6gwDHBICE5cj11OH+NbyFaKLFYPC8BKbG1zg6Ni5zyRGYzRHOoLQw86
-         rsFw==
-X-Forwarded-Encrypted: i=1; AHgh+RpM5WHP7tDxwM+0x8sfTUGnDrqRCp1hm/3pBTXIwHNbvjG85FVyRLbGuPSXEfA9SRGpbK1qApCFPYpI@vger.kernel.org
-X-Gm-Message-State: AFuF++k3JxUGeF2tcaQKvfrxnIdI8iNyrh61rMyXd+VXp2hunvoFnC9i
-	nUQmA5rLyzqFni41qfFxhUn1DYAp2U2XOhtyW7UIUxV0HPaU4mft3R9D7mm4BaxJKhFeY3c17Bx
-	mjBjeiSo=
-X-Gm-Gg: AR+sD10TqiHP+U5peqggE5LnjA79GoxWwf9IErp75+wR9kAUc2pVZqi3NLJL5bWEgb1
-	Z078f2s3TW3A1de7zTDvJ1qvNImKPM6csV5i7+f0uGwFsHmOeyjH5vBMpqmdxP8tObQNvFaEUzz
-	CYGvpmeVSSIU3mZoBVq7Bzi1CevR+yWCUX0N2kPVX3ixSkFIuL2xcCpVH5yrkzMuXlzRnW7KN1c
-	eoZLmiK3LHtsx5Uu5tMpw7KipStqhGBvZV+MPCrqdjJ5L3muB4pfQgQGftvJ/jzE9Oqb3fzt0Ch
-	cBAxkzFQGykJ+9xs7QHAyvA14VR8wIKr8VXYm2hVEvynPJS6aLucnuzPHmcoTlPwqJuOPqQGIoc
-	LWAT3RU4Ir8jyhwN2sM11RavIqNDwcSV8P3gmjq001f9V1q3Z/Zx2GhoHo4xPiihC/IlLEb01T7
-	Il018SfdUdY3lxcjQJiJTFJxNfGpQAKSMmpiYjOOeJbrIR7kCHY46Aa+g6vKrF7L4T/ZM7oYQXP
-	zc1syC+Cg==
-X-Received: by 2002:a05:600c:4443:b0:499:d63b:a6da with SMTP id 5b1f17b1804b1-49b91c17149mr352899225e9.2.1788167609082;
-        Mon, 31 Aug 2026 02:13:29 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0e:1007:7be3:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b4dfdf00csm320935205e9.14.2026.08.31.02.13.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 02:13:28 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Mon, 31 Aug 2026 11:13:21 +0200
-Subject: [PATCH v4 3/3] arm64: dts: qcom: sm8650-hdk: Enable I2S for HDMI
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="GZlabUyL"
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260831091434euoutp029e0b5101b7efbc915a7572eadc0d73b4~Q2QaCPr-v3238632386euoutp02Q;
+	Mon, 31 Aug 2026 09:14:34 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260831091434euoutp029e0b5101b7efbc915a7572eadc0d73b4~Q2QaCPr-v3238632386euoutp02Q
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1788167674;
+	bh=iLiAq5/KXSZI20h/rvdNaMKqZ9O3JX0YW/+nEYN+91k=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=GZlabUyLsSW1C+25w+YhKO0MhPsPRtcYDMi07WTWCTQB3lpOuCDqFZXCQM14Ptsy7
+	 TQSbjifeKM68XGtE0BuiOvNLOGCIxiLi+05e3Qnw0OIEva0KuRDANQ/xLyBi4anlm5
+	 OmzbdjUJch0CuyvtbCd1SvGFINoXJllFhKXXVFfY=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20260831091433eucas1p2176fd27eb0eefa971ac954c8ee5c2bd2~Q2QZPHCRf1671916719eucas1p2r;
+	Mon, 31 Aug 2026 09:14:33 +0000 (GMT)
+Received: from [192.168.1.44] (unknown [106.210.136.40]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20260831091431eusmtip24699d34b786382bf1394417845ac07c5~Q2QXht9KL2368923689eusmtip2b;
+	Mon, 31 Aug 2026 09:14:31 +0000 (GMT)
+Message-ID: <f93b13d4-d6f1-4e75-9fce-926fb0129dca@samsung.com>
+Date: Mon, 31 Aug 2026 11:14:31 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 15/15] MAINTAINERS: Add StarFive JH7110 display
+ subsystem entry
+To: Icenowy Zheng <uwu@icenowy.me>, Vinod Koul <vkoul@kernel.org>, Neil
+	Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss
+	<rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
+	Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, Emil
+	Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+	<sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Heiko Stuebner
+	<heiko@sntech.de>, Conor Dooley <conor@kernel.org>, Paul Walmsley
+	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
+	Belhachemi <db@domibel.de>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	mfd@lists.linux.dev, linux-clk@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+	linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>, Marek
+	Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
+	<maudspierings@gocontroll.com>, Graham Markall <hello@big-grey.co.uk>
+Content-Language: en-US
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+In-Reply-To: <d64ff3f2a03473e4263e2f68823c2cb0f7fd1599.camel@icenowy.me>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20260831091433eucas1p2176fd27eb0eefa971ac954c8ee5c2bd2
+X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-topic-sm8x50-next-hdk-i2s-v4-3-a224aa073f9d@linaro.org>
-References: <20260831-topic-sm8x50-next-hdk-i2s-v4-0-a224aa073f9d@linaro.org>
-In-Reply-To: <20260831-topic-sm8x50-next-hdk-i2s-v4-0-a224aa073f9d@linaro.org>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3230;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=OOFqx41LFykjkz9aRH9vMHMhx2n6MP96nNu+O65Rj1c=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqlUWy6m9k7bxgLBxjY7qURybSWkjLhwaevj/2ifCD
- 2mT7zYWJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCapVFsgAKCRB33NvayMhJ0XXOD/
- 4zIdmCa+Mmb6Sz5GpUCtRZBmGMgfJblC+STDAMk2ecMvWg3Ttpu/Rc8uGPG0QbZSatLkmVKKWWPyF9
- MlV4XQNeBhhCu4FbDUI8px8NL2rdhVFXEqIwWhaTLorG3SMLOzo9t/Gg8B1vZxdxZEzCWtgWlFX3Xl
- YhIITP5ihAYEYXcpi9/4qImByx1Kwg1BCYQ11BnwWykcgifnj1JjkgwCRSTXpO4vYlLlpsYOj+C0qs
- 2Xt6MMQ3XPTIYlKLw0eMH9JooDbIMNA4uQ8LF206y5B3M1bW8hVxmX+mURjwXMq0mAZY54VYdWm60+
- +t/52S46ubVtZ6CqHRA2fjDDRzQuVSKNnPGcgD7HSV7QMZm+Hsdr4HrVwK42dUEMYOlHpPRUOx8NXS
- Sz6LZ6qn9avDOEnLPqzlxuWs413YQz8M9wEIdpj0c64J/G4dqyxBpI9DDcj5xq+tZf/GkFHDh/Ox/j
- DC3JmA1OUwEirRXcFWg3wsYGwO1IvtF/8v58q4g1/E/pvFvmpWCjYKv8AByEOe1ZbREcloxlGFWXdM
- AJcKLjqspnMwBTd+qwHaRztfHKtskOgCgsBqxvp8BQIhHN5vRO01KsaSLf59BGlyvEJk7TBzC1+50N
- OZsUFdMVXZcU9fzacx+8TE4r07hveCby4JdLxYqadhL4+BcSWmnL5jjijEbQ==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+X-RootMTR: 20260828134841eucas1p100590973cc6808103c41d0b0fc82573a
+X-EPHeader: CA
+X-CMS-RootMailID: 20260828134841eucas1p100590973cc6808103c41d0b0fc82573a
+References: <20260828-jh7110-clean-send-v2-0-331680c8b9d1@samsung.com>
+	<CGME20260828134841eucas1p100590973cc6808103c41d0b0fc82573a@eucas1p1.samsung.com>
+	<20260828-jh7110-clean-send-v2-15-331680c8b9d1@samsung.com>
+	<d64ff3f2a03473e4263e2f68823c2cb0f7fd1599.camel@icenowy.me>
 
-Add the necessary nodes to configure the right I2S interface
-to output audio via the DSI HDMI bridge.
 
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- arch/arm64/boot/dts/qcom/sm8650-hdk.dts | 35 ++++++++++++++++++++++++++++-
- arch/arm64/boot/dts/qcom/sm8650.dtsi    | 40 +++++++++++++++++++++++++++++++++
- 2 files changed, 74 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8650-hdk.dts b/arch/arm64/boot/dts/qcom/sm8650-hdk.dts
-index 41d0c7edc433..eb47a75a94bd 100644
---- a/arch/arm64/boot/dts/qcom/sm8650-hdk.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8650-hdk.dts
-@@ -218,6 +218,22 @@ platform {
- 				sound-dai = <&q6apm>;
- 			};
- 		};
-+
-+		pri-mi2s-dai-link {
-+			link-name = "HDMI Playback";
-+
-+			cpu {
-+				sound-dai = <&q6apmbedai PRIMARY_MI2S_RX>;
-+			};
-+
-+			codec {
-+				sound-dai = <&lt9611_codec 0>;
-+			};
-+
-+			platform {
-+				sound-dai = <&q6apm>;
-+			};
-+		};
- 	};
- 
- 	thermal-zones {
-@@ -939,6 +955,7 @@ &i2c6 {
- 	lt9611_codec: hdmi-bridge@2b {
- 		compatible = "lontium,lt9611uxc";
- 		reg = <0x2b>;
-+		#sound-dai-cells = <1>;
- 
- 		interrupts-extended = <&tlmm 85 IRQ_TYPE_EDGE_FALLING>;
- 
-@@ -947,7 +964,10 @@ lt9611_codec: hdmi-bridge@2b {
- 		vdd-supply = <&lt9611_1v2>;
- 		vcc-supply = <&lt9611_3v3>;
- 
--		pinctrl-0 = <&lt9611_irq_pin>, <&lt9611_rst_pin>;
-+		pinctrl-0 = <&lt9611_irq_pin>,
-+			    <&lt9611_rst_pin>,
-+			    <&i2s0_default_state>,
-+			    <&audio_mclk0_default_state>;
- 		pinctrl-names = "default";
- 
- 		ports {
-@@ -1348,6 +1368,19 @@ &pon_resin {
- 	status = "okay";
- };
- 
-+&q6apmbedai {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	dai@10 {
-+		reg = <PRIMARY_MI2S_RX>;
-+		clocks = <&q6prmcc LPASS_CLK_ID_PRI_MI2S_IBIT LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
-+			 <&q6prmcc LPASS_CLK_ID_MCLK_1 LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
-+		clock-names = "bclk",
-+			      "mclk";
-+	};
-+};
-+
- &qup_i2c3_data_clk {
- 	/* Use internal I2C pull-up */
- 	bias-pull-up = <2200>;
-diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-index b679fd8afb7d..4a7b934e15ff 100644
---- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-@@ -6609,6 +6609,46 @@ wake-pins {
- 				};
- 			};
- 
-+			audio_mclk0_default_state: audio-mclk0-default-state {
-+				pins = "gpio125";
-+				function = "audio_ext_mclk0";
-+				drive-strength = <8>;
-+				bias-disable;
-+				output-high;
-+			};
-+
-+			i2s0_default_state: i2s0-default-state {
-+				sck-pins {
-+					pins = "gpio126";
-+					function = "i2s0_sck";
-+					drive-strength = <8>;
-+					bias-disable;
-+					output-high;
-+				};
-+
-+				data0-pins {
-+					pins = "gpio127";
-+					function = "i2s0_data0";
-+					drive-strength = <8>;
-+					bias-disable;
-+				};
-+
-+				data1-pins {
-+					pins = "gpio128";
-+					function = "i2s0_data1";
-+					drive-strength = <8>;
-+					bias-disable;
-+				};
-+
-+				ws-pins {
-+					pins = "gpio129";
-+					function = "i2s0_ws";
-+					drive-strength = <8>;
-+					bias-disable;
-+					output-high;
-+				};
-+			};
-+
- 			qup_i2c0_data_clk: qup-i2c0-data-clk-state {
- 				/* SDA, SCL */
- 				pins = "gpio32", "gpio33";
+On 8/28/26 16:01, Icenowy Zheng wrote:
+> 在 2026-08-28五的 15:47 +0200，Michal Wilczynski写道：
+>> The JH7110 display subsystem spans a PHY driver, a DRM bridge driver,
+>> a parent device and their bindings, and has no existing maintainer
+>> entry.
+>>
+>> Add an entry covering them so patches reach someone who can review
+>> them.
+>>
+>> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+>> ---
+>>  MAINTAINERS | 10 ++++++++++
+>>  1 file changed, 10 insertions(+)
+>>
+>> diff --git a/MAINTAINERS b/MAINTAINERS
+>> index
+>> 8014b9f8253edf15231df215d1b14063a54a55ec..84ac5cfe61cdf775167cf903386
+>> 2724c37946a5f 100644
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -25778,6 +25778,16 @@ S:	Maintained
+>>  F:	Documentation/devicetree/bindings/net/starfive,jh7110-
+>> dwmac.yaml
+>>  F:	drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
+>>  
+>> +STARFIVE JH7110 DISPLAY SUBSYSTEM
+>> +M:	Michal Wilczynski <m.wilczynski@samsung.com>
+> 
+> Feel free to add
+> 
+> ```
+> R: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> ```
+> 
+> if you want. I am interested in this.
 
+Sure, all help is greatly appreciated !
+
+Best regards,
 -- 
-2.34.1
+Michal Wilczynski <m.wilczynski@samsung.com>
+
+> 
+> Thanks,
+> Icenowy
+> 
+>> +S:	Maintained
+>> +F:	Documentation/devicetree/bindings/display/bridge/starfive,jh
+>> 7110-inno-hdmi-controller.yaml
+>> +F:	Documentation/devicetree/bindings/mfd/starfive,jh7110-hdmi-
+>> subsystem.yaml
+>> +F:	Documentation/devicetree/bindings/phy/starfive,jh7110-inno-
+>> hdmi-phy.yaml
+>> +F:	drivers/gpu/drm/bridge/jh7110-inno-hdmi.c
+>> +F:	drivers/phy/starfive/phy-jh7110-inno-hdmi.c
+>> +F:	drivers/soc/starfive/jh7110-hdmi-subsystem.c
+>> +
+>>  STARFIVE JH7110 DPHY RX DRIVER
+>>  M:	Jack Zhu <jack.zhu@starfivetech.com>
+>>  M:	Changhuang Liang <changhuang.liang@starfivetech.com>
+> 
 
