@@ -1,126 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B5E641A551;
-	Mon, 31 Aug 2026 16:24:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8919E448BAC;
+	Mon, 31 Aug 2026 16:25:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788193453; cv=none; b=n4BLY3vSomAHveksZ/cCzG7+q/eAv4FPw5INLVZK2B4h5h+DrcGcacBaK/tLF/06hFag1AHqB0d2OjqZdGnVHCSz7VZ5hzhdfntr8MGpZntZlHdRjJUJjYu8+AWs/3QyeIqDyjooSG2ZgLMr2y1Wv6vJFgSU1ZY2TeWWuJLBlIc=
+	t=1788193518; cv=none; b=FTziatNGp7auL8iRan2UO4KvQJ4syKGZNJiy0izfFpKQMRKN6F5Dib2km/DGp78K58n2Aaqk7AOchGvw37uHkVbx3A2jDf+UayJJSi9Af/VoWbmwHqMOmV+TFnSg53cguxF0wVQtxDRUWjD3wT/jtEFnpVqlZnhaaqEY0UQqNIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788193453; c=relaxed/simple;
-	bh=/w623wBQkABc5+t0xwYrUv6rI0oWlcbDgaEedLQYnfQ=;
+	s=arc-20240116; t=1788193518; c=relaxed/simple;
+	bh=Zlp+e3ClCOnPUrhIpq3Ju3yEMhy50FtSjDAl6SWGWRk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o1vrXdNLyGg+nzu/Ay+83U2nNmbolULt+mE5Z9bby5GL6DXiPUJ1EW3YRRiD2REJbYYNGcebgOfgHcHnBERDydD4iXZZESyoYcf5xL3A++7wv/26ix5auDbv6vRYsG8MI8T2IJ/PHtSa5oBCqPZCKrarsVJut3YnaF6jn2FDFd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KyU/UxBj; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Il4Nw05RMyqaQrbZuUlPqxI1vZlkGAJJ1HbWXt45CAPlQvExSy4Votb9ACkGb4id34sgr/aqzWzLBG8legQehhfDVE4CuHv7c14RgUzULv7zuJrqIJabEE9n4bqw9xBRN9S8LIN5YKUmii+/FgZpRQC2NgSdO/PobAEavsKBYBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kytwMMwb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KyU/UxBj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E3561F000E9;
-	Mon, 31 Aug 2026 16:24:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kytwMMwb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20B471F000E9;
+	Mon, 31 Aug 2026 16:25:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788193452;
-	bh=rg9iFiy/P5Gzx3wegX3cahRTxdCoNO1WoYkvR0YeYKs=;
+	s=k20260515; t=1788193517;
+	bh=5nASZx5gj/Vwh4999m+BDCpKJMDooT3AyaSVyMLpEl8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KyU/UxBj03GcvRe9UOzurXo0xwD1Kuk/uQKNcRep16T4qljYFmHxl9l35tmxRGFSW
-	 GlsG/02qRtotKZ5Dn9znesNPH23fCyo1QyRxNhEi7mNgUAj9I6e7ZamzznM6tXlMQD
-	 anVnpvr3AdP0amfrKWB5ssqqPlvGT4+Rv9w3/l8goH+i00LePXqyxaIoeN0Fkgi5cJ
-	 8wAx1Wadlci1WlfPVx9XGb7cDB6CahAyzPmrZk8+zVYh6ZlKEfPp04rE4V7EyFJNkT
-	 58th7bDDgahLbkWAcDT86adMJ1Ns3I1K6/7l2iYQDTbbxzL135cfgCf13dEdvjyxEp
-	 rCEUmtmRVQIiw==
-Date: Mon, 31 Aug 2026 17:24:08 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Kurt Borja <kuurtb@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 02/10] dt-bindings: iio: adc: support the TI ADS126x
- ADC family
-Message-ID: <20260831-elude-steadfast-b8017ee226d0@spud>
-References: <20260828-ads126x-v4-0-1dc27e9c0260@gmail.com>
- <20260828-ads126x-v4-2-1dc27e9c0260@gmail.com>
- <20260828-cartel-willow-9592e4e8b912@spud>
- <20260830025743.70dc65e4@jic23-huawei>
+	b=kytwMMwbqGmFvv9yV3Vzwt3Y5dOmUaT2p8f3kMhWsV5iTgewrD+I/TYIZnFsIdYcv
+	 rLTYiJ/Gz59TfkJVBTSCSItGunrWmoMw/YYPkyv7HPWuU+yqWVg+WA/Fy61DmE0THw
+	 Dy6P2QQUqoG5YbFFzK0IsScX4crsi/k7icLfKcRdbcjB2kla8NCU15dpmyM5/nT006
+	 PXPBIX387v4zLeKP3DX84mmFwLC34qJnM3YDDK9cPdgb+9NxZ3DDU2vwFtna1IGTWD
+	 ScQWtpLGT9MYey4pQMRvkFsQyVdc2LGmYP4L5hDjTuQ49BZQUSJrPjCda7/ohqOWUz
+	 cJ/0QDM/sdKUw==
+Date: Mon, 31 Aug 2026 11:25:13 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Iranna Mundaganur <iranna.mundaganur@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Sairamreddy Bojja <sairamreddy.bojja@oss.qualcomm.com>
+Subject: Re: [PATCH] arm64: dts: qcom: glymur: Fix missing SMMU stream IDs
+ for ADSP
+Message-ID: <apWp5vxhRYozKQ7Q@baldur>
+References: <20260811-adsp-smmu-fix-v1-1-a596d284c455@oss.qualcomm.com>
+ <40c85916-6694-4976-95be-6ce2a2f19732@oss.qualcomm.com>
+ <6ae07fc4-fa79-4c05-9958-67154e850563@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="V048FjMaoPN4PMOh"
-Content-Disposition: inline
-In-Reply-To: <20260830025743.70dc65e4@jic23-huawei>
-
---V048FjMaoPN4PMOh
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <6ae07fc4-fa79-4c05-9958-67154e850563@oss.qualcomm.com>
 
-On Sun, Aug 30, 2026 at 02:57:43AM +0100, Jonathan Cameron wrote:
-> > > +
-> > > +  clocks:
-> > > +    maxItems: 1 =20
-> >=20
-> > clock doesn't appear mandatory, what does it do?
-> >=20
-> > > +
-> > > +  '#io-channel-cells':
-> > > +    minimum: 1
-> > > +    maximum: 2 =20
-> >=20
-> > What's the use case for actually setting this as a single cell? Kinda
-> > confused by it.
->=20
-> Part dependent, but I think we should just make them both take the two
-> parameters and have the value of one of those fixed to 0 for some parts.
-> Probably easier to understand that way at least.
+On Fri, Aug 21, 2026 at 12:54:03PM +0530, Iranna Mundaganur wrote:
+> 
+> On 19-08-2026 17:16, Konrad Dybcio wrote:
+> > On 8/11/26 6:44 PM, Iranna Mundaganur wrote:
+> >> From: Sairamreddy Bojja <sairamreddy.bojja@oss.qualcomm.com>
+> >>
+> >> Add the missing SIDs for the LPASS eNPU masters to the ADSP
+> >> iommus list. These masters are exercised during audio record
+> >> use cases where Environmental Acoustic Intelligence (EAI)
+> >> models run on the eNPUs.
+> > Could you share a bit more details on how we can reproduce t his?
+> 
+> This use case is not enabled upstream yet, we validate it downstream with the
+> AudioReach application where EAI models run on eNPU0/eNPU1 and need memory
+> access from those masters.
+> 
 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: ti,ads1263
-+    then:
-+      properties:
-+        '#io-channel-cells':
-+          minimum: 1
-+          maximum: 2
+Even more reason to provide a proper commit message, clearly describing
+the actual problem.
 
-This in particular is what I question. Two different devices having
-different cells is fine, this one device allowing both? Nah. It should
-be fixed to 2. The ads1262 should probably have it fixed to 1, as the
-driver already does.
+https://docs.kernel.org/process/submitting-patches.html#describe-your-changes
 
->=20
-> >=20
-> > Otherwise, quite frankly, the binding is too complicated for me! I'll
-> > have to leave it up to the IIO folks to cover whether what's being done
-> > is sane.
->=20
-> I'm rely on David to take a look :)
->=20
-> To me it looks mostly fine but a few odd corners where I'm not sure
-> how things are supposed to work.
->=20
-> Jonathan
->=20
-> >=20
-> > Cheers,
-> > Conor.
-> >=20
+Regards,
+Bjorn
 
---V048FjMaoPN4PMOh
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapWqqAAKCRB4tDGHoIJi
-0r/nAQCL4EiB0v39AnBgsiiFn/oi0tW3kJUHAfStcOb7BDKWywD9FqsK6hfleJEY
-CzCS041SjBYVb2A+KByeqdF6Z5xw3AI=
-=lbHe
------END PGP SIGNATURE-----
-
---V048FjMaoPN4PMOh--
+> >
+> >> Currently all transactions from these eNPU masters will result
+> >> in global faults; fix them by adding the additional SIDs.
+> >>
+> >> Fixes: cd1d174c75f7 ("arm64: dts: qcom: glymur: Add ADSP and CDSP for Glymur SoC")
+> >> Signed-off-by: Sairamreddy Bojja <sairamreddy.bojja@oss.qualcomm.com>
+> >> Co-developed-by: Iranna Mundaganur <iranna.mundaganur@oss.qualcomm.com>
+> >> Signed-off-by: Iranna Mundaganur <iranna.mundaganur@oss.qualcomm.com>
+> >> ---
+> >>  arch/arm64/boot/dts/qcom/glymur.dtsi | 4 +++-
+> >>  1 file changed, 3 insertions(+), 1 deletion(-)
+> >>
+> >> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
+> >> index f04058d2e089..6b06e0acbcf0 100644
+> >> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
+> >> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
+> >> @@ -4084,7 +4084,9 @@ remoteproc_adsp: remoteproc@6800000 {
+> >>  			compatible = "qcom,glymur-adsp-pas", "qcom,sm8550-adsp-pas";
+> >>  			reg = <0x0 0x06800000 0x0 0x10000>;
+> >>  
+> >> -			iommus = <&apps_smmu 0x1000 0x0>;
+> >> +			iommus = <&apps_smmu 0x1000 0x0>,
+> >> +				 <&apps_smmu 0x1040 0x20>,
+> > The correct SID base is 0x1060 (although the mask makes them equivalent)
+> 
+> Yes, will fix this up in the next re-spin.
+> 
+> >
+> >> +				 <&apps_smmu 0x1080 0x0>;
+> > This will bind the eNPU streams together with the ADSP firmware stream
+> > into a single iommu domain - is that your intent?
+> 
+> Yes, we've been told that these SIDs would need access to all the memory
+> regions ADSP firmware stream is given access to, so we want them grouped
+> into a single domain.
+> 
+> 
+> Thanks,
+> Iranna
+> 
