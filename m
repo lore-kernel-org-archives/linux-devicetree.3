@@ -1,148 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D23F3373BE8;
-	Mon, 31 Aug 2026 23:35:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2D11408611
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 23:36:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788219327; cv=none; b=fvl8881VrIprNw3s0D/uEYCWV+z26vv5///uh49Na7jPRdFhWaQTNj84fUKBvtZByUqxKOPZpS38PgeWrmqIg6avgJYT92hnfmXD0LJIuAM9Yvb1uxCnBnAga8WdaD1cN36HJ36DTNl+oJB+BwOmSazhJZjn13gZWKvSud/j7/E=
+	t=1788219371; cv=none; b=oljhZdjt9AGq4LV0BHYPZESB2O63+W2I8+QWPBJxkKtavAGbzMAOtsRhZ3bo67MTQdRKVwk+KDRU3ek1bL6xU7ydsOlUWqKPj4huyZCfCWyZP1tvvwJ5m8aWd/TwAd4EKRNovIosI7RrdRzj9GWXYpfB+YewjLbOD2omAdlDUcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788219327; c=relaxed/simple;
-	bh=dcH48gseYQvmA2mf7QXpOuBF4m8uFA4lDDDhhydM2zY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=u3Qh19xSdL7fNguEqhY5oCd76etyK+h7dM5AJg/jnCiWfBo+QLZV7qi5QxsgOyjN26A4/BHwue1mygJKBb3YpwvU60/XJFDa95xBJAm7IYboP3p79EhTzTL4x8SArMZjUwYmMgI8YJ5DntD/K2WAPY7VLxErT4NQcU/kYBGrIpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZJYwG6DZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788219371; c=relaxed/simple;
+	bh=G9OBNeNLKj+d4+MpvACIFUsr3cu8iGhmiCN/G4h/vVY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YI1B7FmZoJC2AIwxDR+uLLQ9b9/HCqfefc4kj4SNoxFTTLZ3Q/U61LvL/81/vHKgcGvuUK2zQmm9vzlJVVLun2sv6jISPVGG4b7LOouMft9ne8FJY/nEjfLf/iZrWs4PV1sZTv/FQ4pMgY0nZ3pt4UnC0IGKiG4lYAbVR2T68NQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hL/Feo+N; arc=none smtp.client-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZJYwG6DZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA4681F000E9;
-	Mon, 31 Aug 2026 23:35:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788219325;
-	bh=g9I3Oo7PhjFlWmSSidw0playH4A3ME8hXe8Tj1GcN0E=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZJYwG6DZvr8En9vM39ymPkh5a3PU/av/z4VzlWXKWfPd5CeGFc8fhDolMqZO83XFw
-	 BBv3rZh/tAf5DCYZQGfwrWuHWRU7+INDiBM1niBiw/AfizlcJqGsAw+5DkUye6KJnq
-	 D/kTrAmm8kH2mzUJ/wUB5OwG1AhkmTo9z6MjdrGr998i8FPUqDCB/2R70B7CPxiF/o
-	 SXpY/lYFpyYAcz7VeUzk8UVNRe6xyb1Jj9/txyrnY6wk4iIzPa/LQImrz+ghHd7WaM
-	 GklBnbe+QFj1FJATFP9TY1ecU4hmClnHMgbv0xtWy3XX8r/R01HM97laUIkxaGo8r2
-	 67HPLMvoLNTSQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/6] dt-bindings: dma: ti,cppi41: Convert to DT
- schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Bhargav Joshi" <j.bhargav.u@gmail.com>
-Cc: linux-phy@lists.infradead.org, dmaengine@vger.kernel.org, conor+dt@kernel.org, vkoul@kernel.org, Frank.Li@kernel.org, robh@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, devicetree@vger.kernel.org
-In-Reply-To: <20260901-ti-am33-usb-v3-1-5e15c617d2e9@gmail.com>
-References: <20260901-ti-am33-usb-v3-0-5e15c617d2e9@gmail.com>
- <20260901-ti-am33-usb-v3-1-5e15c617d2e9@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 23:35:24 +0000
-Message-Id: <20260831233524.DA4681F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hL/Feo+N"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-38759bcd877so4030544a91.2
+        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 16:36:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788219370; x=1788824170; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wR8+vVM1L2fpbFVOZYNJRkYYqPhCGHqA1jwt2SE8NKQ=;
+        b=hL/Feo+NrsLDxva0v9CWrXa1HyvYxsy2fQ58v895XUMmOTDK4MSMNqxIwPgQQqI9Pu
+         2rFDg35ckHJGuRnnr0gsjsxI0cIyvmlmqL/CwDsMFjFtT01mfGxNBUERajNAjWVZS6AK
+         qfuVs7URsSgxxE2IMkGCl3h+1w5smQd5upj0FQuE+4yI2bgKgZIAQUNWYoSY1shGU7gt
+         MA+QmQ9+niDM5K9D5RfxL/MD4gOTUilNT3OHo5hR/2fiziY50NTs0IQIS86GM4+EjQ+9
+         HMjntnFE8AMLcU+fK8o2Fjbl9cuP2Sp/kl+YQXgT2ohhudJ9jfGkBG5XDpl0U9bpB0lr
+         E/Fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788219370; x=1788824170;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wR8+vVM1L2fpbFVOZYNJRkYYqPhCGHqA1jwt2SE8NKQ=;
+        b=sCslv36EGjIUCfSL33/3YOobFq2mED7TjN8yFlLMVnDUXFexYQFQkQ+YCO19d7PhEI
+         rvkvg8+k0Po4jh8Cv73B23pHC51Ps1YZnDAlrcDOULrOa7VDGgXpjkrl+EAusqjUPv0J
+         d3L1/wendY5qXYUHQeZ+Th9v+Bq5h2C3rJw2wPmnyRtHa5EHMx7Wj0VNN83uMtPvsOVd
+         uisUXMk55qE2L70kYu9AQbZ9D40aO3GGqMJSH4NIlM2uzkyAWX0AzWsYsj8oMoxxFApc
+         KnmnQYGdPicAdgEEVbfgBMLaMRwR4Nu7JUwoZYiv8zZcKPAsC5W7dSW1QExy+BRSFXmL
+         ufHg==
+X-Gm-Message-State: AFuF++kZ0EnuuijBsjuOC1W15p5pO8vukcr0NHw1/PL4UV146WCepRFA
+	+VD1ukgB/zko/ClUyPo75V4LUzNid2pyP55gxSD8PyF/b9mpPSVKQ0efe9gTOw==
+X-Gm-Gg: AYBFou3PusbJMLJvEF7/+0bh8sD7cV30lty0uGZGgbIs9I/HXdWJU7H9bSb+ZoVoeRT
+	koUHTv7CD3cRHE3T6YUzgb/2eisEKVrfL744KShSwPG5tkypyWJHGugoeG3qXfdLbrK4LF5s1QQ
+	XSfc2upQRQdI9F+es/yHEqM9v2p2KLXLQSMUX8AvyafKOiiPJJfDBviaE6Hmcp9uvoE5obAeHrc
+	tJTPAzxm+7z1i6VxTSQlnbNtHTb3/+ZQaRy/K3Q3Bv0oYq1cc1jpDthORNzRCcjhOiu/SO0kt1C
+	Cvj5rvavkajjpcKaL+6LBe3KTH8rgKGu+xEXCQjQDE2ttEISLl1LqLndusz6W8BwN9+0kpntmdX
+	dxyOvygwM1AmkTNN09NvwBzlPIhrZ+ejTmLlZPHbt9d8+hKg4wMym3X9wGCPfeSral9ds2mJwsD
+	Mhv7fjsTqBlgszOyBcKtSqmMnmJpEDzuYZFd3s2PSYfTtaGukHeVI/v0xkpNS2Sf1mZS0e60FbN
+	7e2QA53SInwwdery0lAgERF9to221wsUBDc7xdD43QzkUsD/Za3qWcqoVAFMTPsLov5VO2DM5VJ
+	3B09pNIZfVLNODc9VLAO/+TygPu7DTl7P49AjkxvZf0plM9I
+X-Received: by 2002:a17:90b:54c5:b0:395:4de4:92c7 with SMTP id 98e67ed59e1d1-396d0e5ccc7mr47398358a91.3.1788219369668;
+        Mon, 31 Aug 2026 16:36:09 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d4a1732sm1992599a91.7.2026.08.31.16.36.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 16:36:09 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: devicetree@vger.kernel.org
+Cc: Andrew Lunn <andrew@lunn.ch>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Marvell Kirkwood and Armada 370, 375, 38x,...),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] ARM: dts: helios4: use national,lm75 compatible
+Date: Mon, 31 Aug 2026 16:36:07 -0700
+Message-ID: <20260831233607.13729-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] The `interrupts` property is not marked as required for the `ti,=
-da830-cppi41` hardware variant, allowing incomplete nodes to pass schema va=
-lidation.
-- [Low] Missing property type definitions for deprecated custom properties =
-`#dma-channels` and `#dma-requests`.
-- [Low] The unit address in the example node name does not match the first =
-`reg` address.
---
+The temp@4c node uses "ti,lm75", which no binding covers and which
+dtbs_check rejects:
 
-commit efe52f34688a9f85bd73ed6d80af2e1107be14ba
-Author: Bhargav Joshi <j.bhargav.u@gmail.com>
+  temp@4c: failed to match any schema with compatible: ['ti,lm75']
 
-dt-bindings: dma: ti,cppi41: Convert to DT schema
-   =20
-This commit converts the TI CPPI 4.1 DMA controller text bindings to DT
-schema. It merges ti,am3359-cppi41 and ti,da830-cppi41 into a single schema
-and adds undocumented properties like power-domains to match existing device
-tree usage.
+The LM75 was originally a National Semiconductor part (now owned by
+TI) and the lm75 driver binds it via the matching "national,lm75"
+entry. Use the documented compatible; no functional change. The i2c name
+fallback ends up binding it.
 
-> diff --git a/Documentation/devicetree/bindings/dma/ti/ti,cppi41.yaml b/Do=
-cumentation/devicetree/bindings/dma/ti/ti,cppi41.yaml
-> new file mode 100644
-> index 0000000000000..a8c28e8ada072
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/dma/ti/ti,cppi41.yaml
-> @@ -0,0 +1,109 @@
-[ ... ]
-> +  power-domains:
-> +    maxItems: 1
-> +
-> +  "#dma-channels":
-> +    description: Deprecated, use dma-channels instead.
-> +    deprecated: true
-> +
-> +  "#dma-requests":
-> +    description: Deprecated, use dma-requests instead.
-> +    deprecated: true
+Assisted-by: opencode:big-pickle
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ arch/arm/boot/dts/marvell/armada-388-helios4.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-[Severity: Low]
-Are the #dma-channels and #dma-requests custom properties missing a type
-definition?
+diff --git a/arch/arm/boot/dts/marvell/armada-388-helios4.dts b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
+index 548fb92ca811..39b2d4fa742c 100644
+--- a/arch/arm/boot/dts/marvell/armada-388-helios4.dts
++++ b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
+@@ -200,7 +200,7 @@ usb3-ilimit-hog {
+ 				};
+ 
+ 				temp_sensor: temp@4c {
+-					compatible = "ti,lm75";
++					compatible = "national,lm75";
+ 					reg = <0x4c>;
+ 					vs-supply = <&reg_3p3v>;
+ 				};
+-- 
+2.55.0
 
-The schema tool strictly requires all properties that do not match core
-regex patterns to have an explicit type via a reference. Without a type
-definition, does this regression cause schema validation to fail when
-checking the bindings?
-
-> +
-> +required:
-> +  - compatible
-[ ... ]
-> +allOf:
-> +  - $ref: /schemas/dma/dma-controller.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: ti,am3359-cppi41
-[ ... ]
-> +    else:
-> +      properties:
-> +        reg:
-> +          maxItems: 3
-> +        reg-names:
-> +          items:
-> +            - const: controller
-> +            - const: scheduler
-> +            - const: queuemgr
-
-[Severity: Medium]
-Should the interrupts property be marked as required in this else block for
-the ti,da830-cppi41 hardware variant?
-
-If incomplete nodes pass schema validation without an interrupts property,
-won't this regression cause the driver probe to fail when it attempts to pa=
-rse
-and map the interrupt?
-
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    dma-controller@7402000 {
-> +        compatible =3D "ti,am3359-cppi41";
-> +        reg =3D <0x47400000 0x1000>,
-
-[Severity: Low]
-Is the unit address in the dma-controller@7402000 node name mismatched with
-the first reg address?
-
-The node name uses 7402000, but the first register address is 0x47400000.
-Will this formatting regression cause a compiler warning when the examples =
-are
-evaluated?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901-ti-am33-us=
-b-v3-0-5e15c617d2e9@gmail.com?part=3D1
