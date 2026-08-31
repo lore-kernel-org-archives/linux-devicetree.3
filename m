@@ -1,174 +1,261 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E57A23C3F59
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 07:17:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788160669; cv=none; b=YF18CIg/FcNp+n8ZVj64OSCgute5kMHYYm+imjd3SqPrt/sG/gSTyO/HJYFznPmPCexdzaH0m9717u5eSYFtDv/1ZdoaYtx5F+by4coRdMEDMwKRn2e39q4SE9mFct0SGQ+Yi7lnxM+eQ+EvVVJ7q0HSro/RCKCoAR5DehCgeXk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788160669; c=relaxed/simple;
-	bh=No3arZkb7GS9BUfPj5yGniRYgwn15bXy2rIPMwW8mSU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UN7BogzchOWXFPJaZBWWgThpwcrTHV9KL8v1k5hdMEbOudSA9z7hgq1j3A/L52recAI/CX3PNKNRxEcScG8x9pL7VlK+/wwi7lveNJCzL1NWgGAEY3KixQA+Ls/iu/7QTmxPbxt7qjfLlRBo/yMhCm59Y1uJ7IO281x2UUlpQt4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PATFg+ob; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iibC0QGG; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D3A3B47FF
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 07:20:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788160825; cv=pass; b=aXg9oDLXbxQJ1Zdhl4QUqdzlkfZPwtJAZGijxA91MeZgLwFCGc/kSNDhpAY/eye6HXj+dYG4/F2qgmqc+QTKvuTEzWU0V0AqpICrTLoowZS+BURJiNzVrYySs6vduF1ve+tWfNhWKcmR0dGTmb1d1r3+mvGRB9itE6UcZpBpG1Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788160825; c=relaxed/simple;
+	bh=n9o2swquvhR29jn4mFjOtM91XSnruoxkyihW01u7frE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=n7RU+mlG4AOq7+5jDeUEQUVH0ABFCU3mKiNlPG0evYP+KSq2R75JmE60w4tKdcZHvttVpBQZy5w95UzfXbh6ElFMN9Dijq2rhy8MZEBSbQykIcn7Szf480T9IXvCPBc+I8dmoJhZSmMAeRxieAKXfXXxi23RE37debXpqt2qB4o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tomeuvizoso.net; spf=pass smtp.mailfrom=tomeuvizoso.net; dkim=pass (2048-bit key) header.d=tomeuvizoso-net.20251104.gappssmtp.com header.i=@tomeuvizoso-net.20251104.gappssmtp.com header.b=oKkDKIrp; arc=pass smtp.client-ip=209.85.222.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tomeuvizoso.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tomeuvizoso.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PATFg+ob";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iibC0QGG"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67V52p2J2522792
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 07:17:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	794VzWlX7I18XqBnq0FNJYi5numZyllg0oZt0/y/SIw=; b=PATFg+oblYm0y8tv
-	2rQyngQZfdh9buU8BgGsGB5pTM2ORc4rmPaTBIiMGHMMGlZ84bXO89R4BFqHjcR9
-	7iM50IBkmAqpBRGYJkFU9Hia4zlauRGpKUhJW78EQ3Itvsgx9MF/HVCDtwkRWCyD
-	7k4u9ZAV+DiGE57vPCdDaFzHMu/gYf/YUVQXUGp3CYq6m2TdyWdFyXPBwADjmOv2
-	ylE7MJ2mNTMg+CIXuBLtzJem0xhUumnni47ePizj6h7y52cv8Sm14l8GmGUXBkBR
-	mA+OA72dT28Fr8/g7lYplxITDng3ywrOpIRnQ62ghZIQl51I+AW82mVLb5EfwXxF
-	4yhf4g==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gcv7w9dkq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 07:17:46 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-90e8a6a2e5cso1242056d6.3
-        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 00:17:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=tomeuvizoso-net.20251104.gappssmtp.com header.i=@tomeuvizoso-net.20251104.gappssmtp.com header.b="oKkDKIrp"
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-938cd95b06eso257295385a.1
+        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 00:20:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788160820; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QoZsVIhoMX2Ps5ouQSNXY1aT2XREmK99IM+p13cvIMvxayRgieF371cWtZYXl9Jwx6
+         E0ICHI4Zbz4toWXDs+SHCkeYvcOkbPvFaF++z5JiYvh7u0EDGVfKY+lBzClGCj3j3mN3
+         zHLbFfA6cKI/lQbBE2Vo7RIdXSinkGijqvL/+i4teX7Q19LaYNEanYwDVbLG1c5tXlBn
+         FJDNB0h0H6mPujgE/2aIv/2bfLZ3ct8bcxq5K5yxhrtuWwOPRceJyxuyDBEE2ceBV0D/
+         Rzc2mmDTaGK5G8TP5mas8VlhNA6U8r3wLpSS7kGNKsxtHwrHmPU7322HHhXtDwwjDqwB
+         3B8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bFWfbb/gIctZHoo0CDVoZsBSY4wt/NAsN/U4bJzB5KM=;
+        fh=iOzYr30d4oaYs+bcM41e0sm3jMWpT8n/af8oevF7l78=;
+        b=LcmHectCi+kt2BB3VLZyJQtyKIyKBLW3MdCQvEYlfh7UgWiBWwczCKcBllVxM+unOX
+         znBr+E86s5+9BdUp8pu9eIf5nWMLLIR0kj+//luHXSx85csXNF6YNUwQVGauMxtSL15m
+         RyQ3R0azCNELMDzWEQ1LeFL7ET2AaGd94JSwILEiPEaWp7kSsX6obFqsd6uTr131sSAb
+         HfYFWhpzVfTpgsMcSIs8AZ4+aFtx1GEO4MO1ci7Frl6QkgvtdE+Sj41TQVa0RzbjFk1B
+         cOaaRYBQv/T9MLkxGZgL7Ic3fg0SmoLX1lFJ5xBdY37KYOYnCPp+BS/MH4nM1RRj6oNY
+         /ZCA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788160666; x=1788765466; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=794VzWlX7I18XqBnq0FNJYi5numZyllg0oZt0/y/SIw=;
-        b=iibC0QGGFok5YtIVLv9VQEN0tmRwAmZ3joFHpx/XhVLuWItjkC/LOGZ5rlOZabcW+j
-         NHqwMpApWSZcdrVDiSc1vs6+Ik+sWCCjTffRVSwmZrcUOZ1D31+EZjGqo/tcAaJmh3mC
-         mRm2ro3aNWcT8NFvPxmxi1O7vvwreVASyjzhY0Jpjigc7TUUyGmo1Tb4QJN8ivqlxdtC
-         hw1Iniq+2sLJQ7t6feOQMmSZz4LsGa7jGjNJFsiy1yl8hjK0Dd6IoVICO9EdQq+G9aF1
-         TiOS2JGEZkU3jEkHp9xEsdcJ998ytp9xyx6w4GtNgqrxD1AM7dnNHd5Qs92r7m/oGgLU
-         pJNQ==
+        d=tomeuvizoso-net.20251104.gappssmtp.com; s=20251104; t=1788160820; x=1788765620; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bFWfbb/gIctZHoo0CDVoZsBSY4wt/NAsN/U4bJzB5KM=;
+        b=oKkDKIrp3dd1z/MFoWMPTe92a7sYHI0OriCkfqNLgRX3fwZHkPBNKTcMznXcJjkL9K
+         wMJEtNGO8lbxlMPrh/8IRYu60TTsZxxekMMRgzZpzMcfj5g8V1tiNmHhumSehIpPK9CX
+         4QJwW/KbQgZfIZbQh4HDHG5JVq0j4umLIfx9WLA/n2VJA795VWThsG7ydtQyWgS/Fg5A
+         QMjBRjlIZ+gNvZE4XphqIntjccUq/stBsE+F13cZ6fP/UwykeTYM46BoirNZ8V9mZhSM
+         AfVZes2zycLMeNOsjbMDIyREnmFTowIpgyuk5lHpPUJzbjT1UEAyexVCNGqIARYvsRNI
+         3Cuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788160666; x=1788765466;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=794VzWlX7I18XqBnq0FNJYi5numZyllg0oZt0/y/SIw=;
-        b=YPqwnhfvSk5RMWOcztIPERz1XxVvNcSY0ykSmgeuzZeipBdpTgqTnJcCa+4yOQ5jxR
-         klPrY6VVjKNnhmKCiagFvFwAZhgEpM22fD1ikPH0SqvbYAzhboVXkslVw8QVQN4bw1ds
-         0igeIH/ZQqGXBdmTWDj92vkpU4aW/Pv7LcxCiaJRnQs+9ir6dPM1WZnHGzfUnGNrRCPe
-         iY8+xQy33goCvKzZyCYkwivGN0spufo1CO+vS4Huw6YvyG5hJto3fJ4+QnKtdVo4f5O4
-         ygdeAWYpT/Zml2bTxMpzVm92j6AKtP+UgKE53++WiRYDGpiTn5pVIoGy4cyd9KStH/Zi
-         rCag==
-X-Forwarded-Encrypted: i=1; AHgh+RpLZiYZgi3S/+QOtnWFN6lBlY2tEyIQjFBwyCmBqbKFBxasO3T53uNOAExl2tIsI9zre/VrP8Om01Qh@vger.kernel.org
-X-Gm-Message-State: AFuF++liQuWU+YnNN5FySjKlAWZ4/QYb+5UDSFM8FbuAI346Fchwn0xR
-	zJq8KRiEL5NgMYUimEi3WonraktvBoerEmHn/WSlr5T/zRHDqIhkS/rwDkElvXpjQY77EMitPAE
-	GNA68Yjr/BAprRrEvlEIfcaOg1oqTIoyccPXow+Uj0fZ77OOjc4MbEJ2f9EoeM3iH
-X-Gm-Gg: AR+sD12I5nkpYuVVBzywulCgQh5wrC1Ni+daCxF88/RwciJqUSqx++g5/wkuzaRFCo7
-	iNaHABJAQt0fPZf5Tsdkqyj4hlDYG40M+Rka9DTSEeeuRDNPkmhHSUzQ4mrVQyskxP4hiD4YDdg
-	9rgXVlhHLKHBFQVsLvqV/p0RLbQV5509URfQFC0tkQHYPpPxrp9fC1yHNZ2r4sbNuCXHh6VFOh3
-	leqEWnPENPfl5KWBf6WvziysQVw9o+wM4KpJIpWsPWHnbWvBmyNK7obxKislbggAbreQyqQsWYd
-	pz99cV5Ecg4g/YO5EpNL9vGmbg5n+b0I26owR+QVnUipd7l+r+lGso8eF/7mQHdTy10nyGcgENV
-	FPyhOfkUJkAWXgrV1A4Ciaw==
-X-Received: by 2002:a05:620a:29d2:b0:939:288a:8a30 with SMTP id af79cd13be357-939288a8d25mr765030485a.6.1788160666010;
-        Mon, 31 Aug 2026 00:17:46 -0700 (PDT)
-X-Received: by 2002:a05:620a:29d2:b0:939:288a:8a30 with SMTP id af79cd13be357-939288a8d25mr765028685a.6.1788160665503;
-        Mon, 31 Aug 2026 00:17:45 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255f29a9dfsm398576666b.63.2026.08.31.00.17.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 00:17:44 -0700 (PDT)
-Message-ID: <735301a5-3685-42ee-81c5-57c9a04af856@oss.qualcomm.com>
-Date: Mon, 31 Aug 2026 09:17:42 +0200
+        d=1e100.net; s=20251104; t=1788160820; x=1788765620;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bFWfbb/gIctZHoo0CDVoZsBSY4wt/NAsN/U4bJzB5KM=;
+        b=sp1XPe2VVWv2YMSr20ucD+zJZN74giIDPI4QnglhzA5nSlCTyZ9mitXzI/R0Dv8JMv
+         lWMLpytrryFMn23u9Aa/7Hn951Lav4FFcLInAlnPMf1W3Pwp40+AHMH7w6YD1PGwcT3I
+         KSjdZqTZ3HYlpeNLcG7XPgzz2xx+HWJ/vHrjHOYLHqNedzaB13v0D1E3JcZnWBbtIdIU
+         V1bz2P5hXmPk+Y20JtA+XMOXYtUMpi9r8ZP25pheWB9HDLZRpvyiN/wITOjHy6TGGN54
+         LyzAtGHgtIu24ULo77Fesh22rHYP9GaJCjEDxhguckBJ65J9xgqzA9P2q4guJEh7O8VL
+         M5Cw==
+X-Forwarded-Encrypted: i=1; AHgh+RruG6LME+GBLI2A3KNWRV5AfxVh856ZbOTXxI1J9epSCTQGOXMRc/qzuYrCLYWkb45FgssD9Wvh1B/W@vger.kernel.org
+X-Gm-Message-State: AFuF++lwqPCdUqfwaWGud74k1AmoUP4rQJzWKyB0OCu0ccM7FG61bDxx
+	zEpqepr/RDcrh6Ofmkv80XNgoZOCIjKmNMpfNCC0VxbnbK6nDM6d5Xgsf8FhPK7yGXDUZWiV0Nh
+	6AX1d/M+zfCppuYWYMXj69nZSoBz4wl7zgjb5QpqKVw==
+X-Gm-Gg: AR+sD10yJGOrDIK3rKBLIC9yev5HK2E5jzUQzH2H5tfMbZSEv4gc/614B5AWWnptIu4
+	o4eA5unjsbTN2LO18WVmrRSzDtJ9sTgd6pPUdp5ef3Y9DU4VSEt4bWcifgYEBrLeTsygrU5+Yli
+	+JHgey5M4eDWw1ITihCYQZlZN1OtCEgRx/+8yahlrtu4ZRcJR23XnTPD++QXEB2nY9Epr/wIJwV
+	a9E3ihrLko/AO5SjXoI7eglZ4EjFOhYMPKtFXJfxiry+WzUB2JXr/vi7j3WKfj7u/DmSIl9see9
+	CMT89CA62WdYIKcYTuRLaRPcrAeaTUg5a2TsA6dit/Y4
+X-Received: by 2002:a05:620a:1d02:b0:939:619:c6eb with SMTP id
+ af79cd13be357-93936c7a141mr714176285a.8.1788160820472; Mon, 31 Aug 2026
+ 00:20:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/3] arm64: dts: qcom: Add HP EliteBook X G2q 14 AI
-To: Jason Pettit <jason.pettit@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Mahadevan P <mahadevan.p@oss.qualcomm.com>,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
-        Ananthu C V <ananthu.cv@oss.qualcomm.com>
-References: <20260829-glymur-send-v5-0-a11bdf6a4b66@oss.qualcomm.com>
- <20260829-glymur-send-v5-2-a11bdf6a4b66@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260829-glymur-send-v5-2-a11bdf6a4b66@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=E9f9Y6dl c=1 sm=1 tr=0 ts=6a952a9a cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=UFs7FDn9XIzN9GNbEyIA:9 a=QEXdDO2ut3YA:10
- a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDA2MSBTYWx0ZWRfXwAePvhqw+t7s
- BpRID5FxMQYlkcqyzO+hWdTEgoO3b9+x8pjMuJQoOJ8TbmtYIdfJYVv6PpzR3uNclSRBah8NxHZ
- t/e2SVkJEQiDNeX0Y4yaIzzb5rk+oi0=
-X-Proofpoint-ORIG-GUID: EBBuaCH9HzxgkOQRmtwfeqlBrT8OZnxh
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDA2MSBTYWx0ZWRfX+c4fDsko/weU
- WlhHI3a9DTyX5NFK7J3EeTRuSctJfmspc6s00QiHgWlUos885ay2muv/YdEu2Ffmwpsa0EdKX5C
- jhWjBsK0iowSSn858Cj9PPk4C6QUbVVAKdrZieeguny8ftdQGe4ACQDbxoQ92HH6hDAh68W5m7N
- tTvVdljakyTwQpy5hjgIPtMoMluGp84FjG59m6RF3OPmN5mOEi3iOMjrX1klY3zIUtNyCIN62I/
- 9/67tNzV9JqkvQXy2PD1tau6cuD13ZjE5gUrBsialsfhQTbWDiTZNIV3TamLbHyEuxvpL5tH3wl
- l5Zz4RoauR6WsZaUP/iV+I7X8QdtT4iw1e2xUAIBNSUiJ4Q/uxH4N3NM6w3rum4u3Oj3kwFH8Bu
- YyEiQsSAfn/Jwvva54pV8/B7KJSBZLd6YbjIvaZSpcRjaeGiAxVP681osUBPMqArBmCRyUx5ElL
- CQ86BwbJrmvcZ0eh19g==
-X-Proofpoint-GUID: EBBuaCH9HzxgkOQRmtwfeqlBrT8OZnxh
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-31_02,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 bulkscore=0 spamscore=0 phishscore=0
- lowpriorityscore=0 adultscore=0 impostorscore=0 priorityscore=1501
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608310061
+References: <20260831040804.24111-1-gahing@gahingwoo.com>
+In-Reply-To: <20260831040804.24111-1-gahing@gahingwoo.com>
+From: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Date: Mon, 31 Aug 2026 09:20:09 +0200
+X-Gm-Features: AcwNN1Uwr5NzEhJ7J-T4GkpAbcQEn3hzAH0qQngAbR_wX7Qh73vwn6zU-qNzhjg
+Message-ID: <CAPsqS2TGXOCOL8BzaJ4NaJqtuKid7vhRdJq-80ngGxhNN_UWCw@mail.gmail.com>
+Subject: Re: [PATCH v10 00/13] accel/rocket: RK3576 NPU (RKNN) enablement
+To: Jiaxing Hu <gahing@gahingwoo.com>
+Cc: heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, ulfh@kernel.org, 
+	p.zabel@pengutronix.de, ogabbay@kernel.org, zhangqing@rock-chips.com, 
+	royalnet026@gmail.com, u.kleine-koenig@baylibre.com, 
+	chaoyi.chen@rock-chips.com, diederik@cknow-tech.com, alchark@flipper.net, 
+	dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+	iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 8/29/26 9:08 PM, Jason Pettit wrote:
-> Add board support for the HP EliteBook X G2q 14" Next Gen AI PC
-> (product SKU C4JG0AV, board 8E91), a Snapdragon X2 Elite (Glymur)
-> laptop, using the "hp,elitebook-x-g2q" / "qcom,glymur" compatible.
-> 
-> Enabled by this device tree:
-> 
->   - internal eDP panel (samsung,atna33xc20)
->   - 2x USB Type-C with DisplayPort alt-mode and USB
->   - chassis USB-A host port (usb_mp multiport controller)
->   - internal eUSB2 host with the Elan fingerprint reader
->   - NVMe SSD on PCIe5
->   - Wi-Fi and Bluetooth
->   - HID-over-I2C keyboard, touchpad, touchscreen; lid switch
->   - Adreno GPU and GMU (Freedreno GL on Mesa)
->   - audio playback and capture
->   - real-time clock
->   - compute DSP (cDSP)
-> 
-> The DisplayPort outputs need the Glymur DP PHY series at runtime. This
-> device tree builds without it.
-> 
-> The chassis HDMI jack is removed in v5. It is driven from the usb_2
-> combo PHY as a DisplayPort-only instance, and that path does not come up on
-> Glymur. The same failure was reported against the already-merged Asus
-> Zenbook A16 (UX3607OA), which describes its usb_2 combo PHY the same way. A
-> fix is in progress but not yet available.
+On Mon, Aug 31, 2026 at 6:08=E2=80=AFAM Jiaxing Hu <gahing@gahingwoo.com> w=
+rote:
+>
+> Based on Igor Paunovic's "[PATCH v2] accel/rocket: request the core
+> clocks by name", as v6 through v9 were.
+>
+>   https://lore.kernel.org/linux-rockchip/20260729130743.128876-1-royalnet=
+026@gmail.com/
+>
+> Tested on a Radxa ROCK 4D, on next-20260814. The tree is byte identical
+> to v9, so that is the same test rather than a new one.
+>
+> This adds the RK3576 NPU to accel/rocket, which today supports RK3588
+> only. The RK3576 carries two cores of the same RKNN block, wired up
+> differently. Two extra convolution buffer clocks, two power domains per
+> core, one reset rather than two, no NPU SRAM rail, and a PC_TASK_CON
+> that packs the task number into sixteen bits rather than twelve.
+>
+> What changed since v9
+>
+> No code. Every patch's diff is byte identical to its v9 counterpart, and
+> below the --- the only change anywhere is 5/13's git note. Above it, six
+> commit messages each gained one trailer line and nothing else. Six tags,
+> that note, and the base-commit trailers back where v8 had them.
+>
+> The note first, because v9's cover letter said 5/13 carried it and the
+> posted mail did not. Rob Herring's bot asked on v8 for the dependency to
+> be recorded in the patch rather than only in the letter, v9 said it was
+> there, and it was not: my send script never passed --notes. Igor
+> Paunovic noticed while applying the series and said so before v10 rather
+> than after, and he had the cause right. Nothing was lost in a rebase;
+> the flag was missing. The script now regenerates with --notes and
+> refuses to send unless exactly one patch carries a Notes block.
+>
+> Igor also ran the 19 August protocol again on v9 as posted, on RK3588,
+> an Orange Pi 5 Plus with all three cores bound, PROVE_LOCKING=3Dy and
+> DEBUG_ATOMIC_SLEEP=3Dy, and a local test-only patch lowering
+> JOB_TIMEOUT_MS to 2 ms so healthy jobs cross the timeout. Two passes per
+> kernel at console loglevel 8 and 4, serial captured on a second machine.
+>
+>   v9, two passes         12 and 11 induced resets, all recovered,
+>                          48 of 48 within 1 on both, including the
+>                          inference after a forced autosuspend and
+>                          resume. No MMU faults, no lockdep hits,
+>                          nothing on the console.
+>
+>   without 1 and 2/13,    8, 10, 12, 8 and 15 induced resets, all
+>   five runs in the       recovered. Four runs clean. In the
+>   same session           remaining one the inference after autosuspend
+>                          reported success and returned a constant
+>                          buffer, all 48 output channels at 0x80,
+>                          which is not this model's output zero
+>                          point, while the CPU reference varied
+>                          normally. Zero kernel messages, zero
+>                          lockdep hits, nothing on the console.
+>
+>   1, 2 and 3/13 only,    13 and 13 induced resets, all recovered,
+>   two passes             oracle 48 of 48 throughout, including after a
+>                          forced autosuspend and resume. On the 1+2 arm
+>                          a round that ends in a timeout leaves the
+>                          affected core runtime-active even through a
+>                          forced autosuspend; with 3/13 applied the same
+>                          sequence leaves all three cores suspended.
+>                          That arm is where 3/13's Tested-by comes from.
+>
+> A job that signals completion while its output buffer is never written
+> is the silent form of the race 1/13 and 2/13 close, and across 102
+> induced resets in nine runs that day it appeared only on the arm without
+> them. It is a better statement of what those two patches are for than
+> anything my own logs have caught, which has always been the loud form:
+> a message, a wrong answer, something to look at.
+>
+> The tags, and where each came from:
+>
+>   02/13  Tested-by: Igor Paunovic   # RK3588, three cores, induced
+>                                     # reset, differential base,
+>                                     # JOB_TIMEOUT_MS=3D2
+>   03/13  Tested-by: Igor Paunovic   # RK3588, three cores, induced
+>                                     # reset, JOB_TIMEOUT_MS=3D2
+>   06/13  Acked-by: Conor Dooley
+>   07/13  Acked-by: Conor Dooley
+>   08/13  Reviewed-by: Abel Vesa
+>   09/13  Reviewed-by: Abel Vesa
+>
+> The two Tested-by comments are not the same string, and that is how they
+> were given. 1/13, 4/13 and 5/13 keep the tags they had; Igor checked befo=
+re
+> testing that 1/13 is byte identical to v8 1/12 up to the base-commit
+> trailer and 4/13 identical to v8 3/12, so those tags still describe what
+> was tested.
+>
+> The bindings are unchanged since v9, where dt_binding_check was clean on
+> all three with dtschema 2026.6 and yamllint 1.38.0, and CHECK_DTBS was
+> clean on all 13 rk3576 and all 48 rk3588 dtbs.
+>
+> Two things I raised in v9 and would still rather hear about than guess
+> at. 8/13 does three things: it adds the settle delay, renames a macro,
+> and gives RK3576_PD_NPU a regulator, which also makes every RK3576 board
+> force that domain off at probe. I asked whether it wants splitting;
+> Abel Vesa's Reviewed-by may be the answer, but nobody has said so, and I
+> would rather split it than have it merged on my silence. And 12/13 gives
+> each core both NPU domains, which is the description that has been
+> tested here rather than the topology; if it should be one domain per
+> core, 5/13's minItems has to change with it. That one has had no reply
+> at all.
+>
+> Nothing else moved.
+>
+> Jiaxing Hu (13):
+>   accel/rocket: take the completion register writes under job_lock
+>   accel/rocket: wait for a running IRQ handler before resetting a core
+>   accel/rocket: let the core suspend after a reset
+>   accel/rocket: factor the completion tail out of the IRQ handler
+>   dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
+>   dt-bindings: power: rockchip: allow resets in a power domain node
+>   dt-bindings: iommu: rockchip: describe the RK3576 NPU MMU
+>   pmdomain/rockchip: add optional per-domain power-on settle delay
+>   pmdomain/rockchip: cycle optional power-domain resets on power-on
+>   accel/rocket: select the per-core clock and reset counts from match
+>     data
+>   accel/rocket: add RK3576 NPU (RKNN) support
+>   arm64: dts: rockchip: rk3576: add NPU (RKNN) nodes
+>   arm64: dts: rockchip: rk3576-rock-4d: enable NPU
+>
+>  .../bindings/iommu/rockchip,iommu.yaml        |  28 +++++
+>  .../npu/rockchip,rk3588-rknn-core.yaml        |  47 ++++++-
+>  .../power/rockchip,power-controller.yaml      |   8 ++
+>  .../boot/dts/rockchip/rk3576-rock-4d.dts      |  13 ++
+>  arch/arm64/boot/dts/rockchip/rk3576.dtsi      |  82 +++++++++++-
+>  drivers/accel/rocket/rocket_core.c            |  28 ++++-
+>  drivers/accel/rocket/rocket_core.h            |  11 +-
+>  drivers/accel/rocket/rocket_device.c          |   7 +-
+>  drivers/accel/rocket/rocket_drv.c             |  28 ++++-
+>  drivers/accel/rocket/rocket_drv.h             |   2 +
+>  drivers/accel/rocket/rocket_job.c             | 119 ++++++++++++++----
+>  drivers/pmdomain/rockchip/pm-domains.c        |  75 +++++++----
+>  12 files changed, 385 insertions(+), 63 deletions(-)
+>
+>
+> base-commit: 4477a78374a57c3809b172ad30cceabda48c47c6
+> prerequisite-patch-id: 46ebb679e93d3d25393e8cbf8fc3c955bcc01bd4
 
-FWIW this paragraph would be better suited to go under the --- line
-(the part that doesn't go into the git log), but it's fine
+Hi Jiaxing,
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+I want to get soon to review this and the other pending rocket series,
+and in the meantime something that could help this moving would be to
+get a review from Sashiko.
 
-Konrad
+As you can see in [0], Sashiko is not reviewing this series because it
+doesn't not understand yet prerequisite-patch-id. Can you please
+resubmit the series with Igor's (presumably) patches bundled in it?
+
+[0] https://sashiko.dev/#/patchset/20260831040804.24111-1-gahing%40gahingwo=
+o.com
+
+Thanks,
+
+Tomeu
