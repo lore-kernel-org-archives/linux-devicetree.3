@@ -1,309 +1,212 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011000.outbound.protection.outlook.com [52.101.65.0])
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ABC34EA393;
-	Mon, 31 Aug 2026 14:35:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.0
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788186905; cv=fail; b=V+sFSlH84NeVMwABAbW6GULBgxtJzPOq3EC+B0Gb5m805A2g29MEUoyo58MWuC2a4L/kTSfWGwPDHchV8NLLE3jODQuqg2S8wwAOhNti1KlBEdVrk1iTbzuXrL4k/6fd4ns02Z4l8tmNFxhe3p3ZfCmYd/HHeYJ1xTGiD3G93Lk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A8A84EA38C;
+	Mon, 31 Aug 2026 14:35:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788186905; cv=none; b=knoychTg/MqFu45880cQz2n5aSbjw2GUnHmpfhtZPv1I+2f3OGtyFlAAJ1qDeF3MfrBWGZZbXzQrRNE4oBN/6RsNsLraf7j8oXLD/Oin3rRhgmCzp+QWdEXkgrfUmQO8XLh1XB2IyseCV1E3tVP5ZDJMX/k93ZeJydCIEHakDyc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788186905; c=relaxed/simple;
-	bh=0hES/NMnr5DnMHWSKE0bizXfy2zVOsfRvDMlRiRaavg=;
+	bh=X3ISsO3/DtUWqM5dwl6VLQklnTiPj1FRIhmqckoM87I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=EOcgDQuXiSCVXkLz4RsKsz9rpl0zbKunc0JBwJJ6ggL+wBhVl6n/wzKIGCZwk+2Er3jsXeeJFC1LpBsD9RTXksBD6rMUK4atZPQQP9dbN0VtO9Z74J0CMKbBpk55MOq4MKiCfZZVWBUnE8GkLk/1tZSbQd0RCVkcj4tiNElAVtY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=FjrBdvgN; arc=fail smtp.client-ip=52.101.65.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	 MIME-Version; b=lc2B3HGVt5MilZHCBAd016ZfJe6Q0u+MDiun/8seMKBRz0oo94q9OBLvrP5P8kFuGUUHCYACyCn31HF+EiEwoTNKiSInv0gLju6fvkDq5jdwEpKmIs/AHJvC9iYUFL7Bb6wCOl2AK+CuogNWA720lYMdU/f8OXWT7EIjvWq4o3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b=rV4OOBj0; arc=none smtp.client-ip=212.227.15.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="FjrBdvgN"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XxuDJGVQDH1OEQmg25WOrIc+gkx1c+jygt97Bwmlf931P/scYJkQjVqf82oC2mYanQqYx0ylHiFhSHxahyqnKlC1cTtINfYirPCNQmu3m9IzujUcxvqZrYI9L+wB6msU8FvU/qPaUiFBg0wAI3d+pvFA+BFnigjOlMxKSwoWMv1vfrErqnv3I0QFWYDwhPJMcVFK4NNfONV0DGi3o8hNC0zs/xF6BUf3g33JTrAM0RSU32nuk8XkzBtRRzPvlXe8j7FSddmJqliUcXcf2pS7lC+F15yGCFuot9MSqB7Gtl837XWw76qjnHplH3Ky9NHjdfRSr9egKHthYmlnKCfZkw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3b7aFrDTMdy22HjQcTIJRwZNC/0hJnvYKlfUwiNMKYM=;
- b=Q8DyZ8LmnR+Y89nfMgOm8Yzw/BQ6TeKeekGUpEbBzcYYQd8r0KA/wj7yXRPg2z4h17mVeKyScTeuUOg3XqpqE6aBhCuxmJNgL6tB1+6Nk3VLjAZwb9NK7zu8j7ar1KPlm/3spEP/Nkrvt41WSBUvPyMlL5KlVYJSaOBO9ta8q+2qTwKUlxcjuKdp4BBxLo2MWTUiDbwiQI8rX3kAyX8gsaaHMfjuDC+p8Tog0d2WoBqGjvu74HH01obmXRwCIqVOA1/QOpjJK2Zd1JSzFaRvO+y1ZQ/wNcbTWZYJyWIxa56/yILZjLMZWxAdlouvG2RXZ03+RitWoR/ws2brV7AQCQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3b7aFrDTMdy22HjQcTIJRwZNC/0hJnvYKlfUwiNMKYM=;
- b=FjrBdvgN7qCkPgTkFqynA2qP+rPb7ehnrRmrQlxb+lSEMWgq6SCHOM6lBLScUOXwajpVW5t+WsILUOHW3JhXkhzris/IFKfkxAzZOdX8V2CEscPX6m02EhCzr9BRjR6vlgD6eHvEa3FaKahf+g3+As/b3JXh6amJ71xeOU62xphoxDmGUKtFcc5C9e6MC9PoZLxBwwHeXLUEpRwbTlNUNLZbI5u3YfDM0a9+mu7o5TQgagsuC5G6/plxKrU2o5svN6XMbrUfWN5XYFBE+8lQ2hYiGFXnGzTlyEkx9cy1Sl+6v8xQWnAFHI60VJIe7Je0dmw340aZPptzn1Lh5Z3j2Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM0PR04MB5858.eurprd04.prod.outlook.com (2603:10a6:208:132::23)
- by AS8PR04MB7606.eurprd04.prod.outlook.com (2603:10a6:20b:23e::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 14:34:57 +0000
-Received: from AM0PR04MB5858.eurprd04.prod.outlook.com
- ([fe80::bdf4:c9d1:4e3f:68c6]) by AM0PR04MB5858.eurprd04.prod.outlook.com
- ([fe80::bdf4:c9d1:4e3f:68c6%3]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 14:34:57 +0000
-From: Ciprian Costea <ciprianmarian.costea@oss.nxp.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Angelo Dureghello <angelo@kernel-space.org>,
-	Frank Li <Frank.Li@nxp.com>
-Cc: linux-can@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	NXP S32 Linux Team <s32@nxp.com>,
-	imx@lists.linux.dev,
-	Christophe Lizzi <clizzi@redhat.com>,
-	Alberto Ruiz <aruizrui@redhat.com>,
-	Enric Balletbo <eballetb@redhat.com>,
-	Eric Chanudet <echanude@redhat.com>,
-	Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>,
-	Larisa Grigore <larisa.grigore@nxp.com>,
-	Haibo Chen <haibo.chen@nxp.com>
-Subject: [PATCH v7 5/6] can: flexcan: add FLEXCAN_QUIRK_IRQ_BERR quirk
-Date: Mon, 31 Aug 2026 16:34:48 +0200
-Message-ID: <20260831143449.12828-6-ciprianmarian.costea@oss.nxp.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831143449.12828-1-ciprianmarian.costea@oss.nxp.com>
-References: <20260831143449.12828-1-ciprianmarian.costea@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AM0PR02CA0191.eurprd02.prod.outlook.com
- (2603:10a6:20b:28e::28) To AM0PR04MB5858.eurprd04.prod.outlook.com
- (2603:10a6:208:132::23)
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b="rV4OOBj0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1788186900; x=1788791700;
+	i=markus.stockhausen@gmx.de;
+	bh=gQeqMJ64Vj4m2pyIQyK2YKPE24SuDfKJAphxNjL9uOs=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=rV4OOBj06gNrZFerhGO7jfjYLgX0vKXIJfQXU59k7AotpH1TtVHLS/tTH1jZYO10
+	 PqmpITE14rGLCfddkquuQ7orHFN/mHo3JqTq7keW1jSXa7wG1JwGJYziBkLQQvvuR
+	 PDBmFwouqJ/XCmeeKWNT2lx2KJtcox1Y/BxR+fKZycBnmmpF3c6+2dGQEmPozTCBU
+	 mNcbbPTCcOaN1uHfTol3u5LWlM0sRlkimR/UaRWsPv2FccmVDlav06Sv44DonG5NQ
+	 mebX/ye8EF+zypmk+hC9YUChsdTiJ6QJw/tlSRPFSI1ttyZHVhf+GjJrzHmFBSebj
+	 51s2M8decgEPiKr1Kg==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MPog5-1xEZlv2jRb-00LpHr; Mon, 31
+ Aug 2026 16:35:00 +0200
+From: Markus Stockhausen <markus.stockhausen@gmx.de>
+To: andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
+	chris.packham@alliedtelesis.co.nz,
+	daniel@makrotopia.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org
+Cc: Markus Stockhausen <markus.stockhausen@gmx.de>
+Subject: [PATCH net-next v15 13/13] net: mdio: realtek-rtl9300: reword Kconfig and module description
+Date: Mon, 31 Aug 2026 16:34:39 +0200
+Message-ID: <20260831143439.2404484-14-markus.stockhausen@gmx.de>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260831143439.2404484-1-markus.stockhausen@gmx.de>
+References: <20260831143439.2404484-1-markus.stockhausen@gmx.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB5858:EE_|AS8PR04MB7606:EE_
-X-MS-Office365-Filtering-Correlation-Id: ee3ea235-b4b6-4d9d-f121-08df076d07ba
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|376014|7416014|23010399003|19092799006|1800799024|366016|11063799006|10067099003|10063799003|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
- H4zvNg0YcgpGtf0VByLx9O7yx62UV1pktqUiPlHcMeuSzS6pCikM6mZmsj8ijogOQo+7wMuVkJKmFbvvVGM5FB4VsrogTxsXW6nC5p/WtlUbo101MkzuAY44p4+9peXtA0kxMXTyZGom2asbunyAuz8z+scxWsNzax+SzTI8shbAdYAor009hXrTshweB9xeBr4NuDVihKDmaLZQR81wu4YfGACYCE32BsNCWZubinAjsHOyOt4PuXdINzFdLXLoO5ybSbatlFG/ymaHx+wXgh8Y6msX5Q6LPyWFQP+IUYwPaiW5TBUQe93fHAJP7JaDkJUj4Klrt8S6m8hadwQWqIn5qcW2bj+chNVaBtZ/6XmuvAEGwEPEk0Jsn6fCMvRLwRvtA3z6/OB5RiGOxrE+8hVrXwE0h6uyicEBmidUKb9Ph8mdjhtPJE2uMlF6C5XTYPCoY8CKHmFNqLC8ztfsxralUf6OLn49w+FdVXAK5Jgb7P7eoQhtK6XCtjd6eS0vq7Wdtl5pypfD16vqQysTIXWBxM0B0Gtgt8cOLjEnWZhZBJmWJz3RklYKveNx2KGk52fserr5D2jwqhhSaZMITsQS8MEsCCcQ40euqZ9nQqaxPvvgnY+PDv99ic51wCMjYczvYlAyRlpIBD1GQqBZ59CXN+BJFEjID5YRI77EvbM=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB5858.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(19092799006)(1800799024)(366016)(11063799006)(10067099003)(10063799003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?WHBWT2o3Vlg5bytWTExNdHQ1OFFRVUthSm4rTWlpRkZnMmhyb0wzZEovTm5G?=
- =?utf-8?B?NERUTEQwdUhUQzdNK3F2anpnRWtnczZjc3VOWTkrNGZIWG9wbkhXZUZQRDBC?=
- =?utf-8?B?WFF3NVJySmNXc283NlZ5OGd1NVl3ZWJuRk5LRVVjUUtGaENNelIxanBhM2Fa?=
- =?utf-8?B?TWx4THZaK0pTVUpoeXMyU1VKbW42Q3hReTdPcjBhcjVtNG5hSHJSK3BYOXNI?=
- =?utf-8?B?N2h4MXlFaHBYSkN5Tkc5aGp5c2wra3E0aW9DMTE0eFFPUDlCOHQwTUMyYzA2?=
- =?utf-8?B?SXNVZzcvV3ZqWnV6SldwVCtYMGdBdE5ZS1Y0VDhYTXBkZERBNlNOQmZKM25G?=
- =?utf-8?B?bW1hanNzaXpNR3JVWFErNmljWDhKdkRFV29RZTU0RkMyaW8yWmpkSG5wbTJH?=
- =?utf-8?B?bnVsL2ZTN1BCTEdGdVpZK2FmYU1iMUZ2UUJUK3JxUU5ocUJNdVhscHpBcGM3?=
- =?utf-8?B?SmpTMXA4NGlPL296RlNnTjJpUzIwQW1MMm5lMzlwbVJIakVCNU9kSkZDeXcr?=
- =?utf-8?B?QWZBbEJkR05HeTMyS2RsNnJKdWM0cmNNOVJRVDMzM28zM3UzVWdSOFNRWG96?=
- =?utf-8?B?SjlrMk1TVmJnemsvSmJ2WnZERTlEc0VSSE1wYmV2M3FpN3Yyc1NyRmg4dVk0?=
- =?utf-8?B?RHRpUStCNnF4ZjFMSFpiTXgwTEdxekFDMFo2dGhFYUdpMmpIT2wvOG9NSVdp?=
- =?utf-8?B?ekhYL2tTZ3RGRGwwV3RGT0NwaWNMTTRQdzFYM0VyTUFqY3ZYSGhSb0I1YjVy?=
- =?utf-8?B?OGcybnpLWGZrUldzV2tZRDgxcGUvczBiS0N1OHk0YVRSejJ3dHVEWEY3MlV5?=
- =?utf-8?B?K3RjTmdtS0JkRktCSUpyZ2loZ0pBVlRQbkFiZXBtMW1OSllCRzN3Z2EwMGpK?=
- =?utf-8?B?bEJmZzNSdDBpcFNSY1pwRTVBVmJJSEIzbWM1ZlovOWRnQVdhWFM0WVZaZUh2?=
- =?utf-8?B?ak9OVnk1QnJTWUV2QW1xRHE2S3MwVWRHT0hya0lIaGwzY1FpWEplSFR1aVhs?=
- =?utf-8?B?VEJzQi9YQTNWZDg0U1pIZy9zZXFqcFYvdWtsK0kvZk1OOGRBZGwwa3F6M0Mz?=
- =?utf-8?B?aW93THlldER4ZzdmT2ZOTlZza3BIYUY4Nmk4RGNja0ZvZ0VuTkE4dWRYMHBY?=
- =?utf-8?B?alc3bHdqMTltV1BkaElYaitickdmaG92U3VMbTY2WjhpU0VmYmJGYzFQanR1?=
- =?utf-8?B?VkxhNGpiY2NteURGeng2REVzdVp3RVZ2UWkzWUZXbzZvVFYwYWo4dzh2VnBE?=
- =?utf-8?B?TVNPMUJ5MXE5SnV0SXBuSWVvTGlkdjRiNUJSdHdRQ1NPUTZaWjRWNnZzZXc3?=
- =?utf-8?B?WVZsbWIyWUN0Z3NEK1ZJRnVCa2k5SGJwekt0U3d2UXBXais2c0l1SnpxUjJO?=
- =?utf-8?B?Um9xc01MSDZBSERzM3Npb09iWjhYaWhFeWtUVE1FRkVKWEEwRGlxcWFhKzVF?=
- =?utf-8?B?RnFjQzlrV1F6c3ZMZWpzQkczWXVoSUZkRUZpQkVuaXlXemxRZEZFeEMrckQ5?=
- =?utf-8?B?OTc2QktDYUJpaHA3ME1hQ2E4bjVBTjYxN1VzVkZNNVRjaVM1c251K2Z1Vm5D?=
- =?utf-8?B?WE9UV3Z6aGRYSW5QZzdaei8rRVJIcjJGUWFpV0RpTzFxWDQ3UzF4V1lxeUh0?=
- =?utf-8?B?MjN6OG1scnNuQzRkeGhHUnUzTWtYNHJzc2VFRXFuY0tRZDlKMHhuMTYvem1X?=
- =?utf-8?B?c0pZNUN6UTVTS2xlMXlCcjBtZUVLbVYzblc5Q004TW1YUVRPbGZhVUFiRlVO?=
- =?utf-8?B?eFp3clBXY2tpdDgxdlIyRS95UWJudmNEMWM2Vm5NVkxTay93Wm9mNnNHMUxo?=
- =?utf-8?B?b1RiRlZaQWdISkVtR0IrbTUvbWZ0Y1kySGhJTlJCRVIvTmJNUzArblBsakJC?=
- =?utf-8?B?eWhWd1Z6RVFJQThYZGwxbG15VFJXQ0lQb0U1cEhRLzkyNzJSRFRuTGhYZHYz?=
- =?utf-8?B?bTA1S2Uyb09OQ1g1N2Y1K1cwNFJBelVKOVNqZXcvL2RReUdkZVB1SW9qLzNa?=
- =?utf-8?B?OXhFNUZ2NU1ZOFFna3E4Y2hVdFNvVXB0RVowNk9LY2tXWW9UenE1c1dVK2RO?=
- =?utf-8?B?enNIUWJRUXFMKy9sVzcxc2tpU0h0K0FwVXV3TUdMUFo3QzZtVjZhS3lPNlVy?=
- =?utf-8?B?SFZuUFpCWm1VOWl3UmVzb1hHT0dQVUE2WjJ5VUEreko5eG9LVDM5cjQ2TXpw?=
- =?utf-8?B?Qi9rZkVMYS9UQzAwc2t2OHRpRHZlTEsvMktlWTcrMXZqVGc1VEZtdmtxU0Jp?=
- =?utf-8?B?MERJcUQvSHVZZUx4bEVuK3BzbGJiWjBXdHNaYWpLd01OdFVyR1JZVE9HTHV6?=
- =?utf-8?B?M2NvMkRKRkpTTGFYZmZWY052dDl3ckgzenRvSXFENjdkRkU2WWsySGIxK3Zj?=
- =?utf-8?Q?Sli1J1nnrAvmrpeg=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee3ea235-b4b6-4d9d-f121-08df076d07ba
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB5858.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 14:34:57.3537
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Au5mr3AMjWgm9f9EcJQoKChDne5vFxYKEFxiCjOHdt47gETGTqkUC6SVWVDGnWF6tOFnqgvAHkM3BJRehFodgsxi3/MVRu7iJxvZDGIxahs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7606
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:BZN7f/6qDK9mbxUskGBC2DC5w6sokxNwz8KD0WrOnmvmLzyjWiH
+ iSTZvdFlhp/EZkVPZNIkwL5k4sWa8XSC7ZfHeVVnscvkj4u2PwCo1IDs6G5jzruVggzzSvH
+ /6XOncFf6Qhp4NZKeIH+ZBwIQN/LzoNlPGyS7JD4yYYyTPXfJH10lDFscrfD1hUWE1OHKdp
+ 4fkyt/bopxQISuhlvEPvA==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:24YSsCJpkSw=;WkMzP18vbagGtaikM81k1xnoIbB
+ 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
 
-From: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
+The Realtek MDIO driver has been enhanced to support multiple
+devices from the RTL83xx/RTL93xx series. Reword Kconfig and
+module description accordingly.
 
-Introduce FLEXCAN_QUIRK_IRQ_BERR quirk to handle hardware integration
-where the FlexCAN module has a dedicated interrupt line for signaling
-bus errors and device state changes.
+Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+=2D--
+ drivers/net/mdio/Kconfig                | 4 ++--
+ drivers/net/mdio/mdio-realtek-rtl9300.c | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-This adds the flexcan_irq_esr() handler which composes
-flexcan_do_state() and flexcan_do_berr() to handle platforms where
-these events share a single IRQ line.
-
-Also extend flexcan_chip_interrupts_enable() to disable/enable the
-new IRQ line during IMASK register writes.
-
-This is required for NXP S32N79 SoC support.
-
-Co-developed-by: Larisa Grigore <larisa.grigore@nxp.com>
-Signed-off-by: Larisa Grigore <larisa.grigore@nxp.com>
-Signed-off-by: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
-Reviewed-by: Vincent Mailhol <mailhol@kernel.org>
-Reviewed-and-tested-by: Haibo Chen <haibo.chen@nxp.com>
-Tested-by: Enric Balletbo i Serra <eballetb@redhat.com>
----
- drivers/net/can/flexcan/flexcan-core.c | 53 +++++++++++++++++++++-----
- drivers/net/can/flexcan/flexcan.h      |  2 +
- 2 files changed, 46 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/net/can/flexcan/flexcan-core.c b/drivers/net/can/flexcan/flexcan-core.c
-index f28ff0e95b74..601d88bfcfeb 100644
---- a/drivers/net/can/flexcan/flexcan-core.c
-+++ b/drivers/net/can/flexcan/flexcan-core.c
-@@ -1303,6 +1303,22 @@ static irqreturn_t flexcan_irq_boff(int irq, void *dev_id)
- 	return handled;
- }
- 
-+/* Combined bus error and state change IRQ handler */
-+static irqreturn_t flexcan_irq_esr(int irq, void *dev_id)
-+{
-+	struct net_device *dev = dev_id;
-+	struct flexcan_priv *priv = netdev_priv(dev);
-+	irqreturn_t handled;
-+
-+	handled = flexcan_do_state(dev);
-+	handled |= flexcan_do_berr(dev);
-+
-+	if (handled)
-+		can_rx_offload_irq_finish(&priv->offload);
-+
-+	return handled;
-+}
-+
- static void flexcan_set_bittiming_ctrl(const struct net_device *dev)
- {
- 	const struct flexcan_priv *priv = netdev_priv(dev);
-@@ -1543,10 +1559,10 @@ static void flexcan_chip_interrupts_enable(const struct net_device *dev)
- 	u64 reg_imask;
- 
- 	disable_irq(dev->irq);
--	if (quirks & FLEXCAN_QUIRK_NR_IRQ_3) {
-+	if (quirks & FLEXCAN_QUIRK_NR_IRQ_3)
- 		disable_irq(priv->irq_boff);
-+	if (quirks & (FLEXCAN_QUIRK_NR_IRQ_3 | FLEXCAN_QUIRK_IRQ_BERR))
- 		disable_irq(priv->irq_err);
--	}
- 	if (quirks & FLEXCAN_QUIRK_SECONDARY_MB_IRQ)
- 		disable_irq(priv->irq_secondary_mb);
- 
-@@ -1557,10 +1573,10 @@ static void flexcan_chip_interrupts_enable(const struct net_device *dev)
- 	enable_irq(dev->irq);
- 	if (quirks & FLEXCAN_QUIRK_SECONDARY_MB_IRQ)
- 		enable_irq(priv->irq_secondary_mb);
--	if (quirks & FLEXCAN_QUIRK_NR_IRQ_3) {
--		enable_irq(priv->irq_boff);
-+	if (quirks & (FLEXCAN_QUIRK_NR_IRQ_3 | FLEXCAN_QUIRK_IRQ_BERR))
- 		enable_irq(priv->irq_err);
--	}
-+	if (quirks & FLEXCAN_QUIRK_NR_IRQ_3)
-+		enable_irq(priv->irq_boff);
- }
- 
- static void flexcan_chip_interrupts_disable(const struct net_device *dev)
-@@ -1884,7 +1900,8 @@ static int flexcan_open(struct net_device *dev)
- 
- 	can_rx_offload_enable(&priv->offload);
- 
--	if (priv->devtype_data.quirks & FLEXCAN_QUIRK_NR_IRQ_3)
-+	if (priv->devtype_data.quirks &
-+			(FLEXCAN_QUIRK_NR_IRQ_3 | FLEXCAN_QUIRK_IRQ_BERR))
- 		err = request_irq(dev->irq, flexcan_irq_mb,
- 				  IRQF_SHARED, dev->name, dev);
- 	else
-@@ -1905,6 +1922,13 @@ static int flexcan_open(struct net_device *dev)
- 			goto out_free_irq_boff;
- 	}
- 
-+	if (priv->devtype_data.quirks & FLEXCAN_QUIRK_IRQ_BERR) {
-+		err = request_irq(priv->irq_err,
-+				  flexcan_irq_esr, IRQF_SHARED, dev->name, dev);
-+		if (err)
-+			goto out_free_irq_boff;
-+	}
-+
- 	if (priv->devtype_data.quirks & FLEXCAN_QUIRK_SECONDARY_MB_IRQ) {
- 		err = request_irq(priv->irq_secondary_mb,
- 				  flexcan_irq_mb, IRQF_SHARED, dev->name, dev);
-@@ -1919,7 +1943,8 @@ static int flexcan_open(struct net_device *dev)
- 	return 0;
- 
-  out_free_irq_err:
--	if (priv->devtype_data.quirks & FLEXCAN_QUIRK_NR_IRQ_3)
-+	if (priv->devtype_data.quirks &
-+			(FLEXCAN_QUIRK_IRQ_BERR | FLEXCAN_QUIRK_NR_IRQ_3))
- 		free_irq(priv->irq_err, dev);
-  out_free_irq_boff:
- 	if (priv->devtype_data.quirks & FLEXCAN_QUIRK_NR_IRQ_3)
-@@ -1951,10 +1976,12 @@ static int flexcan_close(struct net_device *dev)
- 	if (priv->devtype_data.quirks & FLEXCAN_QUIRK_SECONDARY_MB_IRQ)
- 		free_irq(priv->irq_secondary_mb, dev);
- 
--	if (priv->devtype_data.quirks & FLEXCAN_QUIRK_NR_IRQ_3) {
-+	if (priv->devtype_data.quirks &
-+			(FLEXCAN_QUIRK_IRQ_BERR | FLEXCAN_QUIRK_NR_IRQ_3))
- 		free_irq(priv->irq_err, dev);
-+
-+	if (priv->devtype_data.quirks & FLEXCAN_QUIRK_NR_IRQ_3)
- 		free_irq(priv->irq_boff, dev);
--	}
- 
- 	free_irq(dev->irq, dev);
- 	can_rx_offload_disable(&priv->offload);
-@@ -2341,6 +2368,14 @@ static int flexcan_probe(struct platform_device *pdev)
- 	if (transceiver)
- 		priv->can.bitrate_max = transceiver->attrs.max_link_rate;
- 
-+	if (priv->devtype_data.quirks & FLEXCAN_QUIRK_IRQ_BERR) {
-+		priv->irq_err = platform_get_irq_byname(pdev, "berr");
-+		if (priv->irq_err < 0) {
-+			err = priv->irq_err;
-+			goto failed_platform_get_irq;
-+		}
-+	}
-+
- 	if (priv->devtype_data.quirks & FLEXCAN_QUIRK_NR_IRQ_3) {
- 		priv->irq_boff = platform_get_irq(pdev, 1);
- 		if (priv->irq_boff < 0) {
-diff --git a/drivers/net/can/flexcan/flexcan.h b/drivers/net/can/flexcan/flexcan.h
-index 16692a2502eb..bbb1a8dd4777 100644
---- a/drivers/net/can/flexcan/flexcan.h
-+++ b/drivers/net/can/flexcan/flexcan.h
-@@ -74,6 +74,8 @@
-  * both need to have an interrupt handler registered.
-  */
- #define FLEXCAN_QUIRK_SECONDARY_MB_IRQ	BIT(18)
-+/* Setup dedicated bus error and state change IRQ */
-+#define FLEXCAN_QUIRK_IRQ_BERR	BIT(19)
- 
- struct flexcan_devtype_data {
- 	u32 quirks;		/* quirks needed for different IP cores */
--- 
-2.43.0
+diff --git a/drivers/net/mdio/Kconfig b/drivers/net/mdio/Kconfig
+index a05229838cb4..d44278f26fab 100644
+=2D-- a/drivers/net/mdio/Kconfig
++++ b/drivers/net/mdio/Kconfig
+@@ -172,11 +172,11 @@ config MDIO_IPQ8064
+ 	  interface units of the IPQ8064 SoC
+=20
+ config MDIO_REALTEK_RTL9300
+-	tristate "Realtek RTL9300 MDIO interface support"
++	tristate "Realtek RTL83xx/RTL93xx MDIO interface support"
+ 	depends on MACH_REALTEK_RTL || COMPILE_TEST
+ 	help
+ 	  This driver supports the MDIO interface found in the Realtek
+-	  RTL9300 family of Ethernet switches with integrated SoC.
++	  RTL83xx/RTL93xx family of Ethernet switches with integrated SoC.
+=20
+ config MDIO_REGMAP
+ 	tristate
+diff --git a/drivers/net/mdio/mdio-realtek-rtl9300.c b/drivers/net/mdio/md=
+io-realtek-rtl9300.c
+index 86b2040fa333..11d078ef941c 100644
+=2D-- a/drivers/net/mdio/mdio-realtek-rtl9300.c
++++ b/drivers/net/mdio/mdio-realtek-rtl9300.c
+@@ -1150,5 +1150,5 @@ static struct platform_driver otto_emdio_driver =3D =
+{
+=20
+ module_platform_driver(otto_emdio_driver);
+=20
+-MODULE_DESCRIPTION("RTL9300 MDIO driver");
++MODULE_DESCRIPTION("RTL83xx/RTL93xx MDIO driver");
+ MODULE_LICENSE("GPL");
+=2D-=20
+2.55.0
 
