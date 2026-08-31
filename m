@@ -1,47 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D96F13D9DD6;
-	Mon, 31 Aug 2026 18:01:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95BE5385521
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 18:02:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788199294; cv=none; b=YOk31j9Q9bP87V57PnVIGl4HabXTNVWmBPrYcTi2hOvEje8g7tNALeDA1ZAVNLsSzcSE0dFPtqIaPE7VoTF1jGqbHUtMwZoEcwRhdGxi3V2TGHUBvYIW9DHXCjIJBoXehEjC+RxZGvZsgSooCJ08a7SYei+6zr87JWcuPuQMTeA=
+	t=1788199355; cv=none; b=NXx+2LhMq8gOHi5DVuPJwBWoBdnBfT5N31HrvnE6hJ2Um+CMC7onasEuYPTkrINVXiiPnv+qp+JQbmnt2ZOWOsz+5AwrMGW/amelfwAmdhELD3xcLjzVh0OcKTHuCMvoO0tZtnlwqU10PpEcNn9Qa/mbHPPD4cY63cZsipDbeBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788199294; c=relaxed/simple;
-	bh=GDJPhp1ce/3T7KhNfmDDHsX+QplicWRSy8Msbo0K25c=;
+	s=arc-20240116; t=1788199355; c=relaxed/simple;
+	bh=HL+lBsoQfpD+EzhbLDsXOiobd2B+rkFjZAW9yGnBhoo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YDqnP7T3pIO45rLhoVEEHnaKh3rNQAnIxplL10/PNfQgNIFl7Q/lL2/DMd6VmsFnwbqYCuc3R6QcWsiajafEmzcu3zp/qW7sjPUOhkiHnWDJycebx+Tjn32GI46up3EId6hZHdTt7wjomwXlDVFWgdHtltNPBd2wWr6mUiovtts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TY6JNhlq; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=dcGn29V235InQh1yWB34wfkginIC7kOBIm/qiyN2GUoJIO+NSfk5KOpWAQTesAzB86KNlV08JMw9PDgjfboZ5OG8p1JU9KQYi5Lxa9XIAEhqfmqyr6LcKCkY/Z/7MTD6U2fJEYkhQ55xETRKQsrj7HZOjA1TeND2WEm0iFVfvfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SYzM9EDu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TY6JNhlq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B55E61F00ACA;
-	Mon, 31 Aug 2026 18:01:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SYzM9EDu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E174D1F000E9;
+	Mon, 31 Aug 2026 18:02:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788199292;
-	bh=H8Hdvy1jenVkD3hJGZB64SIGqV7u7k8upgn0caLEL4w=;
+	s=k20260515; t=1788199353;
+	bh=y9USXUbmEXO/2rASNgXaBuAqWTSJLOUbOg5u96nqxrI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TY6JNhlq6Jg5tddvsKXfiuBwomx3uZu7gpxBwBfoIUQ53J0CuNnK6nv1SMvN2F64X
-	 KHpMuprfDbGCTkWkZskfmzEi8plfMmQyMjZ1FsHeYSlPo9CqoU4aix+jLADr4SIJsd
-	 v3ig8T3pNXkB7kZZg5hf61yAnnqcZRSkKNHrv5zdNbIgKAM7syxtRG37i2WCzJ5EP4
-	 ZcNQncZ9S5c5BvkOQIP9x5UHORLkm3LdGdqW955259wTuqA7MEkQ3bkIzPP7abAXvU
-	 Z6pRY6FrRgwpjua7wE67dzicvAs7HjaWYTguqf02BcH3HKBLkUZGdZcEV6EF5hf5Gk
-	 ibfrPsOFbc+Nw==
+	b=SYzM9EDuLfLkcVfqSN0j8ZrvaqbtuZbZSmDoOFV3Wj6gLjPzl9KWvBcv6K6GSPF6V
+	 HgTEnsBIIKd3KGlhdT1F4CL31YOg4oOJ6Ox5Ynep/JmoJzkKwr7Uooa6FdRu6aQeif
+	 ADzvu1Rrs6gA3ZSJnRULr0tBO4CwaONY6aR0wFXw0EVar/ph4tpy1wFeRXwoxDrrzZ
+	 8BLChWCs6g1zdU2/Ck/YJNy56k0oPTF59Qq3D91gaRz2SlqVvTEnBnLWCpBxPoKZE1
+	 IbHLgIh5xGhKFztAoKz3S3bqjmBMM0RwI+vCN07D6asmKLPy/E+8MYwLmi9IoNsTeI
+	 td4F0vLMXSrMA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 1/6] can: flexcan: use dedicated IRQ handlers for
- multi-IRQ platforms
+Subject: Re: [PATCH 7/7] arm64: dts: rockchip: Rename rk3588 HDMI audio
+ cards
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ciprian Costea" <ciprianmarian.costea@oss.nxp.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, "Marc
- Kleine-Budde" <mkl@pengutronix.de>, "Oliver Hartkopp" <socketcan@hartkopp.net>, linux-can@vger.kernel.org, "Vincent
- Mailhol" <mailhol@kernel.org>, imx@lists.linux.dev, Frank.Li@kernel.org, "Oleksij
- Rempel" <o.rempel@pengutronix.de>
-In-Reply-To: <20260831143449.12828-2-ciprianmarian.costea@oss.nxp.com>
-References: <20260831143449.12828-1-ciprianmarian.costea@oss.nxp.com>
- <20260831143449.12828-2-ciprianmarian.costea@oss.nxp.com>
+To: "Detlev Casanova" <detlev.casanova@collabora.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260831-fix-rockchip-hdmi-audio-names-v1-7-5b155ae05293@collabora.com>
+References: <20260831-fix-rockchip-hdmi-audio-names-v1-0-5b155ae05293@collabora.com>
+ <20260831-fix-rockchip-hdmi-audio-names-v1-7-5b155ae05293@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 18:01:31 +0000
-Message-Id: <20260831180131.B55E61F00ACA@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 18:02:32 +0000
+Message-Id: <20260831180232.E174D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,75 +47,59 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The split IRQ handlers fail to resolve multi-IRQ concurrency for d=
-evice state processing, leading to lockless list corruption.
+- [Critical] Renaming the ALSA sound card breaks existing userspace configu=
+rations that rely on the old name.
 --
 
-commit f3f261bafd25e44254ad99cda953074bc68ed987
-Author: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
+commit ee162ed61bb57db0487beb65c4dfb703f1987e94
+Author: Detlev Casanova <detlev.casanova@collabora.com>
+arm64: dts: rockchip: Rename rk3588 HDMI audio cards
 
-can: flexcan: use dedicated IRQ handlers for multi-IRQ platforms
+This commit renames the ALSA sound cards in the devicetree from "hdmi0" and
+"hdmi1" to "RK3588 HDMI0" and "RK3588 HDMI1". The stated goal is to better
+identify the SoC in user-visible ALSA fields and match other naming schemes
+used across the Rockchip family.
 
-This commit splits the monolithic flexcan_irq handler into dedicated=20
-functions for mailbox, device state, and bus error processing. The split
-handlers are then registered to specific multi-IRQ lines depending on the=20
-platform quirks.
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/b=
+oot/dts/rockchip/rk3588-base.dtsi
+> index 376ad04e07869..7892e18a7835a 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+> @@ -376,7 +376,7 @@ hdmi0_sound: hdmi0-sound {
+>  		compatible =3D "simple-audio-card";
+>  		simple-audio-card,format =3D "i2s";
+>  		simple-audio-card,mclk-fs =3D <128>;
+> -		simple-audio-card,name =3D "hdmi0";
+> +		simple-audio-card,name =3D "RK3588 HDMI0";
 
-> diff --git a/drivers/net/can/flexcan/flexcan-core.c b/drivers/net/can/fle=
-xcan/flexcan-core.c
-> index f5d22c61503fa..2e9df2d14b341 100644
-> --- a/drivers/net/can/flexcan/flexcan-core.c
-> +++ b/drivers/net/can/flexcan/flexcan-core.c
-[ ... ]
-> +/* Process device state change events */
-> +static irqreturn_t flexcan_do_state(struct net_device *dev)
-> +{
-[ ... ]
-> +	/* state change interrupt or broken error state quirk fix is enabled */
-> +	if ((reg_esr & FLEXCAN_ESR_ERR_STATE) ||
-> +	    (priv->devtype_data.quirks &
-> +	    (FLEXCAN_QUIRK_BROKEN_WERR_STATE | FLEXCAN_QUIRK_BROKEN_PERR_STATE)=
-))
-> +		flexcan_irq_state(dev, reg_esr);
+[Severity: Critical]
+Does this change introduce a userspace regression? Changing the ALSA sound
+card name alters the user-visible userspace ABI. Userspace audio daemons
+such as PipeWire, PulseAudio, and ALSA Use Case Manager (UCM) profiles
+often match against the exact card name (in this case, "hdmi0") to apply
+specific routing and hardware configurations.
 
-[Severity: High]
-This is a pre-existing issue, but does calling flexcan_irq_state()
-concurrently corrupt the lockless SKB queue?
+Will upgrading the kernel cause existing userspace configurations to fail
+to identify the audio card, resulting in a loss of audio functionality?
 
-If the boff and err handlers execute flexcan_do_state() concurrently,
-they will both allocate error SKBs and insert them into
-offload->skb_irq_queue using the lockless __skb_queue_add_sort().
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi b/arch/arm64/=
+boot/dts/rockchip/rk3588-extra.dtsi
+> index b251bb129cdbf..2bcf30d8a338d 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
+> @@ -11,7 +11,7 @@ hdmi1_sound: hdmi1-sound {
+>  		compatible =3D "simple-audio-card";
+>  		simple-audio-card,format =3D "i2s";
+>  		simple-audio-card,mclk-fs =3D <128>;
+> -		simple-audio-card,name =3D "hdmi1";
+> +		simple-audio-card,name =3D "RK3588 HDMI1";
 
-Can this concurrent insertion corrupt the list pointers (skb->next and
-skb->prev), potentially causing infinite loops or use-after-free
-conditions?
-
-[ ... ]
-> +/* Bus error IRQ handler for multi-IRQ platforms */
-> +static irqreturn_t flexcan_irq_berr(int irq, void *dev_id)
-> +{
-> +	struct net_device *dev =3D dev_id;
-> +	struct flexcan_priv *priv =3D netdev_priv(dev);
-> +	irqreturn_t handled;
-> +
-> +	handled =3D flexcan_do_berr(dev);
-> +
-> +	if (priv->devtype_data.quirks & FLEXCAN_QUIRK_BROKEN_PERR_STATE)
-> +		handled |=3D flexcan_do_state(dev);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but could this multi-IRQ
-setup lead to concurrent device state mutations?
-
-On platforms like s32g2 and mcf5441x with FLEXCAN_QUIRK_NR_IRQ_3 and
-FLEXCAN_QUIRK_BROKEN_PERR_STATE, a hardware bus error or state change
-can trigger both the boff and berr interrupts on distinct IRQ lines.
-
-Since flexcan_irq_berr() and flexcan_irq_boff() execute on different
-CPUs, couldn't they both call flexcan_do_state(dev) at the same time?
+[Severity: Critical]
+Similarly for the hdmi1-sound node, does renaming this card break
+compatibility for existing userspace environments relying on the original
+"hdmi1" name? The kernel generally enforces a strict no-regressions
+policy for userspace interfaces.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831143449.1282=
-8-1-ciprianmarian.costea@oss.nxp.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-fix-rockch=
+ip-hdmi-audio-names-v1-0-5b155ae05293@collabora.com?part=3D7
