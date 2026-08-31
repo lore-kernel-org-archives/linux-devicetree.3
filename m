@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E79D852F12D;
-	Mon, 31 Aug 2026 13:44:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA13530DFE;
+	Mon, 31 Aug 2026 13:45:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183894; cv=none; b=bBPLTff898i1/Sgeed5B1FHxi9YXbRxtqMt0xcEPAla9dOL+o2mzLmTxXU3UdsxzyUUM/ENF+pLbOVxHYJPz2EdGJDqy+xmTbKW4hr/GC2ft2Vf6hXYZS2xyfIZuYld596bbE7JzkqxPFYlOV28nQeNqFc+UtfW3nofAh/vPEzc=
+	t=1788183903; cv=none; b=er1eqjRyw+hAYsKOUw9L6p06Hn17eqhJir0e4OAKtADdiz0RMEpXUuLxvOw36vnMBb2B+FdJZ3nhReXy8f3d+0MqpJJjGbF3VnQsgOYOfLPCGBideEddDoRq+ukcn8btbzQMhZRVOL5nE0l3EWm2Ra/63ksxWEreRemW1mHjxJQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183894; c=relaxed/simple;
-	bh=1gQ0fNHi0dr34p5DUc/kt39jh94iHQ1aQJ4epP2Bvvc=;
+	s=arc-20240116; t=1788183903; c=relaxed/simple;
+	bh=A9wcVg/qwbsNaIOy7VZIx0sVrR5+ogYxsAEZBgXB610=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XtOW1CGHXnro30tVfGQ1fl4m4rVbozE8RCYx1q+bE25E0kWtwBcx3yZLkYnKCeOknZq8fhpTOfMZw13CNKDuS4W0k95WOx7PFm6spfmsz4ASHZrzu7JUBJDHqmEFXDMfBE7hy+ptlZMTNCaVaFbtd6dNGLMhPk0noqTWzuPjRvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O1r27pYo; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=ZgMsEKuQT0IHFeElARxWU67SVuhjfi1dtpR/2ZG213KIneh/ITVJFY3cr03h5bTzvlC9Bywp/jbnxy+Osqi0ZY5n8Aos6y1SGvJp5eQCSTm1dd6XlfrKrfvxAmxdR6N0NI4oH4JgEQIJLA7lOGVk+NbsIN2B79FFoDQLAFntupQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gBFlgIr+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O1r27pYo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C44B1F00A3F;
-	Mon, 31 Aug 2026 13:44:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gBFlgIr+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D02681F000E9;
+	Mon, 31 Aug 2026 13:44:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183890;
-	bh=lVESvZtxLPN53N+V3hPGCVqY68pmm6oEw0Is776h6Cc=;
+	s=k20260515; t=1788183900;
+	bh=lxHNJnQPSpDPD+kKDwAJoTZTqjJCXIA4FZuShnRYobQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=O1r27pYoYv5RNmTPmn482JXQwAIig2CeL5vhqE2J9tB8BVwTe55R/OloqutkjS+BP
-	 X83zlMu6+E+wELlOUILPOLWCYW8UXxeRtQfLEGEhiCPOtjHf2XzBKt0wSnb0+apdEL
-	 pNJ+nxOMFKwEL5Xju1iDKSKep0jRdjTzMERljOrjkAeRRi6A8QYgNJY/axK61Vq/Ax
-	 eeGvd2k9dDYEcg8aXkM5kcQCnnpAxFDqHrTsFcJF/QYQq8vQYv86m7Gf/G8sybA2ya
-	 3Q1MzgjO8sXx39HCHdoslfr3BBa+hE4lVV7OOJ4wS5E6ZcPaL4c+lZQ6I7TayNqH86
-	 3Bh+DUrrOyn4w==
+	b=gBFlgIr+Q2TD6VPJ02Bgy7iqgbCw2BnDtDolKuNlJ9nFnrqXyW+1tZ6fSXJy7ZAze
+	 VgfhJ/5+2VJIH57/N8GbUqCmKR2JXwKcPv+rvFbRgegyBzuTGCbSKClZ0vL59En6vz
+	 wLdhBcCej2qAxKs9Uchz+p2J7aLUij2DeJLiKeYp1TfUngVqC8MQLuVV8tDe2RpT9S
+	 BT36cTvUYiXe4B6+Bd6CuywJU9LUVKq1nR4gQao7FJZR5Q4fR16rt7geH8JDhxjr4K
+	 CvVssaCo3lvXSS7zvgXd/bZci412UnMScCydLvQ5gC/lXOZWsEtaWlEK5iT4Tme7Hp
+	 ZadkWGMLvm8wQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
@@ -35,9 +35,9 @@ Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
 	saravanak@kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drivers/of: validate live-tree string properties before string use
-Date: Mon, 31 Aug 2026 09:26:32 -0400
-Message-ID: <20260831133314.4125787-364-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.6] drivers/of: validate status properties in reconfig state changes
+Date: Mon, 31 Aug 2026 09:26:38 -0400
+Message-ID: <20260831133314.4125787-370-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -55,591 +55,411 @@ Content-Transfer-Encoding: 8bit
 
 From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-[ Upstream commit 1e54c31b9cbbb42162e2e4317c18c8a8b350a79d ]
+[ Upstream commit 0b6b12c5dcce16e604d4cde953bef46531b98571 ]
 
-`populate_properties()` stores live-tree property values as raw byte
-sequences plus a separate `length`. They are not globally guaranteed to
-be NUL-terminated.
+Live-tree reconfiguration properties also carry raw values plus explicit
+lengths. `of_reconfig_get_state_change()` currently treats `status`
+property values as NUL-terminated strings and feeds them straight into
+`strcmp()`.
 
-`of_prop_next_string()` iterates string-list properties by walking raw
-bytes, `__of_node_is_type()` checks `device_type`,
-`__of_device_is_status()` checks `status`, and
-`of_alias_from_compatible()` reads the first `compatible` entry. These
-paths must validate that the relevant string fits within the property
-bounds before they hand it to C string helpers.
-
-Validate these live-tree string properties within their declared bounds.
-In particular, make `of_prop_next_string()` reject malformed entries
-before returning them, keep the `device_type` check inside the existing
-no-lock helper path, and add unit coverage for malformed first and
-trailing string-list entries.
+Factor the `"okay"` / `"ok"` check out into a helper that first verifies
+that the property contains a bounded C string within `prop->length`.
+Malformed `status` updates should be treated as not enabling the node.
 
 Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Link: https://patch.msgid.link/20260507081812.91838-1-pengpeng@iscas.ac.cn
+Link: https://patch.msgid.link/20260507081812.91838-2-pengpeng@iscas.ac.cn
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `drivers/of: validate live-tree string
-properties before string use`
-
-## Local Tree Context
-
-This checkout is **linux-6.18.y** at **v6.18.43** (`HEAD detached from
-stable/linux-6.18.y`). The buggy code is present; this fix is not yet
-applied.
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
+## Phase 1: Commit Message Forensics
 
 ### Step 1.1: Subject Line
-**Record:** `[drivers/of]` `[validate]` — Validate live-tree string
-properties before passing them to C string helpers (`strlen`, `strcmp`,
-etc.).
+**Record:** `[drivers/of]` `[validate]` — validate `status` properties
+during live-tree reconfiguration state-change detection.
 
 ### Step 1.2: Tags
 **Record:**
-- **Signed-off-by:** Pengpeng Hou `<pengpeng@iscas.ac.cn>` (author)
 - **Link:**
-  https://patch.msgid.link/20260507081812.91838-1-pengpeng@iscas.ac.cn
+  `https://patch.msgid.link/20260507081812.91838-2-pengpeng@iscas.ac.cn`
+  (v3, patch 2/2)
+- **Signed-off-by:** Pengpeng Hou `<pengpeng@iscas.ac.cn>`
 - **Signed-off-by:** Rob Herring (Arm) `<robh@kernel.org>` (OF
-  maintainer merge)
-- No `Fixes:`, `Reported-by:`, `Cc: stable@vger.kernel.org`, `Tested-
-  by:`, or `Reviewed-by:` tags
-
-Notable: maintainer merge sign-off from Rob Herring; no syzbot or user
-bug report.
+  maintainer)
+- No Fixes:, Reported-by:, Tested-by:, Cc: stable, or syzbot tags
+- Notable: patch **2/2** in a series; v3 changelog says "no code change;
+  carried with patch 1/2"
 
 ### Step 1.3: Body Analysis
 **Record:**
-- **Bug:** `populate_properties()` and live-tree property storage keep
-  raw byte sequences with a `length` field; they are not guaranteed NUL-
-  terminated.
-- **Affected paths:** `of_prop_next_string()`, `__of_node_is_type()`,
-  `__of_device_is_status()`, `of_alias_from_compatible()` use
-  `strlen`/`strcmp` without verifying the string fits within `length`.
-- **Symptom:** Out-of-bounds reads when scanning for a NUL terminator on
-  malformed properties.
-- **Fix:** Validate with `strnlen()` within declared bounds; switch
-  `of_alias_from_compatible()` to `of_property_read_string_index()`
-  (already validated).
-- **Root cause:** Inconsistent validation — some OF helpers already use
-  `strnlen`, these paths do not.
+- **Bug:** `of_reconfig_get_state_change()` uses `strcmp()` on
+  `prop->value` without verifying a NUL terminator within
+  `prop->length`. Live-tree reconfiguration properties are raw byte
+  sequences + explicit length.
+- **Symptom:** Malformed/non-NUL-terminated `status` values can cause
+  out-of-bounds reads via `strcmp()`, and may be misclassified as
+  enabling/disabling a node.
+- **Fix approach:** New `of_property_status_ok()` helper uses
+  `strnlen()` bounded by `prop->length`; malformed values → not
+  enabling.
+- **Root cause:** Reconfig path assumes C strings; DT properties are
+  length-bounded byte sequences.
 
 ### Step 1.4: Hidden Bug Fix?
-**Record:** Yes. Despite “validate” wording rather than “fix”, this is a
-real memory-safety bug fix (out-of-bounds read), not cosmetic cleanup.
+**Record:** Yes — described as validation, but it is a memory-safety and
+correctness fix (OOB read + wrong state decisions), not cosmetic
+cleanup.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 2: Diff Analysis
 
 ### Step 2.1: Inventory
 **Record:**
-| File | Change |
-|------|--------|
-| `drivers/of/base.c` | ~30 lines modified |
-| `drivers/of/property.c` | ~25 lines modified |
-| `drivers/of/unittest.c` | ~35 lines added (tests) |
+- **File:** `drivers/of/dynamic.c` (+16 / -4, ~20 lines net)
+- **Functions:** new `of_property_status_ok()`; modified
+  `of_reconfig_get_state_change()`
+- **Scope:** Single-file, surgical fix
 
-**Functions modified:** `__of_node_is_type()`,
-`__of_device_is_status()`, `of_alias_from_compatible()`,
-`of_prop_next_string()`
-
-**Scope:** Single-subsystem, surgical fix + unit tests.
-
-### Step 2.2: Code Flow Changes
-
-**Hunk 1 — `__of_node_is_type()`:**
-- Before: `strcmp(match, type)` with no bounds check on `device_type`.
-- After: `strnlen(match, len) >= len` rejects unterminated values before
-  `strcmp`.
-
-**Hunk 2 — `__of_device_is_status()`:**
-- Before: `strlen(status)` / `strcmp` / `strncmp` without verifying
-  `status` is NUL-terminated within `statlen`.
-- After: Rejects if `strnlen(status, statlen) >= statlen`.
-
-**Hunk 3 — `of_alias_from_compatible()`:**
-- Before: `strlen(compatible) > cplen` — `strlen` itself can read past
-  `cplen` if no NUL exists within bounds.
-- After: Uses `of_property_read_string_index()` which already validates
-  via `strnlen`.
-
-**Hunk 4 — `of_prop_next_string()`:**
-- Before: On first entry (`cur == NULL`), returns `prop->value`
-  unconditionally; on advance uses `strlen(cur)` without bounds.
-- After: Validates cursor within `[value, value+length)`; uses `strnlen`
-  for both current and next strings; rejects unterminated entries.
+### Step 2.2: Code Flow Change
+**Record:**
+- **Hunk 1 (new helper):** Before — no bounds check. After — reject
+  NULL/empty/non-NUL-terminated values; only then `strcmp("okay"/"ok")`.
+- **Hunk 2 (`of_reconfig_get_state_change`):** Before — direct
+  `strcmp(prop->value, "okay")`. After — `of_property_status_ok(prop)`
+  for new and old status properties on ADD/UPDATE/REMOVE/ATTACH/DETACH
+  paths.
 
 ### Step 2.3: Bug Mechanism
-**Record:** **Category:** Memory safety — out-of-bounds read (buffer
-over-read).
-
-**Mechanism:** Property values are stored as `(value, length)` byte
-sequences. `strlen()`/`strcmp()` scan until NUL. If no NUL exists within
-`length`, they read past the property boundary. The tree already has
-test data for this:
-
-```65:66:drivers/of/unittest-data/tests-phandle.dtsi
-                                unterminated-string = [40 41 42 43];
-                                unterminated-string-list = "first",
-"second", [40 41 42 43];
-```
-
-`of_property_read_string_index()` already rejects these (`-EILSEQ`), but
-`of_prop_next_string()` does not.
+**Record:** **Category:** Memory safety (out-of-bounds read) + logic
+correctness.
+- `strcmp()` reads past `prop->length` when no NUL exists within the
+  declared length.
+- `__of_prop_dup()` copies exactly `prop->length` bytes via `kmemdup()`
+  with no added NUL.
+- FDT `populate_properties()` stores raw blob bytes with `pp->length =
+  sz` — a normal `status = "okay"` is 4 bytes, typically without a
+  trailing NUL.
+- Malformed values may be treated as enabled when they should not be.
 
 ### Step 2.4: Fix Quality
-**Record:**
-- **Obviously correct:** Matches the existing pattern in
-  `of_property_read_string()` and `of_property_read_string_helper()`.
-- **Minimal:** No API changes, no refactoring.
-- **Regression risk:** Low — well-formed DT strings behave the same;
-  only malformed properties change from OOB-read to safe rejection.
+**Record:** Obviously correct; matches existing OF patterns in
+`overlay.c:228` and `property.c:505`. Minimal regression risk —
+conservative default (malformed = disabled). No new APIs.
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 3: Git History Investigation
 
 ### Step 3.1: Blame
-**Record:** Shallow clone (`git rev-parse --is-shallow-repository` →
-`true`); blame points all lines to merge base `6bda50f4333fa`. Cannot
-determine original introduction commit from this checkout. Buggy code is
-present in 6.18.43.
+**Record:** Buggy `strcmp` lines at `dynamic.c:138-142` attributed to
+`6bda50f4333fa` (initial tree content). `of_reconfig_get_state_change()`
+has been present since tree import; bug is not newly introduced
+post-6.18 branch.
 
-### Step 3.2: Fixes Tag
-**Record:** N/A — no `Fixes:` tag in commit message.
+### Step 3.2: Fixes: Tag
+**Record:** N/A — no Fixes: tag.
 
 ### Step 3.3: Related File History
-**Record:** Shallow history limits `git log` on these files. In-tree,
-`of_property_read_string()` (line 505) and
-`of_property_read_string_helper()` (line 581) already use `strnlen`.
-`overlay.c` line 228 also validates before `strlen`. This fix closes the
-remaining gaps in the same subsystem.
+**Record:** Recent `dynamic.c` changes: `fa9a4c5e` (fwnode flags thread
+safety), `ae62edb0` (revert). No prior fix for this issue in this tree.
+Fix not yet merged here.
 
-### Step 3.4: Author History
-**Record:** No prior commits from Pengpeng Hou in this shallow tree. Rob
-Herring (OF maintainer) merged it.
+### Step 3.4: Author Context
+**Record:** Pengpeng Hou has multiple sanitizer-hardening patches in
+this tree (btusb, hwmon, media, iommu). Rob Herring reviewed and
+committed. Patch series went v1 → v2 → v3 with maintainer feedback on
+patch 1/2 only.
 
 ### Step 3.5: Dependencies
-**Record:** Standalone. Uses existing `of_property_read_string_index()`
-(inline in `include/linux/of.h`, calls
-`of_property_read_string_helper`). No series dependencies.
+**Record:** Patch 2/2 is **standalone** — self-contained helper in
+`dynamic.c`, no symbols from patch 1/2. v3 changelog explicitly says "no
+code change" in 2/2 across revisions. Can apply independently.
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## Phase 4: Mailing List and External Research
 
-### Step 4.1–4.5
-**Record:**
-- `b4 dig -c HEAD` matched wrong commit (local HEAD, not this patch).
-- `b4 dig` with message-ID failed (requires `-c COMMITISH`).
-- lore.kernel.org and patch.msgid.link blocked by bot protection
-  (Anubis).
-- **UNVERIFIED:** Full mailing-list review thread, stable nominations,
-  reviewer NAKs.
+### Step 4.1: Original Discussion
+**Record:** Lore blocked by bot protection. Verified via lkml.iu.edu
+mirror: [PATCH v3 2/2](https://lkml.iu.edu/2605.0/09220.html). Series:
+patch 1/2 fixes `of_prop_next_string()` / `__of_device_is_status()` in
+`property.c`/`base.c`; patch 2/2 fixes reconfig notifier path.
 
-From commit message and Rob Herring merge sign-off: patch went through
-normal OF maintainer tree.
+### Step 4.2: Reviewers
+**Record:** To: Rob Herring, Saravana Kannan. Cc: devicetree, linux-
+kernel. Rob Herring applied with his Signed-off-by.
+
+### Step 4.3: Bug Report
+**Record:** No external bug report or syzbot link. Bug identified by
+code analysis in patch series (live-tree properties not NUL-terminated).
+
+### Step 4.4: Series Context
+**Record:** Patch 1/2 is complementary but separate. This commit alone
+closes the reconfig-specific hole. Patch 1/2 not in this tree either.
+
+### Step 4.5: Stable List
+**Record:** No stable-list discussion found (lore inaccessible). Not a
+negative signal per instructions.
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 5: Code Semantic Analysis
 
 ### Step 5.1: Key Functions
-**Record:** `of_prop_next_string`, `__of_node_is_type`,
-`__of_device_is_status`, `of_alias_from_compatible`
+**Record:** `of_property_status_ok()` (new),
+`of_reconfig_get_state_change()` (modified).
 
 ### Step 5.2: Callers
-**Record:**
-- `of_prop_next_string`: `__of_device_is_compatible()` (core device
-  matching), `drivers/memory/of_memory.c`,
-  `drivers/net/wireless/mediatek/mt76/eeprom.c`, `drivers/leds/leds-
-  powernv.c`, `arch/powerpc/platforms/pseries/of_helpers.c`, macro in
-  `include/linux/of.h`
-- `__of_device_is_status` → `of_device_is_available()` (called on
-  essentially every OF device probe), `of_device_is_fail`,
-  `of_device_is_reserved`
-- `__of_node_is_type` → `of_find_node_by_type()`,
-  `of_get_next_cpu_node()`, `__of_device_is_compatible()`
-- `of_alias_from_compatible` → SPI, I2C, DRM DSI, HSI, ACPI bus alias
-  handling
+**Record:** `of_reconfig_get_state_change()` called from reconfig
+notifiers in:
+- `drivers/of/platform.c:730` — platform device create/destroy on DT
+  changes
+- `drivers/i2c/i2c-core-of.c:168` — I2C client register/unregister
+- `drivers/spi/spi.c:4802` — SPI device management
+- `drivers/gpio/gpiolib-of.c:909` — GPIO chip management
+- `drivers/bus/imx-weim.c:309` — WEIM bus
+
+All under `CONFIG_OF_DYNAMIC`.
 
 ### Step 5.3: Callees
-**Record:** `__of_get_property`, `strnlen`, `strcmp`, `strncmp`,
-`of_property_read_string_index` → `of_property_read_string_helper`
+**Record:** `strnlen()`, `strcmp()` — validation then comparison only on
+bounded C strings.
 
 ### Step 5.4: Reachability
-**Record:** Reachable on every boot on DT-based platforms (ARM, RISC-V,
-PowerPC, etc.) during device-tree parsing, matching, and probe. Trigger
-requires malformed property data (bad DT blob, overlay, or dynamic
-property), not normal well-formed vendor DT.
+**Record:** Triggered during live DT changesets/overlays
+(`of_changeset_apply()`, `of_overlay_*()`). `CONFIG_OF_DYNAMIC` is
+selected by `CONFIG_OF_OVERLAY` (common on ARM/embedded) and several
+platform Kconfigs (PowerPC pseries, PCI, etc.). Reachable when overlays
+change `status` or nodes are attached/detached — not a dead-code path on
+affected configs.
 
 ### Step 5.5: Similar Patterns
 **Record:** Same `strnlen(prop->value, prop->length) >= prop->length`
-check already exists in:
-- `of_property_read_string()` at `drivers/of/property.c:505`
-- `of_property_read_string_helper()` at `drivers/of/property.c:581`
-- `overlay.c:228`
-
-This fix brings the remaining helpers in line.
+guard already used in `overlay.c:228` and `of_property_read_string()` at
+`property.c:505`. This commit brings the reconfig path in line with
+established OF practice.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE
+## Phase 6: Cross-Reference Against Local Tree
 
 ### Step 6.1: Buggy Code Present?
-**Record:** **Yes.** All four vulnerable code paths exist in 6.18.43:
+**Record:** **Yes.** Local tree is **6.18.43** (`git describe HEAD` →
+`v6.18.43-1-gc7f0dac02d232`). Buggy `strcmp` code present at
+`drivers/of/dynamic.c:138-142`. Fix (`of_property_status_ok`) **not**
+present.
 
-```615:629:drivers/of/property.c
-const char *of_prop_next_string(const struct property *prop, const char
-*cur)
-{
-        const void *curv = cur;
-        // ...
-        curv += strlen(cur) + 1;  // no bounds check on cur or first
-string
-```
-
-```83:87:drivers/of/base.c
-static bool __of_node_is_type(const struct device_node *np, const char
-*type)
-{
-        const char *match = __of_get_property(np, "device_type", NULL);
-        return np && match && type && !strcmp(match, type);  // no
-bounds check
-```
-
-### Step 6.2: Backport Difficulty
-**Record:** Clean apply expected — line context matches the provided
-diff. No conflicting changes in recent 6.18.y history on these
-functions.
+### Step 6.2: Backport Complications
+**Record:** Clean apply expected — single file, no structural conflicts.
+Recent `dynamic.c` churn is unrelated (fwnode flags, revert).
 
 ### Step 6.3: Related Fixes Already Present?
-**Record:** Partial. `of_property_read_string*` paths already validate.
-`of_prop_next_string` and the three `base.c` helpers do not. No
-duplicate fix found.
+**Record:** No. `of_property_status_ok` not found. Patch 1/2 string-
+validation changes not in tree.
 
 ---
 
-## PHASE 7: SUBSYSTEM CONTEXT
+## Phase 7: Subsystem Context
 
-### Step 7.1: Subsystem
-**Record:** `drivers/of` — Open Firmware / Device Tree core.
-**Criticality: CORE** for all DT-based platforms.
+### Step 7.1: Subsystem Criticality
+**Record:** **drivers/of** — device tree core. **IMPORTANT** for
+ARM/embedded/PowerPC platforms using live DT overlays; not universal
+like mm/net, but critical on affected platforms.
 
 ### Step 7.2: Activity
-**Record:** Actively maintained; recent commits include fwnode flag
-thread-safety and alias refcount leak fixes in this tree.
+**Record:** OF subsystem actively maintained; live-tree/overlay code is
+mature but still receiving hardening fixes.
 
 ---
 
-## PHASE 8: IMPACT AND RISK
+## Phase 8: Impact and Risk Assessment
 
 ### Step 8.1: Who Is Affected
-**Record:** All DT/OF platforms (ARM, RISC-V, PowerPC, some MIPS, etc.).
-Not x86 ACPI-only systems.
+**Record:** Platforms with `CONFIG_OF_DYNAMIC` (typically
+`CONFIG_OF_OVERLAY`). Users applying DT overlays or runtime changesets
+that touch `status` properties.
 
 ### Step 8.2: Trigger Conditions
 **Record:**
-- Malformed DT property without NUL within declared `length`
-- Examples: raw byte properties (`[40 41 42 43]`), truncated overlay
-  properties, dynamic properties via `__of_prop_dup()` (copies exact
-  length, no added NUL)
-- Unprivileged trigger: only if attacker can supply/modify DT (some
-  embedded boot chains, overlay loading)
-- Well-formed vendor DT: not affected
+- Any reconfig action where `status` property lacks NUL within
+  `prop->length` — includes normal FDT `"okay"` (4 bytes) on ATTACH_NODE
+  via `of_find_property()`.
+- Overlay property updates via `__of_prop_dup()` (exact-length copy, no
+  NUL appended).
+- **Likelihood:** Moderate on overlay-enabled systems; ATTACH_NODE with
+  standard DTB is a common path.
+- **Unprivileged trigger:** Overlay application typically requires
+  elevated privileges (root/capabilities), limiting direct userspace
+  exploitation.
 
-### Step 8.3: Failure Mode
-**Record:** Out-of-bounds read past property boundary → KASAN report,
-potential oops, information leak from adjacent memory. **Severity:
-HIGH** (memory safety); not data corruption but real kernel robustness
-issue.
+### Step 8.3: Failure Mode Severity
+**Record:**
+- **OOB read** via `strcmp()` past property boundary — **HIGH** (memory
+  safety; KASAN-detectable)
+- **Incorrect enable/disable** of platform/I2C/SPI/GPIO devices —
+  **MEDIUM-HIGH** (wrong devices probed or removed)
+- Not typically a direct panic, but real correctness and safety impact.
 
 ### Step 8.4: Risk-Benefit
 **Record:**
-- **Benefit:** HIGH for DT platforms — closes OOB-read holes in core
-  matching/probe paths
-- **Risk:** VERY LOW — ~55 lines of production code, mirrors existing
-  validated patterns
-- **Ratio:** Strongly favors backport
+- **Benefit:** HIGH on OF_DYNAMIC platforms — closes verified OOB read
+  and fixes state-machine correctness.
+- **Risk:** VERY LOW — ~14 lines of helper, conservative semantics,
+  maintainer-reviewed, matches existing OF patterns.
+- **Ratio:** Strongly favors backport.
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 9: Final Synthesis
 
 ### Step 9.1: Evidence Summary
 
 **FOR backport:**
-- Real out-of-bounds read bug in core OF code
-- Affects device matching, status checks, alias resolution — common boot
-  paths
-- Small, surgical, maintainer-merged fix
-- Consistent with validation already present in same files
-- Unit tests included
-- Bug demonstrable with existing `unterminated-string` test data
+- Real memory-safety bug (`strcmp` past `prop->length`)
+- Affects live DT reconfiguration — common overlay path on embedded ARM
+- Can mis-probe or mis-remove devices
+- Small, self-contained, obviously correct
+- OF maintainer (Rob Herring) signed off
+- Buggy code confirmed present in local 6.18.43 tree
+- Standalone — no dependency on patch 1/2
+- Matches established validation pattern elsewhere in OF
 
 **AGAINST backport:**
-- Requires malformed DT to trigger (not typical production DT)
-- No user/syzbot report in commit message
-- Mailing-list discussion unverified
+- Only affects `CONFIG_OF_DYNAMIC` builds (not all kernels)
+- No syzbot/user crash report filed
+- Patch 1/2 addresses related paths separately (but does not subsume
+  this fix)
+- Overlay access usually requires privileges
 
-**Unresolved:**
-- Full lore review thread (blocked)
-- Exact mainline commit hash (not in shallow 6.18.y history)
+**Unresolved:** Full lore review thread unavailable (bot protection). No
+runtime crash report — impact inferred from code analysis.
 
 ### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — mirrors existing `strnlen`
-   pattern; adds unit tests
-2. Fixes a real bug? **PASS** — OOB read on malformed properties
-3. Important issue? **PASS** — memory safety / potential crash on DT
-   platforms
-4. Small and contained? **PASS** — ~55 lines production code + tests
-5. No new features/APIs? **PASS** — behavior change only for malformed
-   input
+1. Obviously correct and tested? **PASS** — logic mirrors
+   `overlay.c`/`property.c`; maintainer reviewed; no unit tests in this
+   patch but pattern is established.
+2. Fixes a real bug? **PASS** — OOB read and incorrect status
+   classification verified in code.
+3. Important issue? **PASS** — memory safety (HIGH) + device probe
+   correctness (MEDIUM-HIGH).
+4. Small and contained? **PASS** — 1 file, ~20 lines.
+5. No new features/APIs? **PASS** — static helper only.
 6. Can apply to local tree? **PASS** — buggy code present, clean apply
-   expected
+   expected.
 
 ### Step 9.3: Exception Category
-**Record:** N/A (not device ID, quirk, DT binding, build fix, or docs
-fix — standard bug fix).
+**Record:** Not a device-ID/quirk/DT/bindings/doc exception — standard
+bug fix.
 
-### Step 9.4: Decision Rationale
+### Step 9.4: Problem Summary for Stable Users
 
-For **linux-6.18.y**, this commit fixes a genuine memory-safety gap in
-core device-tree string handling. Several OF helpers already validate
-with `strnlen`, but `of_prop_next_string()` and three `base.c` helpers
-do not — creating inconsistent, unsafe behavior on malformed properties.
-The fix is small, follows established in-tree patterns, is merged by the
-OF maintainer, and affects paths used during every device probe on DT
-platforms. The trigger (malformed DT) is uncommon in production but is
-exactly the class of input the kernel must handle safely.
+On 6.18.y systems with live device-tree reconfiguration enabled,
+`of_reconfig_get_state_change()` uses unbounded `strcmp()` on `status`
+property values that are stored as length-delimited byte sequences (not
+guaranteed NUL-terminated). A normal `status = "okay"` from a DTB is 4
+bytes without a trailing NUL; `__of_prop_dup()` also copies without
+appending NUL. This can read past the property boundary and produce
+wrong enable/disable decisions during overlay application, causing
+incorrect device probe/remove behavior on affected platforms.
+
+The fix is minimal, self-contained, maintainer-approved, and directly
+applicable to this 6.18.43 tree where the bug exists.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, body from provided commit message
-- **[Phase 1]** Confirmed no `Fixes:`, `Reported-by:`, or `Cc: stable`
-  tags
-- **[Phase 2]** Diff analysis: 3 production files, 4 functions modified
-- **[Phase 2]** Read current `of_prop_next_string()` at
-  `drivers/of/property.c:615-629` — uses unbounded `strlen`
-- **[Phase 2]** Read current `__of_node_is_type()` at
-  `drivers/of/base.c:83-87` — no bounds check
-- **[Phase 2]** Read current `__of_device_is_status()` at
-  `drivers/of/base.c:437-460` — no bounds check
-- **[Phase 2]** Read current `of_alias_from_compatible()` at
-  `drivers/of/base.c:1170-1181` — `strlen` before bounds validation
-- **[Phase 2]** Read `of_property_read_string()` at
-  `drivers/of/property.c:505` — already uses `strnlen` (fix pattern
-  exists)
-- **[Phase 2]** Read `of_property_read_string_helper()` at
-  `drivers/of/property.c:581` — already uses `strnlen`
-- **[Phase 2]** Read `overlay.c:228` — already uses `strnlen`
-- **[Phase 3]** `git rev-parse --is-shallow-repository` → `true`
-  (limited history)
-- **[Phase 3]** `git blame` on changed lines — all point to
-  `6bda50f4333fa` (shallow base)
-- **[Phase 3]** Verified `of_property_read_string_index` exists at
-  `include/linux/of.h:1262-1268`
-- **[Phase 4]** `b4 dig -c HEAD` — returned unrelated URL (wrong match)
-- **[Phase 4]** `b4 dig` with message-ID — failed (wrong usage)
-- **[Phase 4]** UNVERIFIED: lore.kernel.org and patch.msgid.link blocked
-  by bot protection
-- **[Phase 5]** `grep of_prop_next_string` — 6 call sites in production
-  code
-- **[Phase 5]** `grep of_alias_from_compatible` — 6 production call
-  sites
-- **[Phase 5]** `grep of_device_is_available` — widespread driver usage
-  confirmed
-- **[Phase 6]** `git describe HEAD` → `v6.18.43-1-gc7f0dac02d232`;
-  branch `stable/linux-6.18.y`
-- **[Phase 6]** Confirmed buggy code present in all four functions
-- **[Phase 6]** Read `tests-phandle.dtsi:65-66` — unterminated test
-  properties exist
-- **[Phase 6]** Read `__of_prop_dup()` at `drivers/of/dynamic.c:424` —
-  `kmemdup` without NUL padding
-- **[Phase 8]** Failure mode: OOB read via `strlen`/`strcmp` on non-NUL-
-  terminated property within declared length
+- **[Phase 1]** Parsed subject, tags, body from user-provided commit
+  message; fetched lkml mirror for v3 2/2
+- **[Phase 2]** Read diff; confirmed `of_property_status_ok()` and
+  `of_reconfig_get_state_change()` changes
+- **[Phase 2]** Read `__of_prop_dup()` at `dynamic.c:409-425` —
+  `kmemdup(prop->value, prop->length)` without NUL
+- **[Phase 2]** Read `populate_properties()` at `fdt.c:151-153` — stores
+  raw FDT bytes with explicit length
+- **[Phase 2]** Confirmed `strnlen` pattern in `overlay.c:228` and
+  `property.c:505`
+- **[Phase 3]** `git blame -L 136,142 drivers/of/dynamic.c` → lines from
+  `6bda50f4333fa`
+- **[Phase 3]** `git log --oneline -20 -- drivers/of/dynamic.c` — no
+  prior fix for this issue
+- **[Phase 3]** `git log --grep='of_property_status_ok'` — no results
+  (fix not merged)
+- **[Phase 4]** lkml.iu.edu/2605.0/09220.html — confirmed v3 2/2 content
+  and standalone nature
+- **[Phase 4]** Web search — identified patch 1/2 as separate (`validate
+  live-tree string properties`)
+- **[Phase 4]** lore.kernel.org — blocked (Anubis); b4 dig requires
+  commit hash not available in tree
+- **[Phase 5]** `grep of_reconfig_get_state_change` — 5 caller sites
+  verified
+- **[Phase 5]** Read `platform.c:730`, `i2c-core-of.c:168` notifier
+  paths
+- **[Phase 6]** `git describe HEAD` → v6.18.43; `make kernelversion` →
+  6.18.43
+- **[Phase 6]** Read `dynamic.c:136-142` — buggy strcmp code present
+- **[Phase 6]** `grep of_property_status_ok` — not found
+- **[Phase 7]** Read `drivers/of/Kconfig:83-107` — OF_DYNAMIC selected
+  by OF_OVERLAY
+- **[Phase 8]** Assessed OOB read + incorrect probe as HIGH/MEDIUM-HIGH
+  severity
+- **UNVERIFIED:** No runtime KASAN report or user crash report found for
+  this specific path
 
-**YES**
+**YES**The background `git log -S 'of_reconfig_get_state_change'` job
+hung (likely from a slow history walk) and was killed. A rerun without
+`--all` finished, but this tree’s history is shallow, so it didn’t pin
+down when the function was first added.
 
- drivers/of/base.c     | 43 ++++++++++++++++++++++++++-----------------
- drivers/of/property.c | 27 +++++++++++++++++++++------
- drivers/of/unittest.c | 32 ++++++++++++++++++++++++++++++++
- 3 files changed, 79 insertions(+), 23 deletions(-)
+That didn’t change the backport call: the buggy `strcmp` path is present
+in your **6.18.43** tree, the fix is small and self-contained, and the
+verdict remains **YES**.
 
-diff --git a/drivers/of/base.c b/drivers/of/base.c
-index 6620bf07b79b8..f6b99bd7a9ceb 100644
---- a/drivers/of/base.c
-+++ b/drivers/of/base.c
-@@ -82,9 +82,17 @@ EXPORT_SYMBOL(of_node_name_prefix);
+ drivers/of/dynamic.c | 20 ++++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/of/dynamic.c b/drivers/of/dynamic.c
+index b5be7484fb36d..3e08484d351b4 100644
+--- a/drivers/of/dynamic.c
++++ b/drivers/of/dynamic.c
+@@ -74,6 +74,20 @@ static const char *action_names[] = {
+ 	[OF_RECONFIG_UPDATE_PROPERTY] = "UPDATE_PROPERTY",
+ };
  
- static bool __of_node_is_type(const struct device_node *np, const char *type)
- {
--	const char *match = __of_get_property(np, "device_type", NULL);
-+	const char *match;
-+	int len;
++static bool of_property_status_ok(const struct property *prop)
++{
++	const char *status;
 +
-+	if (!np || !type)
++	if (!prop || !prop->value || prop->length <= 0)
 +		return false;
 +
-+	match = __of_get_property(np, "device_type", &len);
-+	if (!match || len <= 0 || strnlen(match, len) >= len)
++	status = prop->value;
++	if (strnlen(status, prop->length) >= prop->length)
 +		return false;
++
++	return !strcmp(status, "okay") || !strcmp(status, "ok");
++}
++
+ #define _do_print(func, prefix, action, node, prop, ...) ({	\
+ 	func("changeset: " prefix "%-15s %pOF%s%s\n",		\
+ 	     ##__VA_ARGS__, action_names[action], node,		\
+@@ -135,11 +149,9 @@ int of_reconfig_get_state_change(unsigned long action, struct of_reconfig_data *
  
--	return np && match && type && !strcmp(match, type);
-+	return !strcmp(match, type);
- }
- 
- #define EXCLUDED_DEFAULT_CELLS_PLATFORMS ( \
-@@ -444,22 +452,22 @@ static bool __of_device_is_status(const struct device_node *device,
- 		return false;
- 
- 	status = __of_get_property(device, "status", &statlen);
--	if (status == NULL)
-+	if (!status || statlen <= 0)
-+		return false;
-+	if (strnlen(status, statlen) >= statlen)
- 		return false;
- 
--	if (statlen > 0) {
--		while (*strings) {
--			unsigned int len = strlen(*strings);
-+	while (*strings) {
-+		unsigned int len = strlen(*strings);
- 
--			if ((*strings)[len - 1] == '-') {
--				if (!strncmp(status, *strings, len))
--					return true;
--			} else {
--				if (!strcmp(status, *strings))
--					return true;
--			}
--			strings++;
-+		if ((*strings)[len - 1] == '-') {
-+			if (!strncmp(status, *strings, len))
-+				return true;
-+		} else {
-+			if (!strcmp(status, *strings))
-+				return true;
- 		}
-+		strings++;
+ 	if (prop && !strcmp(prop->name, "status")) {
+ 		is_status = 1;
+-		status_state = !strcmp(prop->value, "okay") ||
+-			       !strcmp(prop->value, "ok");
++		status_state = of_property_status_ok(prop);
+ 		if (old_prop)
+-			old_status_state = !strcmp(old_prop->value, "okay") ||
+-					   !strcmp(old_prop->value, "ok");
++			old_status_state = of_property_status_ok(old_prop);
  	}
  
- 	return false;
-@@ -1170,10 +1178,11 @@ EXPORT_SYMBOL(of_find_matching_node_and_match);
- int of_alias_from_compatible(const struct device_node *node, char *alias, int len)
- {
- 	const char *compatible, *p;
--	int cplen;
-+	int ret;
- 
--	compatible = of_get_property(node, "compatible", &cplen);
--	if (!compatible || strlen(compatible) > cplen)
-+	ret = of_property_read_string_index(node, "compatible", 0,
-+					    &compatible);
-+	if (ret)
- 		return -ENODEV;
- 	p = strchr(compatible, ',');
- 	strscpy(alias, p ? p + 1 : compatible, len);
-diff --git a/drivers/of/property.c b/drivers/of/property.c
-index c1feb631e3831..71322b5bda267 100644
---- a/drivers/of/property.c
-+++ b/drivers/of/property.c
-@@ -614,16 +614,31 @@ EXPORT_SYMBOL_GPL(of_prop_next_u32);
- 
- const char *of_prop_next_string(const struct property *prop, const char *cur)
- {
--	const void *curv = cur;
-+	const char *curv;
-+	const char *end;
-+	size_t len;
- 
--	if (!prop)
-+	if (!prop || !prop->value || !prop->length)
- 		return NULL;
- 
--	if (!cur)
--		return prop->value;
-+	curv = cur ? cur : prop->value;
-+	end = prop->value + prop->length;
- 
--	curv += strlen(cur) + 1;
--	if (curv >= prop->value + prop->length)
-+	if (curv < (const char *)prop->value || curv >= end)
-+		return NULL;
-+
-+	if (cur) {
-+		len = strnlen(curv, end - curv);
-+		if (len >= end - curv)
-+			return NULL;
-+
-+		curv += len + 1;
-+		if (curv >= end)
-+			return NULL;
-+	}
-+
-+	len = strnlen(curv, end - curv);
-+	if (len >= end - curv)
- 		return NULL;
- 
- 	return curv;
-diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
-index 02b780b6e8e25..729813d54c22d 100644
---- a/drivers/of/unittest.c
-+++ b/drivers/of/unittest.c
-@@ -713,6 +713,7 @@ static void __init of_unittest_parse_phandle_with_args_map(void)
- static void __init of_unittest_property_string(void)
- {
- 	const char *strings[4];
-+	const struct property *prop;
- 	struct device_node *np;
- 	int rc;
- 
-@@ -789,6 +790,37 @@ static void __init of_unittest_property_string(void)
- 	strings[1] = NULL;
- 	rc = of_property_read_string_array(np, "phandle-list-names", strings, 1);
- 	unittest(rc == 1 && strings[1] == NULL, "Overwrote end of string array; rc=%i, str='%s'\n", rc, strings[1]);
-+
-+	/* of_prop_next_string() tests */
-+	prop = of_find_property(np, "phandle-list-names", NULL);
-+	strings[0] = of_prop_next_string(prop, NULL);
-+	unittest(strings[0] && !strcmp(strings[0], "first"),
-+		 "of_prop_next_string() failure; got '%s'\n", strings[0]);
-+	strings[0] = of_prop_next_string(prop, strings[0]);
-+	unittest(strings[0] && !strcmp(strings[0], "second"),
-+		 "of_prop_next_string() failure; got '%s'\n", strings[0]);
-+	strings[0] = of_prop_next_string(prop, strings[0]);
-+	unittest(strings[0] && !strcmp(strings[0], "third"),
-+		 "of_prop_next_string() failure; got '%s'\n", strings[0]);
-+	strings[0] = of_prop_next_string(prop, strings[0]);
-+	unittest(!strings[0],
-+		 "of_prop_next_string() should return NULL at end of list\n");
-+
-+	prop = of_find_property(np, "unterminated-string", NULL);
-+	strings[0] = of_prop_next_string(prop, NULL);
-+	unittest(!strings[0],
-+		 "of_prop_next_string() should reject unterminated first string\n");
-+
-+	prop = of_find_property(np, "unterminated-string-list", NULL);
-+	strings[0] = of_prop_next_string(prop, NULL);
-+	unittest(strings[0] && !strcmp(strings[0], "first"),
-+		 "of_prop_next_string() failure; got '%s'\n", strings[0]);
-+	strings[0] = of_prop_next_string(prop, strings[0]);
-+	unittest(strings[0] && !strcmp(strings[0], "second"),
-+		 "of_prop_next_string() failure; got '%s'\n", strings[0]);
-+	strings[0] = of_prop_next_string(prop, strings[0]);
-+	unittest(!strings[0],
-+		 "of_prop_next_string() should reject unterminated trailing string\n");
- }
- 
- #define propcmp(p1, p2) (((p1)->length == (p2)->length) && \
+ 	switch (action) {
 -- 
 2.53.0
 
