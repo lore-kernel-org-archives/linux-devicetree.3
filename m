@@ -1,166 +1,245 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011005.outbound.protection.outlook.com [52.101.70.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFE6346EC60;
-	Mon, 31 Aug 2026 15:27:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788190026; cv=none; b=ctuCUiy9EhXPbBOjid48g4YsDChZGvUapQUhlOACP1Z55yWbE6AfV/KKZKi85MxnNfsDIC9xwcjPzKYzVm0X01wEhboVwZ0aDi15qx0Mqz2sz7X09JtWxRpm8w9q6WWkox7qB2PtTy0uwWxPtfO9gj51wr/6w13Z85iyDuzKWcc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788190026; c=relaxed/simple;
-	bh=0yLUrBjl+Iob/60mpPR6kEDtqWBSv7Fl622SR8uCUtY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QX3eh+2I6b94tpiOvdNCp1Xd6cKf0vqOIhBnk6GVReqate8Oa+VpfBTU3X6Qgy6hu8+J7FUwoxE3rKvcE/iaNSFxLbfy/a0AJv84V0n/r9+ELYyeq7RKTxii+nE7BUbuJwDxDEzJMPI755wvRAR1bQ94qOcd6AIRIJ0VwQPzcRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QUF8P4gM; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2849946EC8E;
+	Mon, 31 Aug 2026 15:28:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.5
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788190132; cv=fail; b=jNNCyp+nmmav8YK+hsxWems47NgCSezXbyynDUFp9IylFrcetDqV++AlQTgD4qEdMfqAPXSBWICuvb9YbeP6R1Y26E0XNweYraQ9KVMv8n2vlE2GJM+GrkvY+fAf4uxVOjbxOcVTJW4L+EPV64lHI7vugB+eTSZ12mJojfcHfMA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788190132; c=relaxed/simple;
+	bh=FVV8P7yddsUI59bDccaL2joQSU0aDRdLfekXS+ZV+W8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=BGJF6r5FcXUee/cmIT6pqa06JvA/gS7afzMbY8jKyeGnwSidaBUGuwgpw/1UqIEhkIGfIV/ZJOhcMf64L3jmDsZukFvHCfl14RAk2l6rwCVG4ll7iHE7kBr2JmqwSGOqufpqoC9rRk1LWNXdnQZQUpo+sbDIr/01+vHtdg2NBbA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=aQ93cGuR; arc=fail smtp.client-ip=52.101.70.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QUF8P4gM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35CE41F000E9;
-	Mon, 31 Aug 2026 15:27:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788190024;
-	bh=gUP5n/WznTmHuMrpnHMPx1TVwBqtMo5tyX2g2aCSv0k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QUF8P4gMGLlHFojUT/Xod7XxAXCoVoONPee4fv1BbuY65cPI3nHoixSzmyJDXOXYP
-	 cxIZaO9/MJyn0wPTye7sTgjrYMNzDFYMzNYX654PnzhKxhiIjevSqQ9vAGaBuxZJw1
-	 neuMfi/4kEfSVoOTx0A7K+pYk7yLVxxut+jjdREF+1r2lAtbFy33CBarPVyUTa5irQ
-	 Pv6xIlF9Ht3WwfStXtvJYqZc8ATQBumuI+QaMhqdLkGKJL4zrHcF8rXRdHtHkeMCOH
-	 gkQcuwTPC4tAgXrMS/rj8eFXTuzUZ1xVFkWtDHzRxfKUJGm/KDySxG3i+gTgjZ7hcP
-	 NRSSR9irC+r8Q==
-Date: Mon, 31 Aug 2026 16:26:58 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Luiz Angelo Daros de Luca <luizluca@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="aQ93cGuR"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=H/k5NwJ92IHST745/pkNhUHW8cq4N5SeN8dUsyph/7BXKRcOInOMCAh9SC7z+1R3sJuji9NPjNF0K5m3c/NJPkv9m0WkXdEEOncHYBx29dhPQSDjCcy6pjvc+Nsyq+ZK1qZsmA2r9YwiPJnLDRgncLnOOzu3oyf/TvFcdt2thJwkgoR/BkTpfr4nCFgbJzAuMmTwwzS5sf5ABDpUwy9MPo/8mHv5WwTiPPOzqZGcGWdGaAalzuzRTe5QoGyHAlokg5lWhjRH+1ILnSUtP2hzVLJhzFy/PVQ2XblpBxUG3/urIBSQwhd1itSzlrs4IraCTU55bZ816PHZfLXtQFDJ/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yTJGiymNweAO3MR3ozZme9qbxyHuVC8dWkc67P1Agn8=;
+ b=V7tfXRyfluc5ePUjYrgrwlCxpYOYU+gZqk6NslPj/igMSQxmKgXX7Pb6XqNwlkrcd9Nh6RRRWqI08wY0J0YuYHMuZp5JvmC6Xysf65PtAJGEEc6VZwwIghh24wdVbfoh9niJh/STDZS2s7CIsz5fqNe9SJ7nd4R8wVqjcNUixryXXcDIO5JHFxXUIBEFaDKX9xfiRbaeP4khwkY8Iz1OFjXXcoUBROK5XqOZh8W99O+7nLzTLu17YU/IAUrD1O0teCkGgTz55NfuTJP277JCwwOWUMxEKT8YTcVREQvAzQfEGBbCkG2lLNxdGt1bMtPLtrUw1ZgkFVyyxWhblabpFg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yTJGiymNweAO3MR3ozZme9qbxyHuVC8dWkc67P1Agn8=;
+ b=aQ93cGuR6UR2l9v7WSF0Nxu5HDdBSmxaO9FeKErkZn1OXDzJ8Nxj8L19rHiFRU5za4+EtJiV6TH73xYCKDVvXYLgzN/ww6YwaeRN0sEbEHhbkkLr9ycIVN/G9MeQ/0zeYbYLZAk8LVFjowOcAERhd60PFO2hCLpLCHdZHQQ7f/8dCpWluP45OW0gFaoEHCwt19/zhW51A0i8y1KuXIsWaVMpXqjyLnV51/1RyRCf4rt+CzfZxQsmKbX692gl90GuUQ1nwmX3mTthLNA5LAr3KmKdRv8t4b3ygZ4WSUb8EkfKUG8d7KNYonz7ezP/PY+Phf69BedI0nFFTGq8ZcUvWw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM9PR04MB8130.eurprd04.prod.outlook.com (2603:10a6:20b:3b5::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 15:28:48 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 15:28:47 +0000
+Date: Mon, 31 Aug 2026 10:28:37 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, kernel@pengutronix.de,
-	linux-kernel@vger.kernel.org,
-	Ahmad Fatoum <a.fatoum@pengutronix.de>,
-	Alvin =?utf-8?Q?=C5=A0ipraga?= <alvin.sipraga@analog.com>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v3 1/3] dt-bindings: net: dsa: realtek: add
- RTL8365MB power supplies
-Message-ID: <20260831-awkward-routine-4198a7d5e7e2@spud>
-References: <20260831123637.666457-1-o.rempel@pengutronix.de>
- <20260831123637.666457-2-o.rempel@pengutronix.de>
+	Conor Dooley <conor+dt@kernel.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	linux-media@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 3/6] media: imx8-isi: Remove unused model field from
+ platform data
+Message-ID: <apWdpYUfSMY8mBVw@SMW015318>
+References: <20260831-isi_imx952-v2-0-fafdb4b446d4@oss.nxp.com>
+ <20260831-isi_imx952-v2-3-fafdb4b446d4@oss.nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831-isi_imx952-v2-3-fafdb4b446d4@oss.nxp.com>
+X-ClientProxiedBy: CYXPR02CA0081.namprd02.prod.outlook.com
+ (2603:10b6:930:ce::9) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="07g483MsH5ZneH74"
-Content-Disposition: inline
-In-Reply-To: <20260831123637.666457-2-o.rempel@pengutronix.de>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM9PR04MB8130:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9906fcf4-3632-47d1-3a49-08df07748d0b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|19092799006|366016|10067099003|11063799006|56012099006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	OQdTv/KT3gi5QZDE6m3N1/xrWwZgEaUCy2f6Qwnv/y8WjfERVBDgbg8h/4ZjNTeJnXIyYtoxmJhNCBq1TNHbA0rrXuchw9+47ULUId/Jt9aWuXAGdMKlN2TIF+VI32i6oQQt8V7eRKrD8GKsp8lDS5PpHBOgUeTD+Fr0CQDjeroL9s9VxSHdDYtUurHMlmha0qk2ROC9DWJCVYiuTzGacOQx+3Dek0Z6YXd83UlMNcXaXQwISvLaW/U6p44x29jBq2zHJFX+d8fOe0555F4x5rnjloT1tkZ23HVY342cAu9s1kq/67usGl55z+l26ys3bHkiSxB4NCf6Hz5d3lb9BO+YjB386BioVLoMwUMfiFwGBLGS9nSoVvWIO/Tkq5NYyt79U6Zcj9xkbT1ZWF9Hn25Q3U9JvYvMSMabFK8eLtENaoT/LnqF+Xy8BEFmjVwyG/Q4Qlc/6OcbODkVA5anlS8T/RKZ/c+OuQa0Lkb633Sik+HxlRejAkyjiQZSbtF0jFqfMiMPN5+NLq9FVjjIKPPUB2wPbK1Yov57OITod9ytW3eeMJm0k7jqx5qbxQWLopE1jntdQlPkC3Z9dbkOe0YmP6acVCPf2U/036pLGBAizfc+MrCWswcEtlJZL54QTEQqrEhDe0xGp+xTsaE924ps8FGsXhESJ6Z9I5I5dQ8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(19092799006)(366016)(10067099003)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?ODA6V8pB1Pl37skFkmk49r6kuBwNFstfJcp2lN6SJjiIcp3el5GI33xydjuj?=
+ =?us-ascii?Q?ODRsxxIfJqGu7a4YIK+miNwjojy2jSO9LP4b7svxNv4xYNBiVAfmYSuFyKmX?=
+ =?us-ascii?Q?+cJ1F12RshGspNKDOcMgB4vXgDxcOMbmP19+nAburty5WZ4s3THYIm+2ueu2?=
+ =?us-ascii?Q?wmdhyrh0H1963TVtQbVqb1K7f7M+X+ZvgIie+BQY/SAxxM0ePapzvhX3wtN2?=
+ =?us-ascii?Q?ArcfzoTBttLSOSKcDkFrsKmkxgYwNQnTjEvhqwqShm6mzA75a42SfIkLrByx?=
+ =?us-ascii?Q?c86sqab2bktGcF2dVr59OSeQPGkIFpqnrrbOET+Iy1EQNIhI4yR0w8oXGBRY?=
+ =?us-ascii?Q?ZV4kBsu0HECLbwsRnus7hdtFrPkByJQ3DIukMjjTqA7/yewd5j8SboOG8C3X?=
+ =?us-ascii?Q?zHOcDPKaTZIYS1r7lk29lBBIiJW12OHUYe4qGMlysCvq8adx8ouKqusruDFo?=
+ =?us-ascii?Q?LTjuL1rIAl1Vtucv4s05my5/xP5KadB166U8g//d+rk4WcujT8lYVytUR13C?=
+ =?us-ascii?Q?wmXbJqAj5l8h5iHaZvSYaF6xKr6UT8BzYZ8bQ4xEnPrAKmYf+Q3aQsIFZQqY?=
+ =?us-ascii?Q?9IDmHPbn3jctOslLFD8PwuBrpo6/LGxpuFs/naSS3U2+XYsAqQIQOQyHXyg1?=
+ =?us-ascii?Q?0yVC1QrvmboyAXFRuYkj+Ih/iVmHUfw9u9sIjtEd3GAsHQZh7NLKTwMPh1zZ?=
+ =?us-ascii?Q?dVTH87Gk5+54Hb1n3TqarUljTxpb8N3FREEQ0xFCUPssA9ysyTf+xsWHWP8b?=
+ =?us-ascii?Q?q3FzXPKB/GPlysjgsS6QjnKpu60dMcP08v7+5XrR728NbpONUI7SJFrcUfS7?=
+ =?us-ascii?Q?CdgcLxtq6wCdGFaxrX/bE4Tv6HEkrMPEO4Hu/GRptXDk7axZR1T2j+/u7FPA?=
+ =?us-ascii?Q?mja5a5Hd4jIO3XTnxmGZOS0PtANBHwsEPFj+RuaeRhTX0nuSN8+8prcp6yqb?=
+ =?us-ascii?Q?dRSTYVkPjQudVowlN8G8wDtNCdWmklLQukZ2HppAp9GdCUmkyIjAFfmDwkzm?=
+ =?us-ascii?Q?y0Yknk1o3VSVZARwBouoLBa8OCue01o6wZBafumjW0zXYZoKYDkn2D3G1LwR?=
+ =?us-ascii?Q?j3hzrrTyUugTGTalVeuUUAJWpQbw/F0lopCPMRubTzg6NMduEI2qB7Ol1Xjn?=
+ =?us-ascii?Q?fS1shIz8h/KzFzwcQ5hu8HLMtAdQQENJO3JonDq8leCofmwXqEN36lUJZG6w?=
+ =?us-ascii?Q?JV74pIdOv9lRnq1JY0LlaxyBIqRvFwus2sTGjRPldI6cq+sjPtDkre/l8K8u?=
+ =?us-ascii?Q?IpIVCQ7iMo4WhNMobIJtCDM9aC15q6jR8NU3c2ueEfuYYaNrOXk7Jk/9wbdG?=
+ =?us-ascii?Q?Q87bpIqLK9GbulSL/cPCVBktbcx6kCV3xgiFz4EETx7rKvA60uOp+UlerRE1?=
+ =?us-ascii?Q?WIScj2OpQqWIBtKy41Dnx9cCZJKW2vur9PfbpEXRsJVy0V7tihmfp1K8b1ck?=
+ =?us-ascii?Q?uC1gUE4F+yg6t+aiHth93EEhWzIqLo/mjZfityibiRR6ZAZYnuh7d/l8enJn?=
+ =?us-ascii?Q?u5xXQi9SxxmwUEbsyli99KALH7VffE4jBfBLQRS2AK+hQMoUekIggtOB21TY?=
+ =?us-ascii?Q?aHOFYd4x+k13SEgEn1GXhb2mttUwxwCMa62x4EfE/GFKgdxhEMYM3DZpRcmn?=
+ =?us-ascii?Q?3xlAdQ9gW5fkB3iZRpmyB+WsYR1JqYl+8WXlMVYs9b5zITvO8DJKr/uKiHgV?=
+ =?us-ascii?Q?9BdZ3lferJOSK5w1y7c6BYffPcSRR9fuksDTtL6ONIZJR18jN5K61hkduIAQ?=
+ =?us-ascii?Q?ym9JBe8tqhRSO4fi7226CXeiePI8ylMeutTjwdDO0fiFLAedWOEv?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9906fcf4-3632-47d1-3a49-08df07748d0b
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 15:28:47.7035
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TR5Hgc9L4N+95ifIDbRFEjsp1jP3RVESgVnawq3AhSjlsGjoSQSjGWVBWTDRXzEmxoSMztTZIp6rq53QChzfQj5JLw4SDeQWvZZVl31yjXs8cPZGwkt8HZvxuzHgx5c0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8130
 
---07g483MsH5ZneH74
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Aug 31, 2026 at 02:36:35PM +0200, Oleksij Rempel wrote:
-> Document the RTL8365MB power rails as optional supplies. They are optional
-> because the rails are often always-on; some designs break them out for
-> granular hwmon monitoring and regulator control.
->=20
-> They are scoped to realtek,rtl8365mb: different Realtek switch families u=
-se
-> different power-rail naming schemes, so these rails do not apply to other
-> families such as realtek,rtl8366rb (VDDA/VDD_CORE/VDDIO/...).
->=20
-> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
-> Reviewed-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
-
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-
+On Mon, Aug 31, 2026 at 11:36:58AM +0800, Guoniu Zhou wrote:
+> The model field in struct mxc_isi_plat_data and the corresponding
+> enum model are never referenced in any driver logic. Remove them
+> to simplify the platform data structures.
+>
+> Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
 > ---
-> Changes since v2:
-> - Move the *-supply properties to the top level; if:/then: now only forbi=
-ds
->   them on non-rtl8365mb compatibles (Krzysztof Kozlowski).
+
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+
+> Changes in v2:
+> - New added in v2 (Frank)
 > ---
->  .../devicetree/bindings/net/dsa/realtek.yaml  | 33 +++++++++++++++++++
->  1 file changed, 33 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/net/dsa/realtek.yaml b/Doc=
-umentation/devicetree/bindings/net/dsa/realtek.yaml
-> index 473facd87a62..b7bb60af623c 100644
-> --- a/Documentation/devicetree/bindings/net/dsa/realtek.yaml
-> +++ b/Documentation/devicetree/bindings/net/dsa/realtek.yaml
-> @@ -8,6 +8,20 @@ title: Realtek switches for unmanaged switches
-> =20
->  allOf:
->    - $ref: dsa.yaml#/$defs/ethernet-ports
-> +  - if:
-> +      not:
-> +        properties:
-> +          compatible:
-> +            contains:
-> +              const: realtek,rtl8365mb
-> +    then:
-> +      properties:
-> +        avddh-supply: false
-> +        avddl-supply: false
-> +        dvddio-supply: false
-> +        dvddio1-supply: false
-> +        dvddl-supply: false
-> +        pllvddl-supply: false
-> =20
->  maintainers:
->    - Linus Walleij <linusw@kernel.org>
-> @@ -62,6 +76,24 @@ properties:
->    resets:
->      maxItems: 1
-> =20
-> +  avddh-supply:
-> +    description: AVDDH high-voltage analog supply.
-> +
-> +  avddl-supply:
-> +    description: AVDDL low-voltage analog supply.
-> +
-> +  dvddio-supply:
-> +    description: DVDDIO digital I/O supply.
-> +
-> +  dvddio1-supply:
-> +    description: DVDDIO_1 secondary digital I/O supply for the RGMII ban=
-k.
-> +
-> +  dvddl-supply:
-> +    description: DVDDL digital core supply.
-> +
-> +  pllvddl-supply:
-> +    description: PLLVDDL PLL analog supply.
-> +
->    realtek,disable-leds:
->      type: boolean
->      description: |
-> @@ -243,6 +275,7 @@ examples:
->      platform {
->              ethernet-switch {
->                      compatible =3D "realtek,rtl8365mb";
-> +                    avddh-supply =3D <&avddh>;
->                      mdc-gpios =3D <&gpio1 16 GPIO_ACTIVE_HIGH>;
->                      mdio-gpios =3D <&gpio1 17 GPIO_ACTIVE_HIGH>;
->                      reset-gpios =3D <&gpio5 0 GPIO_ACTIVE_LOW>;
-> --=20
-> 2.47.3
->=20
-
---07g483MsH5ZneH74
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapWdQgAKCRB4tDGHoIJi
-0kk/AQD1Ik9lwiWECiSAZss9j3Fl4diaY24XH893jL/RxTvYpAD8DNOhT3dLrj0g
-qzyx6j8ZEosO3b2fYxeOYtYWxlpbrw0=
-=fqMU
------END PGP SIGNATURE-----
-
---07g483MsH5ZneH74--
+>  drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c |  8 --------
+>  drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h | 12 ------------
+>  2 files changed, 20 deletions(-)
+>
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
+> index c1c16dbc1539..e627054bbc8e 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
+> @@ -291,7 +291,6 @@ static const struct mxc_isi_set_thd mxc_imx8_isi_thd_v1 = {
+>  };
+>
+>  static const struct mxc_isi_plat_data mxc_imx8mn_data = {
+> -	.model			= MXC_ISI_IMX8MN,
+>  	.num_ports		= 1,
+>  	.num_channels		= 1,
+>  	.reg_offset		= 0,
+> @@ -304,7 +303,6 @@ static const struct mxc_isi_plat_data mxc_imx8mn_data = {
+>  };
+>
+>  static const struct mxc_isi_plat_data mxc_imx8mp_data = {
+> -	.model			= MXC_ISI_IMX8MP,
+>  	.num_ports		= 2,
+>  	.num_channels		= 2,
+>  	.reg_offset		= 0x2000,
+> @@ -317,7 +315,6 @@ static const struct mxc_isi_plat_data mxc_imx8mp_data = {
+>  };
+>
+>  static const struct mxc_isi_plat_data mxc_imx8qm_data = {
+> -	.model			= MXC_ISI_IMX8QM,
+>  	.num_ports		= 5,
+>  	.num_channels		= 8,
+>  	.num_vc			= 4,
+> @@ -330,7 +327,6 @@ static const struct mxc_isi_plat_data mxc_imx8qm_data = {
+>  };
+>
+>  static const struct mxc_isi_plat_data mxc_imx8qxp_data = {
+> -	.model			= MXC_ISI_IMX8QXP,
+>  	.num_ports		= 5,
+>  	.num_channels		= 6,
+>  	.num_vc			= 4,
+> @@ -343,7 +339,6 @@ static const struct mxc_isi_plat_data mxc_imx8qxp_data = {
+>  };
+>
+>  static const struct mxc_isi_plat_data mxc_imx8ulp_data = {
+> -	.model			= MXC_ISI_IMX8ULP,
+>  	.num_ports		= 1,
+>  	.num_channels		= 1,
+>  	.reg_offset		= 0x0,
+> @@ -355,7 +350,6 @@ static const struct mxc_isi_plat_data mxc_imx8ulp_data = {
+>  };
+>
+>  static const struct mxc_isi_plat_data mxc_imx91_data = {
+> -	.model			= MXC_ISI_IMX91,
+>  	.num_ports		= 1,
+>  	.num_channels		= 1,
+>  	.reg_offset		= 0,
+> @@ -367,7 +361,6 @@ static const struct mxc_isi_plat_data mxc_imx91_data = {
+>  };
+>
+>  static const struct mxc_isi_plat_data mxc_imx93_data = {
+> -	.model			= MXC_ISI_IMX93,
+>  	.num_ports		= 1,
+>  	.num_channels		= 1,
+>  	.reg_offset		= 0,
+> @@ -380,7 +373,6 @@ static const struct mxc_isi_plat_data mxc_imx93_data = {
+>  };
+>
+>  static const struct mxc_isi_plat_data mxc_imx95_data = {
+> -	.model			= MXC_ISI_IMX95,
+>  	.num_ports		= 4,
+>  	.num_channels		= 8,
+>  	.num_vc			= 8,
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
+> index 05c21c448b93..73f6ea7b0ea1 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
+> @@ -155,19 +155,7 @@ struct mxc_gasket_ops {
+>  	void (*disable)(struct mxc_isi_dev *isi, const unsigned int port);
+>  };
+>
+> -enum model {
+> -	MXC_ISI_IMX8MN,
+> -	MXC_ISI_IMX8MP,
+> -	MXC_ISI_IMX8QM,
+> -	MXC_ISI_IMX8QXP,
+> -	MXC_ISI_IMX8ULP,
+> -	MXC_ISI_IMX91,
+> -	MXC_ISI_IMX93,
+> -	MXC_ISI_IMX95,
+> -};
+> -
+>  struct mxc_isi_plat_data {
+> -	enum model model;
+>  	unsigned int num_ports;
+>  	unsigned int num_channels;
+>  	unsigned int num_vc;		/* Number of VCs, 0 = no VC support */
+>
+> --
+> 2.34.1
+>
+>
