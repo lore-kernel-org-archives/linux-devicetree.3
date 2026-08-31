@@ -1,38 +1,38 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516823E4C6B;
-	Mon, 31 Aug 2026 09:59:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B762F3E5A2C
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 10:00:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788170360; cv=none; b=J+VVrowAGlqlrmL9RT/2JY4dV0a4fr7M9ldcMHPoEbNhJ0IKsXUN7gVWqVkBcb5NdteokzdyfZdH4bS5Hq1APoJLqa7qzinxnoHdz5Gf6pFh+cger7q3BNNoAPW56DGT5aPOA0zlBJhDUmrgaQ4MOGYEeccD4cHCZbqTUYLx3Ng=
+	t=1788170404; cv=none; b=ZCjFrXRQ5ccJKrzLLZWCPkb5KIy/3V5PvQFs1LPlnvj9QJYcONbl0kc6fgOVvM/ZV/uc0NqYwhZ6ug9Tt6qdOPGo9l2tZSmfxmEo2RQzDhZY6nujh/mSD+GcZycBtqHoZshol0A9LrI7HCiF8lxyHFe/JZLTQW6mCxSfa5IrY9c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788170360; c=relaxed/simple;
-	bh=XYkGGrdTKDQPL1UYLC6WFxA8Qxe8sS/GKMrch3FeJUA=;
+	s=arc-20240116; t=1788170404; c=relaxed/simple;
+	bh=FQ1qqH3C8ELA/wSvZFbz8C1+Mjlf9D7qAmQgtunOEb8=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=tWSw9gC4x939hNScHcAJ8/rO1s/2t6+iAZwaT7BjPwh0bVXm8TT7jEQFt0DOi1ou/Jw8AUqc2+4vFCbh7tfUdgVDKRqmbtqlPoZXQzPBJ2uxw/aNDHd59hve8dRCS7Mo6AP7jG78Uw+bWm2wGooQRXc9/zJAkQuW6jvNYEWUt7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=jOUGKThJ; arc=none smtp.client-ip=185.246.84.56
+	 MIME-Version:Content-Type; b=RiRqntqeKD9CjthVjPaq1nkmKiZZTqpQxOHcoaw0U3FbFVUNNpl2mgMHvgxJkbKZtBD6YJZoE5hmdPlI49Iq5pqzriBIb2vlHwPF+MQqTvE2ZslLR45K8ckxOvJMVvGroU+7nuVzHak513XpBFS4sK0vvs2ydzvNTCRjkmfA2Q4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=jGQPAlde; arc=none smtp.client-ip=185.246.85.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="jOUGKThJ"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="jGQPAlde"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 52FAF1A18EF;
-	Mon, 31 Aug 2026 09:59:14 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 0306B4E41441;
+	Mon, 31 Aug 2026 10:00:01 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 24BAE60231;
-	Mon, 31 Aug 2026 09:59:14 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 72D3B11C78ACF;
-	Mon, 31 Aug 2026 11:59:11 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C0ABB60231;
+	Mon, 31 Aug 2026 10:00:00 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5A36F11C78ACF;
+	Mon, 31 Aug 2026 11:59:54 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788170353; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1788170395; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=lSAVklH3/DZC+dEEajSN7smRFSqHoX6/7i0eooVPPZ0=;
-	b=jOUGKThJq/zryo31e7uyzVfE+Olxc7XCn+ReLMQZYc/gfXZQR2ifcEGH+p0DuyKoZ6ipVs
-	mkcV/gZPWCZ22nBBj3USFou+i0mddLS/efvyFjyFMuwpq3xAQ6BghHJR3oHAQu1daSiTXS
-	RPEsGEp7M0U1xAZ2ZVfa6rnMlwrhsJVvxVWY5NKkiPN4BylixeZPNtMLxKhAXijXMb7UO7
-	hlJ27mS/YbNX1Uvkda2UndZnW117miGI3OqhhCS4aJ3pdZI8wRktz26cmP7jlG8uj8+xIT
-	kBEEIC5uig0iVfoPBeL6pa13TuL1kqrwyPxXmFjo2whARdDOPsJV8nMO2r81Wg==
+	bh=9ow2ViMeEMGTyK3UySqQVG82oOIdDJas1XKKjGfqN5Q=;
+	b=jGQPAldeFoEaMiTrr6qe/vl94pp7XVReJhbW0eSfVXlZb0ztjBLdtYzJobMxKETVidDkJT
+	fNjlkriHOTCGwtmZu1CTS0/xaJKlU8v9k2+pmGnPpI3kbbbt8c+ZFva7VKd4RcwG2YXTRs
+	U1B3XRuHu9s6KqW8KViqQ1BnD1a8k7VhNhRch9rd5ODKt1tKwEhGy3olfR8NNk53CFkwIW
+	kxaOqa9LoUUcPjGx793DjaWw2mzHrXa6fgjA91sG9wA965N7RoRVFU0MAjUltL1zujbEVq
+	wJL7yjlzX8UHYivLuU3KYakf8bjmnl/pC4UH00uO+ggA9fb3YDo1ghrKkwbRmA==
 From: Gregory CLEMENT <gregory.clement@bootlin.com>
 To: Rosen Penev <rosenp@gmail.com>, devicetree@vger.kernel.org
 Cc: Andrew Lunn <andrew@lunn.ch>, Sebastian Hesselbarth
@@ -42,11 +42,11 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Sebastian Hesselbarth
  list:ARM/Marvell Kirkwood and Armada 370, 375, 38x,..."
  <linux-arm-kernel@lists.infradead.org>, open list
  <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] ARM: dts: helios4: fix vbus-supply for USB2 PHY
-In-Reply-To: <20260829021103.332384-1-rosenp@gmail.com>
-References: <20260829021103.332384-1-rosenp@gmail.com>
-Date: Mon, 31 Aug 2026 11:59:10 +0200
-Message-ID: <87bjaipq4x.fsf@BLaptop.bootlin.com>
+Subject: Re: [PATCH] ARM: dts: helios4: fix spi1 location
+In-Reply-To: <20260829203720.44633-1-rosenp@gmail.com>
+References: <20260829203720.44633-1-rosenp@gmail.com>
+Date: Mon, 31 Aug 2026 11:59:53 +0200
+Message-ID: <878q5mpq3q.fsf@BLaptop.bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -59,14 +59,21 @@ X-Last-TLS-Session-Version: TLSv1.3
 
 Rosen Penev <rosenp@gmail.com> writes:
 
-> The usb-nop-xceiv binding and driver use "vbus-supply"; the driver
-> acquires the VBUS regulator via devm_regulator_get_exclusive("vbus")
-> (phy-generic.c). The stale "vbus-regulator" name is never read by
-> the driver and dtbs_check rejects it as an unknown property. Rename
-> the property so reg_5p0v_usb is honored.
+> This spi node is specified in armada-38x.dtsi with proper compatible
+> strings whereas they are not present here. Instead of copy and pasting
+> various lines, just reference the node in the dtsi.
+>
+> This dts seems to predate the move of spi from internal-regs to the soc
+> node so this moves it in line there.
+>
+> Allows proper probing of SPI at runtime.
+>
+> Remove the microsom_spi1_cs_pins pinctrl group and its reference in
+> &spi1. The group only muxed mpp59 to the "spi1" function, but that
+> pin (SPI1 cs0) is already covered by spi1_pins, which selects the
+> same function for mpp56-59 in armada-38x.dtsi.
 >
 > Fixes: ced8025b569e ("ARM: dts: armada388-helios4")
-> Assisted-by: opencode:big-pickle
 > Signed-off-by: Rosen Penev <rosenp@gmail.com>
 
 Applied on mvebu/dt
@@ -75,23 +82,46 @@ Thanks,
 
 Gregory
 > ---
->  arch/arm/boot/dts/marvell/armada-388-helios4.dts | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  .../arm/boot/dts/marvell/armada-388-helios4.dts | 17 ++++++-----------
+>  1 file changed, 6 insertions(+), 11 deletions(-)
 >
 > diff --git a/arch/arm/boot/dts/marvell/armada-388-helios4.dts b/arch/arm/=
 boot/dts/marvell/armada-388-helios4.dts
-> index b8576ca0de1c..9de9a8a4267c 100644
+> index 9de9a8a4267c..ae03d42f92a0 100644
 > --- a/arch/arm/boot/dts/marvell/armada-388-helios4.dts
 > +++ b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-> @@ -140,7 +140,7 @@ fan2: j17-pwm {
+> @@ -254,13 +254,6 @@ sata3: sata-port@1 {
+>  				};
+>  			};
 >=20=20
->  	usb2_phy: usb2-phy {
->  		compatible =3D "usb-nop-xceiv";
-> -		vbus-regulator =3D <&reg_5p0v_usb>;
-> +		vbus-supply =3D <&reg_5p0v_usb>;
+> -			spi@10680 {
+> -				pinctrl-0 =3D <&spi1_pins
+> -					     &microsom_spi1_cs_pins>;
+> -				pinctrl-names =3D "default";
+> -				status =3D "okay";
+> -			};
+> -
+>  			sdhci@d8000 {
+>  				bus-width =3D <4>;
+>  				cd-gpios =3D <&gpio0 20 GPIO_ACTIVE_LOW>;
+> @@ -327,11 +320,13 @@ helios_fan2_pins: helios_fan2_pins {
+>  					marvell,pins =3D "mpp48", "mpp55";
+>  					marvell,function =3D "gpio";
+>  				};
+> -				microsom_spi1_cs_pins: spi1-cs-pins {
+> -					marvell,pins =3D "mpp59";
+> -					marvell,function =3D "spi1";
+> -				};
+>  			};
+>  		};
 >  	};
->=20=20
->  	usb3_phy: usb3-phy {
+>  };
+> +
+> +&spi1 {
+> +	pinctrl-0 =3D <&spi1_pins>;
+> +	pinctrl-names =3D "default";
+> +	status =3D "okay";
+> +};
 > --=20
 > 2.55.0
 >
