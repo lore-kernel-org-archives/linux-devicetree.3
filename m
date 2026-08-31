@@ -1,42 +1,64 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6041E4BA9FC;
-	Mon, 31 Aug 2026 14:03:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EB88492520;
+	Mon, 31 Aug 2026 14:05:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788185027; cv=none; b=Ijd1I+bTttg8OFimTiz6zK1vDVjB9/qNrFgqnQ+vuDvEn6vr4sYWHxMWwMgWAl8ZbCZOpCazb2slN3gilGgMQcIfKYdPwZpAXtKAfGhIIWwGPPJRV/GHBTfumObXA1dRC4NAmGVNY+O3uYZgdxDriUR5KH5FonImjDe5OeyYJF4=
+	t=1788185135; cv=none; b=QlP8TTVm8jbBcv/3KiZkO1uOdMd6Ni0qGWXaEgB74/10ExA2akSTifn5UftRRBNkOlvkXhu5pkpilMe6ZVh249lP28ORdWXXlTOgTaq5L4Pa6/Ivpw++OQvNpdPWg1gcKok8tR6Ou18EqYVHBakcQJb92ZR4WLLoCXrRkP3V0k0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788185027; c=relaxed/simple;
-	bh=u/JIEB1VZLVEUz1D5yYevW1fZKvNTUjrOOj9y0gM32E=;
+	s=arc-20240116; t=1788185135; c=relaxed/simple;
+	bh=oAaZfGE0LIHaxXfesnXqiw1eLC+pyih9L152sojN/6M=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r1zw5ok54gYYXuh36ow0jo1jn242Ll6sCOEwlHB6RXHMxBdmQ5NFB1wjxD/VUzvKgrr4vuLaeO6rM7cUdeusD6lVyiJ0YL5Gf7Jc8SSld62elgXWwwUqwJLIKPK6x+e8BvM8UBJQxueDdcZUghNOgOAzAr5AXbbmnrh7ecxAzDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zyyi9KT5; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=XnGcxtD49uKVyyGlyoqp8I6hsyVDNy/ptftot4f2mxNETrBkw4ZogL66V/A6fY25j6UBWWLQgLeEzcWOJuYSAy+/dhmM/fduTlBHeTR/4otHlDt6yTZI+xoA4HBKuf5azhNukPcIHG183hBY2xlb/+rAj8tVKBC10YEJ9PIsec8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HZ5I3bPi; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zyyi9KT5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 110031F000E9;
-	Mon, 31 Aug 2026 14:03:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788185026;
-	bh=/68hFuw9bLfoF6dXZRX/Z57CoQKxfgxM5du8+GdZQ4I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Zyyi9KT5HEXY9WwuYrPGv/hQPw2oLCqB79wZ6909R7XbQsFgEqt+H02cC3usF9kGV
-	 W9nnlVjNSwIZ+mloVz+C0m0rLGUPYfL7o+lkJ2GwxHGaWk/EaScP0mbLXz39mj4hPx
-	 QmrVoUElh8CoF+Eu/Qj3HtvljJBbbeyptL+UudjitlT4Tw1qMXUdMtP4qZ3xBNKKID
-	 sGlrzbsTWcIgN1OK7vGp6sHLasKrbZHPju2hhU5NnF2m5miwnR1+BAy2x2+S0qt5+T
-	 ZrIPs0ElnoGJqeZdSITO7Da2MCKlYIUYZFwcgFZaDD2TxLeNCWrrj4RNI8MHJeFtEk
-	 P4PxIqpKWSGPg==
-Date: Mon, 31 Aug 2026 09:03:45 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Bhargav Joshi <j.bhargav.u@gmail.com>
-Cc: Kishon Vijay Abraham I <kishon@kernel.org>, devicetree@vger.kernel.org,
-	m-chawdhry@ti.com, simona.toaca@nxp.com,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, daniel.baluta@gmail.com,
-	goledhruva@gmail.com
-Subject: Re: [PATCH] dt-bindings: bus: ti,omap-ocp2scp: Convert to DT schema
-Message-ID: <178818502439.798571.879540033956134279.robh@kernel.org>
-References: <20260818-ti-ocp2scp-v1-1-9d2885011cda@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HZ5I3bPi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788185133; x=1819721133;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=oAaZfGE0LIHaxXfesnXqiw1eLC+pyih9L152sojN/6M=;
+  b=HZ5I3bPid572ErEWH1P2vY5eTZPlfMoGccBuPIWIAfqATNtgWYJDAAHj
+   mNCwOXZRiGCHrYBh6EVrB1evCpHNM7M/gt5AUzHclFrelrxTmOUuJe0bM
+   XPnbHEzS1kfLgy3om//r1XXe21z1fqwyoGQtNspJ8oeCz+cdcES+aLiff
+   9biDovgUND/jFY9lXMzUrs55XjlFI6fEnq0Oyhk4+PlCZ6zRlaktj3ejP
+   NvkAtV6QiL/0sNllcp0JEvxe+k4hurbNlx42tKc+xHd7eIxS62roXzfJe
+   Mp3WlfzdYsOg/2RySvGZhlexuhOF74ZF8Dl5IcUSyFGzZMtj9wZm12VrD
+   Q==;
+X-CSE-ConnectionGUID: rXDTv4fbQzyPBuJ6nDa41A==
+X-CSE-MsgGUID: o/kRP+ksSIOGM8uHC0eBXg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88469550"
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
+   d="scan'208";a="88469550"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 07:05:22 -0700
+X-CSE-ConnectionGUID: T0R3EfDeTYW6/E9ENg7iSw==
+X-CSE-MsgGUID: XJteXT1URma2VSypDslLYA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
+   d="scan'208";a="307032910"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 07:05:17 -0700
+Date: Mon, 31 Aug 2026 17:05:15 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Stefan Popa <stefan.popa@analog.com>
+Cc: linux-iio@vger.kernel.org, jic23@kernel.org, lars@metafoo.de,
+	Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, andy@kernel.org, dlechner@baylibre.com,
+	nuno.sa@analog.com, siratul.islam@linux.dev,
+	u.kleine-koenig@baylibre.com, linux@roeck-us.net,
+	joshua.crofts1@gmail.com, ciprian.hegbeli@analog.com,
+	krzysztof.kozlowski@oss.qualcomm.com, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v9 2/2] iio: adc: add MAX40080 current-sense amplifier
+ driver
+Message-ID: <apWKGyFYmmJLe-Wx@ashevche-desk.local>
+References: <20260831134334.196359-1-stefan.popa@analog.com>
+ <20260831134334.196359-3-stefan.popa@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,28 +67,37 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260818-ti-ocp2scp-v1-1-9d2885011cda@gmail.com>
+In-Reply-To: <20260831134334.196359-3-stefan.popa@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-
-On Tue, 18 Aug 2026 21:59:49 +0530, Bhargav Joshi wrote:
-> Convert the TI OCP2SCP bridge device tree bindings to DT schema.
-> Changes during conversion:
-> - Add list #address-cells and #size-cells as required properties.
-> - Drop ranges from the required properties as it is omitted in some
->   existing DTS.
-> - Mark reg is not required for compatible ti,am437x-ocp2scp, driver skips
->   fetching memory resources for this, existing DTS also omit it.
-> - Mark the ti,hwmods property as deprecated.
-> - Set additionalProperties to type: object rather than using
->   patternProperties`. Since OCP2SCP acts as a generic bridge/bus, its
->   child nodes represent various PHY devices.
+On Mon, Aug 31, 2026 at 04:43:34PM +0300, Stefan Popa wrote:
+> The MAX40080 is a bidirectional current-sense amplifier with an
+> integrated 12-bit ADC and an I2C/SMBus interface. It measures the
+> voltage across an external shunt resistor and the input bus voltage,
+> storing the results in an internal FIFO.
 > 
-> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
-> ---
->  .../devicetree/bindings/bus/omap-ocp2scp.txt       | 29 ---------
->  .../devicetree/bindings/bus/ti,omap-ocp2scp.yaml   | 74 ++++++++++++++++++++++
->  2 files changed, 74 insertions(+), 29 deletions(-)
+> Add a direct-mode IIO driver exposing the current and voltage channels
+> with raw, scale and hardware-gain attributes, a configurable
+> oversampling (digital averaging) ratio, and PEC-protected register
+> access. The current scale is derived from the shunt resistor value
+> described in the device tree.
 > 
+> The driver operates in single-measurement mode: each raw read triggers
+> an on-demand conversion via SMBus Quick Command and returns a matched
+> current/voltage pair. This avoids the latency and complexity of the
+> continuous FIFO mode while ensuring each read reflects the current
+> state. The two selectable current-sense ranges are exposed through
+> scale/scale_available.
+> 
+> Continuous FIFO buffering, threshold events and the alert interrupt are
+> intentionally left out of this initial submission and may be added
+> later.
 
-Applied, thanks!
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
