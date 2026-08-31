@@ -1,361 +1,147 @@
-Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9546538DC62
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 20:23:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334FF3D567F;
+	Mon, 31 Aug 2026 20:24:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788207794; cv=none; b=ozA8GcUNsrTN94wlWSX4Jdl8QrEhgeX+6LRHuMKW95ZQRZYrxHjQOaNV37rE85wk1Osjk8Dsh1w+qpJ/4ebsMWR0zVjF61OU99S/M0i4G2Vr9cdn07Mre0hKPwApBBj+4v9Y3/KMhA5ZfDTdIM2ai6vLmaypgKT7QJwsxGd4SHg=
+	t=1788207845; cv=none; b=HUL95EaBaMQapUkYwJbeJQo4HAYsJ29cLzklM3TuhxdZQp7ZElwFpuxv9yxBC6crmSPoNh64U2bBEHdiA7rmdInzdP9Mti4QLYRliyT26+ZN+0gwtEuZ+VaaBZrLrxKEKRGEBS19iBN2nl7EWu8fBc8N8RDm6S1gU0sbiYpvUQc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788207794; c=relaxed/simple;
-	bh=3VkGyzucBxff06v+8a5uGjErpd/DNDWM15efWFyJEyk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VlPZy66O7TPdXN1zWrLiD3uRxv6JLX/6ifLuw5Y2acjjJlV4/fmh0zF2hSMAmU7VfbYDMoF/DF8KL3/imQSZF+/H/Wx+9LVwXc+/Q5mMeOlIW7MyQ647Rw6XTfCyqGkUyjsRMYBdDVcaSNAdr640YE7LsDmqlT69yThJb74GYR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=h5WITTsF; arc=none smtp.client-ip=209.85.161.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1788207845; c=relaxed/simple;
+	bh=Px93pEqXxcv2hFKIgOuJCdQfEAqnHWVFotwUQGyFlME=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=jD3X8BZHXAZMroeDCJNz5q7gqYSB/LkXFlmQLk15P9xFIQlQaKU5V6exjWX2qnYTSERrWA0wHUrwFEIxBQ28pZujQtUwfmZTSWXcm57m4KzhqwRrYfU3JIXUtsMLrJGK+fUgfTN/XsjUR2LtRpkiXczY0mzGfF7Io/SAmcxzm/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kCX4A4K/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="h5WITTsF"
-Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-6b12942ed04so149588eaf.1
-        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 13:23:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1788207790; x=1788812590; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=e8I1y1IAioxl0/tLNEachDsyp86Yg+01+n2ksOqLGNo=;
-        b=h5WITTsF+KOZZm10tlESfm9Qh2XZSnV5I3HU88b2hj+J5viYTl/BeG//ktiFP9znuV
-         BDy2gW1T+txF4AiKtS39N0nTLucaKtjsXkzoIDe75kOKFGOv1O6ZkQHhQIvXPrhWTKiP
-         AQLUJ9AoMB/59eM+mkXGxrrlU1aO9EZXbIGIF+i1g7XnPIRYanVNgCs+OVyfWlVSXWe+
-         PdbSgnDJXVKqvf35gGY9sxljead4oNyFdMgjyGIl1SGO4JQ5yMs3iuCgdbb/FVf88eJg
-         Hvok/9wPEmBeVngqtvdbQPelJALSHB950yR8L7qu0Clwv+Wh84KEatxHRtn+uh0PcFGA
-         +lGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788207790; x=1788812590;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=e8I1y1IAioxl0/tLNEachDsyp86Yg+01+n2ksOqLGNo=;
-        b=ROWRP29ZwzibuVNdqsAj1Nl1UnSbVD5+ngopUN0HLfOXpnQ6m6Lz2MAg5sSPx1+IxE
-         IuVpCjqlNbX8855CTDK5wcDakpqTxvc1lZZ74adWZqECvibyR+dOkerpI263SyHnEFXD
-         TeGG909+MzoCTKfqOJWKTHo79HW4jq6LWKdIpo7/VkOdxZ+GjKSAL92h3mUUeIyaEI6g
-         Kx7m8QTYOBSfSJSCJr/TJS9+9TvgrheZjF5Gl1KkkYTuvK5Xf/GQo7uTc+O9q8wJfBUf
-         +0kDLTE6hiwsLTRcrwtml5wY5Nf/3UA0MOh/HTjpcs5KVa5j/T77aOHykFWILh/AWc8e
-         WT1A==
-X-Forwarded-Encrypted: i=1; AHgh+RrBzR4+ugQIXGIx1eRSeer1Oj6I/DYxgh+0MsG0cvo9yUcBiP1s8X1GPsVQEaaoFOvleRktyEUJEust@vger.kernel.org
-X-Gm-Message-State: AFuF++n1y+kd/5VPQtn2RdDmZYzabshmXtRIVyr2tJcrVPdRaxkAbqth
-	DUBHnglkZGKllNJGX7JoqW6E5HSt1R1k4AJmp8AJLNk+LdruYlnL3qc5en/kwzETxgjigWDOA96
-	KOKn7
-X-Gm-Gg: AR+sD13PlK6ExWI/nTRvoo1spf8vSMEoBUL4z7d4QHmb3pMZycsyulnwoQbXM/SK0Xu
-	Ap+wR2lv66IsbCAglCyrMhXztS4s00Lj2YncDzLeIIrWCptSriGNw54m9AOhV6Jp5UCE77wxAFH
-	HURiiNu44aFlSOCEEquBj1egg+r7BVDy4g/RBeMrphxM0Pmrk+sP/IKjk0uDnc1M8IXbg2jLWq7
-	hTwA6KfIH9yoobBh6wSz7794un9RlXyzOr9/qlCzurXJK+mbWJJ46986iMpD4yoxsTQhnLKczTF
-	zafs+9sCKM1p7QBBz24fHTfdRhJgjQofinBX9FooQASKun7hgDCa+KCwjS7M8GIKIwXCHSWZPal
-	VTktv0F2ZPmJMxztTJKuAdElGhbwTVt5v2Nx/s7n9MBGIrQAl3Ji2LVWGV/iF/5mS4CabiJCyc8
-	HWfk0nqc9zYV2nAPckwMC///7qW7fmn408Sw+4iajkyCEsln2U45KVnlerriYQPZTLzR++U8XpK
-	myJ0Rl8p2sEif4+w2UbGjNMrEy4+5CKBNnO
-X-Received: by 2002:a05:6820:824:b0:6b3:6d00:263b with SMTP id 006d021491bc7-6b36d00398emr4731570eaf.19.1788207790176;
-        Mon, 31 Aug 2026 13:23:10 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:778b:da9:a8a1:bc78? ([2600:8803:e7e4:500:778b:da9:a8a1:bc78])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-468a5891079sm11546266fac.17.2026.08.31.13.23.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 13:23:06 -0700 (PDT)
-Message-ID: <bc00d888-9944-4a22-88e3-8f4d7384d037@baylibre.com>
-Date: Mon, 31 Aug 2026 15:22:57 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kCX4A4K/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43AC61F01558;
+	Mon, 31 Aug 2026 20:24:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788207841;
+	bh=m0ht2Jh/Z0elTqL0rLrW+hpx7XQGEgsAv/mHcxf5D2Q=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kCX4A4K/ZBy9TjJE5I9nDw1Ryxos61qIbeL7RS/UhUsfe7SFRLwa8Qh73rSdMqjzY
+	 /axSZPs5cKFmU84M6zXxrppw48DmWkF+tr0uFoxdQiw7tE5VBjJDx7pYnm5x0kyOfR
+	 E9sp/yZvLRKqQQQM+1dEzq566bauf1tOPbjuuEdotQUujxI4+2DY3o2z/78vhlF2Kh
+	 babbWy3NsMxblFBlRY6uV1VUprPvko+NSk7Lqczj5iKH+hdSf7JRisub3yK1SExllK
+	 DTJFjeF5IDN2YFughIKO3ovDW+Bi9vaodnsysYtwb/3trSgfuYZ8mqqpz6mn48WkUS
+	 kVPDrJCCxIOAQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 4/6] rtc: s35390a: Read 24-hour mode on access
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Markus Probst" <markus.probst@posteo.de>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>, linux-rtc@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260831-rtc_s35390a_int1-v8-4-dac1dc86ce1f@posteo.de>
+References: <20260831-rtc_s35390a_int1-v8-0-dac1dc86ce1f@posteo.de>
+ <20260831-rtc_s35390a_int1-v8-4-dac1dc86ce1f@posteo.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 31 Aug 2026 20:24:00 +0000
+Message-Id: <20260831202401.43AC61F01558@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 03/10] iio: adc: add the ti-ads1262 driver
-To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260828-ads126x-v4-0-1dc27e9c0260@gmail.com>
- <20260828-ads126x-v4-3-1dc27e9c0260@gmail.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260828-ads126x-v4-3-1dc27e9c0260@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 8/28/26 1:38 AM, Kurt Borja wrote:
-> Add the ti-ads1262 driver with initial support for the primary ADC
-> (ADC1). The ADS1263 auxiliary ADC (ADC2) is handled by a separate driver
-> and interoperability considerations were taken into account.
-> 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-...
+Pre-existing issues:
+- [High] Alarm PM bit is unconditionally set for PM hours, breaking alarms =
+in 24-hour mode.
+- [High] Multiple functions read the STATUS1 register but fail to handle th=
+e POC (Power-On Clear) and BLD (Battery Low Detect) flags correctly, perman=
+ently masking power-loss events.
+--
 
-> +#define ADS1262_FW_CHANNEL_COUNT		16
-> +#define ADS1262_MON_CHANNEL_COUNT		4
-> +#define ADS1262_REGMAP_WRITE_SZ			8
-> +#define ADS1262_MONITOR_ADDR_OFFSET		100
+commit b899282922e9e75f3f9690275fbd3d093dfa12e5
+Author: Markus Probst <markus.probst@posteo.de>
+Subject: rtc: s35390a: Read 24-hour mode on access
 
-Where does this offset come from? I would make the address the value that
-gets written to MUXP/MUXN. But it looks like we are using the same value
-for the .channel, so setting .address to that would be redundant.
+This commit modifies the driver to dynamically read the 24-hour mode status
+from the chip on access, rather than caching it during probe. This prevents
+the mode from going out of sync if the chip is reset while in 12-hour mode.
 
-> +
-> +#define ADS1262_ADC1_RESOLUTION			32
-> +
-> +struct ads1262 {
-> +	struct spi_device *spi;
-> +	struct regmap *regmap;
-> +	struct gpio_desc *start_gpiod;
-> +	/* protects concurrent SPI transfers */
-> +	struct mutex xfer_lock;
-> +	/* protects channel state */
-> +	struct mutex chan_lock;
-> +	struct completion drdy;
-> +	unsigned long clk_rate;
-> +	u8 dev_id;
-> +};
-> +
-> +static const char * const ads1262_device_id_to_name[] = {
-> +	[ADS1262_DEV_ID] = "ads1262",
-> +	[ADS1263_DEV_ID] = "ads1263",
-> +};
-> +
-> +static const struct iio_chan_spec ads1262_monitor_chan_specs[] = {
-> +	{
-> +		.type = IIO_TEMP,
-> +		.channel = ADS1262_INPMUX_TEMP,
-> +		.channel2 = ADS1262_INPMUX_TEMP,
+> diff --git a/drivers/rtc/rtc-s35390a.c b/drivers/rtc/rtc-s35390a.c
+> index 575bb256eb258..12ed504db94d8 100644
+> --- a/drivers/rtc/rtc-s35390a.c
+> +++ b/drivers/rtc/rtc-s35390a.c
 
-Since these are the same, I would just not set .channel2 and later say
-MUXN = spec->differential ? spec->channel2 : spec->channel. Same applies
-to others below.
+[ ... ]
 
-> +		.address = ADS1262_MONITOR_ADDR_OFFSET + 0,
-> +		.scan_type = {
-> +			.format = IIO_SCAN_FORMAT_SIGNED_INT,
-> +			.realbits = ADS1262_ADC1_RESOLUTION,
-> +			.storagebits = 32,
-> +			.endianness = IIO_BE,
-> +		},
-> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
+> @@ -292,7 +297,7 @@ static int s35390a_rtc_set_alarm(struct device *dev, =
+struct rtc_wkalrm *alm)
+>  {
+>  	struct i2c_client *client =3D to_i2c_client(dev);
+>  	struct s35390a *s35390a =3D i2c_get_clientdata(client);
+> -	u8 buf[3], sts =3D 0;
+> +	u8 buf[3], status1, status2 =3D 0;
+>  	int err, i;
 
-Where is SCALE and OFFSET?
+[ ... ]
 
-> +	},
-> +	{
-> +		.type = IIO_VOLTAGE,
-> +		.channel = ADS1262_INPMUX_AVDD,
-> +		.channel2 = ADS1262_INPMUX_AVDD,
-> +		.indexed = 1,
-> +		.address = ADS1262_MONITOR_ADDR_OFFSET + 1,
-> +		.scan_type = {
-> +			.format = IIO_SCAN_FORMAT_SIGNED_INT,
-> +			.realbits = ADS1262_ADC1_RESOLUTION,
-> +			.storagebits = 32,
-> +			.endianness = IIO_BE,
-> +		},
-> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
-> +	},
-> +	{
-> +		.type = IIO_VOLTAGE,
-> +		.channel = ADS1262_INPMUX_DVDD,
-> +		.channel2 = ADS1262_INPMUX_DVDD,
-> +		.indexed = 1,
-> +		.address = ADS1262_MONITOR_ADDR_OFFSET + 2,
-> +		.scan_type = {
-> +			.format = IIO_SCAN_FORMAT_SIGNED_INT,
-> +			.realbits = ADS1262_ADC1_RESOLUTION,
-> +			.storagebits = 32,
-> +			.endianness = IIO_BE,
-> +		},
-> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
-> +	},
-> +	{
-> +		.type = IIO_VOLTAGE,
-> +		.channel = ADS1262_INPMUX_TDAC,
-> +		.channel2 = ADS1262_INPMUX_TDAC,
+>  	/* clear pending interrupt (in STATUS1 only), if any */
+> -	err =3D s35390a_get_reg(s35390a, S35390A_CMD_STATUS1, &sts, sizeof(sts)=
+);
+> +	err =3D s35390a_get_reg(s35390a, S35390A_CMD_STATUS1, &status1, sizeof(=
+status1));
+>  	if (err < 0)
+>  		return err;
 
-Hmm... a differential where channel == channel2 usually means a shorted
-input. TDACP and TDACN can be controlled indepedantly, so really are two
-separate channels.
+[Severity: High]
+This is a pre-existing issue, but does reading S35390A_CMD_STATUS1 here
+silently clear the POC (Power-On Clear) and BLD (Battery Low Detect) flags
+in the hardware without handling them?
 
-> +		.indexed = 1,
-> +		.differential = 1,
-> +		.address = ADS1262_MONITOR_ADDR_OFFSET + 3,
-> +		.scan_type = {
-> +			.format = IIO_SCAN_FORMAT_SIGNED_INT,
-> +			.realbits = ADS1262_ADC1_RESOLUTION,
-> +			.storagebits = 32,
-> +			.endianness = IIO_BE,
-> +		},
-> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
-> +	},
-> +};
-> +
+Since these flags are automatically cleared by the hardware upon reading
+STATUS1, it appears that s35390a_probe(), s35390a_rtc_set_alarm(), and
+s35390a_rtc_ioctl() all inadvertently erase the power-loss state. By bypass=
+ing
+the proper power-loss handling, will subsequent reads of the time unknowing=
+ly
+trust and present an invalid or garbage RTC time to the system after a batt=
+ery
+failure?
 
-...
+>  	if (alm->enabled)
+> -		sts =3D S35390A_INT2_MODE_ALARM;
+> +		status2 =3D S35390A_INT2_MODE_ALARM;
+>  	else
+> -		sts =3D S35390A_INT2_MODE_NOINTR;
+> +		status2 =3D S35390A_INT2_MODE_NOINTR;
+> =20
+>  	/* set interrupt mode*/
+> -	err =3D s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, &sts, sizeof(sts)=
+);
+> +	err =3D s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, &status2, sizeof(=
+status2));
+>  	if (err < 0)
+>  		return err;
+> =20
+> @@ -325,8 +330,8 @@ static int s35390a_rtc_set_alarm(struct device *dev, =
+struct rtc_wkalrm *alm)
+>  	else
+>  		buf[S35390A_ALRM_BYTE_WDAY] =3D 0;
+> =20
+> -	buf[S35390A_ALRM_BYTE_HOURS] =3D s35390a_hr2reg(s35390a,
+> -			alm->time.tm_hour) | 0x80;
+> +	buf[S35390A_ALRM_BYTE_HOURS] =3D s35390a_hr2reg(alm->time.tm_hour,
+> +						      status1 & S35390A_FLAG_24H) | 0x80;
+>  	buf[S35390A_ALRM_BYTE_MINS] =3D bin2bcd(alm->time.tm_min) | 0x80;
+> =20
+>  	if (alm->time.tm_hour >=3D 12)
+>  		buf[S35390A_ALRM_BYTE_HOURS] |=3D 0x40;
 
-> +static int ads1262_channel_read(struct iio_dev *indio_dev,
-> +				const struct iio_chan_spec *spec, __be32 *val)
-> +{
-> +	struct ads1262 *st = iio_priv(indio_dev);
-> +	int ret;
-> +
-> +	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-> +	if (IIO_DEV_ACQUIRE_FAILED(claim))
-> +		return -EBUSY;
-> +
-> +	ret = ads1262_set_runmode(st, ADS1262_RUNMODE_PULSE);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = ads1262_channel_enable(st, spec);
-> +	if (ret)
-> +		return ret;
-> +
-> +	reinit_completion(&st->drdy);
-> +
-> +	ret = ads1262_dev_start_one(st);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = ads1262_wait_for_conversion(st);
-> +	if (ret)
+[Severity: High]
+This isn't a bug introduced by this patch, but does unconditionally setting
+the 0x40 bit for PM hours here break alarms in 24-hour mode?
 
-Since wait is interruptable, do we need to do something to stop the
-conversion here?
+In 24-hour mode, bit 6 is not used for PM, so setting it writes an invalid
+BCD value that the time register will never match. Will this prevent the
+alarm from ever firing for times >=3D 12:00 when the RTC is configured in
+24-hour mode?
 
-> +		return ret;
-> +
-> +	return ads1262_dev_read_by_cmd(st, ADS1262_OPCODE_RDATA1, val);
-> +}
-> +
-
-...
-
-> +static int ads1262_fwnode_xlate(struct iio_dev *indio_dev,
-> +				const struct fwnode_reference_args *iiospec)
-> +{
-> +	/* REVISIT: the auxiliary ADC (ADC2) is currently not supported */
-> +	if (iiospec->nargs > 1 && iiospec->args[1])
-> +		return -EINVAL;
-> +
-> +	if (!iiospec->nargs)
-> +		return 0;
-> +
-> +	for (unsigned int i = 0; i < indio_dev->num_channels; i++) {
-
-Won't this include the timestamp channel?
-
-> +		if (indio_dev->channels[i].address == iiospec->args[0])
-
-I don't think .address is the right thing to use here (it is coming from
-reg in the devcietree). I would expect channel. Otherwise consumers in the
-devicetree have to be away of how channels were assigned rather than picking
-the datasheet channel number.
-
-And the devicetree bindings should mention the monitor channel numbers (11 - 14).
-
-> +			return i;
-> +	}
-> +
-> +	return -EINVAL;
-> +}
-> +
-
-...
-
-> +static int ads1262_spi_probe(struct spi_device *spi)
-> +{
-> +	struct device *dev = &spi->dev;
-> +	struct iio_dev *indio_dev;
-> +	struct ads1262 *st;
-> +	unsigned long rate;
-> +	struct clk *clk;
-> +	int irq;
-> +	int ret;
-> +
-> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*st));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +	indio_dev->modes = INDIO_DIRECT_MODE;
-> +	indio_dev->info = &ads1262_iio_info;
-> +
-> +	st = iio_priv(indio_dev);
-> +	st->spi = spi;
-> +	init_completion(&st->drdy);
-> +
-> +	ret = devm_mutex_init(dev, &st->chan_lock);
-> +	if (ret)
-> +		return ret;
-> +	ret = devm_mutex_init(dev, &st->xfer_lock);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = ads1262_parse_channels(indio_dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = ads1262_supply_setup(st);
-> +	if (ret)
-> +		return ret;
-> +
-> +	clk = devm_clk_get_optional_enabled(dev, NULL);
-> +	if (IS_ERR(clk))
-> +		return dev_err_probe(dev, PTR_ERR(clk), "failed to get external clock\n");
-> +
-> +	rate = clk_get_rate(clk);
-> +	if (clk && !rate)
-> +		return dev_err_probe(dev, -EINVAL, "failed to get clock rate\n");
-> +	st->clk_rate = rate ? rate : ADS1262_NOMINAL_CLK_RATE;
-> +
-> +	st->start_gpiod = devm_gpiod_get_optional(dev, "start", GPIOD_OUT_LOW);
-> +	if (IS_ERR(st->start_gpiod))
-> +		return dev_err_probe(dev, PTR_ERR(st->start_gpiod),
-> +				     "failed to get start GPIO\n");
-> +
-> +	st->regmap = devm_regmap_init(dev, &ads1262_regmap_bus, st,
-> +				      &ads1262_regmap_config);
-> +	if (IS_ERR(st->regmap))
-> +		return PTR_ERR(st->regmap);
-> +
-> +	ret = ads1262_dev_configure(st);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to configure device\n");
-> +
-> +	indio_dev->name = ads1262_device_id_to_name[st->dev_id];
-
-Not so sure about this. Almost always, this is coming from the compatible
-match data. So unless we plan on trusting the device ID returned by the
-chip over the devicetree when we add more to the device id tables and looking
-up per-chip behavior from there instead of the compatible, I would go with
-the traditional approach. That way the name userpace sees match the driver
-behavior that goes with the other chip-specific match data that is likely
-to be added in the future.
-
-> +
-> +	/*
-> +	 * REVISIT: This chip has software polling capabilities, which could be
-> +	 * used to stop depending on the DRDY signal.
-> +	 *
-> +	 * Additionally, the MISO pin also can be used as a DRDY IRQ, in which
-> +	 * case the interrupt would be named 'doutdrdy', but requires extra
-> +	 * timing and synchronization considerations to be reliable.
-> +	 */
-> +	irq = fwnode_irq_get_byname(dev_fwnode(dev), "drdy");
-> +	if (irq < 0)
-> +		return dev_err_probe(dev, irq,
-> +				     "the 'drdy' IRQ is currently required for operation\n");
-> +
-> +	ret = devm_request_irq(dev, irq, ads1262_irq_handler, IRQF_NO_THREAD,
-> +			       indio_dev->name, st);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return devm_iio_device_register(dev, indio_dev);
-> +}
-> +
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-rtc_s35390=
+a_int1-v8-0-dac1dc86ce1f@posteo.de?part=3D4
