@@ -1,181 +1,137 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 553B6242D9B;
-	Mon, 31 Aug 2026 07:39:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A0132D5C7A;
+	Mon, 31 Aug 2026 07:41:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788161961; cv=none; b=knndsQy6d3A+HvL7HsJ8JS5zSjgQelIxBKEVpIra62hCb7Tz6xJ4pnrUQzZXUQT/3qZZqwkktpLTVDt4q//GBAPC+nCWx9txevwWL1FAnU2oo76oPJULETlMBooXrbAvAPnZftcun2Efxjm59K5QA0tmdo9Yzi3NqwFOgAOoRvY=
+	t=1788162071; cv=none; b=bkLcZiF67c9ddu9IR7+8XTjuWTHWYqlyJnuDrLsEnen0xQVD1zp874PQeuf7mSyqx+xeF1ZJwCA6aAVE3jI7zofKCV76ECgPr3c5VPzBJDbYdcsWSzcyBRB6RqR8t3Y55FlWpD7Z19Fc1c83+PrypVpBJO/3t6/8ZOc2BV83pYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788161961; c=relaxed/simple;
-	bh=4aV+uNocUPu6ad3MUH6dQ4ZhLN5HpItl7d4/3/78rlI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iRr6YB7mQmIXkAGyPqHhMORH6CMsu1mAnxnOuiPIbggks2b7mNcKQXfxYrpdwJRBzFNiwpRL10gVWoe4CCpSN85PIAv/r0P7Gq/w7+xyL/A3Wam9QoKfF1ikDpPXEwGbk2WiyPcLi/KCiKURB36cr/ZDHv1AM4LXcKIx+N0uxow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mhRBBZIM; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788162071; c=relaxed/simple;
+	bh=5oGxLWkH/qCkatfytWH3n6IefE+CRwM4cDHWGcCBYJI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=h4zOWXNICDByHbeiFfyVybQo/SUlIWUFFTr62Gjwv7GjXCN9yneJT2Qg2mTu1sN9qVpb9803r24pMg1NxmciJWRSoDdR4hvp9ZgbBZAQOCkaG3+wRxlEm29UenYXsNMQ+ngTCgPUaVL1hykHtgZWEvCysS25XGMrlqr1WYlxsA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e0H0Ckmp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mhRBBZIM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788161959; x=1819697959;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=4aV+uNocUPu6ad3MUH6dQ4ZhLN5HpItl7d4/3/78rlI=;
-  b=mhRBBZIM105OYCJz4FfGRemw90jDi5KnNxiuUb4I6xuosoSwGEqhuJuX
-   gY1a0V3UIzBX4ZronnCTQrIqNaQCNynvGmbsEixXEewqUk1Pl08P+Qvu1
-   K8ATL2Z+mGMLJCGO0SR54tlHRw4BADeQwp0ViUhs80jCO3AhYF3QwsJLr
-   9xa7YQ4I7l94CA9SDsI5gJ6xgEjSAarBYCAdcUjt/4IY+qSzCtaupb+QV
-   EFYe+RS1/uA7D7uhDaDNq1hPDOprDTaaLiLvFAoJWma3XV3sTaQdoihGV
-   sZ7UItYVwXYfw1AzkQFVBENkJ7P2lB5xsTY02jE2iwks8Du6ZHJJkbEFJ
-   A==;
-X-CSE-ConnectionGUID: +nKOMRCmSda0zy3ANYGIGQ==
-X-CSE-MsgGUID: Yc0dp/3lRjSq1hhzdtp90g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="105935986"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="105935986"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 00:39:19 -0700
-X-CSE-ConnectionGUID: Rd5aCz1uRAyziFJ0rCElqw==
-X-CSE-MsgGUID: rc5eIhJjRay0KONvkcGa3g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="266915404"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 00:39:16 -0700
-Date: Mon, 31 Aug 2026 10:39:13 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Kim Seer Paller <kimseer.paller@analog.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux@analog.com,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 4/4] iio: dac: ad3530r: add support for AD5710R/AD5711R
-Message-ID: <apUvod3OC6IcGcK1@ashevche-desk.local>
-References: <20260829-iio-ad5710r-upstream-v4-0-8af3121c7d21@analog.com>
- <20260829-iio-ad5710r-upstream-v4-4-8af3121c7d21@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e0H0Ckmp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B49A1F000E9;
+	Mon, 31 Aug 2026 07:41:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788162069;
+	bh=hAQf/CQngepy0W8MxHagRxfGYVAMUeLDnXbzOXAWQdA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=e0H0Ckmpk7b3Ki7hs6f7+mKvRhJA+xZCcJ0a5w5JDJNfo8pzoqa67c5J5t4y35eWL
+	 7J/97+hoLgmgg8NDPlNRQl87ny+LS0Riw0uwT8x/Ljfd54c5QPtf36yOmILuhyeiLt
+	 525ipmyMPqASYB/9Zn7tN8mnR7Xqkiy1rz9jzGt8rERmMgbrKk/95rKeRBFejaVxo8
+	 6rdR1YyBnFAuZofnTkYCwH5Qmu9WqE2jdX6PGNUDp9L6AYeyto3SFg7E81H+1BeFfN
+	 5oPU8dFqu/Y3RxKzfPvsE+iWfZN7eYkeB/32Ito2D/odI0rN8w+x/j2y/ajXlknRsl
+	 oQLdvfqYSFbkA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 5/5] arm64: dts: qcom: shikra: Add PCIe PHY and
+ controller nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sushrut Shree Trivedi" <sushrut.trivedi@oss.qualcomm.com>
+Cc: linux-phy@lists.infradead.org, linux-pci@vger.kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org
+In-Reply-To: <20260831-shikra-upstream-v2-5-406661d75afa@oss.qualcomm.com>
+References: <20260831-shikra-upstream-v2-0-406661d75afa@oss.qualcomm.com>
+ <20260831-shikra-upstream-v2-5-406661d75afa@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 31 Aug 2026 07:41:08 +0000
+Message-Id: <20260831074109.4B49A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260829-iio-ad5710r-upstream-v4-4-8af3121c7d21@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sat, Aug 29, 2026 at 01:59:23PM +0800, Kim Seer Paller wrote:
-> Add support for the AD5710R/AD5711R, 8-channel 16-/12-bit configurable
-> IDAC/VDAC parts. They share the AD3530R register map and access model,
-> so fold them into this driver.
-> 
-> Each channel is configured as voltage or current output from its DT
-> channel@N node via adi,ch-func, building the iio_chan_spec dynamically.
-> Voltage channels enable VMODE_EN and report the reference-derived scale,
-> current channels report the 50 mA internal Iref scale. The powerdown
-> mode is read-only and derived from the channel's configured type.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The `interrupt-map` property is malformed because it provides an i=
+ncorrect number of cells for the parent interrupt specifier.
+- [Low] The `pcie_phy` node violates the 'qcom,shikra-qmp-gen2x1-pcie-phy' =
+DT binding schema by defining 6 clocks and using an invalid clock name 'phy=
+_aux'.
+--
 
-...
+commit 6b2a25b57b5360f808aceb407d09c81df6f4cd71
+Author: Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>
 
-> +static int ad3530r_parse_channel_cfg(struct iio_dev *indio_dev)
-> +{
-> +	struct ad3530r_state *st = iio_priv(indio_dev);
-> +	struct device *dev = regmap_get_device(st->regmap);
-> +	struct iio_chan_spec *channels;
-> +	unsigned int num_chan, i;
-> +	int ret;
-> +	u32 reg;
-> +
-> +	num_chan = device_get_child_node_count(dev);
-> +	if (!num_chan)
-> +		return dev_err_probe(dev, -ENOENT, "No channels configured\n");
-> +
-> +	channels = devm_kcalloc(dev, num_chan, sizeof(*channels), GFP_KERNEL);
-> +	if (!channels)
-> +		return -ENOMEM;
-> +
-> +	i = 0;
-> +	device_for_each_child_node_scoped(dev, child) {
-> +		unsigned int mode_reg, mode_mask, ch_func;
-> +		enum iio_chan_type chan_type;
-> +
-> +		ret = fwnode_property_read_u32(child, "reg", &reg);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "Failed to read reg property of %pfwP\n",
-> +					     child);
-> +
-> +		if (reg >= st->chip_info->num_channels)
-> +			return dev_err_probe(dev, -EINVAL,
+arm64: dts: qcom: shikra: Add PCIe PHY and controller nodes
 
--ECHRNG
+This commit adds the PCIe controller and PHY nodes for the single 5GT/s x1
+link instance on Shikra. It limits the maximum link speed to PCIe Gen2 to
+match the PHY capabilities and avoid link-up failures.
 
-> +					     "reg out of range in %pfwP\n",
-> +					     child);
-> +
-> +		ret = fwnode_property_read_u32(child, "adi,ch-func", &ch_func);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "Missing adi,ch-func property for %pfwP\n",
-> +					     child);
-> +
-> +		switch (ch_func) {
-> +		case CH_FUNC_VOLTAGE_OUTPUT:
-> +			ret = regmap_set_bits(st->regmap, AD5710R_CHN_VMODE_EN,
-> +					      AD5710R_CHN_VMODE_EN_BIT(reg));
-> +			if (ret)
-> +				return dev_err_probe(dev, ret,
-> +						     "Failed to set voltage output for %pfwP\n",
-> +						     child);
-> +
-> +			chan_type = IIO_VOLTAGE;
-> +			break;
-> +		case CH_FUNC_CURRENT_OUTPUT:
-> +			chan_type = IIO_CURRENT;
-> +			break;
-> +		default:
-> +			return dev_err_probe(dev, -EINVAL,
-> +					     "Invalid adi,ch-func %u for %pfwP\n",
-> +					     ch_func, child);
-> +		}
-> +
-> +		channels[i] = ad5710r_channels[reg];
-> +		channels[i].type = chan_type;
-> +		i++;
-> +
-> +		ad5710r_get_op_mode_reg(reg, &mode_reg, &mode_mask);
-> +
-> +		/* Enable the channel in normal operation mode */
-> +		ret = regmap_update_bits(st->regmap, mode_reg, mode_mask,
-> +					 field_prep(mode_mask, AD3530R_NORMAL_OP));
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "Failed to set normal operating mode for %pfwP\n",
-> +					     child);
-> +	}
-> +
-> +	indio_dev->channels = channels;
-> +	indio_dev->num_channels = num_chan;
-> +
-> +	return 0;
-> +}
+> diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/q=
+com/shikra.dtsi
+> index 92d22e3b6931c..9e1810c715099 100644
+> --- a/arch/arm64/boot/dts/qcom/shikra.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
 
-...
+[ ... ]
 
-And in case you are not using --histogram diff algo when preparing patches,
-better to start using it. It might make patches more readable (for review).
+> @@ -1013,6 +1013,163 @@ tsens0: thermal-sensor@4411000 {
+>  			#thermal-sensor-cells =3D <1>;
+>  		};
+> =20
+> +		pcie: pcie@45e8000 {
+> +			device_type =3D "pci";
+> +			compatible =3D "qcom,shikra-pcie";
 
--- 
-With Best Regards,
-Andy Shevchenko
+[ ... ]
 
+> +			interrupt-map =3D <0 0 0 1 &intc 0 0 0 499 IRQ_TYPE_LEVEL_HIGH>,
+> +					<0 0 0 2 &intc 0 0 0 500 IRQ_TYPE_LEVEL_HIGH>,
+> +					<0 0 0 3 &intc 0 0 0 501 IRQ_TYPE_LEVEL_HIGH>,
+> +					<0 0 0 4 &intc 0 0 0 502 IRQ_TYPE_LEVEL_HIGH>;
 
+[Severity: High]
+Does this interrupt-map provide an incorrect number of cells for the parent
+interrupt specifier?
+
+The kernel parser expects 4 cells for the parent interrupt specifier because
+&intc has #interrupt-cells =3D <4> and lacks #address-cells (defaulting to 0
+for the parent address). However, 5 cells (0 0 0 499 IRQ_TYPE_LEVEL_HIGH)
+are provided here.
+
+Will this misalignment cause phandle resolution to fail for subsequent
+entries, parsing cells like 2 or 4 as phandles and breaking PCIe interrupt
+routing on this platform?
+
+[ ... ]
+
+> +		pcie_phy: phy@45ee000 {
+> +			compatible =3D "qcom,shikra-qmp-gen2x1-pcie-phy";
+> +			reg =3D <0x0 0x045ee000 0x0 0x1000>;
+> +
+> +			clocks =3D <&gcc GCC_PCIE_AUX_CLK>,
+> +				 <&gcc GCC_PCIE_CFG_AHB_CLK>,
+> +				 <&gcc GCC_PCIE_CLKREF_EN>,
+> +				 <&gcc GCC_PCIE_RCHNG_PHY_CLK>,
+> +				 <&gcc GCC_PCIE_PIPE_CLK>,
+> +				 <&gcc GCC_PCIE_SLEEP_CLK>;
+> +			clock-names =3D "aux",
+> +				      "cfg_ahb",
+> +				      "ref",
+> +				      "refgen",
+> +				      "pipe",
+> +				      "phy_aux";
+
+[Severity: Low]
+Does this node violate the qcom,shikra-qmp-gen2x1-pcie-phy DT binding schem=
+a?
+
+The schema qcom,sc8280xp-qmp-pcie-phy.yaml limits the maximum number of clo=
+cks
+to 5 for qcom,shikra-qmp-gen2x1-pcie-phy and does not allow the phy_aux clo=
+ck
+name.
+
+While the driver optionally fetches this clock so the hardware still functi=
+ons,
+will this cause dtbs_check schema validation to fail?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-shikra-ups=
+tream-v2-0-406661d75afa@oss.qualcomm.com?part=3D5
