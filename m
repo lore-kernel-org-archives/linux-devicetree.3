@@ -1,80 +1,72 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 554C5483BC4;
-	Mon, 31 Aug 2026 14:01:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6041E4BA9FC;
+	Mon, 31 Aug 2026 14:03:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184865; cv=none; b=E/h2+/YVg6uWEBJxhiAqDKgAhxg4SSKF2zAUkuVfrf8md7V2q5Oh/klOh6e9Z771hHCInaqJwZVQUdgXb+HqUxCAhdDrQ1Xeve/u1OXmnAH8n3EEXY4swhmjyz6ClZ8Y4t0bVXZTcuub0ErBRQhpjNBDAyRDXI6zI9fqavRPI/w=
+	t=1788185027; cv=none; b=Ijd1I+bTttg8OFimTiz6zK1vDVjB9/qNrFgqnQ+vuDvEn6vr4sYWHxMWwMgWAl8ZbCZOpCazb2slN3gilGgMQcIfKYdPwZpAXtKAfGhIIWwGPPJRV/GHBTfumObXA1dRC4NAmGVNY+O3uYZgdxDriUR5KH5FonImjDe5OeyYJF4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184865; c=relaxed/simple;
-	bh=HdrZlJmdhLSw+hSSn28hoPGvvxucJimHNYdL4jitnQM=;
+	s=arc-20240116; t=1788185027; c=relaxed/simple;
+	bh=u/JIEB1VZLVEUz1D5yYevW1fZKvNTUjrOOj9y0gM32E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=V9L61l+9NnjWFHJPpwWBWtOG0OHfC0AhhFHr9U+Px5qL9xNSz3Xkze+Q11vXZKkTI66fXhuQBMRREcdzChjV0d2KQOErDNliJsVIiAuUSFoepxbLRZYv4qtyORxzLtGw9Z/JCJewMQArfkcPIcvyHaJGm0MqxCIp0pX0TPRVk2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=giyioOHC; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=r1zw5ok54gYYXuh36ow0jo1jn242Ll6sCOEwlHB6RXHMxBdmQ5NFB1wjxD/VUzvKgrr4vuLaeO6rM7cUdeusD6lVyiJ0YL5Gf7Jc8SSld62elgXWwwUqwJLIKPK6x+e8BvM8UBJQxueDdcZUghNOgOAzAr5AXbbmnrh7ecxAzDw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zyyi9KT5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="giyioOHC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 258F61F000E9;
-	Mon, 31 Aug 2026 14:00:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zyyi9KT5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 110031F000E9;
+	Mon, 31 Aug 2026 14:03:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184864;
-	bh=9zxeNhkzaavp3WNg+ZK28oXExjQx3b+TCsATeDIAHLw=;
+	s=k20260515; t=1788185026;
+	bh=/68hFuw9bLfoF6dXZRX/Z57CoQKxfgxM5du8+GdZQ4I=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=giyioOHClD/o7S2A+svulfwojyzawhweL4ujYIafVCWm+M1ENAmUegBzI9Typk75k
-	 aJ+xeO78tCYjg7LV5PrUpKs9hdHzrnLyhvilvQiFSyRrGf0P+XOZ6dLPOVwrr1U2KM
-	 6W15oRWzZZ6H3QO01nQceEyG6HMy/8lA7hcS6vL+DT4SeM9xdMcc26t5JYsg+HzqpE
-	 ChsZZ2TrgMh5pX2hXeshg3joe9z3c0aX6fedxFazHYJDYWUAgOL33j2fzgR8cQsbtJ
-	 AyacxwVLZJTPzjNx33kMRVa8kKIxfihdjwpgGtuqJcHgrbKmr09L10vyrN6zc71AK3
-	 Yx/ZePzOslhsw==
-Date: Mon, 31 Aug 2026 16:00:43 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Wei Deng <wei.deng@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Bartosz Golaszewski <brgl@kernel.org>, Chen-Yu Tsai <wenst@chromium.org>, quic_chezhou@quicinc.com, 
-	cheng.jiang@oss.qualcomm.com, shuai.zhang@oss.qualcomm.com, jinwang.li@oss.qualcomm.com, 
-	xiuzhuo.shang@oss.qualcomm.com, mengshi.wu@oss.qualcomm.com, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v4 0/4] arm64: dts: qcom: hamoa-iot-evk, purwa-iot-evk:
- Enable M.2 Key E connector
-Message-ID: <zd5jyrzcbnv2wrz7334o4gzlulviz2a5dn3lmr5z5olu4o4jpz@pzfkfjijhjib>
-References: <20260804-hamoa-m2-dts-v2-v4-0-1b5ceac74538@oss.qualcomm.com>
+	b=Zyyi9KT5HEXY9WwuYrPGv/hQPw2oLCqB79wZ6909R7XbQsFgEqt+H02cC3usF9kGV
+	 W9nnlVjNSwIZ+mloVz+C0m0rLGUPYfL7o+lkJ2GwxHGaWk/EaScP0mbLXz39mj4hPx
+	 QmrVoUElh8CoF+Eu/Qj3HtvljJBbbeyptL+UudjitlT4Tw1qMXUdMtP4qZ3xBNKKID
+	 sGlrzbsTWcIgN1OK7vGp6sHLasKrbZHPju2hhU5NnF2m5miwnR1+BAy2x2+S0qt5+T
+	 ZrIPs0ElnoGJqeZdSITO7Da2MCKlYIUYZFwcgFZaDD2TxLeNCWrrj4RNI8MHJeFtEk
+	 P4PxIqpKWSGPg==
+Date: Mon, 31 Aug 2026 09:03:45 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Bhargav Joshi <j.bhargav.u@gmail.com>
+Cc: Kishon Vijay Abraham I <kishon@kernel.org>, devicetree@vger.kernel.org,
+	m-chawdhry@ti.com, simona.toaca@nxp.com,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, daniel.baluta@gmail.com,
+	goledhruva@gmail.com
+Subject: Re: [PATCH] dt-bindings: bus: ti,omap-ocp2scp: Convert to DT schema
+Message-ID: <178818502439.798571.879540033956134279.robh@kernel.org>
+References: <20260818-ti-ocp2scp-v1-1-9d2885011cda@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260804-hamoa-m2-dts-v2-v4-0-1b5ceac74538@oss.qualcomm.com>
+In-Reply-To: <20260818-ti-ocp2scp-v1-1-9d2885011cda@gmail.com>
 
-On Tue, Aug 04, 2026 at 06:02:24PM +0530, Wei Deng wrote:
-> Describe the PCIe M.2 Key E connector on the Hamoa and Purwa IoT EVKs.
-> The two boards share the same M.2 wiring: PCIe for Wi-Fi (via
-> pcie4_port0) and UART for Bluetooth (via uart14). Purwa inherits
-> hamoa.dtsi through purwa.dtsi, so the endpoint stub labels and the
-> PCIe root port compatible added in this series apply to both boards.
+
+On Tue, 18 Aug 2026 21:59:49 +0530, Bhargav Joshi wrote:
+> Convert the TI OCP2SCP bridge device tree bindings to DT schema.
+> Changes during conversion:
+> - Add list #address-cells and #size-cells as required properties.
+> - Drop ranges from the required properties as it is omitted in some
+>   existing DTS.
+> - Mark reg is not required for compatible ti,am437x-ocp2scp, driver skips
+>   fetching memory resources for this, existing DTS also omit it.
+> - Mark the ti,hwmods property as deprecated.
+> - Set additionalProperties to type: object rather than using
+>   patternProperties`. Since OCP2SCP acts as a generic bridge/bus, its
+>   child nodes represent various PHY devices.
 > 
-> Only the UART BT path is described here. USB BT variants of the same
-> M.2 slot need the USB core to acquire the M.2 pwrseq target, which is
-> being added by Chen-Yu Tsai's "arm64: mediatek: Add M.2 E-key slot on
-> Chromebooks" series:
-> https://lore.kernel.org/all/20260724084328.3943997-1-wenst@chromium.org/
-> A follow-up will wire usb_2 port@1 to the wifi-bt-connector node once
-> that lands.
-> 
-> The pcie-m2 sub-ID patch that was part of the original series has been
-> sent independently and is already applied:
-> https://lore.kernel.org/all/20260724-hamoa-m2-sub-id-v2-v3-1-af97de70bbbe@oss.qualcomm.com/
+> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+> ---
+>  .../devicetree/bindings/bus/omap-ocp2scp.txt       | 29 ---------
+>  .../devicetree/bindings/bus/ti,omap-ocp2scp.yaml   | 74 ++++++++++++++++++++++
+>  2 files changed, 74 insertions(+), 29 deletions(-)
 > 
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Applied, thanks!
 
-- Mani
-
--- 
-மணிவண்ணன் சதாசிவம்
