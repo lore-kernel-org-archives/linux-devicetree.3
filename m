@@ -1,112 +1,71 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4618B30D3E5
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 08:43:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C5883AD52A;
+	Mon, 31 Aug 2026 08:44:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788165813; cv=none; b=e/43baqp7sfmrQoiwkaPwEE5aVWlVRIN9L5e0Ud7kVyoL/sx+An7leYdJXa/gF4clRIhMRwvNAgVM2dudnKibXOU24G5B04GiQad/rzvhcq43/lNcB9DGDNR44v7iSXoZwMjmXU/YYhoQ0Z4ZKPJd8A+EJBU23aIROEgOq2geyc=
+	t=1788165851; cv=none; b=Uh5r8lOa3ItfGkzxDctspZa6+4Gqeg198pUfVLCCXjgF9VSj/1CrK3YwMTyT/7eZ/m4D2YTkBrlRzBT2qOAjxnlWfchCtAAC1ukYU53039zTn1wBSxgWtP+c9vADGE09cJMWzibftANMphRQYXoQIkAZVjqQ5BxNnHjVvmXYpxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788165813; c=relaxed/simple;
-	bh=u7g8VvasHcsluUOBpyXT4sZEQF1WsJ+iAiTVDEo690w=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QilCBoPSnvZap9ZfcPYyH0FsxkPEWAqIG1YrY1w2UDm5Kt8X/v5bZdBot1/rSJpJRO8MhzODqlRma6vD6zHZFkP6s61FLlDrd72oGKuc1hFr3Nu/qpH1I/lwxIBSUBUsYk2m18CDq/YV7GO5jjeyA6/OzcUyghYWGbGGplK8jkM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aViXDaZI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788165851; c=relaxed/simple;
+	bh=SwaWKgsflHdP9q6JnN7qO4nrYWHuUTmbpqBZFga1aPk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=c8FlFSnshyx5uxvQnYzqa4R5iuMyuVm3E/ed5g7X9c0fsc13Lc8XOknbpYz2iBcp0Na/JI8N3lb4mwZgflZr7vcl8tytHJqSyoo4lvtjsh5dTIesYdAHfNMo2Ug6Fk/pTakRqdOwgsaCWV4GW73G/MFDwXY5XZsCmdAsitUnipk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mFANuf6a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aViXDaZI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86B4F1F000E9;
-	Mon, 31 Aug 2026 08:43:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mFANuf6a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 841D31F000E9;
+	Mon, 31 Aug 2026 08:44:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788165812;
-	bh=/RB7u1Gx5WzI1965RAEtvOHVuqIDIvYsRQPq8xgHRWU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aViXDaZIh/ZoLkAEsaBVS0IXL4wNKqp9rh5z1Xu47mkAQZu0BaBhI/rkj+T49gKaT
-	 KCZaWrm9TDfX7mSm5VeuISFv0jKmPL/ZHP3Sl3xUMO/Nq3vBWGJYefhwVczv+WZiP8
-	 JciIyJuQ09zP+zR3YAJTRwS180gmYGVgG2wKaNk/0SQKK2mV4rCKE2aE0mqn9mL0eu
-	 KOf0/1Q/weNaTHpaWBqMDyxch5KMpbQe+MhxpG1xz/3Dl+1Mf+WV5uVqtjal2xslDE
-	 mTaM8fLGQgKCZmiKWsAziYQXkTdkEZXzr+bWM/cTTOndQisv7qwQLsrTBtP9ucYaVM
-	 1sYt9XdG4sZcA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 1/6] firmware: meson: sm: video firmware loading via
- secure monitor
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Zhentao Guo" <zhentao.guo@amlogic.com>
-Cc: devicetree@vger.kernel.org, neil.armstrong@linaro.org, robh@kernel.org, conor+dt@kernel.org, linux-amlogic@lists.infradead.org, media-ci@linuxtv.org
-In-Reply-To: <20260831-b4-s4-vdec-upstream-v8-1-830195b9bd91@amlogic.com>
-References: <20260831-b4-s4-vdec-upstream-v8-0-830195b9bd91@amlogic.com>
- <20260831-b4-s4-vdec-upstream-v8-1-830195b9bd91@amlogic.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 08:43:31 +0000
-Message-Id: <20260831084331.86B4F1F000E9@smtp.kernel.org>
+	s=k20260515; t=1788165850;
+	bh=H1RgWhyTfBxEvx3kHkEet9cSR5ERPAF0r/ewZQk2l+8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mFANuf6aC7FSqHRlkgdVvsUh3kaDEzddY/ZsVk5Tp6RaLZe7k8m1+a/AUux8i0l3I
+	 I6DnI5VkUJ52e5sbLk4cM2Uj5mEf2ZkKbQV9BmNNbpeZNiCCdNZLRpcRlJ0LQfKWVd
+	 a1ATBEwi9xL+4Bxmflh+3ajXshthvTQ8YZ16u1DqHFpNn3AyWnCAFbjLvFUW/cl79Z
+	 21Rf+y8Mn1aEysBQ/8or5Z2HUeITicCnS5QMDNgVjUv2oa58s/JmhC7xZmdobN7AOo
+	 iJQlP3rsUIDg3Q3Z8DNpu//dcVlRlxWQAxJWPV3Xf+qVsfOehH226mW9UmFRFZeAXL
+	 gMolx8M25djhA==
+Date: Mon, 31 Aug 2026 10:44:06 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] dt-bindings: pci: qcom: add Nord PCIe controller
+ compatible
+Message-ID: <20260831-labrador-of-extreme-prowess-d36ceb@quoll>
+References: <20260828-nord-v2-0-18bf59d19d6f@oss.qualcomm.com>
+ <20260828-nord-v2-2-18bf59d19d6f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260828-nord-v2-2-18bf59d19d6f@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Fri, Aug 28, 2026 at 02:13:36PM +0530, Krishna Chaitanya Chundru wrote:
+> Add the qcom,nord-pcie compatible string to the Qualcomm PCIe
+> controller binding.
+> 
+> The Nord PCIe controller is compatible with the SA8775P PCIe
+> controller implementation and reuses the same binding definition.
+> 
+> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/pci/qcom,pcie-sa8775p.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-Pre-existing issues:
-- [High] Information leak in `serial_show` due to uninitialized kernel heap=
- memory being exposed on short reads.
---
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-commit 024494408ffd3466033a6280dd28a958f93f1072
-Author: Zhentao Guo <zhentao.guo@amlogic.com>
+Best regards,
+Krzysztof
 
-firmware: meson: sm: video firmware loading via secure monitor
-
-Add SM_LOAD_VIDEO_FW to the secure monitor command enum to allow decoder
-drivers to load firmware through the meson_sm interface.
-
-> diff --git a/include/linux/firmware/meson/meson_sm.h b/include/linux/firm=
-ware/meson/meson_sm.h
-> index 3ebc2bd9a9760..3b90b49d05529 100644
-> --- a/include/linux/firmware/meson/meson_sm.h
-> +++ b/include/linux/firmware/meson/meson_sm.h
-> @@ -15,6 +15,7 @@ enum {
->  	SM_THERMAL_CALIB_READ,
->  	SM_A1_PWRC_SET,
->  	SM_A1_PWRC_GET,
-> +	SM_LOAD_VIDEO_FW,
->  };
-
-[Severity: High]
-This is a pre-existing issue, but while reviewing this secure monitor
-addition I noticed a potential information leak in serial_show() in
-drivers/firmware/meson/meson_sm.c.
-
-Could a short read in meson_sm_call_read() leak uninitialized kernel memory
-to unprivileged local users reading the sysfs serial attribute?
-
-drivers/firmware/meson/meson_sm.c:serial_show() {
-    ...
-	id_buf =3D kmalloc(SM_CHIP_ID_LENGTH, GFP_KERNEL);
-	if (!id_buf)
-		return -ENOMEM;
-
-	ret =3D meson_sm_call_read(fw, id_buf, SM_CHIP_ID_LENGTH, SM_GET_CHIP_ID,
-				 0, 0, 0, 0, 0);
-	if (ret < 0) {
-		kfree(id_buf);
-		return ret;
-	}
-
-	ret =3D sprintf(buf, "%12phN\n", &id_buf[SM_CHIP_ID_OFFSET]);
-    ...
-}
-
-If the secure monitor returns a positive size smaller than 16,
-meson_sm_call_read() only copies those bytes. The check for ret < 0 will
-not catch this short read.
-
-Because id_buf is allocated without zeroing and the sysfs attribute is
-world-readable (DEVICE_ATTR_RO), sprintf() will unconditionally format 12
-bytes starting at SM_CHIP_ID_OFFSET, which could expose uninitialized
-kernel heap memory.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-b4-s4-vdec=
--upstream-v8-0-830195b9bd91@amlogic.com?part=3D1
