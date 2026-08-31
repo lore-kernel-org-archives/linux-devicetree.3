@@ -1,145 +1,159 @@
-Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E8938D401
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 18:50:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB0C738D402;
+	Mon, 31 Aug 2026 18:51:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788202258; cv=none; b=VTX0pVx8WM+gwZ0faRDfik7K80iSEf9LOm6qlbm0+L5IDN5EmMxkOfr6sii5q7F/7ne2eBpueK8sjKHcbDK0Yn7EyoRZ+3pqsgmXpIztHaRHzm4cdKYd7uprLFpxFOUqc+m7k46j8d+nm3AiTknDxvwgQpwW2K9YBYNJRPcak/o=
+	t=1788202285; cv=none; b=TozOQGSkMwrHAMWSPZ8b5yEK7sQ1UIjLiTSXIfPEzRtsVC8xBhhFoMVTgF3/uofwBb0AXWqvBGDp9RFDRsmNrhqGT3XTVLoF/CpfoNdzCZxtvYbRO+RK6ayxXYS0Kt8keMBjCd7DEqvDQZPX14zZQrQzsDSId8AR6fvOStu3V6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788202258; c=relaxed/simple;
-	bh=6hryHCIPCjgEQiYN3dv2fRXZ1WHHrAlyZRiHDL/ExVs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OVQyNsCArkbC+bdAnSI63Ez54M0Lp3UQmwFxILmqYZ/G0GIP2Kh7d9TUTyKH9jYyhKPu/wYff5n9yAK/iJRXcdhJhe7KhnDV3mW8Vn8v3lVz1lDUqY/Q0DkaifuP19PVsLJCzvgf+q9H0VKMKmVHMHft558+a8tyovrhPvf506c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H8+iA2r0; arc=none smtp.client-ip=74.125.227.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788202285; c=relaxed/simple;
+	bh=nOJzcAf+JwTqb9EpZGc6AUW4ADlBtYQYFFENrhrSzQc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=d6wiGNoDgIfy4Np2yqCyeQAhMjny2ch+R65I7BDYZJ6m+KV7doc+bY73FgadhhVbStEWblhvwj+Cs7g1uhYH/AhkI4Vr9rPqtKcERelj6oFMEXKrK2WfG6fZ3k16pgF66L7Vpf1ChI0nhEizljSIrTUrG2Aa9URYeQFqxppDSmc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nOf+v/pZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H8+iA2r0"
-Received: by mail-pj2-f8.google.com with SMTP id 98e67ed59e1d1-398b9f722abso709576a91.0
-        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 11:50:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788202256; x=1788807056; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SU8TMnAJdFKhQ7rwVc1XtCTGG3xuVljaOpUMOXRsDlQ=;
-        b=H8+iA2r0dXAz5s57zGwnd3Wsaofas5QSthjp04Lro/l3qdi82IQSxIS0kIzY/BLsuu
-         7iJWlayHGLKeBtqanb0a6D2wawGmBeRiJMxAbtnMJBOHISYTWEooh3pslg3a3caHJWMk
-         fbwmk5y+CRAUQ7i2poa2J+oh+6C+GYW3/oeSlveGZsrfQ8V4onOa/6XpLcZYSQ3snfJ1
-         eZF9u/HKtjp6Mn86Ez1hGEHfdoIwdCvKhD8YrYBsFPPf2BWPmzZjd1aceVw5yuqc6oNB
-         ZaKhuG94bmeuzPaKI6zUZuqbp/KsLDLX/JNhkoLC0y8RRpgE3iJuEqz0O7AkzvuZKG1y
-         8O0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788202256; x=1788807056;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SU8TMnAJdFKhQ7rwVc1XtCTGG3xuVljaOpUMOXRsDlQ=;
-        b=PO3H0ZzJrYa/h2XsMl7ylXqDyDhq1JzlhGDD15kJ8hUSbQz+/jtsrcSlfIl3YZjFhb
-         LB6cJEYKeEukXmnUGxdshu2XAaMsC0hPR1A3YvNOIa4oIEBTHX5JWcll0xqpECFGrYww
-         si7zopd9r6hZWPJ9D7+8gjnKiSQhQVF/hyRlNPicQWpfXijIRGr+SSIvsYaLI0TQCLYF
-         g6S/krpA2BBBQUodqfI/BoLb9TeOnmfvdxUZT/rdeiJ/EjZX145uTFmZImt7IDZzLWjH
-         2/6ukbzFSqib10VbYOc1BnJm/LYT56BcIq11KuUSPk7W/a1ghMuUYyoBqLzjCycGFIqC
-         ihoQ==
-X-Forwarded-Encrypted: i=1; AKwUvByugZbbY0FiRmD8HYr9kZ7YLsvlIJfr4k136s/SnoXQGQReiGyxPz6IJ7d9nkc8RMHZNLzuALFzrbKh@vger.kernel.org
-X-Gm-Message-State: AFuF++nW7Lqu0GEjok47vZCMkoTgZ1XObOkkxj9/ZHcKScq49jScFdv2
-	rp5Cwd/hW1MSDKh+XzBQQ78WmN8lO7LvBB5J3wOEA4MGcieuS0IqGjjz
-X-Gm-Gg: AYBFou0durjuGua3clvUlAcjwzoOnueNy2527XP+w5IufK3LAxf3LeitnkqBaer//EZ
-	jMf3ZF+x9HNy9pP6Ad6lBCWfUuyZcJt7PURy3g088/ka/y3VeHDcGuPbuvWcD/8VSagYqkL87s7
-	FvVC9lgjIGBY0F10a+CjhgA0VO5XAAQTVhQk4TrHnRQE/0vkQmnjbWIzMRPQKue4yxjEtPLq5RV
-	tQrvkSjKtTQ4Va6XHbSU7ctNg/vGpBlXadwL8t/AKat/t4nER4IRF6e/i8w0z4dUkh1eIZ2sJY8
-	+66/bAqleFtcZLYrPEM9qey1pn3r8yp+wNWoa1iynYp2Ctp/CXlj4xpRLYwxZXQqZU17GI9iXDF
-	cYB1Bvc+YaScIboqW8p8KC+voF04UclfkXdcOqkgjbzwEmPFjrlKESX5s303DvuU2H87Uz8SmEC
-	SjcKB/aD0VN7yyqznuUuccoMX4DQ2TiZl5RSuLqb8uKfOvUozBNAJRwZ/xbq0BHEkB1o4BTLgCv
-	EFDfraa
-X-Received: by 2002:a17:90b:2884:b0:398:c3c9:d0ae with SMTP id 98e67ed59e1d1-398c3c9d103mr19100460a91.0.1788202255729;
-        Mon, 31 Aug 2026 11:50:55 -0700 (PDT)
-Received: from DESKTOP-M0MLFVC.localdomain ([165.99.41.159])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0dc854dsm29459223c88.10.2026.08.31.11.50.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 11:50:55 -0700 (PDT)
-From: Shehryar Ahmad <shehryar.amd@gmail.com>
-To: jic23@kernel.org
-Cc: nuno.sa@analog.com,
-	Michael.Hennerich@analog.com,
-	dlechner@baylibre.com,
-	andy@kernel.org,
-	gregkh@linuxfoundation.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux@analog.com,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	marcelo.schmitt1@gmail.com,
-	danascape@gmail.com,
-	Shehryar Ahmad <shehryar.amd@gmail.com>
-Subject: [PATCH 3/3] dt-bindings: iio: accel: adi,adis16201: add adis16203 compatible
-Date: Mon, 31 Aug 2026 23:42:01 +0500
-Message-ID: <20260831184201.34416-4-shehryar.amd@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831184201.34416-1-shehryar.amd@gmail.com>
-References: <20260831184201.34416-1-shehryar.amd@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nOf+v/pZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 165B21F000E9;
+	Mon, 31 Aug 2026 18:51:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788202283;
+	bh=SrIQmO2TqJQoSY8OIPAeq5rXYbmCOjzKNqsaH0Y3k7o=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nOf+v/pZSQOTzM/iyaXT8p37+ONPFponvLkLNgiT+VFDdrEJZflGnobUS89X9PsZB
+	 xDxshAHz5dk/4e4eHpMISNfNMo3s8+oZp5WpA4Rmd4oOlJ7Zno1w6Zkx/5Vjg/uLY6
+	 kn2jXRX2Z2sWGjzx87HPkjQnYBKqgwlU58QaiNJ2XTionBSgZB2Wa5KqX6pZxSHw3V
+	 fb8L7yCsIKLs3Ewxm044B5SrJBeahWo2wVzkNhi2X4gPe8E25WTnJPWsA1uHL19HGf
+	 0LO204EpjICNXtddHNVbeeMiOTiwmRMBVU9Gh/UTN9g3wwZBRZfJEfKr+XPF+A+qxb
+	 h9sRUb32sASxw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 5/6] can: flexcan: add FLEXCAN_QUIRK_IRQ_BERR quirk
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ciprian Costea" <ciprianmarian.costea@oss.nxp.com>
+Cc: "Marc Kleine-Budde" <mkl@pengutronix.de>, "Vincent Mailhol" <mailhol@kernel.org>, Frank.Li@kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, "Oliver
+ Hartkopp" <socketcan@hartkopp.net>, linux-can@vger.kernel.org, "Oleksij
+ Rempel" <o.rempel@pengutronix.de>
+In-Reply-To: <20260831143449.12828-6-ciprianmarian.costea@oss.nxp.com>
+References: <20260831143449.12828-1-ciprianmarian.costea@oss.nxp.com>
+ <20260831143449.12828-6-ciprianmarian.costea@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 31 Aug 2026 18:51:22 +0000
+Message-Id: <20260831185123.165B21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The ADIS16203 has the same external interface as the already documented
-ADIS16201/ADIS16209, for the properties covered by this binding
-(compatible/reg, the DIO-based interrupt pin, and VDD supply), verified
-by datasheets Table 5, Pin Function Descriptions, in the respective
-Analog Devices datasheets. Some Auxiliary pins differ (e.g. adis16209
-marks a few pins DNC where adis16201/adis16203 use them as AUX COM), but
-these are not represented in this binding.  Add adis16203 to the
-existing enum rather than creating a separate file.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Signed-off-by: Shehryar Ahmad <shehryar.amd@gmail.com>
----
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+New issues:
+- [Medium] Wakeup interrupt is not configured for the new dedicated ESR IRQ=
+ during suspend.
 
-Previously reviewed at:
-https://lore.kernel.org/all/20260812043506.456ced6d@jic23-huawei/
+Pre-existing issues:
+- [Critical] Concurrent execution of separate IRQ handlers corrupts the loc=
+kless rx-offload SKB queue.
+--
 
- .../devicetree/bindings/iio/accel/adi,adis16201.yaml        | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+commit 53e92dd64634f7bc681782eddd379791f6533960
+Author: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
 
-diff --git a/Documentation/devicetree/bindings/iio/accel/adi,adis16201.yaml b/Documentation/devicetree/bindings/iio/accel/adi,adis16201.yaml
-index b6ba7ad1a..3ce5fb1be 100644
---- a/Documentation/devicetree/bindings/iio/accel/adi,adis16201.yaml
-+++ b/Documentation/devicetree/bindings/iio/accel/adi,adis16201.yaml
-@@ -4,21 +4,23 @@
- $id: http://devicetree.org/schemas/iio/accel/adi,adis16201.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
- 
--title: ADIS16201 Dual Axis Inclinometer and similar
-+title: ADIS16201 Inclinometer and similar
- 
- maintainers:
-   - Jonathan Cameron <Jonathan.Cameron@huawei.com>
- 
- description: |
--  Two similar parts from external interface point of view.
-+  Three similar parts from external interface point of view.
-   SPI interface.
-     https://www.analog.com/en/products/adis16201.html
-+    https://www.analog.com/en/products/adis16203.html
-     https://www.analog.com/en/products/adis16209.html
- 
- properties:
-   compatible:
-     enum:
-       - adi,adis16201
-+      - adi,adis16203
-       - adi,adis16209
- 
-   reg:
--- 
-2.43.0
+can: flexcan: add FLEXCAN_QUIRK_IRQ_BERR quirk
 
+This commit introduces the FLEXCAN_QUIRK_IRQ_BERR quirk for platforms where=
+ bus
+errors and state changes share a dedicated IRQ line. It adds a combined IRQ
+handler flexcan_irq_esr() and updates interrupt setup and teardown to manage
+the new line.
+
+> diff --git a/drivers/net/can/flexcan/flexcan-core.c b/drivers/net/can/fle=
+xcan/flexcan-core.c
+> index f28ff0e95b74f..601d88bfcfeb2 100644
+> --- a/drivers/net/can/flexcan/flexcan-core.c
+> +++ b/drivers/net/can/flexcan/flexcan-core.c
+
+[ ... ]
+
+> @@ -1303,6 +1303,22 @@ static irqreturn_t flexcan_irq_boff(int irq, void =
+*dev_id)
+>  	return handled;
+>  }
+> =20
+> +/* Combined bus error and state change IRQ handler */
+> +static irqreturn_t flexcan_irq_esr(int irq, void *dev_id)
+> +{
+> +	struct net_device *dev =3D dev_id;
+> +	struct flexcan_priv *priv =3D netdev_priv(dev);
+> +	irqreturn_t handled;
+> +
+> +	handled =3D flexcan_do_state(dev);
+> +	handled |=3D flexcan_do_berr(dev);
+> +
+> +	if (handled)
+> +		can_rx_offload_irq_finish(&priv->offload);
+> +
+> +	return handled;
+> +}
+
+[Severity: Critical]
+This is a pre-existing issue, but adding this separate IRQ handler highligh=
+ts
+a race condition. Can this new handler and the main mailbox IRQ handler
+execute concurrently on different CPUs?
+
+If dev->irq and priv->irq_err are dispatched to different CPUs simultaneous=
+ly,
+both handlers can call into the Rx offload functions in rx-offload.c. For
+example:
+
+CPU1 (in flexcan_irq_mb):
+  can_rx_offload_irq_offload_timestamp()
+    __skb_queue_add_sort(&offload->skb_irq_queue, ...)
+
+CPU2 (in flexcan_irq_esr):
+  handled |=3D flexcan_do_berr(dev);
+    flexcan_irq_bus_err()
+      can_rx_offload_queue_timestamp()
+        __skb_queue_add_sort(&offload->skb_irq_queue, ...)
+
+Since the Rx offload queue manipulation in __skb_queue_add_sort() is lockle=
+ss,
+could this concurrent execution corrupt the skb_irq_queue list and crash the
+kernel? Similarly, both paths call can_rx_offload_irq_finish() which splices
+the queue locklessly from the IRQ queue side without adequate mutual exclus=
+ion
+against other HardIRQs.
+
+[ ... ]
+
+> @@ -1905,6 +1922,13 @@ static int flexcan_open(struct net_device *dev)
+>  			goto out_free_irq_boff;
+>  	}
+> =20
+> +	if (priv->devtype_data.quirks & FLEXCAN_QUIRK_IRQ_BERR) {
+> +		err =3D request_irq(priv->irq_err,
+> +				  flexcan_irq_esr, IRQF_SHARED, dev->name, dev);
+> +		if (err)
+> +			goto out_free_irq_boff;
+> +	}
+> +
+
+[Severity: Medium]
+Since this quirk routes the wakeup event (WAK_INT) to this new dedicated ESR
+IRQ line, should priv->irq_err be configured for wakeup during suspend?
+
+Currently, flexcan_suspend() calls enable_irq_wake(dev->irq), but it does
+not arm priv->irq_err. Will the system fail to wake up from sleep upon CAN
+activity on platforms using this quirk because the interrupt controller isn=
+'t
+armed for the correct line?
+
+Should flexcan_suspend() and flexcan_resume() be updated to handle
+priv->irq_err as well?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831143449.1282=
+8-1-ciprianmarian.costea@oss.nxp.com?part=3D5
