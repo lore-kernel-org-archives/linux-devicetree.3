@@ -1,164 +1,160 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B7403A71AD;
-	Mon, 31 Aug 2026 09:04:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B942D3D3327
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 09:05:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788167088; cv=none; b=MoKHVNoaEN9fh2sV90K+V3vvFt55bMJdOORnS0Go0rU18ovNsclYjjbtKNnmsaPWHLJiHvLd2aVnAk60z/zCr0tloKl+efgr0q1vaJKN5fQjIZGDWst83m8BOd3BxtxYF0ruxt8vtDPMexSdlP8jJHgiIxksSJewSLW9LIV/Pjw=
+	t=1788167108; cv=none; b=VFc6bMjVHbCqxUmSQeXOLMe1vrxVoqcYP5CeCogbev4P6XYKILhSCAM2Vgk2sRLJFjrHFK1PhqtQYUSXdlMokkRrKkC0rUCiRXMJ8+ST0Zt/fN2nlFNZIOnyKFtFq9NixDiTSLuJ7WF3hdnVak1LIO+AVAhGsww2GF3tO+Omz3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788167088; c=relaxed/simple;
-	bh=7pAi7166XWQSyCVnLaFq5Oiknqj50joNBVNikhDtwcM=;
+	s=arc-20240116; t=1788167108; c=relaxed/simple;
+	bh=pgWfTnt9w7DugbfkkSJFZbLuE4nWkIW8eIhsnLbeQLo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=eHi3F8MmWEK1q7sQc3aOSbYL77f1GtEHteGzbnkNDACI06vuWWOTRecbRks3792WsrF/LQcTfykIBK/kKQ7c4ndEoFZlWH4wcl8eHZya1Fmf0C8A90/xpf9XxnB35idavIMiEz6JNoW9Cyn/LKOpY5+A0lgCm6CPNUMKJP/Y3hA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ocqzPnxt; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ZwDdw8+S6LiJqfoVCzFwERkxs11KbRXez5pXtF/PN0P05ceesoakyp6UUJbhLDmNVHNWYarPZQgTsBN4gDh7Uh8N6Wb+10L4gqAnBuSKO06kOd3xPk7YUfYZtoU/sNri2qvd6heBclgjmzgH2+fBzv4RZp1TV8eF/acuHmGsCnw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FIvfOYOD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ocqzPnxt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F50B1F000E9;
-	Mon, 31 Aug 2026 09:04:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FIvfOYOD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54F3D1F000E9;
+	Mon, 31 Aug 2026 09:05:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788167086;
-	bh=L0B9Ydyca33fzaC4BYotoHysBDOs35sZh0O/LAlxSk8=;
+	s=k20260515; t=1788167107;
+	bh=OJToWJXDrlRzzZ3w1YKtccTy6w5Wwc5hNTuNv2S2OQI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ocqzPnxtT+JcZOfireKyd6nupUJ4hDn+HUKWuQs6g/gc//2ro061YQuO+XACPqzmW
-	 0kEciK3dRMb5y7dj0empXk/gfDx35HNXa01tHLqeWQBqc2VjAkQTW707/Aujz+XOAW
-	 XR02PmbzxNNE0zSgCYypY7yU0TILHDLnwG94NbxHrNFFPg74AqZO/o3Qt6gppSmgCn
-	 lEbkxhrKem5uDWcAYxuQ0QatB7UBh/fT/wDkPyPm96JX4GHjbKfaKFQUHvqlbwSZii
-	 2wrTbeTN0QbNKI2f6+p4OAjO/jy7IEkWHidRTY8CfIyHH4XsgiCjM02+zarqTVlkbc
-	 s7DWNNAAu5Vfw==
+	b=FIvfOYOD19D6gYwLQHob1S3C81JmhGNJJHJRCb+nLLYaMCZBOimsiBlafTTUoL4Tr
+	 0FGMwyCkMK+lAgi269Nzcu9DdKvzdR+oKCQkyYrnBuT7PVsuAUAATAtiSjPYLcruFF
+	 aLh3pG3HY0ohU9DZVyR3WZeDyuIK0PsOIbB2mmi0qCtLyl3xNtmOt3LA5SiYUU+FoS
+	 9sLKZRqd1VJw5EMuQoxm3xOKKteoBMgRaQQ5uOTc74HCEbMRYLpmcqOg1jGwDzT7uW
+	 93XDXhISbnL+r1fEtgpDGF2OZZImDqT/zLOB9uuZJtuc3DJcutyZ5Walo7edpHwq7f
+	 dR1kTeiREnY7g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V2 3/3] arm64: dts: freescale: Add chargebyte Charge
- Control Y
+Subject: Re: [PATCH v11 10/14] pmdomain/rockchip: cycle optional
+ power-domain resets on power-on
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Stefan Wahren" <wahrenst@gmx.net>
-Cc: "Vincent Mailhol" <mailhol@kernel.org>, "Marc Kleine-Budde" <mkl@pengutronix.de>, "Oleksij
- Rempel" <o.rempel@pengutronix.de>, conor+dt@kernel.org, olteanv@gmail.com, vkoul@kernel.org, devicetree@vger.kernel.org, linux-phy@lists.infradead.org, Frank.Li@kernel.org, robh@kernel.org, neil.armstrong@linaro.org, "Oliver
- Hartkopp" <socketcan@hartkopp.net>, linux-can@vger.kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260831083539.8287-4-wahrenst@gmx.net>
-References: <20260831083539.8287-1-wahrenst@gmx.net>
- <20260831083539.8287-4-wahrenst@gmx.net>
+To: "Jiaxing Hu" <gahing@gahingwoo.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org
+In-Reply-To: <20260831081956.84871-11-gahing@gahingwoo.com>
+References: <20260831081956.84871-1-gahing@gahingwoo.com>
+ <20260831081956.84871-11-gahing@gahingwoo.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 09:04:44 +0000
-Message-Id: <20260831090445.0F50B1F000E9@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 09:05:06 +0000
+Message-Id: <20260831090507.54F3D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] Missing GPIO initialization / Unused pin for X_nRST_LAN
-- [Medium] Missing Pin Mux Configuration for USDHC2_VSELECT in default state
-- [Low] DT Binding Violation: Undocumented compatible string 'microchip,mcp=
-2542'
+
+Pre-existing issues:
+- [High] Resource leak of clock references on of_clk_get failure
+- [High] Use-after-free when pm_genpd_remove fails during probe error clean=
+up
 --
 
-commit c595019b7dc419cc298a111c2b215904a12f65e1
-Author: Stefan Wahren <wahrenst@gmx.net>
-arm64: dts: freescale: Add chargebyte Charge Control Y
+commit c4349e9db6c9eecdba71ab60966e3312c6588638
+Author: Jiaxing Hu <gahing@gahingwoo.com>
 
-This commit introduces device tree support for the chargebyte Charge Contro=
-l Y,
-an Electrical Vehicle Supply Equipment for MCS charging stations based on t=
-he
-phyCORE-i.MX 93 ARM SoM. It defines necessary pin multiplexing, peripherals
-like CAN and Ethernet, and device-specific layouts.
+pmdomain/rockchip: cycle optional power-domain resets on power-on
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx93-charge-control-y.dts b/a=
-rch/arm64/boot/dts/freescale/imx93-charge-control-y.dts
-> new file mode 100644
-> index 0000000000000..0405098cc05c4
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx93-charge-control-y.dts
+Some Rockchip domains come out of power-on with their bus interface in
+an undefined state. On the RK3576 NPU this shows up as a hang on the
+first register access after the domain is switched on, and pulsing the
+domain's resets at this point clears it.
 
-[ ... ]
+Take the domain node's resets if it has any, and pulse them between
+releasing idle and restoring QoS. The resets are optional, so domains
+that do not list any are unaffected.
 
-> +	// Heartbeat LED of phyCore is not populated
-> +	/delete-node/ leds;
-> +
-> +	flexcan1_tc: can-phy0 {
-> +		compatible =3D "microchip,mcp2542", "ti,tcan1042";
-
-[Severity: Low]
-Is the "microchip,mcp2542" compatible string documented in any devicetree
-binding schema?
-
-Using an undocumented compatible string here might cause `make dtbs_check`
-validation tooling to fail.
-
-> +		#phy-cells =3D <0>;
-> +		max-bitrate =3D <1000000>;
-> +	};
+> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/ro=
+ckchip/pm-domains.c
+> index 39988efd86aaa..8f2fd8a83e8e9 100644
+> --- a/drivers/pmdomain/rockchip/pm-domains.c
+> +++ b/drivers/pmdomain/rockchip/pm-domains.c
 
 [ ... ]
 
-> +	pinctrl_flexcan1: flexcan1grp {
-> +		fsl,pins =3D <
-> +			MX93_PAD_PDM_BIT_STREAM0__CAN1_RX	0x139e
-> +			MX93_PAD_PDM_CLK__CAN1_TX		0x1382
-> +		>;
-> +	};
+> @@ -861,6 +870,14 @@ static int rockchip_pm_add_one_domain(struct rockchi=
+p_pmu *pmu,
+>  	if (error)
+>  		goto err_put_clocks;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this code leak the
+clocks on of_clk_get() failure?
+
+Looking at rockchip_pm_add_one_domain(), just above this code:
+
+	for (i =3D 0; i < pd->num_clks; i++) {
+		pd->clks[i].clk =3D of_clk_get(node, i);
+		if (IS_ERR(pd->clks[i].clk)) {
+			error =3D PTR_ERR(pd->clks[i].clk);
+			dev_err(pmu->dev,
+				"%pOFn: failed to get clk at index %d: %d\n",
+				node, i, error);
+			return error;
+		}
+	}
+
+If a PM domain has multiple clocks defined in its device tree node, and
+of_clk_get() succeeds for the first clock(s) but fails for a subsequent
+clock (e.g., returning -EPROBE_DEFER), the function returns the error
+directly without calling clk_put() on the successfully acquired clocks.
+
+Could this direct return bypass the err_put_clocks cleanup path and leak
+the clocks acquired in previous loop iterations?
+
+> +	pd->resets =3D of_reset_control_array_get_optional_exclusive(node);
+> +	if (IS_ERR(pd->resets)) {
+> +		error =3D dev_err_probe(pmu->dev, PTR_ERR(pd->resets),
+> +				      "%pOFn: failed to get resets\n", node);
+> +		pd->resets =3D NULL;
+> +		goto err_unprepare_clocks;
+> +	}
 > +
-> +	pinctrl_gpio1: gpio1grp {
-> +		fsl,pins =3D <
-> +			MX93_PAD_I2C2_SDA__GPIO1_IO03		0x31e
-
-[Severity: Medium]
-Does the X_nRST_LAN reset pin (GPIO1_IO03) need a GPIO hog or a driver
-consumer (e.g., via a reset-gpios property) in the device tree?
-
-Since the upstream lan865x SPI kernel driver does not parse or manage
-reset-gpios, leaving its functional state unmanaged here might result in the
-hardware reset pin floating or being left in an indeterminate state.
-
-Could this cause the LAN8651 Ethernet interface to fail to emerge from reset
-and initialize properly on a cold boot?
-
-> +			MX93_PAD_PDM_BIT_STREAM1__GPIO1_IO10	0x382
-> +		>;
-> +	};
-> +
-> +	pinctrl_gpio4: gpio4grp {
+>  	pd->num_qos =3D of_count_phandle_with_args(node, "pm_qos",
+>  						 NULL);
 
 [ ... ]
 
-> +	pinctrl_usdhc2_cd: usdhc2cdgrp {
-> +		fsl,pins =3D <
-> +			MX93_PAD_SD2_CD_B__GPIO3_IO00		0x31e
-> +		>;
-> +	};
-> +
-> +	/* need to config the SION for data and cmd pad, refer to ERR052021 */
-> +	pinctrl_usdhc2_default: usdhc2grp {
-> +		fsl,pins =3D <
-> +			MX93_PAD_SD2_CLK__USDHC2_CLK		0x119e
-> +			MX93_PAD_SD2_CMD__USDHC2_CMD		0x4000139e
-> +			MX93_PAD_SD2_DATA0__USDHC2_DATA0	0x4000138e
-> +			MX93_PAD_SD2_DATA1__USDHC2_DATA1	0x4000138e
-> +			MX93_PAD_SD2_DATA2__USDHC2_DATA2	0x4000138e
-> +			MX93_PAD_SD2_DATA3__USDHC2_DATA3	0x4000139e
+> @@ -949,6 +967,7 @@ static void rockchip_pm_remove_one_domain(struct rock=
+chip_pm_domain *pd)
+> =20
+>  	clk_bulk_unprepare(pd->num_clks, pd->clks);
+>  	clk_bulk_put(pd->num_clks, pd->clks);
 
-[Severity: Medium]
-Should MX93_PAD_SD2_VSELECT__USDHC2_VSELECT be included in this default
-state group?
+[Severity: High]
+This is a pre-existing issue, but can this lead to a use-after-free when
+pm_genpd_remove() fails during probe error cleanup?
 
-The MMC core initially brings up the SD card in the default 3.3V state. Wit=
-hout
-the USDHC2_VSELECT pad configured here, the controller might not be able to
-actively manage the IO voltage selection in its default state.
+In rockchip_pm_remove_one_domain(), right before this code:
 
-Could this absence lead to unpredictable external voltage regulator behavio=
-r or
-SD card initialization failures?
+	ret =3D pm_genpd_remove(&pd->genpd);
+	if (ret < 0)
+		dev_err(pd->pmu->dev, "failed to remove domain '%s' : %d - state may be i=
+nconsistent\n",
+			pd->genpd.name, ret);
 
-> +		>;
-> +	};
-> +
-> +	/* need to config the SION for data and cmd pad, refer to ERR052021 */
-> +	pinctrl_usdhc2_100mhz: usdhc2-100mhzgrp {
+If rockchip_pm_add_subdomain() or pm_genpd_provider_add_of() fails,
+rockchip_pm_domain_cleanup() iterates over all domains in reg ID order.
+If a child domain has a smaller ID than its parent, the child is removed
+first. Because its parent link still exists, pm_genpd_remove() returns
+-EBUSY and fails to remove the child from the global gpd_list.
+
+Despite the failure, rockchip_pm_remove_one_domain() returns and the
+rockchip_pm_domain structure is freed by devm when the probe fails.
+
+Does this leave a pointer to freed memory in the global gpd_list, leading
+to a use-after-free when the list is next accessed (e.g., by
+genpd_power_off_unused())?
+
+> +	reset_control_put(pd->resets);
+> =20
+>  	/* protect the zeroing of pm->num_clks */
+>  	mutex_lock(&pd->pmu->mutex);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831083539.8287=
--1-wahrenst@gmx.net?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831081956.8487=
+1-1-gahing@gahingwoo.com?part=3D10
