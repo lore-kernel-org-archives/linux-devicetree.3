@@ -1,57 +1,62 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE7F739891E;
-	Mon, 31 Aug 2026 20:21:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1E938C42F;
+	Mon, 31 Aug 2026 20:21:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788207706; cv=none; b=kSko+xz3cNM6kdEJX+1oXNuoSIYFlGag9vJqiG/3Fj9bYxJCd13TzaTD4CDPwMcYQWTZDurt2pq832aK1zChSM+QdK+w+0kTh3fpY3LWhovDujMRxP+bA7fN+p6lyIAQwJuV8om8NvFc10NX+AdZnKGBOc6PxO4wd4p4uCbwwrs=
+	t=1788207708; cv=none; b=IO/qFxSFxFqAm/RN6ttWVVbEZ8SN4wYdjuF6f1vFZuLuhopuRepi4dI4SQSUWRi31HgXewR0f1gFWGoMb1YwbsSIFCMlPmvmXEdVxPbSI5nekRAKtjZju/LY0JYyA/8othcAKBEjEBcPTh2Rpf5+c5u8MJITpcoFEkL7PxMXBWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788207706; c=relaxed/simple;
-	bh=/Y3EZxW6g7d5B/VNknmDyKXeSC0mAN9v2XpLzeh5uDY=;
+	s=arc-20240116; t=1788207708; c=relaxed/simple;
+	bh=baAnBGS6HUzUYibjASouvQ1Ll8c4w8rkmzbZsjAm2YE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OAxvT/belk6O8DWvUV/6HNm1G8RTfHFG+SyW7XC1vWSDgE4KaSpHaxPVIx1osAX4HA4xKiL760R1Tg3BJoXzyM3J4N0jqe6dNw8Qr2V/4byqDc3E6W3nwp4zwlcmiLGPcJEgBRLU3CLhpXu6JB/hn9jg3ViHPxbNdDE700DrAlQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W/T3s8o5; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=fNhx3zM/UUPoNJ5m58NtKkaS56pqMeve6kkq1X+8fgX4ISGadFeZiO6IRHYMxy+oa6+11mxeRU2kySk8LBZYZc3vfcHoznTlgnhEF8FtMQEAADCVF6Umv0pGlpjakGaUR5IMjSsUd0P3DE8K3mhjyD2fgufLYK36IR+uVDBvdfo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DrRF98Jo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W/T3s8o5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18FE31F00A3D;
-	Mon, 31 Aug 2026 20:21:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DrRF98Jo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD2A51F00ACA;
+	Mon, 31 Aug 2026 20:21:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788207704;
-	bh=TallvL90aPVr5j44xFEumLaFjCEv1DwUjfW0ndv9IbM=;
+	s=k20260515; t=1788207707;
+	bh=i4mXV3EO3vioncRCnbhvBa71PgQUXVNsl5KiuAmXZr4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=W/T3s8o5zidjbRKvHEyU6mwUFGaEa9/KjMdmRdtOdtFstKF49TDCNT/zvyEaTMsHK
-	 OyaDYfyhDF6eJDm7tSUNytn9WeMlCFmondevUoLEa0m0EkLVFZa87UujizO7hDRcYR
-	 7Udq7LnK/5ppodkROlqfDrjNPiSk+5fTjHzehO3KkwFr6JfWg8gaohQnsLcWs8qkEK
-	 V5akRTnnDs7veo7ewgDy2+0RW7RVFC9Va9szEeBHn7zrkaO6lf+ivwxvlh4zxLtfN/
-	 h1QNQ1kMCUgTYRZl7h0q38T/VZMV/oM/wAdL8SASCn+XyJscWP4KR0FaoGt6EiajSC
-	 AmYbgwk0W0y6w==
+	b=DrRF98Jo3vsRDvXpFD7+P8lC1rFverf+ywAb5KCIa5S3Fd1RU5APK/MKG/PoNT0og
+	 AfsxSB6tphmud9l6t3NQXy6Lx0ymx+Zufw1Rp3Y2XIa+fPrfRbYN7PKrLjay7ChlXX
+	 C7fTl7sBprBAtJa9D7V+ND3ovxeJaihkdiGPy63S3fIs2kLFPbVoxNSyVz/D/+peio
+	 rttll2tvoQq0Vv5Wi0iC9pn8fq6IDfvxH16BTUVhWDrqMook9DOMB2scgf+KRqXt2r
+	 Odtfn53oa1nf7I+boZ52ZJwMBYcOKs2VHQXXmj5RuTe48fSy89K3sncy6RQp42PpCF
+	 GndBKeC5Ij4IQ==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Harshal Dev <harshal.dev@oss.qualcomm.com>,
-	Vinod Koul <vkoul@kernel.org>,
+	Alexander Koskovich <AKoskovich@pm.me>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
 	Bartosz Golaszewski <brgl@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Andy Gross <agross@kernel.org>,
-	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
+	Rocky Liao <quic_rjliao@quicinc.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Jeff Johnson <jjohnson@kernel.org>,
+	Luca Weiss <luca.weiss@fairphone.com>
+Cc: ~postmarketos/upstreaming@lists.sr.ht,
+	phone-devel@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
-	linux-crypto@vger.kernel.org,
-	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	dmaengine@vger.kernel.org,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v4 0/6] Shikra: Add DT support for ICE, RNG and QCE
-Date: Mon, 31 Aug 2026 15:21:21 -0500
-Message-ID: <178820768643.1699313.2761481849387372250.b4-ty@kernel.org>
+	devicetree@vger.kernel.org,
+	linux-bluetooth@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	ath11k@lists.infradead.org,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v2 0/7] Enable Bluetooth and WiFi on Fairphone (Gen. 6)
+Date: Mon, 31 Aug 2026 15:21:23 -0500
+Message-ID: <178820768635.1699313.4119708799289566517.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260714-b4-shikra_crypto_changse-v4-0-06a4ea97c209@oss.qualcomm.com>
-References: <20260714-b4-shikra_crypto_changse-v4-0-06a4ea97c209@oss.qualcomm.com>
+In-Reply-To: <20260403-milos-fp6-bt-wifi-v2-0-393322b27c5f@fairphone.com>
+References: <20260403-milos-fp6-bt-wifi-v2-0-393322b27c5f@fairphone.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -62,24 +67,16 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 14 Jul 2026 15:35:11 +0530, Kuldeep Singh wrote:
-> This patch series enables SDHC ICE, RNG and QCE support on Shikra,
-> aligned with how similar support is modeled on other Qualcomm platforms.
+On Fri, 03 Apr 2026 15:52:46 +0200, Luca Weiss wrote:
+> Add the required bits to enable Bluetooth and WiFi on the Milos
+> SoC-based Fairphone (Gen. 6) smartphone.
 > 
-> These DT and dt-bindings updates were previously posted as three
-> separate series. Based on review feedback, they are grouped here as one
-> crypto-focused series.
-> Previous threads:
-> QCE: https://lore.kernel.org/lkml/20260515-shikra_qcrypto-v1-0-80f07b345c29@oss.qualcomm.com/
-> RNG: https://lore.kernel.org/lkml/20260514-shikra_rng-v1-0-4ea721a1429a@oss.qualcomm.com/
-> ICE: https://lore.kernel.org/lkml/20260515-shikra_ice_ufs-v2-0-2724a54339db@oss.qualcomm.com/
 > 
-> [...]
 
 Applied, thanks!
 
-[6/6] arm64: dts: qcom: shikra: Add ICE, TRNG and QCE nodes
-      commit: 099cd05d200ba241bcc7497c4384b8d657a5632e
+[3/7] dt-bindings: net: wireless: ath11k: Document WCN6755 WiFi
+      commit: e506d34e57236c41cebacc43e50f35f5b52dc675
 
 Best regards,
 -- 
