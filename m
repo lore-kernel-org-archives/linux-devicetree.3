@@ -1,105 +1,69 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F52A4CCDD6
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 17:47:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6852433BD9;
+	Mon, 31 Aug 2026 17:48:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788198448; cv=none; b=H6dfwO6jptSwo+2oThmaA/9USfedGDcLa2L0yuqIHwFQMVPayKkLfNGXTF6+6SsbncHe6QjDptf8rgN5xFmRvrlj4gz6hwYHXAyXHgoiyFlKK0BXRvGaCz3XZt0xykCFn7C62h/lZ8/U6PiaMm4w+jLlOhgYQvrshrFsgoGYk0w=
+	t=1788198502; cv=none; b=pDhA1FYl2i+17bAUO9PepsYbrRjUEkoHOv0gIVDTunezM+PE3fE0hWWpG0Q62MovWZ6OhQJm4ixX150dMa/pdSDbXK5T+Z588PmizPyZSmYgytgm2myJtK3RO95U4CQa9J9Xp4hJFIPtRq/5958wcB8sOpdlRkJC9ymPUPVy3YI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788198448; c=relaxed/simple;
-	bh=CBtCVjqhKYYFWndYJjCtpo6L2xlHfZ2hJixmofKY/nI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IcmO8n8xqUdlDC12k1fsyhFRyvyoPyko+Syk/v3NKi+tjjxraqdBgCWfUwROy89x4pxLVkWl57U6XqQplivxMKFGQbpQEQbScnzg28ipVdDz0bsQv64IEtmPGRXLBpK9girCKC1IUIv2yxI7/sgMT5KOexvoGJbdf9S/89k5yfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mxh7N5+0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788198502; c=relaxed/simple;
+	bh=tbYfjaL1NQ4fdIOMntQQZIfqJ6Gjx4knuk46SZeQU1I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I0AADaoo4znFoeLuCJyroKWd28RSSfcouHMSJoFjbqKhz9y2yWkeO/zE7C9NzqhQdLsQTvZcxYs24lIY5FfoYo5rLSnFZ8nbe3EhMY4xPyUI40r4JeqUkF+R5rUUnLeNO40IDtoGbY5d++dCLCY6w0n7h1Fvu+YVe+N0BPW7Law=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mI4lnLlw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mxh7N5+0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C66D61F000E9;
-	Mon, 31 Aug 2026 17:47:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mI4lnLlw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E62C1F000E9;
+	Mon, 31 Aug 2026 17:48:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788198447;
-	bh=wWK0/Qlaz4UTS22gsh0cNg6VIa1bWvsZo3n3N3uIoPg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mxh7N5+0DIVYEJcAVY7dpp4VRKT2cHxGcFF0oyTav+mGMq855THEppfWRNyRNvUPZ
-	 6pLz6xz3my/kUwpd0QpUMBJrgeG9P+ry5Qek3TCTtuIH1LH/keuBg3SMds3PNSsaou
-	 L37Nka/D7O3SAREQuS/Y8D+/ZNizJEdJ8nmaAcLt1wrGGDZaX8CtFI6C9tTgcF2J0r
-	 GWfV6Dej2IXbOxLjxtGe8mt+59FXHcRoKeapHFZXSze1DkUG21fdotM/W+XbwWLWk8
-	 VnyAoPmyAcj1/gpSj3bhYvWOEyyBbC1kP64XS3wBYma06+V/kYrHlTyPbl4JKinpKV
-	 E1er6PNVz2Qfg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/7] arm64: dts: rockchip: Rename rk3288 HDMI audio card
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Detlev Casanova" <detlev.casanova@collabora.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260831-fix-rockchip-hdmi-audio-names-v1-2-5b155ae05293@collabora.com>
-References: <20260831-fix-rockchip-hdmi-audio-names-v1-0-5b155ae05293@collabora.com>
- <20260831-fix-rockchip-hdmi-audio-names-v1-2-5b155ae05293@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 17:47:26 +0000
-Message-Id: <20260831174726.C66D61F000E9@smtp.kernel.org>
+	s=k20260515; t=1788198501;
+	bh=biX+2hLF30/MCvJvLobvPJqDysvlg6zJ3nAUtE+LPDY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mI4lnLlwQoYu2gyGscBflbVWISkvkINUat9Zthn1rev3wKNSHKS8Pg8UCg7Vd4UNP
+	 643hrz5VVsVOW0i4l7Eto8hD35l+efT71k7+NoQ+/pb3q9kedH/0QIGop2AY9wtgWB
+	 u0eJWSd5SwkLwB00tKHWoFdPcNpaDqRICtmjNhVddQRGJYYko+/xzRDEvIbG85yB2x
+	 4RZiWO0lUotb1EsU9wPFA4DbFAgQu5Xm4vcGIM+MasjP0PffPqfG6egKnpjxKXGuGW
+	 EikoUupusPy7D9+H1rZHKGwcmjgluuhO1N+lJPhIDg8ckEbgjWiE7yfYxrYauLA7bo
+	 JxKZS8wltYq9g==
+Date: Mon, 31 Aug 2026 12:48:20 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Frank.Li@oss.nxp.com
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Hans Verkuil <hverkuil@kernel.org>, imx@lists.linux.dev,
+	devicetree@vger.kernel.org, linux-media@vger.kernel.org
+Subject: Re: [PATCH v1 1/1] media: dt-bindings: tc358743: Convert to YAML
+Message-ID: <178819849954.849049.16512865284536369536.robh@kernel.org>
+References: <20260827160312.4113159-1-Frank.Li@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827160312.4113159-1-Frank.Li@oss.nxp.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Changing the ALSA sound card name breaks userspace ABI and backwar=
-d compatibility.
-- [Low] The commit subject uses the `arm64:` subsystem prefix, but modifies=
- an ARM 32-bit device tree file.
---
 
-commit 3a52d07446ba896b26f24f7276cf2ade84038b3b
-Author: Detlev Casanova <detlev.casanova@collabora.com>
+On Thu, 27 Aug 2026 12:03:07 -0400, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
+> 
+> Convert the Toshiba TC358743 HDMI-RX to MIPI CSI2-TX bridge device
+> tree binding from txt to YAML format.
+> 
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> ---
+>  .../bindings/media/i2c/toshiba,tc358743.txt   | 48 ----------
+>  .../bindings/media/i2c/toshiba,tc358743.yaml  | 93 +++++++++++++++++++
+>  MAINTAINERS                                   |  2 +-
+>  3 files changed, 94 insertions(+), 49 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.txt
+>  create mode 100644 Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.yaml
+> 
 
-arm64: dts: rockchip: Rename rk3288 HDMI audio card
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-This commit renames the HDMI audio card in the rk3288-miqi device tree
-from "HDMI" to "RK3288 HDMI" to avoid name collisions with other Rockchip
-SoCs.
-
-> arm64: dts: rockchip: Rename rk3288 HDMI audio card
-
-[Severity: Low]
-Does this commit subject use the correct architecture prefix?
-
-The file being modified is `arch/arm/boot/dts/rockchip/rk3288-miqi.dts`,=20
-which belongs to the 32-bit ARM architecture, but the subject uses the=20
-arm64 prefix.
-
-> diff --git a/arch/arm/boot/dts/rockchip/rk3288-miqi.dts b/arch/arm/boot/d=
-ts/rockchip/rk3288-miqi.dts
-> index a5f5c6d38f801..090255244c86f 100644
-> --- a/arch/arm/boot/dts/rockchip/rk3288-miqi.dts
-> +++ b/arch/arm/boot/dts/rockchip/rk3288-miqi.dts
-> @@ -82,7 +82,7 @@ vcc_sys: regulator-vsys {
->  	sound {
->  		compatible =3D "simple-audio-card";
->  		simple-audio-card,format =3D "i2s";
-> -		simple-audio-card,name =3D "HDMI";
-> +		simple-audio-card,name =3D "RK3288 HDMI";
-
-[Severity: High]
-Does this modification break userspace ABI and backward compatibility?
-
-The simple-audio-card,name property defines the ALSA sound card name=20
-exposed to userspace. Audio servers like PulseAudio and PipeWire, as well=20
-as configuration tools like ALSA UCM and asound.state, rely on this name=20
-to identify the hardware, apply routing profiles, and restore volume levels.
-
-Upgrading the kernel on an RK3288 MiQi board changes the ALSA card name=20
-from 'HDMI' to 'RK3288 HDMI'. Userspace configurations looking for the=20
-'HDMI' card (which has been present since commit 2a91dcd5be9d) will fail=20
-to match the new name, resulting in broken audio routing or lost volume=20
-states.
-
->  		simple-audio-card,mclk-fs =3D <512>;
-> =20
->  		simple-audio-card,codec {
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-fix-rockch=
-ip-hdmi-audio-names-v1-0-5b155ae05293@collabora.com?part=3D2
