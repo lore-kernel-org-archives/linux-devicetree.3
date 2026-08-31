@@ -1,333 +1,143 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9683ED5C7;
-	Mon, 31 Aug 2026 12:01:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDF163AAF61
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 12:03:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788177698; cv=none; b=E50fIO1u8RU7Wa9bpGZdCNj2eZ9CkxF+Szt3VZvvOKFzWGlZXSKw13SIHoCo2EesRHgK/cmLflz7c3nTJDMpzuW+xxNNH5l4K7dQs6JP8m+dQ8MF3EQa3O+qXMYv0MNZ6Adr1WGFeXP6yDMzeJLOaI5BcyhHJp0h0FKCirV+q7k=
+	t=1788177793; cv=none; b=aeFpbtSQimRQVl98CSq+ThRj2o4srtZIBD/dDO1iNFgsLu013nFjz94UUaerEASZP8Pz0q/OuvSNT+OO7g+jDJ0+z52Si6do6kcQi6wI0DQ6r55Rzo7wckPCSBTczsi8NLtAo29UY3757sffg+hrRQvgMkd/2Axb5iWthzJe4P4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788177698; c=relaxed/simple;
-	bh=UeStCgx93G/Rc9wyKFfNXZQQ9+u6ARkcctm1alR4w4k=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tUbWzePe92BtCqeUoXUrNqU9gOQiwm4MIb1ylD0jHH+Qj8G2KE1z8lSAKdgOZqd0gJg0SBHtqHpOCF487vSRlUH+DLpQ0F7vN4zhr+jy5xq+kR9wruBP8pr4HtFsb3/DKqRHknH4TmLNgdLRRtYaZC4x4McscvOWTb2VSYrhGDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=FVNfS4Hn; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788177793; c=relaxed/simple;
+	bh=BLdIX4JmDDmCb/nESqUPLgpc5EXO7M0X8FYZInOGzg8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZoExB3GVMqfDtaPekX673qqQ/pwBIFSomwXyU5cGwJ3FBiVzFfY7FwaxZ0Ch6dG5om8MqGPoNIvwBldWFh2h1vY1DM99SqJtcHLSi817uohcuHvhYqM8LQqYYfPhg6Akx0yRFpUQbGI+uTdbFLrYxnN66fFZC8kcjDW5D39CaXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=b/JY0HZc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=c3r7YiXf; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="FVNfS4Hn"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id D226D4E41473;
-	Mon, 31 Aug 2026 12:01:32 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 961E760231;
-	Mon, 31 Aug 2026 12:01:32 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4DBED11C78C5E;
-	Mon, 31 Aug 2026 14:01:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788177687; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=o7rqoXYl2sTVTebULhbe3smL3G+StGnprS3t+Z32JNA=;
-	b=FVNfS4HnG1oFzMSgTBvoV6vQ7uOnsDYScPrytCFg9nqm5tQheqHi0Ys0LWlOimxe4kWBwF
-	mOTQK7tTGCwJUz/xCsMp/cnKn7L0huKsvftXLgJMI3U4jFDt/YOVNZePo7V5PSgrb6JtrS
-	7TCOD5lO9FVjkrbCTYXtNQa2RPk9AWm4bBpfnfEt4Z5LZwJagJmai++9m4zzimLiycPSL4
-	vj/9XV2A897ISrj72H1tSHM6q8xbTHu43kWUIPMMkSXvTaEDeBpqoEEh4Rix75+y0+x+Oo
-	+RfabjDF5JKuFumuZtFrL6VOb9tylapTe/HRQ2jDF+O5svmN609NHEcrpicsJA==
-Date: Mon, 31 Aug 2026 14:01:19 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
- <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 02/15] libfdt: Don't assume the root node is
- available at offset 0
-Message-ID: <20260831140119.1f14b420@bootlin.com>
-In-Reply-To: <apOhk-NQusFgV5Sx@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-3-herve.codina@bootlin.com>
-	<apOhk-NQusFgV5Sx@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="b/JY0HZc";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="c3r7YiXf"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VBA61Q3517812
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 12:03:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	NOEJTVFIcyoSbwosxVwbkQo3ZwwxOkwI5Yd+ZvI7e9U=; b=b/JY0HZc7fjI2rEe
+	xT3mbk9004ZfT32oo+urk6xdI7RATR9xcI0wgQLl82QLpzA8zl7cpVtqQ5f799C9
+	pxJ2hQEG1vSTmAZ9SQa5u3DXe3+FzIJcYNPDxeIgydSaKuWiBhOQTCwtxRrj9Vmf
+	WgmJxdo5AHnhCSabGjqeNI0o2znqkVYhNMA3ywSmpY/S2jRULCyBqO09h7iSDHhP
+	a76RBS12vGNad3+zoDCPXXuJAbCiqUFcHHMHrCfrAidLlDeoba9YDvULFKTRX939
+	TlhDfjn6Jn8iHNjknuFDNApafSGuRf4PdQMZB1tE0TiDiWvq4Gva/sjnJF5gmRfr
+	uxtmUg==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gd6h90nwn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 12:03:10 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51bfd1772d8so8912021cf.1
+        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 05:03:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788177790; x=1788782590; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NOEJTVFIcyoSbwosxVwbkQo3ZwwxOkwI5Yd+ZvI7e9U=;
+        b=c3r7YiXfOKevrDU0klJO+0I5mnuVbJZot9ojdU56PxXeO2yIS6kPL8YU8oxQPJt6rR
+         fVypCb+FLGTNMuLA1VaXP7FCRZdi3kvc9cLZpkmJ7w7TnBIiqmXKSukjKOo9u0hOmVud
+         7Y24cZ8PE3JapXapJ0h7Ir2WFzB2Bw0kIWOobn8RKF+AKXPymyWUI92gNk5qtW3NZBuR
+         /G299Hr0wUcrOM1rHVb1ewHoswHXcK+aczEotzLJiKVi+Kj+RdDscKiEsE1/l6QBN05+
+         RCB4dDmxLbX4DhUhXkO/nBLnMyMSE4qhY+R+XpZmkifIKIR1aFaNhsfLhfgQzesty4Ar
+         WhEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788177790; x=1788782590;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NOEJTVFIcyoSbwosxVwbkQo3ZwwxOkwI5Yd+ZvI7e9U=;
+        b=jqI/TgZZ81P2PMUQQyp7k/22ftdd0inULTiCaeY6J+s4lrHGm3L+lJ4ISjPyckt2Kc
+         lduPvvhOQLIMauPFc6o3CU5VkKrt7bP/b9FR6ArUoQaWkt5kt252oQz3w5x7EOXsuG/p
+         J4HCJgaFDzsJzt2EdJzPcOKSWrHGul0h38k07qKmeZt6EyOgibrX9LsIsMFqhBR26Cen
+         nGsaeMDCBXVznDNmaBrMXilhsBTF6q6prKf7fACPHwRfGuxgRiVmoHyMqjyz/du572MB
+         6GhXgGDDjkQNUjTbCUXOnLcsjjxZ4eoxZv9yWPHva12uVhk4aq6gqJgpJwfA31y1ofpd
+         mwPA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp1NeyZUmWlgYyYHedYUVEqknENiE6zn4bXcEGAchHTcpbAlFeSwsOTKcVFtMQJGMoy3V2Z5UNVLN77@vger.kernel.org
+X-Gm-Message-State: AFuF++lsN8507jaA+o+14TgVZ4w/LYc+drreWNxCImZV0VWluVpAAJFl
+	hlSZvjR3RVzWuG7BDZ/k+yIyNhPR0lD+zOVmDOf8IxJ1Llt3UpJZ0ilkKJRCUF6Zp1NLtXe6VDa
+	eIPXqx5GILqSW/BB6MJIep7YmNalT0IqedRxmd7ZJNtw4BlgYuMnrOpkbi1olFtQZ
+X-Gm-Gg: AR+sD10iwIgoDR5y9JI3UX83r1zgG1AVKgByFpSd9ipywrTAkJud7ukrL2UIUUi7T/a
+	RGC3gEVKIrKbzWZqAPP9PyVSjj0Ar15uwmQYa8xrwXPGbW52SaWHxXIuqsphkLTI0tgpxeVOmtC
+	V2fM9Tjxf3SjbPHBIt8sM+0fvn5u287JzIQRRkwP9abLA2Zv/93UowviI2tefSmU+AA6LBLIlXn
+	B7Ceqg8q3JWWVIhsvoxUBmzKg7WPw77cqBzXRNkJQBrIl7LxaNilHM8sH2h6FfEa54Y7lS/SzeY
+	hKauV1XjwhmlZwDY0OvQeKQCxK/OhD4frKj70OdzvOACIPg9lPiBh36ed6kp3/kFCF3SKnVqH7L
+	p9D+fVUL1YzyD7+POxZXj8w==
+X-Received: by 2002:ac8:7f4f:0:b0:517:6162:daf5 with SMTP id d75a77b69052e-52fb95f4e1amr202144151cf.3.1788177789947;
+        Mon, 31 Aug 2026 05:03:09 -0700 (PDT)
+X-Received: by 2002:ac8:7f4f:0:b0:517:6162:daf5 with SMTP id d75a77b69052e-52fb95f4e1amr202143721cf.3.1788177789522;
+        Mon, 31 Aug 2026 05:03:09 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a611b5c567sm3300432a12.1.2026.08.31.05.03.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Aug 2026 05:03:07 -0700 (PDT)
+Message-ID: <adbdb2eb-0173-4500-af16-de0b7c251e10@oss.qualcomm.com>
+Date: Mon, 31 Aug 2026 14:03:04 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] arm64: dts: qcom: sc8280xp: Add more thermal zones
+To: Xilin Wu <sophon@radxa.com>, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260831-sc8280xp-thermal-zones-v2-1-8c2b89b4c9c5@radxa.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260831-sc8280xp-thermal-zones-v2-1-8c2b89b4c9c5@radxa.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=W6UIkxWk c=1 sm=1 tr=0 ts=6a956d7e cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=ksxQWNrZAAAA:8 a=EUspDBNiAAAA:8 a=ROVUC7vSL5sbk-NUvPwA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22 a=l7WU34MJF0Z5EO9KEJC3:22
+X-Proofpoint-ORIG-GUID: AifCLdoGdL7YdLE8mTR0forVkeQ8IxuH
+X-Proofpoint-GUID: AifCLdoGdL7YdLE8mTR0forVkeQ8IxuH
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDEwNCBTYWx0ZWRfXxs6OquW/zLVd
+ 8FDWImp2WVtwKwVB7yk7vmfN9vj1ton0j7Hqeqb7o6kSFXZvfE20UJ6m3lT2WmAoKdhIXCYPMKd
+ TcHqHgNL8Kagv5bOcK7IlApArncGZl4=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDEwNCBTYWx0ZWRfX84JIzCl6tYX5
+ 64xEib7d+S7jMOeXssVfnshehbSN1rf6Jlb0fl3i3nsh3UT6cSJ9Nqx8WstCmovauNvReYppk3x
+ uX6gYiNsLCinq9kmPXw0AQa+VtwS3reC18lrSpJgRnh06xYvFHXqEAFT1I/iOklNuedzCny3hgW
+ OWHsKtqrH26Muoc2dgF/9lyas6ynGgU2GhySXV2obiVu0dIwffemRi0UVdNnIvBNPHed1KpzM4h
+ uSc04zB3Kvya+wDv8Ct14/jKzRJBJc95TXuCzxnSejTz5Jwp32O4YEftiEffaWxdFrM+Oq8UJZz
+ jugYvhSYm5parF8i1iggf5D/Rj3VRqalgbQKEjIP/WR8Eb8yrrXspjF8SbyMa9GC6batAIIJ3KN
+ oH8D/1BEB2wMAzaOwgGnOH76kjt33n5vQJ0URNP0pyRm+ZeWjstvax7hLAHmqLtmYVRgI0BNztP
+ D+z0Yih6LUZMz86CUzA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_04,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 malwarescore=0 suspectscore=0 bulkscore=0
+ clxscore=1015 phishscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310104
 
-Hi David,
-
-On Sun, 30 Aug 2026 13:21:06 +1000
-David Gibson <david@gibson.dropbear.id.au> wrote:
-
-...
-
-> > -int fdt_next_node(const void *fdt, int offset, int *depth)
-> > +int fdt_root_offset(const void *fdt)
-> >  {
-> >  	int nextoffset = 0;
-> > +	int offset;
-> > +	uint32_t tag;
-> > +
-> > +	do {
-> > +		offset = nextoffset;
-> > +		tag = fdt_next_tag(fdt, offset, &nextoffset);
-> > +		switch (tag) {
-> > +		case FDT_END_NODE:
-> > +		case FDT_PROP:
-> > +			return -FDT_ERR_BADSTRUCTURE;
-> > +
-> > +		case FDT_BEGIN_NODE:
-> > +			return offset;
-> > +
-> > +		default:
-> > +			break;
-> > +		}
-> > +	} while (tag != FDT_END);
-> > +
-> > +	return (nextoffset < 0) ? nextoffset : -FDT_ERR_NOTFOUND;  
+On 8/31/26 12:19 PM, Xilin Wu wrote:
+> The SC8280XP contains a lot of TSENS sensors which are not yet described.
+> Add the thermal zones for them.
 > 
-> This should be BADSTRUCTURE rather than NOTFOUND: a dtb without a root
-> node is not validly constructed.  (This could matter quite a lot if
-> this error gets propagated up a call chain - a NOTFOUND is usually
-> non-fatal, but BADSTRUCTURE means there's basically nothing that can
-> usefully be done with the dtb, which the caller needs to know as soon
-> as possible).
+> Signed-off-by: Xilin Wu <sophon@radxa.com>
+> ---
 
-Now yes, a dtb without a root node is an invalid dtb but soon with addon this
-will be allowed [1].
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Tested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com> # SC8280XP CRD, X13s
 
-addon dtbs will be clearly identified (the dt_flags header field has
-FDT_FLAG_ADDON set for addon dtbs) and so what do you think if the error code
-returned depends on this flag.
-
-NOTFOUND in case of addon and BADSTRUCTURE otherwise.
-
-If you are ok with that, I will update this current patch to return BADSTRUCTURE
-in all case. Indeed, addon are not yet available.
-
-[1] https://lore.kernel.org/all/20260826094950.1088288-54-herve.codina@bootlin.com/
-
-> 
-> > +}
-> > +
-> > +int fdt_next_node(const void *fdt, int offset, int *depth)
-> > +{
-> > +	int nextoffset = offset;  
-> 
-> This initialiser should be omitted, since it is now overwritten in
-> every possible case.
-
-Yes indeed, will be updated in the next iteration.
-
-> 
-> >  	uint32_t tag;
-> >  
-> > +	/*
-> > +	 * Get the root node if asked for next node from the root node
-> > +	 * (offset == 0) or if the given offset is not valid (negative).
-> > +	 */
-> > +	if (offset <= 0) {
-> > +		nextoffset = fdt_root_offset(fdt);
-> > +		if (nextoffset < 0)
-> > +			return nextoffset;
-> > +	}
-> > +  
-> 
-> The various changes you've made look correct, but I don't love the
-> fact that it requires nearly every function which takes a node offset
-> to be altered non-trivially.  As well as making for a large diff, it
-> strikes me as fragile - a bit of logic that could easily be forgotten
-> on a new function.
-> 
-> I think we want to move the offset 0 handling into a common helper.
-> Logically that should be fdt_check_node_offset_(), since that's the
-> standard way of validating a node offset parameter.  As you've pointed
-> out, that doesn't work with the current signature/semantics of
-> fdt_check_node_offset_() - but it's a strictly internal function, so
-> we can alter its signature freely.
-
-Ok, you insist on this point. I will updade fdt_check_node_offset_() to
-handle the offset 0 case.
-
-> 
-> >  	if (offset >= 0)
-> > -		if ((nextoffset = fdt_check_node_offset_(fdt, offset)) < 0)
-> > +		if ((nextoffset = fdt_check_node_offset_(fdt, nextoffset)) < 0)
-> >  			return nextoffset;
-> >  
-> >  	do {
-> > diff --git a/libfdt/fdt_ro.c b/libfdt/fdt_ro.c
-> > index 11f2e2ee..856c62f1 100644
-> > --- a/libfdt/fdt_ro.c
-> > +++ b/libfdt/fdt_ro.c
-> > @@ -231,6 +231,12 @@ int fdt_subnode_offset_namelen(const void *fdt, int offset,
-> >  
-> >  	FDT_RO_PROBE(fdt);
-> >  
-> > +	if (!offset) {
-> > +		offset = fdt_root_offset(fdt);
-> > +		if (offset < 0)
-> > +			return offset;
-> > +	}
-> > +
-> >  	for (depth = 0;
-> >  	     (offset >= 0) && (depth >= 0);
-> >  	     offset = fdt_next_node(fdt, offset, &depth))
-> > @@ -253,13 +259,17 @@ int fdt_path_offset_namelen(const void *fdt, const char *path, int namelen)
-> >  {
-> >  	const char *end = path + namelen;
-> >  	const char *p = path;
-> > -	int offset = 0;
-> > +	int offset;
-> >  
-> >  	FDT_RO_PROBE(fdt);
-> >  
-> >  	if (!can_assume(VALID_INPUT) && namelen <= 0)
-> >  		return -FDT_ERR_BADPATH;
-> >  
-> > +	offset = fdt_root_offset(fdt);
-> > +	if (offset < 0)
-> > +		return offset;
-> > +
-> >  	/* see if we have an alias */
-> >  	if (*path != '/') {
-> >  		const char *q = memchr(path, '/', end - p);
-> > @@ -304,14 +314,24 @@ int fdt_path_offset(const void *fdt, const char *path)
-> >  
-> >  const char *fdt_get_name(const void *fdt, int nodeoffset, int *len)
-> >  {
-> > -	const struct fdt_node_header *nh = fdt_offset_ptr_(fdt, nodeoffset);
-> > +	const struct fdt_node_header *nh;
-> >  	const char *nameptr;
-> >  	int err;
-> >  
-> > +	if (!nodeoffset) {
-> > +		nodeoffset = fdt_root_offset(fdt);
-> > +		if (nodeoffset < 0) {
-> > +			err = nodeoffset;
-> > +			goto fail;
-> > +		}
-> > +	}
-> > +
-> > +
-> >  	if (!can_assume(VALID_DTB) && (((err = fdt_ro_probe_(fdt)) < 0)
-> >  	    || ((err = fdt_check_node_offset_(fdt, nodeoffset)) < 0)))
-> >  			goto fail;
-> >  
-> > +	nh = fdt_offset_ptr_(fdt, nodeoffset);
-> >  	nameptr = nh->name;
-> >  
-> >  	if (!can_assume(LATEST) && fdt_version(fdt) < 0x10) {
-> > @@ -344,6 +364,12 @@ int fdt_first_property_offset(const void *fdt, int nodeoffset)
-> >  {
-> >  	int offset;
-> >  
-> > +	if (!nodeoffset) {
-> > +		nodeoffset = fdt_root_offset(fdt);
-> > +		if (nodeoffset < 0)
-> > +			return nodeoffset;
-> > +	}
-> > +
-> >  	if ((offset = fdt_check_node_offset_(fdt, nodeoffset)) < 0)
-> >  		return offset;
-> >  
-> > @@ -581,7 +607,7 @@ int fdt_get_path(const void *fdt, int nodeoffset, char *buf, int buflen)
-> >  	if (buflen < 2)
-> >  		return -FDT_ERR_NOSPACE;
-> >  
-> > -	for (offset = 0, depth = 0;
-> > +	for (offset = fdt_root_offset(fdt), depth = 0;
-> >  	     (offset >= 0) && (offset <= nodeoffset);
-> >  	     offset = fdt_next_node(fdt, offset, &depth)) {
-> >  		while (pdepth > depth) {
-> > @@ -619,7 +645,7 @@ int fdt_get_path(const void *fdt, int nodeoffset, char *buf, int buflen)
-> >  	else if (offset == -FDT_ERR_BADOFFSET)
-> >  		return -FDT_ERR_BADSTRUCTURE;
-> >  
-> > -	return offset; /* error from fdt_next_node() */
-> > +	return offset; /* error from fdt_next_node() or fdt_root_offset() */
-> >  }
-> >  
-> >  int fdt_supernode_atdepth_offset(const void *fdt, int nodeoffset,
-> > @@ -627,13 +653,21 @@ int fdt_supernode_atdepth_offset(const void *fdt, int nodeoffset,
-> >  {
-> >  	int offset, depth;
-> >  	int supernodeoffset = -FDT_ERR_INTERNAL;
-> > +	int root_offset;
-> >  
-> >  	FDT_RO_PROBE(fdt);
-> >  
-> >  	if (supernodedepth < 0)
-> >  		return -FDT_ERR_NOTFOUND;
-> >  
-> > -	for (offset = 0, depth = 0;
-> > +	root_offset = fdt_root_offset(fdt);
-> > +	if (root_offset < 0)
-> > +		return root_offset;
-> > +
-> > +	if (!nodeoffset)
-> > +		nodeoffset = root_offset;
-> > +
-> > +	for (offset = root_offset, depth = 0;  
-> 
-> Do you need this special casing? Won't the fact you've update
-> fdt_next_node() to handle the offset 0 case be enough?
-
-The full loop is the following:
---- 8< ---
-	for (offset = root_offset, depth = 0;
-	     (offset >= 0) && (offset <= nodeoffset);
-	     offset = fdt_next_node(fdt, offset, &depth)) {
-		if (depth == supernodedepth)
-			supernodeoffset = offset;
-
-		if (offset == nodeoffset) {
-			if (nodedepth)
-				*nodedepth = depth;
-
-			if (supernodedepth > depth)
-				return -FDT_ERR_NOTFOUND;
-			else
-				return supernodeoffset;
-		}
-	}
---- 8< ---
-
-The test 'offset == nodeoffset' is the problematic one. nodeoffset
-is the parameter passed to the function.
-
-I have chosen to avoid offset 0 for the root node and I have updated 'nodeoffset'
-previously if it is 0.
-
-Even if fdt_next_node() updates 'offset' if it is 0, 'nodeoffset' has also to be
-update if it is 0. Indeed, 'offset' will be updated from 0 to the real root node
-offset. In all case to have the test be correct, 'nodeoffset' should be updated
-to the real root node offset if it is 0.
-
-Having fdt_next_node() updating 'offset' if it is 0 will not handle all case.
-When offsets comparison is done, both offsets should consider the real offset of
-the root node instead of the 0 value.
-
-Also the fdt_supernode_atdepth_offset() can be called with 'nodeoffset' set to the
-real root node offset instead of 0. Indeed, fdt_root_offset() is available (and
-needed).
-
-My feeling was that it is less error prone to have offset 0 converted to the real
-root node offset as soon as possible and then consider only the real offset of the
-root node instead of a mix between the real offset and the offset 0.
-
-I think that "for (offset = root_offset, ..." will still be needed.
-
-Best regards,
-Hervé
+Konrad
