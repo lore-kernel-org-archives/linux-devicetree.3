@@ -1,62 +1,67 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F2A453A45;
-	Mon, 31 Aug 2026 14:40:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B01435F61E
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 14:46:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788187205; cv=none; b=p/h9sa1jw+qiYq0OkhZuZbGhvnY3kagyQs4Uuxgx6UYHB7C2RznvpOKYQx3a/C/l8T8tIZabNeu8RSOU369x7Qm5CIawSl0yTdzSpXe+NUqUR/lNDhXJxnsedQvIJ2mM3CHd3mbjIJV9O5VNqb/HIuG+zrb1DlzTYqYW6rYFPf0=
+	t=1788187566; cv=none; b=has9SFJFMGEtQsHMFGSWwmw3jzWVn/0iBSHuIPx7kMERTO3ziK32RO+bLfiuAg78HmnV8GctDkM5LKPocuWTvz10xsbn4oqP/UuQLMES0N/5AaQoOdzClrOrzXa+N6xPeDd5T71EkymSVvGR7KJgfgoOhDK6kz/hTSh2vc+XuSk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788187205; c=relaxed/simple;
-	bh=J/6pTHziJWAL2tsEb6RSS9sOTTk+yYx0QHsCvWJMn80=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IU29owuAuVCyhYRCk+NN0UKMLEGenLqLI/HbihtRrenmS51h2eTQq6jDQiB2XcWPLeFIdTD2sXFfZlFFARK9RxCRReHtHfwyNZsHVI1AwuizuanJjHz/URrFreuX9Lz52x+l9M5yGpFbd7oajv2t8dtbqQiPxyappFnzjlhPTbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KM8DaxTD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788187566; c=relaxed/simple;
+	bh=A5txglQ4iZT/juDqzcBtdepUMip1daW3tLa4YrE6PeI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ZPLlMOCnTn3HwJI3ACfD8tqDEfxLBYYqDnJsMC5dRrkKlAN6jc2BuhJfe+kU9qC8TW9R9WA+4HrZHNcQo/PSztcbQEn37lCqDhKCFf8yzBBbTa1MyWjaSmWjX89FNDI+lQibr4en4MI9qECftjXGHz+xws9fyZLu1DmLWyap0mM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rJae/0J/; arc=none smtp.client-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KM8DaxTD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 853881F000E9;
-	Mon, 31 Aug 2026 14:39:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788187203;
-	bh=yMpGKzLtEyNcCRVx8mHNOB6Q4YD3ZVD6yfJwV9Ggd9I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KM8DaxTDZU+seS1CP7yk4Spfvw2SF9Cz52bCXjTTDovAqR/DJUvxLyzM1GeKFe6p0
-	 G8iDHxy89iB3DdgJD+QTsLOaFhmLnPClXer0fin6IoF8/PZNWaBprknu/XO3Lx5B+s
-	 E+I7WmVpLF1lj71bXdfwvaGsFTW1vxs81AoARn+2IFbH2VeimlxFGixyAwtvzDXm0Q
-	 khHHJRt4VFbBHmYUwgeBIyJfjaB+OYmQoFuw+Ul3o2RIbx7u/UB4IKbA+BDe/oHsfW
-	 S8sgDBwgy4upUauqZ4Uic8X92EkBRfj4wqqmUBsyIRlAKHG6IUZJFHA/ma86L5X7VI
-	 P5/+P1L0CWNyA==
-From: Sven Peter <sven@kernel.org>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Hector Martin <marcan@marcan.st>,
-	Linus Walleij <linusw@kernel.org>,
-	Mark Kettenis <kettenis@openbsd.org>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	Sasha Finkelstein <k@chaosmail.tech>,
-	Yureka Lilian <yureka@cyberchaos.dev>
-Cc: Sven Peter <sven@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-gpio@vger.kernel.org,
-	linux-i2c@vger.kernel.org,
-	linux-pwm@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v3 0/9] Initial Apple Silicon M4 device trees and dt-bindings
-Date: Mon, 31 Aug 2026 16:39:42 +0200
-Message-ID: <178818713424.102394.1070287458177331117.b4-ty@b4>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260811-apple-m4-initial-devicetrees-v3-0-6bf32d45ad0b@cyberchaos.dev>
-References: <20260811-apple-m4-initial-devicetrees-v3-0-6bf32d45ad0b@cyberchaos.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rJae/0J/"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-384c94c9423so424012a91.2
+        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 07:46:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788187565; x=1788792365; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=uu+HvTyoamB1lNH1BNuzgtxk99beZfuZqlFooUQxZqY=;
+        b=rJae/0J/UpsgQ4MD+7Wjv67ylQSr/5ViF70+OxmsmdW1Dl4Wa2coMXzbgOiFw/j48B
+         vQRg4gOBsgIrGgpLcxHpTPydk6Mrsp9+a3lQn0DUd3v2GcgxqM//H8SUo5/YQ12KhI/v
+         qFnhzcev/qUA2mGwsp/uSa2ltYbsOCkUkzWWUJKbb7A6quVyaHKRkwZ7fICYmQbpO9nL
+         6hnexLe8vslzOSlepvhsj8T8S/PHj3kwZdxo7UmNR24pkcf1F5EOzQ1IbebR322NBQUL
+         G0eNKv8oVu77E9Ahw+nPbnnaV/YOLxn5m+V+qVjnAxfty6djpqb4lDBYk5NOfuY7O3pO
+         rGdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788187565; x=1788792365;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=uu+HvTyoamB1lNH1BNuzgtxk99beZfuZqlFooUQxZqY=;
+        b=qs25fPBOwzwxe6ZUhREfXI+hPhw2a6KEyRnViYjw39P20mJsqjpqGxjxD+ADBmHQMu
+         uK5Jv6EPIxMBvmkMeqrurVcoOW7gvSqB3aFddszzDWaisVHay0fvgEUJAktaWFOYvplI
+         kjDb0YFkJX0JYQGzhTtP4e5K6r0JFFWg699HDyDAPfsV7VAYsob9h9I4i/+w5p/SBXST
+         RYLIdlJkkedofpjnPwsFt1JJ/1lDRKB34B/tJ01mWASYD7N0wlAtRrr2WzmWZcTo8Jyz
+         spcckFYIJGgrMMInKTop2HD7Gd+QvGODeE3HDplat76w6DZcWghG4vF+bRKQLJoBqcCI
+         Rlbg==
+X-Forwarded-Encrypted: i=1; AKwUvBxTbYNLJ0krwyVpRP9YmRcl1yWIVmK0saSbNGmH/qUFA9sVQkBX37uMzDT8WYB6KT5WiYaU/9XrVZWf@vger.kernel.org
+X-Gm-Message-State: AFuF++lErqrTYNbRuB/UvKpg+cYklj4Sxd6JbpTrOIqYicAuVaxhjCkS
+	RL2QiApwNQzoTwIs9BliW9Ke2LvgEtQ6ZM1fQaszX6Lil8DIIx2+YHGU
+X-Gm-Gg: AYBFou2zEkB6JfAW6dXn9pIxcAlXJNky3XdiniglnI11nGjzKdlopmrxLQipHfprJYF
+	/St6pd0AEE/Ov7SkrD79QPTA4XgOvRaCSbKi+XRSmBZ5pMBBVUL02vNUXS2juX2sxhOCklHHERN
+	wWod0INSNuBkV/Q2FS7BHbOT6QOur0lkzXQDzji0RAcmwZiCD2oKp5pXXQK8p+fa8hXKSL1I7I+
+	EU/oaY8frUZEaA7B6jikhNZD8A4837jrhFQXPez8SWkBMDbtN0YlWWmUNWmeexA8fahr16IEiuv
+	qnlppoj4WfNjADtUw7/cnOIjSEji+tZm5wqAd5CLpUz5fXwiozKFipDqIdfbtbmNWosWo8WQC0p
+	tgEqH9zFpR4uW+DNeih1wIH3wjMiXJMOkXK7uNmDYq3E0gUG6bMZeTd2vuywYDhZjec9bIQ2RVV
+	m+snm8N6a906Flxgj37cAKVOqwL+kJM5dRqPWig6rbd1TR695C+JlNPAlvHYbxJQAlmhDdBk8=
+X-Received: by 2002:a17:90b:17c3:b0:398:bada:832b with SMTP id 98e67ed59e1d1-398bada8463mr13042007a91.6.1788187564330;
+        Mon, 31 Aug 2026 07:46:04 -0700 (PDT)
+Received: from [10.60.78.252] ([2409:40c2:5009:b339:5edc:6eb2:1ff7:f053])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0bf8a13sm43217279c88.0.2026.08.31.07.45.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 07:46:03 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Subject: [PATCH v3 0/2] ti,keystone-devctrl: Convert to DT schema and DTS
+ cleanups
+Date: Mon, 31 Aug 2026 20:15:33 +0530
+Message-Id: <20260831-ti-keystone-devctrl-v3-0-0614fceba0f1@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -64,41 +69,70 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NzQ7CIAzA8VcxnK2h4HDz5HsYDwhlI+7DwEJcl
+ r27bKcdjMd/0/46s0jBU2TXw8wCJR/90OeQxwMzje5rAm9zM8GF4iVKGD28aIrj0BNYSmYMLSg
+ 6VwKFI1lYli/fgZz/bOr9kbvxeT9M25OE6/S/lxAQlONalxdbaVfe6k779mSGjq1eEntD/TYEc
+ Cj0EwmlwcLg3liW5QssVIWW+gAAAA==
+X-Change-ID: 20260813-ti-keystone-devctrl-6e49212fe35d
+To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Ivan Khoronzhuk <ivan.khoronzhuk@ti.com>, Nishanth Menon <nm@ti.com>, 
+ Santosh Shilimkar <ssantosh@kernel.org>
+Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
+ daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com, 
+ linux-arm-kernel@lists.infradead.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788187552; l=1832;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=A5txglQ4iZT/juDqzcBtdepUMip1daW3tLa4YrE6PeI=;
+ b=5uAF3LTjxwbIRorl7/hnCp7yFyq96RIEgs7RuXrtj+raAjTecfJX+WAM7jZuoYQBJFYRLlgxl
+ N1rT/BPZrX/DPWg29wTgWzLZjONyX8XsbRKmfhqszWfkPSXbw+mVYO/
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-On Tue, 11 Aug 2026 21:36:53 +0200, Yureka Lilian wrote:
-> This series adds initial device trees and dt-bindings for the Apple
-> Silicon devices using the M4 (t8132) SoC. For the most part it mirrors
-> Janne's M3 (t8122) bringup series as it was merged in the 7.2 cycle.
-> 
-> This series covers only a minimal amount of hardware, which is useful
-> as a basis for future developments. The hardware added here has remained
-> largely unchanged between the M3 and M4 generations.
-> 
-> [...]
+Series converts Texas Instruments Keystone Device State Control binding
+to DT schema  and aligns the existing dt files with standard naming
+conventions.
 
-Applied to local tree (apple-soc/dt-7.4), thanks!
+Patch 1 aligns the legacy child node names with standard names.
+Patch 2 converts the ti,keystone-devctrl binding to YAML schema.
 
-[1/9] dt-bindings: arm: cpus: Add Apple M4 CPU core compatibles
-      https://github.com/AsahiLinux/linux/commit/4be8659603b0
-[2/9] dt-bindings: interrupt-controller: apple,aic2: Add apple,t8132 compatible
-      https://github.com/AsahiLinux/linux/commit/1a8b7a1131af
-[3/9] dt-bindings: arm: apple: apple,pmgr: Add t8132 compatible
-      https://github.com/AsahiLinux/linux/commit/f8805ac96c9b
-[4/9] dt-bindings: power: apple,pmgr-pwrstate: Add t8132 compatible
-      https://github.com/AsahiLinux/linux/commit/bda617ad4171
-[5/9] dt-bindings: pinctrl: apple,pinctrl: Add t8132 compatible
-      https://github.com/AsahiLinux/linux/commit/7d0c3b4c41e2
-[6/9] dt-bindings: i2c: apple,i2c: Add t8132 compatible
-      https://github.com/AsahiLinux/linux/commit/12672a9c9180
-[7/9] dt-bindings: pwm: apple,s5l-fpwm: Add t8132 compatible
-      https://github.com/AsahiLinux/linux/commit/a581a2343c45
-[8/9] dt-bindings: arm: apple: Add M4 based devices
-      https://github.com/AsahiLinux/linux/commit/e23d2b23739e
-[9/9] arm64: dts: apple: Add minimal t8132 (M4) device trees
-      https://github.com/AsahiLinux/linux/commit/23850378ade7
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+---
+Changes in v3:
+- Rebased to latest mailine 7.3-rc1
+- Removed note in patch 2 as dependency is already merged into mainline
+  and there are no more warnings.
+- Link to v2: https://lore.kernel.org/r/20260816-ti-keystone-devctrl-v2-0-5ab1e13c15c1@gmail.com
+
+Changes in v2:
+- Fix legacy node names containing underscores in existing .dtsi files.
+- Dropped 'minItems: 2' and the conditional block. Made 'simple-mfd' and
+  bus properties strictly required, as all in-tree dts uses it. 
+- Updated patternProperties to strictly enforce standard node names
+- Link to v1: https://lore.kernel.org/r/20260813-ti-keystone-devctrl-v1-1-6f0aa87d9af8@gmail.com
+
+---
+Bhargav Joshi (2):
+      ARM: dts: ti: keystone: Align devctrl child node names with dtschema
+      dt-bindings: mfd: ti,keystone-devctrl: Convert to DT schema
+
+ .../bindings/mfd/ti,keystone-devctrl.yaml          | 84 ++++++++++++++++++++++
+ .../bindings/mfd/ti-keystone-devctrl.txt           | 19 -----
+ arch/arm/boot/dts/ti/keystone/keystone-k2e.dtsi    |  2 +-
+ arch/arm/boot/dts/ti/keystone/keystone-k2g.dtsi    |  4 +-
+ arch/arm/boot/dts/ti/keystone/keystone-k2hk.dtsi   | 16 ++---
+ arch/arm/boot/dts/ti/keystone/keystone-k2l.dtsi    |  8 +--
+ arch/arm/boot/dts/ti/keystone/keystone.dtsi        |  2 +-
+ 7 files changed, 100 insertions(+), 35 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260813-ti-keystone-devctrl-6e49212fe35d
 
 Best regards,
 -- 
-Sven Peter <sven@kernel.org>
+Bhargav
 
