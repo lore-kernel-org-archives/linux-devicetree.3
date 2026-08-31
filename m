@@ -1,147 +1,176 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CCD537AA65;
-	Mon, 31 Aug 2026 21:00:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B61037C0E6
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 21:00:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788210035; cv=none; b=dBCr1oX4HGEPVTC8tJ5/Hp12ahSpYwjRtYQ6bzsxdSeQQeKdFyvOYeig+WnP3d7uBNza1fvo9nLxv+r0hCtDCPG1VCv9RBq55m0kPLPZy07bBOE7GJ480vHFXKUefeuSf4qROmzRzlXEawpO7Q9KX5QQf++l+P2+u5RhUgeJ9nk=
+	t=1788210041; cv=none; b=er8JpD+WlEmohQYcMG31UDm/0UCH6tBYozNCUqWcEBYlGbpJLm5J5NC66dZouqhrUzu/IAzKxPIvHenfm4/tV32LmCtuv3c0O+5hkI5xchUoD/W1RSxLloKrfymoWsxwZWrz9agB1ZZG7w9y8NjGYlOlH4Pf2Hz4swhLwIIWyvU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788210035; c=relaxed/simple;
-	bh=H/YDNa8Z5IAj0VF3CpcnXR+HMJcHvMB8TW8eZGhFPyI=;
+	s=arc-20240116; t=1788210041; c=relaxed/simple;
+	bh=nfmdaKzp1/40RMR4i60CXP1QBg13FqMzc5/QjyB6YUM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XPfUVlmN/2jKSkKcvXyy5lxvFkWS3CYUqVjRPv8Dx1z2PBxjnvytXon8zDFhOHThxHTPlV+0RnhLujkBglf/ltDbEJo81VP750zn0Viospgl/MeLLA8eaInpqvmyYRZjQ8R+GXIRBjPwS2uwwtkTQM1zeels78Ml+Y++xVDtnxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MrLmclB/; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=dubM1jL8tc7v0f9zcNg0Y/6zDYJo8dzvGRdGRwJi8kStTJnk1BmHA09WOXuw8IRoDd5nsyegivdUOj1Hmm+cIYX+CuinoU9qShmhS8rQl/kMzhky/pxLp/PBdiYPVUpPfvz48UWXv9ev5qJfnL8sJJcUhfWt+odUT1uhLfatGDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=USRqlAHX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MrLmclB/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD5F51F000E9;
-	Mon, 31 Aug 2026 21:00:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="USRqlAHX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9D191F000E9;
+	Mon, 31 Aug 2026 21:00:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788210034;
-	bh=a3UXW1LIeg94PAxTEF/lwNtMOsILS1EwmIeg0oVUdso=;
+	s=k20260515; t=1788210040;
+	bh=xzEsbcl02a4zTReoT9m5xiCPIPh9lIaLgP0ntGlJ/3E=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MrLmclB/iW+xB6dCqLH0y1Ak1ZhKduCINRqYeaRwkzpl3VpIjE+JTwJAXwclDE8Ci
-	 EP4SmF0a/I3iGovVddqCkkCo86mQhS/MMiJJigzSQxCId8Wgmr/j4c+rQkhrXm1doW
-	 Wdtfb7kp3UvarAe7GVL9+JoeoYTHAXt9x7zbnD/mOe4A9zwWwapnSRbnlAWCKTzPM/
-	 FfI461cco3LMQCuSq7p7s1dZpqnWq0Z8J/YBXL06Aih6d38C06NUTUJykZ15yFtJ/Z
-	 h2okSHYP9pemCf2J5RXIwtwSZHwr3iFo6xC0uurMjYB4pQpsX8px06sAKF02tRKmQ2
-	 kdE2unuEimxaA==
+	b=USRqlAHX7aQVLPX/rGyAlgsNYLLBiE54tyu9umRIyUGX/77mogi8Z2+uw4gP+I26S
+	 2A2r6NvvmQVKsGD03lfXpCwji075guqDshA2sfiRTX+h0AxhHykbSbDggiDrWOGu1P
+	 H3/ndP8NRRfHfYAami49BwLcnys1M58hGtJxkGkZPcmu4ZdJM3X/ewGvF00rYd0c2Z
+	 BymRIhXyiQL3X0AH//1ty8rI+pReob2eFgWU4gqLOTKjH0uTwzQTs36z0mR98IQJmv
+	 4BHhrIGw/Vu3xxhRMLVk2ZTBqYs8Whh21bURbUZPauip9zAAhqaUPMEmrDewHDengw
+	 JujgUx0g1wbig==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 5/6] rtc: s35390a: Add pinctrl
+Subject: Re: [PATCH 1/3] iio: accel: adis16201: merge adis16203 support from
+ staging
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Markus Probst" <markus.probst@posteo.de>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, linux-rtc@vger.kernel.org, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>
-In-Reply-To: <20260831-rtc_s35390a_int1-v8-5-dac1dc86ce1f@posteo.de>
-References: <20260831-rtc_s35390a_int1-v8-0-dac1dc86ce1f@posteo.de>
- <20260831-rtc_s35390a_int1-v8-5-dac1dc86ce1f@posteo.de>
+To: "Shehryar Ahmad" <shehryar.amd@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260831184201.34416-2-shehryar.amd@gmail.com>
+References: <20260831184201.34416-1-shehryar.amd@gmail.com>
+ <20260831184201.34416-2-shehryar.amd@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 21:00:33 +0000
-Message-Id: <20260831210033.CD5F51F000E9@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 21:00:39 +0000
+Message-Id: <20260831210039.B9D191F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] Hardware reset clears persistent pinctrl pin configurations withou=
-t restoring them, breaking clock outputs.
-- [Medium] Lockless read of `s35390a->pinfunction` introduces a TOCTOU race=
- with concurrent pinctrl consumers, potentially overwriting valid pinmux co=
-nfigurations with fallbacks.
+- [Critical] Stack variable address is passed to persistent state, leading =
+to a Use-After-Free.
+- [Critical] IIO device name is set to the combined driver name, breaking u=
+serspace ABI.
+- [High] Missing `spi_device_id` table causes a NULL pointer dereference in=
+ the SPI core when matched via fallback.
+- [High] Missing NULL check on `spi_get_device_match_data()` return value l=
+eads to NULL pointer dereference.
 --
 
-commit b6394d0bf7b85783daa05f6575f0b6579cf01843
-Author: Markus Probst <markus.probst@posteo.de>
-Subject: rtc: s35390a: Add pinctrl
+commit 4a7d80a7646bf1890c13a1b5b3c99c166b2c3898
+Author: Shehryar Ahmad <shehryar.amd@gmail.com>
 
-This commit adds pinctrl support to the s35390a RTC driver, allowing
-the configuration of pin functions like wake-up, minute periodic interrupt,
-or disabling the output. It falls back to previous behavior if no function
-is configured.
+iio: accel: adis16201: merge adis16203 support from staging
+   =20
+This commit merges support for the ADIS16203 inclinometer into the mainline
+ADIS16201 driver. It leverages of_device_id match data to handle differences
+in write masks and calibration bit widths between the two chips.
 
-> diff --git a/drivers/rtc/rtc-s35390a.c b/drivers/rtc/rtc-s35390a.c
-> --- a/drivers/rtc/rtc-s35390a.c
-> +++ b/drivers/rtc/rtc-s35390a.c
-
+> diff --git a/drivers/iio/accel/adis16201.c b/drivers/iio/accel/adis16201.c
+> index 5127e58eebc7d..293655fb00531 100644
+> --- a/drivers/iio/accel/adis16201.c
+> +++ b/drivers/iio/accel/adis16201.c
 [ ... ]
+> @@ -248,56 +301,62 @@ static const struct adis_data adis16201_data =3D {
+[ ... ]
+>  static int adis16201_probe(struct spi_device *spi)
+>  {
+>  	struct iio_dev *indio_dev;
+> -	struct adis *st;
+> +	struct adis16201_state *st;
+> +	struct adis_data data =3D adis16201_data;
 
-> @@ -64,6 +89,10 @@ MODULE_DEVICE_TABLE(of, s35390a_of_match);
+[Severity: Critical]
+Is it safe to allocate this struct adis_data on the stack here?
+
+Later in this function, the address of this stack variable is passed to
+adis_init(), which stores it in adis->data:
+
+drivers/iio/imu/adis.c:adis_init() {
+    ...
+    adis->data =3D data;
+    ...
+}
+
+Since the stack frame is destroyed when adis16201_probe() returns, won't any
+subsequent device operation (such as reading raw values or trigger handler
+execution) dereference adis->data and read unallocated stack memory?
+
+>  	int ret;
 > =20
->  struct s35390a {
->  	struct i2c_client *client[8];
-> +	struct rtc_device *rtc;
+> -	indio_dev =3D devm_iio_device_alloc(&spi->dev, sizeof(*st));
+> +	indio_dev =3D devm_iio_device_alloc(&spi->dev, sizeof(struct adis16201_=
+state));
+>  	if (!indio_dev)
+>  		return -ENOMEM;
+> =20
+>  	st =3D iio_priv(indio_dev);
+> +	st->info =3D spi_get_device_match_data(spi);
+> =20
+>  	indio_dev->name =3D spi->dev.driver->name;
+
+[Severity: Critical]
+Will this change break backward compatibility for existing userspace
+applications?
+
+Previously, spi->dev.driver->name was "adis16201". Since the driver name
+is updated later in this patch to "adis16201_adis16203", the exported sysfs
+name attribute will change. Any userspace applications or udev rules matchi=
+ng
+on the exact sensor name might fail.
+
+>  	indio_dev->info =3D &adis16201_info;
+> -
+> -	indio_dev->channels =3D adis16201_channels;
+> -	indio_dev->num_channels =3D ARRAY_SIZE(adis16201_channels);
+> +	indio_dev->channels =3D st->info->arr_chans;
+
+[Severity: High]
+Could st->info be NULL when it is dereferenced here?
+
+If the driver is bound without match data, for example via manual sysfs
+binding or legacy board files, spi_get_device_match_data() will return NULL.
+This would result in a kernel oops when accessing st->info->arr_chans.
+
+> +	indio_dev->num_channels =3D st->info->num_chans;
+>  	indio_dev->modes =3D INDIO_DIRECT_MODE;
+> =20
+> -	ret =3D adis_init(st, indio_dev, spi, &adis16201_data);
+> +	data.status_error_mask =3D st->info->diag_stat_mask;
+> +	ret =3D adis_init(&st->adis, indio_dev, spi, &data);
+>  	if (ret)
+>  		return ret;
+[ ... ]
+> +static const struct of_device_id adis16201_of_match[] =3D {
+> +	{ .compatible =3D "adi,adis16201", .data =3D &adis16201_diff },
+> +	{ .compatible =3D "adi,adis16203", .data =3D &adis16203_diff },
+> +	{ }
+> +};
 > +
-> +	struct mutex pinfunction_lock; /* lock preventing concurrent access of =
-pin function */
-> +	int pinfunction[2];
+>  static struct spi_driver adis16201_driver =3D {
+>  	.driver =3D {
+> -		.name =3D "adis16201",
+> +		.name =3D "adis16201_adis16203",
+> +		.of_match_table =3D adis16201_of_match,
+>  	},
+>  	.probe =3D adis16201_probe,
 >  };
 
 [Severity: High]
-If a user triggers a hardware reset at runtime via the RTC_VL_CLR ioctl,
-it calls s35390a_init() which completely clears the STATUS2 register:
+Should this struct include an id_table?
 
-drivers/rtc/rtc-s35390a.c:s35390a_rtc_ioctl() {
-	...
-	case RTC_VL_CLR:
-		/* update flag and clear register */
-		err =3D s35390a_init(s35390a, &sts);
-	...
-}
+If the device is instantiated without OF/ACPI (like legacy spi_board_info or
+sysfs driver_override), device_get_match_data() returns NULL. When the probe
+function then calls spi_get_device_match_data(), it falls back to
+spi_get_device_id().
 
-drivers/rtc/rtc-s35390a.c:s35390a_init() {
-	...
-	*sts =3D S35390A_FLAG_RESET | S35390A_FLAG_24H;
-	ret =3D s35390a_set_reg(s35390a, S35390A_CMD_STATUS1, sts, 1);
-	...
-}
-
-Because s35390a->pinfunction retains the previously configured pinctrl
-state but the hardware has been reset, will this permanently break the
-pinctrl outputs (such as PMIN clock outputs) since the software and
-hardware are now out of sync?
-
-[ ... ]
-
-> @@ -539,9 +762,33 @@ static int s35390a_probe(struct i2c_client *client)
-
-[ ... ]
-
-> +	err =3D pinctrl_enable(pctl);
-> +	if (err)
-> +		return dev_err_probe(dev, err, "pinctrl enable failed\n");
-> +
-> +	/* If no pinmux function is defined in DT, fallback to previous behavio=
-ur */
-> +	fallback[0] =3D S35390A_FUNC_IGNORE;
-> +	fallback[1] =3D S35390A_FUNC_WAKEUP;
-> +
-> +	for (i =3D 0; i < ARRAY_SIZE(s35390a_pin_groups); i++) {
-> +		if (s35390a->pinfunction[i] =3D=3D -1) {
-> +			err =3D s35390a_pinctrl_set_mux(pctl, fallback[i], i);
-
-[Severity: Medium]
-Since pinctrl_enable() makes the pinctrl device globally visible before
-this loop runs, is there a TOCTOU race condition if a consumer driver
-requests a pin state concurrently?
-
-If a consumer (e.g., probing asynchronously) sets the hardware state and
-updates pinfunction right before the lockless s35390a->pinfunction[i] =3D=
-=3D -1
-check evaluates to true, could this probe thread subsequently acquire the
-lock and overwrite the explicitly requested configuration with the fallback
-state?
-
-> +			if (err)
-> +				return err;
-> +		}
-> +	}
-> +
->  	nvmem_cfg.priv =3D s35390a;
+Since the id_table is missing here, spi_get_device_id() passes a NULL point=
+er
+to spi_match_id(), which can cause a kernel oops when it tries to access
+id->name[0]. Local users with sysfs access or board initialization code cou=
+ld
+trigger this crash.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-rtc_s35390=
-a_int1-v8-0-dac1dc86ce1f@posteo.de?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831184201.3441=
+6-1-shehryar.amd@gmail.com?part=3D1
