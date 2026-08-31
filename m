@@ -1,126 +1,206 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FD6B3B47C3;
-	Mon, 31 Aug 2026 08:33:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21DF5314D34
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 08:33:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788165191; cv=none; b=At4wiM7gtva7x/9KtSK1LrI1x02J09vIWJPQA52l88GPao2c3NMnD90YlsNQIOK53wU3/07rSrGV+UfzFiBgSTgycoy1a/EjtO2F5JfEcDMk+JVQnK53sJDwt7fzGxF6Hy5gR6sNPDXDW6cJULl1jhOfQ8ZJaeLRWXOyMLcMFZg=
+	t=1788165222; cv=none; b=OBLqHClMLgWCiTz1+J7gYwUvAo9zf3hQyPtMQO9G0Fki125OYQwbNNN2rryVBCmXTodaH+QweBjz4ZKJYMEhJangLGgTJrElqoHq8eVklHqUBVQz3Ovx/T//KS/cANQDE+31c7nb0+F9DX7a+7oQDD6r3AKdpRpRcoxSsZSalR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788165191; c=relaxed/simple;
-	bh=Uq4241EsA0PKRZZAWyvoZUDsLxH7MI06dMLaEaBQlTI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i7ektFaqM7JJsgHCU9jhWzHIpb0lFwbnnLblcYkKmcXr+pQLkSkoZljumEVFwUu/CjAdvglJitAwr8gbwcoZ6ocp4PbULOz//RmkA/s02xS4wMkeoICPusD09A/6l9aKHafQY4iD1PixYtNXSD6b+RuSXDYO5HXXuRqTLWFNS3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=U8I2RJnE; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788165222; c=relaxed/simple;
+	bh=RcI6wRhj02P7TjJ32TSx/hpFXqBHCnD4QV0M6wjl/Lg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=RRCOEqGjSf9fMlAra2GC5buavf4TPhV75JW6GY/aS4fWcNdHYH8iPCnvMHB9nZKv8DFkDgL754gj7s6Tms+VQDvdhQWQws1UMqdIZUw/tMbmlHe0V32ew929qu3Koa1DEvOCNz6IDWxyo58/oKYbMvBA7hcgzpsRcoAmwzLtb9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B00cIkIX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="U8I2RJnE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788165190; x=1819701190;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Uq4241EsA0PKRZZAWyvoZUDsLxH7MI06dMLaEaBQlTI=;
-  b=U8I2RJnEsRbacMymh6BVsLhwZUxRD9Yw24qGtNp6yotbPbOSczIACWEa
-   dIhB32G6BgL48aW7qPsRY3/A5Udnpnqav64yhXUZKlQOstdl00ZzCKJ2F
-   aDqRmcEYSQ/+edCCalT4coD/NqxyvWVkdvznMMDVXRD6DpnFtX5otsqpw
-   JurAGXtYShkv7S5OEp+UwxdEdsHuGszhiCrX6DBkD4dmphtddjuk7oEaq
-   z+dfd5AdSRKkyuPshiJ7QvcOl6ZtULWMrlPPsWy1AYjnYYkgtpBr75ILA
-   iElpBBOjYfUivbel2LkPqXbvIRESzUdwEgh5B765oY5GegqN7YOjPuq3t
-   A==;
-X-CSE-ConnectionGUID: R994BBOoRb2YMoa76DwYZQ==
-X-CSE-MsgGUID: 69zTD9mFR+CkSFWChRkSTQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88616444"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="88616444"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 01:33:09 -0700
-X-CSE-ConnectionGUID: JaLojC+ZS/eT2NkbectFIg==
-X-CSE-MsgGUID: S/iTBAxITFu4OdrqVMOkeA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="298648034"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 01:33:03 -0700
-Date: Mon, 31 Aug 2026 11:33:01 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Michael Walle <mwalle@kernel.org>, linux@analog.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH v5 16/20] iio: adc: ad7768: Register GPIO auxiliary device
-Message-ID: <apU8PRtI8HoC_waj@ashevche-desk.local>
-References: <20260828-ad7768-driver-v5-0-e33ca6f841a2@analog.com>
- <20260828-ad7768-driver-v5-16-e33ca6f841a2@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B00cIkIX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DBE21F000E9;
+	Mon, 31 Aug 2026 08:33:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788165219;
+	bh=m4pOkBCmKudy6mOP+T/3a7PCG1EVTyrJizKZ0FrPTBY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=B00cIkIXITodMK4f9k8ZodBWB476rC+lGuESSvGcqtgeDIAjhDf5FzeMHRQoKemHk
+	 963mYIK8I00xxTViUqOc6tJjv+7KJ0TzBawhEFOaZkY1YIjzbu7gpTEVRo+joRFBYV
+	 p1HUvfvcZLy1yV11OPbOkie/8ZLeScYjngGqH7Zf0K1SFeE3R9yaQxaX1rTmwqzDnP
+	 Jh2Ol5Rbb9SJe56Oe29Rwzx5gfgUqoTrtd6nKJcJ+CSdF0ukGAeKk26GQ3TE+bnt8X
+	 jsEUp/LSHuKF81CRVGQUoZY866Pqq3sXMxaxKjgGVEGxRSu+0avTgzoKpfRh6fO5WU
+	 IaI76oVEci81Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 2/4] phy: cix: Add CIX Sky1 USB3 PHY driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Hongliang Yang" <hongliang.yang@cixtech.com>
+Cc: linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20260831082309.3854507-3-hongliang.yang@cixtech.com>
+References: <20260831082309.3854507-1-hongliang.yang@cixtech.com>
+ <20260831082309.3854507-3-hongliang.yang@cixtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 31 Aug 2026 08:33:38 +0000
+Message-Id: <20260831083339.3DBE21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828-ad7768-driver-v5-16-e33ca6f841a2@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Aug 28, 2026 at 05:30:39PM +0200, Janani Sunil wrote:
-> Register an auxiliary device when the AD7768 is described as a GPIO
-> controller. This allows the GPIO driver to share the parent regmap and
-> runtime power-management state.
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] Uninitialized pointer dereference and double-free of OF node refer=
+ence on probe error path.
+- [High] The probe function fails to propagate error codes and always retur=
+ns 0 (success) on failure paths.
+- [High] Missing cleanup for dynamically allocated `phy_lookup` entries cau=
+ses a memory leak and Use-After-Free.
+- [High] Hardware resets are unconditionally asserted without locking after=
+ the PHY provider is registered, creating a race condition with consumer in=
+itialization.
+- [Medium] The error path in `sky1_u3phy_init` mistakenly deasserts the har=
+dware resets instead of asserting them.
+- [Medium] Missing `MODULE_DEVICE_TABLE(of, ...)` macro prevents automatic =
+module loading.
+--
 
-...
+commit 2c8f0e43d1973dd21cdeec9d0d419e0f7d1939aa
+Author: Hongliang Yang <hongliang.yang@cixtech.com>
 
-> +static int ad7768_gpio_adev_init(struct ad7768_state *st)
+    phy: cix: Add CIX Sky1 USB3 PHY driver
+   =20
+This patch adds a new PHY driver for the USB3 PHY found on CIX Sky1 SoCs.
+The driver handles initialization, reset, and clock management for the
+multi-port USB3 PHY.
+
+> diff --git a/drivers/phy/cix/phy-cix-usb3.c b/drivers/phy/cix/phy-cix-usb=
+3.c
+> new file mode 100644
+> index 0000000000000..3b6e2669b09d8
+> --- /dev/null
+> +++ b/drivers/phy/cix/phy-cix-usb3.c
+[ ... ]
+> +static int sky1_u3phy_init(struct cix_u3phy *u3phy)
 > +{
-> +	struct device *dev = regmap_get_device(st->regmap);
-> +	struct spi_device *spi = to_spi_device(dev);
-> +	struct auxiliary_device *adev;
-> +	int id;
-> +
-> +	if (!device_property_read_bool(dev, "gpio-controller"))
-> +		return 0;
-> +
-> +	st->gpio_valid_mask = GENMASK(AD7768_NUM_GPIOS - 1, 0);
+[ ... ]
+> +disable_ref_clk:
+> +	clk_disable_unprepare(u3phy->ref_clk);
+> +disable_apb_clk:
+> +	clk_disable_unprepare(u3phy->apb_clk);
+> +assert_reset_preset:
+> +	reset_control_deassert(u3phy->preset);
+> +	reset_control_deassert(u3phy->reset);
 
-Can we use the one that is in the GPIOLIB (associated with struct gpio_chip)
-instead?
+[Severity: Medium]
+Does this error path correctly assert the reset lines?=20
 
-> +	if (st->clock_source != AD7768_CLOCK_SOURCE_MCLK)
-> +		st->gpio_valid_mask &= ~BIT(4);
-> +
-> +	/*
-> +	 * Use the SPI bus number and chip select to derive a stable per-device
-> +	 * ID.
-> +	 */
-> +	id = (spi->controller->bus_num << 8) | spi_get_chipselect(spi, 0);
-> +	adev = __devm_auxiliary_device_create(dev, KBUILD_MODNAME, "gpio",
-> +					      &st->gpio_valid_mask, id);
-> +	if (!adev)
-> +		return dev_err_probe(dev, -ENODEV,
-> +				     "Failed to create GPIO auxiliary device\n");
-> +
-> +	return 0;
+The code calls reset_control_deassert() instead of reset_control_assert(),
+which leaves the PHY in a deasserted reset state while its clocks are
+disabled. This might violate the intended quiescent hardware state and
+could potentially lead to hardware lockups or excessive power consumption.
+
+> +	u3phy->init =3D false;
+> +	return ret;
 > +}
+[ ... ]
+> +static int cix_u3phy_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	device_for_each_child_node(dev, child_fn) {
+> +		child_np =3D to_of_node(child_fn);
+> +		if (!strncmp(fwnode_get_name(child_fn), "usb-port", 8) ||
+> +		    !strncmp(fwnode_get_name(child_fn), "USB", 3))
+> +			phy =3D devm_phy_create(dev, child_np, &cix_u3phy_ops);
+> +		else
+> +			continue;
+> +		if (IS_ERR(phy)) {
+> +			dev_err(dev, "failed to create phy: %s\n",
+> +				fwnode_get_name(child_fn));
+> +			goto put_child;
 
--- 
-With Best Regards,
-Andy Shevchenko
+[Severity: High]
+Does this error path intentionally return 0 instead of propagating the
+error code?
 
+The variable 'ret' is initialized to 0 and is not updated with the error
+from devm_phy_create() before jumping to the cleanup label. This causes
+the kernel framework to consider the driver successfully probed despite
+the initialization failure.
 
+> +		}
+> +		phy_set_drvdata(phy, u3phy);
+> +		phy_create_lookup(phy, fwnode_get_name(child_fn), dev_name(dev));
+
+[Severity: High]
+Is there a corresponding cleanup mechanism for this dynamically allocated
+phy_lookup entry?=20
+
+The driver creates lookup entries using phy_create_lookup() but does not
+seem to provide a .remove callback or devres action to call
+phy_remove_lookup(). When the driver is unbound, devres frees the struct
+phy, leaving dangling pointers in the global lookup list which could cause
+a use-after-free for subsequent lookups by consumers.
+
+> +	}
+> +	phy_provider =3D devm_of_phy_provider_register(dev, of_phy_simple_xlate=
+);
+> +	if (IS_ERR(phy_provider)) {
+> +		dev_err(dev, "failed to register phy provider\n");
+> +		goto put_child;
+
+[Severity: High]
+Similar to the devm_phy_create() error path, does this drop the error code
+from devm_of_phy_provider_register()?
+
+Additionally, does jumping to put_child here cause a double-free or a
+dereference of an uninitialized pointer?=20
+
+If the device_for_each_child_node loop executed zero times, child_np is
+completely uninitialized. If the loop executed at least once and completed
+normally, child_np holds a pointer to the last child whose reference was
+already released by the iterator's final condition check.
+
+> +	}
+> +	reset_control_assert(u3phy->reset);
+> +	reset_control_assert(u3phy->preset);
+
+[Severity: High]
+Is it safe to unconditionally assert these hardware resets here without
+locking after the PHY provider is registered?=20
+
+A deferred consumer could immediately acquire the exposed PHY and call
+phy_init(), which initializes the PHY and deasserts resets while holding a
+mutex. Concurrently, this probe function unconditionally executes
+reset_control_assert() without holding the mutex, which might forcefully
+reset the active PHY hardware.
+
+> +	return 0;
+> +
+> +put_child:
+> +	of_node_put(child_np);
+> +	return ret;
+> +}
+> +
+> +static const struct of_device_id cix_u3phy_dt_match[] =3D {
+> +	{
+> +		.compatible =3D "cix,sky1-usb3-phy",
+> +		.data =3D &sky1_u3phy_cfg
+> +	},
+> +	{ /* sentinel */ }
+> +};
+
+[Severity: Medium]
+Is the MODULE_DEVICE_TABLE(of, ...) macro missing here?=20
+
+Without it, the driver module cannot be automatically loaded by udev or kmod
+based on the Device Tree compatible string.
+
+> +
+> +static struct platform_driver cix_usb3_phy_driver =3D {
+> +	.probe		=3D cix_u3phy_probe,
+> +	.driver		=3D {
+> +		.name	=3D "cix-usb3-phy",
+> +		.of_match_table =3D cix_u3phy_dt_match,
+> +	},
+> +};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831082309.3854=
+507-1-hongliang.yang@cixtech.com?part=3D2
