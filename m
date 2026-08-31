@@ -1,104 +1,103 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 748DA3C2B8F;
-	Mon, 31 Aug 2026 08:26:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A5AB3C2B8F;
+	Mon, 31 Aug 2026 08:27:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788164806; cv=none; b=Y4x6kQnH1WcKQf8X114EYDvcQMuctKZRGm6SodCFcyMPb32aIOrt7ff8yb+6cCfpMlZ+JNKrfYlN957PUvwIKKpNGPmJ/9gWFGer+ELRG0SldvoPFvIVxirTWsMyxcUcALs+g6jD8Ac4P1OAtRp/mYvapK1Z8yIJzPRsVjc6Y64=
+	t=1788164835; cv=none; b=rLIrgcK26LlQA3IhzrPuRmC5hYzwk9sb7Bgc+2G1SkPjSIAoWoEJPK0TQChxfsbLVjIixdQdeAVqPtWDD2AGJVhIYFVWrQUzuJ0vXAheVMwPL9mTmEvhlEkNoeruR6LHtqnh+Zj0VOKaTGQAZrfqenhg2QCX4tD/R8gySYpwim4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788164806; c=relaxed/simple;
-	bh=EYGaBasvwHpOTSkApWMpEFG5CRz6v6kZSL7h1iC5nYY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YHXXP8Kt/AvJucsTsxYshq20GEKsCRuRzLNo3aqrLtrylPHCeZtAjIHZBHQZTRw7h83NygsOh25aw40inMCfKpLJn1nG7llfZbSMATFvE7oMh0am8KW2M9RjceksvL/hMPzsV3UwRHeqhoOsBWFEjLFImVgATQYbAqEh8khJ9os=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=je2+U+Kb; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788164835; c=relaxed/simple;
+	bh=tGYvf++Ra40kkkdeX/Hkc0DZoyi8J5wxF2iZMJ+M4sw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=R51r6P5eiorg/tE1o2Qh1AEwPevjDDbun7qhqOw+7YBhx+uULsqCh2ypSq4Mb44OB9qttnBTvg3k3YTqUbuewF6WHZy00572EUnwYMcmcn/jaQzmhbwi+pXTxkM6BrlZ9+3hVNk6VgoiINafB3huCrVmpxGIbA8R4q5AC1MYnJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UfDSSzYp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="je2+U+Kb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788164805; x=1819700805;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=EYGaBasvwHpOTSkApWMpEFG5CRz6v6kZSL7h1iC5nYY=;
-  b=je2+U+KbXYu9TXvUpaE4tJ2lSK01HNIq3WyxzK8OdS35yn6O2njakA4v
-   CXtrtIUwDIyEDogQS2c/tmjZKJUqA0ch+uqqaSQw2yM0pV3b7aXHozfcl
-   R0rbeXbUZKzwwRSQcLWzZgYJY19ADNmAM/btnjuoqFWwayuSpc4gETxFV
-   /vQQbYzXxPAPq74LBZL8Lq2aSShyRX0+MjM1klaZQDBPFZ0b3KNvnr+Si
-   JwD/Is+0Qar6Fc/CUyEJ+fF9lL8/ruZYa7RdqvFe9dhft/jslgtsruWVU
-   KABkXYSa8RMwsGMD7kzbvXVs3LX9ZN7coWtpwOHmC56QUuWdktiLZnS8T
-   Q==;
-X-CSE-ConnectionGUID: mbzpYk7FTgeEBQ525OUOIw==
-X-CSE-MsgGUID: ZDSQoojbQAiI+fD2/KrdqQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88615820"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="88615820"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 01:26:44 -0700
-X-CSE-ConnectionGUID: ZvQUIszGR62WSweUwQICrw==
-X-CSE-MsgGUID: 9luAs2UaQXGF0Gm4D3O3gg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="268775231"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 01:26:37 -0700
-Date: Mon, 31 Aug 2026 11:26:36 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Michael Walle <mwalle@kernel.org>, linux@analog.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH v5 13/20] iio: adc: ad7768: Add calibration controls
-Message-ID: <apU6vIykfQ0RP2-_@ashevche-desk.local>
-References: <20260828-ad7768-driver-v5-0-e33ca6f841a2@analog.com>
- <20260828-ad7768-driver-v5-13-e33ca6f841a2@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UfDSSzYp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 035A41F00A3D;
+	Mon, 31 Aug 2026 08:27:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788164834;
+	bh=DCqC6tEU5QVGatP2a5rEJRXD3/F/+lGDygXx3+EbVpE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UfDSSzYp9saK/RjS7beI+l1UHeLo55rRAQexn9q6Iefo+bBaK10iTeJwHbojnyd8R
+	 vSF8FLMu+/82ksesz7HMPIDtokHbFhN964/pQVhF4dBtRG8PlpoQbJdVsqTJ7fn8G+
+	 wqy7ztbhS3Lmoc9RQQ/c23E7QIn6kG6ESh9wjMdED1qVzOhJxHiI3YcTqWi3lQSx7j
+	 B0hLjr0E34jJd97dLSIxAuqoK/vlOWgW3Rtm+fWW6MForTBaLXr/iS68rE4BXc7FIh
+	 1XGX9F1Q6hbXlKKnE/yZAk5ltGKSwAR4t8P7vnCRd9/h2YMVrSgPnmDSJDDzpAfiEm
+	 +1yx2G+206zfg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 4/5] dt-bindings: arm: fsl: add compatible for new
+ Skov i.MX8MP variant
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Steffen Trumtrar" <s.trumtrar@pengutronix.de>
+Cc: imx@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20260831-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v8-4-e2e635452ba9@pengutronix.de>
+References: <20260831-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v8-0-e2e635452ba9@pengutronix.de>
+ <20260831-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v8-4-e2e635452ba9@pengutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 31 Aug 2026 08:27:13 +0000
+Message-Id: <20260831082714.035A41F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828-ad7768-driver-v5-13-e33ca6f841a2@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Aug 28, 2026 at 05:30:36PM +0200, Janani Sunil wrote:
-> Expose the per-channel offset and gain calibration registers through the
-> IIO calibbias and calibscale attributes.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The new compatible string is added to a 2-item schema block, but it=
+s device tree uses a 3-item compatible array, which will fail dtbs_check.
+--
 
-...
+commit 431593d91ace715961413533bdc962a1b95958b2
+Author: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 
->  		chan[chan_idx] = (struct iio_chan_spec) {
->  			.type = IIO_VOLTAGE,
-> -			.info_mask_separate = BIT(IIO_CHAN_INFO_SCALE) |
-> +			.info_mask_separate = BIT(IIO_CHAN_INFO_CALIBBIAS) |
+dt-bindings: arm: fsl: add compatible for new Skov i.MX8MP variant
 
-Why? Leave the existing code and just squeeze the new ones accordingly.
+In preparation for adding a new device tree variant with a different 7"
+panel, this commit describes the DT compatible in the binding.
 
-> +					      BIT(IIO_CHAN_INFO_CALIBSCALE) |
-> +					      BIT(IIO_CHAN_INFO_SCALE) |
->  					      BIT(IIO_CHAN_INFO_SAMP_FREQ),
+> diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentati=
+on/devicetree/bindings/arm/fsl.yaml
+> index 55d0b682a7305..aaa9d18a241f8 100644
+> --- a/Documentation/devicetree/bindings/arm/fsl.yaml
+> +++ b/Documentation/devicetree/bindings/arm/fsl.yaml
+> @@ -1147,6 +1147,7 @@ properties:
+>                - skov,imx8mp-skov-revb-mi1010ait-1cp1 # SKOV i.MX8MP clim=
+ate control with 10.1" panel
+>                - skov,imx8mp-skov-revc-hdmi # SKOV i.MX8MP climate contro=
+l without panel
+>                - skov,imx8mp-skov-revc-bd500 # SKOV i.MX8MP climate contr=
+ol with LED frontplate
+> +              - skov,imx8mp-skov-revc-jutouch-jt070tm041 # SKOV i.MX8MP =
+climate control with 7" JuTouch panel
 
--- 
-With Best Regards,
-Andy Shevchenko
+[Severity: Low]
+Will this compatible string definition cause schema validation to fail when
+dtbs_check is run?
 
+The new compatible string is being added to an items array under a oneOf
+branch that expects exactly two items (the board string followed by
+"fsl,imx8mp").
 
+However, as introduced in the follow-up patch, the device tree defines three
+compatible strings:
+
+    compatible =3D "skov,imx8mp-skov-revc-jutouch-jt070tm041",
+                 "skov,imx8mp-skov-revc-touch",
+                 "fsl,imx8mp";
+
+Could this cause dtbs_check to flag the three-item array as too long?
+
+>                - skov,imx8mp-skov-revc-jutouch-jt101tm023 # SKOV i.MX8MP =
+climate control with 10" JuTouch panel
+>                - skov,imx8mp-skov-revc-tian-g07017 # SKOV i.MX8MP climate=
+ control with 7" panel
+>                - skov,imx8mp-skov-revc-touch # SKOV i.MX8MP climate contr=
+ol revision C with touch panel
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-v7-0-topic=
+-imx8mp-skov-dts-jutouch-7inch-v8-0-e2e635452ba9@pengutronix.de?part=3D4
