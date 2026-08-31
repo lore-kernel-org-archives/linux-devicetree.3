@@ -1,285 +1,293 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011000.outbound.protection.outlook.com [52.101.65.0])
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 383914A261B;
-	Mon, 31 Aug 2026 14:34:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.0
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788186900; cv=fail; b=YmSji4YB5Fyb7gtyAt1g2xgy/np8HHc3DxZDWKYZXMVPwV9Wc6cY/b0N7bdpSIgtJdK0cCcXftAevBalyNbUAcJU4ETgIv7sMxNMjcnBXh9CWiWBxKbvLbd2nWQqGv/QGjwo1n7Oil3OTHEE39+0pUCeWpqCwl1zRNt5S/0rXxM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788186900; c=relaxed/simple;
-	bh=roz1rum9uLNdrthtqTZNB7Z75DOO8Iy9b5dAa18Xt5k=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B5004A1DE4;
+	Mon, 31 Aug 2026 14:34:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.15
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788186901; cv=none; b=KuyAlIMn7z5JtXnFQYPmYzjgsRVC/MlrZ2jWMVyJfxVYf7f3q5aYVMQUQMYH87NkF7Kv3M71i/NUdhRW40yrbl/ZfpfFMzLW7n07oesfUKYHpws5hLC+0fp9+OjPNDIkQXekWtxXUQKZ5zASxApS3PKEkM8BCp+iurzIV1Vo4HM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788186901; c=relaxed/simple;
+	bh=5/lw5sZpsLyAz1JRaJWSE71skFZpQCmTU0OmQHURBdY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=db8dseNbQTbT30+AWkidK2QgJLBxiKWR4BTUQZ+awZefoSek2Q/tHQBWWttyLmWwiSm+DtkwT2fpZBdUj1erdcJmoKRZ7Y4K8kvqcPqmN1z8x02ocUvpNyezqnugHfITwUKT/2wuyAgF4+zipgQmi2NPiPT2HjLBix7hKLjt7Xk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=aus3KhFh; arc=fail smtp.client-ip=52.101.65.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	 MIME-Version; b=Du2W8mXoHkqJlepAMH4oKmSjA1StVSnsAz+WPzWYBMpEICTDm7eViXO8/p0RTqxlnVwa7cCaIQl1mxop1694hxlkov9VuGlGoBCBtnsMZImJNCyx6GHUN6fjGW6LfbIe1QeuZeewtdNgB4m/qKmWu0RvaxERFh3ix5Y4Iwe5UW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b=Hy/SvMFz; arc=none smtp.client-ip=212.227.15.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="aus3KhFh"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oPyDDZfl8lrKwt4YuklUda/aOOktlR2QGjCulFIjWOvhz/5NFCdmed7vALRGadCbnnHqu2trk6s2ZTmkKjY0KZC6juJL3sEUVKZzV6AElSoRPdOhopRleXSUyMnhQYIj43B+bAsNp6vzKZYpgRXzf8MRXhDU8waOv04isr3zA/U9UYlxcremiTC1OjAEEBNtiTwkxYVM7qr19CC5Sl1UKpUFWlg6ilZY6a/TmT8hhOHJSOeS5ZwgFULPioZdDDvJMphqSWDQgus68PjeKRu1H/N4Ud7JCPp5fZ4iLzg65jn1SpX9P2kIcEQyvtxYDz7V4vzrzJgU02sdGU7l8mFlVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EqP8Qna4JdTPE0opoUblvvINg6VI6z1RbJlJUtX7NRs=;
- b=jOzZaZS70rzub4wOU3SPqigwdONt+yLC46ZdbTUxNksCQ4QFgP8zquwCJ3KiZPyXLqjoBwChGhf/EOFjefL1URHst0DaJ7hXNMRhjvk/SoJSotp4VuSnJDR0xovVG9ouIIGxfqghTHExL2iVQwG689z4wehHgNOyV14k+eDQ1G8OnFygkeL7uLy+1emW8PbCaE9HknVdSI9L4av6DKMQkbQsmR1+JMR+/D8vbodNoegvFbEkm9kI6aLmOD9doEGANseMxnJPlsCuNPLvqHVBT3aqxKNqEfZjSTL2a6C6UxUBGKsWLHUyHmvqVyoVURoX9E/JkKFHhDczJNbLPShX+Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EqP8Qna4JdTPE0opoUblvvINg6VI6z1RbJlJUtX7NRs=;
- b=aus3KhFh2p0Qsw+3DglH+XPxn+cgKp2m9yiMIqx76gpqRyYcVpOLky8VCSPzYDCy3foNOtTCHTN9EtKehBtrngeaGoMbn+EoLn+rz5AhgQUiJN649BMBm2R7fLgJP6iIbVro4chnTxSZAY2aPXKzwVRYA0TL87kOg71fLR2+qIOg3GLwYhcysO77CQ8m7sNpOXXxa6kEpDEsPUIMIzBrF+MktppRJJrNX0A0t6dr3+axtm6ggB23XopdVc1WUV3Euu29mGQkt7Jv4L2zHi5ZUNvZUr3BrFDl0zZIW2IkGCXL9AuhXw2rWDzrcd9DyBaKKqsIhT1hOVnJJ5cy+fnDyg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM0PR04MB5858.eurprd04.prod.outlook.com (2603:10a6:208:132::23)
- by AS8PR04MB7606.eurprd04.prod.outlook.com (2603:10a6:20b:23e::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 14:34:55 +0000
-Received: from AM0PR04MB5858.eurprd04.prod.outlook.com
- ([fe80::bdf4:c9d1:4e3f:68c6]) by AM0PR04MB5858.eurprd04.prod.outlook.com
- ([fe80::bdf4:c9d1:4e3f:68c6%3]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 14:34:54 +0000
-From: Ciprian Costea <ciprianmarian.costea@oss.nxp.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Angelo Dureghello <angelo@kernel-space.org>,
-	Frank Li <Frank.Li@nxp.com>
-Cc: linux-can@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	NXP S32 Linux Team <s32@nxp.com>,
-	imx@lists.linux.dev,
-	Christophe Lizzi <clizzi@redhat.com>,
-	Alberto Ruiz <aruizrui@redhat.com>,
-	Enric Balletbo <eballetb@redhat.com>,
-	Eric Chanudet <echanude@redhat.com>,
-	Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>,
-	Haibo Chen <haibo.chen@nxp.com>
-Subject: [PATCH v7 3/6] can: flexcan: split rx/tx masks per mailbox IRQ line
-Date: Mon, 31 Aug 2026 16:34:46 +0200
-Message-ID: <20260831143449.12828-4-ciprianmarian.costea@oss.nxp.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831143449.12828-1-ciprianmarian.costea@oss.nxp.com>
-References: <20260831143449.12828-1-ciprianmarian.costea@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AM0PR02CA0173.eurprd02.prod.outlook.com
- (2603:10a6:20b:28e::10) To AM0PR04MB5858.eurprd04.prod.outlook.com
- (2603:10a6:208:132::23)
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b="Hy/SvMFz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1788186896; x=1788791696;
+	i=markus.stockhausen@gmx.de;
+	bh=7Zitt/SWRk9KOmy45oJeGbbCVQyAHJj52bKEQEf/c78=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=Hy/SvMFz3CkjCLhpCuez71sQLIhGzjAB5PoblUo1ZKrvrIKUR9JfKOxHkbjnAYw1
+	 JQkgC8NZuQB+Cds9SBF0lyEnyHLpAI++R/Uluy3U0B0D1sNPmwhxUtN2eA0UExa28
+	 f/1JonCBN+oXozfiqr8yjkNA0qy7bCu4IB4t3r5ITNBaOtxYhrXF8UPOeHlhYOaCd
+	 rWgkGGG3KXO9ctElTLYpde6k5ugcLmUcJAcXP1ROvnDcsZ+bBsYXOp3uvyx5puFL1
+	 DtdtTCgYdprDD/6ND8VQPzUAT+FCYFTWVYRYTHyw/BrxspENB8YlnHJD5YdM5/k9l
+	 gl7pX98lLJlAKlpF4g==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1M7b2d-1wxT810x4v-000K7t; Mon, 31
+ Aug 2026 16:34:56 +0200
+From: Markus Stockhausen <markus.stockhausen@gmx.de>
+To: andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
+	chris.packham@alliedtelesis.co.nz,
+	daniel@makrotopia.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org
+Cc: Markus Stockhausen <markus.stockhausen@gmx.de>
+Subject: [PATCH net-next v15 02/13] net: mdio: realtek-rtl9300: Add polling documentation
+Date: Mon, 31 Aug 2026 16:34:28 +0200
+Message-ID: <20260831143439.2404484-3-markus.stockhausen@gmx.de>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260831143439.2404484-1-markus.stockhausen@gmx.de>
+References: <20260831143439.2404484-1-markus.stockhausen@gmx.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB5858:EE_|AS8PR04MB7606:EE_
-X-MS-Office365-Filtering-Correlation-Id: fa5a202f-a724-45b0-fd0a-08df076d063f
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|376014|7416014|23010399003|19092799006|1800799024|366016|11063799006|10067099003|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
- VenoeSIcne3+uCFjVpmRhQu6pp3Zgwz/LsDhz7V9hgzC39VdyLwC5SLKe96TF2Jjv/6JqnKj+8gnid0/gaeYpK+8WV9Cj+ehUzn0FXjdJGA6/j+NC+9mOcqxlUGI0vuQD/jw7nNo7PkjA4dpvZSoM4MweoXxBTeY8U3djZydXvh+3TYdKDvl2Dovt50pgdQRl/kaxa7oADr+SOKHqRj+jpKu7qaQQppKEZNRtT9qFEQtmknca+e/ouZd4RDV/bfzxWSEfuNTZzqbRXuWpDXuTRfBqDurijBAGQFOhx5mmAYSFPtDL9ScEcyKIPYMPUIwa82vzyiGQVIB88QV7GdVAdR5V7XJAAwakc1FcBUjmCcFvuBvLtx89ctNuCBlC3dXukr+6gmaeKtiBHtI45CN4KoyYzD/LAbsvgzu6tBiwkI/6IPMosN+uX+4Q6C6G9J/HLbNt/TY5RfrNxxn5WEegio1h+DfrT5064VxrBtfUhCeT5zcKrH+KlElx0ff/7k67knm1T6YpX+sliM+1nFWsQzVcC7qmsc9uxj1kXYEEtkuSvx15gcmhqA9mvkHi/yFYLpz0Sgyc8Lnc5CjdKOx+vds1wPbXAbo83CSKORg3TaPM7iMRtiiI08suDX1ZLjDnnGUzH54sAg9KfslfXP1AJS+Y+a0rtEnXXohMj0U5+8=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB5858.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(19092799006)(1800799024)(366016)(11063799006)(10067099003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?UjRWUlZLdGxMYzM1TkJIdC9TWUpuSVZLRGJTOWRNVFlkNksrZ25xcHdRTkth?=
- =?utf-8?B?ajVLTFRpK0pFRjRTdCtYQWloYUlja1kwc3N6SW1ldmN0c3dpcjdQMUZVSTdt?=
- =?utf-8?B?a3RGaG1XazZucmRZTUNGSzZBcHo2RWFBR0hMUWJiUC91cWVtWExOaUY1ZG9V?=
- =?utf-8?B?WnFLUDQ4dUxtaElHNm5XUWNwM08xT1F5djBRMVZNc1BnSEluNGFFckQzL1Fk?=
- =?utf-8?B?SXd3K2NUTzcydmZiWWRLTThtZHlGT09LczluMWdzWmk4cm1kWTFwUWpwcGNL?=
- =?utf-8?B?cTNHZ2prWnNtOHVqRzlPVHpkNVhmUzBLcFVPNGRnYlVpNldQcDhZNjVpeHRF?=
- =?utf-8?B?OUJlUjd5MnVEVGpqK2NQbUtiTGd5bWM1dkVpWTdKUUllbTVIckxsNkswUkZE?=
- =?utf-8?B?eHd4S1FEUzNiZVZPWmpPL0FWYXV2OHZXcHhCMHc5REpPSWVHelp3QVlmWGxp?=
- =?utf-8?B?RG8rZG9RZ2xCVTZadzZyRnpuWDA2azJxUW81WTVtRXFFaGRHSG0zSjZpZ0xk?=
- =?utf-8?B?c0wyTWsrRFlhRm95c2hYaWlGMlovWWlVbmhyL1o3OWlxc29GUTdZZ2hBTXhj?=
- =?utf-8?B?SFNDZGV6alFCRkc2a1E3bk5LZVV0QmpYSVM0dENreG9zTmpsUXFmMFppSXZK?=
- =?utf-8?B?eHNVNEt4MzBWeXFUM2Exc1lZb01nTkRSWUswS010aERCNEVHRldabFI5LytL?=
- =?utf-8?B?cjZEbFdOWDdRU0tsbnBzajFUZng0ZzZlbjFtK3Bsc2VtNm5VTmwyd1pzMFZV?=
- =?utf-8?B?cnAvUk01M3lzd0FLUTE1Q0xEeEgyckpnK2k2QzhHK0hFOWc1TzdodXdzWHhC?=
- =?utf-8?B?YXNDaG41dFBxaThPNDRhRy9WNENkWHNQbnZtYk5YVVpVbVBMTUR4Vk00OTFW?=
- =?utf-8?B?K01XV1U1a0F5elBXKzRlZkNJUnVvYWNXVy9BMFcyNzFYNW9mMlZNWkdEb2l1?=
- =?utf-8?B?U1duNHdzdEo3RlVlcGFBT01IM3lTem1QWFFndnpSajNVTDRVemdSTkw5aURq?=
- =?utf-8?B?SzdYY28xVDQ3RkRNL0VvRS9VV3ZrVGNwZzN6Z2J0RlZlbThwWm1Vd3hVT2hX?=
- =?utf-8?B?SW0wYnVqdEdPN0lUY3d5cHluc3dhRDB6d3pKMDFibWdReVhxUmQ4Ny90M3VK?=
- =?utf-8?B?aVZlSDMrSXlweFMxc21XVWIvZHROOUZCcEN6ck93ZDhTV0pqM095OXM2cXVp?=
- =?utf-8?B?MzZXYjBwVkhYSDdFc0xHUHhmVkJ2WHJRcEdwRlJKZnhIY3Nud2VINTF3cVNF?=
- =?utf-8?B?dmtHaVF1bWxOcUVDMnVVS1l0WHBqaFNkS284Y09ObVVWUFRUR3Z1SEF2cEJX?=
- =?utf-8?B?U0JCVUQwUTBmeTllTTZmU3RWbWZjTFBxcEJlbkUxVFgvd2tYeDl6eUtWeUx5?=
- =?utf-8?B?a0pubTVQUkprVHJDVjFHZGVsMVl2NFhqeFpHTVQyMHZ3a1F4UU9UcUwzdEMv?=
- =?utf-8?B?OWlXQVJEek1iak9CbW8xTnVSYmRxc2dyc1Nyb09rUnkyY0lTVTNTTHA2WHhZ?=
- =?utf-8?B?SnNza1ZzMWVNTkZ6RHZtUDdBUmNZb1dIMXZRYjF2N1VxRHRoYUpTVHdvMFA3?=
- =?utf-8?B?YXFSQURsM00waUY1cStKSlpaR043K1ZlTk9qanJUb1N2UHF4dEZ3cVA2cjQ1?=
- =?utf-8?B?WkF4WkptTXM4SS9CSVpVUUlYc1pWY08xV201VGIyOW9sMTNxVEdKQ3E0R09P?=
- =?utf-8?B?ekF1WDNUYlk5UEt5NmdSRTAwKzVJTXJUNll3S1ZhcERZM0RqVFFzTXd3MjZq?=
- =?utf-8?B?ZEp1bE5SRUp1UDhlQStQZ1o0RFNpRmNXUmdKcDNnV3RneDhtZjNTcVJsb0VU?=
- =?utf-8?B?azVPWktaZHZVSEZSc0JUWStnUnExMVY3ZWd4WkRaR2RESytpZFB2OTV4b01O?=
- =?utf-8?B?c2daLzRRVFcySHJVRGtTSzZxcnhjSWlSaU1oSHZTQWFKaFRpcG5nK2x2ZGdX?=
- =?utf-8?B?eVR5Wk4vSVVFei9MeHJSVFovV3ZGeHBkNHEvdDdGTGFadjZyd0psM3lxZk4v?=
- =?utf-8?B?YXg1WDdUYmZTUVRZRlFuaFNYTXR6RlhaSU4rU2RVTDFxTWJWcmpNaDIwU0Jk?=
- =?utf-8?B?ZXNoNWxNV0xxMWxtTnFuYVh3NTlwb0tsZ085ckxuVWNXemEvWHpJUU1TZjNW?=
- =?utf-8?B?aWNONWY0RGFBRWVncWRid3E0aEo2VjliS0xiSVRsWEVlN0JQVmRyUThLVjVH?=
- =?utf-8?B?WnVtTThrRlFOSXBKbnZmTk9TM0FvbnB6UmZUWWxZZnMxZzRYN1RpU2MxQWsw?=
- =?utf-8?B?VFNrdGNyRVB4TTBQajlsbFFLZkVHTEhadVBOTWNnbE9oN3BkVGRRYWhPUDg0?=
- =?utf-8?B?TENjNUpxVWlLbUtoRTBzb2NjNk5LTGZXdjdhb3ZBbWt1dXgvUm4zTE4rV05r?=
- =?utf-8?Q?38xPpUWuzXa5yRJE=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa5a202f-a724-45b0-fd0a-08df076d063f
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB5858.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 14:34:54.9115
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: D7ohL+E837HRubpGVFwbti6sMH9MEJ2q4Rs0v0FrjhdyqDnP651rXXJ81uwvjAE9Ai22NmvRnGzjvD6kkYu6OISvq2LPHfybHWVxcMncA/M=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7606
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:x3f3KLdSL/y/Z1BEMVwFER7F18DWugQlfQ+Ky1EFYgOh4zh3aaY
+ upZWooSDzygekfpNof1uo+I84B6vZowdruFygOtHXs5Ud2MkU0WJBB+uZ4cRATYohM3U2AT
+ ny0kVvI3+rVbKt5F2dZxNKjH2OsS5PnhAFr8P3k1yVnmD68oaCoJAODnWhzcuFFCM4JwnLt
+ TqrrIxd+RcGFFogG4B+mQ==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:dxX24UKf8Uk=;wVd/Vv8MTPeMUdzrZ6L5r6CXkGw
+ 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
 
-From: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
+Add a detailed explanation how the hardware polling unit in the
+Realtek Otto switches works. This simplifies developing future
+patches and reviewing them.
 
-On S32G2, which has two mailbox IRQ lines (mb-0 for MBs 0-7, mb-1
-for MBs 8-63), both handlers currently process the full rx_mask/tx_mask
-range.
+Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+=2D--
+ drivers/net/mdio/mdio-realtek-rtl9300.c | 75 +++++++++++++++++++++++++
+ 1 file changed, 75 insertions(+)
 
-Introduce FLEXCAN_SECONDARY_MB_IRQ_MB0_MASK and
-FLEXCAN_SECONDARY_MB_IRQ_MB1_MASK to describe the split, and pass
-the selected mask to flexcan_do_mb() via a new mb_mask parameter.
-
-In flexcan_irq_mb(), the irq argument selects the correct mask: the
-primary MB IRQ uses MB0_MASK and the secondary uses MB1_MASK.
-
-For single-IRQ platforms, mb_mask is ~0ULL with no functional change.
-
-Signed-off-by: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
-Reviewed-by: Vincent Mailhol <mailhol@kernel.org>
-Reviewed-and-tested-by: Haibo Chen <haibo.chen@nxp.com>
-Tested-by: Enric Balletbo i Serra <eballetb@redhat.com>
----
- drivers/net/can/flexcan/flexcan-core.c | 39 ++++++++++++++++++--------
- 1 file changed, 28 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/net/can/flexcan/flexcan-core.c b/drivers/net/can/flexcan/flexcan-core.c
-index 4eda54d2169e..f28ff0e95b74 100644
---- a/drivers/net/can/flexcan/flexcan-core.c
-+++ b/drivers/net/can/flexcan/flexcan-core.c
-@@ -182,6 +182,12 @@
- #define FLEXCAN_IFLAG_RX_FIFO_WARN	BIT(6)
- #define FLEXCAN_IFLAG_RX_FIFO_AVAILABLE	BIT(5)
- 
-+/* On platforms with FLEXCAN_QUIRK_SECONDARY_MB_IRQ, the MB IRQ lines are
-+ * split.
-+ */
-+#define FLEXCAN_SECONDARY_MB_IRQ_MB0_MASK	GENMASK_U64(7, 0)
-+#define FLEXCAN_SECONDARY_MB_IRQ_MB1_MASK	GENMASK_U64(63, 8)
-+
- /* FLEXCAN message buffers */
- #define FLEXCAN_MB_CODE_MASK		(0xf << 24)
- #define FLEXCAN_MB_CODE_RX_BUSY_BIT	(0x1 << 24)
-@@ -957,14 +963,16 @@ static inline void flexcan_write64(struct flexcan_priv *priv, u64 val, void __io
- 		priv->write(lower_32_bits(val), addr);
- }
- 
--static inline u64 flexcan_read_reg_iflag_rx(struct flexcan_priv *priv)
-+static inline u64 flexcan_read_reg_iflag_rx(struct flexcan_priv *priv,
-+					    u64 rx_mask)
- {
--	return flexcan_read64_mask(priv, &priv->regs->iflag1, priv->rx_mask);
-+	return flexcan_read64_mask(priv, &priv->regs->iflag1, rx_mask);
- }
- 
--static inline u64 flexcan_read_reg_iflag_tx(struct flexcan_priv *priv)
-+static inline u64 flexcan_read_reg_iflag_tx(struct flexcan_priv *priv,
-+					    u64 tx_mask)
- {
--	return flexcan_read64_mask(priv, &priv->regs->iflag1, priv->tx_mask);
-+	return flexcan_read64_mask(priv, &priv->regs->iflag1, tx_mask);
- }
- 
- static inline struct flexcan_priv *rx_offload_to_priv(struct can_rx_offload *offload)
-@@ -1071,12 +1079,14 @@ static struct sk_buff *flexcan_mailbox_read(struct can_rx_offload *offload,
- }
- 
- /* Process mailbox (RX + TX) events */
--static irqreturn_t flexcan_do_mb(struct net_device *dev)
-+static irqreturn_t flexcan_do_mb(struct net_device *dev, u64 mb_mask)
- {
- 	struct net_device_stats *stats = &dev->stats;
- 	struct flexcan_priv *priv = netdev_priv(dev);
- 	struct flexcan_regs __iomem *regs = priv->regs;
- 	irqreturn_t handled = IRQ_NONE;
-+	u64 rx_mask = priv->rx_mask & mb_mask;
-+	u64 tx_mask = priv->tx_mask & mb_mask;
- 	u64 reg_iflag_tx;
- 
- 	/* reception interrupt */
-@@ -1084,7 +1094,8 @@ static irqreturn_t flexcan_do_mb(struct net_device *dev)
- 		u64 reg_iflag_rx;
- 		int ret;
- 
--		while ((reg_iflag_rx = flexcan_read_reg_iflag_rx(priv))) {
-+		while ((reg_iflag_rx = flexcan_read_reg_iflag_rx(priv,
-+								 rx_mask))) {
- 			handled = IRQ_HANDLED;
- 			ret = can_rx_offload_irq_offload_timestamp(&priv->offload,
- 								   reg_iflag_rx);
-@@ -1110,10 +1121,10 @@ static irqreturn_t flexcan_do_mb(struct net_device *dev)
- 		}
- 	}
- 
--	reg_iflag_tx = flexcan_read_reg_iflag_tx(priv);
-+	reg_iflag_tx = flexcan_read_reg_iflag_tx(priv, tx_mask);
- 
- 	/* transmission complete interrupt */
--	if (reg_iflag_tx & priv->tx_mask) {
-+	if (reg_iflag_tx & tx_mask) {
- 		u32 reg_ctrl = priv->read(&priv->tx_mb->can_ctrl);
- 
- 		handled = IRQ_HANDLED;
-@@ -1125,7 +1136,7 @@ static irqreturn_t flexcan_do_mb(struct net_device *dev)
- 		/* after sending a RTR frame MB is in RX mode */
- 		priv->write(FLEXCAN_MB_CODE_TX_INACTIVE,
- 			    &priv->tx_mb->can_ctrl);
--		flexcan_write64(priv, priv->tx_mask, &regs->iflag1);
-+		flexcan_write64(priv, tx_mask, &regs->iflag1);
- 		netif_wake_queue(dev);
- 	}
- 
-@@ -1228,7 +1239,7 @@ static irqreturn_t flexcan_irq(int irq, void *dev_id)
- 	struct flexcan_priv *priv = netdev_priv(dev);
- 	irqreturn_t handled;
- 
--	handled = flexcan_do_mb(dev);
-+	handled = flexcan_do_mb(dev, ~0ULL);
- 	handled |= flexcan_do_state(dev);
- 	handled |= flexcan_do_berr(dev);
- 
-@@ -1244,8 +1255,14 @@ static irqreturn_t flexcan_irq_mb(int irq, void *dev_id)
- 	struct net_device *dev = dev_id;
- 	struct flexcan_priv *priv = netdev_priv(dev);
- 	irqreturn_t handled;
-+	u64 mb_mask = ~0ULL;
-+
-+	if (priv->devtype_data.quirks & FLEXCAN_QUIRK_SECONDARY_MB_IRQ)
-+		mb_mask = (irq == priv->irq_secondary_mb) ?
-+			  FLEXCAN_SECONDARY_MB_IRQ_MB1_MASK :
-+			  FLEXCAN_SECONDARY_MB_IRQ_MB0_MASK;
- 
--	handled = flexcan_do_mb(dev);
-+	handled = flexcan_do_mb(dev, mb_mask);
- 
- 	if (handled)
- 		can_rx_offload_irq_finish(&priv->offload);
--- 
-2.43.0
+diff --git a/drivers/net/mdio/mdio-realtek-rtl9300.c b/drivers/net/mdio/md=
+io-realtek-rtl9300.c
+index afd52a1cd7f8..73ac5fdcd267 100644
+=2D-- a/drivers/net/mdio/mdio-realtek-rtl9300.c
++++ b/drivers/net/mdio/mdio-realtek-rtl9300.c
+@@ -35,6 +35,81 @@
+  *
+  * The driver works out the mapping based on the MDIO bus described in de=
+vice tree and phandles on
+  * the ethernet-ports property.
++ *
++ * The devices have a hardware polling unit that runs in the background w=
+ithout any CPU load. It
++ * constantly scans the MDIO bus and the attached PHYs and updates the MA=
+C status registers.
++ *
++ * How does the polling work?
++ *
++ * Each device has a SMI_POLL_CTRL register. A per-port bitmask decides i=
+f the hardware polling of
++ * the associated bus/address is active or not. The hardware runs a tight=
+ loop over this and for
++ * each set polling bit it issues a status check for the PHY. Attaching a=
+ logic analyzer to the
++ * MDIO bus of an RTL8380 and RTL8393 gives the following commands (in ke=
+rnel notation):
++ *
++ *	RTL8380				RTL8393
++ *	---------------------------	---------------------------
++ *	phy_write(phy, 31, 0x0);	phy_read(phy, 0);
++ *	phy_write(phy, 13, 0x7);	phy_read(phy, 1);
++ *	phy_write(phy, 14, 0x3c);	phy_read(phy, 4);
++ *	phy_write(phy, 13, 0x8007);	phy_read(phy, 5);
++ *	phy_read(phy, 14);		phy_read(phy, 6);
++ *	phy_write(phy, 13, 0x7);	phy_read(phy, 9);
++ *	phy_write(phy, 14, 0x3d);	phy_read(phy, 10);
++ *	phy_write(phy, 13, 0x8007);	phy_read(phy, 15);
++ *	phy_read(phy, 14);		phy_write(phy, 13, 0x7);
++ *	phy_read(phy, 9);		phy_write(phy, 14, 0x3c);
++ *	phy_read(phy, 10);		phy_write(phy, 13, 0x4007);
++ *	phy_read(phy, 15);		phy_read(phy, 14);
++ *	phy_read(phy, 0);		phy_write(phy, 13, 0x7);
++ *	phy_read(phy, 1);		phy_write(phy, 14, 0x3d);
++ *	phy_read(phy, 4);		phy_write(phy, 13, 0x4007);
++ *	phy_read(phy, 5);		phy_read(phy, 14);
++ *	phy_read(phy, 6);
++ *
++ * After one PHY status is read, the polling engine goes over to the next=
+ PHY. If one bus is fully
++ * scanned it switches over to the next bus. Basically the polling system=
+ is always busy and the
++ * MAC state is updated in real-time.
++ *
++ * This is a glimpse look at the complexity of the polling and leaves out=
+ the C45 case and the MAC
++ * register update logic afterwards. Important to note:
++ *
++ * - 100 MBit downshifts (broken cables) are identified and propagated to=
+ the MAC correctly
++ * - Access to MDIO_AN_EEE_ADV and MDIO_AN_EEE_LPABLE works via C45 over =
+C22.
++ * - It is unclear if these sequences change for different PHYs.
++ * - Access to Realtek reserved register 26 (link speed) has not yet been=
+ seen.
++ *
++ * How does MDIO access from kernel work?
++ *
++ * When issuing MDIO accesses via an MMIO based interface the final write=
+ to the command register
++ * sets a "run command now" bit. Between two polling sequences for differ=
+ent PHYs the hardware
++ * checks if a user command needs to run and sends it onto the bus. After=
+wards it simply continues
++ * its polling work. Inspecting the command sequence for a paged write on=
+ the logic analyzer gives:
++ *
++ *	RTL8380				RTL8393
++ *	---------------------------	---------------------------
++ *	phy_write(phy, 31, page);	phy_write(phy, 31, page);
++ *	phy_write(phy, reg, value);	phy_write(phy, reg, value);
++ *					phy_write(phy, 31, 0);
++ *
++ * What does this mean?
++ *
++ * There are slight differences in polling and PHY access between the mod=
+els but the challenge
++ * stays the same. On the one hand that greatly simplifies the MAC layer,=
+ on the other hand it
++ * has some implications for the kernel PHY subsystem.
++ *
++ * - Without the polling and a proper MAC status, some of the link handli=
+ng features do not work.
++ *   Especially an unpopulated MAC_LINK_STS register cancels operations t=
+o other MAC registers.
++ * - The Realtek page register 31 is magically modified in the background=
+ so that polling will
++ *   read the right data. On the RTL838x polling simply resets it to zero=
+. Other devices seem
++ *   to track the page access "magically" in the background.
++ * - A C45 over C22 kernel access sequence is most likely to fail because=
+ chances are high that
++ *   the polling engine overwrites registers 13/14 in between.
++ * - PHY firmware loading can have issues. Especially if a PHY is designe=
+d to expect a clean
++ *   sequence of registers and values without deviation.
++ * - An access to one PHY will need to wait for the next free slot of the=
+ polling engine.
++ *
++ * Conclusion: The Realtek MDIO bus driver PHY access must know and handl=
+e any interference that
++ * arises from the above described hardware polling.
+  */
+=20
+ #include <linux/bitfield.h>
+=2D-=20
+2.55.0
 
