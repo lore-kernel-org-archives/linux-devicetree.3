@@ -1,82 +1,57 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 093C74C6D;
-	Mon, 31 Aug 2026 07:27:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A7753C3F67;
+	Mon, 31 Aug 2026 07:29:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788161243; cv=none; b=rkpw4Zr3gooePi33uw6nr3wK34PErfpEXhEviLzVn4hfi7JGE7nFTgfKOb6G0w06e7gIZ3x+Mj4y7LXaArz6eJuKdvOl1T4dsbmNhnXw95c4jcrFhGadK8ldoGZ0L/sC7uZjTAwK0RU6/MrS5+Noh5e0lNUJwkRAW5EjEzpoWK4=
+	t=1788161369; cv=none; b=lPCJatbR+ggctqgSNZ562z4ehAL8q2Q0lZ9lSab6UHx8o7E9BA/dqGjcchB9UoipIGZ4QWo4I3evkSY7gMwNfv10LdozMPz0Avn3TIkQXgHQERRstqjkwsizBdud5JUOVUiH/X49gDAPGydyxjcA+KrgsioR9Sc7SpkVJlEmXWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788161243; c=relaxed/simple;
-	bh=3eJh8lKlTSMT66jtXXUivIhdzm+2ibaSV4rCQdFElyA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qyLY52+cVOdlJWzN+uhXOqOVQ1L0bMg6JBWVFQorkX/o41nmc/HqQmJH54BBo4IQc5+4+ZZ+9DMZGwulIJwAmWQVvBTMJxaSFTbeDENODuUiqze4NNJXxxng/l7ImthjZzAJMlojkXs+GK1/6ixcVxyVQ1WrXfDyVQq5hMaUThc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PMgiu5Xl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788161369; c=relaxed/simple;
+	bh=pGqwywBqlZf7Zwd5zCQtqG1uwRqmnN3TwFbLRAPhidA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=fHWuoHRLp0QkUMFBT60mW7gAe+wRDISm6yNck7LFUgWbyMLWu0janmqycDy1ZkYLA6jfYTpPRWpmGJVYzNSyt7gL4btw6TsrK6CvWKFgur3EHOrNW7cNFVtQzljurc+gyFTDHDMCijA5cKwhKvJ/0F2us9KcqmS8VuDRhqVbO30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j9suHZ7n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PMgiu5Xl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18E7D1F000E9;
-	Mon, 31 Aug 2026 07:27:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j9suHZ7n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 815791F00A3D;
+	Mon, 31 Aug 2026 07:29:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788161241;
-	bh=rU7LA4eKjnDRvScYayCrmuHQplFrllwWDBoWgb710pk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PMgiu5XlcCRV+ARmzlavl8pdj0wmliZ8v+vbFISM3mXZhxpL60AVAptYUsdHYTq/5
-	 09YgRsk4GyVu+rjdE5e1JsJnNR/o2/sgwEu9V8Jfu+LWPIbeRr2IXepLHGRgazGWBL
-	 KyjXz91pU0BL735fA2K2xrQdb4jnasdnbNgwKWyn3yksyZ8gjE4eIoY34ZvhT0gh14
-	 5i0TWpTgR8IQut78oeF6FXiDAR70fZymKwU1i16ebWK7BCUD2B8JnRDKsOKWA55FiT
-	 gLO5gFKe8wkoMGn2geuOiV3mszDuG+HZO1blN+jxpmy+zcdLhr6cx3ftVyBwUZH5Em
-	 KYF1wXVdudBdQ==
-Date: Mon, 31 Aug 2026 09:27:17 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Qiang Yu <qiang.yu@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Taniya Das <taniya.das@oss.qualcomm.com>, Konrad Dybcio <konradybcio@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/4] dt-bindings: clock: qcom: Move x1e80100 TCSR to
- own binding
-Message-ID: <20260831-ambitious-aloof-inchworm-88acb1@quoll>
-References: <20260827-hamoa_tcsr_qref_0826-v4-0-663c9d30468d@oss.qualcomm.com>
- <20260827-hamoa_tcsr_qref_0826-v4-1-663c9d30468d@oss.qualcomm.com>
+	s=k20260515; t=1788161367;
+	bh=pGqwywBqlZf7Zwd5zCQtqG1uwRqmnN3TwFbLRAPhidA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=j9suHZ7nnOrg9E6RaZKgl+uxxR8F/mPgGsNn+PEd/BhCERgXwUFIqixV9pzfw8MvY
+	 WHFvH3UoiC3xSmLOPCp9MFQJYRFaqaX6NEPM6HgqAed/+kzjXDjfm1paCd1+UjJvLn
+	 aPjbMOgLEZcFEvsjzy1j8k2BqovVOtDwl3He9K1oOq3uoKPame1SWgQrnkCZ47r/My
+	 PBAOj5WEXtHjbFpgjNcbaou9NQLxx8abIuM/Yau87K3xTUXsXPzyPoQ92BKKchZMpC
+	 PbFta06OURvY1NWjMox4uHSswIDS/ozhD9PgLr6I5q2qXXmAIxkfMjYjQQpD7+oKEN
+	 08nUkmfUJI3yQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/5] PCI: qcom: Add support for Shikra
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sushrut Shree Trivedi" <sushrut.trivedi@oss.qualcomm.com>
+Cc: vkoul@kernel.org, linux-phy@lists.infradead.org, conor+dt@kernel.org, robh@kernel.org, linux-pci@vger.kernel.org, olteanv@gmail.com, neil.armstrong@linaro.org, devicetree@vger.kernel.org
+In-Reply-To: <20260831-shikra-upstream-v2-3-406661d75afa@oss.qualcomm.com>
+References: <20260831-shikra-upstream-v2-0-406661d75afa@oss.qualcomm.com>
+ <20260831-shikra-upstream-v2-3-406661d75afa@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 31 Aug 2026 07:29:27 +0000
+Message-Id: <20260831072927.815791F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260827-hamoa_tcsr_qref_0826-v4-1-663c9d30468d@oss.qualcomm.com>
 
-On Thu, Aug 27, 2026 at 11:00:33PM -0700, Qiang Yu wrote:
-> The QREF block supplies reference clocks to PCIe/USB/UFS PHYs and requires
-> dedicated LDO supplies to operate. The digital control interface for QREF
-> (clkref_en registers) resides in TCSR on x1e80100. Since QREF has no
-> dedicated DT node of its own, these supply properties are placed in the
-> TCSR node which acts as the control interface for QREF.
-> 
-> These LDOs are required by QREF to provide a stable reference clock,
-> without which the USB/PCIe/eDP PHYs cannot work properly, so the supplies
-> are marked required even though it breaks ABI.
-> 
-> TCSR does not act as a reset provider on x1e80100: no driver has ever
-> registered a reset controller for it, and no consumer references it as a
-> reset, so #reset-cells is dropped entirely rather than documented.
-> 
-> Add a dedicated binding file for qcom,x1e80100-tcsr and document the
-> supply properties.
-> 
-> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
-> ---
->  .../bindings/clock/qcom,sm8550-tcsr.yaml           |   1 -
->  .../bindings/clock/qcom,x1e80100-tcsr.yaml         | 114 +++++++++++++++++++++
->  2 files changed, 114 insertions(+), 1 deletion(-)
+> Add support for the single PCIe controller on Shikra platform
+> which is capable of Gen2x1 operation.
+>=20
+> Signed-off-by: Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-Best regards,
-Krzysztof
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-shikra-ups=
+tream-v2-0-406661d75afa@oss.qualcomm.com?part=3D3
 
