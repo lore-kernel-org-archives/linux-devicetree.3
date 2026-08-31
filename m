@@ -1,191 +1,139 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C77E63C583A
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 09:03:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DF053C583A
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 09:04:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788167013; cv=none; b=Clp653GK15nIb4WRWK2whNVwgjxRAs/YWsLi7eqVi7B6scf/dq0pvbKizaZGn1gnXVhPX+DqpqLbxotDuYx0DQY4rD9PiCt/Lr4MTCJYdUM08bLvh/Yq+Vhdafe8sywLpuLN5Kkhf3BiraACn6iIhR5z+hAytW2dHUKy+cL2wus=
+	t=1788167051; cv=none; b=aADFN9NbKJoKyDcCO32NGLIev37uDfVwuGE8BGqpd5vlawsiUTjHVdkvJaa3Qo9HvJxRuqrUt6Xw2ysm8eyslkIA5AcfSrU2n1sMEroCmVl/716tTUV5ZH851qY8TdXe6vq14NzOaY7+N+CFRzpu7tufsOyd+pgo2jjnsz9ZIXM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788167013; c=relaxed/simple;
-	bh=cCYOKZeBS/lMwQ4fkmgbGwz6LHn0Xx/xObKqYLjoD1U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kDVxd0T6dOdgTVk5Sr2dgyqh+HNnv3ycRqKxXC07K3oi1B6fpHiEawREVUohky1ro59SdJoEmTCoQL+a2Hkor1qlySqzdLBBZc71/irh/xSYeLm9bSK8j2HzcoKRXLh9qKm7ERBedPURrTLLw+YjIeQw8f3OeOq+tEF4++qbwt4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QVzWV3b7; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=b8HyEZUi; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788167051; c=relaxed/simple;
+	bh=BmY6BHNkSB0EkQQqornh0/4pFZwF1Rc+NXq5JAh3F7o=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=kMKSzSEtL30pT/0qwv43B+/qiaZX6HWPbVOJlG+2a1Sr8ngA/eklNh98uj7Dqs+nfJ7qbyKgB3rYNGlpYLUVBVFo4cqlKWUmFImBK1J6hoAuEFlkgq8KLPrO5ZlAsu9cYOxZCqH8Jjzaj0IlT2oAnbu6y+0kU/CYXneP5ioTE1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B4COrrsK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QVzWV3b7";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b8HyEZUi"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67V7xbcY3427332
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 09:03:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	WcP6LHGWxJXPulKdHOrCQk5ulFe7xWTVCyIQ7SbYJ0Y=; b=QVzWV3b7f0/LbpT7
-	Ryhm2IAWsxJmMrtvlqOOkNuWF8eqSTntTIxhMlpmZiHLcngNU8A1dSXZOdhlRli9
-	9P8UrTElSmH323Wa6UyEGgwFVvLHebOAvMvG8n535LPjm9tPkwi76DHQ1NGZulr8
-	BCvIIkx6Ey/f9Ayq96/sIe++FYjQ/W1K28LaH4VWq7xydTH+N7CZrCJ+7epQQQol
-	C4ttKqMiNgTDcO9vi5r3WBkMs0RaEy1BBlP+7+NHq3+8fo8a6m+ffrKVPZixUKpl
-	R/UIrqXE8dGMCRpXxiKm7y/uWsq4Dcc6J9Rxv/L80s85aEwEldn1P750nVcNAQ5/
-	qqCySw==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gd4pm8jpu-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 09:03:29 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38e11baa66eso5519471a91.2
-        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 02:03:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788167008; x=1788771808; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WcP6LHGWxJXPulKdHOrCQk5ulFe7xWTVCyIQ7SbYJ0Y=;
-        b=b8HyEZUiE2Lq9LyuM6q8GaL1hzGES+JodXu+/rx4uPOURQU7vwkrEILtb//+PlbCJm
-         TJQu5n0oi1lHpaU3gU4DsRUv9rf0RDFI0Wjx4hD1+ms+GYG5V6xnjNMF4PmNi0guFfqq
-         e4KuNJ7E+kYzySpZTwADTJr7jQHzv7P124KBACWT+tO/fNMPPr8o5lK/1J6g60dkRb0t
-         hQXdSeT60bLojaNk5hw5VLlBQocq5KxnSXNPq39zgP7abNwc4HkuelR16MUl1gQM+Igt
-         tnsXdIpBaIi7TwZH8s1Bu+uu7WIh6vggyravDeKXIBZjba2PnVSlLRWenRtnYMavRfIP
-         0hNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788167008; x=1788771808;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WcP6LHGWxJXPulKdHOrCQk5ulFe7xWTVCyIQ7SbYJ0Y=;
-        b=W+TjlSgr4mBUcahJvUSwKekQSmYf4sTC9syNO7RfS7KKLro+P/9LloS90u5JF/Wkt0
-         VilNtnfbRSkgu7oYQgfId+0dGY5m6pl9HviKF3fUnSjW9XJuot4xIUk6KCi0ydxCjCGk
-         HyYK8afBSI5jllTws+xwskxEuDHwFgEYJtOpv5bT/f18vU4UVRUsmWfWcyc5v/MUqFze
-         1ZVVrZ4sXlwZBYukFE8sHKaxIDgFYye6+8YSigiHnl+TKPZI/fpk4FpBCzSwZq6zgf/c
-         KRR9yygOj/GNzOLwKRFvGA/2LHXuz/ATyE/Lh56/3M3g5advwF7At80dt6J2HuIsZhgz
-         VZOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxGCt04uXAw6Ig0oJmTmGWxHTy39L98WjSiFSw/+7F03uUqrlnZHaZVNcdDju8mrAWtmkB/HLK46wtT@vger.kernel.org
-X-Gm-Message-State: AFuF++mhdocXfKr3LblsTCzddkep8SGKu1QVwdPZYQmq0k/nQKqNKFCD
-	RvvrMUEPe1QRpD4jYdaz81wfL2HD6e/OxCxAxgAK6dF0jQK/tz7LjI4n9bZEesjbQD/cwnEQm9b
-	xMq3Nuw+3XJgzkXGFZuO4Hw37ekYIpAqLG6yFpMaEKsFrOI0cZUTvRxeBSaEVscq8
-X-Gm-Gg: AYBFou257WyTB6P0fUcwrk7ZMIPVpWZIx70j0zECOhizvO3hTaJMHMdQHv9I69k2dIc
-	W6XZyGZPRSOAygAyxk3B3Uuro9HUjHKmjuRghbw2jnoIZ5LwdEjy/xO3UjFPRHlfsuTj/iv87rN
-	EmjyHovxshlfEBfl98aOwjOqHVXpqMoeGcQ2Hz9LrrCKhUpVqJvy9Ms2soe0SAdUcBgbXl1+h7X
-	j05NKOcMWHNjDRklLOu3St3E0eqFluXXfajJHSO69r6aoTCHWst+7sWjOFL3uRhFSz/VgBj/oop
-	7giQybjaTqunC88nOKasoTsCr/eVpzGbdFD0kz2j5FbGXHc0T9fTjtsMUBygJLAwEObvEPPwVr9
-	Y8pHF7ofIIwlxyJyoKq5kq6Eoa7/viB3TAMkOoKoj0qGpGm7FevDHPEoBMd6CwFfqlg==
-X-Received: by 2002:a17:90b:48c5:b0:398:9be9:ab8c with SMTP id 98e67ed59e1d1-3989be9ac97mr25276749a91.17.1788167008014;
-        Mon, 31 Aug 2026 02:03:28 -0700 (PDT)
-X-Received: by 2002:a17:90b:48c5:b0:398:9be9:ab8c with SMTP id 98e67ed59e1d1-3989be9ac97mr25276413a91.17.1788167007386;
-        Mon, 31 Aug 2026 02:03:27 -0700 (PDT)
-Received: from [10.218.1.199] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0d1abbdsm24522102c88.2.2026.08.31.02.03.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 02:03:25 -0700 (PDT)
-Message-ID: <ce5bf06b-8284-4355-94bb-416a8e34bd5b@oss.qualcomm.com>
-Date: Mon, 31 Aug 2026 14:33:21 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B4COrrsK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DE9A1F000E9;
+	Mon, 31 Aug 2026 09:04:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788167049;
+	bh=wat78JNkyz0OER2vscKBUuvp5of4hCaGOp4QHI3cFzY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=B4COrrsKLCsidzfvcVD5spF9oOvGnfCMb+5XWnhMLz/4CTc2vanvOGSmispdKh1Xs
+	 pAwSwGMxX+0F/eHV0dVJwWgPjsL7Y8SclPSow45W5gLwVldGx/2JW6Qxv2UGAQZrRh
+	 unDz5qiRNAMberxLe0vcKvTUxrAX6S6pFRg8hLPMMce5raaO+Qg2ImC98xkAya3FMY
+	 hYnKb+4gMiu+wtbcfzC68NOWXaeZIyvyd5A7S72owbiBmgQfLtSBKs0amIZ5Atcydl
+	 xY5rbcdpMVYpFDueg01n1iA5HeRHIZAzFn3xlNEf35tgNod/bm88pkdx02hZSRzwCx
+	 qtMZZ102Sq5Yg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 11/14] accel/rocket: select the per-core clock and
+ reset counts from match data
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jiaxing Hu" <gahing@gahingwoo.com>
+Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260831081956.84871-12-gahing@gahingwoo.com>
+References: <20260831081956.84871-1-gahing@gahingwoo.com>
+ <20260831081956.84871-12-gahing@gahingwoo.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 31 Aug 2026 09:04:08 +0000
+Message-Id: <20260831090409.2DE9A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dt-bindings: usb: qcom,snps-dwc3: Fix glymur binding
- for non-MP controllers
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260828081542.52796-1-krishna.kurapati@oss.qualcomm.com>
- <20260831-messy-ebony-warthog-cfd727@quoll>
-Content-Language: en-US
-From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-In-Reply-To: <20260831-messy-ebony-warthog-cfd727@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: 1Ym-6xmG_BOLvJtGZ30-K8scH-LcDLKq
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDA3NyBTYWx0ZWRfX5Wq6RCfkWR3x
- UcduQcQftyttvOfLrqnZXpuwYWPt9CNmnS6STUVxIWZuSTJB9HM8/M4CdSwk33/1G4vS2mKhUbx
- OIn9ip6miBbLGJXYFYb7xvC9QXaI8TauPYmIK3NMvkeziffZrD4symSNyiuaJI33By8gnFu4+dU
- XH9pGNxW5C0wcVmDtkWp/D4MZ9ZeFTZg8ESolGEemDbnP1koz7ecdF5UOw3rT5YI8fr9NR4tKAR
- zgfUT1+D491l2oUrZOrewIdcrY60+lH9cOpJTgjHghVVL+SlUI8V2K3MqhkbQ396sg+P/SzKhJb
- jNwJfsQ+sZqCtepKgE3OR4TAIQSZ0DvLQdW2rgWpS0UUivAb2j7PKxtung5uv5MXJNz0PwN+rmE
- 1k3FjxRXWIGKwau9mKQWBlIX6+jnmpdMMXeOw4sqODrBI8Eld0lH/nbtqzPyGGgaHYuZ76nRnXg
- s41eyXo1E9wr89Ai/7w==
-X-Proofpoint-GUID: 1Ym-6xmG_BOLvJtGZ30-K8scH-LcDLKq
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDA3NyBTYWx0ZWRfX5WAJLiJlBwMY
- 5Zzj/i7+0zRxbVvJq/vvS7oZLjPeeKFDp/Heu5Y1ELSOJ27aYzCUk3Qe6NFFgluSFNqqqt57Bw/
- NrykEPPm2iX5XfIrq/bWIHrtNYa5iY4=
-X-Authority-Analysis: v=2.4 cv=GbQnWwXL c=1 sm=1 tr=0 ts=6a954361 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=qatax8_Rp1FOiZlDYp0A:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-31_03,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 suspectscore=0 lowpriorityscore=0 clxscore=1015
- bulkscore=0 priorityscore=1501 adultscore=0 malwarescore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310077
 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
+New issues:
+- [High] Missing NULL check for the return value of of_device_get_match_dat=
+a(), leading to a guaranteed kernel panic on manual sysfs bind.
 
-On 8/31/2026 2:07 PM, Krzysztof Kozlowski wrote:
-> On Fri, Aug 28, 2026 at 01:45:42PM +0530, Krishna Kurapati wrote:
->> Currently for Glymur non-multiport USB controllers, number of interrupts
->> are limited to a maximum of "5". Either hs_phy_irq or ss_phy_irq are to be
->> present.
->>
->> Mark glymur non-multiport controllers to support a maximum of 6 interrupts
->> including the hs_phy_irq and ss_phy_irq.
-> 
-> Why?
-> 
->>
->> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
->> ---
->> Changes in v2:
->> - Modified commit text indicating the issue in max interrupt-names for
->>    Glymur non-mp controllers.
->>
->> Link to v1:
->> https://lore.kernel.org/all/20260803-glymur-usb-binding-fixes-v1-1-9ce334777387@oss.qualcomm.com/
->> ---
->>   Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml b/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
->> index ea60f7220afe..3bef18f9557e 100644
->> --- a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
->> +++ b/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
->> @@ -524,7 +524,6 @@ allOf:
->>           compatible:
->>             contains:
->>               enum:
->> -              - qcom,glymur-dwc3
->>                 - qcom,milos-dwc3
->>                 - qcom,x1e80100-dwc3
->>       then:
->> @@ -547,6 +546,7 @@ allOf:
->>             contains:
->>               enum:
->>                 - qcom,eliza-dwc3
->> +              - qcom,glymur-dwc3
->>                 - qcom,ipq4019-dwc3
->>                 - qcom,ipq8064-dwc3
->>                 - qcom,kaanapali-dwc3
-> 
-> This changes the ABI without an explanation.
-> 
-As per the harware specification, the controllers do have both 
-hs_phy_irq and ss_phy_irq. Hence wanted the binding to capture that 
-info. Will update the commit message accordingly.
+Pre-existing issues:
+- [High] The driver tracks cores in an array using `num_cores` as both the =
+array length and the probe index, causing resource leaks and array slot ove=
+rwrites on out-of-order unbinds.
+- [High] Devres memory leak of `struct rocket_device` and its children on p=
+robe deferral and manual unbind.
+--
 
-Regards,
-Krishna,
+commit d68f29f9366dd1f885e0585ee67c1b358bda44b6
+Author: Jiaxing Hu <gahing@gahingwoo.com>
+
+accel/rocket: select the per-core clock and reset counts from match data
+
+This patch introduces a soc_data structure to provide per-SoC clock and
+reset counts from the device match data. This enables supporting the
+RK3576, which has different counts compared to the RK3588.
+
+> diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/ro=
+cket_core.c
+> index 5dd260bacbff6..b202d15816a39 100644
+> --- a/drivers/accel/rocket/rocket_core.c
+> +++ b/drivers/accel/rocket/rocket_core.c
+> @@ -23,7 +23,7 @@ int rocket_core_init(struct rocket_core *core)
+> =20
+>  	core->resets[0].id =3D "srst_a";
+>  	core->resets[1].id =3D "srst_h";
+> -	err =3D devm_reset_control_bulk_get_exclusive(&pdev->dev, ARRAY_SIZE(co=
+re->resets),
+> +	err =3D devm_reset_control_bulk_get_exclusive(&pdev->dev, core->soc->nu=
+m_resets,
+>  						    core->resets);
+
+[Severity: High]
+Does this code crash with a NULL pointer dereference if a user with root
+privileges force-binds the driver to a device using the sysfs bind interfac=
+e?
+
+The sysfs interface bypasses the device tree match, causing
+of_device_get_match_data() (called in rocket_probe()) to return NULL, which
+is then unconditionally dereferenced here as core->soc->num_resets.
+
+[ ... ]
+
+> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/roc=
+ket_drv.c
+> index 8bbbce594883e..6e7dc91c5faac 100644
+> --- a/drivers/accel/rocket/rocket_drv.c
+> +++ b/drivers/accel/rocket/rocket_drv.c
+> @@ -176,6 +176,7 @@ static int rocket_probe(struct platform_device *pdev)
+> =20
+>  	rdev->cores[core].rdev =3D rdev;
+>  	rdev->cores[core].dev =3D &pdev->dev;
+> +	rdev->cores[core].soc =3D of_device_get_match_data(&pdev->dev);
+>  	rdev->cores[core].index =3D core;
+> =20
+>  	rdev->num_cores++;
+
+[Severity: High]
+This is a pre-existing issue, but does decrementing rdev->num_cores during
+an out-of-order unbind in rocket_remove() leak resources and corrupt memory?
+
+If a system has multiple cores (e.g., RK3588 has 3 RKNN cores) and a user
+manually unbinds a lower-indexed core via sysfs before a higher-indexed
+core, rdev->num_cores is decremented.
+
+When the higher-indexed core is later unbound, find_core_for_dev() fails to
+find it because the search space core < rdev->num_cores shrank, skipping
+its teardown. A subsequent bind will then overwrite the active core's slot
+at rdev->cores[rdev->num_cores].
+
+[Severity: High]
+This is also a pre-existing issue, but does probe deferral or manual unbind
+permanently leak the struct rocket_device and its children?
+
+During the first core probe, rocket_device_init() allocates rdev using
+devm_drm_dev_alloc() tied to the global drm_dev.
+
+If the core probe subsequently fails (e.g., -EPROBE_DEFER) or is manually
+unbound, rocket_device_fini() unregisters the DRM device and rdev is set to
+NULL. However, the devres allocations remain bound to the long-lived drm_dev
+and persist indefinitely, leaking memory on every cycle.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831081956.8487=
+1-1-gahing@gahingwoo.com?part=3D11
