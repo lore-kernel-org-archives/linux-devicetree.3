@@ -1,56 +1,48 @@
-Received: from mail-43171.protonmail.ch (mail-43171.protonmail.ch [185.70.43.171])
+Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 496373DEFFC
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 15:47:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DF7F54CF6A
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 15:48:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788191235; cv=none; b=QRVHasxFTGhlVSaPi7zf6c0Yor4Pv6VZ1hHh52Zd/bI/+S9Fw01Ehtr+lymN89t7KoDDphpvcfQuHP1JRkpFcDk4BZZiosaMe+UJEs6M7nbzQtkijsxdpCLaLqT9cxb2bODwzgYfEOd+3SKPg5A/sWvBiY2yoVJNKSkXxQMWkRM=
+	t=1788191309; cv=none; b=ep/hx71Za+zK7kc6B0z5Sg5goiwvO4ds/n9sAcSvU9XK/hqwuBv+hKniO6xlK96KzSPX1VteMcp/cTtcXaYe7P8AXJyPKaXSArmlK/mAzN04cvunz5yFSNgSuC8ATMqzZRJ5M0pT5xPdsnQHJjjCGf7MRyTVEbM29gEnndRQsZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788191235; c=relaxed/simple;
-	bh=OhxGGxmaAKtp7SeqWhlc4/jjqs40hTw17vjrraFI7Q8=;
+	s=arc-20240116; t=1788191309; c=relaxed/simple;
+	bh=B4q23QcyZOU803kPBuDAYqlch9MLSpY/C6zECX4IRtE=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Hybk971pfi6KUsIE3s4IfLG6Nd2SkbadEY9yk0q/2s5XXl04v4i+ACnIQcUroMjYyMUfvENf48rSYid8sWDCoySpagUIfNSx0uKt9uKR7fUI307jZM317UYLu+hguFKu57/vZF7Zb0hBrKzirpWuB8tgblyRSRocHSzq0NHQZWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=QrGr5jks; arc=none smtp.client-ip=185.70.43.171
+	 MIME-Version:Content-Type; b=KjSPVCVupljf4QMYoCJcuL+3maJOOvndqNPdRn1yfQliEJGIS0fez+IvvSVZuLcaMCwAhGqmkP0uIPH/G5ubS+ugNNONsK4QU6fAcSbgHT9J6XV0wrpr3+fGRRBT0D/yyTTM0zOLb9OA7l7D/jLe6p27Q2FuKT4yvqyHkpTn8VM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=3GmfDnF1; arc=none smtp.client-ip=109.224.244.108
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="QrGr5jks"
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="3GmfDnF1"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1788191228; x=1788450428;
-	bh=OhxGGxmaAKtp7SeqWhlc4/jjqs40hTw17vjrraFI7Q8=;
+	s=protonmail; t=1788191304; x=1788450504;
+	bh=B4q23QcyZOU803kPBuDAYqlch9MLSpY/C6zECX4IRtE=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
 	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=QrGr5jks0Xkp7MoD5gj6dSwYO11odHqx3R1F2iGFSdv0Tvv3MFKhqxot7YovUR+8k
-	 0DQIKJFAgHc9Pj3DdkEwFJhrX3EgZ7+HllWcMiDNNPly2UCRHAqgL6gajdT8ZkUUl2
-	 VRXqUQUrYgquxvCSA1reGUnjreempDYXQjN/QbtEYSnh5Mdo+eFRU+XP6bo6YkCnuP
-	 N2wWnAorEjriu8y7Gn0yn/TsyITesqMkyqO0nvhRrIOgIFfGtkwvJ3Hbmg4kXwh5jC
-	 Lpxt9cR5+MIBlmgp8jn9r3O7sjYjxONn804+5mVG/9jFDcqpK3dbH50r9uslzc2icd
-	 sP0UCAvBpTPFg==
-X-Pm-Submission-Id: 4hYYJp1nyLz2ScNm
+	b=3GmfDnF1WXVvlnqqE11jbgPw5RR7VCdzrHzjoZQpHa+gcniy4GnWSkMjDXwu9gPlH
+	 6/bOSW702/LOZve9aPC2H0QYu/QpFMP7YU/EqdjI42bFrSrYZxA/3tqp2DvCvQChtu
+	 3RXkHZIAEmFBb6m6vL5NEoM6W14bPY3nAzB8NeQ4Bu8t9Fe1vngPUscF6nDjaUgJPA
+	 RVv3SxS4+naRWT0znaE1c6EU0DAuYYgC1amhIWalcVzPkC76KuLgodrXlcFrpQm0f0
+	 i6e5XcicvDMYr997eBF//pMlnFV89EYS3nVd2YZdXEHp2C4M29HGIiAhaBMILxgDFP
+	 aEpdIlcJZ7XNg==
+X-Pm-Submission-Id: 4hYYLF4dCGz2ScPH
 From: Esben Haabendal <esben@geanix.com>
-To: "Andy Shevchenko" <andriy.shevchenko@intel.com>
-Cc: "Jonathan Cameron" <jic23@kernel.org>,  "Lars-Peter Clausen"
- <lars@metafoo.de>,  "Rob Herring" <robh@kernel.org>,  "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,  "Conor Dooley" <conor+dt@kernel.org>,
-  "Martin Kepplinger" <martink@posteo.de>,  "Sean Nyekjaer"
- <sean@geanix.com>,  "David Lechner" <dlechner@baylibre.com>,  Nuno
- =?utf-8?Q?S=C3=A1?=
- <nuno.sa@analog.com>,  "Andy Shevchenko" <andy@kernel.org>,  "Martin
- Kepplinger" <martin.kepplinger@theobroma-systems.com>,  "Christoph
- Muellner" <christoph.muellner@theobroma-systems.com>,
-  <linux-iio@vger.kernel.org>,  <devicetree@vger.kernel.org>,
-  <linux-kernel@vger.kernel.org>,  <stable@vger.kernel.org>
-Subject: Re: [PATCH v7 7/8] iio: accel: mma8452: Fix use-after-free bug in
- error error path
-In-Reply-To: <apWI7aYneejpZ-hs@ashevche-desk.local> (Andy Shevchenko's message
-	of "Mon, 31 Aug 2026 17:00:13 +0300")
+To: <sashiko-bot@kernel.org>
+Cc: <sashiko-reviews@lists.linux.dev>,  <devicetree@vger.kernel.org>,
+  <robh@kernel.org>,  <conor+dt@kernel.org>
+Subject: Re: [PATCH v7 8/8] iio: accel: mma8452: Use proper error code when
+ missing device model
+In-Reply-To: <20260831122856.BC5821F00A3E@smtp.kernel.org>
+	(sashiko-bot@kernel.org's message of "Mon, 31 Aug 2026 12:28:56
+	+0000")
 References: <20260831-mma8452-open-drain-v7-0-22946812c928@geanix.com>
-	<20260831-mma8452-open-drain-v7-7-22946812c928@geanix.com>
-	<Ym0ler-b-_OyfTN4nbB1NEdMVQkVxjtsv6JqNx7G31ML2HyR9nvFE21NFWNcozTD6nRQST4hhyUU8Opoabqy6A==@protonmail.internalid>
-	<apWI7aYneejpZ-hs@ashevche-desk.local>
-Date: Mon, 31 Aug 2026 17:47:05 +0200
-Message-ID: <87ecfeuwau.fsf@geanix.com>
+	<20260831-mma8452-open-drain-v7-8-22946812c928@geanix.com>
+	<GLsiBXMl7MICRWdgbnxO5JMAYIYQJNMOzCLl4lpTIqLags2We11Fx26bnL1jRGDutC0Si7dBWxu1SuQX4KbNgA==@protonmail.internalid>
+	<20260831122856.BC5821F00A3E@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 17:48:21 +0200
+Message-ID: <87a4q2uw8q.fsf@geanix.com>
 User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -60,18 +52,14 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain
 
-"Andy Shevchenko" <andriy.shevchenko@intel.com> writes:
+<sashiko-bot@kernel.org> writes:
 
-> On Mon, Aug 31, 2026 at 02:17:10PM +0200, Esben Haabendal wrote:
->> If mma8452_probe() fails in iio_device_register() or later, we could end up
->> with runtime suspend callback being called with a now freed device pointer.
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
 >
->> Fixes: 96c0cb2bbfe0 ("iio: mma8452: add support for runtime power management")
->
-> Can this be popped up in the series? I think previous couple of patches are not
-> fixes...
+> Pre-existing issues:
+> - [High] Pre-existing memory leak of iio_trigger in mma8452_probe error paths.
 
-Yes, popping it in front of all the other code patches in the series
-does not seem to cause problems. I have scheduled that for v8.
+I have a fix for this queued up for the follow-up series that I have
+ready to send once this series is merged.
 
 /Esben
