@@ -1,100 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 584783624B8;
-	Mon, 31 Aug 2026 21:27:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8103739C63D
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 21:28:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788211643; cv=none; b=UJZLAysjn3yEsu8xROSZZlDFHYc+2LS6axtYWqCc3gxLdWXZFysknThzD3lMWhpC/SGabTu5hPS9olNd+zQRHgOly/YY3pdFz0S8Q3S01Gp/nOAKAOyh2QxoFMCzHURTWjfI1tcZf3R2MIQCtiX9PtiHEaYhqeNNz5fO8p9HwTE=
+	t=1788211688; cv=none; b=X+h9BQFr59+uI6jcaLJPUhYls1UE3aiSjnxS6hsQmtd3wVLxrkLePGA266cyQto1B7Sa3IQ4IHPDEJOquD81n4oK8c0xfdi4LccHoVOI7Oj0ZaHAGvia9gZbBtVySyfcKEF9lTvP22lEGH05YD8m60OcML7wtU8QfIbw3YVbTpQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788211643; c=relaxed/simple;
-	bh=UWkAB/0UN0jAczMe5AfSqL0s1dlXiU0QWMONLCr0qvE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Wum9iAuT0peKd7s2ZWJek6/SWOIfwF7iZYkQIS3mJxXHNrwRnJ96wG0Hpi6ONMWV+aUx9o3iIVhsLjeGedMTLJLzvD0MVa2fkhubyITcqndS+vvVXaSeR/Frg31ehbI2vX7PtTbLRlpgvHdP3O/v79O6RdCxj6UhqNJDGIZxAQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B5Wg3vRF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788211688; c=relaxed/simple;
+	bh=YZGggWt1Xosi9Qj5G+aPAuux/uJ8diAztxV9uf90gu8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rt1O0gxulRpCKx4YE0NHp1isSZvJUH/5Df/Yjrb2c9y/1CVHzCPcND5IgHyWKm90Nnoq4n8BFBvCwznnkxJEwrnD7WaMB3uPbIVIf24imOeitu8J6uDFCEw+DjQuFF1vf/vYEhB3MZFdwtBEYp/oN/fAwJy/X+ZLT5hps9fy3+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MLBAWxfK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B5Wg3vRF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93A7B1F000E9;
-	Mon, 31 Aug 2026 21:27:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MLBAWxfK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CED7A1F00A3D;
+	Mon, 31 Aug 2026 21:28:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788211641;
-	bh=UWkAB/0UN0jAczMe5AfSqL0s1dlXiU0QWMONLCr0qvE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=B5Wg3vRFGUo/ZoMi0Kd9Mepopts3nZTxI9uo7amXP04TaiWeNf9eDNLC4CyNIlO01
-	 Jr883+5+GPQ9HhKM/TaroYUonHwy4Ok6GcinzJznQEeLkRlpewaXwfivVhiTW9U/Mq
-	 Il76JpGMDjl37kEOvVRN0uBpp46GqKnx0zAAv93tUSeGcpKlaOJcugX0zpJ+QhlElM
-	 s6p4S3wckoXM0VPhh5+tfCAOSuoiZ8OafEGWcbxg9EEzN6dlrTfGsboCwxX86argFz
-	 HRMTWQNva1hq2bjmlEl4q16uN5PGThW/1wMTTPnyrBZIRtQiZOHB3+lvU8kkfSVjwM
-	 qfiyp9r3K7J2w==
-Date: Mon, 31 Aug 2026 22:27:13 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jia Wang <wangjia@ultrarisc.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Anup Patel <anup@brainfault.org>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-	Jose Abreu <joabreu@synopsys.com>,
-	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
-	linux-i2c@vger.kernel.org, netdev@vger.kernel.org,
-	dmaengine@vger.kernel.org
-Subject: Re: [PATCH 06/12] spi: dt-bindings: snps,dw-apb-ssi: Add compatible
- for UltraRISC DP1000 SoC
-Message-ID: <9bd5a17a-43a8-4e3b-bd12-ddde9265c2f0@sirena.org.uk>
-References: <20260824-ultrarisc-dts-v1-0-61ab7aebe9e5@ultrarisc.com>
- <20260824-ultrarisc-dts-v1-6-61ab7aebe9e5@ultrarisc.com>
+	s=k20260515; t=1788211686;
+	bh=Odu2HNFyAIygSQxxZLEKw/2kmbUw+Hljbd2Sv9tAoP0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MLBAWxfKLiieYxmeXewGmaK3Q5ifBh1km3ocg2D4Ha8Xlv4jw20rJhoGJbh6cSbxY
+	 U8jCNqhYRJcAvB5sqbhco6ShRYDl4UXpIqif5E2C+bmIZUvPn8Zj1T8YHRB8Onp5Aa
+	 Cv6KgboThcPsm0ESrHyLiG40K6pc9oEhON2RQVbRVag1tVWkqll7N4FOa2O0UPpfQn
+	 tckP7muHBx5fdevAozwwEWcBjmUXMe8mZmVPGc6QwEHCGwEyMAd5tM8jS9l8Rjj+sq
+	 cBafBN+T1pu62WxD5QfmtN7E/9flXBmGINJh+UATlIokqEAVVz/tKTLsek6YbhdSOX
+	 NN2OUNiaOGMsw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH V2 3/8] arm64: tegra: Enable XUSB host function on
+ Jetson AGX Thor
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Wayne Chang" <waynec@nvidia.com>
+Cc: vkoul@kernel.org, linux-phy@lists.infradead.org, olteanv@gmail.com, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20260831185835.3732707-4-waynec@nvidia.com>
+References: <20260831185835.3732707-1-waynec@nvidia.com>
+ <20260831185835.3732707-4-waynec@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 31 Aug 2026 21:28:05 +0000
+Message-Id: <20260831212805.CED7A1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="q+7g5Wbpwns/c8Jq"
-Content-Disposition: inline
-In-Reply-To: <20260824-ultrarisc-dts-v1-6-61ab7aebe9e5@ultrarisc.com>
-X-Cookie: Chocolate chip.
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Incorrect use of the GIC_SPI macro for GICv3 Extended SPIs (ESPI=
+s), leading to invalid hardware IRQ mapping and kernel warnings at boot.
+--
 
---q+7g5Wbpwns/c8Jq
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+commit 25f7b692b008d6ac4dd9bcab2f8ae074b1c59801
+Author: Wayne Chang <waynec@nvidia.com>
 
-On Mon, Aug 24, 2026 at 01:54:19PM +0800, Jia Wang wrote:
-> Add the SoC-specific compatible string and use the generic one as fallback
-> for the UltraRISC DP1000 SPI controller.
+arm64: tegra: Enable XUSB host function on Jetson AGX Thor
+   =20
+Enable XUSB host and pad controller on Jetson AGX Thor.
 
-This doesn't apply against current code, please check and resend.
+> diff --git a/arch/arm64/boot/dts/nvidia/tegra264.dtsi b/arch/arm64/boot/d=
+ts/nvidia/tegra264.dtsi
+> index 013228a817237..e59b1b0a5b925 100644
+> --- a/arch/arm64/boot/dts/nvidia/tegra264.dtsi
+> +++ b/arch/arm64/boot/dts/nvidia/tegra264.dtsi
+> @@ -4147,6 +4147,160 @@ pci@8480000 {
+>  			nvidia,bpmp =3D <&bpmp 5>;
+>  			status =3D "disabled";
+>  		};
+> +
+> +		xusb_padctl: padctl@8680000 {
+> +			compatible =3D "nvidia,tegra264-xusb-padctl";
+> +			reg =3D <0x00 0x8680000 0x00 0x20000>,
+> +			      <0x00 0x86a0000 0x00 0x10000>;
+> +			reg-names =3D "padctl", "ao";
+> +			interrupts =3D <GIC_SPI 4101 IRQ_TYPE_LEVEL_HIGH>;
 
---q+7g5Wbpwns/c8Jq
-Content-Type: application/pgp-signature; name="signature.asc"
+[Severity: Medium]
+Does this use of GIC_SPI for INTID 4101 lead to an incorrect hardware IRQ
+mapping?
 
------BEGIN PGP SIGNATURE-----
+The GICv3 DT bindings limit GIC_SPI indices to 0-987. During system boot,
+when parsing the device tree to set up interrupts for padctl@8680000, indic=
+es
+greater than 987 emit a warning and map to index + 32, which would compute =
+to
+4133 instead of 4101.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqV8bAACgkQJNaLcl1U
-h9DI8wf/eSvMfTYF0nSWOpBbx64lahzK6gdu0QfgliH0pyXLXPkDKM/MJk8BN5Mn
-h1/EIUG8xEEzzOTWbycIU1gyEVN1BSPELOL8mSJJg+5YS4SCKHjPLUvzHJUb+Tiv
-I41ubInBfOHEb15rEuP04UQovZYMvLCr/Grw4crXMM/hZW5RjdT48QhaltrjdbNT
-UOhg1ybDz4UzhD9ys7VACQ+U/cjjhbNezZZR4PaUST3pbURHoE9WFpohUbBhK5xT
-esoGPKe+DYO0LkRQ+SGGTekeE0q5hhwDGNp5F2rqqoz/8jUv5/iFlNsmUGvJQQAR
-0/8l/S9EqYMPbSKL1NQDqYdfFKPZQQ==
-=u+gt
------END PGP SIGNATURE-----
+Should this use the GIC_ESPI macro with a 0-based index (e.g., GIC_ESPI 5) =
+to
+correctly specify the ESPI?
 
---q+7g5Wbpwns/c8Jq--
+[ ... ]
+
+> +		usb@aa10000 {
+> +			compatible =3D "nvidia,tegra264-xusb";
+> +			reg =3D <0x00 0xaa10000 0x00 0x40000>,
+> +			      <0x00 0xaa00000 0x00 0x10000>,
+> +			      <0x00 0xaa50000 0x00 0x10000>;
+> +			reg-names =3D "hcd", "fpci", "bar2";
+> +
+> +			interrupts-extended =3D <&gic GIC_SPI 952 IRQ_TYPE_LEVEL_HIGH>,
+> +						  <&gic GIC_SPI 4096 IRQ_TYPE_LEVEL_HIGH>,
+
+[Severity: Medium]
+Similarly, does this map to the wrong hardware interrupt (4128 instead of
+4096) due to the use of GIC_SPI for an ESPI?
+
+This will likely trigger a "SPI 4096 out of range (use ESPI?)" warning duri=
+ng
+boot when parsing the usb@aa10000 node, and could break USB functionality.
+
+Should this use GIC_ESPI 0 instead?
+
+> +						  <&pmc 79 IRQ_TYPE_LEVEL_HIGH>,
+> +						  <&pmc 80 IRQ_TYPE_LEVEL_HIGH>,
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831185835.3732=
+707-1-waynec@nvidia.com?part=3D3
