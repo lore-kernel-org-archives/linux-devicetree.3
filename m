@@ -1,80 +1,179 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA433C988E;
-	Mon, 31 Aug 2026 08:47:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3868D3CFF6A
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 08:49:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788166049; cv=none; b=ZuV0LV9oKIFhfxQVopoCxdalwhkRGZviBfi4OdGzfRjSnVWKDdHp1QVARKKqqtKKS6iGj9u1kW9B4YBlhrAucQJ8Cj0Ud3wUdg1RiLpe5Aj2qyLptQg7WV9WA0J60x4V6D6s7nGPXINPMPoxf/I47BH/dej1osSJbqaJqTfB13g=
+	t=1788166147; cv=none; b=LYnRPiIjIFp/8rvIQH7l1qHGft4fNkSAfytdv7lFcBAuzy+K7S+6U1NvFmE1wSNlUubceJrMBqWBPV9Ransp0gf4qx4zOBfPlRahG6ZbsMv2nF3KD5QKfR2C2/yzeMN9+uhb8jKmxrlgoTEFQwvNuJEq3AEA4gD5Ym8coKT3tQg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788166049; c=relaxed/simple;
-	bh=Pk4ErvGmQrZOLIOGBljUuFGpUWFpUDhlnCt2Mj3RrMo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a15WNFgR6DGzdngGYEkRs27lJmIy8rwRXGP3g8wcG0Zc3KFM/e6Uf9S3YBpcl1nt6esM16yLDP2ps0i7o44DLpwiEV53RAb8IVzvigQ7d7e56dWzY2+YPSNDAO2UFISYkVAhF9O2ZB4Pu88jrASZ/hYC6J2xFqGG+sw307v56uw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BIEFSvuz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788166147; c=relaxed/simple;
+	bh=azoied0xT64i6k+wetOreteV2UnbQxs5C9/KtA7kOAk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=CNehjVUosTw6XwHIqAcqXNcBAckXN7TTgVgse/Dumho/eFcm3b6aWCMesC5m6BMkEKMFdEq/x0wWL+vznt8BUxxqGpec2CpNYUFvrEDbWm+81w+sVgKWq7i4eCDY23JdMjDiuQXbrSy8wkQmzuEAHJwm1f9xFGZD/z1IIt5TZ44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DiQJ30f/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BIEFSvuz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9CBC1F000E9;
-	Mon, 31 Aug 2026 08:47:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DiQJ30f/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADED01F000E9;
+	Mon, 31 Aug 2026 08:49:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788166047;
-	bh=Pk4ErvGmQrZOLIOGBljUuFGpUWFpUDhlnCt2Mj3RrMo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BIEFSvuzZBvTfLfVp+Vn+FHw9YzHUiaLSCr0qYW0HW0RTzuDXNHNewgiSgSY7+N86
-	 TeSAUngT5um33hCuSvsZHzP6ZjGg7sbw3J4bkoujboHQlFlDtt3vWo51Q1q99T4YUG
-	 i6GNrZIsHJ8EeUqkz0SbLR0sSlKdCMpuiq9J/+EiZZ//Vhjkq2ZRlMKVz20ehkWlmt
-	 HeT7Pf0bHeWrVCvee6UdZ6JXq9RlDMTeG9bcQODpwq7yxHLrTG3VDNpZnqVOWP55XK
-	 RGiy3YiNC2aTplQaKe3BiCpC+SH3W+yF8YzOXWKYS2/s1AdikKtyTU843iIZKLZ6VW
-	 cl394f5bEgf7g==
-Date: Mon, 31 Aug 2026 10:47:23 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Marek Vasut <marex@nabladev.com>
-Cc: linux-phy@lists.infradead.org, Pankaj Dev <pankaj.dev@st.com>, 
-	Rahul Kumar <rahul.kumar05@st.com>, Fabrice Gasnier <fabrice.gasnier@foss.st.com>, 
-	=?utf-8?Q?Cl=C3=A9ment?= Le Goffic <clement.legoffic@foss.st.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Christian Bruel <christian.bruel@foss.st.com>, Conor Dooley <conor+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Patrice Chotard <patrice.chotard@foss.st.com>, Rob Herring <robh@kernel.org>, Rosen Penev <rosenp@gmail.com>, 
-	Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org, kernel@dh-electronics.com, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [PATCH v4 1/2] dt-bindings: phy: Document ST STM32MP25
- USB2-FEMTO PHY
-Message-ID: <20260831-festive-gerbil-of-prestige-2fbeeb@quoll>
-References: <20260828150739.174460-1-marex@nabladev.com>
+	s=k20260515; t=1788166142;
+	bh=ijAzzobdrK9v1uftPq1rk2JJGtUzAPqOY3nwGtZR9bk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=DiQJ30f/TI50Bw7BCJBQPxHCpRMr1RgruBmdM4/u6cMfuEifceJPjUHTi3GXo9VR9
+	 vgi6WLDO9dQTGCqvraKvYQ5wwtSVmXeYtfxEPxlu6uWsb/SgetZHFWoZbEmaeO3LpG
+	 EArRhS7XSJnmd3LYW9PxwMEU0z3NNA/do0lGdhe7luCx23OEDQaksA01DBP+hyj7Es
+	 +usNI74QWp6hRIR0sNXaGPRxqsmpt9gP5hFDos3rWOMP42cBbnTnrVv08Mf4L81HVo
+	 i1WB58Hfls+Y31gJo/HuaD1mIrfa+Mrfn9pYbD02HyC/lZPKz/z03SSIgRC1Xngepz
+	 TLsZRLKqbsnxQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 04/14] accel/rocket: let the core suspend after a
+ reset
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jiaxing Hu" <gahing@gahingwoo.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260831081956.84871-5-gahing@gahingwoo.com>
+References: <20260831081956.84871-1-gahing@gahingwoo.com>
+ <20260831081956.84871-5-gahing@gahingwoo.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 31 Aug 2026 08:49:01 +0000
+Message-Id: <20260831084901.ADED01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260828150739.174460-1-marex@nabladev.com>
 
-On Fri, Aug 28, 2026 at 05:06:56PM +0200, Marek Vasut wrote:
-> From: Pankaj Dev <pankaj.dev@st.com>
->=20
-> Document USB2 PHY for STM32MP25 USB2 controllers, which includes the
-> USB2.0 host-only controller and USB 2.0 part of the DWC3 controller.
-> Two such PHYs in total are present in STM32MP25 SoC, they both are
-> slightly different, therefore they use different compatible string
-> to discern them.
->=20
-> Signed-off-by: Pankaj Dev <pankaj.dev@st.com>
-> Co-developed-by: Rahul Kumar <rahul.kumar05@st.com>
-> Signed-off-by: Rahul Kumar <rahul.kumar05@st.com>
-> Co-developed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> Co-developed-by: Cl=C3=A9ment Le Goffic <clement.legoffic@foss.st.com>
-> Signed-off-by: Cl=C3=A9ment Le Goffic <clement.legoffic@foss.st.com>
-> Co-developed-by: Marek Vasut <marex@nabladev.com>
-> Signed-off-by: Marek Vasut <marex@nabladev.com>
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+New issues:
+- [High] Using asynchronous pm_runtime_put_autosuspend() instead of a synch=
+ronous suspend in the reset path prevents the required power domain cycle i=
+f the next job is submitted immediately.
 
-Best regards,
-Krzysztof
+Pre-existing issues:
+- [High] The shared IRQ handler accesses hardware registers without verifyi=
+ng if the device is active, and the runtime suspend callback powers down ha=
+rdware without synchronizing with in-flight shared IRQs.
+- [High] Reference count leak of the IOMMU group on every job completion in=
+ rocket_job_next_locked().
+- [High] Detaching the IOMMU before halting the hardware during reset cause=
+s SMMU translation faults if the hardware is still active.
+--
 
+commit b4995381e41020bdb1af33ec4a432209b68f8226
+Author: Jiaxing Hu <gahing@gahingwoo.com>
+
+accel/rocket: let the core suspend after a reset
+
+This patch modifies rocket_reset to drop the PM reference using
+pm_runtime_put_autosuspend, allowing the core to suspend and trigger
+a bus interface reset upon resuming.
+
+Link: https://lore.kernel.org/all/20260819073530.6087-1-royalnet026@gmail.c=
+om/
+
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
+ket_job.c
+> index 3c0ed46050669..a89ab49e17e52 100644
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -406,12 +406,12 @@ rocket_reset(struct rocket_core *core, struct drm_s=
+ched_job *bad)
+> =20
+>  	/*
+>  	 * No handler is running now, but we might still have stuck jobs. Let's
+> -	 * make sure the PM counters stay balanced by manually calling
+> -	 * pm_runtime_put_noidle().
+> +	 * make sure the PM counters stay balanced by putting the reference the
+> +	 * job took, and request idle while doing it so the core can suspend.
+>  	 */
+>  	scoped_guard(mutex, &core->job_lock) {
+>  		if (core->in_flight_job)
+> -			pm_runtime_put_noidle(core->dev);
+> +			pm_runtime_put_autosuspend(core->dev);
+
+[Severity: High]
+Does using the asynchronous pm_runtime_put_autosuspend() here prevent the
+required power domain cycle?
+
+If a queued job is submitted immediately after reset, couldn't the autosusp=
+end
+timer be canceled before the core actually suspends?
+
+rocket_reset() finishes by restarting the scheduler:
+
+    /* Restart the scheduler */
+    drm_sched_start(&core->sched, 0);
+
+If the scheduler restarts and the next job runs immediately, it will take a
+PM reference and cancel the autosuspend timer before the suspend happens.
+Would using a synchronous suspend instead guarantee the hardware ordering
+constraints are met?
+
+> =20
+>  		iommu_detach_group(NULL, core->iommu_group);
+
+[Severity: High]
+This is a pre-existing issue, but does detaching the IOMMU here before halt=
+ing
+the hardware risk SMMU translation faults?
+
+If a hung job leaves the hardware actively attempting DMA transactions,
+detaching the IOMMU unmaps the device's DMA domain while the transactions a=
+re
+still in flight.
+
+The hardware is reset and halted after the IOMMU group is already detached:
+
+    iommu_detach_group(NULL, core->iommu_group);
+    ...
+    /* Proceed with reset now. */
+    rocket_core_reset(core);
+
+Should the hardware be halted prior to revoking its DMA mappings?
+
+[ ... ]
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the shared IRQ handler
+access hardware registers without verifying the device's PM state?
+
+In rocket_job_irq_handler(), the handler reads a hardware register on a sha=
+red
+IRQ line:
+
+    u32 raw_status =3D rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
+
+If an interrupt fires for another device sharing the same IRQ line while the
+NPU is runtime suspended, won't this read unclocked hardware registers and
+potentially cause an asynchronous SError panic?
+
+Additionally, in rocket_device_runtime_suspend(), the hardware is powered d=
+own
+without synchronizing with in-flight shared IRQs:
+
+    clk_bulk_disable_unprepare(rdev->cores[core].soc->num_clks,=20
+                               rdev->cores[core].clks);
+
+Could this crash the kernel if the handler is executing mid-flight while the
+clocks are disabled?
+
+[Severity: High]
+This is a pre-existing issue, but does rocket_job_next_locked() leak an IOM=
+MU
+group reference on every normal job completion?
+
+The group reference count is incremented but not decremented when detaching:
+
+    iommu_detach_group(NULL, iommu_group_get(core->dev));
+
+Because jobs execute continuously, won't this eventually saturate the refco=
+unt
+and permanently leak the IOMMU group object on teardown?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831081956.8487=
+1-1-gahing@gahingwoo.com?part=3D4
