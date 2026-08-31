@@ -1,169 +1,213 @@
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE30E47A0A5
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 17:42:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7EC448551D
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 17:45:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=121.127.44.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788198158; cv=none; b=K9sa3VIBRARzVqjuIvGIQWx4Bj8aXfmN3PQTxB42J12V2Son2ETc6n3HkcuV9yckVg/ZyLy568Put/PwAulKvKhQuN7pEpBFK2qjJF1/gDXVBKvEGtG1ZfIunvJqWa/XvQemjRQIEjCL7qey3Wpcfc/qclOFJgixIr4+LdTrnaI=
+	t=1788198307; cv=none; b=Jxq9FdNezbgqY1XMDdmGw+KhgJuNXVGpzvD2y8yqDo+9GrQFX7Du2dOtbsJdkT+hqpoBrB4MED422YABkljf36rsywp9+bolDkFG4LQVZIUOJH6CPk1BguIQTLfKlJGq0ceJyAk1d+C9+Wb1VusWoJrR6+tvV8G+fdYQzWrTZQU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788198158; c=relaxed/simple;
-	bh=2SQmS1BEAnLIMbljFkQwkOS3WcPm6gHQujWPW1XjW4I=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NC2WuAwoR5Qy5BVkvj8/wG6cuoVbtn7XdX492NhXMHRA+vkAb+vc51Jmu4tC0FXlehvHKnP10cYnqOTX13AiT8cgLYcbOiEMIHowpu4eTM/mCBSQJWdousruj7cjvigDuCZWzjtZh6P3ru8tabyS3bxLzy2aWJVdwB+PO92fn2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=gRyJSczy; arc=none smtp.client-ip=185.67.36.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	s=arc-20240116; t=1788198307; c=relaxed/simple;
+	bh=Du3sHiV5uyPCPtgPS4hklUKNWm+9aOuBrAZ4+mS9080=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=B1xtBoz9kIorDH94DnR5c+26xe3rRZT1DKb8tHRW7caxvBRu4Q+PptfBy0lMJ58XSo3fmdOdLoPLPJsEqsnIK1I/SxU+CL5nJG2FxIO+L+9bH0w7TxHl/SwUyAmW/tMqicDUCC3Y6gYVHalP8hkv2Hew0TGJ3Nmta9r7bGXt3jY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com; dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b=f8hStQLi; arc=none smtp.client-ip=121.127.44.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="gRyJSczy"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id D25F0240107
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 19:42:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
-	s=1984.8680eb; t=1788198151;
-	bh=fzSUA8jz+o+v6OONQ0mLxZOh2EV6BUjpJKgJbuUiqx8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:To:Cc:Autocrypt:OpenPGP:From;
-	b=gRyJSczyeSj+HvBtHLg4gtbWWgdUUsdQqD6a0JpBscdXJlFCo3ce8aNp6fEXjujgk
-	 nmAm8AYkw/OnZj32psL6fV7VBOhWpRfnuP2NX1RDmsGZrWvAm+gSx69d9ZI7V1YOCV
-	 pqPjnSOlYrL65Ufm/C1bUVudl5x6UilorvfY8Vn3dhIIiCM4LIXGxbAgQwVdUi1OLd
-	 vMwUi6jfKiAscRrXhminLa2H0VkM0NY+ScsRKS3hBZOMXDs+HXhJanmgkBTthhtvki
-	 7sYCxXm5P4WWGRFaH2nH3W9vKKc1Rx/Sw9iHMIvy3OshCy+o6Zxzd/TmYA/8wdTB3J
-	 /q34DC0ny8v0A==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4hYbsx41R2z9rxK;
-	Mon, 31 Aug 2026 19:42:29 +0200 (CEST)
-From: Markus Probst <markus.probst@posteo.de>
-Date: Mon, 31 Aug 2026 17:42:31 +0000
-Subject: [PATCH v8 6/6] rtc: s35390a: Add synology quirk
+	dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b="f8hStQLi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
+ h=In-Reply-To: References: To: From: Subject: Cc: Message-Id: Date:
+ Content-Type: Content-Transfer-Encoding: Mime-Version; q=dns/txt;
+ s=fe-953a8a3ca9; t=1788198297;
+ bh=TsNs9dlzIsPw1n+dGjUVmTdA3V8aHtepoq7JGw3Pc2Q=;
+ b=f8hStQLi87RwW/u6zhP9wFvYEfvFgQsNClURSSfzp3amY436aL2yI/enZZ8eJlU1c/BDmg4bi
+ OVgGHUQPAv+FOAOuQhyQNguLFU0fj+Gx8PF+ZL6T5Uoz1kgLf0u36pRE+wnoqih/BVshekJS+Rg
+ Ta2qwJXLor5gFFI492TLqxEC5pxEARlvf8f6N8cmY/cE+44cCENkpJgBDL3c53EGWHdPSWJhrl9
+ HroWe4fqaZOgUZVxhq/Ceqnsnrs2stoVOArJjpfEVouGgRjtGbJICqt78fam59QbM7ruajsxkKf
+ XDYtKypXFHZEA7E09a6S+nWxZ8nUZtZhWSMaNvvhckTw==
+X-Forward-Email-ID: 6a95bd922e35a4d29984247e
+X-Forward-Email-Sender: rfc822; jpeisach@ubuntu.com, smtp.forwardemail.net,
+ 121.127.44.66
+X-Forward-Email-Version: 2.14.0
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-rtc_s35390a_int1-v8-6-dac1dc86ce1f@posteo.de>
-References: <20260831-rtc_s35390a_int1-v8-0-dac1dc86ce1f@posteo.de>
-In-Reply-To: <20260831-rtc_s35390a_int1-v8-0-dac1dc86ce1f@posteo.de>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <uwe@kleine-koenig.org>, 
- Andrew Lunn <andrew@lunn.ch>, Gregory Clement <gregory.clement@bootlin.com>, 
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
- Michael Langer <michael.brainbug.langer@googlemail.com>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Linus Walleij <linusw@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Markus Probst <markus.probst@posteo.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1557;
- i=markus.probst@posteo.de; h=from:subject:message-id;
- bh=2SQmS1BEAnLIMbljFkQwkOS3WcPm6gHQujWPW1XjW4I=;
- b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBqlbz5V5J0ZvNJiT/2zbcSdjPgf7G6vwjwCAyxx
- hRnegQxoc6JAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCapW8+RsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9LYvRAAoNhAfPowmr/c/5UB1G2hNYc/9sTdc2v
- 7Hg4isgQffaXAFU1H/9qWEG4O9am9Xi4gRS+2TGw7Dd8lpp4A+ZWJ9bSvFY8dmPN1WW7lmaS4KK
- JXoVavLr3CxYVOS3D7ZaUvcLtMtPZ1m9y5IituTbZ24cW0vcpgvGJ2NplGkT1BbsynOy0IR9Ox0
- p1Mi/eXkkBZUoLyD8IJT+X5yJhGxvfYjRTMrXko8CLDKdvBpaxRdlosBA8lqjZxKZfUUTDS/QC4
- 9QSvRAwTsy3iffFRJsVu2hgKSO8ovUoUNyeKCAu80r16gnfkdTrVjP6FozeGEuUS0eD6d55OmMi
- qKleQpEKjRXopSymMLvCaF/SsokraVF62XQoFV7w16bAsVAziN3KG4jT4otK2EGAuyI6tIksS8N
- A0K6XlzG58haxKeJEhEY4ITBsuH7+2n/xPgOS8UZYeLxTS8k6DSvrCGQ8cVBzxwp1Mdu7ODGV0D
- 2arFG0mVgg4oE+tm1IwsL/9QDJlYpOkwvEsp68SR1Md0BLkMpP/XILZ/PRVmiWC1JqRqKCaIY8D
- 9bcqZNsN1fccx7tZU/fxnqrqLIWkPdpM4/KgmC8xaXmaFXUlBBF6DJW1cBBWW9QNRqbfJ0SBnf6
- 3/xwXxyGmNPOfry4/biIxFnbhi8NdXAXG2QKPOejlPtxxbs1jgbI=
-X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
- fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
-  keydata=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
-  aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8; format=Flowed
+Date: Mon, 31 Aug 2026 13:44:49 -0400
+Message-Id: <DL3BE19I49N4.3AZNJMC0LVG6R@ubuntu.com>
+Cc: "Konrad Dybcio" <konradybcio@kernel.org>, <linux-usb@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <asahi@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [PATCH 00/19] Initial USB4/Thunderbolt support for Apple
+ M1/M2/M3 SoCs
+From: "Joshua Peisach" <jpeisach@ubuntu.com>
+To: "Sven Peter" <sven@kernel.org>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Heikki Krogerus" <heikki.krogerus@linux.intel.com>, "Janne Grunau"
+ <j@jannau.net>, "Neal Gompa" <neal@gompa.dev>, "Andreas Noever"
+ <andreas.noever@gmail.com>, "Mika Westerberg" <westeri@kernel.org>,
+ "Yehezkel Bernat" <YehezkelShB@gmail.com>, "Philipp Zabel"
+ <p.zabel@pengutronix.de>
+X-Mailer: aerc 0.21.0
+References: <20260830-b4-apple-soc-tbt-v1-0-44bc9348683c@kernel.org>
+In-Reply-To: <20260830-b4-apple-soc-tbt-v1-0-44bc9348683c@kernel.org>
 
-Synology NAS devices use interrupt signal 1 for wakeup alarms. On ACPI
-it is not possible to configure pinctrl.
+On Sun Aug 30, 2026 at 4:19 PM EDT, Sven Peter wrote:
+> Hi,
+>
+> This series adds initial USB4/Thunderbolt support for Apple Silicon
+> M1, M2 and M3 SoCs. Each USB4 capable Type-C port comes with an ACIO
+> ("Apple Converged I/O") block which contains a Cortex-M3 co-processor
+> and the hardware implementing the USB4 router.
+>
+> The NHI and DART IOMMU are part of this ACIO block as well. Instead of
+> being exposed as independent always-accessible devices the main SoC bus
+> only gets a 16 MiB window into ACIO's MMIO space while its co-processor
+> is running. It is not entirely clear whether this is ACIO's own address
+> space or a window into the co-processor's address space.
+>
+> This is why the device tree represents the NHI and DART as children of
+> ACIO with addresses relative to that window. The driver only populates
+> these children after booting the co-processor and removes them again
+> before powering ACIO down. This setup is slightly unusual but matches
+> both the MMIO layout and the lifetime of the devices.
+>
+> ACIO also has rather strict ordering requirements: it can only be
+> started after the Type-C PHY has been configured for USB4/Thunderbolt
+> and has to be stopped again before the PHY is powered down. It also
+> needs cable details which are only known to the Type-C port controller.
+> The existing Type-C mode switch cannot express the required reverse
+> teardown order, so the first three patches add a separate Thunderbolt
+> switch and hook it up to the CD321x port controller.
+>
+> The next two patches add the bindings for the NHI and ACIO. The
+> following patches then prepare the Thunderbolt core for the slightly
+> different NHI register layout and interrupt handling, read the USB4
+> router DROM from the device tree and add quirks for functionality not
+> implemented by the Apple hardware.
+>
+> The main driver powers up ACIO, boots the co-processor, populates
+> the DART and NHI children once their MMIO regions are accessible and
+> registers the NHI with the software connection manager. The last three
+> patches add the device tree nodes for the M1 and M2. M3 nodes will follow
+> once the rest of the stack is upstream, but the current Thunderbolt/USB4
+> code has already been successfully tested on those.
+>
+> Right now only XDomain connections and USB3-via-USB4 tunnels are
+> supported. Both PCIe and DisplayPort tunnels will come later since those
+> require additional work and reverse engineering that is not done yet.
+> Suspend is also not supported yet and we actually have to prevent
+> suspending whenever an active connection is present because we would
+> otherwise resume into an SError.
+>
+> This series depends on the Apple CIO reset controller [1], the ATCPHY
+> USB3-via-4 pipehandler support [2] and support for specifying the DART DM=
+A
+> aperture in the device tree [3], a fix for CD321x Thunderbolt
+> altmode VDOs [4], and fixes for making the DPTX capabilities read fail
+> gracefully [5]. I couldn't split it any further since the remaining
+> patches now directly depend upon each other.
+> Except for the dts changes the series applies cleanly without these
+> dependencies though.
+>
+> For merging it probably makes most sense if all of this (except for the
+> DTS changes) is taken through the thunderbolt tree once everything's been
+> reviewed.
+>
+> Best,
+>
+> Sven
+>
+> [1] https://patch.msgid.link/20260821-b4-cio-reset-v2-0-2d045f80a424@kern=
+el.org
+> [2] https://patch.msgid.link/20260821-b4-atcphy-usb4-v1-0-45c0b741e0c0@ke=
+rnel.org
+> [3] https://patch.msgid.link/20260819-iommu-apple-dart-aperture-v1-0-2527=
+03f381aa@jannau.net
+> [4] https://patch.msgid.link/20260813-b4-tipd-vdo-fix-v1-1-70317f2cd554@k=
+ernel.org
+> [5] https://patch.msgid.link/20260829-b4-tbt-fixes-v3-0-e1fab6ac54fe@kern=
+el.org
+>
+> Signed-off-by: Sven Peter <sven@kernel.org>
+> ---
+> Sven Peter (19):
+>       dt-bindings: usb: Add thunderbolt-switch property
+>       usb: typec: Add thunderbolt switch
+>       usb: typec: tipd: Hook up Thunderbolt switch for CD321x
+>       dt-bindings: thunderbolt: Add Apple USB4/Thunderbolt NHI
+>       dt-bindings: thunderbolt: Add Apple USB4/Thunderbolt ACIO block
+>       thunderbolt: Try reading host DROM from device tree first
+>       thunderbolt: Don't read the UID if we already know it
+>       thunderbolt: Allocate ring HopID before requesting the ring interru=
+pt
+>       thunderbolt: Add ring_interrupt_active to tb_nhi_ops
+>       thunderbolt: Make the ring register layout configurable
+>       thunderbolt: Add ring_interrupt_mask to tb_nhi_ops
+>       thunderbolt: Add ring_configure to tb_nhi_ops
+>       thunderbolt: Add QUIRK_NO_DMA_PORT
+>       thunderbolt: Add QUIRK_NO_USB3_BW_ALLOC
+>       thunderbolt: Export symbols required by the Apple Silicon driver
+>       thunderbolt: Add Apple Silicon support
+>       arm64: dts: apple: t8103: Add USB4 ACIO and NHI
+>       arm64: dts: apple: t8112: Add USB4 ACIO and NHI
+>       arm64: dts: apple: t60xx: Add USB4 ACIO and NHI
+>
+>  .../thunderbolt/apple,t8103-usb4-acio.yaml         |  218 +++++
+>  .../bindings/thunderbolt/apple,t8103-usb4-nhi.yaml |  151 +++
+>  .../devicetree/bindings/usb/usb-switch.yaml        |    6 +
+>  MAINTAINERS                                        |    4 +
+>  arch/arm64/boot/dts/apple/t6002-j375d.dts          |   67 ++
+>  arch/arm64/boot/dts/apple/t600x-dieX.dtsi          |  384 ++++++++
+>  arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi     |  107 ++
+>  arch/arm64/boot/dts/apple/t600x-j375.dtsi          |  137 +++
+>  arch/arm64/boot/dts/apple/t6022-j180d.dts          |  202 ++++
+>  arch/arm64/boot/dts/apple/t6022-j475d.dts          |   10 +
+>  arch/arm64/boot/dts/apple/t6022-jxxxd.dtsi         |   57 ++
+>  arch/arm64/boot/dts/apple/t602x-dieX.dtsi          |  384 ++++++++
+>  arch/arm64/boot/dts/apple/t8103-jxxx.dtsi          |   61 ++
+>  arch/arm64/boot/dts/apple/t8103.dtsi               |  188 ++++
+>  arch/arm64/boot/dts/apple/t8112-jxxx.dtsi          |   61 ++
+>  arch/arm64/boot/dts/apple/t8112.dtsi               |  190 ++++
+>  drivers/thunderbolt/Kconfig                        |   13 +
+>  drivers/thunderbolt/Makefile                       |    3 +
+>  drivers/thunderbolt/apple.c                        | 1028 ++++++++++++++=
+++++++
+>  drivers/thunderbolt/cap.c                          |    2 +
+>  drivers/thunderbolt/ctl.c                          |    2 +
+>  drivers/thunderbolt/domain.c                       |    2 +
+>  drivers/thunderbolt/eeprom.c                       |   32 +-
+>  drivers/thunderbolt/nhi.c                          |  132 ++-
+>  drivers/thunderbolt/nhi.h                          |   32 +
+>  drivers/thunderbolt/switch.c                       |   19 +-
+>  drivers/thunderbolt/tb.c                           |   18 +
+>  drivers/thunderbolt/tb.h                           |    5 +
+>  drivers/thunderbolt/tunnel.c                       |   59 +-
+>  drivers/usb/typec/mux.c                            |  201 ++++
+>  drivers/usb/typec/mux.h                            |   12 +
+>  drivers/usb/typec/tipd/core.c                      |   37 +
+>  include/linux/thunderbolt.h                        |    3 +
+>  include/linux/usb/typec_mux.h                      |  114 +++
+>  34 files changed, 3872 insertions(+), 69 deletions(-)
+> ---
+> base-commit: 78bb208b99e7d3314f670710fa9ee0a793682bca
+> change-id: 20260829-b4-apple-soc-tbt-a00e873a52db
+>
+> Best regards,
+> -- =20
+> Sven Peter <sven@kernel.org>
 
-Use interrupt signal 1 for wakeup if no pinmux function has been
-configured in devicetree and dmi sys vendor matches "Synology Inc.".
+I unfortunately cannot test (afaik I do not have the devices) but a
+glance over everything seems reasonable :)
 
-Signed-off-by: Markus Probst <markus.probst@posteo.de>
----
- drivers/rtc/rtc-s35390a.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/rtc/rtc-s35390a.c b/drivers/rtc/rtc-s35390a.c
-index 649d36d37f1f..d3e829052927 100644
---- a/drivers/rtc/rtc-s35390a.c
-+++ b/drivers/rtc/rtc-s35390a.c
-@@ -5,6 +5,7 @@
-  * Copyright (c) 2007 Byron Bradley
-  */
- 
-+#include <linux/dmi.h>
- #include <linux/module.h>
- #include <linux/rtc.h>
- #include <linux/i2c.h>
-@@ -778,8 +779,18 @@ static int s35390a_probe(struct i2c_client *client)
- 		return dev_err_probe(dev, err, "pinctrl enable failed\n");
- 
- 	/* If no pinmux function is defined in DT, fallback to previous behaviour */
--	fallback[0] = S35390A_FUNC_IGNORE;
--	fallback[1] = S35390A_FUNC_WAKEUP;
-+
-+	if (dmi_match(DMI_SYS_VENDOR, "Synology Inc.")) {
-+		/*
-+		 * Synology uses interrupt signal 1 for wakeup. Since pinctrl cannot be
-+		 * configured on ACPI, we check against the dmi sys vendor.
-+		 */
-+		fallback[0] = S35390A_FUNC_WAKEUP;
-+		fallback[1] = S35390A_FUNC_DISABLE;
-+	} else {
-+		fallback[0] = S35390A_FUNC_IGNORE;
-+		fallback[1] = S35390A_FUNC_WAKEUP;
-+	}
- 
- 	for (i = 0; i < ARRAY_SIZE(s35390a_pin_groups); i++) {
- 		if (s35390a->pinfunction[i] == -1) {
-
--- 
-2.54.0
-
+Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
