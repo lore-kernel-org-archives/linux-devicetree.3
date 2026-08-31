@@ -1,93 +1,111 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8172B3955D7;
-	Mon, 31 Aug 2026 21:41:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A56237AA65;
+	Mon, 31 Aug 2026 22:07:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788212514; cv=none; b=HeqNDgX4TFq//f1IC9VR5Ct+/pUe/AbVOpkdpwtL1NvPxzjmXGYp7olsxw5g9gzIX7X0kHtNVk6g16IcHESwkxoNHJiktx7s/PeXA4qBo2U5IsQzEagqx04uePp90tUdzLnpZVuyl+Z0Sfl3HgqyqCKOz/thFZVZfqBnM67bikg=
+	t=1788214033; cv=none; b=loxoXCRbm1Ns2sdYlaFk/04WZqRCQ6zupqj4OJ/PkUQBUdCBjb7NeiBpYS1I5aZ58AZ2OA1Z8KaXJShmIm8iPdHcqNMOkX+1NPHC2g+I+pYYUGL9NY0n2uFGzfSlRsmCW0roxmrQbwyWRBEnwPLlWXZa4K1FA1Xlv/S+kGMJI4I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788212514; c=relaxed/simple;
-	bh=qaV1tTloGcys7j3cgzp5dmXEaVc5v5QwO7uVaKVw0JM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=PmujJnSzcIkvSgsnkpEjUWP5tiGbMLe3WfM4O/BggSwe2WM3U03O2/iED1tEGSl9ZYAwcZhJFvBt24gBAH6NridPFi91BqdzklWR8yizx8CE1fVAaNe4zVLT3nEonE5DU+KnclAbm4gVJbZfpptKdzgXchgxSjteAKg/nQNx928=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H2Cl36Xc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788214033; c=relaxed/simple;
+	bh=yp51dUsBfJr/qx894VTDIv+37PybbiqJ9BORpa7P9hw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=iIXnY0aWYoDYZTaQ3Zjk9X4Hc1ndB01KRKfQYS7fs6cFVnkeeBBUJcKC+HjLRWtrLsTK9FIqWpqt7zRfdZMlcGaX+rOoTu0SdjBu/Lce227Gkxsam0DBETFsQlhR0hEOvxgsSmbt+c89CMJK//ofRE+0HO04s7IxcsKNykmqpn4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gYnoG23j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H2Cl36Xc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E00371F000E9;
-	Mon, 31 Aug 2026 21:41:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gYnoG23j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A6401F000E9;
+	Mon, 31 Aug 2026 22:07:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788212513;
-	bh=TEEmGKDjyqxS4qnXRtE4P/e+M/1XaA5wZcIfKpKTX0g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=H2Cl36XcRboZBYSxpbuIlyimZBwJnRvX0ygDjydb/r2wplHhS3ZC6Xfablt6os+HW
-	 H8FeoKABYjDJB3vxYE5sFDZVrQicGVXJNRCsPfH0oUH50ixgL0E6Rszt9WULwBRQp7
-	 d58wd8m0KrlLXhm/J4E1xOFUq5suODDCvi/cNJ9sjA0OKP4x7PvwLG2Xqim+1Dceov
-	 JqfkroAI9Qvn+8jAnxsXlKyrZ98L89zzRL/sHFq1EQv2reNxHDnZpjFfJZrpkUH37J
-	 H7GpciXXI2lt6k0d65S+4RF3wHPuCR65XtXixUVO5GK9aTpo+wpCpSZTgtTKxir1gf
-	 76fsH/CmcGiQQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/1] dt-bindings: mfd: da9052: allow dlg,da9053-aa
- fallback to dlg,da9052
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Frank.Li@oss.nxp.com
-Cc: lee@kernel.org, devicetree@vger.kernel.org, mfd@lists.linux.dev, Frank.Li@kernel.org, conor+dt@kernel.org, robh@kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260831201522.51294-1-Frank.Li@oss.nxp.com>
-References: <20260831201522.51294-1-Frank.Li@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 21:41:52 +0000
-Message-Id: <20260831214152.E00371F000E9@smtp.kernel.org>
+	s=k20260515; t=1788214032;
+	bh=OvuYd2E9gNoEafLJQR92iLzGR8RBPvPVUyVxGnAPjF4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gYnoG23jCYrZH9URvUkK4HQ8u1Y6rRbB+8IwiaAp6UhhaEmRaPOT3Ngz2Z4VCY7Sv
+	 GwmBOowSmdCdbr2xCF4omQIBbTDWpWaNvbBykc8cFezNpu1mRYW0OPHKT2gAYD7sc+
+	 EMv1yltzIr/Yz9erkJ0K5dKroK9HsYTt00ckq8iD/xNvg0PD2ZeViy+bGPyrD7T7Df
+	 6beBM0whRsZmwsBAUBq/Jz3Ds/ClEqxoQ0jws07Fh5m0S0YmFlkhhxXYZjx2m0VltQ
+	 LXnxB55DqI2y3JxXp+9D9uHtZObB9Z6dU302sCKiMgRFW3FzsTcvQOQNbr/50p75N0
+	 44dch5lJjT2ag==
+From: Bjorn Andersson <andersson@kernel.org>
+To: konradybcio@kernel.org,
+	Sumit Garg <sumit.garg@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
+	linux-media@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	ath12k@lists.infradead.org,
+	linux-remoteproc@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	robin.clark@oss.qualcomm.com,
+	sean@poorly.run,
+	akhilpo@oss.qualcomm.com,
+	lumag@kernel.org,
+	abhinav.kumar@linux.dev,
+	jesszhan0024@gmail.com,
+	marijn.suijten@somainline.org,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	vikash.garodia@oss.qualcomm.com,
+	bod@kernel.org,
+	mchehab@kernel.org,
+	elder@kernel.org,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	jjohnson@kernel.org,
+	mathieu.poirier@linaro.org,
+	trilokkumar.soni@oss.qualcomm.com,
+	mukesh.ojha@oss.qualcomm.com,
+	pavan.kondeti@oss.qualcomm.com,
+	jorge.ramirez@oss.qualcomm.com,
+	tonyh@qti.qualcomm.com,
+	vignesh.viswanathan@oss.qualcomm.com,
+	srinivas.kandagatla@oss.qualcomm.com,
+	amirreza.zarrabi@oss.qualcomm.com,
+	jenswi@kernel.org,
+	op-tee@lists.trustedfirmware.org,
+	apurupa@qti.qualcomm.com,
+	skare@qti.qualcomm.com,
+	linux-kernel@vger.kernel.org,
+	Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v9 00/14] firmware: qcom: Add OP-TEE PAS service support
+Date: Mon, 31 Aug 2026 17:07:06 -0500
+Message-ID: <178821402262.1706165.9287098624107788227.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260702115835.167602-1-sumit.garg@kernel.org>
+References: <20260702115835.167602-1-sumit.garg@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The patch introduces an inconsistency by explicitly allowing the le=
-gacy fallback compatible string `dlg,da9053-aa` with `dlg,da9052`, but omit=
-ting `dlg,da9053` which uses the exact same pattern.
---
 
-commit abd213140dc2339cb1dfe32c3ccb7bfd92c4ba9b
-Author: Frank Li <Frank.Li@nxp.com>
+On Thu, 02 Jul 2026 17:28:16 +0530, Sumit Garg wrote:
+> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> 
+> Qcom platforms has the legacy of using non-standard SCM calls
+> splintered over the various kernel drivers. These SCM calls aren't
+> compliant with the standard SMC calling conventions which is a
+> prerequisite to enable migration to the FF-A specifications from Arm.
+> 
+> [...]
 
-dt-bindings: mfd: da9052: allow dlg,da9053-aa fallback to dlg,da9052
+Applied, thanks!
 
-This patch adds a fallback compatible string schema allowing dlg,da9053-aa =
-to
-fall back to dlg,da9052 in order to resolve a legacy platform check_dtbs
-warning.
+[13/14] firmware: qcom_scm: Remove SCM PAS wrappers
+        commit: 3eda4fa73e30207eb7afedde6987f7f321f74fbc
 
-> diff --git a/Documentation/devicetree/bindings/mfd/dlg,da9052.yaml b/Docu=
-mentation/devicetree/bindings/mfd/dlg,da9052.yaml
-> index 1103a8cc5cea4..d1d23c7c4d0c2 100644
-> --- a/Documentation/devicetree/bindings/mfd/dlg,da9052.yaml
-> +++ b/Documentation/devicetree/bindings/mfd/dlg,da9052.yaml
-> @@ -18,6 +18,10 @@ properties:
->            - dlg,da9053-bb
->            - dlg,da9053-bc
->            - dlg,da9052
-> +      - items:
-> +          - enum:
-> +              - dlg,da9053-aa
-> +          - const: dlg,da9052
-
-[Severity: Low]
-Does this fallback allowance also need to include the plain dlg,da9053 vari=
-ant
-to completely fix the warnings?
-
-Looking at arch/arm/boot/dts/nxp/imx/imx53-smd.dts, the pmic node still
-relies on the missing fallback pattern:
-
-		compatible =3D "dlg,da9053", "dlg,da9052";
-
-Without including dlg,da9053 in the enum alongside dlg,da9053-aa, won't
-the legacy device tree node continue to generate a dtbs_check warning?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831201522.5129=
-4-1-Frank.Li@oss.nxp.com?part=3D1
+Best regards,
+-- 
+Bjorn Andersson <andersson@kernel.org>
