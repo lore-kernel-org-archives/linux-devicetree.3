@@ -1,213 +1,144 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3070400987
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 12:32:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C83C84028FA
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 12:32:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788179528; cv=none; b=OEPTOKspXCAtiCL3fODfZsMMjwN4UjrB+PfNqSMtcAH9UHpGLCqc47S1+0fymvbnsqB0XWPxNd9qrJOfZcfG7C68TKfI4/RqY6ufHrLyQeSlRKuCYrfEYMnLnCX0xmM9WulHU3ydJElX+zGLrDDeIh5AMrOesxsBKwKh9cLiUwg=
+	t=1788179557; cv=none; b=cqrX50JxB8G23AUnOeOLWE86xBRTvOMrQ4v43kuJT3Q633qrbpT5R4zrFqf7QIUy/wPJ3sGC5tgNK69M/FQV5tRlspxvikv2kGyL52tPhlzHs+2so9nc5cR+PvvnV7dLZcFkqNL3NJ/Y5fO7Zv5mtz9Gr31jZpfEuF0DIULghTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788179528; c=relaxed/simple;
-	bh=+vYSXAdB7mdZUzzraaWojPzoKc/WyC01Fzwr3gps7GY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=n9pLoGJjf2vW/4jw6x4/q0+42ZN/R46p+CyJ2XMemZm0Efx1sNE5B/DMoysEFSkFDRVWj15QYua/ZiIkM5sg8vAo7tau0/uSCEEhaC+FXvNOMqqjqHk8o4JcexfISKkroI3jUO4SfmTwzZIiI7eNFIR3hpJMPe3w342nzih/G+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vayavyalabs.com; spf=pass smtp.mailfrom=vayavyalabs.com; dkim=pass (1024-bit key) header.d=vayavyalabs.com header.i=@vayavyalabs.com header.b=d597RFTV; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vayavyalabs.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vayavyalabs.com
+	s=arc-20240116; t=1788179557; c=relaxed/simple;
+	bh=xCasVCC/JKR4p5177KuthM96Caf+jpEjhkT8MhJmu88=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=iTscgbnOaxOuy6CytGmOV8vYMSBJ/Y3Z6Xg+Ip9cmTALyqFURd64nAMSvhmR/0BCR6VKBDjoBlNpsTCLGqpMkp0mQcWG0aAwgYF7l/+h4KQ9YLy3GqAJtwYe290y+R5ZZ1Ty3+zyCZVAYbThU8jftg3iyaIAL5QKKeRaEo/9rPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M7G6+/tm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=vayavyalabs.com header.i=@vayavyalabs.com header.b="d597RFTV"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38759bcd877so3257770a91.2
-        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 05:32:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=vayavyalabs.com; s=google; t=1788179526; x=1788784326; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kfdZ+27dsteNmPPWYcAlJOh1CClxN+nuAUGat2n+hNU=;
-        b=d597RFTV79lXzt/zNSrpgfD3wv0fyvMpbfwa6d0zBFX4Ul9jR0ioO6KACHwzskrp2Y
-         JjbXQWaQUT1xWbHXy5dCFXtylNp4SpzwbEmQbpWAo4zilr8xch8lvYGP1BpZ/kHVXAXj
-         foXQTjE0EUM+6k+bDunQhEL02ivcR1kx+zHCI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788179526; x=1788784326;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kfdZ+27dsteNmPPWYcAlJOh1CClxN+nuAUGat2n+hNU=;
-        b=XjSoZ2JPlsVAfDwxrjIEZOpXPH6i0P+kBhqX+pxkHopC6PBIm626Ms3P+NrRbh6zQW
-         9cxAjb4sNVyt3rDGpI8xj8QwJGBIcol7EnYb1IPu1M46eT24LqPnJHU9neDfN3shxBZx
-         RAxvYPA9Li+9P7XFhbPxbOKiAink3Uf10DuicCihDksDcMKj53iLgXGbFdxcJPC48cCn
-         vWZqnvyu85IfCCaIIrirBAVp5dwHeDGTjOUUj5yy3OwwMUYyURJ9TlkjHUrX4PrRdLsa
-         rOcdts2FjoNgz13AmYshrcBD+Efx8x/INSp4k3frjr0o49fG/Vd7R8jZFbZVhXBApgG+
-         SSvg==
-X-Forwarded-Encrypted: i=1; AKwUvByG9+1xFnaNBfdKWVHiPSFU6+uLR+uU/fjfedKFbN9Okk6Rme85tQBSdZdEvhlHGNC4aOA38A5o9Az1@vger.kernel.org
-X-Gm-Message-State: AFuF++mRz9v3i7+xdz0pNZcZKJLIGchb26ELZzxxy6t+bo+vTyxdbhCa
-	7l1a9mOvqIWNCsUSpwgZXQV5kSiwNhUtEmRuBSyoNdm91pzUz48CQtlMEtcY+dGOzlU=
-X-Gm-Gg: AYBFou2yNLsl+cg0oJnK3z5ZE0tJsxRpAT2z5YfW7tbZ5SoQ1rTSHE7lEVw29xzsZ5Z
-	r/jfAjYOGQ0BUYFAvXjNLZPLOnijgK3ybjpKK6O8XuUaE5XgKtoBnL/mFsux79Vr5Lrf6jkjXGv
-	k+S7G2pk/clAZvDEPIKToipy+04pyblMT6pe6pu4w5YdGsFUH3S2DUGBifjXIO9WHca+FqS9RPo
-	XvHni+pzTt/XxzqBh9HnpDOQaJyNpBcLL9KC5thGaQc6BjGxGFFmjkhje6j19g1TAS+oN5LQYBf
-	76T21YH5cst0w/vRyBNOrU9T4NloIZOyGlxAd3TEKiQjpN1HsMqjopgOsOqGvig8Kk21oVa8m+L
-	VrA9CHoNccKJrQh9RfSOJVRn6uoiG0+nbrgs4YhynFsqZ8TYBCdt6xm5X41smS5/ZQ/jnklDQod
-	ohvgf20PQodI0iMqGisGZDuCVPl4hm4sX+8OHw5MVQ27LOLcKj/8arJOYnYIe/iBcZJfPyvNWL6
-	a5fLGGjjBgKO6I9hTMoHTHKJl+rkKsVxVO0X5cPEFAqmDQGh33uQm435/8o98rwMPELB9L4RFSe
-	VLa+7KM6OUcxMRuqRjje07tuOtBZxX90i+4pT+o=
-X-Received: by 2002:a17:90b:3d91:b0:38f:18f9:785 with SMTP id 98e67ed59e1d1-396d0f016bcmr42950482a91.8.1788179525864;
-        Mon, 31 Aug 2026 05:32:05 -0700 (PDT)
-Received: from localhost.localdomain ([103.108.57.9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0d38207sm27470376c88.5.2026.08.31.05.32.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 05:32:05 -0700 (PDT)
-From: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
-To: linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	herbert@gondor.apana.org.au,
-	robh@kernel.org
-Cc: krzk@kernel.org,
-	conor+dt@kernel.org,
-	ruud.derwig@gf.com,
-	rbannerm@synopsys.com,
-	manjunath.hadli@vayavyalabs.com,
-	adityak@vayavyalabs.com,
-	navami.telsang@vayavyalabs.com,
-	bhoomikak@vayavyalabs.com,
-	nazim.khan@vayavyalabs.com,
-	Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
-Subject: [PATCH v24 4/4] crypto: spacc - Add SPAcc Kconfig and Makefile
-Date: Mon, 31 Aug 2026 18:01:13 +0530
-Message-Id: <20260831123113.870832-5-pavitrakumarm@vayavyalabs.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260831123113.870832-1-pavitrakumarm@vayavyalabs.com>
-References: <20260831123113.870832-1-pavitrakumarm@vayavyalabs.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M7G6+/tm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 466E81F00A3D;
+	Mon, 31 Aug 2026 12:32:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788179555;
+	bh=gusFBigGHLX98z+wiSTjvGRMt9TRdXJmwELWgBYf8MY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=M7G6+/tmcGU3Suxf1G6e9cNIgk7Zedr/nQI5ESk/U2aFIb8EUFdzz4uuwS6AciOLU
+	 xE9zSJpjHTRhrIrWLZv3rHuTu3A9blBvbTN69YHeuyuW2W7jOSQmCEosjxW20usQMF
+	 Xox1nym7QweR9G0VMgXDSAGvoIgC3pkBVuiVTVEn2BBCIdi2Hgvtwxqx016w1uRLy8
+	 7i/GZwW2xJCmYj9wSC4TEekKgy7336rJ8BWDqN/4akEDhsBmBAtWxQ94mxQVmBDxvZ
+	 4DoYVAXw++U50hDEuJJF23k4cdPICEO5v8FJV29/nPcO1WHGeFBAqKkQ/pgmswL/Yu
+	 4qxpiTIKEc3pQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 3/8] iio: accel: mma8452: Only apply trigger type
+ when not set by firmware
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Esben Haabendal" <esben@geanix.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260831-mma8452-open-drain-v7-3-22946812c928@geanix.com>
+References: <20260831-mma8452-open-drain-v7-0-22946812c928@geanix.com>
+ <20260831-mma8452-open-drain-v7-3-22946812c928@geanix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 31 Aug 2026 12:32:34 +0000
+Message-Id: <20260831123235.466E81F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add Makefile and Kconfig for SPAcc driver.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Acked-by: Ross Bannerman <rbannerm@synopsys.com>
-Signed-off-by: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
----
- drivers/crypto/Kconfig            |  1 +
- drivers/crypto/Makefile           |  1 +
- drivers/crypto/dwc-spacc/Kconfig  | 65 +++++++++++++++++++++++++++++++
- drivers/crypto/dwc-spacc/Makefile |  7 ++++
- 4 files changed, 74 insertions(+)
- create mode 100644 drivers/crypto/dwc-spacc/Kconfig
- create mode 100644 drivers/crypto/dwc-spacc/Makefile
+New issues:
+- [High] Hardware Configuration Mismatch for Interrupt Trigger Type
 
-diff --git a/drivers/crypto/Kconfig b/drivers/crypto/Kconfig
-index 0189dfdcbbe11..e0a8de643d6fa 100644
---- a/drivers/crypto/Kconfig
-+++ b/drivers/crypto/Kconfig
-@@ -734,6 +734,7 @@ config CRYPTO_DEV_BCM_SPU
- 	  ahash, and aead algorithms with the kernel cryptographic API.
-
- source "drivers/crypto/stm32/Kconfig"
-+source "drivers/crypto/dwc-spacc/Kconfig"
-
- config CRYPTO_DEV_SAFEXCEL
- 	tristate "Inside Secure's SafeXcel cryptographic engine driver"
-diff --git a/drivers/crypto/Makefile b/drivers/crypto/Makefile
-index 2c33b83f3cfa6..b80f211598bbc 100644
---- a/drivers/crypto/Makefile
-+++ b/drivers/crypto/Makefile
-@@ -40,6 +40,7 @@ obj-$(CONFIG_CRYPTO_DEV_BCM_SPU) += bcm/
- obj-y += inside-secure/
- obj-$(CONFIG_CRYPTO_DEV_ARTPEC6) += axis/
- obj-y += xilinx/
-+obj-y += dwc-spacc/
- obj-y += hisilicon/
- obj-$(CONFIG_CRYPTO_DEV_AMLOGIC_GXL) += amlogic/
- obj-y += intel/
-diff --git a/drivers/crypto/dwc-spacc/Kconfig b/drivers/crypto/dwc-spacc/Kconfig
-new file mode 100644
-index 0000000000000..82ea907a14635
---- /dev/null
-+++ b/drivers/crypto/dwc-spacc/Kconfig
-@@ -0,0 +1,65 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+
-+config CRYPTO_DEV_SPACC
-+	tristate "Support for dwc_spacc Security Protocol Accelerator"
-+	depends on HAS_DMA
-+	depends on HAS_IOMEM
-+	select CRYPTO_ENGINE
-+	select CRYPTO_HASH if CRYPTO_DEV_SPACC_HASH
-+	select CRYPTO_SHA1 if CRYPTO_DEV_SPACC_HASH
-+	select CRYPTO_MD5 if CRYPTO_DEV_SPACC_HASH
-+	select CRYPTO_SHA256 if CRYPTO_DEV_SPACC_HASH
-+	select CRYPTO_SHA512 if CRYPTO_DEV_SPACC_HASH
-+	select CRYPTO_SHA3 if CRYPTO_DEV_SPACC_HASH
-+	select CRYPTO_HMAC if CRYPTO_DEV_SPACC_HASH
-+	select CRYPTO_CMAC if CRYPTO_DEV_SPACC_HASH
-+	select CRYPTO_XCBC if CRYPTO_DEV_SPACC_HASH
-+	select CRYPTO_AES if CRYPTO_DEV_SPACC_HASH
-+	select CRYPTO_SM4_GENERIC if CRYPTO_DEV_SPACC_HASH
-+	default n
-+
-+	help
-+	  This enables support for SPAcc Hardware Accelerator.
-+
-+if CRYPTO_DEV_SPACC
-+
-+config CRYPTO_DEV_SPACC_HASH
-+	bool "Enable HASH functionality"
-+	default CRYPTO_DEV_SPACC
-+	help
-+	  Say y to enable Hash functionality of SPAcc.
-+
-+config CRYPTO_DEV_SPACC_AUTODETECT
-+	bool "Enable Autodetect functionality"
-+	default n
-+	help
-+	  Say y to enable Autodetect functionality of SPAcc.
-+
-+config CRYPTO_DEV_SPACC_DEBUG_TRACE_IO
-+	bool "Enable Trace MMIO reads/writes stats"
-+	default n
-+	help
-+	  Say y to enable Trace MMIO reads/writes stats.
-+	  To Debug and trace IO register read/write operations.
-+
-+config CRYPTO_DEV_SPACC_DEBUG_TRACE_DDT
-+	bool "Enable Trace DDT entries stats"
-+	default n
-+	help
-+	  Say y to enable Enable DDT entry stats.
-+	  To Debug and trace DDT operation
-+
-+config CRYPTO_DEV_SPACC_SECURE_MODE
-+	bool "Enable Spacc secure mode stats"
-+	default n
-+	help
-+	  Say y to enable SPAcc secure modes stats.
-+
-+config CRYPTO_DEV_SPACC_CONFIG_DEBUG
-+	bool "Enable SPAcc debug logs"
-+	default n
-+	help
-+	  Say y to enable additional debug prints and diagnostics in the
-+	  SPAcc driver. Disable this for production builds.
-+
-+endif # CRYPTO_DEV_SPACC
-diff --git a/drivers/crypto/dwc-spacc/Makefile b/drivers/crypto/dwc-spacc/Makefile
-new file mode 100644
-index 0000000000000..b7125a7797ba0
---- /dev/null
-+++ b/drivers/crypto/dwc-spacc/Makefile
-@@ -0,0 +1,7 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+obj-$(CONFIG_CRYPTO_DEV_SPACC) += snps-spacc.o
-+
-+snps-spacc-y := spacc_hal.o spacc_core.o \
-+spacc_manager.o spacc_interrupt.o spacc_device.o
-+
-+snps-spacc-$(CONFIG_CRYPTO_DEV_SPACC_HASH) += spacc_ahash.o
+Pre-existing issues:
+- [High] Unbalanced regulator disables and unpowered I2C access on driver r=
+emove if runtime PM is suspended
 --
-2.25.1
 
+commit 4e5790a8b828438ae278194b6cc6f95e4fa39c50
+Author: Esben Haabendal <esben@geanix.com>
+
+iio: accel: mma8452: Only apply trigger type when not set by firmware
+
+Instead of unconditionally overriding the trigger type, it is better to
+only apply a default when no trigger type is set by firmware. This should
+be reasonably backward compatible, and should only potentially cause
+problems if systems exist where firmware specifies an incorrect trigger typ=
+e.
+
+> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
+> index f645a5c6fd1c2..1fb43c5b0b72f 100644
+> --- a/drivers/iio/accel/mma8452.c
+> +++ b/drivers/iio/accel/mma8452.c
+> @@ -1683,9 +1683,16 @@ static int mma8452_probe(struct i2c_client *client)
+>  		goto trigger_cleanup;
+> =20
+>  	if (client->irq) {
+> +		unsigned long irq_flags;
+> +
+> +		irq_flags =3D irq_get_trigger_type(client->irq);
+> +		if (irq_flags =3D=3D IRQ_TYPE_NONE) {
+> +			dev_info(dev, "invalid irq type, setting default active low\n");
+> +			irq_flags =3D IRQF_TRIGGER_LOW;
+> +		}
+> +		irq_flags |=3D IRQF_ONESHOT;
+>  		ret =3D request_threaded_irq(client->irq, NULL, mma8452_interrupt,
+> -					   IRQF_TRIGGER_LOW | IRQF_ONESHOT,
+> -					   client->name, indio_dev);
+
+[Severity: High]
+Does this code configure the sensor's hardware polarity to match the reques=
+ted
+trigger type?
+
+If the firmware configures the interrupt with an active-high trigger (such =
+as
+IRQ_TYPE_LEVEL_HIGH), the patch reads this via irq_get_trigger_type() and
+requests the interrupt from the host controller using this flag. However, t=
+he
+driver never sets the IPOL bit (Interrupt Polarity, bit 1 of CTRL_REG3) to
+match this configuration.
+
+Since the sensor remains in its default active-low state, can this hardware
+configuration mismatch result in the interrupt signal going unrecognized or
+causing an interrupt storm on systems with an active-high trigger?
+
+While reviewing this, I also noticed a pre-existing issue in mma8452_remove=
+():
+
+drivers/iio/accel/mma8452.c:mma8452_remove() {
+	...
+	pm_runtime_disable(&client->dev);
+	pm_runtime_set_suspended(&client->dev);
+
+	if (client->irq)
+		free_irq(client->irq, indio_dev);
+
+	iio_triggered_buffer_cleanup(indio_dev);
+	mma8452_trigger_cleanup(indio_dev);
+	mma8452_standby(iio_priv(indio_dev));
+
+	regulator_disable(data->vddio_reg);
+	regulator_disable(data->vdd_reg);
+}
+
+[Severity: High]
+This is a pre-existing issue, but can this cause a regulator enable count
+underflow and I2C timeouts?
+
+If the module is removed while the device is in a runtime-suspended state
+(where mma8452_runtime_suspend() has already disabled both regulators),
+mma8452_remove() calls pm_runtime_disable() which does not resume the devic=
+e.
+
+It then calls mma8452_standby(), which performs I2C writes to the unpowered
+device, and unconditionally disables the regulators again, causing an under=
+flow.
+
+Is there a way to ensure the device is woken up or the regulator states are
+checked before proceeding with removal?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-mma8452-op=
+en-drain-v7-0-22946812c928@geanix.com?part=3D3
