@@ -1,80 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 359F249EC6C;
-	Mon, 31 Aug 2026 13:40:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42CDA51354D
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 13:43:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183658; cv=none; b=SCpJNnyvL9R3XpIUEl+M6TkEBTxPuwR9FT4F7Ezp7QrFcjChSXrIQ8c2TgLsag8AgoINJBlnu9Iqr/5U9NqQUv5kiUEje8m9k8nUJZfetOC9j/HMf9Q+c9jD45zGB/jWAfrmT4Cmkpg0MR10jDMfuuJCeOe/UpGIbu4pXiTHW94=
+	t=1788183791; cv=none; b=hWmguKadqQHP4c1UOuUyPaBK6ShnEYBXfmXlB8YsPWavQaXsfNQq9djTN6+AO8gQbBxsyQB9sa3PPhrp61HG3mspVOnmX7a712AxarnpjQ4wEk3uZ0E8gXnk55/piKGlwhuV9QdPaArk5gAMxX6mXPLhJB/pT6mVdAxV58OY7Ho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183658; c=relaxed/simple;
-	bh=JEYEe013MeWw5vJDMvnCki2TlSdVjHke2uUGW4Tm1PE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IXR5tvCAjLPcpeStTKdpvQ0gQOac9q3WtA32bJZF52dWd/JoSofD8fjISdBv9Ch8rq7fFnjiPeP+PuBw9hNJZ7yh0A9gmm3YIAWUDiLWZcH2AwfhfL3x+g6nB5ZgwsP/s34iurrjDUDKKRoxim8GME+2G32ClFq9O9mMhN640KY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nLYn4Xoc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788183791; c=relaxed/simple;
+	bh=9Wrn4Br10O43EhEP+F02rOjcaLlY+u6pqiNeiziJ/pU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=KWQbxrU8yeY3r0F9do/JO39KQqvrze9QoJQj2IpWzA6wqemfGr9vAlrIYpK1NIvxXCNh9JEjZ36bemZ/nQV7n8MXOZ+hzhI0TiFakI+kdiLxgZuHuVmxGZlhvc3r1fgjIh6itLNzgErnjY+qtRcPJdpiWzVzMmbiHEXTRbfzsLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Et3VAxec; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nLYn4Xoc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 966541F00ACA;
-	Mon, 31 Aug 2026 13:40:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Et3VAxec"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C72A21F00ADE;
+	Mon, 31 Aug 2026 13:43:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183656;
-	bh=a3xAqzva9iX6AIHQHMEXxnpG84kympdAWLmYKSlr+xE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nLYn4XocDGJ1j1+1kyeg9YASiCwGxZO0YIHtAhQpl8Q1TAnHBXKZcqb9T2vPRWpOi
-	 FY/S1Jv0qCGT85GrAWDdU7Z2ma++tztcHNa89yrkLxxHZtSBrJGkhv20kDuQNhv/ji
-	 kmZX6OUEn4+55sql03lwPaZIyjGDTp+awBrgDcCCFlNOQAG7nN9ksDHAoUjI3wk5Xr
-	 SKE+moxbut4b6SSFtGTjvAAT2LSJY6odKWuYqs05LmgRwq0JmtGW++tBXMknBQBJoj
-	 5fmdjWVKmw4KMVYeiD4MUZKzkMIErWm0/DlbUxq96V+gDGYoDjbpwepfuNfNrJb+qE
-	 hLpD68SyOvJTQ==
-Date: Mon, 31 Aug 2026 08:40:56 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Bhargav Joshi <j.bhargav.u@gmail.com>
-Cc: Roger Quadros <rogerq@kernel.org>, Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Frank Li <Frank.Li@kernel.org>, dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org, daniel.baluta@gmail.com,
-	m-chawdhry@ti.com, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Tony Lindgren <tony@atomide.com>, linux-usb@vger.kernel.org,
-	linux-omap@vger.kernel.org, Kevin Hilman <khilman@baylibre.com>,
-	Andrzej Siewior <bigeasy@linutronix.de>,
-	linux-phy@lists.infradead.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Kumar Gupta <ajay.gupta@ti.com>,
-	Sergei Shtylyov <sshtylyov@ru.mvista.com>, goledhruva@gmail.com,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	devicetree@vger.kernel.org, simona.toaca@nxp.com,
-	Ravi B <ravibabu@ti.com>
-Subject: Re: [PATCH v2 1/7] dt-bindings: dma: ti,cppi41: Convert to DT schema
-Message-ID: <178818365533.732788.12823920440612665617.robh@kernel.org>
-References: <20260818-ti-am33-usb-v2-0-66fd44d66824@gmail.com>
- <20260818-ti-am33-usb-v2-1-66fd44d66824@gmail.com>
+	s=k20260515; t=1788183789;
+	bh=RSVbl0THlgsxwlI+OpJLVINgMNtTdVTaShZ/O+LpYhY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Et3VAxecnLXf/1aoOBfHII4hQrhIO/5zhSd/PDsXKjdWYx3AWNVy5sKmOcXYyoPmx
+	 nqYccIpTCX301B3cvVzB/LL1YvpwGlEvhIe20WwvubXDugsPOxbl2sUd/Js6CzPcBb
+	 Wv8wX9kkgzDXGkKQmlqQRhs10g76ImpK4f1XJVUifK8cZJ//wSHAyOzj5nSqkiPfks
+	 76tO+uyXr7oBhVDQh+7+v4MiFnC1CpetVCynWUWvSSgn18FA8YSo5jmrJHmI2axlw7
+	 64bDfGxB3xSiZNPh6N7FAz4nBgK4S0lp1Trs7eCNoxYllKRxpJD8FaZlSxJYciXF1P
+	 7yMCczmVJPk3A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v16 18/22] arm64: defconfig: disable deprecated MAX96712
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dumitru Ceclan" <dumitru.ceclan@analog.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org
+In-Reply-To: <20260831-gmsl2-3_serdes-v16-18-4fa6e08bb514@analog.com>
+References: <20260831-gmsl2-3_serdes-v16-0-4fa6e08bb514@analog.com>
+ <20260831-gmsl2-3_serdes-v16-18-4fa6e08bb514@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 31 Aug 2026 13:43:08 +0000
+Message-Id: <20260831134308.C72A21F00ADE@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260818-ti-am33-usb-v2-1-66fd44d66824@gmail.com>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Defconfig regression: legacy driver disabled without enabling re=
+placement
+--
 
-On Tue, 18 Aug 2026 19:58:43 +0530, Bhargav Joshi wrote:
-> Convert TI CPPI 4.1 DMA controller text bindings to DT schema. Add
-> ti,am3359-cppi41 and ti,da830-cppi41 into single schema since they share
-> the same hardware IP block and driver. Add undocumented #dma-requests
-> and power-domains properties to match existing DTS usage.
-> 
-> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
-> ---
->  .../devicetree/bindings/dma/ti/ti,cppi41.yaml      | 109 +++++++++++++++++++++
->  .../devicetree/bindings/usb/am33xx-usb.txt         |  14 ---
->  .../devicetree/bindings/usb/da8xx-usb.txt          |  12 ---
->  3 files changed, 109 insertions(+), 26 deletions(-)
-> 
+commit 6b329fadf11a6d29016ff5932914ac8c85161fd4
+Author: Cosmin Tanislav <demonsingur@gmail.com>
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+arm64: defconfig: disable deprecated MAX96712 driver
 
+This commit removes the legacy staging MAX96712 driver configuration from
+the arm64 defconfig as part of migrating functionality to the MAX96724
+driver framework.
+
+> diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
+> index 654a102cb5bc5..a5419f2a4d5ba 100644
+> --- a/arch/arm64/configs/defconfig
+> +++ b/arch/arm64/configs/defconfig
+> @@ -1411,7 +1411,6 @@ CONFIG_GREYBUS=3Dm
+>  CONFIG_GREYBUS_BEAGLEPLAY=3Dm
+>  CONFIG_STAGING=3Dy
+>  CONFIG_STAGING_MEDIA=3Dy
+> -CONFIG_VIDEO_MAX96712=3Dm
+
+[Severity: Medium]
+Does removing this configuration without adding a replacement result in a
+regression for arm64 defconfig users?
+
+The legacy driver configuration is removed here, but no corresponding entry
+for the new driver (e.g., CONFIG_VIDEO_MAX96724=3Dm) is added. While the ac=
+tual
+MAX96724 driver code is added later in this patch series (in the patch
+"media: i2c: maxim-serdes: add MAX96724 driver"), the defconfig is never
+updated to include the new CONFIG_VIDEO_MAX96724=3Dm configuration in any
+subsequent patch.
+
+Should CONFIG_VIDEO_MAX96724=3Dm be added to maintain out-of-the-box support
+for these devices when building the kernel using the default arm64 defconfi=
+g?
+
+>  CONFIG_VIDEO_MESON_VDEC=3Dm
+>  CONFIG_SND_BCM2835=3Dm
+>  CONFIG_CHROME_PLATFORMS=3Dy
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-gmsl2-3_se=
+rdes-v16-0-4fa6e08bb514@analog.com?part=3D18
