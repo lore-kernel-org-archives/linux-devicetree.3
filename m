@@ -1,143 +1,237 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013013.outbound.protection.outlook.com [40.107.201.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDF163AAF61
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 12:03:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788177793; cv=none; b=aeFpbtSQimRQVl98CSq+ThRj2o4srtZIBD/dDO1iNFgsLu013nFjz94UUaerEASZP8Pz0q/OuvSNT+OO7g+jDJ0+z52Si6do6kcQi6wI0DQ6r55Rzo7wckPCSBTczsi8NLtAo29UY3757sffg+hrRQvgMkd/2Axb5iWthzJe4P4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788177793; c=relaxed/simple;
-	bh=BLdIX4JmDDmCb/nESqUPLgpc5EXO7M0X8FYZInOGzg8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZoExB3GVMqfDtaPekX673qqQ/pwBIFSomwXyU5cGwJ3FBiVzFfY7FwaxZ0Ch6dG5om8MqGPoNIvwBldWFh2h1vY1DM99SqJtcHLSi817uohcuHvhYqM8LQqYYfPhg6Akx0yRFpUQbGI+uTdbFLrYxnN66fFZC8kcjDW5D39CaXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=b/JY0HZc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=c3r7YiXf; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F2A23EB0EF;
+	Mon, 31 Aug 2026 12:06:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788178017; cv=fail; b=srbpG5AFFqGbLb7n8KUeXv5A1Nj1IKmI1lJ9/F+uYackKMQk5+tKMikNz+bWDU9PJaq9IYCPqRrt6JSO0SfR6FZc++MyR9+3OSkUk2kvquMQNJIWjJwMzYBgzYD4+4LQYcMZcewpiUFQ/bybY6dwp2QQFzaCFJ7/AmEu/L+gTwA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788178017; c=relaxed/simple;
+	bh=0fk4EVb/OthtpZfh6/mG+Lezn5ajgjaRlsnk1U5ite4=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=K/ztz5AqvXpouoE/jtxSc3c1lmCfMmIwvEVzL7VgMbk+BpL4jaK/dC6lB+lQzpI+ASZ4VpNfj94uxN8R4pKyjXRX2vJlREcLvMzGINhOt4x6bH4O6FFLO8DzXe1d+devXexO6h/4xR+MrkaAngLe4siyUTxxW2PA8o4pb1hXFJk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=gvEX1Ofg; arc=fail smtp.client-ip=40.107.201.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="b/JY0HZc";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="c3r7YiXf"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VBA61Q3517812
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 12:03:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	NOEJTVFIcyoSbwosxVwbkQo3ZwwxOkwI5Yd+ZvI7e9U=; b=b/JY0HZc7fjI2rEe
-	xT3mbk9004ZfT32oo+urk6xdI7RATR9xcI0wgQLl82QLpzA8zl7cpVtqQ5f799C9
-	pxJ2hQEG1vSTmAZ9SQa5u3DXe3+FzIJcYNPDxeIgydSaKuWiBhOQTCwtxRrj9Vmf
-	WgmJxdo5AHnhCSabGjqeNI0o2znqkVYhNMA3ywSmpY/S2jRULCyBqO09h7iSDHhP
-	a76RBS12vGNad3+zoDCPXXuJAbCiqUFcHHMHrCfrAidLlDeoba9YDvULFKTRX939
-	TlhDfjn6Jn8iHNjknuFDNApafSGuRf4PdQMZB1tE0TiDiWvq4Gva/sjnJF5gmRfr
-	uxtmUg==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gd6h90nwn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 12:03:10 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51bfd1772d8so8912021cf.1
-        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 05:03:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788177790; x=1788782590; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NOEJTVFIcyoSbwosxVwbkQo3ZwwxOkwI5Yd+ZvI7e9U=;
-        b=c3r7YiXfOKevrDU0klJO+0I5mnuVbJZot9ojdU56PxXeO2yIS6kPL8YU8oxQPJt6rR
-         fVypCb+FLGTNMuLA1VaXP7FCRZdi3kvc9cLZpkmJ7w7TnBIiqmXKSukjKOo9u0hOmVud
-         7Y24cZ8PE3JapXapJ0h7Ir2WFzB2Bw0kIWOobn8RKF+AKXPymyWUI92gNk5qtW3NZBuR
-         /G299Hr0wUcrOM1rHVb1ewHoswHXcK+aczEotzLJiKVi+Kj+RdDscKiEsE1/l6QBN05+
-         RCB4dDmxLbX4DhUhXkO/nBLnMyMSE4qhY+R+XpZmkifIKIR1aFaNhsfLhfgQzesty4Ar
-         WhEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788177790; x=1788782590;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NOEJTVFIcyoSbwosxVwbkQo3ZwwxOkwI5Yd+ZvI7e9U=;
-        b=jqI/TgZZ81P2PMUQQyp7k/22ftdd0inULTiCaeY6J+s4lrHGm3L+lJ4ISjPyckt2Kc
-         lduPvvhOQLIMauPFc6o3CU5VkKrt7bP/b9FR6ArUoQaWkt5kt252oQz3w5x7EOXsuG/p
-         J4HCJgaFDzsJzt2EdJzPcOKSWrHGul0h38k07qKmeZt6EyOgibrX9LsIsMFqhBR26Cen
-         nGsaeMDCBXVznDNmaBrMXilhsBTF6q6prKf7fACPHwRfGuxgRiVmoHyMqjyz/du572MB
-         6GhXgGDDjkQNUjTbCUXOnLcsjjxZ4eoxZv9yWPHva12uVhk4aq6gqJgpJwfA31y1ofpd
-         mwPA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp1NeyZUmWlgYyYHedYUVEqknENiE6zn4bXcEGAchHTcpbAlFeSwsOTKcVFtMQJGMoy3V2Z5UNVLN77@vger.kernel.org
-X-Gm-Message-State: AFuF++lsN8507jaA+o+14TgVZ4w/LYc+drreWNxCImZV0VWluVpAAJFl
-	hlSZvjR3RVzWuG7BDZ/k+yIyNhPR0lD+zOVmDOf8IxJ1Llt3UpJZ0ilkKJRCUF6Zp1NLtXe6VDa
-	eIPXqx5GILqSW/BB6MJIep7YmNalT0IqedRxmd7ZJNtw4BlgYuMnrOpkbi1olFtQZ
-X-Gm-Gg: AR+sD10iwIgoDR5y9JI3UX83r1zgG1AVKgByFpSd9ipywrTAkJud7ukrL2UIUUi7T/a
-	RGC3gEVKIrKbzWZqAPP9PyVSjj0Ar15uwmQYa8xrwXPGbW52SaWHxXIuqsphkLTI0tgpxeVOmtC
-	V2fM9Tjxf3SjbPHBIt8sM+0fvn5u287JzIQRRkwP9abLA2Zv/93UowviI2tefSmU+AA6LBLIlXn
-	B7Ceqg8q3JWWVIhsvoxUBmzKg7WPw77cqBzXRNkJQBrIl7LxaNilHM8sH2h6FfEa54Y7lS/SzeY
-	hKauV1XjwhmlZwDY0OvQeKQCxK/OhD4frKj70OdzvOACIPg9lPiBh36ed6kp3/kFCF3SKnVqH7L
-	p9D+fVUL1YzyD7+POxZXj8w==
-X-Received: by 2002:ac8:7f4f:0:b0:517:6162:daf5 with SMTP id d75a77b69052e-52fb95f4e1amr202144151cf.3.1788177789947;
-        Mon, 31 Aug 2026 05:03:09 -0700 (PDT)
-X-Received: by 2002:ac8:7f4f:0:b0:517:6162:daf5 with SMTP id d75a77b69052e-52fb95f4e1amr202143721cf.3.1788177789522;
-        Mon, 31 Aug 2026 05:03:09 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a611b5c567sm3300432a12.1.2026.08.31.05.03.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 05:03:07 -0700 (PDT)
-Message-ID: <adbdb2eb-0173-4500-af16-de0b7c251e10@oss.qualcomm.com>
-Date: Mon, 31 Aug 2026 14:03:04 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="gvEX1Ofg"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Y/ifqzi3f1KgPPd7wSMdt6l3BSuM56GOhL+WGwfIK334aBNXVnyeUNg9lcTuYKajK0rEFt4941bbJkQX9SVKbxo7ecrSeFplFCZiFfOrlElG4QMipMxhBmUnnRJwIMvB3KcVP+wJoAYebBnMnsvp3VlCHbS0/feoQt5aaZyL1r6mt/7ARvutXMkJ8zwOLG44NNyBId4tGUn16tzmyE2byMINLyFvP4lIcvH0HwP2ioUAAiqbT2etisR7swl6wFV0lHxfZgjIpUqyJ+vWnbwKTDiIRZLksnLqSjRMTHtDyOlqLxdJXYnUVDU1uef+9fSmlbNK1ZLJYJmfEEtRXEo8hg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BCnxnETcHGHEBFT6iq7BRwnHbP+yavWcEODqzC6Rht0=;
+ b=Gut68Me5T1hhLkGbmCeg/8yCS8mwnaCfz5Swe8Ax7kn65onNxiAIgZWuD2SH9HZ+/gu8ckDG7W18wTmmdpol0RT4tjNwLF6OlLiPkKJ+NpjNLOYdrv6IEkB9nQDkPc+KnWhkCmykdzFep9EW+P3FvU/GQqQTDSomCaEuAPCpOyIqGUQTzTPrkh9lCd0u/ixXcrebRwBDaK8p1/7qYOjSyFUFfmOPb4UFTWvJA3fWmiqZYn1tqZ6UScRvvewC0v8iOpmoEZ0K6sJlMbEumi8d7TSI8Qxg+TE7rIWZqwVw4d3bRk46qC+GMUubx4ngmXl5JYH7T4zqGZGwydAcvCaKHA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BCnxnETcHGHEBFT6iq7BRwnHbP+yavWcEODqzC6Rht0=;
+ b=gvEX1OfgA5vREPHKgpA8MncKsSM8L3kQdchZh69v0J5baJpa7gaUJnEUh1u/6SnWB60mJwZAGLmkhyR3Hb6VHjUbgKSObyeyduD8U1dD8gReBd0vW/1LT/jWk5KsN7dN5mCd+/wVNX+KJjG58haStN8hxuuiqBT8+OKwUSDZ4iQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS4PR12MB999075.namprd12.prod.outlook.com (2603:10b6:8:2fc::20)
+ by DS4PR12MB9819.namprd12.prod.outlook.com (2603:10b6:8:2a0::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 12:06:51 +0000
+Received: from DS4PR12MB999075.namprd12.prod.outlook.com
+ ([fe80::4c9d:851d:3f44:800f]) by DS4PR12MB999075.namprd12.prod.outlook.com
+ ([fe80::4c9d:851d:3f44:800f%6]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 12:06:51 +0000
+Message-ID: <d42ac198-9fff-4a3c-a3c9-2f032021c4fd@amd.com>
+Date: Mon, 31 Aug 2026 17:36:44 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V3 2/6] PM: runtime: Add pm_runtime_if_active guard and
+ conditional variant
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: vkoul@kernel.org, Frank.Li@kernel.org, michal.simek@amd.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, git@amd.com,
+ dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org
+References: <20260810100452.426320-1-nagendra.golla@amd.com>
+ <20260810100452.426320-3-nagendra.golla@amd.com>
+ <CAJZ5v0gKwxBp=Ajm5_iJEP0GTY5J7SJnHJGCQjfKYgmOHqE0xg@mail.gmail.com>
+Content-Language: en-US
+From: "Golla, Nagendra" <Nagendra.Golla@amd.com>
+In-Reply-To: <CAJZ5v0gKwxBp=Ajm5_iJEP0GTY5J7SJnHJGCQjfKYgmOHqE0xg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN2PR01CA0238.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:eb::8) To DS4PR12MB999075.namprd12.prod.outlook.com
+ (2603:10b6:8:2fc::20)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] arm64: dts: qcom: sc8280xp: Add more thermal zones
-To: Xilin Wu <sophon@radxa.com>, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260831-sc8280xp-thermal-zones-v2-1-8c2b89b4c9c5@radxa.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260831-sc8280xp-thermal-zones-v2-1-8c2b89b4c9c5@radxa.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=W6UIkxWk c=1 sm=1 tr=0 ts=6a956d7e cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=ksxQWNrZAAAA:8 a=EUspDBNiAAAA:8 a=ROVUC7vSL5sbk-NUvPwA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22 a=l7WU34MJF0Z5EO9KEJC3:22
-X-Proofpoint-ORIG-GUID: AifCLdoGdL7YdLE8mTR0forVkeQ8IxuH
-X-Proofpoint-GUID: AifCLdoGdL7YdLE8mTR0forVkeQ8IxuH
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDEwNCBTYWx0ZWRfXxs6OquW/zLVd
- 8FDWImp2WVtwKwVB7yk7vmfN9vj1ton0j7Hqeqb7o6kSFXZvfE20UJ6m3lT2WmAoKdhIXCYPMKd
- TcHqHgNL8Kagv5bOcK7IlApArncGZl4=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDEwNCBTYWx0ZWRfX84JIzCl6tYX5
- 64xEib7d+S7jMOeXssVfnshehbSN1rf6Jlb0fl3i3nsh3UT6cSJ9Nqx8WstCmovauNvReYppk3x
- uX6gYiNsLCinq9kmPXw0AQa+VtwS3reC18lrSpJgRnh06xYvFHXqEAFT1I/iOklNuedzCny3hgW
- OWHsKtqrH26Muoc2dgF/9lyas6ynGgU2GhySXV2obiVu0dIwffemRi0UVdNnIvBNPHed1KpzM4h
- uSc04zB3Kvya+wDv8Ct14/jKzRJBJc95TXuCzxnSejTz5Jwp32O4YEftiEffaWxdFrM+Oq8UJZz
- jugYvhSYm5parF8i1iggf5D/Rj3VRqalgbQKEjIP/WR8Eb8yrrXspjF8SbyMa9GC6batAIIJ3KN
- oH8D/1BEB2wMAzaOwgGnOH76kjt33n5vQJ0URNP0pyRm+ZeWjstvax7hLAHmqLtmYVRgI0BNztP
- D+z0Yih6LUZMz86CUzA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-31_04,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 malwarescore=0 suspectscore=0 bulkscore=0
- clxscore=1015 phishscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310104
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4PR12MB999075:EE_|DS4PR12MB9819:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1a6544f2-d005-42ba-6865-08df07585754
+X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|10067099003|11063799006|4143699003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	UPFsYPMoyWfLgj0bxtDAKNLWN7PDhft0QyjWpLe1vqjZGKGSEShqrQGX0MJkDYDBqxzFOUf4AwuAiksC7iCJsJufx9V3attsBdV+dhHaFOuTsfJYmzUA0bxKjYJvjrcHZHfDfzL0b+FCcf2KqwIJN/m4gyzlteCk2A+uHogQS5+xPqeVgOD4tKL2lHfXHckNyohtNsHFV5j0s4KW8aoSZNsCB/tJUP6YXo3lnWqZgVoKtSaKYIgz+lyEOgjaw4NGRSECEgzagpboj6eUjxRXvt6kAlrf3FRFDT0gaGPbecNebR11X3bzOQ0XXga4iQBZX9jC2wHdxI6X/RLnYOLUiGrQQ4JYn4d0Dn1QClczvWMSKYU3nQfegqPWXAT7ivc/ej+uts+EZFf5gLjHDKkMFIZtXtL2SkjlqO3s5kxu0/aBjxJatItGHWUUUX7+6nzJzptgJVpZuUM03Rzlkd9Z6K+XvnB92tiCR1LqQe18OVLixmdIgxMUWLrjEC3TpJm9UYlyrfv1x4Y9jRtxJCViLS/KmnVnEAJcYWBeiqlZ1F25oLc6ITOrcu3ApfKVsyKHBH0Xe7jUq2dFzaYJvYTxkI7UPqLK2OaTsXlDq+offsZJNrAJzsCOkmu0ji7H0ujW70mzeDi4fF2Fgc52iNVgbxGBFu6nkyhdq0tmoPIu5aI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PR12MB999075.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VmpTcUgzZ2tXZStqZWpHcFdrZUFsNWFaclQrUXFzNFg5YzRCVExSTmErdkIy?=
+ =?utf-8?B?MVdiQzNnTklKdXhLSTRuMlc1MmN6Vlg4amk3QnkwNkRXQXlid0FtdzlRNGlN?=
+ =?utf-8?B?RWFoTEo2MERrMHR5cllzNGhTcTdteG9TcDlDSVhkbWFTWDBhTWdMdXZjOGh2?=
+ =?utf-8?B?a3dHZ2N2NkZzZ29WTmtJVnQ3cnYzMWJVMGRFS0JZditWMUFtcTdGSEtOVFNs?=
+ =?utf-8?B?VGJqd0p5QTBadHJ0OXRIaXRqU1p1bGgxWFY4QVRZbjhEMHVVNnpJL3Vna25O?=
+ =?utf-8?B?cE5kMklrN05sYkVhdVUrV0s3Sm9MSFpqb2lCc1dreEhaSTJiVERNNVo5VmFH?=
+ =?utf-8?B?eVM1NktGK3RmUmpDQ1owbSt0ZDU5eVE1YVpMTmxPTkFUYnVEWGswZlg5aTVH?=
+ =?utf-8?B?RUJhd2FKYVFURk5VOVJESG83OEp3Z1BraWkvMnRyTGJtdVBlenRUektLSkI0?=
+ =?utf-8?B?NUZlR2tFblB4azR5WC9kVzNFcWJtWVJVQ2FZSXBwaEhpdHhrVW50di9NTklO?=
+ =?utf-8?B?NG5jVWhvTnNMRk5pdllwNUQrMTFXQk9EVEV4OHhnb3dwQWhlZmlMUk9kYUs3?=
+ =?utf-8?B?NzI3UGVhcTZrZU5lVHdQZ0w3cTNGdmNjZ0lZYzIwamNma0RiQ3g3N2V3Y29w?=
+ =?utf-8?B?c1NtM2dOQmJOQlZaUERWeHJtdW5GaGtFSjBkTjdhcDZTeEMxdmo2ZWRDVEx0?=
+ =?utf-8?B?cUY1MUQ5bDhzZmZ2dmpJZUE4RW1oaDJQODYvR0ZuZlBnSmJFcTdzRXlFcGN2?=
+ =?utf-8?B?Umx6ZUh4K2VoWDQ4NHpObWVNRTRKSXE0aEo2OWxUby9MZFhOT1dzbHNWSGhN?=
+ =?utf-8?B?UkhWNmg2QVU0MldJeTh0MnpPRE4xd1NZR1RKNHdPTCtGUFd2RE91dmkzWFNp?=
+ =?utf-8?B?ZUJyLzB4NGFkd2lOSm14Uzk4RHVBR3Z6Z05RSmxXVEo5YmVoTFNKNHdQWThz?=
+ =?utf-8?B?S3A1d3lKSnA4Y244cWZqZXZ3ajN1a01kanBxYktWT2UrcC8wZ3pkZE9iMVZU?=
+ =?utf-8?B?MFBlTDZkYU04c2xya1ZybnUxMmlYVHhleU5zcnpjSk9WMEVvcVNKb1Z1TDdx?=
+ =?utf-8?B?MlgwZmVUZXUremRmNnlXbW9sMWMvNGRJUUUwV0JwYjB2cjNmazU4ZmlZOWtI?=
+ =?utf-8?B?UzVLTmFub05ZSFR3c3dHaEdFUXp0VVVrcEtLWFkvRVV6aXJnRzExeWJLZWhu?=
+ =?utf-8?B?ZkFlbjVXQTF1UE5oNkM3ZVNpbWRmNzNyUFZOclpIUmdXVzVMZkUzUHNocTFB?=
+ =?utf-8?B?bFFnRnllM3VFeFFTNkxwSUhZZkNweTRvMTNNZnZ4cTBPMTI0eEpLcFdMdFRp?=
+ =?utf-8?B?QWZnSC9paWRscDliRVg1OUtzR3ZtN1FKTmplOXVuS2ZhcFZWN3JiZ2Fxbms1?=
+ =?utf-8?B?QjFwMjJBd0UvZWVSaVE5SnFjMHkxZ2F4dy9ob0hQa1hmVjVOTmVhdXAxT0RJ?=
+ =?utf-8?B?akNVY1hIMUZVMlNTYmZ5ak9pRFVId3BzSHBsZkErU0RIbHcvam96cHNRcUZn?=
+ =?utf-8?B?Q3R4MFJlMUtseTJhUnJMTmhyOEFxdDRwQTBtdDF4ckNENkFiZk94VEVzYjJT?=
+ =?utf-8?B?aFQvYUUxQldEWXBWUDdPMmxtUStkaGZBMGg3WDB1eUF1cHh0OFFVSDdHamNI?=
+ =?utf-8?B?QWZsR1ZoUFhwTmVkMlRZNWYyamtYQkdVazRsNEVrN09FN3hWRUppUmlCRU1h?=
+ =?utf-8?B?WHJKbklNUTltNm5hL3dFQXhNTHcrTnZTaGJBU0lqSzFqa2JYeTdwSWdiUFVI?=
+ =?utf-8?B?SEJ5c2xoVFdWcUlXTkJDU2tha3V6YU5SY2J4bWpJVTRscFhVUEFXS0pBb3NG?=
+ =?utf-8?B?OWxLVGZEclVBcWZFOEI1ZHFKMldVQ3JWM25BUDJaMjZsWWZ3WC82WnZYL0s5?=
+ =?utf-8?B?MXpjS0Z2cituQ1ZTUHNMWG1FakNBczlUS0VxNmZ6MUxtUUh1RnVzZEt5azNW?=
+ =?utf-8?B?eG5CUncvQThBT3VKQjJiQjkvekUvNmZDYmNReTh3Y2p2UFY5TGsxN3h6RnF6?=
+ =?utf-8?B?VEJvNGpqZGM5TlYxdFFVaDg3Z0tyRVR4Z01Hb0EyODJZK2JoWUxvMDVtVU1q?=
+ =?utf-8?B?REEwNnhkb0I4QnI0cEVHOGcrcVl3U0NNVU1MOGR1dXBMdGRPeWtkTVc2M3NF?=
+ =?utf-8?B?SWRMNnNQdENzYnc0M1MrZi8rSjk2Smd5RnBQdldOSTJrM0VOUk9NRld5Y2lG?=
+ =?utf-8?B?bEx3QTR6OElYQytiTzZVNzRKUDZaSHFIY3ZXanBIM29MQmkwdzJoQjJzYnBN?=
+ =?utf-8?B?TTNNakRpVFh6UVlhYm9SQ3Z5aWFGZys2cDdnbjlZVHJBYW8wVWF5V2ROK2xq?=
+ =?utf-8?B?SEtuSjlobkVLWWxJY1ZYNzhUTEpySGxoVEF3ejI3QkI1VTU1N3lVdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1a6544f2-d005-42ba-6865-08df07585754
+X-MS-Exchange-CrossTenant-AuthSource: DS4PR12MB999075.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 12:06:51.6674
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: R+UG/+e0ZnkEx0iksBrrLpAigBycK7/3b+u21spP7g240WQK1jgKmSaNM4Na2/K/Hk66vBu+dyMDU6ZoYcVeWg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9819
 
-On 8/31/26 12:19 PM, Xilin Wu wrote:
-> The SC8280XP contains a lot of TSENS sensors which are not yet described.
-> Add the thermal zones for them.
+Hi Rafael,
+
+On 8/24/2026 9:48 PM, Rafael J. Wysocki (Intel) wrote:
+> On Mon, Aug 10, 2026 at 12:11 PM Golla Nagendra <nagendra.golla@amd.com> wrote:
+>>
+>> Add a pm_runtime_if_active base guard and its _try conditional variant
+>> to pm_runtime.h for drivers that need to conditionally acquire a runtime
+>> PM reference only when the device is already active.
+>>
+>> The base guard must not be used directly via guard()/scoped_guard()
+>> because pm_runtime_get_if_active() only acquires a reference when it
+>> returns 1; the destructor unconditionally calls pm_runtime_put(), which
+>> would underflow usage_count on a suspended or RPM-disabled device. The
+>> base guard exists solely to back the DEFINE_GUARD_COND _try variant.
+
+Thanks for the review
 > 
-> Signed-off-by: Xilin Wu <sophon@radxa.com>
-> ---
+> Which is not nice and confusing IMV.
+> 
+> Is there anything like that anywhere else in the kernel?
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Tested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com> # SC8280XP CRD, X13s
+I reviewed the existing guards in pm_runtime.h and compared them with 
+the if_active guard design. No existing base guard uses a conditional 
+acquire model like this one, because all existing guards follow the 
+"make the device active and then access" pattern - when they make the 
+device active they hold the reference, and the destructor releases that 
+reference, so it stays balanced.
 
-Konrad
+But this guard's use case is different: it follows the "access only if 
+already active" pattern. In the IRQ handler we must not resume the 
+device, so we only proceed if it is already active. This requirement is 
+precisely why a conditional acquire is unavoidable here - the reference 
+can only be taken when the device is already active. The guard takes the 
+reference in that case and the destructor releases it at the end of its 
+scope. However, it does not take a reference when the device is 
+suspended or when PM is disabled - and even in those cases the 
+destructor still runs and releases a reference, which causes the 
+underflow problem.
+
+Thanks,
+Nagendra
+
+
+> 
+>> The _try variant (used via PM_RUNTIME_ACQUIRE_IF_ACTIVE) checks the
+>> return value and only runs the destructor when the reference was
+>> actually acquired. This is useful in interrupt handlers where the
+>> device may be runtime-suspended and MMIO accesses must be avoided.
+>>
+>> Signed-off-by: Golla Nagendra <nagendra.golla@amd.com>
+>> ---
+>> Changes in V3:
+>> - New patch: add PM_RUNTIME_ACQUIRE_IF_ACTIVE() guard and backing
+>>    infrastructure to pm_runtime.h so that drivers
+>>    can use a structured guard instead of an open-coded
+>>    pm_runtime_get_if_active()/pm_runtime_put() pair
+>> ---
+>>   include/linux/pm_runtime.h | 12 ++++++++++++
+>>   1 file changed, 12 insertions(+)
+>>
+>> diff --git a/include/linux/pm_runtime.h b/include/linux/pm_runtime.h
+>> index 64921b10ac74..bc6de97e6111 100644
+>> --- a/include/linux/pm_runtime.h
+>> +++ b/include/linux/pm_runtime.h
+>> @@ -609,6 +609,13 @@ DEFINE_GUARD(pm_runtime_active, struct device *,
+>>               pm_runtime_get_sync(_T), pm_runtime_put(_T));
+>>   DEFINE_GUARD(pm_runtime_active_auto, struct device *,
+>>               pm_runtime_get_sync(_T), pm_runtime_put_autosuspend(_T));
+>> +/*
+>> + * Do not use directly -- the destructor calls pm_runtime_put()
+>> + * unconditionally, which underflows if no reference was acquired.
+>> + * Use only via the _try variant below.
+>> + */
+>> +DEFINE_GUARD(pm_runtime_if_active, struct device *,
+>> +            pm_runtime_get_if_active(_T), pm_runtime_put(_T));
+>>   /*
+>>    * Use the following guards with ACQUIRE()/ACQUIRE_ERR().
+>>    *
+>> @@ -624,6 +631,8 @@ DEFINE_GUARD_COND(pm_runtime_active_auto, _try,
+>>                    pm_runtime_get_active(_T, RPM_TRANSPARENT), _RET == 0)
+>>   DEFINE_GUARD_COND(pm_runtime_active_auto, _try_enabled,
+>>                    pm_runtime_resume_and_get(_T), _RET == 0)
+>> +DEFINE_GUARD_COND(pm_runtime_if_active, _try,
+>> +                 pm_runtime_get_if_active(_T) ?: -EAGAIN, _RET == 1)
+>>
+>>   /* ACQUIRE() wrapper macros for the guards defined above. */
+>>
+>> @@ -639,6 +648,9 @@ DEFINE_GUARD_COND(pm_runtime_active_auto, _try_enabled,
+>>   #define PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(_dev, _var)  \
+>>          ACQUIRE(pm_runtime_active_auto_try_enabled, _var)(_dev)
+>>
+>> +#define PM_RUNTIME_ACQUIRE_IF_ACTIVE(_dev, _var)       \
+>> +       ACQUIRE(pm_runtime_if_active_try, _var)(_dev)
+>> +
+>>   /*
+>>    * ACQUIRE_ERR() wrapper macro for guard pm_runtime_active.
+>>    *
+>> --
+>> 2.43.7
+>>
+
