@@ -1,175 +1,203 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0E6B372EDD
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 16:43:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5F5B3769E9;
+	Mon, 31 Aug 2026 16:44:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788194636; cv=none; b=X3/61qFOj34UDhydDiACJqMqp+lyPJMw/Y0tIuHu55op23jVVJL446wc7oPLNehYfXfEfpHr5Kgg7l3tAnq4c+l8m63icn9SGyjlnbVrATDMrq/JjBZXzgxYQ5QxqChMkwgR2d1anGE+wjQiIjw9nIyAxPuk2o+lkFQPyDC5Kew=
+	t=1788194666; cv=none; b=bwcrK6KldslnTEAR7lrrtyK3+G8apC2DMRkDePUp59TkTNJeNX+8s6PxbeICq1dPCsMSGHAFnHlmNUu77mFBq6+ttCqKFC4rKg9Hsglqs4slpVEft4IJZt65J3/t/nTQgwJeD5XeSopnT8kT/HooKyWts63oS4bQTKV6T1fyfJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788194636; c=relaxed/simple;
-	bh=NDHKMcrotrpW63l0I/1FWliwQz5j8JzXrdP6dzyb4x8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Nqqfp6vzggnf1JcoG0XpCkhUKHpK4O4HmLsVLG/RC6JwhNS8SBruNcJIijAFPHfTEmp7M1srw2Hitv1CZG+MhX3eQZIl08NhfxEHL3SJc1Wxz+ZV132wBii2yTSMfxVOjurbFQu1K2YAig6qy0fuMr806IKDlmc+ybpDF4Y9Qek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=er3aqxC8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MjOVOs22; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788194666; c=relaxed/simple;
+	bh=cTjS1sNyMZ2Otq9z44fl5XQpdh49D9y5MyunMZVYntA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uw8Vyza4phG5xJfbkuwihYOIRFd3lYmBgovDEwnycoGVUuAg56dbVRjXmfIUPpURfTU3QI2ryfCXbwbd/ZaJ8bG6aTDvhcxPCTxQLzWz1VhqOxNjyBlZhlQae91rUVx3lGA1EeKsBAQpE8LlZFFSrk1MVTjrlHQ60Giv73jhqrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UeVfIDzk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="er3aqxC8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MjOVOs22"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VFq1in2900888
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 16:43:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	cVfCCX/QbLHdAwzzCna+Dt34SELB9Z4yDIidd7xilm4=; b=er3aqxC8PVHtCYzV
-	L4jlvAHk+obCR5qbz7Y0Ad2XJSb+WD+CHraBf5cnTLZsrtYLwExozv2sslWJgNoX
-	DWuKWlJBMFLG80/GsnBAL/ESRCF9MafyALmedoTfs2rSnAzmnbGLgyXBmeoH3rM5
-	yEiwdVTq4ACOJUUqooef9R7YtHdYRpEVj9sXQXEdTFMlvKHeM7vKqAONyEFoRS5/
-	gTB6rrTkKFtu+0mK+XpGDQ54vztxgA34oJryU4ygCmlTSgPJtIRU7uRCGM8M8yA+
-	KI1v9JouAhTUYwR3Op32gcurGiJ8+qYVOx310B6g7HB+FgrFnlRzogMFuuK4Swht
-	m3naMw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gd6vahwsh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 16:43:52 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-930bd2bfc45so122608685a.1
-        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 09:43:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788194632; x=1788799432; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cVfCCX/QbLHdAwzzCna+Dt34SELB9Z4yDIidd7xilm4=;
-        b=MjOVOs22i/0Hv+2ey1owZcNuWyFEAk5p42U3LVV72v4uL2axzkLoFQLmCBIWrxvdCi
-         /p5kxxOb+5UY0k3Xx9AtE6Ga26dKZDYsbKVMAfuqIGTLnyR3rf8DhvUEbEEW2cTWI7+P
-         W2yfbWiNEwZ0UMXBpBViFE48c7C30fCr1tx6QuUTjJ5L0KvwOg/S8jYjxVs4C917cHr6
-         P1X0Z0aW701fCsL5ISWzMZTMswTdpUHaDdqyh9ANQehDiinXoHVt0V8N3a2qf8AOlq65
-         2y4rsq51hgSpHHFTKq67l1aAqo0Ny9SUdNBwCMFj/JQlQBl5+Wfoc6sPI3OpaPQycU0q
-         TnRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788194632; x=1788799432;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cVfCCX/QbLHdAwzzCna+Dt34SELB9Z4yDIidd7xilm4=;
-        b=WdJzPyt7dloyL+47TkePf/hmTY4FJKhRZmqcmP5aZuzKvBKzmz+GCrHdVRQpDN4DtS
-         y5puhuAaawvdjhvvsxFG3JpBUrTqmq3TPGOXb3QbpsEOPwaJzFWexjFM0Pe2XkLgiLSr
-         eRK2moEUXRWiKqDIKil3/AP4eidd9lM+ixoq8hS156l8i6qJtWv6Hg5gdmpxNwWTD/6L
-         GEIRCv+RloRL28w5ER6nigLeUBO9Grx9H2R0DlcK4PtcWkYq9mf5dauRlvsEstbF+lKN
-         z9JjyitdWDiqsOuZek74m2QT2eDar7jgnkoHepQj1MYnNomgtxIXdlDdCtAbzSAE7Ee9
-         fGwA==
-X-Forwarded-Encrypted: i=1; AHgh+RocPLjiDEy2JX4amdIXtkqQV69tFMClUFtvJ9qv5iTFcKugCkG8H2q077TFUHYXuMiDhpDu+JRIoEO0@vger.kernel.org
-X-Gm-Message-State: AFuF++n9CDA7V+eDCo9qYykd2yfKz7fxWE8HpWJnwS5HxPdsRBPFUepG
-	2UYiQZWmxe0rnS5gy3BuF/ahwqj4jaWtL/hH6AgxclNBMjD5tUfCI4ZThvtb0c0lbVL2CoJ2NLY
-	GwuYKcjgNC9JI8AVgJ/7+MnHLEhXYND1TX+6NyuONXAHsAdneF1s4Axz0R1ba0VI3
-X-Gm-Gg: AR+sD11C3vh71oE9hK2/9ze6/R4zRsJ/hQ4IriRL7/jCxwdM42B4uWPzh/7vDU0jW0L
-	crRMELwgb7APtchi4sT88Iae+7ULKUZOlP1M/4JjB6ScjkRdk+H8PXA9NX34+/D/yp8XIRAFhMp
-	jCOPOrVCBukZUHoyZcvwF1mdIZBvfUqdFwiVaiwCI0eK54+x4ejZ1848PPUjkRvONw7JxU8bbrR
-	LLWFH9/8nVl0Uns7kpfPvmebFUWNZftRDvpS8JqYybaJaRzeX81QcdPBNEoCy0ZfnjiMW5PUwOM
-	FC14Ggi+XEe4LPkaxNJFR2ibx06pEaOA/Hs0+tUhv6qFuUN/RuwhCRvAxoBpNWTFaGttAI0AMIG
-	vL+HzZcAW4iJijkmFYOCGrg==
-X-Received: by 2002:a05:620a:1722:b0:930:a08c:cf9c with SMTP id af79cd13be357-9392873f3c9mr1005151785a.2.1788194631569;
-        Mon, 31 Aug 2026 09:43:51 -0700 (PDT)
-X-Received: by 2002:a05:620a:1722:b0:930:a08c:cf9c with SMTP id af79cd13be357-9392873f3c9mr1005147085a.2.1788194631028;
-        Mon, 31 Aug 2026 09:43:51 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255ee27b19sm455018966b.19.2026.08.31.09.43.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 09:43:50 -0700 (PDT)
-Message-ID: <294b2d4c-31d7-42fa-a55a-b57fc7d0ef6f@oss.qualcomm.com>
-Date: Mon, 31 Aug 2026 18:43:46 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UeVfIDzk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D25E61F000E9;
+	Mon, 31 Aug 2026 16:44:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788194664;
+	bh=4v0mx06evZs1sPMJwb4YhjbX7KUV8XSNoBH+LemztZA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UeVfIDzkGiO2xNDjn6hcWJTotXxBJ4mK//cvx4jm3uAcLDQLAFqjv6L52XLIzXXXY
+	 M/McslhLsszJiBqzQDial1RxuUOYBwAUs+RBuQlN0+a/2r7/T2ottL6yvEPdil8g7v
+	 yfmxccoP/V651WNwziIlbkV/Cg/vtrxvOMUhmvQQTwyfXXnPB6O4MjVQ+rHVihplt0
+	 2cVXgHmYoK26nhIGTHBop+ENnfWblxEZfrKB9xN/sZGiWtU06NRxjBUzWruPCHGWOG
+	 YYW05GRDgaGB+dSebyUo78FgMJMV0kCsrbzXwzaY0NfsU75Gc7P15mCxV1W9ZVPDoH
+	 hk+8/AYsOMtqQ==
+Date: Mon, 31 Aug 2026 11:44:21 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+Cc: Mathieu Poirier <mathieu.poirier@linaro.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Kumar Patro <bibek.patro@oss.qualcomm.com>, 
+	Komal Bajaj <komal.bajaj@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+Subject: Re: [PATCH v3] dt-bindings: remoteproc: qcom,shikra-pas: Allow
+ bam-dmux subnode
+Message-ID: <apWuwq78D8lEBbeA@baldur>
+References: <20260813-shikra-pas-bam-dmux-binding-v3-1-167a3fb50d21@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC/DO NOT MERGE 08/12] drm/msm/hdmi: Add support for PM
- OPP table
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov
- <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
-        linux-phy@lists.infradead.org
-References: <20260828-drm-msm-hdmi-eliza-v1-0-67843277de17@oss.qualcomm.com>
- <20260828-drm-msm-hdmi-eliza-v1-8-67843277de17@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260828-drm-msm-hdmi-eliza-v1-8-67843277de17@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDE0NCBTYWx0ZWRfXyFAymtSUTzF7
- oYx8vu49AI8QyVPRNxCOyT2bHQCcrPOXHw4Mt7I1vjMhhRhNWBcenoG+QzOEO9/DNcPxkq0V64X
- GiaOuxp1zOQ8Sb2CsjJamjCT1aDbl3VARwxbwDKEHMckNjyTSLpkTW1ektKf8K47PeT3JtSCS0A
- ScsbyReub0/i+ETMmjErLK4MJyNFEn4ORv0BY2DoYFqgrCm057lCiRpBhRaqc79TdxBnU8kqHyw
- PK0KVPo+wyL3Vhz9r0qV9C0ZCAcxgplvgOGMO0lQDPdNwkfTvnGUpAdzeZmooVSvBBlH5Ks+Xna
- eOLWsOofrFJgRv5bSnG2HHE91njAR0D7xB5oxTTzgsctF/YIWTC7KMf8r0b9x+qBIN2BjEINwLA
- NS558hT7Vzd+feSB31x0SXV/ZpeA7T20HJbMmIVVDR3rg4hazxTpli19a1TrXVp8sbew7rGSDSj
- NuM/PzGNsnMWwpjOZPw==
-X-Authority-Analysis: v=2.4 cv=YYmNIQRf c=1 sm=1 tr=0 ts=6a95af48 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=oZguCmW5wH7aHc4LmIQA:9 a=QEXdDO2ut3YA:10
- a=ZXulRonScM0A:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDE0NCBTYWx0ZWRfX0np5lM0yn8e1
- biJluC4PadPDPC5uP1IlFqPh10BEsaEYqPrZMXifAGOy5VUWxEG/FBHKtI1m27PXSTb4wwxoi1B
- 6Mk3eEM4SKtFoEnyrttf7NLNe2zIKlA=
-X-Proofpoint-GUID: 3hyN3rIJEYlJPNkjjZMkUY_9fHiE3zDK
-X-Proofpoint-ORIG-GUID: 3hyN3rIJEYlJPNkjjZMkUY_9fHiE3zDK
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-31_05,2026-08-31_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0 adultscore=0 priorityscore=1501 lowpriorityscore=0
- bulkscore=0 impostorscore=0 malwarescore=0 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310144
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260813-shikra-pas-bam-dmux-binding-v3-1-167a3fb50d21@oss.qualcomm.com>
 
-On 8/28/26 4:05 PM, Krzysztof Kozlowski wrote:
-> Allow scaling the domain rails with PM OPP, which uses the pixclock
-> ("extp").  This allows proper votes depending on requested HDMI pixel
-> rate.
+On Thu, Aug 13, 2026 at 04:55:54PM +0530, Vishnu Santhosh wrote:
+> Allow an optional bam-dmux subnode under qcom,shikra-mpss-pas by
+> referencing qcom,bam-dmux.yaml.
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+This is a statement, not a problem description. From
+https://docs.kernel.org/process/submitting-patches.html#describe-your-changes:
+
+"""
+Describe your problem. Whether your patch is a one-line bug fix or 5000
+lines of a new feature, there must be an underlying problem that
+motivated you to do this work. Convince the reviewer that there is a
+problem worth fixing and that it makes sense for them to read past the
+first paragraph.
+"""
+
+> Retarget the example to qcom,shikra-mpss-pas so the new subnode is
+> exercised by dt_binding_check.
+
+It's not clear to me why you're changing the existing example. Seems
+like a lot of churn.
+
+If you want to use dt_binding_check as a test-case for bam-dmux, perhaps
+adding an additional example would allow us to test both cases?
+
+Regards,
+Bjorn
+
+> 
+> Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+> Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
 > ---
-
-[...]
-
-> -	if (hdmi->extp_clk)
-> +	if (hdmi->extp_clk) {
->  		clk_disable_unprepare(hdmi->extp_clk);
-> +		dev_pm_opp_set_rate(&hdmi->pdev->dev, 0);
-
-FWIW rescinding the vote will happen automatically as the device runtime
-suspends. If you think this is necessary, let's do
-
-dev_pm_opp_set_opp(dev, NULL);
-
-instead, since dev_pm_opp_set_rate(0) is a ""dark pattern"" that is
-usually misused, see e.g.:
-
-https://lore.kernel.org/linux-arm-msm/20260728-topic-dpu_power-v1-0-e7783b859a70@oss.qualcomm.com/
-
-Konrad
+> Changes in v3:
+> - Reword commit message to keep it scoped to the binding change. 
+> - Retarget the example to qcom,shikra-mpss-pas and add a bam-dmux child.
+> - Link to v2: https://lore.kernel.org/r/20260729-shikra-pas-bam-dmux-binding-v2-1-d85fea84c141@oss.qualcomm.com
+> 
+> Changes in v2:
+> - Restrict bam-dmux to the qcom,shikra-mpss-pas compatible.
+> - Link to v1: https://lore.kernel.org/r/20260727-shikra-pas-bam-dmux-binding-v1-1-c0159c7c3ed4@oss.qualcomm.com
+> ---
+>  .../bindings/remoteproc/qcom,shikra-pas.yaml       | 61 ++++++++++++++++------
+>  1 file changed, 45 insertions(+), 16 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
+> index 253b14eb2b598f0ca91854c8ff4d0b785090e621..dd779b595677c0aa58708b4fde725e64d8918434 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
+> @@ -44,6 +44,11 @@ properties:
+>        - description: Firmware name of the Hexagon core
+>        - description: Firmware name of the Hexagon Devicetree
+>  
+> +  bam-dmux:
+> +    $ref: /schemas/net/qcom,bam-dmux.yaml#
+> +    description:
+> +      Qualcomm BAM Data Multiplexer (provides network interface to the modem)
+> +
+>    glink-edge:
+>      $ref: /schemas/remoteproc/qcom,glink-edge.yaml#
+>      description:
+> @@ -117,6 +122,16 @@ allOf:
+>          power-domains: false
+>          power-domain-names: false
+>  
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          enum:
+> +            - qcom,shikra-cdsp-pas
+> +            - qcom,shikra-lpaicp-pas
+> +    then:
+> +      properties:
+> +        bam-dmux: false
+> +
+>  unevaluatedProperties: false
+>  
+>  examples:
+> @@ -129,16 +144,16 @@ examples:
+>      #include <dt-bindings/interrupt-controller/irq.h>
+>      #include <dt-bindings/power/qcom-rpmpd.h>
+>  
+> -    remoteproc@b300000 {
+> -        compatible = "qcom,shikra-cdsp-pas";
+> -        reg = <0x0b300000 0x100000>;
+> +    remoteproc@6080000 {
+> +        compatible = "qcom,shikra-mpss-pas";
+> +        reg = <0x06080000 0x100>;
+>  
+> -        interrupts-extended = <&intc GIC_SPI 265 IRQ_TYPE_EDGE_RISING>,
+> -                              <&cdsp_smp2p_in 0 IRQ_TYPE_EDGE_RISING>,
+> -                              <&cdsp_smp2p_in 1 IRQ_TYPE_EDGE_RISING>,
+> -                              <&cdsp_smp2p_in 2 IRQ_TYPE_EDGE_RISING>,
+> -                              <&cdsp_smp2p_in 3 IRQ_TYPE_EDGE_RISING>,
+> -                              <&cdsp_smp2p_in 7 IRQ_TYPE_EDGE_RISING>;
+> +        interrupts-extended = <&intc GIC_SPI 307 IRQ_TYPE_EDGE_RISING>,
+> +                              <&modem_smp2p_in 0 IRQ_TYPE_EDGE_RISING>,
+> +                              <&modem_smp2p_in 1 IRQ_TYPE_EDGE_RISING>,
+> +                              <&modem_smp2p_in 2 IRQ_TYPE_EDGE_RISING>,
+> +                              <&modem_smp2p_in 3 IRQ_TYPE_EDGE_RISING>,
+> +                              <&modem_smp2p_in 7 IRQ_TYPE_EDGE_RISING>;
+>          interrupt-names = "wdog", "fatal", "ready",
+>                            "handover", "stop-ack", "shutdown-ack";
+>  
+> @@ -151,17 +166,31 @@ examples:
+>          power-domains = <&rpmpd RPMHPD_CX>;
+>          power-domain-names = "cx";
+>  
+> -        memory-region = <&cdsp_mem>;
+> +        memory-region = <&mpss_wlan_mem>;
+>  
+> -        qcom,smem-states = <&cdsp_smp2p_out 0>;
+> +        qcom,smem-states = <&modem_smp2p_out 0>;
+>          qcom,smem-state-names = "stop";
+>  
+> -        firmware-name = "qcom/shikra/cdsp.mbn";
+> +        firmware-name = "qcom/shikra/modem.mbn";
+>  
+>          glink-edge {
+> -            interrupts = <GIC_SPI 261 IRQ_TYPE_EDGE_RISING>;
+> -            mboxes = <&apcs_glb 4>;
+> -            qcom,remote-pid = <5>;
+> -            label = "cdsp";
+> +            interrupts = <GIC_SPI 68 IRQ_TYPE_EDGE_RISING>;
+> +            mboxes = <&apcs_glb 12>;
+> +            qcom,remote-pid = <1>;
+> +            label = "mpss";
+> +        };
+> +
+> +        bam-dmux {
+> +            compatible = "qcom,bam-dmux";
+> +
+> +            interrupt-parent = <&modem_smsm>;
+> +            interrupts = <1 IRQ_TYPE_EDGE_BOTH>, <11 IRQ_TYPE_EDGE_BOTH>;
+> +            interrupt-names = "pc", "pc-ack";
+> +
+> +            qcom,smem-states = <&apps_smsm 1>, <&apps_smsm 11>;
+> +            qcom,smem-state-names = "pc", "pc-ack";
+> +
+> +            dmas = <&bam_dmux_dma 4>, <&bam_dmux_dma 5>;
+> +            dma-names = "tx", "rx";
+>          };
+>      };
+> 
+> ---
+> base-commit: 3d6d817622b0a9721e3cc404df3469171582be13
+> change-id: 20260727-shikra-pas-bam-dmux-binding-28a6bf97857c
+> 
+> Best regards,
+> -- 
+> Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+> 
