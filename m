@@ -1,45 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C058849B1FE;
-	Tue,  1 Sep 2026 18:21:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E36B49B20C;
+	Tue,  1 Sep 2026 18:21:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788286873; cv=none; b=CiPimx2K4UDBJWZFQ339IIXiLVwDUWyilUfSxTrOQHGQi9/IElJzkuzJw2h08Pbcn/KGZshxjSVjPZRx12EBmi402V0IdxN4IVnSfDgRBJBsXY/+WN42KcIJ/mvu2GLOuAPkTcy3HCMSUU2vlkbohfN9JVfXpu4oOTR8lWFZwFk=
+	t=1788286889; cv=none; b=FgRh+C4qZsTgZDU/9+s448fpQKyN3xZnyYyzRze/LZ5YRT31Uazx85YApZWep+jWBgt/gpB/oInynC9SMg1veO+HcqbkPnvLGnTM6mlMuhjFgpdhBHtvlc4NgDZtGTZUZxqLIDQb9GIpo0d7AxqArdNjGSPwmyMfEhHRua3iHII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788286873; c=relaxed/simple;
-	bh=HMmlhE3+BPG/G9PQrCoGeemgq7V+HKNtcIHtCkFxQQQ=;
+	s=arc-20240116; t=1788286889; c=relaxed/simple;
+	bh=niY2U7SadFqVf5LZsXrtXbWAMJj+OCx/dd9QMUbQJdY=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=dYpwlpUS+Z3Z4VA4E1hOjzqEqSU2r9KYDOU0W36mInsMNhZeagrSgUd2axhHOKA0NuyiDCAfwbr5G+JiOa8CpBwXBQvrIyiiJG6+3u/DbRCcpT8f8CsCVJ8VhBS6VDgiLUCZTKFnTGfHHLsID0JbOCdRYIpjT0gV6VdBiF0zLDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V9LVe9e6; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=YbvrO69FzrEsyQBqicYxVH2HfTNzq0dMBH1U7hACDTFReIUe9RR+5wdzGurUfxmO14Tj1JOsXV+npF0ofCrLwPppEws8arX53PMddFNdILREAnkjZJi+aoDym+rS0/kXryHeUriyr9In98XtX+TYJzntVv4pUwls/DAXi1JbLUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bDEyCo4I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V9LVe9e6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EE651F000E9;
-	Tue,  1 Sep 2026 18:21:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bDEyCo4I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BC951F000E9;
+	Tue,  1 Sep 2026 18:21:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788286871;
-	bh=8ayIURP7vBNNLqMVNJruSZU3B6VCLfC9ekOu82f3FSE=;
+	s=k20260515; t=1788286887;
+	bh=8YluAxGPWwm2MYwukTHJXv+YZKj5wOb9JLbpEd/s/JQ=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=V9LVe9e6FlT7QfwQ5+c3fDQrKm0ip1gXtBFAOemHM/A/WClhdFztCChgtui94CV+n
-	 M0g+0z+q5BZLzKwel4FZ6HwQaVpLNaAmCIoIp5BbXVrYflrjBTJv8V7QvvRekWE8dK
-	 /PIFaVfhXVEIcei9YU9UYNfXOrmIKv5/HyaNR18/evNom/PV3VFR2PjsvhlEhXfUrs
-	 6Y54o3ratGsXOM+GVT7qMx7RKRvNmkNyRnpXTcAXeHiXmtyR8xSirCIZN7HVgYP69z
-	 mE32Lrb5nflVGWnQkqiWwQ+YoDTrBp5ZM5j2lLQTPbULg3hv42rnfpR/5uLLiU2+1g
-	 OFQLXFBhe8IGw==
+	b=bDEyCo4IJJnx4ET3pCQ7L7SOgIes6NE5AMise4Y44tns0mX9CMzhGmr0h7X5Mt+DO
+	 KyjISIWznM/2uudVu4WvHFYDEnF1JOxropNICWTyjYZ77HeRN76juD+yj/ufE5wzDD
+	 J+jI/DDi4HuX4WiYVt8lwAGKzcl02NHPmjly5H0RHB9rA8lIABUTGzVbAH+mSXqFs0
+	 hXChLvWeRJI7UDGRj24NV2RsTqtJUIIb6uvFOOCh58PLed59gCw/BeMVRqDukgfrpa
+	 nWb/yf8PadLL2g+blOXs7sYDjg3nj/Uo+LCSsmRq3EV/SkrxwftE3KlERfXo98zQ92
+	 e5d8EsUGHOg6g==
 From: Mark Brown <broonie@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org, 
- linux-sound@vger.kernel.org, Rob Herring <robh@kernel.org>, 
- Eduard Bostina <egbostina@gmail.com>
-Cc: daniel.baluta@nxp.com, simona.toaca@nxp.com, goledhruva@gmail.com, 
- m-chawdhry@ti.com
-In-Reply-To: <20260811091703.685487-1-egbostina@gmail.com>
-References: <20260811091703.685487-1-egbostina@gmail.com>
-Subject: Re: [PATCH] dt-bindings: sound: Convert TI DA830 EVM audio to DT
- schema
-Message-Id: <178812820078.13461.14863204644144903133.b4-ty@b4>
-Date: Sun, 30 Aug 2026 23:16:40 +0100
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Rudi Heitbaum <rudi@heitbaum.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Heiko Stuebner <heiko@sntech.de>, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <aousEdwMni9ScZBn@0d3a7a881997>
+References: <aousEdwMni9ScZBn@0d3a7a881997>
+Subject: Re: [PATCH] dt-bindings: regulator: fan53555: add tcs,tcs4526
+Message-Id: <178821342421.439600.14864702163491014046.b4-ty@b4>
+Date: Mon, 31 Aug 2026 22:57:04 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,29 +45,29 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1138; i=broonie@kernel.org;
- h=from:subject:message-id; bh=HMmlhE3+BPG/G9PQrCoGeemgq7V+HKNtcIHtCkFxQQQ=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqlxeSHDt2SeW/O4/HVJrUxZAvFnJyL85dvqkPj
- o+haLTnvP+JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCapcXkgAKCRAk1otyXVSH
- 0OPsB/44xDQpWGecG0egucraGDfRyC1ddqJiAUtWD4kUyLotyO+ImRri+PGH5Nzc3P4HOVxj1FS
- xTcG4YrlsnzfdKDI440L5QNL1aW9EbvWl8+NCwJuIKXkDvn2dxRRfXh9inOi/gk5du+2ZpA3SoF
- XA7OzAiQO2dZkcQTYL+/weQ6PlgemrZtYn1ffFLVjeXIKbSkOYUv5g6w3FOFshL7voZjKl53pul
- N6t29WY3gdOV/7XeCxmAogsYNzJQipomlOXNkxWQeQs3tAy2kvDSJIC39QUqjbxKeVo0nHw159P
- qrMC31RiZihVE9Fz0oJ1NEToHPyo1GQstekCSaG/a85L5ISO
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1125; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=niY2U7SadFqVf5LZsXrtXbWAMJj+OCx/dd9QMUbQJdY=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqlxej4T+z5XMNDg9dHCPQe4WKAngqClthIQG90
+ /ulzQplK0yJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCapcXowAKCRAk1otyXVSH
+ 0GeGB/sG+A4gabyxuVuWY/dR72elGCe/DSmaSgNGkya6zteUK4X3VEHWKTBNTjH/+V51jdNDZiS
+ TlsWYy6DYWN/ImSkqQpx8jdL64CKB99tZLJbZ/x2EvLG6k7HKrxkTWKuz/ludS4qE0Ox/9IpM/W
+ EZWlWxrHwy3OKaGJiLQudfS611gbhn0Uc6vZqq1CNLyTlq8IdI4KocXXUsk3uF6b1Ro4NPv7z/u
+ XVKEBm5h5X/IMsXtlrSEUiE/qHoYdxdHcA/Ul8WRemCNV0DVqp1nSPkPJVWO70VI124addgHYum
+ w7t3EYqNfWACvzxksgbo7HMr3i4v84tnYK8yAcmIVzHe2wBA
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, 11 Aug 2026 09:17:03 +0000, Eduard Bostina wrote:
-> dt-bindings: sound: Convert TI DA830 EVM audio to DT schema
+On Mon, 24 Aug 2026 02:27:29 +0000, Rudi Heitbaum wrote:
+> dt-bindings: regulator: fan53555: add tcs,tcs4526
 
 Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.3
 
 Thanks!
 
-[1/1] dt-bindings: sound: Convert TI DA830 EVM audio to DT schema
-      https://git.kernel.org/broonie/sound/c/b0ac345bad82
+[1/1] dt-bindings: regulator: fan53555: add tcs,tcs4526
+      https://git.kernel.org/broonie/regulator/c/ca12149896ed
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
