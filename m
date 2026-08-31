@@ -1,120 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8103739C63D
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 21:28:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C4239CCFD
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 21:38:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788211688; cv=none; b=X+h9BQFr59+uI6jcaLJPUhYls1UE3aiSjnxS6hsQmtd3wVLxrkLePGA266cyQto1B7Sa3IQ4IHPDEJOquD81n4oK8c0xfdi4LccHoVOI7Oj0ZaHAGvia9gZbBtVySyfcKEF9lTvP22lEGH05YD8m60OcML7wtU8QfIbw3YVbTpQ=
+	t=1788212314; cv=none; b=gMDFLa8PaOz9Ten5suAHazZwUwhps5yRqLuEcZP8pnL9dA1Qe1jDlwrOpRv2JiYK99KV4ViaQoqMzQOGwJ8StSHchzXdGFOWjI0lYQTsOw7qG9a5eDZcze09tDNTZzid0IHuQLheBsMdbkZ9cVQqw3d3X4k6TR3R/zk4VfT6JXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788211688; c=relaxed/simple;
-	bh=YZGggWt1Xosi9Qj5G+aPAuux/uJ8diAztxV9uf90gu8=;
+	s=arc-20240116; t=1788212314; c=relaxed/simple;
+	bh=/01Www36loZkModjvcY88BaOTXKUDcLoWPGzE7yZ734=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rt1O0gxulRpCKx4YE0NHp1isSZvJUH/5Df/Yjrb2c9y/1CVHzCPcND5IgHyWKm90Nnoq4n8BFBvCwznnkxJEwrnD7WaMB3uPbIVIf24imOeitu8J6uDFCEw+DjQuFF1vf/vYEhB3MZFdwtBEYp/oN/fAwJy/X+ZLT5hps9fy3+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MLBAWxfK; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=iuPMbHm2OsY1AoHBnWRBCTK3/qFBkpHKJw5kRMBFc5fhiBpSGGU+UV5EgSbBnKBrbBm/H2ElCfv/WHRlOi0pJeX03iRtNzMYkpIoZNE2QBjVlF5VWuzegwIND+vAZv5R53k5tiUxexpAAjnblf0ak2JNuQIjYF46+3D1rVewKLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QznOBsAA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MLBAWxfK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CED7A1F00A3D;
-	Mon, 31 Aug 2026 21:28:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QznOBsAA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BA3E1F000E9;
+	Mon, 31 Aug 2026 21:38:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788211686;
-	bh=Odu2HNFyAIygSQxxZLEKw/2kmbUw+Hljbd2Sv9tAoP0=;
+	s=k20260515; t=1788212312;
+	bh=Aj2sYHkOnnYHaUmcNMf5rNs3RjB4AzzWCXKDkC6lK+E=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MLBAWxfKLiieYxmeXewGmaK3Q5ifBh1km3ocg2D4Ha8Xlv4jw20rJhoGJbh6cSbxY
-	 U8jCNqhYRJcAvB5sqbhco6ShRYDl4UXpIqif5E2C+bmIZUvPn8Zj1T8YHRB8Onp5Aa
-	 Cv6KgboThcPsm0ESrHyLiG40K6pc9oEhON2RQVbRVag1tVWkqll7N4FOa2O0UPpfQn
-	 tckP7muHBx5fdevAozwwEWcBjmUXMe8mZmVPGc6QwEHCGwEyMAd5tM8jS9l8Rjj+sq
-	 cBafBN+T1pu62WxD5QfmtN7E/9flXBmGINJh+UATlIokqEAVVz/tKTLsek6YbhdSOX
-	 NN2OUNiaOGMsw==
+	b=QznOBsAAzvp0KAvDIT5EuJCkGSZz4nrfAldXarTTCxv2ZUQ/Q9ymK4xUomCYH2dMf
+	 G29WS6ybbsH8Sw4CC2yHZr0d3+EIA+WyHKBGc0TMTBrvxvRwaIBVRzBQ1T0Vaq02xA
+	 chrmA1NGdILP8akiGlg8ZhErWTcEky2N/BfemaYo4vChKSxUovYn0MZncfg5Gy4akP
+	 gIcQCNIcqvcOroaKZ7R0Vj92hgupDZaV0+c0qeSvIvQGYn9EmnIj/sATmWCcpy01qD
+	 JTmWrMaOEeIdsMhOIkDsRCJv4Mpo9BVjLl8DR+wA9F+cxluRIBePbN9RNizlPQ9aiv
+	 1VcDDqtr34/Dg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V2 3/8] arm64: tegra: Enable XUSB host function on
- Jetson AGX Thor
+Subject: Re: [PATCH V2 4/8] phy: tegra: xusb: Use devm_clk_get_optional to
+ fetch USB2 tracking clock
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Wayne Chang" <waynec@nvidia.com>
-Cc: vkoul@kernel.org, linux-phy@lists.infradead.org, olteanv@gmail.com, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20260831185835.3732707-4-waynec@nvidia.com>
+Cc: vkoul@kernel.org, linux-phy@lists.infradead.org, olteanv@gmail.com, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20260831185835.3732707-5-waynec@nvidia.com>
 References: <20260831185835.3732707-1-waynec@nvidia.com>
- <20260831185835.3732707-4-waynec@nvidia.com>
+ <20260831185835.3732707-5-waynec@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 21:28:05 +0000
-Message-Id: <20260831212805.CED7A1F00A3D@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 21:38:31 +0000
+Message-Id: <20260831213832.2BA3E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] Incorrect use of the GIC_SPI macro for GICv3 Extended SPIs (ESPI=
-s), leading to invalid hardware IRQ mapping and kernel warnings at boot.
+
+Pre-existing issues:
+- [High] Double free of the pad structure on the `tegra_xusb_pad_init()` er=
+ror path.
+- [High] Improper use of `device_unregister()` for an un-added device cause=
+s a NULL pointer dereference.
 --
 
-commit 25f7b692b008d6ac4dd9bcab2f8ae074b1c59801
-Author: Wayne Chang <waynec@nvidia.com>
+commit 0aeed6fcdb21e8c89c88a750c7002793b60d83d1
+Author: Sing-Han Chen <singhanc@nvidia.com>
 
-arm64: tegra: Enable XUSB host function on Jetson AGX Thor
-   =20
-Enable XUSB host and pad controller on Jetson AGX Thor.
+phy: tegra: xusb: Use devm_clk_get_optional to fetch USB2 tracking clock
 
-> diff --git a/arch/arm64/boot/dts/nvidia/tegra264.dtsi b/arch/arm64/boot/d=
-ts/nvidia/tegra264.dtsi
-> index 013228a817237..e59b1b0a5b925 100644
-> --- a/arch/arm64/boot/dts/nvidia/tegra264.dtsi
-> +++ b/arch/arm64/boot/dts/nvidia/tegra264.dtsi
-> @@ -4147,6 +4147,160 @@ pci@8480000 {
->  			nvidia,bpmp =3D <&bpmp 5>;
->  			status =3D "disabled";
->  		};
-> +
-> +		xusb_padctl: padctl@8680000 {
-> +			compatible =3D "nvidia,tegra264-xusb-padctl";
-> +			reg =3D <0x00 0x8680000 0x00 0x20000>,
-> +			      <0x00 0x86a0000 0x00 0x10000>;
-> +			reg-names =3D "padctl", "ao";
-> +			interrupts =3D <GIC_SPI 4101 IRQ_TYPE_LEVEL_HIGH>;
+This commit updates the USB2 PAD tracking clock fetching to use
+devm_clk_get_optional, allowing the probe to continue if the optional
+tracking clock is missing in the devicetree.
 
-[Severity: Medium]
-Does this use of GIC_SPI for INTID 4101 lead to an incorrect hardware IRQ
-mapping?
+> diff --git a/drivers/phy/tegra/xusb-tegra186.c b/drivers/phy/tegra/xusb-t=
+egra186.c
+> --- a/drivers/phy/tegra/xusb-tegra186.c
+> +++ b/drivers/phy/tegra/xusb-tegra186.c
+> @@ -1045,7 +1045,7 @@ tegra186_usb2_pad_probe(struct tegra_xusb_padctl *p=
+adctl,
+>  		goto out;
+>  	}
 
-The GICv3 DT bindings limit GIC_SPI indices to 0-987. During system boot,
-when parsing the device tree to set up interrupts for padctl@8680000, indic=
-es
-greater than 987 emit a warning and map to index + 32, which would compute =
-to
-4133 instead of 4101.
+[Severity: High]
+This isn't a bug introduced by this patch, but while reviewing the error
+handling around this initialization, I noticed a couple of pre-existing
+issues in the failure path of tegra_xusb_pad_init() just above this change.
 
-Should this use the GIC_ESPI macro with a 0-based index (e.g., GIC_ESPI 5) =
-to
-correctly specify the ESPI?
+If dev_set_name() or device_add() fails in tegra_xusb_pad_init(), it jumps
+to the unregister label and calls device_unregister(&pad->dev).
 
-[ ... ]
+First, does calling device_unregister() on a device that was never fully=20
+added cause a NULL pointer dereference? Since device_add() failed or wasn't
+called, dev->p would be NULL. When device_del() is called internally, it
+attempts to access dev->p->knode_parent, which seems like it would crash.
+Should this strictly use put_device(&pad->dev) instead?
 
-> +		usb@aa10000 {
-> +			compatible =3D "nvidia,tegra264-xusb";
-> +			reg =3D <0x00 0xaa10000 0x00 0x40000>,
-> +			      <0x00 0xaa00000 0x00 0x10000>,
-> +			      <0x00 0xaa50000 0x00 0x10000>;
-> +			reg-names =3D "hcd", "fpci", "bar2";
-> +
-> +			interrupts-extended =3D <&gic GIC_SPI 952 IRQ_TYPE_LEVEL_HIGH>,
-> +						  <&gic GIC_SPI 4096 IRQ_TYPE_LEVEL_HIGH>,
+Second, if tegra_xusb_pad_init() fails, calling device_unregister() drops
+the reference count to 0, which triggers tegra_xusb_pad_release() and its
+associated pad-specific remove callback, executing the first free. However,
+when the error is returned here to tegra186_usb2_pad_probe(), the code
+explicitly calls kfree(usb2). Could this result in a double-free of the
+usb2 structure?
 
-[Severity: Medium]
-Similarly, does this map to the wrong hardware interrupt (4128 instead of
-4096) due to the use of GIC_SPI for an ESPI?
-
-This will likely trigger a "SPI 4096 out of range (use ESPI?)" warning duri=
-ng
-boot when parsing the usb@aa10000 node, and could break USB functionality.
-
-Should this use GIC_ESPI 0 instead?
-
-> +						  <&pmc 79 IRQ_TYPE_LEVEL_HIGH>,
-> +						  <&pmc 80 IRQ_TYPE_LEVEL_HIGH>,
+> -	priv->usb2_trk_clk =3D devm_clk_get(&pad->dev, "trk");
+> +	priv->usb2_trk_clk =3D devm_clk_get_optional(&pad->dev, "trk");
+>  	if (IS_ERR(priv->usb2_trk_clk)) {
+>  		err =3D PTR_ERR(priv->usb2_trk_clk);
+>  		dev_dbg(&pad->dev, "failed to get usb2 trk clock: %d\n", err);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831185835.3732=
-707-1-waynec@nvidia.com?part=3D3
+707-1-waynec@nvidia.com?part=3D4
