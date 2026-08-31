@@ -1,46 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF89A499F1E;
-	Mon, 31 Aug 2026 17:54:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED7BD49B211;
+	Mon, 31 Aug 2026 17:54:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788198863; cv=none; b=DtpnNBE9uY7h5pk1bssjxPv1Ag9puz62vdfroUYWyndLtN3s4X8mlW9agqH+CLOAeaaZz07TgVN+In22OAz1RkTPZG0IAZXA24gIVdXRahgdEzYmcvfUXsccMtHUN0MPBtcNrCePuswyZLyRzYd8fLFJpu6+VAhCdmRP2WQX8cw=
+	t=1788198864; cv=none; b=kQKPAg2m8wvJ+quolXo9n0knIjSR3hDWJSTXeuJYozjt5knJgUC8kn5L3yFHEUThKyU7HZ6nvtAJhWa8gBmsqSrTAlghYiw15yw2Tz68/higig0t+wF6ej11XateCn7d/MsGWDJfvHwgryoIk4vgJgZmaTiuee0HcEV9mmSbSwI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788198863; c=relaxed/simple;
-	bh=CLP0Zs8FcVoLb/ca1fWkg6f+ehXCLl7jvsgeOolHfzY=;
+	s=arc-20240116; t=1788198864; c=relaxed/simple;
+	bh=kcUxUaGTMHh4rNGRRUdtbujPH5Uo7Upwkj37fMhbimY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ge57cEbR2kGx3Vx49yfZgTgnfgBUK2dcyLIyz8bmCZqm3JJ1fFcW3s5+Mxy6UW9e7EvReKjwR/hddnY79CPvv6/iRPZJEmGaITKQux/2ATIUtmKpKU4wbXfOTIsiYO/pr4FASRbSusBsejB503DKNcTVVcj5lNmMijN7WaoaPxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BxvKonl7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=tR2EB/AB8t8hl5rapXpLG0c7pN3SW6Cb5UgWS9Ek/qQn2pqqd7X/dxlbwdzdYcz9x1ZFoMiCE5LWwPjatCRGQRcsoDNkMCd97F7VsyYbiVmpxdCSe/sRdwSIcoJquJFg2U2Gwl5yBFW1dnzmpdqnwiLt8hZmvv5NRfi/j/PeJ6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C/JN5X65; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BxvKonl7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 396C51F00A3D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C/JN5X65"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BD971F00ACA;
 	Mon, 31 Aug 2026 17:54:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788198861;
-	bh=dWWbcBwqDlx8QShY/YpuD/ZcfTs6H9vSeSmK8QgTDJM=;
+	s=k20260515; t=1788198862;
+	bh=eHVfEF2J+vk8Hjo/t6Gcqr0m5mVNIqx8lhN2tQaoAgw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BxvKonl7AZLHvQ6L000CGjhZr/9keDAG+B75WS6em6mo5/u5WVSjadv7vSt1nD/6+
-	 p/f+MBKIYkZ7wB9k0QqniNHEY2Rm5+7Hx+L8CuSs/duK+GKQnaQdeq9e6kFbe08MR3
-	 CSMU5Io3z/CWNf1Kq9ypzZ2qifg3nzlaK4oHQXzmNtnRJsMfcWMokCXM/q7SgNiIwt
-	 B6AyN3mjK5KkdU6SEaxUrtGj+Wls/feN9mcnFBoIP/jEldryJvd70X1jh+378gzn17
-	 NK1IT3iUiWlB7behHS5IujLtYqw5+Bdj6rH6r1tlRbVXFYsB7sArfoeZXL8XYSTLmw
-	 2Tl4QIABZwuuA==
+	b=C/JN5X65lbO5W1dwLmCWDmM8HOlC3iJZUiADCxbsg8DS1bGVOve12eyoXDyTyOXpY
+	 0UMqbtfusJ2rxwN7q9HR2wFdKGPrypfBJUZYQiqVWqR/+7T06BlbPnU/tuQuJMz4y8
+	 fhKuCF3iWrFlSJVbWXKgCGtD67Pbsh85XZxVNxD9Tyev4mWysDty1/MJ7QRwLX0qEc
+	 LgctQkQwKa/xih72YtwOeIRSx5Ii0WwAVLm0flhb/FeuVT6T7jve/JAK2kg+lEvFYO
+	 O4HSSk4HHNOW7ffek7h3NwCm0g0kG1a+LvSxoqMCrI4h948r8NvSz7TTnONC9gifj1
+	 HpMveXNAvaCyg==
 From: Bjorn Andersson <andersson@kernel.org>
-To: konrad.dybcio@oss.qualcomm.com,
-	Shujath Mohd <shujath@outlook.in>
-Cc: conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	konradybcio@kernel.org,
+To: konradybcio@kernel.org,
+	robh@kernel.org,
 	krzk+dt@kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	robh@kernel.org
-Subject: Re: (subset) [PATCH] arm64: dts: qcom: sdm845-sony-xperia-tama: Fix Bluetooth UART pinctrl
-Date: Mon, 31 Aug 2026 12:53:51 -0500
-Message-ID: <178819882987.1411250.13799863323959632704.b4-ty@kernel.org>
+	conor+dt@kernel.org,
+	richardcochran@gmail.com,
+	Umang Chheda <umang.chheda@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	mohd.anwar@oss.qualcomm.com,
+	krishna.chundru@oss.qualcomm.com,
+	monish.chunara@oss.qualcomm.com
+Subject: Re: (subset) [PATCH v5 0/2] arm64: dts: qcom: Introduce support for Monaco-ac-sku Evaluation Kit
+Date: Mon, 31 Aug 2026 12:53:52 -0500
+Message-ID: <178819882992.1411250.5273517029712682137.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <PUZPR01MB51413F6FF89A8FA82A9B2755C3A02@PUZPR01MB5141.apcprd01.prod.exchangelabs.com>
-References: <7334c260-0130-453f-8169-c07a3145aa19@oss.qualcomm.com> <PUZPR01MB51413F6FF89A8FA82A9B2755C3A02@PUZPR01MB5141.apcprd01.prod.exchangelabs.com>
+In-Reply-To: <20260626111301.3479559-1-umang.chheda@oss.qualcomm.com>
+References: <20260626111301.3479559-1-umang.chheda@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,22 +55,22 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 24 Aug 2026 15:15:07 +0530, Shujath Mohd wrote:
-> Use the 4-pin UART6 pinctrl configuration for the WCN3990 Bluetooth
-> controller on Sony Xperia Tama devices.
+On Fri, 26 Jun 2026 16:42:58 +0530, Umang Chheda wrote:
+> Add support for Qualcomm's Monaco-ac-sku Evaluation Kit (EVK) without
+> safety monitoring feature of Safety Island(SAIL) subsystem.
+> This board is based on Qualcomm's QCS8300-AC variant SoC.
 > 
-> This enables the UART hardware flow control required for reliable
-> Bluetooth communication at higher baud rates.
-> 
-> Fixes: d54331131cde ("arm64: dts: qcom: sdm845-sony-xperia-tama: Add bluetooth")
-> Fixes: 30a7f99befc6 ("arm64: dts: qcom: Add support for SONY Xperia XZ2 / XZ2C / XZ3 (Tama platform)")
+> Monaco-ac-sku EVK board is a single board computer (SBC) that supports various
+> industrial applications, including factory automation, industrial
+> robots, drones, edge AI boxes, machine vision, autonomous mobile
+> robots (AMRs), and industrial gateways.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: sdm845-sony-xperia-tama: Fix Bluetooth UART pinctrl
-      commit: cd0f33393882e2554d46e8e068ab95d00593f385
+[1/3] dt-bindings: arm: qcom: Add monaco-ac-evk support
+      commit: 522cffd76eb85451f3c0f71a143108b19615f6fe
 
 Best regards,
 -- 
