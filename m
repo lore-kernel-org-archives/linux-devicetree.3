@@ -1,114 +1,146 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B26F03128B6;
-	Mon, 31 Aug 2026 20:14:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788207272; cv=pass; b=QdOfpKlFXeHHZC1xF53j5JJEQ6Jt9h6Ucd60dwG3h+lppcg0kedoImKo4y6ynCGWwZwD9hD1TmDTcgSX2YlCM1mkftVsz2OG6cOp8lpXAEQvCfbGbOXH4BDsDezn/uAw8vBeh2CRGbrsOD67xDFX3xRKwALZqYg8+Gewxre1oUA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788207272; c=relaxed/simple;
-	bh=fkYdLucBxnpBb5gCIZBVvqm0RrrwjJcyxDFqsET+AEs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sp4qRIa6rGzUmpD39gaSYN5dCx9KWLspYMCRC3Z5iopXNquDJ08r6DN2cvkArWzCR2/8OZW+bBkECiwe8X2BVHVYD9sTSWCn4KaR5Cmuhw+N1wQsf7yX9TgSgM5Nk84g8WXp2hFq+/UWKPeBPbqJCz6ygjyO5sFYYuT6Q2SF+lU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=detlev.casanova@collabora.com header.b=K8RurycD; arc=pass smtp.client-ip=165.173.182.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2012C385516;
+	Mon, 31 Aug 2026 20:14:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788207274; cv=none; b=rJcBa+k0WszGLiRD7hWWlsXcT12rO5hz6G36D6x2w3D/xlSAUrQ3BLyVUN0qW/JbTv3zzgHnTgcu2AgvcYSrWfJLCo1rnK5LqHAXFRZh/jYCQNqCmCfGi7WeBjkRxh/Kfx0Er7Ootxbc81cUddbDMGGnJt3HVyjKSwbeT3RdrGk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788207274; c=relaxed/simple;
+	bh=zRmv+7HSX3ga3wbRBKVoyt9AVaxJIg8v1/83A2oIemo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=D9wqdGG5yJq1X4iVWOlFNezJCZI4Ks2d9NxnnZ+rp1rL4Urah+ZNkercx/7ZfQ8OTQfSJvEAAk2P2kqf8hSiBlJQ42+44v5tVK2S9eSajLoVQeQIsYAzndRS9khW7qh3euUZ2GdzkhopKeuEPhUG0mhISFbWJetVwmkAB8ti6+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PHhlyU19; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=detlev.casanova@collabora.com header.b="K8RurycD"
-ARC-Seal: i=1; a=rsa-sha256; t=1788207249; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=UxFmVSGWfWwX4095cU3RapSW6xFYKOcZ6Ff11y2iOlU91FXsHEbs6Dh27Ayn6qN72tl410dqcFMoNM7mc9RGSQoC1NV3+fSqkNBlaJu6mhN2bcTkssClXZUoZYBDDrXB/yg3oD4Xh2H/3JYliv2ppNaXPa+j9/MJLRqP7EFP0Sk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1788207249; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=eCM44TQaX5AtvJ6swXT0C0Y1eVxY0peXONRRcHF27UU=; 
-	b=m9BgYf5oyXmQyWebryNAkwditKF1O4d8ttKWZMt+MniQYr4VwUPYSmVwzK6FozEuFr5wi5snSTzUMaqBiWn4JQ5+BIpLHoxe77PlyUIoXsPPHzW4uq5kTORCH7VFNBuVqOTHsvZII3gbS9ovrwPtEBu74hHRnYs7zQIKJxxbNt8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=detlev.casanova@collabora.com;
-	dmarc=pass header.from=<detlev.casanova@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788207249;
-	s=zohomail; d=collabora.com; i=detlev.casanova@collabora.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
-	bh=eCM44TQaX5AtvJ6swXT0C0Y1eVxY0peXONRRcHF27UU=;
-	b=K8RurycD9hAysIDsFWTHo/4Pl2qLEzi9gOnw+XAZjyZ3QA5KumbOijHo7EV0zAr0
-	r8wzfs26gWB+8vtq3txIkZAEItegtYHT977q3GBvNtIWR041bxejh9X6jIGUjjydG+G
-	IlIDOhl6wKCiEAwlvznM0y7F8OGe/kK9sYQ/Kst0=
-Received: by mx.zohomail.com with SMTPS id 1788207246171550.1263319158736;
-	Mon, 31 Aug 2026 13:14:06 -0700 (PDT)
-From: Detlev Casanova <detlev.casanova@collabora.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Johan Jonker <jbx6244@gmail.com>, Alex Bee <knaerzche@gmail.com>,
- Christian Hewitt <christianshewitt@gmail.com>,
- Robin Murphy <robin.murphy@arm.com>,
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Diederik de Haas <diederik@cknow-tech.com>
-Cc: kernel@collabora.com, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5/7] arm64: dts: rockchip: Rename rk356x HDMI audio card
-Date: Mon, 31 Aug 2026 16:07:37 -0400
-Message-ID: <1l5cQ5HdTvCBGiUCVh40og@collabora.com>
-In-Reply-To: <DL3B1XH7K4WC.1ZXA6ANI8Q1A0@cknow-tech.com>
-References:
- <20260831-fix-rockchip-hdmi-audio-names-v1-0-5b155ae05293@collabora.com>
- <20260831-fix-rockchip-hdmi-audio-names-v1-5-5b155ae05293@collabora.com>
- <DL3B1XH7K4WC.1ZXA6ANI8Q1A0@cknow-tech.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PHhlyU19"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6506C1F00A3D;
+	Mon, 31 Aug 2026 20:14:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788207272;
+	bh=GvQN5WCZbaTcgyuFd/keEw61jzZzHWNfz+5kRZV65io=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=PHhlyU19Bwqgqd6NOmKns1EUnrDu0Wejbf/nkm+Hu83GXvlrIQXWU9yNsjR1qPAI0
+	 93FGcPL9xFFwyBCRN0ni3zXRBHEoQM7AI8sv50itTZmR7BIXOsnxRr8MGzJVF1g6EI
+	 wgdZYoW45d89NDHKFCKhZgUX5a3AjcMDZZa1oHCpkElx3p5VQstQ4lC+yyMvFVlmkA
+	 MBhrjlYdiyxtR6c/qMk8LTfJtj8+Z/8lT6GqWkpi5uvLqzfXnac71LQuVPjvgaKnnw
+	 zZsaBzkqY0o3KUGhcX1YvqAcBCDxyy31yvNys7ZOjjT58t5CjCkh6j1+fzhHzScL/x
+	 PK8g7b0TpkZSw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 3/6] rtc: s35390a: Fix alarm not disabling
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Markus Probst" <markus.probst@posteo.de>
+Cc: robh@kernel.org, conor+dt@kernel.org, linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>
+In-Reply-To: <20260831-rtc_s35390a_int1-v8-3-dac1dc86ce1f@posteo.de>
+References: <20260831-rtc_s35390a_int1-v8-0-dac1dc86ce1f@posteo.de>
+ <20260831-rtc_s35390a_int1-v8-3-dac1dc86ce1f@posteo.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 31 Aug 2026 20:14:32 +0000
+Message-Id: <20260831201432.6506C1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-X-ZohoMailClient: External
 
-On Monday, 31 August 2026 13:29:00 EDT Diederik de Haas wrote:
-> On Mon Aug 31, 2026 at 4:20 PM CEST, Detlev Casanova wrote:
-> > Rename the card from "HDMI" to "RK356x HDMI" so it identifies the SoC
-> > in user-visible ALSA fields and no longer collides with the identical
-> > "HDMI" string used by other Rockchip SoCs.
-> > 
-> > Fixes: 697ee8546e241 ("arm64: dts: rockchip: Add HDMI audio nodes to
-> > rk356x") Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
-> > ---
-> > 
-> >  arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-> > b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi index
-> > a5832895bd39..98785c812fc4 100644
-> > --- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-> > +++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-> > @@ -150,7 +150,7 @@ scmi_clk: protocol@14 {
-> > 
-> >  	hdmi_sound: hdmi-sound {
-> >  	
-> >  		compatible = "simple-audio-card";
-> > 
-> > -		simple-audio-card,name = "HDMI";
-> > +		simple-audio-card,name = "RK356x HDMI";
-> 
-> Move the name property to rk3566.dtsi and rk3568.dtsi and use their actual
-> SoC name, thus RK3566 and RK3568?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-I hesitated on this one but I agree with you, it's better to have more 
-granularity. Will update in v2.
+Pre-existing issues:
+- [High] Adding `alarm_irq_enable` exposes a preexisting flaw where `set_al=
+arm(enabled=3D0)` drops the alarm time, causing subsequent `RTC_AIE_ON` ioc=
+tls to enable the alarm with an incorrect/stale time.
+--
 
-Detlev.
+commit 9902d89ba2e478f9c2ca532d42600946943b66e7
+Author: Markus Probst <markus.probst@posteo.de>
 
-> Cheers,
->   Diederik
-> 
-> >  		simple-audio-card,format = "i2s";
-> >  		simple-audio-card,mclk-fs = <256>;
-> >  		status = "disabled";
+rtc: s35390a: Fix alarm not disabling
 
+This commit implements the alarm_irq_enable callback to fix an issue where
+the alarm was not disabling.
 
+> diff --git a/drivers/rtc/rtc-s35390a.c b/drivers/rtc/rtc-s35390a.c
+> index 4cfe7034c5165..575bb256eb258 100644
+> --- a/drivers/rtc/rtc-s35390a.c
+> +++ b/drivers/rtc/rtc-s35390a.c
+[ ... ]
+> @@ -270,6 +270,24 @@ static int s35390a_rtc_read_time(struct device *dev,=
+ struct rtc_time *tm)
+>  	return 0;
+>  }
+> =20
+> +static int s35390a_rtc_alarm_irq_enable(struct device *dev, unsigned int=
+ enabled)
+> +{
+> +	struct s35390a *s35390a =3D dev_get_drvdata(dev);
+> +	u8 sts;
+> +	int err;
+> +
+> +	if (enabled)
+> +		sts =3D S35390A_INT2_MODE_ALARM;
+> +	else
+> +		sts =3D S35390A_INT2_MODE_NOINTR;
+> +
+> +	err =3D s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, &sts, sizeof(sts)=
+);
 
+[Severity: High]
+This is a pre-existing issue, but does enabling the alarm here (e.g., via
+the RTC_AIE_ON ioctl) expose a flaw where s35390a_rtc_set_alarm() drops the
+alarm time?
 
+When a user issues the RTC_ALM_SET ioctl, it inherently calls
+s35390a_rtc_set_alarm() with enabled =3D 0. The driver sets STATUS2 to NOIN=
+TR
+mode:
+
+drivers/rtc/rtc-s35390a.c:s35390a_rtc_set_alarm() {
+    ...
+    if (alm->enabled)
+        sts =3D S35390A_INT2_MODE_ALARM;
+    else
+        sts =3D S35390A_INT2_MODE_NOINTR;
+
+    /* set interrupt mode*/
+    err =3D s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, &sts, sizeof(sts)=
+);
+    ...
+}
+
+The driver then attempts to write the time to INT2_REG1:
+
+drivers/rtc/rtc-s35390a.c:s35390a_rtc_set_alarm() {
+    ...
+    err =3D s35390a_set_reg(s35390a, S35390A_CMD_INT2_REG1, buf,
+                          sizeof(buf));
+    ...
+}
+
+However, as documented by the driver's own comment in s35390a_rtc_read_alar=
+m(),
+the alarm time register is completely inaccessible when the alarm is not
+enabled. Thus, the time update is silently dropped by the hardware.
+
+When the user subsequently calls RTC_AIE_ON, this newly added
+alarm_irq_enable callback enables the alarm interrupt using the incorrect or
+stale time previously residing in the registers.
+
+Note: This issue is not resolved by follow-up patches in this series. In the
+final patch (commit "rtc: s35390a: Add synology quirk"),
+s35390a_rtc_set_alarm() still leaves the interrupt mode disabled when
+alm->enabled =3D=3D 0 before performing the time register writes, preservin=
+g the
+issue.
+
+> +	if (err < 0)
+> +		return err;
+> +
+> +	return 0;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-rtc_s35390=
+a_int1-v8-0-dac1dc86ce1f@posteo.de?part=3D3
