@@ -1,179 +1,65 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3868D3CFF6A
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 08:49:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C675A3C09EA;
+	Mon, 31 Aug 2026 08:51:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788166147; cv=none; b=LYnRPiIjIFp/8rvIQH7l1qHGft4fNkSAfytdv7lFcBAuzy+K7S+6U1NvFmE1wSNlUubceJrMBqWBPV9Ransp0gf4qx4zOBfPlRahG6ZbsMv2nF3KD5QKfR2C2/yzeMN9+uhb8jKmxrlgoTEFQwvNuJEq3AEA4gD5Ym8coKT3tQg=
+	t=1788166272; cv=none; b=DszWEVNqQ4O1UbfvcxTXQ2NeAqo6qb63XdhXg8OmiyLYnuyYsSoFq5mVwB72aiGQ2VdK2OgPwOLzrBRoKLY9s7+4392BhADvondmNu7Y4FU4WusnpkOe3OBJj8WZ70diRTr/1kQeE+SjG5jTOQexHZ64iYT1BQCC+ocNlHjqPqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788166147; c=relaxed/simple;
-	bh=azoied0xT64i6k+wetOreteV2UnbQxs5C9/KtA7kOAk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CNehjVUosTw6XwHIqAcqXNcBAckXN7TTgVgse/Dumho/eFcm3b6aWCMesC5m6BMkEKMFdEq/x0wWL+vznt8BUxxqGpec2CpNYUFvrEDbWm+81w+sVgKWq7i4eCDY23JdMjDiuQXbrSy8wkQmzuEAHJwm1f9xFGZD/z1IIt5TZ44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DiQJ30f/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788166272; c=relaxed/simple;
+	bh=0y9AqCPkmMzXg4y0H7b+txhn8q7YvaREMsruI6GeqSs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RGi2FU+lw0qvbMzaGfd3g7LNmk34MijUdZnv7S4nu9b7voNa95vC//f4tF10M9BhCUftxGoMaMJVrzsFRzXjj06PEnnX2jzjCHpqJpb+uqegZYfhJdBBiZ0IeC/RsHtg6f1nf1hQJTRzwteos39I/dlGhk34qhITVLaPdvvbwfE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XL8fXmsE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DiQJ30f/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADED01F000E9;
-	Mon, 31 Aug 2026 08:49:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XL8fXmsE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58D401F000E9;
+	Mon, 31 Aug 2026 08:51:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788166142;
-	bh=ijAzzobdrK9v1uftPq1rk2JJGtUzAPqOY3nwGtZR9bk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DiQJ30f/TI50Bw7BCJBQPxHCpRMr1RgruBmdM4/u6cMfuEifceJPjUHTi3GXo9VR9
-	 vgi6WLDO9dQTGCqvraKvYQ5wwtSVmXeYtfxEPxlu6uWsb/SgetZHFWoZbEmaeO3LpG
-	 EArRhS7XSJnmd3LYW9PxwMEU0z3NNA/do0lGdhe7luCx23OEDQaksA01DBP+hyj7Es
-	 +usNI74QWp6hRIR0sNXaGPRxqsmpt9gP5hFDos3rWOMP42cBbnTnrVv08Mf4L81HVo
-	 i1WB58Hfls+Y31gJo/HuaD1mIrfa+Mrfn9pYbD02HyC/lZPKz/z03SSIgRC1Xngepz
-	 TLsZRLKqbsnxQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 04/14] accel/rocket: let the core suspend after a
- reset
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260831081956.84871-5-gahing@gahingwoo.com>
-References: <20260831081956.84871-1-gahing@gahingwoo.com>
- <20260831081956.84871-5-gahing@gahingwoo.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 08:49:01 +0000
-Message-Id: <20260831084901.ADED01F000E9@smtp.kernel.org>
+	s=k20260515; t=1788166270;
+	bh=aJhSr1y8SNVGJVWTrH8sOv+0JMoXHZb5RD+4Hd9G5m4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XL8fXmsEqDF/eDGwhootlckY4E55cvv2oQqeOsEisCc+wHuyE+QwnAjYwAK4ro4QT
+	 U+fyylyiFMVq0XyTyJ56T/nJguFoRbEEhVZ+faax5kQeg5Y/9S38O0RdePoCb/uyPA
+	 +VycH0kSNOucWa9TAVf5qSYCqxrKXMDX7tky7aaqHQWLXeiPv2CcNcnunh4fRbOGE/
+	 3RPLfzmtDm9rB1j7H2NJr72muX4HhIQuBxTVtEaOeoTHmYhrXTFGITdGPF4zSNzZEj
+	 jvEkobecxKqWzmC+f9ndBwC4pX+HyY0Qiw7GUWjVq6Xz5Ayz3RzyI7dT93uCQz5gTw
+	 x7hP7vMLmGJEA==
+Date: Mon, 31 Aug 2026 10:51:05 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Marek Vasut <marex@nabladev.com>
+Cc: linux-arm-kernel@lists.infradead.org, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Conor Dooley <conor+dt@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-usb@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: usb: generic-ohci: Document ST STM32MP1
+ SoC compatibles
+Message-ID: <20260831-gay-colorful-cat-edf6c7@quoll>
+References: <20260828150202.173109-1-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260828150202.173109-1-marex@nabladev.com>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+On Fri, Aug 28, 2026 at 05:01:26PM +0200, Marek Vasut wrote:
+> Document SoC compatibles for ST STM32MP13xx and STM32MP15xx series of
+> SoC, so they can be used as more accurate compatible in SoC DTSI. The
+> SoC DTSI currently use plain "generic-ohci" which is not future proof.
+> 
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
+> ---
 
-New issues:
-- [High] Using asynchronous pm_runtime_put_autosuspend() instead of a synch=
-ronous suspend in the reset path prevents the required power domain cycle i=
-f the next job is submitted immediately.
+This should go also with your access controllers property. What
+happened to it?
 
-Pre-existing issues:
-- [High] The shared IRQ handler accesses hardware registers without verifyi=
-ng if the device is active, and the runtime suspend callback powers down ha=
-rdware without synchronizing with in-flight shared IRQs.
-- [High] Reference count leak of the IOMMU group on every job completion in=
- rocket_job_next_locked().
-- [High] Detaching the IOMMU before halting the hardware during reset cause=
-s SMMU translation faults if the hardware is still active.
---
+Best regards,
+Krzysztof
 
-commit b4995381e41020bdb1af33ec4a432209b68f8226
-Author: Jiaxing Hu <gahing@gahingwoo.com>
-
-accel/rocket: let the core suspend after a reset
-
-This patch modifies rocket_reset to drop the PM reference using
-pm_runtime_put_autosuspend, allowing the core to suspend and trigger
-a bus interface reset upon resuming.
-
-Link: https://lore.kernel.org/all/20260819073530.6087-1-royalnet026@gmail.c=
-om/
-
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> index 3c0ed46050669..a89ab49e17e52 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -406,12 +406,12 @@ rocket_reset(struct rocket_core *core, struct drm_s=
-ched_job *bad)
-> =20
->  	/*
->  	 * No handler is running now, but we might still have stuck jobs. Let's
-> -	 * make sure the PM counters stay balanced by manually calling
-> -	 * pm_runtime_put_noidle().
-> +	 * make sure the PM counters stay balanced by putting the reference the
-> +	 * job took, and request idle while doing it so the core can suspend.
->  	 */
->  	scoped_guard(mutex, &core->job_lock) {
->  		if (core->in_flight_job)
-> -			pm_runtime_put_noidle(core->dev);
-> +			pm_runtime_put_autosuspend(core->dev);
-
-[Severity: High]
-Does using the asynchronous pm_runtime_put_autosuspend() here prevent the
-required power domain cycle?
-
-If a queued job is submitted immediately after reset, couldn't the autosusp=
-end
-timer be canceled before the core actually suspends?
-
-rocket_reset() finishes by restarting the scheduler:
-
-    /* Restart the scheduler */
-    drm_sched_start(&core->sched, 0);
-
-If the scheduler restarts and the next job runs immediately, it will take a
-PM reference and cancel the autosuspend timer before the suspend happens.
-Would using a synchronous suspend instead guarantee the hardware ordering
-constraints are met?
-
-> =20
->  		iommu_detach_group(NULL, core->iommu_group);
-
-[Severity: High]
-This is a pre-existing issue, but does detaching the IOMMU here before halt=
-ing
-the hardware risk SMMU translation faults?
-
-If a hung job leaves the hardware actively attempting DMA transactions,
-detaching the IOMMU unmaps the device's DMA domain while the transactions a=
-re
-still in flight.
-
-The hardware is reset and halted after the IOMMU group is already detached:
-
-    iommu_detach_group(NULL, core->iommu_group);
-    ...
-    /* Proceed with reset now. */
-    rocket_core_reset(core);
-
-Should the hardware be halted prior to revoking its DMA mappings?
-
-[ ... ]
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the shared IRQ handler
-access hardware registers without verifying the device's PM state?
-
-In rocket_job_irq_handler(), the handler reads a hardware register on a sha=
-red
-IRQ line:
-
-    u32 raw_status =3D rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
-
-If an interrupt fires for another device sharing the same IRQ line while the
-NPU is runtime suspended, won't this read unclocked hardware registers and
-potentially cause an asynchronous SError panic?
-
-Additionally, in rocket_device_runtime_suspend(), the hardware is powered d=
-own
-without synchronizing with in-flight shared IRQs:
-
-    clk_bulk_disable_unprepare(rdev->cores[core].soc->num_clks,=20
-                               rdev->cores[core].clks);
-
-Could this crash the kernel if the handler is executing mid-flight while the
-clocks are disabled?
-
-[Severity: High]
-This is a pre-existing issue, but does rocket_job_next_locked() leak an IOM=
-MU
-group reference on every normal job completion?
-
-The group reference count is incremented but not decremented when detaching:
-
-    iommu_detach_group(NULL, iommu_group_get(core->dev));
-
-Because jobs execute continuously, won't this eventually saturate the refco=
-unt
-and permanently leak the IOMMU group object on teardown?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831081956.8487=
-1-1-gahing@gahingwoo.com?part=3D4
