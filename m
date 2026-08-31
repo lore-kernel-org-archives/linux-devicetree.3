@@ -1,141 +1,322 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 920EE4ACC8A
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 13:47:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE7274ACC77
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 13:47:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184046; cv=none; b=sqlXOxwcVnvf0jE1i77HJVhql/jdAXpGHqbQVgzRhDyBunuedhFbajUv7nV30YS1l6vMHAEnAEK38ig2xCzKBlnyfct/kSeZAvuynhBGq4WJOnGB0WAJZEWfDR5F4kIyultaE4l8McN88Qa5BSIx2UnSHFG59wiHcGGDsQ53jgo=
+	t=1788184046; cv=none; b=PI98dZwvWTV0ObX0PNpN66RHyr63BWwqpJ+EOvEkjIXCYXsAsrRdcDHj1xEUU7KmSG79Y9bajSBVMrPM3LLT+fynoXS8IZPrwA05nzWTvMXMV6ctkp03fO/5mHR+waqreoi22+6BzJRvLPFDCI7iIaLSy2YhAvbvOmNrrxjUG7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788184046; c=relaxed/simple;
-	bh=t9lA8ziRvqpmmCvLFMrfrTIBNZy1zv7LxbPEYc+pUCI=;
+	bh=N4mNKFuYaOhlHlGhbYtjqkLaTvMIyWLuSgW16mqrbCg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XlHAA9jwhoGxOZdfVpXAM08VI8vD18L6HNgEw9I/0eEEsgscX6jlw9NYqwzSnOWJtPfDSZEMnCb7MJ8zXzk5ZnUm6JfirEyFaa/1YmIn9hv8AtzzwQ8IERsHBBh9QO4UsObtRal2VIBo6HSSti0+uaW/Mchok//fymQWttrnkm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NkXtKBAp; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=eeUZaEjbcPBKdNppZNFrt1pHTcwxqsLk0fSYypLknLbgkr477i4polouAyqJ8ssgivg26p8WekwxQMGrWizKkex7nz/NP/RZSUx7NM+ScsGO0SuNBpsNqKvG8FwgmPDK+IdhYSXn8wshEOP1u6FcWivPk8n1NbP2Kg2tFPVP/uI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P5UNkYIb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NkXtKBAp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BED811F00A3F;
-	Mon, 31 Aug 2026 13:47:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P5UNkYIb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E91361F00A3E;
+	Mon, 31 Aug 2026 13:47:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184043;
-	bh=7oNjPyKccURqGUxR4yBDuRK6K9tq2TSxnO78WfdEhWg=;
+	s=k20260515; t=1788184042;
+	bh=0wnuQhDq0b7YL8+X8HbxBpzpj6BpsR3jJcw2EcxH1mw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NkXtKBAprUKDYU7JCGvr8vUy5+PjWD3TvFzTHfJbBE4S7hZsyFnsGK04TZM4WmH+i
-	 tx0rgMrVe/SE/bWWUzQBORXUo1CmyoY1Fd8lS90HNVXAl85X1Wxo96LU+r3qJaY5n5
-	 MdTyJ58t6WnR4VTvkAVr7DVUoKUzM5nuf1M0X0KyVWPv7GS4n3L8Bz2x+i5Cgo2QVf
-	 2PlJbkFXa9dY2aiLBfgYBxOXGFy7ia/u4C7uoryrWzqE8yVw6gBCx5+eWhz9HlSswL
-	 iD2QUlE0VwnAXcSn0G8AH77dcENJgcDdTCGA2L/3bru0vhFcD7mGLN9BClx+8aUeuy
-	 MiBP9/IaUzrmg==
+	b=P5UNkYIbssnEOopio20ZSSiCwgzr3dLOx+LwhzL6HFVC7FmhyR41o7nooj1apcn5J
+	 66uL2C1T3d9vla52c/lVgSMLClRpFx91gbG9mQBfhxRPJqfQd7FBpUoUva9m0kLZnW
+	 W1ceKw0u7vQQ04F0xnkTR31EkBv/9Z4+WdbW63kDMMakhSjw6QFhEH+eVorY+4tSnX
+	 p52LoohuUXBQphrHFREoUvQeG84j9a63gzT99DFuQ8ocbOy8FW8gDvIAN2KtQj+mB2
+	 6s9pAbAFUD11OqBrNUaFZp7Qn8uTRP+FlzGoQr7SmaBuFykjfHKuYRQzDt9o8q+PkT
+	 jcQXcdWNFR81Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v16 14/22] media: i2c: add Maxim GMSL2/3 serializer
+Subject: Re: [PATCH v16 15/22] media: i2c: add Maxim GMSL2/3 deserializer
  framework
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Dumitru Ceclan" <dumitru.ceclan@analog.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20260831-gmsl2-3_serdes-v16-14-4fa6e08bb514@analog.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org, robh@kernel.org
+In-Reply-To: <20260831-gmsl2-3_serdes-v16-15-4fa6e08bb514@analog.com>
 References: <20260831-gmsl2-3_serdes-v16-0-4fa6e08bb514@analog.com>
- <20260831-gmsl2-3_serdes-v16-14-4fa6e08bb514@analog.com>
+ <20260831-gmsl2-3_serdes-v16-15-4fa6e08bb514@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 13:47:22 +0000
-Message-Id: <20260831134722.BED811F00A3F@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 13:47:21 +0000
+Message-Id: <20260831134721.E91361F00A3E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 11 potential issue=
+Thank you for your contribution! Sashiko AI review found 12 potential issue=
 (s) to consider:
-- [Critical] Calling i2c_atr_del_adapter() after i2c_atr_add_adapter() fail=
-s causes a Use-After-Free and Double Free.
-- [High] max_ser_set_fmt returns -EINVAL for unrouted streams, blocking for=
-mat configuration.
-- [High] max_ser_get_pipe_mode does not filter out disabled streams, causin=
-g disable_streams to fail.
-- [High] Error rollback logic in max_ser_update_phys fails to revert the ha=
-rdware PHY state due to a tautological condition.
-- [High] I2C partial transfer success can result in returning bogus data in=
- max_ser_read_reg.
-- [High] Writing 7-bit I2C address directly to hardware registers that expe=
-ct an 8-bit shifted address.
-- [Medium] V4L2_CID_TEST_PATTERN control does not immediately update the ha=
-rdware if changed while streaming.
-- [Medium] set_fmt and set_frame_interval return -EINVAL for unsupported fo=
-rmats/intervals instead of adjusting them.
-- [Medium] Public configuration functions modify shared device and hardware=
- state without synchronization.
-- [Medium] Missing NULL pointer check before calling reg_read and reg_write=
- ops.
-- [Medium] Misplaced msleep inside the inner polling loop causes unnecessar=
-y and compounded boot delays.
+- [High] The I2C bus notifier erroneously assumes ANY I2C device binding on=
+ the downstream bus is the Serializer, corrupting non-serializer devices.
+- [High] Unsafe state rollback and runtime `devm_kcalloc` during stream ena=
+ble can permanently corrupt state.
+- [High] Stack buffer overflow in `max_des_get_frame_desc_state` when writi=
+ng to `fd->entry` with more than `V4L2_MBUS_FRAME_DESC_MAX` active routes.
+- [High] Serializer initialization bypasses the I2C mux lock, corrupting co=
+ncurrent I2C bus transfers.
+- [High] Asynchronous child device probing can miss serializer initializati=
+on due to delayed assignment of `link->adapter`.
+- [High] Lockless access to the unbound child subdevice pointer (`source->s=
+d`) leads to use-after-free.
+- [High] A double-fetch of the frame descriptor from the remote subdevice a=
+llows bypassing virtual channel bounds checks, leading to an out-of-bounds =
+stack read.
+- [Medium] Potential NULL pointer dereference in `max_des_phy_hw_data_lanes=
+` when `num_configs` is 0.
+- [Medium] `max_des_set_fmt` incorrectly returns `-EINVAL` if a stream is n=
+ot yet routed.
+- [Medium] `set_fmt` and `set_frame_interval` incorrectly return `-EINVAL` =
+for unsupported format and interval values on the TPG pad.
+- [Medium] Changes to the V4L2 test pattern control do not dynamically upda=
+te the hardware.
+- [Medium] TOCTOU race on `link->ser_xlate.en` allows multiple concurrent i=
+nitializations of the same serializer.
 --
 
-commit 84b2d87ccaabb6540ea9079c058c69ab7bc76022
+commit 4d2eca915c5faea8efb64fb2a7fdbf043fb5a369
 Author: Cosmin Tanislav <demonsingur@gmail.com>
-Subject: media: i2c: add Maxim GMSL2/3 serializer framework
 
-This commit introduces a common driver framework for Maxim GMSL2/3=20
-serializers. It supports features like the full Streams API, automatic VC=20
-remapping, I2C ATR, and PHY mode configurations.
+media: i2c: add Maxim GMSL2/3 deserializer framework
 
-> diff --git a/drivers/media/i2c/maxim-serdes/max_ser.c b/drivers/media/i2c=
-/maxim-serdes/max_ser.c
-> new file mode 100644
-> index 0000000000000..9f4d0b57bdf8d
+This adds a common framework for Maxim GMSL2/3 deserializers. It provides
+support for the full Streams API, test pattern generation (TPG), I2C ATR,
+automatic stream ID selection, and automatic PHY/mode negotiation across
+the supported chips.
+
+> diff --git a/drivers/media/i2c/maxim-serdes/max_des.c b/drivers/media/i2c=
+/maxim-serdes/max_des.c
+> index 0000000000000..4046a62e716b9
 > --- /dev/null
-> +++ b/drivers/media/i2c/maxim-serdes/max_ser.c
+> +++ b/drivers/media/i2c/maxim-serdes/max_des.c
 [ ... ]
-> +static void max_ser_i2c_atr_deinit(struct max_ser_priv *priv)
+> +static int max_des_get_src_dst_vc_id(struct max_des_remap_context *conte=
+xt,
+> +				     unsigned int pipe_id, unsigned int phy_id,
+> +				     unsigned int src_vc_id, unsigned int *dst_vc_id)
 > +{
-> +	/* Deleting adapters that haven't been added does no harm. */
-> +	i2c_atr_del_adapter(priv->atr, 0);
+> +	if (!(context->vc_ids_masks[pipe_id][phy_id] & BIT(src_vc_id)))
+> +		return -ENOENT;
 > +
-> +	i2c_atr_delete(priv->atr);
-> +	priv->atr =3D NULL;
-> +}
-> +
-> +static int max_ser_i2c_atr_init(struct max_ser_priv *priv)
-> +{
-> +	struct i2c_atr_adap_desc desc =3D {
-> +		.chan_id =3D 0,
-> +	};
-> +	int ret;
-[ ... ]
-> +	ret =3D i2c_atr_add_adapter(priv->atr, &desc);
-> +	if (ret)
-> +		max_ser_i2c_atr_deinit(priv);
-> +
-> +	return ret;
-> +}
+> +	*dst_vc_id =3D context->vc_ids_map[pipe_id][phy_id][src_vc_id];
 
-[Severity: Critical]
-Is it safe to unconditionally call i2c_atr_del_adapter() when=20
-i2c_atr_add_adapter() fails? If i2c_atr_add_adapter() fails internally=20
-(for example, inside i2c_add_adapter), it cleans up the channel structure=20
-but leaves a dangling pointer in atr->adapter[chan_id]. Calling=20
-i2c_atr_del_adapter() afterward can dereference that pointer and cause=20
-a use-after-free or double-free.
+[Severity: High]
+Could a double-fetch of the frame descriptor bypass the virtual channel
+bounds checks?
+
+Functions like max_des_update_streams() iterate over active routes multiple
+times, calling max_des_route_to_hw() which fetches the frame descriptor via
+v4l2_subdev_call(get_frame_desc). In the first pass
+(max_des_populate_remap_context), the virtual channel ID is checked against
+bounds.
+
+In the second pass, the descriptor is fetched again. If a concurrent ioctl =
+on
+the remote subdevice alters the virtual channel to an unvalidated value, the
+new value is passed here as src_vc_id.
+
+This would perform an out-of-bounds read on the local stack struct, leaking
+kernel memory into the stream configuration.
 
 [ ... ]
-> +static int max_ser_set_tpg_fmt(struct v4l2_subdev *sd,
+> +static int max_des_set_tunnel(struct max_des_priv *priv,
+> +			      struct max_des_remap_context *context)
+> +{
+[ ... ]
+> +		if (!hw.source->sd)
+> +			continue;
+> +
+> +		if (!context->pipe_in_use[hw.pipe->index])
+> +			continue;
+> +
+> +		ret =3D max_ser_set_mode(hw.source->sd, context->mode);
+
+[Severity: High]
+Is it possible for hw.source->sd to be freed between the check and its use?
+
+The pointer hw.source->sd is verified here, but in max_des_notify_unbind()
+it is cleared to NULL without any locking against this path. Since this isn=
+'t
+serialized against the V4L2 async framework's unbind callback, the subdevice
+could be unbound and freed immediately after the NULL check, resulting in a
+use-after-free when passed to max_ser_set_mode().
+
+[ ... ]
+> +static int max_des_update_pipe_remaps(struct max_des_priv *priv,
+> +				      struct max_des_remap_context *context,
+> +				      struct max_des_pipe *pipe,
+> +				      struct v4l2_subdev_state *state,
+> +				      u64 *streams_masks)
+> +{
+[ ... ]
+> +	remaps =3D devm_kcalloc(priv->dev, des->info->num_remaps_per_pipe,
+> +			      sizeof(*remaps), GFP_KERNEL);
+
+[Severity: High]
+Are runtime allocations during stream enable safe here?
+
+The functions max_des_update_pipe_remaps() and max_des_update_pipe_vc_remap=
+s()
+use devm_kcalloc() during stream enablement, which can fail.
+
+[ ... ]
+> +static int max_des_update_pipe(struct max_des_priv *priv,
+> +			       struct max_des_remap_context *context,
+> +			       struct max_des_pipe *pipe,
+> +			       struct v4l2_subdev_state *state,
+> +			       u64 *streams_masks)
+> +{
+[ ... ]
+> +err_revert_update_pipe_vc_remaps:
+> +	max_des_update_pipe_vc_remaps(priv, context, pipe, state,
+> +				      priv->streams_masks);
+> +
+> +err_revert_update_pipe_remaps:
+> +	max_des_update_pipe_remaps(priv, context, pipe, state,
+> +				   priv->streams_masks);
+
+[Severity: High]
+Could a failure during this rollback permanently corrupt the system state?
+
+Because max_des_update_pipe_remaps() relies on memory allocation, if the
+allocation fails during this error rollback path, the failure is ignored.
+This would leave the software state and hardware registers permanently out
+of sync.
+
+[ ... ]
+> +static int max_des_init_link_ser_xlate(struct max_des_priv *priv,
+> +				       struct max_des_link *link,
+> +				       struct i2c_adapter *adapter,
+> +				       u8 power_up_addr, u8 new_addr)
+> +{
+[ ... ]
+> +	if (des->ops->select_links) {
+> +		ret =3D des->ops->select_links(des, BIT(link->index));
+> +		if (ret)
+> +			return ret;
+> +	}
+
+[Severity: High]
+Does this bypass the I2C mux lock?
+
+When use_atr =3D=3D false, the driver uses I2C_MUX_LOCKED so normal I2C chi=
+ld
+transfers hold the mux lock while routing is changed via select_links().
+However, this function is called directly from the bus notifier when child
+devices bind.
+
+Calling select_links() here alters the hardware I2C routing without acquiri=
+ng
+the mux lock, which might hijack the routing while another child adapter is
+in the middle of a transfer.
+
+[ ... ]
+> +static int max_des_ser_attach_addr(struct max_des_priv *priv, u32 chan_i=
+d,
+> +				   u16 addr, u16 alias)
+> +{
+[ ... ]
+> +	if (link->ser_xlate.en) {
+> +		dev_err(priv->dev, "Serializer for link %u already bound\n",
+> +			link->index);
+> +		return -EINVAL;
+> +	}
+
+[Severity: Medium]
+Is this check susceptible to a time-of-check to time-of-use race?
+
+This is called from the I2C bus notifier, which can be invoked concurrently=
+ on
+multiple CPUs if multiple devices on the same link probe simultaneously.
+Without a lock protecting the check-and-update sequence, multiple threads
+could bypass this check and concurrently initialize the same serializer.
+
+[ ... ]
+> +out_select_links:
+> +	if (!des->ops->select_links)
+> +		return ret;
+> +
+> +	mask =3D max_des_enabled_links_mask(des);
+> +	err =3D des->ops->select_links(des, mask);
+
+[Severity: High]
+Does this locklessly restore the link state, potentially trampling concurre=
+nt
+mux selections?
+
+As with the earlier select_links() call, this modifies the hardware state
+without holding the I2C mux lock.
+
+[ ... ]
+> +static int max_des_i2c_mux_bus_notifier_call(struct notifier_block *nb,
+> +					     unsigned long event, void *device)
+> +{
+[ ... ]
+> +	if (i =3D=3D des->info->num_links)
+> +		return NOTIFY_DONE;
+> +
+> +	max_des_ser_attach_addr(priv, i, client->addr, client->addr);
+
+[Severity: High]
+Will this incorrectly initialize non-serializer devices?
+
+The notifier intercepts BUS_NOTIFY_BIND_DRIVER on child I2C adapters and
+blindly passes the newly bound client's address to max_des_ser_attach_addr(=
+),
+assuming it is the serializer.
+
+If a non-serializer device (e.g., an EEPROM or image sensor) binds first, it
+will be sent GMSL-specific I2C writes, which might corrupt its state. This
+also marks link->ser_xlate.en as true, preventing the actual serializer from
+binding successfully.
+
+[ ... ]
+> +static int max_des_i2c_mux_init(struct max_des_priv *priv)
+> +{
+[ ... ]
+> +		ret =3D i2c_mux_add_adapter(priv->mux, 0, i);
+> +		priv->pending_task =3D NULL;
+> +		priv->pending_link =3D NULL;
+> +		if (ret)
+> +			goto err_add_adapters;
+> +
+> +		link->adapter =3D priv->mux->adapter[priv->mux->num_adapters - 1];
+
+[Severity: High]
+Could asynchronous child device probing miss the serializer initialization?
+
+i2c_mux_add_adapter() registers the child I2C adapter, which triggers device
+addition and can immediately spawn asynchronous probes in worker threads.
+link->adapter is only assigned AFTER this returns.
+
+If an asynchronous probe binds the child driver before the assignment occur=
+s,
+the BUS_NOTIFY_BIND_DRIVER notifier will fail to match=20
+client->adapter =3D=3D des->links[i].adapter because link->adapter is still=
+ NULL.
+The device would be ignored, leaving the serializer uninitialized.
+
+[ ... ]
+> +static int max_des_set_tpg_fmt(struct v4l2_subdev *sd,
 > +			       struct v4l2_subdev_state *state,
 > +			       struct v4l2_subdev_format *format)
 > +{
 [ ... ]
-> +	entry =3D max_ser_find_tpg_entry(ser, 0, fmt->width, fmt->height,
+> +	entry =3D max_des_find_tpg_entry(des, 0, fmt->width, fmt->height,
 > +				       fmt->code, 0, 0);
 > +	if (!entry)
 > +		return -EINVAL;
 
 [Severity: Medium]
-Should this adjust the format to a supported one instead of returning
--EINVAL? The V4L2 specification usually requires format negotiation APIs
-like VIDIOC_SUBDEV_S_FMT to fall back to the closest supported configuration
-rather than returning an error when an unsupported format is requested.
+Should this adjust the parameters instead of returning -EINVAL?
+
+According to the V4L2 subdevice specification, VIDIOC_SUBDEV_S_FMT must not
+fail with -EINVAL when the requested dimensions or codes are unsupported.
+Instead, drivers must adjust the requested values to a supported configurat=
+ion.
 
 [ ... ]
-> +static int max_ser_set_fmt(struct v4l2_subdev *sd,
+> +static int max_des_set_fmt(struct v4l2_subdev *sd,
 > +			   struct v4l2_subdev_state *state,
 > +			   struct v4l2_subdev_format *format)
 > +{
@@ -145,253 +326,133 @@ rather than returning an error when an unsupported format is requested.
 > +	if (!fmt)
 > +		return -EINVAL;
 
-[Severity: High]
-Will this block format configuration for streams that are not routed yet?
-If userspace tools, such as media-ctl, attempt to configure formats prior
-to establishing routes, v4l2_subdev_state_get_opposite_stream_format()
-will return NULL and cause this to return -EINVAL.
-
-[ ... ]
-> +static int max_ser_s_ctrl(struct v4l2_ctrl *ctrl)
-> +{
-> +	struct max_ser_priv *priv =3D ctrl_to_priv(ctrl->handler);
-> +	struct max_ser *ser =3D priv->ser;
-> +
-> +	switch (ctrl->id) {
-> +	case V4L2_CID_TEST_PATTERN:
-> +		ser->tpg_pattern =3D ctrl->val;
-> +		return 0;
-> +	}
-> +
-> +	return -EINVAL;
-> +}
-
 [Severity: Medium]
-Does this properly apply the test pattern to the hardware if the device
-is already streaming? It appears the new pattern is stored in the
-software state, but the hardware won't be updated until the next stream
-start. V4L2 expects active controls to apply immediately.
+Does returning -EINVAL here break userspace applications that set pad forma=
+ts
+before establishing routing?
+
+If the stream does not have an active route yet,=20
+v4l2_subdev_state_get_opposite_stream_format() returns NULL. Failing the
+ioctl violates the V4L2 spec, which allows configuring pad formats before
+active routing is established.
 
 [ ... ]
-> +static int max_ser_set_frame_interval(struct v4l2_subdev *sd,
+> +static int max_des_set_frame_interval(struct v4l2_subdev *sd,
 > +				      struct v4l2_subdev_state *state,
 > +				      struct v4l2_subdev_frame_interval *fi)
 > +{
 [ ... ]
-> +	entry =3D max_ser_find_tpg_entry(ser, 0, fmt->width, fmt->height,
+> +	entry =3D max_des_find_tpg_entry(des, 0, fmt->width, fmt->height,
 > +				       fmt->code, fi->interval.numerator,
 > +				       fi->interval.denominator);
 > +	if (!entry)
 > +		return -EINVAL;
 
 [Severity: Medium]
-Similarly, should this adjust the interval instead of returning -EINVAL
-when an exact match isn't found?
+As with set_fmt, shouldn't this adjust the frame interval to a supported
+value rather than returning -EINVAL?
 
 [ ... ]
-> +static int max_ser_get_pipe_mode(struct max_ser_priv *priv,
-> +				 struct v4l2_subdev_state *state,
-> +				 struct max_ser_pipe *pipe,
-> +				 struct max_ser_pipe_mode *mode)
+> +static int max_des_s_ctrl(struct v4l2_ctrl *ctrl)
 > +{
-> +	struct v4l2_subdev_route *route;
-> +	struct max_ser *ser =3D priv->ser;
+> +	struct max_des_priv *priv =3D ctrl_to_priv(ctrl->handler);
+> +	struct max_des *des =3D priv->des;
+> +
+> +	switch (ctrl->id) {
+> +	case V4L2_CID_TEST_PATTERN:
+> +		des->tpg_pattern =3D ctrl->val;
+> +		return 0;
+> +	}
+
+[Severity: Medium]
+Does this omit dynamically updating the hardware with the new test pattern?
+
+This records the new value in des->tpg_pattern, but because
+max_des_update_tpg() only checks if entry =3D=3D des->tpg_entry (which trac=
+ks
+format and interval, not the chosen pattern), the hardware will not apply
+the new pattern even if the stream is toggled.
+
+[ ... ]
+> +static int max_des_get_frame_desc_state(struct v4l2_subdev *sd,
+> +					struct v4l2_subdev_state *state,
+> +					struct v4l2_mbus_frame_desc *fd,
+> +					unsigned int pad)
+> +{
 [ ... ]
 > +	for_each_active_route(&state->routing, route) {
-> +		struct max_ser_route_hw hw;
-> +		unsigned int bpp;
+[ ... ]
+> +		hw.entry.bus.csi2.vc =3D dst_vc_id;
+> +		hw.entry.stream =3D route->source_stream;
 > +
-> +		ret =3D max_ser_route_to_hw(priv, state, route, &hw);
-> +		if (ret)
-> +			return ret;
-
-[Severity: High]
-Is a check to filter out disabled streams missing here? In other functions,
-disabled streams are skipped by checking if the stream is in streams_masks.
-If a route exists with an unbound subdev, max_ser_route_to_hw() could
-fail or yield an invalid entry. This can lead to disable_streams() failing=
-=20
-with -ENOENT and leaking active stream states.
-
-[ ... ]
-> +static int max_ser_update_phy(struct max_ser_priv *priv,
-> +			      struct v4l2_subdev_state *state,
-> +			      struct max_ser_phy *phy, u64 *streams_masks)
-> +{
-> +	struct max_ser *ser =3D priv->ser;
-> +	u32 pad =3D max_ser_phy_to_pad(ser, phy);
-> +	bool enable_changed =3D !streams_masks[pad] !=3D !priv->streams_masks[p=
-ad];
-[ ... ]
-> +static int max_ser_update_phys(struct max_ser_priv *priv,
-> +			       struct v4l2_subdev_state *state,
-> +			       u64 *streams_masks)
-> +{
-[ ... ]
-> +err:
-> +	for (i =3D 0; i < failed_update_phy_id; i++) {
-> +		struct max_ser_phy *phy =3D &ser->phys[i];
-> +
-> +		max_ser_update_phy(priv, state, phy, priv->streams_masks);
+> +		fd->entry[fd->num_entries++] =3D hw.entry;
 > +	}
+
+[Severity: High]
+Could this cause a stack buffer overflow?
+
+The V4L2 Streams API allows up to 256 routes (V4L2_SUBDEV_MAX_ROUTING_ENTRI=
+ES).
+This loop blindly appends to fd->entry[fd->num_entries++] for every active
+route. Since fd->entry is a fixed-size array (V4L2_MBUS_FRAME_DESC_MAX,
+typically 8) inside struct v4l2_mbus_frame_desc, supplying more than 8 rout=
+es
+will overflow the array and corrupt the stack.
+
+[ ... ]
+> +static void max_des_notify_unbind(struct v4l2_async_notifier *nf,
+> +				  struct v4l2_subdev *subdev,
+> +				  struct v4l2_async_connection *base_asc)
+> +{
+> +	struct max_serdes_asc *asc =3D asc_to_max(base_asc);
+> +	struct max_serdes_source *source =3D asc->source;
 > +
-> +	return ret;
+> +	source->sd =3D NULL;
 > +}
 
 [Severity: High]
-Can this rollback logic successfully revert the hardware PHY state?
-When max_ser_update_phys() calls max_ser_update_phy() in the error path,
-it passes priv->streams_masks as the streams_masks argument. Inside
-max_ser_update_phy(), the comparison for enable_changed will evaluate
-!priv->streams_masks[pad] !=3D !priv->streams_masks[pad], which is always
-false, preventing the hardware from being correctly deactivated.
+As noted above in max_des_set_tunnel(), clearing source->sd locklessly here
+opens a race condition that can lead to a use-after-free.
 
 [ ... ]
-> +#ifdef CONFIG_VIDEO_ADV_DEBUG
-> +static int max_ser_g_register(struct v4l2_subdev *sd,
-> +			      struct v4l2_dbg_register *reg)
+> +int max_des_phy_hw_data_lanes(struct max_des *des, struct max_des_phy *p=
+hy)
 > +{
-> +	struct max_ser_priv *priv =3D sd_to_priv(sd);
-> +	struct max_ser *ser =3D priv->ser;
-> +	unsigned int val;
-> +	int ret;
+> +	const struct max_serdes_phys_configs *configs =3D &des->info->phys_conf=
+igs;
+> +	const struct max_serdes_phys_config *config =3D
+> +		&configs->configs[des->phys_config];
 > +
-> +	ret =3D ser->ops->reg_read(ser, reg->reg, &val);
-
-[Severity: Medium]
-Could this trigger a NULL pointer dereference if the driver using this
-framework doesn't implement the optional reg_read callback?
-
-[ ... ]
-> +static int max_ser_s_register(struct v4l2_subdev *sd,
-> +			      const struct v4l2_dbg_register *reg)
-> +{
-> +	struct max_ser_priv *priv =3D sd_to_priv(sd);
-> +	struct max_ser *ser =3D priv->ser;
-> +
-> +	return ser->ops->reg_write(ser, reg->reg, reg->val);
+> +	return config->lanes[phy->index];
 > +}
 
 [Severity: Medium]
-Similarly, should there be a check to ensure reg_write is implemented
-before calling it here?
+Will this dereference a NULL pointer if configs->num_configs is 0?
 
 [ ... ]
-> +int max_ser_set_mode(struct v4l2_subdev *sd, enum max_serdes_gmsl_mode m=
-ode)
+> +static int max_des_parse_dt(struct max_des_priv *priv)
 > +{
-> +	struct max_ser_priv *priv =3D sd_to_priv(sd);
-> +	struct max_ser *ser =3D priv->ser;
-> +	int ret;
 [ ... ]
-> +	ser->mode =3D mode;
+> +	/*
+> +	 * Find an unused PHY to send unmapped data to.
+> +	 *
+> +	 * Skip PHYs that have no hardware data lanes of their own: those are
+> +	 * absorbed into another PHY by the selected configuration, so sending
+> +	 * unmapped data to them would corrupt the PHY they are merged with.
+> +	 */
+> +	for (i =3D 0; i < des->info->num_phys; i++) {
+> +		phy =3D &des->phys[i];
 > +
-> +	return 0;
-> +}
+> +		if (!phy->enabled && max_des_phy_hw_data_lanes(des, phy)) {
 
 [Severity: Medium]
-Is synchronization required when modifying the operational mode here? If
-userspace tools invoke ioctls concurrently on different subdevices, could
-this cause data races when updating the shared device state?
+If a driver defines max_des_info with phys_configs.num_configs as 0, the
+framework correctly skips it in max_des_find_phys_config(). However, this
+loop unconditionally calls max_des_phy_hw_data_lanes() during probe, which
+unconditionally dereferences configs->configs (as asked above).
 
-[ ... ]
-> +int max_ser_set_vc_remaps(struct v4l2_subdev *sd,
-> +			  struct max_serdes_vc_remap *vc_remaps,
-> +			  int num_vc_remaps)
-> +{
-[ ... ]
-> +	for (i =3D 0; i < num_vc_remaps; i++)
-> +		ser->vc_remaps[i] =3D vc_remaps[i];
-> +
-> +	ser->num_vc_remaps =3D num_vc_remaps;
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Does writing to this shared array require a driver-level lock to prevent
-concurrent modifications from corrupting the internal state?
-
-[ ... ]
-> +static int max_ser_read_reg(struct i2c_adapter *adapter, u8 addr,
-> +			    u16 reg, u8 *val)
-> +{
-> +	u8 buf[2] =3D { reg >> 8, reg & 0xff };
-> +	struct i2c_msg msg[2] =3D {
-[ ... ]
-> +	};
-> +	int ret;
-> +
-> +	ret =3D i2c_transfer(adapter, msg, ARRAY_SIZE(msg));
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	*val =3D buf[0];
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-If i2c_transfer() returns 1 (meaning a partial transfer success where the
-device acknowledged the first message but not the second), ret < 0 is false
-and the function succeeds. Could this result in silently returning bogus
-data (the MSB of the register address) instead of the actual read value?
-
-[ ... ]
-> +int max_ser_wait_for_multiple(struct i2c_adapter *adapter, u8 *addrs,
-> +			      unsigned int num_addrs, u8 *current_addr)
-> +{
-> +	unsigned int i, j;
-> +	int ret =3D 0;
-> +	u8 val;
-> +
-> +	for (i =3D 0; i < 10; i++) {
-> +		for (j =3D 0; j < num_addrs; j++) {
-> +			ret =3D max_ser_read_reg(adapter, addrs[j], MAX_SER_REG0, &val);
-> +			if (!ret && val) {
-> +				*current_addr =3D addrs[j];
-> +				return 0;
-> +			}
-> +
-> +			msleep(100);
-> +		}
-> +	}
-> +
-> +	return ret ?: -ETIMEDOUT;
-> +}
-
-[Severity: Medium]
-Should the msleep(100) be placed in the outer loop instead of the inner
-one? If placed here, the driver will needlessly delay 100ms for each
-preceding failed address in the candidate list before probing the next,
-which can significantly compound boot delays.
-
-[ ... ]
-> +int max_ser_fix_tx_ids(struct i2c_adapter *adapter, u8 addr)
-> +{
-> +	unsigned int addr_regs[] =3D {
-> +		MAX_SER_CFGI_INFOFR_TR3,
-> +		MAX_SER_CFGL_SPI_TR3,
-[ ... ]
-> +	};
-> +	unsigned int i;
-> +	int ret;
-> +
-> +	for (i =3D 0; i < ARRAY_SIZE(addr_regs); i++) {
-> +		ret =3D max_ser_write_reg(adapter, addr, addr_regs[i], addr);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-Does this inadvertently write the 7-bit I2C address directly without
-shifting it? Other parts of the driver (like max_ser_change_address)
-appear to expect the device address to be shifted left by 1 when written
-to hardware registers.
+This would crash if configs->configs is uninitialized or NULL.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-gmsl2-3_se=
-rdes-v16-0-4fa6e08bb514@analog.com?part=3D14
+rdes-v16-0-4fa6e08bb514@analog.com?part=3D15
