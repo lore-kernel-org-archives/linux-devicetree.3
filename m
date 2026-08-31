@@ -1,89 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EF9533987E;
-	Mon, 31 Aug 2026 14:58:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC322514770;
+	Mon, 31 Aug 2026 15:02:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788188295; cv=none; b=ZgXaF2WC+ZlSDgDM+L3UfFZejlC0vKEEhU2UEkxgCZz+H2yvIMaiWwCx5wRuFDkUYgh6EN2Yr1OSLStVGLs3u1Yrojs/ZDLfVoG4dQ9J+6DaNt9Gd/towGNCtUc3QZQasMJDg3FKyFdwxmekInrDmxBoFIpzmx3Pz3Wu23WyuL0=
+	t=1788188561; cv=none; b=COC5THfjlk3roUogIMVrIAXLL6JqBkORJxxzkPU2hvHO0jieLy9NbKpfMHY4aNRA92c/ceQRaQNNjviKa0l+/x1c/vHjZwcj8QGFA/tv0uH9vdqljnjSrRuVF49n4KZDZ7BGajoGPnAWkygJPXDrN/Cjsu2YQlZDH1o9x9kDHX4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788188295; c=relaxed/simple;
-	bh=mpE3Lesp3GRm0LJGdC9YOGMakFgfHsPvnQgmn1e6rhI=;
+	s=arc-20240116; t=1788188561; c=relaxed/simple;
+	bh=C+pCREtFQwkT20iqaLyc0Hd0RC9syYGE2DcfobTAwNA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TDeXYDUHSDiSzScs6CndkqeSjgffPUFNYIdni9iD5mACB+sLoyZgDWMvCIiMd3eszRKYPcMpFBX2bZmpZ2xQnuwWGftxptDgIf6BYNcAPjEEizsGtvp/oEMtJGSOUPU0FpyfRuPKmzkH8dSTNtgNLIysK0z+9akh8257C4wXOvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l7mm+Gz7; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=BTXeyi0+BJ0F1b73yCYo9TF9f8qfxXGEabqLyVZ81RG1od6bJLeN/xdawytMRNk1rKjKWNT9nMSL29YO8bnti3A/gSkQc2Z3RAStmZ1iJ2kpG4puzyuBlzAfHeZt/By9dFVDPudg3hb7GIN6OxkOuYfOenOmrKjZwfjI9j3NKC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EaUqloqy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l7mm+Gz7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6F201F000E9;
-	Mon, 31 Aug 2026 14:58:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EaUqloqy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1AF31F000E9;
+	Mon, 31 Aug 2026 15:02:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788188294;
-	bh=P5qMAuORAMa8auZQozsefwEp8+Ze9NizqRFOfJHbvco=;
+	s=k20260515; t=1788188559;
+	bh=C+pCREtFQwkT20iqaLyc0Hd0RC9syYGE2DcfobTAwNA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=l7mm+Gz7mt3Nd3u2UpAfNEgVUsN6NkaLBbFMItL7FqpHUqe1TYgSB0IP50YzFsUHs
-	 US3n+39SDAr0zVE9LNAi9RzX0JCKmDlHNLFyeWItHNMum5JLl81GdSy0u/XCZENcxt
-	 +xAnqOkn/geqoERhWTaXX+GNbFXt0Hjx12msOu4NE/RSR7PLnxsnfcoKYLjPOxR2pB
-	 v6zVHNzIeC7yvXDfBz91zSoJFebw0F7U18v0nZteba5JkufLDka022mkcuyHBCpG3r
-	 i5A1dj1Wlb9S6uo8W58WKsRYwIJggjllHwdGRuLvMqSIfFIua6RuV3ndllI5rojArc
-	 gN0l/uVmTeFdQ==
-Date: Mon, 31 Aug 2026 09:58:10 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Jason Pettit <jason.pettit@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Akhil P Oommen <akhilpo@oss.qualcomm.com>, Mahadevan P <mahadevan.p@oss.qualcomm.com>, 
-	Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Jingyi Wang <jingyi.wang@oss.qualcomm.com>, 
-	Ananthu C V <ananthu.cv@oss.qualcomm.com>
-Subject: Re: [PATCH v5 2/3] arm64: dts: qcom: Add HP EliteBook X G2q 14 AI
-Message-ID: <apWWTGM7vtKT08OF@baldur>
-References: <20260829-glymur-send-v5-0-a11bdf6a4b66@oss.qualcomm.com>
- <20260829-glymur-send-v5-2-a11bdf6a4b66@oss.qualcomm.com>
+	b=EaUqloqyuxlnfCqUSsbqAKqeud1q7C80WWI7C0AJMCTQpUQMkACHqRaMznwDc3A5U
+	 aHvX7v1NfltZMKUMZLgu/MNnhqOZPG4Uj+hf5hwge3wgnejSxrK0+TqwImRLr4fq9D
+	 a0v5xDhkAoPwEhANqCtNVNEHFi2MYfZ0NDf9LZzVczP9hGodi+X+Tf3LjxABkIn3h2
+	 NPgE7ONlnn6C7Re95i6fMQd1HwIyQga8UPP1hQkTSWfOToBwRofMfcY1JtO2Cnxb5I
+	 ZKmVJpuGrEbkfr3/HSW7Ojhr/iOJlcVRn3EJvc4iPS3vn9j3vGODl5uwz4I64QU/X4
+	 67EvLVs/dKY6A==
+Date: Mon, 31 Aug 2026 16:02:35 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Andy Chang <andy.chang@synaptics.corp-partner.google.com>
+Cc: linux-bluetooth@vger.kernel.org, Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Linus Walleij <linusw@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] Bluetooth: dt-bindings: net: bluetooth: add
+ BCM4384
+Message-ID: <20260831-cosmic-crawling-cf0532d4d3c0@spud>
+References: <20260827110242.1203546-1-andy.chang@synaptics.corp-partner.google.com>
+ <20260827110242.1203546-2-andy.chang@synaptics.corp-partner.google.com>
+ <20260827-uncolored-onlooker-d62c44a3323b@spud>
+ <CAF8VQdEA7=LRpHaVOVZxRi73kRf=0pK_etJOJ5oeULtgw4k5Bg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Be5C8Jw/A1Wehthf"
 Content-Disposition: inline
-In-Reply-To: <20260829-glymur-send-v5-2-a11bdf6a4b66@oss.qualcomm.com>
+In-Reply-To: <CAF8VQdEA7=LRpHaVOVZxRi73kRf=0pK_etJOJ5oeULtgw4k5Bg@mail.gmail.com>
 
-On Sat, Aug 29, 2026 at 12:08:09PM -0700, Jason Pettit wrote:
-> Add board support for the HP EliteBook X G2q 14" Next Gen AI PC
-> (product SKU C4JG0AV, board 8E91), a Snapdragon X2 Elite (Glymur)
-> laptop, using the "hp,elitebook-x-g2q" / "qcom,glymur" compatible.
-> 
-> Enabled by this device tree:
-> 
->   - internal eDP panel (samsung,atna33xc20)
->   - 2x USB Type-C with DisplayPort alt-mode and USB
->   - chassis USB-A host port (usb_mp multiport controller)
->   - internal eUSB2 host with the Elan fingerprint reader
->   - NVMe SSD on PCIe5
->   - Wi-Fi and Bluetooth
->   - HID-over-I2C keyboard, touchpad, touchscreen; lid switch
->   - Adreno GPU and GMU (Freedreno GL on Mesa)
->   - audio playback and capture
->   - real-time clock
->   - compute DSP (cDSP)
-> 
-> The DisplayPort outputs need the Glymur DP PHY series at runtime. This
-> device tree builds without it.
-> 
-> The chassis HDMI jack is removed in v5. It is driven from the usb_2
-> combo PHY as a DisplayPort-only instance, and that path does not come up on
-> Glymur. The same failure was reported against the already-merged Asus
-> Zenbook A16 (UX3607OA), which describes its usb_2 combo PHY the same way. A
-> fix is in progress but not yet available.
-> 
+--Be5C8Jw/A1Wehthf
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I dropped this paragraph while applying the patch.
+On Mon, Aug 31, 2026 at 05:34:23PM +0800, Andy Chang wrote:
+> On Fri, Aug 28, 2026 at 12:38=E2=80=AFAM Conor Dooley <conor@kernel.org> =
+wrote:
+> >
+> > On Thu, Aug 27, 2026 at 07:02:41PM +0800, Andy Chang wrote:
+> > > Add the brcm,bcm4384-bt compatible string to support the
+> > > Synaptics BCM4384 Bluetooth controller.
+> >
+> > Please explain why a fallback compatible is not suitable here, or
+> > alternatively if it is, use one.
+> >
+> > pw-bot: changes-requested
+> >
+> > Thanks,
+> > Conor.
+> Hi Conor,
+> A fallback compatible is not suitable here because the BCM4384
+> controller requires a dedicated firmware patch file (.hcd) matching
+> its specific hardware ID and revision.
+> Falling back to an existing compatible would cause the driver to
+> request the wrong firmware binary and fail the controller
+> initialization.
+> Therefore, it requires a distinct compatible string.
 
-> Assisted-by: Claude:claude-opus-4-8
-> Assisted-by: Claude:claude-opus-5
+Cool, please put this info in the commit message.
 
-This should from now on be "Assisted-by: LLM".
+Thanks,
+Conor.
 
-Regards,
-Bjorn
+--Be5C8Jw/A1Wehthf
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapWXiwAKCRB4tDGHoIJi
+0p4iAQCVA3m20ajQj2k9zBtN097mymUdLDsp1JMWDndTMrhANAD/Tytgo8aekMkc
+GfSxtdR9XDIIfvNCOseqR7jiWCDqEwg=
+=zh7V
+-----END PGP SIGNATURE-----
+
+--Be5C8Jw/A1Wehthf--
