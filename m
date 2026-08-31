@@ -1,212 +1,177 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6C1E0352029;
-	Mon, 31 Aug 2026 01:59:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 055C425B093;
+	Mon, 31 Aug 2026 02:11:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788141595; cv=none; b=TiCcLs6oiMxeg7L44C0TodnyTioIrujH/1yJtrIVQ3Vt1aJtQqpfv4cTnvYO2AP8ixY3PFHsO5EEu1Wv5edviAxBporzC7CF+C2aFX8ImfiXZLieoBqklqiHpzx2oCd2WtF+T0/f3IaJmOwaECEj3DFaTKLEvvSQ53qR8LsvdDE=
+	t=1788142265; cv=none; b=QPdc9w/IOVj8BiDLtdqKxwqcoHgIQ8wOpi400n6mfF2KDMlkMk6Evp3tUoEELLEeG+4FaoJK3ztOWP1w/lL8F5GeSEM7BrCuj7lGZCa8JI8t+JEKuoFDG2UL8de6nyj2JZkUm9Z9EyRHJo1wuGjDBdtMuCcqbSzjVpGL1nD1Qeo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788141595; c=relaxed/simple;
-	bh=YLNn7HqkoTkR8knmgxG7cQXJk24I0ehYyrEzmLJegSk=;
-	h=Subject:From:To:Cc:References:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=KaZWbC3+ANWBH0yWQ1087k6jlo61PQxuBOLgJlkuIL4G5HEFgcnkHFTD60PPM6iJcDGkz2SkT52ElncdA/3Y6s4tJ4jlWUi16fGIja6cww8zEXeXZNYvHGi3FK8+g4OPtaLIHIk6u4rYvFPsZzOp/3lrGI8j9Qt7oxhzUj8/KiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.101])
-	by gateway (Coremail) with SMTP id _____8DxTNIX4JRqILwGAA--.18754S3;
-	Mon, 31 Aug 2026 09:59:51 +0800 (CST)
-Received: from [10.20.42.101] (unknown [10.20.42.101])
-	by front1 (Coremail) with SMTP id qMiowJBx6c0S4JRq+PMXAA--.19637S3;
-	Mon, 31 Aug 2026 09:59:48 +0800 (CST)
-Subject: Re: [PATCH v10 0/2] i2c: ls2x: Add clock- related properties and
- parsing
-From: Hongliang Wang <wanghongliang@loongson.cn>
-To: Binbin Zhou <zhoubinbin@loongson.cn>, Andi Shyti <andi.shyti@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
- loongarch@lists.linux.dev
-References: <20260817090721.30582-1-wanghongliang@loongson.cn>
- <668c5145-da87-d318-2338-738b0035a671@loongson.cn>
-Message-ID: <1cdc2657-9924-336d-1f10-f01ca2183f1f@loongson.cn>
-Date: Mon, 31 Aug 2026 09:57:09 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	s=arc-20240116; t=1788142265; c=relaxed/simple;
+	bh=YaOoMf94FzD0v7rOS2FNsADL67IVHeiA9cSabYztE8g=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=bcsCvDbm/oOIIa/U1FFvF/62x4+E4Kub1726D+ZSGR/erpfXR7aOmyRMQqZlrTnZKonNIV9KzUVnNVaapXOea2uNOdHQ+spRoqHaQvY66eS5XBnoIjiM+BtvaYqTCcS31ysvGsQQqFN3SwTE9Tj7YktywptQr3/YSC6skREZ0U4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h8fYOfok; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h8fYOfok"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A7311F000E9;
+	Mon, 31 Aug 2026 02:11:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788142263;
+	bh=vkyZ1f8b6Irt1T+MHj5caDYZ3HGOvaiJXa0mBGRsmjM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=h8fYOfokplJSjYnTXG+ZnJ/P4ulaGGi/qVH8fODr/X/XKwBobAiB6ujQfI70WLQfO
+	 E3VfpAVMmd0ktrx/ktTXj6HeGlO8xwm84/LFkVn3rYmqojwXnh1eUKmnafsOP5DPNz
+	 Q9Lb2LeLBJloxfg69vgbLi+gQIQ1gui1hoOO9DHlGOPl9tedzrgHj/zI+OK8TtKt5h
+	 DFOueOafQ813Yfgr2PVQXkX/D16VSxEERC02/sr3da9AQf78gsZv+4Kq7l0JJqfhtD
+	 9GP7i213DbtXsTYaVutvEfr2sIJh9i+3oFzM4wI+GaEeiHGd0SWUHfk7/kBq7y8Y7+
+	 Xitboc/BbAJKQ==
+Date: Mon, 31 Aug 2026 03:10:57 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: "Kurt Borja" <kuurtb@gmail.com>
+Cc: "David Lechner" <dlechner@baylibre.com>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Linus Walleij" <linusw@kernel.org>,
+ "Bartosz Golaszewski" <brgl@kernel.org>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>,
+ <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-gpio@vger.kernel.org>
+Subject: Re: [PATCH v3 7/9] iio: adc: ti-ads1262: support triggered buffer
+ sampling
+Message-ID: <20260831031057.0e44cf67@jic23-huawei>
+In-Reply-To: <DKZY65U6LPP1.AIH4CZKUGVWJ@gmail.com>
+References: <20260807-ads126x-v3-0-f89925d72792@gmail.com>
+	<20260807-ads126x-v3-7-f89925d72792@gmail.com>
+	<1b6b6981-1a08-42a2-a03a-4366b980da13@baylibre.com>
+	<DKK9S36LB543.2T124NE3TNETN@gmail.com>
+	<f3ea3859-aff1-4c15-9302-095119faec78@baylibre.com>
+	<DKME9LSBXSXA.28PS1V6ZAH79O@gmail.com>
+	<20260816225424.27c9d223@jic23-huawei>
+	<DKZY65U6LPP1.AIH4CZKUGVWJ@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <668c5145-da87-d318-2338-738b0035a671@loongson.cn>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-CM-TRANSID:qMiowJBx6c0S4JRq+PMXAA--.19637S3
-X-CM-SenderInfo: pzdqwxxrqjzxhdqjqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxGrW3CFy8XF18XFWDZr1xtFc_yoWrKF15pF
-	Z8Cay5Gr1j9a48uw43t3yIvF9Yvwn8J3yDGr1xJa45ua12vr1vqF12gFn09FykZFs7Cayj
-	gr9rKFnF9F15CFcCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUv0b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
-	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AK
-	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07AlzV
-	AYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E
-	14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIx
-	kGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAF
-	wI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r
-	4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU8zwZ7UU
-	UUU==
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Thu, 27 Aug 2026 13:45:17 -0500
+"Kurt Borja" <kuurtb@gmail.com> wrote:
 
-On 2026/8/17 下午5:23, Hongliang Wang wrote:
-> Hi all,
->
-> Sorry for the duplicate 0/2 cover‑letter message in this thread.
-> Only the 09:07 UTC full V10 series (0/2, 1/2, 2/2) is the intended one,
-> please ignore the earlier 09:01 UTC standalone 0/2 cover‑letter.
->
-> The patches 1/2 and 2/2 are correct.
->
-> Thanks,
-> Hongliang Wang
->
->
-> On 2026/8/17 下午5:07, Hongliang Wang wrote:
->> Hi all:
->>
->> This patch set adds clock related properties and parsing in dts and 
->> acpi.
->>
->> ======
->> V10:
->> Patch (2/2):
->> - Replace '/' operator with div64_u64() to avoid __udivdi3 linker 
->> error on
->>    32‑bit architectures with CONFIG_COMPILE_TEST.
->>
->> Link to V9:
->> https://lore.kernel.org/all/20260810074927.25284-1-wanghongliang@loongson.cn/ 
->>
->>
->> V9:
->> Patch (2/2):
->> - Rewrite the commit description
->> - Use 64-bit arithmetic to avoid integer overflow during the clock 
->> calculation
->> - Add checks to reject zero clock rates and ensure valid clock inputs
->> - Modify the comment for clocks and clock-div properties
->> - Add Tested-by tag from Xi Ruoyao, thanks
->>
->> Link to V8:
->> https://lore.kernel.org/all/20260721122604.12717-1-wanghongliang@loongson.cn/ 
->>
->>
->> V8:
->> Patch (2/2):
->> Fix the potential issues from Sashiko AI review:
->>   - Add error checking for the pointer returned by 
->> devm_clk_get_optional_enabled();
->>   - Add zero-value checking for the match data to provide default div.
->>
->> Link to V7:
->> https://lore.kernel.org/all/20260707035104.3092-1-wanghongliang@loongson.cn/ 
->>
->>
->> V7:
->> Patch (2/2):
->> Fix the potential issues from Sashiko AI review:
->>   - Move the clock property parsing process to probe function to 
->> solve the issue
->>     of calling `devm_clk_get_optional_enabled()` dynamically causes 
->> unbounded memory
->>     leaks and unbalanced clock enable counts.
->>   - Add non-zero checking to priv->div.
->>
->> Link to V6:
->> https://lore.kernel.org/all/20260608024533.32419-1-wanghongliang@loongson.cn/ 
->>
->>
->> V6:
->> - Add Reviewed-by tag from Huacai, thanks.
->> Patch (1/2):
->>   - Remove CC stable.
->>
->> Link to V5:
->> https://lore.kernel.org/all/20260604015848.18643-1-wanghongliang@loongson.cn/ 
->>
->>
->> V5:
->> Patch (1/2):
->>   - Adjust the position of #include 
->> <dt-bindings/clock/loongson,ls2k-clk.h>;
->>   - Add CC stable;
->>   - Fix Signed-off-by.
->> Patch (2/2):
->>   - Replace 2K0500/2K1000/2K2000 with LS2K0500/2K1000/2K2000;
->>   - Replace 7A1000/7A2000 with LS7A1000/7A2000;
->>   - Replace if (clk && !IS_ERR(clk)) with if(!IS_ERR_OR_NULL(clk));
->>   - Add document that clocks and clock-div are only ACPI properties 
->> in ACPI;
->>   - Remove unsigned int cast in code (unsigned 
->> long)device_get_match_data(dev);
->>   - Add CC stable;
->>   - Fix Signed-off-by.
->>
->> Link to V4:
->> https://lore.kernel.org/all/20260526031021.32662-1-wanghongliang@loongson.cn/ 
->>
->>
->> V4:
->> - Add Acked-by tag from Conor Dooley, thanks.
->> Patch (2/2):
->>   - Adjust the position of #include <linux/clk.h>;
->>   - Remove struct ls2x_i2c_chip_data and use macro to describe div;
->>   - Use div instead of factor in ls2x_i2c_adjust_bus_speed;
->>   - Reverse the "if & else" code logic in ls2x_i2c_adjust_bus_speed;
->>
->> Link to V2:
->> The PATCH v3 is incomplete, v4 is the replacement of v3, so the 
->> previous patch link is v2.
->>
->> [PATCH v2] dt-bindings: i2c: ls2x-i2c: Add clocks and clock-frequency 
->> properties
->> https://lore.kernel.org/all/20260507081010.12810-1-wanghongliang@loongson.cn/ 
->>
->> [PATCH v2] i2c: ls2x: Add clocks property parsing and adjust bus speed
->> https://lore.kernel.org/all/20260507081010.12810-2-wanghongliang@loongson.cn/ 
->>
->>
->> V2:
->> [PATCH v2] dt-bindings: i2c: ls2x-i2c: Add clocks and clock-frequency 
->> properties
->> - Remove the custom properties clock-input and clock-div, use clock 
->> framework;
->> [PATCH v2] i2c: ls2x: Add clocks property parsing and adjust bus speed
->> - Use clock framework to obtain the i2c reference clock in dts.
->>
->> Link to V1:
->> https://lore.kernel.org/all/20260325011852.19079-1-wanghongliang@loongson.cn/ 
->>
->>
->> Hongliang Wang (2):
->>    dt-bindings: i2c: ls2x-i2c: Add clocks and clock-frequency properties
->>    i2c: ls2x: Add clocks property parsing and adjust bus speed
->>
->>   .../bindings/i2c/loongson,ls2x-i2c.yaml       |  3 ++
->>   drivers/i2c/busses/i2c-ls2x.c                 | 44 +++++++++++++++++--
->>   2 files changed, 44 insertions(+), 3 deletions(-)
->>
-Hi,
+> On Sun Aug 16, 2026 at 4:54 PM -05, Jonathan Cameron wrote:
+> > On Tue, 11 Aug 2026 15:24:46 -0500
+> > "Kurt Borja" <kuurtb@gmail.com> wrote:
+> >  
+> >> On Mon Aug 10, 2026 at 11:31 AM -05, David Lechner wrote:  
+> >> > On 8/9/26 3:28 AM, Kurt Borja wrote:    
+> >> >> On Sat Aug 8, 2026 at 1:39 PM -05, David Lechner wrote:    
+> >> >>> On 8/7/26 10:58 PM, Kurt Borja wrote:    
+> >> >>>> Add triggered buffer support and a data-ready (DRDY) hardware trigger.
+> >> >>>>    
+> >> >
+> >> > ...
+> >> >    
+> >> >>>    
+> >> >>>> +	u8 tx[11] __aligned(IIO_DMA_MINALIGN);
+> >> >>>> +	u8 rx[11] __aligned(IIO_DMA_MINALIGN);    
+> >> >>>
+> >> >>> don't need second one to be aligned, they aren't independent.    
+> >> >> 
+> >> >> Ah, I forgot this observation in the last version. These are used in a
+> >> >> full-duplex transfer, wouldn't that require for both to be on its own
+> >> >> cache line? I just started learning about DMA.    
+> >> >
+> >> > No. In this case, it works roughly like this...
+> >> >
+> >> > - We fill the TX buffer before the transfer. (CPU access to memory may
+> >> >   just live in the cache at this point and not actually be sent to RAM)
+> >> > - We request to start the SPI transfer.
+> >> > - The core SPI code flushes (or maybe I should say invalidates) the cache
+> >> >   on the TX buffer. This ensures that what we wrote with the CPU available
+> >> >   to DMA.  
+> >
+> > Extra fun - it has to flush the rx buffer too.  Because...  
+> >> > - The actual SPI transfer happens that uses DMA to access both TX and
+> >> >   RX buffers. (Again, could just live in a cache and not be sent to RAM)
+> >> > - The SPI core code flushes the cache on the RX buffer. This ensures
+> >> >   that when the CPU reads the memory, it will see what the DMA just
+> >> >   wrote.    
+> > If the RX buffer had old dirty lines (could have been used for something
+> > completely different) in it, that is modified data that hadn't
+> > been written back to RAM, then this flush would wipe out the hardwork of
+> > the DMA by writing those CPU cache held rx bytes over the top.  
+> 
+> Makes sense too. In this case, if both buffers share the same cache
+> line, I *guess* that would just be a redundant flush.
 
-Gentle ping on the v10 patch series. Please let me know if there are any 
-further changes needed.
+In some paths maybe. I'd need to draw it out and it's Sunday evening
+so not today! :)
 
-Best regards,
-Hongliang Wang
+> 
+> >
+> > (Next bit is just to scare anyone who thinks they know how this all works -
+> > completely irrelevant here :)
+> > Don't get me started on architectures that do clean write back (occasionally).
+> > Thankfully I don't believe any of them also have non coherent DMA as to
+> > be able to do that nasty hack you have to know no one can see it.  
+> 
+> With "clean write back" are you referring to a write back without
+> invalidating the line?
+
+No.  Writing back a line that was known to be be clean - neither CPU
+nor devices ever wrote it.  The problem lies that it could have been
+fetched in by a prefetcher at any random time. Then written back at
+another random time - potentially on top of what ever DMA occurred
+in the meantime.  It's completely broken but only if there is a way
+to see it.  On that platform one was introduced much later than the
+original design on basis everyone pretty much assumes cache coherency
+protocols never do clean write backs.
+
+Anyhow, tales that should be accompanied by strong spirits.  Not even
+beer is enough for this one (and I was only on the side lines!)
+
+> 
+> > For more fun, one large CPU vendor thought that was the case and there is
+> > a spec out there that has a magic flag to let the OS know it does this
+> > because there are cases where you care.
+> > </rant>
+> >  
+> >> 
+> >> Oh, this makes a lot of sense.
+> >>   
+> >> >
+> >> > Since there isn't a time when CPU and DMA both write to the cache line
+> >> > at the same time before a flush, there is never a time we could have
+> >> > an issue with stale data replacing data that had not been flushed.
+> >> >
+> >> > It does mean that we can't update the tx buffer for the next message
+> >> > until after this message is done, but we have to do that anyway.
+> >> >
+> >> > What does cause problems is if we just had a regular unrelated variable
+> >> > after this in the cache line and the driver updated it during a SPI
+> >> > transfer. If this new value was just living in the CPU cache, then
+> >> > when the RX flush happened, it would write over that new value with
+> >> > stale data from the DMA's version of the cache.    
+> >> 
+> >> Thanks! I'll look deeper into DMA, it's very interesting.
+> >>   
+> > Wolfram Sang did a nice ELCE talk on the more normal flows for this a
+> > few years back when he was working on reducing copies in the i2c subsystem.
+> > https://www.youtube.com/watch?v=JDwaMClvV-s&pp=ygUQd29sZnJhbSBzYW5nIGRtYQ%3D%3D
+> > Is the one I think.  
+> 
+> Very interesting talk, DMA is way messier than I thought. I guess it's
+> the price of supporting so many different architectures.
+> 
+> I recently got my hands on an FPGA board so I'm gonna be playing with
+> it, although it seems DMA is still way out of my reach :p.
+> 
+> ...
+> 
+> Thanks for your review! I already finished v4 and I should be able to
+> submit it tonight.
+> 
 
