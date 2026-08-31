@@ -1,43 +1,67 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6615C4A3845;
-	Mon, 31 Aug 2026 18:20:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B2D8471252
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 18:20:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788200404; cv=none; b=UIiSxbsc82rxf4HSr6row39P3So5CoXEW5WkkIn5OHaOMA6kuCIi0FsF33n7rkvAtnuIYisBwmUna3RJ/CEJL1pVbtQhVQHOoNK9Oen16cHFNpvML1OOeCWngOJ6wSYQhm+T6faCbT1yfrME0z9g+ASVt+jO8DFCF3FNUKBnObc=
+	t=1788200459; cv=none; b=nyNfOUP5aT0lBqS4HOfJir+gIIYO7Fn7kL+3e7gFHP3M6dx3UYIHPnVGIehG0I8eDBPJ2AM2u9u2BcwTOscNXmfqiDsi+cESWiO7tRoEOWJUzMMH8aW6Opmsb9EyAyBZ2pt+s4VJrt8eYZizlHt03HiZBenHqsn159oPOSWKmTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788200404; c=relaxed/simple;
-	bh=VXPTCiMlmJnm/6BB3WbVcgD26Nv6q5INsf0zYjdbAt0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=nfYHyTjaX5P4Qt+XsjKtaXAKCqzZVNsZcN7SrsLLLjmf7xc+lpUu3eK9MmJu1CA3/hmRSHXe3N06+WjIxvUVrQWOOoiGO+jLrybWEa8xl12Uqk1sDO815FlMx1bNLXTuus1jbUlvDHxEmPySMlei0nyS9DC6Ul86dTU6P5g+5Sk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Il3qQrO8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788200459; c=relaxed/simple;
+	bh=rb3HKaLLxJzwcBkHRVKkVwDnPxrRHTfCEOty9h/3Dj4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Onzzp7/oxTTJRjBheSz20WiyvtXaF5D5fADXTkfCzNJ/vJ0OIPYlCXWoGPsTMpsPww1XGqG/dde9z9B7Wm8Gpylm5Ty0W9sDTYNgBBBtpYu3klJ0vZbP5L2LXGas5NfH/LrGhtZd26aAtpNDsgwJZd60aOaXmz1XfendSsnekdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gfFA0NNC; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Il3qQrO8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3ADB1F000E9;
-	Mon, 31 Aug 2026 18:20:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788200402;
-	bh=EC07MfKZUedl94S9o/jflIzKdeSt1sKLMjZEn+mcSyI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Il3qQrO8Rz6zhygm2ldrRgkR2aCsY/l+RIv1QK6MvIQO+IvOhN8WTb5eT9Ew2dxsW
-	 LDh+UIGHIsT4zNftOmbvBzaUSBkNnLJN39GJGU3nAeaTn46UDUxJ/XTI5RBU4aUOWb
-	 iKYuNTeT5sYzE+HcrKbTzD191AMKmV5F5WBCQdaQgoWj7fjHlCZ9Gp75QMUvm/xhgk
-	 TbNEBz6k+7PQlVJYH8a8CynFDPmNGWmknlx/CMeyRboInpCtAEWGzBI8uVcyr61Aox
-	 ybIM5C6kn4D3pPJuLTvLbnXarK767H/fDoYAca13PCzT0JaVhALE9cePtrm/YRd37C
-	 5d3Swtu+URzmQ==
-From: Mark Brown <broonie@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org, 
- Rob Herring <robh@kernel.org>, Eduard Bostina <egbostina@gmail.com>
-Cc: daniel.baluta@nxp.com, simona.toaca@nxp.com, goledhruva@gmail.com, 
- m-chawdhry@ti.com
-In-Reply-To: <20260815082913.2144978-1-egbostina@gmail.com>
-References: <20260815082913.2144978-1-egbostina@gmail.com>
-Subject: Re: [PATCH] dt-bindings: regulator: Convert TPS65023 to DT schema
-Message-Id: <178812683443.13461.1465776575540582848.b4-ty@b4>
-Date: Sun, 30 Aug 2026 22:53:54 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gfFA0NNC"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-47fe89fb333so2254813f8f.3
+        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 11:20:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788200456; x=1788805256; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=OQu21g+jvYzg+hR8nIxI4Zsc1brzVFs3c2vxWfEZwO8=;
+        b=gfFA0NNClt535kbQ/Xd9ftznrAlSMXcdp2NW824ufMZp78w9HO3iafhEBE1AwH7ao4
+         b1oPVNS08Ef85EcgF1xuvAxiLH9O6AK9ZVTfqW4SLX5q6AV1iMduJ9DuvzDWZmLHkBQY
+         Npk8GYlRZo6ST1RjAIjUfaF3fKfa/M3Po5scpDi7YxF1hCRXl1x8zm3jxMQvvtsZd3wv
+         y19QSX6t4aGmL6RXQNaNcjH1UCgB/0fxvsdH+iaDvnikc7eUM2EIKQVVGQjWdxjUDZho
+         zLaggydGcqoSqBPXwgiooqjX2/CapgKPiPT4g+EIfFw2LPqE6XxY1888DtUnks9/blpG
+         3fRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788200456; x=1788805256;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=OQu21g+jvYzg+hR8nIxI4Zsc1brzVFs3c2vxWfEZwO8=;
+        b=JM5YUJJpNt671+RlTFy7LdkuHM0PsRPGP9kjsokHo7oC+qmbJ0vLcfyWbIonIjIpR8
+         wZ8pWwczm4qy0C5cTeRNb8Zs2l5pnI210n0cprvf/8NuHwzej5ojr072LQTrEdVYarfM
+         w5YKO20lV3WTPN7YrmYHROhmyGPwnqE0GYhz4ibvVu86QQrtoRnA9iIECCVrjXTuhQk8
+         P+Oryw7QL/VmY8jQCZk/OFkww6fN+uIIoys92z3Fnzdf8ZoSQhNyahOz4SLJNjhNPExO
+         3e4z+cXBO+fhoBw7HH6JCEcEk89sR4yKV7MCBS7613wgaFawPjQq7puDyisn8XwhIJcK
+         6cgA==
+X-Forwarded-Encrypted: i=1; AHgh+Rrag/F7V3L6bp4BBW1/Em6wPo/53XV5Ne4lUIAyGMCrlfX7QEbQ/cma5vsUEKswxUURVP5GACj7K2hN@vger.kernel.org
+X-Gm-Message-State: AFuF++k/vXAEOCKZeSjqBhqXsRwyG2HmBHmmIhSG/7AqdaiVW2dWnPJE
+	dJf9UbpqiPSOM5dqUtbtge4g2sEi1FX9Dk5opC+vxe5QWSAWD20v66wl
+X-Gm-Gg: AR+sD110hjMSkhbtl6NHWni+2gZ73bHhSUo42jfAW5mdeCwEGhdIg7Rk+RasJLoi8GP
+	9y1+c93Qp1GeI3WvZABfrjpB5ulL95CM/saWzxFHevsHeORAyQ42GMY1pTbPUp680HRCe3alIOF
+	lP3X5l3HR6jrvW/wMoSzPJbr1Ka7RKljZcl3KPIQ/wag4ccvZRfZ2lsm1NivrUgo7pCLVNuCnrW
+	ZvNMan/RfhWtKrq4oZvzLp92Dfh5tbcud6iBaTL9LBZY9a5gIb58OYLlau5tSb2VP1Zn1BreDlJ
+	dGFXUP6qfrBwe9WERg7w38ndEhA8q2S75gxWg6w+lGNsyYeOEaNZrpCwGhPK+/6dkOn7NJpLMeD
+	+u7bSMKvIHVD7Xy4v5sTScFtRFExM4b35CaH5FghQ9EpOMQyFsGFQR1wmSfwDseVaYU7XeJ61jV
+	5cfhVjyx4UXhaqfCES4mgd2NEnBI5uYnFsEYtHnsz0QjYw1bPDvO3h1DzIj0xcigltRPwn3jJ8G
+	QsJiQSUlBGNrXOe2w==
+X-Received: by 2002:a05:600c:1906:b0:499:9240:9a1c with SMTP id 5b1f17b1804b1-49cdc555496mr39483805e9.15.1788200456098;
+        Mon, 31 Aug 2026 11:20:56 -0700 (PDT)
+Received: from [192.168.1.9] ([148.252.128.8])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce08862sm10721955e9.1.2026.08.31.11.20.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 11:20:55 -0700 (PDT)
+From: Dale Whinham <daleyo@gmail.com>
+Date: Mon, 31 Aug 2026 19:20:48 +0100
+Subject: [PATCH] arm64: dts: qcom: x1-denali: Add audio playback over
+ DisplayPort
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,47 +70,83 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1134; i=broonie@kernel.org;
- h=from:subject:message-id; bh=VXPTCiMlmJnm/6BB3WbVcgD26Nv6q5INsf0zYjdbAt0=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqlcXOXtsGuDWekVltZmK2x813GifFhQDQYfryB
- axZ9YpMr+WJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCapXFzgAKCRAk1otyXVSH
- 0MneB/9xnoRy//q0mz3BPVNCF6UcHPKCco1ghfNqQGXZPBRA7WzRggQoysGV4YoYwNUXI3A9Z5M
- 2Q6qlfT9tut/tqgwjT1Cs8CNCGvhpAAdGSZbIL0nBErHEl3CgmvFNTOiALax1QV/xI+ptBKBnpZ
- +zDbAsOj1HTsoF80Fh2oeboDygMGPzs1s3wGlC8QOcGT4EhYik0TQXn3S+oo17QqqCfeXvMxU0x
- 0lV2eYFPgPjmj7Xc45LbZAooYZt4bxDnRPHsxXLFFDdYnyl5DN45K0tFQeJNlndkc589j5U7qMf
- Ka+YfVCrICKVDdNRi8y8i39p6OuebvhnlYqMtStRB+gBwN4o
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Message-Id: <20260831-surface-pro-11-dp-audio-v1-1-fb9c0d3216b7@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMMQ7CMAxA0atUnrGUNICAqyAGN3HADE1kE4RU9
+ e4NML7h/wWMVdjgMiyg/BaTMnf43QDxQfOdUVI3jG48ulPwaE0zRcaqBb3HVJFakoLhvD+4kB1
+ xJOh1Vc7y+Z2vt7+tTU+Or+8O1nUDVFJ6DXsAAAA=
+X-Change-ID: 20260831-surface-pro-11-dp-audio-394503f0aeca
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Dale Whinham <daleyo@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788200454; l=1386;
+ i=daleyo@gmail.com; s=20251214; h=from:subject:message-id;
+ bh=rb3HKaLLxJzwcBkHRVKkVwDnPxrRHTfCEOty9h/3Dj4=;
+ b=0m34U2jSQLU+yNJSgYdPHWwTU3Re1UwGoq0Ng92diwb5aZgzY1W/jRL26WqpaCM9abGwq3uOF
+ AyIlcCFxtPMAqxFNJre90wdlT2F0oj45p7nbB4XmDXN6oU1x7OZth64
+X-Developer-Key: i=daleyo@gmail.com; a=ed25519;
+ pk=M4mvgx1TB2TniKaedTDsO3PbLKgFosJuegXRXPbn2Ds=
 
-On Sat, 15 Aug 2026 08:29:13 +0000, Eduard Bostina wrote:
-> dt-bindings: regulator: Convert TPS65023 to DT schema
+Add the DAI links needed to enable audio playback over the two
+USB/DisplayPort outputs.
 
-Applied to
+Signed-off-by: Dale Whinham <daleyo@gmail.com>
+---
+ arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi | 32 +++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.4
+diff --git a/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi b/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
+index 7559557610ed..bc8e00e59dc9 100644
+--- a/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
++++ b/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
+@@ -314,6 +314,38 @@ sound {
+ 				"VA DMIC0", "vdd-micb",
+ 				"VA DMIC1", "vdd-micb";
+ 
++		displayport-0-dai-link {
++			link-name = "DisplayPort0 Playback";
++
++			codec {
++				sound-dai = <&mdss_dp0>;
++			};
++
++			cpu {
++				sound-dai = <&q6apmbedai DISPLAY_PORT_RX_0>;
++			};
++
++			platform {
++				sound-dai = <&q6apm>;
++			};
++		};
++
++		displayport-1-dai-link {
++			link-name = "DisplayPort1 Playback";
++
++			codec {
++				sound-dai = <&mdss_dp1>;
++			};
++
++			cpu {
++				sound-dai = <&q6apmbedai DISPLAY_PORT_RX_1>;
++			};
++
++			platform {
++				sound-dai = <&q6apm>;
++			};
++		};
++
+ 		wsa-dai-link {
+ 			link-name = "WSA Playback";
+ 
 
-Thanks!
+---
+base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+change-id: 20260831-surface-pro-11-dp-audio-394503f0aeca
 
-[1/1] dt-bindings: regulator: Convert TPS65023 to DT schema
-      https://git.kernel.org/broonie/regulator/c/7a89ec1b4fcc
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Best regards,
+--  
+Dale Whinham <daleyo@gmail.com>
 
