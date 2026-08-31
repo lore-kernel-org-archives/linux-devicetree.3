@@ -1,769 +1,645 @@
-Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006B74A64ED;
-	Mon, 31 Aug 2026 13:44:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E79D852F12D;
+	Mon, 31 Aug 2026 13:44:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183887; cv=none; b=mY8La/HkiCXBnxzNdRJ+8iGtSCV10DiK6RKOsz/rIOVJjvhYApRVJZdVipypwZj2rjjGQ6e7c/ZjxRkAX1LT911ZNJPblQliw/Uu6/Mg+OogLSjXZzOLRfPynLuYa9l+o7hV1mC5hV96CtvyHxK7nnfJWCzypd69USbykLc4cRA=
+	t=1788183894; cv=none; b=bBPLTff898i1/Sgeed5B1FHxi9YXbRxtqMt0xcEPAla9dOL+o2mzLmTxXU3UdsxzyUUM/ENF+pLbOVxHYJPz2EdGJDqy+xmTbKW4hr/GC2ft2Vf6hXYZS2xyfIZuYld596bbE7JzkqxPFYlOV28nQeNqFc+UtfW3nofAh/vPEzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183887; c=relaxed/simple;
-	bh=xO/ZPSXMQE32kHIzVwHS1gUQCnJqImTvHMWSKSbiCLw=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KWL0Tw3QBhl61usgXf8xICDQg4LbXinh/Hgqrkp3DarNcAloirfoKAxBeK6Cm9sIkLj0P4wPs4RYU4S8uKms/bSQkatDNtAevCauX44b5/VmDGjIf7Jmif5ujex2olcLtt8qUeu6R4Rty596K8mqrPAh4OACi1Q3fTQzGoipaGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=puJiacj3; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1788183894; c=relaxed/simple;
+	bh=1gQ0fNHi0dr34p5DUc/kt39jh94iHQ1aQJ4epP2Bvvc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=XtOW1CGHXnro30tVfGQ1fl4m4rVbozE8RCYx1q+bE25E0kWtwBcx3yZLkYnKCeOknZq8fhpTOfMZw13CNKDuS4W0k95WOx7PFm6spfmsz4ASHZrzu7JUBJDHqmEFXDMfBE7hy+ptlZMTNCaVaFbtd6dNGLMhPk0noqTWzuPjRvI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O1r27pYo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="puJiacj3"
-Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
-	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VBDG3x513322;
-	Mon, 31 Aug 2026 09:44:09 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=tT/rV
-	AyY862iGRGeU2f5dUeNR68GlKChU3yiAWQs6+o=; b=puJiacj3D+yLXof+FcAwL
-	FXQMAmmfvXaKToJ6YrxSmGEEo56HGiyNd+50YGHF57uPvpyS/W/8SPkvc4gfVOAA
-	PbnlDK0CB4Cq7O9EI2nlPoN1PtCcmuk+nYR6R95oHoZG52ixWKlZpY4ggDs3JmGH
-	F7z/BypB/9MDlk0qrfbnRnr+L2lWfo7dq+Phy+EqU3DPO4yK4v+qUXbpIXFRqQmg
-	3CgNT5mPeRAk68YTpFl5tVL5xEgJ7Z+qekMzx42K5CdBGlqtdKRtF82Dqj7wBlyU
-	jTIyE8efIOi7ZutZV/ZFLbo2WxEhle1VRVCZF0qGvw6KGmK0fq72PgH1+N3SwKH6
-	w==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4gcdrdmwcx-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 31 Aug 2026 09:44:09 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 67VDi8xe054537
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 31 Aug 2026 09:44:08 -0400
-Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
- ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Mon, 31 Aug 2026 09:44:08 -0400
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
- ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Mon, 31 Aug 2026 09:44:07 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Mon, 31 Aug 2026 09:44:07 -0400
-Received: from HYB-JRXo5UEs61B.ad.analog.com ([10.66.6.193])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 67VDhglO004987;
-	Mon, 31 Aug 2026 09:44:01 -0400
-From: Stefan Popa <stefan.popa@analog.com>
-To: <linux-iio@vger.kernel.org>
-CC: <jic23@kernel.org>, <lars@metafoo.de>, <Michael.Hennerich@analog.com>,
-        <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-        <andy@kernel.org>, <dlechner@baylibre.com>, <nuno.sa@analog.com>,
-        <siratul.islam@linux.dev>, <u.kleine-koenig@baylibre.com>,
-        <linux@roeck-us.net>, <joshua.crofts1@gmail.com>,
-        <ciprian.hegbeli@analog.com>, <krzysztof.kozlowski@oss.qualcomm.com>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        Stefan Popa
-	<stefan.popa@analog.com>
-Subject: [PATCH v9 2/2] iio: adc: add MAX40080 current-sense amplifier driver
-Date: Mon, 31 Aug 2026 16:43:34 +0300
-Message-ID: <20260831134334.196359-3-stefan.popa@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O1r27pYo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C44B1F00A3F;
+	Mon, 31 Aug 2026 13:44:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788183890;
+	bh=lVESvZtxLPN53N+V3hPGCVqY68pmm6oEw0Is776h6Cc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=O1r27pYoYv5RNmTPmn482JXQwAIig2CeL5vhqE2J9tB8BVwTe55R/OloqutkjS+BP
+	 X83zlMu6+E+wELlOUILPOLWCYW8UXxeRtQfLEGEhiCPOtjHf2XzBKt0wSnb0+apdEL
+	 pNJ+nxOMFKwEL5Xju1iDKSKep0jRdjTzMERljOrjkAeRRi6A8QYgNJY/axK61Vq/Ax
+	 eeGvd2k9dDYEcg8aXkM5kcQCnnpAxFDqHrTsFcJF/QYQq8vQYv86m7Gf/G8sybA2ya
+	 3Q1MzgjO8sXx39HCHdoslfr3BBa+hE4lVV7OOJ4wS5E6ZcPaL4c+lZQ6I7TayNqH86
+	 3Bh+DUrrOyn4w==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	"Rob Herring (Arm)" <robh@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	saravanak@kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18] drivers/of: validate live-tree string properties before string use
+Date: Mon, 31 Aug 2026 09:26:32 -0400
+Message-ID: <20260831133314.4125787-364-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831134334.196359-1-stefan.popa@analog.com>
-References: <20260831134334.196359-1-stefan.popa@analog.com>
+In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDExOSBTYWx0ZWRfX4wXM/2dBnj65
- HaQsKRCgorm6/HIcXCwJCuslAT0i/XNe/LRae0uWJl2ivAalB7sfS7swrMgEMIuT70kiKeOXM13
- habRqDKLP5us1jwDOBEDUSlWK5FzDR++ub8HIDo//8HEZgP0oka5
-X-Authority-Analysis: v=2.4 cv=feSdDUQF c=1 sm=1 tr=0 ts=6a958529 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=N--XFCr6TIEc_64PeIT2:22 a=gAnH3GRIAAAA:8 a=VwQbUJbxAAAA:8 a=P-IC7800AAAA:8
- a=3eYyrr9eNLywf0p0sAoA:9 a=d3PnA9EDa4IxuAV0gXij:22
-X-Proofpoint-ORIG-GUID: K_r3gYM1wkKpWxFnLvtDojEt_1oB_28I
-X-Proofpoint-GUID: K_r3gYM1wkKpWxFnLvtDojEt_1oB_28I
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDExOSBTYWx0ZWRfX3Rz6ptBc0/m5
- +6y1jDsTKss7wLe6tNNi1apo+eTSyXTipcHt4A7xL5Qh3BntdDYtJlASIwcBzaBkiCThjrSK31/
- Fxm/MhSwcXf66zn5QNxMlAXzunp44PTQogUmPKiamUh/Bc0oc9oB595MvaKObtxPLP9Bsqc+DQy
- 2OoRue4bUKh7K3CPkwOOVNyhnNcanljIJ7oLxKX12vD5z2lpb/BwUebBHn3Opx+m9Do+pWTUuw6
- Wp9SXnZ0Slq4sz+FOrWB4eRpx7TrjlCJR/L9Rwa94W1NPjrRlkkMlGMUNst7INkRlS7AaUDA8zU
- c/r62regmTlA5269dRLBrUc8S5ZcJkr3hZ1kbA8E8nyMyMgE3F3rjijKeGdkTkhIuz8iMAPw9/Y
- cH7PXNOxN9r4tASSjjYdzKx/8ZAiu3uAHzjiFEulliPowxqmM7s8+v/IsJZesgcsAPaeUuVwJj9
- S1sufa47wcXnhfDXFBA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-31_04,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 spamscore=0
- adultscore=0 bulkscore=0 clxscore=1015 malwarescore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310119
 
-The MAX40080 is a bidirectional current-sense amplifier with an
-integrated 12-bit ADC and an I2C/SMBus interface. It measures the
-voltage across an external shunt resistor and the input bus voltage,
-storing the results in an internal FIFO.
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-Add a direct-mode IIO driver exposing the current and voltage channels
-with raw, scale and hardware-gain attributes, a configurable
-oversampling (digital averaging) ratio, and PEC-protected register
-access. The current scale is derived from the shunt resistor value
-described in the device tree.
+[ Upstream commit 1e54c31b9cbbb42162e2e4317c18c8a8b350a79d ]
 
-The driver operates in single-measurement mode: each raw read triggers
-an on-demand conversion via SMBus Quick Command and returns a matched
-current/voltage pair. This avoids the latency and complexity of the
-continuous FIFO mode while ensuring each read reflects the current
-state. The two selectable current-sense ranges are exposed through
-scale/scale_available.
+`populate_properties()` stores live-tree property values as raw byte
+sequences plus a separate `length`. They are not globally guaranteed to
+be NUL-terminated.
 
-Continuous FIFO buffering, threshold events and the alert interrupt are
-intentionally left out of this initial submission and may be added
-later.
+`of_prop_next_string()` iterates string-list properties by walking raw
+bytes, `__of_node_is_type()` checks `device_type`,
+`__of_device_is_status()` checks `status`, and
+`of_alias_from_compatible()` reads the first `compatible` entry. These
+paths must validate that the relevant string fits within the property
+bounds before they hand it to C string helpers.
 
-Co-developed-by: Ciprian Hegbeli <ciprian.hegbeli@analog.com>
-Signed-off-by: Ciprian Hegbeli <ciprian.hegbeli@analog.com>
-Signed-off-by: Stefan Popa <stefan.popa@analog.com>
-Reviewed-by: Siratul Islam <siratul.islam@linux.dev>
+Validate these live-tree string properties within their declared bounds.
+In particular, make `of_prop_next_string()` reject malformed entries
+before returning them, keep the `device_type` check inside the existing
+no-lock helper path, and add unit coverage for malformed first and
+trailing string-list entries.
+
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Link: https://patch.msgid.link/20260507081812.91838-1-pengpeng@iscas.ac.cn
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- MAINTAINERS                |   1 +
- drivers/iio/adc/Kconfig    |  11 +
- drivers/iio/adc/Makefile   |   1 +
- drivers/iio/adc/max40080.c | 574 +++++++++++++++++++++++++++++++++++++
- 4 files changed, 587 insertions(+)
- create mode 100644 drivers/iio/adc/max40080.c
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c1e5afa42de2e..27f3be3ead889 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -15520,6 +15520,7 @@ L:	linux-iio@vger.kernel.org
- S:	Supported
- W:	https://ez.analog.com/linux-software-drivers
- F:	Documentation/devicetree/bindings/iio/adc/adi,max40080.yaml
-+F:	drivers/iio/adc/max40080.c
+LLM Generated explanations, may be completely bogus:
+
+# Stable Backport Analysis: `drivers/of: validate live-tree string
+properties before string use`
+
+## Local Tree Context
+
+This checkout is **linux-6.18.y** at **v6.18.43** (`HEAD detached from
+stable/linux-6.18.y`). The buggy code is present; this fix is not yet
+applied.
+
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
+
+### Step 1.1: Subject Line
+**Record:** `[drivers/of]` `[validate]` — Validate live-tree string
+properties before passing them to C string helpers (`strlen`, `strcmp`,
+etc.).
+
+### Step 1.2: Tags
+**Record:**
+- **Signed-off-by:** Pengpeng Hou `<pengpeng@iscas.ac.cn>` (author)
+- **Link:**
+  https://patch.msgid.link/20260507081812.91838-1-pengpeng@iscas.ac.cn
+- **Signed-off-by:** Rob Herring (Arm) `<robh@kernel.org>` (OF
+  maintainer merge)
+- No `Fixes:`, `Reported-by:`, `Cc: stable@vger.kernel.org`, `Tested-
+  by:`, or `Reviewed-by:` tags
+
+Notable: maintainer merge sign-off from Rob Herring; no syzbot or user
+bug report.
+
+### Step 1.3: Body Analysis
+**Record:**
+- **Bug:** `populate_properties()` and live-tree property storage keep
+  raw byte sequences with a `length` field; they are not guaranteed NUL-
+  terminated.
+- **Affected paths:** `of_prop_next_string()`, `__of_node_is_type()`,
+  `__of_device_is_status()`, `of_alias_from_compatible()` use
+  `strlen`/`strcmp` without verifying the string fits within `length`.
+- **Symptom:** Out-of-bounds reads when scanning for a NUL terminator on
+  malformed properties.
+- **Fix:** Validate with `strnlen()` within declared bounds; switch
+  `of_alias_from_compatible()` to `of_property_read_string_index()`
+  (already validated).
+- **Root cause:** Inconsistent validation — some OF helpers already use
+  `strnlen`, these paths do not.
+
+### Step 1.4: Hidden Bug Fix?
+**Record:** Yes. Despite “validate” wording rather than “fix”, this is a
+real memory-safety bug fix (out-of-bounds read), not cosmetic cleanup.
+
+---
+
+## PHASE 2: DIFF ANALYSIS
+
+### Step 2.1: Inventory
+**Record:**
+| File | Change |
+|------|--------|
+| `drivers/of/base.c` | ~30 lines modified |
+| `drivers/of/property.c` | ~25 lines modified |
+| `drivers/of/unittest.c` | ~35 lines added (tests) |
+
+**Functions modified:** `__of_node_is_type()`,
+`__of_device_is_status()`, `of_alias_from_compatible()`,
+`of_prop_next_string()`
+
+**Scope:** Single-subsystem, surgical fix + unit tests.
+
+### Step 2.2: Code Flow Changes
+
+**Hunk 1 — `__of_node_is_type()`:**
+- Before: `strcmp(match, type)` with no bounds check on `device_type`.
+- After: `strnlen(match, len) >= len` rejects unterminated values before
+  `strcmp`.
+
+**Hunk 2 — `__of_device_is_status()`:**
+- Before: `strlen(status)` / `strcmp` / `strncmp` without verifying
+  `status` is NUL-terminated within `statlen`.
+- After: Rejects if `strnlen(status, statlen) >= statlen`.
+
+**Hunk 3 — `of_alias_from_compatible()`:**
+- Before: `strlen(compatible) > cplen` — `strlen` itself can read past
+  `cplen` if no NUL exists within bounds.
+- After: Uses `of_property_read_string_index()` which already validates
+  via `strnlen`.
+
+**Hunk 4 — `of_prop_next_string()`:**
+- Before: On first entry (`cur == NULL`), returns `prop->value`
+  unconditionally; on advance uses `strlen(cur)` without bounds.
+- After: Validates cursor within `[value, value+length)`; uses `strnlen`
+  for both current and next strings; rejects unterminated entries.
+
+### Step 2.3: Bug Mechanism
+**Record:** **Category:** Memory safety — out-of-bounds read (buffer
+over-read).
+
+**Mechanism:** Property values are stored as `(value, length)` byte
+sequences. `strlen()`/`strcmp()` scan until NUL. If no NUL exists within
+`length`, they read past the property boundary. The tree already has
+test data for this:
+
+```65:66:drivers/of/unittest-data/tests-phandle.dtsi
+                                unterminated-string = [40 41 42 43];
+                                unterminated-string-list = "first",
+"second", [40 41 42 43];
+```
+
+`of_property_read_string_index()` already rejects these (`-EILSEQ`), but
+`of_prop_next_string()` does not.
+
+### Step 2.4: Fix Quality
+**Record:**
+- **Obviously correct:** Matches the existing pattern in
+  `of_property_read_string()` and `of_property_read_string_helper()`.
+- **Minimal:** No API changes, no refactoring.
+- **Regression risk:** Low — well-formed DT strings behave the same;
+  only malformed properties change from OOB-read to safe rejection.
+
+---
+
+## PHASE 3: GIT HISTORY INVESTIGATION
+
+### Step 3.1: Blame
+**Record:** Shallow clone (`git rev-parse --is-shallow-repository` →
+`true`); blame points all lines to merge base `6bda50f4333fa`. Cannot
+determine original introduction commit from this checkout. Buggy code is
+present in 6.18.43.
+
+### Step 3.2: Fixes Tag
+**Record:** N/A — no `Fixes:` tag in commit message.
+
+### Step 3.3: Related File History
+**Record:** Shallow history limits `git log` on these files. In-tree,
+`of_property_read_string()` (line 505) and
+`of_property_read_string_helper()` (line 581) already use `strnlen`.
+`overlay.c` line 228 also validates before `strlen`. This fix closes the
+remaining gaps in the same subsystem.
+
+### Step 3.4: Author History
+**Record:** No prior commits from Pengpeng Hou in this shallow tree. Rob
+Herring (OF maintainer) merged it.
+
+### Step 3.5: Dependencies
+**Record:** Standalone. Uses existing `of_property_read_string_index()`
+(inline in `include/linux/of.h`, calls
+`of_property_read_string_helper`). No series dependencies.
+
+---
+
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+
+### Step 4.1–4.5
+**Record:**
+- `b4 dig -c HEAD` matched wrong commit (local HEAD, not this patch).
+- `b4 dig` with message-ID failed (requires `-c COMMITISH`).
+- lore.kernel.org and patch.msgid.link blocked by bot protection
+  (Anubis).
+- **UNVERIFIED:** Full mailing-list review thread, stable nominations,
+  reviewer NAKs.
+
+From commit message and Rob Herring merge sign-off: patch went through
+normal OF maintainer tree.
+
+---
+
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+### Step 5.1: Key Functions
+**Record:** `of_prop_next_string`, `__of_node_is_type`,
+`__of_device_is_status`, `of_alias_from_compatible`
+
+### Step 5.2: Callers
+**Record:**
+- `of_prop_next_string`: `__of_device_is_compatible()` (core device
+  matching), `drivers/memory/of_memory.c`,
+  `drivers/net/wireless/mediatek/mt76/eeprom.c`, `drivers/leds/leds-
+  powernv.c`, `arch/powerpc/platforms/pseries/of_helpers.c`, macro in
+  `include/linux/of.h`
+- `__of_device_is_status` → `of_device_is_available()` (called on
+  essentially every OF device probe), `of_device_is_fail`,
+  `of_device_is_reserved`
+- `__of_node_is_type` → `of_find_node_by_type()`,
+  `of_get_next_cpu_node()`, `__of_device_is_compatible()`
+- `of_alias_from_compatible` → SPI, I2C, DRM DSI, HSI, ACPI bus alias
+  handling
+
+### Step 5.3: Callees
+**Record:** `__of_get_property`, `strnlen`, `strcmp`, `strncmp`,
+`of_property_read_string_index` → `of_property_read_string_helper`
+
+### Step 5.4: Reachability
+**Record:** Reachable on every boot on DT-based platforms (ARM, RISC-V,
+PowerPC, etc.) during device-tree parsing, matching, and probe. Trigger
+requires malformed property data (bad DT blob, overlay, or dynamic
+property), not normal well-formed vendor DT.
+
+### Step 5.5: Similar Patterns
+**Record:** Same `strnlen(prop->value, prop->length) >= prop->length`
+check already exists in:
+- `of_property_read_string()` at `drivers/of/property.c:505`
+- `of_property_read_string_helper()` at `drivers/of/property.c:581`
+- `overlay.c:228`
+
+This fix brings the remaining helpers in line.
+
+---
+
+## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE
+
+### Step 6.1: Buggy Code Present?
+**Record:** **Yes.** All four vulnerable code paths exist in 6.18.43:
+
+```615:629:drivers/of/property.c
+const char *of_prop_next_string(const struct property *prop, const char
+*cur)
+{
+        const void *curv = cur;
+        // ...
+        curv += strlen(cur) + 1;  // no bounds check on cur or first
+string
+```
+
+```83:87:drivers/of/base.c
+static bool __of_node_is_type(const struct device_node *np, const char
+*type)
+{
+        const char *match = __of_get_property(np, "device_type", NULL);
+        return np && match && type && !strcmp(match, type);  // no
+bounds check
+```
+
+### Step 6.2: Backport Difficulty
+**Record:** Clean apply expected — line context matches the provided
+diff. No conflicting changes in recent 6.18.y history on these
+functions.
+
+### Step 6.3: Related Fixes Already Present?
+**Record:** Partial. `of_property_read_string*` paths already validate.
+`of_prop_next_string` and the three `base.c` helpers do not. No
+duplicate fix found.
+
+---
+
+## PHASE 7: SUBSYSTEM CONTEXT
+
+### Step 7.1: Subsystem
+**Record:** `drivers/of` — Open Firmware / Device Tree core.
+**Criticality: CORE** for all DT-based platforms.
+
+### Step 7.2: Activity
+**Record:** Actively maintained; recent commits include fwnode flag
+thread-safety and alias refcount leak fixes in this tree.
+
+---
+
+## PHASE 8: IMPACT AND RISK
+
+### Step 8.1: Who Is Affected
+**Record:** All DT/OF platforms (ARM, RISC-V, PowerPC, some MIPS, etc.).
+Not x86 ACPI-only systems.
+
+### Step 8.2: Trigger Conditions
+**Record:**
+- Malformed DT property without NUL within declared `length`
+- Examples: raw byte properties (`[40 41 42 43]`), truncated overlay
+  properties, dynamic properties via `__of_prop_dup()` (copies exact
+  length, no added NUL)
+- Unprivileged trigger: only if attacker can supply/modify DT (some
+  embedded boot chains, overlay loading)
+- Well-formed vendor DT: not affected
+
+### Step 8.3: Failure Mode
+**Record:** Out-of-bounds read past property boundary → KASAN report,
+potential oops, information leak from adjacent memory. **Severity:
+HIGH** (memory safety); not data corruption but real kernel robustness
+issue.
+
+### Step 8.4: Risk-Benefit
+**Record:**
+- **Benefit:** HIGH for DT platforms — closes OOB-read holes in core
+  matching/probe paths
+- **Risk:** VERY LOW — ~55 lines of production code, mirrors existing
+  validated patterns
+- **Ratio:** Strongly favors backport
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+### Step 9.1: Evidence Summary
+
+**FOR backport:**
+- Real out-of-bounds read bug in core OF code
+- Affects device matching, status checks, alias resolution — common boot
+  paths
+- Small, surgical, maintainer-merged fix
+- Consistent with validation already present in same files
+- Unit tests included
+- Bug demonstrable with existing `unterminated-string` test data
+
+**AGAINST backport:**
+- Requires malformed DT to trigger (not typical production DT)
+- No user/syzbot report in commit message
+- Mailing-list discussion unverified
+
+**Unresolved:**
+- Full lore review thread (blocked)
+- Exact mainline commit hash (not in shallow 6.18.y history)
+
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — mirrors existing `strnlen`
+   pattern; adds unit tests
+2. Fixes a real bug? **PASS** — OOB read on malformed properties
+3. Important issue? **PASS** — memory safety / potential crash on DT
+   platforms
+4. Small and contained? **PASS** — ~55 lines production code + tests
+5. No new features/APIs? **PASS** — behavior change only for malformed
+   input
+6. Can apply to local tree? **PASS** — buggy code present, clean apply
+   expected
+
+### Step 9.3: Exception Category
+**Record:** N/A (not device ID, quirk, DT binding, build fix, or docs
+fix — standard bug fix).
+
+### Step 9.4: Decision Rationale
+
+For **linux-6.18.y**, this commit fixes a genuine memory-safety gap in
+core device-tree string handling. Several OF helpers already validate
+with `strnlen`, but `of_prop_next_string()` and three `base.c` helpers
+do not — creating inconsistent, unsafe behavior on malformed properties.
+The fix is small, follows established in-tree patterns, is merged by the
+OF maintainer, and affects paths used during every device probe on DT
+platforms. The trigger (malformed DT) is uncommon in production but is
+exactly the class of input the kernel must handle safely.
+
+---
+
+## Verification
+
+- **[Phase 1]** Parsed subject, tags, body from provided commit message
+- **[Phase 1]** Confirmed no `Fixes:`, `Reported-by:`, or `Cc: stable`
+  tags
+- **[Phase 2]** Diff analysis: 3 production files, 4 functions modified
+- **[Phase 2]** Read current `of_prop_next_string()` at
+  `drivers/of/property.c:615-629` — uses unbounded `strlen`
+- **[Phase 2]** Read current `__of_node_is_type()` at
+  `drivers/of/base.c:83-87` — no bounds check
+- **[Phase 2]** Read current `__of_device_is_status()` at
+  `drivers/of/base.c:437-460` — no bounds check
+- **[Phase 2]** Read current `of_alias_from_compatible()` at
+  `drivers/of/base.c:1170-1181` — `strlen` before bounds validation
+- **[Phase 2]** Read `of_property_read_string()` at
+  `drivers/of/property.c:505` — already uses `strnlen` (fix pattern
+  exists)
+- **[Phase 2]** Read `of_property_read_string_helper()` at
+  `drivers/of/property.c:581` — already uses `strnlen`
+- **[Phase 2]** Read `overlay.c:228` — already uses `strnlen`
+- **[Phase 3]** `git rev-parse --is-shallow-repository` → `true`
+  (limited history)
+- **[Phase 3]** `git blame` on changed lines — all point to
+  `6bda50f4333fa` (shallow base)
+- **[Phase 3]** Verified `of_property_read_string_index` exists at
+  `include/linux/of.h:1262-1268`
+- **[Phase 4]** `b4 dig -c HEAD` — returned unrelated URL (wrong match)
+- **[Phase 4]** `b4 dig` with message-ID — failed (wrong usage)
+- **[Phase 4]** UNVERIFIED: lore.kernel.org and patch.msgid.link blocked
+  by bot protection
+- **[Phase 5]** `grep of_prop_next_string` — 6 call sites in production
+  code
+- **[Phase 5]** `grep of_alias_from_compatible` — 6 production call
+  sites
+- **[Phase 5]** `grep of_device_is_available` — widespread driver usage
+  confirmed
+- **[Phase 6]** `git describe HEAD` → `v6.18.43-1-gc7f0dac02d232`;
+  branch `stable/linux-6.18.y`
+- **[Phase 6]** Confirmed buggy code present in all four functions
+- **[Phase 6]** Read `tests-phandle.dtsi:65-66` — unterminated test
+  properties exist
+- **[Phase 6]** Read `__of_prop_dup()` at `drivers/of/dynamic.c:424` —
+  `kmemdup` without NUL padding
+- **[Phase 8]** Failure mode: OOB read via `strlen`/`strcmp` on non-NUL-
+  terminated property within declared length
+
+**YES**
+
+ drivers/of/base.c     | 43 ++++++++++++++++++++++++++-----------------
+ drivers/of/property.c | 27 +++++++++++++++++++++------
+ drivers/of/unittest.c | 32 ++++++++++++++++++++++++++++++++
+ 3 files changed, 79 insertions(+), 23 deletions(-)
+
+diff --git a/drivers/of/base.c b/drivers/of/base.c
+index 6620bf07b79b8..f6b99bd7a9ceb 100644
+--- a/drivers/of/base.c
++++ b/drivers/of/base.c
+@@ -82,9 +82,17 @@ EXPORT_SYMBOL(of_node_name_prefix);
  
- MAXIM MAX7360 KEYPAD LED MFD DRIVER
- M:	Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
-diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-index 58da8255525e4..b651c57bbc3f5 100644
---- a/drivers/iio/adc/Kconfig
-+++ b/drivers/iio/adc/Kconfig
-@@ -1041,6 +1041,17 @@ config MAX34408
- 	  To compile this driver as a module, choose M here: the module will be
- 	  called max34408.
+ static bool __of_node_is_type(const struct device_node *np, const char *type)
+ {
+-	const char *match = __of_get_property(np, "device_type", NULL);
++	const char *match;
++	int len;
++
++	if (!np || !type)
++		return false;
++
++	match = __of_get_property(np, "device_type", &len);
++	if (!match || len <= 0 || strnlen(match, len) >= len)
++		return false;
  
-+config MAX40080
-+	tristate "Analog Devices MAX40080 Current Sense Amplifier"
-+	depends on I2C
-+	help
-+	  Say yes here to build support for the Analog Devices MAX40080
-+	  bidirectional current-sense amplifier with a 12-bit ADC and an I2C
-+	  interface.
-+
-+	  To compile this driver as a module, choose M here: the module will be
-+	  called max40080.
-+
- config MAX77541_ADC
- 	tristate "Analog Devices MAX77541 ADC driver"
- 	depends on MFD_MAX77541
-diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
-index 7cc8f9a12f763..e1953353c68a4 100644
---- a/drivers/iio/adc/Makefile
-+++ b/drivers/iio/adc/Makefile
-@@ -91,6 +91,7 @@ obj-$(CONFIG_MAX1241) += max1241.o
- obj-$(CONFIG_MAX1363) += max1363.o
- obj-$(CONFIG_MAX14001) += max14001.o
- obj-$(CONFIG_MAX34408) += max34408.o
-+obj-$(CONFIG_MAX40080) += max40080.o
- obj-$(CONFIG_MAX77541_ADC) += max77541-adc.o
- obj-$(CONFIG_MAX9611) += max9611.o
- obj-$(CONFIG_MCP320X) += mcp320x.o
-diff --git a/drivers/iio/adc/max40080.c b/drivers/iio/adc/max40080.c
-new file mode 100644
-index 0000000000000..6864ce1cb0633
---- /dev/null
-+++ b/drivers/iio/adc/max40080.c
-@@ -0,0 +1,574 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * MAX40080 Digital Current-Sense Amplifier driver
-+ *
-+ * Copyright 2026 Analog Devices, Inc.
-+ *
-+ * Datasheet: https://www.analog.com/media/en/technical-documentation/data-sheets/MAX40080.pdf
-+ */
-+
-+#include <linux/array_size.h>
-+#include <linux/bitfield.h>
-+#include <linux/bitops.h>
-+#include <linux/cleanup.h>
-+#include <linux/i2c.h>
-+#include <linux/iopoll.h>
-+#include <linux/math64.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/property.h>
-+#include <linux/time.h>
-+#include <linux/types.h>
-+#include <linux/units.h>
-+
-+#include <asm/byteorder.h>
-+
-+#include <linux/iio/iio.h>
-+
-+#define MAX40080_REG_CFG		0x00
-+#define  MAX40080_CFG_MODE_MSK		GENMASK(2, 0)
-+#define  MAX40080_CFG_PEC_EN_MSK	BIT(5)
-+#define  MAX40080_CFG_RANGE_MSK		BIT(6)
-+#define  MAX40080_CFG_FILTER_MSK	GENMASK(14, 12)
-+
-+#define MAX40080_REG_FIFO_CFG		0x0A
-+#define  MAX40080_FIFO_CFG_STORE_IV_MSK	GENMASK(1, 0)
-+
-+#define MAX40080_REG_IV			0x10
-+/* Current is a 13-bit two's-complement value (magnitude + sign bit). */
-+#define  MAX40080_IV_I_MSK		GENMASK(12, 0)
-+#define  MAX40080_IV_I_SIGN_BIT		12
-+#define  MAX40080_IV_V_MAG_MSK		GENMASK(27, 16)
-+#define  MAX40080_IV_VALID_MSK		BIT(31)
-+
-+/* CFG.mode field values. */
-+#define MAX40080_CFG_MODE_STDBY		0x00
-+#define MAX40080_CFG_MODE_SINGLE	0x02
-+
-+/* CFG.range field values. */
-+#define MAX40080_CFG_RANGE_50mV		0
-+#define MAX40080_CFG_RANGE_10mV		1
-+
-+/* FIFO_CFG.store_iv field values. */
-+#define MAX40080_FIFO_CFG_STORE_IV	0x02
-+
-+#define MAX40080_ADC_RES_BITS		12
-+#define MAX40080_INTER_VREF_mV		1250
-+#define MAX40080_V_BUFF_GAIN		30
-+#define MAX40080_CSA_50mV_GAIN		25
-+#define MAX40080_CSA_10mV_GAIN		125
-+
-+/*
-+ * The RANGE field (CFG bit 6) selects one of two current-sense full-scale
-+ * ranges (the MAX40080 supports exactly two: +/-50 mV and +/-10 mV). Indexed
-+ * by the CFG.range field value.
-+ */
-+static const int max40080_csa_gain[] = {
-+	[MAX40080_CFG_RANGE_50mV] = MAX40080_CSA_50mV_GAIN,
-+	[MAX40080_CFG_RANGE_10mV] = MAX40080_CSA_10mV_GAIN,
-+};
-+
-+struct max40080_state {
-+	struct i2c_client *client;
-+	/* Serializes read-modify-write access to the CFG register. */
-+	struct mutex lock;
-+	u32 shunt_resistor_uOhm;
-+	/* Cached configuration: the selected RANGE index and oversampling ratio. */
-+	unsigned int range;
-+	int oversampling_ratio;
-+	/*
-+	 * Precomputed current scale (mA per code) for each RANGE setting, as
-+	 * {integer, nano} pairs for IIO_VAL_INT_PLUS_NANO. The range is
-+	 * selected by writing the corresponding scale.
-+	 */
-+	int current_scale[2][2];
-+};
-+
-+static const int max40080_oversampling_avail[] = { 1, 8, 16, 32, 64, 128 };
-+
-+static int max40080_update_bits(struct max40080_state *st, u8 reg,
-+				u16 mask, u16 val)
-+{
-+	int tmp;
-+
-+	tmp = i2c_smbus_read_word_data(st->client, reg);
-+	if (tmp < 0)
-+		return tmp;
-+
-+	tmp = (tmp & ~mask) | (val & mask);
-+
-+	return i2c_smbus_write_word_data(st->client, reg, tmp);
-+}
-+
-+/*
-+ * In single-measurement mode the device sits idle until it receives an SMBus
-+ * Quick Command, then performs exactly one current and one voltage conversion
-+ * and returns to idle. Triggering on demand this way (rather than running the
-+ * FIFO continuously in active mode) means each read returns a fresh, coherent
-+ * current/voltage pair instead of the oldest queued FIFO entry.
-+ */
-+static int max40080_trigger_measurement(struct max40080_state *st)
-+{
-+	return i2c_smbus_xfer(st->client->adapter, st->client->addr,
-+			      st->client->flags, I2C_SMBUS_WRITE, 0,
-+			      I2C_SMBUS_QUICK, NULL);
-+}
-+
-+/*
-+ * A single measurement holds the matched current/voltage pair in one 32-bit
-+ * word (MAX40080_REG_IV). Reading all four bytes in one transaction returns
-+ * both from the same conversion; reading the separate current (0x0C) and
-+ * voltage (0x0E) registers would decorrelate the two channels.
-+ *
-+ * Unlike the word accesses used elsewhere, this is a plain I2C block read: the
-+ * SMBus layer does not append or verify a PEC byte for it even when PEC is
-+ * otherwise enabled for the device, so this transfer is not PEC protected.
-+ */
-+static int max40080_read_iv_once(struct max40080_state *st, u32 *iv)
-+{
-+	__le32 buf = 0;
+-	return np && match && type && !strcmp(match, type);
++	return !strcmp(match, type);
+ }
+ 
+ #define EXCLUDED_DEFAULT_CELLS_PLATFORMS ( \
+@@ -444,22 +452,22 @@ static bool __of_device_is_status(const struct device_node *device,
+ 		return false;
+ 
+ 	status = __of_get_property(device, "status", &statlen);
+-	if (status == NULL)
++	if (!status || statlen <= 0)
++		return false;
++	if (strnlen(status, statlen) >= statlen)
+ 		return false;
+ 
+-	if (statlen > 0) {
+-		while (*strings) {
+-			unsigned int len = strlen(*strings);
++	while (*strings) {
++		unsigned int len = strlen(*strings);
+ 
+-			if ((*strings)[len - 1] == '-') {
+-				if (!strncmp(status, *strings, len))
+-					return true;
+-			} else {
+-				if (!strcmp(status, *strings))
+-					return true;
+-			}
+-			strings++;
++		if ((*strings)[len - 1] == '-') {
++			if (!strncmp(status, *strings, len))
++				return true;
++		} else {
++			if (!strcmp(status, *strings))
++				return true;
+ 		}
++		strings++;
+ 	}
+ 
+ 	return false;
+@@ -1170,10 +1178,11 @@ EXPORT_SYMBOL(of_find_matching_node_and_match);
+ int of_alias_from_compatible(const struct device_node *node, char *alias, int len)
+ {
+ 	const char *compatible, *p;
+-	int cplen;
 +	int ret;
-+
-+	ret = i2c_smbus_read_i2c_block_data(st->client, MAX40080_REG_IV,
-+					    sizeof(buf), (u8 *)&buf);
-+	if (ret < 0)
-+		return ret;
-+
-+	*iv = le32_to_cpu(buf);
-+
-+	return 0;
-+}
-+
-+static int max40080_read_iv(struct max40080_state *st, u32 *iv)
-+{
-+	u32 tmp = 0;
-+	int ret, io_ret;
-+
-+	guard(mutex)(&st->lock);
-+
-+	ret = max40080_trigger_measurement(st);
-+	if (ret < 0)
-+		return ret;
-+
-+	/*
-+	 * Wait for the conversion to complete by polling the FIFO valid bit
-+	 * (or bail out on an I2C error). Polling the device's own status makes
-+	 * this independent of the actual conversion time, which varies with the
-+	 * oversampling ratio and the bus speed. The timeout is only a safety
-+	 * ceiling: the worst case is the maximum 128x averaging on both the
-+	 * current and voltage channels at the slowest 15 ksps base rate plus the
-+	 * inter-channel switching time, i.e. roughly 20 ms; 50 ms leaves ample
-+	 * margin.
-+	 */
-+	ret = read_poll_timeout(max40080_read_iv_once, io_ret,
-+				io_ret || (tmp & MAX40080_IV_VALID_MSK),
-+				500, 50 * USEC_PER_MSEC, false, st, &tmp);
-+	if (io_ret)
-+		return io_ret;
-+
-+	/*
-+	 * Propagate the last-read value even on timeout so the caller can
-+	 * inspect it for debugging.
-+	 */
-+	*iv = tmp;
-+
-+	return ret;
-+}
-+
-+static int max40080_get_current(struct max40080_state *st, int *val)
-+{
-+	u32 iv;
-+	int ret;
-+
-+	ret = max40080_read_iv(st, &iv);
+ 
+-	compatible = of_get_property(node, "compatible", &cplen);
+-	if (!compatible || strlen(compatible) > cplen)
++	ret = of_property_read_string_index(node, "compatible", 0,
++					    &compatible);
 +	if (ret)
-+		return ret;
+ 		return -ENODEV;
+ 	p = strchr(compatible, ',');
+ 	strscpy(alias, p ? p + 1 : compatible, len);
+diff --git a/drivers/of/property.c b/drivers/of/property.c
+index c1feb631e3831..71322b5bda267 100644
+--- a/drivers/of/property.c
++++ b/drivers/of/property.c
+@@ -614,16 +614,31 @@ EXPORT_SYMBOL_GPL(of_prop_next_u32);
+ 
+ const char *of_prop_next_string(const struct property *prop, const char *cur)
+ {
+-	const void *curv = cur;
++	const char *curv;
++	const char *end;
++	size_t len;
+ 
+-	if (!prop)
++	if (!prop || !prop->value || !prop->length)
+ 		return NULL;
+ 
+-	if (!cur)
+-		return prop->value;
++	curv = cur ? cur : prop->value;
++	end = prop->value + prop->length;
+ 
+-	curv += strlen(cur) + 1;
+-	if (curv >= prop->value + prop->length)
++	if (curv < (const char *)prop->value || curv >= end)
++		return NULL;
 +
-+	*val = sign_extend32(FIELD_GET(MAX40080_IV_I_MSK, iv),
-+			     MAX40080_IV_I_SIGN_BIT);
++	if (cur) {
++		len = strnlen(curv, end - curv);
++		if (len >= end - curv)
++			return NULL;
 +
-+	return 0;
-+}
-+
-+static int max40080_get_voltage(struct max40080_state *st, int *val)
-+{
-+	u32 iv;
-+	int ret;
-+
-+	ret = max40080_read_iv(st, &iv);
-+	if (ret)
-+		return ret;
-+
-+	*val = FIELD_GET(MAX40080_IV_V_MAG_MSK, iv);
-+
-+	return 0;
-+}
-+
-+static int max40080_set_range(struct max40080_state *st, unsigned int range)
-+{
-+	int ret;
-+
-+	ret = max40080_update_bits(st, MAX40080_REG_CFG, MAX40080_CFG_RANGE_MSK,
-+				   FIELD_PREP(MAX40080_CFG_RANGE_MSK, range));
-+	if (ret)
-+		return ret;
-+
-+	WRITE_ONCE(st->range, range);
-+
-+	return 0;
-+}
-+
-+/*
-+ * Precompute the current scale (mA per code) for each RANGE setting as
-+ * {integer, nano} pairs. The shunt drop for a full-scale code is
-+ *   Vref[mV] / (BIT(ADC_RES_BITS) * gain)
-+ * and current = Vshunt / Rshunt, so with Rshunt in micro-ohms the scale in
-+ * mA/code is
-+ *   Vref[mV] * NANO * MICRO / (BIT(ADC_RES_BITS) * gain * Rshunt[uOhm])
-+ * expressed as an integer part plus a nano fractional part.
-+ */
-+static void max40080_calc_current_scale(struct max40080_state *st)
-+{
-+	u64 numerator, denominator;
-+	u32 rem;
-+
-+	for (unsigned int i = 0; i < ARRAY_SIZE(max40080_csa_gain); i++) {
-+		numerator = (u64)MAX40080_INTER_VREF_mV * NANO * MICRO;
-+		denominator = BIT_ULL(MAX40080_ADC_RES_BITS) * max40080_csa_gain[i] *
-+			      st->shunt_resistor_uOhm;
-+		numerator = div64_u64(numerator, denominator);
-+		st->current_scale[i][0] = div_u64_rem(numerator, NANO, &rem);
-+		st->current_scale[i][1] = rem;
-+	}
-+}
-+
-+/*
-+ * max40080_oversampling_avail[] is ordered so that its index is the FILTER
-+ * field value (index 0 = no averaging, index 1 = 8x, ...). Return that index
-+ * for an exact match, or -EINVAL for a value that is not on the list.
-+ */
-+static int max40080_oversampling_to_filter(int val)
-+{
-+	for (unsigned int i = 0; i < ARRAY_SIZE(max40080_oversampling_avail); i++) {
-+		if (max40080_oversampling_avail[i] == val)
-+			return i;
++		curv += len + 1;
++		if (curv >= end)
++			return NULL;
 +	}
 +
-+	return -EINVAL;
-+}
++	len = strnlen(curv, end - curv);
++	if (len >= end - curv)
+ 		return NULL;
+ 
+ 	return curv;
+diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
+index 02b780b6e8e25..729813d54c22d 100644
+--- a/drivers/of/unittest.c
++++ b/drivers/of/unittest.c
+@@ -713,6 +713,7 @@ static void __init of_unittest_parse_phandle_with_args_map(void)
+ static void __init of_unittest_property_string(void)
+ {
+ 	const char *strings[4];
++	const struct property *prop;
+ 	struct device_node *np;
+ 	int rc;
+ 
+@@ -789,6 +790,37 @@ static void __init of_unittest_property_string(void)
+ 	strings[1] = NULL;
+ 	rc = of_property_read_string_array(np, "phandle-list-names", strings, 1);
+ 	unittest(rc == 1 && strings[1] == NULL, "Overwrote end of string array; rc=%i, str='%s'\n", rc, strings[1]);
 +
-+static int max40080_set_oversampling_ratio(struct max40080_state *st, int val)
-+{
-+	int filter;
-+	int ret;
++	/* of_prop_next_string() tests */
++	prop = of_find_property(np, "phandle-list-names", NULL);
++	strings[0] = of_prop_next_string(prop, NULL);
++	unittest(strings[0] && !strcmp(strings[0], "first"),
++		 "of_prop_next_string() failure; got '%s'\n", strings[0]);
++	strings[0] = of_prop_next_string(prop, strings[0]);
++	unittest(strings[0] && !strcmp(strings[0], "second"),
++		 "of_prop_next_string() failure; got '%s'\n", strings[0]);
++	strings[0] = of_prop_next_string(prop, strings[0]);
++	unittest(strings[0] && !strcmp(strings[0], "third"),
++		 "of_prop_next_string() failure; got '%s'\n", strings[0]);
++	strings[0] = of_prop_next_string(prop, strings[0]);
++	unittest(!strings[0],
++		 "of_prop_next_string() should return NULL at end of list\n");
 +
-+	filter = max40080_oversampling_to_filter(val);
-+	if (filter < 0)
-+		return filter;
++	prop = of_find_property(np, "unterminated-string", NULL);
++	strings[0] = of_prop_next_string(prop, NULL);
++	unittest(!strings[0],
++		 "of_prop_next_string() should reject unterminated first string\n");
 +
-+	ret = max40080_update_bits(st, MAX40080_REG_CFG, MAX40080_CFG_FILTER_MSK,
-+				   FIELD_PREP(MAX40080_CFG_FILTER_MSK, filter));
-+	if (ret)
-+		return ret;
-+
-+	WRITE_ONCE(st->oversampling_ratio, val);
-+
-+	return 0;
-+}
-+
-+static int max40080_read_raw(struct iio_dev *indio_dev,
-+			     struct iio_chan_spec const *chan,
-+			     int *val, int *val2, long mask)
-+{
-+	struct max40080_state *st = iio_priv(indio_dev);
-+	unsigned int range;
-+	int ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW:
-+		if (chan->type == IIO_CURRENT) {
-+			ret = max40080_get_current(st, val);
-+			if (ret)
-+				return ret;
-+		} else if (chan->type == IIO_VOLTAGE) {
-+			ret = max40080_get_voltage(st, val);
-+			if (ret)
-+				return ret;
-+		}
-+		return IIO_VAL_INT;
-+	case IIO_CHAN_INFO_SCALE:
-+		if (chan->type == IIO_CURRENT) {
-+			/*
-+			 * The selectable current-sense range is exposed through
-+			 * scale: each RANGE setting has its own precomputed
-+			 * mA-per-code value. Userspace picks the range by writing
-+			 * the matching scale.
-+			 *
-+			 * Use READ_ONCE to ensure the compiler reads st->range
-+			 * exactly once, so val and val2 come from the same setting
-+			 * even if a concurrent write changes st->range.
-+			 */
-+			range = READ_ONCE(st->range);
-+			*val = st->current_scale[range][0];
-+			*val2 = st->current_scale[range][1];
-+			return IIO_VAL_INT_PLUS_NANO;
-+		}
-+		/* voltage[mV] = raw * Vref[mV] * buffer_gain / BIT(ADC_RES_BITS) */
-+		*val = MAX40080_INTER_VREF_mV * MAX40080_V_BUFF_GAIN;
-+		*val2 = MAX40080_ADC_RES_BITS;
-+		return IIO_VAL_FRACTIONAL_LOG2;
-+	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
-+		*val = READ_ONCE(st->oversampling_ratio);
-+		return IIO_VAL_INT;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int max40080_write_raw(struct iio_dev *indio_dev,
-+			      struct iio_chan_spec const *chan,
-+			      int val, int val2, long mask)
-+{
-+	struct max40080_state *st = iio_priv(indio_dev);
-+
-+	guard(mutex)(&st->lock);
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_SCALE:
-+		/* Only the current channel has a selectable range/scale. */
-+		if (chan->type != IIO_CURRENT)
-+			return -EINVAL;
-+
-+		for (unsigned int i = 0; i < ARRAY_SIZE(max40080_csa_gain); i++) {
-+			if (val == st->current_scale[i][0] &&
-+			    val2 == st->current_scale[i][1])
-+				return max40080_set_range(st, i);
-+		}
-+
-+		return -EINVAL;
-+	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
-+		return max40080_set_oversampling_ratio(st, val);
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int max40080_write_raw_get_fmt(struct iio_dev *indio_dev,
-+				      struct iio_chan_spec const *chan,
-+				      long mask)
-+{
-+	switch (mask) {
-+	case IIO_CHAN_INFO_SCALE:
-+		return IIO_VAL_INT_PLUS_NANO;
-+	default:
-+		return IIO_VAL_INT;
-+	}
-+}
-+
-+static int max40080_read_avail(struct iio_dev *indio_dev,
-+			       struct iio_chan_spec const *chan,
-+			       const int **vals, int *type, int *length,
-+			       long info)
-+{
-+	struct max40080_state *st = iio_priv(indio_dev);
-+
-+	switch (info) {
-+	case IIO_CHAN_INFO_SCALE:
-+		if (chan->type != IIO_CURRENT)
-+			return -EINVAL;
-+
-+		*vals = (int *)st->current_scale;
-+		*length = ARRAY_SIZE(max40080_csa_gain) * 2;
-+		*type = IIO_VAL_INT_PLUS_NANO;
-+		return IIO_AVAIL_LIST;
-+	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
-+		*vals = max40080_oversampling_avail;
-+		*length = ARRAY_SIZE(max40080_oversampling_avail);
-+		*type = IIO_VAL_INT;
-+		return IIO_AVAIL_LIST;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int max40080_reg_access(struct iio_dev *indio_dev, unsigned int reg,
-+			       unsigned int write_val, unsigned int *read_val)
-+{
-+	struct max40080_state *st = iio_priv(indio_dev);
-+	int val;
-+
-+	if (read_val) {
-+		val = i2c_smbus_read_word_data(st->client, reg);
-+		if (val < 0)
-+			return val;
-+
-+		*read_val = val;
-+
-+		return 0;
-+	}
-+
-+	return i2c_smbus_write_word_data(st->client, reg, write_val);
-+}
-+
-+static const struct iio_info max40080_info = {
-+	.read_raw = max40080_read_raw,
-+	.write_raw = max40080_write_raw,
-+	.write_raw_get_fmt = max40080_write_raw_get_fmt,
-+	.read_avail = max40080_read_avail,
-+	.debugfs_reg_access = &max40080_reg_access,
-+};
-+
-+static const struct iio_chan_spec max40080_channels[] = {
-+	{
-+		.type = IIO_CURRENT,
-+		.indexed = 1,
-+		.channel = 0,
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+				      BIT(IIO_CHAN_INFO_SCALE),
-+		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SCALE),
-+		.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
-+		.info_mask_shared_by_all_available =
-+			BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
-+	},
-+	{
-+		.type = IIO_VOLTAGE,
-+		.indexed = 1,
-+		.channel = 0,
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+				      BIT(IIO_CHAN_INFO_SCALE),
-+		.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
-+		.info_mask_shared_by_all_available =
-+			BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
-+	},
-+};
-+
-+/*
-+ * Configure the device from the cached state. The device powers up in standby
-+ * with PEC enabled (CFG POR = 0x0060), so PEC is kept enabled throughout.
-+ */
-+static int max40080_init(struct max40080_state *st)
-+{
-+	u16 fifo_cfg, cfg;
-+	int ret, filter;
-+
-+	filter = max40080_oversampling_to_filter(st->oversampling_ratio);
-+	if (filter < 0)
-+		return filter;
-+
-+	/*
-+	 * Put the device in standby before (re)configuring the FIFO: the FIFO
-+	 * configuration register can only be written while the device is not
-+	 * converting.
-+	 */
-+	cfg = FIELD_PREP(MAX40080_CFG_MODE_MSK, MAX40080_CFG_MODE_STDBY) |
-+	      FIELD_PREP(MAX40080_CFG_PEC_EN_MSK, 1);
-+	ret = i2c_smbus_write_word_data(st->client, MAX40080_REG_CFG, cfg);
-+	if (ret)
-+		return ret;
-+
-+	/* Store a matched current+voltage pair per conversion. */
-+	fifo_cfg = FIELD_PREP(MAX40080_FIFO_CFG_STORE_IV_MSK, MAX40080_FIFO_CFG_STORE_IV);
-+	ret = i2c_smbus_write_word_data(st->client, MAX40080_REG_FIFO_CFG,
-+					fifo_cfg);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Use single-measurement mode: the device stays idle and converts once
-+	 * per SMBus Quick Command (see max40080_trigger_measurement()), so each
-+	 * read returns a fresh sample rather than a queued FIFO entry.
-+	 */
-+	cfg = FIELD_PREP(MAX40080_CFG_MODE_MSK, MAX40080_CFG_MODE_SINGLE) |
-+	      FIELD_PREP(MAX40080_CFG_PEC_EN_MSK, 1) |
-+	      FIELD_PREP(MAX40080_CFG_RANGE_MSK, st->range) |
-+	      FIELD_PREP(MAX40080_CFG_FILTER_MSK, filter);
-+
-+	return i2c_smbus_write_word_data(st->client, MAX40080_REG_CFG, cfg);
-+}
-+
-+static int max40080_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	const char *propname;
-+	struct iio_dev *indio_dev;
-+	struct max40080_state *st;
-+	int ret;
-+
-+	/*
-+	 * The device powers up with PEC enabled (CFG POR = 0x0060) and rejects
-+	 * unprotected transactions, so PEC support is mandatory, along with word
-+	 * access, the I2C block read used for the current/voltage pair, and the
-+	 * Quick Command used to trigger a conversion.
-+	 */
-+	if (!i2c_check_functionality(client->adapter,
-+				     I2C_FUNC_SMBUS_WORD_DATA |
-+				     I2C_FUNC_SMBUS_I2C_BLOCK |
-+				     I2C_FUNC_SMBUS_QUICK |
-+				     I2C_FUNC_SMBUS_PEC))
-+		return -EOPNOTSUPP;
-+
-+	client->flags |= I2C_CLIENT_PEC;
-+
-+	indio_dev = devm_iio_device_alloc(dev, sizeof(*st));
-+	if (!indio_dev)
-+		return -ENOMEM;
-+
-+	st = iio_priv(indio_dev);
-+	st->client = client;
-+
-+	ret = devm_mutex_init(dev, &st->lock);
-+	if (ret)
-+		return ret;
-+
-+	propname = "shunt-resistor-micro-ohms";
-+	ret = device_property_read_u32(dev, propname, &st->shunt_resistor_uOhm);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "can't read %s\n", propname);
-+	if (!st->shunt_resistor_uOhm)
-+		return dev_err_probe(dev, -EINVAL, "%s must be non-zero\n", propname);
-+
-+	max40080_calc_current_scale(st);
-+
-+	/* Defaults: 50 mV range, no averaging. */
-+	st->range = MAX40080_CFG_RANGE_50mV;
-+	st->oversampling_ratio = 1;
-+
-+	indio_dev->name = "max40080";
-+	indio_dev->info = &max40080_info;
-+	indio_dev->modes = INDIO_DIRECT_MODE;
-+	indio_dev->channels = max40080_channels;
-+	indio_dev->num_channels = ARRAY_SIZE(max40080_channels);
-+
-+	ret = max40080_init(st);
-+	if (ret)
-+		return ret;
-+
-+	return devm_iio_device_register(dev, indio_dev);
-+}
-+
-+static const struct i2c_device_id max40080_i2c_ids[] = {
-+	{ .name = "max40080" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, max40080_i2c_ids);
-+
-+static const struct of_device_id max40080_of_match[] = {
-+	{ .compatible = "adi,max40080" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, max40080_of_match);
-+
-+static struct i2c_driver max40080_driver = {
-+	.driver = {
-+		.name = "max40080",
-+		.of_match_table = max40080_of_match,
-+	},
-+	.probe = max40080_probe,
-+	.id_table = max40080_i2c_ids,
-+};
-+module_i2c_driver(max40080_driver);
-+
-+MODULE_AUTHOR("Ciprian Hegbeli <ciprian.hegbeli@analog.com>");
-+MODULE_AUTHOR("Stefan Popa <stefan.popa@analog.com>");
-+MODULE_DESCRIPTION("Analog Devices MAX40080 current-sense amplifier driver");
-+MODULE_LICENSE("GPL");
++	prop = of_find_property(np, "unterminated-string-list", NULL);
++	strings[0] = of_prop_next_string(prop, NULL);
++	unittest(strings[0] && !strcmp(strings[0], "first"),
++		 "of_prop_next_string() failure; got '%s'\n", strings[0]);
++	strings[0] = of_prop_next_string(prop, strings[0]);
++	unittest(strings[0] && !strcmp(strings[0], "second"),
++		 "of_prop_next_string() failure; got '%s'\n", strings[0]);
++	strings[0] = of_prop_next_string(prop, strings[0]);
++	unittest(!strings[0],
++		 "of_prop_next_string() should reject unterminated trailing string\n");
+ }
+ 
+ #define propcmp(p1, p2) (((p1)->length == (p2)->length) && \
 -- 
 2.53.0
 
