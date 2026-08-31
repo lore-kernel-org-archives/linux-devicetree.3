@@ -1,152 +1,132 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EF003D6688;
-	Mon, 31 Aug 2026 12:30:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C4A3FAE02
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 12:30:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788179434; cv=none; b=AiVy/GSegUdss7Q4n2amCCqOTlyxnJkcVnPQLLewO+tCOOg8fQCL+YN7HyKl7s9eB4VVgnQyeW/K1kWpLX8dppXnQSvegAs/upx3fukQp/ZUvuUF0TkVQCwI/bdftq6PJip71NSwFBeNF4xYZXSzqKOqryLf/iJogmZviep6zL0=
+	t=1788179434; cv=none; b=Vhhx2/MsRPt4lU/ziC08JsjTVEtg23jNsvF/UiJur7GA44ga5zHyOcCjQOm+gdlBEX19qDICNnuYT/YXPKlSHeh8ZGGKNXSy4APsJb7kIls2oTrUcUQNNqtwG/xIrxlliPMXX9eUDYQxZ7IZ3EBf2YG38bB1ko5x1Oe0G+eCgk4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788179434; c=relaxed/simple;
-	bh=P/nUJsislhQJX34fx8Kb2B0lT8SzGNMs1GAHnBSrlJQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=e73aKuKZO+bj99DIXIa10mVuYgQXMfbQ3wFh/tlZ4zFsFHPJSYubkcvMq+af9jTPoYuex0+VW7ForAod76/ZkTXEVXnQyh0X1V7WMp11d8hqyWHvdwhOKsUkSBzpRtg2EHJWerzef8IXTWjJZWZV0BEPIOAvKjTR3wHkiZ8aW3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G+KSjRfR; arc=none smtp.client-ip=100.103.45.18
+	bh=/cRAv3BrVXbjYIJ3NmZZzCLC612Gb5I5Ld2HgcBVqww=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=sQGuQIog0BM/KzjXp+4XCYuLmP/Tdcjs8Rtw9q8SnTQ4l/5yBzNqQRMqPHhacdc4IRlmvymKghuA7aC0O9CwHw25dKWUq+fuw9YKYIiUkv+CvtuZ2sOVZ9rk8fLBYIVELdbzSODuy7k/xd+Qd6yVzofqrSuslgcAnerDNX2T7b0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dKCpVs9N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G+KSjRfR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70FA81F000E9;
-	Mon, 31 Aug 2026 12:30:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dKCpVs9N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 962331F00ACA;
+	Mon, 31 Aug 2026 12:30:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788179432;
-	bh=o0j9vXuew8PzdgEF/ZP3ym0lz6xPW5nlKTzSfWn7rN0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=G+KSjRfRvJBfjsqM2aTWTeCVZQEMsuPITbqdm7+NO/bGl5UDQzJoqteEUbVi70uYH
-	 2xwLIuX9+NUotx2n1s6Rd0MF/hlF4pkUoRdpSv1W5QVZPOGEbkQsxtZH2Ve5uhgN/b
-	 AYmHSQfXDYsy+d9eZskq/ZYtWb86TuT3qFboG71HaO/b3pPhHqaCvH0HDEwqfdAc/K
-	 EzgjSQI6akWXpMqfXGIZOCrox3k//voklpB2cZuaRJxqyQ6uzTaGrDqNa7ecGGLhkO
-	 VtKPezGZ7XqAErXAU7MAnAS1uCkDqspI6aX4cFyZg6txeFJGz6IBaoBM6ko/SaIh9x
-	 k2QdOnINQWScw==
-Message-ID: <d69efb1c-4ab3-4148-8b98-035377852da6@kernel.org>
-Date: Mon, 31 Aug 2026 14:30:23 +0200
+	bh=SXJrucssh1oxqwX9DMdzvL1lRO6lhgieyQXFXleX1Es=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dKCpVs9NwS3Q/sQ8HGblGAOwPNT/VT1HstWbVSyidRBbWAi4QJ7Rjnw/NHwmqEANk
+	 VHhumjX9YyL5nRknwLgE5w6fd3G0BSm8w8JRhL/zN8ZMLGrr2vw6GjmcaELzmBg0Hl
+	 7aIYhybenA9I5M6ouSCmbYPJ0oCNQ7sLGnUwgRwga19I11T09dzi6bMUmbZ4jcTC1f
+	 vQqKT9+dPlqqzeUW4/fV3KKBOpXlAhwIFFoKfBmzghu4iV5mcKidYVChyy/ywzcbY2
+	 xl70T2ebufQGbtE1Zj6SqpLRVvHFdVHDiFiKsZRRmpwW9jzopfcxqZruyhK61xj9yo
+	 seXqJzLoWnBhQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 4/8] iio: accel: mma8452: Support interrupt sharing
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Esben Haabendal" <esben@geanix.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260831-mma8452-open-drain-v7-4-22946812c928@geanix.com>
+References: <20260831-mma8452-open-drain-v7-0-22946812c928@geanix.com>
+ <20260831-mma8452-open-drain-v7-4-22946812c928@geanix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 31 Aug 2026 12:30:32 +0000
+Message-Id: <20260831123032.962331F00ACA@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 01/12] dt-bindings: phy: qcom,ipq5332-uniphy-pcie:
- Change to PCIe/USB3 combo PHY
-To: George Moussalem <george.moussalem@outlook.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Praveenkumar I <praveenkumar.i@oss.qualcomm.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
- Nitheesh Sekar <quic_nsekar@quicinc.com>,
- Wesley Cheng <quic_wcheng@quicinc.com>,
- Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
-References: <20260825-ipq5018-usb3-v3-0-39be0955a6aa@outlook.com>
- <20260825-ipq5018-usb3-v3-1-39be0955a6aa@outlook.com>
- <20260828-wisteria-fennec-from-arcadia-a44ebe@quoll>
- <SN7PR19MB6736B881B203BF5746F0DEE39DAC2@SN7PR19MB6736.namprd19.prod.outlook.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <SN7PR19MB6736B881B203BF5746F0DEE39DAC2@SN7PR19MB6736.namprd19.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 28/08/2026 12:51, George Moussalem wrote:
-> On 8/28/26 14:09, Krzysztof Kozlowski wrote:
->> On Tue, Aug 25, 2026 at 04:37:18PM +0400, George Moussalem wrote:
->>> This PHY is a PCIE/USB3 multi-purpose PHY. Initial support was added for
->>> PCIe only, so rename the binding and add support for USB3 PHY mode.
->>>
->>> The PCIe and USB physical pads are muxed and selection is done via a
->>> control register in TCSR. Add a new property to the binding to enable
->>> switching the default PCIe mux selection to USB3 mode.
->>>
->>> In addition, USB3 mode requires a 5V supply, so add a vdd-supply
->>> property for it.
->>>
->>> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
->>> ---
->>>  .../bindings/phy/qcom,ipq5332-uniphy-pcie-phy.yaml | 109 ----------------
->>>  .../phy/qcom,ipq5332-uniphy-pcie-usb3-phy.yaml     | 141 +++++++++++++++++++++
->>>  include/dt-bindings/phy/phy-qcom-qmp.h             |   4 +
->>>  3 files changed, 145 insertions(+), 109 deletions(-)
->>>
->>> diff --git a/Documentation/devicetree/bindings/phy/qcom,ipq5332-uniphy-pcie-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,ipq5332-uniphy-pcie-phy.yaml
->>> deleted file mode 100644
->>> index 6e9df81441e9..000000000000
->>
->> Please do not rename the binding. Old name was correct. New one is not,
->> otherwise please point me to the compatible like that.
-> 
-> I thought we had come to the conclusion it's the same device in the
-> discussion in v2:
-> https://lore.kernel.org/all/gn43qixdtbq5iyfqvzibdtx4lmwpkt2ieahr7oqsxxjfpldb6d@xbxhbdrq4e6b/
-> 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Missing rollback of `data->suspended` on runtime suspend failure p=
+ermanently disables interrupt handling and breaks device operation.
+- [Medium] Unconditional call to `synchronize_irq(client->irq)` may incorre=
+ctly synchronize with IRQ 0 if the device operates in polling mode.
+--
 
-How is it relevant to renaming of the file?
+commit a488fa629f355995847b3d4e006a55add5fc9ce7
+Author: Esben Haabendal <esben@geanix.com>
 
-> I've split up this series into 3 as in the cover letter:
-> 1. Flatten USB Controller Nodes on IPQ SoCs
->    link:
-> https://lore.kernel.org/r/20260825-ipq-flatten-usb-v1-0-5c1f3170bbe9@outlook.com
-> 2. Enable USB3 for Qualcomm IPQ5018 (this patch series)
-> 3. Enable USB3 for Qualcomm IPQ5332 (to be submitted)
+iio: accel: mma8452: Support interrupt sharing
 
-How is this relevant?
+Adding handling of rutnime PM suspension in the interrupt handler allows
+sharing interrupt with other devices.
 
-Best regards,
-Krzysztof
+> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
+> index 1fb43c5b0b72f..936eeb2efb2dd 100644
+> --- a/drivers/iio/accel/mma8452.c
+> +++ b/drivers/iio/accel/mma8452.c
+> @@ -1056,14 +1057,24 @@ static irqreturn_t mma8452_interrupt(int irq, voi=
+d *p)
+>  	struct iio_dev *indio_dev =3D p;
+>  	struct mma8452_data *data =3D iio_priv(indio_dev);
+>  	irqreturn_t ret =3D IRQ_NONE;
+> +	int pm_status;
+>  	int src;
+> =20
+> +	pm_status =3D pm_runtime_get_if_active(&data->client->dev);
+> +	if (pm_status =3D=3D 0)
+> +		return IRQ_NONE; /* device is powered down */
+> +	if (READ_ONCE(data->suspended)) {
+> +		/* device is being removed */
+> +		ret =3D IRQ_NONE;
+> +		goto out_runtime_put;
+> +	}
+
+[Severity: High]
+If mma8452_runtime_suspend() fails and leaves data->suspended set to true,
+won't this cause all subsequent interrupts to be dropped here?
+
+[ ... ]
+
+> @@ -1774,6 +1790,10 @@ static int mma8452_runtime_suspend(struct device *=
+dev)
+>  		return -EAGAIN;
+>  	}
+> =20
+> +	WRITE_ONCE(data->suspended, true);
+> +
+> +	synchronize_irq(client->irq);
+
+[Severity: Medium]
+If the device operates in polling mode and is instantiated without a hardwa=
+re
+interrupt, client->irq will be 0. Calling synchronize_irq(0) on architectur=
+es
+where IRQ 0 is a valid system interrupt (like the legacy timer on x86) might
+needlessly block execution waiting for an unrelated system handler.
+
+Could we check if client->irq is non-zero before calling synchronize_irq()?
+
+> +
+>  	ret =3D regulator_disable(data->vddio_reg);
+>  	if (ret) {
+>  		dev_err(dev, "failed to disable VDDIO regulator\n");
+>  		return ret;
+>  	}
+
+[Severity: High]
+If regulator_disable() fails here and returns an error, the PM core will ab=
+ort
+the suspend transition leaving the device in the RPM_ACTIVE state. However,
+data->suspended is left as true, and the hardware is left in standby.
+
+As mentioned above, since data->suspended remains true, won't the interrupt
+handler unconditionally return IRQ_NONE for all future interrupts? This see=
+ms
+like it would break the device's event handling until the module is reloade=
+d.
+Should we revert data->suspended to false and restore the hardware state on
+this error path?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-mma8452-op=
+en-drain-v7-0-22946812c928@geanix.com?part=3D4
