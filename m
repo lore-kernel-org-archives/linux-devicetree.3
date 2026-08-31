@@ -1,109 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0CEA389111
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 20:18:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C7FA389DE3;
+	Mon, 31 Aug 2026 20:21:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788207505; cv=none; b=MKMgUSWVEC8cdCp0Qizu8KleEafny74mKJTZIb/4pqeN+3F0PpJTkGgY3HTl3gMPQixz01YwU5IqCsUNtyrvcvJerm60k5Cb31NffVt0Y4uGUvSyCWC0CzXCpcRgdiZAbszb3IEzVBpgN+JN7zuxkvfQUEessXAkKLh9/aMKK7k=
+	t=1788207695; cv=none; b=UQtQaNbbKuUBJzgwtHRByhXqOElYuuiD4/L4tK6Xj1syZJf4+N7wT4alTtTSo2WSbvH4tCR9Hf3+9wLgqQzeo/rfeRanRVD2rWHYv+LNlIQs+bvZMDMvywbRICoEcbuGVg/zG2jdvSXCKji8oksWLgCkwdTjhAayZS4WOl/veqo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788207505; c=relaxed/simple;
-	bh=uxXnywrB964lFHIlbAx+gl0yKJDMUxBJ8k53z1N4/DQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bPPTllvuUGRqDxnRDqiHcSUO7JB/zSRvdL5XuJwowAhej/YMp0dklos1JDyRA7spqzzMVECR0HPftsCwhEs9VhOz5bHgTgLQBYoaGsqeDmU7N3xe20lfvcmIWIAnzaxuJyKjHXdhfbCN4hIJ4bLPUOLvaza4qIchI4+eUCy42/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EZEyv+My; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788207695; c=relaxed/simple;
+	bh=BYLIO5htDfh6tyzY9sR+7XK5TsoR7YowKjzJ7QxFIsw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=g+8VYg0eyqN3KZ3zmb49NdtvoD0EUVTGiPNaTsChwL8FEJ3lCRjpVwui916oGNqretgmZY0maq56ABvVR2qpsPc+YYQnNqNRuLMGTkLK5YLVX8nAbxFiwtvl5xNaN5IIrrUtaNOQuipA54sAYx/VlnRY/uvWf08UFLHjM5X1kS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vz0HbuCD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EZEyv+My"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A04681F00A3D
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 20:18:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vz0HbuCD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33CF81F00A3D;
+	Mon, 31 Aug 2026 20:21:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788207503;
-	bh=dBw06eNRTDzQJpe26/cWXwzg6j8pKh6C6aUf9EkHB6I=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=EZEyv+MylMpO+T8PDxd5NBLwn9f2oKY4Akg0lM2pDOhv28sjEHtxYCzjKI8PBMoji
-	 O3uEiiSNOfKEl9CLZ9cBnQCzVN62OC5/O1e/2VFgOL6ZIJrNvRgkiTEdWZOT6b/5+4
-	 Y6a3aUbL5F99o/D4oQficnS7meovTHjzaA2pSVL/LOSL95rKBM4bTtL6/fSpzNvxDB
-	 3V7BZBcJlrceRv6e/7YKxLZDYw20lfmKTXXarMAs7JDiAC0ehHfrMLsvhH0FMDih6b
-	 8tAcKY4Z5h95sSYKNQikEv8UbAZHmXwgFC+qFg2yCxJgKyHyD1/Hh5w8bqnwirDVFy
-	 hLti5RYZi4oSg==
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5b4ab4b4179so1522096e87.0
-        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 13:18:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxf3T2O1QhEdy99DpHdfYMRHSqKDO8RV0sM7zU/u99YIr8i7kK9oP8pIlvBSs5lejt7XuuAm44NRPI9@vger.kernel.org
-X-Gm-Message-State: AFuF++k6IlaK+IHIx5Tf9dwShKeCbtseSKiOaahDWvLiuW1tOfNbhkIY
-	iePbcVNxOymvO6YY8Z0Rg30qrnYfbvB+I7zEqPq/nVtoTYGzyNjpYGNmnj0eaN+L7xw/zCE4Azh
-	e8aLqgwmkWM6zEH2oBAMUOO3No4jqaSI=
-X-Received: by 2002:a05:6512:3baa:b0:5b0:197b:9827 with SMTP id
- 2adb3069b0e04-5b5fe058e29mr1175861e87.3.1788207502384; Mon, 31 Aug 2026
- 13:18:22 -0700 (PDT)
+	s=k20260515; t=1788207694;
+	bh=l2JpYiqPXr/ethYzM1+1gzuYbq5aiDfKpOFymITEWkA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Vz0HbuCDz6jTkAyyRbApRPlGU1s/AldD7YaBTRnpX1KQrE0stbO/DlScr6GSjFJgr
+	 U6EhF8VT2vWle8IXFm3LDARun45i1svx/fFdObVYQotH32cxe3ymAbbM6PtKjzLW5h
+	 W+F6y7MM6z+LcproWjYSOOmvNrWVVWO1/uFfW1NLfP1x+roC7dOrM9GWl9KJnyYk1v
+	 q+opEN3dxMXKfhbiAI+J8FpRXZmHmRnZkKCXAq6ZCmZzzL2MbMatowtcYnBphmjzc8
+	 ZjHzaldm0txts3epxaHDsDTi0gL6tB7nUwy7Oq6yaB1C7z7MVjLujX5O/VtuwPuxfD
+	 HNzlWkrRhuxZg==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+	Sean Paul <sean@poorly.run>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Puranam V G Tejaswi <puranam.tejaswi@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	iommu@lists.linux.dev,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v2 0/9] drm/msm: Support for Eliza GPU
+Date: Mon, 31 Aug 2026 15:21:12 -0500
+Message-ID: <178820768658.1699313.7616803665464814803.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260718-eliza-gpu-v2-0-64379dbebd7a@oss.qualcomm.com>
+References: <20260718-eliza-gpu-v2-0-64379dbebd7a@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260831-ux500-dts-snowball-regulator-v1-0-fe279fff5e18@kernel.org>
- <20260831-ux500-dts-snowball-regulator-v1-8-fe279fff5e18@kernel.org> <20260831-subtitle-anvil-0f33fee6c2af@spud>
-In-Reply-To: <20260831-subtitle-anvil-0f33fee6c2af@spud>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 31 Aug 2026 22:18:09 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnBSrzXnPdtr_NqTymqBupYv_-xW3NAMCa=7Dx1RwtAFg@mail.gmail.com>
-X-Gm-Features: AcwNN1VXZziHPIGagW8xwoy-VUmF5diU5-vmep_nHTuTWOlYmAGJFJ54vJZTXWU
-Message-ID: <CAD++jLnBSrzXnPdtr_NqTymqBupYv_-xW3NAMCa=7Dx1RwtAFg@mail.gmail.com>
-Subject: Re: [PATCH 08/13] dt-bindings: mfd: ab8500: Add regulators
-To: Conor Dooley <conor@kernel.org>
-Cc: Stephan Gerhold <stephan@gerhold.net>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, Axel Lin <axel.lin@ingics.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
-	devicetree@vger.kernel.org, mfd@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Aug 31, 2026 at 6:18=E2=80=AFPM Conor Dooley <conor@kernel.org> wro=
-te:
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
 
-> > +            ab8500_buck_smps1:
-> > +            ab8500_buck_smps2:
-> > +            ab8500_buck_smps3:
->
-> How do these differ from
->   regulator-external:
->       ab8500_ext1:
->         description: The voltage for the VSMPS1 external regulator
->       ab8500_ext2:
->         description: The voltage for the VSMPS2 external regulator
->       ab8500_ext3:
->         description: The voltage for the VSMPS3 external regulator
+On Sat, 18 Jul 2026 02:11:25 +0530, Akhil P Oommen wrote:
+> Adreno 722 found in Eliza chipset belongs to the A7x Gen1 family. It is
+> derived from A730 and shares the same IP-level configurations: HWCG
+> registers, protected registers, GBIF CX registers and gmu_cgc_mode.
+> Major differences include smaller cache/core counts, 1MB GMEM, no
+> Concurrent Binning & LPAC support. Some of the peripheral blocks like
+> RSCC are from A740 that resulted in updates to RSC layout.
+> 
+> [...]
 
-Exactly in the way they say, the former are internal, the regulators
-exist in the AB8500/AB8505 silicon. The latter are external,
-they are just control channels for regulators outside of the
-AB8500/AB8505.
+Applied, thanks!
 
-The three "external regulators" are control channels going out
-of the AB8500/AB8505 to control secondary silicon outside
-of the AB8500/AB8505.
+[6/9] arm64: dts: qcom: eliza: Add GPU SMMU node
+      commit: 0cb81794dea5b236122578bd49e3e6bfdc6adf87
+[7/9] arm64: dts: qcom: eliza: Add GPU nodes
+      commit: 5cc169156d877a4aa947092dd3c9dbd784d62f93
+[8/9] arm64: dts: qcom: eliza: Add GPU cooling
+      commit: c53d30b2814e0f0215cdafe9ccf691eace2949ff
+[9/9] arm64: dts: qcom: eliza-mtp: Enable Adreno A722 GPU
+      commit: 864e8d024df64433f9916c72411c92157dd4ca53
 
-It is also clearly seen in the Linux driver which use different
-registers.
-
-The similar name "VSMPS1/2/3" is incidental.
-
-SMPS =3D=3D Switched Mode Power Supply.
-
-(Customers didn't much use the external regulators. They
-usually implemeted GPIO-controlled regulators on the side
-instead.)
-
-If you want I can add some verbiage explaining that they are
-not the same despite the name is similar.
-
-> > +            ab8500_buck_arm:
->
-> realistically, all of these should have -s instead of _s.
-
-Can you elaborate, I have a hard time understanding that
-terse comment :D
-
-Yours,
-Linus Walleij
+Best regards,
+-- 
+Bjorn Andersson <andersson@kernel.org>
