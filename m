@@ -1,167 +1,166 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011058.outbound.protection.outlook.com [52.101.65.58])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09E6653A8B3;
-	Mon, 31 Aug 2026 15:23:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.58
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788189824; cv=fail; b=U3nGnDIRhZVpBAhkIIGZSDhyJUn3YzegNkdxcF4RoKlCQnOvy9g1aMFcioGKhioGAm3Jq64K7YDf5DSv2sDGQEzc7bE1eL4c51rNxDBCgDv995D2o/vZS7Xv+A8ylNFPK8T9LSEiA6w/zTXj1Tj9gGoWveKyuQRa7IIJriXtTBQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788189824; c=relaxed/simple;
-	bh=6qcaAFHx6FIM5DIJsp4GwvigN4PcSbJCZKXd5W5cLQc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=pYaeksjY4n3WLMAezI08aFfwOeztf8Epd50Cs3PVSAoHKBmJVwDAkxla4XndjqHiszJKbrY5vnL5yBtI06iDc4ARDvLYLsX5SmjIksj0ceUpwb+23UiMcAMQunM3dQe5AkUwR/o//Ygr82hOexn9mhok9GnnGy9jq8Za8yL5QCI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=mZEW6ucJ; arc=fail smtp.client-ip=52.101.65.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFE6346EC60;
+	Mon, 31 Aug 2026 15:27:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788190026; cv=none; b=ctuCUiy9EhXPbBOjid48g4YsDChZGvUapQUhlOACP1Z55yWbE6AfV/KKZKi85MxnNfsDIC9xwcjPzKYzVm0X01wEhboVwZ0aDi15qx0Mqz2sz7X09JtWxRpm8w9q6WWkox7qB2PtTy0uwWxPtfO9gj51wr/6w13Z85iyDuzKWcc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788190026; c=relaxed/simple;
+	bh=0yLUrBjl+Iob/60mpPR6kEDtqWBSv7Fl622SR8uCUtY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QX3eh+2I6b94tpiOvdNCp1Xd6cKf0vqOIhBnk6GVReqate8Oa+VpfBTU3X6Qgy6hu8+J7FUwoxE3rKvcE/iaNSFxLbfy/a0AJv84V0n/r9+ELYyeq7RKTxii+nE7BUbuJwDxDEzJMPI755wvRAR1bQ94qOcd6AIRIJ0VwQPzcRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QUF8P4gM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="mZEW6ucJ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iMWwSR9rSS1AWsUQUtRMOVJPhINIffzm+4VkGa55azbwfVeHuIQ9yEXK1vvy0PEBy2jjnQQ1reGiFDWm+/TohmBppXMvaaAtQNzQLNGZFvaerc8pyaqEkdpjM34q8dcdKFslE8Hq2KeSZzyQxhVylMB67eUgKVs6+QLHZ0pkAtwA8cI8MTuMcfEdrHqICG/53bL/gZ6Y9mYowTkvqx7PCl3X3xR7Sz3XFvmfpWI9PIW9F+Dxrbwg/Lmu6vPKdQaXkzfXL4TpIdUXz+uMRvovlXFS1lqthTFOJroq3B+1WgMTXifZ5rI8EPsehsiRx4/azOT4dkASIJpTZLd1E3Pa2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dI5zqa3QUfGjk3xHUPYCh+h6c8PtU2T51Gb0ZmybECQ=;
- b=mvgYKznJDtuz6KvtNK5free2ImucS0j3SFkCbv6F5CiGpZ/TtNIuuGJ5ra/2KcfadXBEdfxX3kBYB7Ii7sHFbGvNEYwjt3Cxb15Hm6UPR1S75HyVkh3gj2A0/F9z6ft7NAZQGc2oWzWEfVcVtKZ8ho1tn+FPe1sPIumuGPweKsOtZ8N36XTeHdgRJOGvnjwy9gjV59r13cDCOh+0RU1rU4aEe34IN/IilRdWT9GjcgQuFa6s9SuxRe0aqXSi6PkL0h/u5cQUlc1aQG+Gvg36psaWRzYqnGzvEGoBPxsx8D1YU6MWzXwVHbN/4E7iK6AoIsQaX4POk2kiDPVM29xqNw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dI5zqa3QUfGjk3xHUPYCh+h6c8PtU2T51Gb0ZmybECQ=;
- b=mZEW6ucJLGZyBtzv+btxT+K1F8qM/riBbYWZAJDf7ibuQI4I8Rwwi12pdnKQTEdrnlJ4mKLdLojAZGsXXn3TKXVotkB4RvbTNiPvH4Gp1nhx2XHlE0YfQT5IddtSjueX7KJ2iAWau5zceXVPhdQOTllEg+ge0fbQyWG7l+2B4lUbBnU97M0DhrBhKnpqxwr6m4VR3iHtgwcyGLOArYWlm7K/Jo9fbEAegtNDAYI7dZJcHznloJAVUS1PpHnwsiJmij2iiwLbKyhSXHBQKeBni+BUBeVpXbaJ+RJMSpuqJzPmGsRMLT975xwypdnpwNMgRAnSoZSh/0AphiwFLN0aYw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DU0PR04MB9496.eurprd04.prod.outlook.com (2603:10a6:10:32d::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Mon, 31 Aug
- 2026 15:23:39 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 15:23:39 +0000
-From: Frank.Li@oss.nxp.com
-To: Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QUF8P4gM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35CE41F000E9;
+	Mon, 31 Aug 2026 15:27:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788190024;
+	bh=gUP5n/WznTmHuMrpnHMPx1TVwBqtMo5tyX2g2aCSv0k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QUF8P4gMGLlHFojUT/Xod7XxAXCoVoONPee4fv1BbuY65cPI3nHoixSzmyJDXOXYP
+	 cxIZaO9/MJyn0wPTye7sTgjrYMNzDFYMzNYX654PnzhKxhiIjevSqQ9vAGaBuxZJw1
+	 neuMfi/4kEfSVoOTx0A7K+pYk7yLVxxut+jjdREF+1r2lAtbFy33CBarPVyUTa5irQ
+	 Pv6xIlF9Ht3WwfStXtvJYqZc8ATQBumuI+QaMhqdLkGKJL4zrHcF8rXRdHtHkeMCOH
+	 gkQcuwTPC4tAgXrMS/rj8eFXTuzUZ1xVFkWtDHzRxfKUJGm/KDySxG3i+gTgjZ7hcP
+	 NRSSR9irC+r8Q==
+Date: Mon, 31 Aug 2026 16:26:58 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Oleksij Rempel <o.rempel@pengutronix.de>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Luiz Angelo Daros de Luca <luizluca@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Peng Fan <peng.fan@nxp.com>,
-	Yannic Moog <y.moog@phytec.de>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Primoz Fiser <primoz.fiser@norik.com>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
+	Conor Dooley <conor+dt@kernel.org>, kernel@pengutronix.de,
 	linux-kernel@vger.kernel.org,
-	upstream@lists.phytec.de
-Subject: Re: [PATCH v2] arm64: dts: imx8mp-phyboard-pollux-peb-av-10: Fix SAI master assignment
-Date: Mon, 31 Aug 2026 11:23:31 -0400
-Message-ID: <178818980337.4013675.3305153518593546005.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831051222.3298730-1-primoz.fiser@norik.com>
-References: <20260831051222.3298730-1-primoz.fiser@norik.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CY8PR12CA0063.namprd12.prod.outlook.com
- (2603:10b6:930:4c::26) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	Ahmad Fatoum <a.fatoum@pengutronix.de>,
+	Alvin =?utf-8?Q?=C5=A0ipraga?= <alvin.sipraga@analog.com>,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH net-next v3 1/3] dt-bindings: net: dsa: realtek: add
+ RTL8365MB power supplies
+Message-ID: <20260831-awkward-routine-4198a7d5e7e2@spud>
+References: <20260831123637.666457-1-o.rempel@pengutronix.de>
+ <20260831123637.666457-2-o.rempel@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DU0PR04MB9496:EE_
-X-MS-Office365-Filtering-Correlation-Id: d96d0fe1-6daf-421c-b79b-08df0773d507
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|19092799006|23010399003|7416014|376014|18002099003|22082099003|56012099006|10067099003|11063799006|921020;
-X-Microsoft-Antispam-Message-Info:
-	r6Ooh3E4/SGu2nzMQWQeboLgfedSdDwz/tJUJwAd9I9+22BjChX67Ujy21mKKt27y1UtlpIzxaeYhSLOwwaIYnzWP++gCSVcmDuqWph6C9rTQPYeBbRE/Tevdktip/2oRgyCb13XfeEC5RiRKimH7fDLxoxuyK10eUPHYSdPghvphuALApMxO43maXkjVt4iiw42ix2YHPNgVWQ0t0Dk/s1TQtrmueCgloJ/Cdu/muDwsVDr/FjWjdAFdO2RKkuYrWkpR52xy0kC0tyERrSY6T33tOcAgzr7UDWC+xgvoTLNtBxjZPQ2BaSSMJrFngg2DapdadDtxs49TeRApdPcwVouP67OPLX3/xFPdqqIj/4uFsr5z2eE+P6K0CoRAQh3OVWB1WtPWrg/A0oU+tgex2sNesExw/QYi2T6CUIlnKxMZMYKOOQoA6xhblbGJpnUN8lNL3EMV4e/wcv5DjiBnFUvmzm5dFPtySLzZNZxHL+dHkATbm9ZWKLOsinRwPkm21elaeg6ktShMDzsH7KPkzPcJseu5eZxvvIvoLxNRtdk8/qerhPBtouOJ1bN6BcU56sK68WkrSa0lwvW/YZSoLlDZkmwBmgXeStgzhzpMHfQDRh2DP6EzcBTVpH1TXaTnnnsVQj6kALRYu8fc71sYrATQQ0k0jSw768Gam/UEQEKA9BelOk57Hf1UzNahy+sFigzOwwgAYB+maVxc2ABlQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(19092799006)(23010399003)(7416014)(376014)(18002099003)(22082099003)(56012099006)(10067099003)(11063799006)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VGtwT25Sa2s3Z1BEdDRDanh0MHBhVFpCeFFjQ2s2REt0VG5YbFptTVRJd05j?=
- =?utf-8?B?MWRoaVVReG53b0RSTXNQMW1udjRvakVrZFlHYjgxVnZ1ZCtraWwxTzBLeUFP?=
- =?utf-8?B?T0g1U1hWc0RIOWY2VE95ZlpuaEJ5dWJHTEZjdXFsSGpqVC9laTA0ZDVEMi9z?=
- =?utf-8?B?TjhLWGYrVm1ZbHJXZ0R0ajBhSGpKYnlIUnlIRDBBMnBySVdDR1lXa1hsNmc0?=
- =?utf-8?B?SjZYbzBaNStIY3RDS1RWNFJxUFVQdUUzWUJXV05KNzJQNURQTGhRdmFLSzdt?=
- =?utf-8?B?K0ZHV1pZMmkwdlMraU5zQVp3dHhIMnliMitpZ0tzZXNEUWxjMC9vdlo2OFRl?=
- =?utf-8?B?cGNndWVlbGFwNkJNaERIQVBrVysyT1F0SVNyak9qVXBuMUZmYSszVnUvWXpw?=
- =?utf-8?B?MUQ5WExvR25UdGtoMDNIMmhwUXRMZXJaQjM1OEc3WEcwYUZXcGpBT0hTSVhY?=
- =?utf-8?B?dmpEb1RObnltM2d3bzN2eFNnK2F5a0VNMWh3WG1LcEthbmxwQWpXZ1crYU43?=
- =?utf-8?B?b0h6ZXJZWVo1aU1kSTdqREp0c21ZdkZpVVdzV2NnTFhzQmE4UHdaaHBYczls?=
- =?utf-8?B?cjZTcUhwV2dWS2dnREtqZGtjU1RzZU9xTWJzcmxOMVE4RnlXR3hXbnZsaVhn?=
- =?utf-8?B?NGVxRmdRVXJWSVJ0SFVFRFg4T1ozZHRoRTRkTHVkN3NDT1UxMlNLNGl5KzJi?=
- =?utf-8?B?U29QbldXbUhZTXp3QWxTY3grdjlOaVlIMGViMk1WcmVPS3Exd0JhZnVSVjZC?=
- =?utf-8?B?aEtxQk9RYVMvd2lMaHozVkE2RWlTd0hNbU5XUWg3OFFvZnNTc3lGdmM5OG5D?=
- =?utf-8?B?aldUSHQ3V0NXc3NFNWhmVnd2Y0tHbE5uWDNadzNOWW5oSmxua3NpQzRrY2Yx?=
- =?utf-8?B?Y0xHZVovMmRKT2xLbnVMSVhOcFdwWXg0eW9DUHhrV2hmcEFHdEpncjU3Q2kx?=
- =?utf-8?B?Zjc3aXpUWHJYNWZCL21WSXJ0ZXZMbEc1R1FOL3NGTFdUckxNQ3kxT3QrMmc3?=
- =?utf-8?B?RGo5QVAxYkp1WVFZNEFwb2RKOVdkVEZHeHNuZ1FIbU5qZGsydXkyeFgzaTJp?=
- =?utf-8?B?UlBVYStKL1V4Tk1vQmpHSUs0aXZPUHRmendGcTJtVjBRaGFkcXZNM09taTgw?=
- =?utf-8?B?eTcySEdoa3ZBVTR2bEU0OXBZZ1FzYVlUVUl4Uk1XT0UrdEd5WFJVd3Bqcm1l?=
- =?utf-8?B?UzJHNmVjWjJTcDNPanhRWEthV0tXb0VuSVN2SG0wQWpqY2JHbk1mV1Nxem5j?=
- =?utf-8?B?TTdva0NZS2pMNnlYTXA2RlUwM3NMUzd1MHhOc2JBYTFlSnlGdU9EVjI5cmw2?=
- =?utf-8?B?QUpOSC9iZHQwVXp4V3RHUTErSVFTWm1JNjNVN3RQM2Jncm5RVHdNUVFOSWpz?=
- =?utf-8?B?YXFhVnB3M2xXTmZEalM4WXRjeFlxUTluaFowdFJ4WFduNkNiYW0rc3NrL084?=
- =?utf-8?B?S1JqOC9Bd2crM2V5Zi9JeEJVZXd6V3hiOG5uRDA1SVVBL2dVdFdNL2VMVVh5?=
- =?utf-8?B?eFBxRWdJZFVtY3ZXaElCdjdqMGN1NFhCOUc3alJFMGJ3YzFpMGtnWE5BVERp?=
- =?utf-8?B?bEQ3K0pPZmVsalZ3eFZiRWhWSktFYkkwWUZsU3YvVEJuMHRDdlhBZUxmd1lo?=
- =?utf-8?B?ODFnSnZMbWRNVVZONWd2bEZzQ3FtTFpwUWtvRmFpUlhhdWthc0ZuN2d2SzBK?=
- =?utf-8?B?NFdwNHI3U1RRMmJmRGxTdDJPc0p6ZHF0ajluSFFLclZaWXRDbnlvNmtVdGE2?=
- =?utf-8?B?TUNQRXZmM3Nmc1U1Qkx2VGtRTXljVjM4a2lnWU1mSXQrRTB5cE1aTTNzMkxw?=
- =?utf-8?B?a1lGNVJPZkl3bnpESXdvUWVEQUM5OHBWUnVJS0JZYmthNTd4YUJqcUczS2pY?=
- =?utf-8?B?c1MxTGE2eHVBb2JZTDYwcEpWWXpldnJOcE15TEJiMXRwdngyTHdzL24zZWQ0?=
- =?utf-8?B?UjFWWmhSTDlITWVPazMwOC94VFVGNkE3Z1pVNTJxbXJ2aDUzWWJ0bk0rRVQ0?=
- =?utf-8?B?UXp1eDFmaUZTUlF3Qnh5RGZ0Sm1FZ2ovMFZzNThidnp3bVdtL1dFZzlibmM2?=
- =?utf-8?B?UFRGdEtJNktscmpBNXpiSnh0NlRUbXNOcGZvenhMa0FiOUhnRkNyUTByK2Zl?=
- =?utf-8?B?MjBQNmlldllHOEl4a1c4WmhDU2RhVWJCZnUrQitEeFh3MWFMNUpBUHhjeHg3?=
- =?utf-8?B?dXV3OXZZMUV4ZFJTR3MzcWMrQXZRWXB2cmhsOHh2L3hNTUlVTGc4NS94ZDdq?=
- =?utf-8?B?d0kxOXZEMW5qQklEYlpLUkRsSHpHY0tnbSthTmttSlNYWVVEKy9DVmsvejlz?=
- =?utf-8?B?VWZ5VGhTckg4ajRIYmtqNUdvOGl5UVZTc1JGTGtvT1hsVlNreUhkckthZURr?=
- =?utf-8?Q?7QdMUscP11yg/Yv1dslaQa7zecLH+NNFXKxWQ?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d96d0fe1-6daf-421c-b79b-08df0773d507
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 15:23:39.0564
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rLXqzn/JPSIuSS4vgq7fFroCw8DK/bkOf5IrsxR3IrgDnoaQPbTNgNuygCvusZY1uoju6F38YojP1a0wEb4nInnPzm0kX6IstJxNGHPvo+eP/UWgTCXiCa+hBJxKMXXT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9496
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="07g483MsH5ZneH74"
+Content-Disposition: inline
+In-Reply-To: <20260831123637.666457-2-o.rempel@pengutronix.de>
 
-From: Frank Li <Frank.Li@nxp.com>
+--07g483MsH5ZneH74
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+On Mon, Aug 31, 2026 at 02:36:35PM +0200, Oleksij Rempel wrote:
+> Document the RTL8365MB power rails as optional supplies. They are optional
+> because the rails are often always-on; some designs break them out for
+> granular hwmon monitoring and regulator control.
+>=20
+> They are scoped to realtek,rtl8365mb: different Realtek switch families u=
+se
+> different power-rail naming schemes, so these rails do not apply to other
+> families such as realtek,rtl8366rb (VDDA/VDD_CORE/VDDIO/...).
+>=20
+> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+> Reviewed-by: Linus Walleij <linusw@kernel.org>
+> Reviewed-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
 
-On Mon, 31 Aug 2026 07:12:22 +0200, Primoz Fiser wrote:
-> The dailink_master label was placed on the codec sub-node instead of
-> the CPU sub-node, configuring the codec as I2S bitclock/frame master
-> with SAI2 as slave. On this board, BCLK and LRCLK are wired the other
-> way around: SAI2 must be bus master, with the codec as I2S slave.
-> 
-> Move dailink_master to the CPU sub-node so SAI2 drives BCLK and LRCLK,
-> fixing broken audio on the PHYTEC phyBOARD-Pollux-i.MX8MP board with
-> PEB-AV-10 Audio/Video expansion board. Also remove the spurious clocks
-> property from the codec sub-node, which had no effect in this topology.
-> 
-> [...]
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
-Applied, thanks!
+> ---
+> Changes since v2:
+> - Move the *-supply properties to the top level; if:/then: now only forbi=
+ds
+>   them on non-rtl8365mb compatibles (Krzysztof Kozlowski).
+> ---
+>  .../devicetree/bindings/net/dsa/realtek.yaml  | 33 +++++++++++++++++++
+>  1 file changed, 33 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/net/dsa/realtek.yaml b/Doc=
+umentation/devicetree/bindings/net/dsa/realtek.yaml
+> index 473facd87a62..b7bb60af623c 100644
+> --- a/Documentation/devicetree/bindings/net/dsa/realtek.yaml
+> +++ b/Documentation/devicetree/bindings/net/dsa/realtek.yaml
+> @@ -8,6 +8,20 @@ title: Realtek switches for unmanaged switches
+> =20
+>  allOf:
+>    - $ref: dsa.yaml#/$defs/ethernet-ports
+> +  - if:
+> +      not:
+> +        properties:
+> +          compatible:
+> +            contains:
+> +              const: realtek,rtl8365mb
+> +    then:
+> +      properties:
+> +        avddh-supply: false
+> +        avddl-supply: false
+> +        dvddio-supply: false
+> +        dvddio1-supply: false
+> +        dvddl-supply: false
+> +        pllvddl-supply: false
+> =20
+>  maintainers:
+>    - Linus Walleij <linusw@kernel.org>
+> @@ -62,6 +76,24 @@ properties:
+>    resets:
+>      maxItems: 1
+> =20
+> +  avddh-supply:
+> +    description: AVDDH high-voltage analog supply.
+> +
+> +  avddl-supply:
+> +    description: AVDDL low-voltage analog supply.
+> +
+> +  dvddio-supply:
+> +    description: DVDDIO digital I/O supply.
+> +
+> +  dvddio1-supply:
+> +    description: DVDDIO_1 secondary digital I/O supply for the RGMII ban=
+k.
+> +
+> +  dvddl-supply:
+> +    description: DVDDL digital core supply.
+> +
+> +  pllvddl-supply:
+> +    description: PLLVDDL PLL analog supply.
+> +
+>    realtek,disable-leds:
+>      type: boolean
+>      description: |
+> @@ -243,6 +275,7 @@ examples:
+>      platform {
+>              ethernet-switch {
+>                      compatible =3D "realtek,rtl8365mb";
+> +                    avddh-supply =3D <&avddh>;
+>                      mdc-gpios =3D <&gpio1 16 GPIO_ACTIVE_HIGH>;
+>                      mdio-gpios =3D <&gpio1 17 GPIO_ACTIVE_HIGH>;
+>                      reset-gpios =3D <&gpio5 0 GPIO_ACTIVE_LOW>;
+> --=20
+> 2.47.3
+>=20
 
-[1/1] arm64: dts: imx8mp-phyboard-pollux-peb-av-10: Fix SAI master assignment
-      commit: 1c3f5701bc0ff5cbe56bdae76157047d47051d44
+--07g483MsH5ZneH74
+Content-Type: application/pgp-signature; name=signature.asc
 
-Best regards,
--- 
-Frank Li <Frank.Li@nxp.com>
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapWdQgAKCRB4tDGHoIJi
+0kk/AQD1Ik9lwiWECiSAZss9j3Fl4diaY24XH893jL/RxTvYpAD8DNOhT3dLrj0g
+qzyx6j8ZEosO3b2fYxeOYtYWxlpbrw0=
+=fqMU
+-----END PGP SIGNATURE-----
+
+--07g483MsH5ZneH74--
