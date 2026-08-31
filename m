@@ -1,109 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 886B4439354
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 13:56:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02814439F90;
+	Mon, 31 Aug 2026 13:56:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184582; cv=none; b=Pa3KazVznxglnRtu1ZXHis1mbg1uoYQSIUEFM8HqAALLR6LcVXa2Dma5/SnH3mrYbhWVg3GbxRQxdURBCEwNGktqFdxRKcWUW73Y7jL3zc86QRcw+EI9If09+kdyArp4AWACRYmV6R3kn8IFZ/tgOsbPC5LpgJe4YK9UAXw1+Co=
+	t=1788184622; cv=none; b=GJDrwiGJvJYpeEp+Ix/W/HD9HJ1zdo+IfF3oi1V+gDl1JpMc7AKaoI3s/muc5c8J7V89UYa+F/2PLLxGevxdGgMUcgQfqSSEptKKT+eXv2G4MIgcDeVmNzcXcivJ78bpa65XVm+KXfWMLJLbUQOOhb1D+06Re9q6Wk2+qsNX96g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184582; c=relaxed/simple;
-	bh=/BY81AXykTf8NAi4C3kSS2zBOsyNdt/6xHy16ehOfP0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jfeRHVMQntYB7dalGuR/rCUCgIOU4LxCBJCbBA/6UPKpORnE17fY9HM1gAQvju0bNOf32j8BpMfSCkDQV0kN53QbNb5SQYSIQErcZ6lUpAlcyiH/psE8EBen2V9KfS/irP2Eu33WM4E06z8IdceP3iWQhGbcninBsKUAmmM7Y8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Znovn1PD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788184622; c=relaxed/simple;
+	bh=5ZaeNi3I+M3yj83MTf5PA5QSYQvPclKRNKRGZhp1k6A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=syZ7vUCI0Vfkb5oI/S7YaUBYruyuLThOYBowaY+i+X6dV4uGCpoEoNbFV4W5O/iNdz0wVFMEytsVVsKhLFQg2JFQy9wh3RaeHx8FclUxgthBKz0JX02h+9xnh33mRF3E3nNCqy0g6LXUYg3OfK5NEkz4KmX6G6JQ/0AxSGqlF9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cW5misYX; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Znovn1PD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EC601F00A3E;
-	Mon, 31 Aug 2026 13:56:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184581;
-	bh=+e8V0PLSqjMelu3HH3Utjz0nJXZq+xCL5GD/8QI/AoU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Znovn1PDrnU0yOWiONjr2hfhf+VYYjCVXn1/i/bqatQqrZM4wRz9vwqpJnmLiON1F
-	 +mjUFkss574khrP/kAkMePrIoSOiWnbKoA2863GwvKw7JWGM3txBEsFnQjZj+gqmnA
-	 btJpO18KFJbmxxHg4y1rkQci+eC711To1Qoik5auCBU6rdeQnflBhe7NFgKiw/D5EQ
-	 upfey05jeRtDELSv+Kfx7IB+uIZcAl/jY7FA0QJBjZDFdGcQ76ezFJDEDUhi55HMxm
-	 1M4fyUto66vNG01cN6OMCOuoFVgu7cbBLbaC9AhS1uhOJVD7pL9PkqzSy4wfY0r7qx
-	 LbQmyWhR2wteQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v16 20/22] media: i2c: maxim-serdes: add MAX96724 driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dumitru Ceclan" <dumitru.ceclan@analog.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, devicetree@vger.kernel.org
-In-Reply-To: <20260831-gmsl2-3_serdes-v16-20-4fa6e08bb514@analog.com>
-References: <20260831-gmsl2-3_serdes-v16-0-4fa6e08bb514@analog.com>
- <20260831-gmsl2-3_serdes-v16-20-4fa6e08bb514@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 13:56:20 +0000
-Message-Id: <20260831135621.0EC601F00A3E@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cW5misYX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788184621; x=1819720621;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=5ZaeNi3I+M3yj83MTf5PA5QSYQvPclKRNKRGZhp1k6A=;
+  b=cW5misYX2bA5u+jKxijOum1uYWEUZlD7UatTZp4ISKaXG9ec9wiDWYkX
+   1iDi/kVS5E1S7unv52R3x5eawJnmFd6smIil2cScwUpcBVTjpEdEhbdZx
+   PLa+Hs8HU8Q0FL74l/Te/dbIHyU2meQvEdAOZI9lY3QadxkZyoSqmuhNW
+   nLkI8luEfK9z5mhRQ0fMvpUCLdaqi8Kma14k6+F3hjFsv4eG6p7YlZS7c
+   mHM8ffYVTj7K/UTPhh+APBxvGM2HTIRo57tv8Bd1LZA1cxXgvm0qMTxjW
+   K3Oln2j0V3gFpEn2+Dk/wh4VDOB1S4vAeqgNt4vYyVQQRhjr4mdSCIlq6
+   g==;
+X-CSE-ConnectionGUID: KS0ohYCJTpaB++rivtiFFg==
+X-CSE-MsgGUID: P9x7fjoKSaSmEa0xOX1v/g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="91104361"
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
+   d="scan'208";a="91104361"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 06:56:59 -0700
+X-CSE-ConnectionGUID: 8aSxRWIwQum7ms8N1Uu1HA==
+X-CSE-MsgGUID: saSZmLUbQcmyXMCjbZj6cg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
+   d="scan'208";a="274073751"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 06:56:55 -0700
+Date: Mon, 31 Aug 2026 16:56:53 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Esben Haabendal <esben@geanix.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Martin Kepplinger <martink@posteo.de>,
+	Sean Nyekjaer <sean@geanix.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Martin Kepplinger <martin.kepplinger@theobroma-systems.com>,
+	Christoph Muellner <christoph.muellner@theobroma-systems.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 4/8] iio: accel: mma8452: Support interrupt sharing
+Message-ID: <apWIJfGoQLtDV4IB@ashevche-desk.local>
+References: <20260831-mma8452-open-drain-v7-0-22946812c928@geanix.com>
+ <20260831-mma8452-open-drain-v7-4-22946812c928@geanix.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831-mma8452-open-drain-v7-4-22946812c928@geanix.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Incorrect clock polarity configuration for 4-lane mode on PHY 2.
---
+On Mon, Aug 31, 2026 at 02:17:07PM +0200, Esben Haabendal wrote:
+> Adding handling of rutnime PM suspension in the interrupt handler allows
+> sharing interrupt with other devices.
+> 
+> Keep in mind that the device by default is using push-pull for the irq pin,
+> which might require additional hardware design to allow interrupt sharing.
+> 
+> The suspended flag is added together with synchronize_irq() in order to
+> protect against race conditions when doing runtime suspend and device
+> removal. This way we ensure that interrupt handler does not try to access
+> the device while regulators are disabled.
 
-commit feec3c7ecf801109d27fdda12bede738f83b8546
-Author: Cosmin Tanislav <demonsingur@gmail.com>
+...
 
-media: i2c: maxim-serdes: add MAX96724 driver
+> static int mma8452_runtime_resume(struct device *dev)
 
-This commit adds support for the Maxim MAX96724 Quad Deserializer and
-integrates it with the common deserializer framework.
-
-> diff --git a/drivers/media/i2c/maxim-serdes/max96724.c b/drivers/media/i2=
-c/maxim-serdes/max96724.c
-> new file mode 100644
-> index 0000000000000..458e78f285111
-> --- /dev/null
-> +++ b/drivers/media/i2c/maxim-serdes/max96724.c
-[ ... ]
-> +static int max96724_init_phy(struct max_des *des, struct max_des_phy *ph=
-y)
-> +{
-[ ... ]
-> +	if (num_hw_data_lanes =3D=3D 4) {
-> +		ret =3D regmap_update_bits(priv->regmap, MAX96724_MIPI_PHY5(index),
-> +					 MAX96724_MIPI_PHY5_PHY_POL_MAP_4_0_1 |
-> +					 MAX96724_MIPI_PHY5_PHY_POL_MAP_4_2_3,
-> +					 FIELD_PREP(MAX96724_MIPI_PHY5_PHY_POL_MAP_4_0_1,
-> +						    val) |
-> +					 FIELD_PREP(MAX96724_MIPI_PHY5_PHY_POL_MAP_4_2_3,
-> +						    val >> 2));
-> +		if (ret)
-> +			return ret;
+>  		return ret;
+>  	}
+>  
+> +	WRITE_ONCE(data->suspended, false);
 > +
-> +		ret =3D regmap_assign_bits(priv->regmap, MAX96724_MIPI_PHY5(index),
-> +					 MAX96724_MIPI_PHY5_PHY_POL_MAP_4_CLK,
-                                         ^^^^
+>  	ret = mma8452_active(data);
+>  	if (ret < 0)
+>  		goto runtime_resume_failed;
 
-[Severity: High]
-Does this hardcoded assignment to MAX96724_MIPI_PHY5_PHY_POL_MAP_4_CLK cause
-an issue for the second port in a 4-lane configuration?
+>  	return 0;
+>  
+>  runtime_resume_failed:
+> +	WRITE_ONCE(data->suspended, true);
+>  	regulator_disable(data->vddio_reg);
+>  	regulator_disable(data->vdd_reg);
 
-The macro MAX96724_MIPI_PHY5_PHY_POL_MAP_4_CLK unconditionally evaluates to
-BIT(5). While this is correct for PHY 1 (the master for the PHY 0+1 group),
-it seems incorrect for PHY 2 (the master for the PHY 2+3 group). For PHY 2,
-it looks like the correct clock polarity bit should be BIT(2) in register
-0x8a6.
+But with this, what's the point in having WRITE_ONCE()? It can be read
+just in the middle as true and be immediately changed afterwards. It
+may be that I am missing something, but I think WRITE_ONCE() should be
+done once in this function.
 
-Writing to BIT(5) when configuring PHY 2 leaves its own clock polarity
-unconfigured (falling back to default) and inadvertently overwrites PHY 3's
-clock polarity instead. This could break MIPI D-PHY links on the second
-4-lane port when configured via the device tree.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-> +					 phy->mipi.lane_polarities[0]);
-> +		if (ret)
-> +			return ret;
-> +	} else {
-[ ... ]
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-gmsl2-3_se=
-rdes-v16-0-4fa6e08bb514@analog.com?part=3D20
