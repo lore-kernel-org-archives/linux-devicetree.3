@@ -1,100 +1,91 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0F6A3D5643;
-	Mon, 31 Aug 2026 08:57:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E729C3D47AF
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 08:58:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788166656; cv=none; b=UVKGnwLvou03n7VdnuhSx3/ci3fCpkqwpE1PRy28D8emvisiYEFOYi/iFD25k+dooSd4to/1+oTMk2OrwYNAkIKVSeecQ2AeBf3e8lx/xuBCDBfBHnAC7ytNue2kYFOGR/J0ejSRfsaLxOu1OiThyRmQKuUi0bfNdghTBCfpbg4=
+	t=1788166730; cv=none; b=iAgxO85A7lw1jGbKAJQuAHg2YEufc0CzMok7gQiOGIUs7FyXGd1UPU6JM0atxcYkuDzDLaHY8xVmteuaNUJxenScdpL73WNPBPRKbieyECPyzqm9yPIhk5c6QPt84y2TAcDl6fosnHGghbK41RClPHTqx4Uoc34aMfxyse4+mR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788166656; c=relaxed/simple;
-	bh=URTWqNIh8YyWeHvaBA5BZQxA5qRUNu41wUSIq/cYQ6Q=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=njF1JBTWH9AA8Y1sN970/HoAwnf+P3KZ6JyIkos8ynMxPHQKWvpyJQ8itpRR/91CkOd1AkqX2elkRrQ4Qy1FTJBqreWEsTdYLMgqi4RRXvMED0B+RNoZjEMqx3Z+LmFzyrluWS4FqOoyv6UV6C0wUfyUM0qN7L8CZgUwGde+WMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 80188201D27;
-	Mon, 31 Aug 2026 10:57:31 +0200 (CEST)
-Message-ID: <0c53abedc1b58a141556627d4d68065638d22376.camel@pengutronix.de>
-Subject: Re: [PATCH v1 3/4] usb: cdns3: Add CIX Sky1 glue driver
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Hongliang Yang <hongliang.yang@cixtech.com>, peter.chen@kernel.org, 
-	pawell@cadence.com, vkoul@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org
-Cc: gregkh@linuxfoundation.org, rogerq@kernel.org,
- neil.armstrong@linaro.org, 	fugang.duan@cixtech.com,
- cix-kernel-upstream@cixtech.com, 	linux-usb@vger.kernel.org,
- linux-phy@lists.infradead.org, 	devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, 	linux-kernel@vger.kernel.org, Gary
- Yang <gary.yang@cixtech.com>
-Date: Mon, 31 Aug 2026 10:57:31 +0200
-In-Reply-To: <20260831082309.3854507-4-hongliang.yang@cixtech.com>
-References: <20260831082309.3854507-1-hongliang.yang@cixtech.com>
-	 <20260831082309.3854507-4-hongliang.yang@cixtech.com>
-Content-Type: text/plain; charset="UTF-8"
+	s=arc-20240116; t=1788166730; c=relaxed/simple;
+	bh=rrEU7lKUh5e1QMvL0R5xj6lhGNibJ7XogO+cKLGI5Kc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=oP6KY6SMjuxFjCjNtTBprYf3flldE1GH1OmOB3NCpgHR0hExLaDhDKhDRNnUkclPd3l0xoh4CpKc+vDaGzdVGej7qzDGcw/sEl+3JBwNYsZbEN8449lU0SVMeZPfsBOBoIZKD02w8PxToO/8rT7WwqtLFFsncNi2tVEC3M8BtUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ViCaYuwN; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ViCaYuwN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29FC51F000E9;
+	Mon, 31 Aug 2026 08:58:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788166728;
+	bh=euwWm0YtT9El1dw8+Zh2LaSdk0rBvB862z9nvBMbyTU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ViCaYuwNC/Vu5yh9TLCL2+bVlME9osXcTAyn9FaNa9sFCtwgs74vKvSnaRmg83Kol
+	 SQOcgSuvOn6aDTzbK/JU3M3W5i9/Iaeyz5dJ2++sqxe0jMqrhh79B2RCpOicDL1HfE
+	 3f/UXAqTr9t4o7G0/5PiLI3Cp4huxUaorYEQKRKtxw5VuZLQ2wFjQc/NJvm7m6XPP8
+	 K5UXAWNYL/ZV1sDzV4wOkHH4yEoiM+frNTHeTqYdKSlX/6T6ky1l3yPe06DfhEEpZp
+	 4gEKQpNRZqmBk9MhkhboNPJm5PgAI8r56tiB1qRAhwkxM5QvvGF3R1OGYlStEYbilT
+	 Tgx7KHrsongYQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 6/6] arm64: defconfig: Enable
+ CONFIG_VIDEO_AMLOGIC_VDEC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Zhentao Guo" <zhentao.guo@amlogic.com>
+Cc: media-ci@linuxtv.org, linux-amlogic@lists.infradead.org, robh@kernel.org, neil.armstrong@linaro.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260831-b4-s4-vdec-upstream-v8-6-830195b9bd91@amlogic.com>
+References: <20260831-b4-s4-vdec-upstream-v8-0-830195b9bd91@amlogic.com>
+ <20260831-b4-s4-vdec-upstream-v8-6-830195b9bd91@amlogic.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+Date: Mon, 31 Aug 2026 08:58:47 +0000
+Message-Id: <20260831085848.29FC51F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-On Mo, 2026-08-31 at 16:23 +0800, Hongliang Yang wrote:
-> Add glue layer for the Cadence USBSSP DRD controller on CIX Sky1
-> SoCs. The glue driver handles platform-specific initialization
-> including clocks, resets, and PHY configuration.
->=20
-> Signed-off-by: Hongliang Yang <hongliang.yang@cixtech.com>
-> Reviewed-by: Gary Yang <gary.yang@cixtech.com>
-> ---
->  drivers/usb/cdns3/Kconfig      |  13 +
->  drivers/usb/cdns3/Makefile     |   1 +
->  drivers/usb/cdns3/cdnsp-sky1.c | 682 +++++++++++++++++++++++++++++++++
->  drivers/usb/cdns3/cdnsp-sky1.h | 127 ++++++
->  4 files changed, 823 insertions(+)
->  create mode 100644 drivers/usb/cdns3/cdnsp-sky1.c
->  create mode 100644 drivers/usb/cdns3/cdnsp-sky1.h
->=20
-[...]
-> diff --git a/drivers/usb/cdns3/cdnsp-sky1.c b/drivers/usb/cdns3/cdnsp-sky=
-1.c
-> new file mode 100644
-> index 000000000000..3dd20451569e
-> --- /dev/null
-> +++ b/drivers/usb/cdns3/cdnsp-sky1.c
-> @@ -0,0 +1,682 @@
-[...]
-> +static int cdnsp_sky1_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct device_node *node =3D dev->of_node;
-> +	struct cdnsp_sky1 *data;
-> +	int ret =3D 0;
-> +	struct cdns3_platform_data *cdns_sky1_pdata;
-> +
-> +	data =3D devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-> +	if (!data)
-> +		return -ENOMEM;
-> +	data->axi_base =3D devm_platform_ioremap_resource_byname(pdev, "axi_pro=
-perty");
-> +	if (IS_ERR(data->axi_base)) {
-> +		dev_err(dev, "can't map IOMEM resource\n");
-> +		return PTR_ERR(data->axi_base);
-> +	}
-> +	data->ctst_base =3D devm_platform_ioremap_resource_byname(pdev, "contro=
-ller_status");
-> +	if (IS_ERR(data->ctst_base)) {
-> +		dev_err(dev, "can't map IOMEM resource\n");
-> +		return PTR_ERR(data->ctst_base);
-> +	}
-> +	data->reset =3D devm_reset_control_get(&pdev->dev, "usb_reset");
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The new defconfig entry CONFIG_VIDEO_AMLOGIC_VDEC is not placed in =
+the correct order as it would be generated by `make savedefconfig`.
+--
 
-Please use devm_reset_control_get_exclusive() directly.
+commit c64b548261f0711290a36c1bf013f8ce20bd9e1e
+Author: Zhentao Guo <zhentao.guo@amlogic.com>
 
-regards
-Philipp
+arm64: defconfig: Enable CONFIG_VIDEO_AMLOGIC_VDEC
+
+This commit enables the Amlogic V4L2 stateless video decoder driver as a
+module in the arm64 defconfig to support the Amlogic S4 platform.
+
+> diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
+> index 6ec8d3a69c98e..7be4e5a284bab 100644
+> --- a/arch/arm64/configs/defconfig
+> +++ b/arch/arm64/configs/defconfig
+> @@ -919,6 +919,7 @@ CONFIG_V4L_PLATFORM_DRIVERS=3Dy
+>  CONFIG_SDR_PLATFORM_DRIVERS=3Dy
+>  CONFIG_V4L_MEM2MEM_DRIVERS=3Dy
+>  CONFIG_VIDEO_AMPHION_VPU=3Dm
+> +CONFIG_VIDEO_AMLOGIC_VDEC=3Dm
+
+[Severity: Low]
+Is this config placed out of order? In kernel development, defconfig files
+must be updated using make savedefconfig to ensure entries are sorted
+according to Kconfig parsing order.
+
+In drivers/media/platform/Kconfig, amlogic/Kconfig is sourced before
+amphion/Kconfig. Therefore, CONFIG_VIDEO_AMLOGIC_VDEC should appear before
+CONFIG_VIDEO_AMPHION_VPU.
+
+Could this be updated via make savedefconfig to avoid deviating from the
+strict Kconfig tree order and prevent unnecessary churn or merge conflicts
+in the future?
+
+>  CONFIG_VIDEO_CADENCE_CSI2RX=3Dm
+>  CONFIG_VIDEO_WAVE_VPU=3Dm
+>  CONFIG_VIDEO_E5010_JPEG_ENC=3Dm
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-b4-s4-vdec=
+-upstream-v8-0-830195b9bd91@amlogic.com?part=3D6
