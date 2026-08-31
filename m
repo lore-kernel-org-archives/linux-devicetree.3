@@ -1,199 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 396D539A7F6;
-	Mon, 31 Aug 2026 21:20:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 584783624B8;
+	Mon, 31 Aug 2026 21:27:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788211251; cv=none; b=VMfJIxs3gV2yqYqcrgFBFDhSk74/hx0aoeWfxhjDgSvxziK+3huSOASByG2OfhSx+kdfxWhR9XVArdUB7WAi9ulfOG94hUFvllllgGIR9Qf6WVOXKeNLkEDu9wNakDii5nzMm0S28SgXKQsaCgWZeGV60Z6EeXf9cKIywqS37m0=
+	t=1788211643; cv=none; b=UJZLAysjn3yEsu8xROSZZlDFHYc+2LS6axtYWqCc3gxLdWXZFysknThzD3lMWhpC/SGabTu5hPS9olNd+zQRHgOly/YY3pdFz0S8Q3S01Gp/nOAKAOyh2QxoFMCzHURTWjfI1tcZf3R2MIQCtiX9PtiHEaYhqeNNz5fO8p9HwTE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788211251; c=relaxed/simple;
-	bh=X/Pa8P5LM44fYKMsT+VLq76vGR3uFhd1XeHq/WOrFt8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=WVw5zm3DDNqQyw7lhm/F0THuasIcX1p08o7Zlax2YhUaGw/MMZ15cjDfAGhjFfk0JXYjXx5v6rMEsac2m8buRwvXM2nwHb2WAoUWbLWpZlFXk2by+kzs0IhGt90tqZ33DsQm1qUgDH59rzlRAMTGG6rSz/RQm5LUgzrkPAglmz8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fddsfi2x; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788211643; c=relaxed/simple;
+	bh=UWkAB/0UN0jAczMe5AfSqL0s1dlXiU0QWMONLCr0qvE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Wum9iAuT0peKd7s2ZWJek6/SWOIfwF7iZYkQIS3mJxXHNrwRnJ96wG0Hpi6ONMWV+aUx9o3iIVhsLjeGedMTLJLzvD0MVa2fkhubyITcqndS+vvVXaSeR/Frg31ehbI2vX7PtTbLRlpgvHdP3O/v79O6RdCxj6UhqNJDGIZxAQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B5Wg3vRF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fddsfi2x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C7871F000E9;
-	Mon, 31 Aug 2026 21:20:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B5Wg3vRF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93A7B1F000E9;
+	Mon, 31 Aug 2026 21:27:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788211250;
-	bh=1hRm9RzNeDtQOdLokfhV9CkpRgp7SDr9Ih5SFIg5TIc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fddsfi2xAGjNJ+Y0KQUCByuMBLXO4Rd2T16sdsfNhFvWzwm3zY88ZBlmDWRayJagN
-	 R0uC/j1I89skUhxeeq9ija2eaj+0xyjetmpdwPmeBRo1Ces2fPxHudF2t+19JMZJv/
-	 F0UfsrVnZCFRkAMijykMmJ9/TeW9TF/BfDSo1MnQN+mBapTl4JfpRS5T0/XMwGceeD
-	 n0ADKOAyewQFbnbLRiV7Aai41yTQbSW1GJR1VgkL/Sz/C9ndNEjN9uMlHLjvthDftU
-	 YRdMWxKzj8diJSfTrRqDaOCVfh3Ll4LPFGi0igR9t1AIWNsAyTs7z4jPiqOMJIoC+9
-	 rftMwMfIZ5rWQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] dt-bindings: mfd: st,stmpe: let interrupt
- property optional
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Frank.Li@oss.nxp.com
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, robh@kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260831-dts-stmpe-v2-2-f93d5f080443@nxp.com>
-References: <20260831-dts-stmpe-v2-0-f93d5f080443@nxp.com>
- <20260831-dts-stmpe-v2-2-f93d5f080443@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 21:20:49 +0000
-Message-Id: <20260831212049.9C7871F000E9@smtp.kernel.org>
+	s=k20260515; t=1788211641;
+	bh=UWkAB/0UN0jAczMe5AfSqL0s1dlXiU0QWMONLCr0qvE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=B5Wg3vRFGUo/ZoMi0Kd9Mepopts3nZTxI9uo7amXP04TaiWeNf9eDNLC4CyNIlO01
+	 Jr883+5+GPQ9HhKM/TaroYUonHwy4Ok6GcinzJznQEeLkRlpewaXwfivVhiTW9U/Mq
+	 Il76JpGMDjl37kEOvVRN0uBpp46GqKnx0zAAv93tUSeGcpKlaOJcugX0zpJ+QhlElM
+	 s6p4S3wckoXM0VPhh5+tfCAOSuoiZ8OafEGWcbxg9EEzN6dlrTfGsboCwxX86argFz
+	 HRMTWQNva1hq2bjmlEl4q16uN5PGThW/1wMTTPnyrBZIRtQiZOHB3+lvU8kkfSVjwM
+	 qfiyp9r3K7J2w==
+Date: Mon, 31 Aug 2026 22:27:13 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jia Wang <wangjia@ultrarisc.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Anup Patel <anup@brainfault.org>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+	Jose Abreu <joabreu@synopsys.com>,
+	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
+	linux-i2c@vger.kernel.org, netdev@vger.kernel.org,
+	dmaengine@vger.kernel.org
+Subject: Re: [PATCH 06/12] spi: dt-bindings: snps,dw-apb-ssi: Add compatible
+ for UltraRISC DP1000 SoC
+Message-ID: <9bd5a17a-43a8-4e3b-bd12-ddde9265c2f0@sirena.org.uk>
+References: <20260824-ultrarisc-dts-v1-0-61ab7aebe9e5@ultrarisc.com>
+ <20260824-ultrarisc-dts-v1-6-61ab7aebe9e5@ultrarisc.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="q+7g5Wbpwns/c8Jq"
+Content-Disposition: inline
+In-Reply-To: <20260824-ultrarisc-dts-v1-6-61ab7aebe9e5@ultrarisc.com>
+X-Cookie: Chocolate chip.
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
 
-New issues:
-- [Low] The commit message description is not capitalized, violating MFD su=
-bsystem guidelines.
+--q+7g5Wbpwns/c8Jq
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Pre-existing issues:
-- [High] The driver explicitly breaks `interrupts-extended` DT bindings by =
-manually checking for the literal "interrupts" string and overriding the va=
-lid IRQ with -1 if missing.
-- [High] Global static structures `i2c_ci` and `spi_ci` are mutated concurr=
-ently during probe, leading to data races if multiple devices probe simulta=
-neously.
-- [High] Memory and resource leaks exist on error paths in `stmpe_probe` fo=
-r manually enabled regulators and the dynamically created IRQ domain, leadi=
-ng to a Use-After-Free.
-- [High] The driver modifies global shared `mfd_cell` resource arrays at ru=
-ntime by casting away `const`, leading to race conditions and corrupted IRQ=
- assignments.
---
+On Mon, Aug 24, 2026 at 01:54:19PM +0800, Jia Wang wrote:
+> Add the SoC-specific compatible string and use the generic one as fallback
+> for the UltraRISC DP1000 SPI controller.
 
-commit 5a672301bc93caad7ec80c8b4ff3ebf32574e530
-Author: Frank Li <Frank.Li@nxp.com>
-Subject: dt-bindings: mfd: st,stmpe: let interrupt property optional
+This doesn't apply against current code, please check and resend.
 
-This commit updates the device tree binding for the st,stmpe MFD to make
-the interrupts property optional. It addresses configurations where not all
-boards connect IRQ lines, fixing validation warnings reported by dtbs_check.
+--q+7g5Wbpwns/c8Jq
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> dt-bindings: mfd: st,stmpe: let interrupt property optional
+-----BEGIN PGP SIGNATURE-----
 
-[Severity: Low]
-Is the capitalization correct here? MFD subsystem guidelines require
-capitalizing the description after the subsystem prefix.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqV8bAACgkQJNaLcl1U
+h9DI8wf/eSvMfTYF0nSWOpBbx64lahzK6gdu0QfgliH0pyXLXPkDKM/MJk8BN5Mn
+h1/EIUG8xEEzzOTWbycIU1gyEVN1BSPELOL8mSJJg+5YS4SCKHjPLUvzHJUb+Tiv
+I41ubInBfOHEb15rEuP04UQovZYMvLCr/Grw4crXMM/hZW5RjdT48QhaltrjdbNT
+UOhg1ybDz4UzhD9ys7VACQ+U/cjjhbNezZZR4PaUST3pbURHoE9WFpohUbBhK5xT
+esoGPKe+DYO0LkRQ+SGGTekeE0q5hhwDGNp5F2rqqoz/8jUv5/iFlNsmUGvJQQAR
+0/8l/S9EqYMPbSKL1NQDqYdfFKPZQQ==
+=u+gt
+-----END PGP SIGNATURE-----
 
-> diff --git a/Documentation/devicetree/bindings/mfd/st,stmpe.yaml b/Docume=
-ntation/devicetree/bindings/mfd/st,stmpe.yaml
-> index 592e8f17659f3..6fde068b526a0 100644
-> --- a/Documentation/devicetree/bindings/mfd/st,stmpe.yaml
-> +++ b/Documentation/devicetree/bindings/mfd/st,stmpe.yaml
-[ ... ]
-> @@ -225,7 +225,6 @@ additionalProperties: false
->  required:
->    - compatible
->    - reg
-> -  - interrupts
-> =20
->  examples:
->    - |
-
-While reviewing the interrupt changes, I noticed a few pre-existing
-issues in the stmpe driver that might need addressing.
-
-In drivers/mfd/stmpe.c:stmpe_probe():
-
-	stmpe_of_probe(pdata, np);
-
-	if (!of_property_present(np, "interrupts"))
-		ci->irq =3D -1;
-
-	stmpe =3D devm_kzalloc(ci->dev, sizeof(struct stmpe), GFP_KERNEL);
-
-[Severity: High]
-This is a pre-existing issue, but does this logic break the standard
-interrupts-extended DT binding?=20
-
-If a device tree uses interrupts-extended instead of interrupts, it seems
-of_property_present() will erroneously clobber the valid ci->irq to -1, cau=
-sing
-the probe to fail with -ENODEV or fallback to polling.
-
-Also in drivers/mfd/stmpe.c:stmpe_probe():
-
-	if (stmpe->irq >=3D 0) {
-		ret =3D stmpe_irq_init(stmpe, np);
-		if (ret)
-			return ret;
-
-		ret =3D devm_request_threaded_irq(ci->dev, stmpe->irq, NULL,
-				stmpe_irq, pdata->irq_trigger | IRQF_ONESHOT,
-				"stmpe", stmpe);
-		if (ret) {
-			dev_err(stmpe->dev, "failed to request IRQ: %d\n",
-					ret);
-			return ret;
-		}
-	}
-
-	ret =3D stmpe_devices_init(stmpe);
-	if (!ret)
-		return 0;
-
-	dev_err(stmpe->dev, "failed to add children\n");
-	mfd_remove_devices(stmpe->dev);
-
-	return ret;
-
-[Severity: High]
-This is a pre-existing issue, but are the dynamically created irq_domain
-and enabled regulators leaked on these error paths?=20
-
-If probe fails after stmpe_irq_init(), returning directly without cleanup
-might leave the leaked irq_domain host_data pointing to the devm-freed
-stmpe struct, potentially creating a use-after-free condition.
-
-In drivers/mfd/stmpe-i2c.c:stmpe_i2c_probe():
-
-	i2c_ci.data =3D (void *)id;
-	i2c_ci.irq =3D i2c->irq;
-	i2c_ci.client =3D i2c;
-	i2c_ci.dev =3D &i2c->dev;
-
-And similarly in drivers/mfd/stmpe-spi.c:stmpe_spi_probe():
-
-	spi_ci.irq =3D spi->irq;
-	spi_ci.client =3D spi;
-	spi_ci.dev =3D &spi->dev;
-
-[Severity: High]
-This is a pre-existing issue, but could mutating the global static structur=
-es
-i2c_ci and spi_ci concurrently during probe cause data races?=20
-
-If multiple STMPE devices probe simultaneously, operations like transfers
-might be routed to the wrong device or freed on the wrong unbind due to the
-dev and client pointers pointing to the incorrect instance.
-
-Finally, in drivers/mfd/stmpe.c:stmpe_devices_init():
-
-		for (j =3D 0; j < block->cell->num_resources; j++) {
-			struct resource *res =3D
-				(struct resource *) &block->cell->resources[j];
-
-			/* Dynamically fill in a variant's IRQ. */
-			if (res->flags & IORESOURCE_IRQ)
-				res->start =3D res->end =3D block->irq + j;
-		}
-
-[Severity: High]
-This is a pre-existing issue, but is it safe to cast away the const qualifi=
-er
-on the global mfd_cell resource arrays here?=20
-
-Dynamically modifying this shared state could allow concurrent IRQ writes f=
-rom
-multiple probing instances to overwrite each other, potentially corrupting
-IRQ assignments across the system.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-dts-stmpe-=
-v2-0-f93d5f080443@nxp.com?part=3D2
+--q+7g5Wbpwns/c8Jq--
