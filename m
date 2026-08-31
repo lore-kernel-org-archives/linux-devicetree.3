@@ -1,264 +1,189 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7659E376A05
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 20:41:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC56437B41B;
+	Mon, 31 Aug 2026 20:54:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788208902; cv=none; b=Blp6VKdGbLXs1iTbzNqHph0odwHV6ouyzySQ50ldSkAnAv0c1AcRN+0bf39DlWwuGEW9WqwvMnrlY8If+QFS2xeI/h8S49mxULWI7LxmPy0+t/dVi6ppM0b1bckwsItj26wPPj1MPtJfNl2cDYAdskHSdG7SEgK79D5uZn1JXKk=
+	t=1788209667; cv=none; b=B7DpIfZulklMOdUYAiOhcDyWwuMyqVevqDgtKVX453HREoxSR99kH6e9+yZgNsAXZPQ5ZZNZ/kF4h6IClAQ20t1gkzh71cPYObjzx3MjtI0hy1uZ/Jz7JdeXav72cOhYmVZScq9+EZ9YalJcz834iAgZ8/wW60Kq4CY8KD0MPKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788208902; c=relaxed/simple;
-	bh=Dq8pa77QYu4FtzOcsEqpe7mrfDUJV/T42ISJXum+TLQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dTan4hLkV1qbZLrlj28Jmbm3UioIZNYyjVx56uoi62qyEO1gc9+gNlp1My3qHp74SztK3fu+xnGu+lWrqugtPQmLnqxPTGxYJxRxhiHCedlzdf/FtvhY3lT714Ti1Q/bcMVoLuA4+XgNVAhgMOQHKrhpjLZcaru5wpFN3zp24wc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ah/0rWEI; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788209667; c=relaxed/simple;
+	bh=x/S0721k/SRubbMXvuNkhAnsCDZ7GC0uHnpMIjSF7sU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=KLSQnTI3kPY9rhPOgxF05VBAvWVqmEkv5OGb0QFEbJGiLtGTqP5WABpmnmoLxzgFa6gOjqbeLP9AHOk9CfucFuwG5VLM/iutJhNzshe7vN/MykV3ha8h0YL7kppnQ9tdtzn5+/Jm4tzNRMIY1qnKwtX2+PCDBb2oQPPR1zxbqAg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=keBVVHaK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ah/0rWEI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788208898;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FBf8tymtxI0Ff77El55JqSXxrhFxge67QUGBFyICcSY=;
-	b=ah/0rWEIfuZjrUAIoVLAbdumJj7x+LRQHFCCww+nMNhX3lYocSnKbB+16Q6pddEW6oY/Wt
-	v1s1gNevratCRFIPEFomPUKN8aAGT8k/US1vh4YsU4PBTNteeyAuy6qK77EtnUDr9R9YyL
-	0R6hvZnuPaNNZNJYt5nVYLd87hyvNgg=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-169-LJZ1Gc8rNFSY-n7cQqV5mQ-1; Mon,
- 31 Aug 2026 16:41:33 -0400
-X-MC-Unique: LJZ1Gc8rNFSY-n7cQqV5mQ-1
-X-Mimecast-MFC-AGG-ID: LJZ1Gc8rNFSY-n7cQqV5mQ_1788208889
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 979A018D62D3;
-	Mon, 31 Aug 2026 20:41:28 +0000 (UTC)
-Received: from localhost (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D91BF1956049;
-	Mon, 31 Aug 2026 20:41:26 +0000 (UTC)
-Date: Mon, 31 Aug 2026 16:41:23 -0400
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
-Cc: Eric Biggers <ebiggers@kernel.org>, axboe@kernel.dk, mst@redhat.com,
-	jasowangio@gmail.com, James.Bottomley@hansenpartnership.com,
-	martin.petersen@oracle.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, linux-block@vger.kernel.org,
-	linux-crypto@vger.kernel.org, linux-scsi@vger.kernel.org,
-	virtualization@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, neeraj.soni@oss.qualcomm.com,
-	gaurav.kashyap@oss.qualcomm.com, mani@kernel.org,
-	andersson@kernel.org, konradybcio@kernel.org, bvanassche@acm.org,
-	alim.akhtar@samsung.com, avri.altman@sandisk.com,
-	pbonzini@redhat.com, eperezma@redhat.com,
-	xuanzhuo@linux.alibaba.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 00/11] FBE virtualization: inline encryption for
- virtio-blk guests
-Message-ID: <20260831204122.GC527638@fedora>
-References: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
- <20260827184219.GB2137493@google.com>
- <d81e347e-8ca7-40a1-a428-5bce6f0d4b02@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="keBVVHaK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 065BD1F000E9;
+	Mon, 31 Aug 2026 20:54:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788209665;
+	bh=NqWOXNguhGEoHxDcYjgEeGnC3OHQ6+lO76rcsC/BXC0=;
+	h=From:Subject:Date:To:Cc;
+	b=keBVVHaKHaLVU3rLIF7yctzZRXXzmRz6q4vagXzlWfp+PUK7jNBUrIjveGX6Mr5eW
+	 JN1jwA8bx0uLau1C6bb4N8AvRgJG0oR60XuwbISp2fJe3Hssc1ku0luszdMcPzzstJ
+	 jZ2kWFzXTdles1nCQtTHOnjo34ymWDUPlOpKXnKY4q99IclTzgrxx8IvscxGtQ6B15
+	 rS72goRRDN1bA/MD/6Y871qGNpEMwT9L3LBFO7pEpcGcQL+nH97zSB4t7NX6Yik/0A
+	 JmK52zkafjOK/Oy+9l8krClGAnRyYgBQsRX4RJJ9nIffqhd/dPtVuXehFtmmWD9S+o
+	 qFjzO4jDiCYtw==
+From: Linus Walleij <linusw@kernel.org>
+Subject: [PATCH net-next v8 0/5] net: dsa: microchip: Add support for
+ KSZ8995XA/KS8995XA
+Date: Mon, 31 Aug 2026 22:54:16 +0200
+Message-Id: <20260831-ks8995-to-ksz8-v8-0-fd1dbb2b76e8@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fyVDnDSsSdEAr9UL"
-Content-Disposition: inline
-In-Reply-To: <d81e347e-8ca7-40a1-a428-5bce6f0d4b02@oss.qualcomm.com>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23Qy07DMBAF0F+pvMbIr/GDFf+BWDjOuA1FCbJDV
+ Kj670zTRQNm55F97h35zCqWASt72p1ZwWWowzTS4B92LB3iuEc+9DQzJZQVIAI/Vh8C8Hmi07f
+ nErLOIXnlZGaEPgrm4bQGvrARZz7iaWavt5v62b1hmq9517eHoc5T+Vq7F7mKW420f2sWyQV3o
+ heYTYyQzfMRy4jvj1PZr+mL2nilGq/Ig5MqiT4FdNB4vfVtvyafQItsQQYfcuPN3VuhG2/IowR
+ pAmYl0TUett40HsgH30XsDKC17f52633jLfk+SOIa+5Ra7+7e/dPvyKuYBdLvG4j+l79cLj/Ba
+ OPvSQIAAA==
+X-Change-ID: 20260509-ks8995-to-ksz8-15f3f9c8271f
+To: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com, 
+ Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, 
+ Simon Horman <horms@kernel.org>, Russell King <linux@armlinux.org.uk>, 
+ Nicolai Buchwitz <nb@tipi-net.de>
+Cc: netdev@vger.kernel.org, Woojung Huh <Woojung.Huh@microchip.com>, 
+ devicetree@vger.kernel.org, Linus Walleij <linusw@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
 
---fyVDnDSsSdEAr9UL
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This series breaks with the dated attempt to polish the old
+KS8995 driver, and instead implement support for the KS8995XA
+in the KSZ driver, and after that delete the old KS8995 driver.
 
-On Fri, Aug 28, 2026 at 11:37:57PM +0800, Linlin Zhang wrote:
->=20
->=20
-> On 8/28/2026 2:42 AM, Eric Biggers wrote:
-> > On Thu, Aug 27, 2026 at 09:07:09AM -0700, Linlin Zhang wrote:
-> >> From: linlzhan <linlin.zhang@oss.qualcomm.com>
-> >>
-> >> Current virtio-blk does not provide a mechanism for a guest to
-> >> program hardware keys or submit encrypted I/O using pre-programmed
-> >> keyslots.  It drops the crypto context when issuing a bio request
-> >> to the virtio-blk queue, preventing inline-encryption-based FBE
-> >> on virtio block devices.
-> >>
-> >> This series enables File-Based Encryption in guest VMs on Qualcomm
-> >> GVM platforms where the ICE inline encryption hardware is shared
-> >> between the host and guests.  In this environment the guest kernel
-> >> has no access to the ICE hardware directly; it supplies a virtual
-> >> keyslot index and data unit number with each encrypted I/O request
-> >> via VIRTIO_BLK_F_INLINE_ENCRYPTION, and the host must translate the
-> >> virtual slot to a physical ICE keyslot and submit the bio =E2=80=94 wi=
-thout
-> >> transferring raw key material across the VM boundary.
-> >=20
-> > This seems to be designed incorrectly by not making virtio-blk itself
-> > support key programming and eviction.  That complicates things
-> > significantly by then having to handle the key programming and eviction
-> > out-of-band using Qualcomm-specific SCM calls.  It also means that
-> > adding other implementations of this would be very difficult.
-> >=20
-> > There are some claims that not transmitting keys across the VM boundary
-> > is desirable.  But that doesn't seem meaningful, given that all the I/O
-> > is transmitted across that boundary in plaintext anyway, and also it
-> > seems that hardware-wrapped keys will be supported too.
-> >=20
-> > Please make virtio-blk support the key programming, eviction, and
-> > HW-wrapped key management operations that are needed for this to work.
-> >=20
-> > - Eric
->=20
-> Thanks for your comments!
->=20
-> Not making virtio-blk itself support key programming and eviction is
-> something done deliberately. Based on that HW-wrapped key management
-> operations are also handled in the out-of-band path.
->=20
-> There are bellow 2 approaches I investigated to let virtio-blk programming
-> the key.
->=20
->   1. virtio_blk implements blk_crypto_ll_ops interfaces, including program
->      key and evict key interfaces.(Same to 'the virtio-blk interface stan=
-dardized
->      blk_crypto_ll_ops requests' mentioned by Stefan in the virtio SPEC t=
-hread)
->=20
->      The guest's block crypto profile manages the keyslot in virtual slot
->      format in this scenario.
->=20
->       - block crypto key and virt_slot index it passed to the hypervisor's
->        (EL2) device emulation (QEMU, using QEMU in the following) which
->        runs in userspace of the host. Besides of transferring the virtual
->        slot to the physical slot, a programming block crypto key UAPI need
->        be added. Follow current blk-crypto design, it may be like
->        BLKCRYPTOGENERATEKEY. I thought this results in a security risk th=
-at
->        allows userspace process a key into a key slot.
->=20
->      - For key eviction, it's similar to above key programming handling, =
-also
->        need a key eviction in blk IOCTLs, but leads to the security risk
->        that allow userspace client to evict a key in a key slot.
+The hardware clearly has the same ancestry, the KSZ8995XA is
+just a rebrand of the much older Micrel KX8995XA switch.
 
-Yes, userspace shouldn't have access to the entire physical key slot
-range. The host kernel or other VMs may need key slots and an untrusted
-QEMU process must not be able to modify those key slots or use them for
-I/O.
+The old drivers referce to "KS8995" was actually KS8995XA only,
+it never supported the sibling devices KS8995E or KS8995MA.
+This is reflected in this patch set.
 
-The uapi design should include a solution for this. For example, there
-could be an ioctl like BLKCRYPTOSEALKEYS that permanently restricts the
-key range on this block device file descriptor and cannot be undone.
-Libvirt or other management tooling would call this ioctl with
-CAP_SYS_ADMIN before passing the file descriptor when launching QEMU
-without CAP_SYS_ADMIN. This prevents QEMU from ever having access to the
-full physical key range.
+Add new compatibles, add special code paths for the KSZ8995XA,
+including support for its two-level DCB priority model, and add a
+new tagger for the special front tag found in the KSZ8995XA.
 
-Just an idea. Those familiar with blk-crypto may have a better one. It
-seems likely that we can find a design that matches the level of
-security of the out-of-band approach.
+The patches were tested with the Actiontec MI424WR rev D (which
+has the KS8995XA) and OpenWrt as userspace.
 
->=20
->     virt_slot, DUN and DUSize is appended to virtblk request during crypto
->     I/O.
->=20
->   2. virtio_blk implements blk_crypto_ll_ops interfaces, excluding program
->      key and evict key interfaces.
->=20
->      The guest's block crypto profile doesn't manage keyslot for the gues=
-t,
->      the host's block crypto profile manages keyslot for both the guest a=
-nd
->      the host. The trigger of key programming operation is moved from the
->      guest to the host.
->=20
->        - The whole block crypto key (key size, key bytes, blk_crypto_conf=
-ig)
->          and DUN are appended to the virtblk request during IO, a little
->          high payload.
->=20
->          The backend parses the crypto message in the virtio queue and
->          construct a block crypto key and DUN for the bio_crypto_ctx
->          set to the BIO. So that the IO flow in the host can program
->          the key.=20
->=20
->          The question is that the blk-crypto-profile distinguishs the
->          block crypto key via the key's address. But the host has
->          different key addresses for the programming and eviction key
->          operations of the same block crypto key from GVM, because the
->          key is re-constructed in the host for the key program and
->          eviction operations.=20
->=20
->          To fix it, the approach I thought is maintaining a new key
->          hash table in the backend, and comparing the block crypto key
->          content and DUN parsed from virtio queue with that in the key
->          hash table.=20
->          My major concern is that this need keep the keys synchronization
->          b/w this new hash table and the blk-crypto-profile's hash table
->          carefully, avoiding that key is still present in the
->          blk-crypto-profile's hash table, but removed in backend hash
->          table. Another point is that the whole block crypto key and
->          DUN are appended into virtio block request per crypto I/O.
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+Changes in v8:
+- Add DCB support for the KSZ8995XA two-level priority model and set its
+  internal priority map count to two.
+- Initialize the KSZ8995XA per-port default tags to VID 0 so the tagger can
+  distinguish originally untagged packets from VLAN-tagged frames.
+- Push non-802.1Q hardware-accelerated VLAN tags into the packet before
+  adding the KS8995 tag, so they cannot displace the switch tag from its
+  required offset 12.
+- Account for the discrepancy between the documented and observed
+  KSZ8995XA MTU behavior. Its packet-size control bits use the same
+  polarity as the other KSZ8 switches, while using the opposite polarity
+  documented in the manual makes the switch hang on big packets.
+- Rebased on v7.3-rc1
+- Link to v7: https://patch.msgid.link/20260704-ks8995-to-ksz8-v7-0-2af0eaa545a8@kernel.org
 
-This sounds like an approach that skips key programming and instead
-sends the keys along with each I/O request. The device implementation is
-responsible for managing key slots on the physical ICE. My main concern
-with this would be whether the blk_crypto_ll_ops semantics can be
-faithfully replicated (e.g. error reporting) without explicit key
-programming operations.
+Changes in v7:
+- Rebased on v7.2-rc1
+- Rebased on top of Bastiens cleanups.
+- Rebased and reworked on top of my patch changing the SKB ownership
+  model in the taggers.
+- Drop bogus reset routine, keep per-port reset but use the right
+  defines.
+- Properly implement the 2way queue split support (low/hi prio)
+- Drop bogus surplus ops assignment.
+- Link to v6: https://patch.msgid.link/20260608-ks8995-to-ksz8-v6-0-d91eb43edcc5@kernel.org
 
-Stefan
+Changes in v6:
+- Provide a prompt along with the transition symbol NET_DSA_KS8995
+  so that oldconfig works.
+- Clarify in commit message that the platform data probe path is
+  unused in the kernel and it is fine to delete this mechanism.
+- Link to v5: https://patch.msgid.link/20260604-ks8995-to-ksz8-v5-0-98baeb45e665@kernel.org
 
->=20
->        - For key eviction, adding a key eviction in blk IOCTLs allows
->          userspace client to evict a key in a key slot. I thought this
->          is a security concern.
->=20
->=20
->      This option doesn't need map virt_slot to physical one.
->=20
->=20
-> Taking all the above into account, I made a compromise to implement
-> blk_crypto_ll_ops interfaces in a out-of-band path, which lets the virtio
-> blk only need focus on the data path. I agree that it is complex than
-> the second option mentioned in the above, but small payload (only
-> virt_slot, DUN, DUSize) in the virtio block request and no security
-> risk of key eviction from userspace.
->=20
->=20
-> I would like to hear your thoughts about the above and am appreciated
-> if you could share your insights about the design of inline
-> encryption in virtio block.
->=20
-> Regards,
-> Linlin
->=20
->=20
->=20
+Changes in v5:
+- Rebase on net-next again to be sure we apply.
+- Fix the codepath where DCB was set up per-port, damaging KS8995XA
+  port registers.
+- Fix up the transitional symbol NET_DSA_KS8995 to depend on
+  SPI and select both NET_DSA_MICROCHIP_KSZ_COMMON and
+  NET_DSA_MICROCHIP_KSZ_SPI.
+- Link to v4: https://patch.msgid.link/20260603-ks8995-to-ksz8-v4-0-e15149ef21e7@kernel.org
 
---fyVDnDSsSdEAr9UL
-Content-Type: application/pgp-signature; name=signature.asc
+Changes in v4:
+- Create a stub symbol for NET_DSA_KS8995 to phase over users to
+  the new driver.
+- Link to v3: https://patch.msgid.link/20260526-ks8995-to-ksz8-v3-0-c530f651989f@kernel.org
 
------BEGIN PGP SIGNATURE-----
+Changes in v3:
+- Rebase on net-next again, moving target!
+- Fix a netdev_info() print in the tagger to be netdev_debug()
+- Add net/dsa/tag_ks8995.c to MAINTAINERS
+- Link to v2: https://patch.msgid.link/20260522-ks8995-to-ksz8-v2-0-5712c0dc9e75@kernel.org
 
-iQEzBAEBCgAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmqV5vIACgkQnKSrs4Gr
-c8gJGwf/X6WcnpoBBjltPgKk5PVTutsk6+tVnODwUPuBfzPYZS23OnnTrZnkESve
-L0LIFS850Ih36UbOeC+S3F3WOTD2SxvRSZYj7NlMgYgnA6oKEvISUlea4xJnUldR
-w3kQQJGLtOAU7oe7scnA3ZZp9Zx0bsbOVx2cUiDK2OUwcg6oX+gZJttPipSWYagw
-UNYCyqu9QwTexHrptgCl0RKJ3f+58eSdND/GvfUROzE8eVFkKIAE/zgWdpyhCcOC
-ic6padtYknFeGCnlvkugw7gz0caxHeZgu+pLDgdL42QpLkEs/zbSxPUaAY/LBfGD
-bMSh/nUH9ycIif2dGGD8ciVGcT9CXw==
-=Sqz3
------END PGP SIGNATURE-----
+Changes in v2:
+- Avoid trying to configure TOS priority settings (DCB) on the KSZ8995XA.
+  It does have some support for this, but let's add that later.
+- Pick up Krzysztof's ACK on the new DT bindings.
+- Reset the KSZ8995XA by disabling and enabling the switch like the old
+  driver does.
+- Move mutually exclusive Kconfig over to the patch introducing the
+  old Micrel compatibles to the Microchip ksz_spi driver.
+  (this complaint from Sashiko.)
+- Use __be16 instead of u16 when casting into the SKB in the tagger
+  (this complaint from Sashiko.)
+- Do not modify the hdr->h_vlan_TCI if no hardware accelerated tag
+  is detected, it would get nullified. Use whatever the Linux network stack
+  assigned to TCI there.
+  (this complaint from Sashiko.)
+- Avoid dereference of NULL in debug prints in the tagger.
+  (this complaint from Sashiko.)
+- Ignored comment: Sashiko complains about ilog2(0) being potentially
+  undefined but that is clearly defined as 0 in the Linux kernel.
+- Link to v1: https://patch.msgid.link/20260516-ks8995-to-ksz8-v1-0-70d0ef4aa5f4@kernel.org
 
---fyVDnDSsSdEAr9UL--
+---
+Linus Walleij (5):
+      net: dsa: microchip: Add fallback Micrel compatibles
+      dt-bindings: net: dsa: microchip: Add KSZ8995XA
+      net: dsa: tag_ks8995: Add the KS8995 tag handling
+      net: dsa: microchip: Support Microchip KSZ8995XA / KS8995XA
+      net: dsa: ks8995: Delete surplus driver
+
+ .../devicetree/bindings/net/dsa/microchip,ksz.yaml |   1 +
+ MAINTAINERS                                        |   1 +
+ drivers/net/dsa/Kconfig                            |   9 +-
+ drivers/net/dsa/Makefile                           |   1 -
+ drivers/net/dsa/ks8995.c                           | 857 ---------------------
+ drivers/net/dsa/microchip/Kconfig                  |   1 +
+ drivers/net/dsa/microchip/ksz8.c                   | 205 ++++-
+ drivers/net/dsa/microchip/ksz8.h                   |   2 +
+ drivers/net/dsa/microchip/ksz8_reg.h               |   7 +
+ drivers/net/dsa/microchip/ksz_common.c             |  53 +-
+ drivers/net/dsa/microchip/ksz_common.h             |  11 +-
+ drivers/net/dsa/microchip/ksz_dcb.c                |  55 +-
+ drivers/net/dsa/microchip/ksz_spi.c                |  33 +-
+ include/linux/platform_data/microchip-ksz.h        |   1 +
+ include/net/dsa.h                                  |   2 +
+ net/dsa/Kconfig                                    |   6 +
+ net/dsa/Makefile                                   |   1 +
+ net/dsa/tag_ks8995.c                               | 141 ++++
+ 18 files changed, 463 insertions(+), 924 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260509-ks8995-to-ksz8-15f3f9c8271f
+
+Best regards,
+--  
+Linus Walleij <linusw@kernel.org>
 
