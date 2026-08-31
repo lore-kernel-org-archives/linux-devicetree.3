@@ -1,247 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73FB13D9DD1
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 09:11:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 850AF314A60
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 09:13:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788167515; cv=none; b=phstH4/7tCqlGvlo01LZdV3TfZmJMxn6WXGmQb2ZBh5oCWOnOxbKYV2LHCXETdM+B4rvv/srANqtBSZ06IQ7/AlrOFVSeeEtTw9Wc6ZSYCTwpVrtXLtaYrva/tmiRplLiO2W5S0KeQ0NyKCvIDbnKa8rTOGMC+F0fPyYQ6N/Dac=
+	t=1788167608; cv=none; b=fAJb9VUDhz7OyMmK1B9x0dlu+whUhmKzC+7xVfYcWRUzL2Eg4XiXKNuUyokrJBxOSi3WCh6aWV3yObWpqKB5anNuFo0haT5eLowJmZ3jfaEud4KDiDWVa0i02fKAaBxQ0yA+0EqH2HnKbJMQ1bK5ua7BTF6B+R4u+X5OfWD8gY4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788167515; c=relaxed/simple;
-	bh=Iqyq6F9uzHHnx9nYiQabncIwaiCXqxQPNdrdlJuBmMk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=PSe3Nfk6608KQgyp7u6l3Tx+F3zDLUcf+KNfxOL9VUP1WcdKLysdUC7LyOZwNXv4TeGrWuVtPBzLi+DkJgTAWQpSkKHQNmdG6q17O1JomCKpKGvkL+H1jqEGZBhZH2uiiEe+NwBc7N2V7vyAERo8MxnQlUFlEXrkCUgMiKyrikI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B+VZSEGO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788167608; c=relaxed/simple;
+	bh=RCLDTEg9lmjDKChkil90PiGZqmrbszJN9ZdDp2YVeWc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=D6aSMycjEL4l2Yf8T3aqGo/Hsz2RPPqkz2/gTBwTI498zk2/h6Av47XPG+nCdOD/OgWjLxWT3OHJ1h47IjRwQ0HOEk0DPUZMflYbHjVtaxQ/cn4cp64ywp927rVXakPIkZCNDrw8JnDpQCWWbFbSUb05mIz0UBOp8awgxlAX3kQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=bG6QikmX; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B+VZSEGO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C51B61F000E9;
-	Mon, 31 Aug 2026 09:11:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788167514;
-	bh=dFkIgamocZ5YZRlrVpt65lGeGmrtq4l95mIhklfkei0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=B+VZSEGO6oEiMCmt+P/CjLjC+XL1D/aUrCtaewkvxgX/9lqDATQfxFoC+khOpVwtS
-	 6jxu5upohJbHtK/OmVQblGRkKtPyhZeOwnf17kFRrzdrZVR48KbZIUaLS2a5mSSy9G
-	 6Hqm7hxjAQzOJjY5qLy20FEQq4pM2oQ7Q94adQwnyvQFXU4fWlez2r/e6KZZvMAU+T
-	 +2Qki1DR35/VpFajlhZdqhAxz8jhBdUETpOuGv7RTs+Uod0uBbpI1Zhkg+D6gLwGHD
-	 Z0NDxNYkrj0Q+4Gh6KWiMnZoUzRcTY00zgIJ0khomRcUYVaSgjtes4QgqyNcoFlJ+T
-	 B6ov7XpVMjKcw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 12/14] accel/rocket: add RK3576 NPU (RKNN) support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260831081956.84871-13-gahing@gahingwoo.com>
-References: <20260831081956.84871-1-gahing@gahingwoo.com>
- <20260831081956.84871-13-gahing@gahingwoo.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 09:11:53 +0000
-Message-Id: <20260831091153.C51B61F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="bG6QikmX"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49cd9add88aso1935335e9.3
+        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 02:13:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1788167605; x=1788772405; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=kZSoUqRG3MmvbFrT0mr1y15pAZ0UP8ADHoAOFVsreA0=;
+        b=bG6QikmX/ETnO37XpLbzMkPq5i6DMMPnAViyMTgkucZjIltn3pvsMw3c4ZivnP8pzi
+         N9IsXPspN5T6lmG82c+wNj3nglJRwWriuNdHYvwVg3iNnMGjugkKi7vsMwP8wpJqjSHy
+         WrjL3x50bWik/aNmXJwKyPHP26cqEgOKuySAbtliwk+1QddGrz84G4pKF5uRxjt+xISm
+         XNIdmdRj9SkPPzhe5jcy0i+/WYTR4dQubrNM1I4myn9U1hCXixVQTcGbASaDpn7Ws8pG
+         n+J3qUMbkn728BTGutq8mI15VtUPUMxX1V0+fL3Aazo5sUXKRPNfQFkjRm9a6FJ9jNft
+         50Fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788167605; x=1788772405;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=kZSoUqRG3MmvbFrT0mr1y15pAZ0UP8ADHoAOFVsreA0=;
+        b=oCJ0x9NyqoKRSPfWUPh4YH05mzc7/O5S59Adx7pyUbmvFWxDd9N61iuVKOkS0IKDrn
+         Ur6acoVtauWdAg+VNFFjvhrMM4mQX63jt1rBy8sTdvLTTwsyGAZyvUTp7SsyWXjMaZQB
+         qxHQdTgoc7g42wv/hhFRGGruQYWpjOQt6j0n0eKBc22XVWCnWVLeKSPtIbEBCmX5KTKE
+         y5SVpOcIn4fNLm/hsKd833xbR/7kMRIsOurnzBkVxW90dPkQvEfQxmwMrXibUeiDXh10
+         xQID3dvpSM1t7z2BnpRlH8ocAy6B8waqzZXlagRxTM55d52dvL7jnJm+V0b4L0EFWBIu
+         kWcg==
+X-Forwarded-Encrypted: i=1; AHgh+Rq0cfsyPkBzua+pIEtp/+xVMk1YcWDSR2th1spVuKvwMEBYQI9xXxTccKprYiLJfexmS0QoL++ckt5S@vger.kernel.org
+X-Gm-Message-State: AFuF++krB1K747dqINu8Bn+xuw2CD3u8LwZ/1f7lrawmneBByI3sipvZ
+	ip5IM9vgjSsKNk2gVidw6+mHHZtyGSkol/3dGhHSS713sQDW9cU6geAnqIUyLm38maw=
+X-Gm-Gg: AR+sD12Z09reEjKhBBOnCFQ0TQznRli3uiJCOvqRdszFkBIuri2dxHcVUpi9L76vAKn
+	mevZMME39Ba9ODWsKvqzctPfFDAAcRzpwI2M3jg75aBtDr4mpOdsaCcqpNzcrZd2prsKDPp2zlO
+	xFfUsbJ1pEomAwMvTC2yIZwdDsCBuKAHfcKJbp+tsz8TO3MJP0ih93s8/RXFQIHQvun/7SdmJo0
+	VcWlkb2rRNRmqaIUZxQs7CMjV7gBSXBqHbimPJThEDarPD/zfaQhdBzGjuYdoA43Udll9PSeEUG
+	L5odYgjNsaPKadglkZHV007I5yWxxhd0ddREX0sGkfYVsQzlQIdU+YWJqD6qdQYKz0t5lGq4MvA
+	SbQAScdBEy0qxek3J1Dc0nab24laY2SDrlScerVFVlpSWPuDg+jlrlvC0o+Un1YwIZ/osUqG+Lz
+	NE0YgEf0VmFXYQp0cmxDbmRyYMUcbwRMxzz29dqj/ScOJiT4iecNCh+IKKx2ZmrVvixiixWfmdi
+	alAfzE1/g==
+X-Received: by 2002:a05:600c:4704:b0:493:cefc:d113 with SMTP id 5b1f17b1804b1-49b91c2d8femr366018625e9.5.1788167604540;
+        Mon, 31 Aug 2026 02:13:24 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0e:1007:7be3:8261:5fff:fe11:bdda])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b4dfdf00csm320935205e9.14.2026.08.31.02.13.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 02:13:23 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: [PATCH v4 0/3] ASoC: qcom: allow SM[456]50 HDK board to play audio
+ via I2S
+Date: Mon, 31 Aug 2026 11:13:18 +0200
+Message-Id: <20260831-topic-sm8x50-next-hdk-i2s-v4-0-a224aa073f9d@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAK9FlWoC/43NzW6DMBAE4FeJfM5WZm0IyanvUfWwXZaw+cGRT
+ RFVxLvXpIcmqhT1ONLMN1eTJKoks1tdTZRRk4Y+B79eGe6o3wtok7NBi5XdYA1DuChDOtdTaaG
+ XaYCuOYJigqqpHGMpLMQm7y9RWp1u9tv7T06fHwfhYQGXRqdpCPHrdj4WS+8/P2MBFtBtHdlWP
+ NH29aQ9xfAS4t4sRyPeUa54RmGmPHJBLFISNn8o90vVtnxGuUzZDVW+duydbR+oeZ6/AesSADF
+ rAQAA
+X-Change-ID: 20260728-topic-sm8x50-next-hdk-i2s-6d63c25eceac
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1693;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=RCLDTEg9lmjDKChkil90PiGZqmrbszJN9ZdDp2YVeWc=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqlUWxU1zZQV+qv2kHIxq/tBq1L7cUoFA6Gu99JA4/
+ zj0RObqJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCapVFsQAKCRB33NvayMhJ0Z2TD/
+ 46D0cIjXwOgicJGnkPcOvsRq5mVpW1dv08qJ6aNOHzhC82IuiDaer7q541PkgjPLVAx8qKfb8iBVKo
+ Dd8rEvUxVBK0y1qgq31k/KJP7qdoag3P0ti9GpsQeCq4ninNyVscchi9B5UldCEW9A+4efyM5BkOgW
+ WZ065tL1MwSktbYXYgakMBHLLUGGBZC/M3MXijsL2lj3QSndYjF/suwDQ0BLSfBr3bQrIrtXx2yTrR
+ qG1ww7x0SM+uzW08BI/lbmBzBf2IeC8F/3w8impLEbBVtRhjDVSJ5P37gAyGd84omMBO1tyWqnVjrK
+ IQlZ7WKHakbwj7KD73pYKGvTIDsIj4l0xftqLoWNjORVL5cRF0wokdouSx8aHB9q4k0CY0/on5YSb3
+ OHurNMQO5sBT+IJadG+nOiKH2RZxkBva2iKrFJKgkBbkW60ckcbK8H3AlcuCgMa1A88dWPHsqsX271
+ OajEAeZ7MimpGjncVPg+Lei7qhyuL7/2/bez3k0LcVzvglswTcRDVlH4xGxO3+anFgFlmxAzXYErlk
+ v5VM7N0zIyshpVxXdciFNlCz4M0Q/0elxx44nLoBanVR17CHPgsqKh8iFAOQwd0XsoDPQwNRrcryqD
+ wXYFkl7Uv5KZ12J2PlI4tnLNsOuT2hpKiDuI+85gER7qBsaDJnO5l0tl+x6Q==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
+Following [1], this adds the necessary settings to setup
+the I2S link to the HDMI bridge to allow audio playback.
 
-Pre-existing issues:
-- [High] Shared IRQ handler accesses hardware registers without checking PM=
- state, and runtime suspend lacks synchronize_irq().
-- [High] Reference leak of iommu_group in job completion path.
-- [High] Array bounds mismatch and logic error in `find_core_for_dev` and c=
-ore registration due to naive decrement on device removal.
-- [High] Concurrent probe of multiple NPU cores causes data races in global=
- rdev initialization and array management.
-- [High] Leaking devm resources on unbound pseudo-device across rebinds or =
-`-EPROBE_DEFER`.
-- [High] A 64-bit DMA address is truncated to 32 bits when written to the h=
-ardware, leading to IOMMU faults if the address exceeds 4GB.
---
+All dependencies are merged v7.3-rc1
 
-commit da7c000fc37b3b36196f66187168ddef41f790b6
-Author: Jiaxing Hu <gahing@gahingwoo.com>
+[1] https://lore.kernel.org/all/20260724182446.1484894-1-mohammad.rafi.shaik@oss.qualcomm.com/
 
-    accel/rocket: add RK3576 NPU (RKNN) support
-   =20
-    The RK3576 has two cores of the same RKNN block and a few platform
-    differences:
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+Changes in v4:
+- Rebased on v7.3-rc1
+- Link to v3: https://patch.msgid.link/20260805-topic-sm8x50-next-hdk-i2s-v3-0-07a6483c430f@linaro.org
 
-[ ... ]
+Changes in v3:
+- Fixed node unit number on patch 3
+- Link to v2: https://patch.msgid.link/20260731-topic-sm8x50-next-hdk-i2s-v2-0-42c1acee5a2d@linaro.org
 
-> diff --git a/drivers/accel/rocket/rocket_device.c b/drivers/accel/rocket/=
-rocket_device.c
-> index 46e6ee1e72c5f..923add5bdc87e 100644
-> --- a/drivers/accel/rocket/rocket_device.c
-> +++ b/drivers/accel/rocket/rocket_device.c
-> @@ -9,6 +9,7 @@
->  #include <linux/of.h>
-> =20
->  #include "rocket_device.h"
-> +#include "rocket_drv.h"
-> =20
->  struct rocket_device *rocket_device_init(struct platform_device *pdev,
->  					 const struct drm_driver *rocket_drm_driver)
-> @@ -27,7 +28,11 @@ struct rocket_device *rocket_device_init(struct platfo=
-rm_device *pdev,
->  	ddev =3D &rdev->ddev;
->  	dev_set_drvdata(dev, rdev);
-> =20
+Changes in v2:
+- Dropped applied patch 1
+- Fixed node unit number
+- Reversed clock names order to respect bindings
+- Link to v1: https://patch.msgid.link/20260728-topic-sm8x50-next-hdk-i2s-v1-0-2393a0fe4aa9@linaro.org
 
-[Severity: High]
-This is a pre-existing issue, but does rocket_device_init() leak devm
-resources if probe defers or unbinds?
+---
+Neil Armstrong (3):
+      arm64: dts: qcom: sm8450-hdk: Enable I2S for HDMI
+      arm64: dts: qcom: sm8550-hdk: Enable I2S for HDMI
+      arm64: dts: qcom: sm8650-hdk: Enable I2S for HDMI
 
-It appears that devm_drm_dev_alloc() is called earlier in this function
-and binds the allocation to the persistent global drm_dev instead of the
-pdev being probed. If probe defers, or if the cores are unbound,
-rocket_remove() simply clears the rdev pointer without freeing the memory
-bound to drm_dev, leading to memory leaks on successive probe deferrals.
+ arch/arm64/boot/dts/qcom/sm8450-hdk.dts | 36 +++++++++++++++-
+ arch/arm64/boot/dts/qcom/sm8450.dtsi    | 40 ++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8550-hdk.dts | 36 +++++++++++++++-
+ arch/arm64/boot/dts/qcom/sm8550.dtsi    | 73 +++++++++++++++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8650-hdk.dts | 35 +++++++++++++++-
+ arch/arm64/boot/dts/qcom/sm8650.dtsi    | 40 ++++++++++++++++++
+ 6 files changed, 257 insertions(+), 3 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260728-topic-sm8x50-next-hdk-i2s-6d63c25eceac
 
-> -	for_each_compatible_node(core_node, NULL, "rockchip,rk3588-rknn-core")
-> +	/*
-> +	 * Count over the same match table the platform driver binds with, so
-> +	 * that a core added there is counted here without a second edit.
-> +	 */
-> +	for_each_matching_node(core_node, rocket_dt_match)
->  		if (of_device_is_available(core_node))
->  			num_cores++;
-> =20
+Best regards,
+--  
+Neil Armstrong <neil.armstrong@linaro.org>
 
-[ ... ]
-
-> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/roc=
-ket_drv.c
-> index 6e7dc91c5faac..e469629499fdb 100644
-> --- a/drivers/accel/rocket/rocket_drv.c
-> +++ b/drivers/accel/rocket/rocket_drv.c
-> @@ -217,13 +217,23 @@ static void rocket_remove(struct platform_device *p=
-dev)
-
-[Severity: High]
-This is a pre-existing issue, but are there concurrent probe data races her=
-e?
-
-In rocket_probe(), the global rdev pointer is checked and assigned without
-synchronization, and rdev->num_cores is used as an array index concurrently.
-If multiple NPU cores are probed concurrently, could this lead to double
-initialization or out-of-bounds array accesses?
-
-Additionally, when rocket_remove() executes:
-
-drivers/accel/rocket/rocket_drv.c:rocket_remove() {
-    ...
-    rdev->num_cores--;
-    ...
-}
-
-It decrements the active core count without compacting the array.
-Could a subsequent bind overwrite active devices and truncate search
-boundaries in find_core_for_dev()?
-
->  static const struct rocket_soc_data rk3588_soc_data =3D {
->  	.num_clks =3D 4,
->  	.num_resets =3D 2,
-> +	.multi_power_domain =3D false,
-> +	.task_con_16bit =3D false,
->  };
-> =20
-
-[ ... ]
-
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> index 69e29f40f27a0..2a272c2ef6bed 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-
-[ ... ]
-
-[Severity: High]
-This is a pre-existing issue, but does this driver safely handle shared IRQs
-during runtime suspend?
-
-In rocket_job_irq_handler(), the code unconditionally reads from
-INTERRUPT_RAW_STATUS:
-
-drivers/accel/rocket/rocket_job.c:rocket_job_irq_handler() {
-    ...
-    u32 raw_status =3D rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
-    ...
-}
-
-However, rocket_device_runtime_suspend() disables clocks without calling
-synchronize_irq(). Because this uses a shared IRQ line (IRQF_SHARED), if
-another device on the same line triggers an interrupt while the NPU is
-suspended, could reading these unpowered hardware registers cause a system
-hang or external abort?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is there a reference leak of
-the IOMMU group in the job completion path?
-
-In rocket_job_next_locked():
-
-drivers/accel/rocket/rocket_job.c:rocket_job_next_locked() {
-    ...
-    iommu_detach_group(NULL, iommu_group_get(core->dev));
-    ...
-}
-
-This calls iommu_group_get() inline, which increments the reference count,
-but there appears to be no corresponding iommu_group_put(), meaning the
-reference is leaked on every job completion.
-
-> @@ -142,10 +165,17 @@ static void rocket_job_hw_submit(struct rocket_core=
- *core, struct rocket_job *jo
->  	rocket_pc_writel(core, INTERRUPT_MASK, PC_INTERRUPT_MASK_DPU_0 | PC_INT=
-ERRUPT_MASK_DPU_1);
->  	rocket_pc_writel(core, INTERRUPT_CLEAR, PC_INTERRUPT_CLEAR_DPU_0 | PC_I=
-NTERRUPT_CLEAR_DPU_1);
-> =20
-
-[Severity: High]
-This is a pre-existing issue, but could the DMA address get truncated here?
-
-The driver explicitly asks the IOMMU for up to 40-bit IOVAs via
-dma_set_mask_and_coherent(dev, DMA_BIT_MASK(40)) in rocket_core_init().
-
-However, the hardware submission path writes the command buffer address
-using a 32-bit register write:
-
-drivers/accel/rocket/rocket_job.c:rocket_job_hw_submit() {
-    ...
-    rocket_pc_writel(core, BASE_ADDRESS, task->regcmd);
-    ...
-}
-
-Since task->regcmd is written to a 32-bit hardware register, and userspace
-may pass a truncated IOVA, will this cause IOMMU faults if the address exce=
-eds
-4GB?
-
-> -	rocket_pc_writel(core, TASK_CON, PC_TASK_CON_RESERVED_0(1) |
-> -					 PC_TASK_CON_TASK_COUNT_CLEAR(1) |
-> -					 PC_TASK_CON_TASK_NUMBER(1) |
-> -					 PC_TASK_CON_TASK_PP_EN(1));
-> +	if (core->soc->task_con_16bit)
-> +		rocket_pc_writel(core, TASK_CON,
-> +				 RK3576_PC_TASK_CON_LAST_LAYER_CLEAR |
-> +				 RK3576_PC_TASK_CON_COUNT_CLEAR |
-> +				 RK3576_PC_TASK_CON_PP_EN |
-> +				 RK3576_PC_TASK_CON_TASK_NUMBER(1));
-> +	else
-> +		rocket_pc_writel(core, TASK_CON, PC_TASK_CON_RESERVED_0(1) |
-> +						 PC_TASK_CON_TASK_COUNT_CLEAR(1) |
-> +						 PC_TASK_CON_TASK_NUMBER(1) |
-> +						 PC_TASK_CON_TASK_PP_EN(1));
-> =20
->  	rocket_pc_writel(core, TASK_DMA_BASE_ADDR, PC_TASK_DMA_BASE_ADDR_DMA_BA=
-SE_ADDR(0x0));
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831081956.8487=
-1-1-gahing@gahingwoo.com?part=3D12
