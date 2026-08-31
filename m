@@ -1,73 +1,101 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB6F02DB7B8;
-	Mon, 31 Aug 2026 08:09:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57A1B3BED2D
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 08:16:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788163789; cv=none; b=XpUk4s49QS39KXPzxazHFkOnU0gE/3l6AUWRNnr5c3I1LaTUOEqV27DA3C1lL1BJwhG9ELt3maDnfu7oi3FuOKEOY96baTMtqErGg3izpE2CdQPRASnUFki+9oEcdAoZ3dFSr0BpUQslJDrBoeQPmzC/p/ZiVsrjE2EsBEFjvJ8=
+	t=1788164167; cv=none; b=ZflLTKbfQ4Teite+ph7HIkU4riIkCQeMSmbiASk2DYtsdQ1cWZ0gcMirfR+ERW+7gZDzKYX94k2NmnLavsksGFlZsj0LB2fBC+brMk/iATWKFYUqZTw21C4WneSWdT82HZvD00ZQRebLUAyKkBD+HAeR70XWWUmm22ae9VXgXnI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788163789; c=relaxed/simple;
-	bh=EXnz4UJb8ZmHDgh2E82zE8nu9XWep7z0mFdwx/EeODQ=;
+	s=arc-20240116; t=1788164167; c=relaxed/simple;
+	bh=QBU8DfkTa6n4YbEvZzxLevyquP+Ka5QRnZiV3dhNKJc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FTh/5QqP4LPerSx00ISmITfrQqdvfjel8fIpsD7fxxUK/DcVwV+9c9sV7WHZIw1329R1e/WwQcZ4wxsFQMwRPgOZM9yjsl5NjpOQkq/6CdPDY3/6lKrp6CCO1I+mSJC+uLXuT/BIl4AFfdM+Y+mK0grzOkv9KlpSsLjQclzpMyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mXGzmDqW; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=oDAzh58IdBFyGaHm3FeveWwZwlWIwiE25Cp4dsQQVcQwl7s84/BVHCVQtJ4KCGZ47hMppTAn0G5n8LXvYQutaPcuVZHfKVRMq7xLsrQEmT8bLi6dGLFruHO9DVO76QN5qCJ/8cmOBVxTslUU9x1TvjJTy1TtQ6wIrw866pEbvMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=J1BM63yK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Tm6saH1D; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mXGzmDqW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788163788; x=1819699788;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=EXnz4UJb8ZmHDgh2E82zE8nu9XWep7z0mFdwx/EeODQ=;
-  b=mXGzmDqWZKfFbWnmtUdjvm7cTtGmqZMVUQ1SFYtbGFs4dMOMjizs/76a
-   oihlWipxY5c9vi6s2rIIlQ5EysvXKrc5WVqa5flc80NeCQvtgNCcqL5hl
-   HbVhzmkVvOljZmKs6ofsHeHYvHRjvf3peiyav7v2dSGtj8VenabId1IcY
-   bc/mxCo6n8GJmNiLXfXRT5OzKoZbU+fRU7y0rG78AWEvvLaiqmNbTTMWr
-   gd9Oaivcy/ajPPQWA1VaJQhO9qvaOegzzAwzb1390w2BOoxXHrg5YchRt
-   t1rHuiLwhO9N9vvrZYC86DZYQTAkVHlWnIALtaoVPpw8GsM2v/uHkOIAh
-   Q==;
-X-CSE-ConnectionGUID: XpdmVuxxRXOwVlcfeRnPVw==
-X-CSE-MsgGUID: 8euqMg7xS7WEkT7iSYkmJg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="98901128"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="98901128"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 01:09:47 -0700
-X-CSE-ConnectionGUID: 1Esp0D5mSj+Yq0GhUveGNg==
-X-CSE-MsgGUID: couaheZHSjaD6OCfTDrStA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="272526641"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 01:09:41 -0700
-Date: Mon, 31 Aug 2026 11:09:38 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Michael Walle <mwalle@kernel.org>, linux@analog.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH v5 08/20] iio: adc: ad7768: Derive output data rates
-Message-ID: <apU2wvlPtlZtxhPF@ashevche-desk.local>
-References: <20260828-ad7768-driver-v5-0-e33ca6f841a2@analog.com>
- <20260828-ad7768-driver-v5-8-e33ca6f841a2@analog.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="J1BM63yK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Tm6saH1D"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67V7xI8L2460280
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 08:16:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=3LyTcuGUL0Z/mag6M9SZrK5m
+	2t3i0XS2stCBvD8t0aM=; b=J1BM63yKhY+4AC4sF6IWQ3XqowqXqAO3d8Rto/Cv
+	y2WbTXXMTttJhaC5i7pH+8vYxasqVQAUDB6mQAviLlOc5FqCS3x0r7NjbJgN3+yB
+	cMd4oQQYJR39mGpnf5Z5px/QpVQd2vBkRbYuNtIpbgBELf5VsdW2rwWYWBAPeO9i
+	SiqOgZwpeKJfqvMvJQ+rcbsMnzddZFlSrU7zEzRzEc7dP3ZEnIFAfaf+EltDBEC0
+	QhrvH94GOvLgw+rj7lbXlpfD8RLLGxR0fNqKG8iPVga5W9F+3SnnuMPZqW3nvAIV
+	hID/ztustt8Gdux8ro9dGDmhLsrWcNIPwdd+NlPxdgBWxA==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gd556r6qb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 08:16:05 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93909014c85so486670485a.0
+        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 01:16:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788164164; x=1788768964; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3LyTcuGUL0Z/mag6M9SZrK5m2t3i0XS2stCBvD8t0aM=;
+        b=Tm6saH1DtfzQzTgTXCl53TIlFkf6Vh0bDskV+n1Aj++bYlDU9J4ne5LGJyeZtBMoQs
+         LUX8uJ8E40sOmL8pai0jghfq/JtME4AxZidCbtEnahXns2t56MfD52Skv4cQnVpMAu5h
+         QcZyfT9Ff6PgEBmfF03TUtBz16XSH1eP3CFLgTLJaexI9xy5eBQWqOUnKNlM5orvt0f3
+         OrkDn6OvDgUWpbT7gIMWtpX4ekiLthzanrIi0qi+jKVn9lA6Hy/9PF+iByD5ysrHMdeF
+         d8VJgJAjeoH/lfW5kOb7eo0HtRM/kkjp5HNfbmJ9suZdDv4QL01wle/bjh/Y3jOpkjyS
+         RUHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788164164; x=1788768964;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3LyTcuGUL0Z/mag6M9SZrK5m2t3i0XS2stCBvD8t0aM=;
+        b=sQvj3e4SFHXwyz2WhDd5chzwLuNaJgUex9bhyS806RFiDVLCwAl5w4b82WLMV/ZkDg
+         H+BpdXoz8+i55f2kyDdT8aO4sj06uQG0X1Z10r4aI7pfwF/JcqNFt3fvoGC8Zc4alFgh
+         wPEdheE8lQpFzS6nRvKIKas2Hk4xpVixJGXKIaCQ1n+0b1U1KwYNoBtQ2HTCLcho9sXc
+         3VNmy7Yefxs1CFjihqxCKxFLO9sYpJYt0rgYGxkHk0jzvalJjbBwAI8IExHSNq6LgYT7
+         A4bO+PCHl7lg7apFaswz66lEsrgrL6YG6dCgnyqQYBddI5N7d6J1VNK2jox0JLoM44Tc
+         unkg==
+X-Forwarded-Encrypted: i=1; AHgh+RqkDg3Ue0WF7TmuDtBaRoKxaFZm+spPA3ehC06CiRqICYH4FWrzy2NnEnofepLf+ujMToBc1n74rqb4@vger.kernel.org
+X-Gm-Message-State: AFuF++kTZOW8fLGYmFqcJuFtJpe8dHpHitQrDSf8x54x1kU2etiZmvAG
+	NNKO5pR0VF6V7LZasBGd93D/XGpqO9r7RhLQhDpNYhhZqRZNMHNl+QTkSbdncaP1wRXO4nUwRn4
+	eZsiwUq84TToZsrtp9FblUNebSGZHtaqeeOQVIchE0MwMQ31khhlXrvzfvmTQSoOW
+X-Gm-Gg: AR+sD10OYqXCozLdcjlyeNkLNEnkmTIbfyKQPVbt7Ng8o5HZdfazYkYMCF0B8s8UpFH
+	hS62RL8Ukf2nel7CAS7qB+76He92QvCVe+mSBvcSRjFNpiamHva+QjwHAwx0nd2aKsMc7dqA4gY
+	5CoDMC52aZGyLfskzmiTk3veBt7nquTguYKPEs1VORzmOfdXCA7QIBWfJ6NwpOoUzX/KzvgyUSM
+	6ypZA0v9RuIpjT5I5saCp8ok3JVxZJjTyVb5rC8pmEwCfa4syfP6EZxq2Ls4CXBeOQojU+JdPlF
+	AOmfy+7MotPZlgZKlKdn9E7c4ae+15mDXomxeZsOBKtVsiT4yolgJ3zoLZBklWP9uspEKHRfMex
+	tcUzXVHlV8Vi4Cg==
+X-Received: by 2002:a05:620a:8811:b0:936:9525:e952 with SMTP id af79cd13be357-9391398ca1bmr2730073385a.41.1788164164197;
+        Mon, 31 Aug 2026 01:16:04 -0700 (PDT)
+X-Received: by 2002:a05:620a:8811:b0:936:9525:e952 with SMTP id af79cd13be357-9391398ca1bmr2730068785a.41.1788164163630;
+        Mon, 31 Aug 2026 01:16:03 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.13])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb20713sm20302271f8f.21.2026.08.31.01.16.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 01:16:02 -0700 (PDT)
+Date: Mon, 31 Aug 2026 11:16:00 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Dhruvin Rajpura <drajpura@qti.qualcomm.com>,
+        Anandu Krishnan E <anandu.e@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH 6/6] arm64: dts: qcom: Add initial support for Nord Ride
+ Embedded board
+Message-ID: <o5fxldighgmm6djxauuyzv3p42yj3q74e37msw5ephzlgnql62@ptghyorawgzr>
+References: <20260831032103.341633-1-shengchao.guo@oss.qualcomm.com>
+ <20260831032103.341633-7-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -76,141 +104,45 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260828-ad7768-driver-v5-8-e33ca6f841a2@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260831032103.341633-7-shengchao.guo@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDA2OSBTYWx0ZWRfX2u5lHq7Fpped
+ n7EeAn/AXVLzFxX2Qaz2uiCU7I5PHi9hdwuui/Kf36nd6lb/VqmWOcdJ2RySMJIkd41wMuOP6Sz
+ 5g6HZiVPFAELsnzuoRBTaY6qE8M+c48=
+X-Authority-Analysis: v=2.4 cv=O7sJeh9W c=1 sm=1 tr=0 ts=6a953845 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=clBUptZa5v5FR042Ey+sjA==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=GNrPpmwhwOQ7cWpVhzUA:9 a=CjuIK1q_8ugA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-ORIG-GUID: Is4BfVYR24fZynFHHHJhcHJBh7GlC3UX
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDA2OSBTYWx0ZWRfXxs1Hzgcx+Mc3
+ Vxzg2wqLEoYcMPjpwIqdIJWkaqatuA7mRJ/p3c6XwlSq4QiT7yEoi1VBY3MI7qXr7vlrC0wSpOk
+ td7bXvT59OmZ8uSaOEolqkibYczUKa/np6iP9mv11FULuzuFH0eBbxrhkQD0OcaFsgCvzbA3+uU
+ 98DgstNZgjoZCjf0Tm4BJorrDDHN+PMa5YwNQ3qzX+TDZq6+0ERkdOH2e0q411Fllb0i87F4IK3
+ iu88fDVtWYQ6ei5ZKAP2/+E1pjkIgHbGBkyFLJ6gi5J8vQ33k4YA1SY6+HPsJPStArwNkKi/8Se
+ UBQkpnGETNtlPN64BQw+GqqpBi57FhbEKL+Ew4iRMJiuTmxJT+qWHYoWSW0529s9TqJTM2CWZpj
+ yRyLXDd+Wql3lpLmNHOKpBEQF3x+aKFV2bfJLDFGcDZe5fXbohVairbFDkTaw02M+KbelYjABp2
+ iqcn05lV2uxlfo9qHvQ==
+X-Proofpoint-GUID: Is4BfVYR24fZynFHHHJhcHJBh7GlC3UX
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_03,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 malwarescore=0 adultscore=0 suspectscore=0
+ bulkscore=0 spamscore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310069
 
-On Fri, Aug 28, 2026 at 05:30:31PM +0200, Janani Sunil wrote:
-> Derive valid output data rates from the master clock, power mode and
-> decimation ratio.
+On 26-08-31 11:21:03, Shawn Guo wrote:
+> From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 > 
-> Replace the fixed x64 decimation and open-coded DCLK divider in
-> ad7768_configure_capture() with the derived default output rate and the
-> new decimation and clock-divider helpers. Select the maximum rate
-> supported by the configured data interface for the initial capture
-> configuration.
+> Add the initial device tree for the Nord Ride Embedded board, the
+> non-SCMI variant of the SA8797P automotive Ride board.
+> 
+> Enable the debug UART, UFS storage, the ADSP and CDSP remote processors,
+> and describe the board regulators supplied by the on-board PMICs.
+> 
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 
-...
-
-> +static int ad7768_set_clk_divs(struct ad7768_state *st, unsigned int freq)
-> +{
-> +	const struct ad7768_freq_config *freq_cfg;
-> +	unsigned int mclk, dclk, dclk_div;
-> +	unsigned int chan_per_doutx;
-> +	unsigned int dclk_div_reg;
-> +
-> +	freq_cfg = ad7768_find_freq_config(st, st->power_mode_idx, freq);
-> +	if (!freq_cfg)
-> +		return -EINVAL;
-> +
-> +	mclk = clk_get_rate(st->mclk);
-> +	chan_per_doutx = st->chip_info->num_channels / st->datalines;
-> +	if (!chan_per_doutx)
-> +		return -EINVAL;
-> +
-> +	dclk = freq_cfg->freq_hz * AD7768_SAMPLE_SIZE * chan_per_doutx;
-> +	if (!dclk || dclk > mclk)
-> +		return -EINVAL;
-
-SAMPLE_SIZE must not be 0, the chan_per_doutx is checked above, so this check
-is about freq_hz, do we need it? If yes, make it better written
-
-	freq_cfg = ad7768_find_freq_config(st, st->power_mode_idx, freq);
-	if (!freq_cfg)
-		return -EINVAL;
-	// Do we really need this?
-	if (!freq_cfg->freq_hz)
-		return -EINVAL;
-	...
-	dclk = freq_cfg->freq_hz * AD7768_SAMPLE_SIZE * chan_per_doutx;
-	if (dclk > mclk)
-		return -EINVAL;
-
-> +	/* Set the divider to the next-lowest supported power of two. */
-> +	dclk_div = DIV_ROUND_CLOSEST(mclk, dclk);
-> +	if (dclk_div > AD7768_MAX_DCLK_DIV)
-> +		dclk_div = AD7768_MAX_DCLK_DIV;
-> +	else
-> +		dclk_div = rounddown_pow_of_two(dclk_div);
-
-It's okay as is, but just to show that this can be shorten to
-
-	dclk_div = DIV_ROUND_CLOSEST(mclk, dclk);
-
-	/* Set the divider to the next-lowest supported power of two. */
-	dclk_div = rounddown_pow_of_two(min(dclk_div, AD7768_MAX_DCLK_DIV));
-
-> +	dclk_div_reg = AD7768_INTERFACE_CFG_DCLK_DIV(dclk_div);
-> +
-> +	return regmap_update_bits(st->regmap, AD7768_REG_INTERFACE_CFG,
-> +				  AD7768_INTERFACE_CFG_DCLK_DIV_MSK,
-> +				  FIELD_PREP(AD7768_INTERFACE_CFG_DCLK_DIV_MSK,
-> +					     dclk_div_reg));
-> +}
-
-...
-
-> +static void ad7768_set_available_sampling_freqs(struct ad7768_state *st)
-> +{
-
-	unsigned int n_power_modes = ARRAY_SIZE(ad7768_power_modes);
-
-> +	unsigned int mclk = clk_get_rate(st->mclk);
-> +
-> +	for (unsigned int mode_idx = 0;
-> +	     mode_idx < ARRAY_SIZE(ad7768_power_modes); mode_idx++) {
-
-	for (unsigned int mode_idx = 0; mode_idx < n_power_modes); mode_idx++) {
-
-> +		struct ad7768_avail_freq *avail_freq;
-> +
-> +		avail_freq = &st->avail_freq[mode_idx];
-
-> +		for (unsigned int dec = ARRAY_SIZE(ad7768_dec_rate); dec > 0;
-> +		     dec--) {
-
-Leave this on a single line, it's okay to have it slightly bigger. However,
-taking into account the below I would rather do it differently, id est
-
-		unsigned int dec = ARRAY_SIZE(ad7768_dec_rate);
-		struct ad7768_avail_freq *avail_freq;
-		...
-		while (dec--) {
-
-> +			struct ad7768_freq_config *freq_cfg;
-> +
-> +			freq_cfg = &avail_freq->freq_cfg[avail_freq->n_freqs++];
-> +			freq_cfg->dec_rate = dec - 1;
-
-			freq_cfg->dec_rate = dec;
-
-> +			freq_cfg->freq_hz = mclk /
-> +				(ad7768_dec_rate[dec - 1] *
-> +				 ad7768_power_modes[mode_idx].mclk_div);
-
-This style is not good, better to take longer lines, but split on logical
-boundaries. I also would go with a temporary variable
-
-			// can be shortened to 'd' if you wish
-			unsigned int div = ad7768_power_modes[mode_idx].mclk_div;
-			...
-
-			freq_cfg->freq_hz = mclk / (ad7768_dec_rate[dec] * div);
-> +		}
-> +	}
-> +
-> +	/* One DOUT line cannot carry the AD7768 fast-mode x32 output rate. */
-> +	if (st->datalines == 1 &&
-> +	    st->chip_info->num_channels == AD7768_MAX_CHANNEL)
-
-> +		st->avail_freq[ARRAY_SIZE(ad7768_power_modes) - 1].n_freqs--;
-
-		st->avail_freq[n_power_modes - 1].n_freqs--;
-
-> +}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
