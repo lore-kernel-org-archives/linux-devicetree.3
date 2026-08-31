@@ -1,132 +1,102 @@
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F13195625E1
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 13:47:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 930DF56C634;
+	Mon, 31 Aug 2026 13:48:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184064; cv=none; b=of0CRMKWftuDD6TawZKNsfXFNhXlrvqxGl/aVtR+IddVjbhx/Zt9dyrB+PBCMcp9SqesEVNhq3OCI7z8zlGJL9mdhnDHXhrn1etcPpa8f7//ASps8/Bvk4xXGn1qxO0Luv95fbF3Da7vd+S+dZ1/QGX4k8yeLP9izkZcZQ7FVR0=
+	t=1788184106; cv=none; b=sLl321Gs93yycx5DAVj6D1ReuAA+RiZsdgT7HCZbpG7bFf2ewFvZ/aBvDir1fXVWxBQJ/HcZtm3sK1Gd5B+SXVw1skT67jqbs9lFJx4V2BoXRS06Y+avKgEk5ddWsCure15rnWOwY/LDXJC3eYfxhEjGmShwd3U1h+jDsFRNFCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184064; c=relaxed/simple;
-	bh=wbzWufdH1+05XeIF2UprLNnPXLOsM98m2VskYJzVc3M=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Yg/yVzOgpS0PaFW0KGWP7MSMkpMeyTbMXkjnwyE1lTI4d4ujDCD4DmPl8gPoSCdsRWzWFnUHw1oyXqglEQDyq23MGvzgRG5rjQN8xMphWQFTFYjiy6OAWtympQeknz9GUNLhFoTTeaUJtJsxmHmixtPAvpBPQbXzChpWrmZnFHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bCQbuKY1; arc=none smtp.client-ip=209.85.215.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788184106; c=relaxed/simple;
+	bh=yBaSaM5g6nYdAQw8v5Byml+3Xg5e4QK6cEjOHqaSsH0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DFA86hlRJEgR4m7i6i9qarCH4LJ6ooCcJUPWASHM28xScbktZdNGxlcX1uxDqpt+BtjMKM5iF3Quu3oKiX6teuYTElrptH0BVFocF4DFAx659ylJKm/LTdLp+L++yrjFaVT9v072uT9cu4RF7wrkri1Iiysq3Q+6epJFjYJIn8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N4t+0c6v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bCQbuKY1"
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc147d86bebso4103695a12.0
-        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 06:47:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788184062; x=1788788862; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=EZphEP1aVBZVI+sCUTh5FGIjIPbG+M3yCoLuytV4vxw=;
-        b=bCQbuKY1fv4Coj+wORJliMtgE5QJIvAgCBXcNJrtdi/BaUYKnnLd/fxSONoBz3LKJv
-         MoIhtXa56/zImuIuxEOoo/4uSVJuEb0nmsDKkCbuywlwlYPUTPpOcLMGWhbbkDmhFGzc
-         VWZmsXQd28KdvPzN05/Arrdq+PdC2bcUO8P7KrciQObhspU6Ks8UCwBj5KA1zvYmXjfV
-         HFU3YXq95Sv0S9BhK/UA9sV0DEmf30cWpXNF2QZBH17BK9fKNi7ZYzO3UIWLREDFQTwG
-         GAWFiRYOnrp39kHu+lCqcl9SeU41I7iMrADNz/NLNiDF137MMxov/xvvluv42qfOxxUf
-         uKDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788184062; x=1788788862;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=EZphEP1aVBZVI+sCUTh5FGIjIPbG+M3yCoLuytV4vxw=;
-        b=JtSjKV3kio7B4Mb/DysKk4sSumnfzGKuwnSscnq6u3NL8oQcjVxD/rUMayZ/SCvnX9
-         CT31AO3kQ3naCqHemxWAjupnwHV6uaRxfBSE0GLUgzfpNVdhYX0cRgeHkTCf9AK94NJc
-         i+ACOHJTIwzPU8PCoQEHsxLu0BYApdPVyS2L9U+O1RHogXyjQxbQPshg2zxwZnLTXcrI
-         jcqG/doGjcd5wrKq+g821vtA70h4ilk1SsU5hwDhZ3XL7FpramVYjBxFXgHDmGoE02DM
-         mVGAhmfg6gD0UXrB4SL4hDLbP2OWEOvt0Zh6ZvwylWBfA88aImqmi2xrgochqVxMFBvE
-         UOWg==
-X-Gm-Message-State: AFuF++ntbzJGbZ11QIltSE1iz+pyHAMgeqjPk+E4FeasQxCmFPf+l5gb
-	DqxXCzjbknYlosQwH4KEt56eO9rkw8xpD3cvPRvY83hQ4hCZtwM5UpkQ
-X-Gm-Gg: AYBFou1EpXv0sbyC3VaDu+CWNGKq1gL8UgnA9nldYPFiyZQjDByH1cHLLvxVNyJ6zSM
-	GjjeKj+TQ+3D08q1jICEG+uk8NI5jnRzJfb80FGxfbYAp9k656BhXA36WWa4evtz9SfnM69IZRy
-	IZN9bBvZ+lGlA7//puMJRtZwj3QcFqMr2fIZ53hwkhIa+QXlBezroj5kleIkkmwIln7uz9cuZfp
-	zhEnTJ1HIscK908QbBhJiqc+YEiiNE728NoG8+19beDOMwzQ3ZzESPANwMBRrLcyC73dAr2q+kj
-	GlVr95bu+baSuMEDI7de37g/UgL22SMAEZE5LeNUkcege3U+L/O5AoxQ9ZXeTcCJqQMyFru5Ysc
-	wMQwtYl8ZidkY8Bm446s6aTOJk2oClUiE/Q3dPyCnKKHd0Hwn7CWf4wV/L29YvbfQBVclXYLiTN
-	M4ocbXphW/umzTCBwKYh5DXKTEvc3UeA1/GvzTRAvoP8wvpT6Z0iOHMgaWDsXywi1sABMggFbWn
-	KTX+qTJmu2WJnQZhYiE0j0vMpgr
-X-Received: by 2002:a17:90b:1d0d:b0:398:9bd3:d6d1 with SMTP id 98e67ed59e1d1-398da6f3ec3mr6720331a91.11.1788184062144;
-        Mon, 31 Aug 2026 06:47:42 -0700 (PDT)
-Received: from [127.0.1.1] (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0fd5c34sm22051985a91.8.2026.08.31.06.47.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 06:47:41 -0700 (PDT)
-From: Mike Hsieh <mike.quanta.115@gmail.com>
-X-Google-Original-From: Mike Hsieh <mike_hsieh@quantatw.com>
-Date: Mon, 31 Aug 2026 21:47:57 +0800
-Subject: [PATCH] ARM: dts: aspeed: clemente: Remove nct3018y rtc node
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N4t+0c6v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47FD81F00A3D;
+	Mon, 31 Aug 2026 13:48:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788184104;
+	bh=Uk2bfsWBqIOKDY5IOy+LzNuDq986xnkLRGje+YX7MIs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=N4t+0c6vwrVPLkV3wIdx5fWJsiDvmlsQ9BjoZtlcDpxm/yB+ixqhe59tBxkwmQVNk
+	 XaRA1W00l7nT5A9OgNs5IQt+iX7KQjOJtWUVHw4Yh1G3tWsxzv30RmKhjUPyZEzpSB
+	 p+0zG7t7NyqJlJL+h2fq1PzQG2PDGAQAKvFebdE+YXQ7/0z618SHBRMV2HtqiKpcbp
+	 GATaMtn0Pm/Y1KjRt00KiyIxPkUPexC2YensDJo6ZLyu2qEp89/+e8DV1TafoI6P7w
+	 OQcikH298PL88SCvCjvr8b0Z3+JUPH3y6SeRVZKNi24+r4tnTdzpDUgVkdIZnbxtff
+	 eGa5UKRoQpJkg==
+Date: Mon, 31 Aug 2026 08:48:23 -0500
+From: Rob Herring <robh@kernel.org>
+To: Bhargav Joshi <j.bhargav.u@gmail.com>
+Cc: Vignesh Raghavendra <vigneshr@ti.com>, Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andrzej Siewior <bigeasy@linutronix.de>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+	Ravi B <ravibabu@ti.com>, Kumar Gupta <ajay.gupta@ti.com>,
+	Sergei Shtylyov <sshtylyov@ru.mvista.com>,
+	dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-phy@lists.infradead.org, linux-omap@vger.kernel.org,
+	goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com,
+	simona.toaca@nxp.com
+Subject: Re: [PATCH v2 0/7] dt-bindings: usb: ti: Convert AM33xx/DA8xx MUSB
+ bindings to DT schema
+Message-ID: <20260831134823.GB733140-robh@kernel.org>
+References: <20260818-ti-am33-usb-v2-0-66fd44d66824@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-clemente-remove-rtc-v1-1-84fc5787a6bb@quantatw.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAIBQFrxJ/nWAKGV0lWtTvVR/KQiWC6O5Jq
- 2EWMw9FBEGktngo4JIoh89SlQXxOvgFSqbsZLSpdWMrxRt2+AQVsB9XRmI1WTc7xw00j5TLM2C
- W+792/ft+WksGJmUAAAA=
-X-Change-ID: 20260831-clemente-remove-rtc-d37f77c8e0cb
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Ryan Chen <ryan_chen@aspeedtech.com>, 
- Billy Tsai <billy_tsai@aspeedtech.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
- Cosmo Chou <cosmo.chou@quantatw.com>, Potin Lai <potin.lai@quantatw.com>, 
- Mik Lin <mik.lin@quantatw.com>, Mike Hsieh <Mike_Hsieh@quantatw.com>, 
- Mike Hsieh <mike_hsieh@quantatw.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788184083; l=1130;
- i=mike_hsieh@quantatw.com; s=20260522; h=from:subject:message-id;
- bh=wbzWufdH1+05XeIF2UprLNnPXLOsM98m2VskYJzVc3M=;
- b=2dMXHa9BYQMJWRIeFy9+pcKa28XMr7eWy8ya+OnqUgbtTebVuhdxMyXh+CIHfidxvK2Vo6CpH
- UpkwbQS4uMCB4BS0St4Z0vIHonO6AJfchblqTsk+pnKP61dsaihR+Be
-X-Developer-Key: i=mike_hsieh@quantatw.com; a=ed25519;
- pk=DRIErV0xX0KMBlR/irAsbuN4L3egitHbC8FHruUH4HE=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260818-ti-am33-usb-v2-0-66fd44d66824@gmail.com>
 
-The Clemente platform has a second source RTC chip (PCF85053A) that
-shares the same I2C address (0x6f) with the existing NCT3018Y.
+On Tue, Aug 18, 2026 at 07:58:42PM +0530, Bhargav Joshi wrote:
+> This patch series converts the legacy TI AM33xx, DM816, and DA8xx
+> USB/MUSB text bindings to modern DT schema.
+> 
+> The legacy am33xx-usb.txt and da8xx-usb.txt bindings was historically
+> structured as a single, monolithic file that documented the entire USB
+> subsystem (the wrapper, core MUSB controller, PHY, and control module)
+> all together. This series converts that monolithic text binding into
+> proper, distinct DT schema files for each hardware component.
+> 
+> Patches in this series:
+> 1. dt-bindings: dma: ti,cppi41: Convert to DT schema
+> 2. dt-bindings: phy: ti,am335x-usb-phy: Convert to DT schema
+> 3. ARM: dts: ti: am335x: Fix redundant interrupts property in USB nodes
+> 4. dt-bindings: usb: ti,musb-am33xx: Convert to DT schema
+> 5. dt-bindings: usb: ti,am335x-usb-ctrl-module: Convert to DT schema
+> 6. dt-bindings: usb: ti,am33xx-usb: Convert to DT schema
+> 7. dt-bindings: usb: ti,da830-musb: Convert to DT schema
+> 
+> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+> ---
+> Changes in v2:
+> - patch 1: add interrupts as required property for am335x-cppi41
+> - patch 4,7: add pattern constraint for dma-names
+> - patch 6: remove deprecated property ti,hwmods from required
+> - Link to v1: https://lore.kernel.org/r/20260818-ti-am33-usb-v1-0-69ac5f92df45@gmail.com
+> 
+> ---
+> Bhargav Joshi (7):
+>       dt-bindings: dma: ti,cppi41: Convert to DT schema
+>       dt-bindings: phy: ti,am335x-usb-phy: Convert to DT schema
 
-Remove the statically defined nct3018y RTC node from the device tree.
-The correct RTC driver will be dynamically detected and instantiated
-from userspace/early-init script at runtime.
+These 2 can be sent on their own.
 
-Signed-off-by: Mike Hsieh <mike_hsieh@quantatw.com>
----
- arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-clemente.dts | 5 -----
- 1 file changed, 5 deletions(-)
-
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-clemente.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-clemente.dts
-index 820d39a92974..51e90a4fba0e 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-clemente.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-clemente.dts
-@@ -958,11 +958,6 @@ io_expander3: gpio@21 {
- 			"",
- 			"";
- 	};
--
--	rtc@6f {
--		compatible = "nuvoton,nct3018y";
--		reg = <0x6f>;
--	};
- };
- 
- &i2c7 {
-
----
-base-commit: bd35c4d64a566319bb5a151384eb9dbdf4b44eb9
-change-id: 20260831-clemente-remove-rtc-d37f77c8e0cb
-
-Best regards,
--- 
-Mike Hsieh <mike_hsieh@quantatw.com>
-
+>       ARM: dts: ti: am335x: Fix redundant interrupts property in USB nodes
+>       dt-bindings: usb: ti,musb-am33xx: Convert to DT schema
+>       dt-bindings: usb: ti,am335x-usb-ctrl-module: Convert to DT schema
+>       dt-bindings: usb: ti,am33xx-usb: Convert to DT schema
+>       dt-bindings: usb: ti,da830-musb: Convert to DT schema
