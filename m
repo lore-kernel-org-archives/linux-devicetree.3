@@ -1,237 +1,270 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013013.outbound.protection.outlook.com [40.107.201.13])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011046.outbound.protection.outlook.com [52.101.70.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F2A23EB0EF;
-	Mon, 31 Aug 2026 12:06:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18C9F3E49D5;
+	Mon, 31 Aug 2026 12:08:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.46
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788178017; cv=fail; b=srbpG5AFFqGbLb7n8KUeXv5A1Nj1IKmI1lJ9/F+uYackKMQk5+tKMikNz+bWDU9PJaq9IYCPqRrt6JSO0SfR6FZc++MyR9+3OSkUk2kvquMQNJIWjJwMzYBgzYD4+4LQYcMZcewpiUFQ/bybY6dwp2QQFzaCFJ7/AmEu/L+gTwA=
+	t=1788178123; cv=fail; b=A4eKnxujUF8WenvqVcn2Cc27iNpnN2R039kXDgVPeOz+/TbWOZtz+xV5xQxkz/2pMLVTp5gayXcAUiT+pRh11ped/TmYJyJkNiLTBYfLNqWQPKa5UKgmshWqDMJj+QSNJiraeVJ/vOYVQHdrquaVMqts0391jyjbGYouOqv+6C0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788178017; c=relaxed/simple;
-	bh=0fk4EVb/OthtpZfh6/mG+Lezn5ajgjaRlsnk1U5ite4=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=K/ztz5AqvXpouoE/jtxSc3c1lmCfMmIwvEVzL7VgMbk+BpL4jaK/dC6lB+lQzpI+ASZ4VpNfj94uxN8R4pKyjXRX2vJlREcLvMzGINhOt4x6bH4O6FFLO8DzXe1d+devXexO6h/4xR+MrkaAngLe4siyUTxxW2PA8o4pb1hXFJk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=gvEX1Ofg; arc=fail smtp.client-ip=40.107.201.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1788178123; c=relaxed/simple;
+	bh=dIAZhYjnYjvLRWkaMLh+9yxpywtlVmYAlWW7yuukUEM=;
+	h=Message-ID:Date:Subject:From:To:Cc:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=jlrJj6a/rQree5LQX5XebvfOf/BBzQjNxf231X4n8F7qoDFzS4La0sd6s3WKOOlGrVHAjhCKnZ2iR2PufG7LuPSYNVftF4B5ruSHk3yWPpSf9qnZB7FCuyXwIP8jVoyXAtp7fjAol+Jkl5H9HvbrrfZhfaTwMKNMtH7lXFR4T8U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=OhYfWNPk; arc=fail smtp.client-ip=52.101.70.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="gvEX1Ofg"
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="OhYfWNPk"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Y/ifqzi3f1KgPPd7wSMdt6l3BSuM56GOhL+WGwfIK334aBNXVnyeUNg9lcTuYKajK0rEFt4941bbJkQX9SVKbxo7ecrSeFplFCZiFfOrlElG4QMipMxhBmUnnRJwIMvB3KcVP+wJoAYebBnMnsvp3VlCHbS0/feoQt5aaZyL1r6mt/7ARvutXMkJ8zwOLG44NNyBId4tGUn16tzmyE2byMINLyFvP4lIcvH0HwP2ioUAAiqbT2etisR7swl6wFV0lHxfZgjIpUqyJ+vWnbwKTDiIRZLksnLqSjRMTHtDyOlqLxdJXYnUVDU1uef+9fSmlbNK1ZLJYJmfEEtRXEo8hg==
+ b=YvQXYb5c64Os8LNSQNGsq9sSLjzasbtv78LGFJXUF8iHL0b/Kh5ViXlGCLEs5kMtQJ/gcCV82Rk416eYiNClInpl44xFEkwmF5yURuDp+IG2tvwhAdeJeBc4kFvOY4zbyETjq3cbTxopAM9mf9qvW9lNtiDE1XhXZHWKdU3ZyxBqYkK6dmmD+qOwPbwNRAxakMNznKaX4XAvNB/XJupzxoc4PFxf0LVx6qQUvsnWJn6TaQwhk6Zk8Sjmu0KJLmdan/gESmCyHzgZhFqK06W8v8mYnOm5Bgl6aei+vbkbWAnfD0FpNicU37BJT3XWQTLfwKr2O6MVIrrNdITWmWmzzg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BCnxnETcHGHEBFT6iq7BRwnHbP+yavWcEODqzC6Rht0=;
- b=Gut68Me5T1hhLkGbmCeg/8yCS8mwnaCfz5Swe8Ax7kn65onNxiAIgZWuD2SH9HZ+/gu8ckDG7W18wTmmdpol0RT4tjNwLF6OlLiPkKJ+NpjNLOYdrv6IEkB9nQDkPc+KnWhkCmykdzFep9EW+P3FvU/GQqQTDSomCaEuAPCpOyIqGUQTzTPrkh9lCd0u/ixXcrebRwBDaK8p1/7qYOjSyFUFfmOPb4UFTWvJA3fWmiqZYn1tqZ6UScRvvewC0v8iOpmoEZ0K6sJlMbEumi8d7TSI8Qxg+TE7rIWZqwVw4d3bRk46qC+GMUubx4ngmXl5JYH7T4zqGZGwydAcvCaKHA==
+ bh=WKhlZQy2oQUcoYpvY9FCk52zrw4dIHyeqaHnqW9BB7M=;
+ b=oBC6gHIcJIuJ0xxzuV8FeE5/jm+eBbGmc6yExrn5926Zz03u65nZ6mocMRSUKF65/eYPxRVcphVV2cfUlXzPvspzFYEJcDMDZRNQkpVL4OgIxx5ENeBvxcOIladVcOlyf8PCHvqUknrdlbC5/whWRnUBpKv+PAaAGrEF3NZybIG5/k9H7Dg0x+YiwKMSmoXsSrnazo1ZEiIH9oD7bmX+ZKbTCkE3z3MLCSjLXYhvE9VEZp2eQlGNdMffzEHRo/gDmfdhp6+hxuSuL3hvVnTmWnriUenh3n+IqeOSj/8WAD8pkCb0AZY2PiFFcKHbTAHZe0nhI0vZbFBGajbgUzUj1Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BCnxnETcHGHEBFT6iq7BRwnHbP+yavWcEODqzC6Rht0=;
- b=gvEX1OfgA5vREPHKgpA8MncKsSM8L3kQdchZh69v0J5baJpa7gaUJnEUh1u/6SnWB60mJwZAGLmkhyR3Hb6VHjUbgKSObyeyduD8U1dD8gReBd0vW/1LT/jWk5KsN7dN5mCd+/wVNX+KJjG58haStN8hxuuiqBT8+OKwUSDZ4iQ=
+ bh=WKhlZQy2oQUcoYpvY9FCk52zrw4dIHyeqaHnqW9BB7M=;
+ b=OhYfWNPkO/xW1SA4P8J/8L4qQWmi/3oSl4CzbCX3cGSBlrEUi3HSp29N2Tytwl8NHHdZ6+5CsVpiAS4ps3kSM+2g6vXtlqCw1PP5iMCIjWEZcvw9HAtUmRdEnB8uzb7ZkvMGccxIvZQD8OMlon+upkOU5ZsWDIVfHgQvjfJoqFDb4t3R4m/bJKme+NK+1n7fEFxK0VszoOeKMXEs3gGDhGx8ng5W2LkmtFU7oWhAQu6XRfMTqqCrsrkIa3u/5G3dhFzR1KgqOAoABY4OBiKwYXUeiqmfA8+9kBJah8TgOfCsbFcILGsh1FY6gXfSpZ/wkdGD3y5IHF/FHFoOiHoPnw==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS4PR12MB999075.namprd12.prod.outlook.com (2603:10b6:8:2fc::20)
- by DS4PR12MB9819.namprd12.prod.outlook.com (2603:10b6:8:2a0::22) with
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM0PR04MB5858.eurprd04.prod.outlook.com (2603:10a6:208:132::23)
+ by GV4PR04MB11972.eurprd04.prod.outlook.com (2603:10a6:150:2e9::7) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 12:06:51 +0000
-Received: from DS4PR12MB999075.namprd12.prod.outlook.com
- ([fe80::4c9d:851d:3f44:800f]) by DS4PR12MB999075.namprd12.prod.outlook.com
- ([fe80::4c9d:851d:3f44:800f%6]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 12:06:51 +0000
-Message-ID: <d42ac198-9fff-4a3c-a3c9-2f032021c4fd@amd.com>
-Date: Mon, 31 Aug 2026 17:36:44 +0530
+ 2026 12:08:37 +0000
+Received: from AM0PR04MB5858.eurprd04.prod.outlook.com
+ ([fe80::bdf4:c9d1:4e3f:68c6]) by AM0PR04MB5858.eurprd04.prod.outlook.com
+ ([fe80::bdf4:c9d1:4e3f:68c6%3]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 12:08:37 +0000
+Message-ID: <172b9e7c-3c8a-4bbf-8c99-a10412992ebf@oss.nxp.com>
+Date: Mon, 31 Aug 2026 15:08:34 +0300
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V3 2/6] PM: runtime: Add pm_runtime_if_active guard and
- conditional variant
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: vkoul@kernel.org, Frank.Li@kernel.org, michal.simek@amd.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, git@amd.com,
- dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org
-References: <20260810100452.426320-1-nagendra.golla@amd.com>
- <20260810100452.426320-3-nagendra.golla@amd.com>
- <CAJZ5v0gKwxBp=Ajm5_iJEP0GTY5J7SJnHJGCQjfKYgmOHqE0xg@mail.gmail.com>
+Subject: Re: [PATCH v6 3/6] can: flexcan: split rx/tx masks per mailbox IRQ
+ line
+From: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>,
+ Bough Chen <haibo.chen@oss.nxp.com>
+Cc: sashiko-reviews@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org,
+ Frank.Li@kernel.org, Oleksij Rempel <o.rempel@pengutronix.de>,
+ linux-can@vger.kernel.org, imx@lists.linux.dev,
+ Oliver Hartkopp <socketcan@hartkopp.net>,
+ Vincent Mailhol <mailhol@kernel.org>, devicetree@vger.kernel.org, s32@nxp.com
+References: <20260713085306.2643794-1-ciprianmarian.costea@oss.nxp.com>
+ <20260713085306.2643794-4-ciprianmarian.costea@oss.nxp.com>
+ <20260713090803.CCE2E1F000E9@smtp.kernel.org>
+ <20260824101241.ysq45swzx4ihctel@shlinux89>
+ <20260824-mustang-of-original-fame-4b3a91-mkl@pengutronix.de>
+ <72930ce5-eb4e-44f7-a302-2cbb058d8293@oss.nxp.com>
 Content-Language: en-US
-From: "Golla, Nagendra" <Nagendra.Golla@amd.com>
-In-Reply-To: <CAJZ5v0gKwxBp=Ajm5_iJEP0GTY5J7SJnHJGCQjfKYgmOHqE0xg@mail.gmail.com>
+In-Reply-To: <72930ce5-eb4e-44f7-a302-2cbb058d8293@oss.nxp.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN2PR01CA0238.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:eb::8) To DS4PR12MB999075.namprd12.prod.outlook.com
- (2603:10b6:8:2fc::20)
+X-ClientProxiedBy: AM0PR02CA0187.eurprd02.prod.outlook.com
+ (2603:10a6:20b:28e::24) To AM0PR04MB5858.eurprd04.prod.outlook.com
+ (2603:10a6:208:132::23)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4PR12MB999075:EE_|DS4PR12MB9819:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1a6544f2-d005-42ba-6865-08df07585754
-X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
+X-MS-TrafficTypeDiagnostic: AM0PR04MB5858:EE_|GV4PR04MB11972:EE_
+X-MS-Office365-Filtering-Correlation-Id: 75975313-0d67-4170-7393-08df07589633
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|10067099003|11063799006|4143699003|56012099006|18002099003|22082099003;
+	BCL:0;ARA:13230040|366016|19092799006|1800799024|23010399003|7416014|376014|10067099003|6133799003|11063799006|56012099006|4143699003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	UPFsYPMoyWfLgj0bxtDAKNLWN7PDhft0QyjWpLe1vqjZGKGSEShqrQGX0MJkDYDBqxzFOUf4AwuAiksC7iCJsJufx9V3attsBdV+dhHaFOuTsfJYmzUA0bxKjYJvjrcHZHfDfzL0b+FCcf2KqwIJN/m4gyzlteCk2A+uHogQS5+xPqeVgOD4tKL2lHfXHckNyohtNsHFV5j0s4KW8aoSZNsCB/tJUP6YXo3lnWqZgVoKtSaKYIgz+lyEOgjaw4NGRSECEgzagpboj6eUjxRXvt6kAlrf3FRFDT0gaGPbecNebR11X3bzOQ0XXga4iQBZX9jC2wHdxI6X/RLnYOLUiGrQQ4JYn4d0Dn1QClczvWMSKYU3nQfegqPWXAT7ivc/ej+uts+EZFf5gLjHDKkMFIZtXtL2SkjlqO3s5kxu0/aBjxJatItGHWUUUX7+6nzJzptgJVpZuUM03Rzlkd9Z6K+XvnB92tiCR1LqQe18OVLixmdIgxMUWLrjEC3TpJm9UYlyrfv1x4Y9jRtxJCViLS/KmnVnEAJcYWBeiqlZ1F25oLc6ITOrcu3ApfKVsyKHBH0Xe7jUq2dFzaYJvYTxkI7UPqLK2OaTsXlDq+offsZJNrAJzsCOkmu0ji7H0ujW70mzeDi4fF2Fgc52iNVgbxGBFu6nkyhdq0tmoPIu5aI=
+	dVusYfVZl/Ad2K4euyB9YVEsSSmWnHLACQSx70IA1rWrVci6GKynh3Z3g2FX44cQ5FihIjoPOX3fjJS/eST+Ei0BqXzH/3xzguUwESiYfYc4899MFhOmYaG8OT2A6jN1pILq0yHKUg7T53GbRyeqb0c70FDdt806F3k97ymRhDMmfJXjAlL1EC4FWoraRAd9khZNkDvgg5EFf6P7fgHmiiTDBXaZHouH9Lx9qCmpahDIoAYjP/Kbcy22vW9kMobTsqjfjUW8cFz3IEsKSZJsKS6PU1KjJAJsbZH8HEBGe0ONxLhqMS7RGcij+XUavsmezZPI4VZBwlc6SfIbXAFcdOoZbC9Os+A7cwCj2f1hcSAXR2uQYqnkY1aGuh6Nq+jpBiFlcY95atrOKdKj4KNrydvPcv0UPmunnWGMN5gPQz5zjF3zI1R+HZACs6lYfHJry5YGo3LtVqzWTW9gSmvPztnad+nsCBKNbcbmjOFqOid3iDW6/YUHGWaWNRwG2ky4UmGTOuyZQLdlTEk1AbH7VRKORw9QGj4oDVfmtRD39oVE5/kSO8KO0rGUNgXo80xhYNUObSgVP1rJnckW5amxBQkZ/oA1AHPmpSFnHCz6bCFKF1QPfgnGItuE7cTgdCWyFQMH98XgpdN6+67r+KH3m4DsL3uKGYxeb+Gp0C9w+bc=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PR12MB999075.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB5858.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(1800799024)(23010399003)(7416014)(376014)(10067099003)(6133799003)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VmpTcUgzZ2tXZStqZWpHcFdrZUFsNWFaclQrUXFzNFg5YzRCVExSTmErdkIy?=
- =?utf-8?B?MVdiQzNnTklKdXhLSTRuMlc1MmN6Vlg4amk3QnkwNkRXQXlid0FtdzlRNGlN?=
- =?utf-8?B?RWFoTEo2MERrMHR5cllzNGhTcTdteG9TcDlDSVhkbWFTWDBhTWdMdXZjOGh2?=
- =?utf-8?B?a3dHZ2N2NkZzZ29WTmtJVnQ3cnYzMWJVMGRFS0JZditWMUFtcTdGSEtOVFNs?=
- =?utf-8?B?VGJqd0p5QTBadHJ0OXRIaXRqU1p1bGgxWFY4QVRZbjhEMHVVNnpJL3Vna25O?=
- =?utf-8?B?cE5kMklrN05sYkVhdVUrV0s3Sm9MSFpqb2lCc1dreEhaSTJiVERNNVo5VmFH?=
- =?utf-8?B?eVM1NktGK3RmUmpDQ1owbSt0ZDU5eVE1YVpMTmxPTkFUYnVEWGswZlg5aTVH?=
- =?utf-8?B?RUJhd2FKYVFURk5VOVJESG83OEp3Z1BraWkvMnRyTGJtdVBlenRUektLSkI0?=
- =?utf-8?B?NUZlR2tFblB4azR5WC9kVzNFcWJtWVJVQ2FZSXBwaEhpdHhrVW50di9NTklO?=
- =?utf-8?B?NG5jVWhvTnNMRk5pdllwNUQrMTFXQk9EVEV4OHhnb3dwQWhlZmlMUk9kYUs3?=
- =?utf-8?B?NzI3UGVhcTZrZU5lVHdQZ0w3cTNGdmNjZ0lZYzIwamNma0RiQ3g3N2V3Y29w?=
- =?utf-8?B?c1NtM2dOQmJOQlZaUERWeHJtdW5GaGtFSjBkTjdhcDZTeEMxdmo2ZWRDVEx0?=
- =?utf-8?B?cUY1MUQ5bDhzZmZ2dmpJZUE4RW1oaDJQODYvR0ZuZlBnSmJFcTdzRXlFcGN2?=
- =?utf-8?B?Umx6ZUh4K2VoWDQ4NHpObWVNRTRKSXE0aEo2OWxUby9MZFhOT1dzbHNWSGhN?=
- =?utf-8?B?UkhWNmg2QVU0MldJeTh0MnpPRE4xd1NZR1RKNHdPTCtGUFd2RE91dmkzWFNp?=
- =?utf-8?B?ZUJyLzB4NGFkd2lOSm14Uzk4RHVBR3Z6Z05RSmxXVEo5YmVoTFNKNHdQWThz?=
- =?utf-8?B?S3A1d3lKSnA4Y244cWZqZXZ3ajN1a01kanBxYktWT2UrcC8wZ3pkZE9iMVZU?=
- =?utf-8?B?MFBlTDZkYU04c2xya1ZybnUxMmlYVHhleU5zcnpjSk9WMEVvcVNKb1Z1TDdx?=
- =?utf-8?B?MlgwZmVUZXUremRmNnlXbW9sMWMvNGRJUUUwV0JwYjB2cjNmazU4ZmlZOWtI?=
- =?utf-8?B?UzVLTmFub05ZSFR3c3dHaEdFUXp0VVVrcEtLWFkvRVV6aXJnRzExeWJLZWhu?=
- =?utf-8?B?ZkFlbjVXQTF1UE5oNkM3ZVNpbWRmNzNyUFZOclpIUmdXVzVMZkUzUHNocTFB?=
- =?utf-8?B?bFFnRnllM3VFeFFTNkxwSUhZZkNweTRvMTNNZnZ4cTBPMTI0eEpLcFdMdFRp?=
- =?utf-8?B?QWZnSC9paWRscDliRVg1OUtzR3ZtN1FKTmplOXVuS2ZhcFZWN3JiZ2Fxbms1?=
- =?utf-8?B?QjFwMjJBd0UvZWVSaVE5SnFjMHkxZ2F4dy9ob0hQa1hmVjVOTmVhdXAxT0RJ?=
- =?utf-8?B?akNVY1hIMUZVMlNTYmZ5ak9pRFVId3BzSHBsZkErU0RIbHcvam96cHNRcUZn?=
- =?utf-8?B?Q3R4MFJlMUtseTJhUnJMTmhyOEFxdDRwQTBtdDF4ckNENkFiZk94VEVzYjJT?=
- =?utf-8?B?aFQvYUUxQldEWXBWUDdPMmxtUStkaGZBMGg3WDB1eUF1cHh0OFFVSDdHamNI?=
- =?utf-8?B?QWZsR1ZoUFhwTmVkMlRZNWYyamtYQkdVazRsNEVrN09FN3hWRUppUmlCRU1h?=
- =?utf-8?B?WHJKbklNUTltNm5hL3dFQXhNTHcrTnZTaGJBU0lqSzFqa2JYeTdwSWdiUFVI?=
- =?utf-8?B?SEJ5c2xoVFdWcUlXTkJDU2tha3V6YU5SY2J4bWpJVTRscFhVUEFXS0pBb3NG?=
- =?utf-8?B?OWxLVGZEclVBcWZFOEI1ZHFKMldVQ3JWM25BUDJaMjZsWWZ3WC82WnZYL0s5?=
- =?utf-8?B?MXpjS0Z2cituQ1ZTUHNMWG1FakNBczlUS0VxNmZ6MUxtUUh1RnVzZEt5azNW?=
- =?utf-8?B?eG5CUncvQThBT3VKQjJiQjkvekUvNmZDYmNReTh3Y2p2UFY5TGsxN3h6RnF6?=
- =?utf-8?B?VEJvNGpqZGM5TlYxdFFVaDg3Z0tyRVR4Z01Hb0EyODJZK2JoWUxvMDVtVU1q?=
- =?utf-8?B?REEwNnhkb0I4QnI0cEVHOGcrcVl3U0NNVU1MOGR1dXBMdGRPeWtkTVc2M3NF?=
- =?utf-8?B?SWRMNnNQdENzYnc0M1MrZi8rSjk2Smd5RnBQdldOSTJrM0VOUk9NRld5Y2lG?=
- =?utf-8?B?bEx3QTR6OElYQytiTzZVNzRKUDZaSHFIY3ZXanBIM29MQmkwdzJoQjJzYnBN?=
- =?utf-8?B?TTNNakRpVFh6UVlhYm9SQ3Z5aWFGZys2cDdnbjlZVHJBYW8wVWF5V2ROK2xq?=
- =?utf-8?B?SEtuSjlobkVLWWxJY1ZYNzhUTEpySGxoVEF3ejI3QkI1VTU1N3lVdz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a6544f2-d005-42ba-6865-08df07585754
-X-MS-Exchange-CrossTenant-AuthSource: DS4PR12MB999075.namprd12.prod.outlook.com
+	=?utf-8?B?b2RVM211Z2NnMzluUUtQT08yL2pCQVUrSC9nY2ZLQzZ5RmJ4U1Zrb3I0KzRs?=
+ =?utf-8?B?OFJ1bmxBeWdaays1a3I1Y0ZvT2wyNDV6NXFJU0RVR0o4ZGJJZmNMYlQxSGpm?=
+ =?utf-8?B?YzZ3Nk4yL1JZaWlSRHYvZnB6M3JhcmkyZFF2cFR2NUpBRkQyak1hZFZQNFZD?=
+ =?utf-8?B?VFJtK1VLNk9ScmNtL3hxVGZTM1IwZWg1Vm8wMHU5aHBVa0ZTNGRkaW82aHRj?=
+ =?utf-8?B?eng5ZDVERFFWaW1GKzVMRUpDZjFyL28yMUlSVkZ5WVdrWVdUQzdyaWNaaW00?=
+ =?utf-8?B?b2F4ejRCUUswY2R1MnV0bkN0bVMvdXloYlVwNzJra08wa2NON3gvOTB2dHZx?=
+ =?utf-8?B?MGhEYy9XbklNL1QzMjQ2VzFBZDVVMFU3VFlkTmkwZDFJaS9yYm1pdmdZakwz?=
+ =?utf-8?B?a0E5UWIvdlN0U1QvNDNERjE2MVNMSjRIOU83VWlDTnQzb0hyYmV4NEVVdDEy?=
+ =?utf-8?B?Q0ZHS3FHRUtScjRjM3RtME9lbDVKNXlYNitDL2k2b3NJbGNHWThjeG8vamNE?=
+ =?utf-8?B?ZjZobnVWUjJSWWczazRTc2t2TUhDVnBzN0NCUFRrMlo0N3Fma1lDeUpFWjdW?=
+ =?utf-8?B?V0NEWEJtSVp2dUkwZ3MreHprOXN0cTJhOWw2Z0xNQml3U2RiclYwNlVxc09G?=
+ =?utf-8?B?S0laZFNtL1RLQW5keFFHM0I4cWJGU3orOXZ4aTNLdkJMMmNhOVkxQ0RKM1J5?=
+ =?utf-8?B?MDZObXF5NG9hb0x3clM0TTdBS01uSFpYZEtHOGlybGtnQ0ZIeU9BNXNETlhD?=
+ =?utf-8?B?cjZHYUhya0s3WjlpZWFoZ1pWM25MUzR5bGQxSk9HRXc3Qnk3amwyblRjcXpO?=
+ =?utf-8?B?T0xRUndqMDNOSHN3Vk9YZ1NDdW0wUmhCWGlkTjlUVGxOdTA1VVJ5d3E2OXd6?=
+ =?utf-8?B?NjdUa0F3TUY4WVcwekRrOXB0bGZGTitZclpndnlUQTh6NEIycHdwQ3hSclRZ?=
+ =?utf-8?B?OHR3b2VRQldXeXYzTEJlQ3p1aTdWN0doSklwVlNFMXk3ZHIxS2w3MWQwNEdI?=
+ =?utf-8?B?blkxS01aYzcxUDRiY0tkdXJxL2xtYzlFeDVHTUtWZ3RBUWVFS1JHdTE1ZmJZ?=
+ =?utf-8?B?M3NrYjhEY0ZHc0FtL1lNT2dBbU12L3UrNGJ2bk1rQXpOZG9vZWNmeWZpbVRR?=
+ =?utf-8?B?T1dRS1ZpbGQrQTZxQUhKL2Y1a0FGL1dPeUVXOThhZENSV3ltTlNaU2JvMnk5?=
+ =?utf-8?B?dnJob3JSbXhuNW1tbFJVVEV1U1hwMWFtZVpYR1hSOHhVWFZrZmNiN2RsNFBH?=
+ =?utf-8?B?b1BwcWdja2EzVnFEaFkvRGJrT21nTVVuN29NRHAyTDV0VFhITVprYWpiRXRs?=
+ =?utf-8?B?c29vcGpueDR2SDVXaHRSNTI2WE8yMVFqVEtvUzlFY3UrL0M0ZXJtaXFUQWhU?=
+ =?utf-8?B?K1F2aEhKaWJpdXhsWjFIVkRCbm8zc045L0lKVDlQZnpoOTlnTmZQeFF2Wk1s?=
+ =?utf-8?B?V0tyMU96YndWN3c0YW9CSTNyRnVEbFdDSWM1bFJ2RnIxNkppNEVySmFyaVAx?=
+ =?utf-8?B?c3lQM2xTVEhLZ2hnMVkzU3dEendWYTRvaDVDR2xuanVNYmQwcEZNN0Zzb29l?=
+ =?utf-8?B?VzdUSEpNUUxNaDY0M2pJZVhsZk1wd3FRc2tqRWJiTkJoZ0FzY1B0Yzc4SWpM?=
+ =?utf-8?B?NnRaWnhycm5VZlo2Zm9oYWxMQUVXWE54cGJUZVJLVGg3RnlxanBxWnQ0bDhp?=
+ =?utf-8?B?bERhK1h5dlNjYVM4K0krQ1lIZDJIbStQQitYRGFVR1lSbWExL3k3eHFJZ0lM?=
+ =?utf-8?B?WVlOWlkrQ2F5Nzkxd0lwS3AxdHVCT1QyMVZJTlVCNFVUOUs4d1NOcC9NYlNj?=
+ =?utf-8?B?RGF1RUNGcjRaZmNqeHpZQXIreVAwczNhbDM1UUpjTDJJaVZnVUtQSWZpakp0?=
+ =?utf-8?B?MGJwL0xPZzM2dThsT2I0VisydjR1K2FwRWZucVhYckdzVGFISmRkM3BoNjQ0?=
+ =?utf-8?B?OVFVUFJvMkF3UUZkejZ4K0pxTks2aFBwTGl0MlRXMkJVUmRlek93Z0R4Mmov?=
+ =?utf-8?B?U0srZmE2TU1LZndHaDEwT2UzUDRoc2tHUU0xZFlNVWdxMWNxMktZUkF1SEF0?=
+ =?utf-8?B?aERTS203akxHM3UvR3pJZ2xOenVRYmVzRFUyZmgyVThsR1NoVis4T3NDOVEr?=
+ =?utf-8?B?TmhDcVhDRnUwVEtkbTdMNFdZZis4TjlGclpuU2RaUmovRDk3dkZOMVc0KzQ4?=
+ =?utf-8?B?SXVEZjJBdVhVTWs3NHVYd0F6T0xsYVlOTnVxOE9lTzFhSzJOWU5UOHJ3OTNM?=
+ =?utf-8?B?QTJjdllIbHJmc05yUFlJNnkyQjM5dUFHT1RKN2w5MG94OHh1TVRyVlZXY1JY?=
+ =?utf-8?B?SWRZVzN3SDhoVUJoUGFzUk9GdXVCd1FuRWVSbnpqMnJqeTZuSzRkWDZsblho?=
+ =?utf-8?Q?fBCHRcAZ7tHQJvzc=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 75975313-0d67-4170-7393-08df07589633
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB5858.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 12:06:51.6674
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 12:08:37.0195
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: R+UG/+e0ZnkEx0iksBrrLpAigBycK7/3b+u21spP7g240WQK1jgKmSaNM4Na2/K/Hk66vBu+dyMDU6ZoYcVeWg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9819
+X-MS-Exchange-CrossTenant-UserPrincipalName: fT3Ue/n4+hJspXGdM/GUg9NgQnjzrzHbgxeggRls3Fb7kiRu33NSnig42H92JcwNHhTZnwKOdQRVUjLS43otloaO2gxBYbl7ejT7qHdHrSs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV4PR04MB11972
 
-Hi Rafael,
-
-On 8/24/2026 9:48 PM, Rafael J. Wysocki (Intel) wrote:
-> On Mon, Aug 10, 2026 at 12:11 PM Golla Nagendra <nagendra.golla@amd.com> wrote:
+On 8/31/2026 12:29 PM, Ciprian Marian Costea wrote:
+> On 8/24/2026 1:16 PM, Marc Kleine-Budde wrote:
+>> On 24.08.2026 18:12:41, Bough Chen wrote:
+>>> On Mon, Jul 13, 2026 at 09:08:03AM +0000, sashiko-bot@kernel.org wrote:
+>>>> Thank you for your contribution! Sashiko AI review found 1 potential 
+>>>> issue(s) to consider:
+>>>>
+>>>> Pre-existing issues:
+>>>> - [High] Concurrent execution of multiple flexcan IRQ handlers 
+>>>> causes lockless list corruption in the can_rx_offload queue.
+>>>> -- 
+>>>>
+>>>> --- Patch [3]: [PATCH v6 3/6] can: flexcan: split rx/tx masks per 
+>>>> mailbox IRQ line ---
+>>>> commit 9f143e05fb5957d463ce1d05d4126d168798b0d8
+>>>> Author: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
+>>>>
+>>>> can: flexcan: split rx/tx masks per mailbox IRQ line
+>>>>
+>>>> This commit updates flexcan to process split rx/tx masks based on the
+>>>> mailbox IRQ line for platforms like S32G2. It introduces MB0 and MB1 
+>>>> masks
+>>>> and passes them to flexcan_do_mb() to only process the relevant mailbox
+>>>> range for each IRQ.
+>>>>
+>>>>> diff --git a/drivers/net/can/flexcan/flexcan-core.c b/drivers/net/ 
+>>>>> can/flexcan/flexcan-core.c
+>>>>> --- a/drivers/net/can/flexcan/flexcan-core.c
+>>>>> +++ b/drivers/net/can/flexcan/flexcan-core.c
+>>>>
+>>>> [ ... ]
+>>>>
+>>>>> @@ -1244,8 +1255,14 @@ static irqreturn_t flexcan_irq_mb(int irq, 
+>>>>> void *dev_id)
+>>>>>       struct net_device *dev = dev_id;
+>>>>>       struct flexcan_priv *priv = netdev_priv(dev);
+>>>>>       irqreturn_t handled;
+>>>>> +    u64 mb_mask = ~0ULL;
+>>>>> +
+>>>>> +    if (priv->devtype_data.quirks & FLEXCAN_QUIRK_SECONDARY_MB_IRQ)
+>>>>> +        mb_mask = (irq == priv->irq_secondary_mb) ?
+>>>>> +              FLEXCAN_SECONDARY_MB_IRQ_MB1_MASK :
+>>>>> +              FLEXCAN_SECONDARY_MB_IRQ_MB0_MASK;
+>>>>>
+>>>>> -    handled = flexcan_do_mb(dev);
+>>>>> +    handled = flexcan_do_mb(dev, mb_mask);
+>>>>>
+>>>>>       if (handled)
+>>>>>           can_rx_offload_irq_finish(&priv->offload);
+>>>>
+>>>> [Severity: High]
+>>>> This is a pre-existing issue, but does this concurrent execution risk
+>>>> corrupting the lockless rx-offload queues?
+>>>>
+>>>> Since the primary and secondary mailbox IRQs are separate lines 
+>>>> (e.g., on
+>>>> S32G2), they can be dispatched concurrently on different CPUs when 
+>>>> frames
+>>>> arrive simultaneously for both mailbox groups.
+>>>>
+>>>> If both IRQs execute at the same time:
+>>>>
+>>>> CPU1
+>>>> flexcan_irq_mb()
+>>>>     flexcan_do_mb()
+>>>>        can_rx_offload_irq_offload_timestamp()
+>>>>           __skb_queue_add_sort(&offload->skb_irq_queue, ...)
+>>>>
+>>>> CPU2
+>>>> flexcan_irq_mb()
+>>>>     flexcan_do_mb()
+>>>>        can_rx_offload_irq_offload_timestamp()
+>>>>           __skb_queue_add_sort(&offload->skb_irq_queue, ...)
+>>>>
+>>>> Or if CPU2 reaches the finish step while CPU1 is still adding:
+>>>>
+>>>> CPU2
+>>>> flexcan_irq_mb()
+>>>>     can_rx_offload_irq_finish()
+>>>>        skb_queue_splice_tail_init(&offload->skb_irq_queue, ...)
+>>>>
+>>>> Since __skb_queue_add_sort() and skb_queue_splice_tail_init() operate
+>>>> locklessly on offload->skb_irq_queue, could this lead to corrupted 
+>>>> linked
+>>>> list next/prev pointers or infinite loops during list traversal?
+>>>
+>>> Hi Ciprian Costea,
+>>>
+>>> Please double check whether S32 can generate these two mb interrupt at
+>>> the same time, if not, no need change, just comment this feature, if
+>>> yes, then need to add lock.
 >>
->> Add a pm_runtime_if_active base guard and its _try conditional variant
->> to pm_runtime.h for drivers that need to conditionally acquire a runtime
->> PM reference only when the device is already active.
+>> If the IRQ is delayed for some reason, mailboxes 7 (associated with
+>> mb-0) and 8 (associated with mb-1) might be pending at the same time.
 >>
->> The base guard must not be used directly via guard()/scoped_guard()
->> because pm_runtime_get_if_active() only acquires a reference when it
->> returns 1; the destructor unconditionally calls pm_runtime_put(), which
->> would underflow usage_count on a suspended or RPM-disabled device. The
->> base guard exists solely to back the DEFINE_GUARD_COND _try variant.
-
-Thanks for the review
+>> I assume that both IRQs will fire. One workaround would be to only use
+>> the mb-1 IRQ until the rx-offloading has been fixed.
+>>
+>> regards,
+>> Marc
+>>
 > 
-> Which is not nice and confusing IMV.
+> Hello Haibo, Marc,
 > 
-> Is there anything like that anywhere else in the kernel?
-
-I reviewed the existing guards in pm_runtime.h and compared them with 
-the if_active guard design. No existing base guard uses a conditional 
-acquire model like this one, because all existing guards follow the 
-"make the device active and then access" pattern - when they make the 
-device active they hold the reference, and the destructor releases that 
-reference, so it stays balanced.
-
-But this guard's use case is different: it follows the "access only if 
-already active" pattern. In the IRQ handler we must not resume the 
-device, so we only proceed if it is already active. This requirement is 
-precisely why a conditional acquire is unavoidable here - the reference 
-can only be taken when the device is already active. The guard takes the 
-reference in that case and the destructor releases it at the end of its 
-scope. However, it does not take a reference when the device is 
-suspended or when PM is disabled - and even in those cases the 
-destructor still runs and releases a reference, which causes the 
-underflow problem.
-
-Thanks,
-Nagendra
-
-
+> You're both right. On S32G2 the mb-0 and mb-1 lines are independent and
+> can fire concurrently if one handler is delayed (Marc's MB7/MB8
+> example).
 > 
->> The _try variant (used via PM_RUNTIME_ACQUIRE_IF_ACTIVE) checks the
->> return value and only runs the destructor when the reference was
->> actually acquired. This is useful in interrupt handlers where the
->> device may be runtime-suspended and MMIO accesses must be avoided.
->>
->> Signed-off-by: Golla Nagendra <nagendra.golla@amd.com>
->> ---
->> Changes in V3:
->> - New patch: add PM_RUNTIME_ACQUIRE_IF_ACTIVE() guard and backing
->>    infrastructure to pm_runtime.h so that drivers
->>    can use a structured guard instead of an open-coded
->>    pm_runtime_get_if_active()/pm_runtime_put() pair
->> ---
->>   include/linux/pm_runtime.h | 12 ++++++++++++
->>   1 file changed, 12 insertions(+)
->>
->> diff --git a/include/linux/pm_runtime.h b/include/linux/pm_runtime.h
->> index 64921b10ac74..bc6de97e6111 100644
->> --- a/include/linux/pm_runtime.h
->> +++ b/include/linux/pm_runtime.h
->> @@ -609,6 +609,13 @@ DEFINE_GUARD(pm_runtime_active, struct device *,
->>               pm_runtime_get_sync(_T), pm_runtime_put(_T));
->>   DEFINE_GUARD(pm_runtime_active_auto, struct device *,
->>               pm_runtime_get_sync(_T), pm_runtime_put_autosuspend(_T));
->> +/*
->> + * Do not use directly -- the destructor calls pm_runtime_put()
->> + * unconditionally, which underflows if no reference was acquired.
->> + * Use only via the _try variant below.
->> + */
->> +DEFINE_GUARD(pm_runtime_if_active, struct device *,
->> +            pm_runtime_get_if_active(_T), pm_runtime_put(_T));
->>   /*
->>    * Use the following guards with ACQUIRE()/ACQUIRE_ERR().
->>    *
->> @@ -624,6 +631,8 @@ DEFINE_GUARD_COND(pm_runtime_active_auto, _try,
->>                    pm_runtime_get_active(_T, RPM_TRANSPARENT), _RET == 0)
->>   DEFINE_GUARD_COND(pm_runtime_active_auto, _try_enabled,
->>                    pm_runtime_resume_and_get(_T), _RET == 0)
->> +DEFINE_GUARD_COND(pm_runtime_if_active, _try,
->> +                 pm_runtime_get_if_active(_T) ?: -EAGAIN, _RET == 1)
->>
->>   /* ACQUIRE() wrapper macros for the guards defined above. */
->>
->> @@ -639,6 +648,9 @@ DEFINE_GUARD_COND(pm_runtime_active_auto, _try_enabled,
->>   #define PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(_dev, _var)  \
->>          ACQUIRE(pm_runtime_active_auto_try_enabled, _var)(_dev)
->>
->> +#define PM_RUNTIME_ACQUIRE_IF_ACTIVE(_dev, _var)       \
->> +       ACQUIRE(pm_runtime_if_active_try, _var)(_dev)
->> +
->>   /*
->>    * ACQUIRE_ERR() wrapper macro for guard pm_runtime_active.
->>    *
->> --
->> 2.43.7
->>
+> For V7 I'll implement Marc's suggestion and use only the mb-1 line on
+> S32G2: move the RX-offload window into the MB 8–63 group and register
+> enable only the secondary MB interrupt.
+> This keeps everything on a single hardirq context and avoids the race.
+> 
+> The underlying limitation is the lockless skb_irq_queue in the rx
+> offload core. I'll address that in a separate patchset. Once it's fixed, 
+> this workaround can be dropped and the second MB line re-enabled.
+> 
+> Best regards,
+> Ciprian
+
+On a later note, I'll send a proposal to fix the rx-offload concurency
+now, to avoid having to workaround this S32N79 patchset just to remove
+the temporary fix later.
+
+Best Regards,
+Ciprian
 
