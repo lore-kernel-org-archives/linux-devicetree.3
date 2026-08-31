@@ -1,137 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D668C3DCDB5;
-	Mon, 31 Aug 2026 09:38:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17E6A3DB625;
+	Mon, 31 Aug 2026 09:45:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788169093; cv=none; b=OZLlooq4BYH6gFpK+n7/E0A4pkTj1po6KIMhU283uPF0fS99rdkWjU3d29k7WQExKL+E6w3zTP3HU554E3OKPneKweBYw3lH7iEL5jIneajH4qFi6edOcVB3ji87vxg0PWbcNiUcp9B8QrnVC2AnikGE4DxPSdUDSqSMVWpkEu0=
+	t=1788169509; cv=none; b=AO7Y9ANxHeFUNxOJahr8lP4vL8oIeLYHre7L+dH+NF0Vx7zJExw7XD9SwhbfmSTPHPvQ4upSd5Kxan8JeJ9ZPNz0O7TZqV8bKtpPzcTYAoeYs0YPOz5AwVTPvXRZBL1vX6kIdYuNbgIDgHQcraWnTYqzpoQFLkjI9eRS3DHS0A0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788169093; c=relaxed/simple;
-	bh=mUsRJK0Zql2DnTj0RMUi1rKBcd2MSbiWbwrzZSJC/k0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HRaKU22OmUVKfmKC7nkfhGb2lJbrWO/TEh71tzT1Mg8L+vSG2hukcawuji7j8wqlgH1+Pt/9uSmL7JTskY9Vyt4pwjOKMO5GRP6xmMMaH8R5+/yjBE2x+FePJFimW7WLW9wmoJYGkcgYh9fSUa73HaQcP2XfSoy9GJPpfK/2Os8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XhydDlyo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788169509; c=relaxed/simple;
+	bh=Z7HYVyz+nBAj1QqhHvK07wwKLBzPsKK5V5aWweOkC1k=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=IkrzB8BjVvq58OZd/mY4cmwU2aI64N7hv8qbg1FbC38zpBmi5J+Yjcpj2jwd55DPlZy1U43hzFp/ET/kMxE/qgfFe7eT6aJgzlxGSXNR1D+csAn6NUg1hmYG3G6RfAqciKp39oQJn5bUHgNwE7gVIHaQOyiuAmyy/x58qZpcw5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TOJ9wOqm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XhydDlyo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D7341F00A3D;
-	Mon, 31 Aug 2026 09:38:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TOJ9wOqm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D23681F00A3D;
+	Mon, 31 Aug 2026 09:45:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788169091;
-	bh=3vrtIGdoWsbxbpDo+ZZza41ll94uskRK10AVMveyUHU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XhydDlyoOA4iOhzTHB8rE9Z84E1B9IJxT5zfVQNsabiNJkGSb18k85PE1KV+wjtY2
-	 95nyLnVQQL4MmAzIUiW7BiBElv7GNoE3UdBCWtuKOOqYn/Uwf2+PCojtD4bJSgqO0H
-	 kJtYOohfie4ZU1HumC3gFLn5MYTXMuzFVDuajpbbJ/ljMLdRcDmKg89lWlIQgKAHcl
-	 ozewhCv2NxjS5CZC4tNntmRAfmKyFEWxaJe3iD7AlnoTQ2HSOdxXPo3qWs5Ema6m+g
-	 FWcBJ9GYolkxvFKAm8GUvcf3R8liBV8NBALfIQsinILXc+7ALBN8PWdM7Dqkul3xJG
-	 pCpniz3UnONHQ==
-Date: Mon, 31 Aug 2026 11:38:07 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Joshua Yeong <joshua.yeong@starfivetech.com>
-Cc: rahul@summations.net, anup@brainfault.org, lftan.linux@gmail.com, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, ulfh@kernel.org, 
-	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, 
-	linux-riscv@lists.infradead.org, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: power: Add RPMI device power service
- bindings
-Message-ID: <20260831-fluorescent-garrulous-kraken-74eecd@quoll>
-References: <20260830152812.312663-1-joshua.yeong@starfivetech.com>
- <20260830152812.312663-2-joshua.yeong@starfivetech.com>
+	s=k20260515; t=1788169507;
+	bh=/pqK5jiaMpzwet2GuvEIt2SypcJxmlRUAsZAiwVepKQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=TOJ9wOqmsJk/NS5EFk7kQ1+T6sMcyXFkhdo7zwHkOxVKvYBdbdJ3VOOVWJqMS9ET4
+	 pFZO2fG7TdbKnq1bkS0K6rF7wwY/aVeKZnqwE9qC+bkzwXTa6Pz7eIxphEUnVg/EnH
+	 6kFo/47t7UJ73Qt9i/vdM/rpyvk0ge4AUrhq//vCyYlb99u8linn82WMiNz58Sdv/o
+	 Ij3ve/t6MeD0wYUb6e5IExUldEr2Q67gTyf9yXfYRazi46TbOTMG8+3Jn6mdL8I0UB
+	 +1qkZyQfTSaGJZKri9ohMxZCrFtWTAZfzlTlr3nXmCAYyBgyPm1NrjL4rQQ82+0mIv
+	 6pJSKyBpj3Mdg==
+From: Mattijs Korpershoek <mkorpershoek@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>
+Cc: Maxime Ripard <mripard@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: phy: Add sa8255p USB PHY
+In-Reply-To: <f9320dae-6436-45e1-b99e-f49115b6279b@kernel.org>
+References: <20260722-phy-qcom-qmp-usb-8255-v3-0-e789070b48f7@kernel.org>
+ <20260722-phy-qcom-qmp-usb-8255-v3-1-e789070b48f7@kernel.org>
+ <f9320dae-6436-45e1-b99e-f49115b6279b@kernel.org>
+Date: Mon, 31 Aug 2026 11:45:04 +0200
+Message-ID: <87o6eimxnj.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260830152812.312663-2-joshua.yeong@starfivetech.com>
+Content-Type: text/plain
 
-On Sun, Aug 30, 2026 at 11:28:11PM +0800, Joshua Yeong wrote:
-> diff --git a/Documentation/devicetree/bindings/power/riscv,rpmi-mpxy-device-power.yaml b/Documentation/devicetree/bindings/power/riscv,rpmi-mpxy-device-power.yaml
-> new file mode 100644
-> index 000000000000..2b7df66ba172
+Hi Krzysztof,
 
-A nit, subject: drop second/last, redundant "bindings". The
-"dt-bindings" prefix is already stating that these are bindings.
-See also:
-https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
+Thank you for the review.
 
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/power/riscv,rpmi-mpxy-device-power.yaml
-> @@ -0,0 +1,65 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/power/riscv,rpmi-mpxy-device-power.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: RISC-V RPMI device power service group based message proxy
-> +
-> +maintainers:
-> +  - Joshua Yeong <joshua.yeong@starfivetech.com>
-> +
-> +description: |
-> +  The RISC-V Platform Management Interface (RPMI) [1] defines a
-> +  messaging protocol which is modular and extensible. The supervisor
-> +  software can send/receive RPMI messages via SBI MPXY extension [2]
-> +  or some dedicated supervisor-mode RPMI transport.
-> +
-> +  The RPMI specification [1] defines device power service group for
-> +  accessing and controlling the power state of platform devices managed
-> +  by a platform microcontroller. The SBI implementation (machine mode
-> +  firmware or hypervisor) can implement an SBI MPXY channel to allow RPMI
-> +  device power service group access to the supervisor software.
-> +
-> +  ===========================================
-> +  References
-> +  ===========================================
-> +
-> +  [1] RISC-V Platform Management Interface (RPMI) v1.0 (or higher)
-> +      https://github.com/riscv-non-isa/riscv-rpmi/releases
-> +
-> +  [2] RISC-V Supervisor Binary Interface (SBI) v3.0 (or higher)
-> +      https://github.com/riscv-non-isa/riscv-sbi-doc/releases
-> +
-> +properties:
-> +  compatible:
-> +    description:
-> +      Intended for use by the SBI implementation.
-> +    const: riscv,rpmi-mpxy-device-power
-> +
-> +  mboxes:
-> +    maxItems: 1
-> +    description:
-> +      Mailbox channel of the underlying RPMI transport.
-> +
-> +  riscv,sbi-mpxy-channel-id:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
+On Tue, Aug 04, 2026 at 10:08, Krzysztof Kozlowski <krzk@kernel.org> wrote:
 
-Why isn't this just phandle to mbox? Or even implied by mbox channel? As
-your example shows, having same value in two places points that it is
-redundant.
+> On 22/07/2026 15:45, Mattijs Korpershoek wrote:
+>> +  power-domains:
+>> +    maxItems: 2
+>> +
+>> +  power-domain-names:
+>> +    items:
+>> +      - const: transfer
+>> +      - const: core
+>> +
+>
+> Same comments, why isn't this following established naming practice for
+> sa8xxx bindings?
 
-> +    description:
-> +      The SBI MPXY channel id to be used for providing RPMI access to
-> +      the supervisor software.
-> +
-> +required:
-> +  - compatible
-> +  - mboxes
-> +  - riscv,sbi-mpxy-channel-id
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    device-power-service {
-> +        compatible = "riscv,rpmi-mpxy-device-power";
-> +        mboxes = <&rpmi_shmem_mbox 0x9>;
-> +        riscv,sbi-mpxy-channel-id = <0x1002>;
-> +    };
-> +...
-> -- 
-> 2.43.0
-> 
+I've replied in the other phy driver review at:
+https://lore.kernel.org/all/877blx2bga.fsf@kernel.org/
+
+I've also send a new version for those bindings which hopefully better
+document the power-domain-names and their usage:
+https://lore.kernel.org/all/20260831-phy-qcom-snps-femto-v2-8255-v2-1-dc6197ffde1b@kernel.org/
+
+I'll focus on sa8255p-usb-hs-phy.yaml. Once we have something that's
+acceptable for usb-hs, I'll respin this series as well.
+
+Thanks
+Mattijs
+
+>
+> Best regards,
+> Krzysztof
