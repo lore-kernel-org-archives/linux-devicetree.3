@@ -1,43 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 412A3363C46
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 17:59:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D96F13D9DD6;
+	Mon, 31 Aug 2026 18:01:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788199156; cv=none; b=FXQYDfF1yBB8SBW1GThRgfyBoNENe+Mc5o0j2FCz18FDGNKyPDoFHk2fqFaxRS9kTR1bwy6NTjFpxJJUBnOJUPbsdCRnqZlQ7MHmsOcY8BrFom2ZcG28fl3X4axIgdaGDII4dBlr4TLeqsaMsju4IiPqRaVz9LSuUsHEgapH8Cc=
+	t=1788199294; cv=none; b=YOk31j9Q9bP87V57PnVIGl4HabXTNVWmBPrYcTi2hOvEje8g7tNALeDA1ZAVNLsSzcSE0dFPtqIaPE7VoTF1jGqbHUtMwZoEcwRhdGxi3V2TGHUBvYIW9DHXCjIJBoXehEjC+RxZGvZsgSooCJ08a7SYei+6zr87JWcuPuQMTeA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788199156; c=relaxed/simple;
-	bh=ifrZL0nTwNUJz2fR1plkxFdZeVq23zgaEJrq5xE/Wk8=;
+	s=arc-20240116; t=1788199294; c=relaxed/simple;
+	bh=GDJPhp1ce/3T7KhNfmDDHsX+QplicWRSy8Msbo0K25c=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ZagUQPofBKqk9Lw8bRxa9XByIXcGkcFVSy2bI4fhsZD9xiJTD/0HyYhUuzjk2nsbYR4t/4U5VH7ThKkI5Y4GkogccyXvME2f0F+KDEzQ90rNf0xjmACZmjAZcCfi9njQTBp633G5ww+XYAV/DOiIHkOW5xjYdvmEJCZzkXv5IMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IFtUy6xP; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=YDqnP7T3pIO45rLhoVEEHnaKh3rNQAnIxplL10/PNfQgNIFl7Q/lL2/DMd6VmsFnwbqYCuc3R6QcWsiajafEmzcu3zp/qW7sjPUOhkiHnWDJycebx+Tjn32GI46up3EId6hZHdTt7wjomwXlDVFWgdHtltNPBd2wWr6mUiovtts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TY6JNhlq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IFtUy6xP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A99161F000E9;
-	Mon, 31 Aug 2026 17:59:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TY6JNhlq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B55E61F00ACA;
+	Mon, 31 Aug 2026 18:01:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788199154;
-	bh=c+ofroS0rwSsP5Atr3ZLeUWtsX8JRGVrlZp6H3Vfedo=;
+	s=k20260515; t=1788199292;
+	bh=H8Hdvy1jenVkD3hJGZB64SIGqV7u7k8upgn0caLEL4w=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IFtUy6xPpgY1HCKVwPxhL09w/xxKDGg0/YRmJu+UDNFPOZippz4BK2mDDb2zv2K1U
-	 U+oNOf02rWfjvZrvCFD5B000wkZnP9GfhEb/Tvb4rJW41ye0xHEuduio9C3kz/EGLh
-	 jVzxLiOrbUs5jPq8NH1wj5ZN6MtK2aWA9GPyghipQgtZRPuv2kZy3UCfxcTrNrySVA
-	 VsteR4/BE1+2C4oE7DH8oD/ivJugotxaoLUBLqUK4iJyB+ZGfQ/knqzpWepOxY9U8u
-	 YOdvZrov2EhPXqEaF4kUVu4dD4v0w0ZoT3+45S+3Z01UweidXoffEmMiSA36AyJFap
-	 lOgQemu39w80w==
+	b=TY6JNhlq6Jg5tddvsKXfiuBwomx3uZu7gpxBwBfoIUQ53J0CuNnK6nv1SMvN2F64X
+	 KHpMuprfDbGCTkWkZskfmzEi8plfMmQyMjZ1FsHeYSlPo9CqoU4aix+jLADr4SIJsd
+	 v3ig8T3pNXkB7kZZg5hf61yAnnqcZRSkKNHrv5zdNbIgKAM7syxtRG37i2WCzJ5EP4
+	 ZcNQncZ9S5c5BvkOQIP9x5UHORLkm3LdGdqW955259wTuqA7MEkQ3bkIzPP7abAXvU
+	 Z6pRY6FrRgwpjua7wE67dzicvAs7HjaWYTguqf02BcH3HKBLkUZGdZcEV6EF5hf5Gk
+	 ibfrPsOFbc+Nw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/7] arm64: dts: rockchip: Rename rk356x HDMI audio card
+Subject: Re: [PATCH v7 1/6] can: flexcan: use dedicated IRQ handlers for
+ multi-IRQ platforms
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Detlev Casanova" <detlev.casanova@collabora.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260831-fix-rockchip-hdmi-audio-names-v1-5-5b155ae05293@collabora.com>
-References: <20260831-fix-rockchip-hdmi-audio-names-v1-0-5b155ae05293@collabora.com>
- <20260831-fix-rockchip-hdmi-audio-names-v1-5-5b155ae05293@collabora.com>
+To: "Ciprian Costea" <ciprianmarian.costea@oss.nxp.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, "Marc
+ Kleine-Budde" <mkl@pengutronix.de>, "Oliver Hartkopp" <socketcan@hartkopp.net>, linux-can@vger.kernel.org, "Vincent
+ Mailhol" <mailhol@kernel.org>, imx@lists.linux.dev, Frank.Li@kernel.org, "Oleksij
+ Rempel" <o.rempel@pengutronix.de>
+In-Reply-To: <20260831143449.12828-2-ciprianmarian.costea@oss.nxp.com>
+References: <20260831143449.12828-1-ciprianmarian.costea@oss.nxp.com>
+ <20260831143449.12828-2-ciprianmarian.costea@oss.nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 17:59:14 +0000
-Message-Id: <20260831175914.A99161F000E9@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 18:01:31 +0000
+Message-Id: <20260831180131.B55E61F00ACA@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,48 +50,75 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Critical] ABI Breakage: Renaming ALSA sound card breaks existing user-sp=
-ace audio configurations
+
+Pre-existing issues:
+- [High] The split IRQ handlers fail to resolve multi-IRQ concurrency for d=
+evice state processing, leading to lockless list corruption.
 --
 
-commit 09adc9bbc18df386e17d8391018eada18c2a6d2a
-Author: Detlev Casanova <detlev.casanova@collabora.com>
+commit f3f261bafd25e44254ad99cda953074bc68ed987
+Author: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
 
-arm64: dts: rockchip: Rename rk356x HDMI audio card
+can: flexcan: use dedicated IRQ handlers for multi-IRQ platforms
 
-This commit modifies the ALSA sound card name exposed by the device tree=20
-from "HDMI" to "RK356x HDMI" to avoid collisions with other Rockchip SoCs.
+This commit splits the monolithic flexcan_irq handler into dedicated=20
+functions for mailbox, device state, and bus error processing. The split
+handlers are then registered to specific multi-IRQ lines depending on the=20
+platform quirks.
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/b=
-oot/dts/rockchip/rk356x-base.dtsi
-> index a5832895bd392..98785c812fc40 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-> @@ -150,7 +150,7 @@ scmi_clk: protocol@14 {
-> =20
->  	hdmi_sound: hdmi-sound {
->  		compatible =3D "simple-audio-card";
-> -		simple-audio-card,name =3D "HDMI";
-> +		simple-audio-card,name =3D "RK356x HDMI";
+> diff --git a/drivers/net/can/flexcan/flexcan-core.c b/drivers/net/can/fle=
+xcan/flexcan-core.c
+> index f5d22c61503fa..2e9df2d14b341 100644
+> --- a/drivers/net/can/flexcan/flexcan-core.c
+> +++ b/drivers/net/can/flexcan/flexcan-core.c
+[ ... ]
+> +/* Process device state change events */
+> +static irqreturn_t flexcan_do_state(struct net_device *dev)
+> +{
+[ ... ]
+> +	/* state change interrupt or broken error state quirk fix is enabled */
+> +	if ((reg_esr & FLEXCAN_ESR_ERR_STATE) ||
+> +	    (priv->devtype_data.quirks &
+> +	    (FLEXCAN_QUIRK_BROKEN_WERR_STATE | FLEXCAN_QUIRK_BROKEN_PERR_STATE)=
+))
+> +		flexcan_irq_state(dev, reg_esr);
 
-[Severity: Critical]
-Is it safe to change the ALSA card name exposed to userspace?=20
+[Severity: High]
+This is a pre-existing issue, but does calling flexcan_irq_state()
+concurrently corrupt the lockless SKB queue?
 
-The simple-audio-card,name property in hdmi_sound defines the exact sound
-card name seen by userspace via ALSA. Changing this string from HDMI to
-RK356x HDMI might break backwards compatibility with existing userspace aud=
-io
-configurations, such as ALSA UCM profiles, PipeWire rules, or PulseAudio
-matchers that rely on the established generic name.=20
+If the boff and err handlers execute flexcan_do_state() concurrently,
+they will both allocate error SKBs and insert them into
+offload->skb_irq_queue using the lockless __skb_queue_add_sort().
 
-A user booting an updated kernel on an rk356x platform using existing UCM
-profiles could experience broken audio unconditionally upon boot. Does this
-change violate the kernel's policy against breaking userspace ABI?
+Can this concurrent insertion corrupt the list pointers (skb->next and
+skb->prev), potentially causing infinite loops or use-after-free
+conditions?
 
->  		simple-audio-card,format =3D "i2s";
->  		simple-audio-card,mclk-fs =3D <256>;
->  		status =3D "disabled";
+[ ... ]
+> +/* Bus error IRQ handler for multi-IRQ platforms */
+> +static irqreturn_t flexcan_irq_berr(int irq, void *dev_id)
+> +{
+> +	struct net_device *dev =3D dev_id;
+> +	struct flexcan_priv *priv =3D netdev_priv(dev);
+> +	irqreturn_t handled;
+> +
+> +	handled =3D flexcan_do_berr(dev);
+> +
+> +	if (priv->devtype_data.quirks & FLEXCAN_QUIRK_BROKEN_PERR_STATE)
+> +		handled |=3D flexcan_do_state(dev);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but could this multi-IRQ
+setup lead to concurrent device state mutations?
+
+On platforms like s32g2 and mcf5441x with FLEXCAN_QUIRK_NR_IRQ_3 and
+FLEXCAN_QUIRK_BROKEN_PERR_STATE, a hardware bus error or state change
+can trigger both the boff and berr interrupts on distinct IRQ lines.
+
+Since flexcan_irq_berr() and flexcan_irq_boff() execute on different
+CPUs, couldn't they both call flexcan_do_state(dev) at the same time?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-fix-rockch=
-ip-hdmi-audio-names-v1-0-5b155ae05293@collabora.com?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831143449.1282=
+8-1-ciprianmarian.costea@oss.nxp.com?part=3D1
