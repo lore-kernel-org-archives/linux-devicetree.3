@@ -1,125 +1,85 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 378F9304BCB;
-	Mon, 31 Aug 2026 07:10:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FC993BE652;
+	Mon, 31 Aug 2026 07:13:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788160235; cv=none; b=Zp+QsUF0tEUkNaIkePT1r0DRNsXDcLBojXLoct7ipFfmbUpvuUf9eP+DGbXKbmj9c1sgZArNMW2A2zdfh6EUnwYew7qgm9+MuwSaw55bMsH286KWUHcXLLijlYfOxkpEWlcXOz9qmCbu3g36WsaPV7K/UMwHb/+4J64kqhr2rag=
+	t=1788160413; cv=none; b=mAluhnLJOwm9cQiRv2xDlSvHqg5LKhtOgm6xfJumRRl7sxf5pJV8DjiNcpz+ICVZ7Lt9t9sVvWZJbjf6knQhmO4AbniA2P7sKqzZUZvtTM9Ibw2DQd9jrZ2/skQfXqNVoRxlg/+2iCfUjOqL0pMSuCLZngUim1vpXAuCmi1yNr4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788160235; c=relaxed/simple;
-	bh=/DCGlvKDUkP1G/KwYWNTX6WcOhRQbdg3ohXwUPm4DSI=;
+	s=arc-20240116; t=1788160413; c=relaxed/simple;
+	bh=DxqPqtzTp8mxa4pd1eQE88Yy6ixGznKpTnusIop8ubY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Cqj5JiX6QT1Epp8/Wnr/dBHbdhO/jGq7CD+22BEkh6uCgWCCPu5P+0G06hulgkAG1WZuc8GiS2cfx8O4OQaiT7pMaUl3VOVNHxyvG6/0aU7Zc0imKH27sMg7aLIxky7WL8OH7iOpYMnLIOCxtSKThAW7CZR8x4J+B5Wq9UYReXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ivpasfrN; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=StqFQV8X4JNmHjZLLIpOg4Ws7/aGcF8ZVx1jtB0r4+2Ksc4vPog29EmODQ2fn7T0yIkBFf/jcTkiQjdLDQkDXW9H3ers2C8BAwDdYgVnu0d8+wHWlRDWNDB4AnNr57G8LqoFvhJKUZRYGnT7z4slX03SMcqLLign5g8HTiE6tX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dqr/4LOn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ivpasfrN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788160235; x=1819696235;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=/DCGlvKDUkP1G/KwYWNTX6WcOhRQbdg3ohXwUPm4DSI=;
-  b=ivpasfrNO1/khff6083xpgkd1i0d0/Sm4B2lCkiK+3WLSUSZakArggIx
-   /Z50XhmEuZApu5PugQ+oHzatXFauzbOiEeBKsSDYCwvUyMR2n0Jhkmftj
-   hNNR3aDvuGmcISqcLqTapbaN6BDO0iYbdfSlk1HWUrMzpSGeVo04jDfs6
-   lV9EPDHE3Osp2zqjySS6ZB9iimCAd73TJRrmteA7qCcl4CMVSsUcVYH5f
-   RjSsP1vWctd+mA21UKWNYBIaSAuvjxA9f02rdc+fgXN2sSi4B7xdL6zhk
-   7KY3QtweKV8BtC8+HXY43iah3EGphtfBJhUpj1XtHw5vT2OPySrQXTwx5
-   w==;
-X-CSE-ConnectionGUID: YlqQ7oUERB69DxGTG55Umg==
-X-CSE-MsgGUID: Da8nYTSuQJiSGhYBRtTw6A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88583721"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="88583721"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 00:10:34 -0700
-X-CSE-ConnectionGUID: RdRENIHISO+A1ZRClSZCcw==
-X-CSE-MsgGUID: /uYFfDbIQOe5kO6KqRv6hw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="265478049"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 00:10:28 -0700
-Date: Mon, 31 Aug 2026 10:10:25 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Janani Sunil <janani.sunil@analog.com>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Mark Brown <broonie@kernel.org>,
-	Marius Cristea <marius.cristea@microchip.com>,
-	Marcus Folkesson <marcus.folkesson@gmail.com>,
-	Kent Gustavsson <kent@minoris.se>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Daire McNamara <daire.mcnamara@microchip.com>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	Janani Sunil <jan.sun97@gmail.com>, linux-spi@vger.kernel.org,
-	Kent Gustavsson <nedo80@gmail.com>, linux-riscv@lists.infradead.org
-Subject: Re: [PATCH v10 3/3] iio: dac: Add AD5529R DAC driver support
-Message-ID: <apUo4afCh5LhUqIO@ashevche-desk.local>
-References: <20260827-ad5529r-driver-v10-0-38f2be07b824@analog.com>
- <20260827-ad5529r-driver-v10-3-38f2be07b824@analog.com>
- <ao_z9QTJC_q8gH0v@ashevche-desk.local>
- <178813177252.2788519.10940489053707901297.b4-reply@b4>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dqr/4LOn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02F511F000E9;
+	Mon, 31 Aug 2026 07:13:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788160412;
+	bh=nzwDhMUaspxwPlR3epuNtDGJEcxkDmu+JR/CLbni2/U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dqr/4LOntZvMk1raKJwDPLs4PrbOimbFQe+cAb+Hoj/TrBZEWIWZrrc9hivVHtD1x
+	 ApUuRoJsZ/WJJRLArudCfWfQ3DWAIK0rXpSFJMls+Yi5tIQdx5V5GUJ1S1IzB9ppPi
+	 DP9y7sor6Q91pT6oBuI4ejk1g+yg3zjYZPwIrgDHpwJc80OU5AaeMwu3JOAIJK0Jeo
+	 foQPTRHAaFnJ6T3jhcUUNoWnnuA+dSW2eTVgDZKU8QzO0tjspubPDPhWFYbJJ7NjtT
+	 B3ZDPZqi01/VcurvvYfN9SSzUiDDShNm0bPdb6eyuRl/5zlbAN8B8yAmIMp8SxlFib
+	 XVbHQC86MUKkg==
+Date: Mon, 31 Aug 2026 09:13:27 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: Thierry Reding <thierry.reding@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH 2/4] dt-bindings: thermal: Add Tegra264 header
+Message-ID: <20260831-rainbow-terrier-of-flowers-3fd2fe@quoll>
+References: <20260827-tegra264-fan-v1-0-3c55f0c748b1@nvidia.com>
+ <20260827-tegra264-fan-v1-2-3c55f0c748b1@nvidia.com>
+ <20260827-riverbank-cinema-d898d4e5a522@spud>
+ <apBwZwOkctBETKVJ@orome>
+ <20260827-disband-retrain-ad995df47784@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <178813177252.2788519.10940489053707901297.b4-reply@b4>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260827-disband-retrain-ad995df47784@spud>
 
-On Mon, Aug 31, 2026 at 12:16:12AM +0100, Jonathan Cameron wrote:
-
-...
-
-> > > +	device_for_each_child_node_scoped(dev, child) {
-> > > +		if (st->num_channels == ARRAY_SIZE(st->channels))
-> > > +			return dev_err_probe(dev, -ECHRNG, "Too many channels\n");
+On Thu, Aug 27, 2026 at 06:33:06PM +0100, Conor Dooley wrote:
+> On Thu, Aug 27, 2026 at 07:17:15PM +0200, Thierry Reding wrote:
+> > On Thu, Aug 27, 2026 at 05:35:28PM +0100, Conor Dooley wrote:
+> > > On Thu, Aug 27, 2026 at 05:07:51PM +0200, Thierry Reding wrote:
+> > > > From: Thierry Reding <treding@nvidia.com>
+> > > > 
+> > > > This header file defines the set of thermal zones exposed by the BPMP on
+> > > > Tegra264.
+> > > 
+> > > Does this need to be a binding, since you're just using it in the dts?
+> > > Can it just go into your dts directory insteaD?
 > > 
-> > Okay, this actually better to be ENOSPC
+> > I don't think we've ever used these headers outside of DTS files, so,
+> > yes, they could go into the DTS directory.
 > > 
-> > > +		ret = fwnode_property_read_u32(child, "reg", &ch);
-> > > +		if (ret)
-> > > +			return dev_err_probe(dev, ret,
-> > > +					     "Missing reg property in channel node\n");
-> > > +
-> > > +		if (ch >= AD5529R_MAX_CHANNELS)
-> > > +			return dev_err_probe(dev, -EINVAL,
-> > 
-> > and ECHRNG is here.
+> > We've never done that before and there's a bunch of Tegra-specific files
+> > that would be in the same basket. What's your recommendation for any of
+> > the existing headers? Should I move those into the DTS directory, too?
+> > If they are not used outside, that is? Or not worth the churn?
 > 
-> That one is getting rather creative even though I guess the description
-> does fit rather well.  So I don't object, but also feel -EINVAL is
-> probably good enough for an invalid property value.
+> Up to you re: churn I think, but were it my platform I'd probably move
+> them. 
 
-But missing property message propagates the fwnode return code (which will be
-EINVAL IIRC). So the above is not about missing property, it's about wrong
-channel. Note, I have checked uses of ECHRNG in the kernel, and many of them
-are fine with the suggested one.
+For Samsung I moved all non-ABI related headers to DTS. I think one more
+platform followed. Moving needs to keep old header for some time anyway,
+so it's entirely up to you if you/others want to work on that. Like with
+every less-important cleanup, the benefit is that correcting old
+patterns stops encouraging repeating them.
 
-> > > +					     "Channel %u exceeds maximum 15\n",
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Best regards,
+Krzysztof
 
