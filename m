@@ -1,62 +1,64 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E2693B3C10
-	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 12:50:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00D1F3DB30F
+	for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 12:50:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788180648; cv=none; b=VMgYMb+vfQjwZRiG2dlwh/n+3Wm5Y6Us5/IRZYU14lCXBvnbaoyjpV0XokDOyoGcMJOi5mw7IH8OvDz+8l75L28fQ7PAN9gdDueNQdbkAJxxfjdjVnVBmJ+OJS/OT73jPifrggQbKY14klyycIOaV/iW2bAL3l7glnWnCkpGIxg=
+	t=1788180656; cv=none; b=MQAGqmbophpCo5ZDVhemKkSguq8dCS9GRMWRH6DkZudXtPtG96nv3nGruLS8XM5lA90Gxcvn2bavcF2TTRurxI3GQPiwQ8tgFd+nLfRHCrfnHR6hTn2IzCZJvvujSN+k6a/fWcqMWIvKlrQBWWJuVN4eWPeNwISgzB6oF3DOZqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788180648; c=relaxed/simple;
-	bh=7ZfnDv/XtekNv1yVLAJXU7rSq3e0UdmAHM7woI/rUoY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gnsam3Awuq3oKS0FvoMNB36/9mVhkD6GmufVfbx4g4KNnMmlOHg51Amkcr/Z0QQIX2p9j+bk8eWXdKv5pnfiAwTeO6a9aYlWVjCu+BUKLjBTl9f6PLkbFbiXQ7OakTh9EpBN6HtHawIJ1m/RdIgXrwa3mi/0JzPJ/T7p6oCaEzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r4kVJVt/; arc=none smtp.client-ip=209.85.128.44
+	s=arc-20240116; t=1788180656; c=relaxed/simple;
+	bh=UMMlAQQ+tHH37+OZWlXTPeJySJPPJtpz3IdXhTev4eQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Bqblxv4bNVQzFQa1XzcGU3dtVZ2U223/dFQxPXNWhcdrStLTGPPFCn53ogmzGMw2Dlxmgap4mCQxzkb8oKqLUdC3hzDQZsVohxjV//Mfi6L3Qd810hBMTznljpRoV3Feqd/Fxq+y6YOrfalnTutxiMF/nAPP/Ft4NaRo9zdYdvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ICT9KWo1; arc=none smtp.client-ip=209.85.128.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r4kVJVt/"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so34541535e9.3
-        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 05:50:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ICT9KWo1"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so32654525e9.1
+        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 05:50:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788180642; x=1788785442; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MTylV7csYnLWM1x8O3QnuC/IfF/z4HrLSIT7SMiMU7I=;
-        b=r4kVJVt/NF7GjvezkY2scURSTxwoftn/LR8GPQqJgmWVtgyUow7DOt+zT2WFWIiE58
-         v5zLEAziu8K78fZBwci2JHlTPncqVzqvKp2mOdGaGjW+7OumG5Gjv9rzK4GLelXB8dLN
-         7YnZonEQhtcIVlmBt2GLoRwzGUDjR7TSE5Pqtpja8sa+jXdDwXVzSRQG958mv0V/7H+Y
-         /9ObCv21MZm8DPPxWJp+w9hj5oGXiDr9o/gLFtbl6kihRNjQgGZsk28z0vZ056yCpn++
-         3m6YMSVQL8n9rGseuGkRiIukkmMxO943JOvR6OiaCpcIGo/4w5FA54kZT6mjgOy72Q3z
-         YUIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788180642; x=1788785442;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788180650; x=1788785450; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=MTylV7csYnLWM1x8O3QnuC/IfF/z4HrLSIT7SMiMU7I=;
-        b=YQKgGdRc/LBqtcGSq61Texe3sf+FiODeKj0pCSgqoGLiaIFTJ/4U/1I5yLD2QjSI9f
-         391FA37H2yuI0h5VXGxHaEfThcTGEUqxKeKD1bv45lQaHFZEca2xjiMpT0Z7M1+hN6xC
-         y5IOrJ+C/6/AOmlesMgOG/aRS7cPXzOAqGTHbwoT1m9KpiHTm4kmDTIdwU7qUHCZHU4T
-         l+1Ws4mOyRVCiNGabbB1TIHe4I665GIn9moygu7YVqJpsPRdU3v9cCJqcIFZIOrGjdaY
-         6F1wp/vJph/0tAJ7V5UMm5ZZlTqlW7f2B/RxZMGQJbYYy3l4BtInCCV6mkhNpqqMtDct
-         Jz8g==
-X-Forwarded-Encrypted: i=1; AHgh+RqeHJ9F0rXMIIwxP5dlaQbGyAdzj6oh7j7MmcLId3WR8+FWdNRXFl1Lxp305EtZvcjBMi9QS0Je5wOy@vger.kernel.org
-X-Gm-Message-State: AFuF++kjDEqeQQDiFQQO3Bn+ngk+iPSafjL84DsGNYz6aPQomqX0xZMB
-	XUCoU5uslQhXn0zgEcIixu7A6ZbOfNGDHgvrfD2+k0g1JyQ6sWsamds6
-X-Gm-Gg: AR+sD13ND9GxH1Alf15Iz4P/zaW3E4a7UZKLQ1vBY+Co6TKXxAHqNeml4U3ezyU0UwE
-	Dlhhi6tsX0Y7ZD5nf3NHlqHCHuCpZbPE3F7u/44GqMy6cfWSU/V2wv4Y0/li6M8zGvAOg05m8Bu
-	JBSfWt/Em2azvXUSm6jZj+IFc2fijndNFZNJqLdQ62LgqKT76V41W/bya+79d968hR05hZBg1TN
-	O2ESbVuWZiosZ6dSqEfx4EditeNp8cQRsTqLA1/2bK55jhTbitm03W/1BRy01rShahxntU8yLZE
-	zsOG9uYJkEHsu40FkdFn0NrTsC7JmZ7/rjtu1QMV59G4QsvmAgp3KXd79+ETeiMuKUCzw33bCB4
-	sLOq/uZrRyeoF38dyfMVbvJ+RGJdN6T/FPK7fa5Nho0+UyJScIi/btDs7O4eNnnbterSNJlmOVZ
-	3huJP78+5RCzpqWN4CxW5+uWLEskimQiyd1Ov7XynWadfJRn/jpzy+CQCFa558ep3Fuf9mATcLK
-	dhi6vkGWC6lnREgma10JASv1Q==
-X-Received: by 2002:a05:600c:354f:b0:493:c47f:3c55 with SMTP id 5b1f17b1804b1-49b91c1ece1mr452067475e9.5.1788180641698;
-        Mon, 31 Aug 2026 05:50:41 -0700 (PDT)
+        bh=FgpUpwzhe3ICsnKIHyf7lVPTDsFbvK8kI90BAlWw5dE=;
+        b=ICT9KWo1jSna1EiWyjW4N8n29YMlZPc1nYVw3M4p4qJO72p5hhwjoaANcTniWell0p
+         rXzUyePCKa9IctFJkM9EESPyQn5CcVnXlhP0EeRijGm/58gh5zlzrM7AG0iexig0q2Ja
+         c1zMbeRxN6u3tz6DRmsK6B1SY+4QKQQswHdeC3N3sIFPeqGJKSD0cucIzwRLGUFGDnZi
+         ZZUzO5rBWS/bPfty+u+ewKbr++xjuvIiubj8HwFGS2oHXuh4e3+TqFYsXfEx0qg8H88Z
+         cNVjWBbHiC/zVbl8lkGJJueoj1V+Xf/1S7A9RE0Tdl/gZYeAm0ZZJs4joC7dADTxRFrd
+         NOmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788180650; x=1788785450;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FgpUpwzhe3ICsnKIHyf7lVPTDsFbvK8kI90BAlWw5dE=;
+        b=pfKqmeML++2FQsnUiWU/fdU+1iDLuB+yVJQzIpnneowRmx//Urvi4ErXNEQyXfzo1D
+         AojtepE3sgY/3Djo4v/Duk29zDxBQA4N+mtfQIZSCSeH/NLl+xP1oVo9Z+TBXw+ZGFpd
+         rtSzZzNoim8u1BPG4wED2uSyQC1D80iQqQKBO1E7cOpXxMDPKGQgOXquXPe8465hP2K9
+         fGc2dqEzIMPc3BN6vibsn7+3IHxOCqNI71oJb3Wd1PuywN2HAU+vWgWueLDDTaI898iC
+         +r/XA3p/yS/AmM3KgWPm8+EOjL9qivY6v2fZHCCU7F9M0YcsdVB3mU7HWPT2XOz21K7k
+         t55A==
+X-Forwarded-Encrypted: i=1; AHgh+RrPYvMQABZEgZElmbz+sMfB9UylLq9oGjdMel1MkHRHhSQbAL2GVcRCugzyTA2VPzUQmCRIFY5aPG5W@vger.kernel.org
+X-Gm-Message-State: AFuF++m/dnCefhw03fiRIArgh6+cfjFA5E5uqcr+UhJQtYYiFf5KSvsY
+	jSAYzjkxoSlvaiZ1GFExe+246f7ouATIC8pU74ZCV2zlcF//9iTvDpaT
+X-Gm-Gg: AR+sD10iC23DXBHU1cENWEPXVsjoNA0x5kA/mZq1NOelCgA2rZkzxUjpX/3WvvO3LIC
+	Ca617S2cxQXja35rDG+t6coTLULBnoMBniD6LQRR7hqCd5VZJ8K+xoY5Yw51k+zjiqPcgvoCQlA
+	TK7CjNbpUDOc4UmdGuEFdUQNeQhdwTxglxaVGy0n0NxwWOIN1xScF6GzvGoIEgqBAlNTtqP+ZBL
+	3gykdskwq6RYHPeaSZH8JaeItzrw9cY5clCBpns//Wr6qkden4oV2be0eovhkGpq7VWpI66e3YP
+	ZkCv/LF+2VAURljJ/ed7nyG/dUXz8/D7nt3adB1sgix4zrpuQZNvjuuTc7KzwyHKeRvtWTtBk1G
+	R3hC+Xi0gi0Enhsbpeio7WnPsYHneygyHWpotdavUGDiGEK7CkxQEDQ783u6hJolx1ECTdtle+q
+	Q9JjlOZIflguTVsk3R6sF2cU/V/Iw+XTl/DKfK5GmZNt7HCk23IMfkPrkXbXyhqQFdJBGM4a2Vo
+	1hwkqXP6PtR4PRfGVVlTmdz63++YHrDt4hT
+X-Received: by 2002:a05:600c:3145:b0:499:79b9:e220 with SMTP id 5b1f17b1804b1-49b91c44f6cmr384483205e9.10.1788180649895;
+        Mon, 31 Aug 2026 05:50:49 -0700 (PDT)
 Received: from GLaDOS.station ([187.14.102.85])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cd53a4678sm116571225e9.13.2026.08.31.05.50.33
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cd53a4678sm116571225e9.13.2026.08.31.05.50.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 05:50:41 -0700 (PDT)
+        Mon, 31 Aug 2026 05:50:49 -0700 (PDT)
 From: Stefano Radaelli <stefano.radaelli21@gmail.com>
 X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
 To: Frank Li <Frank.Li@nxp.com>,
@@ -81,11 +83,14 @@ Cc: pierluigi.p@variscite.com,
 	Francesco Dolcini <francesco.dolcini@toradex.com>,
 	Markus Niebel <Markus.Niebel@ew.tq-group.com>,
 	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Marek Vasut <marex@nabladev.com>
-Subject: [PATCH v7 0/3] Add support for Variscite VAR-SOM-MX7 and MX7CustomBoard
-Date: Mon, 31 Aug 2026 14:50:22 +0200
-Message-ID: <cover.1788180142.git.stefano.r@variscite.com>
+	Marek Vasut <marex@nabladev.com>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v7 1/3] dt-bindings: arm: fsl: add Variscite VAR-SOM-MX7 boards
+Date: Mon, 31 Aug 2026 14:50:23 +0200
+Message-ID: <7af24e53fc6dc0e84a7d2dce7090f5c465f470d2.1788180142.git.stefano.r@variscite.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1788180142.git.stefano.r@variscite.com>
+References: <cover.1788180142.git.stefano.r@variscite.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -94,92 +99,68 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This patch series adds support for the Variscite VAR-SOM-MX7 system on
-module and the MX7CustomBoard carrier board.
+From: Stefano Radaelli <stefano.r@variscite.com>
 
-The series includes:
+Add DT compatible strings for the Variscite VAR-SOM-MX7 SoM variants
+used with the MX7CustomBoard carrier board.
 
-- DT bindings for the supported VAR-SOM-MX7 board configurations
-- VAR-SOM-MX7 device tree support, including V1 and V2 hardware revisions
-- MX7CustomBoard carrier board support
-- eMMC and NAND storage variants
-- optional WM8731 audio codec support
+Both the first and second hardware revisions are supported, including
+eMMC and NAND configurations, with WM8731 variants available for the
+first hardware revision.
 
-The implementation follows the standard SOM + carrier board pattern,
-where the common SOM dtsi contains the on-module peripherals and
-hardware revision differences, while the MX7CustomBoard dtsi contains
-the carrier-specific interfaces.
-
-The final board device trees combine the supported VAR-SOM-MX7
-configurations with the MX7CustomBoard carrier board.
-
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
+---
 v6->v7:
- - Added common dtsi for wm8904 codec removing it from base dtsi
- - Spacing cleanup
+ - 
 
 v5->v6:
- - Removed unused 100mhz and 200mhz pinctrl
+ - 
 
 v4->v5:
- - Removed wrong gpio-hog
+ - 
 
 v3->v4:
- - Fixed non-generic names and wrong separators
- - Fixed ads7846_ts pendown gpio
+ - 
 
 v2->v3:
- - Removed wrong header in dtsi
- - Fixed pinctrl name
- - Fixed sai clocks
+ - 
 
 v1->v2:
- - Fixed commit messages and spacing
- - Moved ethphy1 reset pin mux
- - Fixed irq types
- - Removed duplicate assigned-clock-rates property
- - fixed wifi child node name
- - Added color property in gpio led definition
- - Updated deprecated reset-gpio property
- - Added disable-over-current property in usb nodes
- - Fixed model names
+ - Fixed commit message
+ - Fixed spacing
 
-Stefano Radaelli (3):
-  dt-bindings: arm: fsl: add Variscite VAR-SOM-MX7 boards
-  ARM: dts: imx7d: add Variscite VAR-SOM-MX7 support
-  ARM: dts: imx7d: add Variscite MX7CustomBoard support
+ Documentation/devicetree/bindings/arm/fsl.yaml | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
- .../devicetree/bindings/arm/fsl.yaml          |  17 +
- arch/arm/boot/dts/nxp/imx/Makefile            |   6 +
- .../imx/imx7d-var-som-emmc-mx7customboard.dts |  23 +
- ...x7d-var-som-emmc-wm8731-mx7customboard.dts |  23 +
- .../boot/dts/nxp/imx/imx7d-var-som-emmc.dtsi  |  56 ++
- .../nxp/imx/imx7d-var-som-mx7customboard.dtsi | 358 ++++++++++++
- .../imx/imx7d-var-som-nand-mx7customboard.dts |  23 +
- ...x7d-var-som-nand-wm8731-mx7customboard.dts |  23 +
- .../boot/dts/nxp/imx/imx7d-var-som-nand.dtsi  |  73 +++
- .../imx7d-var-som-v2-emmc-mx7customboard.dts  |  24 +
- .../imx7d-var-som-v2-nand-mx7customboard.dts  |  24 +
- .../boot/dts/nxp/imx/imx7d-var-som-v2.dtsi    |  66 +++
- .../dts/nxp/imx/imx7d-var-som-wm8731.dtsi     | 102 ++++
- .../dts/nxp/imx/imx7d-var-som-wm8904.dtsi     | 118 ++++
- arch/arm/boot/dts/nxp/imx/imx7d-var-som.dtsi  | 533 ++++++++++++++++++
- 15 files changed, 1469 insertions(+)
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc-mx7customboard.dts
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc-wm8731-mx7customboard.dts
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-emmc.dtsi
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-mx7customboard.dtsi
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-nand-mx7customboard.dts
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-nand-wm8731-mx7customboard.dts
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-nand.dtsi
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-v2-emmc-mx7customboard.dts
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-v2-nand-mx7customboard.dts
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-v2.dtsi
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-wm8731.dtsi
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som-wm8904.dtsi
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-var-som.dtsi
-
-
-base-commit: 9400c5b6aa357be2379c98ae86a207bc21dc7a48
+diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
+index 656f2596e1d5..b732ff810265 100644
+--- a/Documentation/devicetree/bindings/arm/fsl.yaml
++++ b/Documentation/devicetree/bindings/arm/fsl.yaml
+@@ -950,6 +950,23 @@ properties:
+           - const: toradex,colibri-imx7d-emmc
+           - const: fsl,imx7d
+ 
++      - description: i.MX7D Variscite Boards based on VAR-SOM-MX7 Module
++        oneOf:
++          - items:
++              - enum:
++                  - variscite,var-som-imx7d-emmc-mx7customboard
++                  - variscite,var-som-imx7d-emmc-wm8731-mx7customboard
++                  - variscite,var-som-imx7d-nand-mx7customboard
++                  - variscite,var-som-imx7d-nand-wm8731-mx7customboard
++              - const: variscite,var-som-imx7d
++              - const: fsl,imx7d
++          - items:
++              - enum:
++                  - variscite,var-som-imx7d-v2-emmc-mx7customboard
++                  - variscite,var-som-imx7d-v2-nand-mx7customboard
++              - const: variscite,var-som-imx7d-v2
++              - const: fsl,imx7d
++
+       - description: i.MX7ULP based Boards
+         items:
+           - enum:
 -- 
 2.47.3
 
