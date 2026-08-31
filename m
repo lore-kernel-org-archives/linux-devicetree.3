@@ -1,193 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5648F2D9EDB;
-	Mon, 31 Aug 2026 07:05:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C513C1974;
+	Mon, 31 Aug 2026 07:08:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788159940; cv=none; b=eg3zVOt8B3K7GRYHhNGbtfuAKbbELroGi2Z8Gl+ym1fIP4vVNx9gxZC3/dKxLN5cccs8DFkDKaJnYJy/WtUt43vaOZ93IA24zPYN3CuyuoR9RDjhaEyXYJsysMr/zGgQ0JOXxLL6A/Gu7SwU062pqtXro6fgG8vVXheikbHE8W0=
+	t=1788160112; cv=none; b=VQHfWRwgbNFbjqacUHfBiOlkTAF+Yaou2ObIHl828i2THookbdHhLhe4DRCxdV85y2ojI5PB0N+zCLLBkPavm+CduMNGAV6mF8J3MLcGDmOKlkcwJFKGy+OObl1vXXNsSsCxJ70hp5Csf6KOShC+0Z8288tShATs90UCTwvayp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788159940; c=relaxed/simple;
-	bh=6kEBMVpoCiAmQRPI7AciJtGk2/3rkUW36q9tJAwZrDQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XSya0NYC21QoUycgylHuoEYqf8A+XcwHs1l5sZpn77U5kCxnG77Pdaqk4IeBu3XWhMnhrw19dKC5Lbi4JTAu/CH/8O46NJ5UPi7aaVdRjtQXIwI2CY6fs7gZikUJ5kLJY4G/QekFZa8Yh/MhFj5ISAE3V4Kp4uzaE/MEbcBo5sM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NeBCRDFJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788160112; c=relaxed/simple;
+	bh=5JIIi0Tg4m+cuicZQGj6zgKVJq3VGGLAEp6WZ3EyIYk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eUh29vCYxE4LnB+JVe62u7pGw1nON1/r24QyVT3jghux6D/gZX9zJkkaB7UDS1N0pCTWQS2OyFfWpMWCcyO9pQuwVGXPiV1vFFvktmr9DoDMhYT7YRYkTo5v727RdMZXIHLwGXUs/NVQ4hyQ/cAcmlSFviaSYnANo8qcGjR3vpU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B4Cux9Dk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NeBCRDFJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2F4E1F000E9;
-	Mon, 31 Aug 2026 07:05:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B4Cux9Dk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E2CD1F000E9;
+	Mon, 31 Aug 2026 07:08:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788159939;
-	bh=cCDQv/g3VmOszUQYR6q7FLVvlu2TE0dDdvXyBERzFnw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NeBCRDFJiBMQFIKUwRLGlsMSYLE2kW64zilLcP+iXn3mohxtOpwPlhIa0ryAm5fnd
-	 a2RKkpvnho53gXFhjtOh4FUhnukiIKntusg4FxvcDfS0YuzlFthiZvlHpTQ0e+Vv3w
-	 pT9WAVKi+FsVLgjs/W0AQWXJR2X4oEWi7GYPS1qWdHlUyoKrRf2PANpPiM2U4982C7
-	 tmpb1U6zWHxerhiif2ywUa8N1N9pmLED3OwMeAEP2+FQ5bR5qmZ5F4imbyEHQU+Ms/
-	 TyBZwvEDHyRsWH2H5NvE+S+0pRuvrXnkzGjgfTCeGYLjC3hCgj36NMovRh9Ij6CtGy
-	 tshFOBcC9cQGQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v43 3/7] firmware: imx: add driver for NXP EdgeLock
- Enclave
-Reply-To: sashiko-reviews@lists.linux.dev
-To: pankaj.gupta@oss.nxp.com
-Cc: Frank.Li@kernel.org, robh@kernel.org, imx@lists.linux.dev, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260831-imx-se-if-v43-3-a3deadbda4ef@nxp.com>
-References: <20260831-imx-se-if-v43-0-a3deadbda4ef@nxp.com>
- <20260831-imx-se-if-v43-3-a3deadbda4ef@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 07:05:38 +0000
-Message-Id: <20260831070538.F2F4E1F000E9@smtp.kernel.org>
+	s=k20260515; t=1788160109;
+	bh=n2iZoUZZVaoAdf0YG57XRxMIMRkkjub9h3HnUrjlaXQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=B4Cux9DkAr3/1la7VT47UiW13CpmgMKSChBGOcmWaeCHbElfVETzcZReBJ2Vhyr+y
+	 rRgODm174DbtR3lT+Y/5Ru+95noQepBGxUKo0wBzxjCwiW4suZSvigLGHWIWYOB7hD
+	 zTiBpMAmr86N3XzhT9EopbrzSz1AgUXaO3e/X3ZXJrIqeRLpodjIx+BRCRFQWT5+oL
+	 Y24xBS4c0R9v8vFUjiDftPe6MrIElkiagqBWDrr/PNNd7ObHoqjw8re1Caq2G5RXJE
+	 4ils5LXzre7ALbcCDN46XvcUPYo+e7oxOotYMg307JrBtIVVqspKTMelUIDtiMp1BN
+	 9QLXRq5LdcYZg==
+Date: Mon, 31 Aug 2026 09:08:25 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/3] dt-bindings: phy: airoha: Document support for
+ AN7583 USB PHY
+Message-ID: <20260831-romantic-goldfish-of-tranquility-1b6dbe@quoll>
+References: <20260827131551.26725-1-ansuelsmth@gmail.com>
+ <20260827131551.26725-2-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260827131551.26725-2-ansuelsmth@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Converting a successful firmware transaction to `-ERESTARTSYS` (an=
-d subsequently `-EINTR`) causes loss of response data and duplicate executi=
-on of non-idempotent commands.
-- [High] Missing return value check for `dma_set_mask_and_coherent()` allow=
-s silent DMA address truncation.
-- [Medium] Buffer over-read in `se_if_rx_callback` due to trusting unauthen=
-ticated message size.
---
+On Thu, Aug 27, 2026 at 03:15:45PM +0200, Christian Marangi wrote:
+> Add documentation for Airoha AN7583 USB PHY that describe the USB PHY
+> for the USB controller.
+> 
+> Airoha AN7583 SoC support a maximum of 2 USB port. The USB 2.0 mode is
+> always supported. The USB 3.0 mode is optional and depends on the Serdes
+> mode currently configured on the system for the relevant USB port.
+> 
+> To correctly calibrate, the USB 2.0 port require correct value in
+> "airoha,usb2-monitor-clk-sel" property. Both the 2 USB 2.0 port permit
+> selecting one of the 4 monitor clock for calibration (internal clock not
+> exposed to the system) but each port have only one of the 4 actually
+> connected in HW hence the correct value needs to be specified in DT
+> based on board and the physical port. Normally it's monitor clock 1 for
+> USB1 and monitor clock 2 for USB2.
+> 
+> To correctly setup the Serdes mode attached to the USB 3.0 mode, a phys
+> property is required with the phandle pointing to the correct Serdes port
+> provided by the SCU node. Providing the phys property is optional if USB
+> 3.0 is not used.
+> 
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 
-commit a66c01dd1d5f945431fe3bf45a2b25282c5a4077
-Author: Pankaj Gupta <pankaj.gupta@nxp.com>
+Sashiko comments look valid, also same discussion as in PCI phy.
 
-firmware: imx: add driver for NXP EdgeLock Enclave
+Best regards,
+Krzysztof
 
-Add MU-based communication interface for secure enclave.
-
-> diff --git a/drivers/firmware/imx/ele_common.c b/drivers/firmware/imx/ele=
-_common.c
-> --- /dev/null
-> +++ b/drivers/firmware/imx/ele_common.c
-
-[ ... ]
-
-> +int ele_msg_send_rcv(struct se_if_priv *priv, void *tx_msg, int tx_msg_s=
-z,
-> +		     void *rx_msg, int exp_rx_msg_sz)
-> +{
-
-[ ... ]
-
-> +	err =3D ele_msg_rcv(priv, &priv->waiting_rsp_clbk_hdl);
-> +
-> +	if (priv->waiting_rsp_clbk_hdl.signal_rcvd) {
-> +		/*
-> +		 * Signal was deferred until the FW/kernel protocol resynchronized.
-> +		 * On success report -ERESTARTSYS for the interrupted wait; the
-> +		 * command is not re-sent. Keep real errors like -ETIMEDOUT.
-> +		 */
-> +		if (err > 0)
-> +			err =3D -ERESTARTSYS;
-
-[Severity: High]
-Does this conversion of a successful hardware transaction to -ERESTARTSYS=20
-cause the loss of response data?
-
-If userspace retries the operation as expected for an interrupted system
-call, wouldn't it re-execute a command the hardware has already processed,
-breaking exactly-once semantics and state synchronization?
-
-> +		priv->waiting_rsp_clbk_hdl.signal_rcvd =3D false;
-> +		dev_dbg(priv->dev, "Err[0x%x]:Interrupted by signal.\n", err);
-> +	}
-> +
-> +	ele_msg_send_rcv_cleanup(priv);
-> +
-> +	return err;
-> +}
-
-[ ... ]
-
-> +void se_if_rx_callback(struct mbox_client *mbox_cl, void *msg)
-> +{
-> +	struct se_clbk_handle *se_clbk_hdl;
-> +	struct device *dev =3D mbox_cl->dev;
-> +	struct se_msg_hdr *header;
-> +	bool sz_mismatch =3D false;
-> +	struct se_if_priv *priv;
-> +	unsigned long flags;
-> +	u32 rx_msg_sz;
-> +
-> +	priv =3D dev_get_drvdata(dev);
-> +	if (!priv)
-> +		return;
-> +
-> +	/* The function can be called with NULL msg */
-> +	if (IS_ERR_OR_NULL(msg)) {
-> +		dev_err(dev, "Message is invalid\n");
-> +		return;
-> +	}
-> +
-> +	header =3D msg;
-> +	rx_msg_sz =3D header->size << 2;
-
-[ ... ]
-
-> +	} else if (header->tag =3D=3D priv->if_defs->rsp_tag) {
-
-[ ... ]
-
-> +		se_clbk_hdl->rx_msg_sz =3D min(rx_msg_sz, exp_rx_msg_sz);
-> +		memcpy(se_clbk_hdl->rx_msg, msg, se_clbk_hdl->rx_msg_sz);
-
-[Severity: Medium]
-Can this untrusted header size calculation cause an out-of-bounds read?
-
-The rx_msg_sz is calculated directly from the unauthenticated message heade=
-r.
-If the underlying mailbox driver provides a pointer to a smaller fixed-size
-payload, couldn't the memcpy read past the end of the msg buffer?
-
-> +		complete(&se_clbk_hdl->done);
-> +		spin_unlock_irqrestore(&se_clbk_hdl->clbk_rx_lock, flags);
-
-[ ... ]
-
-> diff --git a/drivers/firmware/imx/se_ctrl.c b/drivers/firmware/imx/se_ctr=
-l.c
-> --- /dev/null
-> +++ b/drivers/firmware/imx/se_ctrl.c
-
-[ ... ]
-
-> +static int se_if_probe(struct platform_device *pdev)
-> +{
-
-[ ... ]
-
-> +	if (if_node->reserved_dma_ranges) {
-> +		ret =3D of_reserved_mem_device_init(dev);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "Failed to init reserved memory region.\n");
-> +	}
-> +
-> +	dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
-
-[Severity: High]
-Could omitting the return value check for dma_set_mask_and_coherent() allow
-silent DMA address truncation?
-
-If the DMA mask is not successfully set, the system might provide 64-bit DMA
-addresses. Because the hardware appears to only support 32-bit DMA addresse=
-s,
-wouldn't truncation to 32 bits instruct the secure enclave to access the wr=
-ong
-physical memory addresses and cause memory corruption?
-
-> +
-> +	/*
-> +	 * Initialize load_fw_lock before registering the misc device.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-imx-se-if-=
-v43-0-a3deadbda4ef@nxp.com?part=3D3
