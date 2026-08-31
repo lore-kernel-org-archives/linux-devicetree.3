@@ -1,142 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA34F3B14B8;
-	Mon, 31 Aug 2026 06:33:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 811F1370AD4;
+	Mon, 31 Aug 2026 06:33:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788157983; cv=none; b=BHlHSQDjd3C7pZPXesJ8FbDxwga5tNLRcxW6edpRK+fJSQPgqEFwK3a69z8C30np5cw6hBlT38aFUz70jOQaqumF7TGzLnEjrquSmHW84K2TPBqdISthy5LwUCpJOOSPUdJJ1MfacOJfVN9EnF9kFjg9ajk8n+tZBo1O7MtE5Nc=
+	t=1788158038; cv=none; b=fQ3iYteHOvxxYzWEusRvRIVq3Zf5qoXMAOjUnkHyLOnyKhTXtfHOEuN7vPjsEbOwXM2t3HoOg1dXr69VCMhXq1cYS3aTvRmsSHZmpZDhZHiy97uXyNAB+WWcWrnobjqyHQu0Sty0oIOmuxwmho5sdLl8KYPkHLhbY+CsNdqJKlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788157983; c=relaxed/simple;
-	bh=CvQ+YEq/ATbO9+iTa4L4nQndg/7a70rnRyw93dsjyK4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Iq/uium5bYdGgrRZ+tEMW8IqVYU8hbBLzwTfT5t4pV0Khoq3VGbHFjwnMPDF1vEV+bDJysxzj2XEFCqsuCJ23kJKDV/9j9h2Jhf3rUcc3jCwmxEqCWcfzLXjAzDpsm0fC7aTAQh4MVnLDFpYQkxY9up9sND+skunNsBBpfpkcjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GClwpBwb; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788158038; c=relaxed/simple;
+	bh=K342pN9R5l9Amf3yIne5jhRsFkAPNtSws5F1C1XTfYM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tRLZo2H4oylf9thYGKqHGeaK26qxp6bkEX5i4c2oU3THSg4Y/hX9kqydYvCCKuBr7jzu9nX87doO+tlFzyehQK44Z4i7npbI4OvuX3PX1QxEf5sDucrCT7jm/3gGRtyvDB98Dn/zEvlscQ0svjSnpshDjzjSE20z9EwdOyXNzrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HXBHbr8Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GClwpBwb"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 15975C2BCFA;
-	Mon, 31 Aug 2026 06:33:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788157983;
-	bh=CvQ+YEq/ATbO9+iTa4L4nQndg/7a70rnRyw93dsjyK4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=GClwpBwbHP+sfW0apmpQzwsF0PaZlsiQyGCEy9nd79Eb7huxu+94P8rM6R7Et11hQ
-	 L1DIko8BPgeFWxMFNCaTGJEDE8ltWbc6Nsq1Afy7d8A35dsJSbs5QpdNH2bAvlDU+x
-	 HWHegGm732+PIQPRfX60HeEhAADpSUgGBdZgpFraTrZKUu8CbyfwOQOzpdov7nTku2
-	 aFp9ch4zc17xzB9U0Gls3E8CAuY8HBmw3Yptfgy+KL4p9oJdLiSTg+aCoOdoWkqnPx
-	 OO6f8kzfQ/3Gg86rMchWKO8p+CFwZbxo6LvWO06WyYf8QZzQV0uMkfNqWmwGIgDzQ5
-	 2SSP0ilCe2IYQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E58A3C624A5;
-	Mon, 31 Aug 2026 06:33:02 +0000 (UTC)
-From: Sarath Ganapathiraju via B4 Relay <devnull+sarath.ganapathiraju.oss.qualcomm.com@kernel.org>
-Date: Mon, 31 Aug 2026 12:03:01 +0530
-Subject: [PATCH v7 1/2] dt-bindings: clock: qcom: Add LPASS VA CSR
- HeartBeat pulse clock
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HXBHbr8Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20F3E1F000E9;
+	Mon, 31 Aug 2026 06:33:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788158037;
+	bh=GP2C2mZreAalLgcgv4kH52hh++chyCXbyU5k8g3nVAw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HXBHbr8QuA/1GL+lcq09OgnCqRhxC7HarHVZt/raxamgMrw2e/zqzfkIlcy3bv+KJ
+	 +Or0czqXZnS5CX2a+GUc4ML5WTnln7D6oxSskL07rpWlvKSUa3b2QEnLSIY692Eiz9
+	 88tPzxGya7NYZsPMYjSH9BH0rsmGEO3HvO+RbLn+lYbRhMmLkhVrFw9ra3u/KX7NHX
+	 WGxSwq9U+JOgXwI6X5NEV9ZTUyuieBsY8O5DAQkoJ8BLYv7yqiL1jmWi00MqBz/P8w
+	 sly7jgqAaZqlTiKeHwrKGk+Fg2Ob8XqO3aQE3B3at+5xDUbKLI8tlVXz6trPZh7KSt
+	 B+9Lg9jsuKpfw==
+Date: Mon, 31 Aug 2026 08:33:52 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Biju <biju.das.au@gmail.com>
+Cc: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, Rob Herring <robh@kernel.org>, linux-pci@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH 1/4] dt-bindings: PCI: renesas,r9a08g045s33-pcie:
+ Document RZ/G3L SoC
+Message-ID: <20260831-neon-responsible-ape-e0cd02@quoll>
+References: <20260825095047.9971-1-biju.das.jz@bp.renesas.com>
+ <20260825095047.9971-2-biju.das.jz@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-heartbeat-v7-next-20260828-v7-1-e3ffeac46a51@oss.qualcomm.com>
-References: <20260831-heartbeat-v7-next-20260828-v7-0-e3ffeac46a51@oss.qualcomm.com>
-In-Reply-To: <20260831-heartbeat-v7-next-20260828-v7-0-e3ffeac46a51@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>, 
- prasad.kumpatla@oss.qualcomm.com, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788157981; l=2151;
- i=sarath.ganapathiraju@oss.qualcomm.com; s=default;
- h=from:subject:message-id;
- bh=5DgYRL2d+tr5ENMkYeTnCE9rjgsWEYIKZ5OrVRuZXu4=;
- b=tFB8+8cWhYakiaJEtSe6EXgdn+9QblGG9P/sa1Ejygdd26H3V4nRZpP1SMv9a4cbhAA81RikO
- IHFUn8H43m4D8U7zW5fEEEjdK31TmWuQm9a57ta3Zhmzwh65tGdSBHL
-X-Developer-Key: i=sarath.ganapathiraju@oss.qualcomm.com; a=ed25519;
- pk=4p2FWGXM+F2sir13Lu5stw5aKX5trUymK/ttESvgxQg=
-X-Endpoint-Received: by B4 Relay for
- sarath.ganapathiraju@oss.qualcomm.com/default with auth_id=870
-X-Original-From: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
-Reply-To: sarath.ganapathiraju@oss.qualcomm.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260825095047.9971-2-biju.das.jz@bp.renesas.com>
 
-From: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+On Tue, Aug 25, 2026 at 10:50:40AM +0100, Biju wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+> 
+> Extend the existing device tree bindings for Renesas RZ/G3S PCIe
+> controller to include support for the RZ/G3L (renesas,r9a08g046-pcie)
+> PCIe controller. The RZ/G3L PCIe controller is similar to RZ/G3S but has
+> some key differences:
+>      - Has 3 clocks compared to 2 on other SoCs.
+>      - Has a different set of reset signals
+> 
+> Add device tree bindings for renesas,r9a08g046-pcie compatible IPs.
+> 
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+> ---
+>  .../bindings/pci/renesas,r9a08g045-pcie.yaml  | 33 ++++++++++++++++++-
+>  1 file changed, 32 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml b/Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml
+> index 09d78bd1a577..911b1976bf53 100644
+> --- a/Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml
+> +++ b/Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml
+> @@ -13,7 +13,7 @@ description: |
+>    PCIe host controller found in Renesas RZ/G3S and similar SoCs complies
+>    with PCIe Base Specification 4.0 and supports different link speeds
+>    depending on the SoC variant:
+> -    - Gen2 (5 GT/s): RZ/G3S
+> +    - Gen2 (5 GT/s): RZ/G3{L,S}
+>      - Gen3 (8 GT/s): RZ/G3E, RZ/V2H(P), RZ/V2N
+>  
+>  properties:
+> @@ -21,6 +21,7 @@ properties:
+>      oneOf:
+>        - enum:
+>            - renesas,r9a08g045-pcie # RZ/G3S
+> +          - renesas,r9a08g046-pcie # RZ/G3L
+>            - renesas,r9a09g047-pcie # RZ/G3E
+>            - renesas,r9a09g057-pcie # RZ/V2H(P)
+>        - items:
+> @@ -87,14 +88,18 @@ properties:
+>    interrupt-controller: true
+>  
+>    clocks:
+> +    minItems: 2
+>      items:
+>        - description: System clock
+>        - description: PM control clock or clock for L1 substate handling
+> +      - description: PM control clock or clock for L1 substate handling
 
-Add a binding for the Qualcomm LPASS VA CSR rate generator node that
-exposes the lpass_heartbeat_pulse clock on Hawi.
+PMU? You list both clocks, but is there any different between them?
 
-The HeartBeat Pulse (also known as RateGen Pulse) synchronizes the
-start of the DMAs and Codec Interfaces for the audio usecase and can
-serve as a periodic wakeup source for the DSP.
+>  
+>    clock-names:
+> +    minItems: 2
+>      items:
+>        - const: aclk
+>        - enum: [pm, pmu]
+> +      - enum: [pm, pmu]
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
----
- .../bindings/clock/qcom,hawi-lpass-va-csr.yaml     | 45 ++++++++++++++++++++++
- 1 file changed, 45 insertions(+)
+This should be "const: pmu" in such case.
 
-diff --git a/Documentation/devicetree/bindings/clock/qcom,hawi-lpass-va-csr.yaml b/Documentation/devicetree/bindings/clock/qcom,hawi-lpass-va-csr.yaml
-new file mode 100644
-index 000000000000..bd3554f5c99c
---- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/qcom,hawi-lpass-va-csr.yaml
-@@ -0,0 +1,45 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/qcom,hawi-lpass-va-csr.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Qualcomm LPASS VA CSR heartbeat pulse clock provider
-+
-+maintainers:
-+  - Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-+  - Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
-+
-+description:
-+  The Hawi LPASS (Low Power Audio Subsystem) VA CSR block contains a
-+  rate generator that produces a periodic HeartBeat Pulse, also known
-+  as the RateGen Pulse. This pulse synchronizes the start of DMAs and
-+  Codec Interfaces for audio usecases and can serve as a periodic wakeup
-+  source for the DSP.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - qcom,hawi-lpass-va-csr
-+
-+  reg:
-+    maxItems: 1
-+    description: Address and size of the VA CSR register block.
-+
-+  "#clock-cells":
-+    const: 0
-+
-+required:
-+  - compatible
-+  - reg
-+  - "#clock-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    clock-controller@7ee0000 {
-+      compatible = "qcom,hawi-lpass-va-csr";
-+      reg = <0x07ee0000 0xe000>;
-+      #clock-cells = <0>;
-+    };
-
--- 
-2.34.1
-
+Best regards,
+Krzysztof
 
