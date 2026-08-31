@@ -1,147 +1,276 @@
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D54A84582E1;
-	Mon, 31 Aug 2026 17:03:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.145
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B293955C3;
+	Mon, 31 Aug 2026 17:04:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788195790; cv=none; b=T5W6Fl8Bd0TsZjfaCKxSDX6AxwUrp5x4dUB2PdGD0MpvBYSdvehoFLKUVSBv2psGR0xg2iTgBbbCubAVq1/fQEcB533CnD3NC7byXCW4itu/IpzSeLOpj8fe3ACf//GAkLNi5OLTal/MgWy80r+HP31LkqhpxqrEv05/zkLfhR0=
+	t=1788195849; cv=none; b=EVpd4psKEJaF8KabqlgImKB4WRtkLRv/do+A28dUWtZAwIm11xj++CHXPRfxEVaO314Zh0ymykW9ks/WSv7jkm8WS3ke8jB/qhS7KdG9vIsnV7n3Qu/C1G6Fuj+rSNWa5ZZVjUf2YA3bQnOlMuxQyAxHNaqUvLJ8WNJ4uM8RKcU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788195790; c=relaxed/simple;
-	bh=x8pyfOFgSkKTlAfiLszTEL4H/BxUyTuFtU+ZXQQky9U=;
+	s=arc-20240116; t=1788195849; c=relaxed/simple;
+	bh=/OaGt3Qay5RfFCBQPbWoxk7FpWTTf0owlGsjEizOONE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oSXmhapGYMfOBgFsXgoJu/yifCl7noXzjHYa2nu9aFQAw9BCNfI2TAd1E0TZKZE5PoKFF5CRUW69t3VLAWPmudS2d8QrMUhJ8r6NtSvv0UsfcDXfI20ewLqJYgnM6uLqnOBMfUUvXLMvrUz/hkc78SBLls8+uUi+x/zAqlx4nxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=AP2QtpsK; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=a8GhFhFa; arc=none smtp.client-ip=103.168.172.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	 Content-Type:Content-Disposition:In-Reply-To; b=hMx6laruiGtBX2wtSatbZ0BTt+J4UV9CzZQJe8qClwLeVuf6PKvV3pLm10LNbaRVeXUkDsoR+GkE94kIIJ3Fenf63Him9uB3gAf+GJBU0UuqOvYoIg89OUxJu7dEsTeVhdLgi/Ph9MyKO5VB6AvZ2dWj615NERp/37/LS0Jrkxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=muxBm/LZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="AP2QtpsK";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="a8GhFhFa"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.phl.internal (Postfix) with ESMTP id D9570EC018B;
-	Mon, 31 Aug 2026 13:03:07 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Mon, 31 Aug 2026 13:03:07 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1788195787;
-	 x=1788282187; bh=F0PGnQWaLIQjLgUONrZVx24rLLeTQOG0W5RZFIJrJKU=; b=
-	AP2QtpsK5aOcZr/rrUSARIiReC0Ublypx0eTJneMRZgE+Ic7l1kQr4+6tDAhgJVZ
-	276PX6q23xuk+yWVwy5zVpHX7kEVPAA1gOmBPqekG1Isa8W51k6Cv4XZ3VdcWJnq
-	Zirn02xzkMUJ7AynVeFCFTW2OtaJLG/ZGX46xc/yNRHkMmOC3b2SLJEGi0Fw2pAv
-	JhsYyeU5IsriZhNy9q9WsAHVksMnyEZE6QG8wi/H62b3cQpG84Z9H/C7HSKxA18Y
-	zFwyfeWOwWqW8Wr0UIhd2yqq7qTsnT7hUpRt7NXmycX5R4Wg70QolyekK40ugsyq
-	P4oMw2wht7ivKE2g0ZT0Iw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1788195787; x=
-	1788282187; bh=F0PGnQWaLIQjLgUONrZVx24rLLeTQOG0W5RZFIJrJKU=; b=a
-	8GhFhFa+ruyQDY2Psr/yBZ7Nr9NfVLST5kSr+a17EZtUb0SDIUEh/TUME2DQOKmN
-	B4W96Wf4F5CsX3NY3VF0yFMDzcfRWYmNeiopxF0GDd27R1Cwj3eiELXnVYAcGuG7
-	VW82ohL76VXl5xjlrPSyVfGTGys6KTT6Uay9t1vx3HziJibO/cbLlMWhf9ZjALf3
-	/bOv4q1Y1BepyumfeJaKbQc+BKwHfwgmeOjO8RfT92BUWaD7R1o7ayHUXNLvnHaT
-	7KRY8tffDK2HTzc5w0XUt3L9/1AvNVPdfpU4DsFSlam7+TolR+UH6jWWfx7EBz0i
-	Ld5AYKGdMW6UCcGiiEMZg==
-X-ME-Sender: <xms:yrOVaiO8F-utIg5VUER89kACm2HzIr7aE-SRJfcNDyIBrofS7KYbCw>
-    <xme:yrOVaoAjwvZKGuTqfnP-1AfutEdjsbt4rqLYnux7tgC6iQVZPjFKBfsj8bjC3ko-t
-    Jo-P2n80NnsbaJxIfz3RtefzYQ8Dkdm-7f8cDG11gngnAErzyIJ5JIG>
-X-ME-Received: <xmr:yrOVag8_WEAbLI6rtKtlzzqPPaNqNuE77YQuKnHJmGDRamIjQlrFMD7mG3dQqB4aFoA-CsmXqfB_YVwkk40dzBdi5hxfKB4>
-X-ME-Proxy-Cause: dmFkZTGUrQUCuUEYWyf5eaq32XTaxIkIe9jIJi28PlCA7ffFYlgodbkNN/nBhdnOiUg6Nm
-    NU8srThnTkQVEXpH1B4GePx0lxalApr7949A3YGNhP1In4d71MS+sgOpTkQWMfyDNgYFli
-    mRKetbDnkRJRvksrq0wsF5rlhd9MxoplaXDJ8a8Djlwl5cB8rvhTQo3p1sjbs8qe4oFRCq
-    d2pz6FUP8xrNya1wpXlSO21SnB/QaPXbAPbWJlluYnPbnpts3MVK7+U1DkhCgU4RL9p3Uv
-    HJDC2hkNx4xW3Puux6CASTL+I7JXHxcDrk2tZXC7Ke3fz1k5oI/xMl66ywPlwEIIyyWLbF
-    fLb4uxG8DwOmRywTylH0WuDIcYjihU51Xwm6B5jzesfK1HR+CSfyvLI9M8LoIlimtFBK3c
-    OTpn2XdI3WQYnYmypnPTSaZDbSuwnt2NCEVdjbRZwLceFTXGKw/EgjIxOda+0ITemj7Y3m
-    cj/b1Z+JBSPI3hfrzi4Yn7SrvAc/nOCsvszK2flf3UHzQVSNQp+mSmINCWztirL5Df3VBB
-    +BcTqMNg8cJCW3c7R18OTbTTotmjm5/ICSeKMCmgIidjpxSoz5RPQfRhC12izSyRba/Mja
-    +r+NPRGeiqIqKSsp5BVjlzpGqW4cp5jKJI+/8FZzw9o8NDCOBkuCeM1eCsWg
-X-ME-Proxy: <xmx:yrOVapEHHZxqvif6osI7rWm8XOzz61lkgQzNAzu-mR-5nNMdV8FPSw>
-    <xmx:yrOVanKMjsOS02T84S-6tFwpmO9Dfd4ds3vzaCShH78X0ichQBOAYQ>
-    <xmx:yrOVasfpyUjIFj1TgNyhZpZYOsP4Rxq04SVtVsBanjkjpOMSYGVglg>
-    <xmx:yrOVakVYpBbYQkAwTajMS8HHPrmszfvf9xOu_M-kRNVo16BgspJ6pQ>
-    <xmx:y7OVasP86tyt9IIm-0TGL0Q8Lh5fltDRWk55xoar90CQjDFWjYeA6Lwi>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 31 Aug 2026 13:03:05 -0400 (EDT)
-Date: Mon, 31 Aug 2026 19:03:03 +0200
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-To: dumitru.ceclan@analog.com
-Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Julien Massot <julien.massot@collabora.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="muxBm/LZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9DBB1F00A3D;
+	Mon, 31 Aug 2026 17:04:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788195847;
+	bh=dsR6Jx8PTvg1ZUXWSP5F8HFPrWko+mwbB0W9cXhzzPc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=muxBm/LZtlxYGCWxJB6JwR5xqDAHLRmUJ3dwyD+gkmv53xKZm45tfhq1lJUBrdUrM
+	 OtOX7Favbm9a7PqpG4RL43t5a2L3f9fcCkC2pkp871k9qT1Atxo4CgjTaaz95vW0uW
+	 3gH3FmMId7c60A+7X/nESLgAGa+lxrPA4XH9m0eHyjt+iEUMJ6tqhL0eY5D6/lOxwF
+	 doKwSPDNJRhEYVJcebYyHyA/YkAyKH2y39CLhAdDxiLbLrzHcoHDXij8cZbOwwe+Eu
+	 2cMJtTv+Lobl62dmuUdCC3TsuILjmZCFh9sm5NvVs3qqr4r/t6wcOBxdGP3fHEFuQN
+	 gjZ6hu8BnMfog==
+Date: Mon, 31 Aug 2026 18:04:03 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Kim Seer Paller <kimseer.paller@analog.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
 	Rob Herring <robh@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	mitrutzceclan@gmail.com, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-staging@lists.linux.dev, linux-gpio@vger.kernel.org,
-	Martin Hecht <Martin.Hecht@avnet.eu>,
-	Andrian Suciu <Adrian.Suciu@analog.com>,
-	Cosmin Tanislav <demonsingur@gmail.com>,
-	Vivekananda Dayananda <vivekana@amd.com>,
-	Cory Keitz <ckeitz@amazon.com>
-Subject: Re: [PATCH v16 00/22] media: i2c: add Maxim GMSL2/3 serializer and
- deserializer drivers
-Message-ID: <20260831170303.GB1116206@ragnatech.se>
-References: <20260831-gmsl2-3_serdes-v16-0-4fa6e08bb514@analog.com>
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux@analog.com,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 2/4] dt-bindings: iio: dac: add adi,ad5710r.yaml
+Message-ID: <20260831-singer-reimburse-defba31848bc@spud>
+References: <20260829-iio-ad5710r-upstream-v4-0-8af3121c7d21@analog.com>
+ <20260829-iio-ad5710r-upstream-v4-2-8af3121c7d21@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="b6/AnpX2Ldcjh/ZL"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260831-gmsl2-3_serdes-v16-0-4fa6e08bb514@analog.com>
+In-Reply-To: <20260829-iio-ad5710r-upstream-v4-2-8af3121c7d21@analog.com>
 
-Hello,
+--b6/AnpX2Ldcjh/ZL
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thanks for  your continued effort pushing this work forward!
+On Sat, Aug 29, 2026 at 01:59:21PM +0800, Kim Seer Paller wrote:
+> Add device tree bindings for the Analog Devices AD5710R/AD5711R
+> 8-channel 12-/16-bit Configurable IDAC/VDAC.
+>=20
+> Signed-off-by: Kim Seer Paller <kimseer.paller@analog.com>
+> ---
+>  .../devicetree/bindings/iio/dac/adi,ad5710r.yaml   | 143 +++++++++++++++=
+++++++
+>  MAINTAINERS                                        |   1 +
+>  2 files changed, 144 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5710r.yaml b=
+/Documentation/devicetree/bindings/iio/dac/adi,ad5710r.yaml
+> new file mode 100644
+> index 000000000000..259866ca87cf
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5710r.yaml
+> @@ -0,0 +1,143 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/dac/adi,ad5710r.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Analog Devices AD5710R/AD5711R 8-channel 12-/16-bit Configurable =
+IDAC/VDAC
+> +
+> +maintainers:
+> +  - Kim Seer Paller <kimseer.paller@analog.com>
+> +
+> +description: |
+> +  The AD5710R (16-bit) and AD5711R (12-bit) are 8-channel, low-power,
+> +  configurable current/voltage output digital-to-analog converters (DACs=
+) with
+> +  an on-chip 2.5V, 3ppm/=B0C reference. Each channel can be independently
+> +  configured as a voltage output (0V to VREF or 0V to 2 x VREF) or a cur=
+rent
+> +  output (0mA to 50mA). These devices operate from a single 2.7V to 5.5V
+> +  supply and are guaranteed monotonic by design.
+> +
+> +  Datasheet can be found here:
+> +  https://www.analog.com/media/en/technical-documentation/data-sheets/ad=
+5711r-ad5710r.pdf
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - adi,ad5710r
+> +      - adi,ad5711r
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  spi-max-frequency:
+> +    maximum: 20000000
+> +
+> +  '#address-cells':
+> +    const: 1
+> +
+> +  '#size-cells':
+> +    const: 0
+> +
+> +  vdd-supply:
+> +    description: Power Supply Input.
+> +
+> +  iovdd-supply:
+> +    description: Digital Power Supply Input.
+> +
+> +  io-channels:
+> +    description:
+> +      ADC channel used to monitor internal die temperature, output volta=
+ges, and
+> +      current of a selected channel via the MUXOUT pin.
+> +    maxItems: 1
+> +
+> +  ref-supply:
+> +    description:
+> +      Reference Input/Output. The voltage at the REF pin sets the full-s=
+cale
+> +      range of all channels. If not provided the internal reference is u=
+sed and
+> +      also provided on the VREF pin.
+> +
+> +  reset-gpios:
+> +    description:
+> +      Active low signal that is falling edge sensitive. When it is deass=
+erted,
+> +      the digital core initialization is performed and all DAC registers=
+ except
+> +      the Interface Configuration A register are reset to their default =
+values.
+> +    maxItems: 1
+> +
+> +  ldac-gpios:
+> +    description:
+> +      LDAC pin to be used as a hardware trigger to update the DAC channe=
+ls. If
+> +      not present, the DAC channels are updated by Software LDAC.
+> +    maxItems: 1
+> +
+> +  adi,range-double:
+> +    description:
+> +      Configure the output range for all channels. If the property is pr=
+esent,
+> +      the output will range from 0V to 2 x Vref. If the property is not =
+present,
+> +      the output will range from 0V to Vref.
 
-On 2026-08-31 16:21:19 +0300, Dumitru Ceclan via B4 Relay wrote:
-> This series adds new drivers for multiple Maxim GMSL2 and GMSL3 devices,
-> replacing the few GMSL2 drivers already in upstream, and introducing a
-> common framework that can be used to implement such GMSL chips, which
-> avoids code duplication while also adding support for previously
-> unsupported features.
-> 
-> While the normally acceptable and polite way would be to extend the
-> current mainline drivers, the choice was made here to add a totally new
-> set of drivers. The current drivers support only a small subset of the
-> possible features, and only a few devices, so the end result after
-> extending them would in any case be essentially fully rewritten, new
-> drivers.
-> 
-> This series depends on support for internal pads, for which a patch has
-> been added.
+What was the rationale provided for this not being a userspace control?
 
-It also depends on enabling the streams API right? At least I need to do 
-so to be able to use the TPG. Out of curiosity do you know the plan to 
-enable it by default upstream?
+> +    type: boolean
+> +
+> +patternProperties:
+> +  "^channel@[0-7]$":
+> +    $ref: /schemas/iio/dac/dac.yaml#
+> +    type: object
+> +    description:
+> +      Represents the external channels which are connected to the DAC.
+> +
+> +    properties:
+> +      reg:
+> +        description: Channel number
+> +        minimum: 0
+> +        maximum: 7
+> +
+> +      adi,ch-func:
+> +        description:
+> +          Channel output type. Use CH_FUNC_VOLTAGE_OUTPUT for voltage
+> +          output or CH_FUNC_CURRENT_OUTPUT for current output.
+> +        $ref: /schemas/types.yaml#/definitions/uint32
 
-> The drivers have been tested on the following hardware combinations, 
-> but
-> further testing is welcome to ensure no / minimal breakage:
-> * Raspberry Pi 5 + MAX9296A + 2xMAX96717 + 2xIMX219
-> * Raspberry Pi 5 + MAX96714 + 1xMAX96717 + 1xIMX219
-> * Raspberry Pi 5 + MAX96716A + 2xMAX96717 + 2xIMX219
-> * Raspberry Pi 5 + MAX96712 + 4xMAX96717 + 4xIMX219
-> * Raspberry Pi 5 + MAX96724 + 4xMAX96717 + 4xIMX219
-> * Raspberry Pi 5 + MAX96792A + 1xMAX96793 + 1xMAX96717 + 2xIMX219
-> * Raspberry Pi 5 + MAX96792A + 2xMAX96717 + 2xIMX219
-> * Renesas V4H + MAX96712 + 2xMAX96717 + 2xIMX219
+Valid point from sashiko here that you never cover which is which (or
+cite the header where the defines come from).
+pw-bot: changes-requested
 
-I tested the TPG on Renesas V3U + MAX96712 and it works as just as good 
-or better then the staging driver this work makes obsolete.
+Cheers,
+Conor.
 
--- 
-Kind Regards,
-Niklas Söderlund
+> +        enum: [1, 2]
+> +
+> +    required:
+> +      - reg
+> +      - adi,ch-func
+> +
+> +    unevaluatedProperties: false
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - vdd-supply
+> +  - iovdd-supply
+> +
+> +allOf:
+> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/iio/addac/adi,ad74413r.h>
+> +
+> +    spi {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +        dac@0 {
+> +            compatible =3D "adi,ad5710r";
+> +            reg =3D <0>;
+> +            spi-max-frequency =3D <1000000>;
+> +            vdd-supply =3D <&vdd>;
+> +            iovdd-supply =3D <&iovdd>;
+> +            #address-cells =3D <1>;
+> +            #size-cells =3D <0>;
+> +
+> +            channel@0 {
+> +                reg =3D <0>;
+> +                adi,ch-func =3D <CH_FUNC_VOLTAGE_OUTPUT>;
+> +            };
+> +
+> +            channel@1 {
+> +                reg =3D <1>;
+> +                adi,ch-func =3D <CH_FUNC_CURRENT_OUTPUT>;
+> +            };
+> +        };
+> +    };
+> +...
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 3f5e7b2f524d..ec0f3812199c 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -1468,6 +1468,7 @@ L:	linux-iio@vger.kernel.org
+>  S:	Supported
+>  W:	https://ez.analog.com/linux-software-drivers
+>  F:	Documentation/devicetree/bindings/iio/dac/adi,ad3530r.yaml
+> +F:	Documentation/devicetree/bindings/iio/dac/adi,ad5710r.yaml
+>  F:	drivers/iio/dac/ad3530r.c
+> =20
+>  ANALOG DEVICES INC AD3552R DRIVER
+>=20
+> --=20
+> 2.34.1
+>=20
+
+--b6/AnpX2Ldcjh/ZL
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapW0AgAKCRB4tDGHoIJi
+0vBvAP9qaWx/fKGkwEgyeNToTO/hw7rc5ynUTDedUA93HDuyzAD/bNOl9x8ORACx
+I+5ffm8PeETXks7XaHVbVx7ELVkxjQ4=
+=by4N
+-----END PGP SIGNATURE-----
+
+--b6/AnpX2Ldcjh/ZL--
