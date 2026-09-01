@@ -1,116 +1,144 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA36220687;
-	Tue,  1 Sep 2026 11:53:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B4C13AC0FD
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 11:55:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788263640; cv=none; b=oSaMLx8s7JnnSA/jcarUkBQCsmgRpjrNu1JWTehT6XW/2XDAw/trXdLJG3TGPj/1+b8bVtWQ5TzEH4b8r4ri7+5EDjRO34sJ9r7WntwokUw9jGiUS7CtmNnLUcFSN91hg5JvWNvqEuzFy7nzufiZLgextD44lOPFfaJI58jX0BE=
+	t=1788263718; cv=none; b=g9deR+kW9YUASmlcY8BHZ+bkpoWzEBcs7tzg6jdxRKKZpdIptTgKzRLRp0Zw+DQEFNqimpYs3ZAvF+JlWKMbhu6/T73Xvl7j8/QsliHSTBCuSut2dVnNNWF8QQOIHDemstaqCh0MVKqwHzwn8ekUSRsLc6gO1VsIwr6lxcT5SZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788263640; c=relaxed/simple;
-	bh=xmJZ/mShlQC/J2zci2a1aCYzI93Zew2RrN4CmfcvQEg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EDnpXqISvlmzNPhhdx2pk6HR+hpNuv/7t4xC4cdDYEW9+9BUJurhLYihSKI/fXn5Jrx7ANbYvTkC+3J5Fwr4yQHaFRIpShwQk7QQzFvOUYxbtHrdC+2beoQ3HYqok+at5i4REVJ5BnQd0uSp6meoNClf7INXAw8yU8lEzKLMLpU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=S5nmsS61; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1788263718; c=relaxed/simple;
+	bh=zfR94t7udJBh14D1VM+Asv3t2JdezreNo8Nnts59s6w=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Bu7QSC/eSFZbCgGeNom9/yooyarFal52lEFHBOBYute5zMkOmOweX8yJ4ui4XC4p0cMzJ/2zYs2FCjCY879LeC/DgB0oakLbe99maH9KvfaJUtCvP994SdW72pEmIRTRekl/2eg7Mdbdde1cszofj6XHw+m8bRy5MDC3+l6yR+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MSxVvF+B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="S5nmsS61"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C673911C2CB;
-	Tue, 01 Sep 2026 13:53:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1788263632;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=wTlH2NBlwIO3VYPYi8tEIfLnOFWhkadxiZvBE2R/S4o=;
-	b=S5nmsS61xcu7YNgBme+JkN6P9uxe7dMh1g2OBEEFx+SOQH9j5jLOpT4TkU38fTSdGC0RQS
-	jULLSUIK7UOrwLI/Kd6efpZrOIcuuYhyrigkcJw6tkv7deB6hgHWtl2hZGwnNC0jwXc8hL
-	OOroxkb+8z9uj0Y7O6yZd8pILU8qZha2RPjcs3vKcCaA3zUbJF8kEAVAmpYrlU6gsO9J3d
-	dkHE/ed0KCu1UiHkqQfHZAQKC6D94IlhCgD3cNVLz10kAvD1JKLwjAtx3+z4/1dfIn92tL
-	0eLivBTc/A7fG58GuVI8rzGqBKQhRrgwNwhiqe5qGjkV8sPyHEjVLal8bLdP0w==
-Message-ID: <6d9d37d1-1f9e-4533-bfab-5a070c444a4a@nabladev.com>
-Date: Tue, 1 Sep 2026 13:53:49 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MSxVvF+B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A20E1F00A3D;
+	Tue,  1 Sep 2026 11:55:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788263715;
+	bh=alJdvdfAQ42Hxt9ROawbxB2ozskwRrPzaCNcH6c+gzY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MSxVvF+B3MsnmLBZzbKl0uJVTvQzqPVYrT1Iu5lrV1HEDBf8da0CgaJuCkqt0wNn0
+	 GdNxfFDcDMbJcfthDCAI9NL2HwSZFm1+hx7yqwKmv+YTiZuCqFwhu9Ar91HKAeOzk5
+	 ZN6/eVmSD9q+2NGgv3HU331NxwNP3lMgWc4E7BxFndWigSTkdWUzV8VpAv1g+ASAOt
+	 2df+1Zhm2V9T2UJSuPh3sMEnuCI2C7O0AiX8h2o+vGjBxC2mn5Jir8B6cXYuBzC7LX
+	 qLbXS3S+rJBiwyKDb+ecO/Zdixt9kd8XwBzWcWwzrh5oKuORFklfD/ZUzqv+QtHydM
+	 AN95AfIELqvcw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/8] i3c: mipi-i3c-hci: Add a quirk for 64-bit DMA
+ addressing
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Billy Tsai" <billy_tsai@aspeedtech.com>
+Cc: linux-i3c@lists.infradead.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>, Frank.Li@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260901-b4-i3c-hci-ast2700-v1-3-19909e7cbd7e@aspeedtech.com>
+References: <20260901-b4-i3c-hci-ast2700-v1-0-19909e7cbd7e@aspeedtech.com>
+ <20260901-b4-i3c-hci-ast2700-v1-3-19909e7cbd7e@aspeedtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 01 Sep 2026 11:55:15 +0000
+Message-Id: <20260901115515.6A20E1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] dt-bindings: arm: stm32: Document
- st,stm32mp23/25-syscfg subnodes and cells
-To: Conor Dooley <conor@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- Rob Herring <robh@kernel.org>, Yannick Fertre <yannick.fertre@foss.st.com>,
- devicetree@vger.kernel.org, kernel@dh-electronics.com,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-References: <20260828151216.175020-1-marex@nabladev.com>
- <20260828-target-operable-ebc87e0bf30a@spud>
- <0f959651-34d9-4fb2-9e07-238f731c5342@nabladev.com>
- <20260831-clustered-margarine-80bf19005aad@spud>
- <2b09012a-3cae-4589-b42d-f61d33f2f876@nabladev.com>
- <20260831-craftily-operative-ac855bdbe897@spud>
- <2b11d8a8-9f4e-4032-bb41-279e16c69424@nabladev.com>
- <20260831-attentive-headpiece-c14d7d4086cb@spud>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <20260831-attentive-headpiece-c14d7d4086cb@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-On 8/31/26 9:56 PM, Conor Dooley wrote:
-> On Mon, Aug 31, 2026 at 07:38:21PM +0200, Marek Vasut wrote:
->> On 8/31/26 7:13 PM, Conor Dooley wrote:
->>
->> Hello Conor,
->>
->>>>>>>>          then:
->>>>>>>>            required:
->>>>>>>>              - "#clock-cells"
->>>>>>>> +        - "#address-cells"
->>>>>>>> +        - "#size-cells"
->>>>>>>
->>>>>>> else, false? But I'm also not sure what the benefit is of requiring
->>>>>>> addr/size cells when the child node is not?
->>>>>> The subnodes of this syscfg node have reg property , see [PATCH v4 0/4]
->>>>>> arm64: dts: st: Add STM32MP2 USB support .
->>>>>
->>>>> Right, but I was questioning why the properties describing the reg
->>>>> property in children is required when the children (and thus the reg
->>>>> property in them) were not made required.
->>>>
->>>> Do you mean this patternProperties should be made required in here ?
->>>>
->>>> "
->>>> +patternProperties:
->>>> +  "^phy@[0-9a-f]+$":
->>>> "
->>>>
->>>> Could you please give me a hint how to do that ? git grep gives me nothing.
->>>
->>> I mean, if the phys aren't going to be required I would not make the
->>> cells properties required. I seem to recall a warning that dtbs_check
->>> can emit when there are size/addr cells properties in a node where there
->>> are no children, which is why I questioned this in the first place.
->>>
->>> Otherwise, if the phys are to be made required (no idea if they should
->>> be), I can only recall this being done with the non-pattern variant. IOW
->>> required:
->>>     - phy@0
->>>     - phy@1
->> The PHYs are part of the hardware and are (going to be) described in the SoC
->> DT, so I would argue they should be described as required ?
-> 
-> Yeah, and there's almost certainly no chance of them being required
-> being problematic is there, since they don't impact existing code, but
-> have a new (or at least a previously unused on this platform) driver.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-I fixed that in V5, which I already sent yesterday.
+Pre-existing issues:
+- [High] A malicious or non-compliant hardware controller can trigger a div=
+ision-by-zero kernel panic during probe by reporting a non-zero DAT_ENTRY_S=
+IZE or DCT_ENTRY_SIZE.
+- [High] If an I3C transfer is queued but never started by the hardware, th=
+e waiting thread will enter an infinite loop in the kernel, leading to a pe=
+rmanent hang.
+- [High] A malicious I3C hardware controller can trigger a heap out-of-boun=
+ds read by reporting an arbitrarily large number of chunks in IBI status de=
+scriptors.
+--
 
-Thank you for your help with this topic.
+commit a8b22e15760d201630758778160cab05d823bd74
+Author: Billy Tsai <billy_tsai@aspeedtech.com>
+
+i3c: mipi-i3c-hci: Add a quirk for 64-bit DMA addressing
+
+This commit adds a HCI_QUIRK_DMA_64BIT quirk to declare a 64-bit
+streaming and coherent DMA mask for I3C controllers that support it.
+
+> diff --git a/drivers/i3c/master/mipi-i3c-hci/core.c b/drivers/i3c/master/=
+mipi-i3c-hci/core.c
+> index a624e3c40484e..c03c3a9cbe4f9 100644
+> --- a/drivers/i3c/master/mipi-i3c-hci/core.c
+> +++ b/drivers/i3c/master/mipi-i3c-hci/core.c
+
+[ ... ]
+
+> @@ -1167,6 +1168,12 @@ static int i3c_hci_probe(struct platform_device *p=
+dev)
+>  	hci->quirks =3D (unsigned long)device_get_match_data(&pdev->dev);
+>  	if (!hci->quirks && platform_get_device_id(pdev))
+>  		hci->quirks =3D platform_get_device_id(pdev)->driver_data;
+> +	if (hci->quirks & HCI_QUIRK_DMA_64BIT) {
+> +		ret =3D dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(64));
+> +		if (ret)
+> +			return dev_err_probe(&pdev->dev, ret,
+> +					     "cannot set DMA mask\n");
+> +	}
+
+[Severity: High]
+This isn't a bug introduced by this patch, but could a malicious or buggy
+hardware controller trigger a kernel panic due to division by zero?
+
+In i3c_hci_init(), if the hardware is version 1.0 (where size_in_dwords is
+true) and reports a non-zero DAT_ENTRY_SIZE, the driver sets DAT_entry_size
+to 0 and then immediately divides by it:
+
+drivers/i3c/master/mipi-i3c-hci/core.c:i3c_hci_init() {
+    ...
+	hci->DAT_entry_size =3D FIELD_GET(DAT_ENTRY_SIZE, regval) ? 0 : 8;
+	if (size_in_dwords)
+		hci->DAT_entries =3D 4 * hci->DAT_entries / hci->DAT_entry_size;
+    ...
+}
+
+[Severity: High]
+This is a pre-existing issue, but could an unresponsive hardware controller
+cause a permanent kernel thread hang?
+
+In i3c_hci_process_xfer(), if the hardware stalls or the DMA ring is blocke=
+d,
+the transfer might never be marked as started. The loop checks for a timeou=
+t,
+but remaining_timeout is not decremented, causing an infinite loop:
+
+drivers/i3c/master/mipi-i3c-hci/core.c:i3c_hci_process_xfer() {
+    ...
+		/* Keep waiting if xfer has not started */
+		if (!started)
+			continue;
+    ...
+}
+
+[Severity: High]
+This isn't a bug introduced by this patch, but can an out-of-bounds heap
+read happen if a hardware controller reports an arbitrarily large number of
+chunks?
+
+In hci_dma_process_ibi(), ibi_size is calculated from chunk counts reported
+in IBI status descriptors. If the calculated ibi_size exceeds the physical
+ring buffer size (rh->ibi_chunks_total * rh->ibi_chunk_sz), this could
+overflow the rh->ibi_data buffer during memcpy:
+
+drivers/i3c/master/mipi-i3c-hci/dma.c:hci_dma_process_ibi() {
+    ...
+		memcpy(slot->data + first_part, ring_ibi_data,
+		       ibi_size - first_part);
+    ...
+}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901-b4-i3c-hci=
+-ast2700-v1-0-19909e7cbd7e@aspeedtech.com?part=3D3
