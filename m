@@ -1,1398 +1,289 @@
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD643C3789
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 12:58:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA9E36606B
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 13:05:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788267516; cv=none; b=Jlvz1hbtdhP+i+80HAugbqzz4meGtfW6zXmk3J7zLFROACQn+8co54X4HG9qlZ5Mq4t8kPyp9AgKfhDEGKiwfrdcJWZ/DVX2Qfscy32gzDO5W9Q4C8E+TJPeppm094vWmrofcV+sCJPaGv0C7dqbT4KCZySLuyvxgb4TE08nMXY=
+	t=1788267953; cv=none; b=rjmYjQ4dR8CxF+Xld1oY29ibj4P2db3Vb0OuL5cZ3oSHIkfKYj6FFTHQhqVS7y2N4qT1MxdcbSrCU14QLnBEBLY+EZuJ/efU5ubbpP1ogEqxQ46M/uFeSH3ihJ9TKNBixSD+BIRY9PECzcppML9UMDaLkiKFlHldj9rUYTlz7W0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788267516; c=relaxed/simple;
-	bh=sz0XV2VSsNjwo6/8rtMIKQTHC7RtL1P0nxsFlOw2Xwo=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FzKROy+YeyNfTr3x842vrzeREayIRwai/TclAU4j94wyMjapf4mu+WFg8s4hnenZLAfWP/2yXlOF2RbGzPJQBW2TsEOJLUk1MSY+XYzuVQSRyJm3+2pHETFdsBl6N7BDZquBvLM5lqoelaMTWNk+ldUfzkti2aHN+2BQUO8D0mU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e8haYijf; arc=none smtp.client-ip=209.85.208.41
+	s=arc-20240116; t=1788267953; c=relaxed/simple;
+	bh=N2HYWjqZfohHSs+fT5J6iHO3oKrW8M0GksAEW+smWkk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=eoCfR9VwBzN42iLXXC4Q/phkdfsnne4WL8Rjkycv+xCpVjP9WH2xj2WStCTdIpFrsk0mpw+nze0+tQCWidDw7VMJKK36u3JD1mbzxVg24q6txGa31otT6PwxVNmqpmZTnryVITv7WKTh45OKhF1ey7zcgDNoO9D9GsAexeaJcGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hGbV+Yua; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e8haYijf"
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-69fab5a852cso1334230a12.0
-        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 05:58:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hGbV+Yua"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49b8f86c6deso28069315e9.0
+        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 06:05:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788267512; x=1788872312; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+        d=gmail.com; s=20251104; t=1788267950; x=1788872750; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=rvQDWE5XwKnnFM/BRb0Z9EIewpMFsdCNTg3YTDYVV7E=;
-        b=e8haYijfaS2kVi0tSE19UzAZRvu4b8Tl/6IOu+ypcTa9rxjYc4kc/ovHl7jCCOvlCg
-         W1zdVwyTeyOwCYmFKU2bx7L0iE6uBFW0Z11/9v9j5trJrwlXoKcHrCiDns5grAuDJRwh
-         he+DSf5p+5i/Y4ZLhgfb137sNwlmqeigKiU8ToHCWUSrZcgNALEmlTQcoj7NI4QNNIXc
-         XM4UDg+lOTehgYZwtjYkpdiE2vAf5ByLxkuOhG5oPsugYcZtwGIa/iVh3hM2OxjvJ0P4
-         719yLDAnDGB1x1dGPr0Dsx3VW/0RrXOomF01WV/wNY+5bHNYZUeGYhJcw+1qLVi/+BtC
-         ZbpA==
+        bh=4epK11c+vqsOIzIYo0G8NdpYXNgFJ3OKsmA9xAfy+9k=;
+        b=hGbV+YuaerLFL542w3kuaQeOviZ8oImZlgewFZuQgXjmFFlnmBmA82Vfye5uisKwGS
+         ApK7Ukd5osSTFzvIU6kGYud9wdH7ooA7vGzMsRJaqzejCQacyaQhCMQuH2oVyNyhYYgh
+         e0Rg5sMUpLdWLoGaz3YIz8XaM0JMdPWN7/pR/wX34NPJuQ36aOF896lJmuYV+tomeaZ4
+         t25JsEYuoP2z7mIrIwXVbgM3w5SD0JxmX9HuDFKiTZxhYQS+XT8V6aToPltVDzYWbiup
+         Lsya0kuj0rsFFUbo/sVlUJngY7EXqXlsR0BPckKX9rFl4cjFFo3wChE7NaN4HziL2ARI
+         uJhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788267512; x=1788872312;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=rvQDWE5XwKnnFM/BRb0Z9EIewpMFsdCNTg3YTDYVV7E=;
-        b=IIbhCKdVn4jtGy2470I9gCoA2J93wNtQkJRaKmc4u6JczaFIqADYAq9ZaNWINz1Brl
-         E4Ae950BXrTZvpm+xC0G+cRMwC2Q3iydTV/a6y4l9IHXbntAB8xc1ltZk4Yt6PyluBIQ
-         nk88rkU+aiBTdbTIeGDM7zU6KaKe3GFuu/ql+64XWuWKqjvEsLlQZVatPapOEIsY7LCj
-         debyLiiNU52pohO/6kKS/ZmmUiOjEmwKXWguzYvAJv8sVtPd7PfZe8ovCZyjBaYldXXy
-         u3Ly3gAit7YvE5jhp49h91uOy4OEb1Zd0wqTbRs0HRhrXO4yz2cS+BPAnNLxPO/Jn+nP
-         TgvQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwmj6QkTd95aJHzZ7A6XFcnvw4xFUn+U4f5wK9Umcy3qyJmFzpTajjPd66Dl1A/aju5BFZCR8LP40M0@vger.kernel.org
-X-Gm-Message-State: AFuF++mG7J9n8KuZWlsu5ATX2SPO0K12SErMsPVlFULlPh/kJGmPk3h6
-	bbH8aaqLW4f0TdgIjDZjlhNpapqOkYAFkoX8SEeEZd1I/ZZlOFkqWVwR
-X-Gm-Gg: AYBFou2cFwf6XTd1eLhz9T6bkcQ4OLGQ0dsSuTf5lQJ5VaNP8sPZWPICSNb4CRsjfNZ
-	hHcjF34aQxQkWyWOPtyGp54Jqmo9Ds3MgKZKC1vrlsr/UYM7692RmHGL8HARrvg/dXdIAxPB94D
-	O71wq8e27w2V70ZTBdDLSl6NwLEN6j4KsAbBRESZ3Zvnay8LtGSGAgOIso3esQAsLghELI0eeul
-	Xj5kUDxJJvxunaGch8FhGhweAjE3H736aVLQI0/IRr0WRHMDc/T4aYSeoInlMZ6wYJn/VgtDdvf
-	5BXPwB2zIoQvTE1xt5bWs2vwHuTplbs7st9wSdou29bVPYnDxE5VefYOyMWG79CNbQziQ002pcX
-	i1bXMxmb7Z0FuAa0yoWc5TlFDQ1O3lIUSISRY+CPl1vVGCET9N7BR0wayCD6PtPFIS6UqWsY1Ld
-	kZjBUMaKXxKaeQcjw+Ufv2CoONw2C7lt4EDs8YlnhrGD+IZEAL4ZvTkX6dZDAS5jEpYj9HUYBEe
-	feKGZ2UEK3Iu7PT4hpL3eyjsXT7DNVra5lyoUaJIB4WfFJuQ4+H
-X-Received: by 2002:a05:6402:304c:b0:69e:9213:11b with SMTP id 4fb4d7f45d1cf-6a60d3c6355mr17062598a12.13.1788267511337;
-        Tue, 01 Sep 2026 05:58:31 -0700 (PDT)
-Received: from Ansuel-XPS24.localdomain (host-79-26-252-140.retail.telecomitalia.it. [79.26.252.140])
-        by smtp.googlemail.com with ESMTPSA id 4fb4d7f45d1cf-6a66d15d10asm773959a12.28.2026.09.01.05.58.29
+        d=1e100.net; s=20251104; t=1788267950; x=1788872750;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4epK11c+vqsOIzIYo0G8NdpYXNgFJ3OKsmA9xAfy+9k=;
+        b=J3LqgB2PRrVTO9i7xur6Q0qDujBysC6DSg16ptZC3rLyBsavv/i8hqnUZrA+Q6frzN
+         dGfg4GYSIvJ+noNCtmJ4nUChoNypXVKB7RmyDk2EyY3VhxQzthg5WiwHfUO27lvTpyYe
+         MeS6MQcpCI7EgJIMOrmV1Ly7QgtpblWFouW7MmukooGY2flNbhL4wQnB2WvXnzddJuB/
+         u/XSssAmHXT5aLYFEf5BqJk4HsZV0n9y5bYekSoV8zztDmOYT+z7hwynX6WUrd8QRZwe
+         wHCECO7SgemZw7TiUeMTfP4JVqTq4H4uSxfQ2xM/bjnta5LAbcF9CfCPD3vlfrBRulp7
+         270w==
+X-Forwarded-Encrypted: i=1; AHgh+RodLafCp1ONetjvW2xUS9gj6XPfHgMP8HwAndnKYBxEgcJCt9Uuc765yT1uLVbJA5Yr3HGuJ9q4gUcP@vger.kernel.org
+X-Gm-Message-State: AFuF++lWgd96Yb4WzVfD+VMPxsTXRAUCdjkoQKvZR8q0SPHJwLL82ETw
+	an/J07YvqkpR3eeds6l5PkQaFWHqiEC+u2c/yyfUIwLpgQ3/5YCebOBX
+X-Gm-Gg: AR+sD13F3WXI8ssQfre/Y2zL8zwwag6ooQUT0tdZNDCHJV5ySRNI71x95mvRnpBGT1F
+	y8yGUVY2Lvsz9XlG2W3YMekGRelVff5dEHEtsfTlbRsbmTZYJ3ZdHKooslgOL9naZMGHqxFFTHM
+	YXtiXg78++IN/1Yx8HagqF2DaCDPPDcxJO52j9L9/XBrZ0RSYUj1KbAvTXRkdYWwZQM75Z39vKC
+	uHe/qWikFIDQWQ+HMU7NyLYLctWb0UZZEx6tA6Ua1wGTds/0ckGgML1eknkBnhG0PZLEz7cYj01
+	W+LNexneAceOITJlr3gVG6RpaaeZYX1V0haYSIOzDT4OVNqPyIRgA7Y1+mAGOWX/M+r9Sc6S7KP
+	P2YF9BHrGOnB3TgD6dH5czDd4R30f1dbgVIV7cy7OXm7Pa7+BHRjmeeavIru2Z9A1b+hbUWmwLR
+	CKeMIxw9YmkXJvUOaLVyTD2+sNxJFQcGj1vit3dQIVXN89qfzjzrdRYhsRdvJ3pn5EN0gyjZOmF
+	YIH
+X-Received: by 2002:a05:600c:a403:b0:49b:924e:9a28 with SMTP id 5b1f17b1804b1-49b924e9b14mr521865175e9.1.1788267949592;
+        Tue, 01 Sep 2026 06:05:49 -0700 (PDT)
+Received: from [127.0.1.1] ([2001:4bb8:16d:f647:6bd8:c024:aa73:750e])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce3e0desm70343395e9.11.2026.09.01.06.05.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 05:58:30 -0700 (PDT)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Christian Marangi <ansuelsmth@gmail.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/2] phy: airoha: add support for AN7583 Gen3 PCIe PHY driver
-Date: Tue,  1 Sep 2026 14:58:18 +0200
-Message-ID: <20260901125819.20378-3-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260901125819.20378-1-ansuelsmth@gmail.com>
-References: <20260901125819.20378-1-ansuelsmth@gmail.com>
+        Tue, 01 Sep 2026 06:05:49 -0700 (PDT)
+From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Subject: [PATCH v8 0/4] iio: light: add support for veml6031x00 ALS series
+Date: Tue, 01 Sep 2026 15:05:45 +0200
+Message-Id: <20260901-veml6031x00-v8-0-532cb4f2168a@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAKnNlmoC/2XPQW6DMBCF4atEXpdqPDZj6Kr3qLIweCaxFEIEF
+ UoUcfca1Ko4LJ+l7x/5qUYeIo/q4/BUA09xjP01jertoNqzv564iCFthYBWa6iLibsLgdF3gML
+ 72pIJHsh6lcRtYIn3tfZ1TPscx+9+eKzxSS+vvx2krDPpAgrrRTxhIyzh89T5eHlv+04tnQn/L
+ EGpTW5xsQ5M64m01ztrNhZtbk2yWGsqCeoGm/LV2o01Orc2WSYrTkLLptrdLf9tBS635WqhciS
+ NIQuvljZWY24pWccsxLZlrHfWbW2VW7f8t4HAIAgcZGvnef4BqLWfyg4CAAA=
+To: Jonathan Cameron <jic23@kernel.org>, 
+ Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Javier Carrasco <javier.carrasco.cruz@gmail.com>, 
+ Jonathan Cameron <jic23@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788267947; l=9501;
+ i=javier.carrasco.cruz@gmail.com; s=20260111; h=from:subject:message-id;
+ bh=N2HYWjqZfohHSs+fT5J6iHO3oKrW8M0GksAEW+smWkk=;
+ b=GbIVxfQN1V/weVRU2jX2WEkz+9qqGOTLvdRU5r2J5F9KwdJH8G/bVbZKzOXqDhNE6FkZuB+sv
+ oDbLalWn0VTAbi376d9rPUjOOtaffhjovf1geuU0NNcGBCa2Cp1eVUH
+X-Developer-Key: i=javier.carrasco.cruz@gmail.com; a=ed25519;
+ pk=Lge8w8xidNSf/INy7JAIbAW+Hezkp3nsBh2OjKL7lLU=
 
-Add support for AN7583 PCIe PHY driver. This is required to make the
-Gen3 PCIe port present on the Airoha AN7583 SoC correctly work.
+These ambient light sensors with I2C interface provide two light
+channels (ALS and IR), high/low threshold alarms with configurable
+persistence, and a data ready signal.
 
-A different setup is needed compared to Airoha EN7581 where the
-calibration process and the register map greatly changed.
+The devices covered by this driver have the same resolution, and they
+share most of their functionality. These are the differences between
+them (note that the x belongs to their names, and it is not a wildcard):
 
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+ - Device ID: accessible via two 8-bit registers, different values for
+   veml6031x00/veml6031x01 and veml60311x00/veml60311x01.
+ - I2C address: same grouping, 0x29 and 0x10 I2C addresses.
+ - AEC qualification: AEC-Q100 for veml6031x00/veml60311x00 and
+   AEC-Q101 for veml6031x01/veml60311x01.
+
+The alarms and the data ready signals share the interrupt pin, and an
+interrupt status register must be accessed to identify the source. Such
+multiplexing is not new in IIO, and I have followed existing examples
+for it. The persistence setting (own attribute) to trigger the alarms
+uses the pattern that has already been used for the veml6030.
+
+The device configuration is in general documented in the datasheet and
+the application note. There is an exception, though: the activation of
+the "active force" mode that is required for the data ready signal must
+be carried out in two steps even though the affected bits are located in
+the same register: first ALS_AF (active force mode enable) must be set,
+and then ALS_TRIG (active force trigger setting) must be enabled. I have
+added a brief commentary in the code to explain this behavior, which has
+been confirmed by the manufacturer.
+
+The datasheet specifies the scale and integration time for the ALS channel.
+Although both settings also affect the measured IR value, no transfer
+function, accuracy, or calibration is specified for converting the IR
+output into a physical quantity. The IR channel is therefore intended only
+as a qualitative indication of the infrared content of the incident light,
+rather than as a precision measurement channel. Consequently, the driver
+does not expose scale or integration time as IR-channel attributes.
+
+The only functionality that has not been implemented yet is the x0.66
+gain (and its x0.165 counterpart when PD_DIV=1), which makes the gts
+helpers less usable due to the conversions required. It is indeed an
+uncommon gain to use (there are x0.5 and x0.125 gains) with no known
+use-case at the moment that justifies making adjustments to the gts
+helpers or adding artificial conversions to make it work.
+
+This driver has been tested with the four supported devices separately
+as well as in pairs where the I2C addresses don't overlap.
+
+To: Jonathan Cameron <jic23@kernel.org>
+To: Lars-Peter Clausen <lars@metafoo.de>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: David Lechner <dlechner@baylibre.com>
+To: Nuno Sá <nuno.sa@analog.com>
+To: Andy Shevchenko <andy@kernel.org>
+Cc: linux-iio@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+
+Changes in v8:
+- [2/4] declare *dev = regmap_get_device() instead of calling it in
+  dev_warn().
+- [4/4] split regmap writable ranges to avoid holes (reserved registers).
+- [4/4] Use is_power_of_2() and ilog2() instead of hweight8() and ffs().
+- [4/4] Minor modifications suggested by Andy Shevchenko (direct return
+  of devm_add_action_or_reset(), unsigned where required, split regval
+  assignment).
+
+- Link to v7: https://lore.kernel.org/r/20260818-veml6031x00-v7-0-2b0de0f20edf@gmail.com
+
+Changes in v7:
+- [2..4/4] Refactor probe() (extract IIO device initialization, more
+  logical initialization order).
+- [2/4] Drop pm_runtime_get_noresume() and pm_runtime_put_autosuspend()
+  in the probe function and let the core handle it.
+- [2/4] Rephrase unknwon ID info message.
+- [2/4] Rephrase Commit message to make it independent of [3..4/4]
+- [2/4] Trailing comma after last channel in iio_chan_spec.
+- [2/4] Return -ENODATA if i2c_get_match_data() fails.
+- [2/4] Use logical splits and local variables to make lines shorter.
+- [2..4/4] Use regmap_assign_bits() instead of regmap_update_bits() where
+  it makes sense.
+- [4/4] Use pm_runtime_put_sync()
+- [4/4] Explicitly include <linux/lockdep.h> for lockdep_assert_held().
+- [4/4] Use helpers to refactor code without adding goto jumps within
+  scoped guards.
+- [4/4] Drop own trigger assignment.
+- Link to v6: https://lore.kernel.org/r/20260812-veml6031x00-v6-0-7eef6e4ce290@gmail.com
+
+Changes in v6:
+- [1/4] Fix dt-binding title.
+- [2/4] Update headers as indicated by Andy and Uwe.
+- [2/4] Macro to get selector from gain registers.
+- [2/4] Use pm_runtime_get_noresume() (no devres).
+- [2/4] Drop <linux/mod_devicetable.h>
+- [2/4] Use regmap_update_bits() to set power state.
+- [3/4] Add scan info for the non-irq variant.
+- [3/4] Fix lock acquisition (direct mode and then scale_lock).
+- [3/4] Zero-initialize scan buffer.
+- [4/4] Store timestamp before calling iio_trigger_poll_nested().
+- [4/4] Move mutex_init and regfield_init before setup_irq().
+- [4/4] Add lockdep_assert_held() to veml6031x00_interrupt().
+- [4/4] Avoid register read if a spurious interrupt arrives when the
+  device is powered down.
+- Link to v5: https://lore.kernel.org/r/20260807-veml6031x00-v5-0-e60876fb3640@gmail.com
+
+Changes in v5:
+- [2/4] Explicit inclusion of some missing used headers.
+- [2/4] Define CONF0 as volatile to account for AF_TRIG (reset by
+  hardware).
+- [2/4] Drop integration time and scale for IR channel.
+- [2/4] Use unsigned int instead of int where no negative values are
+  possible.
+- [2/4] Write a helper to update the gain and use it where needed.
+- [2/4] Move i2c_get_match() closer to the data allocation.
+- [2/4] Move iio dev initialization out of the runtime pm region.
+- [2/4] Lower log level for unknown ID part.
+- [2/4] Redefine gains as _INT_MILLI.
+- [2/4] Drop pointer to the device in the private structure.
+- [2/4] Fix some coding-style issues.
+- [4/4] Add second iio_chan_spec to avoid exposing dead sysfs attributes if no
+  irq is available.
+- [4/4] Refactor goto calls in functions with guard().
+- [3/4] Use IIO_DECLARE_BUFFER_WITH_TS() instead of a custom structure.
+- [4/4] Use format instead of deprecated sign for the scan type.
+- Link to v4: https://lore.kernel.org/r/20260531-veml6031x00-v4-0-e64f7fdce38d@gmail.com
+
+Changes in v4:
+- [1/4] Entry in alphabetical order for MAINTAINERS.
+- [2/4] Fix style for device ID tables.
+- [2/4] Add missing header mod_devicetable.h and move iio/sysfs.h to
+  [4/4] for the persistence attribute.
+- [2/4] Move IIO_DEV_ACQUIRE_DIRECT_MODE to [3/4] where buffers are
+  added.
+- [3/4] Use test_bit() to check the active scan mask.
+- [2/4] Add mutex for operations on scattered register fields.
+- [2/4] Add shutdown action after turning the device on.
+- Link to v3: https://lore.kernel.org/r/20260524-veml6031x00-v3-0-29165609b2b5@gmail.com
+
+Changes in v3:
+- Move veml6030 fixes to a separate patch stack.
+- Use C99 initializers for i2c_device_id.
+- Split driver code into multiple patches to ease its review.
+- Rework locking to get rid of atomic increment/decrement ops.
+- Fix error paths in pm_runtime operations.
+- Use IIO_DEV_ACQUIRE_DIRECT_MODE for single read/write ops.
+- Link to v2: https://lore.kernel.org/r/20260513-veml6031x00-v2-0-4703ca661a1d@gmail.com
+
+Changes in v2:
+- Add commit to fix bug in veml6030.c (channel type when pushing
+  events) and remove dead code.
+- Use gts helpers to simplify operations.
+- Drop unused gain_idx.
+- Build INT_MASK as an OR operation of the involved bits.
+- Format arrays to follow the desired standard for IIO.
+- Directly return function result as the last operation within another
+  function instead of 'ret = x; if (ret) return ret; return 0;'.
+- Fix some spacing (double space, tab for alignemnt in info struct).
+- Use sizeof() for __le16 reg instead of 2.
+- Return an error if the part ID could not be read.
+- Spell out sd -> shutdown.
+- Use devm_mutex_init() instead of mutex_init().
+- Avoid using conditional guard, use claim/release instead.
+- Access integration times from the global array to get and set the
+  integration time instead of using a switch.
+- Simplify read of available periods (persistence).
+- Drop IRQF_TRIGGER_FALLING in the threaded irq request.
+- Add regmap ranges.
+- Link to v1: https://lore.kernel.org/r/20241126-veml6031x00-v1-0-4affa62bfefd@gmail.com
+
 ---
- MAINTAINERS                               |   8 +
- drivers/phy/Kconfig                       |   1 +
- drivers/phy/Makefile                      |   3 +-
- drivers/phy/airoha/Kconfig                |  13 +
- drivers/phy/airoha/Makefile               |   2 +
- drivers/phy/airoha/phy-an7583-pcie-regs.h | 377 ++++++++++
- drivers/phy/airoha/phy-an7583-pcie.c      | 826 ++++++++++++++++++++++
- 7 files changed, 1229 insertions(+), 1 deletion(-)
- create mode 100644 drivers/phy/airoha/Kconfig
- create mode 100644 drivers/phy/airoha/Makefile
- create mode 100644 drivers/phy/airoha/phy-an7583-pcie-regs.h
- create mode 100644 drivers/phy/airoha/phy-an7583-pcie.c
+Javier Carrasco (4):
+      dt-bindings: iio: light: veml6030: add veml6031x00 ALS series
+      iio: light: add support for veml6031x00 ALS series
+      iio: light: veml6031x00: add support for triggered buffers
+      iio: light: veml6031x00: add support for events and trigger
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index fe10d29b7657..260261b6a688 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -767,6 +767,14 @@ F:	Documentation/devicetree/bindings/phy/airoha,en7581-pcie-phy.yaml
- F:	drivers/phy/phy-airoha-pcie-regs.h
- F:	drivers/phy/phy-airoha-pcie.c
- 
-+AIROHA AN7583 PCIE PHY DRIVER
-+M:	Christian Marangi <ansuelsmth@gmail.com>
-+L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/phy/airoha,an7583-pcie-gen3-phy.yaml
-+F:	drivers/phy/airoha/phy-an7583-pcie-regs.h
-+F:	drivers/phy/airoha/phy-an7583-pcie.c
-+
- AIROHA SPI SNFI DRIVER
- M:	Lorenzo Bianconi <lorenzo@kernel.org>
- M:	Ray Liu <ray.liu@airoha.com>
-diff --git a/drivers/phy/Kconfig b/drivers/phy/Kconfig
-index 19f3b7d12b7d..80b7c50fd768 100644
---- a/drivers/phy/Kconfig
-+++ b/drivers/phy/Kconfig
-@@ -168,6 +168,7 @@ config PHY_XGENE
- 	help
- 	  This option enables support for APM X-Gene SoC multi-purpose PHY.
- 
-+source "drivers/phy/airoha/Kconfig"
- source "drivers/phy/allwinner/Kconfig"
- source "drivers/phy/amlogic/Kconfig"
- source "drivers/phy/apple/Kconfig"
-diff --git a/drivers/phy/Makefile b/drivers/phy/Makefile
-index d7aa516bcc49..0baf0b7fd077 100644
---- a/drivers/phy/Makefile
-+++ b/drivers/phy/Makefile
-@@ -20,7 +20,8 @@ obj-$(CONFIG_PHY_PISTACHIO_USB)		+= phy-pistachio-usb.o
- obj-$(CONFIG_PHY_SNPS_EUSB2)		+= phy-snps-eusb2.o
- obj-$(CONFIG_PHY_XGENE)			+= phy-xgene.o
- 
--obj-$(CONFIG_GENERIC_PHY)		+= allwinner/	\
-+obj-$(CONFIG_GENERIC_PHY)		+= airoha/	\
-+					   allwinner/	\
- 					   amlogic/	\
- 					   apple/	\
- 					   axiado/	\
-diff --git a/drivers/phy/airoha/Kconfig b/drivers/phy/airoha/Kconfig
-new file mode 100644
-index 000000000000..55fd20f29da6
---- /dev/null
-+++ b/drivers/phy/airoha/Kconfig
-@@ -0,0 +1,13 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+#
-+# Phy drivers for Airoha platforms
-+#
-+config PHY_AIROHA_AN7583_PCIE
-+	tristate "Airoha AN7583 PCIe-PHY Driver"
-+	depends on ARCH_AIROHA || COMPILE_TEST
-+	depends on OF
-+	select GENERIC_PHY
-+	help
-+	  Say Y here to add support for Airoha AN7583 PCIe PHY driver.
-+	  This driver create the basic PHY instance and provides initialize
-+	  callback for PCIe GEN3 port.
-diff --git a/drivers/phy/airoha/Makefile b/drivers/phy/airoha/Makefile
-new file mode 100644
-index 000000000000..ca0fe9cffc96
---- /dev/null
-+++ b/drivers/phy/airoha/Makefile
-@@ -0,0 +1,2 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+obj-$(CONFIG_PHY_AIROHA_AN7583_PCIE)	+= phy-an7583-pcie.o
-diff --git a/drivers/phy/airoha/phy-an7583-pcie-regs.h b/drivers/phy/airoha/phy-an7583-pcie-regs.h
-new file mode 100644
-index 000000000000..ce9180a7c2ca
---- /dev/null
-+++ b/drivers/phy/airoha/phy-an7583-pcie-regs.h
-@@ -0,0 +1,377 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) 2025 AIROHA Inc
-+ * Author: Christian Marangi <ansuelsmth@gmail.com>
-+ */
-+
-+#ifndef _PHY_AN7583_PCIE_H
-+#define _PHY_AN7583_PCIE_H
-+
-+/* G3 ANA */
-+#define REG_PXP_CMN_EN				0x0
-+#define   G3_ANA_PXP_CMN_TRIM			GENMASK(28, 24)
-+#define   G3_ANA_PXP_CMN_EN			BIT(0)
-+
-+#define REG_PXP_JCPLL_IB_EXT_EN			0x4
-+#define   G3_ANA_PXP_JCPLL_CHP_IOFST		GENMASK(29, 24)
-+#define   G3_ANA_PXP_JCPLL_CHP_IBIAS		GENMASK(21, 16)
-+#define   G3_ANA_PXP_JCPLL_LPF_SHCK_EN		BIT(8)
-+
-+#define REG_PXP_JCPLL_LPF_BR			0x8
-+#define   G3_ANA_PXP_JCPLL_LPF_BWR		GENMASK(28, 24)
-+#define   G3_ANA_PXP_JCPLL_LPF_BP		GENMASK(20, 16)
-+#define   G3_ANA_PXP_JCPLL_LPF_BC		GENMASK(12, 8)
-+#define   G3_ANA_PXP_JCPLL_LPF_BR		GENMASK(4, 0)
-+
-+#define REG_PXP_JCPLL_LPF_BWC			0xc
-+#define   G3_ANA_PXP_JCPLL_KBAND_DIV		GENMASK(26, 24)
-+#define   G3_ANA_PXP_JCPLL_KBAND_CODE		GENMASK(23, 16)
-+#define   G3_ANA_PXP_JCPLL_LPF_BWC		GENMASK(4, 0)
-+
-+#define REG_PXP_JCPLL_KBAND_KFC			0x10
-+#define   G3_ANA_PXP_JCPLL_POSTDIV_EN		BIT(24)
-+#define   G3_ANA_PXP_JCPLL_KBAND_KS		GENMASK(17, 16)
-+#define   G3_ANA_PXP_JCPLL_KBAND_KF		GENMASK(9, 8)
-+#define   G3_ANA_PXP_JCPLL_KBAND_KFC		GENMASK(1, 0)
-+
-+#define REG_PXP_JCPLL_MMD_PREDIV_MODE		0x14
-+#define   G3_ANA_PXP_JCPLL_POSTDIV_D5		BIT(24)
-+#define   G3_ANA_PXP_JCPLL_POSTDIV_D2		BIT(16)
-+#define   G3_ANA_PXP_JCPLL_MMD_PREDIV_MODE	GENMASK(1, 0)
-+
-+#define REG_PXP_JCPLL_MONCK_EN			0x18
-+#define   G3_ANA_PXP_JCPLL_REFIN_DIV		GENMASK(25, 24)
-+
-+#define REG_PXP_JCPLL_RST_DLY			0x1c
-+#define   G3_ANA_PXP_JCPLL_SDM_DI_LS		GENMASK(25, 24)
-+#define   G3_ANA_PXP_JCPLL_SDM_DI_EN		BIT(16)
-+#define   G3_ANA_PXP_JCPLL_PLL_RSTB		BIT(8)
-+#define   G3_ANA_PXP_JCPLL_RST_DLY		GENMASK(2, 0)
-+
-+#define REG_PXP_JCPLL_SDM_IFM			0x20
-+#define   G3_ANA_PXP_JCPLL_SDM_IFM		BIT(0)
-+
-+#define REG_PXP_JCPLL_SDM_HREN			0x24
-+#define   G3_ANA_PXP_JCPLL_TCL_AMP_VREF		GENMASK(28, 24)
-+#define   G3_ANA_PXP_JCPLL_TCL_AMP_GAIN		GENMASK(18, 16)
-+#define   G3_ANA_PXP_JCPLL_TCL_AMP_EN		BIT(8)
-+#define   G3_ANA_PXP_JCPLL_SDM_HREN		BIT(0)
-+
-+#define REG_PXP_JCPLL_TCL_CMP_EN		0x28
-+#define   G3_ANA_PXP_JCPLL_TCL_LPF_BW		GENMASK(26, 24)
-+#define   G3_ANA_PXP_JCPLL_TCL_LPF_EN		BIT(16)
-+
-+#define REG_PXP_JCPLL_VCODIV			0x2c
-+#define   G3_ANA_PXP_JCPLL_VCO_SCAPWR		GENMASK(26, 24)
-+#define   G3_ANA_PXP_JCPLL_VCO_HALFLSB_EN	BIT(16)
-+#define   G3_ANA_PXP_JCPLL_VCO_CFIX		GENMASK(9, 8)
-+
-+#define REG_PXP_JCPLL_VCO_TCLVAR		0x30
-+#define   G3_ANA_PXP_JCPLL_SSC_PHASE_INI	BIT(17)
-+#define   G3_ANA_PXP_JCPLL_SSC_EN		BIT(16)
-+#define   G3_ANA_PXP_JCPLL_VCO_TCLVAR		GENMASK(2, 0)
-+
-+#define REG_PXP_JCPLL_SSC_TRI_EN		0x34
-+#define   G3_ANA_PXP_JCPLL_SSC_DELTA1		GENMASK(23, 8)
-+#define   G3_ANA_PXP_JCPLL_SSC_TRI_EN		BIT(0)
-+
-+#define REG_PXP_JCPLL_SSC_DELTA			0x38
-+#define   G3_ANA_PXP_JCPLL_SSC_PERIOD		GENMASK(31, 16)
-+#define   G3_ANA_PXP_JCPLL_SSC_DELTA		GENMASK(15, 0)
-+
-+#define REG_PXP_JCPLL_SPARE_H			0x48
-+#define   G3_ANA_PXP_JCPLL_TCL_KBAND_VREF	GENMASK(20, 16)
-+#define   G3_ANA_PXP_JCPLL_SPARE_L		GENMASK(15, 8)
-+
-+#define REG_PXP_JCPLL_FREQ_MEAS_EN		0x4c
-+#define   G3_ANA_PXP_TXPLL_LPF_SHCK_EN		BIT(25)
-+#define   G3_ANA_PXP_JCPLL_VCO_KBAND_MEAS_EN	BIT(8)
-+
-+#define REG_PXP_TXPLL_CHP_IBIAS			0x50
-+#define   G3_ANA_PXP_TXPLL_LPF_BC		GENMASK(28, 24)
-+#define   G3_ANA_PXP_TXPLL_LPF_BR		GENMASK(20, 16)
-+#define   G3_ANA_PXP_TXPLL_CHP_IOFST		GENMASK(13, 8)
-+#define   G3_ANA_PXP_TXPLL_CHP_IBIAS		GENMASK(5, 0)
-+
-+#define REG_PXP_TXPLL_LPF_BP			0x54
-+#define   G3_ANA_PXP_TXPLL_LPF_BWC		GENMASK(20, 16)
-+#define   G3_ANA_PXP_TXPLL_LPF_BWR		GENMASK(12, 8)
-+#define   G3_ANA_PXP_TXPLL_LPF_BP		GENMASK(4, 0)
-+
-+#define REG_PXP_TXPLL_KBAND_CODE		0x58
-+#define   G3_ANA_PXP_TXPLL_KBAND_KF		GENMASK(25, 24)
-+#define   G3_ANA_PXP_TXPLL_KBAND_KFC		GENMASK(17, 16)
-+#define   G3_ANA_PXP_TXPLL_KBAND_DIV		GENMASK(10, 8)
-+#define   G3_ANA_PXP_TXPLL_KBAND_CODE		GENMASK(7, 0)
-+
-+#define REG_PXP_TXPLL_KBAND_KS			0x5c
-+#define   G3_ANA_PXP_TXPLL_MMD_PREDIV_MODE	GENMASK(17, 16)
-+#define   G3_ANA_PXP_TXPLL_POSTDIV_EN		BIT(8)
-+#define   G3_ANA_PXP_TXPLL_KBAND_KS		GENMASK(1, 0)
-+
-+#define REG_PXP_TXPLL_PHY_CK1_EN		0x60
-+#define   G3_ANA_PXP_TXPLL_PHY_CK1_EN		BIT(0)
-+
-+#define REG_PXP_TXPLL_REFIN_INTERNAL		0x64
-+#define   G3_ANA_PXP_TXPLL_PLL_RSTB		BIT(24)
-+#define   G3_ANA_PXP_TXPLL_RST_DLY		GENMASK(18, 16)
-+#define   G3_ANA_PXP_TXPLL_REFIN_DIV		GENMASK(9, 8)
-+#define   G3_ANA_PXP_TXPLL_REFIN_INTERNAL	BIT(0)
-+
-+#define REG_PXP_TXPLL_SDM_DI_EN			0x68
-+#define   G3_ANA_PXP_TXPLL_SDM_IFM		BIT(16)
-+#define   G3_ANA_PXP_TXPLL_SDM_DI_LS		GENMASK(9, 8)
-+
-+#define REG_PXP_TXPLL_SDM_ORD			0x6c
-+#define   G3_ANA_PXP_TXPLL_TCL_AMP_EN		BIT(24)
-+#define   G3_ANA_PXP_TXPLL_SDM_ORD		GENMASK(1, 0)
-+
-+#define REG_PXP_TXPLL_TCL_AMP_GAIN		0x70
-+#define   G3_ANA_PXP_TXPLL_TCL_AMP_VREF		GENMASK(12, 8)
-+#define   G3_ANA_PXP_TXPLL_TCL_AMP_GAIN		GENMASK(2, 0)
-+
-+#define REG_PXP_TXPLL_TCL_LPF_EN		0x74
-+#define   G3_ANA_PXP_TXPLL_VCO_CFIX		GENMASK(25, 24)
-+#define   G3_ANA_PXP_TXPLL_TCL_LPF_BW		GENMASK(10, 8)
-+#define   G3_ANA_PXP_TXPLL_TCL_LPF_EN		BIT(0)
-+
-+#define REG_PXP_TXPLL_VCO_HALFLSB_EN		0x78
-+#define   G3_ANA_PXP_TXPLL_VCO_SCAPWR		GENMASK(10, 8)
-+#define   G3_ANA_PXP_TXPLL_VCO_HALFLSB_EN	BIT(0)
-+
-+#define REG_PXP_TXPLL_SSC_EN			0x7c
-+#define   G3_ANA_PXP_TXPLL_SSC_PHASE_INI	BIT(8)
-+#define   G3_ANA_PXP_TXPLL_SSC_EN		BIT(0)
-+
-+#define REG_PXP_TXPLL_SSC_DELTA1		0x80
-+#define   G3_ANA_PXP_TXPLL_SSC_DELTA		GENMASK(31, 16)
-+#define   G3_ANA_PXP_TXPLL_SSC_DELTA1		GENMASK(15, 0)
-+
-+#define REG_PXP_TXPLL_SSC_PERIOD		0x84
-+#define   G3_ANA_PXP_TXPLL_SSC_PERIOD		GENMASK(15, 0)
-+
-+#define REG_PXP_TXPLL_VTP_EN			0x88
-+#define   G3_ANA_PXP_TXPLL_VTP_EN		BIT(0)
-+
-+#define REG_PXP_TXPLL_TCL_VTP_EN		0x90
-+#define   G3_ANA_PXP_TXPLL_SPARE_L		GENMASK(31, 24)
-+
-+#define REG_PXP_TXPLL_TCL_KBAND_VREF		0x94
-+#define   G3_ANA_PXP_TXPLL_VCO_KBAND_MEAS_EN	BIT(24)
-+#define   G3_ANA_PXP_TXPLL_TCL_KBAND_VREF	GENMASK(4, 0)
-+
-+#define REG_PCIE_CLKTX0_AMP			0x98
-+#define   G3_ANA_PXP_PCIE_CLKTX0_IMP_SEL	GENMASK(31, 27)
-+#define   G3_ANA_PXP_PCIE_CLKTX0_HZ		BIT(26)
-+#define   G3_ANA_PCIE_CLKTX0_SR			GENMASK(17, 16)
-+#define   G3_ANA_PCIE_CLKTX0_OFFSET		GENMASK(9, 8)
-+#define   G3_ANA_PCIE_CLKTX0_AMP		GENMASK(2, 0)
-+
-+#define REG_PXP_PLL_MONCLK_SEL			0xa0
-+#define   G3_ANA_PXP_PLL_CMN_RESERVE0		GENMASK(15, 8)
-+
-+#define REG_PXP_TX_CKLDO_EN			0xc4
-+#define   G3_ANA_PXP_TX_DMEDGEGEN_EN		BIT(24)
-+#define   G3_ANA_PXP_TX_CKLDO_EN		BIT(0)
-+
-+#define REG_PXP_RX_REV_0			0xd4
-+#define   G3_ANA_PXP_RX_REV_1_10_8		GENMASK(26, 24)
-+#define   G3_ANA_PXP_RX_REV_1_6_4		GENMASK(22, 20)
-+#define   G3_ANA_PXP_RX_REV_1_3_2		GENMASK(19, 18)
-+
-+#define REG_PXP_RX_PHYCK_DIV			0xd8
-+#define   G3_ANA_PXP_RX_TDC_CK_SEL		BIT(24)
-+#define   G3_ANA_PXP_RX_PHYCK_RSTB		BIT(16)
-+#define   G3_ANA_PXP_RX_PHYCK_SEL		GENMASK(9, 8)
-+
-+#define REG_PXP_CDR_PD_PICAL_CKD8_INV		0xdc
-+#define   G3_ANA_PXP_CDR_PD_EDGE_DIS		BIT(8)
-+
-+#define REG_PXP_CDR_LPF_RATIO			0xe8
-+#define   G3_ANA_PXP_CDR_LPF_TOP_LIM		GENMASK(26, 8)
-+
-+#define REG_PXP_CDR_PR_BETA_DAC			0xf8
-+#define   G3_ANA_PXP_CDR_PR_KBAND_DIV		GENMASK(26, 24)
-+#define   G3_ANA_PXP_CDR_PR_BETA_SEL		GENMASK(19, 16)
-+
-+#define REG_PXP_CDR_PR_VREG_IBAND_VAL		0xfc
-+#define   G3_ANA_PXP_CDR_PR_VREG_CKBUF_VAL_2_0	GENMASK(10, 8)
-+#define   G3_ANA_PXP_CDR_PR_VREG_IBAND_VAL_2_0	GENMASK(2, 0)
-+
-+#define REG_PXP_CDR_PR_CKREF_DIV		0x100
-+#define   G3_ANA_PXP_CDR_PR_CKREF_DIV_1_0	GENMASK(1, 0)
-+
-+#define REG_PXP_CDR_PR_TDC_REF_SEL		0x108
-+#define   G3_ANA_PXP_CDR_PR_CKREF_DIV1_1_0	GENMASK(25, 24)
-+#define   G3_ANA_PXP_CDR_PR_LDO_FORCE_ON	BIT(16)
-+
-+#define REG_PXP_CDR_PR_MONPR_EN			0x10c
-+#define   G3_ANA_PXP_CDR_PR_XFICK_EN		BIT(2)
-+
-+#define REG_PXP_RX_DAC_RANGE			0x110
-+#define   G3_ANA_PXP_RX_SIGDET_LPF_CTRL		GENMASK(25, 24)
-+
-+#define REG_PXP_CDR_PR_MONCK_EN			0x104
-+#define   G3_ANA_PXP_CDR_PR_MONCK_EN		BIT(0)
-+#define   G3_ANA_PXP_CDR_PR_RESERVE0		GENMASK(19, 16)
-+
-+#define REG_PXP_RX_SIGDET_NOVTH			0x114
-+#define   G3_ANA_PXP_RX_FE_50OHMS_SEL		GENMASK(25, 24)
-+#define   G3_ANA_PXP_RX_SIGDET_VTH_SEL_4_0	GENMASK(20, 16)
-+#define   G3_ANA_PXP_RX_SIGDET_PEAK_1_0		GENMASK(9, 8)
-+
-+#define REG_PXP_RX_FE_EQ_HZEN			0x118
-+#define   G3_ANA_PXP_RX_FE_VB_EQ3_EN		BIT(24)
-+#define   G3_ANA_PXP_RX_FE_VB_EQ2_EN		BIT(16)
-+#define   G3_ANA_PXP_RX_FE_VB_EQ1_EN		BIT(8)
-+
-+#define REG_PXP_RX_FE_VCM_GEN_PWDB		0x11c
-+#define   G3_ANA_PXP_RX_FE_VCM_GEN_PWDB		BIT(0)
-+
-+#define REG_PXP_RX_OSCAL_CTLE2IOS		0x128
-+#define   G3_ANA_PXP_RX_OSCAL_VGA1VOS		GENMASK(29, 24)
-+#define   G3_ANA_PXP_RX_OSCAL_VGA1IOS		GENMASK(21, 16)
-+
-+#define REG_PXP_RX_OSCAL_VGA2IOS		0x12c
-+#define   G3_ANA_PXP_RX_OSCAL_VGA2IOS		GENMASK(5, 0)
-+
-+/* G3 PMA */
-+#define REG_RX_CTRL_SEQUENCE_DISB_CTRL_1	0x10c
-+#define   G3_PMA_DISB_RX_SDCAL_EN		BIT(0)
-+
-+#define REG_RX_CTRL_SEQUENCE_FORCE_CTRL_1	0x114
-+#define   G3_PMA_FORCE_RX_SDCAL_EN		BIT(0)
-+
-+#define REG_SS_RX_CAL_2				0x164
-+#define   G3_PMA_CAL_OUT_OS			GENMASK(11, 8)
-+
-+#define REG_SS_RX_SIGDET_0			0x168
-+#define   G3_PMA_SIGDET_WIN_NONVLD_TIMES	GENMASK(28, 24)
-+
-+#define REG_SS_TX_RST_B				0x260
-+#define   G3_PMA_TXCALIB_RST_B			BIT(8)
-+#define   G3_PMA_TX_TOP_RST_B			BIT(0)
-+
-+#define REG_RX_FORCE_MODE_0			0x294
-+#define   G3_PMA_FORCE_DA_XPON_RX_FE_GAIN_CTRL	GENMASK(1, 0)
-+
-+#define REG_SS_DA_XPON_PWDB_0			0x34c
-+#define   G3_PMA_DA_XPON_CDR_PR_PWDB		BIT(8)
-+
-+#define REG_SW_RST_SET				0x460
-+#define   G3_PMA_SW_XFI_RXPCS_RST_N		BIT(8)
-+#define   G3_PMA_SW_TX_FIFO_RST_N		BIT(6)
-+#define   G3_PMA_SW_REF_RST_N			BIT(5)
-+#define   G3_PMA_SW_ALLPCS_RST_N		BIT(4)
-+#define   G3_PMA_SW_PMA_RST_N			BIT(3)
-+#define   G3_PMA_SW_TX_RST_N			BIT(2)
-+#define   G3_PMA_SW_RX_RST_N			BIT(1)
-+#define   G3_PMA_SW_RX_FIFO_RST_N		BIT(0)
-+
-+#define REG_FORCE_DA_PXP_TX_TERM_SEL		0x77c
-+#define   G3_PMA_FORCE_SEL_DA_PXP_TX_TERM_SEL	BIT(8)
-+#define   G3_PMA_FORCE_DA_PXP_TX_TERM_SEL	GENMASK(2, 0)
-+
-+#define REG_FORCE_DA_PXP_CDR_PR_FLL_COR		0x790
-+#define   G3_PMA_FORCE_SEL_DA_PXP_RX_DAC_EYE	BIT(24)
-+#define   G3_PMA_FORCE_DA_PXP_RX_DAC_EYE	GENMASK(22, 16)
-+
-+#define REG_FORCE_DA_PXP_CDR_PR_IDAC		0x794
-+#define   G3_PMA_FORCE_SEL_DA_PXP_TXPLL_SDM_PCW	BIT(24)
-+
-+#define REG_FORCE_DA_PXP_TXPLL_SDM_PCW		0x798
-+#define   G3_PMA_FORCE_DA_PXP_TXPLL_SDM_PCW	GENMASK(30, 0)
-+
-+#define REG_FORCE_DA_PXP_RX_FE_VOS		0x79c
-+#define   G3_PMA_FORCE_SEL_DA_PXP_JCPLL_SDM_PCW	BIT(16)
-+
-+#define REG_FORCE_DA_PXP_JCPLL_SDM_PCW		0x800
-+#define   G3_PMA_FORCE_DA_PXP_JCPLL_SDM_PCW	GENMASK(30, 0)
-+
-+#define REG_FORCE_DA_PXP_CDR_PD_PWDB		0x81c
-+#define   G3_PMA_FORCE_SEL_DA_PXP_CDR_PD_PWDB	BIT(8)
-+#define   G3_PMA_FORCE_DA_PXP_CDR_PD_PWDB	BIT(0)
-+
-+#define REG_FORCE_DA_PXP_CDR_PR_PIEYE_PWDB	0x824
-+#define   G3_PMA_FORCE_SEL_DA_PXP_CDR_PR_PIEYE_PWDB BIT(8)
-+#define   G3_PMA_FORCE_DA_PXP_CDR_PR_PIEYE_PWDB	BIT(0)
-+
-+#define REG_FORCE_DA_PXP_JCPLL_CKOUT_EN		0x828
-+#define   G3_PMA_FORCE_SEL_DA_PXP_JCPLL_EN	BIT(24)
-+#define   G3_PMA_FORCE_DA_PXP_JCPLL_EN		BIT(16)
-+#define   G3_PMA_FORCE_SEL_DA_PXP_JCPLL_CKOUT_EN BIT(8)
-+#define   G3_PMA_FORCE_DA_PXP_JCPLL_CKOUT_EN	BIT(0)
-+
-+#define REG_FORCE_DA_PXP_RX_SCAN_RST_B		0x84c
-+#define   G3_PMA_FORCE_SEL_DA_PXP_RX_SIGDET_PWDB BIT(24)
-+#define   G3_PMA_FORCE_DA_PXP_RX_SIGDET_PWDB	BIT(16)
-+
-+#define REG_FORCE_DA_PXP_TXPLL_CKOUT_EN		0x854
-+#define   G3_PMA_FORCE_SEL_DA_PXP_TXPLL_EN	BIT(24)
-+#define   G3_PMA_FORCE_DA_PXP_TXPLL_EN		BIT(16)
-+#define   G3_PMA_FORCE_SEL_DA_PXP_TXPLL_CKOUT_EN BIT(8)
-+#define   G3_PMA_FORCE_DA_PXP_TXPLL_CKOUT_EN	BIT(0)
-+
-+#define REG_SCAN_MODE				0x884
-+#define   G3_PMA_FORCE_SEL_DA_PXP_JCPLL_KBAND_LOAD_EN BIT(8)
-+#define   G3_PMA_FORCE_DA_PXP_JCPLL_KBAND_LOAD_EN BIT(0)
-+
-+#define REG_FORCE_DA_PXP_RX_FE_GAIN_CTRL	0x88c
-+#define   G3_PMA_FORCE_SEL_DA_PXP_RX_FE_GAIN_CTRL BIT(8)
-+#define   G3_PMA_FORCE_DA_PXP_RX_FE_GAIN_CTRL	GENMASK(1, 0)
-+
-+#define REG_FORCE_DA_PXP_RX_FE_PWDB		0x894
-+#define   G3_PMA_FORCE_SEL_DA_PXP_RX_FE_PWDB	BIT(8)
-+#define   G3_PMA_FORCE_DA_PXP_RX_FE_PWDB	BIT(0)
-+
-+#define REG_ADD_DIG_RESERVE_12			0x8b8
-+#define   G3_PMA_DIG_RESERVE_12_8_8		BIT(8)
-+
-+#define REG_ADD_DIG_RESERVE_27			0x908
-+#define   G3_PMA_DIG_RESERVE_27_16_16		BIT(16)
-+
-+#define REG_ADD_DIG_RESERVE_30			0x914
-+#define   G3_PMA_DIG_RESERVE_30			GENMASK(31, 0)
-+
-+#define REG_ADD_DIG_RESERVE_31			0x918
-+#define   G3_PMA_DIG_RESERVE_31_20_16		GENMASK(20, 16)
-+#define   G3_PMA_DIG_RESERVE_31_12_8		GENMASK(12, 8)
-+#define   G3_PMA_DIG_RESERVE_31_4_0		GENMASK(4, 0)
-+
-+#define REG_ADD_DIG_RESERVE_32			0x91c
-+#define   G3_PMA_DIG_RESERVE_32_31_16		GENMASK(31, 16)
-+
-+#define REG_ADD_DIG_RESERVE_33			0x920
-+#define   G3_PMA_DIG_RESERVE_33_31_16		GENMASK(31, 16)
-+#define   G3_PMA_DIG_RESERVE_33_15_0		GENMASK(15, 0)
-+
-+#define REG_ADD_DIG_RESERVE_34			0x924
-+#define   G3_PMA_DIG_RESERVE_34			GENMASK(31, 0)
-+
-+#define REG_ADD_DIG_RESERVE_35			0x928
-+#define   G3_PMA_DIG_RESERVE_35			GENMASK(31, 0)
-+
-+#define REG_ADD_DIG_RESERVE_40			0x93c
-+#define   G3_PMA_DIG_RESERVE_40			GENMASK(31, 0)
-+
-+#define REG_ADD_DIG_RESERVE_43			0x948
-+#define   G3_PMA_DIG_RESERVE_43_18_16		GENMASK(18, 16)
-+#define   G3_PMA_DIG_RESERVE_43_14_12		GENMASK(14, 12)
-+#define   G3_PMA_DIG_RESERVE_43_10_8		GENMASK(10, 8)
-+
-+/* DTIME */
-+#define REG_PCIE_PEXTP_DIG_GLB44		0x0
-+#define PCIE_XTP_RXDET_LATCH_STB_T_SEL		GENMASK(31, 29)
-+#define PCIE_XTP_TXPD_RXDET_DONE_CDT		BIT(28)
-+#define PCIE_XTP_TXPD_TX_DATA_EN_DLY		GENMASK(27, 24)
-+#define PCIE_XTP_RXDET_FINISH_STB_T_SEL		GENMASK(23, 16)
-+#define PCIE_XTP_RXDET_EN_STB_T_SEL		GENMASK(15, 8)
-+#define PCIE_XTP_RXDET_VCM_OFF_STB_T_SEL	GENMASK(7, 0)
-+
-+/* RX AEQ */
-+#define REG_PCIE_PEXTP_DIG_LN_RX30		0x0
-+#define PCIE_XTP_LN_RX_PDOWN_E0_AEQEN_WAIT	GENMASK(31, 16)
-+#define PCIE_XTP_LN_RX_PDOWN_T2RLB_DIG_EN	BIT(8)
-+#define PCIE_XTP_LN_RX_PDOWN_L1P2_EXIT_WAIT	GENMASK(7, 0)
-+
-+#endif /* _PHY_AN7583_PCIE_H */
-diff --git a/drivers/phy/airoha/phy-an7583-pcie.c b/drivers/phy/airoha/phy-an7583-pcie.c
-new file mode 100644
-index 000000000000..8aaca3f50713
---- /dev/null
-+++ b/drivers/phy/airoha/phy-an7583-pcie.c
-@@ -0,0 +1,826 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) 2025 AIROHA Inc
-+ * Author: Christian Marangi <ansuelsmth@gmail.com>
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/delay.h>
-+#include <linux/io.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/phy/phy.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/slab.h>
-+
-+#include "phy-an7583-pcie-regs.h"
-+
-+#define FREQ_LOCK_MAX_ATTEMPT	50
-+
-+/* PCIe-PHY initialization time in ms needed by the hw to complete */
-+#define PHY_HW_INIT_TIME_MS	30
-+
-+struct an7583_pcie_phy {
-+	struct device *dev;
-+	struct phy *phy;
-+	struct phy *qp_phy;
-+
-+	struct regmap *g3_ana;
-+	struct regmap *g3_pma;
-+
-+	struct regmap  *xr_dtime;
-+	struct regmap  *rx_aeq;
-+};
-+
-+static void an7583_pcie_phy_init_default(struct an7583_pcie_phy *pcie_phy)
-+{
-+	/* Load E-Fuse */
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_CMN_EN,
-+			   G3_ANA_PXP_CMN_TRIM,
-+			   FIELD_PREP(G3_ANA_PXP_CMN_TRIM, 0x10));
-+	regmap_set_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_TX_TERM_SEL,
-+			G3_PMA_FORCE_SEL_DA_PXP_TX_TERM_SEL);
-+	regmap_update_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_TX_TERM_SEL,
-+			   G3_PMA_FORCE_DA_PXP_TX_TERM_SEL,
-+			   FIELD_PREP(G3_PMA_FORCE_DA_PXP_TX_TERM_SEL, 0x1));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_RX_SIGDET_NOVTH,
-+			   G3_ANA_PXP_RX_FE_50OHMS_SEL,
-+			   FIELD_PREP(G3_ANA_PXP_RX_FE_50OHMS_SEL, 0x1));
-+
-+	/* Default Init */
-+	regmap_set_bits(pcie_phy->g3_pma, REG_ADD_DIG_RESERVE_12,
-+			G3_PMA_DIG_RESERVE_12_8_8);
-+	regmap_clear_bits(pcie_phy->g3_pma, REG_ADD_DIG_RESERVE_27,
-+			  G3_PMA_DIG_RESERVE_27_16_16);
-+	regmap_write(pcie_phy->g3_pma, REG_ADD_DIG_RESERVE_34, 0xcccbcccb);
-+	regmap_write(pcie_phy->g3_pma, REG_ADD_DIG_RESERVE_35, 0xcccb);
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_CMN_EN,
-+			G3_ANA_PXP_CMN_EN);
-+}
-+
-+static void an7583_pcie_phy_init_clk_out(struct an7583_pcie_phy *pcie_phy)
-+{
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PCIE_CLKTX0_AMP,
-+			   G3_ANA_PCIE_CLKTX0_AMP,
-+			   FIELD_PREP(G3_ANA_PCIE_CLKTX0_AMP, 0x5));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PCIE_CLKTX0_AMP,
-+			   G3_ANA_PCIE_CLKTX0_OFFSET,
-+			   FIELD_PREP(G3_ANA_PCIE_CLKTX0_OFFSET, 0x2));
-+	regmap_clear_bits(pcie_phy->g3_ana, REG_PCIE_CLKTX0_AMP,
-+			  G3_ANA_PXP_PCIE_CLKTX0_HZ);
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PCIE_CLKTX0_AMP,
-+			   G3_ANA_PXP_PCIE_CLKTX0_IMP_SEL,
-+			   FIELD_PREP(G3_ANA_PXP_PCIE_CLKTX0_IMP_SEL, 0x12));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PCIE_CLKTX0_AMP,
-+			   G3_ANA_PCIE_CLKTX0_SR,
-+			   FIELD_PREP(G3_ANA_PCIE_CLKTX0_SR, 0x0));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_PLL_MONCLK_SEL,
-+			   G3_ANA_PXP_PLL_CMN_RESERVE0,
-+			   FIELD_PREP(G3_ANA_PXP_PLL_CMN_RESERVE0, 0xd));
-+}
-+
-+static void an7583_pcie_phy_init_ana(struct an7583_pcie_phy *pcie_phy)
-+{
-+	regmap_set_bits(pcie_phy->g3_pma, REG_SW_RST_SET,
-+			G3_PMA_SW_XFI_RXPCS_RST_N);
-+	regmap_set_bits(pcie_phy->g3_pma, REG_SW_RST_SET,
-+			G3_PMA_SW_REF_RST_N);
-+	regmap_set_bits(pcie_phy->g3_pma, REG_SW_RST_SET,
-+			G3_PMA_SW_RX_RST_N);
-+	regmap_set_bits(pcie_phy->g3_pma, REG_SS_TX_RST_B,
-+			G3_PMA_TXCALIB_RST_B);
-+	regmap_set_bits(pcie_phy->g3_pma, REG_SS_TX_RST_B,
-+			G3_PMA_TX_TOP_RST_B);
-+}
-+
-+static void an7583_pcie_phy_init_rx(struct an7583_pcie_phy *pcie_phy)
-+{
-+	regmap_write(pcie_phy->g3_pma, REG_ADD_DIG_RESERVE_30, 0x2a00090b);
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_CDR_PR_MONPR_EN,
-+			G3_ANA_PXP_CDR_PR_XFICK_EN);
-+	regmap_clear_bits(pcie_phy->g3_ana, REG_PXP_CDR_PD_PICAL_CKD8_INV,
-+			  G3_ANA_PXP_CDR_PD_EDGE_DIS);
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_RX_PHYCK_DIV,
-+			   G3_ANA_PXP_RX_PHYCK_SEL,
-+			   FIELD_PREP(G3_ANA_PXP_RX_PHYCK_SEL, 0x1));
-+}
-+
-+static void an7583_pcie_phy_init_jcpll(struct an7583_pcie_phy *pcie_phy)
-+{
-+	regmap_set_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_JCPLL_CKOUT_EN,
-+			G3_PMA_FORCE_SEL_DA_PXP_JCPLL_EN);
-+	regmap_clear_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_JCPLL_CKOUT_EN,
-+			  G3_PMA_FORCE_DA_PXP_JCPLL_EN);
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_SPARE_H,
-+			   G3_ANA_PXP_JCPLL_SPARE_L,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_SPARE_L, 0x20));
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_RST_DLY,
-+			G3_ANA_PXP_JCPLL_PLL_RSTB);
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_SSC_DELTA,
-+			   G3_ANA_PXP_JCPLL_SSC_DELTA,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_SSC_DELTA, 0x0));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_SSC_TRI_EN,
-+			   G3_ANA_PXP_JCPLL_SSC_DELTA1,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_SSC_DELTA1, 0x0));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_SSC_DELTA,
-+			   G3_ANA_PXP_JCPLL_SSC_PERIOD,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_SSC_PERIOD, 0x0));
-+	regmap_clear_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_VCO_TCLVAR,
-+			  G3_ANA_PXP_JCPLL_SSC_PHASE_INI);
-+	regmap_clear_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_SSC_TRI_EN,
-+			  G3_ANA_PXP_JCPLL_SSC_TRI_EN);
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_LPF_BR,
-+			   G3_ANA_PXP_JCPLL_LPF_BR,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_LPF_BR, 0xA));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_LPF_BR,
-+			   G3_ANA_PXP_JCPLL_LPF_BP,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_LPF_BP, 0xC));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_LPF_BR,
-+			   G3_ANA_PXP_JCPLL_LPF_BC,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_LPF_BC, 0x1F));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_LPF_BWC,
-+			   G3_ANA_PXP_JCPLL_LPF_BWC,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_LPF_BWC, 0x1E));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_LPF_BR,
-+			   G3_ANA_PXP_JCPLL_LPF_BWR,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_LPF_BWR, 0xA));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_MMD_PREDIV_MODE,
-+			   G3_ANA_PXP_JCPLL_MMD_PREDIV_MODE,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_MMD_PREDIV_MODE, 0x1));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_MONCK_EN,
-+			   G3_ANA_PXP_JCPLL_REFIN_DIV,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_REFIN_DIV, 0x0));
-+	regmap_set_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_RX_FE_VOS,
-+			G3_PMA_FORCE_SEL_DA_PXP_JCPLL_SDM_PCW);
-+	regmap_update_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_JCPLL_SDM_PCW,
-+			   G3_PMA_FORCE_DA_PXP_JCPLL_SDM_PCW,
-+			   FIELD_PREP(G3_PMA_FORCE_DA_PXP_JCPLL_SDM_PCW, 0x50000000));
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_MMD_PREDIV_MODE,
-+			G3_ANA_PXP_JCPLL_POSTDIV_D5);
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_MMD_PREDIV_MODE,
-+			G3_ANA_PXP_JCPLL_POSTDIV_D2);
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_RST_DLY,
-+			   G3_ANA_PXP_JCPLL_RST_DLY,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_RST_DLY, 0x4));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_RST_DLY,
-+			   G3_ANA_PXP_JCPLL_SDM_DI_LS,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_SDM_DI_LS, 0x0));
-+	regmap_clear_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_FREQ_MEAS_EN,
-+			  G3_ANA_PXP_JCPLL_VCO_KBAND_MEAS_EN);
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_IB_EXT_EN,
-+			   G3_ANA_PXP_JCPLL_CHP_IOFST,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_CHP_IOFST, 0x0));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_IB_EXT_EN,
-+			   G3_ANA_PXP_JCPLL_CHP_IBIAS,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_CHP_IBIAS, 0xC));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_MMD_PREDIV_MODE,
-+			   G3_ANA_PXP_JCPLL_MMD_PREDIV_MODE,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_MMD_PREDIV_MODE, 0x1));
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_VCODIV,
-+			G3_ANA_PXP_JCPLL_VCO_HALFLSB_EN);
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_VCODIV,
-+			   G3_ANA_PXP_JCPLL_VCO_CFIX,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_VCO_CFIX, 0x1));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_VCODIV,
-+			   G3_ANA_PXP_JCPLL_VCO_SCAPWR,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_VCO_SCAPWR, 0x4));
-+	regmap_clear_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_IB_EXT_EN,
-+			  G3_ANA_PXP_JCPLL_LPF_SHCK_EN);
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_KBAND_KFC,
-+			G3_ANA_PXP_JCPLL_POSTDIV_EN);
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_KBAND_KFC,
-+			   G3_ANA_PXP_JCPLL_KBAND_KFC,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_KBAND_KFC, 0x0));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_KBAND_KFC,
-+			   G3_ANA_PXP_JCPLL_KBAND_KF,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_KBAND_KF, 0x3));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_KBAND_KFC,
-+			   G3_ANA_PXP_JCPLL_KBAND_KS,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_KBAND_KS, 0x0));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_LPF_BWC,
-+			   G3_ANA_PXP_JCPLL_KBAND_DIV,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_KBAND_DIV, 0x1));
-+	regmap_set_bits(pcie_phy->g3_pma, REG_SCAN_MODE,
-+			G3_PMA_FORCE_SEL_DA_PXP_JCPLL_KBAND_LOAD_EN);
-+	regmap_clear_bits(pcie_phy->g3_pma, REG_SCAN_MODE,
-+			  G3_PMA_FORCE_DA_PXP_JCPLL_KBAND_LOAD_EN);
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_LPF_BWC,
-+			   G3_ANA_PXP_JCPLL_KBAND_CODE,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_KBAND_CODE, 0xE4));
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_SDM_HREN,
-+			G3_ANA_PXP_JCPLL_TCL_AMP_EN);
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_TCL_CMP_EN,
-+			G3_ANA_PXP_JCPLL_TCL_LPF_EN);
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_SPARE_H,
-+			   G3_ANA_PXP_JCPLL_TCL_KBAND_VREF,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_TCL_KBAND_VREF, 0xF));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_SDM_HREN,
-+			   G3_ANA_PXP_JCPLL_TCL_AMP_GAIN,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_TCL_AMP_GAIN, 0x1));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_SDM_HREN,
-+			   G3_ANA_PXP_JCPLL_TCL_AMP_VREF,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_TCL_AMP_VREF, 0x5));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_TCL_CMP_EN,
-+			   G3_ANA_PXP_JCPLL_TCL_LPF_BW,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_TCL_LPF_BW, 0x1));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_VCO_TCLVAR,
-+			   G3_ANA_PXP_JCPLL_VCO_TCLVAR,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_VCO_TCLVAR, 0x3));
-+	regmap_set_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_JCPLL_CKOUT_EN,
-+			G3_PMA_FORCE_SEL_DA_PXP_JCPLL_CKOUT_EN);
-+	regmap_set_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_JCPLL_CKOUT_EN,
-+			G3_PMA_FORCE_DA_PXP_JCPLL_CKOUT_EN);
-+	regmap_set_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_JCPLL_CKOUT_EN,
-+			G3_PMA_FORCE_SEL_DA_PXP_JCPLL_EN);
-+	regmap_set_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_JCPLL_CKOUT_EN,
-+			G3_PMA_FORCE_DA_PXP_JCPLL_EN);
-+}
-+
-+static void an7583_pcie_phy_txpll(struct an7583_pcie_phy *pcie_phy)
-+{
-+	regmap_set_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_TXPLL_CKOUT_EN,
-+			G3_PMA_FORCE_SEL_DA_PXP_TXPLL_EN);
-+	regmap_clear_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_TXPLL_CKOUT_EN,
-+			  G3_PMA_FORCE_DA_PXP_TXPLL_EN);
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_REFIN_INTERNAL,
-+			G3_ANA_PXP_TXPLL_PLL_RSTB);
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_SSC_DELTA1,
-+			   G3_ANA_PXP_TXPLL_SSC_DELTA,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_SSC_DELTA, 0x0));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_SSC_DELTA1,
-+			   G3_ANA_PXP_TXPLL_SSC_DELTA1,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_SSC_DELTA1, 0x0));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_SSC_PERIOD,
-+			   G3_ANA_PXP_TXPLL_SSC_PERIOD,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_SSC_PERIOD, 0x0));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_CHP_IBIAS,
-+			   G3_ANA_PXP_TXPLL_CHP_IOFST,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_CHP_IOFST, 0x1));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_CHP_IBIAS,
-+			   G3_ANA_PXP_TXPLL_CHP_IBIAS,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_CHP_IBIAS, 0x2D));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_REFIN_INTERNAL,
-+			   G3_ANA_PXP_TXPLL_REFIN_DIV,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_REFIN_DIV, 0x0));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_TCL_LPF_EN,
-+			   G3_ANA_PXP_TXPLL_VCO_CFIX,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_VCO_CFIX, 0x3));
-+	regmap_set_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_CDR_PR_IDAC,
-+			G3_PMA_FORCE_SEL_DA_PXP_TXPLL_SDM_PCW);
-+	regmap_update_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_TXPLL_SDM_PCW,
-+			   G3_PMA_FORCE_DA_PXP_TXPLL_SDM_PCW,
-+			   FIELD_PREP(G3_PMA_FORCE_DA_PXP_TXPLL_SDM_PCW, 0xC800000));
-+	regmap_clear_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_SDM_DI_EN,
-+			  G3_ANA_PXP_TXPLL_SDM_IFM);
-+	regmap_clear_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_SSC_EN,
-+			  G3_ANA_PXP_TXPLL_SSC_PHASE_INI);
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_REFIN_INTERNAL,
-+			   G3_ANA_PXP_TXPLL_RST_DLY,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_RST_DLY, 0x4));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_SDM_DI_EN,
-+			   G3_ANA_PXP_TXPLL_SDM_DI_LS,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_SDM_DI_LS, 0x0));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_SDM_ORD,
-+			   G3_ANA_PXP_TXPLL_SDM_ORD,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_SDM_ORD, 0x3));
-+	regmap_clear_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_TCL_KBAND_VREF,
-+			  G3_ANA_PXP_TXPLL_VCO_KBAND_MEAS_EN);
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_SSC_DELTA1,
-+			   G3_ANA_PXP_TXPLL_SSC_DELTA,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_SSC_DELTA, 0x0));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_SSC_DELTA1,
-+			   G3_ANA_PXP_TXPLL_SSC_DELTA1,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_SSC_DELTA1, 0x0));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_LPF_BP,
-+			   G3_ANA_PXP_TXPLL_LPF_BP,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_LPF_BP, 0x1));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_CHP_IBIAS,
-+			   G3_ANA_PXP_TXPLL_LPF_BC,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_LPF_BC, 0x18));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_CHP_IBIAS,
-+			   G3_ANA_PXP_TXPLL_LPF_BR,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_LPF_BR, 0x5));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_CHP_IBIAS,
-+			   G3_ANA_PXP_TXPLL_CHP_IOFST,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_CHP_IOFST, 0x1));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_CHP_IBIAS,
-+			   G3_ANA_PXP_TXPLL_CHP_IBIAS,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_CHP_IBIAS, 0x2D));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_TCL_VTP_EN,
-+			   G3_ANA_PXP_TXPLL_SPARE_L,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_SPARE_L, 0x1));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_LPF_BP,
-+			   G3_ANA_PXP_TXPLL_LPF_BWC,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_LPF_BWC, 0x0));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_KBAND_KS,
-+			   G3_ANA_PXP_TXPLL_MMD_PREDIV_MODE,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_MMD_PREDIV_MODE, 0x0));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_REFIN_INTERNAL,
-+			   G3_ANA_PXP_TXPLL_REFIN_DIV,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_REFIN_DIV, 0x0));
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_VCO_HALFLSB_EN,
-+			G3_ANA_PXP_TXPLL_VCO_HALFLSB_EN);
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_VCO_HALFLSB_EN,
-+			   G3_ANA_PXP_TXPLL_VCO_SCAPWR,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_VCO_SCAPWR, 0x7));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_TCL_LPF_EN,
-+			   G3_ANA_PXP_TXPLL_VCO_CFIX,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_VCO_CFIX, 0x3));
-+	regmap_set_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_CDR_PR_IDAC,
-+			G3_PMA_FORCE_SEL_DA_PXP_TXPLL_SDM_PCW);
-+	regmap_clear_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_SSC_EN,
-+			  G3_ANA_PXP_TXPLL_SSC_PHASE_INI);
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_LPF_BP,
-+			   G3_ANA_PXP_TXPLL_LPF_BWR,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_LPF_BWR, 0x0));
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_REFIN_INTERNAL,
-+			G3_ANA_PXP_TXPLL_REFIN_INTERNAL);
-+	regmap_clear_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_TCL_KBAND_VREF,
-+			  G3_ANA_PXP_TXPLL_VCO_KBAND_MEAS_EN);
-+	regmap_clear_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_VTP_EN,
-+			  G3_ANA_PXP_TXPLL_VTP_EN);
-+	regmap_clear_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_PHY_CK1_EN,
-+			  G3_ANA_PXP_TXPLL_PHY_CK1_EN);
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_REFIN_INTERNAL,
-+			G3_ANA_PXP_TXPLL_REFIN_INTERNAL);
-+	regmap_clear_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_SSC_EN,
-+			  G3_ANA_PXP_TXPLL_SSC_EN);
-+	regmap_clear_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_FREQ_MEAS_EN,
-+			  G3_ANA_PXP_TXPLL_LPF_SHCK_EN);
-+	regmap_clear_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_KBAND_KS,
-+			  G3_ANA_PXP_TXPLL_POSTDIV_EN);
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_KBAND_CODE,
-+			   G3_ANA_PXP_TXPLL_KBAND_KFC,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_KBAND_KFC, 0x0));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_KBAND_CODE,
-+			   G3_ANA_PXP_TXPLL_KBAND_KF,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_KBAND_KF, 0x3));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_KBAND_KS,
-+			   G3_ANA_PXP_TXPLL_KBAND_KS,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_KBAND_KS, 0x1));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_KBAND_CODE,
-+			   G3_ANA_PXP_TXPLL_KBAND_DIV,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_KBAND_DIV, 0x4));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_KBAND_CODE,
-+			   G3_ANA_PXP_TXPLL_KBAND_CODE,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_KBAND_CODE, 0xE4));
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_SDM_ORD,
-+			G3_ANA_PXP_TXPLL_TCL_AMP_EN);
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_TCL_LPF_EN,
-+			G3_ANA_PXP_TXPLL_TCL_LPF_EN);
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_TCL_KBAND_VREF,
-+			   G3_ANA_PXP_TXPLL_TCL_KBAND_VREF,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_TCL_KBAND_VREF, 0xF));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_TCL_AMP_GAIN,
-+			   G3_ANA_PXP_TXPLL_TCL_AMP_GAIN,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_TCL_AMP_GAIN, 0x3));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_TCL_AMP_GAIN,
-+			   G3_ANA_PXP_TXPLL_TCL_AMP_VREF,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_TCL_AMP_VREF, 0xB));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_TXPLL_TCL_LPF_EN,
-+			   G3_ANA_PXP_TXPLL_TCL_LPF_BW,
-+			   FIELD_PREP(G3_ANA_PXP_TXPLL_TCL_LPF_BW, 0x3));
-+	regmap_set_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_TXPLL_CKOUT_EN,
-+			G3_PMA_FORCE_SEL_DA_PXP_TXPLL_CKOUT_EN);
-+	regmap_set_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_TXPLL_CKOUT_EN,
-+			G3_PMA_FORCE_DA_PXP_TXPLL_CKOUT_EN);
-+	regmap_set_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_TXPLL_CKOUT_EN,
-+			G3_PMA_FORCE_SEL_DA_PXP_TXPLL_EN);
-+	regmap_set_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_TXPLL_CKOUT_EN,
-+			G3_PMA_FORCE_DA_PXP_TXPLL_EN);
-+}
-+
-+static void an7583_pcie_phy_init_ssc_jcpll(struct an7583_pcie_phy *pcie_phy)
-+{
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_SSC_DELTA,
-+			   G3_ANA_PXP_JCPLL_SSC_DELTA,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_SSC_DELTA, 0x106));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_SSC_TRI_EN,
-+			   G3_ANA_PXP_JCPLL_SSC_DELTA1,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_SSC_DELTA1, 0x106));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_SSC_DELTA,
-+			   G3_ANA_PXP_JCPLL_SSC_PERIOD,
-+			   FIELD_PREP(G3_ANA_PXP_JCPLL_SSC_PERIOD, 0x31B));
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_VCO_TCLVAR,
-+			G3_ANA_PXP_JCPLL_SSC_PHASE_INI);
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_VCO_TCLVAR,
-+			G3_ANA_PXP_JCPLL_SSC_EN);
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_SDM_IFM,
-+			G3_ANA_PXP_JCPLL_SDM_IFM);
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_SDM_HREN,
-+			G3_ANA_PXP_JCPLL_SDM_HREN);
-+	regmap_clear_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_RST_DLY,
-+			  G3_ANA_PXP_JCPLL_SDM_DI_EN);
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_SSC_TRI_EN,
-+			G3_ANA_PXP_JCPLL_SSC_TRI_EN);
-+}
-+
-+static void
-+an7583_pcie_phy_set_rxlan0_signal_detect(struct an7583_pcie_phy *pcie_phy)
-+{
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_CDR_PR_TDC_REF_SEL,
-+			G3_ANA_PXP_CDR_PR_LDO_FORCE_ON);
-+	usleep_range(10, 110);
-+	regmap_update_bits(pcie_phy->g3_pma, REG_ADD_DIG_RESERVE_32,
-+			   G3_PMA_DIG_RESERVE_32_31_16,
-+			   FIELD_PREP(G3_PMA_DIG_RESERVE_32_31_16, 0x18B0));
-+	regmap_update_bits(pcie_phy->g3_pma, REG_ADD_DIG_RESERVE_33,
-+			   G3_PMA_DIG_RESERVE_33_15_0,
-+			   FIELD_PREP(G3_PMA_DIG_RESERVE_33_15_0, 0x18B0));
-+	regmap_update_bits(pcie_phy->g3_pma, REG_ADD_DIG_RESERVE_33,
-+			   G3_PMA_DIG_RESERVE_33_31_16,
-+			   FIELD_PREP(G3_PMA_DIG_RESERVE_33_31_16, 0x1030));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_RX_SIGDET_NOVTH,
-+			   G3_ANA_PXP_RX_SIGDET_PEAK_1_0,
-+			   FIELD_PREP(G3_ANA_PXP_RX_SIGDET_PEAK_1_0, 0x2));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_RX_SIGDET_NOVTH,
-+			   G3_ANA_PXP_RX_SIGDET_VTH_SEL_4_0,
-+			   FIELD_PREP(G3_ANA_PXP_RX_SIGDET_VTH_SEL_4_0, 0x5));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_RX_REV_0,
-+			   G3_ANA_PXP_RX_REV_1_3_2,
-+			   FIELD_PREP(G3_ANA_PXP_RX_REV_1_3_2, 0x2));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_RX_DAC_RANGE,
-+			   G3_ANA_PXP_RX_SIGDET_LPF_CTRL,
-+			   FIELD_PREP(G3_ANA_PXP_RX_SIGDET_LPF_CTRL, 0x1));
-+	regmap_update_bits(pcie_phy->g3_pma, REG_SS_RX_CAL_2,
-+			   G3_PMA_CAL_OUT_OS,
-+			   FIELD_PREP(G3_PMA_CAL_OUT_OS, 0x0));
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_RX_FE_VCM_GEN_PWDB,
-+			G3_ANA_PXP_RX_FE_VCM_GEN_PWDB);
-+	regmap_set_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_RX_FE_GAIN_CTRL,
-+			G3_PMA_FORCE_SEL_DA_PXP_RX_FE_GAIN_CTRL);
-+	regmap_update_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_RX_FE_GAIN_CTRL,
-+			   G3_PMA_FORCE_DA_PXP_RX_FE_GAIN_CTRL,
-+			   FIELD_PREP(G3_PMA_FORCE_DA_PXP_RX_FE_GAIN_CTRL, 0x3));
-+	regmap_update_bits(pcie_phy->g3_pma, REG_RX_FORCE_MODE_0,
-+			   G3_PMA_FORCE_DA_XPON_RX_FE_GAIN_CTRL,
-+			   FIELD_PREP(G3_PMA_FORCE_DA_XPON_RX_FE_GAIN_CTRL, 0x1));
-+	regmap_update_bits(pcie_phy->g3_pma, REG_SS_RX_SIGDET_0,
-+			   G3_PMA_SIGDET_WIN_NONVLD_TIMES,
-+			   FIELD_PREP(G3_PMA_SIGDET_WIN_NONVLD_TIMES, 0x3));
-+	regmap_clear_bits(pcie_phy->g3_pma, REG_RX_CTRL_SEQUENCE_DISB_CTRL_1,
-+			  G3_PMA_DISB_RX_SDCAL_EN);
-+	regmap_set_bits(pcie_phy->g3_pma, REG_RX_CTRL_SEQUENCE_FORCE_CTRL_1,
-+			G3_PMA_FORCE_RX_SDCAL_EN);
-+	usleep_range(100, 200);
-+	regmap_clear_bits(pcie_phy->g3_pma, REG_RX_CTRL_SEQUENCE_FORCE_CTRL_1,
-+			  G3_PMA_FORCE_RX_SDCAL_EN);
-+}
-+
-+static void an7583_pcie_phy_set_rxflow(struct an7583_pcie_phy *pcie_phy)
-+{
-+	regmap_set_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_RX_SCAN_RST_B,
-+			G3_PMA_FORCE_SEL_DA_PXP_RX_SIGDET_PWDB);
-+	regmap_set_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_RX_SCAN_RST_B,
-+			G3_PMA_FORCE_DA_PXP_RX_SIGDET_PWDB);
-+	regmap_set_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_CDR_PD_PWDB,
-+			G3_PMA_FORCE_SEL_DA_PXP_CDR_PD_PWDB);
-+	regmap_set_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_CDR_PD_PWDB,
-+			G3_PMA_FORCE_DA_PXP_CDR_PD_PWDB);
-+	regmap_set_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_RX_FE_PWDB,
-+			G3_PMA_FORCE_SEL_DA_PXP_RX_FE_PWDB);
-+	regmap_set_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_RX_FE_PWDB,
-+			G3_PMA_FORCE_DA_PXP_RX_FE_PWDB);
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_RX_PHYCK_DIV,
-+			G3_ANA_PXP_RX_TDC_CK_SEL);
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_RX_PHYCK_DIV,
-+			G3_ANA_PXP_RX_PHYCK_RSTB);
-+	regmap_set_bits(pcie_phy->g3_pma, REG_SW_RST_SET,
-+			G3_PMA_SW_TX_FIFO_RST_N);
-+	regmap_set_bits(pcie_phy->g3_pma, REG_SW_RST_SET,
-+			G3_PMA_SW_ALLPCS_RST_N);
-+	regmap_set_bits(pcie_phy->g3_pma, REG_SW_RST_SET,
-+			G3_PMA_SW_PMA_RST_N);
-+	regmap_set_bits(pcie_phy->g3_pma, REG_SW_RST_SET,
-+			G3_PMA_SW_TX_RST_N);
-+	regmap_set_bits(pcie_phy->g3_pma, REG_SW_RST_SET,
-+			G3_PMA_SW_RX_FIFO_RST_N);
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_RX_FE_EQ_HZEN,
-+			G3_ANA_PXP_RX_FE_VB_EQ3_EN);
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_RX_FE_EQ_HZEN,
-+			G3_ANA_PXP_RX_FE_VB_EQ2_EN);
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_RX_FE_EQ_HZEN,
-+			G3_ANA_PXP_RX_FE_VB_EQ1_EN);
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_RX_REV_0,
-+			   G3_ANA_PXP_RX_REV_1_6_4,
-+			   FIELD_PREP(G3_ANA_PXP_RX_REV_1_6_4, 0x4));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_RX_REV_0,
-+			   G3_ANA_PXP_RX_REV_1_10_8,
-+			   FIELD_PREP(G3_ANA_PXP_RX_REV_1_10_8, 0x4));
-+}
-+
-+static void an7583_pcie_phy_set_pr(struct an7583_pcie_phy *pcie_phy)
-+{
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_CDR_PR_VREG_IBAND_VAL,
-+			   G3_ANA_PXP_CDR_PR_VREG_IBAND_VAL_2_0,
-+			   FIELD_PREP(G3_ANA_PXP_CDR_PR_VREG_IBAND_VAL_2_0, 0x5));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_CDR_PR_VREG_IBAND_VAL,
-+			   G3_ANA_PXP_CDR_PR_VREG_CKBUF_VAL_2_0,
-+			   FIELD_PREP(G3_ANA_PXP_CDR_PR_VREG_CKBUF_VAL_2_0, 0x5));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_CDR_PR_CKREF_DIV,
-+			   G3_ANA_PXP_CDR_PR_CKREF_DIV_1_0,
-+			   FIELD_PREP(G3_ANA_PXP_CDR_PR_CKREF_DIV_1_0, 0x0));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_CDR_PR_TDC_REF_SEL,
-+			   G3_ANA_PXP_CDR_PR_CKREF_DIV1_1_0,
-+			   FIELD_PREP(G3_ANA_PXP_CDR_PR_CKREF_DIV1_1_0, 0x0));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_CDR_LPF_RATIO,
-+			   G3_ANA_PXP_CDR_LPF_TOP_LIM,
-+			   FIELD_PREP(G3_ANA_PXP_CDR_LPF_TOP_LIM, 0x20000));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_CDR_PR_BETA_DAC,
-+			   G3_ANA_PXP_CDR_PR_BETA_SEL,
-+			   FIELD_PREP(G3_ANA_PXP_CDR_PR_BETA_SEL, 0x2));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_CDR_PR_BETA_DAC,
-+			   G3_ANA_PXP_CDR_PR_KBAND_DIV,
-+			   FIELD_PREP(G3_ANA_PXP_CDR_PR_KBAND_DIV, 0x4));
-+}
-+
-+static void an7583_pcie_phy_set_txflow(struct an7583_pcie_phy *pcie_phy)
-+{
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_TX_CKLDO_EN,
-+			G3_ANA_PXP_TX_CKLDO_EN);
-+	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_TX_CKLDO_EN,
-+			G3_ANA_PXP_TX_DMEDGEGEN_EN);
-+}
-+
-+static void an7583_pcie_phy_set_rx_mode(struct an7583_pcie_phy *pcie_phy)
-+{
-+	regmap_write(pcie_phy->g3_pma, REG_ADD_DIG_RESERVE_40, 0x804000);
-+	regmap_update_bits(pcie_phy->g3_pma, REG_ADD_DIG_RESERVE_31,
-+			   G3_PMA_DIG_RESERVE_31_4_0,
-+			   FIELD_PREP(G3_PMA_DIG_RESERVE_31_4_0, 0x5));
-+	regmap_update_bits(pcie_phy->g3_pma, REG_ADD_DIG_RESERVE_31,
-+			   G3_PMA_DIG_RESERVE_31_12_8,
-+			   FIELD_PREP(G3_PMA_DIG_RESERVE_31_12_8, 0x5));
-+	regmap_update_bits(pcie_phy->g3_pma, REG_ADD_DIG_RESERVE_31,
-+			   G3_PMA_DIG_RESERVE_31_20_16,
-+			   FIELD_PREP(G3_PMA_DIG_RESERVE_31_20_16, 0x5));
-+	regmap_update_bits(pcie_phy->g3_pma, REG_ADD_DIG_RESERVE_43,
-+			   G3_PMA_DIG_RESERVE_43_10_8,
-+			   FIELD_PREP(G3_PMA_DIG_RESERVE_43_10_8, 0x7));
-+	regmap_update_bits(pcie_phy->g3_pma, REG_ADD_DIG_RESERVE_43,
-+			   G3_PMA_DIG_RESERVE_43_14_12,
-+			   FIELD_PREP(G3_PMA_DIG_RESERVE_43_14_12, 0x7));
-+	regmap_update_bits(pcie_phy->g3_pma, REG_ADD_DIG_RESERVE_43,
-+			   G3_PMA_DIG_RESERVE_43_18_16,
-+			   FIELD_PREP(G3_PMA_DIG_RESERVE_43_18_16, 0x7));
-+	regmap_clear_bits(pcie_phy->g3_ana, REG_PXP_CDR_PR_MONCK_EN,
-+			  G3_ANA_PXP_CDR_PR_MONCK_EN);
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_CDR_PR_MONCK_EN,
-+			   G3_ANA_PXP_CDR_PR_RESERVE0,
-+			   FIELD_PREP(G3_ANA_PXP_CDR_PR_RESERVE0, 0x2));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_RX_OSCAL_CTLE2IOS,
-+			   G3_ANA_PXP_RX_OSCAL_VGA1IOS,
-+			   FIELD_PREP(G3_ANA_PXP_RX_OSCAL_VGA1IOS, 0x19));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_RX_OSCAL_CTLE2IOS,
-+			   G3_ANA_PXP_RX_OSCAL_VGA1VOS,
-+			   FIELD_PREP(G3_ANA_PXP_RX_OSCAL_VGA1VOS, 0x19));
-+	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_RX_OSCAL_VGA2IOS,
-+			   G3_ANA_PXP_RX_OSCAL_VGA2IOS,
-+			   FIELD_PREP(G3_ANA_PXP_RX_OSCAL_VGA2IOS, 0x14));
-+}
-+
-+static void an7583_pcie_phy_set_eye_scan(struct an7583_pcie_phy *pcie_phy)
-+{
-+	regmap_update_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_CDR_PR_FLL_COR,
-+			   G3_PMA_FORCE_DA_PXP_RX_DAC_EYE,
-+			   FIELD_PREP(G3_PMA_FORCE_DA_PXP_RX_DAC_EYE, 0x0));
-+	regmap_set_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_CDR_PR_FLL_COR,
-+			G3_PMA_FORCE_SEL_DA_PXP_RX_DAC_EYE);
-+	regmap_set_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_CDR_PR_PIEYE_PWDB,
-+			G3_PMA_FORCE_DA_PXP_CDR_PR_PIEYE_PWDB);
-+	regmap_set_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_CDR_PR_PIEYE_PWDB,
-+			G3_PMA_FORCE_SEL_DA_PXP_CDR_PR_PIEYE_PWDB);
-+	regmap_clear_bits(pcie_phy->g3_pma, REG_SS_DA_XPON_PWDB_0,
-+			  G3_PMA_DA_XPON_CDR_PR_PWDB);
-+}
-+
-+static int an7583_pcie_phy_deinit(struct an7583_pcie_phy *pcie_phy)
-+{
-+	/* Disable RX CDR/PR */
-+	regmap_clear_bits(pcie_phy->g3_pma, REG_SS_DA_XPON_PWDB_0,
-+			  G3_PMA_DA_XPON_CDR_PR_PWDB);
-+
-+	/* Disable TX PLL output/enable */
-+	regmap_clear_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_TXPLL_CKOUT_EN,
-+			  G3_PMA_FORCE_DA_PXP_TXPLL_CKOUT_EN |
-+			  G3_PMA_FORCE_SEL_DA_PXP_TXPLL_CKOUT_EN |
-+			  G3_PMA_FORCE_SEL_DA_PXP_TXPLL_EN |
-+			  G3_PMA_FORCE_DA_PXP_TXPLL_EN);
-+
-+	/* Disable JCPLL output/enable */
-+	regmap_clear_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_JCPLL_CKOUT_EN,
-+			  G3_PMA_FORCE_DA_PXP_JCPLL_CKOUT_EN |
-+			  G3_PMA_FORCE_SEL_DA_PXP_JCPLL_CKOUT_EN |
-+			  G3_PMA_FORCE_SEL_DA_PXP_JCPLL_EN |
-+			  G3_PMA_FORCE_DA_PXP_JCPLL_EN);
-+
-+	/* Assert PHY resets */
-+	regmap_clear_bits(pcie_phy->g3_pma, REG_SW_RST_SET,
-+			  G3_PMA_SW_TX_FIFO_RST_N |
-+			  G3_PMA_SW_ALLPCS_RST_N |
-+			  G3_PMA_SW_PMA_RST_N |
-+			  G3_PMA_SW_TX_RST_N |
-+			  G3_PMA_SW_RX_FIFO_RST_N |
-+			  G3_PMA_SW_XFI_RXPCS_RST_N |
-+			  G3_PMA_SW_REF_RST_N |
-+			  G3_PMA_SW_RX_RST_N);
-+
-+	/* Disable TX analog blocks */
-+	regmap_clear_bits(pcie_phy->g3_ana, REG_PXP_TX_CKLDO_EN,
-+			  G3_ANA_PXP_TX_CKLDO_EN |
-+			  G3_ANA_PXP_TX_DMEDGEGEN_EN);
-+
-+	return 0;
-+}
-+
-+static int an7583_pcie_phy_init(struct phy *phy)
-+{
-+	struct an7583_pcie_phy *pcie_phy = phy_get_drvdata(phy);
-+	u32 val;
-+	int ret;
-+
-+	/* Setup Tx-Rx detection time */
-+	val = FIELD_PREP(PCIE_XTP_RXDET_VCM_OFF_STB_T_SEL, 0x33) |
-+	      FIELD_PREP(PCIE_XTP_RXDET_EN_STB_T_SEL, 0x1) |
-+	      FIELD_PREP(PCIE_XTP_RXDET_FINISH_STB_T_SEL, 0x2) |
-+	      FIELD_PREP(PCIE_XTP_TXPD_TX_DATA_EN_DLY, 0x3) |
-+	      FIELD_PREP(PCIE_XTP_RXDET_LATCH_STB_T_SEL, 0x1);
-+	regmap_write(pcie_phy->xr_dtime, REG_PCIE_PEXTP_DIG_GLB44, val);
-+
-+	/* Setup Rx AEQ training time */
-+	val = FIELD_PREP(PCIE_XTP_LN_RX_PDOWN_L1P2_EXIT_WAIT, 0x32) |
-+	      FIELD_PREP(PCIE_XTP_LN_RX_PDOWN_E0_AEQEN_WAIT, 0x5050);
-+	regmap_write(pcie_phy->rx_aeq, REG_PCIE_PEXTP_DIG_LN_RX30, val);
-+
-+	an7583_pcie_phy_init_default(pcie_phy);
-+	an7583_pcie_phy_init_clk_out(pcie_phy);
-+	an7583_pcie_phy_init_ana(pcie_phy);
-+
-+	usleep_range(50, 100);
-+
-+	an7583_pcie_phy_init_rx(pcie_phy);
-+
-+	/* phase 1, no ssc for K TXPLL */
-+	an7583_pcie_phy_init_jcpll(pcie_phy);
-+
-+	usleep_range(200, 300);
-+
-+	/* TX PLL settings */
-+	an7583_pcie_phy_txpll(pcie_phy);
-+
-+	usleep_range(200, 300);
-+
-+	/* SSC JCPLL setting */
-+	an7583_pcie_phy_init_ssc_jcpll(pcie_phy);
-+
-+	usleep_range(30, 130);
-+
-+	/* Rx lan0 signal detect */
-+	an7583_pcie_phy_set_rxlan0_signal_detect(pcie_phy);
-+
-+	/* RX FLOW */
-+	an7583_pcie_phy_set_rxflow(pcie_phy);
-+
-+	usleep_range(50, 200);
-+
-+	an7583_pcie_phy_set_pr(pcie_phy);
-+
-+	/* TX FLOW */
-+	an7583_pcie_phy_set_txflow(pcie_phy);
-+
-+	usleep_range(50, 200);
-+
-+	/* RX mode setting */
-+	an7583_pcie_phy_set_rx_mode(pcie_phy);
-+
-+	an7583_pcie_phy_set_eye_scan(pcie_phy);
-+
-+	usleep_range(50, 200);
-+
-+	regmap_set_bits(pcie_phy->g3_pma, REG_SS_DA_XPON_PWDB_0,
-+			G3_PMA_DA_XPON_CDR_PR_PWDB);
-+
-+	usleep_range(100, 200);
-+
-+	ret = phy_init(pcie_phy->qp_phy);
-+	if (ret) {
-+		an7583_pcie_phy_deinit(pcie_phy);
-+
-+		return dev_err_probe(pcie_phy->dev, ret, "failed to initialize QP phy\n");
-+	}
-+
-+	/* Wait for the PCIe PHY to complete initialization before returning */
-+	msleep(PHY_HW_INIT_TIME_MS);
-+
-+	return 0;
-+}
-+
-+static int an7583_pcie_phy_exit(struct phy *phy)
-+{
-+	struct an7583_pcie_phy *pcie_phy = phy_get_drvdata(phy);
-+	int ret;
-+
-+	ret = an7583_pcie_phy_deinit(pcie_phy);
-+	if (ret)
-+		return ret;
-+
-+	return phy_exit(pcie_phy->qp_phy);
-+}
-+
-+static const struct phy_ops an7583_pcie_phy_ops = {
-+	.init = an7583_pcie_phy_init,
-+	.exit = an7583_pcie_phy_exit,
-+	.owner = THIS_MODULE,
-+};
-+
-+static const struct regmap_config an7583_pcie_phy_regmap_config = {
-+	.reg_bits = 32,
-+	.val_bits = 32,
-+	.reg_stride = 4,
-+};
-+
-+static struct regmap *an7583_pcie_phy_regmap_init(struct platform_device *pdev,
-+						  const char *name)
-+{
-+	struct regmap_config config = an7583_pcie_phy_regmap_config;
-+	void __iomem *base;
-+
-+	config.name = name;
-+
-+	base = devm_platform_ioremap_resource_byname(pdev, name);
-+	if (IS_ERR(base))
-+		return ERR_CAST(base);
-+
-+	return devm_regmap_init_mmio(&pdev->dev, base, &config);
-+}
-+
-+static int an7583_pcie_phy_probe(struct platform_device *pdev)
-+{
-+	struct an7583_pcie_phy *pcie_phy;
-+	struct device *dev = &pdev->dev;
-+	struct phy_provider *provider;
-+
-+	pcie_phy = devm_kzalloc(dev, sizeof(*pcie_phy), GFP_KERNEL);
-+	if (!pcie_phy)
-+		return -ENOMEM;
-+
-+	pcie_phy->g3_ana = an7583_pcie_phy_regmap_init(pdev, "g3-ana");
-+	if (IS_ERR(pcie_phy->g3_ana))
-+		return dev_err_probe(dev, PTR_ERR(pcie_phy->g3_ana),
-+				     "Failed to initialize g3 ANA regmap\n");
-+
-+	pcie_phy->qp_phy = devm_phy_optional_get(dev, NULL);
-+	if (IS_ERR(pcie_phy->qp_phy))
-+		return dev_err_probe(dev, PTR_ERR(pcie_phy->qp_phy),
-+				     "Failed to get QP PCIe phy\n");
-+
-+	pcie_phy->g3_pma = an7583_pcie_phy_regmap_init(pdev, "g3-pma");
-+	if (IS_ERR(pcie_phy->g3_pma))
-+		return dev_err_probe(dev, PTR_ERR(pcie_phy->g3_pma),
-+				     "Failed to initialize g3 PMA regmap\n");
-+
-+	pcie_phy->phy = devm_phy_create(dev, dev->of_node, &an7583_pcie_phy_ops);
-+	if (IS_ERR(pcie_phy->phy))
-+		return dev_err_probe(dev, PTR_ERR(pcie_phy->phy),
-+				     "Failed to create PCIe phy\n");
-+
-+	pcie_phy->xr_dtime = an7583_pcie_phy_regmap_init(pdev, "xr-dtime");
-+	if (IS_ERR(pcie_phy->xr_dtime))
-+		return dev_err_probe(dev, PTR_ERR(pcie_phy->xr_dtime),
-+				     "Failed to initialize Tx-Rx dtime regmap\n");
-+
-+	pcie_phy->rx_aeq = an7583_pcie_phy_regmap_init(pdev, "rx-aeq");
-+	if (IS_ERR(pcie_phy->rx_aeq))
-+		return dev_err_probe(dev, PTR_ERR(pcie_phy->rx_aeq),
-+				     "Failed to initialize Rx AEQ regmap\n");
-+
-+	pcie_phy->dev = dev;
-+	phy_set_drvdata(pcie_phy->phy, pcie_phy);
-+
-+	provider = devm_of_phy_provider_register(dev, of_phy_simple_xlate);
-+	if (IS_ERR(provider))
-+		return dev_err_probe(dev, PTR_ERR(provider),
-+				     "PCIe phy probe failed\n");
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id an7583_pcie_phy_of_match[] = {
-+	{ .compatible = "airoha,an7583-pcie-gen3-phy" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, an7583_pcie_phy_of_match);
-+
-+static struct platform_driver an7583_pcie_phy_driver = {
-+	.probe	= an7583_pcie_phy_probe,
-+	.driver	= {
-+		.name = "airoha-an7583-pcie-phy",
-+		.of_match_table = an7583_pcie_phy_of_match,
-+	},
-+};
-+module_platform_driver(an7583_pcie_phy_driver);
-+
-+MODULE_DESCRIPTION("Airoha AN7583 PCIe PHY driver");
-+MODULE_AUTHOR("Christian Marangi <ansuelsmth@gmail.com>");
-+MODULE_LICENSE("GPL");
+ .../bindings/iio/light/vishay,veml6030.yaml        |   13 +-
+ MAINTAINERS                                        |    6 +
+ drivers/iio/light/Kconfig                          |   14 +
+ drivers/iio/light/Makefile                         |    1 +
+ drivers/iio/light/veml6031x00.c                    | 1370 ++++++++++++++++++++
+ 5 files changed, 1403 insertions(+), 1 deletion(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20241109-veml6031x00-aa9463da064a
+
+Best regards,
 -- 
-2.53.0
+Javier Carrasco <javier.carrasco.cruz@gmail.com>
 
