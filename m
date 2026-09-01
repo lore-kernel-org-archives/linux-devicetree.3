@@ -1,174 +1,205 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19017385D90;
-	Tue,  1 Sep 2026 08:48:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DD5F472795;
+	Tue,  1 Sep 2026 08:48:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788252490; cv=none; b=JTkdUBuIQ776MExhyUplHTMZr7alBYF0bOcaPiRfxzTz9R2KEmNm/k7ZrFsQhTV0TAbAGzDX3IEqp5chckn8WSZrrRfreK6tOvqQxtZEL+7wX5W3Ng9+dZMINX+H3UkTCNU+QyMTqloq+1eDMfH5lnNpzgnUyv8TlpfFCZ+ot+o=
+	t=1788252523; cv=none; b=N64Am0A14FavS7YFQe+ITQkGbHcEvDNGV50ntr76zpXF+slWdbfmUv65fELFOX7d5hq1wsiEvRD5etS/kNQv/UBJMh8kWwq8sKnVzPRdpYokgbdcTXzaojLdvAYIDwEn+KwrbA5SneD3SPSnTih6vorCQqrRKj8ZVwbC3blUEKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788252490; c=relaxed/simple;
-	bh=vKNhSQ2KYcaUOtuQBgsj1j9mWaFB4IaP4yx80H7ljDc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nD2Me5XMVhM/gfkCihzqeQj3bmqO9PNwuOl/sxWAwlWkdKMvjmqZ3c6JS+/5ShIhhMFvsy0CI2PBJx/VYDdtR8YevfR4Kk4SfcxBPyJTueayfIz8vQ17SD57dpSjjxL4ad/9TvrCPBaCTmDUAc8cMh2KKnuv8ORKKkdQvdx9Fyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZVhrCZTE; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZVhrCZTE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788252488; x=1819788488;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=vKNhSQ2KYcaUOtuQBgsj1j9mWaFB4IaP4yx80H7ljDc=;
-  b=ZVhrCZTE3+nt7mecp88EaCTa1miOHd9J+4nAH8m7NPmaS5mbt9Wb2Im/
-   e6NOpcqC0qbpPlZUngne7uLqQwtpp504UpB2nUFwKqDm6MXKo8GVgCAjL
-   /MnAfNKYDDo/McVHZ6qAkPftXJMmTIZ/wFPOjcE8Ap2Xfn/Uvw6xWKm9C
-   3D8qfUAN76I0UFZ0LgjnD+NdDh4/lqrhnPSafE2FB+iCxkZRphtPDuWJh
-   fVKpQ6qWgEiMs4qmKD6bgU4PjXntXTNBSK4tOPDEij3mjB8xslK3bY0au
-   JksJonBweavmcI0/znTZFLUe2P09Yyo1itZwmZ9CUi94077wsdVFJqU/i
-   Q==;
-X-CSE-ConnectionGUID: oOy47XU9S+CNitPKbX5lxA==
-X-CSE-MsgGUID: 2N615yA0RO6VsjgBM0lE4g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88434009"
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="88434009"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 01:48:08 -0700
-X-CSE-ConnectionGUID: WdsnewkQS9yOAp9UxZs+qw==
-X-CSE-MsgGUID: Pm49jRiJTYiFtkP/MJltEg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="270981162"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa004.fm.intel.com with ESMTP; 01 Sep 2026 01:48:04 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id A858C99; Tue, 01 Sep 2026 10:48:02 +0200 (CEST)
-Date: Tue, 1 Sep 2026 10:48:02 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Sven Peter <sven@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
-	Andreas Noever <andreas.noever@gmail.com>,
-	Mika Westerberg <westeri@kernel.org>,
-	Yehezkel Bernat <YehezkelShB@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 06/19] thunderbolt: Try reading host DROM from device
- tree first
-Message-ID: <20260901084802.GB106095@black.igk.intel.com>
-References: <20260830-b4-apple-soc-tbt-v1-0-44bc9348683c@kernel.org>
- <20260830-b4-apple-soc-tbt-v1-6-44bc9348683c@kernel.org>
+	s=arc-20240116; t=1788252523; c=relaxed/simple;
+	bh=Wk5sEMb9LINLsnrda5qnSjDz5LAieS2TldfVF54QzsA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Dhx1NW9U7iskw37xKAaCQtY/LOiEQlo5wKjFf3LKUleDY+SEH+GZpd5I+o+1K9yP5z7MkrzXt7AR75Bv8KPhy0Nkv2oyRvZ8099dEf2FPT/Rbt59GR8ckezNnQnUVvbFDN/QrRrnnXuxIByViTj1hZmlOkJ92PK67bX2+KdMh1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.206.16.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: zesmtpip4t1788252492teff1807c
+X-QQ-Originating-IP: +RBFOTE4CvCvzCH75wZfmQq0Q2Rd0B2ygPN1I/8A7oo=
+Received: from [192.168.30.32] ( [localhost])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 01 Sep 2026 16:48:09 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 12533345009795839515
+EX-QQ-RecipientCnt: 29
+From: Xilin Wu <sophon@radxa.com>
+Date: Tue, 01 Sep 2026 16:47:54 +0800
+Subject: [PATCH 1/6] PCI: of: Avoid config reads for disabled bridge nodes
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260830-b4-apple-soc-tbt-v1-6-44bc9348683c@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260901-q8b-dts-v1-1-7de0b6a73d08@radxa.com>
+References: <20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com>
+In-Reply-To: <20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com>
+To: Bjorn Helgaas <bhelgaas@google.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>, 
+ Xilin Wu <sophon@radxa.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4411; i=sophon@radxa.com;
+ h=from:subject:message-id; bh=Wk5sEMb9LINLsnrda5qnSjDz5LAieS2TldfVF54QzsA=;
+ b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFnTJjo35nxOY5ev1n+y+NXrkm8hi9RnvnNdnPRzwx72r
+ sPFoWl2HaUsDGJcDLJiiiwK8Qxz2Stzrz0VK9WDmcPKBDKEgYtTACayIpLhv5vUeZPda9f1/b7Z
+ FhYWWN3b9PFxYtj9lys/+H+4zLYjJpqR4ZTrcymxBRJ9dbVxESuYNBWnnNykN9mub8PjT78OH5n
+ zmg8A
+X-Developer-Key: i=sophon@radxa.com; a=openpgp;
+ fpr=205F009D07796DD6E516752E32C31567AD9E324E
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: NcVNg4YzPDc1xazVUX7u7R2D/hjsw+p7gtXqp1Yp0D8gsMLJM0ynnDmM
+	lPWRmsH5fcE1/7K8dgx6KQvrv55kIaSLJI1CHnTvi3W7fk2x6gon6N0/CUfuUy9i6GqOgEk
+	o1HH08rR7tt32TLyec9gG3zi5v3rzWG4oCjV+GS30fOWrORQEiTFAa29s0Zjkms68Q0DSTB
+	bW3duGeky4rHRzdKaPOMvoy/SLwHIHAQCYuYONTk8NeSWoBKRIw4PqmirqxpdL/dM2OWz93
+	IydQHBW/4psIv+412e83lnimt8zyJ9WTsauc0/8QPrA4XiyP0bmF8zE4p0O7cmw7jo/lrdi
+	TiIyKzXLil+qbajJkhr1ZYMbR9r5AfOjFEDAyoIx2Kxcg75ioAnZRTYnAsrHUZq2TXnRvfM
+	Tyw81KBGqFAZvB6qJhl2Eb6IOyHG9UfbvtkCBpLi+diPLr/hFFPNwL2pwL/bTSwKOb/BB44
+	+eRbqZyUrKWx8xXmHNfYNslJjjxCvPF02mUA500rHLp+BkazFY9WzQ0n/rQSdddafyQvTO5
+	ZSUAcF+pz9hJO8kPMyi6sWhOLWuZron18J5ihw8fHwufDHrD2mkcBhtsDRe/TfW0PQJgMB5
+	hTBrhoKtBSNQCUf8E9Gc4ECU97+WWyjUbyC1QUAQOWyCUd+ODbO3kPoElk4XwXInAwYveCs
+	n9Utj/NaJP9liRcwWpTVnGMnH9CKTVCth23JNIXnfHRdqn+fqqyVqZIEsAkkf5lVDC6Bmrw
+	VCCGTWLfzB7uNdMii90g0ZDqSSMAaI5oZk75JjpKWg/nlVyjQcTBOiRNt/3vgFVEtLYhKH+
+	BNUUCvT8yd2LjVPRVDBymMQ7wBZ0CrOsBPSoz2gFYo7KH77kQnlepGvRsVmbinROFnSbHsG
+	ULSdsNQT3It2bi/wUVeDw1SlO4DS9I0PJDHGDWn7Afuh7/93dLCPYjt4RiN/FZnx4sq78eC
+	FvmSPeMBMfCXB1ciloD6NEpW7Mg0Ofqn2a7qCgWtNXYqdKA7ICO9SSFDHYYSdpa0n6PNjLx
+	rborTfA0Tt9o7A8M1QPf0g1FIHHQWSRCJbJZbMHCLPOAXMqxOMSd9Tgjp2xDi+0hNoP3qxA
+	f3HqozXluzgdNbt38AvIfY=
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
 
-Hi,
+The TC9563 PCI power-control driver powers off external downstream ports
+whose device tree nodes have status = "disabled".
 
-On Sun, Aug 30, 2026 at 10:19:24PM +0200, Sven Peter wrote:
-> On Apple Silicon SoCs the DROM is provided by a device tree property.
-> Try reading from that property first.
-> 
-> Signed-off-by: Sven Peter <sven@kernel.org>
-> ---
->  drivers/thunderbolt/eeprom.c | 32 +++++++++++++++++++++++++++-----
->  1 file changed, 27 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/thunderbolt/eeprom.c b/drivers/thunderbolt/eeprom.c
-> index 2a13fa6888ba..389de7df84f6 100644
-> --- a/drivers/thunderbolt/eeprom.c
-> +++ b/drivers/thunderbolt/eeprom.c
-> @@ -468,14 +468,14 @@ static void tb_switch_drom_free(struct tb_switch *sw)
->  }
->  
->  /*
-> - * tb_drom_copy_efi - copy drom supplied by EFI to sw->drom if present
-> + * tb_drom_copy_property - copy drom from a device property if present
+On the Radxa Dragon Q8B, reading the Vendor ID from one of these
+powered-off port functions during PCI enumeration raises an Arm SError
+instead of returning an all-ones PCI error response. This prevents the
+board from completing boot.
 
-tb_drom_copy_property() - Copy DROM from ..
+Commit 1a8c251cff20 ("PCI: move OF status = "disabled" detection to
+dev->match_driver") made disabled PCI functions remain discoverable so
+PCI fixups can still be applied, while suppressing driver binding later.
+Preserve that behavior for endpoint functions.
 
-Ditto for the other kernel-doc comments. If it is static trivial function
-you don't need to add them.
+For an unavailable node describing a PCI-to-PCI bridge, however, the
+node also represents a subordinate bus that must not be enumerated.
+Check the device tree node before reading the Vendor ID and return a PCI
+error response without accessing config space when such a bridge is
+disabled.
 
->   */
-> -static int tb_drom_copy_efi(struct tb_switch *sw, u16 *size)
-> +static int tb_drom_copy_property(struct tb_switch *sw, const char *name, u16 *size)
+Functions not described by device tree and disabled endpoint functions
+remain discoverable.
 
-I think this should be split into two lines.
+Signed-off-by: Xilin Wu <sophon@radxa.com>
+---
+ drivers/pci/of.c    | 27 +++++++++++++++++++++++++--
+ drivers/pci/pci.h   |  5 +++++
+ drivers/pci/probe.c |  5 +++++
+ 3 files changed, 35 insertions(+), 2 deletions(-)
 
->  {
->  	struct device *dev = sw->tb->nhi->dev;
->  	int len, res;
->  
-> -	len = device_property_count_u8(dev, "ThunderboltDROM");
-> +	len = device_property_count_u8(dev, name);
->  	if (len < 0 || len < sizeof(struct tb_drom_header))
->  		return -EINVAL;
->  
-> @@ -483,8 +483,7 @@ static int tb_drom_copy_efi(struct tb_switch *sw, u16 *size)
->  	if (res)
->  		return res;
->  
-> -	res = device_property_read_u8_array(dev, "ThunderboltDROM", sw->drom,
-> -									len);
-> +	res = device_property_read_u8_array(dev, name, sw->drom, len);
->  	if (res)
->  		goto err;
->  
-> @@ -500,6 +499,22 @@ static int tb_drom_copy_efi(struct tb_switch *sw, u16 *size)
->  	return -EINVAL;
->  }
->  
-> +/*
-> + * tb_drom_copy_of_apple - copy drom supplied by the device tree for Apple Silicon to sw->drom.
+diff --git a/drivers/pci/of.c b/drivers/pci/of.c
+index a51dff91b196..37e9062065d7 100644
+--- a/drivers/pci/of.c
++++ b/drivers/pci/of.c
+@@ -24,8 +24,8 @@
+  * pci_set_of_node - Find and set device's DT device_node
+  * @dev: the PCI device structure to fill
+  *
+- * Returns 0 on success with of_node set or when no device is described in the
+- * DT. Returns -ENODEV if the device is present, but disabled in the DT.
++ * Return: 0 on success with of_node set or when no device is described in the
++ * DT.
+  */
+ int pci_set_of_node(struct pci_dev *dev)
+ {
+@@ -46,6 +46,29 @@ int pci_set_of_node(struct pci_dev *dev)
+ 	return 0;
+ }
+ 
++/**
++ * pci_of_device_skip_config_read - check whether to skip probing a PCI device
++ * @bus: PCI bus to scan
++ * @devfn: device/function number to check
++ *
++ * Return: true only when firmware explicitly describes an unavailable PCI
++ * bridge/port node. Disabled endpoints remain discoverable so fixups still run,
++ * while driver binding is suppressed later in pci_bus_add_device().
++ */
++bool pci_of_device_skip_config_read(struct pci_bus *bus, unsigned int devfn)
++{
++	if (!bus->dev.of_node)
++		return false;
++
++	struct device_node *node __free(device_node) =
++		of_pci_find_child_device(bus->dev.of_node, devfn);
++
++	if (!node || of_device_is_available(node))
++		return false;
++
++	return of_node_is_type(node, "pci");
++}
++
+ void pci_release_of_node(struct pci_dev *dev)
+ {
+ 	of_node_put(dev->dev.of_node);
+diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
+index ba3c3fddddc2..7cb1d04d947d 100644
+--- a/drivers/pci/pci.h
++++ b/drivers/pci/pci.h
+@@ -1244,6 +1244,7 @@ u32 of_pci_get_slot_power_limit(struct device_node *node,
+ 				u8 *slot_power_limit_scale);
+ bool of_pci_preserve_config(struct device_node *node);
+ int pci_set_of_node(struct pci_dev *dev);
++bool pci_of_device_skip_config_read(struct pci_bus *bus, unsigned int devfn);
+ void pci_release_of_node(struct pci_dev *dev);
+ void pci_set_bus_of_node(struct pci_bus *bus);
+ void pci_release_bus_of_node(struct pci_bus *bus);
+@@ -1284,6 +1285,10 @@ static inline bool of_pci_preserve_config(struct device_node *node)
+ }
+ 
+ static inline int pci_set_of_node(struct pci_dev *dev) { return 0; }
++static inline bool pci_of_device_skip_config_read(struct pci_bus *bus, unsigned int devfn)
++{
++	return false;
++}
+ static inline void pci_release_of_node(struct pci_dev *dev) { }
+ static inline void pci_set_bus_of_node(struct pci_bus *bus) { }
+ static inline void pci_release_bus_of_node(struct pci_bus *bus) { }
+diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
+index 27008e2ea5af..ce29bf78a6f7 100644
+--- a/drivers/pci/probe.c
++++ b/drivers/pci/probe.c
+@@ -2586,6 +2586,11 @@ bool pci_bus_generic_read_dev_vendor_id(struct pci_bus *bus, int devfn, u32 *l,
+ bool pci_bus_read_dev_vendor_id(struct pci_bus *bus, int devfn, u32 *l,
+ 				int timeout)
+ {
++	if (pci_of_device_skip_config_read(bus, devfn)) {
++		PCI_SET_ERROR_RESPONSE(l);
++		return false;
++	}
++
+ 	return pci_bus_generic_read_dev_vendor_id(bus, devfn, l, timeout);
+ }
+ EXPORT_SYMBOL(pci_bus_read_dev_vendor_id);
 
-Like these, not really useful comments you can drop.
+-- 
+2.55.0
 
-> + */
-> +static int tb_drom_copy_of_apple(struct tb_switch *sw, u16 *size)
-> +{
-> +	return tb_drom_copy_property(sw, "apple,thunderbolt-drom", size);
-> +}
-> +
-> +/*
-> + * tb_drom_copy_efi - copy drom supplied by EFI to sw->drom if present
-> + */
-> +static int tb_drom_copy_efi(struct tb_switch *sw, u16 *size)
-> +{
-> +	return tb_drom_copy_property(sw, "ThunderboltDROM", size);
-> +}
-> +
->  static int tb_drom_copy_nvm(struct tb_switch *sw, u16 *size)
->  {
->  	u16 drom_offset;
-> @@ -675,6 +690,13 @@ static int tb_drom_host_read(struct tb_switch *sw)
->  {
->  	u16 size;
->  
-> +	/*
-> +	 * Apple Silicon machines always get their host DROM from the Device Tree,
-> +	 * so make sure to try reading it first before any other method.
-> +	 */
-> +	if (!tb_drom_copy_of_apple(sw, &size))
-> +		return tb_drom_parse(sw, size);
-> +
->  	if (tb_switch_is_usb4(sw)) {
->  		usb4_switch_read_uid(sw, &sw->uid);
->  		if (!usb4_copy_drom(sw, &size))
-> 
-> -- 
-> 2.55.0
-> 
