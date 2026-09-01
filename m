@@ -1,105 +1,183 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C86084CCDC5
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 12:28:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33458267B89
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 12:30:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788265735; cv=none; b=eoXLuOIzKA8PZqGzA+a4wwhy64usFC7roCv9cChApjOiqv6p/yITw1kBkmDpp8EeP4U2Q/9SpHUVv+hJqgnPSdfkR5mwLza8XS//2iVwozkNrIugLLJhpBs+UrsgBUs9fZ94Az1COPG+jFG6BJOtnnOAfSdw2r0pjOAR++9E6vs=
+	t=1788265846; cv=none; b=ZeKf+VXwg4gJkE2Of5OvB0L73MCb3VrzcksxQ5A7+eQr2/l6HTIYI9C0/1+Ar84rubzgoNMp3mksYrFJN1ZZxqKYMoDZLJL0huDC468TcJIH/Q5dvBscTeshjl3yNpyW8ELSGQx+JURaCIAgNrQJFFWiwrtSkGGuiKmZJ0F7o/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788265735; c=relaxed/simple;
-	bh=FApTRMvkisXmlyJI7Ok7Ur2cdWz1WDMw/DV6nWDiUpg=;
+	s=arc-20240116; t=1788265846; c=relaxed/simple;
+	bh=JGP25XwX6vmsxhqromP2uuC32CHu//Il7LAz/dMFIy0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bKbu+erXaf2IiVLggyVO34i8LSvA9G0wOL8nncx1ZdUpiNKfUkQ885nm2/6AMb/FnpwHgmA0M+TRR4TabUKy1FRqcnFwNoW9588kIed0GYG04ESETY13pZVKTMvy6R764OInhC2jiaCIa/8ieYhJ/A+L6U61kAh04/e1W+XLcqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bazrE6sy; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=t9FZDa4HKi8LxWKaZnvB/xwqPG20Nptf4Odk1QO8P5EoWPvtI0gGHibc7yDgQ4Jqq3q39WG0dKmyo4tG9syEoXxUxwz6vLyOWUPAYRSJx4AAq2wJq9Fm9d7A9UlvkUKl0WdNc9b2FN+2OAruoJwjoBWKug4sMdUBKteEci679LA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mAp8dTix; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bazrE6sy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23E641F000E9;
-	Tue,  1 Sep 2026 12:28:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mAp8dTix"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80C4D1F000E9;
+	Tue,  1 Sep 2026 12:30:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788265733;
-	bh=8t7xpcaTpBWulVMOPMvyQXj8Skb0PK83HMLWF+XAhgo=;
+	s=k20260515; t=1788265844;
+	bh=m2mKhuL+nNQBhwiWfaQ76ZqZhvqa2cFQyWbroxigplA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bazrE6sySSmMZcWfk/ArrXyibMYSq6s5nlNHN0fl7ItpIZJeLNTm8BpjVIaVzRmMZ
-	 wHETqpFbpR0EI5ITJeK+3V61eXTJgNN80tmFqMTfIO0Hd35vxlN7OGkMb9U/+1zzTe
-	 +fOf/LXcWL+Abp/XwC1l55mmiyU+E6/CZJiZA6D2qKp4Ocgj9+77lzdmNGeBF5Y5rw
-	 K7I0oobh95QhQITGGgJgfLFbKZfyXKazaPI2/BfgW201bqb/rNRxqYB3dCj8fE74zc
-	 sNadSPGBF9H9/J6Yhzz0kl+DXQbnazZ9mipPd2eflxnkBKekQdMDBolCtXwc07PG7u
-	 nJdzg0gU7MZ8A==
+	b=mAp8dTixSGv2JI5fE7C9Ok4IW4g6kauujM8teFCpmmUuNpSvjaQX4v0wzqFWMtQ03
+	 eFjsq23iU+TRIOHIt/KqcP692KBD1zZ0gLXd3FYAlGyDwcilQeNu1axsVo6uwHz0Lo
+	 TPPPjVYCxo5BqNuQNd6UTNY6NFIFZPuem9L+2q2+YwnXK3mheMkXvrkowj5ivgZAtL
+	 BQZ7kdQSM95lixIc/2+54WN88wFem59HwYtkGiC3lPJp9bxEpVBTQBLjwu6+nrxhG7
+	 1yJ7k2NE43i1M2kNT5xAFks6tj0PmQAYdIbi/NFu4VV6ZVm6rI2wJ7NKoSUjWAomXE
+	 BrdggN5dFASIQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 02/11] ARM: dts: aspeed: anacapa: Add EVT2 devicetree
- inheriting EVT1
+Subject: Re: [PATCH v7 01/11] ARM: dts: aspeed: anacapa: Add EVT1 devicetree
+ and point wrapper to it
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Colin Huang" <u8813345@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260901-anacapa-devlop-phase-devicetree-v7-2-0bd71d2e0105@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260901-anacapa-devlop-phase-devicetree-v7-1-0bd71d2e0105@gmail.com>
 References: <20260901-anacapa-devlop-phase-devicetree-v7-0-0bd71d2e0105@gmail.com>
- <20260901-anacapa-devlop-phase-devicetree-v7-2-0bd71d2e0105@gmail.com>
+ <20260901-anacapa-devlop-phase-devicetree-v7-1-0bd71d2e0105@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 12:28:52 +0000
-Message-Id: <20260901122853.23E641F000E9@smtp.kernel.org>
+Date: Tue, 01 Sep 2026 12:30:44 +0000
+Message-Id: <20260901123044.80C4D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] Incorrect GPIO line name mapping due to a likely copy-paste erro=
-r in the B-block of sgpiom0.
+
+New issues:
+- [Critical] The board compatible string was silently changed from "faceboo=
+k,anacapa-bmc" to "facebook,anacapa", breaking dt-bindings and backward com=
+patibility.
+- [Low] The /dts-v1/ directive is improperly placed inside a .dtsi include =
+file instead of the top-level .dts file.
+
+Pre-existing issues:
+- [High] Multiple consumer nodes request GPIO pins and interrupts from sgpi=
+om0 that strictly exceed its defined maximum limit of 128.
 --
 
-commit aa80bc774dd824dd074a3ccff2eaf0de685d5eb4
+commit aa5900d50b8d457379595fa4812e97d97a192959
 Author: Colin Huang <u8813345@gmail.com>
+Subject: ARM: dts: aspeed: anacapa: Add EVT1 devicetree and point wrapper t=
+o it
 
-ARM: dts: aspeed: anacapa: Add EVT2 devicetree inheriting EVT1
+This commit introduces an EVT1 development-phase devicetree for the
+Facebook Anacapa BMC. It updates the top-level wrapper DTS to include
+the EVT1 hardware revision file and pushes down several configurations.
 
-This commit adds a development-phase devicetree for the Facebook Anacapa BMC
-EVT2 hardware revision. It updates the Anacapa wrapper DTS to reference this
-new EVT2 file instead of EVT1.
-
-> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dt=
-si b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi
+> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt1.dt=
+si b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt1.dtsi
 > new file mode 100644
-> index 0000000000000..be7f17ad5f8ec
+> index 0000000000000..017700920cb1d
 > --- /dev/null
-> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi
-> @@ -0,0 +1,168 @@
+> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt1.dtsi
+> @@ -0,0 +1,1128 @@
 > +// SPDX-License-Identifier: GPL-2.0-or-later
 > +
 > +/dts-v1/;
-> +#include "aspeed-bmc-facebook-anacapa-evt1.dtsi"
+> +#include "aspeed-g6.dtsi"
+
+[Severity: Low]
+Is it standard practice to place the /dts-v1/ directive inside a .dtsi
+include file instead of the top-level .dts file?
+
+> +#include <dt-bindings/gpio/aspeed-gpio.h>
+> +#include <dt-bindings/i2c/i2c.h>
 > +
-> +&sgpiom0 {
-> +	gpio-line-names =3D
+> +/ {
+> +	compatible =3D "facebook,anacapa", "aspeed,ast2600";
+
+[Severity: Critical]
+Does changing the board compatible string from "facebook,anacapa-bmc" to
+"facebook,anacapa" break dt-bindings and backward compatibility?=20
+
+Userspace applications and bootloaders often rely on the exact string in
+/proc/device-tree/compatible to identify the board. Could this modification
+cause them to fail unconditionally on boot?
 
 [ ... ]
+> +		i2c8mux0ch0: i2c@0 {
+> +			reg =3D <0>;
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +
+> +			adc@1f {
+> +				compatible =3D "ti,adc128d818";
+> +				reg =3D <0x1f>;
+> +				ti,mode =3D /bits/ 8 <1>;
+> +			};
+> +
+> +			gpio@22 {
+> +				compatible =3D "nxp,pca9555";
+> +				reg =3D <0x22>;
+> +				#gpio-cells =3D <2>;
+> +				gpio-controller;
+[ ... ]
+> +				interrupt-parent =3D <&sgpiom0>;
+> +
+> +				interrupts =3D <174 IRQ_TYPE_LEVEL_LOW>;
+> +			};
 
-> +	/* B0-B7 line 16-31 */
-> +	"Channel0_leakage_EAM3", "FM_CPU_FPGA_JTAG_MUX_SEL",
-> +	"Channel1_leakage_EAM0", "FM_SCM_JTAG_MUX_SEL",
-> +	"Channel2_leakage_Manifold1", "FM_BRIDGE_JTAG_MUX_SEL",
-> +	"Channel5_leakage_present_EAM1", "FM_CPU0_NMI_SYNC_FLOOD_N",
+[Severity: High]
+This is a pre-existing issue, but does requesting IRQ line 174 from the
+sgpiom0 controller exceed its defined maximum limit of 128?
 
-[Severity: Medium]
-Does this code break the sequence of ChannelX_leakage pins?
+The gpiolib and IRQ domain could reject this out-of-bounds request, causing
+the driver to fail probing with -EINVAL.
 
-It places a _present signal here instead of in the D or C blocks, which
-strongly suggests a copy-paste error overwriting what should have been
-Channel3_leakage.
+[ ... ]
+> +		i2c13mux0ch7: i2c@7 {
+> +			reg =3D <7>;
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +
+> +			nfc@28 {
+> +				compatible =3D "nxp,nxp-nci-i2c";
+> +				reg =3D <0x28>;
+> +
+> +				enable-gpios =3D <&sgpiom0 241 GPIO_ACTIVE_HIGH>;
+> +				interrupt-parent =3D <&sgpiom0>;
+> +
+> +				interrupts =3D <156 IRQ_TYPE_LEVEL_HIGH>;
+> +			};
 
-If this is an unintended copy-paste error in the B-block of sgpiom0,
-userspace tools monitoring hardware could read the wrong physical pin for
-Channel 5's presence and fail to read Channel 3's leakage entirely,
-breaking hardware monitoring logic.
+[Severity: High]
+This is a pre-existing issue, but does requesting GPIO 241 and IRQ 156 from
+sgpiom0 completely overshoot the 128-pin cap?
 
-> +	"Channel4_leakage_Manifold2", "BMC_AINIC0_WP_R2_L",
-> +	"Channel5_leakage_EAM1", "BMC_AINIC1_WP_R2_L",
-> +	"Channel6_leakage_CPU_DIMM", "CPLD_BUF_R_AGPIO330",
-> +	"Channel7_leakage_EAM2", "CPLD_BUF_R_AGPIO331",
+Since the controller restricts its capacity, the out-of-bounds requests cou=
+ld
+lead to probe failures unconditionally during driver initialization.
+
+[ ... ]
+> +&sgpiom0 {
+> +	bus-frequency =3D <2000000>;
+[ ... ]
+> +	ngpios =3D <128>;
+> +
+> +	status =3D "okay";
+> +};
+
+[ ... ]
+> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts b/a=
+rch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
+> index 1fddf3a5d1383..724f4d312de4d 100644
+> --- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
+> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
+> @@ -1,1079 +1,3 @@
+>  // SPDX-License-Identifier: GPL-2.0-or-later
+> =20
+> -/dts-v1/;
+> -#include "aspeed-g6.dtsi"
+
+[Severity: Low]
+Does stripping the /dts-v1/ directive from the top-level .dts file violate
+style and architecture practices for Device Trees?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901-anacapa-de=
-vlop-phase-devicetree-v7-0-0bd71d2e0105@gmail.com?part=3D2
+vlop-phase-devicetree-v7-0-0bd71d2e0105@gmail.com?part=3D1
