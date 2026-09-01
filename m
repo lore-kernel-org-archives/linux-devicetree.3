@@ -1,142 +1,140 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C2B635E937
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 06:45:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F26AA4CCDF8
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 06:58:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788245158; cv=none; b=b8ePMWemJ992LAM15I/bugCFfhFdXgj6vtBotirPEO7eXIP6mYpEQ92VSeYM5FFXeLz4hsJPZ6qyW43ayJgyjmsY+NARitabhFwQyBoow5Ra7O/4s8RHs182Ek90YORL5YemeIIN4+b2voFSkLuFHxZlTSgk/Pxn5Dkpb83u9RM=
+	t=1788245883; cv=none; b=N2we1iYf2xcCQN1vVkGV57sDv7CL5mmLwsvuIMPMTFy+tZMd2PJDV28BI4FTS4CTO2ssvnDp8B7FF0ro1jDlFasBZNkqNshT6fNh7b3dPg0ie2K6cgVGIRG1l6cyif9GYmcdA3D4rzdBy4KpwlEC+MB7ojc/VePzNA7dNFO9XDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788245158; c=relaxed/simple;
-	bh=W/nwyhnsYv/268Axgt633KDCI9dPa5FEesZko/5uCDE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=eRBj0atF76Z9ozFJEPEmv4scEUyTqguL+QrimFKmaq/DE9OkZZyLD4nfFEWYe31BMy+v/tZ4KOeG5iF85gwzE/slHNPU1CMopyXA8udj1WZeCMDgZkaVIqQx5kCg1BaFN37kif9/AlqPBFE6ho5I09Jx5eShuDuX3fmtIUwNw+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=g39Qc0Hh; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788245883; c=relaxed/simple;
+	bh=JWHArNMHZa3syaxkWQOyplqPmFE/oqiYh+nkNJ3SSbU=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=cR1WO5ErBWXLhaobrv3IDmAlH6WgnkW+h+wJa8BMhOy2K7LBBrRT1U11rQB3qUVIHT3DJGBBiUPumVfnnrXGRlUTpooxlM6ZVpBybuVh0hgJDLBNF/KDRImwxhzwTThjreiI9khWRWYfc5QLhcWcqlA+2ZLAusBXxTr3cqEs/R0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=dQ1xvGid; arc=none smtp.client-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="g39Qc0Hh"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 9DC384E4148D;
-	Tue,  1 Sep 2026 06:45:54 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 5D5E66053C;
-	Tue,  1 Sep 2026 06:45:54 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CFBE211C7923C;
-	Tue,  1 Sep 2026 08:45:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788245149; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=UaE3AUwBFLv/HV5738IQzS7QClGRaDYytvnf8R7BOZw=;
-	b=g39Qc0Hh8RF/fXRwcqE57liEKzLtqtjL9mQ0IQxupxbRily1EN5mYlOIr9v4ScgYnDyWBf
-	WsmZezMEUj9L+Fu7+Cd2H0khiRlgy0ntlkonsYLomh9d908+TTOa7iAlAEJ8aSlkCAisCn
-	3eA9d3VR/W/9Q+KNtXZM2vdEa/69hx7TC955v16LlyzOc2qIqOd1ougSXCf5o0PmI/neWv
-	dWU+SKWrbL+ga4LlC+gfe/jbm5g8nr9l2O46sPWbGXwQOp+AAYJJX3CKc1tOVSOQxMByOn
-	6iEm+OruRJeJTqAFf4hiR4R45n5+zHc2QMVrVC4HiBXtc5WlmZ7aucsgoaw2Sg==
-Date: Tue, 1 Sep 2026 08:45:46 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Alex Elder <elder@riscstar.com>
-Cc: bhelgaas@google.com, robh@kernel.org, saravanak@kernel.org,
- daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
- lorenzo.bianconi@oss.qualcomm.com, linux-pci@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 4/4] of: address: kill of_node_is_pcie()
-Message-ID: <20260901084546.424c6ef2@bootlin.com>
-In-Reply-To: <20260901011338.1323243-5-elder@riscstar.com>
-References: <20260901011338.1323243-1-elder@riscstar.com>
-	<20260901011338.1323243-5-elder@riscstar.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="dQ1xvGid"
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-69c108fee7fso5695547a12.3
+        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 23:58:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1788245879; x=1788850679; darn=vger.kernel.org;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=JWHArNMHZa3syaxkWQOyplqPmFE/oqiYh+nkNJ3SSbU=;
+        b=dQ1xvGidr2Ndl4JReANdtfQ7QsGO5mChStGwnGs2P5Z4qyeaAvL0TFXJAjOie97WFM
+         tUoGp6bzuWMZxYcqLhUkZM3wdlqD0aacg5nWW8EmRZLZgBLHzwypqe1jM43FhkUvUmVs
+         PTXAvz20yARdbjD2XYZSKvPkKmBodO9Oc2oDyiXILRaj7o9kzD6MWvLVfyZU8DAcFSVK
+         /myVzytlZ+sBWduJ+WGSmafXiziDZRTKC9eUDJgbAi3yh9HEHm5Y5fQW+g0+gGWfHlQl
+         A5iYOwTsxnKo+8USszuzeFrs6gUbPOyMfIR5NMYiNo5lOzmThoSZCjqYFA6Upc3CnXos
+         hn9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788245879; x=1788850679;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JWHArNMHZa3syaxkWQOyplqPmFE/oqiYh+nkNJ3SSbU=;
+        b=QZT2efA9wm3syQ9C6u1tDevEIzwGKbNs+h4mvsO1WlVEb2PMoAU7wag1wjSbMscX+R
+         f+4xnVIvSIqtmUfpyWsV/CfcTuCRk/9YFRgU8yj32fOF3rmmr2qcbBuI/3dxVksbhFgu
+         a37KGAucwYG9ptuo6jS1bJKhE6aZAfTnN6sAW0pF7xGh8g+LT1w9Vd2IQoqnHO4dj7TU
+         h17aSlE9phpEgEWAuc578h1Y5Kq4W+5N50GqowsitugsFiyiJkgpiMDWJKuRp86w3Iij
+         zT38HKdJfj+001iMRQfC4z7hxT5Dp2aHGzl9TjveNCKaPVtxF1XbilvvWA88kxnCQWfB
+         Bufg==
+X-Forwarded-Encrypted: i=1; AKwUvBxPAbMQ6O/W3gDmyg3H1pv1i6h2on88jalGJVmfm78mWMdmQ9Z8KiwSQqTXwr9uST1CuNo9i8D00vWw@vger.kernel.org
+X-Gm-Message-State: AFuF++mT5eMhN9+b49c4pIsHcCdgpDR830MSnDxol0ylXq0whlELCnRZ
+	Knu0mW1u0oB0toemj6QgxWSylDYw3bTj9HOdYIL5yJH+81VCQQdkqKW5RcP41ijBoyA=
+X-Gm-Gg: AYBFou2KYs1vUj7QqDpys7aqNDywrrrYsg0YOOLaVCVr4lUNcOb0TyFfOO3kSodrH5c
+	D0WZVZZDk8SyWHmtorfa+ca2stxVjx8hw4JZEX4jzEgHocJpoiSNwsq6M3JTai3XNUEKeK/112d
+	hkYBrXzcKCnfHrvPHvVuqG+b2nvWzz0buZHJDm095JaYMYR6E5YXAcjsAYcKMfjXeJRf2ZboaHv
+	5c3eII/R1pcHHIK6VW2cTq5PLf0Vc3AFXrt9dAdqBiuRBHiulTXQmKEAuvI6p7loO1txE2ItsIy
+	4jKFKqmevg2zfSoVbRnc0vc4gBks8T3zFJptq/zJ9Iqusd7HnS1qLtrp3FzUqNDO8/XQyDy0xHq
+	yTlXzheE6sCTn6LTJ6tiCS5C03CHSU/HML6WUaqL2jnj8WWQ1KZM1CBSbODFSWoyQbNXM8vF8Ra
+	d2NWztQN05H0XB4HdNDdqhAkjmfm6mRHu1S2C9cXq3khEBuVMU/BEaJhKr76547N5EFq3gpT7X9
+	ziJSb07IIq+sTsDRVm1gR50MWo5uvR9PA==
+X-Received: by 2002:a05:6402:a0cb:b0:6a6:32f9:d7cf with SMTP id 4fb4d7f45d1cf-6a632f9d94emr10639538a12.20.1788245879073;
+        Mon, 31 Aug 2026 23:57:59 -0700 (PDT)
+Received: from localhost (144-178-202-138.static.ef-service.nl. [144.178.202.138])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a66ed20d3fsm252725a12.24.2026.08.31.23.57.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Aug 2026 23:57:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Date: Tue, 01 Sep 2026 08:57:58 +0200
+Message-Id: <DL3S9BFOU95Q.1LPBODV43OMZA@fairphone.com>
+Subject: Re: [PATCH v2 5/5] iio: light: stk3310: support the Sensortek
+ STK36C61
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "Jorijn van der Graaf" <jorijnvdgraaf@catcrafts.net>, "Marcelo Schmitt"
+ <marcelo.schmitt1@gmail.com>, "Luca Weiss" <luca.weiss@fairphone.com>
+Cc: "Jonathan Cameron" <jic23@kernel.org>, <linux-iio@vger.kernel.org>,
+ "David Lechner" <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>, "Andy
+ Shevchenko" <andriy.shevchenko@intel.com>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, <devicetree@vger.kernel.org>, "Kees Cook"
+ <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ <linux-hardening@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260826175409.326131-1-jorijnvdgraaf@catcrafts.net>
+ <20260826175409.326131-6-jorijnvdgraaf@catcrafts.net>
+ <apEMCqQXyj1tAMoP@debian-BULLSEYE-live-builder-AMD64>
+ <20260828154705.11962-1-jorijnvdgraaf@catcrafts.net>
+ <apRGQVfPKWHvE2Ct@debian-BULLSEYE-live-builder-AMD64>
+ <20260830201950.63838-1-jorijnvdgraaf@catcrafts.net>
+ <DL2YT4S4U7C4.2CPGBR94G01FD@fairphone.com>
+ <apYiYnlM-agfG9he@debian-BULLSEYE-live-builder-AMD64>
+ <apYqUv_uuqZlhtOh@debian-BULLSEYE-live-builder-AMD64>
+ <20260901025502.231703-1-jorijnvdgraaf@catcrafts.net>
+In-Reply-To: <20260901025502.231703-1-jorijnvdgraaf@catcrafts.net>
 
-Hi Alex,
+Hi Jorijn,
 
-On Mon, 31 Aug 2026 20:13:37 -0500
-Alex Elder <elder@riscstar.com> wrote:
+On Tue Sep 1, 2026 at 4:55 AM CEST, Jorijn van der Graaf wrote:
+> On Mon, Aug 31, 2026 at 10:28:50PM -0300, Marcelo Schmitt wrote:
+>> Never mind, I completely missed the point of it having a preliminary dat=
+asheet.
+>> It might be sensible to try to estimate if the final version will keep t=
+he same
+>> name and PDT_ID.
+>
+> On the name: the Fairphone 6 repair document's block diagram labels
+> the part "3IN1 ALPS/RGB sensor/STK36C61", without the A ([1], page
+> 107), while the LCSC and JLCPCB listings carry the -A name. The
+> diagram is provenance rather than proof because the same page
+> misrenders two other part names and I have not read the package
+> marking itself.
+>
+> The driver name would follow the existing family convention either
+> way: this driver already binds the four STK3311 variants (STK3311,
+> -A, -S34, -X), each with its own chip ID in stk3310_chip_ids, under
+> the single name "stk3311".
+>
+> On the ID: the published sheet says 0x93, Luca's 0.9.2 revision says
+> 0x95, and the part in the phone reads 0x95. stk3310_chip_ids is a
+> flat accept-list, so if a final sheet moved the ID again it would be
+> added alongside, not swapped.
+>
+> Luca, can you confirm which part is actually in the device, the
+> STK36C61 or the STK36C61-A?
 
-> The of_bus->match function for the "PCI" bus type is fairly liberal
-> in what it accepts as a PCI bus devicetree node.  If a node has no
-> device_type property, it even allows a node named "pcie@" to be
-> accepted as represnting a devicetree bus, though it issues a warning
-> in that case.
-> 
-> A recent PCI commit introduced of_pci_verify_node().  When a PCI
-> device is added, if it has a devicetree node, that function checks
-> its device_type property.  For PCI bridge devices, if there is no
-> device_type property (value "pci"), a warning is issued.
-> 
-> That warning duplicates the warning made by of_node_is_pcie(), and
-> there's no point in that.  Avoid the second (OF) warning by just
-> checking the node name directly in of_bus_pci_match().
-> 
-> That leaves of_node_is_pcie() unused, so get rid of it.
-> 
-> Signed-off-by: Alex Elder <elder@riscstar.com>
-> ---
-> v3: - Added (new) in this version of the series
-> 
->  drivers/of/address.c | 12 +-----------
->  1 file changed, 1 insertion(+), 11 deletions(-)
-> 
-> diff --git a/drivers/of/address.c b/drivers/of/address.c
-> index 499d37ceae210..ee2eb44884d85 100644
-> --- a/drivers/of/address.c
-> +++ b/drivers/of/address.c
-> @@ -134,16 +134,6 @@ static unsigned int of_bus_pci_get_flags(const __be32 *addr)
->   * PCI bus specific translator
->   */
->  
-> -static bool of_node_is_pcie(const struct device_node *np)
-> -{
-> -	bool is_pcie = of_node_name_eq(np, "pcie");
-> -
-> -	if (is_pcie)
-> -		pr_warn_once("%pOF: Missing device_type\n", np);
-> -
-> -	return is_pcie;
-> -}
-> -
->  static int of_bus_pci_match(struct device_node *np)
->  {
->  	/*
-> @@ -156,7 +146,7 @@ static int of_bus_pci_match(struct device_node *np)
->  	 */
->  	return of_node_is_type(np, "pci") || of_node_is_type(np, "pciex") ||
->  		of_node_is_type(np, "vci") || of_node_is_type(np, "ht") ||
-> -		of_node_is_pcie(np);
-> +		of_node_name_eq(np, "pcie");
->  }
->  
->  static void of_bus_pci_count_cells(struct device_node *np,
+The BOM I'm viewing clearly states "STK36C61-A".
 
-The warning here was printed based on the node name whereas of_node_is_pcie()
-prints the message based on the 'device_type' property of a pci_dev node.
+Regards
+Luca
 
-For PCI to PCI bridges, no problem the warning is indeed duplicated but what
-happens for the PCI host controller?
+>
+> [1] https://www.fairphone.com/wp-content/uploads/2025/08/Fairphone-Gen.-6=
+_-Information-on-how-to-repair-dispose-of-and-recycle-EN-NL-FR-DE.pdf
+>
+> Thanks,
+> Jorijn
 
-PCI host controller drivers calls pci_host_probe() and are seen by the PCI core
-as a struct pci_host_bridge.
-
-of_node_is_pcie() is called for children of the PCI host controller (i.e. PCI
-devices scanned on the PCI bus handled by the host controller) but not for the
-PCI host controller itself.
-
-The OF node of the host controller must have the 'device_type' property set
-to "pci".
-
-I am not so sure that this warning was duplicated when we consider the PCI
-host controller node.
-
-Can you double check on your side?
-
-Best regards,
-Hervé
