@@ -1,28 +1,33 @@
-Received: from mx3.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057D43033E6;
-	Tue,  1 Sep 2026 13:55:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=141.14.17.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA22F2F7EE7;
+	Tue,  1 Sep 2026 13:58:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788270957; cv=none; b=Mt5yomniK06b3upPM2M94Foy0OzVfUPdlYIrHG/KzmMf52JGPlFRP31oNOJX9lpSRsT8rm3NhJL15GJ8oyEGYb8GKfF2fLcCbtrnYBiJXQmA59P5IkAhoc030JNnUqvuwleS0txlgnWL+pPEcqA+Repp8d7FYma1uRfnL6jeFLE=
+	t=1788271104; cv=none; b=gB/4NQLU1B42/tm87Mh8JXaUGZGlQobzO+45cqI2r3jDog3+B/9BPfI/d7O43sUkBhoa5drapEOh7Hke4OwNTYvne6I7JIA4REVE8QgWHEHfZDADajJy0wPFRmqe0A0G12XNlGTPBuOdFhpRtqYLlsFRcC98KJDK2Fg2GGpavIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788270957; c=relaxed/simple;
-	bh=bz4t76tc9Sqh4peXj1ABtUMfrElA2dA8HE+vh8PhAtA=;
+	s=arc-20240116; t=1788271104; c=relaxed/simple;
+	bh=Uzb9oLzP/M/veRTwQx8O16a2XGVn4c5i03hGnQZaKic=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MvGDhdr1b4awC6gEX5Kt7sesZZBqJioXCNOiw9HkjNquK3kYQ4x4zZV9GTUhDL1aqtRj6VByh0H2DddMMEi8s5SiQnSHYnRlHnFBJL7Do3n4Z0y7AOkGyYzT7ubZS5UULsuF6RFC+hhaIs/8UMvzKV0J/RSuUEB7M2jSinqwQ3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de; spf=pass smtp.mailfrom=molgen.mpg.de; arc=none smtp.client-ip=141.14.17.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=molgen.mpg.de
-Received: from [141.14.220.42] (g42.guest.molgen.mpg.de [141.14.220.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: pmenzel)
-	by mx.molgen.mpg.de (Postfix) with ESMTPSA id 2AB444C2C37F01;
-	Tue, 01 Sep 2026 15:55:41 +0200 (CEST)
-Message-ID: <254803cb-7b5c-41c6-84bb-0de7fe7e6f12@molgen.mpg.de>
-Date: Tue, 1 Sep 2026 15:55:38 +0200
+	 In-Reply-To:Content-Type; b=pDushV396/6YifvgXeTli+tvHLt7mHIESETzRdDKkmzUJoHzXeYULzTIqHzz1QE/ulPUTZ1uQyIpUtvbV7FnM4lup9E/ywhqhe46uTz5usNC5qHfD4xB5ShGZ+C+KXAU0p/zmnWVdMEybehYBweS3q2TJERd7oX5we2X+I/m/9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NVxWcULt; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NVxWcULt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1AE61F000E9;
+	Tue,  1 Sep 2026 13:58:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788271102;
+	bh=v7puyWp/ROQswaeSJtWkmIdn56iY62cBg7FWAYcpIY8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=NVxWcULtb8vZvibgQJ/A72FOUxIHYDUw2GJXZris9HtuxuyMqpwcbdSNfPO4+THil
+	 zjycOub+YLQEFzY9SEneBsrVF6ZhvhloT6Fi9bt/tJpPTGCyS9eH2AxZemWhJDpvgj
+	 CRikl0X+igBO2+zRbFVaSmAjyIQwfqEhC6jrS3RQrnqVW26Gfz2q6mOE8PGMCz+zGa
+	 oEOlXMcy+fAqIZH8tBgfE42ttP0oVYxCVa2idJK3iXtq+cZz0Dnke++ewDFtBg5jUT
+	 5K5q1RnOa6MPc8l3SCQkLR0AQXEc8EzqDII/3nptXowzoE7r43McL55nkO3SQPEYLz
+	 WQR5IATopGGrQ==
+Message-ID: <38389106-9609-4ec4-bc83-3d1b7fac3698@kernel.org>
+Date: Tue, 1 Sep 2026 15:58:10 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -30,95 +35,270 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] Bluetooth: btbcm: Add Synaptics 4384 chip support
-To: Andy Chang <andy.chang@synaptics.corp-partner.google.com>
-Cc: Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- linux-bluetooth@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- Linus Walleij <linusw@kernel.org>, linux-kernel@vger.kernel.org
-References: <20260901023300.1382808-2-andy.chang@synaptics.corp-partner.google.com>
- <20260901085702.1515378-1-andy.chang@synaptics.corp-partner.google.com>
- <20260901085702.1515378-3-andy.chang@synaptics.corp-partner.google.com>
+Subject: Re: [PATCH v1 02/11] soc: qcom: add crypto_virt backend for
+ virtio-blk inline crypto
+To: Linlin Zhang <linlin.zhang@oss.qualcomm.com>, ebiggers@kernel.org,
+ axboe@kernel.dk, mst@redhat.com, jasowangio@gmail.com,
+ James.Bottomley@HansenPartnership.com, martin.petersen@oracle.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ linux-block@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-scsi@vger.kernel.org, virtualization@lists.linux.dev,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Cc: neeraj.soni@oss.qualcomm.com, gaurav.kashyap@oss.qualcomm.com,
+ mani@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+ bvanassche@acm.org, alim.akhtar@samsung.com, avri.altman@sandisk.com,
+ stefanha@redhat.com, pbonzini@redhat.com, eperezma@redhat.com,
+ xuanzhuo@linux.alibaba.com, linux-kernel@vger.kernel.org
+References: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
+ <20260827160806.1295313-3-linlin.zhang@oss.qualcomm.com>
+ <f5915133-ffac-4777-b7d9-cf38ba163d43@kernel.org>
+ <03097984-fded-477e-82b6-f9b31fd2f1d3@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-In-Reply-To: <20260901085702.1515378-3-andy.chang@synaptics.corp-partner.google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <03097984-fded-477e-82b6-f9b31fd2f1d3@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Dear Andy,
-
-
-Thank you for your patch. Same comments as in *PATCH v3 1/2*.
-
-Am 01.09.26 um 10:57 schrieb Andy Chang:
-> Add support for the Synaptics 4384 Bluetooth controller
-> by adding the corresponding chip IDs.
+On 01/09/2026 11:39, Linlin Zhang wrote:
 > 
-> Tested on the VIM3 platform. Verified that the controller initializes
-> successfully and that firmware loading and basic Bluetooth operation
-> work as expected.
 > 
-> The VIM3 is a Khadas single-board computer that I used as the host
-> platform for testing the BCM4384 Bluetooth controller.
+> On 8/31/2026 2:56 PM, Krzysztof Kozlowski wrote:
+>> On 27/08/2026 18:07, Linlin Zhang wrote:
+>>> From: linlzhan <linlin.zhang@oss.qualcomm.com>
+>>>
+>>> In a Qualcomm GVM environment the ICE hardware is controlled by the
+>>
+>> What is GVM?
 
-Should you resend, please paste the new Linux log message into the 
-commit message, as most people don’t have the hardware for testing.
+There is no such TLA (git grep).
 
-> Signed-off-by: Andy Chang <andy.chang@synaptics.corp-partner.google.com>
-> ---
->   drivers/bluetooth/btbcm.c   | 6 +++++-
->   drivers/bluetooth/hci_bcm.c | 1 +
->   2 files changed, 6 insertions(+), 1 deletion(-)
+Maybe you meant guest in a virtual machine? Don't use some qcom-specific
+TLA.
+
+
+>>
 > 
-> diff --git a/drivers/bluetooth/btbcm.c b/drivers/bluetooth/btbcm.c
-> index 463d59890bef..63c4c788d9c4 100644
-> --- a/drivers/bluetooth/btbcm.c
-> +++ b/drivers/bluetooth/btbcm.c
-> @@ -31,6 +31,7 @@
->   #define BDADDR_BCM4334B0 (&(bdaddr_t) {{0x00, 0x00, 0x00, 0xb0, 0x34, 0x43}})
->   #define BDADDR_BCM4345C5 (&(bdaddr_t) {{0xac, 0x1f, 0x00, 0xc5, 0x45, 0x43}})
->   #define BDADDR_BCM43341B (&(bdaddr_t) {{0xac, 0x1f, 0x00, 0x1b, 0x34, 0x43}})
-> +#define BDADDR_BCM4384B0 (&(bdaddr_t) {{0x93, 0x76, 0x00, 0xb0, 0x84, 0x43}})
->   
->   #define BCM_FW_NAME_LEN			64
->   #define BCM_FW_NAME_COUNT_MAX		4
-> @@ -130,7 +131,8 @@ int btbcm_check_bdaddr(struct hci_dev *hdev)
->   	    !bacmp(&bda->bdaddr, BDADDR_BCM4345C5) ||
->   	    !bacmp(&bda->bdaddr, BDADDR_BCM43430A0) ||
->   	    !bacmp(&bda->bdaddr, BDADDR_BCM43430A1) ||
-> -	    !bacmp(&bda->bdaddr, BDADDR_BCM43341B)) {
-> +	    !bacmp(&bda->bdaddr, BDADDR_BCM43341B) ||
-> +	    !bacmp(&bda->bdaddr, BDADDR_BCM4384B0)) {
->   		/* Try falling back to BDADDR EFI variable */
->   		if (btbcm_set_bdaddr_from_efi(hdev) != 0) {
->   			bt_dev_info(hdev, "BCM: Using default device address (%pMR)",
-> @@ -514,6 +516,8 @@ static const struct bcm_subver_table bcm_uart_subver_table[] = {
->   	{ 0x4106, "BCM4335A0"	},	/* 002.001.006 */
->   	{ 0x410c, "BCM43430B0"	},	/* 002.001.012 */
->   	{ 0x2119, "BCM4373A0"	},	/* 001.001.025 */
-> +	{ 0x2128, "BCM4384A0"	},	/* 001.001.040 */
-> +	{ 0x4119, "BCM4384B0"	},	/* 002.001.025 */
->   	{ }
->   };
->   
-> diff --git a/drivers/bluetooth/hci_bcm.c b/drivers/bluetooth/hci_bcm.c
-> index 9a103db7e355..e70b9f3fd968 100644
-> --- a/drivers/bluetooth/hci_bcm.c
-> +++ b/drivers/bluetooth/hci_bcm.c
-> @@ -1593,6 +1593,7 @@ static const struct of_device_id bcm_bluetooth_of_match[] = {
->   	{ .compatible = "brcm,bcm4349-bt", .data = &bcm43438_device_data },
->   	{ .compatible = "brcm,bcm43540-bt", .data = &bcm4354_device_data },
->   	{ .compatible = "brcm,bcm4335a0" },
-> +	{ .compatible = "brcm,bcm4384-bt" },
->   	{ .compatible = "cypress,cyw4373a0-bt", .data = &cyw4373a0_device_data },
->   	{ .compatible = "infineon,cyw55572-bt", .data = &cyw55572_device_data },
->   	{ },
+> GVM means Guest Virtual Machine. This is designed for the virtualization
+> platform.
+> 
+>>> host, GVM has no direct access to it. So, key operation in GVM is
+>>> done through SCM calls rather than direct register access. In this
+>>> way the access to ICE registers are offloaded to Trust Zone.
+>>>
+>>> Add QCOM_CRYPTO_VIRT, which implements struct virtblk_crypto_variant_ops
+>>> for the virtio_blk_crypto_ext dispatch layer. It maps keyslot
+>>> program/evict to qcom_scm_ice_set_key() and
+>>> qcom_scm_ice_invalidate_key(), and software-secret derivation to
+>>> qcom_scm_derive_sw_secret().
+>>>
+>>> Signed-off-by: linlzhan <linlin.zhang@oss.qualcomm.com>
+>>> ---
+>>>  drivers/soc/qcom/Kconfig       | 12 +++++
+>>>  drivers/soc/qcom/Makefile      |  1 +
+>>>  drivers/soc/qcom/crypto_virt.c | 89 ++++++++++++++++++++++++++++++++++
+>>>  3 files changed, 102 insertions(+)
+>>>  create mode 100644 drivers/soc/qcom/crypto_virt.c
+>>>
+>>> diff --git a/drivers/soc/qcom/Kconfig b/drivers/soc/qcom/Kconfig
+>>> index 2b524154d9fb..6c632d114d45 100644
+>>> --- a/drivers/soc/qcom/Kconfig
+>>> +++ b/drivers/soc/qcom/Kconfig
+>>> @@ -298,6 +298,18 @@ config QCOM_INLINE_CRYPTO_ENGINE
+>>>  	tristate
+>>>  	select QCOM_SCM
+>>>  
+>>> +config QCOM_CRYPTO_VIRT
+>>> +	tristate "Qualcomm Technologies, Inc. Crypto Virt driver"
+>>> +	depends on VIRTBLK_CRYPTO_VIRTUALIZATION
+>>> +	depends on QCOM_SCM
+>>> +	default VIRTBLK_CRYPTO_VIRTUALIZATION if ARCH_QCOM
+>>> +	help
+>>> +	  GVM-side hardware-wrapped-key SCM operations exposed to
+>>> +	  virtio_blk's inline crypto layer: per-slot key programming and
+>>> +	  eviction, and key derive/generate/prepare/import.
+>>> +	  Say Y here to compile the driver as a part of kernel or M to compile
+>>> +	  as a module.
+>>> +
+>>>  config QCOM_KRYO_L2_ACCESSORS
+>>>  	bool
+>>>  	depends on ARM64
+>>> diff --git a/drivers/soc/qcom/Makefile b/drivers/soc/qcom/Makefile
+>>> index 798643be3590..6d4b7546d1fb 100644
+>>> --- a/drivers/soc/qcom/Makefile
+>>> +++ b/drivers/soc/qcom/Makefile
+>>> @@ -39,5 +39,6 @@ obj-$(CONFIG_QCOM_KRYO_L2_ACCESSORS) +=	kryo-l2-accessors.o
+>>>  obj-$(CONFIG_QCOM_ICC_BWMON)	+= icc-bwmon.o
+>>>  qcom_ice-objs			+= ice.o
+>>>  obj-$(CONFIG_QCOM_INLINE_CRYPTO_ENGINE)	+= qcom_ice.o
+>>> +obj-$(CONFIG_QCOM_CRYPTO_VIRT)	+= crypto_virt.o
+>>>  obj-$(CONFIG_QCOM_PBS) +=	qcom-pbs.o
+>>>  obj-$(CONFIG_QCOM_UBWC_CONFIG) += ubwc_config.o
+>>> diff --git a/drivers/soc/qcom/crypto_virt.c b/drivers/soc/qcom/crypto_virt.c
+>>> new file mode 100644
+>>> index 000000000000..4ee2a36af6c1
+>>> --- /dev/null
+>>> +++ b/drivers/soc/qcom/crypto_virt.c
+>>> @@ -0,0 +1,89 @@
+>>> +// SPDX-License-Identifier: GPL-2.0-only
+>>> +
+>>> +#include <linux/module.h>
+>>> +#include <linux/types.h>
+>>> +#include <linux/blk-crypto.h>
+>>> +#include <linux/virtio_blk_crypto_ext.h>
+>>> +#include <linux/firmware/qcom/qcom_scm.h>
+>>> +
+>>> +static int crypto_virt_program_key(const struct blk_crypto_key *key,
+>>> +				   unsigned int slot)
+>>> +{
+>>> +	u32 dus_512_units;
+>>> +	int ret;
+>>> +
+>>> +	if (!key || !key->size) {
+>>> +		pr_err("%s: invalid key\n", __func__);
+>>> +		return -EINVAL;
+>>> +	}
+>>> +
+>>> +	/* Only AES-256-XTS has been tested so far. */
+>>> +	if (key->crypto_cfg.crypto_mode !=
+>>> +	    BLK_ENCRYPTION_MODE_AES_256_XTS) {
+>>> +		pr_err_ratelimited("Unsupported crypto mode: %d\n",
+>>> +				    key->crypto_cfg.crypto_mode);
+>>> +		return -EINVAL;
+>>> +	}
+>>> +
+>>> +	/* qcom_scm_ice_set_key()'s data_unit_size is expressed in 512-byte units */
+>>> +	dus_512_units = key->crypto_cfg.data_unit_size / 512;
+>>> +
+>>> +	ret = qcom_scm_ice_set_key(slot, key->bytes, key->size,
+>>> +		QCOM_SCM_ICE_CIPHER_AES_256_XTS, dus_512_units);
+>>> +	if (ret)
+>>> +		pr_err("%s: slot=%u ret=%d\n", __func__, slot, ret);
+>>> +
+>>> +	return ret;
+>>> +}
+>>> +
+>>> +static int crypto_virt_invalidate_key(unsigned int slot)
+>>> +{
+>>> +	int ret;
+>>> +
+>>> +	ret = qcom_scm_ice_invalidate_key(slot);
+>>> +	if (ret)
+>>> +		pr_err("%s: slot=%u ret=%d\n", __func__, slot, ret);
+>>> +
+>>> +	return ret;
+>>> +}
+>>> +
+>>> +static int crypto_virt_derive_sw_secret_key(const u8 *eph_key, size_t eph_key_size,
+>>> +					    u8 sw_secret[BLK_CRYPTO_SW_SECRET_SIZE])
+>>> +{
+>>> +	int ret;
+>>> +
+>>> +	ret = qcom_scm_derive_sw_secret(eph_key, eph_key_size,
+>>> +					sw_secret, BLK_CRYPTO_SW_SECRET_SIZE);
+>>> +	if (ret == -EIO || ret == -EINVAL)
+>>> +		ret = -EBADMSG; /* probably invalid key */
+>>> +
+>>> +	if (ret)
+>>> +		pr_err("%s: ret=%d\n", __func__, ret);
+>>> +
+>>> +	return ret;
+>>> +}
+>>> +
+>>> +static struct virtblk_crypto_variant_ops virtblk_crypto_qcom_vops = {
+>>
+>> Why is a crypto-handling code in drivers/soc/?
+>>
+> 
+> This driver is a Qualcomm vendor-specific driver, plays the similar role in the
 
-Reviewed-by: Paul Menzel <pmenzel@molgen.mpg.de>
+Not really, there is nothing vendor specific here. Look at this code.
+
+> guest, like the ice driver in the host. so I place it in drivers/soc/.
+> 
+>>> +	.owner = THIS_MODULE,
+>>> +	.program_key = crypto_virt_program_key,
+>>> +	.evict_key = crypto_virt_invalidate_key,
+>>> +	.derive_sw_secret_key = crypto_virt_derive_sw_secret_key,
+>>> +};
+>>> +
+>>> +static int __init crypto_virt_init(void)
+>>> +{
+>>> +	virtblk_set_crypto_ops(&virtblk_crypto_qcom_vops);
+>>> +	return 0;
+>>> +}
+>>> +module_init(crypto_virt_init);
+>>> +
+>>> +#if IS_MODULE(CONFIG_QCOM_CRYPTO_VIRT)
+>>> +static void __exit crypto_virt_exit(void)
+>>> +{
+>>> +	virtblk_set_crypto_ops(NULL);
+>>> +}
+>>> +module_exit(crypto_virt_exit);
+>>> +#endif
+>>
+>> How do you instantiate this driver exactly?
+>>
+> 
+> This driver is not instantiated per device. It acts as a provider of
+> Qualcomm vendor-specific inline crypto operations, which is based on
+> qcom_scm driver, and registers a global virtblk_crypto_ops instance
+> during module initialization. So that, each blk_crypto_ll_ops from
+> virtio block driver in common kernel can be sent via qcom_smc driver.
 
 
-Kind regards,
+If it is not instantiated, then it is dead code. Drop all this. Or read
+my message again very carefully instead of replying with whatever copy
+of commit msg. I did not ask what is this driver about. I did not ask
+what it is providing. I asked how do you instantiate it or clarifying -
+how do you load and run this code in final system.
 
-Paul
+This is just dead/unused code, straight from downstream.
+
+NAK.
+
+
+Best regards,
+Krzysztof
