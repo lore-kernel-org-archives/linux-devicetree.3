@@ -1,118 +1,75 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 692DF2DECA8
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 03:10:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCEA537FF75;
+	Tue,  1 Sep 2026 03:14:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788232215; cv=none; b=OuhEUrPl7fkrkg5nWloEcgNHbIsWsQISrQDRhovJ7LPLXBMNf7yAgcv8qIbBwg2rlppPancOK+rtMcJ70OfiOc7zFw0+TlivquKcbuqMQ4dsvcDWEeFRcPOZFCHThr4bP64SxmrquZ9XoyemzISu7KnUIl/9kjpHd8/WjY/M+Ok=
+	t=1788232456; cv=none; b=hHDBVO/VLjhA9v1Dt+SeIzKyqWq8nksJHR1PWPHXG5G3S03asNPKEKHP9xyyhHgoI+I/R6mYd1iIgA0KleV04MH4+gg277rZtnaTSG4I0PKTnRpR/fnfBJikJQo4ClWFNuPWNuQjrHqtik9C9AaJhoJevXD3pZwvvrjmLf0WmG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788232215; c=relaxed/simple;
-	bh=7VJs4tafunwi1sFWAwAvwathyHbOWX+WFuSgh/a+XZU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ulHaYshCmmDGSslwQQxhMEPvVsR3JuQptK5DGy8aTo94z94w2L7ihoCy5M/AIuaKNGjW5DDeaAKOlaVErh+XZM6vdU33Hm22B2W/eL63+i1LamnBd0hBKpJTiJfiBXjGz3ZWUX9E35vmwzlUMYFDqP852PodTN7nMPmvvIkFodY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WksHyi9Z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788232456; c=relaxed/simple;
+	bh=oY/ukphlPJsURIssq+vozSKvhjlA3sxbRaRiMtynKRQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SYmITYK8IbDNJfeF8QAKtJdFVskAkuIIOx2ReSUs4qH8ixdJLCYq5LoM3tcJtSGfsb8WF7bfiMJdG4eUxCwgN3W4PsYmZmUFPBfTWVXjsUZnTETZwpN1s0TJ1z/8jJqmrMTBEw604X25M9frlvYt5/Va8ZmhLb/l0vyYtXIdC68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DzvqJwYP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WksHyi9Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 500B91F000E9;
-	Tue,  1 Sep 2026 03:10:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DzvqJwYP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B2091F00A3D;
+	Tue,  1 Sep 2026 03:14:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788232211;
-	bh=H282xlxkOmHqu5MAtc/cbezCMe6DJWDkUjP6DlPQXkY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WksHyi9Z5QuQXCMrd9XkBdAf41fat0OI5KFY0TzZS6GpnKdS6/CtdfgbLBxEX6bDd
-	 9yz+fRUYT+3f+Mf091oeJL2l2fRtvCJD3NcF59eIGOQ3do6RIVYJOr1kdQ5COGgEJ7
-	 /Db6Jh4BhytEv8L5i7n3VB6obUzI+wdeOI0Y0DDa/zSmJ08v/sQSNMFHk3ZyZzaO2L
-	 v7NoYdnxqvLZRhJI5ytGEaKwPHKWrXKdhVraIHTtfrpq8zoapnRD8R0KgE86XIFsS3
-	 22z9smPHRNnRS22Z7HrhSpllh1Rgobzdm2dFypUucLDyNWbNLK3bB+fd1u598zzdCa
-	 Sex1P4f2fQYHg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] ARM: dts: helios4: add Wake-on-LAN gpio key
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rosen Penev" <rosenp@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260901025311.955936-1-rosenp@gmail.com>
-References: <20260901025311.955936-1-rosenp@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 03:10:10 +0000
-Message-Id: <20260901031011.500B91F000E9@smtp.kernel.org>
+	s=k20260515; t=1788232455;
+	bh=dvfWGLzb8Pdt8TTkF8zZwPxENDKjrWspo4VG/ViH9+s=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=DzvqJwYPDYKYXxyMKozyxoRRuUhXVwc7HEDtHV6pqt8DoxNdkvGffD3qFpnbUfOd5
+	 N1jqFTYdXr58mYPvYMwCbs670glcJQN6DTfJWE9As5wu0LraqWhYDDnLMCL0Z/7nhR
+	 RR1ERDlpwrMliLeozQg+vQBpqROfpAEEQwtUtx/QuSXMA1wJCbKqPUo3wBQgIs2esS
+	 5Ib/KAVCIsr96eYedYDOltr8xIYe3ry+T2XH6Q7nrYGpPw+PRpNXvVsNAWTict8O/M
+	 hIai2LG4iSYRMBe+CmKO6ulvJpsXB+Xguy0IubJo8BFUduLrKwLf1PxlXQgOUfde4C
+	 +ZkuE5FyPXfTg==
+Date: Tue, 1 Sep 2026 04:14:08 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: Kim Seer Paller <kimseer.paller@analog.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
+ Zabel <p.zabel@pengutronix.de>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux@analog.com, devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 2/4] dt-bindings: iio: dac: add adi,ad5710r.yaml
+Message-ID: <20260901041408.06d3f7ac@jic23-huawei>
+In-Reply-To: <20260831-singer-reimburse-defba31848bc@spud>
+References: <20260829-iio-ad5710r-upstream-v4-0-8af3121c7d21@analog.com>
+	<20260829-iio-ad5710r-upstream-v4-2-8af3121c7d21@analog.com>
+	<20260831-singer-reimburse-defba31848bc@spud>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] Missing `pinctrl-names` property causes the `pinctrl-0` configur=
-ation to be ignored.
-- [Medium] Routing the PHY Wake-On-LAN interrupt to `gpio-keys` causes the =
-interrupt pin to get stuck low after the first wakeup.
---
 
-commit a86b93404f7467809ab8336ca71556ed631044f5
-Author: Rosen Penev <rosenp@gmail.com>
+Hi Conor,
 
-ARM: dts: helios4: add Wake-on-LAN gpio key
+> > +  adi,range-double:
+> > +    description:
+> > +      Configure the output range for all channels. If the property is present,
+> > +      the output will range from 0V to 2 x Vref. If the property is not present,
+> > +      the output will range from 0V to Vref.  
+> 
+> What was the rationale provided for this not being a userspace control?
+> 
+Jumping in as I happen to read this...
 
-Add a gpio-keys node exposing Wake-On-LAN on its gpio0 18 input, allowing
-the board to be woken from suspend.
+For DACs we often do it in kernel as potentially there is a circuit dependent aspect.
+In extreme case leading to the bad kind of smoke. Normally it is covered by an
+output-range pair, but can't do that here as it is relative to vref (which
+we have no way of knowing in the binding). 
 
-> diff --git a/arch/arm/boot/dts/marvell/armada-388-helios4.dts b/arch/arm/=
-boot/dts/marvell/armada-388-helios4.dts
-> index ec134e22bae3e..8e30963b9b409 100644
-> --- a/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-> +++ b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-> @@ -87,6 +87,18 @@ fault-led {
->  		};
->  	};
-> =20
-> +	gpio-keys {
-> +		compatible =3D "gpio-keys";
-> +		pinctrl-0 =3D <&microsom_phy0_int_pins>;
+For input devices it is always a userspace thing to control.
 
-[Severity: Medium]
-Will this pinctrl configuration be ignored by the kernel?
-
-During device probe, pinctrl_bind_pins() in the driver core looks for a sta=
-te
-named 'default'. Because pinctrl-names is omitted, the device tree parser
-assigns the state the default name '0'.
-
-Does this cause the core to fail to find 'default', log 'no default pinctrl
-state', and skip applying the pin multiplexing configuration?
-
-> +
-> +		wol {
-> +			label =3D "Wake-On-LAN";
-> +			linux,code =3D <KEY_WAKEUP>;
-> +			gpios =3D <&gpio0 18 GPIO_ACTIVE_LOW>;
-> +			wakeup-source;
-
-[Severity: Medium]
-Could routing the PHY Wake-On-LAN interrupt to gpio-keys cause the interrupt
-pin to get stuck low after the first wakeup?
-
-When the Marvell PHY receives a WoL magic packet, it pulls the INTn pin low,
-and the gpio-keys driver wakes the system via a falling edge interrupt.
-However, because the PHY node lacks an interrupts property, the PHY driver
-operates in polling mode and never registers an interrupt handler to read t=
-he
-PHY interrupt status register.
-
-Since the internal interrupt state is never cleared, will the INTn pin rema=
-in
-permanently stuck low, causing WoL to silently fail on all subsequent
-attempts until the device is rebooted?
-
-> +		};
-> +	};
-> +
->  	io-leds {
->  		compatible =3D "gpio-leds";
->  		pinctrl-names =3D "default";
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901025311.9559=
-36-1-rosenp@gmail.com?part=3D1
+> > +    type: boolean
