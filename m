@@ -1,16 +1,16 @@
 Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D182B36196C;
-	Tue,  1 Sep 2026 11:36:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA423B52EE;
+	Tue,  1 Sep 2026 11:37:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788262621; cv=none; b=ikUQNRBL206qjRU0fednjUwEyCyU/jPlDgdPpXmnPh6sVJcLadBlNn5dK8rory9mmNoTmyOG3On6K9hJORWxX4cn0aI7hz/Ca6BMtza8KH4vdf/h5GXUb0g1COHfDuWd6ZM/uLoRJyDeIQBPWaYJljQecJlklk6mfzgbgvMdoeQ=
+	t=1788262624; cv=none; b=qPeCURckY9WsRpn7xh3P1XIQ7qWR/3dN3sASRgkfkHXR7GYZMcI0V7EAXzPrFTn01CTNklIxs0wLc2swqEpLKujDoCMvptxRw6REmyNqyJvXbg3yqGSR3Q8jhi4PdwgRbcGdMDv/oxTFenkoinpCWoZq7ADleFgH23x7sdO32kE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788262621; c=relaxed/simple;
-	bh=xkzAfCKLYQ/Xwwsdimh/tEMuOhSZZrRcVSqry9lnz3A=;
+	s=arc-20240116; t=1788262624; c=relaxed/simple;
+	bh=n6vO/Fi5jhecmVwxetC4Wj6M9A4SBSKPZgOHLJNm8ng=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=CebB1EMEjUK1o1Q+000wq9XRspu0eedRTcbk9c0cZJ98sxIuzL2ujFxKIJbIYBS6z57stkeVn03L0D06Oh54fy2VXktZkKM1BW1stSPI4qsZS2qHl0xqm9uii/Ho39pd8aNK26V7CsOIvLwfXx0IoCkvLyRF4A7C7oxoTRkd+mU=
+	 In-Reply-To:To:CC; b=GH1oFlhAdwCOFGFp0xbOqSw5/l5ZZ17tFYmT/B0djNws8eDiKkULdkRc3tuA2Z/2YO65TUJXLkyirZp1mvQcBrKI4lfaTqAHBNqQ+nMVdGdPPCq7FZDMhG5KAHrXaM8JiexAWNKgtc3dlqfm0/sWhGbGoRZa/wrlBCLRx+fOKFM=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
@@ -22,9 +22,9 @@ Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
  (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
  Transport; Tue, 1 Sep 2026 19:35:39 +0800
 From: Billy Tsai <billy_tsai@aspeedtech.com>
-Date: Tue, 1 Sep 2026 19:35:35 +0800
-Subject: [PATCH 8/8] i3c: mipi-i3c-hci: Support the AST2700 internal
- pull-ups
+Date: Tue, 1 Sep 2026 19:35:31 +0800
+Subject: [PATCH 4/8] i3c: mipi-i3c-hci: Add a quirk to clear the TX start
+ threshold
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -33,7 +33,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260901-b4-i3c-hci-ast2700-v1-8-19909e7cbd7e@aspeedtech.com>
+Message-ID: <20260901-b4-i3c-hci-ast2700-v1-4-19909e7cbd7e@aspeedtech.com>
 References: <20260901-b4-i3c-hci-ast2700-v1-0-19909e7cbd7e@aspeedtech.com>
 In-Reply-To: <20260901-b4-i3c-hci-ast2700-v1-0-19909e7cbd7e@aspeedtech.com>
 To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li
@@ -45,201 +45,324 @@ CC: <linux-i3c@lists.infradead.org>, <devicetree@vger.kernel.org>,
 	<linux-arm-kernel@lists.infradead.org>, <linux-aspeed@lists.ozlabs.org>,
 	<linux-kernel@vger.kernel.org>, Billy Tsai <billy_tsai@aspeedtech.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788262538; l=6058;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788262538; l=11122;
  i=billy_tsai@aspeedtech.com; s=20251118; h=from:subject:message-id;
- bh=xkzAfCKLYQ/Xwwsdimh/tEMuOhSZZrRcVSqry9lnz3A=;
- b=azBxWolQHPu9pCSptGyEx4x+4PYzUuzgnmWwmp6rvIzxR3+3V97LKaUSwq+r2jQLcmZR6UNNQ
- CEEgKtwyI5jDGGMoQMqqH8cLz61sGNtIdz8hXv2feGg480YH4Kk43Ne
+ bh=n6vO/Fi5jhecmVwxetC4Wj6M9A4SBSKPZgOHLJNm8ng=;
+ b=HHfIRufKO0rvzVE5evGWDeOxDqIGK5LwC4DFCfClX9QJhRprAHy2Zx7GO/2FHHZR7t0GHsEpU
+ zZFLkzvr9C7CxAPfWOiwrs+ICl6gQuAse4SxQHa4bHJWvlYaTMZn3mf
 X-Developer-Key: i=billy_tsai@aspeedtech.com; a=ed25519;
  pk=/A8qvgZ6CPfnwKgT6/+k+nvXOkN477MshEGJvVdzeeQ=
 
-Boards that do not populate external I3C pull-up resistors can use the
-pull-ups built into the AST2700 PHY.
+The DATA_TX_START_THLD field of the PIO data buffer threshold register
+holds off the start of a TX transfer until the FIFO holds a set amount
+of data, which in PIO mode cuts down on the number of software writes.
+The field resets to 0x1, requiring at least (2 ^ 2) DWORDs (16 bytes)
+in the FIFO before transmission starts.
 
-When bias-pull-up is present, determine the pin voltage domain from
-the pinctrl-0 group already selected for the bus and enable the
-internal pull-ups on both SCL and SDA at the requested strength.
-Currently only pinctrl-0 is inspected; a node selecting its group
-through a different pinctrl state is not yet supported. The controller
-reset clears the SW force control register, so the internal pull-ups
-start disabled unless bias-pull-up requests otherwise. A resistance
-with no entry in the domain's table, or an unrecognized pinctrl-0
-group, is rejected with an error.
+HCI controllers that support both PIO and DMA can expose the two as
+separate register blocks; nothing in the specification says selecting
+DMA mode disables the PIO block's own gating logic. On ASPEED
+platforms it doesn't: DATA_TX_START_THLD still holds up transfer
+start regardless of which mode feeds the FIFO, and in DMA mode that
+threshold is never satisfied for some transfer sizes:
+
+ - 1-4 bytes: uses the Immediate Data Transfer Command.
+ - 13+ bytes: since the hardware fetches data in 4-byte chunks, a
+   13-byte transfer fetches 16 bytes into the FIFO and reaches the
+   threshold.
+ - 5-12 bytes: the threshold is never reached and the transfer stalls.
+
+Add HCI_QUIRK_TX_START_THLD to clear the field whenever DMA mode is
+selected. The clear lives in i3c_hci_set_io_mode() rather than in
+probe so the reset-and-restore recovery path also reapplies it after
+a controller soft reset. Move the PIO Access Area register and
+bitfield definitions from pio.c to a new pio.h so this quirk can reuse
+PIO_DATA_BUFFER_THLD_CTRL and DATA_TX_START_THLD instead of
+redefining them.
 
 Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
 Assisted-by: Claude:claude-fable-5
 ---
- drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.c | 118 ++++++++++++++++++++++++
- drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.h |   6 ++
- 2 files changed, 124 insertions(+)
+ drivers/i3c/master/mipi-i3c-hci/core.c |  14 +++++
+ drivers/i3c/master/mipi-i3c-hci/hci.h  |   1 +
+ drivers/i3c/master/mipi-i3c-hci/pio.c  |  97 +----------------------------
+ drivers/i3c/master/mipi-i3c-hci/pio.h  | 109 +++++++++++++++++++++++++++++++++
+ 4 files changed, 125 insertions(+), 96 deletions(-)
 
-diff --git a/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.c b/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.c
-index 182111b857c9..d28d5680d326 100644
---- a/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.c
-+++ b/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.c
-@@ -12,6 +12,7 @@
- #include <linux/i3c/master.h>
- #include <linux/io.h>
- #include <linux/of.h>
-+#include <linux/string.h>
+diff --git a/drivers/i3c/master/mipi-i3c-hci/core.c b/drivers/i3c/master/mipi-i3c-hci/core.c
+index c03c3a9cbe4f..2290a889701c 100644
+--- a/drivers/i3c/master/mipi-i3c-hci/core.c
++++ b/drivers/i3c/master/mipi-i3c-hci/core.c
+@@ -26,6 +26,7 @@
+ #include "cmd.h"
+ #include "dat.h"
+ #include "ibi.h"
++#include "pio.h"
  
+ /*
+  * Host Controller Capabilities and Operation Registers
+@@ -823,6 +824,19 @@ static int i3c_hci_set_io_mode(struct i3c_hci *hci, bool dma)
+ 	else
+ 		reg_set(HC_CONTROL, HC_CONTROL_PIO_MODE);
+ 
++	/*
++	 * On the ASPEED AST2700 the TX start threshold gates transfer start
++	 * even in DMA mode. Clear it so DMA transfers are not held back
++	 * waiting for a PIO FIFO level that will never be reached.
++	 */
++	if (dma && (hci->quirks & HCI_QUIRK_TX_START_THLD) && hci->PIO_regs) {
++		void __iomem *thld_reg = hci->PIO_regs + PIO_DATA_BUFFER_THLD_CTRL;
++		u32 thld_val = readl(thld_reg);
++
++		thld_val &= ~DATA_TX_START_THLD;
++		writel(thld_val, thld_reg);
++	}
++
+ 	if (!is_version_1_1_or_newer(hci))
+ 		return 0;
+ 
+diff --git a/drivers/i3c/master/mipi-i3c-hci/hci.h b/drivers/i3c/master/mipi-i3c-hci/hci.h
+index 2110f806a53c..d9c9e609a879 100644
+--- a/drivers/i3c/master/mipi-i3c-hci/hci.h
++++ b/drivers/i3c/master/mipi-i3c-hci/hci.h
+@@ -179,6 +179,7 @@ struct i3c_hci_dev_data {
+ #define HCI_QUIRK_DMA_REQUIRES_HC_ABORT		BIT(9)  /* Use HC_CONTROL ABORT to abort DMA */
+ #define HCI_QUIRK_DAT_INDEX_IS_ADDR	BIT(10)  /* DAT entries are indexed by device address */
+ #define HCI_QUIRK_DMA_64BIT		BIT(11)  /* Controller DMA supports 64-bit addressing */
++#define HCI_QUIRK_TX_START_THLD		BIT(12)  /* Clear TX start threshold in DMA mode */
+ 
+ /* global functions */
+ void mipi_i3c_hci_resume(struct i3c_hci *hci);
+diff --git a/drivers/i3c/master/mipi-i3c-hci/pio.c b/drivers/i3c/master/mipi-i3c-hci/pio.c
+index 439578a6eb54..6bd5e43364a1 100644
+--- a/drivers/i3c/master/mipi-i3c-hci/pio.c
++++ b/drivers/i3c/master/mipi-i3c-hci/pio.c
+@@ -14,6 +14,7 @@
  #include "hci.h"
- #include "vendor_aspeed.h"
-@@ -86,6 +87,100 @@ static u32 aspeed_i3c_get_sdr_ctrl0_reg(struct i3c_hci *hci)
- 	return ASPEED_I3C_PHY_I3C_SDR4_CTRL0;
- }
+ #include "cmd.h"
+ #include "ibi.h"
++#include "pio.h"
  
-+struct aspeed_i3c_pullup_ohms {
-+	u32 ohms;
-+	u8 code;
-+};
-+
-+/* SW_FORCE_CTRL strength selector to resistance, by pin voltage domain */
-+static const struct aspeed_i3c_pullup_ohms aspeed_i3c_pullup_hv[] = {
-+	{ 600, 1 },
-+	{ 470, 2 },
-+	{ 400, 3 },
-+};
-+
-+static const struct aspeed_i3c_pullup_ohms aspeed_i3c_pullup_lv[] = {
-+	{ 750, 1 },
-+	{ 550, 2 },
-+	{ 317, 3 },
-+	{ 400, 4 },
-+	{ 261, 5 },
-+	{ 231, 6 },
-+	{ 177, 7 },
-+};
-+
-+/* pinctrl-0 group names for each pin voltage domain */
-+static const char * const aspeed_i3c_hv_groups[] = {
-+	"HVI3C0", "HVI3C1", "HVI3C2", "HVI3C3",
-+	"HVI3C12", "HVI3C13", "HVI3C14", "HVI3C15",
-+};
-+
-+static const char * const aspeed_i3c_lv_groups[] = {
-+	"I3C4", "I3C5", "I3C6", "I3C7",
-+	"I3C8", "I3C9", "I3C10", "I3C11",
-+};
-+
-+static int aspeed_i3c_pin_is_hv(struct i3c_hci *hci, bool *is_hv)
-+{
-+	struct device_node *np = hci->master.dev.of_node;
-+	struct device_node *state;
-+	const char *group;
-+	int ret, i;
-+
-+	state = of_parse_phandle(np, "pinctrl-0", 0);
-+	if (!state)
-+		return -ENODEV;
-+
-+	ret = of_property_read_string(state, "groups", &group);
-+	if (ret)
-+		goto put_state;
-+
-+	for (i = 0; i < ARRAY_SIZE(aspeed_i3c_hv_groups); i++) {
-+		if (!strcmp(group, aspeed_i3c_hv_groups[i])) {
-+			*is_hv = true;
-+			goto put_state;
-+		}
-+	}
-+
-+	for (i = 0; i < ARRAY_SIZE(aspeed_i3c_lv_groups); i++) {
-+		if (!strcmp(group, aspeed_i3c_lv_groups[i])) {
-+			*is_hv = false;
-+			goto put_state;
-+		}
-+	}
-+
-+	dev_err(&hci->master.dev, "unrecognized pinctrl-0 group \"%s\"\n",
-+		group);
-+	ret = -EINVAL;
-+
-+put_state:
-+	of_node_put(state);
-+	return ret;
-+}
-+
-+static int aspeed_i3c_pullup_code(struct i3c_hci *hci, bool is_hv, u32 ohms)
-+{
-+	const struct aspeed_i3c_pullup_ohms *map;
-+	size_t i, n;
-+
-+	if (is_hv) {
-+		map = aspeed_i3c_pullup_hv;
-+		n = ARRAY_SIZE(aspeed_i3c_pullup_hv);
-+	} else {
-+		map = aspeed_i3c_pullup_lv;
-+		n = ARRAY_SIZE(aspeed_i3c_pullup_lv);
-+	}
-+
-+	for (i = 0; i < n; i++)
-+		if (map[i].ohms == ohms)
-+			return map[i].code;
-+
-+	dev_err(&hci->master.dev,
-+		"unsupported internal pull-up %u ohms for %s-voltage domain\n",
-+		ohms, is_hv ? "high" : "low");
-+	return -EINVAL;
-+}
-+
- int aspeed_i3c_phy_init(struct i3c_hci *hci)
- {
- 	u16 hcnt, lcnt, total_cnt, min_tbit_cnt, cas_lcnt, cas_cnt, cbp_cnt;
-@@ -95,6 +190,7 @@ int aspeed_i3c_phy_init(struct i3c_hci *hci)
- 	struct device_node *np = hci->master.dev.of_node;
- 	u32 sdr_ctrl0_reg, ctrl0, ctrl1, ctrl2;
- 	unsigned long core_rate, period_ns;
-+	u32 pullup_ohms = 0;
+ /*
+  * PIO Access Area
+@@ -22,102 +23,6 @@
+ #define pio_reg_read(r)		readl(hci->PIO_regs + (PIO_##r))
+ #define pio_reg_write(r, v)	writel(v, hci->PIO_regs + (PIO_##r))
  
- 	core_rate = clk_get_rate(to_aspeed_vendor_data(hci)->clk);
- 	if (!core_rate) {
-@@ -257,6 +353,28 @@ int aspeed_i3c_phy_init(struct i3c_hci *hci)
- 
- 	aspeed_i3c_phy_write(hci, ASPEED_I3C_PHY_PULLUP_EN, 0);
- 
-+	of_property_read_u32(np, "bias-pull-up", &pullup_ohms);
-+	if (pullup_ohms) {
-+		int ret, strength;
-+		bool is_hv;
+-#define PIO_COMMAND_QUEUE_PORT		0x00
+-#define PIO_RESPONSE_QUEUE_PORT		0x04
+-#define PIO_XFER_DATA_PORT		0x08
+-#define PIO_IBI_PORT			0x0c
+-
+-#define PIO_QUEUE_THLD_CTRL		0x10
+-#define QUEUE_IBI_STATUS_THLD		GENMASK(31, 24)
+-#define QUEUE_IBI_DATA_THLD		GENMASK(23, 16)
+-#define QUEUE_RESP_BUF_THLD		GENMASK(15, 8)
+-#define QUEUE_CMD_EMPTY_BUF_THLD	GENMASK(7, 0)
+-
+-#define PIO_DATA_BUFFER_THLD_CTRL	0x14
+-#define DATA_RX_START_THLD		GENMASK(26, 24)
+-#define DATA_TX_START_THLD		GENMASK(18, 16)
+-#define DATA_RX_BUF_THLD		GENMASK(10, 8)
+-#define DATA_TX_BUF_THLD		GENMASK(2, 0)
+-
+-#define PIO_QUEUE_SIZE			0x18
+-#define TX_DATA_BUFFER_SIZE		GENMASK(31, 24)
+-#define RX_DATA_BUFFER_SIZE		GENMASK(23, 16)
+-#define IBI_STATUS_SIZE			GENMASK(15, 8)
+-#define CR_QUEUE_SIZE			GENMASK(7, 0)
+-
+-#define PIO_ALT_QUEUE_SIZE		0x1C
+-#define EXT_IBI_QUEUE_EN		BIT(28)
+-#define ALT_RESP_QUEUE_EN		BIT(24)
+-#define ALT_RESP_QUEUE_SIZE		GENMASK(7, 0)
+-
+-#define PIO_INTR_STATUS			0x20
+-#define PIO_INTR_STATUS_ENABLE		0x24
+-#define PIO_INTR_SIGNAL_ENABLE		0x28
+-#define PIO_INTR_FORCE			0x2c
+-#define STAT_TRANSFER_BLOCKED		BIT(25)
+-#define STAT_PERR_RESP_UFLOW		BIT(24)
+-#define STAT_PERR_CMD_OFLOW		BIT(23)
+-#define STAT_PERR_IBI_UFLOW		BIT(22)
+-#define STAT_PERR_RX_UFLOW		BIT(21)
+-#define STAT_PERR_TX_OFLOW		BIT(20)
+-#define STAT_ERR_RESP_QUEUE_FULL	BIT(19)
+-#define STAT_WARN_RESP_QUEUE_FULL	BIT(18)
+-#define STAT_ERR_IBI_QUEUE_FULL		BIT(17)
+-#define STAT_WARN_IBI_QUEUE_FULL	BIT(16)
+-#define STAT_ERR_RX_DATA_FULL		BIT(15)
+-#define STAT_WARN_RX_DATA_FULL		BIT(14)
+-#define STAT_ERR_TX_DATA_EMPTY		BIT(13)
+-#define STAT_WARN_TX_DATA_EMPTY		BIT(12)
+-#define STAT_TRANSFER_ERR		BIT(9)
+-#define STAT_WARN_INS_STOP_MODE		BIT(7)
+-#define STAT_TRANSFER_ABORT		BIT(5)
+-#define STAT_RESP_READY			BIT(4)
+-#define STAT_CMD_QUEUE_READY		BIT(3)
+-#define STAT_IBI_STATUS_THLD		BIT(2)
+-#define STAT_RX_THLD			BIT(1)
+-#define STAT_TX_THLD			BIT(0)
+-
+-#define PIO_CONTROL			0x30
+-#define PIO_CONTROL_ABORT		BIT(2)
+-#define PIO_CONTROL_RS			BIT(1)
+-#define PIO_CONTROL_ENABLE		BIT(0)
+-
+-#define PIO_QUEUE_CUR_STATUS		0x38
+-#define CUR_IBI_Q_LEVEL			GENMASK(28, 20)
+-#define CUR_RESP_Q_LEVEL		GENMASK(18, 10)
+-#define CUR_CMD_Q_EMPTY_LEVEL		GENMASK(8, 0)
+-
+-#define PIO_DATA_BUFFER_CUR_STATUS	0x3c
+-#define CUR_RX_BUF_LVL			GENMASK(26, 16)
+-#define CUR_TX_BUF_LVL			GENMASK(10, 0)
+-
+-/*
+- * Handy status bit combinations
+- */
+-
+-#define STAT_LATENCY_WARNINGS		(STAT_WARN_RESP_QUEUE_FULL | \
+-					 STAT_WARN_IBI_QUEUE_FULL | \
+-					 STAT_WARN_RX_DATA_FULL | \
+-					 STAT_WARN_TX_DATA_EMPTY | \
+-					 STAT_WARN_INS_STOP_MODE)
+-
+-#define STAT_LATENCY_ERRORS		(STAT_ERR_RESP_QUEUE_FULL | \
+-					 STAT_ERR_IBI_QUEUE_FULL | \
+-					 STAT_ERR_RX_DATA_FULL | \
+-					 STAT_ERR_TX_DATA_EMPTY)
+-
+-#define STAT_PROG_ERRORS		(STAT_TRANSFER_BLOCKED | \
+-					 STAT_PERR_RESP_UFLOW | \
+-					 STAT_PERR_CMD_OFLOW | \
+-					 STAT_PERR_IBI_UFLOW | \
+-					 STAT_PERR_RX_UFLOW | \
+-					 STAT_PERR_TX_OFLOW)
+-
+-#define STAT_ALL_ERRORS			(STAT_TRANSFER_ABORT | \
+-					 STAT_TRANSFER_ERR | \
+-					 STAT_LATENCY_ERRORS | \
+-					 STAT_PROG_ERRORS)
+-
+ struct hci_pio_dev_ibi_data {
+ 	struct i3c_generic_ibi_pool *pool;
+ 	unsigned int max_len;
+diff --git a/drivers/i3c/master/mipi-i3c-hci/pio.h b/drivers/i3c/master/mipi-i3c-hci/pio.h
+new file mode 100644
+index 000000000000..72318961e991
+--- /dev/null
++++ b/drivers/i3c/master/mipi-i3c-hci/pio.h
+@@ -0,0 +1,109 @@
++/* SPDX-License-Identifier: BSD-3-Clause */
++/*
++ * Copyright (c) 2020, MIPI Alliance, Inc.
++ *
++ * Author: Nicolas Pitre <npitre@baylibre.com>
++ *
++ * PIO Access Area register and bitfield definitions.
++ */
 +
-+		ret = aspeed_i3c_pin_is_hv(hci, &is_hv);
-+		if (ret)
-+			return ret;
++#ifndef PIO_H
++#define PIO_H
 +
-+		strength = aspeed_i3c_pullup_code(hci, is_hv, pullup_ohms);
-+		if (strength < 0)
-+			return strength;
++#define PIO_COMMAND_QUEUE_PORT		0x00
++#define PIO_RESPONSE_QUEUE_PORT		0x04
++#define PIO_XFER_DATA_PORT		0x08
++#define PIO_IBI_PORT			0x0c
 +
-+		aspeed_i3c_phy_write(hci, ASPEED_I3C_PHY_SW_FORCE_CTRL,
-+				     ASPEED_I3C_PHY_SW_FORCE_SCL_PU_EN |
-+				     ASPEED_I3C_PHY_SW_FORCE_SDA_PU_EN |
-+				     FIELD_PREP(ASPEED_I3C_PHY_SW_FORCE_SCL_PU_VAL,
-+						strength) |
-+				     FIELD_PREP(ASPEED_I3C_PHY_SW_FORCE_SDA_PU_VAL,
-+						strength));
-+	}
++#define PIO_QUEUE_THLD_CTRL		0x10
++#define QUEUE_IBI_STATUS_THLD		GENMASK(31, 24)
++#define QUEUE_IBI_DATA_THLD		GENMASK(23, 16)
++#define QUEUE_RESP_BUF_THLD		GENMASK(15, 8)
++#define QUEUE_CMD_EMPTY_BUF_THLD	GENMASK(7, 0)
 +
- 	hcnt = aspeed_i3c_ns_to_cnt(ASPEED_I3C_PHY_OD_DAP_NS, period_ns);
- 	aspeed_i3c_phy_write(hci, ASPEED_I3C_PHY_I3C_OD_CTRL4,
- 			     FIELD_PREP(ASPEED_I3C_PHY_I3C_OD_CTRL4_DAP, hcnt));
-diff --git a/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.h b/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.h
-index 7147abea830d..80938c580800 100644
---- a/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.h
-+++ b/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.h
-@@ -83,6 +83,12 @@ unsigned int aspeed_i3c_avail_tx_entries(struct i3c_hci *hci);
- #define   ASPEED_INTR_SUM_PIO			BIT(1)
- #define   ASPEED_INTR_SUM_CAP			BIT(0)
- 
-+#define ASPEED_I3C_PHY_SW_FORCE_CTRL		0x04
-+#define   ASPEED_I3C_PHY_SW_FORCE_SCL_PU_EN	BIT(28)
-+#define   ASPEED_I3C_PHY_SW_FORCE_SDA_PU_EN	BIT(24)
-+#define   ASPEED_I3C_PHY_SW_FORCE_SCL_PU_VAL	GENMASK(10, 8)
-+#define   ASPEED_I3C_PHY_SW_FORCE_SDA_PU_VAL	GENMASK(2, 0)
++#define PIO_DATA_BUFFER_THLD_CTRL	0x14
++#define DATA_TX_START_THLD		GENMASK(18, 16)
++#define DATA_RX_START_THLD		GENMASK(26, 24)
++#define DATA_RX_BUF_THLD		GENMASK(10, 8)
++#define DATA_TX_BUF_THLD		GENMASK(2, 0)
 +
- #define ASPEED_I3C_PHY_I2C_FM_CTRL0		0x08
- #define   ASPEED_I3C_PHY_I2C_FM_CTRL0_CAS	GENMASK(26, 16)
- #define   ASPEED_I3C_PHY_I2C_FM_CTRL0_SU_STO	GENMASK(10, 0)
++#define PIO_QUEUE_SIZE			0x18
++#define TX_DATA_BUFFER_SIZE		GENMASK(31, 24)
++#define RX_DATA_BUFFER_SIZE		GENMASK(23, 16)
++#define IBI_STATUS_SIZE			GENMASK(15, 8)
++#define CR_QUEUE_SIZE			GENMASK(7, 0)
++
++#define PIO_ALT_QUEUE_SIZE		0x1C
++#define EXT_IBI_QUEUE_EN		BIT(28)
++#define ALT_RESP_QUEUE_EN		BIT(24)
++#define ALT_RESP_QUEUE_SIZE		GENMASK(7, 0)
++
++#define PIO_INTR_STATUS			0x20
++#define PIO_INTR_STATUS_ENABLE		0x24
++#define PIO_INTR_SIGNAL_ENABLE		0x28
++#define PIO_INTR_FORCE			0x2c
++#define STAT_TRANSFER_BLOCKED		BIT(25)
++#define STAT_PERR_RESP_UFLOW		BIT(24)
++#define STAT_PERR_CMD_OFLOW		BIT(23)
++#define STAT_PERR_IBI_UFLOW		BIT(22)
++#define STAT_PERR_RX_UFLOW		BIT(21)
++#define STAT_PERR_TX_OFLOW		BIT(20)
++#define STAT_ERR_RESP_QUEUE_FULL	BIT(19)
++#define STAT_WARN_RESP_QUEUE_FULL	BIT(18)
++#define STAT_ERR_IBI_QUEUE_FULL		BIT(17)
++#define STAT_WARN_IBI_QUEUE_FULL	BIT(16)
++#define STAT_ERR_RX_DATA_FULL		BIT(15)
++#define STAT_WARN_RX_DATA_FULL		BIT(14)
++#define STAT_ERR_TX_DATA_EMPTY		BIT(13)
++#define STAT_WARN_TX_DATA_EMPTY		BIT(12)
++#define STAT_TRANSFER_ERR		BIT(9)
++#define STAT_WARN_INS_STOP_MODE		BIT(7)
++#define STAT_TRANSFER_ABORT		BIT(5)
++#define STAT_RESP_READY			BIT(4)
++#define STAT_CMD_QUEUE_READY		BIT(3)
++#define STAT_IBI_STATUS_THLD		BIT(2)
++#define STAT_RX_THLD			BIT(1)
++#define STAT_TX_THLD			BIT(0)
++
++#define PIO_CONTROL			0x30
++#define PIO_CONTROL_ABORT		BIT(2)
++#define PIO_CONTROL_RS			BIT(1)
++#define PIO_CONTROL_ENABLE		BIT(0)
++
++#define PIO_QUEUE_CUR_STATUS		0x38
++#define CUR_IBI_Q_LEVEL			GENMASK(28, 20)
++#define CUR_RESP_Q_LEVEL		GENMASK(18, 10)
++#define CUR_CMD_Q_EMPTY_LEVEL		GENMASK(8, 0)
++
++#define PIO_DATA_BUFFER_CUR_STATUS	0x3c
++#define CUR_RX_BUF_LVL			GENMASK(26, 16)
++#define CUR_TX_BUF_LVL			GENMASK(10, 0)
++
++/*
++ * Handy status bit combinations
++ */
++
++#define STAT_LATENCY_WARNINGS		(STAT_WARN_RESP_QUEUE_FULL | \
++					 STAT_WARN_IBI_QUEUE_FULL | \
++					 STAT_WARN_RX_DATA_FULL | \
++					 STAT_WARN_TX_DATA_EMPTY | \
++					 STAT_WARN_INS_STOP_MODE)
++
++#define STAT_LATENCY_ERRORS		(STAT_ERR_RESP_QUEUE_FULL | \
++					 STAT_ERR_IBI_QUEUE_FULL | \
++					 STAT_ERR_RX_DATA_FULL | \
++					 STAT_ERR_TX_DATA_EMPTY)
++
++#define STAT_PROG_ERRORS		(STAT_TRANSFER_BLOCKED | \
++					 STAT_PERR_RESP_UFLOW | \
++					 STAT_PERR_CMD_OFLOW | \
++					 STAT_PERR_IBI_UFLOW | \
++					 STAT_PERR_RX_UFLOW | \
++					 STAT_PERR_TX_OFLOW)
++
++#define STAT_ALL_ERRORS			(STAT_TRANSFER_ABORT | \
++					 STAT_TRANSFER_ERR | \
++					 STAT_LATENCY_ERRORS | \
++					 STAT_PROG_ERRORS)
++
++#endif
 
 -- 
 2.34.1
