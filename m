@@ -1,70 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from out-zbxj-a64.jellyfish.systems (out-zbxj-a64.jellyfish.systems [198.54.127.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FC68374A1D;
-	Tue,  1 Sep 2026 00:49:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48F2D37EFFF
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 00:51:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788223744; cv=none; b=g99Uf5IjuS2x5GfKRjuAIwbJsiEnw9B1YLrLOTKKXI0a3LGYVYJjXj4MHZpULDvcn5xRAFCjj7dy/3EsX6l45vKufearXxjOqJkNvJizPIfJVEVIyeQjBgh3OwG5gTNr20Dbwda/mqaq8JdfHj1zGGOn1KFNrx34avJUEBvugY4=
+	t=1788223913; cv=none; b=ReBO7PtlRC+REtznfpIclG8D7fYPku9kuQhiOL3cUSnZ/ETm4mxOPk9BBc60aOK19tabdITBznhovF/pQ1m5E6Bv3pUmUp+Xspf7jj9oDmh9CYyyZLwXK+sDoDxRrCD7Vr1pRxSuTG4wF5TA8jDs6sXSL7Cs6e8Hndc7RKNU8wY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788223744; c=relaxed/simple;
-	bh=NGYmOqHiFMn7IT35I4dVsDxsgSDMMhbDHXSA0nHsPkw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EHA8qsivCO0KooyIZgadii5UI3DOOQUkvFsdRWIzRmUCHd2o2sOogL+wguhjuMhTOyVq19ZBWYDzcF1YDjgSh/df1Ct8uJxCmL9nMMSSOIF1qaLk6Uom41tFsiPWnPBm9wjJlznSmdz+2KgP2q2pErUDh4bEVT04vzqt/zm+f40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hnLAK+BY; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hnLAK+BY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB0F21F00A3F;
-	Tue,  1 Sep 2026 00:49:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788223743;
-	bh=f4omws4o8WYed3bUyawmlUTtQSYHBH84OaCjspaaQq4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hnLAK+BY/XcgwB/5H2vn9w+Qw9/uj7c30xxMngyXEcU+GtQcr+GGBzjbHaguCoMNw
-	 nqAPFy1MFMdpP4k5jG2mL5kEFJWs6Pi6YvN+A9pn2yjRDY4M+2EJeLuLftERTG6UKa
-	 gPqKTWbjq0Bf16k4ix/3jg4r2/8rnlDq/4mBkL6ceqJskzxxP6tyRd8TVRps5uqpua
-	 43Wnj8gz+ibR9Kq+lojPXhZ3WD/VHRjROrg0NEmiKc7Wk+hkgw6FaOwxRAZglkGKZ2
-	 VYMD7tL3tnwmxYFKba79AdyrNuFS9XmRYa0a3PEQYZkuZDpGaIb1E13BxLhiPXehhB
-	 ENDt8fJsLk3gQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: serial: 8250: add marvell,armada-38x-uart
- compatible
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rosen Penev" <rosenp@gmail.com>
-Cc: conor+dt@kernel.org, linux-serial@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260901004203.49686-1-rosenp@gmail.com>
-References: <20260901004203.49686-1-rosenp@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 00:49:02 +0000
-Message-Id: <20260901004902.CB0F21F00A3F@smtp.kernel.org>
+	s=arc-20240116; t=1788223913; c=relaxed/simple;
+	bh=pDHNs5tzOnSgGhVMJwsbSK33nJ4lCp8YGpCMQIp8Z88=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SukIplAoIlXD0qhoxNtKDBbkmrts9jxB0u0kTFn3KgbjDGI+13Iy2AfYqS/KO4+x35iQQmByJXuPJrzP157YgfmX7XjpSduD7VaLmFnWauOizEEg34NjRnp8Wc02W1JQQzCyYUT2vuEW3bG2SVH4ktWwa4DSlBjWbRgQ8HLgbpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=198.54.127.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
+Received: from mail.privateemail.com (unknown [87.215.145.39])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.privateemail.com (Postfix) with ESMTPSA id 4hYnP53ZSnz2x9C;
+	Tue, 01 Sep 2026 00:51:37 +0000 (UTC)
+From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+To: Jonathan Cameron <jic23@kernel.org>,
+	linux-iio@vger.kernel.org
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
+	linux-hardening@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
+	Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+Subject: [PATCH v3 0/5] iio: light: stk3310: per-chip match data and STK36C61 support
+Date: Tue,  1 Sep 2026 02:51:09 +0200
+Message-ID: <20260901005114.203062-1-jorijnvdgraaf@catcrafts.net>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Envelope-From: jorijnvdgraaf@catcrafts.net
 
-> The Armada 38x and 98DX3236 SoCs use this compatible, either paired
-> with "ns16550a" (armada-38x.dtsi) or on its own
-> (armada-xp-98dx3236.dtsi). Neither form is covered by the 8250
-> binding, so dtbs_check reports:
->=20
->   serial@12000: failed to match any schema with compatible:
->   ['marvell,armada-38x-uart', 'ns16550a']
->=20
-> Add a standalone const entry and a two-string variant paired with
-> "ns16550a".
->=20
-> Validated with make dt_binding_check (8250.yaml) and dt-validate on
-> armada-38x and armada-xp 98DX3236 boards: the UART schema errors are
-> gone.
->=20
-> Assisted-by: opencode:big-pickle
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+The Sensortek STK36C61 is a 3-in-1 ambient light / proximity / RGB
+colour sensor whose register interface is compatible with the stk3310
+across the ALS and proximity data, threshold, gain and
+integration-time registers this driver uses. The part name comes from
+the Fairphone 6 manual, which lists the component as "3IN1 ALPS/RGB
+sensor/STK36C61". The layout was probed on the device: chip ID 0x95,
+the stk3310 STATE/FLAG bit layout, data and threshold registers
+(thresholds written through the event interface read back from the
+chip, and the FLAG near/far bit crosses with them), gain and
+integration-time fields the ALS and proximity readings scale with,
+and an RGBC data block directly after the ALS data, the red, green
+and blue assignments each confirmed by the matching channel
+dominating under the matching illumination and clear by its broadband
+response.
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+The colour controls: R, G and B share the illuminance channel's gain.
+Clear is gained by its own field in a GAINCTRL register at 0x4E,
+originally located via the datasheet of the STK37660 (a documented
+sibling with the same data register layout) and verified on the
+device: stepping it multiplies the clear count by ~4 per step while
+the other channels hold still. The STK36C61 patch exposes scale and
+integration time on the colour channels.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901004203.4968=
-6-1-rosenp@gmail.com?part=3D1
+A public datasheet exists: the STK36C61-A preliminary datasheet,
+version 0.9, hosted by LCSC [1]. It agrees with the device on the
+colour-engine layout (RGBC data at 0x15-0x1C, the clear gain in
+GAINCTRL 0x4E, the shared RGB-gain and integration-time fields in
+ALSCTRL1), but it documents the -A variant and gives the product ID
+as 0x93 where this part reports 0x95. Luca Weiss reports a newer
+revision (0.9.2) gives 0x95 and different mLux-per-count figures for
+the ALSCTRL1 gain settings. I could not find a published copy of
+that revision.
+
+Tested on a Fairphone 6 running a 7.2-based tree: this series'
+stk3310.c, byte-identical, built as a module against that tree (the
+i2c core files the binding behaviour depends on are identical between
+the trees). Verified there: DT boot instantiation, the colour
+scale/integration-time interface, and the sysfs name behaviours this
+series changes: a lower-case name reaches the id table's match data,
+capitals no longer bind, and a full-compatible-string client now
+fails probe with the missing-driver-data error. A board DTS node
+using the new compatible follows separately via linux-arm-msm.
+
+Patch 5 carries no Datasheet: tag since the sheet at [1] is a
+preliminary for the -A variant: the published revision's product ID
+mismatches this part's, the register map omits the ALS data
+registers, and the later revision disagrees on the mLux-per-count
+figures. I am unable to find specifics for the Datasheet: tag,
+whether it must be the exact sheet for the part or if a "good
+enough" sheet is accepted.
+
+Changes in v3:
+- patch 4: drop the tab alignment of the chip_info members, take the
+  probe failure through a struct device local, and return -ENODATA
+  instead of -ENODEV on missing match data, commit message
+  wording tightened (Andy)
+- patch 5: commit message squeezed to the point, the verification and
+  colour-assignment detail moved into this letter, the scale
+  rationale trimmed to its load-bearing constraint (Andy, Jonathan)
+- cover letter: the "no public datasheet" claim corrected (Marcelo)
+- picked up Andy's Reviewed-by on patches 1 and 3
+
+v2: https://lore.kernel.org/all/20260826175409.326131-1-jorijnvdgraaf@catcrafts.net/
+v1: https://lore.kernel.org/all/20260810110423.41697-1-jorijnvdgraaf@catcrafts.net/
+
+[1] https://www.lcsc.com/datasheet/C49230205.pdf
+
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+
+Jorijn van der Graaf (5):
+  iio: light: stk3310: lower-case the i2c device ID names
+  dt-bindings: iio: light: stk33xx: document the Sensortek STK36C61
+  iio: light: stk3310: move the data registers into the channel address
+  iio: light: stk3310: add per-chip match data
+  iio: light: stk3310: support the Sensortek STK36C61
+
+ Documentation/ABI/testing/sysfs-bus-iio       |   1 +
+ .../bindings/iio/light/stk33xx.yaml           |   9 +-
+ drivers/iio/light/stk3310.c                   | 203 +++++++++++++-----
+ 3 files changed, 156 insertions(+), 57 deletions(-)
+
+
+base-commit: 350d1fb9204b13c5f95e511e98b8bcb47574d425
+-- 
+2.55.0
 
