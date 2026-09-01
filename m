@@ -1,68 +1,178 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52042931CD;
-	Tue,  1 Sep 2026 09:58:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B0E371887
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 10:02:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788256710; cv=none; b=AXbccTa/PSfLPmRntObA8u2bheAx5/v1G/rPnfUZH+657PU5eqYhwXtz2N8MFmgIc6zogu0IXV8vSeaqdoRmRIyEzYbTneCwv8koEVmfGGX2/Qw9/9/tlwfREHuh6glvRGOOyKvRgUWBx1Rxry0LV9CSg5NH9apxYxPWHyVENLA=
+	t=1788256945; cv=none; b=RiI2x4AMeE3/SwuxArvTC/wyBZ0GlIT7ykDzGl5MtNesXguv3717zCG5WxbgIZo3VTt6LLiov8fcUcaUHxLi5Zi98pePYHbLe/SlfKP4D1Bx4vaC0hQ5DVHf0yPHrBprXPCmU0xoWftAo57gR852+0a0l9c/M0LxyZR1dgwLcuU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788256710; c=relaxed/simple;
-	bh=ZzkvxlCG1ixPz8vK6bTV71Hau8woza5bw54+xcqOBIM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oJnpcXsvOdfb9sx0mSU63mNJKh2Upob48mlnhp1DrNnyvTnsKqh6KHJbR8UUKOHD1h4xmOuwD1jL6zW8ImMbM8n0Nt+R7+h2KNyltbqxXSC5d12ADyXuWagHg2awP4e3fBZ3EMEbcD0bten6uoElf4xj9aY/sxHSi58/aPahIZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XqYfG65D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788256945; c=relaxed/simple;
+	bh=twDk0Rj/dV1QlMAMTiAwYRISmwHf8IOb+JTwWiqezeU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ue4p6o7GbIhLOKHcx5IyJknyROTr0CzqcVdbPUa9Sj3Xy+z1OqwI7UrnZwGDNwfyw//9R1BtyBCSz4hNILIeA7At7AeW2qTRFY09OGEW/0Rquo0KvXnGc7e9676FJKwy6ym6jRBUdf8pC41la2HV8oDzrpMOja2GLOm2K9F+HW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AfGBBE+n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XqYfG65D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FD141F000E9;
-	Tue,  1 Sep 2026 09:58:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AfGBBE+n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6981C1F000E9;
+	Tue,  1 Sep 2026 10:02:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788256709;
-	bh=cig5EAB1yC6y3NFERncxBWChwEjQLbYEzPejDmotQJg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XqYfG65DREwMaiMkAcjZzAXcPhrGYZ7dkf8rODdAGiFi0tudGi8LYNHJI5+o+UAeh
-	 zcH/Lc4dgarJejrsMBlH7v9cr+1hFlMG/NcvJcMNSqyqyxRMX5e9cNr/qznbz3d3V7
-	 IkE2e/ZO4qUC0E1Ww8pxm78JGSIRNlqR1k9OPAprU7fSS0ePmSjGAwQ5OTmU3YHQjA
-	 kGz3f92LSyRQpuC3R0jtwyBFoBu3/DI61OPF3aZZgziVEyRGAd0TU0eYBd7kEKBIUi
-	 b1NV200BlGuEQSCwndZ26limqQGKFx0f6qx0uF6/t7f1hO5mJOO4LA9zVswX4IKegp
-	 OrK6MUyUrnigw==
-Date: Tue, 1 Sep 2026 11:58:25 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Arthur Crepin Leblond <arthur@marmottus.net>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Arnd Bergmann <arnd@arndb.de>, netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v6 2/3] dt-bindings: net: wiznet,w5100: add link
- status interrupt
-Message-ID: <20260901-busy-lorikeet-of-piety-bda3a1@quoll>
-References: <20260831-wiznet-link-gpio-v6-0-abee6c5c966e@marmottus.net>
- <20260831-wiznet-link-gpio-v6-2-abee6c5c966e@marmottus.net>
+	s=k20260515; t=1788256943;
+	bh=0C9eZJaIM1t9rtI3a0nwPUQy7FLvpmoKtmgclmsKJvE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=AfGBBE+nYqYoXjyUjzvyBBCdPuwsrYlV3LHS0lzOPzidEAGLEtffCAx8OLuQ0QP6R
+	 vh8dVqkkD9wB375QxsCKbwEWHLAx9AF3fyGdOCXYY8amtAkrPhO41ZI4g26ndPWIh/
+	 8vFQbCkB66ZIMH2LNvvF6VNPRadv2iUbsK/wNcUIzW7uREVptIavY20RlolgvHJp9m
+	 Ujdu4fX2NaWJio3nwS83KOcHaxKXBg/PjyyLImiM9X9wZ6ZCHbEXicNy3h6z4zPYC/
+	 RdhJrNLGKsNirX+QPF5L2hKrl47gXNdjem7e08INMgHYpLuv/KHqWfNvQrA9mfW1aZ
+	 /BDlmSaZUnGkw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 1/2] arm64: dts: qcom: sdm845-google: Add dual front
+ IMX355 cameras
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "David Heidelberg" <david@ixit.cz>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260901-pixel3-camera-v8-1-99f159883348@ixit.cz>
+References: <20260901-pixel3-camera-v8-0-99f159883348@ixit.cz>
+ <20260901-pixel3-camera-v8-1-99f159883348@ixit.cz>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 01 Sep 2026 10:02:22 +0000
+Message-Id: <20260901100223.6981C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260831-wiznet-link-gpio-v6-2-abee6c5c966e@marmottus.net>
 
-On Mon, Aug 31, 2026 at 02:53:35PM +0200, Arthur Crepin Leblond wrote:
-> Add an optional link status interrupt which can be connected to the
-> LINKLED pin on the device to detect link status changes.
-> 
-> Signed-off-by: Arthur Crepin Leblond <arthur@marmottus.net>
-> 
-> ---
-> v6:
-> - Fix DT error: use minItems
-> - Remove conditional properties
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Moving the shared MCLK pinctrl to the CAMSS bridge node breaks sen=
+sor probing due to a PM lifecycle mismatch.
+- [Medium] Modifying cci0_sleep instead of cci1_sleep leaves the active bus=
+ with a conflicting pull-down during suspend.
+- [Low] The patch includes a non-existent header file and uses an undefined=
+ macro, causing a fatal build error.
+--
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+commit 92554691cd8ea8c05d2770873409ffec3a11dddf
+Author: David Heidelberg <david@ixit.cz>
 
-Best regards,
-Krzysztof
+arm64: dts: qcom: sdm845-google: Add dual front IMX355 cameras
 
+This commit adds support for the dual front camera configuration on the
+Pixel 3. It connects two Sony IMX355 sensors via CSIPHY ports 1 and 2,
+controlling them over CCI I2C1 and using MCLK2 as the clock source.
+
+> --- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+> @@ -6,6 +6,8 @@
+>  #include <dt-bindings/dma/qcom-gpi.h>
+>  #include <dt-bindings/input/linux-event-codes.h>
+>  #include <dt-bindings/interrupt-controller/irq.h>
+> +#include <dt-bindings/media/video-interface-devices.h>
+
+[Severity: Low]
+Does this header file exist in the source tree?
+
+It looks like it might be missing, which would cause a device tree
+compilation error.
+
+> +#include <dt-bindings/media/video-interfaces.h>
+>  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+> =20
+>  #include "sdm845.dtsi"
+[ ... ]
+> @@ -351,6 +390,53 @@ vreg_s3c_0p6: smps3 {
+>  	};
+>  };
+> =20
+> +&camss {
+> +	vdda-phy-supply =3D <&vreg_l1a_0p875>;
+> +	vdda-pll-supply =3D <&vreg_l26a_1p2>;
+> +
+> +	/*
+> +	 * MCLK2 (GPIO15) is shared between both front camera sensors.
+> +	 * The clock is generated by CAMCC, therefore the pin is
+> +	 * configured here rather than in individual sensor nodes.
+> +	 */
+> +	pinctrl-0 =3D <&cam_mclk2_default>;
+> +	pinctrl-1 =3D <&cam_mclk2_sleep>;
+> +	pinctrl-names =3D "default", "sleep";
+
+[Severity: High]
+Will assigning the shared MCLK pinctrl to the camss bridge node break the
+sensor probing due to a PM lifecycle mismatch?
+
+When the imx355 sensor asynchronously probes, it enables the CCF clock
+and attempts to read its I2C registers. Because camss is an independent
+device, it remains runtime-suspended during the sensor's probe.
+
+Since the pinctrl subsystem keeps suspended devices in their sleep state,
+the MCLK pin would remain in sleep mode, blocking the clock signal and
+causing an I2C timeout when the sensor reads its chip ID.
+
+While fw_devlink typically creates a DL_FLAG_PM_RUNTIME device link, the
+cross-referencing remote-endpoint properties create a dependency cycle that
+the driver core relaxes by dropping the PM runtime flag.
+
+Can the MCLK pad state be coupled to the sensor's PM lifecycle instead to
+ensure the clock is active during probe?
+
+> +
+> +	status =3D "okay";
+[ ... ]
+> +&cci0_sleep {
+> +	/* bus has external pull-up */
+> +	/delete-property/ bias-pull-down;
+> +	bias-disable;
+> +};
+
+[Severity: Medium]
+Since the new sensors are added to the &cci_i2c1 bus, should this
+modification apply to cci1_sleep instead of cci0_sleep?
+
+Modifying cci0_sleep disables the internal pull-down for the unused I2C0
+bus, while leaving the active I2C1 bus with its default pull-down behavior.
+
+Since I2C1 has an external pull-up, leaving the internal pull-down active
+could cause an unnecessary power leak during device sleep.
+
+> +
+>  &cci {
+>  	status =3D "okay";
+>  };
+> @@ -358,7 +444,63 @@ &cci {
+>  &cci_i2c1 {
+>  	/* actuator @0c */
+> =20
+> -	/* front camera, imx355 @1a */
+> +	front_cam: camera@10 {
+> +		compatible =3D "sony,imx355";
+> +		reg =3D <0x10>;
+> +
+> +		clocks =3D <&clock_camcc CAM_CC_MCLK2_CLK>;
+> +		assigned-clocks =3D <&clock_camcc CAM_CC_MCLK2_CLK>;
+> +		assigned-clock-rates =3D <24000000>;
+> +
+> +		reset-gpios =3D <&tlmm 21 GPIO_ACTIVE_LOW>;
+> +
+> +		avdd-supply =3D <&camera_front_avdd>;
+> +		dvdd-supply =3D <&vreg_s3a_1p35>;
+> +		dovdd-supply =3D <&vreg_lvs1_1p8>;
+> +
+> +		pinctrl-0 =3D <&cam_front_reset_default>;
+> +		pinctrl-names =3D "default";
+> +
+> +		rotation =3D <270>;
+> +		orientation =3D <MEDIA_ORIENTATION_FRONT>;
+
+[Severity: Low]
+Is MEDIA_ORIENTATION_FRONT defined?
+
+Since the corresponding header is missing, this looks like it will result
+in a DTC compilation error.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901-pixel3-cam=
+era-v8-0-99f159883348@ixit.cz?part=3D1
