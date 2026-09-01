@@ -1,354 +1,163 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA9A47ACEB
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 13:20:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8226A39150B
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 13:21:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788268826; cv=none; b=CRCQV3wEjz/GkPPOkfQFqXfxz9eijPJ/+kuwbQ3h9SpYli4N1EI5C/NXok5vV622Fk6coiAekuj3g/Npc96jYWXxxuF9RNl7neMdi1Yt8oUDAd1lIq6y2q6N393lij7nt+mobC/j9j0heaqyaKwmznM+Frkr6FL/j6PQ5m2a1y8=
+	t=1788268904; cv=none; b=oHwgmWem15Rfq9x72dVYZ5A6Wry6BoqcFxVymI95QthqU3fQU2QU3mQQwOK5ewSJIH/ZpJU19SasSrlR7cqZAq5uUxii/fqs4q4p+JAvfGq0BrD1bDkcgwl7evNWfljjF71Ou8dqD3M/7heGmuqJG2FiRtufZE3vkhJkigdVhx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788268826; c=relaxed/simple;
-	bh=SgkDOc3w77gQO56AslIpO6x2oy6obbpZv09HD2HxEWU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QfoB41BDTbMHHttfhQIxlodS/FZ+1NoJZBvPChyvUyIsS7lggO1FGr3lrTXR0ae8NHdenfTlh+46Q79HrkwXesqT3GbdkEggulOrqAwYKzYbYYBcFQDQiVugqUrsn9Fp/dS2AZTikobxFIJaBRBahsO5r4emcMv9JnbHDDRY6rk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PYY3LBOQ; arc=none smtp.client-ip=209.85.218.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788268904; c=relaxed/simple;
+	bh=qJfVo8NaWUV3he8g/jBVBQ24fD8jjxPCQ2QJcjp93xs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GNaHe8Pwr3xDieXcij4DqK0rEaBHnCzi+jJwmqn0DCcnUvk7QR9dp9Xrl5w+i8n06HZLj+MA7uf9tZP25Jb5fxkhE0S22tvmQXDZA9kck2XRoXGHHZKK0D+Rv7tTdZX7RLmXT+wKshz1KmUTQTI4FYyI8XszBSlGVJnZUyMtIcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HC5Iec2w; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IpHSkGbo; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PYY3LBOQ"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c1712a04ddaso774215366b.2
-        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 06:20:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HC5Iec2w";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IpHSkGbo"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681D5bGk3355721
+	for <devicetree@vger.kernel.org>; Tue, 1 Sep 2026 13:21:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	jSiZjk2rYPgMxkc/Mk6oF6H/vSiu5oWVsT6MYw51UtA=; b=HC5Iec2w8Q0r8o2A
+	gfZcfMA9VCQ25Uo/i7Hq+YU/CARRMRIHDaWAE6sGzILPk0zqOr2cDoUK9dMVF1eB
+	/YbwY02vuOH3zSeyfuarRA8HACvFGdQ9ZinhFNLZ/BnPkjA0jk3IHlmdOo5DYMnL
+	DrljuhRUt8Dsd+0H9kIflADs+CrOjees55BopLaJLEJyMlJT6ok//edN4L3224L5
+	VFXNeaEmRI29Oh3LsyJW99LNoep1dIr6NyOVrgx7rpOBhXXd5OcukWY5soXnbyr+
+	Q3NPRYh3A22ah6fqKIYFDV6sDKImu0VZiXh2uetRTv9gYY3b0qM6ryopeTCXFMc0
+	DMap9Q==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdy9ng204-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 13:21:42 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5c39b4f3229so121098e0c.0
+        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 06:21:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788268823; x=1788873623; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=A5fn27S0nDJBvEWuG8edS4YrQ6Xe8d24NuSgbXQwpfU=;
-        b=PYY3LBOQTEUfo+rddI+911e4NxeRSXFDbksbdHooBImHaHqsa61Qrm3vC52T62eM4o
-         VQSlwX57IBmeutVFKmVJmgfFr8cBWD5pYOai+O8REVJHInlivFJvDu4ga+zA48987nv3
-         o8qx0QrmbeHPqrJiQ1Ho/RL5XNx6FjMgHBnlSK9CJBCzDaYpUyDHpU2f7F8k/GGvMzoc
-         CMKDYxlWY4pYpQ/8tg96mSsTPe81YBiAWN01orypmW0WB1BS5wufUQoZLlKZoKD73E1F
-         +vFyp6dEa1OLZs66G3tJmHnIA0NsjJ/3Uq0L1+CXbEnbXgup1aJ51Rv3ENQzYn3aH3sH
-         B1/Q==
+        d=oss.qualcomm.com; s=google; t=1788268902; x=1788873702; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jSiZjk2rYPgMxkc/Mk6oF6H/vSiu5oWVsT6MYw51UtA=;
+        b=IpHSkGbo+ZLUUe/fHIzVwRDa2S9GbkgWV49Rwgnw17wrwmWHt2Xp9+jmIHxQoyENCh
+         oMwZkCmfyohS2shpLUCH/CpWsJAYpHT8ZASHOJLJUcCv2SiJ1GyFspsPPepbbglTJFDX
+         K5KRLKX/W/8rWVl82xboVpKLXD8yV7stMYd3nw/XA6OMr25Jw6O33m6bpUjDbujUjcj0
+         aosB+vKxHZsvHnenEuOBMYzlIcCZQJU96lakvewpryZ9qjda6lTGRyPXiwS/wCfYRKDC
+         WyP0Tc8atrvE4kzjRwjhv8mKdCliwKNPQOvAghyUpDWFlN8INmTcWI4tYc1gJ34bwZ3b
+         ML8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788268823; x=1788873623;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=A5fn27S0nDJBvEWuG8edS4YrQ6Xe8d24NuSgbXQwpfU=;
-        b=sV5yi2M3umEf7Oyr4kA9c7sKzWUp9Z95b/jhNGHb0RrRrgSp3YWI39UGZOWzL2xk8y
-         hdvEL4HJqp4zxRPWSCJQwtl8ZxUY+elRbQtU0XH9KVLNRuncXkdVZa6z54GRtPAoAzTa
-         JHXZdxEjqR2X58FFqziikMSPfeeXfNxO4kY/ztXDufbylEVlNyDhd3QQkNzU7UEMaCBg
-         MgcZ4oT9ki+98Z4hbkUQi+DY1go0bcL7rNFfvIZx8be5NhoMG7S6n6gGGFy0KCt+Ebcy
-         T5yK6uocTz6k73CKWvHiEu1fGmn5fw8mkgMxet72RqrGmaTKpmAuwYWNQ2Hu0xQs/VrS
-         FnOg==
-X-Forwarded-Encrypted: i=1; AHgh+RoyjTCPQejKJjLaTrbbcpi+Xh/hjTmrktpvaZypTG5yddvHzL/A1oM+mOjaYTAFZG6/IJkS9bil/lWu@vger.kernel.org
-X-Gm-Message-State: AFuF++lanIplwZzKBAev9Yy6bIXKgZsQdpjllX/pvFmWiJI2A2n6GqcE
-	sfPeHv3tLQhvv6mzuTGQPDOuECB7xw73jAwqHziikbUC3D2qRi6fKT0G
-X-Gm-Gg: AR+sD12XwMBPtLmImJAe04qQtEzz32/03/UXevIt0LWyVRJQDan5aHxFO7tO0uatMv8
-	OvztlfHwM9t3mD6P6kpD+oJi3cIMYjUKc5UZbcmF911l/jc1gVOAQAVAg8ZshJxxr7g5KcvY6MF
-	C7wUIX/+jADq45Eb/iFN61r8U8KcVmheTNbfpiZ+S6gyKuOb/3lY/XxR+l8trh5qYxXXlFZZSlF
-	Fntc1Ouq7Jq5rd1j6Qe6w5tcu5UWJwHMJuxtrEiijAF7CITwYvjohTK2jvlDrDAHX+DXFUdVQxd
-	swfBJy/f/WA2EzUiXjT+r2tdZhqVsSjU8HyFRbf+aiBG19uuyjxuecOCWVlWeD/rlRm0yZQFbJ/
-	IrKNP21l6L9Z3paCclxiFZ1oSRocoOrwfcSVGjRoGi7dOipDWzp4BEZaMaMK3UveZNle/AYcAfC
-	BLBd+USrMRCre1KqRS5dPzQ9pHQr3fsRcpsuXpxfnC+kPL0TSbUYJZbwPLqTUYOVgSEZGcSPlXk
-	pI/eTUqyDYRYRU=
-X-Received: by 2002:a17:907:c78f:b0:c24:e0dc:8b66 with SMTP id a640c23a62f3a-c2556c7d3a5mr2290527266b.6.1788268823241;
-        Tue, 01 Sep 2026 06:20:23 -0700 (PDT)
-Received: from SMW024614.wbi.nxp.com ([128.77.115.157])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25618430fasm580304366b.22.2026.09.01.06.20.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 06:20:22 -0700 (PDT)
-From: Laurentiu Mihalcea <laurentiumihalcea111@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Frank Li <Frank.Li@nxp.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	elena.popa@nxp.com,
-	cosmin.stoica@nxp.com
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v3 2/2] arm64: dts: freescale: add MR-NAVQ95 basic board support
-Date: Tue,  1 Sep 2026 06:19:18 -0700
-Message-ID: <20260901131918.1189-3-laurentiumihalcea111@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260901131918.1189-1-laurentiumihalcea111@gmail.com>
-References: <20260901131918.1189-1-laurentiumihalcea111@gmail.com>
+        d=1e100.net; s=20251104; t=1788268902; x=1788873702;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jSiZjk2rYPgMxkc/Mk6oF6H/vSiu5oWVsT6MYw51UtA=;
+        b=NgJlsfxS0ktecBAPPlmpVrXk+m1GUvnYQAEQntyEV8ycTfjlYCYcqy4lO0Eof50b92
+         nTA0G/ipDQQYPlVHRF6D8vZgndi7HO8CQiHTua4NKaUy+jx4ULbnwO85FCgLgp94pa45
+         uTdDCr3UV3yhvSIFx9Vmq6j/ylPq5cUZ3vHP1jjFCuRKnB1WHhOIuPYoz55SPDeLM4YF
+         g4P+hPV0gingy1n0f9X0MEjZ1zLWsDBiv/8e2+ZR2BA4+ES4Nm0FxstdlYOfYw+aLJhq
+         uFIsqAfoyiyZlNBZSMSajv2xks2vpGTU3ur2HHi8HWPqO/4eSZN5P1izTsI6LI05ZLD/
+         sC2w==
+X-Forwarded-Encrypted: i=1; AHgh+RpjxKCjTrVAQAN7HfmogwtzrJ1/wjJrtz2ICRXwgF0AbXGp1fiOThHCaYKm62DWXVf3iJCvYrHwg+yo@vger.kernel.org
+X-Gm-Message-State: AFuF++m4eFWwNGMeu0kaDqrf6COnSW5ybkWl2CKgoKDq+N4h1WGYwkYs
+	bFIbeE1WCdk5vzs4SQTAA2crE9m46aMjuwRJ7AVXf8IhyjxeoP17J8Z90s1L6/rOEv0rkliTAEe
+	qQXVuHRzdn5h5Evoxhd/eOoGCIMKmSVoTvdSz7F03+bLFc70IXiTOr9mAWdVyBBIj
+X-Gm-Gg: AR+sD12hgQ5brSxwLn7oosH66VHa6fpWPzhfUrr0KEUiB4G30ume4WnKqwcn65YiY4V
+	53rWSLkDQi5q1gUTSzXVMYDSguc4f0spqziB2U6EzJ5ilPTa0C0y0fXx1+akcqbz6H73U3ME/kR
+	kgY6gZ5xDmvqPgERdPcNxlcm8Xg/a18jhfkvko7jGonhwqkdSA68pJYKQ3KmARuA0TPNWby0Hjg
+	7yVMOjkMFBx/WGYaQGN5PHhilw80N7+Oq3ERw1vYNps1JgnPa4l+cbzDvXbSlQKnMPiSbddCrUH
+	6wvUXihzM1wukskvaTqM2MBTSv6A94zKK12PyJ2ao/hj6GTliUGDFyCg9X5BmSZla8oj5UyzEhq
+	LBzXIvs7zZ5TBzDoeB9sUiA==
+X-Received: by 2002:a05:6102:6a84:b0:786:8d84:5aca with SMTP id ada2fe7eead31-7868d845f20mr2441006137.2.1788268900671;
+        Tue, 01 Sep 2026 06:21:40 -0700 (PDT)
+X-Received: by 2002:a05:6102:6a84:b0:786:8d84:5aca with SMTP id ada2fe7eead31-7868d845f20mr2440992137.2.1788268900215;
+        Tue, 01 Sep 2026 06:21:40 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b605b17582sm57141e87.69.2026.09.01.06.21.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Sep 2026 06:21:39 -0700 (PDT)
+Message-ID: <773d4d11-dedb-4630-bdaf-ed9bf5dedc5d@oss.qualcomm.com>
+Date: Tue, 1 Sep 2026 15:21:36 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 07/12] phy: qualcomm: qcom-uniphy-pcie-usb3-28lp: Add
+ support for USB3 PHY on IPQ5018
+To: george.moussalem@outlook.com, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Praveenkumar I <praveenkumar.i@oss.qualcomm.com>,
+        Philipp Zabel <p.zabel@pengutronix.de>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
+        Nitheesh Sekar <quic_nsekar@quicinc.com>,
+        Wesley Cheng <quic_wcheng@quicinc.com>,
+        Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-usb@vger.kernel.org
+References: <20260825-ipq5018-usb3-v3-0-39be0955a6aa@outlook.com>
+ <20260825-ipq5018-usb3-v3-7-39be0955a6aa@outlook.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260825-ipq5018-usb3-v3-7-39be0955a6aa@outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDExNyBTYWx0ZWRfX68cUqUAlNPBL
+ 36rTrCi9stpzXPGnIWU06HLUS++D7c1UN+mmPKaaRws0MpdiqsAO2MtVgxsVi80Hcd1w1QybB5W
+ YyaTq5NUxccvVXJkbYvKyewcD6fZkLo=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDExNyBTYWx0ZWRfX647I+yDMyKQ7
+ 8mknusbJBbgbAzydGUWaPJTaDi4S3Wp4MV0dOdbqvx4eZ8Exl4JMmyX1oOYkGnQluwN1sQL7XEZ
+ rvYqW+gMEByu4MvXwdrC41NiXoNjNgyfBWLFDWTnM5jkGX/wmTueE/4mOU6ZMLjFFXaYNqiqXhd
+ hPf95nzmoJCZv+BOPhJdRmN9tvFriFG2DksszF4p+IPeKp6B23W9ZEvYBjLbN9Z6BUMu352uIZC
+ 1S4nFBx37fnt/nQYQl/EzCyq2+XhyRhutCW97Ae80hJw8T2aRXVAeweWBZZQxofKderEu2x9I8C
+ rWaf7KyuFVODB5nKSWrbhmP0ABhD6FLQ5xICiziZRkn8Uc8uxAdPVWbDNouMO71kmU7BJ5kOO0d
+ 25p9+NXejSFXb+9PICoT4CTMa8oMJ8AV47Srzwd+nWz3yUe4aVB41Oa5X8eeX4rXkjRZ8vaIpNT
+ rDyKeJh2Sc48NPoeFzw==
+X-Authority-Analysis: v=2.4 cv=e/02j6p/ c=1 sm=1 tr=0 ts=6a96d166 cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=UqCG9HQmAAAA:8 a=xr6W56IWL_GKtPyFExwA:9 a=QEXdDO2ut3YA:10
+ a=XD7yVLdPMpWraOa8Un9W:22
+X-Proofpoint-ORIG-GUID: w3_MMTKj_oHQ3QUegMxCwowznrGqSAhr
+X-Proofpoint-GUID: w3_MMTKj_oHQ3QUegMxCwowznrGqSAhr
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-01_03,2026-08-31_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 lowpriorityscore=0 suspectscore=0 priorityscore=1501
+ impostorscore=0 malwarescore=0 spamscore=0 adultscore=0 bulkscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609010117
 
-From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
+On 8/25/26 2:37 PM, George Moussalem via B4 Relay wrote:
+> From: George Moussalem <george.moussalem@outlook.com>
+> 
+> Add support for the USB3 PHY on IPQ5018 chipsets.
 
-Add basic support for NXP's MR-NAVQ95 board. This board is designed for
-robotics applications (e.g. drones, rovers, humanoids, etc..) and has the
-following hardware feats (list is not exhaustive):
+[...]
 
-* based on i.MX95 19x19 SoC
-* 64GB eMMC
-* up to 16GB of LPDDR5 memory
-* 1 x USB 2.0 TypeC
-* 1 x USB 3.0 TypeC
-* 1 x RJ45 port with RTL8211 PHY
+> +static int qcom_uniphy_usb_mux_select(struct qcom_uniphy *phy, bool enable)
+> +{
+> +	return regmap_update_bits(phy->tcsr, phy->mux_offset,
+> +				  TCSR_USB_MUX_SEL,
+> +				  enable ? TCSR_USB_MUX_SEL : 0);
 
-The support targets revision B of the board.
+regmap_assign_bits()
 
-Signed-off-by: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
----
- arch/arm64/boot/dts/freescale/Makefile       |   1 +
- arch/arm64/boot/dts/freescale/imx95-navq.dts | 222 +++++++++++++++++++
- 2 files changed, 223 insertions(+)
- create mode 100644 arch/arm64/boot/dts/freescale/imx95-navq.dts
-
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index 95ae85ab4adf..4c5ef83cd857 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -712,6 +712,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-evk-sof.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-frdm-pro.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-aquila-clover.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-aquila-dev.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx95-navq.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-toradex-smarc-dev.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-tqma9596la-mba95xxca.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-tqma9596sa-mb-smarc-2.dtb
-diff --git a/arch/arm64/boot/dts/freescale/imx95-navq.dts b/arch/arm64/boot/dts/freescale/imx95-navq.dts
-new file mode 100644
-index 000000000000..1366dc2d2bfa
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx95-navq.dts
-@@ -0,0 +1,222 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright 2026 NXP
-+ */
-+
-+/dts-v1/;
-+
-+#include "imx95.dtsi"
-+
-+/ {
-+	model = "NXP MR-NAVQ95";
-+	compatible = "fsl,imx95-navq", "fsl,imx95";
-+
-+	aliases {
-+		ethernet0 = &enetc_port0;
-+		mmc0 = &usdhc1;
-+		mmc1 = &usdhc2;
-+		serial0 = &lpuart1;
-+	};
-+
-+	chosen {
-+		stdout-path = &lpuart1;
-+	};
-+
-+	reg_usdhc2_vmmc: regulator-usdhc2 {
-+		compatible = "regulator-fixed";
-+		bootph-pre-ram;
-+		enable-active-high;
-+		gpios = <&gpio3 7 GPIO_ACTIVE_HIGH>;
-+		off-on-delay-us = <12000>;
-+		pinctrl-0 = <&pinctrl_reg_usdhc2_vmmc>;
-+		pinctrl-names = "default";
-+		regulator-max-microvolt = <3300000>;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-name = "VDD_SD2_3V3";
-+	};
-+};
-+
-+&edma1 {
-+	/* owned by M7 */
-+	status = "reserved";
-+};
-+
-+&edma2 {
-+	/* channels 30-63 owned by M7 */
-+	dma-channels = <30>;
-+};
-+
-+&enetc_port0 {
-+	phy-handle = <&ethphy0>;
-+	phy-mode = "rgmii-id";
-+	pinctrl-0 = <&pinctrl_enetc0>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+&lpi2c3 {
-+	clock-frequency = <400000>;
-+	pinctrl-0 = <&pinctrl_lpi2c3>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+
-+	i2c3_gpio_expander_21: gpio-expander@21 {
-+		compatible = "nxp,pcal6408";
-+		reg = <0x21>;
-+		#gpio-cells = <2>;
-+		gpio-controller;
-+		#interrupt-cells = <2>;
-+		interrupt-controller;
-+		interrupt-parent = <&gpio4>;
-+		interrupts = <27 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-0 = <&pinctrl_i2c3_gpio_expander_21>;
-+		pinctrl-names = "default";
-+	};
-+};
-+
-+&lpuart1 {
-+	bootph-pre-ram;
-+	pinctrl-0 = <&pinctrl_uart1>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+&netc_blk_ctrl {
-+	status = "okay";
-+};
-+
-+&netc_emdio {
-+	pinctrl-0 = <&pinctrl_emdio>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+
-+	ethphy0: ethernet-phy@1 {
-+		compatible = "ethernet-phy-id001c.c916";
-+		reg = <1>;
-+		reset-assert-us = <10000>;
-+		reset-deassert-us = <80000>;
-+		reset-gpios = <&i2c3_gpio_expander_21 1 GPIO_ACTIVE_LOW>;
-+		realtek,clkout-disable;
-+	};
-+};
-+
-+&scmi_iomuxc {
-+	pinctrl_emdio: emdiogrp {
-+		fsl,pins = <IMX95_PAD_ENET2_MDC__NETCMIX_TOP_NETC_MDC			0x57e>,
-+			   <IMX95_PAD_ENET2_MDIO__NETCMIX_TOP_NETC_MDIO			0x97e>;
-+	};
-+
-+	pinctrl_enetc0: enetc0grp {
-+		fsl,pins = <IMX95_PAD_ENET1_TD3__NETCMIX_TOP_ETH0_RGMII_TD3		0x57e>,
-+			   <IMX95_PAD_ENET1_TD2__NETCMIX_TOP_ETH0_RGMII_TD2		0x57e>,
-+			   <IMX95_PAD_ENET1_TD1__NETCMIX_TOP_ETH0_RGMII_TD1		0x57e>,
-+			   <IMX95_PAD_ENET1_TD0__NETCMIX_TOP_ETH0_RGMII_TD0		0x57e>,
-+			   <IMX95_PAD_ENET1_TX_CTL__NETCMIX_TOP_ETH0_RGMII_TX_CTL	0x57e>,
-+			   <IMX95_PAD_ENET1_TXC__NETCMIX_TOP_ETH0_RGMII_TX_CLK		0x58e>,
-+			   <IMX95_PAD_ENET1_RX_CTL__NETCMIX_TOP_ETH0_RGMII_RX_CTL	0x57e>,
-+			   <IMX95_PAD_ENET1_RXC__NETCMIX_TOP_ETH0_RGMII_RX_CLK		0x58e>,
-+			   <IMX95_PAD_ENET1_RD0__NETCMIX_TOP_ETH0_RGMII_RD0		0x57e>,
-+			   <IMX95_PAD_ENET1_RD1__NETCMIX_TOP_ETH0_RGMII_RD1		0x57e>,
-+			   <IMX95_PAD_ENET1_RD2__NETCMIX_TOP_ETH0_RGMII_RD2		0x57e>,
-+			   <IMX95_PAD_ENET1_RD3__NETCMIX_TOP_ETH0_RGMII_RD3		0x57e>;
-+	};
-+
-+	pinctrl_i2c3_gpio_expander_21: i2c3gpioexpander21grp {
-+		fsl,pins = <IMX95_PAD_ENET2_RD3__GPIO4_IO_BIT27				0x31e>;
-+	};
-+
-+	pinctrl_lpi2c3: lpi2c3grp {
-+		fsl,pins = <IMX95_PAD_GPIO_IO28__LPI2C3_SDA				0x40000b9e>,
-+			   <IMX95_PAD_GPIO_IO29__LPI2C3_SCL				0x40000b9e>;
-+	};
-+
-+	pinctrl_reg_usdhc2_vmmc: regusdhc2vmmcgrp {
-+		bootph-pre-ram;
-+		fsl,pins = <IMX95_PAD_SD2_RESET_B__GPIO3_IO_BIT7			0x31e>;
-+	};
-+
-+	pinctrl_uart1: uart1grp {
-+		bootph-pre-ram;
-+		fsl,pins = <IMX95_PAD_UART1_RXD__AONMIX_TOP_LPUART1_RX			0x31e>,
-+			   <IMX95_PAD_UART1_TXD__AONMIX_TOP_LPUART1_TX			0x31e>;
-+	};
-+
-+	pinctrl_usdhc1_200mhz: usdhc1-200mhzgrp {
-+		bootph-pre-ram;
-+		fsl,pins = <IMX95_PAD_SD1_CLK__USDHC1_CLK				0x15fe>,
-+			   <IMX95_PAD_SD1_CMD__USDHC1_CMD				0x13fe>,
-+			   <IMX95_PAD_SD1_DATA0__USDHC1_DATA0				0x13fe>,
-+			   <IMX95_PAD_SD1_DATA1__USDHC1_DATA1				0x13fe>,
-+			   <IMX95_PAD_SD1_DATA2__USDHC1_DATA2				0x13fe>,
-+			   <IMX95_PAD_SD1_DATA3__USDHC1_DATA3				0x13fe>,
-+			   <IMX95_PAD_SD1_DATA4__USDHC1_DATA4				0x13fe>,
-+			   <IMX95_PAD_SD1_DATA5__USDHC1_DATA5				0x13fe>,
-+			   <IMX95_PAD_SD1_DATA6__USDHC1_DATA6				0x13fe>,
-+			   <IMX95_PAD_SD1_DATA7__USDHC1_DATA7				0x13fe>,
-+			   <IMX95_PAD_SD1_STROBE__USDHC1_STROBE				0x15fe>;
-+	};
-+
-+	pinctrl_usdhc1: usdhc1grp {
-+		bootph-pre-ram;
-+		fsl,pins = <IMX95_PAD_SD1_CLK__USDHC1_CLK				0x158e>,
-+			   <IMX95_PAD_SD1_CMD__USDHC1_CMD				0x138e>,
-+			   <IMX95_PAD_SD1_DATA0__USDHC1_DATA0				0x138e>,
-+			   <IMX95_PAD_SD1_DATA1__USDHC1_DATA1				0x138e>,
-+			   <IMX95_PAD_SD1_DATA2__USDHC1_DATA2				0x138e>,
-+			   <IMX95_PAD_SD1_DATA3__USDHC1_DATA3				0x138e>,
-+			   <IMX95_PAD_SD1_DATA4__USDHC1_DATA4				0x138e>,
-+			   <IMX95_PAD_SD1_DATA5__USDHC1_DATA5				0x138e>,
-+			   <IMX95_PAD_SD1_DATA6__USDHC1_DATA6				0x138e>,
-+			   <IMX95_PAD_SD1_DATA7__USDHC1_DATA7				0x138e>,
-+			   <IMX95_PAD_SD1_STROBE__USDHC1_STROBE				0x158e>;
-+	};
-+
-+	pinctrl_usdhc2_gpio: usdhc2gpiogrp {
-+		bootph-pre-ram;
-+		fsl,pins = <IMX95_PAD_SD2_CD_B__GPIO3_IO_BIT0				0x31e>;
-+	};
-+
-+	pinctrl_usdhc2: usdhc2grp {
-+		bootph-pre-ram;
-+		fsl,pins = <IMX95_PAD_SD2_CLK__USDHC2_CLK				0x158e>,
-+			   <IMX95_PAD_SD2_CMD__USDHC2_CMD				0x138e>,
-+			   <IMX95_PAD_SD2_DATA0__USDHC2_DATA0				0x138e>,
-+			   <IMX95_PAD_SD2_DATA1__USDHC2_DATA1				0x138e>,
-+			   <IMX95_PAD_SD2_DATA2__USDHC2_DATA2				0x138e>,
-+			   <IMX95_PAD_SD2_DATA3__USDHC2_DATA3				0x138e>,
-+			   <IMX95_PAD_SD2_VSELECT__USDHC2_VSELECT			0x51e>;
-+	};
-+};
-+
-+&usdhc1 {
-+	bootph-pre-ram;
-+	bus-width = <8>;
-+	no-sd;
-+	no-sdio;
-+	non-removable;
-+	pinctrl-0 = <&pinctrl_usdhc1>;
-+	pinctrl-1 = <&pinctrl_usdhc1>;
-+	pinctrl-2 = <&pinctrl_usdhc1_200mhz>;
-+	pinctrl-3 = <&pinctrl_usdhc1>;
-+	pinctrl-names = "default", "state_100mhz", "state_200mhz", "sleep";
-+
-+	status = "okay";
-+};
-+
-+&usdhc2 {
-+	bootph-pre-ram;
-+	bus-width = <4>;
-+	cd-gpios = <&gpio3 0 GPIO_ACTIVE_LOW>;
-+	pinctrl-0 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
-+	pinctrl-1 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
-+	pinctrl-2 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
-+	pinctrl-3 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
-+	pinctrl-names = "default", "state_100mhz", "state_200mhz", "sleep";
-+	vmmc-supply = <&reg_usdhc2_vmmc>;
-+
-+	status = "okay";
-+};
--- 
-2.53.0
-
+Konrad
