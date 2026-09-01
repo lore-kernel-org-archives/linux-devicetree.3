@@ -1,68 +1,69 @@
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD4634756D2
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 08:59:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98371476071
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 08:59:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788253146; cv=none; b=UG5VO/wZVG4ZJ99qSp8tiEKfFcQro4bcBAej8S4V/LtJ9GpTu+hGptgHBRUgyHJrAnbFzpNqjl7Sja+QBFzDXRiKj1gVk8eBCaxYz8og7bSS5ZFP0Gx0mDykTbl1lllKRC1rCA3WY6CLB3JqD2J9liSrokFhs2HxlEEPZfLYJJc=
+	t=1788253147; cv=none; b=CT+YoBKbgX33Vqqu/DI/eDuOWCiNcdh3GOxqlgAodlZMECQeDaLfgI6kkwEF1XvJISseoToO5WZxyTHahQ0hI7HG2AmgtU3XnmP7VBj4Clq14Cw4KNT4sh6TETFPGzNtE+OEI0CeXtn69yoPSQrxjC4TCGCjR5gzoBB/3F+rfEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788253146; c=relaxed/simple;
-	bh=gtRV6Ewke43YWoD7VGaNfgttgen5p0Izbi4DKRlrJlQ=;
+	s=arc-20240116; t=1788253147; c=relaxed/simple;
+	bh=cxRbQRwKnK9/jN0RVUhydNE5RjUtDPC2KVGVanJYEHg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=VSUqa2AIpMTAgeYpTmVCRg6CuTyfXwf7BI2jo4/jUOWDi9+DflHKODkUo1usysLBHZ1pZrIOeMOML6rPxsDbcghLmKT4K1lks46Fj4ahOJYeB88/zMfe0GHGaiNWiYsFs6Mf2t4PQ/lp8f2+9SmuDY+QQn7Cta7wNj7XGU6AntU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=Uerwpnfe; arc=none smtp.client-ip=209.85.218.46
+	 In-Reply-To:To:Cc; b=oVnDdv/cOR+u6Ul+K1tLWWCJHOLjBoplqzjb26jz2AxwoQxeGNXJqo70sj4bS0JvAiEZDCIMUNhSMPESwxCkx25AZ9ROagenyt2gCetCz/Jic7koPP4oz66j85PCPvFguGcmU2K0oaNh8Vk+4zqfbNQSGAD2U/r7z1pBdvo72mI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=tAOxVCfI; arc=none smtp.client-ip=209.85.218.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="Uerwpnfe"
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c1c26d7e951so775511866b.0
-        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 01:59:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="tAOxVCfI"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c25344a8c6cso602681366b.0
+        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 01:59:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=fairphone.com; s=fair; t=1788253143; x=1788857943; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=myNLA1zehJ9sNi0f8euedNSkhaiWUYmsY/g28jpA0NQ=;
-        b=Uerwpnfe0YtAHFqu0fEgO19FcC3HQH7V+smK9iV8U1IkjlhnJiRtIvYYJKkpimm56C
-         KC7njpMdkKSJtio5obECYIA+p+NdTalx1AGgWxxtg3v1tE7Pi5no4GhQnf4sn//yeqA8
-         eh0AGdgErpC6FSE1lqQLa8+NQj91y8dlj3Sx9MrmB2OXKw413JrW1UrO1phnXBfUCbmE
-         PxXsiar2g86MZ1DUJkdfdcaJONwUoVDNUv5+Jch5ZfkaK+KGFQTmG9qLxfcEH79rWe3E
-         S6PHJqR/5eGBZXgJN/1VTkvrg1z/f7RBdcfvH/r0pDtAdUs5COE8XqhNpEBCI7oWlsvU
-         rPQA==
+        bh=sJfVt2Jl27L2tiMuCND1n2ucXQNUUhn5LjDWnJ+oCwo=;
+        b=tAOxVCfIIacMpbdLqyMCkJBTjKLT+k/kcOd3c/LwwlyIfcUPaoCAx5G0EWzPatS6Mq
+         i/TDOoD4jo5ZwK/n+8P3h89trVSVPdumjufsx4qfH+WHx/2EDUQfkqPxT2JgTryqFrTs
+         LJvZpPo9c7SE8PIOeMLUpAVCYqAz8AdSkdemFoq25lHJB7KbV1CQa4rIgVJEtkacfRCd
+         RxPbzrZvv+IxTczekii38xqm9AuIXcFWXz/i4J4NmUC2sU/eGvOfLFX/8KaqckkNrYgt
+         tiZWj4WXuejnY/Xk70GTaYbioSuaCict6lHxRTk7oWhyW31An7kxrHHQq0eLzOC/MDMP
+         aWug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1788253143; x=1788857943;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=myNLA1zehJ9sNi0f8euedNSkhaiWUYmsY/g28jpA0NQ=;
-        b=oZlMUfvjyXjG/ZUn2MKQmFhlGDPR8MtGCB5+x82nM7pJK+CNUgQxiOdtlMnGQyXPcM
-         sguQFv4UsvKXUTru1M8ao/MjVFfNNYqHkqoH9niBT4NrAnSOwicSu9JLmW3PyLQ/0YTX
-         yZrLwuF5LXkfqVE0eNHIZPfUYxkVKaxWg0GKG5VcwigGcvbkC6s9bM9lDEd5i0aFXC1I
-         6Xz4MGEaHW9MCNHeswaVtmrtL0heDdFRJqOSpeDetMCW6eCzwWHEeokTIXFgcUSoBoOD
-         rpZPHJun/kRadR6Ud9AE2Vjop+BOe3bI4bYOsf7yo0ixJjGpZP3w6B+YltqcfKhB39BD
-         ABgw==
-X-Forwarded-Encrypted: i=1; AHgh+RoVciSjaLZUwBWMmS+BzwopXQa3maEDWNnjuVLqJJgcpDXAilPqO+5M6k749tYsUNFHqDtkdrR4QX80@vger.kernel.org
-X-Gm-Message-State: AFuF++k2at08kxDslg6m4ojlKRpbZfrQ5coxBjVzkMzfglfsUPjwxFhM
-	dKvTg3yca0p8L/bhW+6kUWUIFylIxIvg1e1Q1c1CjGjEphBXazxWV8zAL+VVyOoAbcE=
-X-Gm-Gg: AYBFou0KqUbp66z1ElxYmJ7B/5EH6CxwipG3+McDCBOVkhsPkPyMz82IpxlMSYd4RAm
-	hvL91PetKktcu+LjClVvYk7KHVZsatICzj410hRBoSbdAVZ08TFzekp5OjTCdGf8enQmzlbdgln
-	+b8Ug7p25Cs1jZ3loMYtTe7rX6PbEBbeuvVLxE77/5rzljvNWNottg/Y+t7etbXzbzWCR9HzEem
-	NnXA57l73sfGXqnLGLKjRRHNGgYSk7dQZ+gSrYpoVCzgwrujXAYl9M3Y8Gnt9c70G4NB4XtFyUz
-	/kZclWbjY6pjdObGv0tOLJm9reaZb0eTpKtWLwMZLcDOcQGXK3iPOq4AK4yusWGy7O96xBjXz4L
-	KhkCrI5eZgKM45sCAeFhu/IA5+tGSvITCZjKEfv/mEkyK/DgKHnsvLWrg7wj28BDfEdibqH+hB7
-	GqvvLpB9myoKLqTNRQYccx1gsJ2+mMOMSbIMV8Vf22pqpANJ8eA+sRHlGmpdA+CeRjWW17eDuct
-	HCbtzV2Zj3U2yUkd+wgMEilwErk1MK87+OqNYpNWa8WkA6B6RuTEA==
-X-Received: by 2002:a17:906:1005:10b0:c21:4393:c41a with SMTP id a640c23a62f3a-c25b3c9a988mr335100766b.11.1788253142843;
-        Tue, 01 Sep 2026 01:59:02 -0700 (PDT)
+        bh=sJfVt2Jl27L2tiMuCND1n2ucXQNUUhn5LjDWnJ+oCwo=;
+        b=n4m1lRqEWuCVLONsbyuV4lABSisVACzoX++JUUxCPkJXfUd26ioh4EwMcCWi8e/ksy
+         bvy6GCUOC7P19D2M35H97zWd1wXxajAgu67PyRgYLXpC4ODZyUJULOeDg8OxHLBya19B
+         H7RLfpac5rho5F6VLTp2x9B1wiziNqG1J+cx6zKvMR++kJTQoBeb+VTboXiXiZc246Px
+         7RpI1HhTMQGWW3fkVVpZXEhcO/YMY5YNJBuYQ9JU2tFLt6RfqnK2WTt4K0N/JrH4Dk9y
+         UUpqWPE49rl4VzCKhOR+7Jowhh9100GmEE6e/oUK8wjMQwGTxfsCVOqHgBjL/n7R22Js
+         0EaA==
+X-Forwarded-Encrypted: i=1; AHgh+Ro2r9FfZOkZ3g5kGCpTcBL8OsioPC5JsgCjKbkyR9HoEbfRTbeyxzWShGFWYA9Ht+BCfdU2NdXcA3YY@vger.kernel.org
+X-Gm-Message-State: AFuF++me764Rekg6lM7xInaFTA03a+wj6iSAR7XjZTTJ+QP4xv+8XNNc
+	ycEEkW/bQlKyOwnekGgkc7zHyRZgkpnhU1aTtP+FRlCkusZmzPwW8e5DGrgvjwdBKLM=
+X-Gm-Gg: AR+sD12qY4pN5o7REnjbcnvCKnAd9RJGtKGR57qVWBN6gquja33Q44Bw3Xv1Vh80vWe
+	YvAZh6AjlhJi/yfZ+JhkkZL4GqILEEpNpjkA2X8xjPbUaV7jc5cNWgS3ghTqZYS5Dh6Pio/4qa2
+	13DMUbgqY42+arM+cFuEEP7jhY2DXEeyBISCWewzKRnLpuSkr5DjanmTLH9aC7LFJPbSWALymDf
+	wYO8wosPx3bMZS3bpmahxgFA4R/oDRtvKN4WVza+Kd75b4W6vEzK7DVF7g65O5YpFI2ntwJcRd/
+	NA/cjn4Gu4WcQo0u57vDjSDyS+UhJ3Db4iqte+GgJ57u+PKEA4XbsxtqLMxjKi7X5Pxm6WEWHdF
+	5bXwTk6D1XaYM77NFDNv1WbzwhZ7mcCGRHrqPkwfepnmTBkzvjpe9VgmetgRECtx20Y/ZvxU2q9
+	yoMsKcE23XStiQTMkTelDfFaCL5py4NA4Nguns0JRz5mP6x8pJ6R5ksWv8mByF8Ygi29YYuQov8
+	a5eHYlLamVRAU7NCyQuz3U7Ei5fnq1i9gW5jvntQe16hhOHUiZgUQ==
+X-Received: by 2002:a05:6938:a086:10b0:c25:b597:60bc with SMTP id a640c23a62f3a-c25b5976156mr270055566b.23.1788253143571;
+        Tue, 01 Sep 2026 01:59:03 -0700 (PDT)
 Received: from [172.16.220.101] (144-178-202-138.static.ef-service.nl. [144.178.202.138])
         by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2564e314a1sm511942566b.42.2026.09.01.01.59.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 01:59:02 -0700 (PDT)
+        Tue, 01 Sep 2026 01:59:03 -0700 (PDT)
 From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Tue, 01 Sep 2026 10:58:58 +0200
-Subject: [PATCH 3/4] regulator: qcom-rpmh: Add missing regulators in PM6350
+Date: Tue, 01 Sep 2026 10:58:59 +0200
+Subject: [PATCH 4/4] arm64: dts: qcom: sm7225-fairphone-fp4: Add parent
+ supply for regulators
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,7 +72,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-fp4-regulator-supply-v1-3-68288ab70aee@fairphone.com>
+Message-Id: <20260901-fp4-regulator-supply-v1-4-68288ab70aee@fairphone.com>
 References: <20260901-fp4-regulator-supply-v1-0-68288ab70aee@fairphone.com>
 In-Reply-To: <20260901-fp4-regulator-supply-v1-0-68288ab70aee@fairphone.com>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
@@ -83,48 +84,117 @@ Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
  Luca Weiss <luca.weiss@fairphone.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788253139; l=1979;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788253139; l=3168;
  i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=gtRV6Ewke43YWoD7VGaNfgttgen5p0Izbi4DKRlrJlQ=;
- b=wTcjvPwxFnWd3nmkZRvV9d8daVlU48WfygpIRhMf845BuJBjV9RspxVJnrVwo6g5N4EdjTlGD
- 05uVoGUWRcuCCD5BZKIPRjjPbWFAA/0jMQgWoGa8wIFyBOKpBnkxDT9
+ bh=cxRbQRwKnK9/jN0RVUhydNE5RjUtDPC2KVGVanJYEHg=;
+ b=XstesESLNKNENI2TMjsB707Xn9JsLhAz+bicy9qI3/avgdac2Y0bfOhZl7UwcuzI48QOO4jPC
+ zQ0bbq5ix2aDxGmeLu6TtRf9wsTtQ1NY1OIcW/bo9Kq/awJTzxBFD4c
 X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
  pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 
-Add the missing smps3-6 and ldo17 definitions. While smps3/5 and ldo17
-are not used from the rpmh regulator driver on SM6350, the regulators do
-exist, so add them with the types based on the datasheet.
+Add the vdd-*-supply properties to the rpmh-regulators nodes, so that
+the parent regulators can be enabled when needed.
+
+The regulators s4a and s6a are a bit special. They feed back into
+PM6350, but are not modelled as regulators (or anything else?), so they
+also can't be added as vdd-*-supply. It would seem to be possible to add
+them with their "Default on booting voltage" from the PM6350 Data Sheet
+in the dts, but I'm not sure this is desired.
+
+And document what the "missing" regulators are used for.
 
 Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 ---
- drivers/regulator/qcom-rpmh-regulator.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts | 46 +++++++++++++++++++++++
+ 1 file changed, 46 insertions(+)
 
-diff --git a/drivers/regulator/qcom-rpmh-regulator.c b/drivers/regulator/qcom-rpmh-regulator.c
-index dd2265961151..7d20f3e47760 100644
---- a/drivers/regulator/qcom-rpmh-regulator.c
-+++ b/drivers/regulator/qcom-rpmh-regulator.c
-@@ -1591,7 +1591,10 @@ static const struct rpmh_vreg_init_data pm6150l_vreg_data[] = {
- static const struct rpmh_vreg_init_data pm6350_vreg_data[] = {
- 	RPMH_VREG("smps1",  SMPS, 1,  &pmic5_ftsmps510, "vdd-s1"),
- 	RPMH_VREG("smps2",  SMPS, 2,  &pmic5_hfsmps510, "vdd-s2"),
--	/* smps3 - smps5 not configured */
-+	RPMH_VREG("smps3",  SMPS, 3,  &pmic5_ftsmps510, "vdd-s3"),
-+	RPMH_VREG("smps4",  SMPS, 4,  &pmic5_ftsmps510, "vdd-s4"),
-+	RPMH_VREG("smps5",  SMPS, 5,  &pmic5_ftsmps510, "vdd-s5"),
-+	RPMH_VREG("smps6",  SMPS, 6,  &pmic5_hfsmps510, "vdd-s6"),
- 	RPMH_VREG("ldo1",   LDO,  1,  &pmic5_nldo,      "vdd-l1"),
- 	RPMH_VREG("ldo2",   LDO,  2,  &pmic5_pldo,      "vdd-l2-l5-l7"),
- 	RPMH_VREG("ldo3",   LDO,  3,  &pmic5_pldo,      "vdd-l3-l6-l8-l9-l10"),
-@@ -1608,7 +1611,7 @@ static const struct rpmh_vreg_init_data pm6350_vreg_data[] = {
- 	RPMH_VREG("ldo14",  LDO,  14, &pmic5_pldo,      "vdd-l12-l14"),
- 	RPMH_VREG("ldo15",  LDO,  15, &pmic5_nldo,      "vdd-l15-l19-l22"),
- 	RPMH_VREG("ldo16",  LDO,  16, &pmic5_nldo,      "vdd-l16"),
--	/* ldo17 not configured */
-+	RPMH_VREG("ldo17",  LDO,  17, &pmic5_nldo,      "vdd-l17"),
- 	RPMH_VREG("ldo18",  LDO,  18, &pmic5_nldo,      "vdd-l18-l20-l21"),
- 	RPMH_VREG("ldo19",  LDO,  19, &pmic5_nldo,      "vdd-l15-l19-l22"),
- 	RPMH_VREG("ldo20",  LDO,  20, &pmic5_nldo,      "vdd-l18-l20-l21"),
+diff --git a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+index 5d20ad93b0c5..a1556d802a8b 100644
+--- a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
++++ b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+@@ -78,6 +78,17 @@ lcdb_dummy: regulator-lcdb-dummy {
+ 		regulator-max-microvolt = <5500000>;
+ 	};
+ 
++	vph_pwr: regulator-vph-pwr {
++		compatible = "regulator-fixed";
++
++		regulator-name = "vph_pwr";
++		regulator-min-microvolt = <3700000>;
++		regulator-max-microvolt = <3700000>;
++
++		regulator-always-on;
++		regulator-boot-on;
++	};
++
+ 	reserved-memory {
+ 		/*
+ 		 * The rmtfs memory region in downstream is 'dynamically allocated'
+@@ -296,6 +307,15 @@ &adsp {
+ &apps_rsc {
+ 	regulators-0 {
+ 		compatible = "qcom,pm6350-rpmh-regulators";
++
++		vdd-l2-l5-l7-supply = <&vreg_s2a>;
++		vdd-l3-l6-l8-l9-l10-supply = <&vreg_bob>;
++		vdd-l11-supply = <&vreg_s2a>;
++		vdd-l12-l14-supply = <&vreg_s2a>;
++		vdd-l15-l19-l22-supply = <&vreg_s8e>;
++		vdd-s1-supply = <&vph_pwr>;
++		vdd-s2-supply = <&vph_pwr>;
++
+ 		qcom,pmic-id = "a";
+ 
+ 		vreg_s1a: smps1 {
+@@ -310,6 +330,14 @@ vreg_s2a: smps2 {
+ 			regulator-max-microvolt = <2048000>;
+ 		};
+ 
++		/*
++		 * s3a (smps3) is gfx.lvl
++		 * s4a (smps4) is supply for vdd-l4 & vdd-l13
++		 * s5a (smps5) is mx.lvl
++		 * s6a (smps6) is supply for vdd-l16 & vdd-l18-l20-l21
++		 * l1a (ldo1) is lcx.lvl
++		 */
++
+ 		vreg_l2a: ldo2 {
+ 			regulator-name = "vreg_l2a";
+ 			regulator-min-microvolt = <1503000>;
+@@ -408,6 +436,8 @@ vreg_l16a: ldo16 {
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+ 		};
+ 
++		/* l17a (ldo17) is lmx.lvl */
++
+ 		vreg_l18a: ldo18 {
+ 			regulator-name = "vreg_l18a";
+ 			regulator-min-microvolt = <788000>;
+@@ -446,8 +476,24 @@ vreg_l22a: ldo22 {
+ 
+ 	regulators-1 {
+ 		compatible = "qcom,pm6150l-rpmh-regulators";
++
++		vdd-bob-supply = <&vph_pwr>;
++		vdd-l1-l8-supply = <&vreg_s2a>;
++		vdd-l2-l3-supply = <&vreg_s8e>;
++		vdd-l4-l5-l6-supply = <&vreg_bob>;
++		vdd-l7-l11-supply = <&vreg_bob>;
++		vdd-l9-l10-supply = <&vreg_bob>;
++		vdd-s8-supply = <&vph_pwr>;
++
+ 		qcom,pmic-id = "e";
+ 
++		/*
++		 * s1e-s2e (smps1-smps2) is cx.lvl
++		 * s3e-s4e (smps3-smps4) is VDD_APC1
++		 * s5e (smps5) is VDD_APC0
++		 * s6e-s7e (smps6-smps7) is mss.lvl
++		 */
++
+ 		vreg_s8e: smps8 {
+ 			regulator-name = "vreg_s8e";
+ 			regulator-min-microvolt = <313000>;
 
 -- 
 2.55.0
