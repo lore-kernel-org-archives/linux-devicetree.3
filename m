@@ -1,130 +1,153 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 676504266B8;
-	Tue,  1 Sep 2026 13:49:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E49973A7F54
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 13:50:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788270557; cv=none; b=j2PR1ennL6OeuNtK0YcFYLx4q9+fbOPGZdPS5KcrymdnHcSuo2Jb76LdcUUU+gJJUSINqZXrJc4FN6acnL6mo3rGSR3WnWq9igciznku5L5PzKjav4kFo7MTGKLt3ToKV9i11Ikj4QLivFIXCaHXfHWkJmVYuT7QomuyepTOcXc=
+	t=1788270612; cv=none; b=dJzxNKuB1n4jceJUw4lzvIaM1boWeZkXYkIFpfrWvuqRr2W0JltHFawEEmt9BS/HubZEGMju+ehtHKTvNlqyIfNJrHNLzomrY1GbI120j2McIIBNa9DV+aCrJTuejn3INd1wavGBYn+nue22DY2yIR5GSNeEU8q95z+lN/ZHNtM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788270557; c=relaxed/simple;
-	bh=PVhpvelKtMWVVHcIFK38Lglxyc5enB4NZx9uwY/m/zs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RuvmdaojdAkuw+HSwaSatICcqSSkxB4gXmcQlx5iUQsorlfZm36WM7iMJp/+cQ85xLzINVSpRlVtRMsIvGlyGysv6FVoR8Q26m/mkqJNrUxHkPTIoJ3klnzHyR80T7XySIiVnh5ZI9GnH+7k+u/IptQFwyYQE+/vqP533ozt0vY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=BmPHjLdm; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788270612; c=relaxed/simple;
+	bh=OsPt/cT8BwFgc2l35blwbFE8qUUU6lxYABA1mI2KYMI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MQ85e+05wEw247YWISZ/HSbO7osHgRC0wCvB9eX0UWJfxkTDyoj9zUGKLiGHA2vB5zEYw8nvxnGHanY7Sb2i5C4V2PByUNT7t83oEqCp5Lto8Dz80g4tGeaj+qvXf1lcMSkldnj2546aMdtk9B3e+jfx34kNwJxMA3scUDy6vjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IbQAIwBu; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="BmPHjLdm"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=57RWwzvbEDf7DvtJW9GsWV6QWqUGcL9KWR4klLOP/3A=; b=BmPHjLdmp5W9SZiMNWvuxvdjCj
-	Wa9un9M1cecMTXAQROipZ+eaiy+P0Ic3OnFb76MwkN2bBLa66Z6TuTC3TsfDt94pdBw0UaGoMBezy
-	B3I32EJxW+9swJ09kjtNwPPvdOjptdI793sgwStqwh+HAIQ1q8OVQRXfODOcjrhAH7f8=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x1OrA-002Mbr-FD; Tue, 01 Sep 2026 15:48:56 +0200
-Date: Tue, 1 Sep 2026 15:48:56 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Jia Wang <wangjia@ultrarisc.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-	Jose Abreu <joabreu@synopsys.com>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH net-next 3/3] net: stmmac: Add UltraRISC DP1000 GMAC
- support
-Message-ID: <910be156-b631-4b62-972a-79d9a9e38697@lunn.ch>
-References: <20260901-dwmac-ultrarisc-v1-0-f19454814bcf@ultrarisc.com>
- <20260901-dwmac-ultrarisc-v1-3-f19454814bcf@ultrarisc.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IbQAIwBu"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-482fc3327fdso624165f8f.2
+        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 06:50:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788270607; x=1788875407; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rRkUL/OFvGAZqvO4fpwddKnaKIcFlaNkl3QdtF7lN4w=;
+        b=IbQAIwBu+tEfGMPQ1+svM+FGyovelvrq/0cEddxMBinDnctT3zegSABUeJY1wQLbwM
+         TMzC8OQOBWA4ionx/8UBXq71wa1DP3zAV4cXBMJPTiIj2SGRBun4IUKVKgJYAc+Edf9Y
+         KapAI2uETKir9xLLG6Spac4CgVu6eRZsakJ+nqTpCdhyU9U5E4aIipxLGfT1+9FHdUb3
+         7Oibxt0S5KtWssiwZd2ffP8zbEG/CwF4GC6oHhekg0O6xI83Ri/oiC84tQKof05oBgcJ
+         cwnvhLWpPAUVvl+QajZD/n+PssY32HpRzNteojNfwKjRKrNVljsrdbobnQDrXE4TL6SQ
+         T6ew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788270607; x=1788875407;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rRkUL/OFvGAZqvO4fpwddKnaKIcFlaNkl3QdtF7lN4w=;
+        b=NPNkyw1yQGeSc/F6UO2ug8YzzvdtdGM2+0OTJKxTm25kAZ/rgau+qYFMbXS7euIUT3
+         p+KSnFW0O4xWLGscskKbNiOyCQskG/Fm+01PPfEYcuM8AI4+J//d35p/iqi9rTK+4zQj
+         AWIxvELle5IUqoGv3O4vIAeSHgR91jZmSs6FHF2uoL/msbDs40Lp60z5pp1b1rSl4sYa
+         FFGSzojJbnqOgKxXc1nAa/Yuvnm6er4zapi8GDmzfDNNB+jGW8Ze/GCMqTqy8h49P1YY
+         WN29xxiYksUQuNZlq9gk1X/0Ds3j6GTbzIIJOq1FUMGIjsHqPNpkepss4WFrtQ/ebY4p
+         YOLw==
+X-Forwarded-Encrypted: i=1; AKwUvBwGvZkVyLhoMTm51ot7GoJXMq1SXYjT/+Hyx64qiQX+zz0/bey0btXGGlak1MCB3afYZ19Uwwq2ffQ9@vger.kernel.org
+X-Gm-Message-State: AFuF++kZ9hS+klqqHXr5Fum7E00ZGdSOYxjGt+zgvzts2LerCcY+Bs0V
+	bOWjTcuDYPvpZfYCusYG1f4ldFgI3JQqd15xZSWpU1Z7wn1mEdhWBYq0
+X-Gm-Gg: AYBFou3Zvt4tSpD9LZC2fkUDlKxqpkU39lEPFTklcC2Uj8NdPvNB4HayCvnDt+tHR4K
+	QHpCC5ZNNm94Yqlf5OPOaBfZuca6AS+bouz6MMIOL8+0+mQCgzlgLQtD+sF/Tgcd+EduNnIVtbA
+	SUe9r+ARTm63zlhoViU9YwH4WWdQzNlcpg748bzDhG7c01tCAcs8c6PHk7pAXpusy6ODQG2XdvI
+	2i4VFcpKlDPnT8rMmwC91hvvqivZrBzM4tb1Tz0HrYzpmy/juYcfrOrY2c9q0S1B1hNpxXVRg2n
+	vobiQQuE3LxHB5VNYm2gzJzyqloE3gzJmG+fHA+PB99fiL6xUpYSysIPkqTz8pExoRoeLvKp+B8
+	bBbu2mwFHSO34pqkloaiqitlzl9+oA46VnPa+Z1fSlQHhArsEw+/RHVuKktL5sBhM9r4fSiPlgf
+	Sfsa8hvLmoZW9RHiKChT/OdRp7iiSCwxAw53fYUoV4IWP0MwfJShCJeY3ZBvrCUNv2VwzX2zrr6
+	YBdCzKvUpZa96TyFSws0VEmMR3PdiM=
+X-Received: by 2002:a05:6000:4548:b0:484:4789:9bb8 with SMTP id ffacd0b85a97d-48447899d60mr2616212f8f.2.1788270606921;
+        Tue, 01 Sep 2026 06:50:06 -0700 (PDT)
+Received: from [10.25.209.52] ([128.77.115.157])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48442d6dc16sm3988721f8f.20.2026.09.01.06.50.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 06:50:06 -0700 (PDT)
+Message-ID: <9e6de8ae-aca6-41ac-bcef-f591d9fe8462@gmail.com>
+Date: Tue, 1 Sep 2026 06:50:05 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901-dwmac-ultrarisc-v1-3-f19454814bcf@ultrarisc.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] arm64: dts: freescale: add MR-NAVQ95 basic board
+ support
+To: sashiko-reviews@lists.linux.dev
+Cc: Frank.Li@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev,
+ conor+dt@kernel.org, robh@kernel.org
+References: <20260901131918.1189-1-laurentiumihalcea111@gmail.com>
+ <20260901131918.1189-3-laurentiumihalcea111@gmail.com>
+ <20260901132721.9559B1F000E9@smtp.kernel.org>
+Content-Language: en-US
+From: Laurentiu Mihalcea <laurentiumihalcea111@gmail.com>
+In-Reply-To: <20260901132721.9559B1F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-> --- /dev/null
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-ultrarisc.c
-> @@ -0,0 +1,54 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * UltraRISC DWMAC platform driver
-> + *
-> + * Copyright (C) 2026 UltraRISC Technology (Shanghai) Co., Ltd.
-> + */
-> +
-> +#include <linux/module.h>
-> +#include <linux/phy.h>
-> +#include <linux/platform_device.h>
-> +
-> +#include "stmmac_platform.h"
-> +
-> +static int ultrarisc_dwmac_probe(struct platform_device *pdev)
-> +{
-> +	struct plat_stmmacenet_data *plat_dat;
-> +	struct stmmac_resources stmmac_res;
-> +	struct device *dev = &pdev->dev;
-> +	int ret;
-> +
-> +	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to get resources\n");
-> +
-> +	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
-> +	if (IS_ERR(plat_dat))
-> +		return dev_err_probe(dev, PTR_ERR(plat_dat), "failed to parse DT parameters\n");
-> +
-> +	plat_dat->phy_interface =
-> +		phy_fix_phy_mode_for_mac_delays(plat_dat->phy_interface, true, true);
-> +	if (plat_dat->phy_interface == PHY_INTERFACE_MODE_NA)
-> +		return dev_err_probe(dev, -EINVAL, "unsupported phy interface mode\n");
-> +
-> +	return devm_stmmac_pltfr_probe(pdev, plat_dat, &stmmac_res);
-> +}
-> +
-> +static const struct of_device_id ultrarisc_dwmac_match[] = {
-> +	{ .compatible = "ultrarisc,dp1000-gmac" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, ultrarisc_dwmac_match);
-> +
-> +static struct platform_driver ultrarisc_dwmac_driver = {
-> +	.probe = ultrarisc_dwmac_probe,
-> +	.driver = {
-> +		.name = "ultrarisc-dwmac",
-> +		.pm = &stmmac_pltfr_pm_ops,
-> +		.of_match_table = ultrarisc_dwmac_match,
-> +	},
-> +};
-> +module_platform_driver(ultrarisc_dwmac_driver);
-> +
-> +MODULE_DESCRIPTION("UltraRISC DWMAC platform driver");
-> +MODULE_LICENSE("GPL");
 
-This looks to be 90% identical to dwmac-sophgo.c.
 
-Do you expect any further changes to this driver? Is everything
-supported? Are there more clocks? A GPIO for WoL?
+On 9/1/2026 6:27 AM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [Medium] Missing memory node in device tree
+> - [Medium] Missing USB controller and Type-C implementation
+> --
+> 
+> commit 3130a84e68bcdc800ca07e4c01ec3d00e67a37c4
+> Author: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
+> 
+> arm64: dts: freescale: add MR-NAVQ95 basic board support
+> 
+> This commit adds basic device tree support for the NXP MR-NAVQ95 board
+> based on the i.MX95 SoC. It defines initial aliases, chosen nodes,
+> regulators, and various pin configurations.
+> 
+>>    Add basic support for NXP's MR-NAVQ95 board. This board is designed for
+>>    robotics applications (e.g. drones, rovers, humanoids, etc..) and has the
+>>    following hardware feats (list is not exhaustive):
+>>    
+>>    * based on i.MX95 19x19 SoC
+>>    * 64GB eMMC
+>>    * up to 16GB of LPDDR5 memory
+>>    * 1 x USB 2.0 TypeC
+>>    * 1 x USB 3.0 TypeC
+>>    * 1 x RJ45 port with RTL8211 PHY
+> 
+> [Severity: Medium]
+> The commit message claims hardware features of 1 x USB 2.0 TypeC and 1 x USB 3.0
+> TypeC, but looking at the device tree file, it completely omits any USB nodes
+> or Type-C definitions. Will this leave the USB ports non-functional in Linux,
+> and should they be added to match the hardware description?
 
-I'm just wondering if the common code should be pulled out, or even
-dwmac-sophgo.c made generic so it can handle all plain boring devices
-which have RGMII delays and not a lot else.
+This is intentional. USB nodes will be added later on.
 
-      Andrew
+> 
+>> diff --git a/arch/arm64/boot/dts/freescale/imx95-navq.dts b/arch/arm64/boot/dts/freescale/imx95-navq.dts
+>> new file mode 100644
+>> index 0000000000000..1366dc2d2bfa4
+>> --- /dev/null
+>> +++ b/arch/arm64/boot/dts/freescale/imx95-navq.dts
+>> @@ -0,0 +1,222 @@
+>> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+>> +/*
+>> + * Copyright 2026 NXP
+>> + */
+>> +
+>> +/dts-v1/;
+>> +
+>> +#include "imx95.dtsi"
+>> +
+>> +/ {
+>> +	model = "NXP MR-NAVQ95";
+>> +	compatible = "fsl,imx95-navq", "fsl,imx95";
+>> +
+>> +	aliases {
+> 
+> [Severity: Medium]
+> Should there be a memory node defined here at the root level (e.g.,
+> memory@80000000)? Omitting the memory node breaks standard DT conventions for
+> root nodes and can cause boot failures if the bootloader expects an existing
+> node to update and does not dynamically inject it from scratch.
+> 
+
+ACK. To be fixed in V4.
+
