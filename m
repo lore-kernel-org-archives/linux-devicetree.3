@@ -1,51 +1,68 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D9A741228D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D89E40B0ED;
 	Tue,  1 Sep 2026 02:09:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788228604; cv=none; b=m+sLV/euvNJr74dKQUb+sjpAoWJqoPyzG6kMyNAmPiMJMwtvFknsnWPGtkAr2ZUcVNce4vlQ2wfks6JKR5yWyucAbKNkLRsrYGatioo1ZFgyaN0Vn9mC/VnfeTc7FIHs9HGIfGq71sMQf/VS2ZDeXT2dMqjHYqHJ/yD9PQHAgQg=
+	t=1788228604; cv=none; b=tSm3O10pxe+TYzxjbjAFzhWCMw6JxBYBwvAB4wxF46NtHNOIYX5vITS0mq+HthOFR+TKSZQYkOlb7dJeDPYMMtYWeiAsjHE51OeTNuEUK0c5fcVzYDNJLJ0/pLajn2QwanBK0a4o8+YFGJ0LFHfzfaenVT4f1NYetSnEgJoAwYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788228604; c=relaxed/simple;
-	bh=T6rVcFpbptNuAocO8+wf+SKPpMvzlxOroqBqUGBwwYk=;
+	bh=vM/b+8Lm9P5CL6sjrNCoXlhWVUIXWgvPTo9FewuChPY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=G6AOCNXxKKNIGwS7HVzThRLf6huRt9tXrYf+LsJwhVoRvjBYB8tJKhrTOEBm8zWXJTwG949vSMNxFenqaCOR3b7ZJyCi/paRsyYaHDxE4F7e9GBuEKU/BLO6zT0HXR4tBTt2TKGsWENYRqfFZT8CbQy4tKBnpAKie2Y5198E5zY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FWKqnJge; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=NglycMX5pNKdiyQnNIqAgacptc2TitpjcuP3or4VpL+HINYD+PyyqujXblmpvZ0BIfDoHEk8OAKCAsA8fs+CaMQ92+rwXr4igsFHV9pOqIPyGQbWRhhZl/0Gvu8UnGhrUXNimt7bCwBPzJn+U1IjcwBEH+ZvWWzZEkUNMbb70MY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ok2cON5q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FWKqnJge"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F11721F01559;
-	Tue,  1 Sep 2026 02:09:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ok2cON5q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B25EF1F00ACA;
+	Tue,  1 Sep 2026 02:09:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788228590;
-	bh=4KV35LRRzAcXDAA3Z+0TQPtonjANhHuOp9rk6IxOfQA=;
+	s=k20260515; t=1788228585;
+	bh=imccdf2g1mEFtExQXUXHUdzPH5T3kvgztV71j7lsVdk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FWKqnJge1xE0Rml4hZQcVnYKrL87GWnByb8yYviLuTY48xlmtRJMWoLJmJIj6PJpd
-	 QbYO0zI9bIB6rJEEHisTRaMpkQ9ltoD72fP88KNeD8T1HZeKaq8eLZztyBuel7IYBE
-	 DttXzhqs2z+rQ/y9gEKXildJBME2mppMEE0gD/Yp+KTYNFmjkne3NyziJiVXCtfiPs
-	 M/v9/05oVVdjOcH3E1bN1myVm3TDSrYOwB88ZQBw/gUgurKrKP+FT+dN4wn7g4F8t7
-	 ocG1GvqHfkMQRLlsO3VUFQwHP4x8RxMhP+MxgMj54okMyZ4YMe7eV50Oe+3eVeACqL
-	 cBsVnw1v7wnAg==
+	b=Ok2cON5qzJUYs6HC/WtGf6nOZ+S7sog1jx06koojWhYpFvB1VjXlpU+vazbj6ys6X
+	 5NaeODhTcaoc/Wr0vJz6n2tNSs+/7uMVVIQEQCklowwFfSRTC0jihy6WpRwsDFJhTw
+	 utAT3OmjhjG2VfvLkMnFdFm2RfAE/kQ8ugvNCpyBdAyxBm35bEexK2wsO88UXt6SxC
+	 J4hGZZQOjQ4lmZzuEyH0vh5MC4F1UfYUlc9dkyf+/VqvKRw7gSogBmSItmpuQXFjV9
+	 sOqkbnoqyFXwJhzmXg95gCfi/FksnNECfYMWhmofd+jCJDZA4TWyC3W77+LTsVw++C
+	 /fi4xgOjY/I9A==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Luca Weiss <luca.weiss@fairphone.com>
-Cc: ~postmarketos/upstreaming@lists.sr.ht,
-	phone-devel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
+	Ulf Hansson <ulfh@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Georgi Djakov <djakov@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Robert Marko <robimarko@gmail.com>,
+	Guru Das Srinagesh <linux@gurudas.dev>,
+	Taniya Das <taniya.das@oss.qualcomm.com>,
+	Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	devicetree@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
 	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Subject: Re: [PATCH v2 0/3] Sort kodiak pinctrl nodes & add camera mclk definitions
-Date: Mon, 31 Aug 2026 21:09:26 -0500
-Message-ID: <178822856240.1835959.8715553464184744009.b4-ty@kernel.org>
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v5 00/15] Add initial support for Qualcomm Kuno SoC
+Date: Mon, 31 Aug 2026 21:09:22 -0500
+Message-ID: <178822856270.1835959.15842744749902984423.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260717-kodiak-cam-mclk-v2-0-04451f1374bd@fairphone.com>
-References: <20260717-kodiak-cam-mclk-v2-0-04451f1374bd@fairphone.com>
+In-Reply-To: <20260827-kuno-soc-support-v5-0-6d47636a8f09@oss.qualcomm.com>
+References: <20260827-kuno-soc-support-v5-0-6d47636a8f09@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -56,22 +73,30 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 17 Jul 2026 15:19:31 +0200, Luca Weiss wrote:
-> First patch is just cleanup with no functional change, the second patch
-> adds some camera mclk pinctrl definitions for preparation of adding more
-> cameras on different kodiak devices. Third patch adopts the new define
-> for qcs6490-rb3gen2-vision-mezzanine.dtso.
+On Thu, 27 Aug 2026 23:21:03 +0530, Hardeep Sharma wrote:
+> This series adds initial support for the Qualcomm Kuno SoC and the Kuno
+> IDP reference board.
 > 
+> Kuno is a 32-bit ARM (Cortex-A7) Qualcomm platform. This series brings up
+> the essential SoC infrastructure required to boot to a serial console:
 > 
+>   - Global Clock Controller (GCC) and RPMh clock controller
+>   - RPMh power domains
+>   - Interconnect (NoC) provider
+>   - TLMM pin controller
+>   - PDC interrupt controller and SCM firmware interface
+>   - Devicetree for the SoC and the Kuno IDP board
+> 
+> [...]
 
 Applied, thanks!
 
-[1/3] arm64: dts: qcom: kodiak: Sort pinctrl subnodes by pins
-      commit: a732b12f1fcc65452075fdc49a481091d49d877a
-[2/3] arm64: dts: qcom: kodiak: Add camera mclk pinctrl definitions
-      commit: 98a69bf61a4be40d16d2f32a23c210ca9e3c38d4
-[3/3] arm64: dts: qcom: qcs6490-rb3gen2-vision-mezzanine: Use common pinctrl
-      commit: 63a202df997c3facf2bef43ae8697b79f63807d0
+[04/15] dt-bindings: clock: qcom,rpmhcc: Add Kuno RPMh clock controller
+        commit: e304e8919043712191462224ce9d40bb5f5a6bc1
+[05/15] clk: qcom: clk-rpmh: Add support for Kuno RPMh clocks
+        commit: 12918d595ac96b819b9c3ba0df4c6a4bf50c43a9
+[11/15] clk: qcom: Add Global Clock Controller driver for Kuno
+        commit: 7db06b5f624b583fa2206f98de8437819acada9b
 
 Best regards,
 -- 
