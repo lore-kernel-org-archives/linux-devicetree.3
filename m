@@ -1,153 +1,171 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08E9548124E;
-	Tue,  1 Sep 2026 16:33:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE46843DA5C;
+	Tue,  1 Sep 2026 16:41:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788280386; cv=none; b=o205QyeEY7qn68E610Z2BMgOq9tLTBADxncc2Jrt1nT6dbRCNfbaxfdWmFYCNGdJbwevsjp9j3tqrDL+GY7gJxMsV02jm4TtFXPHPC9d/yhkW3JRmogkoY9vuuQIDTe/XNkjAOGH4UTGOOgYLMpFnhlb2qT2l1sfsSV8HXaKaCE=
+	t=1788280866; cv=none; b=E/ePG8sVuWFTS865qUmV00YSerNWmno1PZzWNC9KEu4eMiJgyVnoYYWe+j4XjCi8bvpdwmCGGdqBSAf3ln2gsGSvdHQjZTg9a56cScGJoYLnh3nRH5lTxNCH8WBL7W2LSO4/4gmzNROJxY5vlvQ5GdWoJcZYr4YXNC5j7pak8qY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788280386; c=relaxed/simple;
-	bh=GxO6TxUuUy0vtN0rYZD1huC+39hD0vWWQF52HK3/5Jo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JXdv2AHO4hRnDidkhd/HGaRRL7tQ9rMJltwvLDEf4gVOSoOgkYo4X88QQjZVyv0VeY7Ij5UNNKXsAOhC6L4nVJ+ohqLirID4g2xEvytEz2tE3gqVlB2Jtbufhf5WpzGldI1mmhVC8miTzyaVOg1pK2yY4uDLvXPxKFeTPW8SL/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dwz3dSFU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788280866; c=relaxed/simple;
+	bh=hbYcEZ5t1jKLdhhzBsDiDxzVfK9mLxWF7x5pUlvRtKw=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=j++LC9OWTbYbnqHvh1Lso70So+n20xllTUJqP0jN8qhiWoptwRboSIe9gfmivsYUTGUvBk8tjOXLrPhlhcPz7Ho9yxag+QLypoOpa6PQB60umy8PKSyIVJbxL0+XzKEg5vNVw+Egcwxl+4RJE8UVjQJJHaClOhNU6FTyodsO2k8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GdR5JF/D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dwz3dSFU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D8841F000E9;
-	Tue,  1 Sep 2026 16:33:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GdR5JF/D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3AA21F000E9;
+	Tue,  1 Sep 2026 16:41:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788280384;
-	bh=YJz8BbL1/lzpe86MseU3HV4c3Tlb2GBXlla8B3STk6E=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Dwz3dSFUTdbRNrChSM+WsLO1oh0ND20nFVKk7cgOmzW4m4it5LUcIn2LynWsVSMUT
-	 4Po+kO3m34cG4NCpmuB6clIKEVlsdVGHx6bbmWFtAJVHrt53BHdqvlFhHRXJOeVTRX
-	 ZSlIMKX90VijLCUsG7ZTDjmtUA+3CBqUpmO+oOIHBQ/8iO6Nodndkj5NAZ233lFO3Q
-	 WuHSIKu2cU8Ok4CeCOst5G1EQJXhshwoekaFLez1XX1oqI+v9vJXct6BUSaqHd9RW3
-	 hOt9CI4QgFeDoj1JLGUQo7Bj84U5DiZfruNPgxlUdSdrCpnUAmlFCodgbQtxxEndVE
-	 AQBIeA9wDJ9pA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 21/24] scsi: ufs: mediatek: Back up idle timer in
- per-instance struct
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-phy@lists.infradead.org, vkoul@kernel.org, linux-scsi@vger.kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, conor+dt@kernel.org
-In-Reply-To: <20260901-mt8196-ufs-v11-21-dbd007704490@collabora.com>
-References: <20260901-mt8196-ufs-v11-0-dbd007704490@collabora.com>
- <20260901-mt8196-ufs-v11-21-dbd007704490@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 16:33:03 +0000
-Message-Id: <20260901163304.6D8841F000E9@smtp.kernel.org>
+	s=k20260515; t=1788280864;
+	bh=BquFv9yL+oqsu0iQAMjKTxvhkEp4Ce4d3z7hB0ao2xo=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=GdR5JF/Dmj2wZevDdv7KegcbJudOgutQNKy34uQpxez/dctKOb4zz44h2Rz2TRcx6
+	 2yMFhiM3AtvWh9Xf1VJbO10cn490cDPuoPpnVkrVhDfjTLKITznz01zuqMkxE05Tf/
+	 VZZrp2J7/0GV1N1eatTN5GALxUHhWzqHvGd0VhB+PzGGm3W4AFHIXZrZpTkWaUFne0
+	 KCxb2F5pHoP8TjHsSVgMIJoQVlgdc7RMH2UueUBQjUHFKSRoozXlk8GEbX33rL1/Ft
+	 jrWZ54OkKEdLaztPBClepf3fv3w1MXV7aX9JIWN2IkL6TGj3xrHynhtNEywifxiVDJ
+	 zIpqgDsXN7l4w==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4 4/4] iio: accel: adxl367: add support for INT2
+ interrupt pin
+From: Jonathan Cameron <jic23@kernel.org>
+To: Antoniu Miclaus <antoniu.miclaus@analog.com>
+Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org, 
+ linux@analog.com, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260831083122.3486-5-antoniu.miclaus@analog.com>
+References: <20260831083122.3486-1-antoniu.miclaus@analog.com>
+ <20260831083122.3486-5-antoniu.miclaus@analog.com>
+Date: Tue, 01 Sep 2026 17:40:47 +0100
+Message-Id: <178828084760.2788519.15283878760227392025.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3722;
+ i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
+ bh=hbYcEZ5t1jKLdhhzBsDiDxzVfK9mLxWF7x5pUlvRtKw=;
+ b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqlwASftjEjfF3ZyUA6ese3Ya24ehr89RVnfPPx
+ ORps2fw6wiJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCapcAEhEcamljMjNAa2Vy
+ bmVsLm9yZwAKCRBUhTSZxPQWiB45D/99eOXNRUuVsk/PP5iZpNLacTHlahYX0ZZvUJkbAkb1tHU
+ ukpiURwyRIdyBIGVR8fsZunhVk9NOtHcFP+siR937JMzYgqt+49Gujb40nyRJIpelHsRSoHjglg
+ 3FkjgfXpFn6YTZjI50elzyx/iSAdf0YvZUKGb5DO0rSPaOMNZM2L/qeFLdmVBN9Abo6L8b+CNtQ
+ 58+vnZvqz5YNJWbl/EpRWcKKJRu5+IoN585yCGwlC9JY7Uj1z37SKVfIx6LzE5AZImg4TsWrVXx
+ EPEROwS67pv878cse9YGVcbp24MUL7OnKf4BPka0HlJy1goASt2uo4Wv/d9ZYvnXjEb+7tecVMA
+ aZKaW8Wi185FYinTLm4VKUG7Kk+b7K8w1JNbXFLQYK8GLUwIH7i05ee2zewoi+oluk5WOmvIGkP
+ a4/aGQMS5KVA5V8ZP3EvNnnkZy4O1D8Aw5HM6kd34TMRBL0SnvwfYt+eitplrXwvqXZSYVmTH8M
+ oPmaBXntVs5S0wU5iw5zVO5aHpI1krZzQbkTlP/A4q8Vz6VMJwaNBJrRvQiJumTilTqomIePcx6
+ tdSDxhHDFYlT2166a2yC+lE6AtNTDgFpEXu3aJN2aa2MWgk8kguU/WnFP/7RnPTEpqJ+QEZsRMy
+ VwZ4o15VssTpK5iZjioHPJChp6/h4FyCAjrj7pg==
+X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
+ fpr=6E2966B387840652912681B154853499C4F41688
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+> The ADXL367 provides two independent interrupt output pins, INT1 and
+> INT2, each with its own event mapping register (INTMAP1_LOWER at 0x2A
+> and INTMAP2_LOWER at 0x2B) sharing an identical bit layout. Until now
+> the driver hardcoded INT1 for all interrupt mappings, so a board that
+> routes only INT2 to the host could never receive activity, inactivity
+> or FIFO watermark interrupts.
+> 
+> Determine the connected pin from the interrupt-names device tree
+> property using fwnode_irq_get_byname(), and route the interrupt
+> mappings to the matching register. Use the interrupt number returned by
+> the lookup for devm_request_threaded_irq() so the requested line always
+> matches the routed INTMAP register, regardless of the order in which the
+> interrupts are listed. When no interrupt-names are present, default to
+> INT1 and the bus-provided interrupt to preserve the existing behaviour.
+> 
+> Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
+>
 
-Pre-existing issues:
-- [High] A failed power mode change will permanently disable the auto-hiber=
-n8 timer due to brittle backup/restore logic.
-- [High] Concurrent sysfs write to `auto_hibern8` races with power mode cha=
-nges, circumventing hardware constraints and losing user configuration.
---
+One follow on thing to look at via sashiko.
 
-commit dec217a616e37a6d6c6074f353ace1fc743596e2
-Author: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Otherwise, this looks good to me, but given the active discussion on previous
+version I'm not going to pick this up until plenty of time has passed
+or tags have been given.
 
-scsi: ufs: mediatek: Back up idle timer in per-instance struct
+> diff --git a/drivers/iio/accel/adxl367.c b/drivers/iio/accel/adxl367.c
+> index b4e8dc6d6a5c..9b47e66c49ea 100644
+> --- a/drivers/iio/accel/adxl367.c
+> +++ b/drivers/iio/accel/adxl367.c
 
-The MediaTek UFS driver uses a function-scope static variable to back up
-a hardware register across a power change in the
-ufs_mtk_pwr_change_notify function. This is dangerous, as it's only
-correct if only ever one instance of the driver is loaded, which isn't
-true if there's more than one device on a SoC that needs it, or it
-otherwise gets loaded a second time.
+> @@ -1430,6 +1434,36 @@ static int adxl367_setup(struct adxl367_state *st)
+>  	return adxl367_set_measure_en(st, true);
+>  }
+>  
+> +static int adxl367_set_int_map_reg(struct adxl367_state *st, int irq)
+> +{
+> +	int ret;
+> +
+> +	/*
+> +	 * Route the mappings to whichever of INT1/INT2 is named in the
+> +	 * interrupt-names property. -EINVAL (property absent) and -ENODATA
+> +	 * (name not listed) are not errors; anything else is.
+> +	 */
+> +	ret = fwnode_irq_get_byname(dev_fwnode(st->dev), "INT1");
+> +	if (ret > 0) {
+> +		st->int_map_reg = ADXL367_REG_INT1_MAP;
+> +		return ret;
+> +	}
+> +	if (ret != -ENODATA && ret != -EINVAL)
+> +		return ret;
+> +
+> +	ret = fwnode_irq_get_byname(dev_fwnode(st->dev), "INT2");
+> +	if (ret > 0) {
+> +		st->int_map_reg = ADXL367_REG_INT2_MAP;
+> +		return ret;
+> +	}
+> +	if (ret != -ENODATA && ret != -EINVAL)
+> +		return ret;
+> +
+> +	/* No INT1/INT2 named: default to INT1 and the bus interrupt. */
+> +	st->int_map_reg = ADXL367_REG_INT1_MAP;
+> +	return irq;
 
-> diff --git a/drivers/ufs/host/ufs-mediatek.c b/drivers/ufs/host/ufs-media=
-tek.c
-> index f405f511f41fd..4782fdf54866b 100644
-> --- a/drivers/ufs/host/ufs-mediatek.c
-> +++ b/drivers/ufs/host/ufs-mediatek.c
-> @@ -1441,27 +1441,24 @@ static int ufs_mtk_pwr_change_notify(struct ufs_h=
-ba *hba,
->  				enum ufs_notify_change_status stage,
->  				struct ufs_pa_layer_attr *dev_req_params)
+I'd like to explore the helper idea for this, but it can be a separate
+series when someone has the time.
+
+> +}
+> +
+>  int adxl367_probe(struct device *dev, const struct adxl367_ops *ops,
+>  		  void *context, struct regmap *regmap, int irq)
 >  {
-> -	int ret =3D 0;
-> -	static u32 reg;
-> +	struct ufs_mtk_host *host =3D ufshcd_get_variant(hba);
-> =20
->  	switch (stage) {
->  	case PRE_CHANGE:
->  		if (ufshcd_is_auto_hibern8_supported(hba)) {
-> -			reg =3D ufshcd_readl(hba, REG_AUTO_HIBERNATE_IDLE_TIMER);
-> +			host->ahit =3D ufshcd_readl(
-> +				hba, REG_AUTO_HIBERNATE_IDLE_TIMER);
->  			ufs_mtk_auto_hibern8_disable(hba);
->  		}
+> @@ -1486,6 +1520,11 @@ int adxl367_probe(struct device *dev, const struct adxl367_ops *ops,
+>  	if (ret)
+>  		return ret;
+>  
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does this brittle caching lo=
-gic
-risk permanently disabling the auto-hibernate feature?
+[Severity: Medium]
+Since fwnode_irq_get_byname() inside adxl367_set_int_map_reg() can return
+-EPROBE_DEFER if the interrupt controller is not yet ready, will placing this
+lookup after adxl367_setup() cause repeated boot delays and leave the device
+powered up on deferral?
 
-In ufshcd_change_power_mode(), PRE_CHANGE is called first, which reads the
-hardware timer value and disables it. If the subsequent
-ufshcd_dme_change_power_mode() fails (e.g., due to a UIC command timeout),
-POST_CHANGE is bypassed.
+Looking at adxl367_probe(), it resets the hardware, sleeps for 15ms, and calls
+adxl367_setup() which powers up the device into measurement mode.
 
-This leaves the hardware timer physically disabled (0).
+If adxl367_set_int_map_reg() then returns -EPROBE_DEFER, the probe aborts
+without an error cleanup path to power down the device.
 
-On the next power mode change attempt, PRE_CHANGE reads the now-disabled
-value (0) and overwrites host->ahit with 0. When POST_CHANGE eventually
-succeeds, it restores 0, permanently disabling the feature until a reboot.
+Could this software resource acquisition be performed before the hardware
+interaction to avoid unnecessary boot stalls and power leaks during probe
+deferral?
 
-Could we instead restore from the core driver's hba->ahit, which reliably
-tracks the configured value, rather than caching the physical hardware state
-here?
+-
 
-> -		ret =3D ufs_mtk_pre_pwr_change(hba, dev_req_params);
-> -		break;
-> +		return ufs_mtk_pre_pwr_change(hba, dev_req_params);
->  	case POST_CHANGE:
->  		if (ufshcd_is_auto_hibern8_supported(hba))
-> -			ufshcd_writel(hba, reg, REG_AUTO_HIBERNATE_IDLE_TIMER);
-> -		break;
-> -	default:
-> -		ret =3D -EINVAL;
-> -		break;
-> +			ufshcd_writel(hba, host->ahit,
-> +				      REG_AUTO_HIBERNATE_IDLE_TIMER);
+This obviously isn't new, but it might make sense to turn the device
+off at least.
 
-[Severity: High]
-This is a pre-existing issue, but does blindly restoring this cached value =
-risk
-losing user configuration and violating hardware constraints during a race
-with sysfs?
+Can be a follow up patch.
 
-When ufshcd_devfreq_scale() changes power modes, it holds clk_scaling_lock =
-and
-scan_mutex, but does not acquire hba->host_sem. Concurrently, a sysfs write=
- to
-the auto_hibern8 node invokes auto_hibern8_store(), which updates the hardw=
-are
-register under hba->host_sem but without holding clk_scaling_lock.
-
-If a sysfs write occurs immediately after PRE_CHANGE disabled the
-auto-hibernate timer, the timer is re-enabled during
-ufshcd_dme_change_power_mode(), violating the constraint this function is
-trying to enforce.
-
-Furthermore, when POST_CHANGE executes, it overwrites the register with the
-stale host->ahit value, completely undoing the user's sysfs configuration.
-
-> +		return 0;
->  	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901-mt8196-ufs=
--v11-0-dbd007704490@collabora.com?part=3D21
+-- 
+Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
