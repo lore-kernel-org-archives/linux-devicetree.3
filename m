@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B8D4471D04
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 08:03:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 337E447126E;
+	Tue,  1 Sep 2026 08:03:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788249808; cv=none; b=nT3DCL6ivsYCx9HUgtjkpYRPfi3MYve70aJ1IJO6le6Vm8ObbMSBGWwoN1VTRCG1wgsnStNJTx+3cRTpoXuVDBAgQzVQHm+W3NC2iKu6NU6jJCVaTLYamYeiRzOKSdAJxmPOuM1Pqt7rYXBv3M+G6IfkWRqiywlNArwMOHhTKi0=
+	t=1788249818; cv=none; b=i1qaAMXFADRLFAxawZPI2tFpi2BJZnXgHfvAbHI8BtH3XUnouFpQLNvAldpWkScxOhhDo+toI8An7P6JjDMxpK5iMNMZMiwY1zNCb/OrxCRfHE8a5XjhsHcDdR7inmGavbNZ48cC1X6PvOn8KW5iw08NonnX106nJI4Wbw3RvYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788249808; c=relaxed/simple;
-	bh=prhW1xlCzcFF0QgII5uxoF0RRTvi8Tzz6G26Y5joqDU=;
+	s=arc-20240116; t=1788249818; c=relaxed/simple;
+	bh=RU6diuHJKS/aoFWyd2y6MmciRgNQLDVdpJV4o967oC0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NzOGGSKJ5tC6YaURONSHTEpnML1qAqhFMrSXt5edcuZ8t7hjnaSNMtJKq6IuwiKNqfjkxnBU9bRAV2XI+EsuLoYdPbWYpfY5l1t5xauowcd8TJo2XgNzpgS8zhq4jpP6oMVdCwRQL1RxRLkIAJw2YsDO9zACUjca2s6dgXaBa3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ck3KZCGb; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=qBj2QaIrINqhgCiRbZmU5QWhZHT3lYEPzWvNLIucheH0y8c7xgjR3vJ6AQLRDqtU4/uWC241vnqblNNRCqfNDWDMJ8aKyxf/UewLKZNUVu/d8La3uVZtH44S+gpsLXvrGTr7gwy1PUKHApbyEPW88oL5Q8kBDJl7kiD9LN7viXE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jFdK7c6v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ck3KZCGb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A22A1F000E9;
-	Tue,  1 Sep 2026 08:03:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jFdK7c6v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 665A31F000E9;
+	Tue,  1 Sep 2026 08:03:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788249805;
-	bh=QzXruV8CaxdOV7nV77ZI3qbQe+pjX5mA9UgaH8eoiEU=;
+	s=k20260515; t=1788249816;
+	bh=BLJXOaxHqeNcfPLBq53jPT6Zj/HhLidLeWmVbD+NYl8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ck3KZCGbUWkJxHu3xX3rnwSPXp2kpNLHYC1D138JKAenwTpCztTKNfpbB1xiB7qDx
-	 rzd+Vk86nMhzuqLAaTsDOLp+oUxrL/Ja/Kg6/ZyOq+wuJSZ+VIMmANrn78A/8MXfIN
-	 XRk8rtXmcTqO2ZMReFlX3v8q8X3uk2TJtKZU+OLtJ+gD25gTIzUhv4mniDQuaFO4fw
-	 Z+cgFp9OXtOiBwHuKeHuwTErNqbePDyflomVUj0498+bJ7NuykgtVtEjZgrmKQBm7p
-	 bsu25XBLuot4rX/GL4nvI4jD3dDtvbo3k2yRj7ZRWa1UKnDhO67V5qCVhlyUA+FW9o
-	 LSUZYq10TxJMA==
+	b=jFdK7c6vz24CU/CWXUOYXdMHFuTRe7HpaVU2YvDWzW2NY+90EEtyoAvczTOFvVdJf
+	 1Ou3E3a7IrEIdICW4bx3Wn7vU+7od0hBbDr/CNmSULCW0utgTkAXzFcdkZX0c0pkp7
+	 pG9K4OuNZuft2gu0C1QPXMzIygne6iotcyUc3LRpqDD47xtJsDRXInNyyoQ0Lz8AuN
+	 e0NOwvEWpQCY/wzkp5Z6Dnt57HqJGXES/m1eJ1WVhsxeJ2Vd3OeEv3H43c9KGDZyT0
+	 j0wQtrrgVYrBUdjE6O7/VMJcb6eoLZNRtamElbIIUhfY1tCussnIsRqX3/x3UVRZH2
+	 C9qrCZm+Vmk4g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND v3 1/2] dt-bindings: media: i2c: Add Samsung
- S5KJN5 image sensor
+Subject: Re: [PATCH v6 1/8] regulator: core: Add "enable and wait" functions
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wenmeng Liu" <wenmeng.liu@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, devicetree@vger.kernel.org
-In-Reply-To: <20260901-sk5jn5-v3-1-17e728917bd4@oss.qualcomm.com>
-References: <20260901-sk5jn5-v3-0-17e728917bd4@oss.qualcomm.com>
- <20260901-sk5jn5-v3-1-17e728917bd4@oss.qualcomm.com>
+To: "Chen-Yu Tsai" <wenst@chromium.org>
+Cc: dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260901074930.764550-2-wenst@chromium.org>
+References: <20260901074930.764550-1-wenst@chromium.org>
+ <20260901074930.764550-2-wenst@chromium.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 08:03:25 +0000
-Message-Id: <20260901080325.7A22A1F000E9@smtp.kernel.org>
+Date: Tue, 01 Sep 2026 08:03:35 +0000
+Message-Id: <20260901080336.665A31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,53 +46,69 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Mandatory power supplies are omitted from the 'required' list.
+
+Pre-existing issues:
+- [High] Mismatched timebase used for `last_off` initialization, which brea=
+ks `off_on_delay` semantics.
 --
 
-commit b2a07d6873604e9daaa63bfab639ae1468786baf
-Author: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+commit 4cf0bd57fa8e1cfa65a0e290c2b4a44f43cb23db
+Author: Chen-Yu Tsai <wenst@chromium.org>
 
-dt-bindings: media: i2c: Add Samsung S5KJN5 image sensor
+regulator: core: Add "enable and wait" functions
 
-This commit adds the device tree binding schema for the Samsung S5KJN5, a
-50MP 10-bit RAW MIPI CSI-2 image sensor controlled via I2C.
+In device power sequencing and initialization use cases, it is common
+for the driver to enable the regulator and then wait for a certain
+period of time to pass before continuing. In cases where the regulator
+supply is always on, or has been turned on or left on by another consumer,
+the driver could shorten the delay or skip it altogether, provided that
+enough time has already passed since the regulator was actually turned on.
 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/samsung,s5kjn5.y=
-aml b/Documentation/devicetree/bindings/media/i2c/samsung,s5kjn5.yaml
-> new file mode 100644
-> index 0000000000000..fedb274679cd1
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/samsung,s5kjn5.yaml
+> diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
+> index 6a4008f387b5e..d7a193a3bcb28 100644
+> --- a/drivers/regulator/core.c
+> +++ b/drivers/regulator/core.c
+
 [ ... ]
-> +        required:
-> +          - link-frequencies
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - port
 
-[Severity: Medium]
-Should the mandatory power supplies be explicitly included in this required=
-=20
-list?=20
-
-The properties block earlier in the schema defines vddio-supply, vdda-suppl=
-y,
-vddm-supply, and vddd-supply. By omitting them from the required list,=20
-dt_binding_check will incorrectly pass device tree nodes that miss these=20
-physically required hardware power supplies. This allows incomplete hardwar=
-e=20
-descriptions to be accepted, which can cause the driver to fail during prob=
-e=20
-or rely on dummy regulators, thereby breaking proper power management.
-
+> @@ -3061,6 +3108,8 @@ static int _regulator_do_enable(struct regulator_de=
+v *rdev)
+>  		fsleep(delay);
+>  	}
+> =20
+> +	rdev->last_on =3D ktime_get_boottime();
 > +
-> +unevaluatedProperties: false
-> +
-[ ... ]
+>  	trace_regulator_enable_complete(rdev_get_name(rdev));
+> =20
+>  	return 0;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but since you are working with
+timestamps in this function, could this timebase mismatch break off_on_delay
+semantics?
+
+In set_machine_constraints(), last_off is initialized with the monotonic cl=
+ock:
+
+	rdev->last_off =3D ktime_get();
+
+But earlier in _regulator_do_enable(), the remaining delay is calculated us=
+ing
+the boottime clock:
+
+	ktime_t end =3D ktime_add_us(rdev->last_off, rdev->desc->off_on_delay);
+	s64 remaining =3D ktime_us_delta(end, ktime_get_boottime());
+
+Because ktime_get_boottime() includes suspend time and ktime_get() does not,
+the required delay is bypassed entirely if the system has accumulated suspe=
+nd
+time greater than the off_on_delay.
+
+Will this lead to hardware sequence violations and incorrect functional beh=
+avior
+unconditionally for any regulator with an off_on_delay registered after the
+system has been suspended (such as via hotplug or module load)?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901-sk5jn5-v3-=
-0-17e728917bd4@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901074930.7645=
+50-1-wenst@chromium.org?part=3D1
