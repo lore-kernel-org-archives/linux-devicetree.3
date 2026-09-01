@@ -1,108 +1,222 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6808F36606B;
-	Tue,  1 Sep 2026 07:43:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8550A3BE636
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 07:49:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788248640; cv=none; b=IDKtMJtATSgjRAvLk2udeNqiOYb/5UWpnuhMRN/9vjj5fzVSJx2XSZxamsPW01ajPwKffxpoVojSMNP2i8zTZFnWHOlhGOnLOaFEqIusy6zOteV4L+wjzBC7T1oPcwVC9dWFKVwkoALN5nmE32QLnlJHIYQeh3x/b1Vx4h0Q2BA=
+	t=1788248992; cv=none; b=tDwYOxcP4+JeWi2QtxjtziYYHlCGtuD0VzUZ0kdmLcHW3hOEwyhTGI6X9TxwQtV58RcUuLs1Oz0yw+szgjTqaYRRAUOnYyINyubnbRKQxvX5Mm9s4YDIvBR8bKO6SZO814S4BcYXJGPjB6A3sxMSfykYP8S5H5Wi5keSAU0ADpA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788248640; c=relaxed/simple;
-	bh=23MEUiek+8f+VaOu4ez1Qqr+tEDb5JGFf45CrX9anlc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DgWboIjMj/Gwg9vleOHaZPmLyKHfrHoN8qsZPE+JEWyPPJoKJZH3V1fFZ7iS2L9bUCMuyA5zzM+0kHDAgZSd/NvSVaMi+xxEb5zOX1DOq3or1WHKslwgdIx9POJCXwhkYJh6XGaX+bbTouHXJXIH3YP9kG5v/r43ChtcCsKK52U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=fpChyKXU; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1788248992; c=relaxed/simple;
+	bh=KvANuwyiv8DCexxCu/aQYT4W/sj7Sy7QAkbUJMUn/G8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FFvnIbseYKcdt1X+1r+ILnLfhVA12ryeKaDj+EU5RMzfHnWP8B7MqxpnQDpWML/ofVNf0sak6PXl2pGahXkYH79LMfz9tpNI1UdeZWM4yIq2y78dG5ggJbHxSxLYtFuaJFMi9dkDUA0LINcItv94nw6OBfrNcTsOfoYZJfC6ANI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=H5ZhdL0i; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="fpChyKXU"
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7305A22B;
-	Tue,  1 Sep 2026 09:42:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788248538;
-	bh=23MEUiek+8f+VaOu4ez1Qqr+tEDb5JGFf45CrX9anlc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=fpChyKXUP4yuQGR9dVLhuBh8jiFCp8fj42Gvq6MeIeP/2SUVYU0Jq/HBWwOhHibnx
-	 6qITDhowNTKXddkFVxpEEJSDzqO3VBvaoqrkDiBHYvtwxDc2srbypCSbxBmNdkRNYb
-	 4bKhXEx4QT/xFMWLVGDkAqWQ5AKA6J3whoF3YFBI=
-Message-ID: <16626ec7-d1ec-4a54-ad1b-a59790cd33e8@ideasonboard.com>
-Date: Tue, 1 Sep 2026 10:43:44 +0300
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="H5ZhdL0i"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d710632717so38240235ad.0
+        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 00:49:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1788248990; x=1788853790; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KfyZyO9Nh/74YiXm8QLieiH5kTcxaWjtqwY5nnPQU9w=;
+        b=H5ZhdL0izP7LtUL3yM5sTR3c+XLps63TQhteyfJUdTaPMU0HHKvODr2xNDGR1dvr12
+         g8GFCSGAaxpDDrEog5kLMvYs+SCmmfUhLMuWZ5/nZwVEWx208EVDeVmgP+/EAeuhpx7J
+         gzSBoUfLxUohFdGJVyuCWvfzjOu9pjHJNDijE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788248990; x=1788853790;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KfyZyO9Nh/74YiXm8QLieiH5kTcxaWjtqwY5nnPQU9w=;
+        b=Ad3f8QVy+/4QY3yjOf9H/Ts1WoC1ENh6MD/PPgbwlr029TQ1/uLeq+bsxvsn7F1noB
+         Vm1gw1u2WVHDXagLvusuVZhCyqaIGcJcyDLov+mIHR354F07E/7VjT4Db5BMialbDrz/
+         YnIye8xCztieL2rylN3BwRx2yH8fhWpjjnml5PM2H7fU8+QMT4PgEkt7T6j/esWAy40k
+         6RZeztgEwj+p1LFV3t9ML4UrCy+9CxWkPkOeSb/r77t0EXepgqOZtKLJTt1Mw7a9F2hz
+         5i6hwTI4GjNQ/rB6mPAMemOWlBOgxhx/nrcs/MuZ1+8eKyiX7UQSI6QCZPlo2ZFMW/cM
+         nbJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw2dfXbR5U9DLonvkKxGqYJI6WTjraYZjabUPnHINbgEtI/5HedpET2Tu1a33pkUcHFyFrIv6l0xQT1@vger.kernel.org
+X-Gm-Message-State: AFuF++nfRMmrxRTk2Tvk1DvUJyBMofFng0PzceBNZVy24wN2UTJKPO1t
+	puL71iZ6VJnWw+0Z/3sS/rxdBrZydJMdRCCT0GhdaPFlxtthYqlkwI/q3I6nPMeb2w==
+X-Gm-Gg: AYBFou2vZTpRAG0RPuPnGitO6Br+wMIvRCcgywZ2xiK5h9HW0AFGY6SiJtuJSzQn8hn
+	NsjyT1DssGxgoqSm6WM7MRoTiEjZlejjbWInTGXRu8XBysttlCfLpwX38SNudagIDHiImu9ocfH
+	JWgTdb3ZWj3glCgnWUXy6gw9Marwl9KHwGleFxpEidqB0AFqbrAf2IQZjXweyUplJGPhs4gk2e3
+	Mzg04esJj2xnp4TRq2ILWIOTL+v8ojZgfoPx5UKNBRX9CgYbKvHZc8gU6Ws4pOqCAiPOP9DP3Eh
+	t89wfXqqpYQg7JXDej/nEz2Bqtc1QFHWmBFQA8t2Z16s/Wt9UOHdUiN/1o/mWxFktx1H+h+Iz/2
+	WBGDMwrmUj22m2dJfUcUxnxfczezdnfYSREUH/CTxzsMYX9Saa4V7FTNGoCKPEsIO7yYmdGtPBg
+	/rdZiSmr4z6fRlDVwcbQDLAghKUPUIThsMVRJIg99aa7U3Y2gRGEPS6V7/ARhvClHv1JL3ttRTy
+	mLi8Nlciqs5WXB1uEapD/9YhVhAocPXY7IsfDK7cL0igg==
+X-Received: by 2002:a17:902:fdaf:b0:2d8:d4d0:792b with SMTP id d9443c01a7336-2d8d4d079a6mr348893415ad.15.1788248989697;
+        Tue, 01 Sep 2026 00:49:49 -0700 (PDT)
+Received: from wenst-7875.tpe.corp.google.com ([2a00:79e0:201d:8:8cf:6df0:9c4e:f5e1])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d75988b699sm48142515ad.59.2026.09.01.00.49.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 00:49:48 -0700 (PDT)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Mark Brown <broonie@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+	Benson Leung <bleung@chromium.org>,
+	Tzung-Bi Shih <tzungbi@kernel.org>,
+	linux-mediatek@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	chrome-platform@lists.linux.dev,
+	linux-input@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v6 0/8] arm64: mediatek: Chromebook trackpad supply fixes
+Date: Tue,  1 Sep 2026 15:49:18 +0800
+Message-ID: <20260901074930.764550-1-wenst@chromium.org>
+X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 00/22] media: i2c: add Maxim GMSL2/3 serializer and
- deserializer drivers
-To: Ceclan Dumitru <mitrutzceclan@gmail.com>,
- =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
- dumitru.ceclan@analog.com
-Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Julien Massot <julien.massot@collabora.com>, Rob Herring <robh@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-gpio@vger.kernel.org, Martin Hecht <Martin.Hecht@avnet.eu>,
- Andrian Suciu <Adrian.Suciu@analog.com>,
- Cosmin Tanislav <demonsingur@gmail.com>,
- Vivekananda Dayananda <vivekana@amd.com>, Cory Keitz <ckeitz@amazon.com>
-References: <20260831-gmsl2-3_serdes-v16-0-4fa6e08bb514@analog.com>
- <20260831170303.GB1116206@ragnatech.se>
- <65b703e7-e4a0-4046-9d35-7d0ff1057f96@gmail.com>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <65b703e7-e4a0-4046-9d35-7d0ff1057f96@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi,
+Hi everyone,
 
-On 01/09/2026 10:39, Ceclan Dumitru wrote:
-> 
-> 
-> On 8/31/26 8:03 PM, Niklas Söderlund wrote:
->> Hello,
->>
->> Thanks for  your continued effort pushing this work forward!
->>
->> On 2026-08-31 16:21:19 +0300, Dumitru Ceclan via B4 Relay wrote:
->>> This series adds new drivers for multiple Maxim GMSL2 and GMSL3 devices,
->>> replacing the few GMSL2 drivers already in upstream, and introducing a
->>> common framework that can be used to implement such GMSL chips, which
->>> avoids code duplication while also adding support for previously
->>> unsupported features.
->>>
->>> While the normally acceptable and polite way would be to extend the
->>> current mainline drivers, the choice was made here to add a totally new
->>> set of drivers. The current drivers support only a small subset of the
->>> possible features, and only a few devices, so the end result after
->>> extending them would in any case be essentially fully rewritten, new
->>> drivers.
->>>
->>> This series depends on support for internal pads, for which a patch has
->>> been added.
->>
->> It also depends on enabling the streams API right? At least I need to do
->> so to be able to use the TPG. Out of curiosity do you know the plan to
->> enable it by default upstream?
->>
-> 
-> I do not know when default enable is planned, but series could make it
-> so VIDEO_MAXIM_SERDES selection causes v4l2_subdev_enable_streams_api=1.
->    I am not sure that such a hack would be acceptable by Sakari or
-> upstream in general.
-I haven't tested with this driver, but in theory these kind of drivers 
-should work with the Streams API still disabled. The Streams API is a 
-uAPI, so the driver itself works without it. If the default routing for 
-the drivers provides a sensible single route, one can use the drivers 
-with a single camera. This is what the FPD-Link drivers do (although 
-it's been a long time since I verified it with Streams API disabled).
+This is v6 of my Chromebook trackpad supply fixes and optimization
+series.
 
-  Tomi
+Changes since v5:
+- Patch 1 (regulator)
+  - Correctly assign wait_us to all bulk consumers (Sashiko)
+  - Check _regulator_is_enabled() > 0 to check for enabled regulators
+    (Sashiko)
+  - Lock regulator_dev on final _regulator_is_enabled() check in
+    regulator_register() (Sashiko)
+  - Make it clear that _regulator_is_enabled_recursive() assumes that
+    supplies have been resolved (local AI review)
+  - Consider supply's last_on timestamp for regulators that are already
+    enabled or have no .is_enabled() ops (local AI review)
+- Added noautosel tag for some patches
+- Added patch to pass component probe success or not to cleanup callback
+  (patch 5)
+- Only defer regulator disable if a device was found (patch 6)
+- Link to v5:
+  https://lore.kernel.org/all/20260825041628.988369-1-wenst@chromium.org/
+
+Changes since v4:
+- Made regulator core try to set last_on timestamp for regulators that
+  were left on by reset default or firmware, but not enabled in kernel
+- Dropped two patches that were merged
+- Link to v4:
+  https://lore.kernel.org/all/20260811122011.3539250-1-wenst@chromium.org/
+
+Changes since v3:
+- Added __private modified to regulator_bulk_data.wait_us field and
+  switched to ACCESS_PRIVATE accessor for the field (Andy)
+- Moved wait outside regulator lock scope (Sashiko)
+- Moved "remaining" value assignment closer to conditional (Andy)
+- Fixed variable unit name in regulator_enable_and_wait() prototype
+  (Andy, Sashiko)
+- Added commit message section showing average delay needed for I2C
+  prober (patch 6) (Andy)
+- Link to v3:
+  https://lore.kernel.org/all/20260721075226.2347933-1-wenst@chromium.org/
+
+Changes since v2:
+- Added new regulator "enable and wait" functions that wait until at
+  least the given amount of time has passed since the regulator was
+  last enabled.
+- Converted patches to use the new functions
+- New header inclusion cleanup patch for elan_i2c driver
+
+This series fixes the trackpad descriptions on some MediaTek-based
+Chromebooks: either the trackpad's supply was set as always-on to
+workaround missing delays in the driver, or the delay and supply
+are missing from the trackpad's device node.
+
+v1 was just the first patch [1]. It has since grown to cover multiple
+drivers and devices.
+
+
+Patch 1 adds new "enable and wait" functions for single and bulk
+regulator enable.
+
+Patch 2 adds the correct enable delay after enabling the supply regulator
+for the Elan trackpad to initialize. This uses the new "enable and wait"
+regulator enable function.
+
+Patch 3 applies the same logic of skipping the power on delay to the
+i2c-hid-of driver.
+
+Patch 4 applies the same logic of skipping the power on delay to the
+i2c OF component prober library.
+
+Patch 5 makes the I2C component prober let the cleanup callback know
+whether a component was found and enabled. Needed for the next patch
+to only delay calling regulator_disable() if a component was enabled.
+
+Patch 6 adds a delay between when the device node found is enabled and
+when regulator_disable() is called. This gives an asynchronously probing
+driver some time to increment the enable count of their regulator
+reference, thus keeping the device operational and allowing the driver
+to skip the initialization delay.
+
+Patch 7 removes the "always-on" setting from the trackpad supply for
+Elm / Hana and adds the correct delay to the second source trackpad.
+This corrects the hardware description. Should not be backported without
+the other driver patches.
+
+Patch 8 adds the supply and power on delay properties to the Synaptics
+trackpad on the Spherion device. Combined with previous driver changes
+this should cause no actual functional changes or delays.
+
+
+Please take a look. Patches 2, 3, and 4 have build time dependencies
+on patch 1. I suggest placing patch 1 on a separate immutable branch
+or tag for the other maintainers to pull in. The three patches all have
+different maintainers.
+
+The DT changes must go in after all the driver changes land, especially
+patch 2 that adds delays to the Elan trackpad driver. Otherwise the user
+could potentially end up with a non-functional trackpad on the device.
+
+
+Thanks
+ChenYu
+
+[1] https://lore.kernel.org/all/20241001093815.2481899-1-wenst@chromium.org/
+
+Chen-Yu Tsai (8):
+  regulator: core: Add "enable and wait" functions
+  Input: elan_i2c - Wait for initialization after enabling regulator
+    supply
+  HID: i2c-hid-of: skip post-power-on delay if powered on sufficiently
+    long
+  i2c: of-prober: skip post-power-on delay if powered on sufficiently
+    long
+  i2c: of-prober: Let cleanup op know if a device was found
+  i2c: of-prober: Defer regulator_disable() on successful probe in
+    simple helper
+  arm64: dts: mediatek: mt8173-elm-hana: Unmark trackpad supply as
+    always-on
+  arm64: dts: mediatek: mt8192-asurada-spherion: Add Synaptics
+    trackpad's supply
+
+ .../boot/dts/mediatek/mt8173-elm-hana.dtsi    |   8 +-
+ arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi  |   1 -
+ .../mediatek/mt8192-asurada-spherion-r0.dts   |   2 +
+ drivers/hid/i2c-hid/i2c-hid-of.c              |   9 +-
+ drivers/i2c/i2c-core-of-prober.c              |  34 +++--
+ drivers/input/mouse/elan_i2c_core.c           |   7 +-
+ drivers/regulator/core.c                      | 129 ++++++++++++++++--
+ include/linux/i2c-of-prober.h                 |   7 +-
+ include/linux/regulator/consumer.h            |  21 ++-
+ include/linux/regulator/driver.h              |   2 +
+ 10 files changed, 172 insertions(+), 48 deletions(-)
+
+-- 
+2.55.0.897.gb25b4bd76c-goog
 
