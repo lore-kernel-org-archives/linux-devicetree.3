@@ -1,114 +1,121 @@
-Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 486BA3AF65C;
-	Tue,  1 Sep 2026 11:40:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1831538A73B;
+	Tue,  1 Sep 2026 11:41:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788262858; cv=none; b=qSForSA3GXn5pouPupbG+tmHt7oFj1VteiHGnB6P7nn1/pPJILZ5Xg2S6Qa5O1JMV4cXI85wCssByHYk0CGJqAjvXte0XBKszeCex/BGkBYZajcsGuW5EsdTpNtzqqn1JhitVFXO73vw8jlwk+rGAG792o105vSR7c42CQxIFv8=
+	t=1788262884; cv=none; b=JWHMn9PTEZ6cKQYi0sw4KSAcYujvm+AeS9+O1F7+Mvzu8z+fDZPX2HtDrMAVn5sSBCXqjElRyolXnASOvWG098leq37hBeJXx/OiNcgtGqq13PA2vHEjNVyD2nleonEQWmcC1HLzlRX23CuYrKvmF1nuaqWs8DHP5S/9RJ9P680=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788262858; c=relaxed/simple;
-	bh=w8DwWiTyjCgKHUh3jNegniNOD5FFOdIu9HTX8Den63I=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=fwTZM/CHUyxM29ax3+pWfbxKNJq/2Ws3L5qhjfpqPxA40NT5rbnTwqLCTR5gs18cJ0EZvTpm7Xd3HMYxV4iYv3Za1jh5OslZFN4B0+8r4bdDzjckGYabo/BWw1wAHhZCcFDdQlrlIHzSoM5xyui4UDXuxY/B1TRO2Qx53xoCpwQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Tue, 1 Sep
- 2026 19:35:39 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Tue, 1 Sep 2026 19:35:39 +0800
-From: Billy Tsai <billy_tsai@aspeedtech.com>
-Date: Tue, 1 Sep 2026 19:35:30 +0800
-Subject: [PATCH 3/8] i3c: mipi-i3c-hci: Add a quirk for 64-bit DMA
- addressing
+	s=arc-20240116; t=1788262884; c=relaxed/simple;
+	bh=4Sut431OYovyF5XUwRSkO79dLmzo7RfBIAB3ODeNfyI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bYU0h7ZIw5drTtXjmNIvY7JFO6eOOVo+wdq4CesCtv5Mh4h35mnfBRGfUa/QmEpoHNk1W3xlUS+y0o5rTjWzFrLk+kzNEAUHW9HHTLxeov1b37xcX8bh9iOR5EaBsge0PdxEhqTNgrhDanQL/jhfwSDEW6BsEqXG7XyV0GyrVHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DtO4aH6l; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DtO4aH6l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6240A1F000E9;
+	Tue,  1 Sep 2026 11:41:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788262882;
+	bh=tqpj4U5RE/8d3gBsnNKQyfPdgEnX0VkseckqDrClN5A=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=DtO4aH6lyINsTs+9M7+fSYmL77aSjcNeAcoo1RyVj7QpGSBShmSEklzMDrO0ejr/E
+	 xaVCE3SMwEFxN107a60YPXRAaYmpYIPmA6/kyG6HpFGJ3Owu37Ipgv6yYD7H7WLM7k
+	 0rMHm3o7ayaRoIRm6UXil5uamAeeqkCN9NErKuXaRU00Yr9cU5BcuQy7TsQKHwRCyz
+	 LDNZ/92vw7klTg+FLiKOFy38513/ie0ae2vKjrNuAiVmfAqZcZmmsM9Z8+W7W859j+
+	 3U7x8fh/AM3nUyPsWgkEwfh9Qvzg0CgulEFX30qLPuVUkfb1Zc11e0bKuSlf5UiCf0
+	 SPpO37cC9V23w==
+Message-ID: <8caae60a-beb6-4f0d-ae0e-27f1250b9e94@kernel.org>
+Date: Tue, 1 Sep 2026 13:41:12 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 9/9] arm64: dts: qcom: shikra-iqs-evk: Enable both
+ ethernet ports
+To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Russell King <linux@armlinux.org.uk>
+Cc: linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+References: <20260612-shikra_ethernet-v1-0-f0f4a1d19929@oss.qualcomm.com>
+ <20260612-shikra_ethernet-v1-9-f0f4a1d19929@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260612-shikra_ethernet-v1-9-f0f4a1d19929@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260901-b4-i3c-hci-ast2700-v1-3-19909e7cbd7e@aspeedtech.com>
-References: <20260901-b4-i3c-hci-ast2700-v1-0-19909e7cbd7e@aspeedtech.com>
-In-Reply-To: <20260901-b4-i3c-hci-ast2700-v1-0-19909e7cbd7e@aspeedtech.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li
-	<Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley
-	<joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, Philipp Zabel
-	<p.zabel@pengutronix.de>
-CC: <linux-i3c@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-aspeed@lists.ozlabs.org>,
-	<linux-kernel@vger.kernel.org>, Billy Tsai <billy_tsai@aspeedtech.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788262538; l=2535;
- i=billy_tsai@aspeedtech.com; s=20251118; h=from:subject:message-id;
- bh=w8DwWiTyjCgKHUh3jNegniNOD5FFOdIu9HTX8Den63I=;
- b=zakcGFU95zIF9c596EWGOrqXlXM4wUfpzGev03srlA/CbJygcFlzgNMnkc2Q3kd0uBFwf9HFP
- 5576jPxF/gFAjNsiAAYqwNub4CH4bWgjn3W7UY6ik5cId2GXEvjb1vU
-X-Developer-Key: i=billy_tsai@aspeedtech.com; a=ed25519;
- pk=/A8qvgZ6CPfnwKgT6/+k+nvXOkN477MshEGJvVdzeeQ=
 
-The HCI ring base registers are 64 bits wide by specification, but not
-every implementation wires the upper half, so the driver leaves the
-platform device at the default 32-bit DMA mask unless told otherwise.
-ASPEED platforms place all of DRAM above the 32-bit boundary
-(0x4_00000000), so under the default mask every dma_alloc_coherent()
-call for the DMA rings fails.
+On 11/06/2026 20:37, Mohd Ayaan Anwar wrote:
+> Enable both Gigabit Ethernet controllers.  Each port has a dedicated
+> PHY with a gpio-hog to assert the power-enable GPIO at boot,
+> pin-control for the RGMII and MDIO bus, and MTL queue configuration.
+> 
+> Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts | 235 ++++++++++++++++++++++++++++
+>  1 file changed, 235 insertions(+)
 
-Add HCI_QUIRK_DMA_64BIT for controllers whose DMA engine drives the
-full address width, and declare a 64-bit streaming and coherent DMA
-mask for them before the rings are allocated.
+As pointed out in off-line talk, this change is not complete and causes
+failures.
 
-Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
-Assisted-by: Claude:claude-fable-5
----
- drivers/i3c/master/mipi-i3c-hci/core.c | 7 +++++++
- drivers/i3c/master/mipi-i3c-hci/hci.h  | 1 +
- 2 files changed, 8 insertions(+)
-
-diff --git a/drivers/i3c/master/mipi-i3c-hci/core.c b/drivers/i3c/master/mipi-i3c-hci/core.c
-index a624e3c40484..c03c3a9cbe4f 100644
---- a/drivers/i3c/master/mipi-i3c-hci/core.c
-+++ b/drivers/i3c/master/mipi-i3c-hci/core.c
-@@ -10,6 +10,7 @@
- #include <linux/bitfield.h>
- #include <linux/clk.h>
- #include <linux/device.h>
-+#include <linux/dma-mapping.h>
- #include <linux/errno.h>
- #include <linux/i3c/master.h>
- #include <linux/interrupt.h>
-@@ -1167,6 +1168,12 @@ static int i3c_hci_probe(struct platform_device *pdev)
- 	hci->quirks = (unsigned long)device_get_match_data(&pdev->dev);
- 	if (!hci->quirks && platform_get_device_id(pdev))
- 		hci->quirks = platform_get_device_id(pdev)->driver_data;
-+	if (hci->quirks & HCI_QUIRK_DMA_64BIT) {
-+		ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(64));
-+		if (ret)
-+			return dev_err_probe(&pdev->dev, ret,
-+					     "cannot set DMA mask\n");
-+	}
- 
- 	ret = devm_clk_bulk_get_all_enabled(&pdev->dev, &clks);
- 	if (ret < 0)
-diff --git a/drivers/i3c/master/mipi-i3c-hci/hci.h b/drivers/i3c/master/mipi-i3c-hci/hci.h
-index f50fc1e22a85..2110f806a53c 100644
---- a/drivers/i3c/master/mipi-i3c-hci/hci.h
-+++ b/drivers/i3c/master/mipi-i3c-hci/hci.h
-@@ -178,6 +178,7 @@ struct i3c_hci_dev_data {
- #define HCI_QUIRK_DMA_ABORT_REQUIRES_PIO_RESET	BIT(8)  /* Do PIO queue SW resets after DMA abort */
- #define HCI_QUIRK_DMA_REQUIRES_HC_ABORT		BIT(9)  /* Use HC_CONTROL ABORT to abort DMA */
- #define HCI_QUIRK_DAT_INDEX_IS_ADDR	BIT(10)  /* DAT entries are indexed by device address */
-+#define HCI_QUIRK_DMA_64BIT		BIT(11)  /* Controller DMA supports 64-bit addressing */
- 
- /* global functions */
- void mipi_i3c_hci_resume(struct i3c_hci *hci);
-
--- 
-2.34.1
-
+Best regards,
+Krzysztof
