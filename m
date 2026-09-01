@@ -1,125 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70ED046D09A;
-	Tue,  1 Sep 2026 07:41:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6808F36606B;
+	Tue,  1 Sep 2026 07:43:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788248508; cv=none; b=m07A/ITTgdDftjJ7+PE0IanlN6GCKruiRsu1F85oygsAGggqgQUWPZRMgf76TXWL60n8iiuxskuI15vs71U4d7TXo1F0EPPDdCymifXt3K1dsVnS9EU3u78yaiDzIcKBH3uq0uluDULTw7xeVb/YdJo2OObzbQOwiQQyimqy+jw=
+	t=1788248640; cv=none; b=IDKtMJtATSgjRAvLk2udeNqiOYb/5UWpnuhMRN/9vjj5fzVSJx2XSZxamsPW01ajPwKffxpoVojSMNP2i8zTZFnWHOlhGOnLOaFEqIusy6zOteV4L+wjzBC7T1oPcwVC9dWFKVwkoALN5nmE32QLnlJHIYQeh3x/b1Vx4h0Q2BA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788248508; c=relaxed/simple;
-	bh=df/4MTt97k+qsBWBTQ61mJThjh1c/52YmdChnxnwGyk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fzDFQo7LNI2WwyEoOIqYY+TA+BT7W6L1BvxPg+O7yn9bh1wo1oLQejs9zYn3iQFI/6t2WLodobMRQGzrjzBiRHttancQqUtx9xdASOq3GqR1UB8XwUsNULaKgqU5E4U8r3c3QRQHWlLckr29FjlzDYjC/4vlqrbbEz4IPS88K6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=czqNmL9m; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788248640; c=relaxed/simple;
+	bh=23MEUiek+8f+VaOu4ez1Qqr+tEDb5JGFf45CrX9anlc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DgWboIjMj/Gwg9vleOHaZPmLyKHfrHoN8qsZPE+JEWyPPJoKJZH3V1fFZ7iS2L9bUCMuyA5zzM+0kHDAgZSd/NvSVaMi+xxEb5zOX1DOq3or1WHKslwgdIx9POJCXwhkYJh6XGaX+bbTouHXJXIH3YP9kG5v/r43ChtcCsKK52U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=fpChyKXU; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="czqNmL9m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94ABC1F000E9;
-	Tue,  1 Sep 2026 07:41:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788248506;
-	bh=Rd/t35fFP99ycpXAvCZrmHiEO0yQPbJOg/LHZhiP3B0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=czqNmL9myWIT/U9dd/YdkMSOAxVrwGdm8aeZndF3JTr7DfCblpgvqkuASrbDnPhXi
-	 aqjYLjZRhDLnovKBleApLD2CFW776ZFR9s3MabDRcvp9GhlfPnePjQ3lqF9mYNh/o/
-	 5pUaDyfcwAy3R8BnnSSGZomFHwZcu+vV86NBrk0nNuMOIj3vzBCd130/OABntOQpvw
-	 DzbBBx+Old0NXMomMoMgWmnJGxufQcZ1iGVLhLHLgkqWFSH5C+Hbvkg5ThiUEqbjwU
-	 ihQYC7hq602HKfMqe+mmWjxmXsKeEbaPRN94GwZCbM/dejHkvruimgRaiP0h5CkBaS
-	 ZtFofJgbr0HNw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v14 10/11] clk: realtek: Add RTD1625-ISO clock
- controller driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, linux-clk@vger.kernel.org
-In-Reply-To: <20260901072446.2563145-11-eleanor.lin@realtek.com>
-References: <20260901072446.2563145-1-eleanor.lin@realtek.com>
- <20260901072446.2563145-11-eleanor.lin@realtek.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 07:41:46 +0000
-Message-Id: <20260901074146.94ABC1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="fpChyKXU"
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7305A22B;
+	Tue,  1 Sep 2026 09:42:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1788248538;
+	bh=23MEUiek+8f+VaOu4ez1Qqr+tEDb5JGFf45CrX9anlc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=fpChyKXUP4yuQGR9dVLhuBh8jiFCp8fj42Gvq6MeIeP/2SUVYU0Jq/HBWwOhHibnx
+	 6qITDhowNTKXddkFVxpEEJSDzqO3VBvaoqrkDiBHYvtwxDc2srbypCSbxBmNdkRNYb
+	 4bKhXEx4QT/xFMWLVGDkAqWQ5AKA6J3whoF3YFBI=
+Message-ID: <16626ec7-d1ec-4a54-ad1b-a59790cd33e8@ideasonboard.com>
+Date: Tue, 1 Sep 2026 10:43:44 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v16 00/22] media: i2c: add Maxim GMSL2/3 serializer and
+ deserializer drivers
+To: Ceclan Dumitru <mitrutzceclan@gmail.com>,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+ dumitru.ceclan@analog.com
+Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Julien Massot <julien.massot@collabora.com>, Rob Herring <robh@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-gpio@vger.kernel.org, Martin Hecht <Martin.Hecht@avnet.eu>,
+ Andrian Suciu <Adrian.Suciu@analog.com>,
+ Cosmin Tanislav <demonsingur@gmail.com>,
+ Vivekananda Dayananda <vivekana@amd.com>, Cory Keitz <ckeitz@amazon.com>
+References: <20260831-gmsl2-3_serdes-v16-0-4fa6e08bb514@analog.com>
+ <20260831170303.GB1116206@ragnatech.se>
+ <65b703e7-e4a0-4046-9d35-7d0ff1057f96@gmail.com>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Content-Language: en-US
+In-Reply-To: <65b703e7-e4a0-4046-9d35-7d0ff1057f96@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Hi,
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but there is a Preex=
-isting Use-After-Free race condition on probe failure due to incorrect regi=
-stration order.
---
+On 01/09/2026 10:39, Ceclan Dumitru wrote:
+> 
+> 
+> On 8/31/26 8:03 PM, Niklas Söderlund wrote:
+>> Hello,
+>>
+>> Thanks for  your continued effort pushing this work forward!
+>>
+>> On 2026-08-31 16:21:19 +0300, Dumitru Ceclan via B4 Relay wrote:
+>>> This series adds new drivers for multiple Maxim GMSL2 and GMSL3 devices,
+>>> replacing the few GMSL2 drivers already in upstream, and introducing a
+>>> common framework that can be used to implement such GMSL chips, which
+>>> avoids code duplication while also adding support for previously
+>>> unsupported features.
+>>>
+>>> While the normally acceptable and polite way would be to extend the
+>>> current mainline drivers, the choice was made here to add a totally new
+>>> set of drivers. The current drivers support only a small subset of the
+>>> possible features, and only a few devices, so the end result after
+>>> extending them would in any case be essentially fully rewritten, new
+>>> drivers.
+>>>
+>>> This series depends on support for internal pads, for which a patch has
+>>> been added.
+>>
+>> It also depends on enabling the streams API right? At least I need to do
+>> so to be able to use the TPG. Out of curiosity do you know the plan to
+>> enable it by default upstream?
+>>
+> 
+> I do not know when default enable is planned, but series could make it
+> so VIDEO_MAXIM_SERDES selection causes v4l2_subdev_enable_streams_api=1.
+>    I am not sure that such a hack would be acceptable by Sakari or
+> upstream in general.
+I haven't tested with this driver, but in theory these kind of drivers 
+should work with the Streams API still disabled. The Streams API is a 
+uAPI, so the driver itself works without it. If the default routing for 
+the drivers provides a sensible single route, one can use the drivers 
+with a single camera. This is what the FPD-Link drivers do (although 
+it's been a long time since I verified it with Streams API disabled).
 
-commit b5c9e12f17852a162c80193126ca4d9d2d466a7f
-Author: Cheng-Yu Lee <cylee12@realtek.com>
+  Tomi
 
-clk: realtek: Add RTD1625-ISO clock controller driver
-
-This commit adds support for the ISO domain clock controller on the Realtek
-RTD1625 SoC. This controller manages clocks in the always-on power domain,
-ensuring essential services remain functional. The driver acts as the parent
-device and registers the reset controller as an auxiliary device.
-
-> diff --git a/drivers/clk/realtek/clk-rtd1625-iso.c b/drivers/clk/realtek/=
-clk-rtd1625-iso.c
-> new file mode 100644
-> index 0000000000000..5c3e01f28730b
-> --- /dev/null
-> +++ b/drivers/clk/realtek/clk-rtd1625-iso.c
-
-[ ... ]
-
-> +static int rtd1625_iso_probe(struct platform_device *pdev)
-> +{
-> +	const struct rtk_clk_desc *desc;
-> +
-> +	desc =3D device_get_match_data(&pdev->dev);
-> +	if (!desc)
-> +		return -EINVAL;
-> +
-> +	return rtk_clk_probe(pdev, desc);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does calling rtk_clk_probe
-here expose a use-after-free race condition if probe fails later?
-
-Looking at rtk_clk_probe in drivers/clk/realtek/clk-rtk-common.c, the clock
-provider is registered before the final initialization step:
-
-	ret =3D devm_of_clk_add_hw_provider(dev, of_clk_hw_onecell_get,
-					  desc->clk_data);
-	if (ret)
-		return dev_err_probe(dev, ret, "failed to add clock provider\n");
-
-	platform_set_drvdata(pdev, (void *)desc);
-
-	return rtk_reset_controller_register(dev, desc->aux_name, regmap);
-
-If rtk_reset_controller_register fails due to a memory allocation error, the
-probe function returns an error and the devres framework automatically frees
-the regmap allocated earlier via devm_regmap_init_mmio.
-
-Because the clock provider was already exposed to consumers via
-devm_of_clk_add_hw_provider, a concurrent probe on another CPU could acquire
-the clock before the failure occurs. The static clk_hw structures retain the
-pointer to the freed regmap.
-
-If the consumer subsequently calls clk_prepare_enable, the CCF invokes the
-clock operations, which could lead to a dereference of the freed regmap sin=
-ce
-operations on orphaned clocks are not blocked.
-
-Could this be prevented by deferring the clock provider registration in
-rtk_clk_probe until after the reset controller is successfully registered?
-
-> +}
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901072446.2563=
-145-1-eleanor.lin@realtek.com?part=3D10
