@@ -1,223 +1,263 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013045.outbound.protection.outlook.com [40.107.159.45])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AD1E3CB571;
-	Tue,  1 Sep 2026 12:40:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788266416; cv=fail; b=HhHrNXWJLUdD3F5P7X8w+rsrz4+c3YKvOx0tkarAuivwIwRwRTI3Iz5v3ZYwAKps0sfXdlsr5V7s7kq5dEXy2yecc+H7U2EQRH0SkhwxhDoiNooGIgqLZWhB6tzjLVZTRbSlUW5PzRKF8pQy08Er0SuAUedXfJHl5GZh18TVEMA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788266416; c=relaxed/simple;
-	bh=bmybxzxFC95i1IsqbLRF32XK1kHqhXnZIYj6KaBChWs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=QVRhSmUKvpTYiSQODbV5QTHwHSVxZx/deZQ+pRoKLK7hhpjcWp9/T8YAZg/+RneN6IIwfRzFzQiYxvjszLGrg1hJbTb2b9EwRcqgdcGbD4Xxivi60UQh1z5f2+7DthFOTMTWTRRK9WNh73qJNdhVDjhNkPk/xTi+Td+HFW0yUgk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=@siemens.com header.b=XwI9OSqh; arc=fail smtp.client-ip=40.107.159.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siemens.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 081A037BE70;
+	Tue,  1 Sep 2026 12:44:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788266684; cv=none; b=R8Jfk7OcVWFj05SrZWj94FGBoMW6syodukAjlv8dX2OpDIwLo9mjlTqZEtApG3f9UR7xBxaHN6Eba3liP7tXwZbI4GPA0dUaC8VsNH4mH7k0426zqF7X74EY8axO4Ezkqg5hvRNdS2bB0Pe/9ueOJ/DtjvTKu7OO7BouUgwWddQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788266684; c=relaxed/simple;
+	bh=pCQgaB1R8WJQij1mH+LcW418uXo3VOajA2hIsOFtA/Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LjbV8Vq4qrOd1YCbcz2Y8nG8hjs5b6w21g0RnYd0ZyROsJP1a2KNkTVrrM+2dZrxuz8vUcO9T4AHfEiRiVv9lEjJAqSWQ3bZJBAxw7gPfzWQRd3lmBl0dazeGrlK0acKu4IbmvJqVXHK5lGZQN84ezLaKfkDMTVLm5LOycqElZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hc+11UCW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siemens.com header.i=@siemens.com header.b="XwI9OSqh"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=S6uADikylHD6sl0324tZHaEOzk2rp3AiMv4YKrXFkukTDy8TbtPR0owT5WIev7p2xg/MqdAzdpzhBg1PQMdTtnq9k1Oat86v9J/r9pzod71CT/8E8hiziWGAKnDVeRveD6z/f+2y9xxsmzkK0W+KrMoMCUpKSjB933PmtCwP1RnzOpINGJGF9A2mKcj+Dov0LMxpAGgpihuDjuFukGfby9JFtH5pkT4I8RaiRmoYT4E9OVxkap0kf4L1o0b9HjeFSamU1vpAYEkWXjJ4H8krwBzyl8U8rCKdZDpoy9xVGX/VvW6xb3qri7yGd9Lc2XzaQDEbkOaiV7y0r9mxMjCIFw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bmybxzxFC95i1IsqbLRF32XK1kHqhXnZIYj6KaBChWs=;
- b=JSteNUXhLwM4YC7BR12iHKcIxnniZzS4TC7yLqbha/B48r4OK9F7nrmoilJJ+wCPwi9fmwJEepzpPVQV40rtHQ1u5Vq3v73F67l21u5ed/hOmqI7nUXxPLmx0edirIxnQFcLb31W5g/TdxP+d0U822+TIAWdcluAAR4P0DeVJ4T2STqeQ26WYI/4DOv/iMS9a8aFoEOQzwf1Z+LC9tUpTYG68kgyzSK1AG4pb+w9vjOfAhtsmwQUEg5Zi2rtFrq85vfuFiEggi+4amVo+X6aREvliHFFpVHKwrI+Di3qKIiTwdvnh5O+POCEgLtfB4qnUv1m0lxA+0+rV0CEeHSIig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=siemens.com; dmarc=pass action=none header.from=siemens.com;
- dkim=pass header.d=siemens.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siemens.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bmybxzxFC95i1IsqbLRF32XK1kHqhXnZIYj6KaBChWs=;
- b=XwI9OSqh4CELxlfPkyxqJX4Ee0FaTgPpMEPkYzlyDTC5rEJBxywIq2Up3KIt/CFXQYotYmw2d1mZj/g9Rc+gD3+7XruMcJ9ZbzGupxrQm2/9bRM4Yt1LQ3/4kGOoDqQzbGgsvEngBTAt8qkEZ4zEOPoZnZ/8k21+SuHlgB/qb630DCcbTyK/kbDCisnRmM39/bF3Czm4WsXB/TsafrFVqJlhO6ggVDLFhIZezcTfkmExR12z37MGTiNZch/hq41Kw0nw2g0/BfxTN9qahqnQ//yRn6O4Gt/RkLr4/XFr2m3cCYKj4tp08odSvHogvS1Il001GrQQLxQK8vSI8iz9Qg==
-Received: from AS8PR10MB6867.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:5b6::22)
- by FRWPR10MB9505.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:d10:1b0::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 12:40:10 +0000
-Received: from AS8PR10MB6867.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::9126:d21d:31c4:1b9f]) by AS8PR10MB6867.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::9126:d21d:31c4:1b9f%6]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 12:40:09 +0000
-From: "Sverdlin, Alexander" <alexander.sverdlin@siemens.com>
-To: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"jerome.pouiller@silabs.com" <jerome.pouiller@silabs.com>
-CC: "linux-devel@silabs.com" <linux-devel@silabs.com>,
-	"johannes@sipsolutions.net" <johannes@sipsolutions.net>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH wireless-next v2 1/2] wifi: wfx: fix possible device hang
- during init
-Thread-Topic: [PATCH wireless-next v2 1/2] wifi: wfx: fix possible device hang
- during init
-Thread-Index: AQHdOf61ROW9oNnohUyNV8CU6ceGera5qg6A
-Date: Tue, 1 Sep 2026 12:40:09 +0000
-Message-ID: <ae1623bbf3e0945b37f39c031f65810b2cbf9f89.camel@siemens.com>
-References: <20260901083548.113131-1-jerome.pouiller@silabs.com>
-		 <20260901083548.113131-2-jerome.pouiller@silabs.com>
-	 <cc4de4e40e3ca50e7288be2b9067802576567c25.camel@siemens.com>
-In-Reply-To: <cc4de4e40e3ca50e7288be2b9067802576567c25.camel@siemens.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.58.3 (3.58.3-1.fc43) 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=siemens.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AS8PR10MB6867:EE_|FRWPR10MB9505:EE_
-x-ms-office365-filtering-correlation-id: b5bfa58a-b77b-4425-f28c-08df082628fc
-x-ms-exchange-atpmessageproperties: SA
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|366016|4022899009|23010399003|376014|10067099003|6133799003|56012099006|3023799007|22082099003|55112099003|18002099003|5023799004|11063799006|4143699003|38070700021;
-x-microsoft-antispam-message-info:
- +8D9zrKRQoawuSN6zrSypC7UZjjmZM8MJgDzz3ukFSEuYRToHixmPy1RdZ+SBA8/VTzV1c5EcJgvBdI8ocsSCBrsfEwFTtQaDXdm8+cT9XW0+GCoh1bNondFFaYt3YK+QCtLJOBy8hK7JWKysZNVs8goQQ27J2DxW8n50bs/bQOb23ecQc/EBkWMDVtMzFu1pYtI8jga4fhx2M2X+JalQVPUd5eWfJXfNB2cTb4ahNTupINjnX85n+SbnL8OZH24jh5RvTutwHGAp43LCh7+EC/1nA5LIJN2oLtrspBSmELDyP0RChVIqwy5gAHm8vpHBK6Iijv4snV5FsA2vd2HUWaXsFGw06YawQerFzMr7BAnlWyuk5Ne31ZEY7jUyWe4erNfZVztCIryPl0AQ61yrULTDIbW1HdsA361iDTQpgXK8Pv6US2gI0A6+06MXxA2hFVFeY2XkrJpzws5q5YituzcFTycHEZ4bDg2wWF42QzrpcoJpdRhFzav8S7FgKUZQMKpty+cvO+LB7FzIzJNc3yauP90kxIwdgefzGFmRsGqXFc1okoBweUJRGcPA7E9BcSgWWT5CuD8poupqmL1Oe80xDyG5UdHFYdV8PRDiaTI5fkIeQU6YeXL1vIxRlGp2DkJJDKthywgQkkX+n8IPsXJiWOj3czQiNd2I9dpSqY=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR10MB6867.EURPRD10.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(4022899009)(23010399003)(376014)(10067099003)(6133799003)(56012099006)(3023799007)(22082099003)(55112099003)(18002099003)(5023799004)(11063799006)(4143699003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?V3lHZEpudmI2cjkvQVpqQ1dpVERaWXJMMHFOcThFcVJJV3I0WnQrUldYMHpR?=
- =?utf-8?B?bCtWUWxoNHJxVHQzNTJMcmROeHg1RmwzenFtMTUvYkJIUHlvcUpOMytzWU8x?=
- =?utf-8?B?QllJUlZGc1U1SWpFcVduV1JRMGMwQ1ZFdVRld0dnWVVtT0tmMEZWcjRSbk9O?=
- =?utf-8?B?RW53VzNONndsUnZrNWNMZTd4eThTUlRNM2RheE5wQzY2S2Z5VHdpRjBkWVI1?=
- =?utf-8?B?OFVLaU9zWlhsWks1ckJVY0pEUnhBVkJYMzAvWWU3ck1taWd1YVFvZmJFY0lP?=
- =?utf-8?B?QzEvd1k5eFNVeTdPOVZTV0dQVlM4M3VnaWV6SWpuYi9OYkZSRDNxOWZCbkZu?=
- =?utf-8?B?VDRhTFY2L05zbEFpTWV4K3dkZlNsVWVBS1ppanlET3lJK1lLZVZtbTUyV1RN?=
- =?utf-8?B?ZWhWSXphUldQbEZiVngvM29VL2FLNGUyQXMwV2pHQkkrL0RDZ2puUkNxbXBo?=
- =?utf-8?B?ZU5vUWJyZElEb2RxR2V1SGo2TTREd2FIWWdYK1g1bEpKUmVnNE5WWUpyKzBn?=
- =?utf-8?B?dHN0R1pYdEt2UDBwNkpXZUFUUDhVaDNOTVVEOWx3QklGK25ERlI3b2ZpZGpR?=
- =?utf-8?B?bTRPU3VUYm9vV0IzamFPVWJnR3lJRmJWNDFESnNrWTRRYUlmSCtHMi9LYmlt?=
- =?utf-8?B?aUpVTVEzSlpzOFRlOFAwM3U4ZkVZRVgvanM4eEYrZWpXUmNDby9vbHd4aTFu?=
- =?utf-8?B?dXFTdnJhd2lZYWE3bTM1bFpUNlJuczhGVGdZYnVFSkltc2NzVkt6Q0hqQW1B?=
- =?utf-8?B?TUE3R05XSjRtNHRxaHJibXZnVkVVd2Z5c04zQUZ5SDZBYzlacGo5SHI4NTZH?=
- =?utf-8?B?eXhPaCsyd05ZWm5XdTJ1U0xJSElhMjJTYlAyazZuck11Q3BRd0kwcVJOYlZw?=
- =?utf-8?B?LzZPdGZGTkZCM3ZRRW9MUWtWbHFaNlNDWmhDZFZZRlBFWjZQOGw4NkdyR1VV?=
- =?utf-8?B?ZU9VUW9WRVk0Rmw0YWFycmxnd3ZBdktHTFMyWjJhQ2l5NXBSbEZiWkpIckpC?=
- =?utf-8?B?cEtpOGlaamFXMW5UL2dyTlp1eUJwZ2JjTDRDTlBNR3NLWG8rdCtKODhmVXYw?=
- =?utf-8?B?V2VBVHUxVzZFRHlmRHRrNUt5aTlTemYyWkJzRWJTUmhmRnN5WVlGSSs1YlBG?=
- =?utf-8?B?MHIrOERwaVBFTzBIS3lVallOY1NEVEpzcFBEc1IwcDgwaE91SXNSRlpZOE9v?=
- =?utf-8?B?a0xSTGI2R2MwUDQyUlR0cUdtam8rdXJPbS9VNk5sczJpenBGUnVoNHpWa2d2?=
- =?utf-8?B?RHowNGZUZjZHNmI4VjljS3JLTWtPcVVCcDB6WjRFVVhDTFpOSDhQaXVqdE8w?=
- =?utf-8?B?d0w1UXVEdk93blRIaS85RTJKN0VLYU00NUZ6LzFxRWU4eGVMSmZRUzFHd0Er?=
- =?utf-8?B?RmVNWThMenpnOGltLzhTRkN3Yjk2bit2NWdKVjlMNTZ3bHA3d0tsT2o4elZZ?=
- =?utf-8?B?aDVwOU1NMHU1ZE1QNllWNWd4U0p0M0VZcUhqUGQ3LzlOWm1CeXJMZjJYOEkz?=
- =?utf-8?B?ZW5lM3UyVGpsdWY5ZE85UGtONGVhSjNGTnozY0Z1TzVDYUgxNzhEN2YyRGsv?=
- =?utf-8?B?ak1ESldzai9vYUo1NnF0Q0svL3B0Z1J2NjgxQkdPQ3hsaW9GL2Q1SXZxc3J2?=
- =?utf-8?B?R2kvVGlETHdTd3c5dnA5ZXEyY09nb3EzT1E4K0ZzQ2taTG82MHQrbnhmZ1V3?=
- =?utf-8?B?SHl6OHBaTmIyakp5Y3g0cElSQzBNSkExdHBpLzFOb093Umg1VVFCKzAxTjJK?=
- =?utf-8?B?T1U0UGZqa1JGa2MvRExGOW5oZWhvejRCUmVQN0RQdEZhVVZlcWZwNzd3Qmxj?=
- =?utf-8?B?TFNDaHlQZFczekFBVVVJdE44YStmQmZjQ1U5QU5nMmRFWHh2UW5qZGwrQ3dN?=
- =?utf-8?B?eHhzR0V6aGpPc0VxdmJ2SllYWnEwcnRsZU5vV1NLa1kxRWZMNGtvVDVYdEZ5?=
- =?utf-8?B?T1A5NHpFNmRialVEUnVKQjdBZThVdkdTVk10RkhtRkVoRk05UzYrWmpYQ3pt?=
- =?utf-8?B?NUo1T3RzdUJ0ZEIzdDc1c3pIZ1YzempVVHVQWHhLSmowMFh0T01iR2tCVVdI?=
- =?utf-8?B?YjBUSnN0bzRGTFp3YUJURm9OWnpCR1V2cE80QjlHZmEyVTNETmdRZis0UVA4?=
- =?utf-8?B?dloydDBuRWlYWTFLY2UrbnRSeC9XR3N4RGI2Nll2QzB3Y3hUb2RHZnZLdzJM?=
- =?utf-8?B?Nk5SckcxaTBNMnA2MThWcjZsUFZjSjRoM1VpK3g0NGFsQ24yb1dvd2h5eVNx?=
- =?utf-8?B?S1FjQmRqVlBzMEF2VXQ5TzBCRTVZS3RyOFBzT3B1eGlZK1VEbEEvdFpLaHBo?=
- =?utf-8?B?cmwwcjJtRWRiNXo2bjB5MDI1RUw2ZkNtQW5GWldaaWEyVTdwNzRHc2hIT3Z2?=
- =?utf-8?Q?qONAc6wKlnCbHsLY=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <DB5D1E3220F0984D81C931C558279945@EURPRD10.PROD.OUTLOOK.COM>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hc+11UCW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 582641F00A3D;
+	Tue,  1 Sep 2026 12:44:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788266682;
+	bh=5sy5zY/kb6Mszn23PmerLizu0NPQqcxXR4E1HaXk7aY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Hc+11UCWRpTjNkHjU6A2VNamv/H6pWO1GC6e1GnJQtn9uT60v6yVYa3uUVfVnEu/i
+	 CkM0EP81oCvrHrYXGODijoX6cHrYUmWG0muxyM32OKwWexxqNp0LygPOTheKwHFzRg
+	 pCuJlp+yzmeJLrJw6jkyVGCEXHIxBIduQX55BGDQ29v5D8JttGTFMO8FfCG3oKMT+t
+	 uCMkuApbLCttOv1fnayEn9gTQxiBdiKf7vc56anm+izvWXA2dccYyqB7FNDuRaP6IP
+	 yQPyXlwM0PvPVSdD39Y9rbmjzLLeLMAIsCJvrnYLh5akxx53lie6XibAI56YNztyRa
+	 lp7ENl3SZWIQg==
+Date: Tue, 1 Sep 2026 14:44:20 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, usb4-upstream@oss.qualcomm.com, 
+	Raghavendra Thoorpu <rthoorpu@qti.qualcomm.com>, Mika Westerberg <westeri@kernel.org>, 
+	Sven Peter <sven@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Abel Vesa <abel.vesa@oss.qualcomm.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v4 3/5] phy: qualcomm: qmp-combo: Add preliminary USB4
+ support
+Message-ID: <iynrogny3didip7cui3ce3yq3woaqzrr7f4aqdzvls4j4mslfn@aww5qjpy3gdx>
+References: <20260820-topic-usb4phy-v4-0-aec9d2cb31f6@oss.qualcomm.com>
+ <20260820-topic-usb4phy-v4-3-aec9d2cb31f6@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: siemens.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AS8PR10MB6867.EURPRD10.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: b5bfa58a-b77b-4425-f28c-08df082628fc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Sep 2026 12:40:09.8960
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 38ae3bcd-9579-4fd4-adda-b42e1495d55a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: F7YhIFViuWz8x2sCVgoo9qsDVkHIJV+UyEUcrJwnq6jbHilA1hplk2pDlypTJ8l/HaN46qyRs2Msm0HdoCRqd9nR/njicEZzJWQ2yAjCLxM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRWPR10MB9505
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260820-topic-usb4phy-v4-3-aec9d2cb31f6@oss.qualcomm.com>
 
-SGkgSsOpcsO0bWUhDQoNCk9uIFR1ZSwgMjAyNi0wOS0wMSBhdCAxMjo0MyArMDIwMCwgQWxleGFu
-ZGVyIFN2ZXJkbGluIHdyb3RlOg0KPiBUaGFua3MgZm9yIHRoZSBwYXRjaCEgSnVzdCBvbmUgcHJl
-LWV4aXN0aW5nIGlzc3VlIGJlbG93Og0KPiANCj4gT24gVHVlLCAyMDI2LTA5LTAxIGF0IDEwOjMz
-ICswMjAwLCBKw6lyw7RtZSBQb3VpbGxlciB3cm90ZToNCj4gPiBUaGUgV0Z4eHggZGV2aWNlIHBy
-b3ZpZGVzIGFuIFNESU8gaW50ZXJmYWNlLiBJbiBhZGRpdGlvbiB0byB0aGUgdXN1YWwNCj4gPiBp
-bi1iYW5kIFNESU8gSVJRLCB0aGUgZGV2aWNlIGFsc28gc3VwcG9ydHMgb3V0LW9mLWJhbmQgSVJR
-IGxpbmUuIE9PQiBJUlENCj4gPiByZXF1aXJlcyBhIHNwZWNpZmljIGluaXRpYWxpemF0aW9uIGRl
-c2NyaWJlZCBpbiBjb21taXQgZjAwZGMxZDc4OWUxYw0KPiA+ICgic3RhZ2luZzogd2Z4OiBwb2xs
-IElSUSBkdXJpbmcgaW5pdCIpOg0KPiA+IA0KPiA+IMKgwqDCoCBXaGVuIHRoZSBjaGlwIHN0YXJ0
-cyBpbiBTRElPIG1vZGUsIHRoZSBleHRlcm5hbCBJUlEgKGFrYSBPdXQtT2YtQmFuZA0KPiA+IMKg
-wqDCoCBJUlEpIGNhbm5vdCBiZSB1c2VkIGJlZm9yZSB0byBjb25maWd1cmUgaXQuIFRoZXJlZm9y
-ZSwgdGhlIGZpcnN0DQo+ID4gwqDCoMKgIGV4Y2hhbmdlcyB3aXRoIHRoZSBjaGlwIGhhdmUgdG8g
-YmUgZG9uZSB3aXRob3V0IHRoZSBPT0IgSVJRLg0KPiA+IA0KPiA+IMKgwqDCoCBUaGlzIHBhdGNo
-IGFsbG93IHRvIHBvbGwgdGhlIGRhdGEgdW50aWwgdGhlIE9PQiBJUlEgaXMgY29ycmVjdGx5DQo+
-ID4gwqDCoMKgIHNldHVwLiBJbiBvcmRlciB0byBrZWVwIHRoZSBjb2RlIHNpbXBsZXIsIHRoaXMg
-cGF0Y2ggYWxzbyBwb2xsIGRhdGENCj4gPiDCoMKgwqAgZXZlbiBpZiBPT0IgSVJRIGlzIG5vdCB1
-c2VkLg0KPiA+IA0KPiA+IENvbW1pdCA1N2FhNTU3ZjExMGQ5ICgic3RhZ2luZzogd2Z4OiBpbnRy
-b2R1Y2UgYSB3YXkgdG8gcG9sbCBJUlEiKQ0KPiA+IGFubm91bmNlIHNvbWUgbGltaXRhdGlvbiBh
-Ym91dCB0aGUgZGF0YSBwb2xsaW5nIG1lY2hhbmlzbToNCj4gPiANCj4gPiDCoMKgwqAgVGhpcyBm
-dW5jdGlvbiBbd2Z4X2JoX3BvbGxfaXJxKCldIG11c3QgdXNlZCB3aXRoIGNhcmU6IGlmIGFuIElS
-UQ0KPiA+IMKgwqDCoCBmaXJlcyB3aGlsZSB0aGUgaG9zdCByZWFkcyBjb250cm9sIHJlZ2lzdGVy
-LCB0aGUgSVJRIGNhbiBiZSBsb3N0Lg0KPiA+IA0KPiA+IEhvd2V2ZXIsIHdpdGggbGFzdCBhbmFs
-eXNpcywgaXQgc2VlbXMgaXQgZG9lcyBub3Qgb25seSBpbXBhY3QgdGhlIElSUS4NCj4gPiBXaGVu
-IHRoaXMgY29uZGl0aW9uIGhhcHBlbiB0aGUgaGFyZHdhcmUgaXMgbG9zdCBhbmQgd29uJ3QgcmVw
-bHkgdGhlIG5leHQNCj4gPiBjb21tYW5kcy4gVGhlIG9ubHkgd2F5IHRvIHJlY292ZXIgdGhlIGVy
-cm9yIGlzIHRvIHB1bGwgdGhlIHJlc2V0IHBpbiBhbmQNCj4gPiBiaW5kIHRoZSBkZXZpY2UgYWdh
-aW4uDQo+ID4gDQo+ID4gQ3VycmVudGx5IHdmeF9iaF9wb2xsX2lycSgpIGlzIG9ubHkgdXNlZCBk
-dXJpbmcgdGhlIHR3byBmaXJzdCBleGNoYW5nZXMNCj4gPiB3aXRoIHRoZSBoYXJkd2FyZS4gVGhl
-cmVmb3JlLCBpdCBoYXMgYmVlbiByZXBvcnRlZCB0byBvbmx5IGhhcHBlbiBhZnRlcg0KPiA+IGEg
-ZmV3IGhvdXJzIG9mIGJpbmQvcmViaW5kIGluIGEgbG9vcC4gVGhpcyBleHBsYWluIHdoeSBpdCBo
-YXMgbm90IGJlZW4NCj4gPiByZXBvcnRlZCBiZWZvcmUuDQo+ID4gDQo+ID4gRm9ydHVuYXRlbHks
-IHdmeF9iaF9wb2xsX2lycSgpIGlzIG9ubHkgcmVxdWlyZWQgZm9yIE9PQiBJUlEsIHdoaWNoIGlz
-DQo+ID4gcHJvYmFibHkgdmVyeSBtYXJnaW5hbC4gVGhlIEluLUJhbmQgSVJRIGNhc2UgYWxzbyB1
-c2VzIHRoaXMgZnVuY3Rpb24sDQo+ID4gYnV0IG9ubHkgdG8gc2ltcGxpZnkgdGhlIGNvZGUuDQo+
-ID4gDQo+ID4gVGhpcyBwYXRjaCBsaW1pdHMgdGhlIHVzZSBvZiB3ZnhfYmhfcG9sbF9pcnEoKSB0
-byB0aGUgT09CIElSUS4gVGhlIGJ1cw0KPiA+IGRyaXZlciBub3cgdGVsbHMgd2Z4X3Byb2JlKCkg
-d2hldGhlciBwb2xsaW5nIGlzIG5lY2Vzc2FyeS4gV2hlbiBpdCBpcw0KPiA+IG5vdCAoaW4tYmFu
-ZCBTRElPIElSUSBhbmQgU1BJKSwgdGhlIElSUSBpcyBzdWJzY3JpYmVkIGJlZm9yZSB0aGUgZmly
-c3QNCj4gPiBleGNoYW5nZSB3aXRoIHRoZSBkZXZpY2UgYW5kIHdmeF9iaF9wb2xsX2lycSgpIGlz
-IG5ldmVyIGNhbGxlZC4gV2hlbiBpdA0KPiA+IGlzIChTRElPIHdpdGggT09CIElSUSksIHRoZSBi
-ZWhhdmlvciBpcyB1bmNoYW5nZWQ6IHRoZSBjb250cm9sIHJlZ2lzdGVyDQo+ID4gaXMgcG9sbGVk
-IHVudGlsIHRoZSBQRFMgZmlsZSBoYXMgY29uZmlndXJlZCB0aGUgSVJRIGxpbmUuDQo+ID4gDQo+
-ID4gVG8gY29uY2x1ZGUsIEluLUJhbmQgdXNlcnMgYXJlIG5vdyBzYWZlLiBVc2VycyBvZiBPT0Ig
-SVJRIHdpbGwgYmUgc3RpbGwNCj4gPiBpbXBhY3RlZCBieSB0aGUgYnVnLCBidXQgdGhlcmUgaXMg
-bm90aGluZyB3ZSBjYW4gZG8gKGFuZCBub2JvZHkNCj4gPiBjb21wbGFpbmVkIGR1cmluZyB0aGUg
-bGFzdCA2IHllYXJzKS4NCj4gPiANCj4gPiBGaXhlczogZjAwZGMxZDc4OWUxYyAoInN0YWdpbmc6
-IHdmeDogcG9sbCBJUlEgZHVyaW5nIGluaXQiKQ0KPiA+IFJlcG9ydGVkLWJ5OiBHZXJhcmQgU2Fs
-dmF0ZWxsYSA8Z2VyYXJkLnNhbHZhdGVsbGFAc2llbWVucy5jb20+DQo+ID4gUmVwb3J0ZWQtYnk6
-IEx1a2FzIFN0b2NrbWFubiA8bHVrYXMuc3RvY2ttYW5uQHNpZW1lbnMuY29tPg0KPiA+IFNpZ25l
-ZC1vZmYtYnk6IErDqXLDtG1lIFBvdWlsbGVyIDxqZXJvbWUucG91aWxsZXJAc2lsYWJzLmNvbT4N
-Cj4gPiAtLS0NCj4gPiDCoGRyaXZlcnMvbmV0L3dpcmVsZXNzL3NpbGFicy93ZngvYmguY8KgwqDC
-oMKgwqDCoCB8wqAgNiArKy0tDQo+ID4gwqBkcml2ZXJzL25ldC93aXJlbGVzcy9zaWxhYnMvd2Z4
-L2J1c19zZGlvLmMgfMKgIDEgKw0KPiA+IMKgZHJpdmVycy9uZXQvd2lyZWxlc3Mvc2lsYWJzL3dm
-eC9tYWluLmPCoMKgwqDCoCB8IDM0ICsrKysrKysrKysrKysrLS0tLS0tLS0NCj4gPiDCoDMgZmls
-ZXMgY2hhbmdlZCwgMjYgaW5zZXJ0aW9ucygrKSwgMTUgZGVsZXRpb25zKC0pDQo+IA0KPiBbXQ0K
-PiANCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvd2lyZWxlc3Mvc2lsYWJzL3dmeC9tYWlu
-LmMgYi9kcml2ZXJzL25ldC93aXJlbGVzcy9zaWxhYnMvd2Z4L21haW4uYw0KPiA+IGluZGV4IGRk
-YTM2ZTQxZWVkMTMuLjRlOTlmZTdlNWJiNzggMTAwNjQ0DQo+ID4gLS0tIGEvZHJpdmVycy9uZXQv
-d2lyZWxlc3Mvc2lsYWJzL3dmeC9tYWluLmMNCj4gPiArKysgYi9kcml2ZXJzL25ldC93aXJlbGVz
-cy9zaWxhYnMvd2Z4L21haW4uYw0KPiA+IEBAIC0zOTksMTIgKzQwNiwxMiBAQCBpbnQgd2Z4X3By
-b2JlKHN0cnVjdCB3ZnhfZGV2ICp3ZGV2KQ0KPiA+IMKgCQlkZXZfZXJyKHdkZXYtPmRldiwgInVu
-c3VwcG9ydGVkIGZpcm13YXJlIEFQSSB2ZXJzaW9uIChleHBlY3QgMSB3aGlsZSBmaXJtd2FyZSBy
-ZXR1cm5zICVkKVxuIiwNCj4gPiDCoAkJCXdkZXYtPmh3X2NhcHMuYXBpX3ZlcnNpb25fbWFqb3Ip
-Ow0KPiA+IMKgCQllcnIgPSAtRU9QTk9UU1VQUDsNCj4gPiAtCQlnb3RvIGJoX3VucmVnaXN0ZXI7
-DQo+ID4gKwkJZ290byBpcnFfdW5zdWJzY3JpYmU7DQo+ID4gwqAJfQ0KPiA+IMKgDQo+ID4gwqAJ
-aWYgKHdkZXYtPmh3X2NhcHMubGlua19tb2RlID09IFNFQ19MSU5LX0VORk9SQ0VEKSB7DQo+ID4g
-wqAJCWRldl9lcnIod2Rldi0+ZGV2LCAiY2hpcCByZXF1aXJlIHNlY3VyZV9saW5rLCBidXQgY2Fu
-J3QgbmVnb3RpYXRlIGl0XG4iKTsNCj4gPiAtCQlnb3RvIGJoX3VucmVnaXN0ZXI7DQo+ID4gKwkJ
-Z290byBpcnFfdW5zdWJzY3JpYmU7DQo+ID4gwqAJfQ0KPiA+IMKgDQo+ID4gwqAJaWYgKHdkZXYt
-Pmh3X2NhcHMucmVnaW9uX3NlbF9tb2RlKSB7DQo+IA0KPiBBdCB0aGlzIHBvaW50IGVyciBzdGls
-bCBob2xkcyB0aGUgKHBvc2l0aXZlKSByZXR1cm4gdmFsdWUgZnJvbSB3YWl0X2Zvcl9jb21wbGV0
-aW9uX3RpbWVvdXQsDQo+IHNvIHdmeF9wcm9iZSgpIHdvdWxkIHJldHVybiBhIHBvc2l0aXZlIHZh
-bHVlIChhcyBmYWlsdXJlKS4NCj4gDQo+IEJ1dCBtYXliZSBpdCBkZXNlcnZlcyBhIHNlcGFyYXRl
-IHBhdGNoLg0KDQpJIHdhcyBhYmxlIHRvIGNhcnJ5IG91dCBhIHNob3J0IHJlZ3Jlc3Npb24gdGVz
-dCBpbiB0aGUgbWVhbndoaWxlIGFuZCBhdCBsZWFzdA0KSSBkaWRuJ3Qgc2VlIGFueSByZWdyZXNz
-aW9uIG9uIGEgc3lzdGVtIHdpdGggU0RJTyBhbmQgaW5iYW5kIElSUXMuDQoNClJldmlld2VkLWJ5
-OiBBbGV4YW5kZXIgU3ZlcmRsaW4gPGFsZXhhbmRlci5zdmVyZGxpbkBzaWVtZW5zLmNvbT4NClRl
-c3RlZC1ieTogQWxleGFuZGVyIFN2ZXJkbGluIDxhbGV4YW5kZXIuc3ZlcmRsaW5Ac2llbWVucy5j
-b20+DQoNCk15IGNvbGxlYWd1ZXMgd2lsbCBnaXZlIHlvdSBhIGZlZWRiYWNrIGZyb20gYSBsb25n
-LXRlcm0gdGVzdCBydW4uDQoNClRoYW5rIHlvdSENCi0tIA0KQWxleGFuZGVyIFN2ZXJkbGluDQpT
-aWVtZW5zIEFHDQp3d3cuc2llbWVucy5jb20NCg==
+On Thu, Aug 20, 2026 at 04:24:12PM +0200, Konrad Dybcio wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> Some Combo PHYs (so far only on SC8280XP, X1E80100 and Glymur), come in
+> a flavor called USB43DP, which as the name implies, features USB4, USB3
+> and DP signal processing capabilities. In that architecture, USB3 and
+> USB4 PHYs share the same USB_PLL while featuring separate logic spaces.
+> The DP part is roughly the same as on the instances without USB4.
+> 
+> The USB4 and USB3/DP operation modes of the PHY are mutually exclusive.
+> Only one USB protocol (and flavor of pipe clock) can be active at a
+> given moment (not to be confused with USB3 not being able to be
+> tunneled as USB4 packets - that of course remains possible).
+> The DP PLL is still used for clocking tunneled DP links. It may be
+> turned off to save power when no tunnels are active, but that's left as
+> a TODO item for now.
+> 
+> Due to the nature of USB4, the Type-C handling happens entirely inside
+> the Host Router, and as such the QMPPHY's mux_set() function is
+> nullified for the period when USB4 PHY remains active. This is strictly
+> necessary, as the Host Router driver is going to excercise manual
+> control over the USB4 PHY's power state, which is needed by the suspend
+> and resume flows. Failure to control that synchronously with other
+> parts of the code results in a SoC crash by unlocked access.
+> 
+> Because of that, a new struct phy is spawned to expose the USB4 mode,
+> along with a .set_mode callback to allow toggling between USB4 and TBT3
+> submodes.
+> 
+> Thunderbolt 3, having a number of differences vs USB4, requires a
+> couple specific overrides, pertaining to electrical characteristics,
+> which are easily accommodated for.
+> 
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
+One nit below:
+
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+
+> ---
+>  drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 399 ++++++++++++++++++++++++------
+>  1 file changed, 329 insertions(+), 70 deletions(-)
+> 
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+> index c39ced168d03..dfdeec3ee4f5 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+> @@ -22,6 +22,7 @@
+>  #include <linux/usb/typec.h>
+>  #include <linux/usb/typec_dp.h>
+>  #include <linux/usb/typec_mux.h>
+> +#include <linux/usb/typec_tbt.h>
+>  
+>  #include <drm/bridge/aux-bridge.h>
+>  
+> @@ -66,10 +67,14 @@
+>  #define SW_USB3PHY_RESET			BIT(2)
+>  /* mux to select USB3 PHY reset control, 0:HW control, 1: software reset */
+>  #define SW_USB3PHY_RESET_MUX			BIT(3)
+> +#define SW_USB4PHY_RESET			BIT(4)
+> +#define SW_USB4PHY_RESET_MUX			BIT(5)
+>  
+>  /* QPHY_V3_DP_COM_PHY_MODE_CTRL register bits */
+>  #define USB3_MODE				BIT(0) /* enables USB3 mode */
+>  #define DP_MODE					BIT(1) /* enables DP mode */
+> +#define USB4_MODE				BIT(2) /* mutually exclusive with the above */
+> +#define DP_TUNNELING_CLOCK_GEN_EN		BIT(3)
+>  
+>  /* QPHY_V3_DP_COM_TYPEC_CTRL register bits */
+>  #define SW_PORTSELECT_VAL			BIT(0)
+> @@ -82,6 +87,8 @@ enum qmpphy_mode {
+>  	QMPPHY_MODE_USB3DP = 0,
+>  	QMPPHY_MODE_DP_ONLY,
+>  	QMPPHY_MODE_USB3_ONLY,
+> +	/* USB4 QMPPHY mode refers to both USB4 and TBT3 */
+> +	QMPPHY_MODE_USB4,
+>  };
+>  
+>  /* set of registers with offsets different per-PHY */
+> @@ -94,6 +101,7 @@ enum qphy_reg_layout {
+>  	QPHY_PCS_LFPS_RXTERM_IRQ_CLEAR,
+>  	QPHY_PCS_POWER_DOWN_CONTROL,
+>  	QPHY_PCS_CLAMP_ENABLE,
+> +	QPHY_PCS_USB4_CLAMP_ENABLE,
+>  
+>  	QPHY_COM_RESETSM_CNTRL,
+>  	QPHY_COM_C_READY_STATUS,
+> @@ -2489,6 +2497,8 @@ struct qmp_combo_offsets {
+>  	u16 dp_txb;
+>  	u16 dp_dp_phy;
+>  	u16 aon_toggle;
+> +	u16 usb4_serdes;
+> +	u16 usb4_pcs;
+>  };
+>  
+>  struct qmp_phy_cfg {
+> @@ -2536,6 +2546,18 @@ struct qmp_phy_cfg {
+>  	int (*calibrate_dp_phy)(struct qmp_combo *qmp);
+>  	void (*dp_aux_init)(struct qmp_combo *qmp);
+>  
+> +	/* USB4 specifics */
+> +	const struct qmp_phy_init_tbl *usb4_serdes_tbl;
+> +	int usb4_serdes_tbl_num;
+> +	const struct qmp_phy_init_tbl *usb4_serdes_tb3_ovrd_tbl;
+> +	int usb4_serdes_tb3_ovrd_num;
+> +	const struct qmp_phy_init_tbl *usb4_tx_tbl;
+> +	int usb4_tx_tbl_num;
+> +	const struct qmp_phy_init_tbl *usb4_rx_tbl;
+> +	int usb4_rx_tbl_num;
+> +	const struct qmp_phy_init_tbl *usb4_pcs_tbl;
+> +	int usb4_pcs_tbl_num;
+> +
+>  	/* resets to be requested */
+>  	const char * const *reset_list;
+>  	int num_resets;
+> @@ -2578,8 +2600,12 @@ struct qmp_combo {
+>  	void __iomem *dp_tx2;
+>  	void __iomem *dp_dp_phy;
+>  
+> +	void __iomem *usb4_serdes;
+> +	void __iomem *usb4_pcs;
+> +
+>  	struct clk *pipe_clk;
+>  	struct clk_bulk_data *clks;
+> +	struct clk *p2rr2p_pipe_clk;
+>  	int num_clks;
+>  	struct reset_control_bulk_data *resets;
+>  	struct regulator_bulk_data *vregs;
+> @@ -2598,6 +2624,10 @@ struct qmp_combo {
+>  	unsigned int dp_init_count;
+>  	bool dp_powered_on;
+>  
+> +	struct phy *usb4_phy;
+> +	enum tbt_phy_submode usb4_phy_submode;
+> +	unsigned int usb4_init_count;
+> +
+>  	struct clk_fixed_rate pipe_clk_fixed;
+>  	struct clk_hw dp_link_hw;
+>  	struct clk_hw dp_pixel_hw;
+> @@ -4006,6 +4036,9 @@ static int qmp_combo_dp_calibrate(struct phy *phy)
+>  static int qmp_combo_com_init(struct qmp_combo *qmp, bool force)
+>  {
+>  	const struct qmp_phy_cfg *cfg = qmp->cfg;
+> +	u32 dp_reset_val = SW_DPPHY_RESET_MUX | SW_DPPHY_RESET;
+> +	void __iomem *pcs_aon = qmp->pcs_aon;
+> +	void __iomem *pcs = qmp->pcs;
+>  	void __iomem *com = qmp->com;
+>  	void __iomem *aon_toggle;
+>  	int ret;
+> @@ -4019,6 +4052,16 @@ static int qmp_combo_com_init(struct qmp_combo *qmp, bool force)
+>  	else
+>  		aon_toggle = qmp->pcs_aon;
+>  
+> +	if (qmp->qmpphy_mode == QMPPHY_MODE_USB4) {
+> +		pcs = qmp->usb4_pcs;
+> +
+> +		qphy_setbits(pcs_aon, cfg->regs[QPHY_PCS_USB4_CLAMP_ENABLE], CLAMP_EN);
+> +
+> +		/* Do not disturb the DP PLL in case there's an active DP tunnel */
+> +		if (readl(com + QPHY_V3_DP_COM_RESET_OVRD_CTRL) & DP_TUNNELING_CLOCK_GEN_EN)
+> +			dp_reset_val &= ~SW_DPPHY_RESET_MUX;
+> +	}
+> +
+>  	ret = regulator_bulk_enable(cfg->num_vregs, qmp->vregs);
+>  	if (ret) {
+>  		dev_err(qmp->dev, "failed to enable regulators, err=%d\n", ret);
+> @@ -4052,8 +4095,9 @@ static int qmp_combo_com_init(struct qmp_combo *qmp, bool force)
+>  
+>  	/* override hardware control for reset of qmp phy */
+>  	qphy_setbits(com, QPHY_V3_DP_COM_RESET_OVRD_CTRL,
+> -			SW_DPPHY_RESET_MUX | SW_DPPHY_RESET |
+> -			SW_USB3PHY_RESET_MUX | SW_USB3PHY_RESET);
+> +			dp_reset_val |
+> +			SW_USB3PHY_RESET_MUX | SW_USB3PHY_RESET |
+> +			SW_USB4PHY_RESET_MUX | SW_USB4PHY_RESET);
+>  
+>  	/* override hardware control for reset of qmp phy */
+>  	if (aon_toggle && cfg->regs[QPHY_AON_TOGGLE_ENABLE]) {
+> @@ -4069,6 +4113,10 @@ static int qmp_combo_com_init(struct qmp_combo *qmp, bool force)
+>  	if (cfg->invert_cc_polarity)
+>  		val |= INVERT_CC_POLARITY;
+>  
+> +	/*
+> +	 * Note that in USB4 mode, the router controls pin assignments instead
+> +	 * and the values of the PORTSELECT registers are ignored.
+> +	 */
+>  	writel(val, com + QPHY_V3_DP_COM_TYPEC_CTRL);
+>  
+>  	switch (qmp->qmpphy_mode) {
+> @@ -4096,12 +4144,21 @@ static int qmp_combo_com_init(struct qmp_combo *qmp, bool force)
+>  		qphy_clrbits(com, QPHY_V3_DP_COM_RESET_OVRD_CTRL,
+>  				SW_USB3PHY_RESET_MUX | SW_USB3PHY_RESET);
+>  		break;
+> +	case QMPPHY_MODE_USB4:
+> +		writel(USB4_MODE, com + QPHY_V3_DP_COM_PHY_MODE_CTRL);
+> +
+> +		/* bring both QMP USB and QMP DP PHYs PCS block out of reset */
+> +		/* TODO: disable DP PLL if there are no active tunnels after router setup */
+
+100 column width generally applies to code, not comments. Comments should still
+be wrapped to 80 columns.
+
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
