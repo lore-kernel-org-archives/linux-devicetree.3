@@ -1,298 +1,234 @@
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A87547ECE5
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 13:28:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8804736B06A;
+	Tue,  1 Sep 2026 13:36:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788269322; cv=none; b=nhePVoI7APHL1Hd7X/EbiMwNV2J85tUdp6IQezgS2VPZp11rkOjAcw8FhStFn1sa+PiVw6YcuijvvK8vQAm3lnNI0ejFa7F+/aNSHtYiLOB3jJiG4Lk/9fnOzqqbgqSMRrtv2OdsT1rBbYiQjf9gsNInnhbJLoHXm3MnRNX3Tws=
+	t=1788269807; cv=none; b=psos+MeEuA8PbjClbE7WqjY7Ei63K/YLJ1elwmmJIDt/yNYZ7MjjKnyhtxfRj4IR9LvcqC8UoSDAHwiVm6NSSH6gdnuO+nfgqKYpZZ1ekrb+qoOTtv5QbnfJkKHKKDeYBCJMTyvkWaryClf24Xb2cbQdAN7ZTBGnUXSoRznRUrM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788269322; c=relaxed/simple;
-	bh=MUq/5ZoiCfWabfKDlFl7q+tz6E/EDZ9wlA4CyFJOWNk=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=P+abuc7kqRhnrcHVamcfXOrLCDB06xb6EXJDqLHN97EVlw6FNHi72qPLkQzB9lF5xqp5cojY9YRC4qgtWm1hoXLV0thpTw8HvZzt+L6hqj+JSyJCnaAN3yxeR67DnE/hRXh+jLP6nj9ZIN6Fi/qcJljuFfCRlSnTSwsTJCpCauc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=EAgluykf; arc=none smtp.client-ip=185.67.36.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	s=arc-20240116; t=1788269807; c=relaxed/simple;
+	bh=bCa/+ioSd391ansot8wasyv5SfvIWPFZ8hB1i2B1cEg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=csJlOPn+TdEdnT1mUQIb1vdUk1ujPAWmFj42OlM6kW2yyn2H/sCtbQvA9O+dj4s/8y53KJkUghk2YTJ3TXgY1uUHzAejXvkzRidm/J/sQiUA/nzy+ARmN2uC2TQ0IeKyMTDSvK2ffuj0LGfsGdJw5tAc4B9Hq+U//AN+MygUkKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Hk68tnfl; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="EAgluykf"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id 30A91240105
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 15:28:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
-	s=1984.8680eb; t=1788269317;
-	bh=vUM+yN+wV2Rum2NOiWGNEq7ms74eqAhRWAUvws9oiXc=;
-	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
-	 MIME-Version:OpenPGP:From;
-	b=EAgluykfAjkRXM1DT8Typ2YUTHMMjJyBZEaJWN25o3SPept1PGpq6pWpAyGgRNYm+
-	 ITCZaWPgb7aeAHVrS12l2xZy/FJbEZtPgvlE+ahrNMW7/kcHM8ayN1LaqRtga9xGlE
-	 /oQ/UkGQwwKfNUtbZNFnCE2xjaCANnqeib+ot6DPAhZySVjAXZWKJUurPWJsaxrgNK
-	 lnRlAYqZaNpe50gCz+kSArDkCavOODkJaCeJH6m7yFf1JPyXCPF8v2xwuye78LIn/c
-	 1HZ4S//1N9A34INu/OiVg64XZmipGdhLO8M6fwe+ddIySzSCOGjUpq49qsVsacztrq
-	 /FY7gkAc6Yefg==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4hZ6BV3xF4z6tyW;
-	Tue,  1 Sep 2026 15:28:34 +0200 (CEST)
-Message-ID: <c4b9b6c6033774a02be50cf07a6729a6b1e9e5ba.camel@posteo.de>
-Subject: Re: [PATCH v8 1/6] dt-bindings: rtc: Add pinctrl for S35390A
-From: Markus Probst <markus.probst@posteo.de>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, Rob Herring
-	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	 <conor+dt@kernel.org>, Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?=
-	 <uwe@kleine-koenig.org>, Andrew Lunn <andrew@lunn.ch>, Gregory Clement
-	 <gregory.clement@bootlin.com>, Sebastian Hesselbarth
-	 <sebastian.hesselbarth@gmail.com>, Michael Langer
-	 <michael.brainbug.langer@googlemail.com>, Andrew Morton
-	 <akpm@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Tue, 01 Sep 2026 13:28:36 +0000
-In-Reply-To: <20260901-proud-furious-bison-0edeec@quoll>
-References: <20260831-rtc_s35390a_int1-v8-0-dac1dc86ce1f@posteo.de>
-	 <20260831-rtc_s35390a_int1-v8-1-dac1dc86ce1f@posteo.de>
-	 <20260901-proud-furious-bison-0edeec@quoll>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-iRkZX+HtzAjTofklDxni"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Hk68tnfl"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id A95561A18FE;
+	Tue,  1 Sep 2026 13:36:41 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 7041A6053C;
+	Tue,  1 Sep 2026 13:36:41 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BBD1411C79281;
+	Tue,  1 Sep 2026 15:36:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788269796; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=ebsqMy2EnVHY9plN/hZxJMwt48+kiHKpI9Ca6hUAEeQ=;
+	b=Hk68tnflvw1ZZQ6K/uKMjvMzk4RU+XfRXIYQhvZO2IcC+rhCrEd/D9hbnhKptQVnkZRV8Q
+	ntBPALWbYubzYp10NjU2ModBchlDLN+uIe3BDWwufWUvGpMFRO1iua7/zoMjb4Ld4HPPr3
+	kripHYEFzY0OlsEi+mUdVIxOnc9nZn/6rQvfCQwtk/5hqiMyGyB6pgilCaXdFRs81n784K
+	ZaD6R7uZHHACHnU8HpEXE38y0n0vIMi2NX7ukpTlpnVIoUvY55XfjTf6TyU02SEeiU4GOA
+	SO16em9npMcOjpj6FF+I3IVD3Q1IRr0uJIJxBovyFuGxPdV3b1WZCKvtUfYQEg==
+Date: Tue, 1 Sep 2026 15:36:26 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v3 03/15] tests: Don't assume the root node is available
+ at offset 0
+Message-ID: <20260901153626.7f0e0813@bootlin.com>
+In-Reply-To: <apaGr_i-s4DAZ-Ul@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+	<20260826083146.304291-4-herve.codina@bootlin.com>
+	<apaGr_i-s4DAZ-Ul@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
+Hi David,
 
---=-iRkZX+HtzAjTofklDxni
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Tue, 1 Sep 2026 18:03:09 +1000
+David Gibson <david@gibson.dropbear.id.au> wrote:
 
-On Tue, 2026-09-01 at 12:05 +0200, Krzysztof Kozlowski wrote:
-> On Mon, Aug 31, 2026 at 05:42:22PM +0000, Markus Probst wrote:
-> > Synology NAS devices use the output pin for interrupt signal 1 to wake =
-up
-> > the system.
-> >=20
-> > Move devicetree bindings for sii,s35390a into its own file.
-> > Add necessary properties to configure the individual pins via pinctrl,
-> > which allows the interrupt signal 1 to be used for wakeup alarm.
-> >=20
-> > Signed-off-by: Markus Probst <markus.probst@posteo.de>
+> On Wed, Aug 26, 2026 at 10:31:34AM +0200, Herve Codina wrote:
+> > Several tests uses offset 0 as the offset of the root node. Either to
+> > check the offset returned by tested functions or to directly manipulate
+> > the root node retrieved using fdt_offset_ptr(fdt, 0, ...).
+> > 
+> > The root node is not always at offset 0. Indeed, a FDT_NOP tag can be
+> > present at offset 0. fdt_root_offset() returns the offset of the root
+> > node taking care of possible FDT_NOP tag.
+> > 
+> > Use fdt_root_offset() to get the offset of the root node and use this
+> > value whenever the offset of the root node is expected.
+> > 
+> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 > > ---
-> >  .../devicetree/bindings/rtc/sii,s35390a.yaml       | 117 +++++++++++++=
-++++++++
-> >  .../devicetree/bindings/rtc/trivial-rtc.yaml       |   3 -
-> >  2 files changed, 117 insertions(+), 3 deletions(-)
-> >=20
-> > diff --git a/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml b/D=
-ocumentation/devicetree/bindings/rtc/sii,s35390a.yaml
-> > new file mode 100644
-> > index 000000000000..dfe632c4b2c8
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml
-> > @@ -0,0 +1,117 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/rtc/sii,s35390a.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: S-35390A 2-WIRE REAL-TIME CLOCK
-> > +
-> > +maintainers:
-> > +  - Markus Probst <markus.probst@posteo.de>
-> > +
-> > +description:
-> > +  The S-35390A is a CMOS 2-wire real-time clock IC which operates with=
- the
-> > +  very low current consumption in the wide range of operation voltage.
-> > +
-> > +allOf:
-> > +  - $ref: rtc.yaml#
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: sii,s35390a
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +  interrupts:
-> > +    minItems: 1
-> > +    maxItems: 2
-> > +    description: Supports up to 2 interrupt lines via the INT1 and INT=
-2 pins.
-> > +
-> > +  interrupt-names:
-> > +    items:
-> > +      - const: int1
-> > +      - const: int2
-> > +
-> > +  wakeup-parent: true
-> > +
-> > +  wakeup-source: true
-> > +
-> > +  "#clock-cells":
-> > +    const: 1
-> > +
-> > +patternProperties:
-> > +  "^pins":
-> > +    type: object
-> > +    additionalProperties: false
-> > +
-> > +    patternProperties:
-> > +      "-pins$":
-> > +        type: object
-> > +        additionalProperties: false
-> > +
-> > +        allOf:
-> > +          - $ref: /schemas/pinctrl/pinmux-node.yaml#
-> > +
-> > +        properties:
-> > +          pins:
-> > +            minItems: 1
-> > +            items:
-> > +              enum:
-> > +                - int1
-> > +                - int2
-> > +
-> > +          function:
-> > +            description: |
-> > +              Pin function:
-> > +              - ignore:  Preserve the previous state.
-> > +              - disable: Disable pin output.
-> > +              - wakeup:  Output wakes up the system.
-> > +              - clock:   Output clock pulse.
-> > +              - pmin1:   Minute periodical output with 50% duty.
-> > +              - pmin2:   Minute periodical output L for 7.81 ms.
-> > +                         Can only be used with pin int1.
-> > +            enum:
-> > +              - ignore
-> > +              - disable
-> > +              - wakeup
-> > +              - clock
-> > +              - pmin1
-> > +              - pmin2
-> > +
-> > +        required:
-> > +          - pins
-> > +          - function
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +
-> > +unevaluatedProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    i2c {
-> > +        #address-cells =3D <1>;
-> > +        #size-cells =3D <0>;
-> > +
-> > +        rtc@30 {
-> > +            compatible =3D "sii,s35390a";
-> > +            reg =3D <0x30>;
-> > +            pinctrl-0 =3D <&rtc_pins_default>;
-> > +            pinctrl-names =3D "default";
-> > +
-> > +            wakeup-parent =3D <&int>;
->=20
-> I don't understand this need. Device does not generate interrupts - no
-> interrupts property - thus how can it wakeup?
-It is just an example.
+> >  tests/node_offset_by_compatible.c |  4 +++-
+> >  tests/node_offset_by_prop_value.c | 11 +++++++----
+> >  tests/path_offset.c               | 13 +++++++++----
+> >  tests/root_node.c                 |  6 +++++-
+> >  4 files changed, 24 insertions(+), 10 deletions(-)
+> > 
+> > diff --git a/tests/node_offset_by_compatible.c b/tests/node_offset_by_compatible.c
+> > index a9e67835..1278a562 100644
+> > --- a/tests/node_offset_by_compatible.c
+> > +++ b/tests/node_offset_by_compatible.c
+> > @@ -39,12 +39,14 @@ static void check_search(void *fdt, const char *compat, ...)
+> >  int main(int argc, char *argv[])
+> >  {
+> >  	void *fdt;
+> > +	int root_offset;
+> >  	int subnode1_offset, subnode2_offset;
+> >  	int subsubnode1_offset, subsubnode2_offset;
+> >  
+> >  	test_init(argc, argv);
+> >  	fdt = load_blob_arg(argc, argv);
+> >  
+> > +	root_offset = fdt_root_offset(fdt);
+> >  	subnode1_offset = fdt_path_offset(fdt, "/subnode@1");
+> >  	subnode2_offset = fdt_path_offset(fdt, "/subnode@2");
+> >  	subsubnode1_offset = fdt_path_offset(fdt, "/subnode@1/subsubnode");
+> > @@ -54,7 +56,7 @@ int main(int argc, char *argv[])
+> >  	    || (subsubnode1_offset < 0) || (subsubnode2_offset < 0))
+> >  		FAIL("Can't find required nodes");
+> >  
+> > -	check_search(fdt, "test_tree1", 0, -FDT_ERR_NOTFOUND);
+> > +	check_search(fdt, "test_tree1", root_offset, -FDT_ERR_NOTFOUND);  
+> 
+> This does highlight that even with the compatibility changes
+> introduced here, allowing NOPs before the root node can potentially
+> break things.  We now handle _passing_ 0 to any of the functions as a
+> node offset, but anything that expects a _returned_ offset to be 0 if
+> it's the root node will break.
+> 
+> I think that's probably an acceptable breakage, but it's something to
+> be aware of.
 
->=20
-> As explained in commit msg, the signal at int1 goes to the SoC, right?
-I assume.
+Yes, I know but I wouldn't say it is a breakage. NOPs are allowed by the
+specification. In current version dtc/libfdt, having a NOP before the root
+node is already broken.
 
-> So where does it go? To which pin of which device? &int?
-For my Synology DS923+ NAS, I do not have schematics. I only know for
-sure from source code that INT1 is used for wakeup and I can confirm
-that this does indeed wake the device up.=20
+I agree with you we need to be aware of.
 
->=20
-> Can you show complete upstream DTS using this?
-There is arch/arm/boot/dts/ti/omap/am3517-som.dtsi, which has the pin
-output of INT1 routed to a gpio pin. INT2 isn't connected at all.
-According to the public schematic [1], this looks accurate.
+...
+
+> > diff --git a/tests/root_node.c b/tests/root_node.c
+> > index 37e6f059..30903f2b 100644
+> > --- a/tests/root_node.c
+> > +++ b/tests/root_node.c
+> > @@ -19,12 +19,16 @@ int main(int argc, char *argv[])
+> >  {
+> >  	void *fdt;
+> >  	const struct fdt_node_header *nh;
+> > +	int root_offset;
+> >  
+> >  	test_init(argc, argv);
+> >  	fdt = load_blob_arg(argc, argv);
+> >  
+> > -	nh = fdt_offset_ptr(fdt, 0, sizeof(*nh));
+> > +	root_offset = fdt_root_offset(fdt);
+> > +	if (root_offset < 0)
+> > +		FAIL("fdt_root_offset() returns %d", root_offset);  
+> 
+> Hm.  It's been a long time, but I suspect the purpose of this testcase
+> was to be super low-level, checking the contents of the root node
+> _without_ relying on iteration or lookup functions first.  Putting the
+> lookup call here arguably defeats that purpose: certainly the test
+> that nh->tag == FDT_BEGIN_NODE is no longer meaningful, since
+> fdt_root_offset() will explicitly look for a location where that's
+> true.
+> 
+> Or perhaps another way to look at it is that this test is explicitly
+> verifying that the root node is at offset 0, so does it make snese for
+> this test to even exist any more.  I guess the test for the name of
+> the root node is still meaningful, if minor.
+> 
+> Nonetheless, to maintain as best we can this test's goal as working
+> independent of lookup functions, I think it might be worth open coding
+> something to skip FDT_NOP tags (not using fdt_next_tag(), even), then
+> construct nh immediately after that.
+
+Well "structured tags" are going to be introduced and so the open coding
+here will need to take care of that. Later some new tags could be introduced
+and could also have impacts on the test.
+
+To be honest, I hesitated to just remove this root_node test.
+
+I kept it because at least it checks that the offset returned by 
+fdt_root_offset() looks like a root node (i.e tag BEGIN_NODE and empty name).
+
+Adding an open coded loop here without fdt_next_tag() call will looks like
+a copy/paste of the loop available in fdtdump.c. I am not sure that this is
+what we want to see here.
+
+The question is: How to be sure that the offset returned by fdt_root_offset()
+is really the root node offset without having an open code loop here?
+
+Maybe we can add a new test, root_offset, and build dtbs where we exactly
+know where the root is (2 dtbs, with and without FDT_NOP). treegen could
+build those dtbs.
+---- 8< ----
+/ {
+    offset = <real_root_node_offset>;
+};
+---- 8< ----
+
+The treegen tool should be able to add a property where the value is the offset
+of the root node.
+
+The new test could get the root node offset thanks to fdt_root_offset(), read the
+'offset' property available at this root node offset and check that the property
+value matches the root node offset returned by fdt_root_offset().
+
+The root_node is kept as it is with this current patch applied:
+- use fdt_root_offset()
+- Check BEGIN_NODE
+- Check empty name
+
+What do you think about this solution ?
+
+Should the 'root_offset' test need to be implemented or does it look over-engineered ?
+
+Best regards,
+Hervé
+     
+> 
+> 
+> >  
+> > +	nh = fdt_offset_ptr(fdt, root_offset, sizeof(*nh));
+> >  	if (! nh)
+> >  		FAIL("NULL retrieving root node");
+> >  
+
+> > -- 
+> > 2.55.0
+> > 
+> >   
+> 
 
 
-Thanks
-- Markus Probst
 
-[1] https://www.scribd.com/doc/60133698/SOM-M2-Schematic
-
->=20
->=20
-> Best regards,
-> Krzysztof
-
---=-iRkZX+HtzAjTofklDxni
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmqW0vQbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSb7EP/0A6hImyam3AZT6bEy9e
-tqPzzX/4eg90lRdFBoC07xjNdZy9zEF7/SN1jeWxIssdBIm70G5PqQ4ovL8BN5uy
-4h/06BGhT0JxIYlTUiaJNye1ro3B8TquZJUCWr2s3DYLuim3sGAr366rL2Py6U8D
-VooNcKXa68474yEi/cJKQfqF5E5m6pwDaISAKfJcrd0rQA9MitLaLu8iFK+vfKPF
-vfM1fdZnMJEiRU1juNsqz1asfpqKOxX+Jn8u9ZEpZfBErnsCpM+sX2MEw7DbD6xw
-WpETOiFat1weVALHkGE/seTEasfVJdJcNeAJ51RBpPmva5Yz63wKPugl4siz/WRI
-0ECRDwpWQI2567MQOOpk2RtXByYq5sc8TDB/rofz+0sUB4ck5jHyv9eHK72rObbv
-EHsK/HcJ0+i/YlFqUqBS8LsjAdZAlvLw0jdBdsUS09p50gLUtAsr4vrFSz/sd21C
-bba9qkI+Pz4YvrLvno72CES7EQ7PAt1eFNT/Waudu8Rp/tKWdTbn/1sMOYdZmxLR
-ysKzIu6tTTtbL8VPbixjhVo3lAZyB7EteAVPctpnP+w2/UrLW47qP30nP2OJsr+J
-AFJoL9Y6j+iW8j7H7utpdRHacuKHEnazT5YeR3wla2h6LWJnrpynsRKCtIgJDs9E
-AcViFv6GY9IYjEqxwEnLwuwe
-=fvHI
------END PGP SIGNATURE-----
-
---=-iRkZX+HtzAjTofklDxni--
+-- 
+Hervé Codina, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
