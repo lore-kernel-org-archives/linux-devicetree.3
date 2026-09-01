@@ -1,67 +1,86 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012011.outbound.protection.outlook.com [52.101.66.11])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD28143846E;
-	Tue,  1 Sep 2026 07:33:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788248023; cv=fail; b=Yi2YcGuq5zeCopNIvBPt04tMatMZC7EhpFXmJhFiXoLBhJdGtNJ0RHhedAMlPA6+6M80zP3xJM4jh7/URlHtdCtsnRiZ9r9Mc3QwczqXIWfdh31klmiaRMglj12XlNhJbcptYG9CQjya+9QELjB26OWf3lkb8YoqnoirqKgkDrI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788248023; c=relaxed/simple;
-	bh=ewuZGCzM8B3C0daPN9oyAEDZBkgtTR8Uv6CIX+0mbfE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=l+fWttZ+EutU5eIyujlv9ZEi8YH6m916S9I0aoM2DXF4BIx1FbZS8ZUXCc/0pzcuxsvTR53u49frnOVf9YDnkMqLlp3YO0kL9b5OO8woyLYPqTVyhbF3URSKsuKNzMihsixLFMgImLVQVYLCRC5TR/dE0d5v+8WjRd02EzGGLIY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=Jy/x9OO2; arc=fail smtp.client-ip=52.101.66.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0401D46AA61
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 07:34:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788248098; cv=none; b=dxrBCccJRa14SDerjH1emDV/+xvYEsp6Zrp7KXx4R+DmV0e7z3NkuNeHGIAVJD9Ku4oQ0m/nxZXvjQEFlCXGPBJ1G5/qMPdfwy8/TjVb9JJ435KqvTkspsZvEYqYvJEna3tcVC61Ej3VjkPHgZaCgysCCkB2X6iWchs2XVvaHxY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788248098; c=relaxed/simple;
+	bh=MFEYPaTZXGidEsGjbCjg0usm3Cutb8p7bOkDBGDOfkU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qVIN4KG+diF3ni6tTwYypU0UTRqblSiT3YG/izgKlZOzXjQcHL+BO5+Boeki4naQ0zO7ZFV1wCsDZsWi2N4VBFCbJf3um6NImZinhERVuxXAeGD+FKP/YVMZpIAlGRh5FYZgh+iJC14dQkAqu0rYL5wbAOPKWQyRgkk0RqZ2SsY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aMw/nX9B; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=h03eyqKB; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="Jy/x9OO2"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fh4P82hZ9ufqgQa7OHtSFMnbcDQ2EK+8RFEir8SkYyfBE25N0g1Mx7DLsqYmLE6cKUUQLES8ckHIQLoclSRjrrHfUOGAUOihLxcRA1/ypfRZ0a/FDBKrfUP1dv2Vzl8/dz3t7SIuBXy9b6OJm0AophaSMYZZml4Io/kZcc/QZ4sHmSfls6E9vZzhb0fjoBeXCE7XjgX8M3SirVbScrwOFkT8RI7ZGRTvv+mgx6H+4An1JrRBgjszfNyc8PnIyTJYq7aSCmyoyCALin3gasJDsN5oDPrNhvnXDJgUCFRoDsIbzqRa62HYedB7gTkIdvvHT6bsvJIgGWj5b3s061gKIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GPgVgyUxOXuHj9KnGx3BV8CxHTqn5InN3T6v8yMqnhA=;
- b=y7LI6ukY8vu2NOV4v47+RTMbjjJfHM9RTIF8Ad99d9xr6D/2LGJG/sFPBpzKItbZZcjG6Or2oCtBQk/m0l2TYd+YjrabtQrRQc1nZtc03DGZmrKEsvMfQ189W4EmBPT4ApqLiopyXxwjLYnu8J8gS4NJOiJi/wA0aCwkBsfVr54Pjrg3bksAaxDaglayGnMOOS+T4G0I6aMQ1g1hGKaUrREXdX0Cxn7YRAiA9ufOgFPLFIdbtoS7TvAycAmly9Lr8AW5cUuQOpQgRF+tsF3rFj74Uv49KaoNSXmRC4pNJ/Qge/W8A0KYOxAa7B4PyoKm708FWbDibodl3AEYcPtKfQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.88) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GPgVgyUxOXuHj9KnGx3BV8CxHTqn5InN3T6v8yMqnhA=;
- b=Jy/x9OO2LVRmEkVQk4NJXvKQYJ5ugp0o9+oDIdxbXcUsq2wmNDg/zDGEyetPTpkzk/cutGJIB92pA0bInAJn6Gkw5Cn2OO+KBZLNhRcOby6NbDoVIesMoU2G8/GRVImEpk05vyfUogm6mTqqRtjWjKmX7GxuinMpxFpONRbR9SVlqSm8tUX92TjrMylltlViKx87KU1TCtsEmNyrzrULIm1PGv+Dan37808E/0VbIcZV5wHs+8mZ9IUMb33eRNWAvUfDD4Ggk4sT0mS7O4o7Y/67UDrk7gYOT0XJrC5t9W5fbcOTaNQqlZzjcVPNrQI59K2LJt4snvlTm4fkOFGQxA==
-Received: from AS4P191CA0012.EURP191.PROD.OUTLOOK.COM (2603:10a6:20b:5d5::11)
- by DB4PR10MB6920.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:3fc::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 07:33:36 +0000
-Received: from AM4PEPF00027A6C.eurprd04.prod.outlook.com
- (2603:10a6:20b:5d5:cafe::31) by AS4P191CA0012.outlook.office365.com
- (2603:10a6:20b:5d5::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Tue, 1
- Sep 2026 07:33:36 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.88)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.88 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.88; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.88) by
- AM4PEPF00027A6C.mail.protection.outlook.com (10.167.16.90) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Tue, 1 Sep 2026 07:33:36 +0000
-Received: from ENXDAG1NODE4.st.com (10.75.129.197) by smtpo365.st.com
- (10.250.44.75) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 1 Sep
- 2026 09:30:54 +0200
-Received: from [10.48.87.85] (10.48.87.85) by ENXDAG1NODE4.st.com
- (10.75.129.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 1 Sep
- 2026 09:33:34 +0200
-Message-ID: <3326ff38-75c3-4218-b537-17077f3faa4e@foss.st.com>
-Date: Tue, 1 Sep 2026 09:33:33 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aMw/nX9B";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="h03eyqKB"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68179Q2J1811499
+	for <devicetree@vger.kernel.org>; Tue, 1 Sep 2026 07:34:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	rGlFBkKXrHiR0rsOfALM3d2LLsNECGveEfEeOj5vR2Q=; b=aMw/nX9BJ+vV+icv
+	dhQa63ToSLO3yECZlNZ1fGj9czLy7r1tK9aq5+OfXLw845Y7xhlRiONklvIcNtbb
+	sNo10YHZ9XBJE6rtjZRATEmIQxdgG8uwZSIG9HG/psp7xnmGI+DtzQgrIeouh+/9
+	chIKu5PmaVenFbnizFKDguWIshNSJLlhWJG4J8xPcL2LVNi4UCrbSiv1/l6fMJdH
+	cOMHzJ95am8hUxuwGKgDSGPqX546TWUYzuX/I+ipwcbeFf+CSiPlmBj9MR6iKglv
+	KKAr11oi/dOdFLr79vjGhTHbH3iS6NCfARrW1g1W7t63YhEKDZtJceuBBkgYdI7+
+	bUeGzw==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdd4duk4n-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 07:34:55 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-90cea0b5522so11128176d6.1
+        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 00:34:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788248095; x=1788852895; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=rGlFBkKXrHiR0rsOfALM3d2LLsNECGveEfEeOj5vR2Q=;
+        b=h03eyqKBmAxNs6H9oE6k3FSnu6w5rtM7tYoTTFdToE9zQBlFRM0Y6ONPsMAz1d66y0
+         b3tAS5rSFVburz5ZfIu76DkqLMvxP+XSLhGcB+IsTjMDBF37wGOW4SRKHhMkhT4yN/6Q
+         vV+exwsAhLvGwAIlDUzKKxZwc1d0tTiyDcvTk0JrSmoCaTfCqSyMDfiDIt4Ix+pyYsCv
+         8glyPC67K5edVKvTOo34jqrgmwFsL8RqsgzRS8504syk4XLlcRWdQNofllKMO7l8SghC
+         WGvudXS1tG9DH51BbqmC8GHu8AfdkBAv73+BQh3FMynek6h0/JFoEW5lpIYIKKU64NaQ
+         NNJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788248095; x=1788852895;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rGlFBkKXrHiR0rsOfALM3d2LLsNECGveEfEeOj5vR2Q=;
+        b=OX9FqTcSs2gtpgkt2DJKc2WFiDygfnxDPVsTnG5DPN5iOkR0pT1UBQDnzydHq/CR6l
+         t4uNh21rGr8nS+Vhl9xCqSflv6/kTPRbGYyM4SpVdQNs11HPfIdP3HRpLO0rg4l2Lpy3
+         scmtw+ZUQaGslGATjxWWnTXZSpX9NTKeqqK8s7IpbTE3U4Pc4+mMDwDPkCou2xHvV5tf
+         lR47ufkq8UpNOHmmazaCI+DhbdRxTdKXrRSArU8KecgdWx3oXKNLlxRuANFZ+GMkrM37
+         a5Gx8o+oMHFKZDYhzkCeIqk/urxgdY3xTyyuW+i3Y72GHy842amAu980Ls3lxJsmpM9C
+         KTtg==
+X-Forwarded-Encrypted: i=1; AKwUvBw2cs6qOAC5mizdBohBLNalKsIy7XOhgMnGt3ZY5DITH3lv9uHqJxO84SMQh5xftBiAhlVlLw2Bms29@vger.kernel.org
+X-Gm-Message-State: AFuF++lNqj6CQrm8PQC+JYm8bgRdJEJ5B+DZVES2b+vpTzaz5GmPmKUY
+	maWpvHf3XrSMpUd3U0eAX/dd1BsODg82ppFsKpg8TVZ72bc1O2qqjcxJjZPi4GT9cyXnjESE6TW
+	67UU/NAiXk3SpW7IcSZbwWFufJOjI61lWjCmjIpZ4zKsFAcJC22k7iP9FG0mtZmVq
+X-Gm-Gg: AYBFou3GdaSoOYo/XVTeSxm7Rr+V1mdurglUaFk78GYIgPSx5UUi8nGxuuI9rVEq9a1
+	/NNFire3FEZq1Yy4nix1lZck+R45FG5dGhjC2laeT+x2t7WclrRpKLevdqcdYwRAL/d6BG9Urzm
+	McuAOtE+mk/UBQYmuJkMLTiGTjpd9mSci5ojStuAY/sSrRcAQVGNxlwN+jmgKM6WEAJzWrBUVvU
+	AvFAXLDxd3IMw3j+jLNwE2oeIn0av2qgLK8IPcQa8xylQ8AidwDbh/PMsvVsDLKxH2YFOuMran6
+	5kkwLqH9DObaoF85s2sBg77D6bUnJLnDgmYfN4B2V/LrgInW5c4HijIMmXa7GGQKl4mHgXO6KhM
+	Mlc/GqBW91lkf00X4XKEJQk9ZYw3CwrwcoHhGIBwO46+3eL6k6qhTerKLy24uuFtD
+X-Received: by 2002:a05:6214:450b:b0:90e:921a:f62e with SMTP id 6a1803df08f44-90e921af821mr111501166d6.15.1788248094585;
+        Tue, 01 Sep 2026 00:34:54 -0700 (PDT)
+X-Received: by 2002:a05:6214:450b:b0:90e:921a:f62e with SMTP id 6a1803df08f44-90e921af821mr111500396d6.15.1788248094028;
+        Tue, 01 Sep 2026 00:34:54 -0700 (PDT)
+Received: from [10.111.163.121] (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90ce44f5695sm102949146d6.26.2026.09.01.00.34.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Sep 2026 00:34:53 -0700 (PDT)
+Message-ID: <324ee2ef-f95d-4a78-945d-12d6b2f191be@oss.qualcomm.com>
+Date: Tue, 1 Sep 2026 15:34:47 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,110 +88,103 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [net-next,PATCH v2 1/5] dt-bindings: net: add phy-supply property
- for stm32
-To: Rob Herring <robh@kernel.org>
-CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
-	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
-	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	<linusw@kernel.org>, Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>, <netdev@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20260812091122.566439-1-christophe.roullier@foss.st.com>
- <20260812091122.566439-2-christophe.roullier@foss.st.com>
- <20260812195828.GA724768-robh@kernel.org>
-Content-Language: fr
-From: Christophe ROULLIER <christophe.roullier@foss.st.com>
-In-Reply-To: <20260812195828.GA724768-robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To ENXDAG1NODE4.st.com
- (10.75.129.197)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM4PEPF00027A6C:EE_|DB4PR10MB6920:EE_
-X-MS-Office365-Filtering-Correlation-Id: bb82eb40-2125-446c-c93a-08df07fb5576
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|7416014|22082099003|18002099003|56012099006|11063799006|4143699003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	ia9RuAsjnKd+F7/pwoGdZmzqJIYzluSdPV68mho0wlAE/OLnV2UJQtWHHCXr5G1dIH/NgXgVebW6FdgdSNiGhvsU43xiPR/u0LgR8WAJDwwI40UxwKP3k6kfgYqNuut7UGtAj/+7i+TwChGW6t9HPpaCXT4aZD64JCkYRcczcp5T5HlyUyNjdtrsJ6XkoxOL56wXLVGle5+smbCWLbZEbjTwXFrpyL+5wHviUQh7XLx+nxlMrnObk9oKPVJVeVsEf3hJLjqSOA6fOK9zQGKoSUmD0C4lfouDdZS01Q8LjBxUBK0m8keRLoFYCwkd2uJwEA9D7IgbfruORfTGN5EwRDXxmy/9eKNwkWMkcFSz1O1x7AuNLwhlyixIBTVGX83wl2TC2cVnsasD4UVzdMipaNBgMVJo3ccQr2TQnFMLq6s3Xo8zMm6HasTvzD5x6iNjY4/cCd54d+LvDjliZoJPnR1MVKmhztSPnnvO9W0OUqNlVFd2syegY5v8G1UvG6OWjmb3mU+FtoWquZaR5HWr8pcvSp7guI61gPCU3V45Hl2ZMd+2Mvt/j/4vk89f7Mk66aVVvpp8fthRNadBSfUFpxjtVwDfhrv/9nLAMyy5WVjD2eJg31N4umZ4JC2t0OpJ8X9uTI24crk9mF1leQjQ8WdZpg2/LU3Z5gZ+3MHOI5X72xEfKT1Crf+UiYNURE0S
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.88;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(7416014)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	mXu6N9bKxnX9QAMh6vGLaLCEOvVcLv9kFFtI04S5GZoFkyTykcbVkVx2kkA+MbxQQIBT6ZCxoy+bOORxO1j9poFTTdRN3Vn/uDNf5OrHuAyq0kChE+w/r/aSS/DcDG/+gx9LZRDgBbHF0eQQCpYjP/+IGodD6AxdcFC25ipTwxp4wOSaCswjhsXiAzE+2p169DW+9aGRo6x8wq0zH7kM0J119U7wbDB7cb66qZJLpGvvq1EQrqWLSAmLmAZvMvkDaNX+uIuxScUIplaH40DkOMIcmaMBPcfiJcu0dtO8Xft49ZfOgNTSWQ7VN40ZSx9Fshz5lRunPRoAVKygNrP7yp7m3HvGcAx4qkneLEPPLbimf09JJNfOudb1YQgRehu4cbMHPNse2o5/IIBkiUd5ohYwEKYBEUcQLTggO6FXP3I+E9kM5L/nHI6cYcAXqVue
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 07:33:36.1128
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb82eb40-2125-446c-c93a-08df07fb5576
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.88];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM4PEPF00027A6C.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR10MB6920
-
-
-Le 12/08/2026 à 21:58, Rob Herring a écrit :
-> On Wed, Aug 12, 2026 at 11:11:18AM +0200, Christophe Roullier wrote:
->> Phandle to a regulator that provides power to the PHY. This
->> regulator will be managed during the PHY power on/off sequence.
->>
->> Signed-off-by: Christophe Roullier <christophe.roullier@foss.st.com>
->> ---
->>   Documentation/devicetree/bindings/net/stm32-dwmac.yaml | 3 +++
->>   1 file changed, 3 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml b/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
->> index 987254900d0da..0c7eb1ccadd47 100644
->> --- a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
->> +++ b/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
->> @@ -99,6 +99,9 @@ properties:
->>         encompases the glue register, the offset of the control register and
->>         the mask to set bitfield in control register
->>   
->> +  phy-supply:
->> +    description: PHY regulator
-> Which phy? There can be multiple for ethernet. In any case, doesn't
-> really matter because either is wrong. The supply(ies) for a device go
-> in that device's DT node. This node is not a PHY.
->
-> Rob
-
-Hi Rob,
-
-Ok I will update my description with :   "Regulator that powers the 
-Ethernet PHY."
-
-To manage this regulator on Ethernet glue, I based my work on the 
-examples of :
-
-   - allwinner,sun4i,
-
-   - allwinner,sun7i
-
-   - allwinner,sun8i
-
-   - fsl,fec
-
-   - rockchip-dwmac
-
-   - rockchip,emac
-
-For me it is normal that PHY Ethernet regulator is managed by MAC glue 
-because it is mandatory to power ON Ethernet PHY chip BEFORE MDIO scan.
-
-Let me know if that works for you
-
-Regards,
-
-Christophe.
+Subject: Re: [PATCH RESEND v5 0/4] media: i2c: Add OmniVision OG0VA1B camera
+ sensor driver
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Conor Dooley <conor.dooley@microchip.com>
+References: <20260901-og0va1b-v5-0-b0400a9bac01@oss.qualcomm.com>
+From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+In-Reply-To: <20260901-og0va1b-v5-0-b0400a9bac01@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=b9qCJNGx c=1 sm=1 tr=0 ts=6a96801f cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=fdB5lo3k29YZU0rLWzsA:9 a=QEXdDO2ut3YA:10
+ a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA2NiBTYWx0ZWRfX4hf0n+2Z90kQ
+ nsrWZaRLIw2ZFCml8Pjt2/mrOtcQ+sVMyEVgoVAYEJ8vfsHLiW31c0ErsniGA8diU269rn6bLr/
+ 5CxnVSYlqSTWe8xxnSMC0shrqoFPInq0d6vwpmMqfLZMtBi36oxlSfb2dyN56rwJz7jerQmDZe7
+ egDlBKO+yr0Ks11B6RaMszZQGID9NuiuF/H3GE6V90nIXNhGPbUo3Yma+w32YLmtt/yabsN9zuM
+ BZC1S6DP+Nh+6Jm9p4bv2Q/PlEWZ/LAad2S3vQDO+ZJtee/uLhY282Pv5PFdFCWTWf2wYwgjzOz
+ 89d5V9JRKAly3L/u6ebxo8XLI0wFC0fF1X346rtPO7ExrM2K2z23QxVLmY9HsIiBltEm5Fw/TbR
+ NrGzkCJMhdWcY40YLNb4IhOiRiRTwUiztLLrCwKjPcFsYGFpvycy3nsB3b7o5GoIDsEvNyRn1KS
+ GJqjtf7T2ResJKAA11g==
+X-Proofpoint-GUID: 4exAUgCCvRpbewY_lt11GnOpdUlOkwrD
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA2NiBTYWx0ZWRfX+x1Oi3FvmTCh
+ CC7E+uLnP+X6KMDxNyIwc7VDOZGfgQZ4SO8kO7QAY97GuOnV3tbCjlwyB+uiFndUksHo6OHC3Z7
+ j6ihepiZCodJWyibAPm/+MVMiBHbDRY=
+X-Proofpoint-ORIG-GUID: 4exAUgCCvRpbewY_lt11GnOpdUlOkwrD
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-01_02,2026-08-31_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 bulkscore=0 phishscore=0 clxscore=1015 impostorscore=0
+ spamscore=0 priorityscore=1501 adultscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010066
 
 
 
+On 9/1/2026 3:31 PM, Wenmeng Liu wrote:
+> Add OmniVision OG0VA1B driver support. The OmniVision OG0VA1B is a
+> 1/10-inch monochrome CMOS VGA image sensor. It outputs 10-bit raw (Y10)
+> frames at up to 640x480 resolution over a single-lane MIPI CSI-2
+> interface and is controlled via an I2C-compatible SCCB bus.
+> 
+> This driver has been verified(include tpg) on the Purwa EVK.
+> 
+> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+> ---
+> Changes in v5:
+> - Use div_u64() for pixel rate calculation to avoid 64-bit division
+> helpers on 32-bit architectures. -- sashiko-bot, kernel test robot
+> - Link to v4: https://lore.kernel.org/r/20260729-og0va1b-v4-0-ec7e7ed87b2b@oss.qualcomm.com
+> 
+> Changes in v4:
+> - Rename the OG0VA1B and OG0VE1B test pattern menu entries to make them
+> more accurate. -- Vladimir
+> - Link to v3: https://lore.kernel.org/r/20260708-og0va1b-v3-0-de8e44455a42@oss.qualcomm.com
+> 
+> Changes in v3:
+> - Generalise the binding title and description for both sensors. -- Vladimir
+> - Keep the cached pre_isp read so the OG0VE1B test pattern still works,
+> select it via a per-sensor callback. -- Bryan, Vladimir
+> - Rename the "sensor" field to "data", drop bpp (derive from code) and
+> add og0ve1b_pixel_rate(). -- Vladimir
+> - Sort defines, rename the shared CHIP_ID reg to OG0V_ and order
+> og0va1b_data first. -- Vladimir
+> - Expose all four OG0VA1B test patterns instead of one.
+> - Link to v2: https://lore.kernel.org/r/20260702-og0va1b-v2-0-0071442caa2a@oss.qualcomm.com
+> 
+> Changes in v2:
+> - Integrate OG0VA1B into the existing og0ve1b driver and binding
+> instead. -- Vladimir
+> - Link to v1: https://lore.kernel.org/r/20260618-og0va1b-v1-0-dda71bb83009@oss.qualcomm.com
+> 
+> ---
+> Wenmeng Liu (4):
+>        dt-bindings: media: i2c: og0ve1b: Add OmniVision OG0VA1B camera sensor
+>        media: i2c: og0ve1b: Use monochrome-appropriate test pattern name
+>        media: i2c: og0ve1b: Introduce per-sensor data structure
+>        media: i2c: og0ve1b: Add support for OmniVision OG0VA1B
+> 
+>   .../bindings/media/i2c/ovti,og0ve1b.yaml           |  15 +-
+>   drivers/media/i2c/og0ve1b.c                        | 378 ++++++++++++++++++---
+>   2 files changed, 346 insertions(+), 47 deletions(-)
+> ---
+> base-commit: 95d6a9ccef99117115e41e9adb271243bd5e985b
+> change-id: 20260618-og0va1b-55bbf3cabb0e
+> 
+> Best regards,
+
+Patch 2 is missing Vladimir's Reviewed-by tag. I'll update it in v6 for 
+tag collection.
