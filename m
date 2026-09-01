@@ -1,89 +1,88 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B22303469E7
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 06:04:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 375C836492A
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 06:05:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788242699; cv=none; b=uwCe6Ir52e5m0JAH8bT+eAEMSTRblHmZY4fMc+UUE7XD4/s5MTVJ8Na5sajwtEg9g7KhBuw/2D4b/SZ5XCJH0gXKMPu9Afb9ndGWS6b2xq4SPzmu5SSB6YZ/QVTeux9LGg/c8p8biPLGBbKYxwgPNoGIKu89tfTR+Z6o1oOrPl4=
+	t=1788242706; cv=none; b=IX//kCGbsERIgp6d8fULslU9SjadNvm+rCRhnFmAe/wibJ7XID5SN2c9uebFp+DIaxOv0mX/T7DUnlJHF6e0vnRwRjoKIRqxzqfyB+2d1c207uc5492LnzL1Ggu/BsLpwWwElK0DlMo95+BPArnDzklgwXoVxnDAujd2dAh9ZAo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788242699; c=relaxed/simple;
-	bh=mFZMa7AsDuWFLglUJnP+YjUZySr/vnuKz/pWC+d41b4=;
+	s=arc-20240116; t=1788242706; c=relaxed/simple;
+	bh=7ILArANYD5gi/Ol8mfS5svPlqqomUyThtypHtKuxdS8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MI7PkCOrXQ0Ep8UFSd0KKw9rFal9H4LE/55UxnXaoHTuIz7ctkDea8UsIOnSPdXGYacTfCNjxRAH/PfzJI7EEugJ6xkeM+AAwNgfEbUmWKASqlvu5MfMX5/R9U/LSF65xt89aDVzAXB1bXj/rd0BTGXmIxt6HJQkCKyaaBxdLck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iqiwdgZf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=P0/tuaKL; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=pMI2P6JdIndQVXP3PF+uNKUrE+8USXzfDsaRJCfzFcZXcBqLhKgxMxoZ8HKfcpxcM5svX0ZuJXcMONZUhin+1NvWNEFeuOgTsNBQODYFqwh99uizzXG6Bh17nDkFPjxELNc1ycTtNh8nKr7r9zusgxfH6FhstYpQaG4kXtlS0os=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nsbEAiqq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FOxDZWx8; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iqiwdgZf";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="P0/tuaKL"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6811pvOi585050
-	for <devicetree@vger.kernel.org>; Tue, 1 Sep 2026 06:04:56 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nsbEAiqq";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FOxDZWx8"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6812l7wJ1391191
+	for <devicetree@vger.kernel.org>; Tue, 1 Sep 2026 06:05:02 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	/aKERj8vOTgNopINdWRvI+TeRfCoisGCiNjo8nkQDqg=; b=iqiwdgZf0O6crz4F
-	m97BV0P7J+c/wJi4egm82M4kGAXKDq6kwUzs/Nywifi3VcrUts+yfcaxBw27+cua
-	ifThpnAl1uCxHMVhqLzEzoshMVeGgvn93r0igYqJUmj4IRzG6CNz8bvfaoqngEmS
-	elYzKPcdW5XIMAcNwrtxp7kV+mSgLYzl03vwHyUC8yFGghYkYJLwthmoJZi4+j3q
-	YQQj7peMhWrZ0bfJYcjBh+3kWQUWaBEFwUhbUFmMBL9Dq1uKnedUY8XNoRQ2wzbx
-	ly4XIyjAcSwdj5goO2BNPPrZrzrAN6ARlHUzImcV+nb4hRF8hm3Xuu3t1ILc7zD8
-	c8xFWg==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdndx8ung-1
+	QT+YF61f5o/fn7STVpLg6IhJeyrRCRNijTHEH9W41Es=; b=nsbEAiqqVXuzBAny
+	oIS1jSrUNGCeFMtFfiEULZpt8FCIXgz5DmcwZAh4/aer9FzeHsSBPsHYnPYUmZIB
+	HZDfZQls74P1yiGR2ITujH3kQCFh7IeKHr8ckZ136IYp6SIgRmSOmEVTS/IMd6Ed
+	fci3p5eNjk8KrsnUyAXL1LvfwR28b4G/aZW8THVOqQGyj9Lxy+C8TvLlCAnvhrjb
+	tOHGx9rZughwVt6Pbv86YwJcoG9IuoYBHA2Eds+bS6G3gvnWHXwmaWS4eJbJ5BgU
+	2fUjqoF55zWN6OuZn8U8UWztelyPb6eOByUA0A6NCIsTwqKeEsw8suav8kc1Tmzj
+	fP9Raw==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdp7r0nqt-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 06:04:56 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d63bad3d09so71809925ad.3
-        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 23:04:55 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 06:05:01 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d9336581a2so29204475ad.3
+        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 23:05:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788242695; x=1788847495; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1788242701; x=1788847501; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/aKERj8vOTgNopINdWRvI+TeRfCoisGCiNjo8nkQDqg=;
-        b=P0/tuaKLJ0H6EjfC3KCzksfUoqs2oNPO4t8TQBd1idDEA1ussqwTR1t/KclCEk7+hp
-         cfT+Nr/gEYuhmyB5taw6hlirdSEG8YmXAAf2W+9p1xOvhw3yhJE9lYKu3/J+voH3VgmE
-         1FLTEQ7hqfBaWLJmR44wiLlpcF9bP/JjkDCKqhuFLcj3ykd+5oAtr1mIOKRUsZUBxQru
-         jBwUW2H5pmpZU1Z+W6dV+eKJI8LV+yDAesFoRaKNACRrlRFmrQhcdLjRMxtfn7eZg+C2
-         7AZHPjA0kCfdwU7UtvEEt2wsVGFGxyylW9sdEhQK+JOpwFpRNgFlRv/nd6ottF7NaiHc
-         WeRQ==
+        bh=QT+YF61f5o/fn7STVpLg6IhJeyrRCRNijTHEH9W41Es=;
+        b=FOxDZWx8Zirg6HAfa1/ViZxF1F1EqZr+G0zbya2ImUfCxO1S/PQnS7fhBKIPA05cJO
+         1G7ldm/sg3Ajf4cPidJFJsGFIuoYvtx46SpVJGlvvH0nkXM3SB2awVbWbyzCh0Gj8k/T
+         EN0sETPVGTVQ0a2GnCrqXu6KasB0Ml7+Df0Lh97kEp9BHmdrfDb2nplAHNz/bUPLJTPB
+         M3bj6UucNjEVzds8NF2Eg5nKwC0E4nzm9w4SdHu2vUm9DRIxeuz/WDjpg08NXbkg3ctl
+         2ziiuipbeHWHIZvU0Sq/y2913teaIUgYHAsYOvv3+S0qqa1mlu8BEqZ+l+7l3+BLABM/
+         1vdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788242695; x=1788847495;
+        d=1e100.net; s=20251104; t=1788242701; x=1788847501;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/aKERj8vOTgNopINdWRvI+TeRfCoisGCiNjo8nkQDqg=;
-        b=p9EzMMzdnrl9P5r44b5+xBQVwJib0HIckDNkVJOhVFpSm8MV/p9fzIma+cFN7qBRFW
-         QAB7LdikQwbEWQLW9VqgSYXJ7MwpiHcl3iebTg3Ntl8e4XyCUbhI6X5caaIvhmJfS8Fm
-         WqiTDDd4A66Fd05vISoWr6dJBL/OilJ1ZUOpA1pgq14C2O+ljO1EfoeX/VBfI6hqI62g
-         YblPh5xIlOhYS1tXDZ5YYrE+LuUZyT3GLiTldukslQKxhfHClr06HPaCT4BOYiNkNxhs
-         TO0aMab1EEZOtIPqCMZLmOAqg1Ygz641e3bUPTSYM9Ak6iApLGAxTyovlEcabOVP6GD6
-         4cPg==
-X-Forwarded-Encrypted: i=1; AHgh+RoWK8BXzHZX62+lk52/Tb49iFXikjjq+FbxrNfWhyF2J2pAMVY2bqhF9FoWppKPEUoEegcyrC2He59i@vger.kernel.org
-X-Gm-Message-State: AFuF++mmEtRmpUKScAJPgnOFzPHGmY98gfVig1g7y0fHK+nXnC5o/yBU
-	spaxlqi8go1VWegZ3NSRodsgladFv78fS5MpfrhUfvE+DwpJLxO/tqOBSvqqiyBxBZPvOUrxhis
-	CnPTpd12IICvmuX7pL5BK9Xuiit3y9p+m+qlGf//0qqMlOK7WtNBSvl+yItCjJxml
-X-Gm-Gg: AYBFou0lov1am5JT/0SUcGAegare9BbN1XqYm/D1qJcRXGbsLdy/GAeAXJTaR/m8I2b
-	mmW94KfG1ChxYU3q6emCfgs0dLusGHpFd3DD6lTnU8ZKjyL7Bro8a075sJSoi5CsbMrAH5ZK3TP
-	zJT/rPr5VMpkLE1JX8MCS6WMMNc8v4lbEmOybf6lmY81z949dS2hRuL+QKiUvjfqQkdn1WI/GfC
-	KZhINJghoHVhCHog4iqZAjcpYYuzrv+Sxlfe7fR0HxixJdDP9qgeFlqZrIi3ndacrr0rXOFUGs5
-	HP0PKoRBlGNhFoY0pHQfPSBY04SclMvHaosXoRTIicHiJJ6S7Sx20KCAm+8pirwIwoFCZRHXRyJ
-	BRxYQBBAKfaRWq5JxZWunl+CAd3XmcgshyH8nmlhWSTvGs5VLuMhAWxqAY5NAvGr98qTBJEdWHn
-	F0yaqKQmaPRhk00VdCly9A0SID1gASeg==
-X-Received: by 2002:a17:903:6cc:b0:2d8:d4d3:3fbf with SMTP id d9443c01a7336-2d8d4d34099mr240191715ad.19.1788242695015;
-        Mon, 31 Aug 2026 23:04:55 -0700 (PDT)
-X-Received: by 2002:a17:903:6cc:b0:2d8:d4d3:3fbf with SMTP id d9443c01a7336-2d8d4d34099mr240191345ad.19.1788242694535;
-        Mon, 31 Aug 2026 23:04:54 -0700 (PDT)
+        bh=QT+YF61f5o/fn7STVpLg6IhJeyrRCRNijTHEH9W41Es=;
+        b=sTq9fZkjAOQpjFwYFufMf8LBmRv09dlNUi9iuMmdNcIhQUgjZOb/bd0lNmz0R9WyPD
+         wQS36qnZfd6aBHfIlK8k9u8dAOcTTMj604HJOr/NOGImYhc+2dlkb3DbiG7iAhehudG6
+         uPS5n2GcHcP6jV3yTWn18PcfCAjDigGtkecJNgT1Htt5Z+sfQ01KUidsFzR6TCKwhr2P
+         sdzB+uxU9+j/AbbUSU5IWnY97eU3Vw47p9D6CYQ/dKfjJvVoEUwUEqSnGc0VM25CiYzL
+         0L3qm7ZsoUy4iKFiuiinvcNgNwMaDAEzQEgZQEC+esGEOY5HMBkNrTdmtlWW24g3sjZa
+         hFNg==
+X-Forwarded-Encrypted: i=1; AHgh+RqJB8HSg4UeqilyzaUzdBoEudFtmFtYNmv8r7EewoNP/3FcHJy1tNYqXXx6mlWd/ioa9rHvyw59K/Lk@vger.kernel.org
+X-Gm-Message-State: AFuF++mcNxzxUDU4y5TBHE0KI/wve26GW4CUgXmg6n72Smu20BD9jLVY
+	PJqy5+Ztaie3aL1TiVgKEG1O8B+2cmXhmORvPXbQmU1uA8ohzHY8XaDvd8SeND8R5KVQ5a0Kqab
+	X/L4cACjEFdupYwHMY7E9a4LU21ku5BteczdG0XaX/KJnfRmrDaA0C7GIrHPKeNY5
+X-Gm-Gg: AR+sD12CyZBHRjVacisRd7jFlZXTQkE3vUjNkCLx6TXndUPS/HxTMhLPgwiSnY+kMlF
+	Ly/l8Zy8qlSehuHtMfIc0W3V3XBgJIj1sgCXCrn3hW1QgRZaPJbpORcOmfXZMeqCBM/5wngjZ7B
+	0+5Ynh+zHyymb35N3h376GmuoyrPYoKomFWp0S/LEQarmr+jBi2ACpOU4eZ7EcNUKxKZ7lp4Ors
+	eZ0fhUscVW1GJKBtFkdIRAeUFOHdTflvhotShGbDvCAxUUsNNwKBjh/AHeWKi5DNHIn0H6xAUIt
+	uD1GfFls93dThyIEWroTSr0pAebsCvLY5TDdt0pqr0qZ/iqUhri96lMEnIrQG4NPyIkJbGZ13Qk
+	GA0H1MSv87piqj3DZLfG2GeIvYEPX+acUq/wLSZ04ZJwcPNdwe1y1jyqKUqxlURtOHWfMgPqKWU
+	cXMtfZm9AGkwR9RSh5oT4MVVLiY/+tRw==
+X-Received: by 2002:a17:903:390d:b0:2d8:d4ce:7e3c with SMTP id d9443c01a7336-2d8d4ce8391mr331992355ad.17.1788242700920;
+        Mon, 31 Aug 2026 23:05:00 -0700 (PDT)
+X-Received: by 2002:a17:903:390d:b0:2d8:d4ce:7e3c with SMTP id d9443c01a7336-2d8d4ce8391mr331991055ad.17.1788242700145;
+        Mon, 31 Aug 2026 23:05:00 -0700 (PDT)
 Received: from hu-varada-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286fa20e2fsm35855800eec.28.2026.08.31.23.04.49
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286fa20e2fsm35855800eec.28.2026.08.31.23.04.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 23:04:53 -0700 (PDT)
+        Mon, 31 Aug 2026 23:04:59 -0700 (PDT)
 From: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Date: Tue, 01 Sep 2026 11:34:22 +0530
-Subject: [PATCH v2 4/5] phy: qcom: snps-femto-v2: Move PHY init registers
- to config tables
+Date: Tue, 01 Sep 2026 11:34:23 +0530
+Subject: [PATCH v2 5/5] phy: qcom: snps-femto-v2: Add IPQ9650 support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -92,7 +91,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-phy-v2-4-cc93d2f3b1bf@oss.qualcomm.com>
+Message-Id: <20260901-phy-v2-5-cc93d2f3b1bf@oss.qualcomm.com>
 References: <20260901-phy-v2-0-cc93d2f3b1bf@oss.qualcomm.com>
 In-Reply-To: <20260901-phy-v2-0-cc93d2f3b1bf@oss.qualcomm.com>
 To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
@@ -106,110 +105,130 @@ Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Proofpoint-GUID: Ttk2K6nvrzf9NR-xKOgjxPL4mgScIix6
-X-Proofpoint-ORIG-GUID: Ttk2K6nvrzf9NR-xKOgjxPL4mgScIix6
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA1MiBTYWx0ZWRfX86REyyPzEY5N
- c++675FLSZqmbJqCKtFBaUnmKK+XB3uO5FQNjzilcVeB7AlYoXGPc3QGiDOsEuxJAJYrXxD57EF
- ETKOGgmkWVDGFGSwkhwZ9ka59nyB+5Q=
-X-Authority-Analysis: v=2.4 cv=U8eiy+ru c=1 sm=1 tr=0 ts=6a966b08 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Authority-Analysis: v=2.4 cv=beZbluPB c=1 sm=1 tr=0 ts=6a966b0d cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=dpbSYRCFOxhwq305YcMA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA1MiBTYWx0ZWRfX3T91vupR3Kvb
- q0zYaDZRaJ8AjUzMVGYO2AV6wzZ2MfD7RB78HqjnG8NWnQ+5Uw71bAV3SqGjA/PVGHOUF/Av7r5
- l624P9QmV3AE+H8RlOZKv9Lvo6IH5qnqwySlh0lgiw/K026eR5OWF2QU2NqXOkZbVBDu0rmMmJ1
- F/qzW3vMVdPuIgc8056ad+Ax0VuAtsduXvLC908WvRw0q+wPjFsxp/qsnDKorETP6bbWWKuU6Cn
- +s0rex1IuRwXNAbS0MJSVqkobkTQLPwAipnBVB2uABEvQtzoJMFMfuociX/b9gCOzLcJGmeZMwp
- ZoVq1Zry69x5459Y5UyZ6MKA0P2fmskcwRARL7Yh5Nxstmcc4rlCmCWSa7Xvx/vtxkSOlsPMmRc
- wMrIdBFGdIuQrCawq1RFWCdbS/NHwK0rhA3Et35FGataUSZGMjlDASr2DnQAujiXDnUk64kgpxn
- 2zzlBkSG3BgcTwZBwYA==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=Q9t0gmS3rCGuRMBXcNQA:9 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA1MiBTYWx0ZWRfX9VK8URprUpa0
+ cV6ksy59IWsJ4xRrlBwjA4jfsxnXCWH+w86+1ytGPtdoGZTsKDUU5Nr8EZVzLOVhBiyinEtsVV4
+ iOimP7J2+M7LV/MgMJppcdwiTCcScu2wYj3UiwykhZV+gNobPk4zEDokMaOwxQj2saX2Y0Gw3C3
+ pzy3k3bFXXsU3+wNvARbUztLJnJcr6VNDqR7m1u5z8NGfMdBUzmoclqNHvoMLAS+IYLlsSA2+p9
+ y1iMkNT63YHkUx5rNPTxVxB8Au0K5kixpYTKpCw0FB9gYmsBSKOO4mMtuyQU3fLpdFILmZqlLLi
+ JmY5PlwHHfmM/slM0z5heBOt3EkKr+EG2Z8sP6GOvidDlh8X02NUCai8srvn7RNmdw4kBOWm1Ud
+ AvNFg8IzhW5dHjZOVJR6uiXYLtqDWdPdnxS5mEvmzpAtbj4gFi1AnBe8n8xLvNSu/T86QkJX7SP
+ rrMLSGCW+OmCRGtuY2w==
+X-Proofpoint-GUID: EvU_LrZ4snOumrpe-jzEKLzbEsQ1PIxc
+X-Proofpoint-ORIG-GUID: EvU_LrZ4snOumrpe-jzEKLzbEsQ1PIxc
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA1MiBTYWx0ZWRfX1l7ahpHozy7W
+ 5cWdal0Wq2MmhgAQ5G5GOMSspDz1/FFz1mCk8eCsTC3cZxwcQdiVy+YSjDjDUJvPfLg769F+C/o
+ Y3YJC45Yy+kq5FOCMi8XU3k5D+AHCj4=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-01_01,2026-08-31_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
- spamscore=0 priorityscore=1501 suspectscore=0 bulkscore=0 phishscore=0
+ suspectscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015 impostorscore=0
+ priorityscore=1501 malwarescore=0 spamscore=0 adultscore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010052
 
-The driver currently programs the common PHY register sequence directly in
-qcom_snps_hsphy_init(), with the fixed register writes split around the
-override parameter handling. This makes it hard to support SoCs that need a
-different sequence or different values.
+Add the 6 nm SNPS femto USB2 PHY configuration needed by IPQ9650. The PHYs
+on this SoC require a dedicated init sequence and override parameters
+before they can be enabled.
 
-Move the fixed pre- and post-override register programming into per-
-compatible configuration tables, and keep the 7 nm override parameters in
-the same match-data structure. This allows the driver to share the common
-sequence while adding SoC-specific sequences for future platforms such as
-IPQ9650.
-
-Additionally, address the register bit field mask & value mixup for
-USB2_PHY_USB_PHY_REFCLK_CTRL in qcom_snps_hsphy_init() and USB2_AUTO_RESUME
-in qcom_snps_hsphy_suspend().
-
-Fixes: 51e8114f80d07 ("phy: qcom-snps: Add SNPS USB PHY driver for QCOM based SOCs")
-Fixes: 0d75f508a9d56 ("phy: qcom-snps: Add runtime suspend and resume handlers")
 Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
 ---
- drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c | 126 ++++++++++++++++----------
- 1 file changed, 79 insertions(+), 47 deletions(-)
+ drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c | 62 +++++++++++++++++++++++++++
+ 1 file changed, 62 insertions(+)
 
 diff --git a/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c b/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
-index 980ad1fb1e2e..b6bbf2b570c7 100644
+index b6bbf2b570c7..8957f208bc51 100644
 --- a/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
 +++ b/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
-@@ -104,6 +104,20 @@ struct phy_override_seq {
- 	u8	mask;
+@@ -29,12 +29,15 @@
+ 
+ #define USB2_PHY_USB_PHY_UTMI_CTRL5		(0x50)
+ #define POR					BIT(1)
++#define ATERESET				BIT(0)
+ 
+ #define USB2_PHY_USB_PHY_HS_PHY_CTRL_COMMON0	(0x54)
+ #define SIDDQ					BIT(2)
+ #define RETENABLEN				BIT(3)
+ #define FSEL_MASK				GENMASK(6, 4)
+ #define FSEL_DEFAULT				(0x3 << 4)
++#define FSEL_24MHZ				(0x2 << 4)
++#define VATESTENB_MASK				GENMASK(1, 0)
+ 
+ #define USB2_PHY_USB_PHY_HS_PHY_CTRL_COMMON1	(0x58)
+ #define VBUSVLDEXTSEL0				BIT(4)
+@@ -57,6 +60,13 @@
+ #define USB2_PHY_USB_PHY_HS_PHY_OVERRIDE_X3		(0x78)
+ #define PARAM_OVRD_MASK				0xFF
+ 
++#define USB2_PHY_USB_PHY_HS_PHY_TEST0		0x80
++#define TESTDATAIN_MASK				GENMASK(7, 0)
++
++#define USB2_PHY_USB_PHY_HS_PHY_TEST1		0x84
++#define TESTDATAOUTSEL				BIT(4)
++#define TESTCLK					BIT(6)
++
+ #define USB2_PHY_USB_PHY_CFG0			(0x94)
+ #define UTMI_PHY_DATAPATH_CTRL_OVERRIDE_EN	BIT(0)
+ #define UTMI_PHY_CMN_CTRL_OVERRIDE_EN		BIT(1)
+@@ -78,6 +88,9 @@
+ 
+ #define LS_FS_OUTPUT_IMPEDANCE_MASK		GENMASK(3, 0)
+ 
++#define USB2_PHY_USB_PHY_FSEL_SEL		0xb8
++#define FSEL_SEL				BIT(0)
++
+ static const char * const qcom_snps_hsphy_vreg_names[] = {
+ 	"vdda-pll", "vdda33", "vdda18",
+ };
+@@ -330,6 +343,17 @@ static const struct override_param ls_fs_output_impedance_sc7280[] = {
+ 	{ 1310, 0 },
  };
  
-+struct phy_reg_config {
-+	u32 offset;
-+	u32 mask;
-+	u32 val;
++static const struct override_param_map ipq9650_snps_6nm_phy[] = {
++	{
++		"qcom,pre-emphasis-amplitude-bp",
++		preemphasis_amplitude_sc7280,
++		ARRAY_SIZE(preemphasis_amplitude_sc7280),
++		USB2_PHY_USB_PHY_HS_PHY_OVERRIDE_X1,
++		PREEMPHASIS_AMPLITUDE_MASK,
++	},
++	{},
 +};
 +
-+struct phy_config_data {
-+	const struct phy_reg_config *pre_tuning;
-+	const struct override_param_map *override;
-+	const struct phy_reg_config *post_tuning;
-+	const u32 num_pre_tuning;
-+	const u32 num_post_tuning;
-+};
-+
- #define NUM_HSPHY_TUNING_PARAMS	(9)
- 
- /**
-@@ -193,7 +207,7 @@ static int qcom_snps_hsphy_suspend(struct qcom_snps_hsphy *hsphy)
- 		usleep_range(500, 1000);
- 		qcom_snps_hsphy_write_mask(hsphy->base,
- 					   USB2_PHY_USB_PHY_HS_PHY_CTRL2,
--					   0, USB2_AUTO_RESUME);
-+					   USB2_AUTO_RESUME, 0);
- 	}
- 
- 	return 0;
-@@ -383,13 +397,40 @@ static const struct override_param_map sc7280_snps_7nm_phy[] = {
- 	{},
+ static const struct override_param_map sc7280_snps_7nm_phy[] = {
+ 	{
+ 		"qcom,hs-disconnect-bp",
+@@ -418,6 +442,32 @@ static const struct phy_reg_config hs_5nm_phy_post_tuning[] = {
+ 	{ USB2_PHY_USB_PHY_CFG0, UTMI_PHY_CMN_CTRL_OVERRIDE_EN, 0 },
  };
  
-+static const struct phy_reg_config hs_5nm_phy_pre_tuning[] = {
++static const struct phy_reg_config hs_6nm_phy_pre_tuning[] = {
 +	{ USB2_PHY_USB_PHY_CFG0, UTMI_PHY_CMN_CTRL_OVERRIDE_EN, UTMI_PHY_CMN_CTRL_OVERRIDE_EN },
 +	{ USB2_PHY_USB_PHY_UTMI_CTRL5, POR, POR },
-+	{ USB2_PHY_USB_PHY_HS_PHY_CTRL_COMMON0, FSEL_MASK, 0 },
++	{ USB2_PHY_USB_PHY_FSEL_SEL, FSEL_SEL, FSEL_SEL },
++	{ USB2_PHY_USB_PHY_HS_PHY_CTRL_COMMON0, FSEL_MASK, FSEL_24MHZ },
 +	{ USB2_PHY_USB_PHY_HS_PHY_CTRL_COMMON1, PLLBTUNE, PLLBTUNE },
 +	{ USB2_PHY_USB_PHY_REFCLK_CTRL, REFCLK_SEL_MASK, REFCLK_SEL_DEFAULT },
 +	{ USB2_PHY_USB_PHY_HS_PHY_CTRL_COMMON1, VBUSVLDEXTSEL0, VBUSVLDEXTSEL0 },
 +	{ USB2_PHY_USB_PHY_HS_PHY_CTRL1, VBUSVLDEXT0, VBUSVLDEXT0 },
 +};
 +
-+static const struct phy_reg_config hs_5nm_phy_post_tuning[] = {
++static const struct phy_reg_config hs_6nm_phy_post_tuning[] = {
 +	{ USB2_PHY_USB_PHY_HS_PHY_CTRL_COMMON2, VREGBYPASS, VREGBYPASS },
++	{ USB2_PHY_USB_PHY_UTMI_CTRL5, ATERESET, 0 },
++	{ USB2_PHY_USB_PHY_HS_PHY_TEST1, TESTDATAOUTSEL, 0 },
++	{ USB2_PHY_USB_PHY_HS_PHY_TEST1, TESTCLK, 0 },
++	{ USB2_PHY_USB_PHY_HS_PHY_CTRL_COMMON0, VATESTENB_MASK, 0 },
++	{ USB2_PHY_USB_PHY_HS_PHY_TEST0, TESTDATAIN_MASK, 0 },
 +	{ USB2_PHY_USB_PHY_HS_PHY_CTRL2, USB2_SUSPEND_N_SEL | USB2_SUSPEND_N,
 +					 USB2_SUSPEND_N_SEL | USB2_SUSPEND_N },
 +	{ USB2_PHY_USB_PHY_UTMI_CTRL0, SLEEPM, SLEEPM },
-+	{ USB2_PHY_USB_PHY_HS_PHY_CTRL_COMMON0, SIDDQ, 0 },
 +	{ USB2_PHY_USB_PHY_UTMI_CTRL5, POR, 0 },
 +	{ USB2_PHY_USB_PHY_HS_PHY_CTRL2, USB2_SUSPEND_N_SEL, 0 },
 +	{ USB2_PHY_USB_PHY_CFG0, UTMI_PHY_CMN_CTRL_OVERRIDE_EN, 0 },
@@ -218,137 +237,32 @@ index 980ad1fb1e2e..b6bbf2b570c7 100644
  static int qcom_snps_hsphy_init(struct phy *phy)
  {
  	struct qcom_snps_hsphy *hsphy = phy_get_drvdata(phy);
-+	const struct phy_config_data *data;
-+	const struct phy_reg_config *tmp;
- 	int ret, i;
- 
- 	dev_vdbg(&phy->dev, "%s(): Initializing SNPS HS phy\n", __func__);
- 
-+	data = of_device_get_match_data(hsphy->dev);
-+	if (!data)
-+		return -ENODEV;
-+
- 	ret = regulator_bulk_enable(ARRAY_SIZE(hsphy->vregs), hsphy->vregs);
- 	if (ret)
- 		return ret;
-@@ -414,24 +455,8 @@ static int qcom_snps_hsphy_init(struct phy *phy)
- 		goto disable_clks;
- 	}
- 
--	qcom_snps_hsphy_write_mask(hsphy->base, USB2_PHY_USB_PHY_CFG0,
--					UTMI_PHY_CMN_CTRL_OVERRIDE_EN,
--					UTMI_PHY_CMN_CTRL_OVERRIDE_EN);
--	qcom_snps_hsphy_write_mask(hsphy->base, USB2_PHY_USB_PHY_UTMI_CTRL5,
--							POR, POR);
--	qcom_snps_hsphy_write_mask(hsphy->base,
--					USB2_PHY_USB_PHY_HS_PHY_CTRL_COMMON0,
--					FSEL_MASK, 0);
--	qcom_snps_hsphy_write_mask(hsphy->base,
--					USB2_PHY_USB_PHY_HS_PHY_CTRL_COMMON1,
--					PLLBTUNE, PLLBTUNE);
--	qcom_snps_hsphy_write_mask(hsphy->base, USB2_PHY_USB_PHY_REFCLK_CTRL,
--					REFCLK_SEL_DEFAULT, REFCLK_SEL_MASK);
--	qcom_snps_hsphy_write_mask(hsphy->base,
--					USB2_PHY_USB_PHY_HS_PHY_CTRL_COMMON1,
--					VBUSVLDEXTSEL0, VBUSVLDEXTSEL0);
--	qcom_snps_hsphy_write_mask(hsphy->base, USB2_PHY_USB_PHY_HS_PHY_CTRL1,
--					VBUSVLDEXT0, VBUSVLDEXT0);
-+	for (tmp = data->pre_tuning, i = 0; i < data->num_pre_tuning; i++, tmp++)
-+		qcom_snps_hsphy_write_mask(hsphy->base, tmp->offset, tmp->mask, tmp->val);
- 
- 	for (i = 0; i < ARRAY_SIZE(hsphy->update_seq_cfg); i++) {
- 		if (hsphy->update_seq_cfg[i].need_update)
-@@ -441,28 +466,8 @@ static int qcom_snps_hsphy_init(struct phy *phy)
- 					hsphy->update_seq_cfg[i].value);
- 	}
- 
--	qcom_snps_hsphy_write_mask(hsphy->base,
--					USB2_PHY_USB_PHY_HS_PHY_CTRL_COMMON2,
--					VREGBYPASS, VREGBYPASS);
--
--	qcom_snps_hsphy_write_mask(hsphy->base, USB2_PHY_USB_PHY_HS_PHY_CTRL2,
--					USB2_SUSPEND_N_SEL | USB2_SUSPEND_N,
--					USB2_SUSPEND_N_SEL | USB2_SUSPEND_N);
--
--	qcom_snps_hsphy_write_mask(hsphy->base, USB2_PHY_USB_PHY_UTMI_CTRL0,
--					SLEEPM, SLEEPM);
--
--	qcom_snps_hsphy_write_mask(hsphy->base, USB2_PHY_USB_PHY_HS_PHY_CTRL_COMMON0,
--				   SIDDQ, 0);
--
--	qcom_snps_hsphy_write_mask(hsphy->base, USB2_PHY_USB_PHY_UTMI_CTRL5,
--					POR, 0);
--
--	qcom_snps_hsphy_write_mask(hsphy->base, USB2_PHY_USB_PHY_HS_PHY_CTRL2,
--					USB2_SUSPEND_N_SEL, 0);
--
--	qcom_snps_hsphy_write_mask(hsphy->base, USB2_PHY_USB_PHY_CFG0,
--					UTMI_PHY_CMN_CTRL_OVERRIDE_EN, 0);
-+	for (tmp = data->post_tuning, i = 0; i < data->num_post_tuning; i++, tmp++)
-+		qcom_snps_hsphy_write_mask(hsphy->base, tmp->offset, tmp->mask, tmp->val);
- 
- 	hsphy->phy_initialized = true;
- 
-@@ -495,14 +500,38 @@ static const struct phy_ops qcom_snps_hsphy_gen_ops = {
- 	.owner		= THIS_MODULE,
+@@ -507,6 +557,14 @@ static const struct phy_config_data hs_5nm_phy = {
+ 	.num_post_tuning = ARRAY_SIZE(hs_5nm_phy_post_tuning),
  };
  
-+static const struct phy_config_data hs_5nm_phy = {
-+	.pre_tuning = hs_5nm_phy_pre_tuning,
-+	.num_pre_tuning = ARRAY_SIZE(hs_5nm_phy_pre_tuning),
-+	.post_tuning = hs_5nm_phy_post_tuning,
-+	.num_post_tuning = ARRAY_SIZE(hs_5nm_phy_post_tuning),
++static const struct phy_config_data hs_6nm_phy = {
++	.pre_tuning = hs_6nm_phy_pre_tuning,
++	.num_pre_tuning = ARRAY_SIZE(hs_6nm_phy_pre_tuning),
++	.override = ipq9650_snps_6nm_phy,
++	.post_tuning = hs_6nm_phy_post_tuning,
++	.num_post_tuning = ARRAY_SIZE(hs_6nm_phy_post_tuning),
 +};
 +
-+static const struct phy_config_data hs_7nm_phy = {
-+	.pre_tuning = hs_5nm_phy_pre_tuning,
-+	.num_pre_tuning = ARRAY_SIZE(hs_5nm_phy_pre_tuning),
-+	.override = sc7280_snps_7nm_phy,
-+	.post_tuning = hs_5nm_phy_post_tuning,
-+	.num_post_tuning = ARRAY_SIZE(hs_5nm_phy_post_tuning),
-+};
-+
- static const struct of_device_id qcom_snps_hsphy_of_match_table[] = {
--	{ .compatible	= "qcom,sm8150-usb-hs-phy", },
--	{ .compatible	= "qcom,usb-snps-hs-5nm-phy", },
+ static const struct phy_config_data hs_7nm_phy = {
+ 	.pre_tuning = hs_5nm_phy_pre_tuning,
+ 	.num_pre_tuning = ARRAY_SIZE(hs_5nm_phy_pre_tuning),
+@@ -524,6 +582,10 @@ static const struct of_device_id qcom_snps_hsphy_of_match_table[] = {
+ 		.compatible	= "qcom,usb-snps-hs-5nm-phy",
+ 		.data		= &hs_5nm_phy,
+ 	},
 +	{
-+		.compatible	= "qcom,sm8150-usb-hs-phy",
-+		.data		= &hs_5nm_phy,
-+	},
-+	{
-+		.compatible	= "qcom,usb-snps-hs-5nm-phy",
-+		.data		= &hs_5nm_phy,
++		.compatible	= "qcom,ipq9650-usb-hs-phy",
++		.data		= &hs_6nm_phy,
 +	},
  	{
  		.compatible	= "qcom,usb-snps-hs-7nm-phy",
--		.data		= &sc7280_snps_7nm_phy,
-+		.data		= &hs_7nm_phy,
-+	},
-+	{
-+		.compatible	= "qcom,usb-snps-femto-v2-phy",
-+		.data		= &hs_5nm_phy,
- 	},
--	{ .compatible	= "qcom,usb-snps-femto-v2-phy",	},
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, qcom_snps_hsphy_of_match_table);
-@@ -541,11 +570,14 @@ static void qcom_snps_hsphy_read_override_param_seq(struct device *dev)
- 	s32 val;
- 	int ret, i;
- 	struct qcom_snps_hsphy *hsphy;
--	const struct override_param_map *cfg = of_device_get_match_data(dev);
-+	const struct phy_config_data *data = of_device_get_match_data(dev);
-+	const struct override_param_map *cfg;
- 
--	if (!cfg)
-+	if (!data || !data->override)
- 		return;
- 
-+	cfg = data->override;
-+
- 	hsphy = dev_get_drvdata(dev);
- 
- 	for (i = 0; cfg[i].prop_name != NULL; i++) {
+ 		.data		= &hs_7nm_phy,
 
 -- 
 2.34.1
