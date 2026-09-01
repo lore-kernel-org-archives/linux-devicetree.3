@@ -1,145 +1,134 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D67F44470A
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 19:48:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D21FB4570E1;
+	Tue,  1 Sep 2026 20:02:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788292110; cv=none; b=V/X2mKzlgw991lKTPs5/ck7+BAygyD43JI8CmmosCOD/+XNEy71zDL+jpsbj8rdeoC22UiVCUeuEAPhwkD5AGrB2aKc0CjhyA3FgXwYUFZIegeSyQhsCBg/6YIwy03zKdOnTTlaYl2SzxtSEy/KepxH5BxvWM1rOAMVgWwOsS8I=
+	t=1788292935; cv=none; b=cdXrDxCRm/jBfAt2361SyyGBTgi2xSMv3suhU/dJsRRbH+lh6MhsqpPmCG8OI+OZTXo+utajcasV2KABDTKoOcPbNhaSEnHJDIMNrjMRZzE9t+ovfeAK+9lkvb+fE4+7Wka8Pq80PoIEUei8aWU6e1eBQUelbapElYn4jYHZwuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788292110; c=relaxed/simple;
-	bh=1XA3Iq64Qh5S96yUdeRyZkUWOMJWh2wuTH7qZS7tpF0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FNKybSKBm0yGPUxO6mRoCkz6efsXIJIGDfb8F3Nehvf0Ul8jJj1dNsLsxHllCaDBMS9z8p7awBN6DybmT3SGLpXZUiO069EUSemOotPpbnmDieEEF2DXEeTblghLVWlY9BQy2X+1H6JVnlJ1jjaouYpeECpaYs+wa9NlLBmmyP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cnbzHyFN; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788292935; c=relaxed/simple;
+	bh=rG+KIn92ie5czVekGzaFpq9mWoO7n+BfszteHjcPnl4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=VBUJbMeO+apYN6LneEi88YzITb7kXKkjM1UANlN/TLbsrwQWX57hW0SfGMO8Spoa/Dpg2rxsF4Q/s0xmLnDGdh80WaspHc2DL2BtbAEB0+iWcZSvVc5LfRCNVnVf5fdGaLB2WkDgFJS4sjC6lmJerUQp+yE9ok1VzunaKH2HAd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hSUda7UC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cnbzHyFN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788292108;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PdHg9I4oGgxBB+BPGUebv8panrT4iRjdZZ8owiahDtA=;
-	b=cnbzHyFN4NMIAGcTf26IpTsMyBIxeSXXLvUxRYdi/VKWazUwWOneLpxFrH2hwqU1W0RGOQ
-	eeYX/ittk/H8ylqJPxgEe9qZFdIRe8PYEC4zhKMkXL/0p+IN5FIqF41gakqvqd4vQXGF4M
-	Z/4sum27iVecoc0j1VTISzK6awGbGpc=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-561-Ydnij9yYPvO9lR82MlwnUQ-1; Tue,
- 01 Sept 2026 15:48:24 -0400
-X-MC-Unique: Ydnij9yYPvO9lR82MlwnUQ-1
-X-Mimecast-MFC-AGG-ID: Ydnij9yYPvO9lR82MlwnUQ_1788292100
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CE97719539AC;
-	Tue,  1 Sep 2026 19:48:19 +0000 (UTC)
-Received: from localhost (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 544051955F70;
-	Tue,  1 Sep 2026 19:48:18 +0000 (UTC)
-Date: Tue, 1 Sep 2026 15:48:17 -0400
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
-Cc: ebiggers@kernel.org, axboe@kernel.dk, mst@redhat.com,
-	jasowangio@gmail.com, James.Bottomley@hansenpartnership.com,
-	martin.petersen@oracle.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, linux-block@vger.kernel.org,
-	linux-crypto@vger.kernel.org, linux-scsi@vger.kernel.org,
-	virtualization@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, neeraj.soni@oss.qualcomm.com,
-	gaurav.kashyap@oss.qualcomm.com, mani@kernel.org,
-	andersson@kernel.org, konradybcio@kernel.org, bvanassche@acm.org,
-	alim.akhtar@samsung.com, avri.altman@sandisk.com,
-	pbonzini@redhat.com, eperezma@redhat.com,
-	xuanzhuo@linux.alibaba.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 01/11] virtio_blk: add inline encryption support
-Message-ID: <20260901194817.GE729142@fedora>
-References: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
- <20260827160806.1295313-2-linlin.zhang@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hSUda7UC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0B891F000E9;
+	Tue,  1 Sep 2026 20:02:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788292932;
+	bh=5OuDf05SqTXMns3ClH5tFBIKh25nGgNFQ5iYm4Mk44Q=;
+	h=From:Subject:Date:To:Cc;
+	b=hSUda7UC9S6HIbqtmwUZDv0GWKfiyzBhi8HuscIjlPneDx5NFB7L1TjxJleaTKppK
+	 Vb6vRmwYl8t/ktpnNtzxJ+rHquLZYYkw/GkLtl7RSaVfJwPSyQ/FJQaxm0RI/u+HFA
+	 /mvMKCxxCenQyAethu/zdGZka9dJeM7NdTcCNplXtFliZRRjHW3QtnbO2xkxbGDV7V
+	 9tGL9SkCCPMYDijTQeRo+RQKly7+2zbR3q0aBikOBjJfhMQaqOhKeR1dqQPmnAiFKc
+	 TCiV02KAgmIsxTxWbsZJDSFBy9GMes/0JEH3/N1MBSA+qJ5zCvInAuC8Ve0tbE2wdr
+	 2Q0nmzMy7O8cw==
+From: Linus Walleij <linusw@kernel.org>
+Subject: [PATCH v2 00/13] Add AB8500 buck regulators to the Ux500 device
+ tree
+Date: Tue, 01 Sep 2026 22:02:05 +0200
+Message-Id: <20260901-ux500-dts-snowball-regulator-v2-0-fe88b01829bf@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="9aX0ODMiNe3QBG+4"
-Content-Disposition: inline
-In-Reply-To: <20260827160806.1295313-2-linlin.zhang@oss.qualcomm.com>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NQQ6CMBCF4auQWTumHVJBV97DsAA7hcamNS0gh
+ nB3K3Ht8n+ZfLNC4mg5waVYIfJskw0+Bx0KuA+t7xmtzg0k6CRqEjgtSgjUY8Lkw6trncPI/eT
+ aMUTsSqWJFHVaVZCJZ2Rjl52/NbkHm/LZe/82y+/6g0v5H54lCjRM1dkYo1jW1wdHz+4YYg/Nt
+ m0fNLpZRskAAAA=
+X-Change-ID: 20260820-ux500-dts-snowball-regulator-b35d2252bd57
+To: Stephan Gerhold <stephan@gerhold.net>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Axel Lin <axel.lin@ingics.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>
+Cc: devicetree@vger.kernel.org, mfd@lists.linux.dev, 
+ Linus Walleij <linusw@kernel.org>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.3
 
---9aX0ODMiNe3QBG+4
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+While working on the Ux500 power domains it became apparent that the
+device trees were using the DB8500 power-domain regulator for supplies
+which actually come from buck converters in the AB8500 PMIC.
 
-On Thu, Aug 27, 2026 at 09:07:10AM -0700, Linlin Zhang wrote:
-> From: linlzhan <linlzhan@qti.qualcomm.com>
->=20
-> Negotiate VIRTIO_BLK_F_INLINE_ENCRYPTION with the host and wire it into
-> the block layer's inline-crypto framework to enable inline encryption
-> on virtio block device.
->=20
-> When the feature is present, the driver reads crypto characteristics from
-> virtio config space (key-slot count, DUN size, supported key types) and
-> issues VIRTIO_BLK_T_GET_CRYPTO_MODES to discover supported cipher and
-> data-unit-size combinations.  Encrypted requests use new request types
-> VIRTIO_BLK_T_CRYPTO_IN/OUT, which append a virtio_blk_crypto_msg
-> (keyslot index, DUN, data-unit-size-bits) to the standard outhdr.
->=20
-> A new virtio block crypto extension driver (virtio_blk_crypto_ext),
-> owns the blk_crypto_profile singleton and the blk_crypto_ll_ops dispatch
-> table. Actual key operations are forwarded to a platform-specific
-> backend registered via virtblk_set_crypto_ops(); without one,
-> VIRTIO_BLK_F_INLINE_ENCRYPTION is still negotiated and the
-> profile is registered, but every keyslot operation returns -EOPNOTSUPP.
->=20
-> The shared profile is a singleton as per blk_crypto_profile is
-> corresponding to one ICE hardware: the first device to negotiate the
-> feature initializes it; subsequent devices reuse it only when their
-> negotiated capabilities (slot count, DUN size, key types) match exactly.
->=20
-> Signed-off-by: linlzhan <linlin.zhang@oss.qualcomm.com>
-> ---
->  drivers/block/Kconfig                 |  13 ++
->  drivers/block/Makefile                |   2 +
->  drivers/block/virtio_blk.c            | 199 ++++++++++++++++--
->  drivers/block/virtio_blk_crypto_ext.c | 283 ++++++++++++++++++++++++++
->  include/linux/virtio_blk_crypto_ext.h |  78 +++++++
->  include/uapi/linux/virtio_blk.h       |  62 ++++++
->  6 files changed, 623 insertions(+), 14 deletions(-)
->  create mode 100644 drivers/block/virtio_blk_crypto_ext.c
->  create mode 100644 include/linux/virtio_blk_crypto_ext.h
+First: fix a bunch of bugs. All of these patches have Fixes: tags.
+I do not consider any of them urgent or regressions, they can just
+be queued in front of the new functionality.
 
-Thanks for sending this as we discuss the VIRTIO spec changes.
+Move some regulators over to using linear ranges before adding new
+stuff since linear ranges are nice.
 
-Although it's nice to have all the Linux patches together, there are two
-separate parts: 1. the virtio_blk.ko guest driver changes and 2. the
-hypervisor blk-crypto uapi. I suggest splitting this into two patch
-series to avoid confusion between these parts. It may also make review
-and merging easier if we stay focussed on just the guest or just the
-host parts.
+Add bindings and regulator driver support for the six SMPS1, SMPS2,
+SMPS3, ARM, APE and MOD buck converters. Instantiate the regulators for
+both AB8500 and AB8505, where the corresponding rails are named VSMPSA,
+VSMPSB, VSAFE, VARM, VSMPSC and VSMPSM, and connect existing consumers
+to the correct SMPS2/VSMPSB supply.
 
-Stefan
+The driver follows the active hardware selector, including the
+additional AB8505 selector banks, and uses the variant-specific VARM
+voltage encoding. It provides enable and low-power mode control for the
+three peripheral bucks while leaving the SoC-controlled rails
+voltage-only.
 
---9aX0ODMiNe3QBG+4
-Content-Type: application/pgp-signature; name=signature.asc
+Since peripheral buck enable state is programmed by OTP and can power
+discrete components outside the device tree, preserve any rail which
+the OTP leaves enabled when regulator constraints are completed.
 
------BEGIN PGP SIGNATURE-----
+The last two patches adding device tree changes I will queue myself
+in the ux500 tree. The rest should go into the regulator tree.
 
-iQEzBAEBCgAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmqXLAEACgkQnKSrs4Gr
-c8gA+QgAqDS7OZpv76XEz3ux6y5Md9USN6fgNjmMguv95TrS/+5BA5hTQoo/oRLD
-Tyk3iCHL+q76w6ukHAbFg75WHzYnE/1ylnCcq8Mu0xrXMjWX7/jOe5/EgXv594De
-ZQI/hrpfc8FZ42giSJBp2SWIVxa9ZaKnUL+33Lf57l2HelEsBrK2C8uhm3HBa9gq
-VVwdgoHixN5DIclvKSmI/lCv3sW7AexMGRjBe6dskR08f84Xn0AisTB3OuzyRJMG
-vHjIzGapZrQVw2jubuAhztBcAedmEhuRJKrCt9HtBMheyWwAfxfkb7FTmVmsIbfd
-37a52DGnb2PYe0N70Q8MmaSi/n/kfw==
-=jTU8
------END PGP SIGNATURE-----
+Maybe Lee can ack the binding patch once the DT maintainers are happy
+so Mark can merge that with the rest?
 
---9aX0ODMiNe3QBG+4--
+Assisted-by: LLM
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+Changes in v2:
+- Pick up Conor's ACK.
+- Fix some terminology and clarify the DT bindings a bit.
+- Link to v1: https://lore.kernel.org/r/20260831-ux500-dts-snowball-regulator-v1-0-fe279fff5e18@kernel.org
+
+---
+Linus Walleij (13):
+      regulator: ab8500: Fix AB8505 VANA voltage selectors
+      regulator: ab8500: Add AB8505 VAUX3 3.05 V setting
+      regulator: ab8500: Handle AB8505 VINTCORE selector 7
+      regulator: ab8500: Treat cut 1.0 VAUX3 as fixed
+      regulator: ab8500: Test dedicated enable bits only
+      regulator: ab8500: Propagate mode enable read errors
+      regulator: ab8500: Use linear ranges for LDO voltages
+      dt-bindings: mfd: ab8500: Add regulators
+      regulator: ab8500: Add buck converter support
+      regulator: ab8500: Preserve OTP-enabled buck regulators
+      regulator: ab8500: Use scoped guard for shared mode mutex
+      ARM: dts: ux500: Add new AB8500/AB8505 regulators
+      ARM: dts: ux500: Fix up regulator assignments
+
+ .../devicetree/bindings/mfd/stericsson,ab8500.yaml | 122 +++-
+ arch/arm/boot/dts/st/ste-ab8500.dtsi               |  28 +-
+ arch/arm/boot/dts/st/ste-ab8505.dtsi               |  28 +-
+ arch/arm/boot/dts/st/ste-href-stuib.dtsi           |   8 +-
+ arch/arm/boot/dts/st/ste-href-tvk1281618-r2.dtsi   |  14 +-
+ arch/arm/boot/dts/st/ste-href-tvk1281618-r3.dtsi   |  10 +-
+ arch/arm/boot/dts/st/ste-href.dtsi                 |   2 +-
+ arch/arm/boot/dts/st/ste-snowball.dts              |  10 +-
+ arch/arm/boot/dts/st/ste-ux500-samsung-codina.dts  |   4 +-
+ arch/arm/boot/dts/st/ste-ux500-samsung-janice.dts  |   2 +-
+ arch/arm/boot/dts/st/ste-ux500-samsung-kyle.dts    |   4 +-
+ arch/arm/boot/dts/st/ste-ux500-samsung-skomer.dts  |   4 +-
+ drivers/regulator/ab8500.c                         | 748 +++++++++++++++++++--
+ 13 files changed, 882 insertions(+), 102 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260820-ux500-dts-snowball-regulator-b35d2252bd57
+
+Best regards,
+-- 
+Linus Walleij <linusw@kernel.org>
 
