@@ -1,145 +1,107 @@
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4072E3644C1
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 01:28:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.169
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B8D1A1B6D08;
+	Tue,  1 Sep 2026 01:28:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788226084; cv=none; b=psQNENP9hfooq+nj9WzsWV641ZZb/Nf0BBcoe8/7QIoWlvGTyzZ5Ag1VtnQP9JXvFNHm+cTpWLDbxaDIGVlP/xXE4Cj0n0UGbz36oo1g6Bq0mD0E1bRAw+tKxD9fUKP7XgXGkQEZnLbvRxY/7sylcYuB5HmdFiQpeF5arQpGVTM=
+	t=1788226112; cv=none; b=qXIkPlMEblXBPn/oMpa82TxNSMYJIdvH/5JRqg+JeSRMY8aO3/yZZAPJk4pS0PRtmv+v+I3jwJeOq43SWHAoo5MH6tmC88YknDfIFSV842p7ZtJ3GhDqJg2yUWeU4yWYJnl/rch8R4D4ia3R6UuU/DxPHBQozqBYS+W4gpTLW3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788226084; c=relaxed/simple;
-	bh=QGt1YjiI/mhzTO00cbHYiFktJLVXSS+Ad6iAxmSQHCE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nN5VoNyyD2MxZVDk5blgCDWnBTiEXpouSiFCMaDmU+i/MXiB3IpBwJWcgmVEnH5H8TZU5wvfLKQojb4hVD/bcVQFzKN9DDYqwLsxFi9eioRoYPdk8cZ8cOHTXCVysDkdsp78bCSOgzbKRcLCN3MjQ7f/qnU0qEDMCp97khfQoWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PV7YSF4U; arc=none smtp.client-ip=209.85.128.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788226112; c=relaxed/simple;
+	bh=0jp2oZepn59YrZNO2xcX1aONGmEQ6d4WQrTT8EojDqk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=e5gsqC9lIorUmb4B3xzyARiliTtN/KNyRF41NQn71nI9XRCe1fGRh5Opu4uCBSSKCRVYz84ZVxYwD79FPP9nhp0qR9eO3ysU0ra3J7ONHXxPp+VAAV71npy3AvAkQ1ue6DzCsStpIqn66l2yIG76Y2LmoUgBUGyrGmn8NdJD0YA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=Z/ylyA9f; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PV7YSF4U"
-Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-85dbc24d398so37121577b3.2
-        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 18:28:01 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="Z/ylyA9f"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788226081; x=1788830881; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nIGoaz0LhcbcXCMDmNyRwcjq4U0fW/hB6lB0VymIzzk=;
-        b=PV7YSF4UqSiDNoJan/UeGeSSjTAprRAOZe7drQbdVFyB2OFf4pV9vudu55TShAwFzJ
-         m39ESkh1MPj62nD5lSVTWLwseFbaeqXf2Lmrmwuy/bSAcYLhIbV3bOxgUvKrikbabh7/
-         7seDotf0epnxzBSvTKr98qZ5C1nFBMiIyeqcjCXwB3EBIdJNHhJFacJQISX8mbXrPIpX
-         q7HbhXltFT7CqfTPdG1sPO5A9+sSVgtK0Z5MvQfSgjzbThowX6Gt6Gp1snGlTh9Lt0B6
-         qVNuDrtkpIxHcQGNI2EjelZlmXfQgyKoXIp5cXMruI7pJSBdRGBfA+dkJdVhXvVLOhTw
-         NZAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788226081; x=1788830881;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nIGoaz0LhcbcXCMDmNyRwcjq4U0fW/hB6lB0VymIzzk=;
-        b=kVyRdthziIixZ6VQshRhaEdhRFrI8tQZoe89mESKAFh/Hvzoaxo6kQocNWjBaytUOj
-         2sQU7HVDZdLYvYbAsC/zLFBOYXt7ssHhcER1fbG0nBCcMnCd3XxbiyDOX69Z5qVmpN+L
-         rUAJNRVAbORs52KAEYKykg8jggQ5hjNb3tGK6lp3Ls9hT0M9wI+zc+eIOGS2LngAWslL
-         gTXql/EMbFYrcrUCmtP35pGwTkw1ptu2SQ6K0LvG/eisgWWHSywLWGGN1zJ8Y/UaB2oP
-         VHw5/wgEUI7HnxfuolZW5rTTA+w7hjXVvawxcycvWxmdh26kPbA8g0+jLc+0oiIm8nYL
-         e7Xg==
-X-Forwarded-Encrypted: i=1; AKwUvBx9LSpLpddG1OzAdXRDPFvMtbPDK10LzvNFanMgsp1l5WfF6DF47+8QmKppoRyS4M37dEmIjmY25csC@vger.kernel.org
-X-Gm-Message-State: AFuF++moRjM0x3TreEZxk1YmQBPUXGYf7l97JT5FLlQFIRtNH3O/FLk2
-	1EfhgHEkGDVd0YCFPeK10zvOfv9tB6dYsruXeTzzyTSqQPJkqZVdLSOp
-X-Gm-Gg: AYBFou0d9TsXhs1WV8BjH7YAUHDE/f+BDBg+VPg5jLcR/yzvBOdvZ7vo9MEJAc5lYsR
-	JB0/ltOVMpM65JKbKZ4X4YPqMCWyNQZUoAPqH+NfvRkCBeJjmyPvDkJbpKqLfj884tyoMPJkaBv
-	QUSzuVIsItLiVXJwPr/7eaG+8KrUft2UnCWyAek0GKf68l1ZCnqIV+mzzNtr+O+QhY/6l/9RS1L
-	QmtPKgaR84ovB7agH8VkQiftbOLK2bgeaVKR6r9dkUCSQsM6GhNFVzofHh+I4mqNOQttTE+4NyJ
-	4yY5CrKVds29euCJ7ITojfOfOHKCPjuq9VeO04E2qpQOgiLC1yKiaU7mGYZw4AAIjhrtIWhkUJt
-	tbKpOlcX4HjGTW2OSNKn3MPcrUUJmWqPQcwHT7m2NqBC7fee1WoT7y9VttBWV0lag3E+CE8Vo/w
-	yJoT1zXLvWj069vRwocfwNhKz7nCTxgWRdj9YeEG/8hQoRiHQd38WSNbhWObHHLnZoJqvE
-X-Received: by 2002:a05:690c:e254:20b0:81e:abe2:9a3b with SMTP id 00721157ae682-85d6a9aeec1mr85369257b3.10.1788226080941;
-        Mon, 31 Aug 2026 18:28:00 -0700 (PDT)
-Received: from localhost ([2804:30c:94d:7300:da0f:c2c1:1aa6:43da])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e6756c433sm65376667b3.44.2026.08.31.18.27.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 18:28:00 -0700 (PDT)
-Date: Mon, 31 Aug 2026 22:28:50 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Luca Weiss <luca.weiss@fairphone.com>
-Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
-	Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 5/5] iio: light: stk3310: support the Sensortek
- STK36C61
-Message-ID: <apYqUv_uuqZlhtOh@debian-BULLSEYE-live-builder-AMD64>
-References: <20260826175409.326131-1-jorijnvdgraaf@catcrafts.net>
- <20260826175409.326131-6-jorijnvdgraaf@catcrafts.net>
- <apEMCqQXyj1tAMoP@debian-BULLSEYE-live-builder-AMD64>
- <20260828154705.11962-1-jorijnvdgraaf@catcrafts.net>
- <apRGQVfPKWHvE2Ct@debian-BULLSEYE-live-builder-AMD64>
- <20260830201950.63838-1-jorijnvdgraaf@catcrafts.net>
- <DL2YT4S4U7C4.2CPGBR94G01FD@fairphone.com>
- <apYiYnlM-agfG9he@debian-BULLSEYE-live-builder-AMD64>
+	d=ultrarisc.com; s=dkim; h=Received:From:Date:Subject:
+	MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	References:In-Reply-To:To:Cc; bh=oPMus4f9khSHNl1xw09P4WveQB8xHvT
+	B7gEdDUV7WpQ=; b=Z/ylyA9f5pgkAAy0cwkORuyhy9gvseii4BR7mryOIBONoc5
+	/eRWPMcJJb05sYPMPtTg1CfHznwsWxDTxoy8RMi8FPOd0c0nYkI7T0bl3FTPuPb4
+	hyvqzxnoZTzwS2w5/kzB1iSNq7/iF/zxmn5/g4tRDYseaqdd4Xvks3Bq2mZw=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwDnrwYZKpZqvx0AAA--.111S3;
+	Tue, 01 Sep 2026 09:28:14 +0800 (CST)
+From: Jia Wang <wangjia@ultrarisc.com>
+Date: Tue, 01 Sep 2026 09:27:30 +0800
+Subject: [PATCH net-next 1/3] dt-bindings: net: snps,dwmac: Add UltraRISC
+ DP1000 compatible
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apYiYnlM-agfG9he@debian-BULLSEYE-live-builder-AMD64>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260901-dwmac-ultrarisc-v1-1-f19454814bcf@ultrarisc.com>
+References: <20260901-dwmac-ultrarisc-v1-0-f19454814bcf@ultrarisc.com>
+In-Reply-To: <20260901-dwmac-ultrarisc-v1-0-f19454814bcf@ultrarisc.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
+ Jose Abreu <joabreu@synopsys.com>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, Jia Wang <wangjia@ultrarisc.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788226062; l=785;
+ i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
+ bh=0jp2oZepn59YrZNO2xcX1aONGmEQ6d4WQrTT8EojDqk=;
+ b=swpM4mkNje6FrBe/Y42aTJnG7N+b+zOwukSJYSL0BrXu9sLp6Ql0sLpN7pTjBKYOvz2sgPFmw
+ /kk0czpC7YSDiCYg5Od96KNoiP28lcujNMVMeYjeaQlWPXVqTnQkoUh
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
+X-CM-TRANSID:AQAAfwDnrwYZKpZqvx0AAA--.111S3
+X-Coremail-Antispam: 1UD129KBjvdXoW7GFW5XFyxAFy8Jr4xAr48Xrb_yoW3AFc_Aa
+	4xWa1DAFWkGFyFgFWDAa1xJF15Jw13uF1kCw1Dtr1qy34Ik398Kas3try5ArW7Cr47uFn3
+	uFs3JryjyFsrKjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbQAYjsxI4VWxJwAYFVCjjxCrM7AC8VAFwI0_Wr0E3s1l1xkIjI8I
+	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l82xGYIkIc2x26280x7
+	IE14v26r18M28IrcIa0xkI8VCY1x0267AKxVW8JVW5JwA2ocxC64kIII0Yj41l84x0c7CE
+	w4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6x
+	kF7I0E14v26r4j6F4UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF
+	7I0E14v26r4j6r4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4
+	xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCa
+	FVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI4
+	02YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCY02Avz4vE-syl42xK82IY
+	c2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s
+	026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF
+	0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0x
+	vE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv
+	6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTR3xhLUUUUU
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAREWqVJKMAFQADsv
 
-On 08/31, Marcelo Schmitt wrote:
-> On 08/31, Luca Weiss wrote:
-> > Hi Jorijn,
-> > 
-> > On Sun Aug 30, 2026 at 10:19 PM CEST, Jorijn van der Graaf wrote:
-> > > On Sun, Aug 30, 2026 at 12:03:29PM -0300, Marcelo Schmitt wrote:
-> > >> Having a closer look at the data sheet I found for STK36C61, I noticed registers
-> > >> 0x13 and 0x14 are not listed. Does the newer part has ambient light sensing
-> > >> besides the clear channel?
-> > >
-> > > That looks to be the "STK36C61-A Preliminary Datasheet v0.9" hosted by
-> > > LCSC [1], which I hadn't found before, so the cover letter's "There is
-> > > no public datasheet" is wrong. It documents the -A variant, however,
-> > > and gives PDT_ID as 0x93, while the part in the Fairphone 6 reports
-> > > 0x95. It does agree with the device on the colour-engine layout: RGBC
-> 
-> The data sheets I was comparing were from
-> https://datasheet4u.com/datasheets/Sensortek/STK3310/836592
-> https://jlcpcb.com/partdetail/SENSORTEK-STK36C61A/C49230205
-> which were the first links that appeared to me on an online search.
-> 
-> > 
-> > Just to chime in, the datasheet I have access to (STK36C61-A Preliminary
-> > Datasheet Version - 0.9.2) there are a few changes compared with the one
-> > from LCSC but nothing too interesting:
-> > 
-> > * On the overview page LED current 228.75 changed to 218.75 mA
-> > * ALSCTRL1 register (0x02) has different values for BIT[6:4]
-> >   (17.92 -> 143.36; 8.96 -> 35.84; 4.48 -> 8.96)
-> > * PDT_ID is indeed 0x95 - maybe the previous version just had wrong
-> >   copy-pasted info?
-> > 
-> 
-> Hmm, I was initially thinking about the added STK3310_PROXIMITY_CHANNEL for
-> stk36c61. If STK36C61 has ambient light sensing (similar to STK3310 light
-> sensing read from registers 0x13 and 0x14) then it makes sense to have that
-> channel for STK36C61 too. Otherwise, that specific ambient light channel
-> shouldn't belong to stk36c61_channels.
-> 
-> I didn't find a data sheet for the part with PDT_ID 0x95, though, that sounds
-> like another thing to tidy up. Update the naming from STK36C61 to STK36C61A.
-> So, if STK36C61 (without the A) is ever added, there will be no naming conflict.
-> Unless STK36C61 is never going to be released (which doesn't seem to be the case
-> cause I can find a data sheet for that).
+The UltraRISC DP1000 GMAC is based on a Synopsys DesignWare MAC.
 
-Never mind, I completely missed the point of it having a preliminary datasheet.
-It might be sensible to try to estimate if the final version will keep the same
-name and PDT_ID.
+Allow its SoC-specific compatible in the common DWMAC compatible list.
+
+Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+---
+ Documentation/devicetree/bindings/net/snps,dwmac.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+index 2449311c6d28..2ed4564ae99d 100644
+--- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
++++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+@@ -119,6 +119,7 @@ properties:
+         - starfive,jh7110-dwmac
+         - tesla,fsd-ethqos
+         - thead,th1520-gmac
++        - ultrarisc,dp1000-gmac
+ 
+   reg:
+     minItems: 1
+
+-- 
+2.34.1
+
