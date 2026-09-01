@@ -1,99 +1,81 @@
-Received: from mail-pz2-f9.google.com (mail-pz2-f9.google.com [74.125.228.9])
+Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com [209.85.160.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 330FE41834D
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 15:04:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D4E7428841
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 15:07:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788275049; cv=none; b=NjuO/m7HRTTJ9dALxX66b855y7hbwwmiowxVuadQQDc8BEEcZDJU77hU4otBMD0lhs6YmvxekxQDnHHVZbKY8PsATkbQIlAe4KvxHNMQu0CYmwU4mWa2dr5oALi9pSPWkDoV5wDI6rR/iKiDkG1o0b0XT4ZZt9UszqDkquAMcAI=
+	t=1788275244; cv=none; b=nBk+lVVSp7LVjCP1Ws59CI8+2mO6wPUkvMK7IFMifrurCwV/i3ldt29THI12PGCs0jFOGE/PEzegVcJfBaH2CtbRcx56pk+yCD34aeqGnX91Mq9zEP+6LPzK7k0qMvMPRxgvrefvgiCfxlD6NNXOThgsb6kiJcMm1q8lUWAGzMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788275049; c=relaxed/simple;
-	bh=VMBfELsDgdw4LHnXCPqjLHfbD46aI9SXxvEcWut9ryc=;
+	s=arc-20240116; t=1788275244; c=relaxed/simple;
+	bh=I/qfdHGcZJO3oZ78BHYS8PUCc8yEpZReKvOSgJYCsWs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ocO64G7984W7hSrcCda8b00bNUcikTwnZVT8mS/iOjVpaOKdXwpk5w9jYP+cJMfJHIh3FC9o9Q8dhxlCUpDDKZ9HiLlSFzxusX9ZNj5oPMQq1z/MsLCVllu0DpToFLGjwqqp+AcSYEXXCfRJZj241VQBSCfbzvDg2iRLl+C3gck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=brmu9yGT; arc=none smtp.client-ip=74.125.228.9
+	 MIME-Version; b=a9aoWYG1zkBPzG1rVKEEYChrUAdAYj2MUS4Z2vbu2vW6e4rGm8ZyLi4wDFJnm0tuFzYCUpw+bNWgfhNkp6t1wNlU+ybqBPzcWkHru681McZWEHjmJ9gfPQ5FDS3qBXettUonruu7xHC7a4SiF8EGGcGS/zKKcZVOQQmmau8bFJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jd2jl22b; arc=none smtp.client-ip=209.85.160.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="brmu9yGT"
-Received: by mail-pz2-f9.google.com with SMTP id 41be03b00d2f7-cc1631a57d2so2431842a12.0
-        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 08:04:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jd2jl22b"
+Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-4472500e25fso2044524fac.1
+        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 08:07:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788275048; x=1788879848; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788275242; x=1788880042; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jFOAryefyj3E8LprwQb6zM23kP14ZZpWJUCwFcY71vI=;
-        b=brmu9yGTEA2F4WzPCq6ADcgF7oOZy++TTvE+0A4rE30xUoEOT6hWOz5XtZPRBGh7NI
-         VdA7uNEsUkaBJIjyaNdrV/WEW218oPPbEwXuLXTYwpTbeAU5fPhJFRMuQN27pKY0JQgr
-         9p5yXkCKY/anvFDdiOPEs0dbGhGAjhtSTbUXZVWjdsobeRL0nXh27qXK74EPuhhyZj/j
-         4p+4gERbxqoZFE+vq5LvdyDZHAiyBqfEWeC/0YQbeIhFVoDq39Yg/l80Tlx8mpnsSSnP
-         iInc1Fs/c//Zlt7ga4B3V+AMNVG2n7IdHs3tOWXqqMo+r9VH1l+RsJvnbePrEGWOC+mG
-         460g==
+        bh=I/qfdHGcZJO3oZ78BHYS8PUCc8yEpZReKvOSgJYCsWs=;
+        b=Jd2jl22bdK4Y7wJ+9/c5xLEs7CTaj6NbzRQlV+RKqjlO4QgBof21O3dXh5HCAxkW24
+         F1ozbtVKnUrqz8wJZFRDN+z2kNU9W2mAyo/dSyTXOCA/7TrYEuOFEUsMt8ipSPu53mQE
+         rnvy2PX2YviGdSUT4/vs+26rVZAiQyI5DvQrGKyIGCKHspA2+loFmV0CtMNH20B+fu+n
+         1mSLcd8k3tqlgnj8gw++7ksEVITJTwd2w20ya9Gh+ZV+kAYhY+JBdcmb7Ri9+ajRw11n
+         yWpk9rkHuWU2hI9tWvrPbIpMcrwyTWZ/cKzgCHwsBg0hfVOf4QvRtdyyb4MAccZK/IVP
+         77Qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788275048; x=1788879848;
+        d=1e100.net; s=20251104; t=1788275242; x=1788880042;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jFOAryefyj3E8LprwQb6zM23kP14ZZpWJUCwFcY71vI=;
-        b=DglEcaYQ4NucbakpORO+vDUUYce08vBr9NIY1QunYTeKDv+uw903+FZzQQgoifdDFp
-         SzQubhiLF52zW9lcKkAlxwDIkz66tbln09HNM2yeRe6LTizYeY/M2TQw10hC8w/aK9Uu
-         ZfJtqBODdPFuXwamxyRMoYEZwC+MpNtjzad229sdRKd7o7uHJdtL/cxhGTlLKvPdZOvc
-         MqOzl/NB7y7Zyi4xrPkqQuuBRAnccKKeIT2ryyOGAHaiqon4Uv2H9GrGnD/P3EjQ9CHj
-         l3idD/KXQffhBKTU2aeh+lrrhu1akDRnqV28ITjuuDqubf0inMke3mSKcWqLgfvFWjow
-         b2JA==
-X-Forwarded-Encrypted: i=1; AHgh+RqjfwlsOPMKx4q+EB7ORR71P72o+7MA/G5hg/LsmIrWXTPQiKUyBITMrDQmMj7gKbxp+Lz8xDQWfV58@vger.kernel.org
-X-Gm-Message-State: AFuF++lX9EVet8Z+NFw54cyutxUgNEw5KWHuizRdN/IXvJzl5mCpROFU
-	HSi6qMPa06a8Qz0fHitEsTP31A5S02NWH7wmMhQ0rCzljRoy1d5cdwsz
-X-Gm-Gg: AR+sD11CB0wWU6pBaqoo5wXbIl/NFgCm/nkwz6pVNigVuDj/+tlWXlhr57BelOziule
-	3wWCTvfgSYa2VaT5MEjyuotZoSZNXbxVWTT1gktUho+Rrn0tVRU0PuiDeSNOn0sA0Fwaf/+1GFK
-	JBmcaoGtJGGTYBA2hzosm+qZsOg3zyIsQjciajXHvyhWpy+Cx5AtbKvGByQ62mkS30ffQ7AleZe
-	iQoTeMTFO3ggbZAUAqqBwgNRbFlAheLUUa0osNo37njMx+fsBXkytsrMOpMf3naTDWdxy8RLTSg
-	XV5g8H7mLyfnMKooe4YrLdKx6x0tdw9rfeVIKGRf1FfIh3EpBSbzU+LS0Zky3dLPfB8dZWAvilo
-	xfnFJxUeYQGV3VpSBKrd5pqeP0FVg1OkLo/wz5KLkXILJ/Qd0aaUxaW0NmjTsS19PHjdERaKm5e
-	bbhxnuYiU1oRBG3uXuzSlFaZ7hUiADRDcqp363r71Z6JC1zRy7B/9hYWjmclk=
-X-Received: by 2002:a05:6a00:4501:b0:857:72f8:dc91 with SMTP id d2e1a72fcca58-85772f8de55mr39669660b3a.18.1788275020723;
-        Tue, 01 Sep 2026 08:03:40 -0700 (PDT)
-Received: from server.lan ([150.230.217.250])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85dc0716846sm27914b3a.45.2026.09.01.08.03.29
+        bh=I/qfdHGcZJO3oZ78BHYS8PUCc8yEpZReKvOSgJYCsWs=;
+        b=LNDo2/KognkuCA02Ug7aVxHwUQx77kK+gRMSRH3VeRs6vf8yLqSGwN90sk5Nxh3gMB
+         Rrc+0yKDbL3Q4pmENvVsrw8fwFc+kcXA6sQR3bh3Ud8PfHWe9Ff6tSLsoLOr+SgE+mi5
+         xAUQ4z0BLy/R69SlUJIvG16pxP++7HROIwaG/t2UxJaa/X9jWDnfEzGNroA+MfhJomZ0
+         3MTl4SDp8FZV/AFs2NcnMdrypF5ZmCp6nOeE4fiFJh5VgofIlZ6Sk0E4dsHwsL0CySo/
+         2Q1+vPBoTJzS8vl+klW0XwhUn98r48nUPoWigQ+mF8vj0i/W++Fs5SZDeyaYFGZNYt/L
+         yUuw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro/ppgJfUSnhcuQIcFlGxQVo0pccKLqk5M6B6vSg/9hppAz+hd9cuNC89maB3R2HAItikezzj1WdxP7@vger.kernel.org
+X-Gm-Message-State: AFuF++nqrYQjUHBiw9NVUfZNIn7jBk51uuULXc4+m+podVFilwstotzc
+	rQP0HXbTThOKoYhIje+4ZjhWTOjjfwauAAi4tbvm3dl+IdtYH2zNP3MV
+X-Gm-Gg: AYBFou24b2N2Adh/CIBW559V/muJXYTQbn/tJAz6NjEU9YxTzLcauVDLjClgOyhuBMY
+	HkqtHIvU0/jVok67E5KUU+OvnquzlqJx/jT+uOy8Vv0M0jNftcCas5RrvI4MtEgtYzlslGy/MyO
+	ykys1J2IHWG5mU7g0AWLBov/d98hIItQeehJPiB0ThWUFw6pfBuoDW79r0Zus0wGqot+1IqipYi
+	7+fbUqPLt8Q998kBzbxsLAm0m9/4wnPaLg50E4eC5Rd22PmUuiLLaVvRqWCqTBu3BoBD71tQjGk
+	/9ridO/q8F/1J/IcWBC6hCAtOd3cFDccyywkSu1645sk7dyc5/IlkZWG31WhQWSrL/BRW/2PZyF
+	XgNIs12TFMFl+Ylc3DkIwRhIoyolA/b0e43NVFMIvhVW2JoBQtooNgPsWZLxxxMda+OiPVytWIJ
+	mFFFVF6WpBlrdojPKEH6iY7yseQ4Z6OQAHo/IGOAPxN17QQHDr98VMtsS4ZOCp/GJbhsKF8zRvI
+	9sxg7sWfq+D/o4UO8L2WUHzMp4qwPMacX5ACK+n
+X-Received: by 2002:a05:6870:698a:b0:456:772f:682d with SMTP id 586e51a60fabf-46837cfc41emr43388545fac.19.1788275242027;
+        Tue, 01 Sep 2026 08:07:22 -0700 (PDT)
+Received: from AMD.home.internal (dhcp-9-244-8-156.gobrightspeed.net. [9.244.8.156])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-46a4b7a9f82sm10697162fac.18.2026.09.01.08.07.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 08:03:39 -0700 (PDT)
-From: Coia Prant <coiaprant@gmail.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Vinod Koul <vkoul@kernel.org>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Romain Gantois <romain.gantois@bootlin.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Coia Prant <coiaprant@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	David Heidelberg <david@ixit.cz>,
-	netdev@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
+        Tue, 01 Sep 2026 08:07:21 -0700 (PDT)
+From: Enzo Adriano <enzo.adriano.code@gmail.com>
+To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+Cc: Junhui Liu <junhui.liu@pigmoral.tech>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Maxime Ripard <mripard@kernel.org>,
 	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH net-next v3 10/10] MAINTAINERS: add entry for Rockchip XPCS driver
-Date: Tue,  1 Sep 2026 23:01:10 +0800
-Message-ID: <20260901150111.141037-11-coiaprant@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260901150111.141037-1-coiaprant@gmail.com>
-References: <20260901150111.141037-1-coiaprant@gmail.com>
+	linux-sunxi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 0/4] arm64: dts: allwinner: add A733/Cubie A7S DTS support
+Date: Tue,  1 Sep 2026 11:07:20 -0400
+Message-ID: <20260901150720.1764626-1-enzo.adriano.code@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260826230942.466219-1-vinicius.eduardo.pedrosa@gmail.com>
+References: <20260613-a733-dts-v1-public-ready-v1-0-7787c94681db@gmail.com> <20260826230942.466219-1-vinicius.eduardo.pedrosa@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -102,37 +84,22 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a MAINTAINERS entry for the Rockchip RK3568 XPCS platform driver
-and its device tree binding.
+Hi Vinicius,
 
-Include the relevant mailing lists (netdev and linux-rockchip) so that
-future patches are properly distributed.
+Thanks for the detailed report. I reproduced all three issues and updated
+the private v2 candidate.
 
-Signed-off-by: Coia Prant <coiaprant@gmail.com>
----
- MAINTAINERS | 9 +++++++++
- 1 file changed, 9 insertions(+)
+The Cubie A7S board now defines a correctly named 26 MHz `hosc`. The main
+CCU takes `hosc` plus `losc`, `iosc`, and `losc-fanout` from the RTC clock
+provider, matching the four-input binding. I also renamed the bus to `soc@0`
+and moved the UART0 pins into the DTSI with `allwinner,pinmux = <2>`.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3a19da74d00c9..c3b17752cc817 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23744,6 +23744,15 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/sound/rockchip,rk3576-sai.yaml
- F:	sound/soc/rockchip/rockchip_sai.*
- 
-+ROCKCHIP XPCS DRIVER
-+M:	Coia Prant <coiaprant@gmail.com>
-+L:	netdev@vger.kernel.org
-+L:	linux-rockchip@lists.infradead.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/net/pcs/rockchip-dwxpcs.yaml
-+F:	drivers/net/pcs/pcs-xpcs-rk.c
-+F:	include/linux/pcs/pcs-xpcs-rk.h
-+
- ROCKER DRIVER
- M:	Jiri Pirko <jiri@resnulli.us>
- L:	netdev@vger.kernel.org
--- 
-2.47.3
+The MMC binding fix is already in mainline, so v2 will contain three patches
+instead of four. I will hold v2 until the public CCU and pinctrl prerequisites
+are resolved, then rebuild and retest on that public stack.
 
+Assisted-by: Codex:gpt-5
+I reviewed this reply and take responsibility for its contents.
+
+Thanks,
+Enzo
