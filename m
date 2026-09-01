@@ -1,67 +1,67 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86AFE36729A
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 01:29:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3EAD3AFB06
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 01:29:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788226171; cv=none; b=r4Ie5jpk5wTtJ60tvpyIO9v8g/lbh48xh9dcDb3GRm6jRV8yjX+uTcdt2+P/o35O2NA5sizGyfeI6EE9tD5vbVPbnaTplOzMUpUkdr/m3xz75+cpk621kPyC7KWIQ3H6wMc0cKeAc3aHzqwPaNBNN4MAx2bAtUC2nDhZF2tjhxo=
+	t=1788226173; cv=none; b=uduvcPcbSR+GD1yc2COu7TzN94CyehKnlC031hmYzrcDy+3pu2zemo8wP55VPzaf279S0Z+CAGfVCU12dox41tmzR/OBKmNlcpbWzsHMTyIIwfK+Mo/vR8e+P6fpDl8MbYAW13RKD7eJJs4cA9Q38ul2KjuVeyo/gA1n+rRMXF8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788226171; c=relaxed/simple;
-	bh=i+iwVi9KMRy/SRzPz0dFMHY5QfWjU3ehExfRWdvyWCg=;
+	s=arc-20240116; t=1788226173; c=relaxed/simple;
+	bh=npzZe06PtobvJpaMjSbQwwuI2JcJx4uej0mJwKkmuwE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=awBzQNQC1SkvCGjPM/Y99eKJsrjbKL4atBZpcas8O0kqfIfywutTCOFqttLjVk/daKvLxQTEBlAxroWy29A9yF4KzCATvquuCzZtAV119RwaApOqzIeHDXeygHcYGub3AMBU+lkBvqYIbZloum99lS+P74Zh1Z6xAYWIf6knFrQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=DeSEGmrj; arc=none smtp.client-ip=209.85.216.44
+	 In-Reply-To:To:Cc; b=hKPfPAQOpQ1UiQOOk1LIElGYULbQ1bGPORGAkYU0x1o/dudLeBFrvOwQFVSu/NeC7PJS+5YYx1cc6jtbLzw+q1CMHOW8doV8bM3UGnIAlHdhVNx/sw5s4yIDjp1866j7G3D0xRUSnw6il7+tfy3Ar4uVef1orKEZjosXwdAWo0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=MFiGOiBK; arc=none smtp.client-ip=209.85.214.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="DeSEGmrj"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-39266382df6so3552332a91.3
-        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 18:29:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="MFiGOiBK"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2d5cad1a6baso39738565ad.3
+        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 18:29:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1788226169; x=1788830969; darn=vger.kernel.org;
+        d=nexthop.ai; s=google; t=1788226170; x=1788830970; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CUT2qIYHjpXWpwH1J8XuYKZa+9kxUUZTpxZC6ZkH8Ds=;
-        b=DeSEGmrjmeIpGGwqrXABSvCWGqPSZrHn2OMSgiCHFoRBmkAkB+1D4N/h4OdfkHmvl6
-         IU87FTkiz8x0IDp7Cp6M3RIS24XTT1FSO7x/TSShR0BcSei4kgoeAXytJx7V/GRmBnzj
-         so4MvINNskAYOfMxWM2wX14crBOhwfG1GlUAapMVR/9Iyo2AC4eA3ZAjIWsIEtBw8YgO
-         YmEwbX6zJT3xUTVIiF+6kXZOihJa1SYLH06wWdSM1HlusVH1HvxhEoTzs6AiDwgpSbKn
-         1pN/UQHlE25xa8v4U0NkOv/h30XHtfT20G1PLL2uHsApyzJ883oMm2wdBEW8FcECvFG9
-         WlJw==
+        bh=ijPMp0aoruOjxz0EUwVJJByK31zD+FexQPaTyeeUmWw=;
+        b=MFiGOiBKMr0NL6Vm/6oJ7ZF6sbI1qGwhY728k6V4AyiyCbdriB/gR8mLEF6otwkf7s
+         q72iR1XxoqvqKHA19IAswtmfWXJZBdPC2ZdaZZaBCm1FAVH8+jNh1Pu5DdjUXQJkstL3
+         LuD2Vbe6GkBOawNNtL5D7Mpa+kzGa9jlDlJZQGp/IQw8Vjm2Kr78c9YxWikWBe8CroJD
+         cRLLiB90zL7hHGqoVI3vtYoC9IXrhtd5eU7qBhrGgdjAR+XarsXjCMbx8roitQhzIw3w
+         ZQtoFVSU0WBHmYHWfIoCJV23DyoA0huair2U1nBPkXWb1LGLIlMOfoIKuOcDxQGWUuIp
+         8JXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788226169; x=1788830969;
+        d=1e100.net; s=20251104; t=1788226170; x=1788830970;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CUT2qIYHjpXWpwH1J8XuYKZa+9kxUUZTpxZC6ZkH8Ds=;
-        b=R8iCgscJi5F5UCgN8EyyfxjphVt47t85Joe7VRy604wkBc+eMKpCWMTxT/ndw0sno4
-         ozWAHncuNqORZXZAs06JQh4ciFnpw57NrcTRRB17PxNDhklNkJNe6RPEN5w4W6Vh/gYs
-         iboxoNyORGz+7jY2bU+I9TFcRfYiqCEpvyiiJfii84bZyGbtY2q+6aoKsrU3W8gw2aB+
-         GxfPdZUPRcZhswAMuTkl4GOtAKqPumD6G983Ai+FgQvN2HVOiQ8vjUgq4vnT+LNQt6yA
-         g0dqYoMpr4Bjh+eGq0e3b69FsdZkZACcyiEdre65jzkSUFbynq7dFV40vmCjtYI/Xn4T
-         KTtQ==
-X-Gm-Message-State: AFuF++kvCoNU/XzsJnq3ThN+eUtTwaKwtP5jdWE7KI/jqf8uktZVtwVs
-	8M2v6MPoyucngyOFRdC83Nt1FCmhcrydyyl3p7asvx2tucGI1gPPbuh/i03YK6Tfy/Y=
-X-Gm-Gg: AYBFou20bmIbfzNBE75rKYWKs8VKQ/2HJKSX++uFpm4755TEtHw3QqMjmYedq4WkwQv
-	DGuVECYAh7Vi1bFMgxitLQ5DZEQgWBaUCjBA5LZxMpI1vLXfQExoMV1TnsWBJxYjJeyDIxHYD4e
-	1vp0eKxaRWqxwhd5cWaNHGDHpOuQ0cvQgHLRhS6MhyshYiqTgNPDjh6Ta799ZP8obLedq+f/Dif
-	RWSHTkqAtNV5OuxXcFSbDVewUubZlHY0d3UJYiYWMVQx0v6AeZ3c4pGZlZN3IKEpH3sBhWiO4eW
-	TnOgdrj6IxHiRgAW3MTrpGFDS+aACfpcdE5il3015bDVLc8+RhPTYXEYqC6RusyydnrBhTa+ZFG
-	dNba0va+5Eil/PFwr3ZcbHE94nQ8QZ24Ug/vAiKD13P7Kc7wMnYSVmo8BxVtptdXlpAz34tw8yV
-	3yv4E+H4P8xBviPSqHJ5z5iPDivkJaXhvc3jCWIM40M4rgM2R2iqgMNXEc3o4GKyw=
-X-Received: by 2002:a17:90b:39a3:b0:38e:bbf1:de3f with SMTP id 98e67ed59e1d1-39907d659e6mr5963354a91.12.1788226168597;
-        Mon, 31 Aug 2026 18:29:28 -0700 (PDT)
+        bh=ijPMp0aoruOjxz0EUwVJJByK31zD+FexQPaTyeeUmWw=;
+        b=d2IgRovOQQrK+HvlLUV2iThuf/7w/nAtNxLz1Xb6L05wpBUAD85+25Ol4kvuIyr47x
+         P8NskOuWGcf5xS5A2TPSJDYu5OJXkDv8MhQdyE8otVOQ/cNwIseYK2e1zPZjiwlHXFfo
+         6aEqyAYxGl3PwMy0u6L5rls5usWxcGiDniu5f53gXF3RWCWJs9UtLH+PhNimZiCRxeID
+         zrTme3jAORtf9mc7/Abpsvp7DwcJvy7zWRUsnLJCH66gNX+jpg5zOPaUfiuZTb2/QapP
+         87Qdik5y/0pblmtFf1TBrzgBQXIs2z9Nptk0AHd7AqX6PDlyzPDHb46QumMpYuOYSx0K
+         cvnQ==
+X-Gm-Message-State: AFuF++lF/ZCDUNJm1WVavWXN1lcziJl+zht5AZttuZVL7ZxuTlfKkm6W
+	qvABwCiPiANxxJZlWUeI/oawtKnzmIbLEao5eS0QmMx6yLRbFnAnXjMBDQnWu0updIE=
+X-Gm-Gg: AYBFou1oYxO8gVByVPGILmK6WtTZFQhbT3oi0DVYYHpyMnf6zMkuqegm9gkuNRrwPvi
+	Bki0WDn60OU9sy5Iqm+4jWs9UzJ0qLZcg4BNEKtPQlUJFKEUpyNlIgZzo/dAt8BHqj1+L99PAnD
+	0jKHblvtFUNKb+wVWsITxLUA7xJM8wkjOeRtT2Hi9YP6yyA2TpoE9BwOjxNmpqiu/21cXohgNG4
+	V/6YEICn+EPdyk5V0KPvZcauisJbun6QPKkPHakoQpI7T180N8diTvTpmkTzPQwOzjui9u86btZ
+	akQ3veV2BIl43FDy9Naa9bi20qLmxWWT2nT/qAL95f3Xnr0ZwIvY7OeMm8KBpqwVnEDHaTnwbQG
+	25949970u5Tydr/XZzPFo0KeOwrRinDBakrMDcvbp+fiUQD8HHssTxdy1qrEiYO1+9EwFyAit2w
+	xDgorZGEbgDr6AibkHv9aTydom15iV5BZM7VdyBaaCcXtHG2TfN2x71yN2FDCNLlM=
+X-Received: by 2002:a17:90b:3c05:b0:396:5cdc:4bea with SMTP id 98e67ed59e1d1-39907ab0955mr6015192a91.5.1788226169561;
+        Mon, 31 Aug 2026 18:29:29 -0700 (PDT)
 Received: from [127.0.0.2] ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32b5bef7683sm19390817eec.12.2026.08.31.18.29.27
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32b5bef7683sm19390817eec.12.2026.08.31.18.29.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 18:29:27 -0700 (PDT)
+        Mon, 31 Aug 2026 18:29:29 -0700 (PDT)
 From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Date: Mon, 31 Aug 2026 18:29:21 -0700
-Subject: [PATCH v7 03/10] of/overlay: look up absolute target-paths
- absolutely
+Date: Mon, 31 Aug 2026 18:29:22 -0700
+Subject: [PATCH v7 04/10] of/overlay: put property on deadprops only after
+ changeset add succeeds
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +70,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-nh-of-alias-overlay-v7-3-02754604805a@nexthop.ai>
+Message-Id: <20260831-nh-of-alias-overlay-v7-4-02754604805a@nexthop.ai>
 References: <20260831-nh-of-alias-overlay-v7-0-02754604805a@nexthop.ai>
 In-Reply-To: <20260831-nh-of-alias-overlay-v7-0-02754604805a@nexthop.ai>
 To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
@@ -81,111 +81,58 @@ To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
  Pantelis Antoniou <pantelis.antoniou@konsulko.com>, 
  David Daney <david.daney@cavium.com>
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Abdurrahman Hussain <abdurrahman@nexthop.ai>
+ Abdurrahman Hussain <abdurrahman@nexthop.ai>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788226164; l=3883;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788226164; l=1741;
  i=abdurrahman@nexthop.ai; s=20260510; h=from:subject:message-id;
- bh=i+iwVi9KMRy/SRzPz0dFMHY5QfWjU3ehExfRWdvyWCg=;
- b=fGoY5kqjFOHUBx3oflOqjwJk2wJqqeVBud53A45eDFKq+qsDbtsEs8qzUe+ydOswCaZGFRM0o
- jPuzn1QvxLiDfm12tMXBFTi1mIQVqVTsUkuxxvpkBKCyV1s8+CtHlyv
+ bh=npzZe06PtobvJpaMjSbQwwuI2JcJx4uej0mJwKkmuwE=;
+ b=3TJqFcAxk2Dxfh5PddnOWq6tB1A1N54A3Rz65h50plOtgFUybVPiU4pyMG3NqVNXEh+GUV4Lw
+ WEyTLTPXB36CaqXkj3W2Yx+T4hVMuW5xmnVB42u8FEoPnnZmz7ALp8H
 X-Developer-Key: i=abdurrahman@nexthop.ai; a=ed25519;
  pk=omTm9cCAbO0ZhS32aKfJDKue0W3sQGpG9ub5eYHif8I=
 
-find_target() with a non-NULL target base concatenates the base path
-and the fragment's target-path via "%pOF%s": target-path="/foo"
-resolves to "<base>/foo" and can never reach the DT root. An overlay
-applied with a base cannot both extend the base subtree and add
-/aliases entries, which is what a PCI device declaring its
-peripherals under dev_of_node() needs for alias-based bus numbering.
+add_changeset_property() links a new property of a not-yet-live
+target node into the node's deadprops list before handing it to
+of_changeset_add_property(). If that fails, the error path frees the
+property but leaves the freed pointer linked in deadprops, and
+of_node_release() frees it a second time when the aborted overlay's
+node is released.
 
-Treat any non-empty target-path as absolute. An empty target-path
-still means the base itself, the only form used by the one in-tree
-caller passing a base (drivers/misc/lan966x_pci.c).
+Record the changeset entry first and link the property into deadprops
+only on success. of_changeset_add_property() never looks at the
+node's property lists, so the order of the two steps is otherwise
+immaterial, and the error path frees a property that nothing
+references.
 
-Spell the contract out in the kernel-doc for @base/@target_base and
-in find_target()'s strategy comment.
-
+Fixes: f96278810150 ("of: overlay: set node fields from properties when add new overlay node")
+Cc: stable@vger.kernel.org
 Assisted-by: Claude:claude-fable-5 [Claude Code]
 Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 ---
- drivers/of/overlay.c | 38 ++++++++++++++++++--------------------
- 1 file changed, 18 insertions(+), 20 deletions(-)
+ drivers/of/overlay.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/of/overlay.c b/drivers/of/overlay.c
-index 08d5351746be..74aea704835a 100644
+index 74aea704835a..284c9bc6c9cf 100644
 --- a/drivers/of/overlay.c
 +++ b/drivers/of/overlay.c
-@@ -688,12 +688,15 @@ static int build_changeset(struct overlay_changeset *ovcs)
-  *
-  * 1) "target" property containing the phandle of the target
-  * 2) "target-path" property containing the path of the target
-+ *
-+ * With a non-NULL @target_base, an empty "target-path" means
-+ * @target_base itself; any non-empty "target-path" is resolved
-+ * absolutely from the live-tree root.
-  */
- static struct device_node *find_target(const struct device_node *info_node,
- 				       const struct device_node *target_base)
- {
- 	struct device_node *node;
--	char *target_path;
- 	const char *path;
- 	u32 val;
- 	int ret;
-@@ -709,23 +712,14 @@ static struct device_node *find_target(const struct device_node *info_node,
+@@ -358,12 +358,13 @@ static int add_changeset_property(struct overlay_changeset *ovcs,
+ 		return -ENOMEM;
  
- 	ret = of_property_read_string(info_node, "target-path", &path);
- 	if (!ret) {
--		if (target_base) {
--			target_path = kasprintf(GFP_KERNEL, "%pOF%s", target_base, path);
--			if (!target_path)
--				return NULL;
--			node = of_find_node_by_path(target_path);
--			if (!node) {
--				pr_err("find target, node: %pOF, path '%s' not found\n",
--				       info_node, target_path);
--			}
--			kfree(target_path);
--		} else {
--			node =  of_find_node_by_path(path);
--			if (!node) {
--				pr_err("find target, node: %pOF, path '%s' not found\n",
--				       info_node, path);
--			}
--		}
-+		/* an empty target-path means the target base itself */
-+		if (target_base && path[0] == '\0')
-+			return of_node_get((struct device_node *)target_base);
-+
-+		node = of_find_node_by_path(path);
-+		if (!node)
-+			pr_err("find target, node: %pOF, path '%s' not found\n",
-+			       info_node, path);
- 		return node;
- 	}
- 
-@@ -737,7 +731,9 @@ static struct device_node *find_target(const struct device_node *info_node,
- /**
-  * init_overlay_changeset() - initialize overlay changeset from overlay tree
-  * @ovcs:		Overlay changeset to build
-- * @target_base:	Point to the target node to apply overlay
-+ * @target_base:	Target for fragments with an empty "target-path";
-+ *			fragments with a non-empty "target-path" resolve
-+ *			absolutely and ignore @target_base
-  *
-  * Initialize @ovcs.  Populate @ovcs->fragments with node information from
-  * the top level of @overlay_root.  The relevant top level nodes are the
-@@ -982,7 +978,9 @@ static int of_overlay_apply(struct overlay_changeset *ovcs,
-  * @overlay_fdt:	pointer to overlay FDT
-  * @overlay_fdt_size:	number of bytes in @overlay_fdt
-  * @ret_ovcs_id:	pointer for returning created changeset id
-- * @base:		pointer for the target node to apply overlay
-+ * @base:		target for fragments with an empty "target-path";
-+ *			fragments with a non-empty "target-path" resolve
-+ *			absolutely and ignore @base
-  *
-  * Creates and applies an overlay changeset.
-  *
+ 	if (!prop) {
+-		if (!target->in_livetree) {
++		ret = of_changeset_add_property(&ovcs->cset, target->np,
++						new_prop);
++		/* the detached node owns the property until the apply */
++		if (!ret && !target->in_livetree) {
+ 			new_prop->next = target->np->deadprops;
+ 			target->np->deadprops = new_prop;
+ 		}
+-		ret = of_changeset_add_property(&ovcs->cset, target->np,
+-						new_prop);
+ 	} else {
+ 		ret = of_changeset_update_property(&ovcs->cset, target->np,
+ 						   new_prop);
 
 -- 
 2.54.0
