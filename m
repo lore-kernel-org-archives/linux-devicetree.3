@@ -1,143 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D02F7459AE7
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 08:12:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C68A47143D;
+	Tue,  1 Sep 2026 08:13:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788250376; cv=none; b=K6SWDM0h16fkW7YsvtU6JJckL3zL80Qkgtgd0VewO08Ee3aReSpRavYj/y9uI8dHrHJVo92SY0JxO/kY6QBrxKlwrhcklg1580TAK+WwZitj9G7vibZTp/MYY0WwBB3tL/ZU4lVivOW4G4MpHH9aW1WX05Boq3M/yo5j3RyTBM0=
+	t=1788250418; cv=none; b=VfkAg/A8Mu5ogaa4rClq9oN/KyXKwWM0zT78PgvT+ogI1gzeXVUj966CYtprhDqRg0zqvtC/w3I9hi9yzZKILVvZxaLxTqNCkJS1ub5tPCLEdsF4wMlIcpj2iCDPBle3QN/71Zf0FsEry4+VH/I+j9lolUxe+2vZc+PexWjygcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788250376; c=relaxed/simple;
-	bh=UKXw3nlhzFxoxJKUzXxgUkHYXWhUvYau+KO/Tskao8Q=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kJoUYrndGtsZWpiXRojHVbe9rgDj7IBmbmnAmQgY0wbPbcozvhyLINQ2Ys/hwhchHS+UNhZ0W2djeyPa3ybvyFRZf9fRqm7zmVH6K/A3tYPxk1cRtaguVGZZDhZxnV7wKn5AfRV32xYH113GnJX08c0US2JcbE2mD5rGDu01QCs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DGSR4wr7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788250418; c=relaxed/simple;
+	bh=1f9nysRfz/QcucqWxxSunsNyOyUcqiNvoHA7rzPhFSE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pPxYeHLIRY/2c1UtatUG0OnAcTz2TGbcBtX8aTxs0rmu9BkJg5K3KcVakHRqrDiBTFyFNiKajLzzD/2Cv5UAeQAgDq2VjMNmB0uUxTj+7Qjqm4za13UhSqG72VtPpDHh8r0qm/kb2/4PVtyZNR17VYWZVDamorcJoC0sbSsBOXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=J+w9uyCv; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DGSR4wr7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9930D1F00ADB
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 08:12:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788250375;
-	bh=HBmpv/kkFlJED2xyi2We3aIip3PLbNhKdHR6adYaq6w=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=DGSR4wr7vG4DOE5LQp5fXQLm22woEM2CJP7IqR5xydptbatSxoFgcA5Oj+mgGQXkE
-	 0rkMOshXkyt81tVbP8LnOobbQrV00XivAOst3JT66iN0rgiSAYSJ1AfNb4IWnpTf8t
-	 zwZ1F76sH2qxug++ZQSfAPNNEz1xuFsbQwiB0sTmfuRbzD/P4g1ySp7oNaQbdagWXK
-	 l+UEuKr7/avi6Eid6+VbdhZ0Fg+XRzaTCSovd67CWvHWjWyy4uGzWn0YIcIIgtbLw+
-	 WLv/v7b9nwcdctPj+0Yo2yyxIzNnPlPJrYI1Met9lPR6UV9fVYAz1T9CJ2MA4V7lFF
-	 h6lGYmG8CEVgg==
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5b457a0b4e5so4336513e87.1
-        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 01:12:55 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzjpPtfjAYkH0Dyl20Oxu7D0VfiClNABJUZtIb7ea28gNYF3uO+2Qz92jx0iThWcRvplzVB5Z5QfF1x@vger.kernel.org
-X-Gm-Message-State: AFuF++kgp0xTwdXNH6eyQ0ZfT6P7i5kivHkTCfMv+c35avfU3kXdfFYT
-	0U0xl9ViXpP8FyGOHYs5UdTKtImvxz/aULP5vYwY3MmuHYkawLsdPQbPWCKrRTjC4ngAsnIPW/T
-	uOSVA/k7a/zQ2iCOYSxsYLVw6qC5pu5c8cfYvI9yXqA==
-X-Received: by 2002:a05:6512:234b:b0:5b4:adb1:b25b with SMTP id
- 2adb3069b0e04-5b5fe0d8420mr2844144e87.14.1788250373694; Tue, 01 Sep 2026
- 01:12:53 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 1 Sep 2026 01:12:52 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 1 Sep 2026 01:12:52 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260827125906.GJ770273@google.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="J+w9uyCv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788250416; x=1819786416;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=1f9nysRfz/QcucqWxxSunsNyOyUcqiNvoHA7rzPhFSE=;
+  b=J+w9uyCv3uKyadHPDOrJsOT/2WMKgk4fOqaW5mqhg2Wu65w3aT6So7RH
+   uyNKl3E+elrZNwZNZ8GF+w4QCRsxD75xP0VEfXae+bGxGuK/Efspej2t0
+   v+UMp93UBRDclvMLX2irgAy5bLPqoW6JRspMrTDMbkYBc0jCHU23Qndih
+   KrZRdh09mqBiYFgjYHGOrvEIRZOxQEcazJw/JtV2AjHk1bcG/ve9KCZAw
+   mgx9NBFKcuLUGogoakfo79l3ytby2VzgDWmQoeZ0zkLfHgqRP5ZHnemOI
+   C1AJedprnEqLThx091SRbGceXdEtwMkLntM5/rKSSdpPr6HIxbcLBnKNX
+   Q==;
+X-CSE-ConnectionGUID: rBMD1oirRHmDt+jWFl6DRw==
+X-CSE-MsgGUID: 8vLJPef8QQyX0T8M9sN+KA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="91184555"
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="91184555"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 01:13:35 -0700
+X-CSE-ConnectionGUID: inkXJ/hCQ2mj9LyvStU+GA==
+X-CSE-MsgGUID: SnzebwgpRaeN7GaqZcXrUA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="307241438"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.222])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 01:13:32 -0700
+Date: Tue, 1 Sep 2026 11:13:29 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Shehryar Ahmad <shehryar.amd@gmail.com>
+Cc: jic23@kernel.org, nuno.sa@analog.com, Michael.Hennerich@analog.com,
+	dlechner@baylibre.com, andy@kernel.org, gregkh@linuxfoundation.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux@analog.com, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev,
+	devicetree@vger.kernel.org, marcelo.schmitt1@gmail.com,
+	danascape@gmail.com
+Subject: Re: [PATCH 2/3] staging: iio: accel: remove adis16203, merged into
+ mainline adis16201 driver
+Message-ID: <apaJKc4kbxgFqe3V@ashevche-desk.local>
+References: <20260831184201.34416-1-shehryar.amd@gmail.com>
+ <20260831184201.34416-3-shehryar.amd@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260803-arm-psci-system_reset2-vendor-reboots-v24-0-889281373870@oss.qualcomm.com>
- <20260803-arm-psci-system_reset2-vendor-reboots-v24-4-889281373870@oss.qualcomm.com>
- <CAPx+jO9QE_KG8BbfnMLTebDpGDj7OSpPDtgc9uTBGZCDJeLu_w@mail.gmail.com>
- <CAMRc=Mezpj4A7o00C9hhs97kdA5Q+FZKTLRbDM+fR8qr0xCCqw@mail.gmail.com> <20260827125906.GJ770273@google.com>
-Date: Tue, 1 Sep 2026 01:12:52 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MduBgkP4K3yabbDbZicWyb9WWqmF=yUqo+WHocE6hpiLQ@mail.gmail.com>
-X-Gm-Features: AcwNN1URolqPxNp7OBkDyFKCbmiVpB4IqtdYvYItWVcsvGzePxbvMEDVrJj876Q
-Message-ID: <CAMRc=MduBgkP4K3yabbDbZicWyb9WWqmF=yUqo+WHocE6hpiLQ@mail.gmail.com>
-Subject: Re: [PATCH v24 04/12] mfd: psci-mfd: Add PSCI MFD driver for
- cpuidle-psci-domain cell
-To: Lee Jones <lee@kernel.org>
-Cc: Ulf Hansson <ulf.hansson@oss.qualcomm.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Arnd Bergmann <arnd@arndb.de>, Bjorn Andersson <andersson@kernel.org>, Sebastian Reichel <sre@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Souvik Chakravarty <Souvik.Chakravarty@arm.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Andy Yan <andy.yan@rock-chips.com>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, Mark Rutland <mark.rutland@arm.com>, 
-	Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	John Stultz <john.stultz@linaro.org>, Moritz Fischer <moritz.fischer@ettus.com>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Christian Loehle <christian.loehle@arm.com>, Ulf Hansson <ulfh@kernel.org>, 
-	Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, Andre Draszik <andre.draszik@linaro.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	mfd@lists.linux.dev, Srinivas Kandagatla <srini@kernel.org>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831184201.34416-3-shehryar.amd@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, 27 Aug 2026 14:59:06 +0200, Lee Jones <lee@kernel.org> said:
-> On Wed, 26 Aug 2026, Bartosz Golaszewski wrote:
->
->> On Fri, 21 Aug 2026 14:59:49 +0200, Ulf Hansson
->> <ulf.hansson@oss.qualcomm.com> said:
->> > On Mon, Aug 3, 2026 at 11:45=E2=80=AFAM Shivendra Pratap
->> > <shivendra.pratap@oss.qualcomm.com> wrote:
->> >>
->> >> PSCI has multiple kernel consumers, such as cpuidle-psci-domain.
->> >> Currently, both the PSCI core driver and cpuidle-psci-domain bind
->> >> directly to the same PSCI node "arm,psci-1.0". Additional consumers, =
-if
->> >> introduced, would also need to bind in the same way, leading to sever=
-al
->> >> drivers attached to a single device node.
->> >>
->> >> Introduce a PSCI MFD driver that binds to "arm,psci-1.0" and register=
-s
->> >> PSCI child cells. As the first user, register cpuidle-psci-domain as =
-a
->> >> child cell.
->> >
->> > I don't think PSCI should be modeled as an MFD device with childrens.
->> >
->> > Instead, this looks rather like a better fit for the auxiliary
->> > bus/driver. Please consider using that instead.
->> >
->>
->> Hi Uffe!
->>
->> Since I was the one to suggest MFD - would you mind providing more argum=
-ents
->> in favor of your preferred option?
->>
->> My reasoning for MFD was that it is indeed a device that provides multip=
-le
->> functionalities, of which cpuidle is not really he main one even though =
-it's
->> currently the only driver binding to this node.
->>
->> In any case, we'd need a "core" driver binding to the psci node and with
->> multiple auxiliary devices with their own drivers, we'd end up reimpleme=
-nting
->> MFD.
->
-> Ulf could be correct.
->
-> MFD is usually reserved for real devices, whereas the aux is a little
-> more loose.  Please consider it as an option.
->
+On Mon, Aug 31, 2026 at 11:42:00PM +0500, Shehryar Ahmad wrote:
+> The ADIS16203 is merged with mainline ADIS16201 in previous patch of
+> series, remove the staging copy and its build system entries.
 
-My point is: if you start registering auxiliary devices from a "core" platf=
-orm
-driver based on real child OF nodes then you're basically re-implementing M=
-FD.
+This is the ideal patch!
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-At that point you're better off just using the existing MFD infrastructure.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Thanks,
-Bartosz
+
