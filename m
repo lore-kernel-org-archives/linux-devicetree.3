@@ -1,194 +1,81 @@
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3AC632045AD;
-	Tue,  1 Sep 2026 01:28:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 790A139CCF6;
+	Tue,  1 Sep 2026 01:29:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788226113; cv=none; b=HIUVnosiEaEtMdJQhCYIW/WlzK/S33oVjZ2BVXoosCXJ+/njL9wtcRuFe100EVcizAQSdEGwviCTniriBStBP2IzIQiPnqbS8Rr0WaQ42PEacj7IDe/ckAhz3ljU2LbWJ10jVPyuBlbGuCdPE2R2wc+Wj2ZhLJ2pxlFndq77rRA=
+	t=1788226158; cv=none; b=LiIIQ3Vdwn2fzYh2TKowSR1yxZ4wBvFmX4VnzpjXv+Gk1etaAvLbYkobbS4V68DwDHT6jK+ZJGcvCO0ViaDVjpMj7GfZ/LmR1Bg3EScMV+jkFHjq2eHUqffR6fyQpAf241juTMQhUDlbyByeG2xWbUvgWExnJHCd4qES+msZRag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788226113; c=relaxed/simple;
-	bh=CYi87bj0peNiOasgsBO9R91QkY43F/FrkslS+8YFcw8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=UPbDuuQQZZyMmbyAWe6svUaGBrGgm0lKCfFoURVONqnJJl2uOrLI71PNSw7ih+ojwDSpVK+gs9hLKiq2L1rSeTZkWXcmqOO1u6157WpKSiHVmCYW/FdxeaS/muPs7c/u15E22AnI67Y4kQIZJvJxYKAEZ6r4GyDyQHiqUCtjFQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=neH4wKOT; arc=none smtp.client-ip=218.76.62.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
+	s=arc-20240116; t=1788226158; c=relaxed/simple;
+	bh=3smUd3a0APatI9BUSz1ytbePNmt8B9juutuqa+zF3Iw=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mSzzKhMkK7MRAHbiC8+yxtbaZWoPBDKBYsAMZXQPoJGx+uHFP6kdZYQL0omi7AdkJtkalE56mhzu2VBCsYzBRLYrWB2de9atoS92DU6tWFYzZSeki5N/geyMD7jVNUGnKe172m/p0dRejkHlEHzP74oS14CZjNqxbdrba6Pq2Qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kfs1LPZS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="neH4wKOT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:From:Date:Subject:
-	MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	References:In-Reply-To:To:Cc; bh=KDrJ8qKZmj8mBstfQ6vGXNiDtCIG1JE
-	EtjpWX1LRrbs=; b=neH4wKOTMVDiAq663MQod/wpQltdEgJawCv689xw+qynvOm
-	gYtXO5L2KLugIrnyAKI+/rE4K/clbNOjTLqJyFFcJTNK3j8iCCVFkVGTkiB8Z504
-	JIjOIzjkxv+aDI6qSy9BI3hO25+yryPO492J0I7Uh40iuGkkD5+KOhVKEAww=
-Received: from [127.0.0.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwDnrwYZKpZqvx0AAA--.111S4;
-	Tue, 01 Sep 2026 09:28:14 +0800 (CST)
-From: Jia Wang <wangjia@ultrarisc.com>
-Date: Tue, 01 Sep 2026 09:27:31 +0800
-Subject: [PATCH net-next 2/3] dt-bindings: net: Add UltraRISC DP1000 GMAC
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kfs1LPZS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A2B11F000E9;
+	Tue,  1 Sep 2026 01:29:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788226155;
+	bh=Q1rcKWwnLsEj07FeAyupuKPSQi7/cyfKCIUX/4F0A0g=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=kfs1LPZSsxI3f8JeNtrBDZPLWD0ikfmxC9rLK4NAzGnF4Z6O0jY2tPwssqcfe+UGT
+	 BbRKj4nCEyGfUAtxq4dcCskbVGcaLZNY5WexTNFG8pD7Pd+Y6VR7Ci3CyVt3fngJq1
+	 GgifPq/5z2iAOwNADTvCm8IUZMZPLHerattG97V/eAl/KUscu/XP7OwJ6uoxUFDKZm
+	 J7wwMqaQkXBShWaPoiCvumbGhzN4NM8/xM/PxhaRo7h9eu4pMfi5THxLrixQywoyCG
+	 CDRlwpr6Lf8kogvBXAX1tVkTiphxgah/6vfaTaSR411l1p5bPEOmVPVJ6jHshqh2Xq
+	 +1RkqjgK4JBpQ==
+Date: Tue, 1 Sep 2026 02:29:10 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: David Lechner <dlechner@baylibre.com>
+Cc: Kyle Hsieh <kylehsieh1995@gmail.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
+ <broonie@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 2/2] iio: adc: ti-ads112c04: Add support for TI
+ ADS112C04
+Message-ID: <20260901022910.118b80ad@jic23-huawei>
+In-Reply-To: <268eb714-2849-4ebb-9f9d-9607fcce3358@baylibre.com>
+References: <20260824-ti-ads112c04-driver-v7-0-6b3c9c87d0e4@gmail.com>
+	<20260824-ti-ads112c04-driver-v7-2-6b3c9c87d0e4@gmail.com>
+	<268eb714-2849-4ebb-9f9d-9607fcce3358@baylibre.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-dwmac-ultrarisc-v1-2-f19454814bcf@ultrarisc.com>
-References: <20260901-dwmac-ultrarisc-v1-0-f19454814bcf@ultrarisc.com>
-In-Reply-To: <20260901-dwmac-ultrarisc-v1-0-f19454814bcf@ultrarisc.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
- Jose Abreu <joabreu@synopsys.com>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
- linux-arm-kernel@lists.infradead.org, Jia Wang <wangjia@ultrarisc.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788226062; l=3097;
- i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
- bh=CYi87bj0peNiOasgsBO9R91QkY43F/FrkslS+8YFcw8=;
- b=uuv29OU19WBJ6Z9pIIHSRs3M1C3KwXTeNAyix/Y1l7CVrzlXYgJn+UEwsmv5LUJ4Acyghml7p
- lUgkIt7IJYkBrOicT04ldQCGyyvdvtuu8fFapvwBPioTe01Y6UgvL+l
-X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
- pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
-X-CM-TRANSID:AQAAfwDnrwYZKpZqvx0AAA--.111S4
-X-Coremail-Antispam: 1UD129KBjvJXoWxAw13Jw1UGrWxCF4xGr45KFg_yoW5AF13pF
-	ZxCFs5JFs2gF13Ww4fta4xA3ZYyw18AFy3Awn2yw1UtFZ8uasYqrsrK345Zas8JrZrXa4q
-	vFyY9r10ka109w7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmG14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jryl82xGYIkIc2
-	x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
-	Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UM2
-	8EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r4UJwAS
-	0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2
-	IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0
-	Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2
-	xKxwCY1x0262kKe7AKxVW8ZVWrXwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I8I3I0E
-	4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGV
-	WUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_
-	Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7sRipB-tUUUUU==
-X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAREWqVJKMAFQAFsp
 
-The DP1000 integrates a Synopsys DesignWare GMAC from the 5.20 series with
-one MMIO register range, one clock and one interrupt.
+On Mon, 31 Aug 2026 11:28:51 -0500
+David Lechner <dlechner@baylibre.com> wrote:
 
-It also provides fixed TX and RX RGMII clock delays that cannot be
-disabled. Board connections must therefore not add either delay in PCB
-traces, making "rgmii-id" the only supported phy-mode.
+> On 8/24/26 3:49 AM, Kyle Hsieh wrote:
+> > Add IIO driver support for the Texas Instruments ADS112C04 (16-bit)
+> > delta-sigma ADCs.
+> > 
+> > The driver implements:
+> > - Single-shot conversions using the IIO raw read interface.
+> > - Dynamic parsing of single-ended and differential channels from
+> >   device tree child nodes.
+> > - Hardware interrupt support via the DRDY pin, falling back to
+> >   software polling if no IRQ is provided.
+> > - Per-channel reference source selection (internal 2.048V, external
+> >   REFP/REFN, or AVDD) via the reference-sources device tree property.
+> >   refn-supply is not yet supported.
+> > - Hardware reset via the reset controller framework, falling back to
+> >   the RESET command when no reset controller is present.
+> > 
+> > Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
+> > ---  
+> Reviewed-by: David Lechner <dlechner@baylibre.com>
+> 
+Added, thanks.
 
-Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
----
- .../bindings/net/ultrarisc,dp1000-gmac.yaml        | 74 ++++++++++++++++++++++
- MAINTAINERS                                        |  5 ++
- 2 files changed, 79 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/net/ultrarisc,dp1000-gmac.yaml b/Documentation/devicetree/bindings/net/ultrarisc,dp1000-gmac.yaml
-new file mode 100644
-index 000000000000..13029302877b
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/ultrarisc,dp1000-gmac.yaml
-@@ -0,0 +1,74 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/ultrarisc,dp1000-gmac.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: UltraRISC DP1000 DWMAC Ethernet controller
-+
-+maintainers:
-+  - Jia Wang <wangjia@ultrarisc.com>
-+
-+description:
-+  The DP1000 integrates a Synopsys DesignWare GMAC controller from the
-+  5.20 series. The SoC integration adds fixed RGMII TX and RX clock delays
-+  which cannot be disabled. Consequently, a functional RGMII link requires
-+  a PCB without TX or RX clock delays, represented by "rgmii-id".
-+
-+select:
-+  properties:
-+    compatible:
-+      contains:
-+        const: ultrarisc,dp1000-gmac
-+  required:
-+    - compatible
-+
-+properties:
-+  compatible:
-+    items:
-+      - const: ultrarisc,dp1000-gmac
-+      - const: snps,dwmac-5.20
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  clock-names:
-+    const: stmmaceth
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  interrupt-names:
-+    const: macirq
-+
-+  phy-mode:
-+    const: rgmii-id
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - interrupts
-+  - interrupt-names
-+  - phy-mode
-+
-+allOf:
-+  - $ref: snps,dwmac.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    ethernet@38000000 {
-+        compatible = "ultrarisc,dp1000-gmac", "snps,dwmac-5.20";
-+        reg = <0x38000000 0x1000000>;
-+        clocks = <&clk 0>;
-+        clock-names = "stmmaceth";
-+        interrupts = <84>;
-+        interrupt-names = "macirq";
-+        phy-mode = "rgmii-id";
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3a19da74d00c..3b96ff0734e6 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -28004,6 +28004,11 @@ F:	Documentation/devicetree/bindings/clock/ultrarisc,dp1000-clk.yaml
- F:	drivers/clk/ultrarisc/*
- F:	include/dt-bindings/clock/ultrarisc,dp1000-clk.h
- 
-+ULTRARISC DP1000 DWMAC GLUE LAYER
-+M:	Jia Wang <wangjia@ultrarisc.com>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/net/ultrarisc,dp1000-gmac.yaml
-+
- ULTRARISC DP1000 PINCTRL DRIVER
- M:	Jia Wang <wangjia@ultrarisc.com>
- L:	linux-gpio@vger.kernel.org
-
--- 
-2.34.1
-
+J
