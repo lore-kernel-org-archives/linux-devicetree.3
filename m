@@ -1,246 +1,191 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ED4E3793BD;
-	Tue,  1 Sep 2026 07:30:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5587C469855
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 07:31:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788247813; cv=none; b=X+W8sZRjoTJ5kVM+hnJ5QOP95vzQxT4G/h81o0haS1o8Wgd6XtEewR0eptHaAHgyvZAe1HbwMUI9Aw4xELaqrND/2RaX37NLQ4VfaPqzl6HYDI5m/RJHxCIe4iJLs4BPi09EcSvWHngywnUVCjyzXQChgb1vKR99nKmG0MlTqYc=
+	t=1788247888; cv=none; b=F0pP2q3FKLgblYgM3x3PELo/LdhwYeA5CyWndS+XKdZ4pU0WeFS2eKH3Z9OBGMxlEVBrQ9X1yjxL++H8cNqjQbD3Chj+gP3GTRyl5J3f7GUTMKcjxHQGa/jwGOaxOeC+kVa51coSuMgAtjw+A1fNvbpSXze6URw2hDs604rA9pA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788247813; c=relaxed/simple;
-	bh=yuVw8jJaWyaYoo2TEizSlBwCGt1hZUIKhJjMOgpl+y0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=n61zifdEizcIYtbJ1jsQ7KqllzGGUxlSSqYj3PAAMp7llxENJlaElnaSuz9dzKRlonrDVPoXnoaqm2SwIerenqOi6vdx8umsTyk0oVR11nSwrUj3qhtmAkJtGsBGLCb6xFrRXsCX181vHpuPGQgnoBSSJcks5RptSlo0Rw1SjHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ju3mnYyB; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788247888; c=relaxed/simple;
+	bh=uBZdxUSbidPUR8s5YEFI7Jz6Erg/CEjfOa412pkfNDI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=t5CwUXNMbdNHYSdDKsKHRGO+Lp04Vb7wmyIN7xSoE2LSuzcFSQg/NROlxY8WDyR725WKf3rKd3RnqT0gkvdY2fO9LQO2B/Uebz7Q4h0CTXs7pa3/HEg3n9Yi42EFOyTS7gX5Hq55Ci3OCHwsuuPJjeyiiw8T9Z40YGz/CRcOb7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NdpSuVJ2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PpQnoJKH; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ju3mnYyB"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 3E5E11A192B;
-	Tue,  1 Sep 2026 07:30:06 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 0672C6053C;
-	Tue,  1 Sep 2026 07:30:06 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 50EAE11C78C5E;
-	Tue,  1 Sep 2026 09:29:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788247800; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=SusLD2LJRuGl/EM1pa68AofUX9dK45Px9vTM6WPxfNY=;
-	b=ju3mnYyBlBA49ik61v0qwK2BAK3AnHW/nkCQh90vS7pobAOCGmGw9xiqTnGWGYYQ0FMBIv
-	RTpke5CvTPKds58wsCQoj9GKc8kVwZ6/663+Mivtjnz5LtY2vibecJb8eehBNIjtwu6xbi
-	H2V0V8rR85Rn/m026MnSngUolJviOnv1Qm68oNxXXIwe8C9ZZO+o424C7RVNjfyGMk8Njv
-	WDCrrfT/yv8CBww/KsPoPxqkQnYD908ulBdv5Q8qXrwneiXuF7DNEjL3HHh8wtttq+xLHD
-	zw3fm4nfZArVvDWExfLZlV6FckehdnWcLsiJeuC3K/FK31mCa5vaCIdJ/UpG/g==
-Message-ID: <49620860-9bd5-48fb-bbaf-55da377e9018@bootlin.com>
-Date: Tue, 1 Sep 2026 09:29:51 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NdpSuVJ2";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PpQnoJKH"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68179Kdk1709581
+	for <devicetree@vger.kernel.org>; Tue, 1 Sep 2026 07:31:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=+90YvACKrGhNGFC3jO9C3x
+	PTwtrUvuxLMFSNd/WpkuE=; b=NdpSuVJ2EiNSRzoZ1SCLzjYVDWdxG2epxubq0j
+	jP0FEfsGdv/2NilHpXcS/jVao88tLjKg+vNQj5nnVUrBNl0tELSxjv4xfag6qRQL
+	XR5mMmWC5vnsWxsq9zewPJbkm5bZu4HpnLOX8pCAMUFMK4lFqyln9rZ7FEgn30O7
+	TjBBssE/KkU+fwMmaXQA1sp/SzO5h88NVfaL2RyoBNExKrkz8wTm6bg8nWSOuePj
+	DBftsJwXcHRCcfLTTtKQLoc7aZty7T899G/yBm43UG3DjHONwyv4HbOWiDqfoUYh
+	7ufefRqDwLG4AdeaSGh3zkwbveQrqATGewKFNLtapX2aO6Cw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdp8fs0yh-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 07:31:26 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92e82060977so126721985a.1
+        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 00:31:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788247885; x=1788852685; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=+90YvACKrGhNGFC3jO9C3xPTwtrUvuxLMFSNd/WpkuE=;
+        b=PpQnoJKHSZEDbEfKDZrkTyPiXD/9GCq3L7jDbWl0zzfHMUKTNDCweazpsJ1JnaNrS6
+         qUR9qth9m7NYZVCz1GxoEkl1DIimvN7O3Fi2HOIAObyWskkFEWYI9VFaIubRrx7S0bM1
+         CdYyEHvYj1ocwqgT4FxK+jHu43qPWT8LuSMfnt4lpIaNEUOHoBctuDjqZdi7t0vzny71
+         SqqeBSFsX/n9LZXP6fM45fhYBoh+lVQLeiiQ3UO+JNe6s7BLMK3PkquHCdDFGqJSGH57
+         N+Vg13lg3LrHf0iMFBooS1MUFuP7fLfOnjfvvqBRQFD97MYV0FvS7hOXyzXK2cmWRBKk
+         Vabg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788247885; x=1788852685;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=+90YvACKrGhNGFC3jO9C3xPTwtrUvuxLMFSNd/WpkuE=;
+        b=LlsyVt9FprfXShwv4Zy9CDnw1wpAVBIr4FfrWYM7hSrIf4j9DRh0sOvHJGYqkVM6PT
+         +YbIrI90ZeektGRrazOXxPyVTkzsfIgS8OiVdinqVl2pDE9cj2+BppsniZBqED9W0bKA
+         4PRNovaGE8MsNuLGgxErYMw8pMgSLDIPrKk0/iyPxi7Q7Qlq5Pc2sxYy5DvH7iXguNtA
+         RUDral8n7UR37cDRK/DHkr9zzJ5lrEUVeRUBgr5N+I6bYnJFdbWznxOXXq5UPWr5JrHR
+         lr4fPU3/zsqBA44Qt6/9r23wKRDfsw4c/E7WfSduGcg/zCjot6bPoF787No9aXMGQ1Kq
+         Tw5A==
+X-Forwarded-Encrypted: i=1; AHgh+RrdII0ZT3bGeAnHSwnjgVY6dNXIO5G1HRuUhr5wElGzF0IYbM32nErmf4oowHGwUWwnXn1pSoSqNC2h@vger.kernel.org
+X-Gm-Message-State: AFuF++nhULuXpyF5KONBeYgn6F2YrG2kE4HNpL83T+LJ367+1Tb/ZK/k
+	A5l66Tvsy+fP7oEwQrHoA4HiyeVTF9YTsVCMTmyVcXx9L3r87ztd8hP1V4fVb1unPDWmDI8f+NN
+	vuIYuK24GDb1vfBL5R2Ce59+iLdAqyfbHu2KmpPq3P6megEwfoXkNap+hCgvBp2jVT2uZLsK3/e
+	U=
+X-Gm-Gg: AR+sD10D4RkDafU9SiR43IRq5yr7ztQUKIZlWcRUWA2uWLiE7IB+4mGieuP/Lt4hFFK
+	WyjP2/cESI3ypyN+Q1TdJ5ud9tpkBcD/l6EdeTNWpx/N+PMECrZ8LPmTjORYJ0p0kUuIAXdppSr
+	0TPj9FMueHeNoy6CFr6S6KTTqjcQTLdACkg1n16mjOUWd9b21OBq2qbrKTk3xeCplwFvKIV42oX
+	kxQEJlZAhWzPqu5JRrw1ZhwrcetlpK0XnJJUiHgtocsOgr/OhPVZu+oFcbjuAoXUR0IleAV72Qy
+	xIw5jm3TCCNHVaZ0iD9z187zBX5BMWy4nz8XfTu23jD1loRcYYYhKA0SpmfZCrBoR2RZIMpaNGS
+	B8lPsSMo6kRZUJ1Lul+gCeWZjyXRD98KRUlrblBpkRoOmjz0TV5Rfjxfk6A2ZrfVgYabO
+X-Received: by 2002:a05:620a:271c:b0:934:a1e4:cfee with SMTP id af79cd13be357-9394bc5bb71mr504583685a.11.1788247885420;
+        Tue, 01 Sep 2026 00:31:25 -0700 (PDT)
+X-Received: by 2002:a05:620a:271c:b0:934:a1e4:cfee with SMTP id af79cd13be357-9394bc5bb71mr504578085a.11.1788247884811;
+        Tue, 01 Sep 2026 00:31:24 -0700 (PDT)
+Received: from WENMLIU-LAB01.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93918b0f825sm946766785a.40.2026.09.01.00.31.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 00:31:24 -0700 (PDT)
+From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+Subject: [PATCH RESEND v5 0/4] media: i2c: Add OmniVision OG0VA1B camera
+ sensor driver
+Date: Tue, 01 Sep 2026 15:31:03 +0800
+Message-Id: <20260901-og0va1b-v5-0-b0400a9bac01@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 3/3] net: stmmac: Add UltraRISC DP1000 GMAC
- support
-To: Jia Wang <wangjia@ultrarisc.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Jose Abreu <joabreu@synopsys.com>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-References: <20260901-dwmac-ultrarisc-v1-0-f19454814bcf@ultrarisc.com>
- <20260901-dwmac-ultrarisc-v1-3-f19454814bcf@ultrarisc.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260901-dwmac-ultrarisc-v1-3-f19454814bcf@ultrarisc.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
+        Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788247879; l=2311;
+ i=wenmeng.liu@oss.qualcomm.com; s=20250925; h=from:subject:message-id;
+ bh=uBZdxUSbidPUR8s5YEFI7Jz6Erg/CEjfOa412pkfNDI=;
+ b=AI7/A32JN3z+3EknhLhlMjgy6xq8H3c1YDlpW3OSJz6woengqrE5NVzrUH667rNmiu2R+yth+
+ dE6RsoKI6ALDGPUDCDUem7rNjl8i5B6oiiyx6J826phjGFCCR/i0oED
+X-Developer-Key: i=wenmeng.liu@oss.qualcomm.com; a=ed25519;
+ pk=fQJjf9C3jGDjE1zj2kO3NQLTbQEaZObVcXAzx5WLPX0=
+X-Proofpoint-GUID: sfXBD9G7sTAvNScxMRSbaK8Sj8s71dlM
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA2NiBTYWx0ZWRfX9RZZofYd9ul2
+ olqvkgBZ5tc922B4jrqA2jkO0FLLg/uVoYHK7SQNof582VDQIpIADjH9mWKDaI6x23h4bkPwwFg
+ M9QYjKQSE7nCRhAWP9A+zOAtH2hA5WA=
+X-Proofpoint-ORIG-GUID: sfXBD9G7sTAvNScxMRSbaK8Sj8s71dlM
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA2NiBTYWx0ZWRfX8QEz1xT0L6v3
+ EcqlvaV2NgfsR25DRldkZdlttbQ943aMtKKA/mD0imW5yW2pP1n7IuahnnARSyF4sdXnTlI5CvR
+ AsCh8oZqi2okAtHjWNDmZtUIDCarp2WPgCreLWjzsa5L85jeclAmRD2u0EZserXpa5/MMogGfNg
+ jbIPdXXTLEsw8yb4aBfhDWwp+qfKRF8IwMla8SxPKw76esGgQr98bIxGMz5BOhosSeYyrrlo4qt
+ lxakFp8CbLQnRus33TMZ0FRMAihgJQajk7YSK2vJ5hjbgw+CH+p2Yo19lJCoVqXM4U5YJQahS/i
+ qk4ikMtkSw7nn4n2tnCOUEr/rsyTcG+os+jpqh63y12BAkVJ34H7Yu2QxpBAdI9ZpUpXF92aMks
+ fDZH48KdCPOfBiVdWO2aPqizbd43jzPgOMyYkhflWuX+nEE5/VSIMW5qQwQtwg610yUB2HBHNdw
+ CwDnRa/pqhmdQ8vy1YQ==
+X-Authority-Analysis: v=2.4 cv=BPWDalQG c=1 sm=1 tr=0 ts=6a967f4e cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=jfyOTsDdjuaVfMw2EzIA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-01_02,2026-08-31_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 phishscore=0 adultscore=0 spamscore=0
+ lowpriorityscore=0 clxscore=1015 priorityscore=1501 malwarescore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609010066
 
-Hello,
+Add OmniVision OG0VA1B driver support. The OmniVision OG0VA1B is a
+1/10-inch monochrome CMOS VGA image sensor. It outputs 10-bit raw (Y10)
+frames at up to 640x480 resolution over a single-lane MIPI CSI-2
+interface and is controlled via an I2C-compatible SCCB bus.
 
-On 9/1/26 03:27, Jia Wang wrote:
-> The DP1000 GMAC integration provides fixed TX and RX RGMII clock delays
-> that cannot be disabled. For boards without PCB delays, "rgmii-id"
-> describes the link, but passing that mode unchanged to the PHY would enable
-> a second set of delays.
-> 
-> Use phy_fix_phy_mode_for_mac_delays() to translate "rgmii-id" to "rgmii"
-> before attaching the PHY. Reject other RGMII modes because the fixed MAC
-> delays cannot be combined with them without duplicating or omitting a
-> delay.
-> 
-> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+This driver has been verified(include tpg) on the Purwa EVK.
 
-Simple enough, this is nice :)
+Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+---
+Changes in v5:
+- Use div_u64() for pixel rate calculation to avoid 64-bit division
+helpers on 32-bit architectures. -- sashiko-bot, kernel test robot
+- Link to v4: https://lore.kernel.org/r/20260729-og0va1b-v4-0-ec7e7ed87b2b@oss.qualcomm.com
 
-One thing, I'm going to start requiring this for new glue drivers, can you give
-the output of "ethtool -t eth0" on your device with this new glue driver ?
+Changes in v4:
+- Rename the OG0VA1B and OG0VE1B test pattern menu entries to make them
+more accurate. -- Vladimir
+- Link to v3: https://lore.kernel.org/r/20260708-og0va1b-v3-0-de8e44455a42@oss.qualcomm.com
 
-You'll have to enable CONFIG_STMMAC_SELFTESTS
+Changes in v3:
+- Generalise the binding title and description for both sensors. -- Vladimir
+- Keep the cached pre_isp read so the OG0VE1B test pattern still works,
+select it via a per-sensor callback. -- Bryan, Vladimir
+- Rename the "sensor" field to "data", drop bpp (derive from code) and
+add og0ve1b_pixel_rate(). -- Vladimir
+- Sort defines, rename the shared CHIP_ID reg to OG0V_ and order
+og0va1b_data first. -- Vladimir
+- Expose all four OG0VA1B test patterns instead of one.
+- Link to v2: https://lore.kernel.org/r/20260702-og0va1b-v2-0-0071442caa2a@oss.qualcomm.com
 
-As this is is a 5.20, I'm expecting you'll get something like :
+Changes in v2:
+- Integrate OG0VA1B into the existing og0ve1b driver and binding
+instead. -- Vladimir
+- Link to v1: https://lore.kernel.org/r/20260618-og0va1b-v1-0-dda71bb83009@oss.qualcomm.com
 
- 1. MAC Loopback                 0
- 2. MMC Counters                 0
- 3. EEE                          -95
- 4. Hash Filter MC               0
- 5. Perfect Filter UC            0
- 6. MC Filter                    0
- 7. UC Filter                    0
- 8. Flow Control                 -95
- 9. RSS                          -95
-10. VLAN Filtering               -110
-11. VLAN Filtering (perf)        -110
-12. Double VLAN Filter           -110
-13. Double VLAN Filter (perf)    -110
-14. Flexible RX Parser           -95
-15. SA Insertion (desc)          0
-16. SA Replacement (desc)        0
-17. SA Insertion (reg)           0
-18. SA Replacement (reg)         0
-19. VLAN TX Insertion            -110
-20. SVLAN TX Insertion           -95
-21. L3 DA Filtering              -95
-22. L3 SA Filtering              -95
-23. L4 DA TCP Filtering          -95
-24. L4 SA TCP Filtering          -95
-25. L4 DA UDP Filtering          -95
-26. L4 SA UDP Filtering          -95
-27. ARP Offload                  -110
-28. Jumbo Frame                  0
-29. Multichannel Jumbo           -95
-30. Split Header                 -95
-31. TBS (ETF Scheduler)          -95
+---
+Wenmeng Liu (4):
+      dt-bindings: media: i2c: og0ve1b: Add OmniVision OG0VA1B camera sensor
+      media: i2c: og0ve1b: Use monochrome-appropriate test pattern name
+      media: i2c: og0ve1b: Introduce per-sensor data structure
+      media: i2c: og0ve1b: Add support for OmniVision OG0VA1B
 
--95 (-EOPNOTSUP) and 0 are OK, watch for any other values.
+ .../bindings/media/i2c/ovti,og0ve1b.yaml           |  15 +-
+ drivers/media/i2c/og0ve1b.c                        | 378 ++++++++++++++++++---
+ 2 files changed, 346 insertions(+), 47 deletions(-)
+---
+base-commit: 95d6a9ccef99117115e41e9adb271243bd5e985b
+change-id: 20260618-og0va1b-55bbf3cabb0e
 
-If ARP Offload and any VLAN selftest (insertion and filtering), this is a known
-issue and you can ignore :)
-
-Maxime
-
-
-> ---
->  MAINTAINERS                                        |  1 +
->  drivers/net/ethernet/stmicro/stmmac/Kconfig        | 11 +++++
->  drivers/net/ethernet/stmicro/stmmac/Makefile       |  1 +
->  .../net/ethernet/stmicro/stmmac/dwmac-ultrarisc.c  | 54 ++++++++++++++++++++++
->  4 files changed, 67 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 3b96ff0734e6..aacbab369b51 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -28008,6 +28008,7 @@ ULTRARISC DP1000 DWMAC GLUE LAYER
->  M:	Jia Wang <wangjia@ultrarisc.com>
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/net/ultrarisc,dp1000-gmac.yaml
-> +F:	drivers/net/ethernet/stmicro/stmmac/dwmac-ultrarisc.c
->  
->  ULTRARISC DP1000 PINCTRL DRIVER
->  M:	Jia Wang <wangjia@ultrarisc.com>
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> index e3dd5adda5ac..ab3c4cf96423 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> @@ -319,6 +319,17 @@ config DWMAC_THEAD
->  	  the stmmac device driver. This driver is used for T-HEAD TH1520
->  	  ethernet controller.
->  
-> +config DWMAC_ULTRARISC
-> +	tristate "UltraRISC DWMAC support"
-> +	default ARCH_ULTRARISC
-> +	depends on OF && (ARCH_ULTRARISC || COMPILE_TEST)
-> +	help
-> +	  Support for the Ethernet controller on the UltraRISC DP1000 SoC.
-> +
-> +	  This selects the UltraRISC platform specific glue layer support
-> +	  for the stmmac device driver. This driver is used for the DP1000
-> +	  GMAC Ethernet controller.
-> +
->  config DWMAC_IMX8
->  	tristate "NXP IMX8 DWMAC support"
->  	default ARCH_MXC
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
-> index a1cea2f57252..b16a456b730e 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/Makefile
-> +++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
-> @@ -36,6 +36,7 @@ obj-$(CONFIG_DWMAC_SUNXI)	+= dwmac-sunxi.o
->  obj-$(CONFIG_DWMAC_SUN8I)	+= dwmac-sun8i.o
->  obj-$(CONFIG_DWMAC_SUN55I)	+= dwmac-sun55i.o
->  obj-$(CONFIG_DWMAC_THEAD)	+= dwmac-thead.o
-> +obj-$(CONFIG_DWMAC_ULTRARISC)	+= dwmac-ultrarisc.o
->  obj-$(CONFIG_DWMAC_DWC_QOS_ETH)	+= dwmac-dwc-qos-eth.o
->  obj-$(CONFIG_DWMAC_INTEL_PLAT)	+= dwmac-intel-plat.o
->  obj-$(CONFIG_DWMAC_LOONGSON1)	+= dwmac-loongson1.o
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-ultrarisc.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-ultrarisc.c
-> new file mode 100644
-> index 000000000000..4bdda2665338
-> --- /dev/null
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-ultrarisc.c
-> @@ -0,0 +1,54 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * UltraRISC DWMAC platform driver
-> + *
-> + * Copyright (C) 2026 UltraRISC Technology (Shanghai) Co., Ltd.
-> + */
-> +
-> +#include <linux/module.h>
-> +#include <linux/phy.h>
-> +#include <linux/platform_device.h>
-> +
-> +#include "stmmac_platform.h"
-> +
-> +static int ultrarisc_dwmac_probe(struct platform_device *pdev)
-> +{
-> +	struct plat_stmmacenet_data *plat_dat;
-> +	struct stmmac_resources stmmac_res;
-> +	struct device *dev = &pdev->dev;
-> +	int ret;
-> +
-> +	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to get resources\n");
-> +
-> +	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
-> +	if (IS_ERR(plat_dat))
-> +		return dev_err_probe(dev, PTR_ERR(plat_dat), "failed to parse DT parameters\n");
-> +
-> +	plat_dat->phy_interface =
-> +		phy_fix_phy_mode_for_mac_delays(plat_dat->phy_interface, true, true);
-> +	if (plat_dat->phy_interface == PHY_INTERFACE_MODE_NA)
-> +		return dev_err_probe(dev, -EINVAL, "unsupported phy interface mode\n");
-> +
-> +	return devm_stmmac_pltfr_probe(pdev, plat_dat, &stmmac_res);
-> +}
-> +
-> +static const struct of_device_id ultrarisc_dwmac_match[] = {
-> +	{ .compatible = "ultrarisc,dp1000-gmac" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, ultrarisc_dwmac_match);
-> +
-> +static struct platform_driver ultrarisc_dwmac_driver = {
-> +	.probe = ultrarisc_dwmac_probe,
-> +	.driver = {
-> +		.name = "ultrarisc-dwmac",
-> +		.pm = &stmmac_pltfr_pm_ops,
-> +		.of_match_table = ultrarisc_dwmac_match,
-> +	},
-> +};
-> +module_platform_driver(ultrarisc_dwmac_driver);
-> +
-> +MODULE_DESCRIPTION("UltraRISC DWMAC platform driver");
-> +MODULE_LICENSE("GPL");
-> 
+Best regards,
+-- 
+Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
 
