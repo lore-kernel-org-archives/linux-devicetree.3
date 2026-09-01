@@ -1,110 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A26BD49F13B;
-	Tue,  1 Sep 2026 18:56:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDF6F4A1E02
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 19:00:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788288995; cv=none; b=uGwWaz3kQXkcbI9/iviuJSus1B8Rr5zh+1DHLj20M9qcKtaA/5KT3gAfBWOUihwPpoRvt0sF4b+HutSNJXiTi+vgx38T9CiaYA3J3UFmQCid+Sn3Vvy128xDj/1reAy9FCfz93eNM2FfWzm0pA4zp/RQk4Btjbt6cakrEcfTbr4=
+	t=1788289250; cv=none; b=ohFKniUu+fwtFNm9JjayVEX8rz5Ia4tnVvojHb90ne7uhU1bZ4tm2Wkb815WwfHpVWaKUQvTinQ0AF84YSpM1w60eI1LvqjlGK1+25jemM+AcOqCJwTl0fVwdkuGpp7u+3F5q3DfqNLwOy/GnkbC92rfNr1krfwALA/5DCpRFWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788288995; c=relaxed/simple;
-	bh=q5QuUKJDeWCGWw5FZIn0pla+4QA0N53j/PFvJ2v9otw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Y03gr7SGBxSbsFGhyL+QRE46R7jM6WUn7IbE+77RJsmSk/L+z9GtIviF0ET2M9TZJ7twMf09DVipqY++l8ga8fX3drEYJN4E7vSuimcXGRmZUDx6/YwF6EbeCXbtYoVQ9j/igpnLz7xXMwHdGRl3O7JQ+qnZ3S5kHkkDZJ5cfHU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pk5Vs0IP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788289250; c=relaxed/simple;
+	bh=VR7f1ItDMVNwJvH6wm/MVF3Vx4STOuLySyNh0aNLhYo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=jgN2gEQPD4mVCPU4+BQUfN38JgHoQ2Egp1UxQVjn6LHMRn0T3RrJvuZ1h3MU03rrDlxJnPpbRAzeSpIGAKjr5u1ZheGL4CZktWQPHHKLTCLyrr6LYUHWwyLJUetiUYCnqEpji4siOLsJWhu5TGcYuIBkDKDg1yf6XhsOkeg9hHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L4WQM/89; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pk5Vs0IP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB2991F000E9;
-	Tue,  1 Sep 2026 18:56:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L4WQM/89"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F16F1F000E9;
+	Tue,  1 Sep 2026 19:00:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788288994;
-	bh=soj2uFsYNX757aHImCwMM0LMVX32Pw6BHhDFsDFZfdc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Pk5Vs0IPCvpa2mVAmhiOng2EmTWFN6zn/Q42Pc6xkIUrXSMEvSh5GJYTtz1Abl2bm
-	 8TeAs8lSjBBPZelsoGeQ75FmbeH0ZsmS1SOq+N2vXnadIBXaa2C4UJqROXRfwro8we
-	 Akox8XBMUdaAVZXU8LdDI2IHdbMKnGWeg4xJGncMoZyU55AVyp+62gtQgDz8J3tMus
-	 0DeYFqzIvOMXFd7LpLmZnNQwwXi6NvYGi5OitGqlcfLOzFIIdwu1a4kREN58VkQ8/B
-	 vzO9vEi4xYY2w1+8y5t/QR5kM1sYa1ddBqyf/lmc/fayxAr3m49w6QM6S/lpsCvTJm
-	 zhLqrbATkE/ig==
-Message-ID: <8348dc87-15f2-4019-9e27-744ab4a801b8@kernel.org>
-Date: Tue, 1 Sep 2026 20:56:29 +0200
+	s=k20260515; t=1788289238;
+	bh=r4vtrx1R7Pto06glO74fl+AhMc4ulgpBkMpdcvchfmw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=L4WQM/89VhP2xmHl6TAMmhJDDW2dZzjVNI0dYc2kisHqOqnV28NU7ocP3P3IM4a4F
+	 kxEBWhVn8N92SvIacLdIQRNvAzPugquxUWvu2+Xm0KFeVJAt25d2JWyswmET3B5qtF
+	 aCSWyxAHYl6WgEhz+OI+5lRN6jYb29SInV6KFq8KH0CMoxodfpJAbo7EsPhUl6scGb
+	 e9LnpvC2r21x277sUcDdwT53rziyIwZ+7rxVtSYM/T6pCf9SxahYLiVroB9o69guT0
+	 2himM5YrCtLAam6IYPZ8quM+ecp5xYXF2+h6DzhWxqzMfHwxNI0s8HZ81pgskrbcGe
+	 oYA73JuTYGRgA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 1/9] dt-bindings: mmc: add Cadence SD6HC binding
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Tanmay Kathpalia" <tanmay.kathpalia@altera.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260901184828.15653-2-tanmay.kathpalia@altera.com>
+References: <20260901184828.15653-1-tanmay.kathpalia@altera.com>
+ <20260901184828.15653-2-tanmay.kathpalia@altera.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 01 Sep 2026 19:00:37 +0000
+Message-Id: <20260901190038.1F16F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 10/19] thunderbolt: Make the ring register layout
- configurable
-To: Mika Westerberg <mika.westerberg@linux.intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
- Andreas Noever <andreas.noever@gmail.com>,
- Mika Westerberg <westeri@kernel.org>, Yehezkel Bernat
- <YehezkelShB@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-References: <20260830-b4-apple-soc-tbt-v1-0-44bc9348683c@kernel.org>
- <20260830-b4-apple-soc-tbt-v1-10-44bc9348683c@kernel.org>
- <20260901085802.GC106095@black.igk.intel.com>
-Content-Language: en-US
-From: Sven Peter <sven@kernel.org>
-In-Reply-To: <20260901085802.GC106095@black.igk.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Custom properties ending in `-ps` silently fail to enforce `minimum=
+` and `maximum` bounds due to implicit array typing by dt-schema.
+--
 
-On 9/1/26 10:58, Mika Westerberg wrote:
-> Hi,
->
-> On Sun, Aug 30, 2026 at 10:19:28PM +0200, Sven Peter wrote:
->> The ring descriptor and options registers are laid out differently on
->> the Apple NHI. Describe their offsets and strides with a
->> tb_nhi_ring_layout struct that NHI drivers can override.
-> This is odd because Apple is sitting in USB-IF and they are behind the
-> original register layout so why they do not follow it themselves?
+commit 26eb3b1bd7c793df986336bb3146ad20c9cf5ca6
+Author: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
 
-My guess is as good as yours but knowing Apple's culture it's probably 
-separate teams not being allowed to talk to each other...
+dt-bindings: mmc: add Cadence SD6HC binding
 
->
->> Signed-off-by: Sven Peter <sven@kernel.org>
->> ---
->>   drivers/thunderbolt/nhi.c   | 30 ++++++++++++++++++++++++------
->>   drivers/thunderbolt/nhi.h   | 18 ++++++++++++++++++
->>   include/linux/thunderbolt.h |  3 +++
->>   3 files changed, 45 insertions(+), 6 deletions(-)
->>
->> diff --git a/drivers/thunderbolt/nhi.c b/drivers/thunderbolt/nhi.c
->> index fc54ff7edfb9..3a3d334e69fd 100644
->> --- a/drivers/thunderbolt/nhi.c
->> +++ b/drivers/thunderbolt/nhi.c
->> @@ -176,19 +176,32 @@ void nhi_disable_interrupts(struct tb_nhi *nhi)
->>   
->>   /* ring helper methods */
->>   
->> +static const struct tb_nhi_ring_layout nhi_default_ring_layout = {
->> +	.tx_desc_base = REG_TX_RING_BASE,
->> +	.rx_desc_base = REG_RX_RING_BASE,
->> +	.desc_stride = 16,
->> +	.tx_options_base = REG_TX_OPTIONS_BASE,
->> +	.rx_options_base = REG_RX_OPTIONS_BASE,
->> +	.options_stride = 32,
->> +};
-> I'm not fan of these to be honest.
->
-> I think either adding ring_ops that includes hooks that can be overridden
-> by non-standard HI or not sure if we can take advantage of regmap here?
+This commit introduces the device tree binding for the Cadence SD6HC=20
+SD/SDIO/eMMC host controller. It defines the required clock domains, resets=
+,=20
+and specific PHY timing properties.
 
-Sure! I don't think regmap buys us anything but I think I can get away 
-with just adding nhi_ring_desc_base() and nhi_ring_options_base() to the 
-ops.
+> diff --git a/Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml b/Docu=
+mentation/devicetree/bindings/mmc/cdns,sd6hc.yaml
+> new file mode 100644
+> index 0000000000000..d5ea2717904b4
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml
+[ ... ]
+> +properties:
+[ ... ]
+> +  cdns,iocell-input-delay-ps:
+> +    description:
+> +      Input delay across the IO cells, used for SD6HC PHY timing calcula=
+tions.
+> +    minimum: 0
+> +    maximum: 20000
+> +    default: 2500
+> +
+> +  cdns,iocell-output-delay-ps:
+> +    description:
+> +      Output delay across the IO cells, used for SD6HC PHY timing calcul=
+ations.
+> +    minimum: 0
+> +    maximum: 20000
+> +    default: 2500
+> +
+> +  cdns,delay-element-ps:
+> +    description:
+> +      DLL delay element size, used for SD6HC PHY timing calculations.
+> +    minimum: 1
+> +    maximum: 1000
+> +    default: 24
 
+[Severity: Low]
+Will the dt-schema validator actually enforce these minimum and maximum
+bounds?
 
-Sven
+Because these properties use standard unit suffixes (-ps), the dt-schema
+tooling implicitly types them as arrays (specifically, uint32-matrix).
+In JSON Schema, the minimum and maximum keywords are strictly evaluated
+only for numeric instances.
+
+Since properties are parsed as array instances rather than scalar numbers,
+these top-level numeric bounds are silently ignored by the JSON Schema
+validator.
+
+Could this be fixed by explicitly defining=20
+$ref: /schemas/types.yaml#/definitions/uint32 to override the default array
+type and enforce a scalar integer, or by placing the bounds within an items
+validation block?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901184828.1565=
+3-1-tanmay.kathpalia@altera.com?part=3D1
