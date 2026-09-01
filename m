@@ -1,232 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6742035C6B5;
-	Tue,  1 Sep 2026 14:15:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF07D3290D1
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 14:16:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788272143; cv=none; b=JC2MJcDKGuPSjyGVZNnQLC+75J3zauL/Yrp95n9WK1gGvUXPGe0al34MkaPz37XP8k2j1uPHt16iheFTF6J9ASHk32NAJr5D+t+fWqILiBRpZx9G4YfpylkwybxLekeS1tLlTbzorwruxwRhWzMIO8HT6w/gJlYBvYRMu2viKis=
+	t=1788272185; cv=none; b=SO1I7YjCnlvtps3cEeA8q+9FjyO6QdqjvfJJKrkYl5wcRuIHtPfDWaVHOU0477R4QqQAQVI4fk7qUKJDu28iOfYE/DvNGudr37D3aun0llRQvR0ZykbtciMSIjLL53cHgsdyJ6LHY+9mA41Njit4HhIOjn/4J9mAjZ/d5dpW+FI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788272143; c=relaxed/simple;
-	bh=EaYOss7aH7U03m0jOw/MrmBI2dLv0izREs5ku7Vt+dE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Cdv7uxN2t98NJXCg8++VwWO7wfhTsK0YiWhcHHUWTlLi5KWjWjkWt+a2KYXBl3oKUqVVGsh6NwczMU93axAB6lTDDDAs5y+0a3QQOu50qK7ayP9g3lCTZxQn+6JkvaxZh8QdUfBwz+XItCzdHz5bdVvS4sqGKTy81trKiWhjHdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EqjBaBob; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788272185; c=relaxed/simple;
+	bh=MvNmmo0UpAPINy+hk6fWvv1h3HkCtfG/JJdUOcaFEkk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Tl6JCaS+BRli4f0nEbZieXEWXY1FN+N7YziOoMhtCivvZRZSBA9IcCQCgJWLSVFSqN5Y5+DOoWAmYMCBFUwhkha5Q2jfrjYMz0aaDP8uI+U0s8stKi0Yz830Wk9SNnw851n5011jE9w2so/xse7weqH3ypgW7BvXMQz8P9VXrz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iKv/P+bY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EqjBaBob"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC4D41F000E9;
-	Tue,  1 Sep 2026 14:15:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iKv/P+bY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EB9F1F000E9;
+	Tue,  1 Sep 2026 14:16:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788272142;
-	bh=wEPsoFZba9/yqSSHYgLjMd77+coDdfrDIfHLQZLFoqY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=EqjBaBobNnxIhXg2HReRfrmWuNkClh0/dyfmvacmEArQMkOCK1CFBrbJYd1o3FMbO
-	 jTEhZb9Dt6iJcmfhsaz8cQ6XmHriTxH13dooxSjg4PT5kfPBQe5zBBeSpwMsaAB1UI
-	 6mC/n7i8EkWD0xrXk8Y5TZQUMt0jD9Lp0jAr36hDdvQZK4x5TE2cJAcpbhDGAPP9YD
-	 CaCJpVdiR9xKDxBXOq4qbaEJ4N2XxS9313fI6Vi2hbqXCshxPwhY4XYkDCjoRaGDYl
-	 P2ZWE7pxXb2m6/6JEmPeV22Qeq4b7P/NFM62N0TgZyEthzeZWdco/+NYcv8RR3E3qT
-	 7MgKY7FHOKSbg==
-Message-ID: <a7cc6bf8-706a-4b51-a0ce-d6246045d5da@kernel.org>
-Date: Tue, 1 Sep 2026 16:15:32 +0200
+	s=k20260515; t=1788272184;
+	bh=Hx9vx+bf6KcOmnCzMPZRX0cnx5cN/dBN/lO2ySqR/YU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=iKv/P+bY0geOP4vtnRpcTD6GGiTxXDPi5pzdVySF25xvV+CgW1bjV2xeEgul+a5zq
+	 nSfm4paIwlNlBuaCjn2rRLTPxx+QrhwJFAECsZc56cZ2X9/4PzXtudXY8MBB06TEdK
+	 cUSt1O7DdizrlEeyNP/t4vI4dV+9lM/j7arhEkUv5+7BHCONaR4U5q6rbBnxMqbQOn
+	 9xaHu4gGACShSCtme+2Av+H6dDd3zAUBxmWfnFNlt4KHcf6DfYaeIeIehJfuLFS10a
+	 RmBtftTLPBfG33PBeiWNm7bl13geMMtJ04/v3F1aSA6msYnDggi0qxcSPH/kd+xp7q
+	 xRFkxo1BXXn9g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] dt-bindings: arm-smmu: Document Adreno SMMU for Nord
+ SoC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Shawn Guo" <shengchao.guo@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260901140816.74200-1-shengchao.guo@oss.qualcomm.com>
+References: <20260901140816.74200-1-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 01 Sep 2026 14:16:23 +0000
+Message-Id: <20260901141624.1EB9F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/10] dt-bindings: power: Add r8a774a3 SYSC power domain
- definitions
-To: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- "magnus.damm" <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Ulf Hansson <ulfh@kernel.org>
-Cc: "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
- "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
- Chris Paterson <Chris.Paterson2@renesas.com>,
- Biju Das <biju.das.jz@bp.renesas.com>,
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260821150408.73829-1-ayman.chaudhry.kc@renesas.com>
- <20260821150408.73829-3-ayman.chaudhry.kc@renesas.com>
- <b2f486b8-a391-41bc-8a7f-dc81c6752205@kernel.org>
- <TYCPR01MB11865BD2FC199EFC6BE613A5DA2A82@TYCPR01MB11865.jpnprd01.prod.outlook.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <TYCPR01MB11865BD2FC199EFC6BE613A5DA2A82@TYCPR01MB11865.jpnprd01.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 01/09/2026 16:11, Ayman Chaudhry wrote:
-> Hi Krzysztof,
-> 
-> Thanks for the review.
-> 
->> From: Krzysztof Kozlowski <krzk@kernel.org>
->> Sent: Saturday, August 22, 2026 8:30 AM
->> To: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>; Geert
->> Uytterhoeven <geert+renesas@glider.be>; magnus.damm
->> <magnus.damm@gmail.com>; Rob Herring <robh@kernel.org>; Krzysztof
->> Kozlowski <krzk+dt@kernel.org>; Conor Dooley <conor+dt@kernel.org>;
->> Stephen Boyd <sboyd@kernel.org>; Brian Masney
->> <bmasney+clk@redhat.com>; Jerome Brunet <jbrunet+clk@baylibre.com>;
->> Ulf Hansson <ulfh@kernel.org>
->> Cc: linux-renesas-soc@vger.kernel.org; devicetree@vger.kernel.org; linux-
->> kernel@vger.kernel.org; linux-clk@vger.kernel.org; linux-pm@vger.kernel.org;
->> Chris Paterson <Chris.Paterson2@renesas.com>; Biju Das
->> <biju.das.jz@bp.renesas.com>; Fabrizio Castro
->> <fabrizio.castro.jz@renesas.com>; Prabhakar Mahadev Lad
->> <prabhakar.mahadev-lad.rj@bp.renesas.com>
->> Subject: Re: [PATCH 02/10] dt-bindings: power: Add r8a774a3 SYSC power
->> domain definitions
->>
->> On 21/08/2026 17:03, Ayman Chaudhry wrote:
->>> This patch adds power domain indices for the Renesas RZ/G2M v3.0
->>
->>
->> Please do not use "This commit/patch/change", but imperative mood. See
->> longer explanation here:
->> https://elixir.bootlin.com/linux/v6.16/source/Documentation/process/submi
->> tting-patches.rst#L94
->>
-> 
-> Agreed, I will update the commit message.
-> 
->>> (a.k.a. R8A774A3) SoC.
->>>
->>> Signed-off-by: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
->>> ---
->>>  include/dt-bindings/power/r8a774a3-sysc.h | 30
->>> +++++++++++++++++++++++
->>
->> Filename must match compatible.
->>
-> 
-> Agreed, I will rename the file.
-> 
-> The bindings specify the filename, should I add an exception for this platform?
-> 
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=981a340540381532652731a500ba9df768bcef7d
-> 
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=61cada8da2f4c67026e41915f91673f045d4b18c
-> 
->>
->>>  1 file changed, 30 insertions(+)
->>>  create mode 100644 include/dt-bindings/power/r8a774a3-sysc.h
->>>
->>> diff --git a/include/dt-bindings/power/r8a774a3-sysc.h
->>> b/include/dt-bindings/power/r8a774a3-sysc.h
->>> new file mode 100644
->>> index 000000000000..5694a422b771
->>> --- /dev/null
->>> +++ b/include/dt-bindings/power/r8a774a3-sysc.h
->>> @@ -0,0 +1,30 @@
->>> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
->>> +/*
->>> + * Copyright (C) 2026 Renesas Electronics Corp.
->>> + */
->>> +#ifndef __DT_BINDINGS_POWER_R8A774A3_SYSC_H__
->>> +#define __DT_BINDINGS_POWER_R8A774A3_SYSC_H__
->>> +
->>> +/*
->>> + * These power domain indices match the numbers of the interrupt bits
->>
->> No, that's not a binding then.
->>
->> Also, why is this sent separately from the binding?
-> 
-> The binding is already present in the kernel:
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=3eb434de00b39c843249e89cf151757410e8a6ad
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Incomplete Binding Schema: `qcom,nord-smmu-500` bypasses clock r=
+estrictions because it was omitted from the Adreno-specific if-then conditi=
+onal blocks.
+--
 
-And where is it explained? Bindings are supposed to be complete so why
-they were not posted complete?
+commit c82163177cdbe8e91a89f7aadb6d4d1e2a85afb2
+Author: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 
-> 
->>
->>> + * representing the power areas in the various Interrupt Registers
->>> + * (e.g. SYSCISR, Interrupt Status Register) */
->>> +
->>> +#define R8A774A3_PD_CA57_CPU0		 0
->>> +#define R8A774A3_PD_CA57_CPU1		 1
->>> +#define R8A774A3_PD_CA53_CPU0		 5
->>
->> No, value is 2. Or not a binding.
-> 
-> The values are pulled directly from the R8A774A3 hardware manual and
-> as a result are not sequential.
+dt-bindings: arm-smmu: Document Adreno SMMU for Nord SoC
 
-So not really a binding.
+Add a specific compatible string to document the GPU SMMU present on
+the Nord SoC.
 
-> 
-> This is compliant with header files for similar devices, so if we were to change
-> the approach now it would probably make things more confusing for the
+> diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml b/Docu=
+mentation/devicetree/bindings/iommu/arm,smmu.yaml
+> index ffa33b7f4a965..ea338d313c052 100644
+> --- a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+> +++ b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+> @@ -102,6 +102,7 @@ properties:
+>                - qcom,hawi-smmu-500
+>                - qcom,kaanapali-smmu-500
+>                - qcom,milos-smmu-500
+> +              - qcom,nord-smmu-500
 
-No, it is not compliant. Maybe it is done the same way as old devices,
-but feedback was provided already for a few years, so plenty of time to
-accept it.
+[Severity: Medium]
+Does this new compatible string need to be added to the Adreno-specific
+if-then conditional block in the allOf section?
 
+When qcom,nord-smmu-500 is omitted from the conditional block that matches
+other Adreno SMMUs (like qcom,milos-smmu-500 and qcom,sm8550-smmu-500),
+the schema might silently permit invalid clock configurations. It appears to
+bypass the specific clock restrictions for Adreno SMMUs and defaults direct=
+ly
+to an unconstrained state (1 to 7 clocks) since Adreno SMMUs use a 4-item
+fallback array.
 
-> user and it would also require some special handling. Given that this is
-> compliant with the style for similar devices adopting the same bindings,
+Should qcom,nord-smmu-500 be appended to the enum list in the allOf block
+to enforce the correct hardware-specific constraints?
 
-It is not compliant.
+>                - qcom,qcm2290-smmu-500
+>                - qcom,qcs615-smmu-500
+>                - qcom,qcs8300-smmu-500
 
-> it's easy to understand as the numbers come straight from the HW manual,
-> I would actually prefer if we could stick with this numbering scheme if
-> possible.
-
-Nope, as explained many times already for obvious reasons. Otherwise
-provide me clear pieces of code which you bind here (as in DT bindings
-header purpose).
-
-Best regards,
-Krzysztof
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901140816.7420=
+0-1-shengchao.guo@oss.qualcomm.com?part=3D1
