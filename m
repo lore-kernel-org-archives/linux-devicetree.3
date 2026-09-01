@@ -1,161 +1,137 @@
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5D0A43713C
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 02:42:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.174
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788230587; cv=none; b=gX7LmwGWnnn7PwYUaaeQz6gZQluWi/ok/gEZ8bEdGm0PsU+eM6VxkvwGrydaYoB0sf7pcRoBgcjqe/F2o1Drqr/a73qVEwpc/4MrheaplyNzMchL94Bwn2LaUIswxvbI6qLQkRdSSu5PK7y35QnByS9hqlmAwbNUEPNXcs1vAlc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788230587; c=relaxed/simple;
-	bh=cavPLdZ3EM365UmMDeiKEQPWG/ZtK6GBzxNXSfWmPAs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lyDlQhgFsyVSpvKyyxvCey2l9rj4CPoiBDa5wruLLfHxgK/WXXgHCh2GssapRA6H6UC5UgxRPV+GZEj+7sTBM4xxel++BuB+bYrRYWI+hA85XlVfH0UHXLp+cw/a7tY4GpZ6XXgZmcLDWelAdsB6Dq5vk79ASA9ZC3cLxxx0RuI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=AjnFI1dR; arc=none smtp.client-ip=209.85.222.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7987538F94C
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 02:50:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788231005; cv=pass; b=bhCHgbzZoS37xbsMwYLVnjAi3dUM62i2O78lk5x9BXNHTsbxhmmYYAypIYwlV9bqBb1fhguZfPmfsCh7A8eq8kFjJIUHbSBMSmST4Ly9pZhPvDM/a6TYJybry1hY16tSizyXx0oksvA9Bc/E7JxaxQo0SW6owRBvheuTLWU1vu8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788231005; c=relaxed/simple;
+	bh=d+5sNu6yCImmExOIG0N8b7ccM60ZupY+qjLmAb2IucU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VZsG4dq4Bg+g+MbWbMN0Yf9/ujSNYactcaPrtDCqkGEdqKWh0eO2CEmM4KTd7vhB+GBg6rKwgoceXlA/syZcHqQIWpnD2hy0HUfHgMXChijLGbIxHcN5uD6ssSmp0KNr5MCzALsYXziSLnDuUTjhrBWFcMsdvv6PkjUX9GjtRrQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c6LR3cfI; arc=pass smtp.client-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="AjnFI1dR"
-Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-939094306b0so39039185a.3
-        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 19:42:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c6LR3cfI"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c1c26d7e951so737461066b.0
+        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 19:50:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788230999; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NzIi5vmnfHYjyzDQEjAUD016Rn5/b1x/X+rRgSKNan4AWp/QB8wjKDK1EtO+lui9u3
+         BMevE9s3FRs6gcOwy4yNpPmuUmVuL+wgbG08WlHF9mPoVSqe7d/w7+DS+XB3qBPUFhGK
+         ZTWFpcAI2zqF8B7O9QZA5PaKmDTm6yhLOB2evxcfdWRVbN1cj9ORHQM5az8YFog8cp1Q
+         W1xmIUxQrbO4Hj17wxcQX5c0BEa3/Ga3eCNDADyScOQMPFOaaHa2OL9yfj0ev9oMdSRG
+         Tucd2mum+Z7hxxtoQ8wDWrc6e55HF9JlfaIH1TX+BsTwI5cjurMweMfi63hnUMXD2COK
+         H7hg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=FE0XcRGmiiYWJ9U7pQXykX2gv5/KOpFiI3Aylrs/Qqo=;
+        fh=67m0T7ne9qGt+iA3hsjq9xlwqdufWmMZJahngj4Gnqw=;
+        b=Nb0OX0XWAhomoNzkDomXcKGEc8KbXCXByIwyUrysfkn7XPv8Yp0gUrk2uEHQRdplUC
+         hqi0qRCjrjBvP0py+G9bDkPeP8cv5RhNngMeXIQSHhpZEsL+4qD/rDGfqrO4CaaP4ASH
+         EbnmF6tK5Xy+Iq4fZhgsUiKOqNwNS9ZW7auaH9GvC8qDCmZA+zL+rPehxHO50CF4G6jV
+         Fsz03fMLq8SyIzwDMj/TtwxgeGM14Ait3B4GfM2ns+BQHKLJtWAL8YPPNaFgaXp9Tda4
+         foXQMPSZN4mR4Nz8ufBCTc0QBU0X3N6Q6mIbeArwelh3UCptUP7v/ks59sWMqOC5SH4A
+         GE1Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1788230571; x=1788835371; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CPbdamFgACK5fDGcrO4A3g8qwBFcMj5srbjsH4obLc4=;
-        b=AjnFI1dRZTU6NfhEL6iIRCQkgMOhdJZU9gXIHtJ8ZPK/4IvP4wXRmGq9Ktr+X9CeiL
-         +dLZgmq52u8NziYnAFozt8Nrzj32+KXEtncXr0uMzhEBwUR53aN7qWCMDCpc0/47WEPb
-         iKoeqYi8twNIuYYNgYAP6Ub05XzXqWCpDj0g18Hb7VZsche5WTD38yVCQUR//c8EjV3o
-         k6AJd7yVygfZ99Fny5SslOcpWADuQPUxopD5OExJri1D+23sT10mt2453LxrkiiXkI0x
-         zWiweRIsr3hG4aepMBIm1eI3DidWPP3Fd+GFM9ASxwwmyoSVgkaj1iDAlQAyD8vmL8el
-         naRA==
+        d=gmail.com; s=20251104; t=1788230999; x=1788835799; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FE0XcRGmiiYWJ9U7pQXykX2gv5/KOpFiI3Aylrs/Qqo=;
+        b=c6LR3cfI+ZqH6iXHEZX3EmzvUVPFYc3RQgs8t/1X7FtFLto/TZxs6wVV6Lgn3DIp/h
+         jkIdFDloc/lB+sHFCSC6RBtNNIuvgv5FMsqvqptV5QFjFTQLHR5I4kRuAfFAxB3PuWCG
+         8GJv7DHkZHji3Q8lb7vZnQJLKOA2KkNHAsnyFbwabCQGw66R+Pm3Sqkrsux2f1xc75Fm
+         jyVtNAQVpx/kY74ue+J7FPvcNJeQ53sQ2vK6fJ3CSTMuWl06aXHzKKVoRoHry9ZU4XNH
+         G5D3aDHIb3sCeaXyDRSDO2rogkcnzFVVo19oPjSLkb/fqtqJPb5eeJGOrPHCFYjOdE/s
+         VPdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788230571; x=1788835371;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CPbdamFgACK5fDGcrO4A3g8qwBFcMj5srbjsH4obLc4=;
-        b=ArVF+jjTBTX4whhzcXm3AoIVs0v8+f+lGJN7iBwjP2wDOnMeboPtV3STICUN6oQ8ib
-         Vjx9UbN+iicBEz4SopIjs3WkB+y376Geqt2aAp3RF8n3jpUrPb5AgMDjUe7LrEduXlKo
-         111+NXeMXqM9M4IbBjJDTIVoWaSU4aBaHExNW+DT/s0rIEiZker//3uBiZp6r0TX7Unr
-         /kt8EFiLsj8wxd2nIaAtZYym9aGpbHGcvGXFYhi3KaOu/j5v5LrgZU1YkXilF87EL0D4
-         adhUQgprgT3gTYrcwSMdMM4gnwJn6jVSZdCmE76LlYg8zUgR+Cf6e0vGFv0nxoZy6Tws
-         U0WA==
-X-Forwarded-Encrypted: i=1; AHgh+RpvzAkeOT7H0kBNoS0LPDnSai1mKJbiXhgSu7wSaanSYftF+/sy7KJ8Z9AvaP9/VZi5SRZQz5sObjjW@vger.kernel.org
-X-Gm-Message-State: AFuF++loVCFZo5+fHQJkyp0n3t57X4qJmlER+t9P1XCkujc7BpqAV9L2
-	CgbKQoUk7Xm1YqBf2MQp4Qn2M6ZbnpOKrfYxX+5XH4RF140gFmvayhqKgYTMxZkP0Rg4Sl1qSoz
-	kKBckCTM=
-X-Gm-Gg: AR+sD123eTkDakdj0RtnBnWVnitScQdkceu3yOZTOlOrnyHw8KM93j0GSjO4qddVFlA
-	4THZmLZxisSpT/aGKFDQwPDsZFxwRTaXPnPHz/CkCQCjnHvcGj2LXcZ3zlUcq8NarNk5ha6Yzah
-	VqfovQShmwWFEXPqa8Pctd6rwCa7zjx2Uh7nNmh3sOSju6QotYt+1K2OieS55h/hHTGslal6S82
-	c84Aaf5cUgxVAboEJzutDfqND1OCC78qpma7Joa0NWpoE5czJI9v20FsPWuRGcNj9vcK953/WTt
-	EDhhd73hL8idZ+Q+eX7CBxvE89ScGfKwf69jW8sYlNNM5KJtD0yv/mud9jkv3sXxJsRmfjksTrk
-	Ea1w+TvnTUxbfBIBMoG9sF1cIEjAp+nxOeWMwOfyWtP4vyLthTf95kZarnyp1XCv7TM3OS8JxwJ
-	LVK7JObxsFTwJFeSzTaPyXglW2qkgvnYQhOOO1gmcSs5NA0fTMjfjC5fTyal6b
-X-Received: by 2002:a05:620a:a0cc:10b0:930:a26a:fb2a with SMTP id af79cd13be357-939137af782mr2704459585a.2.1788230571171;
-        Mon, 31 Aug 2026 19:42:51 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93917016ed4sm929269085a.9.2026.08.31.19.42.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 19:42:50 -0700 (PDT)
-Message-ID: <d95aebf1-8319-4307-9d62-f1f3dc7ace61@riscstar.com>
-Date: Mon, 31 Aug 2026 21:42:48 -0500
+        d=1e100.net; s=20251104; t=1788230999; x=1788835799;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FE0XcRGmiiYWJ9U7pQXykX2gv5/KOpFiI3Aylrs/Qqo=;
+        b=lCqp/yl2+JvFTl8Z6CO6uWC39J9C2tku4ZCYwAzftImJqNr1GWH8EEFdAOJM0vSfKR
+         hrFCtaJwzXT6jtHTWpXljp7R80HenuAQpowIy9i5uz6tPd+ngDpgvFcZ5ENe71EtJmxE
+         oK4Dm5tOBeXvzSqvr2GWRzt4v0U0fW5Y1p1s9ZYaI96CV6DModo4UUQ657mgJErI1Fmz
+         QD9W4iI3VG7KLZhjfcezDxY/7UbgZAybT1TQ/v9ZjQaabKXdwpZl8RWi82v0PzF0rxD5
+         K49+a7QgpVd30FlMUtMjmaAVQXvbUc/odi/02Mpjzmaz4KZWpu6o59d759eWBeV39dUj
+         JY5Q==
+X-Gm-Message-State: AFuF++nU+Qgua4bCZkKNCSYha1NbkrLpJ+K1Bfk5QExeji/vQeKu0spA
+	CbIFXPjfEJwlBY7bs78yle8CBKjqD8T7DDXr522wj2lzC+9GAZ7jcZyAEcnim6BCUcyBuCByQkv
+	a1No/bygDKsyZmgCNiinNxBLl+6iM1R40qw==
+X-Gm-Gg: AYBFou28RO5bqMpGKQmvVfkr51kd/vqeROej3z5oCTbfNXwqqAvQQYPYrazDAQJIS7/
+	TpJIMXz4kIw60V5TpXieDtja3fGhjqKUHeyjskvh+bPJIuWTft8pzptm3O7az1r8gxFGJBkdTHr
+	omzbhNV1JMSFR/D9qdv8l7N3zy5Swk2GbOYckoMEo2Y/Mve9G0ElKEH66s14k61NEOPgMZJD3Q4
+	A0Amnj0mLhQ94v3hMkSjS/dHJS/GQwOWdnPR0h/n/5sBXYn4m/CsirqsA1QyhJbgFyvkDDOFNKb
+	1oJSWmFdDo/lTVvFOECtTmnUZhwwIM+Et/Fo11Fd5X0zCcvlHytj5qGscXUNbpibhlQFTfxwcFP
+	1VgO1hu2vcK20EWyymRx43cT9Ik3qtrroykvtt0lDJhoXzkBpjKSKtthpYulMXQV2iZe0uhW9rG
+	iACGrIP7gqvIx/ymTcio/ic8zyHYYvu9x/q94SwhRpOIiOUfS1CMyhpL+vmalzxsG8mQ==
+X-Received: by 2002:a05:6402:1ecb:b0:6a6:32fa:cac with SMTP id
+ 4fb4d7f45d1cf-6a663b43846mr2830056a12.17.1788230998708; Mon, 31 Aug 2026
+ 19:49:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/4] PCI: of: don't zero flags in
- of_pci_get_addr_flags()
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-pci@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org,
- conor+dt@kernel.org
-References: <20260901011338.1323243-1-elder@riscstar.com>
- <20260901011338.1323243-3-elder@riscstar.com>
- <20260901012046.1BF371F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <20260901012046.1BF371F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260831233653.14232-1-rosenp@gmail.com>
+In-Reply-To: <20260831233653.14232-1-rosenp@gmail.com>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Mon, 31 Aug 2026 19:49:47 -0700
+X-Gm-Features: AcwNN1WtBJgmoVyxxnr1GxEJ1-2nuIjkP_fAURpv3voSdGn5BCgrhOsGs_1n4Pw
+Message-ID: <CAKxU2N-qwFSPzLT1j1Bmo3-S8m+H5xaxGH5iHiACqHbj1+fiBQ@mail.gmail.com>
+Subject: Re: [PATCH] ARM: dts: helios4: drop unused phy0 pin group
+To: devicetree@vger.kernel.org
+Cc: Andrew Lunn <andrew@lunn.ch>, Gregory Clement <gregory.clement@bootlin.com>, 
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	"moderated list:ARM/Marvell Kirkwood and Armada 370, 375, 38x,..." <linux-arm-kernel@lists.infradead.org>, 
+	open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 8/31/26 8:20 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> 
-> Pre-existing issues:
-> - [High] Potential NULL pointer dereference in of_pci_prop_compatible if kasprintf fails.
-
-This issue was reported before, and I responded that I would fix it.
-I *do* have a fix, but I have not yet posted it for review (waiting
-for the end of the merge window).  I will post it soon.
-
-					-Alex
-
+On Mon, Aug 31, 2026 at 4:36=E2=80=AFPM Rosen Penev <rosenp@gmail.com> wrot=
+e:
+>
+> The microsom_phy0_int_pins group muxes mpp18 to gpio, but nothing
+> references it: no PHY interrupt, GPIO user or consumer pins it in,
+> and the sibling ClearFog board does not define it either. It has
+> been dead config since the board file was first added, so drop it.
+This is wrong. I have a separate patch that uses it.
+>
+> Assisted-by: opencode:big-pickle
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  arch/arm/boot/dts/marvell/armada-388-helios4.dts | 4 ----
+>  1 file changed, 4 deletions(-)
+>
+> diff --git a/arch/arm/boot/dts/marvell/armada-388-helios4.dts b/arch/arm/=
+boot/dts/marvell/armada-388-helios4.dts
+> index ae03d42f92a0..e63b8b5e632d 100644
+> --- a/arch/arm/boot/dts/marvell/armada-388-helios4.dts
+> +++ b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
+> @@ -284,10 +284,6 @@ pca0_pins: pca0-pins {
+>                                         marvell,pins =3D "mpp23";
+>                                         marvell,function =3D "gpio";
+>                                 };
+> -                               microsom_phy0_int_pins: microsom-phy0-int=
+-pins {
+> -                                       marvell,pins =3D "mpp18";
+> -                                       marvell,function =3D "gpio";
+> -                               };
+>                                 helios_i2c1_pins: i2c1-pins {
+>                                         marvell,pins =3D "mpp26", "mpp27"=
+;
+>                                         marvell,function =3D "i2c1";
 > --
-> 
-> commit 036872e87dc6e9201c6f86349afb91815a638d1e
-> Author: Alex Elder <elder@riscstar.com>
-> 
-> PCI: of: don't zero flags in of_pci_get_addr_flags()
-> 
-> The flags variable whose address is passed to of_pci_get_addr_flags()
-> is zeroed before assigning a value to it.  Skip the zeroing and just
-> assign it instead.
-> 
->> diff --git a/drivers/pci/of_property.c b/drivers/pci/of_property.c
->> index 505226b876c56..22fea1905a080 100644
->> --- a/drivers/pci/of_property.c
->> +++ b/drivers/pci/of_property.c
->> @@ -82,12 +82,10 @@ static int of_pci_get_addr_flags(const struct resource *res, u32 *flags)
->>   	else
->>   		return -EINVAL;
->>   
->> -	*flags = 0;
->> +	*flags = FIELD_PREP(OF_PCI_ADDR_FIELD_SS, ss);
->>   	if (res->flags & IORESOURCE_PREFETCH)
->>   		*flags |= OF_PCI_ADDR_FIELD_PREFETCH;
->>   
->> -	*flags |= FIELD_PREP(OF_PCI_ADDR_FIELD_SS, ss);
->> -
->>   	return 0;
->>   }
-> 
-> [Severity: High]
-> This is a pre-existing issue, but I noticed a potential null pointer
-> dereference in this file under low memory conditions.
-> 
-> Looking at of_pci_prop_compatible(), kasprintf() can fail and return a null
-> pointer:
-> 
-> drivers/pci/of_property.c:of_pci_prop_compatible() {
-> 	...
-> 	compat_strs[PROP_COMPAT_PCI_VVVV_DDDD] =
-> 		kasprintf(GFP_KERNEL, "pci%x,%x", pdev->vendor, pdev->device);
-> 	...
-> 	ret = of_changeset_add_prop_string_array(ocs, np, "compatible",
-> 						 compat_strs, PROP_COMPAT_NUM);
-> 	...
-> }
-> 
-> If kasprintf() fails, the compat_strs array will contain a null pointer.
-> When this array is passed to of_changeset_add_prop_string_array(), it
-> unconditionally dereferences the strings to calculate their lengths:
-> 
-> drivers/of/dynamic.c:of_changeset_add_prop_string_array() {
-> 	...
-> 	prop.length = 0;
-> 	for (i = 0; i < sz; i++)
-> 		prop.length += strlen(str_array[i]) + 1;
-> 	...
-> }
-> 
-> Would it be better to add a check for allocation failures in
-> of_pci_prop_compatible() before passing the array to
-> of_changeset_add_prop_string_array() to prevent this?
-> 
-
+> 2.55.0
+>
