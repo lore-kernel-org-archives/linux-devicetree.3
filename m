@@ -1,136 +1,228 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41B3839A7E0
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 11:51:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F9D23BED6A
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 11:52:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788263483; cv=none; b=mV7LmGMdb0/f/1FN8jg4flvXfIEUZ4+NJLJERwDyExZU96tddwgjPSxVUQ3zBsIbNr7yFheC2WyO6tbQ8XmKK3HiVnlIEKclhe7Ik5Z9SXizHIPReySllGDgFarmYQypzPiHCI9lc0my/4QVGXeDtHrqZhSeHCKk4tganKbL8K8=
+	t=1788263565; cv=none; b=If0P+hVOBIx9DGbIP48g9kXUita3Ikp/UczbaU/zeUKSkkFnvF1QIE8cKQXYdUDTtETtjAKBOwRTKPQFH/x2omtwNnFQt9KvZVhFkUqsF9la/VDaDbhLQUoqGhBlPyQkIqLIUD4SbNZXDH2e7xfs750YjJ+npAti2kNNLXK7VaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788263483; c=relaxed/simple;
-	bh=JtxqVk5NwK808DcPDDJZyAfomJtbzDXg0y3m6792SSM=;
+	s=arc-20240116; t=1788263565; c=relaxed/simple;
+	bh=Tkz8rpJVgJxr/fAngV8KM3kIeheaTVpSnw5OVC3fP/c=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kWZ5BBijK3kTrQSFIr+7+H0o/1epwFxS/o+4ODxw1UnRLbfOyZkNJBC/LTnR1P1VERrsUgc4tufCxOcsXuO5rdT/5xXH3JnsNdRZVoYCshzZJd7GOohOM0Zkt9nA69hhSNxlk2mYNAoh6XIDroMHJ4mIGBRWJDloibvHspmqn0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lFzUhJgY; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=c+2azsg4gSWJzjr1KXfFdPisbXHd6bGzRnyoSah+Vj9UYQobOkjK90NGnCLEPpi9fkWKsLBmzzAsgzFsVqCKJ04xyukl/o6aZI2q/9F1meuqIQGpoiFewhFiroNq7cYL6avY7FkBbz/Bgs8OdGykPugMnVmzlcv6vjYmj9eyOos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=avoeYrWe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lFzUhJgY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 622F71F000E9;
-	Tue,  1 Sep 2026 11:51:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="avoeYrWe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56E541F000E9;
+	Tue,  1 Sep 2026 11:52:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788263481;
-	bh=VR0hNmq1MqgYNy0fHyILETThfMxQJXGNu4w58/otCnM=;
+	s=k20260515; t=1788263563;
+	bh=REoHQB91oLFxxMMmQctDUsa+I1bBQ31czHVyRU20WvQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lFzUhJgYdzaCgN8h+njVv3VgtviT2o4eLmqPz9sVER2b+eYULyxCvJYd08Osa+NFn
-	 hNcgu/lxMuZdvUwx1E3fTRW4WhVzizDhDFVUpOVwqLEC1Fcqf+8rpqTFom0HMkb4Du
-	 YhRwrtK2mEPjC6ueUrDW0TakVRCMIc95+8JzvtNWj0SosK4Nw4uGQBK2ojqlPbHnrA
-	 B4bsj2ThDGyTp1zyTzAgSaIrm51RHuo+4pztTwkj8oTh0pug4JT0Y8GGjmXRfXcLjB
-	 8UQ7KEtEurgYTl5dHh8KY4seewHcEeBd6jMsC+iQculpJ7xoTyOCpg9ICRdi7NWASm
-	 y2ZRjA22Trc8w==
+	b=avoeYrWe8PQrB5YvMrRnqonB7Z0ZPBFsDapC0hfjKV2iW0dJ9I3MpND19EoZkNxLv
+	 OVqDfWrMxchgpZpGuu/h6FMgrQOwIAIywDCjm2X2ATYZ/jpsH/g+k/xlDvIzYcOsMh
+	 t56HaeVni2Hw2HKaB4gwnlF+mdx+vY/9Q7HI/bB2kTkmF8pu1Q/zgxnKYwFU3rCWGn
+	 7CbZy5qmy/WS6ca94mLQI/opLcqCr7V/a6y5oOSCIuGi7VFqlia2Mx3qAGZ3t3aanE
+	 +/z+wJ56IeDJmd3ezaTYkIMOcnA4OK7p941kXpjEYiKqbz9sm8I27b+k2G32QBcjmB
+	 dppdnSbxyIIPg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 7/8] i3c: mipi-i3c-hci: Improve AST2700 PIO TX queue
- utilization
+Subject: Re: [PATCH 5/8] i3c: mipi-i3c-hci: Add support for the AST2700 I3C
+ controller
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Billy Tsai" <billy_tsai@aspeedtech.com>
-Cc: "Alexandre Belloni" <alexandre.belloni@bootlin.com>, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, linux-i3c@lists.infradead.org
-In-Reply-To: <20260901-b4-i3c-hci-ast2700-v1-7-19909e7cbd7e@aspeedtech.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, linux-i3c@lists.infradead.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>, Frank.Li@kernel.org
+In-Reply-To: <20260901-b4-i3c-hci-ast2700-v1-5-19909e7cbd7e@aspeedtech.com>
 References: <20260901-b4-i3c-hci-ast2700-v1-0-19909e7cbd7e@aspeedtech.com>
- <20260901-b4-i3c-hci-ast2700-v1-7-19909e7cbd7e@aspeedtech.com>
+ <20260901-b4-i3c-hci-ast2700-v1-5-19909e7cbd7e@aspeedtech.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 11:51:20 +0000
-Message-Id: <20260901115121.622F71F000E9@smtp.kernel.org>
+Date: Tue, 01 Sep 2026 11:52:42 +0000
+Message-Id: <20260901115243.56E541F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] Calling `of_device_is_compatible()` via the `is_aspeed()` helper i=
-nside the high-speed PIO TX data transfer loop causes severe CPU overhead a=
-nd latency.
-- [High] Hardware TOCTOU / Stale write pointer read leading to FIFO overflo=
-w.
+- [High] Kernel crash due to unchecked vendor register access if the hardwa=
+re lacks the ASPEED extended capability.
+- [High] Incomplete clearing of previous DAA index across registers leaves =
+stale bits set.
+- [Low] Contradictory use of optional clock API leads to misleading probe f=
+ailures.
 --
 
-commit 3be95193756af176407d7f4071b09a591d9a4eb3
+commit 3d4e54b2ee6f05bbf18ce4fc75b881c1d3330487
 Author: Billy Tsai <billy_tsai@aspeedtech.com>
 
-i3c: mipi-i3c-hci: Improve AST2700 PIO TX queue utilization
+i3c: mipi-i3c-hci: Add support for the AST2700 I3C controller
 
-This commit updates the MIPI I3C HCI driver to improve TX FIFO utilization
-for the AST2700 controller. It introduces a vendor-specific check to poll
-the exact number of free FIFO entries using hardware read/write pointers
-instead of relying on a half-empty threshold.
+This commit adds support for the AST2700 I3C controller by caching vendor
+data through a MIPI extended capability parser. It implements ASPEED-specif=
+ic
+initialization hooks, hardware configurations like DAA indexing, and custom
+IRQ dispatching.
 
-> diff --git a/drivers/i3c/master/mipi-i3c-hci/pio.c b/drivers/i3c/master/m=
-ipi-i3c-hci/pio.c
-> index 6bd5e43364a1d..3d70257dcc1dc 100644
-> --- a/drivers/i3c/master/mipi-i3c-hci/pio.c
-> +++ b/drivers/i3c/master/mipi-i3c-hci/pio.c
-
+> diff --git a/drivers/i3c/master/mipi-i3c-hci/cmd_v1.c b/drivers/i3c/maste=
+r/mipi-i3c-hci/cmd_v1.c
+> --- a/drivers/i3c/master/mipi-i3c-hci/cmd_v1.c
+> +++ b/drivers/i3c/master/mipi-i3c-hci/cmd_v1.c
 [ ... ]
-
-> @@ -295,11 +296,23 @@ static bool hci_pio_do_tx(struct i3c_hci *hci, stru=
-ct hci_pio_data *pio)
->  	p +=3D (xfer->data_len - xfer->data_left) / 4;
+> @@ -293,6 +294,24 @@ static void hci_cmd_v1_prep_i2c_xfer(struct i3c_hci =
+*hci,
+>  	}
+>  }
 > =20
->  	while (xfer->data_left >=3D 4) {
-> -		/* bail out if FIFO free space is below set threshold */
-> -		if (!(pio_reg_read(INTR_STATUS) & STAT_TX_THLD))
-> +		unsigned int avail =3D pio->tx_thresh_size;
+> +/*
+> + * The DAA index registers name the DAT slot being assigned during ENTDA=
+A;
+> + * they live in the vendor capability block discovered at probe time.
+> + */
+> +static void aspeed_i3c_set_daa_index(struct i3c_hci *hci, unsigned int d=
+at_idx)
+> +{
+> +	void __iomem *inhouse_regs =3D to_aspeed_vendor_data(hci)->inhouse_regs;
 > +
-> +		if (is_aspeed(hci)) {
+> +	if (dat_idx < 32)
+> +		writel(BIT(dat_idx), inhouse_regs + ASPEED_I3C_DAA_INDEX0);
+> +	else if (dat_idx < 64)
+> +		writel(BIT(dat_idx - 32), inhouse_regs + ASPEED_I3C_DAA_INDEX1);
+> +	else if (dat_idx < 96)
+> +		writel(BIT(dat_idx - 64), inhouse_regs + ASPEED_I3C_DAA_INDEX2);
+> +	else
+> +		writel(BIT(dat_idx - 96), inhouse_regs + ASPEED_I3C_DAA_INDEX3);
 
 [Severity: High]
-Does calling of_device_is_compatible() inside this fastpath byte-transfer
-loop cause significant CPU overhead and latency?
+Does this leave stale bits set in the other register banks?
 
-Looking at is_aspeed() in vendor_aspeed.h, it parses the Device Tree and
-performs string matching:
+Writing to one register bank leaves the other three register banks untouche=
+d.
+As devices are sequentially assigned to DAT slots during ENTDAA, if the ind=
+ex=20
+crosses a 32-bit boundary (e.g., from index 31 to 32), the old bit remains =
+set
+globally.
 
-static inline bool is_aspeed(struct i3c_hci *hci)
-{
-	return of_device_is_compatible(hci->master.dev.of_node,
-					"aspeed,ast2700-i3c-hci");
-}
+The hardware might interpret multiple set bits as instructions to assign
+multiple DAT slots simultaneously, corrupting the HCI's internal routing.
 
-Since this executes repeatedly for every 4 bytes transferred, it might ruin
-throughput, especially for non-Aspeed controllers where it gets evaluated
-constantly. Would it be better to check compatibility exactly once during
-probe and cache the result as a quirk flag?
-
-> +			/*
-> +			 * The vendor FIFO pointers give the exact free space,
-> +			 * allowing better TX FIFO utilization than the
-> +			 * threshold status.
-> +			 */
-> +			avail =3D aspeed_i3c_avail_tx_entries(hci);
+> diff --git a/drivers/i3c/master/mipi-i3c-hci/core.c b/drivers/i3c/master/=
+mipi-i3c-hci/core.c
+> --- a/drivers/i3c/master/mipi-i3c-hci/core.c
+> +++ b/drivers/i3c/master/mipi-i3c-hci/core.c
+[ ... ]
+> @@ -866,6 +944,11 @@ static int i3c_hci_reset_and_init(struct i3c_hci *hc=
+i)
+>  	 * Bit 0:5 are defined in IP version < 0.8 but not handled by PIO code
+>  	 */
+>  	reg_write(INTR_STATUS_ENABLE, GENMASK(31, 10));
+> +	if (is_aspeed(hci)) {
+> +		aspeed_i3c_write(hci, ASPEED_I3C_INTR_SIGNAL_ENABLE, 0);
 
 [Severity: High]
-Could this read of the hardware write pointer immediately after posting a
-write lead to a FIFO overflow?
+Can this cause a kernel panic due to a NULL pointer dereference or type
+confusion?
 
-Memory-mapped I/O writes over buses like AHB/AXI are posted, and the
-hardware controller might need a few clock cycles to commit the data and
-update its pointers.=20
+The unconditional write relies solely on the DT compatible string through
+is_aspeed() without verifying if the hardware capability was actually found=
+ and
+parsed. If the DT indicates an ASPEED compatible device but the hardware do=
+es
+not expose the ASPEED MIPI vendor extended capability (e.g. due to a mismat=
+ched
+DT binding), i3c_hci_probe() allocates vd with a NULL inhouse_regs pointer.
 
-If aspeed_i3c_avail_tx_entries() reads QUEUE_PTR0 before the hardware
-increments the write pointer, won't avail remain artificially high?
-If it does, the loop will immediately push another chunk of data,
-potentially overflowing the 32-entry hardware FIFO.=20
-
-Should the driver locally track and deduct the number of words written from
-the available space during the active transfer instead of re-polling the
-hardware register?
-
-> +			if (!avail)
-> +				return false;
-> +		} else if (!(pio_reg_read(INTR_STATUS) & STAT_TX_THLD)) {
+Additionally, if the hardware is NXP, the NXP parser incorrectly overwrites
+hci->vendor_data. Later, i3c_hci_reset_and_init() unconditionally executes
+ASPEED-specific writes using to_aspeed_vendor_data(hci)->inhouse_regs,
+causing a crash.
 
 [ ... ]
+> @@ -1189,6 +1289,40 @@ static int i3c_hci_probe(struct platform_device *p=
+dev)
+>  					     "cannot set DMA mask\n");
+>  	}
+> =20
+> +	if (is_aspeed(hci)) {
+> +		struct aspeed_i3c_vendor_data *vd;
+> +
+> +		vd =3D devm_kzalloc(&pdev->dev, sizeof(*vd), GFP_KERNEL);
+[ ... ]
+> +		vd->dma_rst =3D devm_reset_control_get_optional_shared(&pdev->dev, "dm=
+a");
+> +		if (IS_ERR(vd->dma_rst))
+> +			return PTR_ERR(vd->dma_rst);
+> +		if (vd->dma_rst) {
+> +			ret =3D reset_control_deassert(vd->dma_rst);
+> +			if (ret)
+> +				return ret;
+> +			ret =3D devm_add_action_or_reset(&pdev->dev,
+> +						       i3c_hci_dma_rst_assert,
+> +						       vd->dma_rst);
+> +			if (ret)
+> +				return ret;
+> +		}
+> +
+> +		vd->clk =3D devm_clk_get_optional(&pdev->dev, NULL);
+
+[Severity: Low]
+Is the core clock actually optional?
+
+The clock is retrieved as optional here, which will return NULL if it is not
+specified in the device tree (masking the -ENOENT failure). However, in
+aspeed_i3c_phy_init(), it appears to be treated as a mandatory resource.
+
+> diff --git a/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.c b/drivers/i3=
+c/master/mipi-i3c-hci/vendor_aspeed.c
+> --- a/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.c
+> +++ b/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.c
+[ ... ]
+> +void aspeed_i3c_write(struct i3c_hci *hci, u32 reg, u32 val)
+> +{
+> +	writel(val, to_aspeed_vendor_data(hci)->inhouse_regs + reg);
+> +}
+
+[Severity: High]
+Does this result in an invalid memory access or NULL pointer dereference?
+
+If the ASPEED extended capability wasn't present in hardware (or if an NXP
+device incorrectly overwrote hci->vendor_data), to_aspeed_vendor_data(hci)
+might be NULL or point to invalid memory here, triggering a crash when call=
+ed
+unconditionally from i3c_hci_reset_and_init().
+
+[ ... ]
+> +int aspeed_i3c_phy_init(struct i3c_hci *hci)
+> +{
+> +	u16 hcnt, lcnt, total_cnt, min_tbit_cnt, cas_lcnt, cas_cnt, cbp_cnt;
+> +	u32 sda_tx_hold =3D 0, cas_ns =3D 0, cbp_ns =3D 0, sr_p_low =3D 0;
+> +	struct i3c_bus *bus =3D i3c_master_get_bus(&hci->master);
+> +	u32 pp_high =3D 0, pp_low =3D 0, od_high =3D 0, od_low =3D 0;
+> +	struct device_node *np =3D hci->master.dev.of_node;
+> +	u32 sdr_ctrl0_reg, ctrl0, ctrl1, ctrl2;
+> +	unsigned long core_rate, period_ns;
+> +
+> +	core_rate =3D clk_get_rate(to_aspeed_vendor_data(hci)->clk);
+> +	if (!core_rate) {
+> +		dev_err(&hci->master.dev, "invalid core clock rate\n");
+> +		return -EINVAL;
+> +	}
+
+[Severity: Low]
+Does this contradict the optional clock retrieval in i3c_hci_probe()?
+
+If devm_clk_get_optional() returns NULL during probe, clk_get_rate() will
+return 0 here.
+
+The code hard-fails if the rate is 0, completely negating the optional
+retrieval pattern. This hides the actual missing resource error, returning
+a confusing failure message instead of properly propagating a missing DT
+requirement.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901-b4-i3c-hci=
--ast2700-v1-0-19909e7cbd7e@aspeedtech.com?part=3D7
+-ast2700-v1-0-19909e7cbd7e@aspeedtech.com?part=3D5
