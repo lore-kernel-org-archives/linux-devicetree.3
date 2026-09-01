@@ -1,87 +1,42 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59D733AFCE4
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 14:14:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 949C23043DE;
+	Tue,  1 Sep 2026 14:15:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788272055; cv=none; b=CzwyTuGzb+R2PZaexp7k3hxdv6gsmSZpprl5WC6Fufbz/NPAWWinwe/sCzX83iLjh/yPRPXnDaLS2IG0k8lGvl4l0WDYa6o2pylzixbyVtq3PfZqb/jX5IC45Dq6T2nIQVT5VFl/qdKFsvLaw1OpuRi4rHCYi+l7xpchWF/9KtE=
+	t=1788272116; cv=none; b=kHJxV6L6VpzPhLpmz23mfTPyjFBMHAcnCtT4oTXhoIO1vt/slkfdET61D1uHkJLYkpPakwe2A57F78dtqnvAcCk7q6omZd/BmJSYgvyuR15m9zXlJion6Yh+uD0pLM/ZzUVn674gtBQs4YGH7ueNxJ2yhvV/U46wh6h9u5OgWIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788272055; c=relaxed/simple;
-	bh=vMnnwb0rO3eK3ov6NV1/rxMCMSwFIvmsP/AaJmQCUL0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kcCaEO1+rPV0QYkWveZfqE4vYJh0SVTi66NsV5LWbNfQ6VTxkL14H52wcWicYyUbJsnU2ooj/VwVxqazg5Il2vlIQsVbqr5s7pVJSrQaxWsZOj3mCBxFZ9bcjy0pdMmDSl7a3xps7XzULap4b0mDje5P7Rz+URSFS2hFLGu7C7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hvft3loU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DPr2nBbC; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788272116; c=relaxed/simple;
+	bh=PJDVS0bJN0XEfpHEOX7TFqDVTTUAwV93MzlnKQXI65I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=srdhM7JvTDGM3SUPnXGZBNS6syyH20H0sDaXgm03oYUpsVAVbcLMhsi7gH3lPFIFsxTMoP1+eB8qTTkcG7t6YwZt+w2AGbWvCusvsYQHf1riduZjsTXzqHLKqdxplZw+kKgJvHGPHyoOvDgA72QeDF5Q8joDx77e52GA1Mfz4FQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=FI9HGXNV; arc=none smtp.client-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hvft3loU";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DPr2nBbC"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681E8fB52825118
-	for <devicetree@vger.kernel.org>; Tue, 1 Sep 2026 14:14:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	bv4Uv599hFINUMQs89D9NhcUgICK7SVTcszNB76gMRw=; b=hvft3loUtTLHubGB
-	ThFXEaHZ8MvwO4iDbUk90nZmCRgQSABpUKLQBlPcZwC1+bFvWajY31qsZSbl7hd4
-	5S5xSVPlE3ejYacaOBHgtCve7kBV+D9+NNRCKF4MEslVAwAMgJCcwfxagSFmLwEK
-	hYzBykFfQrIuB9CRWkIFXtuaMy5/8A38s3WcziWqqooKWBVY7vNxIiNLvv6z7REd
-	SjOvUpR/aW32d9RtWRa8+IdnklYVT6jOQgH13AYW28ICqgzc82dRsfj9e39S3dug
-	RmgjY7+53h9HFlKQXYTAKcFTjmK27htCwJoi3cIIu8IGRxLy2MKcYbsKXzK5IG7p
-	FmoHrA==
-Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdp7cav4h-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 14:14:13 +0000 (GMT)
-Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5c65904ade8so124247e0c.2
-        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 07:14:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788272053; x=1788876853; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bv4Uv599hFINUMQs89D9NhcUgICK7SVTcszNB76gMRw=;
-        b=DPr2nBbC5/c8v4n9IvILJCH3yjsXQcTWpOs/sLk/Fw/FFgVyzQ5VJwyIC/C6UV+b/I
-         JjH1DSxiry4wOJKvM/4f5mWJhUYViPRDPYMTrCVID0lrXoZWCBVNi01UxPQSIU56ptA3
-         3+CTyigdtGkFKuqMptEztUy0hspk0YanCnH/A2fOKy6RqhcmUV3wpJu340cTGBXToTub
-         An8RkZOvXOn7v8fjAOsUpz9V9onyr0X2kqY9rc7kamv9kk/i5LTzDgp+6d+FyqNKUYY5
-         F5spiML97snFRGFbbhJ2BBU/6rzmPPBkXcvOUtsbo5SG9MFIBWrA4QGnm1CEMe4Al2Fc
-         iGFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788272053; x=1788876853;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bv4Uv599hFINUMQs89D9NhcUgICK7SVTcszNB76gMRw=;
-        b=ZxSxhs7xu7KUj5KQyPEw2A56fAqxNl+D+D86pjwJ4fRIc1Lh2gsNurGWIHoFmSz576
-         mUmRM0VfOLyqAI3j8RqwIvxJP5AGLaLZeSIWa/7o1KcPJoPXbZmaAsVaSHYg8jakBfJS
-         QKNQjwPG4dwotGset+xrfFtqULvUA6qf0G6gbCAockp+L7xilKrX6MQ8jqSGSk8s38gI
-         Trsokgk3J5NHmn2QBMAqWeu5NLolRMkI9rJ6SUZdusLbDILBl6UcwEq5u6ldAI9tBVUQ
-         rgN8oSt+i1I6l3egTJ2dB1QM1jtZCV3BA+HFP0c3g0jB1DlXFViVqAtrJ966jjq0aCCc
-         0Q/Q==
-X-Forwarded-Encrypted: i=1; AHgh+RplnvG4lixJZ534GwOM1LonE7N5JCMFY3YiqO/DjbquNj+ueNhcQj8I6XI+N/kl69lx4xXsGEsCP5pe@vger.kernel.org
-X-Gm-Message-State: AFuF++mCmu2tua/4IBU2Er1bhHzRyiAGnNzs1Nxya3jmtMKD+zZ2hTVy
-	MkWAZ/rkXGW3iJoZ61FTjYdnrwAvZHkBgYPfC4fNmai1ETcQCKMwNswkHKMHoBnq0AUx1sgNy7+
-	dg6siShGFgTIqKEgI0XwjiqOhEu8KcM8KiOiv3U3emDCjm9Cb53cW5NhI4YgGCWDE
-X-Gm-Gg: AR+sD137neh9fn3JhF2c8KY19P/bC3fcQ5u17N8h4aTFUNgVSIWb8HuR2rOJSGNjspf
-	MWGhNKgtM3eVyFt3tQeG/CadZBX5s+zE1f0SLPikSz3FvplwQIZlDv0c04G3JpJIaDk5c7YKSqk
-	VKlEBA9xUlbBWdrUCV+KFZHWjTgA5SW9zEKq82SJvL2i9oXiiAHee6bhu5HdIuKj77kySqt5NPZ
-	tF8vzLBgTZ9L1Pe2ELNOPuIV+3G2BIoQWDhPXGWmo2lM/vJDL9TqqR7M6NJ61zDXMehZ4lwGxy1
-	CoNKlp5uNVES7YumwCaCtHESud9yIjFGI2jxKNGqO1ZNVi7dLxUO3bfrmjckDBjrfvFY2770vcw
-	fKKnLym19EpT6aFeUudrf9g==
-X-Received: by 2002:a05:6122:6c0c:b0:575:dcec:efc1 with SMTP id 71dfb90a1353d-5c680966f90mr5189727e0c.0.1788272052481;
-        Tue, 01 Sep 2026 07:14:12 -0700 (PDT)
-X-Received: by 2002:a05:6122:6c0c:b0:575:dcec:efc1 with SMTP id 71dfb90a1353d-5c680966f90mr5189697e0c.0.1788272051762;
-        Tue, 01 Sep 2026 07:14:11 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a67c74bfeasm272224a12.31.2026.09.01.07.14.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 07:14:11 -0700 (PDT)
-Message-ID: <7943eb21-84c3-4708-a058-e40e66f9d7ee@oss.qualcomm.com>
-Date: Tue, 1 Sep 2026 16:14:08 +0200
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="FI9HGXNV"
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260901141504euoutp02f8cf59604fcc0bb3e97ba307ffda0a3a~ROAEy4Y3I1223512235euoutp02b;
+	Tue,  1 Sep 2026 14:15:04 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260901141504euoutp02f8cf59604fcc0bb3e97ba307ffda0a3a~ROAEy4Y3I1223512235euoutp02b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1788272104;
+	bh=2nW3DmaEwtQqmdcgqJ0ClmdaBE1cGoZ7pcvRuf3Yst4=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=FI9HGXNVyamhN2zlQXR4CDPmMvub+hQK2T7ZBv5DkCgQPnby1w+gTVZUh41hlg+KR
+	 5ny8AyyOmQlmxO76627Rk1f6+fa9NHdeszWgDcCUqsh3yBThzUR5IsBAQipbYRojBC
+	 INCm0GUIqJFBdpcJ/FMR+S//fjPKiXb3VraxvlOY=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20260901141504eucas1p156346e8510ccf68f19fc29333c31cfe7~ROAEgxzXG3199331993eucas1p12;
+	Tue,  1 Sep 2026 14:15:04 +0000 (GMT)
+Received: from [192.168.1.44] (unknown [106.210.136.40]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20260901141502eusmtip277e141767fe1c923ccc834fdf6eb451f~ROACyv4-D1277812778eusmtip20;
+	Tue,  1 Sep 2026 14:15:02 +0000 (GMT)
+Message-ID: <b41f260d-2308-4853-8d3b-22cba534e4e2@samsung.com>
+Date: Tue, 1 Sep 2026 16:15:02 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,59 +44,161 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: sm7225-fairphone-fp4: Disable PMK8350
- PON
-To: Luca Weiss <luca.weiss@fairphone.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260901-fp4-pmk8350-pon-v1-1-e05937e9c860@fairphone.com>
+Subject: Re: [PATCH v2 14/15] riscv: dts: starfive: jh7110: Update DT for
+ display subsystem
+To: Icenowy Zheng <uwu@icenowy.me>, Vinod Koul <vkoul@kernel.org>, Neil
+	Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss
+	<rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
+	Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, Emil
+	Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+	<sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Heiko Stuebner
+	<heiko@sntech.de>, Conor Dooley <conor@kernel.org>, Paul Walmsley
+	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
+	Belhachemi <db@domibel.de>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	mfd@lists.linux.dev, linux-clk@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+	linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>, Marek
+	Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
+	<maudspierings@gocontroll.com>, Graham Markall <hello@big-grey.co.uk>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260901-fp4-pmk8350-pon-v1-1-e05937e9c860@fairphone.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=OcyoyBTY c=1 sm=1 tr=0 ts=6a96ddb5 cx=c_pps
- a=+D9SDfe9YZWTjADjLiQY5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=6H0WHjuAAAAA:8 a=EUspDBNiAAAA:8 a=gvnL6on5FGTgUggAsZEA:9 a=QEXdDO2ut3YA:10
- a=vmgOmaN-Xu0dpDh8OwbV:22 a=Soq9LBFxuPC4vsCAQt-j:22
-X-Proofpoint-ORIG-GUID: 55mufDCbVHiLSkcXRCHz-TAQBy48fGDl
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDEyNSBTYWx0ZWRfX60WRFYP2VJsM
- iCImWHQ9CCWZtOvXn6ozfFv6PhO01r07uXOF4o8k3k2c9iP20eou7ENLGidlNGGUyWXpTBBy0UE
- 8Uvqgu68Jev6oNvkWvjxaiZU9VMm/3E=
-X-Proofpoint-GUID: 55mufDCbVHiLSkcXRCHz-TAQBy48fGDl
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDEyNSBTYWx0ZWRfXwU2SugCReYb2
- htDJurN0e49VLdg0QrbvZm3i+0KytdFRqNYNRg5r5B1Yusz/o7p5r+9OpoSx9r+FyuLPG+X3UKS
- n/i3Lm3PQWnAHbK+TXja7bcR5pbUBNV8A7DMVAVTSEfnVCBVORJjLnYAI64gqi187x6InFo+GOn
- 1uYZQr3cXFBCr+41ITrUvCMDXSNwEKW4SEi4wWhl4kqGbO/8KX43sv+VRWDGkl9kBHyl1giLaPs
- NPbrrl4d6LEfhKdbwooftFDOwPx0mOVU3Ze4kNXO0WpvbBnlZWqX8UZb6X+jwsZ13BLzwZiH9BW
- sWVq1WNLEJIZl7yjFemc84eoSVRlZABNAs9e6jySP6rG5dpHNs5BS3GTNa06K5BD93fRWkAGsma
- wCGZf6nAxfzCBREJwxcJsqYvYdXQUNYgSIsL4GSbbOyy8YlSBfMBrMN+pYsx7ZUsePvcqsp8ODs
- C8OIFuZODy3asBjfD3w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_04,2026-09-01_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0 malwarescore=0 spamscore=0 priorityscore=1501
- impostorscore=0 bulkscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010125
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+In-Reply-To: <e0e0c41c4c6b0b674c4cfc3b6927d60c40fbf733.camel@icenowy.me>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20260901141504eucas1p156346e8510ccf68f19fc29333c31cfe7
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260828134839eucas1p2d19363d17d4dbf5a7ae5228444af16fa
+X-EPHeader: CA
+X-CMS-RootMailID: 20260828134839eucas1p2d19363d17d4dbf5a7ae5228444af16fa
+References: <20260828-jh7110-clean-send-v2-0-331680c8b9d1@samsung.com>
+	<CGME20260828134839eucas1p2d19363d17d4dbf5a7ae5228444af16fa@eucas1p2.samsung.com>
+	<20260828-jh7110-clean-send-v2-14-331680c8b9d1@samsung.com>
+	<e0e0c41c4c6b0b674c4cfc3b6927d60c40fbf733.camel@icenowy.me>
 
-On 9/1/26 11:06 AM, Luca Weiss wrote:
-> Two PMICs on this phone have a PON block, the PM6350 and PMK8350. Only
-> one should be enabled at one time, so disable PMK8350 PON and keep the
-> PM6350 PON.
+
+
+On 8/28/26 16:06, Icenowy Zheng wrote:
+> 在 2026-08-28五的 15:47 +0200，Michal Wilczynski写道：
+>> Activate the display subsystem by adding the dc8200, hdmi and voutcrg
+>> nodes as direct soc children. Each references the PD_VOUT power
+>> domain
+>> through power-domains, so genpd powers the domain on demand, and the
+>> HDMI-PHY -> voutcrg -> HDMI-controller probe order is resolved by
+>> deferred probe.
+>>
+>> The monolithic hdmi node is modelled as a container with hdmi_phy
+>> and hdmi_controller children. This lets the PHY (clock provider,
+>> depending only on xin24m) and the controller (clock consumer) probe
+>> independently, breaking the circular clock dependency with voutcrg.
+>>
+>> voutcrg consumes the pixel clock from the &hdmi_phy node instead of
+>> the
+>> old fixed-clock, and dc8200 gets its pixel clocks from voutcrg's
+>> MUXes
+>> and is marked dma-noncoherent for framebuffer DMA. The old, incorrect
+>> hdmitx0-pixel-clock fixed-clock node is removed.
+>>
+>> Co-developed-by: Dominique Belhachemi <db@domibel.de>
+>> Signed-off-by: Dominique Belhachemi <db@domibel.de>
+>> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+>> +		compatible = "fixed-clock";
+>> +		#clock-cells = <0>;
+>> +		clock-frequency = <24000000>;
+>> +		clock-output-names = "xin24m";
+>> +	};
+>> +
+>>  	soc {
+>>  		compatible = "simple-bus";
+>>  		interrupt-parent = <&plic>;
+>> @@ -1199,22 +1200,92 @@ csi_phy: phy@19820000 {
+>>  			#phy-cells = <0>;
+>>  		};
+>>  
+>> +		dc8200: display@29400000 {
+>> +			compatible = "verisilicon,dc";
+>> +			reg = <0x0 0x29400000 0x0 0x2800>;
+>> +			interrupts = <95>;
+>> +			dma-noncoherent;
+>> +
+>> +			power-domains = <&pwrc JH7110_PD_VOUT>;
+>> +
+>> +			clocks = <&voutcrg
+>> JH7110_VOUTCLK_DC8200_CORE>,
+>> +				<&voutcrg
+>> JH7110_VOUTCLK_DC8200_AXI>,
+>> +				<&voutcrg
+>> JH7110_VOUTCLK_DC8200_AHB>,
+>> +				<&voutcrg
+>> JH7110_VOUTCLK_DC8200_PIX0>,
+>> +				<&voutcrg
+>> JH7110_VOUTCLK_DC8200_PIX1>;
+>> +			clock-names = "core", "axi", "ahb", "pix0",
+>> "pix1";
+>> +
+>> +			resets = <&voutcrg
+>> JH7110_VOUTRST_DC8200_CORE>,
+>> +				 <&voutcrg
+>> JH7110_VOUTRST_DC8200_AXI>,
+>> +				 <&voutcrg
+>> JH7110_VOUTRST_DC8200_AHB>;
+>> +			reset-names = "core", "axi", "ahb";
+>> +		};
+>> +
+>> +		hdmi_subsystem: hdmi@29590000 {
+>> +			compatible = "starfive,jh7110-hdmi-
+>> subsystem";
+>> +			reg = <0x0 0x29590000 0x0 0x4000>;
+>> +
+>> +			/*
+>> +			 * This MFD's PHY child is the first device
+>> in the vout
+>> +			 * region to touch registers, so it owns the
+>> NoC display
+>> +			 * bus clock + reset that gate access to the
+>> region.
+>> +			 * PD_VOUT is powered on by genpd via power-
+>> domains.
+>> +			 */
+>> +			power-domains = <&pwrc JH7110_PD_VOUT>;
+>> +			clocks = <&syscrg
+>> JH7110_SYSCLK_NOC_BUS_DISP_AXI>;
+>> +			resets = <&syscrg
+>> JH7110_SYSRST_NOC_BUS_DISP_AXI>;
 > 
-> Fixes: 582e7c1026fa ("arm64: dts: qcom: sm7225-fairphone-fp4: Add pmk8350 PMIC")
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
-> ---
+> I think the NOC clocks/resets should be also needed by the DC8200
+> either?
+> 
+> Although patching the DC8200 driver to add support for these
+> clocks/resets looks a little dirty...
+> 
+> Maybe it's still good to have a vout subsys instead of a hdmi subsys...
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Yeah that was the idea as it was modeling hardware correctly, however
+indirectly it works thanks to the probing order. The problem with the
+extra vout subsys as shown in the RFC was that an extra driver and extra
+dt-binding were needed which seemed to complicate things a bit. But it
+does seem more correct in a sense that it's modeling the relationship
+correctly so I'll bring it back for v3.
 
-Konrad
+
+Best regards,
+-- 
+Michal Wilczynski <m.wilczynski@samsung.com>
+
+> 
+> Thanks,
+> Icenowy
+> 
+
+
