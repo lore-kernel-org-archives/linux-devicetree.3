@@ -1,79 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A379148A8A4
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 17:11:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3CAA488219
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 17:20:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788282688; cv=none; b=QWaqumdSHbqN4/rJRlVYxxN5pmgO8RxvLSmNJGf701XrDv4t46l1C5ytObCsPU8mE5GVxrT644tp+J5e4THv3pqa6fl3Fegpn23+hETL4EiSg36CN1vPqAnP5O+ju75MkfTKl3SXAlGZT8JzQX6kembRsBOyn+h+xri4WO1uRnw=
+	t=1788283243; cv=none; b=hLSyOSbiqgDulV/ZNjsJN+XfwVKHEL1gnEGyt/hLtY2qNIk380Rrv4mlOuUzMqXemjJ5FuzRmYxIa2WAZAcZ4izgNogokmX++UZXVu8zMf2gM0HXb8Rgh4WA+zg31MLsw3wGl1gzQjnuOemKl9ipNfHA9pqPuVNKBFQM0vd4fjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788282688; c=relaxed/simple;
-	bh=4osE2+pic+bc2hGNq/DZwaAdM11musKu70Ux3wS0E7A=;
+	s=arc-20240116; t=1788283243; c=relaxed/simple;
+	bh=UllhrlLmOAfFzPyIojyQGGCMu83Ko6IwJv3zmf06mWE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PDDmYgFo6HeDd8C87WqHAg/8zdUV//Mc33w69oLWw1M6rLv5HC4JiUHfKbB2TpcDSOIhFskuwZo/ektapHMuIEahXW2eHjNbvURQ+9ljfDKZ5qpbqXgRb4ExGJ7S8eouYhyp6XPvkvRh/avslCEKDACM96TicaQ6ycXn7/d3M5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IGPQW+sg; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=r9eai6qUhsutqUbikg9KLyj60uRz85qDjEdR7srUKNViRMzSKGoLDBvNkS5d3uvq5NTXgKCXu6TugSp8LpOVcFcbTMaMST1/wa31q45tzj+YDE2yEGaQAKmaQakv6G9kLj0qnrXm8W9K6KXxCxfN35gk2MLqcTukenpUL7cPnno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PA6xlTOD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IGPQW+sg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 378DC1F00ADB
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 17:11:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PA6xlTOD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F5B81F00ACA
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 17:20:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788282687;
-	bh=4osE2+pic+bc2hGNq/DZwaAdM11musKu70Ux3wS0E7A=;
+	s=k20260515; t=1788283242;
+	bh=UllhrlLmOAfFzPyIojyQGGCMu83Ko6IwJv3zmf06mWE=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=IGPQW+sglAnZj5qeEqHzmA70qy3Ni9KgQPEqXCKbUK4IB33+Q7IPkG8LzDg/uB3mZ
-	 Kq3Po3fDvKcUPQI/yJ1hRnYcGV6gzxIuBUpCBuPH5dZICGFfxv1Ly+e3FRR/uMTnxh
-	 yYVwSPNnvwKQjlmBhOmYK7yU7EksFb/PfADHzpj++sCNCH+4//PcELhWFn8dLdN/t9
-	 0sGh0/U5bGTZHn1h3HqizxiIa9NtvwVyR8jBtExGIcJim+XJL/1eSIr+y649ZMvaWN
-	 qj17xb7bFRqXhkEFD4Gt4Gw/xOnXISoylq4MDYm2Zxe/3qlAIcU4plNfz7SAu85US+
-	 SNvk5TGlaxuvg==
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5b568dae0e8so1005590e87.0
-        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 10:11:27 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzbOkQ1Vtzp19sKCXy85bwdqfU265JHuJUIpo41mBP5iwaCRbMa8wz97qiWx4xZkNtMsCsDDg5BYUlj@vger.kernel.org
-X-Gm-Message-State: AFuF++nq2nQMjW7quKFnRV7wOFiCehIuTa1jG0IbJyaWHsWk4HJSrQah
-	kgHlnkB1++Sn734FBxIGCLFsk6zSV3/YD9Px/Jo6/NZSMfUt8KJicyMqtrQ0gJsnzG+5PkCJ90f
-	3hPQrbV2sAro7pkpY4AY/zmwLOcbX35g=
-X-Received: by 2002:a05:6512:3050:b0:5b2:aaa2:1d8d with SMTP id
- 2adb3069b0e04-5b5e68b163emr12279792e87.2.1788282685778; Tue, 01 Sep 2026
- 10:11:25 -0700 (PDT)
+	b=PA6xlTOD4sb1TE+o03p94DXGN7bS3pmjOyR/wTCkvrwe4upm85CJS/8J2JmOUCqU4
+	 xo+mnCT8Shn+SnVIvf9izZS1YUaMEVL7lWTcQqOveby8vn9wveRkcZWn8e81NPjbB/
+	 BBtRHLfbkT13/E1H1ObV5EVKmV9AQ7JJwlfABsmTo5cp0qCcJhQ4rc6PL3SrOusA+T
+	 GV31k5TjGaOE8sYdQ2IS30a6V/aQb4pJjiIbesXY8NPd56/jHubg+lP5bBXm78BXkP
+	 cPPGzR/V0b4K3604afbpK5i+1Mf/CGK4vxAd3zYiWC8nZOIP4rH1pcTaYGXwmj+6eq
+	 4cBJvxyJF0zNQ==
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5b15dcaca31so3090e87.0
+        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 10:20:42 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxv4XkFRO0p0N8lZSqIjl/F3Y0wB5U8FUzWvVs9YJ/BpA9+rLCuLMqZuGS2VNC+VSoKFciM0rlbMXEK@vger.kernel.org
+X-Gm-Message-State: AFuF++lzLrExQ6iL6vOBeN49lgpGushj4MYAQoc5RSC1j6PQ8Pkeentc
+	EZe+55XzSV6cIZopFoPBIApSy4mEjPGLeRM5MbPbF0fIYWfdNQFhJK7Mh3CtPLc0h/+0DXZP87l
+	RQ/nBlR+0tb5mKLnQKcw0TpVuLBAIjeo=
+X-Received: by 2002:a05:6512:3416:b0:5b4:86ab:5236 with SMTP id
+ 2adb3069b0e04-5b6041fd0femr1465397e87.19.1788283240807; Tue, 01 Sep 2026
+ 10:20:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260901023300.1382808-2-andy.chang@synaptics.corp-partner.google.com>
- <20260901085702.1515378-1-andy.chang@synaptics.corp-partner.google.com> <20260901085702.1515378-3-andy.chang@synaptics.corp-partner.google.com>
-In-Reply-To: <20260901085702.1515378-3-andy.chang@synaptics.corp-partner.google.com>
+References: <cover.1787931313.git.naseefkm@gmail.com>
+In-Reply-To: <cover.1787931313.git.naseefkm@gmail.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 1 Sep 2026 19:11:12 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmXOmdUSjRNwjCXN05=4712_6kkGTBQEGE=w=0sTe=8GQ@mail.gmail.com>
-X-Gm-Features: AcwNN1VRAqdNZ-U2dFJ7BPD-layzZn8dq8uTQdjvd3-0sHds3HNLele41u3xr_Y
-Message-ID: <CAD++jLmXOmdUSjRNwjCXN05=4712_6kkGTBQEGE=w=0sTe=8GQ@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] Bluetooth: btbcm: Add Synaptics 4384 chip support
-To: Andy Chang <andy.chang@synaptics.corp-partner.google.com>
-Cc: linux-bluetooth@vger.kernel.org, Marcel Holtmann <marcel@holtmann.org>, 
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+Date: Tue, 1 Sep 2026 19:20:26 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnhyfzwGzBfBhvcC-O_h=3_PMXjjW8n7SgGJkd13Fpr0Q@mail.gmail.com>
+X-Gm-Features: AcwNN1VqFbxXyBOJuD2XIsoLQW-odLvTK5ffKBS21jFx1QEHMohAQQcQssx2viI
+Message-ID: <CAD++jLnhyfzwGzBfBhvcC-O_h=3_PMXjjW8n7SgGJkd13Fpr0Q@mail.gmail.com>
+Subject: Re: [PATCH v2 0/3] pinctrl: airoha: add EcoNet EN7528 pin controller support
+To: Ahmed Naseef <naseefkm@gmail.com>
+Cc: linux-gpio@vger.kernel.org, Benjamin Larsson <benjamin.larsson@genexis.eu>, 
+	Christian Marangi <ansuelsmth@gmail.com>, Conor Dooley <conor+dt@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Lorenzo Bianconi <lorenzo@kernel.org>, 
+	Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>, Rob Herring <robh@kernel.org>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 1, 2026 at 10:57=E2=80=AFAM Andy Chang
-<andy.chang@synaptics.corp-partner.google.com> wrote:
+On Fri, Aug 28, 2026 at 5:35=E2=80=AFPM Ahmed Naseef <naseefkm@gmail.com> w=
+rote:
 
-> Add support for the Synaptics 4384 Bluetooth controller
-> by adding the corresponding chip IDs.
+> The EcoNet EN7528 is a MIPS SoC that uses the same pin controller and GPI=
+O
+> IP as the Airoha SoCs, so it reuses the shared driver code introduced by
+> the split into per-SoC drivers. Its register layout differs from every
+> existing variant though: all IOMUX mode bits live in a single CHIP SCU
+> register plus a few spill-over bits in IOMUX Control 3, EJTAG has its own
+> enable register, and every pin configuration register is at a different
+> offset than on EN7523.
 >
-> Tested on the VIM3 platform. Verified that the controller initializes
-> successfully and that firmware loading and basic Bluetooth operation
-> work as expected.
+> It also differs in a way the shared code did not model: only GPIO0-GPIO15
+> are wired to the interrupt controller, while the driver assumed all
+> AIROHA_NUM_PINS GPIOs could raise an interrupt. Patch 1 adds a
+> num_irq_pins field to the per-SoC match data to describe that, bounds the
+> interrupt callbacks and handler with it, and feeds it to gpiolib through
+> gpio_irq_chip::init_valid_mask so gpiod_to_irq() fails up front for a pin
+> that can never be an interrupt source. All existing SoCs pass
+> AIROHA_NUM_PINS and are unaffected.
 >
-> The VIM3 is a Khadas single-board computer that I used as the host
-> platform for testing the BCM4384 Bluetooth controller.
+> Patch 2 documents the binding, patch 3 adds the driver.
 >
-> Signed-off-by: Andy Chang <andy.chang@synaptics.corp-partner.google.com>
+> The series is based on linux-pinctrl/for-next, as it depends on the
+> per-SoC driver split and on the CHIP SCU lookup by "airoha,chip-scu"
+> phandle that landed there.
+>
+> Tested on a DASAN H660GM-A (EN7528, Airtel), booting OpenWrt.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Patches applied.
+
+Ahmed, Benjamin: if you think there is something to Sashikos
+hopless ramblings please simply follow up with fixes.
+
+This is one of those cases where I definitely prefer to fix things
+in-tree, Sashiko is hampering development with all it's comments.
 
 Yours,
 Linus Walleij
