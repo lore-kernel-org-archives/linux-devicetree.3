@@ -1,163 +1,196 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A023BBFDE
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 07:25:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BE474279F9;
+	Tue,  1 Sep 2026 07:26:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788247558; cv=none; b=CP/9W9Qfgu3bSgCfo0xfvmNPTk9Wk78c5i+d8KrHjgkdZRYfbF4O4zA4pfIu75jWBGFr3zaGbtCSA4d7peQftH6istMAou+z5JeBTUrYKiVtkxjVzT3KdyUlL52qNc6NoONsJ2cLNTtSGLgg5ZB0BEj4wKMuJqUikURO3xeawB4=
+	t=1788247563; cv=none; b=RZWa+kl29vcKrrdzfs0t+VGGh6dEk6nEDK+/yCdqjs7b7h3p7TgvsdY6i+3Gxa2LPLBfDrvvpEbbPnrmfkQ+0ivF2xsRFFiY61LUJZXEH20Er3GQ75MQ58BmWJ2onT6SYnvpCJ/2JpoGWOzaTFUdHeUq8kAejPFFzztATwczB7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788247558; c=relaxed/simple;
-	bh=4OwOiIrJDcYsWCkt3XIjRszAscUvuUdWuYKTTsyHR98=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eP9cZUubotPe7U5OrmXFHXzJ1MSRCheKgv6ZsS1d02oycBVPbzIz/zXUaAOFYlGhBhZMjV6cR7kqwCKKTnyW2H1yXkCLzquC4L1Tr3uBF3Izw9dW3J693RS6cdQrlBDsWcJhDdvrA4Q82h7Mc7UjHbkDX/CgECpoluJDcUJlUEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=n1AIJymt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HKUogekL; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788247563; c=relaxed/simple;
+	bh=7sijnYjFURDdPMtz00iULltouwj5Fko94kgcRRLSXNw=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BRiVB2ivnOd5fZkSBcEkBmpNHqcPm0qD9tPwRCgUbt3VP4LbcTMUIomlDrKLNOxbsoeukDzcjMwmaLkMwatgJa67WUo37zxqCvFSGMOULGdm1zG1H35ZdJzEMMqoJM7kXpHp5VIi5ERGdcNzsGnnRZUS2HyptbBTiL3NZA9cGvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=MkhvzC/G; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="n1AIJymt";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HKUogekL"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68179MuN1709631
-	for <devicetree@vger.kernel.org>; Tue, 1 Sep 2026 07:25:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=9MAr8jwH2iSd1NdkalK9l6RZ
-	f6Kgf0q0JukSxYX8TjQ=; b=n1AIJymtr7SmsKVdj2h+99vJbHnv2Xa40h9L61Eu
-	Nw41Uu4vxYKHtOIZxWXbrX8RzKPidP8wRcg4XIeFVGBa1uZJY39/ZT41ZEGHWZ2g
-	redXPk5Ax1prs/el/inFMXeEB42z0AhL+vRLAXNRbUzoBTqqSPdFrmxAPMChpkJe
-	hSzGdoQlXJ0XjqlIPrtsnRFODVi4Aqd0UcJeKMdfNfvUF7UKDHs1igYbEoZtFVpe
-	xKHSIsT3WGvHPasb8aPQK0Hp6ZPW99FbFWVwsIiTOfFtoWnNiB64xw6gIPEHfAT7
-	+7Dfmwub+QMQYjCdly8UIulx2O4uE1BT2VtGUwcc0lyhUA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdp8fs07t-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 07:25:55 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9393ac4961fso72813185a.2
-        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 00:25:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788247555; x=1788852355; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9MAr8jwH2iSd1NdkalK9l6RZf6Kgf0q0JukSxYX8TjQ=;
-        b=HKUogekLetSIV6598xBnLLX5LUG06gKPpJ3xT4HgZs1fDXaEcjkjSDGnL4s4YXitcz
-         wESVaA0cTazsq1R6/DknQTSXQuQ9sLLFbkO8jor6hrq7mh4r+4UwQi6GLLaAhJkdURzg
-         aILZa92V7aZfrada4QeIVDue8NYemBXZO7EkjnDGAw2apDX+UtAYgDofZYgwCIsQnpPr
-         ogEM1T0Jas+3jbsZIoQF9FCdObye5SrihBhV/SZ0pqtta19oDdGA5HPGabo1nXw/Frxd
-         gN5PzcLziqlpwpqa0hAqLFZEEaBjDeS/pghBc9cX7noBnH8D8idxUOg3Nn/BNhCU7urN
-         7MEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788247555; x=1788852355;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9MAr8jwH2iSd1NdkalK9l6RZf6Kgf0q0JukSxYX8TjQ=;
-        b=eryfStnF3T7a58W36YwnHtZxJsX0Zbfye3lGdER31oMl622nZ1M0pN3Pb496FAAAX0
-         RXyJvWtL8StkhuD780SR8qUzuHU2gnFt7gsFOKF2szvKI9Q6DfXQ9xoaf2fgnFHmI+ez
-         2vAAdaPwkNS4x+HqyiCzENz2XfAPhr8H11V2Kzh0BjM7ISo8rhbGNJkACxE/6d0FXHFu
-         ApmAXtRkDsHMtqH21Xayach91hOt6cFdrk8dGicGLucVLl8rh1sdeDcWtiD4Dn3msEtU
-         +9Zn3zkSZuqCIqh0Rucg17ecPDUgYU9S6MO6vdsaANp4LfX58vDUHJA7bMiqw+YBfe7a
-         ztag==
-X-Forwarded-Encrypted: i=1; AHgh+RojzjLwWYnBp5sQ758FjR0LbJVzoLcVd1lMLG0cE9G+2ah1dcVTJNGEPPNeQzfB5H3Dnw+jxKzz4U/Q@vger.kernel.org
-X-Gm-Message-State: AFuF++luDdHsYxI0DQikmtgzp/DtJ6WzUhLalmJgvekErhGS9+33F2JV
-	yOqWvGzzfFKhXmsDYbCx8YUkhkCaWAHgK3y+GjUQn7hjTzI3FGNFiLPuNQ62cTG2OfIUT69rRaI
-	F87jE+g7Mj1FrsDIFUnReehqIXLxKuW/JFUni7OYqH5NkxflKTNUoofToR1cLtLuH
-X-Gm-Gg: AR+sD13k0803YMK1+xMVmBix1CmDFNw6ubcTfBlLOHPJONkjxejgyRYd7bZ0PqN9h21
-	Pu/KKDpJdp51g3rKNdH3mAW4YMTToxUUsJ4lh820JVT/pbq853x4f0CgAfYEUwyGODiIjfjGyd+
-	qiSmbCWk7Tw6ftcdxJ8FQwp0HqxVzsAUQA5SsnLGYW0LtcHwte339iWUKUlK5oxmSwboqFGn3Je
-	k7F/sY+gy29tig/Ku8T3KCqCNUVIYo7r/oeh9Ok4GtRmB3+uX92vY9fNYnqnIkBXS81hkLzd4a9
-	z1ZIMzDP6zpqEAW3cVRe2zGsJYqxbGLbFlvBnUKbfz2AuGT59OfACMjI5Uee+cCQDOIL7pEhZXU
-	qDACIYkT5n3q3kQ==
-X-Received: by 2002:a05:620a:4445:b0:939:3695:14e6 with SMTP id af79cd13be357-93936951560mr1248680885a.2.1788247554628;
-        Tue, 01 Sep 2026 00:25:54 -0700 (PDT)
-X-Received: by 2002:a05:620a:4445:b0:939:3695:14e6 with SMTP id af79cd13be357-93936951560mr1248676985a.2.1788247554050;
-        Tue, 01 Sep 2026 00:25:54 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.178])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce1025asm45856625e9.6.2026.09.01.00.25.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 00:25:53 -0700 (PDT)
-Date: Tue, 1 Sep 2026 10:25:50 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Alex Elder <elder@riscstar.com>
-Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, mani@kernel.org,
-        krishna.chundru@oss.qualcomm.com, dmitry.baryshkov@oss.qualcomm.com,
-        sushrut.trivedi@oss.qualcomm.com, umang.chheda@oss.qualcomm.com,
-        rosh@debian.org, jsandom@axon.com, daniel@riscstar.com,
-        mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com,
-        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v2 1/6] arm64: dts: qcom: qcs6490-rb3gen2: clean up PCI
- function nodes
-Message-ID: <6qeyzstwts6r5ceby4zcvfduzceyaeyapkpebxbonslkn3tqbu@bivzq336i5n3>
-References: <20260901013654.1343537-1-elder@riscstar.com>
- <20260901013654.1343537-2-elder@riscstar.com>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="MkhvzC/G"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6817P13O01484621, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1788247501; bh=DPWcFo0yU6+j3gkQUbftg0xAU3W/3+jUteLM8DNIF7E=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type;
+	b=MkhvzC/GYOj7uNr4+ELQ0SaeYrhQPtcCBS26WY0qRNblFRk7WYpMSJSW+GuZmp3nX
+	 2JEIus907F3E0Dtk8cI524kttYJtCJoEizrvUygOcsns4ngp7YenX7mLTtnFxcMoae
+	 1krA0JVWfjdrhhhXDIUwuZLHs1S7zoXt8kATIWasN+1bAn6W2W/XYkR6WC26het91j
+	 WHbr10QRVWW9MmVQnM89v20TOams7UdOfFfqqx62NCb/vrV7iGfrDNOnA8oIY8Fu0J
+	 AxT+bGut3xECAHeqGI72vA0kXwLVNMJVE3P9dqYyWTZ++sEElMQ1rL2M7NbHsI625l
+	 pC0MU5My7/BmA==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6817P13O01484621
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 1 Sep 2026 15:25:01 +0800
+Received: from RTKEXHMBS04.realtek.com.tw (10.21.1.54) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Tue, 1 Sep 2026 15:24:59 +0800
+Received: from cn1dhc-k02 (172.21.252.101) by RTKEXHMBS04.realtek.com.tw
+ (10.21.1.54) with Microsoft SMTP Server id 15.2.2562.43 via Frontend
+ Transport; Tue, 1 Sep 2026 15:24:57 +0800
+From: Yu-Chun Lin <eleanor.lin@realtek.com>
+To: <sboyd@kernel.org>, <bmasney+clk@redhat.com>, <jbrunet+clk@baylibre.com>,
+	<robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+	<p.zabel@pengutronix.de>, <cylee12@realtek.com>, <afaerber@suse.com>,
+	<jyanchou@realtek.com>
+CC: <devicetree@vger.kernel.org>, <linux-clk@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-realtek-soc@lists.infradead.org>, <james.tai@realtek.com>,
+	<cy.huang@realtek.com>, <stanley_chang@realtek.com>,
+	<eleanor.lin@realtek.com>, Brian Masney <bmasney@redhat.com>
+Subject: [PATCH v14 07/11] clk: realtek: Add support for mux clock
+Date: Tue, 1 Sep 2026 15:24:42 +0800
+Message-ID: <20260901072446.2563145-8-eleanor.lin@realtek.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260901072446.2563145-1-eleanor.lin@realtek.com>
+References: <20260901072446.2563145-1-eleanor.lin@realtek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901013654.1343537-2-elder@riscstar.com>
-X-Proofpoint-GUID: ybOshtnZ0Rn4_faxfEJaOGhtgXcgBbBq
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA2NSBTYWx0ZWRfX+//Rd/FWQAeW
- MCJEMQTaosHQdDHyeKFt5RJ+msByOcKiTWt+/+tjWJg0VJgpYy6VKjM4SvgMS3KOpADgSBlQ8bm
- AATWEgG1CIM5JLidNChS7dklsQx+dz0=
-X-Proofpoint-ORIG-GUID: ybOshtnZ0Rn4_faxfEJaOGhtgXcgBbBq
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA2NSBTYWx0ZWRfX8NnyRg1D9MdS
- FU1cDc7/qF9duZK7puYXc8+7EvnUSJzfY+4aQnQQbaPFyLEbYfskVdeGyAfRW3E39XODXgP9S0K
- UG4vPW1UkNCOueIfhK2rvjV21KE94tSf7vDQDDW13RmSIyYUfjuNZzbFaX+97ELiczm0IvMvXLQ
- cDo/CdZtH+IaVAUunaKkN5DKIRx4as8ygJK32C4E1J6kKqh7h3496RY7MyDXMHkvi8qiMeNxb4B
- G4twIacOKS8d8FQWmWXqHXMjWyFbfaHFujCd461OQFofLsbRtE1YSGMvnEbyOPN2ccKrs2V3GAm
- XlJN4E2rC+OxVDcjFIkRSQU79n9MQhkBJxhhoAeYr5N+ZZCI1SKjMuTjx0ujVX3kfIFWYhP4KdN
- hchQng0WOyXPHDQcfaHGJ1EuXP9r6iYpwJ4o+/IqnUJgarOxCV6IMHbUXAfP5tmOxU2p7BFNGmA
- 6Zs0iAI/VWNrR0DVQ5w==
-X-Authority-Analysis: v=2.4 cv=BPWDalQG c=1 sm=1 tr=0 ts=6a967e03 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=G5ilVN+faPP2Ze1SHB4iFQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=ee_2aqc6AAAA:8 a=nVmHkuB6gqZa7asdRe8A:9 a=CjuIK1q_8ugA:10
- a=PEH46H7Ffwr30OY-TuGO:22 a=VOpmJXOdbJOWo2YY3GeN:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_02,2026-08-31_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 phishscore=0 adultscore=0 spamscore=0
- lowpriorityscore=0 clxscore=1015 priorityscore=1501 malwarescore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609010065
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On 26-08-31 20:36:48, Alex Elder wrote:
-> The TC9564 SoC contains a PCIe switch with three downstream ports.
-> The third downstream port connects to an embedded PCI endpoint,
-> and that endpoint implements two PCI functions.
-> 
-> The devicetree node describing those functions incorrectly includes
-> this property:
-> 
->     device_type = "pci";
-> 
-> That property should only be used for a PCI device "that implements
-> a PCI bus", but not a PCIe function.  So remove the device_type
-> property from the nodes representing the two embedded PCI functions.
-> 
-> Additionally, those properties contain #address-cells, #size-cells,
-> and ranges properties.  And although these properties *will* be
-> appropriate for these functions on an RB3gen2, they are not normally
-> used for PCI functions.  So remove these properties as well; we'll
-> include them in the commit that actually adds the pci-ep-bus sub-node
-> to each of these PCI function nodes.
-> 
-> Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Fixes: aa7b4bbcb3a1d ("arm64: dts: qcom: qcs6490-rb3gen2: Add TC9563 PCIe switch node")
-> Signed-off-by: Alex Elder <elder@riscstar.com>
+From: Cheng-Yu Lee <cylee12@realtek.com>
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Add a simple regmap-based clk_ops implementation for Realtek mux clocks.
+
+The implementation supports parent selection and rate determination through
+regmap-backed register access.
+
+Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
+Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+Reviewed-by: Brian Masney <bmasney@redhat.com>
+Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+---
+Changes in v14:
+- Move Reviewed-by tag to the correct position.
+---
+ drivers/clk/realtek/Makefile         |  1 +
+ drivers/clk/realtek/clk-regmap-mux.c | 41 ++++++++++++++++++++++++++
+ drivers/clk/realtek/clk-regmap-mux.h | 43 ++++++++++++++++++++++++++++
+ 3 files changed, 85 insertions(+)
+ create mode 100644 drivers/clk/realtek/clk-regmap-mux.c
+ create mode 100644 drivers/clk/realtek/clk-regmap-mux.h
+
+diff --git a/drivers/clk/realtek/Makefile b/drivers/clk/realtek/Makefile
+index 840aff067b61..217ccaf5644a 100644
+--- a/drivers/clk/realtek/Makefile
++++ b/drivers/clk/realtek/Makefile
+@@ -4,4 +4,5 @@ obj-$(CONFIG_RTK_CLK_COMMON) += clk-rtk.o
+ clk-rtk-y += clk-rtk-common.o
+ clk-rtk-y += clk-pll.o
+ clk-rtk-y += clk-regmap-gate.o
++clk-rtk-y += clk-regmap-mux.o
+ clk-rtk-y += freq_table.o
+diff --git a/drivers/clk/realtek/clk-regmap-mux.c b/drivers/clk/realtek/clk-regmap-mux.c
+new file mode 100644
+index 000000000000..1069c95595aa
+--- /dev/null
++++ b/drivers/clk/realtek/clk-regmap-mux.c
+@@ -0,0 +1,41 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (C) 2017-2026 Realtek Semiconductor Corporation
++ * Author: Cheng-Yu Lee <cylee12@realtek.com>
++ */
++
++#include <linux/clk-provider.h>
++#include <linux/export.h>
++#include <linux/regmap.h>
++#include "clk-regmap-mux.h"
++
++static u8 rtk_clk_regmap_mux_get_parent(struct clk_hw *hw)
++{
++	struct rtk_clk_regmap_mux *clkm = to_rtk_clk_regmap_mux(hw);
++	unsigned int num_parents = clk_hw_get_num_parents(hw);
++	u32 val;
++	int ret;
++
++	ret = regmap_read(clkm->clkr.regmap, clkm->mux_ofs, &val);
++	if (ret)
++		return 0xff;
++
++	val = (val >> clkm->shift) & clkm->mask;
++
++	return val >= num_parents ? 0xff : val;
++}
++
++static int rtk_clk_regmap_mux_set_parent(struct clk_hw *hw, u8 index)
++{
++	struct rtk_clk_regmap_mux *clkm = to_rtk_clk_regmap_mux(hw);
++
++	return regmap_update_bits(clkm->clkr.regmap, clkm->mux_ofs,
++				  clkm->mask << clkm->shift, (u32)index << clkm->shift);
++}
++
++const struct clk_ops rtk_clk_regmap_mux_ops = {
++	.set_parent = rtk_clk_regmap_mux_set_parent,
++	.get_parent = rtk_clk_regmap_mux_get_parent,
++	.determine_rate = __clk_mux_determine_rate,
++};
++EXPORT_SYMBOL_NS_GPL(rtk_clk_regmap_mux_ops, "CLK_REALTEK");
+diff --git a/drivers/clk/realtek/clk-regmap-mux.h b/drivers/clk/realtek/clk-regmap-mux.h
+new file mode 100644
+index 000000000000..ad524bb86a19
+--- /dev/null
++++ b/drivers/clk/realtek/clk-regmap-mux.h
+@@ -0,0 +1,43 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (C) 2017-2026 Realtek Semiconductor Corporation
++ * Author: Cheng-Yu Lee <cylee12@realtek.com>
++ */
++
++#ifndef __CLK_REALTEK_CLK_REGMAP_MUX_H
++#define __CLK_REALTEK_CLK_REGMAP_MUX_H
++
++#include "clk-rtk-common.h"
++
++struct rtk_clk_regmap_mux {
++	struct rtk_clk_regmap clkr;
++	unsigned int mux_ofs;
++	unsigned int mask;
++	unsigned int shift;
++};
++
++#define __rtk_clk_regmap_mux_hw(_p) __rtk_clk_regmap_hw(&(_p)->clkr)
++
++#define __RTK_CLK_REGMAP_MUX(_name, _parents, _ops, _flags, _ofs, _sft, _mask) \
++	struct rtk_clk_regmap_mux _name = {                                    \
++		.clkr.hw.init =                                                \
++			CLK_HW_INIT_PARENTS(#_name, _parents, _ops, _flags),   \
++		.mux_ofs = _ofs,                                               \
++		.shift = _sft,                                                 \
++		.mask = _mask,                                                 \
++	}
++
++#define RTK_CLK_REGMAP_MUX(_name, _parents, _flags, _ofs, _sft, _mask)               \
++	__RTK_CLK_REGMAP_MUX(_name, _parents, &rtk_clk_regmap_mux_ops, _flags, _ofs, \
++			     _sft, _mask)
++
++static inline struct rtk_clk_regmap_mux *to_rtk_clk_regmap_mux(struct clk_hw *hw)
++{
++	struct rtk_clk_regmap *clkr = to_rtk_clk_regmap(hw);
++
++	return container_of(clkr, struct rtk_clk_regmap_mux, clkr);
++}
++
++extern const struct clk_ops rtk_clk_regmap_mux_ops;
++
++#endif /* __CLK_REALTEK_CLK_REGMAP_MUX_H */
+-- 
+2.43.0
+
