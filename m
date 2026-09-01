@@ -1,216 +1,129 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazolkn19012071.outbound.protection.outlook.com [52.103.14.71])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE8D36196C;
-	Tue,  1 Sep 2026 09:52:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.14.71
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788256335; cv=fail; b=JiRKHyIufFZLyRYU7/ORWNsxZTOUtry+cupNjPnQQ0LRkxYQtUOZlGgUCkuOXmxDGnIgBIa25DSs90tawtQqOkjVR6Ix023B/spGG+RdrsFCuekNrI5QcCsGTWE7R9Dpv5u6qrypYb/tUXoDIoHYmieOR+iesBC9RSC0+41xf4A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788256335; c=relaxed/simple;
-	bh=V7vzggn5hCqsjA2PBotRj5ASxhFeO4+ZUUcsSR3Wg8c=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=EKb2WDLBz4FEmGTUr4W1DdeM0fiMrHrMCNMsYnGlqabIUtMEmeM+I/4tMNZTfEQVUExlgIbn3Q1R9X+Wyww82aLyll1T6+jsL028rKjuR/QcKlS4u21Ez1jEdkE7SUk77EHaYJWMWMRlxZS/Dr3UrlfEbDvoFLWdlsAeC5EvrTY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=lBak9nlJ; arc=fail smtp.client-ip=52.103.14.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52F3B19CCF5;
+	Tue,  1 Sep 2026 09:53:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788256423; cv=none; b=OnT2VwAqyWWTpvi/bmRvR+PlQFYH3zpCrUA9U02Mj/m3mj2TR28+Clr8WLzsQo8C07sEpvZ7GAGjfPjL+EPllLCbYBXcaSg9jf48ngo5WlSAl6a61cUlJ3V/zUQhgSVhJtcAyACEZbKD3rU2jsipfbQM5gy9/4N9uoNRrrmTjtI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788256423; c=relaxed/simple;
+	bh=qYoEdaSqdhD4wZXO/KAmOFJRXYWnl8t1XRLZZvc5aAw=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=IxjhhBT0rurSjuw3kXtVMWNi68n2wtN26FywAgHRlsnqH9T0TTC/f9hktDHVbeRRJ1Aw3ES/L55AAooCxQsjlBYrO8rzyxhj0cKmKMYE5q7bJjftVu5LLR0pw6ikeGHhwe/W4B5s6eMbNqxvclnHzZMnJIitTEkLh4TidHRweFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZOExV1Yw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="lBak9nlJ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZdqoMra1IvkMyDzZgsIdNOSv/KZKzrm18o7+gZTFSLutKg8+oussZJCStU+xGHNFeEsTkLfWZVvCpf3FX4+/3y1Ngx1mcJviduoZTncWc/yEgM2IQOSOzpJoR8y/whNcBgtG+/oSYzfMkwTReogz3dH/9ebhsLAhg5YfpeYTOabLnF8hkiF0aT9bjJYy7Sj1flzhrVgW4PrWyTQCxkRZ4epb6LUIUOQl7jImuVpPboYdpTYok9vM6I4D+YTF+2KjTHtKLgLh0DQgCQki9E+sWUKRq9eFs7avtobK38Uz4C3ob8rGfaDWANr82ZSik/CdTl3QtCvNuqaV0Kt98deXMg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vNKWNny8hUNOw+AANX8cDd5/zJiVYKo7d1uxirDjaw0=;
- b=fXjTDhuyLwduCGi04FThC2yfFaAATvK3UpDxJldvg7Hb9U6Eqji8E1joUumsUMwoD7RUv1JQfGVBCn+M7LMHcnLA3qDFweODbiEVuHx1Tnt69QnNGMQRVT7lhmHCEzuEaiuoBja2Kmi1JCVAKbS8YcVj9bgf5SM5+LxOZwhDdvyVPH0LXIjxk0mdTMZWlE3DGK94lLsyDpmbSA5JwzShX6lyHodh7TnRVgpYSTKz6TYoW+afR6h2hqxbTwJu8FW1HRI7FFM1h5zcjRVfkb9BHNCz9pTd6qOrpNW/AHM9GWFP1WQ1jvDAcCw+MalLRsgTXTco8dYr/1fuBgcPbFNwsA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vNKWNny8hUNOw+AANX8cDd5/zJiVYKo7d1uxirDjaw0=;
- b=lBak9nlJk4Tpkol84a75KS+JrzhKD8IP0dEFRxVt8EgdlUSmItGko3GWv/XFOGyNGZTqNgkFqG/e4zrrA6i9xe7SuqIOW3KZbeaS/aHROQpVtshICrTKJZxR71HWqgtWWVO10Rh1LYlfK02aUTqoPYcBQcJ88gZrcSTucNQKDUAtzL6UIWDMjwqBDs/SfWWVRVhTovsa+KBRmgx+PJpSgDu58RR7PbUenPwTwlH5SQFkzWfPybaYZ60PXBOnJOJoTC7qR3ku7sv3wdt8fDpcjnnoYb/BfrtLVWXnZKCWg9deebHYEYSuiB/gDGMvl3K33oa2B0nmJ35ZPIaX42p++A==
-Received: from SN7PR19MB6736.namprd19.prod.outlook.com (2603:10b6:806:263::12)
- by BY5PR19MB4017.namprd19.prod.outlook.com (2603:10b6:a03:21a::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Tue, 1 Sep
- 2026 09:52:09 +0000
-Received: from SN7PR19MB6736.namprd19.prod.outlook.com
- ([fe80::4b6c:b84f:b71c:d0a]) by SN7PR19MB6736.namprd19.prod.outlook.com
- ([fe80::4b6c:b84f:b71c:d0a%3]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 09:52:09 +0000
-Message-ID:
- <SN7PR19MB6736E193A0C9B26CD98A956F9DA82@SN7PR19MB6736.namprd19.prod.outlook.com>
-Date: Tue, 1 Sep 2026 13:52:01 +0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 01/12] dt-bindings: phy: qcom,ipq5332-uniphy-pcie:
- Change to PCIe/USB3 combo PHY
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Praveenkumar I <praveenkumar.i@oss.qualcomm.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
- Nitheesh Sekar <quic_nsekar@quicinc.com>,
- Wesley Cheng <quic_wcheng@quicinc.com>,
- Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
-References: <20260825-ipq5018-usb3-v3-0-39be0955a6aa@outlook.com>
- <20260825-ipq5018-usb3-v3-1-39be0955a6aa@outlook.com>
- <20260828-wisteria-fennec-from-arcadia-a44ebe@quoll>
- <SN7PR19MB6736B881B203BF5746F0DEE39DAC2@SN7PR19MB6736.namprd19.prod.outlook.com>
- <d69efb1c-4ab3-4148-8b98-035377852da6@kernel.org>
-Content-Language: en-US
-From: George Moussalem <george.moussalem@outlook.com>
-In-Reply-To: <d69efb1c-4ab3-4148-8b98-035377852da6@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-X-ClientProxiedBy: MR1P264CA0048.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:3e::17) To SN7PR19MB6736.namprd19.prod.outlook.com
- (2603:10b6:806:263::12)
-X-Microsoft-Original-Message-ID:
- <b8588962-a398-4292-b45a-b5a515f980d5@outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZOExV1Yw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9F411F000E9;
+	Tue,  1 Sep 2026 09:53:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788256421;
+	bh=IsPg6lwOcCL7n0mR9TKMBNCMRv/T61det35vBFLLGBg=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=ZOExV1YwU5W1/joPSVtaAaZXGrWqF+i8uJRTGCn8GKSV0zPRXCL4gSv3JK0eD+G30
+	 /rB4w80b1p+h8+gcHNzyZqmWg45VGz2NfdiuKVkWbiDfXGq8NBvBgBhMDFuySNONDv
+	 GWA/yTcs4O8TZOCgugSpGEll0S6hfHAn+ZfrllbOOiqVY+oM4dVNZ6qgSrFX+ATyug
+	 gQ5UOA2eEslFx/JBNYiSo7xComZfOYl1DAOVyqXAbCYbFUFBFt4s2pRcdNH+/qKp7H
+	 9OFPdj23cQuvgRRFH8QADEu0u6l/mSh+XKEL1rlTgn6oMDti8kPqkLBsFYSRMqheL+
+	 tyuWYThXQCWHw==
+Message-ID: <01da577b-e139-4332-9197-2c17c63a101e@kernel.org>
+Date: Tue, 1 Sep 2026 11:53:37 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN7PR19MB6736:EE_|BY5PR19MB4017:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3810c05e-24d8-42fb-65da-08df080eb019
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|15080799012|19110799012|8060799015|37011999003|23021999003|51005399006|25010399006|24021099003|5072599009|6090799003|40105399003|10035399007|1602099012|2607281247196008|440099028|4302099013|3412199025;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?MkViTFpBcktteDJJc1d2cXNYVUZHbkMyTnYrYjk3ZCtiOCt2alpYU3pub3pk?=
- =?utf-8?B?dDVlcTlLeWt0blB3M3pVNFNUUlN2Y1Robm9XSHdzOG5xenF5MjdOSUVEdTJx?=
- =?utf-8?B?T0tVa0k2T1VVSFN6c09NTXFlMXNNZkR0SXN6Q1RIVHcvb1BjYzlhZlNRNTdZ?=
- =?utf-8?B?ZzJMa09aWkxWVFd6d0YzVnYybktZWmRzUXNMaWt3WFQ2dDA0RWFRTVV0NFZy?=
- =?utf-8?B?bys5QXVLa285Qy9aMFpGTHhiRjkrOHBrQ3V3eFRzTWMrQ1l6SURGZ2VvczIw?=
- =?utf-8?B?S1ZuT1AvQnowdlRhTTdZYVg2OUhzK0wvWGN3L1h5bjZWb3BqbkFTRG82U2lm?=
- =?utf-8?B?OXJFdzE4UVJ2NXlxTWJnVGJjQVY4cjJ0NDJyYy9MWkVoVzNEQ0hoMzBXVkUx?=
- =?utf-8?B?ejc3TWkyTW56dEtqaWlqbW9JYWpiNVU3b3R4L3AyUlpmS3cveDlEa1V0L0c0?=
- =?utf-8?B?cHp6bTFyUG5PZ1BYQUJvckRkckZXbk5GYjFQS3Uwb1I2TVdZaWVEZXpHbWZH?=
- =?utf-8?B?aVF3bnBoMDNmQ3BDUEkrZEJTcGtSeHBkTnAwRUZaTlpVcFhWd3VnL2ZlWlI1?=
- =?utf-8?B?OWRKMW4vUHVKRmRJK2hMeGdkdWNtZ0RKYlNvWGYvL3d6Q3pGKytPdlMrWmRw?=
- =?utf-8?B?aFpaYjV4OEIwSmpiN3lhWTlrQXhPaDc3UkdxYXV2c1JHaHF3c3JkUGpkVi81?=
- =?utf-8?B?eEErQmVEODVJYVJ6c2kvMDR0NUIxdGNtMytkY2JuZkRXL01oUXMvWUQ5V0Nn?=
- =?utf-8?B?amRpc0tYbklLbzdjOU8rUjlzbkVqSFJ0blc4Q0hIZXFEWExtd2h2amFKTXpm?=
- =?utf-8?B?b1RseEpaVTlYb1FVSnRWOWRnQlRBVytPcEVsdmNKbCtyY2VsNk01aWhoUWQv?=
- =?utf-8?B?UWRaYjFlTi9IMkdBSUVmMU9RQnc3R2VEaHd2SUN6V1Y1SkVicnl5TkgybUYx?=
- =?utf-8?B?RVcrRUJOS1lqczFFTlhxbG04K1RQeE1MQ0MxWnM5YWxVWHRMWk1QV2RPbkNP?=
- =?utf-8?B?cERYSFBFM1hQSjdsTmV0dlZ2R0dxenY5NmU5MTBjV0FFVmNxS0xVeEx4Q3JH?=
- =?utf-8?B?UGpRM1lMNHY5VWpzN2Z2WWRmVXNnVVBvTVRocnV5Vy9iNEpOSFFWT01RZ1pU?=
- =?utf-8?B?NHRCRG0wdEtrQ05oeEZPbmM4dC9EbnRKTDlSVVI3QlFoeXVtdExvRzBsVkZE?=
- =?utf-8?B?RmdXSWluMTRiUFhYTFk0YnFZUCtpZHN6NEMxcm5kZ0VPbTdqQlRyM1Q1ZGJz?=
- =?utf-8?B?am1XaWlPM1M0QXFpS3M3aGdMblZUL05qV3kzUTNvU3dNcFU2SFNtL09JbXVS?=
- =?utf-8?B?OGdVem1KcGFkcjA5UjB5SlRDMnUwSkszQ2dEc01kMVRYM1NaVVNXUGRhQ2xm?=
- =?utf-8?B?Y3BmUzhKam5ZT0hoOFJHZnM3cEcxU3I0UWtJWDV3WVZIU1hUTTY5Skd4aVVu?=
- =?utf-8?B?OHQ4VVZPS2E4Wk9CR3V1OWdSWjlFMWZqc2lRdVZ3PT0=?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SlpDUjMzcGFaSWY3TmVBN1BneFhQZG01NHcyNHkyWFhibUlUSFpPbzBPZktH?=
- =?utf-8?B?d2srQjBxMnc2RXkrS3JTazJyZ3g3Rnc0eGZCd0NpZHgwUldkNW01ZytCKy83?=
- =?utf-8?B?ejVFaUhsVHRaWi83REJNZmdPYzZkUWpBdFgxUUpIVjNQbnFrMmUrSXFnVmRn?=
- =?utf-8?B?NTlsaWNzTUlJUlkwWmRES1NZVHZQd2lWYlJ6UERkNm9Peit3TmhBZDhvSEh3?=
- =?utf-8?B?WkdEUVVuTU1nc1F1eng5MnNBODArNmwvdXRrcmpBZ0lMV09oKzd0VjFvUUdB?=
- =?utf-8?B?bjd3UDJ1ejgrNkRCeGVRRUNoT2JvRHAzK3M0MFNTUWtMMnV5RC9nWlVJSkR2?=
- =?utf-8?B?Y1daVW91SWpPRDRIR3RLd2V6TDAwRStJK25TSnpLRmJFVDBrUUx1cENEYzZu?=
- =?utf-8?B?RHNPNlptdW1FMjRIL28wVDM1OUh6OFNycUR6aXh6QUhsejBRdEovcko3aVZL?=
- =?utf-8?B?Z1lrSFBRNHg3N3BacWd3ZnlKMEorVlZ1WVpHNWdQYUp1RGJHRmtJVGdjejFq?=
- =?utf-8?B?UzYyVjNoWDFxOHJBb2JrMCtxU2tUTWZpeVlrOURYQmFPYUNzK25uY1NRcis3?=
- =?utf-8?B?QkxhNjRHNGVrQ1dDaDgzKzZUQlExakZBOG1ZT2U4YjNSLzhnSjVMTzBiWkdu?=
- =?utf-8?B?bFpoR01hU3Q5bjhFZUpNUmsybGpvRHNnMC95ZnlvUFhLcUFWaFhUTGc3SzRm?=
- =?utf-8?B?OTlMa3cwNHVDQk4yemdXaG54WFRFbndsRmJEL2Q3YU1FRGMxQVQyVnNkNnlD?=
- =?utf-8?B?ZnQxc1p5b1FHVFZJVGJ4UW9xSGJyaERCNHM4Y1FzRVVwNThZNzlSQk5sLzQ3?=
- =?utf-8?B?UndHT3lhY2dkdkhRMEEyUmwwbzkzdUVkVjlDM3hHb1lBZXZsdHovb29uNDl4?=
- =?utf-8?B?Y3pNRCtyUXphU2Z0Z2MzdVJyMXlGN250VHdBZTBwMko2cmJEYlNJaEtNd3ow?=
- =?utf-8?B?TWE3ejBURGRBWkNtNmFKMjEzYms1OXFqbHhselN0MXBhdHpZQUVwbDExcTRZ?=
- =?utf-8?B?VFBidmUzK1BUMk1ZZHpQeXpYZ1d3K3Arb3ZJajdkckVaM283WjBwNldMMTZH?=
- =?utf-8?B?VlhxZDZvb1NMWmY5dVdzeENQdDVYcjhWaTRTNTA2V29pNVNHK2Q2ZHJXR01P?=
- =?utf-8?B?QitBZFJEbXRaOGt2ZWlaM2IvLzVwWUQwVVRNV0U1MHlQdittdk45UXNXckRF?=
- =?utf-8?B?SGphZWZ1cDdrSnNxMld2RTlGelBGT3pBOU42S29yNWlCWFE0T3RyUkJqOGZB?=
- =?utf-8?B?ekVaWDdISDY5QjFTYTdsOVJEZVQxdVovZnpKSG1SMHRGcVpGVGF6cGFOSVRj?=
- =?utf-8?B?ZlUrRXJTL2lGQWpUYW5COGx2UjdYdXRHVTdiTEVOeWxua1pFY013Q29vbFFZ?=
- =?utf-8?B?RkxnRWJ1SGpvSU10Ty9uYkJSTEdDdVpNNUQ0QVg2NkRhL1g3bjdvaEFUK1hV?=
- =?utf-8?B?TVpBYkIzbEtPNTEzYjIwL0xXWXlhZTh3eGk5a0ZuYXlJbkhjOVJ1K0NCSTFh?=
- =?utf-8?B?V0xEcThobnVPaHhueXk5ZXZVVnlERUtBLzFuZWppWnJWZzl6djd5eEt6b3dP?=
- =?utf-8?B?Y2VKeFVKY2lVcnJpOGh4ZlQwd1Rxem1kY1lGWWtHaS9taE9YZk9aWjZhS2ZC?=
- =?utf-8?B?Snd6SVJYb3g2WkthS2VsS1FuYm1YWEFRRmE3cW43ZUt3eStWWEJXTmk1Z2h5?=
- =?utf-8?B?THo2OXV6WTNBNVd5QzA2QmJLcjd6Q0o5RlVpVm4xN2FWVmJLVUdjQ2pmNjFU?=
- =?utf-8?B?N2NkaXhDZS9ibkxWOHA0NFhVV3ByQmRLNEEvMXkxVSsxY1RNQnJpUXM0UEpP?=
- =?utf-8?B?OEJ4V0R2RGJUMDgwZkdab3lKY25HUWRRRUxsV1FaNzRYOGVBWWZCRXY3bWxw?=
- =?utf-8?B?WGl2Q3FwaXoyYjE2dTdpRGZJUU0zSU13Z2ZPU2ZscVQ0dGc9PQ==?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3810c05e-24d8-42fb-65da-08df080eb019
-X-MS-Exchange-CrossTenant-AuthSource: SN7PR19MB6736.namprd19.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 09:52:09.2898
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR19MB4017
+User-Agent: Mozilla Thunderbird
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH 2/2] dt-check-style: Handle indented fragments in
+ indent-consistent
+To: Sven Peter <sven@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
+ Daniel Golle <daniel@makrotopia.org>, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, asahi@lists.linux.dev
+References: <20260830-b4-dts-check-fix-v1-0-e7c1b2774730@kernel.org>
+ <20260830-b4-dts-check-fix-v1-2-e7c1b2774730@kernel.org>
+ <20260901-platinum-dalmatian-of-intensity-b18743@quoll>
+ <8e3633ca-6e82-4c2e-b441-adeac02d3eff@kernel.org>
+ <e2365307-32d6-4ef9-9919-55ba69786741@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <e2365307-32d6-4ef9-9919-55ba69786741@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 8/31/26 16:30, Krzysztof Kozlowski wrote:
-> On 28/08/2026 12:51, George Moussalem wrote:
->> On 8/28/26 14:09, Krzysztof Kozlowski wrote:
->>> On Tue, Aug 25, 2026 at 04:37:18PM +0400, George Moussalem wrote:
->>>> This PHY is a PCIE/USB3 multi-purpose PHY. Initial support was added for
->>>> PCIe only, so rename the binding and add support for USB3 PHY mode.
->>>>
->>>> The PCIe and USB physical pads are muxed and selection is done via a
->>>> control register in TCSR. Add a new property to the binding to enable
->>>> switching the default PCIe mux selection to USB3 mode.
->>>>
->>>> In addition, USB3 mode requires a 5V supply, so add a vdd-supply
->>>> property for it.
->>>>
->>>> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
->>>> ---
->>>>  .../bindings/phy/qcom,ipq5332-uniphy-pcie-phy.yaml | 109 ----------------
->>>>  .../phy/qcom,ipq5332-uniphy-pcie-usb3-phy.yaml     | 141 +++++++++++++++++++++
->>>>  include/dt-bindings/phy/phy-qcom-qmp.h             |   4 +
->>>>  3 files changed, 145 insertions(+), 109 deletions(-)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/phy/qcom,ipq5332-uniphy-pcie-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,ipq5332-uniphy-pcie-phy.yaml
->>>> deleted file mode 100644
->>>> index 6e9df81441e9..000000000000
->>>
->>> Please do not rename the binding. Old name was correct. New one is not,
->>> otherwise please point me to the compatible like that.
+On 01/09/2026 11:40, Krzysztof Kozlowski wrote:
+>>> You CANNOT have MMIO node outside of MMIO bus or a new node outside of
+>>> root node indented with one tab.
 >>
->> I thought we had come to the conclusion it's the same device in the
->> discussion in v2:
->> https://lore.kernel.org/all/gn43qixdtbq5iyfqvzibdtx4lmwpkt2ieahr7oqsxxjfpldb6d@xbxhbdrq4e6b/
+>> Fair enough, just ignore this series then.
+>> I'll just do the whitespace fix then and un-indent the -dieX files for 
+>> apple which I think should make them pass the checker then.
 >>
 > 
-> How is it relevant to renaming of the file?
+> I see Apple DTS two soc nodes, so overriding/extending by phandle is a
+> bit trickier, but this should work in t600x-dieX.dtsi:
 > 
->> I've split up this series into 3 as in the cover letter:
->> 1. Flatten USB Controller Nodes on IPQ SoCs
->>    link:
->> https://lore.kernel.org/r/20260825-ipq-flatten-usb-v1-0-5c1f3170bbe9@outlook.com
->> 2. Enable USB3 for Qualcomm IPQ5018 (this patch series)
->> 3. Enable USB3 for Qualcomm IPQ5332 (to be submitted)
+> // earlier macro (or however you concatenate these)
+> #define DIE_NODE die0
 > 
-> How is this relevant?
+> &DIE_NODE {
 
-No issues with leaving the filename unchanged, I thought it would better
-reflect what the PHY actually is, a combo PCIe/USB3 PHY rather than a
-standalone PCIe PHY.
+Obviously this should be called differently not to conflict with
+existing DIE_NODE(), but I hope you get the point.
 
-For clarity, USB3 and combo PCIe/USB3 will be added to this existing
-binding, correct?
-
+> 	// here goes stuff with original indentation
+> 	DIE_NODE(cpufreq_e): cpufreq@210e20000 {
+> 		...
+> 	};
+> };
 > 
 > Best regards,
 > Krzysztof
 
-George
+
+Best regards,
+Krzysztof
