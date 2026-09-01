@@ -1,111 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D64DE397937;
-	Tue,  1 Sep 2026 17:46:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCBAE42BEAA;
+	Tue,  1 Sep 2026 17:47:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788284808; cv=none; b=HDjkHoI720S35jeDWgtIEYwRdwDLSJzEQ49pjyOLrFtkFuY3nTBpOjOdKt8sMNjfpWOZ6qbBLL4/ABJLNP6MCJ1m1tCjtHoUNOxZz8VKbuwsmajYmWRRNGNdTUohH2kFUkwGdcJfrD/QO9792SAeejvNgR90qpRDH06zuyE1wRA=
+	t=1788284859; cv=none; b=O5ywm/eLmVZQoqVHQIymOP/QCNIY43n1sFXQeinswuaOlz5CsVc/CuPvDEl58IC5mnZa/GXUVOCZPpJU/Juj6p6n1l0YHIYzDBEoT0UM+FXA02T/kNIM05EHqSGBOe11N2O9cciuEBXakUXRccbtcWnttzqULK5VkJXvYxUpUSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788284808; c=relaxed/simple;
-	bh=0JxmeWVydT0ihziXtDVOy5pWHYK5GYZf44fz61PRjX8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gRA9eSRY1bVhLThsB7rTA3CUjDh8MDceKC85M1k7BbaT0tgPwEZTspg7OCYA3cdvYTD1foeuHMIaMQtEJJrkrCci5hOzU2x9gqVjNaYo22Uj469WCo+a/xAh5djfOevz4nPviZQxq2tgruhO4VdfYuRk/KXUwn9Ks0wQlc2S+ZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nXTCt3rN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788284859; c=relaxed/simple;
+	bh=wIRXo+W1Y5nbg+WXe/4P+PdfNFVyerjk7vcydHkYvEA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rKj4bjcL3dKUYV57a/C+7b76cCciy/lGTixAZKG286O4t6NQJrwnEyorrynHA7PmANw7IA6Z75IrT4Sy6acapnpg/TRVZOssYMKr2ceB3WMRzJl3f9X8VWDvmwrxXdGPrLY/Am0lrDysQydy2MiFietwpD47H0XDZjeA6Qp/R/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=AseZTlST; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nXTCt3rN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3E731F000E9;
-	Tue,  1 Sep 2026 17:46:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788284806;
-	bh=iPWi4hoZNDrjC4oNfHd7fHgoe10Ao+nAr9o9Kh5FrzI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nXTCt3rNQUkwOrhPzMl0KYcQM0uwZq+OWqHdAykNvQi3KJ3W75V1wgo+nZIlRf+b1
-	 GB7VwPNqXnX5Rs6wcx7DZGLSExw0HLvDp4KtZsHLQ02+vRHlhSsSQKbA5ACVa8ikP+
-	 AUJJaseGWXkgNdM+O7OlCDrSno6Fwj6ij2L9NAtJ300JlUES0huwhjmZ9c+OXe2KXP
-	 xeHoU0eZwxbiUnHGtzfO55eUfSOTKMIZF8T8uk4Ggktc8FlUw+qBpC1QS1Uc0a5ghT
-	 x1gyMwBBTWQNPQbKzLTeEfc9AJWgPahIyWpAQLGV5C/81xRCjXoRkh46lAgKJavs4S
-	 pKFh39gZDRAvw==
-Date: Tue, 1 Sep 2026 18:46:41 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jia Wang <wangjia@ultrarisc.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-	Jose Abreu <joabreu@synopsys.com>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH net-next 1/3] dt-bindings: net: snps,dwmac: Add UltraRISC
- DP1000 compatible
-Message-ID: <20260901-press-buckwheat-92d17a6b8f71@spud>
-References: <20260901-dwmac-ultrarisc-v1-0-f19454814bcf@ultrarisc.com>
- <20260901-dwmac-ultrarisc-v1-1-f19454814bcf@ultrarisc.com>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="AseZTlST"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6EDF411D491;
+	Tue, 01 Sep 2026 19:47:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1788284851;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=4+8PgNgJ5Ij4UdhznqcIK9s6t0P6PpU4tqKqhOgaAiE=;
+	b=AseZTlSTc3JnZGWkciXYws+sV3jij1LDXgBqHRViuZE5kBrrkaPcMm6GiXtGGZjnXdpcgx
+	Id7rsXqHUfYFJk7TJmAG1TeCE1H3Q3HnwD5DlvPAaxl36LX5JYzcOdFMuGi7wS3l5tSvtA
+	OochtTRM0+ujE0DeGsyfQr+79Om4Kt72NbDQ1EEj08Z2UmMX2PQkg+WX6HFibxSGLG++bM
+	nidMwL5+e6a4TTdgFjLNmmj10BcvI/huLOP57Rgn+uxdG383sund6Om/WnObeMivAKZ784
+	67CHy5X+Pc5TZdKhXJrljjbSf6txnwgEVd/c6XvjKSsjp2GCGNX0Mtp4xSKGDg==
+Message-ID: <f86a6a8a-6f38-4082-abb2-7ab6c91b269d@nabladev.com>
+Date: Tue, 1 Sep 2026 19:47:29 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jiiFleqVVWDTS025"
-Content-Disposition: inline
-In-Reply-To: <20260901-dwmac-ultrarisc-v1-1-f19454814bcf@ultrarisc.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] dt-bindings: hwmon: tmp102: Document TMP113
+To: Conor Dooley <conor@kernel.org>
+Cc: linux-pm@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Flaviu Nistor <flaviu.nistor@gmail.com>, Guenter Roeck <linux@roeck-us.net>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260901161008.46948-1-marex@nabladev.com>
+ <20260901-untimely-wake-578b1a86b9fe@spud>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <20260901-untimely-wake-578b1a86b9fe@spud>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
---jiiFleqVVWDTS025
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Sep 01, 2026 at 09:27:30AM +0800, Jia Wang wrote:
-> The UltraRISC DP1000 GMAC is based on a Synopsys DesignWare MAC.
->=20
-> Allow its SoC-specific compatible in the common DWMAC compatible list.
->=20
-> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
-> ---
->  Documentation/devicetree/bindings/net/snps,dwmac.yaml | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Docu=
-mentation/devicetree/bindings/net/snps,dwmac.yaml
-> index 2449311c6d28..2ed4564ae99d 100644
-> --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> @@ -119,6 +119,7 @@ properties:
->          - starfive,jh7110-dwmac
->          - tesla,fsd-ethqos
->          - thead,th1520-gmac
-> +        - ultrarisc,dp1000-gmac
-
-This should not be a standalone patch, rather merged with the other dt
-one.
-
-> =20
->    reg:
->      minItems: 1
->=20
-> --=20
-> 2.34.1
->=20
-
---jiiFleqVVWDTS025
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapcPgAAKCRB4tDGHoIJi
-0pJJAQC2MOQ3WQ775wZhL2oOE84EeepYhkoKAGs4AIdvFoIJIQEAs4oDcmd2sGxv
-x/CeJ0b0IJ340Tqg8YPgsSiFvur70QU=
-=9MSe
------END PGP SIGNATURE-----
-
---jiiFleqVVWDTS025--
+On 9/1/26 7:37 PM, Conor Dooley wrote:
+> On Tue, Sep 01, 2026 at 06:09:20PM +0200, Marek Vasut wrote:
+>> The TMP113 temperature sensor part is register compatible with TMP102,
+>> document it using a fallback compatible. Unlike TMP102 and TMP110, the
+>> TMP113 does have additional unique ID registers, it is up to the driver
+>> to handle those.
+>>
+>> Signed-off-by: Marek Vasut <marex@nabladev.com>
+>> ---
+>> Cc: Conor Dooley <conor+dt@kernel.org>
+>> Cc: Flaviu Nistor <flaviu.nistor@gmail.com>
+>> Cc: Guenter Roeck <linux@roeck-us.net>
+>> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+>> Cc: Rob Herring <robh@kernel.org>
+>> Cc: devicetree@vger.kernel.org
+>> Cc: linux-hwmon@vger.kernel.org
+>> Cc: linux-kernel@vger.kernel.org
+>> ---
+>> V2: Rebase on current next and resend, resolve a conflict with commit
+>>      d67ec24d3f07 ("dt-bindings: hwmon: tmp102: move ti,tmp103 out of trivial-devices.yaml")
+>>      Note that the TMP102,110,113 are backward compatible, therefore the
+>>      valid compatible strings are:
+>>      - "ti,tmp110", "ti,tmp102"
+>>      - "ti,tmp113", "ti,tmp102"
+>>      - "ti,tmp102"
+>>      The TMP103 is not backward compatible, it only shares bindings now,
+>>      therefore the only valid compatible string for the TMP103 should be:
+>>      - "ti,tmp103"
+>>      And that is all, no other compatible strings are acceptable here.
+>> ---
+>>   .../devicetree/bindings/hwmon/ti,tmp102.yaml          | 11 ++++++-----
+>>   1 file changed, 6 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml b/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
+>> index 55d9f106465d7..c0b747a9ce0de 100644
+>> --- a/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
+>> +++ b/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
+>> @@ -4,7 +4,7 @@
+>>   $id: http://devicetree.org/schemas/hwmon/ti,tmp102.yaml#
+>>   $schema: http://devicetree.org/meta-schemas/core.yaml#
+>>   
+>> -title: TMP102/TMP103/TMP110 temperature sensor
+>> +title: TMP102/TMP103/TMP110/TMP113 temperature sensor
+>>   
+>>   maintainers:
+>>     - Krzysztof Kozlowski <krzk@kernel.org>
+>> @@ -13,11 +13,12 @@ properties:
+>>     compatible:
+>>       oneOf:
+>>         - items:
+>> +          - enum:
+>> +              - ti,tmp110
+>> +              - ti,tmp113
+>>             - const: ti,tmp102
+>> -          - const: ti,tmp103
+>> -          - const: ti,tmp110
+>> -      - enum:
+>> -          - ti,tmp102
+>> +      - const: ti,tmp102
+>> +      - const: ti,tmp103
+> 
+> Should this not be two patches, one fixing the existing stuff and one
+> adding the 113?
+I can send this as two, sure, will do in v3.
