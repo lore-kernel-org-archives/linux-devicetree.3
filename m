@@ -1,153 +1,72 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBC1043B6CB
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 15:33:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3D97424D41;
+	Tue,  1 Sep 2026 15:33:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788276819; cv=none; b=hMvTp3a7VEb6AgZKz5qoJNR6jEb6NtVVQfrOod1/3xrm2VEHg1wDoih2gxmNdppnFJzydYjfCI/spKHdktEOx62u3OYP5yokCEn1YwUL3NobhxgV9cnrz5lazCfTBfc4O/cs7Us75LuSGEhLIyV6PMSNjfcy/qLEB2g4IFnfchk=
+	t=1788276836; cv=none; b=LyfAXyITsAyXJ40RVrW54dy3LM1pdF50foIXPvMsf11CFBGltVWbOWeLXCdg6OgO6IFkY4Thvnlx+CV+VyP3Zh8JDejg/xYOAS3JZOpgc8LzuYp6m+l8VS+dH9V47UnT8pmbDyy5Sp9Dnh7J/BmqglIvIN2NHRcWEzGLJdCNlbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788276819; c=relaxed/simple;
-	bh=7ScGxa+8+RlYUQcbDyTy3K6G/E2mZ7i4yB4b0QAxXtI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Tag1UW5g+TrIzmCwawtniFX2KAh+V1xJEwIzNLr0B1YXgbLVKruRrCNKu/lv3xPSaBZy0dbj8M1z1+uZu0D7wjEjYH2IP3R0CuaDhV3x2HxsiDe8gvJFpPyLzsHd2PqmO7U/z8zGuvpCuxj7IJvv4A54z0tK6xJMi0nuC6ovLLI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=kg6BH0lW; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	s=arc-20240116; t=1788276836; c=relaxed/simple;
+	bh=PXbOCXvBggLKfsHnwXv7DIo4RXz5rkcl3q1Mr1Jqzic=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=QNAMebGRQ53KskkCLnTiFkek8GH+LFfsDaTTqgHezOswG5GUm4VXBI07m392tsGibfVwH/PS2GW9m4LeZRr/qw8musvSPxmNbQ57k8BRJS8CtZzlQN+8CXfTpZI51AOFsGsqmwm+Q4AuB8Yz/XyRE46o8lsS1XYwC658FoBxAHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=izxxYCdQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="kg6BH0lW"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-482e61a34e5so13468f8f.3
-        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 08:33:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1788276816; x=1788881616; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BlRBTnAxAr5Mr3h2Ki5AWmuYRNMm8WhwP7R0oNWZa10=;
-        b=kg6BH0lWqwKW5wyB3bDFhVoWEZ6lz5i6rkxXySknCzE3HYpDfFSkhATWIyn25exoW+
-         9IEwvR7K6o9jAQniKcDRafs4Zhpr4fvWxBGp6uDEscNVfjsveFRG+j7IcQ7cUYqbKK+1
-         fStXNjWUOjFIkOqsdLlMLe2Yqkw6UD7+lkbQI3ieSlspoHppHe2mA/mfy1l3jozNH1k5
-         8hMpvbkeAzdOVmTAS0Sp6K4fhwPvf/f80cnc+zTAdMChCa8RIZ1YNuu7RrMUqu6QQ3rW
-         FgZda3Kg+54niQ7vN1/bUK/u6gRb6/NvMY+XSQzQ3xYNGCkTR0whA4IYPygF2WCxgYDw
-         SZhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788276816; x=1788881616;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BlRBTnAxAr5Mr3h2Ki5AWmuYRNMm8WhwP7R0oNWZa10=;
-        b=DWXHp2hBwMqN0PbZkIzkefjVF1Zf49EdsVZtoegibzBkVUAow1buO/wRqd/U9zLJxN
-         BmhAaBEjGxycg6OO0AqiBL2yNFi0gSaWH2PtIbOl+S4XI6X3HpRCHStFRa2VIu3bGaPO
-         P3Z61jiQJyUCNijffidBY6/1U45EDQZx7m1SV+wrUVtNB3wxGgbdlVX1L1A3+lu0IRZ4
-         ZaUt/2MOl4iehe4szuwppDxi3zhyPw8LqmQIbAtvlCuQpNfj9RUEIl8q3Zqm8juI4dfj
-         Mr7OOY+012GfVa844YbxKi8CwGuTmLTr1fL279PqseqJgkssYEkkXjz/azWaY0UPrbqc
-         3KCg==
-X-Gm-Message-State: AFuF++l9A41heRtb8OFNu2oRfdJtYR6tWKKjfnpg2xeJt5sV5OWc5meE
-	fB+/QNXP3Gsp9YhL+uW8PrHrhrZP3BeejkofdyOyWFYaXeXV3faueMpWV4NmU90PItM=
-X-Gm-Gg: AR+sD12eueUoF308GzuBGq1aKQ04nOLBqBUmrzSuo2N4zywAAEuHcqRQd5OkaDDq6cO
-	rQ+5QIGdqO+XG72jgBge83dPF3MFWgWRe61PZUZYNp5FQ25CcDPzDAQCuJkAT2AGlHiwKkXaz8T
-	QEi20X46Ys6QAl5FvtC42mkDqVTHteuK34BcKNjGmcuZsL6/a0u+tsOhh74o8XpCXQzuad+I035
-	GBvprqRjFfQ7dnhGMu8QH7Y+KpbBlffV50OK/I7G3GiAWgXTcV0Kciju0PQilDqh4f7FDcJafX9
-	ZjnTS26747ZZ7e7cpyJejiQ1d1c3CzHw6E5uudgIDWLL2y/KF/AOshU2CgI/jfFQxNFSRk1Ecgy
-	OuZYh5T/85TvrDVI3ygWRiHedlQvkcnQBXwry+7FVaHA8O4zgB+QEPg8pPrnFTpZZ9KRj99mu67
-	MyYCHyQ165iPJmJmHu9s3JoQ3armcZ7VGL3fgpA58Y53Cby5uKtkK788YN7g7x+uZ+6bGP1E51w
-	By3YstYSHUvln6+SeJmkPWxy/3EmGQITEMJ07uE
-X-Received: by 2002:a05:600c:5288:b0:499:84fe:5f3e with SMTP id 5b1f17b1804b1-49b91c41014mr616951295e9.9.1788276815737;
-        Tue, 01 Sep 2026 08:33:35 -0700 (PDT)
-Received: from alchark-surface.localdomain (bba-2-51-220-108.alshamil.net.ae. [2.51.220.108])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b91c5790csm314541845e9.0.2026.09.01.08.33.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 08:33:33 -0700 (PDT)
-From: Alexey Charkov <alchark@flipper.net>
-Date: Tue, 01 Sep 2026 19:33:14 +0400
-Subject: [PATCH 4/4] arm64: dts: rockchip: Derive GMAC MAC addresses from
- OTP on RK3576
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="izxxYCdQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD8B01F000E9;
+	Tue,  1 Sep 2026 15:33:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788276835;
+	bh=JXKGohViUF6CBZb6/o/ALtWvXJOIGt3FsEZFS1VSQ+k=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=izxxYCdQQ+gRei94a6oDoDurf6AH3Fs4wNT0uFAJ8v4P3oi+ik3HUDmFUVS8III24
+	 zSff/m/B2LLN4VmzdGnL/jwdYinmXtcNbY/7XK9SbZjZMARr2C2uJrHGR74aVZ95rf
+	 hp0n4Y8O3jnCSW4xcZ7x+N+N+7K9H1CPmnw7JUDVFTp9/Zlx1md9ZpMmwjOuU1SRlV
+	 kx6ajE+XIA52dOfMTgtixbveO9E3GbCBKBTWfrrYzKl8KXs+bvbbuiHxZ73eNOIzjo
+	 d0+wsgk/0NjrrGqTnlSAuy1MrYfP4d5vkLckKy9a7BzNim5zImO/8H//rbvRipJ+5V
+	 wLbbrLKLHqhnA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 3/6] mfd: khadas-mcu: Add support for VIM4 MCU
+ variant
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ronald Claveau" <linux-kernel-dev@aliel.fr>
+Cc: linux-amlogic@lists.infradead.org, lee@kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, mfd@lists.linux.dev
+In-Reply-To: <20260901-add-mcu-fan-khadas-vim4-v10-3-aecdb9955a30@aliel.fr>
+References: <20260901-add-mcu-fan-khadas-vim4-v10-0-aecdb9955a30@aliel.fr>
+ <20260901-add-mcu-fan-khadas-vim4-v10-3-aecdb9955a30@aliel.fr>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 01 Sep 2026 15:33:54 +0000
+Message-Id: <20260901153354.BD8B01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-rk3576-otp-cpuid-mac-v1-4-ea9135270fc2@flipper.net>
-References: <20260901-rk3576-otp-cpuid-mac-v1-0-ea9135270fc2@flipper.net>
-In-Reply-To: <20260901-rk3576-otp-cpuid-mac-v1-0-ea9135270fc2@flipper.net>
-To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Michael Walle <michael@walle.cc>, Miquel Raynal <miquel.raynal@bootlin.com>, 
- Finley Xiao <finley.xiao@rock-chips.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- Alexey Charkov <alchark@flipper.net>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2071; i=alchark@flipper.net;
- h=from:subject:message-id; bh=7ScGxa+8+RlYUQcbDyTy3K6G/E2mZ7i4yB4b0QAxXtI=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWRN+2Bn0+oxU6P3qU/7I7eGFXnGf49KT7dMO7uyUF1W6
- rxyqMHyjoksDGJcDJZiiixzvy2xnWrEN2uXh8dXmDmsTCBDpEUaGICAhYEvNzGv1EjHSM9U21DP
- 0EjHWMeIgYtTAKa6W5zhn97ro1tSdDtDJG4wGubZej43tPqwU1bkr0wH95UzN2IYrzEyPHz0dy2
- bQNfGDaf/3zEQnXryvurGjW8ropd8La2Y5dtUwAkA
-X-Developer-Key: i=alchark@flipper.net; a=openpgp;
- fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-Rockchip SoCs derive stable MAC addresses from the CPU ID in OTP memory,
-which a bootloader would normally process and patch the live device tree
-based on it. This depends on the particular bootloader implementation
-though, and the derivation itself is not described in the device tree.
+> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+>=20
+> Refactor probe() to use per-variant values
+> instead of hardcoded globals.
+>=20
+> Add dedicated regmap configuration for the VIM4 MCU,
+> with its own volatile/writeable registers.
+>=20
+> Introduce struct khadas_mcu_fan_pdata to pass the fan
+> control register and duty-cycle levels per variant.
+> VIM4 uses a different register and level set (0-100)
+>  declared as a list (0, 30, 40, 55, 75, 100) compared
+>  to previous boards (0-3).
+>=20
+> Add a new compatible string "khadas,vim4-mcu".
+>=20
+> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-Add explicit nvmem layout for the CPU ID derived MAC addresses on RK3576,
-so that any OS can implement the same derivation without depending on the
-bootloader used.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-Boards which store a MAC address of their own can override the reference
-with a cell of their choosing.
-
-Signed-off-by: Alexey Charkov <alchark@flipper.net>
----
- arch/arm64/boot/dts/rockchip/rk3576.dtsi | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-index b0c0d3c8b1b1..0012b45ef426 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-@@ -1845,6 +1845,8 @@ gmac0: ethernet@2a220000 {
- 			interrupts = <GIC_SPI 293 IRQ_TYPE_LEVEL_HIGH>,
- 				     <GIC_SPI 298 IRQ_TYPE_LEVEL_HIGH>;
- 			interrupt-names = "macirq", "eth_wake_irq";
-+			nvmem-cells = <&otp_mac_address 0>;
-+			nvmem-cell-names = "mac-address";
- 			power-domains = <&power RK3576_PD_SDGMAC>;
- 			resets = <&cru SRST_A_GMAC0>;
- 			reset-names = "stmmaceth";
-@@ -1893,6 +1895,8 @@ gmac1: ethernet@2a230000 {
- 			interrupts = <GIC_SPI 301 IRQ_TYPE_LEVEL_HIGH>,
- 				     <GIC_SPI 306 IRQ_TYPE_LEVEL_HIGH>;
- 			interrupt-names = "macirq", "eth_wake_irq";
-+			nvmem-cells = <&otp_mac_address 1>;
-+			nvmem-cell-names = "mac-address";
- 			power-domains = <&power RK3576_PD_SDGMAC>;
- 			resets = <&cru SRST_A_GMAC1>;
- 			reset-names = "stmmaceth";
-@@ -2131,6 +2135,14 @@ soc_tsadc_trim: soc-tsadc-trim@64 {
- 				reg = <0x64 0x2>;
- 				bits = <0 10>;
- 			};
-+
-+			nvmem-layout {
-+				compatible = "rockchip,rk3576-otp-cpuid";
-+
-+				otp_mac_address: mac-address {
-+					#nvmem-cell-cells = <1>;
-+				};
-+			};
- 		};
- 
- 		sai0: sai@2a600000 {
-
--- 
-2.54.0
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901-add-mcu-fa=
+n-khadas-vim4-v10-0-aecdb9955a30@aliel.fr?part=3D3
 
