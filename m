@@ -1,90 +1,155 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C3BF43BDA9
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 15:59:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D21EF351C35;
+	Tue,  1 Sep 2026 15:59:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788278344; cv=none; b=VMM7o+IdUnGEh2BJuKnKe9z6IjeTlkNOGJ/nzMcmcunzPwBIZD5z6/pXNJ/vX+rqtoBrmwiMXAiLHrsr4l8s7PcSA3oi/DAZPYcuJrFnxAqcyOJs5tdhR8gtQt7FA17M5+if2DySmLN+sDzsyaCrYXZ/ZohWdgV0NJPos4tBv3g=
+	t=1788278367; cv=none; b=Eq8R2qjOqcTdjtyAPsyo/+NJla1n7Lv/rfUEq9Hqq1utLZkrbMOBo0IBo84Zg9Mv8i5EVZehBMat+qAFizMa73v+wZ+G2ekdlXsI1ja2pMPBLf/2y2mgS6WVRD5yiH/u+Tx4OpfXqjAmht8xLBXD4asu9owedS9D/EoZAbwSwak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788278344; c=relaxed/simple;
-	bh=Oq7ZplkLYZ17Jd6jgncCN0Tnzdy5Yo0wIVW/z/36jGQ=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=E4ISUCClNE2rQwZgaSczl52Wuss8xMfYJQKEw5NvoRY8QPMiESeEnVRci+g6Pj3BrdJD4/3llb3JjO/tRI0wlGIEmBAFvv+EA7Hq7D/tjG8myIPxDjxxYOH3DUtNB9gSEXuc4zliqgef12uvisyVd+8tXq5rWasgZwP/QGKp/7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dWcZvkqB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788278367; c=relaxed/simple;
+	bh=DqOnpo89K8LKl7OMnR3NgsDdM/uT/cPuCAAblLNH/Lg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=SJUgCeM+EeKn4LnRpg8hSuWfFDpvvMwAiaq0iNFoNZiYRfBeONfr9X+GE2q11UbtAzOni29hwLgxjNbE2N4QNCjrvll5oy9IO1soJxdvIXJpXHPDdGevDTcGjgoNO/CgFCgCtK5+VN18sn9fFnzf5d9rIgU4b6HMEYZgeOrMYlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P7cOKILJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dWcZvkqB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52CE61F00A3F
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 15:59:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P7cOKILJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08F9D1F000E9;
+	Tue,  1 Sep 2026 15:59:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788278343;
-	bh=Oq7ZplkLYZ17Jd6jgncCN0Tnzdy5Yo0wIVW/z/36jGQ=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=dWcZvkqBZ0RelBOMhEWfPRzEqzpyr2Uaok0CnBqE+cCRXhOM6FI4iVuVriNOxGryp
-	 W3liV9wKkydPRopz4NATBAYCeIboTKrk/rdxo8wfCcmqkVGmZpUQCn6HnwkMASPnuu
-	 R2jy2OhcK2WfvoSnsROGj7OIApJfSEjW1SCZed6kSunfZwLH3V64bFZRBuAjpLuMGQ
-	 SBBa7qhcP6ui0j2I4lqDtGTybfsZrPfReU7IcGvL2vzayc+y0hT6+To7N0+dfntSl2
-	 hD4yJeI52yIKnuruDiC6Ly0mNquK4XtyuW+H3lkJJ0IAbH1TtyfvkTRiyc7e03fMgU
-	 S7mpFpjb/7X6A==
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5b4aa47bc97so3973786e87.2
-        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 08:59:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBybHa/qgvkwtXYSdBDRhYLtaZMZLV3a7/OV7fXT2KIQhTwm3rz6HGAbswCVr+M4enQM+Hxggr1MsOgX@vger.kernel.org
-X-Gm-Message-State: AFuF++kcIfl27f53Yg5tTsVPfzU3cEPllzZOb/B4xkRIFEej4fVGqjZl
-	L+YyYTqD6SdHmdUHykiyOifTbfnbfgHIGY3wzevi3wI9XdCeDw4TNcHWnzy+wEbyeXeAXOXjHl6
-	8BqhoXvaHINP8pivynBaMt6omBiBExi3oNUzxSXdqGw==
-X-Received: by 2002:a05:6512:318d:b0:5b1:589b:3579 with SMTP id
- 2adb3069b0e04-5b5e68b268emr9763174e87.4.1788278341806; Tue, 01 Sep 2026
- 08:59:01 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 1 Sep 2026 08:59:00 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 1 Sep 2026 08:59:00 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <CAD++jLnGGonfOxLHhM-uXAzP10J9o5=0e_cV9JM5r7SJawChnA@mail.gmail.com>
+	s=k20260515; t=1788278365;
+	bh=iGBf8TyscxcHunYRJOHUVhrx6LQnH+hAUFAZp0UWao0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=P7cOKILJ7jbmoo69Y87XRF93iNi/blbN33QK3bPL0Pa4MUTtgkg6eMeBLslTbWaGP
+	 hCb9fGbd7zFEGR/Rbq1XfKPzfP6pccMLdyYatKSrosAlFI2PzJs8u7mJuWx5A4tl/o
+	 bnW3hh/9Pjuh3r/8uBUxfjBnVlqsZeESwnqMbPH/mk1hY6bK7Tue/ecVkHMgk3lHn1
+	 zC2m6u+ynl4JkAyDfUFVjXqP195jutojkEQCdA/NJl6AMqp6YcmT9ofQaiMbaz4VHm
+	 lednBKQnlTt1VvAR+9LAGkSSR9aQutRAd897bAsMI1Ao43Q5CwjlNF956Eb70Bizsd
+	 ziJE4p2XBC+9g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 07/24] scsi: ufs: mediatek: Rework 0.9V regulator
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
+Cc: neil.armstrong@linaro.org, vkoul@kernel.org, olteanv@gmail.com, conor+dt@kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-scsi@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260901-mt8196-ufs-v11-7-dbd007704490@collabora.com>
+References: <20260901-mt8196-ufs-v11-0-dbd007704490@collabora.com>
+ <20260901-mt8196-ufs-v11-7-dbd007704490@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 01 Sep 2026 15:59:24 +0000
+Message-Id: <20260901155925.08F9D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260820-msm8952-pinctrl-v2-0-bf2b8b7b379b@mainlining.org> <CAD++jLnGGonfOxLHhM-uXAzP10J9o5=0e_cV9JM5r7SJawChnA@mail.gmail.com>
-Date: Tue, 1 Sep 2026 08:59:00 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MdKT4RAWdtZf87k5-VbXAZePT2yttf2QPWgRJaowKuDTA@mail.gmail.com>
-X-Gm-Features: AcwNN1UfNyHlYiZf5Y-cZ-ZfikuCsNoWOHA6SA5CDbMjoE3viBQPShEGvuq9myc
-Message-ID: <CAMRc=MdKT4RAWdtZf87k5-VbXAZePT2yttf2QPWgRJaowKuDTA@mail.gmail.com>
-Subject: Re: [PATCH v2 0/2] Add pinctrl support for MSM8952
-To: Linus Walleij <linusw@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, muzafferkadir@mainlining.org, 
-	Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, 20 Aug 2026 18:37:50 +0200, Linus Walleij <linusw@kernel.org> said:
-> On Thu, Aug 20, 2026 at 1:17=E2=80=AFPM Muzaffer Kadir via B4 Relay
-> <devnull+muzafferkadir.mainlining.org@kernel.org> wrote:
->
->> MSM8952 has pinctrl system that is similar to MSM8917 pinctrl, but it
->> has some differences in some of the pins and their functions.
->> This driver was tested on General Mobile GM 5 Plus
->> (shamrock) using my own kernel fork [1].
->> I'm holding off on sending the GCC (Global Clock
->> Controller) driver and initial device tree until I've resolved some
->> outstanding bugs in the GCC driver.
->>
->> [1] https://github.com/kadir1243/linux
->>
->> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
->
-> Bartosz needs to look at this series, he'll review and merge
-> it.
->
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-And to that end please use scripts/get_maintainer.pl to get the current lis=
-t
-of maintainers for your patches.
+Pre-existing issues:
+- [High] State desynchronization and missing error handling in `ufs_mtk_mph=
+y_power_on` can permanently break PHY power state.
+--
 
-Bart
+commit 2b9c574603dcb6952e8a93e242a09ed30fb488bf
+Author: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+
+scsi: ufs: mediatek: Rework 0.9V regulator
+   =20
+The mediatek UFS host driver does some pretty bad stuff with regards to
+the 0.9V regulator. Instead of just checking for the presence of the
+regulator, it adds a cap if it's there, and then checks for the cap.
+
+> diff --git a/drivers/ufs/host/ufs-mediatek.c b/drivers/ufs/host/ufs-media=
+tek.c
+> index 80c6ba3d026d2..eb7a0cc464f43 100644
+> --- a/drivers/ufs/host/ufs-mediatek.c
+> +++ b/drivers/ufs/host/ufs-mediatek.c
+[ ... ]
+> @@ -508,44 +510,70 @@ static int ufs_mtk_wait_link_state(struct ufs_hba *=
+hba, u32 state,
+>  static int ufs_mtk_mphy_power_on(struct ufs_hba *hba, bool on)
+>  {
+>  	struct ufs_mtk_host *host =3D ufshcd_get_variant(hba);
+>  	struct phy *mphy =3D host->mphy;
+> -	struct arm_smccc_res res;
+> -	int ret =3D 0;
+> +	int ret;
+> =20
+> -	if (!mphy || !(on ^ host->mphy_powered_on))
+> +	if (!mphy || on =3D=3D host->mphy_powered_on)
+>  		return 0;
+> =20
+>  	if (on) {
+> -		if (ufs_mtk_is_va09_supported(hba)) {
+> -			ret =3D regulator_enable(host->reg_va09);
+> -			if (ret < 0)
+> -				goto out;
+> -			/* wait 200 us to stablize VA09 */
+> -			usleep_range(200, 210);
+> -			ufs_mtk_va09_pwr_ctrl(res, 1);
+> -		}
+> +		ret =3D ufs_mtk_09v_on(host);
+> +		if (ret)
+> +			return ret;
+>  		phy_power_on(mphy);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does ignoring the return val=
+ue
+of phy_power_on() risk desynchronizing the power state?
+
+If phy_power_on() fails (for example, if a clock enable fails in the
+underlying implementation), this function will still return success and upd=
+ate
+host->mphy_powered_on =3D true. This could cause subsequent UFS operations =
+to
+hang or trigger a synchronous external abort when accessing unclocked PHY
+registers.
+
+>  	} else {
+>  		phy_power_off(mphy);
+> -		if (ufs_mtk_is_va09_supported(hba)) {
+> -			ufs_mtk_va09_pwr_ctrl(res, 0);
+> -			ret =3D regulator_disable(host->reg_va09);
+> -		}
+> -	}
+> -out:
+> -	if (ret) {
+> -		dev_info(hba->dev,
+> -			 "failed to %s va09: %d\n",
+> -			 on ? "enable" : "disable",
+> -			 ret);
+> -	} else {
+> -		host->mphy_powered_on =3D on;
+> +		ret =3D ufs_mtk_09v_off(host);
+> +		if (ret)
+> +			return ret;
+
+[Severity: High]
+This is a pre-existing issue, but if ufs_mtk_09v_off() fails here, the
+function exits early and leaves host->mphy_powered_on incorrectly set to tr=
+ue.
+
+Because phy_power_off() was already called, the PHY is physically shut down.
+When attempting to power the PHY on again, the check
+(on =3D=3D host->mphy_powered_on) at the start of ufs_mtk_mphy_power_on() w=
+ill
+evaluate to true and bypass the power-on sequence entirely, leaving the PHY
+permanently uninitialized.
+
+Could we make sure host->mphy_powered_on remains consistent even on early
+exits?
+
+>  	}
+> =20
+> -	return ret;
+> +	host->mphy_powered_on =3D on;
+> +
+> +	return 0;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901-mt8196-ufs=
+-v11-0-dbd007704490@collabora.com?part=3D7
