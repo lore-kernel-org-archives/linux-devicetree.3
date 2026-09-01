@@ -1,87 +1,69 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA43C47F796
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 15:51:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B6E1416D17
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 15:52:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788277902; cv=none; b=mgioB3jiH454LkskaXNW228Z5jHVYwbO4WNZ+M3tg/E2QxIu7COnIfFrgTMdFeJBKx88GjFZXmi6ztCS2Ah8xSljo5fiJx0lSfmV5SJfVdHwKEtzq60vzA+eA3YIlUHgmUOv/LkSUO05SXsMX8vMUndnIJ9kjntL9HhSk6kY7AE=
+	t=1788277953; cv=none; b=eiA7o5SzY2fjk70jTy1c7EO01TGNNxDlDtQcI5diBA58v6ZWl03WFs4n2a7jtS/RoQqABOiT0NABFNauePrlWPwTExIuUlkJ4WSxBPwNtFWgALLxJ7rA2O63vxTIN7PJVbyqWsIAewvFz/d/KRnszqnfOHt3jQoCDuqXtcGLtlk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788277902; c=relaxed/simple;
-	bh=09he5egQgLt2FlGKJ+y9h7K5tiRzxN1RtLaZYsMsDzI=;
+	s=arc-20240116; t=1788277953; c=relaxed/simple;
+	bh=qo4B/VQg4R+HIO7ngGNWGs2o3buHaJOuHDhTIuyaKDk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Bbod0LSRqVllFe7GvhnZClsrK9kjDckIqkMlvC26T6pimqPMU0QrY/HhO+nOPi9wygKLKGnvUYlxWqGQ4V6A6RcuzQk1qdWQ0cl0Zz8CnAphN1tTXYlHodXUnTKJlRkMa1NU8lR18SzDHBHRND3hJgOQ8t4I0urp/hKQ3PCN+Oc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IBsCKrdy; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=THIAqL4e; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=H8PpLn565zKpzC+LwmWoGiqZezLxJsTsPZXk+RpkLOok58UfwO9FnJXoNI4UHdLAP4hkxH8xXxlqu74mE99syDmE0c7JFLeNZPNxVfivytqOLtvl7hcXyXhd/NYIZqgUVbHhhH4kq57/J9h4zsFPGkOfWRqo4AiX2O6Px9dQc1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A4Jpl0Xm; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IBsCKrdy";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="THIAqL4e"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681E8awp2270396
-	for <devicetree@vger.kernel.org>; Tue, 1 Sep 2026 15:51:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	FLXuthiikXhHO9knkRoRDESDV7G87cacEj+L5hg3O0A=; b=IBsCKrdyIOT2jJh5
-	uttyGrbXTRm0UCmq8i9eD1TKAU1WOeAsHrZscqk5dOqB3fXxquXSeTdKTwKnpo+c
-	ICEEqQ5yzwMm4ab3upzVwNDLVLFBcZKO3TnCcDx4KmXpHaJpfBhOU7B14Okwktcr
-	JvhD/g17TzXNO+2yj1hMttje604egG4iDsQPC5wnUTOL86oZdnTdpV9RGMxEPou5
-	8PTTN2czqg8JbbyW5MnlryTm/FEsCFTARNjvzfEzlTbnBoWz2hHcWd8+J1N7IP8T
-	OAgNMbDX/QMvYo6UCWe+6gg6QnpKL6Q8YQMXJh0WEZbL06dhQZ8lcr9j50PmL7dU
-	jhzj1Q==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdjtx45hd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 15:51:40 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7570225606dso3313137.3
-        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 08:51:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A4Jpl0Xm"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d6d28aa26cso7445375ad.2
+        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 08:52:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788277899; x=1788882699; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
+        d=gmail.com; s=20251104; t=1788277952; x=1788882752; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FLXuthiikXhHO9knkRoRDESDV7G87cacEj+L5hg3O0A=;
-        b=THIAqL4eFv+ZgSIXoppF/WEkA9RdTJtMeYkxnBIiV48whQ6qVXnOhaInOG2pZC0kZ9
-         l9EurRaq1qAvBUViAnz3IiKM4jD/fmuFDXhuN3AAaoLdRTTOs4F6Nsv4DYQ9uQ22N+Tx
-         pnPIf2flv/AYzEEFAwDSmjpwKOMpatS+7/8b2fkuFKAPwjSWKC9s7pMUISsvkomcIzQw
-         AVPD/c9N6HRdpGcFYiQJjSmeMCAKqMWtSCBGEQp8/ZxJowZGsbUPgLcqWIUdpZqX2Q6C
-         ZjDPo9w6Vi5GfiCZzKnbkhmXo5yemnv1nMnuEpN7FPBeTxsDyfknXrHF5e9F2gNMtSFR
-         5WIg==
+        bh=0WYsUBtiu7T2+UaZ7oUOCjJO0hwH1VaOOpnsEx1gGuc=;
+        b=A4Jpl0XmDBWBX9V4rg3KonHfeoBLqepqSv5eGC8+zN8XWA8xIzCglUKJ62wLTsh6Oa
+         k2CdGTatiYDzu4I0YlNsbHX+IFEgb6+thcVK01sohBv6IWbB6ZO2u2tmRl2vR9KEzVZI
+         T1ZqkDeSsBw9JQR8ysiVTYupvXI9GFl83rfa7juPfQ7d/jJntiRznFzvnUEwH8SB16Tl
+         wdKhNL0B8uXfL0Gkpe33WS48tZcfxqkYWMhfwqi1LQpzOSwVdBfqtCBwsDCnqC7wyGut
+         H/yxxQiRj2dDneFA6aEnAHQorKkBJrk4ehhatIM6Z/FQ4GFjgfB5r/QIoM+oA8HvNSVS
+         D2+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788277899; x=1788882699;
-        h=content-transfer-encoding:content-type:in-reply-to:from
+        d=1e100.net; s=20251104; t=1788277952; x=1788882752;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FLXuthiikXhHO9knkRoRDESDV7G87cacEj+L5hg3O0A=;
-        b=eFPtvkgYfHldqRDT8BSKOu9GGudC6tsptqyfCtipyCp3f9BAgT0leq40BoX4cLCpVh
-         6ujY/mznVP+C0KQH3FO6mElNITv1WXyyu+XGh7MqjWxe2mZQ7tr3yNkBO1HuMVpSvsoU
-         nZ2NcMHKLRs/6L66ZWKOieSPdG/FjPB6aw5vznjmuHytBTXXiAnxL0xN7F908YeQpOb8
-         FMkTRk0iLyu0VF1LYQZUW5d2i20+ywiDaQCziZCvI44ODVUvtidp8+VGfQimH4UMdjfp
-         PUFuQimYVIY71ZXnyoDILd4nRqPZsAQ5qNpSl8Cifsc1JtBxij/TaltyTDYWAQd5BlxG
-         9vAQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrbfKuBEdpQuMV19BJrURkfiekuE3OAGI5B8lbba/0IR/i2F5FKuqHM7Ii5xM9c/4n5AvGROqBgV2tv@vger.kernel.org
-X-Gm-Message-State: AFuF++nnHGzlLX9olgYEJWsd+8jo7rI19iuuCk7TmMrK72WmUMHtOCo7
-	hYz8a1L8Ua/qsZrpjeKD4927C5OSOGeHnednlBcRagErgy2E0V+A7TfRoBUFpsKgiYNfbYqxNI9
-	+vG4LiFGp/3UqhilgxB2I5+P/8Zk4CINqLWJtpeB5WBpL4RFhnQPcPpSy+f1RLDdx
-X-Gm-Gg: AR+sD12E3jYi1Pbn4mTPCQXqhfZExAbdrpBZ9gQPKo9iyjEiMt9NtnrrDDCjiSDh3AC
-	BGEr+bzJrFEX1FVcN4umJLmdmxEyxUjm2IDelhsILC827vNNeVa167WttGPUkPC6K16BBvr1qwz
-	3WlsCloh/bl6tDwEs6T3YfJala8659IGSDjs+CCzj487Tcg/2BEIsTWjvF0GCr1lrM3s3E9pHAa
-	yoxDLEb10xoNzlZGWFSnajjGOLJBR1gRJKzZPDcwVhOgrW3dtk3b8XwQnSpfcjMWFLwZzoLnaae
-	Ikj5rm7CK5NrsOLdpSHIAqIlsH2+sFYYQan04bmRadmp2tvH+Deo2WYy3xzF3mNExQoqgYLvEx7
-	Asbcm3ylRLjaPTvtezs4ktg==
-X-Received: by 2002:a05:6102:f84:b0:779:7d3b:1398 with SMTP id ada2fe7eead31-78593425615mr4728001137.0.1788277898940;
-        Tue, 01 Sep 2026 08:51:38 -0700 (PDT)
-X-Received: by 2002:a05:6102:f84:b0:779:7d3b:1398 with SMTP id ada2fe7eead31-78593425615mr4727991137.0.1788277898479;
-        Tue, 01 Sep 2026 08:51:38 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255f1b1fdasm630555566b.37.2026.09.01.08.51.35
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0WYsUBtiu7T2+UaZ7oUOCjJO0hwH1VaOOpnsEx1gGuc=;
+        b=QJ/j18yIolfMwU0x5SQceoABMrPS7GVhkUh/vCaF81ojI+yqi+L118QeGq+ZLYFzuT
+         ONotFHg9R9Ez8Mlae+CtxtJrVai/vgsZmNfEqkYfidI3vOqlJRUBWcEcyAq1aYiNzA/z
+         jIw+cu2itUqRT14JpC5M7qlAd3mnMGKJmpr2WwdthVbO/ktt5x20KgM6oaRbuuqJzKU0
+         95oekRFcZXoRYX8+luCo8cjY/Yh384VWO9hkqpFu/kzCh/i8zYVUf5Q3Q1nboT1lnpmg
+         V3DdaiioevCFcGQa2wLNqO53jInclQXFVd355rsPx5UVcALCCWEHgoSRH5EZD3E+7bNA
+         w6xA==
+X-Forwarded-Encrypted: i=1; AKwUvBylJV8NdRhkTclb5cu7Mv1V52+B+JuwC4PdQwiunP/5/a0aa79ixT/V8TiP2Ya25ASuR9eI2NdF9po1@vger.kernel.org
+X-Gm-Message-State: AFuF++kySrvy5+4qvfqN/W+7jsqHjuam9Y3ggxVpXsbrqouSh01UbYrU
+	nIWOTYwvEs18jg/YDyM1Y1AKRJmFi9uoYsdUwge0nQHSKVIAuaeVYbtk
+X-Gm-Gg: AYBFou1xDM1VBa42W7uuPy6OX5OC7DgeRLCuvF2iozPT2CfOKjTfVCfciF077v2gcvJ
+	l1XAynvhZyZ9LKjMwSzHl5ARcnffsQSCbVo0clT9xYzrGno/hmEPdelBGSWxHVlnkDm4EOZ8bJb
+	BXfLL2FlyFJmPMO09Xv2x5OkENLlT9CpVrqFfDrvEHTFs2QQB3AqcfoHLxouudt1PV72/Z2oryE
+	RPxlEJ2YOKwRpaLQ2qx6AlfS9ff8Mm+oUJZJMV2yce1NvHt246xvrJpIT3S3YCP4w8LMgSdNCkF
+	GMhOJhh8jCD2bHu+fO6nAWCdifEobdCqDIoZerEaX7I7eEynGIuMmpwgEjO/30bUMxt1CN9k1ri
+	QcNPgmmdXuIixDrGHPSJAb/1nn9sN62/cIzoDwayVSsohMMKbl8hhB+JwQOi6uidvf3ry7tegrL
+	H2qVGQYQlWc+seEOJUZu0suRFl6jXAr829EdOyqkCgdZ3MSWyj2Ap0wMmVVNMpnA/WyYNx3nKXa
+	mSbXaX8cRaIYUS06Neolh4/q9Rbs1ZN3Z1lc0Vs4zWMtu8lbw==
+X-Received: by 2002:a17:903:3803:b0:2c8:2808:3ec9 with SMTP id d9443c01a7336-2d74df0328amr583020155ad.12.1788277951579;
+        Tue, 01 Sep 2026 08:52:31 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dadd6348f0sm795365ad.23.2026.09.01.08.52.30
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 08:51:37 -0700 (PDT)
-Message-ID: <e7fd5417-19f9-4bbd-ad65-48230fb81c05@oss.qualcomm.com>
-Date: Tue, 1 Sep 2026 17:51:34 +0200
+        Tue, 01 Sep 2026 08:52:30 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <4cc20c64-bd95-4689-81b3-3f01d9c3bc8e@roeck-us.net>
+Date: Tue, 1 Sep 2026 08:52:29 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,71 +71,144 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 09/15] pinctrl: qcom: Add Kuno pinctrl driver
-To: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Georgi Djakov <djakov@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-        Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>,
-        Guru Das Srinagesh <linux@gurudas.dev>,
-        Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-gpio@vger.kernel.org
-References: <20260827-kuno-soc-support-v5-0-6d47636a8f09@oss.qualcomm.com>
- <20260827-kuno-soc-support-v5-9-6d47636a8f09@oss.qualcomm.com>
+Subject: Re: [PATCH v4 1/2] dt-bindings: hwmon: Add starfive,jhb100-fan-tach
+To: Conor Dooley <conor@kernel.org>,
+ Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+References: <20260830011941.40199-1-changhuang.liang@starfivetech.com>
+ <20260830011941.40199-2-changhuang.liang@starfivetech.com>
+ <20260831-dominion-data-c8b6f691dd5b@spud>
+ <ZQ4PR01MB12023835F6083F45484E1ED3F2A82@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+ <20260901-contrite-cathouse-f50c63af6323@spud>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260827-kuno-soc-support-v5-9-6d47636a8f09@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260901-contrite-cathouse-f50c63af6323@spud>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=K78S2SWI c=1 sm=1 tr=0 ts=6a96f48c cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=4tAzDn1lkwtfZF03VZIA:9 a=QEXdDO2ut3YA:10
- a=crWF4MFLhNY0qMRaF8an:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDE0MCBTYWx0ZWRfX0MhIPHwX3Y8X
- pxikslc8UWpDoXWXgHtnU0HStEC1I6iU84/5dWYruYLs/Uzx7MmkuLVRoIYpEE/19mEwUySfxR+
- 6tOPgI7epcr1Fj5NQ2Sxi4SvIHW32vU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDE0MCBTYWx0ZWRfX292JS48AIyed
- xFt4ulkFKcSvmhF1tDJpiXycfwZ/d5s3cpM6HNeLCfkNEuDBJIG/tThRmyWQQ8WLkCBM1Skol60
- p2+oF5HFKJgiTsALisF8SEJU91UYxoMbscvz7rmIYAy6nz/5u4lScAI1rxdsAscYWMyzQl5phW8
- cvIP/Oz1j/EJ+EFY6Em/4z4bo/QIyRfrDeiONP5veVsJyWU2+0XbYH7AD8guzzyU820DhxsCqMv
- CceLrUZQttLVTyk/cbospyNR+drngUtMBl/7DiRJyp4Qy9Fo19h0QORGWEBeiDbtuv84nQ0Hf8Y
- 9p9DBmz0Fb42hxsfe1itAfln6cs5nRtGr3VUND26R7Z/FXZYVSg1os7AO4XX89aeQcN0Ys/Bpfr
- YfuZZ1tOwP46cKS9xjpEARl5hGVT4jRDyaR0cmcsDpkuXqAPOaYlCYL6HHBhA6I+jZTB1NqyHTU
- tQgXp1+V5FrbPHGCdDA==
-X-Proofpoint-GUID: 2MvUa__uEdB-2dDORzTpk-IKxR8BZUtU
-X-Proofpoint-ORIG-GUID: 2MvUa__uEdB-2dDORzTpk-IKxR8BZUtU
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_04,2026-09-01_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0
- priorityscore=1501 suspectscore=0 clxscore=1015 bulkscore=0 spamscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609010140
 
-On 8/27/26 7:51 PM, Hardeep Sharma wrote:
-> Add the TLMM pinctrl driver for the Qualcomm Kuno platform, supporting
-> 110 GPIOs and their pin multiplexing, pin configuration and gpiolib
-> interface through the common pinctrl-msm driver.
+On 9/1/26 03:14, Conor Dooley wrote:
+> On Tue, Sep 01, 2026 at 01:24:39AM +0000, Changhuang Liang wrote:
+>>> On Sat, Aug 29, 2026 at 06:19:40PM -0700, Changhuang Liang wrote:
+>>>> +patternProperties:
+>>>> +  "^fan@[0-9a-f]+$":
+>>>> +    $ref: fan-common.yaml#
+>>>> +    unevaluatedProperties: false
+>>>> +
+>>>> +    properties:
+>>>> +      reg:
+>>>> +        description:
+>>>> +          PWM channel index. The driver allows two fans to share the
+>>> same
+>>>> +          PWM channel, or each fan to use a dedicated channel.
+>>>
+>>> Doesn't matter what the driver can do, the description should describe what
+>>> the hardware supports.
+>>> pw-bot: changes-requested
+>>> Does this fan-tach controller provide the PWMs?
+>>> If so (although Guenter may correct me), I think the fan-tach controller needs
+>>> to be.
+>>>
+>>> If you don't do that, I think you're going to run into problems with having
+>>> multiple nodes with the same unit address when two fans share a pwm?
+>>>
+>>> I think what you're supposed to do is drop "reg" and replace it with "pwms",
+>>> but once again Guenter may correct me there.
+>>> e.g. aspeed,g6-pwm-tach.yaml
+>>>
+>>
+>> Perhaps I can refer to aspeed,g6-pwm-tach.yaml and change "^fan@[0-9a-f]+$" to
+>> "^fan-[0-9]+$", which would remove the reg property. In fact, the driver does not
+>> use reg either.
+>>
+>> Our fan-tach controller does not include PWM. The JHB100 SoC will have a separate
+>> PWM controller. (This controller uses the same IP as the JH7110 SoC, but there are
+>> some differences in driver implementation.)
+>>
+>> The JHB100 has 8 PWM channels and 16 fan tach channels.
+>>
+>> So currently we expect the Device Tree to be configured like this:
+>>
+>> 	pwm0: pwm {
+>> 		compatible = "starfive,jhb100-pwm";
+>> 	};
+>> 	
 > 
-> Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
-> ---
+>>
+>> 	fan0: pwm-fan0 {
+>> 		compatible = "pwm-fan";
+>> 		pwms = <&pwm0 0 40000 0>;
+>> 	};
+> 
+>>
+>> fan-controller {
+>> 	compatible = "starfive,jhb100-fan-tach";
+>>
+>> 	fan@0 {
+>> 		tach-ch = <0x0>, <0x8>;
+>> 	};
+> 
+> Truncating this for readability, but it looks wrong to me. How does the
+> feedback loop work here when there's no way to determine which fan is
+> connected to a tach channel? The unit address of the child nodes has no
+> dt enforced guarantee to line up with node names of the fans or pwm
+> indices.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Normally (for other fan controllers) the fan would have a target speed.
+The controller measures the speed and adjusts pwm output values until
+the fan speed matches the expected value. The controller needs to know
+the association between tachometer input and pwm output for this to work.
+Typically (for classic fan controllers) that association is static.
+In the Aspeed G6 fan controller it is dynamic/configurable.
 
-Konrad
+I thought this is the case here as well, but I have no idea if that is
+correct (or if there is a chip-internal feedback loop to start with).
+
+Guenter
+
