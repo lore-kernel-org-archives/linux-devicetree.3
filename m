@@ -1,103 +1,144 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C8048A8A6
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 17:39:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0285348A2CC;
+	Tue,  1 Sep 2026 17:41:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788284382; cv=none; b=PHM4OwWzH7VQtBHhdPaLHwxIDpjEvVOWSMZWaarVBuquozqEExYup6um8z89pqw3OxGCVZGlaXmO1WipH8moGAk4TL0z+eIeSe94cP6SE7+lB3/nsSP93mczVsp1J16mcjyPM1NXnYMhwCdymx/WlsIJLWK9LEI14HtGRAmBZYA=
+	t=1788284502; cv=none; b=mpiuTjP2Q03KXK/ksr85rSwXIULPrBK05TxR6wWcQQPqmL7xoIMColvRi7i8pzJQfF8tHK0LgzxFpEfsZW9xTmNGWUrtHWkkqZaK0WIhRF7WgIjUyNWzEX8AEpdG26DoRKPfGbIswRVBNELA5ebhYExpwyDdLZ0rYW/iqG/LMaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788284382; c=relaxed/simple;
-	bh=PuZ500aaEO9rjMR7xmLzWcZvQxxzGG/cp4p/AmoBlMU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QMzAzVor8/MqhA3aCKZD1eiEcK0YzTKY4be/VPXRhxepw1KWvmFC++zVNsBpe/bjywqfSZRzNDotM04mxBtNf+ClPOXZY0CkbxTBdt6Mhm0BzK+0KGi0CfB36S0c1tvNXtf9TQ+fz3WGWbEsO0LbTPjPE8gteks5BsdGsakDcWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SQ4T49uC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788284502; c=relaxed/simple;
+	bh=QdbhJrSOKE0Vy3jn0YIDd9iAVHenFAm9KpqRynCSryc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dZVt6QSD7P4TNPg1nX/4vSrIP7Bh4cHADcre0THi3WUT6naOQUZBb3xi2toLmk6D4ymOne7qOYPXVbw2L1nmTdS5yVW/WcnJpqf/hHDQ7ract+dV5cIRaDmB/q9P8RubAwNB0UNAPQoxIPxqx+BafnWxKjXqdklThDBomczW05c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TQ/rpKo6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SQ4T49uC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 294E01F000E9;
-	Tue,  1 Sep 2026 17:39:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TQ/rpKo6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BB1F1F000E9;
+	Tue,  1 Sep 2026 17:41:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788284381;
-	bh=1AoVYjEFCIVvrgtak/C4e9BIgZfFKMgRCus3HAneAEU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SQ4T49uCIOKjZhyI00F7C6EjplZDjyLE5+cH4Gnh+DM1OoNPyluuRY9NrIkAnCirl
-	 nYfqjDd/75yn2lzO1TB4f4ClcLFdTb4BPSeLl4rHiG19TpHRxYQX5xA7AlZObpeVDr
-	 Q/lLXuhhCdt9hJqFFEzcn174Cmh5OD13KmEsJVCVXVjhvbv9I/Z5k5CCkuuYeAoSwC
-	 RuJbOE37vNnKCUg/KPBIJKvxNqXMXKkP5TYl82XcV46+pMFhes9lw33vqrbzpYVL5L
-	 zbz67FXuGRDBXZUOaiiZUksZJObs6FbGP8qFbtyFDwvwUkO2xrwweGnIyb61HrMl7P
-	 Vqwmn+zV/Xjpw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/5] arm64: dts: qcom: qcs6490-rb3gen2: use pci for
- device nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alex Elder" <elder@riscstar.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260901172058.1512508-2-elder@riscstar.com>
-References: <20260901172058.1512508-1-elder@riscstar.com>
- <20260901172058.1512508-2-elder@riscstar.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 17:39:40 +0000
-Message-Id: <20260901173941.294E01F000E9@smtp.kernel.org>
+	s=k20260515; t=1788284500;
+	bh=z6WIo0le5aCjppNEWyLWRZs3BwOlvsDBl4hM2DulWIE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TQ/rpKo61z4uWgcE2dxBn1uB9Qz4RJzXzkFiyAN+YmFZ80FMWZnj0Z+tSgQgZQCbU
+	 n9IYEavZvt/+Vt7JeVF/vl1KG/jzNiKqfe8wtJP64yBZm6lS/eFrKE0IbPduyD84Jj
+	 E6S08167Y+ip85lt3GtLQBP7DFerBQ/awcwTd08tlLkhoUIveiaZx2xjXSl86jOL9o
+	 5mMF1LyJ7E3NPWnxI9FK8j8kg56cAYD7as0d8W4ZGcZvxkPw9PZyx8ABJSh5Ap0a7o
+	 fkCgXNrKmKzcJl8njX9P86tBIodoof6g72OQoTvV22dgGIIeRMx2mj9mpVHwOpsKkV
+	 qLDuFU/8FHwCw==
+Date: Tue, 1 Sep 2026 18:41:36 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Sasha Finkelstein <k@chaosmail.tech>
+Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+	Neal Gompa <neal@gompa.dev>, Stephen Boyd <sboyd@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v9 1/6] dt-bindings: spmi: apple,spmi: Add t603x and t8122
+Message-ID: <20260901-clapped-fled-2ae6126df5cc@spud>
+References: <20260901-t603x-spmi-v9-0-09e702e3b153@chaosmail.tech>
+ <20260901-t603x-spmi-v9-1-09e702e3b153@chaosmail.tech>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="hg5NX2NBXwQM0W36"
+Content-Disposition: inline
+In-Reply-To: <20260901-t603x-spmi-v9-1-09e702e3b153@chaosmail.tech>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Conceptual Flaw / False Premise: Renaming the node does not prev=
-ent it from being treated as a PCI bus because `device_type =3D "pci"` is s=
-till present.
---
+--hg5NX2NBXwQM0W36
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit 3cd795cb2f33ffae376d5bceb9ba0da490602d05
-Author: Alex Elder <elder@riscstar.com>
-
-arm64: dts: qcom: qcs6490-rb3gen2: use pci for device nodes
-
-This commit renames devicetree nodes from pcie@ to pci@ with the intent of
-stopping the embedded PCIe endpoints from being treated as PCI buses by the
-devicetree parsing code.
-
-> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/bo=
-ot/dts/qcom/qcs6490-rb3gen2.dts
-> index a13315bf0fb07..99a985a177a61 100644
-> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> @@ -954,7 +954,7 @@ pcie@3,0 {
->  			ranges;
->  			bus-range =3D <0x5 0xff>;
+On Tue, Sep 01, 2026 at 12:29:00PM +0200, Sasha Finkelstein wrote:
+> Add t603x and t8122 compatibles, interrupt support, and support for
+> SPMI controllers that are not always-on.
+>=20
+> Reviewed-by: Janne Grunau <j@jannau.net>
+> Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
+> ---
+>  Documentation/devicetree/bindings/spmi/apple,spmi.yaml | 29 ++++++++++++=
++++++++++++++++++
+>  1 file changed, 29 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/spmi/apple,spmi.yaml b/Doc=
+umentation/devicetree/bindings/spmi/apple,spmi.yaml
+> index 3e5b14bc8c31..4e73083ecec3 100644
+> --- a/Documentation/devicetree/bindings/spmi/apple,spmi.yaml
+> +++ b/Documentation/devicetree/bindings/spmi/apple,spmi.yaml
+> @@ -20,8 +20,11 @@ properties:
+>        - items:
+>            - enum:
+>                - apple,t6020-spmi
+> +              - apple,t6030-spmi
+> +              - apple,t6031-spmi
+>                - apple,t8012-spmi
+>                - apple,t8015-spmi
+> +              - apple,t8122-spmi
+>            - const: apple,t8103-spmi
+>        - items:
+>            - enum:
+> @@ -34,10 +37,36 @@ properties:
+>    reg:
+>      maxItems: 1
 > =20
-> -			pcie@0,0 {
-> +			pci@0,0 {
->  				reg =3D <0x50000 0x0 0x0 0x0 0x0>;
->  				#address-cells =3D <3>;
->  				#size-cells =3D <2>;
->  				device_type =3D "pci";
+> +  interrupts:
+> +    maxItems: 1
+> +    description: Optional, operates in polled mode if not present
+> +
+> +  interrupt-controller: true
+> +
+> +  "#interrupt-cells":
+> +    const: 2
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +
+>  required:
+>    - compatible
+>    - reg
+> =20
+> +if:
+> +  properties:
+> +    compatible:
+> +      contains:
+> +        enum:
+> +          - apple,t8122-spmi
+> +          - apple,t6030-spmi
+> +          - apple,t6031-spmi
+> +then:
+> +  required:
+> +    - interrupt-controller
+> +    - "#interrupt-cells"
+> +    - interrupts
 
-[Severity: Medium]
-Does this node rename actually prevent the devicetree parsing code from
-treating it as a PCI bus?
+else: false?
+Or do the existing devices also support these?
 
-The commit message indicates that renaming the node away from pcie@ will st=
-op
-of_node_is_pcie() from matching it. However, because this node explicitly
-specifies device_type =3D "pci", of_bus_pci_match() in drivers/of/address.c
-will still return true immediately.
+> +
+>  unevaluatedProperties: false
+> =20
+>  examples:
+>=20
+> --=20
+> 2.55.0
+>=20
 
-When evaluating buses, of_bus_pci_match() checks:
+--hg5NX2NBXwQM0W36
+Content-Type: application/pgp-signature; name=signature.asc
 
-    of_node_is_type(np, "pci") || of_node_is_pcie(np)
+-----BEGIN PGP SIGNATURE-----
 
-Since the device type is explicitly "pci", the match succeeds before
-of_node_is_pcie() is evaluated. Should device_type =3D "pci" also be remove=
-d to
-actually prevent this endpoint from being treated as a PCI bridge?
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapcOUAAKCRB4tDGHoIJi
+0t6oAQDdgxxRZq1b3END8pXTYQu7T4+mLdGrboIhqtjJLukvMAD9GVqu+LOfBqEZ
+iS/zJektpRLtyh9L3LReuKM1rmeDbwg=
+=+C9d
+-----END PGP SIGNATURE-----
 
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901172058.1512=
-508-1-elder@riscstar.com?part=3D1
+--hg5NX2NBXwQM0W36--
