@@ -1,171 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2A8448D860;
-	Tue,  1 Sep 2026 18:11:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1CB83B19D8
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 18:16:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788286279; cv=none; b=F321kQxQ1dlH6fuwpEsvh1xCrq6NUW7b169AB+tnJJSKatcpI8ikjBouWhX9sxPB0SH8eE44cK9GE9T/5kq7xgpXAIo4Hn16x2naxOR8lxcZ/7XKCGXsRLkZpVPvkIk65og89pT4KdjHx4SmryMgdZRnhSLe1X6nQpNSQE2r7nk=
+	t=1788286566; cv=none; b=MutW+tFIanKCnrXJdVlDPFJpXN3RUvRpvnpgF9+spSufW9FiaAyuwHE4qu/yxK0x1sLzhFu8MX0dL5RNKHECvQsd0ZdKPsd4aBf7InGf6SqnAuTO2rnHRbgans76HBVzdudAIluc7ZGPfdxYYpE+10lbmeBZFdYIfR44RUFmgP8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788286279; c=relaxed/simple;
-	bh=mULlVCHPjdzjNigkx5JxL8ypwPV/SoapPHR9GniAmQQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nB3glkxQVv77ORzySA+XK7zA3m9AyiO7f2Z8PlTXRk0HH7SbU5N7ly79cERJtCiIa1u4Iz3qtdp3bm8cwfNHPojS8W9fUub4F5OpbbBivZ1P34I7iVcq3gdfws2oIx5ptonEnXnWzkt6HG52wELOCvvjxijZPccYmXRB5Geun7A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fUffxqNd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788286566; c=relaxed/simple;
+	bh=VXfrcKXz79D8fy4QkXeNvDJyeW3P8UmzaxgmXsPaOss=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=agVLV2A0T+K33ksaJXXau5OgI2cxAMIfXGsIKLZt0Frmk51T8kbZwza107udFtnMRqxIpRwQwck1kA+2kiAfW1p3a2ggmQYnubeAiQf51okI/DdCO4ktr+N4vLy5PzDFucpT+ZE0DGAPaGhqX8BLAxy1nGD5A0mmBG8ExHTZMOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qt9LRBCa; arc=none smtp.client-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fUffxqNd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BB6B1F000E9;
-	Tue,  1 Sep 2026 18:11:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788286278;
-	bh=7A3D77oYb9lO2ucgy7opOnh1NQarpM3lLRvGIFImSmo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fUffxqNdnjN4dvqLa8HkRpjcz3WbnjAQJanhSO32KLlYCj2QlPM9hu9jXo8Hd6k14
-	 kdwY/6QnQUSVBl4Jwel63zOhYrlQkmloBx+LCGZ8xgVU+HeBY6dHdt3x4csS4vmBUL
-	 WeJ5c/Hu7KgMVu7uOfFlWhTZKRTtGZxV9UnDdQklwZ75cpyDa7XY+H39lHCXcwTFca
-	 YrK4jXg8UPtUs16KlaYQHZnK2he5SH4ofcL3ejuTlEyD6gYqDzMdqH4bxu7uepVDZG
-	 dVxKb7BISMNHYcMZGfMF/WNuBOC7ZadxXkYM4WNHgb+fX2uc0jy6DoHtnrzka6OrMM
-	 2MC297KQHH+AQ==
-Date: Tue, 1 Sep 2026 19:11:13 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Marek Vasut <marex@nabladev.com>
-Cc: linux-arm-kernel@lists.infradead.org,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Christophe Roullier <christophe.roullier@foss.st.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
-	Rob Herring <robh@kernel.org>,
-	Yannick Fertre <yannick.fertre@foss.st.com>,
-	devicetree@vger.kernel.org, kernel@dh-electronics.com,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [PATCH v5 1/2] dt-bindings: arm: stm32: Document
- st,stm32mp23/25-syscfg subnodes and cells
-Message-ID: <20260901-smolder-debug-e37fdd2b3d20@spud>
-References: <20260831231359.136475-1-marex@nabladev.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qt9LRBCa"
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8557c3f270eso97126b3a.3
+        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 11:16:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788286564; x=1788891364; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QQ0p1Z4+MlOZ+bbdikj7z8HuA9bER05d0WZ/7CMC6BI=;
+        b=qt9LRBCax3BrhZMpBbOeWUQpK8uRoxa4hS/Ym09cMLHQX5NX1SrEQn64ph/DxMgAsI
+         hnCH4xWsCMcv271HzXpxD2Wj6hJh2idsqOuej5uwwm1XNP5MItiLUdQttnDEqFf8f9Dg
+         snP1IcEF4Y2+jjSuqmZJfD/I7eCYq/e8dvV2QJqA+vULvw0Kl6ibwJZubEWv1EZNUcua
+         zXKZ4lGU1aURUfLjhxQjoEjrJJWjdGfyAcqN13mNZnpvgK3ZqZi4zBAKCgvh37i8ftuK
+         mBrqsGkanxEdMAA1bVO1SL8LqJ5TPxSA0Bsr1CrtRZzwzSyNVQIG8s0zyTq4vvHEJ/An
+         mk5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788286564; x=1788891364;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=QQ0p1Z4+MlOZ+bbdikj7z8HuA9bER05d0WZ/7CMC6BI=;
+        b=mnElWwcweXQD1lmO0Rhf/Bsi4fyWAtMANPNlwxfQUA5xEBGOqaUmDvKWlRAM5E3tKt
+         OyIiQvyKF48MJc3B7n+W2kfQ2wJpT8XZntE2NAsyJzocZEi9Ag1QHydRBG4Lpd/5V/Ls
+         swpt+oYGnB2AltYRW6f5Z5Tv7yVJMPsup2ICNT0SmW/G8va94ImyBGFfNH+cywoHMemE
+         vxgK4e5hVKcPCwQCQ9zlFSyavsOSiGMuK6vFExT8uuc5qexHpq5oLO9nwvQlS6cIrZ+A
+         rSs0okGRy1wZvDaAou5RRzXGo+h6Qv7ZOClendrkNFR41WCcbRTWRMxSq4BIkANVvJia
+         5XoA==
+X-Forwarded-Encrypted: i=1; AHgh+RqzJxof2wjJ9c31wX12rRu6DmER8vy/9NipcIlMvzZUL5oSerL9R4JK5FdwPXRJkvaft6tZDchtZ7Gj@vger.kernel.org
+X-Gm-Message-State: AFuF++n2a/4Z2KqETGv6WW7HRoLRzPJJ9IK1rGVWMwU9QWbq1x6lfLhX
+	ifXMQp16fYb4m5QHi0262UhxC2TeHUx7Ke9vD4ktwbtW+Q4PzGtdeMfZ6s3LyA==
+X-Gm-Gg: AR+sD13fQfa/4n/JS6q3WyoG9A3CLOIfyO1UcY5Nf2t7pXo72KTXTbKvuy70lxC1orA
+	QQNWRaqoAmc9SOVZVAoAZbxEXUW6oZ6vDspaRiuAOO8LlWJcfg49aRRekHwCUWr6gCwUQcaCYjP
+	E8Xkgenytw9VeSIWkubtgPk6DagZBDOhz2SUSX2Cz7WSZw+N8mGmWWeuf8Rit5ZT0IO0dCDixbl
+	Y13BlaYvptX1QLQFRq1OEtzHUG0DsLZ/3E/hgw4gh8pODaRyJB7kB8uKCRMB+ik+7PEeBVAOspl
+	GWM+/X2swuvl6ACadXZZzkNIzPwxIW/W+RAz6GtWmRFjnZRCTlzjxyUHnBHoj5awCX3xNWdSU4v
+	oSMTngPQrdEpsGey5jKmAM015/u4igGBhz1tyIpq4Kg1tG2TgRJPa4u8xmUjtIG3B3v607YfnGu
+	VvGVYJG3X4wskTRozrEFVM3uYL/IS/+/u5KGd1u4YvdEfEme3i7EJ20R/nAzFzbwQLKsEpS6A0K
+	LfMV9FccBIAWEVtSMHN2Az0YrAUOs1b4FbRgw==
+X-Received: by 2002:a05:6a00:3ccd:b0:847:770f:da4c with SMTP id d2e1a72fcca58-8562bf5a609mr53415919b3a.16.1788286563905;
+        Tue, 01 Sep 2026 11:16:03 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85dc0d050a1sm238220b3a.51.2026.09.01.11.16.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Sep 2026 11:16:03 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <3a175184-26ff-4d20-a934-40066dd1856c@roeck-us.net>
+Date: Tue, 1 Sep 2026 11:16:02 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="XitfqtQqCQMp0V+w"
-Content-Disposition: inline
-In-Reply-To: <20260831231359.136475-1-marex@nabladev.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] dt-bindings: hwmon: tmp102: Document TMP113
+To: Marek Vasut <marex@nabladev.com>, Conor Dooley <conor@kernel.org>
+Cc: linux-pm@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Flaviu Nistor <flaviu.nistor@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260901161008.46948-1-marex@nabladev.com>
+ <20260901-untimely-wake-578b1a86b9fe@spud>
+ <4bbcc5fe-86a1-4299-a0df-e9f44d5c237f@roeck-us.net>
+ <2e3f7dab-5f64-4dcf-b995-82fcc3a5e780@nabladev.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <2e3f7dab-5f64-4dcf-b995-82fcc3a5e780@nabladev.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
---XitfqtQqCQMp0V+w
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 9/1/26 10:58, Marek Vasut wrote:
+> On 9/1/26 7:48 PM, Guenter Roeck wrote:
+> 
+> Hello Guenter,
+> 
+>>>> @@ -13,11 +13,12 @@ properties:
+>>>>     compatible:
+>>>>       oneOf:
+>>>>         - items:
+>>>> +          - enum:
+>>>> +              - ti,tmp110
+>>>> +              - ti,tmp113
+>>>>             - const: ti,tmp102
+>>>> -          - const: ti,tmp103
+>>>> -          - const: ti,tmp110
+>>>> -      - enum:
+>>>> -          - ti,tmp102
+>>>> +      - const: ti,tmp102
+>>>> +      - const: ti,tmp103
+>>>
+>>> Should this not be two patches, one fixing the existing stuff and one
+>>> adding the 113?
+>>>
+>>
+>> It is all in -next. Looks like I resolved the conflict when combining
+>> "dt-bindings: hwmon: tmp102: move ti,tmp103 out of trivial-devices.yaml"
+>> and "dt-bindings: hwmon: tmp102: Document TMP110" the wrong way.
+>> Sorry for that.
+> 
+> No worries, I hope V3 I just sent fixes it up.
+> 
+>> Instead of adding more patches on top of it, how about providing a
+>> single patch moving tmp103 and adding tmp110 as well as tmp113
+>> together ? Alternatively, I could drop "dt-bindings: hwmon: tmp102:
+>> Document TMP110", apply the original (non-conflicting version) of
+>> "dt-bindings: hwmon: tmp102: move ti,tmp103 out of trivial-devices.yaml",
+>> and then tmp110 and tmp113 could be added in a single patch.
+>>
+>> Please let me know.
+> I think the broken commit is d67ec24d3f07 ("dt-bindings: hwmon: tmp102: move ti,tmp103 out of trivial-devices.yaml") and v3 1/2 is the fix for that broken commit. V3 2/2 only adds the missing TMP113 .
+> 
+> So I think there are two options:
+> - The complicated one -- squash d67ec24d3f07 ("dt-bindings: hwmon: tmp102: move ti,tmp103 out of trivial-devices.yaml") and V3 1/2 (and either do it in tree, or drop d67ec24d3f07 ("dt-bindings: hwmon: tmp102: move ti,tmp103 out of trivial-devices.yaml") and ask for it to be updated and resent), then apply that, and apply V3 2/2 (or newer) .
 
-On Tue, Sep 01, 2026 at 01:13:24AM +0200, Marek Vasut wrote:
-> The st,stm32mp23-syscfg and st,stm32mp25-syscfg can have subnodes, which
-> represent the USB 2.0 FEMTO-PHY. Document subnodes pattern properties and
-> address/size cells.
->=20
-> Signed-off-by: Marek Vasut <marex@nabladev.com>
-> ---
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Christophe Roullier <christophe.roullier@foss.st.com>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Marek Vasut <marex@nabladev.com>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Yannick Fertre <yannick.fertre@foss.st.com>
-> Cc: devicetree@vger.kernel.org
-> Cc: kernel@dh-electronics.com
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> ---
-> V2: New patch
-> V3: Fix the bindings
-> V4: - Undo simple-mfd in favor of dedicated SYSCFG SoC driver
->     - Update commit message to match, this used to be patch
->       dt-bindings: arm: stm32: Switch st,stm32mp23/25-syscfg into simple-=
-mfd
->     - Split this from series arm64: dts: phy: st: usb: Add STM32MP2 USB s=
-upport
->       https://lore.kernel.org/all/20260822074816.548662-1-marex@nabladev.=
-com/
-> V5: - Add missing contains: into conditional
->     - Add phy subnodes into required list for stm32mp23-syscfg/stm32mp25-=
-syscfg
-> ---
->  .../bindings/arm/stm32/st,stm32-syscon.yaml   | 20 ++++++++++++++++++-
->  1 file changed, 19 insertions(+), 1 deletion(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.=
-yaml b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-> index 95d2319afe235..2cce174004fe0 100644
-> --- a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-> +++ b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-> @@ -39,6 +39,17 @@ properties:
->    "#clock-cells":
->      const: 0
-> =20
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    const: 1
-> +
-> +patternProperties:
-> +  "^phy@[0-9a-f]+$":
-> +    type: object
-> +    $ref: /schemas/phy/st,stm32-usb2phy.yaml
-> +
->  required:
->    - compatible
->    - reg
-> @@ -57,10 +68,17 @@ allOf:
->    - if:
->        properties:
->          compatible:
-> -          const: st,stm32mp25-syscfg
-> +          contains:
-> +            enum:
-> +              - st,stm32mp23-syscfg
-> +              - st,stm32mp25-syscfg
->      then:
->        required:
->          - "#clock-cells"
-> +        - "#address-cells"
-> +        - "#size-cells"
-> +        - phy@2400
-> +        - phy@2800
+I'll do that, assuming that Conor is ok with both patches.
+No need to resend anything.
 
-This looks good now, thanks.
+Thanks,
+Guenter
 
-I got hung up last time though and maybe didn't notice - in addition to
-requiring these things here, should we also not forbid them on other
-platforms that don't have them? IOW, adding "else: properties: foo: false".
-
-With that, if appropriate,
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
-
-> =20
->  additionalProperties: false
-> =20
-> --=20
-> 2.53.0
->=20
-
---XitfqtQqCQMp0V+w
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapcVQQAKCRB4tDGHoIJi
-0nfWAP0ZEF856WKBOfVU5KFg53DSHMTrpa6sx2s+k3F4RZWmdQEA3HajU/xt/Ow7
-GKRdXPOLWgOMe1YO+YsbITvz8L85tgg=
-=4NeS
------END PGP SIGNATURE-----
-
---XitfqtQqCQMp0V+w--
