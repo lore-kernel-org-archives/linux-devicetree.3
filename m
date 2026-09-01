@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 337E447126E;
-	Tue,  1 Sep 2026 08:03:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5E0C470453
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 08:04:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788249818; cv=none; b=i1qaAMXFADRLFAxawZPI2tFpi2BJZnXgHfvAbHI8BtH3XUnouFpQLNvAldpWkScxOhhDo+toI8An7P6JjDMxpK5iMNMZMiwY1zNCb/OrxCRfHE8a5XjhsHcDdR7inmGavbNZ48cC1X6PvOn8KW5iw08NonnX106nJI4Wbw3RvYc=
+	t=1788249894; cv=none; b=luaV9WTUy0SDhBhP8rM8EqcrTc6+aXUi/4yknW3cfSS4Z7s3D2yXk2V7evTIhE0KBJTjyxQWfMkhOmI58HDQHo8Yd1+ESZnlLaSZ028q6Zj7Thq1XXAMpoCAOd2vtr8UMFNas5+i3B7Vvg6sSwzv9sGjEtykZ2b6i8brPT9/ZcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788249818; c=relaxed/simple;
-	bh=RU6diuHJKS/aoFWyd2y6MmciRgNQLDVdpJV4o967oC0=;
+	s=arc-20240116; t=1788249894; c=relaxed/simple;
+	bh=aHx/+79yWnX02W2joK5OJT5lIsQBLWMRAOeSqJe17VE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=qBj2QaIrINqhgCiRbZmU5QWhZHT3lYEPzWvNLIucheH0y8c7xgjR3vJ6AQLRDqtU4/uWC241vnqblNNRCqfNDWDMJ8aKyxf/UewLKZNUVu/d8La3uVZtH44S+gpsLXvrGTr7gwy1PUKHApbyEPW88oL5Q8kBDJl7kiD9LN7viXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jFdK7c6v; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ew5xw4PNosK/c8aLbyLZkA7qB9PmPugLikESatcApINj5wRFc54QLwVurntoMfL5tYuN2I4d/zRutZuqQphK24WHtjH4Oz07YS5p1oJgMafDxpQXh7s6f0nZ3+wYimosZEP+zhVHtsf0vJ8LEeCfajJpdpdP5uQqGSJaNBDbM7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DXaO5uKR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jFdK7c6v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 665A31F000E9;
-	Tue,  1 Sep 2026 08:03:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DXaO5uKR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A6ED1F000E9;
+	Tue,  1 Sep 2026 08:04:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788249816;
-	bh=BLJXOaxHqeNcfPLBq53jPT6Zj/HhLidLeWmVbD+NYl8=;
+	s=k20260515; t=1788249892;
+	bh=rAO47ojdfHu8CHMkO0BAHIHCu1SzBG23H4LsoeOZ1rg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jFdK7c6vz24CU/CWXUOYXdMHFuTRe7HpaVU2YvDWzW2NY+90EEtyoAvczTOFvVdJf
-	 1Ou3E3a7IrEIdICW4bx3Wn7vU+7od0hBbDr/CNmSULCW0utgTkAXzFcdkZX0c0pkp7
-	 pG9K4OuNZuft2gu0C1QPXMzIygne6iotcyUc3LRpqDD47xtJsDRXInNyyoQ0Lz8AuN
-	 e0NOwvEWpQCY/wzkp5Z6Dnt57HqJGXES/m1eJ1WVhsxeJ2Vd3OeEv3H43c9KGDZyT0
-	 j0wQtrrgVYrBUdjE6O7/VMJcb6eoLZNRtamElbIIUhfY1tCussnIsRqX3/x3UVRZH2
-	 C9qrCZm+Vmk4g==
+	b=DXaO5uKR1ngh5Wgks/ZOv4DapbhW6fKKBxEM44UmG/0hQgwdNWJFDad29BuzqpyKJ
+	 9or8jqpd9p99tlqRYjbAsx9lZ2RegQ38qUPaW5ec1IrECD8UuvO7HupDH6Wmu3Ci5I
+	 QwJoXaSIs9rbx0Vh08ZIH22DhinwZ1sbfOaHpybQls4TNkC1A2tR5EjKxx/gZDG8uK
+	 eGqHAFu839A2uzib5Jp1lNZiY6Fq3mYGL4Rtdcsr+SczdWX+BE/nWCkoI2FxaEDKtW
+	 DG45PFdAjeNHFmihdXlT3Wfmg0FN4IfzkWPlEZ+HzxVD+t1VCaDCuwH09seR0ccK8X
+	 LRJiZtq3djb2g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 1/8] regulator: core: Add "enable and wait" functions
+Subject: Re: [PATCH v3 1/2] arm64: dts: qcom: hamoa: Add PSCI SYSTEM_RESET2
+ types
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chen-Yu Tsai" <wenst@chromium.org>
-Cc: dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260901074930.764550-2-wenst@chromium.org>
-References: <20260901074930.764550-1-wenst@chromium.org>
- <20260901074930.764550-2-wenst@chromium.org>
+To: "Xin Liu" <xin.liu@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260901075552.3558150-2-xin.liu@oss.qualcomm.com>
+References: <20260901075552.3558150-1-xin.liu@oss.qualcomm.com>
+ <20260901075552.3558150-2-xin.liu@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 08:03:35 +0000
-Message-Id: <20260901080336.665A31F000E9@smtp.kernel.org>
+Date: Tue, 01 Sep 2026 08:04:51 +0000
+Message-Id: <20260901080452.5A6ED1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,69 +47,46 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Mismatched timebase used for `last_off` initialization, which brea=
-ks `off_on_delay` semantics.
+- [Low] The addition of the `reboot-mode` subnode to the `psci` node violat=
+es the PSCI device tree binding schema, causing `make dtbs_check` to fail.
 --
 
-commit 4cf0bd57fa8e1cfa65a0e290c2b4a44f43cb23db
-Author: Chen-Yu Tsai <wenst@chromium.org>
+commit 0761e0e4725677d66ad02781f96c6323f5504b5a
+Author: Xin Liu <xin.liu@oss.qualcomm.com>
 
-regulator: core: Add "enable and wait" functions
+arm64: dts: qcom: hamoa: Add PSCI SYSTEM_RESET2 types
 
-In device power sequencing and initialization use cases, it is common
-for the driver to enable the regulator and then wait for a certain
-period of time to pass before continuing. In cases where the regulator
-supply is always on, or has been turned on or left on by another consumer,
-the driver could shorten the delay or skip it altogether, provided that
-enough time has already passed since the regulator was actually turned on.
+This commit adds support for SYSTEM_RESET2 vendor-specific resets as
+reboot-modes in the psci node. It defines "bootloader" and "edl" reset
+modes for the hamoa-iot-evk device.
 
-> diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
-> index 6a4008f387b5e..d7a193a3bcb28 100644
-> --- a/drivers/regulator/core.c
-> +++ b/drivers/regulator/core.c
-
-[ ... ]
-
-> @@ -3061,6 +3108,8 @@ static int _regulator_do_enable(struct regulator_de=
-v *rdev)
->  		fsleep(delay);
->  	}
+> diff --git a/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts b/arch/arm64/boot=
+/dts/qcom/hamoa-iot-evk.dts
+> index 9fa86bb6438ec..5db2f19dc86c3 100644
+> --- a/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
+> +++ b/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
+> @@ -1192,6 +1192,13 @@ &pmk8550_pwm {
+>  	status =3D "okay";
+>  };
 > =20
-> +	rdev->last_on =3D ktime_get_boottime();
-> +
->  	trace_regulator_enable_complete(rdev_get_name(rdev));
-> =20
->  	return 0;
+> +&psci {
+> +	reboot-mode {
+> +		mode-bootloader =3D <0x80010001 0x2>;
+> +		mode-edl =3D <0x80000000 0x1>;
+> +	};
+> +};
 
-[Severity: High]
-This isn't a bug introduced by this patch, but since you are working with
-timestamps in this function, could this timebase mismatch break off_on_delay
-semantics?
+[Severity: Low]
+Does adding the reboot-mode subnode to the psci node violate the PSCI device
+tree binding schema?
 
-In set_machine_constraints(), last_off is initialized with the monotonic cl=
-ock:
+The psci schema in Documentation/devicetree/bindings/arm/psci.yaml specifies
+additionalProperties: false and does not define or reference a reboot-mode
+property.
 
-	rdev->last_off =3D ktime_get();
-
-But earlier in _regulator_do_enable(), the remaining delay is calculated us=
-ing
-the boottime clock:
-
-	ktime_t end =3D ktime_add_us(rdev->last_off, rdev->desc->off_on_delay);
-	s64 remaining =3D ktime_us_delta(end, ktime_get_boottime());
-
-Because ktime_get_boottime() includes suspend time and ktime_get() does not,
-the required delay is bypassed entirely if the system has accumulated suspe=
-nd
-time greater than the off_on_delay.
-
-Will this lead to hardware sequence violations and incorrect functional beh=
-avior
-unconditionally for any regulator with an off_on_delay registered after the
-system has been suspended (such as via hotplug or module load)?
+Will adding this undocumented subnode cause a dtbs_check validation failure
+during the build?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901074930.7645=
-50-1-wenst@chromium.org?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901075552.3558=
+150-1-xin.liu@oss.qualcomm.com?part=3D1
