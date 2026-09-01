@@ -1,32 +1,32 @@
 Received: from spam.axera-tech.com (unknown [114.118.28.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A850F476694
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 09:19:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46FE6470E99
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 09:19:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.118.28.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788254394; cv=none; b=RLPFGWn8GfqVzxags/MR3mr3NPIS2gJj0LQ5jo/iMW96s6JwVtIDTruLxLUQj1eeVUftPTSFSOxGvVw1wjnXwMYSllo4HzL0JpXx3rmezwjDzGCUObcmD8aKVW9M5/P1ntoo4VTuzjbzvsfW56sRSyt7LuvC5hKWshSeb1JUJDY=
+	t=1788254396; cv=none; b=DSYnoafBnP0y9UJd+GIbWN9Dymcnhd6ppvs7kw2igtPJie330vakzr3BMkUS552+cM1cDZkst0itzvRF8q5xvBsbHvOUBVfFrwj9CaP9OtLlgoC1FwXHQw5wxBaVspSbQT2HW+8SqR40+psQvqwE2bSsJkxd2AAv1kBfM4wi6TI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788254394; c=relaxed/simple;
-	bh=TvbSsDTgak+MnPeEHsbRPhBZ/tYUMEamDNLCmIvEvAQ=;
-	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=HznvWlg84Y/jUcDvELJ8klYJDNTDzdwyS79LvA2q3bm24rBJnejcA92flvh7Iloa0ZOQa7qDt2CsdZTgQb8+s7OgtrI5FKQWCGYGzQelBEMPFE0CElx0qO663SNPda/JnamsmITouNk/5B9pgwVCT++2UkyuFnQBrB8pojZsiTc=
+	s=arc-20240116; t=1788254396; c=relaxed/simple;
+	bh=ERI43HuiL6QTfhZ7M0Jf5DJh/DNFPQT5VndJPqtsttw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=mY7jCEkK/scSF2MXXXQUCiMcKDyz14mGh8IWcnRZ3RG2miXzHoqn//vgv78Z6Tky4NS4U8L7v0qpKit/AkYI8bM5xcwSvi0fNKiKa3gMlzwtOtBhQquQRQX3yzCrIGCAvmWh+atcNDObP4oR+dFkgYk8EHJTYcTBzHp/WVTTdmA=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axera-tech.com; spf=pass smtp.mailfrom=axera-tech.com; arc=none smtp.client-ip=114.118.28.34
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axera-tech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axera-tech.com
 Received: from aixinexchange02.aixin-chip.com ([10.122.86.161])
-	by spam.axera-tech.com with ESMTPS id 6819JZwg047669
+	by spam.axera-tech.com with ESMTPS id 6819Jbg5047671
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 1 Sep 2026 17:19:35 +0800 (+08)
+	Tue, 1 Sep 2026 17:19:37 +0800 (+08)
 	(envelope-from lenghonglin@axera-tech.com)
 Received: from [127.0.1.1] (10.126.103.103) by aixinexchange02.aixin-chip.com
  (10.122.86.161) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Tue, 1 Sep 2026
- 17:19:34 +0800
+ 17:19:36 +0800
 From: Leng Honglin <lenghonglin@axera-tech.com>
-Subject: [PATCH v2 0/6] arm64: Introduce Axera AX650 SoC and AX650 Demo
- board
-Date: Tue, 1 Sep 2026 17:19:27 +0800
-Message-ID: <20260901-ax650-v1-v2-0-993bea305476@axera-tech.com>
+Date: Tue, 1 Sep 2026 17:19:29 +0800
+Subject: [PATCH v2 2/6] dt-bindings: arm: add Axera AX650 SoC and AX650
+ Demo board
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,11 +35,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJ+YlmoC/0WNQQqDMBBFryKzbkomYohd9R7iIsaxSaGmJGmwi
- HdvtIXCbB68/2aFSMFRhEu1QqDsovNzAXGqwFg934i5sTAILiRXqJheZMNZRtZOjcFWNiOShKI
- /A01uOVJd/+X4Gu5k0r7fDeti8uF9/Mq4e7+swH+2HGeEA8e6rRXJ4aoXCpolMvZs/AP6bds+1
- kTiarcAAAA=
-X-Change-ID: 20260818-ax650-v1-9f5c1965d1e6
+Message-ID: <20260901-ax650-v1-v2-2-993bea305476@axera-tech.com>
+References: <20260901-ax650-v1-v2-0-993bea305476@axera-tech.com>
+In-Reply-To: <20260901-ax650-v1-v2-0-993bea305476@axera-tech.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley <conor+dt@kernel.org>,
         Shi Zhicheng
@@ -57,11 +55,11 @@ CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
         Leng Honglin
 	<lenghonglin@axera-tech.com>, <hlleng233@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788254374; l=4126;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788254374; l=1063;
  i=lenghonglin@axera-tech.com; s=20260818; h=from:subject:message-id;
- bh=TvbSsDTgak+MnPeEHsbRPhBZ/tYUMEamDNLCmIvEvAQ=;
- b=mMwg/ZYv+GPQG2N4MH/cT9w60+UYs1WADBAWWEumWX6pR8+sSiW936+94pPy1P6G5wLHR1RnQ
- WCjmiIRJmIrCdpOddVo8rpupSe6ZRx4XyC2EeDDQ4kqQpIYP2J7HpR0
+ bh=ERI43HuiL6QTfhZ7M0Jf5DJh/DNFPQT5VndJPqtsttw=;
+ b=W1RQzi21UuVxmWW3bPYMMVjiymvAeGH/Ui98pv9e0T+aasdxCusiaIu4/jDEpRv9TqSXC5F/e
+ 4oLoPLbpGvGA/jLSQjnRBFLqKBHBtaIvkzsJEGnVTiHhNO80Wvsf4Rx
 X-Developer-Key: i=lenghonglin@axera-tech.com; a=ed25519;
  pk=fo0agzxyiwbJZc3VZRLVthobvWCvq0qAViAw4TxhF80=
 X-ClientProxiedBy: aixinexchange02.aixin-chip.com (10.122.86.161) To
@@ -69,109 +67,46 @@ X-ClientProxiedBy: aixinexchange02.aixin-chip.com (10.122.86.161) To
 X-DKIM-Results: [10.122.86.161]; dkim=none;
 X-DNSRBL: 
 X-SPAM-SOURCE-CHECK: pass
-X-MAIL:spam.axera-tech.com 6819JZwg047669
+X-MAIL:spam.axera-tech.com 6819Jbg5047671
 
-Axera AX650 is an Arm64 SoC developed by Axera Semiconductor. The
-AX650 Demo board is based on the AX650 SoC and provides the hardware
-platform used to validate this series.
-
-This series adds the initial upstream support required to build and
-boot the Linux kernel on the AX650 Demo board.
-
-The initial platform support includes:
-
-- Axera AX650 SoC and AX650 Demo devicetree bindings
-- ARCH_AXERA arm64 platform selection
-- arm64 defconfig support
-- Cortex-A55 CPUs and PSCI
-- GIC-400 interrupt controller
-- ARMv8 architectural timer
-- Cortex-A55 PMU
-- UART console
-- 8 GiB system memory
-- Axera ARM64 SoC maintainer information
-
-The patches are organized as follows:
-
-- Patch 1/6: Add the Axera vendor prefix.
-- Patch 2/6: Add devicetree bindings for the AX650 SoC and
-  AX650 Demo board.
-- Patch 3/6: Add the ARCH_AXERA arm64 platform option.
-- Patch 4/6: Enable ARCH_AXERA in the arm64 defconfig.
-- Patch 5/6: Add the initial devicetree description for the AX650 SoC
-  and AX650 Demo board.
-- Patch 6/6: Add Axera ARM64 SoC entries to MAINTAINERS.
-
-The series is intentionally limited to the minimum platform support
-required to boot the board with a serial console. Additional
-peripherals will be added in subsequent patches.
-
-The platform was tested on an AX650 Demo board using the vendor boot
-chain to load the kernel and device tree. A kernel with an embedded
-initramfs successfully reached an interactive shell on the serial
-console, and all 8 CPUs were brought online.
-
-Validation performed:
-
-- DT_SCHEMA_FILES=Documentation/devicetree/bindings/arm/axera.yaml make ARCH=arm64 dt_binding_check
-- make ARCH=arm64 CHECK_DTBS=y W=1 axera/ax650-demo.dtb
-- scripts/dtc/dt-check-style --mode=strict on both AX650 DTS files
+Add devicetree bindings for the Axera AX650 SoC and AX650 Demo board.
 
 Signed-off-by: Leng Honglin <lenghonglin@axera-tech.com>
 ---
-Changes in v2:
-- Fix the GIC node placement and unit address in the AX650 SoC device tree.
-- Correct the GICC register region size to 0x2000.
-- Fix DTS property ordering and formatting, and remove a duplicate include.
-- Expand the AX650 device-tree commit message with platform and test details.
-- Remove the unverified Reviewed-by tags.
-- Add the official Axera website link to the vendor-prefix commit.
+ Documentation/devicetree/bindings/arm/axera.yaml | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-Link to v1:
-https://patch.msgid.link/20260821-ax650-v1-v1-0-e1b013938e6b@axera-tech.com
+diff --git a/Documentation/devicetree/bindings/arm/axera.yaml b/Documentation/devicetree/bindings/arm/axera.yaml
+new file mode 100644
+index 000000000000..28bf0ce9fd27
+--- /dev/null
++++ b/Documentation/devicetree/bindings/arm/axera.yaml
+@@ -0,0 +1,24 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/arm/axera.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Axera platforms
++
++maintainers:
++  - Shi Zhicheng <shizhicheng@axera-tech.com>
++  - Leng Honglin <lenghonglin@axera-tech.com>
++
++properties:
++  $nodename:
++    const: '/'
++  compatible:
++    oneOf:
++      - items:
++          - const: axera,ax650-demo
++          - const: axera,ax650
++
++additionalProperties: true
++
++...
 
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Shi Zhicheng <shizhicheng@axera-tech.com>
-To: Leng Honglin <lenghonglin@axera-tech.com>
-To: Catalin Marinas <catalin.marinas@arm.com>
-To: Will Deacon <will@kernel.org>
-To: Arnd Bergmann <arnd@arndb.de>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Linus Walleij <linusw@kernel.org>
-To: Drew Fustini <fustini@kernel.org>
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: soc@lists.linux.dev
-Cc: hlleng233@gmail.com
-
----
-Leng Honglin (6):
-      dt-bindings: vendor-prefixes: add Axera
-      dt-bindings: arm: add Axera AX650 SoC and AX650 Demo board
-      arm64: Kconfig.platforms: add ARCH_AXERA
-      arm64: defconfig: enable ARCH_AXERA
-      arm64: dts: axera: add AX650 Demo initial support
-      MAINTAINERS: add Axera ARM SoC support
-
- Documentation/devicetree/bindings/arm/axera.yaml   |  24 ++++
- .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
- MAINTAINERS                                        |   8 ++
- arch/arm64/Kconfig.platforms                       |   5 +
- arch/arm64/boot/dts/Makefile                       |   1 +
- arch/arm64/boot/dts/axera/Makefile                 |   3 +
- arch/arm64/boot/dts/axera/ax650-demo.dts           |  30 +++++
- arch/arm64/boot/dts/axera/ax650.dtsi               | 136 +++++++++++++++++++++
- arch/arm64/configs/defconfig                       |   1 +
- 9 files changed, 210 insertions(+)
----
-base-commit: ff68e5f557f69a08fdcfa4ce8b1b809d63bd4f45
-change-id: 20260818-ax650-v1-9f5c1965d1e6
-
-Best regards,
---  
-Leng Honglin <lenghonglin@axera-tech.com>
+-- 
+2.34.1
 
