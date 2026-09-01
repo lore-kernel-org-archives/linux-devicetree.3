@@ -1,125 +1,128 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB9C1D514E
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 17:49:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE3BA48CD7B;
+	Tue,  1 Sep 2026 17:51:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788284957; cv=none; b=fYNSeSP4fQIu2ZzqrYSIFUkR/1cmrKbYM3xXgzBoMhWgI2auD1tlabi4XimuQLMYC/yWVBC9B50qxNGodYsNcrcYiKc+EpyYOtzhJdw7u3rqmGThW2o+0SowiMlWOfweNvZEzUwXPkUf9oRCDWyhl3B/49odjIU+6d7YWCE5b7Y=
+	t=1788285106; cv=none; b=gsllYtdkEl2/BPncxhRK+2UGki2uk4NhvJWZci2e5RVO738T0ZLpwV7aqs4VowKGkIVGvBDOdtNgMbS3i9F4QW6Muha/HtHaJBqafurHU47U0p9oJfhMdN3hf0NJAVg5j2/1lTJKPuELq66ZmEgRuM1pySpNm83AIvyFlXTw/aw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788284957; c=relaxed/simple;
-	bh=pbNv1uBSenGi8AbVnZDxpWAjeu4LLKPxeT074sFJ3VQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DH/rd84QtOywX7pFqIVpANXjcLzQ2yCtdS9HfQO9JPNQQXXsnmy7j4jR4oUFjhq3CaOBsa486O05Vyl+f8u2Epm6tvRDLDVEYX8oxTHGJEafZw2FFoOuJK82uWKf3BOMxPDOMzMwp5nisfXTE5I6DsCy7ASQ+hN9teRnL66WiWI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dDlFPLER; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788285106; c=relaxed/simple;
+	bh=mk6ZlwMR8I8JyL7P8y24/m1gn7Yiaio7RVEkXCR57rk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tzjyWXsPo+Ydr2LR81WqHJtXaI4ymWVz34EJvdFUhsAUkFNJUyf/OxnJrjxRMypZfki4NrHRKhYWYYWd6rB0Mze2A7/zwgTep4Bo60RDyUzm/z+X4eg8ku5sP8gb4j+IC+266QtY+pDw0ZV6jcyeu84w0bv2TuqMYepGBc8wOtk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hn8bwCGu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dDlFPLER"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC2641F000E9;
-	Tue,  1 Sep 2026 17:49:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hn8bwCGu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EA0D1F000E9;
+	Tue,  1 Sep 2026 17:51:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788284956;
-	bh=w3GTn2ImUbF82qm4IPmVnKjJT/QDdgXylAyiQWKuRH0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dDlFPLERM9KF8DTwurOGmqBzFhzrPIoejOXTgkJMujIhpdVMJA76WJ54iIlsFe/+U
-	 YaRVaij0Czfdz10vVIwk1QKUe7EaA2+y+L6z3yVKhG7RmdfDOq6Yrq/UDq4u1Lbrbc
-	 AApKpYun9dWBqovtpYfruSjJidzyDk398hMRsupPgtb09yzSgRT0/kH4fE6PxVnfnd
-	 m597DvMXDK4pk8LIwZ94Mj9UsrGPitYfY+mNUy7+6hE+kGf/rm/BwXAyB6gKrUj9h5
-	 1R7G5sb8V0X53iLDfhXd6vfF+ciWaEfGgx5iXA9Z8TeC1ti/uNChGrKIIjTg9/Cm5D
-	 FM8YAFTlCknqA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/5] arm64: dts: qcom: lemans-evk-ifp-mezzanine: use pci
- for device nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alex Elder" <elder@riscstar.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260901172058.1512508-4-elder@riscstar.com>
-References: <20260901172058.1512508-1-elder@riscstar.com>
- <20260901172058.1512508-4-elder@riscstar.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 17:49:15 +0000
-Message-Id: <20260901174915.BC2641F000E9@smtp.kernel.org>
+	s=k20260515; t=1788285105;
+	bh=oMqnx0cSzXOgUG5/dEgx7SkbOHcdfGj04WjrZWYxDLE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Hn8bwCGucDycl0BIqxDSdg7l3vg6KOJ6Bi3OP2ujwXRz9PDh+bcCNiRUGXjrpmi2n
+	 XiEQqNzo8nlua7UFs2rzUHELLbSwWQ/hiluVidrF1lKN7/mnsHu4qH3+ls2QuDgnBP
+	 3mB2oRPdCnAkrm8AMspnR1R4gSQkGteCYLfJx2zHngjuz9KXMKkcRjE/k8ZN1IhzbQ
+	 7QPiPnLNK+dW1XaYAP8xkejwceAyw3zDh0LgmbkcH1h54841LBIXv+1sZfFMqC6K2Y
+	 SYkrrJ2N1ceK3szY0HEPitv8PGQyqNhEKUrgrtS311UstKR7USUkJJMtmO9CoMov1W
+	 mvwAzRjNKJ2MQ==
+Date: Tue, 1 Sep 2026 18:51:41 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: linux-serial@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Lubomir Rintel <lkundrak@v3.sk>,
+	in file <devicetree@vger.kernel.org>,
+	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] dt-bindings: serial: 8250: add marvell,armada-38x-uart
+ compatible
+Message-ID: <20260901-corrode-unvented-4cf271941722@spud>
+References: <20260901004203.49686-1-rosenp@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="SToglXmfLL+RKNIv"
+Content-Disposition: inline
+In-Reply-To: <20260901004203.49686-1-rosenp@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Ineffective Bug Fix / Logic Flaw: renaming nodes fails to preven=
-t them from being parsed as PCI bridges
---
+--SToglXmfLL+RKNIv
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit a26d89db10179b360a293aeb14a12f49b7daf216
-Author: Alex Elder <elder@riscstar.com>
+On Mon, Aug 31, 2026 at 05:42:03PM -0700, Rosen Penev wrote:
+> The Armada 38x and 98DX3236 SoCs use this compatible, either paired
+> with "ns16550a" (armada-38x.dtsi) or on its own
+> (armada-xp-98dx3236.dtsi). Neither form is covered by the 8250
+> binding, so dtbs_check reports:
+>=20
+>   serial@12000: failed to match any schema with compatible:
+>   ['marvell,armada-38x-uart', 'ns16550a']
+>=20
+> Add a standalone const entry and a two-string variant paired with
+> "ns16550a".
 
-arm64: dts: qcom: lemans-evk-ifp-mezzanine: use pci for device nodes
+Only one of these is correct, add one and fix the users.
+Given there's match data, it's probably the standalone one.
 
-This patch renames the PCIe endpoint nodes from "pcie@" to "pci@" in the
-Lemans EVK IFP mezzanine devicetree. The goal is to prevent the devicetree
-parsing code from incorrectly treating these endpoint nodes as PCI bridge
-nodes.
+pw-bot: changes-requested
 
-> diff --git a/arch/arm64/boot/dts/qcom/lemans-evk-ifp-mezzanine.dtso b/arc=
-h/arm64/boot/dts/qcom/lemans-evk-ifp-mezzanine.dtso
-> index 6cfa0bc1440e9..22c975628ed79 100644
-> --- a/arch/arm64/boot/dts/qcom/lemans-evk-ifp-mezzanine.dtso
-> +++ b/arch/arm64/boot/dts/qcom/lemans-evk-ifp-mezzanine.dtso
-> @@ -271,7 +271,7 @@ pcie@3,0 {
->  			ranges;
->  			bus-range =3D <0x5 0xff>;
-> =20
-> -			pcie@0,0 {
-> +			pci@0,0 {
->  				reg =3D <0x50000 0x0 0x0 0x0 0x0>;
->  				#address-cells =3D <3>;
->  				#size-cells =3D <2>;
->  				device_type =3D "pci";
+Thanks,
+Conor.
 
-[Severity: Medium]
-Will this rename successfully prevent the node from being matched as a PCI
-bridge?
+>=20
+> Validated with make dt_binding_check (8250.yaml) and dt-validate on
+> armada-38x and armada-xp 98DX3236 boards: the UART schema errors are
+> gone.
+>=20
+> Assisted-by: opencode:big-pickle
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/serial/8250.yaml | 4 ++++
+>  1 file changed, 4 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documen=
+tation/devicetree/bindings/serial/8250.yaml
+> index 8c2c177faf89..f71c6afe02f2 100644
+> --- a/Documentation/devicetree/bindings/serial/8250.yaml
+> +++ b/Documentation/devicetree/bindings/serial/8250.yaml
+> @@ -109,6 +109,7 @@ properties:
+>        - const: aspeed,ast2500-vuart
+>        - const: intel,xscale-uart
+>        - const: mrvl,pxa-uart
+> +      - const: marvell,armada-38x-uart
+>        - const: nuvoton,wpcm450-uart
+>        - const: nuvoton,npcm750-uart
+>        - const: nvidia,tegra20-uart
+> @@ -119,6 +120,9 @@ properties:
+>                - exar,xr16l2551
+>                - exar,xr16l2550
+>            - const: ns8250
+> +      - items:
+> +          - const: marvell,armada-38x-uart
+> +          - const: ns16550a
+>        - items:
+>            - enum:
+>                - altr,16550-FIFO32
+> --=20
+> 2.55.0
+>=20
 
-When the devicetree address parser matches the bus type, it iterates of_bus=
-ses
-and calls of_bus_pci_match() which checks:
+--SToglXmfLL+RKNIv
+Content-Type: application/pgp-signature; name=signature.asc
 
-of_bus_pci_match() {
-    return of_node_is_type(np, "pci") || ... || of_node_is_pcie(np);
-}
+-----BEGIN PGP SIGNATURE-----
 
-Since this node still retains the device_type =3D "pci" property,
-of_node_is_type(np, "pci") will evaluate to true immediately.
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapcQrQAKCRB4tDGHoIJi
+0kA5AP96ot4argarOlgm/qdoWeZgmyzkpAcwl8ej4iDZ88d37gEA6I/nD5yQZzOL
+AoeeJsgShmEcMaI/5GG/Z8vucUkNDQQ=
+=JF0w
+-----END PGP SIGNATURE-----
 
-Does this mean the of_node_is_pcie() check is completely bypassed, leaving =
-the
-node still incorrectly matched as a PCI bus? Should the device_type =3D "pc=
-i"
-property be removed from these endpoint nodes instead, as required by the
-devicetree specification?
-
->  				ranges;
->  			};
-> =20
-> -			pcie@0,1 {
-> +			pci@0,1 {
->  				reg =3D <0x50100 0x0 0x0 0x0 0x0>;
->  				#address-cells =3D <3>;
->  				#size-cells =3D <2>;
->  				device_type =3D "pci";
-
-[Severity: Medium]
-Does the same logic flaw apply to this node as well?
-
-Because the device_type =3D "pci" property is also still present here, it
-appears this node will also unconditionally match as a PCI bus in
-of_bus_pci_match() regardless of the rename.
-
->  				ranges;
->  			};
->  		};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901172058.1512=
-508-1-elder@riscstar.com?part=3D3
+--SToglXmfLL+RKNIv--
