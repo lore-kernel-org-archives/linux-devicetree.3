@@ -1,117 +1,168 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9856F1F94F;
-	Tue,  1 Sep 2026 06:12:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED3BC3469E7
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 06:13:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788243124; cv=none; b=BW8UkUXMFb7G9kyYh2RolMvRap56Z0rECnw8kMwHDhb+0qbYp1BcIawPAmhMvAa2jiK+p9e4gK6JrA37upyudnRGpNBiaq9egCyKvgIHY2VaJ7goJjMIQf7F/5z589PPT5rjEWaF1/biDEN0CDl/t+1vmeHEIG/8o0vVlQPeOoY=
+	t=1788243188; cv=none; b=c6HWad/S9v/RxmFqXwyHMxi6XH90OKiizWo+Y5IpeJnl+eiWm8gOiqtDkcltqsiJXZVOcw6ZB9hWzRgebOHf+Fu12ijpLKpskQ0Zk1xJh9SmlzWcdzz4Ccas7cgdIdcY/XqP1SLz1XeP7pmnFEtZSBCUWJ/+bQ5+XFqphn8gwoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788243124; c=relaxed/simple;
-	bh=/MfKmKIgkC76+DBhX+r4jXtzjyclYPg6+d85ygG5Qgw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fCKg5MTly69kW5eLaa8csjqOL5kBxDkNe16zE1yFomhlZG4zy2QxoKN/GB/tzDAjhLTUZi5fuKTw/Q3+0nlGf6JBpvBxpy0BCY1b/vqTK+N4Dt8L1JEafWZNN9x5chA0qZMz4K9SZEzWAsM1hVBolhEmbUHIQd8hazCcnHa2QE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=MaGIrrQe; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788243188; c=relaxed/simple;
+	bh=tmBDYtXEn7QF+P/Gffrerjt1xFVzGjsaADtgY4akAV8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jddEg44NDFbp3sNVqjjG+GOOKFWEBcWCg3ZeO3ew0Ni1d6JNb87Kp1AlVoItoNejN2gABe8Mqi7l6Cj7PQ6TSgFbjlRCdrcFx8QDtXmNRuYWjmYZuBshfacV3CixS1PmwCvKHfJ2ELhRvpwuCmwh/4J2K8Ct81K17/BjP78rNCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PLBz4bve; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Cibl+rhb; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="MaGIrrQe"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 974801A192D;
-	Tue,  1 Sep 2026 06:11:54 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 693EC6053C;
-	Tue,  1 Sep 2026 06:11:54 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2EA7B11C7923C;
-	Tue,  1 Sep 2026 08:11:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788243109; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=EMf21iM/QNSVwedceXOolAwbRcgqehu3VDqw47iT9VM=;
-	b=MaGIrrQeK/9z6YwYOhvmOajs1kw44ZbNMihLXU76OjgNQ4jgJwiE/QEiyWYwfAs0fHPeGo
-	XD6EjJDkq41NjAI5LWnpvExAN7GHrNNB0T0upA7whdQLhBaBB5eGexS7T3Vi7I53/Qgin2
-	zrVaeBKfG5Eay1/II9USm2M6TychkTZoVsOTBC54H0rwNW9Nq9rpPHsPCi4wrjCqxmGghj
-	m0aplS2XtlAJwosLQC/3b9pNXCIDmDMqL75eLgWOehkslKAnFmj8D0LxD0JpzEQ7heV1Aj
-	Y4o+TkDCK2RweHJyiMDNLAmcBSDDuvftBDclE3qSZ7fCAJi4BuKaGZROzJ7rRQ==
-Date: Tue, 1 Sep 2026 08:11:45 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Alex Elder <elder@riscstar.com>
-Cc: bhelgaas@google.com, robh@kernel.org, saravanak@kernel.org,
- daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
- lorenzo.bianconi@oss.qualcomm.com, linux-pci@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/4] PCI: of: introduce of_pci_verify_node()
-Message-ID: <20260901081145.25f0e993@bootlin.com>
-In-Reply-To: <20260901011338.1323243-4-elder@riscstar.com>
-References: <20260901011338.1323243-1-elder@riscstar.com>
-	<20260901011338.1323243-4-elder@riscstar.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PLBz4bve";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Cibl+rhb"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6810o0TC499808
+	for <devicetree@vger.kernel.org>; Tue, 1 Sep 2026 06:13:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=64Fc6Cp8W9q95DTXHpfoWRnw1VvjCOGDPFU
+	7ee1+j78=; b=PLBz4bve4E/wLQ/FJSCQ/yjd1/O5FqZheAHLmLdrATn3MekZH+o
+	dAiQRvEB8KT/ZhuahE4O3GWNOHqePSaXZfaIpwuwcH1uJutOZdQYx/QuQ/4mW6Yp
+	ahYvl7/Nwi71kkZrlmuRDlftfCkAjzszZajNcHM7u/Omv76hc3oOETAlcYSFivRr
+	T51qkz+TlbjqUHcD9y0xeXg1kNK4zzaS6GNQ3Qh8tWVUTa65jQs4kikdherwoaiV
+	yZL3Ovz3+yg3n+6YKFq/FwCk/gPcw/Y+yI03zS+TDWGr/NVw6Vuyn0b7m1A8lrl8
+	0t8gj2zn3Yx8noHBwmZWVAjJw7+Ylx2nrBQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdjtx1hh2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 06:13:06 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92e820609d9so868095885a.2
+        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 23:13:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788243185; x=1788847985; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=64Fc6Cp8W9q95DTXHpfoWRnw1VvjCOGDPFU7ee1+j78=;
+        b=Cibl+rhbj8hQgHcti+dpgqlHeKKgMe1SzjLTG/nTQSSMsn2KmWx6X+PPDDzwmi/GlE
+         9tiJe4AvKqYMQykDUBC96sFS2o5P8gmXiEwlby1iEOQO/e3kL/fi0QDAMHOLkCxFuETy
+         vAa7QcSW8lai+5CN+d1GZygXV3uIfbce4h605ySftk8lih6aLTnmGLLTJ8CZ1Ao10a5U
+         Bz02SIo64aTaiKEQX4hSUjh45CY4WtY8KfHWgXoofUoDHoUXudWQFTvWZndmfPTdnpdf
+         v81BQIw4rzq/gfgrozRnyNVApjDewCZFquekyWK1AiOw9zmP5V/jH+fYoQfI9AlIJtl9
+         9plQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788243185; x=1788847985;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=64Fc6Cp8W9q95DTXHpfoWRnw1VvjCOGDPFU7ee1+j78=;
+        b=G7P3R+LBLtjCjlHhf30SJGaCzNWoDrKTFllHH11a8M7fnD2Dzy4P3+hA7VCHk3CCmm
+         jQvvaWEyJ24yi6NiUJVksKzpG/P6eup3nBpnGd+Bwo9gy86P+v0m86Nby/plcLvoY2i+
+         LdFaUidoFARpup+E2qgf3ihHwKgmPPhj+CnF6Py9anoqsvPIFFdAsIu8hFocFl44AMve
+         9yAhuTmVrEXdsPjD6wGt7l0XMmUIls41J9g0dblM7bO+dlGbjqZzB91Wl6+u5m/skeTe
+         uuGUoySE5o7Wb1a0MxgnFpb1H+9GZ4ecG9O40rrZzAGdRSfBmrD9mvVIwu79tYnm3lwI
+         9bNQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpBVVX3C02f8DvrClf/W8H7Eiz2GWOahRuNgFeVYj/UpCY1BFSfSe1+KN77cDfmXpj/6/W8jAK6tcwO@vger.kernel.org
+X-Gm-Message-State: AFuF++nqUuDAaThpsJIYXKRTkY2tZuyxsAPpYOi1+nfnWyfac60FgV2f
+	XcqbIN+HWMaKJf7bdy0MqOVMGsiXyNOp2/J77tK+x7UMFjgmUcTAhmSxBoDBl1RpQXpgY6p0lop
+	1L3g725/ScaU9459n9RNdDcoojhyY27IHdzp+9s6LWR1rWkPrjYHQLzxU+u8lutd1
+X-Gm-Gg: AR+sD12WmcVRgTOh61G88HRiojizIF1NSy1msn/NBPXFHiPw15FxpHqusYWmnOBxeS0
+	QySqdF+mIn3DDJP1Sqkf8tbYPs/saKDqELtIYHUTWhX3mSbZ8DiO1VOquFJv77K/FC+OiH334Z2
+	3aR/rVKfE7qOgibU/PseLJ82VLiD6FElvjSj/uUN0ysYJMnLcW61QOzUdYNXPJzgGEEU5IdtlZ8
+	sZuLdouTzNEuO5jgbvDkLgzvYA8GCk+8JWjPYdSmQqhMNx3Svti5B7wKT9ZFM+hbWOhbrmeEQt5
+	wSXalZWXzvHrNnso8ng/6tjcf37h/POxqDurMDsdZzeGU4OC1MPLfO0hXo6pBHEw6927N6Fjm3E
+	HyHEENenJ4c8dB4g=
+X-Received: by 2002:a05:620a:bd6:b0:939:3626:558b with SMTP id af79cd13be357-93947f80627mr875352685a.5.1788243184757;
+        Mon, 31 Aug 2026 23:13:04 -0700 (PDT)
+X-Received: by 2002:a05:620a:bd6:b0:939:3626:558b with SMTP id af79cd13be357-93947f80627mr875342085a.5.1788243183663;
+        Mon, 31 Aug 2026 23:13:03 -0700 (PDT)
+Received: from quoll ([178.197.219.214])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48442d6eafesm2397518f8f.24.2026.08.31.23.13.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 23:13:02 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Madalin Bucur <madalin.bucur@nxp.com>,
+        Sean Anderson <sean.anderson@linux.dev>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH net-next] dt-bindings: net: fsl,fman-dtsec: Drop redundant pcs-handle-names dependency
+Date: Tue,  1 Sep 2026 08:12:56 +0200
+Message-ID: <20260901061255.25734-2-krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=853; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=tmBDYtXEn7QF+P/Gffrerjt1xFVzGjsaADtgY4akAV8=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqlmznaSgRk4CJ3ULRxmcX4rpugQNhVnRWTGSNa
+ E8A3T3lLLuJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCapZs5wAKCRDBN2bmhouD
+ 16GeD/96j4VBBsiOCxTl0vY/rbA8roLRwGZ3c3rpd19Ayf3xympShEh+TzwmkP2v7y6MVbhwXjC
+ NruCPEIKt9sgo7pAbzEisogKgDe4AjgGt71y7CWmC5nUu0TknI37yYJ+aErbJFGqySI/xbwiRzX
+ qRvSIRDqTGqcuiu0JqL6+36SCxwag183wGVEZu0Tb6HI5D/+npcQw8poWp1Zg92Xe8jMUQnTAR1
+ z/BgaW6l7EM4/LgfkK1nejeDUvTfQZxwaAlwfYL8IDAhwZn34Jzq0OzLXX31piyJEku62dkx4qH
+ Wn7/gUQSbcjZMk7RJF4Vq2tf8U6HNajurrddJ2drO5EGjtjiTYKS16CzINWK7ZPCrgzyQfq16I8
+ gxHhkNgi6FipFRqcf5t7HHhohmanrHGPGs1HFqnesrcADbPPUJr76Rp5KpawPBIi2z0D6NxpouJ
+ K2TaeA45YOs4a8rhtxn6BazAi77oTSJX27pWEkiT7PIkWByALos77eUJFTUN7TnnPah8OeupuMK
+ wQIEkfKL65t2F2IK/ETONLL8lAkK73QRWWlr42CxwbXokanzE0a4slD+4G+HiKcAvM3FvL8OVj4
+ EPYmAThrrKKv8uR/Z747XnjPTvFsv8Fpqu033laDwRl0EchA8obE7kUgXLWfxYMx31Eg/nUb/V3 m0OvCQKjvWRg21w==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-Authority-Analysis: v=2.4 cv=K78S2SWI c=1 sm=1 tr=0 ts=6a966cf2 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=kdWYA6eUZccx_msbsMkA:9 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA1MyBTYWx0ZWRfX1+fPSmpPAX1m
+ WZoRNjXFFi7pZn2pkUfH+qB2H3kbSOq4mZMuvPNSx4ivZj1O7ZJj5V9U8Ma9oRlWUCMPab4fkrN
+ ujSqvCQ/GiHjiPEGaIUgXVWtazEf3uM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA1MyBTYWx0ZWRfXzblf5CW+cdtY
+ 2BUHcEHTIDpJYeURFso0WMiG0H7LSLCvAxyJwHfJS92Wh0ru2LvC8yy7ehZyVYtB9pyeomk1nN2
+ 5d+tAkzc+lzQxqqxnBOPsdpY1MIlPxyihAUfRTgMR9k848FJE6y2LlYYcc4XHVsPybrqzioAHe+
+ jDkyVdSRtWAmyDSxNZ4JQ3SiwWhVws5y8g74VDZmQnpqFxNkxWtmSuSSmp4A5fk40TGt9wBxPbh
+ 8tDNilEIm1Pq7IsBL6kQJD3sfj6yUyoBVevDM6ltp9A4WmR990+CAXqb9+OlWA4GJZJi9D/trs2
+ Rwr7m7bf8iTlkY3uA9XeqirDw0nsarfho/BEKz6TPWXFasdGFZI/4F3yVip01vaO8QnpEOU6y3v
+ g7XL5iTCwGpIkQwLDa4NhbWiPF1pTxncWjbsrpLApuaDnSyW2pAVjTk99cRXnuezUb3Y7UK/nG0
+ 9XH/RcTQeO3q5hz0ncw==
+X-Proofpoint-GUID: XrMI6vuumqDbZeXmfYfUynM-UGxAR79C
+X-Proofpoint-ORIG-GUID: XrMI6vuumqDbZeXmfYfUynM-UGxAR79C
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-01_01,2026-08-31_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0
+ priorityscore=1501 suspectscore=0 clxscore=1015 bulkscore=0 spamscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609010053
 
-Hi Alex,
+The binding references ethernet-controller.yaml schema, which already
+defines a dependency of pcs-handle-names on pcs-handle, thus duplicating
+it here is redundant.
 
-On Mon, 31 Aug 2026 20:13:36 -0500
-Alex Elder <elder@riscstar.com> wrote:
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/net/fsl,fman-dtsec.yaml | 4 ----
+ 1 file changed, 4 deletions(-)
 
-> Commit 407d1a51921e9 ("PCI: Create device tree node for bridge") linked
-> the PCI enumeration process together with devicetree, creating a devicetree
-> node for discovered PCI bridges.  Its successor commit ae9813db1dc5a ("PCI:
-> Add quirks to generate device tree node for Xilinx Alveo U50") shows how
-> to use a PCI final fixup quirk to also create a devicetree node for a
-> non-bridge PCI device.  These changes allowed devicetree overlays to
-> describe components downstream of a PCI device, by providing a place to
-> attach the overlay.
-> 
-> Note that the dynamic devicetree node is only created if the device didn't
-> already have an assigned node.
-> 
-> Later, commit aa7b4bbcb3a1d ("arm64: dts: qcom: qcs6490-rb3gen2: Add
-> TC9563 PCIe switch node") *pre-defined* devicetree nodes to represent the
-> PCI device nodes that would (also) be discovered via the PCI enumeration
-> process.  The devicetree node in this case is created with the content
-> from the DTS file.  So when a (host) bridge is done being initialized
-> during PCI enumeration, no node is dynamically created (the commits
-> mentioned above do not apply).
-> 
-> Ideally, any pre-defined PCI devicetree node would contain exactly the
-> same information as whatever the dynamic creation process would produce
-> (though it could include more).
-> 
-> However that is not the case for the pre-defined Qualcomm RB3gen2 nodes.
-> And in particular, the endpoint (function) nodes include this property:
-> 
->     device_type = "pci";
-> 
-> This is simply wrong; that property is meant only for bridge nodes.
-> 
-> Rob Herring requested that a runtime check to be added to spot this
-> specific error, only for non-bridge PCI devices.  Herve Codina further
-> suggested we ensure that bridge PCI devices *do* define the device_type
-> property, with value "pci".
-> 
-> Signed-off-by: Alex Elder <elder@riscstar.com>
-> ---
-> v3: - Switch a function header to use kernel-doc format
->     - Add a warning if a PCI bridge node has no device_type property
-> 
->  drivers/pci/bus.c |  1 +
->  drivers/pci/of.c  | 31 +++++++++++++++++++++++++++++++
->  drivers/pci/pci.h |  3 +++
->  3 files changed, 35 insertions(+)
-> 
+diff --git a/Documentation/devicetree/bindings/net/fsl,fman-dtsec.yaml b/Documentation/devicetree/bindings/net/fsl,fman-dtsec.yaml
+index ef1e30a48c91..5dcb49f2f3b1 100644
+--- a/Documentation/devicetree/bindings/net/fsl,fman-dtsec.yaml
++++ b/Documentation/devicetree/bindings/net/fsl,fman-dtsec.yaml
+@@ -125,10 +125,6 @@ required:
+   - reg
+   - fsl,fman-ports
+ 
+-dependencies:
+-  pcs-handle-names:
+-    - pcs-handle
+-
+ allOf:
+   - $ref: ethernet-controller.yaml#
+   - if:
+-- 
+2.53.0
 
-LGTM.
-
-Reviewed-by: Herve Codina <herve.codina@bootlin.com>
-
-Best regards,
-Hervé
