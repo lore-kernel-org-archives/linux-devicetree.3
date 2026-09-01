@@ -1,559 +1,178 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012011.outbound.protection.outlook.com [52.101.66.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F5646D0B2
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 07:31:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788247910; cv=none; b=sHtCQMFXowLbkd7+8P773wploeJ7WIWhofUD1l5B1vgT7xZXZSuUzL5QjIGG9gZhy7/slJVLAzDSuV9WUGc+QjfcTv/slkjSr9yM3pBemQ7/g39RezArwFkLs+Nrk1uy2sI2hzCvcGw8y5DykN41ks55KmPFXXT+DYlWsXHB9Aw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788247910; c=relaxed/simple;
-	bh=ykUUSv77OEo5PaKCMO9ysrO1o42/MAKasnMbnUkbxUk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=BG0/rN9G7RfZizV6OHiAzGPmiBLN6+XBcFoCKP+0XrDFcLPk/NWQYwX5Esuo0jMlUt3IuegmAsRAGhxwEe460D64QPES9GOynkVYtChxNd9d86oBSQ+8gJ7uOuiPHqyve5LW7GW8O6F0iRmORhtBWUw0Dr0DowZGpR//bV4rRz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BYXfowsC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ePPJG0Tu; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD28143846E;
+	Tue,  1 Sep 2026 07:33:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788248023; cv=fail; b=Yi2YcGuq5zeCopNIvBPt04tMatMZC7EhpFXmJhFiXoLBhJdGtNJ0RHhedAMlPA6+6M80zP3xJM4jh7/URlHtdCtsnRiZ9r9Mc3QwczqXIWfdh31klmiaRMglj12XlNhJbcptYG9CQjya+9QELjB26OWf3lkb8YoqnoirqKgkDrI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788248023; c=relaxed/simple;
+	bh=ewuZGCzM8B3C0daPN9oyAEDZBkgtTR8Uv6CIX+0mbfE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=l+fWttZ+EutU5eIyujlv9ZEi8YH6m916S9I0aoM2DXF4BIx1FbZS8ZUXCc/0pzcuxsvTR53u49frnOVf9YDnkMqLlp3YO0kL9b5OO8woyLYPqTVyhbF3URSKsuKNzMihsixLFMgImLVQVYLCRC5TR/dE0d5v+8WjRd02EzGGLIY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=Jy/x9OO2; arc=fail smtp.client-ip=52.101.66.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BYXfowsC";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ePPJG0Tu"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68179JB31975537
-	for <devicetree@vger.kernel.org>; Tue, 1 Sep 2026 07:31:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	SZDO19ey1PFMEeLfuEOzBYiZLgBVDFsoMKyTR2K1raU=; b=BYXfowsCjkV2AhHu
-	iIy75VKD5tTwU47aHjSdcQ2pu5caxE4PEkUr1Q9js3WJ06OuazdX9MY4yOgj4dWp
-	9Tx0Pgf7V4qHxXMEuClcLpMKEYw5r9mDjenJC59E6qFak4HPNNw3NSxruIQrb47p
-	gYeD+TeblnCF6ZHiqweZ+LN5GiuCTvXeDyLl8cz+FxjxMWXPT9Gqnx2067NanRFg
-	rCQhB986hPC8issXO7MVSbn275nRoNyIqZz5OC1SSSVp9u/PDhTADlaPPnnaTCIQ
-	4nDUMWTq0H1bgFoKx02qKG4RBPMMsUIy7htDVW1xM1HtUxLoWtGT3+AqPUam72Pg
-	mqP3DQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdp7r11y5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 07:31:47 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-934956beec8so122487385a.0
-        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 00:31:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788247906; x=1788852706; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SZDO19ey1PFMEeLfuEOzBYiZLgBVDFsoMKyTR2K1raU=;
-        b=ePPJG0TuvI5GEboN2jY7jufleXaO9RgZcaYsZjMOkqXh2vlibICYq5E6kmAkjZFaf+
-         1kRgR2AgYEClRJHlwj4LAWU8t8YimeHut/hFbA+dBdxohA/fMqOsku+RU21hAhTqdaFX
-         vXTZvKNyo2cNa0dLX631Pds9po0OhX2WYnbydbhHR7jn4M11LNTXyxOg2YUy4RS7uM/0
-         OfNI8u2TLhweO58McDLknyAdtuRrW8+hD9wUvAm587Vy+DRtFTqcA7Pq3mjAvk3C42T1
-         ldy9+4+gWI8/XzG+tILvHkjrvE8zBJ16FS4BnNmwI2o1ccHTQdrK/IMm32kx2RJDzQV8
-         TIsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788247906; x=1788852706;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SZDO19ey1PFMEeLfuEOzBYiZLgBVDFsoMKyTR2K1raU=;
-        b=kLZ0IMnuG7astB00ScCbY4m8BZYFBofJusNZuWE8aY5U7cPeoQHyIHnQaqimXXHtcN
-         LOWoMOOXmiIsNS6vxStX6sPj+4gLyQDGVpMg4Y64l55CfEHBwRscYLYikXmh/D/nTCAa
-         6f+OaR1Fn3WyNC+inOM8DkOChCvJ74ww2L1fupt0fuhcKgUs2462kCtVz3Hk0UsbSAqF
-         2pYtQ040I/2k9wMYsK+1gZxOlBozB7TpSzbfP+dskLFBDjNX1akU8AD80fpqIPv/hsJV
-         He2NfY9fNGdEuQEqb656Oa4ks78MAs7Wi4TVzX2u/5qQqXUa4f12cRWbTWS5k6gUOln2
-         QJSA==
-X-Forwarded-Encrypted: i=1; AHgh+RrYP4j6Y2Cmt8FH7J6s0Adk7+EPsLzIpDOallnPPyyQVS8UiLE7p9SI+rs1o4OQRru5xuTH2mFgxY6f@vger.kernel.org
-X-Gm-Message-State: AFuF++m4q1BQh6bsl+Wk/u92wezS5mzwI13yG61pb95zPJZEf0J0TuXv
-	Q5mqq7bl+zwX9BwbzIWL7M0jip2xezXJdoX4ugegx5Ir0AqCWpw4yvaY2PdxzDjT6iJ/Ikm9Tfu
-	t8bddMGYIl+g1S77adl3S9Kxb7zNY8DTp03GVDjKtIYTFcByapIWRJosPYKPSmJPy
-X-Gm-Gg: AR+sD11/4H3LFhyKGAWyk/tKSKqi1hAM6lIwVcZmLjOAn14HLmCY2dRj6PMWnDib8jU
-	AMJQZzQDbY6UURGHx20+1UYnwwD04XFYuEthSictsBSJSmwkdVxOCRtZOgGMaVd5TB8qt7cODU0
-	44Y027+BrmPYVtTbZn/UhHUhCbD5gJcCbZtwJA/VYlXFfmhUVDqIcCeeWrLchkqz5fziOWoPge6
-	1ZgvMrvUaH63OD3ta9MReF+WNIiNQP2zxJhfvdcJksZTAHoAkCigVj+TLovzlCDFrn0cXjquRzl
-	5FHcfuMwnAB4R6ykyhVomb3tl1I4/jWJ0xMiRWivhf4TjjxSa/8QOABUyjiCOO39WvJ3upE3fpF
-	yD3rx5RL/yn/+lVSN6vlyvB/QvbJqnSNUHlDTP2JQF11o8PfDlHssS4psx1qRy8uh0v1t
-X-Received: by 2002:a05:620a:a0c9:10b0:939:595:e132 with SMTP id af79cd13be357-939137b133amr2890138185a.5.1788247906230;
-        Tue, 01 Sep 2026 00:31:46 -0700 (PDT)
-X-Received: by 2002:a05:620a:a0c9:10b0:939:595:e132 with SMTP id af79cd13be357-939137b133amr2890132585a.5.1788247905602;
-        Tue, 01 Sep 2026 00:31:45 -0700 (PDT)
-Received: from WENMLIU-LAB01.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93918b0f825sm946766785a.40.2026.09.01.00.31.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 00:31:45 -0700 (PDT)
-From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-Date: Tue, 01 Sep 2026 15:31:07 +0800
-Subject: [PATCH RESEND v5 4/4] media: i2c: og0ve1b: Add support for
- OmniVision OG0VA1B
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="Jy/x9OO2"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fh4P82hZ9ufqgQa7OHtSFMnbcDQ2EK+8RFEir8SkYyfBE25N0g1Mx7DLsqYmLE6cKUUQLES8ckHIQLoclSRjrrHfUOGAUOihLxcRA1/ypfRZ0a/FDBKrfUP1dv2Vzl8/dz3t7SIuBXy9b6OJm0AophaSMYZZml4Io/kZcc/QZ4sHmSfls6E9vZzhb0fjoBeXCE7XjgX8M3SirVbScrwOFkT8RI7ZGRTvv+mgx6H+4An1JrRBgjszfNyc8PnIyTJYq7aSCmyoyCALin3gasJDsN5oDPrNhvnXDJgUCFRoDsIbzqRa62HYedB7gTkIdvvHT6bsvJIgGWj5b3s061gKIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GPgVgyUxOXuHj9KnGx3BV8CxHTqn5InN3T6v8yMqnhA=;
+ b=y7LI6ukY8vu2NOV4v47+RTMbjjJfHM9RTIF8Ad99d9xr6D/2LGJG/sFPBpzKItbZZcjG6Or2oCtBQk/m0l2TYd+YjrabtQrRQc1nZtc03DGZmrKEsvMfQ189W4EmBPT4ApqLiopyXxwjLYnu8J8gS4NJOiJi/wA0aCwkBsfVr54Pjrg3bksAaxDaglayGnMOOS+T4G0I6aMQ1g1hGKaUrREXdX0Cxn7YRAiA9ufOgFPLFIdbtoS7TvAycAmly9Lr8AW5cUuQOpQgRF+tsF3rFj74Uv49KaoNSXmRC4pNJ/Qge/W8A0KYOxAa7B4PyoKm708FWbDibodl3AEYcPtKfQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.88) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GPgVgyUxOXuHj9KnGx3BV8CxHTqn5InN3T6v8yMqnhA=;
+ b=Jy/x9OO2LVRmEkVQk4NJXvKQYJ5ugp0o9+oDIdxbXcUsq2wmNDg/zDGEyetPTpkzk/cutGJIB92pA0bInAJn6Gkw5Cn2OO+KBZLNhRcOby6NbDoVIesMoU2G8/GRVImEpk05vyfUogm6mTqqRtjWjKmX7GxuinMpxFpONRbR9SVlqSm8tUX92TjrMylltlViKx87KU1TCtsEmNyrzrULIm1PGv+Dan37808E/0VbIcZV5wHs+8mZ9IUMb33eRNWAvUfDD4Ggk4sT0mS7O4o7Y/67UDrk7gYOT0XJrC5t9W5fbcOTaNQqlZzjcVPNrQI59K2LJt4snvlTm4fkOFGQxA==
+Received: from AS4P191CA0012.EURP191.PROD.OUTLOOK.COM (2603:10a6:20b:5d5::11)
+ by DB4PR10MB6920.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:3fc::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
+ 2026 07:33:36 +0000
+Received: from AM4PEPF00027A6C.eurprd04.prod.outlook.com
+ (2603:10a6:20b:5d5:cafe::31) by AS4P191CA0012.outlook.office365.com
+ (2603:10a6:20b:5d5::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Tue, 1
+ Sep 2026 07:33:36 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.88)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.88 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.88; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.88) by
+ AM4PEPF00027A6C.mail.protection.outlook.com (10.167.16.90) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Tue, 1 Sep 2026 07:33:36 +0000
+Received: from ENXDAG1NODE4.st.com (10.75.129.197) by smtpo365.st.com
+ (10.250.44.75) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 1 Sep
+ 2026 09:30:54 +0200
+Received: from [10.48.87.85] (10.48.87.85) by ENXDAG1NODE4.st.com
+ (10.75.129.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 1 Sep
+ 2026 09:33:34 +0200
+Message-ID: <3326ff38-75c3-4218-b537-17077f3faa4e@foss.st.com>
+Date: Tue, 1 Sep 2026 09:33:33 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-og0va1b-v5-4-b0400a9bac01@oss.qualcomm.com>
-References: <20260901-og0va1b-v5-0-b0400a9bac01@oss.qualcomm.com>
-In-Reply-To: <20260901-og0va1b-v5-0-b0400a9bac01@oss.qualcomm.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Sakari Ailus <sakari.ailus@linux.intel.com>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788247879; l=13942;
- i=wenmeng.liu@oss.qualcomm.com; s=20250925; h=from:subject:message-id;
- bh=ykUUSv77OEo5PaKCMO9ysrO1o42/MAKasnMbnUkbxUk=;
- b=y+wnv5eh9De4dz2jijNaQZKZ7w4zlCdfDq/mUiBCS4dtbD7QSF0dPnc382Iyk9QLm6RwaH7zk
- 9YowMxvG6YSCsx93cuvyV7NyrMGhNWjf0wT8g7Bae/RZzLj+BZ4xgec
-X-Developer-Key: i=wenmeng.liu@oss.qualcomm.com; a=ed25519;
- pk=fQJjf9C3jGDjE1zj2kO3NQLTbQEaZObVcXAzx5WLPX0=
-X-Authority-Analysis: v=2.4 cv=beZbluPB c=1 sm=1 tr=0 ts=6a967f63 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=kvSDJSb0XTZWr82cfuIA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA2NiBTYWx0ZWRfXz3VA23bY5McD
- t3deiY6sZjxmrHvKTBilf6Oy7CijTxbAJv0/eMuCy6F8eGCKroiPuRdIZYU3HuJhA/t0mzsgQzn
- P0GOnjTeiLMCQrvOXUNZNNd7Ry+q+a8thJbiVBuoj8y7/oNiUygPDa63ZQrVefS8oBspbHjLqaM
- LH+XJWgTmQL5/iy1AbrByv6jU0z+nx+Jk4tBaOEsBTs6nmcYcfl52r6h/IcV5qfEIsIOfrOy0+O
- E/oQNdJUidA18sldu+wWHAfjcN68k/3kNVtrxJ6mG7Js0MgUbXi1pSXCGdMVu1w2Ly2jDBk0pu7
- ti2dcbEpjPsUoPt3uQ6iPkaOARYtrsrIs3zQ3Utj3/Z6EfoPeuKIs2Z+TIun6ccLkYndF9OJDiy
- 8YU+T+TA6PyMiOLwwsrSiDYHJ4LDdR5anporBcQry9/xv7V4uCqCHETLKIc9SQn4I+/6S3AZB2f
- BZk8hAsQLZeKwrCKQTw==
-X-Proofpoint-GUID: KHfGxCUw0_AVz6-j9kc6KU9IXdxWkfnD
-X-Proofpoint-ORIG-GUID: KHfGxCUw0_AVz6-j9kc6KU9IXdxWkfnD
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA2NiBTYWx0ZWRfX/Jdqk4P27Mwl
- ejtLae9zJyiv4gBNxKzDM44VoszlTFBnV8gZhOP+Ae3PZP1C9Zrpw7hC2j471qtHGJccEWYCfYv
- /X/D7HR6dwmiKv5d6LyfrRxwfb4Ftn8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_02,2026-08-31_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015 impostorscore=0
- priorityscore=1501 malwarescore=0 spamscore=0 adultscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010066
+User-Agent: Mozilla Thunderbird
+Subject: Re: [net-next,PATCH v2 1/5] dt-bindings: net: add phy-supply property
+ for stm32
+To: Rob Herring <robh@kernel.org>
+CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
+	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	<linusw@kernel.org>, Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Vladimir Oltean <vladimir.oltean@nxp.com>, <netdev@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20260812091122.566439-1-christophe.roullier@foss.st.com>
+ <20260812091122.566439-2-christophe.roullier@foss.st.com>
+ <20260812195828.GA724768-robh@kernel.org>
+Content-Language: fr
+From: Christophe ROULLIER <christophe.roullier@foss.st.com>
+In-Reply-To: <20260812195828.GA724768-robh@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To ENXDAG1NODE4.st.com
+ (10.75.129.197)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM4PEPF00027A6C:EE_|DB4PR10MB6920:EE_
+X-MS-Office365-Filtering-Correlation-Id: bb82eb40-2125-446c-c93a-08df07fb5576
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|7416014|22082099003|18002099003|56012099006|11063799006|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	ia9RuAsjnKd+F7/pwoGdZmzqJIYzluSdPV68mho0wlAE/OLnV2UJQtWHHCXr5G1dIH/NgXgVebW6FdgdSNiGhvsU43xiPR/u0LgR8WAJDwwI40UxwKP3k6kfgYqNuut7UGtAj/+7i+TwChGW6t9HPpaCXT4aZD64JCkYRcczcp5T5HlyUyNjdtrsJ6XkoxOL56wXLVGle5+smbCWLbZEbjTwXFrpyL+5wHviUQh7XLx+nxlMrnObk9oKPVJVeVsEf3hJLjqSOA6fOK9zQGKoSUmD0C4lfouDdZS01Q8LjBxUBK0m8keRLoFYCwkd2uJwEA9D7IgbfruORfTGN5EwRDXxmy/9eKNwkWMkcFSz1O1x7AuNLwhlyixIBTVGX83wl2TC2cVnsasD4UVzdMipaNBgMVJo3ccQr2TQnFMLq6s3Xo8zMm6HasTvzD5x6iNjY4/cCd54d+LvDjliZoJPnR1MVKmhztSPnnvO9W0OUqNlVFd2syegY5v8G1UvG6OWjmb3mU+FtoWquZaR5HWr8pcvSp7guI61gPCU3V45Hl2ZMd+2Mvt/j/4vk89f7Mk66aVVvpp8fthRNadBSfUFpxjtVwDfhrv/9nLAMyy5WVjD2eJg31N4umZ4JC2t0OpJ8X9uTI24crk9mF1leQjQ8WdZpg2/LU3Z5gZ+3MHOI5X72xEfKT1Crf+UiYNURE0S
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.88;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(7416014)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	mXu6N9bKxnX9QAMh6vGLaLCEOvVcLv9kFFtI04S5GZoFkyTykcbVkVx2kkA+MbxQQIBT6ZCxoy+bOORxO1j9poFTTdRN3Vn/uDNf5OrHuAyq0kChE+w/r/aSS/DcDG/+gx9LZRDgBbHF0eQQCpYjP/+IGodD6AxdcFC25ipTwxp4wOSaCswjhsXiAzE+2p169DW+9aGRo6x8wq0zH7kM0J119U7wbDB7cb66qZJLpGvvq1EQrqWLSAmLmAZvMvkDaNX+uIuxScUIplaH40DkOMIcmaMBPcfiJcu0dtO8Xft49ZfOgNTSWQ7VN40ZSx9Fshz5lRunPRoAVKygNrP7yp7m3HvGcAx4qkneLEPPLbimf09JJNfOudb1YQgRehu4cbMHPNse2o5/IIBkiUd5ohYwEKYBEUcQLTggO6FXP3I+E9kM5L/nHI6cYcAXqVue
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 07:33:36.1128
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb82eb40-2125-446c-c93a-08df07fb5576
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.88];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM4PEPF00027A6C.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR10MB6920
 
-The OmniVision OG0VA1B is a monochrome image sensor closely related to
-the OG0VE1B. It shares the SCCB control interface, power supplies and
-the single-lane MIPI D-PHY description, and differs in its chip id, the
-test pattern register, the register programming and the output format
-(10-bit RAW instead of 8-bit).
 
-Add an og0ve1b_sensor_data entry describing the OG0VA1B together with
-its 640x480 60fps register sequence.
+Le 12/08/2026 à 21:58, Rob Herring a écrit :
+> On Wed, Aug 12, 2026 at 11:11:18AM +0200, Christophe Roullier wrote:
+>> Phandle to a regulator that provides power to the PHY. This
+>> regulator will be managed during the PHY power on/off sequence.
+>>
+>> Signed-off-by: Christophe Roullier <christophe.roullier@foss.st.com>
+>> ---
+>>   Documentation/devicetree/bindings/net/stm32-dwmac.yaml | 3 +++
+>>   1 file changed, 3 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml b/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
+>> index 987254900d0da..0c7eb1ccadd47 100644
+>> --- a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
+>> +++ b/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
+>> @@ -99,6 +99,9 @@ properties:
+>>         encompases the glue register, the offset of the control register and
+>>         the mask to set bitfield in control register
+>>   
+>> +  phy-supply:
+>> +    description: PHY regulator
+> Which phy? There can be multiple for ethernet. In any case, doesn't
+> really matter because either is wrong. The supply(ies) for a device go
+> in that device's DT node. This node is not a PHY.
+>
+> Rob
 
-Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Tested-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org> # og0ve1b
-Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
----
- drivers/media/i2c/og0ve1b.c | 278 ++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 266 insertions(+), 12 deletions(-)
+Hi Rob,
 
-diff --git a/drivers/media/i2c/og0ve1b.c b/drivers/media/i2c/og0ve1b.c
-index f560d5d90fda94abf4bc622c5e4f861b078b811f..7b8555a833c255652204d5f4c87c8d701c3008e6 100644
---- a/drivers/media/i2c/og0ve1b.c
-+++ b/drivers/media/i2c/og0ve1b.c
-@@ -15,10 +15,14 @@
- #include <media/v4l2-device.h>
- #include <media/v4l2-fwnode.h>
- 
-+#define OG0VA1B_LINK_FREQ_480MHZ	(480 * HZ_PER_MHZ)
-+#define OG0VA1B_MCLK_FREQ_19_2MHZ	(19200 * HZ_PER_KHZ)
-+
- #define OG0VE1B_LINK_FREQ_500MHZ	(500 * HZ_PER_MHZ)
- #define OG0VE1B_MCLK_FREQ_24MHZ		(24 * HZ_PER_MHZ)
- 
--#define OG0VE1B_REG_CHIP_ID		CCI_REG24(0x300a)
-+#define OG0V_REG_CHIP_ID		CCI_REG24(0x300a)
-+#define OG0VA1B_CHIP_ID			0xc75641
- #define OG0VE1B_CHIP_ID			0xc75645
- 
- #define OG0VE1B_REG_MODE_SELECT		CCI_REG8(0x0100)
-@@ -46,12 +50,18 @@
- #define OG0VE1B_REG_VTS			CCI_REG16(0x380e)
- #define OG0VE1B_VTS_MAX			0xffff
- 
--/* Test pattern */
-+/* Test pattern - OG0VA1B uses 0x5100, OG0VE1B uses 0x5e00 */
-+#define OG0VA1B_REG_TEST_PATTERN	CCI_REG8(0x5100)
-+#define OG0VA1B_TEST_PATTERN_BAR_SHIFT	2
- #define OG0VE1B_REG_PRE_ISP		CCI_REG8(0x5e00)
- #define OG0VE1B_TEST_PATTERN_ENABLE	BIT(7)
- 
- #define to_og0ve1b(_sd)			container_of(_sd, struct og0ve1b, sd)
- 
-+static const s64 og0va1b_link_freq_menu[] = {
-+	OG0VA1B_LINK_FREQ_480MHZ,
-+};
-+
- static const s64 og0ve1b_link_freq_menu[] = {
- 	OG0VE1B_LINK_FREQ_500MHZ,
- };
-@@ -74,15 +84,31 @@ struct og0ve1b_mode {
- struct og0ve1b;
- 
- struct og0ve1b_sensor_data {
-+	const char *name;
- 	u64 chip_id;
- 	unsigned long mclk_freq;
- 	int (*enable_test_pattern)(struct og0ve1b *og0ve1b, u32 pattern);
-+	const char * const *test_pattern_menu;
-+	int num_test_patterns;
-+	bool cache_test_pattern_reg;
-+	/* Exposure register unit: OG0VE1B 1/16 line (4), OG0VA1B whole lines (0). */
-+	unsigned int exposure_shift;
-+	/* Pixel rate multiplier: OG0VA1B uses CSI-2 DDR (2), OG0VE1B keeps 1. */
-+	unsigned int pixel_rate_mul;
- 	const s64 *link_freq_menu;
- 	int num_link_freqs;
- 	const struct og0ve1b_mode *modes;
- 	int num_modes;
- };
- 
-+static const char * const og0va1b_test_pattern_menu[] = {
-+	"Disabled",
-+	"Standard Test Bar",
-+	"Top-Bottom Darker Test Bar",
-+	"Right-Left Darker Test Bar",
-+	"Bottom-Top Darker Test Bar",
-+};
-+
- static const char * const og0ve1b_test_pattern_menu[] = {
- 	"Disabled",
- 	"Standard Test Bar",
-@@ -116,6 +142,196 @@ struct og0ve1b {
- 	const struct og0ve1b_sensor_data *data;
- };
- 
-+static const struct cci_reg_sequence og0va1b_640x480_60fps_mode[] = {
-+	{ CCI_REG8(0x0302), 0x31 },
-+	{ CCI_REG8(0x0303), 0x02 },
-+	{ CCI_REG8(0x0304), 0x01 },
-+	{ CCI_REG8(0x0305), 0x90 },
-+	{ CCI_REG8(0x0306), 0x00 },
-+	{ CCI_REG8(0x0323), 0x02 },
-+	{ CCI_REG8(0x0325), 0x68 },
-+	{ CCI_REG8(0x0326), 0xd8 },
-+	{ CCI_REG8(0x3006), 0x0e },
-+	{ CCI_REG8(0x300d), 0x08 },
-+	{ CCI_REG8(0x3018), 0xf0 },
-+	{ CCI_REG8(0x301c), 0xf0 },
-+	{ CCI_REG8(0x3020), 0x20 },
-+	{ CCI_REG8(0x3040), 0x0f },
-+	{ CCI_REG8(0x3022), 0x01 },
-+	{ CCI_REG8(0x3107), 0x40 },
-+	{ CCI_REG8(0x3216), 0x01 },
-+	{ CCI_REG8(0x3217), 0x00 },
-+	{ CCI_REG8(0x3218), 0xc0 },
-+	{ CCI_REG8(0x3219), 0x55 },
-+	{ CCI_REG8(0x3506), 0x01 },
-+	{ CCI_REG8(0x3507), 0x50 },
-+	{ CCI_REG8(0x3508), 0x01 },
-+	{ CCI_REG8(0x3509), 0x00 },
-+	{ CCI_REG8(0x350a), 0x01 },
-+	{ CCI_REG8(0x350b), 0x00 },
-+	{ CCI_REG8(0x350c), 0x00 },
-+	{ CCI_REG8(0x3541), 0x00 },
-+	{ CCI_REG8(0x3542), 0x40 },
-+	{ CCI_REG8(0x3605), 0x90 },
-+	{ CCI_REG8(0x3606), 0x41 },
-+	{ CCI_REG8(0x3612), 0x00 },
-+	{ CCI_REG8(0x3620), 0x08 },
-+	{ CCI_REG8(0x3630), 0x17 },
-+	{ CCI_REG8(0x3631), 0x99 },
-+	{ CCI_REG8(0x3639), 0x88 },
-+	{ CCI_REG8(0x3668), 0x00 },
-+	{ CCI_REG8(0x3674), 0x00 },
-+	{ CCI_REG8(0x3677), 0x3f },
-+	{ CCI_REG8(0x368f), 0x06 },
-+	{ CCI_REG8(0x36a2), 0x19 },
-+	{ CCI_REG8(0x36a4), 0xf1 },
-+	{ CCI_REG8(0x36a5), 0x2d },
-+	{ CCI_REG8(0x3706), 0x30 },
-+	{ CCI_REG8(0x370d), 0x72 },
-+	{ CCI_REG8(0x3713), 0x86 },
-+	{ CCI_REG8(0x3715), 0x03 },
-+	{ CCI_REG8(0x3716), 0x00 },
-+	{ CCI_REG8(0x376d), 0x24 },
-+	{ CCI_REG8(0x3770), 0x3a },
-+	{ CCI_REG8(0x3778), 0x00 },
-+	{ CCI_REG8(0x37a8), 0x03 },
-+	{ CCI_REG8(0x37a9), 0x00 },
-+	{ CCI_REG8(0x37df), 0x7d },
-+	{ CCI_REG8(0x3800), 0x00 },
-+	{ CCI_REG8(0x3801), 0x00 },
-+	{ CCI_REG8(0x3802), 0x00 },
-+	{ CCI_REG8(0x3803), 0x00 },
-+	{ CCI_REG8(0x3804), 0x02 },
-+	{ CCI_REG8(0x3805), 0x8f },
-+	{ CCI_REG8(0x3806), 0x01 },
-+	{ CCI_REG8(0x3807), 0xef },
-+	{ CCI_REG8(0x3808), 0x02 },
-+	{ CCI_REG8(0x3809), 0x80 },
-+	{ CCI_REG8(0x380a), 0x01 },
-+	{ CCI_REG8(0x380b), 0xe0 },
-+	{ CCI_REG8(0x380c), 0x01 },
-+	{ CCI_REG8(0x380d), 0x78 },
-+	{ CCI_REG8(0x380e), 0x08 },
-+	{ CCI_REG8(0x380f), 0x30 },
-+	{ CCI_REG8(0x3810), 0x00 },
-+	{ CCI_REG8(0x3811), 0x08 },
-+	{ CCI_REG8(0x3812), 0x00 },
-+	{ CCI_REG8(0x3813), 0x08 },
-+	{ CCI_REG8(0x3814), 0x11 },
-+	{ CCI_REG8(0x3815), 0x11 },
-+	{ CCI_REG8(0x3816), 0x00 },
-+	{ CCI_REG8(0x3817), 0x01 },
-+	{ CCI_REG8(0x3818), 0x00 },
-+	{ CCI_REG8(0x3819), 0x05 },
-+	{ CCI_REG8(0x3820), 0x40 },
-+	{ CCI_REG8(0x3821), 0x04 },
-+	{ CCI_REG8(0x3823), 0x00 },
-+	{ CCI_REG8(0x3826), 0x00 },
-+	{ CCI_REG8(0x3827), 0x00 },
-+	{ CCI_REG8(0x382b), 0x52 },
-+	{ CCI_REG8(0x384a), 0xa2 },
-+	{ CCI_REG8(0x3858), 0x00 },
-+	{ CCI_REG8(0x3859), 0x00 },
-+	{ CCI_REG8(0x3860), 0x00 },
-+	{ CCI_REG8(0x3861), 0x00 },
-+	{ CCI_REG8(0x3866), 0x0c },
-+	{ CCI_REG8(0x3867), 0x07 },
-+	{ CCI_REG8(0x3884), 0x00 },
-+	{ CCI_REG8(0x3885), 0x08 },
-+	{ CCI_REG8(0x3888), 0x50 },
-+	{ CCI_REG8(0x3893), 0x6c },
-+	{ CCI_REG8(0x3898), 0x00 },
-+	{ CCI_REG8(0x389a), 0x04 },
-+	{ CCI_REG8(0x389b), 0x01 },
-+	{ CCI_REG8(0x389c), 0x0b },
-+	{ CCI_REG8(0x389d), 0xdc },
-+	{ CCI_REG8(0x38b1), 0x04 },
-+	{ CCI_REG8(0x38b2), 0x00 },
-+	{ CCI_REG8(0x38b3), 0x08 },
-+	{ CCI_REG8(0x38c1), 0x46 },
-+	{ CCI_REG8(0x38c9), 0x02 },
-+	{ CCI_REG8(0x38d4), 0x06 },
-+	{ CCI_REG8(0x38d5), 0x5a },
-+	{ CCI_REG8(0x38d6), 0x08 },
-+	{ CCI_REG8(0x38d7), 0x3a },
-+	{ CCI_REG8(0x391f), 0x00 },
-+	{ CCI_REG8(0x3920), 0xaa },
-+	{ CCI_REG8(0x3921), 0x00 },
-+	{ CCI_REG8(0x3922), 0x00 },
-+	{ CCI_REG8(0x3923), 0x00 },
-+	{ CCI_REG8(0x3924), 0x00 },
-+	{ CCI_REG8(0x3925), 0x00 },
-+	{ CCI_REG8(0x3926), 0x00 },
-+	{ CCI_REG8(0x3927), 0x00 },
-+	{ CCI_REG8(0x3928), 0x10 },
-+	{ CCI_REG8(0x3929), 0x01 },
-+	{ CCI_REG8(0x392a), 0xb4 },
-+	{ CCI_REG8(0x392b), 0x00 },
-+	{ CCI_REG8(0x392c), 0x10 },
-+	{ CCI_REG8(0x392d), 0x01 },
-+	{ CCI_REG8(0x392e), 0x78 },
-+	{ CCI_REG8(0x392f), 0x4a },
-+	{ CCI_REG8(0x391e), 0x01 },
-+	{ CCI_REG8(0x389f), 0x08 },
-+	{ CCI_REG8(0x38a0), 0x00 },
-+	{ CCI_REG8(0x38a1), 0x00 },
-+	{ CCI_REG8(0x3a06), 0x06 },
-+	{ CCI_REG8(0x3a07), 0x78 },
-+	{ CCI_REG8(0x3a08), 0x08 },
-+	{ CCI_REG8(0x3a09), 0x80 },
-+	{ CCI_REG8(0x3a52), 0x00 },
-+	{ CCI_REG8(0x3a53), 0x01 },
-+	{ CCI_REG8(0x3a54), 0x0c },
-+	{ CCI_REG8(0x3a55), 0x04 },
-+	{ CCI_REG8(0x3a58), 0x0c },
-+	{ CCI_REG8(0x3a59), 0x04 },
-+	{ CCI_REG8(0x4000), 0xcf },
-+	{ CCI_REG8(0x4003), 0x40 },
-+	{ CCI_REG8(0x4008), 0x04 },
-+	{ CCI_REG8(0x4009), 0x13 },
-+	{ CCI_REG8(0x400a), 0x02 },
-+	{ CCI_REG8(0x400b), 0x34 },
-+	{ CCI_REG8(0x4010), 0x71 },
-+	{ CCI_REG8(0x4042), 0xc3 },
-+	{ CCI_REG8(0x4306), 0x04 },
-+	{ CCI_REG8(0x4307), 0x12 },
-+	{ CCI_REG8(0x4500), 0x70 },
-+	{ CCI_REG8(0x4509), 0x00 },
-+	{ CCI_REG8(0x450b), 0x83 },
-+	{ CCI_REG8(0x4604), 0x68 },
-+	{ CCI_REG8(0x481b), 0x44 },
-+	{ CCI_REG8(0x481f), 0x30 },
-+	{ CCI_REG8(0x4823), 0x44 },
-+	{ CCI_REG8(0x4825), 0x35 },
-+	{ CCI_REG8(0x4837), 0x11 },
-+	{ CCI_REG8(0x4f00), 0x04 },
-+	{ CCI_REG8(0x4f10), 0x04 },
-+	{ CCI_REG8(0x4f21), 0x01 },
-+	{ CCI_REG8(0x4f22), 0x00 },
-+	{ CCI_REG8(0x4f23), 0x54 },
-+	{ CCI_REG8(0x4f24), 0x51 },
-+	{ CCI_REG8(0x4f25), 0x41 },
-+	{ CCI_REG8(0x5000), 0x3f },
-+	{ CCI_REG8(0x5001), 0x80 },
-+	{ CCI_REG8(0x500a), 0x00 },
-+	{ CCI_REG8(0x5100), 0x00 },
-+	{ CCI_REG8(0x5111), 0x20 },
-+};
-+
-+static const struct og0ve1b_mode og0va1b_supported_modes[] = {
-+	{
-+		.width = 640,
-+		.height = 480,
-+		.hts = 752,
-+		.vts = 2096,
-+		.code = MEDIA_BUS_FMT_Y10_1X10,
-+		.reg_list = {
-+			.regs = og0va1b_640x480_60fps_mode,
-+			.num_regs = ARRAY_SIZE(og0va1b_640x480_60fps_mode),
-+		},
-+	},
-+};
-+
- static const struct cci_reg_sequence og0ve1b_640x480_120fps_mode[] = {
- 	{ CCI_REG8(0x30a0), 0x02 },
- 	{ CCI_REG8(0x30a1), 0x00 },
-@@ -276,6 +492,17 @@ static const struct og0ve1b_mode og0ve1b_supported_modes[] = {
- 	},
- };
- 
-+static int og0va1b_enable_test_pattern(struct og0ve1b *og0ve1b, u32 pattern)
-+{
-+	u64 val = 0;
-+
-+	if (pattern)
-+		val = ((pattern - 1) << OG0VA1B_TEST_PATTERN_BAR_SHIFT) |
-+		      OG0VE1B_TEST_PATTERN_ENABLE;
-+
-+	return cci_write(og0ve1b->regmap, OG0VA1B_REG_TEST_PATTERN, val, NULL);
-+}
-+
- static int og0ve1b_enable_test_pattern(struct og0ve1b *og0ve1b, u32 pattern)
- {
- 	u64 val = og0ve1b->pre_isp;
-@@ -288,10 +515,31 @@ static int og0ve1b_enable_test_pattern(struct og0ve1b *og0ve1b, u32 pattern)
- 	return cci_write(og0ve1b->regmap, OG0VE1B_REG_PRE_ISP, val, NULL);
- }
- 
-+static const struct og0ve1b_sensor_data og0va1b_data = {
-+	.name = "og0va1b",
-+	.chip_id = OG0VA1B_CHIP_ID,
-+	.mclk_freq = OG0VA1B_MCLK_FREQ_19_2MHZ,
-+	.enable_test_pattern = og0va1b_enable_test_pattern,
-+	.test_pattern_menu = og0va1b_test_pattern_menu,
-+	.num_test_patterns = ARRAY_SIZE(og0va1b_test_pattern_menu),
-+	.exposure_shift = 0,
-+	.pixel_rate_mul = 2,
-+	.link_freq_menu = og0va1b_link_freq_menu,
-+	.num_link_freqs = ARRAY_SIZE(og0va1b_link_freq_menu),
-+	.modes = og0va1b_supported_modes,
-+	.num_modes = ARRAY_SIZE(og0va1b_supported_modes),
-+};
-+
- static const struct og0ve1b_sensor_data og0ve1b_data = {
-+	.name = "og0ve1b",
- 	.chip_id = OG0VE1B_CHIP_ID,
- 	.mclk_freq = OG0VE1B_MCLK_FREQ_24MHZ,
- 	.enable_test_pattern = og0ve1b_enable_test_pattern,
-+	.test_pattern_menu = og0ve1b_test_pattern_menu,
-+	.num_test_patterns = ARRAY_SIZE(og0ve1b_test_pattern_menu),
-+	.cache_test_pattern_reg = true,
-+	.exposure_shift = 4,
-+	.pixel_rate_mul = 1,
- 	.link_freq_menu = og0ve1b_link_freq_menu,
- 	.num_link_freqs = ARRAY_SIZE(og0ve1b_link_freq_menu),
- 	.modes = og0ve1b_supported_modes,
-@@ -332,7 +580,8 @@ static int og0ve1b_set_ctrl(struct v4l2_ctrl *ctrl)
- 		break;
- 	case V4L2_CID_EXPOSURE:
- 		ret = cci_write(og0ve1b->regmap, OG0VE1B_REG_EXPOSURE,
--				ctrl->val << 4, NULL);
-+				ctrl->val << og0ve1b->data->exposure_shift,
-+				NULL);
- 		break;
- 	case V4L2_CID_VBLANK:
- 		ret = cci_write(og0ve1b->regmap, OG0VE1B_REG_VTS,
-@@ -360,7 +609,7 @@ static s64 og0ve1b_pixel_rate(const struct og0ve1b_sensor_data *data)
- 	const struct og0ve1b_mode *mode = &data->modes[0];
- 	unsigned int bpp = mode->code == MEDIA_BUS_FMT_Y8_1X8 ? 8 : 10;
- 
--	return div_u64(data->link_freq_menu[0], bpp);
-+	return div_u64(data->link_freq_menu[0] * data->pixel_rate_mul, bpp);
- }
- 
- static int og0ve1b_init_controls(struct og0ve1b *og0ve1b)
-@@ -413,8 +662,8 @@ static int og0ve1b_init_controls(struct og0ve1b *og0ve1b)
- 
- 	v4l2_ctrl_new_std_menu_items(ctrl_hdlr, &og0ve1b_ctrl_ops,
- 				     V4L2_CID_TEST_PATTERN,
--				     ARRAY_SIZE(og0ve1b_test_pattern_menu) - 1,
--				     0, 0, og0ve1b_test_pattern_menu);
-+				     data->num_test_patterns - 1,
-+				     0, 0, data->test_pattern_menu);
- 
- 	if (ctrl_hdlr->error)
- 		return ctrl_hdlr->error;
-@@ -621,7 +870,7 @@ static int og0ve1b_identify_sensor(struct og0ve1b *og0ve1b)
- 	u64 val;
- 	int ret;
- 
--	ret = cci_read(og0ve1b->regmap, OG0VE1B_REG_CHIP_ID, &val, NULL);
-+	ret = cci_read(og0ve1b->regmap, OG0V_REG_CHIP_ID, &val, NULL);
- 	if (ret) {
- 		dev_err(og0ve1b->dev, "failed to read chip id: %d\n", ret);
- 		return ret;
-@@ -633,10 +882,12 @@ static int og0ve1b_identify_sensor(struct og0ve1b *og0ve1b)
- 		return -ENODEV;
- 	}
- 
--	ret = cci_read(og0ve1b->regmap, OG0VE1B_REG_PRE_ISP,
--		       &og0ve1b->pre_isp, NULL);
--	if (ret)
--		dev_err(og0ve1b->dev, "failed to read pre_isp: %d\n", ret);
-+	if (og0ve1b->data->cache_test_pattern_reg) {
-+		ret = cci_read(og0ve1b->regmap, OG0VE1B_REG_PRE_ISP,
-+			       &og0ve1b->pre_isp, NULL);
-+		if (ret)
-+			dev_err(og0ve1b->dev, "failed to read pre_isp: %d\n", ret);
-+	}
- 
- 	return ret;
- }
-@@ -732,6 +983,8 @@ static int og0ve1b_probe(struct i2c_client *client)
- 		return -ENODEV;
- 
- 	v4l2_i2c_subdev_init(&og0ve1b->sd, client, &og0ve1b_subdev_ops);
-+	v4l2_i2c_subdev_set_name(&og0ve1b->sd, client,
-+				 og0ve1b->data->name, NULL);
- 
- 	og0ve1b->regmap = devm_cci_regmap_init_i2c(client, 16);
- 	if (IS_ERR(og0ve1b->regmap))
-@@ -863,6 +1116,7 @@ static const struct dev_pm_ops og0ve1b_pm_ops = {
- };
- 
- static const struct of_device_id og0ve1b_of_match[] = {
-+	{ .compatible = "ovti,og0va1b", .data = &og0va1b_data },
- 	{ .compatible = "ovti,og0ve1b", .data = &og0ve1b_data },
- 	{ /* sentinel */ }
- };
-@@ -881,5 +1135,5 @@ static struct i2c_driver og0ve1b_i2c_driver = {
- module_i2c_driver(og0ve1b_i2c_driver);
- 
- MODULE_AUTHOR("Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>");
--MODULE_DESCRIPTION("OmniVision OG0VE1B sensor driver");
-+MODULE_DESCRIPTION("OmniVision OG0VE1B/OG0VA1B sensor driver");
- MODULE_LICENSE("GPL");
+Ok I will update my description with :   "Regulator that powers the 
+Ethernet PHY."
 
--- 
-2.34.1
+To manage this regulator on Ethernet glue, I based my work on the 
+examples of :
+
+   - allwinner,sun4i,
+
+   - allwinner,sun7i
+
+   - allwinner,sun8i
+
+   - fsl,fec
+
+   - rockchip-dwmac
+
+   - rockchip,emac
+
+For me it is normal that PHY Ethernet regulator is managed by MAC glue 
+because it is mandatory to power ON Ethernet PHY chip BEFORE MDIO scan.
+
+Let me know if that works for you
+
+Regards,
+
+Christophe.
+
+
 
