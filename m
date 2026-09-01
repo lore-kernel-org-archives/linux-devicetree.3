@@ -1,70 +1,69 @@
-Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com [209.85.161.41])
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C184469859
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 21:42:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7EA446D55A
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 21:42:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788298961; cv=none; b=EhQfGSce67zvNBNRpkHq4WVk+zLALeffqD7eKPvDYqChPEnHEnYcanY3LyAyPa4xp7S7P03kv2UATZP+d6fF5PqqrA33bXgg5MYvsTPN7lg96OvUlBMvyLYOx1NTVbY00q9L3uXd+x6HkyHbklcwLRLl6VoFH8UPjpCD6de+CEQ=
+	t=1788298962; cv=none; b=MNX6/4+KoXU8eQMfEzXi0ArEbJ8R5Hah2Xs/b/+TMS6XsfgKkHNGwhpEpAPIm/qE1nw22i8ox6xsgKnBoxKPWDwzgXhI+4K/rnJW2nBBJS64pSsoIOKdCJTd2nKL3gqHpVAHUcM5CeIdHzleI+vLsdqcBB6w09zYLw0yZNtmZ2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788298961; c=relaxed/simple;
-	bh=SsUQNTNv6kHN9VELJ592cUs8KSzWhnVlCcfgO3cKqSA=;
+	s=arc-20240116; t=1788298962; c=relaxed/simple;
+	bh=2MQajOnTHQy9cxT4/OCsw/3Iyn4dIFt4qbmTlxBoqlM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=aTwm21KIC5crIEuGxkTuXx4CyvTvbQuKoUdHdlh2dAGhF2acJB09Bq9bwd/Jjy8z+vWmrhD2Ue5tqqSovA3eNIkiuqAYJrpNJeA1y3kH7SUixh6/1KcQIXRkJClaWJxUEFrOEjhKeO7aV2zWCDEwhekWv5aLUznEgnx/3ubP+Yc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QjOgPHSA; arc=none smtp.client-ip=209.85.161.41
+	 In-Reply-To:To:Cc; b=jJn9o8PyoCCfJB8A4WHgUu8kUtOs/3OS4Eh8k6gumok2uY5PcXkhOjLy8P+PT1SlgXmTq31lCE36cQt4MBhD7W7NBv6aQKPr/SPrpaI/wIkZylrH5tNjWk0AreIqSTLnG4Q1M9tZzAQUTkeYd/1PSbH5VIKA7gJ98s4W8WkrHrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nzsuqkj4; arc=none smtp.client-ip=209.85.210.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QjOgPHSA"
-Received: by mail-oo1-f41.google.com with SMTP id 006d021491bc7-6b0496f4bbcso247342eaf.0
-        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 14:42:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nzsuqkj4"
+Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7e9fc3de7ceso143678a34.1
+        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 14:42:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788298957; x=1788903757; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788298958; x=1788903758; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=m99J5Fi/T1zvsWEGoRtP+MygE1A2m2xBlRSpWOmMB6k=;
-        b=QjOgPHSAtD0gdtxOt8CTOEoGunby68CWn935jT727UDFh5lGnilBC6Xr6UQxPlR/tJ
-         w/xPSiUzRpFziXhWc2YqTqBxTN/2SgOXNduCPfc1153zZyW67i/iE85wQeQAWtpy4HJ6
-         NFfPAB3SlnrUgbbYJ1qFOmQ+BDfYwz6drJnEkALPBWgylfucGA7qPk5QJ/VEv1APLZda
-         JtKIzfb6eYYvqChLViHiXoCCWu8zEpxRDc1pGGggOXJTA6ikB5od6vKMF8Lk16TeDz4i
-         CYE+aSB8KZH41qoxtTywAxVL5JANwmgqq155e53o3whrhsvHipV6JJnytja5oVzFZpaY
-         bkuA==
+        bh=eDNui4atyj0kDkC+/FQwy6wqM5dKgLTfE/zfJmh8ukw=;
+        b=Nzsuqkj4S/xTLqjOKEAa4k23CfO9GGUrKMYureafEZM/wZYBHL+WVqlrVm+eaeOcMA
+         gfcARoXs6VoY4bKjbQfBdmusHoxY138RgOcL/8JJmyOlWeHEX/sqMWEIMAWCAoTpEP2o
+         bkrTCro9cSSDOoXCTnk5oQy+tjVfpGOIdemlgB9AfpheY+LPoE36WSj1wf1D+HQO+05v
+         G9QTdPtKLlBzieO6/o6JZi60TxFVdkHSLL9tzK9Zw/04L1Fgesy1CB8F/ThDs5aHrGtm
+         yeCcZJnccHJYB+cTbwbBXP0rQmH98Y9dZhDo5WKkr8xfd97oB4PHjyEze1HkPM/B3CtT
+         ifNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788298957; x=1788903757;
+        d=1e100.net; s=20251104; t=1788298958; x=1788903758;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=m99J5Fi/T1zvsWEGoRtP+MygE1A2m2xBlRSpWOmMB6k=;
-        b=VZVuWvqkGMwBOLLpJbstHpFUkf+RdWKde8P/7BPRH4X+fxaCORGplN/V1tuUZlsdav
-         GPzWJuxE+x42SG6V0YspmLAZDinMsyjGOhRos387oqTowJNT3uAxQRUoDKwdvI1THej/
-         mSw2ztwwqKemb/x5+asxxG2q8Ag+kvzgLXkomTdIP9s1eHy0Cf/k/zMYOV++FJygGycQ
-         fgB/5XVJIUzwuplN4z5lEGcR7hGye6Ef7XbR8B6hTOi536QSj0ESkIuTU6lSEmBRMI+2
-         x2JOSv/Liie5hoY7tay+YFiOml5LKL09m0Eh4GboMJYbOkcwbSJuhnAct5Q3iaZ3ASgQ
-         eRsg==
-X-Forwarded-Encrypted: i=1; AHgh+RqqyrxZnF9NFibjmHjusWaV8Jw9nM/v7KLYwCfQbrli7qJZunl0sZ74yqtIW9Vvzyjk8S3umFg87Wal@vger.kernel.org
-X-Gm-Message-State: AFuF++nq/Pttp38yVu0u/fdffJCzfb9NmRxyYnM8KG4GQaLeNJMD4aKz
-	WnY+1tXnzsS5AGU9/H4r7aaJmRXSWJ6pdFTYW3MP4cIMB/JgUd49sA7v
-X-Gm-Gg: AR+sD13dQ4hTteF5U65y3xqPtBK8PCa4YEk+7nn/ASWSdjL/1KommJFvhZ3AfS0uNQC
-	bM0JCEioa1Aho2F5ZpEdAdVdz06SGXZaxz/F4eJSI48BpJyembNvnUL8tOCfCZDLivqoauelX2s
-	QaEAmAB3KQuV7YOKI+8QINFq4QOpYoX+w1O24F738vOPGwzjrvblE95InV2cherlkgWcdewfo9C
-	aIIumDGP8mEvQrZKBH9m09bLvb5yOWhI5JET1KV98zaEn4Wki8owYJ8gmpJZ5DYu+KB5Q0+/+yA
-	eDotmBjKmNuLSeYbyvmCn+ZoS8/F55dZhgHico44rRxW+WI7JTjFSKLEO16OwjGyRspsheIVufc
-	1G91kv5gAzWrQqmfS9var5deezyBsujQg7FB93pnWmBDVj2kc63v9onfiOhBFu2sZIsRhXO+PUn
-	Un3hFiVrkHYq1nTn7KbRQQZh2dXPbC+13hWZT3JPduGPjvjDtCnw3MAokoGs205Xi5/ELYVDCDb
-	wp7w3Oh6lDHzjiAw28GGcQbXeIJXuxrIk2jTHPT2hzKy5+PIVWM78+YcpribB9dI7sKSDbmuGAS
-	cFGIqNlsLdEeonXygoBBwJb4ofP9LcnFn1W9kc4u0/bKxA==
-X-Received: by 2002:a4a:d749:0:b0:6ae:6484:5f40 with SMTP id 006d021491bc7-6b1c673d01emr27846776eaf.21.1788298956904;
-        Tue, 01 Sep 2026 14:42:36 -0700 (PDT)
+        bh=eDNui4atyj0kDkC+/FQwy6wqM5dKgLTfE/zfJmh8ukw=;
+        b=h/qWrYIg9gNxceVmMi9d9nhk5irttyEBlAfGiztfXH/bQATBacN53Bi6hdaLz1VUD4
+         XdEZlRwZZJ9hfio7Sikp18lblUqYbdO0nA8VXuDZN3uQYworR4CnPcGvZQp+Fo5hAN3L
+         XgZhAdo3tdPlnPvCr5aVt2I2BOkJu63WGm0lFemlAkXLD6SZ2qUXDXxzIM+cOPZJyPpQ
+         lGXIGVeg581XQNbqgj5LjkNUs46NUetW3lisL0LNy6t5IuYoHN/IFveGTOowBVbXq/Qk
+         /dzVRN9RK0+J9EjLsM9bx0uJcuCvdiG1ZGXGC1nLIHzTmva9NgTStr9fWSiBa6ip0AIV
+         WDYQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoS/HOxo+n7mxLMr/rwIKigk77gwnz/BBNqZb/HiTBaLrY8dbJOXxKX9ka/3Q7IQD6c5PMU++xpejCx@vger.kernel.org
+X-Gm-Message-State: AFuF++mLv2vq6gA8ZXaM2slJyxorLfOwaeiqnvN4RyMfdAmbqPJ5UKu8
+	lX4mRcQmap9hyrB5UaZB6FSI69FvLWNjLyirxmradZWLaKI70KdlgPc8
+X-Gm-Gg: AR+sD11FjP8RAR9vfuUpYLzCwnSOkuFof6ERbwQnd6X/yIA15AATOcg40Z6VITT3mmG
+	Ct4uhj97ZaVwyoZsLNooAOCTzhsa/FUbySjDqVGLuqEXpn5c2FBISsaKA5qOAebqqGIThyVINoX
+	OA7GC5oAmbf4pZ8KkgAcJQQ+k3v0Qx8RcV7477WRT2RAphQd1TGIMy3g8DzOGzKzDuICSZA7Pxg
+	UXjJ4AVT5K0DWsY/imjP4yd5iewLvyaYEg06w1QC3ZLTy3zC+gvI7zPcxbnZZx+Y2gpF1sqKfOM
+	VAupXCABbFhUJ9OlOYjEFpJlrkDBxq+XyXogDfqQnrp1LTN3XNIU70myuev+rn6ulfO7VAYuk7h
+	aq4nK25sjuF5n2KtP6CYTAsJbzvY/utoEtRY2j5cqM24kKSyZR4+lem1H3B9cJhfjqnMxTs3/T+
+	DJXz7StmqIbZvT3ol0X1MvFWJ/hbGPMkWAjGD2oJ+aqIUE/4uhUkbM0PLCZMEIowI1RdmL2bkyr
+	i+6OJdvgn+Aqdu444i/cvdV2u8dX7p9ZiKuoWbWCDgBIkuvcRk0ua4QZT9BubS1d8/8Mup1IxOS
+	r24iY+exFkN291wjNNg6myNwDlM7X9PG2RGNrkVHAhJNLQ==
+X-Received: by 2002:a05:6820:4b83:b0:6b4:96b:3e12 with SMTP id 006d021491bc7-6b4386c3971mr1447356eaf.23.1788298955076;
+        Tue, 01 Sep 2026 14:42:35 -0700 (PDT)
 Received: from [127.0.1.1] (140-186-136-19-dynamic.midco.net. [140.186.136.19])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b40ba648f6sm1094703eaf.2.2026.09.01.14.42.35
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b40ba648f6sm1094703eaf.2.2026.09.01.14.42.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 14:42:36 -0700 (PDT)
+        Tue, 01 Sep 2026 14:42:34 -0700 (PDT)
 From: Robert Nelson <robertcnelson@gmail.com>
-Date: Tue, 01 Sep 2026 16:42:23 -0500
-Subject: [PATCH 3/3] arm: dts: ti: Enable overlays for BeagleBone Black
- RevD
+Date: Tue, 01 Sep 2026 16:42:22 -0500
+Subject: [PATCH 2/3] arm: dts: omap: Add support for BeagleBone Black RevD
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -73,7 +72,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-v7-3-rc1-beaglebone-black-revd-v1-3-f521950b777a@gmail.com>
+Message-Id: <20260901-v7-3-rc1-beaglebone-black-revd-v1-2-f521950b777a@gmail.com>
 References: <20260901-v7-3-rc1-beaglebone-black-revd-v1-0-f521950b777a@gmail.com>
 In-Reply-To: <20260901-v7-3-rc1-beaglebone-black-revd-v1-0-f521950b777a@gmail.com>
 To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
@@ -88,25 +87,392 @@ Cc: linux-omap@vger.kernel.org, devicetree@vger.kernel.org,
  Robert Nelson <robertcnelson@gmail.com>
 X-Mailer: b4 0.15.2
 
-Allow overlays to be applied to am335x BeagleBone Black RevD.
+The BeagleBoard.org BeagleBone Black RevD and Industrial (00D0/EID0) are
+redesigns of the BeagleBone Black Rev C3. They feature an IT66122 HDMI PHY to
+replace the EOL NXP TDA19988. Additionally, these models include a larger eMMC
+capacity to address the limited availability of 4GB modules.
 
 Signed-off-by: Robert Nelson <robertcnelson@gmail.com>
 ---
- arch/arm/boot/dts/ti/omap/Makefile | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm/boot/dts/ti/omap/Makefile                 |   1 +
+ .../dts/ti/omap/am335x-boneblack-ite-hdmi.dtsi     | 184 +++++++++++++++++++++
+ .../arm/boot/dts/ti/omap/am335x-boneblack-revd.dts | 166 +++++++++++++++++++
+ 3 files changed, 351 insertions(+)
 
 diff --git a/arch/arm/boot/dts/ti/omap/Makefile b/arch/arm/boot/dts/ti/omap/Makefile
-index 55cab3e8a05c..62de820c9b2a 100644
+index 498c36ccb5ea..55cab3e8a05c 100644
 --- a/arch/arm/boot/dts/ti/omap/Makefile
 +++ b/arch/arm/boot/dts/ti/omap/Makefile
-@@ -190,6 +190,7 @@ dtb-$(CONFIG_SOC_TI81XX) += \
- # Enable support for device-tree overlays
- DTC_FLAGS_am335x-bone += -@
- DTC_FLAGS_am335x-boneblack += -@
-+DTC_FLAGS_am335x-boneblack-revd += -@
- DTC_FLAGS_am335x-boneblack-wireless += -@
- DTC_FLAGS_am335x-bonegreen += -@
- DTC_FLAGS_am335x-bonegreen-wireless += -@
+@@ -97,6 +97,7 @@ dtb-$(CONFIG_SOC_AM33XX) += \
+ 	am335x-baltos-ir5221.dtb \
+ 	am335x-bone.dtb \
+ 	am335x-boneblack.dtb \
++	am335x-boneblack-revd.dtb \
+ 	am335x-boneblack-wireless.dtb \
+ 	am335x-boneblue.dtb \
+ 	am335x-bonegreen.dtb \
+diff --git a/arch/arm/boot/dts/ti/omap/am335x-boneblack-ite-hdmi.dtsi b/arch/arm/boot/dts/ti/omap/am335x-boneblack-ite-hdmi.dtsi
+new file mode 100644
+index 000000000000..77dd7d9aa57d
+--- /dev/null
++++ b/arch/arm/boot/dts/ti/omap/am335x-boneblack-ite-hdmi.dtsi
+@@ -0,0 +1,184 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * https://github.com/beagleboard/beaglebone-black
++ *
++ * Copyright (C) 2026 Texas Instruments Incorporated - https://www.ti.com/
++ * Copyright (C) 2026 Robert Nelson, BeagleBoard.org Foundation
++ */
++
++#include <dt-bindings/interrupt-controller/irq.h>
++
++/ {
++	connector-hdmi {
++		compatible = "hdmi-connector";
++		label = "hdmi";
++		type = "a";
++		port {
++			hdmi_connector_in: endpoint {
++				remote-endpoint = <&it66122_out>;
++			};
++		};
++	};
++
++	it66122_vcn18_fixed: fixedregulator1 {
++		compatible = "regulator-fixed";
++		regulator-name = "it66122_vcn18_fixed";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++	};
++
++	it66122_vcn12_fixed: fixedregulator2 {
++		compatible = "regulator-fixed";
++		regulator-name = "it66122_vcn12_fixed";
++		regulator-min-microvolt = <1200000>;
++		regulator-max-microvolt = <1200000>;
++	};
++};
++
++&am33xx_pinmux {
++	nxp_hdmi_bonelt_pins: nxp-hdmi-bonelt-pins {
++		pinctrl-single,pins = <
++			AM33XX_PADCONF(AM335X_PIN_XDMA_EVENT_INTR0, PIN_OUTPUT_PULLDOWN, MUX_MODE3)
++			AM33XX_PADCONF(AM335X_PIN_LCD_DATA0, PIN_OUTPUT, MUX_MODE0)
++			AM33XX_PADCONF(AM335X_PIN_LCD_DATA1, PIN_OUTPUT, MUX_MODE0)
++			AM33XX_PADCONF(AM335X_PIN_LCD_DATA2, PIN_OUTPUT, MUX_MODE0)
++			AM33XX_PADCONF(AM335X_PIN_LCD_DATA3, PIN_OUTPUT, MUX_MODE0)
++			AM33XX_PADCONF(AM335X_PIN_LCD_DATA4, PIN_OUTPUT, MUX_MODE0)
++			AM33XX_PADCONF(AM335X_PIN_LCD_DATA5, PIN_OUTPUT, MUX_MODE0)
++			AM33XX_PADCONF(AM335X_PIN_LCD_DATA6, PIN_OUTPUT, MUX_MODE0)
++			AM33XX_PADCONF(AM335X_PIN_LCD_DATA7, PIN_OUTPUT, MUX_MODE0)
++			AM33XX_PADCONF(AM335X_PIN_LCD_DATA8, PIN_OUTPUT, MUX_MODE0)
++			AM33XX_PADCONF(AM335X_PIN_LCD_DATA9, PIN_OUTPUT, MUX_MODE0)
++			AM33XX_PADCONF(AM335X_PIN_LCD_DATA10, PIN_OUTPUT, MUX_MODE0)
++			AM33XX_PADCONF(AM335X_PIN_LCD_DATA11, PIN_OUTPUT, MUX_MODE0)
++			AM33XX_PADCONF(AM335X_PIN_LCD_DATA12, PIN_OUTPUT, MUX_MODE0)
++			AM33XX_PADCONF(AM335X_PIN_LCD_DATA13, PIN_OUTPUT, MUX_MODE0)
++			AM33XX_PADCONF(AM335X_PIN_LCD_DATA14, PIN_OUTPUT, MUX_MODE0)
++			AM33XX_PADCONF(AM335X_PIN_LCD_DATA15, PIN_OUTPUT, MUX_MODE0)
++			AM33XX_PADCONF(AM335X_PIN_LCD_VSYNC, PIN_OUTPUT_PULLDOWN, MUX_MODE0)
++			AM33XX_PADCONF(AM335X_PIN_LCD_HSYNC, PIN_OUTPUT_PULLDOWN, MUX_MODE0)
++			AM33XX_PADCONF(AM335X_PIN_LCD_PCLK, PIN_OUTPUT_PULLDOWN, MUX_MODE0)
++			AM33XX_PADCONF(AM335X_PIN_LCD_AC_BIAS_EN, PIN_OUTPUT_PULLDOWN, MUX_MODE0)
++		>;
++	};
++
++	hdmi_gpio_pins_default: hdmi-gpio-default-pins {
++		pinctrl-single,pins = <
++			AM33XX_PADCONF(AM335X_PIN_GPMC_A9, PIN_INPUT_PULLUP, MUX_MODE7)	/* HDMI_INT gpmc_a9.GPIO1_25 */
++			AM33XX_PADCONF(AM335X_PIN_UART0_RTSN, PIN_OUTPUT_PULLUP, MUX_MODE7) /* HDMI_RESET uart0_rtsn.GPIO1_9 */
++		>;
++	};
++
++	mcasp0_pins: mcasp0-pins {
++		pinctrl-single,pins = <
++			AM33XX_PADCONF(AM335X_PIN_MCASP0_AHCLKX, PIN_INPUT_PULLUP, MUX_MODE0) /* mcasp0_ahcklx.mcasp0_ahclkx */
++			AM33XX_PADCONF(AM335X_PIN_MCASP0_AHCLKR, PIN_OUTPUT_PULLDOWN, MUX_MODE2) /* mcasp0_ahclkr.mcasp0_axr2*/
++			AM33XX_PADCONF(AM335X_PIN_MCASP0_FSX, PIN_OUTPUT_PULLUP, MUX_MODE0)
++			AM33XX_PADCONF(AM335X_PIN_MCASP0_ACLKX, PIN_OUTPUT_PULLDOWN, MUX_MODE0)
++			AM33XX_PADCONF(AM335X_PIN_GPMC_A11, PIN_OUTPUT_PULLDOWN, MUX_MODE7) /* gpmc_a11.GPIO1_27 */
++		>;
++	};
++};
++
++&lcdc {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&nxp_hdmi_bonelt_pins>;
++
++	/* If you want to get 24 bit RGB and 16 BGR mode instead of
++	 * current 16 bit RGB and 24 BGR modes, set the propety
++	 * below to "crossed" and uncomment the video-ports -property
++	 * in tda19988 node.
++	 */
++	blue-and-red-wiring = "straight";
++
++	port {
++		lcdc_0: endpoint@0 {
++			remote-endpoint = <&it66122_in>;
++		};
++	};
++};
++
++&i2c0 {
++	it66122: bridge-hdmi@4c {
++		compatible = "ite,it66122";
++		reg = <0x4c>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&hdmi_gpio_pins_default>;
++		vcn33-supply = <&vmmcsd_fixed>;
++		vcn18-supply = <&it66122_vcn18_fixed>;
++		vrf12-supply = <&it66122_vcn12_fixed>;
++		reset-gpios = <&gpio1 9 GPIO_ACTIVE_LOW>;
++		interrupt-parent = <&gpio1>;
++		interrupts = <25 IRQ_TYPE_EDGE_FALLING>;
++		#sound-dai-cells = <0>;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++
++				it66122_in: endpoint {
++					bus-width = <24>;
++					remote-endpoint = <&lcdc_0>;
++				};
++			};
++
++			port@1 {
++				reg = <1>;
++
++				it66122_out: endpoint {
++					remote-endpoint = <&hdmi_connector_in>;
++				};
++			};
++		};
++	};
++};
++
++&mcasp0 {
++	#sound-dai-cells = <0>;
++	pinctrl-names = "default";
++	pinctrl-0 = <&mcasp0_pins>;
++	status = "okay";
++	op-mode = <0>;	/* MCASP_IIS_MODE */
++	tdm-slots = <2>;
++	serial-dir = <	/* 0: INACTIVE, 1: TX, 2: RX */
++			0 0 1 0
++		>;
++	tx-num-evt = <32>;
++	rx-num-evt = <32>;
++};
++
++/ {
++	clk_mcasp0_fixed: clk_mcasp0_fixed {
++		#clock-cells = <0>;
++		compatible = "fixed-clock";
++		clock-frequency = <24576000>;
++	};
++
++	clk_mcasp0: clk_mcasp0 {
++		#clock-cells = <0>;
++		compatible = "gpio-gate-clock";
++		clocks = <&clk_mcasp0_fixed>;
++		enable-gpios = <&gpio1 27 0>; /* BeagleBone Black Clk enable on GPIO1_27 */
++	};
++
++	sound {
++		compatible = "simple-audio-card";
++		simple-audio-card,name = "TI BeagleBone Black";
++		simple-audio-card,format = "i2s";
++		simple-audio-card,bitclock-master = <&dailink0_master>;
++		simple-audio-card,frame-master = <&dailink0_master>;
++
++		dailink0_master: simple-audio-card,cpu {
++			sound-dai = <&mcasp0>;
++			clocks = <&clk_mcasp0>;
++		};
++
++		simple-audio-card,codec {
++			sound-dai = <&it66122>;
++		};
++	};
++};
+diff --git a/arch/arm/boot/dts/ti/omap/am335x-boneblack-revd.dts b/arch/arm/boot/dts/ti/omap/am335x-boneblack-revd.dts
+new file mode 100644
+index 000000000000..fe9536d5f55e
+--- /dev/null
++++ b/arch/arm/boot/dts/ti/omap/am335x-boneblack-revd.dts
+@@ -0,0 +1,166 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * https://github.com/beagleboard/beaglebone-black
++ *
++ * Copyright (C) 2026 Texas Instruments Incorporated - https://www.ti.com/
++ * Copyright (C) 2026 Robert Nelson, BeagleBoard.org Foundation
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-boneblack-common.dtsi"
++#include "am335x-boneblack-ite-hdmi.dtsi"
++
++/ {
++	model = "TI AM335x BeagleBone Black Rev D";
++	compatible = "beagle,am335x-bone-black-revd", "ti,am33xx";
++};
++
++&gpio0 {
++	gpio-line-names =
++		"[mdio_data]",
++		"[mdio_clk]",
++		"P9_22 [spi0_sclk]",
++		"P9_21 [spi0_d0]",
++		"P9_18 [spi0_d1]",
++		"P9_17 [spi0_cs0]",
++		"[mmc0_cd]",
++		"P9_42A [ecappwm0]",
++		"P8_35 [lcd d12]",
++		"P8_33 [lcd d13]",
++		"P8_31 [lcd d14]",
++		"P8_32 [lcd d15]",
++		"P9_20 [i2c2_sda]",
++		"P9_19 [i2c2_scl]",
++		"P9_26 [uart1_rxd]",
++		"P9_24 [uart1_txd]",
++		"[rmii1_txd3]",
++		"[rmii1_txd2]",
++		"[usb0_drvvbus]",
++		"[hdmi cec]",
++		"P9_41B",
++		"[rmii1_txd1]",
++		"P8_19 [ehrpwm2a]",
++		"P8_13 [ehrpwm2b]",
++		"NC",
++		"NC",
++		"P8_14",
++		"P8_17",
++		"[rmii1_txd0]",
++		"[rmii1_refclk]",
++		"P9_11 [uart4_rxd]",
++		"P9_13 [uart4_txd]";
++};
++
++&gpio1 {
++	gpio-line-names =
++		"P8_25 [mmc1_dat0]",
++		"[mmc1_dat1]",
++		"P8_5 [mmc1_dat2]",
++		"P8_6 [mmc1_dat3]",
++		"P8_23 [mmc1_dat4]",
++		"P8_22 [mmc1_dat5]",
++		"P8_3 [mmc1_dat6]",
++		"P8_4 [mmc1_dat7]",
++		"NC",
++		"NC",
++		"NC",
++		"NC",
++		"P8_12",
++		"P8_11",
++		"P8_16",
++		"P8_15",
++		"P9_15A",
++		"P9_23",
++		"P9_14 [ehrpwm1a]",
++		"P9_16 [ehrpwm1b]",
++		"[emmc rst]",
++		"[usr0 led]",
++		"[usr1 led]",
++		"[usr2 led]",
++		"[usr3 led]",
++		"[hdmi irq]",
++		"[usb vbus oc]",
++		"[hdmi audio]",
++		"P9_12",
++		"P8_26",
++		"P8_21 [emmc]",
++		"P8_20 [emmc]";
++};
++
++&gpio2 {
++	gpio-line-names =
++		"P9_15B",
++		"P8_18",
++		"P8_7",
++		"P8_8",
++		"P8_10",
++		"P8_9",
++		"P8_45 [hdmi]",
++		"P8_46 [hdmi]",
++		"P8_43 [hdmi]",
++		"P8_44 [hdmi]",
++		"P8_41 [hdmi]",
++		"P8_42 [hdmi]",
++		"P8_39 [hdmi]",
++		"P8_40 [hdmi]",
++		"P8_37 [hdmi]",
++		"P8_38 [hdmi]",
++		"P8_36 [hdmi]",
++		"P8_34 [hdmi]",
++		"[rmii1_rxd3]",
++		"[rmii1_rxd2]",
++		"[rmii1_rxd1]",
++		"[rmii1_rxd0]",
++		"P8_27 [hdmi]",
++		"P8_29 [hdmi]",
++		"P8_28 [hdmi]",
++		"P8_30 [hdmi]",
++		"[mmc0_dat3]",
++		"[mmc0_dat2]",
++		"[mmc0_dat1]",
++		"[mmc0_dat0]",
++		"[mmc0_clk]",
++		"[mmc0_cmd]";
++};
++
++&gpio3 {
++	gpio-line-names =
++		"[mii col]",
++		"[mii crs]",
++		"[mii rx err]",
++		"[mii tx en]",
++		"[mii rx dv]",
++		"[i2c0 sda]",
++		"[i2c0 scl]",
++		"[jtag emu0]",
++		"[jtag emu1]",
++		"[mii tx clk]",
++		"[mii rx clk]",
++		"NC",
++		"NC",
++		"[usb vbus en]",
++		"P9_31 [spi1_sclk]",
++		"P9_29 [spi1_d0]",
++		"P9_30 [spi1_d1]",
++		"P9_28 [spi1_cs0]",
++		"P9_42B [ecappwm0]",
++		"P9_27",
++		"P9_41A",
++		"P9_25",
++		"NC",
++		"NC",
++		"NC",
++		"NC",
++		"NC",
++		"NC",
++		"NC",
++		"NC",
++		"NC",
++		"NC";
++};
++
++&baseboard_eeprom {
++	vcc-supply = <&ldo4_reg>;
++};
 
 -- 
 2.55.0
