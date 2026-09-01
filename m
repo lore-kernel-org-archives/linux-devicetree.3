@@ -1,141 +1,109 @@
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6239825524C
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 01:37:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C479B38F934;
+	Tue,  1 Sep 2026 01:38:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788226634; cv=none; b=sVVVeBa3/6wpcB4GraDy6w+OZ0imTo8moQ6mY7czcO5znzUUXabzrQUZEcQXUK1pL/HyaA/ZqZpKrOVBuIY/oNSCXTEG21EV5G5L/utcwpNUuxbksJEmLJpVJ2RH5aQdYrXRWbER5UmFi5PI2pjrP97QFnrKm+SpGusfJaIcSEM=
+	t=1788226696; cv=none; b=UAwZtCSI6vOuN/f1uObMjnQUNtYCFYk882UbEaBHPu443tQ3g6TfaziDENSmz3c0IVIjw+Lc/Jm9RhiWdeGzSesXVOSy2AyHNgrqXwFnilLNlnda+gdQorQijhIc40W7isFe/Vp2cVhCCV5sIf84eAmQFwhclrJzSpjb9RbbDo0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788226634; c=relaxed/simple;
-	bh=QInaDatlwxp7NEj4/bdLBqsC3UrTgGWJ6q0lyU7RRsA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JvCrixSSpeHq9T3vzgBlYnALzEuzmSQjHvafdvAI4O/GUcpTdT8b8uLqNLiZnuVQiNiyT3hsYlSHtEJlKI89nU9jTUDuFA9fLGzVO6igCTi3W/3XNC1oBqWGckjyiTYkc6aER6tLM3mv7p9AO55cySiyz8+Lt1Y7KV6wviHE6b4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=fk4JzsAM; arc=none smtp.client-ip=209.85.222.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1788226696; c=relaxed/simple;
+	bh=Kd0aQb2iW9hJJk5GOwilOGsnDa4JsdghPXrfBvtR52c=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WErbryyAc3jm1dy1E9J+3w1fKO2Ceq298aKVfCL3FBufdtbYBk5QeRbyCqcQCvXbNrLzg9C5KVdFuN97aq7Uz+3yQ46bJfuvyVQdhiTlCgFvBw2Wml8rHeJQZHk6mJyjp4JuqoQTC7x8l7wqDSGDtIb4qR3+m8U5NP1HaO7CTHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NcdeswUl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="fk4JzsAM"
-Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-936c02e58dfso36379885a.3
-        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 18:37:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1788226629; x=1788831429; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HPcJzHW6TuSLOdHwhvKpqTa7MZ2jOufBeABZfucpX8E=;
-        b=fk4JzsAMDPOlXYxqPBYlfYn7Riq7QYWJ83q7GXFWnrjAz9EViiS9mpHtR1m9iAy+pA
-         gsjNKwqG4aYdfv+ubvkOgQ7hxFlGIDhCxdVAAQbaq3xs63NwTGODQYy1G1bOvNnl1dgc
-         A1X+CeHzM9FzvvtRdpfq5+klzzpxe8p/UVIpixKJCYKLNmdLqAZnOJbEG/pF3Gx5TVs+
-         nUQpFZi3rXQRTRCPCxJbf++dJp9ZgGq+TkArnuDcBSCwHxCS83wd1mo9apGIGoD4YLeW
-         tABfq5Balmhzn3jwgAaIuMfsArcx894aiKediqYwe3Uul+1OdzYZT+oT0a/ZZSliEWFY
-         6wGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788226629; x=1788831429;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HPcJzHW6TuSLOdHwhvKpqTa7MZ2jOufBeABZfucpX8E=;
-        b=J4aupyhHpFlcN/oVCKiS8YkOj3NPh5MdvDGYjfsMwx0TpQ8PPMEM5fA1zC5VGcydY+
-         44kc8cd5/4gUiefIPogdF/mTwFNFtd9qp2ArIZyuPMOfFSWUDL/saGTq1gspGRJ0US44
-         X4WHudRFbQz6mTQgAuoriBtnA0vwpQZ+zV8CtNMtDu6t8r/2HeeygwXzWlh/m+gohNOU
-         F8WB6o2rZg0HqPoCfiKhE4yKY24X//2zN+RUgVYZ1Sjt0sfE4/Ig1KJYtSTog2OvbNxz
-         gAhXgq9mYTvJtx2gdBw2LAbO4cpDGDOgdDh4ndigzwhwB6KmNQMXgr09vWjKsWltutuF
-         fFkQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpgFpxbrE7p7Bb1Cay1dvZdLecMsNFh+lHe837Ndcy2ORaDjnvThszsNkg3m00fHR9bMDwqJc60Dxnx@vger.kernel.org
-X-Gm-Message-State: AFuF++lkKyurIO2XKWmvLy2axzXApMnzg5oXkVB4Fl749dLWx/rpYeps
-	XvtlQfqIEDxIAZvY2mi7T/1tRBmwOmyU1UPOvF0i6pd+NWeMFWtGZm4I36OuAUxe48M=
-X-Gm-Gg: AR+sD11XOm6llTYUFQyjU3URha8hDg8sLT/EAueW+CylSDihgwCdur9fH8dIs3Ou/+t
-	h2wkds3Q6fHzEuJBz0IfVZeviHkA24O+PktTFtJynIyCX0XzcyfmUfPB4TalQTQFEcyByM7RHgB
-	avCh+1XcQzvbymRQ0aUT/MS6OV8sP0C4tB98glFISIvrI93ONTYoUEcTt7udXIhEo27X4J5IH2J
-	whLLd44nA4/4QTFbkABUIRGxtmblmCWI9xyWBQ3vzlSsAHgsxKeHfDVCR0eOv1MQPhFbIbrkJ0N
-	9VicpzwOXoHgm2yBfsQ48AH87CKgLjYsS2GWH9jiIUcGY6w0PJrnH4xZHIR7CJbiuGmj5XoKkjc
-	FUIaoFrfwKnmL3VIMPLOYEDX5x/1TnU7mwbFX4ul+5fd8Zs5Pds9Uq80SOuJwESjfriR+dPBStq
-	sqEJ31sO+RFKQEFSeEHmqv+aDfGYpIHgP9nV6c0DUbQT+p56AtJN3WOPyfH8x+LoIW
-X-Received: by 2002:a05:620a:269b:b0:92e:e1d1:49dd with SMTP id af79cd13be357-9391390a15cmr3286256985a.21.1788226629067;
-        Mon, 31 Aug 2026 18:37:09 -0700 (PDT)
-Received: from zippy.localdomain ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9391703a918sm919265485a.12.2026.08.31.18.37.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 18:37:08 -0700 (PDT)
-From: Alex Elder <elder@riscstar.com>
-To: andersson@kernel.org,
-	konradybcio@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: mani@kernel.org,
-	krishna.chundru@oss.qualcomm.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	sushrut.trivedi@oss.qualcomm.com,
-	umang.chheda@oss.qualcomm.com,
-	rosh@debian.org,
-	jsandom@axon.com,
-	daniel@riscstar.com,
-	mohd.anwar@oss.qualcomm.com,
-	lorenzo.bianconi@oss.qualcomm.com,
-	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 6/6] arm64: dts: qcom: qcs8550-rb5gen2: clean up PCI function nodes
-Date: Mon, 31 Aug 2026 20:36:53 -0500
-Message-ID: <20260901013654.1343537-7-elder@riscstar.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260901013654.1343537-1-elder@riscstar.com>
-References: <20260901013654.1343537-1-elder@riscstar.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NcdeswUl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA8071F000E9;
+	Tue,  1 Sep 2026 01:38:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788226691;
+	bh=BrIiRFWtczkZQEdzjQfU9/6RPpw/i2QrGgvd2I+VXzs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=NcdeswUltGsBhID6VXv/iVFj1j2VSDPdMjVwIMYNjhwk+qAL2m3Tij7x+6lPct52V
+	 SylHxgblCs1CbxzFhF8XlDug85XelzDJLFy160Rku11eEmBe4+WC1r0gtgBDo1wjCW
+	 x5qSDPmUVvrCjoVld7nDbuS42ebeC00QMNv1qn16e+WtUR1+ChiHq7xFlpOgtbKd/O
+	 sSaVkW2mE0F0U1nSRH8GojV62Ia0ow3GVB1GI1z/udq+g0gbx0k71n75x4279cw3VA
+	 AtYvM7tXgXg2RalTE7wO6M0MVuN2EAL7i8HzPqKURD42lhfpD0WTcaiA3Cc4XdE4xq
+	 GnBZ7Ep70PC3w==
+Date: Tue, 1 Sep 2026 02:38:05 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Janani Sunil <janani.sunil@analog.com>, Lars-Peter Clausen
+ <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, David
+ Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Jonathan
+ Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Mark Brown
+ <broonie@kernel.org>, Marius Cristea <marius.cristea@microchip.com>, Marcus
+ Folkesson <marcus.folkesson@gmail.com>, Kent Gustavsson <kent@minoris.se>,
+ Conor Dooley <conor.dooley@microchip.com>, Daire McNamara
+ <daire.mcnamara@microchip.com>, Paul Walmsley <pjw@kernel.org>, Palmer
+ Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre
+ Ghiti <alex@ghiti.fr>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, Janani Sunil <jan.sun97@gmail.com>,
+ linux-spi@vger.kernel.org, Kent Gustavsson <nedo80@gmail.com>,
+ linux-riscv@lists.infradead.org
+Subject: Re: [PATCH v10 3/3] iio: dac: Add AD5529R DAC driver support
+Message-ID: <20260901023805.20abc542@jic23-huawei>
+In-Reply-To: <apUo4afCh5LhUqIO@ashevche-desk.local>
+References: <20260827-ad5529r-driver-v10-0-38f2be07b824@analog.com>
+	<20260827-ad5529r-driver-v10-3-38f2be07b824@analog.com>
+	<ao_z9QTJC_q8gH0v@ashevche-desk.local>
+	<178813177252.2788519.10940489053707901297.b4-reply@b4>
+	<apUo4afCh5LhUqIO@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The Qualcomm RB5gen2 devicetree source file defines a node representing
-a TC956x chip which contains a PCIe switch and an embedded endpoint that
-implements two PCIe functions.
+On Mon, 31 Aug 2026 10:10:25 +0300
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-The devicetree nodes erroneously include a "pci" device_type property
-for the two PCIe functions.  That property should only be used for a
-PCI device "that implements a PCI bus".  Remove this property for the
-two function nodes.
+> On Mon, Aug 31, 2026 at 12:16:12AM +0100, Jonathan Cameron wrote:
+> 
+> ...
+> 
+> > > > +	device_for_each_child_node_scoped(dev, child) {
+> > > > +		if (st->num_channels == ARRAY_SIZE(st->channels))
+> > > > +			return dev_err_probe(dev, -ECHRNG, "Too many channels\n");  
+> > > 
+> > > Okay, this actually better to be ENOSPC
+> > >   
+> > > > +		ret = fwnode_property_read_u32(child, "reg", &ch);
+> > > > +		if (ret)
+> > > > +			return dev_err_probe(dev, ret,
+> > > > +					     "Missing reg property in channel node\n");
+> > > > +
+> > > > +		if (ch >= AD5529R_MAX_CHANNELS)
+> > > > +			return dev_err_probe(dev, -EINVAL,  
+> > > 
+> > > and ECHRNG is here.  
+> > 
+> > That one is getting rather creative even though I guess the description
+> > does fit rather well.  So I don't object, but also feel -EINVAL is
+> > probably good enough for an invalid property value.  
+> 
+> But missing property message propagates the fwnode return code (which will be
+> EINVAL IIRC). So the above is not about missing property, it's about wrong
+> channel. Note, I have checked uses of ECHRNG in the kernel, and many of them
+> are fine with the suggested one.
 
-In addition, these nodes define #address-cells, #size-cells, and ranges
-properties, which are not normally defined for PCIe endpoints.  Remove
-properties as well; they can be added back once they are actually
-needed/used.
+Fair enough and works for me.  We can add this to the list of things
+to tidy up if we happen to be touching other code that deals with
+wrong channel numbers.  Not something we want to generate churn though
+unless there are far fewer instances of this than I think there are!
 
-Fixes: 33cae252054a6 ("arm64: dts: qcom: qcs8550: add QCS8550 RB5Gen2 board support")
-Signed-off-by: Alex Elder <elder@riscstar.com>
----
-v2: - New patch updating DTS that was not present for v1
+Jonathan
 
- arch/arm64/boot/dts/qcom/qcs8550-rb5gen2.dts | 8 --------
- 1 file changed, 8 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/qcs8550-rb5gen2.dts b/arch/arm64/boot/dts/qcom/qcs8550-rb5gen2.dts
-index 9df8dcd6c62b6..2c74a1e242ef8 100644
---- a/arch/arm64/boot/dts/qcom/qcs8550-rb5gen2.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs8550-rb5gen2.dts
-@@ -1128,18 +1128,10 @@ pcie@3,0 {
- 
- 			pci@0,0 {
- 				reg = <0x50000 0x0 0x0 0x0 0x0>;
--				#address-cells = <3>;
--				#size-cells = <2>;
--				device_type = "pci";
--				ranges;
- 			};
- 
- 			pci@0,1 {
- 				reg = <0x50100 0x0 0x0 0x0 0x0>;
--				#address-cells = <3>;
--				#size-cells = <2>;
--				device_type = "pci";
--				ranges;
- 			};
- 		};
- 	};
--- 
-2.53.0
+> 
+> > > > +					     "Channel %u exceeds maximum 15\n",  
+> 
 
