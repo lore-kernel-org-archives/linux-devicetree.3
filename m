@@ -1,173 +1,113 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2C2347126D;
-	Tue,  1 Sep 2026 08:01:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59F5C471408;
+	Tue,  1 Sep 2026 08:01:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788249677; cv=none; b=YQk5RAwt8bPpb7K2X+kqVnldysXmWJF69YyzRXsdZJGLq8k80ea0Kxx54RwgmRe5vNB/NT3Z+Uny1OyGMe95ljV617p+rc2BpSRrJ+offXQyEVrMlL2Br9DAbzB6jsdMfd4cSND/kwe1O8yVQ3NzQxvJ3opomwZ2lJDVvfIfEXc=
+	t=1788249682; cv=none; b=ixxpdfuqOnGJIY1awXrByUh2YPBZKuMZ9m9Xo5ZLEawG+fYng8un3+ULKqPCUWKHVKFDVwDCzXa8swJEMbpGgFFA7cvmnm/O2YUlHKGEwYXXnLUbWUywJRUHnYblaaH2e1MSiRSgcWtFgK3ge7Hwarv1bie/BZGLSV6/OSxllPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788249677; c=relaxed/simple;
-	bh=SBQVFXu4Hkm86nKKIITXhGPCuIrIj0+/drAKI6pWu1U=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=IH4L1hmpcPenrzrxXfh3ACKYtmjb4XT8yPkhpj9adulml38Stnv35slzybLckLG0SnKbtyuOP3CSEl5C0tJzSAnHyGUm011f+tYHPkUSHNnIjWsA4Ys9ORLJ6pm+RPwR5olSByEaTFNhGki3a+Mfnwy0fimE9UwySRek8h5vlgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn; spf=pass smtp.mailfrom=jmu.edu.cn; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jmu.edu.cn
-Received: from Vostro-3710.. (unknown [14.220.232.127])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4c15431b1;
-	Tue, 1 Sep 2026 16:01:05 +0800 (GMT+08:00)
-From: Chukun Pan <amadeus@jmu.edu.cn>
-To: Yixun Lan <dlan@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	spacemit@lists.linux.dev,
-	Chukun Pan <amadeus@jmu.edu.cn>
-Subject: [PATCH 1/1] riscv: dts: spacemit: enable onboard eeprom for OrangePi
-Date: Tue,  1 Sep 2026 16:00:10 +0800
-Message-Id: <20260901080010.95040-1-amadeus@jmu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1788249682; c=relaxed/simple;
+	bh=hVynNOjiZDtkP6eNeMdl1o6o3p1W7wISMrexN4WxSAw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=cPYz5GcHuJ5rRmUoV2CqFPsKpfyKUIrksP+UqEX7+qb653E9JcekEJuhntZRFCVLp7DrOd/MAp1d5SWnZqcL9LlphTFJuR0/NUAEBsHU4KO7lTDbEwoWnb/UrdtNu4PXjl4tM6rRsZFt5LW2N+JiPTqu5ivm3EU5qChAi+9Mzlw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fGvExHOY; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fGvExHOY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C6B21F00A3D;
+	Tue,  1 Sep 2026 08:01:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788249678;
+	bh=zNZp76LmMZW3NXwmMTUnhjhTpOUBg0Q4ECe+ZH4uME8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=fGvExHOY45FNQdEKgde1XkrvPlPl/UO8x+rWWxRJTa2pEnWtqx8DqGbmp/Lcn7LmB
+	 lnsPNhuTDU3H/zynKvAH8nERttKjASIr8o6Mzk/gGypOH65gWeCHOHe7ZYAp58hUpc
+	 D25mecs/wlA40uEzxHJSnqCheEoZJqB292OI5h5dufqGxPR8UTug3eBwl59ukrIqX8
+	 FE3e/NXFI0v357q3pWRuski93Ekay3eJ0AiJ+ufAHQJNQ6L2t8GQFcmvgoVvS5X4Ao
+	 5pKbKYeqV9Q+7FFd4uGWBpWkq6snE/XeaILChm8jpgm4ngIAIi61NoD7N+Tbv6ZkOT
+	 USIRIInDx9T6g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 3/8] HID: i2c-hid-of: skip post-power-on delay if
+ powered on sufficiently long
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chen-Yu Tsai" <wenst@chromium.org>
+Cc: linux-input@vger.kernel.org, dmitry.torokhov@gmail.com, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260901074930.764550-4-wenst@chromium.org>
+References: <20260901074930.764550-1-wenst@chromium.org>
+ <20260901074930.764550-4-wenst@chromium.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 01 Sep 2026 08:01:17 +0000
+Message-Id: <20260901080118.5C6B21F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa05bfc6eb003a2kunm57d234c21a3678
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGUpLVhlMGBpNShoZTR8dHVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKT1VJSUtVSUhJVUpJTFlXWRYaDxIVHRRZQVlPS0hVSktISk
-	5MTlVKS0tVSkJLS1kG
 
-Enable the i2c2 bus and add the connected GT24C02B EEPROM.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Skipping the post-power delay when regulators are already enabled =
+removes the implicit minimum reset pulse width (T_reset), which can leave d=
+evices in an undefined hardware state.
+--
 
-[   6.766] TlvInfo Header:
-[   6.766]    Id String:    TlvInfo
-[   6.769]    Version:      1
-[   6.772]    Total Length: 38
-[   6.775] TLV Name             Code Len Value
-[   6.779] -------------------- ---- --- -----
-[   6.783] Base MAC Address     0x24   6 .....
-[   6.788] MAC Addresses        0x2A   2 2
-[   6.792] Product Name         0x21  15 x1_orangepi-r2s
-[   6.797] Unknown              0x41   1  0x01
-[   6.801] CRC-32               0xFE   4 0xE5A74B18
-[   6.806] Checksum is valid.
+commit b221f2dda3539367a70e306f0fab88390cca40e7
+Author: Chen-Yu Tsai <wenst@chromium.org>
 
-Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
----
-This patch depends on the following to avoid conflicts:
-https://lore.kernel.org/lkml/20260802100101.327815-1-amadeus@jmu.edu.cn/
----
- .../boot/dts/spacemit/k1-orangepi-r2s.dts     | 30 ++++++++++++++++++
- .../boot/dts/spacemit/k1-orangepi-rv2.dts     | 31 +++++++++++++++++++
- 2 files changed, 61 insertions(+)
+HID: i2c-hid-of: skip post-power-on delay if powered on sufficiently long
 
-diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
-index 2d1ba34cb00e..7125f2882ce8 100644
---- a/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
-@@ -13,6 +13,7 @@ / {
- 	compatible = "xunlong,orangepi-r2s", "spacemit,k1";
- 
- 	aliases {
-+		i2c2 = &i2c2;
- 		i2c8 = &i2c8;
- 		serial0 = &uart0;
- 		ethernet0 = &eth0;
-@@ -112,6 +113,35 @@ rgmii1: phy@1 {
- 	};
- };
- 
-+&i2c2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c2_0_cfg>;
-+	status = "okay";
-+
-+	eeprom@50 {
-+		compatible = "atmel,24c02";
-+		reg = <0x50>;
-+		pagesize = <16>;
-+		size = <256>;
-+		read-only;
-+		vcc-supply = <&buck3_1v8>;
-+
-+		nvmem-layout {
-+			compatible = "onie,tlv-layout";
-+
-+			mac-address {
-+				#nvmem-cell-cells = <1>;
-+			};
-+
-+			num-macs {
-+			};
-+
-+			product-name {
-+			};
-+		};
-+	};
-+};
-+
- &i2c8 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&i2c8_cfg>;
-diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-index f7547a4da71a..837616255464 100644
---- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-@@ -17,6 +17,8 @@ aliases {
- 		serial0 = &uart0;
- 		ethernet0 = &eth0;
- 		ethernet1 = &eth1;
-+		i2c2 = &i2c2;
-+		i2c8 = &i2c8;
- 		mmc0 = &emmc;
- 		mmc1 = &sdhci0;
- 	};
-@@ -138,6 +140,35 @@ rgmii1: phy@1 {
- 	};
- };
- 
-+&i2c2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c2_0_cfg>;
-+	status = "okay";
-+
-+	eeprom@50 {
-+		compatible = "atmel,24c02";
-+		reg = <0x50>;
-+		pagesize = <16>;
-+		size = <256>;
-+		read-only;
-+		vcc-supply = <&buck3_1v8>;
-+
-+		nvmem-layout {
-+			compatible = "onie,tlv-layout";
-+
-+			mac-address {
-+				#nvmem-cell-cells = <1>;
-+			};
-+
-+			num-macs {
-+			};
-+
-+			product-name {
-+			};
-+		};
-+	};
-+};
-+
- &i2c8 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&i2c8_cfg>;
--- 
-2.34.1
+This commit replaces regulator_bulk_enable() and an unconditional sleep with
+regulator_bulk_enable_and_wait(). This skips the post-power delay if the
+regulators have been enabled long enough.
 
+> diff --git a/drivers/hid/i2c-hid/i2c-hid-of.c b/drivers/hid/i2c-hid/i2c-h=
+id-of.c
+> index 59393d71ddb9d..fdaad451e7102 100644
+> --- a/drivers/hid/i2c-hid/i2c-hid-of.c
+> +++ b/drivers/hid/i2c-hid/i2c-hid-of.c
+[ ... ]
+> @@ -48,16 +49,14 @@ static int i2c_hid_of_power_up(struct i2chid_ops *ops)
+>  	struct device *dev =3D &ihid_of->client->dev;
+>  	int ret;
+> =20
+> -	ret =3D regulator_bulk_enable(ARRAY_SIZE(ihid_of->supplies),
+> -				    ihid_of->supplies);
+> +	ret =3D regulator_bulk_enable_and_wait(ARRAY_SIZE(ihid_of->supplies),
+> +					     ihid_of->supplies,
+> +					     ihid_of->post_power_delay_ms * USEC_PER_MSEC);
+>  	if (ret) {
+>  		dev_warn(dev, "Failed to enable supplies: %d\n", ret);
+>  		return ret;
+>  	}
+> =20
+> -	if (ihid_of->post_power_delay_ms)
+> -		msleep(ihid_of->post_power_delay_ms);
+> -
+>  	gpiod_set_value_cansleep(ihid_of->reset_gpio, 0);
+
+[Severity: High]
+Does skipping the post-power delay when regulators are already enabled remo=
+ve
+the implicit minimum reset pulse width (T_reset)?
+
+The driver unconditionally asserts the reset line initially in
+i2c_hid_of_probe():
+
+    ihid_of->reset_gpio =3D devm_gpiod_get_optional(dev, "reset", GPIOD_OUT=
+_HIGH);
+
+If a device's regulator is shared or left enabled by the bootloader,
+regulator_bulk_enable_and_wait() skips the delay. This causes the reset line
+to be de-asserted immediately here, creating an extremely short pulse.
+
+Could this regression leave the HID device in an undefined hardware state a=
+nd
+cause it to fail to probe or become unresponsive?
+
+>  	if (ihid_of->post_reset_delay_ms)
+>  		msleep(ihid_of->post_reset_delay_ms);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901074930.7645=
+50-1-wenst@chromium.org?part=3D3
