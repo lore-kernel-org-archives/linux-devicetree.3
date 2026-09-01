@@ -1,162 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4011B30F7FA
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 13:09:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FC9C3E7621
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 13:11:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788268142; cv=none; b=b+w0OlFcNI789IvynvrFxUcvV/Y8lf32fadaS9w7adTYp8Appn2uxuRol8ZFnbSCin7rnVvSF1XWwKWBJMGCO1wojOv0b18ceq1WunwHMhc94Tbb2ugE2f/nRIzkJ4CtcJB8zWQ3I5TAm3DsEKdImZPDbH/v9PLoU+J3HMAs7M0=
+	t=1788268285; cv=none; b=JO0I5W/qAkq6E9MNMwB9tplDuY3MgPVmubbp1l3ek1XH+c0zwiAwbytQPSKOHM9Gk3ibyYlTyA7DpjJP3xewUVxQfsRV41h38HP1Q3adMc9PaiRwnTo+PuNmAawIvoVfangn87dsX2ihQa8T5m8y3SFMzQyJFR7w5nLKwviQnO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788268142; c=relaxed/simple;
-	bh=5QmgDOjt0W8J9PQWnsiReD3DtzcZt0NsHc32/SEWaao=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fJQlSS+lucwkVUFfFRqXRDCKbJrQkRBCHGmdD2wpBuGItDDXteP07AJu96wmAhm8lx5UqHrkPbIrQhj/m/qqC8eOZDjp7v4xZEfD2eScUBulzsDaEUmsCC78ssTOdtEoa0CXkL/qHNFo7UIC41D4JjjvRe3rM4cN2+f2NCtC9L4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NWKllZA6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788268285; c=relaxed/simple;
+	bh=Do6+wJVKBDNL5nAR2OL/qbk0mdidmP25lT/W/v0I60I=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Gc2Ny+NnpZm6gYnOapG74D4WtZIYr1D14G7ghrevhuLvnYw1fueLI0MRbTlIEiMbj+lQUhLFGXtNtU8WxNb8ifZ/ENljtve51gAkhN9G+t/IFYPJvVLgFw+Sv9eZykmkn3EXMUYZ5r6FADOmytOiiVW4w7rqCfenYeSlyXhye+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aY6elEuz; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NWKllZA6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 518CE1F000E9;
-	Tue,  1 Sep 2026 13:09:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788268140;
-	bh=hLB59ftGD/a4RqFi34kI2/JqViOgZ9cZOPwFrRH1I/c=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NWKllZA6cgQ7jTec+RuYETca+xEw5ycsV+5ospIwzfBNk8L0OODTBCGPWYeMnVIw/
-	 5bg+Q0J6rIY0VHDb5jVQ6O97m1iXTnzlwwp0C7LmwUsydUXE9aThFHIaxiyq7JWT25
-	 hgKn62h7tAbwH1fsrwPzmICos1Ljx3sTDpvXK1+YdLH2mJ+SB5mFQWAMExrSor89XM
-	 kHL94/+V0Lq5FFrTuQU2brVbi/zzPnYM01slgHUpscTLJAiig0zaNSmm0jAU8f/p+m
-	 9b7tpkk1dmYKMzqUaEVJbwuKurrgip0+ruCMTSu8FAEQ64/2ZrtvQhO1TLwngE14O4
-	 +/6+RjJKU+CtQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] phy: airoha: add support for AN7583 Gen3 PCIe
- PHY driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: olteanv@gmail.com, devicetree@vger.kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260901125819.20378-3-ansuelsmth@gmail.com>
-References: <20260901125819.20378-1-ansuelsmth@gmail.com>
- <20260901125819.20378-3-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 13:08:59 +0000
-Message-Id: <20260901130900.518CE1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aY6elEuz"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4957eefd361so6961005e9.1
+        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 06:11:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788268282; x=1788873082; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=W4WQe8WxOJvjm3sLRvwhf9J7T9KlfMScAPN+0OUz8OY=;
+        b=aY6elEuzm58eq/wD5OHWPpGE48ZV2/yOMwLU/L/nIb0ENzsoXew5MdP7Y3VxoeXXsI
+         oTmdnEbU9BQ7ZzpwTdQ+qUQMjLKHlFGsM1AQRnp5PnRJhx+TiYbOlSb2ANzbpsaZpxX0
+         8lfAlk/NmHdNoXkvf6TdSoLmbnKh9ebuc/u+kTZBHFPYPLhoEbBUhge+0bZ60sdaYEm8
+         uoruMs/UnMrmTH0UK0AbBDGAEuxuDpWjHr8jOoih8k5MhD5V4YE2RHd17UYMGfG6QpJe
+         5ziX5jKXHek5ngdovPMppB/Ho+dIQUJeDsH42Xd0ZYQwa4HuuIqAsUKkNw0BefXz8sKP
+         i4Ew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788268282; x=1788873082;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:subject:cc:to:from:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=W4WQe8WxOJvjm3sLRvwhf9J7T9KlfMScAPN+0OUz8OY=;
+        b=Uc/nTLjjS6FAj6BHIIfcOQDO2T+i4XDcfLYL9TWnZ82o+SCvjipCj02NO1EilIH3lb
+         Z9aPzr+meK5DxKM2HnZodLBb7aveM1uk7kN9gk7QTX6LqX9a80J3aOBik/m2KWA+9BNa
+         Wk+OD7X8tLhc/0/jUBd1xNTW5pfPw5/5LolmQCIkGjsIq6yUZKjrrADU3pFzRptaOyAk
+         ROhp3PuYAf4LxUgs/qTiJ0fWO+/WtofwkZxLbe4acB/RFKH0kF0GnkDTdqoqe4zGWKfR
+         Z/ZVVxeLx/GIrrIw5OjrubLL1CTmtoSpYONUkghbt6ju2FNlaDAIQze8Qj5aPIzO7ZC2
+         SBLw==
+X-Forwarded-Encrypted: i=1; AHgh+RpLDO1u27S7JLq3FBHbIboIVIv5/hbJ6TwXsF2Ak3t8NUAuA/xnkkuWjeIhHPgs3vgALL2JkatgVwrk@vger.kernel.org
+X-Gm-Message-State: AFuF++nBZuB6RXahQ4gQMyqZk81gV+lXeqp+iqbGGpm662NO8jy54J6G
+	OPpOp5LBTi/jAoOsgHf5oeKRo3E8lbVDbHCnaaLEP5Sxc7oygsiOYFt7
+X-Gm-Gg: AR+sD105YmHR7oI/Or07g9ay6Fa8egkUQ2zx5JelaXnKBS3VKjzvGqs8uhFWdR3hOCV
+	MarLAU/DHu73LOjpFNgqC5OGBxWWO7Y2FdsvlRdHivdexO8JBJRpADKwMlbMAiFqngSBBZzjrLw
+	xIgGGk48Oi9St2VwIprIIulr9sy2x/O1kfkpe5CIeKJBEljygCUUrFMfSRh5Wrk003ucMTxIXy+
+	F6f/hf6kSrlkhKDrQ5U73sBwQTVPQhShGrE9TY+1xxBprR7BzchDDC3Crptlp1G+Vd9SgajGvTj
+	GrcmjxxIMEQQ2E/66UnExfPwi1FiSVLSQ8ORgTtDoYOLJYYyBzrSPfdXCZEVr21vmYmEhNWd1Wn
+	VbPXdHkgKjBY+z0czvQNhJDl2Q1NzX9PpRVFYeZWW+9Y3l8elEFGjawbDNGc+b7SXMXfpeRgayo
+	h1CcF0SxsQxk6udCEK3dChNJszwm6PkVB2+CoNDpHA69fdFtUbzs8z1Vjo5Q51CtSWowSu0Rt0T
+	30evzFbcLxMYDBKTM63Kvcej5ki4NnvZn1PBRpCnBcwKg==
+X-Received: by 2002:a05:600c:3511:b0:499:adb4:a922 with SMTP id 5b1f17b1804b1-49b91c4bab5mr387735445e9.12.1788268282047;
+        Tue, 01 Sep 2026 06:11:22 -0700 (PDT)
+Received: from Ansuel-XPS. (host-79-26-252-140.retail.telecomitalia.it. [79.26.252.140])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce1a3fesm70391065e9.12.2026.09.01.06.11.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 06:11:21 -0700 (PDT)
+Message-ID: <6a96cef9.1f1211b9.23c693.9e1e@mx.google.com>
+X-Google-Original-Message-ID: <apbO8hHBw7bMvVxL@Ansuel-XPS.>
+Date: Tue, 1 Sep 2026 15:11:14 +0200
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: phy: airoha: Document support for
+ AN7583 Gen3 PCIe PHY
+References: <20260827122127.18874-1-ansuelsmth@gmail.com>
+ <20260827122127.18874-2-ansuelsmth@gmail.com>
+ <20260831-elastic-turquoise-puma-f032fc@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831-elastic-turquoise-puma-f032fc@quoll>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Incorrect teardown order and potential resource leak in an7583_pci=
-e_phy_exit().
-- [Medium] Calling phy_init() and phy_exit() on a child PHY from within the=
- parent's init/exit callbacks triggers a lockdep recursive locking warning.
-- [Low] Missing 'select REGMAP_MMIO' causes build failures.
---
+On Mon, Aug 31, 2026 at 08:51:46AM +0200, Krzysztof Kozlowski wrote:
+> On Thu, Aug 27, 2026 at 02:21:20PM +0200, Christian Marangi wrote:
+> > +
+> > +examples:
+> > +  - |
+> > +    #include <dt-bindings/phy/phy.h>
+> > +
+> > +    phy@1fc7f000 {
+> > +        compatible = "airoha,an7583-pcie-gen3-phy";
+> > +        reg = <0x1fc7f000 0xfff>,
+> > +              <0x1fc7e000 0xfff>,
+> 
+> Sashiko has a valid point here.
+> 
+> This should reflect real hardware, not current driver. It is very, very
+> unlikely that hardware designers designed a block of 0xfff size or 0x4
+>
 
-commit d7a329b5d2d570ebb31f2d95a8c4c781915cf2bd
-Author: Christian Marangi <ansuelsmth@gmail.com>
+Hi for 0xfff yes the block is 0x1000 but I was reporting how it was defined
+in the original DTS. For the 0x4 is for real a single register for that
+usage. Documentation is scarce for that single block but this also reflect
+the same implementation used on EN7581. I updated the example to address
+the strange block of 0xfff.
+ 
+> > +              <0x1fc30044 0x4>,
+> > +              <0x1fc35030 0x4>;
+> 
 
-phy: airoha: add support for AN7583 Gen3 PCIe PHY driver
-
-This commit adds support for the AN7583 PCIe PHY driver. It introduces the
-initialization callback for the PCIe Gen3 port present on the Airoha AN7583
-SoC, which requires a different calibration process and register setup
-compared to the EN7581.
-
-> diff --git a/drivers/phy/airoha/Kconfig b/drivers/phy/airoha/Kconfig
-> new file mode 100644
-> index 0000000000000..55fd20f29da65
-> --- /dev/null
-> +++ b/drivers/phy/airoha/Kconfig
-> @@ -0,0 +1,13 @@
-[ ... ]
-> +config PHY_AIROHA_AN7583_PCIE
-> +	tristate "Airoha AN7583 PCIe-PHY Driver"
-> +	depends on ARCH_AIROHA || COMPILE_TEST
-> +	depends on OF
-> +	select GENERIC_PHY
-
-[Severity: Low]
-Since the driver uses devm_regmap_init_mmio(), should this Kconfig
-entry also select REGMAP_MMIO to prevent build failures? If this driver
-is built with COMPILE_TEST on architectures that do not select REGMAP_MMIO
-by default, it will cause an undefined reference link error for
-__devm_regmap_init_mmio_clk.
-
-> diff --git a/drivers/phy/airoha/phy-an7583-pcie.c b/drivers/phy/airoha/ph=
-y-an7583-pcie.c
-> new file mode 100644
-> index 0000000000000..8aaca3f50713c
-> --- /dev/null
-> +++ b/drivers/phy/airoha/phy-an7583-pcie.c
-[ ... ]
-> +static int an7583_pcie_phy_init(struct phy *phy)
-> +{
-> +	struct an7583_pcie_phy *pcie_phy =3D phy_get_drvdata(phy);
-> +	u32 val;
-> +	int ret;
-[ ... ]
-> +	regmap_set_bits(pcie_phy->g3_pma, REG_SS_DA_XPON_PWDB_0,
-> +			G3_PMA_DA_XPON_CDR_PR_PWDB);
-> +
-> +	usleep_range(100, 200);
-> +
-> +	ret =3D phy_init(pcie_phy->qp_phy);
-
-[Severity: Medium]
-Will calling phy_init() on the child PHY from within the parent's init
-callback trigger a lockdep recursive locking warning? The PHY core already
-holds the parent's phy->mutex when executing this callback. Since all PHY
-mutexes are initialized to the same lock class in phy_create(), acquiring
-the child's mutex here is seen by lockdep as recursive locking on the
-same class, which will emit a warning splat and disable lockdep.
-
-> +	if (ret) {
-> +		an7583_pcie_phy_deinit(pcie_phy);
-> +
-> +		return dev_err_probe(pcie_phy->dev, ret, "failed to initialize QP phy\=
-n");
-> +	}
-> +
-> +	/* Wait for the PCIe PHY to complete initialization before returning */
-> +	msleep(PHY_HW_INIT_TIME_MS);
-> +
-> +	return 0;
-> +}
-> +
-> +static int an7583_pcie_phy_exit(struct phy *phy)
-> +{
-> +	struct an7583_pcie_phy *pcie_phy =3D phy_get_drvdata(phy);
-> +	int ret;
-> +
-> +	ret =3D an7583_pcie_phy_deinit(pcie_phy);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return phy_exit(pcie_phy->qp_phy);
-
-[Severity: High]
-Does this teardown order safely handle the child PHY? This sequence shuts
-down the parent PHY hardware and clocks before calling phy_exit() on the
-child PHY. If the child PHY attempts to access parent-provided clocks or
-registers during its exit routine, could this cause a bus hang or system
-crash?
-
-Additionally, if an7583_pcie_phy_deinit() returns an error, the child PHY
-resource will be leaked due to the early return. Should phy_exit() be called
-first to exactly reverse the initialization order?
-
-[Severity: Medium]
-Similar to the init path, will calling phy_exit() on the child PHY from
-within the parent's exit callback trigger a lockdep recursive locking warni=
-ng
-on phy->mutex?
-
-> +}
-> +
-> +static const struct phy_ops an7583_pcie_phy_ops =3D {
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901125819.2037=
-8-1-ansuelsmth@gmail.com?part=3D2
+-- 
+	Ansuel
