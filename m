@@ -1,142 +1,264 @@
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-4318.protonmail.ch (mail-4318.protonmail.ch [185.70.43.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01E9438399A
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 00:54:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B2B30B521;
+	Tue,  1 Sep 2026 00:59:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788224057; cv=none; b=X26aPHTCPWIFprGKNbSkx3ElYnGpqUXd86PPyUqMrPAhxC49qH+73J0D5ZPZJ51t8Fv6fMitoM59Y7HTFPeCfaHbFpXAfiDa3tFsy9j3eFIo+V7Ca211T6zs69D0U9dsx++W04fcjI+iC0U1kJSLsx3OHuZCcE71VeOJydDxcDs=
+	t=1788224375; cv=none; b=RP2o9G0XDHabd3H4OnHVdZCOfFQPEILzDqn1TX01XFX+ES91WjtmVx+edFLpVtikso7nHtc2YYQCx1/Zo9wKhI1e+gII7ohjYvgoeDqwraWg0p3cQV/OR12IYeFlvAsF+O7AakWWjZ58YMjRZi5hGw/dyDbce8y/7hd5D8Tghz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788224057; c=relaxed/simple;
-	bh=ojofH+DBwrtlXR+jm3f6lWSyg4U83Fo+JcCGuWLCSkc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VE/i61zSwqFrabaR9X7MNXhU0RzcFoXN/itoyxmhd2zuwSE5bpJne/ZEJiZ6HomtOuC3NwgypQRttr6rqPUKB4O2ssXmUl0VrhaD6CJDDh2Bso6fHdnIPyxm2kCvrUjeioQdBCZS5WXHdoXn+4v+nQCQMWOqBzzbhyhE6UK2uDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EsZNk7so; arc=none smtp.client-ip=209.85.128.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788224375; c=relaxed/simple;
+	bh=+3rpXvdizBAasQQCZSs50TByA2/x7dRZogapzcQCMRw=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=C1J8HmVoEce3Ml3rAq7R9IMeS5U/k//8V96ran3ZszlnUwsxuqm/Axo1IK741NMr1cc6lwvpW2JCfrsdKLnjIpbRXCkFY1GB13F2BUQawxD8Ml2xXxP8Jmb6p4YfspblgXXOcu5LC1mdDkOqbsTrhwbTN1ufy29EpjKJZAvCj6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=httpd.dev; spf=pass smtp.mailfrom=httpd.dev; dkim=pass (2048-bit key) header.d=httpd.dev header.i=@httpd.dev header.b=eyZ4rKrU; arc=none smtp.client-ip=185.70.43.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=httpd.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=httpd.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EsZNk7so"
-Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-836c4474028so4206177b3.0
-        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 17:54:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788224054; x=1788828854; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=43wKJtwDjfuuZoIKBALy8jyb5Xwlew7WFV5ccmoVfUQ=;
-        b=EsZNk7soLhdCGZ4CZtaIX3DnOSurTB9fTEE0Sp6Qbh2wpA9+GgUc6JwFs9dKsGugGA
-         cfUdV1CHAq9m/7xCdCuy+x7dzrfZbG3hNXVSTX9S0rygP5ZeP62xI6wB0yBT1bFZmoqs
-         Z6sO7BkfBz2XHLzGoFRYVA48JbggOyS05I45enoEMfpcWNist3TrTJAbbV+qLh2eTD/u
-         AgFPWoFZeRL7pFVwbn1+MsCyXA9m6lg08etWFvDIdreDI6SCXjMkH/fCf+Kst2qfHI5N
-         pmStC2FRdQTx/2ywFbgHfU2w8/xtsW6XSDiq38ZtLZJBSMnW4difyqER78198dflkfAw
-         LWYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788224054; x=1788828854;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=43wKJtwDjfuuZoIKBALy8jyb5Xwlew7WFV5ccmoVfUQ=;
-        b=CTgilu3ogKWE1SfvPO/Op1hjmblWgWGR4DmjiofGAVmfrPr2AjYvyyK2nu8VYTtTcT
-         O2kVzNpCrJhgpYhz/Beg1TGeBv5whjiSCLoUTNbxWrjXytNoiEOoc5FqdYTfXEz+tirf
-         rrj0+mZP6xCy2JaovnWhlpbElrSiljQI70aappnuAymJYZNT5xRf8aGsE8PK1/E2LtZf
-         ThXRzct+WkppBdIpmIvaqe2a5dPwnHAG53t+R6Pn7cAr0dTzQymTvBUuN7vlv1ExAhCU
-         uR1o8NS5Aqg098V4d8wjUDmgh9dg5mMMx1K0QBkjj7mC6EUFLoqeUDXQAc12TlLzJpDn
-         /jLA==
-X-Forwarded-Encrypted: i=1; AKwUvBwuYXV4dS64j5wQydwvYWh6xSc74ANBhdX8ljMx99eTf/VZ5bqBv6WUC0xfhMWesc6jxXGRABUl1Nl1@vger.kernel.org
-X-Gm-Message-State: AFuF++nF6jEv3LGaI8ymxrAwhWtuIW0x6/lfJfGSVQNABhlzFz2dOoe/
-	wlP+TnqvV1Sq7jA891xsY5dbD0Svs+pLUk2B1srS8uXhfjPOpYlPZE9D
-X-Gm-Gg: AYBFou21urxOOGZOEO9wGslEMjYvKsnHxzCs5zhA3mdGodiaTr4zFsaOWQqMi7Zz8A8
-	6y+UkbD4NwgPjEm2J6S56ba/BWBJOE5sWrgIi3gSvrsm59zcMpn3cOYiqX8qh4LXV4R85wwDVAH
-	kdh2asMKY7bNEIwBa8AC3Wps0gSHWpRmtO4mFFMemZ+LIk4Cx47NZgrh8P716pbKkd7EQZxeRwX
-	MdDAri29aqsNU6BvX/vMon8zG98WhAsN9ovTtz66MB5aOx5oy996Osqe45zp1QSQSo7pElfDNpJ
-	RlO+fje8JMR5FV27H9HyhXS/uyaSuSpwfXhlABMxFm50Zy9CM0PEjlkeLfLJgYTJHDsNZdGqfpM
-	++qhlZc3aldT1QSMlHWFtceM1i/xAdIXu06wphw7GQhqW70ImNV8WRlEMIvJniogKidtln95b8y
-	eUaH2Xw5T/Ug73r3YBV2SOhhB2VOeo5x9WBii+IknxeOilJV0n2FGE32amvezCWEYrM3od
-X-Received: by 2002:a05:690e:4543:10b0:66e:7307:4666 with SMTP id 956f58d0204a3-66e73075b91mr3196325d50.10.1788224048960;
-        Mon, 31 Aug 2026 17:54:08 -0700 (PDT)
-Received: from localhost ([2804:30c:94d:7300:da0f:c2c1:1aa6:43da])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66e4ed163bcsm7241718d50.16.2026.08.31.17.54.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 17:54:07 -0700 (PDT)
-Date: Mon, 31 Aug 2026 21:54:58 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Luca Weiss <luca.weiss@fairphone.com>
-Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
-	Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 5/5] iio: light: stk3310: support the Sensortek
- STK36C61
-Message-ID: <apYiYnlM-agfG9he@debian-BULLSEYE-live-builder-AMD64>
-References: <20260826175409.326131-1-jorijnvdgraaf@catcrafts.net>
- <20260826175409.326131-6-jorijnvdgraaf@catcrafts.net>
- <apEMCqQXyj1tAMoP@debian-BULLSEYE-live-builder-AMD64>
- <20260828154705.11962-1-jorijnvdgraaf@catcrafts.net>
- <apRGQVfPKWHvE2Ct@debian-BULLSEYE-live-builder-AMD64>
- <20260830201950.63838-1-jorijnvdgraaf@catcrafts.net>
- <DL2YT4S4U7C4.2CPGBR94G01FD@fairphone.com>
+	dkim=pass (2048-bit key) header.d=httpd.dev header.i=@httpd.dev header.b="eyZ4rKrU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=httpd.dev;
+	s=protonmail2; t=1788224369; x=1788483569;
+	bh=dsiMiEDU1iyqNugGv5MENp6q2JX/4otwgNxyz/lzYSA=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=eyZ4rKrUt95gUpqH2GtBgTuAWyqVXqdFv6BWKJVHnaaw6BIc8ukN/w1d1m14h6uZb
+	 qRS1Ke6znhKhp66XqY/aZrkg1DyrpD/KHYNEwHozBhwky6FNjNkne5rkitYKNgfZZ4
+	 mnC1TGoJdO+gRCi93bp4ZYbkRHmFEkv4Ivcfqmm0XbJZjv/h+XYcTIlJYMAIBdg6Pq
+	 Y/902OM5RIUUg/VrrtggZph4h/Wes50V6/DeV5QuRYV4AhlUSacZC9a8jlROgXKn5c
+	 SOSqbHBnolmCUnfC6IewVLdYdkJRL9PcRE6A8L1MZCVmTLSSh8TSOkInuYcVJtV/Kv
+	 FSmCuPhbYMutw==
+Date: Tue, 01 Sep 2026 00:59:25 +0000
+To: "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>
+From: Angel J <iamanaws@httpd.dev>
+Cc: "regressions@lists.linux.dev" <regressions@lists.linux.dev>, "stable@vger.kernel.org" <stable@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-rpi-kernel@lists.infradead.org" <linux-rpi-kernel@lists.infradead.org>, "helgaas@kernel.org" <helgaas@kernel.org>, "robh@kernel.org" <robh@kernel.org>, "andrea.porta@suse.com" <andrea.porta@suse.com>, "florian.fainelli@broadcom.com" <florian.fainelli@broadcom.com>
+Subject: Re: [REGRESSION] PCI: Dynamic OF node creation hangs on invalid bridge configuration
+Message-ID: <-KoxZtWNyNmnEu6-RkoMW2kenooTum0AiXwENwNBtoxqyI9wDXo1UJik1Wn9Igj_VRQ9bcYlva6FUZYq17UdPChUz_-mtDyrHSFO7t_broI=@httpd.dev>
+In-Reply-To: <GXe6anuewkS4bLNwca3cYOmUxN9csc0TxLYGSBc1qNRmfrmvFlcmD62wEM23TxfzfuXAv4P3yvUv7pyraleARrL1Na-aN8w-t9uc1Igu8DA=@httpd.dev>
+References: <GXe6anuewkS4bLNwca3cYOmUxN9csc0TxLYGSBc1qNRmfrmvFlcmD62wEM23TxfzfuXAv4P3yvUv7pyraleARrL1Na-aN8w-t9uc1Igu8DA=@httpd.dev>
+Feedback-ID: 163474212:user:proton
+X-Pm-Message-ID: 1031240fee8ce565906bd8ac4c0dbb2408b2550f
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DL2YT4S4U7C4.2CPGBR94G01FD@fairphone.com>
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------92b2098d95252a39ada38c9e88383d14dd60f1ac3fa7fee7e6a674a7c834e248"; charset=utf-8
 
-On 08/31, Luca Weiss wrote:
-> Hi Jorijn,
-> 
-> On Sun Aug 30, 2026 at 10:19 PM CEST, Jorijn van der Graaf wrote:
-> > On Sun, Aug 30, 2026 at 12:03:29PM -0300, Marcelo Schmitt wrote:
-> >> Having a closer look at the data sheet I found for STK36C61, I noticed registers
-> >> 0x13 and 0x14 are not listed. Does the newer part has ambient light sensing
-> >> besides the clear channel?
-> >
-> > That looks to be the "STK36C61-A Preliminary Datasheet v0.9" hosted by
-> > LCSC [1], which I hadn't found before, so the cover letter's "There is
-> > no public datasheet" is wrong. It documents the -A variant, however,
-> > and gives PDT_ID as 0x93, while the part in the Fairphone 6 reports
-> > 0x95. It does agree with the device on the colour-engine layout: RGBC
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------92b2098d95252a39ada38c9e88383d14dd60f1ac3fa7fee7e6a674a7c834e248
+Content-Type: multipart/mixed;boundary=---------------------9fc1428e6ff9ebac9729a5244b051e32
 
-The data sheets I was comparing were from
-https://datasheet4u.com/datasheets/Sensortek/STK3310/836592
-https://jlcpcb.com/partdetail/SENSORTEK-STK36C61A/C49230205
-which were the first links that appeared to me on an online search.
+-----------------------9fc1428e6ff9ebac9729a5244b051e32
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;charset=utf-8
 
-> 
-> Just to chime in, the datasheet I have access to (STK36C61-A Preliminary
-> Datasheet Version - 0.9.2) there are a few changes compared with the one
-> from LCSC but nothing too interesting:
-> 
-> * On the overview page LED current 228.75 changed to 218.75 mA
-> * ALSCTRL1 register (0x02) has different values for BIT[6:4]
->   (17.92 -> 143.36; 8.96 -> 35.84; 4.48 -> 8.96)
-> * PDT_ID is indeed 0x95 - maybe the previous version just had wrong
->   copy-pasted info?
-> 
+Hello,
 
-Hmm, I was initially thinking about the added STK3310_PROXIMITY_CHANNEL for
-stk36c61. If STK36C61 has ambient light sensing (similar to STK3310 light
-sensing read from registers 0x13 and 0x14) then it makes sense to have that
-channel for STK36C61 too. Otherwise, that specific ambient light channel
-shouldn't belong to stk36c61_channels.
+A friendly ping on this regression. It still affects Linux 6.18, and
+the tested invalid-bridge guard allows the machine to boot with
+CONFIG_PCI_DYNAMIC_OF_NODES=3Dy.
 
-I didn't find a data sheet for the part with PDT_ID 0x95, though, that sounds
-like another thing to tidy up. Update the naming from STK36C61 to STK36C61A.
-So, if STK36C61 (without the A) is ever added, there will be no naming conflict.
-Unless STK36C61 is never going to be released (which doesn't seem to be the case
-cause I can find a data sheet for that).
+Is any additional information or testing needed from me?
 
-With best regards,
-Marcelo
+Thanks,
+Angel
+
+
+
+On Saturday, August 22nd, 2026 at 19:14, Angel J <iamanaws@httpd.dev> wrot=
+e:
+
+> Hello,
+> =
+
+
+> This regression was introduced in v6.17-rc1 and remains in the dynamic
+> PCI OF node code. Linux 6.18 fails very early during boot on my Dell XPS
+> 8940 when CONFIG_PCI_DYNAMIC_OF_NODES=3Dy. The display goes black before
+> any useful console or pstore output appears, and the machine remains
+> hung.
+> =
+
+
+> Disabling CONFIG_PCI_DYNAMIC_OF_NODES makes the same kernel boot normall=
+y.
+> Linux v6.19-rc5 also boots because the RP1 driver stopped selecting that
+> option, not because the dynamic PCI OF node code changed.
+> =
+
+
+> Hardware:
+> =
+
+
+>   System: Dell XPS 8940, board 0K3CM7, BIOS 2.27.1 (2025-04-03)
+>   CPU: Intel Core i7-11700 (Rocket Lake)
+>   Triggering device: 0000:00:00.0, Intel 8086:4c43
+>   Firmware boot: UEFI, ACPI-based x86_64
+> =
+
+
+> Test results:
+> =
+
+
+>   Linux 6.12.103: good
+>   Linux v6.17-rc1: bad
+>   Linux 6.18.44, CONFIG_PCI_DYNAMIC_OF_NODES=3Dy: bad
+>   Linux 6.18.44, CONFIG_PCI_DYNAMIC_OF_NODES=3Dn: good
+>   Linux 6.18.44, CONFIG_PCI_DYNAMIC_OF_NODES=3Dy, skip invalid bridge: g=
+ood
+>   Linux v6.19-rc4: bad
+>   Linux v6.19-rc5: good
+>   Linux 4621c338d33f: bad
+>   Linux e55feea3a03a: good
+> =
+
+
+> The first-parent boundary between the last two tests is:
+> =
+
+
+>   e55feea3a03a ("Merge tag 'soc-fixes-6.19' ...")
+> =
+
+
+> That merge contains ce26f588c831 ("misc: rp1: drop overlay support"), wh=
+ich
+> removes:
+> =
+
+
+>   select PCI_DYNAMIC_OF_NODES
+> =
+
+
+> from MISC_RP1. The generated configurations differed only by:
+> =
+
+
+>   -CONFIG_PCI_DYNAMIC_OF_NODES=3Dy
+>   +# CONFIG_PCI_DYNAMIC_OF_NODES is not set
+> =
+
+
+> CONFIG_MISC_RP1=3Dm in both. The known-bad 4621c338d33f and Linux 6.18.4=
+4
+> both boot after disabling PCI_DYNAMIC_OF_NODES (and MISC_RP1, whose Kcon=
+fig
+> select otherwise forces it on).
+> =
+
+
+> There is no RP1 device in this machine, and its driver does not probe.
+> MISC_RP1 affects this x86 system only because its Kconfig select enables
+> PCI_DYNAMIC_OF_NODES globally.
+> =
+
+
+> I narrowed the hang to dynamic OF node creation for 0000:00:00.0
+> (8086:4c43), the Intel Rocket Lake-S integrated memory controller. On
+> this machine it reports PCI class 0604 and header type 1, but it is boun=
+d
+> to icl_uncore and is not a usable forwarding bridge:
+> =
+
+
+>   Bus: primary=3Dff, secondary=3Dff, subordinate=3Dff
+>   I/O and memory bridge windows: invalid/all ones
+>   kernel: bridge configuration invalid ([bus ff-ff]), reconfiguring
+> =
+
+
+> A minimal dynamic node for this device boots. Adding only
+> device_type=3D"pci" makes it hang. Full PCI dynamic OF node generation a=
+lso
+> boots when only 0000:00:00.0 is skipped.
+> =
+
+
+> I also tested a generic guard in of_pci_make_dev_node(). It reads
+> PCI_PRIMARY_BUS and skips node creation if the primary bus does not matc=
+h
+> pdev->bus->number, the secondary bus is not greater than the primary bus=
+,
+> or the secondary bus is greater than the subordinate bus. Linux 6.18.44
+> boots with CONFIG_PCI_DYNAMIC_OF_NODES=3Dy and logs:
+> =
+
+
+>   pci 0000:00:00.0: skipping dynamic OF node for invalid bridge
+> =
+
+
+> The regression was introduced by 49d63971f963 in v6.17-rc1. Commit
+> ce26f588c831 made v6.19-rc5 boot by removing MISC_RP1's select of
+> PCI_DYNAMIC_OF_NODES. That avoids the failing path in the tested
+> configuration but does not change of_pci_make_dev_node().
+> =
+
+
+> I do not have a log from the failed boots. No output appeared with
+> earlyprintk=3Defi,keep, keep_bootcon, ignore_loglevel, loglevel=3D8,
+> initcall_debug, and EFI pstore enabled. Blacklisting both GPU drivers an=
+d
+> disabling the Intel IOMMU did not make the bad kernel boot.
+> =
+
+
+> Should of_pci_make_dev_node() reject devices with invalid bridge bus
+> configuration, or should 8086:4c43 use a device-specific quirk? I can
+> prepare and test a patch for either approach. For Linux 6.18 stable,
+> would that fix be preferable to backporting ce26f588c831 and its
+> dependencies?
+> =
+
+
+> #regzbot introduced: 49d63971f963
+> #regzbot title: PCI_DYNAMIC_OF_NODES early boot hang on ACPI x86
+> =
+
+
+> Thanks,
+> Angel J
+> =
+
+
+> =
+
+
+> =
+
+
+> =
+
+
+> =
+
+
+> =
+
+
+-----------------------9fc1428e6ff9ebac9729a5244b051e32--
+
+--------92b2098d95252a39ada38c9e88383d14dd60f1ac3fa7fee7e6a674a7c834e248
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
+
+wrsEARYKAG0FgmqWI18JEBoBbwppzUxnRRQAAAAAABwAIHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmfl/6uNekZTiSEcr0zFYMmZB7pZXzWkFaFAVYQ1
+zRRp2xYhBEAFf9htFyVnqZzmVhoBbwppzUxnAAAzOwD9FRMnq+YbDgEDUc3n
+pVpEge+RLMOPpjo9taK9Dno8I+gA/0J3r7cKUxlGLsTjReprBRnyMa4sDEjT
+KBCLgZOvyacC
+=k1eP
+-----END PGP SIGNATURE-----
+
+
+--------92b2098d95252a39ada38c9e88383d14dd60f1ac3fa7fee7e6a674a7c834e248--
+
