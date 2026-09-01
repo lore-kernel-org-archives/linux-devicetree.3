@@ -1,125 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D75DC3B3C12
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 12:54:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28FAF37F303
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 12:58:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788267277; cv=none; b=QoRpyfCUm58AtuNpVhEmqazxfK5SVk/3N5bot6L7EhsQQhG4GUOwhYAf/C2kR3OtXUFNksoE3wP6zUgk+ccu/PSTY6GzExZGDWdZmdTVvPDnm8D3o2iyVEVbplSq0K2qos9TZo95u5Ff+xuiURj+9QeuGxyGro302+lNdzsgB0k=
+	t=1788267511; cv=none; b=UMEVD6q/klxqK1JiVdtF6DyV2dlQpXGYJ6O1tBeTTQx9G72ergqEUKmMBCVg9eSWgfE4hb3XuYMZ473Fe0xdKy6VBQVmHNCGUMTa7AjsP8xJDvXpSy5hKhjdjLNRWdNJEeWCKScDBfyXraq/GAKYiLiyz+cGR7QuWEQcfrbsnyE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788267277; c=relaxed/simple;
-	bh=9TcnNyUB0tW2wEpWiM9pRC7FXQYnA8niZqFHIpUuxAE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=BSiff16abFfmTcoI2mPNmTR95cOgO2ozTBVxQmdtxZtv+GfeeJUtCT9MC5yYSk3hRIKcfixCqpmrzDOQJmItsdHU3l4VKKtTQFyA4tLGvkhxy6rzibWNOGCBaj4dLl1xiiCGhZnlnx/CxH6qoc2e0FCXpOTAz/awVC7cJXoiehI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kzb/ZoI5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788267511; c=relaxed/simple;
+	bh=Q3MIUo+gFc2NJp3XMl9CoNl/W6t2DiyBm6Rs2MqrdFw=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=azZfa2qO313mr9tVF38Lm8VZkNXIFC38FEkotTf+LGL6wgvw4PJ1T5Tug0bktzxkv/9zPpcuEK5zVuCtpXP2V4vpTbPITwiEMcAqGHC4VTjb9f2fdL2x6E73oDLx3gj95PhNCqo9T7yj8FvE9rJ8VDPFkxmb57POsJRQZzVZC9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rzD5myF4; arc=none smtp.client-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kzb/ZoI5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B17F1F000E9;
-	Tue,  1 Sep 2026 12:54:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788267275;
-	bh=c33OJOqFwQbhfL9wwL7F5KTNJJu7ExfYd7jpL6bpZgU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kzb/ZoI57fneTmtZfGCLGfcT18nDAeI3cF0E2F9pXll5W0ZdzY98sQuGKUDw6VjFY
-	 EZVPy1hMWIpuEiV4NJgll2gXv06Ok0xLXc48Pn/jEz3rkw7vNdz6IK+sMsLr1yhmTI
-	 hMXW5IIpJ2h1MLxzATFEWg3GfQSc5haGMWjnLoarmVJz0w/ih2RoE31jrCUS6WTKIo
-	 o3LZUDm5bc3LndL/s3p/aplOEzDBAL6gmJQLpOtFKQoMympSCeozBWH1DBlGLw330q
-	 PZGj4wH6LGRkHzxpnSXYdoO68M6fyN4ut8FmgOYC6eudqFHGEI1amZu/NSEXDnvYxa
-	 pB7seK963IPJQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v6 3/3] w5100: detect carrier state using link
- status bit and optional interrupt
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Arthur Crepin Leblond" <arthur@marmottus.net>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260831-wiznet-link-gpio-v6-3-abee6c5c966e@marmottus.net>
-References: <20260831-wiznet-link-gpio-v6-0-abee6c5c966e@marmottus.net>
- <20260831-wiznet-link-gpio-v6-3-abee6c5c966e@marmottus.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 12:54:34 +0000
-Message-Id: <20260901125435.3B17F1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rzD5myF4"
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6a60d406a5cso693372a12.0
+        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 05:58:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788267508; x=1788872308; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ld2dHDdDQiF6ur3QIWVOyuCBe04N1lf3nFHFqeQJu60=;
+        b=rzD5myF4re8UGZm2USBuA1xk+k/coO3W01lAWZ0nGjx76wB8h9WOnTy/fiRcvHryuF
+         U2z9pjpaiyFbktr0JyoCmbeI6758TmOL4Y2wUNd9+NsQ8eSEGVrAmqNTGzUxY05zuecz
+         H2NoIoj8Nv/btVx3Mh+oyeHAMB6L9D+UUbbBqzh9ufzZJ0PNiK+WUgBuV7Vvjk95iVKi
+         sQ//WOHAYjpLofqZy4L/Qrlo9HFpUCaE1RZ1OM+UmygwpWhjfJXjTw0oyXV9NH/GFQwR
+         3Eyo/mCfPF2DXwncmUBzgrb7xbrCRIKYAAzzPFFgXmHdZhQdx8yeWf+m5kzSbal3+pFc
+         rNIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788267508; x=1788872308;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Ld2dHDdDQiF6ur3QIWVOyuCBe04N1lf3nFHFqeQJu60=;
+        b=I1kCGbaYSeIuC7POvoLSmtYskhq4Ewl5G5okGQTCZmUZJr9YJTUeHytdJa59iYjoJ9
+         zIslqz1AuFSZ7yH/yw+FKJmRcs8vIdSHKuzJUKq9pYWunxKxvAxX6oG/zwfxTilyEJ6I
+         jzdH2CR7m7PtfkvJCy6qDmga4le2Ha/ixxKE2iHOe0e2mGc4URJrF6l6r7CMd1S6q3PL
+         LZ7tQmt9ZS5DoSY9WnL+HOWLVZhKNwR2F+2dYXUP8j9FBkq3AtzeXt/kDZjvos/7eYSt
+         k/YRl/KWGbKdqy7tUKYwZhsE6OdQYbk28+RyukjkNxUruKwZ4o3dY6QgTtah0ecJvDiC
+         xvVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzNpeetydgI8EO6KefIElFdq68IwW215BUjeQODrFO7Zht+tsVaBg4VRQ1+DOb5YLiIvcO9hdGYEpsl@vger.kernel.org
+X-Gm-Message-State: AFuF++kBt5VjewIRWCayFwWF91Xs2Bi062hF94DI1yysagZSdx0Xp085
+	VXPyhu1ra0mOLaSFXjwxwOuwwhQlLtCfGz5cHTy7IvCWv/IH7Xma9PY4
+X-Gm-Gg: AYBFou3LsIe57ledimXlgtf3DIowipgNC/m8BGpsdUgWRs5vgBumOnfUK+BsS3PdLW/
+	A8IyigtGdK0BjEc38IXsM730fPofCaz9YE710G8F78c3Mwg1yRvtWke6ZGU2UaWAzt+s9S3Okrg
+	UHlg+Fkj+zi5AeWFx9Hfp2QBF76v8NLH186sjkaToy3NeETOHf9iaBFQeBa6H7siErTRf7vQXDC
+	oh9nHMCSseHoh8G8TuaU8WDh89MtPgiQf1ILEqEF858r49vVqvPzF7mb5s4csisWDdmS1ICzNz3
+	xAQaSSyeCg2MXZOGm/aedtn1HFVjNbsP0tq5S0BkvLD7TUmQnvb55Sm7tsLtdxLbJI4EYlrRyx5
+	oAE0tbYF0jQbkphwDDGt9rTJRuThnzLexJjx/096QeEUlIIPW0EbVr6QMx1OgruxWjQDxxHqGE9
+	NxhVRuNeuIBGgIxQJTMNFHx5Lq54vogD9LoSAvQAGMQWn1xCSvXI9yujdjHVYc4fCR8vlCdI1Ro
+	bEZOj6NdmwS+XsyKNk0Yn7mrYVannEltZ62VpGBsB2Pxu1pheeVbrPgJfTcck8=
+X-Received: by 2002:a05:6402:24a5:b0:6a3:95bd:143c with SMTP id 4fb4d7f45d1cf-6a663a26d14mr6639703a12.5.1788267507997;
+        Tue, 01 Sep 2026 05:58:27 -0700 (PDT)
+Received: from Ansuel-XPS24.localdomain (host-79-26-252-140.retail.telecomitalia.it. [79.26.252.140])
+        by smtp.googlemail.com with ESMTPSA id 4fb4d7f45d1cf-6a66d15d10asm773959a12.28.2026.09.01.05.58.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 05:58:27 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Christian Marangi <ansuelsmth@gmail.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/2] phy: airoha: add support for AN7583 PCIe PHY driver
+Date: Tue,  1 Sep 2026 14:58:16 +0200
+Message-ID: <20260901125819.20378-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Teardown order and race condition in `w5100_remove`
---
+This small series introduce support for Airoha AN7583 Gen3 PCIe PHY.
 
-commit 2d15b81e4c22951dac168989fccf463a39479cef
-Author: Arthur Crepin Leblond <arthur@marmottus.net>
+It's not possible to reuse the EN7581 code as the register changed between
+the 2 SoC and also the setup method changed (different calibration logic)
 
-w5100: detect carrier state using link status bit and optional interrupt
+Putting the PHY in a dedicated directory is also needed for other series
+current pending that will add USB PHY support.
 
-This commit detects the link status on the w5500 using the Link Status
-bit from the PHY Configuration register. It also adds an optional
-interrupt wired to the LINKLED pin of the w5500 to detect link status
-changes, and registers the netdev last in the probe function.
+Also a dedicated schema is added as the register names is entirely
+different compared to EN7581.
 
-> diff --git a/drivers/net/ethernet/wiznet/w5100.c b/drivers/net/ethernet/w=
-iznet/w5100.c
-> index 53d8dc642fbd6..d91881ecd797c 100644
-> --- a/drivers/net/ethernet/wiznet/w5100.c
-> +++ b/drivers/net/ethernet/wiznet/w5100.c
-[ ... ]
-> @@ -667,6 +722,10 @@ static int w5100_stop(struct net_device *ndev)
->  	struct w5100_priv *priv =3D netdev_priv(ndev);
-> =20
->  	netif_info(priv, ifdown, ndev, "shutting down\n");
-> +
-> +	if (priv->link_irq >=3D 0)
-> +		disable_irq(priv->link_irq);
+Changes v3:
+- Improve example for Documentation patch
+- Deinit G3 PHY on QPHY error
 
-[Severity: High]
-In w5100_stop() (drivers/net/ethernet/wiznet/w5100.c), can w5100_remove()
-and w5100_stop() race here?
+Changes v2:
+- Drop move patch (handled in different series)
+- Rework to regmap implementation
+- Rename files to more specific name
+- Add .exit logic
+- Drop QPHY in favor of external PHY handling
+- Update schema with new requirement and improve example
+  Link: https://lore.kernel.org/all/20260827122127.18874-1-ansuelsmth@gmail.com/
 
-If an interface shutdown (ndo_stop) executes concurrently with w5100_remove=
-(),
-w5100_stop() could evaluate priv->link_irq >=3D 0 to true, get preempted, a=
-nd
-then call disable_irq() after w5100_remove() has already freed the interrupt
-descriptor.
+Christian Marangi (2):
+  dt-bindings: phy: airoha: Document support for AN7583 Gen3 PCIe PHY
+  phy: airoha: add support for AN7583 Gen3 PCIe PHY driver
 
-[ ... ]
-> @@ -820,14 +902,20 @@ void w5100_remove(struct device *dev)
->  	struct net_device *ndev =3D dev_get_drvdata(dev);
->  	struct w5100_priv *priv =3D netdev_priv(ndev);
-> =20
-> +	if (priv->link_irq >=3D 0) {
-> +		free_irq(priv->link_irq, ndev);
-> +		priv->link_irq =3D -ENODEV;
-> +	}
-> +
->  	w5100_hw_reset(priv);
->  	free_irq(priv->irq, ndev);
-> =20
-> +	unregister_netdev(ndev);
+ .../phy/airoha,an7583-pcie-gen3-phy.yaml      |  65 ++
+ MAINTAINERS                                   |   8 +
+ drivers/phy/Kconfig                           |   1 +
+ drivers/phy/Makefile                          |   3 +-
+ drivers/phy/airoha/Kconfig                    |  13 +
+ drivers/phy/airoha/Makefile                   |   2 +
+ drivers/phy/airoha/phy-an7583-pcie-regs.h     | 377 ++++++++
+ drivers/phy/airoha/phy-an7583-pcie.c          | 826 ++++++++++++++++++
+ 8 files changed, 1294 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/phy/airoha,an7583-pcie-gen3-phy.yaml
+ create mode 100644 drivers/phy/airoha/Kconfig
+ create mode 100644 drivers/phy/airoha/Makefile
+ create mode 100644 drivers/phy/airoha/phy-an7583-pcie-regs.h
+ create mode 100644 drivers/phy/airoha/phy-an7583-pcie.c
 
-[Severity: High]
-In w5100_remove() (drivers/net/ethernet/wiznet/w5100.c), does this expose
-the driver to concurrent operations on reset hardware?
+-- 
+2.53.0
 
-unregister_netdev() is called after w5100_hw_reset() and free_irq(), which
-means the network stack might still be actively transmitting or calling into
-the driver while the hardware is in a reset state.
-
-This is a pre-existing issue, but this change exacerbates it by introducing
-the link_irq race described above.
-
-> +
->  	flush_work(&priv->setrx_work);
->  	flush_work(&priv->restart_work);
->  	destroy_workqueue(priv->xfer_wq);
-> =20
-> -	unregister_netdev(ndev);
->  	free_netdev(ndev);
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831-wiznet-lin=
-k-gpio-v6-0-abee6c5c966e@marmottus.net?part=3D3
