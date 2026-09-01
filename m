@@ -1,219 +1,117 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69CA3473C88;
-	Tue,  1 Sep 2026 08:58:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D1BF34751B
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 08:59:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788253089; cv=none; b=h8cAfYui9j6o7zTk7kBq9QAro24XhNCVxuD8HF4HmNNgn84e0C3Cl+AbOvG8a/tCacJ1jm0V5kzoAFqJ6KHp/4fiWab9231wrBh8Zzqf+mrmch/XmMCSzWc7CceDzYFBkAjZDf9HmZEfqK5jAp+EFsgn6xtxKO02AqUarr2ZkPI=
+	t=1788253145; cv=none; b=OaN719G9aVA16nIQhDZD7YJ9xa8zFmeeXnpuKH6BjiRox1gUtU0ImvjY/UCTN19xRfAsug8kWeOMqfYys3QNKZlm0CXEh1xsacUUeFLIhWL01GFUp61HzoMKI0CVsWkDNoGNDeUMuhERS46n098VTK9VAWpro6enXlTFNiheJsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788253089; c=relaxed/simple;
-	bh=Dn9Xg91C/1thO31fkCEIbl0rMR4votQKC6FIQtp2kqc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XxbBRV55S7nNyxV08apeKJVeZ7vjMCFL57fbvEM0wyXGsGl90xDyK579xuFzQmLqlAKrCtiYr2Xur2eFTTrDbS3zPm1YwCdZJMlDP2TAsDiG3qtujcJRvM9GG1EK9HDqWKGqLg6VCyhGTewoQRB6By4jNQoeSONJ+wEoJa9YY0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SvAF5DrV; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788253145; c=relaxed/simple;
+	bh=wUOmiA7i2EaKRUV+bEKJTs81gkHvhUOxBuyUyHxqOK4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=QETC6rTUC7f9PIKd0rwsYkq1iVrOaxd8gzyRlpuLGb3/ycDEBu66xA/+PC3cMnGzG7GwMHf6wHzSpJglyzmPVDqsfkU/LvvCtKTsGrZl/odVaYf/VeT36R8AsIMPVlUQ7QjtewvltDV5rfX8P2JwtSwvAHkpYiKuQtO204YMfL4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=h3aOuCQ1; arc=none smtp.client-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SvAF5DrV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788253088; x=1819789088;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Dn9Xg91C/1thO31fkCEIbl0rMR4votQKC6FIQtp2kqc=;
-  b=SvAF5DrVctRmnPGQcxSLHW5fR+biM7cT8PJFSXcaZDt9lqW2dJVUf58h
-   OW0sgn2c1Oz8luaeZpTnJTwQ62EZ/KJrLBHmOowNqIpEiO4aXyoXam9bW
-   zjTQ7Y93oEvEx4Cnh9fA1sT1rO1Cmj4XzaP/KLxy/86v0yOso3cF5mfnm
-   YyIL6ZF9PeMHO3496ePoyuiWbRuDmv7JW35YZJxhb3qwK5vTucIxnvbi4
-   Skjz9AefCJHoqq3eUa75md5k0dXu4kz/fxfScXFtRFWM9EJ9crHcCnVe/
-   hILjEC+/As7vtc4LpxOw7np+tUEDRWuCzgwwC6uNF9w96K4shPMHWJ5E5
-   g==;
-X-CSE-ConnectionGUID: gMlpREwmT0uyFQ9cUV/Llg==
-X-CSE-MsgGUID: BO4PLapyQKOU/7cY0hjvBw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="92542930"
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="92542930"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 01:58:07 -0700
-X-CSE-ConnectionGUID: czjYX5yyTDOsZtb1SZR0ug==
-X-CSE-MsgGUID: Y14AxRADQre7S7wFBk1Gvw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="265319657"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa010.fm.intel.com with ESMTP; 01 Sep 2026 01:58:03 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id 1FEEE99; Tue, 01 Sep 2026 10:58:02 +0200 (CEST)
-Date: Tue, 1 Sep 2026 10:58:02 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Sven Peter <sven@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
-	Andreas Noever <andreas.noever@gmail.com>,
-	Mika Westerberg <westeri@kernel.org>,
-	Yehezkel Bernat <YehezkelShB@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 10/19] thunderbolt: Make the ring register layout
- configurable
-Message-ID: <20260901085802.GC106095@black.igk.intel.com>
-References: <20260830-b4-apple-soc-tbt-v1-0-44bc9348683c@kernel.org>
- <20260830-b4-apple-soc-tbt-v1-10-44bc9348683c@kernel.org>
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="h3aOuCQ1"
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c250f28f1cdso707379266b.0
+        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 01:59:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1788253140; x=1788857940; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=o5o+LGs+bBAm+txc6iMYrrNKuZZMfQFh8GU+2rXK/RU=;
+        b=h3aOuCQ1Uu0M0ADm0IWukQ5Q63G0BhhDQXhVYQ4E+hSsQtUgOzqcfqu+uwxj51UaGr
+         RiQe7QNrWUpq39F+gOmmlqHhAH7PF9ESldCUueVkTSf1S22v8xCZOBgOoUMWrnrvALEV
+         KembkfItZcoVOlUP8sCM4qZqb2jwT566bd4eAlHgI1tkUFmNCZ8LZ4Y1s35vMAQt7eFT
+         2HFINOEmb11T3pasU9sF7AsT4iJ9SwdO9LMZwODx0+KnAQgetdKfCtzpwgBGaLYoE8x5
+         iwBUuAdMtjEsyt+xoGuRYp2B4tEccE84j/QmaTGAyXM/dxtlSShxosj+cHt0j6WlLlkW
+         Lq+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788253140; x=1788857940;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=o5o+LGs+bBAm+txc6iMYrrNKuZZMfQFh8GU+2rXK/RU=;
+        b=r2fL3ep2i++7WMqnwkyFi/J9BsJdnREXeUq9/FuZLN0YxAfbfy0R8L1CDXL1vnTTZz
+         aKB5+kGzWipZoiJTcnEimxy2OmU2w5Uespr77Tl3DQSkyp4igKAwixqsD27y0Qps35Pg
+         HzF9HINtHiESEpv1f5MKWDsQgS4dwdx5Da3064l0+2Wd9uxuWxv6PQgyUC/KlnlEWsZc
+         YDfmtY+txN0evm4zdwRS73uxeJYIVjf/SXBatnIID5YaSIkeauU9LZX3y2zVBwbkL0fZ
+         qYn6GV34+FnaQZsgloRjLJRs1eu8eLP1ViL0BK7X2t+EIT1s+4ge9nolRaziMJJi4TpW
+         DMhw==
+X-Forwarded-Encrypted: i=1; AHgh+RoCTttnFk7GJRt9+5KWojssv2YfoswBAScnLu2CM+vBUcLTM3rbRtRhr83wUEBiSv+k2CXBF7kFHzY6@vger.kernel.org
+X-Gm-Message-State: AFuF++n/KzYVFBXhmtMsDzJQg0nzrlfagtdlQhz2MF9tq6Mf5SU8EPiS
+	4dqkhi5naKk+oqfchyisHSmkAiXpnAbQ/EPoFALKc0vjpPPBUSddV3X5X8djw9f4cug=
+X-Gm-Gg: AYBFou1YE+Ifl+j0rs0p2p9w9nHaL/MCTYcY7X30bMyDh9FPJX2IeyHAJAMv1ALJdJQ
+	2XfO2OGUwOHQUK5HKUraQJILpoqBVP2eoRgA/9hc1b3tJBsrvvN/ymOTc07a3fmQ7SXnswMGV0m
+	v66O27qImNV4Wlz1QNSXhVd0yoQSIEkKlcanx1dhqLQT+Etm21BqVjVJBiIn83FCfZhfbIzCqlM
+	TtRIPU5PxW1C7kXrEEGzzL/FJgaZLnBPDJMkR0Cf8j9zXhe8OeaaC29+Km3Xgd/nqRl54vI3nMl
+	dv1Q0DBoRHhYnUTA4+wXwCBjHmrnfKMSdufvw/Fb3w6cFyj1A220yLgsjjRloA1n4oYVlgrrheL
+	SFCPnGxEdaVmJhGgfnHhjKa/Tlkh2E6OWXkLzg/DsIX4hf57/jincLkosv8HzE8bXsbyBfoPstZ
+	iFMp3PXSvTzKerEG0EBNogTTteoYGavKy4mcnqaInq1+Gm49l/X4qQeb41RMKjWkZXmTT+csUVV
+	PdY9pD65kAzhDKEJ6VsJplfVcfEeWTYv/EcOdVgwQo=
+X-Received: by 2002:a17:907:728b:b0:c24:680b:3944 with SMTP id a640c23a62f3a-c2557169784mr1987875966b.13.1788253140425;
+        Tue, 01 Sep 2026 01:59:00 -0700 (PDT)
+Received: from [172.16.220.101] (144-178-202-138.static.ef-service.nl. [144.178.202.138])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2564e314a1sm511942566b.42.2026.09.01.01.58.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 01:59:00 -0700 (PDT)
+From: Luca Weiss <luca.weiss@fairphone.com>
+Subject: [PATCH 0/4] Add supply names for PM6350 RPMh regulators on
+ Fairphone 4
+Date: Tue, 01 Sep 2026 10:58:55 +0200
+Message-Id: <20260901-fp4-regulator-supply-v1-0-68288ab70aee@fairphone.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260830-b4-apple-soc-tbt-v1-10-44bc9348683c@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQqDMAyA4VeRnBeoRTqyVxk7qEtdRLQkVjbEd
+ 1/djt/h/3cwVmGDW7WD8iYmy1xQXyroX+08MMqzGLzzwZGrMaYGlYc8teuiaDml6YPXGDoiYgq
+ +gZIm5Sjv3/b++NtyN3K/ni84ji9W4RMUeAAAAA==
+X-Change-ID: 20260901-fp4-regulator-supply-7f6b999e9624
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ Luca Weiss <luca.weiss@fairphone.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788253139; l=899;
+ i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
+ bh=wUOmiA7i2EaKRUV+bEKJTs81gkHvhUOxBuyUyHxqOK4=;
+ b=z2eqSalHbGfQjzg71aMZg7ujz63UIPZr2SrhpswnbsCCa14W27/nIzJt0iuISGhF0S2inwisN
+ 7Wb3f10VUziACsCVq2rcq+yvaJ2WQiuMn8q0Cm5JxWtP+/gDDzSxrE1
+X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
+ pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 
-Hi,
+During bringup no parent supply names were added to the RPMh regulator
+driver. Add them now.
 
-On Sun, Aug 30, 2026 at 10:19:28PM +0200, Sven Peter wrote:
-> The ring descriptor and options registers are laid out differently on
-> the Apple NHI. Describe their offsets and strides with a
-> tb_nhi_ring_layout struct that NHI drivers can override.
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+Luca Weiss (4):
+      regulator: dt-bindings: qcom,rpmh: Add supply names for PM6350
+      regulator: qcom-rpmh: Add supply names for PM6350
+      regulator: qcom-rpmh: Add missing regulators in PM6350
+      arm64: dts: qcom: sm7225-fairphone-fp4: Add parent supply for regulators
 
-This is odd because Apple is sitting in USB-IF and they are behind the
-original register layout so why they do not follow it themselves?
+ .../bindings/regulator/qcom,rpmh-regulator.yaml    | 16 +++++++
+ arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts  | 46 +++++++++++++++++++
+ drivers/regulator/qcom-rpmh-regulator.c            | 53 ++++++++++++----------
+ 3 files changed, 90 insertions(+), 25 deletions(-)
+---
+base-commit: 89c07d98716a13454ec3fd9f97689e812cc71bd4
+change-id: 20260901-fp4-regulator-supply-7f6b999e9624
 
-> Signed-off-by: Sven Peter <sven@kernel.org>
-> ---
->  drivers/thunderbolt/nhi.c   | 30 ++++++++++++++++++++++++------
->  drivers/thunderbolt/nhi.h   | 18 ++++++++++++++++++
->  include/linux/thunderbolt.h |  3 +++
->  3 files changed, 45 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/thunderbolt/nhi.c b/drivers/thunderbolt/nhi.c
-> index fc54ff7edfb9..3a3d334e69fd 100644
-> --- a/drivers/thunderbolt/nhi.c
-> +++ b/drivers/thunderbolt/nhi.c
-> @@ -176,19 +176,32 @@ void nhi_disable_interrupts(struct tb_nhi *nhi)
->  
->  /* ring helper methods */
->  
-> +static const struct tb_nhi_ring_layout nhi_default_ring_layout = {
-> +	.tx_desc_base = REG_TX_RING_BASE,
-> +	.rx_desc_base = REG_RX_RING_BASE,
-> +	.desc_stride = 16,
-> +	.tx_options_base = REG_TX_OPTIONS_BASE,
-> +	.rx_options_base = REG_RX_OPTIONS_BASE,
-> +	.options_stride = 32,
-> +};
+Best regards,
+--  
+Luca Weiss <luca.weiss@fairphone.com>
 
-I'm not fan of these to be honest.
-
-I think either adding ring_ops that includes hooks that can be overridden
-by non-standard HI or not sure if we can take advantage of regmap here?
-
-> +
->  static void __iomem *ring_desc_base(struct tb_ring *ring)
->  {
-> +	const struct tb_nhi_ring_layout *layout = ring->nhi->ring_layout;
->  	void __iomem *io = ring->nhi->iobase;
-> -	io += ring->is_tx ? REG_TX_RING_BASE : REG_RX_RING_BASE;
-> -	io += ring->hop * 16;
-> +
-> +	io += ring->is_tx ? layout->tx_desc_base : layout->rx_desc_base;
-> +	io += ring->hop * layout->desc_stride;
->  	return io;
->  }
->  
->  static void __iomem *ring_options_base(struct tb_ring *ring)
->  {
-> +	const struct tb_nhi_ring_layout *layout = ring->nhi->ring_layout;
->  	void __iomem *io = ring->nhi->iobase;
-> -	io += ring->is_tx ? REG_TX_OPTIONS_BASE : REG_RX_OPTIONS_BASE;
-> -	io += ring->hop * 32;
-> +
-> +	io += ring->is_tx ? layout->tx_options_base : layout->rx_options_base;
-> +	io += ring->hop * layout->options_stride;
->  	return io;
->  }
->  
-> @@ -215,8 +228,10 @@ static void ring_iowrite32desc(struct tb_ring *ring, u32 value, u32 offset)
->  
->  static void ring_iowrite64desc(struct tb_ring *ring, u64 value, u32 offset)
->  {
-> -	iowrite32(value, ring_desc_base(ring) + offset);
-> -	iowrite32(value >> 32, ring_desc_base(ring) + offset + 4);
-> +	void __iomem *base = ring_desc_base(ring);
-> +
-> +	iowrite32(value, base + offset);
-> +	iowrite32(value >> 32, base + offset + 4);
->  }
->  
->  static void ring_iowrite32options(struct tb_ring *ring, u32 value, u32 offset)
-> @@ -1253,6 +1268,9 @@ int nhi_probe(struct tb_nhi *nhi)
->  	if (!nhi->ops->init_interrupts)
->  		return dev_err_probe(dev, -EINVAL, "missing required NHI ops\n");
->  
-> +	if (!nhi->ring_layout)
-> +		nhi->ring_layout = &nhi_default_ring_layout;
-> +
->  	nhi->hop_count = ioread32(nhi->iobase + REG_CAPS) & 0x3ff;
->  	dev_dbg(dev, "total paths: %d\n", nhi->hop_count);
->  
-> diff --git a/drivers/thunderbolt/nhi.h b/drivers/thunderbolt/nhi.h
-> index 4884c3f5a2b2..035cee433a3c 100644
-> --- a/drivers/thunderbolt/nhi.h
-> +++ b/drivers/thunderbolt/nhi.h
-> @@ -40,6 +40,24 @@ void nhi_reset_interface(struct tb_nhi *nhi);
->  
->  extern const struct dev_pm_ops nhi_pm_ops;
->  
-> +/**
-> + * struct tb_nhi_ring_layout - Layout of the ring registers in the NHI MMIO space
-> + * @tx_desc_base: Offset of the descriptor registers of the first TX ring
-> + * @rx_desc_base: Offset of the descriptor registers of the first RX ring
-> + * @desc_stride: Stride between the descriptor registers of neighboring rings
-> + * @tx_options_base: Offset of the options registers of the first TX ring
-> + * @rx_options_base: Offset of the options registers of the first RX ring
-> + * @options_stride: Stride between the options registers of neighboring rings
-> + */
-> +struct tb_nhi_ring_layout {
-> +	u32 tx_desc_base;
-> +	u32 rx_desc_base;
-> +	u32 desc_stride;
-> +	u32 tx_options_base;
-> +	u32 rx_options_base;
-> +	u32 options_stride;
-> +};
-> +
->  /**
->   * struct tb_nhi_ops - NHI specific optional operations
->   * @init: NHI specific initialization
-> diff --git a/include/linux/thunderbolt.h b/include/linux/thunderbolt.h
-> index d48623fda79b..7c2717bd2945 100644
-> --- a/include/linux/thunderbolt.h
-> +++ b/include/linux/thunderbolt.h
-> @@ -503,6 +503,8 @@ void tb_service_properties_changed(struct tb_service *svc);
->   *	  interrupt_work when dispatching interrupts to individual rings.
->   * @dev: Device associated with this NHI instance
->   * @ops: NHI specific optional ops
-> + * @ring_layout: Layout of the ring registers inside @iobase. If not set
-> + *		 the default layout from the USB4 specification is used.
->   * @iobase: MMIO space of the NHI
->   * @tx_rings: All Tx rings available on this host controller
->   * @rx_rings: All Rx rings available on this host controller
-> @@ -524,6 +526,7 @@ struct tb_nhi {
->  	spinlock_t lock;
->  	struct device *dev;
->  	const struct tb_nhi_ops *ops;
-> +	const struct tb_nhi_ring_layout *ring_layout;
->  	void __iomem *iobase;
->  	struct tb_ring **tx_rings;
->  	struct tb_ring **rx_rings;
-> 
-> -- 
-> 2.55.0
-> 
