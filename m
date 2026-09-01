@@ -1,180 +1,111 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C912F3C0A13
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 11:49:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0F8537E2E5;
+	Tue,  1 Sep 2026 11:50:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788263348; cv=none; b=envcFPOgvZCvIHmMM0kUicRkPHTzIC8EpNtWs3v7bopeuaaq75JOizBHIkySpl11j7i6Ce6+eqtrSvcLirkNz/8Z1KX/HZu/ua5upjSuhgUsNUuYe4CDngd7ilN3gVhScT5gW1Sit/5j34lKbK+MLzx7avQAI93rYoEoHmKs0b8=
+	t=1788263419; cv=none; b=nyvcb+sZVA8S/FKpzhNZ3ZyZTq+n40MOXW30Ht1I7dXdjm/xx34WRbuWSDrON8oUuQeyJbMRClh0vTuZKDl4zc8eZ3rN9i7SXvolpd2TF2GXuRCRnYfAEp2eh/t6EjyulhSPv46A5KTkt2G1+EG9yIgxEDUw/nPUr6TnAMcbGoE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788263348; c=relaxed/simple;
-	bh=15F21gmNZaw4Qr7gI/tm/UZQzJxye6UU2JDi77ffNAY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UHE+uvoI7mveulYCEKKfLLqcZ6Bt7bi3AXO8jIRo50TLF4ACi5QnmfkCn1kogrF5Rnyd5Imhckv5A5Ga3ZVRYbZok9loMRcurIDCfEsrbat9D4iL86St+34PnxCQMyH7oK6buWu4oXFI5CRLsWkGocqjj0odfyezKpgLv9Q3rog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X5kPk8a8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788263419; c=relaxed/simple;
+	bh=0cX+SUVEv82lqdnL2PEHhEZ9iSnjtOEad/m3Tmpa8ew=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=W79oq2TvL3ebyPVBAIAjlC63manqkjUjbUeEs/iGFlGF/y8Nqhr2G1rf8oinbGrQBL5WmwoZtfe9romVuQHwPnJR0gH6FBUjjEYR8NEfFfgbCfDh3KS8kypKR+DTGn7YVDQ5YFHY5QPP8BSdyCn6G0OsercJF3qDs+Rjf9Zuxeo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ia3/pj6T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X5kPk8a8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E2721F000E9;
-	Tue,  1 Sep 2026 11:49:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ia3/pj6T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 963091F000E9;
+	Tue,  1 Sep 2026 11:50:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788263344;
-	bh=BS1Vn5+pUQvT2XxHJ2MLYGrFgVd2xTWRGWoYJLSGRAc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=X5kPk8a8j/Grr0bn4nx+2J2d2N7GqbzyrjlH9Q+MxPlw/4IGoBCOvRBN+4LR1ezg3
-	 CKLfDwnPYRmbI/2i9QWRXAGB6SooPB8zXZ/T2GmGbO/VsdNNUyWurUdJg0eSg082Ij
-	 LEbWSwIfsRLKVjiYaRA+MfJrGMTYrCP+Pev6Nu+aTDS/Q1dd9MaGbkcgFwgsayE3Jv
-	 dRKmievm21LG2ZVnS1+z4y9n+u+K64D+aYDFDuT6RszeX4FefMbgpmmsxRSqgHf+xx
-	 JakSj5+n8nn6xT/QxEjbeSmTy5TMZYgvi7ysZ45psDQ5Mu88btQ+EbXZExgxhURkOc
-	 CjWkKCj4BsSDg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/8] i3c: mipi-i3c-hci: Add a quirk to clear the TX
- start threshold
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Billy Tsai" <billy_tsai@aspeedtech.com>
-Cc: Frank.Li@kernel.org, linux-i3c@lists.infradead.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260901-b4-i3c-hci-ast2700-v1-4-19909e7cbd7e@aspeedtech.com>
-References: <20260901-b4-i3c-hci-ast2700-v1-0-19909e7cbd7e@aspeedtech.com>
- <20260901-b4-i3c-hci-ast2700-v1-4-19909e7cbd7e@aspeedtech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 11:49:03 +0000
-Message-Id: <20260901114903.9E2721F000E9@smtp.kernel.org>
+	s=k20260515; t=1788263418;
+	bh=s1Sw3sV6LFWv+rxNtNuZ5K4jc587FYAGi1dw55VmK6o=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ia3/pj6TKB3oddODZ5p7Tl8MzjUh3BZb87OU/zVoDiqib0cC+6H0lqNXyHsUjWssW
+	 kxk1yYQ137v63PjzOLbLXgdDmYTyLrZtJIeFH/hYuFb2E4yFyJdgiaSehqRKoIe8Dv
+	 kn79XWrHc/etMMrUMmZ5n3HNnJe7fvXTPhKgkDWDwh3c30OSWsxSIQkHZUT7xIOq53
+	 InLa9jIJLmqxiS4M5d1xD8LrwDDjHlKvyh4yeesKc7P27vCeksyZ1uUhLUDBmgYCLT
+	 8gAg1F4SGmnsL2TWNxuQyVe3DWd1fcUjUlNlikTvDC7TRVGFxztG0UaQBZs6mta9Vx
+	 UUHB+dYV6Sl2g==
+Message-ID: <06e15a0c-d87c-4e0d-8f04-9e25dfc5021a@kernel.org>
+Date: Tue, 1 Sep 2026 13:50:12 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] arm64: defconfig: Enable PMIC5 Gen3 ADC thermal
+ monitor
+To: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260830-hamoa-sys-therm-v1-0-27108c40fba5@oss.qualcomm.com>
+ <20260830-hamoa-sys-therm-v1-3-27108c40fba5@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260830-hamoa-sys-therm-v1-3-27108c40fba5@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On 30/08/2026 23:02, Bjorn Andersson wrote:
+> All Hamoa-based devices uses PMIC5 Gen3 ADC connected to thermistors for
 
-Pre-existing issues:
-- [High] Endianness Portability Bug: Register accessors used for stream FIF=
-Os
-- [High] Out-of-bounds Read when handling trailing bytes in TX FIFO
-- [High] Unaligned Memory Access when casting caller-provided buffer
---
+"All Qualcomm Hamoa-based devices use Qualcomm PMIC5 ..."
 
-commit 88ae252ec612f81d6b6f55d8dd0ef78352a438bf
-Author: Billy Tsai <billy_tsai@aspeedtech.com>
+> measuring temperature across the system.
+> 
+> Enable the Gen3 ADC, and it's associated ADC_TM auxiliary, drivers to
 
-i3c: mipi-i3c-hci: Add a quirk to clear the TX start threshold
+s/Gen3 ADC/Qualcomm PMIC Gen3 ADC/ or something similar
 
-This commit introduces a new quirk, HCI_QUIRK_TX_START_THLD, to clear the
-TX start threshold in DMA mode on ASPEED platforms to prevent transfer
-stalls. It also moves the PIO access area definitions from pio.c to a new
-pio.h header file so they can be shared.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-> diff --git a/drivers/i3c/master/mipi-i3c-hci/pio.c b/drivers/i3c/master/m=
-ipi-i3c-hci/pio.c
-> index 439578a6eb54c..6bd5e43364a1d 100644
-> --- a/drivers/i3c/master/mipi-i3c-hci/pio.c
-> +++ b/drivers/i3c/master/mipi-i3c-hci/pio.c
-
-[ ... ]
-
-While reviewing this file, I noticed a few pre-existing issues that are not
-introduced by this patch, but remain uncorrected in this series.
-
-In drivers/i3c/master/mipi-i3c-hci/pio.c:hci_pio_do_rx():
-
-	while (xfer->data_left >=3D 4) {
-		/* bail out if FIFO hasn't reached the threshold value yet */
-		if (!(pio_reg_read(INTR_STATUS) & STAT_RX_THLD))
-			return false;
-		nr_words =3D min(xfer->data_left / 4, pio->rx_thresh_size);
-		/* extract data from FIFO */
-		xfer->data_left -=3D nr_words * 4;
-		dev_dbg(&hci->master.dev, "now %d left %d",
-			nr_words * 4, xfer->data_left);
-		while (nr_words--)
-			*p++ =3D pio_reg_read(XFER_DATA_PORT);
-	}
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does reading from the stream
-FIFO (XFER_DATA_PORT) using pio_reg_read() cause unintended byteswapping on
-big-endian architectures?
-
-According to the I/O Accessors Subsystem Guidelines, stream FIFOs must
-exclusively use stream accessors (readsl() / writesl()) to avoid corrupting
-the I3C byte stream payload on big-endian systems.
-
-Additionally, if the caller provides an arbitrary buffer in xfer->data that
-is not aligned to a 4-byte boundary, doesn't casting it directly to a u32
-pointer and dereferencing it via *p++ cause an alignment fault (kernel
-panic) on architectures that do not support hardware unaligned accesses?
-
-The same patterns appear in hci_pio_do_tx() for writes:
-
-drivers/i3c/master/mipi-i3c-hci/pio.c:hci_pio_do_tx():
-
-	while (xfer->data_left >=3D 4) {
-		/* bail out if FIFO free space is below set threshold */
-		if (!(pio_reg_read(INTR_STATUS) & STAT_TX_THLD))
-			return false;
-		/* we can fill up to that TX threshold */
-		nr_words =3D min(xfer->data_left / 4, pio->tx_thresh_size);
-		/* push data into the FIFO */
-		xfer->data_left -=3D nr_words * 4;
-		dev_dbg(&hci->master.dev, "now %d left %d",
-			nr_words * 4, xfer->data_left);
-		while (nr_words--)
-			pio_reg_write(XFER_DATA_PORT, *p++);
-	}
-
-[Severity: High]
-This is a pre-existing issue, but does writing to the TX stream FIFO using
-pio_reg_write() also byteswap the data incorrectly on big-endian
-architectures, and does it similarly suffer from unaligned memory access
-panics?
-
-Further down in hci_pio_do_tx(), trailing bytes are handled:
-
-	if (xfer->data_left) {
-		/*
-		 * There are trailing bytes to send. We can simply load
-		 * them from memory as a word which will keep those bytes
-		 * in their proper place even on a BE system. This will
-		 * also get some bytes past the actual buffer but no one
-		 * should care as they won't be sent out.
-		 */
-		if (!(pio_reg_read(INTR_STATUS) & STAT_TX_THLD))
-			return false;
-		dev_dbg(&hci->master.dev, "trailing %d", xfer->data_left);
-		pio_reg_write(XFER_DATA_PORT, *p);
-		xfer->data_left =3D 0;
-	}
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the 32-bit dereference
-of *p for the trailing bytes read past the end of the allocated buffer?
-
-If an I3C transfer occurs where the provided payload buffer length leaves
-1 to 3 trailing bytes and unprivileged userspace passes an unpadded buffer
-via an ioctl, reading past the allocation could trigger KASAN splats or
-cause a fatal page fault if the buffer ends exactly at a page boundary or
-a SLUB debugging redzone.
-
-Finally, in hci_pio_get_ibi_segment():
-
-drivers/i3c/master/mipi-i3c-hci/pio.c:hci_pio_get_ibi_segment():
-
-		/* extract the data from the IBI port */
-		nr_words =3D thresh_val;
-		ibi->seg_cnt -=3D nr_words * 4;
-		dev_dbg(&hci->master.dev, "now %d left %d",
-			nr_words * 4, ibi->seg_cnt);
-		while (nr_words--)
-			*p++ =3D pio_reg_read(IBI_PORT);
-
-[Severity: High]
-This is a pre-existing issue, but does reading from the IBI FIFO stream
-using pio_reg_read() incorrectly byteswap the data payload on big-endian
-platforms?
-
-Does this need to be updated to use readsl() or similar stream accessors?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901-b4-i3c-hci=
--ast2700-v1-0-19909e7cbd7e@aspeedtech.com?part=3D4
+Best regards,
+Krzysztof
