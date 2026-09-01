@@ -1,149 +1,168 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3EF4386578
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 10:32:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788258737; cv=pass; b=m4bFZK7TuO5wpXEPfafAE6mWdn/Wocflymf5jVF5nzafBphPbFxDrkVyCl1YqQU2cAa7+SIfw8y9IjYhihIae7ebO/t7QmKuDn9Cvi4lpr9/Hmi0ULKfSjHU2Wn58LPbx1UzqAwkbfe+kqNbATRDeZz9o9rdlOJGBlEaWT8xXcw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788258737; c=relaxed/simple;
-	bh=smEifeBMy0Z3ajt+Qik15W/HgNo5+JEeABnfNmNyhfA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rGZoyprK8rRHOHxhbQBxXZ9mPKn69d/8X/JiEXKEwFxLnD8LN6yuI9Lyauh9FKnEjEMH8cYKYCluLS3Tn34EVBhNuyYNhI95UnfE1aXrd8aC5xQS8XD08DKInle2icGZZFfVmKbMaiFLixPY62l8udlYoCRHnDzp93KpqqBf4KQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pDo6bGeU; arc=pass smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 931963845DC
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 10:33:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788258795; cv=none; b=BqgYKfgVJSgvPOMx6dmnOTz8UmXQD5zcml2y9KKnySK5FeFbOvIjWZ+EuL2M6JMQKt2G0F9B0Tx6ADbMjzl3t3M8RvLHloIWpiuhd3jqwTvg67srlQDRkd41wzEyPGS5l8eeB/gwON7bmKvk1eUUCQGBXlvwD2ajcI19Jifwnnw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788258795; c=relaxed/simple;
+	bh=V37AGxiIlCADNfSVQa1EtPvInImMvR59PBciUJmFxDc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C8aap1H7spO2Tcvwzw0xDEEZz8jUbeFYP3SabxxAK8SuoKbCG5NOw+eEP7uZ7J5WaH3v0hpO+8J+bitkWM905u1QicLqqffVvzX0piKisqVych79BTv95pWF5ndJb66ETvHn6wAf4N8jXV6H3/vcmJqUScQnG30u3RoTuP3+sNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Wlch6Jr+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SE8UK3Q+; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pDo6bGeU"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-39647aa9d52so1017017a91.0
-        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 03:32:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788258736; cv=none;
-        d=google.com; s=arc-20260327;
-        b=piSLnEZcxK3ETJ4IOkURBUUjzPHcRbbBYNUaJNWG/jEjRDpaNbYQqC4trBCRPISOW6
-         4bHcQueyt66mAWwxrP1sHzv8rBR5ZQlUsJyLCZ/ZITBWPwVC6oA3MDkHGld07mjcZctG
-         vSnFJT7MPxFnk3M2xyxwPWuNqockp3J3jAArtFtc5/IR1RWVNl2vkyHpvpO693ikXthj
-         vJsjttk+x0DgJJCnT/LjGBmnNn6/eYZrBbKFoIiqDs2nFcekbDUnrXm4Yz80443VrOhf
-         UVU3gUJgZfYSMpkFrkt5oiS86cyB8jHQd52vC4+8aLwrV8I+vzlorRbHw83LnX+VF4XG
-         9ELA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=V5s4IKVXxawyIQN3k+Fx8gYZRs8DqeFSyZO91rnQvKI=;
-        fh=m79c+DxxgMlLMnAag2rqiPCY54vuhpWbRtvCqbVTwzM=;
-        b=R5iBozbEMplnVtaF2M8RQgGlKmGPL8BBztjVWwUEdlUxDtec95bD12v7BUuUZo+xIR
-         TotYG9uME9sdSiVsgQoJ94mPY69sx90wHQYKgR8NEXea0AjrlbyqrNB/pm9cUxKGHZk6
-         7ITvjsAaAZvF2/Pv2ws9oE9oAzJL4hTqqKEIBF+GyDUoVoQ5GE3tRndh9oxbDAiT4SaY
-         Yabb8hBOrqvXaLheX9MRiHKHdVTVtTezsvsngNWvmhdjn5oVvQjDewxgza7Yhia1Z57L
-         YV+yYZNzkv6fa4py6q5mmEr5m2LfrICCia9KIppRKW7Fhb4MnJu0EHFXsRqEEmDXC2uE
-         gumA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Wlch6Jr+";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SE8UK3Q+"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681AJ9nu1641293
+	for <devicetree@vger.kernel.org>; Tue, 1 Sep 2026 10:33:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=Rps05BzNsJlsNoYV02zDupxVjpxJ2krr4ce
+	Ti6viGmU=; b=Wlch6Jr+g5IKNJhz1JpH9241NrwjccJI7ZSZwBOYU54DTPxPhl6
+	q51cxiBW3fPRgksjDMB5PPg+6HmUEKMlKOkgHW9uNI1tfILLqaWFOSUIXGZ2pr94
+	3Fypro+OBt9oBxo2CjthJxNv6NByGaJpdEkvlBKOpleibCWef8nec1s8SVhH35pS
+	2b7LP4rU7b3IKcA3W7EzNcoMj6xR1QstLaFSfAdYZORGezPwnh1Ql6m2Yowj+yPb
+	o36rIlKPrq0+wCjQnW8FPA5pw3uY0HLJATFwmaQ4XLBGdiac0SQmBv5IsuKYpO3P
+	j3YxnBsS5z1XwDyRdPb8yJor0eOY9uE2zZA==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdnk8t2ha-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 10:33:13 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-398d0010cfaso4652330a91.3
+        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 03:33:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788258736; x=1788863536; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=V5s4IKVXxawyIQN3k+Fx8gYZRs8DqeFSyZO91rnQvKI=;
-        b=pDo6bGeUb3RCk5wwYhvyHsi5UlnmlmsB/mv8gFGgXdUeHqXJV1gsRmBfisgjrE/V7Z
-         0YaGgb6vBv9XLZ9efNdrNzi2qNPQkxwjUJ3DUljRI2qo/KBTAOgCMWm6rxxgryr9o6s/
-         O4xjNeS+VMhqrEc3Y8sIB2mnjikHoixUfuyVmGoFqrVAtpLgBtNn+MFgmT99EIwbNGFs
-         Ye+almjLq+zkV9g80wI/9zavhxLgRV7o451199agXf0OLENDOoLIL34O4zjxXUchxMWN
-         K+axDXkiHp6ZX7EVbzWwutWs/lPUj8Edmx2+Q+U+X6U7yZ4gzGywCiud7BabHDD/aQLj
-         Sb3A==
+        d=oss.qualcomm.com; s=google; t=1788258793; x=1788863593; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Rps05BzNsJlsNoYV02zDupxVjpxJ2krr4ceTi6viGmU=;
+        b=SE8UK3Q+DzaTFuO0xincUApt6ICLxuhT9QeiBbJf7uOcjVGYFoXrMch6MZJPJtQjJQ
+         5oPV3nTGkHTz8IpwKnNvAt6pt/Jzvhh3jVW001jX5ngPcZHSNz+9LJi/jqs+jzLTk/y5
+         diCXSRuCHFwPRebT4lEcBNILueMaIpWYHZ1DNRYkwxTyzy/Xg2mpPw8CzEShTWF0YoHk
+         bw8aMHeLTzVAdOqrDgdGh8qss5JPFuSeDNKYUWn2mGIiuEOYt/5xJFqCb4eDEPYqQfIv
+         73FrHg+7YZCBWjoReSPkORvm52HTLQVHAvVEtv2iGik6Rj13wFMCV710/ACEAXWeBQCs
+         yNjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788258736; x=1788863536;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=V5s4IKVXxawyIQN3k+Fx8gYZRs8DqeFSyZO91rnQvKI=;
-        b=RQc5BmmykD7sWQSL/v4Ani1BS7ttiMXxqL1CTQ7VmcxDHOq+rr8J/FZcXsc+1x97o1
-         9ts2ZEWmn2XG0yjW4bYVKOig2NzyqGLbRhttqacCW3mmwJugS/Vsefp1iaMyVxa+JSQb
-         wsxf+bmCkfWeMzD8xdZa/ZeQZXD9E+pB3Qzwr3x5DCbB97moveJeo2xi2YKDgnucDKy1
-         ury+l1IkBCgnc6fHB5p1hLNs8fkDGMn/ijkYCSA80g1xKnNVsXjVO2IcuJSJecveLkkN
-         o5ox9g6pPvl0/2fAfc76lQJz9iJZhSa0NSQ/yql6g1hBo8CcQtb2eW6DX9erEd5BoinG
-         ef8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBz/spGHYGwUn3l2JYckf+ZCFvxAo6I0Kr6OydmTWR8i1gPozjUNla1MFaTKGoiJuKJiGpTaR1GoO4iR@vger.kernel.org
-X-Gm-Message-State: AFuF++nyUovmgNZaoDnRxA7AOqCZPIqg+Imvi8H5AIr+nKaeTZgLxHXb
-	ZZ11BarEoXEj4B6gK6bZC8MQUjqFkBlVd6Po4ib/YOfi5Kb+A+pbx4mEO0rEH2vmUUb4NttQxvz
-	zBnvikVCH1uoXmkoquE2xKmQkqi076pU=
-X-Gm-Gg: AYBFou2pOKj8H/PBa8eQc5R4hvlxBc40lEUk9iUqZPZiO+z1UisKdtfQtnrKLQyhv04
-	LQZ5v0t+Oe8sc7bIEJcLe+i7ou3KO4BD3deYdBLNdfStlxa1yzfrYBlPnFk6SC9wRifOmFZfuwB
-	R1J6YTgFn7E2cAN7hs1/7bgNlPRXTj/6+ckETup93AJbDJtlON4/7Veie32haIOqbaKqDGb//cN
-	X3EvhLTVz9GMhU5xcUuE4lmgCxEhsbyGybBIMB8m41yE7r87De6Y1/AP7p4gcTI6TLxJt1nRtrN
-	yeeU80M4UDne0RuRppnafi7uFzomLZbNnCxY160VGr79
-X-Received: by 2002:a17:90b:4b91:b0:398:9beb:a2bc with SMTP id
- 98e67ed59e1d1-3990f91f621mr4597404a91.30.1788258735750; Tue, 01 Sep 2026
- 03:32:15 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788258793; x=1788863593;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Rps05BzNsJlsNoYV02zDupxVjpxJ2krr4ceTi6viGmU=;
+        b=Aqh/CR4KUkf21bMMkFGRTV4qeYq1S8khvgERVUBysC3YxL/PtmChXXLsSEUPSWPwmb
+         LFSucABVnzzU2pdN2mMqoZ0lU15OaFZJ7DOHMkKTN6HCRSrYF1VOR6SdtLsA+O3sxNBT
+         AFuomf/7rpljL8hg1eURDxg1eDiXQhfaVDxV676QGjPPnmqwpiMqFaR7xTOGHQNezWle
+         S6s22sjG3xElZZ1/VdcXvrECW+riw9UVQBh+dRMohv4aWnVBqx8vSArLWI5efgEgu0c4
+         uxUrYwaxjd+RjgLnVcpZxjUWcY8a3rz3ndH4EX1C+x3cHzyW62TMkIbDmGaQOLiFVSTG
+         33jg==
+X-Forwarded-Encrypted: i=1; AKwUvByacDEBLskCfjhS4t4LE2m43aBVSF3OYGL/rbG/0vF0FIzWw4FwIzKHIJbvNfft+aR5vJUmDeikxHWM@vger.kernel.org
+X-Gm-Message-State: AFuF++mFL5CVcMgggbu5hEb5qRarguzGLIvFGIJhjakS6WKLntDEJMU4
+	51+8+v6uU2yhIaEbK9/MAEdypmitdmqxFJQZh4Nzcy6j6SkDilrD2/iyvgs3y5w1k6JpeubMRoC
+	0Mh5d3T4OhUcnzUsxll5BmZdhutZlmcs1j30rXT5JiKg9YolkKCrQb/U8XfPAApnx
+X-Gm-Gg: AYBFou1VJccG+sW9QAs9hNwhFveQIEpxHpKx8qwte8rgj96jAJ79yMx3gf22P9bFs9e
+	m6JmlJ3GXfKsdGqmP0TWX05Waj3YDILNBJC5vcZDrl9LupUD8+kKIdWhRVf11R+Qv7Htkju6oZ8
+	CWtSphp66jRYgRSa18JZHOCGbOtPXeiUo/k4DUwhyjgjanQdUwPEy74PpM2IAX10wdf3n/uBd9I
+	Nh0pQ8mXu/QR9KZZ53NhsQZILtoFCgEbFn8g+Pt2WIn6PN11oMPKK4VAqRXh7Pw9JVlwwPSRyiX
+	SywVRjwj/MMWVS/6rnrn1Ep1uXcoTIJDDVwEKWRSY8oBxrbubLGX3srHsZrFY14XRfkgH1uWsB8
+	2KwiV8a0V21BD94ucx03i7rvm6kx0DN80rbFp+dawYeTAsApBk3noe6wiJeGB
+X-Received: by 2002:a17:90b:52cc:b0:395:4de4:92be with SMTP id 98e67ed59e1d1-39907e0f90dmr9999021a91.13.1788258793147;
+        Tue, 01 Sep 2026 03:33:13 -0700 (PDT)
+X-Received: by 2002:a17:90b:52cc:b0:395:4de4:92be with SMTP id 98e67ed59e1d1-39907e0f90dmr9998946a91.13.1788258792676;
+        Tue, 01 Sep 2026 03:33:12 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f9ecaa9sm38719882eec.26.2026.09.01.03.33.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 03:33:12 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH] dt-bindings: usb: qcom,snps-dwc3: Document the Nord DWC3 controller
+Date: Tue,  1 Sep 2026 18:33:00 +0800
+Message-ID: <20260901103300.60803-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260820075524.2056029-1-eagle.alexander923@gmail.com>
- <20260820075524.2056029-2-eagle.alexander923@gmail.com> <20260827-legendary-viridian-tamarin-4e56e5@quoll>
- <CAP1tNvSg4yWHCJW6UNZ4yQv5FCjz9u5ZLpuW5Z9skkjQYbS9AA@mail.gmail.com> <21dec355-0cd7-4250-a7f4-e93f3e446504@kernel.org>
-In-Reply-To: <21dec355-0cd7-4250-a7f4-e93f3e446504@kernel.org>
-From: Alexander Shiyan <eagle.alexander923@gmail.com>
-Date: Tue, 1 Sep 2026 13:32:04 +0300
-X-Gm-Features: AcwNN1V92jXDafPZZtSS49uqIzVTNJkSWZ4fOedgWAlAqiYSgU8_CRCjPwq9NOE
-Message-ID: <CAP1tNvT2+uNvcHf9=c_ysaM=gKrnz+5ZMTOq-8n_V+Ryx=yxLA@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] dt-bindings: media: i2c: Add onsemi AR0234 image
- sensor binding
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	Quentin Freimanis <quentin@q-lab.dev>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Dave Stevenson <dave.stevenson@raspberrypi.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=f6p4wuyM c=1 sm=1 tr=0 ts=6a96a9e9 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=tFf_m68rkw3bL0m7f1YA:9 a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA5MyBTYWx0ZWRfX8umCmEvHehTW
+ 3NtW1k2neheF6m54MFY5/HII6PXvwRjor+BY+Y4ThN3x0mUmIqouexJ05YiCRnq5yVbuin+/jic
+ dsE0VfeldUKG5lp5zFxFvMM/J509zsS07PUapBTsvwTyM/uSOVE8StxYfURohktVfrUag0Xz/qx
+ urX1XW2ceu8Jyfz57zXy3npbE41pdR+O8S4NZJY5X+6giZel2sYpDLOM7HlU5BcjSI5QsGos2C8
+ gcZJXFEev1hg1+Q2jEzfAH331atoRNUfEjOyaEmhPfvQ6bhqtwpea62wevI6DI5FW6rOJ9UW0zQ
+ 6eOtL8WhgYRr+DjbfTfvpHxujWFCPSY7E9T2hBRY/iX6D1k6CdZAzjkbRWnbbD0UhDZd629cP7X
+ cCKgCZ+5JQIOQHDvDMmkwQ1tUad9eGoYEdV4l/kDMUZtQOD76DsBJAGXwZe9EO+fkWdEcszDlCO
+ DHsRcefaq1V/fUoyEFQ==
+X-Proofpoint-ORIG-GUID: YsFHVM29m7LvqxVmfONV52pZ79WS15j8
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA5MyBTYWx0ZWRfX1+wfIRdUkTam
+ b1tVuE/h0wbOVnDqNu4NKS5N1rvqBWyUI1HgVPSGiQ0YgvYriOXe5GAj12E6Y4lnWOBQoy7tRa0
+ nXwkRrq/N8irrFZ+MwB+ntbA/ImCzSA=
+X-Proofpoint-GUID: YsFHVM29m7LvqxVmfONV52pZ79WS15j8
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-01_03,2026-08-31_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 priorityscore=1501 suspectscore=0
+ impostorscore=0 spamscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609010093
 
-Hello.
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-> >> On Thu, Aug 20, 2026 at 10:55:23AM +0300, Alexander Shiyan wrote:
-> >>> Add devicetree binding for the onsemi AR0234 CMOS image sensor.
-> >>> Signed-off-by: Alexander Shiyan <eagle.alexander923@gmail.com>
-...
-> >>> diff --git a/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml b/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
-> > ...
-> >>> +properties:
-> >>> +  compatible:
-> >>> +    enum:
-> >>> +      - onnn,ar0234cssc
-> >>> +      - onnn,ar0234cssm
-> >>> +      - onnn,ar0234cs
-> >>> +    description:
-> >>> +      The AR0234 sensor exists in two different models, a colour variant
-> >>> +      (AR0234CSSC) and a monochrome variant (AR0234CSSM). The device exposes
-> >>> +      the model through registers, allowing for auto-detection with a common
-> >>> +      "onnn,ar0234cs" compatible string.
-> >>
-> >> So all devices are compatible? Then why compatibility is not expressed?
-> >> What are the actual programming differences between sc, sm and "none"
-> >> variants?
-> >
-> > Perhaps I need to revert to the compatibility strings that were used
-> > in version 2
-> > (https://patchwork.kernel.org/project/linux-media/patch/20260807102847.1813059-2-eagle.alexander923@gmail.com/).
-> >
-> > From a programming standpoint, it makes almost no difference which
-> > sensor is used
-> > - the only differences are in the output format and the format count.
-> > Either way, the driver always uses the sensor model determined via
-> > register reads.
-> > If the specified type does not match the detected one, only a warning
-> > will be printed.
->
-> Devices should be made compatible with the fallback or even the color
-> and mono variants could be dropped. That depends on the difference
-> between color/mono.
+Add a compatible for the DWC3 USB controller found on the Qualcomm Nord
+SoC.
 
-Removing the separation would result in a regression.
-The addition of the color and mono variants was proposed by Dave
-Stevenson following
-the first RFC version of the patch.
-Subsequently, Laurent Pinchart suggested an implementation approach,
-which was indeed adopted, though it has evolved somewhat into its current form.
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Thanks!
+diff --git a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml b/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
+index ea60f7220afe..1830b979bf3e 100644
+--- a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
++++ b/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
+@@ -43,6 +43,7 @@ properties:
+           - qcom,msm8994-dwc3
+           - qcom,msm8996-dwc3
+           - qcom,msm8998-dwc3
++          - qcom,nord-dwc3
+           - qcom,qcm2290-dwc3
+           - qcom,qcs404-dwc3
+           - qcom,qcs615-dwc3
+@@ -359,6 +360,7 @@ allOf:
+             enum:
+               - qcom,eliza-dwc3
+               - qcom,milos-dwc3
++              - qcom,nord-dwc3
+               - qcom,qcm2290-dwc3
+               - qcom,qcs615-dwc3
+               - qcom,sar2130p-dwc3
+@@ -526,6 +528,7 @@ allOf:
+             enum:
+               - qcom,glymur-dwc3
+               - qcom,milos-dwc3
++              - qcom,nord-dwc3
+               - qcom,x1e80100-dwc3
+     then:
+       properties:
+-- 
+2.43.0
+
