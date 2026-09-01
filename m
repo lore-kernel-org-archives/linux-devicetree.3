@@ -1,229 +1,137 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4DE4371076
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 21:56:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C757F390CB7;
+	Tue,  1 Sep 2026 22:07:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788299821; cv=none; b=uUdBWpaZ5Ap5mcg53jJyPhaw9qfOThxOppkHcWULVqAtRGHmO3xIlI3ExMUJui642c7GIGa+IBeSOHo6VpE4oUNCkkJ4SLsdc898eFNv2Ti+tpojfA1/EhU02kNaga4BvNi0maIyL6TEdS4hEPpeF8eYPFy0EXAaZaWPSlU7X7I=
+	t=1788300480; cv=none; b=o3Gvu8tPJXO4VKLT5PTRaKpwxcJp1XaPGEscZZ2/0UpsBfFhz/y1r3fljhE6xVRGhndG6R5bdanRpv0EwFcpUjhKxRXZpuY9uL6mnoPfg6aZx/KClVDn7jpGeSOi5NhB6EK/ItFzCAjGZFgbgVf6HT+FwqFdV2WCdZ7nG6axpPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788299821; c=relaxed/simple;
-	bh=R5/D4KV1cX/e5wYPuqFVDLgFfncAOWu74yFSl7LCh1M=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rxPwlk3ehgnlN66AGV84RyD1o/wNQjfRckgFKPYHtJTvi64GevS3gExHDrOr98pmf2UwplRhXkHI2BSBls99a8NFoQMGXWaxN/sFFT94qVofuuB6iZSui/qsvom8v5MosPWvErXAh92YzEBsEEXZ7pF90M/cBZi8Oq30SrfIbgY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HOfSyCQ3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788300480; c=relaxed/simple;
+	bh=iS230YxR60m0KZnARzwoJEmq3M442kqYfn0rmrEblnU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Lf6ScYwNO4YY72rlbvLgRexkmC5ZF276W+oS47tvkQyg/Ht5H3UUV64C2dCrN5h6UsG9gMcyaWbN8w2bXiAncjjEn7UZa6UeG4bnAN3TkqGYA5ZfOoGOH4EjpK+PF+1LSyq/f07GDshJbZVxgjLzwCfPDvea+xG7fpoVl5kffQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lR511LSQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HOfSyCQ3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 265961F000E9;
-	Tue,  1 Sep 2026 21:56:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lR511LSQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 847DF1F000E9;
+	Tue,  1 Sep 2026 22:07:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788299819;
-	bh=oO/xMlvpwQaDyExTK1D6rmaU8JpqebRxg+7yePZ0ixk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HOfSyCQ3MEoq0Yo3l6RiSU+VxpTFpAXIWXERSDURo9/hojcylgZYIibS+OiVd56sl
-	 plKYvsDhVpr2cA6BC6uQ8XdYBh8Xs1tQju/q0MHivN2beqoMew2g0rCmAx9xIays4p
-	 pGI5BWGEJXhpt2RZGL3msK6q7834loOftyO0Qy/nqqamCGtGIlqjj/qFz6+warBZb2
-	 4N7wdP+VgRaUvRKGbGg7oMYSmicUc6l/05ULOSeYJeoYc4MpayZ166LxS6592IebJv
-	 lOtapwxNTPcjvjuLBylkye6xY/geWKL+vEjtY6JsOMz2l413Ez9+rfEvprFRrelmKG
-	 F8/lCy5afeaQw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] arm: dts: omap: Add support for BeagleBone Black
- RevD
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Robert Nelson" <robertcnelson@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260901-v7-3-rc1-beaglebone-black-revd-v1-2-f521950b777a@gmail.com>
-References: <20260901-v7-3-rc1-beaglebone-black-revd-v1-0-f521950b777a@gmail.com>
- <20260901-v7-3-rc1-beaglebone-black-revd-v1-2-f521950b777a@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 21:56:58 +0000
-Message-Id: <20260901215659.265961F000E9@smtp.kernel.org>
+	s=k20260515; t=1788300477;
+	bh=GxJ1J5o192Yi57FIwYJ2EOUQdRT6ypUFpputH/0IOeQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lR511LSQVSe9EdXltrtmNkOFE/TMh95ryDURboDTyyanhfibv5hS+A1di+rF3X1HG
+	 JfrrIa785v6+L5e1P4wKk/fmTkKXInKZVKRw/h0vjer88zu/anais1Y07FJ0S0GM/P
+	 rpHWWumV/MtRG/vnK1eBWypCMFw1ophLkq7JoQ5gSrcloW8zuV7Ct/4jPbfS8Oe8mV
+	 BLchSuVccGGoyOITjb6E0x0s1n9aPzj+q1LQKaxxu/8dIjG+AybLS+xTxIlY+ZYClZ
+	 zDy3wktDaB9+AZBUH6CG1hXHaSnOakwod/5moyfam5y8da0P4JGw3Lo+0P8khW0eEg
+	 IXj8HUadNw/bQ==
+Date: Tue, 1 Sep 2026 15:07:56 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: Chen Pei <cp0613@linux.alibaba.com>
+Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	x86@kernel.org, devicetree@vger.kernel.org,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Atish Patra <atish.patra@linux.dev>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Tony Luck <tony.luck@intel.com>, Babu Moger <babu.moger@amd.com>,
+	Peter Newman <peternewman@google.com>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Ved Shanbhogue <ved@rivosinc.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Rob Herring <robh@kernel.org>,
+	Zhiwei Liu <zhiwei_liu@linux.alibaba.com>, d@gen8
+Subject: Re: [PATCH v6 5/8] riscv_cbqri: resctrl: Add cache allocation via
+ capacity block mask
+Message-ID: <apdMvKYegtdEWntp@gen8>
+References: <20260729-dfustini-atl-sc-cbqri-dt-v6-0-7c22b05d461b@kernel.org>
+ <20260729-dfustini-atl-sc-cbqri-dt-v6-5-7c22b05d461b@kernel.org>
+ <20260831100216.reply.cp0613@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260831100216.reply.cp0613@linux.alibaba.com>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] Hardware/Driver mismatch: The BeagleBone Black physically routes 1=
-6-bit video data, but the DT and bridge driver are configured for a 24-bit =
-bus, leading to severely corrupted video output.
-- [Medium] The IT66122 bridge interrupt is incorrectly configured as edge-f=
-alling instead of level-low, which can lead to missed interrupts.
-- [Medium] The board compatible string is missing standard fallback identif=
-iers, breaking userspace board detection.
-- [Low] The new board compatible string 'beagle,am335x-bone-black-revd' is =
-not documented in the Devicetree bindings.
-- [Low] Stale gpio-line-names entry masks the HDMI reset pin (GPIO1_9) as '=
-NC' (Not Connected).
-- [Low] The lcdc endpoint node uses a unit address without a matching reg p=
-roperty, causing dtc warnings.
-- [Low] A stale comment incorrectly references the removed TDA19988 HDMI fr=
-amer node.
---
+On Mon, Aug 31, 2026 at 10:16:16AM +0800, Chen Pei wrote:
+> Hi Drew,
+> 
+> Thanks for keeping this series alive. While testing v6 on a RISC-V
+> platform with a CBQRI capacity controller (8 capacity blocks backing
+> one L3, Ssqosid + CBQRI exposed via DT), I hit a problem that traces
+> back to this patch; findings and a suggested fix below.
 
-commit d7b1924005badde2a155d4ba4a4cb12a5f9be451
-Author: Robert Nelson <robertcnelson@gmail.com>
+Thanks for testing the siers.
 
-arm: dts: omap: Add support for BeagleBone Black RevD
+> Symptom
+> -------
+> With the series applied, the resctrl interface reports an empty
+> capacity mask everywhere:
+> 
+>   # cat /sys/fs/resctrl/info/L3/cbm_mask
+>   0
+>   # cat /sys/fs/resctrl/schemata
+>   L3:0=0
+>   # cat /sys/fs/resctrl/size
+>   L3:0=0
+> 
+> while the hardware reports NCBLKS=8 in the CC capabilities register
+> (bits[23:8] of cc_capabilities, per CBQRI v1.0 §3.5), i.e. the
+> expected values are cbm_mask=ff / L3:0=ff.
+> 
+> Root cause
+> ----------
+> cbqri_resctrl_control_init() fills cbm_len/shareable_bits/min_cbm_bits
+> but never initializes res->default_ctrl, which therefore stays 0
+> (static storage):
+> 
+> > +static int cbqri_resctrl_control_init(struct cbqri_cache *ctrl,
+> > +				      struct rdt_resource *res)
+> > +{
+> > +	res->name = kasprintf(...);
+> > +	res->cache.cbm_len = ctrl->cc.ncblks;
+> > +	res->cache.shareable_bits = 0;
+> > +	...
 
-The BeagleBoard.org BeagleBone Black RevD and Industrial (00D0/EID0) are
-redesigns of the BeagleBone Black Rev C3. They feature an IT66122 HDMI PHY =
-to
-replace the EOL NXP TDA19988. Additionally, these models include a larger e=
-MMC
-capacity to address the limited availability of 4GB modules.
+I think you may be looking at an older version. The function in this
+patch is:
 
-> diff --git a/arch/arm/boot/dts/ti/omap/am335x-boneblack-ite-hdmi.dtsi b/a=
-rch/arm/boot/dts/ti/omap/am335x-boneblack-ite-hdmi.dtsi
-> new file mode 100644
-> index 0000000000000..77dd7d9aa57d9
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/ti/omap/am335x-boneblack-ite-hdmi.dtsi
-> @@ -0,0 +1,184 @@
+static void cbqri_resctrl_control_init(struct cbqri_resctrl_res *cbqri_res)
 
-[ ... ]
+struct rdt_resource no longer has a default_ctrl member. Commit
+dbc58f7eec40 ("x86/resctrl: Generate default_ctrl instead of sharing
+it") removed it and derives the value instead.
 
-> +&lcdc {
-> +	status =3D "okay";
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&nxp_hdmi_bonelt_pins>;
-> +
-> +	/* If you want to get 24 bit RGB and 16 BGR mode instead of
-> +	 * current 16 bit RGB and 24 BGR modes, set the propety
-> +	 * below to "crossed" and uncomment the video-ports -property
-> +	 * in tda19988 node.
-> +	 */
+The default seems to work okay in my testing. For example, with Qemu [1]:
 
-[Severity: Low]
-Is this comment still accurate? The comment instructs to uncomment a proper=
-ty
-in the tda19988 node, but the Rev D board replaced this chip with the IT661=
-22.
+ qemu-system-riscv64 \
+      -M virt,aia=aplic-imsic \
+      -nographic \
+      -m 1G \
+      -smp 8 \
+      -kernel arch/riscv/boot/Image \
+      -append "root=/dev/vda ro console=ttyS0 rootwait earlycon" \
+      -drive if=none,file=rootfs.ext2,format=raw,id=hd0 \
+      -device virtio-blk-device,drive=hd0 \
+      -device riscv.cbqri.capacity,max_mcids=256,max_rcids=64,ncblks=16,mmio_base=0x04820000
 
-> +	blue-and-red-wiring =3D "straight";
-> +
-> +	port {
-> +		lcdc_0: endpoint@0 {
+# cat /sys/fs/resctrl/info/L2/cbm_mask
+ffff
+# cat /sys/fs/resctrl/schemata
+L2:0=ffff
 
-[Severity: Low]
-Does this node need a matching reg property? The node uses a unit address
-(endpoint@0) but lacks a corresponding reg =3D <0>; property, which can
-trigger devicetree compiler unit_address_vs_reg warnings.
+I will send v7 today as I have now rebased on v7.3-rc1. It is already
+available as a branch [2]. Please give that a try and let me know of any
+problems.
 
-> +			remote-endpoint =3D <&it66122_in>;
-> +		};
-> +	};
-> +};
-> +
-> +&i2c0 {
-> +	it66122: bridge-hdmi@4c {
-> +		compatible =3D "ite,it66122";
-> +		reg =3D <0x4c>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&hdmi_gpio_pins_default>;
-> +		vcn33-supply =3D <&vmmcsd_fixed>;
-> +		vcn18-supply =3D <&it66122_vcn18_fixed>;
-> +		vrf12-supply =3D <&it66122_vcn12_fixed>;
-> +		reset-gpios =3D <&gpio1 9 GPIO_ACTIVE_LOW>;
-> +		interrupt-parent =3D <&gpio1>;
-> +		interrupts =3D <25 IRQ_TYPE_EDGE_FALLING>;
+Thanks,
+Drew
 
-[Severity: Medium]
-Should this interrupt trigger type be level-low instead of edge-falling?
-
-I2C bridge chips like the IT66122 use active-low, open-drain interrupts.
-If configured as edge-falling, a second interrupt condition occurring while
-the line is already low won't generate a new falling edge. Because the kern=
-el
-uses a threaded interrupt handler for this device, this can race with the
-clearing of the first event and lead to missed interrupts.
-
-> +		#sound-dai-cells =3D <0>;
-> +
-> +		ports {
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-> +
-> +			port@0 {
-> +				reg =3D <0>;
-> +
-> +				it66122_in: endpoint {
-> +					bus-width =3D <24>;
-
-[Severity: High]
-Does this bus-width configuration mismatch the physical hardware?
-
-The BeagleBone Black routes only 16 LCD data pins (LCD_DATA0 to LCD_DATA15)
-for the display, as pins 16-23 are reserved for eMMC. This can be seen in
-the pinmux setup in nxp_hdmi_bonelt_pins.
-
-However, configuring the IT66122 endpoint for a 24-bit bus causes the
-bridge driver to request a 24-bit input format. The bridge will then read
-floating or eMMC data on its upper 8 bits, which leads to severely corrupted
-video output on HDMI.
-
-> +					remote-endpoint =3D <&lcdc_0>;
-> +				};
-> +			};
-
-[ ... ]
-
-> diff --git a/arch/arm/boot/dts/ti/omap/am335x-boneblack-revd.dts b/arch/a=
-rm/boot/dts/ti/omap/am335x-boneblack-revd.dts
-> new file mode 100644
-> index 0000000000000..fe9536d5f55ea
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/ti/omap/am335x-boneblack-revd.dts
-> @@ -0,0 +1,166 @@
-
-[ ... ]
-
-> +/ {
-> +	model =3D "TI AM335x BeagleBone Black Rev D";
-> +	compatible =3D "beagle,am335x-bone-black-revd", "ti,am33xx";
-
-[Severity: Medium]
-Are the standard BeagleBone fallback identifiers intentionally omitted?
-
-This compatible string omits standard fallbacks like "ti,am335x-bone-black"
-and "ti,am335x-bone" used by all other variants. Without them, existing
-userspace tools, cape managers, and distributions will fail to detect the
-board and apply BeagleBone-specific quirks.
-
-[Severity: Low]
-Also, has the new board compatible string "beagle,am335x-bone-black-revd"
-been documented in the Devicetree bindings? Omitting it from the bindings
-will produce validation warnings during devicetree checks.
-
-> +};
-> +
-> +&gpio0 {
-
-[ ... ]
-
-> +&gpio1 {
-> +	gpio-line-names =3D
-> +		"P8_25 [mmc1_dat0]",
-> +		"[mmc1_dat1]",
-> +		"P8_5 [mmc1_dat2]",
-> +		"P8_6 [mmc1_dat3]",
-> +		"P8_23 [mmc1_dat4]",
-> +		"P8_22 [mmc1_dat5]",
-> +		"P8_3 [mmc1_dat6]",
-> +		"P8_4 [mmc1_dat7]",
-> +		"NC",
-> +		"NC",
-
-[Severity: Low]
-Is this "NC" label accurate for GPIO1_9?
-
-The am335x-boneblack-ite-hdmi.dtsi file routes the IT66122 bridge's
-active-low reset to GPIO1_9. Retaining the old "NC" (Not Connected)
-label masks the HDMI reset pin from userspace tools like libgpiod.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901-v7-3-rc1-b=
-eaglebone-black-revd-v1-0-f521950b777a@gmail.com?part=3D2
+[1] https://github.com/tt-fustini/qemu/tree/riscv-cbqri-cache
+[2] https://github.com/tt-fustini/linux/tree/cbqri-cache-alloc-dt
