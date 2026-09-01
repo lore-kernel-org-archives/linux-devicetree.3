@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 422C347D93E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B1E47D956;
 	Tue,  1 Sep 2026 12:15:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788264943; cv=none; b=UeszLHeO9pr5iTjE0egv7hrtW8qMGSHokjlTq/R7nseupHdCMe5C+IBfVT5cIDbLdK/NNTfeQ1Nhw/lHyigHFCusq1UkrzTP3BrhcHSlrqL3/lZp6P1a8Gb26CLoogQIF3DwhqtGVmxSz5gy0TZ4lF1cr1ZxTw/mPT8Ot3Nd/SU=
+	t=1788264943; cv=none; b=KUhbnWp8kXl/25+tfo3uGT8p1zwh4Bt0ZklBgNk2riSYZqYvJXR97jYaHrShy4Bn9EYKvRsAUYe9XfV5lsPMQ2mJVvdbVYO7c74kBRqnyUsCj+EoUl5Vy533Ayv2NhNaHOUAhDJxVn6ep7EGLdAqqwo4IL4fOoU/OzrlVkPgKrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788264943; c=relaxed/simple;
-	bh=QXCrvztWFgYMqLyTHwJDILyJy7opN8pri3juktQ5n3k=;
+	bh=aC9eTAMi0OOM2Bgn0ghZ/W4r+uPD1jhTPP9DQztf1fY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hBb3PSGHP7LcyQGcMmGY459hW1r2GoHyEcKV9QHIyChXkc+QxaN1v5RDDFypjK9f6qWXS4ktoyOl7nor5l8nK0Uynn0LdAjgBQGDQXjl0ubrWkBrAj/zY7N6M3/vii7kPCgEjM54eRwPuMTQ8L0QTeEcLEAd+cpnNf3G49IrHm8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gNlQ32IM; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=bKNtddTyauyMZ7JVYGvzgy/6aay5v5hSbRV47uA0GlLg9LCf3TqvFXmktcaDcEDv4/h4xucN1isHUUIRLWwwyEHlH+kK7xxWwgifpR20I8xBq2sAD/Obf6GaDG8kTfllLk5TTr3EWuRftIIF14krHLXm1HX19h3sGqUw0skYKPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IY+nh25B; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gNlQ32IM"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 0C5DBC2BCFA;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IY+nh25B"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 31E81C4AF55;
 	Tue,  1 Sep 2026 12:15:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788264943;
-	bh=QXCrvztWFgYMqLyTHwJDILyJy7opN8pri3juktQ5n3k=;
+	bh=aC9eTAMi0OOM2Bgn0ghZ/W4r+uPD1jhTPP9DQztf1fY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=gNlQ32IMyvX/TMWmTXfWJsxFgyZ2Y61KewMTlLXoZfaoDnwysmzQQi/L30IfDatRo
-	 7tE8WKOGtVmv56ozUVJEXUhjFJp2Pl8FgPjlO3MZK+SUtfPUlc+MdPM6mF1te7XBUu
-	 CAsMSbXbZhHoAI+4s6d7tOnCYEAtWuZTeiXv1fnRFg8sGYiW2D9EqcM4+gST5Rfr49
-	 qN0e9LbwvvxfPTeffRKm+0RixXGoIznagsuvkmfehdHtq6onyzq9xEKwqg1uo0nuH7
-	 P0wuU2uWcxU17HxShhrK2pDzLqHwHVdg1vptqk/tE1DpJCsSzFKsZbk1/n/ccI5GQ6
-	 QJ0pvhIPpPDgQ==
+	b=IY+nh25BWyj12/k2Pq1ujK641uq1dPFtAg13all4CfUsAjo8bEtgSa1xx6mG0dn1k
+	 i8o6ottwuRqP8SAyOlzop6dWHthKqe+MCNGU5/jkqqQiyLJH7gD2stHFuuthzqq5S8
+	 r7fpmC/E2QknwZ+pKb6j60FQanlUrxmgn7tSJIFXE1l6SR/2qOJW+h09Aj8wBbOOGl
+	 7fUGuYcravYNtJbHA94A+d96Bf7tyt7HvB4+NehOTFmQ4ZndZ73v2fimV5TwRb9rcU
+	 s7K58uqdITIcAEUMoYLC/fkSLXD+4T4y8KFdlN/RHWnH/Sl7/Y/w+vdb5W55eyafNI
+	 BPDnYqHL53rhg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EF1E9C624C6;
-	Tue,  1 Sep 2026 12:15:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 200FBC624D4;
+	Tue,  1 Sep 2026 12:15:43 +0000 (UTC)
 From: Colin Huang via B4 Relay <devnull+u8813345.gmail.com@kernel.org>
-Date: Tue, 01 Sep 2026 20:15:22 +0800
-Subject: [PATCH v7 07/11] ARM: dts: aspeed: anacapa: Enable MCTP and FRU
- for NIC
+Date: Tue, 01 Sep 2026 20:15:24 +0800
+Subject: [PATCH v7 09/11] ARM: dts: aspeed: anacapa: Add LPDB fuse monitor
+ GPIO expander
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-anacapa-devlop-phase-devicetree-v7-7-0bd71d2e0105@gmail.com>
+Message-Id: <20260901-anacapa-devlop-phase-devicetree-v7-9-0bd71d2e0105@gmail.com>
 References: <20260901-anacapa-devlop-phase-devicetree-v7-0-0bd71d2e0105@gmail.com>
 In-Reply-To: <20260901-anacapa-devlop-phase-devicetree-v7-0-0bd71d2e0105@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -52,13 +52,13 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
  colin.huang2@amd.com, Colin Huang <u8813345@gmail.com>, 
- Andy Chung <Andy.Chung@amd.com>
+ Rex Fu <rex.fu.amd@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788264931; l=3263;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788264931; l=3707;
  i=u8813345@gmail.com; s=20260202; h=from:subject:message-id;
- bh=IMTHRnionsGkkMqXg9dauLUi9styDROAZ5JcOrMpvv0=;
- b=L/gFUmw2dG1/OG7QaiRmMCEbZ/gel0F8X9wCZxtcd7OD3SBsNkplhsWYlO4eFSakfHlW1LKY3
- CHcN5eQT0mkAZ6rwD4dmLFB0suG9d3kK7x0SWXLZnMTVPP43oDmmqzP
+ bh=XDe8OanyqhQtPqFNuz6nTtJf4V9+FAm+mTk0hIZBJNE=;
+ b=BsAlKLJqtFR9ny7JLOgiDOCgCUotH4tMDowmylNEKBk2FK0agvqzmXf+gtrlXT1cL/DWwqPMv
+ vUN7DP3OfxcDZIpyf4lRWlaiUZNfo3+7EmHfbq0tomxpxmNNB1MWwRV
 X-Developer-Key: i=u8813345@gmail.com; a=ed25519;
  pk=Zlg0WqpCw4qbswOqamTBTXIchwR/3SnYZpy7rjaGMdQ=
 X-Endpoint-Received: by B4 Relay for u8813345@gmail.com/20260202 with
@@ -66,173 +66,123 @@ X-Endpoint-Received: by B4 Relay for u8813345@gmail.com/20260202 with
 X-Original-From: Colin Huang <u8813345@gmail.com>
 Reply-To: u8813345@gmail.com
 
-From: Andy Chung <Andy.Chung@amd.com>
+From: Rex Fu <rex.fu.amd@gmail.com>
 
-Add the mctp-controller property to enable frontend NIC management
-via PLDM over MCTP.
-Also add EEPROM device for NIC FRU and reorder the I2C virtual bus
-index accroding to the system silkscreen index.
+Add PCA9554 GPIO expanders for PDB fuse monitor signals on the
+Anacapa DVT board.
 
-Signed-off-by: Andy Chung <Andy.Chung@amd.com>
+The patch adds GPIO expander definitions for both the left and
+right PDBs under the i2c8 multiplexer and updates the associated
+gpio-line-names to reflect the final signal assignments.
+
+Signed-off-by: Rex Fu <rex.fu.amd@gmail.com>
 ---
- .../aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi   | 137 +++++++++++++++++++++
- 1 file changed, 137 insertions(+)
+ .../aspeed/aspeed-bmc-facebook-anacapa-dvt.dtsi    | 92 ++++++++++++++++++++++
+ 1 file changed, 92 insertions(+)
 
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi
-index 83b3b99ceccb..c0b2976ad9e9 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi
-@@ -3,6 +3,25 @@
+diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-dvt.dtsi b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-dvt.dtsi
+index 6650a5e4e130..cb4c41bd8b8f 100644
+--- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-dvt.dtsi
++++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-dvt.dtsi
+@@ -3,6 +3,98 @@
  /dts-v1/;
- #include "aspeed-bmc-facebook-anacapa-evt1.dtsi"
+ #include "aspeed-bmc-facebook-anacapa-evt2.dtsi"
  
-+&{/aliases} {
-+	i2c36 = &i2c11mux0ch5;
-+	i2c37 = &i2c11mux0ch6;
-+	i2c38 = &i2c11mux0ch7;
-+	i2c39 = &i2c11mux0ch0;
-+	i2c40 = &i2c11mux0ch1;
-+	i2c41 = &i2c11mux0ch2;
-+	i2c42 = &i2c11mux0ch3;
-+	i2c43 = &i2c11mux0ch4;
-+	i2c44 = &i2c10mux0ch1;
-+	i2c45 = &i2c10mux0ch2;
-+	i2c46 = &i2c10mux0ch3;
-+	i2c47 = &i2c10mux0ch4;
-+	i2c48 = &i2c10mux0ch5;
-+	i2c49 = &i2c10mux0ch6;
-+	i2c50 = &i2c10mux0ch7;
-+	i2c51 = &i2c10mux0ch0;
-+};
++// MB - PDB
++&i2c8 {
++	i2c-mux@72 {
++		i2c@0 {
++			gpio@22 {
++				gpio-line-names =
++					"RPDB_FAN_FULL_SPEED_R_N", "RPDB_I2C_TMP432_U8_ALERT_R_N",
++					"RPDB_I2C_TMP432_U29_ALERT_R_N", "RPDB_GLOBAL_WP",
++					"RPDB_FAN_CT_FAN_FAIL_R_N", "RPDB_VERID_A0",
++					"RPDB_VERID_A1", "RPDB_VERID_A2",
++					"RPDB_ALERT_P50V_HSC2_R_N", "RPDB_ALERT_P50V_HSC3_R_N",
++					"RPDB_ALERT_P50V_HSC4_R_N", "RPDB_ALERT_P50V_STBY_R_N",
++					"RPDB_P12V_MB_VRM_ALERT_R_N",
++					"RPDB_P12V_STBY_VRM_ALERT_R_N",
++					"RPDB_PGD_P3V3_STBY_PWRGD_R",
++					"RPDB_P12V_STBY_VRM_PWRGD_BUF_R";
++			};
 +
- // MB - PDB
- &i2c8 {
- 	i2c-mux@72 {
-@@ -51,6 +70,124 @@ eeprom@51 {
- 	};
- };
- 
-+// R Bridge Board
-+&i2c10 {
-+	multi-master;
++			gpio@24 {
++				gpio-line-names =
++					"RPDB_EAM2_PRSNT_MOS_N_R", "RPDB_EAM3_PRSNT_MOS_N_R",
++					"RPDB_PWRGD_P50V_HSC4_SYS_R",
++					"RPDB_PWRGD_P50V_STBY_SYS_BUF_R",
++					"RPDB_P50V_FAN5_R2_PG", "RPDB_P50V_FAN6_R2_PG",
++					"RPDB_P50V_FAN7_R2_PG", "RPDB_P50V_FAN8_R2_PG",
++					"RPDB_SKU_ID0", "RPDB_FAN5_PRSNT_N_R",
++					"", "RPDB_FAN6_PRSNT_N_R",
++					"RPDB_FAN7_PRSNT_N_R", "RPDB_FAN8_PRSNT_N_R",
++					"", "";
++			};
 +
-+	mctp@10 {
-+		compatible = "mctp-i2c-controller";
-+		reg = <(0x10 | I2C_OWN_SLAVE_ADDRESS)>;
-+	};
++			gpio@38 {
++				compatible = "nxp,pca9554";
++				reg = <0x38>;
++				#gpio-cells = <2>;
++				gpio-controller;
 +
-+	i2c-mux@71 {
-+		/delete-property/ i2c-mux-idle-disconnect;
++				gpio-line-names =
++					"RPDB_P50V_FUSE2_TVS1", "RPDB_P50V_FUSE2_TVS2",
++					"RPDB_P50V_FUSE3_TVS1", "RPDB_P50V_FUSE3_TVS2",
++					"RPDB_P50V_FUSE4_TVS1", "",
++					"", "";
 +
-+		i2c10mux0ch1: i2c@1 {
-+			mctp-controller;
-+			// BE NIC FRU
-+
-+			eeprom@50 {
-+				compatible = "atmel,24c32";
-+				reg = <0x50>;
++				interrupt-parent = <&sgpiom0>;
++				interrupts = <174 IRQ_TYPE_LEVEL_LOW>;
 +			};
 +		};
 +
-+		i2c10mux0ch2: i2c@2 {
-+			mctp-controller;
-+			// BE NIC FRU
-+
-+			eeprom@50 {
-+				compatible = "atmel,24c32";
-+				reg = <0x50>;
++		i2c@1 {
++			gpio@22 {
++				gpio-line-names =
++					"LPDB_FAN_FULL_SPEED_R_N", "LPDB_I2C_TEMP75_U8_ALERT_R_N",
++					"LPDB_I2C_TMP432_U29_ALERT_R_N", "LPDB_GLOBAL_WP",
++					"LPDB_FAN_CT_FAN_FAIL_R_N", "LPDB_VERID_A0",
++					"LPDB_VERID_A1", "LPDB_VERID_A2",
++					"LPDB_ALERT_P50V_HSC0_R_N", "LPDB_ALERT_P50V_HSC1_R_N",
++					"LPDB_ALERT_P50V_HSC5_R_N", "LPDB_I2C_P12V_SW_VRM_ALERT_R_N",
++					"LPDB_EAM0_PRSNT_MOS_N_R", "LPDB_EAM1_PRSNT_MOS_N_R",
++					"LPDB_PWRGD_P50V_HSC5_SYS_R", "BARKLIP_PRSNT_N_R3";
 +			};
-+		};
 +
-+		i2c10mux0ch3: i2c@3 {
-+			mctp-controller;
-+			// BE NIC FRU
-+
-+			eeprom@50 {
-+				compatible = "atmel,24c32";
-+				reg = <0x50>;
++			gpio@24 {
++				gpio-line-names =
++					"LPDB_P50V_FAN0_R2_PG", "LPDB_P50V_FAN1_R2_PG",
++					"LPDB_P50V_FAN2_R2_PG", "LPDB_P50V_FAN3_R2_PG",
++					"LPDB_P50V_FAN4_R2_PG", "LPDB_FAN0_PRSNT_N_R",
++					"LPDB_FAN1_PRSNT_N_R", "LPDB_FAN2_PRSNT_N_R",
++					"LPDB_FAN3_PRSNT_N_R", "LPDB_FAN4_PRSNT_N_R",
++					"LPDB_SKU_ID0", "",
++					"", "",
++					"", "LPDB_PG_P3V3_R";
 +			};
-+		};
 +
-+		i2c10mux0ch4: i2c@4 {
-+			mctp-controller;
-+			// BE NIC FRU
++			gpio@38 {
++				compatible = "nxp,pca9554";
++				reg = <0x38>;
++				#gpio-cells = <2>;
++				gpio-controller;
 +
-+			eeprom@50 {
-+				compatible = "atmel,24c32";
-+				reg = <0x50>;
-+			};
-+		};
-+	};
-+};
++				gpio-line-names =
++					"LPDB_P50V_FUSE0_TVS1", "LPDB_P50V_FUSE0_TVS2",
++					"LPDB_P50V_FUSE1_TVS1", "LPDB_P50V_FUSE1_TVS2",
++					"LPDB_P50V_FUSE5_TVS1", "",
++					"", "";
 +
-+// L Bridge Board
-+&i2c11 {
-+	multi-master;
-+
-+	mctp@10 {
-+		compatible = "mctp-i2c-controller";
-+		reg = <(0x10 | I2C_OWN_SLAVE_ADDRESS)>;
-+	};
-+
-+	i2c-mux@71 {
-+		/delete-property/ i2c-mux-idle-disconnect;
-+
-+		i2c11mux0ch0: i2c@0 {
-+			mctp-controller;
-+			// FE NIC FRU
-+
-+			eeprom@50 {
-+				compatible = "atmel,24c32";
-+				reg = <0x50>;
-+			};
-+		};
-+
-+		i2c11mux0ch1: i2c@1 {
-+			mctp-controller;
-+			// BE NIC FRU
-+
-+			eeprom@50 {
-+				compatible = "atmel,24c32";
-+				reg = <0x50>;
-+			};
-+		};
-+
-+		i2c11mux0ch2: i2c@2 {
-+			mctp-controller;
-+			// BE NIC FRU
-+
-+			eeprom@50 {
-+				compatible = "atmel,24c32";
-+				reg = <0x50>;
-+			};
-+		};
-+
-+		i2c11mux0ch3: i2c@3 {
-+			mctp-controller;
-+			// BE NIC FRU
-+
-+			eeprom@50 {
-+				compatible = "atmel,24c32";
-+				reg = <0x50>;
-+			};
-+		};
-+
-+		i2c11mux0ch4: i2c@4 {
-+			mctp-controller;
-+			// BE NIC FRU
-+
-+			eeprom@50 {
-+				compatible = "atmel,24c32";
-+				reg = <0x50>;
++				interrupt-parent = <&sgpiom0>;
++				interrupts = <174 IRQ_TYPE_LEVEL_LOW>;
 +			};
 +		};
 +	};
 +};
 +
- // MB
- &i2c13 {
- 	i2c-mux@70 {
+ &sgpiom0 {
+ 	gpio-line-names =
+ 	/*in - out */
 
 -- 
 2.34.1
