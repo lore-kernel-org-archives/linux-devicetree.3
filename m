@@ -1,65 +1,64 @@
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B3F339281B
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 01:13:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9161C39A06F
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 01:13:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788225230; cv=none; b=mTatWsCaURNqmJ6j7UR+ldw9kgA0LudMNE9liI7FW7EedkhPT8K6V2Rmv0iSgsmui7MRxtsVrD9Yse0oc98/JnCRUxBdEDqSl/8UELLEdKeLhoSlMWhC7ZnniZvcoFfWZfgEgiTOdLYmPxH80c2zOAY98cNVO56IRwccYWjnXSM=
+	t=1788225232; cv=none; b=Nz0q2FmdDwAbP22ydKHZxFiVpyEivGmur4Qi87z3DlTwQcIu6EPVB+rL1cP6cYeqGWp13OCLyOvKYvpb/3mZfQ9Yi2HqY0G7ZPKLBMqo5jF+ad6pS1WBBTv+KQ6buw4eoPzLCTcQMmbq0Kyud/12gF+25tVJWWTAplSJVW/PMw4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788225230; c=relaxed/simple;
-	bh=N1/zE0vOogzKBBPg63BlWE0GGZRJLhZwlu+xUzAqzIc=;
+	s=arc-20240116; t=1788225232; c=relaxed/simple;
+	bh=WKNiEu5bb54kPNb9BHttsHup3tUYWbXtGShP7J3NSTI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kGxyNfYybkuMSY+QmGcmB72odYGYjJfJkh64MYkVxk4l73GfdgyJWBgzo8RS2aZVQIh/j4+Lndjs28o4gjmohaM3hAz8ORhu3KqnWq8wJKHcUydXg/458gwXGG9Yg2q7Dm0yKaGlygm1ex7P3SEg5U/mQFomqUoqSW4TkWjvuGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=we4uzwAa; arc=none smtp.client-ip=209.85.222.171
+	 MIME-Version; b=DI42OHEYxaHPwYz0oO7ikkrTxka+iki8wIp5j3pd0PTuj5OHPT+ThEksvjdoYx8kP2HirY1t66ZeQWoilJBR6yAVZ/SLldWxpz4oUq5yslSCzJO1bm7nb/Wqbsoe3fmDMI32+T97Pz44MB3fsVLYUWMO2cG34CFgeQ/6TmIEyA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=LUkh9QB1; arc=none smtp.client-ip=209.85.222.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="we4uzwAa"
-Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-934956bee57so570128285a.2
-        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 18:13:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="LUkh9QB1"
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-930f618435cso362704485a.3
+        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 18:13:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1788225227; x=1788830027; darn=vger.kernel.org;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1788225228; x=1788830028; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KxdgYaNd6hSon04HBpeXAMQRDv5bhxmTgVA17jV1UzA=;
-        b=we4uzwAaEHZDjQRUtrMHnDBvO8zxLQzWRHZs3bkFVtVvLYViV6Omsc/VWbfmJBYBsU
-         UGto5zqc2caePWr0x7XiWriVxFPjAxZB/yurzGOuMK64ANRenXIsrP5it9Ldd+H0uaOM
-         AFkbLKWwTm7Jx+7O80i3dypGlZ1ykFMHo9R4TJ+e/ANmvK3MEJSRYAeG/syPmyQ99Vk0
-         dl336pXPhc8MBq796slMVIULfacGV2EkYbvA5xa6vqCKgitZzuKBhfYa9RgUjn+3CTvg
-         jeJCFCpIZWUdbJeTwep6FC8xhcCS+wyCwKHV4wVI3SKerKhAwm8o2ywTY10vY6F/3YbI
-         Mmrw==
+        bh=3KMFnK7MaewcQgkI6RfHvTFLlVRVgXCbhr3VFJt6MAI=;
+        b=LUkh9QB1qbS5Ebdef1hnPz1YpFe912bhC/nANz2FQNEbW36eEEKyImMKVyf15go/IE
+         LR0EO+1Dxf1/Bu+UIoyXk77Dp0aNsi40PHAbMC7uIM+bV5K1fjvAGCGGrDY2WSiwb2Cz
+         t44RfbAk9QrwviAtzEmLVXJ7+bt+lGOuyleDY5asm4B+iW31N+3YlQ+nKLCKRYecCMJL
+         yAC6jl/qCqenleubmFXnTXipi8J/QKLDcckwyC/eO9YxRMiSyec6JZxThWa9guzJYdzn
+         Q4yjj3Y4HMX0HF5kC8JAAtB7gEN1/b6+cjjTlrZkHOlS+yfTXDMMp+o2S8EPA5go4gNL
+         fAGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788225227; x=1788830027;
+        d=1e100.net; s=20251104; t=1788225228; x=1788830028;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KxdgYaNd6hSon04HBpeXAMQRDv5bhxmTgVA17jV1UzA=;
-        b=ZF2ooql+xPYFtiEmZNf8Skn54lkVnD4eEHwrWf2tREVrBiZJKDoGGad23QxUSFQ2Y4
-         N6EX4vQb49pTUI/ZVEGnI2Y1Q0VtKIFKxgB/OZAOOYe5vcd31hdDZCMZ/296mya1KBt4
-         uBYgKbyUBvRmxg5wV2GwUzd4Om5CWZA4VQ8R6Zww86tIiGWW7SLoR8r1qRJX1hcNJh+I
-         gWUCYCbgDU9Bb8alrngeQ/AFOeisNu5w5UzkzMh9lhT5mYnLlp0gtr/D5ZkF9hRchCZF
-         +S69CaCmPUtJxJztuS/YCIKzHt5lNxlvi1E8v8aBHABwHGizQIqjq6rturheSJQZSLBG
-         NoNQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rr4rnZDgNkQPGT0L0HJ9+ES0H6J6AAkjeZURMy5UQq4oIBwUXnGo1z8ADLXAZTxWPtqwNb2kOaIA7MG@vger.kernel.org
-X-Gm-Message-State: AFuF++lOwKqDYP9+b0BLkGeIpXOsARhgA3nKIsYqs+0Us9erc7zOBEdR
-	juUwMsy6eikPQXjPlGNamZ6Ermb+yJzZ1QXyz1mBDgKOl1/KJE+JwcLLlrb46oKFpakFci3ZzPJ
-	dfg5gFlA=
-X-Gm-Gg: AR+sD11i0NI3qN9B0BDt0LyXgnsRclclvnxOQG2cRC9tMPFdPCtHuFg2DoQ+iHfEKrI
-	jqQvANdd6ZLPb+T/wguLsRYcgn9jTlD7+S7EbQ+BhzcYGlHxJWdwUvarYx61/KBcrYpjbv4JJVy
-	WEMAFqixDk5IQdamYzX6zGLcpW6DWCSfs6+AVckOPySNkhMrLTb0d4MkbDV9EcJq/0sE7UgSNqq
-	SuWUd5qA0az6C6Mo9WsXiDfVuS+hs7luTqzTFDjqPV7fdrR2XVtjy0pyx0fOX2kOPH3K6WddFfj
-	K2eI0nu8l7ATorYVCOS0L69pnvFI/YJNYQ5Z0XNjvd76YlcOdPRZxJkRcQA/vKJX3L6rAbkCK8H
-	OrqGmDvd8PuxNNPxRerwKN4CLmefsaj98JCp7qPbJaJQ8xlWbG5c2qu8+gTd3zjrBLWrQuEYSYe
-	X1xaxvduneyEbz9QtJMtzFo7jP+2S+8QeDZJmlp+7Fv7Kxf/XqTCAWNBLnwGkw2vGgEGOzyg4r8
-	wE=
-X-Received: by 2002:a05:620a:4550:b0:937:27fb:96f8 with SMTP id af79cd13be357-9391397dc7dmr3345492585a.41.1788225227134;
-        Mon, 31 Aug 2026 18:13:47 -0700 (PDT)
+        bh=3KMFnK7MaewcQgkI6RfHvTFLlVRVgXCbhr3VFJt6MAI=;
+        b=WNXSf47Fn+/S+1hOTPlPEnkp/ep1bCtSHZIvP6zuBbb4r/bZLt3dRyC9t2tVRH34tJ
+         Sch4oZrDEC9BsMZ/BCVIFD8tiFX0Epy0A2E64CoMFcw5cStjDcA9JWeMdoqLEwvbP4JC
+         vazk2DfkMkjXGdmpZ6+6JHQQk7ftcl3QZjMMpS/ZjjLOPasg4sUoueEF2JMH29Ljj0kG
+         fL9YPkZ3epoIM0vTGyXdmQdW+r521wIoAN89tiQMbczMcENu6a0Rkh8GegsNRHs5N9TM
+         tOlN+Bc7NPc10cDmq/z7nf6YNR5g/Hgq4x71F8DAC6wAyuTq3Gjbx/80Gp0kXk6uVz5W
+         Fvhg==
+X-Forwarded-Encrypted: i=1; AHgh+RrxtYFCfYkPt3reQuYiiArELJPVdv3Sw9X1QhM949zenYGvxZE/qv/r0RogUN0PZafgvYd6cOX8R1oi@vger.kernel.org
+X-Gm-Message-State: AFuF++npwDiTl98Ilaed+7T7YcaFfzB8D5D174hxlm//nD17ZzgFj/bK
+	66rCaeQ2tnEHTGC8p9acGsXySmhIhs9CUgKQS8NDjHLW1YPA0QKvK0g9K9FIlRIedfg=
+X-Gm-Gg: AR+sD13Lx1lcMJoApD0kKUv2csH5GgZrOMq/S7F4TMmoVKPIjTXI+nhNk8xceZB9sN7
+	3FfG9EDJVp8w/CiqVawHd8v9tU9Mz4jk8hWhDYqVl5Z+twCnX22OXT582q//ReBYUsr5wAg3ol5
+	Xecks7zz78qzgaQGS1gi+XpHFIBxBGCciyjUwbGkQOmXqdRlMX9PgG813eHMBZyxI9YKD5uBUHp
+	/grDGdIfJ72jNrHVWcwnEszHYwLUjG/0D1y6UZi2tLuTsByzj100cOdxz3D5weKzDE8qjFbfJNo
+	E2ywjE2Nh36RgZ9xxVIssRrwisE/cCFzeJF3EHuaJA1XvHt4wuh4ptcCf0qgEIL8zZhLE8totWU
+	H2NZD9cjRziyXJxJ3aNeKURMJV6iLjz9A6FFkJkkUeQ5TQuSeKKCnDRMyIaVs2zD2MiU22jR4IX
+	kvtmADnWIbgQ9d5AMh6BPJCPwi1s3vUDiYwRTyMaYoQ5J8/uADqMErQaqe1uBPLtUWF0ArZFiMJ
+	S4=
+X-Received: by 2002:a05:620a:40cb:b0:930:b4f9:f327 with SMTP id af79cd13be357-939138df3d1mr3066774785a.33.1788225228344;
+        Mon, 31 Aug 2026 18:13:48 -0700 (PDT)
 Received: from zippy.localdomain ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9391740a307sm581347285a.42.2026.08.31.18.13.45
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9391740a307sm581347285a.42.2026.08.31.18.13.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 18:13:46 -0700 (PDT)
+        Mon, 31 Aug 2026 18:13:47 -0700 (PDT)
 From: Alex Elder <elder@riscstar.com>
 To: bhelgaas@google.com,
 	robh@kernel.org,
@@ -71,9 +70,9 @@ Cc: herve.codina@bootlin.com,
 	linux-pci@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 3/4] PCI: of: introduce of_pci_verify_node()
-Date: Mon, 31 Aug 2026 20:13:36 -0500
-Message-ID: <20260901011338.1323243-4-elder@riscstar.com>
+Subject: [PATCH v3 4/4] of: address: kill of_node_is_pcie()
+Date: Mon, 31 Aug 2026 20:13:37 -0500
+Message-ID: <20260901011338.1323243-5-elder@riscstar.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260901011338.1323243-1-elder@riscstar.com>
 References: <20260901011338.1323243-1-elder@riscstar.com>
@@ -85,124 +84,60 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 407d1a51921e9 ("PCI: Create device tree node for bridge") linked
-the PCI enumeration process together with devicetree, creating a devicetree
-node for discovered PCI bridges.  Its successor commit ae9813db1dc5a ("PCI:
-Add quirks to generate device tree node for Xilinx Alveo U50") shows how
-to use a PCI final fixup quirk to also create a devicetree node for a
-non-bridge PCI device.  These changes allowed devicetree overlays to
-describe components downstream of a PCI device, by providing a place to
-attach the overlay.
+The of_bus->match function for the "PCI" bus type is fairly liberal
+in what it accepts as a PCI bus devicetree node.  If a node has no
+device_type property, it even allows a node named "pcie@" to be
+accepted as represnting a devicetree bus, though it issues a warning
+in that case.
 
-Note that the dynamic devicetree node is only created if the device didn't
-already have an assigned node.
+A recent PCI commit introduced of_pci_verify_node().  When a PCI
+device is added, if it has a devicetree node, that function checks
+its device_type property.  For PCI bridge devices, if there is no
+device_type property (value "pci"), a warning is issued.
 
-Later, commit aa7b4bbcb3a1d ("arm64: dts: qcom: qcs6490-rb3gen2: Add
-TC9563 PCIe switch node") *pre-defined* devicetree nodes to represent the
-PCI device nodes that would (also) be discovered via the PCI enumeration
-process.  The devicetree node in this case is created with the content
-from the DTS file.  So when a (host) bridge is done being initialized
-during PCI enumeration, no node is dynamically created (the commits
-mentioned above do not apply).
+That warning duplicates the warning made by of_node_is_pcie(), and
+there's no point in that.  Avoid the second (OF) warning by just
+checking the node name directly in of_bus_pci_match().
 
-Ideally, any pre-defined PCI devicetree node would contain exactly the
-same information as whatever the dynamic creation process would produce
-(though it could include more).
-
-However that is not the case for the pre-defined Qualcomm RB3gen2 nodes.
-And in particular, the endpoint (function) nodes include this property:
-
-    device_type = "pci";
-
-This is simply wrong; that property is meant only for bridge nodes.
-
-Rob Herring requested that a runtime check to be added to spot this
-specific error, only for non-bridge PCI devices.  Herve Codina further
-suggested we ensure that bridge PCI devices *do* define the device_type
-property, with value "pci".
+That leaves of_node_is_pcie() unused, so get rid of it.
 
 Signed-off-by: Alex Elder <elder@riscstar.com>
 ---
-v3: - Switch a function header to use kernel-doc format
-    - Add a warning if a PCI bridge node has no device_type property
+v3: - Added (new) in this version of the series
 
- drivers/pci/bus.c |  1 +
- drivers/pci/of.c  | 31 +++++++++++++++++++++++++++++++
- drivers/pci/pci.h |  3 +++
- 3 files changed, 35 insertions(+)
+ drivers/of/address.c | 12 +-----------
+ 1 file changed, 1 insertion(+), 11 deletions(-)
 
-diff --git a/drivers/pci/bus.c b/drivers/pci/bus.c
-index 655ed53436d3e..679afbc6d3109 100644
---- a/drivers/pci/bus.c
-+++ b/drivers/pci/bus.c
-@@ -351,6 +351,7 @@ void pci_bus_add_device(struct pci_dev *dev)
- 	 * are not assigned yet for some devices.
+diff --git a/drivers/of/address.c b/drivers/of/address.c
+index 499d37ceae210..ee2eb44884d85 100644
+--- a/drivers/of/address.c
++++ b/drivers/of/address.c
+@@ -134,16 +134,6 @@ static unsigned int of_bus_pci_get_flags(const __be32 *addr)
+  * PCI bus specific translator
+  */
+ 
+-static bool of_node_is_pcie(const struct device_node *np)
+-{
+-	bool is_pcie = of_node_name_eq(np, "pcie");
+-
+-	if (is_pcie)
+-		pr_warn_once("%pOF: Missing device_type\n", np);
+-
+-	return is_pcie;
+-}
+-
+ static int of_bus_pci_match(struct device_node *np)
+ {
+ 	/*
+@@ -156,7 +146,7 @@ static int of_bus_pci_match(struct device_node *np)
  	 */
- 	pcibios_bus_add_device(dev);
-+	of_pci_verify_node(dev);
- 	pci_fixup_device(pci_fixup_final, dev);
- 	if (pci_is_bridge(dev))
- 		of_pci_make_dev_node(dev);
-diff --git a/drivers/pci/of.c b/drivers/pci/of.c
-index a51dff91b196d..1838a3109514c 100644
---- a/drivers/pci/of.c
-+++ b/drivers/pci/of.c
-@@ -1085,3 +1085,34 @@ int of_pci_get_equalization_presets(struct device *dev,
- 	return 0;
+ 	return of_node_is_type(np, "pci") || of_node_is_type(np, "pciex") ||
+ 		of_node_is_type(np, "vci") || of_node_is_type(np, "ht") ||
+-		of_node_is_pcie(np);
++		of_node_name_eq(np, "pcie");
  }
- EXPORT_SYMBOL_GPL(of_pci_get_equalization_presets);
-+
-+/**
-+ * of_pci_verify_node - Sanity check some PCI device node properties
-+ * @pdev: The PCI device whose device node is checked
-+ *
-+ * PCI enumeration authoritatively discovers what we need to know about
-+ * a PCI device.  A devicetree-based platform will represent a PCI root
-+ * bridge with a node, but otherwise devicetree doesn't typically include
-+ * many PCI nodes.  Where such nodes do exist, experience has shown that
-+ * the "device_type" property is sometimes wrong, so warn about that.
-+ */
-+void of_pci_verify_node(struct pci_dev *pdev)
-+{
-+	struct device_node *np = pci_device_to_OF_node(pdev);
-+	bool device_is_bridge;
-+	bool device_type_pci;
-+
-+	/* Nothing to check if there's no pre-existing devicetree node */
-+	if (!np)
-+		return;
-+
-+	device_is_bridge = pci_is_bridge(pdev);
-+	device_type_pci = of_node_is_type(np, "pci");
-+
-+	/* Bridges should have device type "pci"; endpoints should not */
-+	if (device_is_bridge == device_type_pci)
-+		return;
-+
-+	dev_err(&pdev->dev, "PCI %s have \"pci\" device_type property\n",
-+		device_is_bridge ? "bridge should" : "endpoint should not");
-+}
-diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-index ba3c3fddddc23..2e33d3bd4b0ba 100644
---- a/drivers/pci/pci.h
-+++ b/drivers/pci/pci.h
-@@ -1253,6 +1253,7 @@ bool of_pci_supply_present(struct device_node *np);
- int of_pci_get_equalization_presets(struct device *dev,
- 				    struct pci_eq_presets *presets,
- 				    int num_lanes);
-+void of_pci_verify_node(struct pci_dev *pdev);
- #else
- static inline int
- of_get_pci_domain_nr(struct device_node *node)
-@@ -1308,6 +1309,8 @@ static inline int of_pci_get_equalization_presets(struct device *dev,
  
- 	return 0;
- }
-+
-+static inline void of_pci_verify_node(struct pci_dev *pdev) { }
- #endif /* CONFIG_OF */
- 
- struct of_changeset;
+ static void of_bus_pci_count_cells(struct device_node *np,
 -- 
 2.53.0
 
