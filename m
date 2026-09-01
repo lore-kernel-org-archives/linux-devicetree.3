@@ -1,140 +1,211 @@
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F26AA4CCDF8
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 06:58:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 397B83B71C6
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 07:07:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788245883; cv=none; b=N2we1iYf2xcCQN1vVkGV57sDv7CL5mmLwsvuIMPMTFy+tZMd2PJDV28BI4FTS4CTO2ssvnDp8B7FF0ro1jDlFasBZNkqNshT6fNh7b3dPg0ie2K6cgVGIRG1l6cyif9GYmcdA3D4rzdBy4KpwlEC+MB7ojc/VePzNA7dNFO9XDw=
+	t=1788246457; cv=none; b=F9dGZQKT+WPsai7JXAmloRfH1QLyvca0T8ymEnNe2b9l1Q1bT8+oLjliI0aQCreKr716nxdmUVAA8p4KRWo2OxSG+XgoJHO/aFG1F3R0TXdwOcj1Xu9ZXJc8oP3lEoN6NjLK/Hf7awuMY3mcdLF5aY31JiUQtU/tUMF2R8PUpAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788245883; c=relaxed/simple;
-	bh=JWHArNMHZa3syaxkWQOyplqPmFE/oqiYh+nkNJ3SSbU=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=cR1WO5ErBWXLhaobrv3IDmAlH6WgnkW+h+wJa8BMhOy2K7LBBrRT1U11rQB3qUVIHT3DJGBBiUPumVfnnrXGRlUTpooxlM6ZVpBybuVh0hgJDLBNF/KDRImwxhzwTThjreiI9khWRWYfc5QLhcWcqlA+2ZLAusBXxTr3cqEs/R0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=dQ1xvGid; arc=none smtp.client-ip=209.85.208.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1788246457; c=relaxed/simple;
+	bh=mRflIR4GNpbeRJMF8YlfXq8NOTxbRGqwlZzrSpH9ooE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=O3CC0KmRfYFZkDu4j1PShBUyJHoOILriorH+58XEoOB/asfmMWxiD8Nvro8ePF0BfyuKhPtYFpDsfHLre6BK6H7NHRr0kYDSc4hBoQnK8fKvQybNVrWdmnP7YGBYpRpkrH4MvXdrvyyC0dYidV7VClBgI0LjIe9LjrsNcBNATVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nWfhbHUN; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="dQ1xvGid"
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-69c108fee7fso5695547a12.3
-        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 23:58:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nWfhbHUN"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-396750cfee6so3547653a91.2
+        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 00:07:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1788245879; x=1788850679; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=JWHArNMHZa3syaxkWQOyplqPmFE/oqiYh+nkNJ3SSbU=;
-        b=dQ1xvGidr2Ndl4JReANdtfQ7QsGO5mChStGwnGs2P5Z4qyeaAvL0TFXJAjOie97WFM
-         tUoGp6bzuWMZxYcqLhUkZM3wdlqD0aacg5nWW8EmRZLZgBLHzwypqe1jM43FhkUvUmVs
-         PTXAvz20yARdbjD2XYZSKvPkKmBodO9Oc2oDyiXILRaj7o9kzD6MWvLVfyZU8DAcFSVK
-         /myVzytlZ+sBWduJ+WGSmafXiziDZRTKC9eUDJgbAi3yh9HEHm5Y5fQW+g0+gGWfHlQl
-         A5iYOwTsxnKo+8USszuzeFrs6gUbPOyMfIR5NMYiNo5lOzmThoSZCjqYFA6Upc3CnXos
-         hn9Q==
+        d=gmail.com; s=20251104; t=1788246453; x=1788851253; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GNTRLtdnuOjHKMo/0X9tnXkw4tLD7Gg1xY1MJ7AsLHM=;
+        b=nWfhbHUNRfqrSl6u/ff3JWZg4NfbMA59alAkmqGX0ZRSFWJ4vy/wAybUs1mAffVfU6
+         vW4dAOn8GA0VNRMZD0/y2ak8y9G6ek9otTH9jJqd2PCC6wmY+kq8NNPYmxCj4kcRcTxk
+         WURdqOF88jeTBimJSkcn873dtnn9dfMz5wr6WxkjvtKA8i5Uy1aapCs2A9vWbs2yGEtZ
+         NIwdHF+xxuUF6shbWjRltGrvOD5k8qXcP5DEXndkYwEZERj8xpHyQ4DTttjc5eSL6JfN
+         vDtp5LDmE5QK5uFe0pA7nVYTLwTV0ua109ZtqSFN4sjVyb9UO3i5Xn26kQ9FyCJ2BKP1
+         wjSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788245879; x=1788850679;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JWHArNMHZa3syaxkWQOyplqPmFE/oqiYh+nkNJ3SSbU=;
-        b=QZT2efA9wm3syQ9C6u1tDevEIzwGKbNs+h4mvsO1WlVEb2PMoAU7wag1wjSbMscX+R
-         f+4xnVIvSIqtmUfpyWsV/CfcTuCRk/9YFRgU8yj32fOF3rmmr2qcbBuI/3dxVksbhFgu
-         a37KGAucwYG9ptuo6jS1bJKhE6aZAfTnN6sAW0pF7xGh8g+LT1w9Vd2IQoqnHO4dj7TU
-         h17aSlE9phpEgEWAuc578h1Y5Kq4W+5N50GqowsitugsFiyiJkgpiMDWJKuRp86w3Iij
-         zT38HKdJfj+001iMRQfC4z7hxT5Dp2aHGzl9TjveNCKaPVtxF1XbilvvWA88kxnCQWfB
-         Bufg==
-X-Forwarded-Encrypted: i=1; AKwUvBxPAbMQ6O/W3gDmyg3H1pv1i6h2on88jalGJVmfm78mWMdmQ9Z8KiwSQqTXwr9uST1CuNo9i8D00vWw@vger.kernel.org
-X-Gm-Message-State: AFuF++mT5eMhN9+b49c4pIsHcCdgpDR830MSnDxol0ylXq0whlELCnRZ
-	Knu0mW1u0oB0toemj6QgxWSylDYw3bTj9HOdYIL5yJH+81VCQQdkqKW5RcP41ijBoyA=
-X-Gm-Gg: AYBFou2KYs1vUj7QqDpys7aqNDywrrrYsg0YOOLaVCVr4lUNcOb0TyFfOO3kSodrH5c
-	D0WZVZZDk8SyWHmtorfa+ca2stxVjx8hw4JZEX4jzEgHocJpoiSNwsq6M3JTai3XNUEKeK/112d
-	hkYBrXzcKCnfHrvPHvVuqG+b2nvWzz0buZHJDm095JaYMYR6E5YXAcjsAYcKMfjXeJRf2ZboaHv
-	5c3eII/R1pcHHIK6VW2cTq5PLf0Vc3AFXrt9dAdqBiuRBHiulTXQmKEAuvI6p7loO1txE2ItsIy
-	4jKFKqmevg2zfSoVbRnc0vc4gBks8T3zFJptq/zJ9Iqusd7HnS1qLtrp3FzUqNDO8/XQyDy0xHq
-	yTlXzheE6sCTn6LTJ6tiCS5C03CHSU/HML6WUaqL2jnj8WWQ1KZM1CBSbODFSWoyQbNXM8vF8Ra
-	d2NWztQN05H0XB4HdNDdqhAkjmfm6mRHu1S2C9cXq3khEBuVMU/BEaJhKr76547N5EFq3gpT7X9
-	ziJSb07IIq+sTsDRVm1gR50MWo5uvR9PA==
-X-Received: by 2002:a05:6402:a0cb:b0:6a6:32f9:d7cf with SMTP id 4fb4d7f45d1cf-6a632f9d94emr10639538a12.20.1788245879073;
-        Mon, 31 Aug 2026 23:57:59 -0700 (PDT)
-Received: from localhost (144-178-202-138.static.ef-service.nl. [144.178.202.138])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a66ed20d3fsm252725a12.24.2026.08.31.23.57.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 23:57:58 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788246453; x=1788851253;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GNTRLtdnuOjHKMo/0X9tnXkw4tLD7Gg1xY1MJ7AsLHM=;
+        b=Wmn+h44fP0rGDvgIIOPt5RvGJbo10dqKo8UzNd6Pa2+i3mqbM45f/ULXyClzE/712j
+         yQfoukqrHfUVgsPiCtiF/9WYF/1CAIx1/PHvLdA3BcbFdEKGNSAZBmBU7aCMgiHecBE8
+         /fwuljL8KgOLl148cGwKMDZ/mA4TApyFRUxGwG+2K8aMD1fnJiIT+1OGOp8BuU9Fqq5J
+         0z685mW0TJOB+PI7FHRYvzHDFkCCEm3bnEM3pbRFzRSb9/+DVBhAjUwF2FoEHmaAM5Xq
+         9mDEUz4w0XSv2d3GRedAklEhJZsA1PZPxiTE9KoP5zKiV7z7rXmJTckQRZhH++0BgpEr
+         M8/A==
+X-Forwarded-Encrypted: i=1; AKwUvBxFwB2mtB74W5+Mn29oTFOmi0sGWcNmoQocWEZUOsla47pRqNNm12oM3vd3YJjxdt3/msOxWnLBXwj6@vger.kernel.org
+X-Gm-Message-State: AFuF++k9A99XpSJrE7XsvhcCv/6fptq8dhpBq/b3TQdldI7BDSp6kUA9
+	/mENcA1GqavzSTcYulg0dwid6vnPfrPTSWMWJ20dp/R1bkRBP3Ck2siU
+X-Gm-Gg: AYBFou2mMgsdBZhW00RqeEfb/TnXK4rdXDXfC8m2nqqKzvCNCJTX6PtaFfOB9kQTz2i
+	hK64mapE47ZqGwyY7idGTpHshHTj8QzP6kwJMKerrzajI2hBoiiVfYY/OX9miEl/NiAy5v72NU5
+	mp9FKwbf/NTL3ikyOp5TGD/5N4LBSKY3YrwBX8AW961FStVeFsPSFU0VHdSsywyBZe5I16791lt
+	Mg1z/iz/UFTwmKeS6jx4GQWhk1BbhjX81KkhikB4ofFNGU4cHE0E7Bh4YsjoKLS5FeALHkS5VIC
+	Ri1iTKuKv3TeTfsHHvRgUkMDRlICj8P4/4CIrI1FouCKiY9cd0cZuKmDfsGnuNLSZlIOjO8TjHd
+	CNi821iLNWc4Xj+dAycP+A0cUDPy9xpZBfS3Xxowra/1fayd2yFZy2F/sRH0Cp2w5uBpZWNo9WA
+	aNe9+g0Bd3LJjwVk9Ez3aULOhSe6gTrI6TdGghP61mmWKjULT+weOxSr4YuAAvUKiqBBwaALZEJ
+	oP8OQRuSZOs
+X-Received: by 2002:a17:90b:5804:b0:398:9bd5:490f with SMTP id 98e67ed59e1d1-3989bd54c38mr33933621a91.22.1788246452953;
+        Tue, 01 Sep 2026 00:07:32 -0700 (PDT)
+Received: from localhost.localdomain ([157.51.207.128])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32bdfd03e71sm18274680eec.1.2026.09.01.00.07.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 00:07:31 -0700 (PDT)
+From: Sreeshankar K <sreeshankar0910@gmail.com>
+To: andersson@kernel.org,
+	sboyd@kernel.org,
+	bmasney+clk@redhat.com,
+	jbrunet+clk@baylibre.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	rafael@kernel.org,
+	viresh.kumar@linaro.org,
+	konradybcio@kernel.org,
+	tglx@kernel.org,
+	ulfh@kernel.org
+Cc: radu@rendec.net,
+	abel.vesa@oss.qualcomm.com,
+	taniya.das@oss.qualcomm.com,
+	danila@mainlining.org,
+	davidwronek@gmail.com,
+	mani@kernel.org,
+	robimarko@gmail.com,
+	linux@gurudas.dev,
+	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	Sreeshankar K <sreeshankar0910@gmail.com>
+Subject: [PATCH v8 00/12] Add initial support for Qualcomm SM7250 SoC
+Date: Tue,  1 Sep 2026 07:07:05 +0000
+Message-ID: <20260901070717.20513-1-sreeshankar0910@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 01 Sep 2026 08:57:58 +0200
-Message-Id: <DL3S9BFOU95Q.1LPBODV43OMZA@fairphone.com>
-Subject: Re: [PATCH v2 5/5] iio: light: stk3310: support the Sensortek
- STK36C61
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Jorijn van der Graaf" <jorijnvdgraaf@catcrafts.net>, "Marcelo Schmitt"
- <marcelo.schmitt1@gmail.com>, "Luca Weiss" <luca.weiss@fairphone.com>
-Cc: "Jonathan Cameron" <jic23@kernel.org>, <linux-iio@vger.kernel.org>,
- "David Lechner" <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>, "Andy
- Shevchenko" <andriy.shevchenko@intel.com>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, <devicetree@vger.kernel.org>, "Kees Cook"
- <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- <linux-hardening@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260826175409.326131-1-jorijnvdgraaf@catcrafts.net>
- <20260826175409.326131-6-jorijnvdgraaf@catcrafts.net>
- <apEMCqQXyj1tAMoP@debian-BULLSEYE-live-builder-AMD64>
- <20260828154705.11962-1-jorijnvdgraaf@catcrafts.net>
- <apRGQVfPKWHvE2Ct@debian-BULLSEYE-live-builder-AMD64>
- <20260830201950.63838-1-jorijnvdgraaf@catcrafts.net>
- <DL2YT4S4U7C4.2CPGBR94G01FD@fairphone.com>
- <apYiYnlM-agfG9he@debian-BULLSEYE-live-builder-AMD64>
- <apYqUv_uuqZlhtOh@debian-BULLSEYE-live-builder-AMD64>
- <20260901025502.231703-1-jorijnvdgraaf@catcrafts.net>
-In-Reply-To: <20260901025502.231703-1-jorijnvdgraaf@catcrafts.net>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Jorijn,
+This patchset introduces foundational upstream support for the Qualcomm SM7250
+SoC (internally codenamed Lito).
 
-On Tue Sep 1, 2026 at 4:55 AM CEST, Jorijn van der Graaf wrote:
-> On Mon, Aug 31, 2026 at 10:28:50PM -0300, Marcelo Schmitt wrote:
->> Never mind, I completely missed the point of it having a preliminary dat=
-asheet.
->> It might be sensible to try to estimate if the final version will keep t=
-he same
->> name and PDT_ID.
->
-> On the name: the Fairphone 6 repair document's block diagram labels
-> the part "3IN1 ALPS/RGB sensor/STK36C61", without the A ([1], page
-> 107), while the LCSC and JLCPCB listings carry the -A name. The
-> diagram is provenance rather than proof because the same page
-> misrenders two other part names and I have not read the package
-> marking itself.
->
-> The driver name would follow the existing family convention either
-> way: this driver already binds the four STK3311 variants (STK3311,
-> -A, -S34, -X), each with its own chip ID in stk3310_chip_ids, under
-> the single name "stk3311".
->
-> On the ID: the published sheet says 0x93, Luca's 0.9.2 revision says
-> 0x95, and the part in the phone reads 0x95. stk3310_chip_ids is a
-> flat accept-list, so if a final sheet moved the ID again it would be
-> added alongside, not swapped.
->
-> Luca, can you confirm which part is actually in the device, the
-> STK36C61 or the STK36C61-A?
+SM7250 is an ARMv8.2-A platform manufactured on a 7nm process, featuring an
+octa-core Kryo 475 CPU configuration (1x Prime Cortex-A76, 1x Gold Cortex-A76,
+and 6x Silver Cortex-A55) and Adreno 620 GPU.
 
-The BOM I'm viewing clearly states "STK36C61-A".
+This patchset is organized as follows:
+> Document relevant device tree bindings (SoC ID, Kryo 475 CPUs, SCM, PDC,
+RPMh clocks/power domains, GCC and cpufreq hardware).
+> Add driver support for SM7250 in socinfo, rpmh-clk, rpmhpd, and GCC.
+> Add the base SoC DTSI (sm7250.dtsi) defining the cpus, PSCI,
+interrupt controllers, clock providers, power domains, and reserved memory.
 
-Regards
-Luca
+Dependencies:
+This patchset depends on the following patch:
+> [PATCH] dt-bindings: clock: qcom,sm6375-gcc: Merge SM7150 into SM6375
+Link: https://lore.kernel.org/linux-arm-msm/20260817082457.64797-2-krzysztof.kozlowski@oss.qualcomm.com/T/#t
 
->
-> [1] https://www.fairphone.com/wp-content/uploads/2025/08/Fairphone-Gen.-6=
-_-Information-on-how-to-repair-dispose-of-and-recycle-EN-NL-FR-DE.pdf
->
-> Thanks,
-> Jorijn
+Changelog [v8]:
+Same as v7. Resending the full patchset as v8 due to a transmission interruption during v7.
+Some patches failed to send.
+
+Link [v7]: https://lore.kernel.org/linux-arm-msm/20260901064357.20055-1-sreeshankar0910@gmail.com/T/#t
+Changelog [v7]:
+> [PATCH v7 04/13]: clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
+Added missing (struct device *dev) in gcc_sm7250_clk_regs_configure
+Fixes: https://lore.kernel.org/linux-arm-msm/apYNXZ9TJEC6rVVf@baldur
+> Drop applied patches
+1) [09/13] dt-bindings: arm: cpus: Document Kryo 475 CPUs (commit: 1c8fe8863780705aba77893fade65f728e82b67a)
+Link: https://lore.kernel.org/linux-arm-msm/178822856275.1835959.3848131517961346933.b4-ty@kernel.org
+
+Link [v6]: https://lore.kernel.org/linux-arm-msm/20260824150156.1310-1-sreeshankar0910@gmail.com/T/#t
+Changelog [v6]:
+[PATCH v6 04/13]: clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
+> Make all clk_init_data instances const across the driver.
+
+Link [v5]: https://lore.kernel.org/linux-arm-msm/20260824130437.2771-1-sreeshankar0910@gmail.com/T/#t
+Changelog [v5]:
+[PATCH v5 13/13]: arm64: dts: qcom: Add SM7250 devicetree file
+> Reformat multi-entry phandle lists (domain-idle-states) to '<&a>, <&b>'.
+> Reformat multi-entry tuples and string lists (qcom,pdc-ranges, qcom,tcs-config, reg-names)
+to one item per line.
+> Enable QUPv3 wrapper globally by dropping 'status = "disabled"'.
+> Move compatible property to first.
+> Remove clock-frequency property for timer.
+
+Link [v4]: https://lore.kernel.org/linux-arm-msm/20260821154030.2514-1-sreeshankar0910@gmail.com/T/#t
+Changelog [v4]:
+[PATCH v4 04/13] clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
+> Update .fw_name with .index
+[PATCH v4 13/13] arm64: dts: qcom: Add SM7250 devicetree file
+> Added missing capacity-dmips-mhz and dynamic-power-coefficient for cpu@300
+> Added power-domains for cpus and apps_rsc
+
+Link [v3]: https://lore.kernel.org/linux-arm-msm/20260821081125.4522-1-sreeshankar0910@gmail.com/T/#t
+Changelog [v3]:
+[PATCH v4 04/13] clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
+> Updated the way of registering critical clocks.
+> Made some more clock critical.
+        GCC_VIDEO_XO_CLK
+        GCC_CAMERA_XO_CLK
+        GCC_DISP_XO_CLK
+        GCC_NPU_CFG_AHB_CLK
+        GCC_CPUSS_AHB_CLK
+        GCC_NPU_BWMON_CFG_AHB_CLK
+These clocks are flagged as critical in gcc-lito.c
+
+Link [v2]: https://lore.kernel.org/linux-arm-msm/20260819152545.3934-1-sreeshankar0910@gmail.com/T/#t
+Changelog [v2]:
+[PATCH v2 12/13] dt-bindings: cpufreq: qcom-hw: Document SM7250 cpufreq hardware
+[PATCH v2 13/13] arm64: dts: qcom: Add SM7250 devicetree file
+> Added SM7250 cpufreq hardware
+
+Link [v1]: https://lore.kernel.org/linux-arm-msm/20260818080754.4362-1-sreeshankar0910@gmail.com/T/#t
+
+Sreeshankar K (12):
+  dt-bindings: arm: qcom,ids: Add SoC ID for SM7250
+  soc: qcom: socinfo: Add SM7250 SoC ID
+  dt-bindings: clock: Add SM7250 global clock controller
+  clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
+  dt-bindings: clock: qcom,rpmhcc: Document RPMHCC compatible for SM7250
+  clk: qcom: rpmh: Add SM7250 rpmh clocks
+  dt-bindings: power: qcom,rpmhpd: Document RPMh power domain for SM7250
+  pmdomain: qcom: rpmhpd: Add RPMh power domains for SM7250
+  dt-bindings: firmware: qcom,scm: Document SM7250 SCM
+  dt-bindings: interrupt-controller: qcom,pdc: Document SM7250 PDC
+  dt-bindings: cpufreq: qcom-hw: Document SM7250 cpufreq hardware
+  arm64: dts: qcom: Add SM7250 devicetree file
+
+ .../bindings/clock/qcom,rpmhcc.yaml           |    1 +
+ .../bindings/clock/qcom,sm6375-gcc.yaml       |    4 +-
+ .../bindings/cpufreq/cpufreq-qcom-hw.yaml     |    1 +
+ .../bindings/firmware/qcom,scm.yaml           |    1 +
+ .../interrupt-controller/qcom,pdc.yaml        |    1 +
+ .../devicetree/bindings/power/qcom,rpmpd.yaml |    1 +
+ arch/arm64/boot/dts/qcom/sm7250.dtsi          |  771 ++++++
+ drivers/clk/qcom/Kconfig                      |    9 +
+ drivers/clk/qcom/Makefile                     |    1 +
+ drivers/clk/qcom/clk-rpmh.c                   |   24 +
+ drivers/clk/qcom/gcc-sm7250.c                 | 2275 +++++++++++++++++
+ drivers/pmdomain/qcom/rpmhpd.c                |   19 +
+ drivers/soc/qcom/socinfo.c                    |    1 +
+ include/dt-bindings/arm/qcom,ids.h            |    1 +
+ include/dt-bindings/clock/qcom,sm7250-gcc.h   |  163 ++
+ 15 files changed, 3272 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm64/boot/dts/qcom/sm7250.dtsi
+ create mode 100644 drivers/clk/qcom/gcc-sm7250.c
+ create mode 100644 include/dt-bindings/clock/qcom,sm7250-gcc.h
+
+-- 
+2.43.0
 
