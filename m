@@ -1,139 +1,82 @@
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 094E9488DAE
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 17:21:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 577AE488D82
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 17:22:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788283310; cv=none; b=FpHKlm72YA9fJRx0epZFCrSr8opNnOHCKIzRxl32oipT0XmTBTihnskSHYvx2Az+dnf00kPHR7gACqM4q63u7NiVlkBiBLXT+KBRrXZM/TSYGoy5ZKPbVD8UFm9Jx2tqI0QnmS6mwC3j3P4bsjnY5DwH+6zmlpOGslK6+j6vmkA=
+	t=1788283378; cv=none; b=j3OUpNtRYzEzKXcl9mtOGRPddKKfX10yM8Lep0XI8UAfsBMLqR+qoX9n/ZLvieTucK397WuCyfo8KpcJxJ1UpNcFNsdoCt/5rE9TuEIYYuJgw9ClbtWXF8wwfRWzMfYjPRTZsiDvV4tIhqF3h2AsudAgqGynggSWj3mFUhGpLMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788283310; c=relaxed/simple;
-	bh=Bf3DldYJPkEl5wDXkPPwE+qQIpcMuluvTmCJXkBa3ZE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FLqfkJiSx+e6/KWBHqsydA144qjEhZmTQnX7Enf2dgZjfdkFfygWCFXodMmTeeIjSD3xKK2/b3gFRtQ9EvNo59u2dmMnvb0wou/VOtcdY57lBcBpNVOsblKf7NDcrg+AfI/cgb8R7stxo/3xw4sTr+5D1gXFnAwOp6LGydXKgFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=w1PVg66y; arc=none smtp.client-ip=209.85.160.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1788283378; c=relaxed/simple;
+	bh=Ad1DukBGwLi6ArucFKVFRHpCwR2Weby1EPL9ATOHJ1c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=T0eg6Xl/BhWKcR8scKvsnvgU2pzk2/U/L6/KoEjxslJAZGHE/jsvkJcM8xJohT5Itz4Evkp15rapH6VPk8h7R5JnpCiWI33WptaeAW74wB2WJ90EHuOlHaFreogUXUTsaMuDoc/VnuT4uagG7DTH+7rib48sGnuX+Td1dKLhAZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hLT6pqk/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="w1PVg66y"
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-51c0006ea8eso369161cf.1
-        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 10:21:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1788283308; x=1788888108; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oFhnWYzUZYC/wvAq/4Lo1J9s4tj77sgPBLg2juwGlsE=;
-        b=w1PVg66yReSX5yg83+AUMHYBJbdEiIxIva72R+qUDOld7CwiDAxGrH92f3G6Fvu8Me
-         oxkrUV0baAy+WiDw7UGF4dohAsK0xkHHoSgJHJYMuGIcfWyAt/68PlIAm/0PaIw+SLzq
-         DJx4IK0MoQuGxT7Rkqde14G1XohjhJv0I1Zr80tVqFQsBfOWH1MobEtfr9MEfjIhOtsj
-         rba9WpXdH3n7Yfxb4b0VgeuOUaOanASIde97c01veIypNlcp8y6uW0y83Q7G92ali9nJ
-         qdaM6QRyW1dvIvtxUkoGG7nBIH4K3gPMd3pOMalIfHKcibmTc8IZaM4OK06e3v/iCbc7
-         K6jg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788283308; x=1788888108;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oFhnWYzUZYC/wvAq/4Lo1J9s4tj77sgPBLg2juwGlsE=;
-        b=kZtwbr7OpveKXCRgScI1Ytb36+71XDe6zGcs9ekda5vGi9GbNlKl0inV+rPjS+ZM+L
-         dGrd/91YWjdKYr5v9FR7Ror5SOyrwtsB22vh/9w2OWpvqMjsBd9MvnkR0FDoEdsoIRlI
-         ku0AipNs9HMbwimFP8bZku3qrkDyo7dt/Nr9kC6/X2q74K9gOpQG1xs55KQedsEIGP07
-         +mFqA++lUww4O9Zu4etJxidCOASRxeOQ4mYqWC/0kAXGurYbgvgza/IykybyOX0e8F5b
-         N8o8hjy0A5mTL6ppr8lAbgygSzuM/HrNtJgxnBc8SuCNRzRXt2+iAWhzu1hlAyCsgbLZ
-         nlcA==
-X-Forwarded-Encrypted: i=1; AHgh+RouGbbpMPJgfK7ECCIrueHdhQV21LJuwmR/2JECKzuPsjwoFGUeS9OPows59Tc/aTCewUam+HLqCoLX@vger.kernel.org
-X-Gm-Message-State: AFuF++mPsZ71Sp78WyZ5XB3f/lBpCgoKeAW1FBiM0wrZfjl70/sMOZok
-	5LTtMb6SYzO/LshpsTPS7q/+dHqVTFvdPKFGXGN1stvdZ32VJ2Ehsdack2+VHeUABuw=
-X-Gm-Gg: AR+sD12Wm6kGKGw0YhI18ucUXhKo50+NQ2SQAHtRcn4sGWJJtEU8a6MpDcF6lkgpJ50
-	k0zYGbkW56/9r/+KfdGmUvhRyQK5ahdEb4fC8kivxk9O9Pu7xRu+X1VcCvZH9noLrFu2gU6xBcQ
-	l97sTkCc5blaeKMbqMp7ejNtpjaFcXndoMJ2rBn7ANPKA/986UsilwBdl567Y/QejIxN1830ijj
-	Xq5s73sUoOLtLJ5f+/hNZF7mTwUIHPfxhspWn3nuTJphrIVtZDYy+TqDZ2/UVaU4ggDyK/OK/Ok
-	7nToAf16EulIrYeQZyeJ5Nkqu97QBZDnFB0xaYwdkH8Fi+A//TeoJag7fETEyKm/x0Wpcy4gnus
-	c7G2X8yBbnisYWs/OeOFAODWH3Imr4220GEI2J1a3njsECZBlby0eY/Pz1N9i5oNzhVLXnkNvhb
-	Sx1PLP5y5CivpKY1pF5I3icxm8UDRozHHBOJEzcGa1wZiJYChbHgESfC4ZebutCBOG9Q==
-X-Received: by 2002:a05:622a:2586:b0:51a:8bc9:2915 with SMTP id d75a77b69052e-52fb93d5098mr461094611cf.8.1788283267690;
-        Tue, 01 Sep 2026 10:21:07 -0700 (PDT)
-Received: from zippy.localdomain ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530331d9cbcsm1423661cf.16.2026.09.01.10.21.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 10:21:07 -0700 (PDT)
-From: Alex Elder <elder@riscstar.com>
-To: andersson@kernel.org,
-	konradybcio@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: daniel@riscstar.com,
-	mohd.anwar@oss.qualcomm.com,
-	lorenzo.bianconi@oss.qualcomm.com,
-	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 5/5] arm64: dts: qcom: qcs6490-thundercomm-minipc-g1iot: use dev for device nodes
-Date: Tue,  1 Sep 2026 12:20:57 -0500
-Message-ID: <20260901172058.1512508-6-elder@riscstar.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260901172058.1512508-1-elder@riscstar.com>
-References: <20260901172058.1512508-1-elder@riscstar.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hLT6pqk/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 003801F00A3A
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 17:22:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788283377;
+	bh=Ad1DukBGwLi6ArucFKVFRHpCwR2Weby1EPL9ATOHJ1c=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=hLT6pqk/N3t4GsJHKh6IsbFpP3/hTTyorJFTxXTtgNJXA6dBXcp/OsAr/8n8udXL2
+	 yPmUjPQnbS7tthwscVDgkBq0SpjosQzqiNizqvhoNY9oQT6oPiGLUAcgp7cbmnMb3Q
+	 FzZjM3JzC2jleBf4G97WdhXulwnZuZrKjMpUOQMSv3N39ayy9KVor+RQs1iQnnZkF8
+	 A2NkG8MKPzXB6EiPADiumEzl35X73acZNA96sFjXu35zszn+mHIm/2C9zB1BIGnDfN
+	 YrQ1HzKChXi0MGA2X3ERbmr4r2zuBI2tFkW6LwhYtie1Ygd6J8oea2NX2at8grVpE8
+	 bZuBEPcgIAgnw==
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5b4a9994c20so9075e87.0
+        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 10:22:56 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxkktvhvqtWSBHEWRCHXBHVENERHXwipTij0sFP2+VnudZiiRw/Y1l/ii7tD0X2Yt4t0gBjeqILeHD2@vger.kernel.org
+X-Gm-Message-State: AFuF++k7E78qkCG8ZU3Mj5qmBzO+zJTllIU/9wgcAYw+PTdFxvl8dErZ
+	llaO2LS65Nj6ZGcaNfMBL8r8VRcpCnVR6c4Pmt4dRqtasy3bAo81jSmyitI0oCjjGEcccwLY5dU
+	VjnsggQLGY+hO238lbQTQjQ2kta6sTow=
+X-Received: by 2002:a05:6512:ac7:b0:5ae:b998:9134 with SMTP id
+ 2adb3069b0e04-5b5e68a7adfmr11827743e87.1.1788283375630; Tue, 01 Sep 2026
+ 10:22:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260827-kuno-soc-support-v5-0-6d47636a8f09@oss.qualcomm.com> <20260827-kuno-soc-support-v5-9-6d47636a8f09@oss.qualcomm.com>
+In-Reply-To: <20260827-kuno-soc-support-v5-9-6d47636a8f09@oss.qualcomm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 1 Sep 2026 19:22:42 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnHCrhvdVCzbU5JA1qVOQ7hh7B=gwPr9QPtZdqh9ZxADw@mail.gmail.com>
+X-Gm-Features: AcwNN1V_scX2qdh9lKw1huy2nxRfP13bn5JqOZZxyJX3f5glJ69SIw1ECTFLPMk
+Message-ID: <CAD++jLnHCrhvdVCzbU5JA1qVOQ7hh7B=gwPr9QPtZdqh9ZxADw@mail.gmail.com>
+Subject: Re: [PATCH v5 09/15] pinctrl: qcom: Add Kuno pinctrl driver
+To: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Georgi Djakov <djakov@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>, 
+	Guru Das Srinagesh <linux@gurudas.dev>, Taniya Das <taniya.das@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-A recent change caused the embedded PCIe endpoints on TC9564 SoCs to
-be treated by the devicetree code as PCI buses, which is incorrect.
+On Thu, Aug 27, 2026 at 7:52=E2=80=AFPM Hardeep Sharma
+<hardeep.sharma@oss.qualcomm.com> wrote:
 
-The Thundercomm AI Mini PC G1 IoT defines a TC956x SoC, which includes
-a PCIe switch with one upstream port and two downstream (external)
-ports, plus a third downstream port.  The third port has an embedded
-PCIe endpoint with two functions, each providing access to a 10 Gbps
-capable Ethernet interface.
+> Add the TLMM pinctrl driver for the Qualcomm Kuno platform, supporting
+> 110 GPIOs and their pin multiplexing, pin configuration and gpiolib
+> interface through the common pinctrl-msm driver.
+>
+> Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
 
-The devicetree nodes representing these functions were previously
-named "pci@" but were renamed in the interest of consistency in
-commit e806c63ba51a7 ("arm64: dts: qcom: Rename pci@ nodes to pcie@").
+FWIW LGTM
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-Unfortunately, of_node_is_pcie() causes nodes named "pcie@" to be
-treated as PCI bridges, which PCI endpoints are not.  The previous
-name "pci" matched such nodes as "default-flags" bus type, defined
-in the of_busses[] array.
+Bartosz will decide and merge when it is ready.
 
-Rename the PCIe endpoint nodes "pci@" so they are not mistaken for
-bridge nodes by the devicetree parsing code.  This restores the
-previous behavior, and allows them to be used for PCI endpoint bus.
-
-Fixes: e806c63ba51a7 ("arm64: dts: qcom: Rename pci@ nodes to pcie@")
-Signed-off-by: Alex Elder <elder@riscstar.com>
----
- arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts
-index 31bafa2cf51db..183ac59ca7d49 100644
---- a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts
-@@ -790,7 +790,7 @@ pcie@3,0 {
- 			ranges;
- 			bus-range = <0x5 0xff>;
- 
--			pcie@0,0 {
-+			pci@0,0 {
- 				reg = <0x50000 0x0 0x0 0x0 0x0>;
- 				#address-cells = <3>;
- 				#size-cells = <2>;
-@@ -798,7 +798,7 @@ pcie@0,0 {
- 				ranges;
- 			};
- 
--			pcie@0,1 {
-+			pci@0,1 {
- 				reg = <0x50100 0x0 0x0 0x0 0x0>;
- 				#address-cells = <3>;
- 				#size-cells = <2>;
--- 
-2.53.0
-
+Yours,
+Linus Walleij
