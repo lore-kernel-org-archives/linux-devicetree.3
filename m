@@ -1,46 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09E6149365D;
-	Tue,  1 Sep 2026 18:04:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA754494829;
+	Tue,  1 Sep 2026 18:05:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788285855; cv=none; b=jTOFp2kM6z4aO3Ux+NGFKN1ct4FUNyy5uidQGtaBeTCI0+1lbXJ9qhSU+fAHryl/wwF2atSDiCf1Qr1vuJpRWJioVuHjlJEZjdpznByAGrFwKAiCXiMXIgnnI4vkTXKm/aEkC3FQhVKOqfOzCAMfHv7C9Pf+8VN4ne58exVe1/8=
+	t=1788285910; cv=none; b=rhEOCqjvMleweKCWB1aEehB5xbV1PK3/DYqnyfQImP3VNuKpc7ea9I4ttBFdT8vSnEh8QPazdJWKSsbWnSSOs9tj0S+S9LHkBtrnBGPzwg4eW8orks9IUPhqUWMjW5Djy0AqB7d+7Q5joB+P/4DIG9px7zYlzavz2yC4KfH+9Qk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788285855; c=relaxed/simple;
-	bh=9XjD0EYfPWneuNFnlehAdqsFDUYFqnjfr3Di+F+OBN8=;
+	s=arc-20240116; t=1788285910; c=relaxed/simple;
+	bh=iWGNiDS8ZCSgb2W9PN+r8+jRy+ytgHRSpAHm+4BsZDs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uoTHioK4lR3O8t5TZGk4W13bpfh4JG9sa0Fqkjv/oMTi4ZWakF935EB6NWxtrWrZgXzf6ydQDUreitNQ/k2zYMjVz3YI3eRlOKQEmorHCNkngZfthyz5tucz4GbMxtcL+UvaVbGy35axi2Anub1i9sraCNCUmn6raD/xBN77IwQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W8NP9asV; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=HUyYpb43VaBV3beIK2JCyeNaU01yesZI7saX0wVxeniPI/jaI+X3WMauW5grbEd3XrQGxZzB09o6xn1D2/L/SmYkiK0mgTxXO3GnIsy9DB1hdna44gjqFYxqwFrLBA/aYsuzvsdlNG2EQfkDpX4PoLwTRW3aupKUSapbclq8yqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JUxnMkoA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W8NP9asV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B19321F000E9;
-	Tue,  1 Sep 2026 18:04:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JUxnMkoA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 355231F000E9;
+	Tue,  1 Sep 2026 18:05:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788285853;
-	bh=9XjD0EYfPWneuNFnlehAdqsFDUYFqnjfr3Di+F+OBN8=;
+	s=k20260515; t=1788285909;
+	bh=BBpsF2dg6Vi508P3YPVHwpdk4fG6Hs4x5J/YjvAMH3E=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=W8NP9asVUvyjC8TufOwX0tJ6Gzpo6qzkhdHUx7EHT0k1rpPSKQTBnwPQcz0mSpOX0
-	 rgSr5Qw88qqnCHVdU69ZubZ9ySAswPWeSr29C/+NyhnkR/BRZ75djwzWpTdPBTFzZ+
-	 gD5eOR2FutGJXglB+vi7F4BRzJUkoox2DFszYEu9PUjSINCHpTaGkd60XCTj2jkY5s
-	 eqt6VqxNXk3YMmMeesuSek9mCyZoBCu7E0z8wQcA3UaQuJ4NJnpgJfHREDQS7EOA9x
-	 bqjjDpVy8ISQcc5GqrME1jgA5YihVy0JToPD62L//6xyRIamXGfgAhwHzv/J1CaAhA
-	 TTz/OgJerr3Rg==
-Date: Tue, 1 Sep 2026 19:04:09 +0100
+	b=JUxnMkoAN0LATLcDRxh1ClGduoMWsqrBcLKwxGnCVCOl7Fq0hTCeoylSJqS0C7tDl
+	 8kcxAynyY6czTIht1Q01S4LJkfFRNOvQSkEq++5Refek8Bl0aJE+9A2mBbaAaeTAh9
+	 69x94vXVmayPJg6OGLes8i4YLvGxCKNLzaTxQPikm/qvKVDlSL1/Ey87NGueG00HNj
+	 9scvlxenR9g9dvOZH8qqhXf9hZ3Wk3KsAhVCgh0xVPTDwF6byD1Z2/n9+qDGU37eSl
+	 TrLmQtXqeLTd2Sl9uBE1J2amEFcN2eBqRD4B/7UT9Ux3ikX8le3OvO9uzNWx4fD/Kl
+	 xZ2G+1xBxzB6g==
+Date: Tue, 1 Sep 2026 19:05:04 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Marek Vasut <marex@nabladev.com>
-Cc: Guenter Roeck <linux@roeck-us.net>, linux-pm@vger.kernel.org,
-	Conor Dooley <conor+dt@kernel.org>,
-	Flaviu Nistor <flaviu.nistor@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
-	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: hwmon: tmp102: Document TMP113
-Message-ID: <20260901-pavilion-unexposed-80ae9812e77d@spud>
-References: <20260901161008.46948-1-marex@nabladev.com>
- <20260901-untimely-wake-578b1a86b9fe@spud>
- <4bbcc5fe-86a1-4299-a0df-e9f44d5c237f@roeck-us.net>
- <2e3f7dab-5f64-4dcf-b995-82fcc3a5e780@nabladev.com>
+To: Shehryar Ahmad <shehryar.amd@gmail.com>
+Cc: jic23@kernel.org, nuno.sa@analog.com, Michael.Hennerich@analog.com,
+	dlechner@baylibre.com, andy@kernel.org, gregkh@linuxfoundation.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux@analog.com, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev,
+	devicetree@vger.kernel.org, marcelo.schmitt1@gmail.com,
+	danascape@gmail.com
+Subject: Re: [PATCH 3/3] dt-bindings: iio: accel: adi,adis16201: add
+ adis16203 compatible
+Message-ID: <20260901-ambitious-eloquent-7dcb297a9e6a@spud>
+References: <20260831184201.34416-1-shehryar.amd@gmail.com>
+ <20260831184201.34416-4-shehryar.amd@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,85 +48,83 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ocFmQVxThrfwbmsg"
+	protocol="application/pgp-signature"; boundary="ZZpjyQTJecju7TVT"
 Content-Disposition: inline
-In-Reply-To: <2e3f7dab-5f64-4dcf-b995-82fcc3a5e780@nabladev.com>
+In-Reply-To: <20260831184201.34416-4-shehryar.amd@gmail.com>
 
---ocFmQVxThrfwbmsg
-Content-Type: text/plain; charset=iso-8859-1
+--ZZpjyQTJecju7TVT
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 01, 2026 at 07:58:51PM +0200, Marek Vasut wrote:
-> On 9/1/26 7:48 PM, Guenter Roeck wrote:
+On Mon, Aug 31, 2026 at 11:42:01PM +0500, Shehryar Ahmad wrote:
+> The ADIS16203 has the same external interface as the already documented
+> ADIS16201/ADIS16209, for the properties covered by this binding
+> (compatible/reg, the DIO-based interrupt pin, and VDD supply), verified
+> by datasheets Table 5, Pin Function Descriptions, in the respective
+> Analog Devices datasheets. Some Auxiliary pins differ (e.g. adis16209
+> marks a few pins DNC where adis16201/adis16203 use them as AUX COM), but
+> these are not represented in this binding.  Add adis16203 to the
+> existing enum rather than creating a separate file.
 >=20
-> Hello Guenter,
->=20
-> > > > @@ -13,11 +13,12 @@ properties:
-> > > > =A0=A0=A0 compatible:
-> > > > =A0=A0=A0=A0=A0 oneOf:
-> > > > =A0=A0=A0=A0=A0=A0=A0 - items:
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - enum:
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 - ti,tmp110
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 - ti,tmp113
-> > > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 - const: ti,tmp102
-> > > > -=A0=A0=A0=A0=A0=A0=A0=A0=A0 - const: ti,tmp103
-> > > > -=A0=A0=A0=A0=A0=A0=A0=A0=A0 - const: ti,tmp110
-> > > > -=A0=A0=A0=A0=A0 - enum:
-> > > > -=A0=A0=A0=A0=A0=A0=A0=A0=A0 - ti,tmp102
-> > > > +=A0=A0=A0=A0=A0 - const: ti,tmp102
-> > > > +=A0=A0=A0=A0=A0 - const: ti,tmp103
-> > >=20
-> > > Should this not be two patches, one fixing the existing stuff and one
-> > > adding the 113?
-> > >=20
-> >=20
-> > It is all in -next. Looks like I resolved the conflict when combining
-> > "dt-bindings: hwmon: tmp102: move ti,tmp103 out of trivial-devices.yaml"
-> > and "dt-bindings: hwmon: tmp102: Document TMP110" the wrong way.
-> > Sorry for that.
->=20
-> No worries, I hope V3 I just sent fixes it up.
->=20
-> > Instead of adding more patches on top of it, how about providing a
-> > single patch moving tmp103 and adding tmp110 as well as tmp113
-> > together ? Alternatively, I could drop "dt-bindings: hwmon: tmp102:
-> > Document TMP110", apply the original (non-conflicting version) of
-> > "dt-bindings: hwmon: tmp102: move ti,tmp103 out of trivial-devices.yaml=
-",
-> > and then tmp110 and tmp113 could be added in a single patch.
-> >=20
-> > Please let me know.
-> I think the broken commit is d67ec24d3f07 ("dt-bindings: hwmon: tmp102: m=
-ove
-> ti,tmp103 out of trivial-devices.yaml") and v3 1/2 is the fix for that
-> broken commit. V3 2/2 only adds the missing TMP113 .
->=20
-> So I think there are two options:
-> - The complicated one -- squash d67ec24d3f07 ("dt-bindings: hwmon: tmp102:
-> move ti,tmp103 out of trivial-devices.yaml") and V3 1/2 (and either do it=
- in
-> tree, or drop d67ec24d3f07 ("dt-bindings: hwmon: tmp102: move ti,tmp103 o=
-ut
-> of trivial-devices.yaml") and ask for it to be updated and resent), then
-> apply that, and apply V3 2/2 (or newer) .
-> - The simple one -- apply both V3 patches (or whatever newer version is g=
-ood
-> enough) and move on.
->=20
-> Just let me know what you like better.
+> Signed-off-by: Shehryar Ahmad <shehryar.amd@gmail.com>
+> ---
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-Either works for me fwiw, v3 looks fine.
+Why is this below the --- line (IOW it won't appear when the patch is
+applied)?
 
---ocFmQVxThrfwbmsg
+>=20
+> Previously reviewed at:
+> https://lore.kernel.org/all/20260812043506.456ced6d@jic23-huawei/
+>=20
+>  .../devicetree/bindings/iio/accel/adi,adis16201.yaml        | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/iio/accel/adi,adis16201.ya=
+ml b/Documentation/devicetree/bindings/iio/accel/adi,adis16201.yaml
+> index b6ba7ad1a..3ce5fb1be 100644
+> --- a/Documentation/devicetree/bindings/iio/accel/adi,adis16201.yaml
+> +++ b/Documentation/devicetree/bindings/iio/accel/adi,adis16201.yaml
+> @@ -4,21 +4,23 @@
+>  $id: http://devicetree.org/schemas/iio/accel/adi,adis16201.yaml#
+>  $schema: http://devicetree.org/meta-schemas/core.yaml#
+> =20
+> -title: ADIS16201 Dual Axis Inclinometer and similar
+> +title: ADIS16201 Inclinometer and similar
+> =20
+>  maintainers:
+>    - Jonathan Cameron <Jonathan.Cameron@huawei.com>
+> =20
+>  description: |
+> -  Two similar parts from external interface point of view.
+> +  Three similar parts from external interface point of view.
+>    SPI interface.
+>      https://www.analog.com/en/products/adis16201.html
+> +    https://www.analog.com/en/products/adis16203.html
+>      https://www.analog.com/en/products/adis16209.html
+> =20
+>  properties:
+>    compatible:
+>      enum:
+>        - adi,adis16201
+> +      - adi,adis16203
+>        - adi,adis16209
+> =20
+>    reg:
+> --=20
+> 2.43.0
+>=20
+
+--ZZpjyQTJecju7TVT
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapcTmQAKCRB4tDGHoIJi
-0hljAP924o57OfGqzoPZITJoOHl9SJdN2DnhzyPYE05QkyxZ2QD/eUSQDsVYrxuZ
-iVN2Y/fSzy/dZmPqkKLmExhsRJ10KgY=
-=azz2
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapcT0AAKCRB4tDGHoIJi
+0tvPAP45Wmq5LZYcSkWoAbFDkgmxpROzXFrfYtlKu2EXOWtePgEA/BVpsZIUconw
+AZI0y8fAA+PuagsZaCPFfFJ6nILeDAk=
+=Ft30
 -----END PGP SIGNATURE-----
 
---ocFmQVxThrfwbmsg--
+--ZZpjyQTJecju7TVT--
