@@ -1,122 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E54B339891E;
-	Tue,  1 Sep 2026 01:21:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4072E3644C1
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 01:28:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788225691; cv=none; b=MOjmKL1BWN74fpctdn4vGKxa4PzVPMaRLyDzpEq8VHENAAbpF7ltDHVvf0SDdTnmkXukysD7T4w1LLU0d3NcYphyVsjRCUJNQ0yl9xyf0+zUawoJcIWX6e42wv2m/D58AmLr4wEtqhMG/jNYWpenij+2umznD1G737k43DAwKto=
+	t=1788226084; cv=none; b=psQNENP9hfooq+nj9WzsWV641ZZb/Nf0BBcoe8/7QIoWlvGTyzZ5Ag1VtnQP9JXvFNHm+cTpWLDbxaDIGVlP/xXE4Cj0n0UGbz36oo1g6Bq0mD0E1bRAw+tKxD9fUKP7XgXGkQEZnLbvRxY/7sylcYuB5HmdFiQpeF5arQpGVTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788225691; c=relaxed/simple;
-	bh=2He7IRWhh/zVR54chcz4eyarVbby3ZlOpIJdLWTnaJA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=t6VcHzerGZc7hBqs96GgIyX9s+uaKtQ00aarh8oi2wUfTRVL1FyBu1QEhUwVAA+7ahb+6t51nUripv7fkUzPXYQOvd8TQ6P2dGalUR7jSr3NQMCcaP8KMev1tFLrBWiFyVHagsouYUWXd2V4TK6NYjX9ifom6X3I8yHdHc8p06g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BboJtC+F; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788226084; c=relaxed/simple;
+	bh=QGt1YjiI/mhzTO00cbHYiFktJLVXSS+Ad6iAxmSQHCE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nN5VoNyyD2MxZVDk5blgCDWnBTiEXpouSiFCMaDmU+i/MXiB3IpBwJWcgmVEnH5H8TZU5wvfLKQojb4hVD/bcVQFzKN9DDYqwLsxFi9eioRoYPdk8cZ8cOHTXCVysDkdsp78bCSOgzbKRcLCN3MjQ7f/qnU0qEDMCp97khfQoWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PV7YSF4U; arc=none smtp.client-ip=209.85.128.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BboJtC+F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AC6E1F000E9;
-	Tue,  1 Sep 2026 01:21:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788225688;
-	bh=CAwwIUEe0fWa6gH7pJzyDofYOC3V+JfA8ibhWclLp/g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BboJtC+FgciL+ZwZ27sfUpJLfjcrAotVBsI9wnC9/QjN3+N3slF2ojlOJ00wHMt/t
-	 ljU5CrmMDRUAv3Bh6Yki4qfoWNC/6g18yqIpYsqXqSCKleeibGnsxR+9fyURAH1s6r
-	 w57rqBRJxXktRRHJfCKHbCQhBp7qVrlE9ZX135AqBeYlYuiOuxnyrS9aI8Ld2uvT2u
-	 NiDRNw3VLpkUDT3w2S6wYEXYv66hH2znMMkZEKTEITQyRDnVcyakrsLw3p+NmtiAe5
-	 mdgFPK0/r5jGXgwwMjzDWSeJFC6zNHDxbXAVG8Q37MBWW9gOStBk+POpQ2gZndbZ9M
-	 8zfk/i1WHKIYw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/4] PCI: of: introduce of_pci_verify_node()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alex Elder" <elder@riscstar.com>
-Cc: robh@kernel.org, linux-pci@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260901011338.1323243-4-elder@riscstar.com>
-References: <20260901011338.1323243-1-elder@riscstar.com>
- <20260901011338.1323243-4-elder@riscstar.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 01:21:27 +0000
-Message-Id: <20260901012128.2AC6E1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PV7YSF4U"
+Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-85dbc24d398so37121577b3.2
+        for <devicetree@vger.kernel.org>; Mon, 31 Aug 2026 18:28:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788226081; x=1788830881; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nIGoaz0LhcbcXCMDmNyRwcjq4U0fW/hB6lB0VymIzzk=;
+        b=PV7YSF4UqSiDNoJan/UeGeSSjTAprRAOZe7drQbdVFyB2OFf4pV9vudu55TShAwFzJ
+         m39ESkh1MPj62nD5lSVTWLwseFbaeqXf2Lmrmwuy/bSAcYLhIbV3bOxgUvKrikbabh7/
+         7seDotf0epnxzBSvTKr98qZ5C1nFBMiIyeqcjCXwB3EBIdJNHhJFacJQISX8mbXrPIpX
+         q7HbhXltFT7CqfTPdG1sPO5A9+sSVgtK0Z5MvQfSgjzbThowX6Gt6Gp1snGlTh9Lt0B6
+         qVNuDrtkpIxHcQGNI2EjelZlmXfQgyKoXIp5cXMruI7pJSBdRGBfA+dkJdVhXvVLOhTw
+         NZAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788226081; x=1788830881;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nIGoaz0LhcbcXCMDmNyRwcjq4U0fW/hB6lB0VymIzzk=;
+        b=kVyRdthziIixZ6VQshRhaEdhRFrI8tQZoe89mESKAFh/Hvzoaxo6kQocNWjBaytUOj
+         2sQU7HVDZdLYvYbAsC/zLFBOYXt7ssHhcER1fbG0nBCcMnCd3XxbiyDOX69Z5qVmpN+L
+         rUAJNRVAbORs52KAEYKykg8jggQ5hjNb3tGK6lp3Ls9hT0M9wI+zc+eIOGS2LngAWslL
+         gTXql/EMbFYrcrUCmtP35pGwTkw1ptu2SQ6K0LvG/eisgWWHSywLWGGN1zJ8Y/UaB2oP
+         VHw5/wgEUI7HnxfuolZW5rTTA+w7hjXVvawxcycvWxmdh26kPbA8g0+jLc+0oiIm8nYL
+         e7Xg==
+X-Forwarded-Encrypted: i=1; AKwUvBx9LSpLpddG1OzAdXRDPFvMtbPDK10LzvNFanMgsp1l5WfF6DF47+8QmKppoRyS4M37dEmIjmY25csC@vger.kernel.org
+X-Gm-Message-State: AFuF++moRjM0x3TreEZxk1YmQBPUXGYf7l97JT5FLlQFIRtNH3O/FLk2
+	1EfhgHEkGDVd0YCFPeK10zvOfv9tB6dYsruXeTzzyTSqQPJkqZVdLSOp
+X-Gm-Gg: AYBFou0d9TsXhs1WV8BjH7YAUHDE/f+BDBg+VPg5jLcR/yzvBOdvZ7vo9MEJAc5lYsR
+	JB0/ltOVMpM65JKbKZ4X4YPqMCWyNQZUoAPqH+NfvRkCBeJjmyPvDkJbpKqLfj884tyoMPJkaBv
+	QUSzuVIsItLiVXJwPr/7eaG+8KrUft2UnCWyAek0GKf68l1ZCnqIV+mzzNtr+O+QhY/6l/9RS1L
+	QmtPKgaR84ovB7agH8VkQiftbOLK2bgeaVKR6r9dkUCSQsM6GhNFVzofHh+I4mqNOQttTE+4NyJ
+	4yY5CrKVds29euCJ7ITojfOfOHKCPjuq9VeO04E2qpQOgiLC1yKiaU7mGYZw4AAIjhrtIWhkUJt
+	tbKpOlcX4HjGTW2OSNKn3MPcrUUJmWqPQcwHT7m2NqBC7fee1WoT7y9VttBWV0lag3E+CE8Vo/w
+	yJoT1zXLvWj069vRwocfwNhKz7nCTxgWRdj9YeEG/8hQoRiHQd38WSNbhWObHHLnZoJqvE
+X-Received: by 2002:a05:690c:e254:20b0:81e:abe2:9a3b with SMTP id 00721157ae682-85d6a9aeec1mr85369257b3.10.1788226080941;
+        Mon, 31 Aug 2026 18:28:00 -0700 (PDT)
+Received: from localhost ([2804:30c:94d:7300:da0f:c2c1:1aa6:43da])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e6756c433sm65376667b3.44.2026.08.31.18.27.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 18:28:00 -0700 (PDT)
+Date: Mon, 31 Aug 2026 22:28:50 -0300
+From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+To: Luca Weiss <luca.weiss@fairphone.com>
+Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
+	Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 5/5] iio: light: stk3310: support the Sensortek
+ STK36C61
+Message-ID: <apYqUv_uuqZlhtOh@debian-BULLSEYE-live-builder-AMD64>
+References: <20260826175409.326131-1-jorijnvdgraaf@catcrafts.net>
+ <20260826175409.326131-6-jorijnvdgraaf@catcrafts.net>
+ <apEMCqQXyj1tAMoP@debian-BULLSEYE-live-builder-AMD64>
+ <20260828154705.11962-1-jorijnvdgraaf@catcrafts.net>
+ <apRGQVfPKWHvE2Ct@debian-BULLSEYE-live-builder-AMD64>
+ <20260830201950.63838-1-jorijnvdgraaf@catcrafts.net>
+ <DL2YT4S4U7C4.2CPGBR94G01FD@fairphone.com>
+ <apYiYnlM-agfG9he@debian-BULLSEYE-live-builder-AMD64>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apYiYnlM-agfG9he@debian-BULLSEYE-live-builder-AMD64>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The check in of_pci_verify_node() falsely flags compliant CardBu=
-s and PowerPC PCIe bridges as having an invalid device_type.
---
+On 08/31, Marcelo Schmitt wrote:
+> On 08/31, Luca Weiss wrote:
+> > Hi Jorijn,
+> > 
+> > On Sun Aug 30, 2026 at 10:19 PM CEST, Jorijn van der Graaf wrote:
+> > > On Sun, Aug 30, 2026 at 12:03:29PM -0300, Marcelo Schmitt wrote:
+> > >> Having a closer look at the data sheet I found for STK36C61, I noticed registers
+> > >> 0x13 and 0x14 are not listed. Does the newer part has ambient light sensing
+> > >> besides the clear channel?
+> > >
+> > > That looks to be the "STK36C61-A Preliminary Datasheet v0.9" hosted by
+> > > LCSC [1], which I hadn't found before, so the cover letter's "There is
+> > > no public datasheet" is wrong. It documents the -A variant, however,
+> > > and gives PDT_ID as 0x93, while the part in the Fairphone 6 reports
+> > > 0x95. It does agree with the device on the colour-engine layout: RGBC
+> 
+> The data sheets I was comparing were from
+> https://datasheet4u.com/datasheets/Sensortek/STK3310/836592
+> https://jlcpcb.com/partdetail/SENSORTEK-STK36C61A/C49230205
+> which were the first links that appeared to me on an online search.
+> 
+> > 
+> > Just to chime in, the datasheet I have access to (STK36C61-A Preliminary
+> > Datasheet Version - 0.9.2) there are a few changes compared with the one
+> > from LCSC but nothing too interesting:
+> > 
+> > * On the overview page LED current 228.75 changed to 218.75 mA
+> > * ALSCTRL1 register (0x02) has different values for BIT[6:4]
+> >   (17.92 -> 143.36; 8.96 -> 35.84; 4.48 -> 8.96)
+> > * PDT_ID is indeed 0x95 - maybe the previous version just had wrong
+> >   copy-pasted info?
+> > 
+> 
+> Hmm, I was initially thinking about the added STK3310_PROXIMITY_CHANNEL for
+> stk36c61. If STK36C61 has ambient light sensing (similar to STK3310 light
+> sensing read from registers 0x13 and 0x14) then it makes sense to have that
+> channel for STK36C61 too. Otherwise, that specific ambient light channel
+> shouldn't belong to stk36c61_channels.
+> 
+> I didn't find a data sheet for the part with PDT_ID 0x95, though, that sounds
+> like another thing to tidy up. Update the naming from STK36C61 to STK36C61A.
+> So, if STK36C61 (without the A) is ever added, there will be no naming conflict.
+> Unless STK36C61 is never going to be released (which doesn't seem to be the case
+> cause I can find a data sheet for that).
 
-commit 72a980b9469901bec37d04c04dd8de642179aa44
-Author: Alex Elder <elder@riscstar.com>
-
-PCI: of: introduce of_pci_verify_node()
-
-This commit introduces a runtime check to verify PCI devicetree nodes. It
-ensures that bridge devices have the "pci" device_type property and that
-endpoint devices do not.
-
-> diff --git a/drivers/pci/of.c b/drivers/pci/of.c
-> index a51dff91b196d..1838a3109514c 100644
-> --- a/drivers/pci/of.c
-> +++ b/drivers/pci/of.c
-
-[ ... ]
-
-> @@ -1085,3 +1085,34 @@ int of_pci_get_equalization_presets(struct device =
-*dev,
->  	return 0;
->  }
->  EXPORT_SYMBOL_GPL(of_pci_get_equalization_presets);
-> +
-> +/**
-> + * of_pci_verify_node - Sanity check some PCI device node properties
-> + * @pdev: The PCI device whose device node is checked
-[ ... ]
-> +void of_pci_verify_node(struct pci_dev *pdev)
-> +{
-> +	struct device_node *np =3D pci_device_to_OF_node(pdev);
-> +	bool device_is_bridge;
-> +	bool device_type_pci;
-> +
-> +	/* Nothing to check if there's no pre-existing devicetree node */
-> +	if (!np)
-> +		return;
-> +
-> +	device_is_bridge =3D pci_is_bridge(pdev);
-> +	device_type_pci =3D of_node_is_type(np, "pci");
-> +
-> +	/* Bridges should have device type "pci"; endpoints should not */
-> +	if (device_is_bridge =3D=3D device_type_pci)
-> +		return;
-> +
-> +	dev_err(&pdev->dev, "PCI %s have \"pci\" device_type property\n",
-> +		device_is_bridge ? "bridge should" : "endpoint should not");
-
-[Severity: Medium]
-Will this falsely flag compliant CardBus and PowerPC PCIe bridges as having=
- an
-invalid device type?
-
-The check in of_pci_verify_node() expects all bridges to have a device type=
- of
-exactly "pci". However, valid PCI bridges can legitimately use "cardbus" or
-"pciex" as their device_type property.
-
-When a PCI bridge with one of these valid types is added, the following call
-chain unconditionally triggers this error:
-
-pci_bus_add_device()
-  of_pci_verify_node()
-
-This could emit a false dev_err() during boot on platforms using these
-standard bridges, which might alarm users by polluting the kernel logs.
-
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901011338.1323=
-243-1-elder@riscstar.com?part=3D3
+Never mind, I completely missed the point of it having a preliminary datasheet.
+It might be sensible to try to estimate if the final version will keep the same
+name and PDT_ID.
