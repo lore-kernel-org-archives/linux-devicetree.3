@@ -1,264 +1,129 @@
-Received: from mail-4318.protonmail.ch (mail-4318.protonmail.ch [185.70.43.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B2B30B521;
-	Tue,  1 Sep 2026 00:59:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C3736B92C
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 01:04:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788224375; cv=none; b=RP2o9G0XDHabd3H4OnHVdZCOfFQPEILzDqn1TX01XFX+ES91WjtmVx+edFLpVtikso7nHtc2YYQCx1/Zo9wKhI1e+gII7ohjYvgoeDqwraWg0p3cQV/OR12IYeFlvAsF+O7AakWWjZ58YMjRZi5hGw/dyDbce8y/7hd5D8Tghz4=
+	t=1788224694; cv=none; b=uyD0pEItvnwLQXzOB25IWVH/osatveRkvro0TNeUGXJL1IkUWiida8xRtUwBdTzGaDeoH7UTpYZH5D0aqd3c6KZ2wuBePDIZqsufpTvUp5auW1hdH5VZ90ZWOoNA2cuRYcvGB/xxztVjD46X4sjwvy04TyZ65PoKzEFw8C3XYA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788224375; c=relaxed/simple;
-	bh=+3rpXvdizBAasQQCZSs50TByA2/x7dRZogapzcQCMRw=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=C1J8HmVoEce3Ml3rAq7R9IMeS5U/k//8V96ran3ZszlnUwsxuqm/Axo1IK741NMr1cc6lwvpW2JCfrsdKLnjIpbRXCkFY1GB13F2BUQawxD8Ml2xXxP8Jmb6p4YfspblgXXOcu5LC1mdDkOqbsTrhwbTN1ufy29EpjKJZAvCj6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=httpd.dev; spf=pass smtp.mailfrom=httpd.dev; dkim=pass (2048-bit key) header.d=httpd.dev header.i=@httpd.dev header.b=eyZ4rKrU; arc=none smtp.client-ip=185.70.43.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=httpd.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=httpd.dev
+	s=arc-20240116; t=1788224694; c=relaxed/simple;
+	bh=h3vboYjgVCcZOEHtEFnkBrmbyvBCW3ajj2TruJhDL3c=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=qH+KeSLwC0KAaBTcwA10C8We0FRm3hTS06fvMVEnq+U46CeaINTdbdRsXm6Kth+42bfgVQIaqiCU5JftRTaYhb3AaJHP7kyogquzHhS7fvuV5mP0VLzTdEW+saMv+5DNhM6KEFbSVN92PMFstQgOP8MvdvAQe86oaCeslHCnTz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ui5uat2z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=httpd.dev header.i=@httpd.dev header.b="eyZ4rKrU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=httpd.dev;
-	s=protonmail2; t=1788224369; x=1788483569;
-	bh=dsiMiEDU1iyqNugGv5MENp6q2JX/4otwgNxyz/lzYSA=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=eyZ4rKrUt95gUpqH2GtBgTuAWyqVXqdFv6BWKJVHnaaw6BIc8ukN/w1d1m14h6uZb
-	 qRS1Ke6znhKhp66XqY/aZrkg1DyrpD/KHYNEwHozBhwky6FNjNkne5rkitYKNgfZZ4
-	 mnC1TGoJdO+gRCi93bp4ZYbkRHmFEkv4Ivcfqmm0XbJZjv/h+XYcTIlJYMAIBdg6Pq
-	 Y/902OM5RIUUg/VrrtggZph4h/Wes50V6/DeV5QuRYV4AhlUSacZC9a8jlROgXKn5c
-	 SOSqbHBnolmCUnfC6IewVLdYdkJRL9PcRE6A8L1MZCVmTLSSh8TSOkInuYcVJtV/Kv
-	 FSmCuPhbYMutw==
-Date: Tue, 01 Sep 2026 00:59:25 +0000
-To: "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>
-From: Angel J <iamanaws@httpd.dev>
-Cc: "regressions@lists.linux.dev" <regressions@lists.linux.dev>, "stable@vger.kernel.org" <stable@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-rpi-kernel@lists.infradead.org" <linux-rpi-kernel@lists.infradead.org>, "helgaas@kernel.org" <helgaas@kernel.org>, "robh@kernel.org" <robh@kernel.org>, "andrea.porta@suse.com" <andrea.porta@suse.com>, "florian.fainelli@broadcom.com" <florian.fainelli@broadcom.com>
-Subject: Re: [REGRESSION] PCI: Dynamic OF node creation hangs on invalid bridge configuration
-Message-ID: <-KoxZtWNyNmnEu6-RkoMW2kenooTum0AiXwENwNBtoxqyI9wDXo1UJik1Wn9Igj_VRQ9bcYlva6FUZYq17UdPChUz_-mtDyrHSFO7t_broI=@httpd.dev>
-In-Reply-To: <GXe6anuewkS4bLNwca3cYOmUxN9csc0TxLYGSBc1qNRmfrmvFlcmD62wEM23TxfzfuXAv4P3yvUv7pyraleARrL1Na-aN8w-t9uc1Igu8DA=@httpd.dev>
-References: <GXe6anuewkS4bLNwca3cYOmUxN9csc0TxLYGSBc1qNRmfrmvFlcmD62wEM23TxfzfuXAv4P3yvUv7pyraleARrL1Na-aN8w-t9uc1Igu8DA=@httpd.dev>
-Feedback-ID: 163474212:user:proton
-X-Pm-Message-ID: 1031240fee8ce565906bd8ac4c0dbb2408b2550f
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ui5uat2z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2FDE1F000E9;
+	Tue,  1 Sep 2026 01:04:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788224693;
+	bh=Gs7j8v2l/ygBYHR9NFr/kRjD/YCIUAoOXhEKbLln8so=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Ui5uat2zsrq+Fge0yXum2an4vVKXRHvgZw/stay8RYWIi8dSL5jWvES2lPZfRz+tL
+	 PAIGXPNi+cx7XyH+HI5LueEtC6sIW3PWmKdtSomjTPxPDDuERhZQgwUKvS9b/B3YOk
+	 Eyh4lxXubcUYpcMqgBTq+zcEvoJE0Ad1xSA7yhS9ZUl+7vqMQbq56RlMxYjeGTxTt8
+	 VN5k9bzuZ8tauoFgLFh3dX5ZDSuWBSVv2lAdAqREIBtJoMC/CuOiI2iiS2VFWTgccY
+	 1kbT47lDe7myVkC/rbBzT0eA7BzW2b6jB5U8yHpmWb3Y11YC2PtGiYlGtskCcSWisz
+	 1GsGKFNK0mw4w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 5/5] iio: light: stk3310: support the Sensortek
+ STK36C61
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jorijn van der Graaf" <jorijnvdgraaf@catcrafts.net>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260901005114.203062-6-jorijnvdgraaf@catcrafts.net>
+References: <20260901005114.203062-1-jorijnvdgraaf@catcrafts.net>
+ <20260901005114.203062-6-jorijnvdgraaf@catcrafts.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 01 Sep 2026 01:04:52 +0000
+Message-Id: <20260901010452.C2FDE1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------92b2098d95252a39ada38c9e88383d14dd60f1ac3fa7fee7e6a674a7c834e248"; charset=utf-8
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------92b2098d95252a39ada38c9e88383d14dd60f1ac3fa7fee7e6a674a7c834e248
-Content-Type: multipart/mixed;boundary=---------------------9fc1428e6ff9ebac9729a5244b051e32
-
------------------------9fc1428e6ff9ebac9729a5244b051e32
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;charset=utf-8
-
-Hello,
-
-A friendly ping on this regression. It still affects Linux 6.18, and
-the tested invalid-bridge guard allows the machine to boot with
-CONFIG_PCI_DYNAMIC_OF_NODES=3Dy.
-
-Is any additional information or testing needed from me?
-
-Thanks,
-Angel
-
-
-
-On Saturday, August 22nd, 2026 at 19:14, Angel J <iamanaws@httpd.dev> wrot=
-e:
-
-> Hello,
-> =
-
-
-> This regression was introduced in v6.17-rc1 and remains in the dynamic
-> PCI OF node code. Linux 6.18 fails very early during boot on my Dell XPS
-> 8940 when CONFIG_PCI_DYNAMIC_OF_NODES=3Dy. The display goes black before
-> any useful console or pstore output appears, and the machine remains
-> hung.
-> =
-
-
-> Disabling CONFIG_PCI_DYNAMIC_OF_NODES makes the same kernel boot normall=
-y.
-> Linux v6.19-rc5 also boots because the RP1 driver stopped selecting that
-> option, not because the dynamic PCI OF node code changed.
-> =
-
-
-> Hardware:
-> =
-
-
->   System: Dell XPS 8940, board 0K3CM7, BIOS 2.27.1 (2025-04-03)
->   CPU: Intel Core i7-11700 (Rocket Lake)
->   Triggering device: 0000:00:00.0, Intel 8086:4c43
->   Firmware boot: UEFI, ACPI-based x86_64
-> =
-
-
-> Test results:
-> =
-
-
->   Linux 6.12.103: good
->   Linux v6.17-rc1: bad
->   Linux 6.18.44, CONFIG_PCI_DYNAMIC_OF_NODES=3Dy: bad
->   Linux 6.18.44, CONFIG_PCI_DYNAMIC_OF_NODES=3Dn: good
->   Linux 6.18.44, CONFIG_PCI_DYNAMIC_OF_NODES=3Dy, skip invalid bridge: g=
-ood
->   Linux v6.19-rc4: bad
->   Linux v6.19-rc5: good
->   Linux 4621c338d33f: bad
->   Linux e55feea3a03a: good
-> =
-
-
-> The first-parent boundary between the last two tests is:
-> =
-
-
->   e55feea3a03a ("Merge tag 'soc-fixes-6.19' ...")
-> =
-
-
-> That merge contains ce26f588c831 ("misc: rp1: drop overlay support"), wh=
-ich
-> removes:
-> =
-
-
->   select PCI_DYNAMIC_OF_NODES
-> =
-
-
-> from MISC_RP1. The generated configurations differed only by:
-> =
-
-
->   -CONFIG_PCI_DYNAMIC_OF_NODES=3Dy
->   +# CONFIG_PCI_DYNAMIC_OF_NODES is not set
-> =
-
-
-> CONFIG_MISC_RP1=3Dm in both. The known-bad 4621c338d33f and Linux 6.18.4=
-4
-> both boot after disabling PCI_DYNAMIC_OF_NODES (and MISC_RP1, whose Kcon=
-fig
-> select otherwise forces it on).
-> =
-
-
-> There is no RP1 device in this machine, and its driver does not probe.
-> MISC_RP1 affects this x86 system only because its Kconfig select enables
-> PCI_DYNAMIC_OF_NODES globally.
-> =
-
-
-> I narrowed the hang to dynamic OF node creation for 0000:00:00.0
-> (8086:4c43), the Intel Rocket Lake-S integrated memory controller. On
-> this machine it reports PCI class 0604 and header type 1, but it is boun=
-d
-> to icl_uncore and is not a usable forwarding bridge:
-> =
-
-
->   Bus: primary=3Dff, secondary=3Dff, subordinate=3Dff
->   I/O and memory bridge windows: invalid/all ones
->   kernel: bridge configuration invalid ([bus ff-ff]), reconfiguring
-> =
-
-
-> A minimal dynamic node for this device boots. Adding only
-> device_type=3D"pci" makes it hang. Full PCI dynamic OF node generation a=
-lso
-> boots when only 0000:00:00.0 is skipped.
-> =
-
-
-> I also tested a generic guard in of_pci_make_dev_node(). It reads
-> PCI_PRIMARY_BUS and skips node creation if the primary bus does not matc=
-h
-> pdev->bus->number, the secondary bus is not greater than the primary bus=
-,
-> or the secondary bus is greater than the subordinate bus. Linux 6.18.44
-> boots with CONFIG_PCI_DYNAMIC_OF_NODES=3Dy and logs:
-> =
-
-
->   pci 0000:00:00.0: skipping dynamic OF node for invalid bridge
-> =
-
-
-> The regression was introduced by 49d63971f963 in v6.17-rc1. Commit
-> ce26f588c831 made v6.19-rc5 boot by removing MISC_RP1's select of
-> PCI_DYNAMIC_OF_NODES. That avoids the failing path in the tested
-> configuration but does not change of_pci_make_dev_node().
-> =
-
-
-> I do not have a log from the failed boots. No output appeared with
-> earlyprintk=3Defi,keep, keep_bootcon, ignore_loglevel, loglevel=3D8,
-> initcall_debug, and EFI pstore enabled. Blacklisting both GPU drivers an=
-d
-> disabling the Intel IOMMU did not make the bad kernel boot.
-> =
-
-
-> Should of_pci_make_dev_node() reject devices with invalid bridge bus
-> configuration, or should 8086:4c43 use a device-specific quirk? I can
-> prepare and test a patch for either approach. For Linux 6.18 stable,
-> would that fix be preferable to backporting ce26f588c831 and its
-> dependencies?
-> =
-
-
-> #regzbot introduced: 49d63971f963
-> #regzbot title: PCI_DYNAMIC_OF_NODES early boot hang on ACPI x86
-> =
-
-
-> Thanks,
-> Angel J
-> =
-
-
-> =
-
-
-> =
-
-
-> =
-
-
-> =
-
-
-> =
-
-
------------------------9fc1428e6ff9ebac9729a5244b051e32--
-
---------92b2098d95252a39ada38c9e88383d14dd60f1ac3fa7fee7e6a674a7c834e248
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: ProtonMail
-
-wrsEARYKAG0FgmqWI18JEBoBbwppzUxnRRQAAAAAABwAIHNhbHRAbm90YXRp
-b25zLm9wZW5wZ3Bqcy5vcmfl/6uNekZTiSEcr0zFYMmZB7pZXzWkFaFAVYQ1
-zRRp2xYhBEAFf9htFyVnqZzmVhoBbwppzUxnAAAzOwD9FRMnq+YbDgEDUc3n
-pVpEge+RLMOPpjo9taK9Dno8I+gA/0J3r7cKUxlGLsTjReprBRnyMa4sDEjT
-KBCLgZOvyacC
-=k1eP
------END PGP SIGNATURE-----
-
-
---------92b2098d95252a39ada38c9e88383d14dd60f1ac3fa7fee7e6a674a7c834e248--
-
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+
+Pre-existing issues:
+- [High] Possible Use-After-Free of IIO event interface (ev_int) during pro=
+be failure due to asymmetric IRQ lifecycle.
+--
+
+commit b4e1397431b4f12cb9a540f222673e8512090f40
+Author: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+Subject: iio: light: stk3310: support the Sensortek STK36C61
+
+The Sensortek STK36C61 is a 3-in-1 ambient light / proximity / RGB
+colour sensor. This patch adds its chip ID to the known-ID list and
+device table entries, exposing the colour channels alongside ALS and
+proximity.
+
+> diff --git a/drivers/iio/light/stk3310.c b/drivers/iio/light/stk3310.c
+> index f5782a1e19bbc..0a16e326e9390 100644
+> --- a/drivers/iio/light/stk3310.c
+> +++ b/drivers/iio/light/stk3310.c
+[ ... ]
+> @@ -866,6 +866,7 @@ static const struct i2c_device_id stk3310_i2c_id[] =
+=3D {
+>  	{ .name =3D "stk3310", .driver_data =3D (kernel_ulong_t)&stk3310_chip_i=
+nfo },
+>  	{ .name =3D "stk3311", .driver_data =3D (kernel_ulong_t)&stk3310_chip_i=
+nfo },
+>  	{ .name =3D "stk3335", .driver_data =3D (kernel_ulong_t)&stk3310_chip_i=
+nfo },
+> +	{ .name =3D "stk36c61", .driver_data =3D (kernel_ulong_t)&stk36c61_chip=
+_info },
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is it possible for the
+pre-existing IRQ setup in stk3310_probe() (drivers/iio/light/stk3310.c,
+around line 766) to trigger a use-after-free if probe fails?
+
+Looking at stk3310_probe(), the IRQ handler is registered before the IIO
+device:
+
+	if (client->irq > 0) {
+		ret =3D devm_request_threaded_irq(&client->dev, client->irq,
+						stk3310_irq_handler,
+						stk3310_irq_event_handler,
+						IRQF_TRIGGER_FALLING |
+						IRQF_ONESHOT,
+						"stk3310_event", indio_dev);
+		if (ret)
+			goto err_standby;
+	}
+
+	ret =3D iio_device_register(indio_dev);
+	if (ret < 0) {
+		dev_err(&client->dev, "device_register failed\n");
+		goto err_standby;
+	}
+
+If iio_device_register() fails late in its execution, it cleans up its
+partial state and frees the ev_int structure via kfree(). Because the IRQ
+is managed by devres, it remains active until stk3310_probe() returns and
+the devres unwinding phase disables it.
+
+If a hardware interrupt fires during this window, stk3310_irq_event_handler=
+()
+(around line 714) will execute:
+
+	event =3D IIO_UNMOD_EVENT_CODE(IIO_PROXIMITY, 1,
+				     IIO_EV_TYPE_THRESH,
+				     (dir ? IIO_EV_DIR_FALLING :
+					    IIO_EV_DIR_RISING));
+	iio_push_event(indio_dev, event, data->timestamp);
+
+Can iio_push_event() dereference the freed ev_int structure here since there
+is no synchronization with the iio_device_unregister_eventset() cleanup?
+
+>  	{ }
+>  };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901005114.2030=
+62-1-jorijnvdgraaf@catcrafts.net?part=3D5
