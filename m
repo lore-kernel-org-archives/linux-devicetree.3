@@ -1,31 +1,31 @@
 Received: from spam.axera-tech.com (unknown [114.118.28.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 363CD476694
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 09:19:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7A8C477E22
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 09:19:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.118.28.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788254398; cv=none; b=l+8H1ChTSadZUczCUMoLGbU1EVh2zVsEuEDdyN+UXTLs4K0I67gkcp6KH9ffVEV02tZnybKW7prX+zoRYWNx6VuR5syQLOxatwkdCvCq/wgAAipo5OAKNqzyGoDMR4tUAP7FFLbedMJXSBdPhB8LnTi4ueXQJWV0yw0EH5xfeKs=
+	t=1788254401; cv=none; b=X57cL54bkRzC0lTowEc7FJCOHuzvmXMto359EjVAmD+V5wGrywuKJe4VP9SmqNnWNVt0160EsM8o6khu5mq8Oa8OeySGhC9Y7fa68PsUestGM2IrJ4Ib/NkZoIbbNnq5rSpgRDnlb3lKqkcqQ4Tj1XYz5C6aP1/kC3tJN8syGz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788254398; c=relaxed/simple;
-	bh=oklh748WlI1Baphd5KWMOHKbvNEfa9GuqtcojTIdGwY=;
+	s=arc-20240116; t=1788254401; c=relaxed/simple;
+	bh=ZwHs0S0btepTACuCuCb4VlyK6Zr59+wGS6ik+6j6IFw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=ZMaBlrUL1t4SvokgKWQj15No65xZ8rAZRtPA6nh/rinppFiocJXVMpoc1NzZIPFol1qG/xs+XuAaJlPCBQWP4LccsIjmJBWuIuBjqTnUb6Hkgy0uU2Hy9jlXMbAQtNjARz87y+HDGx9PRK68hvKo4dYhANRdIK5isydGXZr7soY=
+	 In-Reply-To:To:CC; b=NJ/FHgyFSNMBgEAnYA/Pj2ODs3eSx+6c/WyckewJz6U9SM3s7Iz/FPrPL3YfXtEIfo7zasG3TXpup4bBbKMKEgB0zgfMMKhFl2PPXXJrJjPKQJ4+/lKPbo+giXXEvrJ59EDHSSEWyoKqjIodULvRaj/v96QCs60d5ilQjmoCa/Q=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axera-tech.com; spf=pass smtp.mailfrom=axera-tech.com; arc=none smtp.client-ip=114.118.28.34
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axera-tech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axera-tech.com
 Received: from aixinexchange02.aixin-chip.com ([10.122.86.161])
-	by spam.axera-tech.com with ESMTPS id 6819JaVd047670
+	by spam.axera-tech.com with ESMTPS id 6819JbJo047673
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 1 Sep 2026 17:19:36 +0800 (+08)
+	Tue, 1 Sep 2026 17:19:37 +0800 (+08)
 	(envelope-from lenghonglin@axera-tech.com)
 Received: from [127.0.1.1] (10.126.103.103) by aixinexchange02.aixin-chip.com
  (10.122.86.161) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Tue, 1 Sep 2026
- 17:19:35 +0800
+ 17:19:36 +0800
 From: Leng Honglin <lenghonglin@axera-tech.com>
-Date: Tue, 1 Sep 2026 17:19:28 +0800
-Subject: [PATCH v2 1/6] dt-bindings: vendor-prefixes: add Axera
+Date: Tue, 1 Sep 2026 17:19:30 +0800
+Subject: [PATCH v2 3/6] arm64: Kconfig.platforms: add ARCH_AXERA
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -34,7 +34,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260901-ax650-v1-v2-1-993bea305476@axera-tech.com>
+Message-ID: <20260901-ax650-v1-v2-3-993bea305476@axera-tech.com>
 References: <20260901-ax650-v1-v2-0-993bea305476@axera-tech.com>
 In-Reply-To: <20260901-ax650-v1-v2-0-993bea305476@axera-tech.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -54,11 +54,11 @@ CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
         Leng Honglin
 	<lenghonglin@axera-tech.com>, <hlleng233@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788254374; l=996;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788254374; l=759;
  i=lenghonglin@axera-tech.com; s=20260818; h=from:subject:message-id;
- bh=oklh748WlI1Baphd5KWMOHKbvNEfa9GuqtcojTIdGwY=;
- b=Qo/FT27rWdpBzvdqt0fGZsyFt0vtwMC1aX9edOXITLiKjIlDU/+6/X+GiKK7Lz8NF9nIOYOXB
- +FgwcYCBFhTDPciWKObSEGsR0uVzQwx35AQ8zQ8xvP7hgwAx1defERN
+ bh=ZwHs0S0btepTACuCuCb4VlyK6Zr59+wGS6ik+6j6IFw=;
+ b=iBYMfgOq0yyso3QDB2sGEFVsgHzpq0sydRDMll7jVrKtuNYyBUFPDLO552fFtXBidyfOvsHjj
+ DqJKjxrTEk7DWzXhzDOD/4dOugkV0h1XVLfdTRgxdp/PbL64BF5PFdT
 X-Developer-Key: i=lenghonglin@axera-tech.com; a=ed25519;
  pk=fo0agzxyiwbJZc3VZRLVthobvWCvq0qAViAw4TxhF80=
 X-ClientProxiedBy: aixinexchange02.aixin-chip.com (10.122.86.161) To
@@ -66,32 +66,31 @@ X-ClientProxiedBy: aixinexchange02.aixin-chip.com (10.122.86.161) To
 X-DKIM-Results: [10.122.86.161]; dkim=none;
 X-DNSRBL: 
 X-SPAM-SOURCE-CHECK: pass
-X-MAIL:spam.axera-tech.com 6819JaVd047670
+X-MAIL:spam.axera-tech.com 6819JbJo047673
 
-Add the Axera Semiconductor vendor prefix for devicetree bindings.
-
-For more information, visit the official Axera Semiconductor website:
-Chinese site: https://www.axera-tech.com/
-English site: https://www.axera-tech.com/en
+Enable the ARCH_AXERA platform option for Axera arm64 platforms.
 
 Signed-off-by: Leng Honglin <lenghonglin@axera-tech.com>
 ---
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ arch/arm64/Kconfig.platforms | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 396044f368e7..1dbafe682724 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -219,6 +219,8 @@ patternProperties:
-     description: Shanghai Awinic Technology Co., Ltd.
-   "^axentia,.*":
-     description: Axentia Technologies AB
-+  "^axera,.*":
-+    description: Axera Semiconductor Co., Ltd.
-   "^axiado,.*":
-     description: Axiado Corporation
-   "^axis,.*":
+diff --git a/arch/arm64/Kconfig.platforms b/arch/arm64/Kconfig.platforms
+index d2acfac73003..a6f2f009461e 100644
+--- a/arch/arm64/Kconfig.platforms
++++ b/arch/arm64/Kconfig.platforms
+@@ -54,6 +54,11 @@ config ARCH_ASPEED
+ 	  This enables support for ASPEED's SoC family, such as the
+ 	  ast27XX 8th generation Baseboard Management Controller (BMC).
+ 
++config ARCH_AXERA
++	bool "Axera SoC family"
++	help
++	  This enables support for the Axera SoC family.
++
+ config ARCH_AXIADO
+ 	bool "Axiado SoC Family"
+ 	select GPIOLIB
 
 -- 
 2.34.1
