@@ -1,107 +1,140 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE1C943C7C4
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 17:34:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 282D2485519;
+	Tue,  1 Sep 2026 17:38:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788284054; cv=none; b=e446D1nPvzeLdgpLK92Nmosl3DM29HgEq7BujGUBHOwc1xIRsv3e9ZE0DcGfgKw5YpqFBAjHr3BxtC/t73jd3ie+pZ4Y/ouJcJmmmOSoZxUr3GYqHkbZSp5KQIWtgyuXG7alTNdP0NoqSLbZwzLy0ugc5Y2MHwOxAZn3Fmls8l0=
+	t=1788284285; cv=none; b=ZBBLwauqKv54h8k3yF9Is4aYaF4x8DdHAeAmwucIcTf+qZeHp+Cpky+5AdsW9cPlmOkLdifLraiCxDVGyS6uQcQTG3/Y/rcDxv+qunRurzh6Qv8n45Pz5av2sy8VKcJQ5WpoCU8E5ivaiZXXrzFC0JXTsu2T3Uf3SHAFsKLPyLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788284054; c=relaxed/simple;
-	bh=9Ycks8xv9vWrZVeBoY18PWTXJdv74c4xmUYzzLqVZpc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=efk40DYo1cGmLcrvtcWqjg1XGgq6NEFyScPWWrlCEXzbqvit78crmDla5hxOmeXh08K2YJ3BWt+NpkHpOWgsQl2MJaoFBiCfUKqaK4E4RN7+Qp12YVUpW/ZX7c+21TAEXBbM277yvwM/aW5MkArDxCA6I2ScwYI6YBR2+GZHcMQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fMPPhnHF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788284285; c=relaxed/simple;
+	bh=ubf1OxEe06uyzGEC/cOjl7d/Do0ud50R7/4dta55KQY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JJQRUBydJLrDe3ZTFdV5/ct+V9UhR7ClzgY3OS5LuTvoAvew1gZjvdyXxJBjRfuhzt1mKvsKHN9QfJ/ewUQDEoiGRcpzXwZZ6poHMsFKWcbLjnn53FY32KZnIwilHgBFxfQDRLSbNqgXzsqTgcRTNiIWsWIo51BlZGeoE2gwEOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a+fwOVPJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fMPPhnHF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 239581F000E9;
-	Tue,  1 Sep 2026 17:34:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a+fwOVPJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15EBF1F00A3A;
+	Tue,  1 Sep 2026 17:38:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788284052;
-	bh=nlNOxe7SghCRrGFgqnurQXRDhNEuvjIYNsScRKT0YhA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fMPPhnHFccJWzW9Hwobu5IVzvZLCfXJfOXTNMgPcbiOmRPbeLAWEauDGLXTbCB3kR
-	 kASo7W9mp4X6u38pHQwBz2Lsc7guILmCK98TsIDCVnb5v83TT1hq4Rrco9iI2skwSB
-	 i1bZ41JWnGHHBbRXm9ijE9RCE7VVMLLqwpjCQKby1z5SDEtjiU2b0DS5G6UFhb2wIi
-	 w6upuuXEX2tTte5IiVORQyIt/k9UvciNbz6z7LaQbTbVh6ClGaBfuMTdvnoVCAMdtu
-	 Uts+QiKpzZAXtW6m1OYuJsPY9i/G2N6aO7mXcSuxhBKzexiSkGCAUo0+z6CcinGeGi
-	 LsyJJkuI8402Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/5] arm64: dts: qcom:
- qcs6490-rb3gen2-industrial-mezzanine: use pci for device nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alex Elder" <elder@riscstar.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260901172058.1512508-3-elder@riscstar.com>
-References: <20260901172058.1512508-1-elder@riscstar.com>
- <20260901172058.1512508-3-elder@riscstar.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 17:34:11 +0000
-Message-Id: <20260901173412.239581F000E9@smtp.kernel.org>
+	s=k20260515; t=1788284284;
+	bh=vCYhuXOz7zaCGF4EZ/ixTSz3zqWOEhxCIlP+os0E6Uo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=a+fwOVPJjIfkv1huM/c/4YYoFwB8QR/ecoIX0KUj+FtDKfNQozr+Csva/pvKojs3u
+	 voPaS64uTx4t1OArXmd6AcsrWnorunogJwNWw2Qs6U3+ZATGvtIxeg1fA+1Q9Xzny5
+	 f+dWW3cYeJbQ/7LuTQ3PNeAG3sW7KUxxnDLw17s9zTOgrEQvfTkKYEUTlc/VcgUCR7
+	 oTd+GemTWoxT0fuj7iY73mriMN8G6MZSzHMD4Kjf0KbqmRJkzZCiW2vvG/y8F0tXG8
+	 7k/hBITaovOzRXsVoQiOh5jQk3AFpLEBuzdPJBWorWOzU7/YcgJ3p64yQc490YvL75
+	 /hAvg428dn/Kw==
+Date: Tue, 1 Sep 2026 18:37:59 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Marek Vasut <marex@nabladev.com>
+Cc: linux-pm@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+	Flaviu Nistor <flaviu.nistor@gmail.com>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: hwmon: tmp102: Document TMP113
+Message-ID: <20260901-untimely-wake-578b1a86b9fe@spud>
+References: <20260901161008.46948-1-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="/nSXeNTLuhB53XBA"
+Content-Disposition: inline
+In-Reply-To: <20260901161008.46948-1-marex@nabladev.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+--/nSXeNTLuhB53XBA
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Pre-existing issues:
-- [High] The patch claims to fix PCIe endpoints being incorrectly treated a=
-s PCI bridges by renaming them from `pcie@` back to `pci@`. However, this i=
-s a placebo fix that fails to resolve the issue because the nodes still ret=
-ain the `device_type =3D "pci"` property.
---
-
-commit 8f05438af7136e29082530fe0089fb496985289a
-Author: Alex Elder <elder@riscstar.com>
-
-arm64: dts: qcom: qcs6490-rb3gen2-industrial-mezzanine: use pci for device =
-nodes
-
-This commit renames embedded PCIe endpoint nodes on the TC9564 SoCs from
-pcie@ back to pci@ to prevent them from being incorrectly treated as PCI
-bridges. The commit message states that the previous name pcie@ caused
-of_node_is_pcie() to match them as bridge nodes.
-
-> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanin=
-e.dtso b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
-> index 46bb52c667a4d..14c64439ae1e6 100644
-> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
-> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
-[ ... ]
-> @@ -130,7 +130,7 @@ pcie@3,0 {
->  			ranges;
->  			bus-range =3D <0x5 0xff>;
+On Tue, Sep 01, 2026 at 06:09:20PM +0200, Marek Vasut wrote:
+> The TMP113 temperature sensor part is register compatible with TMP102,
+> document it using a fallback compatible. Unlike TMP102 and TMP110, the
+> TMP113 does have additional unique ID registers, it is up to the driver
+> to handle those.
+>=20
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
+> ---
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Flaviu Nistor <flaviu.nistor@gmail.com>
+> Cc: Guenter Roeck <linux@roeck-us.net>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-hwmon@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> ---
+> V2: Rebase on current next and resend, resolve a conflict with commit
+>     d67ec24d3f07 ("dt-bindings: hwmon: tmp102: move ti,tmp103 out of triv=
+ial-devices.yaml")
+>     Note that the TMP102,110,113 are backward compatible, therefore the
+>     valid compatible strings are:
+>     - "ti,tmp110", "ti,tmp102"
+>     - "ti,tmp113", "ti,tmp102"
+>     - "ti,tmp102"
+>     The TMP103 is not backward compatible, it only shares bindings now,
+>     therefore the only valid compatible string for the TMP103 should be:
+>     - "ti,tmp103"
+>     And that is all, no other compatible strings are acceptable here.
+> ---
+>  .../devicetree/bindings/hwmon/ti,tmp102.yaml          | 11 ++++++-----
+>  1 file changed, 6 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml b/Doc=
+umentation/devicetree/bindings/hwmon/ti,tmp102.yaml
+> index 55d9f106465d7..c0b747a9ce0de 100644
+> --- a/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
+> +++ b/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
+> @@ -4,7 +4,7 @@
+>  $id: http://devicetree.org/schemas/hwmon/ti,tmp102.yaml#
+>  $schema: http://devicetree.org/meta-schemas/core.yaml#
 > =20
-> -			pcie@0,0 {
-> +			pci@0,0 {
->  				reg =3D <0x50000 0x0 0x0 0x0 0x0>;
->  				#address-cells =3D <3>;
->  				#size-cells =3D <2>;
+> -title: TMP102/TMP103/TMP110 temperature sensor
+> +title: TMP102/TMP103/TMP110/TMP113 temperature sensor
+> =20
+>  maintainers:
+>    - Krzysztof Kozlowski <krzk@kernel.org>
+> @@ -13,11 +13,12 @@ properties:
+>    compatible:
+>      oneOf:
+>        - items:
+> +          - enum:
+> +              - ti,tmp110
+> +              - ti,tmp113
+>            - const: ti,tmp102
+> -          - const: ti,tmp103
+> -          - const: ti,tmp110
+> -      - enum:
+> -          - ti,tmp102
+> +      - const: ti,tmp102
+> +      - const: ti,tmp103
 
-[Severity: High]
-This is a pre-existing issue, but does this rename actually resolve the
-problem of endpoints being treated as PCI bridges?
+Should this not be two patches, one fixing the existing stuff and one
+adding the 113?
 
-Looking at drivers/of/address.c, the devicetree match logic in
-of_bus_pci_match() is evaluated as:
+> =20
+>    interrupts:
+>      maxItems: 1
+> --=20
+> 2.53.0
+>=20
 
-    return of_node_is_type(np, "pci") || of_node_is_type(np, "pciex") ||
-           of_node_is_type(np, "vci") || of_node_is_type(np, "ht") ||
-           of_node_is_pcie(np);
+--/nSXeNTLuhB53XBA
+Content-Type: application/pgp-signature; name=signature.asc
 
-Since the endpoint node retains the device_type =3D "pci" property just bel=
-ow
-these cells, of_node_is_type(np, "pci") evaluates to true. This short-circu=
-its
-the condition before the of_node_is_pcie(np) name check is ever reached.
+-----BEGIN PGP SIGNATURE-----
 
-Because of this property, will the nodes continue to be matched as PCI buses
-even with the name changed to pci@0,0, making this a placebo fix?
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapcNdwAKCRB4tDGHoIJi
+0oODAQCVZ0/6ac4473ygypFVJUWZG398AaFYO7YxHbouyDOBuAEA9p76IL/7Tjnn
+C8jcrdckOMnfbrFsfsB2dqMCtwJyEAg=
+=zi4w
+-----END PGP SIGNATURE-----
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901172058.1512=
-508-1-elder@riscstar.com?part=3D2
+--/nSXeNTLuhB53XBA--
