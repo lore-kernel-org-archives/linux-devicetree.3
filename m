@@ -1,30 +1,29 @@
 Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA423B52EE;
-	Tue,  1 Sep 2026 11:37:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D07714A4CC;
+	Tue,  1 Sep 2026 11:40:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788262624; cv=none; b=qPeCURckY9WsRpn7xh3P1XIQ7qWR/3dN3sASRgkfkHXR7GYZMcI0V7EAXzPrFTn01CTNklIxs0wLc2swqEpLKujDoCMvptxRw6REmyNqyJvXbg3yqGSR3Q8jhi4PdwgRbcGdMDv/oxTFenkoinpCWoZq7ADleFgH23x7sdO32kE=
+	t=1788262851; cv=none; b=usVACgNjtSCukvnhq6wsFnq/rXESkVE9zhUJt2KVUJ91qoQDUFa1FASHFZwholkqGfKmkGeVn+iO2xJ74R7u0AyYMo70UtsHDAWqVgEyfrAsCOHt9d1NTow6w13ck19771eG/iNneDjR9cPiG7/CVbK24fYG57bxNvmt6loYeAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788262624; c=relaxed/simple;
-	bh=n6vO/Fi5jhecmVwxetC4Wj6M9A4SBSKPZgOHLJNm8ng=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=GH1oFlhAdwCOFGFp0xbOqSw5/l5ZZ17tFYmT/B0djNws8eDiKkULdkRc3tuA2Z/2YO65TUJXLkyirZp1mvQcBrKI4lfaTqAHBNqQ+nMVdGdPPCq7FZDMhG5KAHrXaM8JiexAWNKgtc3dlqfm0/sWhGbGoRZa/wrlBCLRx+fOKFM=
+	s=arc-20240116; t=1788262851; c=relaxed/simple;
+	bh=6FNYMuIcfyXeEFAvGyrxQVzcQ7QcTPfutEiaqj247O8=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=A5YBrvGHYMsujbWej4MyN6+XMfQ5ki6lXfAfJ1HSdOHtsWmk+eM7bNV5Ezk8sXS9a+imxpLwxlCTBUubqiXyeGA6U1JNtAo12Z6I5n871qBSoOJ0MbdyunYDh7COX/zW0WmRclrCt2CMWg1AJQ+xAWZ/sLADFZpCpin3D4Joueg=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
 Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
  (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Tue, 1 Sep
- 2026 19:35:39 +0800
+ 2026 19:35:38 +0800
 Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
  (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Tue, 1 Sep 2026 19:35:39 +0800
+ Transport; Tue, 1 Sep 2026 19:35:38 +0800
 From: Billy Tsai <billy_tsai@aspeedtech.com>
-Date: Tue, 1 Sep 2026 19:35:31 +0800
-Subject: [PATCH 4/8] i3c: mipi-i3c-hci: Add a quirk to clear the TX start
- threshold
+Subject: [PATCH 0/8] i3c: mipi-i3c-hci: Add Aspeed AST2700 support
+Date: Tue, 1 Sep 2026 19:35:27 +0800
+Message-ID: <20260901-b4-i3c-hci-ast2700-v1-0-19909e7cbd7e@aspeedtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -33,9 +32,10 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260901-b4-i3c-hci-ast2700-v1-4-19909e7cbd7e@aspeedtech.com>
-References: <20260901-b4-i3c-hci-ast2700-v1-0-19909e7cbd7e@aspeedtech.com>
-In-Reply-To: <20260901-b4-i3c-hci-ast2700-v1-0-19909e7cbd7e@aspeedtech.com>
+X-B4-Tracking: v=1; b=H4sIAH+4lmoC/x3MPQqAMAxA4atIZgNpLBa8ijj0J2oWlVZEEO9uc
+ fyG9x4oklUKDM0DWS4tum8Vpm0grn5bBDVVAxP35IzFYFG7iGtU9OVkR4TBJ8e9MEUyUMMjy6z
+ 3Px2n9/0ATBpH5GQAAAA=
+X-Change-ID: 20260714-b4-i3c-hci-ast2700-bad726e20c01
 To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li
 	<Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
 	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley
@@ -45,325 +45,97 @@ CC: <linux-i3c@lists.infradead.org>, <devicetree@vger.kernel.org>,
 	<linux-arm-kernel@lists.infradead.org>, <linux-aspeed@lists.ozlabs.org>,
 	<linux-kernel@vger.kernel.org>, Billy Tsai <billy_tsai@aspeedtech.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788262538; l=11122;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788262538; l=4156;
  i=billy_tsai@aspeedtech.com; s=20251118; h=from:subject:message-id;
- bh=n6vO/Fi5jhecmVwxetC4Wj6M9A4SBSKPZgOHLJNm8ng=;
- b=HHfIRufKO0rvzVE5evGWDeOxDqIGK5LwC4DFCfClX9QJhRprAHy2Zx7GO/2FHHZR7t0GHsEpU
- zZFLkzvr9C7CxAPfWOiwrs+ICl6gQuAse4SxQHa4bHJWvlYaTMZn3mf
+ bh=6FNYMuIcfyXeEFAvGyrxQVzcQ7QcTPfutEiaqj247O8=;
+ b=JSuRqICd5+CuJSS7QslnzoOY4wJMdTnNieoLv80R4Qr4ynq8wNsYgtHhu6eQ+Cu1kZLMZXUUV
+ 13DizEFAJhPC9hSC7Mq9LSrlAsyAWsET0ZmxCzLeRRAszNc+16zTndV
 X-Developer-Key: i=billy_tsai@aspeedtech.com; a=ed25519;
  pk=/A8qvgZ6CPfnwKgT6/+k+nvXOkN477MshEGJvVdzeeQ=
 
-The DATA_TX_START_THLD field of the PIO data buffer threshold register
-holds off the start of a TX transfer until the FIFO holds a set amount
-of data, which in PIO mode cuts down on the number of software writes.
-The field resets to 0x1, requiring at least (2 ^ 2) DWORDs (16 bytes)
-in the FIFO before transmission starts.
+The Aspeed AST2700 SoC integrates an I3C host controller based on the
+MIPI I3C HCI v1.1 programming model, extended with an in-house control
+block and a PHY programming window. Both extra register regions are
+advertised through a standard HCI vendor extended capability. This
+series teaches the existing mipi-i3c-hci driver to drive the AST2700
+controller without forking the driver.
 
-HCI controllers that support both PIO and DMA can expose the two as
-separate register blocks; nothing in the specification says selecting
-DMA mode disables the PIO block's own gating logic. On ASPEED
-platforms it doesn't: DATA_TX_START_THLD still holds up transfer
-start regardless of which mode feeds the FIFO, and in DMA mode that
-threshold is never satisfied for some transfer sizes:
+The AST2700 specifics are expressed in two ways:
 
- - 1-4 bytes: uses the Immediate Data Transfer Command.
- - 13+ bytes: since the hardware fetches data in 4-byte chunks, a
-   13-byte transfer fetches 16 bytes into the FIFO and reaches the
-   threshold.
- - 5-12 bytes: the threshold is never reached and the transfer stalls.
+ - Deviations from generic HCI protocol behavior are expressed as
+   individual quirks in the match data: the existing
+   HCI_QUIRK_DMA_ABORT_REQUIRES_PIO_RESET, plus three new quirks for
+   address-indexed DAT slots (HCI_QUIRK_DAT_INDEX_IS_ADDR), 64-bit DMA
+   addressing (HCI_QUIRK_DMA_64BIT) and clearing the TX start threshold
+   in DMA mode (HCI_QUIRK_TX_START_THLD).
 
-Add HCI_QUIRK_TX_START_THLD to clear the field whenever DMA mode is
-selected. The clear lives in i3c_hci_set_io_mode() rather than in
-probe so the reset-and-restore recovery path also reapplies it after
-a controller soft reset. Move the PIO Access Area register and
-bitfield definitions from pio.c to a new pio.h so this quirk can reuse
-PIO_DATA_BUFFER_THLD_CTRL and DATA_TX_START_THLD instead of
-redefining them.
+ - Everything that depends on the ASPEED vendor capability actually
+   being present -- programming the vendor register blocks (master
+   mode init, PHY timing, the interrupt summary path, the IBI
+   termination threshold and the DAA index registers), and selecting
+   the IRQ handler and IRQF_SHARED at request_irq() time -- is keyed to
+   is_aspeed(), a single explicit check set from the devicetree
+   compatible in probe().
 
-Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
+Generic MIPI I3C HCI controllers are unaffected.
+
+The series is organised as follows:
+
+ - Patch 1 documents the devicetree binding.
+
+ - Patches 2-4 add the generic HCI quirks AST2700 needs --
+   address-indexed DAT slots, 64-bit DMA addressing, and clearing the
+   TX start threshold in DMA mode -- with no AST2700-specific code yet;
+   nothing sets these quirks until patch 5.
+
+ - Patch 5 ties it together: it recognizes the ASPEED vendor extended
+   capability, brings the controller up for transfers (master mode,
+   PHY timing, reset/clock resources, the interrupt summary path,
+   master clock stall), and enables the quirks from patches 2-4 plus
+   HCI_QUIRK_DMA_ABORT_REQUIRES_PIO_RESET for the
+   "aspeed,ast2700-i3c-hci" compatible.
+
+ - Patch 6 adds the IBI termination threshold, a safeguard against a
+   misbehaving device that never terminates a payload IBI on its own.
+
+ - Patches 7-8 tune bus behaviour: PIO TX queue utilization, and the
+   PHY's built-in pull-ups for boards without external resistors.
+
+Tested on an AST2700 EVB: the controller probes in DMA/PIO mode,
+completes DAA and runs CCC, IBI and private transfers.
+
 Assisted-by: Claude:claude-fable-5
+Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
 ---
- drivers/i3c/master/mipi-i3c-hci/core.c |  14 +++++
- drivers/i3c/master/mipi-i3c-hci/hci.h  |   1 +
- drivers/i3c/master/mipi-i3c-hci/pio.c  |  97 +----------------------------
- drivers/i3c/master/mipi-i3c-hci/pio.h  | 109 +++++++++++++++++++++++++++++++++
- 4 files changed, 125 insertions(+), 96 deletions(-)
+Billy Tsai (8):
+      dt-bindings: i3c: Document the AST2700 I3C controller
+      i3c: mipi-i3c-hci: Support address-indexed DAT slots
+      i3c: mipi-i3c-hci: Add a quirk for 64-bit DMA addressing
+      i3c: mipi-i3c-hci: Add a quirk to clear the TX start threshold
+      i3c: mipi-i3c-hci: Add support for the AST2700 I3C controller
+      i3c: mipi-i3c-hci: Program AST2700 IBI termination threshold
+      i3c: mipi-i3c-hci: Improve AST2700 PIO TX queue utilization
+      i3c: mipi-i3c-hci: Support the AST2700 internal pull-ups
 
-diff --git a/drivers/i3c/master/mipi-i3c-hci/core.c b/drivers/i3c/master/mipi-i3c-hci/core.c
-index c03c3a9cbe4f..2290a889701c 100644
---- a/drivers/i3c/master/mipi-i3c-hci/core.c
-+++ b/drivers/i3c/master/mipi-i3c-hci/core.c
-@@ -26,6 +26,7 @@
- #include "cmd.h"
- #include "dat.h"
- #include "ibi.h"
-+#include "pio.h"
- 
- /*
-  * Host Controller Capabilities and Operation Registers
-@@ -823,6 +824,19 @@ static int i3c_hci_set_io_mode(struct i3c_hci *hci, bool dma)
- 	else
- 		reg_set(HC_CONTROL, HC_CONTROL_PIO_MODE);
- 
-+	/*
-+	 * On the ASPEED AST2700 the TX start threshold gates transfer start
-+	 * even in DMA mode. Clear it so DMA transfers are not held back
-+	 * waiting for a PIO FIFO level that will never be reached.
-+	 */
-+	if (dma && (hci->quirks & HCI_QUIRK_TX_START_THLD) && hci->PIO_regs) {
-+		void __iomem *thld_reg = hci->PIO_regs + PIO_DATA_BUFFER_THLD_CTRL;
-+		u32 thld_val = readl(thld_reg);
-+
-+		thld_val &= ~DATA_TX_START_THLD;
-+		writel(thld_val, thld_reg);
-+	}
-+
- 	if (!is_version_1_1_or_newer(hci))
- 		return 0;
- 
-diff --git a/drivers/i3c/master/mipi-i3c-hci/hci.h b/drivers/i3c/master/mipi-i3c-hci/hci.h
-index 2110f806a53c..d9c9e609a879 100644
---- a/drivers/i3c/master/mipi-i3c-hci/hci.h
-+++ b/drivers/i3c/master/mipi-i3c-hci/hci.h
-@@ -179,6 +179,7 @@ struct i3c_hci_dev_data {
- #define HCI_QUIRK_DMA_REQUIRES_HC_ABORT		BIT(9)  /* Use HC_CONTROL ABORT to abort DMA */
- #define HCI_QUIRK_DAT_INDEX_IS_ADDR	BIT(10)  /* DAT entries are indexed by device address */
- #define HCI_QUIRK_DMA_64BIT		BIT(11)  /* Controller DMA supports 64-bit addressing */
-+#define HCI_QUIRK_TX_START_THLD		BIT(12)  /* Clear TX start threshold in DMA mode */
- 
- /* global functions */
- void mipi_i3c_hci_resume(struct i3c_hci *hci);
-diff --git a/drivers/i3c/master/mipi-i3c-hci/pio.c b/drivers/i3c/master/mipi-i3c-hci/pio.c
-index 439578a6eb54..6bd5e43364a1 100644
---- a/drivers/i3c/master/mipi-i3c-hci/pio.c
-+++ b/drivers/i3c/master/mipi-i3c-hci/pio.c
-@@ -14,6 +14,7 @@
- #include "hci.h"
- #include "cmd.h"
- #include "ibi.h"
-+#include "pio.h"
- 
- /*
-  * PIO Access Area
-@@ -22,102 +23,6 @@
- #define pio_reg_read(r)		readl(hci->PIO_regs + (PIO_##r))
- #define pio_reg_write(r, v)	writel(v, hci->PIO_regs + (PIO_##r))
- 
--#define PIO_COMMAND_QUEUE_PORT		0x00
--#define PIO_RESPONSE_QUEUE_PORT		0x04
--#define PIO_XFER_DATA_PORT		0x08
--#define PIO_IBI_PORT			0x0c
--
--#define PIO_QUEUE_THLD_CTRL		0x10
--#define QUEUE_IBI_STATUS_THLD		GENMASK(31, 24)
--#define QUEUE_IBI_DATA_THLD		GENMASK(23, 16)
--#define QUEUE_RESP_BUF_THLD		GENMASK(15, 8)
--#define QUEUE_CMD_EMPTY_BUF_THLD	GENMASK(7, 0)
--
--#define PIO_DATA_BUFFER_THLD_CTRL	0x14
--#define DATA_RX_START_THLD		GENMASK(26, 24)
--#define DATA_TX_START_THLD		GENMASK(18, 16)
--#define DATA_RX_BUF_THLD		GENMASK(10, 8)
--#define DATA_TX_BUF_THLD		GENMASK(2, 0)
--
--#define PIO_QUEUE_SIZE			0x18
--#define TX_DATA_BUFFER_SIZE		GENMASK(31, 24)
--#define RX_DATA_BUFFER_SIZE		GENMASK(23, 16)
--#define IBI_STATUS_SIZE			GENMASK(15, 8)
--#define CR_QUEUE_SIZE			GENMASK(7, 0)
--
--#define PIO_ALT_QUEUE_SIZE		0x1C
--#define EXT_IBI_QUEUE_EN		BIT(28)
--#define ALT_RESP_QUEUE_EN		BIT(24)
--#define ALT_RESP_QUEUE_SIZE		GENMASK(7, 0)
--
--#define PIO_INTR_STATUS			0x20
--#define PIO_INTR_STATUS_ENABLE		0x24
--#define PIO_INTR_SIGNAL_ENABLE		0x28
--#define PIO_INTR_FORCE			0x2c
--#define STAT_TRANSFER_BLOCKED		BIT(25)
--#define STAT_PERR_RESP_UFLOW		BIT(24)
--#define STAT_PERR_CMD_OFLOW		BIT(23)
--#define STAT_PERR_IBI_UFLOW		BIT(22)
--#define STAT_PERR_RX_UFLOW		BIT(21)
--#define STAT_PERR_TX_OFLOW		BIT(20)
--#define STAT_ERR_RESP_QUEUE_FULL	BIT(19)
--#define STAT_WARN_RESP_QUEUE_FULL	BIT(18)
--#define STAT_ERR_IBI_QUEUE_FULL		BIT(17)
--#define STAT_WARN_IBI_QUEUE_FULL	BIT(16)
--#define STAT_ERR_RX_DATA_FULL		BIT(15)
--#define STAT_WARN_RX_DATA_FULL		BIT(14)
--#define STAT_ERR_TX_DATA_EMPTY		BIT(13)
--#define STAT_WARN_TX_DATA_EMPTY		BIT(12)
--#define STAT_TRANSFER_ERR		BIT(9)
--#define STAT_WARN_INS_STOP_MODE		BIT(7)
--#define STAT_TRANSFER_ABORT		BIT(5)
--#define STAT_RESP_READY			BIT(4)
--#define STAT_CMD_QUEUE_READY		BIT(3)
--#define STAT_IBI_STATUS_THLD		BIT(2)
--#define STAT_RX_THLD			BIT(1)
--#define STAT_TX_THLD			BIT(0)
--
--#define PIO_CONTROL			0x30
--#define PIO_CONTROL_ABORT		BIT(2)
--#define PIO_CONTROL_RS			BIT(1)
--#define PIO_CONTROL_ENABLE		BIT(0)
--
--#define PIO_QUEUE_CUR_STATUS		0x38
--#define CUR_IBI_Q_LEVEL			GENMASK(28, 20)
--#define CUR_RESP_Q_LEVEL		GENMASK(18, 10)
--#define CUR_CMD_Q_EMPTY_LEVEL		GENMASK(8, 0)
--
--#define PIO_DATA_BUFFER_CUR_STATUS	0x3c
--#define CUR_RX_BUF_LVL			GENMASK(26, 16)
--#define CUR_TX_BUF_LVL			GENMASK(10, 0)
--
--/*
-- * Handy status bit combinations
-- */
--
--#define STAT_LATENCY_WARNINGS		(STAT_WARN_RESP_QUEUE_FULL | \
--					 STAT_WARN_IBI_QUEUE_FULL | \
--					 STAT_WARN_RX_DATA_FULL | \
--					 STAT_WARN_TX_DATA_EMPTY | \
--					 STAT_WARN_INS_STOP_MODE)
--
--#define STAT_LATENCY_ERRORS		(STAT_ERR_RESP_QUEUE_FULL | \
--					 STAT_ERR_IBI_QUEUE_FULL | \
--					 STAT_ERR_RX_DATA_FULL | \
--					 STAT_ERR_TX_DATA_EMPTY)
--
--#define STAT_PROG_ERRORS		(STAT_TRANSFER_BLOCKED | \
--					 STAT_PERR_RESP_UFLOW | \
--					 STAT_PERR_CMD_OFLOW | \
--					 STAT_PERR_IBI_UFLOW | \
--					 STAT_PERR_RX_UFLOW | \
--					 STAT_PERR_TX_OFLOW)
--
--#define STAT_ALL_ERRORS			(STAT_TRANSFER_ABORT | \
--					 STAT_TRANSFER_ERR | \
--					 STAT_LATENCY_ERRORS | \
--					 STAT_PROG_ERRORS)
--
- struct hci_pio_dev_ibi_data {
- 	struct i3c_generic_ibi_pool *pool;
- 	unsigned int max_len;
-diff --git a/drivers/i3c/master/mipi-i3c-hci/pio.h b/drivers/i3c/master/mipi-i3c-hci/pio.h
-new file mode 100644
-index 000000000000..72318961e991
---- /dev/null
-+++ b/drivers/i3c/master/mipi-i3c-hci/pio.h
-@@ -0,0 +1,109 @@
-+/* SPDX-License-Identifier: BSD-3-Clause */
-+/*
-+ * Copyright (c) 2020, MIPI Alliance, Inc.
-+ *
-+ * Author: Nicolas Pitre <npitre@baylibre.com>
-+ *
-+ * PIO Access Area register and bitfield definitions.
-+ */
-+
-+#ifndef PIO_H
-+#define PIO_H
-+
-+#define PIO_COMMAND_QUEUE_PORT		0x00
-+#define PIO_RESPONSE_QUEUE_PORT		0x04
-+#define PIO_XFER_DATA_PORT		0x08
-+#define PIO_IBI_PORT			0x0c
-+
-+#define PIO_QUEUE_THLD_CTRL		0x10
-+#define QUEUE_IBI_STATUS_THLD		GENMASK(31, 24)
-+#define QUEUE_IBI_DATA_THLD		GENMASK(23, 16)
-+#define QUEUE_RESP_BUF_THLD		GENMASK(15, 8)
-+#define QUEUE_CMD_EMPTY_BUF_THLD	GENMASK(7, 0)
-+
-+#define PIO_DATA_BUFFER_THLD_CTRL	0x14
-+#define DATA_TX_START_THLD		GENMASK(18, 16)
-+#define DATA_RX_START_THLD		GENMASK(26, 24)
-+#define DATA_RX_BUF_THLD		GENMASK(10, 8)
-+#define DATA_TX_BUF_THLD		GENMASK(2, 0)
-+
-+#define PIO_QUEUE_SIZE			0x18
-+#define TX_DATA_BUFFER_SIZE		GENMASK(31, 24)
-+#define RX_DATA_BUFFER_SIZE		GENMASK(23, 16)
-+#define IBI_STATUS_SIZE			GENMASK(15, 8)
-+#define CR_QUEUE_SIZE			GENMASK(7, 0)
-+
-+#define PIO_ALT_QUEUE_SIZE		0x1C
-+#define EXT_IBI_QUEUE_EN		BIT(28)
-+#define ALT_RESP_QUEUE_EN		BIT(24)
-+#define ALT_RESP_QUEUE_SIZE		GENMASK(7, 0)
-+
-+#define PIO_INTR_STATUS			0x20
-+#define PIO_INTR_STATUS_ENABLE		0x24
-+#define PIO_INTR_SIGNAL_ENABLE		0x28
-+#define PIO_INTR_FORCE			0x2c
-+#define STAT_TRANSFER_BLOCKED		BIT(25)
-+#define STAT_PERR_RESP_UFLOW		BIT(24)
-+#define STAT_PERR_CMD_OFLOW		BIT(23)
-+#define STAT_PERR_IBI_UFLOW		BIT(22)
-+#define STAT_PERR_RX_UFLOW		BIT(21)
-+#define STAT_PERR_TX_OFLOW		BIT(20)
-+#define STAT_ERR_RESP_QUEUE_FULL	BIT(19)
-+#define STAT_WARN_RESP_QUEUE_FULL	BIT(18)
-+#define STAT_ERR_IBI_QUEUE_FULL		BIT(17)
-+#define STAT_WARN_IBI_QUEUE_FULL	BIT(16)
-+#define STAT_ERR_RX_DATA_FULL		BIT(15)
-+#define STAT_WARN_RX_DATA_FULL		BIT(14)
-+#define STAT_ERR_TX_DATA_EMPTY		BIT(13)
-+#define STAT_WARN_TX_DATA_EMPTY		BIT(12)
-+#define STAT_TRANSFER_ERR		BIT(9)
-+#define STAT_WARN_INS_STOP_MODE		BIT(7)
-+#define STAT_TRANSFER_ABORT		BIT(5)
-+#define STAT_RESP_READY			BIT(4)
-+#define STAT_CMD_QUEUE_READY		BIT(3)
-+#define STAT_IBI_STATUS_THLD		BIT(2)
-+#define STAT_RX_THLD			BIT(1)
-+#define STAT_TX_THLD			BIT(0)
-+
-+#define PIO_CONTROL			0x30
-+#define PIO_CONTROL_ABORT		BIT(2)
-+#define PIO_CONTROL_RS			BIT(1)
-+#define PIO_CONTROL_ENABLE		BIT(0)
-+
-+#define PIO_QUEUE_CUR_STATUS		0x38
-+#define CUR_IBI_Q_LEVEL			GENMASK(28, 20)
-+#define CUR_RESP_Q_LEVEL		GENMASK(18, 10)
-+#define CUR_CMD_Q_EMPTY_LEVEL		GENMASK(8, 0)
-+
-+#define PIO_DATA_BUFFER_CUR_STATUS	0x3c
-+#define CUR_RX_BUF_LVL			GENMASK(26, 16)
-+#define CUR_TX_BUF_LVL			GENMASK(10, 0)
-+
-+/*
-+ * Handy status bit combinations
-+ */
-+
-+#define STAT_LATENCY_WARNINGS		(STAT_WARN_RESP_QUEUE_FULL | \
-+					 STAT_WARN_IBI_QUEUE_FULL | \
-+					 STAT_WARN_RX_DATA_FULL | \
-+					 STAT_WARN_TX_DATA_EMPTY | \
-+					 STAT_WARN_INS_STOP_MODE)
-+
-+#define STAT_LATENCY_ERRORS		(STAT_ERR_RESP_QUEUE_FULL | \
-+					 STAT_ERR_IBI_QUEUE_FULL | \
-+					 STAT_ERR_RX_DATA_FULL | \
-+					 STAT_ERR_TX_DATA_EMPTY)
-+
-+#define STAT_PROG_ERRORS		(STAT_TRANSFER_BLOCKED | \
-+					 STAT_PERR_RESP_UFLOW | \
-+					 STAT_PERR_CMD_OFLOW | \
-+					 STAT_PERR_IBI_UFLOW | \
-+					 STAT_PERR_RX_UFLOW | \
-+					 STAT_PERR_TX_OFLOW)
-+
-+#define STAT_ALL_ERRORS			(STAT_TRANSFER_ABORT | \
-+					 STAT_TRANSFER_ERR | \
-+					 STAT_LATENCY_ERRORS | \
-+					 STAT_PROG_ERRORS)
-+
-+#endif
+ .../bindings/i3c/aspeed,ast2700-i3c-hci.yaml       | 133 +++++++
+ drivers/i3c/master/mipi-i3c-hci/Makefile           |   2 +-
+ drivers/i3c/master/mipi-i3c-hci/cmd_v1.c           |  56 ++-
+ drivers/i3c/master/mipi-i3c-hci/core.c             | 229 ++++++++++--
+ drivers/i3c/master/mipi-i3c-hci/dat.h              |   5 +-
+ drivers/i3c/master/mipi-i3c-hci/dat_v1.c           |  63 +++-
+ drivers/i3c/master/mipi-i3c-hci/ext_caps.c         |  15 +
+ drivers/i3c/master/mipi-i3c-hci/ext_caps.h         |   1 +
+ drivers/i3c/master/mipi-i3c-hci/hci.h              |   3 +
+ drivers/i3c/master/mipi-i3c-hci/pio.c              | 122 ++-----
+ drivers/i3c/master/mipi-i3c-hci/pio.h              | 109 ++++++
+ drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.c    | 383 +++++++++++++++++++++
+ drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.h    | 191 ++++++++++
+ 13 files changed, 1167 insertions(+), 145 deletions(-)
+---
+base-commit: 97f3c8379f91af507cbc3d491b87633f0583febc
+change-id: 20260714-b4-i3c-hci-ast2700-bad726e20c01
 
+Best regards,
 -- 
-2.34.1
+Billy Tsai <billy_tsai@aspeedtech.com>
 
