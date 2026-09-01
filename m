@@ -1,86 +1,67 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BCF93AEF3F
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 14:56:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EC03411FBF
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 14:58:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788274607; cv=none; b=YpY1RQhBPBsd8LVtr6hroBBd2rNi1O3xHY+8QFFGYqWlS0hKCtqp2gnZAsY/BRO/mIVNQn5xLBSw7giz37eqUwneLTFyEvMbZ9RhyHmX2RW8o1HVxr2KONIZKfsYs6gen1nuVQG1mfdyiK2zpfcr04gH4lRgC56o6MgOW8GbfAY=
+	t=1788274696; cv=none; b=IC0Xu5YkfJ45eWu+CRv25btTx8Ere8f97ELCFM/SylFQK0wOQ7KkQSH6ab/MMmXvPscBm6wttsaIDyGL7RjgEzP21KOxQHbCpOG/saF31TZmyo3vJWrZty5FJRnLQnlXYkE+GBgI8vXxDRZGlocuY/71uRVcp72+lvwLXDficUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788274607; c=relaxed/simple;
-	bh=svgdcnksoFZXdXUyv043nr6f7gfTdgpeHWVFjRuJLQw=;
+	s=arc-20240116; t=1788274696; c=relaxed/simple;
+	bh=xksdRuihJ6RQTqUvVSFVXcRtvXMnSxoSEw/clmOQOt0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=F7SmDEYwbQg6vWtxFc2ZnrqGCI/vqkz+jzfZKDlDPZCDsfDYvQUtKy3cqOE4xxeCywpCnI3kcngmS3wAOXEK1ffGavfOPL624b6SrjMI01AeWj0kD6x8uUe5XSeorsw0gxeb49HLlwtlDoUrs7CXN1bVsn9bYNFoba+X7p1cIEM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=d7p9gW9W; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=K9vmsMkG; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=ijksHQPJSm5K5rXDTtjtfcrRfI7XR2hM64/hR0zIUFu8RhkSetMcC7W7rf/O4ocPREwFvME9jDftd6egnuj4s3s4yfZzYQbiZN6DbBlx6ArvaSEENrhsCp03mA3ml7K6dq+Q/wLWfvZmmAmUiiaKnHxGjaGk09kKB5lkdPo71yY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=VyDC4Wv1; arc=none smtp.client-ip=209.85.160.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="d7p9gW9W";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="K9vmsMkG"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681E8XEr2145823
-	for <devicetree@vger.kernel.org>; Tue, 1 Sep 2026 14:56:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	svgdcnksoFZXdXUyv043nr6f7gfTdgpeHWVFjRuJLQw=; b=d7p9gW9WUiCTvvKg
-	tZetSrzwUD3izJ59InSy/iBUxtsJ8gTtqz+Ub+E/Oue/qkWo6OGGGe/ckd2/hFKt
-	ClfyaKsnAazja405OZGnxIkX1YmO5lnyvZOjp5haNq0P/QlQ+G2tqh2E1DJnXFDq
-	rZzd1Ks1th2dCk+3LKOiIBKSJbuNYHMYPjTxyu9q16uFadsMDRYqWiq6bQnA8Vkg
-	DTtzfZMhqgyxkeEmhmO1gDNNmsbr40SLe1CByxUEqcT3mezhdA3eMrJVKa9Bphyi
-	pPZ4S1sbaHLbbxo3yFWnAQJ0us5BL54fVAAKtglLSsxWoLIhFvw1E1FHPClHiw0v
-	rSXnRA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdnk8u917-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 14:56:45 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93903982af1so1133696685a.3
-        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 07:56:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="VyDC4Wv1"
+Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-53031a57d7fso1569941cf.0
+        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 07:58:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788274605; x=1788879405; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=svgdcnksoFZXdXUyv043nr6f7gfTdgpeHWVFjRuJLQw=;
-        b=K9vmsMkGstQnXaIbnfG+EkFDcOXUJ6fvh60BEPGDxLg2LzLRycDXssiS31euJEJmRm
-         1+s+Y53JccRCGvHIUCI3cUxPLux/6+yrF2WYOdkBi1LMWFIeJ17Db2izbrrLOm9GWT15
-         YfzKqa2z03EDBBUL+VHdzqjfrJvLg62crl5GgPbUxDrmqDltlKH2TbXg5CK3U4+q/X/r
-         LQ0wcjA+RfnZnVuZBW8hvhhqvFw1ovpf9zYN7N739fGeacj6XXGXkGrsTpwLxTsobi4f
-         MyIVk2kYy6MaPHLuBsprkg7pEx7Rf23xTgpwQ3fvKFUBxUR58iSUUGvJktBENwNxR2bq
-         R5uQ==
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1788274693; x=1788879493; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KCwYat8AACN3jrzTsU7VQdP9QBM1LUdIVo5Kd7wh13Y=;
+        b=VyDC4Wv1EUCDYNddG/RWCy+vUU0cVHnUEapNQGjogg64q60bySJhzHazdP3mxvyv5T
+         VTIiLb/R+gIki/mIfR3SpGU6gDSd4uVIR75EZhhk/ZLFZZ1cv5eW0HKg0gQvXPERt604
+         52uZqKte+feGj60AGWNxP9hPmeeH/QpNfVC1akHPYKok9CtU5N6vrxF4bA9f5rFWgJlv
+         R0hTNAw6wNGsEDNdJvjLeA6jCbH9u747RNGRl7rFF5PYbelS3ptuGRL8loe3XNzuj2Tq
+         QMvw4OS9FCmoAxwfXnxqawqWDLd9yPeEtbSQcPw6jdlBtir5IU34UNI6qXn6gu15c4VW
+         BbVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788274605; x=1788879405;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788274693; x=1788879493;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=svgdcnksoFZXdXUyv043nr6f7gfTdgpeHWVFjRuJLQw=;
-        b=KjhF3bYY7oLvQq8BLaeQSLx2Qu8pp/sjsmPruCvbiDAnlC/JzIwGl0tctUM4UqdKGB
-         W/99+EV4/Qi54Ur1+TCdrg40MeP3+UZvVRSdbgKk0nxA3XSmCoawaqnhBfm8MVyAbEKJ
-         7Z8jSm5gPOpH9IqsTMFrsdZ0p4odE92v7g3QdMdtym5I1KhnK9yBCDa10pTjw9htpS+P
-         XtDQC/Bik+PSpAn9WqZ9Hu1Oto/vnlMwRJjw/ype6KO37kaMf6q9KGiFcEJEO0DJZ0bQ
-         eSiAJWt8yrlkqLRKbas15kHb+7xFRmfje7lgWUF+M8qFmBh1nneMpw+0009whDvVk1mF
-         7ZfQ==
-X-Forwarded-Encrypted: i=1; AHgh+RprbyRbe8BzUumOxjVMWWVSuXqFFnCeylsnk0E1Q1LicKytCXdFogYEp5zeQ4ixW/jyZ3hDAUVMz3p9@vger.kernel.org
-X-Gm-Message-State: AFuF++nyNyZ+2/qxgmHQTs29oIq8TnuMOibFigK9xqe9oKpB8/kVFP+Z
-	94Ho3OeFRioQCmXha/uYsli9oiDOiJ0BaL2EVFl5ZUvyuec4B12X9aK40ULlCqtmcOGBGEyOaf5
-	0Nm0cMC8W1zKIwgHzLmcPPZe5Sz6hBbmEhDEJ/cXYlaW/qr9XcygZFvAaDPwax8S1
-X-Gm-Gg: AR+sD11biRMu+zxOBYSTwEoGK1DjyySAws9snhxPhWN/9cWMz+nq4QAG1ett/CZuuNY
-	66DLIlTw8AGl2200YEpBUxfap9T1ME9+H/zN/r1YB+IibqgKf/sPJW5IRgYdrhE7OneQyFpreM0
-	W2WqHEnAPm994OGJvmg0PM4jRo4FrXC5ZRqXqXFZULV3tbpyx5gS+0gStBPVA5o/kIbF5rPiDoO
-	joq0fX0btxlLPqBlaRMA7NtycVo9m/ZS9OrFd/S0BAB1pzUSEeAQCRXGZjgtnXhZMJ8OqlGCUZq
-	POLQRZrvG1Gq2N+nS8gUqujdmeRfPQtkAkLw8RNQ+Kl5ebc5IqVG8o5+qxjnW/yaZmgyP8ow3QW
-	S04HoBMe6Q6clS1U6U2r9iKz2yDjI
-X-Received: by 2002:a05:620a:461f:b0:939:124c:b7d1 with SMTP id af79cd13be357-9391393787bmr3624048985a.30.1788274604563;
-        Tue, 01 Sep 2026 07:56:44 -0700 (PDT)
-X-Received: by 2002:a05:620a:461f:b0:939:124c:b7d1 with SMTP id af79cd13be357-9391393787bmr3624032085a.30.1788274603330;
-        Tue, 01 Sep 2026 07:56:43 -0700 (PDT)
-Received: from [192.168.1.110] ([178.197.219.214])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b955e7906sm302654475e9.1.2026.09.01.07.56.40
+        bh=KCwYat8AACN3jrzTsU7VQdP9QBM1LUdIVo5Kd7wh13Y=;
+        b=fm88HewAWmNXgnhQoGb7gB/kS6fu60AIwulG6pIqi5fGKMt/GgLISZXeK459nlTCKh
+         /unpxI0ojfMB3QkD1T90yp4g7ELmgoFfrBTrJPCPbhLurqHfVKWUzfi2FkhXPskwfEs/
+         Wwil/xfGBmQcKUMJxYvNwFHKykufv4aWtC1MbgtzE/XoAmB4rQaxIwvUYm84PX9XYwUg
+         j0SllV18RHTrrBfS2AwljZB0+YBCNZb7TaR3cf/hH3psJd84+sR54b7lWhXWSEVHC+wl
+         zzclrdT7cdRyQPJNEfWM/ViHvu6CgeqUsleGTTEGjrCD5/oiiPetyIc9ioqVYTHhJGmK
+         B2OQ==
+X-Forwarded-Encrypted: i=1; AHgh+RomfbH+icNenp3m5bEKP0fqB+2PckTnG2zKqWCGpMjU/vEKSkPWnE+uFUhSY07NXD86Dcf67zCD1JF7@vger.kernel.org
+X-Gm-Message-State: AFuF++nd7o2S5ScHNCT4yOghttPqCOBn5ttHDAHP2P6M6oB63hPIbIxv
+	Sw2DJzayYQAHhqPZ67xFNVIiS72aLdVKsQ3iJ6eL4aCAC7KM41QUNZRC74sWyZX7oVw=
+X-Gm-Gg: AR+sD10PuJU2uda2wiacfnOsjsDXVfv3Aujwlo3LOcrw6izZD2Dk5YkmyT1uhYjuHQj
+	HPipIEYykHKuwAbM8DiXnFB4TP2278erZkm6DC+6C/j2R/3728D77RZmorfem6Lok/BZHHw1D6f
+	JB0S4qRlrvDjxdYdg6+i7Hap4d1yuRV4yrDQvzygQUsma1jnYFwHubaiDUVWHT2ElNgQH2D9ejo
+	/SYyICcbBRYCxRJ8sWxP8iutEGiRXjn94TJHt0lvzcx8dtMf91ralMnt4w6w0eXEsStir4oz6Xr
+	532z/3UfIMqTs7ygz0TwebknvbY5jgNlvjKWqklaNc6LudsbkKBw4upQ/SQmQNXCwafJ2i9Jwur
+	aEth7s2AYb9MawYNSv3ZJ2dtVPwmNqMypdVKcdZwjhwPObFUCiSYCfdXFu33QSBsKLivBkn2fjs
+	MTduXE0Nk2u2Sv+OLPnCC8zmf8DPJs2/GqHFypjbrQxKA6q7TOfv/bCFJmMFkv
+X-Received: by 2002:a05:622a:c8c:b0:52f:a319:da85 with SMTP id d75a77b69052e-52fb96af1b0mr447135601cf.39.1788274692940;
+        Tue, 01 Sep 2026 07:58:12 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52ff6f363fasm81508941cf.16.2026.09.01.07.58.11
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 07:56:42 -0700 (PDT)
-Message-ID: <b7fd71fa-703d-4508-824d-a9816a1e7494@oss.qualcomm.com>
-Date: Tue, 1 Sep 2026 16:56:39 +0200
+        Tue, 01 Sep 2026 07:58:12 -0700 (PDT)
+Message-ID: <6a5bec41-71ef-4d9c-a34f-77d166b15ca6@riscstar.com>
+Date: Tue, 1 Sep 2026 09:58:10 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,92 +69,115 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/9] ASoC: dt-bindings: qcom,qaif-cpu: Add binding
-To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-Cc: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
-        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
-        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-References: <20260824063627.3595610-1-harendra.gautam@oss.qualcomm.com>
- <20260824063627.3595610-2-harendra.gautam@oss.qualcomm.com>
- <2e998f75-bcf9-48b6-b9ac-52627d52d284@oss.qualcomm.com>
- <CAC-tS8D1Q+Qq_cuwJbc5jU3UiOEe03zqgrvbQ8VAksmPEiZE1A@mail.gmail.com>
- <2dcc0fc1-6e71-41cd-815b-bca5d3517a65@oss.qualcomm.com>
- <CAC-tS8DcSuhefOMwEzKdcAHrkjh450pG7bFjKkhbdRi0zHgdFQ@mail.gmail.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 4/4] of: address: kill of_node_is_pcie()
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: bhelgaas@google.com, robh@kernel.org, saravanak@kernel.org,
+ daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, linux-pci@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260901011338.1323243-1-elder@riscstar.com>
+ <20260901011338.1323243-5-elder@riscstar.com>
+ <20260901084546.424c6ef2@bootlin.com>
 Content-Language: en-US
-In-Reply-To: <CAC-tS8DcSuhefOMwEzKdcAHrkjh450pG7bFjKkhbdRi0zHgdFQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=f6p4wuyM c=1 sm=1 tr=0 ts=6a96e7ad cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=hm1GCXOpcleeJiWVx8IA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDEzMiBTYWx0ZWRfX2cxcDHSzL+8+
- qyEUszF0qG9Z7XY2w+FKZ+qPoH5Y7Hg5TYBtE6V1tdnG1lo/wI0Yg2YBvkaXiILO6B5Pd6vBHNH
- 9RRB6zxgxmlOjrETMW/o4AdHAdEirZxj+U9QihWTn8tvGCc/EgUAqUVuFbw/s2S7srcoEtkk6xf
- yp764xflQmQsSIYUzVL+H/XSz1Frs1JpDMUzQEzPU0aXGETOcKY8a2b76uzF5Ts0yeiYTsYSxBi
- tFsi/8suiOkzLuZdEI8yROPH+5DYHwJRXu5dyzqjAJhhxwuAF4RhnLfN9RBIFGoxT/jS6k354y9
- q6nBUX/Tu/YbIp2tsPS7Z23bDaRqQOc2zy/E+50A5qpy0ZykBEo8ffVZSURYGxy6cKlxcSXiSS4
- glBsDafYf0t4cRTrQgeppxxqu0Y6k7XopdU1jXiMK7TmdSl8aklJHVAIs2iS76dChR1dSb8Ax6p
- 7IXWzBS4/f5MHBG31fw==
-X-Proofpoint-ORIG-GUID: 6QrN9TTBCpqHArf2rhh4OTIBWYxCOOKx
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDEzMiBTYWx0ZWRfX/6xI8Er1lzjt
- gWtiXdf5T4ZIUWspzxWPk8tsASQT32qTHqGEX7j+AQdKzU4kQmtmCoI1JrWSO3KkpkaLWLMu7qi
- uaM1YIoyNJ/1EYotYnZiqD4L3SAuzK8=
-X-Proofpoint-GUID: 6QrN9TTBCpqHArf2rhh4OTIBWYxCOOKx
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_04,2026-09-01_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 priorityscore=1501 suspectscore=0
- impostorscore=0 spamscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609010132
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <20260901084546.424c6ef2@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 01/09/2026 16:46, Harendra Gautam wrote:
->>>> The DT binding filename and compatible string do not match (qcom,qaif-cpu.yaml vs qcom,shikra-qaif-cpu).
->>>> Usually DT binding filenames are aligned with the compatible string for clarity.
->>>> Is there a reason for the naming mismatch?
->>> The filename reflects the controller; the compatible is
->>> variant-specific. This follows the same convention as
->>> qcom,lpass-cpu.yaml.
->>>>
+On 9/1/26 1:45 AM, Herve Codina wrote:
+> Hi Alex,
+> 
+> On Mon, 31 Aug 2026 20:13:37 -0500
+> Alex Elder <elder@riscstar.com> wrote:
+> 
+>> The of_bus->match function for the "PCI" bus type is fairly liberal
+>> in what it accepts as a PCI bus devicetree node.  If a node has no
+>> device_type property, it even allows a node named "pcie@" to be
+>> accepted as represnting a devicetree bus, though it issues a warning
+>> in that case.
 >>
->> There is no compatible for controller and the only top-level compatible
->> listed there is "qcom,shikra-qaif-cpu", so that is your filename.
+>> A recent PCI commit introduced of_pci_verify_node().  When a PCI
+>> device is added, if it has a devicetree node, that function checks
+>> its device_type property.  For PCI bridge devices, if there is no
+>> device_type property (value "pci"), a warning is issued.
 >>
->> And I already asked about this in v1. Why does this have to be repeated
->> at v3?
-> The QAIF hardware IP is the same across platforms, only the board
-> integration details differ. The binding is meant to describe the IP
-> generically, with board-specific compatibles like qcom,shikra-qaif-cpu
+>> That warning duplicates the warning made by of_node_is_pcie(), and
+>> there's no point in that.  Avoid the second (OF) warning by just
+>> checking the node name directly in of_bus_pci_match().
+>>
+>> That leaves of_node_is_pcie() unused, so get rid of it.
+>>
+>> Signed-off-by: Alex Elder <elder@riscstar.com>
+>> ---
+>> v3: - Added (new) in this version of the series
+>>
+>>   drivers/of/address.c | 12 +-----------
+>>   1 file changed, 1 insertion(+), 11 deletions(-)
+>>
+>> diff --git a/drivers/of/address.c b/drivers/of/address.c
+>> index 499d37ceae210..ee2eb44884d85 100644
+>> --- a/drivers/of/address.c
+>> +++ b/drivers/of/address.c
+>> @@ -134,16 +134,6 @@ static unsigned int of_bus_pci_get_flags(const __be32 *addr)
+>>    * PCI bus specific translator
+>>    */
+>>   
+>> -static bool of_node_is_pcie(const struct device_node *np)
+>> -{
+>> -	bool is_pcie = of_node_name_eq(np, "pcie");
+>> -
+>> -	if (is_pcie)
+>> -		pr_warn_once("%pOF: Missing device_type\n", np);
+>> -
+>> -	return is_pcie;
+>> -}
+>> -
+>>   static int of_bus_pci_match(struct device_node *np)
+>>   {
+>>   	/*
+>> @@ -156,7 +146,7 @@ static int of_bus_pci_match(struct device_node *np)
+>>   	 */
+>>   	return of_node_is_type(np, "pci") || of_node_is_type(np, "pciex") ||
+>>   		of_node_is_type(np, "vci") || of_node_is_type(np, "ht") ||
+>> -		of_node_is_pcie(np);
+>> +		of_node_name_eq(np, "pcie");
+>>   }
+>>   
+>>   static void of_bus_pci_count_cells(struct device_node *np,
+> 
+> The warning here was printed based on the node name whereas of_node_is_pcie()
+> prints the message based on the 'device_type' property of a pci_dev node.
 
-The binding does not describe the IP generically, because bindings are
-not generic.
+You're right.  Both warnings were getting reported for me, but for
+different reasons.
 
-> used to distinguish variants. I had qcom,qaif-cpu as the generic
-> compatible in v2 but removed it in v3 as I was not clear about the
-> guideline. Could you please suggest the right approach for the
-> compatible and filename in this case?
+I would be happy to just drop this patch and live with two warnings
+in some cases (we should rarely see either one of them anyway, right?).
 
-Same comment, literally as v1.
+Is that OK with you?  Does anyone feel this patch should be kept?
 
-Filename should match compatible, as in this case since it is single
-compatible, filename should be equal to the compatible. So first you
-determine what is your compatible and then you copy paste that string
-into the filename and $id path.
+Thank you.
 
-Best regards,
-Krzysztof
+					-Alex
+
+> For PCI to PCI bridges, no problem the warning is indeed duplicated but what
+> happens for the PCI host controller?
+> 
+> PCI host controller drivers calls pci_host_probe() and are seen by the PCI core
+> as a struct pci_host_bridge.
+> 
+> of_node_is_pcie() is called for children of the PCI host controller (i.e. PCI
+> devices scanned on the PCI bus handled by the host controller) but not for the
+> PCI host controller itself.
+> 
+> The OF node of the host controller must have the 'device_type' property set
+> to "pci".
+> 
+> I am not so sure that this warning was duplicated when we consider the PCI
+> host controller node.
+> 
+> Can you double check on your side?
+> 
+> Best regards,
+> Hervé
+
