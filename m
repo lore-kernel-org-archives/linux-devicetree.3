@@ -1,248 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57F5547669A;
-	Tue,  1 Sep 2026 10:17:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8084B47ACF4
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 10:19:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788257870; cv=none; b=RC1EluW7Ca7zzM2bbSxFeKaDCjSKtmFbdNBIbEhUhBK6w9YtoXhu/NYrvLk9h8uYUoYK8mIFboHHDjZb+oxt8lbKjwUrh08Y6XW7maMhON0e9RT3Ak5/XjvyrRH6nHitQdHwVpUD4xgI6d83Zab7VoyBeSPDlVn1GLfNRyWs8uw=
+	t=1788257947; cv=none; b=DN+RYCbIONsKCXpAe9YE+NFl97y1evv/2HMUe1904PY750YCoTpQFylR0SEZA9zKNNJkf8I9/jrtZZPN87EeFNrlTz0KM4jLKVSeKI8GsaE4My4/7eT6E8tCKLiTt85TyTkgw0zV0NFGU8Y+N6MN2+T8Jvw27l57H2mYwJ5U51U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788257870; c=relaxed/simple;
-	bh=b5nF/rkMUtpaOMm853YhrTWPu8MRNN+GraOtoNwSRoQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q4DAhHr7gVc8lL6N9mt5r7vscUK8X0xN+qPy5X4+5ug6HwI45z/OLC8iNdA7+hFvIghNfTc1mO3aQxy4jRVjVadkwryR3JwI7v1QM5EjGdQshhNSHBK/Id31UbYrD5c6TMq5y/+mjLgg44sNq0Mj0iQnox9OUdwstz0cGWIe1qA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ACutFyiY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788257947; c=relaxed/simple;
+	bh=EIrNvUHDstHHjeFO3U3xOZlTlAPgkrzoxREHv2U3uN0=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=OeiZOpqb5tflTk1kVwaF0RPG9F32gImUbZbsZNRujcr+HDb75hs49m3/vUAcEmHohwH6PqJVk7EsFyMSCkbHTaUAvsLEvAk7y2+RXlzykcJOY9iD4M1vznVoxBNuZPzYQvYx7ROVGgvENCQln9S9kLec8VoZKOSFzrbwVPfBRa8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=frvFdlTO; arc=none smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ACutFyiY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50AB31F00A3D;
-	Tue,  1 Sep 2026 10:17:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788257869;
-	bh=bD+NO1g8IcJci8fvIzJFemXzIyBE1S8uBHtu51YLBF0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ACutFyiY8cBL8pUEITCpBSusdAAbThw3ByP8SxszmZRUwdllDgLVVhD1FQrsGDy9L
-	 DO95/RErUhBoER1ZrmyczpdHgFoqpGiLuT4ueF2SIGxZfrH1+K1ILboFOWsYvglMSW
-	 pMxgNyddQtnZCgelaeXVn1t/ZHF3jb5YgCsckx9gZsUQzb9qC6qIDEaZ9zBqY1EtYE
-	 a1nZqam8j3aURnydgbAjLqicbx9Xcp06BtI0WDagtlzLhAQCSSibmz5l1LqSefhGft
-	 xfXuoCBsG0/n2yUzhkdKs/IzxmrvE9ZvKkLfh9WrVmMLolLxkXl0ay8+v1US8X9i6/
-	 SalC+3IKnHMHg==
-Date: Tue, 1 Sep 2026 11:17:45 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Changhuang Liang <changhuang.liang@starfivetech.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: hwmon: Add starfive,jhb100-fan-tach
-Message-ID: <20260901-rascal-accompany-019414202877@spud>
-References: <20260830011941.40199-1-changhuang.liang@starfivetech.com>
- <20260830011941.40199-2-changhuang.liang@starfivetech.com>
- <20260831-dominion-data-c8b6f691dd5b@spud>
- <9f4e99f4-5135-4db8-8534-46c91bf4f7d2@roeck-us.net>
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="frvFdlTO"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c2569aa5116so138821566b.0
+        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 03:19:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1788257943; x=1788862743; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/R2B4UIn9uyXdoZMfmtsPZpaGxOVNwVD5ZuxHGzJeSs=;
+        b=frvFdlTOqgkCeW2YCZUfPilvQBCXd3N7umri5bdQa722FT9DT5tia80QY2a26O2crW
+         Hdn4WstmCXvtJXAKql6MNWiUf+eRBL1c6tC0PrvTGHa3LgrM/dneD22FvH4G6VCQdTep
+         ZgJTksz5hkMwn9KqttobQtKCsS7lVGvpduqid1wIiWTeqcvIpKEdEXtyDEo+xjfD68/Q
+         bQAofkA+GQPvSE6Eb7Jhi+GB+NNEe7BUPXOCrR4ByvoHeNeVi775Z+jX9N13SxTjwoIo
+         GTby0LiVgwKkIHvBgvrEHeSP34V/krX/plCXpkjgSjTlykVRtOmybrXoALO8y0NLIikr
+         Ecbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788257943; x=1788862743;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/R2B4UIn9uyXdoZMfmtsPZpaGxOVNwVD5ZuxHGzJeSs=;
+        b=XtzS5+1Mm+KngVu9FcioEeNLIMvhXwAIIH1ORxNkU4rc2Vt7XcxEc5BFM1xFsBSV58
+         r1oWnyIPwhkaQR+HBvg9UYRapovtg62tmiddHiwcdJdGp9dlDcD57wp28zYDmTaq/q2t
+         YUSIKNFOAjB6w/1ICRIc/oaG/E9v3pSqwy9lSipOM4zhODofcsczxzhhOuCXP3iKoQdl
+         0s6V3axcn/60HUbXAgJV2XrJ42DgEzkvfkMofh2fjh6ZG+eQ+VCoLSlsJfQrgWUQ/k1u
+         U5ZPmiEia5cH4ZOU6YwZsgXD5rzSm/PdAaHkohglyo5UlQYuRRVJG2k31a84iu/Xo3ZC
+         QUww==
+X-Forwarded-Encrypted: i=1; AHgh+RqlAvu5RW2SvTeaBfHkJk52UicKEbrjoaBMtw6PosuiyW+Bu+f4PMXG2+Rd4HXGWA2uKAXdx5mr4MoA@vger.kernel.org
+X-Gm-Message-State: AFuF++mAAOz1WtEnh0c5WSFfkbIW6DFkgX/RbKjrOC+bF6dEQ0q8BBQa
+	p6p2J9a5zbnzCDHwuA7dfzdL5Rh6215DgcMVisxfcJz8ZHoya1znvvmRaXOsfP0/8gE=
+X-Gm-Gg: AR+sD11r63irT11O+OLSejP+DSP0BGLka3GMXR9vhCUlROy/ZQFsER9oG+CSi0vSyTm
+	1D4+qQTIMzhFkQcLlaKIxGBBQtkj+l9SF6as3jKggkpusJzaooGQX/yUU8Cofq0X0mGZbRHwNrI
+	q1eMyubIxXQ9N8BcLtCQswSDXDL1NN6I2JZK2TvdTGdYLvfjFXCdeLthFI84kUkg4PqCJDubklS
+	26EiJqL5tzp0HJfU5hN6U3ByvE2ICyGpxLCJn9A1LMb7ew9QRC8AYCVaR39IuLfEN2zrsAGWlhU
+	0yed97o/iGtWtm+NNnkAgQywJN6toZqDr59Gf5v+9WOdo+ondxIGTN8Rxx2Oa02/wRgzROjuvMZ
+	zcXsnqRhxn1wGdUW2EGCIg01uoAmbNwZQZW+lnpT7zQ64XDoNDNpq0mYG5gyTdjVF4U69YjZWUI
+	Xho+puvLIucRxxDe/DHL26etg1qa4A1aPb5slwazLU54ed2dVrLIrmD4KrvddmVBdyyuKGYuQ82
+	YaZPb3tQZlHTuKBjg5n4oKp08UND2bLow==
+X-Received: by 2002:a17:907:3cc4:b0:c16:6dac:a008 with SMTP id a640c23a62f3a-c25b919fe0emr274723666b.8.1788257942589;
+        Tue, 01 Sep 2026 03:19:02 -0700 (PDT)
+Received: from localhost (144-178-202-138.static.ef-service.nl. [144.178.202.138])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255ee0b388sm549393466b.5.2026.09.01.03.19.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Sep 2026 03:19:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="OllR8tuWijpArDcA"
-Content-Disposition: inline
-In-Reply-To: <9f4e99f4-5135-4db8-8534-46c91bf4f7d2@roeck-us.net>
-
---OllR8tuWijpArDcA
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 01 Sep 2026 12:19:01 +0200
+Message-Id: <DL3WJ9AX6P5Y.QS2RPHUIJWVL@fairphone.com>
+Cc: <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
+ <linux-arm-msm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-bluetooth@vger.kernel.org>,
+ <linux-wireless@vger.kernel.org>, <ath11k@lists.infradead.org>, "Dmitry
+ Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v2 0/7] Enable Bluetooth and WiFi on Fairphone
+ (Gen. 6)
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "Bjorn Andersson" <andersson@kernel.org>, "Konrad Dybcio"
+ <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Alexander Koskovich" <AKoskovich@pm.me>, "Liam Girdwood"
+ <lgirdwood@gmail.com>, "Mark Brown" <broonie@kernel.org>, "Bartosz
+ Golaszewski" <brgl@kernel.org>, "Marcel Holtmann" <marcel@holtmann.org>,
+ "Luiz Augusto von Dentz" <luiz.dentz@gmail.com>, "Balakrishna Godavarthi"
+ <quic_bgodavar@quicinc.com>, "Rocky Liao" <quic_rjliao@quicinc.com>,
+ "Johannes Berg" <johannes@sipsolutions.net>, "Jeff Johnson"
+ <jjohnson@kernel.org>, "Luca Weiss" <luca.weiss@fairphone.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260403-milos-fp6-bt-wifi-v2-0-393322b27c5f@fairphone.com>
+ <178820768635.1699313.4119708799289566517.b4-ty@kernel.org>
+In-Reply-To: <178820768635.1699313.4119708799289566517.b4-ty@kernel.org>
 
-On Mon, Aug 31, 2026 at 10:54:32AM -0700, Guenter Roeck wrote:
-> On 8/31/26 09:32, Conor Dooley wrote:
-> > On Sat, Aug 29, 2026 at 06:19:40PM -0700, Changhuang Liang wrote:
-> > > Add compatible "starfive,jhb100-fan-tach" for StarFive JHB100 Fan-Tach
-> > > controller.
-> > >=20
-> > > Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> > > ---
-> > >   .../hwmon/starfive,jhb100-fan-tach.yaml       | 93 ++++++++++++++++=
-+++
-> > >   1 file changed, 93 insertions(+)
-> > >   create mode 100644 Documentation/devicetree/bindings/hwmon/starfive=
-,jhb100-fan-tach.yaml
-> > >=20
-> > > diff --git a/Documentation/devicetree/bindings/hwmon/starfive,jhb100-=
-fan-tach.yaml b/Documentation/devicetree/bindings/hwmon/starfive,jhb100-fan=
--tach.yaml
-> > > new file mode 100644
-> > > index 000000000000..1dcd4932768f
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/hwmon/starfive,jhb100-fan-tac=
-h.yaml
-> > > @@ -0,0 +1,93 @@
-> > > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/hwmon/starfive,jhb100-fan-tach.ya=
-ml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: StarFive JHB100 Fan-Tach controller
-> > > +
-> > > +maintainers:
-> > > +  - Changhuang Liang <changhuang.liang@starfivetech.com>
-> > > +
-> > > +description:
-> > > +  The StarFive Fan-Tach controller can support up to 16 fan tach inp=
-ut.
-> > > +
-> > > +properties:
-> > > +  compatible:
-> > > +    enum:
-> > > +      - starfive,jhb100-fan-tach
-> > > +
-> > > +  reg:
-> > > +    maxItems: 1
-> > > +
-> > > +  clocks:
-> > > +    maxItems: 1
-> > > +
-> > > +  resets:
-> > > +    maxItems: 1
-> > > +
-> > > +  interrupts:
-> > > +    maxItems: 1
-> > > +
-> > > +  "#address-cells":
-> > > +    const: 1
-> > > +
-> > > +  "#size-cells":
-> > > +    const: 0
-> > > +
-> > > +patternProperties:
-> > > +  "^fan@[0-9a-f]+$":
-> > > +    $ref: fan-common.yaml#
-> > > +    unevaluatedProperties: false
-> > > +
-> > > +    properties:
-> > > +      reg:
-> > > +        description:
-> > > +          PWM channel index. The driver allows two fans to share the=
- same
-> > > +          PWM channel, or each fan to use a dedicated channel.
-> >=20
-> > Doesn't matter what the driver can do, the description should describe
-> > what the hardware supports.
-> > pw-bot: changes-requested
-> >=20
-> > Does this fan-tach controller provide the PWMs?
-> > If so (although Guenter may correct me), I think the fan-tach controller
-> > needs to be.
-> >=20
-> > If you don't do that, I think you're going to run into problems with
-> > having multiple nodes with the same unit address when two fans share a
-> > pwm?
-> >=20
->=20
-> Depends on how the controller works. Normally fan controllers have a feed=
-back
-> mechanism which can be either temperature -> pwm output or fan speed -> p=
-wm output.
-> I don't know how this controller works, specifically if the fan speed inp=
-uts are
-> internally associated with pwm outputs or if they are completely independ=
-ent
-> of each other. If it is the latter, aspeed,g6-pwm-tach.yaml would probably
-> be a good baseline.
+Hi Bjorn,
 
-Judging from the other reply, it probably isn't a good baseline because
-this is not a pwm provider.
+On Mon Aug 31, 2026 at 10:21 PM CEST, Bjorn Andersson wrote:
+>
+> On Fri, 03 Apr 2026 15:52:46 +0200, Luca Weiss wrote:
+>> Add the required bits to enable Bluetooth and WiFi on the Milos
+>> SoC-based Fairphone (Gen. 6) smartphone.
+>>=20
+>>=20
+>
+> Applied, thanks!
+>
+> [3/7] dt-bindings: net: wireless: ath11k: Document WCN6755 WiFi
+>       commit: e506d34e57236c41cebacc43e50f35f5b52dc675
 
-> > I think what you're supposed to do is drop "reg" and replace it with
-> > "pwms", but once again Guenter may correct me there.
-> > e.g. aspeed,g6-pwm-tach.yaml
-> >=20
->=20
-> Sorry, when it comes to devicetree properties, I am completely clueless.
-> Usually the devicetree and pwm maintainers insist that all fan controllers
-> are modeled as pwm controllers because they have pwm outputs. My approach
-> is "use whatever bindings are acceptable by DT maintainers".
+Mostly checking in, are you planning to pick up the rest of the patches
+from this series as well? PATCH 1/7 (PMU dt-bindings) have been picked
+up already, and the bluetooth dt-bindings patch has an Acked-by since
+June sou you can also pick that up as far as I understand it. Then only
+dts is remaining which still appears to apply fine on latest -next.
 
-Would you mind taking a look at my question in the other reply about how
-the feedback path works (or doesn't) in that case? My lack of
-familiarity with the subsystem has me scratching my head about how the
-tach would be used to adjust the pwm duty cycle with the dt setup
-described there!
+Shall I resend, or can you pick them up from this v2?
 
-Thanks,
-Conor.
+Regards
+Luca
 
->=20
-> Guenter
->=20
-> > Cheers,
-> > Conor.
-> >=20
-> > > +        maximum: 15
-> > > +
-> > > +      tach-ch:
-> > > +        description:
-> > > +          The tachometer channel(s) wired to the fan(s) driven by th=
-is PWM
-> > > +          channel. Integer values in the range 0-15.
-> > > +        minItems: 1
-> > > +        maxItems: 2
-> > > +        items:
-> > > +          maximum: 15
-> > > +
-> > > +    required:
-> > > +      - reg
-> > > +      - tach-ch
-> > > +
-> > > +required:
-> > > +  - compatible
-> > > +  - reg
-> > > +  - clocks
-> > > +  - resets
-> > > +  - interrupts
-> > > +
-> > > +additionalProperties: false
-> > > +
-> > > +examples:
-> > > +  - |
-> > > +    fan-controller@11be0000 {
-> > > +        compatible =3D "starfive,jhb100-fan-tach";
-> > > +        reg =3D <0x11be0000 0x400>;
-> > > +        interrupts =3D <128>;
-> > > +        clocks =3D <&per2crg 33>;
-> > > +        resets =3D <&per2crg 5>;
-> > > +        #address-cells =3D <1>;
-> > > +        #size-cells =3D <0>;
-> > > +
-> > > +        fan@0 {
-> > > +            reg =3D <0x0>;
-> > > +            tach-ch =3D /bits/ 8 <0x0 0x8>;
-> > > +            pulses-per-revolution =3D <2>;
-> > > +        };
-> > > +        fan@1 {
-> > > +            reg =3D <0x1>;
-> > > +            tach-ch =3D /bits/ 8 <0x1>;
-> > > +            pulses-per-revolution =3D <2>;
-> > > +        };
-> > > +    };
-> > > --=20
-> > > 2.25.1
-> > >=20
->=20
+>
+> Best regards,
 
---OllR8tuWijpArDcA
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapamSQAKCRB4tDGHoIJi
-0pcFAP9NvhtVArULnG8/TcoZuMv9hLMI3fMdLauAVZ1kqkpcwgD/dvDa1Dh0dbVn
-wntMkz3OdcbTVJykj8hjq6a8pHhDngQ=
-=X4B+
------END PGP SIGNATURE-----
-
---OllR8tuWijpArDcA--
