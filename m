@@ -1,130 +1,92 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E7863AAF57;
-	Tue,  1 Sep 2026 09:05:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 223CF47206A;
+	Tue,  1 Sep 2026 09:05:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788253525; cv=none; b=tA6Nfm5TMSQQVy5wijSRTR70wLdP3hQ5nJOf8xH7MuGQ8/egDP5mEyt6cQMvcqWZPUbv63idnDULW6abPyMIYqTlsEIIMLD9mtQUC7+S35HRHWO+dd2kguE00Wh0L68RsaYTwbu82L3npemBpJldViMWoxO/U1dn45nSVY9aCbU=
+	t=1788253558; cv=none; b=mpJHaynmFzsVzDTtsQ7WDtxaI73eCyleJTvGfOOn6kcfadIm3O6+x+DrvzWGbOrLIJRo/ljn/wz5x+KmU0pFx6B8gGGK1AWmyg1Oii5TQbujCymWop5ayKQaBynxM4KypmSY0CGPHweLrqgxkKcksWa1g06RY8l72ybcTtKCyBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788253525; c=relaxed/simple;
-	bh=Vg4cyF1+d9e+J9NUaFGqRHksw/LB1Ux2jcR/L7iyFkM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sadLLGFuUmYZ9oVGKh2SJ/krbnCCRoZ/QxxcU+Lq7+zwQTKIf9IFnDVqD8D4p8xXD19qiyyLqK/QKBtctK8gUAJS3xqJq3Q42vN2cvJDN2CmU+Vjen4fTksnCikO9P95IGAwiAGHold4TcyfwJYvNmX+tJFAxXSNXK4FYu08RUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=eJcvPQIc; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788253558; c=relaxed/simple;
+	bh=m96ggSPGYoHfEu2xH8uJqZzmILJe7qP9A0NWhEwB/cU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=qRTj9JxnYuPzdomcFKhBCZu8TPWAS/S74HSBc2YZh6BVjCpqa34m4NzqF9zadQ4wURCEzAj1Jdpj2qtRhZwr2nNLek+WK0g3fiAzQ8lPsPCnXNgwACLRIgpDRmKHEBiO5k7yQDUUmmDHEaww0TFH+3EpXnU5jqQZGYtshT78uL8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G2Suoa56; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="eJcvPQIc"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id DA9FB1A1925;
-	Tue,  1 Sep 2026 09:05:20 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id AA94C6053C;
-	Tue,  1 Sep 2026 09:05:20 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 196BE11C79250;
-	Tue,  1 Sep 2026 11:05:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788253519; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=GJuoWYQzDE1NRtCyW1LcfgF9O6bpX8to9ln1fn3ixIc=;
-	b=eJcvPQIc8DGkcHhHoXhV1UzWfmBDlgzHp9/jTqCqe21bTmqgyBkFg7hq0V17idFcuc3ylq
-	tYkYzAzaDvVxhe3hniX6FwBMU7WL8ZKUm3SdhBjZYNuYhPi5g11gPca17rViw+Rf2eaDLF
-	JvKViPoBLhHKMr6Fo1EGBavxqpeGAJjTEaw4NSvpUYZgs2VbHGqA4wz08gscIHeeMe1tZc
-	NDSrVuDX1xThOCioQxK1wngqAq2OedyhyoMtZuHGA3QyRw0/wDCmPTlVH4YlZi2+w1Giu6
-	CkGQXpOO2FI7xCRLjqYDb1RmAO15Xu1IywWDolfrgHxz/gkA3asWBvCaJcFS8A==
-Message-ID: <e4050d49-29cc-4fc7-aec5-53c8dd9dbc97@bootlin.com>
-Date: Tue, 1 Sep 2026 11:05:11 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G2Suoa56"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74CD21F000E9;
+	Tue,  1 Sep 2026 09:05:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788253554;
+	bh=KuVUUMiVWKPGBNQcqJbw1KvuVeRdOIBJTa4lJGyOfAA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=G2Suoa56LmItPitqcrgmvFckWKptoO4z7yocRcIxj937eqUwo0x/iJoOn0K2tNBQN
+	 KQWZb8Z2HdW799daWVCNCaeAeYd8/ZevbFQPRHLQs3mK7wW4m01g8dcxDu+8jBi4rm
+	 lhLcct79lWraRpaExVCi5ymsfcNRxzuBKlkyMJIylakx9dhlkQxHgv9QgmTWM40sbJ
+	 uQ1pPpX7uvrxyVjMDGJyYje6/IhnUDj8hDIXlcUsGvYq4MZSALW+/yLwEEDwauR3kY
+	 ZpItviWB7+X4FXrvYg+MrLDz65rGBk6BXLu6grOsdfd0aCBCuIBZIUrYBLsvFwGIjg
+	 wvZ0C2C8wOiFg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 6/6] arm64: dts: qcom: sc8280xp: add Radxa Dragon Q8B
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Xilin Wu" <sophon@radxa.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260901-q8b-dts-v1-6-7de0b6a73d08@radxa.com>
+References: <20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com>
+ <20260901-q8b-dts-v1-6-7de0b6a73d08@radxa.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 01 Sep 2026 09:05:52 +0000
+Message-Id: <20260901090553.74CD21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 3/3] net: stmmac: Add UltraRISC DP1000 GMAC
- support
-To: Jia Wang <wangjia@ultrarisc.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Jose Abreu <joabreu@synopsys.com>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-References: <20260901-dwmac-ultrarisc-v1-0-f19454814bcf@ultrarisc.com>
- <20260901-dwmac-ultrarisc-v1-3-f19454814bcf@ultrarisc.com>
- <49620860-9bd5-48fb-bbaf-55da377e9018@bootlin.com>
- <178825152454.3900827.17398212265347300430.b4-reply@b4>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <178825152454.3900827.17398212265347300430.b4-reply@b4>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Swapped voltage regulators for the DP2 PHY.
+--
 
-On 9/1/26 10:32, Jia Wang wrote:
-> On 2026-09-01 09:29 +0200, Maxime Chevallier wrote:
->> Hello,
->>
->> On 9/1/26 03:27, Jia Wang wrote:
->>> The DP1000 GMAC integration provides fixed TX and RX RGMII clock delays
->>> that cannot be disabled. For boards without PCB delays, "rgmii-id"
->>> describes the link, but passing that mode unchanged to the PHY would enable
->>> a second set of delays.
->>>
->>> Use phy_fix_phy_mode_for_mac_delays() to translate "rgmii-id" to "rgmii"
->>> before attaching the PHY. Reject other RGMII modes because the fixed MAC
->>> delays cannot be combined with them without duplicating or omitting a
->>> delay.
-[...]
-> 
-> Thanks. I enabled CONFIG_STMMAC_SELFTESTS and ran the test on the Milk-V
-> Titan with the new glue driver:
-> 
->  1. MAC Loopback                 0
->  2. MMC Counters                 0
->  3. EEE                          -95
->  4. Hash Filter MC               0
->  5. Perfect Filter UC            -95
->  6. MC Filter                    -95
->  7. UC Filter                    -95
->  8. Flow Control                 0
->  9. RSS                          -95
-> 10. VLAN Filtering               -110
-> 11. VLAN Filtering (perf)        -110
-> 12. Double VLAN Filter           -110
-> 13. Double VLAN Filter (perf)    -110
-> 14. Flexible RX Parser           -95
-> 15. SA Insertion (desc)          0
-> 16. SA Replacement (desc)        0
-> 17. SA Insertion (reg)           0
-> 18. SA Replacement (reg)         0
-> 19. VLAN TX Insertion            -110
-> 20. SVLAN TX Insertion           -110
-> 21. L3 DA Filtering              -95
-> 22. L3 SA Filtering              -95
-> 23. L4 DA TCP Filtering          -95
-> 24. L4 SA TCP Filtering          -95
-> 25. L4 DA UDP Filtering          -95
-> 26. L4 SA UDP Filtering          -95
-> 27. ARP Offload                  -110
-> 28. Jumbo Frame                  0
-> 29. Multichannel Jumbo           -95
-> 30. Split Header                 0
-> 31. TBS (ETF Scheduler)          -95
+commit be4c87024201f57f02fd6174d5602a08840ba63a
+Author: Xilin Wu <sophon@radxa.com>
 
-Awesome, that's pretty-much what I expected, nothing too bad stands out :)
+arm64: dts: qcom: sc8280xp: add Radxa Dragon Q8B
 
-Code itself looks good, no obvious error, so
+This commit adds initial device tree support for the Radxa Dragon Q8B, based
+on the Qualcomm Snapdragon 8cx Gen 3 SC8280XP platform. It describes various
+hardware components including storage, PCIe interfaces, USB, HDMI output, a=
+nd
+audio.
 
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-radxa-dragon-q8b.dts b/arc=
+h/arm64/boot/dts/qcom/sc8280xp-radxa-dragon-q8b.dts
+> new file mode 100644
+> index 0000000000000..1c0e94bba4d7d
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/sc8280xp-radxa-dragon-q8b.dts
 
-Maxime
+[ ... ]
+
+> +&mdss0_dp2_phy {
+> +	vdda-phy-supply =3D <&vreg_l3b>;
+> +	vdda-pll-supply =3D <&vreg_l6b>;
+
+[Severity: High]
+Are these voltage regulators swapped for the DP2 PHY? vreg_l3b provides
+1.2V and vreg_l6b provides 0.88V, but the PHY requires ~0.88V and the PLL
+requires 1.2V.
+
+If vdda-phy-supply receives 1.2V, it violates the physical hardware
+configuration which expects ~0.88V. This could cause the DP PHY to fail,
+preventing DisplayPort output, and potentially risk hardware damage due to
+overvoltage on the PHY rail.
+
+> +
+> +	status =3D "okay";
+> +};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901-q8b-dts-v1=
+-0-7de0b6a73d08@radxa.com?part=3D6
