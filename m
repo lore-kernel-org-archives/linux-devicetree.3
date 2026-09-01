@@ -1,161 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 721DE4A262E
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 20:26:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 346354A3855;
+	Tue,  1 Sep 2026 20:26:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788294385; cv=none; b=jgsOrYhu2vy187e1shmX18BS9R2xgzqjy93Wc3n257tHTyuCo4v99N0BGxnL4UdhlVnxvesGH2zGXo1EJ1ALrWzfAGDCL2u30KBEQqDbWlylUdqEgyDyoWcVgu1M2OevGdhRD55coiHsW1qXADWYu+lp8Sb9Iou0PQTzzc8wyXc=
+	t=1788294416; cv=none; b=foVDq5NWtWds194ncVCwNaQ0Rf4GYfgDynLmgHVjY7pKFsdKh+AOhejXuS0lzmIy4i4oNybaW7IlbvcolEB66QkBaoDO5oJBJoAqb1p0tZbRL+7nYhiCqIMSVTM+TY7UiZpMWUdx3ZbzXc9hpolViioEMI39Z8Gl2VvIAgd9ii4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788294385; c=relaxed/simple;
-	bh=sRthVS6aMSu5+OFpuSJE0iF+P+o6qkCdoySwCKqJ2mY=;
+	s=arc-20240116; t=1788294416; c=relaxed/simple;
+	bh=6gd7XjQKNOFj1zsei+V1YfEDfFgLEuIX/2pYUJ32aj4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=sLinp6IQvFaY8H7ZrQHzHBGcGOQoM1OACizbQUBhuloseKtlXh4WxdbpP2ez5QNW9B0y84jIjEv+XzNPh5aNGC/lS5QUW4cFD2Eg1LrXHe7sWlqo3zZEea51nm54ydvUBye2yP1znxz+kL6SE062SJLyblxcftel7gA8unRK0/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PcgUvZjg; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=GNkqrZxuHJahZkuIZT3x76o8ij9bT26IhxltaQGHcl59OAiS3jExYqS/efVWLSdWrpsfp4op2qkrwELpMTgV99JztAy37ZD9zEV154gdSbXAT4AXD+jxIqjDnI/BXdLD5V+JKjo1qaujRBBajOC/4WAGRnc5pMG8K8Y0jlClsYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kHG6NC3B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PcgUvZjg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91BF31F000E9;
-	Tue,  1 Sep 2026 20:26:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kHG6NC3B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A17901F000E9;
+	Tue,  1 Sep 2026 20:26:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788294384;
-	bh=BRB5urgMLJTYfoSmG3wFxm9ZNAlVK+rRPpkEdO5USDM=;
+	s=k20260515; t=1788294415;
+	bh=NCo3SutYRntdCzgAE9/AcR54Pa2GXSWs6HsexpK0/7c=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PcgUvZjgg5Cf/a68PU135KAWxcJciZLUl3/Dq6eJ8KEhG0/0YeC8qzZACn6OeDmgX
-	 Tp3/npcIokVBNqzXgcAzW3V3T4GzRCBc6hYb8Yg2wM5fQXxvvePn+2HiI7wmKcrDR4
-	 XckQsnyakVFP3WCKequlR5Nh1ZHtgy9jSOGUVATS3vuKd00lJ4Fy+E737wYwD6Td+8
-	 USe7mGOLF0jKUc1StvR4+i6zrQg/YoWpPSsq32CX1wkX5GEw/EbQijRGnc6J4nbS3K
-	 hUiZmJ1WdbUncLioBlFPfPamge2p6tF1wN30jYZ1sNxRdVHQ+F2ANSdepiIv6L0Cvb
-	 /KLW0oqcLoECQ==
+	b=kHG6NC3BBlL8UMdTWIjTJl4o4mtYbS4Cj3gaVatAY/QVDW/Wa1KyK/TWAJ4XJkn1K
+	 Yio/3Vs4O7eItJg/61R5B9aQ6PAU0TRxLAOWzpSMMdvREtA02Dvs3aAxZI3np5adHW
+	 FYc+8+gECl4Ww7kknPEMKRW3/seu/eja8InG0pN1OBDjUizaR1fUN3yCEkTJWTX12L
+	 l7/bX5MRQehk9wSnRDEt0xVtFkS9fs5aJPJY24r2MDv++DioblWxB5tgTzi6mx9fBv
+	 s0HMQmmwulptNY92UjjX53roTIMOsRDe8V5b7uxKY6E/i6usHGBjnhGV10klgrIfyW
+	 y+ZHq9PYpfJug==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v16 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
- schema
+Subject: Re: [PATCH v2 06/13] regulator: ab8500: Propagate mode enable read
+ errors
 Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?QnJ5YW4gTydEb25vZ2h1ZQ==?= <bryan.odonoghue@linaro.org>
-Cc: olteanv@gmail.com, media-ci@linuxtv.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20260901-x1e-csi2-phy-v16-1-dd863b929080@linaro.org>
-References: <20260901-x1e-csi2-phy-v16-0-dd863b929080@linaro.org>
- <20260901-x1e-csi2-phy-v16-1-dd863b929080@linaro.org>
+To: "Linus Walleij" <linusw@kernel.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, lee@kernel.org, mfd@lists.linux.dev
+In-Reply-To: <20260901-ux500-dts-snowball-regulator-v2-6-fe88b01829bf@kernel.org>
+References: <20260901-ux500-dts-snowball-regulator-v2-0-fe88b01829bf@kernel.org>
+ <20260901-ux500-dts-snowball-regulator-v2-6-fe88b01829bf@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 20:26:23 +0000
-Message-Id: <20260901202623.91BF31F000E9@smtp.kernel.org>
+Date: Tue, 01 Sep 2026 20:26:54 +0000
+Message-Id: <20260901202654.A17901F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The schema incorrectly permits CPHY `bus-type` (1) despite being=
- unsupported, and universally mandates `clock-lanes` which is invalid for C=
-PHY.
-- [Low] The constraint `const: 0` (and `const: 3`) on `clock-lanes` causes =
-a type mismatch validation failure.
+
+Pre-existing issues:
+- [High] Uninitialized stack variable used and hardware error ignored in `a=
+b8500_regulator_get_mode`.
 --
 
-commit fe5fc3d14e64c01a85e54ac20b525d1bf21bb991
-Author: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
+commit e3e13ae0ac9e7a8bd4d65f25709df32c5a1808c8
+Author: Linus Walleij <linusw@kernel.org>
 
-Add a base schema for the MIPI CSI2 PHYs on Qualcomm SoCs supporting C-PHY
-and D-PHY modes. The commit submitted describes D-PHY modes only, leaving
-C-PHY for future work.
+regulator: ab8500: Propagate mode enable read errors
 
-> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy=
-.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-> new file mode 100644
-> index 0000000000000..17de0701eb103
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+For regulators whose enable and mode share a state field, set_mode()
+first reads that field so changing the requested mode does not enable a
+disabled rail. A register read error is currently treated as true and
+the driver proceeds to write the new mode, potentially enabling a rail
+whose state is unknown. This patch returns the read error instead of
+changing the register or cached mode.
 
+> diff --git a/drivers/regulator/ab8500.c b/drivers/regulator/ab8500.c
+> index 05c6b9c7af0c7..e4c3502c8dbcc 100644
+> --- a/drivers/regulator/ab8500.c
+> +++ b/drivers/regulator/ab8500.c
 [ ... ]
-
-> +        patternProperties:
-> +          "^endpoint(@[01])?$":
-> +            $ref: /schemas/media/video-interfaces.yaml#
-> +            unevaluatedProperties: false
-> +            properties:
-> +              bus-type:
-> +                enum:
-> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
-> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
-
-[Severity: Medium]
-The commit message mentions that C-PHY is left to future work, but does
-including MEDIA_BUS_TYPE_CSI2_CPHY here explicitly enable C-PHY
-configuration?
-
+> @@ -490,7 +490,17 @@ static int ab8500_regulator_set_mode(struct regulato=
+r_dev *rdev,
+>  		goto out_unlock;
+>  	}
+> =20
+> -	if (info->mode_mask || ab8500_regulator_is_enabled(rdev)) {
+> +	if (info->mode_mask) {
+> +		enabled =3D 1;
+> +	} else {
+> +		enabled =3D ab8500_regulator_is_enabled(rdev);
+> +		if (enabled < 0) {
+> +			ret =3D enabled;
+> +			goto out_unlock;
+> +		}
+> +	}
 > +
-> +              clock-lanes:
-> +                maxItems: 1
-> +
-> +              data-lanes:
-> +                minItems: 1
-> +                maxItems: 4
-> +                items:
-> +                  minimum: 1
-> +                  maximum: 4
-> +                description:
-> +                  Data lane positions following this endpoint's clock
-> +                  lane. Positions are a per-port logical numbering, not
-> +                  package pad or ball positions.
-> +
-> +            required:
-> +              - bus-type
-> +              - data-lanes
-> +              - clock-lanes
-> +              - remote-endpoint
+> +	if (enabled) {
+>  		ret =3D abx500_mask_and_set_register_interruptible(info->dev,
+>  			bank, reg, mask, val);
+>  		if (ret < 0) {
 
-[Severity: Medium]
-Since C-PHY does not use a clock lane, does mandating clock-lanes in this
-required block inadvertently break any potential C-PHY configurations
-that might use bus-type =3D <1>?
+[Severity: High]
+This isn't a bug introduced by this patch, but is there a similar logic iss=
+ue
+in ab8500_regulator_get_mode() just below this?
 
-> +
-> +        allOf:
-> +          - if:
-> +              required:
-> +                - endpoint@1
-> +            then:
-> +              properties:
-> +                endpoint@0:
-> +                  properties:
-> +                    clock-lanes:
-> +                      const: 0
+If a hardware or bus error occurs when reading the mode register:
 
-[Severity: Low]
-Since clock-lanes is parsed from the device tree as a JSON array (like [0]),
-will using a scalar integer const: 0 here cause a type mismatch validation
-failure during dt_binding_check?
+drivers/regulator/ab8500.c:ab8500_regulator_get_mode() {
+    ...
+    if (info->mode_mask) {
+        ret =3D abx500_get_register_interruptible(info->dev,
+        info->mode_bank, info->mode_reg, &val);
+        val =3D val & info->mode_mask;
+    ...
+}
 
-> +                    data-lanes:
-> +                      maxItems: 2
-> +                endpoint@1:
-> +                  properties:
-> +                    clock-lanes:
-> +                      const: 3
-
-[Severity: Low]
-Does this also need to be an array constraint instead of const: 3 to pass
-schema validation?
-
-> +                    data-lanes:
-> +                      items:
-> +                        - const: 4
-> +              required:
-> +                - endpoint@0
-> +            else:
-> +              patternProperties:
-> +                "^endpoint(@0)?$":
-> +                  properties:
-> +                    clock-lanes:
-> +                      const: 0
-
-[Severity: Low]
-Similarly, does this fallback path need to constrain an array rather than
-using const: 0?
+Does this code ignore the hardware error code in ret and proceed to read the
+uninitialized stack variable val? By not checking if the read succeeded, it
+appears to return either a random regulator mode or -EINVAL to the caller,
+which could mask the real error and feed incorrect states to the regulator
+core.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901-x1e-csi2-p=
-hy-v16-0-dd863b929080@linaro.org?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901-ux500-dts-=
+snowball-regulator-v2-0-fe88b01829bf@kernel.org?part=3D6
