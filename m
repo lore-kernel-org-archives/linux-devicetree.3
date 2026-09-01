@@ -1,16 +1,16 @@
 Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA6BA39281B;
-	Tue,  1 Sep 2026 11:36:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D182B36196C;
+	Tue,  1 Sep 2026 11:36:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788262619; cv=none; b=FQsXHhXMfmZNUkG15ro9YDoE0uhctpR0PDm9z49VOFXB+T8n7e8rtBB5K1OUG0tkKwvu4gRbfdBzAAXI8ZGTrLGMQmg1MFgHmT4XxNx4w5B4Qpgion5gBR1Q3/HmQV0qAV/tL0OulevI/Btpw6ZK9vOcdZQBRCDTB4UWduWTqbE=
+	t=1788262621; cv=none; b=ikUQNRBL206qjRU0fednjUwEyCyU/jPlDgdPpXmnPh6sVJcLadBlNn5dK8rory9mmNoTmyOG3On6K9hJORWxX4cn0aI7hz/Ca6BMtza8KH4vdf/h5GXUb0g1COHfDuWd6ZM/uLoRJyDeIQBPWaYJljQecJlklk6mfzgbgvMdoeQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788262619; c=relaxed/simple;
-	bh=oaf8rylZXdyfnF1JAoViZJfEllE3F20K/vr6f/aHROE=;
+	s=arc-20240116; t=1788262621; c=relaxed/simple;
+	bh=xkzAfCKLYQ/Xwwsdimh/tEMuOhSZZrRcVSqry9lnz3A=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=APeMjWA86k7GJxR8MwuXeUraOY6Njt5dwGGW2pnNRGLaJGy69JdNLton8FI6VS+90EdSBpBSRS6A/vDf8lWHchIT3BHejKglsvJj3ALsqtQD9nHDlE9Xja5sZkIhah9gzhuEYt4y//op2NxgYi2SWDTl+06XxefD/8L8iqqmD2I=
+	 In-Reply-To:To:CC; b=CebB1EMEjUK1o1Q+000wq9XRspu0eedRTcbk9c0cZJ98sxIuzL2ujFxKIJbIYBS6z57stkeVn03L0D06Oh54fy2VXktZkKM1BW1stSPI4qsZS2qHl0xqm9uii/Ho39pd8aNK26V7CsOIvLwfXx0IoCkvLyRF4A7C7oxoTRkd+mU=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
@@ -22,9 +22,9 @@ Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
  (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
  Transport; Tue, 1 Sep 2026 19:35:39 +0800
 From: Billy Tsai <billy_tsai@aspeedtech.com>
-Date: Tue, 1 Sep 2026 19:35:34 +0800
-Subject: [PATCH 7/8] i3c: mipi-i3c-hci: Improve AST2700 PIO TX queue
- utilization
+Date: Tue, 1 Sep 2026 19:35:35 +0800
+Subject: [PATCH 8/8] i3c: mipi-i3c-hci: Support the AST2700 internal
+ pull-ups
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -33,7 +33,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260901-b4-i3c-hci-ast2700-v1-7-19909e7cbd7e@aspeedtech.com>
+Message-ID: <20260901-b4-i3c-hci-ast2700-v1-8-19909e7cbd7e@aspeedtech.com>
 References: <20260901-b4-i3c-hci-ast2700-v1-0-19909e7cbd7e@aspeedtech.com>
 In-Reply-To: <20260901-b4-i3c-hci-ast2700-v1-0-19909e7cbd7e@aspeedtech.com>
 To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li
@@ -45,141 +45,201 @@ CC: <linux-i3c@lists.infradead.org>, <devicetree@vger.kernel.org>,
 	<linux-arm-kernel@lists.infradead.org>, <linux-aspeed@lists.ozlabs.org>,
 	<linux-kernel@vger.kernel.org>, Billy Tsai <billy_tsai@aspeedtech.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788262538; l=5389;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788262538; l=6058;
  i=billy_tsai@aspeedtech.com; s=20251118; h=from:subject:message-id;
- bh=oaf8rylZXdyfnF1JAoViZJfEllE3F20K/vr6f/aHROE=;
- b=RYohPmXVU7MlqRAhyOatovdjRP4ydQzRQ7LkGAAOgee7Mv0uUdh/XLOduNYCIoVJYOpr5oaV6
- WSWWqbdoS/iCxtJEqyf0uGiKli6UpiCiqM3aA+Od6cRFNwFmpZvFpmL
+ bh=xkzAfCKLYQ/Xwwsdimh/tEMuOhSZZrRcVSqry9lnz3A=;
+ b=azBxWolQHPu9pCSptGyEx4x+4PYzUuzgnmWwmp6rvIzxR3+3V97LKaUSwq+r2jQLcmZR6UNNQ
+ CEEgKtwyI5jDGGMoQMqqH8cLz61sGNtIdz8hXv2feGg480YH4Kk43Ne
 X-Developer-Key: i=billy_tsai@aspeedtech.com; a=ed25519;
  pk=/A8qvgZ6CPfnwKgT6/+k+nvXOkN477MshEGJvVdzeeQ=
 
-The PIO TX path only pushes data once STAT_TX_THLD reports that
-tx_thresh_size words are free, with the threshold set to half the TX
-FIFO. The FIFO is therefore never filled beyond half from a single
-wait, which under-utilizes the queue, and sending buffers larger than
-the threshold makes software race against the hardware draining the
-FIFO, resulting in an unstable flow.
+Boards that do not populate external I3C pull-up resistors can use the
+pull-ups built into the AST2700 PHY.
 
-The AST2700 vendor block exposes the TX FIFO read and write pointers,
-which give the exact number of free entries. When is_aspeed() is true,
-size each burst from those pointers, using CIRC_SPACE() to derive the
-free-entry count, so the FIFO can be used up to its full depth. Other
-controllers keep the existing threshold-based flow.
+When bias-pull-up is present, determine the pin voltage domain from
+the pinctrl-0 group already selected for the bus and enable the
+internal pull-ups on both SCL and SDA at the requested strength.
+Currently only pinctrl-0 is inspected; a node selecting its group
+through a different pinctrl state is not yet supported. The controller
+reset clears the SW force control register, so the internal pull-ups
+start disabled unless bias-pull-up requests otherwise. A resistance
+with no entry in the domain's table, or an unrecognized pinctrl-0
+group, is rejected with an error.
 
 Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
 Assisted-by: Claude:claude-fable-5
 ---
- drivers/i3c/master/mipi-i3c-hci/pio.c           | 25 +++++++++++++++++++++----
- drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.c | 11 +++++++++++
- drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.h |  6 ++++++
- 3 files changed, 38 insertions(+), 4 deletions(-)
+ drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.c | 118 ++++++++++++++++++++++++
+ drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.h |   6 ++
+ 2 files changed, 124 insertions(+)
 
-diff --git a/drivers/i3c/master/mipi-i3c-hci/pio.c b/drivers/i3c/master/mipi-i3c-hci/pio.c
-index 6bd5e43364a1..3d70257dcc1d 100644
---- a/drivers/i3c/master/mipi-i3c-hci/pio.c
-+++ b/drivers/i3c/master/mipi-i3c-hci/pio.c
-@@ -15,6 +15,7 @@
- #include "cmd.h"
- #include "ibi.h"
- #include "pio.h"
-+#include "vendor_aspeed.h"
- 
- /*
-  * PIO Access Area
-@@ -295,11 +296,23 @@ static bool hci_pio_do_tx(struct i3c_hci *hci, struct hci_pio_data *pio)
- 	p += (xfer->data_len - xfer->data_left) / 4;
- 
- 	while (xfer->data_left >= 4) {
--		/* bail out if FIFO free space is below set threshold */
--		if (!(pio_reg_read(INTR_STATUS) & STAT_TX_THLD))
-+		unsigned int avail = pio->tx_thresh_size;
-+
-+		if (is_aspeed(hci)) {
-+			/*
-+			 * The vendor FIFO pointers give the exact free space,
-+			 * allowing better TX FIFO utilization than the
-+			 * threshold status.
-+			 */
-+			avail = aspeed_i3c_avail_tx_entries(hci);
-+			if (!avail)
-+				return false;
-+		} else if (!(pio_reg_read(INTR_STATUS) & STAT_TX_THLD)) {
-+			/* bail out if FIFO free space is below set threshold */
- 			return false;
-+		}
- 		/* we can fill up to that TX threshold */
--		nr_words = min(xfer->data_left / 4, pio->tx_thresh_size);
-+		nr_words = min(xfer->data_left / 4, avail);
- 		/* push data into the FIFO */
- 		xfer->data_left -= nr_words * 4;
- 		dev_dbg(&hci->master.dev, "now %d left %d",
-@@ -316,8 +329,12 @@ static bool hci_pio_do_tx(struct i3c_hci *hci, struct hci_pio_data *pio)
- 		 * also get some bytes past the actual buffer but no one
- 		 * should care as they won't be sent out.
- 		 */
--		if (!(pio_reg_read(INTR_STATUS) & STAT_TX_THLD))
-+		if (is_aspeed(hci)) {
-+			if (!aspeed_i3c_avail_tx_entries(hci))
-+				return false;
-+		} else if (!(pio_reg_read(INTR_STATUS) & STAT_TX_THLD)) {
- 			return false;
-+		}
- 		dev_dbg(&hci->master.dev, "trailing %d", xfer->data_left);
- 		pio_reg_write(XFER_DATA_PORT, *p);
- 		xfer->data_left = 0;
 diff --git a/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.c b/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.c
-index e32dea0d5fc3..182111b857c9 100644
+index 182111b857c9..d28d5680d326 100644
 --- a/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.c
 +++ b/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.c
-@@ -6,6 +6,7 @@
-  */
- 
- #include <linux/bitfield.h>
-+#include <linux/circ_buf.h>
- #include <linux/clk.h>
- #include <linux/device.h>
+@@ -12,6 +12,7 @@
  #include <linux/i3c/master.h>
-@@ -45,6 +46,16 @@ void aspeed_i3c_ibi_grow_threshold(struct i3c_hci *hci, unsigned int ibi_max_len
- 			 FIELD_PREP(ASPEED_I3C_IBI_TERMINATE_LEN, ibi_max_len));
+ #include <linux/io.h>
+ #include <linux/of.h>
++#include <linux/string.h>
+ 
+ #include "hci.h"
+ #include "vendor_aspeed.h"
+@@ -86,6 +87,100 @@ static u32 aspeed_i3c_get_sdr_ctrl0_reg(struct i3c_hci *hci)
+ 	return ASPEED_I3C_PHY_I3C_SDR4_CTRL0;
  }
  
-+/* Free TX FIFO entries derived from the vendor FIFO read/write pointers */
-+unsigned int aspeed_i3c_avail_tx_entries(struct i3c_hci *hci)
-+{
-+	u32 ptr = aspeed_i3c_read(hci, ASPEED_I3C_QUEUE_PTR0);
-+	unsigned int w = FIELD_GET(ASPEED_I3C_QUEUE_PTR0_TX_W, ptr);
-+	unsigned int r = FIELD_GET(ASPEED_I3C_QUEUE_PTR0_TX_R, ptr);
++struct aspeed_i3c_pullup_ohms {
++	u32 ohms;
++	u8 code;
++};
 +
-+	return CIRC_SPACE(w, r, ASPEED_I3C_TX_QUEUE_ENTRIES);
++/* SW_FORCE_CTRL strength selector to resistance, by pin voltage domain */
++static const struct aspeed_i3c_pullup_ohms aspeed_i3c_pullup_hv[] = {
++	{ 600, 1 },
++	{ 470, 2 },
++	{ 400, 3 },
++};
++
++static const struct aspeed_i3c_pullup_ohms aspeed_i3c_pullup_lv[] = {
++	{ 750, 1 },
++	{ 550, 2 },
++	{ 317, 3 },
++	{ 400, 4 },
++	{ 261, 5 },
++	{ 231, 6 },
++	{ 177, 7 },
++};
++
++/* pinctrl-0 group names for each pin voltage domain */
++static const char * const aspeed_i3c_hv_groups[] = {
++	"HVI3C0", "HVI3C1", "HVI3C2", "HVI3C3",
++	"HVI3C12", "HVI3C13", "HVI3C14", "HVI3C15",
++};
++
++static const char * const aspeed_i3c_lv_groups[] = {
++	"I3C4", "I3C5", "I3C6", "I3C7",
++	"I3C8", "I3C9", "I3C10", "I3C11",
++};
++
++static int aspeed_i3c_pin_is_hv(struct i3c_hci *hci, bool *is_hv)
++{
++	struct device_node *np = hci->master.dev.of_node;
++	struct device_node *state;
++	const char *group;
++	int ret, i;
++
++	state = of_parse_phandle(np, "pinctrl-0", 0);
++	if (!state)
++		return -ENODEV;
++
++	ret = of_property_read_string(state, "groups", &group);
++	if (ret)
++		goto put_state;
++
++	for (i = 0; i < ARRAY_SIZE(aspeed_i3c_hv_groups); i++) {
++		if (!strcmp(group, aspeed_i3c_hv_groups[i])) {
++			*is_hv = true;
++			goto put_state;
++		}
++	}
++
++	for (i = 0; i < ARRAY_SIZE(aspeed_i3c_lv_groups); i++) {
++		if (!strcmp(group, aspeed_i3c_lv_groups[i])) {
++			*is_hv = false;
++			goto put_state;
++		}
++	}
++
++	dev_err(&hci->master.dev, "unrecognized pinctrl-0 group \"%s\"\n",
++		group);
++	ret = -EINVAL;
++
++put_state:
++	of_node_put(state);
++	return ret;
 +}
 +
- static void aspeed_i3c_phy_write(struct i3c_hci *hci, u32 reg, u32 val)
++static int aspeed_i3c_pullup_code(struct i3c_hci *hci, bool is_hv, u32 ohms)
++{
++	const struct aspeed_i3c_pullup_ohms *map;
++	size_t i, n;
++
++	if (is_hv) {
++		map = aspeed_i3c_pullup_hv;
++		n = ARRAY_SIZE(aspeed_i3c_pullup_hv);
++	} else {
++		map = aspeed_i3c_pullup_lv;
++		n = ARRAY_SIZE(aspeed_i3c_pullup_lv);
++	}
++
++	for (i = 0; i < n; i++)
++		if (map[i].ohms == ohms)
++			return map[i].code;
++
++	dev_err(&hci->master.dev,
++		"unsupported internal pull-up %u ohms for %s-voltage domain\n",
++		ohms, is_hv ? "high" : "low");
++	return -EINVAL;
++}
++
+ int aspeed_i3c_phy_init(struct i3c_hci *hci)
  {
- 	writel(val, to_aspeed_vendor_data(hci)->phy_regs + reg);
+ 	u16 hcnt, lcnt, total_cnt, min_tbit_cnt, cas_lcnt, cas_cnt, cbp_cnt;
+@@ -95,6 +190,7 @@ int aspeed_i3c_phy_init(struct i3c_hci *hci)
+ 	struct device_node *np = hci->master.dev.of_node;
+ 	u32 sdr_ctrl0_reg, ctrl0, ctrl1, ctrl2;
+ 	unsigned long core_rate, period_ns;
++	u32 pullup_ohms = 0;
+ 
+ 	core_rate = clk_get_rate(to_aspeed_vendor_data(hci)->clk);
+ 	if (!core_rate) {
+@@ -257,6 +353,28 @@ int aspeed_i3c_phy_init(struct i3c_hci *hci)
+ 
+ 	aspeed_i3c_phy_write(hci, ASPEED_I3C_PHY_PULLUP_EN, 0);
+ 
++	of_property_read_u32(np, "bias-pull-up", &pullup_ohms);
++	if (pullup_ohms) {
++		int ret, strength;
++		bool is_hv;
++
++		ret = aspeed_i3c_pin_is_hv(hci, &is_hv);
++		if (ret)
++			return ret;
++
++		strength = aspeed_i3c_pullup_code(hci, is_hv, pullup_ohms);
++		if (strength < 0)
++			return strength;
++
++		aspeed_i3c_phy_write(hci, ASPEED_I3C_PHY_SW_FORCE_CTRL,
++				     ASPEED_I3C_PHY_SW_FORCE_SCL_PU_EN |
++				     ASPEED_I3C_PHY_SW_FORCE_SDA_PU_EN |
++				     FIELD_PREP(ASPEED_I3C_PHY_SW_FORCE_SCL_PU_VAL,
++						strength) |
++				     FIELD_PREP(ASPEED_I3C_PHY_SW_FORCE_SDA_PU_VAL,
++						strength));
++	}
++
+ 	hcnt = aspeed_i3c_ns_to_cnt(ASPEED_I3C_PHY_OD_DAP_NS, period_ns);
+ 	aspeed_i3c_phy_write(hci, ASPEED_I3C_PHY_I3C_OD_CTRL4,
+ 			     FIELD_PREP(ASPEED_I3C_PHY_I3C_OD_CTRL4_DAP, hcnt));
 diff --git a/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.h b/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.h
-index 84afb2bec956..7147abea830d 100644
+index 7147abea830d..80938c580800 100644
 --- a/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.h
 +++ b/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.h
-@@ -52,6 +52,7 @@ u32 aspeed_i3c_read(struct i3c_hci *hci, u32 reg);
- void aspeed_i3c_write(struct i3c_hci *hci, u32 reg, u32 val);
- int aspeed_i3c_phy_init(struct i3c_hci *hci);
- void aspeed_i3c_ibi_grow_threshold(struct i3c_hci *hci, unsigned int ibi_max_len);
-+unsigned int aspeed_i3c_avail_tx_entries(struct i3c_hci *hci);
+@@ -83,6 +83,12 @@ unsigned int aspeed_i3c_avail_tx_entries(struct i3c_hci *hci);
+ #define   ASPEED_INTR_SUM_PIO			BIT(1)
+ #define   ASPEED_INTR_SUM_CAP			BIT(0)
  
- #define ASPEED_I3C_CTRL				0x00
- #define ASPEED_I3C_CTRL_CLOCK_STALL_EN		BIT(14)
-@@ -68,6 +69,11 @@ void aspeed_i3c_ibi_grow_threshold(struct i3c_hci *hci, unsigned int ibi_max_len
- #define ASPEED_I3C_DAA_INDEX2			0x18
- #define ASPEED_I3C_DAA_INDEX3			0x1c
- 
-+#define ASPEED_I3C_QUEUE_PTR0			0xd8
-+#define   ASPEED_I3C_QUEUE_PTR0_TX_R		GENMASK(24, 20)
-+#define   ASPEED_I3C_QUEUE_PTR0_TX_W		GENMASK(16, 12)
-+#define ASPEED_I3C_TX_QUEUE_ENTRIES		32
++#define ASPEED_I3C_PHY_SW_FORCE_CTRL		0x04
++#define   ASPEED_I3C_PHY_SW_FORCE_SCL_PU_EN	BIT(28)
++#define   ASPEED_I3C_PHY_SW_FORCE_SDA_PU_EN	BIT(24)
++#define   ASPEED_I3C_PHY_SW_FORCE_SCL_PU_VAL	GENMASK(10, 8)
++#define   ASPEED_I3C_PHY_SW_FORCE_SDA_PU_VAL	GENMASK(2, 0)
 +
- #define ASPEED_I3C_INTR_STATUS			0xe0
- #define ASPEED_I3C_INTR_STATUS_ENABLE		0xe4
- #define ASPEED_I3C_INTR_SIGNAL_ENABLE		0xe8
+ #define ASPEED_I3C_PHY_I2C_FM_CTRL0		0x08
+ #define   ASPEED_I3C_PHY_I2C_FM_CTRL0_CAS	GENMASK(26, 16)
+ #define   ASPEED_I3C_PHY_I2C_FM_CTRL0_SU_STO	GENMASK(10, 0)
 
 -- 
 2.34.1
