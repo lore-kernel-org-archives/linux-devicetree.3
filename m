@@ -1,111 +1,136 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0F8537E2E5;
-	Tue,  1 Sep 2026 11:50:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41B3839A7E0
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 11:51:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788263419; cv=none; b=nyvcb+sZVA8S/FKpzhNZ3ZyZTq+n40MOXW30Ht1I7dXdjm/xx34WRbuWSDrON8oUuQeyJbMRClh0vTuZKDl4zc8eZ3rN9i7SXvolpd2TF2GXuRCRnYfAEp2eh/t6EjyulhSPv46A5KTkt2G1+EG9yIgxEDUw/nPUr6TnAMcbGoE=
+	t=1788263483; cv=none; b=mV7LmGMdb0/f/1FN8jg4flvXfIEUZ4+NJLJERwDyExZU96tddwgjPSxVUQ3zBsIbNr7yFheC2WyO6tbQ8XmKK3HiVnlIEKclhe7Ik5Z9SXizHIPReySllGDgFarmYQypzPiHCI9lc0my/4QVGXeDtHrqZhSeHCKk4tganKbL8K8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788263419; c=relaxed/simple;
-	bh=0cX+SUVEv82lqdnL2PEHhEZ9iSnjtOEad/m3Tmpa8ew=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=W79oq2TvL3ebyPVBAIAjlC63manqkjUjbUeEs/iGFlGF/y8Nqhr2G1rf8oinbGrQBL5WmwoZtfe9romVuQHwPnJR0gH6FBUjjEYR8NEfFfgbCfDh3KS8kypKR+DTGn7YVDQ5YFHY5QPP8BSdyCn6G0OsercJF3qDs+Rjf9Zuxeo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ia3/pj6T; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788263483; c=relaxed/simple;
+	bh=JtxqVk5NwK808DcPDDJZyAfomJtbzDXg0y3m6792SSM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=kWZ5BBijK3kTrQSFIr+7+H0o/1epwFxS/o+4ODxw1UnRLbfOyZkNJBC/LTnR1P1VERrsUgc4tufCxOcsXuO5rdT/5xXH3JnsNdRZVoYCshzZJd7GOohOM0Zkt9nA69hhSNxlk2mYNAoh6XIDroMHJ4mIGBRWJDloibvHspmqn0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lFzUhJgY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ia3/pj6T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 963091F000E9;
-	Tue,  1 Sep 2026 11:50:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lFzUhJgY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 622F71F000E9;
+	Tue,  1 Sep 2026 11:51:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788263418;
-	bh=s1Sw3sV6LFWv+rxNtNuZ5K4jc587FYAGi1dw55VmK6o=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ia3/pj6TKB3oddODZ5p7Tl8MzjUh3BZb87OU/zVoDiqib0cC+6H0lqNXyHsUjWssW
-	 kxk1yYQ137v63PjzOLbLXgdDmYTyLrZtJIeFH/hYuFb2E4yFyJdgiaSehqRKoIe8Dv
-	 kn79XWrHc/etMMrUMmZ5n3HNnJe7fvXTPhKgkDWDwh3c30OSWsxSIQkHZUT7xIOq53
-	 InLa9jIJLmqxiS4M5d1xD8LrwDDjHlKvyh4yeesKc7P27vCeksyZ1uUhLUDBmgYCLT
-	 8gAg1F4SGmnsL2TWNxuQyVe3DWd1fcUjUlNlikTvDC7TRVGFxztG0UaQBZs6mta9Vx
-	 UUHB+dYV6Sl2g==
-Message-ID: <06e15a0c-d87c-4e0d-8f04-9e25dfc5021a@kernel.org>
-Date: Tue, 1 Sep 2026 13:50:12 +0200
+	s=k20260515; t=1788263481;
+	bh=VR0hNmq1MqgYNy0fHyILETThfMxQJXGNu4w58/otCnM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=lFzUhJgYdzaCgN8h+njVv3VgtviT2o4eLmqPz9sVER2b+eYULyxCvJYd08Osa+NFn
+	 hNcgu/lxMuZdvUwx1E3fTRW4WhVzizDhDFVUpOVwqLEC1Fcqf+8rpqTFom0HMkb4Du
+	 YhRwrtK2mEPjC6ueUrDW0TakVRCMIc95+8JzvtNWj0SosK4Nw4uGQBK2ojqlPbHnrA
+	 B4bsj2ThDGyTp1zyTzAgSaIrm51RHuo+4pztTwkj8oTh0pug4JT0Y8GGjmXRfXcLjB
+	 8UQ7KEtEurgYTl5dHh8KY4seewHcEeBd6jMsC+iQculpJ7xoTyOCpg9ICRdi7NWASm
+	 y2ZRjA22Trc8w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 7/8] i3c: mipi-i3c-hci: Improve AST2700 PIO TX queue
+ utilization
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Billy Tsai" <billy_tsai@aspeedtech.com>
+Cc: "Alexandre Belloni" <alexandre.belloni@bootlin.com>, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, linux-i3c@lists.infradead.org
+In-Reply-To: <20260901-b4-i3c-hci-ast2700-v1-7-19909e7cbd7e@aspeedtech.com>
+References: <20260901-b4-i3c-hci-ast2700-v1-0-19909e7cbd7e@aspeedtech.com>
+ <20260901-b4-i3c-hci-ast2700-v1-7-19909e7cbd7e@aspeedtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 01 Sep 2026 11:51:20 +0000
+Message-Id: <20260901115121.622F71F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm64: defconfig: Enable PMIC5 Gen3 ADC thermal
- monitor
-To: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260830-hamoa-sys-therm-v1-0-27108c40fba5@oss.qualcomm.com>
- <20260830-hamoa-sys-therm-v1-3-27108c40fba5@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260830-hamoa-sys-therm-v1-3-27108c40fba5@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 30/08/2026 23:02, Bjorn Andersson wrote:
-> All Hamoa-based devices uses PMIC5 Gen3 ADC connected to thermistors for
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Calling `of_device_is_compatible()` via the `is_aspeed()` helper i=
+nside the high-speed PIO TX data transfer loop causes severe CPU overhead a=
+nd latency.
+- [High] Hardware TOCTOU / Stale write pointer read leading to FIFO overflo=
+w.
+--
 
-"All Qualcomm Hamoa-based devices use Qualcomm PMIC5 ..."
+commit 3be95193756af176407d7f4071b09a591d9a4eb3
+Author: Billy Tsai <billy_tsai@aspeedtech.com>
 
-> measuring temperature across the system.
-> 
-> Enable the Gen3 ADC, and it's associated ADC_TM auxiliary, drivers to
+i3c: mipi-i3c-hci: Improve AST2700 PIO TX queue utilization
 
-s/Gen3 ADC/Qualcomm PMIC Gen3 ADC/ or something similar
+This commit updates the MIPI I3C HCI driver to improve TX FIFO utilization
+for the AST2700 controller. It introduces a vendor-specific check to poll
+the exact number of free FIFO entries using hardware read/write pointers
+instead of relying on a half-empty threshold.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> diff --git a/drivers/i3c/master/mipi-i3c-hci/pio.c b/drivers/i3c/master/m=
+ipi-i3c-hci/pio.c
+> index 6bd5e43364a1d..3d70257dcc1dc 100644
+> --- a/drivers/i3c/master/mipi-i3c-hci/pio.c
+> +++ b/drivers/i3c/master/mipi-i3c-hci/pio.c
 
-Best regards,
-Krzysztof
+[ ... ]
+
+> @@ -295,11 +296,23 @@ static bool hci_pio_do_tx(struct i3c_hci *hci, stru=
+ct hci_pio_data *pio)
+>  	p +=3D (xfer->data_len - xfer->data_left) / 4;
+> =20
+>  	while (xfer->data_left >=3D 4) {
+> -		/* bail out if FIFO free space is below set threshold */
+> -		if (!(pio_reg_read(INTR_STATUS) & STAT_TX_THLD))
+> +		unsigned int avail =3D pio->tx_thresh_size;
+> +
+> +		if (is_aspeed(hci)) {
+
+[Severity: High]
+Does calling of_device_is_compatible() inside this fastpath byte-transfer
+loop cause significant CPU overhead and latency?
+
+Looking at is_aspeed() in vendor_aspeed.h, it parses the Device Tree and
+performs string matching:
+
+static inline bool is_aspeed(struct i3c_hci *hci)
+{
+	return of_device_is_compatible(hci->master.dev.of_node,
+					"aspeed,ast2700-i3c-hci");
+}
+
+Since this executes repeatedly for every 4 bytes transferred, it might ruin
+throughput, especially for non-Aspeed controllers where it gets evaluated
+constantly. Would it be better to check compatibility exactly once during
+probe and cache the result as a quirk flag?
+
+> +			/*
+> +			 * The vendor FIFO pointers give the exact free space,
+> +			 * allowing better TX FIFO utilization than the
+> +			 * threshold status.
+> +			 */
+> +			avail =3D aspeed_i3c_avail_tx_entries(hci);
+
+[Severity: High]
+Could this read of the hardware write pointer immediately after posting a
+write lead to a FIFO overflow?
+
+Memory-mapped I/O writes over buses like AHB/AXI are posted, and the
+hardware controller might need a few clock cycles to commit the data and
+update its pointers.=20
+
+If aspeed_i3c_avail_tx_entries() reads QUEUE_PTR0 before the hardware
+increments the write pointer, won't avail remain artificially high?
+If it does, the loop will immediately push another chunk of data,
+potentially overflowing the 32-entry hardware FIFO.=20
+
+Should the driver locally track and deduct the number of words written from
+the available space during the active transfer instead of re-polling the
+hardware register?
+
+> +			if (!avail)
+> +				return false;
+> +		} else if (!(pio_reg_read(INTR_STATUS) & STAT_TX_THLD)) {
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901-b4-i3c-hci=
+-ast2700-v1-0-19909e7cbd7e@aspeedtech.com?part=3D7
