@@ -1,87 +1,87 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE24547CC85
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 10:48:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB1BF4756DA
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 10:54:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788259739; cv=none; b=IHmQOZ42B4TIDD9fS0JxEaDftPf7DuttPHLhejkLfxzx4MRH/f0baF+X0TZ5r++R+jANvdb465Dbt+aczGCzjbHs4xJD4jYsaFpg4y4IJ5LAIUI81oYOlBqOXBd/P07WPUPSdHH4G7xGrvct0cdZQ7fgemEizxmMu1ssJWBIuSA=
+	t=1788260096; cv=none; b=ZnoVf7BDIz1gHuR5baZiTpEuuJRmzJ9USLH5HuEg2424oL4geMk1CGK1V+Mhv32hgUvfRwp0VSqIv0boVBtPbtE6S/xDwqtZSR1u16aOXoJrAirl4rOb3Qsfa/zDcZ2nYJH0Pk4TrF8HC4XNTT5gE5ARG0DRvgVySzz1mOeeICw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788259739; c=relaxed/simple;
-	bh=SLGSseQaf0vJp+4kOQXKmxaBEuZ8Z93Jn47quXknsh4=;
+	s=arc-20240116; t=1788260096; c=relaxed/simple;
+	bh=eo41WihyA3ojxp0NLE3JaISxqefjtiIrGimbXZifWtQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Fq5/FCBbDtIsfSvkEL/j4nmd6HRYbSen0CZwIYsehV4/pM25Ryv3iJ8tEpVuflzRHKjosRcwFmIuHJbtEcUUEHP/OyGQ97XFuI9AT7WlWedhgwbSTKdnjp4ZnveP1hN4mBWGwV6QiENtdpDCTn6gbcwGHwTO1g2YHbJIp8qyVcQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=T0tDVZcd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iJKoYCjU; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:Content-Type; b=iZXqGzZOomXgETE+XLAu+I9vMLDS6X+SA2uyhZbFgWNxxtrXQuGDzvqrMY02wRYcbgkCB0g6Kct1I9C/wcvqlfEk7R9nfs5bnfQIDDIKAQveWQL95uzCdcv212cpAxwrqoJvjWib62/qoDF4t/buUjXUJ4XMaMh4eon60oI+T2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UqJ0Goxn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RB4SYQ+p; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="T0tDVZcd";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iJKoYCjU"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681AJefl2494576
-	for <devicetree@vger.kernel.org>; Tue, 1 Sep 2026 10:48:56 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UqJ0Goxn";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RB4SYQ+p"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681AJCrQ3406526
+	for <devicetree@vger.kernel.org>; Tue, 1 Sep 2026 10:54:51 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	kWfgeNOyFGDYlfIW9v/3p67LM/pgSzbvLJN7re/Y3h0=; b=T0tDVZcdsuc35KoL
-	Gl6yMhEOiZ77racbSuMPOeyFCek1TfOwHIawgO58AD9OmvRvrARY9NNGUnCcHrMn
-	Hk58PTGkYRaetFb9JtWN9d5dCPDB+51x3xDF20d07maqT2CRv5oPFo1qP/6huy4V
-	SBL/fT9yi09owKqSlStcb1zk8wojBlOpQAT4bz7n7S88JLlFeZJqvbsF4C5fdWow
-	PL7iWTXsp26kkr4zeqPTC/6WPQZnP5b3rF4g8SeCBgIHcqgBYdgfgubpbUI9J2PH
-	7GJKwOwuD6uMGiZXuqdhzTbzR+TBcyy5usm+NBIinlvT1wx4GpXrpn6eksXn6r4N
-	8YE1qg==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdqbh1ndu-1
+	OPtv8ii2wGrHphSvsH0bCWdT13ol9RcJ1O+uWSnFADo=; b=UqJ0GoxnCQ4Csd1v
+	wKkffNP5ImAKrzb4gvgZDMzVLBhu8gm+M6RLcMlx/t65dwplHNQAakzHjAyY6Mo6
+	YgVAbK8ywJvsJectDmn3yv2MR1y/xk/b2wXbFI5tnbtCm8fGRO/gdETgRlTeR+th
+	KiBijkBVFxkEKSkVBZbCB2Ybwi5rqXWrEByQTrjjPuLO0byhSPSUU0g9C6MoeYG8
+	4enK9+sCKsNbE4VyggZza0RBduwyopJtPIdAQFRCzEq9nIqI2jUJD5+TyXGbXoU3
+	gAlTXV9uVErdTR+hSToJ6TsFvKEgzmh0uDDJ6ZU9XHOnCXalBzgTq4AOm49WOLgr
+	QVSMxA==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdsnu156b-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 10:48:56 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-385d2703b64so1027035a91.1
-        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 03:48:55 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 10:54:51 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2d7151120d6so23837225ad.3
+        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 03:54:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788259735; x=1788864535; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1788260091; x=1788864891; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=kWfgeNOyFGDYlfIW9v/3p67LM/pgSzbvLJN7re/Y3h0=;
-        b=iJKoYCjUn/u9Q9kDaVe3C2RON2/kPSOj0WYovHF5dSUfRpsnc0qFiCSMpe2eClAXTI
-         AY9LIV3QdTOD44jePfLXwxyp3YZZ2zTtpCh/g0WDzd5ZmyoQbgVNRJw8UcnxfJwoNOk0
-         RQwN3WGdIgA6Ql6ZKfqseB2bL8l9KZocl3CFKCTqfG7tTutuLVKiziJtqrwumG+tBqRl
-         6Bb/gnU7IEz97jlvs8wgq8HddjVXoCRuwcUuQiR8jkN7U976WyatYo24XuznNxWbQ9G+
-         iMGiMmjWqNVtFXs7cKzjKTpQQ2WmcgJTpJao8ayxYCJFreXiPRVTjB2vLGmRH0fNEp3X
-         swNA==
+        bh=OPtv8ii2wGrHphSvsH0bCWdT13ol9RcJ1O+uWSnFADo=;
+        b=RB4SYQ+p2mg5q1Gh9bLE1rUC3diLzIXoo3D6/AxVJ/2Kg/uE8VQuvOMYIFsLl7Ojtt
+         yUdnWz6KKoV1knAqCs9mdH8kU/IbaK6/wwKF7STTHIhb8LOrSV2hd0QaMo/T0OAT+frv
+         ty3pH6forX/HgcWRuMCuaTns4h16gQDhA2TK4+iBJgB+7Ct6ne0qJSsCTa2wJGjUfCpe
+         FHkEC1Pcx5LOqILfLlkV4Eb+AlpWwlsP42EO3svgi+8yIhr16soL8SxgRiaXv1GZ69rf
+         0jfVWX4vwI7P288dLzp+SuikexulYrH132zdrl/sUEXIB0uJLBiVkyn3XB2Fa5y4J5W9
+         Y5aQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788259735; x=1788864535;
+        d=1e100.net; s=20251104; t=1788260091; x=1788864891;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kWfgeNOyFGDYlfIW9v/3p67LM/pgSzbvLJN7re/Y3h0=;
-        b=kVLfxhoInHY/pXuSfcP24qgWoSRzbBfjqQFmNyDhHbsX9mUOnpiQiFbPsVtCz1o8SS
-         /nrndqtZIBy6Sk9l310zb6uYmcZFqfLBKGduY78CfTOp+zFB1Z2KMalYggnVhur8V+pC
-         RUEGMn/BPuSJCaOek2kVQajdoa9RdZTkrFLt6Zl3YvAUFp/c2Y29ibQnZeorAAHVcHWh
-         PvyG1mNzr40ETN8gPj/TlWrfWJACscko2sNc9ugAC7crtwPrAJW1siiK0aVqGEGWG/ko
-         uG3h0xwSeBJYTQZobXJYEXygXm1DncKmmVqGtCeeBLPgkBteAmwHgruAFcNnRFxGTlvt
-         QfRA==
-X-Forwarded-Encrypted: i=1; AKwUvBxDCYFmf1QBS5+7J2WQxirm7X9z/zW2UoaS0AJAX+ir46qBf4dghJoDzQ1rnJgC/Xk/we79AmUchStt@vger.kernel.org
-X-Gm-Message-State: AFuF++lZ2FFNV8ZLJwRUz4CxjoY3uXlksQ1/YFZEoXYkCIGvmBmv1N1P
-	zEtdHZd7uVWbNbQu9mKyzNE10FH703wN2f5FGCy8GgVHwVcA1/7AwDZQCtdt1GyQAEF9IAhbSmE
-	P21QKqrrO45Bi87nF9ViFemtHw5GN00ZdXdjFrx0LmFi9eXat/GMZh4dEWr+6Boe6
-X-Gm-Gg: AYBFou34LBrCV5s+9+zpWWukM1lhX3fqBohKC2OtI1y89OT2b0HfxvoZwVC4ymsHEjg
-	Q3SOAA06WSv2vBu519QeFmB1QAMcE1Ok/ysGwFKY0RJtnXF29Mv+8AgcwC99JPz2DnEulpP/dmd
-	4nG6n6Av7vBCg0wEUOPuU65M3YkaR8Kzyv87u8v7AmhFE9w+pVC9PQ+dLP6NWPgxTUdoHxPr67g
-	3bA5fQKBr3zE1u7MpS5Fx5rqnTXreP6dH/2ao2h6Ela/uymbeV/HH8Azf/LZzZRAARx4C7WGK6/
-	4nwuCd8VNZ3IiokKpBJS/KLuWyKVfFpp72OHCXec8Nmm0k4kDqlEn6a3MkdshQifWlJ2X7I+0I6
-	c8LE46nyd9QCaMNnxCUxehQZzcZL3iQMHuEcd6iFxcWqjidxcLe4+35iE
-X-Received: by 2002:a17:90b:5586:b0:398:c8f3:d076 with SMTP id 98e67ed59e1d1-3990f93210fmr4803899a91.31.1788259734978;
-        Tue, 01 Sep 2026 03:48:54 -0700 (PDT)
-X-Received: by 2002:a17:90b:5586:b0:398:c8f3:d076 with SMTP id 98e67ed59e1d1-3990f93210fmr4803842a91.31.1788259734429;
-        Tue, 01 Sep 2026 03:48:54 -0700 (PDT)
+        bh=OPtv8ii2wGrHphSvsH0bCWdT13ol9RcJ1O+uWSnFADo=;
+        b=HQHGIVnT4pK9Yq1KkZs75Z+mPxFd0c2X7du7xd+nycI7i0HI7oMEhm/z5byO1rVXYn
+         YS9YHGVkKVdiD03M8dWXTdA1njHTWVZP6nrj+4FHNQwlTGQb+QCU8nvUUy2rNgRZ3yoN
+         HZEXvhCxa+tlMJlMylubPE54X1m6dkeZ+y8mZh3YOz/LF1CNIUWwpZ2qoF69a0C4E9gI
+         0sstsgtFbB+rBg23Ekv0uAlNUKv+irxridO9VTROY2aDtEQOACK+nu/82bL1ZdFqb9QW
+         fYddEWh9k5RqflW7We9M2fV0ijfXl7IKipLTQwYmOS04aLZ7jffYVKvktVlZdENPuY5y
+         wy9w==
+X-Forwarded-Encrypted: i=1; AKwUvBzflV70w6Wbk3USeunv+lkzPGambFdCKm/cV9EI2jM57ZQeFwZK5ojC01n8E+FxboXJbNJ5JjYGz6kw@vger.kernel.org
+X-Gm-Message-State: AFuF++mIOWDVMFrxJfnJtKjioXBV/rMe0VqxZAXRRVK26Rl0Ud7HPIbO
+	WPVF6le4zcc4LR3vvissiwaP3Xt8r1HX42FsluMKVBROs62ttP3LeKJHkR45z15sbBzaKxU4VS8
+	MzxKdYizoCgtJ++dkBoEwJV+iv8cs11PM3p3ExXJuRqKglormfNw40njQvYZB23Dh
+X-Gm-Gg: AYBFou18d1flLEw9bqFcRqAh9dPd3X2DU0+YQu2jLsD+TX3ODiblmvKDaH4nyietb+V
+	l9uo9UvaRK9XVqsCJsYqhle59IU1U+pGKdBGAr49MyVpEXpYijGJHcJVAlZbifWrmC6gsR9mzSr
+	x0Q5JJz4ReM2MCe3jnzToVhXy0M9oG3lPWirgR2ZZe3MQi5T1nPuEMQCN2NN9IdKAZWoX8nIx4f
+	T1WYskT+E95E/AVpfwwXq8QEQF28F10yrPVGhHHZR7y5wtKqUhUzC7+kXI4LisgF10NAuuazgn5
+	iFdlvomUKzZz66JBKJarO3J0rgp8+sVDuifC1NjKCTOzC4C1H5lfSAiAbtdwJxP97dy6Mo/n3lI
+	pMoFrZkHXzzTM1drrk3mPd5+HQCI0EAIIiT1OOtS/g1YRhqhEhNj9053S
+X-Received: by 2002:a17:902:ce8e:b0:2d7:107c:917b with SMTP id d9443c01a7336-2d94a32e0c0mr87827245ad.0.1788260090784;
+        Tue, 01 Sep 2026 03:54:50 -0700 (PDT)
+X-Received: by 2002:a17:902:ce8e:b0:2d7:107c:917b with SMTP id d9443c01a7336-2d94a32e0c0mr87826565ad.0.1788260090392;
+        Tue, 01 Sep 2026 03:54:50 -0700 (PDT)
 Received: from [10.110.34.210] (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32b5bef7683sm23429688eec.12.2026.09.01.03.48.48
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32bdfd03e71sm20231849eec.1.2026.09.01.03.54.43
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 03:48:54 -0700 (PDT)
-Message-ID: <4d2d0d17-391c-4c81-8748-bf1025ea6f75@oss.qualcomm.com>
-Date: Tue, 1 Sep 2026 18:48:46 +0800
+        Tue, 01 Sep 2026 03:54:49 -0700 (PDT)
+Message-ID: <b571ea8a-4434-45e0-958f-20b2f83ced24@oss.qualcomm.com>
+Date: Tue, 1 Sep 2026 18:54:41 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,8 +89,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 09/11] soc: qcom: add ICE keyslot partitioning driver
- for guest VMs
+Subject: Re: [PATCH v1 11/11] scsi: ufs: ufs-qcom: support ICE keyslot
+ partitioning for guest VMs
 To: Krzysztof Kozlowski <krzk@kernel.org>, ebiggers@kernel.org,
         axboe@kernel.dk, mst@redhat.com, jasowangio@gmail.com,
         James.Bottomley@HansenPartnership.com, martin.petersen@oracle.com,
@@ -104,177 +104,136 @@ Cc: neeraj.soni@oss.qualcomm.com, gaurav.kashyap@oss.qualcomm.com,
         stefanha@redhat.com, pbonzini@redhat.com, eperezma@redhat.com,
         xuanzhuo@linux.alibaba.com, linux-kernel@vger.kernel.org
 References: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
- <20260827160806.1295313-10-linlin.zhang@oss.qualcomm.com>
- <e23142e8-41b3-40f5-9d63-53c9c38fba38@kernel.org>
+ <20260827160806.1295313-12-linlin.zhang@oss.qualcomm.com>
+ <046e4b62-6d25-40fc-baa3-2978eb96eb70@kernel.org>
 Content-Language: en-US
 From: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
-In-Reply-To: <e23142e8-41b3-40f5-9d63-53c9c38fba38@kernel.org>
+In-Reply-To: <046e4b62-6d25-40fc-baa3-2978eb96eb70@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA5NSBTYWx0ZWRfXzICPEIWiMqTv
- 3HkHMK+inl6elas41dTb0yl2sYQU5/hABH+Pm6I5f5Zbm8GtrZ8TGmjyMJ3hB65eTAzbzUwgnP0
- lHdlYtnhI1RUObtVKJExx15rkZRZ0nU=
-X-Authority-Analysis: v=2.4 cv=R9wz39RX c=1 sm=1 tr=0 ts=6a96ad98 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA5NSBTYWx0ZWRfXwltIfqpn8mQ6
+ +aiKl2t45HdHHo/soNWtWXP4Ocy5XwsJM9R+oSYhfsj8qfCBbEcn+LMnlSkHJRHSZQYYdzlxMTR
+ gFeTDqIxThwsayd97ZL1a2z4TJigW9XPjWEcKODVPxkay7dIiaqX23acM80UkwEqRMq5NZTjmnT
+ a3O/IunoFIERecYGHBsG2R7D59/T2atd0k3ZciWqOOa2geITG9cY7FyuALJmuF5IkP8qsymzp6Y
+ 7ZBrCTldw3SsKou3EFltGg1jYkjgbrbWVmNVF6WagPEiHqDMRokIa8rGB99XHyvsmgIi88keKff
+ kSwCZ5ZFpZ549mUbotsBin1hrpkoIHdVcwOJzT0aHjVCAXEtFhtdiLV8rolJ4pDRyLeepiFJP0L
+ SlMgrE1OwEZrGnIU/nsRfgvP9LZBb61+XqprSORzLMj/kWgTJpyNgGXTRdoKTK3075EgHAmRXDp
+ v6EbZ+3H76WoRvrCOnA==
+X-Authority-Analysis: v=2.4 cv=L6ItheT8 c=1 sm=1 tr=0 ts=6a96aefb cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=P-IC7800AAAA:8 a=EUspDBNiAAAA:8 a=puuXhSqztIu-OQ_ZuWYA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22 a=d3PnA9EDa4IxuAV0gXij:22
-X-Proofpoint-GUID: fpyBfk556JYQoQ_jR-O81fwYi-5mcP8d
-X-Proofpoint-ORIG-GUID: fpyBfk556JYQoQ_jR-O81fwYi-5mcP8d
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA5NSBTYWx0ZWRfX+LTrNtYHCWlC
- RkXnS/4wX9IepBXL3f869lC5z1jaq/Ahed1W162zXobL4xiL940AXgn9+bQQhCDmLm48GPUjrWH
- oTwdZvSf6OC77ip8eZsDfS3FlyFRJ+B0HFvStVvaa7xvPS0K9NlKDgw2c6/8tBQlCUSJ6ZgIBV6
- br0aG6F/N6L33GMD+xfDD2WJXEe+GtaYpGCf3kfSIkCWeNpUoY+Iu2HUfxXRR9/Xs0Px5Ou2gTt
- cAXIQHW8yGJFwnvXXLxGs6/15CrUEmp5rcFQ4XxjbxS4p4NE4g3TA1d/MFcBpKc5Bkf7R3owUNi
- Sgg/Od8qDHKtV9Wx4jvfopodmpMTe4LGPvpX9Pyge/i8YSZ5rHbc1FjlV5aapckZEiEcPksi5fr
- lidZ6i5eGcCFxuDkxaonRCQ9nlxjwbQET3fkf8TnXEPVO5OWm25YHGG/eIukELL8mEwEP/4/Hxe
- 2M54JuPWfV77HSeYeMg==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=0jl50ytlWdhOsGfDH1oA:9 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA5NSBTYWx0ZWRfXzrlcqLYa7CK0
+ 9LoSK/of3oTeLqQTM/6GCl0Bk6AmcEeoJVx934y4SbEo9NYmlWdWjA/1eaN2eJvByQ9v81ea+zk
+ HZ0wd/NEDi2sYtI0LVCMseO2SwPv9is=
+X-Proofpoint-ORIG-GUID: RxSvVlr9nc_PpMGG5Q7CdDj_0H75vmw8
+X-Proofpoint-GUID: RxSvVlr9nc_PpMGG5Q7CdDj_0H75vmw8
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-01_03,2026-08-31_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 clxscore=1015 phishscore=0 suspectscore=0
- malwarescore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609010095
+ clxscore=1015 spamscore=0 phishscore=0 suspectscore=0 priorityscore=1501
+ lowpriorityscore=0 impostorscore=0 malwarescore=0 bulkscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010095
 
 
 
-On 8/31/2026 3:02 PM, Krzysztof Kozlowski wrote:
+On 8/31/2026 3:03 PM, Krzysztof Kozlowski wrote:
 > On 27/08/2026 18:07, Linlin Zhang wrote:
 >> From: linlzhan <linlin.zhang@oss.qualcomm.com>
 >>
->> On Qualcomm platforms the ICE hardware has a fixed number of physical
->> keyslots shared across the host and all guest VMs.  A userspace
->> virtio-blk backend handling VIRTIO_BLK_T_CRYPTO_IN/OUT requests needs
->> to translate a guest's virtual keyslot index to the corresponding
->> physical ICE keyslot without letting one VM access another VM's slots.
+>> On Qualcomm platforms where UFS inline encryption is shared between
+>> the host and guest VMs, the ICE hardware keyslots must be partitioned
+>> so that each VM operates only within its own physical slot range.
+>> Without this, the host's blk_crypto_profile would manage all hardware
+>> slots, conflicting with slots already allocated to guests.
 >>
->> Add QCOM_ICE_SLOTS, a platform driver that implements bcp_slot_virt_ops
->> for the /dev/blk-crypto-proxy device.  It parses a
->> qcom,ice-keyslot-map device-tree node describing the per-VM keyslot
->> allocation table, where each child entry maps a guest_id to a
->> contiguous physical slot range [slot_offset .. slot_offset +
->> max_ice_slots).  Entry 0 is reserved for the host; guest entries start
->> at index 1 and are excluded from the guest-facing translation so that
->> blk-crypto-proxy cannot accidentally route a guest request into the
->> host's physical keyslots.
+>> Add ufs_qcom_ice_parse_slot_table() to read the qcom,ice-keyslot-map
+>> device-tree node.  The function parses all child entries and validates
+>> that no entry's slot range or the combined total exceeds the hardware
+>> slot count from REG_UFS_CCAP.  The first child entry is taken as the
+>> host's own reservation; its slot count and offset are returned to the
+>> caller.
 >>
->> The driver exposes two callbacks:
+>> In ufs_qcom_ice_init(), use the parsed host reservation to initialize
+>> the blk_crypto_profile with only the host's slot count rather than the
+>> full hardware range.  Set profile->slot_offset so that
+>> blk_crypto_keyslot_index() returns the correct physical ICE slot
+>> number when programming hardware.  If no qcom,ice-keyslot-map node is
+>> present, the existing behaviour (profile manages all slots) is
+>> preserved.
 >>
->>   get_guest_slots()  — return the number of ICE keyslots allocated to
->>                        a given guest_id; used by BCP_GET_CRYPTO_CAPS to
->>                        populate the max_slots field in the virtio config
->>                        space.
->>   vslot_to_pslot()   — translate a (guest_id, virtual-slot) pair to the
->>                        corresponding physical ICE keyslot index; used by
->>                        BCP_SUBMIT_IO_BY_VSLOT before calling
->>                        bio_crypt_set_ctx_by_slot().
->>
->> The singleton pointer to the parsed table is RCU-protected; the hot
->> path reads it lock-free.  Probe validates that no two VM entries share
->> a guest_id or overlapping physical slot ranges.
->>
->> Note: This patch is submitted for visibility. The keyslot partitioning
->> is based on the current DT-based keyslot allocation with vm_id known.
->> We are aware this may be revised to use a TZ SCM query interface in a
->> future version of this series, submit it RFC for design discussion.
+>> Note: This patch is submitted for visibility. The ufs-qcom driver
+>> gets its max_slots and slot_offset based on the the current
+>> DT-based keyslot mechanis. we are aware this may need to be replaced
+>> by a TZ SCM interface, submit it RFC for design discussion.
 >>
 >> Signed-off-by: linlzhan <linlin.zhang@oss.qualcomm.com>
 >> ---
->>  drivers/soc/qcom/Kconfig          |  18 +++
->>  drivers/soc/qcom/Makefile         |   1 +
->>  drivers/soc/qcom/qcom_ice_slots.c | 232 ++++++++++++++++++++++++++++++
->>  3 files changed, 251 insertions(+)
->>  create mode 100644 drivers/soc/qcom/qcom_ice_slots.c
+>>  drivers/ufs/host/ufs-qcom.c | 91 ++++++++++++++++++++++++++++++++++++-
+>>  1 file changed, 90 insertions(+), 1 deletion(-)
 >>
->> diff --git a/drivers/soc/qcom/Kconfig b/drivers/soc/qcom/Kconfig
->> index 6c632d114d45..e1f383b4dc63 100644
->> --- a/drivers/soc/qcom/Kconfig
->> +++ b/drivers/soc/qcom/Kconfig
->> @@ -294,6 +294,24 @@ endif
->>  # Options selected by other drivers from different subsystems must be outside
->>  # of the menuconfig if-block:
+>> diff --git a/drivers/ufs/host/ufs-qcom.c b/drivers/ufs/host/ufs-qcom.c
+>> index 62396212a0a7..0611ab50f4cc 100644
+>> --- a/drivers/ufs/host/ufs-qcom.c
+>> +++ b/drivers/ufs/host/ufs-qcom.c
+>> @@ -163,6 +163,74 @@ static inline void ufs_qcom_ice_enable(struct ufs_qcom_host *host)
+>>  		qcom_ice_enable(host->ice);
+>>  }
 >>  
->> +config QCOM_ICE_SLOTS
->> +	tristate "Qualcomm ICE keyslot partitioning for VM guests"
->> +	depends on ARCH_QCOM || COMPILE_TEST
->> +	depends on BLK_CRYPTO_PROXY
->> +	depends on BLK_INLINE_ENCRYPTION
->> +	help
->> +	  Parses the qcom,ice-keyslot-map device-tree node and provides
->> +	  per-VM ICE keyslot accounting and virtual-to-physical slot
->> +	  translation for guest VMs sharing ICE hardware on Qualcomm
->> +	  platforms.
->> +
->> +	  When enabled, guest virtual keyslot indices are mapped to the
->> +	  physical ICE keyslot range allocated to each VM, preventing one
->> +	  VM from accessing another VM's keyslots.
->> +
->> +	  Say M here when multiple VMs share ICE keyslots on a Qualcomm
->> +	  platform.  If unsure, say N.
->> +
->>  config QCOM_INLINE_CRYPTO_ENGINE
->>  	tristate
->>  	select QCOM_SCM
->> diff --git a/drivers/soc/qcom/Makefile b/drivers/soc/qcom/Makefile
->> index 6d4b7546d1fb..952a57554f9d 100644
->> --- a/drivers/soc/qcom/Makefile
->> +++ b/drivers/soc/qcom/Makefile
->> @@ -38,6 +38,7 @@ obj-$(CONFIG_QCOM_LLCC) += llcc-qcom.o
->>  obj-$(CONFIG_QCOM_KRYO_L2_ACCESSORS) +=	kryo-l2-accessors.o
->>  obj-$(CONFIG_QCOM_ICC_BWMON)	+= icc-bwmon.o
->>  qcom_ice-objs			+= ice.o
->> +obj-$(CONFIG_QCOM_ICE_SLOTS)	+= qcom_ice_slots.o
->>  obj-$(CONFIG_QCOM_INLINE_CRYPTO_ENGINE)	+= qcom_ice.o
->>  obj-$(CONFIG_QCOM_CRYPTO_VIRT)	+= crypto_virt.o
->>  obj-$(CONFIG_QCOM_PBS) +=	qcom-pbs.o
->> diff --git a/drivers/soc/qcom/qcom_ice_slots.c b/drivers/soc/qcom/qcom_ice_slots.c
->> new file mode 100644
->> index 000000000000..364ac93077c1
->> --- /dev/null
->> +++ b/drivers/soc/qcom/qcom_ice_slots.c
->> @@ -0,0 +1,232 @@
->> +// SPDX-License-Identifier: GPL-2.0-only
->> +/*
->> + * qcom_ice_slots.c - Qualcomm ICE keyslot partitioning for guest VMs
+>> +/**
+>> + * ufs_qcom_ice_parse_slot_table() - parse qcom,ice-keyslot-map DT node
+>> + * @dev:          UFS controller device
+>> + * @hw_max_slots: total physical ICE keyslots reported by REG_UFS_CCAP
+>> + * @num_slots:    receives host max_ice_slots (0 = no partitioning)
+>> + * @slot_offset:  receives host ice-slot-offset
 >> + *
->> + * Implements bcp_slot_virt_ops: translates a (guest_id, virtual-slot) pair to
->> + * a physical ICE keyslot index using a per-VM allocation table parsed from
->> + * the device-tree node with compatible = "qcom,ice-keyslot-map".
+>> + * Parses the qcom,ice-keyslot-map device-tree node.  The first child entry
+>> + * is the host's own reservation; subsequent children are guest reservations.
+>> + * Validates that no entry's range exceeds @hw_max_slots and that the sum of
+>> + * all entries does not exceed @hw_max_slots.
 >> + *
->> + * Device-tree layout:
->> + *
->> + *   ice_keyslot_map: ice-keyslot-map {
->> + *       compatible = "qcom,ice-keyslot-map";
+>> + * If no qcom,ice-keyslot-map phandle is present, sets @num_slots to 0 and
+>> + * returns 0.  Returns -EINVAL if any entry or the total exceeds @hw_max_slots.
+>> + */
+>> +static int ufs_qcom_ice_parse_slot_table(struct device *dev,
+>> +					 unsigned int hw_max_slots,
+>> +					 unsigned int *num_slots,
+>> +					 unsigned int *slot_offset)
+>> +{
+>> +	struct device_node *slots_np, *child;
+>> +	unsigned int total_slots = 0;
+>> +	bool first = true;
+>> +	int ret = 0;
+>> +
+>> +	*num_slots   = 0;
+>> +	*slot_offset = 0;
+>> +
+>> +	slots_np = of_parse_phandle(dev->of_node, "qcom,ice-keyslot-map", 0);
 > 
-> NAK, there is no such stuff.
+> No
 > 
-> Drivers for undocumented downstream DTS are not allowed.
+>> +	if (!slots_np)
+>> +		return 0;
+>> +
+>> +	for_each_child_of_node(slots_np, child) {
+>> +		u32 off, max;
+>> +
+>> +		if (of_property_read_u32(child, "qcom,ice-slot-offset", &off) ||
+>> +		    of_property_read_u32(child, "qcom,max-ice-slots", &max))
+> 
+> No, there is no such ABI.
 > 
 
 ACK
 
-This is used to set slot mapping table in DT node. It will be moved
-to Trust Zone if current out-of-band key operation is approved. Otherwise,
-if virtio block devices implement blk_crypto_ops, this driver is unnecessary.
+This is submitted for visibility. It may be revised in a future version to use
+a TZ SCM query interface if current out-of-band key operation in the guest is
+approved.
 
-> ...
-> 
->> +
->> +	dev_info(dev, "registered: %u VMs, %u total ICE slots\n",
->> +		 idx, total_slots);
-> 
-> This does not look like useful printk message. Drivers should be silent
-> on success:
-> https://elixir.bootlin.com/linux/v6.15-rc7/source/Documentation/process/coding-style.rst#L913
-> https://elixir.bootlin.com/linux/v6.15-rc7/source/Documentation/process/debugging/driver_development_debugging_guide.rst#L79
-
-ACK
-
-> 
 > 
 > Best regards,
 > Krzysztof
