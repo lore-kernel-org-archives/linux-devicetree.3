@@ -1,135 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67E523793B3;
-	Tue,  1 Sep 2026 17:58:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01176490BF4;
+	Tue,  1 Sep 2026 17:58:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788285490; cv=none; b=gB40ctz4eiQ7ThyVuGzhAkNlEUDoXcYiKCoiM7QHvJrPtnkkbBrDVY7Erc293z7Wud6UdF1MaC9n8f75KMX+GviJii2L9HhjP5PSP7DaaWoC2+/8H+KqbgzvAQ9XUNyQQna9TK2KCEMAMIHs3yEdM212chz3qc2TIaT90k0zgCo=
+	t=1788285540; cv=none; b=uOsuwpWGEXFzmNGXEPfGHHpAHzvtq2bfWwrieHVOy+7WgcJ2tX4Jh42GHibKlICeogkBsN8XIeGXtVeJXArZ2AJ/6CCN0nF8y5Xe0QforZ6eJSEpbZe2e04iWshXYaEt9k8tWp9gr3XrjpOm2RJmxVMWZkbYy0riA4CKVLs7iso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788285490; c=relaxed/simple;
-	bh=0SBuMMaHOCEuTDb5VwH+tDfN8+fwoNrHw16h618++lE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r54ECU/uUeW1PpMd32trQNxENXQJh5lyEEc8k8ybQ+/QJfai9CMByiRr8UmOTJ/Q4lRA1WFIMr+yXedR+czjuq4LaQtme4+NijPvcg1lyfFtyCqGrh4ShTs1Dvfal+Eeaf75njn/4as1q9ow9e00ada+jzTyNVQLZOMOWnX6+nc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IkCQ4u1k; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788285540; c=relaxed/simple;
+	bh=SFftTY28xng0TqAs0+/d6fgvhXTiZq29gcPBy5wVyio=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=t3njhnQCI4HWgo5p9021s4Ra4/V0/85xDzzT95/NPZrdHDDNkJ9HULdztMWlwlloyB2bESWrgHb4Q0oe3MP2AObUb4FHLptQ1aDJNMd5yrC0jyWeoWkMzVKMroSaH8MGsjHubl07Dp5Ilby94kPc6WkXvDcYcqiCER+mzptNvFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=M4vOQmDP; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IkCQ4u1k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D45531F000E9;
-	Tue,  1 Sep 2026 17:58:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788285489;
-	bh=ZKlKvWADAFzPjMEhdCxgZA7PWsY+aCvikz0gb3BdLUw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IkCQ4u1kbYoKy5G3yS7aCbcHt0uiG1XsYsnKoIkKHi36W7kT/GO4XmRxtKUdK2Yl4
-	 4LPT0PVI8ziG58euMDMpOl7yZR+7AnecdMrSWSW9dJO3X17yLc1w5JzBNADOxehueF
-	 UTBRj4r4gNMCxvyYxkYftEe306hfuzgJtAGhF37MD4T1jlGy9oJvpZVh6YhNCbiHJm
-	 yITsa3BVosQdM98bgH76GriLx/WpKE+BOM8oXLEZidgbIwxh7rsxhruNUi9KWcsI/M
-	 KO3uJzLkSfcrw4dqzI52drbzmdmTORUfrv3BmseW8mVFcUAfesbfODhObgW4Bb7p3n
-	 vkL756JmL303A==
-Date: Tue, 1 Sep 2026 18:58:04 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Stephan Gerhold <stephan@gerhold.net>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Axel Lin <axel.lin@ingics.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
-	devicetree@vger.kernel.org, mfd@lists.linux.dev
-Subject: Re: [PATCH 08/13] dt-bindings: mfd: ab8500: Add regulators
-Message-ID: <20260901-zombie-hermit-798a9851e3d8@spud>
-References: <20260831-ux500-dts-snowball-regulator-v1-0-fe279fff5e18@kernel.org>
- <20260831-ux500-dts-snowball-regulator-v1-8-fe279fff5e18@kernel.org>
- <20260831-subtitle-anvil-0f33fee6c2af@spud>
- <CAD++jLnBSrzXnPdtr_NqTymqBupYv_-xW3NAMCa=7Dx1RwtAFg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="M4vOQmDP"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 35BEB11D4BB;
+	Tue, 01 Sep 2026 19:58:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1788285532;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=n/7cN7BJcI04hefEhKdm0Ws+9Mi+O5JMycLuLM+ZCnE=;
+	b=M4vOQmDPH3Mv+k6rRUIyqM/Je75b3M8F3pesqvgcdcIzTYEgQBCGBjOfCnrU8M/HXRiLGV
+	UqEKKL4R0LxDisIe0HJMtpisz0nwbRbm8hp/l4yIrXSevO/Gj6k7EMpJQy1cb3hAL7SDc1
+	enEePUWr6Ezj1EvOGWpJxSDF5/iRlVawgeBRMm1lYLN0owaPwxPUw5vm8Gx12ZLSf72y+k
+	yoIpwk5TvO494f8tsJAjXCn6ngwVFjQjCpusSuq2N2DVVXrKPWyuxOrVJiIha6qwVOoVmI
+	AQFEzVCSxix0Fwx+lO1+SxzgCmrwYDGydMVJwI8W3EKGW4jF3ZdxnV81Atj4YA==
+Message-ID: <2e3f7dab-5f64-4dcf-b995-82fcc3a5e780@nabladev.com>
+Date: Tue, 1 Sep 2026 19:58:51 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="o8p0ee16I/meqmxv"
-Content-Disposition: inline
-In-Reply-To: <CAD++jLnBSrzXnPdtr_NqTymqBupYv_-xW3NAMCa=7Dx1RwtAFg@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] dt-bindings: hwmon: tmp102: Document TMP113
+To: Guenter Roeck <linux@roeck-us.net>, Conor Dooley <conor@kernel.org>
+Cc: linux-pm@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Flaviu Nistor <flaviu.nistor@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260901161008.46948-1-marex@nabladev.com>
+ <20260901-untimely-wake-578b1a86b9fe@spud>
+ <4bbcc5fe-86a1-4299-a0df-e9f44d5c237f@roeck-us.net>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <4bbcc5fe-86a1-4299-a0df-e9f44d5c237f@roeck-us.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
---o8p0ee16I/meqmxv
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 9/1/26 7:48 PM, Guenter Roeck wrote:
 
-On Mon, Aug 31, 2026 at 10:18:09PM +0200, Linus Walleij wrote:
-> On Mon, Aug 31, 2026 at 6:18=E2=80=AFPM Conor Dooley <conor@kernel.org> w=
-rote:
->=20
->=20
-> > > +            ab8500_buck_smps1:
-> > > +            ab8500_buck_smps2:
-> > > +            ab8500_buck_smps3:
-> >
-> > How do these differ from
-> >   regulator-external:
-> >       ab8500_ext1:
-> >         description: The voltage for the VSMPS1 external regulator
-> >       ab8500_ext2:
-> >         description: The voltage for the VSMPS2 external regulator
-> >       ab8500_ext3:
-> >         description: The voltage for the VSMPS3 external regulator
->=20
-> Exactly in the way they say, the former are internal, the regulators
-> exist in the AB8500/AB8505 silicon. The latter are external,
-> they are just control channels for regulators outside of the
-> AB8500/AB8505.
->=20
-> The three "external regulators" are control channels going out
-> of the AB8500/AB8505 to control secondary silicon outside
-> of the AB8500/AB8505.
->=20
-> It is also clearly seen in the Linux driver which use different
-> registers.
->=20
-> The similar name "VSMPS1/2/3" is incidental.
+Hello Guenter,
 
-Right, I see.
+>>> @@ -13,11 +13,12 @@ properties:
+>>>     compatible:
+>>>       oneOf:
+>>>         - items:
+>>> +          - enum:
+>>> +              - ti,tmp110
+>>> +              - ti,tmp113
+>>>             - const: ti,tmp102
+>>> -          - const: ti,tmp103
+>>> -          - const: ti,tmp110
+>>> -      - enum:
+>>> -          - ti,tmp102
+>>> +      - const: ti,tmp102
+>>> +      - const: ti,tmp103
+>>
+>> Should this not be two patches, one fixing the existing stuff and one
+>> adding the 113?
+>>
+> 
+> It is all in -next. Looks like I resolved the conflict when combining
+> "dt-bindings: hwmon: tmp102: move ti,tmp103 out of trivial-devices.yaml"
+> and "dt-bindings: hwmon: tmp102: Document TMP110" the wrong way.
+> Sorry for that.
 
->=20
-> SMPS =3D=3D Switched Mode Power Supply.
->=20
-> (Customers didn't much use the external regulators. They
-> usually implemeted GPIO-controlled regulators on the side
-> instead.)
->=20
-> If you want I can add some verbiage explaining that they are
-> not the same despite the name is similar.
+No worries, I hope V3 I just sent fixes it up.
 
-If you think it'll help people that actually have the device, yes.
+> Instead of adding more patches on top of it, how about providing a
+> single patch moving tmp103 and adding tmp110 as well as tmp113
+> together ? Alternatively, I could drop "dt-bindings: hwmon: tmp102:
+> Document TMP110", apply the original (non-conflicting version) of
+> "dt-bindings: hwmon: tmp102: move ti,tmp103 out of trivial-devices.yaml",
+> and then tmp110 and tmp113 could be added in a single patch.
+> 
+> Please let me know.
+I think the broken commit is d67ec24d3f07 ("dt-bindings: hwmon: tmp102: 
+move ti,tmp103 out of trivial-devices.yaml") and v3 1/2 is the fix for 
+that broken commit. V3 2/2 only adds the missing TMP113 .
 
->=20
-> > > +            ab8500_buck_arm:
-> >
-> > realistically, all of these should have -s instead of _s.
->=20
-> Can you elaborate, I have a hard time understanding that
-> terse comment :D
+So I think there are two options:
+- The complicated one -- squash d67ec24d3f07 ("dt-bindings: hwmon: 
+tmp102: move ti,tmp103 out of trivial-devices.yaml") and V3 1/2 (and 
+either do it in tree, or drop d67ec24d3f07 ("dt-bindings: hwmon: tmp102: 
+move ti,tmp103 out of trivial-devices.yaml") and ask for it to be 
+updated and resent), then apply that, and apply V3 2/2 (or newer) .
+- The simple one -- apply both V3 patches (or whatever newer version is 
+good enough) and move on.
 
-Node-names and properties are expected to have -s instead of _s in them.
-so ab8500-buck-arm etc
-
-Although, all your existing ones have _s, so there's conflicting
-feelings with my OCD. Do w/e you like, for that reason.
-
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
-
---o8p0ee16I/meqmxv
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapcSLAAKCRB4tDGHoIJi
-0qtwAP0Y+eg2f7uPaej22EQuekuu7FzIDinvhsxqY9zKIM24XAEA9PUOr+9Dl5Hj
-l8wM2fbR73uHP3L7jNT8AMVosM6pyg0=
-=nh82
------END PGP SIGNATURE-----
-
---o8p0ee16I/meqmxv--
+Just let me know what you like better.
