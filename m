@@ -1,156 +1,185 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC7734A0134
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 19:08:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBFDE368D77
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 19:10:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788289713; cv=none; b=ObdzNNlNjfFtCn3Qy1gng4TkJZICA4tkxqdedAEnTmNd4aonHBgedVgT+msom9JwhXwTTaGYoHXKz90ltNg4BAKDm4KBRgO09vJtTuqXQGUodUhNg0HSf9CxEHdmozsjWOsgJ7dvk3m960toBWiE8sCWydYSkEUcPJQZ5QIZpiI=
+	t=1788289805; cv=none; b=ROVQrA7EDIYY++Q0m6MKoapijRL9AAIaor0emFpQTrjHN/pFMJjEf0A7R4J8lnJRRPj0M94ihuwO/tiQQEathQv9z84CJLJOnG3yQvxEeY/3LZC2rFl7PFqT5lJ0OP6HoZnGcvUNs6He40hjZJ15C5nZVt26z9VQkESUTQO1AbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788289713; c=relaxed/simple;
-	bh=9LFsoPdA7Z96tuN4KE74hGywRfz1bmrcnuAywiH5gdE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EIX+cP+b7muS3xwluP+YXSXMTa0xlpcfrBNuZd+YSeBeWeogXKZfFFyXirv6Xvu5iecRr1jNTzeprNwDF2de7wanckAAAVLSjHSGr2ZL6URvvwxl2sW1bKrCfe4WT68zYPoXf+8/a2wCUTPQMe6xelMSsjsMHHAgzCPcQvU++xU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=LMMpuqt5; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788289805; c=relaxed/simple;
+	bh=jCFzhqS55uImmlAUdKuuhTUdzhbeRh+mzJGTjGnDaf8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=fvVmK4GvN3ZqF1TjGmVAQwWLFFJiNwi6SS8h9sz0iX2j9L9H8YX+QDDdH3JCEn/TKFxLw7Buf0cBaAsRBznYjGYp65Mp5uqHnc/rU/iXIvGMWWgurydt43BNZmRsdDrMYYnoo9lqRjJKmr8BdMQL6F2gLNRcDbPkKYKtqPQa9SY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dw9zgHoA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="LMMpuqt5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788289709;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aIxAvTRNvxJgRJBiEkDQ2UEAvyzYXhxvE+oYR37jJhI=;
-	b=LMMpuqt5yiPYiXOR0ewAzYmhSa08p9X0z8FKKylG1AMWMz/lPvDJG6dpuT5PCWVbTD/LYD
-	SMPg7aJUd50b4oGapnXcUmT5ByDaxUP4WiM3QeTrOZ+Vfq4wPMHcfRuxOYzRw0vbqoOgVB
-	pIfNr4QhrzRLYrLNrW9gaYU3gbkRXzY=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-655-P5I-FGMdPmOCoUPEPOt70Q-1; Tue,
- 01 Sept 2026 15:08:26 -0400
-X-MC-Unique: P5I-FGMdPmOCoUPEPOt70Q-1
-X-Mimecast-MFC-AGG-ID: P5I-FGMdPmOCoUPEPOt70Q_1788289703
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 0EA59183035E;
-	Tue,  1 Sep 2026 19:08:23 +0000 (UTC)
-Received: from localhost (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 3C5807E3;
-	Tue,  1 Sep 2026 19:08:22 +0000 (UTC)
-Date: Tue, 1 Sep 2026 15:08:20 -0400
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
-Cc: ebiggers@kernel.org, axboe@kernel.dk, mst@redhat.com,
-	jasowangio@gmail.com, James.Bottomley@hansenpartnership.com,
-	martin.petersen@oracle.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, linux-block@vger.kernel.org,
-	linux-crypto@vger.kernel.org, linux-scsi@vger.kernel.org,
-	virtualization@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, neeraj.soni@oss.qualcomm.com,
-	gaurav.kashyap@oss.qualcomm.com, mani@kernel.org,
-	andersson@kernel.org, konradybcio@kernel.org, bvanassche@acm.org,
-	alim.akhtar@samsung.com, avri.altman@sandisk.com,
-	pbonzini@redhat.com, eperezma@redhat.com,
-	xuanzhuo@linux.alibaba.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 06/11] scsi: ufs: core: add slot path to
- ufshcd_prepare_lrbp_crypto
-Message-ID: <20260901190820.GB729142@fedora>
-References: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
- <20260827160806.1295313-7-linlin.zhang@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dw9zgHoA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BE821F000E9;
+	Tue,  1 Sep 2026 19:10:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788289803;
+	bh=eO5+pN11VNAaQQs5Br+TvrzfbUDJSME+z+q5F1oXSIU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dw9zgHoAVvkI80L58gIIYDky3j72TiPRr6NFJDBMeRTAUxjmMm7jeVFUTj5515ivq
+	 gGFkTqBtWJihVCFq9OzpavPd7Oid5/yRH2K8sH95cvFdKLdIJTDmXMNN4aYcLI/DXA
+	 VaH8V7cxJiaNLydqLzUCa6lJgfov32k8LAgwslK7D2cJghWnIa1LS5QneA+qp8/Qbo
+	 zSiV/4F/DIaWFatzvDc3CO9GzY5UrjNc/M2rwkMp0xeBbzuDVqVkry17HixW8DfA66
+	 U5Zl6WsCm3eQZwL38iVeoh2ouvmu87ftyr/p7AdXb0ozbcRk+P8IIUlFWYUBLBom8A
+	 39vfNjF/sIGLA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 8/9] mmc: sdhci-cadence: add Cadence SD6HC support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Tanmay Kathpalia" <tanmay.kathpalia@altera.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260901184828.15653-9-tanmay.kathpalia@altera.com>
+References: <20260901184828.15653-1-tanmay.kathpalia@altera.com>
+ <20260901184828.15653-9-tanmay.kathpalia@altera.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 01 Sep 2026 19:10:02 +0000
+Message-Id: <20260901191003.3BE821F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pBRcO3zyIP96qqRf"
-Content-Disposition: inline
-In-Reply-To: <20260827160806.1295313-7-linlin.zhang@oss.qualcomm.com>
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
---pBRcO3zyIP96qqRf
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Type Confusion and Out-of-Bounds Read due to relying on SD Associa=
+tion's host->version
+- [Medium] Memory Barrier Misuse masks hardware timing requirements
+- [Medium] Hardcoded of_device_is_compatible checks bypass driver match data
+--
 
-On Thu, Aug 27, 2026 at 09:07:15AM -0700, Linlin Zhang wrote:
-> From: linlzhan <linlin.zhang@oss.qualcomm.com>
->=20
-> ufshcd_prepare_lrbp_crypto() programs crypto_key_slot in the LRB from
-> rq->crypt_keyslot.  With the blk-crypto slot path a bio can carry a
-> pre-programmed physical ICE keyslot index in crypt_ctx->bc_slot rather
-> than a blk_crypto_key pointer.  In that case rq->crypt_keyslot is NULL
-> and the existing code incorrectly falls through to the "no encryption"
-> path, leaving crypto_key_slot as -1.
->=20
-> Extend the function to handle both cases: when rq->crypt_keyslot is
-> set, derive the slot index via blk_crypto_keyslot_index() as before;
-> when bc_slot.data_unit_size_bits is non-zero, read crypto_key_slot
-> directly from bc_slot.phy_slot.
->=20
-> Signed-off-by: linlzhan <linlin.zhang@oss.qualcomm.com>
-> ---
->  drivers/ufs/core/ufshcd-crypto.h | 14 +++++++++++---
->  1 file changed, 11 insertions(+), 3 deletions(-)
+commit a4d954763650a6fbead1cf6e48fefd5979c779d2
+Author: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
 
-This patch also looks like it's specific to the out-of-band key slot
-programming interface. Skipping for now.
+mmc: sdhci-cadence: add Cadence SD6HC support
 
->=20
-> diff --git a/drivers/ufs/core/ufshcd-crypto.h b/drivers/ufs/core/ufshcd-c=
-rypto.h
-> index 8f66db94e179..2fc5601c0f76 100644
-> --- a/drivers/ufs/core/ufshcd-crypto.h
-> +++ b/drivers/ufs/core/ufshcd-crypto.h
-> @@ -15,13 +15,21 @@
->  static inline void ufshcd_prepare_lrbp_crypto(struct request *rq,
->  					      struct ufshcd_lrb *lrbp)
->  {
-> -	if (!rq || !rq->crypt_keyslot) {
-> +	if (!rq) {
->  		lrbp->crypto_key_slot =3D -1;
->  		return;
->  	}
+This commit adds support for the Cadence SD6HC host controller and its
+integrated combo-PHY. It splits the existing driver into a core module and
+a PHY-specific module for v6, using a shared header for private state.
+
+> diff --git a/drivers/mmc/host/sdhci-cadence.c b/drivers/mmc/host/sdhci-ca=
+dence-core.c
+> similarity index 85%
+> rename from drivers/mmc/host/sdhci-cadence.c
+> rename to drivers/mmc/host/sdhci-cadence-core.c
+> index 1fb23051a047b..ea2517e8f72a9 100644
+> --- a/drivers/mmc/host/sdhci-cadence.c
+> +++ b/drivers/mmc/host/sdhci-cadence-core.c
+[ ... ]
+> @@ -569,13 +583,24 @@ static int sdhci_cdns_probe(struct platform_device =
+*pdev)
+[ ... ]
+> +	if (of_device_is_compatible(dev->of_node, "cdns,sd6hc")) {
+> +		clk =3D devm_clk_get_enabled(dev, "ciu");
+
+[Severity: Medium]
+Will this hardcoded check fail to match hardware variants that omit the
+generic fallback string?
+
+The code branches by checking specifically for "cdns,sd6hc", bypassing the
+driver match data. If a valid device tree specifies a variant string without
+the generic fallback, this check will fail, leading to missing clock
+initializations.
+
+Could this logic be moved to a flag or PHY type identifier within
+sdhci_cdns_drv_data instead of hardcoding compatible string comparisons?
+
+[ ... ]
+> +	if (of_device_is_compatible(dev->of_node, "cdns,sd4hc")) {
+> +		__sdhci_read_caps(host, &version, NULL, NULL);
+> +		ret =3D sdhci_cdns4_phy_probe(pdev, priv);
+
+[Severity: Medium]
+Similarly, will this check misidentify specific SD4HC variants as SD6HC if
+the generic string is omitted?
+
+If "cdns,sd4hc" is missing from the device tree node but a variant compatib=
+le
+string is present, the driver will mistakenly execute the SD6HC PHY probe
+block below.
+
+[ ... ]
+> @@ -636,7 +677,11 @@ static int sdhci_cdns_resume(struct device *dev)
+>  	if (ret)
+>  		return ret;
 > =20
-> -	lrbp->crypto_key_slot =3D blk_crypto_keyslot_index(rq->crypt_keyslot);
-> -	lrbp->data_unit_num =3D rq->crypt_ctx->bc_dun[0];
-> +	if (rq->crypt_keyslot) {
-> +		lrbp->crypto_key_slot =3D blk_crypto_keyslot_index(rq->crypt_keyslot);
-> +		lrbp->data_unit_num =3D rq->crypt_ctx->bc_dun[0];
-> +	} else if (rq->crypt_ctx && rq->crypt_ctx->bc_slot.data_unit_size_bits)=
- {
-> +		lrbp->crypto_key_slot =3D rq->crypt_ctx->bc_slot.phy_slot;
-> +		lrbp->data_unit_num =3D rq->crypt_ctx->bc_dun[0];
-> +	} else {
-> +		lrbp->crypto_key_slot =3D -1;
-> +	}
+> -	ret =3D sdhci_cdns4_phy_init(priv);
+> +	if (host->version >=3D SDHCI_SPEC_420)
+> +		ret =3D sdhci_cdns6_phy_init(priv);
+> +	else
+> +		ret =3D sdhci_cdns4_phy_init(priv);
+
+[Severity: High]
+Can this type confusion lead to an out-of-bounds read?
+
+The PHY structure pointer is cast and accessed based on the hardware-report=
+ed
+SDHCI version rather than the actual type allocated during probe. If an SD6=
+HC
+device reports a specification version less than 4.20 in its registers, it
+will fall back to sdhci_cdns4_phy_init().
+
+Because sdhci_cdns4_phy_init() casts the PHY state to struct sdhci_cdns4_ph=
+y,
+it misinterprets the first field of struct sdhci_cdns6_phy (t_cmd_output_mi=
+n)
+as the nr_phy_params field. This will result in an out-of-bounds loop
+reading unmapped memory.
+
+Should the PHY version be determined by the driver data set during probe
+instead of relying on the hardware specification version register?
+
+> diff --git a/drivers/mmc/host/sdhci-cadence-phy-v6.c b/drivers/mmc/host/s=
+dhci-cadence-phy-v6.c
+> new file mode 100644
+> index 0000000000000..22d56bb46d75a
+> --- /dev/null
+> +++ b/drivers/mmc/host/sdhci-cadence-phy-v6.c
+[ ... ]
+> +	sdhci_cdns6_write_phy_reg(priv, SDHCI_CDNS6_PHY_CTRL_REG, reg);
 > +
->  }
-> =20
->  static inline void
-> --=20
-> 2.34.1
->=20
+> +	/*
+> +	 * Ensure all preceding PHY register writes complete and reach the cont=
+roller before
+> +	 * releasing the PHY from reset. Without this, SDR104 has been observed=
+ to fail
+> +	 * intermittently on some boards.
+> +	 */
+> +	wmb();
 
---pBRcO3zyIP96qqRf
-Content-Type: application/pgp-signature; name=signature.asc
+[Severity: Medium]
+Is this memory barrier masking a hardware timing requirement?
 
------BEGIN PGP SIGNATURE-----
+The wmb() macro orders local CPU memory stores, but it does not flush posted
+MMIO writes over the interconnect to the device. Its success in preventing
+intermittent failures is likely due to it acting as an accidental micro-del=
+ay
+on the CPU. On a faster CPU or a different interconnect architecture, this
+will not guarantee the writes have settled.
 
-iQEzBAEBCgAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmqXIqQACgkQnKSrs4Gr
-c8iYNQf/Z/Mg0LaUa6dUJKhoFrywpY04b1BFZC1/1mBEcV2rEpgme0EWNIrKViN/
-3k9Cl7masxIgvtvpYzcTYaXy/es7h5fzlSTiP8qyPftSB9iBVHq8mzRO3oJqybld
-z0R8smUmJK8J0eRDOcNbPmEEiY/bV6r4xgNZD0qC3+K+lJHQinp7yz2D9HySG1cO
-Vh3+MBiYeUpmoRya/8hEa1X1hXhoIlQRmrNkL6+mhR3A46ybQCAcmVtjfguXcGGk
-KJ0wH4y6TcHdZCy8PnGRKOe+Pg8/XTw3q9Eittz5wr26GmhPqtjn7dAmWKwtz42l
-tyy1f3bl5pR2uOxzo3IH0lNg4wcHig==
-=a1Wq
------END PGP SIGNATURE-----
+Would a dummy readl() to flush posted writes or a small udelay() be more
+appropriate here?
 
---pBRcO3zyIP96qqRf--
+> +
+> +	ret =3D sdhci_cdns6_dll_reset(priv, false);
+[ ... ]
+> +	sdhci_cdns6_write_phy_reg(priv, SDHCI_CDNS6_PHY_DQ_TIMING_REG, reg);
+> +
+> +	/* Ensure DQ timing programming is visible before HRS09 follow-up write=
+s */
+> +	wmb();
 
+[Severity: Medium]
+Does this second wmb() suffer from the same MMIO flushing issue?
+
+Like the previous barrier, this orders CPU-side memory stores but does not
+ensure the device has actually received and processed the DQ timing
+configuration before the subsequent HRS09 writes occur.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901184828.1565=
+3-1-tanmay.kathpalia@altera.com?part=3D8
