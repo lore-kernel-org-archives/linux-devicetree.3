@@ -1,117 +1,161 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99B6F4A385D
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 20:24:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 721DE4A262E
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 20:26:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788294304; cv=none; b=gaAcZ9lbWHUqG7ADwIOYO+HqsXdVh58kgisiJa172RlbvyVRKIGn1zLRGmvY7TCGrf8g/c4NfMeklNNy7x3XSiXRjlCwyKTAZUBH4LpXaJv7Vn9c1EFP6VwNZAAihUPg25K1QLi8c9EDpI3uoq+OU9xVoIhkweNQb5kaXzOmzAY=
+	t=1788294385; cv=none; b=jgsOrYhu2vy187e1shmX18BS9R2xgzqjy93Wc3n257tHTyuCo4v99N0BGxnL4UdhlVnxvesGH2zGXo1EJ1ALrWzfAGDCL2u30KBEQqDbWlylUdqEgyDyoWcVgu1M2OevGdhRD55coiHsW1qXADWYu+lp8Sb9Iou0PQTzzc8wyXc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788294304; c=relaxed/simple;
-	bh=a5SVRRN9w0PwK0ABgBe9wNnW3p3yXx6qaXn1I3+EPqc=;
+	s=arc-20240116; t=1788294385; c=relaxed/simple;
+	bh=sRthVS6aMSu5+OFpuSJE0iF+P+o6qkCdoySwCKqJ2mY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=n4BAh17n+s2Vwbu+CKeWgdK+8aw5Ou5JTzKpqpkBOmuuc+Sa8o7LbVFVc74rysOo3ZtYuss26Ps4hSShLRAQbFLo5rH5kFQH/ZZlH3kQ8ltEYaxOmei2AZPT18Bu/sEl9GgKws5PFPpEBSwcMK1ynFy5DEDZIrdo0TnAqymHKqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bd3JPZAd; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=sLinp6IQvFaY8H7ZrQHzHBGcGOQoM1OACizbQUBhuloseKtlXh4WxdbpP2ez5QNW9B0y84jIjEv+XzNPh5aNGC/lS5QUW4cFD2Eg1LrXHe7sWlqo3zZEea51nm54ydvUBye2yP1znxz+kL6SE062SJLyblxcftel7gA8unRK0/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PcgUvZjg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bd3JPZAd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60AD01F00A3A;
-	Tue,  1 Sep 2026 20:24:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PcgUvZjg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91BF31F000E9;
+	Tue,  1 Sep 2026 20:26:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788294297;
-	bh=lMpnbppsBTrh/fgnz1BIZ4HEP60QWFMvATXC9tMJFLE=;
+	s=k20260515; t=1788294384;
+	bh=BRB5urgMLJTYfoSmG3wFxm9ZNAlVK+rRPpkEdO5USDM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bd3JPZAdDq9ry0LbzABEAj44CPgUesjx1OnA20Um1XyEquAEnvA+tIgG+kf4jOj4G
-	 A/JEwwwYFZk6o6BsKOiXONy3x7COhFHiTSp6WECF7SslRm5MZY0pvAg7DBbUHu6lHl
-	 A2IEnwOnpPAHpx+LIYQ4SVcR9BEkzqMEgLYcqGH/CueIWsBxglowQSiA4CXRKVwpdD
-	 zB4BhUsVaLDZcLFG5fxRq8f/MViE7a7YYKMdKwLVIqFci6UbR3su1S/OCyOrTTWwsy
-	 MzKbIlNEcVKQ1jgPUEGPBnqI3PPoae0ke3e4D05Y9SVh/szol02Jqi4C3YWF8fZicE
-	 3+oj1ep6SG4PA==
+	b=PcgUvZjgg5Cf/a68PU135KAWxcJciZLUl3/Dq6eJ8KEhG0/0YeC8qzZACn6OeDmgX
+	 Tp3/npcIokVBNqzXgcAzW3V3T4GzRCBc6hYb8Yg2wM5fQXxvvePn+2HiI7wmKcrDR4
+	 XckQsnyakVFP3WCKequlR5Nh1ZHtgy9jSOGUVATS3vuKd00lJ4Fy+E737wYwD6Td+8
+	 USe7mGOLF0jKUc1StvR4+i6zrQg/YoWpPSsq32CX1wkX5GEw/EbQijRGnc6J4nbS3K
+	 hUiZmJ1WdbUncLioBlFPfPamge2p6tF1wN30jYZ1sNxRdVHQ+F2ANSdepiIv6L0Cvb
+	 /KLW0oqcLoECQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v16 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY
- driver
+Subject: Re: [PATCH v16 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
+ schema
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?QnJ5YW4gTydEb25vZ2h1ZQ==?= <bryan.odonoghue@linaro.org>
-Cc: conor+dt@kernel.org, linux-phy@lists.infradead.org, neil.armstrong@linaro.org, media-ci@linuxtv.org, robh@kernel.org, vkoul@kernel.org, devicetree@vger.kernel.org, olteanv@gmail.com
-In-Reply-To: <20260901-x1e-csi2-phy-v16-2-dd863b929080@linaro.org>
+Cc: olteanv@gmail.com, media-ci@linuxtv.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20260901-x1e-csi2-phy-v16-1-dd863b929080@linaro.org>
 References: <20260901-x1e-csi2-phy-v16-0-dd863b929080@linaro.org>
- <20260901-x1e-csi2-phy-v16-2-dd863b929080@linaro.org>
+ <20260901-x1e-csi2-phy-v16-1-dd863b929080@linaro.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 20:24:57 +0000
-Message-Id: <20260901202457.60AD01F00A3A@smtp.kernel.org>
+Date: Tue, 01 Sep 2026 20:26:23 +0000
+Message-Id: <20260901202623.91BF31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] The MIPI CSI-2 PHY driver validates the dynamically requested la=
-ne count in `phy_configure` but then drops it, always powering up all stati=
-cally connected lanes.
+- [Medium] The schema incorrectly permits CPHY `bus-type` (1) despite being=
+ unsupported, and universally mandates `clock-lanes` which is invalid for C=
+PHY.
+- [Low] The constraint `const: 0` (and `const: 3`) on `clock-lanes` causes =
+a type mismatch validation failure.
 --
 
-commit 195a47fa2ff62bda0e1e24d4911794d18fcb86c8
+commit fe5fc3d14e64c01a85e54ac20b525d1bf21bb991
 Author: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
 
-phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
+Add a base schema for the MIPI CSI2 PHYs on Qualcomm SoCs supporting C-PHY
+and D-PHY modes. The commit submitted describes D-PHY modes only, leaving
+C-PHY for future work.
 
-Add a new MIPI CSI2 driver in DPHY mode initially. The entire set of
-existing CAMSS CSI PHY init sequences are imported in order to save time
-and effort in later patches.
-
-> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c b/drivers/phy=
-/qualcomm/phy-qcom-mipi-csi2-core.c
+> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy=
+.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
 > new file mode 100644
-> index 0000000000000..24ccd3264686f
+> index 0000000000000..17de0701eb103
 > --- /dev/null
-> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
+> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+
 [ ... ]
-> +static int phy_qcom_mipi_csi2_configure(struct phy *phy,
-> +					union phy_configure_opts *opts)
-> +{
-> +	struct mipi_csi2phy_device *csi2phy =3D phy_get_drvdata(phy);
-> +	struct phy_configure_opts_mipi_dphy *dphy_cfg =3D &opts->mipi_dphy;
-> +	struct mipi_csi2phy_stream_cfg *stream_cfg =3D &csi2phy->stream_cfg;
-> +	int ret;
-> +
-> +	ret =3D phy_mipi_dphy_config_validate(dphy_cfg);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (dphy_cfg->lanes < 1 || dphy_cfg->lanes > CSI2_MAX_DATA_LANES)
-> +		return -EINVAL;
-> +
-> +	stream_cfg->link_freq =3D dphy_cfg->hs_clk_rate;
-> +
-> +	return 0;
-> +}
+
+> +        patternProperties:
+> +          "^endpoint(@[01])?$":
+> +            $ref: /schemas/media/video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +            properties:
+> +              bus-type:
+> +                enum:
+> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
+> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
 
 [Severity: Medium]
-Does this code inadvertently drop the requested lane count from
-opts->mipi_dphy.lanes?
+The commit message mentions that C-PHY is left to future work, but does
+including MEDIA_BUS_TYPE_CSI2_CPHY here explicitly enable C-PHY
+configuration?
 
-In phy_qcom_mipi_csi2_configure(), dphy_cfg->lanes is bounds-checked but
-never assigned to stream_cfg->num_data_lanes. This causes the dynamic lane
-count to be dropped.
+> +
+> +              clock-lanes:
+> +                maxItems: 1
+> +
+> +              data-lanes:
+> +                minItems: 1
+> +                maxItems: 4
+> +                items:
+> +                  minimum: 1
+> +                  maximum: 4
+> +                description:
+> +                  Data lane positions following this endpoint's clock
+> +                  lane. Positions are a per-port logical numbering, not
+> +                  package pad or ball positions.
+> +
+> +            required:
+> +              - bus-type
+> +              - data-lanes
+> +              - clock-lanes
+> +              - remote-endpoint
 
-Because it is dropped, the driver later relies on the statically probed cou=
-nt
-when enabling the lanes:
+[Severity: Medium]
+Since C-PHY does not use a clock lane, does mandating clock-lanes in this
+required block inadvertently break any potential C-PHY configurations
+that might use bus-type =3D <1>?
 
-drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c:phy_qcom_mipi_csi2_lanes=
-_enable() {
-    ...
-    val =3D BIT(lane_cfg->clk.pos);
-    for (i =3D 0; i < cfg->num_data_lanes; i++)
-        val |=3D BIT(lane_cfg->data[i].pos * 2);
-    ...
-}
+> +
+> +        allOf:
+> +          - if:
+> +              required:
+> +                - endpoint@1
+> +            then:
+> +              properties:
+> +                endpoint@0:
+> +                  properties:
+> +                    clock-lanes:
+> +                      const: 0
 
-Should stream_cfg->num_data_lanes be updated here so that the PHY only
-powers up the requested subset of physically connected lanes?
+[Severity: Low]
+Since clock-lanes is parsed from the device tree as a JSON array (like [0]),
+will using a scalar integer const: 0 here cause a type mismatch validation
+failure during dt_binding_check?
+
+> +                    data-lanes:
+> +                      maxItems: 2
+> +                endpoint@1:
+> +                  properties:
+> +                    clock-lanes:
+> +                      const: 3
+
+[Severity: Low]
+Does this also need to be an array constraint instead of const: 3 to pass
+schema validation?
+
+> +                    data-lanes:
+> +                      items:
+> +                        - const: 4
+> +              required:
+> +                - endpoint@0
+> +            else:
+> +              patternProperties:
+> +                "^endpoint(@0)?$":
+> +                  properties:
+> +                    clock-lanes:
+> +                      const: 0
+
+[Severity: Low]
+Similarly, does this fallback path need to constrain an array rather than
+using const: 0?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901-x1e-csi2-p=
-hy-v16-0-dd863b929080@linaro.org?part=3D2
+hy-v16-0-dd863b929080@linaro.org?part=3D1
