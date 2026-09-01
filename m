@@ -1,68 +1,69 @@
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com [209.85.160.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C9C3370AE2
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 21:42:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F4313B3890
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 21:42:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788298953; cv=none; b=HYw0hiK9LqXULYvfAWrmP2k43gj3JUKa0C5/5wmqsb1o+aqqn5NSta1VNyxEewn7qP7ZWYtgNqoQbZZJ99U1u7yGGO03ZTFVqqqDSA4hhYDPw+rI3nGsLyR0TaSBT928oSUhh+wqD2SljaNfaV9KB2eFcSd8LP9meAk9uIokyYE=
+	t=1788298955; cv=none; b=tV7birOfOyrujfJZHPtwP0nCzgaH0MQeTHIjBI51yC5RbZNndSlvyxFGpBWt3I76I3WK0zT2sx/V4OaiQ/bSgmPhFLHq5Hyk41zfqdpIWghxAz70bq3/xHI6RRaWvJHnuRX1FUoMJch9S0iwrUPNR+C81IogXa1Su0xUbHnMEq0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788298953; c=relaxed/simple;
-	bh=81GtuhM8WPaQORq30yLJ9T7RnVg1D0CM09jTFAW6Whg=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=UDwrkxZkeKB9YLDY80cN8ZsrHXShliwgpm0+pxyKxd49IG3S22HjyGc6mBBgnyrClUiMil6I1TV4qj/3wz6rFNor77XSWTjuV1jFgRKpXz9+ZyAczsJmtngaGHmW9mILAjl+bKLVHXbL45ObfsfKxJ35xEuOtpPU40LmPKg676k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mOaowlb2; arc=none smtp.client-ip=209.85.210.52
+	s=arc-20240116; t=1788298955; c=relaxed/simple;
+	bh=JPUA3viflQ2v9uEzqZ95Rm337zpwh6hXrUk2Yg+PzV8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=NqbZrxtVV03psFXrLWRciWMlDmLMXzkPdGJO0c8PpjArRrISZu5gBIn48EvfP4TIyhaU3ydUxvKn5fo7owC6NrgluP7LYsoqOcgMN/3SprnHG4542EZUUzHqJ9iZ8XnakApI2IgGSXZlKEdaM3kFnr8XT7jCfnaAjuWqFoVXyPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P02ltant; arc=none smtp.client-ip=209.85.160.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mOaowlb2"
-Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-7e9ecd7216cso203228a34.3
-        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 14:42:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P02ltant"
+Received: by mail-oa1-f44.google.com with SMTP id 586e51a60fabf-46ad7304688so1684066fac.0
+        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 14:42:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788298951; x=1788903751; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=y249H53XhLZ2onZan6XPWtvu2gNoxIJKlrKV115uQNw=;
-        b=mOaowlb2nBqpA2MI2X9Q+0Oy7O0HGn49oi6X/L32JIQ8IB9uXwckHU+rdRSJbtfM13
-         ewJfJvInM+eDOnpta/LlkkqZJfN5qpd790gj7UrVDuCmS5PDNKErvjBhDkxcSngNTtgO
-         bYAjgbqoEfQ8KVvdY4EARjiLQsIFXVpku+geSOdsrcAbdjH8gOMXZYCf2wUGMfZtu8pa
-         GZ7A9CKJhYVnygNSyli+iEKnJ4fGbHxo5/nctCjQDw+mmuu5deRZ7WyIfDCob9Lu19dA
-         dRtmXMgk2EbAtm4AEnlZl4h3mfVd5yH0tuMXrfFEbmQn7PIOLd5WqOR01XYsDnlrTAdE
-         S7QQ==
+        d=gmail.com; s=20251104; t=1788298953; x=1788903753; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F+NmUzFRKeuEQ7M+1ibV0+Pzn+8gHlXWcUZ2COu4Ht4=;
+        b=P02ltantu8oshKZx4o9a1xUnDYuKblvHDHy+YNGvhEPpwpmIO9JaWHP2XDXpg8QpAx
+         Kmg6Zo9rO1JeLJfEltpVgzrJSU58i6DjzOnWg4sp1Wuoo48K82TI3+3JIWQU5zDz8rIU
+         j+wXa4awoJHrC1xqRbTPVDMjTnB4EbKyIzX0Ar/u5evhkTFePKY8/2fUuN7UMuTb4CMO
+         T3jDgt1zMw2j6qk8jOtfVPIXvwR0MyrE9DBcVovjIM8Tj1LkJ1G+DbyV1aEWLXJtq7Hm
+         YMHIylHtwTp49IsQxtQ3JxYQO7Nl8gJIb/AZDNn2pBKPAD6YC7RAftFqaK+fq1LN9b22
+         qAWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788298951; x=1788903751;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=y249H53XhLZ2onZan6XPWtvu2gNoxIJKlrKV115uQNw=;
-        b=sJLKIyy5Va5No7oaubxjT4fByN0CTi/1XAUBBUGns3VEv0g6QsKG4oUchTf4G6GKgN
-         2KtwzKkef1684JmoESH4LbXEgo8w3WqjYCtS5de2gvIeJ6RtXPhY/b6XV/bmFjw1BRQy
-         OKagjMErkXnnV/EKYQll4QqGOE7tnaPtD0nbZXzUSZGyLH7n0MT3BXErB43+DAqqz9kP
-         il6mJS+SoozACWxFq3z8td+sq11urryM7Cxgtbx0pM/Eaf5whO1JbYfr60hr7xTdM98L
-         i/fdHf7MDA7vhPjZIpqbLE4PyoeNY92SFRGlTyNvouGaY6wkqWLFY3cMVkxj3yHo/5Nr
-         PBDA==
-X-Forwarded-Encrypted: i=1; AHgh+RrjW/GFlRJj8Zvth/5Z8ujwrOkXtcJp7cdw32N3u01V66/NzmOCSJLYIyFzJZ+AnDlZZ63zduQb1Nt9@vger.kernel.org
-X-Gm-Message-State: AFuF++kZuO/qKB63jZ62az1kU4nCDt3X3xXif3nSkvQTHw3tLM4NhicD
-	uTNmUyDmfwHhG0Ef+kDwpDrZSJjBw/eOQI/Z+3XvpkbSeYfujLhn6bAm
-X-Gm-Gg: AR+sD139uC3CvVBN0CyOUPmzrkjlu/5BsXjIq0tthrFYJRy5qpm3Br/6TCiuEWeexTr
-	P6q/J0czfhzg9DG3t4QyvJChboo1wIJVp89+SK5R6zl+s4coJbrwZVR8ZU/0yivrNz+zQ+uOfDH
-	wb+W2a6+dKerXfcUU8ndEYA7MRwbmuc8cJzYTYtvtfnujup6zrSf4/ZUjavIGBRiHMWMvoyRCda
-	B6/J/cCBMDtWfQpxQzKpKuPteAJgGxJtjHYt0tw+8T+dumzCuMAXJF4wt4JMjEJQP525BLacbr0
-	l4cDZtjGLPj/VXOQd3UMTVxEq35uOGPJyzoKVv+Xd54b0aVr3ONvbWI23NsxdYlRnC8iAZvJ0y9
-	i9mrbC8tL/85cBJZzhx545W4P3LKcm7kckIMxMJinnpUiszy5bRw3WSXRPgBDmwojRAzCerUuzD
-	qCGfkMfb7KnVADBDbkMDPP64UreToX08PB/f4BuX72vzxUW1PcTSah52x+DY6IYrExjIXRnC0Oj
-	IJf9J9lhphGLEaSr4f+jZe1EXBNd0uuAPPeug4tkFz7hMy7nVf3MhSmAcQIIacW3cNdfNAADbqv
-	eAwvNoWrrJclEhOsCHUy1J2SDoMk1pJBlBDZvXhNvDgxkA==
-X-Received: by 2002:a05:6820:824:b0:6b3:6bc7:2ea7 with SMTP id 006d021491bc7-6b36bc73476mr11612524eaf.7.1788298951280;
-        Tue, 01 Sep 2026 14:42:31 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788298953; x=1788903753;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=F+NmUzFRKeuEQ7M+1ibV0+Pzn+8gHlXWcUZ2COu4Ht4=;
+        b=RRIznvZPPDstOjr78y4TrL3Ksxc1uOAPgTFH6vFe0eje7+l2bRnrmE+nEQBJdxV+tI
+         HYmf+TSQwgUuoGOCjCjAhcWyGJcQWjSX6FTeVho4ka9/WcdtyOaIq0Pj9GMR0dpyhPlF
+         p4NnUj+DTNRFkTTIbG6MGEi5NendarFBw05cXfhiKgFm5pfbyd5mf8xlMK4L+8nRxGeT
+         syhWXqBOjsiL1Id53luMlAHwF/78us+8iuReGqKP7FNRIpKFI0NXgreTurcOfLosjkqd
+         kHpXFqv5UbqTTd8kYRdkhpjAZvv0Pcm6uj8B3Yv/Vu9RHkWxKRi8G77R+wWZZgzS7UuK
+         xG1Q==
+X-Forwarded-Encrypted: i=1; AHgh+RqBw3/98BiS1n5M4vDgdLcNJWaBRphPA3eKw9RRXMXRV2C6lNkt2M8Pj0Th2XitjFjjoZLxf8VJGHrE@vger.kernel.org
+X-Gm-Message-State: AFuF++lZLaw8aCW7x2DpEEgcjytvEow/AdNkMf8owxRmbMApBWQHEoNA
+	fQzxJJsfL22sr6cf6cFlWDVzsTm8WtmgSezXpOTEXW4yLtBez7QnMiU8
+X-Gm-Gg: AR+sD10ltboNKD/H3tWlRp9V29ETzDLFLpG8/uzjM55Hz7X3XPITWLcvGVA4gU/6e/t
+	9sHTv5M3ujzEXIek9sr1UWx/Q6imIvramBHFx8M5Z1Ml44C/NG6dXFuJ+uxDJIZxi0xa2L/RSyN
+	vLAyzovCw9z/wjZ+g/jY13u7wrCc084BFFe0W4XAM6rVdYlYdogjbVUigRAgEV2F4THcZzcgw0p
+	gLZtz45pwspckb/2GCNYubgLSyx4olGLQ1DI3DL3Z+UBKCJNFYKXfAKobmyJgGIOuNIWdOCuIG1
+	2vXGaXBKboAb4rwQmcjC9sOSyVJF+gnYfAO3ddUUkgY8XltASCwaUUDNGDqFFkfyfVKI9t2EoHU
+	x9on2k4nTMgY8HZ8rwFVhb/gCVtlZw82kFXfTlsNykNp4MBL201thgyB6qM+unY45+X4Hem8lvD
+	m4IKUy5LLxVWcjKeJQdVaDpgjmTmpxjqD6udsVuVymY15aFuIRKIgRo7/uMdTLAaKDXJ2K6TO+6
+	04AHabtLRD/zcSf0Z95Eq+lsb0bv6JeRc3M0eI3ELBaG9Leay5yzU59gI2H72Kvx0zL55g1OROn
+	fbKvPHBHuNItn1lth5VzU2AtCtIkeYJ1dut9DECyZ726hA==
+X-Received: by 2002:a05:6820:f012:b0:6b1:a812:988a with SMTP id 006d021491bc7-6b4716950fdmr99940eaf.6.1788298953204;
+        Tue, 01 Sep 2026 14:42:33 -0700 (PDT)
 Received: from [127.0.1.1] (140-186-136-19-dynamic.midco.net. [140.186.136.19])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b40ba648f6sm1094703eaf.2.2026.09.01.14.42.28
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b40ba648f6sm1094703eaf.2.2026.09.01.14.42.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 14:42:30 -0700 (PDT)
+        Tue, 01 Sep 2026 14:42:32 -0700 (PDT)
 From: Robert Nelson <robertcnelson@gmail.com>
-Subject: [PATCH 0/3] Add support for BeagleBone Black RevD
-Date: Tue, 01 Sep 2026 16:42:20 -0500
-Message-Id: <20260901-v7-3-rc1-beaglebone-black-revd-v1-0-f521950b777a@gmail.com>
+Date: Tue, 01 Sep 2026 16:42:21 -0500
+Subject: [PATCH 1/3] dt-bindings: omap: Add BeagleBone Black RevD
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,10 +72,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIALxGl2oC/yXNQQ6CMBCF4auQWTtJS2OJXsW4mBkGHCXFtEhMC
- He36vJbvP9tUDSbFjg3G2RdrdicKvyhAblRGhWtr4bWtdGdnMe1w4BZPLLSOCnPSZEnkgfWeY+
- dEIfBUzzGADXyzDrY+3dwuf5dXnxXWb5V2PcPzG7msoIAAAA=
-X-Change-ID: 20260901-v7-3-rc1-beaglebone-black-revd-7cab3f1a6563
+Message-Id: <20260901-v7-3-rc1-beaglebone-black-revd-v1-1-f521950b777a@gmail.com>
+References: <20260901-v7-3-rc1-beaglebone-black-revd-v1-0-f521950b777a@gmail.com>
+In-Reply-To: <20260901-v7-3-rc1-beaglebone-black-revd-v1-0-f521950b777a@gmail.com>
 To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
  Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
  Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
@@ -87,27 +87,27 @@ Cc: linux-omap@vger.kernel.org, devicetree@vger.kernel.org,
  Robert Nelson <robertcnelson@gmail.com>
 X-Mailer: b4 0.15.2
 
-The BeagleBoard.org BeagleBone Black RevD and Industrial (00D0/EID0) are
-redesigns of the BeagleBone Black Rev C3. They feature an IT66122 HDMI
-PHY to replace the EOL NXP TDA19988.
+Document the beagle,am335x-bone-black-revd compatible string in the
+appropriate place within the omap family binding file.
 
 Signed-off-by: Robert Nelson <robertcnelson@gmail.com>
 ---
-Robert Nelson (3):
-      dt-bindings: omap: Add BeagleBone Black RevD
-      arm: dts: omap: Add support for BeagleBone Black RevD
-      arm: dts: ti: Enable overlays for BeagleBone Black RevD
+ Documentation/devicetree/bindings/arm/ti/omap.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
- Documentation/devicetree/bindings/arm/ti/omap.yaml |   1 +
- arch/arm/boot/dts/ti/omap/Makefile                 |   2 +
- .../dts/ti/omap/am335x-boneblack-ite-hdmi.dtsi     | 184 +++++++++++++++++++++
- .../arm/boot/dts/ti/omap/am335x-boneblack-revd.dts | 166 +++++++++++++++++++
- 4 files changed, 353 insertions(+)
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260901-v7-3-rc1-beaglebone-black-revd-7cab3f1a6563
+diff --git a/Documentation/devicetree/bindings/arm/ti/omap.yaml b/Documentation/devicetree/bindings/arm/ti/omap.yaml
+index f694dcbf2348..9666c455628d 100644
+--- a/Documentation/devicetree/bindings/arm/ti/omap.yaml
++++ b/Documentation/devicetree/bindings/arm/ti/omap.yaml
+@@ -104,6 +104,7 @@ properties:
+       - description: TI AM33 based platform
+         items:
+           - enum:
++              - beagle,am335x-bone-black-revd
+               - compulab,cm-t335
+               - moxa,uc-8100-me-t
+               - novatech,am335x-lxm
 
-Best regards,
---  
-Robert Nelson <robertcnelson@gmail.com>
+-- 
+2.55.0
 
