@@ -1,170 +1,116 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA75249EC65
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 18:43:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42BCA49CF56;
+	Tue,  1 Sep 2026 18:44:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788288193; cv=none; b=F/w+hBAbe5ELEn8rImEmDT16qJYyNOB0Vr5dLYbkLLajHq7RCm8I8os214rNrLeOYAaKnIMHzHYkcrcWQhweW0+2/OMwZIFNr0o6VW/KhpEvX5TiDtyDSO/V9XyH4galew9Ow3UxIFsUNJOa7XVSssNddHx+Ly+MHFTEUmZJYq0=
+	t=1788288257; cv=none; b=soarUjjBQVN+2T42oc24jtwRu+es08pPisf92aDNpCnfCiicbIx+hu0Dz/UiyWIuyAj+JMCqHEE023Y/b1fTexvA7qCwQ2kuNFCl7Jv6nUIoewvFGRlHw+i/cv3/rv2Fr8/xkFOaOvvEGFJo3xr0IcyXNeUJ7E+JV9GyIgUOci8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788288193; c=relaxed/simple;
-	bh=DH57RPYRxChSY8YwQPpl6oapIsXNooDhZSIJodJcGq4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WgDq8Wye9x8+KVphwOFMfjX5Vl3nyqR4rDCEVUWHtATeI93yb+k+5HjDL8dEuSs1Jy5hIk/vH+V/T7eKVBEFwQqw1TuY2y3YT7PQdZC4BhlLTE69kiDFVQKFtbhCwGuYAOED/w+OPQCPCjgsiyOvpxSXb1PqWZrssDUhstsNz30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SWX7agq2; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SWX7agq2"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4953e04ef16so985515e9.2
-        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 11:43:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788288190; x=1788892990; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b6o11zFnIa7BvYQwN2OAtZDkmujzqm33bgxkL6mWOBE=;
-        b=SWX7agq27EZvnAh0cz8UVwpkbgc1eFQC5+gjkdeML39MC7RT3rO3KlAbOA6hlH8r3X
-         fh4Yvfnfox4ZgqmnXmLJ4ePbVHkDK77h+5daB3XE0SxWVG7tQuZ3saRju4goa8lwINPK
-         dxcLNNU+9QAvQ6SdsA9KBy7/yDB5a6smtDAXHRxIrT3zo+RZrGqFdW0+FAKZegyMJjd6
-         ZmUMU7JBDVY+X19Clf/HFXUdrpqBlYZlYvNL2ZOiLp/Ix8ovC3mQAULNDmivU4kLTJ83
-         9MTds8Btn0GgH+IzcceVno0GLpJdrLpX1HANzoU4H+hQXFH3WAcXJdrTWgbjWZVCuoJz
-         RfcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788288190; x=1788892990;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b6o11zFnIa7BvYQwN2OAtZDkmujzqm33bgxkL6mWOBE=;
-        b=SnNOCXtZgpKT+/0LdLScVJKter4AZAWLOvdOdsuL3IPcRothecAzfop84MbiRQ4rMs
-         ZqKcgaZj8yn3juXbbeBwCbUIMcfv/qyhdU22dtLXtYbFPkfKKReYce9cRz2BgnaXR9kb
-         zzSFDAFGX5vh0Mpm/61IS46DmUYzxU3uzE/laGSXWhejXxCdxovL+DgT8Ke84rXtM04L
-         zk9shFhl2C+bP2Yo7HP2YGO2Z71kRGHOV9u29W9ey4Z5l40Je2weXxYkKoBhHfkFQBrM
-         6FScmM4zl5xVA7TjxWH1RCqNUDT0Eb4I4snUqlF/yDwq/tHr7xeLuL/EvekiC5nm8y1T
-         qKdw==
-X-Forwarded-Encrypted: i=1; AHgh+RpK1YMBgw+Ov6CZRtGSbg1dT0HRFrI6UAnFeIjVe/K5NgVy162UamUGaUQo6xVamlcgP1qHKcqFyD2r@vger.kernel.org
-X-Gm-Message-State: AFuF++n6Qf8GlKUVQiJKWIQYxYN1tv2hGS+zw06dTW4wR351q3skz8Xf
-	mxCNTFNKbASokZM5LsNmGtCnIIuhpfRknoE3ZezUL5p5r36chLJTm+UP
-X-Gm-Gg: AR+sD11C8FgIFdNFn3NH/WonSJJsFxBWc5gB47sWvrQ9o/4DPKROZukB52kLWT9lupU
-	KO8I/Liilkt/SU9b7AuVK6qqc8XFkdCHhMW+KF1T9lhSF1aGF2p61wCb4sh6mBjM7EGH8xEdtbl
-	mckuoa7Miz0+6+w7TvdWlmuwDI+D8IW9EEv5LYOqHdXLAoBBS8d2VwU2TaaKjJrkfx0POUnROix
-	TGVW+vNIxdoSsqOPGYUCjFGmAaEDfXh0BPTo7qwdJDQoNEUlKbBPOzCA22jtyhIO//bZpfOutcT
-	kDB2aaXNh9EdKh+BGQet5rOmHvVxR+W0nD54Qq0m+dVYt9+xTpUOmwvc6AQ0z21M8E6AoY6RYcW
-	8GZAHjJAepD9gWp+MAcw3HFwXOiYo9bhH7ODcWsbdJttcleCVP9Z+xQ28AyEkw8HU8rWmtzrLyH
-	xu5GaTD2HGJ8wEngnkX96B6p4fWfX3dhrK3gJXQn45Fz45Z4bRDbspVEkexBHECzU28tkWakPjf
-	66svIkf9PDZ8QdHiVpYxMOPq25cbMSSTuDP
-X-Received: by 2002:a05:600c:1c0a:b0:499:51f0:a9b2 with SMTP id 5b1f17b1804b1-49b91c1dd3fmr585852285e9.1.1788288189974;
-        Tue, 01 Sep 2026 11:43:09 -0700 (PDT)
-Received: from flaviu-Aspire-E5-572G.. ([5.15.67.216])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448ed30c0sm822987f8f.24.2026.09.01.11.43.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 11:43:09 -0700 (PDT)
-From: Flaviu Nistor <flaviu.nistor@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno Sa <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Daniel Baluta <daniel.baluta@nxp.com>
-Cc: Flaviu Nistor <flaviu.nistor@gmail.com>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH 2/2] iio: adc: ti-ads1015: Add support for label
-Date: Tue,  1 Sep 2026 21:43:02 +0300
-Message-ID: <20260901184302.8127-2-flaviu.nistor@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260901184302.8127-1-flaviu.nistor@gmail.com>
-References: <20260901184302.8127-1-flaviu.nistor@gmail.com>
+	s=arc-20240116; t=1788288257; c=relaxed/simple;
+	bh=xk6PRnRgACW3GTRlBqh9u6XpLM+tqeF1Tp0sPa/NhVs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=kRSVODxS0caAjiOueQte7AQZuXrzmG8DJ19lx07xQDC0jlzcGldra/6lfESA/Dh8mmzriQq+IVTseyoKnyC6Z/hznVDVPFc58Cvjb1IYvyLY3b06ovQbi9RUj3+ycClx9diaV54wYZGi3WUidw7weXAZLY5q2J0+3lQhHQKhOXY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [127.0.1.1] (unknown [223.166.93.127])
+	by APP-03 (Coremail) with SMTP id rQCowADHzz3jHJdq01y6Bg--.19179S2;
+	Wed, 02 Sep 2026 02:43:55 +0800 (CST)
+From: Han Gao <gaohan@iscas.ac.cn>
+Date: Wed, 02 Sep 2026 02:43:40 +0800
+Subject: [PATCH] riscv: dts: sophgo: sg2044: srd3: add spifmc node
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260902-sg2044-dts-v1-1-aa1fd1a4ec0d@iscas.ac.cn>
+X-B4-Tracking: v=1; b=H4sIANwcl2oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDSwMj3eJ0IwMTE92UkmJdY8s0A8O01ERjMwMLJaCGgqLUtMwKsGHRsbW
+ 1AOJ6wUpcAAAA
+X-Change-ID: 20260902-sg2044-dts-39f01fea3608
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Chen Wang <chen.wang@linux.dev>, 
+ Inochi Amaoto <inochiama@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ sophgo@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Hangfan Li <lihangfan@iscas.ac.cn>, Han Gao <gaohan@iscas.ac.cn>
+X-Mailer: b4 0.14.2
+X-CM-TRANSID:rQCowADHzz3jHJdq01y6Bg--.19179S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7ZF17ZFy8Ar13KFWDZFW5ZFb_yoW8Gr1Up3
+	W3CrW3Ga4rtrn7tanIqry0gF43JF95Ga4Ikr13Cw48Xan2qFyDG390ywn3JrnrXF45X3yr
+	Gr17XFyruFsIvaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9F14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVCY1x0267AKxVW8Jr
+	0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
+	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r
+	1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
+	JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcS
+	sGvfC2KfnxnUUI43ZEXa7VUbGQ6JUUUUU==
+X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiCRIRDGqWi1k0UwABsO
 
-Add support for label sysfs attribute similar to other adc devices. This is
-particularly useful because the label can match the schematic signal name,
-identifying channel voltages easier if label is defined via device tree.
+From: Hangfan Li <lihangfan@iscas.ac.cn>
 
-Signed-off-by: Flaviu Nistor <flaviu.nistor@gmail.com>
+The SRD3-10 board has two spiflash.
+
+Signed-off-by: Hangfan Li <lihangfan@iscas.ac.cn>
+Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 ---
- drivers/iio/adc/ti-ads1015.c | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+ .../boot/dts/sophgo/sg2044-sophgo-srd3-10.dts      | 24 ++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/drivers/iio/adc/ti-ads1015.c b/drivers/iio/adc/ti-ads1015.c
-index 0fbfa4e499aa..399a3322732d 100644
---- a/drivers/iio/adc/ti-ads1015.c
-+++ b/drivers/iio/adc/ti-ads1015.c
-@@ -233,6 +233,7 @@ static const struct iio_event_spec ads1015_events[] = {
- struct ads1015_channel_data {
- 	unsigned int pga;
- 	unsigned int data_rate;
-+	const char *label;
+diff --git a/arch/riscv/boot/dts/sophgo/sg2044-sophgo-srd3-10.dts b/arch/riscv/boot/dts/sophgo/sg2044-sophgo-srd3-10.dts
+index fed3d9a384a00ccfc91dfa1531f799aa397a5dde..e0cd939e742ec349c8b7516c4924d94b9e763b53 100644
+--- a/arch/riscv/boot/dts/sophgo/sg2044-sophgo-srd3-10.dts
++++ b/arch/riscv/boot/dts/sophgo/sg2044-sophgo-srd3-10.dts
+@@ -109,6 +109,30 @@ &sd {
+ 	status = "okay";
  };
  
- struct ads1015_thresh_data {
-@@ -586,6 +587,22 @@ static int ads1015_read_raw(struct iio_dev *indio_dev,
- 	}
- }
- 
-+static int ads1015_read_label(struct iio_dev *indio_dev,
-+			      struct iio_chan_spec const *chan, char *label)
-+{
-+	struct ads1015_data *data = iio_priv(indio_dev);
-+	const char *name = data->channel_data[chan->address].label;
++&spifmc0 {
++	status = "okay";
 +
-+	/*
-+	 * Avoid printing "(null)" in the console in case label property
-+	 * is missing for the channel.
-+	 */
-+	if (!name)
-+		name = "";
++	flash@0 {
++		compatible = "jedec,spi-nor";
++		reg = <0>;
++		spi-max-frequency = <133000000>;
++		spi-tx-bus-width = <1>;
++		spi-rx-bus-width = <1>;
++	};
++};
 +
-+	return sysfs_emit(label, "%s\n", name);
-+}
++&spifmc1 {
++	status = "okay";
 +
- static int ads1015_write_raw(struct iio_dev *indio_dev,
- 			     struct iio_chan_spec const *chan, int val,
- 			     int val2, long mask)
-@@ -843,6 +860,7 @@ static const struct iio_buffer_setup_ops ads1015_buffer_setup_ops = {
- static const struct iio_info ads1015_info = {
- 	.read_avail	= ads1015_read_avail,
- 	.read_raw	= ads1015_read_raw,
-+	.read_label	= ads1015_read_label,
- 	.write_raw	= ads1015_write_raw,
- 	.read_event_value = ads1015_read_event,
- 	.write_event_value = ads1015_write_event,
-@@ -853,6 +871,7 @@ static const struct iio_info ads1015_info = {
- static const struct iio_info tla2024_info = {
- 	.read_avail	= ads1015_read_avail,
- 	.read_raw	= ads1015_read_raw,
-+	.read_label	= ads1015_read_label,
- 	.write_raw	= ads1015_write_raw,
- };
- 
-@@ -862,6 +881,7 @@ static int ads1015_client_get_channels_config(struct i2c_client *client)
- 	struct ads1015_data *data = iio_priv(indio_dev);
- 	struct device *dev = &client->dev;
- 	int i = -1;
-+	const char *label;
- 
- 	device_for_each_child_node_scoped(dev, node) {
- 		u32 pval;
-@@ -897,6 +917,9 @@ static int ads1015_client_get_channels_config(struct i2c_client *client)
- 			}
- 		}
- 
-+		if (!fwnode_property_read_string(node, "label", &label))
-+			data->channel_data[channel].label = label;
++	flash@0 {
++		compatible = "jedec,spi-nor";
++		reg = <0>;
++		spi-max-frequency = <133000000>;
++		spi-tx-bus-width = <1>;
++		spi-rx-bus-width = <1>;
++	};
++};
 +
- 		data->channel_data[channel].pga = pga;
- 		data->channel_data[channel].data_rate = data_rate;
- 
+ &uart0 {
+ 	/* for firmware */
+ 	status = "reserved";
+
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260902-sg2044-dts-39f01fea3608
+
+Best regards,
 -- 
-2.34.1
+Han Gao <gaohan@iscas.ac.cn>
 
