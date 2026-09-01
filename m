@@ -1,142 +1,255 @@
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D103D565F
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 12:52:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788267174; cv=pass; b=stGAG6xnjTdyvRReJda4kx9Wtv50FFPvwo1b0wfj//pIb0hI9w+7Z8+63WO0Q4/T+TiTt+QOHMfFCjSPbBpSw9AgGWRmfjdBNPhHYKRo5IWpspXYsLxSwCyZwKAwTU3maXSswWCMMPLmWPUEbF44lyYUMkrMC1JTAB5prpnkBIk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788267174; c=relaxed/simple;
-	bh=VG0JGy9V9Ess42oO7HJ1M9+yUlNIwa8iKwJ+GuLfhQ4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SPaUa/voC3MHHMlJPws8njSIhFg2GwqbPf8B9A7fZPblN/GT9DdLVGLc9ud1WXMXawtKk92IJMxWCTDICY42TcORYvw+qmtw/ZfR4Q+D33sEPi8RJmP/r4sWGo7wHdqi+bJfKyITUEt8Lbp+vSRqExJR5MD6rz7hGEqNrtOEKc0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=APws7sjm; arc=pass smtp.client-ip=209.85.208.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05D6024501D
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 12:53:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788267226; cv=none; b=aTSLqanfMW6Xjvg9r40DqxbSXadPUp5JmDHPkq+XQtNyrm2O4Xjbu7kiMaIztFmAFQ5U0cXQlTOMM7v+Im5fiYr8BkRQVNu+qO2rdnOCPDadxMQkqymMUUbIAFXBdRTWflRLGiRFwD0QwLynL2aleFHOLc7k6F/lb0dkgt0J9JU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788267226; c=relaxed/simple;
+	bh=e+CzF0uTJocazi5eMfGHahlsQMtk0rWrfC7ys6F69KU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=KD/abqC/XDbIsfsk9lh4Mips5phd/Jn2Gz4CXjTa7zU7yvUJmUZOELu+rMt99kWmMm9ri1HmtyleHXoyDKsj0RsMWF/8QTBovvTmnK0f1MMkHhY3VMKMkssaVd5UjYuhOUdUn3HJPw5kY8ZKy0CA4CFE55b8XPz+JM3XXGi3Y74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d++NW9fw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="APws7sjm"
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6a601ba6870so1466826a12.0
-        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 05:52:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788267168; cv=none;
-        d=google.com; s=arc-20260327;
-        b=haK/Ur3nuCnkXLrYN5bSVwBk6BxL1/cq+MVvKyyVxCZGEYnzrghrodjzR5ZZt+TXPU
-         ifh6G60BlLgtibAeK92j0ndNIUk7wRGGi8ufsw+1WnFzvIfiLrLQqSYwx/xStjuXU35Q
-         bmAYuHVDfUGD8yGaK7E+HA50qhq0+49o68eCSkxmL9Y6a46n0rKROEpMwCWIwd/HjCpJ
-         pxHnPO4zYhqCdspRurp5ZIFTKUvc3ZK6GMNoScPyRObIajkW+UjNU+nx0qg/Z8Kch7x9
-         6mPp8wkKL5rrIN9CiWObVyARm9qxlyMq1m4IAowpqtAx+VaPhAAbKtllhOQH0cPQaQdU
-         qpdg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ssbA7eNLUxksYHjRqY8p3X4V4mfnV6KUS7EHrqUvZgc=;
-        fh=TjKX15SQ2X44okW8ezg+ngLPiFX3YYoiKeaPUooGAnI=;
-        b=i7cGAcS9p1EC0BupRBKySNrT5MFbqONY8WbTotGWXIMpVnQwJ5DmjxgXTB2wXXSEXt
-         Rb+tqme3XEEk23/wn3bbE5SQFqEyjvZ/fu5m+4YW7jqIzSXXRBlZmdZb02XAw1RGBAfp
-         MMHa3lVIfySGXmzkOmbkUrMye4fwz1RElt2QcmBjgoxxv5/hAiIcrgFne/1J/ym1oX64
-         SAbf9eSXYFLc/sLFu4I0vT5u8plbIQjeK+WSzaoW8f1otGQY/RdrbkZmhBtkmut16Nls
-         SRnu0Ywe7CZi4GeV+ozwa68Tta16vCkeTyPpo/bATQh3o6UNZhJhcbiy3YjwtBuyIAx4
-         pjGA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788267168; x=1788871968; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ssbA7eNLUxksYHjRqY8p3X4V4mfnV6KUS7EHrqUvZgc=;
-        b=APws7sjm7FGRX6eDqzMDTJ6cLbEvx5rf0JczDmKeh6lwitsuvAm68EWNBoHlcj9TZQ
-         ryXUqotI5ZY1D783wL43Eqz9xwj2S9Ho3jCdeo2in8E+GMEDFdRa69LUAnc5UA2KwjzO
-         HahJHGS0h7NSTdJ4fTQJ4AikeQWZihGAZwL7nEDnrjQNo0/3+OGPHFPoKh/R6H8v2k79
-         YnnjDF3ZMrcQ9gfRiTmtODyPPoNCMiEcaDb/1ZIhjPr9an0sNK5/TgYfz8BsTOleITAt
-         VAzFDN8mZUuUIqK6xijgMDpq5UXwiKPesyLA1o2p9BmtRoaZQ6OtUiOMcDt2p5o5Q7GA
-         cDzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788267168; x=1788871968;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ssbA7eNLUxksYHjRqY8p3X4V4mfnV6KUS7EHrqUvZgc=;
-        b=c9y+jaS+UnXp+E2aZIvZBAQg7xSRyuIvUpEyI2ziEkq9iTZ0gv8Ygym56spMxteT5P
-         uPfQu9JY8YGj2h7VJ1qTp/I7aR//39nfDs/SLU+JeCxnQpCn6PzzhzLLnLYewwduoG9D
-         llgGeb80izlQflhwakBy/b0xIzFJsWNC3Q2K5z4brCgfXnlVtB7QyDeZcM5qauqqSSms
-         mQSu891wbiyxlOC6OSW47/cWRSqHRbijjhuCTW9n4Ex8tCB8PSdVVjwL99y7LqaqfzYy
-         iWuMCxTcYKV9PbpqUG0G82mKQ6adDuLUlLWyl/EjgUsJ8Zt7zpw7rZP6+E8xF2x0m2Pi
-         xxgg==
-X-Forwarded-Encrypted: i=1; AKwUvBxnM+GcfHjVqpFagcUleAjqlpAGZknbIubibpUKSP9Hn5cUZdPvKFPsiTAJyJe7XoOr2MjQI32yJ+w+@vger.kernel.org
-X-Gm-Message-State: AFuF++nn9aY0moqOCBqMjF2F8dSmI+WIKtPBpHHr/WnaCKsdssuBG+Gi
-	Nc/IW5UVlm721rQ6rYkDTfVlPPFYY/yHztWSP1gLStmd/Gjr1P/siYJeb/P5BwMOC9yU8+vjEji
-	vtDWozi/2QtLmhRm1AMOOwg93euQ5SCw=
-X-Gm-Gg: AYBFou049FPwe3uHxV0EP1jQzLkjaeLNZ9K9eHegrOP7mYZGIXFvuX3t5Ss+Fap5+kg
-	db5WZktiEyd/nCYPfLfAMQLtPDbcDXGOINgbSPVACTC83Xgg+9wO79pMxDhSofSfKtcgmVZV24O
-	SOgu1UBRR1KKIqUc0l68gL/5pI+WMP6oOKwXSLe5LFoZVaBRGEy9GEWph1WdhaJc9hrCKl7nD8s
-	ZKhzdHYWfBrdv8x5j1pRYQYx85eGlZPPIN9PviRCrf0VSBMmMzijQztY8bEKvh5n5SeaeGVzoxr
-	mRRV030bZE+kkRBN4CVjR7zrS+bvnDmg5aYgSTPBV/zSwj/O7amwJsso+aizI8PHNcnuGO0BD+N
-	W8fw=
-X-Received: by 2002:a05:6402:44c2:b0:6a6:32f6:c with SMTP id
- 4fb4d7f45d1cf-6a632f6013amr11282461a12.18.1788267168126; Tue, 01 Sep 2026
- 05:52:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d++NW9fw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46F841F000E9;
+	Tue,  1 Sep 2026 12:53:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788267224;
+	bh=eLZTOWHgG7CwkY0SDZETC+DWiR9pN4DGiVS5ICx3dqI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=d++NW9fwxWgtIEVorP0JAOFaTivjbMsHdZ7cQLgQ85SNqzzAZoYQkHfCTvzq8d7Vv
+	 KnyPwU0wTk7KBG3U6vT19jx8EXFbhNrWuOFHkyr2V6YdEWZ7Uf06x/VaK8tHGOXTxJ
+	 7HpNHYDUAqbs1foRB8KyOo/zcrwaBdkUAH6+56rkMrRk1vbEHKyL6JUUn0EXxTQk1e
+	 KOCnRNYlKrCOO18xW+zsrRpGRfvB5vPsEegqCHmIf5/r3/fNATDhCyC+jaYaV2x/Sa
+	 ZmJekjRjxUWLdeYPMNVb9+UqJ5pR0Z50gSOgDOGX8CtqN/ml9a7K+7IohGjJtAdUxv
+	 x5POgQ7eXuBRQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 3/3] phy: airoha: Add support for Airoha AN7583 USB
+ PHY
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Marangi" <ansuelsmth@gmail.com>
+Cc: robh@kernel.org, linux-phy@lists.infradead.org, neil.armstrong@linaro.org, devicetree@vger.kernel.org, conor+dt@kernel.org, vkoul@kernel.org, olteanv@gmail.com
+In-Reply-To: <20260901123933.15388-4-ansuelsmth@gmail.com>
+References: <20260901123933.15388-1-ansuelsmth@gmail.com>
+ <20260901123933.15388-4-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 01 Sep 2026 12:53:43 +0000
+Message-Id: <20260901125344.46F841F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260901092447.3028-1-sreeshankar0910@gmail.com> <prxk6xpxeoebz5da52a6bjgmaaop6mj55eemxdm5cjxm276tyi@jfeziqcrxtfv>
-In-Reply-To: <prxk6xpxeoebz5da52a6bjgmaaop6mj55eemxdm5cjxm276tyi@jfeziqcrxtfv>
-From: Sreeshankar K <sreeshankar0910@gmail.com>
-Date: Tue, 1 Sep 2026 18:22:34 +0530
-X-Gm-Features: AcwNN1U55mxl5Buv8KaT17jt0XFpq4P8gD6bW6R2dqKayvNk2vS1r-azwArTaqc
-Message-ID: <CAA-+ukJWFm1YOoWTO5TmuF8ymNuRGtsvOm4zruwUUEGpcmKNjA@mail.gmail.com>
-Subject: Re: [PATCH v9 00/12] Add initial support for Qualcomm SM7250 SoC
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: andersson@kernel.org, sboyd@kernel.org, bmasney+clk@redhat.com, 
-	jbrunet+clk@baylibre.com, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, rafael@kernel.org, viresh.kumar@linaro.org, 
-	konradybcio@kernel.org, tglx@kernel.org, ulfh@kernel.org, radu@rendec.net, 
-	taniya.das@oss.qualcomm.com, danila@mainlining.org, davidwronek@gmail.com, 
-	mani@kernel.org, robimarko@gmail.com, linux@gurudas.dev, 
-	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-pm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 1 Sept 2026 at 17:32, Abel Vesa <abel.vesa@oss.qualcomm.com> wrote:
->
-> On 26-09-01 09:24:35, Sreeshankar K wrote:
-> > This patchset introduces foundational upstream support for the Qualcomm SM7250
-> > SoC (internally codenamed Lito).
-> >
-> > SM7250 is an ARMv8.2-A platform manufactured on a 7nm process, featuring an
-> > octa-core Kryo 475 CPU configuration (1x Prime Cortex-A76, 1x Gold Cortex-A76,
-> > and 6x Silver Cortex-A55) and Adreno 620 GPU.
-> >
-> > This patchset is organized as follows:
-> > > Document relevant device tree bindings (SoC ID, Kryo 475 CPUs, SCM, PDC,
-> > RPMh clocks/power domains, GCC and cpufreq hardware).
-> > > Add driver support for SM7250 in socinfo, rpmh-clk, rpmhpd, and GCC.
-> > > Add the base SoC DTSI (sm7250.dtsi) defining the cpus, PSCI,
-> > interrupt controllers, clock providers, power domains, and reserved memory.
-> >
-> > Dependencies:
-> > This patchset depends on the following patch:
-> > > [PATCH] dt-bindings: clock: qcom,sm6375-gcc: Merge SM7150 into SM6375
-> >   Link: https://lore.kernel.org/linux-arm-msm/20260817082457.64797-2-krzysztof.kozlowski@oss.qualcomm.com/T/#t
-> >
-> > Changelog [v9]:
-> > > [PATCH v9 04/13]: clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
-> >   Make all clk_init_data instances const across the driver.
->
-> You sent 3 versions in less than 24 hours. Please slow down.
->
-> Give a chance to the reviewers to have a look at each version before
-> sending a new one.
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] Failure to propagate PHY lifecycle calls to the underlying SerDes =
+PHY
+- [High] USB PHY instances are inaccessible due to incorrect PHY provider r=
+egistration
+- [Medium] Use of uninitialized stack variable due to missing regmap_read r=
+eturn check
+- [Medium] Lockdep warning due to recursive locking of phy->mutex in set_mo=
+de callbacks
+- [Low] Missing select REGMAP_MMIO in Kconfig leading to link-time errors
+- [Low] Missing explicit inclusion of <linux/delay.h>
+--
 
+commit 78bb8c49d95aeffce30cf8303d7ac8de16f47e67
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-I apologize for my actions. v7 was the intended new patchset. Unfortunately
-there was an interruption during submission of patches, only 08/12
-patches submitted.
-That's why I submitted the v8 patchset.
+    phy: airoha: Add support for Airoha AN7583 USB PHY
+   =20
+    Add support for USB PHY for Airoha AN7583 SoC, this share some U2 init
+    from AN7581 but use a totally different init phase for PLL and
+    calibration for U3. Also on AN7583 there is a single USB PHY that init 2
+    U2 port and one U3 port. (the USB controller expose 2 hub, one with 2
+    usb 2.0 port and one with one 3.0 port)
+   =20
+    A second USB PHY is used for PCIe Gen2 controller and follow the same
+    calibration and setup logic of USB.
 
-Regards,
-Sreeshankar K
+> diff --git a/drivers/phy/airoha/Kconfig b/drivers/phy/airoha/Kconfig
+> new file mode 100644
+> index 0000000000000..13e49ff947e3e
+> --- /dev/null
+> +++ b/drivers/phy/airoha/Kconfig
+> @@ -0,0 +1,11 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +
+> +config PHY_AIROHA_AN7583_USB
+> +	tristate "Airoha AN7583 USB PHY Driver"
+> +	depends on ARCH_AIROHA || COMPILE_TEST
+> +	depends on OF
+> +	select GENERIC_PHY
+
+[Severity: Low]
+Is a select for REGMAP_MMIO missing here? If COMPILE_TEST is enabled and no
+other driver implicitly selects REGMAP_MMIO, couldn't this cause a link-time
+error due to an undefined reference to __devm_regmap_init_mmio_clk?
+
+> +	help
+> +	  Say 'Y' here to add support for Airoha AN7583 USB PHY driver.
+
+> diff --git a/drivers/phy/airoha/phy-an7583-usb.c b/drivers/phy/airoha/phy=
+-an7583-usb.c
+> new file mode 100644
+> index 0000000000000..46b5f09582cfd
+> --- /dev/null
+> +++ b/drivers/phy/airoha/phy-an7583-usb.c
+> @@ -0,0 +1,2023 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Author: Christian Marangi <ansuelsmth@gmail.com>
+> + */
+> +
+> +#include <dt-bindings/phy/phy.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/math.h>
+> +#include <linux/module.h>
+> +#include <linux/phy.h>
+> +#include <linux/phy/phy.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/regmap.h>
+> +#include <linux/mfd/syscon.h>
+
+[Severity: Low]
+Does this code rely on linux/delay.h for mdelay() and usleep_range() without
+including it? This could lead to compilation failures on architectures or
+configurations where it isn't implicitly included by other headers.
+
+[ ... ]
+
+> +static bool an7583_usb_phy_u3_kband_is_calibrated(struct an7583_usb_phy_=
+priv *priv)
+> +{
+> +	u32 val, res;
+
+[ ... ]
+
+> +	regmap_read(priv->regs[AIROHA_USB_PHY_PMA],
+> +		    AIROHA_USB_PMA_INTF_STS_9, &val);
+> +	res =3D FIELD_GET(AIROHA_USB_PMA_ADDR_INTF_STS_PLL_VCOCAL, val) << 4;
+
+[Severity: Medium]
+If the regmap_read() fails, wouldn't the uninitialized stack variable val be
+accessed here? Could this result in undefined behavior and potentially bypa=
+ss
+the KBand calibration loop?
+
+[ ... ]
+
+> +static int an7583_usb_phy_init(struct phy *phy)
+> +{
+> +	struct an7583_usb_phy_instance *instance =3D phy_get_drvdata(phy);
+
+[Severity: High]
+Does this initialization omit a call to phy_init(instance->serdes_phy)? Sin=
+ce
+the wrapper PHY intercepts the init call, failing to forward it might leave
+the physical SerDes lines uninitialized and the PCIe and USB 3.0 interfaces
+non-functional.
+
+> +
+> +	switch (instance->type) {
+> +	case PHY_TYPE_USB2:
+
+[ ... ]
+
+> +static int an7583_usb_phy_power_on(struct phy *phy)
+> +{
+> +	struct an7583_usb_phy_instance *instance =3D phy_get_drvdata(phy);
+
+[Severity: High]
+Similarly, does this fail to call phy_power_on(instance->serdes_phy)? This
+seems to leave the physical SerDes disabled when a consumer attempts to pow=
+er
+on the PHY.
+
+> +
+> +	switch (instance->type) {
+> +	case PHY_TYPE_USB2:
+
+[ ... ]
+
+> +static int an7583_usb_phy_u3_set_mode(struct phy *phy, enum phy_mode mod=
+e,
+> +				      int submode)
+> +{
+> +	struct an7583_usb_phy_instance *instance =3D phy_get_drvdata(phy);
+> +	int ret;
+> +
+> +	switch (mode) {
+
+[ ... ]
+
+> +	}
+> +
+> +	ret =3D phy_set_mode_ext(instance->serdes_phy, mode, submode);
+
+[Severity: Medium]
+Can this nested call to phy_set_mode_ext() on the child SerDes PHY cause a
+lockdep warning?
+
+Since the parent PHY's mutex is already held by the framework, and all PHY
+mutexes are initialized with the same lockdep key, this might trigger a
+possible recursive locking deadlock warning. This pattern also appears in
+an7583_usb_phy_pcie_set_mode().
+
+[ ... ]
+
+> +static struct phy *an7583_usb_phy_xlate(struct device *dev,
+> +					const struct of_phandle_args *args)
+> +{
+> +	struct an7583_usb_phy_priv *priv =3D dev_get_drvdata(dev);
+> +	const struct an7583_usb_phy_match_data *data;
+> +	struct device_node *phy_np =3D args->np;
+> +	struct phy *phy =3D NULL;
+> +	int type, index;
+> +
+> +	data =3D of_device_get_match_data(dev);
+> +
+> +	if (args->args_count !=3D 1) {
+> +		dev_err(dev, "invalid number of cells in 'phy' property\n");
+> +		return ERR_PTR(-EINVAL);
+> +	}
+> +
+> +	for (index =3D 0; index < data->max_instance; index++) {
+> +		if (!priv->phys[index])
+> +			continue;
+> +
+> +		if (phy_np =3D=3D priv->phys[index]->dev.of_node) {
+> +			phy =3D priv->phys[index];
+> +			break;
+> +		}
+> +	}
+
+[ ... ]
+
+> +static int an7583_usb_phy_probe(struct platform_device *pdev)
+> +{
+
+[ ... ]
+
+> +	phy_provider =3D devm_of_phy_provider_register(dev, an7583_usb_phy_xlat=
+e);
+
+[Severity: High]
+Does this incorrectly isolate the subnodes from the PHY core?
+
+By registering the provider with devm_of_phy_provider_register(dev, ...)
+instead of using a variant that checks the children tree, the PHY core might
+fail to traverse to the child nodes when looking up the PHY.
+
+Furthermore, in an7583_usb_phy_xlate(), comparing the parent node (args->np)
+against the child node stored in priv->phys[index]->dev.of_node would
+guarantee a mismatch. Would this make the USB PHY instances completely
+inaccessible to any consumer?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901123933.1538=
+8-1-ansuelsmth@gmail.com?part=3D3
