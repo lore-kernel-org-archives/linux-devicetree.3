@@ -1,171 +1,128 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE46843DA5C;
-	Tue,  1 Sep 2026 16:41:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2065A345EB1;
+	Tue,  1 Sep 2026 17:00:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788280866; cv=none; b=E/ePG8sVuWFTS865qUmV00YSerNWmno1PZzWNC9KEu4eMiJgyVnoYYWe+j4XjCi8bvpdwmCGGdqBSAf3ln2gsGSvdHQjZTg9a56cScGJoYLnh3nRH5lTxNCH8WBL7W2LSO4/4gmzNROJxY5vlvQ5GdWoJcZYr4YXNC5j7pak8qY=
+	t=1788282037; cv=none; b=j4DZ75W8YP14szuerbyNricyWTTNWY38rIuYQMq0kcCTQUmvs1VQMKiiYE7mnIktq22PQQj5dp7+89pspt6WgXYC78ikItZwnlahpsdMONjNmfkqmHxOBx5iZDQOfiXj9kkbkm6pq3jXPNb4uBfWVD4GDZ6rS1Gj6gIVCqw+Meo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788280866; c=relaxed/simple;
-	bh=hbYcEZ5t1jKLdhhzBsDiDxzVfK9mLxWF7x5pUlvRtKw=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=j++LC9OWTbYbnqHvh1Lso70So+n20xllTUJqP0jN8qhiWoptwRboSIe9gfmivsYUTGUvBk8tjOXLrPhlhcPz7Ho9yxag+QLypoOpa6PQB60umy8PKSyIVJbxL0+XzKEg5vNVw+Egcwxl+4RJE8UVjQJJHaClOhNU6FTyodsO2k8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GdR5JF/D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788282037; c=relaxed/simple;
+	bh=vJcrOe1u0QpD4vv5iv5CaF3pP+ZDMWWWvspt5KwK3Nw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T/ABfYToAGSLq6beUCX8mnFpaM+5KdQaiFeqmff8AYReIDO0lZq6X9v+xuW9A2DPme7UT+grVjKX1P/LPtrRoDFV8CGty3fkyPvMsV48fIw1FmoWs/+JSaeJHCZUjB3chOWz+QV7zdupmpBWImL7F5LG1RwBE0KF4GrRgUNSFeg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VQFAV1t4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GdR5JF/D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3AA21F000E9;
-	Tue,  1 Sep 2026 16:41:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VQFAV1t4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE7F61F000E9;
+	Tue,  1 Sep 2026 17:00:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788280864;
-	bh=BquFv9yL+oqsu0iQAMjKTxvhkEp4Ce4d3z7hB0ao2xo=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=GdR5JF/Dmj2wZevDdv7KegcbJudOgutQNKy34uQpxez/dctKOb4zz44h2Rz2TRcx6
-	 2yMFhiM3AtvWh9Xf1VJbO10cn490cDPuoPpnVkrVhDfjTLKITznz01zuqMkxE05Tf/
-	 VZZrp2J7/0GV1N1eatTN5GALxUHhWzqHvGd0VhB+PzGGm3W4AFHIXZrZpTkWaUFne0
-	 KCxb2F5pHoP8TjHsSVgMIJoQVlgdc7RMH2UueUBQjUHFKSRoozXlk8GEbX33rL1/Ft
-	 jrWZ54OkKEdLaztPBClepf3fv3w1MXV7aX9JIWN2IkL6TGj3xrHynhtNEywifxiVDJ
-	 zIpqgDsXN7l4w==
+	s=k20260515; t=1788282035;
+	bh=VGtP5h8GP0nM4DDTBfEBAj1tW6cv0CwmwBEM79Toj6M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VQFAV1t4aKZCcuWlBucitg9UYQ/pMrtKZsS9Yp2QyCsbwLps1nhNWzR+3x00Mwamx
+	 NbnfCnhOK8yW/Zeq3NZy/x10wdpkGmuj86FqKlLpP6kJuaVyQ42T5crRyPE4WOptid
+	 6PdlNs9IuUJVneValPEA4TB0olUUqB/7fYnCEU4/T5srcZq61SKaR0af/GYE9IAuUe
+	 rUuVQF9iLfeTlRca1+UirMeuMjFSoWUYP+Sk0zOsztQEaYh+Fyu/kRCtXtu9kbVjZ1
+	 sY6pMHx7BjjXuhnRedWDfpZNencxbPSM3iga0dvwepP58EXeHfaQqFLYDTTj/eAV86
+	 +7h3tRlkwVj/A==
+Date: Tue, 1 Sep 2026 18:00:31 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Frank.Li@oss.nxp.com
+Cc: Support Opensource <support.opensource@diasemi.com>,
+	Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	"open list:MULTIFUNCTION DEVICES (MFD)" <mfd@lists.linux.dev>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>, imx@lists.linux.dev
+Subject: Re: [PATCH 1/1] dt-bindings: mfd: da9052: allow dlg,da9053-aa
+ fallback to dlg,da9052
+Message-ID: <20260901-devourer-pushover-f26c72688255@spud>
+References: <20260831201522.51294-1-Frank.Li@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v4 4/4] iio: accel: adxl367: add support for INT2
- interrupt pin
-From: Jonathan Cameron <jic23@kernel.org>
-To: Antoniu Miclaus <antoniu.miclaus@analog.com>
-Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org, 
- linux@analog.com, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260831083122.3486-5-antoniu.miclaus@analog.com>
-References: <20260831083122.3486-1-antoniu.miclaus@analog.com>
- <20260831083122.3486-5-antoniu.miclaus@analog.com>
-Date: Tue, 01 Sep 2026 17:40:47 +0100
-Message-Id: <178828084760.2788519.15283878760227392025.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3722;
- i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
- bh=hbYcEZ5t1jKLdhhzBsDiDxzVfK9mLxWF7x5pUlvRtKw=;
- b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqlwASftjEjfF3ZyUA6ese3Ya24ehr89RVnfPPx
- ORps2fw6wiJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCapcAEhEcamljMjNAa2Vy
- bmVsLm9yZwAKCRBUhTSZxPQWiB45D/99eOXNRUuVsk/PP5iZpNLacTHlahYX0ZZvUJkbAkb1tHU
- ukpiURwyRIdyBIGVR8fsZunhVk9NOtHcFP+siR937JMzYgqt+49Gujb40nyRJIpelHsRSoHjglg
- 3FkjgfXpFn6YTZjI50elzyx/iSAdf0YvZUKGb5DO0rSPaOMNZM2L/qeFLdmVBN9Abo6L8b+CNtQ
- 58+vnZvqz5YNJWbl/EpRWcKKJRu5+IoN585yCGwlC9JY7Uj1z37SKVfIx6LzE5AZImg4TsWrVXx
- EPEROwS67pv878cse9YGVcbp24MUL7OnKf4BPka0HlJy1goASt2uo4Wv/d9ZYvnXjEb+7tecVMA
- aZKaW8Wi185FYinTLm4VKUG7Kk+b7K8w1JNbXFLQYK8GLUwIH7i05ee2zewoi+oluk5WOmvIGkP
- a4/aGQMS5KVA5V8ZP3EvNnnkZy4O1D8Aw5HM6kd34TMRBL0SnvwfYt+eitplrXwvqXZSYVmTH8M
- oPmaBXntVs5S0wU5iw5zVO5aHpI1krZzQbkTlP/A4q8Vz6VMJwaNBJrRvQiJumTilTqomIePcx6
- tdSDxhHDFYlT2166a2yC+lE6AtNTDgFpEXu3aJN2aa2MWgk8kguU/WnFP/7RnPTEpqJ+QEZsRMy
- VwZ4o15VssTpK5iZjioHPJChp6/h4FyCAjrj7pg==
-X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
- fpr=6E2966B387840652912681B154853499C4F41688
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="WYaMNmY1aKEUWsQD"
+Content-Disposition: inline
+In-Reply-To: <20260831201522.51294-1-Frank.Li@oss.nxp.com>
 
-> The ADXL367 provides two independent interrupt output pins, INT1 and
-> INT2, each with its own event mapping register (INTMAP1_LOWER at 0x2A
-> and INTMAP2_LOWER at 0x2B) sharing an identical bit layout. Until now
-> the driver hardcoded INT1 for all interrupt mappings, so a board that
-> routes only INT2 to the host could never receive activity, inactivity
-> or FIFO watermark interrupts.
-> 
-> Determine the connected pin from the interrupt-names device tree
-> property using fwnode_irq_get_byname(), and route the interrupt
-> mappings to the matching register. Use the interrupt number returned by
-> the lookup for devm_request_threaded_irq() so the requested line always
-> matches the routed INTMAP register, regardless of the order in which the
-> interrupts are listed. When no interrupt-names are present, default to
-> INT1 and the bus-provided interrupt to preserve the existing behaviour.
-> 
-> Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
->
+--WYaMNmY1aKEUWsQD
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-One follow on thing to look at via sashiko.
+On Mon, Aug 31, 2026 at 04:15:21PM -0400, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
+>=20
+> Allow dlg,da9053-aa fallback to dlg,da9052 to fix legacy platform (> 10
+> years) check_dtbs warnings:
+>   arch/arm/boot/dts/nxp/imx/imx53-voipac-bsb.dtb: dialog@48 (dlg,da9053-a=
+a): compatible: ['dlg,da9053-aa', 'dlg,da9052'] is too long
+>         from schema $id: http://devicetree.org/schemas/mfd/dlg,da9052.yaml
+>=20
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> ---
+> Previous try drop dlg,da9052 at
+> https://lore.kernel.org/imx/20260404-thoughtful-placid-boobook-da26da@quo=
+ll/
+>=20
+> but Krzy have concern about compablity.
+>=20
+> https://lore.kernel.org/imx/20251107-matrimony-showdown-ba6ce6996b2f@spud/
+>=20
+> Conor prefer update old dts.
 
-Otherwise, this looks good to me, but given the active discussion on previous
-version I'm not going to pick this up until plenty of time has passed
-or tags have been given.
+I don't think these devices are actually compatible, so this fallback
+would be wrong.
+The data comes from the match data, be that spi or i2c, and there's
+explicitly different behaviour for the da9052 and da9053aa.
+I doubt the legacy platform ever worked properly, and this is what should
+have been explained in the PR that Krzysztof denied not just blindly
+citing a dtbs_check problem.
 
-> diff --git a/drivers/iio/accel/adxl367.c b/drivers/iio/accel/adxl367.c
-> index b4e8dc6d6a5c..9b47e66c49ea 100644
-> --- a/drivers/iio/accel/adxl367.c
-> +++ b/drivers/iio/accel/adxl367.c
+Nacked-by: Conor Dooley <conor.dooley@microchip.com>
 
-> @@ -1430,6 +1434,36 @@ static int adxl367_setup(struct adxl367_state *st)
->  	return adxl367_set_measure_en(st, true);
->  }
->  
-> +static int adxl367_set_int_map_reg(struct adxl367_state *st, int irq)
-> +{
-> +	int ret;
-> +
-> +	/*
-> +	 * Route the mappings to whichever of INT1/INT2 is named in the
-> +	 * interrupt-names property. -EINVAL (property absent) and -ENODATA
-> +	 * (name not listed) are not errors; anything else is.
-> +	 */
-> +	ret = fwnode_irq_get_byname(dev_fwnode(st->dev), "INT1");
-> +	if (ret > 0) {
-> +		st->int_map_reg = ADXL367_REG_INT1_MAP;
-> +		return ret;
-> +	}
-> +	if (ret != -ENODATA && ret != -EINVAL)
-> +		return ret;
-> +
-> +	ret = fwnode_irq_get_byname(dev_fwnode(st->dev), "INT2");
-> +	if (ret > 0) {
-> +		st->int_map_reg = ADXL367_REG_INT2_MAP;
-> +		return ret;
-> +	}
-> +	if (ret != -ENODATA && ret != -EINVAL)
-> +		return ret;
-> +
-> +	/* No INT1/INT2 named: default to INT1 and the bus interrupt. */
-> +	st->int_map_reg = ADXL367_REG_INT1_MAP;
-> +	return irq;
+Thanks,
+Conor.
 
-I'd like to explore the helper idea for this, but it can be a separate
-series when someone has the time.
+> ---
+>  Documentation/devicetree/bindings/mfd/dlg,da9052.yaml | 4 ++++
+>  1 file changed, 4 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/mfd/dlg,da9052.yaml b/Docu=
+mentation/devicetree/bindings/mfd/dlg,da9052.yaml
+> index 1103a8cc5cea4..d1d23c7c4d0c2 100644
+> --- a/Documentation/devicetree/bindings/mfd/dlg,da9052.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/dlg,da9052.yaml
+> @@ -18,6 +18,10 @@ properties:
+>            - dlg,da9053-bb
+>            - dlg,da9053-bc
+>            - dlg,da9052
+> +      - items:
+> +          - enum:
+> +              - dlg,da9053-aa
+> +          - const: dlg,da9052
+> =20
+>    reg:
+>      maxItems: 1
+> --=20
+> 2.43.0
+>=20
 
-> +}
-> +
->  int adxl367_probe(struct device *dev, const struct adxl367_ops *ops,
->  		  void *context, struct regmap *regmap, int irq)
->  {
-> @@ -1486,6 +1520,11 @@ int adxl367_probe(struct device *dev, const struct adxl367_ops *ops,
->  	if (ret)
->  		return ret;
->  
+--WYaMNmY1aKEUWsQD
+Content-Type: application/pgp-signature; name=signature.asc
 
-[Severity: Medium]
-Since fwnode_irq_get_byname() inside adxl367_set_int_map_reg() can return
--EPROBE_DEFER if the interrupt controller is not yet ready, will placing this
-lookup after adxl367_setup() cause repeated boot delays and leave the device
-powered up on deferral?
+-----BEGIN PGP SIGNATURE-----
 
-Looking at adxl367_probe(), it resets the hardware, sleeps for 15ms, and calls
-adxl367_setup() which powers up the device into measurement mode.
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapcErwAKCRB4tDGHoIJi
+0pUMAQC7BV0GPyb01VEyEWhn/BVS+JygSLlqCFl5z28zdPCjvwEAs8uDma/NGcCv
+/89K37u48N8DyY1o7RlCSJp0o4EGoQU=
+=t2nO
+-----END PGP SIGNATURE-----
 
-If adxl367_set_int_map_reg() then returns -EPROBE_DEFER, the probe aborts
-without an error cleanup path to power down the device.
-
-Could this software resource acquisition be performed before the hardware
-interaction to avoid unnecessary boot stalls and power leaks during probe
-deferral?
-
--
-
-This obviously isn't new, but it might make sense to turn the device
-off at least.
-
-Can be a follow up patch.
-
--- 
-Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+--WYaMNmY1aKEUWsQD--
