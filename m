@@ -1,82 +1,72 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 577AE488D82
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 17:22:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D49E19EED3;
+	Tue,  1 Sep 2026 17:32:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788283378; cv=none; b=j3OUpNtRYzEzKXcl9mtOGRPddKKfX10yM8Lep0XI8UAfsBMLqR+qoX9n/ZLvieTucK397WuCyfo8KpcJxJ1UpNcFNsdoCt/5rE9TuEIYYuJgw9ClbtWXF8wwfRWzMfYjPRTZsiDvV4tIhqF3h2AsudAgqGynggSWj3mFUhGpLMU=
+	t=1788283961; cv=none; b=QbehJnzmNprkFCMwEvwDsZVIPae9x2u1cxW5Kxv5aV5F/5HVVI+I+GYDvs6v3bU3Ke6kHiiqp8PLexqHfjwHRYiZgDFc8SWgCWLLPJu1q5cmvuDSDl1o8qTbJrMFW3m3xlUWYNfrhdYxvYMCMGPsRlycS3zEV5oS5jVLGuiT7U8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788283378; c=relaxed/simple;
-	bh=Ad1DukBGwLi6ArucFKVFRHpCwR2Weby1EPL9ATOHJ1c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=T0eg6Xl/BhWKcR8scKvsnvgU2pzk2/U/L6/KoEjxslJAZGHE/jsvkJcM8xJohT5Itz4Evkp15rapH6VPk8h7R5JnpCiWI33WptaeAW74wB2WJ90EHuOlHaFreogUXUTsaMuDoc/VnuT4uagG7DTH+7rib48sGnuX+Td1dKLhAZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hLT6pqk/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788283961; c=relaxed/simple;
+	bh=lhcNS8HdrMUKLaJQdrysjQ3Khp0Fj+aQU0JSwJfuKss=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pVwz1QeUkRyQ2GA1TXvJbGEzgyFMePVuggdeQ3AY2HezgnhGCGstt6SYeHDdhvPhUkx1VCVwPCRs7jrxQDjjykVRbPptSWGvkVyeuOIEMyeBZBm1U1uqO23iVYBsLThLu5edXUNS5Zo6a3Olp+OOlLsOq8wctZSk4VC/7TFQ0G0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yrncpitu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hLT6pqk/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 003801F00A3A
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 17:22:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yrncpitu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF8F21F00A3A;
+	Tue,  1 Sep 2026 17:32:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788283377;
-	bh=Ad1DukBGwLi6ArucFKVFRHpCwR2Weby1EPL9ATOHJ1c=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=hLT6pqk/N3t4GsJHKh6IsbFpP3/hTTyorJFTxXTtgNJXA6dBXcp/OsAr/8n8udXL2
-	 yPmUjPQnbS7tthwscVDgkBq0SpjosQzqiNizqvhoNY9oQT6oPiGLUAcgp7cbmnMb3Q
-	 FzZjM3JzC2jleBf4G97WdhXulwnZuZrKjMpUOQMSv3N39ayy9KVor+RQs1iQnnZkF8
-	 A2NkG8MKPzXB6EiPADiumEzl35X73acZNA96sFjXu35zszn+mHIm/2C9zB1BIGnDfN
-	 YrQ1HzKChXi0MGA2X3ERbmr4r2zuBI2tFkW6LwhYtie1Ygd6J8oea2NX2at8grVpE8
-	 bZuBEPcgIAgnw==
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5b4a9994c20so9075e87.0
-        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 10:22:56 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxkktvhvqtWSBHEWRCHXBHVENERHXwipTij0sFP2+VnudZiiRw/Y1l/ii7tD0X2Yt4t0gBjeqILeHD2@vger.kernel.org
-X-Gm-Message-State: AFuF++k7E78qkCG8ZU3Mj5qmBzO+zJTllIU/9wgcAYw+PTdFxvl8dErZ
-	llaO2LS65Nj6ZGcaNfMBL8r8VRcpCnVR6c4Pmt4dRqtasy3bAo81jSmyitI0oCjjGEcccwLY5dU
-	VjnsggQLGY+hO238lbQTQjQ2kta6sTow=
-X-Received: by 2002:a05:6512:ac7:b0:5ae:b998:9134 with SMTP id
- 2adb3069b0e04-5b5e68a7adfmr11827743e87.1.1788283375630; Tue, 01 Sep 2026
- 10:22:55 -0700 (PDT)
+	s=k20260515; t=1788283959;
+	bh=OYIXfgFsfSXI0RZ+i5kGKg0qWPpf+cwBkjbiLUlDwFk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YrncpituYluk1i4dsaoYys5Yu1EnjNEIwGgRYjr17iuMUYeGSXs7nSpqiabq0PGbb
+	 s6egdNRTZMzrQTXsYcwfIgYArs/k52CtGSpp2c1MAHMNdF7s2D0oxCmRzm71WAdwOr
+	 5GLsbI+mcAEy/MAmaYSFqMheIn0JAG7vDsFa4JuM0yJ35fA4K3jR4zS4XOirRekKOZ
+	 6lwyqymRPgdVqulASnPEtlnMVR060prUzcioKdMiod7CY2yLduN6Md8mQVQcOnq8ms
+	 U/ofstfBMPIJid8xTu7W94jYMmS6lfmOvB0LVEdKblB5vItuLmcNCtQCfvli7sf06p
+	 56kJ9uP9jG4ig==
+Date: Tue, 1 Sep 2026 12:32:39 -0500
+From: Rob Herring <robh@kernel.org>
+To: Alex Elder <elder@riscstar.com>
+Cc: sashiko-reviews@lists.linux.dev, linux-pci@vger.kernel.org,
+	conor+dt@kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 3/4] PCI: of: introduce of_pci_verify_node()
+Message-ID: <20260901173239.GD1244140-robh@kernel.org>
+References: <20260901011338.1323243-1-elder@riscstar.com>
+ <20260901011338.1323243-4-elder@riscstar.com>
+ <20260901012128.2AC6E1F000E9@smtp.kernel.org>
+ <cde3da8f-933a-41ef-b7b8-f78317ca2d67@riscstar.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260827-kuno-soc-support-v5-0-6d47636a8f09@oss.qualcomm.com> <20260827-kuno-soc-support-v5-9-6d47636a8f09@oss.qualcomm.com>
-In-Reply-To: <20260827-kuno-soc-support-v5-9-6d47636a8f09@oss.qualcomm.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 1 Sep 2026 19:22:42 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnHCrhvdVCzbU5JA1qVOQ7hh7B=gwPr9QPtZdqh9ZxADw@mail.gmail.com>
-X-Gm-Features: AcwNN1V_scX2qdh9lKw1huy2nxRfP13bn5JqOZZxyJX3f5glJ69SIw1ECTFLPMk
-Message-ID: <CAD++jLnHCrhvdVCzbU5JA1qVOQ7hh7B=gwPr9QPtZdqh9ZxADw@mail.gmail.com>
-Subject: Re: [PATCH v5 09/15] pinctrl: qcom: Add Kuno pinctrl driver
-To: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Georgi Djakov <djakov@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>, 
-	Guru Das Srinagesh <linux@gurudas.dev>, Taniya Das <taniya.das@oss.qualcomm.com>, 
-	linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cde3da8f-933a-41ef-b7b8-f78317ca2d67@riscstar.com>
 
-On Thu, Aug 27, 2026 at 7:52=E2=80=AFPM Hardeep Sharma
-<hardeep.sharma@oss.qualcomm.com> wrote:
+On Mon, Aug 31, 2026 at 09:42:46PM -0500, Alex Elder wrote:
+> On 8/31/26 8:21 PM, sashiko-bot@kernel.org wrote:
+> > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> > - [Medium] The check in of_pci_verify_node() falsely flags compliant CardBus and PowerPC PCIe bridges as having an invalid device_type.
+> 
+> I was unfortunately not considering those types of bridges,
+> and don't have experience with (or access to) either.
+> 
+> In the devicetree code, of_bus_pci_match() does check for
+> device_type "pciex" but does not handle "cardbus" (at least,
+> not explicitly--the "default-flags" bus type might do the
+> right thing).
+> 
+> I would love to get some pointers from others on how to
+> do this correctly, but in any case I'll do a little more
+> research on this before I post version 4.
 
-> Add the TLMM pinctrl driver for the Qualcomm Kuno platform, supporting
-> 110 GPIOs and their pin multiplexing, pin configuration and gpiolib
-> interface through the common pinctrl-msm driver.
->
-> Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+I'm willing to wait and see if anyone cares about cardbus. I doubt it. 
+Maybe there's some old PowerBooks with cardbus?
 
-FWIW LGTM
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+"pciex" should probably be handled.
 
-Bartosz will decide and merge when it is ready.
-
-Yours,
-Linus Walleij
+Rob
