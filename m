@@ -1,32 +1,31 @@
 Received: from spam.axera-tech.com (unknown [114.118.28.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46FE6470E99
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 09:19:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 363CD476694
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 09:19:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.118.28.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788254396; cv=none; b=DSYnoafBnP0y9UJd+GIbWN9Dymcnhd6ppvs7kw2igtPJie330vakzr3BMkUS552+cM1cDZkst0itzvRF8q5xvBsbHvOUBVfFrwj9CaP9OtLlgoC1FwXHQw5wxBaVspSbQT2HW+8SqR40+psQvqwE2bSsJkxd2AAv1kBfM4wi6TI=
+	t=1788254398; cv=none; b=l+8H1ChTSadZUczCUMoLGbU1EVh2zVsEuEDdyN+UXTLs4K0I67gkcp6KH9ffVEV02tZnybKW7prX+zoRYWNx6VuR5syQLOxatwkdCvCq/wgAAipo5OAKNqzyGoDMR4tUAP7FFLbedMJXSBdPhB8LnTi4ueXQJWV0yw0EH5xfeKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788254396; c=relaxed/simple;
-	bh=ERI43HuiL6QTfhZ7M0Jf5DJh/DNFPQT5VndJPqtsttw=;
+	s=arc-20240116; t=1788254398; c=relaxed/simple;
+	bh=oklh748WlI1Baphd5KWMOHKbvNEfa9GuqtcojTIdGwY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=mY7jCEkK/scSF2MXXXQUCiMcKDyz14mGh8IWcnRZ3RG2miXzHoqn//vgv78Z6Tky4NS4U8L7v0qpKit/AkYI8bM5xcwSvi0fNKiKa3gMlzwtOtBhQquQRQX3yzCrIGCAvmWh+atcNDObP4oR+dFkgYk8EHJTYcTBzHp/WVTTdmA=
+	 In-Reply-To:To:CC; b=ZMaBlrUL1t4SvokgKWQj15No65xZ8rAZRtPA6nh/rinppFiocJXVMpoc1NzZIPFol1qG/xs+XuAaJlPCBQWP4LccsIjmJBWuIuBjqTnUb6Hkgy0uU2Hy9jlXMbAQtNjARz87y+HDGx9PRK68hvKo4dYhANRdIK5isydGXZr7soY=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axera-tech.com; spf=pass smtp.mailfrom=axera-tech.com; arc=none smtp.client-ip=114.118.28.34
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axera-tech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axera-tech.com
 Received: from aixinexchange02.aixin-chip.com ([10.122.86.161])
-	by spam.axera-tech.com with ESMTPS id 6819Jbg5047671
+	by spam.axera-tech.com with ESMTPS id 6819JaVd047670
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 1 Sep 2026 17:19:37 +0800 (+08)
+	Tue, 1 Sep 2026 17:19:36 +0800 (+08)
 	(envelope-from lenghonglin@axera-tech.com)
 Received: from [127.0.1.1] (10.126.103.103) by aixinexchange02.aixin-chip.com
  (10.122.86.161) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Tue, 1 Sep 2026
- 17:19:36 +0800
+ 17:19:35 +0800
 From: Leng Honglin <lenghonglin@axera-tech.com>
-Date: Tue, 1 Sep 2026 17:19:29 +0800
-Subject: [PATCH v2 2/6] dt-bindings: arm: add Axera AX650 SoC and AX650
- Demo board
+Date: Tue, 1 Sep 2026 17:19:28 +0800
+Subject: [PATCH v2 1/6] dt-bindings: vendor-prefixes: add Axera
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,7 +34,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260901-ax650-v1-v2-2-993bea305476@axera-tech.com>
+Message-ID: <20260901-ax650-v1-v2-1-993bea305476@axera-tech.com>
 References: <20260901-ax650-v1-v2-0-993bea305476@axera-tech.com>
 In-Reply-To: <20260901-ax650-v1-v2-0-993bea305476@axera-tech.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -55,11 +54,11 @@ CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
         Leng Honglin
 	<lenghonglin@axera-tech.com>, <hlleng233@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788254374; l=1063;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788254374; l=996;
  i=lenghonglin@axera-tech.com; s=20260818; h=from:subject:message-id;
- bh=ERI43HuiL6QTfhZ7M0Jf5DJh/DNFPQT5VndJPqtsttw=;
- b=W1RQzi21UuVxmWW3bPYMMVjiymvAeGH/Ui98pv9e0T+aasdxCusiaIu4/jDEpRv9TqSXC5F/e
- 4oLoPLbpGvGA/jLSQjnRBFLqKBHBtaIvkzsJEGnVTiHhNO80Wvsf4Rx
+ bh=oklh748WlI1Baphd5KWMOHKbvNEfa9GuqtcojTIdGwY=;
+ b=Qo/FT27rWdpBzvdqt0fGZsyFt0vtwMC1aX9edOXITLiKjIlDU/+6/X+GiKK7Lz8NF9nIOYOXB
+ +FgwcYCBFhTDPciWKObSEGsR0uVzQwx35AQ8zQ8xvP7hgwAx1defERN
 X-Developer-Key: i=lenghonglin@axera-tech.com; a=ed25519;
  pk=fo0agzxyiwbJZc3VZRLVthobvWCvq0qAViAw4TxhF80=
 X-ClientProxiedBy: aixinexchange02.aixin-chip.com (10.122.86.161) To
@@ -67,45 +66,32 @@ X-ClientProxiedBy: aixinexchange02.aixin-chip.com (10.122.86.161) To
 X-DKIM-Results: [10.122.86.161]; dkim=none;
 X-DNSRBL: 
 X-SPAM-SOURCE-CHECK: pass
-X-MAIL:spam.axera-tech.com 6819Jbg5047671
+X-MAIL:spam.axera-tech.com 6819JaVd047670
 
-Add devicetree bindings for the Axera AX650 SoC and AX650 Demo board.
+Add the Axera Semiconductor vendor prefix for devicetree bindings.
+
+For more information, visit the official Axera Semiconductor website:
+Chinese site: https://www.axera-tech.com/
+English site: https://www.axera-tech.com/en
 
 Signed-off-by: Leng Honglin <lenghonglin@axera-tech.com>
 ---
- Documentation/devicetree/bindings/arm/axera.yaml | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/arm/axera.yaml b/Documentation/devicetree/bindings/arm/axera.yaml
-new file mode 100644
-index 000000000000..28bf0ce9fd27
---- /dev/null
-+++ b/Documentation/devicetree/bindings/arm/axera.yaml
-@@ -0,0 +1,24 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/arm/axera.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Axera platforms
-+
-+maintainers:
-+  - Shi Zhicheng <shizhicheng@axera-tech.com>
-+  - Leng Honglin <lenghonglin@axera-tech.com>
-+
-+properties:
-+  $nodename:
-+    const: '/'
-+  compatible:
-+    oneOf:
-+      - items:
-+          - const: axera,ax650-demo
-+          - const: axera,ax650
-+
-+additionalProperties: true
-+
-+...
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 396044f368e7..1dbafe682724 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -219,6 +219,8 @@ patternProperties:
+     description: Shanghai Awinic Technology Co., Ltd.
+   "^axentia,.*":
+     description: Axentia Technologies AB
++  "^axera,.*":
++    description: Axera Semiconductor Co., Ltd.
+   "^axiado,.*":
+     description: Axiado Corporation
+   "^axis,.*":
 
 -- 
 2.34.1
