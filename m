@@ -1,185 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBFDE368D77
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 19:10:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 830C449F12E
+	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 19:13:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788289805; cv=none; b=ROVQrA7EDIYY++Q0m6MKoapijRL9AAIaor0emFpQTrjHN/pFMJjEf0A7R4J8lnJRRPj0M94ihuwO/tiQQEathQv9z84CJLJOnG3yQvxEeY/3LZC2rFl7PFqT5lJ0OP6HoZnGcvUNs6He40hjZJ15C5nZVt26z9VQkESUTQO1AbM=
+	t=1788290038; cv=none; b=EK/UhvB9ktpaTRQpFU+4+dXU8sbcJF8xqvvjB+rffkzk/tNiWf8XhuF0526jIAX6anvuWvqDrwl8hNJm1EQlCjfS+HWJlrCvgWyRL/3DkVapcu0QfeYsPyKQnnJgOQjlAFGAhBx7DspR+D6h57o5hUh/yWT3gxHTRUJIipB9Mw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788289805; c=relaxed/simple;
-	bh=jCFzhqS55uImmlAUdKuuhTUdzhbeRh+mzJGTjGnDaf8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fvVmK4GvN3ZqF1TjGmVAQwWLFFJiNwi6SS8h9sz0iX2j9L9H8YX+QDDdH3JCEn/TKFxLw7Buf0cBaAsRBznYjGYp65Mp5uqHnc/rU/iXIvGMWWgurydt43BNZmRsdDrMYYnoo9lqRjJKmr8BdMQL6F2gLNRcDbPkKYKtqPQa9SY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dw9zgHoA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788290038; c=relaxed/simple;
+	bh=rlnEpoQqZM0q1JKCIvkU4Yzcc1HivHI0aGOTf4jB2Lo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UZqmI2yQ+1fB6rMfwwpX0Trvj/zqg8v2cr+vmX5ZRiWffEWZ3BDoYEM2OC//x28AOH4Jg9w1PVMG5OPxNkmraxpuOnSQwNmtR5RygkNTiNrTX8BWmOqYKc2XTTieH0cRqjgFkS5mcO7+C1RRxZHWIg79hZqk0yRrzzuQ5l8itEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=O0WEUnCl; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dw9zgHoA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BE821F000E9;
-	Tue,  1 Sep 2026 19:10:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788289803;
-	bh=eO5+pN11VNAaQQs5Br+TvrzfbUDJSME+z+q5F1oXSIU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dw9zgHoAVvkI80L58gIIYDky3j72TiPRr6NFJDBMeRTAUxjmMm7jeVFUTj5515ivq
-	 gGFkTqBtWJihVCFq9OzpavPd7Oid5/yRH2K8sH95cvFdKLdIJTDmXMNN4aYcLI/DXA
-	 VaH8V7cxJiaNLydqLzUCa6lJgfov32k8LAgwslK7D2cJghWnIa1LS5QneA+qp8/Qbo
-	 zSiV/4F/DIaWFatzvDc3CO9GzY5UrjNc/M2rwkMp0xeBbzuDVqVkry17HixW8DfA66
-	 U5Zl6WsCm3eQZwL38iVeoh2ouvmu87ftyr/p7AdXb0ozbcRk+P8IIUlFWYUBLBom8A
-	 39vfNjF/sIGLA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 8/9] mmc: sdhci-cadence: add Cadence SD6HC support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Tanmay Kathpalia" <tanmay.kathpalia@altera.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260901184828.15653-9-tanmay.kathpalia@altera.com>
-References: <20260901184828.15653-1-tanmay.kathpalia@altera.com>
- <20260901184828.15653-9-tanmay.kathpalia@altera.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 19:10:02 +0000
-Message-Id: <20260901191003.3BE821F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="O0WEUnCl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788290033;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2Gc0ait3L/IgveRSbsQEV85pq6/ltievYnmCwsbLN8s=;
+	b=O0WEUnClA/dZltVM2YvPxEQW0gm8PQC87ubfb3mfZq/1VLj/gr1ab6Ow8rg62LFyJyCppU
+	Qu+uH/skrSLdXy9BKaW3E5N6ul3ssrv+2HU1HirWLOoqrorrv364v2nW6R+qpsSpMgquSU
+	wcT1SRY2nOICbpzuWAgc7Ls0mv7o1Xc=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-634-k8giU1h9OVCJTn1H8fntNg-1; Tue,
+ 01 Sept 2026 15:13:49 -0400
+X-MC-Unique: k8giU1h9OVCJTn1H8fntNg-1
+X-Mimecast-MFC-AGG-ID: k8giU1h9OVCJTn1H8fntNg_1788290026
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A6D0B195411F;
+	Tue,  1 Sep 2026 19:13:45 +0000 (UTC)
+Received: from localhost (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 000DC30001A2;
+	Tue,  1 Sep 2026 19:13:43 +0000 (UTC)
+Date: Tue, 1 Sep 2026 15:13:42 -0400
+From: Stefan Hajnoczi <stefanha@redhat.com>
+To: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
+Cc: ebiggers@kernel.org, axboe@kernel.dk, mst@redhat.com,
+	jasowangio@gmail.com, James.Bottomley@hansenpartnership.com,
+	martin.petersen@oracle.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, linux-block@vger.kernel.org,
+	linux-crypto@vger.kernel.org, linux-scsi@vger.kernel.org,
+	virtualization@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, neeraj.soni@oss.qualcomm.com,
+	gaurav.kashyap@oss.qualcomm.com, mani@kernel.org,
+	andersson@kernel.org, konradybcio@kernel.org, bvanassche@acm.org,
+	alim.akhtar@samsung.com, avri.altman@sandisk.com,
+	pbonzini@redhat.com, eperezma@redhat.com,
+	xuanzhuo@linux.alibaba.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 07/11] blk-crypto: move bio_crypt_dun_increment() to
+ the public header
+Message-ID: <20260901191342.GC729142@fedora>
+References: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
+ <20260827160806.1295313-8-linlin.zhang@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="PEA6fpBf2bNc3JFu"
+Content-Disposition: inline
+In-Reply-To: <20260827160806.1295313-8-linlin.zhang@oss.qualcomm.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Type Confusion and Out-of-Bounds Read due to relying on SD Associa=
-tion's host->version
-- [Medium] Memory Barrier Misuse masks hardware timing requirements
-- [Medium] Hardcoded of_device_is_compatible checks bypass driver match data
---
+--PEA6fpBf2bNc3JFu
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit a4d954763650a6fbead1cf6e48fefd5979c779d2
-Author: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
+On Thu, Aug 27, 2026 at 09:07:16AM -0700, Linlin Zhang wrote:
+> From: linlzhan <linlin.zhang@oss.qualcomm.com>
+>=20
+> bio_crypt_dun_increment() is currently declared only in
+> block/blk-crypto-internal.h, which is not accessible to code
+> outside of block/.  Drivers that manage inline-encrypted I/O
+> directly need to advance the DUN across bio_vecs within a bio,
+> or across multiple bios in a request, and have no other way
+> to call this function.
+>=20
+> Move the declaration from block/blk-crypto-internal.h to
+> include/linux/blk-crypto.h alongside the existing
+> bio_crypt_dun_is_contiguous() and blk_crypto_init_key()
+> declarations. The implementation in block/blk-crypto.c is
+> unchanged.
+>=20
+> Signed-off-by: linlzhan <linlin.zhang@oss.qualcomm.com>
+> ---
+>  block/blk-crypto-internal.h | 3 ---
+>  include/linux/blk-crypto.h  | 3 +++
+>  2 files changed, 3 insertions(+), 3 deletions(-)
 
-mmc: sdhci-cadence: add Cadence SD6HC support
+Other include/linux/blk-crypto.h functions export their symbols. Does
+bio_crypt_dun_increment() need EXPORT_SYMBOL_GPL() like
+bio_crypt_set_ctx() and friends?
 
-This commit adds support for the Cadence SD6HC host controller and its
-integrated combo-PHY. It splits the existing driver into a core module and
-a PHY-specific module for v6, using a shared header for private state.
-
-> diff --git a/drivers/mmc/host/sdhci-cadence.c b/drivers/mmc/host/sdhci-ca=
-dence-core.c
-> similarity index 85%
-> rename from drivers/mmc/host/sdhci-cadence.c
-> rename to drivers/mmc/host/sdhci-cadence-core.c
-> index 1fb23051a047b..ea2517e8f72a9 100644
-> --- a/drivers/mmc/host/sdhci-cadence.c
-> +++ b/drivers/mmc/host/sdhci-cadence-core.c
-[ ... ]
-> @@ -569,13 +583,24 @@ static int sdhci_cdns_probe(struct platform_device =
-*pdev)
-[ ... ]
-> +	if (of_device_is_compatible(dev->of_node, "cdns,sd6hc")) {
-> +		clk =3D devm_clk_get_enabled(dev, "ciu");
-
-[Severity: Medium]
-Will this hardcoded check fail to match hardware variants that omit the
-generic fallback string?
-
-The code branches by checking specifically for "cdns,sd6hc", bypassing the
-driver match data. If a valid device tree specifies a variant string without
-the generic fallback, this check will fail, leading to missing clock
-initializations.
-
-Could this logic be moved to a flag or PHY type identifier within
-sdhci_cdns_drv_data instead of hardcoding compatible string comparisons?
-
-[ ... ]
-> +	if (of_device_is_compatible(dev->of_node, "cdns,sd4hc")) {
-> +		__sdhci_read_caps(host, &version, NULL, NULL);
-> +		ret =3D sdhci_cdns4_phy_probe(pdev, priv);
-
-[Severity: Medium]
-Similarly, will this check misidentify specific SD4HC variants as SD6HC if
-the generic string is omitted?
-
-If "cdns,sd4hc" is missing from the device tree node but a variant compatib=
-le
-string is present, the driver will mistakenly execute the SD6HC PHY probe
-block below.
-
-[ ... ]
-> @@ -636,7 +677,11 @@ static int sdhci_cdns_resume(struct device *dev)
->  	if (ret)
->  		return ret;
+>=20
+> diff --git a/block/blk-crypto-internal.h b/block/blk-crypto-internal.h
+> index 04035d237f03..32c720aabba7 100644
+> --- a/block/blk-crypto-internal.h
+> +++ b/block/blk-crypto-internal.h
+> @@ -26,9 +26,6 @@ int blk_crypto_sysfs_register(struct gendisk *disk);
 > =20
-> -	ret =3D sdhci_cdns4_phy_init(priv);
-> +	if (host->version >=3D SDHCI_SPEC_420)
-> +		ret =3D sdhci_cdns6_phy_init(priv);
-> +	else
-> +		ret =3D sdhci_cdns4_phy_init(priv);
-
-[Severity: High]
-Can this type confusion lead to an out-of-bounds read?
-
-The PHY structure pointer is cast and accessed based on the hardware-report=
-ed
-SDHCI version rather than the actual type allocated during probe. If an SD6=
-HC
-device reports a specification version less than 4.20 in its registers, it
-will fall back to sdhci_cdns4_phy_init().
-
-Because sdhci_cdns4_phy_init() casts the PHY state to struct sdhci_cdns4_ph=
-y,
-it misinterprets the first field of struct sdhci_cdns6_phy (t_cmd_output_mi=
-n)
-as the nr_phy_params field. This will result in an out-of-bounds loop
-reading unmapped memory.
-
-Should the PHY version be determined by the driver data set during probe
-instead of relying on the hardware specification version register?
-
-> diff --git a/drivers/mmc/host/sdhci-cadence-phy-v6.c b/drivers/mmc/host/s=
-dhci-cadence-phy-v6.c
-> new file mode 100644
-> index 0000000000000..22d56bb46d75a
-> --- /dev/null
-> +++ b/drivers/mmc/host/sdhci-cadence-phy-v6.c
-[ ... ]
-> +	sdhci_cdns6_write_phy_reg(priv, SDHCI_CDNS6_PHY_CTRL_REG, reg);
+>  void blk_crypto_sysfs_unregister(struct gendisk *disk);
+> =20
+> -void bio_crypt_dun_increment(u64 dun[BLK_CRYPTO_DUN_ARRAY_SIZE],
+> -			     unsigned int inc);
+> -
+>  bool bio_crypt_rq_ctx_compatible(struct request *rq, struct bio *bio);
+> =20
+>  bool bio_crypt_ctx_mergeable(struct bio_crypt_ctx *bc1, unsigned int bc1=
+_bytes,
+> diff --git a/include/linux/blk-crypto.h b/include/linux/blk-crypto.h
+> index 33ae52b77522..c9f436b6b2ef 100644
+> --- a/include/linux/blk-crypto.h
+> +++ b/include/linux/blk-crypto.h
+> @@ -181,6 +181,9 @@ bool bio_crypt_dun_is_contiguous(const struct bio_cry=
+pt_ctx *bc,
+>  				 unsigned int bytes,
+>  				 const u64 next_dun[BLK_CRYPTO_DUN_ARRAY_SIZE]);
+> =20
+> +void bio_crypt_dun_increment(u64 dun[BLK_CRYPTO_DUN_ARRAY_SIZE],
+> +			     unsigned int inc);
 > +
-> +	/*
-> +	 * Ensure all preceding PHY register writes complete and reach the cont=
-roller before
-> +	 * releasing the PHY from reset. Without this, SDR104 has been observed=
- to fail
-> +	 * intermittently on some boards.
-> +	 */
-> +	wmb();
+>  int blk_crypto_init_key(struct blk_crypto_key *blk_key,
+>  			const u8 *key_bytes, size_t key_size,
+>  			enum blk_crypto_key_type key_type,
+> --=20
+> 2.34.1
+>=20
 
-[Severity: Medium]
-Is this memory barrier masking a hardware timing requirement?
+--PEA6fpBf2bNc3JFu
+Content-Type: application/pgp-signature; name=signature.asc
 
-The wmb() macro orders local CPU memory stores, but it does not flush posted
-MMIO writes over the interconnect to the device. Its success in preventing
-intermittent failures is likely due to it acting as an accidental micro-del=
-ay
-on the CPU. On a faster CPU or a different interconnect architecture, this
-will not guarantee the writes have settled.
+-----BEGIN PGP SIGNATURE-----
 
-Would a dummy readl() to flush posted writes or a small udelay() be more
-appropriate here?
+iQEzBAEBCgAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmqXI+YACgkQnKSrs4Gr
+c8iM3Qf/XFmILiCbeSjbXunU0k6T8u+dWvrzWNhq4pxK9Sj3ejQwcBFSp0YgWTeP
+huZvq2kGaf90TF7mw48y1hF3UnUHN9YCdADHFCePBQjaUsXeCtVguebgzFhhqvCe
+govoIFLmGhVjuU08W4/32X2McSZm/RU7nEaXkwX8baWQGmT6OJeteJsng7GyyCWW
+FHCOoHLTI3UKR40LJrijN1S/cnP/vZvYMs9X2LCwGmHua5uaTdoI0APEWwH34397
+u7yXS7G74oYNxIFC3zuqZ2ikoZQ7LDpNqrlTb4WttYP1sOhForEze0lQO6gFt/s/
+8Iyi2gjGMdOLc56RWntVSrqktDwQYA==
+=lhw/
+-----END PGP SIGNATURE-----
 
-> +
-> +	ret =3D sdhci_cdns6_dll_reset(priv, false);
-[ ... ]
-> +	sdhci_cdns6_write_phy_reg(priv, SDHCI_CDNS6_PHY_DQ_TIMING_REG, reg);
-> +
-> +	/* Ensure DQ timing programming is visible before HRS09 follow-up write=
-s */
-> +	wmb();
+--PEA6fpBf2bNc3JFu--
 
-[Severity: Medium]
-Does this second wmb() suffer from the same MMIO flushing issue?
-
-Like the previous barrier, this orders CPU-side memory stores but does not
-ensure the device has actually received and processed the DQ timing
-configuration before the subsequent HRS09 writes occur.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901184828.1565=
-3-1-tanmay.kathpalia@altera.com?part=3D8
