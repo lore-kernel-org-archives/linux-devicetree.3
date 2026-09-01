@@ -1,110 +1,159 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A239036A02E
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 19:01:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BE5349F13F;
+	Tue,  1 Sep 2026 19:06:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788289290; cv=none; b=ags2e4PtcUgP4VedUIChF5GN7uZKs//EG2qWm/8PaOPuNt72o+ujRP0Zr038N2IDsM7KplRfNKiTACZd6Ul1y6Kq2MxpjHRuZlU8gStUzq8v1RANIvsCD3UzZfWcKUeTHD/vrTdxhrgzQxJJMEIGhQ+NZd4kMuhk82a7vWU4U2k=
+	t=1788289593; cv=none; b=dUkiogSOEYvZ4pbOrQ4wwdj1cNGqrCveWQSZYZlZXw9dHX3O1dA56/NcZ9JKZnJSUm/MZfUoOAwXvgVe4+pk+LiLv9tY741jt3GGE4w7+AUaYWYvGw3d8gvuWDsLO+UF0QnbF26LHrO9dSOAoF/GXmIwZcqexoTwCTETZel/Hkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788289290; c=relaxed/simple;
-	bh=KJpUpAAjbozq9KYVTQ08Nu94/mZ6gVN6Oyr9wkCUw6o=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OsNN24/zbRchkNFj+tBEDADmZrXjRkR32eQsRw2czLxr5sSYdHDRGbtUDk4FNSXoURjhuLrTYQFvkP0MFF7/beTeOXuAGP6nR11puBg0ePr16B33gu2tLr2ZCSzNoBumVdfz4fLTp49LdAWBUotv6p7IEvhWDuqdZufts8x4gLE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KRdjoUCO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788289593; c=relaxed/simple;
+	bh=/FWCNLazy6NKb3LwXJlewtPpko8OiWbGpl5nh+5evA4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dbdLdCfuc+yStOL/xWY1n1CVgFS2ksmQljwgBP8/1M5jE7s307Igl40i8M2aE128IeQBqpI5XsivOppMEb8Ee/YKUIcic8DaxKNZZJzj4v+QjnF5MPYHSOgacddYaQdjeuE3JAFibO74wAOvFonzsU/zEioVXS9M8V6UJoAn5tY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hndb1yFh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KRdjoUCO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 052091F000E9;
-	Tue,  1 Sep 2026 19:01:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hndb1yFh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E30081F000E9;
+	Tue,  1 Sep 2026 19:06:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788289289;
-	bh=46cuSDIWHeDgObY2ADEMu1NkstxiIC+HbMmN49DYf/I=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KRdjoUCOAKtT+QaFaxpomeg3/2DZGELCwS1raKcC8jmYCGK/KhFa9YikUc1SeAkVn
-	 A7fnXhFPH2y6m43xb9kcD6YtF3VmkudZsSrR7J/S/tlD1sJL8r3wDJCiwFAEIoDlrt
-	 kri7B0uy937xXnSXiTqs7oKIrVr5ioQzJ2TZJF99l/O1vrXVldBLHji1jr+YU/jr6q
-	 /xXYL9wkFhdf0W6o66nhY48tGnSVbKjhHvVMz1Jff6uFgNVrSUgGy2qvbu6aNqGPvH
-	 7YKpJOcY/znOWUK5V4/LPxk608AZ/nk5sW8JcVQ8aoAZaBg39N2N3359LC+pMuxv0S
-	 OFcDoeAqFLJLQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 3/9] arm64: dts: agilex5: enable SD card on SOCDK
- OOBE card
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Tanmay Kathpalia" <tanmay.kathpalia@altera.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260901184828.15653-4-tanmay.kathpalia@altera.com>
-References: <20260901184828.15653-1-tanmay.kathpalia@altera.com>
- <20260901184828.15653-4-tanmay.kathpalia@altera.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 19:01:28 +0000
-Message-Id: <20260901190129.052091F000E9@smtp.kernel.org>
+	s=k20260515; t=1788289591;
+	bh=pFTu49OcoFU2MNqhD13fTc84uxSJ3zdV8FqsYNvRr9M=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Hndb1yFhIuNwm7aONHjx++9wFUwCYpwvIBPkXjxpLTEUp2PUAEwec2+XBT2/8QrOC
+	 +m8PWXhVywXt6pd6lTbd5w0Z+/HFsiNbT8sEE9kpAgls5Cgi6/QR/MWbMQpuxS423Q
+	 4+6GmWqEOnb4BGGVGsjWYHaPypcvIXQKTL6uZ7cVvlQICpAF6O0rHVYlXzDRND6GKH
+	 fO0JpaDp9YDtJ0UO/DsQTj1xITo24/zyn1Z6vgNArZFPL086aRpX0cAYBgDxMJd1/e
+	 pnTseL9lx7gLBjjqp6zslAzoIwr7wpARhQAsDbpwhdsOYI04eqcb2fHKyhHSP+VQSG
+	 P6Af8MnvHQrBQ==
+Message-ID: <05070c4a-6e78-4649-b1c4-32093fbfa80e@kernel.org>
+Date: Tue, 1 Sep 2026 21:06:26 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 16/19] thunderbolt: Add Apple Silicon support
+To: Mika Westerberg <mika.westerberg@linux.intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
+ Andreas Noever <andreas.noever@gmail.com>,
+ Mika Westerberg <westeri@kernel.org>, Yehezkel Bernat
+ <YehezkelShB@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+References: <20260830-b4-apple-soc-tbt-v1-0-44bc9348683c@kernel.org>
+ <20260830-b4-apple-soc-tbt-v1-16-44bc9348683c@kernel.org>
+ <20260901100925.GF106095@black.igk.intel.com>
+Content-Language: en-US
+From: Sven Peter <sven@kernel.org>
+In-Reply-To: <20260901100925.GF106095@black.igk.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] Device tree node overrides are not sorted alphabetically by label.
-- [Low] Missing `no-sdio` property for SD-only slot.
---
+Hi,
 
-commit eddece91ac39f2531713c8f5e5e5490392d405bb
-Author: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
+thanks for the very fast and detailed review! Will address those points 
+for v2, some comments below:
 
-arm64: dts: agilex5: enable SD card on SOCDK OOBE card
+On 9/1/26 12:09, Mika Westerberg wrote:
+> Hi,
+>
+> On Sun, Aug 30, 2026 at 10:19:34PM +0200, Sven Peter wrote:
+>> Add a platform driver for the ACIO host router complex and Native Host
+>> Interface (NHI) found on Apple Silicon SoCs.
+[...]
+>> +
+>> +	/*
+>> +	 * The firmware samples the ring configuration when the valid bit is set and E2E flow
+>> +	 * control never engages when configured afterwards. Write everything at once like macOS.
+>> +	 */
+>> +	writel(flags | e2e_flags, options);
+> I think we can do this flow in the generic parts too. It makes the driver
+> follow the CM guide more closely.
 
-This patch configures the device tree to enable the SD card on the SOCDK=20
-OOBE board. It adds voltage regulators for the 3.3V and 1.8V supplies=20
-and sets up the sdmmc node with the necessary high-speed capabilities.
+sure, I can adjust that as well.
 
-> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts b/arch/a=
-rm64/boot/dts/intel/socfpga_agilex5_socdk.dts
-> index 57d3c5807c65c..2b753d0e17bb7 100644
-> --- a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts
-> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts
+>
+>> +}
+>> +
+>> +
+>> +
+>> +	ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(42));
+> 42?
 
-[ ... ]
+42! don't ask me why but that's the number of address lines they hooked 
+up. I'll add a comment.
 
-> -&gpio0 {
-> +&sdmmc {
+[...]
+>> +
+>> +	anhi->nhi.tx_rings = devm_kcalloc(&pdev->dev, anhi->nhi.hop_count,
+>> +					  sizeof(*anhi->nhi.tx_rings), GFP_KERNEL);
+>> +	anhi->nhi.rx_rings = devm_kcalloc(&pdev->dev, anhi->nhi.hop_count,
+>> +					  sizeof(*anhi->nhi.rx_rings), GFP_KERNEL);
+>> +	if (!anhi->nhi.tx_rings || !anhi->nhi.rx_rings) {
+>> +		ret = -ENOMEM;
+>> +		goto err;
+>> +	}
+>> +
+>> +	anhi->nhi.dev = &pdev->dev;
+>> +	init_completion(&anhi->nhi.domain_released);
+>> +	anhi->tb = tb_probe(&anhi->nhi);
+> You do need to setup device links for the tunneled protocols as well. Have
+> you checked if they describe these in DT? I would expect so.
 
-[Severity: Low]
-Is the placement of the &sdmmc node intended here?=20
+I'll look into that, the DT already has the ports which I'll need for 
+notifications to PCIe and DP later anyway and I should be able to add 
+the device links then as well. Right now only USB3 tunnels work (by 
+accident: I'm not following what macOS does and will probably need a 
+notification once I get to suspend/resume as well) but I'll see if I can 
+already add device links. Either way, the dt-binding already has enough 
+to describe the connections to dwc3/pcie/dp through the graph 
+ports/endpoints.
 
-The device tree style convention typically expects node overrides to be sor=
-ted
-alphabetically by label. Placing it here breaks that sorting order, which c=
-ould
-lead to merge conflicts or maintainability issues later on.
+>
+>> +		tb_domain_put(anhi->tb);
+>> +		wait_for_completion(&anhi->nhi.domain_released);
+>> +		goto err;
+>> +	}
+>> +
+>> +	mutex_lock(&anhi->tb->lock);
+>> +
+>> +	if (!anhi->tb->root_switch->drom) {
+>> +		dev_err(anhi->dev, "No valid host DROM in the device tree\n");
+>> +		ret = -EINVAL;
+>> +		goto err_unlock_tb_domain;
+>> +	}
+>> +
+>> +	cap_apple = tb_switch_find_vse_cap(anhi->tb->root_switch, TB_VSE_CAP_APPLE);
+> This should not be done here. It belongs to the CM.
+>
+> We can do it in tb_start() for example, because only Apple silicon has the
+> cap.
 
-> +	bus-width =3D <4>;
-> +	cap-sd-highspeed;
-> +	disable-wp;
-> +	max-frequency =3D <200000000>;
-> +	no-mmc;
+Ok, I'll find it in there and just expose it to apple.c somehow then to 
+be able to write the cable info from here.
 
-[Severity: Low]
-Since the commit message indicates this is an SD-only slot, should we also=
-=20
-include the no-sdio property here?
+[...]
 
-By omitting no-sdio, the MMC core might still issue SDIO initialization=20
-commands (like cmd5) during card enumeration. Adding no-sdio alongside no-m=
-mc
-would prevent these unnecessary probing commands and avoid minor delays dur=
-ing=20
-boot and card insertion.
+>
+>> +	case TYPEC_THUNDERBOLT_SWITCH_TBT:
+> Probably cannot affect these anymore but if can then _TB instead.
 
-> +	sd-uhs-sdr104;
-> +	vmmc-supply =3D <&vmmc_reg>;
-> +	vqmmc-supply =3D <&vqmmc_io_reg>;
-> +
->  	status =3D "okay";
->  };
+That was only introduced in the first patches but after Heikki's review 
+it'll go away anyway. I'll make sure to TB instead of TBT anywhere else 
+though!
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901184828.1565=
-3-1-tanmay.kathpalia@altera.com?part=3D3
+
+
+Thanks,
+
+
+Sven
+
