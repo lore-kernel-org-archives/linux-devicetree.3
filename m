@@ -1,102 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A13738C42F
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 08:40:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F74A2E2DD2;
+	Tue,  1 Sep 2026 08:42:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788252014; cv=none; b=NRFf/GDcqV2D56+RZZ1C/35+3Xnuwoxqzn+TARm0cGN4NP+T2XSLVnh5HETo0UZQ1f30wrqBDRrWU/sBvI4Um5QvPCP1w9qqtWZc8GDFHNGfTJyJjMyc+T/kjFw7r2Oj1FyrjRvxIc58WUqm2ZUcQ9RTTty6nH89XCvuntkQ1qk=
+	t=1788252139; cv=none; b=gRYnSx/UEdUP1uOdutojZOj4V6Ndg+10HaGOKRV0EVWNw5JPHrNw4XHV/9VX17zestlG7Gw13KfoXMriMtHl9EmhFxD1rLJwVcu0hpSzRszUNJevr79hAL6/R6OtSMsvzKuSDSWZ9aYd3sg34xJ0qZ1ExaVjVD14zOeM0Fr3SdU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788252014; c=relaxed/simple;
-	bh=LmtwnVM9wvRfR0wHIHOhtdLvcOyfBAHXYxI+v0qt2Ds=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qtRrpZfzeZ5g08NB02MERMgVya7T4pn/KCs3nc8O6ZI8Edbb2OEh6aoDfBjoUGB+EC1g8vzavVnKlzIsbU/UP4q9g9EFIwDublvpFj4qZSe7ZSl4QsEJyC/8SoPuLYgk72s8a7q7EHnVN+wc0IhpssW+vaqOW1TrHqWeaYyaIEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FYbfFpMs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788252139; c=relaxed/simple;
+	bh=suI7VOOUJ+S8ZmFBV8++cFxT4yO04pkfs1fAeeNMO1E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nJe1xrtdJ8ZaHcSZ9nAfRjnLKlfqKO+wJ7hnXcEwpZo2QOcmPl4EjfQDhOLlXVy4scqpl5Oryzt7SzEnM3OZZMJP+16r5iSQx3WfaeVtTxrkbHBkp21B0S8PhMy/bknD5yrzZp04/7huQWCnH19pHhf534nVRz9cS+aCyycj5Gg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o3fC9SEb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FYbfFpMs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0067D1F00A3D
-	for <devicetree@vger.kernel.org>; Tue,  1 Sep 2026 08:40:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o3fC9SEb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B8B41F000E9;
+	Tue,  1 Sep 2026 08:42:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788252013;
-	bh=r7xYjB1JLDV+AUhQJIpnIb/S9CVT5PFO2ocKRTTD4yg=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=FYbfFpMsAs2NeGWjECcwblMlB7PpVYIjIEKAS/Xs++CdZ7bFotMyY7Gs3wDNcllWd
-	 RtwBNNbuFRsTRSx1BE/fGNsLUPjrgyG7RrMx9Wm27qOR59UbBdoaEbjo2sWszXGcaK
-	 ngsia/Ckx//R+msxvwUB1FhJVOScCrHscVF0ggarUREDX8+G7fhSWGTw6w1YHtqctP
-	 XEvoiasO1IzZVK2wDq7OAYe3zrgPJv2bltVHxE54a9pxsowKkHqDxkhT1akXc4kiOj
-	 lRxjhs29hjknU+Sp9wezzSOa3pG8648PXzaSGKLPDF1YLikWrpdZQyWW8IGkSLzM3/
-	 y7XH2cZjXG2Hg==
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5aec201b582so5620898e87.1
-        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 01:40:12 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwCIRUBKmt3PU8SOlx9z+zefPy0r462C/neV2g0jNOj+eC9eN2otb9BXrtsMGQsnnNWbhl+mLUKoRtt@vger.kernel.org
-X-Gm-Message-State: AFuF++m/VH7r2ym7TeDfp80JcIocfD+U0T4xGQ0JuR0keoMYm2Rqo4qG
-	hq8rib4A+S0d5a4rp//HppYyecCDP4GpcZSpez3q9h4zyuuK3XIa7BzdVU4OeXuOS0svPxj8pZg
-	36zM2Bm+lLTNqky8CTpCLVRYRoHRcNzsxxgUzUCFkHQ==
-X-Received: by 2002:a05:6512:2345:b0:5b0:cd1:1f84 with SMTP id
- 2adb3069b0e04-5b5e68ed01bmr10096072e87.18.1788252011671; Tue, 01 Sep 2026
- 01:40:11 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 1 Sep 2026 01:40:09 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 1 Sep 2026 01:40:09 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260830101025.191697-1-shengchao.guo@oss.qualcomm.com>
+	s=k20260515; t=1788252138;
+	bh=R7W+a2UbB22q8xIFgqQ71VC8d3erwcb0D9ctEbZEfvI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=o3fC9SEb1fgtnpV8N6JwNhkg505uC9y5v+JTfWLjYtch0TFlv/6D1sbp/5jujKDWv
+	 b9PerdM0AV9IdN/aX4l+gj7XO8aAi+teDUY3Jk2vw2X3Lh8w/qeOpn5FmXmsYSgali
+	 EIHkROwuCmpyrXnrMnOWt3//4U7RgzaHtDj6Q/HxHC8iwTJAlUfCO6qKfYVs5chr/6
+	 K/Qe0fkZQq3UfI1iyPar111jKsEh0go7c2COtcIlhFSGF8olqon+Z9EDj1LF19qtlv
+	 rXZiQBt8TlQa9drttHDSSaQVLBe1LBFNUJqL/QK1veEPIpdmaqDXt2/nNhgbNiBlII
+	 uqkfU41pHlEUw==
+Date: Tue, 1 Sep 2026 10:42:14 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v2 2/5] dt-bindings: PCI: qcom,shikra-pcie: Document the
+ Shikra PCIe Controller
+Message-ID: <20260901-silent-pearl-shrew-c63a16@quoll>
+References: <20260831-shikra-upstream-v2-0-406661d75afa@oss.qualcomm.com>
+ <20260831-shikra-upstream-v2-2-406661d75afa@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260830101025.191697-1-shengchao.guo@oss.qualcomm.com>
-Date: Tue, 1 Sep 2026 01:40:09 -0700
-X-Gmail-Original-Message-ID: <CAMRc=McYnNi0kUirdRS5EaEcOM_O04LssnK=NHQe3qG3wXcv2g@mail.gmail.com>
-X-Gm-Features: AcwNN1WyA6ox9fd2cV9CQbuAHwr9OEp2ZgxoMmSV5lsmeHSqgbZVMDKzLA9rank
-Message-ID: <CAMRc=McYnNi0kUirdRS5EaEcOM_O04LssnK=NHQe3qG3wXcv2g@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: thermal: qcom,pm8775-mbg-tm: Document PMAU0102
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>, 
-	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Dhruvin Rajpura <drajpura@qti.qualcomm.com>, Daniel Lezcano <daniel.lezcano@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260831-shikra-upstream-v2-2-406661d75afa@oss.qualcomm.com>
 
-On Sun, 30 Aug 2026 12:10:25 +0200, Shawn Guo
-<shengchao.guo@oss.qualcomm.com> said:
-> From: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
->
-> Document MBG temperature monitor on PMAU0102 which is programming-model
-> compatible with the one on PM8775.
->
-> Signed-off-by: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+On Mon, Aug 31, 2026 at 12:56:02PM +0530, Sushrut Shree Trivedi wrote:
+> Add a dedicated schema for the PCIe controller found on the Shikra
+> platform.
+> 
+> Shikra controller supports upto PCIe Gen3 but the PHY is
+> only capable of Gen2, hence the max link speed  is limited
+> to Gen2 to avoid link-up failures.
+> 
+> Signed-off-by: Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>
 > ---
->  .../devicetree/bindings/thermal/qcom,pm8775-mbg-tm.yaml    | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
->
-> diff --git a/Documentation/devicetree/bindings/thermal/qcom,pm8775-mbg-tm.yaml b/Documentation/devicetree/bindings/thermal/qcom,pm8775-mbg-tm.yaml
-> index 2e084d040625..ef8361a55389 100644
-> --- a/Documentation/devicetree/bindings/thermal/qcom,pm8775-mbg-tm.yaml
-> +++ b/Documentation/devicetree/bindings/thermal/qcom,pm8775-mbg-tm.yaml
-> @@ -21,7 +21,12 @@ description:
->
->  properties:
->    compatible:
-> -    const: qcom,pm8775-mbg-tm
-> +    oneOf:
-> +      - const: qcom,pm8775-mbg-tm
-> +      - items:
-> +          - enum:
-> +              - qcom,pmau0102-mbg-tm
-> +          - const: qcom,pm8775-mbg-tm
->
->    reg:
->      maxItems: 1
-> --
-> 2.43.0
->
->
+>  .../devicetree/bindings/pci/qcom,shikra-pcie.yaml  | 218 +++++++++++++++++++++
+>  1 file changed, 218 insertions(+)
+> 
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+What is the difference in the binding against Eliza? IOW, why does this
+need a separate file unlike Eliza?
+
+...
+
+> +            reset-names = "pci";
+> +
+> +            power-domains = <&gcc GCC_PCIE_GDSC>;
+> +
+> +            max-link-speed = <2>;
+> +
+> +            operating-points-v2 = <&pcie_opp_table>;
+> +
+> +            pcie_opp_table: opp-table {
+> +                    compatible = "operating-points-v2";
+
+Are you sure dt-check-style does not complain?
+
+> +
+> +                    /* GEN 1 x1 */
+> +                    opp-2500000 {
+> +                            opp-hz = /bits/ 64 <2500000>;
+> +                            required-opps = <&rpmpd_opp_low_svs>;
+> +                            opp-peak-kBps = <250000 1>;
+> +                            opp-level = <1>;
+> +                    };
+> +
+
+Best regards,
+Krzysztof
+
