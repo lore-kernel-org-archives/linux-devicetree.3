@@ -1,102 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50DB42E7F20
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 13:15:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5791349C4A7;
+	Wed,  2 Sep 2026 13:16:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788354928; cv=none; b=bj/K8TW90sN2ahufIjtJzpkm3HLTME4+KMcz/Tk/Y7CaqnNeRuXecbETYr496Vb9f9qTnzve9grGyuz2tViyocyanfePzi9uSvoabR5yBUREUXrFl1b0KWmjIcizEj/Iyv1i9Yui4jgob8otbHN9DcjdfSHnZRNk59/DG7JnBto=
+	t=1788354987; cv=none; b=qiJLiK8OVqKsfRxw6XjJfhkbDsi2XQhwUEvAFZgqixZwJ3c2XZyqHbqyUeSXrBDzoqhfP/N/v96IqoAvqFMgSN4/8fGVSJOfLEJaxP+Mpuaz5/nX7GTm1eaWu/oU6FzaWGuiu6mui244oUewP24HAsSM1QVbahWSyijfQQFELbk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788354928; c=relaxed/simple;
-	bh=Nz+ejGUEBKOuoNRM+bk/mx/LGFc10/ZG34Ekx40Ccdo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FHyT3rSwRFsQ4JKUBCSQs42Gkq16Mr0ADyjtqGEOX/JOMHtr4nYarhJlttl6mIsvmWetvle1bo2949f7gbib1doSppWUcu2Sp/cFw4maOIFlVkjzgN1m6zw88jF5i2M4DlYLPKIEQewX4jtpxFUcEocN/vkeBiijEsSjo55GrVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ba/9RJNj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788354987; c=relaxed/simple;
+	bh=nZM6a7sRN8nf5e2sER84BlR+c03HLKK34Enpqkes2GM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=t4FDaNWTQbU10hcizx2gybJWU6UXz4Fz6wFvu4h7QyV2g46SRD3C5qoTDNRFt4hupkIFMBxs+vXYiJ87tPirf4auixKYBq9zJaKKLReQ+qyMgwDYamGvz7cCi4oQgM94ntpcDpN1fc0RSfQBFl3rV3Nu0G+QJHikBEP/n+db+Dk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FrinuvsG; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ba/9RJNj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3A941F00A3D;
-	Wed,  2 Sep 2026 13:15:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788354926;
-	bh=MvVTWHru7oTxmoETB/QTMFC/CYRwHzUT5rI+gzfJ+l0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ba/9RJNj155MSUTGbsYaY/Pe5sCPO6HWgio23d9LSf7eo647wJMt8tXasxWR5UEEU
-	 /y/62vtz5scvRj+Bfyau91rlSW2xH8JukShKPSZDgCAiK4kFDl+rY0iglUHPtlD/g4
-	 VCNmXUqdmgHuEE3Hg1EA/Pvkptnm3pSiTUyJTNApaOCA2ki4WQ1AUmeRLhH20tFpkL
-	 pAbiDWA4mau5r6ar5fLFyZi2qAn2dq0rQ7qAnbYtQPVtCsOOgq/JvH3o2kZ5125CY2
-	 Qxepxgwo5/3jm4JiRzM7Cuo6OgIkA5isFXp9d9RFBiJF621PlufdhgG1ZsWe3Cgo89
-	 pt/fj5uorPv5A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/4] dt-bindings: nvmem: layouts: Add Rockchip OTP
- CPUID layout
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alexey Charkov" <alchark@flipper.net>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260902-rk3576-otp-cpuid-mac-v2-2-e4b7fe2ab13f@flipper.net>
-References: <20260902-rk3576-otp-cpuid-mac-v2-0-e4b7fe2ab13f@flipper.net>
- <20260902-rk3576-otp-cpuid-mac-v2-2-e4b7fe2ab13f@flipper.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 13:15:26 +0000
-Message-Id: <20260902131526.A3A941F00A3D@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FrinuvsG"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DCD83165C;
+	Wed,  2 Sep 2026 06:16:20 -0700 (PDT)
+Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A30C93F85F;
+	Wed,  2 Sep 2026 06:16:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788354984; bh=nZM6a7sRN8nf5e2sER84BlR+c03HLKK34Enpqkes2GM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=FrinuvsGBjiqHG1fKHbjKVEc/tKXqp0wtshEmnfvUjyjLyTELzodoJkGmRzzJ1gFw
+	 dlS+RVttkI/+NxV494zJEE89bioVbeUa4vQhe3Ebb2Ig0xYg7U5M3KyG5GBlWufJeX
+	 S4urs7c71875WgziJfgKtHzFPOLDU09DaekDR3kY=
+Message-ID: <bd59c8b4-6b29-494d-b540-8feed38d0955@arm.com>
+Date: Wed, 2 Sep 2026 15:16:19 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 09/15] arm_mpam: Fix MSC MMIO window size to use
+ resource_size() instead of end - start
+To: Yin Li <yin.li@oss.qualcomm.com>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Shanker Donthineni <sdonthineni@nvidia.com>,
+ Conor Dooley <conor+dt@kernel.org>, Fenghua Yu <fenghuay@nvidia.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ Reinette Chatre <reinette.chatre@intel.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, James Morse <james.morse@arm.com>,
+ Ben Horgan <ben.horgan@arm.com>, Bjorn Andersson <andersson@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-arm-msm@vger.kernel.org, ganapatrao.kulkarni@oss.qualcomm.com,
+ trilok.soni@oss.qualcomm.com, devicetree@vger.kernel.org,
+ driver-core@lists.linux.dev, Srivathsa L Rao
+ <srivathsa.rao@oss.qualcomm.com>, Huang Yiwei
+ <huang.yiwei@oss.qualcomm.com>, aiqun.yu@oss.qualcomm.com,
+ linux-kernel@vger.kernel.org
+References: <20260811-mpam-resctrl-dt-knp-support-v1-0-ea6397bead59@oss.qualcomm.com>
+ <20260811-mpam-resctrl-dt-knp-support-v1-9-ea6397bead59@oss.qualcomm.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20260811-mpam-resctrl-dt-knp-support-v1-9-ea6397bead59@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The 'mac-address' NVMEM cell node provides phandle arguments but=
- omits '#nvmem-cell-cells' from its required list.
---
+Hi,
 
-commit fcf6d128e83a760e02cdd15150b742b14d86fe0d
-Author: Alexey Charkov <alchark@flipper.net>
+On 8/11/26 15:30, Yin Li wrote:
+> struct resource uses an inclusive end address, so the correct size is
+> end - start + 1. The previous calculation of end - start was off by one,
+> resulting in a mapped window one byte smaller than the actual resource.
+> Use resource_size() which correctly computes end - start + 1.
 
-dt-bindings: nvmem: layouts: Add Rockchip OTP CPUID layout
+Yes, thanks for catching this and making a patch. We found this 
+independently during other MPAM work, but no one got around to make a 
+patch ;-)
 
-This commit introduces a new NVMEM layout binding for the Rockchip OTP CPU =
-ID.
-It describes how the CPU ID is used to derive a stable Ethernet MAC address
-and provides the corresponding device tree schema.
+> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
 
-> diff --git a/Documentation/devicetree/bindings/nvmem/layouts/rockchip,rk3=
-576-otp-cpuid.yaml b/Documentation/devicetree/bindings/nvmem/layouts/rockch=
-ip,rk3576-otp-cpuid.yaml
-> new file mode 100644
-> index 0000000000000..85153d480950a
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/nvmem/layouts/rockchip,rk3576-otp=
--cpuid.yaml
-[ ... ]
-> +properties:
-> +  compatible:
-> +    const: rockchip,rk3576-otp-cpuid
-> +
-> +  mac-address:
-> +    type: object
-> +    description:
-> +      MAC address derived from the CPU ID. The first argument of the pha=
-ndle
-> +      selects one of the two addresses that can be derived (can be 0 or =
-1).
-> +
-> +    properties:
-> +      "#nvmem-cell-cells":
-> +        const: 1
-> +
-> +    additionalProperties: false
+Reviewed-by: Andre Przywara <andre.przywara@arm.com>
 
-[Severity: Medium]
-Since the mac-address NVMEM cell node provides phandle arguments and defines
-#nvmem-cell-cells, should it also be included in a required list for this
-node to enforce its presence?
+So this patch is independent from and non-conflicting with the DT work, 
+so either Ben or James pick this one directly, or you put those kind of 
+fixes first in the series, when you repost.
 
-Without this, incomplete mac-address nodes in device trees might silently
-pass dt-schema validation but fail at runtime when the kernel attempts to
-parse the NVMEM cell phandle arguments.
+Cheers,
+Andre
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902-rk3576-otp=
--cpuid-mac-v2-0-e4b7fe2ab13f@flipper.net?part=3D2
+> ---
+>   drivers/resctrl/mpam_devices.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+> index 1e082fb60e30..5d1854d97371 100644
+> --- a/drivers/resctrl/mpam_devices.c
+> +++ b/drivers/resctrl/mpam_devices.c
+> @@ -2296,7 +2296,7 @@ static struct mpam_msc *do_mpam_msc_drv_probe(struct platform_device *pdev)
+>   			dev_err_once(dev, "Failed to map MSC base address\n");
+>   			return ERR_CAST(io);
+>   		}
+> -		msc->mapped_hwpage_sz = msc_res->end - msc_res->start;
+> +		msc->mapped_hwpage_sz = resource_size(msc_res);
+>   		msc->mapped_hwpage = io;
+>   	} else {
+>   		return ERR_PTR(-EINVAL);
+> 
+
