@@ -1,113 +1,177 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AB6A35C1B1
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 15:04:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F93F4756BC
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 15:04:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788361481; cv=none; b=CTclyS5SuEa8NyuBTYuF3LjZVyV5O4oeK4s9Ad4ZRZKJUyfTYpFgQ37IKejMkaTheLpRsLxItgTgsf6LlsDyrk7Kbs3d1mGXH5+8X+oCe9Iycz38mXdWzF/YHYUQ1F5cBc7DP4OCKiWq25NvYVad9RUj4E62p0b/CIGFiFUoWwA=
+	t=1788361483; cv=none; b=WG29G+VOabsNeazZNm59QEaKw3fUsouoPcV2zxK36iDRSAnZIQWFMmIyGxxmZPT2LSIdVY5EdIX/0Hi8F6CIuNkKdY2o/CjTm/86BUXurAOCrEo9NmYPxlX4qd2iAPxGPLmK5m1wRNqsPfvTvt8gWy8JQctv0j8GFB8wWgpoJKo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788361481; c=relaxed/simple;
-	bh=GMBkObuzXfAHc7IvLNOn6y0gfD1fupFHxPmTioA84CM=;
+	s=arc-20240116; t=1788361483; c=relaxed/simple;
+	bh=i8b2ZXycbfI7qdPyjjksQq660vaX0USUrVtV7VtYXv0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pwG6k14O/9RPwl5cDr7T1qsGYDKk8ejU8JeYKHRXTaqEMN/QJzX7Fu8wLZ+bmoFkXsWKGU0ZDi8DMq3t0FRG61tknUpn1WXH59jISctQM185lPhWGoav7fTegh4P12aV9WmXA9EYnigZzn+8vSiD0hKiueK59TxcVR253vf5qjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nfZ+3A1k; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=r6/qCRy0GI+0lm0SiyyqFyDE3kIuNhBilC3RZSx+D85XA0doss2MkS6AHVeza6YaHdyvCGI/W0UZCt9qmb1JtZv3Khl6xNBCT/mxmREKwsmfPuJLEPqLs3CVftDD8QMJszWHEwzkUXmA9YELUkNvV2OMD+RrpMiTH4f49Cw9djA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EVp2tHeL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nfZ+3A1k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F9C91F000E9;
-	Wed,  2 Sep 2026 15:04:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EVp2tHeL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78D631F00A3D;
+	Wed,  2 Sep 2026 15:04:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788361479;
-	bh=aa1jx8xU+AUP+tXE7YiXLIev4mWWNND1A1Q+YE2NzJM=;
+	s=k20260515; t=1788361480;
+	bh=NrEaz8Hs37xTwtroVZTY6Rcu69Y35SJeCNKFrozoP70=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nfZ+3A1k4VZzmXQM0L+fNni3OPqy1Wk6vjYl1SQktfjBJ1rGXiuyNJn2CcE7+9Xzw
-	 PD8TorrciyyaPQ1sXAsoReEza9a9eOkRcn5sue+42fFHkoIZ/VAz3KW80ujT+B53tW
-	 NjztufZUvYFpkRpQN5sUy8Dss7izUIv/65mUO/w15dYq5q29OeYOe79bLmIOvkRIGN
-	 4NAyhHwpGE6DyhGvw/GKAqodZTeYh4K8qS8YSxPEvHmP5Be6R7CAE2bbcgg/ztXpMI
-	 eiXXHeHZ5m4SxXvDMro/fNo7XMT0rfG2ikrL1UP0X/sJN8MhzFhNdZsx6f63zrDOC8
-	 peh5MSCvkHq6w==
+	b=EVp2tHeL0cbIel3ysGxML7/ZtagND1/g9KqNeCV42bJ9XTbDBc7mbO5yU2+bsvaPa
+	 uYzaksXOiqOV0RTQheqk/ZDXjG3c2aiODnkSBJoW/fXUpz3+zfUCl3Dwb6bj8WGIOl
+	 thH4cnHNmNBtO9XHeO4BAqhP1MCkYW3/IZ4AlszYK6E+eFQbLkI9OwwggKObfIjpJ9
+	 lLYcwaad7hlRwakzlXWG7AdHsvGM/qBSvLo0z7qiQvg0Bizzhu05mQKhnnSf2qY6Hl
+	 aZxHIHk2Rav02Fz+D+4PWXlR/nenEu49hG9x25Kd/YqCo4jE4YuJ8MjQWoB2AQ9qIm
+	 cnchodNhbQVXg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v3 06/10] net: pcs: xpcs: add ANRESTART support
- for SGMII link recovery
+Subject: Re: [PATCH net-next v3 07/10] net: pcs: xpcs: add Rockchip RK3568
+ platform glue driver
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Coia Prant" <coiaprant@gmail.com>
-Cc: olteanv@gmail.com, neil.armstrong@linaro.org, vkoul@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20260901150111.141037-7-coiaprant@gmail.com>
+Cc: neil.armstrong@linaro.org, linux-phy@lists.infradead.org, olteanv@gmail.com, vkoul@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20260901150111.141037-8-coiaprant@gmail.com>
 References: <20260901150111.141037-1-coiaprant@gmail.com>
- <20260901150111.141037-7-coiaprant@gmail.com>
+ <20260901150111.141037-8-coiaprant@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 15:04:38 +0000
-Message-Id: <20260902150438.6F9C91F000E9@smtp.kernel.org>
+Date: Wed, 02 Sep 2026 15:04:40 +0000
+Message-Id: <20260902150440.78D631F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] State getter `xpcs_get_state_c37_sgmii` mutates hardware state (re=
-starting autonegotiation) and applies a hardware-specific workaround univer=
-sally to all platforms.
+- [High] Hardware clock gated while MDIO bus is still active, leading to SE=
+rror panic
+- [High] TOCTOU race in xpcs_rk_create() allows use-after-free of MDIO bus
+- [High] Missing PM dependency causes SError crash when CONFIG_PM is disabl=
+ed
+- [High] Unbalanced pm_runtime_disable() depth permanently breaks device on=
+ rebind
+- [Low] Build failure due to split composite module when CONFIG_PCS_XPCS=3Dm
 --
 
-commit 71d0b44c6ef52210f70310761abecf6962cd887a
+commit 813e502fc8133a43782c6cdc92f677a818bf8605
 Author: Coia Prant <coiaprant@gmail.com>
 
-net: pcs: xpcs: add ANRESTART support for SGMII link recovery
+net: pcs: xpcs: add Rockchip RK3568 platform glue driver
+   =20
+The RK3568 SoC integrates a Synopsys DesignWare XPCS accessed via APB3
+memory-mapped registers. This driver provides the glue logic to make the
+XPCS accessible to the generic pcs-xpcs core.
+   =20
+Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TRM%=
+20Part2%20V1.1-20210301.pdf
 
-This commit introduces support for restarting autonegotiation on the Design=
-Ware
-XPCS IP to handle link recovery on platforms like the RK3568 MAC side SGMII.
-
-> diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
-> index 0337e2bcc0125..50b9cdf94fdaa 100644
-> --- a/drivers/net/pcs/pcs-xpcs.c
-> +++ b/drivers/net/pcs/pcs-xpcs.c
+> diff --git a/drivers/net/pcs/Kconfig b/drivers/net/pcs/Kconfig
+> --- a/drivers/net/pcs/Kconfig
+> +++ b/drivers/net/pcs/Kconfig
+> @@ -12,6 +12,29 @@ config PCS_XPCS
 [ ... ]
-> @@ -1093,10 +1098,15 @@ static int xpcs_get_state_c37_sgmii(struct dw_xpc=
-s *xpcs,
->  		return 0;
->  	}
-> =20
-> -	/* Clear AN complete status or interrupt */
-> -	if (state->an_complete)
-> +	if (state->an_complete) {
-> +		/* Clear AN complete status or interrupt */
->  		xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INTR_STS, 0);
-> =20
-> +		/* Initiate the next round of AN */
-> +		xpcs_modify(xpcs, MDIO_MMD_VEND2, MII_BMCR, BMCR_ANRESTART,
-> +			    BMCR_ANRESTART);
-> +	}
-> +
+> +config PCS_XPCS_ROCKCHIP
+> +	tristate "Rockchip XPCS controller support"
+> +	default ARCH_ROCKCHIP
+> +	depends on OF && (ARCH_ROCKCHIP || COMPILE_TEST)
 
 [Severity: High]
-Does this mutation inside xpcs_get_state_c37_sgmii violate the phylink API
-semantics, which typically require state getters to be side-effect free?
+Is this missing a PM dependency?
 
-Because the phylink_resolve workqueue polls the state periodically when the
-link is down, won't this cause the getter to constantly restart the
-autonegotiation state machine and generate continuous MDIO traffic?
+If the kernel is built with CONFIG_PM disabled, pm_runtime_resume_and_get()
+returns 0 without enabling the hardware clock. This could lead to a
+synchronous external abort (SError) when the unclocked APB registers are
+subsequently accessed in xpcs_rk_read_reg().
 
-For instance, when the SGMII PHY drops the copper link, it sends an SGMII
-config word with link=3D0. The MAC completes autonegotiation based on this =
-word,
-meaning state->an_complete is true but state->link is false, which triggers
-this exact path.
+> diff --git a/drivers/net/pcs/Makefile b/drivers/net/pcs/Makefile
+> --- a/drivers/net/pcs/Makefile
+> +++ b/drivers/net/pcs/Makefile
+> @@ -1,10 +1,9 @@
+>  # SPDX-License-Identifier: GPL-2.0
+>  # Makefile for Linux PCS drivers
+> =20
+> -pcs_xpcs-$(CONFIG_PCS_XPCS)	:=3D pcs-xpcs.o pcs-xpcs-plat.o \
+> -				   pcs-xpcs-nxp.o pcs-xpcs-wx.o
+> -
+> -obj-$(CONFIG_PCS_XPCS)		+=3D pcs_xpcs.o
+> +obj-$(CONFIG_PCS_XPCS) +=3D pcs-xpcs.o pcs-xpcs-nxp.o pcs-xpcs-wx.o
 
-Additionally, does this apply an RK3568-specific workaround unconditionally=
- to
-all Generic DW XPCS controllers? Standard MAC-side SGMII automatically hand=
-les
-link state updates via the SGMII config word without needing manual AN
-restarts. Could this override that conformant behavior on other platforms?
+[Severity: Low]
+Does this syntax create separate modules instead of a composite module?
 
->  	return 0;
->  }
->
+Because pcs-xpcs.c references functions like nxp_sja1105_sgmii_pma_config
+defined in pcs-xpcs-nxp.c without EXPORT_SYMBOL being present, creating
+separate modules will break symbol resolution and cause modpost linkage
+failures when CONFIG_PCS_XPCS=3Dm.
+
+> diff --git a/drivers/net/pcs/pcs-xpcs-rk.c b/drivers/net/pcs/pcs-xpcs-rk.c
+> --- /dev/null
+> +++ b/drivers/net/pcs/pcs-xpcs-rk.c
+[ ... ]
+> +static int xpcs_rk_init_clk(struct dw_xpcs_rk *pxpcs)
+> +{
+[ ... ]
+> +	pm_runtime_set_suspended(dev);
+> +	ret =3D devm_pm_runtime_enable(dev);
+
+[Severity: High]
+This devm action schedules pm_runtime_disable() to run during devres
+cleanup on device removal.
+
+[ ... ]
+> +static void xpcs_rk_remove(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	pm_runtime_force_suspend(&pdev->dev);
+> +}
+
+[Severity: High]
+Will calling pm_runtime_force_suspend() here cause an unbalanced disable
+depth?
+
+Since pm_runtime_force_suspend() internally calls pm_runtime_disable(), the
+disable depth is incremented twice during removal (once here, and once
+during the devres cleanup). When the driver is rebound, it will only be
+decremented once, leaving the depth at 1 and permanently breaking runtime
+PM hardware access.
+
+[Severity: High]
+Can a concurrent sysfs MDIO access race with xpcs_rk_remove() and crash the
+system?
+
+Because the MDIO bus is registered with devm_mdiobus_register(), it remains
+active and accessible until devres cleanup runs after xpcs_rk_remove()
+returns. Calling pm_runtime_force_suspend() gates the hardware clock while
+the MDIO bus is still exposed to userspace. A concurrent sysfs read could
+increment the usage counter, call into xpcs_rk_read_reg(), and execute
+readl() on unclocked hardware, triggering an SError panic.
+
+[ ... ]
+> +struct dw_xpcs *xpcs_rk_create(struct device *dev, struct device_node *n=
+p)
+> +{
+[ ... ]
+> +	xpcs =3D xpcs_create_mdiodev(pxpcs->bus, (int)port);
+> +	device_unlock(&pdev->dev);
+> +	if (IS_ERR(xpcs)) {
+> +		put_device(&pdev->dev);
+> +		return xpcs;
+> +	}
+> +
+> +	if (!device_link_add(dev, &pdev->dev, DL_FLAG_AUTOREMOVE_CONSUMER)) {
+
+[Severity: High]
+Is there a race window between device_unlock() and device_link_add()?
+
+If a concurrent unbind of the supplier proceeds after the lock is dropped
+but before device_link_add() creates the dependency, the devm-managed
+pxpcs->bus could be torn down and freed. This would allow the MAC driver
+to continue probing with a freed MDIO bus, leading to a use-after-free.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901150111.1410=
-37-1-coiaprant@gmail.com?part=3D6
+37-1-coiaprant@gmail.com?part=3D7
