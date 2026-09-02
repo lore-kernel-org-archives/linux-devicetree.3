@@ -1,147 +1,225 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f1.google.com (mail-pz2-f1.google.com [74.125.228.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16AEA3CEBA6
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 07:14:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 037C137B407
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 07:31:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788333257; cv=none; b=p+1cBWeENTRiPP5lK1WuYQHnT8Cidj3spJBs3ZBq9O2n0wB9VS/IbmvDGckvW/yIV98RI8pD+Mg3YZ8pocu0akT+jm6SPyZiOWRyes6ntRdhnJN5Y+jjsUfjeXx7RaLTpyei5KuWlmt9XuZN/fl4vIMNe5WgLdCG9dvKPTtoedg=
+	t=1788334295; cv=none; b=DZ39ghB+wea2MrpdVWQbqs0ciD64+0tKnk73PHp5nEq6a3hTrYvrQBxcFE5yp6nW9N+KwOOplwUrSEYCrd9euFNSGaynWTrAu/MXqzIZDYx3UDXZzoZEM18LQiZxeaUOm8aHH+jaODIMMm3hTsmaPif6/p6hMiUpqmQqWHl8aS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788333257; c=relaxed/simple;
-	bh=wNBPOurSqe5BCVCQdh7MS2Zi0ZyPwDhDcqeCJTCQhig=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GwegvTOWb/bjxW4w5eiSHENopebKP8HR9jVBpP7KWa2G9bKOGfNIuH4AMePcGlXdvrwrq/JskO2d2rB+8YYbkfONn9FuhAG9vI1x6mMYg+PLm1xfXGdPjT256PP319GvfEG6O6XXtwCJezbtN6fKNuCpkINPYTy9dj+xK8b4AWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X+a5cHu3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788334295; c=relaxed/simple;
+	bh=RWIEXwoFCLRI4LG31OsYGEbdius9ZAooyaqbm1078lw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=c4D5eBveXA0Ln4QrDf8Uietu/paLDLHuglYO7ludoWzdEtCza1WeBTjhsgxarbj5GVSKOo0S2JaHX5zJmcu7jFSdoKA5NRo7sn8lh8rTlk0j2PcWxNSgdWGF0HyvcKc9Y9OmdJ1zGk2r2wfPMFyuOT8MEIgCyOt6AXsxbhEc/bI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hxrdkzj4; arc=none smtp.client-ip=74.125.228.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X+a5cHu3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C14541F000E9;
-	Wed,  2 Sep 2026 07:14:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788333255;
-	bh=moiZxr+pfezDzfaTEGTf8e3x6R6sdv2lj4rRcWkn/YA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=X+a5cHu3bhwaM01eWqRRGmgmibmfM6Bfh3ki883wktpqfaGb19QB31ts9kzZdDPGi
-	 uXzsCLVU15uLlai3+o0+4oc03dg2d3m3FvACeArgCy2cFUmOJ1UrQpgBqDZj5Q5KBX
-	 M0E6TPQmskWhk5IGPCCH7aEgfLppM6WNi4Rz0mhgH3PHTZb018bTgP165SPOMQJIPh
-	 KwCk2n89zyzpgL3+f5ZDtJBNX3ObK0EKBLlsKrpE7fhAHT7WAlBgTUZXVtbXB7wQW3
-	 RNiAQnBHxY0G9Y+d325S1KGEjho5OFsjHmCWpQOTpxhPqNX2ljixMPCXO2AVOwJPCs
-	 /MIh+PWF8qkYw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] mmc: sdhci-of-k1: Set clock-frequency of io clock
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yixun Lan" <dlan@kernel.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260902-07-k3-sdhci-dts-v1-3-4e7909cf4233@kernel.org>
-References: <20260902-07-k3-sdhci-dts-v1-0-4e7909cf4233@kernel.org>
- <20260902-07-k3-sdhci-dts-v1-3-4e7909cf4233@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 07:14:14 +0000
-Message-Id: <20260902071414.C14541F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hxrdkzj4"
+Received: by mail-pz2-f1.google.com with SMTP id 41be03b00d2f7-ca7a25cd87dso588234a12.1
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 00:31:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788334293; x=1788939093; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=B5vjeiQCLsTjdZkQJr1qZRy9fU+p/hRxqt/dZCpjN/k=;
+        b=Hxrdkzj4sZf7oznppS69J7rfALXljon7BZK8NmPK/qy3WPXlxg3H4PC6uRrG+SZYrY
+         g0TehGywLiXDiqbXDvv5FAQmpsAJZ0s6vkYs60lp5mby+tLj5eGJzsuYIpnMBjubcrcU
+         oSl5ALGLtZSLxVBfvmoTBBly+tIGSVyibIrNZXvRsk7n+76or1Cx3VEThtaW8bGXT+MD
+         RCWS2x1rOygMBeINdeMThapXprz+5+dsv1f5xdA2ddw8wgKmT37DzAMbPiRsnS2/Pytx
+         RxfmGpGLnhF4bZ6e0I5g7KiRQpsrKnZIPNzz7n/e8lMd0hN7Km4QIWMFZ5+KNZWclFOY
+         3blA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788334293; x=1788939093;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=B5vjeiQCLsTjdZkQJr1qZRy9fU+p/hRxqt/dZCpjN/k=;
+        b=cBIvLoIucZwO0/mCdFHCFQVveFvYSGZQuV5WbPTVPfGB/1H2M/uARGZSMAglogCdbj
+         60/eY5eDQVLjDbt/u+20kMpwr7vUehRxBojbv4/fFi/mELBiMdgI9rwJRWhIUfcfvXW7
+         6GCORTkeZ+Jj6q9ua03Fuc0R4H2xDK/HP5Qo8sTt2qs/L86aMpc7v7WAxx9QtC67tvDt
+         nMGGU3t4TZ2h0GOH4CvhroJoQVZcpWYhku5TpIoX27lVUkIFAZd35/aND0m4iQaP3oMe
+         3993Jq1TICOChnkNU6HbLLhE3KI7pOggTsPCIBNkofGOaPBy1jNkEsmh2yaXdOXPZtS1
+         kFvQ==
+X-Forwarded-Encrypted: i=1; AKwUvByDr7mXVM5C9M9AleC+s4/a8wGivdK7odUSCI2RUh/3y9CIaL6kZi+4Dmuj5C9KTs416q/6/y/JxvmE@vger.kernel.org
+X-Gm-Message-State: AFuF++mdfKNI+2OxWQsSktcCnPGh/4LLy/Qb+TsWZ2sNPzfFUjRuNOi5
+	hBvja4620c0kfa9M001qIiZqE2QztkMEMl2UxkFvBPFfyQVDAZhIpDJF
+X-Gm-Gg: AYBFou2Wi/HyaxW7lXgG5RYbADqeQDOkuFQK+nDoH4fFlfG9oaFgVS2N0yk3J3yC+E6
+	OWh1anyoZi8Dz0jTJt8yaPKV3TR+K+PlKhW34wdpm7mzqy4sUJsHhtoQwMRHCwEaPtD5DkiaUkf
+	nhByK4ZBb0HFivpMTCwfINbUspGJVfwLYnwqOWfQdGCBoUYmil6Z8JuaQ3TWHeMRwinTBNtLYTJ
+	eD+hGZb4FN747uMLyxupTqVdKhs98jE2SenAPOklSGP60QfL65jeTUI9xgWaA2X617h1kc8GL7J
+	9l0dEl5XL7sHQOL6YSQBjBZ/cJSRSPlpDR5PpVQ2S5W6++bmPIPSFflW1qLR0iUp+Qx6ApPjF3y
+	OW9wAUvJ95NowCUa95Z5v7jDD5Ll5Fs7kAfmG9IxBQ9T0F7SnUAgnqMltRuS+ektRDQldwcyFyw
+	yLE8sQlJlcbGFRtkAM6vtT7ragWnh0zO7kVnmqurLVpLVDsu8/m8SlxSsyJUfwDamu+fHsq+q7
+X-Received: by 2002:a05:6a00:148e:b0:847:893f:2d0c with SMTP id d2e1a72fcca58-85ed1d0414dmr5028771b3a.5.1788334293213;
+        Wed, 02 Sep 2026 00:31:33 -0700 (PDT)
+Received: from intel.company.local ([122.11.210.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85db2adcbedsm926914b3a.20.2026.09.02.00.31.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 00:31:32 -0700 (PDT)
+From: Wandun Chen <chenwandun1@gmail.com>
+To: catalin.marinas@arm.com,
+	will@kernel.org,
+	chenhuacai@kernel.org,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	x86@kernel.org,
+	robh@kernel.org,
+	saravanak@kernel.org,
+	akpm@linux-foundation.org,
+	baoquan.he@linux.dev,
+	rppt@kernel.org,
+	pasha.tatashin@soleen.com,
+	pratyush@kernel.org,
+	m.szyprowski@samsung.com
+Cc: mark.rutland@arm.com,
+	kernel@xen0n.name,
+	alex@ghiti.fr,
+	hpa@zytor.com,
+	ruirui.yang@linux.dev,
+	robin.murphy@arm.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	kexec@lists.infradead.org,
+	linux-mm@kvack.org,
+	iommu@lists.linux.dev
+Subject: [PATCH v6 00/10] kdump: reduce vmcore size and capture time
+Date: Wed,  2 Sep 2026 15:31:06 +0800
+Message-ID: <20260902073116.802752-1-chenwandun1@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+From: Wandun Chen <chenwandun@lixiang.com>
 
-New issues:
-- [Medium] Missing check for `clk_set_rate()` return value, masking configu=
-ration failures.
+On SoCs that carve out large firmware-owned reserved memory (GPU,
+camera ISP, ...), kdump currently dumps those carveouts as part of
+system RAM even though their contents are firmware state that is not
+useful for kernel crash analysis.
 
-Pre-existing issues:
-- [High] Breaking probe deferral by obscuring `devm_clk_get_enabled()` erro=
-r codes with `-EINVAL`.
-- [High] Probe deferral is broken for pinctrl due to unconditionally ignori=
-ng all errors.
---
+This series introduces a MEMBLOCK_NODUMP flag in memblock to filter
+reserved memory on DT-based architectures (arm64, riscv, loongarch).
+Reserved regions default are marked MEMBLOCK_NODUMP so kdump omits them;
+reusable CMA regions are different because their pages are handed back
+to the buddy allocator and may carry crash-relevant data.
 
-commit 9748f01c4f206e03365b12c3c2ceed5bed26c9c0
-Author: Long Wan <long.wan@linux.spacemit.com>
+ACPI systems already filter reserved memory out of the vmcore through
+their existing path; only DT-based systems currently fail to filter these
+regions, which is what this series addresses. The flag lives in memblock
+itself rather than in a DT-only structure, so the mechanism is generic and
+both ACPI and DT systems can benefit from it (suggested by Rob, thanks) [1].
 
-mmc: sdhci-of-k1: Set clock-frequency of io clock
+Since the reserved memory regions are filtered out, the vmcore is
+smaller in size and faster to produce. 
 
-Add a clock-frequency property to set the rate of io clock, for SDIO
-case, a clock frequency need to propagate down early.
+The series is based on linux-next and is organized as follows:
 
-> diff --git a/drivers/mmc/host/sdhci-of-k1.c b/drivers/mmc/host/sdhci-of-k=
-1.c
-> index 37b0911e7cf20..e6ab40c9a5551 100644
-> --- a/drivers/mmc/host/sdhci-of-k1.c
-> +++ b/drivers/mmc/host/sdhci-of-k1.c
-> @@ -438,6 +438,8 @@ static inline int spacemit_sdhci_get_clocks(struct de=
-vice *dev,
->  					    struct sdhci_pltfm_host *pltfm_host)
->  {
->  	struct spacemit_sdhci_host *sdhst =3D sdhci_pltfm_priv(pltfm_host);
-> +	struct device_node *np =3D dev->of_node;
-> +	u32 freq;
-> =20
->  	sdhst->clk_core =3D devm_clk_get_enabled(dev, "core");
->  	if (IS_ERR(sdhst->clk_core))
->  		return -EINVAL;
+Patches 1-4: Preparation and bugfixes: fix the missing HugeTLB
+             flagname, switch riscv crash_mem to memblock, fold the
+             duplicated per-arch memblock walks into the weak
+             defaults, and serialize crash header preparation against
+             memory hotplug.
+Patches 5-9: NODUMP infrastructure: switch crash_core to
+             for_each_mem_region(), introduce the MEMBLOCK_NODUMP
+             flag, add a dumpable flag to struct reserved_mem, and
+             mark /reserved-memory and /memreserve/ entries with
+	     MEMBLOCK_NODUMP flag.
+Patch 10:    Exclude MEMBLOCK_NODUMP regions from the vmcore ELF
+             header.
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does returning -EINVAL here
-break probe deferral? If devm_clk_get_enabled() in spacemit_sdhci_get_clock=
-s()
-(drivers/mmc/host/sdhci-of-k1.c) returns -EPROBE_DEFER, returning -EINVAL w=
-ill
-cause the probe to fail permanently. Should this propagate
-PTR_ERR(sdhst->clk_core) instead?
+In v5, Sashiko found some pre-existing issues related to reserved-memory,
+and has no dependency on this series, so these issues have been addressed
+in a separate series [2].
 
-> =20
->  	sdhst->clk_io =3D devm_clk_get_enabled(dev, "io");
->  	if (IS_ERR(sdhst->clk_io))
->  		return -EINVAL;
+v5 --> v6:
+1. Serialize crash header preparation against memory hotplug to avoid
+   out-of-bounds or use-after-free issues.
 
-[Severity: High]
-This is a pre-existing issue, but does this also break probe deferral for t=
-he
-same reason? Should we propagate PTR_ERR(sdhst->clk_io) in
-spacemit_sdhci_get_clocks() instead of returning -EINVAL?
+2. MEMBLOCK_NODUMP marking is now done after memblock allows resizing,
+   avoiding a panic from too few regions before resize is permitted.
 
-> =20
-> +	if (!of_property_read_u32(np, "clock-frequency", &freq))
-> +		clk_set_rate(sdhst->clk_io, freq);
+3. Reordered the patches, put pre-existing bugfixes earlier in the series.
 
-[Severity: Medium]
-Does this code silently ignore clock configuration failures? If clk_set_rat=
-e()
-in spacemit_sdhci_get_clocks() (drivers/mmc/host/sdhci-of-k1.c) fails and
-returns an error code (for instance, if the frequency is unsupported or
-rejected by CLK_SET_RATE_GATE), the failure is masked. Should we check the
-return value and handle potential configuration failures?
 
-> +
->  	pltfm_host->clk =3D sdhst->clk_io;
-> =20
->  	return 0;
+v4 --> v5:
+1. Rework the mechanism around a memblock-level MEMBLOCK_NODUMP flag
+   (suggested by Rob) instead of the v4 opt-in 'dumpable' flag on
+   DT-only struct reserved_mem.
+2. Switch the riscv vmcore elf header preparation to use memblock
+   instead of the resource tree, aligning it with arm64 and loongarch,
+   so riscv also can exclude reserved memory from vmcore.
+3. Deduplicate the vmcore elf header preparation: arm64, riscv and
+   loongarch open-coded the same logic, so fold it into shared
+    __weak defaults in crash_core.
+4.  Drop the v4 patch that saved /memreserve/ entries into the
+    reserved_mem array; /memreserve/ is now marked MEMBLOCK_NODUMP
+    directly.
 
-While reviewing the file, I noticed another pre-existing issue in
-spacemit_sdhci_get_pins():
+v3 --> v4:
+1. Rebase this series on v7.2-rc1.
+2. Add two cleanup patches (patch 02/03).
+3. Simplify patch 03 to avoid checking whether initial_boot_params is
+   NULL multiple times, suggested by Rob.
 
-drivers/mmc/host/sdhci-of-k1.c:spacemit_sdhci_get_pins() {
-    [ ... ]
-	sdhst->pinctrl =3D devm_pinctrl_get(dev);
-	if (IS_ERR(sdhst->pinctrl)) {
-		sdhst->pinctrl =3D NULL;
-		dev_dbg(dev, "pinctrl not available, voltage switching will work without =
-it\n");
-		return;
-	}
-    [ ... ]
-}
+v2 --> v3:
+1. Fix out-of-bounds issue if device tree lacks /reserved-memory node.
+2. Fix UAF issue when alloc_reserved_mem_array() fails.
+3. Add some prepare patches.
 
-[Severity: High]
-This is a pre-existing issue, but does this code break probe deferral for
-pinctrl by unconditionally ignoring all errors? If devm_pinctrl_get() in
-spacemit_sdhci_get_pins() (drivers/mmc/host/sdhci-of-k1.c) returns
--EPROBE_DEFER, the driver will treat it as if no pin controller is present.
-Should we check for and propagate -EPROBE_DEFER?
+v1 --> v2:
+1. v1 added an opt-out DT property ('linux,no-dump'). Per Rob's
+   feedback [3], v2 drop that property and exclude reserve memory
+   by default.
+2. Split some prepared patches from the original patches.
+3. Address coding-style comments on patch 5 from Rob.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902-07-k3-sdhc=
-i-dts-v1-0-4e7909cf4233@kernel.org?part=3D3
+[1] https://lore.kernel.org/lkml/20260723234126.GA3253409-robh@kernel.org/
+[2] https://lore.kernel.org/lkml/20260818092420.2859026-1-chenwandun1@gmail.com/
+[3] https://lore.kernel.org/lkml/20260506144542.GA2072596-robh@kernel.org/
+
+Meijing Zhao (1):
+  mm: memblock: add missing HugeTLB flag name
+
+Wandun Chen (9):
+  riscv: build crash_mem ranges from memblock instead of resource tree
+  crash_core: fold duplicated memblock arch hooks into the weak default
+  crash_core: serialize crash header preparation against hotplug
+  crash_core: replace for_each_mem_range() with for_each_mem_region()
+  memblock: introduce MEMBLOCK_NODUMP flag
+  of: reserved_mem: add dumpable flag to opt-in vmcore
+  of: reserved_mem: mark /reserved-memory entries with MEMBLOCK_NODUMP
+  of: reserved_mem: mark /memreserve/ entries as MEMBLOCK_NODUMP
+  crash_core: skip MEMBLOCK_NODUMP regions when building vmcore ELF
+    header
+
+ arch/arm64/kernel/machine_kexec_file.c     | 29 ------------
+ arch/loongarch/kernel/machine_kexec_file.c | 27 ------------
+ arch/riscv/Kconfig                         |  2 +-
+ arch/riscv/kernel/machine_kexec_file.c     | 33 --------------
+ arch/x86/kernel/crash.c                    |  2 +-
+ drivers/of/fdt.c                           |  2 +
+ drivers/of/of_private.h                    |  2 +
+ drivers/of/of_reserved_mem.c               | 48 ++++++++++++++++++++
+ include/linux/crash_core.h                 |  2 +
+ include/linux/memblock.h                   |  9 ++++
+ include/linux/of_reserved_mem.h            |  1 +
+ kernel/crash_core.c                        | 51 ++++++++++++++++++++--
+ kernel/dma/contiguous.c                    |  1 +
+ mm/memblock.c                              | 17 ++++++++
+ 14 files changed, 131 insertions(+), 95 deletions(-)
+
+-- 
+2.43.0
+
