@@ -1,152 +1,228 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013013.outbound.protection.outlook.com [40.93.196.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 871E643B3C4
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 10:20:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788344435; cv=none; b=EnXjxiBqhGXxBmNS334eJx4HtqteodIz2dYx4b1dDphw9c2YpJT8VOg1AoKHPGyjHR8F0E+MRW9Q44XKA/e9RCgksE6QOqomaKAV19XIOW3eVy2xj71iPTU9Em+aCZ9QtNxt3f4Moek+t3bGaLKEKInJmsFLn6RbFJ5Co6p8BdM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788344435; c=relaxed/simple;
-	bh=Gl/eblPX1ENd7RHGdBYgjQjGQ4WWSbsmq2Tw0xLJNTU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=g2X0u5h95ssCK2Qn8iQUecp8gaSe/p7xPrUmhCleqIzwSFdBTF8lGYrwYo64cnvOMAUgIbX0pq+4rni7ZwcxpdavNrRR+Q2A+sCeAOAkLEZfoZVXxLn8jN/isno7Vn2dYjnkUE4i60FHizNK1HyFQGxiYprT85zWKT8yFLuTeyA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=juTrCFiW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=U4Jv592/; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC4F24307AB;
+	Wed,  2 Sep 2026 10:22:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788344535; cv=fail; b=RrVFOgbDI9EmilLcSgV3xl5PF3Uejf79Bn9vxZDQBatCya6JzUpa4Kioh/+Q2m07SxUWr1ZhgGTul/kOm9HyRzK1XXuUPOjFTxcTHdi5QWvz1FZOT/UIutHsM60oMYlPyA8ORkK0sxkJw8G/oXIHn69yMbY1ZZh4FM2YSaCJsCM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788344535; c=relaxed/simple;
+	bh=Ar+d4mb5Bb58qe4Oy6QHvm7Is/Mxy2hZWcbg+BROmgE=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=U7UixJTqM3CsPKBpPL/B0xiNdd1z7mjkbEuAy0MC4A3srjfeYdiDxupWyhzl95+KyBXK7nAyaZnE38ot+2NEKgwkEzD9obIY0JPctEQHmgP8XbZzsNGdUtGKTzMA43WTGHI1fvCJXFvyMihmHGJ6AtFezWwLUey1QIHC5EyUl0g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=2Ev2g5+V; arc=fail smtp.client-ip=40.93.196.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="juTrCFiW";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="U4Jv592/"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6829N8iN2246232
-	for <devicetree@vger.kernel.org>; Wed, 2 Sep 2026 10:20:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	UatKS6EJFQUBnBNuylWYQ1B7yyNJd+dkywKevNEdSaE=; b=juTrCFiWv533CV0a
-	wablqA4MrIxCGKL23hrdzsX9xiB8W+QgWZ0dU5rC5W11cZByjSnLt9jemqEaSomW
-	dzS7vy8Qi6KmeBbsC5pZL+eGF1GFgZ2G26U1JBzARbMzRGtmrq7eV9//gkW2V2k0
-	JV/me8DXtmmAUNQ3Ex0aC7w9wo3CvKhu4+iM8dxrfjTu2QQGInO59W5cHaPqdpuy
-	FAGrZG2Ljz8FRD6wx4f6/PYzlZ2RrnuTYwnBvxo86oW8UEfuJx7XWgZZu2jqv4h4
-	gR29ByVgxNdRIv3f9X7NcnXO3TJu/7naa1cpO9WpdjdSsqB2FHFwY0C/Yx89ceic
-	KTQo+A==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ge8whj1an-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 10:20:32 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-92e661ce1dcso22711085a.0
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 03:20:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788344431; x=1788949231; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UatKS6EJFQUBnBNuylWYQ1B7yyNJd+dkywKevNEdSaE=;
-        b=U4Jv592/iQrt8ZFhg2VQaEoglTAbi53a58alh2rEB0+g08rohUFvzgR2bvnoTTH4+Q
-         1KQZaDeirvh2tgX/NE3rkXSzKykSqT6Fk0+EGW33D8cjy3iTRuRM/EdvJAulsjkNDRnb
-         z6e/dqwOB24MNRhBVMCrEXgBJSu6pX+fhWwKQG4ABe9Dpz8WkueaKSXJtfbywbZIkgZH
-         /o8tKYhAV+I06k3T3UfHJwOOWfoEYY4ljZJlDgqJ+R774YLn7gU/a0rApvClhPYAwGg5
-         Vcga9pLYcuLjAgzA/7Ref5jDYG6woiCaMGRKUQyp5ohyuExSWAjJb3qkfv5DKYzfLTNo
-         Fs9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788344431; x=1788949231;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UatKS6EJFQUBnBNuylWYQ1B7yyNJd+dkywKevNEdSaE=;
-        b=SqX0X1w3gs0nrFvlrYbEparFU3BJsIB9UyWeDGIYm+YVg6Ppgj9zP67Mp2pqFRW2rD
-         iOQts95SUYqWR0P0awCS6zXVgYLLf3IMyt3Ss8w5JyxdvEurJgY5ArgC6gfE3GJ91RzE
-         yqHD3BdVVrh0rFFgIiIzJdnqyeNidxiEl8ekJvmif3GsM4JYc6z/FMEruNX1Lzpwhh+Q
-         bU18i/9ex0e8v9CKe+l8kPDG4oXzqD8rfTIhizrWMGBt4AaesNWrMml3rZEqHW/AeFzM
-         +aZAXe47BKmbh/AcKIwU7NA2UPpqnmkfSIMIX+74E7l8bGZiePrQicdMWkOOUutT3nW0
-         IWZg==
-X-Forwarded-Encrypted: i=1; AHgh+Rqm1hAiP6sKfgcayPsiMAjN1vHK+5OFCyvZ1vsp+zcXRcoul7PFQrDytOiEIeAIIxKCqVj4SbSnLeDb@vger.kernel.org
-X-Gm-Message-State: AFuF++nDL4DGKUVj5bIM3z0QR4RqJkRtmVFiPzhcTFuuMInD7JMtLn/e
-	w5NdnrgwvSefPdhDnrhJxz6gQks4wE999BJ9jSQPki+wkh5v4HEHeIH3oJPFWg71i2Bp2tR4M57
-	XOsjojRjjw3GeLS9vTTWOcY1v7D+RIrQC/4CFaJafewZvXprRHTSVBVqgq5ZM1+Om
-X-Gm-Gg: AR+sD133P3O9kBeWg8J/KXP6iP9l2jI7Ar7IcPSvGn6ZnGMca3r6hTYmE6f9QoH8ovN
-	v5zcSm0aks+9vzYRb9/12zL02x2Vyi0GNp2KXRrn8bs1zQxSW3XKse7kqPmkeTk6DcI7tTMEjQz
-	Dg2xqWnt8zfwHPee3W0epC4B9ghPrSI8zl/R3d2ihpwCzkPXH5zqsA9dNQ4+tEcCFR+b4rLjGtx
-	RrIGvcfdJtv4U8fT+25HlmxT5/LmTWZlQ0kXaA7Qcp6jglnO3LldLi6ajtMmsWlNMKAqavyMTe+
-	RXE21Pch8gp75qJKlpLXt4jGdz0sOorVBQTT8NPgv4SKRjmWok+M+uDuhIIS3BsqbC75nCoJIE6
-	CZcQu7uC2rXNgKz26cWhrTg==
-X-Received: by 2002:a05:620a:4387:b0:939:5fd6:9382 with SMTP id af79cd13be357-93960ccbe4bmr256807285a.1.1788344431402;
-        Wed, 02 Sep 2026 03:20:31 -0700 (PDT)
-X-Received: by 2002:a05:620a:4387:b0:939:5fd6:9382 with SMTP id af79cd13be357-93960ccbe4bmr256775285a.1.1788344426102;
-        Wed, 02 Sep 2026 03:20:26 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a67f9423f5sm812539a12.22.2026.09.02.03.20.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 03:20:25 -0700 (PDT)
-Message-ID: <5492ecfe-3c3b-4bc0-ae28-1eab79f6936c@oss.qualcomm.com>
-Date: Wed, 2 Sep 2026 12:20:23 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="2Ev2g5+V"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PGXCrlFWzJqx/4wWjurJTpCIshBU5OkAl4xozPRC1JqdN4v3B5Qrydh0lfftDWh+RokCrDGOKw8jqT5CIi2pVXB1qvo/3Es+P8cMLCoCg9/o2epGmAf0Ajf/SqVEsvZSGdb/cBgdwKatIT4GoTnphioRg+lq+XTh0JcgiXM4IfQRXy0qYj7FLvblJuGoTmnnWKPei0/ISxNFSDaGgbSJWJVfmaGTkmu3crk5fQcYmVRtOmI8OIwQkBjUFiFpcKifbm//XxV2n2kl0VsKFRKzUF2WJTibURY/wCzCamW6obIeMNCWulmw3HKD/JRkY1wR2rlF3iPuEHEwHEiY5oZIrw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6wmzsCPF0VUsO41zOBFakLqO8T3bwqWZUXiNYOXTJRQ=;
+ b=zMNlnu2im4ViqRYUkx9R0gS4LloFXGdxE5KaUOCVoqNStzOKVwt0JjlzOuvmAU9xM7AmAuxHntRa5iVsrODPVcEi1ATwOsmeirfUazavjZe8GWrS8p1WRHTEioESkawKI3tygt6Go2A8jG4UJFyUo3rMwfDKTOQ2xvLCpmUvDsTq5b2XYAq4YrfNpm3SRA4Gef5r9aXdXQSpwheI/9bN3cKH+SXAIO552oFDrf105t2hPaLrj9YKwAoS6QfDoZogEA4XTWH27GlvzGhDDadMT6WAjXrQga8n5IRMchzWexC6EfTg3qxa6rLa/0f1222XEQ63wliYX7KxLrOjA2rzVw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=aspeedtech.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6wmzsCPF0VUsO41zOBFakLqO8T3bwqWZUXiNYOXTJRQ=;
+ b=2Ev2g5+VKv1AJVj0Iitq/4JTvXdq4YLabJCN2STVK+OLWPmqTjQSjmcZ99B0azC1A9eeCHkbFwI5Vjglwzp5uj7v+XjmDi0fFC5OhnD9Q4y4mYvVoDkXcSHrzoC6xXE4RtiC7+WbtkmOt9BzpbPTcsRy36Qs6gP/EFVngcQOO1U=
+Received: from CH0PR03CA0270.namprd03.prod.outlook.com (2603:10b6:610:e5::35)
+ by SN7PR12MB7228.namprd12.prod.outlook.com (2603:10b6:806:2ab::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 10:22:03 +0000
+Received: from BN2PEPF0000449E.namprd02.prod.outlook.com
+ (2603:10b6:610:e5:cafe::94) by CH0PR03CA0270.outlook.office365.com
+ (2603:10b6:610:e5::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Wed, 2
+ Sep 2026 10:22:03 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN2PEPF0000449E.mail.protection.outlook.com (10.167.243.149) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 10:22:02 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
+ 2026 05:22:02 -0500
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Wed, 2 Sep 2026 05:21:58 -0500
+From: Colin Huang <colin.huang2@amd.com>
+Subject: [PATCH v8 00/11] ARM: dts: aspeed: anacapa: restructure devicetree
+ for development-phase
+Date: Wed, 2 Sep 2026 18:21:12 +0800
+Message-ID: <20260902-anacapa-devlop-phase-devicetree-v8-0-69c8eb2a7cda@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: Add Talos Lyra EVK board
-To: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Akash Kumar <akakum@qti.qualcomm.com>,
-        Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>,
-        Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>,
-        Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
-References: <20260901-lyra_upstreaming-v1-0-e3a76dc9e21c@oss.qualcomm.com>
- <20260901-lyra_upstreaming-v1-3-e3a76dc9e21c@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260901-lyra_upstreaming-v1-3-e3a76dc9e21c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=fLkJG5ae c=1 sm=1 tr=0 ts=6a97f870 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=xvvC8mGeTzBMa8I3sMMA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-ORIG-GUID: AbFUzWBtm7CQyndkcImVX6v9ZnenTIM5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA5MCBTYWx0ZWRfX1w7ccXD+Elkq
- ylx+o6/DwBq8HzgzgbUr9P3AEkDrde9VUutxZFXEDug7gzZaWs8fejmUKk5kV0X/+fYAAeSV8YW
- DlBNSkx4Xfi6qqfj9kkkWmLnvNdJkkVC5g+4UhTbMAMUwQ9r1TPvxNYd0KEpI1inOIlKwdKdyEK
- MsPf8SXc2lao8Nm64MrRnANtDlqNQRnnChZzyjMie7q/IXWT4g5k7m9QQuW4o0Y/0xVxQIOfqDc
- k+koE5NTxrA92y0Y6VMXm5JEduXEpZA//5GnT7LFLau/FLlwS/59YHfyUYuYIbrgnHKseKkjh5Z
- SXNA+k4D6yuk5baT46IHUCC0woF+TIcqJ3ekHUEOTm1Ag9R+gxm9XospjLQCGwFWJkuWtMdA7Uf
- 1UJYtuAvJe00r+5garz2e3u8jTOhiKkj7ap3xu1fBNWmfPwMeR5aiumjsQY3gC0Mk0sfcuec3Xb
- nDVS0eK5ogUA7J5RPmw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA5MCBTYWx0ZWRfX1f8e5abEg/po
- 2jNCEwJsuthGjxmzEKJmVLhLf/+t4Cn6RUw+FY0OOUxRfPjHP23wHaJ+Srp5uAWCWDJHIs3bpBY
- y9DUnFCWY/QYo9a1m2kZ3R9E0ZtT59k=
-X-Proofpoint-GUID: AbFUzWBtm7CQyndkcImVX6v9ZnenTIM5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_02,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 impostorscore=0 clxscore=1015 priorityscore=1501
- spamscore=0 phishscore=0 lowpriorityscore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020090
+X-B4-Tracking: v=1; b=H4sIAJj4l2oC/43RwW6DMAwG4Fepcl4mJyEO6WnvMe0QHFMitYCgQ
+ psq3n2hFxg70OPvw/fb8kOMPCQexfn0EANPaUxdm0P5dhLUhPbCMsWchQaNUICToQ0U+iAjT9e
+ ul30TRl5CIr4PzLJQoKKpjdIEIiv9wHX6fjZ8fuXcpPHeDT/Pwkkt09ftSUmQ3lUeDToKZD4ut
+ 5Cu79TdxGJPeuv5Y09nD8va6BKdQvvPM6uHoI89kz1H3pCNdRl9tfeK1SvBHntF9mxEx8B1QLJ
+ 7z248ZY49mz1yYMsaTSR0ew83nn5hP1z+AdYHHbTzxHvPrZ4Hdey57EEVnYqaQcGfe+d5/gXSj
+ hpPrgIAAA==
+X-Change-ID: 20260407-anacapa-devlop-phase-devicetree-4101d3f312c0
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, "Andrew
+ Jeffery" <andrew@codeconstruct.com.au>, Ryan Chen <ryan_chen@aspeedtech.com>,
+	Billy Tsai <billy_tsai@aspeedtech.com>
+CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
+	<colin.huang2@amd.com>, Colin Huang <u8813345@gmail.com>, Carl Lee
+	<carl.lee@amd.com>, Rex Fu <rex.fu.amd@gmail.com>, Andy Chung
+	<Andy.Chung@amd.com>, Peter Shen <peter.shen@amd.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788344509; l=5239;
+ i=u8813345@gmail.com; s=20260202; h=from:subject:message-id;
+ bh=Ar+d4mb5Bb58qe4Oy6QHvm7Is/Mxy2hZWcbg+BROmgE=;
+ b=/J6VZUvQFPu2C8WKNoIMMoFK146LCwU17Ji7ZHasFP4jbdsmkNKw9O6NtfI8OuiWUxM2T2Hm5
+ iqvYDdXXlCHAL1OEPXoqIx2rDb/yLQ9frGZRt9DWbUa56in4eFJbFiF
+X-Developer-Key: i=u8813345@gmail.com; a=ed25519;
+ pk=Zlg0WqpCw4qbswOqamTBTXIchwR/3SnYZpy7rjaGMdQ=
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000449E:EE_|SN7PR12MB7228:EE_
+X-MS-Office365-Filtering-Correlation-Id: 13da894d-e253-4e4f-d5bc-08df08dc07fe
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|1800799024|7416014|376014|13003099007|56012099006|10067099003|11063799006|3023799007|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	F7dI65Lf2KdzhrFZ9LfozQCvTMc6UpSiWj3S9gRKHHLgwlbWueEzYkluDgulB6yuyJz1ydI2uW42EmFRQUhgtD2QqQlBubK+fAGwHUQZHgewCv1ONX2FltfX5YEzzVuG5W9AFM/NpSqPsM7iuDnBxoMPzjwiT6khtw9nHZUs7wWGijZTmR/+pJOhXrK9/gzdsJQ1mzUtRbA0fkxQ1ATZst/+azuVjrIdmmibhH0kqwpJ7pEhwFQSqtnRpXEebQE0jSSrW0GWVs4CdmFTexTm65HStdP0atln09EYl7FDfPWoNWvlrqPf9X0yNR6mqG8EAy2J5ueyuCO3Hq3Yorp0xI7R2BXOVBE7RnoQL7yZKovFWg59JCv5HjpIcgxdVj8VE9qwr0VGbrnnlDL6XsO7gWJ4gZBqTSJdTOsNoU8TyyaEjlVzuhFR0txiucbaAILDbwQbrt5xkCvtAxSmJqntx9pDK5p0wOgAO0cNHuisK3Dr6sQGyYOIKav8xGraJacI6oNTnFYRBd3Sy9TOzNDb35OiTsT0cPGCDe1CjxrGyGUPdGetA5toyiXGAeTqsn7JYYUwBskuIabOp2Wizrl4QBuMdrKn6RjMJmG02va9E1TQCPDLK9IW6MhJTslnlAr/3x9DDo6x5hxg5uBfHcP3jtynXWaIVQW/M8wqGw0WEDnWzUBVgluhrdaAm97GPwsuDLoV+LGsdP25GpStr/mH3A==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(1800799024)(7416014)(376014)(13003099007)(56012099006)(10067099003)(11063799006)(3023799007)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	ALm916Uy8Ao73gsPJEHeS9BSGOcSd+op60O3USLSxXJTw8HRVqG0np8ajt7WpHzZ5BsSkXBdJOmobszj/5Hh18iP2ta/Rwb+Huum/hCH3IC08FlN5TnJApp1ObCfbkPFv8+ulaXomD9deZJbSqPWEIHFi8u6FjXzlirL0tILvvJuqlWK/ACVBFhB2B4mp9L32ppHt1WJRWZqb13GBxj367uUFoXnfDWHStTTh6VNaVL46Rt6sGvl5EMHTcMWuy2d/FoCn+c5d/eBzP44R9BjO41alRwnFT3JCY6rymoi7XBDq92P2iqdHJ3I6Zuhkj1C4Lh2iwwhgr8+p30CzeOLyJT8b62VVDf8vxCelADx9HVe/3jGTTnbmV9eTLvoIY5SjI+b7ysTd7vl16yBHYgmxZ5MzGXMlOKhghfw2NkM0uWHSZDOkc79KAOnAqczd+YT
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 10:22:02.9435
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 13da894d-e253-4e4f-d5bc-08df08dc07fe
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF0000449E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7228
 
-On 9/1/26 3:44 PM, Avaneesh Kumar Dwivedi wrote:
-> Add the device tree for the Talos Lyra EVK platform which combines
-> the Talos Lyra EVK SoM and Lyra carrier board.
-> 
-> This device tree adds board-specific peripheral configuration on top
-> of the SoM, including:
+This series refactors the Anacapa BMC devicetree layout to better support
+development-phase hardware revisions (EVT1/EVT2/DVT) while keeping a platform
+entrypoint.
 
-[...]
+Signed-off-by: Colin Huang <u8813345@gmail.com>
+---
+Changes in v8:
+- Fix [Critical] The board compatible string was silently changed from "facebook,anacapa-bmc" to "facebook,anacapa"
+  , breaking dt-bindings and backward compatibility.
+- Fix [Low] The /dts-v1/ directive is improperly placed inside a .dtsi include file instead of the top-level .dts file.
+  Move "/dts-v1/" into aspeed-bmc-facebook-anacapa.dts
+- Link to v7: https://lore.kernel.org/r/20260901-anacapa-devlop-phase-devicetree-v7-0-0bd71d2e0105@gmail.com
 
-> +&i2c5 {
-> +	clock-frequency = <100000>;
-> +	status = "okay";
+Changes in v7:
+- Fix [Critical] Devicetree ABI breakage due to removal of generic compatible string
+  keep to use compatible string "facebook,anacapa-bmc".
+- Fix [Low] Redundant redefinition of inherited properties in the `evt2.dts` file.
+- Fix [Low] Included devicetrees use `.dts` extension instead of `.dtsi`
+  aspeed-bmc-facebook-anacapa-evt1.dts -> aspeed-bmc-facebook-anacapa-evt1.dtsi
+  aspeed-bmc-facebook-anacapa-evt2.dts -> aspeed-bmc-facebook-anacapa-evt2.dtsi
+  aspeed-bmc-facebook-anacapa-dvt.dts -> aspeed-bmc-facebook-anacapa-dvt.dtsi
+- Link to v6: https://lore.kernel.org/r/20260825-anacapa-devlop-phase-devicetree-v6-0-9059a2a279ce@gmail.com
 
-nit: Let's keep a \n before 'status' consistently
+Changes in v6:
+- Fold the following fixes into this series: 
+   - Remove redundant vhub pinctrl-names
+   - Use default SPI2 memory mapping
+   - Fix dt-check-style strict violations
+- Move p3v3_bmc_aux node from evt1.dts to evt2.dts for dt-check-style
+- Fix the patch author information
+- Link to v5: https://lore.kernel.org/r/20260813-anacapa-devlop-phase-devicetree-v5-0-c7058f63dc67@gmail.com
 
-Konrad
+Changes in v5:
+- Remove redundant vhub pinctrl-names
+- Use default SPI2 memory mapping
+- Fix dt-check-style strict violations
+- Add Acked-by from Conor Dooley
+- Sort compatible strings in alphabetical order
+- More commit message for ARM: dts: aspeed: anacapa: Add EVT1 devicetree and point wrapper to it.
+- Update commit message to describe both LPDB and RPDB GPIO expanders  
+- Link to v4: https://lore.kernel.org/r/20260805-anacapa-devlop-phase-devicetree-v4-0-5d67e0efa6c5@gmail.com
+
+Changes in v4:
+- Capitalize the first word of the short description.
+- Rework the Anacapa development-phase devicetree hierarchy.
+- Ensure that anacapa-evt1 generates an identical devicetree to the existing aspeed-bmc-facebook-anacapa.dts.
+- Add SPI flash VCC supply.
+- Simplify leakage GPIO line names.
+- Add LPDB fuse monitor GPIO expander.
+- Link to v3: https://lore.kernel.org/r/20260602-anacapa-devlop-phase-devicetree-v3-0-7c93c5df8d9b@gmail.com
+
+Changes in v3:
+- Restructure the EVT2 devicetree to inherit from the EVT1 devicetree, making it incremental rather than standalone.
+- Add the DVT devicetree, inheriting from the EVT2 devicetree.
+- Enable MCTP and FRU support for the NIC.
+- Align PDB fan GPIO numbering.
+- Add an EEPROM device node for the NFC adaptor board.
+- Add an additional EEPROM device node for the SCM.
+- Add shunt resistor values for HSC monitors
+- Link to v2: https://lore.kernel.org/r/20260409-anacapa-devlop-phase-devicetree-v2-0-68f328671653@gmail.com
+
+Changes in v2:
+- Fix dtbs_check fail.
+  Validated by following command:
+    make dt_binding_check DT_SCHEMA_FILES=arm/aspeed/aspeed.yaml
+    make CHECK_DTBS=y DT_SCHEMA_FILES=arm/aspeed/aspeed.yaml aspeed/aspeed-bmc-facebook-anacapa.dtb
+    make CHECK_DTBS=y DT_SCHEMA_FILES=arm/aspeed/aspeed.yaml aspeed/aspeed-bmc-facebook-anacapa-evt1.dtb
+    make CHECK_DTBS=y DT_SCHEMA_FILES=arm/aspeed/aspeed.yaml aspeed/aspeed-bmc-facebook-anacapa-evt2.dtb
+- Link to v1: https://lore.kernel.org/r/20260407-anacapa-devlop-phase-devicetree-v1-0-97b96367cac3@gmail.com
+
+---
+Andy Chung (1):
+      ARM: dts: aspeed: anacapa: Enable MCTP and FRU for NIC
+
+Carl Lee (1):
+      ARM: dts: aspeed: anacapa: Add eeprom device node for NFC adaptor board
+
+Colin Huang (4):
+      ARM: dts: aspeed: anacapa: Add EVT1 devicetree and point wrapper to it
+      ARM: dts: aspeed: anacapa: Add EVT2 devicetree inheriting EVT1
+      ARM: dts: aspeed: anacapa: Add DVT devicetree inheriting EVT2
+      ARM: dts: aspeed: anacapa: Add additional EEPROM node for SCM
+
+Peter Shen (1):
+      ARM: dts: aspeed: anacapa: evt2: Add shunt resistor values for HSC monitors
+
+Rex Fu (4):
+      ARM: dts: aspeed: anacapa: Align PDB fan GPIO numbering
+      ARM: dts: aspeed: anacapa: Add LPDB fuse monitor GPIO expander
+      ARM: dts: aspeed: anacapa: Simplify leakage GPIO line names
+      ARM: dts: aspeed: anacapa: Add SPI flash VCC supply
+
+ .../aspeed/aspeed-bmc-facebook-anacapa-dvt.dtsi    |  259 +++++
+ .../aspeed/aspeed-bmc-facebook-anacapa-evt1.dtsi   | 1130 ++++++++++++++++++++
+ .../aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi   |  407 +++++++
+ .../dts/aspeed/aspeed-bmc-facebook-anacapa.dts     | 1077 +------------------
+ 4 files changed, 1797 insertions(+), 1076 deletions(-)
+---
+base-commit: cd7d1ef7d74ed5f5a1790a40389bc38382924556
+change-id: 20260407-anacapa-devlop-phase-devicetree-4101d3f312c0
+
+Best regards,
+-- 
+Colin Huang <u8813345@gmail.com>
+
