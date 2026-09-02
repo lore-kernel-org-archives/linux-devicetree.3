@@ -1,217 +1,185 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FF58360EF3
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 15:48:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02B0E4A99B8
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 15:50:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788364106; cv=none; b=EYB1Cq0kh4E5AfIW9jJGcjd9hrFPlbh5otCHqjbS2hhZ/L8aRa0wHMunjVe+k6W+ewasoKhRXv14j4d69/gDqyTzOypWSqBNnWHXmWdllfq3Y8NyV+mSaai4SiWJCo9rTJN/PONIyevdFt0/nHOOUase0s8jaawvXSGlR9FgPrA=
+	t=1788364215; cv=none; b=HNbcaLTntr6hp85BeMJptmLMW7qH8g5bpbLaSdXp3vkTfgwtJRjPJlqNeyzGL0sWqaShFz/EYBM4s2m/uuJDgK1HLK/tor2XyHYt0KU6uwIsmFzrvfWN0mSsLGBv1gGkLEGaxpaghcF1N7wkjAbFYFFjdzDAAJhfHGgYTYG3mm4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788364106; c=relaxed/simple;
-	bh=dd9Bc4n94EKXDL0ADU2/wZrlcVly5/OAqlHH4Cf65Xo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nPTdq4vfMNrqljzMUkqFEqLMXbhSQq5Ih4tumjddhSD7P6mG8f18GZj94/zcdB7+GQ0DfVC2rqJYTd+4rjT2Z3IRGEMQa/qbY9uJ6qrDuseVCm7atpYGF0IJGfyZ+enT+8SlO14EwmOB9YD+cPgwTARglKOP9IkHDLgaYXKTAWU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JODVhp6S; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788364215; c=relaxed/simple;
+	bh=zSyQRSX/ch71m5kpxscJdEN70k7ztZ1cUr6oUxNbrTM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HoHVOaHYkG/UlP1vmID9/drC7UfqAPLHkKOktETISntpKiU/uRPsxmTXIKdI1XUaCI+czxVg7d4koaskKtcgT8E0K/U46lw2XVrZ2SDwjb3smwoP88OrwYi5TBXe3+kb18i30+euh4ldDEpRX2Du6poE+4a0Fu0Do5SKDUl6PlY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ghB5WyEb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=P1T3AQ8B; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JODVhp6S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 906D21F01558
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 15:48:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788364102;
-	bh=WvDDggsJCp8fWjpjbH2MZ34V8WTIMSRAsuek7J69Z2o=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=JODVhp6SRX1XR4znAyCaW2UPD+FDbnGSvfHbCC+k45gxVC7aNVrYuQEvG890ao/6r
-	 6T1UZ2F7mLSwWB+TUV/7NN9d3vu1GCq0l+OWkFlu5Xv64bnK5LK0APUSatecOnjw4d
-	 c0YWgi0PYEbR2VgrQxMwy199ToKiNGNgnvyu6cA/tDDZp6tbRl8aB18WFlXFdYK1hu
-	 jwYXTu5tGh7kUyFH35JaQgsz3nwHF4k5MhMYgCkhfXvCBKG5vHp5ahyY8Zs5zyM9Oj
-	 37tEwFOwaJKlb+Ra0Qa31B6bwa4555RH8tnTOmmh944q50cZMD/41esy98FvKphmGk
-	 jL2rvYpI7YRZw==
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c2530cabcf4so198839866b.0
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 08:48:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByLKacBK8JCbA3N/6VADfhxQzxU+e1uji3/EiRVY75MR+Nma0IPmzAK430ayo6cQreZjIrlyTzle/Np@vger.kernel.org
-X-Gm-Message-State: AFuF++l8R4HkQdkJbIHErZc/ExDdaHhcMiqc5QrIVkYqYA4Gci6Q1IWO
-	cgFfy9R5Rk/LT7u0H4nl8PYWVbqy3HhHt4kxeH2VIVv3k+gPqnmGLpFPeXdgIucuDhyFFQ7hUqS
-	EnL/p87nUdUsBYoob375U09FZy9WMHw==
-X-Received: by 2002:a17:907:6090:b0:c25:c979:e76a with SMTP id
- a640c23a62f3a-c25d54fe9f3mr276782466b.22.1788364100947; Wed, 02 Sep 2026
- 08:48:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ghB5WyEb";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="P1T3AQ8B"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682Fa7uY1907617
+	for <devicetree@vger.kernel.org>; Wed, 2 Sep 2026 15:50:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	5ZkntpVMR2CtKH4DeLKNH7qEJxMvwEUv5ynrM9u0XQw=; b=ghB5WyEbrgwoWyVW
+	gnV8u9oMY9eXCGCAhl8yU7grN+3/nO/HcKf6hDOgG+N5tyLZ3mdd2ukesqiLet6M
+	QWR8S7W9bBwFwkMJ4UA1cV99YUbLVXjDVcsbJx1555+J0louMojpIrkNAUjzxxfv
+	y5KZULp6Ln1czahpc1RL1daLRFSdkvZVClgYPNJ7nhW/9wl459YaKzcjtU25Hbwj
+	5sohs7qWHsqwux53Dy/eSbId5GMnixJ+YkbLjWCkgDjzcBGDblZl+jXUGRETZG3H
+	s+NLO4URGrKxlMzPFdlmC1UDz/LxVxn/2Nbj6NXwuj31T74GMfpOkGKX0yLlGW2k
+	1oI1tQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4geb562vyu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 15:50:12 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-92eebb130dcso31872485a.1
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 08:50:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788364212; x=1788969012; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5ZkntpVMR2CtKH4DeLKNH7qEJxMvwEUv5ynrM9u0XQw=;
+        b=P1T3AQ8BKvElnVTTjgSlqp+NvTUd+QU2Pj78EjTYn36baK2c8X7TfPdqar7PAYuA9W
+         FFlgw5oD51G/cQH6lxTS/eyztoyWuxToBy3uAHjEAk32uBPi7+p+yU3zI0EyXD/TJQ/N
+         ZPi37T/wl149/Nh0X5r/wG/ru2yRZzUaoA9EyQ+bBoPwIEgctx5sLyr79/YOsPVdgQY8
+         EbZujC0dv9xP0tfgYXGHYaayTvEjXQ2uMClzVLpv5xWCduz/XBwwZDHUX8Fl3D95Lk6M
+         8HE33C7N02xTEYv6KMGMQdHhCWbgO2esoW/SbH89BdAHH9aLDxRqjuG3Uvg5i69mDs9o
+         XSWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788364212; x=1788969012;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5ZkntpVMR2CtKH4DeLKNH7qEJxMvwEUv5ynrM9u0XQw=;
+        b=pniekCaH9KZV78InOBs4NQlkhOVPA3TA10jDFrQUthv0iyolxo2ywsmS2mKn3hTJan
+         yVn0Of/2tdk7sUYgWhC3L9zbdtv9RrIahI0BG62+Nsb65fPB/0SNlMUNTM390YotgEb+
+         RtyJ0qcJOZ+NZn9vBLVGAwg2/lNqirkG+4BYDmsY4pIFlpp1QesOpmhA1OM+HnQ5IxMk
+         ia7j7xM5BvNbwTHVcbaOvCK+0mW1AJA9FwWAkBXyTLmE1N7eL8/YRT13FvVLKWxaThAu
+         GXH1eQ3fsDvi5j7aO2C/zBs7NLoWaffMeq9PL1N8HWul7pV5uavTcwG5IhcOjsivrQTy
+         CpOw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq9bVOfCS/Y14OltnPayI3butn4kbUpxEp+Z9EYDa7tZI53jb6+XU3s2NyhDPNxEOh4PHg5PTkuOmOV@vger.kernel.org
+X-Gm-Message-State: AFuF++m2l8J+aXW4Mlhw48PxfQbQ2RDnhq+CsfftnO2zM4IbrNFSyP5P
+	xuiq1YOHwD8/RfZiscqYmx2XahOBG1eHZGmRLl5Rq0wXkn+Q9r2OlquB1FHY97oc7jzEedweAK5
+	1kjE8V+IMaZhd7fcvte5Vv2ROmrjwKkW1EWwTRNy75zjM1okUunzkUUdSmhgygLE5
+X-Gm-Gg: AR+sD10fpOCcqO2eW9617GTqXCMVAlSza/NSEh6k58B3KhMpiRT/163zfKyiqMW4OuD
+	maj0stgDqMsCrmGap/PQjS/WFoZyGz5PHnXZtlFjk2+VM1wr9g9oZsJIq+sHg6iKH0NW8FYcUah
+	TC6QRcaI84ZSwo8RSWKizS4RyhJgAtFbwdeTuNnJGskAdjHE3BktvWUGfW9Q5QkF6ERTlBYyM/R
+	oNweE0zX9YsaRO7tOuByR5lxhD4TdYDRwPHh8PIoiT/VkpoN9qTq//n3wxdvy7c3X9gcCDRPpEO
+	pQx9m2MDPQXqG5mKmsLk+H28AiRWNvQIg4GHLHuwW4yeCJAhRJQ4cGzEp5XxoX/k9mwx1VtZE6f
+	z7hRLoIr0kaOWW2pnm+U4Rw==
+X-Received: by 2002:a05:620a:2915:b0:939:8bc:8826 with SMTP id af79cd13be357-93960df998dmr431892985a.2.1788364211711;
+        Wed, 02 Sep 2026 08:50:11 -0700 (PDT)
+X-Received: by 2002:a05:620a:2915:b0:939:8bc:8826 with SMTP id af79cd13be357-93960df998dmr431885285a.2.1788364211128;
+        Wed, 02 Sep 2026 08:50:11 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a67f8c7a0esm1336976a12.13.2026.09.02.08.50.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 08:50:10 -0700 (PDT)
+Message-ID: <762f2294-27ff-44ab-b4b2-ffd415639928@oss.qualcomm.com>
+Date: Wed, 2 Sep 2026 17:50:07 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260819155502.3934837-1-maciej.andrzejewski@m-works.net> <e7995f64-3210-455d-bc97-9f3b51099162@kernel.org>
-In-Reply-To: <e7995f64-3210-455d-bc97-9f3b51099162@kernel.org>
-From: Rob Herring <robh@kernel.org>
-Date: Wed, 2 Sep 2026 10:48:09 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqJ2zHrEf6-4Gohaqj+jq_dTeVoR=xyH=yZDTpjBEDoLBw@mail.gmail.com>
-X-Gm-Features: AcwNN1Vp-60QgsJjsf8yFslx_Y0cjbf_CPILfdaB6rH4W7MLE--uqVMj_JD2DH8
-Message-ID: <CAL_JsqJ2zHrEf6-4Gohaqj+jq_dTeVoR=xyH=yZDTpjBEDoLBw@mail.gmail.com>
-Subject: Re: [PATCH v2] gpiolib: of: Only apply the SPI CS quirk to SPI buses
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.net>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, broonie@kernel.org, 
-	linux-spi@vger.kernel.org, miquel.raynal@bootlin.com, richard@nod.at, 
-	vigneshr@ti.com, linux-mtd@lists.infradead.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 08/16] arm64: dts: qcom: microsoft-romulus: Mark the EC
+ reset gpio as reserved
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Rajendra Nayak <quic_rjendra@quicinc.com>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        Marc Zyngier <maz@kernel.org>,
+        Aleksandrs Vinarskis <alex.vinarskis@gmail.com>,
+        Konstantin Shabanov <mail@etehtsea.me>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Ettore Chimenti <ettore.chimenti@linaro.org>,
+        Georg Gottleuber <ggo@tuxedocomputers.com>,
+        Xilin Wu <wuxilin123@gmail.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Val Packett
+ <val@packett.cool>,
+        Laurentiu Tudor <laurentiu.tudor1@dell.com>,
+        Jens Glathe <jens.glathe@oldschoolsolutions.biz>,
+        Dale Whinham <daleyo@gmail.com>,
+        =?UTF-8?Q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>,
+        Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Konrad Dybcio <quic_kdybcio@quicinc.com>
+References: <20260901-dts-qcom-hamoa-reserve-ec-reset-gpio-v2-0-f4ab7e4bb75d@oss.qualcomm.com>
+ <20260901-dts-qcom-hamoa-reserve-ec-reset-gpio-v2-8-f4ab7e4bb75d@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260901-dts-qcom-hamoa-reserve-ec-reset-gpio-v2-8-f4ab7e4bb75d@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDEzOSBTYWx0ZWRfX/kHVjJJ1LRdm
+ LIBgpYySr5l+BLC5dX9Ddg0XAxsEGbUHWqipK+vvYokUE63TB+MHjebVXCSafT4R3Xy4HkK45Pm
+ lIRg8xOyvX7TTtnugEsSXMl9GC8D1OWmzHDAc79t4vAkoZ09GMeUFUdVU49L3uvaN6Tf7Mt/auA
+ tyhRzwxTKdgAFEVuE8WAYjW3pO5OxuL0ZC7EDkURanqRLiRx/JgT1wAwCEsoI0HKZfIhbl9dJi1
+ bpgkmze4Kmbcj5c0So2RcFgR7kheae3d9WI8qNcEPZBUMT43mAPXcXzD/aoaNU5LJa8pRDxxFBd
+ hHNKHKovvEOkxa3rcnYzVjY4fnJoQYB97bb2sx1CYVO9Ra4gVk5ZMogVkUzHlaMEzq/Xn3EYwUC
+ OPPtxc2qkMUOp9vWU2v4YG7GazslistoAczj1shnENyHIyijUPfVFszA3q9IoNcixBjsKNEqAnu
+ kkt7OV2324JPHl0Uw1A==
+X-Proofpoint-GUID: 7iEEUGO3HdFBkDaUkgBdlgFMUtA7Vc3y
+X-Authority-Analysis: v=2.4 cv=D8N37PRj c=1 sm=1 tr=0 ts=6a9845b4 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=Wad5cFZijfJPr_ZhbakA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: 7iEEUGO3HdFBkDaUkgBdlgFMUtA7Vc3y
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDEzOSBTYWx0ZWRfX8sB/dlxyfo3r
+ yC9XZkf8C0g8DwzCL550Cfvn4W4N1Orl0qNcva2uPpMqJeLXKhe6IBj+dKSyblWl0OFsfOZHJ6k
+ rvIa3oHCgy7l4D5yWPw1d/uPXjtwqB4=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_04,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 lowpriorityscore=0 spamscore=0 phishscore=0 adultscore=0
+ malwarescore=0 clxscore=1015 impostorscore=0 priorityscore=1501
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609020139
 
-On Wed, Sep 2, 2026 at 4:28=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.org=
-> wrote:
->
-> On 19/08/2026 17:55, Maciej Andrzejewski ICEYE wrote:
-> > The legacy SPI chip-select polarity quirk in of_gpio_flags_quirks() is
-> > keyed on nothing but the property name "cs-gpios". That name is not
-> > exclusive to SPI: nand-controller.yaml documents the very same property
-> > for NAND controllers, and rawnand_dt_parse_gpio_cs() requests those
-> > lines with gpiod_count(dev, "cs"), which gpiolib expands to "cs-gpios".
-> > A NAND controller therefore has SPI chip-select semantics forced onto
-> > its chip selects, and any chip node whose first reg cell matches a GPIO
-> > index is silently flipped to active low. The NAND core requests the
-> > descriptors GPIOD_OUT_HIGH and drivers assert with a logical 0, so the
-> > inversion leaves the die permanently deselected.
-> >
-> > The example in nand-controller.yaml is itself affected: it pairs a
-> > native chip select with a GPIO one and gives the second chip a reg of 1=
-,
-> > which trips the quirk whenever CONFIG_SPI_MASTER is enabled. In-tree th=
-e
-> > collision is real but latent. 36 board trees, all Atmel/Microchip at91,
-> > give their nand@3 controller a cs-gpios line, and they escape only
-> > because the sole child of those nodes is a partitions container with no
-> > reg for the quirk to match against.
-> >
-> > Device tree carries no bus type marker, so identify the bus from two
-> > hints. Properties of an SPI peripheral are namespaced with "spi-"
-> > (spi-max-frequency, spi-cpol, spi-cs-high and the rest of
-> > spi-peripheral-props.yaml), whereas a NAND chip node carries only reg,
-> > nand-* and its partition table. That is a convention rather than a
-> > guarantee, since compatible and reg are the only properties
-> > spi-controller.yaml makes mandatory for a peripheral, so let the
-> > controller settle the remaining cases: spi-controller.yaml constrains
-> > the controller nodename to ^spi(@.*|-[0-9]+)?$, which makes the name th=
-e
-> > one bus marker every conforming controller has to carry. A peripheral
-> > that carries nothing but compatible and reg therefore keeps its active
-> > low default through its parent. Skip the quirk only when neither test
-> > matches.
-> >
-> > Both tests were scored over every board device tree in the kernel,
-> > expanded with the same cpp and scripts/dtc pipeline the build uses, at
-> > v7.2-rc7. All 3620 trees under arch/*/boot/dts expand; 503 of them hold
-> > at least one GPIO chip select that can reach the quirk, 765 such chip
-> > selects in total. 761 are matched by both tests, and none are matched b=
-y
-> > neither, so no in-tree board changes behaviour.
-> >
-> > One needs the property scan on its own: psc@11400 on ac14xx, a
-> > fsl,mpc5121-psc-spi named after the hardware block rather than the bus,
-> > whose m25p128@0 child carries spi-max-frequency.
-> >
-> > Three need the nodename on its own, all peripherals with no "spi-"
-> > property of any kind:
-> >
-> >   - panel@0 under the spi-gpio controller on rk3566-anbernic-rg503
-> >   - can@0, an mcp251xfd, under ecspi3 on imx8mn-vhip4-evalboard-v1
-> >   - spi@1 under ecspi1 on imx53-ppd
-> >
-> > The two tests are complementary, so both are needed to keep every
-> > in-tree board working. A tree that names its controller after the
-> > hardware block and gives it a peripheral with no "spi-" property would
-> > still lose the quirk. No in-tree board does, and such a controller is
-> > already outside the nodename pattern spi-controller.yaml requires.
-> >
-> > of_gpio_spi_cs_get_count() in this file identifies SPI controllers with
-> > of_device_is_compatible() instead, but it only has to name three legacy
-> > controllers whose bindings are closed. An allow-list here would have to
-> > name every SPI controller binding in the tree, 71 distinct compatible
-> > strings among the candidates alone, and grow with every new one.
-> >
-> > Signed-off-by: Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.n=
-et>
-> > ---
-> > Changes in v2:
-> > - Squashed the two patches into one. The property scan and the nodename
-> >   test are complementary, so patch 1 alone stopped applying the quirk t=
-o
-> >   the three peripherals that carry no "spi-" property, which would have
-> >   broken those boards for anyone bisecting through the series. Reported
-> >   by an automated review of v1.
-> > - Folded the two helpers into a single of_gpio_is_spi_chipselect().
-> > - Said outright that a peripheral with nothing but compatible and reg
-> >   keeps its active low default through the controller nodename.
-> > - Rebased; drivers/gpio/gpiolib-of.c is unchanged since v7.2-rc7, so th=
-e
-> >   diff itself is the v1 pair verbatim.
-> >
-> > v1: https://lore.kernel.org/r/20260810141629.81650-1-maciej.andrzejewsk=
-i@m-works.net
-> >
-> >  drivers/gpio/gpiolib-of.c | 31 +++++++++++++++++++++++++++++--
-> >  1 file changed, 29 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpio/gpiolib-of.c b/drivers/gpio/gpiolib-of.c
-> > index 940b566946ce..d73114166f6b 100644
-> > --- a/drivers/gpio/gpiolib-of.c
-> > +++ b/drivers/gpio/gpiolib-of.c
-> > @@ -340,6 +340,28 @@ static void of_gpio_set_polarity_by_property(const=
- struct device_node *np,
-> >       }
-> >  }
-> >
-> > +/*
-> > + * The legacy SPI chip select binding below is keyed on a property nam=
-e that
-> > + * other subsystems reuse for the same purpose, notably NAND controlle=
-rs (see
-> > + * Documentation/devicetree/bindings/mtd/nand-controller.yaml), whose =
-chip
-> > + * selects carry no SPI polarity semantics. Device tree has no bus typ=
-e
-> > + * marker, so take two hints. Properties of an SPI peripheral are name=
-spaced
-> > + * with "spi-", and a peripheral that declares none is covered by the
-> > + * controller, whose nodename spi-controller.yaml constrains to
-> > + * ^spi(@.*|-[0-9]+)?$.
-> > + */
-> > +static bool of_gpio_is_spi_chipselect(const struct device_node *np,
-> > +                                   const struct device_node *child)
-> > +{
-> > +     struct property *pp;
-> > +
-> > +     for_each_property_of_node(child, pp)
-> > +             if (str_has_prefix(pp->name, "spi-"))
->
-> You should not rely on prefixes of properties. Node can have no such
-> properties at all.
->
->
-> > +                     return true;
-> > +
-> > +     return of_node_name_prefix(np, "spi");
->
-> And neither this. You just added node name based ABI.
->
-> Nope.
->
-> Each peripheral exactly knows that it is a SPI device - it 100% specific
-> knowledge based on the bus, thus nothing of above is needed.
+On 9/1/26 10:07 AM, Abel Vesa wrote:
+> GPIO 65 from TLMM is used by the embedded controller as its reset line.
+> 
+> On some devices, toggling the embedded controller reset line makes the
+> device not power up at all, unless the battery is unplugged.
+> 
+> So reserve it in order to prevent Linux from requesting or
+> reconfiguring it.
+> 
+> Fixes: 09d77be56093 ("arm64: dts: qcom: Add support for X1-based Surface Laptop 7 devices")
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus.dtsi | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus.dtsi b/arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus.dtsi
+> index 13d0f09e0c2a..bc684c295b89 100644
+> --- a/arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus.dtsi
+> @@ -1324,6 +1324,7 @@ wcd_tx: codec@0,3 {
+>  
+>  &tlmm {
+>  	gpio-reserved-ranges = <44 4>, /* SPI (TPM) */
+> +			       <65 1>, /* EC reset */
+>  			       <238 1>; /* UFS Reset */
 
-Do you have an actual suggestion on how to fix it instead? It is
-needed for every SPI controller that uses cs-gpios which is
-potentially all of them. There's 522 cases of cs-gpios and only a few
-are NAND. Even if it is 10 boards per SoC, that's still 52 cases which
-would be more than I want to list in the kernel.
+On this device, GPIO_65 is an enable pin for the touchpad regulator
+(or something else that is a pre-requisite of the touchpad working)
 
-Perhaps the SPI core when requesting "cs-gpios" could state "apply the
-polarity quirk to to this GPIO" rather than the GPIO core having any
-specific knowledge about "cs-gpios".
-
-However, IMO, for bus nodes, the node names are ABI. That's the only
-way we can identify what type of bus for some buses. The DT core looks
-for "isa", "pci" or "pcie" node names for ISA and PCI buses for
-example. So I don't have much issue with the current approach.
-
-Rob
+Konrad
