@@ -1,182 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 598312E7365
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 19:40:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788378034; cv=none; b=N7pTx9zSElGZr8M56wSVRL+95vclyfwJFZ4AzbsmhHK4KQgeh7btx0u1saDPqs4sLPFdAnaH2xTANKYMSpUXoKxfN58o+WF/DsiJOZRtSmL4LNtl22lEcEZmmK2Eo8JvVIcqBm+1HfdJnD0bAoDm02klIzjb++sWjfGBGBOn480=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788378034; c=relaxed/simple;
-	bh=UkB9ubd3vBlSCDLuyCXZYXnyD6dpykGha4Q7ObrLeVU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Qrhks7dYZNJ+9koR5PAybV7L7lSBogNIC3e4X6x2bAgQimRO+YR9bdV4XJ2aYezRApBjDbl+Ef9QPDcpbrffunrCc+lN0PWAT8ugrLmfWYCsrPeMxMKaNZnEOvxXDpP3fNIdwa62F3gEyQDQlDCPRYsByKyUUluGnJlufLzg3/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bXOOn9Xg; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA26D39B947
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 19:40:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788378050; cv=pass; b=VS20c4tDWCyjDhbSWBLf7QZGBYENAoJLodd7wqGIT/ph7VVRXQ4p/FK4rkqY2IPBht4xDYS8IbfSn+S9DGL6Ua9EpUFz0+LIdAx4VZzLGw5cHMYdpxl2OxHLVz7MjSxUVK4Z2qLS1e+RZvWJizXNT2mL99P49gQrdq9fB0xTQFI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788378050; c=relaxed/simple;
+	bh=eLHTLx0sDJsJ3UdAPIBmpFXK0Itit+qS5fZpvv0jeas=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nfbkoh0p7JQCEz7ZFH+/0fO9BxutHgP0HWQQgvkSBsg9/GTBtl3wydejnOehbRhpkY78OuzMUngCfQX14ANW5bTqceBJxJF9Y/All6sxo4ZfC+bNIg4iRAOIKDPUzGdibYHyJcupQyIqoNJq+TjnKL7itNfKH5SOxaZIqHxoqkg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RUWb/IbW; arc=pass smtp.client-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bXOOn9Xg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89CA71F00A3D;
-	Wed,  2 Sep 2026 19:40:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788378019;
-	bh=PALKTjy0D+OvkoFBib2UtmVziFV+rpFKjYlKBxwNLgs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bXOOn9XgRLVwYm0Ye6llhFb0LNmKeBzhQGbKrqK96D2oNAKyBUSdN4JqG2Gshgujw
-	 WKWmnX8goSsYssOsPpsqJZAjbP/XKuvoTUcz2ovuOXf5GzAdoW7/4cz5kf59KBsomQ
-	 5H0CYs8RK8Sqm5jc09dZwjcvzXKET2dbyEQ5aSC0PHj5PyDV5DIiDpXxMXsi+CkeMm
-	 RgX/7kk29BBuCLLxhKyciZnGB1+AbSkr8TiA49uvW8hPdYU9lLtLEwv9ItUWGxeiav
-	 8qVwAhiWhr7yHT88qdW/UVeB10iX+P+meRlU9YyNci2RfhSI1D0UNJQSf3tDVjPtn4
-	 By1OoZkJzpA9w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI
- DSI to HDMI driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: mohit.dsor@oss.qualcomm.com
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org
-In-Reply-To: <20260903-lt9611c-v7-v12-2-9414d2b3bd6d@oss.qualcomm.com>
-References: <20260903-lt9611c-v7-v12-0-9414d2b3bd6d@oss.qualcomm.com>
- <20260903-lt9611c-v7-v12-2-9414d2b3bd6d@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 19:40:19 +0000
-Message-Id: <20260902194019.89CA71F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RUWb/IbW"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c25ee9d1264so56105166b.3
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 12:40:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788378028; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DQehGCv/DJNqyeDT+dmygQPx1sSy1MoHEYStAatgaqmH6EttTlSgGQ5LJR8hpGMTcW
+         fBtH6sDNLhEpxTIGP+YHa4725MnIsERpeRoMOZS1hDtp0Yo2cDHuqPDX49FLL+N3BL1p
+         pRpn5UFPZXsxaMV5ZoLYNnhvV76Zr40f5ujvyXsQ0faPI/zfZ1EN4uNmJx3OPonwFP5D
+         Vx4VjNRjIAuiYQNffwsMG4h4/5NjC0DtZ3YtBypFWBJ7YN28PB7AG0hs65b1UylTGUQl
+         yaHpiMTWJ4ValoIf+w9g+uNpbhRt1z809JnRt+L7ppC6wfbJjU1nkirNnlo/BnwPTBvK
+         KdAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=MqbOVEuyYxeSD2DntBhPNO5j8MUT5Vkh/1ohb7qF7PQ=;
+        fh=1AuFwvz+M0SenevjiYNK6DfUcnytRKhKUSMDgyp8N7A=;
+        b=cPa3AThn1CegNxFx9JivqcKomVxdVxXwsccxAmFHzUsocZCAxJ3WmoCmMKB0H7XOws
+         ijm6Rn2nJYxNQJtqUtP3/2eVVR1fYqh7kA1dSC/JstysF8LFVs3Jv9e7QvSfqSAN7fU/
+         BNqCvOFmsHwEcyLmb4Prml1z0PaMoEu0l84ct3l0DOWuF9zWiHEWnBUXhp6iMLEvnNKF
+         xkixi1u/ozNFRe0E14qk07VLg3efzllm9XvXCm0zLgnarGRIPqU+MfmvgaT52GFaE4F3
+         w2COF7IyItrUz1dzIyJzxBaKQKop7C56gfS4Qrdfsm90aE3BNOnslmtmZSYGtBgHDNN4
+         FELg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788378028; x=1788982828; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MqbOVEuyYxeSD2DntBhPNO5j8MUT5Vkh/1ohb7qF7PQ=;
+        b=RUWb/IbWnwRrHbpmkQ/geuHNzbmDZM3cbIFwkfhuVSlkzDe9K+TllRV9sa1zWSFFNs
+         P3UEISuLLof4pQVZAJksf7DH0AF2dwvAhkVTxtsCHL69q9dGK1yGxrjV89XvNvcLbc8m
+         BqOrHpBBJttj8/slVhrpqfoXgq3JnYrl9wRfF1IvH93PMsBNKVxTqg9Lw/MoDl4YjSST
+         WpmBUs8pxfEhgA1UaWwT/3P7AXVuaTtrPumsRcCwNtWxsv1UH5u5Ez+omICA2H14FPdm
+         aU8Ee3Gi7M3UfMH3RZa+aoQQrTL0LbBcJBfLlPI1DdLYXaw/ofFUs/TXgvK/a5X6VzOl
+         QgwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788378028; x=1788982828;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=MqbOVEuyYxeSD2DntBhPNO5j8MUT5Vkh/1ohb7qF7PQ=;
+        b=c1AoSMVdoYEzXiwam7frL/njoEloAiB20OZ4z+OPf/EOZ3duyzHKhzpju2mtzE2Cpi
+         WXP5swAYIPt9zh1OOOcLMZwAgvG176omLb66quwGrwAhqx/6C5b4lwDNoKdsp/5J30eo
+         M7MgCjSLz8MMRpKacDRy5cT1sY0a13pJu91JeUJO5Xd9skQnL7BRkUZV8rFZZxvkpW5D
+         67CbHMSkkLyuIRK4mp+U0XA/FxWo1g/c9n6sOAzfdzkcZoGdqHvb5kCZ5dZUeDBrWP2h
+         9jzXcvQyvkA8mh9TdfVOSuAEQAX+XE2QNjf2wLQhvFWksjoEYMmSnXIGElLWaOQRjtA/
+         KYBQ==
+X-Forwarded-Encrypted: i=1; AKwUvByklos+DUh+VPdHtUSDPbNPa4w6KecgsKhrxYHcTS/OkLFRHlfUXXh/XloaOQoE6gfNxkpBNGasZWh1@vger.kernel.org
+X-Gm-Message-State: AFuF++nGqIbv3yDctOlu9lPuEyYvcnEZYYXpIsDTg+66hQAg1SEWQKhG
+	V7BTjII6Oyrpj0jwNa/1JqnZDNqxkpensUtHtJrxs+5UJRg8GeFWtlbZGRLV74K0zIrAgSwD7cT
+	mP6QKlpY9JuQe6n0EtR0gQ2lo3vP7OUw=
+X-Gm-Gg: AYBFou3sCI8sntvdPs60HUvI6Yn63nCl+fS3rz31QQ1MxJxf4QYLtTJUDiea6RKoOz3
+	tlV3mqp31WO5rCo4meevJAWF19JntcHqSdgQeSFyjtIVUvjk9KBMTU+uxG3veZKpNgrPhm0jh9q
+	qy4fgchVTyeSUqa1EfETDE65BhwrPCZnouTYru6oBB7MiEIEEPHJPbyhm3cjhoAlXFbehQTWQss
+	hy0dvudEjNuwJUWCgBvhajLn2W2uPFgRnlKHaD6LRVGCyZ3NT/qg12flWu4h7d0keA18OdN7JcW
+	WhvlKMOkKQHqRoj22jnyAhZ+xmJ3fjGqdnmGJgp2BFA=
+X-Received: by 2002:a17:906:6a06:b0:c25:88e2:fe25 with SMTP id
+ a640c23a62f3a-c25d53cd18bmr358830066b.7.1788378027879; Wed, 02 Sep 2026
+ 12:40:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260820122242.120039-1-l.scorcia@gmail.com> <20260902154616.GA2133376@google.com>
+In-Reply-To: <20260902154616.GA2133376@google.com>
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Date: Wed, 2 Sep 2026 21:40:16 +0200
+X-Gm-Features: AcwNN1Ue5U8Nrt8IK2CbOEno4dpAA-gcYG8T0qYRXxkQ6nYlNe8G_uXeI7qiNIw
+Message-ID: <CAORyz2Kt=rKSJW0Q9pFJiBsa6nPGhHdNrsTsHcE4Qxpq5RsSaA@mail.gmail.com>
+Subject: Re: [PATCH RESEND v9 0/9] Add support for MT6392 PMIC
+To: Lee Jones <lee@kernel.org>
+Cc: linux-mediatek@lists.infradead.org, 
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Sen Chu <sen.chu@mediatek.com>, 
+	Sean Wang <sean.wang@mediatek.com>, Macpaul Lin <macpaul.lin@mediatek.com>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Val Packett <val@packett.cool>, 
+	Julien Massot <julien.massot@collabora.com>, Fabien Parent <parent.f@gmail.com>, 
+	Akari Tsuyukusa <akkun11.open@gmail.com>, Chen Zhong <chen.zhong@mediatek.com>, 
+	linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, mfd@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] Double-free of device nodes `dsi0_node` and `dsi1_node` on error p=
-ath due to mixing manual `of_node_put()` with `__free(device_node)`.
-- [High] Regmap page cache becomes desynchronized after hardware resets, ca=
-using subsequent I2C operations to access the wrong registers.
-- [Medium] Mixing `__free()` scope-based cleanup with `goto`-based error ha=
-ndling.
-- [Medium] Bitwise operations in the IRQ handler corrupt the interrupt clea=
-r register if multiple interrupts are pending.
-- [Low] I2C device ID array is not declared const and uses positional initi=
-alizers.
---
+> What Acks are you waiting on?
 
-commit 79126746072fd218bc214fab821198cac4bc10bd
-Author: Sunyun Yang <syyang@lontium.com>
+Hi, I did not get any Ack for the regulator driver and for the mt6392
+dtsi yet (patch #8 and #9).
+I just submitted a slightly revised v10 [1] with an improvement to the
+main mfd binding, so I think it would be better to "renew" the Ack for
+that too.
 
-drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver
+Thank you!
 
-This commit adds a new DRM bridge driver for the Lontium LT9611C(EX/UXD)
-MIPI DSI to HDMI bridge chip. It supports configuring the hardware, handling
-interrupts, and triggering firmware upgrades over I2C.
-
-> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611c.c b/drivers/gpu/drm/b=
-ridge/lontium-lt9611c.c
-> new file mode 100644
-> index 0000000000000..ef1e9726fdd3c
-> --- /dev/null
-> +++ b/drivers/gpu/drm/bridge/lontium-lt9611c.c
-[ ... ]
-> +static void lt9611c_reset(struct lt9611c *lt9611c)
-> +{
-> +	gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
-> +	usleep_range(10000, 12000);
-> +
-> +	gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
-> +	msleep(400);
-> +}
-
-[Severity: High]
-Does resetting the hardware here desynchronize the regmap page cache?
-
-The physical reset via GPIO clears the chip's internal page register back
-to 0x00, but regmap's cached page selector isn't explicitly cleared. If the
-last I2C operation was on a different page (like 0xe0), subsequent writes
-might skip the page selector write because regmap thinks it is already set,
-causing those operations to mistakenly target page 0x00 instead.
-
-[ ... ]
-> +static irqreturn_t lt9611c_irq_thread_handler(int irq, void *dev_id)
-> +{
-[ ... ]
-> +	/* Clear interrupt: hardware requires two writes with delay */
-> +	regmap_write(lt9611c->regmap, 0xe0df, irq_status & BIT(0));
-> +	usleep_range(10000, 12000);
-> +	regmap_write(lt9611c->regmap, 0xe0df, irq_status & (~BIT(0)));
-
-[Severity: Medium]
-Will this corrupt the clear register if multiple interrupts are pending?
-
-By writing irq_status & (~BIT(0)) back to the hardware clear register, if
-there are other interrupts pending in irq_status (for example, bit 1 is set=
-),
-this will mistakenly write a 1 to those other bits during the final clear=20
-step for bit 0.
-
-[ ... ]
-> +static int lt9611c_parse_dt(struct device *dev,
-> +			    struct lt9611c *lt9611c,
-> +			    struct device_node **dsi0_node,
-> +			    struct device_node **dsi1_node)
-> +{
-[ ... ]
-> +err_put_dsi1:
-> +	of_node_put(*dsi1_node);
-> +	of_node_put(*dsi0_node);
-> +	return ret;
-> +}
-[ ... ]
-> +static int lt9611c_probe(struct i2c_client *client)
-> +{
-[ ... ]
-> +	struct device_node *dsi0_node __free(device_node) =3D NULL;
-> +	struct device_node *dsi1_node __free(device_node) =3D NULL;
-[ ... ]
-> +	ret =3D lt9611c_parse_dt(dev, lt9611c, &dsi0_node, &dsi1_node);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to parse device tree\n");
-
-[Severity: High]
-Can this cause a double-free of the device nodes?
-
-The pointers dsi0_node and dsi1_node are declared with __free(device_node).
-If lt9611c_parse_dt() fails, it manually calls of_node_put() on both nodes
-but does not set the caller's pointers to NULL. When lt9611c_probe() returns
-an error here, its scope ends and the automatic cleanup will call of_node_p=
-ut()
-again on the same pointers, leading to a reference count underflow.
-
-[ ... ]
-> +	/* Attach primary DSI */
-> +	dsi =3D lt9611c_attach_dsi(lt9611c, dsi0_node);
-> +	if (IS_ERR(dsi)) {
-> +		ret =3D PTR_ERR(dsi);
-> +		goto err_remove_bridge;
-> +	}
-
-[Severity: Medium]
-Does this mix scope-based cleanup with goto-based error handling?
-
-The function declares variables with __free(device_node) at the top but uses
-goto err_remove_bridge and goto err_disable_regulators for cleanup here and
-below. The kernel cleanup subsystem prohibits mixing goto and __free() in t=
-he
-same function to avoid confusing ownership semantics and resource leaks.
-
-[ ... ]
-> +static struct i2c_device_id lt9611c_id[] =3D {
-> +	{ "lt9611c",   (kernel_ulong_t)&lt9611c_chip_data[CHIP_LT9611C]   },
-> +	{ "lt9611ex",  (kernel_ulong_t)&lt9611c_chip_data[CHIP_LT9611EX]  },
-> +	{ "lt9611uxd", (kernel_ulong_t)&lt9611c_chip_data[CHIP_LT9611UXD] },
-> +	{ /* sentinel */ }
-> +};
-
-[Severity: Low]
-Is this missing a const qualifier and named initializers?
-
-The I2C subsystem dictates that initialized arrays of type struct i2c_devic=
-e_id
-must be declared const and use named initializers instead of positional one=
-s.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903-lt9611c-v7=
--v12-0-9414d2b3bd6d@oss.qualcomm.com?part=3D2
+[1] https://lore.kernel.org/linux-mediatek/20260902193351.185771-1-l.scorcia@gmail.com/T/#t
+-- 
+Luca Leonardo Scorcia
+l.scorcia@gmail.com
