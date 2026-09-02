@@ -1,151 +1,284 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFB96403E9E
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 08:56:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC930403AFF;
+	Wed,  2 Sep 2026 08:56:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788339398; cv=none; b=Mlh+5+5cmgC3rVtBuD/erHk8D2+IcF7WA2Dz1eQ2e0OPpPObbup02nHkZdOAc095LpoZSAD80C8cXC7t/jkUOtAk2PYSk1dMhcu9atLcgOpFuvAUuyKLR81kc6+PmqlMEtkrFzWcnwl5UUQcpcm+BT9TqjezgzCpnCFikOPbkxA=
+	t=1788339419; cv=none; b=EJ220cf5QrvgICf8ML2u+fVYM6gV3fpPUqFV7wp+PRlB8xJU8I+d/+cYPm9W3otrM4d/rcOr+HvWnEl54WLGzCsSEblPcSf3cdh1ftLGZ/17Xu4mFx5dK8OTZWSSU7gqSAieABX9fcxxkpcXDfAVjXdVhtntX7U1cDtwCkCLZJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788339398; c=relaxed/simple;
-	bh=Hkd7WTFmIkuhSa1Lj9Ua/wTrqEfFcr8VgdL7VPdGPqY=;
+	s=arc-20240116; t=1788339419; c=relaxed/simple;
+	bh=lxnl/XiQqizW58MwO0XbaFcDVZBe9W7IGhRmlfzWCWo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s3r0vlaetrfhXMH1oKdYih2HukgfDYd8Ft90dEQCYzwrCFMJ6iulPmbhiUEmfnuSTxss2NP7K/xhF3NAGTpEtmgWLlpOFfpc+40vn66DdFOktJ0rZjLaYa6KxfhHi8K3eUfQUztPV7Q8+lEUeeOfem15GqAl77fx1mFJvJnbUcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fU4qlX3W; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MpgeJh/P; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=L1YZ9GAM/bkRzg1qEvnDzt01dz41aUOM9/EtADQueDUsbe7Vm/85oORhJfWvln9XudLGXfKh9E5/XGd0Svl24YfzbBVdGngZfQgLhdaHgw8oUqJWhS8HSKcUIbaudJQr0COFHiz4flcnCfe3mFGWrIXu0QtBXnDVf1ZIWu8dOh4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=Dzrh4v7O; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fU4qlX3W";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MpgeJh/P"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6826VeZW960312
-	for <devicetree@vger.kernel.org>; Wed, 2 Sep 2026 08:56:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=/QOK9WvQe6jUV3BBjRVMVi73
-	3JCIvhjtwq+YyPWtdNU=; b=fU4qlX3WW28/3oPqaAGLDrVjbf+XxneHLH91r71y
-	Vv7W4MEcQAVA3MJoMlATX8IzXpfmdoPI34TckvUDFFL0A8wmv/wgnbUJxb7fKTkw
-	QFkesvN9Zx8IKmmF0GoE+j0ZldC2Bn3ko171H74srFf0eG7VXWIvD0cQI5SQyOth
-	S48R8SgNZFXZsPJOM1Sx5jhuKcMzS1wVe/Jv8SwAmHEJav9IJdgLSnNoO6PrrUIm
-	c0PEmRnGTAVl1dHe8XhP8FCSWVzXkJOulrI2cpj6MhmYiK7S2FvcT/Teey5tCOZS
-	3M1YOD2WQpT+xttxY5ydfSeUhLKIZhsACJVcJiJJwF6DSw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ge3n0u2vc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 08:56:35 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92e4f946461so188546585a.2
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 01:56:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="Dzrh4v7O"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788339395; x=1788944195; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/QOK9WvQe6jUV3BBjRVMVi733JCIvhjtwq+YyPWtdNU=;
-        b=MpgeJh/PPCQ6d7zxlsYz67fiU5A/7HSx6nm3zC0+ug1itCJGphudh6MCH3Ub3gExSi
-         Cd4s55yN73ovn4ZZFTPxPAizFLQoqD1d5pFbigg0vSRsjjR7PvcBVz4ToKOOs4oxHBGt
-         n5gr9fizMiNThSE7PoAgGHXCcX7W36XmlQKj+y0puOlylsRt7UT6ctZHOIF25Q7mPY/9
-         3bgcD0vg14p+7OvapX+LYqPLzX6w0DNViM/ei4rY4LIQ56On64OHi0d2dRxuI+44w2lx
-         NPUG+KGL3mqabw78sHmPLWi9svHIx1uUcKVfJP6wvXQwISHXO2dWd0FYXL5zEnQPFqSu
-         jILA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788339395; x=1788944195;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/QOK9WvQe6jUV3BBjRVMVi733JCIvhjtwq+YyPWtdNU=;
-        b=pul4Vjb8qZpftsqSVwaMkUuEpxWKp0JJV2fCMRji1/EBRkPD4aflEMSCB0bGfE6UYA
-         lboT+88Lmiue5NbQrP6HW7SNByen8O5DW+mqDjGKSLaQXDyu8SdOAXhH06jQvVDKZo9x
-         4FRuH3dAkWBnvZhaC5WTBb5MmzhP+HEAfG1Edk4uWXwPgF6OQuTyLw4Q4arUdjFXqPIQ
-         zRX5U+Irz99esaDbY+HAP7nf5vMwgDH2Sn5zeOUnwDhOroPjUwiyB6Ebn6DZNxOKYPP9
-         9PTvau1K9+G1jvXa+SjS7cubT4nUCL7BdOSAFaVnT9GAHv0ob2X3Hl2hfwhP1ZQ5gNNR
-         dKaA==
-X-Forwarded-Encrypted: i=1; AHgh+RpSBrOP80JzHoUINGozc1g/b7gRnDDd31oeEJdCT1geNQvjb8ydV2o+HR1LnDnSA9/dzjTWibfWMyCF@vger.kernel.org
-X-Gm-Message-State: AFuF++n7pKu6dsVNQ/dBld17B+JMG+j5xf5KlMjNj0RbTZOONWh8LXdS
-	bV9q2U6hJ2kEsKD1e5jRSHDRmJFfLfnJyigJJGMwWQ1sZi0Ib0AAAG1acOLaITtAxAxOhZRcQyp
-	Tst9b9YYSNJcxGYmeXqe8IhR3ZpRiKLy/r4J8m8Uo7ZXfDz3wIgHlPBGFnhzQ/ass
-X-Gm-Gg: AR+sD13Dvyiwsh+Wmw+qAeGV6icwycbwydo0lKG3+uDcmIivcgG5/1JNZbI9Sq0hJs9
-	El8GFXcoK+GEW1SR2rY2HYrBjs/2BC9cJgHu2mARdAYOE59hMYsxOKRtWAT5BktgF7XR1F6urHI
-	+LLh5ARXA1tQhCfnkZeqDcccKxcSN96K/4nWZCdFdeLtUJTkWKTcMTqgDznlJsQ+O1Knd6toGfU
-	4KRZdtZmiK+0MnmjpeHkGgNYd9hJlf7kcT+C55PjSFYiCkZm+GT2ZuaXr8g8y/SuTJiqVHb+k9Q
-	ddAK4Ou112rA4thHr/qvUzqr2IFzQc5HZb/BpR8EBTNnx3MCuTSdbXfTWF9P1DeKN1yqLeGK7ks
-	n+wwdUaADy1Puh74=
-X-Received: by 2002:a05:620a:bca:b0:92e:535b:e08b with SMTP id af79cd13be357-93960f57dfdmr345501185a.33.1788339393019;
-        Wed, 02 Sep 2026 01:56:33 -0700 (PDT)
-X-Received: by 2002:a05:620a:bca:b0:92e:535b:e08b with SMTP id af79cd13be357-93960f57dfdmr345497285a.33.1788339392514;
-        Wed, 02 Sep 2026 01:56:32 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.178])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e80388sm6241821f8f.14.2026.09.02.01.56.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 01:56:31 -0700 (PDT)
-Date: Wed, 2 Sep 2026 11:56:29 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: jens.glathe@oldschoolsolutions.biz
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, stable@vger.kernel.org,
-        "Dr. David Alan Gilbert" <dave@treblig.org>
-Subject: Re: [PATCH 3/5] usb: typec: mux: ps883x: refactor DP altmode
- handling and support TYPEC_DP_STATE_F
-Message-ID: <yit5hlvrumamlkp653uleqczt534aabcgrw75q4utxpistsnfv@ctd4lu27fndm>
-References: <20260718-ps883x-disable-usb4-v1-0-cec86d0b909e@oldschoolsolutions.biz>
- <20260718-ps883x-disable-usb4-v1-3-cec86d0b909e@oldschoolsolutions.biz>
+	d=gibson.dropbear.id.au; s=202608; t=1788339407;
+	bh=YzbYR6QStoZSc1aEZFPHiU0QniMuOaM7ARATJOtrQ0o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Dzrh4v7OsBX8H6lH0vFp7sx1FKQZvoKi5gpHNj8pqwzhXr4GQdYq8BlrW4vk938bu
+	 SZCyL/gm6Idj6umGZUZOXZpb+hB6rI4at/37xmI/WPpjIUBx7wO2dJkLuCPKWv3a48
+	 vRKgYZeLXNRVDO297R49R8I5eRC0qCUMPWUlcex8wX2v6BbkIYJPWusffGhGTCrmEj
+	 xIDcoNuycJqTXJvX3JZvrbnKO+FE2IuIbfettit+mBy7ohNq8k17l7MIGp+uN8bHwc
+	 weenUR7UrjSRSMS/No3SXiwn+bh8gErXTKfTdYOONTOhGmqddnMTI6RlBsnUJE8E2L
+	 yQWQKUQCgTvqw==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4hZc6R6KlGz4wK1; Wed, 02 Sep 2026 18:56:47 +1000 (AEST)
+Date: Wed, 2 Sep 2026 18:56:41 +1000
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v3 03/15] tests: Don't assume the root node is available
+ at offset 0
+Message-ID: <apfktu0dxJL8n-xW@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+ <20260826083146.304291-4-herve.codina@bootlin.com>
+ <apaGr_i-s4DAZ-Ul@gractus.seuss>
+ <20260901153626.7f0e0813@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="mGXwxgxoBZEXphHt"
+Content-Disposition: inline
+In-Reply-To: <20260901153626.7f0e0813@bootlin.com>
+
+--mGXwxgxoBZEXphHt
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260718-ps883x-disable-usb4-v1-3-cec86d0b909e@oldschoolsolutions.biz>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA3OCBTYWx0ZWRfX3FVET+mZ7Og6
- w43cUf1D6eY4kKAbi1YLwYBcN+O/FhQPjxImBm+VJMGy37wHiY9w6MJf4UeH3G+QUWd9DRzQa8l
- xVJIUO8dRnmlAe1xoYzLmGCJq7Mgtca9W0wkL3kQQhl/GhrMCDHi2xMlbaM+ZsmY1OniFMUVNIo
- H0HoA3lhWObjwjVH1mz89Xawig4ql15F1d80mKm7ppg0s6Jgr4dDRz9bJQ00uY5EJM4ISo7jheZ
- MjQSg1dHN6VNsmgHyyiy5/w8PKYgbZR8J62GXnIGTb3+Pj2wzQivHiAM5fqzHRrzVmuO46hKE4T
- MpOiEuF+QPXimdH98dxFNeiyuY4sxk35zYH6DF2GayHfC+7lfwJWIqmABqrSDqBiTfPg1ZkWwBz
- IZz61McT/FWdLpeko5GBCEzA+lYAo52kmySXi6IixN0X6tVtzbVW0SOtvu4a0Kp+E3lNPCiEn7q
- pS6mlUxxumwFWujIxVA==
-X-Proofpoint-GUID: svPYC8GsfrJwI-SVo3iDcmZ9b5AqEaUc
-X-Proofpoint-ORIG-GUID: svPYC8GsfrJwI-SVo3iDcmZ9b5AqEaUc
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA3OCBTYWx0ZWRfX+wGD/MCvwvUX
- tue2nWAzZU4H54JlagEENfjnBrmqarkeuFek6UZDYSzDCHrG5iF9xLZBHR7rI9891tSmJuQPmun
- IQD1AO28ehl/7Kas+gmY9eu8ZRCwVTw=
-X-Authority-Analysis: v=2.4 cv=R9oz39RX c=1 sm=1 tr=0 ts=6a97e4c3 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=G5ilVN+faPP2Ze1SHB4iFQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=gxl3bz0cAAAA:8 a=EUspDBNiAAAA:8 a=Xqxl2qIfDM1Vn1vrR_wA:9 a=CjuIK1q_8ugA:10
- a=PEH46H7Ffwr30OY-TuGO:22 a=kiRiLd-pWN9FGgpmzFdl:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_01,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
- phishscore=0 adultscore=0 malwarescore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020078
+Content-Transfer-Encoding: quoted-printable
 
-On 26-07-18 19:06:31, Jens Glathe via B4 Relay wrote:
-> From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-> 
-> Several docks, including the Lenovo 40B0 and SSK SC220, still send the
-> legacy TYPEC_DP_STATE_F mode request (deprecated since DisplayPort Alt
-> Mode spec version 1.0b). Treat it as USB3 + DP altmode (same as
-> TYPEC_DP_STATE_D) so that DP altmode works correctly, especially on
-> the 40B0 in Type-C fallback mode.
-> 
-> Extract the state handling into ps883x_apply_dp_altmode() (modelled
-> after qmp-combo-phy) for consistency.
-> 
-> Assisted-by: Grok(xAI):4.3
-> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+On Tue, Sep 01, 2026 at 03:36:26PM +0200, Herve Codina wrote:
+> Hi David,
+>=20
+> On Tue, 1 Sep 2026 18:03:09 +1000
+> David Gibson <david@gibson.dropbear.id.au> wrote:
+>=20
+> > On Wed, Aug 26, 2026 at 10:31:34AM +0200, Herve Codina wrote:
+> > > Several tests uses offset 0 as the offset of the root node. Either to
+> > > check the offset returned by tested functions or to directly manipula=
+te
+> > > the root node retrieved using fdt_offset_ptr(fdt, 0, ...).
+> > >=20
+> > > The root node is not always at offset 0. Indeed, a FDT_NOP tag can be
+> > > present at offset 0. fdt_root_offset() returns the offset of the root
+> > > node taking care of possible FDT_NOP tag.
+> > >=20
+> > > Use fdt_root_offset() to get the offset of the root node and use this
+> > > value whenever the offset of the root node is expected.
+> > >=20
+> > > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> > > ---
+> > >  tests/node_offset_by_compatible.c |  4 +++-
+> > >  tests/node_offset_by_prop_value.c | 11 +++++++----
+> > >  tests/path_offset.c               | 13 +++++++++----
+> > >  tests/root_node.c                 |  6 +++++-
+> > >  4 files changed, 24 insertions(+), 10 deletions(-)
+> > >=20
+> > > diff --git a/tests/node_offset_by_compatible.c b/tests/node_offset_by=
+_compatible.c
+> > > index a9e67835..1278a562 100644
+> > > --- a/tests/node_offset_by_compatible.c
+> > > +++ b/tests/node_offset_by_compatible.c
+> > > @@ -39,12 +39,14 @@ static void check_search(void *fdt, const char *c=
+ompat, ...)
+> > >  int main(int argc, char *argv[])
+> > >  {
+> > >  	void *fdt;
+> > > +	int root_offset;
+> > >  	int subnode1_offset, subnode2_offset;
+> > >  	int subsubnode1_offset, subsubnode2_offset;
+> > > =20
+> > >  	test_init(argc, argv);
+> > >  	fdt =3D load_blob_arg(argc, argv);
+> > > =20
+> > > +	root_offset =3D fdt_root_offset(fdt);
+> > >  	subnode1_offset =3D fdt_path_offset(fdt, "/subnode@1");
+> > >  	subnode2_offset =3D fdt_path_offset(fdt, "/subnode@2");
+> > >  	subsubnode1_offset =3D fdt_path_offset(fdt, "/subnode@1/subsubnode"=
+);
+> > > @@ -54,7 +56,7 @@ int main(int argc, char *argv[])
+> > >  	    || (subsubnode1_offset < 0) || (subsubnode2_offset < 0))
+> > >  		FAIL("Can't find required nodes");
+> > > =20
+> > > -	check_search(fdt, "test_tree1", 0, -FDT_ERR_NOTFOUND);
+> > > +	check_search(fdt, "test_tree1", root_offset, -FDT_ERR_NOTFOUND); =
+=20
+> >=20
+> > This does highlight that even with the compatibility changes
+> > introduced here, allowing NOPs before the root node can potentially
+> > break things.  We now handle _passing_ 0 to any of the functions as a
+> > node offset, but anything that expects a _returned_ offset to be 0 if
+> > it's the root node will break.
+> >=20
+> > I think that's probably an acceptable breakage, but it's something to
+> > be aware of.
+>=20
+> Yes, I know but I wouldn't say it is a breakage. NOPs are allowed by the
+> specification. In current version dtc/libfdt, having a NOP before the root
+> node is already broken.
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Yes, but (usually) not breaking existing users of real software is
+more important than not breaking compliance with an abstract spec.
+Especially when the spec was written from the software, not the other
+way around.
+
+> I agree with you we need to be aware of.
+>=20
+> ...
+>=20
+> > > diff --git a/tests/root_node.c b/tests/root_node.c
+> > > index 37e6f059..30903f2b 100644
+> > > --- a/tests/root_node.c
+> > > +++ b/tests/root_node.c
+> > > @@ -19,12 +19,16 @@ int main(int argc, char *argv[])
+> > >  {
+> > >  	void *fdt;
+> > >  	const struct fdt_node_header *nh;
+> > > +	int root_offset;
+> > > =20
+> > >  	test_init(argc, argv);
+> > >  	fdt =3D load_blob_arg(argc, argv);
+> > > =20
+> > > -	nh =3D fdt_offset_ptr(fdt, 0, sizeof(*nh));
+> > > +	root_offset =3D fdt_root_offset(fdt);
+> > > +	if (root_offset < 0)
+> > > +		FAIL("fdt_root_offset() returns %d", root_offset); =20
+> >=20
+> > Hm.  It's been a long time, but I suspect the purpose of this testcase
+> > was to be super low-level, checking the contents of the root node
+> > _without_ relying on iteration or lookup functions first.  Putting the
+> > lookup call here arguably defeats that purpose: certainly the test
+> > that nh->tag =3D=3D FDT_BEGIN_NODE is no longer meaningful, since
+> > fdt_root_offset() will explicitly look for a location where that's
+> > true.
+> >=20
+> > Or perhaps another way to look at it is that this test is explicitly
+> > verifying that the root node is at offset 0, so does it make snese for
+> > this test to even exist any more.  I guess the test for the name of
+> > the root node is still meaningful, if minor.
+> >=20
+> > Nonetheless, to maintain as best we can this test's goal as working
+> > independent of lookup functions, I think it might be worth open coding
+> > something to skip FDT_NOP tags (not using fdt_next_tag(), even), then
+> > construct nh immediately after that.
+>=20
+> Well "structured tags" are going to be introduced and so the open coding
+> here will need to take care of that. Later some new tags could be introdu=
+ced
+> and could also have impacts on the test.
+
+If structured tags are allowed before the root node.  There might be a
+case for that (and maybe you've already made it in the addon series),
+but so far it's not obvious to me that's useful.
+
+> To be honest, I hesitated to just remove this root_node test.
+>=20
+> I kept it because at least it checks that the offset returned by=20
+> fdt_root_offset() looks like a root node (i.e tag BEGIN_NODE and empty na=
+me).
+
+empty name checks something, but the BEGIN_NODE test is meaningless if
+we're found our offset by searching for a BEGIN_NODE tag.
+
+> Adding an open coded loop here without fdt_next_tag() call will looks like
+> a copy/paste of the loop available in fdtdump.c. I am not sure that this =
+is
+> what we want to see here.
+
+Usually I'd agree (DRY principle).  But as I say, the purpose of this
+test is a special case - it's trying to test things piece by piece
+with a minimum of circular dependencies.  That tends to make it
+clearer what's gone wrong when somethin gbreaks.
+
+> The question is: How to be sure that the offset returned by fdt_root_offs=
+et()
+> is really the root node offset without having an open code loop here?
+>=20
+> Maybe we can add a new test, root_offset, and build dtbs where we exactly
+> know where the root is (2 dtbs, with and without FDT_NOP). treegen could
+> build those dtbs.
+> ---- 8< ----
+> / {
+>     offset =3D <real_root_node_offset>;
+> };
+> ---- 8< ----
+>=20
+> The treegen tool should be able to add a property where the value is the =
+offset
+> of the root node.
+>=20
+> The new test could get the root node offset thanks to fdt_root_offset(), =
+read the
+> 'offset' property available at this root node offset and check that the p=
+roperty
+> value matches the root node offset returned by fdt_root_offset().
+> The root_node is kept as it is with this current patch applied:
+> - use fdt_root_offset()
+> - Check BEGIN_NODE
+> - Check empty name
+>=20
+> What do you think about this solution ?
+
+One test that's safe on any tree just checking the empty name, another
+that's checking the low-level construction with a known offset.
+That's a good idea.
+
+Encoding that know offset in a property is overcomplicating things
+though, and it makes this very low-level test rely on parsing a
+property, which we want to do even less that searching for the root
+offset.  But that's ok - we're only calling it on specifically
+constructed trees, so we can pass in the expected offset as an another
+parameter.
+
+> Should the 'root_offset' test need to be implemented or does it look
+> over-engineered ?
+
+No, it's good.  I'm less concerned about over-engineering in the
+tests since, in a way, they test themselves.
+
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
+
+--mGXwxgxoBZEXphHt
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmqX5LYACgkQzQJF27ox
+2Gcy2A/+O3/1/jpRov0cOG3R8PSKIQS5udctghrtC/lGb7bQiEuRnkHLaVqB6oMJ
+jFAuKkm9t5Wb3shIcJ+GOLWxaN5SXVbUHmenO2jAefCXKcr1s9amR1wCw8VqbnMd
++JDxEZL0jbO0Xyi39bAqm2U8YjbAefgShc5R9yfuJ3FhCyqR94MnVX8okQQ8N21+
+cy0UkM6YkifV+gQxVpirDHmbvtRnbBXbgN0SXGamUEVqsYCfyY8/mFZlBEFHJoLY
+GWYhDPYRfV9Y2H8qDp6aGIgaz/ZqXDM0lmoU3IeAYj1AavaFi9GOTSQDkDb7x+Kt
+m/LpK3689yQBTp4Rp6osvn2qCEivUE5NufImXc+XTmbUrJrsj5IWFPYmwv9HkalI
+F1DbBo7esVkE2DeeAHbKj/qkj3tR30bshoW/obiljPHPIz6mY9+PtoAalIKJSwOb
+Fg5gG1Bqqlb0Vbw0QkT79dStZOMBTfKV67p/Yx0yqdFJ15PMTgzeMziT+PJo5O/3
+YhJQ3UQz5RX69taFRh0rxaSsuv6z1iMtDQGKqQquFpP3aImApiaokOKbcaJEa51m
+3baybmkRGYWnxjcN/XY2Mwv8W2X+OFdFvVm/KiCQV8OXocjax2KBdHLxzFf7JJVI
+GpMbZPMdz6OWQE6ggTWZi6jAH5ASvr0M7UnjwZI9n/IbbI08r9c=
+=ZYcp
+-----END PGP SIGNATURE-----
+
+--mGXwxgxoBZEXphHt--
