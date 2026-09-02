@@ -1,92 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6015230149F
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 08:18:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EB18396585
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 08:20:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788337132; cv=none; b=RQPV4YbWw/s7lnFhqpzG3/h1psJMDrq+GV9inLW+DXyfzeDXz9VB588ZtKyfdPb/bhXIU54Aj9Lw/m0LA7OFAk7g0q9bVcHfc6j6FrFD36a+4VOQlnBxbaiQcNw6jaCFZ4uCBv7TT1Jy61S10/VSqnlNnMbjRM51EezTMX9I54E=
+	t=1788337228; cv=none; b=qFIawkQvyobdNewRAZNvTVflYo88OSA9BZsn4gxIHSMObGrLcbAiMpvztKrsl8PCsvH2kMGbUYCQQMdIEA0X4UK36c/X3Rp+6EQ0Q0p2tJKgcMbPwMpZxlidenJbh3lyTtyAN2Vz/zooWyLaExR1aJjrdGRozOXvnSSwqjNlEfQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788337132; c=relaxed/simple;
-	bh=uIs7AGfj81rzp7gXXrvYlWTMZu6PuwMDaC+4NZ0qFqk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=joHPRono9uSUBpD3LNMJ2FigMOAxO/fd0sPpijAqtGWckKuUEySynvONAr9M5cf7fsxGJh4/65ue41X2l2EcOeX/0Nh4XgoC7oar+LWweq5wEmO6smuE98MB3AfWfPyoMIzz18/fX+5a6+I3P+x93rHSft0mfu3QY6xwcnXfqF4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ByFrE6GS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788337228; c=relaxed/simple;
+	bh=J8dWfxEF1RGzMXVMgB/mwWhusdNmDzLztUJD+Kg4nTI=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=OazuBu/cMcg9eWk+ptt82SI58Ki7YuPjPBqUTXAqM220LXlK9c86FleX3AAtOGp+NiJcTSwmLe/OH4SQXgsol81+fhbDmDZ/0mg0vOPGp7GBACv4dU9g0M+oQ4KS3HI8uYGP/99nKaMX6cBj4urLh4rw84s5jWeFKGbGYvIaGaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=obSfFDp9; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ByFrE6GS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C15861F000E9;
-	Wed,  2 Sep 2026 08:18:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788337131;
-	bh=WcFTBaE3Fvhco3U/uCHd+gcFr6P0HVYx7wbLGVfZylQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ByFrE6GSx2sx8rvkdpH0HEwNhNXtoRTphSTSeKDMfY+cKzu9sNX1lO3rOot/9yXzI
-	 ETldjnhMElhAZaD4dzIggnSTzZ4/cFmz5WZrHBJV7EXQ+e7DMsQuLt0lVYduZj6hsM
-	 yyuAN47XidaE827UUTJWaieglAw1BfSlpuVZVx8EcHYN5UsejSDKD6Dmy7gOt8zzdy
-	 am9MepXvRrBoyWQcc5cya1n36l9vqDck8BB9kLIyG6BT6otYwJR8xFTlWPS9IeQ6xZ
-	 bsJRbNYRFwv50xG9wB/H/fQ5uqbQ8bmuYm9mOZX8aYohBRDU5cc+dgsw/tsOLNUuD2
-	 vFY1ZXLFPCXsQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] arm64: dts: qcom: eliza-cqs-som: Enable Adreno A722
- GPU
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Abel Vesa" <abel.vesa@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260902-dts-qcom-eliza-evk-enable-gpu-v2-1-51b452a460a2@oss.qualcomm.com>
-References: <20260902-dts-qcom-eliza-evk-enable-gpu-v2-1-51b452a460a2@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 08:18:50 +0000
-Message-Id: <20260902081850.C15861F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="obSfFDp9"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id C367C4E414D2;
+	Wed,  2 Sep 2026 08:20:23 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 913A96053C;
+	Wed,  2 Sep 2026 08:20:23 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EB63E11C792AC;
+	Wed,  2 Sep 2026 10:20:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788337218; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=zXwmUqR80A5WcB1By3Vqky+fSnzgUpYcAnB6V+3H0bA=;
+	b=obSfFDp9c3fLXn9Jdh3sWnB3ocZrKCvN3COLHPLcaFTUvPZGThEQdQolXal845JS1KCC/I
+	386jSjryrGCWCH8ll5Dt+OK2sNJXpqEUNshRlivZu2pzVTF7/PsV5NhaqEJkQl4fWUmB4q
+	Xx5Tq/+o9WKnpELRu8aiqYW8ZIwcEjsG0yxOVgYQ4/+t3D/nmUf4RvR9RY7FVGTKLkoKRP
+	vowcNcW/jdHAsFFxP8knpmG6pu38016t6flYv3sn7hbc7qXjRUOXRs1ogIv8Q4fF0EFpcp
+	eGZEt3RS3ZNi9c2CnBEV+x3YJ27ilq1vTpywTcrY8W+iylgxqK3KQs2qYaCFEw==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v8 5/5] drm/bridge: analogix_dp: Add support for
+ optional data-lanes mapping
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Damon Ding <damon.ding@rock-chips.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sandy Huang <hjc@rock-chips.com>, 
+ Heiko Stuebner <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20260828065153.590802-6-damon.ding@rock-chips.com>
+References: <20260828065153.590802-1-damon.ding@rock-chips.com>
+ <20260828065153.590802-6-damon.ding@rock-chips.com>
+Date: Wed, 02 Sep 2026 10:19:56 +0200
+Message-Id: <178833719638.506564.9767716352967670052.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The overridden DT nodes are not sorted alphabetically by label.
---
+On Fri, 28 Aug 2026 14:51:53 +0800, Damon Ding <damon.ding@rock-chips.com> wrote:
+> Parse the optional 'data-lanes' device tree property to support
+> custom physical lane mapping configuration.
+> 
+> If no valid configuration is found, fall back to the default
+> lane map (0, 1, 2, 3) automatically and keep the driver running.
+> 
+> Lane mapping is mainly used for below scenarios:
+> 1. Correct PCB lane swap and differential line routing crossover
+>    without hardware changes;
+> 2. Adapt mismatched lane pin definitions between SoC and eDP panel;
+> 3. Support multiple panel hardware variants on the same board
+>    by configuring data-lanes in device tree only.
+> 
+> [...]
 
-commit 69d2b599210486d1fb104df39a0da4a840c7aa02
-Author: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-arm64: dts: qcom: eliza-cqs-som: Enable Adreno A722 GPU
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
-Enable the Adreno 722 GPU on the Eliza CQS SoM board and provide the zap
-shader firmware path.
-
-> diff --git a/arch/arm64/boot/dts/qcom/eliza-cqs-som.dtsi b/arch/arm64/boo=
-t/dts/qcom/eliza-cqs-som.dtsi
-> index 5ef6c51618bf9..918f5289ca45f 100644
-> --- a/arch/arm64/boot/dts/qcom/eliza-cqs-som.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/eliza-cqs-som.dtsi
-> @@ -374,6 +374,14 @@ &pm7550ba_eusb2_repeater {
->  	vdd3-supply =3D <&vreg_l17b>;
->  };
-> =20
-> +&gpu {
-
-[Severity: Low]
-This isn't a bug, but should the overridden DT nodes at the root level be
-sorted alphabetically by their label to maintain consistency?
-
-Since 'g' comes before 'p', the &gpu and &gpu_zap_shader nodes inserted here
-in arch/arm64/boot/dts/qcom/eliza-cqs-som.dtsi should probably be placed
-before &pm7550ba_eusb2_repeater.
-
-> +	status =3D "okay";
-> +};
-> +
-> +&gpu_zap_shader {
-> +	firmware-name =3D "qcom/eliza/gen71700_zap.mbn";
-> +};
-> +
->  &remoteproc_adsp {
->  	firmware-name =3D "qcom/eliza/adsp.mbn",
->  			"qcom/eliza/adsp_dtb.mbn";
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902-dts-qcom-e=
-liza-evk-enable-gpu-v2-1-51b452a460a2@oss.qualcomm.com?part=3D1
