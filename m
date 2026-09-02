@@ -1,90 +1,88 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from ms1.novatek.com.tw (ms2.novatek.com.tw [210.202.87.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A69D3EAC98
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 09:10:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 535F5411FB5;
+	Wed,  2 Sep 2026 09:18:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.202.87.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788340218; cv=none; b=e26l4zGb56/eVMyXG8Y9Pr/eu09Zx0f8qCfHW8U+u7WOSAcwrFoY571fDSUNknT5mJ3pphAh7Msz0+qTiEII9YPaBNinGq2orscO0akH5XYUY3FPG2lACsRXAxNnJI54x31zEsaboQwbLcafyAO4+9gkYptaDZsp7L0OMO6ekNI=
+	t=1788340715; cv=none; b=q/5In4O0KFwE3PDBA258fh2qp5JE0c5y8GiwWeZXR66v1EBr5pHFAobDsWf3sOUxEEo5dlW5yKp0ix8Dlx8RAIZxaXShuMNwjCNb4Oe5Zq9hkHdunnbfEUYcp51NpPQfx+Xc0YhZz9d0Vu5qMncBMYoE5KgJv0qr9drz2NfUFCU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788340218; c=relaxed/simple;
-	bh=Ugizi1/Oz/GDC6hSM7xY+cdvMaq2t4Ps9VEX5p1bxBY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=WKx7qj4X6s6N+/ZwFMO94pQCprLs/l48G0bBipWUAseppKjuKFgkwgJLzmlHQzbQv2Io15xx8uJLne1iioLAoWxBgZohmlX8EBN2K7gQyNYXhAedqcM5nhmFlLq5JTBAb8dWqk4ASBahQnpvg32qhQLf7woVJAy12rv2QAapZgo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=1SirV6k9; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788340715; c=relaxed/simple;
+	bh=33MebzVKqJWV4gRY3VPk4dvyct8bgsS4+zYSk7at1to=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=GJdnefTVGfv1FZxFFyljXcsApXoFSwEnHepfArh114Q3Co5mTytlUoyss7I46s4duxtuAFxrDeEjuIkQ6EfLUaxrL0Kg3bVGnqCjL6goL3uQs6QUAfduXxJkuUrOzv9iavEnBBIN4bgko4iDBIssPQAE8qlENgdDT6QullTqubQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=novatek.com.tw; spf=pass smtp.mailfrom=novatek.com.tw; dkim=pass (1024-bit key) header.d=novatek.com.tw header.i=@novatek.com.tw header.b=F7egXK90; arc=none smtp.client-ip=210.202.87.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=novatek.com.tw
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=novatek.com.tw
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="1SirV6k9"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id C37914E4148F;
-	Wed,  2 Sep 2026 09:10:12 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 935226053C;
-	Wed,  2 Sep 2026 09:10:12 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E1B3A11C792D5;
-	Wed,  2 Sep 2026 11:10:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788340211; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=dWQm08I1k5LyUTw+wBhW0HthtUeHce+mEdC10fdxN/A=;
-	b=1SirV6k9/fAEqVYJRgYQiMtRJcFLFJPD9Qa4SPbnxEoaWVGcRuMj27XmFPWJx+kj88yr6f
-	KM3VAlxhYw00T6QKynkYib37xl0DjDmgT8GWTwD1It91umoj0nBGz1iQ4/gCPi+AM5MZRs
-	1/Pnl1HsFVZSKN19K8BbCJyFMAr4m40pnJvI8stNwbccFQopVO2XbpYfVDZzsyqGzxCUfQ
-	RnQvv2CV5zryqYFdoJYXGLulq7bmwVm6tdMyl9niiFkFa5vqXADjm6hemoiKtSK9iCEp5u
-	Gt6KmJVE68xAjOKQrb+H6RTkhc2xxvicacXTlbPhyIpbN42rWTvyHkQNjK8S2w==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Alexey Charkov <alchark@flipper.net>
-Cc: Srinivas Kandagatla <srini@kernel.org>,  Rob Herring <robh@kernel.org>,
-  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor Dooley
- <conor+dt@kernel.org>,  Heiko Stuebner <heiko@sntech.de>,  Michael Walle
- <michael@walle.cc>,  Finley Xiao <finley.xiao@rock-chips.com>,  Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>,  devicetree@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  linux-rockchip@lists.infradead.org,
-  linux-arm-kernel@lists.infradead.org,  stable@vger.kernel.org
-Subject: Re: [PATCH 1/4] nvmem: rockchip-otp: Serialize reads
-In-Reply-To: <20260901-rk3576-otp-cpuid-mac-v1-1-ea9135270fc2@flipper.net>
-	(Alexey Charkov's message of "Tue, 01 Sep 2026 19:33:11 +0400")
-References: <20260901-rk3576-otp-cpuid-mac-v1-0-ea9135270fc2@flipper.net>
-	<20260901-rk3576-otp-cpuid-mac-v1-1-ea9135270fc2@flipper.net>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Wed, 02 Sep 2026 11:10:06 +0200
-Message-ID: <87ecfc81e9.fsf@bootlin.com>
+	dkim=pass (1024-bit key) header.d=novatek.com.tw header.i=@novatek.com.tw header.b="F7egXK90"
+X-UUID: 8a969a9ca6ae11f18b9d37ce969ed3ec-20260902
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=novatek.com.tw; s=dk;
+	h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From; bh=kFhCpgOj6eX6WaR499VMn8FK0lxHT777PZbWGzMR24s=;
+	b=F7egXK90wWyDRosNNsq4ycgEefVBSfTTkWwl47iev70Cn0AWjf2NhJIrnCSRtWZRQUpQgFTLKdedxcmSHtFbwin2z7C6EJgWXs/bRAblywj0xSF6Pfj9JeUcZ+VGGfj+TkDHkd8wjH8CBfaqAmaBayvGyYA5FuhBxuqshf0BrG0=;
+X-UUID: 8a969a9ca6ae11f18b9d37ce969ed3ec-20260902
+Received: from spmgt1 [(172.20.13.10)] by ms1.novatek.com.tw
+	(envelope-from <sp_isw1_at@novatek.com.tw>)
+	(Generic MTA)
+	with ESMTP id 1974544510; Wed, 02 Sep 2026 17:13:20 +0800
+Received: from oabuild50.novatek.com.tw (oabuild50.novatek.com.tw [172.20.20.160])
+	by spmgt1 (Postfix) with ESMTP id 6FB931A1E1C;
+	Wed,  2 Sep 2026 17:13:20 +0800 (CST)
+Received: by oabuild50.novatek.com.tw (Postfix, from userid 1005)
+	id 01DCDC600DD; Wed,  2 Sep 2026 17:13:19 +0800 (CST)
+From: nina_kuo@novatek.com.tw
+To: andi.shyti@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: ben_huang@novatek.com.tw,
+	toby_chui@novatek.com.tw,
+	shihpei_hsu@novatek.com.tw
+Subject: [PATCH v8 3/3] MAINTAINERS: Add entry for Novatek NT72676 I2C controller driver
+Date: Wed,  2 Sep 2026 17:13:18 +0800
+Message-Id: <20260902091318.208074-4-nina_kuo@novatek.com.tw>
+X-Mailer: git-send-email 2.26.1
+In-Reply-To: <20260902091318.208074-1-nina_kuo@novatek.com.tw>
+References: <20260902091318.208074-1-nina_kuo@novatek.com.tw>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-On 01/09/2026 at 19:33:11 +04, Alexey Charkov <alchark@flipper.net> wrote:
+From: Ben Huang <Ben_Huang@novatek.com.tw>
 
-> The OTP controller is driven through a single set of registers holding a
-> state machine which has to be stepped through for every word read, yet
-> nothing keeps two readers out of each other's way. Concurrent reads
-> interleave, and the outcome is either a reader bailing out:
->
->   rockchip-otp 2a580000.otp: timeout during read setup
->
-> or, worse, one of them silently taking delivery of the other's data.
->
-> Reading two cells in parallel from userspace on RK3576 reproduces both
-> within 150 iterations - 53 read errors and 9 corrupted results, the latter
-> either losing their first word or, in one case, ending in the two bytes
-> which belong to the other reader's cell - whereas the same reads issued
-> sequentially never fail. Concurrency is not hypothetical here, as six
-> thermal sensors source their trim values from the OTP and reach the driver
-> straight from asynchronous driver probing.
->
-> Guard the read path with a mutex. Reads are the only way into the hardware,
-> as the driver registers no write callback, and they always run in process
-> context, so a plain mutex spanning the whole clock-enable, read,
-> clock-disable sequence is enough.
->
-> Fixes: 755864feb729 ("nvmem: add Rockchip OTP driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Alexey Charkov <alchark@flipper.net>
+Add a maintainer entry for Novatek NT72676 I2C controller driver.
 
-Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
+Signed-off-by: Ben Huang <Ben_Huang@novatek.com.tw>
+Signed-off-by: Nina Kuo <Nina_Kuo@novatek.com.tw>
+---
+ MAINTAINERS | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 4dfc1fb14ef7..3f83ddf5b113 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -19438,6 +19438,13 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/nolibc/linux-nolibc.git
+ F:	tools/include/nolibc/
+ F:	tools/testing/selftests/nolibc/
+ 
++NOVATEK NT72676 I2C CONTROLLER DRIVER
++M:	Ben Huang <ben_huang@novatek.com.tw>
++L:	linux-i2c@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/i2c/novatek,nt72676-i2c.yaml
++F:	drivers/i2c/busses/i2c-nt72676.c
++
+ NOVATEK NVT-TS I2C TOUCHSCREEN DRIVER
+ M:	Hans de Goede <hansg@kernel.org>
+ L:	linux-input@vger.kernel.org
+-- 
+2.40.1
 
