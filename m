@@ -1,198 +1,116 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0D72430CE5
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 10:11:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 909AF429827;
+	Wed,  2 Sep 2026 10:17:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788343902; cv=none; b=mdjiOMm6cF8Sf5masF7WpvpjoDnF5V6YnfzNWUARaPqb7G6W21X712w9b8cu1GrXyBi5X98z5Kp653fQwuDQrqAmLlYBR6bESOhrRmXI57V43TPyfz7MkfkYxhk/IIt3+HifXYG6CfTgkg4LbBDMFKf9+HjYm4FohsbeJOv/64w=
+	t=1788344242; cv=none; b=d3SYIvJCRdlRasiyiHNTT7YOc32b2UwQCMaE49mTmaTK063slQ2AJtWMmJjBp1H57/CDn7Qw+g/cy2EWv5CLouO2VK4f+fMuBm6Y50AAjxQCBeaYGpl8NWlaKqxtpUzlNE4tdZ6/ilUus9+nvxSebM+OjW0L8e8QXRq68Zg14VY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788343902; c=relaxed/simple;
-	bh=MqnEivMcGljRZrK7sqB9AWRPTMEpI3mNs3vN5Kxlhko=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AKWVKfXSDVfw2CIb+HN+WAokbw5gtBU5LWGQhoSS8mfIoUdbBAZM51uwgIaVRTNM9hEYCaWdCqD7TKNgUvIOvsf5D2OQ44WLoVpdldh94xcb5jf2wZ0cqOSDO+fZJgjOnBg9jniiEiYLsQ+iT0Kt67RqhgR8MeV5JMbHHNik2gw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UeK5KfgL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZF7AMhzK; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788344242; c=relaxed/simple;
+	bh=XO4c4hLp32Yn43hEsSb2rEE42jubjl+TbiG2DThMRWc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=YQhG24ROX0OX4b+8z91L8HLQABdQlgG3qy0FLEfGKwcor4p9T3rntkCLbP/FUJD9nhOMxj1ro81foVITOhDo8dxHmhrzn3uQWQm4Ce8p19UTG0R0Mug1Lg5bI8vXnuuiJRgSZ9d3xjk8RTNnCvbPbsNYQ65TzD9C+eTMaEbOPIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YrvR9oMS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UeK5KfgL";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZF7AMhzK"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6829NDeB463868
-	for <devicetree@vger.kernel.org>; Wed, 2 Sep 2026 10:11:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	hGLV8ocmkLX6cUaKfIwRziMPYkvvnBHHmbRn7IWjrAk=; b=UeK5KfgL7e9oD8Tz
-	75rNoo3ECYfgWQ+mPypX+A7CArwBHs5szY51yvE9FgFobhIG/n+2GPczqYA4VsN0
-	5A4tDVM4LXQeO9L0FOakPDUsk6rGpplqZZee+VKQnVYW0ai5C9Ijyi4mk7YH7oDn
-	VpwRo4SZA3n+BkXwrmQFr7k3iSDF/fMtMy7LbpYfojxRuGiL+w440uDaGCGe7SZM
-	8V9WH6NPROUqd/poOoEwHu48LnMS+ZxTn8AwbNzqC/5a4QExKZB02NKfnM/zLOBM
-	IZFlo7S5WWnYmv6DOzdZogTaT9Yrt1s1d7bpkBben7SViIxusEwwwMog5yngzMPB
-	D/9CYQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ge35k3ckk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 10:11:38 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93821883e26so26392185a.2
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 03:11:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788343897; x=1788948697; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hGLV8ocmkLX6cUaKfIwRziMPYkvvnBHHmbRn7IWjrAk=;
-        b=ZF7AMhzKuZTy4nNXW9BE4HBlcyeQzU2RC/VsuR7uxr9sTDx+9oMNwCEa18dFgw5tIr
-         WLgY7FQ4YJQuQftrH4SZIe63ErNp2WM75lJJky/rEIzwUToJov8KSZhBAqe0clwNAJDw
-         p+8/Bad6eS9tCSRDZ4L/LX6Yb/xcduD0A+2SAIcM7As4mQncqKR/pwLk69q/79t82tk1
-         3kUHCivhHCn8DcmriSJgKq4VUsyxUpEy67T6aajYmnXR/7h/7S5alvDo0RoSu0zXEKOO
-         mA/g9R3d6G+d8NRpQQp6uacjl7ILsSZ5a5QJlHXiDDuOqqZq9z0lcDRtLugfCZvDx9p0
-         Zuvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788343897; x=1788948697;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hGLV8ocmkLX6cUaKfIwRziMPYkvvnBHHmbRn7IWjrAk=;
-        b=mC6jmu9wTqVHqi/GcxkzlBjNMMCijsdfEISMJAK4M0BC5DAWOqcJV8/OovD8nihBD/
-         PzbSu2/T8LLx4XQmLi9VVrxwmC8yC83WwAvm4uQfAtLQRXIXWp0eeXSeUrtsaUt8UjYK
-         dxc028+hjKqj0R9383o7g9oZrFzQZ5+cZoxPkQjXlmp22V796T1duRklP6xRdXmfUNCZ
-         1LwykWLFDzGBf3dtpUQ9l2yCVAVMJ0PR8Kq2p+fs7ZuCYdqXI75QyjXwF0v+r2eoD7NS
-         8kInshRc/mXD5ZcsE2c6kIr4ZB5MmRWp7rQ1vm+0TPIH6PuRGCvNPkxg0okOedc99Hdz
-         OCfQ==
-X-Forwarded-Encrypted: i=1; AHgh+Ro8JtmkC2MiROmdtlVgBjBvLddrrnTkSLxRRdTD4GNkLEkeHcI20dzvgCqHCf6wFdWu/o7RSXB9WD41@vger.kernel.org
-X-Gm-Message-State: AFuF++lbOCXR8CFAqJM/hBqE3K+ZBBz3GQCb6/rq+MERqzJGxavcjP3B
-	fFZGVIQs8i6W63Ohb4g/GVg/Xfzp7Sb6bpJt+jJVshxKaRZ6tH/9rfUJUruP40ouwyDRrKIuyii
-	piTP/xqo96IL+P4ZrSo/UTbE3aGY2cxAAORLok/mCNebV0wb4kJzXG2nqOl6wvfhj
-X-Gm-Gg: AR+sD11HKwaSkTYjmT4V+9MSXxmmAqP9OUnEf1FjIaj99WN2BC9Uh6RH/NI6idDd5Da
-	oK4lHvNmPgTSN3djR7rUtAh0XJ94boBWnjI0hsQosL3FWo1ErCWROHyTkJw7IVuHbzjyHcSgx2c
-	pJJtbou8kxTjkLQKrMKUisxUqLSD+K2cj3IFgNRwxtwcT7qxgFYJGJPZCYv4PS6wxFhP/Hi16VU
-	oFptXZu0+E1YdN0Bu3bTXaqB4ofwStYBf1sJPMhsU+yG7mpYr0KJP0RVp9luV5DGytNJu2L+LlK
-	032/dYnXxNZ7N35vcuBeUauAlLOUSjNrZc0KorafpNJRPKo/l3QXYVG6iXOkQTbWGX+6H4H6RVL
-	RI2hiP9rM/4LbQgiSbxFHiQ==
-X-Received: by 2002:a05:620a:1729:b0:939:48c8:656 with SMTP id af79cd13be357-93960cc57ecmr241731685a.1.1788343897376;
-        Wed, 02 Sep 2026 03:11:37 -0700 (PDT)
-X-Received: by 2002:a05:620a:1729:b0:939:48c8:656 with SMTP id af79cd13be357-93960cc57ecmr241723585a.1.1788343896176;
-        Wed, 02 Sep 2026 03:11:36 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25d039c9fasm105678066b.31.2026.09.02.03.11.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 03:11:35 -0700 (PDT)
-Message-ID: <18a73f51-a535-4cf2-a4da-d7cd4fd2a801@oss.qualcomm.com>
-Date: Wed, 2 Sep 2026 12:11:33 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YrvR9oMS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 967D41F000E9;
+	Wed,  2 Sep 2026 10:17:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788344241;
+	bh=YIaTwV3APJT2IAqyMvVhjdVGyinas70syw/TPBgdghM=;
+	h=From:Subject:Date:To:Cc;
+	b=YrvR9oMSedrbbEcXoBxiyAkxRNG4FT65dzTyFu297+tUnRPBjnqkJ5C3kI+oMcE/k
+	 SFWRx/z3kAji3grkPRwH+4Ra6TqwavB3qav0I781L6d8p7TdYTRUcjxBOBCanRKuXl
+	 YEayJHjo0JoO0Tuka8+cIfuFg176Gpdz4k0GuTWdujcxeFM7PtfbJs+rfQrit3LNVh
+	 h23nrDAGIp6K5AyP/FM3bcQPL0Tz3gOkeMeVDLDG/7ZHGE0UYtvAPuZ8bRYbDseq6Q
+	 o6Z0Y8uId727jAqOS5klweWwPudTEmyVrr/OMuYnSTX5QgqqT4Y9/d3KZy0xgmnfho
+	 e3Aj5m1fdEknA==
+From: Thierry Reding <thierry.reding@kernel.org>
+Subject: [PATCH 0/8] arm64: tegra: Clean up AHUB device tree nodes
+Date: Wed, 02 Sep 2026 12:17:36 +0200
+Message-Id: <20260902-tegra-ahub-dt-cleanup-v1-0-028f3c5e72f6@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] phy: qcom: qmp-pcie: Add Nord Gen5x16 PCIe
- multi-PHY support
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-        Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Lorenzo Pieralisi
- <lpieralisi@kernel.org>,
-        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bjorn Helgaas <bhelgaas@google.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Maxime Chevallier <maxime.chevallier@bootlin.com>,
-        Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-pci@vger.kernel.org
-References: <20260828-nord-v2-0-18bf59d19d6f@oss.qualcomm.com>
- <20260828-nord-v2-4-18bf59d19d6f@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260828-nord-v2-4-18bf59d19d6f@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA5MCBTYWx0ZWRfX4Bffk40kzyTw
- a2qddeLTtRkSA4f0ChM5IfXq1L29MNeNWpLcktUZH5i0gTJWjIBH7YprB7AyJvHmUMaeOt3zFi4
- VmzfsodkS/J84BC/FACS6d31nij1GBIw++MwF8mYH44/B7wNlVqcGBdzqIQrBueEQqefuUgG4Ri
- TxU7yUJhDi8osGyB3AS/R7rBkeIEbscYxKmXkrCcLkArFs/2iteYxJOQQ69G3CLzVUdvrDTrZJs
- 5B23CuKCIVJxRHaaKJFxgQODZNRHbICuI3UqDRoOTqoG7DdZ6WmpneIhgNc/HbT2CaHGk+LywGl
- IjtenM7e2ccINZE6MPAkBuriOd+2u+RGDOUZIWN0J+927TCuu3Xa3dgibLK9OfzqK+CoTrRxaCM
- 8OkPouOpVs/57cZHU6s/OWbO7MSRiL+yOohKOWRl4mgQQnScBc3GbrXlRtTKeFU+LKyfYPWE54z
- rGNzYK9NZlvkGaOMXMg==
-X-Proofpoint-GUID: 6CXvLy-72obFWA5PKLLIIjLjGsSTSx89
-X-Proofpoint-ORIG-GUID: 6CXvLy-72obFWA5PKLLIIjLjGsSTSx89
-X-Authority-Analysis: v=2.4 cv=VLrtWdPX c=1 sm=1 tr=0 ts=6a97f65a cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=uUvTuc4oTmGzQ4V00ZcA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA5MCBTYWx0ZWRfX8KFL2Wl9C+DA
- V47bBbL/Eh22+MI6Sl5yInb6wPdDlTHrvwS1hHLAYiVMh6oU+/KAtZvXQOtDkV16MAEWQS2Xak6
- Dh2/oX9dsAoBYd6z30TMT3Fbzl9/ZaU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_02,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 lowpriorityscore=0 clxscore=1015 bulkscore=0
- malwarescore=0 adultscore=0 priorityscore=1501 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020090
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ6CQAxA4auQrm1SRoHgVYyLzlCgxoxkfowJ4
+ e4OsPwW760QJahEuFcrBPlq1I8vqC8VuJn9JKhDMRgyLfVkMMkUGHnOFoeE7i3s84Ij3zqiq2H
+ bMJR2CTLq7/g+nqdjti9xaZ/Btv0BZw84EnkAAAA=
+X-Change-ID: 20260902-tegra-ahub-dt-cleanup-fa470032ab5a
+To: Thierry Reding <thierry.reding@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>
+Cc: Charan Pedumuru <charan.pedumuru@gmail.com>, devicetree@vger.kernel.org, 
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Thierry Reding <treding@nvidia.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2024; i=treding@nvidia.com;
+ h=from:subject:message-id; bh=XO4c4hLp32Yn43hEsSb2rEE42jubjl+TbiG2DThMRWc=;
+ b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBql/fGpjYoqKNbuw0vWzqMTho/3NSFv0FCn9l5y
+ Xj75NtKMjOJAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCapf3xgAKCRDdI6zXfz6z
+ oXi4D/0Qe19xijhkLQoG7F3T/6nzq9GFdy5i7DcDFoINf6l+M79RQVBLON72Qw/wzi44uiZP+GY
+ nXldVk7UagA9TYt/9aJ4yF2+a7u47P9c1V/1Y161zh0Xm1HGAGuMv6s6DfTULgIloZUIms7RyVU
+ atRq3+AMJt1A83m8ELEd1rArT85v60YHoATZwtmETrzsvbT7sMfgIbGbe1V3/rPFfXpfAVXH0/T
+ 6Y0nfw0H6CscYcRcHKGpXQngMwfsyBDaPHMSy1mRXsPcNHlzKGb33tIa4RojZzt28xitjRRzHqh
+ 2KSxoVB+WhyJkdHPUOfYXPSxrFX7gXK2X0HXwBH3QyK21IMe5RMXoBa0FT4Db7SDczToHh/CHmj
+ Vc9Bdn6G0BVz1KM3txBdj5g1HsEGxdskLivyO+mBDxdTcf8y1gKgLGXrM18qjmKyvzhhwnR9pEl
+ cx0pw5yKu+quxda4fEHBgzYzWfI3NtDJ+slo0zLESYDipZ4uiDtnEmhs1cdkXNMNZnowdq67oVn
+ c5Tg/JV+7Mua7hUkFpfhOA6abSiP9VpdlZKH0Z7giZyYoqk5urKXjxT4ItzJ4n3cbS3zVxKRlYc
+ p0uwj8PTkofS2hFMqngGeL0LzOfl0gmaLO29wgHpVrW/t4PAYqdOpZE/v7NgcbBtlLmDSfz0PZF
+ +XvwR8Ov9Cu8G1g==
+X-Developer-Key: i=treding@nvidia.com; a=openpgp;
+ fpr=88EAC3080149CCF7C08DC89FDD23ACD77F3EB3A1
 
-On 8/28/26 10:43 AM, Krishna Chaitanya Chundru wrote:
-> Add support for the Nord Gen5x16 bifurcated QMP PCIe PHY.
-> 
-> Nord has a single PCIe PHY block split into four ports which can be
-> used in multiple lane configurations: x16, x8+x8, x8+x4+x4 and
-> x8+x4+x2+x2. The active topology is selected through the link mode
-> configuration register, and the driver exposes the corresponding PHY
-> instances based on that mode.
+This series was prompted by some discussion on this thread:
 
-[...]
+  https://lore.kernel.org/linux-tegra/20260705-nvidia-ahub-v3-1-bacb7e05bf68@gmail.com/
 
-> +static const char * const nord_pciephy_port_a_vreg_l[] = {
-> +	"vdda-phy-a", "vdda-pll-a",
-> +};
-> +
-> +static const char * const nord_pciephy_port_b_vreg_l[] = {
-> +	"vdda-phy-b", "vdda-pll-b",
-> +};
-> +
-> +static const char * const nord_pciephy_port_c_vreg_l[] = {
-> +	"vdda-phy-c", "vdda-pll-c",
-> +};
-> +
-> +static const char * const nord_pciephy_port_d_vreg_l[] = {
-> +	"vdda-phy-d", "vdda-pll-d",
-> +};
-> +
-> +static const char * const nord_pciephy_port_cd_vreg_l[] = {
-> +	"vdda-phy-c", "vdda-phy-d", "vdda-pll-c", "vdda-pll-d",
-> +};
-> +
-> +static const char * const nord_pciephy_port_bcd_vreg_l[] = {
-> +	"vdda-phy-b", "vdda-phy-c", "vdda-phy-d",
-> +	"vdda-pll-b", "vdda-pll-c", "vdda-pll-d",
-> +};
+In a nutshell, yes, the AHUB can do with #address-cells = <1> and the
+corresponding #size-cells = <1> since all of the children are in a
+fairly small register region. I suspect the primary reason we stuck to
+the #address-cells = <2> was so that the ranges property wasn't
+required.
 
-Can we only list a/b/c/d resources and then take a union of them
-as necessary for combined modes?
+Anyway, this series attempts to rectify this by making the necessary
+changes to the #address-cells, #size-cells and ranges properties across
+all the impacted boards. After this, the AHUB bindings can simply use a
+fixed #address-cells of 1.
 
+On that note, I haven't seen any response from Charan on v3 and there
+hasn't been a new revision either, so I'm thinking of adopting that
+patch and make the #address-cells change so we can move things forward.
 
-> +static struct qmp_phy_init_tbl nord_qmp_pcie_pll_a_tbl[] = {
+Thierry
 
-The abcd tables are identical except for the last 2 writes. Factor
-out the common config and create overlays.
+Signed-off-by: Thierry Reding <treding@nvidia.com>
+---
+Thierry Reding (8):
+      ARM: tegra: Clean up AHUB on Tegra124
+      arm64: tegra: Clean up AHUB on Tegra132
+      arm64: tegra: Adjust AHUB range on Tegra210
+      arm64: tegra: Clean up AHUB on Tegra186
+      arm64: tegra: Clean up AHUB on Tegra194
+      arm64: tegra: Clean up AHUB on Tegra234
+      arm64: tegra: Clean up AHUB on Tegra264
+      arm64: tegra: Clean up some whitespace issues on Tegra264
 
-[...]
+ arch/arm/boot/dts/nvidia/tegra124.dtsi   |  16 +-
+ arch/arm64/boot/dts/nvidia/tegra132.dtsi |  16 +-
+ arch/arm64/boot/dts/nvidia/tegra186.dtsi |  74 ++---
+ arch/arm64/boot/dts/nvidia/tegra194.dtsi |  74 ++---
+ arch/arm64/boot/dts/nvidia/tegra210.dtsi |   2 +-
+ arch/arm64/boot/dts/nvidia/tegra234.dtsi |  74 ++---
+ arch/arm64/boot/dts/nvidia/tegra264.dtsi | 494 +++++++++++++++----------------
+ 7 files changed, 364 insertions(+), 386 deletions(-)
+---
+base-commit: 8b72f6626dc39b9e7e82b2721d4f7c3b86286012
+change-id: 20260902-tegra-ahub-dt-cleanup-fa470032ab5a
 
-> +static const char * const nord_pciephy_port_a_reg_l[] = { "port_a" };
+Best regards,
+--  
+Thierry Reding <treding@nvidia.com>
 
-We already have some of these symbols in this file that shouldn't
-carry any SoC prefix
-
-Konrad
