@@ -1,170 +1,156 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010034.outbound.protection.outlook.com [52.101.84.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B8C36F438;
-	Wed,  2 Sep 2026 18:42:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.34
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788374564; cv=fail; b=g/H1kGHQ38Pe2+ye+jTXvXTXBuAxmCsYlNZU2mD5BRJ8QkZPLy5j8q8akYvtxlhcPfEd8G2ODw4sDX/W1YoHAPUPDwirnS5Nf6Gt4B8xLpJJQNz0gpbm1vXuq0qflaxm5Hb7bthAtS2IbG5spUdcPnJb9bZPka9LHKUMuuwg444=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788374564; c=relaxed/simple;
-	bh=X5kZDo4kcwJLgsl41nYcGZjqFvj+36+j6N+rdkRy7UU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ptnpml3ev6hiqgeZQX5CEcqtjoJ06n9ZXrvA/ljjqTdYncbdl/VNngNMwioFECbekUqf6qDsz5RB05c7NbXcFQE9R/ykvS1RyZ8ThMBqEk0dDdFzEaUBYWzVCQI9AHtcQ1bp8Hx9uDh/+gwjhbXEAi/qG0eIL15EC27JJJ2T4Vw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=XqbUf6wh; arc=fail smtp.client-ip=52.101.84.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96979377A88
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 18:43:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788374605; cv=none; b=uQWL3PmlSJt7CttjunIBgm/w+/+bTPmIzJMqC4UmsG2h/Bd3Tv3/1a9cqotrwLOQf0O4p6I0Kz7x+dpvijoy0O6bNF8PPzcsA6v9VQiN1uDa7Fjyl4EJw0As3Wa8ONPBVm8gjNe1H3E/O4/W3bPtleQz2QHwCeaPMtKqajDuAr8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788374605; c=relaxed/simple;
+	bh=5Keyffio6qVpCs5QPavKPlOqOswZ2klYgfP8rJs6TiY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Z+LSFTMbFhEy+M3WyTwA2OpAgF4MTYaKYyNYYGlt5iXKWlRy5zCAwBOtN4WMlj3MwqBiiJErufg/0xLiOg5Tl4wp4lK9tmpMLua/O0lg11XAM/HjIfu6CksIcg8IovzNCQj4oH9BXqWoZMeiN2waVl7YauL9+hkcQhljQg+3isg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Wk+U0KDk; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="XqbUf6wh"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aAXdKR+ja7YIFsftACmQzBMq8ChnothK9Hufi7jy0j+2IiVGIwImPP2M83LkhAGUOFfEqjwo7xYOk8sUwfft+kMvlh6XSsuvJgR469Ja7Z2T/NrFnsckLNUdhOPC4hCOCxvk/3zkwJaQdHlkcnKy2N/5MZ1mca/ny360Hjfq8soXNTncMyZhbH1HIrMf6q4CTcrUsy8BRxxWHVeRInOVyP38dCWHT9230r755aNRW8/tVF2mGa2DbY0gBMl+0DOfv75O9OdWY2tyowZk94YW060AAYNduUNSw+NmItT33hJtowjLPh8pOOUa7cDbAcG40V9V+9VWXjM4J+gWJY42Qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2AxKRJ976rnY9y389//E4Lfcx3DtH9zicjDAgXU7mrg=;
- b=WO5Vic2zhwRsJrJk7otwwyTZLIvxVPRMWA1vn48TDm6grxUBqkg/C4Fs0/UoRWqrXCUIcUv0vR/rwGt1znoQYBX0Il3b83sLUQ4XCaWlZ/tjoG74AXdvuIsT1WUeneHz7xypi3xDhVCFl+m4Csv/It36muhge+HDfcsfCvp4msyMuPzD6hvZKuJ/Fukgwhv+a94n1fDpZhVF/9UExlwFeI9BzUwH2WY5cdVwqfE+wJ5zR4iitIWpghURIFWJ03CKwJvPxR4MUowjTLLdQ/ScwGgj5euKe8MJfcyWT38nuTxOmOqOGmAQAD/syHMH0ZSrbg8gl0HqSWxwO0DHMB2x/w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2AxKRJ976rnY9y389//E4Lfcx3DtH9zicjDAgXU7mrg=;
- b=XqbUf6wh5WHV0WKq69MiPKWhEu/1yIY7tcKsQXvRKOScV9qFpVNIkLL8G0tQxK+8zgnJ/qobR0NbP7VomC+q+3L2bN0DtRE2qVlHEti0gEWgTcIExRDn628/pmtbB7aalJ26PclFZzY+m1xDXWu2dXlt4Ef2+Kd0aoVFLZgeJ2CyRABhICkcoQM4Lw1lMDl8nqRVUMEJkrviDN/IbLBN/i6aFdxvRZ/IODZy2yfBFP4DJaIW6yjJ8jrIPhl6v+y2OznflUvd5JWTyKYYQqjaH6A2q2mZ/27ZOa7G6u3ldDs2h7B1OcbvxLv6+/TRIB3x/NXeS7EiCMqr759MWC/F2g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AS8PR04MB8040.eurprd04.prod.outlook.com (2603:10a6:20b:2a9::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 18:42:39 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
- 18:42:39 +0000
-From: Frank.Li@oss.nxp.com
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	frank.li@nxp.com,
-	s.hauer@pengutronix.de,
-	festevam@gmail.com,
-	hongxing.zhu@oss.nxp.com
-Cc: Frank Li <Frank.Li@nxp.com>,
-	kernel@pengutronix.de,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux@ew.tq-group.com
-Subject: Re: [PATCH v2 0/3] arm64: dts: imx9x: Fix PCIe memory window overlap with System RAM
-Date: Wed,  2 Sep 2026 14:42:28 -0400
-Message-ID: <178837449498.2056904.10575566728674151756.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260821054334.1277088-1-hongxing.zhu@oss.nxp.com>
-References: <20260821054334.1277088-1-hongxing.zhu@oss.nxp.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PH0PR07CA0021.namprd07.prod.outlook.com
- (2603:10b6:510:5::26) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Wk+U0KDk"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48441fa5c37so1014409f8f.3
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 11:43:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1788374601; x=1788979401; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NWYYRVQBRJaK3NbpqrRL/6N4wYR6cMesVqAcJL7LMIY=;
+        b=Wk+U0KDkSmdGeaK755tg4Abau1ClswBkfOvJ7BySrSUUQZiETMi7IUC4y5PGrA1xlT
+         5/699R/6aG7fUdvrMjDlHGpwvYAj9S8SWI84XrE98v6kBUS9160+eASo3KtPLuOc41i/
+         l30XqMUHewhlKjLwnMxrWSLDk8E59nJV7ZJ2QTrQGnUQUdlUY627ILAnGANtSVvuS8KI
+         DGZabwxtTiCyggjnIh9QS/cvGm1QWzvV1ZFy2YO2LuuLPVJ/yF2NcNrT5zi5bw2K8exa
+         TyMKAcRxcJ6vaeqfIYbuDSnaMZRi33uqUg2C2MB81AP9YJpDamMFgSNats5cBQhIh13C
+         uiBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788374601; x=1788979401;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NWYYRVQBRJaK3NbpqrRL/6N4wYR6cMesVqAcJL7LMIY=;
+        b=YmzKPJeM+kAYCa3O47lZSB/brZXMIkF6kgmTOmVBUfGSiIfl/41cwMdeKvJoyIbLd2
+         6UGsJTaMgR4PTx4MK6LWLWgCg1X+pknYhw1rrz4Dx2NsbY0i+F243aPPA0guZ9EBFwGI
+         9s4kCXeVlOdvoEe8Nug5Jveq+DRjPnCE0DtDYAu0ofOnmrvttbsrhAEN8+qKevJIsCc4
+         oe2bvncrHqUKp/cVON8wopWcUbDkH+f12afVzjOpHaSwF+ysYAsZWlrMSIj+1xpWyKDj
+         VyZ3o2iPW0O36YrqHVMlVZ9zU2AgZEWfnSvSSAy44sDR3MPhgXXhPp0zTSGYup0jgZG5
+         zdDQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw6C/NyJtxTvSFbJ59mx0Q+kdni56pQmC/nTqizHvTys182Qf2CRP9qxJiwn1iCWdk+NSzHqkKbOD5F@vger.kernel.org
+X-Gm-Message-State: AFuF++n+CBd70T6zlab2y1pa/nwF0a3vfJK74ZvDkXE92ciAou8D7tvY
+	2W4BLA2akJxS6U4GFtBBfsNooVrMrEMwy1NBxUxKw8HamzZMR64Ee+KeEHLfpLi7pZI=
+X-Gm-Gg: AYBFou2Pzhz8qr+029qdP+uUQNbuv9uZYULQsf+mtgtQMPFnpPFj/cH9sEom9O/xEY3
+	uXrQIaSjy9DttMkZjHW+ihbzLkIgWEaUllR3x1Cwo0AO0E1B7Y3gtAI5U55n8j3XSSAzZudZsK2
+	s2nrU2eOrzu2OOA4sUsHx9AyZDgiU+7kUW3H2PHG+4MRI61KCcwtFWEtlBC+4O9uq7zsNzLam5T
+	6HAElEd92OJN3YaB6svThKm1xa1Myr9I69kQLoLTGvbVr/7aCJk6P082VcGHbSr25z78yZqwptW
+	l9kaUjTO9pXiKRE1j8Rp9/zFGLoIJo/8BkBqF9uy2ZKjgirHP011KTMimQputZ8cfoHwkEKL5se
+	JR+BkO2mtVA4eG9kFWHu6AGcbcU4F2ld66HDK+cFVvM+aZhmOfNp10egL7bn+8Spu9kEjK6uRU3
+	0zs9ts4nN21BDb+0lX/r6AvLMY0gc/8xR6u8iRMB5E+f3CFywJpvSA+y2r2SMSJCfWqSdQOnmFq
+	Jqt3Og=
+X-Received: by 2002:a05:6000:1847:b0:482:fb9e:4e20 with SMTP id ffacd0b85a97d-48488dee407mr12111460f8f.6.1788374600680;
+        Wed, 02 Sep 2026 11:43:20 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448eea961sm8146112f8f.28.2026.09.02.11.43.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 11:43:19 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Lee Jones <lee@kernel.org>
+Cc: sashiko-bot@kernel.org, Mark Brown <broonie@kernel.org>,
+ sashiko-reviews@lists.linux.dev, robh@kernel.org, mfd@lists.linux.dev,
+ conor+dt@kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH RESEND v6 4/5] mfd: axp20x: Add support for AXP318W PMIC
+In-Reply-To: <20260827134235.GN770273@google.com>
+References: <20260812-axp318-regulator-v6-0-d6b84b55c000@baylibre.com>
+ <20260812-axp318-regulator-v6-4-d6b84b55c000@baylibre.com>
+ <20260812214019.CDF921F000E9@smtp.kernel.org>
+ <1jldaafmpd.fsf@starbuckisacylon.baylibre.com>
+ <20260813095600.GA1072730@google.com>
+ <1j33wg6cpk.fsf@starbuckisacylon.baylibre.com>
+ <20260827134235.GN770273@google.com>
+Date: Wed, 02 Sep 2026 20:43:15 +0200
+Message-ID: <1jld9j8pfg.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS8PR04MB8040:EE_
-X-MS-Office365-Filtering-Correlation-Id: 029fa718-0a25-4232-dd0f-08df0921f68d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|366016|376014|19092799006|1800799024|18002099003|22082099003|11063799006|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	gUBc+xkqALyJjlPk/P1al+oEJkX5QqDooOn6EXJ4BtP0j7sUcif1KPx/BvJBf6keY9OEQ+TOt1ijM0JGoQUL+KJhJZAQToVLXLuBdg2fQgCvtcDXJuojK3Z8nzBC9KoFhRBQm9j50odoRpW2rhDn3DEN/UT3N1tcAmrw/fY3kMGZBkvtKuu4bYadYuBDHkJIpgMqt3tiWaKS5/4GBW4NNrTG66UWloRM40eIVytedPky4+mj/mJ1SdGoRJ5NNfIrGSCZzenAXfyXEDNrtr9czG5iTvBynzSXh/O3fiP8OJiK2gvEYdxKaGA3lSnf6f/+/12Z2JMhbm05ak1ZEismANquPhYogv5gBiKx9JkOTDfCTfQ74uCm8af7pCgOkBFxStc5OfEdE9P7lk9SxLoRpYMVYPIsy7IogEQWx0zDMAAyNJvkI4w/wtUkTuE/QiaT/soJ9P6EQtcOLMTZ2jnt6ngPnMUdESWWu2g54JjPfP8QVdqb6AARLygWGFZ8xx5/bu9R15GZ1Zi+qIr/hQE2MLCtlMaROzIKGqReEdp7Wc+a0zL3p9kWy7W3alnNVCyABRs93HOeXuvqm+rxauvRpB2w5IkDLwhNRRd6niPpQ4Hv0cbm6l5wQ4IfBmIsfdyOsIKL7XItC2y6wwIUi0npaHqT6CSn3jIZMOmvAeKeriA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(366016)(376014)(19092799006)(1800799024)(18002099003)(22082099003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?a1R4QUJBam1xakVBaGFNeG9oSk9Cd2dTektjeXpYbG1Mc2doeUtXUjhWV2k5?=
- =?utf-8?B?RWVjQkhsNmFyeXJqczd5ZzdnUkFyK2J0WWpDWVdyUlZXRmJDVmJSei9EZ0sy?=
- =?utf-8?B?Y0R5bXkvMGxlOXorYmVYTVFlSVNieS9kRGh2dE10dWRVdm9zZzhWcHZSN0Zq?=
- =?utf-8?B?NjFVVkxLVG0wS2pEWm1MdER2bWREZC82eVQ3dXp1OHpMRHg0S2JMd09xR1U5?=
- =?utf-8?B?ZTZqRWtvc08vSi9ydU9YZzRTZHdRQ3dxWEdVT0VEUlR0WEd5Q1k2VFlaNHJN?=
- =?utf-8?B?S2RYc0dDQ0xRZ2ppbUp0QjdiQjhRWjloUi9HYkdPcWdOaldoZE9qMHgzdnNQ?=
- =?utf-8?B?T3hSMUtVT1BDZ21aZHN1elFkejJrc3NnL09BVnJveFNqT2JMbHBHQnpMRzBX?=
- =?utf-8?B?ZG1XRFRRaDU1UDk4OXQxcnNNVmtpbVhYd2Y5NDBmb0xlejFBeEMycU9UaDZj?=
- =?utf-8?B?dk82YUE4SDJaL010aDZqMlIrOWptZXRSUXVqaFlWcHVTdHhZaHZOZEh5ZG8x?=
- =?utf-8?B?ZERveVNmSG9DTWcvUDI1MEk2YUNUTk5EZEJoNjlvTmV4WWtrSnMxT21hczhY?=
- =?utf-8?B?RVZRTnptZmJEcXlCcDRJNXJrUGlVUDRwVnkvQURHUEFpTlpsMTNtWG5pK3pP?=
- =?utf-8?B?a0YxYy94VGRhWDdlR3pZUW5sWDRxcm9abDNidFI5WnoydXB2d3FWN3gwOVVP?=
- =?utf-8?B?M0h6ZkZnZURmK0w1TFJTZ3ZGdURpY1Y0QndHZGZlVlNWOHo5aTBuK05mN0VG?=
- =?utf-8?B?WHliazgraiszQ01oNEFLcEErdGdob2VHMytINVZMbi9NUE1rdWdzK2hGcnBq?=
- =?utf-8?B?UTJPK2hKYkx5d3lCamwxTG10YnJRNW5WUlc2Z2RLUUVDblZYdnd2cHowcVRW?=
- =?utf-8?B?bklBT2JKM2c3YmtMeHF4N3ZQM1I0ZXNwMnI5TklNV0o0MlRYM2pSLy9Lejg4?=
- =?utf-8?B?NC9vczhNemwwZUxXQmlNU3kzeXUwVzhjdnlGclMrdjNBSjZ1dHhJYVJkNDVK?=
- =?utf-8?B?cXR1bnJ3WVI1U05kWFJGa2l2SzNKRlJYRzhiOGZRazBJOEUwN2pBNi9qejJj?=
- =?utf-8?B?WFA4cGdnb3NvS1BueGIzT01sb3BCTVMySmk1K1d2RUlaWEpDbVlKcTVUc2p2?=
- =?utf-8?B?V21LSE9Lbnh0UmpMMytoVDh5UVpFbGtTRGV0QjBmd1k5WEVSTzY4WHlFdy95?=
- =?utf-8?B?SnB3YUtHK1lrYnYvdkNwYitXZVA2Znpva1lEWEZpdW9STS9Gc0V2cXM0V0tS?=
- =?utf-8?B?QWMyWEo1K1hibGNaYm8yTTFqUkRHN3o3alNqbGNPckxLay9jcWRQa1haNTNO?=
- =?utf-8?B?bWR1MkNDQ0t4UEhXaUQvbnkyYnBZbjRwbHplUzlscmFaSVRoWnkwS3FYODJi?=
- =?utf-8?B?c3V2dzAyTXdNUlQrT09lc0MzbVUxaW5lMmxWODVLSnphQWJ5NmVWK3hTT3ZB?=
- =?utf-8?B?T2M1RW5vbVBvalk4TnBqUU42NDk1NVJ5cjNlb1NWelNCNkJtd0tVeVFXUHho?=
- =?utf-8?B?bVR0dzhaVFF1a2ltdmZFZjN1NnNrSWFFWUw1a1N1alRINzN5WDY1b1lxay9o?=
- =?utf-8?B?dEFJeStRckRNMWhvNGdxdnhGZ3pGQmdSNHljL0c0aGt4djd4VnZJRFlPeHVZ?=
- =?utf-8?B?VkhwbXRZdVdVT3hZQVNSczMvaVFaMXpxZnFCQWViQkU0alpDcFozNGJ4TzY0?=
- =?utf-8?B?UXhFa2FTd3l6VmErNm54dUdPbGQySkovV2RWVHdHYnljS3BSanBSNDRpRXdW?=
- =?utf-8?B?V1JkaEJxV05PZkxBdit2bkpXSmVVbHVDclhzV1k3RTE1eDEyTTRhWFNKNDQ1?=
- =?utf-8?B?c2R1YmxZTWx2YmdDZlduOUduY0J2eHh3WmVWeHZxRk5kUkhKM25vTGo0Umlr?=
- =?utf-8?B?eXFyQkh2Z2ZMYWVaOGR5ZkhRSXZPN1M4N2xyRlppeFBLNytXRzVTUkVDWlB4?=
- =?utf-8?B?dDFFZzdDM0pPVVR0V3d5VFEwazlSanRWeTVObTNjaGtMSkJVTW9WVnJRQlN5?=
- =?utf-8?B?dS9jTEx0a1RydVJoYk82Ny9wNVRSclcvY1hzT1dMdldBbzA5dFI3N2laMFZR?=
- =?utf-8?B?OExTNG55T1Y5dWFsWUF4R3ZhR0RhaG4zV1ZEQ2FORWFSMHFXYWpieFZXUkxD?=
- =?utf-8?B?QXBpUlFUYXcyL3ZkeGwyMTZIV1dIa1RzVnJTdGNWektidGhJdDQ4a09vTDNS?=
- =?utf-8?B?eUpzR2o1V04vMU9HT0xpZFRBYkFwQ3k0ZVFGTG5OZUFWazNpcExkZC83T2Vj?=
- =?utf-8?B?aExHWkVFRDF2NnRqVDlCRk9Uajc3cWFhSHI5NzdUOWZsM2N4R0w2Zm8xYmtj?=
- =?utf-8?B?cU9PYkROa0N2TE1SbzNVVlRRWklnM0V0bVVkaGZaZmhlUkw3UW5YcitPOE5U?=
- =?utf-8?Q?JvVDy7d3hV18EM2UfgefxDpDqpQL20fGwQliz?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 029fa718-0a25-4232-dd0f-08df0921f68d
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 18:42:38.8634
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xXAeOviwmvA8XUKl0M/CyXV4geIyCM+HTOTMMsWD9rtIsmYMte6JT3WCULFlSM0bs9mN0WxooFfyDo19lIaATrGEnHTE3SDxfFFeVl5YXieUDsAOpoo2cMJxOh0PAOIu
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8040
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Frank Li <Frank.Li@nxp.com>
+On jeu. 27 ao=C3=BBt 2026 at 14:42, Lee Jones <lee@kernel.org> wrote:
 
-
-On Fri, 21 Aug 2026 13:43:31 +0800, hongxing.zhu@oss.nxp.com wrote:
-> This patch series fix PCIe non-prefetchable memory window overlap with
-> system DRAM on i.MX9 series SoCs (imx95, imx94, and imx943).
+> On Fri, 14 Aug 2026, Jerome Brunet wrote:
 >
-> The current address 0xe0000000 conflicts with DRAM regions. Sashiko
-> reports the potential issue in previous review:
+>> On dim. 13 janv. 2008 at 11:56, Lee Jones <lee@kernel.org> wrote:
+>>=20
+>> > On Thu, 13 Aug 2026, Jerome Brunet wrote:
+>> >
+>> >> On sam. 12 janv. 2008 at 23:40, sashiko-bot@kernel.org wrote:
+>> >>=20
+>> >> > Thank you for your contribution! Sashiko AI review found 2 potentia=
+l issue(s) to consider:
+>> >> > - [High] The corresponding regulator driver lacks support for
+>> >> > `AXP318_ID`, causing the `axp20x-regulator` child device probe to f=
+ail.
+>> >>=20
+>> >> Funny sashiko did not pick up on this when v6 was first sent. This is=
+ an
+>> >> ordering problem. The regulator part should be applied before the mfd
+>> >> one.
+>> >>=20
+>> >> I could reorder here but there is not much point since the 2 changes =
+will
+>> >> land in different subsystems but it does bring a valid question:
+>> >>=20
+>> >> Lee, Mark, are you OK with picking the patches indended for your
+>> >> subsystem or would you prefer that I split the series, regulator on o=
+ne
+>> >> side, mfd on the other (with a dep on the regulator one, of course) ?
+>> >
+>> > Does this break existing devices or simply delay support for this new =
+one?
+>>=20
+>> Existing device are fine and untouched.
+>>=20
+>> I've just checked and if someone tried to run without PATCH 5 (regulator=
+s),
+>> the main axp driver loads fine but the regulator part gives this
+>>=20
+>> axp20x-regulator axp20x-regulator.0: Unsupported AXP variant: 8
 >
-> The fix relocates the PCI bus address to 0x10000000, a reserved and safe
-> range. The other PCI bus address and window size remain unchanged.
+> Can you not enforce the deps with Kconfig?
+
+This is not a build problem so I do not think Kconfig will change
+anything here. There is no specific config per chip.
+
+It is just a runtime ordering matter and not a problem. regulator and
+mfd are split so at some point the support is incomplete.
+
+* MFD first, it is fine it just cant instantiate the regulator until it
+  lands. it is (mostly) useless without it, which is fine.
+* Regulator first. regulator will never be instanciate until MFD support
+  lands, just as useless.
+
+IMO there is nothing to do here.
+
 >
-> [...]
+>> Seems sane enough if the regulator part is not present (and no board
+>> using it has landed yet)
+>>=20
+>> To completly avoid this, the ID would need to be in its own patch,
+>> then the regulators, finally the MFD. It seems like an unecessary churn
+>> but I can do that if you prefer.
+>
+> --=20
+> Lee Jones
 
-Applied, thanks!
-
-[1/3] arm64: dts: imx95: Avoid 32-bit PCIe window System RAM overlap
-      commit: 9094eb07b3e236233dbaac61ed30cc65be9e9c6c
-[2/3] arm64: dts: imx94: Avoid 32-bit PCIe window System RAM overlap
-      commit: 775ebd246092294432895f8e9bd48e3f0a56714a
-[3/3] arm64: dts: imx943: Avoid 32-bit PCIe window System RAM overlap
-      commit: fff67007ad5403966092006867fe9926aaedda0d
-
-Commit message add discuss link and "Avoid hit this as a P2P transfer[1]."
-
-Best regards,
---
-Frank Li <Frank.Li@nxp.com>
+--=20
+Jerome
