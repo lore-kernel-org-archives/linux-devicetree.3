@@ -1,182 +1,151 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C34734908CE
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 12:40:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788352828; cv=pass; b=h4OkEX/nt3JQWAIrv4JAdxrG5gaPS1q3Qy+PbFat58T0AKr6C/i7xo1jylQybgPlyXpmM7l9ua3/a9F9gZ28JwTb+1s55lZPd4/5V74KLOm4ayV8nCAEywVPvuib6Pjva88B3cqvLzEyr72+8HXOsJJenX23TuwdXZt5ZnrjVzs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788352828; c=relaxed/simple;
-	bh=2q7EoLKcgcwc7yUi5L5qFuNobRc+ktl9A+DSmF2mUEc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZB9bg4YUXnTXaXkRhiFWBJMVVBtsuinUbQs9Yy7LUqFDxbYMljgywdmSXku6eOtnUSqrULAtVE/CAqa7RGsxJABPoVubYpSFUJmSZgA8E0Z3h0W1BWxib2a0lRDSbbj+eLP4/CyPxDe18h9TBcqxELY+6IFn59qfm6ipULS6aIs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=TZHJOkcZ; arc=pass smtp.client-ip=209.85.218.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 612454908AD;
+	Wed,  2 Sep 2026 12:40:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788352831; cv=none; b=Lz9b7hhyfPKKGnAvl2Te+cauMuNb8WGvF1rMsfKMDdcLNxK3u6FHBt0XCnX8jsmoy/onGuVKmzoGUqhk9IqKILpLNwxXusbGm9HBOO4a0bH2sJlVIk4WaeBzkGjIERfZwvGyHpvm7WL5R/ibaPVbiMaWguJKOFtUBnNckNTFNZY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788352831; c=relaxed/simple;
+	bh=UMI0QfgMfnLxhqN+hUuIEBnQed8SOgoyTb0c5j/oTEQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iTSs8I0aZ11rDZw/NnWC0UN/GRh4Zx3naLn8eSOqh2gKSaYoowpFzWHMvL21JuIFLU+e0yJklp+zRcQ6TI5NUtbvNGVkO8bWFJnlPfQpg/9TSDSVHNub77PWZSROHE2Ln38Scj/oeMQY1NHBlguvlGMvZBsRPIbN91IXB0eMn5s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=Fus7J2en; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="TZHJOkcZ"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c2529b3139fso132570766b.3
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 05:40:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788352824; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HCRKSmUtQ6gMro7mSdHmR70K96uxXNsB2QCOkZftiLBtdcS46FAsndB6riZvv4B417
-         T8znTkOLnqNehfynfoI+HSdlsI/dhY9PjPQM66bH3PbpnkVIV4baGPL6JCu0y68AFiUZ
-         Heu/WvoEiglr0W5QUVz35Q6IDiNu66F+C1NHx7549dCMbBhe48EHCnSKvJY8h16Ryx2g
-         FoZpmGPTzsu2/jPcpSoSTXL3rCiZmaIIImhlL1yen8EuCnR+sKnMMmQmx9KAw4B+mhL2
-         xNG1ecBCkMzU2GXcCo5tn8uRV/l/pll7dUkP22Dp1z6pK4xQsJNejql/8h1SB9RgFxMD
-         VN/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=bf+ehOmiL4umBAVvBrXKvt8N+WWJPKbeQnHod1e6bno=;
-        fh=++G57tbACUQb6wnZbBhef2cR2+bNKqm5XoyMX8kDW7I=;
-        b=VEOpBvoHMcUa/T1q3ekp6Lnrx/Nf6U69yIlL5RqS2Py8B1jVMGdzXt8ismQD+oPhC1
-         9YKr8IL6jjKwpNEnSmryciSLdRlydYiOzvYq1aWFW3S4kLxTO1LuRIpmllDw7Z6vmWo5
-         iO1o+N6BQZ2fC5T+nKsX2RwLMKKs+gt+kCxswwHWezmuPWz3y8QTegABLa9sTkEIMutq
-         uYobWDdIimQ7VIN7xbHd+NbxQdDkjrGaZNIn1j17ZIQYAiBKiW07wt79mDnqvbmAKXo4
-         NuYs41RlX2IKmnyNbOpVhDc5BbKY16LuykSgZjkLMuKR0B5XWJUJNpvgd5hnGmTMcV04
-         YdMQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1788352824; x=1788957624; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bf+ehOmiL4umBAVvBrXKvt8N+WWJPKbeQnHod1e6bno=;
-        b=TZHJOkcZJwTfPbRTlDs9/OBCM4woe1At57nBvb/eTQmvDHxftKZUTMOQD1Ccy9CrgV
-         jWDbua7Do1wljDmCC3izGHnTK124dZTXl9HmuOHt+EaqPO2ffPdFZJI/16OSEC9roRWe
-         /0ZQwrWCYGKmxrO8s6JsczCPhT8fv0IpNSlhQNGgEo18kCjLMNhogTTw7iVfuvWF5RHQ
-         shIv1r4xj2/v+FmC/burOKcC9P+O14PFyDv2livPjEQ+rayx+RNf/xBbNXCYy6NZCYnL
-         K6ZFlnjSx/6TIfbmhw0fdf4NlBo2R25cUuiAXtyjw/Q52P8hpdP5wLcCzzuV9qCcdcEF
-         9Z0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788352824; x=1788957624;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bf+ehOmiL4umBAVvBrXKvt8N+WWJPKbeQnHod1e6bno=;
-        b=jLT4TcjGQXfIGtaDnCyjrdSH5heHD93zStnE0ovIGKyjZJ+UdaE7KdlBOxGrnuIjB4
-         B5zY190yJNwJ3xYxWNLdmm5ES0lBs10j/gnObqYg3iQdz/J0CGGeoSxfevMxmlbUCHnU
-         JKQRi/81nbXrm/LiWQ9X6H4o4mYUqUS5cmgjlHp8T0LFi47uPLJlLkbS0QtlWu2liByO
-         sFPycsV/S9Lu4aYPT7pcUk/falsesvIdPvUsC7prKklTpVhP158QJrZh+fL7bEtJiWz7
-         LTEtNyhlcFebfJ02bYTuvSeH3CiSfCLnB2NqfxPg+Wki7WL/15nH3vmYFdVL+W+Bj5hW
-         Sm3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzGr/x0NMpbXnxoETf8V+uWLIwiZd7PS11Xp68wMWHa4L0db7ZtkWwsLWL9sadDLRZ9AOOWFYj838uj@vger.kernel.org
-X-Gm-Message-State: AFuF++lKi+TCOUrpe5B0Pokz4q+kjg4Q+Md0N78+DeSzpUjMblZzJoWZ
-	E/TUQyH4DfxzqPnR5uXCOkuGH2XOB/DQ6AHDBPC6rxEU4iLGp5CoT8TBk4mJg/5MxkNen06xnWI
-	Ep6SnAQNLlGd3Dg278k2bzGd/aasgU4CP8Jnnh7HWNw==
-X-Gm-Gg: AYBFou3QdzfdScGxiAYOCt/ZVxm/6D8GW1fD08YGMa5WfXvYyLunsHUhqzUShTrlXZz
-	vk7O8FsBp7/kcErekQW0/7B0qdSvxu3zk3YzRbjdEUKA4YeFNP1ICgG9I0SliF1VRvovAR5jDLv
-	HCDSLtec7mVvt5Cypc6ZAhyRrsLAIC0GeuoG68+ipaj6aMBucWc6c4fbUmGqbPm4JiKdvwmGH7g
-	zNyRw0ulruruAXY//9pTjiA1Ialu47sBzrDgYRLhzKM4+SiwBLFp2noi4xjJsCD59ypdr4FXpkz
-	DEdIbx7lXx1gzsmHfoit+A9hIk1iCA50DaAeBUMiWs8IPHbhVCJ7zXmpXy9rSa7MPue6K0asOii
-	B
-X-Received: by 2002:a17:906:6a05:b0:c16:6a42:c7d6 with SMTP id
- a640c23a62f3a-c25d52b8474mr330582766b.9.1788352823968; Wed, 02 Sep 2026
- 05:40:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="Fus7J2en"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B9BD311CE48;
+	Wed, 02 Sep 2026 14:40:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1788352822; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=YJo+5nQ0nINBNaxywSOUixu7kVY/MO9oQIxFhCicr3U=;
+	b=Fus7J2enwqruCRbPnjDoUUUhP40Uy3ASz92Ve/vGIRhjx2qab15DuVYHpB3yKKYvPm3vqH
+	Vm676MIUl/Hou0yUJVBuS2+tCEmpu4onyCikaQYO7Hbk5qlo8FJ3EyXl2YvTNZjw1dvG5W
+	rC+kTspa6YkdHr2dLx/UyTy3HdiKDXnH1xcU5bbO1HB0/AT4Ix31FXBoRd7iql6GjOz7ao
+	y28MuKsc/8h3CLuFKNAnqY3y25YlYI/B16Sx5WAqkJvqEg3JmZk5nqbLDiu+6qIR8CsXfO
+	nTXNoFAd9vVEffaHwqjYBzESOBb08Tmn81TVSPXtBUcOJpxgNsg0gZV8pJ2aXw==
+From: Marek Vasut <marex@nabladev.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: fabrice.gasnier@foss.st.com,
+	Marek Vasut <marex@nabladev.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Christophe Roullier <christophe.roullier@foss.st.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+	Rob Herring <robh@kernel.org>,
+	Yannick Fertre <yannick.fertre@foss.st.com>,
+	devicetree@vger.kernel.org,
+	kernel@dh-electronics.com,
+	linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: [PATCH v6 1/2] dt-bindings: arm: stm32: Document st,stm32mp23/25-syscfg subnodes and cells
+Date: Wed,  2 Sep 2026 14:39:49 +0200
+Message-ID: <20260902124018.606544-1-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260901-rk3576-otp-cpuid-mac-v1-0-ea9135270fc2@flipper.net>
- <20260901-rk3576-otp-cpuid-mac-v1-1-ea9135270fc2@flipper.net>
- <87ecfc81e9.fsf@bootlin.com> <CAKTNdwH5S3MxgR=5s2LXPquCFRXE-61LTTsZoHP9+YmXo_P4Ag@mail.gmail.com>
- <87y0dk6jpn.fsf@bootlin.com>
-In-Reply-To: <87y0dk6jpn.fsf@bootlin.com>
-From: Alexey Charkov <alchark@flipper.net>
-Date: Wed, 2 Sep 2026 16:40:16 +0400
-X-Gm-Features: AcwNN1VSY-7_RTZXfxYPRP1gcisezSlmJy8fnVW71SAjcha9KevXuu7BcSLrowE
-Message-ID: <CAKTNdwF_wY8JSoQs=auK_9YNGT+hwQ=dAhcRVsf1E1CVvFs-XA@mail.gmail.com>
-Subject: Re: [PATCH 1/4] nvmem: rockchip-otp: Serialize reads
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Michael Walle <michael@walle.cc>, 
-	Finley Xiao <finley.xiao@rock-chips.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Sep 2, 2026 at 2:17=E2=80=AFPM Miquel Raynal <miquel.raynal@bootlin=
-.com> wrote:
->
-> On 02/09/2026 at 13:24:00 +04, Alexey Charkov <alchark@flipper.net> wrote=
-:
->
-> > On Wed, Sep 2, 2026 at 1:10=E2=80=AFPM Miquel Raynal <miquel.raynal@boo=
-tlin.com> wrote:
-> >>
-> >> On 01/09/2026 at 19:33:11 +04, Alexey Charkov <alchark@flipper.net> wr=
-ote:
-> >>
-> >> > The OTP controller is driven through a single set of registers holdi=
-ng a
-> >> > state machine which has to be stepped through for every word read, y=
-et
-> >> > nothing keeps two readers out of each other's way. Concurrent reads
-> >> > interleave, and the outcome is either a reader bailing out:
-> >> >
-> >> >   rockchip-otp 2a580000.otp: timeout during read setup
-> >> >
-> >> > or, worse, one of them silently taking delivery of the other's data.
-> >> >
-> >> > Reading two cells in parallel from userspace on RK3576 reproduces bo=
-th
-> >> > within 150 iterations - 53 read errors and 9 corrupted results, the =
-latter
-> >> > either losing their first word or, in one case, ending in the two by=
-tes
-> >> > which belong to the other reader's cell - whereas the same reads iss=
-ued
-> >> > sequentially never fail. Concurrency is not hypothetical here, as si=
-x
-> >> > thermal sensors source their trim values from the OTP and reach the =
-driver
-> >> > straight from asynchronous driver probing.
-> >> >
-> >> > Guard the read path with a mutex. Reads are the only way into the ha=
-rdware,
-> >> > as the driver registers no write callback, and they always run in pr=
-ocess
-> >> > context, so a plain mutex spanning the whole clock-enable, read,
-> >> > clock-disable sequence is enough.
-> >> >
-> >> > Fixes: 755864feb729 ("nvmem: add Rockchip OTP driver")
-> >> > Cc: stable@vger.kernel.org
-> >> > Signed-off-by: Alexey Charkov <alchark@flipper.net>
-> >>
-> >> Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
-> >
-> > Thanks for your review Miquel!
-> >
-> > Sashiko complained about mixing a scope-based guard into a function
-> > with goto-based error handling, so I am replacing the guard(mutex)
-> > with explicit lock and unlock calls for v2. There won't be any
-> > semantic change though, so if you don't mind I'd like to carry your
-> > tag into the v2 version.
->
-> Of course.
+The st,stm32mp23-syscfg and st,stm32mp25-syscfg can have subnodes, which
+represent the USB 2.0 FEMTO-PHY. Document subnodes pattern properties and
+address/size cells.
 
-Thank you!
+Signed-off-by: Marek Vasut <marex@nabladev.com>
+---
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Christophe Roullier <christophe.roullier@foss.st.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Marek Vasut <marex@nabladev.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Yannick Fertre <yannick.fertre@foss.st.com>
+Cc: devicetree@vger.kernel.org
+Cc: kernel@dh-electronics.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+---
+V2: New patch
+V3: Fix the bindings
+V4: - Undo simple-mfd in favor of dedicated SYSCFG SoC driver
+    - Update commit message to match, this used to be patch
+      dt-bindings: arm: stm32: Switch st,stm32mp23/25-syscfg into simple-mfd
+    - Split this from series arm64: dts: phy: st: usb: Add STM32MP2 USB support
+      https://lore.kernel.org/all/20260822074816.548662-1-marex@nabladev.com/
+V5: - Add missing contains: into conditional
+    - Add phy subnodes into required list for stm32mp23-syscfg/stm32mp25-syscfg
+V6: - Reduce the pattern in patternProperties to match only on phy@2400 and phy@2800
+    - Disable address/clock/size-cells/phy@2400/phy@2800 unless compatible
+      with st,stm32mp23-syscfg or st,stm32mp25-syscfg
+    - Disable clocks unless compatible with st,stm32mp157-syscfg or st,stm32f4-gcan
+---
+ .../bindings/arm/stm32/st,stm32-syscon.yaml   | 30 ++++++++++++++++++-
+ 1 file changed, 29 insertions(+), 1 deletion(-)
 
-> I haven't seen Sashiko's answer but isn't the goal of guards to just be
-> released whatever the actual return path?
+diff --git a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+index 95d2319afe235..a559f8b03b842 100644
+--- a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
++++ b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+@@ -39,6 +39,17 @@ properties:
+   "#clock-cells":
+     const: 0
+ 
++  "#address-cells":
++    const: 1
++
++  "#size-cells":
++    const: 1
++
++patternProperties:
++  "^phy@2[48]00$":
++    type: object
++    $ref: /schemas/phy/st,stm32-usb2phy.yaml
++
+ required:
+   - compatible
+   - reg
+@@ -54,13 +65,30 @@ allOf:
+     then:
+       required:
+         - clocks
++    else:
++      properties:
++        clocks: false
+   - if:
+       properties:
+         compatible:
+-          const: st,stm32mp25-syscfg
++          contains:
++            enum:
++              - st,stm32mp23-syscfg
++              - st,stm32mp25-syscfg
+     then:
+       required:
++        - "#address-cells"
+         - "#clock-cells"
++        - "#size-cells"
++        - phy@2400
++        - phy@2800
++    else:
++      properties:
++        '#address-cells': false
++        '#clock-cells': false
++        '#size-cells': false
++        phy@2400: false
++        phy@2800: false
+ 
+ additionalProperties: false
+ 
+-- 
+2.53.0
 
-I believe it's based on the guidance in [1]. In this particular case,
-gotos don't jump outside the scope where I put the guard, so the
-scope-based guard is still correct. However, stylistically, it is
-indeed uncommon to see scope-based guards in functions using gotos.
-Explicit lock/unlock is easy in this case, anyway.
-
-[1] https://elixir.bootlin.com/linux/v7.2.2/source/include/linux/cleanup.h#=
-L148-L153
-
-Best regards,
-Alexey
