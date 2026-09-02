@@ -1,68 +1,68 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09A0A49CF24
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 13:08:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB66F49CF42
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 13:08:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788354496; cv=none; b=gc0tJZcugs5WUM15M5a+deQmpNyt5oYXxeYT/KiS4u+Jok0OdRUnpH7J2mdB19R1ALBQVNAL4bwn3c13F+EThG9pQNGL/qO9+oYhWl2tqLrf4X6k4ysPutXJ4L2eRYIWuykfDoR+0i2Y3cBe38dO2O2LJlbjsemLm9wXXG/KgVc=
+	t=1788354500; cv=none; b=HU4bcmHCCRdKMqPM78ONW+kuwfr7qSFoKbcCG+YoBy/bd9j/xSb7sRtBXTj+KN6axUihiryTPZpzVWw8/T5V1RC6u3yGY6ch54rbv3r6qog/L1RbmHXUO0WAVlEetvo3mAPkQ91n1IjLgJDrG3+H4UA9PovlUgnf7Nl5tdJh4J0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788354496; c=relaxed/simple;
-	bh=/RzWURUSlbLsxwiuIazTsYvvak9uXPkuT7+9wqJHcUM=;
+	s=arc-20240116; t=1788354500; c=relaxed/simple;
+	bh=k/jn5XrqJoguASStGfL3pZWOMkauDZVjoO+fk0jB14g=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gBqwTXWb45z6/TzadhrrRXUwrViOQxyf6zB/1cSNFh4VgyX57UgK7iCtz/2JLmILEeEmY97ELAAl1lMwoB7Yi5ytoy+I83bXts8nfUxHuoSSYNe5YmoaiG33ymHOPDfErjb+5aUd/CJjIroXzEQ9lGFNlrLRn16Qkw2/UTQO3Sw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=qz0Y2yRW; arc=none smtp.client-ip=209.85.221.52
+	 In-Reply-To:To:Cc; b=WlxCj6LDnqyHFkZrf6P+W9+VmCLmliJIsk0/y6kVgTFkYLZR55N/rv0tL7pmwmGDZr/2K2L0xGJDxcjLGjhZU065095TKscVqrQ7Mi3nn0XHtJLXQnL+zKbBANDqWdvkzANdH52olcq2w9u13rut3A+wvfkG/WQewX4Qh9+wL+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=IosNi0cx; arc=none smtp.client-ip=209.85.221.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="qz0Y2yRW"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-482fc3327fdso717571f8f.2
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 06:08:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="IosNi0cx"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-482e2fdf6ebso1134430f8f.1
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 06:08:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1788354492; x=1788959292; darn=vger.kernel.org;
+        d=flipper.net; s=google; t=1788354497; x=1788959297; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VstGMH+clvE6OSCjH9oL0GGKXD+unvqTKSVxvTB8uDc=;
-        b=qz0Y2yRWWS0fmakieDFb7ZVjrB1ScGQXul44n8A2VqoQ/Xjup+3nO7pw5wkce070Dl
-         sf0B0husbDFGsCpDWq3iuxVf60wnQX0wIaRf3zcmZ67QG+OCcc49SP6ylGZ5zLOlX0tb
-         yFjUcHr8WMDN63EwOhQuCJ3qsFkfvs5Keymrb+FrK7FFgEVE1Sc9NlxKCBdgXb7M/iT/
-         GVwHMCcLPwJ+DB0DZyqNj3IqJj4t26aKdpnpN8M3IE6Iyaoq4ptzV+P617N8Am1rd3Bu
-         UOtjzQUrdHZHXYUQAQwHxzsmS+rvt9/tRMRrof8ydPzsyHecCBvnrwLXAG7W+FrxydUg
-         5D2g==
+        bh=rn7i8U/ATxkqsV19D/fOiSUDBdGRoqkMbRkOr4LDxWI=;
+        b=IosNi0cx534Ak2Mui5hDKU0TucRIpo1NgqscCfqbh6iUBFuRf5LG5UIyrwrKfQCteo
+         z8D1URknMVtKiSRUhWG+VDsKTvj2A5DqaHCdWlioTxKri7dnPh6e0GaA8KxZSSJQAhvW
+         +OnAScBVXe5zQn7HtjbDM7Di7DVfVZChc2Z368BEROSfzA5EBVQNdCidTnM4uGQHSoTc
+         2oqyxHf7HINZN3xhvCBeBAGPBLqQFoNaHlwZ80unPc7Dsff+iQntvb9bwiZXsq+TAZTz
+         TMtdm38Rzs4kEecCZsa8Fe55V+Ac6SrtxzI3LcLO2noGM3G/vu6X3Z/WM6oHSlVSu8ki
+         tjSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788354492; x=1788959292;
+        d=1e100.net; s=20251104; t=1788354497; x=1788959297;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VstGMH+clvE6OSCjH9oL0GGKXD+unvqTKSVxvTB8uDc=;
-        b=mIlPz+we/sfnY7NiycR1fHgU673inCYEUttD2c1mk2/bTp1Jxs+9rTezbWXcT/t2NB
-         ijl3ogCJKMf9DJa12oX8XunmT/nfVauGmd90A5tMXAZC2XWS+izObuxmG507srT1w9h3
-         k3FZ+UFKPYsUHhOb8CjRoiTT2jC3XKvMTelwnJKTlnajktdSNq2H6yxcoSwEVun/Z3Sw
-         4680oDzX2NC776sS5VGyg3ZhXgLET995Yj9Z5Wk2clrG3y3Uwzf1sYvIfjnztfnDg9JO
-         aIIOxUS6pfu+7iS2h9NdgsxkqIcYuSGSbkBowzgOBywxJ5R1ePPbdZZPqShZv0EuknkV
-         cwLQ==
-X-Gm-Message-State: AFuF++lPoIkhqHLn6qZhHWHcDGtVmyD/Q2sJFJhgaGoxpnmGBVLYnKdx
-	z00OLXMYlrT6p2LuDxiNziFDoMCbTfAJuQgGbCv3b9u1Twd2A7pIFpfWFVnPz9zEsH4=
-X-Gm-Gg: AYBFou0UJIgD1v7tWiSRkQDfL2Nhw119IwUTu4Qml6DPbOaTCVzhUTGvYS2zDP8r0Xa
-	BUh3GtgiDbZf3fTJDV16OwQlGrG1pUtrsjYiRdm6gDBwu88NjqPh8ph3H1AH1DAbKbazZhpXQGz
-	qYgF1Y4qQbnoFtB6ILvLKwBpIRXfFgiYUYf0DgZtZbuY21zXNfLo7d1I+26Wb85TEmOik9HL/me
-	EuAKmo7XIxLzjdXZUJXPOGp49ckucfgaIC4l2sv1oGb4R30FfmbCxXntVgJea8mCvtPUXq8dsTy
-	JGIeFB3i0jYtPVbPVs/F7yyDf09uMtdIkAiAnwcPrEcHpC5b+4HqMlrRpdpT0AU62JSk+bizyBy
-	vcx7PLi1XhX6mDwAQa6M2gX+cNxKzORooVY/tGS8udIHEnKkaXxYcZDQT2Y6+PoKv/2Uge1DMl3
-	OdIXLVzo6NO7H8afw9vRWoZunb2NeNpSOevpRssec/Qyfm/jVntPiI69Ihe+ljaxVxx4Sq/uYsl
-	SHRzN09FOdo4jr67Az38Jy+lv3e/trK2UoUHtBaRg==
-X-Received: by 2002:a05:6000:290f:b0:484:3310:9ab0 with SMTP id ffacd0b85a97d-484914d8435mr8297857f8f.25.1788354492009;
-        Wed, 02 Sep 2026 06:08:12 -0700 (PDT)
+        bh=rn7i8U/ATxkqsV19D/fOiSUDBdGRoqkMbRkOr4LDxWI=;
+        b=DpS4ZJiNtiQitdxw0tEXeNtODrKLWYic33xLbLi9mJcHCG1mnjCWtd0fg/BcsVLp5K
+         ZWGa8YcLMiwXumd9o9MeQNayMvLXtealwkCKhEiYFwhwu4RCExnw/uFDLiwmDat8Jjf/
+         /qwAEuk1G7WsH/1z76Tbv3QadO3r+UBjToPmeUs8QhXuDTRW6VRktKggYj3rutruv37R
+         pfXI3Un0/RgNoSj9ucC+gS/V106sDY4eWJ38klacZzFqncflxKT6H82RZRQ3A78Ad1WS
+         uczk6DMamTtVpt5rCf6R51IcFznqEO8TtMZR+yiRedpwEMZJTk8yTHoVVnHUTgx3o5Jf
+         d6jA==
+X-Gm-Message-State: AFuF++l/PxS7TIA6fzJJqfJzBsU05GLBdFr/+3sJ4SgTGHxL4JZ3GQFp
+	uqzKAn3S+4vXCVtFXTqKAp8PnT8h5OJppPU9Qvr6ej129z05Trs2FLDHtUaJ1VXtRGY=
+X-Gm-Gg: AYBFou1jgSpi+F0Sp1WiEciU9GTR73+UUWsQJ1qb55bSGDNrNVRXpxXA9/ZQisLn2KQ
+	+zqBEn0jDXoxpp2pKSI5NJIthxeRE+hojvbqELb4jFzFrPvoSoQ4WHMqfYjO3bokchu03cE8ycx
+	bCOyqaS+ioFyxPYEJKv11AS16sBK+d6S5fEvnSafiD8Hzjuqe5xmAUZCHEYiP9hVE8MJET3Pm99
+	CEOB+lhcHd9p3tFU9adPN+wv4KvkkFv0nSJpcPm8EQkbwslyEyXRXTLSknDiPsvY0HnUw0+tidS
+	kbovG982VqeIWbqqUbcEKj15LJz7I8APhMiSRTEtJNwzDDihJBC3cJ1fkVJ0SKecRq93iDLpM7Z
+	zyHt9O9N8o5v7OdtfpDEQVSoN8Ql5NeWHL5/7m2nzpNhlDLHzmhQ//g+USLGQ+JdCDYZVgJIrgr
+	y0dWId2kmMxEUxFF9gTizPMnuhXMekvLz+PQ5Tu6Xf69byauiYOtd/vAodwNqZRB9M2cSBUpcja
+	0zglIXIwxnv7Nm+IM/GbGisi/6HLjJTfSoicBmsLg==
+X-Received: by 2002:a05:6000:480a:b0:47f:eac2:6f55 with SMTP id ffacd0b85a97d-48488f2229cmr9455000f8f.19.1788354496630;
+        Wed, 02 Sep 2026 06:08:16 -0700 (PDT)
 Received: from alchark-surface.localdomain (bba-2-51-220-108.alshamil.net.ae. [2.51.220.108])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e72b5bsm6385800f8f.4.2026.09.02.06.08.08
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e72b5bsm6385800f8f.4.2026.09.02.06.08.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 06:08:10 -0700 (PDT)
+        Wed, 02 Sep 2026 06:08:14 -0700 (PDT)
 From: Alexey Charkov <alchark@flipper.net>
-Date: Wed, 02 Sep 2026 17:07:53 +0400
-Subject: [PATCH v2 2/4] dt-bindings: nvmem: layouts: Add Rockchip OTP CPUID
- layout
+Date: Wed, 02 Sep 2026 17:07:54 +0400
+Subject: [PATCH v2 3/4] nvmem: layouts: Add Rockchip OTP CPUID layout
+ driver
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-rk3576-otp-cpuid-mac-v2-2-e4b7fe2ab13f@flipper.net>
+Message-Id: <20260902-rk3576-otp-cpuid-mac-v2-3-e4b7fe2ab13f@flipper.net>
 References: <20260902-rk3576-otp-cpuid-mac-v2-0-e4b7fe2ab13f@flipper.net>
 In-Reply-To: <20260902-rk3576-otp-cpuid-mac-v2-0-e4b7fe2ab13f@flipper.net>
 To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -84,140 +84,214 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
  Alexey Charkov <alchark@flipper.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4722; i=alchark@flipper.net;
- h=from:subject:message-id; bh=/RzWURUSlbLsxwiuIazTsYvvak9uXPkuT7+9wqJHcUM=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWTNkN98wCL61IsMQ7/0dv97TsGZmfZJz1W42WaKZtU0M
- Rt5c6Z1TGRhEONisBRTZJn7bYntVCO+Wbs8PL7CzGFlAhkiLdLAAAQsDHy5iXmlRjpGeqbahnqG
- RjrGOkYMXJwCMNXpLYwMy83XL+BRTM0vC1bx833+6pLjDmXt45cSjoV1f2O+cuhrKiPDj1/BvPa
- JFlwa/7vjN7y+NLmKzZgx8uDyNzLpKcrtjNPYAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6627; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=k/jn5XrqJoguASStGfL3pZWOMkauDZVjoO+fk0jB14g=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWTNkN/8sWiqYlX7jJmH7nT4e3brq3wwePmr7anCydLqP
+ /wyV9p6OyayMIhxMViKKbLM/bbEdqoR36xdHh5fYeawMoEMkRZpYAACFga+3MS8UiMdIz1TbUM9
+ QyMdYx0jBi5OAZhq1VyGX0yeHJcebT3JbLu6IsNvjsrnOV83vHY4XReoHrj5q+iRUz8YGa6XBd7
+ 8sviF8aWphy/ISb6zXftL997Uhvfbr/Jr3a69vocRAA==
 X-Developer-Key: i=alchark@flipper.net; a=openpgp;
  fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-Rockchip SoCs ship with a unique CPU ID programmed into their internal OTP
-memory, and Rockchip bootloaders derive Ethernet MAC addresses from it so
-that boards with no dedicated storage for one still get a stable address.
+Rockchip SoCs customarily use the CPU ID programmed into their on-chip OTP
+memory to derive stable Ethernet MAC addresses even when a board doesn't
+otherwise have dedicated storage for those. The derivation depends on the
+particular bootloader implementation (e.g. it is done by upstream U-Boot,
+which patches the derived MAC addresses at runtime into the device tree it
+hands to the kernel). Using less featureful bootloaders, such as direct
+boot to Linux from SPL, leaves the kernel with only a random MAC address
+instead, even though everything required for the derivation is equally
+available to Linux as it is to U-Boot.
 
-Describe that derivation as an NVMEM layout, so that the resulting
-addresses become available through the standard nvmem "mac-address" cell
-whether or not the firmware got a chance to patch them into the device
-tree. Keep the compatible SoC specific, as the location of the CPU ID
-within the OTP memory differs between SoCs.
+Reproduce the same derivation in the kernel and expose the result as an
+nvmem cell named "mac-address", so that of_get_mac_address() picks it up
+through its standard nvmem fallback. The address index comes from the DT
+phandle argument, which lets both interfaces of a dual Ethernet board
+share a single cell.
 
+Enable the layout by default on Rockchip, as consumers of its cells would
+otherwise defer their probe indefinitely.
+
+Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
 Signed-off-by: Alexey Charkov <alchark@flipper.net>
 ---
- .../bindings/nvmem/layouts/nvmem-layout.yaml       |  1 +
- .../nvmem/layouts/rockchip,rk3576-otp-cpuid.yaml   | 73 ++++++++++++++++++++++
- MAINTAINERS                                        |  6 ++
- 3 files changed, 80 insertions(+)
+ MAINTAINERS                                |   1 +
+ drivers/nvmem/layouts/Kconfig              |  13 ++++
+ drivers/nvmem/layouts/Makefile             |   1 +
+ drivers/nvmem/layouts/rockchip-otp-cpuid.c | 119 +++++++++++++++++++++++++++++
+ 4 files changed, 134 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/nvmem/layouts/nvmem-layout.yaml b/Documentation/devicetree/bindings/nvmem/layouts/nvmem-layout.yaml
-index 382507060651..ab94dbb41aac 100644
---- a/Documentation/devicetree/bindings/nvmem/layouts/nvmem-layout.yaml
-+++ b/Documentation/devicetree/bindings/nvmem/layouts/nvmem-layout.yaml
-@@ -21,6 +21,7 @@ oneOf:
-   - $ref: fixed-layout.yaml
-   - $ref: kontron,sl28-vpd.yaml
-   - $ref: onie,tlv-layout.yaml
-+  - $ref: rockchip,rk3576-otp-cpuid.yaml
-   - $ref: u-boot,env.yaml
- 
- properties:
-diff --git a/Documentation/devicetree/bindings/nvmem/layouts/rockchip,rk3576-otp-cpuid.yaml b/Documentation/devicetree/bindings/nvmem/layouts/rockchip,rk3576-otp-cpuid.yaml
-new file mode 100644
-index 000000000000..85153d480950
---- /dev/null
-+++ b/Documentation/devicetree/bindings/nvmem/layouts/rockchip,rk3576-otp-cpuid.yaml
-@@ -0,0 +1,73 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/nvmem/layouts/rockchip,rk3576-otp-cpuid.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: NVMEM layout of the CPU ID in Rockchip OTP memory
-+
-+maintainers:
-+  - Alexey Charkov <alchark@flipper.net>
-+
-+description: |
-+  Rockchip SoCs are shipped with a unique CPU ID programmed into their
-+  internal OTP memory. Rockchip bootloaders derive Ethernet MAC addresses
-+  from it, so that boards which have no dedicated storage for a MAC address
-+  still get a stable one. The addresses are computed by hashing the lowercase
-+  hexadecimal representation of the CPU ID with SHA-256 and taking the first
-+  six octets of the digest, with the multicast bit cleared and the locally
-+  administered bit set.
-+
-+  The location of the CPU ID within the OTP memory differs between SoCs,
-+  hence the SoC specific compatible.
-+
-+select: false
-+
-+properties:
-+  compatible:
-+    const: rockchip,rk3576-otp-cpuid
-+
-+  mac-address:
-+    type: object
-+    description:
-+      MAC address derived from the CPU ID. The first argument of the phandle
-+      selects one of the two addresses that can be derived (can be 0 or 1).
-+
-+    properties:
-+      "#nvmem-cell-cells":
-+        const: 1
-+
-+    additionalProperties: false
-+
-+required:
-+  - compatible
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/rockchip,rk3576-cru.h>
-+    #include <dt-bindings/reset/rockchip,rk3576-cru.h>
-+
-+    soc {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+
-+        otp@2a580000 {
-+            compatible = "rockchip,rk3576-otp";
-+            reg = <0x0 0x2a580000 0x0 0x400>;
-+            clocks = <&cru CLK_OTPC_NS>, <&cru PCLK_OTPC_NS>,
-+                     <&cru CLK_OTP_PHY_G>;
-+            clock-names = "otp", "apb_pclk", "phy";
-+            resets = <&cru SRST_OTPC_NS>, <&cru SRST_P_OTPC_NS>;
-+            reset-names = "otp", "apb";
-+
-+            nvmem-layout {
-+                compatible = "rockchip,rk3576-otp-cpuid";
-+
-+                otp_mac_address: mac-address {
-+                    #nvmem-cell-cells = <1>;
-+                };
-+            };
-+        };
-+    };
 diff --git a/MAINTAINERS b/MAINTAINERS
-index eb4e5a61056e..f3d07ce7b3c8 100644
+index f3d07ce7b3c8..73e0531445be 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -23722,6 +23722,12 @@ F:	Documentation/userspace-api/media/v4l/metafmt-rkisp1.rst
- F:	drivers/media/platform/rockchip/rkisp1
- F:	include/uapi/linux/rkisp1-config.h
+@@ -23727,6 +23727,7 @@ M:	Alexey Charkov <alchark@flipper.net>
+ L:	linux-rockchip@lists.infradead.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/nvmem/layouts/rockchip,rk3576-otp-cpuid.yaml
++F:	drivers/nvmem/layouts/rockchip-otp-cpuid.c
  
-+ROCKCHIP OTP CPUID NVMEM LAYOUT DRIVER
-+M:	Alexey Charkov <alchark@flipper.net>
-+L:	linux-rockchip@lists.infradead.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/nvmem/layouts/rockchip,rk3576-otp-cpuid.yaml
-+
  ROCKCHIP RK3568 RANDOM NUMBER GENERATOR SUPPORT
  M:	Daniel Golle <daniel@makrotopia.org>
- M:	Aurelien Jarno <aurelien@aurel32.net>
+diff --git a/drivers/nvmem/layouts/Kconfig b/drivers/nvmem/layouts/Kconfig
+index 5e586dfebe47..6e2511ac6f7e 100644
+--- a/drivers/nvmem/layouts/Kconfig
++++ b/drivers/nvmem/layouts/Kconfig
+@@ -26,6 +26,19 @@ config NVMEM_LAYOUT_ONIE_TLV
+ 
+ 	  If unsure, say N.
+ 
++config NVMEM_LAYOUT_ROCKCHIP_OTP_CPUID
++	tristate "Rockchip OTP CPU ID layout support"
++	default ARCH_ROCKCHIP
++	select CRYPTO_LIB_SHA256
++	help
++	  Say Y here if you want to expose the MAC addresses that Rockchip
++	  bootloaders derive from the CPU ID programmed into the OTP memory of
++	  Rockchip SoCs. Boards which have no other source of MAC addresses
++	  need this to get stable ones when the bootloader does not patch them
++	  into the device tree.
++
++	  If unsure, say N.
++
+ config NVMEM_LAYOUT_U_BOOT_ENV
+ 	tristate "U-Boot environment variables layout"
+ 	select CRC32
+diff --git a/drivers/nvmem/layouts/Makefile b/drivers/nvmem/layouts/Makefile
+index dd6c6c70b1a9..a0ade4c22c79 100644
+--- a/drivers/nvmem/layouts/Makefile
++++ b/drivers/nvmem/layouts/Makefile
+@@ -6,4 +6,5 @@
+ obj-$(CONFIG_NVMEM_LAYOUTS) += fixed-layout.o
+ obj-$(CONFIG_NVMEM_LAYOUT_SL28_VPD) += sl28vpd.o
+ obj-$(CONFIG_NVMEM_LAYOUT_ONIE_TLV) += onie-tlv.o
++obj-$(CONFIG_NVMEM_LAYOUT_ROCKCHIP_OTP_CPUID) += rockchip-otp-cpuid.o
+ obj-$(CONFIG_NVMEM_LAYOUT_U_BOOT_ENV) += u-boot-env.o
+diff --git a/drivers/nvmem/layouts/rockchip-otp-cpuid.c b/drivers/nvmem/layouts/rockchip-otp-cpuid.c
+new file mode 100644
+index 000000000000..61f509c4a8cf
+--- /dev/null
++++ b/drivers/nvmem/layouts/rockchip-otp-cpuid.c
+@@ -0,0 +1,119 @@
++// SPDX-License-Identifier: GPL-2.0
++// SPDX-FileCopyrightText: 2026 Flipper FZCO
++/*
++ * NVMEM layout for the CPU ID in Rockchip OTP memory
++ */
++
++#include <crypto/sha2.h>
++#include <linux/device-id/of.h>
++#include <linux/etherdevice.h>
++#include <linux/hex.h>
++#include <linux/module.h>
++#include <linux/nvmem-provider.h>
++#include <linux/of.h>
++#include <uapi/linux/if_ether.h>
++
++#define ROCKCHIP_CPUID_LEN	16
++
++struct rockchip_cpuid_data {
++	unsigned int offset;
++};
++
++static int rockchip_cpuid_mac_pp(void *priv, const char *id, int index,
++				 unsigned int offset, void *buf, size_t bytes)
++{
++	char cpuid[ROCKCHIP_CPUID_LEN * 2];
++	u8 digest[SHA256_DIGEST_SIZE];
++	u8 *mac = buf;
++
++	if (bytes != ROCKCHIP_CPUID_LEN)
++		return -EINVAL;
++
++	if (index < 0 || index > 1)
++		return -EINVAL;
++
++	/* The buffer still holds the raw CPU ID at this point */
++	bin2hex(cpuid, mac, ROCKCHIP_CPUID_LEN);
++
++	sha256(cpuid, sizeof(cpuid), digest);
++
++	memcpy(mac, digest, ETH_ALEN);
++	mac[0] &= 0xfe;		/* clear the multicast bit */
++	mac[0] |= 0x02;		/* set the locally administered bit */
++	mac[5] ^= index;
++
++	if (!is_valid_ether_addr(mac))
++		return -EINVAL;
++
++	return 0;
++}
++
++static int rockchip_cpuid_add_cells(struct nvmem_layout *layout)
++{
++	const struct rockchip_cpuid_data *data;
++	struct nvmem_cell_info info = {0};
++	struct device_node *layout_np;
++	int ret;
++
++	data = of_device_get_match_data(&layout->dev);
++	if (!data)
++		return -EINVAL;
++
++	layout_np = of_nvmem_layout_get_container(layout->nvmem);
++	if (!layout_np)
++		return -ENOENT;
++
++	info.name = "mac-address";
++	info.offset = data->offset;
++	info.raw_len = ROCKCHIP_CPUID_LEN;
++	info.bytes = ETH_ALEN;
++	info.read_post_process = rockchip_cpuid_mac_pp;
++	info.np = of_get_child_by_name(layout_np, info.name);
++
++	of_node_put(layout_np);
++
++	ret = nvmem_add_one_cell(layout->nvmem, &info);
++	if (ret)
++		of_node_put(info.np);
++
++	return ret;
++}
++
++static int rockchip_cpuid_probe(struct nvmem_layout *layout)
++{
++	layout->add_cells = rockchip_cpuid_add_cells;
++
++	return nvmem_layout_register(layout);
++}
++
++static void rockchip_cpuid_remove(struct nvmem_layout *layout)
++{
++	nvmem_layout_unregister(layout);
++}
++
++static const struct rockchip_cpuid_data rk3576_cpuid_data = {
++	.offset = 0x0a,
++};
++
++static const struct of_device_id rockchip_cpuid_of_match_table[] = {
++	{
++		.compatible = "rockchip,rk3576-otp-cpuid",
++		.data = &rk3576_cpuid_data,
++	},
++	{},
++};
++MODULE_DEVICE_TABLE(of, rockchip_cpuid_of_match_table);
++
++static struct nvmem_layout_driver rockchip_cpuid_layout = {
++	.driver = {
++		.name = "rockchip-otp-cpuid-layout",
++		.of_match_table = rockchip_cpuid_of_match_table,
++	},
++	.probe = rockchip_cpuid_probe,
++	.remove = rockchip_cpuid_remove,
++};
++module_nvmem_layout_driver(rockchip_cpuid_layout);
++
++MODULE_LICENSE("GPL");
++MODULE_AUTHOR("Alexey Charkov <alchark@flipper.net>");
++MODULE_DESCRIPTION("NVMEM layout driver for the CPU ID in Rockchip OTP memory");
 
 -- 
 2.54.0
