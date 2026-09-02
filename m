@@ -1,56 +1,56 @@
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com [209.85.221.72])
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com [209.85.208.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5A3E46A5EC
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 10:51:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42907472092
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 10:51:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788346279; cv=none; b=t1V35InSVYHMxGy5ew9vU67obxf7sJgfhwFEoUWK2+W4Nh1Rsf/LtzeA6igxu7bOaFGz8/p/TPYsLyi9F/oD+IBflDe58T2NHLuH5+wV0qzMfLRlBWyyk2ltCOpNL7uw3BGP6nA+SvYdA+6xswp+dUZsOrhEzRmXC0xddNa4YUE=
+	t=1788346281; cv=none; b=sZueRNQx6UvO705E+GaByd+uCFdxNO5q96780oeNA+Jj8cj30pf6URqIKkHrrmioItMTu77Ln5vBTgjp8OjdXPdH0ZFAp5ixvj3RafqALi67tHuwNw0Tts7ruxtAMKzoNbQ1hb0AXJCZFerqWCTsZ6fE32oX28QUHGnWZeFW2L4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788346279; c=relaxed/simple;
-	bh=RsJ6maEfydlgRHfAusJRbg3oK58wmuxDifTUT74arNQ=;
+	s=arc-20240116; t=1788346281; c=relaxed/simple;
+	bh=5C0s/9UucVAGmXDEl+xwewW/gLO4zg1pKiD4RPTspKs=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=R/iddDMSQEiDnw6F8pM1UDAmfehHpBPqTa/oRNFFUq/mSMRJjVUagGTQRz2a9r6kgi7MZmXXhW4Yw/FqqMaFNGjzHQl3BmOb3GrN3kaDDTe3zRVtLAwR8594JtaIBwD2uEHr16NwU9IKzTCMaTzlFC69lRNs9hdik1DY+DApT4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YytXuuVz; arc=none smtp.client-ip=209.85.221.72
+	 To:Cc:Content-Type; b=UKnFdaElUFs7TLHkUsHKcdb1eZCWsXUlj/D0LYemhMzUzwxjUUVCJOSt+UxP2NBM0uuShTl3B8hoTNH0Zca9Im1TvR6wuPAx4416jp4ZYAXhRWwobtfqPf9kmg+gJEQ04wOzp3zaL1IemMQYjaPFTzVBaaPrKGjAJh2nkExvTsE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=M5iGUe1g; arc=none smtp.client-ip=209.85.208.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YytXuuVz"
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-472c330e555so519974f8f.1
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 03:51:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="M5iGUe1g"
+Received: by mail-ed1-f72.google.com with SMTP id 4fb4d7f45d1cf-6a60a4f1ae2so1177585a12.2
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 03:51:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788346269; x=1788951069; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1788346273; x=1788951073; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=BmhXowTIOzHcHY7UkEdd72g+gSt6KBOTf5gqmJgT9x4=;
-        b=YytXuuVziL+PgbE2xunilYshc8QWVoLyX51Dc+CpUaKrrwmAxrrtyg5uPxFKBydlMw
-         3tCy5vj+h2u6O148WeXj6xP9OEsxXqZEZXy/WSXS28uJ7JdFm09Ugu29jtiEgxGupyOb
-         qdDnnBeYdkv+cb4FKyygA7BUFIdoW9kdrBkMYO1Trdud0woMoQyfgLmvIHY7+V4JJsTq
-         GyeZIGSPeZ+B47KP8lZyfBp9pJVUy3SX3pKF0TxEeOcGieoddk86LASccQyqYMEr0xOG
-         h7+9O6CAF0uEW0Bxj48B8hjEQG/jGFwx2sKOr7yh8IvhMADr/G0d9Snlvl96BJBV1aXX
-         AL2g==
+        bh=0x2qbND6Sa3WNSOYkn6lqr5Ld4Ihzkg79AVpCRYTR1A=;
+        b=M5iGUe1gc0hu7UCXVuZQ6eqxeK53tIsgVH0pkcje8+eax6BHdYwFfRWJGRlAB4BPGQ
+         XVbtw3L5t1VXi+9pWMrXUesFJgS1nhFpbQ1oewj3KIt6kt+QmtW4jHXHzOwNW69IQ9W0
+         8nVrw1NgRHiZYl9or3IGCAQaRgpzQTKP5tD/X5b9FM4pxlWB/gejhrdgsTHme9i56P04
+         un3E8AYBjomzrSBcGxv/eKQ0rUpxAEC319HUjySf/+Jdp0JZ4v0QdR63jbUX8wtWe+7u
+         jX1+ik0c5yPMnZqQGZByUYIPbAEDyKLW5grqvg/6F/ayDR5HqHojiqE/PQxfz+koyg3n
+         MMZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788346269; x=1788951069;
+        d=1e100.net; s=20251104; t=1788346273; x=1788951073;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BmhXowTIOzHcHY7UkEdd72g+gSt6KBOTf5gqmJgT9x4=;
-        b=CTRWldzHSjRaqHdr0xSJuFVen/GSRYVnI3KN0MIXKCTVcZfvF3CPgPbXSy+CI9Xbri
-         S9HD+uKG0bg7cQIx15VdhdQsup52UdTRYN4p4I6b0fIm4Hpbly6kl4dwNvvZ3BZbD4Cz
-         J9NWjd+Ys3eEAN5pQG99DUIi/1uxr7Tp+wgVGSghuMvj+JYsylKjPGlYuZVGJrAF8yQY
-         2navI1bfeBAab2n+yGFzAShboENcNWfUB29iemzEbIC2e0dLWA5ifh2FkZRB813dJKHb
-         NG4ACsPCH+ICwKNdjiX7EHbnAqx0lPjDL8J1cmL+IOxS76JLZHWAXXhKB7s+6tWh8HqB
-         ling==
-X-Forwarded-Encrypted: i=1; AHgh+RqZ4arP9+DsnYe53KHzmTdIDi982wv64F89vYQ7G8nJL+wf1RLgrnuhm3ZfunKE+YXw1bux+fF5qMOD@vger.kernel.org
-X-Gm-Message-State: AFuF++nPdcHlf8TNy1IqFxi5DQ8qG8hM5NB/7+NKqiLi/VoH2X6BLuuQ
-	HKWnCp7N758nQSISQcSxJC+b8TwlS9N75orfj7VkANPvvcYXkgnjibJcLu9B9z4Kle1gmuA8Sp6
-	ZlkicspaNzN7wzIFLSfgA1w==
-X-Received: from wmbgx10.prod.google.com ([2002:a05:600c:858a:b0:49b:96b9:9d0f])
+        bh=0x2qbND6Sa3WNSOYkn6lqr5Ld4Ihzkg79AVpCRYTR1A=;
+        b=Daikrc2tpgkJzX5gE57QtrM0RTp5D3xrywiHe1Q4fOEwJc7uVs5QyYd9QQCChIcoNh
+         Y/SZr1dFdpsrTNjcUpV85giLKPjhDG2wYNvVSXa/Dzqf3KgpJif2arsPA0UoplqdAgUz
+         okvtybxqlOGn7R3aXz3RJGlx+junczqa9zAOIuouVkxazYBeC8FdgCbP5HlF8PfluHlI
+         0xwiMNvHkI8XBD/IGjCTwdH0EOdHXoFlZi1yO98exNuXCsN6EtbZzWY7wwqi7uZuEE6b
+         0jBt1f9Pkuf1Mqm7+2ebS3hloa9qCo19awl9RGqTMH5kW5FhNeQXvpSln1QbuR12miss
+         3tkA==
+X-Forwarded-Encrypted: i=1; AKwUvBzjnQyuNdHFdDQlLO7qD9oRqBwigfjva63741g81kLXZuiTJMt5af+NNX1zBglj87DRCHlS9EnPCYss@vger.kernel.org
+X-Gm-Message-State: AFuF++nI6WYiZfEhhekSNMM+FRneVvWIO+le/NlL7J03/YnFCqAoJ2pl
+	u6BB4C/iXE8FN7EbWPECz+KSQ8I5DYSCsiwFsTmEPU1msMwr/w/eTVYUha7tusSRpQ3o1ynP1DE
+	bv5r/bCl83QMiEhmKAXXGMw==
+X-Received: from edyf4.prod.google.com ([2002:a05:6402:684:b0:6a5:e070:f1f6])
  (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:3b18:b0:49c:d26a:cf70 with SMTP id 5b1f17b1804b1-49ce583adbemr59327195e9.15.1788346269076;
- Wed, 02 Sep 2026 03:51:09 -0700 (PDT)
-Date: Wed,  2 Sep 2026 11:47:04 +0100
+ 2002:a05:6402:46c5:b0:6a3:f47c:969 with SMTP id 4fb4d7f45d1cf-6a68224ce3emr2605259a12.3.1788346272605;
+ Wed, 02 Sep 2026 03:51:12 -0700 (PDT)
+Date: Wed,  2 Sep 2026 11:47:07 +0100
 In-Reply-To: <20260902104712.2399797-1-vdonnefort@google.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260902104712.2399797-1-vdonnefort@google.com>
 X-Mailer: git-send-email 2.55.0.970.g62bdec98f9-goog
-Message-ID: <20260902104712.2399797-3-vdonnefort@google.com>
-Subject: [PATCH v9 02/10] of: reserved_mem: Introduce "ll-map" property
+Message-ID: <20260902104712.2399797-6-vdonnefort@google.com>
+Subject: [PATCH v9 05/10] arm64: can_set_direct_map() if BBML3
 From: Vincent Donnefort <vdonnefort@google.com>
 To: catalin.marinas@arm.com, will@kernel.org, rppt@kernel.org, 
 	akpm@linux-foundation.org, sudeep.holla@kernel.org, jenswi@kernel.org, 
@@ -73,251 +73,26 @@ Cc: mark.rutland@arm.com, sumit.garg@kernel.org, ardb@kernel.org,
 	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Keeping last-level mappings is interesting on some architectures as it
-allows mapping/unmapping pages from the kernel direct map without the
-risk of splitting blocks which, under the break-before-make rule, may
-trigger page-faults the kernel can't handle.
-
-Add an "ll-map" property for reserved-memory regions. When set, it
-splits the underlying memblock and sets the MEMBLOCK_LLMAP flag.
+Systems supporting BBML3 can split blocks without risking unhandled
+page-faults. It is therefore safe for them to set the direct map
+unconditionally.
 
 Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 
-diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-index 8c9d6395d6a3..9ff2d02cb149 100644
---- a/drivers/of/of_reserved_mem.c
-+++ b/drivers/of/of_reserved_mem.c
-@@ -32,9 +32,32 @@ static struct reserved_mem *reserved_mem __refdata = reserved_mem_array;
- static int total_reserved_mem_cnt = MAX_RESERVED_REGIONS;
- static int reserved_mem_count;
+diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
+index bbe98ac9ad8c..58898ae53f5d 100644
+--- a/arch/arm64/mm/pageattr.c
++++ b/arch/arm64/mm/pageattr.c
+@@ -99,7 +99,8 @@ bool can_set_direct_map(void)
+ 	 * Realms need to make pages shared/protected at page granularity.
+ 	 */
+ 	return rodata_full || debug_pagealloc_enabled() ||
+-		arm64_kfence_can_set_direct_map() || is_realm_world();
++		arm64_kfence_can_set_direct_map() || is_realm_world() ||
++		system_supports_bbml3();
+ }
  
-+enum of_rmem_flags {
-+	OF_RMEM_NONE		= 0,
-+	OF_RMEM_NOMAP		= BIT(0),
-+	OF_RMEM_LLMAP		= BIT(1),
-+};
-+
-+static int __init of_reserved_mem_flags(unsigned long node, enum of_rmem_flags *flags)
-+{
-+	*flags = OF_RMEM_NONE;
-+
-+	if (of_get_flat_dt_prop(node, "no-map", NULL))
-+		*flags |= OF_RMEM_NOMAP;
-+	if (of_get_flat_dt_prop(node, "ll-map", NULL))
-+		*flags |= OF_RMEM_LLMAP;
-+
-+	if ((*flags & OF_RMEM_NOMAP) && (*flags & OF_RMEM_LLMAP)) {
-+		pr_err("Reserved memory: no-map and ll-map are mutually exclusive\n");
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
- static int __init early_init_dt_alloc_reserved_memory_arch(phys_addr_t size,
--	phys_addr_t align, phys_addr_t start, phys_addr_t end, bool nomap,
--	phys_addr_t *res_base)
-+	phys_addr_t align, phys_addr_t start, phys_addr_t end,
-+	enum of_rmem_flags flags, phys_addr_t *res_base)
- {
- 	phys_addr_t base;
- 	int err = 0;
-@@ -46,10 +69,21 @@ static int __init early_init_dt_alloc_reserved_memory_arch(phys_addr_t size,
- 		return -ENOMEM;
- 
- 	*res_base = base;
--	if (nomap) {
--		err = memblock_mark_nomap(base, size);
--		if (err)
-+	if (flags & OF_RMEM_LLMAP) {
-+		err = memblock_mark_llmap(base, size);
-+		if (err) {
- 			memblock_phys_free(base, size);
-+			return err;
-+		}
-+	}
-+
-+	if (flags & OF_RMEM_NOMAP) {
-+		err = memblock_mark_nomap(base, size);
-+		if (err) {
-+			if (flags & OF_RMEM_LLMAP)
-+				memblock_clear_llmap(base, size);
-+			memblock_phys_free(base, size);
-+		}
- 	}
- 
- 	if (!err)
-@@ -119,17 +153,29 @@ static int fdt_fixup_reserved_mem_node(unsigned long node,
- 				       phys_addr_t base, phys_addr_t size);
- 
- static int __init early_init_dt_reserve_memory(phys_addr_t base,
--					       phys_addr_t size, bool nomap)
-+					       phys_addr_t size,
-+					       enum of_rmem_flags flags)
- {
--	if (nomap) {
-+	int err;
-+
-+	if (flags & OF_RMEM_LLMAP) {
-+		err = memblock_mark_llmap(base, size);
-+		if (err)
-+			return err;
-+	}
-+
-+	if (flags & OF_RMEM_NOMAP) {
- 		/*
- 		 * If the memory is already reserved (by another region), we
- 		 * should not allow it to be marked nomap, but don't worry
- 		 * if the region isn't memory as it won't be mapped.
- 		 */
- 		if (memblock_overlaps_region(&memblock.memory, base, size) &&
--		    memblock_is_region_reserved(base, size))
-+		    memblock_is_region_reserved(base, size)) {
-+			if (flags & OF_RMEM_LLMAP)
-+				memblock_clear_llmap(base, size);
- 			return -EBUSY;
-+		}
- 
- 		return memblock_mark_nomap(base, size);
- 	}
-@@ -143,10 +189,10 @@ static int __init early_init_dt_reserve_memory(phys_addr_t base,
- static int __init __reserved_mem_reserve_reg(unsigned long node,
- 					     const char *uname)
- {
-+	enum of_rmem_flags flags;
- 	phys_addr_t base, size;
--	int len, err;
- 	const __be32 *prop;
--	bool nomap;
-+	int len, err;
- 	u64 b, s;
- 
- 	prop = of_flat_dt_get_addr_size_prop(node, "reg", &len);
-@@ -157,7 +203,9 @@ static int __init __reserved_mem_reserve_reg(unsigned long node,
- 		pr_warn("Reserved memory: node '%s' has %d <base size> entries, only the first is used\n",
- 			uname, len);
- 
--	nomap = of_get_flat_dt_prop(node, "no-map", NULL) != NULL;
-+	err = of_reserved_mem_flags(node, &flags);
-+	if (err)
-+		return err;
- 
- 	err = fdt_validate_reserved_mem_node(node, NULL);
- 	if (err && err != -ENODEV)
-@@ -167,7 +215,7 @@ static int __init __reserved_mem_reserve_reg(unsigned long node,
- 	base = b;
- 	size = s;
- 
--	if (size && early_init_dt_reserve_memory(base, size, nomap) == 0) {
-+	if (size && early_init_dt_reserve_memory(base, size, flags) == 0) {
- 		fdt_fixup_reserved_mem_node(node, base, size);
- 		pr_debug("Reserved memory: reserved region for node '%s': base %pa, size %lu MiB\n",
- 			 uname, &base, (unsigned long)(size / SZ_1M));
-@@ -399,8 +447,8 @@ int __init fdt_scan_reserved_mem(void)
-  *	reserved regions to keep the reserved memory contiguous if possible.
-  */
- static int __init __reserved_mem_alloc_in_range(phys_addr_t size,
--	phys_addr_t align, phys_addr_t start, phys_addr_t end, bool nomap,
--	phys_addr_t *res_base)
-+	phys_addr_t align, phys_addr_t start, phys_addr_t end,
-+	enum of_rmem_flags flags, phys_addr_t *res_base)
- {
- 	bool prev_bottom_up = memblock_bottom_up();
- 	bool bottom_up = false, top_down = false;
-@@ -435,7 +483,7 @@ static int __init __reserved_mem_alloc_in_range(phys_addr_t size,
- 		memblock_set_bottom_up(bottom_up);
- 
- 	ret = early_init_dt_alloc_reserved_memory_arch(size, align,
--			start, end, nomap, res_base);
-+			start, end, flags, res_base);
- 
- 	/* Restore old setting if needed */
- 	if (bottom_up != top_down)
-@@ -452,9 +500,9 @@ static int __init __reserved_mem_alloc_size(unsigned long node, const char *unam
- {
- 	phys_addr_t start = 0, end = 0;
- 	phys_addr_t base = 0, align = 0, size;
-+	enum of_rmem_flags flags;
- 	int i, len;
- 	const __be32 *prop;
--	bool nomap;
- 	int ret;
- 
- 	prop = of_get_flat_dt_prop(node, "size", &len);
-@@ -477,7 +525,9 @@ static int __init __reserved_mem_alloc_size(unsigned long node, const char *unam
- 		align = dt_mem_next_cell(dt_root_addr_cells, &prop);
- 	}
- 
--	nomap = of_get_flat_dt_prop(node, "no-map", NULL) != NULL;
-+	ret = of_reserved_mem_flags(node, &flags);
-+	if (ret)
-+		return ret;
- 
- 	ret = fdt_validate_reserved_mem_node(node, &align);
- 	if (ret && ret != -ENODEV)
-@@ -495,7 +545,7 @@ static int __init __reserved_mem_alloc_size(unsigned long node, const char *unam
- 
- 			base = 0;
- 			ret = __reserved_mem_alloc_in_range(size, align,
--					start, end, nomap, &base);
-+					start, end, flags, &base);
- 			if (ret == 0) {
- 				pr_debug("allocated memory for '%s' node: base %pa, size %lu MiB\n",
- 					uname, &base,
-@@ -505,7 +555,7 @@ static int __init __reserved_mem_alloc_size(unsigned long node, const char *unam
- 		}
- 	} else {
- 		ret = early_init_dt_alloc_reserved_memory_arch(size, align,
--							0, 0, nomap, &base);
-+							0, 0, flags, &base);
- 		if (ret == 0)
- 			pr_debug("allocated memory for '%s' node: base %pa, size %lu MiB\n",
- 				uname, &base, (unsigned long)(size / SZ_1M));
-@@ -635,8 +685,8 @@ static int __init __reserved_mem_init_node(struct reserved_mem *rmem,
- static void __init fdt_init_reserved_mem_node(unsigned long node, const char *uname,
- 					      phys_addr_t base, phys_addr_t size)
- {
-+	enum of_rmem_flags flags;
- 	int err = 0;
--	bool nomap;
- 
- 	struct reserved_mem *rmem = &reserved_mem[reserved_mem_count];
- 
-@@ -650,14 +700,19 @@ static void __init fdt_init_reserved_mem_node(unsigned long node, const char *un
- 	rmem->base = base;
- 	rmem->size = size;
- 
--	nomap = of_get_flat_dt_prop(node, "no-map", NULL) != NULL;
-+	err = of_reserved_mem_flags(node, &flags);
-+	if (err)
-+		return;
- 
- 	err = __reserved_mem_init_node(rmem, node);
- 	if (err != 0 && err != -ENODEV) {
- 		pr_info("node %s compatible matching fail\n", rmem->name);
- 		rmem->name = NULL;
- 
--		if (nomap)
-+		if (flags & OF_RMEM_LLMAP)
-+			memblock_clear_llmap(rmem->base, rmem->size);
-+
-+		if (flags & OF_RMEM_NOMAP)
- 			memblock_clear_nomap(rmem->base, rmem->size);
- 		else
- 			memblock_phys_free(rmem->base, rmem->size);
-@@ -667,9 +722,10 @@ static void __init fdt_init_reserved_mem_node(unsigned long node, const char *un
- 		bool reusable =
- 			(of_get_flat_dt_prop(node, "reusable", NULL)) != NULL;
- 
--		pr_info("%pa..%pa (%lu KiB) %s %s %s\n",
-+		pr_info("%pa..%pa (%lu KiB) %s %s %s %s\n",
- 			&rmem->base, &end, (unsigned long)(rmem->size / SZ_1K),
--			nomap ? "nomap" : "map",
-+			(flags & OF_RMEM_LLMAP) ? "last-level " : "",
-+			(flags & OF_RMEM_NOMAP) ? "nomap" : "map",
- 			reusable ? "reusable" : "non-reusable",
- 			rmem->name ? rmem->name : "unknown");
- 	}
+ static int update_range_prot(unsigned long start, unsigned long size,
 -- 
 2.55.0.970.g62bdec98f9-goog
 
