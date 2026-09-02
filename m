@@ -1,103 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F99448C8C4
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 12:30:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EFDB4156C2;
+	Wed,  2 Sep 2026 12:31:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788352225; cv=none; b=Iag8itnpDcH1Lx68bxUOeqUWsWXTEKu9A3uMWf8gJHcaBVrp36EuWI3hnN4p12V52dkd7M4tv8CY0rLNm9+XvZc64vp9Sh4SVSIy+HxGdcRAM72yhLYmYYN15OKqjLkUNn1mE46A/QOlmqIgm8CqJqyqrm04PBYh7ckPrZ7nKzM=
+	t=1788352266; cv=none; b=QUHh7a6+rQBJ/KVCSft3F/DGWWIV+n6QevVrdfCq6d/HFvI6hrOVpF9liQJrZnfjKTf4rA4m+1NlL5pJBTtpXqgET7LTm25XQv95BSFnS3eOfykoHYf/VQd706wSxTdA9FbxI7CAKIvLExwZMaNUVsxSLiV3I5Z7K74oO8JrfeM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788352225; c=relaxed/simple;
-	bh=Jw8I8KiyBzK4krNuRNEbLp7x85N3k1ph/dDFzes/gD4=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZJcCYzdoUzIjBxee51UPPuEP5xPZkBWeVg6sIhUvQED0AmYU4RrOMZD4nftiUzcyLxF1TWToW4HxdUivV8s7ktXhGUne5fhVlU1ErkPG2/nDjaUoUeOeBex71KT5sxBb0rsOBBrdDQsFiHWNymFKjLMpbxo+aVKoJ+CRC2zLjBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mePyn1Kr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788352266; c=relaxed/simple;
+	bh=C7oHn4XivxySXy0y+yr4wWMQoZ5AQOtuheiFlAgGvEg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=MRSaICmYhXgk5sjdsLeaYR+VzM2bZO86UGThIKceL3bfAvoxoE5kRhjVBauQYCno509iVn2oArUbUYL0fn8lWhO1RPQe0VSGmbSX9p9RHyaYnIrZ7lkBxHvdFQ1z6MkiBc8JZuS1WOUhiogFtAUW9kIsez3PhQMVWZPmbx3F41w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cS0RsluM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mePyn1Kr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D48781F00A3F
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 12:30:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cS0RsluM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11B171F000E9;
+	Wed,  2 Sep 2026 12:31:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788352223;
-	bh=Jw8I8KiyBzK4krNuRNEbLp7x85N3k1ph/dDFzes/gD4=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=mePyn1KrKlUIC0pDJ80SXU8qbae+hipt/NTAtNHnA+cYwDqtQICrwzCor7bqW/UPK
-	 1FV67Mh1McRjLwzgHQBE4lLcZccbquuTffZcNzJGEfIpEhJqt6dijEGng+91dQc79k
-	 E/2nBIosQg4eBVNWa35xPddj8L2qa0m3+4fC1yG+0v8f1KlK/5R7gKww2VcIg5OF0k
-	 O4MuC0VmnIOmatkWtXAVtj6GyyxhDRHTAkloYkehpq+8VCAtkoB4S7roa7IQ/IaIN0
-	 /hZjT6741Qm2oGGxel8EsWztMr/Q7eOfHr1RWFfQihAMNBzeW7GHIss7/cnDbSaaV3
-	 hvdOUNcp+b7ww==
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5b01910b499so924354e87.0
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 05:30:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwyQpGBul40tHsJsTe079jZ87CKyz1kLaTNofpwTBYzpro/53Jr6ZbnjS7yZYafqszIAF6uOeyeusxG@vger.kernel.org
-X-Gm-Message-State: AFuF++lZVJc3n5kgWwzK1TUzKMq8rnVwUjOXMNeR9stiujMs/RuiqrBy
-	iTA1jLMbKo+v2eWsZLFNCRkGyNTatPRmZEoTKeGmrSqCUkpowPw/F3Ku9k4Xsnmn9md6i/eTbHN
-	RZOCRjnsk/GJgzDGT6sM9xIn3199Sao/zsMu4gQkL4Q==
-X-Received: by 2002:a05:6512:228d:b0:5b5:e2c0:510b with SMTP id
- 2adb3069b0e04-5b60c2af6d7mr680289e87.4.1788352222274; Wed, 02 Sep 2026
- 05:30:22 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 2 Sep 2026 05:30:19 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 2 Sep 2026 05:30:19 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260902-fw-devlink-nexus-ready-v1-1-68fe1996e78a@toradex.com>
+	s=k20260515; t=1788352265;
+	bh=GEQKhOVzBV3dKXQ8n+gpBDXvJoW60Dmhe+PlGVvNK1Y=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cS0RsluMcDpNVxBHCUJhHQrCt+InzKmO6a1mawxMsHAT+KNRgHpVqn1ICX/GQI7W0
+	 cMOSniIvbPFjVgrnImJLjlkfR1xh/MknJfpiqXktum3KMibi6h2ZwQnaeYYdMC5P9d
+	 ExQr+QCR/d9BKzHxidhRtRlbkYitv7B0M7NzuRa+iD7/yRpP3heymJqNmE/BpP45rw
+	 MwvIki+abq2hYcrWrpohxXYCUyw1ZRHyFd11wkRLbj8hawM7GfdgLKBfffkFAM4254
+	 Ms/cH70yz7P4ZyGts7aQGOgUOJbk+yhUJiT+1sN0i6vWkImrwLINN5XZ4sk9cMwhW1
+	 ghvov9Ku1Xwbg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/7] dt-bindings: leds: pca995x: describe output-gain
+ property
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Nora Schiffer" <nora.schiffer@ew.tq-group.com>
+Cc: linux-leds@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, lee@kernel.org
+In-Reply-To: <7f61e7e8781292450f920c49ef8853b802d76ecc.1788350618.git.nora.schiffer@ew.tq-group.com>
+References: <6d3600f99c77c31166f0b6a5ccfb7f518b53c4c9.1788350618.git.nora.schiffer@ew.tq-group.com>
+ <7f61e7e8781292450f920c49ef8853b802d76ecc.1788350618.git.nora.schiffer@ew.tq-group.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 02 Sep 2026 12:31:04 +0000
+Message-Id: <20260902123105.11B171F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260902-fw-devlink-nexus-ready-v1-0-68fe1996e78a@toradex.com> <20260902-fw-devlink-nexus-ready-v1-1-68fe1996e78a@toradex.com>
-Date: Wed, 2 Sep 2026 05:30:19 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MfN73=K1nZrqUbhrMSijjpzhF_z_U9JU4_H163W0vRpqA@mail.gmail.com>
-X-Gm-Features: AcwNN1U24dyKB99fnkPXyWUGjekW0b5TNJ_oPsk5eSnHyaY2MGzi9qRRlixYVp8
-Message-ID: <CAMRc=MfN73=K1nZrqUbhrMSijjpzhF_z_U9JU4_H163W0vRpqA@mail.gmail.com>
-Subject: Re: [PATCH RFC 1/2] of: property: fw_devlink: Follow GPIO nexus maps
-To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	"Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, Frank Li <Frank.li@oss.nxp.com>, 
-	Kieran Bingham <kieran.bingham@ideasonboard.com>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
-	Herve Codina <herve.codina@bootlin.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Leonardo Costa <leonardo.costa@toradex.com>, 
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 2 Sep 2026 13:41:39 +0200, Ernest Van Hoecke
-<ernestvanhoecke@gmail.com> said:
-> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
->
-> GPIO consumers use of_parse_phandle_with_args_map() to resolve specifiers
-> through gpio-map properties. fw_devlink instead parses GPIO properties as
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Low] The custom, device-specific property `output-gain` lacks a mandator=
+y vendor prefix.
+- [Low] The `output-gain` property incorrectly exposes a raw hardware regis=
+ter value directly to the Device Tree instead of describing physical units.
+- [Low] The commit message description is not capitalized, violating LED su=
+bsystem naming conventions.
+--
 
-Unlike PWM, there's no such thing as "gpio-map" properties.
+commit 09d8712f125575e995a97c0a819c386e17eb766a
+Author: Nora Schiffer <nora.schiffer@ew.tq-group.com>
 
-> direct phandle references, so it records the nexus node as the supplier
-> rather than the mapped GPIO provider.
->
+dt-bindings: leds: pca995x: describe output-gain property
 
-Can you point me to an example? I'm not sure what a nexus node is in the
-context of GPIO.
+This commit adds the output-gain property to the pca995x device tree bindin=
+g,
+allowing configuration of the output current to adjust for different hardwa=
+re
+designs.
 
-> A nexus is a translation node, not the GPIO provider, and need not be
-> populated as a device. The resulting fwnode link can therefore remain
-> unresolved and indefinitely defer the consumer while
-> device_links_check_suppliers() waits for the nexus.
->
-> Use the map-aware parser for all supported GPIO property spellings. This
-> makes fw_devlink resolve the same provider as the GPIO consumer API. Direct
-> GPIO references continue to work because the map-aware parser returns the
-> original provider when no gpio-map property is present.
->
-> Add OF unittest coverage for mapped and direct GPIO suppliers, including
-> the deprecated singular and unprefixed property spellings.
->
+> dt-bindings: leds: pca995x: describe output-gain property
 
-Since this is a fix that we may want to backport, the unit tests should go in
-a separate, follow-up commit.
+[Severity: Low]
+This isn't a bug, but the subsystem guidelines for LED bindings specify
+that the description after the prefix should be capitalized. Should
+this be changed to "Describe output-gain property"?
 
-Bart
+> diff --git a/Documentation/devicetree/bindings/leds/nxp,pca995x.yaml b/Do=
+cumentation/devicetree/bindings/leds/nxp,pca995x.yaml
+> --- a/Documentation/devicetree/bindings/leds/nxp,pca995x.yaml
+> +++ b/Documentation/devicetree/bindings/leds/nxp,pca995x.yaml
+[ ... ]
+> @@ -36,6 +36,14 @@ properties:
+>    "#size-cells":
+>      const: 0
+> =20
+> +  output-gain:
+
+[Severity: Low]
+Because this is a custom, device-specific property, does it require a
+mandatory vendor prefix (such as nxp,output-gain)? Exposing it without a
+prefix could pollute the global device tree namespace and potentially confl=
+ict
+with future standard properties or other bindings.
+
+> +    description:
+> +      Set the output gain controlling the LED current as described in the
+> +      PCA995x datasheets.
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    default: 128
+> +    maximum: 255
+
+[Severity: Low]
+Do these constraints expose a raw 8-bit hardware register value directly
+to the device tree? Usually, device tree properties describe hardware neutr=
+ally
+using standard physical units (such as microamps) rather than tying the val=
+ue
+to the internal register layout of the chip. Could this be abstracted to use
+standard physical units instead?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/6d3600f99c77c31166f=
+0b6a5ccfb7f518b53c4c9.1788350618.git.nora.schiffer@ew.tq-group.com?part=3D2
