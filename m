@@ -1,168 +1,293 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013013.outbound.protection.outlook.com [40.107.162.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com [209.85.167.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22B42393DF3;
-	Wed,  2 Sep 2026 19:26:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788377175; cv=fail; b=nGqP+4xFw1oDGIyZxrLFUEgUC8W5ASxHDOVQiyiwmU2KdSfikn/rtYC0op+tk3TxKN2abHhWFvZN4FKjaKEJvtXBBm1V6HL52zHzwfqKVqEDZIz0lsgPM9DaVwfTJWVwMORwxIWYeHMe2eXSPXX1sYpjO1nLwedqGjiaCC9uve4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788377175; c=relaxed/simple;
-	bh=lYg4nG7Q+ovcJQ9xDOyKxym/wf7KLTUTaKWw5mtUYSQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Mq40vnyjvihL4F0aCImrl71rFJJ9cVky3dts7v7BYetWyNth1srFLSZNt9LiBMBTzkoPwg8wnCnbTzPcItwPgwwtuViBNqnASrTyOKyXqLxqHzBHFoWFDSNtAOnFhoxRSNTcPxwpnVI4h+lMfbQFJcah8Yjm6IP/nZNHvFn+dbI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=r/PtcO9K; arc=fail smtp.client-ip=40.107.162.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 431F839A054
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 19:28:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788377329; cv=none; b=E90VoMTBrAxciRfZrQAo5Qt6r9bauIWLAoL0GsXbai9aNNwA6UwYAhe3+0S2CovW/R4m5UC38yDDgYsxT13UOCgiAJyDQZArEBLRLkL3tnKu46dNX58oHzVYUzvcO3cyh0LiJmpyo8i870fFbd4+abM/VEdy/Q5dY0YBS94h+vI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788377329; c=relaxed/simple;
+	bh=y0NxW0k15f6y/xEBJQYLSpmIltouG64hV/iDPd4IdpA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=nxtTdT/r1qg47xT4vT+gXmd7pncdU2LfzCTj7ixPKufSdolkP93D0qpdiBylE2+yOhm/Z5smpa0P1dbxxL2ZzyXw7JQLNmsjtzWQcVDQ1m8vywb8fT501KYQ+Brd7bEaAOfD0bzsGJcnfqUE8RrWG/Cnp8NJP3vpbyA3Dn8IOLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nZkiWWSQ; arc=none smtp.client-ip=209.85.167.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="r/PtcO9K"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xf1mPOUkc1VX3L80oQOrJatVbc62U67q8Tw/20fJ0xY0Vv+qvi69tVIFT2ivuhjEjCAuwX9nVu2hY3vRjqzFYCdpD6bmakkVKVftzrzzqV9DpJO4AXgVWOenAtxkAS+ENYZ777YsPa8TKKP/vDJtkmvpShv8qviTeO6aWqF1kl1a37ngG5t6E8h/c9inuQIR5Hw/PW3HjBr9tuh7CR1SYYlVMMc2fOSePJeuW7ekSV9P5VWXuIwm2qWR6pH0EfKcHUc2Mqj0eMpGj81tqqP8kWsFfums66lSgn706oxhjM+sZM+PqTnXxzVg4gP8CeclbJ3Dk9X1r9AqPyRh1Df4FQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+xbJzYhkEO/MuYddVnDL0XXf9dDSjrZqbvlkJJnkSMM=;
- b=PpKJI4XRjbaWC9C+oEHHtw3vMPxiedJbQl+yrKwK9O68tzTe4NfnBRRokUGRmq5sDKYvlfOwPQMBYIFow6/vL5kdhjROr8Gkh+FQ1fBea6WmhFltdfVXD4gUBLJGDEYgLg1UzVOCUjOGGG4Zbb8b763kPXTKJzxhPp+cpt7qD4wEVn91gf8PmusclM74E4WX94XoshjzLAl2+he48LN7zBIXpHlPbcg2yMYY89r2xYWrBpluhezTf6NRzrpBvpMkjvciXfKv2nEJqjU68ApTjwgFnJgROthP7zI/Vux8RzZumkPTDCY4bb2lf9hjmRk4u59v+PPRfx1bA8fQ8IXu8w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+xbJzYhkEO/MuYddVnDL0XXf9dDSjrZqbvlkJJnkSMM=;
- b=r/PtcO9KMWR2NGWh1rELRtuTRX70YZ9/8RMdaqrom+432mKykDku2y4Q2PzvbL2V6kQkMupwjTyogIrqgJB0WGa0/BGtAx9jsuVhsD/9epX+DW768R5RZDZPWbOnVXtDcm/28TyFsrdU83QoWzR/ouDO2v0t6dRzy3tIW8CiKB1idFwpAEMCYdku8tqcxr3jZwZZSzo+Qp25DmJcBaha36i8ULt1BY/X0RwKhUZ/yB8bEh4NCjLEaoM/RIyEsG58bpN/2ZVJF4g9j1lZM7KpWkCQqnnAn5DZQ4EyOZWpMG6+K4cL5HkRlQjzcNNQ7DGPnQGWShSC7qjKJnjE+w49ow==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DU4PR04MB10338.eurprd04.prod.outlook.com (2603:10a6:10:565::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 19:26:01 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
- 19:26:01 +0000
-From: Frank.Li@oss.nxp.com
-To: Carlos Song <carlos.song@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Josua Mayer <josua@solid-run.com>,
-	Vincent Jardin <vjardin@free.fr>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Thibaut Collet <thbt.cllt@gmail.com>
-Subject: Re: [PATCH v3 0/3] arm64: dts: lx2160a: fix the malformed pinmux entries
-Date: Wed,  2 Sep 2026 15:25:54 -0400
-Message-ID: <178837711789.2093260.2516319478296690803.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260824-for-upstream-lx2160a-pinmux-fix-v3-0-5556ff1e6be2@free.fr>
-References: <20260824-for-upstream-lx2160a-pinmux-fix-v3-0-5556ff1e6be2@free.fr>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PH7PR13CA0015.namprd13.prod.outlook.com
- (2603:10b6:510:174::21) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nZkiWWSQ"
+Received: by mail-oi1-f169.google.com with SMTP id 5614622812f47-48a0ca07c38so1140163b6e.2
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 12:28:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788377321; x=1788982121; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sKMtJXFkj0ikZheuQpeLvqIbR43z+P6lPFG8SqKjAYQ=;
+        b=nZkiWWSQmq5Ggqk5LUcvvX5/lFA9fVjrs1lfm7KvBu6029v1MSfVMhYs0PlToxXsI8
+         npdAEAiqSygCLcbFnK28yZdBsOLw2YFFoKO9EC3RULmrNtYB17GihwxKCh80LW1KDVOv
+         eTexeGvpxl9A5qZgZlL9iA52HzjhZ174Mp5jq9dJfF8EN0PHURBFIlX4U6xHgM4onyOp
+         GxM5Gap+Z/2YdfRyqFHNe9JE5kYYOQBs4PhyTtOjgtU+g97239EDGjWztCPhI9WWj8yC
+         O8zGEE9f2jsYhr9WQJDO/jG7MGT5oR9oyWimH8McfjsycPq43GUz+/3e/hHOu/BzHrb/
+         Ou5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788377321; x=1788982121;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sKMtJXFkj0ikZheuQpeLvqIbR43z+P6lPFG8SqKjAYQ=;
+        b=OkNAFBfSowyY3rOlXeowgzF9NswdS204IoAD2cjA1uKj61rm4D4uzVqnvfvAL05oRj
+         OcDazREkODyhxHbFzAZ3YjMbpJY8LIQsK8N+o4kyFbLB/s4w8E44NAGrCs4D/XJYLnw3
+         j8cUjQhrO3aYpJapyPIcwv+9Qk2Mc5MnG3AUoGesd78I+x5z0shGGt0tQkFtx6Mq36pw
+         bsv75jPzGRWxZCEQRsGx0acvlSPY4JUtZuciWlIBbVSN85vj3L8h9d3OpY2pPgJtyRF0
+         5vmYcD8tziqf1MvFs2SUI5FhXMhFlaPJyWmQGjkUpjsWSvNEFOCNWc1YfK+BRbjK6/tX
+         saHw==
+X-Forwarded-Encrypted: i=1; AHgh+RpM8q+IfvWzBnD6fLAPAoLHqpkDr7v367OsPps8CB8fTV/YjUVXtGW+gX27hRaHqHSdssiTzEOaNhs3@vger.kernel.org
+X-Gm-Message-State: AFuF++mYzKOBnVRyP14UArQxRs68RQRLSWyCLVNITZrA+v3fjj7My0gr
+	/hf8GpAEkxHSdki3EE5GaZye1uzre/TLYzQVh+ty6w+Xz/Mv2oKWvFyD
+X-Gm-Gg: AR+sD103BT7Bgvcke54JFT5XgbHlkMsEDDcZFXoiwAUKvcrMcZGbtoxd3olPHoZ03XZ
+	HBWW2Pl5AHXw8BPaBAREq95urGZK6b/mv1NBO1glFWjxA4UJ5KRU6p1VPce5BCCiyOrCqo2Bk6v
+	n+MUgZAkacl104bfykH9xKWEpan0CZxqRumcoGCCCNc6b9DxE4BvtVvZuQjiNIaQ0tlDO81n9s+
+	M5//9YhYF+sDtkCHwy/sAiIWIDJwnBUnnTHNvUWWASrap59KX1Yt3SKlhpNnoI/wsvEyKfiGUSo
+	mJQElHZhDPn7Nb3yblWpcaMlAusTrrr+028dzpjnF9POV+vqUxGnZRFVWGnkuW9xZl2Gh6WBbJv
+	uGlpAG00dVK9EZodrCgcammHa+wS9km/uyiROr/svEHiqjO5HJn+197x8XYBbGZ5fEL2ehJRzwk
+	ECEHpFLnb6nJvEVemZsIOUAAOo+Y51ZcmWC8wUq/sFJUKnC8796Ll1kOlK3X1MVU3qQv7NL9adB
+	BrbRVja4FsRD4zTIsJfOEZnBKRc0wMtZQ/qb8pL8Jeko88TtX8DXY6DblCK8FIdIExhfkF69sN1
+	LWZfuyljXOfUMo0wAA8t2JvBVIgWRO5kIdoFakFeu4ES/J+/7i2dHCrQogVPI+35I12jVlLDz4N
+	ozEbv5X0PbM9hQjeZ8HQ=
+X-Received: by 2002:a05:6808:1905:b0:4b2:8d7b:41b8 with SMTP id 5614622812f47-4b6bf07c2damr5955510b6e.18.1788377320618;
+        Wed, 02 Sep 2026 12:28:40 -0700 (PDT)
+Received: from [127.0.1.1] (184-96-151-165.hlrn.qwest.net. [184.96.151.165])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-46f30baa0d4sm4932181fac.6.2026.09.02.12.28.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 12:28:39 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Wed, 02 Sep 2026 13:28:25 -0600
+Subject: [PATCH v8 2/2] mfd: ac200: Add X-Powers AC200 support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DU4PR04MB10338:EE_
-X-MS-Office365-Filtering-Correlation-Id: 340d67e4-1127-4659-b7d4-08df092805b5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|376014|1800799024|7416014|23010399003|366016|11063799006|10067099003|22082099003|18002099003|56012099006|41080700001;
-X-Microsoft-Antispam-Message-Info:
-	fsyT4TLMLPrzqjVhFmlp8rgFtdCgqgbCO1Z/kdQ2O1+YzXssCGY2+ubbrnGZm6SJZuInH8Ur8jT3l+dUBp6dc2S+SPC/rEZTuf3RpkSvRkDSexLmWm2BY61F2Ybxvt83IRsmwycmrOrivzpBXWkf/KaAdUqkdylgAtmbWEVircvUUhbGjOMOlhg2YT6/ia7xHJQQLMN1s9Uknwj2Uuwy1SFNeP7YES3M9Q6dLzivWnon034hp7dx5Cs/04eKKNJDU+BVVm1pAbqg+PouBwA+S5c7Ehr6ouk+ygUxpyBKZ5Ch7I3AMarI6u5fP6P8L6bdBjh/xUU8GtWIGGPfnDrgjqURWBBID/Z+7vZu+xWjMA8nPHyoSAfImU+ndhexGAnaSF5boypoYKCl1+YRmg763/Yv76y4Wv2XGyl+ECI/TkMNOCqvVkSamecWn1qt/ULZEILuECp+Wosym/3mmWwIwhyd2cTjUWFoVx6ysycp8rHKfskB00HgM+Q1RjcAH7Uc0tY+iIbKWE6hC/cXs4acSpj552HMKrKBzp39wquxteo3sl2qCIC1QUnyhJTVfVtO1URk0OfqTgM+xF6vb4wGmsBgGNXn98Q/26vM/vEO4wcLOluagDAIsAfnbzUH3RNizRhooTMlHfre46AEd8aBlQycrY28X7pfLGQi+Kv1goHHKGB7XFCohr0oRXwT3hnjhcTqssLbfFMZt5wt54mheQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(1800799024)(7416014)(23010399003)(366016)(11063799006)(10067099003)(22082099003)(18002099003)(56012099006)(41080700001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SkwrVUpjZGRGbUYxZ1JJckcrTU5MZ0FBYmp0bXdLOENxVDN3T0NLVzdxS2xB?=
- =?utf-8?B?c1NYYWE2RlNJTVlUZFVKSHZyR0RDaENjcy9CSW5IUGpYY0RnWXp0SXJaMmVH?=
- =?utf-8?B?cFZ2b0FiOW5sV1ErN3NMelVhUE8rZ0ovYXJqNWdyUHQyUitEUEk0UkFDVnB4?=
- =?utf-8?B?ZUU3Q3oydWNLZGcva2twTk55bXhaWW1wbnNrYzIrNTBYMEZQUTQ0MnFhc2NG?=
- =?utf-8?B?dS9BcC9Nam9IS2dPQURBbUxOUldSUzY3MmlNckJ2NytmMUNCUnVRSlBVbi9r?=
- =?utf-8?B?MlNJSG4yOUNRNGkrblJ1Z1NSRkx5K2R4amFwdnluN0xrYURzN2RXRzJ3Uitl?=
- =?utf-8?B?U3gvUEswVkM0OWpWMlFnVGIzM2lKa0QvVCtwWE5DWVBJSG0wa3hwb1ltOW9m?=
- =?utf-8?B?SFdwU2I3WlVBeDFwZ0FtSmFld0R1NGZkczFiSFA2UmVoNU5SVGpnUlZRc1Fy?=
- =?utf-8?B?a1VoQ2YvVUlKdjZjN2NmdnBubXhSM0NqVzVRNElRMEhwY3phcUVGdkdPa2VO?=
- =?utf-8?B?d3Z3VlV5OTJFYW9laFM0SGREalA0VHdxckdRVjVYQ0VCUXNmU2dwTnFPc29v?=
- =?utf-8?B?eFdxWW9lOFM4R1FNaHpQeitXcUFzTVBhRTNiYXl0bWlpZlR6L01ZV2VMZmF3?=
- =?utf-8?B?R0dlOTkzTkpJN1FkUzNXWVg4cUthL2hpamphaURzUmVGNjlHQUo3M3JpSFJ3?=
- =?utf-8?B?cUdpVk5uamNFZkdYN1RrczlRbFVWN0I0ejM0cm9MMFVVRVlheUZVMkFEK1NE?=
- =?utf-8?B?bHE4VFZ5WWhUMVU0aS9jc05OVWdMU1VGZ2JEYWFqQzRXNllJRCtaUUY2akM4?=
- =?utf-8?B?RTg3amlldFZRY2tnNENoZmREQ1lkZCt4c1dyT2Jya3hwd3BoUldkbW5BamlZ?=
- =?utf-8?B?aHVkbTJNck1xZFpOTGdzaEE5VmlvOEhzNms0cEYrQ0hqNXJ4UlMzNU8rSHkz?=
- =?utf-8?B?ZEhqNmg4OFhiVVhPV2xQdlVvRThEQnB4ZXBnUVVqVW81YTNOVGcwcFRPY2wy?=
- =?utf-8?B?K0piWUJWVDB4NTQ2WWRVM0ZlS0NEcml2VFRwZFNhR3ViV3EzWm4zcDc5NXl5?=
- =?utf-8?B?Zng3SHpVUGZ3UkIyTUZYb0JUSzNDa0l3dlBXam45dDc5UXhtaTM3SktMMjlH?=
- =?utf-8?B?NE96a0JZOVJZM3JpazlnQ1FrOG5kcGFHR29MWEljd3NDK0kyeTg4aXo4S3Bx?=
- =?utf-8?B?VFlXRWZQTUMzN0g4Vk5HL3BhckFrdFhJdFBIb1cvOXoraHFQajJlanNSb2hT?=
- =?utf-8?B?NmhIeE9XTEtyMTkrbzdNTFA4TnV0emF6Y1BFYTFXMU9SdjFBQUpteGZ1VDg5?=
- =?utf-8?B?ZlRvWUNuTG1aa3h3WlVmMXZPMkRyYzlCaEhEN2hFZWRlSmNGVGhhRHViamNK?=
- =?utf-8?B?eDl0NlBmN25FbnBHdWJBbktMRXZlNnBWc2FVbTUydkRScjIxZ2Yzb1pHWTRB?=
- =?utf-8?B?bTBINXp5VllrQVFFblQrWUN4dUdSdEhCMkFIK0t1SlAxVkhPcXFBK2RwRDFm?=
- =?utf-8?B?TGhndVhNd0lrNHBKOTVna0N1MVgvT011b2V2RXVpRFgvdHZmWE9GYW9Xck8x?=
- =?utf-8?B?ZXFGZDExbTZNNmJFaG1OdVNzUEgycDFuU1VzRS9Jck1hN1ppNis0L1lPVGVm?=
- =?utf-8?B?cXVTc2ZPSkUwNzBma1NRN3E5bTlTcjVQR2U1dU53QUR4S1F6allQemV1N1h2?=
- =?utf-8?B?UHlReE9IeDRXTXI0L3hCSkQvbEFVRXNEdzZmQ0V3cmpYbmhYc1pRdlVBcXA4?=
- =?utf-8?B?ZFdENEpCdzBPUnhrdFJJbThuYWZIaUlxRXNwNDVQb1lrN0dWYW5IS3VSTDRq?=
- =?utf-8?B?VG1kelo2Um40SUFLdyt3dzJRa0JzTHZwZE5NS2hlZlppREJOZ1NTc2ltL0tE?=
- =?utf-8?B?WFdWM21FWHZ6WUZXaGF5WmxWOWN4RjMxQjFqcFNsMjlTM3pRU3g1UzYvcW1N?=
- =?utf-8?B?MFlrN1R5Vmc1UW9tRU9CSHBqVUZJV2FwODVMVi9MbE85NXFRZzN6cS9jZWNo?=
- =?utf-8?B?aDBZaCtBQlVEdDJTOWs1YWVXbHZPRmxpS0haTnJ2S29yMXVtcFMrOGZMZGx0?=
- =?utf-8?B?S0xHeVAvNm01TWRDUXl2czJnVm1idm5qbGRvU3JsK1BTMUlIazFmbHE5UlQ0?=
- =?utf-8?B?Sk9RV2RTWUV5V0N2bnhFNjRYam1aVmFaUGdKaVNyV25MT0ViWnlQb1V3cWJr?=
- =?utf-8?B?b3Foc05tMUUrbmthTWVRNUhRTXhMNnFiUmdkMmMyaHFYSWNwM1ozL1dQSk9o?=
- =?utf-8?B?YUNJR1cwNFBTbTIvZzVIT0FpcGdUTzg2T09IekFNdTVJdFhzZ1BsRkJBZEV6?=
- =?utf-8?B?eGJUcDBSUExaZnVWdWR4RkxQeENsKzRFc3ZNRnZpeU9RUHRUZXFweno0M2dG?=
- =?utf-8?Q?Sp0HvYOWn00ICkg9mmUvpgIezAXBezTBJFPqU?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 340d67e4-1127-4659-b7d4-08df092805b5
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 19:26:01.0846
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: j373DLpO++1ZCt047myJuu0rKwF+MQXUMmIR6Uo/437SK7TH4exSXLkjArLCUmbW5DMBp2fFe3Q1mnRv572jkAVu82c6e/uimbdW4A94PGxOOFrIFmzVT1o1cDJSWlbH
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB10338
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260902-submit-ac200-mfd-v8-2-2aa06720b8ac@gmail.com>
+References: <20260902-submit-ac200-mfd-v8-0-2aa06720b8ac@gmail.com>
+In-Reply-To: <20260902-submit-ac200-mfd-v8-0-2aa06720b8ac@gmail.com>
+To: Lee Jones <lee@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ James Hilliard <james.hilliard1@gmail.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, 
+ "Jagielski, Jedrzej" <jedrzej.jagielski@intel.com>, 
+ Andre Przywara <andre.przywara@arm.com>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, linux-sunxi@lists.linux.dev, 
+ mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
 
-From: Frank Li <Frank.Li@nxp.com>
+The X-Powers AC200 is a mixed-signal companion IC with a paged register
+map accessed over I2C.
 
+Enable and rate-lock the shared input clock, wait 40 ms before the first
+register access, initialize the paged regmap and reset the chip. Assert
+reset again during driver removal and system shutdown.
 
-On Mon, 24 Aug 2026 23:25:28 +0200, Vincent Jardin wrote:
-> Every pinctrl-single,bits entry in the lx2160a pinmux@70010012c node was
-> reviewed against what pinctrl-single actually accepts in bit-per-mux mode:
->  the offset has to name one of the three registers the node maps,
->  the mask has to equal pinctrl-single,function-mask shifted to the field,
->  the value has to fit inside that mask.
->
-> Three entries fail one of those rules, and each fails differently:
->
-> [...]
+The Ethernet PHY is enumerated on its MDIO bus rather than as an MFD
+child. It follows the x-powers,ac200 phandle and uses this regmap for
+ancillary package-control access. Other AC200 functions can be added as
+MFD children.
 
-Applied to imx/fixes, thanks!
+Cache only the common page selector. Individual functions can reset
+independently and invalidate their other registers, so leave all
+functional registers volatile.
 
-[1/3] arm64: dts: lx2160a: fix incorrect pinmux
-      commit: 8188a59dd6782786556b18f515090b79cb701c45
-[2/3] arm64: dts: lx2160a: fix IIC1 pinmux submask rejected by pinctrl-single
-      commit: 6affdda171ca8f2e082e8c4fba56233a2f8c9910
-[3/3] arm64: dts: lx2160a: fix the iic5 spi3 pinmux offset and value
-      commit: f14f4dc8ea3810f8ed4f0f3ea13f8bba3e2b0f04
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+ drivers/mfd/Kconfig  |  11 +++++
+ drivers/mfd/Makefile |   1 +
+ drivers/mfd/ac200.c  | 136 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 148 insertions(+)
 
-Best regards,
---
-Frank Li <Frank.Li@nxp.com>
+diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
+index e4fd4572472f..cac3fff5aee9 100644
+--- a/drivers/mfd/Kconfig
++++ b/drivers/mfd/Kconfig
+@@ -205,6 +205,17 @@ config MFD_AC100
+ 	  This driver include only the core APIs. You have to select individual
+ 	  components like codecs or RTC under the corresponding menus.
+ 
++config MFD_AC200
++	tristate "X-Powers AC200"
++	depends on I2C
++	depends on OF
++	select REGMAP_I2C
++	help
++	  Support for the X-Powers AC200 mixed-signal companion IC. The AC200
++	  contains audio, video, RTC and Fast Ethernet PHY functions and is
++	  co-packaged with some Allwinner H6 and H616 SoCs. This driver provides
++	  the shared register access used by the individual function drivers.
++
+ config MFD_AXP20X
+ 	tristate
+ 	select MFD_CORE
+diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
+index 72d3944b0ad8..f8101d2a9ce9 100644
+--- a/drivers/mfd/Makefile
++++ b/drivers/mfd/Makefile
+@@ -150,6 +150,7 @@ obj-$(CONFIG_MFD_DA9052_SPI)	+= da9052-spi.o
+ obj-$(CONFIG_MFD_DA9052_I2C)	+= da9052-i2c.o
+ 
+ obj-$(CONFIG_MFD_AC100)		+= ac100.o
++obj-$(CONFIG_MFD_AC200)		+= ac200.o
+ obj-$(CONFIG_MFD_AXP20X)	+= axp20x.o
+ obj-$(CONFIG_MFD_AXP20X_I2C)	+= axp20x-i2c.o
+ obj-$(CONFIG_MFD_AXP20X_RSB)	+= axp20x-rsb.o
+diff --git a/drivers/mfd/ac200.c b/drivers/mfd/ac200.c
+new file mode 100644
+index 000000000000..8445a460ef6c
+--- /dev/null
++++ b/drivers/mfd/ac200.c
+@@ -0,0 +1,136 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * MFD core driver for the X-Powers AC200
++ *
++ * Copyright (C) 2019 Jernej Skrabec <jernej.skrabec@gmail.com>
++ * Copyright (C) 2026 James Hilliard <james.hilliard1@gmail.com>
++ */
++
++#include <linux/clk.h>
++#include <linux/delay.h>
++#include <linux/i2c.h>
++#include <linux/module.h>
++#include <linux/regmap.h>
++
++#define AC200_SYS_CONTROL_REG			0x0002
++#define AC200_SYS_CONTROL_CHIP_RESET_DEASSERT	BIT(0)
++
++/* Interface register accessible from every register page. */
++#define AC200_TWI_REG_ADDR_H	0x00fe
++#define AC200_MAX_REG		0xa1f2
++
++static const struct regmap_range_cfg ac200_range_cfg[] = {
++	{
++		.range_max = AC200_MAX_REG,
++		.selector_reg = AC200_TWI_REG_ADDR_H,
++		.selector_mask = 0xff,
++		.window_len = 256,
++	},
++};
++
++/*
++ * Each AC200 sub-block can reset independently, invalidating its register
++ * contents without regmap's knowledge. Cache only the common page selector;
++ * this avoids a selector read-modify-write for every access on the same page
++ * without ever returning stale functional-register values.
++ */
++static bool ac200_volatile_reg(struct device *dev, unsigned int reg)
++{
++	return reg != AC200_TWI_REG_ADDR_H;
++}
++
++static const struct regmap_config ac200_regmap_config = {
++	.name = "ac200",
++	.reg_bits = 8,
++	.reg_stride = 2,
++	.val_bits = 16,
++	.ranges = ac200_range_cfg,
++	.num_ranges = ARRAY_SIZE(ac200_range_cfg),
++	.max_register = AC200_MAX_REG,
++	.volatile_reg = ac200_volatile_reg,
++	.cache_type = REGCACHE_MAPLE,
++};
++
++static void ac200_disable(struct regmap *regmap)
++{
++	regmap_write(regmap, AC200_SYS_CONTROL_REG, 0);
++}
++
++static int ac200_probe(struct i2c_client *client)
++{
++	struct device *dev = &client->dev;
++	struct regmap *regmap;
++	struct clk *clk;
++	int ret;
++
++	clk = devm_clk_get_enabled(dev, NULL);
++	if (IS_ERR(clk))
++		return dev_err_probe(dev, PTR_ERR(clk),
++				     "failed to enable input clock\n");
++
++	ret = devm_clk_rate_exclusive_get(dev, clk);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to lock clock rate\n");
++
++	regmap = devm_regmap_init_i2c(client, &ac200_regmap_config);
++	if (IS_ERR(regmap))
++		return dev_err_probe(dev, PTR_ERR(regmap),
++				     "failed to initialize regmap\n");
++
++	i2c_set_clientdata(client, regmap);
++
++	/*
++	 * No minimum delay is documented. Match the vendor driver's 40 ms delay
++	 * before its first AC200 register access after enabling the input clock.
++	 */
++	msleep(40);
++
++	ret = regmap_write(regmap, AC200_SYS_CONTROL_REG, 0);
++	if (ret)
++		return ret;
++
++	ret = regmap_write(regmap, AC200_SYS_CONTROL_REG,
++			   AC200_SYS_CONTROL_CHIP_RESET_DEASSERT);
++	if (ret)
++		return ret;
++
++	return 0;
++}
++
++static void ac200_remove(struct i2c_client *client)
++{
++	ac200_disable(i2c_get_clientdata(client));
++}
++
++static void ac200_shutdown(struct i2c_client *client)
++{
++	ac200_disable(i2c_get_clientdata(client));
++}
++
++static const struct of_device_id ac200_of_match[] = {
++	{ .compatible = "x-powers,ac200" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, ac200_of_match);
++
++static const struct i2c_device_id ac200_i2c_ids[] = {
++	{ .name = "ac200" },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, ac200_i2c_ids);
++
++static struct i2c_driver ac200_driver = {
++	.driver = {
++		.name = "ac200",
++		.of_match_table = ac200_of_match,
++	},
++	.probe = ac200_probe,
++	.remove = ac200_remove,
++	.shutdown = ac200_shutdown,
++	.id_table = ac200_i2c_ids,
++};
++module_i2c_driver(ac200_driver);
++
++MODULE_AUTHOR("James Hilliard <james.hilliard1@gmail.com>");
++MODULE_DESCRIPTION("X-Powers AC200 MFD core driver");
++MODULE_LICENSE("GPL");
+
+-- 
+2.53.0
+
