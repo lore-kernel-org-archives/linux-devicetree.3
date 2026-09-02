@@ -1,107 +1,109 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DF3846D2C0
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 10:46:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D788439F60
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 10:46:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788346000; cv=none; b=NAQG+pJ+xaPXGNHP5Cs5thZwFO+x+lUdvogcAEh3H/8mTehiv7JxyYpyfhbBnqr+V3EwQRZvCfVy7ENN6ZxJfYi7mJRXt6gGFcu/w4BJF483p4YfEZRa5MQgyEDI4C2D/YTYCs3pykFU4O5H04FrS9/5bEzCrNqxiZn35wLqBfE=
+	t=1788346000; cv=none; b=F6DNvV2bvwcXcs3YPDNcRsW4uDotnIplGkKNsW7ufXrYM72nabEKNKJD9ZhkUEW5faL/vop/eAjSDTqCsQo0S6IT26q7QyUjeGP6H+l7qpH4RY/He09RDGuHRjc8JoO/fjrgKTzTRGX/6+rFJZHQVsTtyBwfbVoPGntrvfm1Aqg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788346000; c=relaxed/simple;
-	bh=t7So/hJpcinLCb+BvLi0qm1Y6xxkkDWkVdkrkM+CkcA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cFLJb1Ho5P1Mwww5g8f1weg6B0QmdhI2kRUSq7tD5jOVLjD6K/wdOZ50u3mq6SKWk1rUs/V6y3mxscfqS9H76Vt3zMe86GDbcgbAE8/oyD5GDFYNlstgsbVKe4IjKyM9Y5HfPdLjfgIbTZ/BaWqs1ieIEWnIPb98z1+9gayIx74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ffroot.co.za; spf=none smtp.mailfrom=ffroot.co.za; dkim=pass (2048-bit key) header.d=ffroot-co-za.20251104.gappssmtp.com header.i=@ffroot-co-za.20251104.gappssmtp.com header.b=gNitublT; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ffroot.co.za
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ffroot.co.za
+	bh=rRBSGnzjR1bgJQO57H+ODPqV9vBaJQwpItO5FOBUFQc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Rz31xKeKX/S40AhTuzN1qGZBkyNTf8mx+1JnFIJCNyXX23xy0AUp0jEIYAl+O9aeIHxWrwUjVLm5V+yw311kXmphYEzLy8eu0Is1u90mVY6CTD9cG1xTKC0Oq7TmOkdzSEK4lANAYsDI2G4zIVKnJlHEWer1wJCgRnfKxnpzuBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bmE65Vvf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ffroot-co-za.20251104.gappssmtp.com header.i=@ffroot-co-za.20251104.gappssmtp.com header.b="gNitublT"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49b0eab380eso8414495e9.0
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 03:46:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ffroot-co-za.20251104.gappssmtp.com; s=20251104; t=1788345984; x=1788950784; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=X/zkz19mYdkeVUXbqG+wllW7/Eig24aofKrfzLu9lWI=;
-        b=gNitublTOxiAxNv4217Llmd6q6deaO75rEw4FF0muK8vVkQVpVytek6JLoI460uvZQ
-         vS6HY1z2+1QW/2V/nPJjOUOooptiDjiHGXMGeK1o6b/rAgVoJrwybenTGA8ENgDWfrq2
-         ULO8oDdl2ypqjeVXK5Ur9csLboK623fM/mwb2Qou2jpjPYIpHCahXVn01bN5z4eMfERl
-         Da2DLu8PcjZJMAsO3Ore85XxgarsQFPM53p/xqCDK0sYRQ8RxgNpb8Xw2H+heu+67nRL
-         EjMlT7pGxS387WTAsFSF+miYwjz5PcsCExp8ScUNYhQZMavhDpo6fH2tdJi5YlEX9vN9
-         02Eg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788345984; x=1788950784;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=X/zkz19mYdkeVUXbqG+wllW7/Eig24aofKrfzLu9lWI=;
-        b=s17neNT2Ro4yPtoTJyuJCtj9/EdN8sAnAQfWD8TZBy+BvoIc5fqvoTXwyeRrVL7OJp
-         q1j8igKuJ1ANpfYY1wJc+8PAd6yKaTvNU0vv25vtqe14+0ThNZGTNVehwZki4Nf5Hits
-         aslkkPCRPiB8gWKqY9k8AA4YKke3cuAcZgS2MpfsNBCFbspmICapCoR4FU8X0pYJOSv8
-         XN+sS+QDY5wzGEo2IEZrifegbmSHGweVWjTrU/kbILbcYd6bjQVx5DThLCr2AW0rsuSb
-         IE9DbroAG/ApsnPLQQ9Kvl8CYPyGC1vQPgmUsuJaKR/MQUK0OA6kE38YSYn53CBrH4NF
-         hQwg==
-X-Forwarded-Encrypted: i=1; AHgh+Ror0HOnR8Ex/oaKZYMW+isDWMx1raUv5wQxab/fSu/Xl2flxfNeWQvOCUo79p7iq8AB/RF85i7uPWEd@vger.kernel.org
-X-Gm-Message-State: AFuF++nxuxCpp+P6dLQPK/c8HJDXZnoRUwn6iYhm7a6M1ukKVo1DBgEd
-	pcXOC3vctNPhi1ztx3eYU56d3/WGLvY9QPLVFbVOehMTYz3s0gLcQF7WRKhAvL31S0g=
-X-Gm-Gg: AR+sD12whQFygW+aaZy78/wOsUBVsKytctpcLsyFQq6gtaWkeioIA2aa4mNSyKirWxp
-	wF48OaUjHzrcaTnJcHIxM/7L3iNOiUh7ri2pAj7j9xK3NfiJ5XGh2ajm6qrMjclE/A3x+g653Hi
-	/mvRLVHBRqMB5eev5nu4N0HhHy4aa7oOvkhQMBQ16khtXmVUCU1DFy+V4EctWDNrU0O0TKpcVgO
-	EeOedKymlLXkB7ukv+aUZ3vD+xeCHVihvDLELNOckp5FXanekOxJyyDM7vyaViokGNr1VbJo6Cf
-	2tVVgVZ1LGHvxTu+EBTUXuWW1kZmfcssLmUzNC7YCbP54ghsjvBqW2BSUgRrScXM88ugiaCyV1t
-	AS57F6rlJuMxXiPeKIIVpyjtthh2CKoNaFlCt2gJHV6a+Iw945zLnXMo2onarDVbmvcNxVut2eC
-	hNcuOIZvGL79Pe+9s74nXrJ3oPQyktkZm2OBshHunbNzhcej5wMnHB7OD780LcEp4HPj+Yk2hHl
-	wQ+pQdz9PIPtC6V+SBHz0o=
-X-Received: by 2002:a05:600c:8718:b0:49b:8f5e:51fb with SMTP id 5b1f17b1804b1-49ce7c03f46mr34819935e9.3.1788345983519;
-        Wed, 02 Sep 2026 03:46:23 -0700 (PDT)
-Received: from dev-ag.figment.co.za ([102.33.165.38])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5936a5esm20127665e9.3.2026.09.02.03.46.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 03:46:22 -0700 (PDT)
-From: Andrew Gaylard <ag@ffroot.co.za>
-To: qinjian@cqplus1.com,
-	linux-arm-kernel@lists.infradead.org
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux@armlinux.org.uk,
-	devicetree@vger.kernel.org,
-	Andrew Gaylard <ag@ffroot.co.za>
-Subject: [PATCH 0/2] arm: sunplus: add SP7021 LTPP3G2 board support
-Date: Wed,  2 Sep 2026 12:45:43 +0200
-Message-ID: <20260902104545.67794-1-ag@ffroot.co.za>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bmE65Vvf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 428841F000E9;
+	Wed,  2 Sep 2026 10:46:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788345989;
+	bh=2KOZV3EI8cMAsUPgTYz3Zf5oiIlciMfkMuWiONuUoGI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=bmE65VvfmVmqF2Si+GdiiauzBKkaO7/VC/TFJCRbEh4LLvmAmavkHNl4WxCx6GeCg
+	 EtNVG7OgCoqYylmqTsP1Y12OYRuoTJAJ/pDTQexGfymwy0O3s4y/Nuq1TFSdpPaAHT
+	 ZufO5j2HusYg+LDZMsFe05Af1pVNCJD4RFK5FHPj4Kd7eWsd3/4Bw6TXiFtkOkFfue
+	 ydFl1MWsUa1MN7qWH0jrDeQlqzkyKmv3zO8SkkmkdZB+IRWsmRxA8+6CBPQzcfrnlE
+	 h2byNyMZ7oSQ3vgL1GivR361iedOMe4m1RpqU/ovS6H9azF+Ux8pus+OzXDoYaem56
+	 l/aHmnkgztMZg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] arm64: dts: mediatek: mt8395-radxa-nio-12l:
+ Complete UFS power supplies
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260902-mediatek-ufs-cleanup-dts-v1-3-7876e7a27a9d@collabora.com>
+References: <20260902-mediatek-ufs-cleanup-dts-v1-0-7876e7a27a9d@collabora.com>
+ <20260902-mediatek-ufs-cleanup-dts-v1-3-7876e7a27a9d@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 02 Sep 2026 10:46:28 +0000
+Message-Id: <20260902104629.428841F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-This series adds device tree support for the Tibbo LTPP3G2 board, which
-is based on the Sunplus SP7021 SoC (quad-core ARM Cortex-A7).
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Missing device tree bindings for newly introduced clocks and clock =
+name changes in the UFS host controller node.
+--
 
-Patch 1 adds peripheral device nodes to the SP7021 SoC DTSI for
-peripherals whose drivers are already upstream: PWM, watchdog, eMMC,
-and the L2SW Ethernet switch.
+commit 7e580823437c359d26b9851536b0a8f497844243
+Author: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 
-Patch 2 adds a DTS for the LTPP3G2 board itself, enabling those
-peripherals and configuring the board-specific pinmux and Ethernet
-topology. It also updates the defconfig to enable the relevant drivers.
+arm64: dts: mediatek: mt8395-radxa-nio-12l: Complete UFS power supplies
 
-Tested on the Tibbo LTPP3G2 board with linux-next 20260901.
+The MT8195 UFS host controller dt binding now describes the power supplies
+feeding the host controller, that were previously missing from supply
+description. Add in the Radxa NIO-12L board devicetree the regulators used
+to power MT8395 UFS controller on the board.
 
-Andrew Gaylard (2):
-  arm: dts: sunplus: add peripheral device nodes to sp7021.dtsi
-  arm: sunplus: add Tibbo LTPP3G2 board support; update defconfig
+> diff --git a/arch/arm64/boot/dts/mediatek/mt8395-radxa-nio-12l.dts b/arch=
+/arm64/boot/dts/mediatek/mt8395-radxa-nio-12l.dts
+> index b279eed1bfc3a..325b1cc97862f 100644
+> --- a/arch/arm64/boot/dts/mediatek/mt8395-radxa-nio-12l.dts
+> +++ b/arch/arm64/boot/dts/mediatek/mt8395-radxa-nio-12l.dts
+> @@ -1167,6 +1167,9 @@ &uart1 {
+>  };
+> =20
+>  &ufshci {
+> +	avdd12-supply =3D <&mt6359_vrf12_ldo_reg>;
 
- arch/arm/boot/dts/sunplus/Makefile            |   5 +-
- .../dts/sunplus/sunplus-sp7021-ltpp3g2.dts    | 301 ++++++++++++++++++
- arch/arm/boot/dts/sunplus/sunplus-sp7021.dtsi |  48 +++
- arch/arm/configs/sp7021_defconfig             |  30 ++
- 4 files changed, 381 insertions(+), 3 deletions(-)
- create mode 100644 arch/arm/boot/dts/sunplus/sunplus-sp7021-ltpp3g2.dts
+[Severity: Low]
+Will running make dtbs_check on this updated device tree produce validation
+errors for the ufshci node?
 
--- 
-2.53.0
+The mt8195.dtsi device tree was updated in this patchset (commit "arm64: dt=
+s:
+mediatek: mt8195: Align ufshci node to dt-bindings changes") to use 10 cloc=
+ks
+with renamed clock-names instead of 8:
 
+arch/arm64/boot/dts/mediatek/mt8195.dtsi:ufshci {
+			clock-names =3D "main", "aes", "tick", "unipro_sysclk",
+				      "unipro_tick", "unipro_mp_bclk",
+				      "tx_symbol", "mem_sub", "rx_symbol0",
+				      "rx_symbol1";
+}
+
+However, it appears the dt-binding schema in mediatek,ufs.yaml was not upda=
+ted
+in this tree to reflect these changes. The schema still strictly enforces a
+maximum of 8 items and requires the old names.
+
+Does the binding schema need to be updated alongside these device tree chan=
+ges
+to prevent dtbs_check failures?
+
+> +	avdd12-ckbuf-supply =3D <&mt6359_vbbck_ldo_reg>;
+> +	avdd18-supply =3D <&mt6359_vio18_ldo_reg>;
+>  	vcc-supply =3D <&mt6359_vemc_1_ldo_reg>;
+>  	vccq2-supply =3D <&mt6359_vufs_ldo_reg>;
+>  	status =3D "okay";
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902-mediatek-u=
+fs-cleanup-dts-v1-0-7876e7a27a9d@collabora.com?part=3D3
