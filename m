@@ -1,92 +1,182 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 072B03C1D42;
-	Wed,  2 Sep 2026 19:40:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 598312E7365
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 19:40:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788378030; cv=none; b=WtEfR9BQdH+itMtcvOTD+dOT2ipkJ0/d+OUHS+G3j1ePHkpqpZEHBdY3KqY9skuPtQXv3BOgHP+X3eDtHk3zuc9ea9u2byKugkGQEBqTDedAt11nIfaih9N7z4VDw6fJxYnX0AKVA9kYI7t2T9mh/UpioJ9y+c96WmZbkooacIA=
+	t=1788378034; cv=none; b=N7pTx9zSElGZr8M56wSVRL+95vclyfwJFZ4AzbsmhHK4KQgeh7btx0u1saDPqs4sLPFdAnaH2xTANKYMSpUXoKxfN58o+WF/DsiJOZRtSmL4LNtl22lEcEZmmK2Eo8JvVIcqBm+1HfdJnD0bAoDm02klIzjb++sWjfGBGBOn480=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788378030; c=relaxed/simple;
-	bh=VyyuVQCI/rOb984BiwgOiMYv4BRqQ45hSL/enPtkhMQ=;
+	s=arc-20240116; t=1788378034; c=relaxed/simple;
+	bh=UkB9ubd3vBlSCDLuyCXZYXnyD6dpykGha4Q7ObrLeVU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ih0EKCS1ExQyAuYHN7/7I8lln66WbNBv6YShUMAjWhz3jAoPe3mkqU/TSDtgIlISNmEbZzwkovyAlz6dSSF4y8uXxc+tzBPLm4ZIZzGyuX27qnWfUV21YCHWpn4kGq9HAufXUVpqzhzOQiHpuqmvgxJze1OeftV1U6tu4n2x/ZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TwvufhD4; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Qrhks7dYZNJ+9koR5PAybV7L7lSBogNIC3e4X6x2bAgQimRO+YR9bdV4XJ2aYezRApBjDbl+Ef9QPDcpbrffunrCc+lN0PWAT8ugrLmfWYCsrPeMxMKaNZnEOvxXDpP3fNIdwa62F3gEyQDQlDCPRYsByKyUUluGnJlufLzg3/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bXOOn9Xg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TwvufhD4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FF2A1F00A3A;
-	Wed,  2 Sep 2026 19:40:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bXOOn9Xg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89CA71F00A3D;
+	Wed,  2 Sep 2026 19:40:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788378009;
-	bh=lDtCVhN+BmczVYfnYIRa65ee5EjxZKgCtaWguqGdTlc=;
+	s=k20260515; t=1788378019;
+	bh=PALKTjy0D+OvkoFBib2UtmVziFV+rpFKjYlKBxwNLgs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TwvufhD4BlEDRysXK+X6uGeioHoTsMJjJFlTilaDZl0e0dWSjSTFmGsJPVttY8LIn
-	 AjXAjzgN8XP3vupfoVSHFHsBRhczzoFMhoiBxYl2bWEnK47u5bPhUd5W5hAT5FVGDn
-	 AxoqEKvWrqITAOLUGpzn5K4WFuPT6mT/ONlDU/hs4L4oq2Dw20NykIC+HqD5MS0XvH
-	 e48uM4XiBcwRyyTdqIDVY0F2qY5QyFndV+bEY4PDIArmDnNdNduOtsHT2uQoA8RmOL
-	 Gtpf0Oz2ACusAN5G302HDc9K6TAqzuO1fkhVfzB0Io5q6vYuAIRgpCDJQPvzW3RqMP
-	 SHk6WK5gIClNw==
+	b=bXOOn9XgRLVwYm0Ye6llhFb0LNmKeBzhQGbKrqK96D2oNAKyBUSdN4JqG2Gshgujw
+	 WKWmnX8goSsYssOsPpsqJZAjbP/XKuvoTUcz2ovuOXf5GzAdoW7/4cz5kf59KBsomQ
+	 5H0CYs8RK8Sqm5jc09dZwjcvzXKET2dbyEQ5aSC0PHj5PyDV5DIiDpXxMXsi+CkeMm
+	 RgX/7kk29BBuCLLxhKyciZnGB1+AbSkr8TiA49uvW8hPdYU9lLtLEwv9ItUWGxeiav
+	 8qVwAhiWhr7yHT88qdW/UVeB10iX+P+meRlU9YyNci2RfhSI1D0UNJQSf3tDVjPtn4
+	 By1OoZkJzpA9w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 2/2] mfd: ac200: Add X-Powers AC200 support
+Subject: Re: [PATCH v12 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI
+ DSI to HDMI driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "James Hilliard" <james.hilliard1@gmail.com>
-Cc: linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org, lee@kernel.org, conor+dt@kernel.org, mfd@lists.linux.dev, robh@kernel.org
-In-Reply-To: <20260902-submit-ac200-mfd-v8-2-2aa06720b8ac@gmail.com>
-References: <20260902-submit-ac200-mfd-v8-0-2aa06720b8ac@gmail.com>
- <20260902-submit-ac200-mfd-v8-2-2aa06720b8ac@gmail.com>
+To: mohit.dsor@oss.qualcomm.com
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org
+In-Reply-To: <20260903-lt9611c-v7-v12-2-9414d2b3bd6d@oss.qualcomm.com>
+References: <20260903-lt9611c-v7-v12-0-9414d2b3bd6d@oss.qualcomm.com>
+ <20260903-lt9611c-v7-v12-2-9414d2b3bd6d@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 19:40:08 +0000
-Message-Id: <20260902194008.8FF2A1F00A3A@smtp.kernel.org>
+Date: Wed, 02 Sep 2026 19:40:19 +0000
+Message-Id: <20260902194019.89CA71F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] Unconditional global chip reset in shutdown/remove breaks RTC wake=
-, Wake-on-LAN, and live PHY state.
+- [High] Double-free of device nodes `dsi0_node` and `dsi1_node` on error p=
+ath due to mixing manual `of_node_put()` with `__free(device_node)`.
+- [High] Regmap page cache becomes desynchronized after hardware resets, ca=
+using subsequent I2C operations to access the wrong registers.
+- [Medium] Mixing `__free()` scope-based cleanup with `goto`-based error ha=
+ndling.
+- [Medium] Bitwise operations in the IRQ handler corrupt the interrupt clea=
+r register if multiple interrupts are pending.
+- [Low] I2C device ID array is not declared const and uses positional initi=
+alizers.
 --
 
-commit d8592c963caa9b21487926208ea5815e059be1be
-Author: James Hilliard <james.hilliard1@gmail.com>
+commit 79126746072fd218bc214fab821198cac4bc10bd
+Author: Sunyun Yang <syyang@lontium.com>
 
-mfd: ac200: Add X-Powers AC200 support
-   =20
-This commit adds support for the X-Powers AC200 mixed-signal companion IC.
-It enables the shared input clock, initializes the paged regmap, and asserts
-a chip reset during probe, driver removal, and system shutdown.
+drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver
 
-> diff --git a/drivers/mfd/ac200.c b/drivers/mfd/ac200.c
+This commit adds a new DRM bridge driver for the Lontium LT9611C(EX/UXD)
+MIPI DSI to HDMI bridge chip. It supports configuring the hardware, handling
+interrupts, and triggering firmware upgrades over I2C.
+
+> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611c.c b/drivers/gpu/drm/b=
+ridge/lontium-lt9611c.c
 > new file mode 100644
-> index 0000000000000..8445a460ef6c2
+> index 0000000000000..ef1e9726fdd3c
 > --- /dev/null
-> +++ b/drivers/mfd/ac200.c
-
+> +++ b/drivers/gpu/drm/bridge/lontium-lt9611c.c
 [ ... ]
-
-> +static void ac200_disable(struct regmap *regmap)
+> +static void lt9611c_reset(struct lt9611c *lt9611c)
 > +{
-> +	regmap_write(regmap, AC200_SYS_CONTROL_REG, 0);
+> +	gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
+> +	usleep_range(10000, 12000);
+> +
+> +	gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
+> +	msleep(400);
 > +}
 
 [Severity: High]
-Does asserting a global chip reset here wipe the hardware state of all
-co-packaged functions, including the RTC and Fast Ethernet PHY?
+Does resetting the hardware here desynchronize the regmap page cache?
 
-Since ac200_disable() is unconditionally called by ac200_shutdown() and
-ac200_remove(), could this kill the PHY and clear the RTC during system
-shutdown, breaking Wake-on-LAN and Wake-on-RTC from power-off states?
-
-Furthermore, because the PHY is enumerated separately on the MDIO bus and
-only references this MFD via a phandle, will unbinding the AC200 driver at
-runtime (via ac200_remove) forcefully reset the PHY hardware out from under
-the active MDIO PHY driver and lead to unpredictable network failures?
+The physical reset via GPIO clears the chip's internal page register back
+to 0x00, but regmap's cached page selector isn't explicitly cleared. If the
+last I2C operation was on a different page (like 0xe0), subsequent writes
+might skip the page selector write because regmap thinks it is already set,
+causing those operations to mistakenly target page 0x00 instead.
 
 [ ... ]
+> +static irqreturn_t lt9611c_irq_thread_handler(int irq, void *dev_id)
+> +{
+[ ... ]
+> +	/* Clear interrupt: hardware requires two writes with delay */
+> +	regmap_write(lt9611c->regmap, 0xe0df, irq_status & BIT(0));
+> +	usleep_range(10000, 12000);
+> +	regmap_write(lt9611c->regmap, 0xe0df, irq_status & (~BIT(0)));
+
+[Severity: Medium]
+Will this corrupt the clear register if multiple interrupts are pending?
+
+By writing irq_status & (~BIT(0)) back to the hardware clear register, if
+there are other interrupts pending in irq_status (for example, bit 1 is set=
+),
+this will mistakenly write a 1 to those other bits during the final clear=20
+step for bit 0.
+
+[ ... ]
+> +static int lt9611c_parse_dt(struct device *dev,
+> +			    struct lt9611c *lt9611c,
+> +			    struct device_node **dsi0_node,
+> +			    struct device_node **dsi1_node)
+> +{
+[ ... ]
+> +err_put_dsi1:
+> +	of_node_put(*dsi1_node);
+> +	of_node_put(*dsi0_node);
+> +	return ret;
+> +}
+[ ... ]
+> +static int lt9611c_probe(struct i2c_client *client)
+> +{
+[ ... ]
+> +	struct device_node *dsi0_node __free(device_node) =3D NULL;
+> +	struct device_node *dsi1_node __free(device_node) =3D NULL;
+[ ... ]
+> +	ret =3D lt9611c_parse_dt(dev, lt9611c, &dsi0_node, &dsi1_node);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to parse device tree\n");
+
+[Severity: High]
+Can this cause a double-free of the device nodes?
+
+The pointers dsi0_node and dsi1_node are declared with __free(device_node).
+If lt9611c_parse_dt() fails, it manually calls of_node_put() on both nodes
+but does not set the caller's pointers to NULL. When lt9611c_probe() returns
+an error here, its scope ends and the automatic cleanup will call of_node_p=
+ut()
+again on the same pointers, leading to a reference count underflow.
+
+[ ... ]
+> +	/* Attach primary DSI */
+> +	dsi =3D lt9611c_attach_dsi(lt9611c, dsi0_node);
+> +	if (IS_ERR(dsi)) {
+> +		ret =3D PTR_ERR(dsi);
+> +		goto err_remove_bridge;
+> +	}
+
+[Severity: Medium]
+Does this mix scope-based cleanup with goto-based error handling?
+
+The function declares variables with __free(device_node) at the top but uses
+goto err_remove_bridge and goto err_disable_regulators for cleanup here and
+below. The kernel cleanup subsystem prohibits mixing goto and __free() in t=
+he
+same function to avoid confusing ownership semantics and resource leaks.
+
+[ ... ]
+> +static struct i2c_device_id lt9611c_id[] =3D {
+> +	{ "lt9611c",   (kernel_ulong_t)&lt9611c_chip_data[CHIP_LT9611C]   },
+> +	{ "lt9611ex",  (kernel_ulong_t)&lt9611c_chip_data[CHIP_LT9611EX]  },
+> +	{ "lt9611uxd", (kernel_ulong_t)&lt9611c_chip_data[CHIP_LT9611UXD] },
+> +	{ /* sentinel */ }
+> +};
+
+[Severity: Low]
+Is this missing a const qualifier and named initializers?
+
+The I2C subsystem dictates that initialized arrays of type struct i2c_devic=
+e_id
+must be declared const and use named initializers instead of positional one=
+s.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902-submit-ac2=
-00-mfd-v8-0-2aa06720b8ac@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903-lt9611c-v7=
+-v12-0-9414d2b3bd6d@oss.qualcomm.com?part=3D2
