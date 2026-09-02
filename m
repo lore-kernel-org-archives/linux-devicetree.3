@@ -1,100 +1,160 @@
-Received: from d2-2-bhs5.logotherapy.ca (d2-2-bhs5.logotherapy.ca [15.235.45.126])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D637A3B5E08;
-	Wed,  2 Sep 2026 20:54:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=15.235.45.126
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 488BE3EB0F0;
+	Wed,  2 Sep 2026 20:58:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788382483; cv=none; b=DVhAkzkPa3d6+0lf34ZTIJ0KemvXfGgp+c40/daNy+wPMoPiwSJVoxTcmqTkc4kTOCofa2KHGj0hmyEtiQn/RxVCF3WCsj1DAjcSOc+6C8blJqpbjU1HhY4pFRKImYRTXeKH7TzL++1I5RnHUw9OPgOc3LxEdQMR4ty6tX0SXnk=
+	t=1788382717; cv=none; b=UEj6U9wqQe1aSVGJ6TYZrVCDZTsZjFkfmhLEfkOZp9Az5GE63UxLz2QuVRb0S9CxwCuYa+prPFtF3b1WJ244zE1i3lZtK163ChmaC/AzzKfbAF4j9j+yzZeQqCSRM/GTe4Cx4+Vz/B7mIhGgYwwD3Pq23TxqElSqfK6Pmnannww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788382483; c=relaxed/simple;
-	bh=0hM9JzeR/lKw/CSYeDPtW4Wyv++XUFg7SqEZplK5dog=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=H545LlVES3EwjcxWVeK2WFiE94puZ1M8UG+NAaFPAbZAW9i43HP0pOmABThbt7JIjmIPOEMq1aXBxrgNJXRt9VamgG9kfe++Va9AMWGgB3IRk6tENflg8kgoYc4MntYRlar+f+f4uO/R0XwPzEOzW5nNgAlBDICeuyNIfBIc4wY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=petermarshall.ca; spf=pass smtp.mailfrom=logotherapy.ca; dkim=pass (2048-bit key) header.d=petermarshall.ca header.i=@petermarshall.ca header.b=evyyP928; arc=none smtp.client-ip=15.235.45.126
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=petermarshall.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=logotherapy.ca
+	s=arc-20240116; t=1788382717; c=relaxed/simple;
+	bh=7vRutV9vCxGwHh9/UDKxWqdqihRkF+VkbJD8UJBT6mE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=njRaGtOPrJytKVvB7FKrBHydZeGPduMWMih3wTJm310YeeNOoRVUgRRYDEhR4yUUyCfCl4jiPhB96ULC6ldXD9tZ0+UxfpfI5MrO2AizUAXKRiP1k77PakAS6zlTy0l/SfOdrWR90aRyKtMP/mCew4yoOPCM9pH/xmlAiy0JxiE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CpxqH7ua; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=petermarshall.ca header.i=@petermarshall.ca header.b="evyyP928"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=petermarshall.ca;
-	s=mail; t=1788381978;
-	bh=0hM9JzeR/lKw/CSYeDPtW4Wyv++XUFg7SqEZplK5dog=;
-	h=From:To:Cc:Subject:Date:From;
-	b=evyyP928iegx62yFbAsHekjkmnTLEpjoBpZQQ1UuVDW0i2xjE8rkjTsdWEsXUiEm4
-	 zKGD/imJ7aBrrkmjXoEoGZ+VK5ZbskQl3WEk8jz6X1Xnas4rCeJNxN7W2cpYdAU+AE
-	 o7Y4SYXMqbC8shGE9FU4fvHSLz6cR3Rn+RQvlP+5XYZheum5HfOdgCc9OL8B2JmRCJ
-	 FyGFZFSuZptHy764BQgrGtYMi2sz1+0arUQ8wWjyi6moC/fhuVQHlRe2fXrC7jxz57
-	 ziIJPQTP1gdOXm3Jj2CPtwoXcwAkPaVFpj3RJznHaUmbovRNCKtNFxbUFH1y+BFuRk
-	 o2AUulL8mYmqg==
-Received: by d2-2-bhs5.logotherapy.ca (Postfix) id 5A75D20A07;
-	Wed, 02 Sep 2026 20:46:18 +0000 (UTC)
-From: Peter Marshall <pm@petermarshall.ca>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>
-Cc: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	Peter Marshall <pm@petermarshall.ca>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>
-Subject: [PATCH 0/7] media: i2c: st-vd55g1: Genericize driver and add VD55G0 support
-Date: Wed,  2 Sep 2026 16:45:39 -0400
-Message-ID: <20260902204549.657228-1-pm@petermarshall.ca>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CpxqH7ua"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 090891F000E9;
+	Wed,  2 Sep 2026 20:58:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788382710;
+	bh=NWx4tUgAIbI0Mfq4HlTUynAboGNfe5rIiZMQq1a+1/s=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=CpxqH7uacU+F9ZvmRiUoKvLfY5wQjfVRdGDOe0GuBfWXRJpFGCAg3GFgqm/lqNp/k
+	 02bbxTnvC5f3/VSi5h5hiCORfivDlBmVzqDEfB0PRsA9DJZDkuQu+NHByrid442jsm
+	 C3/D3llZYkHoF5VgW3QiBH0QX2WJgGMrLhLpqBP7AKJtcZac3BRoF96TibztDlMfVo
+	 cRaboC0oCl6kmukE9WI1CaZHtks0+k8TuiKlUZFtErhYR7zxoNT7Sm8ENPjcGn6jlZ
+	 tZ604L8bADwEBv+/rFfqETikg0KOpE83NPHMgiqGCbvWimOcXFEeBq/vK5RDbhVPu1
+	 dQTD1zvoZO57g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 8/9] regulator: Add MediaTek MT6392 regulator
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Luca Leonardo Scorcia" <l.scorcia@gmail.com>
+Cc: mfd@lists.linux.dev, dmitry.torokhov@gmail.com, conor+dt@kernel.org, lee@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, linux-input@vger.kernel.org
+In-Reply-To: <20260902193351.185771-9-l.scorcia@gmail.com>
+References: <20260902193351.185771-1-l.scorcia@gmail.com>
+ <20260902193351.185771-9-l.scorcia@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 02 Sep 2026 20:58:29 +0000
+Message-Id: <20260902205830.090891F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-This patch series refactors the STMicroelectronics VD55G1 and VD65G4 image
-sensor driver (vd55g1) into a generic VD55G family driver (vd55g) and adds
-support for the VD55G0 monochrome sensor.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The driver mutates the statically defined global array `mt6392_reg=
+ulators` during probe, causing state corruption and race conditions for mul=
+ti-instance deployments or re-probing.
+--
 
-The VD55G0 sensor is found in devices such as the Microsoft Surface Pro 9 under
-ACPI HID `SMO55F0`. It features a native resolution of 644 x 604 pixels and
-differs from later variants in the family in several ways:
+commit b458a23ed7fdbe7db2ebc29e150ed87ba4a12dbe
+Author: Fabien Parent <parent.f@gmail.com>
 
-* It uses a different native resolution and register addresses mapping,
-  requiring specification of generational feature differences.
-* It lacks support for spatial and temporal HDR.
-* It requires an exposure duty cycle limit to keep the illuminator current safe.
+regulator: Add MediaTek MT6392 regulator
 
-Tested on a Microsoft Surface Pro 9 (an Intel IPU6 platform with ACPI
-HID "SMO55F0") running libcamera.
+This commit introduces support for the MediaTek MT6392 PMIC regulator.
+The PMIC connects as a SPI slave wrapped inside PWRAP and is found on
+MT8167 and MT8516 SoC based boards.
 
-Peter Marshall (7):
-  media: i2c: vd55g: move patch array to a separate firmware header
-  dt-bindings: media: i2c: st,vd55g: rename and add VD55G0 variant
-  media: ipu-bridge: Add VD55G0 to the list of supported sensors
-  platform/x86: int3472: Add VD55G0 supply GPIO mapping
-  media: i2c: st-vd55g: Add generic driver and VD55G0 support
-  media: i2c: st-vd55g: Remove legacy vd55g1 remnants
-  MAINTAINERS: Update ST VD55G camera driver entry
+> diff --git a/drivers/regulator/mt6392-regulator.c b/drivers/regulator/mt6=
+392-regulator.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/regulator/mt6392-regulator.c
 
- .../i2c/{st,vd55g1.yaml => st,vd55g.yaml}     |   30 +-
- MAINTAINERS                                   |    7 +-
- drivers/media/i2c/Kconfig                     |   11 +
- drivers/media/i2c/Makefile                    |    2 +-
- drivers/media/i2c/vd55g-fw.h                  |  305 +++
- drivers/media/i2c/vd55g.c                     | 2166 +++++++++++++++++
- drivers/media/i2c/vd55g1.c                    | 2061 ----------------
- drivers/media/pci/intel/ipu-bridge.c          |    2 +
- drivers/platform/x86/intel/int3472/discrete.c |   18 +
- 9 files changed, 2531 insertions(+), 2071 deletions(-)
- rename Documentation/devicetree/bindings/media/i2c/{st,vd55g1.yaml => st,vd55g.yaml} (76%)
- create mode 100644 drivers/media/i2c/vd55g-fw.h
- create mode 100644 drivers/media/i2c/vd55g.c
- delete mode 100644 drivers/media/i2c/vd55g1.c
+[ ... ]
 
--- 
-2.55.0
+> +// Buck regulators can be in Register mode or Normal mode.
+> +// Each mode uses a different register to set the desired voltage.
+> +static int mt6392_set_buck_vsel_reg(struct platform_device *pdev)
+> +{
+> +	struct mt6397_chip *mt6392 =3D dev_get_drvdata(pdev->dev.parent);
+> +	int i;
+> +	u32 regval;
+> +
+> +	for (i =3D 0; i < MT6392_MAX_REGULATOR; i++) {
+> +		if (mt6392_regulators[i].vselctrl_reg) {
+> +			// Read the vselctrl_reg register
+> +			if (regmap_read(mt6392->regmap,
+> +					mt6392_regulators[i].vselctrl_reg,
+> +					&regval) < 0) {
+> +				dev_err(&pdev->dev,
+> +					"Failed to read buck ctrl\n");
+> +				return -EIO;
+> +			}
+> +
+> +			// vselctrl_reg[vselctrl_mask] defines the mode
+> +			if (regval & mt6392_regulators[i].vselctrl_mask) {
+> +				// Regulator in Normal mode
+> +				mt6392_regulators[i].desc.vsel_reg =3D
+> +					mt6392_regulators[i].vsel_normal_mode_reg;
+> +				mt6392_regulators[i].desc.vsel_mask =3D
+> +					mt6392_regulators[i].vsel_normal_mode_mask;
 
+[Severity: High]
+Does this code mutate the shared global mt6392_regulators array based on
+per-instance hardware state? If multiple instances of this PMIC are present,
+or during unbind/re-bind cycles, won't this corrupt the state for other
+instances since the regulator core expects regulator_desc to be static and
+independent across deployments?
+
+> +			} else {
+> +				// Regulator in Register mode
+> +				mt6392_regulators[i].desc.vsel_reg =3D
+> +					mt6392_regulators[i].vsel_reg_mode_reg;
+> +				mt6392_regulators[i].desc.vsel_mask =3D
+> +					mt6392_regulators[i].vsel_reg_mode_mask;
+> +			}
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int mt6392_regulator_probe(struct platform_device *pdev)
+> +{
+> +	struct mt6397_chip *mt6392 =3D dev_get_drvdata(pdev->dev.parent);
+> +	struct regulator_config config =3D {};
+> +	struct regulator_dev *rdev;
+> +	int i;
+> +
+> +	device_set_of_node_from_dev(&pdev->dev, pdev->dev.parent);
+> +
+> +	// Initialize the bucks' vsel_reg and vsel_mask according to current HW=
+ state
+> +	if (mt6392_set_buck_vsel_reg(pdev))
+> +		return -EIO;
+> +
+> +	config.dev =3D mt6392->dev;
+> +	config.regmap =3D mt6392->regmap;
+> +	for (i =3D 0; i < MT6392_MAX_REGULATOR; i++) {
+> +		config.driver_data =3D &mt6392_regulators[i];
+> +
+> +		rdev =3D devm_regulator_register(&pdev->dev,
+> +					       &mt6392_regulators[i].desc,
+> +					       &config);
+
+[Severity: High]
+Because the regulator core stores a pointer to the passed regulator_desc,
+will passing the mutated shared descriptor here cause the first PMIC
+instance to use the second PMIC's register offsets if a second instance
+is probed? Could this result in writing to incorrect registers when changing
+voltages?
+
+> +		if (IS_ERR(rdev)) {
+> +			dev_err(&pdev->dev, "failed to register %s\n",
+> +				mt6392_regulators[i].desc.name);
+> +			return PTR_ERR(rdev);
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902193351.1857=
+71-1-l.scorcia@gmail.com?part=3D8
