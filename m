@@ -1,225 +1,224 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com [209.85.222.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE2C144AB8A
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 11:42:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AE7647CA88
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 11:44:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788349352; cv=none; b=jOK2jlZyGFdSchFdn1+TZg3DdrvFWn48TeAhEu3vim/DJ/t5cTW1Vlbgt6JutFYnWvxlDwoHXOM/xOmM56+jQ4B4VxjxUNgeGTEbDhJSLdB4JbvQeTTVnUSHS0pq6hyP2xTDIGearTPnSYBtRZ+jrorE/aoLzRY2cE4aYUiLe7U=
+	t=1788349482; cv=none; b=InaTigqyWkaI7hEzdJJhriUJRq0U+zmHOzX40Jal0N0CCmNDIrPLlVQOcVsS3Sqt16rI6o0DBvbBJv11geN54Xh8L6shJb4sAYWf6s5t5o7wyKB8OrflkD+7VqmwXAcd3m4Jm+DUl4+mCXn3Z7VynlJiK/Q/Nn6CKH+jUPAgC6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788349352; c=relaxed/simple;
-	bh=NfyudVlM1yxKj5OTCD08HZwEQLKw64XdIbJ0S9NfQl4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Kc1+11sx76XQltvCdFKA9KOmSd62xm4hcdjdmnCUIxxuqkH7Qp6nGAnkyIOfytQX2lls8QlvdsvrJdSZRAv2Iaqk5IsVxVqN/Im8WgO9FBxFWLVj9IQ1MK0MHeyNtTHqmAy36EsjHEgfsYzEUhuej8xhxKZw5DNLvLUqog0WpJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K5jz9n29; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1788349482; c=relaxed/simple;
+	bh=endY7gqq13GqgdJ/KG96fwZoTEb/cAVplHkhFQcBGpk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ulA65/xXuX476Qo75EH+pq6fIsOqjVAEtqaRDC1WBHKX5w9pAZxWGaZBcbTakbPrVWjzkoF+hkAm3q/KuyOMvPgdmhoDmYhznTWtkYSQURE0cyPIjy4mphGM2IDqezufmM0FVC3cqUWCjbop0IfZvnZXVLo2WE2RhT5WYvPE2BI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K5jz9n29"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-498028b3d5eso9881685e9.1
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 04:42:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788349348; x=1788954148; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XyxU90qE2pDTOzsNo7+C4R6hGdb1tidiljFavckLhOQ=;
-        b=K5jz9n29INtUEqSS97sa3DSNz0S+sH9cInbVshmil0CJISCe23pU1Bqa24wrEwqNMS
-         8Pqp3FGKaZDtBpeutCkOwwtKp1N3VTwi1ySWYyn0mkX5es8udaV342fh7XdknDV7AX+y
-         pKhjGPf6/ZD7DlGtMoV0tkLdTl1XP0zd+fjfP5NKhpwG9jqnqGSzp6enD6qVCdMbGg7P
-         SoyIqiaNT/65fHl2K1xH2m9+3s8+5lEZp3g4bOhkK3Qlnhgt2vNcblCfJE0tTOWmCoMQ
-         2ngms8q61LXHyVxaL+yAd5yAl16j5W28NLiBWm0iWQpMHspDb/Aoc63rWcyDbpYVVPhL
-         Cxzw==
+Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-966e7380109so512507241.3
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 04:44:37 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788349348; x=1788954148;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XyxU90qE2pDTOzsNo7+C4R6hGdb1tidiljFavckLhOQ=;
-        b=qfewX+MhzJtwotUtJYWQ2oNU7N+PHTAChsCMK8SjWqzBV6iN+E9x4iQwlEV67QrCf9
-         wWhpHC68T5pTLPUcBvS38oprgzAQDgT2Q3A4ETkKMlMFwG+gfrFI6xhoyJVSXOSuoz/u
-         kUrdGdvZWSKfO0e0ULR+lxRbSGcaKS6C2LV124EcHpB+Ld488HI83exCH/zpeJhvZRT+
-         OVtkfRs06oLfLqBn/tcIUyGl6W1x/sKntIjbU2uiS04R0BQz1Mm4X7l5PTuSTy3M5Qi/
-         UztCTp3T71BXCFn4sWsjYcUKNwDsglFQkPIYz3E9mgUSDwlTCufskF7YNa57otNmeGOP
-         0xkg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr4Hof87wcmvkjjqG2PCjb+puyP4E/aGYPAmJW2/K9IBhVeDjQ+p5A3v7vzvHjCB6tWotx3iLOBl/4A@vger.kernel.org
-X-Gm-Message-State: AFuF++l8fDPNl4W46eI3WtiIR4iyIzAMUqVoIZhJuS2H3sdmeXZxo0pZ
-	CFtlNkC+k9vxslY7ZuBRn23E98ipqNGJaJuaAA0CG+VlxENwkKzldVfV
-X-Gm-Gg: AR+sD13aC0OyQb4QI9m7JLhchhpfb1Kr0jA2utD3jeK0y4dQy9eY1tfS8ThqzcfscyC
-	qwul0g5cX8Z2BVBP5GrhxeUgdshm58M/KeC+mcCTPFWe1jvowzU8nkU6qndu/CS4aYpxnmpn458
-	lzv4lEDSNaM4JKnIVoBhchtqvc/G2A/jMAVoTaX8JTCjtpZRa957VwEUSB5P893sXNeidhd71Rq
-	x9amH9nLoKFYQlw03jXL19ZuMOcOq1eHXKVIxPHHc0KscOi6Q8m/QDd1HKNqSRMHwGsyRPmlLf0
-	t2nqn1lI2pqvYZ3afDb9rn12MQEMK1jn4CN/NPdNtW1H2WbM5LA8Gr1VIp/lDgnMdauIvHfxmCE
-	+M/1SmF97FzbOAuuHlKWNgJs1P3nyW7wNBEEO7aljWAYFj8SLmlhGMjSgZ7lmjqQbdyy4qeLurB
-	shiGL5XzOBxKoJNuSL0Smcqq5VbfUi9RNRQ02O5zw6AupaIXjU8U3hoFe8/PzslrOYqTUKpD7uv
-	Fh23kNXfEZad0tPJXbYT/pNfBBw8vej2BW6o+/eSkmREOQw5pPW4mMqVVNbvN0=
-X-Received: by 2002:a05:600c:4e86:b0:49a:77c1:d246 with SMTP id 5b1f17b1804b1-49ce5852589mr70729315e9.15.1788349347944;
-        Wed, 02 Sep 2026 04:42:27 -0700 (PDT)
-Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5952560sm40390935e9.3.2026.09.02.04.42.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 04:42:27 -0700 (PDT)
-From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Date: Wed, 02 Sep 2026 13:41:40 +0200
-Subject: [PATCH RFC 2/2] of: property: fw_devlink: Follow PWM nexus maps
+        d=1e100.net; s=20251104; t=1788349477; x=1788954277;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=d33A2cRSMy14qLiB29N4dNiBSipjfdSlz1gXIdUUM+M=;
+        b=iwi/zkdCkdOw1ZBzUoz42JZol9c0qAyHDwG14Uc9Vf3u19HPtbqVCzF6QsnirlXrnd
+         CSVvhPMQIWlm0UAiMJrw1CsYYNy5oyWVOIvJCmsLv7Tatxd/2nSTjU83rxBYRqvcTh4A
+         w9lbCeI0X2Bhb6XWO0Kjfd56EIAmKnNogfcZ43Rar+GQCcuG2v6WVtb1oUuVE762QK25
+         Vle+9G33VESx+0OTU12QjnZ79/ckr9ZTQ9mRblT009b6mzhU9J/VAQvKZ3AYGsrEVgBp
+         n55E0BRj/n5lO3wZcDchnjuKHBECvqOl9BWmCqZ9TMq0r0CSRxm0gHA8fBEEz6QOcVXQ
+         4Tng==
+X-Forwarded-Encrypted: i=1; AKwUvBxBPKY1tNGPY9nZwbTnThBbjS4EGSBDMzxCMM1JJ2uaOpUD1POXsUZm6/WETVkMlza0P2W6c1+7yTnF@vger.kernel.org
+X-Gm-Message-State: AFuF++nVyyDRldYc15xYx20PAD3Y/IXPX5jvk/yaJstFAksEP9CKQtgN
+	IWHY7ValKDZn7QNpiB+J4ZYQKtVIPomeCqdvCD95pFaNcaovRR7JBSgHARilKRbv
+X-Gm-Gg: AYBFou281UWtPb5abPf9+t39SrcS8Ollp9C/HMAWkLMHnov2CN8fc0oF+92hrtbQjxb
+	VZWdeTmjPVny/6mBWE500S3GEE1a+33zf0kXEZoVN0068fsNDXZtx5uL8ji4XWAK5eKGbRE9Nzc
+	t9J2Va0oPRzU8ubVT9yLAPbeuHMFw6WLKPToWhcGk+ajEggtNUD2/uFEu7vCEUNql0uNb/4gYi+
+	Zk6r9yujnl8yIUE+hkMAmcVQxpbF93ScovmT2aRtFmsDdkBiPIHJcUSlsaDalHNklKse/H4Vo2b
+	6iIaIDtW3L4w2pogVG1jQqy94F2HLYSPCNPMSNxzYygbaS4dD1uOEAuTxi9yYftdYle3juHHN0q
+	+mRlnTrqrCwWmvd7QHgOEWuZXr9ZD5FQ/If/7kh2BpKHhlqQMIk7QTlK44BPJ+bZFGnY96bhxRJ
+	rmoE9HDJtwB9qFzoVBVFLrQ5V0ZQm+RxiezTI/AOfzLv38ZbH3Q8hmY/Z8avwslNWViwkfSj8Yg
+	+ZW+wld8rp4SGSpZT2j0Y1xww==
+X-Received: by 2002:a05:6102:3a0c:b0:789:3bbf:2dd7 with SMTP id ada2fe7eead31-78a1ef4aeebmr1543947137.0.1788349476591;
+        Wed, 02 Sep 2026 04:44:36 -0700 (PDT)
+Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com. [209.85.217.48])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-78a1b89ee0asm1595315137.8.2026.09.02.04.44.35
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 04:44:36 -0700 (PDT)
+Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-786aca87296so794870137.1
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 04:44:35 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByzLSTlO6cW9mc3/yK9Pw//cm32vXyqk5J59+GPl7RSpT6Me/UaXEB/lojxSrLJXua737zHzhGZpzEU@vger.kernel.org
+X-Received: by 2002:a05:6102:2997:b0:784:a169:194a with SMTP id
+ ada2fe7eead31-78a1f437b62mr1623913137.10.1788349475087; Wed, 02 Sep 2026
+ 04:44:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-fw-devlink-nexus-ready-v1-2-68fe1996e78a@toradex.com>
-References: <20260902-fw-devlink-nexus-ready-v1-0-68fe1996e78a@toradex.com>
-In-Reply-To: <20260902-fw-devlink-nexus-ready-v1-0-68fe1996e78a@toradex.com>
-To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
-Cc: "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, 
- Frank Li <Frank.li@oss.nxp.com>, 
- Kieran Bingham <kieran.bingham@ideasonboard.com>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Herve Codina <herve.codina@bootlin.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Geert Uytterhoeven <geert@linux-m68k.org>, 
- Leonardo Costa <leonardo.costa@toradex.com>, devicetree@vger.kernel.org, 
- linux-gpio@vger.kernel.org, linux-pwm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, stable@vger.kernel.org
-X-Mailer: b4 0.13.0
+References: <cover.1788338320.git.geert+renesas@glider.be> <619a6e41495adfdae3e2e6c0fee97e0550a5c404.1788338320.git.geert+renesas@glider.be>
+In-Reply-To: <619a6e41495adfdae3e2e6c0fee97e0550a5c404.1788338320.git.geert+renesas@glider.be>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 2 Sep 2026 13:44:24 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVstZYufZWdD-ajwg74kU6pWtQE3WueCg-XUw9Lye5DAA@mail.gmail.com>
+X-Gm-Features: AcwNN1UuztEnaQfQ-OMWO4Fx0VqCWe7sLpxq0iVHzvAi1AhVOPaRJUxDUVxmfIc
+Message-ID: <CAMuHMdVstZYufZWdD-ajwg74kU6pWtQE3WueCg-XUw9Lye5DAA@mail.gmail.com>
+Subject: Re: [PATCH v3 07/12] reset: Add reset_control_get_from_provider_exclusive()
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Sudeep Holla <sudeep.holla@kernel.org>, Cristian Marussi <cristian.marussi@arm.com>, 
+	Saravana Kannan <saravanak@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, "Rafael J . Wysocki" <rafael@kernel.org>, 
+	Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Kevin Hilman <khilman@baylibre.com>, 
+	Vinod Koul <vkoul@kernel.org>, Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+	=?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>, 
+	devicetree@vger.kernel.org, arm-scmi@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+On Wed, 2 Sept 2026 at 13:30, Geert Uytterhoeven
+<geert+renesas@glider.be> wrote:
+> When stacking two reset controllers, the upper one should go through the
+> proper channels: request exclusive reset controls and use them via the
+> reset_control_*() APIs.  However, unlike the clock subsystem, which has
+> of_clk_get_from_provider(), the reset subsystem does not offer a way to
+> lookup and obtain a reset from a reset provider.
+>
+> Hence add a public helper reset_control_get_from_provider_exclusive()
+> to lookup and obtain an exclusive reference to a reset controller, based
+> on the recently introduced __reset_control_get_from_provider() helper.
+> This will be used by the R-Car X5H Module Controller driver.
+>
+> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> ---
+> v3:
+>   - Replace reset_controller_get_provider() by
+>     reset_control_get_from_provider_exclusive(),
+>   - Add kerneldoc,
+>
+> v2:
+>   - No changes.
+> ---
+>  drivers/reset/core.c  | 37 ++++++++++++++++++++++++++++++++-----
+>  include/linux/reset.h |  8 ++++++++
+>  2 files changed, 40 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/reset/core.c b/drivers/reset/core.c
+> index 8af7cd2e8a5029df..6d4c95b3edb18248 100644
+> --- a/drivers/reset/core.c
+> +++ b/drivers/reset/core.c
+> @@ -1141,6 +1141,7 @@ __reset_control_get_from_provider(const struct fwnode_reference_args *args,
+>                                   bool gpio_fallback,
+>                                   enum reset_control_flags flags)
+>  {
+> +       struct fwnode_handle *fwnode = consumer ?: args->fwnode;
+>         struct reset_control *rstc = ERR_PTR(-EINVAL);
+>         struct reset_controller_dev *rcdev;
+>         int rstc_id = -EINVAL;
+> @@ -1154,18 +1155,26 @@ __reset_control_get_from_provider(const struct fwnode_reference_args *args,
+>         if (WARN_ON(args->nargs != rcdev->fwnode_reset_n_cells))
+>                 return ERR_PTR(-EINVAL);
+>
+> -       if (rcdev->of_xlate && is_of_node(consumer)) {
+> -               struct device_node *np = to_of_node(consumer);
+> +       if (rcdev->of_xlate && is_of_node(fwnode)) {
+> +               struct device_node *np = to_of_node(fwnode);
+>                 struct of_phandle_args of_args;
+>                 int ret;
+>
+> -               ret = of_parse_phandle_with_args(np,
+> +               if (consumer) {
+> +                       ret = of_parse_phandle_with_args(np,
+>                                          gpio_fallback ? "reset-gpios" : "resets",
+>                                          gpio_fallback ? "#gpio-cells" : "#reset-cells",
+>                                          gpio_fallback ? 0 : index,
+>                                          &of_args);
+> -               if (ret)
+> -                       return ERR_PTR(ret);
+> +                       if (ret)
+> +                               return ERR_PTR(ret);
+> +               } else {
+> +                       of_args.np = of_node_get(np);
+> +                       of_args.args_count = args->nargs;
+> +
+> +                       for (unsigned int i = 0; i < args->nargs; i++)
+> +                               of_args.args[i] = args->args[i];
+> +               }
+>
+>                 rstc_id = rcdev->of_xlate(rcdev, &of_args);
+>                 of_node_put(of_args.np);
+> @@ -1257,6 +1266,24 @@ struct reset_control *__reset_control_get(struct device *dev, const char *id,
+>  }
+>  EXPORT_SYMBOL_GPL(__reset_control_get);
+>
+> +/**
+> + * reset_control_get_from_provider_exclusive - Lookup and obtain an exclusive
+> + *                                            reference to a reset controller.
+> + * @args: Reference to the reset controller provider with all the args like
+> + *       reset number
+> + *
+> + * Returns a struct reset_control or IS_ERR() condition containing errno.
+> + * If this function is called more than once for the same reset control it will
+> + * return -EBUSY.
+> + */
+> +struct reset_control *
+> +reset_control_get_from_provider_exclusive(const struct fwnode_reference_args *args)
+> +{
+> +       return __reset_control_get_from_provider(args, NULL, 0, false,
+> +                                                RESET_CONTROL_EXCLUSIVE);
+> +}
+> +EXPORT_SYMBOL_GPL(reset_control_get_from_provider_exclusive);
+> +
+>  int __reset_control_bulk_get(struct device *dev, int num_rstcs,
+>                              struct reset_control_bulk_data *rstcs,
+>                              enum reset_control_flags flags)
+> diff --git a/include/linux/reset.h b/include/linux/reset.h
+> index 9c391cf0c82298a0..09ee47b27f88d3b1 100644
+> --- a/include/linux/reset.h
+> +++ b/include/linux/reset.h
+> @@ -90,6 +90,8 @@ struct reset_control *__fwnode_reset_control_get(struct fwnode_handle *fwnode,
+>                                      const char *id, int index, enum reset_control_flags flags);
+>  struct reset_control *__reset_control_get(struct device *dev, const char *id,
+>                                           int index, enum reset_control_flags flags);
+> +struct reset_control *reset_control_get_from_provider_exclusive(
+> +                               const struct fwnode_reference_args *args);
+>  void reset_control_put(struct reset_control *rstc);
+>  int __reset_control_bulk_get(struct device *dev, int num_rstcs,
+>                              struct reset_control_bulk_data *rstcs,
+> @@ -173,6 +175,12 @@ static inline struct reset_control *__reset_control_get(
+>         return optional ? NULL : ERR_PTR(-ENOTSUPP);
+>  }
+>
+> +static inline struct reset_control *reset_control_get_from_provider_exclusive(
+> +                               const struct fwnode_reference_args *args)
+> +{
+> +       return NULL;
 
-PWM consumers use of_parse_phandle_with_args_map() to resolve specifiers
-through pwm-map properties. fw_devlink instead parses the pwms property as
-a direct phandle reference, so it records the nexus node as the supplier
-rather than the mapped PWM provider.
+As reported by Sashiko, this dummy should return ERR_PTR(-ENOTSUPP)
+instead.
 
-A nexus is a translation node, not the PWM provider, and need not be
-populated as a device. The resulting fwnode link can therefore remain
-unresolved and indefinitely defer the consumer while
-device_links_check_suppliers() waits for the nexus.
+> +}
+> +
+>  static inline int
+>  reset_control_bulk_reset(int num_rstcs, struct reset_control_bulk_data *rstcs)
+>  {
 
-Use the map-aware parser for pwms so fw_devlink resolves the same provider
-as the PWM consumer API. Direct PWM references continue to work because the
-map-aware parser returns the original provider when no pwm-map property is
-present.
+Gr{oetje,eeting}s,
 
-Add OF unittest coverage for mapped and direct PWM suppliers.
-
-Fixes: e71e46a6f19c ("pwm: Add support for pwm nexus dt bindings")
-Reported-by: Leonardo Costa <leonardo.costa@toradex.com>
-Link: https://lore.kernel.org/all/juuc4af7ndbajcl7gzf4tg5qz2q2j5tt3rvql4jbauradujrre@gc5nbdhhixaf/
-Tested-by: Leonardo Costa <leonardo.costa@toradex.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
----
- drivers/of/property.c                       | 11 ++++++++++-
- drivers/of/unittest-data/tests-phandle.dtsi | 16 ++++++++++++++++
- drivers/of/unittest.c                       |  4 ++++
- 3 files changed, 30 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/of/property.c b/drivers/of/property.c
-index 380df0861ab9..d5e89beb17f9 100644
---- a/drivers/of/property.c
-+++ b/drivers/of/property.c
-@@ -1331,6 +1331,15 @@ static struct device_node *parse_##fname(struct device_node *np,	  \
- 	return parse_prop_cells(np, prop_name, index, name, cells);	  \
- }
- 
-+#define DEFINE_SIMPLE_NEXUS_PROP(fname, name, stem)			  \
-+static struct device_node *parse_##fname(struct device_node *np,	  \
-+					const char *prop_name, int index) \
-+{									  \
-+	if (strcmp(prop_name, name))					  \
-+		return NULL;						  \
-+	return parse_nexus_prop(np, prop_name, index, stem);		  \
-+}
-+
- /**
-  * parse_suffix_prop_cells - Suffix property parsing function for suppliers
-  *
-@@ -1426,7 +1435,6 @@ DEFINE_SIMPLE_PROP(extcon, "extcon", NULL)
- DEFINE_SIMPLE_PROP(nvmem_cells, "nvmem-cells", "#nvmem-cell-cells")
- DEFINE_SIMPLE_PROP(phys, "phys", "#phy-cells")
- DEFINE_SIMPLE_PROP(wakeup_parent, "wakeup-parent", NULL)
--DEFINE_SIMPLE_PROP(pwms, "pwms", "#pwm-cells")
- DEFINE_SIMPLE_PROP(resets, "resets", "#reset-cells")
- DEFINE_SIMPLE_PROP(leds, "leds", NULL)
- DEFINE_SIMPLE_PROP(backlight, "backlight", NULL)
-@@ -1438,6 +1446,7 @@ DEFINE_SIMPLE_PROP(pses, "pses", "#pse-cells")
- DEFINE_SIMPLE_PROP(power_supplies, "power-supplies", NULL)
- DEFINE_SIMPLE_PROP(mmc_pwrseq, "mmc-pwrseq", NULL)
- DEFINE_SUFFIX_PROP(regulators, "-supply", NULL)
-+DEFINE_SIMPLE_NEXUS_PROP(pwms, "pwms", "pwm")
- DEFINE_SUFFIX_NEXUS_PROP(gpio, "-gpio", "gpio")
- 
- static struct device_node *parse_pinctrl_n(struct device_node *np,
-diff --git a/drivers/of/unittest-data/tests-phandle.dtsi b/drivers/of/unittest-data/tests-phandle.dtsi
-index 163ef07be16d..7cb3e19554b6 100644
---- a/drivers/of/unittest-data/tests-phandle.dtsi
-+++ b/drivers/of/unittest-data/tests-phandle.dtsi
-@@ -85,11 +85,19 @@ gpio_provider: gpio-controller {
- 					#gpio-cells = <2>;
- 				};
- 
-+				pwm_provider: pwm-controller {
-+					#pwm-cells = <3>;
-+				};
-+
- 				test_nexus: nexus {
- 					#gpio-cells = <2>;
-+					#pwm-cells = <3>;
- 					gpio-map = <0 0 &gpio_provider 1 0>;
- 					gpio-map-mask = <0xffffffff 0>;
- 					gpio-map-pass-thru = <0 0xffffffff>;
-+					pwm-map = <0 0 0 &pwm_provider 1 0 0>;
-+					pwm-map-mask = <0xffffffff 0 0>;
-+					pwm-map-pass-thru = <0 0xffffffff 0xffffffff>;
- 				};
- 
- 				gpio-compat-consumer {
-@@ -111,6 +119,14 @@ gpio-direct-consumer {
- 				gpio-singular-consumer {
- 					test-gpio = <&test_nexus 0 0>;
- 				};
-+
-+				pwm-consumer {
-+					pwms = <&test_nexus 0 1000 0>;
-+				};
-+
-+				pwm-direct-consumer {
-+					pwms = <&pwm_provider 1 1000 0>;
-+				};
- 			};
- 		};
- 	};
-diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
-index 487f3b629a73..508ebc7581c8 100644
---- a/drivers/of/unittest.c
-+++ b/drivers/of/unittest.c
-@@ -759,6 +759,7 @@ static void __init of_unittest_fw_devlink_supplier(struct device_node *tests,
- static void __init of_unittest_fw_devlink(void)
- {
- 	const char *gpio_supplier = "gpio-controller";
-+	const char *pwm_supplier = "pwm-controller";
- 	struct device_node *tests;
- 
- 	tests = of_find_node_by_path("/testcase-data/phandle-tests/fw-devlink-tests");
-@@ -773,6 +774,9 @@ static void __init of_unittest_fw_devlink(void)
- 	of_unittest_fw_devlink_supplier(tests, "gpio-direct-consumer", gpio_supplier);
- 	of_unittest_fw_devlink_supplier(tests, "gpio-singular-consumer", gpio_supplier);
- 
-+	of_unittest_fw_devlink_supplier(tests, "pwm-consumer", pwm_supplier);
-+	of_unittest_fw_devlink_supplier(tests, "pwm-direct-consumer", pwm_supplier);
-+
- 	of_node_put(tests);
- }
- 
+                        Geert
 
 -- 
-2.43.0
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
