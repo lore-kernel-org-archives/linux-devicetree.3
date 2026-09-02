@@ -1,121 +1,91 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D30AE4137AE;
-	Wed,  2 Sep 2026 13:29:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20C834A2067
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 13:30:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788355786; cv=none; b=ehhdDAcLu431d1luzidcFje/2mti7KF5CUUh07twIe16jjxSNodZRq5aEpsLcXDYkRihEhIg5DXYmIkvHMDLAF4lz93NzpDm2jf5dJ9St+OBHqLcquMJA7ly2Kr6SJl0GIS0BXQp9mw/9Oh1Epk4SscB8WQ1mOZwqwoPBtAwLs4=
+	t=1788355817; cv=none; b=jRus9tK3oQ5e0ND4Ihi+Q2d8/y41RczJjKkQKLnflInnuzN5U/iNil557d19ALZ6K1ZBVuMuCTNLl8X8xp4A0f8WUE/SP5iresFg+SFRaqnEg8ymK8sg6FLiFiYXuQcue/gUYL0IS0xa4A8L0WaNiI4qdMYph2H5jQ0CT5SZJvI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788355786; c=relaxed/simple;
-	bh=3kzF7itCNI3649Jd2yl6+o37lkdhtqpt1JNljsXi5vg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZHiZYf4JwcD72IppbNwufmYsaEEzrOAiYiYdnkxTuaJtLGQML6LwgsobAwDbq1PhnvCfFUoHqvc61wWFwKxRLLcbGu8kxLfHSjiREuJck7bwhvpsF8TDwmovrudynX4e1IV9BabzRrQMJ+mHvG/Ge+jJFkeRJpJtiO+CXxgqtBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=jAI84FJg; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788355817; c=relaxed/simple;
+	bh=yRS3casAbW0vSRVgD98T3pImHrSvP0nYncWKSDB2S/s=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BfO0dU0enE5SlpQpPFCpoffcb8SwHlC96VGWKUM1pvydw2pXDHyshe8q1A0dEbk7wDfmlpjj+F+28aRbJc8yptCYMmc66CLFmVyhXnPJS93Rq9LFVzejEA+FFOOg3YCKg34ZlSNguGkbkQ0r5ic1RCqeNmEGH7iHLfcXWIxZuX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=APdJeIi4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="jAI84FJg"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 610CE165C;
-	Wed,  2 Sep 2026 06:29:40 -0700 (PDT)
-Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B00DA3F673;
-	Wed,  2 Sep 2026 06:29:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788355784; bh=3kzF7itCNI3649Jd2yl6+o37lkdhtqpt1JNljsXi5vg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=jAI84FJgJAvnyhbJiH1Pxn7thUuzLd5dcmWWV+5W22olMfH0LkXLMmpwmz0Dk3KR3
-	 5m2gPwMIFrSaptQU5elbNsEPXBlpZKbWjuJZQZYwq7FwXhEQvDN/S+hzOedqTuhDM8
-	 0HIoyrUUju4wL7kqZCcmtszvpBFN2e2KxZjUWK0c=
-Message-ID: <e6d4bb93-66fa-4149-985d-87d895081ea0@arm.com>
-Date: Wed, 2 Sep 2026 15:29:39 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="APdJeIi4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C92EF1F00A3F
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 13:30:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788355815;
+	bh=yRS3casAbW0vSRVgD98T3pImHrSvP0nYncWKSDB2S/s=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=APdJeIi4/8ufueooABdGnx45rcwThUhJU0hv/NmfDCpMnZQqIbB23qODVwcmVv5LP
+	 lMIouughgOuB33szKdFJcqY3jZcZEyhRBNYd2QuVQm+rFhZDmVgkfMKcFW+MgEFc6J
+	 A5wD7OoRg3Pf1cqIxypyYnoUUMJZGNyVnk3ohHVHt91LMd8RqrVCWqqYlb6E0uHtYg
+	 iBSKZIply53lw+MoOf5qNoAv/ROsMPW00tKJVkK3XJ1FW/GKE8uTh0S4w1zmjhI5mi
+	 SQYMB1AdEbnoRmoiZKmVUWLO8N+ZZiYxwHj7Dl3QHLtmN3+ajhI330alxC5SjDc/XS
+	 DSDhMLpWC4D0w==
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b4b037a2c1so934486e87.2
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 06:30:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwhwrfT1WngjgAmt5PiHpMgmcWe667sddEGeUeHNSOWksbp2lu8AIJllStEgWNHWIj47od8QIlSKaBp@vger.kernel.org
+X-Gm-Message-State: AFuF++leAjIqGwyzJhlKAR3sZzuL/8LiflKu1mEqnkUs8fTLHzcGb6WN
+	oVxfBfGtDEJJz6Ysv3scS+8P6Z74nu+H3+8vq5+Y8/2qqrUmz9OVpRx5lmPODmcz888R3y7KWvI
+	dVT9SogpRIYfHainrNxBFEPRbNQEVAkIZspazDY8F8w==
+X-Received: by 2002:a05:6512:108b:b0:5b4:59a3:c48 with SMTP id
+ 2adb3069b0e04-5b60853c292mr1813677e87.12.1788355814475; Wed, 02 Sep 2026
+ 06:30:14 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 2 Sep 2026 06:30:12 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 2 Sep 2026 06:30:12 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260902045938.184221-3-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 05/15] arm_mpam: Fix device_node refcount in DT
- resource parsing
-To: Yin Li <yin.li@oss.qualcomm.com>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Shanker Donthineni <sdonthineni@nvidia.com>,
- Conor Dooley <conor+dt@kernel.org>, Fenghua Yu <fenghuay@nvidia.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
- Reinette Chatre <reinette.chatre@intel.com>,
- Konrad Dybcio <konradybcio@kernel.org>, James Morse <james.morse@arm.com>,
- Ben Horgan <ben.horgan@arm.com>, Bjorn Andersson <andersson@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-arm-msm@vger.kernel.org, ganapatrao.kulkarni@oss.qualcomm.com,
- trilok.soni@oss.qualcomm.com, devicetree@vger.kernel.org,
- driver-core@lists.linux.dev, Srivathsa L Rao
- <srivathsa.rao@oss.qualcomm.com>, Huang Yiwei
- <huang.yiwei@oss.qualcomm.com>, aiqun.yu@oss.qualcomm.com,
- linux-kernel@vger.kernel.org
-References: <20260811-mpam-resctrl-dt-knp-support-v1-0-ea6397bead59@oss.qualcomm.com>
- <20260811-mpam-resctrl-dt-knp-support-v1-5-ea6397bead59@oss.qualcomm.com>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20260811-mpam-resctrl-dt-knp-support-v1-5-ea6397bead59@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260902045938.184221-1-shengchao.guo@oss.qualcomm.com> <20260902045938.184221-3-shengchao.guo@oss.qualcomm.com>
+Date: Wed, 2 Sep 2026 06:30:12 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Meu2KzFTWVowGuYJJODHDj+SNX8Gaq4u+PJPA1H9NFXwg@mail.gmail.com>
+X-Gm-Features: AcwNN1UO3iDvmidkaTt_xVD222iLcrDDJNnBg-StcuA-7XrgDPpMDG_StTvhFPE
+Message-ID: <CAMRc=Meu2KzFTWVowGuYJJODHDj+SNX8Gaq4u+PJPA1H9NFXwg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] usb: typec: Add onsemi FUSB15201 driver
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>, 
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
-
-On 8/11/26 15:30, Yin Li wrote:
-> When a cache-parented or memory-controller-parented MSC is probed via
-> device tree, the parent node was assigned directly to a
-> __free(device_node) variable without incrementing its reference count.
-> Both the parent and the cache/memory variable are declared with
-> __free(device_node), which causes the compiler to automatically insert
-> an of_node_put() call for each variable when they go out of scope.
-> Since both variables point to the same node but the reference count was
-> only incremented once by of_get_parent(), the node ends up being
-> released twice, causing a refcount underflow.
-
-Yes, looks about right: there is another assignment to both memory and 
-cache, they call of_parse_phandle(), which increments the refcount, so 
-we need to do the same for the direct assignments, to get the free'ing 
-done consistently.
-
-> Use of_node_get() to take an explicit reference so each __free variable
-> holds its own reference.
-> 
-> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
-
-Reviewed-by: Andre Przywara <andre.przywara@arm.com>
-
-... though this should definitely be squashed into the respective DT 
-patches. Feel free to do so.
-
-Cheers,
-Andre
-
+On Wed, 2 Sep 2026 06:59:38 +0200, Shawn Guo
+<shengchao.guo@oss.qualcomm.com> said:
+> The FUSB15201 is a dual-port USB Type-C and Power Delivery controller
+> which runs the Type-C state machine and the PD policy engine on an
+> integrated microcontroller. The host only observes the resulting state
+> and may ask for role swaps, so this is a plain Type-C class driver
+> rather than a TCPC driven by the Type-C Port Manager.
+>
+> Register a Type-C port for each connector described in firmware, report
+> attach and detach, orientation, power and data roles and the PD
+> capability of the partner, and drive the USB role switch of the attached
+> USB controller so that OTG role switching works. Data and power role
+> swaps requested through sysfs are forwarded to the controller, which
+> performs them asynchronously and reports the outcome as a port status
+> interrupt.
+>
+> The controller exposes a per-port VBUS ADC reading, but the Type-C class
+> has no VBUS attribute and nothing needs the value, so it is not read.
+> PD messages, PDOs and alternate modes are not exposed by the hardware at
+> all. The chip-wide MASTER_RESET command would drop both ports at once
+> and has no caller, so it is left alone as well.
+>
+> Assisted-by: LLM
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 > ---
->   drivers/resctrl/mpam_devices.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-> index 975ddab771b4..559fa09128b4 100644
-> --- a/drivers/resctrl/mpam_devices.c
-> +++ b/drivers/resctrl/mpam_devices.c
-> @@ -280,7 +280,7 @@ static int mpam_dt_parse_resource(struct mpam_msc *msc, struct device_node *np,
->   		type = MPAM_CLASS_CACHE;
->   
->   	} else if (of_device_is_compatible(parent, "cache")) {
-> -		cache = parent;
-> +		cache = of_node_get(parent);
->   		type = MPAM_CLASS_CACHE;
->   	} else if (of_device_is_compatible(np, "arm,mpam-memory")) {
->   		memory = of_parse_phandle(np, "arm,mpam-device", 0);
-> @@ -290,7 +290,7 @@ static int mpam_dt_parse_resource(struct mpam_msc *msc, struct device_node *np,
->   		}
->   		type = MPAM_CLASS_MEMORY;
->   	} else if (of_device_is_compatible(np, "arm,mpam-memory-controller-msc")) {
-> -		memory = parent;
-> +		memory = of_node_get(parent);
->   		type = MPAM_CLASS_MEMORY;
->   	} else {
->   		/*
-> 
 
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
