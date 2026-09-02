@@ -1,85 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC6B13612DB
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 18:03:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D965382299;
+	Wed,  2 Sep 2026 18:03:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788372204; cv=none; b=RnVtolOlajoJ1dgtHsvAlqlwHpbSnov+jA5kBg6CM1+Yk9Yfp/21wOSW9htMh9HHoKfm/DN7ERCCcQKSnaySrhChn+eQUxBsP8Hodc7TXb+l0aylVmyYjCUN1FOjJVQ42aMBQYs4ZBfsOJLAWQx+kwRlCBROM9z429/xkDgb8qI=
+	t=1788372226; cv=none; b=gp5ImR+lWct7eYEpvTF4+f8KSJMihVxEcihmnh9rhL/TARxM9Srual0LOnzxZu57lbtLbEh1roX9yD8u+ojeuMHPM3XcaX3erHZvm1cfUhFCaehShfP1yTuLI55sriz+L4CjZTepej7txa3x8dgIFE0uUpoLL5Q0DORLMfeXfXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788372204; c=relaxed/simple;
-	bh=Ot8m2i8hwYgc+WYz+HK0BC/IOXzpOGQqbfhN2AgKWvw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=guwNEhuqngLkZTmCPSC2KRf9wp53CPzAQLK4wnj6uAKsyZqsvJmj4DaOWpknIYc2XzWkzwTfSuHxmw4qCc3b27/6KitCR/AzwaDwBjL5HdMjZ8eIVGIAkPozbALQK7SPIqcgqADcVG9afcTJnXdKruEbpX1JwodHsy0vnmgOxCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RnYD+MDj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788372226; c=relaxed/simple;
+	bh=U0DQvdMBxlrrrjlvjwHNoQY0+Gbfmq4eCEwuD81yDYU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rzzobXqNZPdmLH1JfvF52XtM2wOlfmIcurOLX/HlbItnCZkjlpwCCA+ojBVMxwUpyz++eM1D8GPgTsvuofehzDfO8q47HVOtaIsJlmWVf3EdfptLyysmS/w1wtvqvovZxD/dAsGSBO0TbiwEHMDsbXELWiLrHkHDNhzjuH4hCuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YryQdOG6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RnYD+MDj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54C9D1F000E9;
-	Wed,  2 Sep 2026 18:03:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YryQdOG6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA8A41F000E9;
+	Wed,  2 Sep 2026 18:03:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788372203;
-	bh=t+eKQwnIaeNdIBp53e7bgrgXK5SZnza78cXrJEMf7sI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RnYD+MDjCpQzQUEaS4wtNo5Ys+tMNNVQe/eG6TOlUZozD0p0+A9WaqUaeev3DYx2Z
-	 GaFt15mqJYnLwMcD746+RrtuQpdoh7jfYh1v/6iQj4+PzNanmsklT8ETzSDctQMP/S
-	 UcwDEvHyD8cytuyKhIcM7zwA7hjuORxa6bAToSm5xT1h2Wl0keaAxOwyBAJAq1iIga
-	 i7ujbVhN73+q3JyWIuCA+ghC+YgydUwCmVqqOLzvgx2b1H4irBYu/hpVFTdNZG+CeI
-	 MV/E8ZhEvW8pVbZfTSczJEeE+ffJEE/J12rRjuYErUShPbCJRYfEYlvCaWIpWNv8KG
-	 S4aDizC4ENpqw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/5] dt-bindings: iommu: Add Broadcom BCM2712 IOMMU
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Daniel Drake" <dan@reactivated.net>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260902-bcm2712-iommu-submit-v4-2-9dbb657578c1@reactivated.net>
-References: <20260902-bcm2712-iommu-submit-v4-0-9dbb657578c1@reactivated.net>
- <20260902-bcm2712-iommu-submit-v4-2-9dbb657578c1@reactivated.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 18:03:22 +0000
-Message-Id: <20260902180323.54C9D1F000E9@smtp.kernel.org>
+	s=k20260515; t=1788372225;
+	bh=Uj9/RDwv9k2iRrF8z8+r037C19R/tl/T6HaynuHBg7Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YryQdOG6rCS+CoxXuEhmKqZdD8O0bh7F0WgNxh8InFZjr/iLSM0valYUf4rdXM5E6
+	 Vxe3whVlTKMY0QPvSa04XFtUlbX8YsISoVn3NrW+crTxg88qsYsTr3tnLISd4Kd8Dt
+	 iYtrHEj2YTmG3kJJLChg+lb7XBELtrMweBQCCo7iZ7+muXc64rjY96EBBYmH/+R6ie
+	 NwZVU3R9XH//x33Z0hYhHJPSQgGQgNRvyr5CmG+ouEnbkdMnmMRfgYhJMMsAhhnpiT
+	 jMljJ/6L/ziJe6kbaA5W9kRZrJn7mcUOgv+T88DR0r/Pk39Ub4KzjoNcLcZbgbgdgO
+	 1DQu/IxJCAB5w==
+Date: Wed, 2 Sep 2026 19:03:40 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Yixun Lan <dlan@kernel.org>
+Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Long Wan <long.wan@linux.spacemit.com>, linux-mmc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/4] dt-bindings: mmc: spacemit,sdhci: Add tx delay
+ property
+Message-ID: <20260902-crept-player-b3f30ab4e6f6@spud>
+References: <20260902-07-k3-sdhci-dts-v1-0-4e7909cf4233@kernel.org>
+ <20260902-07-k3-sdhci-dts-v1-2-4e7909cf4233@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="JPvI9JMjjGIUeUlx"
+Content-Disposition: inline
+In-Reply-To: <20260902-07-k3-sdhci-dts-v1-2-4e7909cf4233@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The dt-bindings example references an undefined label `&iommuc`, wh=
-ich will cause `dt_binding_check` to fail.
---
+--JPvI9JMjjGIUeUlx
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit 0480841ae8d1ade3732fd370d08a92d5abd7260e
-Author: Daniel Drake <dan@reactivated.net>
+On Wed, Sep 02, 2026 at 07:03:13AM +0000, Yixun Lan wrote:
+> From: Long Wan <long.wan@linux.spacemit.com>
+>=20
+> Introduce a vendor specific property to configure the step count of TX
+> delay line which should be applied before RX tuning, compensating for
+> board level trace differences. The TX delay line result comes from test
+> out of real board which vary from different hardware layout.
+>=20
+> Signed-off-by: Long Wan <long.wan@linux.spacemit.com>
+> Signed-off-by: Yixun Lan <dlan@kernel.org>
 
-dt-bindings: iommu: Add Broadcom BCM2712 IOMMU
-   =20
-Add bindings for the Broadcom BCM2712 IOMMUs and their shared TLB cache.
+Everyone seems to have their own custom delays, so what's another..
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-> diff --git a/Documentation/devicetree/bindings/iommu/brcm,bcm2712-iommu.y=
-aml b/Documentation/devicetree/bindings/iommu/brcm,bcm2712-iommu.yaml
-> new file mode 100644
-> index 0000000000000..5ca8ce469ec31
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iommu/brcm,bcm2712-iommu.yaml
+> ---
+>  Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml b/=
+Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
+> index f35bf7ce08dd..3399a2d076dc 100644
+> --- a/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
+> +++ b/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
+> @@ -63,6 +63,16 @@ properties:
+>    pinctrl-1:
+>      description: Optional pinctrl state for 1.8V UHS operation with "uhs=
+" name
+> =20
+> +  spacemit,tx-delay:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    minimum: 0
+> +    maximum: 255
+> +    description:
+> +      TX delay line setting applied before RX tuning, compensating for
+> +      board level trace differences. This is a delay line step count with
+> +      no fixed time-per-step conversion; determined empirically per board
+> +      specific, used on SD/SDIO hosts.
+> +
+>  required:
+>    - compatible
+>    - reg
+>=20
+> --=20
+> 2.55.0
+>=20
 
-[ ... ]
+--JPvI9JMjjGIUeUlx
+Content-Type: application/pgp-signature; name=signature.asc
 
-> +examples:
-> +  - |
-> +    iommu@5200 {
-> +        compatible =3D "brcm,bcm2712-iommu";
-> +        reg =3D <0x5200 0x80>;
-> +        brcm,iommu-cache =3D <&iommuc>;
-                                ^^^^^^^
-[Severity: Low]
-Will this cause make dt_binding_check to fail when compiling the extracted
-example?
+-----BEGIN PGP SIGNATURE-----
 
-The example references an undefined label &iommuc. This usually results in a
-reference to non-existent node or label error from dtc during validation.
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaphk/AAKCRB4tDGHoIJi
+0po+AQCA6PqLcTKT7imRX8EmzXyV4cbV44EdaTRHvitAdUV6IgD/ViMPsvHGYEO1
+7Ph5zn0Vyp3Oo8iHwbyKP3VfMdWVMQg=
+=fS0X
+-----END PGP SIGNATURE-----
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902-bcm2712-io=
-mmu-submit-v4-0-9dbb657578c1@reactivated.net?part=3D2
+--JPvI9JMjjGIUeUlx--
