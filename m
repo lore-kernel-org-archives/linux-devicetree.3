@@ -1,189 +1,110 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5E0493640;
-	Wed,  2 Sep 2026 12:40:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F033D494A18;
+	Wed,  2 Sep 2026 12:40:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788352836; cv=none; b=aFiygPBF0bBxBsL2n6csV8qyIz0TqG78N+r3Oa6VPRxsC+QwPIv8TI2AIN9mIqYkyssuL2PFJmxUmlrsg+16jQ6WhUwOlebgXKrCUAwfsyVWVnK4xhrdiygIrUaS+GyfEKPq0s5aCUgdr7tu4vC843qRSJxhGGT5j7NRdWym9m8=
+	t=1788352844; cv=none; b=D3Yk0NSmiaSJkQqM6d1Ln3r2nfOt/eEVogmD50aDtRSHXvdZ3XS8ky4SRG8c4FA9qsu+JTRqb23jV4rM7y8+PQcbbOrAeMit65fAoA6hrDwPt7yICFtTaSPsxyPabFv861IS4/jmXQ4cDgW6vlZHfx6tM4HcFLTL11t8qUia29E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788352836; c=relaxed/simple;
-	bh=qrQ2t7kPVDsS567S90/7tbSfzQYKJ040KSzYlhqNuKM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EH2OfWhwSo/v+AbKO1p1Dw9ZxHee+a9AZqeFqi5d+OR6VG+U4ftu+5hjlOLH7qiwppaxkMRxva0H4xydww7+qCsrEDLyIDIkNYiDFvyXN4ctesky4wXqqXjITLMncpcsxP2c+Zbid2VYlBaTti+L5u2JgBtVmmFS1MLP0XrKoxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=ie/xkNW5; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1788352844; c=relaxed/simple;
+	bh=7HKlsv6IcKPiNMaXG410a9K0xiDS4dAQTupJewzWe6I=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Oi7qYAM7n0zYFt6IO69m1T7f2/DUCqXjJNB8QYKqwity2/4TPXubldbE6EjEEOGo/7aLPEogI6UsPR2xSgR9JfU3knDtXO4q6/jRIjvMJOZeQfdJiRH3mPga8VYKqRawsCE6CjZtuaZGBtfUr89QWOT0FEtRJ96zXBUap36bNtQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m14+qgN+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="ie/xkNW5"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9927911CE7D;
-	Wed, 02 Sep 2026 14:40:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1788352827; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=0MlWIf/rhQtWIeK3PR/Jn68vrbe6t2nijYn3wmvqbXE=;
-	b=ie/xkNW5efq5r94PiyZTboE9/pa9CusF4qknKZjXw1AcHaaOHX+cU9AUad5IqbqpwZlV2K
-	hth3ZSv+LK0bc7veslnXVEOL+mwwgMaaRLJ+CjFwDufmP6slSoyIbeoN/mCrpdGNSFEPX6
-	8xwPL3fIcjI+Uv4J5vtTdpTetbUYhL5cX+mR3so4mp0NCCKySbtxQyRX2uUbhrqlsFikfh
-	/qBtg6K1w5e0PkiPW9txEDqUAtbahHhY2de+IEs2ce2GIPAZsojg9Vjtl6HOizOYgkGApJ
-	ouzNMMpyc3aV55Su9ZwuAI5dv4o+d5zd8BXCTzCvacu05Glr+/kQAVNkQh0hSw==
-From: Marek Vasut <marex@nabladev.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: fabrice.gasnier@foss.st.com,
-	Marek Vasut <marex@nabladev.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Christophe Roullier <christophe.roullier@foss.st.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
-	Rob Herring <robh@kernel.org>,
-	Yannick Fertre <yannick.fertre@foss.st.com>,
-	devicetree@vger.kernel.org,
-	kernel@dh-electronics.com,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: [PATCH v6 2/2] soc: st: Add STM32MP2 SYSCFG driver
-Date: Wed,  2 Sep 2026 14:39:50 +0200
-Message-ID: <20260902124018.606544-2-marex@nabladev.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260902124018.606544-1-marex@nabladev.com>
-References: <20260902124018.606544-1-marex@nabladev.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m14+qgN+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3663A1F000E9;
+	Wed,  2 Sep 2026 12:40:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788352842;
+	bh=WUsoByKRlWZhvl6Y86fLZ5IhVV6R8EFE0BMgFk5OCVs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=m14+qgN+oy0GmgB8DihWuyinRbjm8Z/RT+T5u65anILa+GirHqMScWmue4fDGN+5Q
+	 aONQzRx3QWOCWxvqIsPqpMdBq2/RecFxW3XGRxwpf9gvr8iKpHoN+x2W69dWJ/sQIO
+	 UJ9BPD4JAKvYwHYnjKtf9qB6pGrvYRNQChbILk6zKs91jINbr7faD6X6szfqhcsQBz
+	 BwW0GXahUSv3OJLoP+iDTJXBWjYdoF4NsSGJODtu4lM30f0ZNcCqM23NQCVG4LCzzs
+	 eGhwZ/41am/XYr3dlo87DnShUXksd+G9uBreRc0bbJvxJ49muRL9ZEuPMF5dWZ8y4k
+	 nlR+qTxNQtzXA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 5/7] leds: pca995x: add sysfs files for error reporting
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Nora Schiffer" <nora.schiffer@ew.tq-group.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, linux-leds@vger.kernel.org, lee@kernel.org, conor+dt@kernel.org
+In-Reply-To: <69f8e83950d4d0f7c1bf60fe2f4047cf9bee5f79.1788350618.git.nora.schiffer@ew.tq-group.com>
+References: <6d3600f99c77c31166f0b6a5ccfb7f518b53c4c9.1788350618.git.nora.schiffer@ew.tq-group.com>
+ <69f8e83950d4d0f7c1bf60fe2f4047cf9bee5f79.1788350618.git.nora.schiffer@ew.tq-group.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 02 Sep 2026 12:40:41 +0000
+Message-Id: <20260902124042.3663A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Add trivial SYSCFG driver for ST STM32MP25xx, which binds drivers
-to its subnodes. This is currently used to bind USB PHY drivers to
-subnodes described in the SYSCFG DT node.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The `has_errors_store` function uses `strcmp()` to perform an ex=
+act match on "clear\n", which incorrectly rejects valid sysfs writes that o=
+mit a trailing newline.
+- [Low] The commit message description is not capitalized, violating subsys=
+tem guidelines.
+--
 
-Acked-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Tested-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Signed-off-by: Marek Vasut <marex@nabladev.com>
----
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Christophe Roullier <christophe.roullier@foss.st.com>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Marek Vasut <marex@nabladev.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Yannick Fertre <yannick.fertre@foss.st.com>
-Cc: devicetree@vger.kernel.org
-Cc: kernel@dh-electronics.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
----
-V4: New patch
-V5: No change
-V6: - Fix up the SPDX-License-Identifier
-    - Add AB/TB from Fabrice
----
- drivers/soc/Kconfig              |  1 +
- drivers/soc/Makefile             |  1 +
- drivers/soc/st/Kconfig           | 12 ++++++++++++
- drivers/soc/st/Makefile          |  1 +
- drivers/soc/st/stm32mp2-syscfg.c | 33 ++++++++++++++++++++++++++++++++
- 5 files changed, 48 insertions(+)
- create mode 100644 drivers/soc/st/Kconfig
- create mode 100644 drivers/soc/st/Makefile
- create mode 100644 drivers/soc/st/stm32mp2-syscfg.c
+commit 663ea7a7fd850dadfe05eb1aef14f297e78e15b5
+Author: Nora Schiffer <nora.schiffer@ew.tq-group.com>
 
-diff --git a/drivers/soc/Kconfig b/drivers/soc/Kconfig
-index a2d65adffb805..dfe5cec592626 100644
---- a/drivers/soc/Kconfig
-+++ b/drivers/soc/Kconfig
-@@ -24,6 +24,7 @@ source "drivers/soc/renesas/Kconfig"
- source "drivers/soc/rockchip/Kconfig"
- source "drivers/soc/samsung/Kconfig"
- source "drivers/soc/sophgo/Kconfig"
-+source "drivers/soc/st/Kconfig"
- source "drivers/soc/sunxi/Kconfig"
- source "drivers/soc/tegra/Kconfig"
- source "drivers/soc/ti/Kconfig"
-diff --git a/drivers/soc/Makefile b/drivers/soc/Makefile
-index c9e689080ceb7..894bd6ebaaa4d 100644
---- a/drivers/soc/Makefile
-+++ b/drivers/soc/Makefile
-@@ -30,6 +30,7 @@ obj-y				+= renesas/
- obj-y				+= rockchip/
- obj-$(CONFIG_SOC_SAMSUNG)	+= samsung/
- obj-y				+= sophgo/
-+obj-y				+= st/
- obj-y				+= sunxi/
- obj-$(CONFIG_ARCH_TEGRA)	+= tegra/
- obj-y				+= ti/
-diff --git a/drivers/soc/st/Kconfig b/drivers/soc/st/Kconfig
-new file mode 100644
-index 0000000000000..2a9d6a77be450
---- /dev/null
-+++ b/drivers/soc/st/Kconfig
-@@ -0,0 +1,12 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+menu "ST SoC drivers"
-+
-+config SOC_STM32MP2
-+	tristate "STM32MP2 SoC family support"
-+	depends on ARCH_STM32 || COMPILE_TEST
-+	default ARCH_STM32 && ARM64
-+	select SOC_BUS
-+	help
-+	  If you say yes here, you get support for the ST STM32MP2 family
-+
-+endmenu
-diff --git a/drivers/soc/st/Makefile b/drivers/soc/st/Makefile
-new file mode 100644
-index 0000000000000..5ca313476ca93
---- /dev/null
-+++ b/drivers/soc/st/Makefile
-@@ -0,0 +1 @@
-+obj-$(CONFIG_SOC_STM32MP2) += stm32mp2-syscfg.o
-diff --git a/drivers/soc/st/stm32mp2-syscfg.c b/drivers/soc/st/stm32mp2-syscfg.c
-new file mode 100644
-index 0000000000000..770321a4a6f71
---- /dev/null
-+++ b/drivers/soc/st/stm32mp2-syscfg.c
-@@ -0,0 +1,33 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright 2026 Marek Vasut
-+ */
-+
-+#include <linux/module.h>
-+#include <linux/of_platform.h>
-+#include <linux/platform_device.h>
-+
-+static int stm32mp2_syscfg_probe(struct platform_device *pdev)
-+{
-+	return devm_of_platform_populate(&pdev->dev);
-+}
-+
-+static const struct of_device_id stm32mp2_syscfg_ids[] = {
-+	{ .compatible = "st,stm32mp23-syscfg" },
-+	{ .compatible = "st,stm32mp25-syscfg" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, stm32mp2_syscfg_ids);
-+
-+static struct platform_driver stm32mp2_syscfg_driver = {
-+	.driver = {
-+		.name	= "stm32mp2_syscfg",
-+		.of_match_table = stm32mp2_syscfg_ids,
-+	},
-+	.probe = stm32mp2_syscfg_probe,
-+};
-+module_platform_driver(stm32mp2_syscfg_driver);
-+
-+MODULE_AUTHOR("Marek Vasut <marex@nabladev.com>");
-+MODULE_DESCRIPTION("ST STM32MP2 SYSCFG driver");
-+MODULE_LICENSE("GPL");
--- 
-2.53.0
+leds: pca995x: add sysfs files for error reporting
 
+The PCA995x has builtin failure detection. Provide sysfs files for
+individual LED status (reporting "okay", "short-circuit" or
+"open-circuit") as well as a global "has_errors" flag. has_errors is
+sticky and must be cleared by writing "clear" to the sysfs file.
+
+> leds: pca995x: add sysfs files for error reporting
+
+[Severity: Low]
+This isn't a bug, but the commit message description starts with a lowercase
+letter. The LED subsystem guidelines request capitalizing the description
+after the subsystem prefix.
+
+> diff --git a/drivers/leds/leds-pca995x.c b/drivers/leds/leds-pca995x.c
+> index b069b93d39a54..2232b74528a53 100644
+> --- a/drivers/leds/leds-pca995x.c
+> +++ b/drivers/leds/leds-pca995x.c
+[ ... ]
+> +static ssize_t has_errors_store(struct device *dev, struct device_attrib=
+ute *attr,
+> +				const char *buf, size_t count)
+> +{
+> +	struct pca995x_chip *chip =3D i2c_get_clientdata(to_i2c_client(dev));
+> +	int ret;
+> +
+> +	if (strcmp(buf, "clear\n"))
+> +		return -EINVAL;
+
+[Severity: Medium]
+Does this exact string match in has_errors_store() reject valid sysfs write=
+s=20
+that omit a trailing newline?=20
+
+If userspace writes exactly the word clear without a newline=20
+(for example, using echo -n clear > has_errors), strcmp will fail and retur=
+n=20
+-EINVAL. Using sysfs_streq() instead of strcmp() would transparently handle=
+=20
+the presence or absence of a trailing newline from sysfs inputs.
+
+> +
+> +	ret =3D regmap_update_bits(chip->regmap, PCA995X_MODE2,
+> +				 PCA995X_MODE2_CLRERR, PCA995X_MODE2_CLRERR);
+> +
+> +	return ret ?: count;
+> +}
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/6d3600f99c77c31166f=
+0b6a5ccfb7f518b53c4c9.1788350618.git.nora.schiffer@ew.tq-group.com?part=3D5
