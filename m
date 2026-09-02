@@ -1,90 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 576D742255C
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 09:39:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4104341F35C
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 09:41:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788341950; cv=none; b=F1j6AWw+bN9OGu4M+ruZFOeFh/nVNlYlRruT1pvjS9MwKDbatGglt0Se33LrtX4YDGUGfphLVUJF2XeNJf4A9xfuEvQsmH9A0j2omZHDjGWj3uWS0ncphKprBG/3W5OehKY3l4pKsifRDxltxYqqluz1YcRrBmZMEpCEz/dDH5E=
+	t=1788342066; cv=none; b=LcYZ+emgwjPzBj04BOfguxDu4j3EHYE5g6KsgKOEgd4xdCvRLX4pcU0JA34DVvg4M5m5NzApwOpGp6ttPMXl2EbLrhdMqMpgmmUMwQps8JNtGA1/4iPic9pGwfPYsXj2HmbudVJ2fNKmxn8wIhXxZu+y9ibnkz7LbcSJx0x/sck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788341950; c=relaxed/simple;
-	bh=GKrj19cmMqpK8lE3xDcFK5i0QStnLV54GCVcA8nbY9M=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bLnDjn51lrB9jXWsFWp8MHnmKDJoWRy6Ai9BEbZWvxWPrC3Ln0Y6LSkGPbKFUc0+LtSodBiq1HavCAcRCX2OIZrbk201GAtlYAWB6BXMGuqMtnQnYuulcbGdfHiYzoZQVaIfG1+FGB9DJr3yebDy8MjCd9ChHyXJoLPt3CrEJSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b9WGh6f8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788342066; c=relaxed/simple;
+	bh=m7mJPnrxHWOyEZZGuMJyGGgp/l15wF2SNz6afr8E6tg=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=R1a8ykb15NTSHy68IBz6Ho9NqJqNJFLf4eyxawMkvKJQFriMUkGeu0Axu5XfRWdcKKQJY3t6Krh4ENc454ZqiyLlpbuqp06LPLc1qwfYCxio21u1QMsJk0PHuUeWYgM81DYXesno0o3UrqDpKWHeIG80YM3hT+T1NF5FziuZGoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=qZXcziPr; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b9WGh6f8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1DF51F00A3A;
-	Wed,  2 Sep 2026 09:39:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788341948;
-	bh=RDs8AvdQ2lqW70J6D5KmqXxyj1ifHxG5Uu+3WUC81qk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=b9WGh6f8651PUkngXxuaX1V+Cka6CEugfhRNlsdiJTL8JlZMZe8iPqiyMBT0bygxr
-	 /zKAaFk4W2QnjJu+0ZBZ7TT4GVKNbqNfkf1Bi0xrFjwnT0pdJv2dmyLDyJY97rXF11
-	 a9A+9VExoJpA3iUGixcl8OJMC1/lqDiwvOd5sqtWtG5MplbyAK6tKXJ8CAtUqxSlj5
-	 AMTObg2VxdSK9MCZCiMSlIEsOm25WPB4l01Te5cw8E+ANseWugIZm9JUVOnuAEbviH
-	 A92VSmN1Ob5y3hk0JnDwY6GDMPpU8M6NSMMLHrfoShwHKgezqRxxPjE6k6Y09k4DE3
-	 c395nVk4uV6sw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 3/3] iio: dac: Add AD5529R DAC driver support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Janani Sunil" <janani.sunil@analog.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260902-ad5529r-driver-v11-3-301c491a0719@analog.com>
-References: <20260902-ad5529r-driver-v11-0-301c491a0719@analog.com>
- <20260902-ad5529r-driver-v11-3-301c491a0719@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 09:39:08 +0000
-Message-Id: <20260902093908.A1DF51F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="qZXcziPr"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 342BB4E414CE;
+	Wed,  2 Sep 2026 09:41:01 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 049BA6053C;
+	Wed,  2 Sep 2026 09:41:01 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C243511C79300;
+	Wed,  2 Sep 2026 11:40:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788342056; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=m7mJPnrxHWOyEZZGuMJyGGgp/l15wF2SNz6afr8E6tg=;
+	b=qZXcziPri/qyXRlJMCEfoWrjGc5w9g+hB+AwwFPIU/WkUwKG1WKlt1YcKvvOZPXE/A1+ke
+	S4OI9PB3yMMSuVk+NGjiCSN1AUArS34abkJVf1vvjrKNVmpfci2zpAsOtFtKM91IBoM652
+	OQkQErdlp6JhP5LNXyS8f5eKYELa/eJxHCX594cHgP+RoAjMm1NFlyZpwobHgB0oH1N0hF
+	p4LhuReLSiJlxJQff66Y9MFBXQdKn/1Z3FpZCv/lMwfOrGBRrwjqXjlFcQb0koe00C1mq9
+	5/b2C6mAZjG697ZlTMUJKeiVuGiXvOwNQsq8Z78foUHu6RZ7HEVBb5uIUE0ecQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Alexey Charkov <alchark@flipper.net>
+Cc: Srinivas Kandagatla <srini@kernel.org>,  Rob Herring <robh@kernel.org>,
+  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor Dooley
+ <conor+dt@kernel.org>,  Heiko Stuebner <heiko@sntech.de>,  Michael Walle
+ <michael@walle.cc>,  Finley Xiao <finley.xiao@rock-chips.com>,  Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>,  devicetree@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  linux-rockchip@lists.infradead.org,
+  linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 3/4] nvmem: layouts: Add Rockchip OTP CPUID layout driver
+In-Reply-To: <20260901-rk3576-otp-cpuid-mac-v1-3-ea9135270fc2@flipper.net>
+	(Alexey Charkov's message of "Tue, 01 Sep 2026 19:33:13 +0400")
+References: <20260901-rk3576-otp-cpuid-mac-v1-0-ea9135270fc2@flipper.net>
+	<20260901-rk3576-otp-cpuid-mac-v1-3-ea9135270fc2@flipper.net>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Wed, 02 Sep 2026 11:40:52 +0200
+Message-ID: <878q5k7zyz.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Selecting REGMAP_SPI without inheriting its dependency on SPI cause=
-s unmet direct dependency warnings.
---
+On 01/09/2026 at 19:33:13 +04, Alexey Charkov <alchark@flipper.net> wrote:
 
-commit 4f95e4db1e621b9be7d174948b61e89bec2d8d32
-Author: Janani Sunil <janani.sunil@analog.com>
+> Rockchip SoCs customarily use the CPU ID programmed into their on-chip OTP
+> memory to derive stable Ethernet MAC addresses even when a board doesn't
+> otherwise have dedicated storage for those. The derivation depends on the
+> particular bootloader implementation (e.g. it is done by upstream U-Boot,
+> which patches the derived MAC addresses at runtime into the device tree it
+> hands to the kernel). Using less featureful bootloaders, such as direct
+> boot to Linux from SPL, leaves the kernel with only a random MAC address
+> instead, even though everything required for the derivation is equally
+> available to Linux as it is to U-Boot.
+>
+> Reproduce the same derivation in the kernel and expose the result as an
+> nvmem cell named "mac-address", so that of_get_mac_address() picks it up
+> through its standard nvmem fallback. The address index comes from the DT
+> phandle argument, which lets both interfaces of a dual Ethernet board
+> share a single cell.
+>
+> Enable the layout by default on Rockchip, as consumers of its cells would
+> otherwise defer their probe indefinitely.
+>
+> Signed-off-by: Alexey Charkov <alchark@flipper.net>
 
-iio: dac: Add AD5529R DAC driver support
+Quick review on my side, looks good to me.
 
-This commit adds support for the Analog Devices AD5529R 16-channel, 12/16 b=
-it DAC.
-The device communicates over SPI and supports per-channel output range
-configuration and an optional external reference.
-
-> diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
-> --- a/drivers/iio/dac/Kconfig
-> +++ b/drivers/iio/dac/Kconfig
-[ ... ]
-> +config AD5529R
-> +	tristate "Analog Devices AD5529R High Voltage DAC driver"
-> +	depends on SPI_MASTER
-> +	select REGMAP_SPI
-
-[Severity: Low]
-Will this cause Kconfig unmet direct dependency warnings and subsequent
-linker errors if a user configures SPI=3Dm?
-
-When SPI=3Dm, the boolean SPI_MASTER evaluates to y. This allows AD5529R to
-be configured as y, which in turn forces REGMAP_SPI to y.
-
-Since REGMAP_SPI depends on the SPI tristate symbol, selecting it without
-inheriting its dependency on SPI can lead to undefined references to SPI
-core functions during the vmlinux linking stage.
-
-> +	help
-> +	  Say yes here to build support for Analog Devices AD5529R 16-Channel,
-> +	  12-Bit/16-Bit, 40V High Voltage Precision Digital to Analog Converter.
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902-ad5529r-dr=
-iver-v11-0-301c491a0719@analog.com?part=3D3
+Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
