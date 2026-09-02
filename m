@@ -1,97 +1,140 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FFCC47605E
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 11:06:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B4047044E
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 11:06:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788347178; cv=none; b=bKwjkZcc87d3viobfmwiQm63PpG/yGOJ4ZxB7LK+g3rYasnFuhsCTlLYUlNoEL1F8wi7CXVsXW6J/kH3fxQGYdYVxJYxjERLipxfckU6dmOZuqrZ8g58CKDHw000MqGZti1J+Rgs7ZF6MZF2egGIwWVOfpM2zybHHDr5qGX8tm8=
+	t=1788347209; cv=none; b=aYKukGkzUMg3h5/6eUWLt4vsUYlDZKaJjeWkGX7zsitGaVG7C3+q3MBFOUaU0E8Yx0Msk3SZ8MEgVPB7DA4FRp/zXDqPOt2fxQuFxhFcYje4T5o5gdPJsF41djLB4/nZlZuYvaZh2uYKOisbDv7rzz/t/L4/HIeyVFokoY/9hX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788347178; c=relaxed/simple;
-	bh=rirgVLAJouSQa7Do0ZcYS3CymL1NmE/yPGFcjOfx1Qc=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=X21vwWkX5CAvQv9BwjSe0o52azwheA8pWpdWa9NSVGyY6OTFk+sN9wyFVJDKnvJ44tc9ALoFhZjWgZ4wEnaV31ZsyQcpXPEyR2iwUCCcxXAX4ScDro8YZr7Ug4XQ+JUF9XsSQle5ooUzxtZ4w9/M5xu3Cq/3q83pH4vJw2o5otY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KirjFzR3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788347209; c=relaxed/simple;
+	bh=htvKw7eQ41AMD0DxvNVnHuoOsifIj4b5iRtOn7+EFtg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=uJk5NzFQ34PwDg7Kpos3VFZY3/YOma5AJur170ApDNFgmhsb3YpmoAfZD8JutabeW163Wp7pjFyI5mseHY1pSrcZn45ht+03vn2wHzpR4/Z0CHf/BrHDybwRRGqC+cj7HWSRIvMazuliBEuTFmSU7mfTEwegnsz4906ZV6kmBGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LJW7qP4Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KirjFzR3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2C401F00A3E
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 11:06:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LJW7qP4Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 258B31F000E9;
+	Wed,  2 Sep 2026 11:06:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788347175;
-	bh=rirgVLAJouSQa7Do0ZcYS3CymL1NmE/yPGFcjOfx1Qc=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=KirjFzR3vJrjJeeTqKp+KyjXkMBhs2LxhQ2dtIn+SCXzrDv0cZhCQHygODhnR2cp+
-	 a4zgYEhnDuxNCiNpHKW2N0ZAVxH9gVXNX98jVLOPouETBx39/PpPYgR+dI8+BgYGBW
-	 HuNwo4pxll/hBjnyRN+navcyVRwmQd2qlBSvPjkzVEK7lfCrGT8YC+xNVPvUesDNhL
-	 OTxw/b5mJpci+GlcR+9D14IwPc4AuSAv9yjC3Eg236vgqx1E3ll1B0zrvJStxEy7rq
-	 v8duUuGylNdNEOH6k0iVVenN1tduURhdPRy6UGHAuKnJzOs5Gu0hfWXDNCAjdMvEnV
-	 s4w42yqQpJj0Q==
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3a34f7ebcedso6574791fa.3
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 04:06:15 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzu7X7+i5tEqnv8zTMlgBrEJt2Zsw6YDxqmh/RtkA8T+GiVfllxj7O3Fil9BH387FFJtOttr5a4ILYM@vger.kernel.org
-X-Gm-Message-State: AFuF++m9PaYmQQ+dJ9aMPKRk+uq8AxJyVZsHJ6eWHFGl/AHv5w2Gmodo
-	2r68QoNjCgxKNUSpXHwcA4NypEfWVjavQrX2+TcxVylHjvG5h62Fyb6Nv5SX3y6ccrCN1JF9K1C
-	i81sy/bmim5x9L50YBY+aBsa39qa0Q0gVtTX4Tfdntw==
-X-Received: by 2002:a05:651c:30c9:b0:39c:9955:9e00 with SMTP id
- 38308e7fff4ca-3a34fc9c509mr7017021fa.2.1788347174422; Wed, 02 Sep 2026
- 04:06:14 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 2 Sep 2026 07:06:11 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 2 Sep 2026 07:06:11 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <99593b39-6851-4ad8-aba8-d4a39192e5ce@mainlining.org>
+	s=k20260515; t=1788347207;
+	bh=fOgLgMazn/am8LmkkuLIk7kWpdK9uiLvJUoXossXXMg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LJW7qP4Z46kS//f5ZzfhxbRE4PQDfFZ/F/6tEBgSRNnb/Y2OBQF6tNYQdmH1W2dEE
+	 tKqOgq7WKA25zqKpceHeVoN6PZikJJA8Jmmm+w6aWfrgJra/EKG10qyzJOAUfD8zmM
+	 O+k380y5SCs9Xk8kLAW4GHRYeHGwaNE7TX7ejnTyWvQd4GOT5T1COAOOlvdz7cZHZ1
+	 XFHt0n+OZ8nI3Zdp0HyRnWnCzXEyG4CDBuqJfGyiPiCuFdnWiLH4TeaCjXRp6OH3lO
+	 xMJ+tGpw9nKdJt57kFOknmCKKwY4vH1aNv9NONFF4VygPKf/qIGxgRQnkm/A2jWwrl
+	 eN/IxIfRHJlRw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 06/10] arm64: Implement can_set_direct_map_range()
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vincent Donnefort" <vdonnefort@google.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260902104712.2399797-7-vdonnefort@google.com>
+References: <20260902104712.2399797-1-vdonnefort@google.com>
+ <20260902104712.2399797-7-vdonnefort@google.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 02 Sep 2026 11:06:46 +0000
+Message-Id: <20260902110647.258B31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260820-msm8952-pinctrl-v2-0-bf2b8b7b379b@mainlining.org>
- <CAD++jLnGGonfOxLHhM-uXAzP10J9o5=0e_cV9JM5r7SJawChnA@mail.gmail.com>
- <CAMRc=MdKT4RAWdtZf87k5-VbXAZePT2yttf2QPWgRJaowKuDTA@mail.gmail.com>
- <a5956f0f-2842-4b80-8bcf-8763836618cf@mainlining.org> <CAMRc=MexQO0r-4+yPQrY_rCcGUY0E92q9hAD5EoTpwLJxMmX8Q@mail.gmail.com>
- <99593b39-6851-4ad8-aba8-d4a39192e5ce@mainlining.org>
-Date: Wed, 2 Sep 2026 07:06:11 -0400
-X-Gmail-Original-Message-ID: <CAMRc=Me4Anv4Dh8c1BdBV-_HY8Dc4cEnpthLPEy-QZjJ3u=E2A@mail.gmail.com>
-X-Gm-Features: AcwNN1VpAOYISQq5-G0xZjQB_FRNe0s-IVKYkLPQSF1m3JchI0lJM_4i5FR7Lv8
-Message-ID: <CAMRc=Me4Anv4Dh8c1BdBV-_HY8Dc4cEnpthLPEy-QZjJ3u=E2A@mail.gmail.com>
-Subject: Re: [PATCH v2 0/2] Add pinctrl support for MSM8952
-To: Muzaffer Kadir <muzafferkadir@mainlining.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 2 Sep 2026 12:41:53 +0200, Muzaffer Kadir
-<muzafferkadir@mainlining.org> said:
->
->
-> On Wed, 2 Sep 2026 03:34:58 -0700, Bartosz Golaszewski wrote:
->> On Wed, 2 Sep 2026 12:32:45 +0200, Muzaffer Kadir
->> <muzafferkadir@mainlining.org> said:
->>> On Tue, 1 Sep 2026 08:59:00 -0700, Bartosz Golaszewski wrote:
->>>>
->>>> And to that end please use scripts/get_maintainer.pl to get the current list
->>>> of maintainers for your patches.
->>>
->>> Hi Bartosz, I did run b4 prep --auto-to-cc before sending the patches. After seeing your message I run it again to check and it said no new addresses to add. Should I rebase on newer tag?
->>>
->>
->> Please wrap lines in your emails at 80 characters.
->>
->> Are you based on current linux-next or at least v7.3-rc1?
->
-> Sorry Bartosz, I accidentally sent it without wrapping.
->
-> I based on v7.2-rc7.
-> Should I rebase to v7.3-rc1 or linux-next?
->
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Lockless page table walk uses standard offset macros causing naked=
+ dereferences and unsafe multiple reads on folded levels.
+- [High] The lockless walk loop fails to advance correctly when page-table =
+levels are folded, silently skipping range checks.
+--
 
-Yes, in general you should stay aligned with linux-next to keep track of
-changes already queued for the next cycle.
+commit de12d2156510af8d2a1f0b0adad3f96ba3b75cda
+Author: Vincent Donnefort <vdonnefort@google.com>
+Subject: arm64: Implement can_set_direct_map_range()
 
-Bart
+This commit adds an implementation for can_set_direct_map_range() on ARM64.
+For systems where can_set_direct_map() is false, it verifies if a subregion
+of the direct map is mapped at the last level by performing a lockless page
+table walk.
+
+> diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
+> index 58898ae53f5d1..c59ef17eb0d06 100644
+> --- a/arch/arm64/mm/pageattr.c
+> +++ b/arch/arm64/mm/pageattr.c
+[ ... ]
+> +bool can_set_direct_map_range(struct page *page, unsigned long nr_pages)
+> +{
+[ ... ]
+> +	/*
+> +	 * If !can_set_direct_map() then no one can split blocks and it is safe
+> +	 * to walk the page-table lockless.
+> +	 */
+> +	while (addr < end) {
+> +		pud_t *pudp, pud;
+> +		pmd_t *pmdp, pmd;
+> +		pgd_t *pgdp;
+> +		p4d_t *p4dp;
+> +
+> +		pgdp =3D pgd_offset_k(addr);
+> +		if (pgd_none(READ_ONCE(*pgdp)))
+> +			return false;
+> +
+> +		p4dp =3D p4d_offset(pgdp, addr);
+[Severity: High]
+Does this standard offset macro perform multiple reads of the same entry wh=
+en
+page-table levels are folded?
+
+When lockless walk logic assumes all levels are live without checking for
+folded levels, blindly applying multi-level READ_ONCE() causes the same
+memory location to be read multiple times, risking stale or torn reads.
+
+> +		if (p4d_none(READ_ONCE(*p4dp)))
+> +			return false;
+> +
+> +		pudp =3D pud_offset(p4dp, addr);
+> +		pud =3D READ_ONCE(*pudp);
+> +		if (pud_none(pud) || pud_leaf(pud))
+> +			return false;
+> +
+> +		pmdp =3D pmd_offset(pudp, addr);
+[Severity: High]
+Does this generic offset macro dereference the shared page table pointer
+without using READ_ONCE()?
+
+The generic pmd_offset() dereferences *pudp internally. This introduces a
+naked dereference and data race during a lockless walk.
+
+> +		pmd =3D READ_ONCE(*pmdp);
+> +		if (pmd_none(pmd) || pmd_leaf(pmd))
+> +			return false;
+> +
+> +		addr =3D pmd_addr_end(addr, end);
+[Severity: High]
+Can this fail to advance the loop correctly when page-table levels are
+folded?
+
+On a system with 2-level paging (like 64KB pages with 42-bit VA) where PMD
+is folded, pmd_addr_end() unconditionally evaluates to the provided end
+address.
+
+If this occurs, the loop would only check the first entry and immediately s=
+kip
+the remainder of the range, falsely returning true. This could allow modify=
+ing
+direct map regions containing block mappings, subsequently triggering a
+WARN_ON_ONCE and -EINVAL failure in pageattr_pmd_entry() because the
+modification size won't align with the block size.
+
+> +	}
+> +
+> +	return true;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902104712.2399=
+797-1-vdonnefort@google.com?part=3D6
