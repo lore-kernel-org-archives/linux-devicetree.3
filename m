@@ -1,319 +1,227 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F95820D4F0
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 03:32:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 586FA33BBCF
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 04:05:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788319944; cv=none; b=D9FkoIGavCLA3lJ/TC5xRoAhc+Z8moZp0OtqBXYpa4uskOCBRCO6KzqMFhQibdkhm7aOniMcF000ss8fSWEKXHMo14B5tlzVmqcmH6C6hrvpNZ10Tgahaj8wI4AJimF86RlQ3ChszkGRQjecLlcOvUhhq8/fBRUe/ZfzaO9SfP4=
+	t=1788321949; cv=none; b=b4oJ9gv9aachH1buyQaraNDIjY5By863IUjs74lz5LezUlWgpzmxL2F4Kt4wL9iec7UFbb7rIxMau3AJMkhVS6QOOKts7g5higVhNvd3EHnLkkE8o/JEP5b+Yb9WEQ0C/SD3UqiNfkB5oUEG/YrEabU0PhGOH7pU/0x6J1FPT5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788319944; c=relaxed/simple;
-	bh=unqFh81SC4GrlgHaSxmgS1NQpTWfyNKvVwccyCP6RVk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pnqaxbeP0czKORO5zho7rq1UjKx98Cao2LlcDMVwST11FPLNRHUvPlWN5JQ1dXDB/lxBzDAyd3c3pQeOVXyQkkdPJ5zXPqsw6P0r2avRgQRjttJQ3rnyxFpY16vLDlWQ5Cb9gpY4lrEpXYHgglCEz+VOrS3gflUCfhvwe96kk/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RszOs/Ce; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788321949; c=relaxed/simple;
+	bh=hiAPoWu2P1G0zUcYKifBIL2NV6eSXdce98xPjq6Oukc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=P6MIq0qAkGYn9P2/Gj+i4OTiDat4EmLVJsmrGQl7fs32b3Bojo9Oj+N4icdf4I21aoc5ut8fknoi0zeIotWNjYMGGe9fFIIHttgG2jDmU+VZyxUAUCVEo7HxN58QBUJKvNAMb5JmWlEkfTwX5f9D+xbGxoQq6dr4gKHsIQN6DoA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=dpUh1dPU; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RszOs/Ce"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA24A1F000E9;
-	Wed,  2 Sep 2026 03:32:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788319943;
-	bh=uEhLsjX4mcPRU4LShL1Gu6TdGWkkCFUPfe8iS/HC7oE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RszOs/CeAmAC7YIyLp9uDmOfTuSktR6ONfR3zrqT2MAm3Lt1qau4QXAMoC0ce4Igk
-	 vSRp3ZKdyQurhL8qUrrs67hPuXo5V359/CIpmr8l0thLKWp1WA4DneC3v5iWQ1VsCC
-	 xrFIj240gWCiLsvmUAyxNj3vNwm5oofDXVXHxZkf3D/KX/jz+aR2HkeQzk7naBZVzN
-	 wQeQp16VeKaPzj5KNcZIvJI5AO/76E4iUhwn2vvjHyLEfyUTQqej52oUiPrN+BJ5cw
-	 Uis8fQi3dOe2L542Y66Dj6yeypD2S35tK0JqcuNjlV3cQAZB0XRO7X6ta2I3We2bhg
-	 B2Zt7TvPYrqgA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/5] usb: cdns3: Add CIX Sky1 glue driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hongliang Yang" <hongliang.yang@cixtech.com>
-Cc: vkoul@kernel.org, linux-phy@lists.infradead.org, olteanv@gmail.com, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20260902032134.1182634-5-hongliang.yang@cixtech.com>
-References: <20260831082309.3854507-1-hongliang.yang@cixtech.com>
- <20260902032134.1182634-5-hongliang.yang@cixtech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 03:32:22 +0000
-Message-Id: <20260902033222.CA24A1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="dpUh1dPU"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-482e61a34e5so195513f8f.3
+        for <devicetree@vger.kernel.org>; Tue, 01 Sep 2026 21:05:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1788321945; x=1788926745; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=D8ZXM9NvPNjn0CrmMZWIS02GT1iL8y1wk6OrYEe/DvQ=;
+        b=dpUh1dPUF7Fv/oWQf18f8Bb2LAg3ufQUTm6M4MAsKz8IneKCG1f2GsnExX9C25G6jr
+         TZ0mgAvXyjjNiPh4e/Q+dekAaUmeUjXmOgaxxjWSyfjay5CWjU1PdgvmebVdRW7YnWXD
+         wvy/4sgRc+x+w44s3+4OlqojrnkUMUgpz7HL1eQBtINX8vwTLJByk1oIiCU620txvcmO
+         WPKwbZZ3lK0oLnuVW6D2MPy8Q0/gar9dSsyD9YOsAGD9RBja0FpSiqgK/QwrEHvgtOxL
+         vPy54cPCCjRNv8qKijO4hmD+tNrwanp742fArLriVrHBjx9hqxhK/zx99vOuATAnGtH5
+         SXRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788321945; x=1788926745;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=D8ZXM9NvPNjn0CrmMZWIS02GT1iL8y1wk6OrYEe/DvQ=;
+        b=VHQ5DjqRI7VBBoIsE0iSbruJnVBEvfk/AftALpJkuUmrBVlCTiVSfAD8P14AXcjQeS
+         xQmq3v82dxZY1Ptmvk61zFEOKXj3Gk07chHzEw2SCV9Yoogc0d/rvdl9jrrtuYEoCqIC
+         v44wvOiRVQGm+4rSmwlkSAPXAQTDuqC1GCtoWbqei0Ck7lxLmZLlVC326VL1vB/In2FC
+         QczbXWatXiQya4mgmO3o+PFAJrObyBvoGNYg16QIlvvsMZEwqOg39aFVKB9UrmPMxfT6
+         jaGYtBYBJjjdV/dFd2EjTazbwIBF29ChgSp53zCUGr/0gH3ItVW6ytC5eW3OY36sFJVo
+         LeQg==
+X-Forwarded-Encrypted: i=1; AHgh+RojykTjHAKW2Db167Rf77fpxrsDhVYAMMOAuamWZpiMYn6tyoMaKSPhKzMveltTafFxTapg++sVZwwC@vger.kernel.org
+X-Gm-Message-State: AFuF++m3v7NXKNhBNuq2XKBxpw8tzOrIW6YV0VlwYhGHYqVa08YVjNHZ
+	BXTFhozzYIZG5GL+s7LPUUcOgCVa4sabWuAbOu+j3y9hiMMVrdNIxLP7jY3Km5rT4qs=
+X-Gm-Gg: AR+sD13HAIvr7+IcVHmy4ClZ2fXufijw/Qz0UaqRSzFH7JKbyKUMYLNyJdYEXS1Ws55
+	KN4D/9NX+4plVGQn5tj+YraXuM9RvWhaUvCcMo6BWUsF+H71DN/V9AzBcdZ8qWhfzkKTXWY+XXG
+	dhWBrmYv7sYdoy2KCRssduVt385ea0H/m0HuKZtLKIvX3gdkvCWnC2Uh/GW3XIoeTFjJ2965LNt
+	Rg+z/Dw90XrXN8MV5AEv6lb6ZC11sZc/vIIZu/xrbX5GPZ3QxsBUkYfOyzT5l6AwiollLttI1Z2
+	XtL/tZXkoToHPvqSxWa1clp0e/j6YsY1Jcni0hc2ofVGy+0X4uQtwXmY1O+H5j6gOu3q8jujTk2
+	+ZF+ul6XUmrRVZfgwU0RRkUMWLATkyElpl0HhjbeaOP0QjhPDNl6WjTY7o0iUfjZ6lcylIWEx7R
+	cITmL2OIyTSHJxVzR954kcBghDcjb+VrOu3d5BX4GWAvtzcuGrHXl6zVQRXMSGc38pJDSRlqKoV
+	RNzmzmhlfJ4wbvp1+0u2VFGDGpaeqx2Z6xDWu3ni7zflOej4J3d
+X-Received: by 2002:a05:600c:4e49:b0:499:84fe:5f3e with SMTP id 5b1f17b1804b1-49ce58388d2mr33540405e9.9.1788321945432;
+        Tue, 01 Sep 2026 21:05:45 -0700 (PDT)
+Received: from [127.0.1.1] ([94.4.85.166])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce58da3acsm42979395e9.0.2026.09.01.21.05.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 21:05:44 -0700 (PDT)
+From: Alexey Klimov <alexey.klimov@linaro.org>
+Subject: [PATCH v6 0/6] Exynos-pmu: Generalise cpu{hotplug,idle},PMU intr
+ gen and add Exynos850 CPU hotplug
+Date: Wed, 02 Sep 2026 05:05:37 +0100
+Message-Id: <20260902-exynos850-cpuhotplug-v6-0-a85bb55bb118@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJKgl2oC/4XRS27DIBAG4KtYrEs1vHFWvUfVBYYhQYofNbaVK
+ MrdS5xKSRVZXQ6Ib5h/LiTjmDCTXXUhIy4pp74rhX6riD+4bo80hVITDlwD55ri6dz12Sqgfpg
+ P/TQc5z3VdWS10YjRWVKeDiPGdFrZz69SH1Ke+vG8dlnY7fQfcGEUqGHBeAlaCMs/jqlzY//ej
+ 3tyExf+UCSwDYUXxStnNDiBXNUvinhSBGwooigxaK5YAO6YeVHkQ1FMbCiyKEpG9CpqJfTrROq
+ haKg3FFUUKzn30UKQovmjXO/Rj/g9l0VO9/xJizm7dZG7atUtt786Hdp55Ydye0S6Lu0eG+jGo
+ 2ZgmqCfm5QWjctIfd+2adpVIlhhlJWCNwo1hlqBUQBOGYwNROGiZIgmlN9dfwCWzXgcbgIAAA=
+ =
+X-Change-ID: 20260226-exynos850-cpuhotplug-69f1976eefa8
+To: Sam Protsenko <semen.protsenko@linaro.org>, 
+ linux-samsung-soc@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>
+Cc: linux-samsung-soc@vger.kernel.org, 
+ =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+ Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+ Henrik Grimler <henrik@grimler.se>, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.3
 
-Thank you for your contribution! Sashiko AI review found 10 potential issue=
-(s) to consider:
-- [High] Massive resource leak on probe error paths (I/O memory, clocks, an=
-d resets).
-- [High] Thread-safety and double-free vulnerability due to modifying a sta=
-tic global of_dev_auxdata array during probe.
-- [High] Unbalanced runtime PM usage count and missing PM disable in cdnsp_=
-sky1_remove.
-- [High] Incorrect reset control assertion logic in remove path fails to qu=
-iesce hardware.
-- [High] NULL pointer dereference when accessing xhci_dev->dev in platform_=
-suspend.
-- [Medium] OF node reference leak in sky1_of_get_addr_by_name() because the=
- reference obtained by of_get_next_child() is never released.
-- [Medium] Destructive error handling in cdnsp_sky1_clk_enable_resume corru=
-pts internal clock pointers.
-- [Medium] Potential Use-After-Free (UAF) due to missing device refcounting=
- in iterator callbacks during shutdown.
-- [Medium] Undefined behavior due to bitwise shift into the sign bit.
-- [Medium] PM subsystem guideline violation: PM sleep callbacks are assigne=
-d without the required pm_sleep_ptr() wrapper.
---
+Series generalises the GS101-specific cpuhotplug, cpuidle and PMU interrupt
+generation block support, which is currently implemented specifically for
+the google GS101 SoC, to make it reusable by other Samsung Exynos SoCs.
 
-commit 0232318426cffe797c62a93651116101c396ebb4
-Author: Hongliang Yang <hongliang.yang@cixtech.com>
+The PMU interrupt generation IP block introduced for google GS101 is a
+standard Samsung Exynos block found in other SoCs, including Exynos850,
+and it is not strictly exclusive to google Exynos-based platforms.
+Access to this block is required to implement and enable cpuhotplug
+on Exynos850-based boards.
 
-usb: cdns3: Add CIX Sky1 glue driver
+As a next steps it will be possible to enable idle states on top of it
+(if we get our hands on corrected firmware).
 
-This commit adds a glue layer driver for the Cadence USBSSP controller
-integrated in the CIX Sky1 SoC. The driver manages the controller clocks,
-resets, and the mode strap controls located in the Sky1 S5 system
-controller.
+First patches work on DT bindings to reflect that Exynos850 SoC predates
+gs101 one and adding mandatory property 'google,pmu-intr-gen-syscon'
+for exynos850-pmu.
+Then series generalises ("Exynosizes") cpuhotplug/cpuidle routines by
+deferring platform-specific PMU and PMU-intr-gen updates to platform-
+specific callbacks and then finally introduces new file exynos850-pmu.c
+where such callbacks are implemented for Exynos850. Last commit adds
+pmu_intr_gen DT node to exynos850.dtsi.
 
-> diff --git a/drivers/usb/cdns3/cdnsp-sky1.c b/drivers/usb/cdns3/cdnsp-sky=
-1.c
-> new file mode 100644
-> index 0000000000000..447c683b726c1
-> --- /dev/null
-> +++ b/drivers/usb/cdns3/cdnsp-sky1.c
+This series wants Exynos PMU "fixes" series first to make Sashiko bot
+happy. This "dependency" describes sequential order of commits.
+Sashiko bot reported issues here:
+https://sashiko.dev/#/patchset/20260513-exynos850-cpuhotplug-v4-0-54fec5f65362@linaro.org?part=4
 
-[ ... ]
+The are basically no updates in this v6 series, just a rebase and
+correct function call placements to be aligned with dependency "fixes" series:
+https://lore.kernel.org/linux-samsung-soc/20260828-exynos-pmu-cpuhp-idle-fixes-v2-0-06bce6107bd6@linaro.org/
 
-> +static int cdnsp_sky1_clk_enable_resume(struct device *dev)
-> +{
-> +	int i, ret;
-> +	struct cdnsp_sky1 *data =3D dev_get_drvdata(dev);
-> +	struct clk **cix_usb_clks =3D data->cix_usb_clks;
-> +
-> +	for (i =3D 0; i < CIX_USB_CLK_OFF_NUM; i++) {
-> +		ret =3D clk_prepare_enable(cix_usb_clks[i]);
-> +		if (ret) {
-> +			dev_err(dev, "failed to enable clock %s: %d\n",
-> +				cix_usb_clk_names[i], ret);
-> +			goto err_usb_clks;
-> +		}
-> +	}
-> +	return 0;
-> +
-> +err_usb_clks:
-> +	cix_usb_clks[i] =3D NULL;
-> +	while (--i >=3D 0) {
-> +		clk_disable_unprepare(cix_usb_clks[i]);
-> +		cix_usb_clks[i] =3D NULL;
-> +	}
-> +	return ret;
-> +};
+This series was again re-validated and re-tested on Exynos850 WinLink
+E850-96 board:
+-- by spinning "chcpu -d 1-7; chcpu -e 1-7" in a loop for a few hours;
+-- by running script [1] that randomly offlines or onlines random cpus
+   for a few hours.
 
-[Severity: Medium]
-Does setting cix_usb_clks[i] to NULL here permanently wipe the devm-managed
-clock references from the driver's private state? If a system clock fails
-to resume, won't subsequent calls to enable or disable these clocks receive
-NULL pointers and silently fail to configure the hardware?
+I tried to implement it in way to not break anything for gs101, thanks to
+Peter for testing.
 
-[ ... ]
+Thanks,
+Alexey
 
-> +static int cdns_sky1_platform_suspend(struct device *dev,
-> +				      bool suspend, bool wakeup)
-> +{
-> +	struct cdns *cdns =3D dev_get_drvdata(dev);
-> +	struct platform_device *xhci_dev =3D cdns->host_dev;
-> +	struct usb_hcd  *hcd;
-> +	struct device *parent =3D cdns->dev->parent;
-> +	struct cdnsp_sky1 *data =3D dev_get_drvdata(parent);
-> +	u32 value;
-> +	int ret =3D 0;
-> +	int count =3D 3;
-> +
-> +	data->wakeup =3D wakeup;
-> +
-> +	if (cdns->role !=3D USB_ROLE_HOST)
-> +		return 0;
-> +
-> +	hcd =3D dev_get_drvdata(&xhci_dev->dev);
+[1]: https://github.com/laklimov/xlam/blob/main/e850_cpuhotplug_random.sh
 
-[Severity: High]
-Could xhci_dev be NULL if the host initialization failed or was unbound?
-If so, would accessing &xhci_dev->dev lead to an out-of-bounds pointer
-dereference during system suspend?
+Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+---
+Changes in v6:
+- rebase on top -next and "fixes" series, basically no other updates;
+- Link to v5: https://lore.kernel.org/r/20260609-exynos850-cpuhotplug-v5-0-8422cf80d43b@linaro.org
 
-[ ... ]
+Changes in v5:
+- updated the commit message of ("soc: samsung: exynos-pmu: add Exynos850
+  CPU hotplug support");
+- the if-check for the presense of pmu_data->cpu_pmu_{offline,online}
+  callbacks in setup_cpuhp_and_cpuidle() was moved to before acquiring ref
+  counter to intr_gen_node (the initial issue was reported by Sashiko);
+- added pr_fmt to exynos850-pmu.c to have more meaningful error
+  messages;
+- added parentheses around the `cl` in `EXYNOS850_CLUSTER_CPU_OFFSET` macro
+  (as suggested by Sashiko bot);
+- custom syscon regmap with raw_spinlocks for pmu offline/online callbacks
+  (the initial issue was reported by Sashiko);
+- using topology_cluster_id() and topology_core_id() in exynos850-pmu.c
+  (the initial issue was reported by Sashiko);
+- removed smp_processor_id() usage fomr pmu offline/online callbacks
+  (the initial issue was reported by Sashiko);
+- added/resorted headers in exynos850-pmu.c;
+- Link to v4: https://lore.kernel.org/r/20260513-exynos850-cpuhotplug-v4-0-54fec5f65362@linaro.org
 
-> +static void *sky1_of_get_addr_by_name(struct device_node *parent, char *=
-name)
-> +{
-> +	struct device_node *node;
-> +	int index;
-> +
-> +	node =3D of_get_next_child(parent, NULL);
-> +	if (node) {
-> +		index =3D of_property_match_string(node, "reg-names", name);
-> +		if (index >=3D 0)
-> +			return of_iomap(node, index);
-> +	}
-> +	return NULL;
-> +}
+Changes in v4:
+- remove blank line in file exynos850-pmu.c, commit (as suggested by Krzysztof);
+- only update trailers/tags in commit messages;
+- Link to v3: https://lore.kernel.org/r/20260430-exynos850-cpuhotplug-v3-0-fd6251d02a17@linaro.org
 
-[Severity: Medium]
-Does of_get_next_child() return the node with an incremented reference coun=
-t?
-Should there be a call to of_node_put(node) before returning to prevent a
-memory leak?
+Changes in v3:
+- dropped two commits where samsung,pmu-intr-gen phandle is introduced and
+  where google,pmu-intr-gen-syscon is deprecated (as suggested by Rob Herring);
+- addtion to maintainers file was moved to separate entry, change commit message;
+- commit message in "generalise gs101-specific cpu{idle,hotplug} for Exynos SoCs"
+  was updated since it no longer touches samsung,pmu-intr-gen-syscon;
+- added missing asm/cputype.h header to exynos850-pmu.h
+  (reported by Henrik Grimler);
+- new commit "dt-bindings: soc: samsung: exynos-pmu: Require
+  pmu-intr-gen-syscon for Exynos850";
+- Link to v2: https://lore.kernel.org/r/20260401-exynos850-cpuhotplug-v2-0-c5a760a3e259@linaro.org
 
-[ ... ]
+Changes in v2:
+- moved gs101 cpu {offline,online} callbacks to gs101-pmu.c, updated MAINTAINERS;
+- added new file exynos850-pmu.c with cpu {offline,online} callbacks and
+  exynos850 pmu data;
+- new patch that adds exynos850-pmu.c to MAINTAINERS;
+- moved pmu_intr_gen to right after pmu_system_controller@11860000;
+- merged two patches that update google,gs101-pmu-intr-gen.yaml together,
+  now rename and adding exynos850 entry goes in a single patch;
+- commits 5 and 6 from RFC series are merged together and reworked,
+  cpu_pmu_{offline,online} callbacks are moved into pmu_data struct, and
+  callbacks now need pmu_context as an argument, exynos_pmu_context and
+  CPU_INFORM defines are moved to exynos-pmu.h, gs101 callbacks
+  renamed. It is really better to check commit description.
+- Link to RFC (v1 from b4 point of view):
+  https://lore.kernel.org/r/20260226-exynos850-cpuhotplug-v1-0-71d7c4063382@linaro.org
 
-> +static int cdnsp_sky1_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct device_node *node =3D dev->of_node;
-> +	struct cdnsp_sky1 *data;
-> +	int ret =3D 0;
-> +	struct cdns3_platform_data *cdns_sky1_pdata;
+---
+Alexey Klimov (6):
+      dt-bindings: soc: move,rename google,gs101-pmu-intr-gen and add exynos850
+      dt-bindings: soc: samsung: exynos-pmu: Require pmu-intr-gen-syscon for Exynos850
+      soc: samsung: exynos-pmu: generalise gs101-specific cpu{idle,hotplug} for Exynos SoCs
+      soc: samsung: exynos-pmu: add Exynos850 CPU hotplug support
+      MAINTAINERS: add Exynos850 PMU entry
+      arm64: dts: exynos850: add PMU interrupt generation node
 
-[ ... ]
+ .../bindings/soc/samsung/exynos-pmu.yaml           |   1 +
+ .../samsung,exynos850-pmu-intr-gen.yaml}           |   8 +-
+ MAINTAINERS                                        |   9 +-
+ arch/arm64/boot/dts/exynos/exynos850.dtsi          |   6 +
+ drivers/soc/samsung/Makefile                       |   2 +-
+ drivers/soc/samsung/exynos-pmu.c                   | 149 +++++++--------------
+ drivers/soc/samsung/exynos-pmu.h                   |  34 +++++
+ drivers/soc/samsung/exynos850-pmu.c                |  95 +++++++++++++
+ drivers/soc/samsung/gs101-pmu.c                    |  51 +++++++
+ include/linux/soc/samsung/exynos-regs-pmu.h        |  15 ++-
+ 10 files changed, 260 insertions(+), 110 deletions(-)
+---
+base-commit: 3d83758432b5e6ed9507500a57efb0f3af41ee7d
+change-id: 20260226-exynos850-cpuhotplug-69f1976eefa8
+prerequisite-message-id: 20260828-exynos-pmu-cpuhp-idle-fixes-v2-0-06bce6107bd6@linaro.org
+prerequisite-patch-id: c4a05942975a21b8e817edcd0891ce0da77ed677
+prerequisite-patch-id: 694fae0b7b8ae73161e67f49599235c80c30c392
 
-> +	ret =3D cdnsp_sky1_drd_init(data);
-> +	if (ret =3D=3D -ETIMEDOUT)
-> +		return -EPROBE_DEFER;
-> +	if (ret)
-> +		return ret;
+Best regards,
+-- 
+Alexey Klimov <alexey.klimov@linaro.org>
 
-[Severity: High]
-If probe fails here and returns directly, are the I/O memory mappings
-for xhci_base and device_base (which were mapped via non-devm of_iomap)
-left active? Should they be unmapped and the clocks/resets cleaned up?
-
-[ ... ]
-
-> +	/* release by platform_device_release */
-> +	cdns_sky1_pdata =3D kzalloc(sizeof(*cdns_sky1_pdata), GFP_KERNEL);
-> +	if (!cdns_sky1_pdata)
-> +		return -ENOMEM;
-> +	cdns_sky1_pdata->platform_suspend =3D cdns_sky1_platform_suspend;
-> +	cdns_sky1_pdata->quirks =3D CDNS3_DEFAULT_PM_RUNTIME_ALLOW;
-> +	cdns_sky1_auxdata->platform_data =3D cdns_sky1_pdata;
-> +	ret =3D of_platform_populate(node, NULL, cdns_sky1_auxdata, dev);
-
-[Severity: High]
-Is it safe to assign a dynamically allocated instance-specific pointer
-(cdns_sky1_pdata) to the statically allocated global array cdns_sky1_auxdat=
-a?
-Could this lead to a double-free vulnerability if multiple controller insta=
-nces
-exist or if the driver is repeatedly unbound and rebound?
-
-> +	if (ret) {
-> +		dev_err(dev, "failed to create children: %d\n", ret);
-> +		goto err;
-> +	}
-> +	device_set_wakeup_capable(dev, true);
-> +	pm_runtime_set_active(dev);
-> +	pm_runtime_enable(dev);
-> +	return 0;
-> +err:
-> +	kfree(cdns_sky1_pdata);
-> +	return ret;
-> +}
-
-[Severity: High]
-Does this shared error path fail to clean up the I/O memory mappings, assert
-resets, and disable clocks before returning?
-
-> +static void cdnsp_sky1_remove(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct cdnsp_sky1 *data =3D dev_get_drvdata(dev);
-> +
-> +	pm_runtime_get_sync(dev);
-> +	of_platform_depopulate(dev);
-> +	sky1_put_addr(data->xhci_base);
-> +	sky1_put_addr(data->device_base);
-> +	reset_control_deassert(data->reset);
-> +	reset_control_deassert(data->preset);
-
-[Severity: High]
-Should these be reset_control_assert() instead of deassert() to correctly
-quiesce the hardware before the clocks are disabled?
-
-> +	cdnsp_sky1_clk_disable_all(dev);
-> +	platform_set_drvdata(pdev, NULL);
-> +}
-
-[Severity: High]
-Does this function need to call pm_runtime_put_sync() and pm_runtime_disabl=
-e()?
-Because pm_runtime_get_sync(dev) increments the usage counter at the start =
-of
-the function, could omitting the decrement lead to a leaked usage count and=
- a
-broken PM state machine for the device on subsequent binds?
-
-[ ... ]
-
-> +static const struct dev_pm_ops cdnsp_sky1_pm_ops =3D {
-> +	.suspend =3D cdnsp_sky1_system_suspend,
-> +	.resume =3D cdnsp_sky1_system_resume,
-> +};
-
-[Severity: Medium]
-Should these sleep callbacks be wrapped with pm_sleep_ptr()? Without it,
-if CONFIG_PM is enabled but CONFIG_PM_SLEEP is disabled, could this generate
-dead code warnings for the suspend and resume functions?
-
-[ ... ]
-
-> +static void cdnsp_sky1_shutdown(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct cdnsp_sky1 *data =3D dev_get_drvdata(dev);
-> +	struct cdns *cdns =3D NULL;
-> +	struct device *gadget_dev =3D NULL;
-> +
-> +	if (!device_may_wakeup(dev)) {
-> +		/*
-> +		 * Find the cdns3 child device, then find its gadget device
-> +		 * and release the function driver before disabling clocks.
-> +		 * This ensures all register accesses in gadget_unbind_driver
-> +		 * complete before clocks are turned off.
-> +		 */
-> +		device_for_each_child(dev, &cdns, cdnsp_sky1_find_cdns);
-> +		if (cdns)
-> +			device_for_each_child(cdns->dev, &gadget_dev,
-> +					      cdnsp_sky1_find_gadget_match);
-> +		if (gadget_dev)
-> +			device_release_driver(gadget_dev);
-
-[Severity: Medium]
-Does device_for_each_child() release the reference on the child device
-immediately after the callback returns?
-
-If so, could extracting the cdns and gadget_dev pointers out of the iterator
-loop without acquiring references create a use-after-free window when they
-are subsequently dereferenced?
-
-> diff --git a/drivers/usb/cdns3/cdnsp-sky1.h b/drivers/usb/cdns3/cdnsp-sky=
-1.h
-> new file mode 100644
-> index 0000000000000..49c3d5eab1744
-> --- /dev/null
-> +++ b/drivers/usb/cdns3/cdnsp-sky1.h
-
-[ ... ]
-
-> +#define D_XEC_CFG_3XPORT_MODE_VALUE     0xa0031e07
-> +#define XEC_CFG_3XPORT_MODE_VALUE       0xa0031e07
-> +#define CFG_3XPORT_MODE_DIS_SSP         (~(1 << 31))
-
-[Severity: Medium]
-Does shifting 1 by 31 bits here trigger undefined behavior since 1 is a
-signed int? Could this use 1U or BIT(31) instead?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831082309.3854=
-507-1-hongliang.yang@cixtech.com?part=3D4
