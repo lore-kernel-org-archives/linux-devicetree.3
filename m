@@ -1,192 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2707F472790;
-	Wed,  2 Sep 2026 11:41:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1E814772AA
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 11:42:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788349277; cv=none; b=N3Q7cXGLBqJisTWC20bV87ojyWt+4oDs40B3px0IH6pItpWq2DZETMV6LMFGH4/rZPSrWduoXXg4rr9bGnG7/CSiVO+JIFMM2mYn7MEkOjvshaWic2ZNH5WUkJQhLchXd8xzZcCoV4fqRdFnU+w2A31bAGt0mfDUMrtCvl2bOpI=
+	t=1788349349; cv=none; b=N0PTYfwUSHFYgy3oGiJ6t7Z6S8LVkyYbqUzz5aIniAhZIHG23BnAwVZMH0bHh5syDAnsu3YRyNgG+MWQI1a+xyXQttaEeiO5H4vK3VufHs20t5L5OOl/TVkA/UYYW76nW4lCNOLpNpHazlHxl/65c9yq7KONBaJS+BrQI5sZlm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788349277; c=relaxed/simple;
-	bh=iKR/mSreAgD7jqhs7QS1YQhmLKvPoSKdGuVOCvCT0fE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Vdea6oTL57kUaGxQQRYsaXVHcr6Xti5LNmwOxuvMB8D2E2IVXaWls2/H+4eLSoZe3VwaxlGiQ58ocXgTrMN+15i5PW3mRgqqePa3ilYuZWC4If9HuHffJf4GVCRrgPudNnjQSOYutGtAD5fbbvHXO2itcK5Jrh+DPsaMlsgAp4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XXwNFvFu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788349349; c=relaxed/simple;
+	bh=xu8vJkH9oqFCV0kisdLe7YcamRh7Q42iGY9tHGtPQNY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=m/7ibXAIhh0x18hM0N1/SiTUVuUAmQEhA0HrJlsCMIEWledii2jLmTSdYDG12rYteUWLm/5qohSQX4c328hmRnxO3CyO45+CxY5xIPmjPzl2zvUTWHPInAOmgxyWScmCN8OJ+ZHbX5AkfuHirU5jJ93H9gM4nWIYD0Wgi/DU7N0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QPEvWMde; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XXwNFvFu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1D6E1F000E9;
-	Wed,  2 Sep 2026 11:41:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788349276;
-	bh=eBhrjYuGWbDJgpUJfvSjAFmUuwYVamTJWbEvcrK1x58=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XXwNFvFuLR00OC0aoBItS7KjAzYOwoHlALrCVe96MfxlzJdj3qFpT9A3/u2ZO+El/
-	 a28GJf3vohkuLBIMFhdJUqOi39Ckv+teX72VtIAS3zZgoQISflkmj29g6kSczjz8+L
-	 A8J1gGgvtYvemnYOuPdOWK/TtzhGfAvTH+tB+llU0yO0Zm9w90UQT36zrBV2/uWETs
-	 ybvOgTY4oqxc6rm3yLKy9q97PlatQaUz+dCCmq9gmi6oWexI8z6tS6cdulGkAXPM5M
-	 y/95ShFHIo+HBlea8HY4AwxivyvFRW1HVuhZsVyylwFIVOxSlKApNiDE0+Daa0mqO3
-	 q3FnriPen5YyA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 09/12] clk: renesas: r8a78000: Add SCMI remapping
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Geert Uytterhoeven" <geert+renesas@glider.be>
-Cc: devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org, linux-clk@vger.kernel.org, robh@kernel.org
-In-Reply-To: <2a88d6c67bc8218d21f5180842354ed62c0c2aac.1788338320.git.geert+renesas@glider.be>
-References: <cover.1788338320.git.geert+renesas@glider.be>
- <2a88d6c67bc8218d21f5180842354ed62c0c2aac.1788338320.git.geert+renesas@glider.be>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 11:41:15 +0000
-Message-Id: <20260902114115.B1D6E1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QPEvWMde"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4956869750eso5891655e9.2
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 04:42:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788349346; x=1788954146; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=tuvnGuccAC6s3EK8HFdURGZ5p/3J3nCrEtYN7xV8Cug=;
+        b=QPEvWMde8AvU7/I+kMWZX4EeU3Cutlu1TDphhnXKL/N3EmaS6nK3payLZDHqUF9hv6
+         lg95FSwFXqcE8mwaZxrhpZChmOVgCk3iLrMsB/9gETwE9L9hb2uWtPZOn3iFZKrdpexk
+         bJH6+zVs3cxm2PTp4Ct/2EtcCf3rcGMM9fHdOe1BoQG4w0aYT10C6NzqcxwQwpSfZVJc
+         VXkEww0rVrKzwWa3eX9tX0KZCsKQBD/11OIC0CsexBO3ZnjLa3FnbNvRZL+GYrb8JY7M
+         cqi+fWhQsdnCu10KailKGgx6VRm49I1XFOxjUE+zZ1EnpCmFRk+rFsmAKP5NqigX1gND
+         GkEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788349346; x=1788954146;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=tuvnGuccAC6s3EK8HFdURGZ5p/3J3nCrEtYN7xV8Cug=;
+        b=CuEEh8yEyt5kRb9YLxPfeLx8hyb8sKXQTup+y6qqtI0WkAsM+zRWfH3klxOSLl3w5V
+         wKJ3jDamNjfqokxXIx14Us9Jj/+T6eelUm3V9Rfum9SffkvX4aWKXrFm39t36qv+Q6W+
+         DR/7q+R/Ra948+/4HC9niNt1KKqeYztUn3CzMAbvITxCCrBV7CF3zIC2seTcG0ymy5e+
+         eyl/IkaGypn6EKBZMKTdeI0dHehoFV7bY6ewltMJ6SqkwvlSnxjoMPQMbNB1cTJuf1o7
+         5ivLqhgBWX+gKAzmku+OpFSbyBwpe9xN+bJROPm7kSI0Hs8tyVwRblcYgUr+S5KUvRs7
+         qVJQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrbLvnAOz5zz9yxdiX/hXLze86n6SMWUXiUuDdh/Hy/spe6kjaLFNtrU45APjvVxHCkJCzr//XXgI3z@vger.kernel.org
+X-Gm-Message-State: AFuF++kNU5rY5P1ocTV+4OgLxbjpFH8tA5ZibGqYUcemh+NuIS3lItwV
+	eF5G0HGo+XCmvfJv3MdMcwDbQ5f5ojNBlSfi5fMK/ZwtLLTaX/OGT85H
+X-Gm-Gg: AR+sD1343iW3qDuK1tpC1Jz82g8lNM436naZNhkmU0P1NxR0ksZs0/bFutwi9RLmMjy
+	4sa9bNbb5SoKnpXqveE8NdQhxCUhWwXQARwsi+657dfnNe2Puz9kaWP1sDvedc7Y04CGwYMvI8/
+	og8Z8Wp+/0bXRQCrxeO0TYbXfz6sK2ih9meMItgwMsCh8MVSbgxVGrHGwnqV4srdCcEKyITxYkF
+	LobtHQGD7v8x8KWhldiynLbgN/hhXZApC4tbWy8VN7vEEkXyoUHovmosNMWU5yvc/fGocoytKgC
+	wWyfKjW5tNI6jdWsa9zdNIcA8H1OQNHfvrRGjtU7hrDkkIKRPdC4yqrDqTxAJ127PYCzgNF6myM
+	HAAEgKKa+TAl5JkJi8YEvhsmkqmK0FgfFVvMzfI94Vc6bwDXTkhV+H+jAkUosjOx0NLTFG+T9LZ
+	zIHaF4Tx4UAUJlvAncTjZ68Ub6VvKds7m+NBgZAfzM77M9tIT+wqIwAxLTrbdxeLhDRCpFonXyV
+	/oH3SeZXTLbZN0zbcQ1xd7svxabgbiz6luEAERqTgkBfsvAeq1XeRqpRFNmHKFv9CXZFw6oJA==
+X-Received: by 2002:a05:600c:354b:b0:49b:d03:8d3a with SMTP id 5b1f17b1804b1-49ce58180bbmr63253275e9.11.1788349345681;
+        Wed, 02 Sep 2026 04:42:25 -0700 (PDT)
+Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5952560sm40390935e9.3.2026.09.02.04.42.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 04:42:25 -0700 (PDT)
+From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+Subject: [PATCH RFC 0/2] of: property: Make fw_devlink follow GPIO and PWM
+ nexus maps
+Date: Wed, 02 Sep 2026 13:41:38 +0200
+Message-Id: <20260902-fw-devlink-nexus-ready-v1-0-68fe1996e78a@toradex.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHILmGoC/x3MTQ5AMBBA4avIrE0ylfipq4gFOpiQkjaKiLtrL
+ L/Few94dsIe6uQBx0G8bDZCpQkMc2cnRjHRkFFWkCaF44mGwyp2QcvX4dFxZ24cqlyXVPSktIE
+ Y745Huf5x077vBziobW9oAAAA
+To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
+Cc: "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, 
+ Frank Li <Frank.li@oss.nxp.com>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Herve Codina <herve.codina@bootlin.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>, 
+ Leonardo Costa <leonardo.costa@toradex.com>, devicetree@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, linux-pwm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, stable@vger.kernel.org
+X-Mailer: b4 0.13.0
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Leaked consumer `struct clk` instances and module references in `f=
-ill_clk_map()`.
-- [High] Dangling `clk_hw` pointer dereference (Use-After-Free) due to miss=
-ing device link to the SCMI provider.
-- [Medium] Device node reference for `scmi_clk_np` is leaked on all exit pa=
-ths in `r8a78000_cpg_probe`.
-- [Low] Invalid `IS_ERR` check on `clk_hw` pointer resulting in unreachable=
- error handling.
---
+This series fixes an fw_devlink supplier-resolution problem reported by
+Leonardo Costa while using a Devicetree nexus to describe GPIO and PWM
+resources routed through an LVDS connector. Consumers referencing the
+nexus could remain deferred because fw_devlink linked them to the nexus
+rather than to the providers selected by gpio-map and pwm-map. [1]
 
-commit b6862fd9407ed1d4841735e0f963211d95acd921
-Author: Geert Uytterhoeven <geert+renesas@glider.be>
+GPIO and PWM consumer APIs use of_parse_phandle_with_args_map() to
+resolve specifiers through gpio-map and pwm-map properties. The
+corresponding fw_devlink parsers use direct phandle parsing instead.
+Given a consumer which references a nexus, the consumer API and
+fw_devlink therefore resolve the reference to different nodes:
 
-clk: renesas: r8a78000: Add SCMI remapping support
-   =20
-Extend the Clock Pulse Generator driver for R-Car X5H with SCMI support,
-to remap DT clock IDs to abstractions (clocks) offered by the SCMI
-firmware implementation present when running on a system with a
-supported SCMI firmware implementation.
+  consumer API:  consumer -> nexus -> mapped provider
+  fw_devlink:    consumer -> nexus
 
-> diff --git a/drivers/clk/renesas/r8a78000-cpg.c b/drivers/clk/renesas/r8a=
-78000-cpg.c
-> index 873d521ed3d6f..2273047315db5 100644
-> --- a/drivers/clk/renesas/r8a78000-cpg.c
-> +++ b/drivers/clk/renesas/r8a78000-cpg.c
+A nexus is a translation node rather than the resource provider and need
+not have a driver. The link to it can consequently remain unresolved and
+defer the consumer even though the mapped provider is available.
 
-[ ... ]
+Make the fw_devlink GPIO and PWM parsers use the same map-aware resolver
+as their consumer APIs. The resolver also handles valid direct
+references by returning the original provider when no map is present.
+Use dedicated exact-name and suffix declaration macros to opt these
+bindings into map-aware parsing without changing unrelated property
+parsers. Retain GPIO's existing exclusions and compatibility handling.
 
-> @@ -120,11 +159,15 @@ static struct clk_hw **register_fixed_clks(struct d=
-evice *dev)
->  }
-> =20
->  static const struct clk_map *fill_clk_map(struct r8a78000_cpg_priv *priv,
-> -					  const struct clk_map_in *map_in)
-> +					  const struct clk_map_in *map_in,
-> +					  struct device_node *scmi_clk_np)
->  {
-> +	struct of_phandle_args scmi_spec;
->  	struct device *dev =3D priv->dev;
->  	struct clk_hw **fixed_hws;
->  	struct clk_map *map;
-> +	struct clk_hw *hw;
-> +	struct clk *clk;
->  	unsigned int i;
-> =20
->  	fixed_hws =3D register_fixed_clks(dev);
-> @@ -143,7 +186,38 @@ static const struct clk_map *fill_clk_map(struct r8a=
-78000_cpg_priv *priv,
->  			break;
-> =20
->  		map[i].fw_id =3D map_in[i].fw_id;
-> -		map[i].hw =3D fixed_hws[map[i].fw_id];
-> +		if (map[i].fw_id >=3D FIXED_CLK_OFFSET) {
-> +			enum fixed_clk idx =3D map[i].fw_id - FIXED_CLK_OFFSET;
-> +
-> +			map[i].hw =3D fixed_hws[idx];
-> +			continue;
-> +		}
-> +
-> +		scmi_spec.np =3D scmi_clk_np;
-> +		scmi_spec.args_count =3D 1;
-> +		scmi_spec.args[0] =3D map[i].fw_id;
-> +
-> +		clk =3D of_clk_get_from_provider(&scmi_spec);
-> +		if (IS_ERR(clk))
-> +			return dev_err_cast_probe(dev, clk,
-> +				"Failed to get SCMI clock %u\n", map[i].fw_id);
-> +
-> +		hw =3D __clk_get_hw(clk);
-> +		if (IS_ERR(hw))
+The regression tests call the OF add_links operation and verify that a
+mapped reference creates exactly one link to the final provider, not to
+the nexus. They also cover valid direct references. The GPIO tests
+exercise all property spellings recognized by fw_devlink, including the
+deprecated singular and unprefixed forms.
 
-[Severity: Low]
-Is this error check reachable?  `__clk_get_hw()` extracts the hardware clock
-from a valid `struct clk` and returns either a `struct clk_hw *` or `NULL`,
-but it never returns an `ERR_PTR`.
+Tested with:
+  - The new CONFIG_OF_UNITTEST fw_devlink cases under QEMU/x86_64 all
+    passed
+  - W=1 builds on x86_64 and arm64, including the OF unittest data
+  - Toradex Verdin iMX8M Plus hardware using a connector nexus for the
+    display GPIO and PWM resources: the display probes successfully
 
-> +			return dev_err_cast_probe(dev, hw,
-> +				"Failed to get SCMI clock hw %u\n",
-> +				map[i].fw_id);
-> +
-> +		if (!hw) {
-> +			/* CLOCK_ATTRIBUTES is not supported */
-> +			dev_warn(dev, "SCMI clock %u is NULL\n", map[i].fw_id);
-> +			continue;
-> +		}
-> +
-> +		dev_dbg(priv->dev, "SCMI clock %u is %s at %lu Hz\n",
-> +			map[i].fw_id, clk_hw_get_name(hw), clk_hw_get_rate(hw));
-> +
-> +		map[i].hw =3D hw;
+Sending as an RFC because the unittest part can use some polish, but I
+wanted to gather feedback on the direction before doing so.
 
-[Severity: High]
-Does this code leak the consumer `struct clk` instances and module referenc=
-es?
+[1] https://lore.kernel.org/all/juuc4af7ndbajcl7gzf4tg5qz2q2j5tt3rvql4jbauradujrre@gc5nbdhhixaf/
 
-`of_clk_get_from_provider()` dynamically allocates a consumer `struct clk` =
-and
-increments the SCMI provider's module reference.  This function extracts the
-`clk_hw` pointer but abandons the `clk` pointer without calling `clk_put()`.
+Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 
-[Severity: High]
-Could caching these raw `clk_hw` pointers without a device link lead to a
-use-after-free?
+---
+Ernest Van Hoecke (2):
+      of: property: fw_devlink: Follow GPIO nexus maps
+      of: property: fw_devlink: Follow PWM nexus maps
 
-If the SCMI provider is unbound via sysfs, it unregisters its clocks and fr=
-ees
-the `clk_hw` objects.  Because `renesas,scmi-firmware` is a custom property,
-`fw_devlink` won't automatically establish unbind ordering.  This means a
-subsequent clock request could cause the clock core to dereference a dangli=
-ng
-`clk_hw` pointer.
+ drivers/of/property.c                       | 49 +++++++++++++++-----
+ drivers/of/unittest-data/tests-phandle.dtsi | 49 ++++++++++++++++++++
+ drivers/of/unittest.c                       | 71 +++++++++++++++++++++++++++++
+ 3 files changed, 158 insertions(+), 11 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260901-fw-devlink-nexus-ready-c859706b019d
 
->  	}
-> =20
->  	devm_kfree(dev, fixed_hws);
+Best regards,
+-- 
+Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 
-[ ... ]
-
-> @@ -152,20 +226,79 @@ static const struct clk_map *fill_clk_map(struct r8=
-a78000_cpg_priv *priv,
-> =20
->  static int r8a78000_cpg_probe(struct platform_device *pdev)
->  {
-> +	struct device_node *scmi __free(device_node) =3D NULL;
-> +	struct device_node *scmi_clk_np =3D NULL;
-
-[Severity: Medium]
-Does this code leak the device node reference?
-
-`scmi_clk_np` is later assigned the result of `scmi_find_proto()`, which
-acquires a node reference, but `scmi_clk_np` lacks the `__free(device_node)`
-cleanup attribute and is never manually freed before returning on both succ=
-ess
-and error paths.
-
->  	struct device *dev =3D &pdev->dev;
-> +	const struct cpg_data *cpg_data;
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1788338320.gi=
-t.geert+renesas@glider.be?part=3D9
