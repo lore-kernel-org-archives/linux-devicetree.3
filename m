@@ -1,122 +1,131 @@
-Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF1B5403AFA
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 08:47:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788338868; cv=pass; b=Twyb6mh5zWrVYwEu/VgeaSpYERLF4zRq2huEuZAYf4ELCXtDlm2zZysSWnXhk4UjF/ftb8ALZdit7eCR40YKU6q28GwW0OyJ4uNOU4M4No0hrFyCTtWXM8/hxC5bxdEs1BSoHDhla1Up2av6pqFMP5d1+PAd2jX1Kn1UnF9udao=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788338868; c=relaxed/simple;
-	bh=MYMnfWqyZs8fhoupAqZEoP21jVypdUTvrAIwa7LBw+w=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SoVSSYpRX6rm7pSpIT0rsHvFOu18PaWlML5vTBtiS/Jx8mG7D/1ibBk2ue9vTlvHTzZP+vKm6nKUAe8kgTCnnkXj+fTtWdvMtx4aBc5/ZF9WGJsq4XbHVvJXKCEo16t4C+whjcrzSfR1n5SsOODTxYl33ujyT+t9V4qMquHnIKM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DJbzAr7h; arc=pass smtp.client-ip=209.85.161.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 360994052DA
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 08:49:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788338945; cv=none; b=gk5/bXXfqX+2k5yMgayileVx5BAqMRghhmjzmfB1zoHXxwG0k+lczA9AxykBRnZqZF8KmBmcW4KCJdwkCXrING8P2mR49fk82L2g33cvepZRbg2MQQJY1ngUGxhCPdksS+czbSly+Z3XKb5hg3FnLY7cAwBjgUenOndj3Ml43SA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788338945; c=relaxed/simple;
+	bh=ss5xROj8OM3lYj+pqG6TTIF5SBt62U9/oUBoQLswgBg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DJcLdouSrLZX8/r0GKTwvGCSoHCSS13quafEaWTGEGhS+YtYygeP1tAnnsGnDVadkhsLlVCz0si+xYRjaE5j3BbEer5E/bJZJHb15OlsA9B+UiArhZLj936sGHyC1zhXomuvpr+VvOoyFbroKF1JJu78uvo1pztbvGvUTj0C+CM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FRGhUyVe; arc=none smtp.client-ip=209.85.208.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DJbzAr7h"
-Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-6b1b233ca8dso370723eaf.2
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 01:47:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788338865; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JsiiEhdT/QNVodl8XOh5T0DkzHdBla/jgIhVPB0lzErWfP96HGwyGYNCAHgjLIN0tm
-         kQy683v56G9BY5ClwlOFb1c0ZE3rJ7EQ/T0id8dnr56YXuc0h4O5bGFNB2ZKGpXOJjGG
-         84dKJpH+YzMcCONb/kNYGZZ6lAxMomsVqTyelEfgrJFDAu5SdJilDTMyP4+Zg4fl7AVq
-         Pkfj2BnQYf6qPiXmlIxjw3RudEs71caf0VlrJjqFuHY2Ck0F54OJVxYmCt7gfrya9foK
-         Y3fsJS1XUPyvHlIc+vrXIV/kZvO0cB/GOnEMa8bqQOpYVNy2UpCRN0cWrqRDCCR2l+uN
-         6Cag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MYMnfWqyZs8fhoupAqZEoP21jVypdUTvrAIwa7LBw+w=;
-        fh=XN1YjoVGbooawXPfinrf2IbS3BFaJkNQIjlaYv7n7fI=;
-        b=jtrqYouV3DddE+0WcgRvLeP42qZU9vYOvAxrKs7/DJfmthJtKO+xO3ndUF9IUCC6il
-         iaTfkhyZrsnm7KGBzEfQZf7qldGoXw0cRjys14kv43C5XOzBupOs1yRLESJAyJt7Ukfo
-         G/2csrTc+k6CtfiEwyyZuwZiPy3fBVSU/7grTGm40Yb/6tA7xwBg+7+43QoApXNNmwxr
-         yxpaXR27H+trn9NII/mTcqstDnWtgvdPaY76rBZi9qi//T/dBy44kUn3DIL+GEZlUBu7
-         FMw2Jmsv42GHYyWo/H/IHlqKwg9rB4sBev/z9tRMDp49DzFv4/bVmHesOyQFWHVq4jI+
-         EgbA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FRGhUyVe"
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6a0794669a6so1456419a12.2
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 01:49:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788338865; x=1788943665; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MYMnfWqyZs8fhoupAqZEoP21jVypdUTvrAIwa7LBw+w=;
-        b=DJbzAr7haKWxdqnUc70Phg+eixPYvwnJFoYIB+xzF5o/Erx23EGd9w664afgzl8p59
-         fuClszgTLBm41FkOw2h62NZWk+Kq5Lzo1zJ7xZ9MmqPwgaMZ2cUYw8RFNGIQHYVFu0bI
-         15R39hACUIh1bhKHHzIwu+A0QKnCCziOlfY37LID7sp1CK8mOQasRwqHTNnd7K8IhO8D
-         /5sbx5rq+byqgugzcphFqJjnb7ak0+mldNmNbBBS+GHNg/IMzdqq8aatb8cqgsh1nyx1
-         7DWyB+aJI2HoBcpsfFNK05uP9bDZejngLkaJpPtsIFzu7UNlWuWPjrDH17y9qNFSRGIk
-         KpIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788338865; x=1788943665;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1788338942; x=1788943742; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=MYMnfWqyZs8fhoupAqZEoP21jVypdUTvrAIwa7LBw+w=;
-        b=n8Ny0qQmd82GCnDCREJIVQZm0lUi5JrZFKSqOyCeUEZr1slUECYZf5bZrELheApcWm
-         /WqW/ZplyVw9m+j8dLUbOYV7uYeq5NtHYSOb+ATt8fiR4i2BeNXCXGgDrIymQpgAMMI7
-         l+3EtczUW0o4LrFVIzznyOHtuuqH8qQsGvLXc/G1A8UHnoWQc0z4KJRBwdiXbswBkswO
-         xOXHOK3AVJV/Nb61BwVeqCVS6j8gn5nqFOmjwP4x3JzTz06QH29jxMtBYK4gx1JdhHjD
-         Mylgt3Y2kMeddb7TzB4C6VOuBQpa7crN20TCNaI19ecka/wEiR1bGX0S0+CraUuoAw6E
-         7dzg==
-X-Forwarded-Encrypted: i=1; AHgh+RrJpj+JxYt5bAED4g3AZfGpDCUJjv944zLSzNUHem52R1Erp2fa83pkgm+cY0GyFVtIVmZZ7UZOvHG9@vger.kernel.org
-X-Gm-Message-State: AFuF++nt93kw6ooUJpDbvIiQLbLwaB434XXutmDHOQ9f9nJXmiCwqRxq
-	WKBFDUn50AnwFJBpKyr7ECMvY0raHwVwEGJp2wpt3i9PqMOdfvt7rvnefDjL6aAP5v7DPHKP+Hd
-	WAJ7mgkR3w5Z1EUBoSXaFmUAGzZP6iU8=
-X-Gm-Gg: AR+sD13O5fSYERNAzgkGyEMGLv2kBXLUmhBHLswNqyc5xCS2QUvTJOsBCiUopUCr6zJ
-	5/VALqePnyHFOoFWX5im2gh5DUHuhrMQCShOqnlWGVVRUsVcPc+kWFUFunwu3IMM0QwXUydKim2
-	WfBm4eck7hT3Dav7uXlSy8Y+KsM+Akx/iOpBl4PkvHWCs7xLv9QqrOyJu+CUrBp2gcbTJwyGpIk
-	e3+z4RcFfOIT8WLO8+Y+ZBmCC1T6G2tBUV76nphWeWmrMX6B/K6zFwLBgcWn6heHR5k9YdAJzE1
-	IiYLlJ3OOzSCFooU66GZkkQ+rFdWPUJSaeW/PBVa45Aqo9jfraFEawCb640KV6Fa+poHBzPKUUY
-	OZQ==
-X-Received: by 2002:a05:6820:189a:b0:6b3:68a9:79e5 with SMTP id
- 006d021491bc7-6b47edceea1mr2290029eaf.6.1788338865560; Wed, 02 Sep 2026
- 01:47:45 -0700 (PDT)
+        bh=f7aqc1YiIFFi2S/7+a4K7uWSUn18PjZkaszy4zjXDoY=;
+        b=FRGhUyVeZHhqIQy7V+2OH9vwODwXTRs47UnHugrTgp+LSOzcThFqsRm2bSfBJMwhBk
+         199eI9nSLNaLiHNvQEMwpmT0gpKbAzwHhN7wqzLBlykqSHwCMXCrF6cXhYR3fiC0tX72
+         2J9XYkRWq68ZDFW4+MxdKrdDPS2FRzLnZuskT7IirKoyI8ysnZNo46D72xxdOyz5EDnD
+         0H3JcRfYn/vmWl59ZTXEHfOeLzzb4ELjTwLPeyyKnk7w8uBlCJtOSvytm6rAy+1f6Xe7
+         VxRrKYJrF4GcM2ZVCIp+gNMeEUCF4h7Wpu5MCZhU6mYcXgR5UdXplfMT1J+mZOP9DuVa
+         AjSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788338942; x=1788943742;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=f7aqc1YiIFFi2S/7+a4K7uWSUn18PjZkaszy4zjXDoY=;
+        b=AtBjZxi1/ni01X7tF4oFfm5YQkZoJmD+3XzzzSn4XOfAMUr/9hIykZeb42kwzoOZmt
+         xlxzpWP2x+yEJvBX5oAfeUeuwveV/RPbb+Ul71iXQXpmguKt/CA9pplGsK3Ug5hUckmw
+         K6IwEBb5MeLGdu3ECrH7EdePtyoacAsGXbelRH7UrhtDAdQPqB9IC+0ADzGtKfTPEFnj
+         qoHHgdYTLTf2GnL7MzLH5xTVqyg1y4IcydjbtYG+m4fymG/O9fjoNiZcaVJ24j2vQ1GH
+         DmLjL35v5GBO65IVeKcGowadCJB741kx5np3dTMi5oU0beC64vFdo8+tre9RUWPo4uKR
+         KyZg==
+X-Forwarded-Encrypted: i=1; AKwUvBwHuFk5/ZGV22puGMi6S43gW04RjQrcuiKYMSpn+4YcnUUflNe63b+0IOBlRUQK5WaBYhYfCQnXz1DP@vger.kernel.org
+X-Gm-Message-State: AFuF++mFlexMCZHi8nZp78/lZHeW1gWsulc1zBL2Fcu0o5uyFxSnmziO
+	Zn1C+SFD7UYMMiS8fTGhRAWc+WdukbeSv97CJxN0P8GgLm2HIKMhoKsu
+X-Gm-Gg: AYBFou1lZd8PZ66UTTPtkZPHD3RRv0CsZ0UMPBj0T/a0t277eczox3rTbTGUfQDixUm
+	j6vkyMg5qbsPNBL4uPqbKXu7QFVAVt1dvngdifJmkkHuuqmIDnxunCeHB6LUARSCHoeBCr+gnBY
+	9PY3hmACuR4DqRIKNtCK0EP9lz4dVG8M1EAuAnvVdYUKxQugqKERPu9EYxuTaOi4lEU5395ov9l
+	Dr+vgG2duAmswQaBWYEnTmZFKQAJGvCqzoMuXx9k9zuRdiVPE1Abq4H+60AK9BlKcYU4Y8suwJd
+	18+YxhfzCPzjWVJ2wP1HLAyYOB/IEXDCmqYWR1e2SGK+x6GXsSLvcO65n4aTC7iaoFuHX7TqEA0
+	aFWFXtAgZn1XWr5QRQWG1alcJxCTXa/iXCyyTI4A28aNgQzVz21i480/4mDjc0PQozH+nhaQYGd
+	7zaKnawF0HVd4DYn60OUkecYO0FmzXkh94yWEuX4sHR5KwGrbH7NljSO1KphQJdYZdUifOUEDJI
+	pGyxD5bPwN2L8k7wJqhqSPwag==
+X-Received: by 2002:a05:6402:21d4:b0:6a3:f63a:4997 with SMTP id 4fb4d7f45d1cf-6a682567131mr2048216a12.3.1788338942157;
+        Wed, 02 Sep 2026 01:49:02 -0700 (PDT)
+Received: from [172.24.138.145] ([137.71.226.102])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a67f895f29sm764636a12.2.2026.09.02.01.48.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 01:49:01 -0700 (PDT)
+Message-ID: <0c5a657d-e134-49a7-b2cd-82f293685cb7@gmail.com>
+Date: Wed, 2 Sep 2026 10:48:58 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260823111959.17029-1-amit.barzilai22@gmail.com>
- <20260823111959.17029-7-amit.barzilai22@gmail.com> <20260823113402.D7F9F1F000E9@smtp.kernel.org>
-In-Reply-To: <20260823113402.D7F9F1F000E9@smtp.kernel.org>
-From: Amit Barzilai <amit.barzilai22@gmail.com>
-Date: Wed, 2 Sep 2026 11:47:33 +0300
-X-Gm-Features: AcwNN1Vo44MBmJfOcBB8zzBfrsBJUHYQroJ08viZBYwnFe3YB46ZksIwW3AFHfo
-Message-ID: <CAOEgbEqhvoz-J0o08_igTAJdfEHN6vZcxgd72An=BKO2L2jhOQ@mail.gmail.com>
-Subject: Re: [PATCH v5 6/6] drm/ssd130x: Add SSD135X_FAMILY and SSD1351 support
-To: sashiko-reviews@lists.linux.dev, 
-	Javier Martinez Canillas <javierm@redhat.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, 
-	dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 3/3] iio: dac: Add AD5529R DAC driver support
+To: Jonathan Cameron <jic23@kernel.org>,
+ Janani Sunil <janani.sunil@analog.com>
+Cc: Lars-Peter Clausen <lars@metafoo.de>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Mark Brown <broonie@kernel.org>,
+ Marius Cristea <marius.cristea@microchip.com>,
+ Marcus Folkesson <marcus.folkesson@gmail.com>,
+ Kent Gustavsson <kent@minoris.se>, Conor Dooley
+ <conor.dooley@microchip.com>, Daire McNamara <daire.mcnamara@microchip.com>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-spi@vger.kernel.org, Kent Gustavsson <nedo80@gmail.com>,
+ linux-riscv@lists.infradead.org
+References: <20260827-ad5529r-driver-v10-0-38f2be07b824@analog.com>
+ <20260827-ad5529r-driver-v10-3-38f2be07b824@analog.com>
+ <178813261957.2788519.4929586195765891569.b4-review@b4>
+Content-Language: en-US
+From: Janani Sunil <jan.sun97@gmail.com>
+In-Reply-To: <178813261957.2788519.4929586195765891569.b4-review@b4>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun, Aug 23, 2026 at 2:34=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
-> [Severity: High]
-> Will this cause a DMA fault on stack memory? Callers like ssd130x_write_c=
-md()
-> allocate the command array on the kernel stack (e.g. u8 buf[8]). Passing
-> cmd + 1 to ssd130x_write_data() results in a regmap_bulk_write(). On SPI
-> devices, this passes the buffer directly to the SPI DMA engine. Because
-> vmalloc-backed kernel stacks forbid DMA, this might cause an immediate
-> kernel panic or fault during device probe and runtime updates.
 
-This looks like a false positive. regmap_bulk_write() does not pass the cal=
-ler's
-buffer to the bus. Since the map has a bus and val_bits is 8,
-map->format.parse_inplace is non-NULL, so regmap_bulk_write() takes the
-branch that kmemdup()s the data into a slab-allocated buffer and passes tha=
-t
-to regmap_raw_write(). Slab memory is DMA-safe, and the caller's buffer is
-only ever read via memcpy(). The finding would be valid if the driver calle=
-d
-regmap_raw_write() or regmap_noinc_write() directly, since those can hand
-the pointer straight to bus->gather_write() and into spi_transfer.tx_buf,
-but it doesn't.
+On 8/31/26 01:30, Jonathan Cameron wrote:
+>>   
+>> diff --git a/drivers/iio/dac/Makefile b/drivers/iio/dac/Makefile
+>> index 992f8930f95c..8dc644522b1e 100644
+>> --- a/drivers/iio/dac/Makefile
+>> +++ b/drivers/iio/dac/Makefile
+>> @@ -18,6 +18,7 @@ obj-$(CONFIG_AD5446) += ad5446.o
+>>   obj-$(CONFIG_AD5446_SPI) += ad5446-spi.o
+>>   obj-$(CONFIG_AD5446_I2C) += ad5446-i2c.o
+>>   obj-$(CONFIG_AD5449) += ad5449.o
+>> +obj-$(CONFIG_AD5529R) += ad5529r.o
+>>   obj-$(CONFIG_AD5592R_BASE) += ad5592r-base.o
+>>   obj-$(CONFIG_AD5592R) += ad5592r.o
+>>   obj-$(CONFIG_AD5593R) += ad5593r.o
+>> diff --git a/drivers/iio/dac/ad5529r.c b/drivers/iio/dac/ad5529r.c
+>> new file mode 100644
+>> index 000000000000..52601cbf28d5
+>> --- /dev/null
+>> +++ b/drivers/iio/dac/ad5529r.c
+>> @@ -0,0 +1,536 @@
+> Why do we need those outer () ?
+>
+> ...
+
+The outer parenthesis are required by checkpatch for macros with complex values. The same pattern is also used by AD3552R_CH_DAC() in drivers/iio/dac/ad3552r.c
+
+-Jan
+
