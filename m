@@ -1,87 +1,35 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EADC51DDC1B
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 14:01:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 794B8351C2D;
+	Wed,  2 Sep 2026 14:01:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788357663; cv=none; b=MpR3vtPWEPtI5e25ksYSSjon7LFcf9LNyrKt354m8HrDDXb/2vVwHL0UYS6/Bcw+TANnorCPNdK/sVrJBO9PLRbAhgxWPP1Ckpm/W1PewBFCWh7/CuNQxBI2rtb2vULXTUTUb6vR+tTB9/+h67yUeymQ7prSyRDy5B3mmqyAoxg=
+	t=1788357675; cv=none; b=tazxuo7etsjkFI1ne/mp/aKcVBhdGyQ1Z0VBJCnhUQGNyea5wthmjjteBIZnQzX14qxfbDBis+4dKXRMsVrf3hTdI1BpMJ1xjWAcZsAWdUehgR3RAjhmiyvnkduF7Pbz8rAEXi/sEYn9sMEcdjVdFnTKkRDvCEgrmluT/qaP/Ps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788357663; c=relaxed/simple;
-	bh=QUkRyik0eCsHwhKR92w2rKBKeVOBb88SlZpwkoQ4hVk=;
+	s=arc-20240116; t=1788357675; c=relaxed/simple;
+	bh=+EcCvnSsS/XG9UpUY63V/TUuUl343Rk+J667CeZF2+A=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=E5rg4mC4M2hZSgoyB2f+idHPl1H9e38ac9KSwa8IkU9VJRCsvljTC4rzgH2cA5M184gYEoZ9NBJj92dL7UvLBbCPn9yCtAlvuZKbjGaZXRfXQ5L5QfC4+abMlgFIR591A8sEUW9i+l5GKsTC/A9Qn9WwAZSptA03VRBB/kTbxQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=X6UPllYQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=A231ia58; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=mazzEDHqgTaQbTjAl3aBA97UymdZmEPxmp+sFxUn8Tp7xFZuw8qfTPkZDr+Mz3v5fCAPLXug/lVqXcTSsUC8f8VMnZL8+nxCXr9zw4zTqBv2/GTz+Wx77P8zM1au0QX6T2fjKysnEJLFXgftojZuM6hFBCUF/m/kTFhQaS9b0cI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=c0vhFCUm; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="X6UPllYQ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A231ia58"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682CR3M32251479
-	for <devicetree@vger.kernel.org>; Wed, 2 Sep 2026 14:01:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	eLj2eXlys9pmbPYscBzp4AyUd99vJAeUI5TcFcOt/1I=; b=X6UPllYQVZ75nQg7
-	FgVy6ihKj0pXCki3rg5EpsLZf8hzJplK5uJGwSV9XZH87Vac+CZYSAqknKwbbBGu
-	WFwX3zQPTQ/rhODAUNRT/e5KXycMsmt+Qu0KppysOZS4pjJD5alKw3lbwqS2o4ek
-	P9v7Xmg3G3fL+vg0hxYdqn0O6g3nADuO20B9N5ogvqOL7PriePm9pQfw79TFe0ke
-	igVSArPRK8GzpcvY1KHg8N/jNA/3UEyEGnIajHcB+dcKZvi3ajDw2sUvKwHg1eNp
-	nBIXNirX4rEJUPfrDUDYft2gUP+n7Qbi8QXdbXXISODvUSLyC7oWnplLiRQzzrIh
-	CnXBfQ==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gebsx2ay2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 14:01:00 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-74ab6065f97so15314137.2
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 07:01:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788357659; x=1788962459; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eLj2eXlys9pmbPYscBzp4AyUd99vJAeUI5TcFcOt/1I=;
-        b=A231ia589eBiDiZDlZbHK90ih8N7heIaMzuOCytn0DUBDdMRLrKz8csDZrv7s7J+5c
-         wDLll+RMIhc6jYDSBvQyHMrKhXFCjOjd8ZvTIJMU77A2vX1F+SXu6JBCQkPdPmk31U+t
-         dbZUl4c6vxqH0jttADC2dASWagXF1mxn+KLRY+7pP7BZG9SKnlHlQsszaukZvmIDJm+k
-         aCy4PWX7epax83Str7F30qX3pQVPgOUShNvEu6yfuNTH6jWQpUrTXpG4MCCcPZaDx5fX
-         rWvg/R+rBuV4f2fGIP+3gx8eGwTzW7oZmmlvGO0yaaJHXhgIseyzwZDJ7uPe3gunsQXj
-         XESw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788357659; x=1788962459;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eLj2eXlys9pmbPYscBzp4AyUd99vJAeUI5TcFcOt/1I=;
-        b=bioiAqhWdWCtCWBGxsB0fu5+Peb6F0doGs1xQ4STfmE07skPVvCSzaz+Fg+HlDxSe7
-         bsZaPgf9RETtQToKdo2t7XW9geLPzQXzWwgV1uvcAJeeAXtRNXOrprY3vRk67bHaxhqb
-         5eoNSbKhWLTpOnX5M1h0jTRFjustjhPcgo81wcwr/XOvSeiK24cY151CKgxeLdU1cz1z
-         RjL2XR8paDYuy2VhwHqwjQ8vArQQuTUr/7XKWd65pBc5LLh961MvXytCD6ebN3uKPY1k
-         GqXy4Wiz6qGbFIyNPMss0vZo7sBCIc6YqAdV9zqN7NktoH+oqYJmjRmiOLCca/ixth3q
-         EHUw==
-X-Forwarded-Encrypted: i=1; AKwUvBxp03duZ3KXLHaVGXnjIcZMgk0NsEz/6aZk0fxqvx5a1oQr1d8I9aKc0/jHEYFYNGYMdk3/wsyiFGEj@vger.kernel.org
-X-Gm-Message-State: AFuF++l5dKPDyUtSZDx9+T2C/e9kUpvsjSL1nwPauqkpVr1QKuod6xX+
-	CbbGSEYqbC8T7SmSuSGQJayb2O6Hryjmu/Sc9UtMIXN8Ggu53tedLv7ccC8cbtIRySlg5kRO4W7
-	HX4lV4WWqKWSMibzcp+mvTbrT2vPVsFcdDjQ7ZSBBTsZ7YFed4+82tD7wKwIExmMV
-X-Gm-Gg: AYBFou3Bhwa6bLlVx/yt9OdN/uErhAytaXsQ9uR3aw7Juf+T2UL6GPCJRL8s9MKPA+M
-	WUOLwdN5O85DN9ZHHP51zCwSQhoGiWUJBwdmATcSCVvt3zagaDdO+6YPQfRMFaa4hXEzmVoKsX+
-	9CCFGqBDIQp4LLmAgLizZ2BiiWXfcy36GVd/WkxK257o1u5oJHtC1brAJxcThOstF4bYHWerEgr
-	ZElIHn8wbnOnAe7JA8mqGb+nMXty1y0SxjJ6zwjBZ2nIy82bnLdhveMI4ECvBZd0rMj1czmm8Tb
-	jxPkN3bsbj0srRLtOpXuarmPrWP8R/iX8tHBdkAsVyZy0QZE/+lovJzab3oZNKIt6i3nbHduRjX
-	bmEXhaa5aZzVYnAjf9GBW7g==
-X-Received: by 2002:a05:6102:292c:b0:78a:135e:feb8 with SMTP id ada2fe7eead31-78a1f241009mr641446137.0.1788357659429;
-        Wed, 02 Sep 2026 07:00:59 -0700 (PDT)
-X-Received: by 2002:a05:6102:292c:b0:78a:135e:feb8 with SMTP id ada2fe7eead31-78a1f241009mr641231137.0.1788357656711;
-        Wed, 02 Sep 2026 07:00:56 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b606b25e6dsm599815e87.34.2026.09.02.07.00.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 07:00:55 -0700 (PDT)
-Message-ID: <a8396c00-0704-4e7f-a4ae-44acebf0a470@oss.qualcomm.com>
-Date: Wed, 2 Sep 2026 16:00:52 +0200
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="c0vhFCUm"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CB580116285;
+	Wed, 02 Sep 2026 16:00:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1788357666;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=UBvLVixT6RLkfZb5JmChiUQYBB/FY97zNKMHPqvta4I=;
+	b=c0vhFCUm60JhACOaILD6cYJwpBpRswO/i3lqu56CVr/czbBMgUfZFhRhbswuSBOvFcrnt5
+	umsfz3gNoE3y+FnfJ725bec1sYgvHj2t1SqJVD/kdEkf1hGQBn/uqXfm5NDB0KPZbgL/4L
+	CTSBib66XoXyCKoCsMikTAIk9LokJgaqTN/1d44C2d1aHp2PQ5eHeXdoNYSoWFifK7bXyk
+	bzuIEEq++2YUKG7ID8qeLFFn2yZ9jC3/VeID1XIl++kMZdccFMXY12U0+Q8saPOwPsPkA1
+	qcldKnPecGK9avgb+c4COn2TAIRkF/ucNtNpYd2RtxyB3CZnCnlfkasnOhLK5w==
+Message-ID: <6ffc69b6-4f93-4799-a369-f71ce9d97530@nabladev.com>
+Date: Wed, 2 Sep 2026 15:45:05 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,107 +37,100 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/6] arm64: dts: qcom: Add initial support for Nord Ride
- Embedded board
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Dhruvin Rajpura <drajpura@qti.qualcomm.com>,
-        Anandu Krishnan E <anandu.e@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-References: <20260831032103.341633-1-shengchao.guo@oss.qualcomm.com>
- <20260831032103.341633-7-shengchao.guo@oss.qualcomm.com>
+Subject: Re: [PATCH v4 2/2] phy: stm32: Add support for ST STM32MP25
+ USB2-FEMTO PHY
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+ linux-phy@lists.infradead.org
+Cc: Pankaj Dev <pankaj.dev@st.com>, Rahul Kumar <rahul.kumar05@st.com>,
+ Christian Bruel <christian.bruel@foss.st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Patrice Chotard <patrice.chotard@foss.st.com>, Rob Herring
+ <robh@kernel.org>, Rosen Penev <rosenp@gmail.com>,
+ Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org,
+ kernel@dh-electronics.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+References: <20260828150739.174460-1-marex@nabladev.com>
+ <20260828150739.174460-2-marex@nabladev.com>
+ <4a33230b-3e5a-4132-8467-79b864a91b99@foss.st.com>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260831032103.341633-7-shengchao.guo@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <4a33230b-3e5a-4132-8467-79b864a91b99@foss.st.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: Meb-10TWT4bQWnH9a8eVLlHl0GT_dxfp
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDEyMyBTYWx0ZWRfXyYJX4Od+f8Bf
- EKaaVVAe1kQSXoi3+eRTBHh+3HRYvlxRau+V9AsGJljbwarVsd6EbScHhcT7r/zcv6E3n8muEYn
- HlJCH+Yi5ym6sNsGAakXDXWaHWJrsMSrDwpQDEEWoorZhkN6tIIjZ4k0UkMcCrhFG1ZeS9f8jgJ
- ZAb7THeTT9GkHd59ZeOkDErpjf/5tSLbUhW/M0P/Eq8MFVfJGGDkBTJ27HKeYVvk2hTLlMEa7Yh
- dkpy9LQ5o79JbejnYN+o0IUtoSfJ/0VCccj+ASGx1ff4mDvL9GgAb7h2GMv+KLizAJE7Ee5m26h
- UzT7yRJfo+vx++RbW67KcVFQLFdRTgNsfnYYJtmdijKKDv9lftYVlophzw8xRTNZLdIehyMq/Sj
- wtJdDAoIF4wl6rh+fbMJ9YEvKvpQyFRgkPYhRwj9wY0Ix5MuzBH0q1Ic43GNnZb+YAQs8HpdjzC
- 7G4J9hRpWbDKUTGBxbQ==
-X-Proofpoint-GUID: Meb-10TWT4bQWnH9a8eVLlHl0GT_dxfp
-X-Authority-Analysis: v=2.4 cv=AufeGu9P c=1 sm=1 tr=0 ts=6a982c1c cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=AhoN2pN4Pgw2UKRmVskA:9 a=QEXdDO2ut3YA:10
- a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDEyMyBTYWx0ZWRfX6qO8yt6has61
- SK3M02eJGZcyEjltSuvLvnXCqQMPLrMZQVGXRNEyP5K07hwY7HwDvpNiWgb+lsDaaMtyCkzz/wy
- jDRuWCW3UF44invOWQsAkJAZnP8kTZ0=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_03,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 lowpriorityscore=0 impostorscore=0 phishscore=0
- spamscore=0 adultscore=0 suspectscore=0 priorityscore=1501 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020123
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 8/31/26 5:21 AM, Shawn Guo wrote:
-> From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+On 9/2/26 9:52 AM, Fabrice Gasnier wrote:
+
+[...]
+
+>> +static int stm32_usb2phy_set_mode(struct phy *phy, enum phy_mode mode, int submode)
+>> +{
+>> +	struct stm32_usb2phy *phy_dev = phy_get_drvdata(phy);
+>> +	u32 mask = SYSCFG_USB2PHY2CR_USB2PHY2CMN |
+>> +		   SYSCFG_USB2PHY2CR_VBUSVALID |
+>> +		   SYSCFG_USB2PHY2CR_VBUSVLDEXT;
+>> +	u32 val = 0;
+>> +	int ret;
+>> +
+>> +	if (mode == PHY_MODE_USB_HOST) {
+>> +		if (submode != USB_ROLE_NONE)
+>> +			val = SYSCFG_USB2PHY2CR_VBUSVALID;
+>> +	} else if (mode == PHY_MODE_USB_DEVICE) {
+>> +		val = SYSCFG_USB2PHY2CR_USB2PHY2CMN |
+>> +		      SYSCFG_USB2PHY2CR_VBUSVLDEXTSEL;
+>> +		if (submode != USB_ROLE_NONE)
+>> +			val |= SYSCFG_USB2PHY2CR_VBUSVLDEXT;
+>> +		mask |= SYSCFG_USB2PHY2CR_VBUSVLDEXTSEL;
+>> +	} else {
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	ret = regmap_update_bits(phy_dev->regmap, phy_dev->cr_offset, mask, val);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	phy_dev->mode = mode;
 > 
-> Add the initial device tree for the Nord Ride Embedded board, the
-> non-SCMI variant of the SA8797P automotive Ride board.
-
-[...]
-
-> +		vreg_l7a_1p2: ldo7 {
-> +			regulator-name = "vreg_l7a_1p2";
-> +			regulator-min-microvolt = <1200000>;
-> +			regulator-max-microvolt = <1200000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +			regulator-always-on;
-> +			regulator-boot-on;
-
-You mark _a lot_ of regulators as always- and boot-on - is that
-necessary for all of them?
-
-[...]
-
-> +	/* PMIC H - "UPMH" satellite (CD90-73961-1) - SID 0x7, Bus E0 */
-
-leftover?
-
-[...]
-
-> +	/* PMIC I - "UPMI" satellite (CD90-73961-1) - SID 0x8, Bus E0 */
-
-likewise, a couple times
-
-[...]
-
-> +		vreg_s2i_gfx0: smps2 {
-> +			regulator-name = "vreg_s2i_gfx0";
-> +			regulator-min-microvolt = <300000>;
-> +			regulator-max-microvolt = <1200000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +			regulator-allow-set-load;
-> +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-> +						   RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_s7i_mm: smps7 {
-> +			regulator-name = "vreg_s7i_mm";
-> +			regulator-min-microvolt = <300000>;
-> +			regulator-max-microvolt = <1200000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +			regulator-allow-set-load;
-> +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-> +						   RPMH_REGULATOR_MODE_HPM>;
-
-Are these actually exposed as regulators and not RPMHPDs?
-
-Konrad
+> Hello Marek,
+> 
+> The 'mode' is used typically when exiting low power mode. Should keep
+> track of the submode too here. See next comment.
+> 
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static int stm32_usb2phy1_init(struct phy *phy)
+>> +{
+>> +	struct stm32_usb2phy *phy_dev = phy_get_drvdata(phy);
+>> +	int ret;
+>> +
+>> +	ret = stm32_usb2phy_enable(phy_dev);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	phy_dev->is_init = true;
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static int stm32_usb2phy2_init(struct phy *phy)
+>> +{
+>> +	struct stm32_usb2phy *phy_dev = phy_get_drvdata(phy);
+>> +	int ret;
+>> +
+>> +	ret = stm32_usb2phy_enable(phy_dev);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	if (phy_dev->mode != PHY_MODE_INVALID) {
+>> +		ret = stm32_usb2phy_set_mode(phy, phy_dev->mode, USB_ROLE_NONE);
+> 
+> This part restores the mode, when existing from low power: Controller
+> driver (dwc3) calls phy_init/power_on. The submode should be restored
+> too here, instead of USB_ROLE_NONE.
+Will do in V5, thanks !
