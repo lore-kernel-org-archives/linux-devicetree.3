@@ -1,188 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10B0437F739
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 05:12:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47D3121A459;
+	Wed,  2 Sep 2026 05:30:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788325936; cv=none; b=awmfBqn2/2Rbj537mj49B056TJcJ/uW6ou1w8ZXW9M3xYx/sfPvfvhu/FNuOJmlgE9L+BGNOMz/DstOGECg/c2nvcLNl6YXDnaL59VPHLMO/5zhH1a0eei3QUMU5mC+xkdR1+pjtQJ4pgZQ18O5e87gGsmgRxdtqPMmzoy9+azE=
+	t=1788327019; cv=none; b=npveS7nVuwKg0CT49Ob6lgu5SQtRcXeoc2euVJRLWAOrUtb/WukIhAdgtV7x44YYJydqicbchLJOYOy2CQ1YyX0n40001OZiqZbN2UXXC6yqvg3EvVPADgCNX7K7jOgljTj7W95lTbJq59HhY62aJLomQMUr4Ob0tl5277VHJCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788325936; c=relaxed/simple;
-	bh=qJF93KztwCM/zWcfk18nbYdw+lbZKukvBRUT5Co1Oh8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NzwAsK53zEIRqoC6Z7CzC4VOxJM2MFXjfZ3mIPzoL6NfaawU+jEZUJPakeOT76oAzl7EVkKVBlF5LKqZbIXBdsOKtcsu6Gaf12AuNkEJ+nQhqBEqz/OG7PG/rDCpoL9V5qZofynwf02FNwGyibMHe8A0ttwxzhaGaYbp9qwQ9Qs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HcLiHoiy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788327019; c=relaxed/simple;
+	bh=JSkY3eQadif/o72cZzgDCEQNnFDAI1mHcuDmxdU2d00=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=q0ElqdzsueezWuIy91hE7LNEsEBLx6SD4KHgSRtrqM1RpgXFtv76zvJthyN4HlrPNlhHqD9U2oUEN1ZKi5vBX6I3lYEIJarXUOEHu3rqSyDc0VVYMBlA6BaIG0Z2bO3uzztX524Vi0t3W8qJkNz6gpNGTuUwTqsA7dWc89+FCtk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=C5yPL/lW; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HcLiHoiy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FC1B1F000E9;
-	Wed,  2 Sep 2026 05:12:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788325931;
-	bh=39RHCgNAQgMzGaZQNMiJYRlN0aoSbOa5Hza583Np1GA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HcLiHoiyrlv8R19RYEbM72ydEKsQ0lSVRfp4Xyoog+EJHxxF+QjAMJj41VT7DBfjs
-	 DJuzj6Ojo5ENp35jm+luxovZrlMvQFC+rzXmLw2o29+8Xk7c0jBlf7FvAkal2/SJdy
-	 17xPZCJ6F354sGR9+ZCrXxr7DuO7oudFSKetE2SMAVTv6nEikLr0417RlVOmvc23US
-	 YxmO0gy8hk6zODoKperbJwY9tlMY11ii6jc0rPllJSDgLceU0gXtDOw9cKLGhpp4P3
-	 TVUnmguDlkhVKUzxem+xV3wIXubHCoh2rUHIqjdidIKx40QlJyPAoKWkQ6UnOCxfyK
-	 DkbTjQDks6jtQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] usb: typec: Add onsemi FUSB15201 driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shawn Guo" <shengchao.guo@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260902045938.184221-3-shengchao.guo@oss.qualcomm.com>
-References: <20260902045938.184221-1-shengchao.guo@oss.qualcomm.com>
- <20260902045938.184221-3-shengchao.guo@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 05:12:11 +0000
-Message-Id: <20260902051211.9FC1B1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="C5yPL/lW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788327016; x=1819863016;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=JSkY3eQadif/o72cZzgDCEQNnFDAI1mHcuDmxdU2d00=;
+  b=C5yPL/lWhe1LpQ5/Ygi0wMqCLkUOnwN0Sd2XTPPJ/Ehk2T14wtwcoS2w
+   rgLRP1HPpxUKvdXhfmPmwlx9pkqdBHI/OpABhDrAeecq+T7eYJUY/0HMe
+   uvTpUFA6YF0qSQU4W3Vo2PEw+2ksoZJXiEMwFINrk5XiqQtUotCZRJIeA
+   nbEXask+wqtqlF681bF2W7StEjqp5OYBYAv6USqtOgSh4XAKAOhnX8xIy
+   OEg9bR9+yHtzoky/SN210nTZpt2nKZxXig6J1LzT/7zWu4G/rg9u/V/gp
+   jMgnNt2q+ZkG5SxHDrnxvYNc/XUSHOx+NOgxLqF/+69VTsx1UmeexYfgA
+   A==;
+X-CSE-ConnectionGUID: KoEZtmNbQmucr7jvfYDHrw==
+X-CSE-MsgGUID: G2+PZvEPSkaeAUj24SrN3Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="111543640"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="111543640"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 22:30:14 -0700
+X-CSE-ConnectionGUID: YEmw4gMkRJOKmwzxUmslsQ==
+X-CSE-MsgGUID: 5hrL4eFGSkOj5dtjnjAeYg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="267997236"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.118])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 22:30:10 -0700
+Date: Wed, 2 Sep 2026 08:30:07 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Kanak Shilledar <kanak.shilledar@axis.com>
+Cc: Henrik Grimler <henrik.grimler@axis.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
+	Chris Morgan <macromorgan@hotmail.com>, kernel@axis.com,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/8] Add support for InvenSense ICM-42370-P
+ accelerometer
+Message-ID: <ape0FNy38B_0RyN4@ashevche-desk.local>
+References: <20260901-b4-inv_icm42370p-v3-0-77cc31642115@axis.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901-b4-inv_icm42370p-v3-0-77cc31642115@axis.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Flawed interrupt handling leaves unknown bits unmasked and unclear=
-ed, leading to persistent interrupt storms.
-- [High] The driver incorrectly enables global Dual Role Power (DRP) toggli=
-ng if any port is configured as Sink-only, violating the port capabilities.
-- [Medium] The USB role switch is not reset to USB_ROLE_NONE during driver =
-unbind, leaving the external USB controller in an active state.
---
+On Tue, Sep 01, 2026 at 04:35:53PM +0200, Kanak Shilledar wrote:
+> InvenSense ICM42370P is a high performance MEMS MotionTracking 3-axis
+> accelerometer. It supports I2C, I3C and SPI protocols. It has a 2.25kB
+> FIFO and two programmable interrupts with support for ultra-low-power
+> wake-on-motion support. It has a built-in temperature sensor. This
+> patch series adds basic support for the sensor with functionality of
+> performing raw reads and writes via the I2C interface.
+> 
+> This device contains 4 register banks for configuring the device called
+> MREG0, MREG1, MREG2 and MREG3. Unlike other devices from the same
+> vendor, this contains a very different way of accessing the register
+> banks apart from the default user bank 0 (MREG0). The register bank access
+> procedure is mentioned in the datasheet Section 13. This is very
+> similar to the existing InvenSense, ICM-42607-P driver. Thus, it
+> improves the existing driver support and adds the ICM-42370-P device to
+> it.
+> 
+> While adding the support for new device, I tried to perform some fixes
+> to the existing driver which were pointed out in the v2 of this patch
+> series.
+> 
+> The buffer support will be added in another patch series.
+> 
+> Note: The datasheet for InvenSense, ICM-42607-P could not be found on the 
+> official https://www.invensense.tdk.com/en-us website. Thus, I am 
+> using the datasheet available at https://www.lcsc.com.
+> 
+> Question to the reviewers:
+> * There is no entry for drivers/iio/imu/inv_icm42607 in the MAINTAINERS
+>   file, should a new MAINTAINERS entry be created for the inv_icm42607
+>   driver with the original author as the maintainer? Currently
+>   `get_maintainers.pl` is able to add the original author to the
+>   recipients list, but `b4 prep --auto-to-cc` is not able to add.
 
-commit 6b9e1b8d15d5c504ba4fc579e782da3b1bebac98
-Author: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Only if you have (or will have for sure) the confirmation from them.
+Otherwise it's you most likely...
 
-usb: typec: Add onsemi FUSB15201 driver
+> * As per the comments in v2 from @Jonathan regarding splitting the
+>   driver into multiple files, should we still have the driver as
+>   multiple files or should it be merged into a single file?
 
-The commit introduces the onsemi FUSB15201 dual-port USB Type-C and Power
-Delivery controller driver. It handles Type-C state detection, PD negotiati=
-on,
-and allows for role swapping via sysfs.
+It depends on the factors like busses to support.
 
-> diff --git a/drivers/usb/typec/fusb15201.c b/drivers/usb/typec/fusb15201.c
-> new file mode 100644
-> index 0000000000000..920c561b62761
-> --- /dev/null
-> +++ b/drivers/usb/typec/fusb15201.c
+> * As per the comments in v2 regarding the formatting of
+>   headerfile with the positioning of macros, enums and function
+>   prototypes, as well as indentation of in the register values, also the
+>   all the enum values are numbered which seems unnecessary, should these
+>   be implemented here as well?
 
-[ ... ]
+-- 
+With Best Regards,
+Andy Shevchenko
 
-> +static irqreturn_t fusb15201_irq(int irq, void *data)
-> +{
-> +	struct fusb15201 *chip =3D data;
-> +	irqreturn_t ret =3D IRQ_NONE;
-> +	unsigned int i;
-> +
-> +	guard(mutex)(&chip->lock);
-> +
-> +	for (i =3D 0; i < FUSB15201_NUM_PORTS; i++) {
-> +		struct fusb15201_port *port =3D &chip->ports[i];
-> +		unsigned int pending;
-> +
-> +		if (!port->port)
-> +			continue;
-> +
-> +		if (regmap_read(chip->regmap, FUSB15201_REG_INTERRUPT(i),
-> +				&pending))
-> +			continue;
-> +
-> +		pending &=3D FUSB15201_INT_ALL;
-> +		if (!pending)
-> +			continue;
-> +
-> +		/* Write one to clear */
-> +		regmap_write(chip->regmap, FUSB15201_REG_INTERRUPT(i), pending);
 
-[Severity: High]
-If the hardware asserts an undocumented or reserved interrupt bit (e.g.
-bits 3-7), does this masking leave those bits permanently uncleared? Since
-they are masked out of the pending variable here, regmap_write won't clear
-them. This might cause a persistent level-triggered IRQ storm if an unknown
-bit triggers.
-
-[ ... ]
-
-> +static void fusb15201_put_role_sw(void *data)
-> +{
-> +	usb_role_switch_put(data);
-> +}
-
-[Severity: Medium]
-Does this leave the external USB controller stuck in an active state if the
-driver is unbound while attached? The driver correctly sets the role to
-USB_ROLE_NONE on detach during normal operation, but that doesn't appear
-to be called during this devres cleanup path.
-
-[ ... ]
-
-> +static int fusb15201_hw_init(struct fusb15201 *chip)
-> +{
-> +	bool source_only =3D true;
-> +	unsigned int i;
-> +	int ret;
-> +
-> +	for (i =3D 0; i < FUSB15201_NUM_PORTS; i++) {
-> +		struct fusb15201_port *port =3D &chip->ports[i];
-> +
-> +		if (!port->port) {
-> +			/* Nothing describes this port, keep it quiet. */
-> +			ret =3D regmap_write(chip->regmap,
-> +					   FUSB15201_REG_INT_MASK(i),
-> +					   FUSB15201_INT_ALL);
-
-[Severity: High]
-Since FUSB15201_INT_ALL is 0x07, does writing it to the mask register
-mask bits 0-2 but leave bits 3-7 unmasked? This could expose the system to
-the un-clearable interrupts mentioned above for unconfigured ports.
-
-> +			if (ret)
-> +				return ret;
-> +
-> +			continue;
-> +		}
-> +
-> +		if (port->cap.type !=3D TYPEC_PORT_SRC)
-> +			source_only =3D false;
-> +
-> +		ret =3D regmap_write(chip->regmap, FUSB15201_REG_INT_MASK(i), 0);
-
-[Severity: High]
-Writing 0 appears to unmask all 8 bits, not just the known bits 0-2. Could
-this also allow unknown interrupts to trigger and cause an IRQ storm on
-configured ports?
-
-> +		if (ret)
-> +			return ret;
-> +
-> +		/* Discard anything that happened before we got here */
-> +		ret =3D regmap_write(chip->regmap, FUSB15201_REG_INTERRUPT(i),
-> +				   FUSB15201_INT_ALL);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	/*
-> +	 * Dual role toggling is the only configurable part of the Type-C state
-> +	 * machine, and it is chip wide rather than per port, which is why it is
-> +	 * set up here instead of from a port_type_set() callback.
-> +	 */
-> +	return regmap_update_bits(chip->regmap, FUSB15201_REG_MASTER_CONTROL,
-> +				  FUSB15201_MASTER_DRP_DISABLE,
-> +				  source_only ? FUSB15201_MASTER_DRP_DISABLE : 0);
-> +}
-
-[Severity: High]
-If a port is configured as Sink-only (TYPEC_PORT_SNK), source_only becomes
-false, which clears the MASTER_DRP_DISABLE bit. Doesn't this globally
-enable Dual Role Power (DRP) toggling? If so, it would force fixed
-Sink-only ports to periodically advertise as Sources, which could backdrive
-power into attached devices or cause detection failures.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902045938.1842=
-21-1-shengchao.guo@oss.qualcomm.com?part=3D2
