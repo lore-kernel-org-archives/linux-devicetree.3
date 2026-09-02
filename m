@@ -1,236 +1,122 @@
-Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF7C40F74A;
-	Wed,  2 Sep 2026 08:47:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.159
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788338861; cv=none; b=L53nDZSRjszJvaBqsPuvDyjBZnUDoq1YVegBU8Ftl97fAPmvxQMCQT0fe7JLMq9z4W261eqLTiFa/dhYCgDbQ2bVo3C8Ux1TtqMVKFHpJBJU7VBTYRWLjsnDDA9Gqx1Y74oGXVAIPa7Jm7xxXqpTLdNCDgaEHYA5WbnAth3BHCQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788338861; c=relaxed/simple;
-	bh=oAz5sQ2ZkBi9byyrbCBEmL3wAnVDTfgV+o+W+8fS4Ao=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QW4Wd/OmTFTw8jZed+0wm9gqQ5/+1o7RsFg80BgPADUKO1+iu2y+Ra91NO5HfRlMtVEqQv6PJ9z0lvTz2v03oq2KBjNFH2vbeVhIH2yWoe3+aeTK+UEzuEosz+PGvzvXyxOhbjug+VKaTnVdrsBmkgPlyj5sHyxMBv9P80FD5LA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=cHwxgvAC; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=iDNs9pMV; arc=none smtp.client-ip=103.168.172.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF1B5403AFA
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 08:47:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788338868; cv=pass; b=Twyb6mh5zWrVYwEu/VgeaSpYERLF4zRq2huEuZAYf4ELCXtDlm2zZysSWnXhk4UjF/ftb8ALZdit7eCR40YKU6q28GwW0OyJ4uNOU4M4No0hrFyCTtWXM8/hxC5bxdEs1BSoHDhla1Up2av6pqFMP5d1+PAd2jX1Kn1UnF9udao=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788338868; c=relaxed/simple;
+	bh=MYMnfWqyZs8fhoupAqZEoP21jVypdUTvrAIwa7LBw+w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=SoVSSYpRX6rm7pSpIT0rsHvFOu18PaWlML5vTBtiS/Jx8mG7D/1ibBk2ue9vTlvHTzZP+vKm6nKUAe8kgTCnnkXj+fTtWdvMtx4aBc5/ZF9WGJsq4XbHVvJXKCEo16t4C+whjcrzSfR1n5SsOODTxYl33ujyT+t9V4qMquHnIKM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DJbzAr7h; arc=pass smtp.client-ip=209.85.161.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="cHwxgvAC";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="iDNs9pMV"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 9E4C51400141;
-	Wed,  2 Sep 2026 04:47:39 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Wed, 02 Sep 2026 04:47:39 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1788338859;
-	 x=1788425259; bh=xninzBdh1IJS0lOnJ9VwYxscY4/BJ1MXk08bi4TFD/Y=; b=
-	cHwxgvAC17g7tzMBo0hJbELpbcpua1HYMrsbJYgfp98S5niNiYXgaVwUDtzI+Il7
-	n8bjPC/tf+fOuGpVcudF3wuzyH072FEpTnXb9029TXS9DaSoln/fvI3kogoYTgSs
-	G6rb8HBuT7Uqwt+1Y1EZ1t3bOwNpwxmt7i0riXlUPKU6opTaakXQIx4Ar3LOZJbi
-	9/PmdMS5lHrNM+/0y1LZ54Ug407Ck73NQxVovbia/f6jnWXxkaOlJkQTFLKzh7P8
-	FyZNWjgzI9pNkFrOSSyk9fxAsWm7cb3nt1hwQBLW2Z8eKgUWxHK11KLtk+wCW3q4
-	evruPJi6o+EdBxnwwXBSWQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788338859; x=
-	1788425259; bh=xninzBdh1IJS0lOnJ9VwYxscY4/BJ1MXk08bi4TFD/Y=; b=i
-	DNs9pMVkjLISfg+fVA9Q8Yx8WXa3ZIIIGby9bK7i3WhoipUupDnnXC27/dOvLEUl
-	v2zTEU7yZjlwPIH0Eyp7tD1IHhfq25IzlU+7x+DgqvHe88LOiehb9054FZB65kfD
-	28M58wWcJUgPlAIJTW6a9puzN0zXw1EXkxoaGObaKbNdqT9SpzUwzFlDbzVaz5oE
-	QxcbAUuZkjSuD62kdKcwYWcEmYZH1wKQooRb9b9WPd3gxf5onXBGbkgtoHf0A7pN
-	A6RDhSBbYtRvaFdNd48Q3QeYcoNFzPiQmXsMBMZ5jp1Fr+9BnZv+SCEgFn5ZINff
-	9GOiSXY59WfKvtXD9ez2w==
-X-ME-Sender: <xms:q-KXakSsP-sYgj5Yx8kxKOqdokD9pf4tHtY-vJmUKhBKQHwAf2eyxQ>
-    <xme:q-KXaqgMusL7nRIG-DDfMJT4vd50e_U38ynWxeiCDi7AOPJEFJGkpjGitTO567zyv
-    wY5oCR5dT0ibkhTURrQS9sCNvxnvfvNWVOy6m5ekwY8IvA-BNm_3_A>
-X-ME-Received: <xmr:q-KXaghzFbZemfQyQ4sJu3O6Rsf32O8K8XMd1DEHlwAU1oXi1zCM78sp_ypZhQ2nWx1xclfdIFNnWSh157Opjthf7ssdL_Q>
-X-ME-Proxy-Cause: dmFkZTFLAv/ibph6UC33feAOMpzczryfKzXjO7EDaAqbWAtNnwbJPCoHyFP6KyAhOx9F6x
-    dNf/b+0Xn+KWry8AK5eahf1FDySDBqLxaUqoPd3rgZYpbsxa666JLLmPyRvWDKeI2ghAf/
-    unF9XDDDCD+dXmlFUY+PKo1SF2FZ/CGClyqiCAFeoxQ89ueTM5YIAs9qvMF+7r5U3tqqqm
-    GoyvBZuncP1oKLZLKyVWYH39p02A3ZyE5AEAz7A4Oi2slaH558XyoLwxPAuEUWy2p+d5vb
-    QMhR9+RrNEaH8aNp37fOiQNHXNfFuLyQGcQpuWCW512Wy1RZKLJJjGvur1RKpdfLH1XvUL
-    9pv3drN2hDJH5MbjfjTZpSKxCFT0R0p9voDKMMuJopMBGLdc+UV9c5H+5dNpLZmpZEHs8g
-    E/M3mHjKH5cv9b/3X2FgMo52XVJ+zpjygI7CWu2+045RgTG3VK4LbCnN2Zg6BYavVlnkbP
-    If7exXVTu/HxrtSIjAgaGXyiI9EGYELK25/Ag7d1ZZlv8wNx8zMOV7Av8ISJuh1qxy/pAV
-    ujgbVIHt3OGogULbBhowmA2qUN6u+zPthjIt2VHOlmGCgjDxZbujPiC7DMCySRP5mw3PqQ
-    T4AniBb90aaSgW8rd/ZsqP3PF4fDzM7xvx1vzmJo3ep5X0gy1HwvShd8bZ3w
-X-ME-Proxy: <xmx:q-KXaqbB9Sn5J62wgN8l8LhMYxiyiWZq_OkrYM2w_aoTeXZ3FBWt9g>
-    <xmx:q-KXahVXXb5wPJABUWkfotlokxZqcDYdhzW4jp53cT5FRmJRmcvTJQ>
-    <xmx:q-KXapioTWuBC45pOzu0Ks5-FHpbLmDOUO9gRUlCzen2fhOts4sghQ>
-    <xmx:q-KXakliT8dsLXfTjiukwVuby_9ghHg9Z9PFhqLtesgvvUCvBBtc5A>
-    <xmx:q-KXavoyFZGDofN-wWV7-_VYJidF5kZWdyCLH01yXVwhITGoIIr-Z2FQ>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 2 Sep 2026 04:47:39 -0400 (EDT)
-From: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"DavidS. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	Sergey Shtylyov <sergei.shtylyov@gmail.com>,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org
-Cc: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-Subject: [PATCH net-next v3 10/10] net: ethernet: ravb: Add gPTP support for Gen4
-Date: Wed,  2 Sep 2026 10:47:03 +0200
-Message-ID: <20260902084703.3228504-11-niklas.soderlund+renesas@ragnatech.se>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260902084703.3228504-1-niklas.soderlund+renesas@ragnatech.se>
-References: <20260902084703.3228504-1-niklas.soderlund+renesas@ragnatech.se>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DJbzAr7h"
+Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-6b1b233ca8dso370723eaf.2
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 01:47:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788338865; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JsiiEhdT/QNVodl8XOh5T0DkzHdBla/jgIhVPB0lzErWfP96HGwyGYNCAHgjLIN0tm
+         kQy683v56G9BY5ClwlOFb1c0ZE3rJ7EQ/T0id8dnr56YXuc0h4O5bGFNB2ZKGpXOJjGG
+         84dKJpH+YzMcCONb/kNYGZZ6lAxMomsVqTyelEfgrJFDAu5SdJilDTMyP4+Zg4fl7AVq
+         Pkfj2BnQYf6qPiXmlIxjw3RudEs71caf0VlrJjqFuHY2Ck0F54OJVxYmCt7gfrya9foK
+         Y3fsJS1XUPyvHlIc+vrXIV/kZvO0cB/GOnEMa8bqQOpYVNy2UpCRN0cWrqRDCCR2l+uN
+         6Cag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MYMnfWqyZs8fhoupAqZEoP21jVypdUTvrAIwa7LBw+w=;
+        fh=XN1YjoVGbooawXPfinrf2IbS3BFaJkNQIjlaYv7n7fI=;
+        b=jtrqYouV3DddE+0WcgRvLeP42qZU9vYOvAxrKs7/DJfmthJtKO+xO3ndUF9IUCC6il
+         iaTfkhyZrsnm7KGBzEfQZf7qldGoXw0cRjys14kv43C5XOzBupOs1yRLESJAyJt7Ukfo
+         G/2csrTc+k6CtfiEwyyZuwZiPy3fBVSU/7grTGm40Yb/6tA7xwBg+7+43QoApXNNmwxr
+         yxpaXR27H+trn9NII/mTcqstDnWtgvdPaY76rBZi9qi//T/dBy44kUn3DIL+GEZlUBu7
+         FMw2Jmsv42GHYyWo/H/IHlqKwg9rB4sBev/z9tRMDp49DzFv4/bVmHesOyQFWHVq4jI+
+         EgbA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788338865; x=1788943665; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MYMnfWqyZs8fhoupAqZEoP21jVypdUTvrAIwa7LBw+w=;
+        b=DJbzAr7haKWxdqnUc70Phg+eixPYvwnJFoYIB+xzF5o/Erx23EGd9w664afgzl8p59
+         fuClszgTLBm41FkOw2h62NZWk+Kq5Lzo1zJ7xZ9MmqPwgaMZ2cUYw8RFNGIQHYVFu0bI
+         15R39hACUIh1bhKHHzIwu+A0QKnCCziOlfY37LID7sp1CK8mOQasRwqHTNnd7K8IhO8D
+         /5sbx5rq+byqgugzcphFqJjnb7ak0+mldNmNbBBS+GHNg/IMzdqq8aatb8cqgsh1nyx1
+         7DWyB+aJI2HoBcpsfFNK05uP9bDZejngLkaJpPtsIFzu7UNlWuWPjrDH17y9qNFSRGIk
+         KpIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788338865; x=1788943665;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MYMnfWqyZs8fhoupAqZEoP21jVypdUTvrAIwa7LBw+w=;
+        b=n8Ny0qQmd82GCnDCREJIVQZm0lUi5JrZFKSqOyCeUEZr1slUECYZf5bZrELheApcWm
+         /WqW/ZplyVw9m+j8dLUbOYV7uYeq5NtHYSOb+ATt8fiR4i2BeNXCXGgDrIymQpgAMMI7
+         l+3EtczUW0o4LrFVIzznyOHtuuqH8qQsGvLXc/G1A8UHnoWQc0z4KJRBwdiXbswBkswO
+         xOXHOK3AVJV/Nb61BwVeqCVS6j8gn5nqFOmjwP4x3JzTz06QH29jxMtBYK4gx1JdhHjD
+         Mylgt3Y2kMeddb7TzB4C6VOuBQpa7crN20TCNaI19ecka/wEiR1bGX0S0+CraUuoAw6E
+         7dzg==
+X-Forwarded-Encrypted: i=1; AHgh+RrJpj+JxYt5bAED4g3AZfGpDCUJjv944zLSzNUHem52R1Erp2fa83pkgm+cY0GyFVtIVmZZ7UZOvHG9@vger.kernel.org
+X-Gm-Message-State: AFuF++nt93kw6ooUJpDbvIiQLbLwaB434XXutmDHOQ9f9nJXmiCwqRxq
+	WKBFDUn50AnwFJBpKyr7ECMvY0raHwVwEGJp2wpt3i9PqMOdfvt7rvnefDjL6aAP5v7DPHKP+Hd
+	WAJ7mgkR3w5Z1EUBoSXaFmUAGzZP6iU8=
+X-Gm-Gg: AR+sD13O5fSYERNAzgkGyEMGLv2kBXLUmhBHLswNqyc5xCS2QUvTJOsBCiUopUCr6zJ
+	5/VALqePnyHFOoFWX5im2gh5DUHuhrMQCShOqnlWGVVRUsVcPc+kWFUFunwu3IMM0QwXUydKim2
+	WfBm4eck7hT3Dav7uXlSy8Y+KsM+Akx/iOpBl4PkvHWCs7xLv9QqrOyJu+CUrBp2gcbTJwyGpIk
+	e3+z4RcFfOIT8WLO8+Y+ZBmCC1T6G2tBUV76nphWeWmrMX6B/K6zFwLBgcWn6heHR5k9YdAJzE1
+	IiYLlJ3OOzSCFooU66GZkkQ+rFdWPUJSaeW/PBVa45Aqo9jfraFEawCb640KV6Fa+poHBzPKUUY
+	OZQ==
+X-Received: by 2002:a05:6820:189a:b0:6b3:68a9:79e5 with SMTP id
+ 006d021491bc7-6b47edceea1mr2290029eaf.6.1788338865560; Wed, 02 Sep 2026
+ 01:47:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260823111959.17029-1-amit.barzilai22@gmail.com>
+ <20260823111959.17029-7-amit.barzilai22@gmail.com> <20260823113402.D7F9F1F000E9@smtp.kernel.org>
+In-Reply-To: <20260823113402.D7F9F1F000E9@smtp.kernel.org>
+From: Amit Barzilai <amit.barzilai22@gmail.com>
+Date: Wed, 2 Sep 2026 11:47:33 +0300
+X-Gm-Features: AcwNN1Vo44MBmJfOcBB8zzBfrsBJUHYQroJ08viZBYwnFe3YB46ZksIwW3AFHfo
+Message-ID: <CAOEgbEqhvoz-J0o08_igTAJdfEHN6vZcxgd72An=BKO2L2jhOQ@mail.gmail.com>
+Subject: Re: [PATCH v5 6/6] drm/ssd130x: Add SSD135X_FAMILY and SSD1351 support
+To: sashiko-reviews@lists.linux.dev, 
+	Javier Martinez Canillas <javierm@redhat.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, 
+	dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-While driver advertises gPTP support on Gen4 platforms it is in fact
-completely broken. On R-Car Gen4 devices the RAVB module have no
-internal gPTP clock as generations before it. Instead it utilizes a
-system-wide gPTP clock.
+On Sun, Aug 23, 2026 at 2:34=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+> [Severity: High]
+> Will this cause a DMA fault on stack memory? Callers like ssd130x_write_c=
+md()
+> allocate the command array on the kernel stack (e.g. u8 buf[8]). Passing
+> cmd + 1 to ssd130x_write_data() results in a regmap_bulk_write(). On SPI
+> devices, this passes the buffer directly to the SPI DMA engine. Because
+> vmalloc-backed kernel stacks forbid DMA, this might cause an immediate
+> kernel panic or fault during device probe and runtime updates.
 
-This change utilizes the refactoring of the RAVB gPTP code to add
-support for a system-wide clock and stops the Gen4 devices trying to use
-the non-existing internal gPTP clock.
-
-To remain backward compatible the ptp-timer property is optional.If not
-present, or not enabled, the RAVB driver will no longer advertise gPTP
-support to user-space.
-
-Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-Reviewed-by: Sergey Shtylyov <sergei.shtylyov@gmail.com>
----
-* Changes since v2
-- Use full 100 character width instead of breaking at 80.
-- Remove superfluous return statement.
-
-* Changes since v1
-- Use the standard generic ptp-timer property from
-  ethernet-controller.yaml instead of a vendor specific one.
-- Improve spelling in commit message.
----
- drivers/net/ethernet/renesas/ravb.h      |  3 ++
- drivers/net/ethernet/renesas/ravb_main.c | 54 +++++++++++++++++++++++-
- 2 files changed, 56 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/renesas/ravb.h b/drivers/net/ethernet/renesas/ravb.h
-index 27e2b31955ba..5d35b40d7c58 100644
---- a/drivers/net/ethernet/renesas/ravb.h
-+++ b/drivers/net/ethernet/renesas/ravb.h
-@@ -249,6 +249,8 @@ enum APSR_BIT {
- 	APSR_RDM	= 0x00002000,
- 	APSR_TDM	= 0x00004000,
- 	APSR_MIISELECT	= 0x01000000,	/* R-Car V4M only */
-+	APSR_GPTPTIMER_SOURCE = BIT(25), /* Gen4 */
-+	APSR_GPTPCLOCK	= BIT(29),	/* Gen4 */
- };
- 
- /* RCR */
-@@ -1132,6 +1134,7 @@ struct ravb_private {
- 	struct list_head ts_skb_list;
- 	u32 ts_skb_tag;
- 	struct ravb_ptp ptp;
-+	struct device_node *of_gptp;	/* Reference to external gPTP clock, if any. */
- 	spinlock_t lock;		/* Register access lock */
- 	u32 cur_rx[NUM_RX_QUEUE];	/* Consumer ring indices */
- 	u32 dirty_rx[NUM_RX_QUEUE];	/* Producer ring indices */
-diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
-index 402370e1be63..66c9cd15a19e 100644
---- a/drivers/net/ethernet/renesas/ravb_main.c
-+++ b/drivers/net/ethernet/renesas/ravb_main.c
-@@ -2752,6 +2752,57 @@ static const struct ravb_hw_info ravb_gen3_hw_info = {
- 	.magic_pkt = 1,
- };
- 
-+static int ravb_gen4_ptp_probe(struct net_device *ndev)
-+{
-+	struct ravb_private *priv = netdev_priv(ndev);
-+
-+	priv->of_gptp = of_parse_phandle(priv->pdev->dev.of_node, "ptp-timer", 0);
-+	if (!priv->of_gptp)
-+		return 0;
-+
-+	if (!of_device_is_available(priv->of_gptp)) {
-+		of_node_put(priv->of_gptp);
-+		priv->of_gptp = NULL;
-+	}
-+
-+	return 0;
-+}
-+
-+static int ravb_gen4_ptp_clock_index(struct net_device *ndev)
-+{
-+	struct ravb_private *priv = netdev_priv(ndev);
-+
-+	/* If no clock, mimic ptp_clock_index_by_of_node() fail and return -1 */
-+	if (!priv->of_gptp)
-+		return -1;
-+
-+	return ptp_clock_index_by_of_node(priv->of_gptp);
-+}
-+
-+static int ravb_gen4_ptp_set_config_mode(struct net_device *ndev)
-+{
-+	struct ravb_private *priv = netdev_priv(ndev);
-+	int ret;
-+
-+	/* Enable gPTP Clock and Select High-speed peripheral bus clock. */
-+	ret = ravb_set_opmode(ndev, CCC_OPC_CONFIG | CCC_GAC | CCC_CSEL_HPB);
-+	if (ret)
-+		return ret;
-+
-+	/* Set PTP source to GPTP module, only option on Gen4. */
-+	if (priv->of_gptp)
-+		ravb_modify(ndev, APSR, APSR_GPTPTIMER_SOURCE | APSR_GPTPCLOCK,
-+			    APSR_GPTPTIMER_SOURCE | APSR_GPTPCLOCK);
-+
-+	return 0;
-+}
-+
-+static const struct ravb_gptp_info ravb_gen4_ptp_info = {
-+	.probe = ravb_gen4_ptp_probe,
-+	.clock_index = ravb_gen4_ptp_clock_index,
-+	.set_config_mode = ravb_gen4_ptp_set_config_mode,
-+};
-+
- static const struct ravb_hw_info ravb_gen4_hw_info = {
- 	.receive = ravb_rx_rcar,
- 	.set_rate = ravb_set_rate_rcar,
-@@ -2774,7 +2825,7 @@ static const struct ravb_hw_info ravb_gen4_hw_info = {
- 	.tx_counters = 1,
- 	.multi_irqs = 1,
- 	.irq_en_dis = 1,
--	.ptp = &ravb_gen3_ptp_info,
-+	.ptp = &ravb_gen4_ptp_info,
- 	.nc_queues = 1,
- 	.magic_pkt = 1,
- };
-@@ -3188,6 +3239,7 @@ static void ravb_remove(struct platform_device *pdev)
- 	pm_runtime_disable(&pdev->dev);
- 	pm_runtime_dont_use_autosuspend(dev);
- 	clk_unprepare(priv->refclk);
-+	of_node_put(priv->of_gptp);
- 	reset_control_assert(priv->rstc);
- 	free_netdev(ndev);
- 	platform_set_drvdata(pdev, NULL);
--- 
-2.55.0
-
+This looks like a false positive. regmap_bulk_write() does not pass the cal=
+ler's
+buffer to the bus. Since the map has a bus and val_bits is 8,
+map->format.parse_inplace is non-NULL, so regmap_bulk_write() takes the
+branch that kmemdup()s the data into a slab-allocated buffer and passes tha=
+t
+to regmap_raw_write(). Slab memory is DMA-safe, and the caller's buffer is
+only ever read via memcpy(). The finding would be valid if the driver calle=
+d
+regmap_raw_write() or regmap_noinc_write() directly, since those can hand
+the pointer straight to bus->gather_write() and into spi_transfer.tx_buf,
+but it doesn't.
