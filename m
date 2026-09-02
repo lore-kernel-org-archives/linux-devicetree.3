@@ -1,42 +1,41 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 653F444E651;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A1AF450911;
 	Wed,  2 Sep 2026 22:54:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788389673; cv=none; b=ieEYZ1uekmGnbDHyVL+cMSYneypdM0LwPcqVly6XwEFWJA7J4Dgmt0ksuwLXism15hcA4gU/KrcW9WL4kWxkfngrwyczVQJqgi/yttmxVwbIUVCCoknXxixtWXZFFFUfQW70/8z2YiI4+uiz0K8pjNf0Qsyg33H6asu4kyscLrw=
+	t=1788389674; cv=none; b=nglQFbCLanb6KUpNSV8FK/KhjoA2hAYRrIQOhXMYwHPknXXpu/r8bUU25LmU0yZ1kGwXaaCAc1SzAMdkgRFao90oH66qCs/qP2sg9PEUNhyiKq/917JABhEKcBbkGtjzwxUw1wfvvzh+E5VeQ9nb171dqSgCg9UMbYdSlwpaeIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788389673; c=relaxed/simple;
-	bh=doU00+D+YerVdhuX8oEp8HqeUZPH5lDfQa2OrdpPg08=;
+	s=arc-20240116; t=1788389674; c=relaxed/simple;
+	bh=UsF0ka6JQJB52yMGxTjsFQSKOLo4iowxPUK1+eAGX70=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nEH25EzYRMYnEWPLzF6PhYuo1Ql+dwVLthI7RnZV+rvnRidLp+cDYFOZh/MQyuvlohR0SeAjFkN/IpiMiDOb8QMiV1/i55xhK00g9U7Ecgw1siNmykRgS5Y04qSXw2OL/bpKqzeHwtQkttBCVGLYkLTxZN3FR2OkZabAl3E3B2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=ANHi+++J; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=KArdmkZrVo3OzXRdb2uOXqtgDE/3J4scC5s8C/5HjwgOgnJn1itCeyh2NpJhnVQncpy3ANXKLtPeRPVcVQU2Cjf7wGRg5dYgpU4YnBH4Gjq6e4Irv5o3X5JLDk9c2FhAQFSQTv03C+AplZoh2nNB++shuy7y9F6IYwedti/rM2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=hjEhu5Be; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="ANHi+++J"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="hjEhu5Be"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1788389660;
-	bh=doU00+D+YerVdhuX8oEp8HqeUZPH5lDfQa2OrdpPg08=;
+	s=mail; t=1788389661;
+	bh=UsF0ka6JQJB52yMGxTjsFQSKOLo4iowxPUK1+eAGX70=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=ANHi+++J2Md8u/D8ccNqvdoTO7Cik8rIgQX/iw+qjsxqV7xHCEnXI97HauDrMmtlU
-	 UcI90Ei/Cr6QeH4OWsLzxvAQg0ZrplSbGAIZ6Bps9kja7ub0iIZxYHRJt0145ZD61O
-	 1siqZ/XJpn/qjbwPjK9hq22Kc1zj3I6vNdKj0mFuo2Z+jOXIgObue6/gBE6AoYCUqB
-	 91YQ3JDEiTBxPjZS99d7pTKMt0uP82U4DohnumiKonoAuhJnGORzjcylSub4/pql8i
-	 /WoGQW18NGTdh///V0ZITqa1O9yXTFSMgsqn8ZcXCisMSs5ldeXN6Yu3WYhvJ+tzrb
-	 JEt4HorcZf9Hw==
+	b=hjEhu5BewWnQ8GNU+sykpkxRHoAjvI4z6S47LruS2zoJOCX2G+HQDamW0Naez/0tY
+	 C9kQJCN8n5aWnR5XRIyuQP7za9/HyL9EDFwFyKsk1IdQgD+a5rZLtUq4Z88xWvEx6z
+	 sV/CjSimjRKmR0ZhtKCbgPY5mC8U6QxyFjb2uM1MoHxRNJAjvic21IGvGH+/twMxDb
+	 2DWRXmoX1MhlCASD+/austkZXn7sf0sWVxWk7y7z6aoOdRLznDI+MpK9deKyS3TBy2
+	 c85lXmSxs63n1WCfXavc8nly4GqqYVrQDO4emoprTK9whUi9Q966AShU2AImzl7N9/
+	 oPYM8+tiw5ujQ==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id C3F7317E35C2;
-	Thu, 03 Sep 2026 00:54:20 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7B9C117E0914;
+	Thu, 03 Sep 2026 00:54:21 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 03 Sep 2026 01:54:20 +0300
-Subject: [PATCH v4 13/14] drm/rockchip: dw_hdmi_qp: Enable YUV420 output
- format
+Date: Thu, 03 Sep 2026 01:54:21 +0300
+Subject: [PATCH v4 14/14] arm64: dts: rockchip: Add RK3588 VOP2 resets
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,7 +44,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-dw-hdmi-qp-yuv-v4-13-fb45bf4147eb@collabora.com>
+Message-Id: <20260903-dw-hdmi-qp-yuv-v4-14-fb45bf4147eb@collabora.com>
 References: <20260903-dw-hdmi-qp-yuv-v4-0-fb45bf4147eb@collabora.com>
 In-Reply-To: <20260903-dw-hdmi-qp-yuv-v4-0-fb45bf4147eb@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -69,35 +68,39 @@ Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>,
  linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
 X-Mailer: b4 0.15.2
 
-Both RK3576 and RK3588 SoCs are capable of driving the YUV420 output
-color format, and the required bus-format handling and VOP2 support are
-already in place.  Advertise it via the platform supported formats so
-the HDMI core can select it.
+Add the missing reset properties to VOP2 on RK3588.
 
-YUV420 halves the TMDS bandwidth compared to RGB/YUV444, which enables
-high-resolution modes such as 4K@60Hz on links that cannot otherwise
-carry the full-bandwidth signal.
-
+Co-developed-by: Andy Yan <andy.yan@rock-chips.com>
+Signed-off-by: Andy Yan <andy.yan@rock-chips.com>
 Tested-by: Igor Paunovic <royalnet026@gmail.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index 78473f9a0fce..1af29066a0a3 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -611,7 +611,8 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 
- 	plat_data.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
- 				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
--				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422);
-+				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422) |
-+				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420);
- 
- 	encoder = &hdmi->encoder.encoder;
- 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm, dev->of_node);
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+index 376ad04e0786..574264b9cd9c 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+@@ -1651,6 +1651,18 @@ vop: vop@fdd90000 {
+ 			      "pll_hdmiphy0";
+ 		iommus = <&vop_mmu>;
+ 		power-domains = <&power RK3588_PD_VOP>;
++		resets = <&cru SRST_A_VOP>,
++			 <&cru SRST_H_VOP>,
++			 <&cru SRST_D_VOP0>,
++			 <&cru SRST_D_VOP1>,
++			 <&cru SRST_D_VOP2>,
++			 <&cru SRST_D_VOP3>;
++		reset-names = "axi",
++			      "ahb",
++			      "dclk_vp0",
++			      "dclk_vp1",
++			      "dclk_vp2",
++			      "dclk_vp3";
+ 		rockchip,grf = <&sys_grf>;
+ 		rockchip,vop-grf = <&vop_grf>;
+ 		rockchip,vo1-grf = <&vo1_grf>;
 
 -- 
 2.55.0
