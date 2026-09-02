@@ -1,308 +1,190 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E79D495054;
-	Wed,  2 Sep 2026 14:31:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54F0E4A0151;
+	Wed,  2 Sep 2026 14:33:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788359490; cv=none; b=LR57cDGdvIEGSkuCLD/rzLiqlsBdujgFP0TUtWoIQ81zsUIDMJHVlWHppbjxBGduAbOUzh62+nLV7/+swF7e7d3OJf/2QcP2AdtsVuM2rYniRU4DHr7veTw4imOcEpcB9XdIcyclDBlBOxxqtyc9MnHjSS6IU+4yYp1RSi1LCCs=
+	t=1788359608; cv=none; b=F+WahnzMkiTZziG5GXjg9lrvMe8blAJUFMXnD4PoXf9SqN8avE6bAiY9TIbmcQj1pRov1WH4jrtsOwIA/8QKrijU6Z4iZcByCt+7/T3B8aVYDNWG3kdX+3SufA7DtkaRbTBNXkv76X+jq/AYvnaokhkNYFIsCahCGBTbZUuoYiI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788359490; c=relaxed/simple;
-	bh=PMOVXb+oxPCE/+N2ZdXPyIzFgHpA1F8IKcfHplH43q4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jVDNlEyNIKKQhZmHpZs7Hu4erKxkOUjbrlPSiGXUCu7LAzvobl8vFkzWjDfojEVgsd49tlMdCtUNOWNn7z1nKU4hkOcuuyOR7SOls/OMzHOwCTnnL/wQcsCysbeah5S5Ow9Qtu8VdkpjlswW2Sv27wxhaZJ0WZ62Vxn6ee+83DE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k3mtgELl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788359608; c=relaxed/simple;
+	bh=ERGuEmIIVgi4qQVISJCN0cTnnTumAYbT+jqIbYJLsrc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=XezCHr1RYWeNh2J83CzeUyrN88IZACfixvzfs5EDtFjNC6BTIZNRIqb8j2oxfeL0z02a/9R2vhLr8CLCxx2KUKKp2ukfQtLbPitTupsveXWB+DGDbj2OK0gi69QfX+lzcm11uG6C71julrveWOfkSStc/BrJY+qAEP4ZzarD3jY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D2jOF8ND; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k3mtgELl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 030A41F00A3A;
-	Wed,  2 Sep 2026 14:31:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D2jOF8ND"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A8621F000E9;
+	Wed,  2 Sep 2026 14:33:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788359488;
-	bh=u/YDtlQzEYjV/zdmMLJr+k2cbLHLiOPI7t+CSo6Z7As=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=k3mtgELlek4omOix2OZ1yUP4aDo616Y2qLubUtrC2AWJFYcnTaGSZVQaCsv2JWJRC
-	 Oki1VPHQbSQQ8lmy40lDSpAPyQ/axWKOxm2djyzWTIIcowijJU5xkuef8Q+pSdp/qI
-	 zI2qNshB/CuizsRNSMnSV8oibl9tz+JWzg0FHCz7V5B8WdTgppCsGsH5WCYOVrUEMV
-	 ziGJ1ybnef92qSCSMHJiHp0dpqGamX1RYpDPx2mfipDKLx1ffx/YXSVOnQaJx+4Nm2
-	 Ycs6T8/ae00ZO8NBlV3m2egZW54kS75haJIG/8j/AlFFXqPiPekITFOiH2w/rCsNXE
-	 Vt0pnCVR39FTw==
-Date: Wed, 2 Sep 2026 15:31:22 +0100
-From: Lee Jones <lee@kernel.org>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
-	"Jagielski, Jedrzej" <jedrzej.jagielski@intel.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej =?utf-8?Q?=C5=A0krabec?= <jernej.skrabec@gmail.com>,
-	linux-sunxi@lists.linux.dev, mfd@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 2/2] mfd: ac200: Add X-Powers AC200 support
-Message-ID: <20260902143122.GA2082450@google.com>
-References: <20260811-submit-ac200-mfd-v7-0-8b06f552a4d7@gmail.com>
- <20260811-submit-ac200-mfd-v7-2-8b06f552a4d7@gmail.com>
+	s=k20260515; t=1788359605;
+	bh=mN1GuONGMrlXkAnLdzF0gdIDI9aIqanTxmiU7C62woA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=D2jOF8NDNu/gSIPJuUvpZwfyX0tkPomDtA+4K+YwfZ3yTsE3r7ADPAAWXHr7BmCra
+	 Q78U4S0Gbk6CESj8Fe44O9iG7a7TKq+13svhaNBUnBdcluXIlxuCvYAlWz/qznA3a+
+	 GQdvZ1LJ+bpS27+HXfxMbjcid9XLui1PmPC97Mb4hfEbzjVpp6hfViBzpJ++ULxjfP
+	 zlw0H6C9fcbUPIfUGljJWS0wxiC3r/FiltdrmWZ37CL9zIVH9mC186iGD6+vRzP+NF
+	 ozGkrJ9FJGhvtam6UN0wdJlPdg+MPKaWbNvd3TGL3CemjCkyzjWY2exkJ3KIf7G3+a
+	 GS2LR5pnKC6jg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6] dt-bindings: pci: tegra: Convert to json-schema
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Thierry Reding" <thierry.reding@kernel.org>
+Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260902142449.735168-1-thierry.reding@kernel.org>
+References: <20260902142449.735168-1-thierry.reding@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 02 Sep 2026 14:33:24 +0000
+Message-Id: <20260902143325.5A8621F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260811-submit-ac200-mfd-v7-2-8b06f552a4d7@gmail.com>
 
-On Tue, 11 Aug 2026, James Hilliard wrote:
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [Medium] Broken schema cross-reference to `pci-iommu.yaml`.
+- [Medium] Missing `power-domains` in the `required` properties for the Teg=
+ra186 variant.
+- [Medium] Missing `required` array for root port child nodes, failing to e=
+nforce `nvidia,num-lanes`.
+- [Medium] Missing conditional requirement for `phys` and `phy-names` on ro=
+ot port child nodes for Tegra124+.
+--
 
-> The X-Powers AC200 is a mixed-signal companion IC with a paged register
-> map accessed over I2C.
-> 
-> Enable the shared input clock and prevent its rate from changing. Match
-> the vendor driver's 40 ms wait before the first register access,
-> initialize the paged regmap, report the chip and package revision, and
-> apply common reset.
-> 
-> The Ethernet PHY link endpoint is independently enumerated on its MDIO
-> bus rather than created as an MFD platform child. Keep the regmap attached
-> to the AC200 I2C device so a separately enumerated function can resolve
-> that device, establish its required lifetime relationship and retrieve
-> the regmap from the provider.
-> 
-> Cache only the common page selector. Individual functions can reset
-> independently and invalidate their other registers without regmap's
-> knowledge, so leave all functional registers volatile.
-> 
-> Reset the chip during managed teardown and system shutdown.
-> 
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> ---
->  drivers/mfd/Kconfig  |  11 ++++
->  drivers/mfd/Makefile |   1 +
->  drivers/mfd/ac200.c  | 163 +++++++++++++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 175 insertions(+)
-> 
-> diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
-> index e4fd4572472f..cac3fff5aee9 100644
-> --- a/drivers/mfd/Kconfig
-> +++ b/drivers/mfd/Kconfig
-> @@ -205,6 +205,17 @@ config MFD_AC100
->  	  This driver include only the core APIs. You have to select individual
->  	  components like codecs or RTC under the corresponding menus.
->  
-> +config MFD_AC200
-> +	tristate "X-Powers AC200"
-> +	depends on I2C
-> +	depends on OF
-> +	select REGMAP_I2C
-> +	help
-> +	  Support for the X-Powers AC200 mixed-signal companion IC. The AC200
-> +	  contains audio, video, RTC and Fast Ethernet PHY functions and is
-> +	  co-packaged with some Allwinner H6 and H616 SoCs. This driver provides
-> +	  the shared register access used by the individual function drivers.
-> +
->  config MFD_AXP20X
->  	tristate
->  	select MFD_CORE
-> diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
-> index 72d3944b0ad8..f8101d2a9ce9 100644
-> --- a/drivers/mfd/Makefile
-> +++ b/drivers/mfd/Makefile
-> @@ -150,6 +150,7 @@ obj-$(CONFIG_MFD_DA9052_SPI)	+= da9052-spi.o
->  obj-$(CONFIG_MFD_DA9052_I2C)	+= da9052-i2c.o
->  
->  obj-$(CONFIG_MFD_AC100)		+= ac100.o
-> +obj-$(CONFIG_MFD_AC200)		+= ac200.o
->  obj-$(CONFIG_MFD_AXP20X)	+= axp20x.o
->  obj-$(CONFIG_MFD_AXP20X_I2C)	+= axp20x-i2c.o
->  obj-$(CONFIG_MFD_AXP20X_RSB)	+= axp20x-rsb.o
-> diff --git a/drivers/mfd/ac200.c b/drivers/mfd/ac200.c
+commit 9fe702ef36ffb628e7fb46da07e21ea42a9f10b3
+Author: Thierry Reding <treding@nvidia.com>
+Subject: dt-bindings: pci: tegra: Convert to json-schema
+
+This commit converts the Tegra PCIe controller bindings from the
+free-form text format to json-schema. It references common PCI
+bindings and sets conditional constraints for various properties across
+Tegra generations.
+
+> diff --git a/Documentation/devicetree/bindings/pci/nvidia,tegra20-pcie.ya=
+ml b/Documentation/devicetree/bindings/pci/nvidia,tegra20-pcie.yaml
 > new file mode 100644
-> index 000000000000..0964e637afef
 > --- /dev/null
-> +++ b/drivers/mfd/ac200.c
-> @@ -0,0 +1,163 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * MFD core driver for the X-Powers AC200
-> + *
-> + * Copyright (C) 2019 Jernej Skrabec <jernej.skrabec@gmail.com>
-> + * Copyright (C) 2026 James Hilliard <james.hilliard1@gmail.com>
-> + *
-> + * Based on the AC100 driver:
-> + * Copyright (C) 2016 Chen-Yu Tsai
+> +++ b/Documentation/devicetree/bindings/pci/nvidia,tegra20-pcie.yaml
 
-Drop this.  Every driver tends to be based on something else.
+[ ... ]
 
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/clk.h>
-> +#include <linux/delay.h>
-> +#include <linux/i2c.h>
-> +#include <linux/module.h>
-> +#include <linux/regmap.h>
+> +patternProperties:
+> +  "^pci@1?[0-9a-f](,[0-7])?$":
+> +    description: Root ports are defined as subnodes of the PCIe controll=
+er
 
-Why aren't you using the MFD API?
+[ ... ]
 
-If you don't need it, then why is this in drivers/mfd?
+> +      nvidia,num-lanes:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        description: |
+> +          Number of lanes to use for this port. Valid combinations
+> +          are:
+> +
+> +          - Root port 0 uses 4 lanes, root port 1 is unused.
+> +          - Both root ports use 2 lanes.
+> +        enum: [ 0, 1, 2, 4 ]
+> +
+> +      phys:
+> +        description: Must contain an phandle to a PHY for each entry in
+> +          phy-names.
+> +        minItems: 1
+> +        maxItems: 4
 
-> +#define AC200_SYS_VERSION_REG			0x0000
-> +#define AC200_SYS_VERSION_PACKAGE_MASK		GENMASK(15, 14)
-> +#define AC200_SYS_VERSION_CHIP_MASK		GENMASK(11, 0)
-> +
-> +#define AC200_SYS_CONTROL_REG			0x0002
-> +#define AC200_SYS_CONTROL_CHIP_RESET_DEASSERT	BIT(0)
-> +
-> +/* Interface register accessible from every register page. */
-> +#define AC200_TWI_REG_ADDR_H	0x00fe
-> +#define AC200_MAX_REG		0xa1f2
-> +
-> +struct ac200 {
-> +	struct regmap *regmap;
-> +};
+[Severity: Medium]
+The original text binding required phys and phy-names for root port
+child nodes on Tegra124, Tegra210, and Tegra186 controllers.
 
-Why not just pass 'regmap' directly?
+By defining these as optional properties on the child nodes without an
+if/then conditional in the parent node to enforce them, will device trees
+for newer variants missing these PHY mappings incorrectly pass validation?
 
-> +static const struct regmap_range_cfg ac200_range_cfg[] = {
-> +	{
-> +		.range_max = AC200_MAX_REG,
-> +		.selector_reg = AC200_TWI_REG_ADDR_H,
-> +		.selector_mask = 0xff,
-> +		.window_len = 256,
-> +	},
-> +};
 > +
-> +/*
-> + * Each AC200 sub-block can reset independently, invalidating its register
-> + * contents without regmap's knowledge. Cache only the common page selector;
-> + * this avoids a selector read-modify-write for every access on the same page
-> + * without ever returning stale functional-register values.
-> + */
-> +static bool ac200_volatile_reg(struct device *dev, unsigned int reg)
-> +{
-> +	return reg != AC200_TWI_REG_ADDR_H;
-> +}
+> +      phy-names:
+> +        description: Must include an entry for each active lane. Note th=
+at the
+> +          number of entries does not have to (though usually will) be eq=
+ual to
+> +          the specified number of lanes in the nvidia,num-lanes property.
+> +          Entries are of the form "pcie-N", where N ranges from 0 to the=
+ value
+> +          specified in nvidia,num-lanes.
+> +        items:
+> +          enum:
+> +            - pcie-0
+> +            - pcie-1
+> +            - pcie-2
+> +            - pcie-3
+> +        minItems: 1
+> +        maxItems: 4
 > +
-> +static const struct regmap_config ac200_regmap_config = {
-> +	.name = "ac200",
-> +	.reg_bits = 8,
-> +	.reg_stride = 2,
-> +	.val_bits = 16,
-> +	.ranges = ac200_range_cfg,
-> +	.num_ranges = ARRAY_SIZE(ac200_range_cfg),
-> +	.max_register = AC200_MAX_REG,
-> +	.volatile_reg = ac200_volatile_reg,
-> +	.cache_type = REGCACHE_MAPLE,
-> +};
-> +
-> +static void ac200_disable(void *data)
-> +{
-> +	struct ac200 *ddata = data;
-> +
-> +	regmap_write(ddata->regmap, AC200_SYS_CONTROL_REG, 0);
-> +}
+> +required:
+> +  - reg
+> +  - reg-names
 
-You can't do this in .remove()?
+[Severity: Medium]
+This marks the end of the child node patternProperties definition, which
+appears to omit a required block.
 
-> +static int ac200_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	unsigned int version;
-> +	struct ac200 *ddata;
-> +	struct clk *clk;
-> +	int ret;
-> +
-> +	ddata = devm_kzalloc(dev, sizeof(*ddata), GFP_KERNEL);
-> +	if (!ddata)
-> +		return -ENOMEM;
-> +
-> +	clk = devm_clk_get_enabled(dev, NULL);
-> +	if (IS_ERR(clk))
-> +		return dev_err_probe(dev, PTR_ERR(clk),
-> +				     "failed to enable input clock\n");
-> +
-> +	ret = devm_clk_rate_exclusive_get(dev, clk);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to lock clock rate\n");
-> +
-> +	ddata->regmap = devm_regmap_init_i2c(client, &ac200_regmap_config);
-> +	if (IS_ERR(ddata->regmap))
-> +		return dev_err_probe(dev, PTR_ERR(ddata->regmap),
-> +				     "failed to initialize regmap\n");
-> +
-> +	i2c_set_clientdata(client, ddata);
-> +
-> +	/*
-> +	 * No minimum delay is documented. Match the vendor driver's 40 ms delay
-> +	 * before its first AC200 register access after enabling the input clock.
-> +	 */
-> +	msleep(40);
-> +
-> +	ret = regmap_read(ddata->regmap, AC200_SYS_VERSION_REG, &version);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "failed to read chip version\n");
-> +
-> +	dev_info(dev, "AC200 revision %#lx in package %lu\n",
-> +		 FIELD_GET(AC200_SYS_VERSION_CHIP_MASK, version),
-> +		 FIELD_GET(AC200_SYS_VERSION_PACKAGE_MASK, version));
+The original text binding mandated nvidia,num-lanes, reg, and
+assigned-addresses for root port subnodes.
 
-We support all versions, so why print it out at all?
+Since the required array is entirely omitted from the child node, can device
+trees omit the hardware-specific lane configuration without triggering a
+schema validation error?
 
-> +	/* Reset the chip after dependent function drivers have unbound. */
-> +	ret = devm_add_action_or_reset(dev, ac200_disable, ddata);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(ddata->regmap, AC200_SYS_CONTROL_REG, 0);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(ddata->regmap, AC200_SYS_CONTROL_REG,
-> +			   AC200_SYS_CONTROL_CHIP_RESET_DEASSERT);
-> +	if (ret)
-> +		return ret;
+[ ... ]
 
-Okay, now what?  What uses this regmap?
+> +unevaluatedProperties: false
+> +
+> +allOf:
+> +  - $ref: /schemas/pinctrl/pinctrl-consumer.yaml#
+> +  - $ref: /schemas/pci/pci-host-bridge.yaml#
+> +  - $ref: pci-iommu.yaml#
 
-> +	return 0;
-> +}
-> +
-> +static void ac200_shutdown(struct i2c_client *client)
-> +{
-> +	ac200_disable(i2c_get_clientdata(client));
-> +}
-> +
-> +static const struct of_device_id ac200_of_match[] = {
-> +	{ .compatible = "x-powers,ac200" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, ac200_of_match);
-> +
-> +static const struct i2c_device_id ac200_i2c_ids[] = {
-> +	{ .name = "ac200" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(i2c, ac200_i2c_ids);
-> +
-> +static struct i2c_driver ac200_driver = {
-> +	.driver = {
-> +		.name = "ac200",
-> +		.of_match_table = ac200_of_match,
-> +	},
-> +	.probe = ac200_probe,
-> +	.shutdown = ac200_shutdown,
-> +	.id_table = ac200_i2c_ids,
-> +};
-> +module_i2c_driver(ac200_driver);
-> +
-> +MODULE_AUTHOR("James Hilliard <james.hilliard1@gmail.com>");
-> +MODULE_DESCRIPTION("X-Powers AC200 MFD core driver");
-> +MODULE_LICENSE("GPL");
-> 
-> -- 
-> 2.53.0
-> 
+[Severity: Medium]
+Because this is a relative reference, it resolves against the current
+file's $id directory, effectively searching for
+http://devicetree.org/schemas/pci/pci-iommu.yaml#.
 
--- 
-Lee Jones
+Since pci-iommu.yaml is actually located in the virtio directory, will this
+broken reference cause dt_binding_check to fail or skip validation for this
+binding?
+
+[ ... ]
+
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: nvidia,tegra186-pcie
+> +    then:
+> +      properties:
+
+[ ... ]
+
+> +        vddio-pexctl-aud-supply:
+> +          description: Power supply for PCIe side band signals. Must sup=
+ply
+> +            1.8 V.
+> +
+> +      required:
+> +        - dvdd-pex-supply
+> +        - hvdd-pex-pll-supply
+> +        - hvdd-pex-supply
+> +        - vddio-pexctl-aud-supply
+
+[Severity: Medium]
+The power-domains property is defined as a capability for the Tegra186
+variant earlier in the binding.
+
+Should power-domains be included in this required array so that incomplete
+device trees for Tegra186 hardware do not incorrectly pass schema validatio=
+n?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902142449.7351=
+68-1-thierry.reding@kernel.org?part=3D1
