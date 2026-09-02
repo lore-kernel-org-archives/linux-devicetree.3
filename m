@@ -1,126 +1,183 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8215D390239
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 15:04:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F4C94A8423
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 15:04:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788361483; cv=none; b=IDzRqcRGcVlXy3ot6AINtZscZGbWTwq9tqzqsu3NbxArCxPrD0i1gU2GBtmeEWA2EgAmRSZ9+5NDbb9H6x4jE3lnt968sxG1xKgsHizTVXmzYauKI+s3ijUfcQhUKa5nOVjnzONJDd7FHvucpJTCCvRtfzia3plQTTjXTL+adBc=
+	t=1788361483; cv=none; b=jmHvb9fQxrQrOf662Bam4hroX8naBQeImAU8IdY91HqcrBxDHdr7Llzznq/8W5sF5TeUa9CFMZSpL5b9YRt8esPli+oGhmKMOgHa19HcNf3JMrG4rR/ik1y74PV2QmxA7lzN/NOoolJllEWtrEKz6//IPOcR7Q+pxB7MZ9/Glc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788361483; c=relaxed/simple;
-	bh=RfMkuzo12Au4wn6go5HZ3UIFXjkDw3mqANSy++GuLhk=;
+	bh=NYZX7j9II59+3qolyvvaNINXB0jUopvkCai+qyRJl7M=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ehaEoqhTvxmM753e7CKphhQRBCkigGiVyq1nuGC9dV3/sQry6xUoD69R1UkuV59AOydIv0O7WpQYsce00mJfv+63NBntYuLi8WcAOXZRnFn8svADuxKFGPcfo/R1H4f9MCjhnvAcal7l9PMbV1JxC8Qnm1JMIJOD+fQ9Xo+uTcA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Upn52aG1; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=pyM/EZpcy7wcgic4fTnJn8u5OI5uSi0RWPwRumWMoZpW2NbXDPm3as+FsJS3o2dH9nZcWr/FqE8x1r7mACo2EV6jXMm2oH4u3QFbMVK6pC4MIPX6rIJPnSzwaRqvGS1psNJRf1wgh7yT3cO7t2GyYkQW7Mlvf3n5iIKAln2AM0A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J13Dph+H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Upn52aG1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 756D31F00A3A;
-	Wed,  2 Sep 2026 15:04:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J13Dph+H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71FE21F00A3E;
+	Wed,  2 Sep 2026 15:04:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788361480;
-	bh=sxkfdOvfqSEQoJS5M8xkBhpL+OFUJ/t27w2005+PkvE=;
+	s=k20260515; t=1788361481;
+	bh=EjHGe2+c+iiJIyioUKvKNEOLJIJmWsEN6lX8BJvp+4I=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Upn52aG1qJND3BPQtX6lxMWcGryY+KLNFdMGBZcYT7a414u9ztpGy2k3VbtGhpoTQ
-	 f9fpSxHMjs8SqdcMF4f2mLQo9oHPpt5AoWEjH27ld87POCGJC7KYCTW2nMzmYCKujD
-	 rRhbEUdAWN4UJM6HUkFqG1QkqpFro45tSScxsTv4iiPJ4aOFlUFR0F0nVDDB0JNqIs
-	 pgks7NNrVGS5Xx2E2biDFnItKiPZj6xztWmPkkNIq1omACC2jqReyWXflJUPCaoOBM
-	 50zpEu4oBflMFGJM+SwtGkqXzql19uvrJ/RubKxvCwL1gd6zX95RfXkQHb9DkKvd45
-	 qQAfJ4E1wvLNw==
+	b=J13Dph+HXa5wrUilH/3Qy/UufluuyIOU9F2srH+U8YJtllTgGQTLugCKWzt1qWrB1
+	 cQw9r1/o7FOCtQKiXlbQU6vn//oKuO/0BJnHdLdNT+6s7xAUpo/Lnn0Mc3tIZxmmi0
+	 mR/tI/x7RqBEqNqh8skoGYXTYn3dS+SjtY+H6Un5EZfQegWhDvWkt0/aBF+a0wDxX7
+	 RzkYfVpJWJl9+1OZkX+F8pCSiKInf1T3WbsfjatRpiAPZoT9qsfeM8vcLkzkhM9Dpv
+	 MleFvYc51uxGSLckgnH1EDc42uAWeEvKdvrdVy1PHgdAvZLtBEoVRZU5Gf6mmsuXhj
+	 0NAN1qbSpoNPg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v3 05/10] arm64: dts: rockchip: rk3568: add
- XPCS and fixed-clock nodes
+Subject: Re: [PATCH net-next v3 08/10] net: stmmac: dwmac-rk: add SGMII
+ support for RK3568
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Coia Prant" <coiaprant@gmail.com>
-Cc: neil.armstrong@linaro.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-phy@lists.infradead.org, vkoul@kernel.org, olteanv@gmail.com, wsa+renesas@sang-engineering.com
-In-Reply-To: <20260901150111.141037-6-coiaprant@gmail.com>
+Cc: vkoul@kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, conor+dt@kernel.org, linux-phy@lists.infradead.org
+In-Reply-To: <20260901150111.141037-9-coiaprant@gmail.com>
 References: <20260901150111.141037-1-coiaprant@gmail.com>
- <20260901150111.141037-6-coiaprant@gmail.com>
+ <20260901150111.141037-9-coiaprant@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 15:04:39 +0000
-Message-Id: <20260902150439.756D31F00A3A@smtp.kernel.org>
+Date: Wed, 02 Sep 2026 15:04:41 +0000
+Message-Id: <20260902150441.71FE21F00A3E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] DT Schema Validation Failure: Disabled 'xpcs' node lacks required p=
-roperties
-- [Low] DT Schema Validation Failure: 'status' property in 'pcs-mii' subnod=
-es
-- [Low] Missing Hardware Reset Property in XPCS node
-- [Low] Incorrect Clock Modeling: Fake fixed-clock nodes for hardware clocks
+
+New issues:
+- [High] Hardware initialization failure: The interface selection bits 4:6 =
+are not cleared for SGMII mode, contradicting the commit message and leavin=
+g the MAC in an invalid state.
+
+Pre-existing issues:
+- [High] Unhandled Error: pm_runtime_get_sync() return value is ignored, po=
+tentially causing hardware access without proper resume.
 --
 
-commit eff2669bff2081bb72b25ba5712b66df2f70b9bf
+commit 5a7c3b38ba957e74b26623c8e3e94e4c77b594de
 Author: Coia Prant <coiaprant@gmail.com>
-arm64: dts: rockchip: rk3568: add XPCS and fixed-clock nodes
 
-This commit adds the XPCS device node and its associated pcs-mii sub-nodes
-to the RK3568 device tree. It also introduces two fixed-clock nodes to serve
-as reference clocks for the GMACs.
+net: stmmac: dwmac-rk: add SGMII support for RK3568
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3568.dtsi b/arch/arm64/boot/d=
-ts/rockchip/rk3568.dtsi
-> index 3bc653f027f1f..989e164c0eb39 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3568.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3568.dtsi
+This commit adds support for SGMII mode on the RK3568 SoC by providing the
+necessary glue logic and XPCS configuration. It introduces callbacks to set
+up the GMAC GRF register and handle PCS initialization, while also fixing
+clock enable ordering in the powerup sequence.
+
+Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TRM%=
+20Part1%20V1.1-20210301.pdf (Page 386)
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net=
+/ethernet/stmicro/stmmac/dwmac-rk.c
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
 [ ... ]
-> +	xpcs: pcs@fda00000 {
-> +		compatible =3D "rockchip,rk3568-xpcs";
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +		reg =3D <0x0 0xfda00000 0x0 0x200000>;
-> +		clocks =3D <&cru PCLK_XPCS>, <&cru CLK_XPCS_EEE>;
-> +		clock-names =3D "csr", "eee";
-> +		power-domains =3D <&power RK3568_PD_PIPE>;
-> +		status =3D "disabled";
+> @@ -851,18 +857,32 @@ static void rk3568_set_to_rgmii(struct rk_priv_data=
+ *bsp_priv,
+>  		     RK3568_GMAC_CLK_TX_DL_CFG(tx_delay));
+> =20
+>  	regmap_write(bsp_priv->grf, con1,
+> +		     RK3568_GMAC_MODE_RMII_RGMII |
+>  		     RK3568_GMAC_RXCLK_DLY_ENABLE |
+>  		     RK3568_GMAC_TXCLK_DLY_ENABLE);
+>  }
+> =20
+> +static void rk3568_set_to_sgmii(struct rk_priv_data *bsp_priv)
+> +{
+> +	u32 con1;
+> +
+> +	con1 =3D (bsp_priv->id =3D=3D 1) ? RK3568_GRF_GMAC1_CON1 :
+> +				     RK3568_GRF_GMAC0_CON1;
+> +
+> +	regmap_write(bsp_priv->grf, con1, RK3568_GMAC_MODE_SGMII_QSGMII);
+> +}
 
-[Severity: Low]
-Will this cause make dtbs_check to emit validation warnings for boards that
-include rk3568.dtsi without overriding the xpcs node? The
-rockchip,rk3568-xpcs binding schema unconditionally requires phys and
-phy-names at the root level, even when the node is disabled.
+[Severity: High]
+The commit message mentions "bit 7 set, interface selection bits 4:6 cleare=
+d",
+but this write only targets bit 7 using RK3568_GMAC_MODE_SGMII_QSGMII (which
+is GRF_BIT(7)). Does this leave the interface selection bits 4:6 in their
+previous state instead of clearing them? Could this cause the SGMII interfa=
+ce
+to fail to initialize properly?
 
-[Severity: Low]
-Does the xpcs node accurately represent the hardware without a resets
-property? The RK3568 hardware provides dedicated resets (like SRST_XPCS)
-for this block. Omitting the resets property might leave the hardware
-description incomplete, even if the current Linux driver does not actively
-use it.
+[ ... ]
+> @@ -1379,16 +1441,19 @@ static int rk_gmac_powerup(struct rk_priv_data *b=
+sp_priv)
+>  	if (ret)
+>  		return ret;
+> =20
+> +	ret =3D gmac_clk_enable(bsp_priv, true);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (bsp_priv->phy_iface =3D=3D PHY_INTERFACE_MODE_SGMII)
+> +		goto set_mode;
+
+[Severity: High]
+Because PHY_INTERFACE_MODE_SGMII takes this goto set_mode, it skips the
+generic GRF interface selection mask configuration right below it. Since
+rk3568_set_to_sgmii() also doesn't clear bits 4:6, is there anywhere that t=
+he
+clearing mask is actually applied for SGMII?
 
 > +
-> +		xpcs_mii0: pcs-mii@0 {
-> +			reg =3D <0>;
-> +			status =3D "disabled";
-
-[Severity: Low]
-Is the status property permitted in these pcs-mii subnodes? The
-rockchip-dwxpcs.yaml schema uses additionalProperties: false for the
-^pcs-mii@[0-3]$ pattern and does not explicitly allow the status property.
-This might trigger another validation warning during make dtbs_check.
-
-> +		};
+>  	ret =3D rk_get_phy_intf_sel(bsp_priv->phy_iface);
+>  	if (ret < 0)
+> -		return ret;
+> +		goto clk_disable;
+> =20
+>  	intf =3D ret;
+> =20
 [ ... ]
+> @@ -1447,15 +1509,20 @@ static int rk_gmac_powerup(struct rk_priv_data *b=
+sp_priv)
+>  		if (bsp_priv->ops->set_to_rmii)
+>  			bsp_priv->ops->set_to_rmii(bsp_priv);
+>  		break;
+> +	case PHY_INTERFACE_MODE_SGMII:
+> +		dev_info(dev, "init for SGMII\n");
+> +		if (bsp_priv->ops->set_to_sgmii)
+> +			bsp_priv->ops->set_to_sgmii(bsp_priv);
+> +		break;
+>  	default:
+>  		dev_err(dev, "NO interface defined!\n");
+> +		ret =3D -EINVAL;
+> +		goto clk_disable;
+>  	}
+> =20
+>  	ret =3D rk_phy_powerup(bsp_priv);
+> -	if (ret) {
+> -		gmac_clk_enable(bsp_priv, false);
+> -		return ret;
+> -	}
+> +	if (ret)
+> +		goto clk_disable;
+> =20
+>  	pm_runtime_get_sync(dev);
+> =20
+> @@ -1463,6 +1530,10 @@ static int rk_gmac_powerup(struct rk_priv_data *bs=
+p_priv)
+>  		bsp_priv->ops->integrated_phy_powerup(bsp_priv);
+> =20
+>  	return 0;
+
+[Severity: High]
+This is a pre-existing issue, but the return value of pm_runtime_get_sync()
+is ignored here. If the device power domain fails to resume, would the
+subsequent integrated_phy_powerup() hardware access trigger a synchronous
+external abort or cause silent data corruption?
+
 > +
-> +	xpcs_gmac0_clk: xpcs-gmac0-clock {
-> +		compatible =3D "fixed-clock";
-> +		clock-frequency =3D <125000000>;
-
-[Severity: Low]
-Does modeling these 125 MHz reference clocks as standalone fixed-clock nodes
-mask the true hardware dependency? Since these clocks are actually generated
-by the XPCS/Combo PHY block, using dummy board-level clocks could hide the
-real topology from the device tree, even if a power management race is
-currently avoided by a device link in the MAC driver.
-
-> +		clock-output-names =3D "clk_gmac0_xpcs_mii";
-> +		#clock-cells =3D <0>;
-> +	};
+> +clk_disable:
+> +	gmac_clk_enable(bsp_priv, false);
+> +	return ret;
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901150111.1410=
-37-1-coiaprant@gmail.com?part=3D5
+37-1-coiaprant@gmail.com?part=3D8
