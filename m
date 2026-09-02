@@ -1,107 +1,120 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 079643A7F6B
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 10:52:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D873F472762
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 10:58:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788346364; cv=none; b=YseKyRgM8GEu14Sk0LqlAJnfY+T3BDjE6IU6RBPTh7HNNc79oFCBwwklt4CXKzt8jHbTeTrnV2Uhu1ds924UwTxY2mAbVgYJ6TCcE5RXlqdOexJm33JBdh3G/lLZV65kxwZeHiQvhKFdL8xG7RHzEmlZCr8LieSVs0XPCnISdss=
+	t=1788346694; cv=none; b=eNHFqknhZVIzThIoZB0K9Bv+1S/6xx1ACzl0AfXC2K69ZOp5Bky2V4th2SIMeHDHnYpm6DTNtjocIqSH2/5iCdRyTGneyFrL6V07N/jqA5kFT1j/d1nDyW789dO5UDSgr6aH9XiUm84VIEoxJfvS63lRtX6u7jVThzKvBTj08qw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788346364; c=relaxed/simple;
-	bh=g4aJZ2RjcwW7U0smS6IixfD2FH2m9/1ImTEShl4a4GI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dCqdP8QFXUD89JAzgaIKoaALl8y/CxA1XEsbLxr7u6p1h9I9zroEbD8CleYdkcy9KZp+7Ay78m5HX2DtEX5lkm36kZ3/0sC1bzX3sIevbCwz1+ylGQUXfN8TwgDWXOl15xsAAkp6HMhnC463QbycO4CIgGK7lVF4i14UzVPbtC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=VUU9pYBi; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1788346694; c=relaxed/simple;
+	bh=GRy552bji0PEYmvft1nuR4bxVtyp4KKr+LMKi1OeVTU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=nuNk83vanevCKmFUJen9TgRTWvMhgKQVm/jhOI0slEmGFfi3Xa4AkXJgvgKLErNnoFfUaE4U4S8qPHCml/3PX2kYQJVmzeYjulnGL/FSCd/Do5GaxpMV9evjbwCK5Vt8ZhCnM6uQrthXZUvrbO+YwOI6SOkWQKn+PyfiM04VBNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eF/nh0cF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="VUU9pYBi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=g4aJ
-	Z2RjcwW7U0smS6IixfD2FH2m9/1ImTEShl4a4GI=; b=VUU9pYBi0gyTMLI9uuds
-	yuq3ct+yiN3Q7jw+AORlKKjfyoVjhQUXvZqOzXvK3DBALCLl+MoCDVQ5f8ZFofnZ
-	TIzoapaTfsL8s/e4FWoqJuAeKOEnN+M1fOq33QOJUu90kunDgeCbKz398U0EUjPK
-	FGH/DSD9x61Yz3ZoQ/NBj9F1rTjWVSjWxH4RFE+abywWS5XB7u0Es65f9WUf9JPu
-	bVqFkBaxU80h+1n616GJtHQHSL5bG2eRbWck8akhzLdQePJLP5bxucdvwPwHf07U
-	qbm8kZGzMw678Cdlc0M4+UpMEa6/ED98FBo7398Kmvpk/xWxDWcLDzn42HjoMLD4
-	Iw==
-Received: (qmail 600530 invoked from network); 2 Sep 2026 12:45:44 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 2 Sep 2026 12:45:44 +0200
-X-UD-Smtp-Session: l3s3148p1@RAa5vH1aJJkujnuD
-Date: Wed, 2 Sep 2026 12:45:43 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Biju <biju.das.au@gmail.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>, linux-mmc@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v24 01/15] dt-bindings: mmc: renesas,sdhi: Document
- RZ/G3L (r9a08g046) SoC
-Message-ID: <apf-U05yy4eNwfIB@shikoro>
-References: <20260820171657.62815-1-biju.das.jz@bp.renesas.com>
- <20260820171657.62815-2-biju.das.jz@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eF/nh0cF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 535191F000E9;
+	Wed,  2 Sep 2026 10:58:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788346692;
+	bh=kgOQTfIcv86oqAlV8OnMDqUFUFItzBfaN+KFYFEtPnk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=eF/nh0cFS8ZqJoTyJdHFJ2TaxoiV9KAwH8guazXr5PSc+taVrIz99aeSZlXdupoYE
+	 h6NR1nGQiryiHkwFQxZHbMfGmj4+t+cFb5S+0l9DYvS0AWOlcLxnr2d6YImzdxxoz4
+	 CTtkHAHPJPaxLZxNXRHa9eYJJD+1lj9v1R6izBrIb3BjImplU4iL/17NGMZemKR3Nj
+	 qgjT1c4i+saVvpTVETO2Op7ODyKNyUA2+Xk9QcbaWjAyt5tCV3lT0RQWP1YS6i1c1v
+	 CSF83RknlSf/ghcdETlonYa40jT0aMrHEmdEXW0AmEwT+zqvm/gTwOhbKVncT/Ld4j
+	 kuW5CSvqosjew==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] arm: dts: sunplus: add peripheral device nodes to
+ sp7021.dtsi
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Andrew Gaylard" <ag@ffroot.co.za>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260902104545.67794-2-ag@ffroot.co.za>
+References: <20260902104545.67794-1-ag@ffroot.co.za>
+ <20260902104545.67794-2-ag@ffroot.co.za>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 02 Sep 2026 10:58:11 +0000
+Message-Id: <20260902105812.535191F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="PROTVcDqJHsMEqco"
-Content-Disposition: inline
-In-Reply-To: <20260820171657.62815-2-biju.das.jz@bp.renesas.com>
 
---PROTVcDqJHsMEqco
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] The Ethernet switch node ('l2sw') specifies multiple clocks and =
+a 'clock-names' property, which violate the sunplus,sp7021-emac binding sch=
+ema.
+- [Medium] The PWM node defines a 'resets' property which is undocumented a=
+nd forbidden by the sunplus,sp7021-pwm.yaml binding schema.
+- [Medium] The Ethernet controller node ('l2sw') unconditionally omits requ=
+ired properties in the .dtsi.
+--
 
-On Thu, Aug 20, 2026 at 06:16:31PM +0100, Biju wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->=20
-> Document the RZ/G3L (r9a08g046) SDHI controller. The RZ/G3L SDHI
-> controller is similar to RZ/G2L but has five clocks (core, clkh,
-> cd, aclkm, aclks) and three resets (rst, axim, axis), so update the
-> clocks/clock-names maximum to 5 and resets/reset-names maximum to 3.
-> It has an internal divider for all modes except HS400, and a 2048-bit
-> divider compared to 512 on others.
->=20
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+commit 7acbbeff4684bdd9972c059005ca817139e446fa
+Author: Andrew Gaylard <ag@ffroot.co.za>
 
-Looks good to me. Adding new SoCs might turn into an adventure game with
-serious logic puzzles, though. Not your fault, of course.
+arm: dts: sunplus: add peripheral device nodes to sp7021.dtsi
 
-DT checks pass here as well.
+This patch adds device tree nodes for the PWM controller, watchdog, eMMC
+controller, and Ethernet switch to the SP7021 device tree include file.
 
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+> diff --git a/arch/arm/boot/dts/sunplus/sunplus-sp7021.dtsi b/arch/arm/boo=
+t/dts/sunplus/sunplus-sp7021.dtsi
+> index ae9bbe0320b8d..9bb349a5542a4 100644
+> --- a/arch/arm/boot/dts/sunplus/sunplus-sp7021.dtsi
+> +++ b/arch/arm/boot/dts/sunplus/sunplus-sp7021.dtsi
+> @@ -291,6 +291,54 @@ uart4: serial@8780 {
+[ ... ]
+> +		pwm: pwm@7a00 {
+> +			#pwm-cells =3D <2>;
+> +			compatible =3D "sunplus,sp7021-pwm";
+> +			reg =3D <0x7a00 0x80>;
+> +			clocks =3D <&clkc CLK_DISP_PWM>;
+> +			resets =3D <&rstc RST_DISP_PWM>;
 
+[Severity: Medium]
+Does the sunplus,sp7021-pwm.yaml binding schema support the resets property?
 
---PROTVcDqJHsMEqco
-Content-Type: application/pgp-signature; name=signature.asc
+The schema appears to lack a definition for resets and specifies
+unevaluatedProperties: false, which causes a schema validation error when
+compiling the device tree with dtbs_check.
 
------BEGIN PGP SIGNATURE-----
+> +			status =3D "disabled";
+> +		};
+[ ... ]
+> +		l2sw: ethernet@108000 {
+> +			compatible =3D "sunplus,sp7021-emac";
+> +			reg =3D <0x108000 0x400>;
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqX/lQACgkQFA3kzBSg
-KbYiFQ/+PvEF+HCEx/rzup0RhIbsZNqtE2qf090ahioHUHwBH6QyPDTslA8hGsvt
-y0EZ73SbnsMiEgRXaXWFs3uejhpi4eTnMkd5fexWlsOzV+3Pye2G0E7K33FlK46t
-H1eJgQJULjp8th6ha/k7HVkRJiFjj0bAHPyi0ksFrFrdsghNZSVYGqS7l+J/Ok10
-sNlVu9DC/VbnZKIy/nwcOYyS1jPrMp9avmxmawPZz19/aIjGMePKEok2ZaqKzqL8
-T8tTDtBRMlUGDy5pdLJuVkjATozZOFUsMu0qHAcGmNfjCzBZ/OgTNac2f+PV+rac
-M4HwsGufWBJx3//vJSSz7p2irhyZ2XMbdz/2+mBUpYQCEZy0iCHt2ysvBG3iNqBo
-wPocf4Ju4ar9nagthGbJdN0Y+3kj1z458GP/3mnb2jS+RWibBGJgHLS5YNWI5Xcp
-iWBceG29mt41xvfL3H6PKUyhn/jwqjQKsM22+7mVyeFAIoXfpJdwc1JvU1w7AQjJ
-RjSnRpqvTL5LEjKhTgfGF5ZLgxo5ILYDuvzjosyGclvdEdcDRBZ3hPchTFMc7FZE
-l4JhfBvpqb5MN6/dfUrljRjIHqParN7um/2B2Bnk8Eh3pRJPTUauELAHZ3LQUiK9
-MQWMrrLJlMQ6Yf/dnFxQXp5LLQWO2Yw6jlPADHFBIvfZDitP1n0=
-=zrcg
------END PGP SIGNATURE-----
+[Severity: Medium]
+Will this node cause dtbs_check validation to fail because it omits several
+required properties?
 
---PROTVcDqJHsMEqco--
+The sunplus,sp7021-emac.yaml schema lists pinctrl-0, pinctrl-names,
+ethernet-ports, and mdio as required. Including this include file in a board
+device tree without overriding the node to supply these properties triggers
+validation errors, as setting status =3D "disabled" does not bypass schema
+requirements.
+
+> +			interrupts =3D <66 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks =3D <&clkc CLK_L2SW>, <&clkc PLL_E_25>,
+> +				 <&clkc PLL_E_2P5>, <&clkc PLL_E_112P5>;
+> +			clock-names =3D "l2sw", "plle_25", "plle_2p5", "plle_112p5";
+
+[Severity: Medium]
+Do these properties conflict with the constraints defined in the EMAC YAML
+schema?
+
+The sunplus,sp7021-emac.yaml schema explicitly restricts clocks to a
+maximum of one item and enforces additionalProperties: false, making the
+clock-names property invalid.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902104545.6779=
+4-1-ag@ffroot.co.za?part=3D1
