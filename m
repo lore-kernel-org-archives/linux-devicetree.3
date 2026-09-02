@@ -1,97 +1,107 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5660B44AB7E;
-	Wed,  2 Sep 2026 10:33:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A3C44AB8A
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 10:35:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788345206; cv=none; b=iZGvw3T08KQKY+mvL0/VWN8nWr8aFREWVNjkrkd/swgaWr0iK5g/XwdM/ycJsSHSVMRVZTmOjeFbn3J0gWcwH0wJo8S9ZnRSgA87pbf4x8SJ3SLOWm6VuCi4ugEQxEugVIi5ooA6FoXAGvK6X0YWBSQFvV+Z4LN4OeGKCTrRBG0=
+	t=1788345302; cv=none; b=tKXB7MCgQGRpnEnyXzBHDXcbqNpAdPRRyfc60kVVY8HyZL2bh86iyC9R/flt5D/RtiM7ypjscl25Hl2TtgYoRm+DwdQqp7VUGJL9qAe0eTIGi2sG0J1C/Wjmr7QPLX6Hn/5cyREkf9e6YzOD1XYxXVurSmfc1I3yOBPFP0Nn5Qo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788345206; c=relaxed/simple;
-	bh=Iy+VUNXDXW8cWtqhoAcajkOwEmooMeEJCbxXu8rQQOs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lm1hbihkCU1PajI2upU2LRAz3obGvLOy4WePHf90yRtO6AgGZuI3J2FAfr3NLL6dJ7Keqg99UQsaAMF3c7Vq7Smlgb+6xS2vviWt2AaFoOk6jJvaBGzM3TWQIcttAiL+I58qzBBOMyA6J/AHYAFsSDCZDI+JvSb1cBawo0Cundg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=POWuk7sd; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1788345302; c=relaxed/simple;
+	bh=mKJjTULkBOnEcszjSfuvlcfBmwQ8MNr4/URHAD8y2bU=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=X9qNZyEHyZ0mkkdw0Jumx0yZMH0niuo9vLoj8qWzZLe30hK7aO87s5X2Dl+kHzT6TjV3hDoBAnm4+aO+TiKaRcbJ+vLhZ9aclw3KmchAewD7XCV5ImtTrlSeZE87bMUj/FWMl9Y6CoGFb4AgllbBuirLQqxIBnkRu1OGVhuhpfE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lhEims3p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="POWuk7sd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1788345198;
-	bh=Iy+VUNXDXW8cWtqhoAcajkOwEmooMeEJCbxXu8rQQOs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=POWuk7sdMsPIg1zcWIim2kuet5JxYBmhJG6SFrb9VcEt2CfsK1hM8cI5oK3fJQIvF
-	 5XcgkAR+aYJTiNYVtTHmFcAZtkPj9E4aHvkvs2heFQaBlssCUbTQzIKVIN+J3CUPqg
-	 rlYQqPMqssgCrFzk/kchPsPUGT7lPmqppZ/fd7OOEZg5Lh4KTdxgv6mO74T/DrKdar
-	 yFPEg38BsCY6jhenufqkDlpj0XQx6/S7MMNKaftFCyozJxQGPDXfPraSXaGPeMVBhm
-	 1o2ZWRMsr3y8qEMX4YMFHiz08rs3xNGGq0gloYYZJJZNC3ef86a5SbfQia7ImQqxZz
-	 dPEZDpE3ES/Qw==
-Received: from yukiji.home (unknown [100.64.0.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: laeyraud)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 76D0217E11F5;
-	Wed, 02 Sep 2026 12:33:17 +0200 (CEST)
-From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Date: Wed, 02 Sep 2026 12:32:46 +0200
-Subject: [PATCH 3/3] arm64: dts: mediatek: mt8395-radxa-nio-12l: Complete
- UFS power supplies
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lhEims3p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 605081F00A3E
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 10:35:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788345301;
+	bh=mKJjTULkBOnEcszjSfuvlcfBmwQ8MNr4/URHAD8y2bU=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=lhEims3pqfBjfyHHjVM5GUDB+llXvMgGhoPh+gOVv3kninuIv0D5RiKXBfN58/Bdm
+	 FTcPLDrtP0Zr6gtI471IvbWPfQBBTXb45RboaEc3DLV3kH1//ocDvziXIB/1fAK6Xd
+	 PUW+1l3pC6kFEyHZeO6Q3nShrk1F2Z6JZjHT4IDYeBLacwbMGWxNaBeaC0FSxSdXK7
+	 lJ++gawHr6wM/hYtVzClarxwp8PRup05VP1o+R39edDdflgz7VuEBIavr0m9F3i4Kw
+	 u5dC1Zc/y4+TqYyvaPIdEgBDA+in/KMVR0zimlfJSYUb1sw1w8vGIpuu2a5ajzmE9t
+	 vhdsAlDpCTRAQ==
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5b2b92065ffso665660e87.1
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 03:35:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwiWY949tlzYS1+fXND7Jt28ABoM/qv5ItFvCP+qCd1jSS8pi1MronacSYVFho5svNBKMXZvqHgTCqq@vger.kernel.org
+X-Gm-Message-State: AFuF++lh8VP2BvD6M7NJocV1V83Ku8csZbKmlbSS8rYdQYiXPlAdv+36
+	v7IqkVr+WC9F1OwLopfCFSjJUCA+xluEypMqWTTWkQ6tDXqTHmfQi4lkyYE7LmeEwQ2mIvVZVk9
+	ehw5OHz5OtRe+ZmpyQkkbfF+Pb7poeZuo66dWtnIvzQ==
+X-Received: by 2002:a05:6512:10d4:b0:5b6:4ad:77b4 with SMTP id
+ 2adb3069b0e04-5b6087d8dc8mr1402235e87.28.1788345300008; Wed, 02 Sep 2026
+ 03:35:00 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 2 Sep 2026 03:34:58 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 2 Sep 2026 03:34:58 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <a5956f0f-2842-4b80-8bcf-8763836618cf@mainlining.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-mediatek-ufs-cleanup-dts-v1-3-7876e7a27a9d@collabora.com>
-References: <20260902-mediatek-ufs-cleanup-dts-v1-0-7876e7a27a9d@collabora.com>
-In-Reply-To: <20260902-mediatek-ufs-cleanup-dts-v1-0-7876e7a27a9d@collabora.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: kernel@collabora.com, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, 
- Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788345194; l=1050;
- i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
- bh=Iy+VUNXDXW8cWtqhoAcajkOwEmooMeEJCbxXu8rQQOs=;
- b=c940H5zXtUUgCV2sxRtdhKxlcCdgXiSInmQ1m1p15P0fCc6REDVxahRltrLYYFGv6Z/dWMvKJ
- r3EureIi3lSDVQbsIYWdtnhDJS+zxKJXTxYtS3WtfSyJykNR8tRgN3r
-X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
- pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
+References: <20260820-msm8952-pinctrl-v2-0-bf2b8b7b379b@mainlining.org>
+ <CAD++jLnGGonfOxLHhM-uXAzP10J9o5=0e_cV9JM5r7SJawChnA@mail.gmail.com>
+ <CAMRc=MdKT4RAWdtZf87k5-VbXAZePT2yttf2QPWgRJaowKuDTA@mail.gmail.com> <a5956f0f-2842-4b80-8bcf-8763836618cf@mainlining.org>
+Date: Wed, 2 Sep 2026 03:34:58 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MexQO0r-4+yPQrY_rCcGUY0E92q9hAD5EoTpwLJxMmX8Q@mail.gmail.com>
+X-Gm-Features: AcwNN1UAOK8c2Mxdyr8iZ8QbzDnj6iosXdIQH9kWQ3Jhy2_2LFQ0Tzz1s6UZ58E
+Message-ID: <CAMRc=MexQO0r-4+yPQrY_rCcGUY0E92q9hAD5EoTpwLJxMmX8Q@mail.gmail.com>
+Subject: Re: [PATCH v2 0/2] Add pinctrl support for MSM8952
+To: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The MT8195 UFS host controller dt binding now describes the power supplies
-feeding the host controller, that were previously missing from supply
-description.
+On Wed, 2 Sep 2026 12:32:45 +0200, Muzaffer Kadir
+<muzafferkadir@mainlining.org> said:
+> On Tue, 1 Sep 2026 08:59:00 -0700, Bartosz Golaszewski wrote:
+>> On Thu, 20 Aug 2026 18:37:50 +0200, Linus Walleij <linusw@kernel.org> sa=
+id:
+>>> On Thu, Aug 20, 2026 at 1:17=E2=80=AFPM Muzaffer Kadir via B4 Relay
+>>> <devnull+muzafferkadir.mainlining.org@kernel.org> wrote:
+>>>
+>>>> MSM8952 has pinctrl system that is similar to MSM8917 pinctrl, but it
+>>>> has some differences in some of the pins and their functions.
+>>>> This driver was tested on General Mobile GM 5 Plus
+>>>> (shamrock) using my own kernel fork [1].
+>>>> I'm holding off on sending the GCC (Global Clock
+>>>> Controller) driver and initial device tree until I've resolved some
+>>>> outstanding bugs in the GCC driver.
+>>>>
+>>>> [1] https://github.com/kadir1243/linux
+>>>>
+>>>> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+>>>
+>>> Bartosz needs to look at this series, he'll review and merge
+>>> it.
+>>>
+>>
+>> And to that end please use scripts/get_maintainer.pl to get the current =
+list
+>> of maintainers for your patches.
+>>
+>> Bart
+>
+> Hi Bartosz, I did run b4 prep --auto-to-cc before sending the patches. Af=
+ter seeing your message I run it again to check and it said no new addresse=
+s to add. Should I rebase on newer tag?
+>
 
-So, add in the Radxa NIO-12L board devicetree the regulators used to
-power MT8395 UFS controller on the board.
+Please wrap lines in your emails at 80 characters.
 
-Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
----
- arch/arm64/boot/dts/mediatek/mt8395-radxa-nio-12l.dts | 3 +++
- 1 file changed, 3 insertions(+)
+Are you based on current linux-next or at least v7.3-rc1?
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8395-radxa-nio-12l.dts b/arch/arm64/boot/dts/mediatek/mt8395-radxa-nio-12l.dts
-index 9cf0315da035..7e9cabdd2825 100644
---- a/arch/arm64/boot/dts/mediatek/mt8395-radxa-nio-12l.dts
-+++ b/arch/arm64/boot/dts/mediatek/mt8395-radxa-nio-12l.dts
-@@ -1184,6 +1184,9 @@ &uart1 {
- };
- 
- &ufshci {
-+	avdd12-supply = <&mt6359_vrf12_ldo_reg>;
-+	avdd12-ckbuf-supply = <&mt6359_vbbck_ldo_reg>;
-+	avdd18-supply = <&mt6359_vio18_ldo_reg>;
- 	vcc-supply = <&mt6359_vemc_1_ldo_reg>;
- 	vccq2-supply = <&mt6359_vufs_ldo_reg>;
- 	status = "okay";
-
--- 
-2.55.0
-
+Bart
