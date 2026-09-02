@@ -1,229 +1,186 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57DE637702E;
-	Wed,  2 Sep 2026 16:55:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75EBD4AA1E7
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 16:59:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788368132; cv=none; b=aSfpWm2sLBQQ6iJL6h1GbDv3cQhNANDxCPc01waPfxmHgUDWRbDdLvnW9XGBeoDycEcV0ZhJTc9LqTMonfOjFWwogS/dzgm6jgvZjy4HPn2iBvUsYzyDwj1vj3YeNM2MDQJ4Cwqr9q7KnVuMQgMZ0jQOUPBQmwsgId1UD9ZokEU=
+	t=1788368354; cv=none; b=TG+X7hyg4X5rFfD96GdBYy/MbqNhzwfqIkisbFsJr8O9WJ5hweOAWSgiSVVW1iUHHn3BxhHEgVMAlGe5x22TqDbGLeWLHSRX7rln0MgrRqNRRXPSV+Btpie3QMOE8e2vOyOquI0ORtIO4tmYgVkAomcDeWGnxsEU8X1Gwm3K99w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788368132; c=relaxed/simple;
-	bh=sz/9/TcdM4YQwE3eI4Iv+AQZ0+0SbCoU9Tiqw9z/T+s=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Zabra9ByVHvJfWEN5jEgrEf/kgP7203akxHsgkS1MSSav37KskXX6o45Q1JtbxvbYTKDUCogn2u6SNiRzkNQv0i/GR+eygcGdwulah5ZPyU3w8QDyj3TDSKUZsTA5VXGS5vbQF8b+7mL2DCv6qzlEhUpGnzVoAsFfy/MCbi/W4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=sqLT8Ayx; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788368354; c=relaxed/simple;
+	bh=MzkVNcbwJx3DdBFKW/Eg+IrelBGsrxW6GRwxoH136Ls=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kds3Tf3KdpbomYqBzwoJDhcGAdBS2v2ltS4YPHvBRao3acA1rxulSFM1l23JI2fDAdCAFKhTi5uvxNCdMmZUuujWFyLI+yTpWesMqpH+D8cKwHvnqjZjQ6U8AI2F/8ZA/KM3cmDQS/xxHEG4CAW5ZTH8cgHMgIPeIiC/I37vr4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CblRizxD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QTLlmaVu; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="sqLT8Ayx"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 95E494E414E0;
-	Wed,  2 Sep 2026 16:55:26 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 5D77E6053C;
-	Wed,  2 Sep 2026 16:55:26 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D2C5811C795A7;
-	Wed,  2 Sep 2026 18:55:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788368120; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=ZQYr6vIouYVEk/Ikuzb8tOHLdjgEOZtrS1Jwy9Of/G8=;
-	b=sqLT8Ayxa836vSD5sWR0ycKtIppaXMbA0OKmrP62QCXWyZl+WBtUS7ZgYFHxtlD6c89uT8
-	rVv1OpUvWcbtOOzBhpcCaOYRC0139YcuuLIEC9x/d0rMeH60trd6yMMxa+0nmKat2/d9me
-	RraVmgbQPtzsH96XAkRp1yZP61N+HPnkMMFeAaA6rk5gf+W/HQmtOGckQThy/XVeTejDLH
-	HoKI/6jYn9urFjiXqlMT4PG/xC1HVQdba2GjaRbyrEoILrjNLYp0CsAvKn/kkiY+Eswkxu
-	4HmshDfFamGEDethvw75Qkr6V3V46XPGIPS2v5/nYZ2knGfEYV2h2u2kXsvZ0g==
-Date: Wed, 2 Sep 2026 18:55:13 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>, Bartosz Golaszewski
- <brgl@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
- "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, Frank Li
- <Frank.li@oss.nxp.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Linus Walleij
- <linusw@kernel.org>, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?=
- <ukleinek@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Leonardo Costa
- <leonardo.costa@toradex.com>, devicetree@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-pwm@vger.kernel.org,
- linux-kernel@vger.kernel.org, Ernest Van Hoecke
- <ernest.vanhoecke@toradex.com>, stable@vger.kernel.org
-Subject: Re: [PATCH RFC 1/2] of: property: fw_devlink: Follow GPIO nexus
- maps
-Message-ID: <20260902185513.4867bc92@bootlin.com>
-In-Reply-To: <qg2nemg4mlxpancg7az2vsnjkfc4anxkieozoxh3mj3zgkyifd@b5b6yiz4uew3>
-References: <20260902-fw-devlink-nexus-ready-v1-0-68fe1996e78a@toradex.com>
-	<20260902-fw-devlink-nexus-ready-v1-1-68fe1996e78a@toradex.com>
-	<CAMRc=MfN73=K1nZrqUbhrMSijjpzhF_z_U9JU4_H163W0vRpqA@mail.gmail.com>
-	<qg2nemg4mlxpancg7az2vsnjkfc4anxkieozoxh3mj3zgkyifd@b5b6yiz4uew3>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CblRizxD";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QTLlmaVu"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682GfpHT2324958
+	for <devicetree@vger.kernel.org>; Wed, 2 Sep 2026 16:59:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	4VWeAjn1O5Hn8350LhDD1vBbMv3y8ytANZiqJ99qoeM=; b=CblRizxDKb9FG0XW
+	H11mWHUVzpftvuGmRF39QBJF9RoVPXqKi+xTjlvAA/BcZ/hWjth8MqfUMd8CxbvG
+	wS0PSsKXRbixISZwJJ1Gf7Hb3P5glHzcM7QyiqbweX/kLVhb0BFIv6UC+tv+hNkr
+	+dn5lVh4uWZLcrkAiPj4oA43UEEiayPi9LDgXF8cyOSqcSUhVOBJtGsMpMU2ab5z
+	GXOBkzWzkgE0Oq0x+r+Yx3tfUgeXr2B9LxzGPIZl0NK6+f43BIS+wmSVWiZIqvPy
+	dPzPzmHQggO5mc8uKyWmait3j2ytp1iNHEbvFo7pNzy7jQQ3jWKoPX3vU0PoF0xj
+	0JXX8g==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gemjh8v6x-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 16:59:11 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38e8e864ef0so2320954a91.0
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 09:59:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788368350; x=1788973150; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4VWeAjn1O5Hn8350LhDD1vBbMv3y8ytANZiqJ99qoeM=;
+        b=QTLlmaVuCOpMYQSkPZfm3MifvPdI8nlNOlPXZT5Yex2sTN4FY9Gs4xTC9sq1MMtZnq
+         f2tKu08kr3SGXImCSMaat1NDsv9ELiFpxTWQZk51NgAJALQJ5Kt8n7yrolGDsd2RZ3Ne
+         RvigTpzs9Zfj1lLo2TaV8b+ITK682kFw1Z5dxS0erPAvbVH8N1OCwkqsSPJxor5KX7WQ
+         8IQkwekJAhgcNrSHNfZZ3kbSBVvFR8fs2xmH4FqaLgEanULLOrxuc+sy/WQLTHX9O01X
+         1Ibizy+v4zV0C3i1razkZpocJS/0ns//KMYnbB59cE0+94w5zpMzurlrTh3cZpTngKxt
+         99Gw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788368350; x=1788973150;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4VWeAjn1O5Hn8350LhDD1vBbMv3y8ytANZiqJ99qoeM=;
+        b=nZurK3Q3By7xQPFDkDfL2tkLhxvT+VUa9WVfuPNDEzUxqpe7C9b3yXJZhjPuheJolR
+         /dgAXbe/yDXCGG82uL896wj/G45fKU2pzq9x6rgwStXT7UnNdkwTIstTT4RWNVYfm6YE
+         yQp3wAFbQ4JBy/Guo6EwV4DN8QVU4Df3czHH/w8WFwrLAqcaG9W7PwYl0qo4kpcsZ/4m
+         +AbYKILS8HmybmVyOrKTT/18BLrpk6BpRO0vqHHIWnYUKhkikRVLdhfWRa7c+VZZUjLk
+         z0IC+mFnDl8gzmVmclz52oPUBvJk/ZItlIzeVWUXsdOvj10rRbiWwKu6M2fAIZLpUMmc
+         dMwg==
+X-Forwarded-Encrypted: i=1; AKwUvBxYQZHmyexmHZIgv2OpNW0oiNiAEzzzpUeVbuZq3pbbs2bccv3YbifrjiILGUhNmJAI38N2ZBUchY45@vger.kernel.org
+X-Gm-Message-State: AFuF++kZd+WyZIMizLxcZSllhwrKTfD7WaLzu17gS2RkQlspesIPwI6d
+	EklAxNBKS+HqcprSbrHZ57DJfWA98JO94uguWtTQ+oVMawTDSpQ+y4nUW8x7exC2/SBjRs0RR+E
+	wCA6XahLt25j6wIvAUi19cdWld3o1JIp+X1oR+xztGjdor9/iFISF5zZbraeCDMtW
+X-Gm-Gg: AYBFou03vrETk3yC1N6vuwVFVZ5sEpRtbMn/TBC76iF00eNphxN+LngFS9xlZjX/8d8
+	1Ohdl/B9FmCH7QHxv2WXsUNo2GsxQkkWBuEa7O6tiMkA4heykA8hlnTfiAxmeMr8r6fPmhEO5dh
+	/ICg7AqsHr1G+mTmXRW208FtRkE6knqP1JE+WFM+6YpkDEXWzQ0ilMQFz+8ziC/gvuUSwzurXI9
+	buxhbOpmM2IbZQca9QqEiG3T7my3hPs1UA6kZqvG6JI7tihSpTEuM6mxHcnCkW8hVwb6+iXLUTf
+	tgePzGMq6ux54yKQX8SDF+FhFbsA6PxCsh5DMVkJhBgbpSIMKC0/2hVOIVFtCTFEB9+7qk3UqhP
+	tvG1zTWt+8fc7+iOGZlwgVt4XSFnjuND3CXLWOpEjmYmOqbYG16TI9gVgFN9S1y4EdZe5
+X-Received: by 2002:a17:90b:2750:b0:398:e73e:5a0c with SMTP id 98e67ed59e1d1-39aedf5d887mr9659894a91.1.1788368350221;
+        Wed, 02 Sep 2026 09:59:10 -0700 (PDT)
+X-Received: by 2002:a17:90b:2750:b0:398:e73e:5a0c with SMTP id 98e67ed59e1d1-39aedf5d887mr9659802a91.1.1788368349630;
+        Wed, 02 Sep 2026 09:59:09 -0700 (PDT)
+Received: from [192.168.1.5] ([122.177.240.248])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08d0d845sm276064a91.17.2026.09.02.09.59.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 09:59:09 -0700 (PDT)
+Message-ID: <06bce1c2-8498-4988-b5c0-ab42bfba86cb@oss.qualcomm.com>
+Date: Wed, 2 Sep 2026 22:29:02 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] dt-bindings: usb: qcom,snps-dwc3: Fix glymur binding
+ for non-MP controllers
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260828081542.52796-1-krishna.kurapati@oss.qualcomm.com>
+ <20260831-messy-ebony-warthog-cfd727@quoll>
+ <ce5bf06b-8284-4355-94bb-416a8e34bd5b@oss.qualcomm.com>
+ <cc52ff33-3da4-492e-80cd-ba2b1711bfed@kernel.org>
+ <6af2e860-ba7a-4f86-a0e7-872a312b47e4@oss.qualcomm.com>
+Content-Language: en-US
+From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+In-Reply-To: <6af2e860-ba7a-4f86-a0e7-872a312b47e4@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: JMY37Wh9I0HPW6ac5ZaowUPJPIX5wbqm
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDE0OSBTYWx0ZWRfXz0mBjpOwqkFw
+ x7Wt/uBA4NzNrfcJNxtWuOnYGp5cUD/u/8zPQfTZUhnB6KDCan0hbS1NU2NC1qKE/uAWudvGR3b
+ KWclXiW/tRJ45fnLzmbyD6SbvAYtC1IXVMmPMBo+UBCxzH3jXbnKgWOaX0/mTHQeA8L0s4l738B
+ 0QTs4nGD+W3e+9fiVT1xSqawxiOR8Qcv33mOQ0jJofS2i7pBPJ5ndLciszYEQjZWob0VjA0PEX7
+ WD5L8q/Q1XDrzvL6s+sgcyQBBsqAG8sf+5ORP3qBtGlC8t8mti/iOzQUpyH14bRkFNI6Honfwku
+ JZyUh2hxpyp2QIbTTNpauT3tSsccNbfCC4Q+Nn+nlo6ioMX5QU0kFW84/vJoTR9oghyw4bRN9Rm
+ FQXyuB/6q8tAgyL6a3L6jPLQlz5vpMfi6vYhvc0zcwFmRp/gmzW+Ceqk0PUU3/Qe1kdztMsthk5
+ XrNEVVCu9c+tqvEaC2A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDE0OSBTYWx0ZWRfXzCYK4rqAbrYS
+ p6aNHmgaL4TeGv/9zIhY+tIlQJe3TV5WsL0ms/0hFVi4H38wmkhHSoQe7Cm50DISz9es95wUAI6
+ 0YjpV8+ucMEM0kOYLCJ732M53CzT5Xo=
+X-Authority-Analysis: v=2.4 cv=ErHiaycA c=1 sm=1 tr=0 ts=6a9855df cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=2sMs7eQfJahgYk7ien9XMw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=K0I1-hzHb6ZjckI3NYUA:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-ORIG-GUID: JMY37Wh9I0HPW6ac5ZaowUPJPIX5wbqm
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_04,2026-09-02_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0 adultscore=0 malwarescore=0 spamscore=0
+ impostorscore=0 priorityscore=1501 lowpriorityscore=0 suspectscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609020149
 
-Hi Ernest, Bartosz,
 
-On Wed, 2 Sep 2026 15:22:36 +0200
-Ernest Van Hoecke <ernestvanhoecke@gmail.com> wrote:
 
-> On Wed, Sep 02, 2026 at 05:30:19AM -0700, Bartosz Golaszewski wrote:
-> > On Wed, 2 Sep 2026 13:41:39 +0200, Ernest Van Hoecke
-> > <ernestvanhoecke@gmail.com> said:  
-> > > From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> > >
-> > > GPIO consumers use of_parse_phandle_with_args_map() to resolve specifiers
-> > > through gpio-map properties. fw_devlink instead parses GPIO properties as  
-> > 
-> > Unlike PWM, there's no such thing as "gpio-map" properties.
-> >   
-> Hi Bartosz,
+On 9/2/2026 7:40 PM, Konrad Dybcio wrote:
+> On 8/31/26 2:29 PM, Krzysztof Kozlowski wrote:
+>> On 31/08/2026 11:03, Krishna Kurapati wrote:
+>>>
+>>>
+>>> On 8/31/2026 2:07 PM, Krzysztof Kozlowski wrote:
+>>>> On Fri, Aug 28, 2026 at 01:45:42PM +0530, Krishna Kurapati wrote:
+>>>>> Currently for Glymur non-multiport USB controllers, number of interrupts
+>>>>> are limited to a maximum of "5". Either hs_phy_irq or ss_phy_irq are to be
+>>>>> present.
 > 
-> bd6f2fd5a1d5 ("of: Support parsing phandle argument lists through a
-> nexus node") added support for nexus nodes, and then c11e6f0f04db ("gpio:
-> Support gpio nexus dt bindings") added support for "gpio-map".
+> [...]
 > 
-> Herve later added support for pwm nexus dt bindings modeled on the GPIO
-> support in e71e46a6f19c ("pwm: Add support for pwm nexus dt bindings").
+>>>>>                  - qcom,eliza-dwc3
+>>>>> +              - qcom,glymur-dwc3
+>>>>>                  - qcom,ipq4019-dwc3
+>>>>>                  - qcom,ipq8064-dwc3
+>>>>>                  - qcom,kaanapali-dwc3
+>>>>
+>>>> This changes the ABI without an explanation.
+>>>>
+>>> As per the harware specification, the controllers do have both
+>>> hs_phy_irq and ss_phy_irq. Hence wanted the binding to capture that
+>>> info. Will update the commit message accordingly.
+>>>
+>>
+>> So the change in 99df63d20dabda8d7ae01bcca7cdb1e92110a555 was
+>> incomplete? Lack of context here is not helping.
+>>
+>> If they have these IRQs but it does not matter, then it is not a good
+>> reason to change ABI and you should just add the clock as optional to
+>> the end. Was this binding already released? I think yes.
 > 
-> Please let me know if I misunderstood something.
-> 
-> > > direct phandle references, so it records the nexus node as the supplier
-> > > rather than the mapped GPIO provider.
-> > >  
-> > 
-> > Can you point me to an example? I'm not sure what a nexus node is in the
-> > context of GPIO.  
-> 
-> Stephen gave an example usage in his commit message implementing
-> of_parse_phandle_with_args_map():
-> 	soc {
-> 	        soc_gpio1: gpio-controller1 {
-> 	                #gpio-cells = <2>;
-> 	        };
-> 	
-> 	        soc_gpio2: gpio-controller2 {
-> 	                #gpio-cells = <2>;
-> 	        };
-> 	};
-> 
-> 	connector: connector {
-> 	        #gpio-cells = <2>;
-> 	        gpio-map = <0 0 &soc_gpio1 1 0>,
-> 	                   <1 0 &soc_gpio2 4 0>,
-> 	                   <2 0 &soc_gpio1 3 0>,
-> 	                   <3 0 &soc_gpio2 2 0>;
-> 	        gpio-map-mask = <0xf 0x0>;
->         	gpio-map-pass-thru = <0x0 0x1>
-> 	};
-> 
-> 	expansion_device {
->         	reset-gpios = <&connector 2 GPIO_ACTIVE_LOW>;
-> 	};
+> IIUC the intent of the patch is to allow specifying the currently
+> missing hs_phy_irq on non-multiport controllers (i.e. usb3_[012]).
+> Bundling the DT change would have made that easier.
+Yes, I wanted to add the missing hs_phy_irq. I didn't want to bundle in 
+the DT along with the usb binding changes. DT change was posted separately:
 
-The binding is available in dtschema
-https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/gpio/gpio-nexus-node.yaml
+https://lore.kernel.org/all/20260803-glymur-dt-usb-fixes-v1-1-0f5f52853102@oss.qualcomm.com/
 
-And the gpio case is mentionned in the Devicetree Specification
-https://devicetree-specification.readthedocs.io/en/latest/chapter2-devicetree-basics.html#specifier-mapping-example
-
-> 
-> Admittedly, this hasn't seen much (any?) actual use in the device trees
-> yet.
-
-Not yet in actual device trees but needed for handling hotpluging of extension
-boards.
-
-For instance you can see at the following patch [1]
-https://lore.kernel.org/all/20260826094950.1088288-73-herve.codina@bootlin.com/
-
-tests/fdtaddon_realistic_base.dts [2] describes a nexus node for gpios allowing
-to use "gpio 1 available at the connector" from the dtsa instead of "gpio 3
-provided by the GPIO A controller". This allow to decouple extension boards and
-base board. The common part is the connector. Extension boards dts uses
-resources available at the connector while base board dts "wires" resources to
-the connector. A translation in needed and Nexus nodes are part of this
-translation.
-
-tests/fdtaddon_realistic_addon.dtsa [3] uses a gpio that is translated thanks
-to the nexus node:
---- 8< ---
-  /* Use the connector gpio number 1 */
-  reset-gpios = <&connector 1 0>;
---- 8< ---
-
-
-[1] https://lore.kernel.org/all/20260826094950.1088288-73-herve.codina@bootlin.com/
-[2] https://lore.kernel.org/all/20260826094950.1088288-73-herve.codina@bootlin.com/#Z31tests:fdtaddon_realistic_base.dts
-[3] https://lore.kernel.org/all/20260826094950.1088288-73-herve.codina@bootlin.com/#Z31tests:fdtaddon_realistic_addon.dtsa
-
-
-> 
-> We (Toradex) would like to use it to specify a LVDS connector on our
-> boards. This connector appears on different carrier boards that all mate
-> with the same display and have the same pinout. The only potential
-> difference is which PWMs and GPIOs are connected to the connector.
-> 
-> There, specifying the LVDS connector as a nexus node on the relevant
-> carrier board DTS/DTSI would allow us to reuse the same display overlay.
-> That example usage is given by Leonardo Costa here:
-> https://lore.kernel.org/all/juuc4af7ndbajcl7gzf4tg5qz2q2j5tt3rvql4jbauradujrre@gc5nbdhhixaf/
-> Note how we have the connector on imx8mp-verdin-dev.dtsi but could also
-> add it to other boards, i.e: imx8mp-verdin-mallow.dtsi
-> 
-> Note that in that example we used the "tdx,verdin-lvds-connector"
-> compatible for the connector. Since this is a nexus node and just a
-> dumb connector without driver, not having a compatible would make sense.
-> In a final implementation we could specify a compatible + binding if
-> that specifies the ABI better. It is not entirely clear to me what is
-> preferred at the moment, but that is disconnected from this patch
-> series.
-
-Hum, do you have a look at [4] ?
-You could be interrested by this work?
-
-[4] https://lore.kernel.org/all/20260826094950.1088288-1-herve.codina@bootlin.com/
-
-> 
-> >   
-> > > A nexus is a translation node, not the GPIO provider, and need not be
-> > > populated as a device. The resulting fwnode link can therefore remain
-> > > unresolved and indefinitely defer the consumer while
-> > > device_links_check_suppliers() waits for the nexus.
-> > >
-> > > Use the map-aware parser for all supported GPIO property spellings. This
-> > > makes fw_devlink resolve the same provider as the GPIO consumer API. Direct
-> > > GPIO references continue to work because the map-aware parser returns the
-> > > original provider when no gpio-map property is present.
-> > >
-> > > Add OF unittest coverage for mapped and direct GPIO suppliers, including
-> > > the deprecated singular and unprefixed property spellings.
-> > >  
-> > 
-> > Since this is a fix that we may want to backport, the unit tests should go in
-> > a separate, follow-up commit.
-> > 
-> > Bart  
-> 
-> Thanks for the feedback, if we want to go with the direction proposed
-> here I'll make sure to split it off in future series, I was unsure about
-> that.
-> 
-> Since usage of this nexus system seems limited, I'm also not sure if we
-> need to backport but it technically is a fix.
-
-Not sure it is so limited :)
-
-Also, I agree with both patches (PWM and GPIO).
-
-fw_devlink should use the end device and not the first nexus node.
-
-Best regards,
-Hervé
+Regards,
+Krishna,
