@@ -1,103 +1,212 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C08524A43F3;
-	Wed,  2 Sep 2026 14:50:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788360645; cv=none; b=NaFjjsri+81hJD0p67pbi9iVPdifg49Mg3RXYf2KPzsOxMq28IO/WPRbYcncaSdNvfUSIPb1ZKQ/nz5fhRzvP6VxBRc1WhLCQg+8314Z/P3hPeQP60xosEYdpqkR2qzUB7jIfkny5F88mAJnuMPh1Bl5K7QXpE9yrUKNBG2dRnM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788360645; c=relaxed/simple;
-	bh=m0jny4wcFlIbbROvQ/Pj/W5LQgowElOjxlCFyylSeC8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IXXhpwKya3pLlZ0weZ81OVN7VsQK84mDow1H4plPiR3Sb9RH5QVbVqY5guAY9evkg35rvGJ9S782D//87cNCo7c4tMx3Tzf9/O0gYkY27e+rboXmBeXCsIhMrFYJrj4wKjZ+c0NOBlUjQpxaUauiZ8Z9ARsfPB0w4kbyy2LYUDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=WqrA6gTO; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E31E4A5EBA;
+	Wed,  2 Sep 2026 14:59:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788361153; cv=pass; b=XOpAAf3j2d5A6VFPcwAyOj7I32OaO2zTsUoK0jY3V/XPEQJzy+jhvLwUdLJ5CCRp1VM1MxlAQS6f2uVOykKq1jFy/fNS4xGUK5toTlfF1OV8hx934J5dQSzkTvu6+r5LzP+l4nx0KO2cBnW7fBDhhM/R/+PHnRIx8WlfxlQPGG0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788361153; c=relaxed/simple;
+	bh=du7i2CkkuXhTACL5xjLwkLIqGU9AdyAp19y9A1xZak4=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=DDvPGacX8hfjKiCZAjy9WcSDXBcD+ABYh+iw7McGqdk6ojXir3UATKUFHqGVU5UArfRgF05bJtFe1oQJ7i3S1ANFQxJYNflLGbvyJj5kiG0r/EQ4i1UbDKwIRuXTcLaIcHDSNy8HmDMABImS+AXqgo5USJAc3a3VxNwU9kpJ7gQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=qACYkUGw; arc=pass smtp.client-ip=136.143.188.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="WqrA6gTO"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 25E4C165C;
-	Wed,  2 Sep 2026 07:50:39 -0700 (PDT)
-Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 57F573F882;
-	Wed,  2 Sep 2026 07:50:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788360642; bh=m0jny4wcFlIbbROvQ/Pj/W5LQgowElOjxlCFyylSeC8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=WqrA6gTOlzJu3CsI2jdMMJr2Zts4so8JmcOtZeyDeE6DL33REl/Qmy2Af7HOUIwQb
-	 IAvjxc2+B0rwmtJM+I6wdqkMb7OPbVx2of9wpdfd1lMW93gQuPBIbPSp7gLa3nQse2
-	 K5GpLsD+hTyvUtDi5zTx8wJnApH8jtGs3Cwp46jE=
-Message-ID: <99e2cbcb-993e-4f83-b7ec-c333407aabf9@arm.com>
-Date: Wed, 2 Sep 2026 16:50:38 +0200
+	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="qACYkUGw"
+ARC-Seal: i=1; a=rsa-sha256; t=1788361100; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=S3QT2xnqapjWCt5br7N62PuBrrk/9qtRhbUZ0tLdJjAkdyn8BujS1mrgqWyhz07dljw/NP7WOK3LteyREHuSegPaB5HM29ePvLQs4r1wudYTm+IrRSBq7gQy8IwMEE1QVvw7mO6P8negJYTImrNpaXiBHH05Hr+vnsaF9DcCyoE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788361100; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=8HO2oXDKMUH/IBYP69UiPRfT2MLlZ9mi40/eACWvXEM=; 
+	b=b92bjwNpEO9fBCluP9ciiZ5sWudULCQpXOFi2mYF4ha9xqOIknar1RRQ4885UiWT33ZunTU/XrFg3p2vfcwW+7xf/qLGjF8cqJOG9OiahalSpCoHfA03PRfmxeLMecwV3em/6GPCWpE+zPbMA+Pb4gweYjN7wKrtrYnEk4nXKKw=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=pigmoral.tech;
+	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
+	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788361100;
+	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
+	h=Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Date:Message-Id:Message-Id:Cc:Cc:Subject:Subject:From:From:To:To:In-Reply-To:Reply-To;
+	bh=8HO2oXDKMUH/IBYP69UiPRfT2MLlZ9mi40/eACWvXEM=;
+	b=qACYkUGwqEncwBwGhite6gjWfNXt9JXXjby68YUe1+OEKSieU1l/UGTyYe1eVbiE
+	uUD6/jVuQd9uCyHa3zLpJH3HkdbW4TcY7yS9vSmIY7Yg1W9m3LPCzt5WPMLNnSDn2R/
+	Z/LzbdirePQ+PKEk8zcitTJFlU0IiS4moaKyGCpM=
+Received: by mx.zohomail.com with SMTPS id 178836109677887.78200468721616;
+	Wed, 2 Sep 2026 07:58:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 07/15] arm_mpam: Fix the RIS index range check in
- mpam_ris_create_locked
-To: Yin Li <yin.li@oss.qualcomm.com>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Shanker Donthineni <sdonthineni@nvidia.com>,
- Conor Dooley <conor+dt@kernel.org>, Fenghua Yu <fenghuay@nvidia.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
- Reinette Chatre <reinette.chatre@intel.com>,
- Konrad Dybcio <konradybcio@kernel.org>, James Morse <james.morse@arm.com>,
- Ben Horgan <ben.horgan@arm.com>, Bjorn Andersson <andersson@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-arm-msm@vger.kernel.org, ganapatrao.kulkarni@oss.qualcomm.com,
- trilok.soni@oss.qualcomm.com, devicetree@vger.kernel.org,
- driver-core@lists.linux.dev, Srivathsa L Rao
- <srivathsa.rao@oss.qualcomm.com>, Huang Yiwei
- <huang.yiwei@oss.qualcomm.com>, aiqun.yu@oss.qualcomm.com,
- linux-kernel@vger.kernel.org
-References: <20260811-mpam-resctrl-dt-knp-support-v1-0-ea6397bead59@oss.qualcomm.com>
- <20260811-mpam-resctrl-dt-knp-support-v1-7-ea6397bead59@oss.qualcomm.com>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20260811-mpam-resctrl-dt-knp-support-v1-7-ea6397bead59@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 02 Sep 2026 22:58:04 +0800
+Message-Id: <DL4X3G8EL12W.GCHSR93W77W3@pigmoral.tech>
+Cc: "Stephen Boyd" <sboyd@kernel.org>, "Brian Masney" <bmasney@redhat.com>,
+ "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Jernej
+ Skrabec" <jernej.skrabec@gmail.com>, "Samuel Holland"
+ <samuel@sholland.org>, "Philipp Zabel" <p.zabel@pengutronix.de>,
+ <linux-clk@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-sunxi@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, "Jerome Brunet" <jbrunet@baylibre.com>
+Subject: Re: [PATCH v2 4/8] clk: sunxi-ng: a733: Add PLL clocks support
+From: "Junhui Liu" <junhui.liu@pigmoral.tech>
+To: <wens@kernel.org>, "Junhui Liu" <junhui.liu@pigmoral.tech>
+X-Mailer: aerc 0.21.0
+References: <20260711-a733-clk-v2-0-974d188cbe0c@pigmoral.tech>
+ <20260711-a733-clk-v2-4-974d188cbe0c@pigmoral.tech>
+ <CAGb2v65KKifCUYUxnZ5Vm=XNqNdiNC1i+U9mgX2djtPkwvtN2g@mail.gmail.com>
+In-Reply-To: <CAGb2v65KKifCUYUxnZ5Vm=XNqNdiNC1i+U9mgX2djtPkwvtN2g@mail.gmail.com>
+X-ZohoMailClient: External
 
-Hi,
+Hi Chen-Yu,
+Thanks for your review. I will address the comments in v3.
 
-On 8/11/26 15:30, Yin Li wrote:
-> The RIS selector field is defined as MPAMCFG_PART_SEL_RIS (bits 27:24),
-> which is 4 bits wide and gives valid indices 0..15. MPAM_MSC_MAX_NUM_RIS
-> is defined as 16, so the check should use >= to reject index 16 and
-> above. The previous > check incorrectly accepted index 16 as valid.
+On Sun Aug 23, 2026 at 5:38 PM CST, Chen-Yu Tsai wrote:
+> (trimmed recipient list a bit)
+>
+> On Sat, Jul 11, 2026 at 4:12=E2=80=AFPM Junhui Liu <junhui.liu@pigmoral.t=
+ech> wrote:
+>>
+>> Add PLL clock support for the main CCU of the Allwinner A733 SoC. The
+>> structure is mostly similar to the sun55i, with the addition of a
+>> PLL_REF clock that normalizes the hardware-detected DCXO/hosc frequency
+>> (19.2MHz, 24MHz, or 26MHz) into a consistent 24MHz reference for all
+>> subsequent PLLs.
+>>
+>> The behaviors of PLL_AUDIO0 and PLL_AUDIO1 are ported from the vendor
+>> driver. Specifically, PLL_AUDIO0 is configured with SDM parameters to
+>> provide a 22.5792MHz * 4 output, while PLL_AUDIO1 is integrated into
+>> the main CCU without using SDM.
+>>
+>> Tested-by: Jerome Brunet <jbrunet@baylibre.com>
+>> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+>> ---
+>>  drivers/clk/sunxi-ng/Kconfig           |   5 +
+>>  drivers/clk/sunxi-ng/Makefile          |   2 +
+>>  drivers/clk/sunxi-ng/ccu-sun60i-a733.c | 539 ++++++++++++++++++++++++++=
++++++++
+>>  3 files changed, 546 insertions(+)
 
-Indeed. Either the maintainers pick this one independently, or put it up 
-front in any repost.
+[...]
 
-And add:
-Fixes: 01fb4b822472 ("arm_mpam: Add the class and component structures 
-for firmware described ris")
+>> +
+>> +/*
+>> + * There is no actual clock output with that frequency (2.4 GHz), inste=
+ad it
+>> + * has multiple outputs with adjustable dividers from that base frequen=
+cy.
+>> + * Model them separately as divider clocks based on that parent here.
+>> + */
+>> +#define SUN60I_A733_PLL_PERIPH0_REG    0x0a0
+>> +static struct ccu_nm pll_periph0_4x_clk =3D {
+>> +       .enable         =3D BIT(25) | BIT(26) | BIT(27),
+>
+> The gate helper sort of expects this to be just one bit. And the three
+> bits here are for the three individual outputs (2x, 800M, 480M). I think
+> you should move the bits to the individual outputs, and use BIT(31) here
+> instead (or just leave out the enable bit for this one).
 
-> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
+I will leave out the enable bit for the PLL core and move the three
+output gate bits to their corresponding child clocks.
 
-Reviewed-by: Andre Przywara <andre.przywara@arm.com>
+[...]
 
-Cheers,
-Andre
+>> +
+>> +static const struct clk_hw *pll_audio1_hws[] =3D {
+>> +       &pll_audio1_clk.common.hw
+>> +};
+>> +static SUNXI_CCU_M_HWS(pll_audio1_div2_clk, "pll-audio1-div2", pll_audi=
+o1_hws,
+>> +                      SUN60I_A733_PLL_AUDIO1_REG, 20, 3, 0);
+>> +static SUNXI_CCU_M_HWS(pll_audio1_div5_clk, "pll-audio1-div5", pll_audi=
+o1_hws,
+>> +                      SUN60I_A733_PLL_AUDIO1_REG, 16, 3, 0);
+>
+> Perhaps these should be made fixed? Otherwise the names don't apply corre=
+ctly.
 
-> ---
->   drivers/resctrl/mpam_devices.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-> index ddc15249ec1e..cc9fa1d78925 100644
-> --- a/drivers/resctrl/mpam_devices.c
-> +++ b/drivers/resctrl/mpam_devices.c
-> @@ -725,7 +725,7 @@ static int mpam_ris_create_locked(struct mpam_msc *msc, u8 ris_idx,
->   
->   	lockdep_assert_held(&mpam_list_lock);
->   
-> -	if (ris_idx > MPAM_MSC_MAX_NUM_RIS)
-> +	if (ris_idx >= MPAM_MSC_MAX_NUM_RIS)
->   		return -EINVAL;
->   
->   	if (test_and_set_bit(ris_idx, &msc->ris_idxs))
-> 
+Agreed. Since the names explicitly describe fixed /2 and /5 divisions,
+I will model these two outputs as fixed-factor clocks and initialize the
+corresponding divider fields accordingly.
 
+[...]
+
+>> +       .lock           =3D BIT(28),
+>> +       .n              =3D _SUNXI_CCU_MULT_MIN(8, 8, 11),
+>> +       .m              =3D _SUNXI_CCU_DIV(1, 1), /* input divider */
+>> +       .common         =3D {
+>> +               .reg            =3D SUN60I_A733_PLL_DE_REG,
+>> +               .hw.init        =3D CLK_HW_INIT_PARENTS_HW("pll-de-12x",=
+ pll_ref_hws,
+>> +                                                        &ccu_nm_ops,
+>> +                                                        CLK_SET_RATE_GA=
+TE),
+>> +       },
+>> +};
+>> +
+>> +static const struct clk_hw *pll_de_hws[] =3D {
+>> +       &pll_de_12x_clk.common.hw
+>> +};
+>> +static SUNXI_CCU_M_HWS(pll_de_4x_clk, "pll-de-4x", pll_de_hws,
+>> +                      SUN60I_A733_PLL_DE_REG, 20, 3, 0);
+>> +static SUNXI_CCU_M_HWS(pll_de_3x_clk, "pll-de-3x", pll_de_hws,
+>> +                      SUN60I_A733_PLL_DE_REG, 16, 3, 0);
+>
+> Should we make the values fixed or the divider read-only?
+
+After checking the manual again, I don't think these dividers should be
+fixed or read-only.
+
+The 4X and 3X suffixes appear to be hardware output names rather than
+fixed multiplication factors. The manual describes both P0 and P1 as
+programmable dividers and only gives their default frequencies; it does
+not say that their values must remain fixed.
+
+For example, the default frequencies of DEPLL4X and DEPLL3X are
+1044 MHz and 696 MHz, respectively. If the suffixes represented
+multiples of a common base frequency, 1044 MHz / 4 * 3 would be
+783 MHz, not 696 MHz.
+
+[...]
+
+>> +
+>> +       /*
+>> +        * The PLL clock code does not model all bits, for instance it d=
+oes
+>> +        * not support a separate enable and gate bit. We present the
+>> +        * gate bit(27) as the enable bit, but then have to set the
+>> +        * PLL Enable, LDO Enable, and Lock Enable bits on all PLLs here=
+.
+>> +        */
+>> +       for (i =3D 0; i < ARRAY_SIZE(pll_regs); i++) {
+>> +               val =3D readl(reg + pll_regs[i]);
+>> +               val |=3D BIT(31) | BIT(30) | BIT(29);
+>> +               writel(val, reg + pll_regs[i]);
+>> +       }
+>> +
+>> +       /* Enforce m1 =3D 0 for PLL_AUDIO0 */
+>> +       val =3D readl(reg + SUN60I_A733_PLL_AUDIO0_REG);
+>> +       val &=3D ~BIT(1);
+>> +       writel(val, reg + SUN60I_A733_PLL_AUDIO0_REG);
+>
+> We should also force the divider for all the divN or Nx outputs.
+
+For the reasons above, I plan to force the divider values only for the
+divN outputs, whose names explicitly specify their division ratios, and
+leave the Nx output dividers programmable.
+
+>
+>
+> Thanks
+> ChenYu
+>
+
+--=20
+Best regards,
+Junhui Liu
