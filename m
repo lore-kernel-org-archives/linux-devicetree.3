@@ -1,97 +1,78 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ECDA43231D
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 13:26:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0E7647B425
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 13:27:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788355594; cv=none; b=tWiwrpk48vX2LWIhE/GcnmDj0ZdBRVd2ecby0qhwUT8kHLwI+gpxSF4MGrOLwHLsHsySJjxKesdlId8hUJ+3sXehd9241kKHygHcOt9FLU/UsHKnPFEQNLFFG1bNLmA6sgfjwv9+UfzETQwmzoKpsjdwRYfqpfE25Q7ho0QqYLc=
+	t=1788355660; cv=none; b=oTUPZBRE5oz+yxLWDRuBoYPLdUl8IpKo4BIbZRz3gyfUUvNQVTCwtvs58chz2Ciy26RYmBXJtGoVJOnlvJm6muBsP9xyd7m7zsx1wJ6xg1eKkYvlg+BfJLjfSp3nNJAXyFMaS92HyycAjqOmbSksCOSQr1yzzQeJGxbtQNvr+9I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788355594; c=relaxed/simple;
-	bh=IOYGewLhDOFm4x0hRfNM4AYVD0ENzMjIIDCNxqGXlNA=;
+	s=arc-20240116; t=1788355660; c=relaxed/simple;
+	bh=46EGZ5pqfojB4SEknL4ghE/O+NrgMIaCGgz/FeaouIc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a5YnZyYlj1DDqS60+Ui67eLtjSXAI7+luMTq2wwYzgICNJZ+/Rr0PK/dtBEaSKsDP0TyMO1bOHuXhi17Q4BPiZZfMYVslRtYje7yNSxJ0XZnzUFiXIlk2I/Ts2P2wqm0JCD6AZzxFTUQHrVk4dVzQYZ7QTowfn7xDplK1ShpWh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EqQzVKqv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RtFJZN2r; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Zfx7hYXUEEQiQ6gaIZw6a4O3ofXaDmK7bPs5fEkKQNQmHH1Ta2fjuRZ+yw1LCwkjg27Clnp517UTedtHguYNVo8lZKwoJ3rlKncnGqXA2/ftYyHhrkjyfTn7AYcLZ22I12Lx8nlD+vQD3am1VxRHHyO9nggvGS/x/D0xb2DwfEQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ofKbxAXN; arc=none smtp.client-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EqQzVKqv";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RtFJZN2r"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682CR9FW1647747
-	for <devicetree@vger.kernel.org>; Wed, 2 Sep 2026 13:26:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=+fr0qc4FAUTiDXfo042zfsBe
-	8gb47pwHgpFgz0s03Xo=; b=EqQzVKqvMp977hnDfUJoKXWHcl0xIlPx7Sr+CeEi
-	zjic/9f3xzMdGaaJWM7IlK1gG2BWNi7EpJ5+tVvGLhlnE/OsVRcoabhNQq40umMo
-	35t2Nh/JsnmDO41Wk+TUj8NQn+t3IMibAjj6I9XTZv6hiQybJduUEQCrfZibMVPi
-	o5uGj5Aint16kYgkEfYWSwQ3eCpUKff1XS1QjHf51m3LlsbZrisEjKa2aEkMTrYH
-	29Z+o2KPdWgW7/2EHOzgjJ92Z7P0tmwyu1M/wA893S7vba0bjZ0mBnVtBvdFiDtR
-	k6ctWy5xdnXuapB7I15nxd3cxwOXpwkrbropD1d3FZqq7g==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gejv88f9u-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 13:26:30 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92e5e38fbc5so206804185a.2
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 06:26:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ofKbxAXN"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c255c58156bso169823366b.3
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 06:27:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788355590; x=1788960390; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1788355654; x=1788960454; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=+fr0qc4FAUTiDXfo042zfsBe8gb47pwHgpFgz0s03Xo=;
-        b=RtFJZN2rWq6e9eZc+Q/FeUy9sD4VJD00VxSwYj6HIham8vurkdIMBJpInXr7CwqGyA
-         uII/IGrJsmMbGuUKsEJ08rJs9rpAaMf3XTvQzTWTXX2Mt3Hx8hmpMRHoO0hKrOBOyYVG
-         snyZrHkymbIoTr36Q1Yglj6mKieUSNmXb3AxUg9+VkwD3CU/CoFdkdhU3E0o2UMjFgbS
-         ifL9Sj3vha1JSpd9qFAdBd2s/ieX9mlMWNryAMuh6sLovx43CUG6PEWdrbx0Z8mayp5Y
-         OYznsosqD6LkDVWvlZyI4udfEvpGS8y5VJyCGj+g6f2aIsUVjNVaG71xHRZZU48p8NdU
-         Omwg==
+        bh=zt5M13bJdXW7K7qyVlwwml2r+oge4XhKrpcO5BXQh9I=;
+        b=ofKbxAXNtAzivtKRsGVB85Itd0b0Oy6YbN2Xs1wGHxV1lwAt7HTvTH1RijoRYa+i2S
+         OTq0/h0iG1g2O+uUMTLrNZFaZ6TqdffnophWz4XsJFiGwxk590vdQP7bTJ+sR0Hpfto/
+         bsUvooe6hGjrjx/fuGKOSW+A5WViz58TiJ82burSvpfe0YbXBemHpsa9fH7skW/yeufl
+         Od+iJYl6k1nsXG0VWrpFotkdJdaaPkJdmEipfwDGIEzGdWTWhFqcFsZAtNSKCuoxwPy1
+         rAzaCVN9OlEtzj69O5uDQn8vUMSVw9PqHdUS83jxxFvj6l8wZqS4AxX8ZgIDuWsxWdRZ
+         SApw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788355590; x=1788960390;
+        d=1e100.net; s=20251104; t=1788355654; x=1788960454;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+fr0qc4FAUTiDXfo042zfsBe8gb47pwHgpFgz0s03Xo=;
-        b=GH0oUcxcrAAdKB+P0snlLW/jMsoIGwFETmnhWNRIrCVYoUBlMAn6PZLRvtZYie6TZj
-         mPV+VhXuHDoAvAsWFVzYZLcy3wMIq1wMMAr3e8MIyAFDb0cvrjCci4GTGWEtnQf1sWyp
-         szQxeqQi1M/Nr7/gR4elwkacc/URo7VOCHr/N0r/E7nxJK9Mw/EIal7Yp9S+OirVMBFP
-         txCQNTgiTeKnP9+7FgDCPW35TvIhvJus5WV7gJuIppmvQi2+7a/jXHb7d1+U4A7yNsgR
-         bz9M27ccOUOVTTBrxWVyp1esLQjbrOk+qCD+685tj1Pda84FiOB2XGkaYOHFmlUq0JWR
-         Q+MA==
-X-Forwarded-Encrypted: i=1; AHgh+RoMna4eu6h93MwYISc2+cStTvWXxPcHIwIF76Mx9I1rDTu/twTqmsvyPKnK93uRRBwe0WPavTfi5Fau@vger.kernel.org
-X-Gm-Message-State: AFuF++ltp0+m2ztxJD9H9RGuFaxelwswesHl1AjMDaj7NR0kpaT9ZX1L
-	TqRczrRgjCbqFrsdqbNNqluHefUSF5Vhy0RCYvVubnuY/pcNmL7QS03ZyynE9gM5jVIM01pe6V+
-	GF3Mt7R9twLiwZg0fjKs7fAKTDUFUl5vlGfy1NJmhO/mHOy+oxjkkAPlBSPM2z1yY
-X-Gm-Gg: AR+sD13qDtdrPFa7+eiZMOEHuhK5+MmySBZOQ13NMOLvKiZnj4Hm72qvhl3X3JLpOU3
-	J8R4b2d2EbgU5I5Xx3q9yjdUAAi8rZgrKSjAsI1YCYcTNFeerTz+Y7ecMdrWVhmO9e3WOL+NhLJ
-	Qx58aZhehOu5B6EAl0yYsxBF4AHzXupYEge81HLtVka+MTmbd/V2F8mWPPkmXxrWjehRds0b1am
-	rv7zz3+aadC1mm4Ry+hbAE3Pf7MSqXzZH/fTAZE9Vj2PRu887dOy6uhpD2EGv0gXMlBIWrmCeT7
-	gPjstbvi/cEHnuh16loWA0eDG+Pc02M1miQVGAMw1LZs3OJUvkrSK+y2qwEbCOfoZxyELxy/7zG
-	7tGseTJ3mjHZt0A==
-X-Received: by 2002:a05:620a:a191:10b0:939:2812:8bda with SMTP id af79cd13be357-93960e1dcd2mr457338685a.16.1788355589728;
-        Wed, 02 Sep 2026 06:26:29 -0700 (PDT)
-X-Received: by 2002:a05:620a:a191:10b0:939:2812:8bda with SMTP id af79cd13be357-93960e1dcd2mr457325385a.16.1788355589014;
-        Wed, 02 Sep 2026 06:26:29 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.178])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448ed30c0sm6630997f8f.24.2026.09.02.06.26.26
+        bh=zt5M13bJdXW7K7qyVlwwml2r+oge4XhKrpcO5BXQh9I=;
+        b=JJCWD0ycnPe1MAB3WAScMtg4ivjMDvgffEKoigoKVQRv8W/kwQNXSDSz97bH3aIDLV
+         8aWDO0sH+eK+B6X6A7b++htdzKUnexNuTAAGBZkyRGUMhGN9LxhUcBo/FxmW85ABMt+u
+         A2YZeFhswJjJRRoxm63mMM3BT7xNaykYwU9PPk1YEDdA6TvwR3qqiBDYcdcv1BL4xFSt
+         uwtXn1mSqqCDHgKijEOIHIs7/be6ugtM+vUxW99ejZ+8+ffjRMDM0aQ6xbxeMQbepR52
+         mahOe/RBAKbYJtxHOjFGR2L3CtKXKaQKwG7F1Kh0bI1VZc6cxaXQ5oV7Aoe/Jb1LGpZz
+         xfDw==
+X-Forwarded-Encrypted: i=1; AKwUvBzqx7iT6tvJmdgImmmkz3i4Ht6I/y0t0Cu6e2mNT9rKWr7Nlp00RIHkeSUqgtJxzvFnbRcs98s7lnw9@vger.kernel.org
+X-Gm-Message-State: AFuF++mWI/p7fj+vCEqv98jaU+wqXpdYIyWkrx9bN+RCab4fZ/PQzec4
+	XAscGRywNQV9tBx5uh2CGbtbu4vQuiUEAqrsDCx3/u8JsPlNAEQ7UnV6QT3Gl9MOCg==
+X-Gm-Gg: AYBFou1MVzMAdVsiMTtFgplyjBnfZR8h5+cVauR+4mXxLrXzoMuyITJXbZKHgZhJwGN
+	jHb4OBArrv83+5E8MgTHiFXVaCSgiq4Z/eeP+HkCXtzEhmno4k85RrZcEa1+Q3Duqy23fS2EHX1
+	6mbJ5Ek4AEA8AKP61kAND9BUGlPQTCkTeYpVHlPf9EnSTmAhlWCG1eOD3LuNw9mar3rdpDptSJA
+	mGgkfyJOR9Z7OWQV3WdL1+aNlCtDNSiC7ZQoWzqeVgNHDKAcaC+F9HF583fFBjaao+mtVHjAvyy
+	SOuWtRguSQ0+RcGoQUmCe580Tf6n92xXlJ6YiNXs1hS3MI0J4BwmRwhObIsUMY37PZajDyaL3vD
+	pUohUZl/xA15uYifed9T5qhUZZWBb83zfgLceqFnBtwTQvpdGqR3dbZ+CVdxl/vOrJGfDmB7jcc
+	RonYY7X3JNImNHeTR2KkevF12VRc31Jo4WW6KuqTDtO44SomYum5gCOouguR8USQx4eVhXfubM5
+	OKNu4FhN4wI3nT9DHBiaUUuEYrGNrW4
+X-Received: by 2002:a17:906:f58e:b0:c25:c954:faf2 with SMTP id a640c23a62f3a-c25d563a41cmr291059666b.21.1788355652676;
+        Wed, 02 Sep 2026 06:27:32 -0700 (PDT)
+Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25d039d796sm138037066b.40.2026.09.02.06.27.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 06:26:27 -0700 (PDT)
-Date: Wed, 2 Sep 2026 16:26:26 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Dale Whinham <daleyo@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        =?utf-8?B?SsOpcsO0bWU=?= de Bretagne <jerome.debretagne@gmail.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v2] arm64: dts: qcom: x1-denali: Add volume up/down GPIO
- keys
-Message-ID: <whnzjy22lzm6ln7qzzqx5jinmaxaronsafm33cej5ox2aeo2p3@ctegjf3sdmw6>
-References: <20260902-surface-pro-11-volume-buttons-v2-1-1d893c7b5440@gmail.com>
+        Wed, 02 Sep 2026 06:27:32 -0700 (PDT)
+Date: Wed, 2 Sep 2026 14:27:28 +0100
+From: Vincent Donnefort <vdonnefort@google.com>
+To: catalin.marinas@arm.com, will@kernel.org, rppt@kernel.org,
+	akpm@linux-foundation.org, sudeep.holla@kernel.org,
+	jenswi@kernel.org, robh@kernel.org
+Cc: mark.rutland@arm.com, sumit.garg@kernel.org, ardb@kernel.org,
+	thierry.reding@kernel.org, david@kernel.org, danielmentz@google.com,
+	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
+	op-tee@lists.trustedfirmware.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v9 00/10] arm64: Unmap FF-A lent memory from direct map
+Message-ID: <apgkQJai-2pjI75-@google.com>
+References: <20260902104712.2399797-1-vdonnefort@google.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -100,40 +81,147 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260902-surface-pro-11-volume-buttons-v2-1-1d893c7b5440@gmail.com>
-X-Proofpoint-GUID: SKo2EB4GBYr8LKh6x9CXjDOEU1QEDp0c
-X-Authority-Analysis: v=2.4 cv=L+wtheT8 c=1 sm=1 tr=0 ts=6a982406 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=G5ilVN+faPP2Ze1SHB4iFQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=RsaAdo6knjiJn5qj3ScA:9 a=CjuIK1q_8ugA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDExOSBTYWx0ZWRfXwE6HJGr8x7rx
- bwFpB40KZLxOtHeionOQSCaKH0+YSNIeBpHWp0fRe+mfaSR4spc3YVRKsuKHl82RHGplQX1JMSw
- sM4DwQ30AIzk7i5AojW/4feX6eXPY68oGw7wuvo9vLdMiXRJ+1299kLoc9HAV+2bXeDcx6JofSZ
- vP/j6SPOmMbh7mp+NvZgGIZMrzFnlBviYaVZIT9JDU5++POZJw1Ir0qSM2biX1N8aDkdyqWrc5U
- EdmtMEXrp/KhVAAS7tMQKj1g3GRKQy9olOIM7vLMiw1WPuUIpWpBB0K6Ip+wFIjIRv2VtS4UKnX
- TxEUHRdErQ5mGXQvK/PAohNnv7PDPprGjGgKqcNNcY55ZfuNQlEujmq7HDLzIY2vWqsTkG37zIp
- SrcnP6qcLrV3atwjajS7XB/Wqbv91uuTLX6UpfBFRfr4VcaWYtQdvQtsItkPAYtbJnA54xcr50g
- bQLvPHN3F4+T6KsVL9w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDExOSBTYWx0ZWRfX5KGQXpNuw/1w
- EYIcyLu2m9Zz7mFXwum37aYrxlFmkrpueLaUeQx2k0t0VyRTyM8MHmQncRPCpRm8KuyDtOkadj7
- cwlYbCILvTgUOVxeRIxvHbzqPSsbguI=
-X-Proofpoint-ORIG-GUID: SKo2EB4GBYr8LKh6x9CXjDOEU1QEDp0c
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_03,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 bulkscore=0 impostorscore=0 phishscore=0
- spamscore=0 suspectscore=0 adultscore=0 priorityscore=1501 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020119
+In-Reply-To: <20260902104712.2399797-1-vdonnefort@google.com>
 
-On 26-09-02 13:52:36, Dale Whinham wrote:
-> Configure gpio6 and gpio8 as volume up and volume down respectively, to
-> enable the volume rocker located at the top of the screen.
+This is of course v1, not v9...
+
+On Wed, Sep 02, 2026 at 11:47:02AM +0100, Vincent Donnefort wrote:
+> This series is a follow-up to the discussion that has started here [1].
+> While standalone, it also provides primitives reusable for the VPR DMA
+> heap.
 > 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Dale Whinham <daleyo@gmail.com>
+> When memory is lent to the Secure world via FF-A, CPU speculative
+> accesses from NS to the lent pages can still occur as long as it retains
+> a cacheable mapping to it.
+> 
+> Ideally, lent memory would be "no-map" but that would mean giving up
+> MiBs of useful memory, so let's try to do better with the help of a CMA
+> pool.
+> 
+> On arm64, modifying the direct map at runtime is generally restricted
+> because the linear map defaults to block mapping and splitting blocks at
+> runtime may trigger fatal page fault, unless the CPU implements BBML3
+> or the entire direct map was mapped at page granularity from boot.
+> Forcing last-level mappings system-wide incurs a severe penalty we want
+> to avoid. Instead, this series introduces targeted last-level mappings
+> for designated memory regions, along with the "arm,ffa-lend-pool" CMA
+> driver to manage unmapping and remapping on lend/reclaim transitions:
+> 
+> 1. memblock & OF reserved memory ("ll-map"):
+>    - Introduce MEMBLOCK_LLMAP and the DT "ll-map" property for reserved-memory
+>      nodes to force last-level (PTE) mappings only for a specific region.
+> 
+> 2. set_memory infrastructure:
+>    - Introduce can_set_direct_map_range() to check if a specific address
+>      range is mapped with last-level entries and can be modified safely.
+>    - Introduce __set_direct_map_*() variants that bypass redundant checks
+>      when the caller has already validated the range.
+> 
+> 3. "arm,ffa-lend-pool" driver
+>    - Introduce the "arm,ffa-lend-pool" CMA reserved-memory driver, which
+>      unmaps pages prior to lending (ffa_prepare_lend()) and restores them
+>      when reclaimed (ffa_lend_reclaimed()).
+> 
+> 4. Optee support
+>    - Hook OP-TEE dynamic protected memory pools to "arm,ffa-lend-pool" for
+>      both SMC (via DT memory-region phandle) and FF-A (via
+>      ffa_lend_pool_attach()) transports.
+> 
+> Testing:
+> ========
+> 
+> Tested with QEMU v8 using OP-TEE OS (built with CFG_CORE_DYN_PROTMEM=y)
+> under both SMC and FF-A transports [2]
+> 
+> static void dump_direct_map(const char *label)
+> {
+> 	printf("\n=== %s ===\n", label);
+> 	fflush(stdout);
+> 	system("sed -n '/Linear Mapping start/,/Linear Mapping end/p' /sys/kernel/debug/kernel_page_tables");
+> 	fflush(stdout);
+> }
+> 
+> int main(int argc, char *argv[])
+> {
+> 	int heap_fd;
+> 	int dmabuf_fd;
+> 	struct dma_heap_allocation_data data = { 0 };
+> 	size_t size = 1024 * 1024; /* 1MB */
+> 
+> 	if (argc > 1)
+> 		size = strtoul(argv[1], NULL, 0);
+> 
+> 	dump_direct_map("BEFORE ALLOCATION");
+> 
+> 	heap_fd = open("/dev/dma_heap/protected,secure-video", O_RDWR);
+> 	if (heap_fd < 0) {
+> 		perror("open /dev/dma_heap/protected,secure-video");
+> 		return 1;
+> 	}
+> 
+> 	printf("\nOpened /dev/dma_heap/protected,secure-video\n");
+> 	printf("Allocating %zu bytes of protected memory via DMA heap...\n", size);
+> 
+> 	data.len = size;
+> 	data.fd_flags = O_RDWR | O_CLOEXEC;
+> 	if (ioctl(heap_fd, DMA_HEAP_IOCTL_ALLOC, &data) < 0) {
+> 		perror("ioctl DMA_HEAP_IOCTL_ALLOC");
+> 		close(heap_fd);
+> 		return 1;
+> 	}
+> 
+> 	dmabuf_fd = data.fd;
+> 	printf("Successfully allocated %zu bytes! dmabuf_fd = %d\n", size, dmabuf_fd);
+> 
+> 	dump_direct_map("DURING LEND (EXPECT HOLE IN DIRECT MAP)");
+> 
+> 	printf("\nReleasing dmabuf_fd...\n");
+> 	close(dmabuf_fd);
+> 	close(heap_fd);
+> 
+> 	dump_direct_map("AFTER RECLAIM (RESTORED DIRECT MAP)");
+> 
+> 	return 0;
+> }
+> 
+> [1] https://lore.kernel.org/all/20260807-tegra-vpr-v4-7-5510d16af89e@nvidia.com/
+> [2] https://optee.readthedocs.io/en/latest/building/gits/build.html#qemu-v8
+> 
+> Vincent Donnefort (10):
+>   memblock: Introduce MEMBLOCK_LLMAP
+>   of: reserved_mem: Introduce "ll-map" property
+>   set_memory.h: Introduce can_set_direct_map_range()
+>   set_memory.h: Introduce __set_direct_map*()
+>   arm64: can_set_direct_map() if BBML3
+>   arm64: Implement can_set_direct_map_range()
+>   arm64: Implement __set_direct_map*()
+>   arm64: Add support for MEMBLOCK_LLMAP
+>   firmware: arm_ffa: Introduce ffa-lend-pool
+>   optee: Add support for arm,ffa-lend-pool
+> 
+>  arch/arm64/include/asm/set_memory.h  |   7 +
+>  arch/arm64/mm/mmu.c                  |  23 ++-
+>  arch/arm64/mm/pageattr.c             |  67 +++++++-
+>  drivers/firmware/arm_ffa/Kconfig     |   5 +
+>  drivers/firmware/arm_ffa/Makefile    |   1 +
+>  drivers/firmware/arm_ffa/lend_pool.c | 223 +++++++++++++++++++++++++++
+>  drivers/of/of_reserved_mem.c         | 104 ++++++++++---
+>  drivers/tee/optee/ffa_abi.c          |  13 +-
+>  drivers/tee/optee/protmem.c          |   8 -
+>  drivers/tee/optee/smc_abi.c          |  17 +-
+>  drivers/tee/tee_shm.c                |  11 +-
+>  include/linux/arm_ffa.h              |  21 +++
+>  include/linux/memblock.h             |   9 ++
+>  include/linux/set_memory.h           |  39 +++++
+>  mm/memblock.c                        |  50 ++++++
+>  15 files changed, 545 insertions(+), 53 deletions(-)
+>  create mode 100644 drivers/firmware/arm_ffa/lend_pool.c
+> 
+> 
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> -- 
+> 2.55.0.970.g62bdec98f9-goog
+> 
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+-- 
+Vincent
