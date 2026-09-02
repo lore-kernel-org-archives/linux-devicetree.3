@@ -1,90 +1,186 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83EC54AFE14
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 22:39:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1180744D03B;
+	Wed,  2 Sep 2026 22:54:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788388748; cv=none; b=NoZB5dR3t3MLYpfYS+e6y2uFTZqMj7NDZWoIGQE7yg8m0yEH6uNzHn7KQSdHwU0+gHGIgdzzQ0XhheJnWvd/uRM8VMemX41/0/BRVUFYGAGpvKFvtGFjZ2PmaX4MsjSGRKl2YcYdiedeDvj7thyjroP1ii35EjGvCBc+VW38GOg=
+	t=1788389659; cv=none; b=EsASUJmUmZuLqFEQCpgwkyr5Uo3hDClOnHwvcHewSXW/83atNYIUFlyRLRZRbyJkkxxS7chQF9vArd73kFBAPFjIKWOSVkadnMxevGWM/9XcPzt9IUNqgW3ZCbz2uWLm3ubDhs/a+/b6zz1sky1e2AECb4w+Ssyl4BlOdAqM0Tc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788388748; c=relaxed/simple;
-	bh=rRCeyym43vIQBGWZiSC8vSBDbFgjHQIdebBK3IZSF88=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GYrmsCctEIFOTvBRS/hPY1XvA2NQl5fqX3bgOLVE+T473pNHts3bnVmghR0Dc0ZXGGUitxmZLr6V8+TsQ55D6c9yuXotyBLGsgW5xqBAM85jucljb/B99k6NrbeFnDkgLnZreIK8H1nnaBe0rNuRgL7hmp65tzXAWpefzffLuaE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nXrYrkxw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788389659; c=relaxed/simple;
+	bh=zhWpF/UU05YTXxYJbSUFS3lUsjEwItB+y5/lTPeSYxA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=nOSuB0DIuaLd9S5CQGFd2hDAGtIbMqBtlJPNfabfm0t67Deo7LxjvNWQLKx2IzqouLUlzanvK+59kP83MemoI6tMQYolxs0QZPQ6QBrhKf7aa3qr2Q225gUkH+jQ0qdhJ+t11QAsPtzxTu+6G9+twVbNvfQpgCKlxy8H6WBrxoQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Xe0KX0YW; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nXrYrkxw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 426361F000E9;
-	Wed,  2 Sep 2026 22:38:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788388737;
-	bh=yuz4K3o7DquyNg6wVIBBhI2UgcUS9zue++7vN+1rxws=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nXrYrkxw3QPyl3VjGBsDOldH3K5yq08c7X6LLxIR0PjkINxlRQae+AOuFE0Jqr6LL
-	 X+2MqMITq96/72ZCsCNpd6zKYH3/zNrJTluiVBQLvZQSg+A/UsuDxUKiijXMJzs1QG
-	 8J8+rOGXpYllsw7sH2Cbk17RArq4WjC+iMvzmOoxLUfg46u+BvpAavlQIq3ol+Eo19
-	 rxKSFX6hdsmiaGBTW7I69YQ0vrRJ/aA3g2KIfPwV+duko5349V4QKp5MDtw3U54Z7R
-	 OQuibOpmCUuATqm6bpnEbh08qEo8qZ5zIuTu9OQdDsE6LCOyUIGQTbjOydAGFX6Doo
-	 9Onq9xMxiWxGw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] nvmem: uniphier-efuse: Enable for K3 SoCs
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Judith Mendez" <jm@ti.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260902222759.736124-3-jm@ti.com>
-References: <20260902222759.736124-1-jm@ti.com>
- <20260902222759.736124-3-jm@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 22:38:56 +0000
-Message-Id: <20260902223857.426361F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Xe0KX0YW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1788389653;
+	bh=zhWpF/UU05YTXxYJbSUFS3lUsjEwItB+y5/lTPeSYxA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=Xe0KX0YWlXuD2ovdBKm7AxKZ6y0Wc31ASO3pd1r7Ij7RVjj+efbvZmdcmN7mYVxvm
+	 7t9Ou8ILBdDHu27BqQkIOxBAilO4hWqLKig5S2GoErMWG5YxTs39hXNELq2UG4BJ8p
+	 gAdYEfdV1yghjoQVMfjuNtQwAx/j/bC4vMXtf1HAEW9Hd8re+N5b+itUVXTpElamPB
+	 SCSuKX1F7rZrF0mQ0varuR84fMU36yOdXGVMecIims+4s8pta06jSjCYGx5NKAU1rR
+	 6pHz1hSmGXQGg43JR/swyAsO/qcVxnibEc9UsXbt7UyxdFp+4o1FDWy+/zsf+n7opg
+	 y/uI3DUMs7Zrg==
+Received: from localhost (unknown [100.64.0.241])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: cristicc)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2B4F517E0DC3;
+	Thu, 03 Sep 2026 00:54:13 +0200 (CEST)
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Date: Thu, 03 Sep 2026 01:54:09 +0300
+Subject: [PATCH v4 02/14] drm/rockchip: vop2: Fix resource leak on
+ vop2_enable() error path
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260903-dw-hdmi-qp-yuv-v4-2-fb45bf4147eb@collabora.com>
+References: <20260903-dw-hdmi-qp-yuv-v4-0-fb45bf4147eb@collabora.com>
+In-Reply-To: <20260903-dw-hdmi-qp-yuv-v4-0-fb45bf4147eb@collabora.com>
+To: Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Daniel Stone <daniels@collabora.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>, 
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
+ Igor Paunovic <royalnet026@gmail.com>
+X-Mailer: b4 0.15.2
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Kconfig change fails to enforce the 'must be builtin' requiremen=
-t for K3 architecture.
---
+vop2_enable() returns void, so callers cannot tell whether powering up
+the VOP2 succeeded.
 
-commit 748ef11d98132dda0086b8cea5abfe1449a55b52
-Author: Judith Mendez <jm@ti.com>
+Additionally, if rockchip_drm_dma_attach_device() fails, vop2_enable()
+returns without disabling the core clocks or dropping the runtime PM
+reference taken earlier, leaking both.
 
-nvmem: uniphier-efuse: Enable for K3 SoCs
+Make vop2_enable() return int and unwind all resources on every failure
+path.  As disabling the core clocks is also needed in vop2_disable(),
+factor it out into a local helper used by both.
 
-This commit adds ARCH_K3 as a dependency for the UniPhier eFuse driver and =
-sets
-it to default 'y'. The intention is to ensure it is built-in to support ear=
-ly
-probe of k3-socinfo during boot.
+Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260623202043.8BFE21F000E9@smtp.kernel.org/
+Link: https://lore.kernel.org/all/20260623202043.8BFE21F000E9@smtp.kernel.org/
+Tested-by: Igor Paunovic <royalnet026@gmail.com>
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+---
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 39 +++++++++++++++++++---------
+ 1 file changed, 27 insertions(+), 12 deletions(-)
 
-> diff --git a/drivers/nvmem/Kconfig b/drivers/nvmem/Kconfig
-> index 283134498fbc3..192e9617ec472 100644
-> --- a/drivers/nvmem/Kconfig
-> +++ b/drivers/nvmem/Kconfig
-> @@ -376,8 +376,9 @@ config NVMEM_U_BOOT_ENV
-> =20
->  config NVMEM_UNIPHIER_EFUSE
->  	tristate "UniPhier SoCs eFuse support"
-> -	depends on ARCH_UNIPHIER || COMPILE_TEST
-> +	depends on ARCH_UNIPHIER || ARCH_K3 || COMPILE_TEST
->  	depends on HAS_IOMEM
-> +	default y if ARCH_K3
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index b2f3a579bbe5..819ea3400bcd 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -860,6 +860,13 @@ static int vop2_core_clks_prepare_enable(struct vop2 *vop2)
+ 	return ret;
+ }
+ 
++static void vop2_core_clks_disable_unprepare(struct vop2 *vop2)
++{
++	clk_disable_unprepare(vop2->pclk);
++	clk_disable_unprepare(vop2->aclk);
++	clk_disable_unprepare(vop2->hclk);
++}
++
+ static void rk3588_vop2_power_domain_enable_all(struct vop2 *vop2)
+ {
+ 	u32 pd;
+@@ -871,7 +878,7 @@ static void rk3588_vop2_power_domain_enable_all(struct vop2 *vop2)
+ 	vop2_writel(vop2, RK3588_SYS_PD_CTRL, pd);
+ }
+ 
+-static void vop2_enable(struct vop2 *vop2)
++static int vop2_enable(struct vop2 *vop2)
+ {
+ 	int ret;
+ 	u32 version;
+@@ -879,25 +886,24 @@ static void vop2_enable(struct vop2 *vop2)
+ 	ret = pm_runtime_resume_and_get(vop2->dev);
+ 	if (ret < 0) {
+ 		drm_err(vop2->drm, "failed to get pm runtime: %d\n", ret);
+-		return;
++		return ret;
+ 	}
+ 
+ 	ret = vop2_core_clks_prepare_enable(vop2);
+-	if (ret) {
+-		pm_runtime_put_sync(vop2->dev);
+-		return;
+-	}
++	if (ret)
++		goto err_put_pm;
+ 
+ 	ret = rockchip_drm_dma_attach_device(vop2->drm, vop2->dev);
+ 	if (ret) {
+-		drm_err(vop2->drm, "failed to attach dma mapping, %d\n", ret);
+-		return;
++		drm_err(vop2->drm, "failed to attach dma mapping: %d\n", ret);
++		goto err_disable_clks;
+ 	}
+ 
+ 	version = vop2_readl(vop2, RK3568_VERSION_INFO);
+ 	if (version != vop2->version) {
+ 		drm_err(vop2->drm, "Hardware version(0x%08x) mismatch\n", version);
+-		return;
++		ret = -EINVAL;
++		goto err_detach_dma;
+ 	}
+ 
+ 	/*
+@@ -932,6 +938,17 @@ static void vop2_enable(struct vop2 *vop2)
+ 		    VOP2_INT_BUS_ERRPR << 16 | VOP2_INT_BUS_ERRPR);
+ 	vop2_writel(vop2, RK3568_SYS1_INT_EN,
+ 		    VOP2_INT_BUS_ERRPR << 16 | VOP2_INT_BUS_ERRPR);
++
++	return 0;
++
++err_detach_dma:
++	rockchip_drm_dma_detach_device(vop2->drm, vop2->dev);
++err_disable_clks:
++	vop2_core_clks_disable_unprepare(vop2);
++err_put_pm:
++	pm_runtime_put_sync(vop2->dev);
++
++	return ret;
+ }
+ 
+ static void vop2_disable(struct vop2 *vop2)
+@@ -942,9 +959,7 @@ static void vop2_disable(struct vop2 *vop2)
+ 
+ 	regcache_drop_region(vop2->map, 0, vop2_regmap_config.max_register);
+ 
+-	clk_disable_unprepare(vop2->pclk);
+-	clk_disable_unprepare(vop2->aclk);
+-	clk_disable_unprepare(vop2->hclk);
++	vop2_core_clks_disable_unprepare(vop2);
+ }
+ 
+ static bool vop2_vp_dsp_lut_is_enabled(struct vop2_video_port *vp)
 
-[Severity: Medium]
-Does this configuration actually guarantee the driver is built-in?
+-- 
+2.55.0
 
-The commit message notes that the uniphier-efuse driver must be built-in to
-support early probe of k3-socinfo. However, because NVMEM_UNIPHIER_EFUSE is=
- a
-tristate option, using `default y if ARCH_K3` only provides a default value.
-It leaves the option vulnerable to being configured as a module
-(CONFIG_NVMEM_UNIPHIER_EFUSE=3Dm) by users or automated CI builds like
-allmodconfig, which would break the early boot probe dependency.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902222759.7361=
-24-1-jm@ti.com?part=3D2
