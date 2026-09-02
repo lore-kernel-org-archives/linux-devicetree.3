@@ -1,74 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D80837F312;
-	Wed,  2 Sep 2026 06:46:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C61D39793E;
+	Wed,  2 Sep 2026 06:48:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788331610; cv=none; b=mSFILD9SXyaGVVLwsIVXX/HBBCmr0AuykWTmU9bFCkE+mhCdCliPvXxw24szT/5Uiof25EeWzfLemgxL8iITiyMlPy7GV3caxdf8UnMYCw42zC9YZRA1hyvgJrBSa5M1VLldxMYENfjSWR1tLdbQr/ffK7zyjDjtLRsbEog6IcE=
+	t=1788331708; cv=none; b=sp94k/fxhL+0tfDl4mM+FFffpJx5bCgKyZ/6kCytksuoUN2oo0tBuD1xYlaPl6ZGZcsgkV93Eu0HrAVPYmeA7ti2s3n8jVPtDAa5O64H8VRVbb6L7Cd6N+/JWwR2AicKnmcd4pldwzOd7NeYTOGGoiRkbIDgNaSEFE17Us0t3As=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788331610; c=relaxed/simple;
-	bh=FKelUfL9fRuTEH3axzUM+504eed/YOB1I9JoS2mtsnY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Nfg0w3AEyStjBtnmauRW9ehAln9YjV/a0jOCS3/yyb8wKnupQg5akcyh1IRvtI8CqzU689VaI8qouP4Xt8jEwwq/CZoMRf/RCXmqnPPSksc0Ua6Tf3Ede/LCg58dT/jbQx2SKJUvF259y+EOsCrqoa3ozxl6/RkdGXSGTFH71JI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ovzwl3Vr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788331708; c=relaxed/simple;
+	bh=2LLwpUks3gQxsZ3/f3rmgnddaSxtRyMROygyinoDiZo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=jvJ3x/+V2BwwCxvVaILJ528b7T2jVNKkWmm+Cam0xDi2Lz9qM3DuMuNDDyYDGQyU/ANE14lMMbBPBn5QyWJVOOEmUTmXwx22brMshyKx0ORYCb84aiBcYNsiKmB09U7HIOqSEF6WAKZ1NTI3J/4RL7td+3hpyl6KF61uxArpPW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YaOYsPJU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ovzwl3Vr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E08FC1F000E9;
-	Wed,  2 Sep 2026 06:46:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YaOYsPJU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63B4F1F000E9;
+	Wed,  2 Sep 2026 06:48:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788331609;
-	bh=B7UPSLc11oKfyrOgLlliKH9fMg05j0h2vVmhD/w231c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ovzwl3VrOuy3uhuXQ2RZbSDLYYTe1Ii9BoP5dQVJhvgTn1GSz3xT2hmg8zJATCtDi
-	 uX0jyf6AVYDRVOBUprOfJtgQ995c024rYYE23SMdUgO4sf/iLWqk1p+juyNZtLrXtt
-	 G7+ajEU4XYF3il3uI55Vge18AwIf/u5OrEBml0DDlKlXB8pImMxN62hMuffRU7Udl5
-	 bfh/9S5/oIHLsvDbbFFlYbNnlzajMxGmpL0snqPYOAE/s7sWBi7g87WmZ+n5abIN02
-	 bPRhnpRJ95k6LrkfesAgVFFpmxsALnr5Kv9I7KjzC8x61muqGTPa4NEibKacBEaKM3
-	 3ces20pbfOz/g==
-Date: Wed, 2 Sep 2026 08:46:45 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Congcong Yao <congcong.yao@mediatek.com>
-Cc: Yong Wu <yong.wu@mediatek.com>, Rob Herring <robh@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	Zhengnan Chen <zhengnan.chen@mediatek.com>
-Subject: Re: [PATCH v4 1/2] dt-bindings: memory-controllers: mtk-smi: Add
- support for mt8189
-Message-ID: <20260902-calm-vivacious-mouse-a7eaac@quoll>
-References: <20260831-8189-smi-support-v4-0-8ae66dd3eeed@mediatek.com>
- <20260831-8189-smi-support-v4-1-8ae66dd3eeed@mediatek.com>
+	s=k20260515; t=1788331706;
+	bh=2LLwpUks3gQxsZ3/f3rmgnddaSxtRyMROygyinoDiZo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=YaOYsPJUadoILWmznNV7eDuGjhqprlyw94hEPADPJQZnaoWC4DxxcoBhyXplm2Mbe
+	 wqVr/q9hOl+YTRbqydx+hsRPpv7zw1mkGKlFNYABy4MCC1CeVHBmFKDEjX4hR2L65X
+	 pxFOEve/6TrtvAgV5mrs1AOY5d8XVC6N5XsaU5KDgPaPLzJJhqNAJBu/MgcaIO8RQZ
+	 NH8bCRpSzq+nJ3NzAd8M7QX71BYzbkl6udjpZiOzLHCtwPNwj3H6rIvwp53KkFR3+T
+	 5XcoUfzT4dDjFRef2gKiwNLw5ps9CZyik9JR3pl8wotO3M/EXMH93m6SqEwL+ixo7N
+	 ksYHNynBcW9YQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v44 6/7] arm64: dts: imx8ulp: add secure enclave node
+Reply-To: sashiko-reviews@lists.linux.dev
+To: pankaj.gupta@oss.nxp.com
+Cc: imx@lists.linux.dev, Frank.Li@kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260902-imx-se-if-v44-6-104658bf941a@nxp.com>
+References: <20260902-imx-se-if-v44-0-104658bf941a@nxp.com>
+ <20260902-imx-se-if-v44-6-104658bf941a@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 02 Sep 2026 06:48:25 +0000
+Message-Id: <20260902064826.63B4F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260831-8189-smi-support-v4-1-8ae66dd3eeed@mediatek.com>
 
-On Mon, Aug 31, 2026 at 02:52:06PM +0800, Congcong Yao wrote:
-> From: Zhengnan Chen <zhengnan.chen@mediatek.com>
-> 
-> Add the SMI LARB, common and sub-common binding descriptions for
-> MT8189.
-> 
-> MT8189 adds an SMI sub-common block. Document this topology in
-> mediatek,smi-common.yaml.
-> 
-> Signed-off-by: Zhengnan Chen <zhengnan.chen@mediatek.com>
-> Signed-off-by: Congcong Yao <congcong.yao@mediatek.com>
-> ---
->  .../memory-controllers/mediatek,smi-common.yaml     | 21 ++++++++++++++++++++-
->  .../memory-controllers/mediatek,smi-larb.yaml       |  3 +++
-> 2 files changed, 23 insertions(+), 1 deletion(-)
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Commit message inaccuracy: mismatch between the SRAM node address i=
+n the commit message (`sram@2201f000`) and the actual node modified in the =
+code (`sram@22010000`).
+--
 
-Just to get it out of DT Patchwork:
+commit af8ee11fdbb0446f89343231545123f3615de2bf
+Author: Pankaj Gupta <pankaj.gupta@nxp.com>
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+arm64: dts: imx8ulp: add secure enclave node
 
-Best regards,
-Krzysztof
+This commit adds the EdgeLock Enclave (ELE) secure-enclave node to the
+i.MX8ULP SoC dtsi. It adds a label to the referenced SRAM node and keeps the
+enclave node disabled by default to avoid imposing reserved-memory requirem=
+ents
+on all boards.
 
+> Add the EdgeLock Enclave (ELE) secure-enclave node to the i.MX8ULP SoC
+> dtsi, together with a label for sram@2201f000 that the node references.
+
+[Severity: Low]
+This isn't a bug, but there is a mismatch between the SRAM node address
+mentioned here and the node modified in the code.
+
+The commit message refers to sram@2201f000, while the code actually
+labels and references sram@22010000. Should the commit message be updated
+to match the modified device tree node?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902-imx-se-if-=
+v44-0-104658bf941a@nxp.com?part=3D6
