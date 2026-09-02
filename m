@@ -1,133 +1,64 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F20E38236F;
-	Tue,  1 Sep 2026 22:42:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 746AA14BF92;
+	Wed,  2 Sep 2026 00:08:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788302556; cv=none; b=vDzsJt/MSl/K3dmHT+//ADZk2EML/gcWRtI9wFdlGyiHM65Jj/Jjw+1Tk7OYaV6K0mJ8XX6zjBSLqt/hCYybvWMZKmZPfm8x+r0Nr64UIe43ng1aOe1MD40wj7S+osk5dGkBLg6eKOh1ueZW05cHobVKWldFO5Esd+Y9tuiz2Bg=
+	t=1788307740; cv=none; b=Jsbl6elsQWxugzEpj2Ku69R6PaBKuJf5C4yR8XecUx7Lh3uVpreNXeWyPwNofNPuvTZdni/xlLudpbEmYqTM/OyAx5fetcDnpofSWIzwNEnSKFxE34j6x+WrHsqrnsHVLe9JJrumH7/6S7sMjQeo2teyVWoPn/DMX6LbCuCc0os=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788302556; c=relaxed/simple;
-	bh=4Gu+GxXbnszRxwsBDA1ayJASorMO+ed6C1C+IdfeYgw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=BMbU/kUoodrkdvrMaYzxWQZTDQEo/WzJuBa4usuKtZTVkUWyLweMVnt1osRXGq5mBandg/fX2xd3QOl+iroFydgjIldVacxaopzs3CZvQFx5Ocr+8NS/ljnuZJfjdLeG8RxGMZ2zDT+9kYZtiNNpIdn+8sYl+Mvt+vVx3fgFjBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RXaKfB3n; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788307740; c=relaxed/simple;
+	bh=ObcgPvUN6UtB/e88qvIKyLy2pbqLncOSzwoqRFTSics=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PxJwmSqAmB+3ZjfzqqpjOVdrnzXO/WgE9KNvwpHOrR/6v/2gXRAmNGgO3Z6i4XlRtRxvtHBw9ttslX/WR7KUbYb5kceE1k1Y1GT4Q7ZSlsCc6A3qWuRx6qu65SrCP67bJw03e6dgT58DjfSHWnExfe3Ah1RcmnswhkVOOC2Ajlo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=vE7OrkFE; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RXaKfB3n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAFDD1F000E9;
-	Tue,  1 Sep 2026 22:42:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788302555;
-	bh=vWFDR7WSW59o0OW9OfXOYZYDWXxKOFzNEPKaZ+It97U=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RXaKfB3nyLaBKttLRm2a5mdveQYw4vQs9Zm535NQ8MeLW5CHYm2WPBmHugsHUHWAt
-	 UNE/ZM45R/671wO/zfVbk1bkw7kY0PojDInXM8nt3oa/4lgKux1N4wICe7qaPNZcxy
-	 BnnFeegwS3qctNxOUYpHTCARqZM0WVWqLUWCjiKZNxxrCWfRa8zUudOiNMpqywizvp
-	 T3boi910149ypbSUGeQAnp1nCcsvm4Ob19NDyVyS6LSx/XcqVJR1FGMFJKVymN8RWs
-	 qqwv1utWRBm7lDn49rbOr5mau965k6DZk6VnRMDzXn07OSddj0B0UShuQ/n0hIFWt6
-	 rDF9eFTKL0YOg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 1/5] riscv_cbqri: Add capacity controller probe and
- allocation device ops
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Drew Fustini" <fustini@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260901-dfustini-atl-sc-cbqri-dt-v7-1-ca2935d85622@kernel.org>
-References: <20260901-dfustini-atl-sc-cbqri-dt-v7-0-ca2935d85622@kernel.org>
- <20260901-dfustini-atl-sc-cbqri-dt-v7-1-ca2935d85622@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 22:42:34 +0000
-Message-Id: <20260901224234.DAFDD1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="vE7OrkFE"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=izxYeCS7VsJ1gyy3ISM96ulCmU54tHMcPfCgpE2EBac=; b=vE7OrkFEOC3E8le2IooUoWP7sG
+	RmHUD3bvXJkcVVFDXMptXMNi3oShE0vwmanwJGTKe5s+NJmW2iuV4Yhq62ZJxnSWK4IYnBwYc5A/n
+	0gHgKF2jdIY5RH5khdTt9N6B3/EY5DaS74209H7WkqaAnYtCJXBO7bPW4ma8hptE7ywo=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x1YWh-002RW4-4o; Wed, 02 Sep 2026 02:08:27 +0200
+Date: Wed, 2 Sep 2026 02:08:27 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Markus Stockhausen <markus.stockhausen@gmx.de>
+Cc: hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	netdev@vger.kernel.org, chris.packham@alliedtelesis.co.nz,
+	daniel@makrotopia.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH net-next v15 03/13] net: mdio: realtek-rtl9300: deny C45
+ over C22 access
+Message-ID: <009ea534-2964-407e-a2dd-028cb0c2b157@lunn.ch>
+References: <20260831143439.2404484-1-markus.stockhausen@gmx.de>
+ <20260831143439.2404484-4-markus.stockhausen@gmx.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831143439.2404484-4-markus.stockhausen@gmx.de>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Hardware race condition: writing staging registers before verify=
-ing BUSY =3D=3D 0
---
+On Mon, Aug 31, 2026 at 04:34:29PM +0200, Markus Stockhausen wrote:
+> Hardware polling breaks C45 over C22 PHY access. Currently this
+> is accepted by the driver but it silently fails with undefined
+> results. Make the situation clear to the caller by adding checks,
+> returning an error and giving a one-time warning message.
+> 
+> Suggested-by: Andrew Lunn <andrew@lunn.ch>
+> Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
 
-commit e6f3519d6bbd7a39edfda72f253929a5410c1ed9
-Author: Drew Fustini <fustini@kernel.org>
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-riscv_cbqri: Add capacity controller probe and allocation device ops
-
-This commit adds support for the RISC-V CBQRI capacity controller. It provi=
-des
-a platform driver that probes the controller and registers allocation devic=
-e ops
-with the resctrl filesystem.
-
-> diff --git a/drivers/resctrl/cbqri_devices.c b/drivers/resctrl/cbqri_devi=
-ces.c
-> new file mode 100644
-> index 0000000000000..e93261dfa4fa9
-> --- /dev/null
-> +++ b/drivers/resctrl/cbqri_devices.c
-[ ... ]
-> +int cbqri_apply_cache_config(struct cbqri_controller *ctrl, u32 closid,
-> +			     const struct cbqri_cc_config *cfg)
-> +{
-> +	bool need_at_mirror;
-> +	u64 saved_cbm =3D 0;
-> +	int err =3D 0;
-> +	u64 reg;
-> +
-> +	mutex_lock(&ctrl->lock);
-> +
-> +	need_at_mirror =3D ctrl->cc.supports_alloc_at_code && !cfg->cdp_enabled;
-> +
-> +	/*
-> +	 * Capture the cfg->at half CBM before any write so a partial
-> +	 * AT-mirror failure can revert and keep the two halves consistent.
-> +	 * Pre-clear cc_block_mask so a silent firmware no-op (status
-> +	 * SUCCESS but staging not updated) shows as a zero readback
-> +	 * rather than carrying stale data from a prior op.
-> +	 */
-> +	if (need_at_mirror) {
-> +		cbqri_set_cbm(ctrl, 0);
-> +		err =3D cbqri_cc_alloc_op(ctrl, CBQRI_CC_ALLOC_CTL_OP_READ_LIMIT,
-> +					closid, cfg->at);
-
-[Severity: Medium]
-Does this overwrite the cc_block_mask staging register before verifying the
-hardware is idle?
-
-If a previous operation timed out but the controller is still actively
-processing it, modifying the CBM register here before cbqri_cc_alloc_op()
-checks the BUSY flag could corrupt the in-flight operation.
-
-> +		if (err < 0)
-> +			goto out;
-> +		saved_cbm =3D cbqri_readq(ctrl->base + CBQRI_CC_BLOCK_MASK_OFF);
-> +	}
-> +
-> +	/* Set capacity block mask (cc_block_mask) */
-> +	cbqri_set_cbm(ctrl, cfg->cbm);
-> +	cbqri_clear_cunits(ctrl);
-> +
-> +	/* Capacity config limit operation for the AT half implied by cfg->at */
-> +	err =3D cbqri_cc_alloc_op(ctrl, CBQRI_CC_ALLOC_CTL_OP_CONFIG_LIMIT,
-> +				closid, cfg->at);
-
-[Severity: Medium]
-Similarly, does this overwrite both the CBM and CUNITS staging registers
-before verifying the hardware has finished any previous operations?
-
-cbqri_cc_alloc_op() waits for BUSY =3D=3D 0, but this happens after these
-staging registers have already been written. If a previous caller's
-operation timed out and the hardware is still busy, could this cause
-the new operation to use corrupted staging data or disrupt the pending
-operation?
-
-> +	if (err < 0)
-> +		goto out;
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901-dfustini-a=
-tl-sc-cbqri-dt-v7-0-ca2935d85622@kernel.org?part=3D1
+    Andrew
