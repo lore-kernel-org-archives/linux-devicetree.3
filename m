@@ -1,94 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE5603822BB;
-	Wed,  2 Sep 2026 09:08:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A69D3EAC98
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 09:10:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788340133; cv=none; b=qukL7TTyt5odHYTOwvAzec+6Q4NtttED7GSA/1aJRTXeESTsRtmTn6VLR98jrPXG49XcVLzRpWLQ2cti+A1RfmBkSh8geuV2LHTDH2AjjMqaXrZX9rTxSeYnWwx8eZd6Cla6OOoqGdOz5NRi8QRs9GgI6lnk0GNRkYK+OCsCok8=
+	t=1788340218; cv=none; b=e26l4zGb56/eVMyXG8Y9Pr/eu09Zx0f8qCfHW8U+u7WOSAcwrFoY571fDSUNknT5mJ3pphAh7Msz0+qTiEII9YPaBNinGq2orscO0akH5XYUY3FPG2lACsRXAxNnJI54x31zEsaboQwbLcafyAO4+9gkYptaDZsp7L0OMO6ekNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788340133; c=relaxed/simple;
-	bh=hTh4HBi65e2CL/jq9QhwS1KD6mlQLO9gDKYGyzttA9c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dY+00Z4Aq7NWxh+BBG1Pc9Gojrdd+blDQ0sS1Ginz5hz0Sx2iHdtAU7afFd4usXRPrq/suzb7dIyZGtNMaMksEB3xQs48MwN5oS6V5CY7W57LBLAAgz7PSDKmeaqeik3iAp11PRjXIGccwc0D5gnqw9Aom4kM6QW3Cais9ArL/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N7sy56P8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788340218; c=relaxed/simple;
+	bh=Ugizi1/Oz/GDC6hSM7xY+cdvMaq2t4Ps9VEX5p1bxBY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=WKx7qj4X6s6N+/ZwFMO94pQCprLs/l48G0bBipWUAseppKjuKFgkwgJLzmlHQzbQv2Io15xx8uJLne1iioLAoWxBgZohmlX8EBN2K7gQyNYXhAedqcM5nhmFlLq5JTBAb8dWqk4ASBahQnpvg32qhQLf7woVJAy12rv2QAapZgo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=1SirV6k9; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N7sy56P8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAC791F000E9;
-	Wed,  2 Sep 2026 09:08:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788340132;
-	bh=57eOIaezP+hfLNeUwLOZ+++HYmzSI+z2PdmfbE2HKHM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=N7sy56P8LU6FDPUOQUKPTkTwhFsYbHk90hEOETJV7y2tEj9viu1+/gUCh7+DmjtJn
-	 rwARPV6Di3pPa1/grQQ+xDpknQz+8KhttgrZ5DMP/6Z4XO6qgLdjxi0y0Le42LKZlu
-	 ZwnfJlS4odbqOl2a58CATEjJM4pLHDEpGZ0K/fJhgR51dRnH9QiHtypWUQ2wfak3NP
-	 xUpPHY7/ljvCBo8iqoMOroDVkJ+njt0+Avp+NNxtZ8swNUEcHCOCErQa8ENqyKdeYx
-	 SnT2Ipmfht3fmDJ++6rvse+XwOXRgawn6VGXFIAybWGQdPh4sZktJu5p2y8pXU4Ol3
-	 I5NJuprHlYy2Q==
-Date: Wed, 2 Sep 2026 09:08:49 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, robh@kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	devicetree@vger.kernel.org, linux-mmc@vger.kernel.org,
-	spacemit@lists.linux.dev
-Subject: Re: [PATCH 1/4] dt-bindings: mmc: spacemit-sdhci: Add
- clock-frequency property
-Message-ID: <20260902090849-GKA1974@kernel.org>
-References: <20260902-07-k3-sdhci-dts-v1-0-4e7909cf4233@kernel.org>
- <20260902-07-k3-sdhci-dts-v1-1-4e7909cf4233@kernel.org>
- <20260902071128.2EC4B1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="1SirV6k9"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id C37914E4148F;
+	Wed,  2 Sep 2026 09:10:12 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 935226053C;
+	Wed,  2 Sep 2026 09:10:12 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E1B3A11C792D5;
+	Wed,  2 Sep 2026 11:10:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788340211; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=dWQm08I1k5LyUTw+wBhW0HthtUeHce+mEdC10fdxN/A=;
+	b=1SirV6k9/fAEqVYJRgYQiMtRJcFLFJPD9Qa4SPbnxEoaWVGcRuMj27XmFPWJx+kj88yr6f
+	KM3VAlxhYw00T6QKynkYib37xl0DjDmgT8GWTwD1It91umoj0nBGz1iQ4/gCPi+AM5MZRs
+	1/Pnl1HsFVZSKN19K8BbCJyFMAr4m40pnJvI8stNwbccFQopVO2XbpYfVDZzsyqGzxCUfQ
+	RnQvv2CV5zryqYFdoJYXGLulq7bmwVm6tdMyl9niiFkFa5vqXADjm6hemoiKtSK9iCEp5u
+	Gt6KmJVE68xAjOKQrb+H6RTkhc2xxvicacXTlbPhyIpbN42rWTvyHkQNjK8S2w==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Alexey Charkov <alchark@flipper.net>
+Cc: Srinivas Kandagatla <srini@kernel.org>,  Rob Herring <robh@kernel.org>,
+  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor Dooley
+ <conor+dt@kernel.org>,  Heiko Stuebner <heiko@sntech.de>,  Michael Walle
+ <michael@walle.cc>,  Finley Xiao <finley.xiao@rock-chips.com>,  Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>,  devicetree@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  linux-rockchip@lists.infradead.org,
+  linux-arm-kernel@lists.infradead.org,  stable@vger.kernel.org
+Subject: Re: [PATCH 1/4] nvmem: rockchip-otp: Serialize reads
+In-Reply-To: <20260901-rk3576-otp-cpuid-mac-v1-1-ea9135270fc2@flipper.net>
+	(Alexey Charkov's message of "Tue, 01 Sep 2026 19:33:11 +0400")
+References: <20260901-rk3576-otp-cpuid-mac-v1-0-ea9135270fc2@flipper.net>
+	<20260901-rk3576-otp-cpuid-mac-v1-1-ea9135270fc2@flipper.net>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Wed, 02 Sep 2026 11:10:06 +0200
+Message-ID: <87ecfc81e9.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260902071128.2EC4B1F000E9@smtp.kernel.org>
+Content-Type: text/plain
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi All,
+On 01/09/2026 at 19:33:11 +04, Alexey Charkov <alchark@flipper.net> wrote:
 
-On 07:11 Wed 02 Sep     , sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] Introduction of a redundant custom clock configuration property, bypassing standard Device Tree mechanisms.
-> --
-> 
-> commit 1745887406b566692891c256f7b9ab7126926f90
-> Author: Long Wan <long.wan@linux.spacemit.com>
-> 
-> dt-bindings: mmc: spacemit-sdhci: Add clock-frequency property
-> 
-> This commit introduces a custom clock-frequency property to the
-> spacemit-sdhci device tree binding. The property is intended to define the
-> initial rate of the IO clock based on board layout validation.
-> 
-> > diff --git a/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml b/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
-> > index 34d202af909f2..f35bf7ce08dd8 100644
-> > --- a/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
-> > +++ b/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
-> > @@ -29,6 +29,13 @@ properties:
-> >        - description: core clock, used by internal controller
-> >        - description: io clock, output for SD, SDIO, eMMC device
-> >  
-> > +  clock-frequency:
-> > +    $ref: /schemas/types.yaml#/definitions/uint32
-> > +    description:
-> > +      Rate of the io clock in Hz. When present the io clock is programmed to
-> > +      this rate, allowing a board to select the rate its layout was validated
-> > +      at.
-> 
-> [Severity: Medium]
-> Does this property reinvent standard clock configuration mechanisms?
-> 
-> In modern Device Tree design, setting the initial rate of a clock provider
-> consumed by a device is typically achieved using the standard assigned-clocks
-> and assigned-clock-rates properties, which the core clock framework processes
-> automatically.
-> 
-Ok, using assigned-clock-rates works here, will just drop this patch
+> The OTP controller is driven through a single set of registers holding a
+> state machine which has to be stepped through for every word read, yet
+> nothing keeps two readers out of each other's way. Concurrent reads
+> interleave, and the outcome is either a reader bailing out:
+>
+>   rockchip-otp 2a580000.otp: timeout during read setup
+>
+> or, worse, one of them silently taking delivery of the other's data.
+>
+> Reading two cells in parallel from userspace on RK3576 reproduces both
+> within 150 iterations - 53 read errors and 9 corrupted results, the latter
+> either losing their first word or, in one case, ending in the two bytes
+> which belong to the other reader's cell - whereas the same reads issued
+> sequentially never fail. Concurrency is not hypothetical here, as six
+> thermal sensors source their trim values from the OTP and reach the driver
+> straight from asynchronous driver probing.
+>
+> Guard the read path with a mutex. Reads are the only way into the hardware,
+> as the driver registers no write callback, and they always run in process
+> context, so a plain mutex spanning the whole clock-enable, read,
+> clock-disable sequence is enough.
+>
+> Fixes: 755864feb729 ("nvmem: add Rockchip OTP driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Alexey Charkov <alchark@flipper.net>
 
--- 
-Yixun Lan (dlan)
+Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
+
