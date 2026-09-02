@@ -1,162 +1,98 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 604F73BB675
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 07:07:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C22E93AA507
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 07:11:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788332861; cv=none; b=mBbyOxzqb9zwGxg2afQunKdZ0sI+S8jE5321ozWrEfiLRVZaHxmjl30cs/6+Yx9BHGn+5ExEXy/kTRJAQCKXgmj3sTvLRcQ8Ljd2tD3UfltksoeT/wYDH+49b7wxfstgviFMbyAL5rjO1/udCaK/vxCyUfpdUJtBMCCd2+BOUFo=
+	t=1788333089; cv=none; b=Yakc3u8qIyyke0Ragwegf0l+mvZE5m4AbOCSZEKsd4UreYF4NP23oJTFLwst09UaOg4BCJcNxXphQLbhLZfndl3TV576zX3SFwS9Ll8l6I6ca9YuQGuINA/Ir0a15Y+LnjPlZOMLE9+lltKoYlEsfqtZsUhyODt/pw87R4Ve8HE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788332861; c=relaxed/simple;
-	bh=FedWjQDFkhAuQzFzf4Nf1k2L0r5/SaGP2n+Z680dXvo=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=qPP8OajAeppkfLTHuBiiJnbRV7HJVLDyzlbOw5QuO0WHo6a251G17s0ltj1EY6mJ/R35Neezo+OLQSND+GCIywoEUfk7DQnY86cdyY2Zaamysd9PWOtpcrWmYkQCL75G3Ut+3njbxbD2sn06PRZ/6DbMafTtYsPaQ5PGMGAG7O8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Lzl98Kbp; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1788333089; c=relaxed/simple;
+	bh=+aRKls+DZ4lOiHEPFVzIk3P6+7i1M+co/aHY6cxwbIA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=P9RqcGuaZORJKjX72NnyFuT1+nPyO4iQeY2flwIEpytDttCOqcAyOWV6rty1MsqqhYdf2clFp/J2YmzuJWIorZK4mSI8S8nP8psRe1WW9MuhXYL1Hxy8oXzPEIiOCa/rXrwv/TLJL2jpH/RyOXLtMEj4GlK0dXk5DIE5YO6nCow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QPBZI5Xw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Lzl98Kbp"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-47f96c5b722so462517f8f.0
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 00:07:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788332857; x=1788937657; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8Vfu72tBiiNU8XcM6XXnBVHaiA2eAANag0f1nJhi2+U=;
-        b=Lzl98KbpqgcNS592TLTSehZ2I5f2PNgBtpeXHG52yr4RiDTtGDw18M7/dzDZuGuOp+
-         eJ88Gwt2Ie5rpbm5wSC3DNj/OtvCN3m03gddAxBCyShumPqz4U0gjLZtUPE2E8R6xlBb
-         o9pP9OeAraM7y2kYO6//pdlYnt2NLKjiaE+SYbzMhV90vz9w4SOfRkOGhclvdu0naaNc
-         EC08+6C1bzBjwwguj26j3UdkngKZN1EEPjKKasII17PpYyZTjxvA6JXy9bytJbNgY1mj
-         0uuM2xdO4KeHVjs8STgUkm7p5aPpIsSDzILe6pj4PgzFq+aD+CUq2CLggCZDPZ45A9ls
-         XHOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788332857; x=1788937657;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8Vfu72tBiiNU8XcM6XXnBVHaiA2eAANag0f1nJhi2+U=;
-        b=QAZop0j0GBc413U6apY9FNNV2qXb0aqVjuJYltrpVq3CBCYAPwdCO9vMD7/r7qsSGj
-         Ky6Pl68mpwQAc0Vwmac03/D+Os+8xVoqs4vgExQK/eCrgeH05s+VJWjhCwNKP+77SK6I
-         a1Wsho2wCybX/KlQDBHZ17U8AsRf4OP1lA4OaZfZeFZDdytmOjTXCqi9D6GYoClYUutd
-         WDf1RTkYOga93gDT2NSp6ElKYISz1Bjqru9eE/WC/J+zF1rpeJGJKrMjNNqNDM7VKQmd
-         GMCxal6P+XnA/ve54Id1hFLHNuESDfGClwh6vWewHNsoEtTofDHJ7Yxd44v6u5TxOJsl
-         Z6Yg==
-X-Forwarded-Encrypted: i=1; AKwUvByQ0CXF9K4XCvpa7AhQDVSKgyolaa7PvmNNo0Uk0tbu6HEym4vMCvLaxUf4JB65hoEZX2rDURuWTUTD@vger.kernel.org
-X-Gm-Message-State: AFuF++ksMNU0s4SAOtgbEzVO7S1tcSSTSfi7BrFER53gDGinQ8g+RV2E
-	HCTaeCarAnnVPPp/8niPyY8l98xRvIRuxZe6olH9PMpwr1fw2SFSSB5z57z6nuCxJNa8QBrJzH3
-	9lbyMVS0=
-X-Gm-Gg: AYBFou2E+ZSlOg+sflvj+zY+ePk5RdJbtaNbKoPZ4Xw1ppTeaAKi7e+MDLNBWEHjpF8
-	VRfkIFn4KXdksC0/wA3AAaM6W4AaDOCtk+Nixr/u7MyhMlmbmx7QAtIfQY/UiLwWFMfLu6mNdRQ
-	0G65RSzlkfBDqnWjjHGy5UOLbiJR9F7xU7bkxjuC5m95dsQnilKl56btqkcAP+abNueAKNVjycX
-	i+8bLxSi4QchZbESqaPsrCQL7tJw80z8PCSwePYoR0sASWBseG4rsL2TPCa/ON8bCaV8OJCGt6a
-	8x7PvUocls0xwZaYm6p0+93kn6qTaCsu+bt43ZCX9Bu86HVNQjBbr3oisdYj7VcVi2NRIMwkQBC
-	UK8ZqgFPzvCBoP7RuD7RDuR2JXoh1xp88/bh/Ac0X5JKeccHKCLYCRE3p0J2f2jZeeKz2CyZpkA
-	QMxolWSMQKm9jZQq45+HybFm+/vROr02DXmoTccLwT1T6EOuynZHoTWAtQI1vuo1Cwzbpl2ccc+
-	+oli8Fqv6UGA6GzliECTRLxEL9YfkyhcdHxiGJ0BK8=
-X-Received: by 2002:a05:6000:4a11:b0:484:3f43:4914 with SMTP id ffacd0b85a97d-484914b7e15mr4452356f8f.20.1788332857515;
-        Wed, 02 Sep 2026 00:07:37 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:526b:98c6:2fb7:c242? ([2a01:e0a:106d:1080:526b:98c6:2fb7:c242])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e72df2sm4746752f8f.1.2026.09.02.00.07.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 00:07:37 -0700 (PDT)
-Message-ID: <60c230e4-d138-4522-afa5-07d579c8db5b@linaro.org>
-Date: Wed, 2 Sep 2026 09:07:35 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QPBZI5Xw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EC4B1F000E9;
+	Wed,  2 Sep 2026 07:11:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788333088;
+	bh=WsJxksjuBvB0IDRnvaBlfw4ual/Bs8IiRmiQ+zIdepA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=QPBZI5XwlsM0CwWHeofLTyewnnqDPV4mcCcOWSQJraUyx34xzu2QSrJi8FsAAyR7W
+	 YrGZaflJfj0mDhk26xfbAivziSyze5HM+HN/OtV21gLDMCO9Kq+wFGpFVuiL9vh8rp
+	 rx0PCmqdM/5lrjwzcdQu4KxLmPhDWT9z9zmK5w/5D0OtqWGgVtg6Hv7flvb8l75Lad
+	 DHXIGN5Uen/lFdcH9bbEJfK+wrdSdKXIX8rWX4fSDbnXelzRV74hMU4B7rKafN0bSP
+	 aoK+zBeWL8AXxvG5D/ygtL3J7QGwIyXaRTmYr2pSwIqzrOieOcSLYw8/h0V8yfZEoc
+	 /4RkXPXVIE6xg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: mmc: spacemit-sdhci: Add
+ clock-frequency property
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yixun Lan" <dlan@kernel.org>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260902-07-k3-sdhci-dts-v1-1-4e7909cf4233@kernel.org>
+References: <20260902-07-k3-sdhci-dts-v1-0-4e7909cf4233@kernel.org>
+ <20260902-07-k3-sdhci-dts-v1-1-4e7909cf4233@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 02 Sep 2026 07:11:27 +0000
+Message-Id: <20260902071128.2EC4B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v16 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260901-x1e-csi2-phy-v16-0-dd863b929080@linaro.org>
- <20260901-x1e-csi2-phy-v16-2-dd863b929080@linaro.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260901-x1e-csi2-phy-v16-2-dd863b929080@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 9/1/26 22:15, Bryan O'Donoghue wrote:
-> Add a new MIPI CSI2 driver in DPHY mode initially. The entire set of
-> existing CAMSS CSI PHY init sequences are imported in order to save time
-> and effort in later patches.
-> 
-> The following devices are supported in this drop:
-> "qcom,x1e80100-csi2-phy"
-> 
-> In-line with other PHY drivers the process node is included in the name.
-> Data-lane and clock lane positioning and polarity selection via newly
-> amended struct phy_configure_opts_mipi_dphy{} is supported.
-> 
-> The Qualcomm 3PH class of PHYs can do both DPHY and CPHY mode. For now only
-> DPHY is supported.
-> 
-> In porting some of the logic over from camss-csiphy*.c to here its also
-> possible to rationalise some of the code.
-> 
-> In particular use of regulator_bulk and clk_bulk as well as dropping the
-> seemingly useless and unused interrupt handler.
-> 
-> The PHY sequences and a lot of the logic that goes with them are well
-> proven in CAMSS and mature so the main thing to watch out for here is how
-> to get the right sequencing of regulators, clocks and register-writes.
-> 
-> The register init sequence table is imported verbatim from the existing
-> CAMSS csiphy driver. A follow-up series will rework the table to extract
-> the repetitive per-lane pattern into a loop.
-> 
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> ---
->   MAINTAINERS                                        |  10 +
->   drivers/phy/qualcomm/Kconfig                       |  15 +
->   drivers/phy/qualcomm/Makefile                      |   5 +
->   drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c | 385 +++++++++++++++++
->   drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c     | 462 +++++++++++++++++++++
->   drivers/phy/qualcomm/phy-qcom-mipi-csi2.h          |  97 +++++
->   6 files changed, 974 insertions(+)
-> 
-LGTM when bindings are reviewed
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Introduction of a redundant custom clock configuration property,=
+ bypassing standard Device Tree mechanisms.
+--
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+commit 1745887406b566692891c256f7b9ab7126926f90
+Author: Long Wan <long.wan@linux.spacemit.com>
 
-Thanks,
-Neil
+dt-bindings: mmc: spacemit-sdhci: Add clock-frequency property
+
+This commit introduces a custom clock-frequency property to the
+spacemit-sdhci device tree binding. The property is intended to define the
+initial rate of the IO clock based on board layout validation.
+
+> diff --git a/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml b/=
+Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
+> index 34d202af909f2..f35bf7ce08dd8 100644
+> --- a/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
+> +++ b/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
+> @@ -29,6 +29,13 @@ properties:
+>        - description: core clock, used by internal controller
+>        - description: io clock, output for SD, SDIO, eMMC device
+> =20
+> +  clock-frequency:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Rate of the io clock in Hz. When present the io clock is programme=
+d to
+> +      this rate, allowing a board to select the rate its layout was vali=
+dated
+> +      at.
+
+[Severity: Medium]
+Does this property reinvent standard clock configuration mechanisms?
+
+In modern Device Tree design, setting the initial rate of a clock provider
+consumed by a device is typically achieved using the standard assigned-cloc=
+ks
+and assigned-clock-rates properties, which the core clock framework process=
+es
+automatically.
+
+Alternatively, if the goal is to cap the bus frequency for signal integrity,
+the standard MMC max-frequency property should be used. Repurposing
+clock-frequency to manually parse and call clk_set_rate() creates a
+non-standard ABI for clock configuration and duplicates core functionality.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902-07-k3-sdhc=
+i-dts-v1-0-4e7909cf4233@kernel.org?part=3D1
