@@ -1,102 +1,122 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CADB409279;
-	Wed,  2 Sep 2026 22:11:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9E09440656
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 22:15:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788387091; cv=none; b=eh5hFn8Y3JPjzLEbX5GN4QpKcwcFNCokKzaJ7puIqK62lRbQpLLX84jf95ecwVlT2KMWONbeQj0Wp0cSNfUo8IMqDsA8uC06FzwrHjh4eaHEIAfg6vTbwPuJech6km/MjupwnmBnbmy4sk1BwF39xLNxdgenPfhEqjk7n/uBSLI=
+	t=1788387332; cv=none; b=pZ3w8BM853s0SQiHjHYYmG32Kb9j9RC1KHA1fZy44UzvjeDnAYscqvXieETo2/N3cEiWc4QVtcbz/QBDpyYfw+f1IctoB6FisgZ1u4xUVUnqUsbcFNkgakV5wmoJ6QaWmsj5d+J8b1xu99dCwyfZisdfMlwS/1hupiXk8pCYxLA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788387091; c=relaxed/simple;
-	bh=5CV17x68rtlPkq6ZOLLQ2oWAaWfwZ0cf6Jr9bZAt6JA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=h3pmc8XDVaiQpLl2+rcme6W2twDgxzTBbE+jGioKXsj+xz+OzFHDMhV0aJUHGqBtsxLgkFoSDy+UrzmEsJyZMsBdFwtuqMLk+ct3UhzFjR8/Hza7J5gsk3+W19WCLM2oxlQzTxERWCiiEbZ3kg9kuXCEy/gT3mpWnh3cw7qzyY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=dKe+1stf; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="dKe+1stf"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 7CF7C1A1968;
-	Wed,  2 Sep 2026 22:11:23 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 505B95FF79;
-	Wed,  2 Sep 2026 22:11:23 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7967911C795A7;
-	Thu,  3 Sep 2026 00:11:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788387078; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=N+wNISRASKus7EeITpAzZHyULz1hHFn78L5mI9WzJ9I=;
-	b=dKe+1stf4DB9ogbWn9reCw4yUKkDUK+z3yCMbVNKvheTccSpYtiRt4lOXabhq41yXb2OEU
-	DJ6bh9oqMa9zyY+l1oHBySkfKZWhD/A6Gz/og1CMJySSsH8p4C+ZkaTz7IlYmwXf7T32os
-	tmlV22yoVnAu0iYvbcvcnQo9UDsUCCDof5rVCtoLHvVqBdpGkSWhX9Xu5unJzpxT4078VV
-	9GJ/J9qF27OQBahPKgg/FdapmePbwJ0IzAih7PDrZQGluutuca97OK3aDLg0N24ywmT9Ls
-	H3niBtvbzSFsUT3p3sP+ZBTyXWgwgd1Vo4O1EuphEeLCk2NmbA0eMkfC/2ejbg==
-From: Diogo Ivo <diogo.ivo@bootlin.com>
-Date: Thu, 03 Sep 2026 00:11:01 +0200
-Subject: [PATCH 2/2] arm64: tegra: smaug: Add rt5677 mclk input
+	s=arc-20240116; t=1788387332; c=relaxed/simple;
+	bh=HkFAbO8MygqvyTuNPvM8c2JpQVjswNB1aNAD46Eofxc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iQGwdOxbu8HUfZHkE/Yntyi3u2DmpOyIQfZllUFoXm/nDo2HIN6ooPSytSuT2fwd7qTkPt3JKC2pqswuSWCTRYoQuoYWroGCoWQuXnAYxQsSRg79PoCVfWNoU+RRVSBPKTSF3ofMpAF7UjmRgLXyd7GqfW+qIBGjMOpb8xczb3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso1126310f8f.1
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 15:15:28 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788387326; x=1788992126;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=I+vEOyqPDv7rU89jwmnevj+9dxsKc/yKY2uAhwHha8M=;
+        b=dVptsSPBOD2AcEnrN9rQsKS3Uk9YeKAfgPO/Hz15UZxXED696SKvg4f6efpIM1DW4u
+         wcq5IenQ9BUU82bwqREXE4P+iUD1MoMlccSW3kJplQH/6ZxsjW8eVhFoTbepKmM5W+2J
+         vfFAr15f2Intm8kwpRHWtI/XxcDoNYwuvGvqEw6kNB9hshBAnjx4T1JSIiE7OtSW0HL4
+         p0aARQPca/piD1XQLvvxctf6LMyFSuoO4DgxUUvjyEfoNoEMMRVoVma3Oe66uDPAYMQd
+         c2YaDou4kbEZ+cOmv9HxcrfNjGVQmQP8HtlF9vhO5FHvoLnH6JNlF2BqQo+20ZIEFHKH
+         nNEA==
+X-Forwarded-Encrypted: i=1; AKwUvBx380lakohIE+YL4L07k6Kmr0mZdDr/0BSGcYBBYv1rlUsHGKphCk4VMHGnXUWCrEjtuKqsIssQYsvM@vger.kernel.org
+X-Gm-Message-State: AFuF++kGFh57yeTwvV3wEUwh8K7/JH8/Jhj1/xNrK+h9KHfaJO9+9jkb
+	sZttnvF3QMAvbGGobrIqfV+X3dPH1i5/trGEo0FiNn+DY9drgCpT4KeN
+X-Gm-Gg: AYBFou1LgjQ3E4kv//MghWr8VmydNUaaadNAaCO+hbzdtRElyC8vY/h8k7FoW3wCGz0
+	hhwRh9pZpZHeUnLWdZLMjtGrdxhnLI/WIdVydpQTTtGFXGk9A3tZ6U4hsA1WStFEnYG6WRKRl5B
+	tswrx2Ihr4UBSnxsPEpp+zZtEZK7ybX8iey+Nq6ZFMOGrYM/7k6VDpH5fBVDSrc10T4pA7AH/rX
+	gQ6t8cPC4/y9I/Yf/rmQByUWHdiRWim86fqVqkjTZzy/Qv2ZhDVHSz5fBUKHqiZgF2jYB0E54fE
+	MGckIJm6x56z+ZqNa2t3b/IB2tipHMXsF1l8XfbRI3SPiGz9iy5LKlW2xRiYeHNARL7ugnlIjlZ
+	R0BK97k2sFUVEC0J/xT1PwdU2IC2E5ca5YAVL6gjRs3U2oMgQUrWLcdXFpGjWvOvmOSjvSzD3x9
+	3QBdS0D4YdaBUcJqRqEHHdS5uSy1a8cJzfMx47K1klqfksqz8gp8hzl3sJn+rcdqU4Q9LGGH4In
+	LGh3HPegE2a4wflW20wf3J0N7l2t5GyRgO7gi69YCCCgoWEsXE2vG+MOjnkAK32nVC0Q/WRC800
+	b1Q=
+X-Received: by 2002:a05:6000:4208:b0:484:4769:18a4 with SMTP id ffacd0b85a97d-48488f10236mr16624383f8f.14.1788387326455;
+        Wed, 02 Sep 2026 15:15:26 -0700 (PDT)
+Received: from ?IPV6:2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183? ([2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448ed38cfsm8301961f8f.19.2026.09.02.15.15.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 15:15:25 -0700 (PDT)
+Message-ID: <9bb0ee66-d313-4a07-af4c-ffd002b55dee@reactivated.net>
+Date: Wed, 2 Sep 2026 23:15:23 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 4/5] iommu: Add Broadcom BCM2712 IOMMU driver
+To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, nick.hollinghurst@raspberrypi.com,
+ james.quinlan@broadcom.com, Jason Gunthorpe <jgg@ziepe.ca>
+References: <20260902-bcm2712-iommu-submit-v4-0-9dbb657578c1@reactivated.net>
+ <20260902-bcm2712-iommu-submit-v4-4-9dbb657578c1@reactivated.net>
+Content-Language: en-US
+From: Daniel Drake <dan@reactivated.net>
+In-Reply-To: <20260902-bcm2712-iommu-submit-v4-4-9dbb657578c1@reactivated.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-rt5677-mclk-v1-2-b71a5a3533f9@bootlin.com>
-References: <20260903-rt5677-mclk-v1-0-b71a5a3533f9@bootlin.com>
-In-Reply-To: <20260903-rt5677-mclk-v1-0-b71a5a3533f9@bootlin.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Animesh Agarwal <animeshagarwal28@gmail.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org, 
- Diogo Ivo <diogo.ivo@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=810; i=diogo.ivo@bootlin.com;
- h=from:subject:message-id; bh=5CV17x68rtlPkq6ZOLLQ2oWAaWfwZ0cf6Jr9bZAt6JA=;
- b=owEBbQKS/ZANAwAKAQa+fFtWXslFAcsmYgBqmJ756TvhtkuKceZ3EDPwNE+GjLMbOIIJ2AOs3
- yyNs5Im6NaJAjMEAAEKAB0WIQTma35o1i1081e8B2UGvnxbVl7JRQUCapie+QAKCRAGvnxbVl7J
- Rbr7D/4o5XeAmFBaMR5GT8/HQBmz16Wi3Tls0xQnSW0jtYKWfKjZbRXcaIAh0ngjqZJSWltfuiw
- tPyZkB7WQCnWheQOOXVcYG6Bg3vBDV80xAd/gd/E9vYcY36n4JdQ1UDaAlc149VwnBPiKq0HN6G
- dfP5r5Pj7KIjdo6974hvrwqtE4/v6JAOwJ5nK36E6UqvRCEk3I2ttRNfbHqgjYMdRP1KIxlslJX
- 8+aKoCIb5Io7BzmCETgWkQE4PpyEg5wouspIvjfF8NnrwtF9npfCqauUNy4/nm3wCNkYVDAP8hJ
- x6BnPIkjQp8FyISuihf2zXm3O2naCrQ5lax5fz/c7ZvIcYIkencua0u2/LSiGpvmQCgizUT9jUH
- +5p2AG9J8Vx3IZhmeP+U2Bv1+msW2BPGWo1s98gSdwH6PwT1DK5vWSjn6xzXKO3zYLl+K5kJReb
- EfQ4TCPvgujCCZqx9jJO8cL6Lhss9tzWiFaT8e6bgY/BJlFLW5bIiTiMb/2ZBq1QhWCHVI3V6ks
- Ub8vQGVIusGuNsB3A4qqsVb4Vn0DGSJJ90QvtrqRdEFSoDpgj6NZ/ZIDfhOM1PwBFxkLKGX5tJw
- l9j//tXfhChj7gsd6GZYE/Uwkh/EcD7NtNEF5W8e6XRINraazMJAQCJnqziqxQsrETAg/SJXcpa
- zhWDeY6siqlXuYA==
-X-Developer-Key: i=diogo.ivo@bootlin.com; a=openpgp;
- fpr=E66B7E68D62D74F357BC076506BE7C5B565EC945
-X-Last-TLS-Session-Version: TLSv1.3
 
-The mclk input of the RT5677 codec is connected to an SoC-provided
-clock signal on Smaug. Add the clock definition to its node.
+On 02/09/2026 18:57, Daniel Drake wrote:
+> +static int bcm2712_iommu_blocking_attach(struct iommu_domain *blocking_domain,
+> +					 struct device *dev,
+> +					 struct iommu_domain *old)
+> +{
+> +	struct bcm2712_iommu *mmu = dev_iommu_priv_get(dev);
+> +	int ret = 0;
+> +
+> +	scoped_guard(spinlock_irqsave, &mmu->hw_lock) {
+> +		/*
+> +		 * Completely block DMA by disabling both the bypass window
+> +		 * and the translation aperture.
+> +		 */
+> +		bcm2712_iommu_writel(mmu, MMMU_BYPASS_START_OFFSET, 0);
+> +		bcm2712_iommu_writel(mmu, MMMU_BYPASS_END_OFFSET, 0);
+> +		bcm2712_iommu_writel(mmu, MMMU_ADDR_CAP_OFFSET,
+> +				     MMMU_ADDR_CAP_ENABLE);
+> +		bcm2712_iommu_writel(mmu, MMMU_ILLEGAL_ADR_OFFSET, 0);
+> +		ret = bcm2712_iommu_clear_and_enable(mmu);
+> +		mmu->domain = NULL;
+> +	}
 
-Signed-off-by: Diogo Ivo <diogo.ivo@bootlin.com>
----
- arch/arm64/boot/dts/nvidia/tegra210-smaug.dts | 2 ++
- 1 file changed, 2 insertions(+)
+My understanding is that when the IOMMU is enabled, the address cap 
+represents the highest permittable memory address; requests for anything 
+higher would abort. So I had hoped to achieve blocking mode by setting 
+ENABLE | 0 in ADDR_CAP, thinking that would set a cap of 0, and hence 
+memory accesses would fail.
 
-diff --git a/arch/arm64/boot/dts/nvidia/tegra210-smaug.dts b/arch/arm64/boot/dts/nvidia/tegra210-smaug.dts
-index e0fde65a552b..5513319d3198 100644
---- a/arch/arm64/boot/dts/nvidia/tegra210-smaug.dts
-+++ b/arch/arm64/boot/dts/nvidia/tegra210-smaug.dts
-@@ -1754,6 +1754,8 @@ audio-codec@2d {
- 			realtek,reset-gpio = <&gpio TEGRA_GPIO(BB, 3) GPIO_ACTIVE_LOW>;
- 			gpio-controller;
- 			#gpio-cells = <2>;
-+			clocks = <&tegra_pmc TEGRA_PMC_CLK_OUT_1>;
-+			clock-names = "mclk";
- 			status = "okay";
- 		};
- 
+But a Sashiko review pointed out that actually this value would produce 
+a translation aperture of 256MB, because of the way the register works. 
+And I confirmed this experimentally, Sashiko is right.
 
--- 
-2.55.0
+I also confirmed experimentally that setting value 0 to ADDR_CAP (i.e. 
+dropping the enable bit too), with the IOMMU enabled, results in a full 
+unrestricted bypass/identity mode.
+
+So unless someone from RPi/Broadcom can inform otherwise, I'm going to 
+conclude that the hardware doesn't support blocking mode and remove the 
+blocking domain implementation.
+
+This will cause the iommu layer to fall back to creating an empty paging 
+domain when blocking mode is requested, which seems appropriate if the 
+hardware doesn't offer a more direct way of blocking all memory access.
+
+Daniel
 
