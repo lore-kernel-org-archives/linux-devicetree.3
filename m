@@ -1,95 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A15039A815
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 10:43:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DF3846D2C0
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 10:46:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788345792; cv=none; b=S4Nkgx+Zqk13H+7n9xr6KpxV5fzhAgH8JLngbdKtWtTiA/GqwxUGv3ylPYLQA8v1fZYQzKpD4wMm7SCEoH2Okaj/xmmeFvUgU3meK/U71jkFCje4MtCtyO+LfuqmfPRq1MRsAmss3nA+danC1u8bbX4vYCpvaGWbx+Osk68kqbg=
+	t=1788346000; cv=none; b=NAQG+pJ+xaPXGNHP5Cs5thZwFO+x+lUdvogcAEh3H/8mTehiv7JxyYpyfhbBnqr+V3EwQRZvCfVy7ENN6ZxJfYi7mJRXt6gGFcu/w4BJF483p4YfEZRa5MQgyEDI4C2D/YTYCs3pykFU4O5H04FrS9/5bEzCrNqxiZn35wLqBfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788345792; c=relaxed/simple;
-	bh=ruEwDC3stkhAai4qdJfpH1MjER6wNyn3lMMUTfd5dMw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EysnZEVm1C8REq5nHGFgKnAIA8vzEi9p7IH3UAEnWQ6x35DZHWgij3ce/3yiFCXHt68ok1bm9m17kBIHWJQnnwoOESOYEUz0Yn/4elBn/QYEgRq7ROQnCL5QtyQLs7URLxj4hdz3ZbFGmxckm61P3yzGL1sCmi8zdIClYEi9uRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fxek2GPx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788346000; c=relaxed/simple;
+	bh=t7So/hJpcinLCb+BvLi0qm1Y6xxkkDWkVdkrkM+CkcA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cFLJb1Ho5P1Mwww5g8f1weg6B0QmdhI2kRUSq7tD5jOVLjD6K/wdOZ50u3mq6SKWk1rUs/V6y3mxscfqS9H76Vt3zMe86GDbcgbAE8/oyD5GDFYNlstgsbVKe4IjKyM9Y5HfPdLjfgIbTZ/BaWqs1ieIEWnIPb98z1+9gayIx74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ffroot.co.za; spf=none smtp.mailfrom=ffroot.co.za; dkim=pass (2048-bit key) header.d=ffroot-co-za.20251104.gappssmtp.com header.i=@ffroot-co-za.20251104.gappssmtp.com header.b=gNitublT; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ffroot.co.za
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ffroot.co.za
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fxek2GPx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6419C1F000E9;
-	Wed,  2 Sep 2026 10:43:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788345787;
-	bh=sGcL0kpa6GxdqiubwfBNUE3nWGgChEebfSm6yDr3v3I=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fxek2GPxc6lnLzzrUKv+VW//F3/IGvb/74XOJ1w8bbmo/yRuIa5xTcLLVi46Kcv80
-	 8YZOYLO1TBP+xRB4wOznFuYS5iSlx4Dc52i299/EXr3tdYWCtIRn0YgRI4wM6kuAVq
-	 9H2uSxwGVUlmMNBVtIjeKQah3rohScC0RNJ9IearYBXds2gu91x61KlYhrSjiam1gP
-	 VJ3BdbAMZEK/1TdPC/cE+OMAPTY7lUCACYdNKAYNY4Nm/1MFzMMKYVVIUJx3JxDHsq
-	 +U8hX7YMjSJ7PsJu97t9bMRW1YRdXw1wFY2DlZsa4wZRg/wg/s4JVGIHrfqVqbaSnu
-	 2p6A68xe3x8ZA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] arm64: dts: mediatek: mt8395-genio-1200-evk-ufs:
- Complete UFS power supplies
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260902-mediatek-ufs-cleanup-dts-v1-2-7876e7a27a9d@collabora.com>
-References: <20260902-mediatek-ufs-cleanup-dts-v1-0-7876e7a27a9d@collabora.com>
- <20260902-mediatek-ufs-cleanup-dts-v1-2-7876e7a27a9d@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 10:43:07 +0000
-Message-Id: <20260902104307.6419C1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=ffroot-co-za.20251104.gappssmtp.com header.i=@ffroot-co-za.20251104.gappssmtp.com header.b="gNitublT"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49b0eab380eso8414495e9.0
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 03:46:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ffroot-co-za.20251104.gappssmtp.com; s=20251104; t=1788345984; x=1788950784; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=X/zkz19mYdkeVUXbqG+wllW7/Eig24aofKrfzLu9lWI=;
+        b=gNitublTOxiAxNv4217Llmd6q6deaO75rEw4FF0muK8vVkQVpVytek6JLoI460uvZQ
+         vS6HY1z2+1QW/2V/nPJjOUOooptiDjiHGXMGeK1o6b/rAgVoJrwybenTGA8ENgDWfrq2
+         ULO8oDdl2ypqjeVXK5Ur9csLboK623fM/mwb2Qou2jpjPYIpHCahXVn01bN5z4eMfERl
+         Da2DLu8PcjZJMAsO3Ore85XxgarsQFPM53p/xqCDK0sYRQ8RxgNpb8Xw2H+heu+67nRL
+         EjMlT7pGxS387WTAsFSF+miYwjz5PcsCExp8ScUNYhQZMavhDpo6fH2tdJi5YlEX9vN9
+         02Eg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788345984; x=1788950784;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=X/zkz19mYdkeVUXbqG+wllW7/Eig24aofKrfzLu9lWI=;
+        b=s17neNT2Ro4yPtoTJyuJCtj9/EdN8sAnAQfWD8TZBy+BvoIc5fqvoTXwyeRrVL7OJp
+         q1j8igKuJ1ANpfYY1wJc+8PAd6yKaTvNU0vv25vtqe14+0ThNZGTNVehwZki4Nf5Hits
+         aslkkPCRPiB8gWKqY9k8AA4YKke3cuAcZgS2MpfsNBCFbspmICapCoR4FU8X0pYJOSv8
+         XN+sS+QDY5wzGEo2IEZrifegbmSHGweVWjTrU/kbILbcYd6bjQVx5DThLCr2AW0rsuSb
+         IE9DbroAG/ApsnPLQQ9Kvl8CYPyGC1vQPgmUsuJaKR/MQUK0OA6kE38YSYn53CBrH4NF
+         hQwg==
+X-Forwarded-Encrypted: i=1; AHgh+Ror0HOnR8Ex/oaKZYMW+isDWMx1raUv5wQxab/fSu/Xl2flxfNeWQvOCUo79p7iq8AB/RF85i7uPWEd@vger.kernel.org
+X-Gm-Message-State: AFuF++nxuxCpp+P6dLQPK/c8HJDXZnoRUwn6iYhm7a6M1ukKVo1DBgEd
+	pcXOC3vctNPhi1ztx3eYU56d3/WGLvY9QPLVFbVOehMTYz3s0gLcQF7WRKhAvL31S0g=
+X-Gm-Gg: AR+sD12whQFygW+aaZy78/wOsUBVsKytctpcLsyFQq6gtaWkeioIA2aa4mNSyKirWxp
+	wF48OaUjHzrcaTnJcHIxM/7L3iNOiUh7ri2pAj7j9xK3NfiJ5XGh2ajm6qrMjclE/A3x+g653Hi
+	/mvRLVHBRqMB5eev5nu4N0HhHy4aa7oOvkhQMBQ16khtXmVUCU1DFy+V4EctWDNrU0O0TKpcVgO
+	EeOedKymlLXkB7ukv+aUZ3vD+xeCHVihvDLELNOckp5FXanekOxJyyDM7vyaViokGNr1VbJo6Cf
+	2tVVgVZ1LGHvxTu+EBTUXuWW1kZmfcssLmUzNC7YCbP54ghsjvBqW2BSUgRrScXM88ugiaCyV1t
+	AS57F6rlJuMxXiPeKIIVpyjtthh2CKoNaFlCt2gJHV6a+Iw945zLnXMo2onarDVbmvcNxVut2eC
+	hNcuOIZvGL79Pe+9s74nXrJ3oPQyktkZm2OBshHunbNzhcej5wMnHB7OD780LcEp4HPj+Yk2hHl
+	wQ+pQdz9PIPtC6V+SBHz0o=
+X-Received: by 2002:a05:600c:8718:b0:49b:8f5e:51fb with SMTP id 5b1f17b1804b1-49ce7c03f46mr34819935e9.3.1788345983519;
+        Wed, 02 Sep 2026 03:46:23 -0700 (PDT)
+Received: from dev-ag.figment.co.za ([102.33.165.38])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5936a5esm20127665e9.3.2026.09.02.03.46.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 03:46:22 -0700 (PDT)
+From: Andrew Gaylard <ag@ffroot.co.za>
+To: qinjian@cqplus1.com,
+	linux-arm-kernel@lists.infradead.org
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux@armlinux.org.uk,
+	devicetree@vger.kernel.org,
+	Andrew Gaylard <ag@ffroot.co.za>
+Subject: [PATCH 0/2] arm: sunplus: add SP7021 LTPP3G2 board support
+Date: Wed,  2 Sep 2026 12:45:43 +0200
+Message-ID: <20260902104545.67794-1-ag@ffroot.co.za>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The patch introduces undocumented device tree properties (`avdd1=
-2-supply`, `avdd12-ckbuf-supply`, `avdd18-supply`) which are neither define=
-d in the DT bindings nor parsed by the driver.
---
+This series adds device tree support for the Tibbo LTPP3G2 board, which
+is based on the Sunplus SP7021 SoC (quad-core ARM Cortex-A7).
 
-commit b5065cb681ea986f66b5cbd4f119cd47dc276eab
-Author: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Patch 1 adds peripheral device nodes to the SP7021 SoC DTSI for
+peripherals whose drivers are already upstream: PWM, watchdog, eMMC,
+and the L2SW Ethernet switch.
 
-arm64: dts: mediatek: mt8395-genio-1200-evk-ufs: Complete UFS power supplies
+Patch 2 adds a DTS for the LTPP3G2 board itself, enabling those
+peripherals and configuring the board-specific pinmux and Ethernet
+topology. It also updates the defconfig to enable the relevant drivers.
 
-This commit adds regulators used to power the MT8395 UFS controller to the
-Genio 1200-EVK board devicetree.
+Tested on the Tibbo LTPP3G2 board with linux-next 20260901.
 
-> diff --git a/arch/arm64/boot/dts/mediatek/mt8395-genio-1200-evk-ufs.dts b=
-/arch/arm64/boot/dts/mediatek/mt8395-genio-1200-evk-ufs.dts
-> index e09a3ecd87730..f3d839f319187 100644
-> --- a/arch/arm64/boot/dts/mediatek/mt8395-genio-1200-evk-ufs.dts
-> +++ b/arch/arm64/boot/dts/mediatek/mt8395-genio-1200-evk-ufs.dts
-> @@ -16,6 +16,9 @@ / {
-> =20
->  &ufshci {
->  	status =3D "okay";
-> +	avdd12-supply =3D <&mt6359_vrf12_ldo_reg>;
-> +	avdd12-ckbuf-supply =3D <&mt6359_vbbck_ldo_reg>;
-> +	avdd18-supply =3D <&mt6359_vio18_ldo_reg>;
+Andrew Gaylard (2):
+  arm: dts: sunplus: add peripheral device nodes to sp7021.dtsi
+  arm: sunplus: add Tibbo LTPP3G2 board support; update defconfig
 
-[Severity: Medium]
-Will these new properties trigger dtbs_check validation errors?
+ arch/arm/boot/dts/sunplus/Makefile            |   5 +-
+ .../dts/sunplus/sunplus-sp7021-ltpp3g2.dts    | 301 ++++++++++++++++++
+ arch/arm/boot/dts/sunplus/sunplus-sp7021.dtsi |  48 +++
+ arch/arm/configs/sp7021_defconfig             |  30 ++
+ 4 files changed, 381 insertions(+), 3 deletions(-)
+ create mode 100644 arch/arm/boot/dts/sunplus/sunplus-sp7021-ltpp3g2.dts
 
-The mediatek,ufs.yaml binding specifies unevaluatedProperties: false and do=
-es
-not define avdd12-supply, avdd12-ckbuf-supply, or avdd18-supply. These do n=
-ot
-appear in ufs-common.yaml either.
+-- 
+2.53.0
 
-Additionally, since the kernel UFS and PHY drivers do not currently parse or
-request regulators by these names, will these regulators remain unmanaged by
-the UFS stack and potentially be powered off at runtime?
-
->  	vcc-supply =3D <&mt6359_vemc_1_ldo_reg>;
->  	vccq2-supply =3D <&mt6359_vufs_ldo_reg>;
->  };
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902-mediatek-u=
-fs-cleanup-dts-v1-0-7876e7a27a9d@collabora.com?part=3D2
