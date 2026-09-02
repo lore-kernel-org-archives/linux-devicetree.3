@@ -1,95 +1,241 @@
-Received: from smtpfb1-g21.free.fr (smtpfb1-g21.free.fr [212.27.42.9])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AA7D437C11C;
-	Wed,  2 Sep 2026 14:11:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.9
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B486485CDD
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 14:12:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788358317; cv=none; b=pEVx9rQq1AiAUUSQh/aWExMBbuvmoXHa4rVHUVytMsnAF/1PP+CmrzZDbCzC3kiKZrr1XiTdbg2r3KhB8tGf/4V5HJ7v80WgE4mLBZg7ma/xE4oCuu58IgNSZm0hDXFBw1GeL3CtHi/H2yCPiqEUtcgewb6mYXUm1aiNyPp/up0=
+	t=1788358377; cv=none; b=mCAeApX9a+1EgI+K7VoZ5hWUFnXHRt/nQHOmM+XvM1ExIEk73R+YiaNCw6DggPv+wfbhLjTzIA5+rDYgVThgW2vb7/q0vv9ktPn/OaIsqNwz3/Hg2hNZdLjFpBvQZ3fD1baqQX4X2x5leq39Pn9aOCOnxIeMfZu5Bthq/c9nTfA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788358317; c=relaxed/simple;
-	bh=4+x6I3GDnTnaewL1Qzj9t64McNjltuAsX/Zvw3byRF8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ka85S0jKn0l06Jcm+4G2opRVBMGVaFy+tD+Q6Kns0nYojevSVwjHLYlHyYa4ntHK55CLGzDXa4NTnbfo52MfJM+NkViHbWZJRMGJsalQ7u2TvxTrCYtTniSWoeIGM4/vAnjdx8hJ1Lbt4yNwM6BUFBAKCQseBTSeAHGxVlP8kN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=Ztz5tDXG; arc=none smtp.client-ip=212.27.42.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	s=arc-20240116; t=1788358377; c=relaxed/simple;
+	bh=6RRBOXunsj08FTZ3ncggluNT5gwoaY3pjLUyNt64cHI=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=X1+4dkrrbzo8qNpS3J7kHcoeYvFKmGYYdL4W2/Ruz3OByGcvF7ke22L0jFYBk+nVsLj4vhTqk0N8M5YoJLHp65FUm7ejx1FJowGhy5kKh6eRT1uyY4nXUzf4op7UDuGQ6dxd0mARd9qMTZHYExKbL5Dk/wZK2lmlDLzrQKnRf7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TeoZIdSD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="Ztz5tDXG"
-Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
-	by smtpfb1-g21.free.fr (Postfix) with ESMTP id 0FE9A834AFD;
-	Wed,  2 Sep 2026 16:11:43 +0200 (CEST)
-Received: from L30177.local (unknown [213.36.7.12])
-	(Authenticated sender: vjardin@free.fr)
-	by smtp6-g21.free.fr (Postfix) with ESMTPSA id 5916A78050A;
-	Wed,  2 Sep 2026 16:11:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1788358294;
-	bh=4+x6I3GDnTnaewL1Qzj9t64McNjltuAsX/Zvw3byRF8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Ztz5tDXG+F00/9yhONzfakMK3aLmnf3PyT+zgOACeDwVgn5rb4SHlS7xQzPZDS/qf
-	 G4M0IXgyEe2pwd422eRXI7pfn7B4aCikt57DiwkbP1R3ZMXoT1fXojxfUGcfT6nXik
-	 vX9IQ9fSuMexJzeVzWR3zSgeA9HzQ/Y1BreTuD8wwHznesXHCSiz9M/vlLiNA7AJrs
-	 OG8ePSUjw0Ipd+Y10sgJf/87aqI4V6urj8EoVgOtpvnVx8l481mf6U8bb0wb0fIeZf
-	 S/9UDv2YhhFYLFedBsS2f2K/QB/xKBLn749c8ECsrOKM6BNTEehHPhq9qzc9vnieVt
-	 wYJcI8AkdIzIw==
-Date: Wed, 2 Sep 2026 16:11:25 +0200
-From: Vincent Jardin <vjardin@free.fr>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: hwmon: ti,tmp401: add
- #thermal-sensor-cells
-Message-ID: <apgujdI08Pp2BC4b@L30177.local>
-References: <20260825-for-upstream-dt-tmp401-vcc-tsc-v2-1-cbc360ec51d9@free.fr>
- <20260828-weightless-ferret-of-pluck-ef2baa@quoll>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TeoZIdSD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D637B1F00ACF
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 14:12:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788358375;
+	bh=rN6sTLCKq1WlxEf3W8MKial3cy5QDz1RxTBBozXpCms=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=TeoZIdSDEA+nZ7QMx36OyM4F86Hclo+N0RYgBAOHt3ihIsWbvVekuo+A7iWnucMOM
+	 F9Sv1K7QHJ9EKzseeAhF5R/JKNulv/OrWoE/5sy/ovLJNCX5DhYbBTDeKwaVU2Pqaz
+	 hs74I9DB+nvNOJqHN8966Xky+bQKHzYTV32mDAQwtErFzApn1AvTFkmyxTaWdPpwz+
+	 QibfIOKE6nsAoivYrerfgPhREz8EnqbVOwKHMkxVB9COeMcoOKbZsLKEbZQiGFyo1s
+	 e5uJARYJcM32nEa4OC4aRVHgcbMxMSx42PgmVW89AAlLg88ZPEZsRG7RQpy0tcRF2K
+	 dc0tqfmuS9sBQ==
+Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3a1eb6fa0f4so9263771fa.2
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 07:12:55 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByiYzpCRvjBf/2K22tk9GQTUVm0of7I/DCLXOe3Lk8eYj+fVU9OlRIjBvmBaWHB6XII48wnlHpXBRhd@vger.kernel.org
+X-Gm-Message-State: AFuF++n6P9XiHBOsPIagxFMm6TDh482KoWuMxskzAWmRNemfN1ydbsBl
+	/y1wIIYQJe0anc8igBE9Vok4pws8AozKfuApBrIU/hxHELm2Oj0yKFONmXy6Jr0Ej7rOkl362c5
+	khJtkO7QhvUPVtPfCLz12Wjscbnc5NnZMBeZXlj9xkQ==
+X-Received: by 2002:a05:6512:3d89:b0:5b6:421:a8fd with SMTP id
+ 2adb3069b0e04-5b6087b5051mr1993779e87.29.1788358374082; Wed, 02 Sep 2026
+ 07:12:54 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 2 Sep 2026 07:12:52 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 2 Sep 2026 07:12:52 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260901-pci-tc9563-aux-v1-3-dd9b80738e70@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260828-weightless-ferret-of-pluck-ef2baa@quoll>
+References: <20260901-pci-tc9563-aux-v1-0-dd9b80738e70@oss.qualcomm.com> <20260901-pci-tc9563-aux-v1-3-dd9b80738e70@oss.qualcomm.com>
+Date: Wed, 2 Sep 2026 07:12:52 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Meajb919ZN4QYaW3E=4AktXNs1C7KPRGmkAPMrRSnPQiQ@mail.gmail.com>
+X-Gm-Features: AcwNN1UgHLMd4bA6zzWN-rQnOy4DvPk54i7L8UKWe-_sJVv321EIkRKrSQgl4uA
+Message-ID: <CAMRc=Meajb919ZN4QYaW3E=4AktXNs1C7KPRGmkAPMrRSnPQiQ@mail.gmail.com>
+Subject: Re: [PATCH 3/5] PCI/pwrctrl: tc9563: add GPIO auxiliary device support
+To: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	Bjorn Helgaas <bhelgaas@google.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Michael Walle <mwalle@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Krzysztof,
+On Tue, 1 Sep 2026 12:27:55 +0200, Lorenzo Bianconi
+<lorenzo.bianconi@oss.qualcomm.com> said:
+> The TC9563 embeds a GPIO controller used for per-port reset signals.
+> Create an auxiliary device for it so the gpio-tc9563 driver can
+> register the GPIO chip and enable DT-based GPIO lookups. Pass the
+> tc9563 regmap to the auxiliary device as its platform data.
+>
+> The downstream port DT parsing loop gains an of_node_is_type() filter
+> to skip non-PCI child nodes such as the GPIO controller node.
+>
+> The pwrctrl driver does not wait for the GPIO chip to be probed. The
+> per-port reset GPIO lookup, returning -EPROBE_DEFER until the chip is
+> registered, is added in the next patch.
+>
+> Select AUXILIARY_BUS and GPIO_TC9563 in Kconfig.
+>
+> Signed-off-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+> ---
+>  drivers/pci/pwrctrl/Kconfig              |  2 +
+>  drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c | 78 ++++++++++++++++++++++++++++++--
+>  2 files changed, 77 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/pci/pwrctrl/Kconfig b/drivers/pci/pwrctrl/Kconfig
+> index 1952ab4f29b6..a07694fae0c9 100644
+> --- a/drivers/pci/pwrctrl/Kconfig
+> +++ b/drivers/pci/pwrctrl/Kconfig
+> @@ -30,6 +30,8 @@ config PCI_PWRCTRL_TC9563
+>  	default m if ARCH_QCOM
+>  	depends on I2C
+>  	select REGMAP_I2C
+> +	select AUXILIARY_BUS
+> +	select GPIO_TC9563
 
-Le 28/08/26 12:02, Krzysztof Kozlowski a écrit :
-> On Tue, Aug 25, 2026 at 12:13:18AM +0200, Vincent Jardin wrote:
-> > The property is missing, so a board that uses it with a thermal zone fails
-> > with dtbs_check:
-> > 
-> >   tmp411@4c (ti,tmp411): '#thermal-sensor-cells' does not match any of the
-> 
-> Cannot find such node.
-> 
-> How can I reproduce this warning? If it is non-reproducible, then it is
-> not a valid reason for a change and instead driver implementing thermal
-> sensor would be the proper reason.
+I think this should depend on it, not select it?
 
-Hmm, you are right, it is not reproducible from the main tree, I was confused
-with my ongoing developments: no in-tree DTS uses a tmp401-family
-chip as a thermal sensor, so dtbs_check has nothing to complain about.
+>  	help
+>  	  Say Y here to enable the PCI Power Control driver of TC9563 PCIe
+>  	  switch.
+> diff --git a/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c b/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
+> index b0d8912690a2..ee9c26b8f5cb 100644
+> --- a/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
+> +++ b/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
+> @@ -4,11 +4,13 @@
+>   */
+>
+>  #include <linux/array_size.h>
+> +#include <linux/auxiliary_bus.h>
+>  #include <linux/bitfield.h>
+>  #include <linux/bits.h>
+>  #include <linux/delay.h>
+>  #include <linux/device.h>
+>  #include <linux/gpio/consumer.h>
+> +#include <linux/gpio/driver.h>
+>  #include <linux/i2c.h>
+>  #include <linux/module.h>
+>  #include <linux/of.h>
+> @@ -20,12 +22,10 @@
+>  #include <linux/regulator/consumer.h>
+>  #include <linux/string.h>
+>  #include <linux/types.h>
+> +#include <linux/soc/qcom/tc9563.h>
+>
+>  #include "../pci.h"
+>
+> -#define TC9563_GPIO_CONFIG		0x801208
+> -#define TC9563_RESET_GPIO		0x801210
+> -
+>  #define TC9563_PORT_L0S_DELAY		0x82496c
+>  #define TC9563_PORT_L1_DELAY		0x824970
+>
+> @@ -393,6 +393,71 @@ static int tc9563_pwrctrl_parse_device_dt(struct device_node *node,
+>  	return 0;
+>  }
+>
+> +static void tc9563_pwrctrl_adev_release(struct device *dev)
+> +{
+> +	struct auxiliary_device *adev = to_auxiliary_dev(dev);
+> +
+> +	of_node_put(adev->dev.of_node);
+> +	kfree(adev);
+> +}
+> +
+> +static void tc9563_pwrctrl_adev_remove(void *data)
+> +{
+> +	struct auxiliary_device *adev = data;
+> +
+> +	auxiliary_device_delete(adev);
+> +	auxiliary_device_uninit(adev);
+> +}
+> +
+> +static int tc9563_pwrctrl_adev_add(struct device *dev, const char *name,
+> +				   u32 id, struct device_node *of_node,
+> +				   void *priv_data)
+> +{
+> +	struct auxiliary_device *adev;
+> +	int ret;
+> +
+> +	adev = kzalloc_obj(*adev);
+> +	if (!adev) {
+> +		of_node_put(of_node);
 
-The warning came from a DTS that does, which is exactly the usage the
-driver now supports and you are right that the driver, not the
-warning, is the proper reason.
+This is a bit confusing. You get the node in tc9563_pwrctrl_add_gpio_adev() but
+you put it here. Please either do both here or there.
 
-Since commit
-  a3b61ba2558e ("hwmon: (tmp401) register with thermal subsystem"),
-in v7.3-rc1, tmp401 sets HWMON_C_REGISTER_TZ
+> +		return -ENOMEM;
+> +	}
+> +
+> +	adev->id = id;
+> +	adev->name = name;
+> +	adev->dev.parent = dev;
+> +	adev->dev.platform_data = priv_data;
+> +	adev->dev.release = tc9563_pwrctrl_adev_release;
+> +	adev->dev.of_node = of_node;
+> +
+> +	ret = auxiliary_device_init(adev);
+> +	if (ret) {
+> +		of_node_put(of_node);
+> +		kfree(adev);
+> +		return ret;
+> +	}
+> +
+> +	ret = auxiliary_device_add(adev);
+> +	if (ret) {
+> +		auxiliary_device_uninit(adev);
+> +		return ret;
+> +	}
+> +
+> +	return devm_add_action_or_reset(dev, tc9563_pwrctrl_adev_remove, adev);
+> +}
+> +
+> +static int tc9563_pwrctrl_add_gpio_adev(struct tc9563_pwrctrl *tc9563)
+> +{
+> +	struct device *dev = tc9563->pwrctrl.dev;
+> +	struct device_node *node;
+> +
+> +	node = to_of_node(gpiochip_node_get_first(dev));
+> +	if (!node)
+> +		return 0;
+> +
+> +	return tc9563_pwrctrl_adev_add(dev, TC9563_GPIO_DEV_NAME, 0, node,
+> +				       tc9563->regmap);
+> +}
+> +
+>  static int tc9563_pwrctrl_power_off(struct pci_pwrctrl *pwrctrl)
+>  {
+>  	struct tc9563_pwrctrl *tc9563 = container_of(pwrctrl,
+> @@ -565,6 +630,9 @@ static int tc9563_pwrctrl_probe(struct platform_device *pdev)
+>  	 */
+>  	port = TC9563_USP;
+>  	for_each_child_of_node_scoped(node, child) {
+> +		if (!of_node_is_type(child, "pci"))
+> +			continue;
+> +
+>  		if (++port >= TC9563_MAX)
+>  			break;
+>
+> @@ -596,6 +664,10 @@ static int tc9563_pwrctrl_probe(struct platform_device *pdev)
+>  	tc9563->pwrctrl.power_on = tc9563_pwrctrl_power_on;
+>  	tc9563->pwrctrl.power_off = tc9563_pwrctrl_power_off;
+>
+> +	ret = tc9563_pwrctrl_add_gpio_adev(tc9563);
+> +	if (ret)
+> +		goto remove_i2c;
+> +
+>  	ret = devm_pci_pwrctrl_device_set_ready(dev, &tc9563->pwrctrl);
+>  	if (ret)
+>  		goto power_off;
+>
+> --
+> 2.55.0
+>
+>
 
--> the hwmon core calls devm_thermal_of_zone_register() for every
-temperature channel.
-
-My goal is to unify/follow the other ones such as national,lm90.yaml,
-ti,tmp102.yaml or adi,adt7470.yaml already pair "const: 1" with drivers
-that set HWMON_C_REGISTER_TZ.
-
-v3 justifies the change from the driver and drops the dtbs_check excerpt.
-The diff is unchanged.
-
-Thanks for catching it and sorry for the confusions,
-  Vincent
+Bart
