@@ -1,98 +1,147 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C22E93AA507
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 07:11:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16AEA3CEBA6
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 07:14:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788333089; cv=none; b=Yakc3u8qIyyke0Ragwegf0l+mvZE5m4AbOCSZEKsd4UreYF4NP23oJTFLwst09UaOg4BCJcNxXphQLbhLZfndl3TV576zX3SFwS9Ll8l6I6ca9YuQGuINA/Ir0a15Y+LnjPlZOMLE9+lltKoYlEsfqtZsUhyODt/pw87R4Ve8HE=
+	t=1788333257; cv=none; b=p+1cBWeENTRiPP5lK1WuYQHnT8Cidj3spJBs3ZBq9O2n0wB9VS/IbmvDGckvW/yIV98RI8pD+Mg3YZ8pocu0akT+jm6SPyZiOWRyes6ntRdhnJN5Y+jjsUfjeXx7RaLTpyei5KuWlmt9XuZN/fl4vIMNe5WgLdCG9dvKPTtoedg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788333089; c=relaxed/simple;
-	bh=+aRKls+DZ4lOiHEPFVzIk3P6+7i1M+co/aHY6cxwbIA=;
+	s=arc-20240116; t=1788333257; c=relaxed/simple;
+	bh=wNBPOurSqe5BCVCQdh7MS2Zi0ZyPwDhDcqeCJTCQhig=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=P9RqcGuaZORJKjX72NnyFuT1+nPyO4iQeY2flwIEpytDttCOqcAyOWV6rty1MsqqhYdf2clFp/J2YmzuJWIorZK4mSI8S8nP8psRe1WW9MuhXYL1Hxy8oXzPEIiOCa/rXrwv/TLJL2jpH/RyOXLtMEj4GlK0dXk5DIE5YO6nCow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QPBZI5Xw; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=GwegvTOWb/bjxW4w5eiSHENopebKP8HR9jVBpP7KWa2G9bKOGfNIuH4AMePcGlXdvrwrq/JskO2d2rB+8YYbkfONn9FuhAG9vI1x6mMYg+PLm1xfXGdPjT256PP319GvfEG6O6XXtwCJezbtN6fKNuCpkINPYTy9dj+xK8b4AWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X+a5cHu3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QPBZI5Xw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EC4B1F000E9;
-	Wed,  2 Sep 2026 07:11:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X+a5cHu3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C14541F000E9;
+	Wed,  2 Sep 2026 07:14:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788333088;
-	bh=WsJxksjuBvB0IDRnvaBlfw4ual/Bs8IiRmiQ+zIdepA=;
+	s=k20260515; t=1788333255;
+	bh=moiZxr+pfezDzfaTEGTf8e3x6R6sdv2lj4rRcWkn/YA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QPBZI5XwlsM0CwWHeofLTyewnnqDPV4mcCcOWSQJraUyx34xzu2QSrJi8FsAAyR7W
-	 YrGZaflJfj0mDhk26xfbAivziSyze5HM+HN/OtV21gLDMCO9Kq+wFGpFVuiL9vh8rp
-	 rx0PCmqdM/5lrjwzcdQu4KxLmPhDWT9z9zmK5w/5D0OtqWGgVtg6Hv7flvb8l75Lad
-	 DHXIGN5Uen/lFdcH9bbEJfK+wrdSdKXIX8rWX4fSDbnXelzRV74hMU4B7rKafN0bSP
-	 aoK+zBeWL8AXxvG5D/ygtL3J7QGwIyXaRTmYr2pSwIqzrOieOcSLYw8/h0V8yfZEoc
-	 /4RkXPXVIE6xg==
+	b=X+a5cHu3bhwaM01eWqRRGmgmibmfM6Bfh3ki883wktpqfaGb19QB31ts9kzZdDPGi
+	 uXzsCLVU15uLlai3+o0+4oc03dg2d3m3FvACeArgCy2cFUmOJ1UrQpgBqDZj5Q5KBX
+	 M0E6TPQmskWhk5IGPCCH7aEgfLppM6WNi4Rz0mhgH3PHTZb018bTgP165SPOMQJIPh
+	 KwCk2n89zyzpgL3+f5ZDtJBNX3ObK0EKBLlsKrpE7fhAHT7WAlBgTUZXVtbXB7wQW3
+	 RNiAQnBHxY0G9Y+d325S1KGEjho5OFsjHmCWpQOTpxhPqNX2ljixMPCXO2AVOwJPCs
+	 /MIh+PWF8qkYw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: mmc: spacemit-sdhci: Add
- clock-frequency property
+Subject: Re: [PATCH 3/4] mmc: sdhci-of-k1: Set clock-frequency of io clock
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Yixun Lan" <dlan@kernel.org>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260902-07-k3-sdhci-dts-v1-1-4e7909cf4233@kernel.org>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260902-07-k3-sdhci-dts-v1-3-4e7909cf4233@kernel.org>
 References: <20260902-07-k3-sdhci-dts-v1-0-4e7909cf4233@kernel.org>
- <20260902-07-k3-sdhci-dts-v1-1-4e7909cf4233@kernel.org>
+ <20260902-07-k3-sdhci-dts-v1-3-4e7909cf4233@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 07:11:27 +0000
-Message-Id: <20260902071128.2EC4B1F000E9@smtp.kernel.org>
+Date: Wed, 02 Sep 2026 07:14:14 +0000
+Message-Id: <20260902071414.C14541F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] Introduction of a redundant custom clock configuration property,=
- bypassing standard Device Tree mechanisms.
+
+New issues:
+- [Medium] Missing check for `clk_set_rate()` return value, masking configu=
+ration failures.
+
+Pre-existing issues:
+- [High] Breaking probe deferral by obscuring `devm_clk_get_enabled()` erro=
+r codes with `-EINVAL`.
+- [High] Probe deferral is broken for pinctrl due to unconditionally ignori=
+ng all errors.
 --
 
-commit 1745887406b566692891c256f7b9ab7126926f90
+commit 9748f01c4f206e03365b12c3c2ceed5bed26c9c0
 Author: Long Wan <long.wan@linux.spacemit.com>
 
-dt-bindings: mmc: spacemit-sdhci: Add clock-frequency property
+mmc: sdhci-of-k1: Set clock-frequency of io clock
 
-This commit introduces a custom clock-frequency property to the
-spacemit-sdhci device tree binding. The property is intended to define the
-initial rate of the IO clock based on board layout validation.
+Add a clock-frequency property to set the rate of io clock, for SDIO
+case, a clock frequency need to propagate down early.
 
-> diff --git a/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml b/=
-Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
-> index 34d202af909f2..f35bf7ce08dd8 100644
-> --- a/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
-> +++ b/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
-> @@ -29,6 +29,13 @@ properties:
->        - description: core clock, used by internal controller
->        - description: io clock, output for SD, SDIO, eMMC device
+> diff --git a/drivers/mmc/host/sdhci-of-k1.c b/drivers/mmc/host/sdhci-of-k=
+1.c
+> index 37b0911e7cf20..e6ab40c9a5551 100644
+> --- a/drivers/mmc/host/sdhci-of-k1.c
+> +++ b/drivers/mmc/host/sdhci-of-k1.c
+> @@ -438,6 +438,8 @@ static inline int spacemit_sdhci_get_clocks(struct de=
+vice *dev,
+>  					    struct sdhci_pltfm_host *pltfm_host)
+>  {
+>  	struct spacemit_sdhci_host *sdhst =3D sdhci_pltfm_priv(pltfm_host);
+> +	struct device_node *np =3D dev->of_node;
+> +	u32 freq;
 > =20
-> +  clock-frequency:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      Rate of the io clock in Hz. When present the io clock is programme=
-d to
-> +      this rate, allowing a board to select the rate its layout was vali=
-dated
-> +      at.
+>  	sdhst->clk_core =3D devm_clk_get_enabled(dev, "core");
+>  	if (IS_ERR(sdhst->clk_core))
+>  		return -EINVAL;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does returning -EINVAL here
+break probe deferral? If devm_clk_get_enabled() in spacemit_sdhci_get_clock=
+s()
+(drivers/mmc/host/sdhci-of-k1.c) returns -EPROBE_DEFER, returning -EINVAL w=
+ill
+cause the probe to fail permanently. Should this propagate
+PTR_ERR(sdhst->clk_core) instead?
+
+> =20
+>  	sdhst->clk_io =3D devm_clk_get_enabled(dev, "io");
+>  	if (IS_ERR(sdhst->clk_io))
+>  		return -EINVAL;
+
+[Severity: High]
+This is a pre-existing issue, but does this also break probe deferral for t=
+he
+same reason? Should we propagate PTR_ERR(sdhst->clk_io) in
+spacemit_sdhci_get_clocks() instead of returning -EINVAL?
+
+> =20
+> +	if (!of_property_read_u32(np, "clock-frequency", &freq))
+> +		clk_set_rate(sdhst->clk_io, freq);
 
 [Severity: Medium]
-Does this property reinvent standard clock configuration mechanisms?
+Does this code silently ignore clock configuration failures? If clk_set_rat=
+e()
+in spacemit_sdhci_get_clocks() (drivers/mmc/host/sdhci-of-k1.c) fails and
+returns an error code (for instance, if the frequency is unsupported or
+rejected by CLK_SET_RATE_GATE), the failure is masked. Should we check the
+return value and handle potential configuration failures?
 
-In modern Device Tree design, setting the initial rate of a clock provider
-consumed by a device is typically achieved using the standard assigned-cloc=
-ks
-and assigned-clock-rates properties, which the core clock framework process=
-es
-automatically.
+> +
+>  	pltfm_host->clk =3D sdhst->clk_io;
+> =20
+>  	return 0;
 
-Alternatively, if the goal is to cap the bus frequency for signal integrity,
-the standard MMC max-frequency property should be used. Repurposing
-clock-frequency to manually parse and call clk_set_rate() creates a
-non-standard ABI for clock configuration and duplicates core functionality.
+While reviewing the file, I noticed another pre-existing issue in
+spacemit_sdhci_get_pins():
+
+drivers/mmc/host/sdhci-of-k1.c:spacemit_sdhci_get_pins() {
+    [ ... ]
+	sdhst->pinctrl =3D devm_pinctrl_get(dev);
+	if (IS_ERR(sdhst->pinctrl)) {
+		sdhst->pinctrl =3D NULL;
+		dev_dbg(dev, "pinctrl not available, voltage switching will work without =
+it\n");
+		return;
+	}
+    [ ... ]
+}
+
+[Severity: High]
+This is a pre-existing issue, but does this code break probe deferral for
+pinctrl by unconditionally ignoring all errors? If devm_pinctrl_get() in
+spacemit_sdhci_get_pins() (drivers/mmc/host/sdhci-of-k1.c) returns
+-EPROBE_DEFER, the driver will treat it as if no pin controller is present.
+Should we check for and propagate -EPROBE_DEFER?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902-07-k3-sdhc=
-i-dts-v1-0-4e7909cf4233@kernel.org?part=3D1
+i-dts-v1-0-4e7909cf4233@kernel.org?part=3D3
