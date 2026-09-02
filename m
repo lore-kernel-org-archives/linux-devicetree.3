@@ -1,152 +1,153 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4E0A4AA1C2
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 16:26:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EB154A5EB1;
+	Wed,  2 Sep 2026 16:28:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788366416; cv=none; b=crz6ZPlbSNLQDX4WKNE3TdWfjXo+aruHVq/6hX/rXMGxlXigkxBHOX9Rc1+t/UKwnqSr2olyoJ+ldNkT49b8esKuoVtSNuhpfggQ+fg+TSFmajHkZmhm9SX0Z4cJT95ol3gtYd30OyTeVdEhREEEnDWdnaT+9Hu7Bbj041GAAHw=
+	t=1788366483; cv=none; b=RGioJ7fbwPM9l282VYabIl33m4Uvvy3VbjOe+mDD8gtZZ3Zfpig2SGqzLsfyRqbqkaoqCFr0UzUeKEfMxklfBp5cX7NwEfvMBoyocUdBqB+8GRE6bS9xMfpxtELy8siDqzh02hjAWIV61/k9P3kHI1+I06iu0TELLxulEroSz88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788366416; c=relaxed/simple;
-	bh=4V75VXPdJsV3etEtmOB92/leTElAobw81eFBDOD25Qg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cOCNl3EBEbJ2b4goDhORnn6V3lGALZmLMlMW24JcsaNb5hULQyD4daYzFTP3I3dNE5AHt949oeQjAkxp0iaDqp9PSKD8xsvwWxYAqNEB8qXZmtQaD8hIHpcUjs5daN0FawIPm8/eaUFqVHVRZHxKlO0Wt0SkT1gUI+irYlgjQkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DgsmkQRr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XCyGuBWM; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788366483; c=relaxed/simple;
+	bh=RtQuk8/RFqmkyFm4EC3Mw225VzDi/hY9MeOiADALU+I=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=j0ixO9dLf7oyZJYs68foBr4/izXt8mpR9Bs8HO3dU/3m2Kn2HZ5uaEjzZ7kFn5iCXD01PukNDxXfXRE2agzI08CEVXzJo76ML3spsINueozSWydicZDXYa+FM21TmEbUtcp01A7DCqAmlm2SKfzUsnxIgXoQU85SmLTAAo6RTYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jjmrz7Y1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DgsmkQRr";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XCyGuBWM"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682Fcv351807217
-	for <devicetree@vger.kernel.org>; Wed, 2 Sep 2026 16:26:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	d8GmeZDaBEbzaZ8I2SDdKZrPLXHH/1Qk7o9QmMFbE1o=; b=DgsmkQRrhtcjid92
-	Znhb87lnm8+WWhMHrKl4p0WyNyWqrewdrlmVza5UDPrH3MYl7DzjF0C5lZw/PaTl
-	7uPGMMKDlh4SX7v7smfmyUSh5QKzh1vMweZWqXs96TeLjLkMTScAcpGCMWdxACeG
-	wTE2fEdTBY+znffYJ9zbVlrpQifwrWgPgPjLhcf/xlw2SMnCoOPAfk2J6ZCsvpNO
-	tStY44Kh7xJWgj6Ee+rMgVHoMBKusCib/w1SGWRASmLXsqkTxc1lpg5BzIPY+TGl
-	znGPSYtEAWTCtaenIXJnlJ5vp3swrQrhKAkZE5H6ZeeIgCK62gjPvfUZZwnWIbz+
-	DomOCw==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4genrdrd7u-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 16:26:53 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-52fa40fed05so1711841cf.2
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 09:26:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788366413; x=1788971213; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=d8GmeZDaBEbzaZ8I2SDdKZrPLXHH/1Qk7o9QmMFbE1o=;
-        b=XCyGuBWMANu3f3U1dDXHchKD+ICOwliLmxw/EqwtoCNt2AeSTq4t2qVMzEmcfCU2N1
-         P6CqlcSjJZ0JGBJEOwmWVAaznIj3RKpyJyHoXUYVJZ3JRAlQqSlUSZT5/IbpBWIZHxj+
-         nCacCl+1ezCtwfYBBF3SQtkBLdwY6cdNstq0z+BgFvCf3/SuTZS3KC+J+w+twtOxUwpo
-         KUxetH29XAfsxsydlpNBev1Xq70be4h6VXww9AiDXojBc+hshDJo6epxBCwy1M+nf3eQ
-         thDvDj4eoqLaYhFpGr2eprr/DmEqF2lGgEtxSfJ5o83+BHO0ukoumBerZSYUupw+2Vdb
-         7t3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788366413; x=1788971213;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=d8GmeZDaBEbzaZ8I2SDdKZrPLXHH/1Qk7o9QmMFbE1o=;
-        b=S6CSvqY1cBcEzIY5qGMndHl7dWAquCjUqVYugb/tERsrWtrDtw3HhHGg1Yn7s2D0ng
-         3nBoZkplQS5Ea0drRgonHwkW8S4yXJLAceKOJY+xxTmIv1dOWc2xxOrsJ2ByYBZfhH1n
-         YZNkA/5sqkg46WVI5nS0w4dX3cwhddNskMW5sblJ7jM5UkOlyVmzgG1cskkVQjA1e/wk
-         khWkPBVelbbMEIxH8hla/L0A3yEiIo8m7DKM69/KtPOoWFHKEUrgltKP9/7dmR+8Q4Bq
-         EluN1Dhen6uTrUpgpULhltOzokoCokd3oEbmMk+GAu80tfsBndymRnKCC8EARs0g+nor
-         i3yw==
-X-Forwarded-Encrypted: i=1; AHgh+RrQI7x5GKo0nZyXrJTDsKoAc73jspStUuookI7JyUXwJ+mxa30hQRVlu7xUry+5YrpEVNs9Ph6Ds6i0@vger.kernel.org
-X-Gm-Message-State: AFuF++lz5XY74CiLyP8whAT+DXH4CqCCgDpLi2Qqr6d3xYeTNX57GG4m
-	3bnKcTakLAxLq9OWBqbzrbYPhbcr4cIz47m66iplI+kCtQb0y6O+TBu3z2TOeXzcFd3eEXV5/Hd
-	dSCiP9BFKBVEbHAwAMzd/wSQfhdDVnPnVp2Dmv1uejf+U8fBg0pBtQMyjUFF1mrKi
-X-Gm-Gg: AR+sD119O4xEmz12qVmXJC/CHF89QdVITzgHdmNY9FylvlINHC2RjVDCiKkkD4fXDv3
-	Tou5e25UsFw7TQakyyfvtxgmK0CVe84UKcApVekSTTwUyRyibWjYZ6hQzp0Fz987e6+hIwIELlo
-	dHfAAW42cXv93ix1RMWzljEJbf+jVfSTLW1dMmhojIUg18G2cZ9l/uwI7o7Vfk4bpZYM5d+ABf5
-	oMt/n42USmW1eBa6pAYCGelafJcosm0fKOr0CxyjGHBYQxGU4yQAoc08vKoopbEp4YHCNK8LJHE
-	OAZmKnY5Jvjzj8oyszy9k2xDlGFa3BV2Gqi6hxQ3LMxt9lkdF4K/ZMorVfRL1tRJP2OKGPQ0TD3
-	0rCMxuZiHojFrpIwHTlf9rQ==
-X-Received: by 2002:a05:620a:236:b0:939:6c5f:9a8e with SMTP id af79cd13be357-9396c5f9b56mr101469485a.0.1788366412747;
-        Wed, 02 Sep 2026 09:26:52 -0700 (PDT)
-X-Received: by 2002:a05:620a:236:b0:939:6c5f:9a8e with SMTP id af79cd13be357-9396c5f9b56mr101466285a.0.1788366412214;
-        Wed, 02 Sep 2026 09:26:52 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25cffc70fdsm163297566b.4.2026.09.02.09.26.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 09:26:51 -0700 (PDT)
-Message-ID: <11ddf6dc-f943-4070-882a-f60733dc4f71@oss.qualcomm.com>
-Date: Wed, 2 Sep 2026 18:26:49 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jjmrz7Y1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60BCF1F000E9;
+	Wed,  2 Sep 2026 16:28:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788366481;
+	bh=2vosrKphzZBfR/M+zGUfAJTRCr+FvrFSKj1GHz8Q2NI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=jjmrz7Y1As6KAfzM2qeP5xKVrrQy1L5PzOX96C1rUArBb5ryaEsBp3ZZW1AmBYK7F
+	 rRKPjg1Y1OawGhxZUUyBru23RT2NXWLvD3wzfpaia5LCe5N2PVbcAlz9EJ7JcWqBYD
+	 ZyxvFGWl54E5oUk5pRn0HbjvuRrCrk00yXkQockEEYhePMC+ioOu0SmOfslhNCjHaZ
+	 9jNNqX3JIAUiqmqN6seWjHU9TTb6cwlvbNMcW2PHBlcgEm1P0lyA8/Zbj2DRcW7IBJ
+	 qX0bqrGG332WjehS21xyvmi4HDRVge/pj/g+1rqAcyXWiH1Vcc0EBozOwhchq8fugc
+	 6wPvHyyBGV97A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v46 3/7] firmware: imx: add driver for NXP EdgeLock
+ Enclave
+Reply-To: sashiko-reviews@lists.linux.dev
+To: pankaj.gupta@oss.nxp.com
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, robh@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260903-imx-se-if-v46-3-aefaab525034@nxp.com>
+References: <20260903-imx-se-if-v46-0-aefaab525034@nxp.com>
+ <20260903-imx-se-if-v46-3-aefaab525034@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 02 Sep 2026 16:28:00 +0000
+Message-Id: <20260902162801.60BCF1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V5 3/3] arm64: dts: qcom: monaco-evk: Add SDHCI support
- for eMMC via overlay
-To: Monish Chunara <monish.chunara@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Sarthak Garg <sarthak.garg@oss.qualcomm.com>,
-        Pradeep Pragallapati <pradeep.pragallapati@oss.qualcomm.com>,
-        Nitin Rawat <nitin.rawat@oss.qualcomm.com>,
-        Shiraz Hashim <shiraz.hashim@oss.qualcomm.com>
-References: <20260826112456.482982-1-monish.chunara@oss.qualcomm.com>
- <20260826112456.482982-4-monish.chunara@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260826112456.482982-4-monish.chunara@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=H4/rBeYi c=1 sm=1 tr=0 ts=6a984e4d cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=sfNJ4pVXpVnTwTOAvM0A:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-GUID: 7G1U0AkdPxnBwHHjkIxQV-n1ecaCJucR
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDE0NSBTYWx0ZWRfX3r5JVWBE3Z4C
- gJMRe1Sgj9y95VDmEhtsLQJqYhU3EszwffB80jyetlXcin43idSyVCe4X1YUPCtfYz+PPr8edTr
- TWUOk6+c6krUuKC1w2WzsePIoE6tXCGs7uOaOmzwsVULkzdxpmG5UDp8Njk/o5dbGfQlMvJbH5w
- 990vMG34wKfnRZPXROYUYmgDK5kA+NHSLEYFT48Sp72d1vgiT7zinrwbB5YBj7/aeS29A7/79uS
- 7QBpTWHEX6uaS1oNlbD6S3/32ufzkp+1HGBNrkO6elKz3bO3voDilt9r1I4qjl6MKKqNCFUPvnZ
- mfJ8mdaGW4b007vwnJFDCSXwJpNDPc0kEIjQtVDVJBdccExbIibSssPKDtSaCr4TqGFwRFzlprD
- hKNJuOD3QAu/5NHOdpqLUoOYhzRBR/T9URsYKrs/Fke8ydLu0tR7EbMTWb4nSANKAno42prY/CU
- w0OCDb3AJTJPywxM+xQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDE0NSBTYWx0ZWRfX82TjKVmuhoO9
- LBTjcQhhvIcY1QHZ6/ht7w2Oxi2iRpsBjrxqO5BXItkTNpPnrI5D7iiAW78GW1EVvKAUcTdQAAF
- SBATz0woFUo+E2RRv1oc3239U7hI0qw=
-X-Proofpoint-ORIG-GUID: 7G1U0AkdPxnBwHHjkIxQV-n1ecaCJucR
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_04,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 priorityscore=1501 adultscore=0 bulkscore=0 clxscore=1015
- malwarescore=0 spamscore=0 phishscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020145
 
-On 8/26/26 1:24 PM, Monish Chunara wrote:
-> Enable the SDHCI controller for eMMC functionality on the Monaco EVK
-> using a device tree overlay.
-> 
-> Signed-off-by: Monish Chunara <monish.chunara@oss.qualcomm.com>
-> ---
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Deadlock in suspend/resume path due to GFP_KERNEL memory allocatio=
+ns in ele_get_info().
+--
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+commit 05cadf4c7e4a0295c86129fe662754b87efdff7e
+Author: Pankaj Gupta <pankaj.gupta@nxp.com>
 
-Konrad
+firmware: imx: add driver for NXP EdgeLock Enclave
+
+Add MU-based communication interface for secure enclave. NXP hardware IP(s)
+for secure-enclaves like Edgelock Enclave (ELE) are embedded in the SoC to
+support features like HSM, SHE & V2X. The secure enclave FW communicates
+with Linux over single or multiple dedicated messaging unit (MU) based
+interface(s).
+
+Closes: https://sashiko.dev/#/patchset/20260902-imx-se-if-v45-0-6e400879d8e=
+c@nxp.com?part=3D3
+
+> diff --git a/drivers/firmware/imx/ele_base_msg.c b/drivers/firmware/imx/e=
+le_base_msg.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/firmware/imx/ele_base_msg.c
+
+[ ... ]
+
+> +int ele_get_info(struct se_if_priv *priv, struct ele_dev_info *s_info)
+> +{
+> +	dma_addr_t get_info_addr =3D 0;
+> +	void *get_info_data =3D NULL;
+> +	u32 get_info_len;
+> +	int ret;
+> +
+> +	if (!priv)
+> +		return -EINVAL;
+> +
+> +	memset(s_info, 0x0, sizeof(*s_info));
+> +
+> +	struct se_api_msg *tx_msg __free(kfree) =3D
+> +		kzalloc(ELE_GET_INFO_REQ_MSG_SZ, GFP_KERNEL);
+> +	if (!tx_msg)
+> +		return -ENOMEM;
+> +
+> +	struct se_api_msg *rx_msg __free(kfree) =3D
+> +		kzalloc(ELE_GET_INFO_RSP_MSG_SZ, GFP_KERNEL);
+> +	if (!rx_msg)
+> +		return -ENOMEM;
+> +
+> +	get_info_len =3D ELE_GET_INFO_BUFF_SZ;
+> +	if (priv->mem_pool)
+> +		get_info_data =3D gen_pool_dma_alloc(priv->mem_pool,
+> +						   get_info_len,
+> +						   &get_info_addr);
+> +	else
+> +		get_info_data =3D dma_alloc_coherent(priv->dev,
+> +						   get_info_len,
+> +						   &get_info_addr,
+> +						   GFP_KERNEL);
+
+[Severity: High]
+Can these GFP_KERNEL allocations cause a system deadlock during suspend?
+
+The commit message notes that ele_service_swap() was updated to use GFP_NOI=
+O=20
+because it runs in the suspend/resume path, and direct memory reclaim could=
+=20
+trigger I/O to a suspended storage device.=20
+
+However, it appears ele_get_info() is also executed synchronously in this=20
+exact same suspend/resume path:
+
+> diff --git a/drivers/firmware/imx/ele_common.c b/drivers/firmware/imx/ele=
+_common.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/firmware/imx/ele_common.c
+
+[ ... ]
+
+> +int se_save_imem_state(struct se_if_priv *priv, struct se_imem_buf *imem)
+> +{
+> +	struct ele_dev_info s_info =3D {0};
+> +	int ret;
+> +
+> +	ret =3D ele_get_info(priv, &s_info);
+> +	if (ret) {
+> +		dev_err(priv->dev, "Failed to get info from ELE.\n");
+> +		return ret;
+> +	}
+
+Since se_suspend() unconditionally calls se_save_imem_state(), which in tur=
+n=20
+calls ele_get_info(), won't the GFP_KERNEL allocations for tx_msg, rx_msg,=
+=20
+and get_info_data bypass the fix you made in ele_service_swap() and still=20
+risk the same I/O reclaim deadlock?
+
+Should these allocations in ele_get_info() also be changed to use GFP_NOIO=
+=20
+to ensure the entire suspend/resume chain avoids I/O triggers?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903-imx-se-if-=
+v46-0-aefaab525034@nxp.com?part=3D3
