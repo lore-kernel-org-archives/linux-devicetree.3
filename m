@@ -1,135 +1,222 @@
-Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com [209.85.160.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out12-31.antispamcloud.com (out12-31.antispamcloud.com [185.201.16.31])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B441481652
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 18:32:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25AC04968E2;
+	Wed,  2 Sep 2026 18:36:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.201.16.31
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788373928; cv=none; b=QqVLP3tsznMY4sc/ZgV/aV6PtXjXC/noBaY871IHXdyUkMqXH4NzrTI+/y6/F4pxNV4dboe04u3NclgkTiE0Nh+HRNjHac6eH6dHykHZUk4GFsMN5J7DBGMMMNZd8P3m2B/J1LICav5/85RtbFosdKKUw2uhC2yksVrfAc7BBVc=
+	t=1788374179; cv=none; b=e3Ac3y/mIsTEDILF+gtyuSr8u3uwGxGZSLOIthnwXnot2GzmcDiZ/29McpjNao8i94ckP8PI3pYcOXpLPZ8CB5v3W3bBK3Z7Qs050k5aq2WG8YAD387c5DYRmfjBJ9r56gJmtv7NSQ+Ya392cmh8+XNsGj0POYq0h7BE5gMDTuY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788373928; c=relaxed/simple;
-	bh=5SbQ4qVfDk+O3G5b8f8HVnIF2DIqTxp8g+oQUr1NxyA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=P2B6lewYJ5PTiGQEqoioI8dpePpgoD2CUCXDCnh/W0Qmyd6Kz0vvS1ixstdJX3GZz+tYm8naR0RYXep8O4tZpjlo5P1mLAcAMl3X2yCSG3iPUJnv3nCABNgS2bB3e8SJHSr7itRxoEGne8KH65N5EreUyDGB3rEnHbl33yhlq2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=SWcF0QU6; arc=none smtp.client-ip=209.85.160.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1788374179; c=relaxed/simple;
+	bh=u7rJyBVNS3KWB72oeww+xedcyOSO1pu/9F/9FnMv+ZQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=SsLYsWAilsikbEoelOhnDG4jll5Z6ydfN3eSZOhhsfxLkP++EVyV69ERyJMVeopLawSj6WbnruThw/ae0KUlwmBxpmIg/I14VW/ypUSDsbh/7gxPS6vbeSDcfOrdJkFMdmQ+0R+dGxHxgHEAZ8RHkiU9V+8+FdYbFEMaAYpT7Vc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net; spf=pass smtp.mailfrom=reactivated.net; dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b=b96VzcgL; arc=none smtp.client-ip=185.201.16.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=reactivated.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="SWcF0QU6"
-Received: by mail-oa1-f44.google.com with SMTP id 586e51a60fabf-4472500e25fso757638fac.1
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 11:32:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1788373919; x=1788978719; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yi0Sf+aTtT6rp3DHMlcGuCDc4NN0FWj4XsTs8T+XdFU=;
-        b=SWcF0QU6RhZnqsXP8ya+9RlEFTJFGKOAhGTzhyd8dRoK4sJ0RBIvuZaKxeH3turVNU
-         LlrL3sbfw33+m6Qul5qtdqataDzv64uyyrrF6F4QD0MENKQ5fyA3BugKklixuAsNNqsh
-         nSPMl5fHJ1Xuwu6iPyUJbZYithVB34ymu5snpRxPsttu3/LtLw1vpmBSoPwHlD4Qaqo1
-         HiFCuYmq3s8m0EHpwO7sANzRLNj0WMYqDqQY08YQRUpSG69OiZb6VL3q3COMwDesn5q3
-         LB+Azsm334Aiu7/fevVoSCpHWkjPgMjtULV7rkg//5YjVYWpqG5VjYR6p1axnYNNFidb
-         FmUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788373919; x=1788978719;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yi0Sf+aTtT6rp3DHMlcGuCDc4NN0FWj4XsTs8T+XdFU=;
-        b=IvurFm3GjaUULDhlCG9nLoQqfqZresmXSrqmNp0K437+HD9yHITxI3BSReei9JpVut
-         /dGpXOEGZwQ7Kd7WX5wTGz8yXbOdRtoLzvlxx9JElbab1w8k9T/bpiSdZD0P3UUr4mP9
-         2/mlqgEsQzFi/gVcrpV5+tALWmq1VqWX+glcU3Q11YeAzOZEHnHcbnxJJCCoua5YMrmk
-         A1J4xFRg3u3lQpuThqDkhI5g5KhOeKQ9enE+0Qz78FrhIfmPC/B3m1D9tWvMRKO/1W18
-         6XaBbkBGvCKPZWJ9EUetmC76huztBUu32NqDMIN3QtFSEFJEJ8qSQeohMd52YTOkPIPi
-         43LA==
-X-Gm-Message-State: AFuF++mgWG++SPz6lJFZxoWZRUT5o2R3g3yamK2DSzW8Qn/jwvUxHIKy
-	NlCmPxGLiy8jfTFMAxURVwqv+N4d9CLY48A23N2NHKhrirNPkoUFZmA8bDmrrA8XNKw=
-X-Gm-Gg: AYBFou3Bag9TWOI3GsjgV/OyU3Nf51RuXXrkcCj+Dw2/eY4ljQrbWe86s8LsEicjz6/
-	TEE7jzYWbZIcWZIMeM6Z+T2t9Pw+gzVkSN++tBuG+qSeKgfWDsAKNevXTgYSs/xd/JeRfaegH+k
-	lXE81Vmltl1rer4uSUK2gXyvX2+szZPzFb1ZcO3Yyv00Gm8rVzfAjix0GwkrSuZdmbb4v1Kyoez
-	444tr/am1Dcv0aOfk6Z1FijwJOYcaG0c2KBtFpmQrBtcYp9bXASFq7i1XrRT3snzk9ZB0oxRE8u
-	QsL51zZSlzOJfXZi2LPLVRpJQbbkdVpcxNxc1BcIpLyfsk+2fmR4ByFSqANR6p3G8WJCe3OQNxL
-	Wozz6xH8apTGyszExFiH2lJ+kQJ0GIaYT6vckdzdPejxNHJNSoLcgaVSnV2i9gImWx7ncAFPfFZ
-	kObr6Fs9nSRx/AAZP+lMENPKu2xDGMAKakljRN6qEnhiXqbitL+vq2lJcRSmXV/UlM0WZpCInHx
-	QoQq2b9rw6OZSOz9KimCyPzFLixLbkrwEFuh5I0
-X-Received: by 2002:a05:6870:440c:b0:46c:feb7:5443 with SMTP id 586e51a60fabf-46f8341bc02mr4883463fac.0.1788373919124;
-        Wed, 02 Sep 2026 11:31:59 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:518a:9db8:615b:293f? ([2600:8803:e7e4:500:518a:9db8:615b:293f])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-46f32933b9asm4606620fac.9.2026.09.02.11.31.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 11:31:58 -0700 (PDT)
-Message-ID: <60dc58c6-dfe2-4377-9a73-f65cda56179c@baylibre.com>
-Date: Wed, 2 Sep 2026 13:31:57 -0500
+	dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b="b96VzcgL"
+Received: from s1041.use1.mysecurecloudhost.com ([192.250.231.249])
+	by mx322.antispamcloud.com with esmtps  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <dan@reactivated.net>)
+	id 1x1pDl-009oTh-Ig; Wed, 02 Sep 2026 19:58:05 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=reactivated.net; s=default; h=Cc:To:In-Reply-To:References:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
+	Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
+	:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=P67qbos3D+tWJec3niEbndAJClHMkcSjY99grIP5ELc=; b=b96VzcgL0joJf7gOFdlTX17YdI
+	lYEH8QWZcz657JOBl0b0BPeHAijSR6kgdhyyfctOsv26PKdMIFwMKPAex17mlWAiRqS7vm0pmPV0A
+	BpXtJKbwyOUz18REZvqgG52IOE6MGhyOyN9cgEI41xOCnVnXSu3a1R5A5m6ZcPd3KMXREbM9tSDLd
+	3rQbe2pDLdhhcZ7Fw+HuwJJ0mIB813IgfIoM4NBg9fgEgi4hGrRbvZQgMVvnLONteP1h6uTKDB8US
+	p6dEosEo1y6WUOsFqFKCmQjuq2Y/HL+kQQv9TGtdu20HhnWf9WXgUjkcQtvOW2XOoF30Z6GEZMsXb
+	pO5If3Ww==;
+Received: from [188.251.249.2] (port=45118 helo=[192.168.1.123])
+	by s1041.use1.mysecurecloudhost.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <dan@reactivated.net>)
+	id 1x1pDe-0000000F9KQ-0LfU;
+	Wed, 02 Sep 2026 17:57:58 +0000
+From: Daniel Drake <dan@reactivated.net>
+Date: Wed, 02 Sep 2026 18:57:04 +0100
+Subject: [PATCH v4 2/5] dt-bindings: iommu: Add Broadcom BCM2712 IOMMU
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: adc: ti,ads1015: Add label
- property
-To: Flaviu Nistor <flaviu.nistor@gmail.com>,
- Jonathan Cameron <jic23@kernel.org>, Nuno Sa <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Daniel Baluta <daniel.baluta@nxp.com>,
- Antoniu Miclaus <antoniu.miclaus@analog.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org
-References: <20260902172230.5234-1-flaviu.nistor@gmail.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260902172230.5234-1-flaviu.nistor@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260902-bcm2712-iommu-submit-v4-2-9dbb657578c1@reactivated.net>
+References: <20260902-bcm2712-iommu-submit-v4-0-9dbb657578c1@reactivated.net>
+In-Reply-To: <20260902-bcm2712-iommu-submit-v4-0-9dbb657578c1@reactivated.net>
+To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Daniel Drake <dan@reactivated.net>
+Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, nick.hollinghurst@raspberrypi.com, 
+ james.quinlan@broadcom.com, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Get-Message-Sender-Via: s1041.use1.mysecurecloudhost.com: authenticated_id: dan@reactivated.net
+X-Authenticated-Sender: s1041.use1.mysecurecloudhost.com: dan@reactivated.net
+X-Spampanel-Domain: s1041.use1.mysecurecloudhost.com
+X-Spampanel-Username: 192.250.231.249
+Authentication-Results: antispamcloud.com; auth=pass smtp.auth=192.250.231.249@s1041.use1.mysecurecloudhost.com
+X-Spampanel-Outgoing-Class: ham
+X-Spampanel-Outgoing-Evidence: SB/global_tokens (0.00523852187495)
+X-Recommended-Action: accept
+X-Filter-ID: 9kzQTOBWQUFZTohSKvQbgI7ZDo5ubYELi59AwcWUnuVxWCrlu0J9nkekKB41eTCLyIjIri4DT/nx
+ QZqRcCOIgyu2SmbhJN1U9FKs8X3+Nt06bFpPrNOlRAlE9AVLwR4uGVjKNnzF3nQoDoQtBifM84JL
+ M0i5ZAms0EHrvcCaVIOYn9vhoNExpT0rpjg2lHVHGnT3EFAinyrilm9zau/FuzkQt9Nb4Ml7QXdk
+ EetczWBpY9ovdkP9RmEvieRDWoEFGZ7f+7oeClYYrL6OxfWC1jM0MOKiGRkxO3FaI58br05WBb39
+ uS1TjWG2Inx+Ts2QrtVmombMJ4e2pn5C0yBMHZ0fE47nEjvubMSTLAkKCKefuLbx+lGq0svfyhth
+ j0R6Iny++hg9dJLqN5zmWqF/oHgMZXS6X/fIHYslsKU0yPHM4JpSMI47HiFQBsGlm5AyJ9N3+CB9
+ 4aFbAhtG8w3Ly5ZVKmISsN3IhGLWYd0758XIiXx6YYOeazosCcxmb7RWPITtorGl87DPy4ds+UWq
+ MS944fSN2oL9lcmwHl4R430gWQeQATOYm6ySgXONX819+8b0aQ27w+hy2d/X8QeMESKGfu1osKm2
+ z/Bdw0WxPvopVqK+B3hjSiRP+JZcbkTFzNuDg9qhrek1VDTOXu3/5XoFh6RYK1/+a9o0ZH3bf8f8
+ xcFeTwPmaNR5BFrITq53GE8UfvLOtVSfYvM2D2LXw9qhHVjuF0QV44wjOm4hi9B7sw5YCbsONrFQ
+ WlQL6bayw8t26zvWPQFaoPrSpXmTFh32t1ZYEmdcjX8wYIo2PJ6ZWoal85B1uSKsQvqgKX57+mzi
+ mzSSBDh/9T7i+I1Xis3FgAfjcrAC8tdf23eCIzSdDUG3JlDn+YPgrv/L9kYIY6/c3932aFiFp+4w
+ 26sCeFNiLZt/QXQnOBRD+jq1HsIm8VQhYAy23VHBYHJQltbzHyxxk8Sjs3o9/k8nLBnptMQCOWuC
+ bp8r+cerZqUKxFfVRXLKIImNTAr8iSBcPgsmF70Rz40u8PylAVmBlaDrHdDswAAELtTYsl4eOccq
+ tK3P9P7Dwawiagy4cvFL3pjltGILrmkElozHQFHLOT6kywhk7Qhq1ru3jSBu1ukDxYBdCKDGFJnk
+ 5eJFcFklVb9231/E3ahF5MMcDI7KdpjQKdEz/+/QkUVhwSqO+QS+xjCZ3JKVmi72ocgY5kMQSjs7
+ CnU3Vkswnvz2sY575f5VZdC7A9EkfupFeybqiokSL/UoBa9Z74L1QD5u7fk/CB2ffOy/knOaqu9M
+ jU02vQscbIqmk3QOioOvfgVRYRzDfnj2cyXvG6T1rC4we7GtQUEfyacFd6EvRr+eYRQHYqilFxY+
+ C3NKVBiu9E09fH2QcWWDSTfRyaGsL+KZNwpYGCN6yCqJqJMY7uMzxq3+Ecx6Ww+vAj0HbLbveTIz
+ fDDueIdjUxTaa0dmGx2m78JeU6J5dQk8TiQJh7U9utxWE7LPn/i77ggylKR9SqeqhKXDH+eNWKpN
+ /SCgmrnf/Qc6DzUUPAlbDjazCbhs7qBpykynMlI8ehauFjA7dVMOTKcW5c6UnY64mAykh3LBvXwi
+ LIjlrjIuKSKddsFYTaIZy4Zvun7pGU7uz9Qh2BYl/pOFic8JjqapLpwrwdUQz9MPWEmV3jR5NeVa
+ JQBh0uawl0Cg8hPs+cRD5TJxNzOPadp3mtqXN3cCIyIm263/n4zqghav48Y+3YiJRbPwEKhVXmMF
+ SH7pGU7uz9Qh2BYl/pOFic/qXKRF3uOx1VRdI9vLlOBy9jihx+Za/cV70jOJzN2r4A==
+X-Report-Abuse-To: spam@quarantine16.antispamcloud.com
+X-Complaints-To: abuse@master.antispamcloud.com
 
-On 9/2/26 12:22 PM, Flaviu Nistor wrote:
-> Add support for an optional label property per channel similar to other adc
-> chips. This allows assigning distinct names for each channel which can
-> match the schematic signal name.
-> 
-> Signed-off-by: Flaviu Nistor <flaviu.nistor@gmail.com>
-> ---
->  Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml b/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml
-> index 718f633c6e04..777a75c21d7f 100644
-> --- a/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml
-> +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml
-> @@ -66,6 +66,11 @@ patternProperties:
->            - minimum: 0
->              maximum: 7
->  
-> +      label:
-> +        $ref: /schemas/types.yaml#/definitions/string
-> +        description:
-> +          A descriptive name for this channel, like "vcc_ram" or "CH3".
-> +
+Add bindings for the Broadcom BCM2712 IOMMUs and their shared TLB cache.
 
-Apparently this chip has quite old dt-bindings. Normally, we would have
-included adc.yaml to get this and other channel properties.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Daniel Drake <dan@reactivated.net>
+---
+ .../bindings/iommu/brcm,bcm2712-iommu.yaml         | 54 ++++++++++++++++++++++
+ .../bindings/iommu/brcm,bcm2712-iommuc.yaml        | 40 ++++++++++++++++
+ 2 files changed, 94 insertions(+)
 
-And we would have used diff-channels and single-channel from that to
-describe which pins are associated with which channel rather than having
-a magic number for reg. And the ti,datarate looks suspicious as sampling
-frequency is usually we control at runtime.
+diff --git a/Documentation/devicetree/bindings/iommu/brcm,bcm2712-iommu.yaml b/Documentation/devicetree/bindings/iommu/brcm,bcm2712-iommu.yaml
+new file mode 100644
+index 000000000000..5ca8ce469ec3
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iommu/brcm,bcm2712-iommu.yaml
+@@ -0,0 +1,54 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iommu/brcm,bcm2712-iommu.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Broadcom BCM2712 IOMMU
++
++maintainers:
++  - Daniel Drake <dan@reactivated.net>
++  - Florian Fainelli <florian.fainelli@broadcom.com>
++  - Jim Quinlan <james.quinlan@broadcom.com>
++
++description:
++  The BCM2712 SoC features multiple independent IOMMU instances providing
++  address translation for multimedia hardware blocks, such as the VC6 display
++  pipeline, camera receivers, and ISP. Each IOMMU has its own page tables,
++  control registers, and local TLB, and is additionally linked to a centralized
++  L2 TLB (IOMMUC).
++
++properties:
++  compatible:
++    const: brcm,bcm2712-iommu
++
++  reg:
++    maxItems: 1
++
++  '#iommu-cells':
++    const: 0
++
++  brcm,iommu-cache:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description:
++      Phandle to the shared IOMMU cache (IOMMUC). Each IOMMU instance caches
++      translated descriptors in this centralized L2 TLB cache block and must
++      trigger cache invalidation commands on it when updating or unmapping page
++      table entries.
++
++required:
++  - compatible
++  - reg
++  - '#iommu-cells'
++  - brcm,iommu-cache
++
++additionalProperties: false
++
++examples:
++  - |
++    iommu@5200 {
++        compatible = "brcm,bcm2712-iommu";
++        reg = <0x5200 0x80>;
++        brcm,iommu-cache = <&iommuc>;
++        #iommu-cells = <0>;
++    };
+diff --git a/Documentation/devicetree/bindings/iommu/brcm,bcm2712-iommuc.yaml b/Documentation/devicetree/bindings/iommu/brcm,bcm2712-iommuc.yaml
+new file mode 100644
+index 000000000000..47c584ad667a
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iommu/brcm,bcm2712-iommuc.yaml
+@@ -0,0 +1,40 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iommu/brcm,bcm2712-iommuc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Broadcom BCM2712 Shared IOMMU Cache (IOMMUC)
++
++maintainers:
++  - Daniel Drake <dan@reactivated.net>
++  - Florian Fainelli <florian.fainelli@broadcom.com>
++  - Jim Quinlan <james.quinlan@broadcom.com>
++
++description:
++  The BCM2712 IOMMUC is a centralized Translation Lookaside Buffer (TLB) cache
++  which accelerates address translation across the SoC's IOMMU devices. If an
++  address mapping is not found in the IOMMU's local TLB cache, then this
++  IOMMUC is consulted as a L2 TLB. The SoC includes a single IOMMUC which is
++  shared between all IOMMUs, and it must be explicitly invalidated when
++  modifying or unmapping IOMMU page tables.
++
++properties:
++  compatible:
++    const: brcm,bcm2712-iommuc
++
++  reg:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    iommuc@5b00 {
++        compatible = "brcm,bcm2712-iommuc";
++        reg = <0x5b00 0x80>;
++    };
 
-Anyway, none of that is really relevant to this patch. We'll see what
-Jonathan says about using adc.yaml here vs. adding a label property.
-
->        ti,gain:
->          $ref: /schemas/types.yaml#/definitions/uint32
->          minimum: 0
-> @@ -125,6 +130,7 @@ examples:
->                  reg = <4>;
->                  ti,gain = <3>;
->                  ti,datarate = <5>;
-> +                label = "CH3";
->              };
->          };
->      };
+-- 
+2.55.0
 
