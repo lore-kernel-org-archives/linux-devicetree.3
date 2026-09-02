@@ -1,496 +1,207 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 445A146C85E
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 10:46:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60375459AD5
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 10:51:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788346008; cv=none; b=HUZRTaDESkMJgmWSMMQcSiJ3pT/8XzfkSziUMva3G5WEG8Rn+Z9xO38oKzXn2VYVOhEGE0L/PvaCA+xf4ChADnSyfQO+YreRkoGmgMlprGCeiwTgHDG5uYvq+jrICH07W3bnObShOnFQjhtDxNwF3ZJTgfNDXqsSwcuyiJ79jv8=
+	t=1788346274; cv=none; b=g0J1x9c3p9Jt7DPir1mn7cYH8VhHMK3ocENCglKa6PVJYijYb77o10oI56E191Y0AIPtHC4THExZLXthYbntfmTB4VMu0uoYMGpXyXhC2DgQf+wMVSY+ykoxENTzweBRZXhbL4HHal1q0EcXJu2ZMiKDb85DP/PKVeYVx7CulUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788346008; c=relaxed/simple;
-	bh=8gj9eO22nPx3TOQlZGxLu5kUg+rOAq3qffcZbiVG024=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kTLR73bh2qEC8Q6OIrmqPl7Af12NAnXE9xjwivIMbH5HUNOF3Xpk4X5D0BIf0M+QKVjXklURndxZWoL5OnNxfJbPPDQ4ZJbI7/J+yKuuDEI4LT+WJTd/dOOKx7/Z79XP5rC7EYes/SN6HJwaDfYNPKCp5DcsD7bq1Wbk+XHSdX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ffroot.co.za; spf=none smtp.mailfrom=ffroot.co.za; dkim=pass (2048-bit key) header.d=ffroot-co-za.20251104.gappssmtp.com header.i=@ffroot-co-za.20251104.gappssmtp.com header.b=eiEJbY18; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ffroot.co.za
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ffroot.co.za
+	s=arc-20240116; t=1788346274; c=relaxed/simple;
+	bh=b8dYj5Mb3BDa4NaGc2pKKYPn/Bn+O6BIzVzZSjPQZ/s=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=oRYPHY+mwopquQ35PeLXK645cwdSnbYyCnkv8r3OYbY6nw60w0UE1jVwovFyLN2cnVmc83X+/dK40rsIO2cq2KFbF/HpU53RCGXr3II542hwCo2/VXCMOmGFqjKWT9iQs30MrgKAMoada4aHRmylUtSsDq4cowXNMh7MKHSWT0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jkSTbENv; arc=none smtp.client-ip=209.85.128.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ffroot-co-za.20251104.gappssmtp.com header.i=@ffroot-co-za.20251104.gappssmtp.com header.b="eiEJbY18"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so9893345e9.1
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 03:46:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jkSTbENv"
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-49ccfad90f1so5814435e9.0
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 03:51:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ffroot-co-za.20251104.gappssmtp.com; s=20251104; t=1788345999; x=1788950799; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SYu2Vt6FrK2lOaa8h2hDcB0E3/wKfWbYEhbeZHIZOeY=;
-        b=eiEJbY18uvSvhke8zhgUmEkfj/rakujeymktTXAPvOsMQ17NfBWkZ2S/fQXtwiX8+4
-         Ulp57IwjVreaUZgOi1ynYIi8VDfONejARchzXIvkBaGthbOkdkRDYT0n/dB9DmP3nufo
-         zuOPV/YNhKUidmcCBS1hvjZJuRl907BkpCqX0mZlwlATWSxSfsA9UN8wgWAD3TSsOeHT
-         6BDssKNzUQMbqb1GeEe8FpGsoIqSzxzz1VTpIFGJEPWRROAo4jPATi5yqZj0HinKfu14
-         YhaDTz2Y4w4c0RIPuPVQDA5PmzKBv9/q8/rEbTeYNWrac8UW+OBH2gp4SweF2UZT/Ok8
-         C03A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788345999; x=1788950799;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=google.com; s=20251104; t=1788346267; x=1788951067; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SYu2Vt6FrK2lOaa8h2hDcB0E3/wKfWbYEhbeZHIZOeY=;
-        b=jubG5ci/PU23CvEIBTwF1SFltOe7L6K1lESMjejFaKF5cHmwMrz0nOqdmEzgvI0hyo
-         Ig7qgVJJsRGT+6Cg9sfnR5EM7WoZbKewjWWuLDFJfUWHZ4/rHcPH8GtJ8bUe8zalHDI9
-         I49V6/dWkoLGW+xmPA4l9EocznVg9pokwAez8zlprGGJaud8GY9NCSe5EvoZhP3bCLRn
-         VBKIGvLX4KlaxXemv24wl721hx5JFEWwSPYo87Hu4fFL/SgHJmVH7rTCgr/scHVsqMs9
-         CBxP/VBz4pKD1CO+J5qBe6EHX04fMhEKQHoPEfB5fTqYlYT55Vt7ok/BlGTeVvKwJsrf
-         VPZQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoeyMJXQnrpMZEFRi2sgyg5y/lAPVDpOsWsq5KVmHrtDq6dG6TjQxCR8iGNKNQWsqTtkVP9gJvVWTFB@vger.kernel.org
-X-Gm-Message-State: AFuF++k+04UdbM1amTCEQSfIUok64ZxxgBHYd9xbHjWSZcV8cKlEBmNC
-	vb1Q+RnSyM4Mo9H0IW030v5yWPdqDjQjwbGQz+c/pjw6I5yQiHBu78DG/zeUWxFwYuU=
-X-Gm-Gg: AR+sD10Cs+Ogi6mkGH9Z8MSdGr2jllGYq8EAwuOtsk1RNKEHGlRPFq3OfyIjkJJqXKc
-	gxr5sU4vD+4C3pHe+K6u1z3OTyf6qdgTdPafQ8AYL5XskS64CGRLg30Lt7PPMvaiWvZEMyIYl/M
-	+X31UjdLhctJB2W3+8pIz/5OYhVMZsZVAYgU/m8alD1QBjHQHT2i8pmX/0wfvEfRC4iOWww8CHp
-	6lldS1MA1ZpHoAUll6X4mgP1sgKlH42biUMMnz9VZwH4JssEMY8AAIn6wBFIiY5hNfvbVCmV+lC
-	N38fDpaeraccplunweo+jxCbEzQuLl5fBcnfvOaU/Qf7lszEWnszwfZOB0tdxJsg7i5JJhWdxhC
-	Z4+R9NyJ4EGnmr2ckBXgO2+auQVzyCE+4xVHSO7WgmD2RHMbj7Y7g3jeiT6hllrylCm3OVVytw+
-	huxcBBDf1AaC35AJo8beEgEkPLHhthCRlRWgKV5eIVgkjYqVMBBf6Jsfcr2lm4TN5HSgMk1ZHBt
-	p//aBbjMG2qXeW/TgipJ/A=
-X-Received: by 2002:a05:600c:6091:b0:499:a760:722f with SMTP id 5b1f17b1804b1-49ce583270emr71190875e9.13.1788345999154;
-        Wed, 02 Sep 2026 03:46:39 -0700 (PDT)
-Received: from dev-ag.figment.co.za ([102.33.165.38])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5936a5esm20127665e9.3.2026.09.02.03.46.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 03:46:38 -0700 (PDT)
-From: Andrew Gaylard <ag@ffroot.co.za>
-To: qinjian@cqplus1.com,
-	linux-arm-kernel@lists.infradead.org
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux@armlinux.org.uk,
-	devicetree@vger.kernel.org,
-	Andrew Gaylard <ag@ffroot.co.za>
-Subject: [PATCH 2/2] arm: sunplus: add Tibbo LTPP3G2 board support; update defconfig
-Date: Wed,  2 Sep 2026 12:45:45 +0200
-Message-ID: <20260902104545.67794-3-ag@ffroot.co.za>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260902104545.67794-1-ag@ffroot.co.za>
-References: <20260902104545.67794-1-ag@ffroot.co.za>
+        bh=Fj637K00n75DiMuZkcJnY4d1CwmzO8C83BzSZ9fxg50=;
+        b=jkSTbENvdw70mma+cEbL08uv5RzY4c817tlniRpqsLTqGRTMdKsdCU+/YXk8pdXX7X
+         w7/3MA2rr2SWzLpBTNbFZDWNSwlODlMMenj8PcF9qFDO7dGC3XEJBEJfjSCeNLODwTBx
+         hqHK3m9v1ZEiYVNDx78UkQAwes/nLUzDZ2f38mII62rrVlX4F60Ayc7yB+bhNJx/+ibE
+         8XZCY9S5m0fzGQnrzbrghV7Vou1k727e0j5oe5Rap0fN1Ku/3VjSnwk58byjmJS6f1ui
+         qeU5um2HBNejnSs4tYgHBt3lcuadYldhsXU6PtcVViSqmQDrY2xJO0XeKou79MDRTvHE
+         w4Wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788346267; x=1788951067;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Fj637K00n75DiMuZkcJnY4d1CwmzO8C83BzSZ9fxg50=;
+        b=IPcSLleT8YGXJ5ZtMpNrcp47AzfYj27iyl82GuAJKCGOxa0ja6v8ecPICn7yjuIMaG
+         fTsFHu31EPEjPIdbaM+c1aLlD6emxtnaebH2GDUG43Ah1mpy5M+Vqz+/gtbrbblvjMFe
+         2Txc7Y2gQ4eP/SR5nItQ0CVnUKxF9oNNLj9toL9zMWEnVZt4Hv2neoIoSPHUrhxWRMU8
+         7UK+FHIUaW3auxkIqGA864EXKeNkcuMsLnwBBO1+OON3DYH5EZtmujQ+raxvhDfXztOl
+         3IfcduZQdZ6Q4V+E3nIVdNDYJd2D3/9XNE++Vt27RuLr02EEgEVE1v25PgVlFZ5jLzkr
+         eGyA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp2G1RnZT/Qj5e5J2MCW5jCfgWF8VHQaOX1GBDdjhPJjrNVrQKR2J8bP4NQEj+oUf7+wSCMvxE9VK03@vger.kernel.org
+X-Gm-Message-State: AFuF++n6CieDZWqh6zixAkiKToUblv6MwTO3LcHWE2taAnsLLpuEtRzS
+	W+hSANTLWORZitVpBNnDv1NE224OoSFPhUa73SKry4FDrvKpjLcstzgj+8qyc3QufVcWuaU+vjG
+	UfWDpyb7H2e4dL4RFOA8EpA==
+X-Received: from wmee9.prod.google.com ([2002:a05:600c:2189:b0:49c:e2b5:5573])
+ (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:3587:b0:49c:cee2:1697 with SMTP id 5b1f17b1804b1-49ce583bc25mr63950535e9.16.1788346266751;
+ Wed, 02 Sep 2026 03:51:06 -0700 (PDT)
+Date: Wed,  2 Sep 2026 11:47:02 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.970.g62bdec98f9-goog
+Message-ID: <20260902104712.2399797-1-vdonnefort@google.com>
+Subject: [PATCH v9 00/10] arm64: Unmap FF-A lent memory from direct map
+From: Vincent Donnefort <vdonnefort@google.com>
+To: catalin.marinas@arm.com, will@kernel.org, rppt@kernel.org, 
+	akpm@linux-foundation.org, sudeep.holla@kernel.org, jenswi@kernel.org, 
+	robh@kernel.org
+Cc: mark.rutland@arm.com, sumit.garg@kernel.org, ardb@kernel.org, 
+	thierry.reding@kernel.org, david@kernel.org, danielmentz@google.com, 
+	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, 
+	op-tee@lists.trustedfirmware.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Add a device tree source for the Tibbo LTPP3G2 board based on the
-SP7021 SoC. The board features a quad-core ARM Cortex-A7 processor,
-4GB eMMC, 10/100 Ethernet via the L2SW switch, and a PWM-controlled
-LED.
+This series is a follow-up to the discussion that has started here [1].
+While standalone, it also provides primitives reusable for the VPR DMA
+heap.
 
-Enable CONFIG_ARM_ERRATA_814220 to work around a known Cortex-A7 r0p5
-erratum.
+When memory is lent to the Secure world via FF-A, CPU speculative
+accesses from NS to the lent pages can still occur as long as it retains
+a cacheable mapping to it.
 
-Enable CGROUP and SECURITY so that the shipped rootfs will boot.
+Ideally, lent memory would be "no-map" but that would mean giving up
+MiBs of useful memory, so let's try to do better with the help of a CMA
+pool.
 
-Signed-off-by: Andrew Gaylard <ag@ffroot.co.za>
----
- arch/arm/boot/dts/sunplus/Makefile            |   5 +-
- .../dts/sunplus/sunplus-sp7021-ltpp3g2.dts    | 301 ++++++++++++++++++
- arch/arm/configs/sp7021_defconfig             |  30 ++
- 3 files changed, 333 insertions(+), 3 deletions(-)
- create mode 100644 arch/arm/boot/dts/sunplus/sunplus-sp7021-ltpp3g2.dts
+On arm64, modifying the direct map at runtime is generally restricted
+because the linear map defaults to block mapping and splitting blocks at
+runtime may trigger fatal page fault, unless the CPU implements BBML3
+or the entire direct map was mapped at page granularity from boot.
+Forcing last-level mappings system-wide incurs a severe penalty we want
+to avoid. Instead, this series introduces targeted last-level mappings
+for designated memory regions, along with the "arm,ffa-lend-pool" CMA
+driver to manage unmapping and remapping on lend/reclaim transitions:
 
-diff --git a/arch/arm/boot/dts/sunplus/Makefile b/arch/arm/boot/dts/sunplus/Makefile
-index 868f2ea0c127..25ba2e530c35 100644
---- a/arch/arm/boot/dts/sunplus/Makefile
-+++ b/arch/arm/boot/dts/sunplus/Makefile
-@@ -1,5 +1,4 @@
- # SPDX-License-Identifier: GPL-2.0
- dtb-$(CONFIG_SOC_SP7021) += \
--	sunplus-sp7021-demo-v3.dtb
--dtb-$(CONFIG_SOC_SP7021) += \
--	sunplus-sp7021-demo-v3.dtb
-+	sunplus-sp7021-demo-v3.dtb \
-+	sunplus-sp7021-ltpp3g2.dtb
-diff --git a/arch/arm/boot/dts/sunplus/sunplus-sp7021-ltpp3g2.dts b/arch/arm/boot/dts/sunplus/sunplus-sp7021-ltpp3g2.dts
-new file mode 100644
-index 000000000000..c42e6f779ce3
---- /dev/null
-+++ b/arch/arm/boot/dts/sunplus/sunplus-sp7021-ltpp3g2.dts
-@@ -0,0 +1,301 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Device Tree Source for Tibbo LTPP board G2
-+ *
-+ * Copyright (C) 2021 Sunplus Technology Co.
-+ */
-+
-+/dts-v1/;
-+
-+#include "sunplus-sp7021-achip.dtsi"
-+
-+/ {
-+	compatible = "tibbo,ltpp3g2", "sunplus,sp7021";
-+	model = "Tibbo LTPP3G2";
-+
-+	aliases {
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		bootargs = "console=ttySUP0,115200 earlycon root=/dev/mmcblk0p8 rootwait";
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	memory@0 {
-+		device_type = "memory";
-+		reg = <0x00000000 0x20000000>; /* 512MB */
-+	};
-+
-+	led {
-+		compatible = "gpio-leds";
-+		pinctrl-names = "default", "sleep";
-+		pinctrl-0 = <&gpio_leds_pins>;
-+		pinctrl-1 = <&leds_s0_slp>;
-+		system-led {
-+			label = "system-led";
-+			gpios = <&pctl 6 GPIO_ACTIVE_HIGH>;
-+			default-state = "off";
-+			linux,default-trigger = "heartbeat";
-+		};
-+		led@2 {
-+			label = "SG";
-+			gpios = <&pctl 7 GPIO_ACTIVE_HIGH>;
-+			linux,default-trigger = "heartbeat";
-+			default-state = "off";
-+		};
-+	};
-+
-+	i2c_tps: i2c-tps { /* eeprom */
-+		compatible = "i2c-gpio";
-+		i2c-gpio,scl-open-drain;
-+		i2c-gpio,sda-open-drain;
-+		i2c-gpio,delay-us = <1>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pins_i2ctps>;
-+		gpios = <&pctl 2 GPIO_ACTIVE_HIGH  /* SDA */
-+			 &pctl 1 GPIO_ACTIVE_HIGH  /* SCL */
-+			>;
-+		eeprom: eeprom@50 {
-+			compatible = "at,24c16";
-+			reg = <0x50>;
-+			pagesize = <16>;
-+		};
-+	};
-+};
-+
-+&pwm {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pins_pwm>;
-+	status = "okay";
-+};
-+
-+&spi_controller0 {
-+	spi-cpha;
-+	spi-cpol;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pins_spi0>;
-+	status = "disabled";
-+};
-+
-+&spi_controller1 {
-+	spi-cpha;
-+	spi-cpol;
-+	status = "disabled";
-+};
-+
-+&spi_controller2 {
-+	spi-cpha;
-+	spi-cpol;
-+	status = "disabled";
-+};
-+
-+&spi_controller3 {
-+	spi-slave;
-+	status = "disabled";
-+};
-+
-+&uart1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pins_uart1>;
-+	status = "disabled";
-+};
-+
-+&uart2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pins_uart2>;
-+	status = "disabled";
-+};
-+
-+&uart3 {
-+	status = "disabled";
-+};
-+
-+&uart4 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pins_btuart &pins_bt_reset>;
-+	status = "disabled";
-+};
-+
-+&l2sw {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&l2sw_ltpp3g2_pins>;
-+	status = "okay";
-+
-+	ethernet-ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			phy-handle = <&eth_phy0>;
-+			phy-mode = "rmii";
-+			nvmem-cells = <&mac_addr0>;
-+			nvmem-cell-names = "mac-address";
-+		};
-+
-+		port@1 {
-+			reg = <1>;
-+			phy-handle = <&eth_phy1>;
-+			phy-mode = "rmii";
-+			nvmem-cells = <&mac_addr1>;
-+			nvmem-cell-names = "mac-address";
-+		};
-+	};
-+
-+	mdio {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		eth_phy0: ethernet-phy@0 {
-+			reg = <0>;
-+		};
-+		eth_phy1: ethernet-phy@1 {
-+			reg = <1>;
-+		};
-+	};
-+};
-+
-+
-+&mmc0 {
-+	status = "okay";
-+};
-+
-+&rtc {
-+	charging-mode = <0xE>;
-+	/*
-+	 *      0xE     Disable
-+	 *      0x1     0.86mA (2K Ohm with diode)
-+	 *      0x5     1.81mA (250 Ohm with diode)
-+	 *      0x9     2.07mA (50 Ohm with diode)
-+	 *      0xD     16.0mA (0 Ohm with diode)
-+	 *      0x3     1.36mA (2K Ohm without diode)
-+	 *      0x7     3.99mA (250 Ohm without diode)
-+	 *      0xB     4.41mA (50 Ohm without diode)
-+	 *      0xF     16.0mA (0 Ohm without diode)
-+	 */
-+};
-+
-+&pctl {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pins_gpio_nobinded>;
-+
-+	pins_pwm: pinmux_pwm-pins {
-+		sunplus,pins = <
-+			SPPCTL_IOPAD(48, SPPCTL_PCTL_G_PMUX, MUXF_PWM0, 0)
-+		>;
-+	};
-+
-+	pins_gpio_nobinded: pinmux_gpio_nobinded-pins {
-+		sunplus,pins = <
-+			SPPCTL_IOPAD(30, SPPCTL_PCTL_G_GPIO, 0, 0)   /* was L2SW_LED_FLASH1 */
-+			SPPCTL_IOPAD(39, SPPCTL_PCTL_G_GPIO, 0, 0)   /* was L2SW_LED_ON1  */
-+		>;
-+	};
-+
-+	pins_i2ctps: pinmux_i2ctps-pins {
-+		sunplus,pins = <
-+			SPPCTL_IOPAD(1, SPPCTL_PCTL_G_GPIO, 0,
-+				     SPPCTL_PCTL_L_OUT | SPPCTL_PCTL_L_ONV | SPPCTL_PCTL_L_ODR)
-+			SPPCTL_IOPAD(2, SPPCTL_PCTL_G_GPIO, 0,
-+				     SPPCTL_PCTL_L_OUT | SPPCTL_PCTL_L_ONV | SPPCTL_PCTL_L_ODR)
-+		>;
-+	};
-+
-+	l2sw_ltpp3g2_pins: pinmux_l2sw_ltpp3g2-pins {
-+		sunplus,pins = <
-+			SPPCTL_IOPAD(63, SPPCTL_PCTL_G_PMUX, MUXF_L2SW_CLK_OUT, 0)
-+			SPPCTL_IOPAD(71, SPPCTL_PCTL_G_PMUX, MUXF_L2SW_MAC_SMI_MDC, 0)
-+			SPPCTL_IOPAD(64, SPPCTL_PCTL_G_PMUX, MUXF_L2SW_MAC_SMI_MDIO, 0)
-+			SPPCTL_IOPAD(62, SPPCTL_PCTL_G_PMUX, MUXF_L2SW_P0_MAC_RMII_TXEN, 0)
-+			SPPCTL_IOPAD(61, SPPCTL_PCTL_G_PMUX, MUXF_L2SW_P0_MAC_RMII_TXD0, 0)
-+			SPPCTL_IOPAD(60, SPPCTL_PCTL_G_PMUX, MUXF_L2SW_P0_MAC_RMII_TXD1, 0)
-+			SPPCTL_IOPAD(59, SPPCTL_PCTL_G_PMUX, MUXF_L2SW_P0_MAC_RMII_CRSDV, 0)
-+			SPPCTL_IOPAD(58, SPPCTL_PCTL_G_PMUX, MUXF_L2SW_P0_MAC_RMII_RXD0, 0)
-+			SPPCTL_IOPAD(57, SPPCTL_PCTL_G_PMUX, MUXF_L2SW_P0_MAC_RMII_RXD1, 0)
-+			SPPCTL_IOPAD(55, SPPCTL_PCTL_G_PMUX, MUXF_L2SW_P1_MAC_RMII_TXEN, 0)
-+			SPPCTL_IOPAD(54, SPPCTL_PCTL_G_PMUX, MUXF_L2SW_P1_MAC_RMII_TXD0, 0)
-+			SPPCTL_IOPAD(53, SPPCTL_PCTL_G_PMUX, MUXF_L2SW_P1_MAC_RMII_TXD1, 0)
-+			SPPCTL_IOPAD(52, SPPCTL_PCTL_G_PMUX, MUXF_L2SW_P1_MAC_RMII_CRSDV, 0)
-+			SPPCTL_IOPAD(51, SPPCTL_PCTL_G_PMUX, MUXF_L2SW_P1_MAC_RMII_RXD0, 0)
-+			SPPCTL_IOPAD(50, SPPCTL_PCTL_G_PMUX, MUXF_L2SW_P1_MAC_RMII_RXD1, 0)
-+		>;
-+		sunplus,zerofunc = <
-+			MUXF_L2SW_LED_FLASH0
-+			MUXF_L2SW_LED_ON0
-+			MUXF_L2SW_LED_FLASH1
-+			MUXF_L2SW_LED_ON1
-+			MUXF_DAISY_MODE
-+			MUXF_L2SW_P0_MAC_RMII_RXER
-+			MUXF_L2SW_P1_MAC_RMII_RXER
-+			GROP_SPI_FLASH
-+		>;
-+	};
-+
-+	gpio_leds_pins: pinmux_gpio_leds-pins {
-+		sunplus,pins = <
-+			SPPCTL_IOPAD(6, SPPCTL_PCTL_G_GPIO, 0, SPPCTL_PCTL_L_OUT)
-+			SPPCTL_IOPAD(7, SPPCTL_PCTL_G_GPIO, 0, SPPCTL_PCTL_L_OUT)
-+		>;
-+	};
-+
-+	leds_s0_slp: pinmux_user_leds_s0_slp-pins {
-+		sunplus,pins = <
-+			SPPCTL_IOPAD(6, SPPCTL_PCTL_G_GPIO, 0, 0)
-+			SPPCTL_IOPAD(7, SPPCTL_PCTL_G_GPIO, 0, 0)
-+		>;
-+	};
-+
-+	pins_uart1: pinmux_uart1-pins {
-+		sunplus,pins = <
-+			SPPCTL_IOPAD(8, SPPCTL_PCTL_G_PMUX, MUXF_UA1_TX, 0)
-+			SPPCTL_IOPAD(9, SPPCTL_PCTL_G_PMUX, MUXF_UA1_RX, 0)
-+			SPPCTL_IOPAD(10, SPPCTL_PCTL_G_PMUX, MUXF_UA1_RTS, 0)
-+			SPPCTL_IOPAD(11, SPPCTL_PCTL_G_PMUX, MUXF_UA1_CTS, 0)
-+		>;
-+	};
-+
-+	pins_uart2: pinmux_uart2-pins {
-+		sunplus,pins = <
-+			SPPCTL_IOPAD(12, SPPCTL_PCTL_G_PMUX, MUXF_UA2_TX, 0)
-+			SPPCTL_IOPAD(13, SPPCTL_PCTL_G_PMUX, MUXF_UA2_RX, 0)
-+			SPPCTL_IOPAD(14, SPPCTL_PCTL_G_PMUX, MUXF_UA2_RTS, 0)
-+			SPPCTL_IOPAD(15, SPPCTL_PCTL_G_PMUX, MUXF_UA2_CTS, 0)
-+		>;
-+	};
-+
-+	pins_uart3: pinmux_uart3-pins {
-+		sunplus,pins = <
-+			SPPCTL_IOPAD(16, SPPCTL_PCTL_G_PMUX, MUXF_UA3_TX, 0)
-+			SPPCTL_IOPAD(17, SPPCTL_PCTL_G_PMUX, MUXF_UA3_RX, 0)
-+			SPPCTL_IOPAD(18, SPPCTL_PCTL_G_PMUX, MUXF_UA3_RTS, 0)
-+			SPPCTL_IOPAD(19, SPPCTL_PCTL_G_PMUX, MUXF_UA3_CTS, 0)
-+		>;
-+	};
-+
-+	/* AP6256 Bluetooth */
-+	pins_btuart: pinmux_btuart-pins {
-+		sunplus,pins = <
-+			SPPCTL_IOPAD(40, SPPCTL_PCTL_G_PMUX, MUXF_UA4_RX, 0)
-+			SPPCTL_IOPAD(41, SPPCTL_PCTL_G_PMUX, MUXF_UA4_TX, 0)
-+			SPPCTL_IOPAD(56, SPPCTL_PCTL_G_PMUX, MUXF_UA4_RTS, SPPCTL_PCTL_L_ONV)
-+			SPPCTL_IOPAD(49, SPPCTL_PCTL_G_PMUX, MUXF_UA4_CTS, 0)
-+		>;
-+	};
-+
-+	pins_bt_reset: pinmux_bt_reset-pins {
-+		sunplus,pins = < SPPCTL_IOPAD(82, SPPCTL_PCTL_G_GPIO, 0, 0) >;
-+	};
-+
-+	pins_spi0: pinmux_spi0-pins {
-+		sunplus,pins = <
-+			/*SPPCTL_IOPAD(26, SPPCTL_PCTL_G_PMUX, MUXF_SPI0S_EN, 0) */
-+			/*SPPCTL_IOPAD(23, SPPCTL_PCTL_G_PMUX, MUXF_SPI0S_DO, 0) */
-+			/*SPPCTL_IOPAD(25, SPPCTL_PCTL_G_PMUX, MUXF_SPI0S_DI, 0) */
-+			/*SPPCTL_IOPAD(27, SPPCTL_PCTL_G_PMUX, MUXF_SPI0S_CLK, 0) */
-+		>;
-+	};
-+
-+};
-diff --git a/arch/arm/configs/sp7021_defconfig b/arch/arm/configs/sp7021_defconfig
-index ec723401b440..e0c0692f455d 100644
---- a/arch/arm/configs/sp7021_defconfig
-+++ b/arch/arm/configs/sp7021_defconfig
-@@ -1,4 +1,7 @@
- CONFIG_SYSVIPC=y
-+CONFIG_CGROUPS=y
-+CONFIG_CGROUP_SCHED=y
-+CONFIG_MEMCG=y
- CONFIG_NO_HZ_IDLE=y
- CONFIG_HIGH_RES_TIMERS=y
- CONFIG_PREEMPT=y
-@@ -16,6 +19,7 @@ CONFIG_PERF_EVENTS=y
- CONFIG_ARCH_SUNPLUS=y
- # CONFIG_VDSO is not set
- CONFIG_SMP=y
-+CONFIG_ARM_ERRATA_814220=y
- CONFIG_THUMB2_KERNEL=y
- CONFIG_ARCH_FORCE_MAX_ORDER=11
- CONFIG_VFP=y
-@@ -24,11 +28,16 @@ CONFIG_MODULES=y
- CONFIG_MODULE_UNLOAD=y
- CONFIG_MODVERSIONS=y
- # CONFIG_CORE_DUMP_DEFAULT_ELF_HEADERS is not set
-+CONFIG_NET=y
-+CONFIG_UNIX=y
-+CONFIG_INET=y
- CONFIG_UEVENT_HELPER=y
- CONFIG_UEVENT_HELPER_PATH="/sbin/hotplug"
- CONFIG_DEVTMPFS=y
- CONFIG_DEVTMPFS_MOUNT=y
- CONFIG_BLK_DEV_LOOP=y
-+CONFIG_NETDEVICES=y
-+CONFIG_SP7021_EMAC=y
- CONFIG_INPUT_SPARSEKMAP=y
- CONFIG_INPUT_EVDEV=y
- # CONFIG_INPUT_KEYBOARD is not set
-@@ -36,6 +45,25 @@ CONFIG_INPUT_EVDEV=y
- # CONFIG_LEGACY_PTYS is not set
- # CONFIG_HW_RANDOM is not set
- # CONFIG_HWMON is not set
-+CONFIG_SPI=y
-+CONFIG_SPI_SUNPLUS_SP7021=y
-+CONFIG_I2C=y
-+CONFIG_I2C_CHARDEV=y
-+CONFIG_EEPROM_AT24=y
-+CONFIG_MMC=y
-+CONFIG_MMC_SUNPLUS=y
-+CONFIG_WATCHDOG=y
-+CONFIG_WATCHDOG_SYSFS=y
-+CONFIG_SUNPLUS_WATCHDOG=y
-+CONFIG_RTC_CLASS=y
-+CONFIG_RTC_DRV_SUNPLUS=y
-+CONFIG_NVMEM=y
-+CONFIG_NVMEM_SUNPLUS_OCOTP=y
-+CONFIG_NEW_LEDS=y
-+CONFIG_LEDS_CLASS=y
-+CONFIG_LEDS_GPIO=y
-+CONFIG_LEDS_TRIGGERS=y
-+CONFIG_LEDS_TRIGGER_HEARTBEAT=y
- # CONFIG_IOMMU_SUPPORT is not set
- CONFIG_RESET_CONTROLLER=y
- CONFIG_EXT4_FS=y
-@@ -51,6 +79,8 @@ CONFIG_NLS_CODEPAGE_437=y
- CONFIG_NLS_ASCII=y
- CONFIG_NLS_ISO8859_1=y
- CONFIG_NLS_UTF8=y
-+CONFIG_SECURITY=y
-+CONFIG_SECURITY_NETWORK=y
- CONFIG_PRINTK_TIME=y
- CONFIG_DYNAMIC_DEBUG=y
- CONFIG_MAGIC_SYSRQ=y
+1. memblock & OF reserved memory ("ll-map"):
+   - Introduce MEMBLOCK_LLMAP and the DT "ll-map" property for reserved-memory
+     nodes to force last-level (PTE) mappings only for a specific region.
+
+2. set_memory infrastructure:
+   - Introduce can_set_direct_map_range() to check if a specific address
+     range is mapped with last-level entries and can be modified safely.
+   - Introduce __set_direct_map_*() variants that bypass redundant checks
+     when the caller has already validated the range.
+
+3. "arm,ffa-lend-pool" driver
+   - Introduce the "arm,ffa-lend-pool" CMA reserved-memory driver, which
+     unmaps pages prior to lending (ffa_prepare_lend()) and restores them
+     when reclaimed (ffa_lend_reclaimed()).
+
+4. Optee support
+   - Hook OP-TEE dynamic protected memory pools to "arm,ffa-lend-pool" for
+     both SMC (via DT memory-region phandle) and FF-A (via
+     ffa_lend_pool_attach()) transports.
+
+Testing:
+========
+
+Tested with QEMU v8 using OP-TEE OS (built with CFG_CORE_DYN_PROTMEM=y)
+under both SMC and FF-A transports [2]
+
+static void dump_direct_map(const char *label)
+{
+	printf("\n=== %s ===\n", label);
+	fflush(stdout);
+	system("sed -n '/Linear Mapping start/,/Linear Mapping end/p' /sys/kernel/debug/kernel_page_tables");
+	fflush(stdout);
+}
+
+int main(int argc, char *argv[])
+{
+	int heap_fd;
+	int dmabuf_fd;
+	struct dma_heap_allocation_data data = { 0 };
+	size_t size = 1024 * 1024; /* 1MB */
+
+	if (argc > 1)
+		size = strtoul(argv[1], NULL, 0);
+
+	dump_direct_map("BEFORE ALLOCATION");
+
+	heap_fd = open("/dev/dma_heap/protected,secure-video", O_RDWR);
+	if (heap_fd < 0) {
+		perror("open /dev/dma_heap/protected,secure-video");
+		return 1;
+	}
+
+	printf("\nOpened /dev/dma_heap/protected,secure-video\n");
+	printf("Allocating %zu bytes of protected memory via DMA heap...\n", size);
+
+	data.len = size;
+	data.fd_flags = O_RDWR | O_CLOEXEC;
+	if (ioctl(heap_fd, DMA_HEAP_IOCTL_ALLOC, &data) < 0) {
+		perror("ioctl DMA_HEAP_IOCTL_ALLOC");
+		close(heap_fd);
+		return 1;
+	}
+
+	dmabuf_fd = data.fd;
+	printf("Successfully allocated %zu bytes! dmabuf_fd = %d\n", size, dmabuf_fd);
+
+	dump_direct_map("DURING LEND (EXPECT HOLE IN DIRECT MAP)");
+
+	printf("\nReleasing dmabuf_fd...\n");
+	close(dmabuf_fd);
+	close(heap_fd);
+
+	dump_direct_map("AFTER RECLAIM (RESTORED DIRECT MAP)");
+
+	return 0;
+}
+
+[1] https://lore.kernel.org/all/20260807-tegra-vpr-v4-7-5510d16af89e@nvidia.com/
+[2] https://optee.readthedocs.io/en/latest/building/gits/build.html#qemu-v8
+
+Vincent Donnefort (10):
+  memblock: Introduce MEMBLOCK_LLMAP
+  of: reserved_mem: Introduce "ll-map" property
+  set_memory.h: Introduce can_set_direct_map_range()
+  set_memory.h: Introduce __set_direct_map*()
+  arm64: can_set_direct_map() if BBML3
+  arm64: Implement can_set_direct_map_range()
+  arm64: Implement __set_direct_map*()
+  arm64: Add support for MEMBLOCK_LLMAP
+  firmware: arm_ffa: Introduce ffa-lend-pool
+  optee: Add support for arm,ffa-lend-pool
+
+ arch/arm64/include/asm/set_memory.h  |   7 +
+ arch/arm64/mm/mmu.c                  |  23 ++-
+ arch/arm64/mm/pageattr.c             |  67 +++++++-
+ drivers/firmware/arm_ffa/Kconfig     |   5 +
+ drivers/firmware/arm_ffa/Makefile    |   1 +
+ drivers/firmware/arm_ffa/lend_pool.c | 223 +++++++++++++++++++++++++++
+ drivers/of/of_reserved_mem.c         | 104 ++++++++++---
+ drivers/tee/optee/ffa_abi.c          |  13 +-
+ drivers/tee/optee/protmem.c          |   8 -
+ drivers/tee/optee/smc_abi.c          |  17 +-
+ drivers/tee/tee_shm.c                |  11 +-
+ include/linux/arm_ffa.h              |  21 +++
+ include/linux/memblock.h             |   9 ++
+ include/linux/set_memory.h           |  39 +++++
+ mm/memblock.c                        |  50 ++++++
+ 15 files changed, 545 insertions(+), 53 deletions(-)
+ create mode 100644 drivers/firmware/arm_ffa/lend_pool.c
+
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
 -- 
-2.53.0
+2.55.0.970.g62bdec98f9-goog
 
