@@ -1,42 +1,42 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBE7644A40F;
-	Wed,  2 Sep 2026 22:54:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 982874534AE;
+	Wed,  2 Sep 2026 22:54:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788389660; cv=none; b=TAmfD01pQMm+TSoyRPoP2pFHFUstx5Wk2bNWQzLzJsW4N5JIU3Z0ls4eNfXe/ehBRRwLCrn6/Zb1Pb5bvtpkvKfgf30T17qcqrV69fZJPyC0boOndqcU2BxvbdkiHlkkfaLe0niYRJ4TzBnusWLrDf1j2JaBio4zj/tFGOHFQf0=
+	t=1788389667; cv=none; b=l3w3Pqo9PhucQFIgmEKm01v9uX+3HWHK/3SWVJms0czImxaoPB74tsSXijuNJVTdDedKGVzqbbikTJe4eifrmuELXZjAIby0FBOzNcbZdJ7gV9/vXVox/eD1FXR4h9+UB/pBs0beeCQxPqhCghVqhPM9rxGDXsvFaOUX7R3sTG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788389660; c=relaxed/simple;
-	bh=9V7WhKbsmc9tgRuecpmZwkpZe7KyYaaNw7OQjdiTW90=;
+	s=arc-20240116; t=1788389667; c=relaxed/simple;
+	bh=7aCaXpMvMb9vkbj+VVL05e7On5ntn/9+Li0ZFGr1E6s=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OahEmTUhH14rdv0W/bHl21epeoCii92bh/fzhSnxasHEy21f+CdeAi0hBrokmak7N3SIaK1K8irs563ssdw84AQXuvDpPZtOsIVL7idHlnrjoQv2FOC8WtM6a8vI+RnsJ6LZlXw9aejHgB35yuqfuS4j171/jQ0ceLIm7m2hj2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=LxWysLcK; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=tHGgP/2o+uDHzdMXbI6r5HqReie518GQB88OzL8qJESurJ8o4FHZI5iBNg3wtvTyCKah+LYBicV5TR9i5vKm/tLOuM3aMjbbLwlmskyD5yvd9REl9ESn4jCV90IsLAED8MAcU7FlM5XfPkHn3hQasbxqlMluYYmI74uCxIPHLzM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=OllBWlZ9; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="LxWysLcK"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="OllBWlZ9"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1788389654;
-	bh=9V7WhKbsmc9tgRuecpmZwkpZe7KyYaaNw7OQjdiTW90=;
+	s=mail; t=1788389660;
+	bh=7aCaXpMvMb9vkbj+VVL05e7On5ntn/9+Li0ZFGr1E6s=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=LxWysLcKxIbT+yzJQAZjF+aDgkBIXMe8i34A0YEfYEMKUPYSyVFlhdyq57l8AkhCR
-	 dmBEPEZYN+cbN1h6as4yAN8SnF/dVukSHVfSuATtHlP02V2Sc8/ovGRYPF60qUkeJj
-	 90w3ajhnE2AYMwKtkbKl0Gvjt5rL1Ztt/gBLN2dFV/bkK1AignqKGtWQYw6BnuewJl
-	 MeF4czs/uyyBGo9hVnD00/0p7ns2nTQEe28JpT5Y8y8EqK8eVnwxlR6lk0UAgbVzlk
-	 0FgWcVXlvGIjM3KvH09vYgWp06zFh1Dw3ebPPuLHWpGIw4q5eexPnmmgOWdqpWRrXW
-	 NkZP53XkG4keQ==
+	b=OllBWlZ9hh3Qva0dAJ4av0fooiXkncf9VRN/xt91UQyvhkwBSUj3C+um4s3TciuyF
+	 Kqiy82gK5iNW76g2XOI3MjUMTONh/6vsVdYNaO52d6nasP1mlLnPvku1GeN+EFKrDt
+	 bEsShwsZdpAhD3ScvUbk873dpTxy4GXcP7ai649ODsQ9R0oU+QMmcjR4py9K024x9Y
+	 F+n7Hd2wfylh1UVMvl3c0OooaMMTjDGUSFwWexLP3wkbqI2g/XhQlICT9ahyS+HMs4
+	 x1zmy1B+SBGVFMmqGGezWnsvSPalqS6TC4bT5Jrv48YbWOuMY3slW8+XjiMEB0BANw
+	 g+Kt8Q3yP5Dxw==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id E00BF17E0DD8;
-	Thu, 03 Sep 2026 00:54:13 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 1427417E15AD;
+	Thu, 03 Sep 2026 00:54:20 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 03 Sep 2026 01:54:10 +0300
-Subject: [PATCH v4 03/14] drm/rockchip: vop2: Balance state on
- atomic_enable() error paths
+Date: Thu, 03 Sep 2026 01:54:19 +0300
+Subject: [PATCH v4 12/14] drm/rockchip: dw_hdmi_qp: Support 10-bit YUV422
+ output format
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-dw-hdmi-qp-yuv-v4-3-fb45bf4147eb@collabora.com>
+Message-Id: <20260903-dw-hdmi-qp-yuv-v4-12-fb45bf4147eb@collabora.com>
 References: <20260903-dw-hdmi-qp-yuv-v4-0-fb45bf4147eb@collabora.com>
 In-Reply-To: <20260903-dw-hdmi-qp-yuv-v4-0-fb45bf4147eb@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -66,218 +66,57 @@ To: Sandy Huang <hjc@rock-chips.com>,
 Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>, 
  dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
- Igor Paunovic <royalnet026@gmail.com>
+ linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
 X-Mailer: b4 0.15.2
 
-vop2_crtc_atomic_enable() prepares vp->dclk and, for the first CRTC,
-calls vop2_enable(), incrementing the shared vop2->enable_count before
-programming VOP2 registers.  Two later failure points return early with
-only vop2_unlock(), leaking the dclk prepare, the enable_count
-increment, and the core clocks / PM runtime reference from
-vop2_enable().
+Rockchip DW HDMI QP encoder supports YUV 4:2:2 output through
+ROCKCHIP_OUT_MODE_YUV422, but was limited to 8-bit depth via
+MEDIA_BUS_FMT_UYVY8_1X16.  Add support for its 10-bit counterpart
+MEDIA_BUS_FMT_UYVY10_1X20, which carries two 10-bit components per clock
+cycle on a 20-bit wide bus.
 
-Since the disable path decrements enable_count unconditionally, the
-leaked increment skews the count, causing an underflow or premature
-shutdown of core clocks and PM runtime while another CRTC is active.
+YUV 4:2:2 always transmits two 12-bit components per pixel, regardless
+of the color depth.  From a clock-rate perspective this is equivalent to
+three 8-bit RGB components, so configure the HDMI PHY with 8 bpc when
+YUV 4:2:2 is in use to keep its output clock aligned with the TMDS
+character rate.  Otherwise the PHY PLL output would be scaled by bpc/8
+for higher color depths, producing a clock rate that confuses downstream
+consumers such as the VOP2 display controller.
 
-Moreover, cleaning up on the enable error paths alone is insufficient.
-A CRTC whose atomic_enable() bailed is still committed as active, so
-vop2_crtc_atomic_disable() still runs its full teardown, releasing the
-same dclk prepare and enable_count a second time, thus underflowing both
-counts and, where vop2_enable() ran, touching VOP registers with core
-clocks gated.
-
-Fix this by reverting exactly what was set up on failure, and track the
-per-VP bring-up state so atomic_disable() skips teardown when
-atomic_enable() never completed.  Additionally, ensure any further
-hardware programming is also skipped within the affected RPM commit
-tail, i.e. in the callbacks gated by drm_atomic_helper_commit_planes():
-vop2_crtc_atomic_begin(), vop2_plane_atomic_update{update|disable}() and
-vop2_crtc_atomic_flush().
-
-Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260623202043.8BFE21F000E9@smtp.kernel.org/
-Link: https://lore.kernel.org/all/20260623202043.8BFE21F000E9@smtp.kernel.org/
 Tested-by: Igor Paunovic <royalnet026@gmail.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 68 ++++++++++++++++++++++------
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.h |  6 +++
- 2 files changed, 59 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index 819ea3400bcd..060f9395a235 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -1033,6 +1033,9 @@ static void vop2_crtc_atomic_disable(struct drm_crtc *crtc,
- 
- 	vop2_lock(vop2);
- 
-+	if (!vp->enabled)
-+		goto out_unlock;
-+
- 	old_crtc_state = drm_atomic_get_old_crtc_state(state, crtc);
- 	drm_atomic_helper_disable_planes_on_crtc(old_crtc_state, false);
- 
-@@ -1063,11 +1066,14 @@ static void vop2_crtc_atomic_disable(struct drm_crtc *crtc,
- 
- 	clk_disable_unprepare(vp->dclk);
- 
-+	vp->enabled = false;
-+
- 	vop2->enable_count--;
- 
- 	if (!vop2->enable_count)
- 		vop2_disable(vop2);
- 
-+out_unlock:
- 	vop2_unlock(vop2);
- 
- 	if (crtc->state->event && !crtc->state->active) {
-@@ -1197,13 +1203,21 @@ static void vop2_plane_atomic_disable(struct drm_plane *plane,
- 	struct drm_plane_state *old_pstate = NULL;
- 	struct vop2_win *win = to_vop2_win(plane);
- 	struct vop2 *vop2 = win->vop2;
-+	struct vop2_video_port *vp;
- 
- 	drm_dbg(vop2->drm, "%s disable\n", win->data->name);
- 
- 	if (state)
- 		old_pstate = drm_atomic_get_old_plane_state(state, plane);
--	if (old_pstate && !old_pstate->crtc)
--		return;
-+
-+	if (old_pstate) {
-+		if (!old_pstate->crtc)
-+			return;
-+
-+		vp = to_vop2_video_port(old_pstate->crtc);
-+		if (!vp->enabled)
-+			return;
-+	}
- 
- 	vop2_win_disable(win);
- 	vop2_win_write(win, VOP2_WIN_YUV_CLIP, 0);
-@@ -1298,6 +1312,9 @@ static void vop2_plane_atomic_update(struct drm_plane *plane,
- 	if (WARN_ON(!crtc))
- 		return;
- 
-+	if (!vp->enabled)
-+		return;
-+
- 	if (!pstate->visible) {
- 		vop2_plane_atomic_disable(plane, state);
- 		return;
-@@ -1803,8 +1820,11 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
- 		return;
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+index 9c4cf68d79d5..78473f9a0fce 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+@@ -215,6 +215,7 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
+ 		s->output_mode = ROCKCHIP_OUT_MODE_AAAA;
+ 		break;
+ 	case MEDIA_BUS_FMT_UYVY8_1X16:
++	case MEDIA_BUS_FMT_UYVY10_1X20:
+ 		s->output_mode = ROCKCHIP_OUT_MODE_YUV422;
+ 		break;
+ 	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
+@@ -226,7 +227,14 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
  	}
  
--	if (!vop2->enable_count)
--		vop2_enable(vop2);
-+	if (!vop2->enable_count) {
-+		ret = vop2_enable(vop2);
-+		if (ret)
-+			goto err_unprepare_dclk;
-+	}
- 
- 	vop2->enable_count++;
- 
-@@ -1831,10 +1851,8 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
- 		clock = vop2->ops->setup_intf_mux(vp, rkencoder->crtc_endpoint_id, polflags);
- 	}
- 
--	if (!clock) {
--		vop2_unlock(vop2);
--		return;
--	}
-+	if (!clock)
-+		goto err_put_enable_count;
- 
- 	if (vcstate->output_mode == ROCKCHIP_OUT_MODE_AAAA &&
- 	    !(vp_data->feature & VOP2_VP_FEATURE_OUTPUT_10BIT))
-@@ -1852,8 +1870,7 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
- 		default:
- 			drm_err(vop2->drm, "Unknown DRM_MODE_CONNECTOR %d\n",
- 				vcstate->output_type);
--			vop2_unlock(vop2);
--			return;
-+			goto err_put_enable_count;
- 		}
- 	else
- 		out_mode = vcstate->output_mode;
-@@ -1965,6 +1982,18 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
- 
- 	drm_crtc_vblank_on(crtc);
- 
-+	vp->enabled = true;
-+
-+	vop2_unlock(vop2);
-+
-+	return;
-+
-+err_put_enable_count:
-+	if (!--vop2->enable_count)
-+		vop2_disable(vop2);
-+
-+err_unprepare_dclk:
-+	clk_disable_unprepare(vp->dclk);
- 	vop2_unlock(vop2);
- }
- 
-@@ -2023,6 +2052,9 @@ static void vop2_crtc_atomic_begin(struct drm_crtc *crtc,
- 	struct vop2_video_port *vp = to_vop2_video_port(crtc);
- 	struct vop2 *vop2 = vp->vop2;
- 
-+	if (!vp->enabled)
-+		return;
-+
- 	vop2->ops->setup_overlay(vp);
- }
- 
-@@ -2034,13 +2066,19 @@ static void vop2_crtc_atomic_flush(struct drm_crtc *crtc,
- 	struct vop2_video_port *vp = to_vop2_video_port(crtc);
- 	struct vop2 *vop2 = vp->vop2;
- 
--	/* In case of modeset, gamma lut update already happened in atomic enable */
--	if (!drm_atomic_crtc_needs_modeset(crtc_state) && crtc_state->color_mgmt_changed)
--		vop2_crtc_atomic_try_set_gamma_locked(vop2, vp, crtc, crtc_state);
-+	if (vp->enabled) {
-+		/*
-+		 * In case of modeset, gamma lut update already happened
-+		 * in atomic enable.
-+		 */
-+		if (!drm_atomic_crtc_needs_modeset(crtc_state) &&
-+		    crtc_state->color_mgmt_changed)
-+			vop2_crtc_atomic_try_set_gamma_locked(vop2, vp, crtc, crtc_state);
- 
--	vop2_post_config(crtc, false, crtc_state, old_crtc_state);
-+		vop2_post_config(crtc, false, crtc_state, old_crtc_state);
- 
--	vop2_cfg_done(vp);
-+		vop2_cfg_done(vp);
-+	}
- 
- 	spin_lock_irq(&crtc->dev->event_lock);
- 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-index ffcb39c130aa..b209b2d5b96d 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-@@ -243,6 +243,12 @@ struct vop2_video_port {
- 
- 	struct completion dsp_hold_completion;
- 
-+	/**
-+	 * @enabled: CRTC fully brought up by atomic_enable(); allows
-+	 * atomic_disable() to skip teardown after a failed enable.
+ 	phy_cfg.hdmi.tmds_char_rate = conn_state->hdmi.tmds_char_rate;
+-	phy_cfg.hdmi.bpc = conn_state->hdmi.output_bpc;
++	/*
++	 * YUV422 always transmits two 12-bit components per clock cycle,
++	 * regardless of the color depth, which from a rate perspective is
++	 * equivalent to three 8-bit RGB components.  Force 8 bpc here to
++	 * keep the PHY PLL output aligned with the TMDS character rate.
 +	 */
-+	bool enabled;
-+
- 	/**
- 	 * @win_mask: Bitmask of windows attached to the video port;
- 	 */
++	phy_cfg.hdmi.bpc = (s->output_mode == ROCKCHIP_OUT_MODE_YUV422 ?
++				8 : conn_state->hdmi.output_bpc);
+ 
+ 	ret = phy_configure(hdmi->phy, &phy_cfg);
+ 	if (!ret) {
 
 -- 
 2.55.0
