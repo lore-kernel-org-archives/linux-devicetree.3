@@ -1,30 +1,32 @@
 Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 612454908AD;
-	Wed,  2 Sep 2026 12:40:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5E0493640;
+	Wed,  2 Sep 2026 12:40:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788352831; cv=none; b=Lz9b7hhyfPKKGnAvl2Te+cauMuNb8WGvF1rMsfKMDdcLNxK3u6FHBt0XCnX8jsmoy/onGuVKmzoGUqhk9IqKILpLNwxXusbGm9HBOO4a0bH2sJlVIk4WaeBzkGjIERfZwvGyHpvm7WL5R/ibaPVbiMaWguJKOFtUBnNckNTFNZY=
+	t=1788352836; cv=none; b=aFiygPBF0bBxBsL2n6csV8qyIz0TqG78N+r3Oa6VPRxsC+QwPIv8TI2AIN9mIqYkyssuL2PFJmxUmlrsg+16jQ6WhUwOlebgXKrCUAwfsyVWVnK4xhrdiygIrUaS+GyfEKPq0s5aCUgdr7tu4vC843qRSJxhGGT5j7NRdWym9m8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788352831; c=relaxed/simple;
-	bh=UMI0QfgMfnLxhqN+hUuIEBnQed8SOgoyTb0c5j/oTEQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iTSs8I0aZ11rDZw/NnWC0UN/GRh4Zx3naLn8eSOqh2gKSaYoowpFzWHMvL21JuIFLU+e0yJklp+zRcQ6TI5NUtbvNGVkO8bWFJnlPfQpg/9TSDSVHNub77PWZSROHE2Ln38Scj/oeMQY1NHBlguvlGMvZBsRPIbN91IXB0eMn5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=Fus7J2en; arc=none smtp.client-ip=178.251.229.89
+	s=arc-20240116; t=1788352836; c=relaxed/simple;
+	bh=qrQ2t7kPVDsS567S90/7tbSfzQYKJ040KSzYlhqNuKM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EH2OfWhwSo/v+AbKO1p1Dw9ZxHee+a9AZqeFqi5d+OR6VG+U4ftu+5hjlOLH7qiwppaxkMRxva0H4xydww7+qCsrEDLyIDIkNYiDFvyXN4ctesky4wXqqXjITLMncpcsxP2c+Zbid2VYlBaTti+L5u2JgBtVmmFS1MLP0XrKoxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=ie/xkNW5; arc=none smtp.client-ip=178.251.229.89
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="Fus7J2en"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B9BD311CE48;
-	Wed, 02 Sep 2026 14:40:20 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="ie/xkNW5"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9927911CE7D;
+	Wed, 02 Sep 2026 14:40:26 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1788352822; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=YJo+5nQ0nINBNaxywSOUixu7kVY/MO9oQIxFhCicr3U=;
-	b=Fus7J2enwqruCRbPnjDoUUUhP40Uy3ASz92Ve/vGIRhjx2qab15DuVYHpB3yKKYvPm3vqH
-	Vm676MIUl/Hou0yUJVBuS2+tCEmpu4onyCikaQYO7Hbk5qlo8FJ3EyXl2YvTNZjw1dvG5W
-	rC+kTspa6YkdHr2dLx/UyTy3HdiKDXnH1xcU5bbO1HB0/AT4Ix31FXBoRd7iql6GjOz7ao
-	y28MuKsc/8h3CLuFKNAnqY3y25YlYI/B16Sx5WAqkJvqEg3JmZk5nqbLDiu+6qIR8CsXfO
-	nTXNoFAd9vVEffaHwqjYBzESOBb08Tmn81TVSPXtBUcOJpxgNsg0gZV8pJ2aXw==
+	s=dkim; t=1788352827; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=0MlWIf/rhQtWIeK3PR/Jn68vrbe6t2nijYn3wmvqbXE=;
+	b=ie/xkNW5efq5r94PiyZTboE9/pa9CusF4qknKZjXw1AcHaaOHX+cU9AUad5IqbqpwZlV2K
+	hth3ZSv+LK0bc7veslnXVEOL+mwwgMaaRLJ+CjFwDufmP6slSoyIbeoN/mCrpdGNSFEPX6
+	8xwPL3fIcjI+Uv4J5vtTdpTetbUYhL5cX+mR3so4mp0NCCKySbtxQyRX2uUbhrqlsFikfh
+	/qBtg6K1w5e0PkiPW9txEDqUAtbahHhY2de+IEs2ce2GIPAZsojg9Vjtl6HOizOYgkGApJ
+	ouzNMMpyc3aV55Su9ZwuAI5dv4o+d5zd8BXCTzCvacu05Glr+/kQAVNkQh0hSw==
 From: Marek Vasut <marex@nabladev.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: fabrice.gasnier@foss.st.com,
@@ -41,10 +43,12 @@ Cc: fabrice.gasnier@foss.st.com,
 	kernel@dh-electronics.com,
 	linux-kernel@vger.kernel.org,
 	linux-stm32@st-md-mailman.stormreply.com
-Subject: [PATCH v6 1/2] dt-bindings: arm: stm32: Document st,stm32mp23/25-syscfg subnodes and cells
-Date: Wed,  2 Sep 2026 14:39:49 +0200
-Message-ID: <20260902124018.606544-1-marex@nabladev.com>
+Subject: [PATCH v6 2/2] soc: st: Add STM32MP2 SYSCFG driver
+Date: Wed,  2 Sep 2026 14:39:50 +0200
+Message-ID: <20260902124018.606544-2-marex@nabladev.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260902124018.606544-1-marex@nabladev.com>
+References: <20260902124018.606544-1-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,10 +58,12 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-The st,stm32mp23-syscfg and st,stm32mp25-syscfg can have subnodes, which
-represent the USB 2.0 FEMTO-PHY. Document subnodes pattern properties and
-address/size cells.
+Add trivial SYSCFG driver for ST STM32MP25xx, which binds drivers
+to its subnodes. This is currently used to bind USB PHY drivers to
+subnodes described in the SYSCFG DT node.
 
+Acked-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Tested-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 Signed-off-by: Marek Vasut <marex@nabladev.com>
 ---
 Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
@@ -75,77 +81,109 @@ Cc: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org
 Cc: linux-stm32@st-md-mailman.stormreply.com
 ---
-V2: New patch
-V3: Fix the bindings
-V4: - Undo simple-mfd in favor of dedicated SYSCFG SoC driver
-    - Update commit message to match, this used to be patch
-      dt-bindings: arm: stm32: Switch st,stm32mp23/25-syscfg into simple-mfd
-    - Split this from series arm64: dts: phy: st: usb: Add STM32MP2 USB support
-      https://lore.kernel.org/all/20260822074816.548662-1-marex@nabladev.com/
-V5: - Add missing contains: into conditional
-    - Add phy subnodes into required list for stm32mp23-syscfg/stm32mp25-syscfg
-V6: - Reduce the pattern in patternProperties to match only on phy@2400 and phy@2800
-    - Disable address/clock/size-cells/phy@2400/phy@2800 unless compatible
-      with st,stm32mp23-syscfg or st,stm32mp25-syscfg
-    - Disable clocks unless compatible with st,stm32mp157-syscfg or st,stm32f4-gcan
+V4: New patch
+V5: No change
+V6: - Fix up the SPDX-License-Identifier
+    - Add AB/TB from Fabrice
 ---
- .../bindings/arm/stm32/st,stm32-syscon.yaml   | 30 ++++++++++++++++++-
- 1 file changed, 29 insertions(+), 1 deletion(-)
+ drivers/soc/Kconfig              |  1 +
+ drivers/soc/Makefile             |  1 +
+ drivers/soc/st/Kconfig           | 12 ++++++++++++
+ drivers/soc/st/Makefile          |  1 +
+ drivers/soc/st/stm32mp2-syscfg.c | 33 ++++++++++++++++++++++++++++++++
+ 5 files changed, 48 insertions(+)
+ create mode 100644 drivers/soc/st/Kconfig
+ create mode 100644 drivers/soc/st/Makefile
+ create mode 100644 drivers/soc/st/stm32mp2-syscfg.c
 
-diff --git a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-index 95d2319afe235..a559f8b03b842 100644
---- a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-+++ b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-@@ -39,6 +39,17 @@ properties:
-   "#clock-cells":
-     const: 0
- 
-+  "#address-cells":
-+    const: 1
+diff --git a/drivers/soc/Kconfig b/drivers/soc/Kconfig
+index a2d65adffb805..dfe5cec592626 100644
+--- a/drivers/soc/Kconfig
++++ b/drivers/soc/Kconfig
+@@ -24,6 +24,7 @@ source "drivers/soc/renesas/Kconfig"
+ source "drivers/soc/rockchip/Kconfig"
+ source "drivers/soc/samsung/Kconfig"
+ source "drivers/soc/sophgo/Kconfig"
++source "drivers/soc/st/Kconfig"
+ source "drivers/soc/sunxi/Kconfig"
+ source "drivers/soc/tegra/Kconfig"
+ source "drivers/soc/ti/Kconfig"
+diff --git a/drivers/soc/Makefile b/drivers/soc/Makefile
+index c9e689080ceb7..894bd6ebaaa4d 100644
+--- a/drivers/soc/Makefile
++++ b/drivers/soc/Makefile
+@@ -30,6 +30,7 @@ obj-y				+= renesas/
+ obj-y				+= rockchip/
+ obj-$(CONFIG_SOC_SAMSUNG)	+= samsung/
+ obj-y				+= sophgo/
++obj-y				+= st/
+ obj-y				+= sunxi/
+ obj-$(CONFIG_ARCH_TEGRA)	+= tegra/
+ obj-y				+= ti/
+diff --git a/drivers/soc/st/Kconfig b/drivers/soc/st/Kconfig
+new file mode 100644
+index 0000000000000..2a9d6a77be450
+--- /dev/null
++++ b/drivers/soc/st/Kconfig
+@@ -0,0 +1,12 @@
++# SPDX-License-Identifier: GPL-2.0-only
++menu "ST SoC drivers"
 +
-+  "#size-cells":
-+    const: 1
++config SOC_STM32MP2
++	tristate "STM32MP2 SoC family support"
++	depends on ARCH_STM32 || COMPILE_TEST
++	default ARCH_STM32 && ARM64
++	select SOC_BUS
++	help
++	  If you say yes here, you get support for the ST STM32MP2 family
 +
-+patternProperties:
-+  "^phy@2[48]00$":
-+    type: object
-+    $ref: /schemas/phy/st,stm32-usb2phy.yaml
++endmenu
+diff --git a/drivers/soc/st/Makefile b/drivers/soc/st/Makefile
+new file mode 100644
+index 0000000000000..5ca313476ca93
+--- /dev/null
++++ b/drivers/soc/st/Makefile
+@@ -0,0 +1 @@
++obj-$(CONFIG_SOC_STM32MP2) += stm32mp2-syscfg.o
+diff --git a/drivers/soc/st/stm32mp2-syscfg.c b/drivers/soc/st/stm32mp2-syscfg.c
+new file mode 100644
+index 0000000000000..770321a4a6f71
+--- /dev/null
++++ b/drivers/soc/st/stm32mp2-syscfg.c
+@@ -0,0 +1,33 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright 2026 Marek Vasut
++ */
 +
- required:
-   - compatible
-   - reg
-@@ -54,13 +65,30 @@ allOf:
-     then:
-       required:
-         - clocks
-+    else:
-+      properties:
-+        clocks: false
-   - if:
-       properties:
-         compatible:
--          const: st,stm32mp25-syscfg
-+          contains:
-+            enum:
-+              - st,stm32mp23-syscfg
-+              - st,stm32mp25-syscfg
-     then:
-       required:
-+        - "#address-cells"
-         - "#clock-cells"
-+        - "#size-cells"
-+        - phy@2400
-+        - phy@2800
-+    else:
-+      properties:
-+        '#address-cells': false
-+        '#clock-cells': false
-+        '#size-cells': false
-+        phy@2400: false
-+        phy@2800: false
- 
- additionalProperties: false
- 
++#include <linux/module.h>
++#include <linux/of_platform.h>
++#include <linux/platform_device.h>
++
++static int stm32mp2_syscfg_probe(struct platform_device *pdev)
++{
++	return devm_of_platform_populate(&pdev->dev);
++}
++
++static const struct of_device_id stm32mp2_syscfg_ids[] = {
++	{ .compatible = "st,stm32mp23-syscfg" },
++	{ .compatible = "st,stm32mp25-syscfg" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, stm32mp2_syscfg_ids);
++
++static struct platform_driver stm32mp2_syscfg_driver = {
++	.driver = {
++		.name	= "stm32mp2_syscfg",
++		.of_match_table = stm32mp2_syscfg_ids,
++	},
++	.probe = stm32mp2_syscfg_probe,
++};
++module_platform_driver(stm32mp2_syscfg_driver);
++
++MODULE_AUTHOR("Marek Vasut <marex@nabladev.com>");
++MODULE_DESCRIPTION("ST STM32MP2 SYSCFG driver");
++MODULE_LICENSE("GPL");
 -- 
 2.53.0
 
