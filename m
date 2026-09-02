@@ -1,111 +1,102 @@
-Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E488C47AF5F
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 11:36:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1715E47606D;
+	Wed,  2 Sep 2026 11:38:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788348969; cv=none; b=Jr7LzURyK+GWqf+OggzZh9PXYL94J0VSR0OkZRp45kKMgPCk2KkI59uklizkvRk9GTdff9eGrMF1+1gsBMN7kvI/kMdhbmxwmPpw6fHmL5alB6EN/d+tNCEx3ecioxCQg+DzJziPyoWL31udPPNgYs9c8aLAWYN21QF1VXH+rm8=
+	t=1788349137; cv=none; b=rwD74whdr6d1oyoRtDRnHnDjP5EqFyiZo+hWZLOXfeizwAO4E0+aeP43X/2u3SJEqjG/UU1tWFNoSBjepOb+AeDD1LyrlFg6peIfmi4aO6XdwN/h2N7lkydK7H+bnn32XFtDW5hC32q/66Tney49ASZ8xUtLyECDR5lkQP5rIKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788348969; c=relaxed/simple;
-	bh=wyPHokR3tqR3MR269liqtkoSqy7tkjxLQyug1Wc7V4w=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aSZYkOkpnQovCIMc8YPPbZBwE3Gb2CuiMe3Nmhwq4U9Hm+lx9EuYt3u8n7zVMTe9ifarj6MpS67bp1tl4NrOqLKPNyCerDhgDAxvodsNvNZVlrw1pyazHO0YVuKO3fBbTs3IKxgHeC00wkXPMBJPcdnvffO7Of5erFmczJTz4Iw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-782df51b4c1so687943137.3
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 04:36:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788348959; x=1788953759;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=wG2vzYUiYB5Is79tPSwDBrckmDl3YMELkXESRZoQU1g=;
-        b=euuxc6OQrJwB/ieEeg0/7P1oHIl6n0SMAc66PcLDgHBJXtj662ygZqevJf5i4ajbvh
-         kAf8wa4AqW91my+dKx7hf5WMCjW5vodQLOe3UEKiNyqfHWbo0IeKrLk9Y5e6+O9U77JY
-         6Ktb1u/FwJznsquKjxOZTKxc89r+qd+9sIl+jdjzZY2yAUILAStATm8s/66f1o8mnUgA
-         MX0JDfn7iU3EFWFpw12q4biyUQQ9Lt1sRb4r0w/FNr4y1W0MyPDHx0UulKttfts2KWBQ
-         wtv4mP4ojO/VqhMr4Ea7Swx2L6mEznhFjX1b5H2PaQzShzQaPf3PWx1QJhtzBDKFDcUD
-         FtCw==
-X-Forwarded-Encrypted: i=1; AKwUvByNdRPIDtEqKO1GUBrrcs7fMAfmaItsjfWhVl7ZF72wzQHBYMtVZ7ydjTwTzf4goSxspi0FBGynb2AX@vger.kernel.org
-X-Gm-Message-State: AFuF++m709lubUBPumoPBA7PSHTFu/79H+ZV6ozgNfXVN19XkebJ7C5y
-	c94Vp9nW9515cCt9ooYV6u/k6N3aGDz9+9phcQyZmciA/w2rHJAUNyn9Uw8Q0R0i
-X-Gm-Gg: AYBFou0gfI0zlsXNPpnCTS20QfDUeU0jGltuQ0rjhxjyCxwO537whKxBaQ77ipyMPC1
-	FdVyxUGmSwk52uuuwnp8rQHD5H5VZbOUYv9jLdDteqL18XezPJXn3r/21LYUWXO5RNzmInn8vru
-	2MsAuLnSfmrZpFWZ3s5lCVtupk2ddDRkzoCH37aqaZG5CmzQA2D7MSfFn86fqccZx1pWbOUKy2S
-	4qQne+dVZqoTXwVKVKlnjG4mwX5u0EJa+o9avjDm3kKAGNYUBs6Zd7GtbQGWaL6aHiUDdEsCr8u
-	wIzwhQ/oczjUmUi5aqw6xQFg9YhnLxzdAmtBbQnRiDbOmmTB32eRO8m0mpWDRtMRgg17TjVUVl9
-	mrs7thiYyGuaijFdMS0xWbwJgsluZcNSKSINJPF/m5uDmhVqj/w1YLjoMbGUlSOGBdkbef8G3T5
-	XpXEMDp+rjF1Zqrg9ChQO9boykDoL/SBXUk4/0VZnaaqfGDnGJCEt5kFYt4PjKEK8aCmqTGoPdU
-	9cf+Z5qLI6Gm6A2FZhTEo6tGLyqLrLl/xWeAMKhvw==
-X-Received: by 2002:a05:6102:4489:b0:786:4607:bdaa with SMTP id ada2fe7eead31-78a1f29b1efmr1494093137.4.1788348959558;
-        Wed, 02 Sep 2026 04:35:59 -0700 (PDT)
-Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com. [209.85.221.171])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9806728262esm1917100241.3.2026.09.02.04.35.58
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 04:35:59 -0700 (PDT)
-Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-5bf959b820cso945819e0c.3
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 04:35:58 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwDySFQyWv1mpvTyYfiJnNXcekhSrleQlwOkh5zJiht3ug8nQ5NF4bRkb6B92nnI6SBg4c7W4fN4Qg9@vger.kernel.org
-X-Received: by 2002:a05:6122:489b:b0:5c7:98a9:cf95 with SMTP id
- 71dfb90a1353d-5c7d27e3ce2mr1779605e0c.4.1788348958056; Wed, 02 Sep 2026
- 04:35:58 -0700 (PDT)
+	s=arc-20240116; t=1788349137; c=relaxed/simple;
+	bh=d2+AWnU6uUo5V5AW/6m2Dh1KbJzRFbrLmBF0S8Rk4R4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=OYFxoZ/cjnOqdn1f+Q0nsicrKRKmmk3zJWKOKPpTNXPCdM/QCU/LQWVuYXmy634WT+dT5xEZ8d5Xt60AmxXqR6+/qUV4YcxiO9y/4+/2lCzWENFD07QzNUwwOIIIfw0BDHHynjpzAY+Jq4KWig4F/SmAQBiwpMZidO1Wj886//M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pe6J1kcW; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pe6J1kcW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E75981F000E9;
+	Wed,  2 Sep 2026 11:38:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788349133;
+	bh=rtXYPn8hr7thIL6cnopmTaP04Ex4p3gPCRzYCt+hVu8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Pe6J1kcWXUiciPDWuhlRtC5+9p+jThfkWN/ikCd+QVUscLHfyFH4QKMrqCh2ZKblh
+	 S2hO1azG38uYb0FcDE9w4pHciQBxpo8FgVluVUB5CZ6tDKYauJrtL76A0hAViIFsFp
+	 WtIWnY6yk4ccxqGE6rHtTfezw6aDScgn5CSD2Wkei07MUNIrZHFypB4dkOw3ElZCO3
+	 NOscsXVdtv7lLU3ERoHGqtBavsxhjHbTH3OLkksyVtDTrspV2JY9VyzbbHljRDNwm0
+	 mrSzQtvVUp83mTWE56Wk9eyvXqN7M42HYousVtshN2cAe68eZjEDmZEwUJqnHr8Reg
+	 CTyuxu0nSuuDQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 07/12] reset: Add
+ reset_control_get_from_provider_exclusive()
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Geert Uytterhoeven" <geert+renesas@glider.be>
+Cc: conor+dt@kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, robh@kernel.org, linux-clk@vger.kernel.org
+In-Reply-To: <619a6e41495adfdae3e2e6c0fee97e0550a5c404.1788338320.git.geert+renesas@glider.be>
+References: <cover.1788338320.git.geert+renesas@glider.be>
+ <619a6e41495adfdae3e2e6c0fee97e0550a5c404.1788338320.git.geert+renesas@glider.be>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 02 Sep 2026 11:38:52 +0000
+Message-Id: <20260902113852.E75981F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260722085353.136986-1-ovidiu.panait.rb@renesas.com>
-In-Reply-To: <20260722085353.136986-1-ovidiu.panait.rb@renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 2 Sep 2026 13:35:46 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdU3POZVM4YmSN8r4rewPd9+GSnUvyL2F8oSqHzjk97Dbg@mail.gmail.com>
-X-Gm-Features: AcwNN1UdAkMRtSpVoWeT4pt6w2QrIFGJ2Ah_h0QXalst1ZeOOfhDZh72790D8vw
-Message-ID: <CAMuHMdU3POZVM4YmSN8r4rewPd9+GSnUvyL2F8oSqHzjk97Dbg@mail.gmail.com>
-Subject: Re: [PATCH 0/5] Fix GBETH TX scheduling policy for RZ/{V2H, V2N, G3E,
- T2H, N2H}
-To: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
-Cc: magnus.damm@gmail.com, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, prabhakar.mahadev-lad.rj@bp.renesas.com, 
-	biju.das.jz@bp.renesas.com, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-Hi Ovidiu,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The dummy stub for `reset_control_get_from_provider_exclusive()`=
+ incorrectly returns `NULL` instead of `ERR_PTR(-ENOTSUPP)` when `CONFIG_RE=
+SET_CONTROLLER` is disabled.
+--
 
-On Wed, 22 Jul 2026 at 10:54, Ovidiu Panait
-<ovidiu.panait.rb@renesas.com> wrote:
-> This series switches the GBETH TX scheduling policy to
-> Weighted-Round-Robin (WRR) on RZ/V2H, RZ/V2N, RZ/G3E, RZ/T2H and RZ/N2H
-> SoCs.
->
-> Since the GBETH nodes don't currently specify a TX scheduling policy,
-> stmmac falls back to Strict Priority. In that configuration the highest
-> priority queue gets all the traffic and starves the others under load.
->
-> Under sustained UDP TX load with multiple data streams, this starvation
-> triggers adapter resets due to TX queue timeouts:
->
->   iperf3 -c <ip> -i0 -t60 --bind-dev end0 -u -b0 -P4
->   end0: NETDEV WATCHDOG: CPU: 1: transmit queue 1 timed out 5228 ms
->   end0: Reset adapter.
->
-> Investigation showed that only the highest priority queue advances while
-> the others stall for more than 5 seconds, causing the netdev watchdog
-> reset.
+commit b2e455f4dc1ad499526bd8cbd50a8edaddca9cff
+Author: Geert Uytterhoeven <geert+renesas@glider.be>
 
-FTR. fast-tracking to fixes for v7.3.
+reset: Add reset_control_get_from_provider_exclusive()
 
-Gr{oetje,eeting}s,
+This commit adds a public helper reset_control_get_from_provider_exclusive()
+to lookup and obtain an exclusive reference to a reset controller. The
+implementation is based on the recently introduced
+__reset_control_get_from_provider() helper.
 
-                        Geert
+> diff --git a/include/linux/reset.h b/include/linux/reset.h
+> index 9c391cf0c8229..09ee47b27f88d 100644
+> --- a/include/linux/reset.h
+> +++ b/include/linux/reset.h
+[ ... ]
+> @@ -173,6 +175,12 @@ static inline struct reset_control *__reset_control_=
+get(
+>  	return optional ? NULL : ERR_PTR(-ENOTSUPP);
+>  }
+> =20
+> +static inline struct reset_control *reset_control_get_from_provider_excl=
+usive(
+> +				const struct fwnode_reference_args *args)
+> +{
+> +	return NULL;
+> +}
+> +
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+[Severity: Medium]
+When CONFIG_RESET_CONTROLLER is disabled, should this stub return
+ERR_PTR(-ENOTSUPP) instead of NULL?
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+In the reset framework, a NULL reset control is treated as a valid but
+optional no-op. If a driver calls reset_control_get_from_provider_exclusive=
+()
+during probing on a kernel compiled without the reset framework, and the st=
+ub
+returns NULL, IS_ERR() will evaluate to false.=20
+
+This would mislead the caller into believing it successfully acquired the
+mandatory exclusive reset control. The driver would skip error handling and
+proceed without actually performing the required hardware resets, potential=
+ly
+causing hardware malfunctions.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1788338320.gi=
+t.geert+renesas@glider.be?part=3D7
