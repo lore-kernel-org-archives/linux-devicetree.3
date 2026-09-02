@@ -1,183 +1,354 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AB64448392
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 10:29:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74DAF44A41A
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 10:29:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788344954; cv=none; b=N0OA0fcR+dMeIAz6YEunnHZ1O5XsHmcGTwDNnl2g3Bj7IMnaoxOH2oSNpRcjTw57fLmPR7lWXHelhFdz9jHQtClSCsPv5FmMqFgGNeMwxeNAU/67heVygNcJChI9wpS7jG49OcksYnrqR68CoNtS56FQ4xNzkHU/2UKImbwNguA=
+	t=1788344977; cv=none; b=hOzYR24vhFR0z6rcJE63pXxpFh0SHjuMlCF6lJWuF6OKKE40gbnPuAlkMUtBy8ahTF6AZPZAG+7o2Ty7O+vvnSxuybUIrAIqQLC2h78ZINOJKJglhA0/VBb00CuDv2urLzO6myny73K6cd5587SNU34sbf7QUrEwxNbQ5AxFgmI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788344954; c=relaxed/simple;
-	bh=D8ZSpMUPIDCNW+TKfznVVt3G/+Z1IAgE/rX07jvs3Ps=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rc0sU6DoT9lACrsaAPmPWk4dXrE2WG2OOIWhEAVONVL6xg2HqWj9sITjtfpVxy6N9PojeWcJggUo/vpkwlbzxGENtc8b/w6QM9q1xdqRnGSEs9CqN45zwILuDib2suqxhzQ3E3xl3hCpFh6d7pFzk1X4xsLL3QT+KLFXD3jXzQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TuWlE+PE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aAg2QRPY; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788344977; c=relaxed/simple;
+	bh=KjkGEFEeYMGE5tWpb4iz6mos2IDfSvwrV1TRiR4FklE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=aRcwqfh/uGAml4jiOljwxZomcuNOYGg2FlB/078Fb1mRLpIcpXtTo3cNNQx0HPTIV7pv6AHPBun6qJNJnIXAPCcTjfid+CsD/vGDcF8M2U+4VKVU69voViOEbjlCn0qSaeiZdvTiXDtpe5fg6k/m/F7dOibQGDHQk+zL8HJWcOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LN4ghG2V; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TuWlE+PE";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aAg2QRPY"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6829NCFM2246327
-	for <devicetree@vger.kernel.org>; Wed, 2 Sep 2026 10:29:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	TdOfQSqLmWJ7y3AMgqR+vy4CjQvTB1wFH1GkCyGK4vc=; b=TuWlE+PEE0fHl+Q+
-	Z7tHB0FNlZLyis+6uv07INbF2nYVZdRoJ+svY5ACNrl0dQ7DqE00o7BlnrLI/Asu
-	s38/IVguMpGDQid9B7Whs1FHbi2SlIWEkyQbHU2UWz6lj15k02oN/3xh0zZepY0/
-	7I3rpZBQRUd5tn7LiQOGnkG4HPE2ea4EjhtRpjt3Wbiim26QShD+YcjVTQTtKdGm
-	dKb96JQS2tZeuufTmb200IGGDYSSHbR3aYRdC2jKt5zQjkuRl+3Lw+BNQmdEU7aR
-	uwsfJmrM7P+viUve9DEi+tnQYkN/Vs8gS3oi3soF7vXC4XfaH5WCAD5WqCtyRjwN
-	DcDtsw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ge8whj2b4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 10:29:03 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-930a312222dso20512185a.2
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 03:29:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LN4ghG2V"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49b8ce9b733so6365555e9.1
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 03:29:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788344942; x=1788949742; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1788344965; x=1788949765; darn=vger.kernel.org;
+        h=content-type:mime-version:references:in-reply-to:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=TdOfQSqLmWJ7y3AMgqR+vy4CjQvTB1wFH1GkCyGK4vc=;
-        b=aAg2QRPYeQSSnJ/pnIBzxmkITRiXqqFk/TFtiyYYVZH3BZn1Zvpa6ZmtxUeTsAAV4C
-         8OP2i8zxKGYxblf23Ug/ygPUW2WW/x05L58OqSTNjtRQB/j/PrREHoAB8RFlKX/TsMOZ
-         HIKB0TJBJdM87qF2SCS5B5P3cw7JhsSF01ylczEKslhydvDzAqIdLYh6wp8opH1IL4Bx
-         oGwMGUNu1+i3nyC30DXtaWoOmVJ09052PiIchsYTkxUYt53OGvF+YztYXHrYRZ7rJsC/
-         ZruXnbbH2gYRsXWgj4D4ACN0+4ksc7pdSw9svAKcqasJW8F9nZmY+t/c+ZLs/By2VL+y
-         +WTg==
+        bh=bZtvmbyOC+TIXQAgxX6du8Vv3LHAYS2xf4YGM8J09kA=;
+        b=LN4ghG2Vajcz3DOsD3YSEug1ARFiSmHJIRRYbgXU4dHDw/eFUbEBJuzitDp5likK9s
+         dCFM5GJUYQgyq38ZnpSMUGpXox2UodoK9Bz1bCEMDYtvbRJYie8UGVYcfdipJLKmaqII
+         Y1ZG/89pQZoBF0EvlyCpKGqcmexhP3VvkrKJixVEA1miMQMEFzZdiAaxWFwlcnGSYi4x
+         t3XEw5dXyHGJSfdXUYvEuAS+rMC9jmXVOWvc+d12zqP/2KEvUiAC2FoHZXQPgTPjzsTg
+         21Syp7bZ/YvzKUy+ZFtvLwlaHeHxvyN/b4iNX52T9u5Ag9JteDWqwVIvSXfDebPVchR9
+         CWBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788344942; x=1788949742;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TdOfQSqLmWJ7y3AMgqR+vy4CjQvTB1wFH1GkCyGK4vc=;
-        b=G8vsF2UnxwsLYboPod8fH/PpfpBGdYue37vdwtDXIaxU7vGLtLDz6phbweMBTMshlD
-         vs77RgIMapvxxpKrKhqBEkQroHa244/6LFN7w0x/96ZgtNgOs+XFf8GSxdYiF0etciHw
-         OJ/lL/1MaVJr7aU7dHqAyb5nIKBmKN1BaNTpSi6qB/vWXQRE8l5N/+ApEDTYcovGOz/4
-         2FP4gmijXIU1Tg+p30SbiWw9J6T0tnegsyX1SNpNJu3s0Xs0zR/iyGYT7s/QMT4TyBcL
-         Z/ZNNu+tkAeRX17SdDLkjTAwrfzCyUt8intSrXuVIXpw02MTyHhL1wiBKZvZ9OgvPSZC
-         c17w==
-X-Forwarded-Encrypted: i=1; AHgh+RpaIRejgkWZr7n0DYuzkQILgCtWrf8ouq+44adLpgbb658HL9OOHjHZamOhgCApG9HZdD3YjFNor4mM@vger.kernel.org
-X-Gm-Message-State: AFuF++kxTxOy9vshfAXN3QLAM2R3DhuVGFEuYGY0gndKmqYNTlSZpquW
-	+h4zVhx+r0h4e/xuQI6qXshiheuU49Yi8aHLS2y6K8yOvdOP5KkinR4UpOfv0m66010toiN8vUL
-	qzyJpQVV664P3Sthmx7kxeutzegqNWHCb6BJcr3oiEoNbjD0/gDj8Zp/fXzBFVsWt
-X-Gm-Gg: AR+sD10cdkp0EDnviYrVIsAAYmvijxcjCc8xSXO3SImo5kNYsZmybCyMVxHJqEHnDxo
-	d2ZZnhmM7mVROxJUvnbF/XWKOLpx9escnEq+nsd2mhcVpdhh2sHrhfag0dcKbgdx4Kk2GHo1q61
-	/PhOAsZPfiSl4tYvHyXDXgaorxEC+fai+M8CqBn4DBbFGV2ED1L/bshAC1aFrYWAqMLMCwv5kUr
-	eP0lGNN5vFfhRL2ZejeZFO+N72//VdBFDeX2k48R+DGmZPiBp8dif+rSFrdRUTCG1uXPTY+NIbB
-	k1V6HPzBbe/seXjV9MogRaTots+3BVUbVM2NoQrlFNTLbyIJtsdTxFC/CAuRHF8ZtkMrGfqJ+vr
-	YFVawGgwVHFt2uxQ/RCXGKA==
-X-Received: by 2002:a05:620a:4623:b0:939:48e9:51a1 with SMTP id af79cd13be357-93960e1e27bmr241294785a.2.1788344942228;
-        Wed, 02 Sep 2026 03:29:02 -0700 (PDT)
-X-Received: by 2002:a05:620a:4623:b0:939:48e9:51a1 with SMTP id af79cd13be357-93960e1e27bmr241292085a.2.1788344941785;
-        Wed, 02 Sep 2026 03:29:01 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25d002dcbesm109123366b.16.2026.09.02.03.28.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 03:29:01 -0700 (PDT)
-Message-ID: <3d31f750-750b-4561-96a3-d265b632da6d@oss.qualcomm.com>
-Date: Wed, 2 Sep 2026 12:28:58 +0200
+        d=1e100.net; s=20251104; t=1788344965; x=1788949765;
+        h=content-type:mime-version:references:in-reply-to:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bZtvmbyOC+TIXQAgxX6du8Vv3LHAYS2xf4YGM8J09kA=;
+        b=ncXFWSSa0nbeEbQqYCUfgWtldMwuGGPktpb5fnuto1uhUlAfKqU9eJ+hKGcOGYAhrq
+         UXJ1uu7xONg1jp6jvAH175rMImcPwKVr7XSBiGdB8YQO3gZuAsvF2TQMORmlIqZA6/3B
+         jimzGC0l8K2DCAWUeMv7Lm1hPezaZHYztjLX613w5E2ktgcUsrj8szB95RyQETnP7Wzk
+         Uyn0NuF2GiyyocZDvL7U3ckDNwAQQ7oRJaB8SiKayI+Tz1P/Yqu/uZGLGSXAZ837JCP+
+         oXlpWFGeiLkUKg9yhnD8ex4CCJRVneUWi95o0pkEyZvIynAYUPPqYx31zTJsPOFDv703
+         43cw==
+X-Forwarded-Encrypted: i=1; AHgh+RpucVNkV4pSrs3onvK3tmKbFzzvE3qqeIQVm7cfHqE7672vrwvA71P0T1iG/4EI9oP2kIElnM5zeN4g@vger.kernel.org
+X-Gm-Message-State: AFuF++kkNrdFkF/NCd8uRlL+ZvFYn/ShXkNYMFlARXl6DGc/bNgLneJt
+	MkVR1etj0TY9QLw1YajSzGTUYqpX38OnU2O0PxoNGWIV5MDUlNNhNYi0
+X-Gm-Gg: AR+sD11REEYRDmvV2laAcQRulp0byMeFsK5JrctBwScgZqCHN0rfl2i54wiNjqJMQ22
+	VEleI9J4MB8fFYliadNxcymhjqcrhss2nILr438ekKMbTUfMkVaS+d15blFoRZ+sjAoerfI3sA2
+	oNcSF2/ZoI9YZjX9Mg1o/GoyN9HJK11P4YUoKNV9wX2QBbZBkRQy19qA6AiXu/ERQzS3thcbBSG
+	ITLUqU765iZGI4MQLRUrssWH4j9L5ikVv62xMhUI35PIYRJEeei6NgkGPPLm58211HMV9Lgf+WU
+	4lXRhspBCzPF1wnKoD9zieYLbgB++A6Pz2vK3eMcvh3/a9jUFZlr21RAO4lCZEmdveKILFWm9GF
+	nGrX0zzjEsOMcGux/YGF6xF8hmwZVhvPlk1JM6er1/cuDu/Ml/pekspGq5xRXFblbwz6Wvy2Q6I
+	hpi4Zp+ODd3R/GlJDL5S3H2MAl2Xqmo+eO4UM3iV/9WhHffIpWMT+kecKIc64bQoyzCjtv8gQ=
+X-Received: by 2002:a05:600c:4795:b0:49c:ed88:a782 with SMTP id 5b1f17b1804b1-49ced88a78cmr2713745e9.6.1788344964779;
+        Wed, 02 Sep 2026 03:29:24 -0700 (PDT)
+Received: from strix.localnet ([197.250.227.34])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce10148sm138145595e9.5.2026.09.02.03.29.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 03:29:23 -0700 (PDT)
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ Linus Walleij <linusw@kernel.org>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Brian Masney <bmasney@redhat.com>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Russell King <linux@armlinux.org.uk>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
+ mfd@lists.linux.dev
+Subject:
+ Re: [PATCH v11 04/12] ARM: dts: zte: Declare zx297520v3 CRM device nodes
+Date: Wed, 02 Sep 2026 13:29:12 +0300
+Message-ID: <rJbfdbXrS62xFUkr8Ld5TQ@gmail.com>
+In-Reply-To: <20260826-zx29clk-v11-4-f8ad59c6426c@gmail.com>
+References:
+ <20260826-zx29clk-v11-0-f8ad59c6426c@gmail.com>
+ <20260826-zx29clk-v11-4-f8ad59c6426c@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 5/5] usb: dwc3: qcom: Modify interrupt handling for
- eUSB2 Phy targets
-To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-        Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-usb@vger.kernel.org
-References: <20260826-eusb2-interrupt-v6-v6-0-ae2601cfa80c@oss.qualcomm.com>
- <20260826-eusb2-interrupt-v6-v6-5-ae2601cfa80c@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260826-eusb2-interrupt-v6-v6-5-ae2601cfa80c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=fLkJG5ae c=1 sm=1 tr=0 ts=6a97fa6f cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=FycFWezSpWEMHrBiXq0A:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-ORIG-GUID: v9ehp7tugJAEpOCbaoxsQ3V-pKoosY1Q
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA5MiBTYWx0ZWRfX9TKAZv322u1B
- qlFuc044ByqsbZUVpy7ei/OcI6biwCwMhoK9Lb6kFICs5uQmVveor7ppbiseMTETh3O3sLUoI3K
- EHIGHyK7Pjxzrxze7JWTTYXU6nepMk0qgLygnUS3BmpE9Lp0R1nkhobOldIbSD8HUA6UhOvgHCG
- XEjbjPMbKVCtS7QlW9yCdgHyCJdrHveM8jNOqBTOQp455VE1hId4kB+gzaQY4xWn2d9j7oCe6ZK
- L6vCuY/nAHt413sKDNnB/QoUXo9Edxd3XOL/aHmKMNslw4gj3mGXecsgPAshnDcVt9DyGopmfGr
- 3TLfnsHsCb0istkpeeiNc6ZqivXVvnBUP+eaA7BXfeqGdRyh8ISyAJhoswrSSqpQJhKUz29MPfj
- UCH+gdHhL77I15y2wGt7UHM+JJd/kPlQgtquXEbwSh+o/ouPEblrBOKIR1naJUVq4u1VywDwUPf
- 0yQfdf2FLr8TJSg4zuQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA5MiBTYWx0ZWRfXw7jaEDlv/FPB
- YmvypJkylNCMJMC1uT1fMJWE/la417zzsp0GkxOqDORjAmorhyC4Wb6Rez6tUbzUYyRNwU945dL
- Yu8+oRR1dKJ7Q9N9qYOAWCOqsHwkJlg=
-X-Proofpoint-GUID: v9ehp7tugJAEpOCbaoxsQ3V-pKoosY1Q
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_02,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 impostorscore=0 clxscore=1015 priorityscore=1501
- spamscore=0 phishscore=0 lowpriorityscore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020092
+Content-Type: multipart/signed; boundary="nextPartatLajs3yRkirKyBuoKqPXQ";
+ micalg="pgp-sha256"; protocol="application/pgp-signature"
 
-On 8/26/26 7:02 PM, Krishna Kurapati wrote:
-> eUSB2 targets handle wakeup interrupts differently depending on device
-> speed when operating in host mode.
-> 
-> According to the eUSB2 specification, remote wakeup signaling in host
-> mode is detected via different data-line assertions based on the
-> connected device speed.
-> 
-> When a low-speed device is connected, the host repeater drives eD+ to
-> logic '1' upon detecting a K-state on the USB lines during remote wakeup
-> (eUSB2 specification, Section 5.5.14).
-> 
-> When a full-speed or high-speed device is connected, the host repeater
-> drives eD- to logic '1' upon detecting a K-state on the USB line during
-> remote wakeup (eUSB2 specification, Sections 5.5.15 and 5.5.18).
-> 
-> Since the eUSB2 PHY's "DP" and "DM" interrupt lines monitor the eD+ and
-> eD- line states, query the phy type and configure the wakeup interrupts
-> accordingly.
-> 
-> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+--nextPartatLajs3yRkirKyBuoKqPXQ
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+Date: Wed, 02 Sep 2026 13:29:12 +0300
+Message-ID: <rJbfdbXrS62xFUkr8Ld5TQ@gmail.com>
+In-Reply-To: <20260826-zx29clk-v11-4-f8ad59c6426c@gmail.com>
+MIME-Version: 1.0
+
+Hi List, and in particular Krzysztof,
+
+
+Am Mittwoch, 26. August 2026, 00:24:03 Ostafrikanische Zeit schrieb Stefan=
+=20
+D=C3=B6singer:
+> This patch adds DT nodes for the main clock and reset controllers on the
+> zx297520v3 board. It replaces the temporary placeholder UART clocks with
+> the proper clocks exported by topcrm and lspcrm.
+>=20
+> Signed-off-by: Stefan D=C3=B6singer <stefandoesinger@gmail.com>
+>=20
+
+This patch is the only one of my Z29 Clock and Reset series that has not se=
+en=20
+review comments Did it slip through the cracks?
+
+Linus Walleij added his R-B on the patch that added the mostly stub DSTI fi=
+le,=20
+so I added him to the mail too.
+
+Cheers,
+Stefan
+
 > ---
+>=20
+> Version 11: Improved the above the line commit description, removing
+> references to "previous patches" that won't make sense when reading it
+> in the kernel commit log.
+>=20
+> Version 10: Fix issues with dt-check-style --mode=3Dstrict in newly added
+> code, but left issues in existing nodes alone.
+>=20
+> Version 9:
+> Sort new nodes by mmio address
+> rename syscon-reboot to "reboot"
+> adjust to changes in bindings
+>=20
+> Version 7:
+> Add phy nodes to topcrm
+> Remove syscon from matrixclk again
+> Adapt remove now-removed extra clk inputs from matrix
+> Add reset to LSP
+> osc26m -> clock-26m for the fixed rate clocks, likewise for 32k
+>=20
+> Version 6:
+> Add syscon to matrixclk
+>=20
+> Version 5:
+> Re-name from *clk to *crm
+> Add the syscon-reboot node here because the binding requires it
+> Re-add accidentally dropped uart2 IRQ
+> ---
+>  arch/arm/boot/dts/zte/zx297520v3.dtsi | 101
+> ++++++++++++++++++++++++++++++---- 1 file changed, 89 insertions(+), 12
+> deletions(-)
+>=20
+> diff --git a/arch/arm/boot/dts/zte/zx297520v3.dtsi
+> b/arch/arm/boot/dts/zte/zx297520v3.dtsi index a16c30a164bb..ebac3cd137df
+> 100644
+> --- a/arch/arm/boot/dts/zte/zx297520v3.dtsi
+> +++ b/arch/arm/boot/dts/zte/zx297520v3.dtsi
+> @@ -3,12 +3,26 @@
+>   * Copyright (c) 2026 Stefan D=C3=B6singer <stefandoesinger@gmail.com>
+>   */
+>=20
+> +#include <dt-bindings/clock/zte,zx297520v3-clk.h>
+>  #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +#include <dt-bindings/reset/zte,zx297520v3-reset.h>
+>=20
+>  / {
+>  	#address-cells =3D <1>;
+>  	#size-cells =3D <1>;
+>=20
+> +	osc26m: clock-26m {
+> +		compatible =3D "fixed-clock";
+> +		#clock-cells =3D <0>;
+> +		clock-frequency =3D <26000000>;
+> +	};
+> +
+> +	osc32k: clock-32k {
+> +		compatible =3D "fixed-clock";
+> +		#clock-cells =3D <0>;
+> +		clock-frequency =3D <32768>;
+> +	};
+> +
+>  	cpus {
+>  		#address-cells =3D <1>;
+>  		#size-cells =3D <0>;
+> @@ -20,15 +34,6 @@ cpu@0 {
+>  		};
+>  	};
+>=20
+> -	/* Base bus clock and default for the UART. It will be replaced once=20
+a
+> clock driver has -	 * been added.
+> -	 */
+> -	uartclk: uartclk-26000000 {
+> -		#clock-cells =3D <0>;
+> -		compatible =3D "fixed-clock";
+> -		clock-frequency =3D <26000000>;
+> -	};
+> -
+>  	timer {
+>  		compatible =3D "arm,armv7-timer";
+>  		interrupts =3D <GIC_PPI 13 IRQ_TYPE_LEVEL_LOW>,
+> @@ -75,18 +80,87 @@ uart0: serial@131000 {
+>  			arm,primecell-periphid =3D <0x0018c011>;
+>  			reg =3D <0x00131000 0x1000>;
+>  			interrupts =3D <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
+> -			clocks =3D <&uartclk>, <&uartclk>;
+> +			clocks =3D <&topcrm ZX297520V3_UART0_WCLK>,
+> +				 <&topcrm ZX297520V3_UART0_PCLK>;
+>  			clock-names =3D "uartclk", "apb_pclk";
+> +			resets =3D <&topcrm ZX297520V3_UART0_RESET>;
+> +
+>  			status =3D "disabled";
+>  		};
+>=20
+> +		topcrm: clock-controller@13b000 {
+> +			compatible =3D "zte,zx297520v3-topcrm", "syscon";
+> +			reg =3D <0x0013b000 0x400>;
+> +			#clock-cells =3D <1>;
+> +			clocks =3D <&osc26m>, <&osc32k>;
+> +			clock-names =3D "osc26m", "osc32k";
+> +			interrupts =3D <GIC_SPI 42 IRQ_TYPE_EDGE_RISING>,
+> +				     <GIC_SPI 43=20
+IRQ_TYPE_EDGE_RISING>,
+> +				     <GIC_SPI 45=20
+IRQ_TYPE_EDGE_RISING>,
+> +				     <GIC_SPI 46=20
+IRQ_TYPE_EDGE_RISING>;
+> +			interrupt-names =3D "usb-up", "usb-down",
+> +					  "hsic-up", "hsic-down";
+> +			#phy-cells =3D <1>;
+> +			#reset-cells =3D <1>;
+> +
+> +			reboot {
+> +				compatible =3D "syscon-reboot";
+> +				mask =3D <0x1>;
+> +				offset =3D <0x0>;
+> +				value =3D <0x1>;
+> +			};
+> +		};
+> +
+> +		matrixcrm: clock-controller@1306000 {
+> +			compatible =3D "zte,zx297520v3-matrixcrm";
+> +			reg =3D <0x01306000 0x400>;
+> +			#clock-cells =3D <1>;
+> +			clocks =3D <&osc26m>, <&osc32k>,
+> +				 <&topcrm ZX297520V3_AHB_PCLK>,
+> +				 <&topcrm ZX297520V3_MPLL>,
+> +				 <&topcrm ZX297520V3_MPLL_D5>,
+> +				 <&topcrm ZX297520V3_DPLL>,
+> +				 <&topcrm ZX297520V3_GPLL>,
+> +				 <&topcrm ZX297520V3_GPLL_D2>,
+> +				 <&topcrm ZX297520V3_GATED_OSC26M>;
+> +			clock-names =3D "osc26m", "osc32k", "ahb", "mpll",
+> +				      "mpll-d5", "dpll", "gpll",=20
+"gpll-d2",
+> +				      "wclk-osc26m";
+> +			#hwlock-cells =3D <1>;
+> +			#reset-cells =3D <1>;
+> +		};
+> +
+> +		lspcrm: clock-controller@1400000 {
+> +			compatible =3D "zte,zx297520v3-lspcrm";
+> +			reg =3D <0x01400000 0x100>;
+> +			#clock-cells =3D <1>;
+> +			clocks =3D <&matrixcrm=20
+ZX297520V3_LSP_MPLL_D5_WCLK>,
+> +				 <&matrixcrm=20
+ZX297520V3_LSP_MPLL_D4_WCLK>,
+> +				 <&matrixcrm=20
+ZX297520V3_LSP_MPLL_D6_WCLK>,
+> +				 <&matrixcrm=20
+ZX297520V3_LSP_MPLL_D8_WCLK>,
+> +				 <&matrixcrm=20
+ZX297520V3_LSP_MPLL_D12_WCLK>,
+> +				 <&matrixcrm=20
+ZX297520V3_LSP_OSC26M_WCLK>,
+> +				 <&matrixcrm=20
+ZX297520V3_LSP_OSC32K_WCLK>,
+> +				 <&matrixcrm ZX297520V3_LSP_PCLK>,
+> +				 <&matrixcrm ZX297520V3_LSP_TDM_WCLK>,
+> +				 <&matrixcrm=20
+ZX297520V3_LSP_DPLL_D4_WCLK>;
+> +			clock-names =3D "mpll-d5", "mpll-d4", "mpll-d6",
+> +				      "mpll-d8", "mpll-d12", "osc26m",=20
+"osc32k",
+> +				      "pclk", "tdm-wclk", "dpll-d4";
+> +			#reset-cells =3D <1>;
+> +			resets =3D <&matrixcrm ZX297520V3_LSP_RESET>;
+> +		};
+> +
+>  		uart1: serial@1408000 {
+>  			compatible =3D "arm,pl011", "arm,primecell";
+>  			arm,primecell-periphid =3D <0x0018c011>;
+>  			reg =3D <0x01408000 0x1000>;
+>  			interrupts =3D <GIC_SPI 1 IRQ_TYPE_LEVEL_HIGH>;
+> -			clocks =3D <&uartclk>, <&uartclk>;
+> +			clocks =3D <&lspcrm ZX297520V3_UART1_WCLK>,
+> +				 <&lspcrm ZX297520V3_UART1_PCLK>;
+>  			clock-names =3D "uartclk", "apb_pclk";
+> +			resets =3D <&lspcrm ZX297520V3_UART1_RESET>;
+> +
+>  			status =3D "disabled";
+>  		};
+>=20
+> @@ -95,8 +169,11 @@ uart2: serial@140d000 {
+>  			arm,primecell-periphid =3D <0x0018c011>;
+>  			reg =3D <0x0140d000 0x1000>;
+>  			interrupts =3D <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH>;
+> -			clocks =3D <&uartclk>, <&uartclk>;
+> +			clocks =3D <&lspcrm ZX297520V3_UART2_WCLK>,
+> +				 <&lspcrm ZX297520V3_UART2_PCLK>;
+>  			clock-names =3D "uartclk", "apb_pclk";
+> +			resets =3D <&lspcrm ZX297520V3_UART2_RESET>;
+> +
+>  			status =3D "disabled";
+>  		};
+>  	};
+>=20
+> --
+> 2.54.0
 
-[...]
 
-> +	phy = devm_of_phy_get_by_index(dev, dev->of_node, 0);
-> +	if (IS_ERR(phy)) {
-> +		if (PTR_ERR(phy) != -ENODEV) {
-> +			ret = dev_err_probe(dev, PTR_ERR(phy),
-> +					    "failed to get usb2 phy\n");
-> +			goto clk_disable;
-> +		}
-> +		phy = NULL;
-> +	}
+--nextPartatLajs3yRkirKyBuoKqPXQ
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
 
-Looks like we don't have a devm_of_phy_optional_get_by_index()..
+-----BEGIN PGP SIGNATURE-----
 
-> +	qcom->has_eusb2_phy = phy && (phy_get_type(phy) == PHY_TYPE_EUSB2);
+iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmqX+ngbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJED0TvMhUTxoiXQ4QAIgh4cHS40dzpXGGXT06
+nMhiX21hOye6pUgSIUkl7edEIS9jiyMtrziDQ6y08OJGZQuMkBvX7rv70aYYpcNZ
+N2ssTTrip9PyBdNxLdsz2KP3bhnlUK6Xksuk6OuvupuUcFeLojqMEXDCToTGBWmn
+GZTiROWut21Q6RF+XyRKaztTrVJO3IfGyQZGsKt7lWHRLK8NXAJKBlnTUgPHWxht
+UsHVUXebz+0qObRB+mSOVkFFAe4t0FpKyfrSMiZw7UKduO/F35gRovOHs2sIw4WR
+VhjJRneHiRl1CNw7F+wyzdzl4Uq8bMsIiwDKSB6qj920+3oV2vS2nu9WYtT2MEPK
+AzT4b8SAsDQbcExV2j0jpyHqArQlumqYpueE2rsqzS6oa+DHu352RWng7cPyA+sI
+SVs7Dx+DGNp6Fxmhm/SSItKDMX8u/6D6fjbBW0N8PUZ3NyCbyWQ/zt971VsC6bVb
+U/nALB5LYCR3sBilrIC2JGJef+1cFanxITSCYLdOoStI9oI6aLumRRQayVXp94NW
+BJk1m4SJUa+J8ff+WeexXpVYYfnWp9nCYkG+q0es0kgR1Z+0YQKRYDeaviqxcQLq
+26krvpcuMP8cgWx920NVjKh7DXPVW++x8F52hqPYZyYqM5ONWgdIWTfmTCa8Temz
+JE70f1rWWHE+Spu4bDjfQkPB
+=CjRJ
+-----END PGP SIGNATURE-----
 
-phy_get_type() and generally all PHY APIs accept nullptrs just fine,
-no need for the first check
+--nextPartatLajs3yRkirKyBuoKqPXQ--
 
-Konrad
+
+
