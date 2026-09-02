@@ -1,131 +1,123 @@
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 360994052DA
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 08:49:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788338945; cv=none; b=gk5/bXXfqX+2k5yMgayileVx5BAqMRghhmjzmfB1zoHXxwG0k+lczA9AxykBRnZqZF8KmBmcW4KCJdwkCXrING8P2mR49fk82L2g33cvepZRbg2MQQJY1ngUGxhCPdksS+czbSly+Z3XKb5hg3FnLY7cAwBjgUenOndj3Ml43SA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788338945; c=relaxed/simple;
-	bh=ss5xROj8OM3lYj+pqG6TTIF5SBt62U9/oUBoQLswgBg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DJcLdouSrLZX8/r0GKTwvGCSoHCSS13quafEaWTGEGhS+YtYygeP1tAnnsGnDVadkhsLlVCz0si+xYRjaE5j3BbEer5E/bJZJHb15OlsA9B+UiArhZLj936sGHyC1zhXomuvpr+VvOoyFbroKF1JJu78uvo1pztbvGvUTj0C+CM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FRGhUyVe; arc=none smtp.client-ip=209.85.208.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ED0A3EC816
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 08:49:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788338982; cv=pass; b=tgPud6ErRTHg7WKW1pSISALi7/eToXwrYtRR6UYzqJF/Uaf3xaLRfUNX38mo18ZmNUGmnnoRSj68aHSwFBwGDNIElgK5SIQncqAqF1Lw11BgiT/lHoD7X1zTGstXy7q3pLyxgzxmvCrk0A6tjQtcfx11J+/RiTJt6zYX/rBLrd0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788338982; c=relaxed/simple;
+	bh=dXHVE6yyM/VxszSTaO1cHtDg7uvExauymcaChdiRMus=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Content-Type; b=u7HfWpzxPrwsWvvLhtIf0b8KpE7oC5COk7zpbQTSD7iNPKAiaVGJkwu4CQeFPyjXyDEiJ3Q6WXO9n+kiutXea6onQhzOeD9fxvq1KpjMpgFLhdmWR4BaumKNbJRleYnq53/IJzvaBNyAlN4zDuifwCgofWEfxXTD5dCcndpkL5I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jWF/96fN; arc=pass smtp.client-ip=209.85.219.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FRGhUyVe"
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6a0794669a6so1456419a12.2
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 01:49:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jWF/96fN"
+Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-90cd96389efso9795726d6.3
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 01:49:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788338980; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GshJe/qBeQamaDoCVEFPneIf0fyKDMTsdZAINlaP3qm5P0PWedZC8gWCWhW1X5Mtjw
+         /XGy9LRWs6o1z8idunVo0dr9n5YdeEEx44xm7pIO/C10IPZdVwVNfP3T/hpqxPLpw33S
+         XP0g6ASaYGjk/kdhtmeUeqpGFKYu3QS3RyPCGGln+FMOE9Lf07nqOKLax8+W+RFE5kDz
+         iDGT+Ve75p8TgpqRzkrgjxYMppyP20OSIOaGdLuxPLs7d03i0ReJ8BOdUzCJE4Tg+9Ul
+         QEAgq7+QBthbwyG36DyXPUVGPK3Pase90db4fO2r6rHq6+uojfnvZqe2Qj7X+8Uw08yR
+         OMcg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :dkim-signature;
+        bh=ahQZkdikvVjzkT6T9UmwO3n2/e5NTjCRZNNcesXUjLU=;
+        fh=d+ujcX9yrFA9RtCfGoNkZCZyTvLDUXt9/+tArFH7gG4=;
+        b=ZoXAgao6UXHuCMaOo1FTQJOoptUQuLqCBfsYaSSOQL7VR5p8lSwst4epsekdDxUrIq
+         8O6Bi5GgxAbWTJsjUEVtCm7xEjwmMaPqJ/Np3GPHs9+wUgLvfOePFiq19lhrm+mVHDN6
+         8XlrvqOtd44hFpX9ktCwbwqph7RJ2KfTXSE5aMaMHXCHtpmtuVd4IxChWnXJpJMk9BUl
+         aRjJeyJ4YZgyCP0cRrN91VKMZJ0xPmeTEZSB04akJhG9T9GoFnJzM6W2vKz21edxbmUK
+         MQpbZ5arJIZI61hgFUuZ1ZtFacncoupSAOgIrB47MnvqUEtBr/Raw/JjG2oy7HHJVAN0
+         Adeg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788338942; x=1788943742; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1788338980; x=1788943780; darn=vger.kernel.org;
+        h=content-type:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=f7aqc1YiIFFi2S/7+a4K7uWSUn18PjZkaszy4zjXDoY=;
-        b=FRGhUyVeZHhqIQy7V+2OH9vwODwXTRs47UnHugrTgp+LSOzcThFqsRm2bSfBJMwhBk
-         199eI9nSLNaLiHNvQEMwpmT0gpKbAzwHhN7wqzLBlykqSHwCMXCrF6cXhYR3fiC0tX72
-         2J9XYkRWq68ZDFW4+MxdKrdDPS2FRzLnZuskT7IirKoyI8ysnZNo46D72xxdOyz5EDnD
-         0H3JcRfYn/vmWl59ZTXEHfOeLzzb4ELjTwLPeyyKnk7w8uBlCJtOSvytm6rAy+1f6Xe7
-         VxRrKYJrF4GcM2ZVCIp+gNMeEUCF4h7Wpu5MCZhU6mYcXgR5UdXplfMT1J+mZOP9DuVa
-         AjSw==
+        bh=ahQZkdikvVjzkT6T9UmwO3n2/e5NTjCRZNNcesXUjLU=;
+        b=jWF/96fN0UzOVU7RxbRvwCqfhgf7FcI+XVtbbCgEecAzcPhmoMFWnoMVW6+gHn3+K+
+         APTvIsnv8bY4lI1xOTPsLiJ/VdTxKX2BJqzIV7FKsUUGt2LZhLLIyyxy5nc67vi3fR6S
+         HD31gN+ariraWuaaSZ7ZIIjOTBF7+Bhx3oZ4x53l3ulZnaxpfkcwPyMq6hXD/AN9/LED
+         S740PyLu/Sqv55mB6mUeT5GoQouL9WRM75NaQi8mgeonNQcZixlZrfyNFzWJHHJ+3aDn
+         7IaHJMMBdUQqPv1voM3tnIYKC8r+y/xeI4KQboX3ePplQipw7YSvFcSLhuae+1WZImHw
+         MoWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788338942; x=1788943742;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788338980; x=1788943780;
+        h=content-type:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=f7aqc1YiIFFi2S/7+a4K7uWSUn18PjZkaszy4zjXDoY=;
-        b=AtBjZxi1/ni01X7tF4oFfm5YQkZoJmD+3XzzzSn4XOfAMUr/9hIykZeb42kwzoOZmt
-         xlxzpWP2x+yEJvBX5oAfeUeuwveV/RPbb+Ul71iXQXpmguKt/CA9pplGsK3Ug5hUckmw
-         K6IwEBb5MeLGdu3ECrH7EdePtyoacAsGXbelRH7UrhtDAdQPqB9IC+0ADzGtKfTPEFnj
-         qoHHgdYTLTf2GnL7MzLH5xTVqyg1y4IcydjbtYG+m4fymG/O9fjoNiZcaVJ24j2vQ1GH
-         DmLjL35v5GBO65IVeKcGowadCJB741kx5np3dTMi5oU0beC64vFdo8+tre9RUWPo4uKR
-         KyZg==
-X-Forwarded-Encrypted: i=1; AKwUvBwHuFk5/ZGV22puGMi6S43gW04RjQrcuiKYMSpn+4YcnUUflNe63b+0IOBlRUQK5WaBYhYfCQnXz1DP@vger.kernel.org
-X-Gm-Message-State: AFuF++mFlexMCZHi8nZp78/lZHeW1gWsulc1zBL2Fcu0o5uyFxSnmziO
-	Zn1C+SFD7UYMMiS8fTGhRAWc+WdukbeSv97CJxN0P8GgLm2HIKMhoKsu
-X-Gm-Gg: AYBFou1lZd8PZ66UTTPtkZPHD3RRv0CsZ0UMPBj0T/a0t277eczox3rTbTGUfQDixUm
-	j6vkyMg5qbsPNBL4uPqbKXu7QFVAVt1dvngdifJmkkHuuqmIDnxunCeHB6LUARSCHoeBCr+gnBY
-	9PY3hmACuR4DqRIKNtCK0EP9lz4dVG8M1EAuAnvVdYUKxQugqKERPu9EYxuTaOi4lEU5395ov9l
-	Dr+vgG2duAmswQaBWYEnTmZFKQAJGvCqzoMuXx9k9zuRdiVPE1Abq4H+60AK9BlKcYU4Y8suwJd
-	18+YxhfzCPzjWVJ2wP1HLAyYOB/IEXDCmqYWR1e2SGK+x6GXsSLvcO65n4aTC7iaoFuHX7TqEA0
-	aFWFXtAgZn1XWr5QRQWG1alcJxCTXa/iXCyyTI4A28aNgQzVz21i480/4mDjc0PQozH+nhaQYGd
-	7zaKnawF0HVd4DYn60OUkecYO0FmzXkh94yWEuX4sHR5KwGrbH7NljSO1KphQJdYZdUifOUEDJI
-	pGyxD5bPwN2L8k7wJqhqSPwag==
-X-Received: by 2002:a05:6402:21d4:b0:6a3:f63a:4997 with SMTP id 4fb4d7f45d1cf-6a682567131mr2048216a12.3.1788338942157;
-        Wed, 02 Sep 2026 01:49:02 -0700 (PDT)
-Received: from [172.24.138.145] ([137.71.226.102])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a67f895f29sm764636a12.2.2026.09.02.01.48.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 01:49:01 -0700 (PDT)
-Message-ID: <0c5a657d-e134-49a7-b2cd-82f293685cb7@gmail.com>
-Date: Wed, 2 Sep 2026 10:48:58 +0200
+        bh=ahQZkdikvVjzkT6T9UmwO3n2/e5NTjCRZNNcesXUjLU=;
+        b=Cbb78h7L3Om9/fcBFFz6dsqorzA/h/ZYaYDtKw1XrZ/pW1NlvtWgncyEid7H8hr5Bl
+         PuIYHSINlwTstKFaPnfH3CHLSf9VQe9TNwWU6/0Wcvoc6/ErsgsX6vnr2kFvhJRjEpn9
+         S8xcSWZJ3pgPdu8bmqrQaygccpLmHySHJEwdk6u87ZtbOZ4QpSwaikdsD6Zj4rKbeFe/
+         DdEXcZ7wie8c0nfRDjxqotl/Z+Nw++r2LVe/8ib6wZ3vNTEBTI/l5P9ipQZnndWotHYo
+         auvjkQNAOlwTgqOP+wj5gAV96ykgJuKgVJhqKW9tM4kDUlUtMJvHWTFAJRApJi54rv3u
+         wfdQ==
+X-Forwarded-Encrypted: i=1; AHgh+RotKPFL8je2gd7Uts8Tyq1mpbT+5TqjEyQgMCtabRCWp+zSWWOTqGQXXJvw+3neGDbetanW+i1dxBQn@vger.kernel.org
+X-Gm-Message-State: AFuF++mPsyKgupr8o2RTzZUdFVv1HoxwYK80vEMYT1R//BcaxADfucvR
+	oG/+pOoc4/CGb1Oue9RY9V6TfIKkIElRR4sBIsKVqDF1bwwSdevvex8gpJUZAP5bu3ZGtjjwXDF
+	vTw2uJ4DElmmwNWB5PdX0q4LQx6UAF3E=
+X-Gm-Gg: AYBFou36i6aK4uNMsODNGUjDgjwhF/Axh3lxq8DUDDpj0zfYnZ5OG1IIpmAcS0zXLNF
+	KaXD3mHh7M/lASvvqBNL2YR5XZiioWS0/fSdAiLMLEGfNjmjuJ7eL3zDBnGsxNQ9SKTYYykSwV5
+	/aCDwOs0+ZNJCgcVw0QuNMweINSH+FTSrXEHk84m3ykgIbRpPd63KOskECoI3qZKPfOiVIslSus
+	hM/YdRY2HFrj9ktMGLYgsU7yBy57nmFsOjZJakW/Li4NuY8ELdUQhuDvhmo4Me93l68fPQzuZ3b
+	YKqiyn41y64K75Y7ByNpNZbVVsgMtwZX26ruPWGNBeCx4i7Njzn74+1LxWhfhLvGeBSvXUd0XcA
+	eZGugJ2Yp6H9psIXXU1PCeqE/1NfDjcUPyTEAXFwYLl1MnUl3/ZFrUDq8RgG4TuGIWRMdUxAI+K
+	dMNmwYKawpse1VCywRtwCRS/7GEjJl7+/aQDcI9b8=
+X-Received: by 2002:a05:6214:434a:b0:8cc:d29:9f73 with SMTP id
+ 6a1803df08f44-90ebab8fb94mr48871086d6.21.1788338979975; Wed, 02 Sep 2026
+ 01:49:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 3/3] iio: dac: Add AD5529R DAC driver support
-To: Jonathan Cameron <jic23@kernel.org>,
- Janani Sunil <janani.sunil@analog.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Mark Brown <broonie@kernel.org>,
- Marius Cristea <marius.cristea@microchip.com>,
- Marcus Folkesson <marcus.folkesson@gmail.com>,
- Kent Gustavsson <kent@minoris.se>, Conor Dooley
- <conor.dooley@microchip.com>, Daire McNamara <daire.mcnamara@microchip.com>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-spi@vger.kernel.org, Kent Gustavsson <nedo80@gmail.com>,
- linux-riscv@lists.infradead.org
-References: <20260827-ad5529r-driver-v10-0-38f2be07b824@analog.com>
- <20260827-ad5529r-driver-v10-3-38f2be07b824@analog.com>
- <178813261957.2788519.4929586195765891569.b4-review@b4>
-Content-Language: en-US
-From: Janani Sunil <jan.sun97@gmail.com>
-In-Reply-To: <178813261957.2788519.4929586195765891569.b4-review@b4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260802145109.728793-1-pbrobinson@gmail.com>
+In-Reply-To: <20260802145109.728793-1-pbrobinson@gmail.com>
+From: Peter Robinson <pbrobinson@gmail.com>
+Date: Wed, 2 Sep 2026 09:49:27 +0100
+X-Gm-Features: AcwNN1UlM_Tc8DR5l-MabxNMXioOiMJnlb69hTglEaQjvp97HJXJG9SkJC1Szww
+Message-ID: <CALeDE9O1oPtbJ2p+pYbEw9BZOXuEtgO+uhE2s2a8i6XjSo4urQ@mail.gmail.com>
+Subject: Re: [PATCH 0/3] Some minor RPi5 bits
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Stefan Wahren <wahrenst@gmx.net>, 
+	Phil Elwell <phil@raspberrypi.com>, devicetree@vger.kernel.org, 
+	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Dave Stevenson <dave.stevenson@raspberrypi.com>, Andrea della Porta <andrea.porta@suse.com>
+Content-Type: text/plain; charset="UTF-8"
 
+Hey Florian,
 
-On 8/31/26 01:30, Jonathan Cameron wrote:
->>   
->> diff --git a/drivers/iio/dac/Makefile b/drivers/iio/dac/Makefile
->> index 992f8930f95c..8dc644522b1e 100644
->> --- a/drivers/iio/dac/Makefile
->> +++ b/drivers/iio/dac/Makefile
->> @@ -18,6 +18,7 @@ obj-$(CONFIG_AD5446) += ad5446.o
->>   obj-$(CONFIG_AD5446_SPI) += ad5446-spi.o
->>   obj-$(CONFIG_AD5446_I2C) += ad5446-i2c.o
->>   obj-$(CONFIG_AD5449) += ad5449.o
->> +obj-$(CONFIG_AD5529R) += ad5529r.o
->>   obj-$(CONFIG_AD5592R_BASE) += ad5592r-base.o
->>   obj-$(CONFIG_AD5592R) += ad5592r.o
->>   obj-$(CONFIG_AD5593R) += ad5593r.o
->> diff --git a/drivers/iio/dac/ad5529r.c b/drivers/iio/dac/ad5529r.c
->> new file mode 100644
->> index 000000000000..52601cbf28d5
->> --- /dev/null
->> +++ b/drivers/iio/dac/ad5529r.c
->> @@ -0,0 +1,536 @@
-> Why do we need those outer () ?
+> These are taken from the downstream kernel device tree. They
+> are small components that already have upstream support, from
+> older generation RPis or existing arm IP with just minor
+> changes for upstream, tested on rev C and D variants.
+
+These all still apply against rc1 with the already queued display
+adjustment patch, any further feedback?
+
+> Peter Robinson (3):
+>   arm64: dts: broadcom: bcm2712: add arm PMU
+>   arm64: dts: broadcom: bcm2712: Add thermal monitor
+>   arm64: dts: broadcom: bcm2712: Add USB OTG port
 >
-> ...
-
-The outer parenthesis are required by checkpatch for macros with complex values. The same pattern is also used by AD3552R_CH_DAC() in drivers/iio/dac/ad3552r.c
-
--Jan
-
+>  .../dts/broadcom/bcm2712-rpi-5-b-base.dtsi    |  6 ++
+>  arch/arm64/boot/dts/broadcom/bcm2712.dtsi     | 66 +++++++++++++++++++
+>  2 files changed, 72 insertions(+)
+>
+> --
+> 2.55.0
+>
