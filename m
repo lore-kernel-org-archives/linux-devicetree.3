@@ -1,69 +1,33 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F1914A0923
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 13:28:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D30AE4137AE;
+	Wed,  2 Sep 2026 13:29:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788355728; cv=none; b=XbPOpTC7711nCr+Ozj2KsASqbbaFz7ALugewdT1iVs2C4rbG0A2swLF4fnueiJ8ccySdtS7eAcR7met3twIKSYhghZtM9psx3YXXxJeKclNucks09hm02EfDTxAkOzTG0mTSZ8ZCmeYSAzrVgaoXeb38ZKgcBS4Ny6eVxthrHxw=
+	t=1788355786; cv=none; b=ehhdDAcLu431d1luzidcFje/2mti7KF5CUUh07twIe16jjxSNodZRq5aEpsLcXDYkRihEhIg5DXYmIkvHMDLAF4lz93NzpDm2jf5dJ9St+OBHqLcquMJA7ly2Kr6SJl0GIS0BXQp9mw/9Oh1Epk4SscB8WQ1mOZwqwoPBtAwLs4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788355728; c=relaxed/simple;
-	bh=vqQ9yFom+KAtKBmXnmdPUsCdNv7GT8zmvq1Y31NDaXs=;
+	s=arc-20240116; t=1788355786; c=relaxed/simple;
+	bh=3kzF7itCNI3649Jd2yl6+o37lkdhtqpt1JNljsXi5vg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uCkjR2R7STa91qIe79Leg2bCWpKcr2M6ajDBURFmp90Sud10w6sKYw1M2BypQs7M1B5UVmuQ1WHJfXH8JLfMhP/xHeDezoZSFqLAbVkNDfChz+g9fm5ZAG3kOuvtDoDNyvRwQmwwZjb+duqETY6fuGQQlv4g/CH1V3qz8gAdVYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q4M/7d0V; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=ZHiZYf4JwcD72IppbNwufmYsaEEzrOAiYiYdnkxTuaJtLGQML6LwgsobAwDbq1PhnvCfFUoHqvc61wWFwKxRLLcbGu8kxLfHSjiREuJck7bwhvpsF8TDwmovrudynX4e1IV9BabzRrQMJ+mHvG/Ge+jJFkeRJpJtiO+CXxgqtBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=jAI84FJg; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q4M/7d0V"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3965d3d9ab8so956674a91.3
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 06:28:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788355727; x=1788960527; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WaieGRt6LOh5thIe/TkyPr91gBSSxoFIo40Umb3lPE4=;
-        b=q4M/7d0V4DHiJegKtwXhmBb3L81BAeT4yvG2kyPwkNXJ+z4NnoE5XFlFHDb0CmI3gc
-         1DlQKXgy+hRnUiPFz9NVGb5/CCaZxXcPbLJ33BBnG84Njx+5SBiEHQiCRFea5vb5SL57
-         JKrdQIE+U/jNOlzb3NowieqjcSmMdmIHDkPcdCj97Wyl8Iu+kH5hdLF44xzQMDoq2TOK
-         MCqO5nQ/fge3WAfLHzH82NqLztjdtOG5PnF6JmlIxtPqnAdNgXOSWVt71BoxZHvsWsbP
-         ibIf2K+LuGg2N0uhcgOHKZKJg27U4HW8njsewi/1jAw1i6mntYHp0tcR6QE/zU3vB4KK
-         kyCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788355727; x=1788960527;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=WaieGRt6LOh5thIe/TkyPr91gBSSxoFIo40Umb3lPE4=;
-        b=SCf0YiOx2GyzIfxZTcPHKmnOgheMRV+7HlflB+275lPWIP9PoN7RTuSDHwIoGCTCqU
-         smkw2EmuqxW9sRnEphKA/rcURheYv5BuelilufaCElWreXptCXqPFjeCJydS2gvEXHbc
-         LZfv2HGSPnubMP0tdBIYMDskEKhLqiQ0OdqecICfNQe3Oh3zt8hTvSaPlNkno6icelHq
-         7XB8yePKL8ATC4Gq0Kw/VutYSHJoRNdi2AhUg0lPTkejUlbRcl93xx/YGZjODg9WyqNn
-         ZsMZ60n7AGjqqPUq4FGE5/ryZ5uzMSV++MQ/NUuxPD8v9kk1cJzQ0oKw5W1Y1OYbeCrS
-         5RMA==
-X-Forwarded-Encrypted: i=1; AKwUvBzZniAQea0nmCocyPuaW7U5tRrJynLnO8X3mfTCGVq75yq0xd1/7eB4b1Tchwv2X1VA/wAvBEvLAVQ2@vger.kernel.org
-X-Gm-Message-State: AFuF++lOFQpr9ao4R6gsRypwDHlWMR02Wmnl/+yD08/nM32HvptN9Sm4
-	LoYSPcnef+sMcbqM/lU/Dsz32/CZFWBOF2QKgE+675kxE20nnWbZXnMH
-X-Gm-Gg: AYBFou0Wwj3Zd4A/7LNl0SFmJN0RvqVWtjnFT5Q4Sx3tKOCCFC3xpTsQOXu9ZsVOQi0
-	SztqEtVMvD/yQAMgVD19q8bH15HlF/i7qv+eI3sJ2R0INkWnxwtzyc7Ior7D+XstvQUhOMzQQ6D
-	jl8efxXRzqbUSgXmoL2GRNEUJvvDgFEmUps1xSf390OmusByXlE40qiMFRHySBYFWSde7Ma5X2M
-	pJZkapN8ROfs3iYYiKJtLrd3YaiwhgSOKUL0NDbq21ZHxZq+asqkmWMShbK7PrKZTOzcj4WOsPd
-	DpQgNcoGRH4aZWMrATCDvH6ytA3ShEUg+tP7Xz9lOzZnahcxNK5eYvaFUUgC6P/F8x9KEtFoEBc
-	Eu+M8UjvJt3nz4RvgT+oPZ0SmYatIu5BeakHbkc7rgG0229Nu9argRPrJUJ40cXzo4RnEBcxjMb
-	i4GUsaXxlUCo26Xpev8N2NhcWEhJ+DuPiTe5Y8WMATJYfVMEQJAAxYAqwjza7HQRf1210aYZ87v
-	+GWP3jl5wNWAK4uRPjEF5c1opriLDiu91YwhA==
-X-Received: by 2002:a17:90b:1a8a:b0:385:393e:7124 with SMTP id 98e67ed59e1d1-39aee0e5de8mr6631593a91.14.1788355726490;
-        Wed, 02 Sep 2026 06:28:46 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d7bb9d7sm12149494a91.15.2026.09.02.06.28.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 06:28:45 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <bc51c907-a523-4b99-bf3a-b23c5823fd56@roeck-us.net>
-Date: Wed, 2 Sep 2026 06:28:44 -0700
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="jAI84FJg"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 610CE165C;
+	Wed,  2 Sep 2026 06:29:40 -0700 (PDT)
+Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B00DA3F673;
+	Wed,  2 Sep 2026 06:29:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788355784; bh=3kzF7itCNI3649Jd2yl6+o37lkdhtqpt1JNljsXi5vg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=jAI84FJgJAvnyhbJiH1Pxn7thUuzLd5dcmWWV+5W22olMfH0LkXLMmpwmz0Dk3KR3
+	 5m2gPwMIFrSaptQU5elbNsEPXBlpZKbWjuJZQZYwq7FwXhEQvDN/S+hzOedqTuhDM8
+	 0HIoyrUUju4wL7kqZCcmtszvpBFN2e2KxZjUWK0c=
+Message-ID: <e6d4bb93-66fa-4149-985d-87d895081ea0@arm.com>
+Date: Wed, 2 Sep 2026 15:29:39 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,84 +35,87 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dt-bindings: hwmon: ti,tmp401: add
- #thermal-sensor-cells
-To: Krzysztof Kozlowski <krzk@kernel.org>, Vincent Jardin <vjardin@free.fr>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260825-for-upstream-dt-tmp401-vcc-tsc-v2-1-cbc360ec51d9@free.fr>
- <20260828-weightless-ferret-of-pluck-ef2baa@quoll>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260828-weightless-ferret-of-pluck-ef2baa@quoll>
+Subject: Re: [PATCH RFC 05/15] arm_mpam: Fix device_node refcount in DT
+ resource parsing
+To: Yin Li <yin.li@oss.qualcomm.com>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Shanker Donthineni <sdonthineni@nvidia.com>,
+ Conor Dooley <conor+dt@kernel.org>, Fenghua Yu <fenghuay@nvidia.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ Reinette Chatre <reinette.chatre@intel.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, James Morse <james.morse@arm.com>,
+ Ben Horgan <ben.horgan@arm.com>, Bjorn Andersson <andersson@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-arm-msm@vger.kernel.org, ganapatrao.kulkarni@oss.qualcomm.com,
+ trilok.soni@oss.qualcomm.com, devicetree@vger.kernel.org,
+ driver-core@lists.linux.dev, Srivathsa L Rao
+ <srivathsa.rao@oss.qualcomm.com>, Huang Yiwei
+ <huang.yiwei@oss.qualcomm.com>, aiqun.yu@oss.qualcomm.com,
+ linux-kernel@vger.kernel.org
+References: <20260811-mpam-resctrl-dt-knp-support-v1-0-ea6397bead59@oss.qualcomm.com>
+ <20260811-mpam-resctrl-dt-knp-support-v1-5-ea6397bead59@oss.qualcomm.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20260811-mpam-resctrl-dt-knp-support-v1-5-ea6397bead59@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 8/28/26 03:02, Krzysztof Kozlowski wrote:
-> On Tue, Aug 25, 2026 at 12:13:18AM +0200, Vincent Jardin wrote:
->> The property is missing, so a board that uses it with a thermal zone fails
->> with dtbs_check:
->>
->>    tmp411@4c (ti,tmp411): '#thermal-sensor-cells' does not match any of the
-> 
-> Cannot find such node.
-> 
-> How can I reproduce this warning? If it is non-reproducible, then it is
-> not a valid reason for a change and instead driver implementing thermal
-> sensor would be the proper reason.
-> 
+Hi,
 
-The driver does register thermal zones. Since #thermal-sensor-cells is
-mandatory for using it, I would think that the property is needed.
+On 8/11/26 15:30, Yin Li wrote:
+> When a cache-parented or memory-controller-parented MSC is probed via
+> device tree, the parent node was assigned directly to a
+> __free(device_node) variable without incrementing its reference count.
+> Both the parent and the cache/memory variable are declared with
+> __free(device_node), which causes the compiler to automatically insert
+> an of_node_put() call for each variable when they go out of scope.
+> Since both variables point to the same node but the reference count was
+> only incremented once by of_get_parent(), the node ends up being
+> released twice, causing a refcount underflow.
 
-However, not all chips supported by the driver (and this bindings file)
-have more than one channel, so I suspect that the value range might
-need to be "enum: [0, 1]".
+Yes, looks about right: there is another assignment to both memory and 
+cache, they call of_parse_phandle(), which increments the refcount, so 
+we need to do the same for the direct assignments, to get the free'ing 
+done consistently.
 
-Thanks,
-Guenter
+> Use of_node_get() to take an explicit reference so each __free variable
+> holds its own reference.
+> 
+> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
+
+Reviewed-by: Andre Przywara <andre.przywara@arm.com>
+
+... though this should definitely be squashed into the respective DT 
+patches. Feel free to do so.
+
+Cheers,
+Andre
+
+> ---
+>   drivers/resctrl/mpam_devices.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+> index 975ddab771b4..559fa09128b4 100644
+> --- a/drivers/resctrl/mpam_devices.c
+> +++ b/drivers/resctrl/mpam_devices.c
+> @@ -280,7 +280,7 @@ static int mpam_dt_parse_resource(struct mpam_msc *msc, struct device_node *np,
+>   		type = MPAM_CLASS_CACHE;
+>   
+>   	} else if (of_device_is_compatible(parent, "cache")) {
+> -		cache = parent;
+> +		cache = of_node_get(parent);
+>   		type = MPAM_CLASS_CACHE;
+>   	} else if (of_device_is_compatible(np, "arm,mpam-memory")) {
+>   		memory = of_parse_phandle(np, "arm,mpam-device", 0);
+> @@ -290,7 +290,7 @@ static int mpam_dt_parse_resource(struct mpam_msc *msc, struct device_node *np,
+>   		}
+>   		type = MPAM_CLASS_MEMORY;
+>   	} else if (of_device_is_compatible(np, "arm,mpam-memory-controller-msc")) {
+> -		memory = parent;
+> +		memory = of_node_get(parent);
+>   		type = MPAM_CLASS_MEMORY;
+>   	} else {
+>   		/*
+> 
 
