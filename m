@@ -1,56 +1,56 @@
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14B4947206E
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 10:51:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1B2C4534A9
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 10:51:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788346289; cv=none; b=Lv6Vu4Arc8a/BTwAC3AxmKFSf01kldLHFyxu06tFCWB4jPfpbDpUcuI+BrU73Sd5nWgsNd+lC2jH/MHhT/CVpw/OwavLjwnFCjr8dfI1iM5s8QxeGFR78+0UR1iDLb4AEHpxuGZqgDBhQh6hCCjm5yCtE9C/GEH3krsaAizBcEU=
+	t=1788346290; cv=none; b=WwqA/xSjRBcAHrGemrTqWaI26sZ5DcS3LAQ2vHEZ41IjXmePa9oJDR30gtB+KjAVRrKGzkTWUCLWyPRwcWRNSkBqZjqPt8YIv2ti5ZymVIqy/NKZ8QYLYhfaX6RDIpPw0T38QeHaIk8OzdKFJEaC8AY74jhuDQ86ZECy9UT2hM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788346289; c=relaxed/simple;
-	bh=BkWHB+IxRJyp/mrL2MDxtxRI3LoQB6qxpIKEIBvf9+w=;
+	s=arc-20240116; t=1788346290; c=relaxed/simple;
+	bh=IR5a7dw8niUl1D2oqM5QJBMPZf1MLc6PkEbzReKAZA0=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=qRSVUKYrj76HPjE+MLuOL3hQC5+z9u85eiYzYR+37deGntp/WI1xcUFbRNYXov/NEDnAbnDcg7RnQNzpdkpocYpE0N3cHU3/s8wmWHm8+D10mxnGFzKpHlCy9POxIqDzoG4TatMTiQoNjwYj6ep8EIk8ugiSxmBaSs6H+zdL7mk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BFKpjqZG; arc=none smtp.client-ip=209.85.128.72
+	 To:Cc:Content-Type; b=NfzlD/CbctjTfH9GEpAstJ5BweMtE1nRV0xYM9KrxFASPNmcSwtmabdf2S3k19e8P0nLvp55NKxpbDLvTqySCq5Jky78NkZQmLBmEzSAaKkmzG2Q04SFjBhx3vu/Ves6B7g2vQfEwiGRigzu6Pn7UIxtPGxeY0K4M4MfnCyCd08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=WXuXAD+N; arc=none smtp.client-ip=209.85.128.70
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BFKpjqZG"
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-496bbcf7d1eso6678375e9.0
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 03:51:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="WXuXAD+N"
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4994cf6cdb9so6533855e9.3
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 03:51:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788346275; x=1788951075; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1788346279; x=1788951079; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=TNWZLpQFf8So7isbdfRHNiNRkktdYQTRcSFjKmsQSY0=;
-        b=BFKpjqZGG9ZFudht7p8ohZUiD42cVUS8Mx1ongokDof2Fn9NyBS9ciAixLiPp3qyys
-         o+kaLmLXT4bc+NHKn5eHKho60KauP+ghtv8AblQKLbyT/JmO6yJKrgL2RAlWqo7tgN53
-         NWnCcxfVUumyyNBWGMH5qEQLvwsD+aOQjQwrujvXC7Ufk/KzZ52z9EHkzCoEIKhVjwDu
-         u7IhAdkZkSHQBo+kYO+62PylsK8ePSwoh4HFNoUDPHNewrWwpv42Gs1109obDhnyv1XV
-         s4aaRoe6Pmecx6KkO1bXXMrQGvjBNFcNMkitp8sIy3uA0Nk+qJ9evHvlg7uZKaJse6UM
-         uLIQ==
+        bh=w1wC9u3twhPNjqquLWPyT5Y0R6x/ILvd7DMTdNgZ19s=;
+        b=WXuXAD+NsAQlcuemeby70nHcrjsZoBBMWjHzvJF9i0K/iI3X6b+YvlfPk3Vah9xNlD
+         f1wilQQd0JZ9zCAsQBBKbYBVc05hEDXHEUhQ48ccCmLqaN32LLsFVLx9NAOi7yZcOL35
+         UancxbOuVa0q4/lFgGIIuyYQ18rgveak81+CQP3SYHKyTp3C7cXjAQHoOydlU70n3i1T
+         pGSXps3GZvdIfe/s4swNy/FnbnylWaVo5QypyZe/SasCdz/mQ9Z1phjNGK0IxoWTmFzI
+         1LbpKa+OjnFZ2dc/CXDW1wEJs6m9e6RykuOF3/xeZgxpHR3a0Ibo93wd9NNsfhGlyDkT
+         GnLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788346275; x=1788951075;
+        d=1e100.net; s=20251104; t=1788346279; x=1788951079;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=TNWZLpQFf8So7isbdfRHNiNRkktdYQTRcSFjKmsQSY0=;
-        b=BX6ivsWGfHcRNxG+I3Kp+1STKy9leaLkSSD+psFRE5K4Ocj4EkAQUDWkSQgZiQkItn
-         P+ZJCv3A08bur8KpGhqkwVc8k1LTbfnv1c2lhET3/yOGgcN30IyMYhv9ehqiKk8ncsR2
-         phJ3bZspluASSTHk6yGZUScj0L6zvc0uH2CiLTf6UCSq0S29BQP5eC2s5aL6YRDoJ0m8
-         Qe8C6SCu8YiDq3TKD7tgJmFv3wGfqRaFLWjfSklGRXR9YMjpnTAyqzCdsVjhG8DD67Nn
-         JgiXdQ5JbBXngP4tGg4AjWE08sXxHu8s3Y6mTOrQIve/AyfN/nrE6LascbQnfu4pZcKb
-         AKVA==
-X-Forwarded-Encrypted: i=1; AHgh+Ro0abrfhWnoJdFhIUx5/OijKTJB2f5S6CGNidqfFdlA8nqhVYXOXSjOI75jwAIbxfEA0sthoGoQYFGz@vger.kernel.org
-X-Gm-Message-State: AFuF++k9m98y/pni6oleISq3vUVHF/17VeaxLThxk3vz3QpUyD5eCaTc
-	kPlq3mO7O2+7RT7zTKsipiM/KA3bo/DmUiOqeRX1mXXw7Mn34mNI8FeSnCqqPaCQeyY+oG+4N77
-	fWQM3N7FXUc5qH8mJNJ9UJQ==
-X-Received: from wrpe17.prod.google.com ([2002:adf:f351:0:b0:484:3204:23be])
+        bh=w1wC9u3twhPNjqquLWPyT5Y0R6x/ILvd7DMTdNgZ19s=;
+        b=YOL/7Agd3cpfndJ31owoTA82gFPxgNe7tHHIImpKE0Qal6UlDt+EbhaMYuubUj/BGJ
+         W6RT91wsWAkwOc0W8a2CBzrV+84fVe+HEFZpFGrI8xA9HbXpzpTi6uqmL0CyJPS3rB0W
+         BFlOuzwkveMCuj+hhShnqX8XSaOu0zy1gLpVj2L/tsvS8EHow4mdNkctCpUwspjLujxL
+         ndsu1aY26IbY43IVEsBXqrmQO8rXXvwpHiX9CLALm/iqtEw4/X/rnHpHjhP/yqIaJ5e9
+         SlzPI6q7AvJmLOzBw1NBJNbcnboCzXBGGvf7/sVNHUplKXi3GsCYdL67EKaZd4N+KzXf
+         6H5w==
+X-Forwarded-Encrypted: i=1; AHgh+RoPY2Fa62hBc5tEmR1puAviuMWt0bpLLkuApZ2K2MCnV/Uf+8Ld3vC3M/AwpMUHtxpyScnytyWqU0hZ@vger.kernel.org
+X-Gm-Message-State: AFuF++nIzINJ8bjrfcq7d37aOQPo71AMEaYc8vFWVtvP/UuobmA2c0zp
+	DcMVRBbrARUMVXHIAq3z5FVFLRT53rL+QUTEawq4IudSAOxLgA61dJM5uvgw5va367pRKJbaAHg
+	Kxl88ux2vxyV1AxoqGEUPNQ==
+X-Received: from wmqy14.prod.google.com ([2002:a05:600c:364e:b0:49c:ca29:c0ed])
  (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:4e93:b0:499:cd34:100d with SMTP id 5b1f17b1804b1-49ce57f5235mr66954815e9.7.1788346275192;
- Wed, 02 Sep 2026 03:51:15 -0700 (PDT)
-Date: Wed,  2 Sep 2026 11:47:09 +0100
+ 2002:a05:600c:5653:b0:49c:eb17:cf3b with SMTP id 5b1f17b1804b1-49ceb17cff4mr15337645e9.8.1788346278647;
+ Wed, 02 Sep 2026 03:51:18 -0700 (PDT)
+Date: Wed,  2 Sep 2026 11:47:12 +0100
 In-Reply-To: <20260902104712.2399797-1-vdonnefort@google.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260902104712.2399797-1-vdonnefort@google.com>
 X-Mailer: git-send-email 2.55.0.970.g62bdec98f9-goog
-Message-ID: <20260902104712.2399797-8-vdonnefort@google.com>
-Subject: [PATCH v9 07/10] arm64: Implement __set_direct_map*()
+Message-ID: <20260902104712.2399797-11-vdonnefort@google.com>
+Subject: [PATCH v9 10/10] optee: Add support for arm,ffa-lend-pool
 From: Vincent Donnefort <vdonnefort@google.com>
 To: catalin.marinas@arm.com, will@kernel.org, rppt@kernel.org, 
 	akpm@linux-foundation.org, sudeep.holla@kernel.org, jenswi@kernel.org, 
@@ -73,76 +73,183 @@ Cc: mark.rutland@arm.com, sumit.garg@kernel.org, ardb@kernel.org,
 	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Add implementation for the unsafe functions __set_direct_map*(). They do
-not verify for can_set_direct_map() and expect the caller to do so
-beforehand.
+Hook OP-TEE dynamically allocated protected memory pools to the
+"arm,ffa-lend-pool" driver. While the SMC transport platform device
+resolves the pool through its DT "memory-region" property, the FF-A
+transport lacks a device tree node and binds via ffa_lend_pool_attach().
 
 Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 
-diff --git a/arch/arm64/include/asm/set_memory.h b/arch/arm64/include/asm/set_memory.h
-index 1a37f4ef130b..080a40846bbe 100644
---- a/arch/arm64/include/asm/set_memory.h
-+++ b/arch/arm64/include/asm/set_memory.h
-@@ -16,6 +16,10 @@ int set_memory_valid(unsigned long addr, int numpages, int enable);
+diff --git a/drivers/tee/optee/ffa_abi.c b/drivers/tee/optee/ffa_abi.c
+index 633715b98625..4d6555171918 100644
+--- a/drivers/tee/optee/ffa_abi.c
++++ b/drivers/tee/optee/ffa_abi.c
+@@ -979,6 +979,7 @@ static void optee_ffa_remove(struct ffa_device *ffa_dev)
  
- int set_direct_map_invalid_noflush(struct page *page);
- int set_direct_map_default_noflush(struct page *page);
-+int __set_direct_map_invalid_noflush(struct page *page);
-+#define __set_direct_map_invalid_noflush __set_direct_map_invalid_noflush
-+int __set_direct_map_default_noflush(struct page *page);
-+#define __set_direct_map_default_noflush __set_direct_map_default_noflush
- int set_direct_map_valid_noflush(struct page *page, unsigned nr, bool valid);
- bool kernel_page_present(struct page *page);
+ 	mutex_destroy(&optee->ffa.mutex);
+ 	rhashtable_free_and_destroy(&optee->ffa.global_ids, rh_free_fn, NULL);
++	ffa_lend_pool_detach(&optee->teedev->dev);
  
-diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
-index c59ef17eb0d0..28adab0edace 100644
---- a/arch/arm64/mm/pageattr.c
-+++ b/arch/arm64/mm/pageattr.c
-@@ -294,28 +294,38 @@ int set_memory_valid(unsigned long addr, int numpages, int enable)
- 					__pgprot(PTE_PRESENT_VALID_KERNEL));
+ 	kfree(optee);
+ }
+@@ -1042,13 +1043,21 @@ static int optee_ffa_protmem_pool_init(struct optee *optee, u32 sec_caps)
+ 	int rc = 0;
+ 
+ 	if (sec_caps & OPTEE_FFA_SEC_CAP_PROTMEM) {
++		rc = ffa_lend_pool_attach(&optee->teedev->dev);
++		if (rc && rc != -ENODEV)
++			return rc;
++
+ 		pool = optee_protmem_alloc_dyn_pool(optee, id);
+-		if (IS_ERR(pool))
++		if (IS_ERR(pool)) {
++			ffa_lend_pool_detach(&optee->teedev->dev);
+ 			return PTR_ERR(pool);
++		}
+ 
+ 		rc = tee_device_register_dma_heap(optee->teedev, id, pool);
+-		if (rc)
++		if (rc) {
+ 			pool->ops->destroy_pool(pool);
++			ffa_lend_pool_detach(&optee->teedev->dev);
++		}
+ 	}
+ 
+ 	return rc;
+diff --git a/drivers/tee/optee/protmem.c b/drivers/tee/optee/protmem.c
+index be3abf6e8aa6..9b64db9b4e64 100644
+--- a/drivers/tee/optee/protmem.c
++++ b/drivers/tee/optee/protmem.c
+@@ -42,14 +42,6 @@ static int init_dyn_protmem(struct optee_protmem_dyn_pool *rp)
+ 		goto err_null_protmem;
+ 	}
+ 
+-	/*
+-	 * TODO unmap the memory range since the physical memory will
+-	 * become inaccesible after the lend_protmem() call.
+-	 *
+-	 * If the platform supports a hypervisor at EL2, it will unmap the
+-	 * intermediate physical memory for us and stop cache pre-fetch of
+-	 * the memory.
+-	 */
+ 	rc = rp->optee->ops->lend_protmem(rp->optee, rp->protmem,
+ 					  rp->mem_attrs,
+ 					  rp->mem_attr_count, rp->use_case);
+diff --git a/drivers/tee/optee/smc_abi.c b/drivers/tee/optee/smc_abi.c
+index b8a2bdac3208..5949aa717cad 100644
+--- a/drivers/tee/optee/smc_abi.c
++++ b/drivers/tee/optee/smc_abi.c
+@@ -19,6 +19,7 @@
+ #include <linux/of.h>
+ #include <linux/of_irq.h>
+ #include <linux/of_platform.h>
++#include <linux/of_reserved_mem.h>
+ #include <linux/platform_device.h>
+ #include <linux/rpmb.h>
+ #include <linux/sched.h>
+@@ -1528,6 +1529,8 @@ static void optee_smc_remove(struct platform_device *pdev)
+ 	if (optee->smc.memremaped_shm)
+ 		memunmap(optee->smc.memremaped_shm);
+ 
++	of_reserved_mem_device_release(&optee->teedev->dev);
++
+ 	kfree(optee);
  }
  
--int set_direct_map_invalid_noflush(struct page *page)
-+int __set_direct_map_invalid_noflush(struct page *page)
- {
- 	pgprot_t clear_mask = __pgprot(PTE_PRESENT_VALID_KERNEL);
- 	pgprot_t set_mask = __pgprot(PTE_PRESENT_INVALID);
- 
-+	return update_range_prot((unsigned long)page_address(page),
-+				 PAGE_SIZE, set_mask, clear_mask);
-+}
-+
-+int set_direct_map_invalid_noflush(struct page *page)
-+{
- 	if (!can_set_direct_map())
+@@ -1712,16 +1715,22 @@ static int optee_protmem_pool_init(struct optee *optee)
+ 	if (!protm && !dyn_protm)
  		return 0;
  
-+	return __set_direct_map_invalid_noflush(page);
-+}
-+
-+int __set_direct_map_default_noflush(struct page *page)
-+{
-+	pgprot_t set_mask = __pgprot(PTE_PRESENT_VALID_KERNEL | PTE_WRITE);
-+	pgprot_t clear_mask = __pgprot(PTE_PRESENT_INVALID | PTE_RDONLY);
-+
- 	return update_range_prot((unsigned long)page_address(page),
- 				 PAGE_SIZE, set_mask, clear_mask);
++	of_reserved_mem_device_init_by_idx(&optee->teedev->dev,
++					   dev_of_node(optee->teedev->dev.parent), 0);
+ 	if (protm)
+ 		pool = static_protmem_pool_init(optee);
+ 	if (dyn_protm && IS_ERR(pool))
+ 		pool = optee_protmem_alloc_dyn_pool(optee, heap_id);
+-	if (IS_ERR(pool))
++	if (IS_ERR(pool)) {
++		of_reserved_mem_device_release(&optee->teedev->dev);
+ 		return PTR_ERR(pool);
++	}
+ 
+ 	rc = tee_device_register_dma_heap(optee->teedev, heap_id, pool);
+-	if (rc)
++	if (rc) {
+ 		pool->ops->destroy_pool(pool);
++		of_reserved_mem_device_release(&optee->teedev->dev);
++	}
+ 
+ 	return rc;
  }
+@@ -1833,14 +1842,14 @@ static int optee_probe(struct platform_device *pdev)
+ 	    (sec_caps & OPTEE_SMC_SEC_CAP_RPMB_PROBE))
+ 		optee->in_kernel_rpmb_routing = true;
  
- int set_direct_map_default_noflush(struct page *page)
- {
--	pgprot_t set_mask = __pgprot(PTE_PRESENT_VALID_KERNEL | PTE_WRITE);
--	pgprot_t clear_mask = __pgprot(PTE_PRESENT_INVALID | PTE_RDONLY);
--
- 	if (!can_set_direct_map())
- 		return 0;
+-	teedev = tee_device_alloc(&optee_clnt_desc, NULL, pool, optee);
++	teedev = tee_device_alloc(&optee_clnt_desc, &pdev->dev, pool, optee);
+ 	if (IS_ERR(teedev)) {
+ 		rc = PTR_ERR(teedev);
+ 		goto err_free_optee;
+ 	}
+ 	optee->teedev = teedev;
  
--	return update_range_prot((unsigned long)page_address(page),
--				 PAGE_SIZE, set_mask, clear_mask);
-+	return __set_direct_map_default_noflush(page);
- }
+-	teedev = tee_device_alloc(&optee_supp_desc, NULL, pool, optee);
++	teedev = tee_device_alloc(&optee_supp_desc, &pdev->dev, pool, optee);
+ 	if (IS_ERR(teedev)) {
+ 		rc = PTR_ERR(teedev);
+ 		goto err_unreg_teedev;
+diff --git a/drivers/tee/tee_shm.c b/drivers/tee/tee_shm.c
+index 6742b3579c86..49a9b2993c83 100644
+--- a/drivers/tee/tee_shm.c
++++ b/drivers/tee/tee_shm.c
+@@ -3,6 +3,7 @@
+  * Copyright (c) 2015-2017, 2019-2021 Linaro Limited
+  */
+ #include <linux/anon_inodes.h>
++#include <linux/arm_ffa.h>
+ #include <linux/device.h>
+ #include <linux/dma-buf.h>
+ #include <linux/dma-mapping.h>
+@@ -43,6 +44,7 @@ static void tee_shm_release(struct tee_device *teedev, struct tee_shm *shm)
  
- static int __set_memory_enc_dec(unsigned long addr,
+ 		dma_mem = container_of(shm, struct tee_shm_dma_mem, shm);
+ 		p = dma_mem;
++		ffa_lend_reclaimed(&teedev->dev, shm->paddr, shm->size);
+ 		dma_free_pages(&teedev->dev, shm->size, dma_mem->page,
+ 			       dma_mem->dma_addr, DMA_BIDIRECTIONAL);
+ #endif
+@@ -288,6 +290,7 @@ struct tee_shm *tee_shm_alloc_dma_mem(struct tee_context *ctx,
+ 	struct tee_shm_dma_mem *dma_mem;
+ 	dma_addr_t dma_addr;
+ 	struct page *page;
++	int ret;
+ 
+ 	if (!tee_device_get(teedev))
+ 		return ERR_PTR(-EINVAL);
+@@ -297,9 +300,13 @@ struct tee_shm *tee_shm_alloc_dma_mem(struct tee_context *ctx,
+ 	if (!page)
+ 		goto err_put_teedev;
+ 
++	ret = ffa_prepare_lend(&teedev->dev, page_to_phys(page), page_count * PAGE_SIZE);
++	if (ret && ret != -ENODEV)
++		goto err_free_pages;
++
+ 	dma_mem = kzalloc_obj(*dma_mem);
+ 	if (!dma_mem)
+-		goto err_free_pages;
++		goto err_map_pages;
+ 
+ 	refcount_set(&dma_mem->shm.refcount, 1);
+ 	dma_mem->shm.ctx = ctx;
+@@ -313,6 +320,8 @@ struct tee_shm *tee_shm_alloc_dma_mem(struct tee_context *ctx,
+ 
+ 	return &dma_mem->shm;
+ 
++err_map_pages:
++	ffa_lend_reclaimed(&teedev->dev, page_to_phys(page), page_count * PAGE_SIZE);
+ err_free_pages:
+ 	dma_free_pages(&teedev->dev, page_count * PAGE_SIZE, page, dma_addr,
+ 		       DMA_BIDIRECTIONAL);
 -- 
 2.55.0.970.g62bdec98f9-goog
 
