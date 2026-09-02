@@ -1,63 +1,63 @@
-Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
+Received: from mail-pz2-f10.google.com (mail-pz2-f10.google.com [74.125.228.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B2D63D5C0B
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 07:31:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A333E1D05
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 07:31:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788334308; cv=none; b=JMGYux5EIyH/onYD+kG3/gc62DVDsFUtxYTgiA7+oLRmNK4gV7g1w6UqQgE86V6jLxhrC8znZitZ5yqjHBJjjAL2GqCi7wUDBhphmYZMpuC80OgGPmaL2092rRbMsifluIOwvPkE4PBucUrR0zZ1eo9VriGd4tfa92SuwtMkG44=
+	t=1788334321; cv=none; b=K7dw2gqLSAW84hbMhqfYcifWdlGz6kvXddi/n3eqVtwLKcQGKCMgUJVFsxAkyN9j95T2pOvGelJr/OcMsw8BXxW8u1K/6lZe0lTQ3r4OvO86mOKvlt5EFHk2F2SMUH7orkh19USFfr8jtIofmysWeXw5L8I/8y8iFlzKCDmoXdc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788334308; c=relaxed/simple;
-	bh=3r50C2QwHvq/Iqle8+nbAe80qqES6U9nJgMPBo2G00I=;
+	s=arc-20240116; t=1788334321; c=relaxed/simple;
+	bh=WTLR5meVohzCgam1peUGWMX1J+RDsSRr7L+2QxILnVo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tBDrFqboTpBlFxXL75jHwnKgT/FalrLoZ6F48SJoIIp4AEXE8Snkl9qk/LcXxYvjFU4H9nkt8nxmNxuHG0uiy7/66dv1c6eK2Acw6x0frzA1h7pVvRMgwzocR3kkgqZfKVhmXFPqdqj6qMVI1rD9td4gOcSFm9pLoe8N44rfQW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QxZceyRP; arc=none smtp.client-ip=74.125.227.133
+	 MIME-Version; b=LJRinSBbGnH7SgRK4Ho3bj/jPakxqZ+uUDD62/SOmbWVyzweqVxVp94Rewh+PGEW6YXawqZEJDKdt3b2qcHdnf+zA+pqlAcsB9hDDR4j1KcNIY1MtoXk+XdPTQSUzCZDP5rITJg+k8Jrvhqlv1KM8y59tpWrYWSuFJZlNFVs5xs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=binadJ73; arc=none smtp.client-ip=74.125.228.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QxZceyRP"
-Received: by mail-pj2-f5.google.com with SMTP id d9443c01a7336-2d6f9dddd99so3087675ad.0
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 00:31:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="binadJ73"
+Received: by mail-pz2-f10.google.com with SMTP id 41be03b00d2f7-cc1c753b1bbso175892a12.1
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 00:31:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788334306; x=1788939106; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788334319; x=1788939119; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Uqv+RTAI4cJSSsg2qdg0AwAoAqWKAsIT2FLXo2GNbW8=;
-        b=QxZceyRPOPIUIFLCBLQtqe4wRst2Yeeaa3fBDMWtGzCNr5GCmJOwpRRVxNV9Mq7n7S
-         Awfyks7KDTKUwxnb1JSW6JV+0/88ohsknUKqFIMkvW23OBVkUwCrl/H6tc+Z0c7H8c2/
-         zGl4ILK4vu93n0NvUbdR+/Y3gr6JrGZ44Y7lsSA92dGTj4isBXnuq+1QwhgJI/VRrP57
-         R7NPZR9Up49bsLw/C4bQ2Jfmq4+a7ucI2XpypfUygJgtbvCGBIXjIPxxO4Fuvv8VUu6M
-         luUleAbmfRGQTAPFX82K3HmuUaJUdKmrpMYnZYOSVHl0rQ2wGC67AG9Dz0RClH99x/lg
-         bRyw==
+        bh=cEYvUbaRHsvrLqexK6TwRNN/GB2ra0YD4DknJvJHsJI=;
+        b=binadJ73VCiV2W9HJyPUtyMD9JGMyhJZnthozF1Z74PofW32s6et5JwjpV0jP37qy+
+         lMx+zcg39tmBb8hF7ihQ5tfboBZDUdO4E49PLIn/GbMGgwX82exQEE2hmHxWcd1IkTKt
+         Wzn+cLMCMJBso4qmLVWy+S7a6kZK0QBCxkc8t5RHt1MXs5PcLY2+2HBMz615FMjqa48D
+         2vJeo035hzEsvK6rKOoJl6D5ZcVTYdTJXkW8IKJHXqc7ToX/RIWgIq0aYmcyhnNM2ZVO
+         PxtMCb6+FtDfcIR/H4g0I/aJzxyoGEfBYmj+9Yolpnw1GeS6vuWMjQdj88fGn8VfIQkG
+         Zgsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788334306; x=1788939106;
+        d=1e100.net; s=20251104; t=1788334319; x=1788939119;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Uqv+RTAI4cJSSsg2qdg0AwAoAqWKAsIT2FLXo2GNbW8=;
-        b=nOKXKiEiBrOoyMtOsq2eTiGsu39pupZOhddGuv87IRaCG/+MJF+qd+px7dxgGQjo0x
-         7nlLBFzMFSiijRlPaO6+fr6rQlKI0iBRTdlge61sCLZcnED+YinnNDd9cOj0lEY+mvP5
-         QZ8V4H4or7VpAQ3u5LZAuE0BMhRayuEnH3BdcYwZaGziTIGdtkeenEdFpW2DNeyCIkR/
-         bR18rvSkGdGTEDIh9GUVbLpDwgbLhHCIUAgtfvwueXn00LYuBuf569Ha50bMJua/Vum8
-         xe/RVDOoGGW0BWWN8n9oGUmD1YCrIjuY5vClkOI6tNTRBMm6wkN0IMEPsDuWPD+i3nNu
-         y+xg==
-X-Forwarded-Encrypted: i=1; AHgh+Rp60mUW8wxsJfB+iEnzC6tI+0IxDU4BX/GAIfbxyD41xRBkpmsKgXyEW4GFxueZjNed0/ErqoQh/LD9@vger.kernel.org
-X-Gm-Message-State: AFuF++mQkG62D7sVdpqDFKeNHYxLaiFSRbmL4kHGiIxXmh/cIyt6Zr+o
-	MmaM2tFnZnJ5t04+of1p/UFRXDjS5JFctrTx6VTUuJ8/UVCK/pWDjsF6
-X-Gm-Gg: AR+sD10RB5hXOLmtI//EY1bH/KL1GT+CDv2Jni0nHwPU/THG/SSc2J2mRSsv5ggkWgo
-	q9B8AAeOul4dbKoc6TLlYPsEX1XP1VKdOve6fTxTrGW//aVzr9YgPXeTsfTEhhyilYZH6BwkyjW
-	wu6iGe72gQeDuUWMgt1mBtSRxRuuIRYplzFeuRS0YJ3I5fs88tHqzm0ss5bfIPVNOq3whdQoXc8
-	aMxTPwnx4rLB8coDKSzrt5NDlpojrHqthUD5FGW5nkQM5v9IIfzNiQ24Yead4Pn/7AqQRxyrl2c
-	x4ScNrg/vsWlSyGi8vFMJpytXl76LTLXlZ3n3AMraoQIkO5GERhzJY4cZDfMMaGv5v5IwhR8f3g
-	v0PhWmTrC1o04IR8F4fux4yWkoyxIaI74jtUYKhC3lk8p0ByAOCx9ucOP7RrynISQJXRnQpQ1P4
-	0yE3FFgWpXZuzFWAY3g6rYqcmMO4RR+6g7MJjDrKVdy3sE6pv7GsfeGv+paDwkCKyYEHL3mpDX
-X-Received: by 2002:a05:6a20:258e:b0:3d1:39e9:b261 with SMTP id adf61e73a8af0-3d9aa4ca9c0mr4530228637.0.1788334305736;
-        Wed, 02 Sep 2026 00:31:45 -0700 (PDT)
+        bh=cEYvUbaRHsvrLqexK6TwRNN/GB2ra0YD4DknJvJHsJI=;
+        b=qD1ExQOgIh0+BNt/4nlBA52J8CRqGsI6ob3axD8qWjlM17XWYzsWye+mZ3y/rdbuJ4
+         aK5G1AREU+UtHHkN6KuldwuDpQUFXpuu4eLMpJrXJTaJFTLA0XBM1ZxC/gzp8gAnaZ0X
+         hMkh/OM7TfCu0aOuVmYageIemkYca3LKXydfOSug+MwYnju3qGLdrsa693XNFeZon602
+         w1kE9WZi9APAo9c23ej0b6ttWU+Plh6KQWZ6e5qvLg4IJETiadRN/gJgAa9IeScnPGih
+         XvKED2dwN0zACasFYibLWOmMh+zS6yewdyuO+HWBlOvOxHjiG9BlyYOWsOv4axVIlVeD
+         LVqg==
+X-Forwarded-Encrypted: i=1; AKwUvBzrdB9/S1FoqMHpTDYqar0o0SxMnzgO8SCMwULvPoUqa609QTzQbictNdWOaV83CSG43Qy02xRVgjZd@vger.kernel.org
+X-Gm-Message-State: AFuF++lCNIOH1Bs3x2v82/1CsvimNwcRc6AE7sLJofWYuMAn3zutXcux
+	PXQom7BUbLYume/gymr0A563teJ54CM3qkztZulF6snKkQxied3WVynA
+X-Gm-Gg: AYBFou1xYqoFZduW25mPPCrsZRk0e0fhz15p3nbLTz1/dzIlUtlCGpXdDjVZqDgmdDI
+	Eo8whJF71W/4aDQyjzm797gmt8pdLKPYhzMZneeysdRtJrzrdjsee6iXxtsOSByKl858ho3Ejrq
+	5ss6d/KVQEt/BFdBPYp4rowC9YqockBr6Q7YpOLZqJIhTep/Zhf34qjoP5ApqVWEkGilz44Bw9W
+	bltClXWMdCrBRT56s/J1Vx6sBjx8qCqa2rGDHHWKuyf/si/bntkXQmg4V5GL0cIUHu1moOwqR+R
+	lEdcn9/6nQvE9ZGhcAX0fqYBSpxJPdxBQL15SIySsrI5uASFzWxCA/gGssQBQJnHjgOhJlSThRR
+	16J+H1Y59vEauamkxpuCniifvKYFsjFbUZbcGbt6Sr6bK2yPVZunsNUBIC5GGX6886YHzLIIz9K
+	V6Nwn11tiZrlA7PCHKrL09OolwZZCsQyygIrhCUWA7dYFAYZ5YDeo/Ch1E7LKqV9vahounSLwK
+X-Received: by 2002:a05:6a00:4188:b0:857:7384:b5fc with SMTP id d2e1a72fcca58-85ed4d137e7mr5136737b3a.24.1788334319386;
+        Wed, 02 Sep 2026 00:31:59 -0700 (PDT)
 Received: from intel.company.local ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85db2adcbedsm926914b3a.20.2026.09.02.00.31.33
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85db2adcbedsm926914b3a.20.2026.09.02.00.31.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 00:31:44 -0700 (PDT)
+        Wed, 02 Sep 2026 00:31:58 -0700 (PDT)
 From: Wandun Chen <chenwandun1@gmail.com>
 To: catalin.marinas@arm.com,
 	will@kernel.org,
@@ -92,9 +92,9 @@ Cc: mark.rutland@arm.com,
 	kexec@lists.infradead.org,
 	linux-mm@kvack.org,
 	iommu@lists.linux.dev
-Subject: [PATCH v6 01/10] mm: memblock: add missing HugeTLB flag name
-Date: Wed,  2 Sep 2026 15:31:07 +0800
-Message-ID: <20260902073116.802752-2-chenwandun1@gmail.com>
+Subject: [PATCH v6 02/10] riscv: build crash_mem ranges from memblock instead of resource tree
+Date: Wed,  2 Sep 2026 15:31:08 +0800
+Message-ID: <20260902073116.802752-3-chenwandun1@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260902073116.802752-1-chenwandun1@gmail.com>
 References: <20260902073116.802752-1-chenwandun1@gmail.com>
@@ -106,35 +106,95 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Meijing Zhao <zhaomeijing@lixiang.com>
+From: Wandun Chen <chenwandun@lixiang.com>
 
-Commit 7d163a75f821 ("memblock: make HugeTLB bootmem allocation work
-with KHO") added MEMBLOCK_RSRV_HUGETLB but did not add the corresponding
-entry to flagname[]. As a result, memblock debugfs cannot report the
-flag by name.
+Replace walk_system_ram_res() with for_each_mem_range(). A later patch
+introduces MEMBLOCK_NODUMP in memblock, the reserved-memory regions
+marked with MEMBLOCK_NODUMP can be excluded from the vmcore by walking
+memblock.
 
-Add the missing RSV_HUGETLB entry.
+for_each_mem_range() iterates memblock.memory, which is freed after
+init unless ARCH_KEEP_MEMBLOCK is selected. riscv needs ARCH_KEEP_MEMBLOCK
+to filter reserved memory from the vmcore, so extend its condition
+(ACPI || KEXEC) with CRASH_DUMP. arm64 and loongarch already select
+ARCH_KEEP_MEMBLOCK unconditionally.
 
-Fixes: 7d163a75f821 ("memblock: make HugeTLB bootmem allocation work with KHO")
-Signed-off-by: Meijing Zhao <zhaomeijing@lixiang.com>
 Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
-Link: https://lore.kernel.org/lkml/20260821020910.3428585-2-zhaomeijing100@gmail.com/
+Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
 ---
- mm/memblock.c | 1 +
- 1 file changed, 1 insertion(+)
+ arch/riscv/Kconfig                     |  2 +-
+ arch/riscv/kernel/machine_kexec_file.c | 31 ++++++++++----------------
+ 2 files changed, 13 insertions(+), 20 deletions(-)
 
-diff --git a/mm/memblock.c b/mm/memblock.c
-index 9ce86349a29f..f2952d725c10 100644
---- a/mm/memblock.c
-+++ b/mm/memblock.c
-@@ -2886,6 +2886,7 @@ static const char * const flagname[] = {
- 	[ilog2(MEMBLOCK_RSRV_NOINIT)] = "RSV_NIT",
- 	[ilog2(MEMBLOCK_RSRV_KERN)] = "RSV_KERN",
- 	[ilog2(MEMBLOCK_KHO_SCRATCH)] = "KHO_SCRATCH",
-+	[ilog2(MEMBLOCK_RSRV_HUGETLB)] = "RSV_HUGETLB",
- };
+diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
+index d6c2dbf8455c..1de14a2d5aba 100644
+--- a/arch/riscv/Kconfig
++++ b/arch/riscv/Kconfig
+@@ -58,7 +58,7 @@ config RISCV
+ 	select ARCH_HAS_UBSAN
+ 	select ARCH_HAS_VDSO_ARCH_DATA
+ 	select ARCH_HAVE_NMI_SAFE_CMPXCHG
+-	select ARCH_KEEP_MEMBLOCK if ACPI || KEXEC
++	select ARCH_KEEP_MEMBLOCK if ACPI || KEXEC || CRASH_DUMP
+ 	select ARCH_MHP_MEMMAP_ON_MEMORY_ENABLE	if 64BIT && MMU
+ 	select ARCH_OPTIONAL_KERNEL_RWX if ARCH_HAS_STRICT_KERNEL_RWX
+ 	select ARCH_OPTIONAL_KERNEL_RWX_DEFAULT
+diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kernel/machine_kexec_file.c
+index 26cd2a8bd0cd..808e872f4063 100644
+--- a/arch/riscv/kernel/machine_kexec_file.c
++++ b/arch/riscv/kernel/machine_kexec_file.c
+@@ -37,39 +37,32 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
+ }
  
- static int memblock_debug_show(struct seq_file *m, void *private)
+ #ifdef CONFIG_CRASH_DUMP
+-static int get_nr_ram_ranges_callback(struct resource *res, void *arg)
+-{
+-	unsigned int *nr_ranges = arg;
+-
+-	(*nr_ranges)++;
+-	return 0;
+-}
+-
+ unsigned int arch_get_system_nr_ranges(void)
+ {
+ 	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* For exclusion of crashkernel region */
++	u64 i;
++	phys_addr_t start, end;
+ 
+-	walk_system_ram_res(0, -1, &nr_ranges, get_nr_ram_ranges_callback);
++	for_each_mem_range(i, &start, &end)
++		nr_ranges++;
+ 
+ 	return nr_ranges;
+ }
+ 
+-static int prepare_elf64_ram_headers_callback(struct resource *res, void *arg)
++int arch_crash_populate_cmem(struct crash_mem *cmem)
+ {
+-	struct crash_mem *cmem = arg;
++	u64 i;
++	phys_addr_t start, end;
+ 
+-	cmem->ranges[cmem->nr_ranges].start = res->start;
+-	cmem->ranges[cmem->nr_ranges].end = res->end;
+-	cmem->nr_ranges++;
++	for_each_mem_range(i, &start, &end) {
++		cmem->ranges[cmem->nr_ranges].start = start;
++		cmem->ranges[cmem->nr_ranges].end = end - 1;
++		cmem->nr_ranges++;
++	}
+ 
+ 	return 0;
+ }
+ 
+-int arch_crash_populate_cmem(struct crash_mem *cmem)
+-{
+-	return walk_system_ram_res(0, -1, cmem, prepare_elf64_ram_headers_callback);
+-}
+-
+ static char *setup_kdump_cmdline(struct kimage *image, char *cmdline,
+ 				 unsigned long cmdline_len)
+ {
 -- 
 2.43.0
 
