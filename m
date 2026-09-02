@@ -1,162 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9345E3876B8;
-	Wed,  2 Sep 2026 05:36:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EF233876B2;
+	Wed,  2 Sep 2026 05:39:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788327409; cv=none; b=lvj7S0LyZC5KZNoFYc6BQFbvqk1u9bzjhQ8HWNgnRGFMS4YYKX1Z342n7e+jnRdhRliN9HyOZJ8+roP681ykcX2R3tM1u5xJxSkJe317oaKOlc5F/bORkwpzIvQgZJkk11t0LuiOCqJYvmIlTfArmGwuVsm31sNer4lL9EQ6qqk=
+	t=1788327567; cv=none; b=oh0CAxkwzRRdPgx4ir6gKObsrUgWj3apf9zPYJzPVixUZdnBtaN/XB3MozZRxZb1OczIYvBvAoS3fArWEFzUDF2uYTY4QqfIdEnmZBVbW0RNsl0HvP3MRD4iZds/Q2MeuhfgQ2PjxB2RqsBuufcgfBfBSK97CexdJ4/UDRRpeFA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788327409; c=relaxed/simple;
-	bh=WjEuDL1tYxAFHdguR9U/h5r4/CE+pQvSWfp8Cg1OYxI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=am/5laEPI1sT9HBSNLWekTjDa5isGLZd9n1RXcSo/VWRgRmLLGdldmK7td4/uQW4Utn24mwI0NYW7N40LGo3cubiVT/JPufUd9sCN+MKhAy2+ZjXFVd+03kNXibQYm1R5VkV0Y8RYV16qywaNiv3g2zib8MVxWYyNf16mnM+0J0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CBkIJ5e8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788327567; c=relaxed/simple;
+	bh=X0aYQPY8bRCoxLfrztyM62w6yYUnGlflclRm2b+Ndyk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mdPCHgl4yMDqwxp86DasEyIoO/7WvncepM2+Mtt4n9Sp1+IzFBXXq0l6OcriSEoysn1X5F59cuuiGFSHztcmgcNjJkMuhz+V7vluxAmZSoiC9bHPPduSyST7u0eyVU02cauVh23cx2bcsNgfr3Fic073lQM0iAP0HtDv6Ial2qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=E6ts/g+l; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CBkIJ5e8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0F541F000E9;
-	Wed,  2 Sep 2026 05:36:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788327407;
-	bh=9Fu85noIYYEh1fEpldT+xhQbnnowVIlbbhWNMxOmf8I=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=CBkIJ5e8qoGeW/TvDwQ/g0368K6t2qrEWPsMQnsQNYhEcg6MvPhjYr+4LhdzczHGn
-	 +gmLHSKBv/XYsqOu2HiJtdw2IsSorARsxhaU/FuihA/lxeobnzFnBBh8tclUb6TQ4n
-	 T0kRIHOYvqtpM/3ZQ92eEbPtNcNm/fjIkqVJESklaaFjvWAhSxgpuam1uHAJRmu09y
-	 6D1j+/U40DcR+y9OTt+s6cXnqxg/W3twYFl5+5MYl+u8LByOB78/hGdtt8tjBsHnvv
-	 PmOqViqCoySrYcL/dAlshHF4mpEy/siL27g+YjIxm+XGbR4SYIGcp6wYAOydkz7rt5
-	 JVDdzCq1yCWgQ==
-Subject:
- Re: [net-next,v15,12/13] net: mdio: realtek-rtl9300: Add support for RTL839x
-From: netdev-bot+sashiko@kernel.org
-To: markus.stockhausen@gmx.de
-Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, chris.packham@alliedtelesis.co.nz,
- daniel@makrotopia.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, devicetree@vger.kernel.org
-Date: Wed, 02 Sep 2026 05:36:46 +0000
-Message-ID: <178832740627.3394541.13025146752023517053@kernel.org>
-In-Reply-To: <20260831143439.2404484-13-markus.stockhausen@gmx.de>
-References: <20260831143439.2404484-13-markus.stockhausen@gmx.de>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="E6ts/g+l"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788327565; x=1819863565;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=X0aYQPY8bRCoxLfrztyM62w6yYUnGlflclRm2b+Ndyk=;
+  b=E6ts/g+lBsQyKyZfRz0H6TLTavt86Ga5Fi2kxfzGSty/FHHnwzgY5wKs
+   qJ+prJQQK/dVHofThzGnWCZq1vjPiAYEVVMNPoOTNhDpka2kMuHvU3aMB
+   Z9UeI0WalxkhlxBhFsfQbKhI6kCuChgOSSZ38MHhW05nlLU4aW1Gnv3D0
+   Ll4W+SC3uyTdexWTxE2S0RBh1/FYQhKrdGBK//LhJ/OogZd8SPMqdt9AP
+   P+9dMbwd1xMUwWZQqNJh339/0bZX9Lwwezqzu1pS7Fj/aAbMINBnSYgu3
+   aiYC7ANqUujN23sqHp1y6qbbJyVUj6QAsw+AICoWV4r9HWqG+xN2bbPvt
+   w==;
+X-CSE-ConnectionGUID: WrnMaeEbQOGbbtb+fp0GuA==
+X-CSE-MsgGUID: U6rfkuFpQSWxar0zOgsOvw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="114315975"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="114315975"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 22:39:24 -0700
+X-CSE-ConnectionGUID: e7ceWCaqSgGuCM2i7LyXhg==
+X-CSE-MsgGUID: OugxhUzaRHOVrga+XPj2+w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="266703839"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.118])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 22:39:20 -0700
+Date: Wed, 2 Sep 2026 08:39:18 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Flaviu Nistor <flaviu.nistor@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Daniel Baluta <daniel.baluta@nxp.com>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 2/2] iio: adc: ti-ads1015: Add support for label
+Message-ID: <ape2hk7bFNTYK5Zr@ashevche-desk.local>
+References: <20260901184302.8127-1-flaviu.nistor@gmail.com>
+ <20260901184302.8127-2-flaviu.nistor@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901184302.8127-2-flaviu.nistor@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
+On Tue, Sep 01, 2026 at 09:43:02PM +0300, Flaviu Nistor wrote:
+> Add support for label sysfs attribute similar to other adc devices. This is
+> particularly useful because the label can match the schematic signal name,
+> identifying channel voltages easier if label is defined via device tree.
 
-Critical: 0 · High: 0 · Medium: 0 · Low: 1
+...
 
-- [Low] The binding schema
-  Documentation/devicetree/bindings/net/realtek,rtl9301-mdio.yaml…
+> +static int ads1015_read_label(struct iio_dev *indio_dev,
+> +			      struct iio_chan_spec const *chan, char *label)
+> +{
+> +	struct ads1015_data *data = iio_priv(indio_dev);
+> +	const char *name = data->channel_data[chan->address].label;
 
---
+> +	/*
+> +	 * Avoid printing "(null)" in the console in case label property
+> +	 * is missing for the channel.
+> +	 */
+> +	if (!name)
+> +		name = "";
 
-net: mdio: realtek-rtl9300: Add support for RTL839x
+No need, you can assign below whatever you want for the default case.
 
-This adds the register definitions, C22/C45 accessors and the
-otto_emdio_info instance for the RTL839x (cypress) family, plus the
-realtek,rtl8391-mdio compatible to otto_emdio_ids[]. The new device
-declares 2 SMI buses, 8192 pages and 52 ports.
+> +	return sysfs_emit(label, "%s\n", name);
+> +}
 
-> diff --git a/drivers/net/mdio/mdio-realtek-rtl9300.c b/drivers/net/mdio/mdio-realtek-rtl9300.c
-> index 57ab89afb9e5e..86b2040fa3335 100644
-> --- a/drivers/net/mdio/mdio-realtek-rtl9300.c
-> +++ b/drivers/net/mdio/mdio-realtek-rtl9300.c
-> @@ -148,6 +148,28 @@
->  #define RTL8380_SMI_POLL_CTRL			0xa17c
->  #define RTL8380_SMI_PORT0_5_ADDR_CTRL		0xa1c8
->  
-> +#define RTL8390_NUM_BUSES			2
+...
 
-[ ... ]
+> static int ads1015_client_get_channels_config(struct i2c_client *client)
 
-> @@ -980,6 +1058,29 @@ static const struct otto_emdio_info otto_emdio_8380_info = {
->  	.write_c45 = otto_emdio_8380_write_c45,
->  };
->  
-> +static const struct otto_emdio_info otto_emdio_8390_info = {
-> +	.cmd_fail = RTL8390_PHY_CTRL_FAIL,
-> +	.cmd_read = RTL8390_PHY_CTRL_READ,
-> +	.cmd_write = RTL8390_PHY_CTRL_WRITE,
-> +	.cmd_regs = {
-> +		.broadcast = RTL8390_BCAST_PHYID_CTRL,
-> +		.c22_data = RTL8390_PHYREG_ACCESS_CTRL,
-> +		.c45_data = RTL8390_PHYREG_MMD_CTRL,
-> +		.ext_page = RTL8390_PHYREG_CTRL,
-> +		.io_data = RTL8390_PHYREG_DATA_CTRL,
-> +		.port_mask_low = RTL8390_PHYREG_PORT_CTRL_LOW,
-> +		.port_mask_high = RTL8390_PHYREG_PORT_CTRL_HIGH,
-> +	},
-> +	.num_buses = RTL8390_NUM_BUSES,
+>  	struct ads1015_data *data = iio_priv(indio_dev);
+>  	struct device *dev = &client->dev;
+>  	int i = -1;
+> +	const char *label;
 
-[Severity: Low]
-Should the binding schema be narrowed for this compatible too?
+Keep reversed xmas tree order.
 
-Documentation/devicetree/bindings/net/realtek,rtl9301-mdio.yaml has a
-single unconditional child-node pattern that applies to every compatible
-in the file:
+...
 
-    patternProperties:
-      '^mdio-bus@[0-3]$':
-        $ref: mdio.yaml#
+> +		if (!fwnode_property_read_string(node, "label", &label))
+> +			data->channel_data[channel].label = label;
 
-There is no allOf/if-then block that restricts the index per compatible,
-so a realtek,rtl8391-mdio node containing mdio-bus@2 or mdio-bus@3 passes
-dt_binding_check, while the driver data added here says the part only has
-two buses.
+We want something like
 
-The driver then rejects such a tree in otto_emdio_probe_one():
+		if (fwnode_property_present(...)) {
+			ret = fwnode_property_read_string(...);
+			if (ret)
+				return ret;
 
-	if (mdio_bus >= priv->info->num_buses)
-		return dev_err_probe(dev, -EINVAL,
-				     "illegal (dangling) smi bus number %d\n", mdio_bus);
-
-and again in otto_emdio_map_ports() when a phy-handle resolves to a bus
-node with reg = <2>:
-
-	if (bus >= priv->info->num_buses) {
-		err = dev_err_probe(dev, -EINVAL, "illegal smi bus number %d\n", bus);
-
-Since the whole probe fails in that case, no MDIO bus is registered at all
-for the switch. Would it make sense to add if-then blocks keying on
-realtek,rtl8391-mdio (2 buses) and realtek,rtl8380-mdio (1 bus) so the
-schema enforces the same limit the driver does?
-
-> +	.num_pages = RTL8390_NUM_PAGES,
-> +	.num_ports = RTL8390_NUM_PORTS,
-> +	.poll_ctrl = RTL8390_SMI_PORT_POLLING_CTRL,
-> +	.read_c22 = otto_emdio_8390_read_c22,
-> +	.read_c45 = otto_emdio_8390_read_c45,
-> +	.write_c22 = otto_emdio_8390_write_c22,
-> +	.write_c45 = otto_emdio_8390_write_c45,
-> +};
-> +
->  static const struct otto_emdio_info otto_emdio_9300_info = {
-
-[ ... ]
-
-> @@ -1031,6 +1132,7 @@ static const struct otto_emdio_info otto_emdio_9310_info = {
->  
->  static const struct of_device_id otto_emdio_ids[] = {
->  	{ .compatible = "realtek,rtl8380-mdio", .data = &otto_emdio_8380_info },
-> +	{ .compatible = "realtek,rtl8391-mdio", .data = &otto_emdio_8390_info },
->  	{ .compatible = "realtek,rtl9301-mdio", .data = &otto_emdio_9300_info },
->  	{ .compatible = "realtek,rtl9311-mdio", .data = &otto_emdio_9310_info },
->  	{}
-
-For reference, the lax [0-3] pattern predates this series, but until now it
-only covered realtek,rtl9301-mdio and realtek,rtl9311-mdio, which do have
-four buses (RTL9300_NUM_BUSES and RTL9310_NUM_BUSES are both 4), so the
-schema matched the driver. The mismatch appears with the 2-bus RTL839x
-compatible claimed here.
+			...use label...
+		} else {
+			...assign default...
+		}
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260831143439.2404484-1-markus.stockhausen%40gmx.de
+With Best Regards,
+Andy Shevchenko
+
+
