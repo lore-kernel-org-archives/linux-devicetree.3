@@ -1,180 +1,225 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013029.outbound.protection.outlook.com [40.93.201.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A32D430CF8
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 10:05:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788343521; cv=none; b=duNR5lhQEBvys2FhBeDaNCPBk7vq7PAjY4F6ruU3yyhA8m/gKgC6ktuR+cM1WBtBkUg3AO8Cp3f9DY9vvubNf+C6Kope0neOKQF6filv2bAmZt6qx35iR33OokZcQCkeheCpu2+Wr81m5laTwSkiQLOdYiXGaJZzS3u3lG0P4G8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788343521; c=relaxed/simple;
-	bh=fGO4RplatNuXpDwpIkS3PIxnYbi9rKjtyM7If6v8PbE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aDq3y3htyboJy8gF4Hfu7OP+EWYqObKfOl8b74f05VxVB1MP0avLegPmwCBYaYjeLTI+AjMxYXf01/+Axj3BXhWoMbspgRyR/mEs5UxF7MKQ5GecbsrOjzYOiHjDSpoqZ0TQYkva78smsbYFuYikPDkNgyAqxDAWK1Rl72kuQB0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Tqv0yeIi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=a9U4a0Vo; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1671430CF8;
+	Wed,  2 Sep 2026 10:10:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.29
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788343853; cv=fail; b=CO4w46tg8Md8RgJb0Hct4YS51B2TzNsk3vaZw72fLOqWSUT74WMbLzVy7d7Z89l6F6Jkh8GBjCE2g9XyVBCI2jZnMy6QBcEEg3o9sdx9X2GxVdjH4xOsv/lQNlO1UjC3j+bbgpu5PZFerXNEMiRcLcfuxcoVUi2ixZ3ubAxevFI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788343853; c=relaxed/simple;
+	bh=3GIk95xsQKDVP2L3Qf2+555le2HnugEnYJER5G64jNA=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=Q2aD96eM73BJHeZRICCc1LaqiBm7wtq1xA9/IsuDiBYawdjh8vKXrF0ugK4pOeB6RAqa0RNxbnvraQNWt/8xjAYbbbMYkMZYrGG7e1DqePRqppkdhauiG+5txjWB8+GuQebEUKaPYPTSUQkbBqxFKgvfEMDeFdjhQ4pMCrY0hc0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=kYWXTjif; arc=fail smtp.client-ip=40.93.201.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Tqv0yeIi";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="a9U4a0Vo"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6829NSwL1349254
-	for <devicetree@vger.kernel.org>; Wed, 2 Sep 2026 10:05:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	UObzRMWFCbP75V/KjEzbft/x3L2cCcud32HQTacNGec=; b=Tqv0yeIiPRwmmsaR
-	Pw11uZO2np9Mq/XrQw83Pq+4k4Eaey5F9mjwJ8rnWt0AxtNGDL//z6vG9eIJayLa
-	qCIdSGLrHuv+NsmMaJKOoEFyrfg9zqNeCFPlLVTcfZtc1OA06Yc0x9ammn4AfrOT
-	LJjvcqP3iqjBHrYYZaBED+b9/3n6+zvvgstSgE9NsPa74SatqHt5VJjtnQwSFJwi
-	tpFN1ox3O46aRGygmArWcPK4frSKk1anxGM+S2PwBPlQh5+XRt3d8IgINo1xoxXK
-	qjFz4EWj6iAcq/zaNIfb6BGTKPliIekVaA2V7o8cTCQgYb4mat/cAKLQPuHs3GN1
-	0JvExA==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ge3n0ubmq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 10:05:18 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-398e1f7d1a5so1451026a91.0
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 03:05:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788343518; x=1788948318; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UObzRMWFCbP75V/KjEzbft/x3L2cCcud32HQTacNGec=;
-        b=a9U4a0VorLxR7r96Tohbt/wNBKzYKhNbw47uReDL2CXE21gmvnNXw3sh3dlfPqociK
-         L4xN8YuVDYnIoh9K6D/QZpLwQ4fOxCZhcAyZYrE1fkbUsw/eSFyEqv6Pxj+NqPcqLQ/W
-         LZeqeRTN/SeSy/6mbvcCErFcsSd//KqZF+qoQsSLrxOltlm9n70ECvPWyGhwVVJWuo5S
-         G5ZrrUxp9qVi9u1CY3Rybgy12/eWRSLBXScU2uh9+hFHbuM/NPvqM5u19LKE6ZsAcKXs
-         cgFxd2PlXKwhz91e97CV+biZM2/dcFJsuMBWsSHekgqaSam6huNvpTIQsQ8LLUFw+bDJ
-         LJAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788343518; x=1788948318;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=UObzRMWFCbP75V/KjEzbft/x3L2cCcud32HQTacNGec=;
-        b=mJQN0pcoze2cZT82VLVbsoR5qsMTPvN4/XowH1G9yrH4PfA4gkq65Dt7FuKVAFMsbl
-         BjIs5yZRfnM9S9AR8KzRtspZJmePryNjtQpekiKngwe+wgLjQ7Z1AzJSFk/2J7cXO+2c
-         2m8t+eJKgP09rOIdldqKlGZFw2LxQl7OlUns7cGm+gVjB5QL2YUkpt4AE2I0tJ6tTNs9
-         DhN1pYJ03HzilLqvjRPdxeOlf5/Mp1GyWeNRfHmECeZYCyeJiu1IeEnxHUGGJLr4ysqy
-         lKWRtTe2QM9EP9wdm5DvEzNwtJocU6rHfDNYtIiIjbS25aikU43Kup+oSwLYm4TobAJm
-         KrmQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzYDeRolxm9eTiuaE8NGkNhoKUaw1LYZ4OfWnQhfhlttY/MxCY2F65JhMwNvzBBmoKoWdrVXQruOBmn@vger.kernel.org
-X-Gm-Message-State: AFuF++nIRQVvBze9YAV5/LMp39BUOGdjpUlgXz44jicJoRRW/EhgbyB+
-	9ZkazcoUUtvG7h4bd8Bgd3e34CeA3D5vbPUYftK0IDn6OwHWlIIOChkn6vqr9oPrnTxYMHlLumt
-	u9j1HzIPhOvmlHQeiLdQByXFI4TK+LEdjG8+FxGUDiG03LfWQd+u9zOBHI1Okzojj
-X-Gm-Gg: AYBFou18VsRshpaLNeJ2duaOeH7ck2U9jR1Vd+05oakqKUhBQh5uATvWC7E5YdCj+ol
-	7PnlEesm6Di2w49bBSNgka1QyM60+mgkBKusD7jKYjGsg1W3SHsPUN8egB/O/jPNBH9lwqCOj2o
-	TLSyvwnXY6EcfNOFy9UK8Q5HNPioQmcj0XuVFqEnhOqHcxW+nj/rW4qsQxnsEoxXjIWpq2h2Leq
-	faf0DJYz8xkAKzOJdoz6jIx3epbjq9EGTVXu7IECikl0BQufz8fXt0mFsWLjWZvGdydjwPeFPkk
-	xN7mTbQAthlc3vMcs/3VGDLaWGmT7vKHfyKt9r+O6MNCSC4sXwgC4TGvfhD6RTXUT+U1DBxod1+
-	41GuWNkxKzgyG4yXQwHrgRzGpdoFq9KjrndxCbN5W3eA=
-X-Received: by 2002:a17:90b:28cd:b0:398:e96a:8999 with SMTP id 98e67ed59e1d1-39aee0e6633mr5456117a91.16.1788343517790;
-        Wed, 02 Sep 2026 03:05:17 -0700 (PDT)
-X-Received: by 2002:a17:90b:28cd:b0:398:e96a:8999 with SMTP id 98e67ed59e1d1-39aee0e6633mr5456020a91.16.1788343517229;
-        Wed, 02 Sep 2026 03:05:17 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1430eafc907sm5093202c88.9.2026.09.02.03.05.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 03:05:16 -0700 (PDT)
-Date: Wed, 2 Sep 2026 18:05:10 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] Add NMXC power domain for Nord SoC
-Message-ID: <apf01nNGO-7E86J4@QCOM-aGQu4IUr3Y>
-References: <20260826135454.658615-1-shengchao.guo@oss.qualcomm.com>
- <CAPx+jO8RVUv=mqDZ-GeJa=dEYdNCK9L8Vi=UCDY9GqQ1TefCsQ@mail.gmail.com>
- <apfVvXLAW0j7g3pD@QCOM-aGQu4IUr3Y>
- <CAPx+jO-q3JwY=i6P0K_r4OBie9bnPaR5kUm8+T8uGFq1oK9vFA@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="kYWXTjif"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RCOT7fhgG7olEV3zpzQKBk4Fd8mNBevZj0Wf08MKVVwtpQDQr4rH/HnAICrnCTp7d2AbN5acxT9yotwXG5RpJlnp7x8e059wRz0tUWPkyIb8o5pDkfA7ZHV+nczuf1qlwdwUa+wj6ThNfw/u2pfd98Un8e/I+NbByXexrlwQF5/ficHN2LpCii/ljffsVG/x7ooEcOLelSDSD9QOl/g3QXrALGPLGKCDTcEnxMXiRLhFeNpYdOd5qvS5lVS2+tIo5IdoQ+D3dyOjM6D8d3JB5QUtnX6N5THzpjeU9eaaH/k/A7KJpFVO/Sj9tlDMJ4z/mxqRuXXx22CvZU8T58FEHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=P7MtDpiHwo7QXqw84N6nrt/Y/gW0SIUeVofN+fprc5Y=;
+ b=w+emkwyWrWMaTQTErHjhr04fBQcJoKqXNCbq4NlndVMQBO4HZYpGDK9asVGxrHzwhwORe9lKKHu2B2Oh6KwDtAOt+15yEnLnKtfBzGHvxTOqAVRs/qxRlOyaXdOMwUS+b/0eOMgEL0wnUB3L1h95HVk/j02hDDm68tPHt8+PZZ5avVcQfmYkrJhitXQjFJe167/qyj7ijxa1ZTRBc4Yp8yZcyO2yWd7DIWi/m7zluMqCrEAVJo/Tr4C/LgQTAGZyXrTL9t6VxIBDrbH93z8RToRhGMzvfy4Xb2W6eZnap/dibVNUSVhctA+OwF6ViqqDFBe8iHL5ldmNvF/DA9AfKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=P7MtDpiHwo7QXqw84N6nrt/Y/gW0SIUeVofN+fprc5Y=;
+ b=kYWXTjif3gna3c8e2SL7o+pR0DRcBqfIwBO8ZknPKSr9smPw32BY6eP0zd0lwMFzkl0a5KMR4bhEEXfZ4MTKMJcqo7LE/w1kgvW4CEi9VaHB/g2mdhMdQ7vIvDVhjmPN+ktfetTGy0XxzLWnpZ7nCZEStkBQhraF9nQ+8m8IAf0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from IA1PR12MB8408.namprd12.prod.outlook.com (2603:10b6:208:3db::13)
+ by CY5PR12MB6132.namprd12.prod.outlook.com (2603:10b6:930:24::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Wed, 2 Sep
+ 2026 10:10:45 +0000
+Received: from IA1PR12MB8408.namprd12.prod.outlook.com
+ ([fe80::10cf:64f0:2de6:e466]) by IA1PR12MB8408.namprd12.prod.outlook.com
+ ([fe80::10cf:64f0:2de6:e466%7]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
+ 10:10:45 +0000
+Message-ID: <86433bb2-59f0-4591-b249-c2cc6c7171d5@amd.com>
+Date: Wed, 2 Sep 2026 15:40:39 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] dt-bindings: i3c: xlnx: Add IBI and hot-join
+ capability properties
+To: Frank Li <Frank.li@oss.nxp.com>,
+ Shubham Patil <shubhamsanjay.patil@amd.com>
+Cc: alexandre.belloni@bootlin.com, Frank.Li@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, linux-i3c@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, git@amd.com
+References: <20260824044835.2924141-1-shubhamsanjay.patil@amd.com>
+ <20260824044835.2924141-2-shubhamsanjay.patil@amd.com>
+ <aoxd2Rq3qIoNIosY@SMW015318>
+Content-Language: en-US
+From: "Patil, Shubham Sanjay" <shubpati@amd.com>
+In-Reply-To: <aoxd2Rq3qIoNIosY@SMW015318>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN2PR01CA0201.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:e9::13) To IA1PR12MB8408.namprd12.prod.outlook.com
+ (2603:10b6:208:3db::13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPx+jO-q3JwY=i6P0K_r4OBie9bnPaR5kUm8+T8uGFq1oK9vFA@mail.gmail.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA4OCBTYWx0ZWRfX2z1imbIokS+7
- cV4RyyNSh6PpMh4mha+ljuEnuOkD+Xhi/ESVtdx7SaKrpjNaZU//TVpv2md7lYENfLe3R+KMMh0
- oxyRurUGi63/fW/CkMExIRPJ8PozJGXaYp8zhPIWs/+jCsh8CwXkZQh4HBNVMkiJDJlHVE+G7EO
- 080Iz/4zZF+mwQyVAFewGt3dfmgVCBHUl4OqdqDs/STC103rKvH5E3Q8LerBdQbbC86HgfjPIoU
- 3lDp9622yI2290wmAFORvelrCW70BYgCNVEyDCLElHt15B+MpeWSLWxil8q/ca4DqDWoI11aym5
- M8KAJp1b3bDEwwXE1qXDWQsQMRzqGsa8PDze0FU+DxermeGN4beNNN7sasmaHqlxgCGx20sbWac
- oAyzKi0d8Flq4lDl6e/ALApZsAkfvEFRWWLwxBoTK4Qv+hnK+FnedADpKwnYfoxk796tK7+zOtQ
- xx99LjhEALTX1OvwYfA==
-X-Proofpoint-GUID: R8HiXo4gc_ysAVOldFHM-K38qzcN1Qvm
-X-Proofpoint-ORIG-GUID: R8HiXo4gc_ysAVOldFHM-K38qzcN1Qvm
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA4OCBTYWx0ZWRfX53s6vpXQEr1e
- hNwUljcwVK61RlMl3BeaAKrTNxUDNT6+XmibLHytOJoqEWbbLkZf0utyUz/lziKDfe+zVrwK3y9
- uZCwKKnK4XtbXfeWYe+1Xuq4SqoTAms=
-X-Authority-Analysis: v=2.4 cv=R9oz39RX c=1 sm=1 tr=0 ts=6a97f4de cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=dbI9BitF8MENLqa2HooA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_02,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
- phishscore=0 adultscore=0 malwarescore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020088
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA1PR12MB8408:EE_|CY5PR12MB6132:EE_
+X-MS-Office365-Filtering-Correlation-Id: b47d2629-769e-4dff-9bd7-08df08da73d8
+X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|10067099003|4143699003|5023799004|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	mH5jeVSKfR6WT3WmTbEHQCIeEIiZ8v8r+XIFXsJcT7+UC9+oNthtK7yotvFzPtk7Y6OqlQbamEA+TdXcBYWv1+4MXDNv1BIfOa4huww0/wvQVmk/BUC8o3uzbgsZoT/aL3JmokIzDZgIq3hXVO7gY2SEk+Ego/nLAr6iacYwPYq8Z2KdkA/Ish5d6ENsTEmdNiraEc9X1exmdAdZGL8h6fudOEJgEXhlQQo/xRfDStD2VSBdStv0l+pG2LRHAhBiPOK3kVPlIkfBZei6wkpd9LGNJlOugtk8s9Dav9xouY5ju4KamHRQpVAqtM/o6Jrh9lkjmVySQXXqgVdDmDLVWnRkmyHzP4XVaH0lg7Z6g2c7y38osIcN3yzct/EEcCxdW+sR24+K52ftCi2OQ4rqImsHkflC8lOqE56FIKUPyhkFq8Fo4E7nLzmDJUvRIkf8E/RRY6LZzqOwZlv8Fi/GyjnaN4s3PYPlSYQyr925CuvPtaAguOL0SYULeVIumyAaBeuGdD6xX6qv4VhiW+foLJCKDagxniplj66+kEwFUGZd8KPhuubWf3FJmbkkwv5quoVsoIC518QCARb5CexUPUY5lsfXlN3O2SO0Ikq0c/YC4LDRVwI0aP8XOiv+Bf6lQkM3OjSQRtWz4hQcHy0CHniuUl33lkkv68PlAJXnGn4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB8408.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(10067099003)(4143699003)(5023799004)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Q05ERk1vU3R6RTllVkkxVjF6eWl4NUVKaFN6eFhWdTZpKzlWK2ZCMVBOWEZR?=
+ =?utf-8?B?RTlndWM5aWtkRlRtdnZHdU83dlhEOWthdVpldDlqY1ZFS1prVTU3T2Vwa3lV?=
+ =?utf-8?B?Y0YyQ1IraGN5RnFaeGZ4VVFpZXlrUUYyZzZVeERjSWJVOGh5a2E1NG5NYUpm?=
+ =?utf-8?B?UU94U0VRMWorTzcrRnRsMW5WdWxudjVRZENNaFMxLzdoNkRoYkJNL3pRT05o?=
+ =?utf-8?B?RUdKWjg4OG5uUFVHVlRDTGw5c1VEZkZMc0NVMjVnYndZTjNmNGhwRE10Vk9K?=
+ =?utf-8?B?dGlZUlNDYm9RVG13R2ZRV0JJdU9JdC8zbi9xYTAwYjI0UGdaMkptMlZzbS9K?=
+ =?utf-8?B?K2V3czlNa3Jrdmg2MmFkVTVEcVpPdHF2bDdjWUpPWk01RHBsbVVIeEN0Zlpp?=
+ =?utf-8?B?MDh4cDlhZFZlNGhFV0Y2N1M3UkEwVzVUdW5LQndxNWc5SWNhMG5XWHZ1a0lV?=
+ =?utf-8?B?dlhmMHk5bHpkbHNzcUpxaHdmMUxmZjZMRkdnSUhkUFpYdm9BM24wT2NQY0M4?=
+ =?utf-8?B?MVQ3MUVJMHdFTi9jM0RFWkVhbHViY0xsc21KS1ZtZGdPZ0xiTXY0MitnSmd4?=
+ =?utf-8?B?bzViVEl5dE9nTGJDUlUvKzRFVG5mQnJ2VVYxQ2x1cEp3SlRWNWU3WXd1V2N2?=
+ =?utf-8?B?WHdDd2tUbGNlQUF5M0lscTY3aXF6d0VIaEFCNmc2dGZHaGNaQ1dPTkZhM3po?=
+ =?utf-8?B?eEV3UUhVc2ZMbUlKZnRLc2p0SDVMWUg0WDR2NC9uNjlPbitRcEgyc2F0ODI1?=
+ =?utf-8?B?ZlpjM0xUWm9SY05XbG1mczBpWkdmSU9CNmZEY29RaWVmbkxHemNwOFduaHhs?=
+ =?utf-8?B?ZmN4NXoyOVJ0eWRKTUNjM2hTVHFZaUJ5d0ZEalpXZkRwS3Q4Mkh6cVI5aElE?=
+ =?utf-8?B?WDMvUG83dGNOZUNpYk5QVkYwVjNtN295OUlKVUUxWFJTUnNxcDBvTEdXODFn?=
+ =?utf-8?B?WEdFOEpDQ1BRTGdHOVdMeGpWek5iY29PVjUwVGVkQmkyc25ETkxGbWpvcG4z?=
+ =?utf-8?B?WGxUWi9zd2w1dXd4VjVYVmtmcndKWVFWYmpFbUVPNWFwRFg0bENwdlJ4bkZN?=
+ =?utf-8?B?TTRvcGhxeVc4MDZMeGJaUUFJMGpXMmlLTTZKWHRhWEE0QzlUWGNoZTZYeE5E?=
+ =?utf-8?B?UzJrcWVOaXpPOEhTRUk1cjNCM0l6YnN1Q29hTExBMlZyTWtITXNaTnhrZEtZ?=
+ =?utf-8?B?WjhHTnJSU1lSN1FQZFpDM3MrUUlFd05JNW1oT2FmS1hyOURjQ0o5ajlWNWIw?=
+ =?utf-8?B?TjZQdVVab0lLYkNIZnZHRTJaZ3hHcmdHbkFRNmpROUdiYlcrcC9XMWMxbFRh?=
+ =?utf-8?B?elJ4VU8ya0NsTHFXNjZxSCtla3ZoWG84VFVVbmpsRWdTV0xtVkR1anVGK0ND?=
+ =?utf-8?B?SVhrcFo5VDV1N1J2dlZjTXAzUndZdDMrVnVPV0NPQU00V1RSUklBM2RqYk1X?=
+ =?utf-8?B?eUx2UWhPM0RkVjdHUjliZndPNlI0SExwWTVYcjc2amVLcWZUVmtneE9jbmlY?=
+ =?utf-8?B?ckxWVDBlbmdyeWloWW1YNUcwSWZlcnh5RHdJdHNwNjBqaXg4UHNsWllvVnJv?=
+ =?utf-8?B?ZktKczFnTDVMdUlrT3hRRGtCVHdyMnUyNDhtcFVyaGhzN09FVmpqNXZrRzRL?=
+ =?utf-8?B?aWxKYTd6VmowTUI1OWlHZTRBRDlmbENkYy9PNm5XeVZTRlpBOUluTHZWdEhH?=
+ =?utf-8?B?Z1pMdG9xWGJ1U3dQM2t6Vkl3S05UQklEb3BnNkpuMEhCY2VzWTg5aytLZzNj?=
+ =?utf-8?B?S0thQnlrTit6WDN6T1Z4bHJiU2N2dzdEbmRXajdrSEdWSUk5N2NJWmsrUC95?=
+ =?utf-8?B?d2tVeGt0VUxBaEMyT0VwVnAwaXZFTDdZWkZqYjRieEZYU2FMeC9WWm8raVBV?=
+ =?utf-8?B?QzRPTE14cGJrZ3JKMGdieGc4Qkc0WGtEVTV3bmIraVdBektnVTljbmhycmZH?=
+ =?utf-8?B?a3ArTld1b0ttY2RTWnZpSWlBck1aczVxdnl2L2pvdTZJbk9KejlPSUJoNmlx?=
+ =?utf-8?B?QkpmTDY2VlRhYnRROGlCV1lZTUl1WnBVUWlDQ0VaOWFNaFBKdCs2YmdwWW5Z?=
+ =?utf-8?B?RmE4am83cEJsREtIdmtHNCtXZnNVUlczelEyTWt6S2I4REdMcXpWUFRCODVV?=
+ =?utf-8?B?TWJNbXVKYXV1bkR0K1lIWGxiT25LTk9jUGttTUUvOHBhRFB2Q1ZqNHlnOVRP?=
+ =?utf-8?B?OERlNkx1L0hWb3grOHREQWZNd2FibzlvcTNPRWVvRjdVK2RsY3B1R3NjM2M0?=
+ =?utf-8?B?SU1tRFU3VlhKYVVNTmhJbDVVdEVwVFlBNTdQdG9NUGQyMFlmbDBjbG9rUHRK?=
+ =?utf-8?B?REpsc2hqVXRhZVJleHBrRHR0WldNUHVsUVpGRnFNWjYvenh3RGZUQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b47d2629-769e-4dff-9bd7-08df08da73d8
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB8408.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 10:10:45.3340
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: d4g80ITwuvX19IOIzxKZRmVRBlihu8tRKW/AFYBvORngZKozKFyG1ENy0JKUyeSUQlTziygI7cCAUgGwzD6IbQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6132
 
-On Wed, Sep 02, 2026 at 11:42:29AM +0200, Ulf Hansson wrote:
-> On Wed, Sep 2, 2026 at 9:52 AM Shawn Guo <shengchao.guo@oss.qualcomm.com> wrote:
-> >
-> > On Tue, Sep 01, 2026 at 05:46:09PM +0200, Ulf Hansson wrote:
-> > > On Wed, Aug 26, 2026 at 3:55 PM Shawn Guo
-> > > <shengchao.guo@oss.qualcomm.com> wrote:
-> > > >
-> > > > The Nord CDSP subsystems do not take their memory rail from the shared
-> > > > MX rail like all other Qualcomm SoCs, but from a dedicated NMXC RPMh
-> > > > resource. Add the nmxc.lvl RPMh resource and register it in the Nord
-> > > > power domain table.
-> > > >
-> > > > Changes for v2:
-> > > > - Drop remoteproc changes since "mx" of remoteproc is just the name of
-> > > >   memory rail input which can be wired up to NMXC power domain in DT
-> > > > - Link to v1: https://lore.kernel.org/all/20260826102746.633076-1-shengchao.guo@oss.qualcomm.com/
-> > > >
-> > > > Anurag Pateriya (2):
-> > > >   dt-bindings: power: qcom,rpmhpd: Add NMXC power domain index
-> > > >   pmdomain: qcom: rpmhpd: Add NMXC power domain for Nord
-> > > >
-> > > >  drivers/pmdomain/qcom/rpmhpd.c          | 6 ++++++
-> > > >  include/dt-bindings/power/qcom,rpmhpd.h | 1 +
-> > > >  2 files changed, 7 insertions(+)
-> > > >
-> > >
-> > > Applied for next, thanks!
-> >
-> > Thank you, Ulf!
-> >
-> > Could you maintain a immutable branch for qcom,rpmhpd.h patch? I have
-> > dependant DTS patches planned, so an immutable branch would help Bjorn
-> > to resolve the dependency.
+Hi Frank,
+
+On 8/24/2026 8:36 PM, Frank Li wrote:
+> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
 > 
-> I am always applying the updated dt bindings to an immutable branch
-> called dt. Allowing SoC maintainers to pull it in, for the purpose
-> that you just described.
+> 
+> On Mon, Aug 24, 2026 at 10:18:33AM +0530, Shubham Patil wrote:
+>> In-Band Interrupt and Hot-Join are synthesis-time options of the AXI I3C
+>> IP. Describe them with two boolean properties.
+>>
+>> A Hot-Join request is acknowledged by the IBI machinery, so a hot-join
+>> capable design is always IBI capable as well. Both events are reported
+>> through the controller interrupt, which is therefore required whenever
+>> the capability is present.
+>>
+>> Signed-off-by: Shubham Patil <shubhamsanjay.patil@amd.com>
+>> ---
+>> Changes in V2:
+>> - Rename the properties to "xlnx,in-band-interrupt-capable" and
+>>    "xlnx,hot-join-capable", and expand their descriptions.
+>> - Express the interrupt requirement with dependencies: instead of an
+>>    allOf/if-then clause.
+>> ---
+>>   .../bindings/i3c/xlnx,axi-i3c-1.0.yaml        | 24 +++++++++++++++++++
+>>   1 file changed, 24 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/i3c/xlnx,axi-i3c-1.0.yaml b/Documentation/devicetree/bindings/i3c/xlnx,axi-i3c-1.0.yaml
+>> index 2caa245a8656..a04becc07374 100644
+>> --- a/Documentation/devicetree/bindings/i3c/xlnx,axi-i3c-1.0.yaml
+>> +++ b/Documentation/devicetree/bindings/i3c/xlnx,axi-i3c-1.0.yaml
+>> @@ -32,11 +32,33 @@ properties:
+>>     interrupts:
+>>       maxItems: 1
+>>
+>> +  xlnx,in-band-interrupt-capable:
+>> +    type: boolean
+>> +    description:
+>> +      The IP is synthesized with In-Band Interrupt support. An In-Band
+>> +      Interrupt lets a target signal the controller over the SDA and SCL
+>> +      pair instead of a dedicated side-band interrupt line, by driving its
+>> +      own dynamic address during bus arbitration. Such requests are
+>> +      reported through the controller interrupt.
+>> +
+>> +  xlnx,hot-join-capable:
+>> +    type: boolean
+>> +    description:
+>> +      The IP is synthesized with Hot-Join support. Hot-Join lets a target
+>> +      attached or powered up after the bus is already running announce
+>> +      itself using the reserved Hot-Join address, so that the controller
+>> +      can assign it a dynamic address. The request is acknowledged by the
+>> +      same machinery as an In-Band Interrupt.
+>> +
+> 
+> I perfer put both to i3c.yaml
 
-Awesome! Thank you Uffe!
+Thanks. I'll move both into i3c.yaml as generic booleans 
+in-band-interrupt-capable and hot-join-capable, drop the xlnx, prefix, 
+and keep the interrupt/HJ-vs-IBI dependencies in the AMD binding because 
+those are specific to this IP.
 
-Shawn
+Thanks,
+Shubham
+
+> 
+> Frank
+> 
+>>   required:
+>>     - compatible
+>>     - reg
+>>     - clocks
+>>
+>> +dependencies:
+>> +  xlnx,hot-join-capable: ["xlnx,in-band-interrupt-capable"]
+>> +  xlnx,in-band-interrupt-capable: [interrupts]
+>> +
+>>   allOf:
+>>     - $ref: i3c.yaml#
+>>
+>> @@ -54,5 +76,7 @@ examples:
+>>           interrupts = <GIC_SPI 89 IRQ_TYPE_LEVEL_HIGH>;
+>>           #address-cells = <3>;
+>>           #size-cells = <0>;
+>> +        xlnx,in-band-interrupt-capable;
+>> +        xlnx,hot-join-capable;
+>>       };
+>>   ...
+>> --
+>> 2.34.1
+>>
+
