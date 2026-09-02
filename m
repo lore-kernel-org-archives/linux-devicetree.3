@@ -1,183 +1,262 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011007.outbound.protection.outlook.com [40.107.74.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F4C94A8423
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 15:04:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788361483; cv=none; b=jmHvb9fQxrQrOf662Bam4hroX8naBQeImAU8IdY91HqcrBxDHdr7Llzznq/8W5sF5TeUa9CFMZSpL5b9YRt8esPli+oGhmKMOgHa19HcNf3JMrG4rR/ik1y74PV2QmxA7lzN/NOoolJllEWtrEKz6//IPOcR7Q+pxB7MZ9/Glc0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788361483; c=relaxed/simple;
-	bh=NYZX7j9II59+3qolyvvaNINXB0jUopvkCai+qyRJl7M=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pyM/EZpcy7wcgic4fTnJn8u5OI5uSi0RWPwRumWMoZpW2NbXDPm3as+FsJS3o2dH9nZcWr/FqE8x1r7mACo2EV6jXMm2oH4u3QFbMVK6pC4MIPX6rIJPnSzwaRqvGS1psNJRf1wgh7yT3cO7t2GyYkQW7Mlvf3n5iIKAln2AM0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J13Dph+H; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C454A49AD;
+	Wed,  2 Sep 2026 15:11:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788361905; cv=fail; b=O8X+4yeV04gpBE3z3cIV3pH+F53xqrs+BcyXHk2+OMN7rzmwmZVwZ3YGkfes3iCJYpe4QJso3mGdkOxVZ8GeAv74MeL/RmqEc5tSPo32ziG3XJQhQrwbiZiYCajyU5+8QAsJ/hAR7eh0207BUHs3Hr40hH+ChNO9WGzuFv3NqYg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788361905; c=relaxed/simple;
+	bh=x3xOfa70sZ9Nw5dIpvrbVz+65/PhlvJOw3NkCVPqnCU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=BCy/s/3NDjdXmeWcuDt6ShZk5gsXfAbEdAsMBHLTuFuigEdqco+w98iPsqo0pFkzBBCZ32fgW21/YgM/BBs9n+ReyIgGlx2B4OAzh5M791eTY4Pxst/bHREyIgcyqj09jTiYYScWPPzd/y4tfZQcF7IfrFLEf2r7B3EFaP6ibzA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=iZii7XVY; arc=fail smtp.client-ip=40.107.74.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J13Dph+H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71FE21F00A3E;
-	Wed,  2 Sep 2026 15:04:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788361481;
-	bh=EjHGe2+c+iiJIyioUKvKNEOLJIJmWsEN6lX8BJvp+4I=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=J13Dph+HXa5wrUilH/3Qy/UufluuyIOU9F2srH+U8YJtllTgGQTLugCKWzt1qWrB1
-	 cQw9r1/o7FOCtQKiXlbQU6vn//oKuO/0BJnHdLdNT+6s7xAUpo/Lnn0Mc3tIZxmmi0
-	 mR/tI/x7RqBEqNqh8skoGYXTYn3dS+SjtY+H6Un5EZfQegWhDvWkt0/aBF+a0wDxX7
-	 RzkYfVpJWJl9+1OZkX+F8pCSiKInf1T3WbsfjatRpiAPZoT9qsfeM8vcLkzkhM9Dpv
-	 MleFvYc51uxGSLckgnH1EDc42uAWeEvKdvrdVy1PHgdAvZLtBEoVRZU5Gf6mmsuXhj
-	 0NAN1qbSpoNPg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v3 08/10] net: stmmac: dwmac-rk: add SGMII
- support for RK3568
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Coia Prant" <coiaprant@gmail.com>
-Cc: vkoul@kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, conor+dt@kernel.org, linux-phy@lists.infradead.org
-In-Reply-To: <20260901150111.141037-9-coiaprant@gmail.com>
-References: <20260901150111.141037-1-coiaprant@gmail.com>
- <20260901150111.141037-9-coiaprant@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 15:04:41 +0000
-Message-Id: <20260902150441.71FE21F00A3E@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="iZii7XVY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Cmwb8EUmz+MXNvm43YiuVFXs+Et4ayCfX0n/k1cAKekomoet2gpjQkfFAaJJwg9xmeacqkctVCpl0Gtawbc8tzdm+Fb4PILCTEaCI0CIotc7qbsfA6bTs6mxlIe6FB4WLMDaoMOp8kQxpgS4rzyAQkpb6qFOUBjqdDy/kdtkKVactG6RsZN0SBUXRIVEJ4tuoKpL/mW/EgW5tJeqNtwz0PFfnMe1VbkSSuU7pvt3yJ8NUyw3ewEpcq1iQIUeB4jhjnQ5vSxIidro+o16MNRUoyJLxnLquviCr/4P83CmpAYlqd7HDhTE/eBibxClQOIbI3XVmACZ8NAnBCH09t5bYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eGuNFcyiAi0Q866OXbMYE1cLUmMrDRYH5bTs+DMw6Ps=;
+ b=ystMkRVoGMg5NAzzSsN1sK8sYAV8F2wZRJI58H/KNs1m88UJJyO9A+UD6d/CjFge2rLFIhvLcRqgHLqQ63TUn2NNQCv/2L1nNLOBNgYzlz8UyKH2sP/cw7SafrwbRnkJ3iWMJe6sHnII7v6sq6RSy5wfmag0gvKpkanl8lZEwIOBu/x3mTBqpHL4d4M17rFKVKY70NT6YmfprGmsG1nPx2tYnAhugIfr8OJWcc3lLyrRDfUBoy11PimYQUPoB6nHIA48Ztf67GQV8wuUwHf2/NaovDqg9fBwy+Pv6ySE2lQt9BXpM66XxU/JF0k66N/dL0qIsH6k+2vjxtfbTjpLMQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eGuNFcyiAi0Q866OXbMYE1cLUmMrDRYH5bTs+DMw6Ps=;
+ b=iZii7XVYsrOqS6UYrdL0zXq5Ccx+sS8AQWfP3caSOiSToTVqkkY03Cxp0+QYbgSyJf6gtWJ7wCcjjB3jdZdcvRWUdB8OMGTqtB7HfOQfjKLQBqTmE3vERWhkrxpcD2NvyRfXUIJ6EnYelRUYamKMRxgEhS2OWL955RilwcSnEHA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
+ by TY7PR01MB16836.jpnprd01.prod.outlook.com (2603:1096:405:32d::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 15:11:39 +0000
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
+ 15:11:39 +0000
+Date: Wed, 2 Sep 2026 17:11:18 +0200
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, tomm.merciai@gmail.com,
+	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 1/9] dt-bindings: display: renesas,rzg2l-du: Document
+ RZ/G3E SoC
+Message-ID: <apg8luaJ3eobK8sm@tom-desktop>
+References: <20260828122113.1426778-1-tommaso.merciai.xr@bp.renesas.com>
+ <20260828122113.1426778-2-tommaso.merciai.xr@bp.renesas.com>
+ <20260902-heavenly-ambrosial-trogon-b7ab03@quoll>
+ <apgsOubuGuvw_0rf@tom-desktop>
+ <CAMuHMdU0y5Dg9tW7fAM3QQHKpAw_+vmjj7v-XeZmrushQgQFAA@mail.gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMuHMdU0y5Dg9tW7fAM3QQHKpAw_+vmjj7v-XeZmrushQgQFAA@mail.gmail.com>
+X-ClientProxiedBy: FR3P281CA0001.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1d::10) To TYRPR01MB13588.jpnprd01.prod.outlook.com
+ (2603:1096:405:18d::7)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|TY7PR01MB16836:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3adebf9b-c91f-4d66-7b97-08df09047c96
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|52116014|7416014|376014|1800799024|38350700014|4143699003|5023799004|56012099006|10067099003|11063799006|3023799007|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	kmaS9ezE6AQusR88GeNuH+lRkaK8Cnk+1oNMENzdPvV+BobtETALe8DwIZy9Roly+f/oX6wJe7x0VxlRXqUnsRvT3dcNljFsNWhlZNpU29S7v9COfv212Jptq8gnC8F9/j8wP0Bx2dvHvF7YtDLzVmBYIwqoALYNU71L6IWp3mDOL+d6vgcpODKSgHztsxxue5wDDAaaAclBAMW0fn+Ff9rF4+1Y/XMeTdpqpPgZa63hEmyfY6wnRAuH8JtvY3jDPlSC97J9gPqcjgxYlNMUhOCVUHwmQIq/BhDxKNm/3SA6omIn/KL+EtdbSVvWTkS+W7jtDaNX+wP1dAN1c3ymcf1i0zGMc+PVT1h84iwd6MiJCH+p9+yh3tegM2i3HwUnP+94ZDDfTFygGX9/cdqS7VuYwOv4u6reAuzhUxXe56tBn/Yqg6bprIrab+vzwMqaIw2MVUsYVq7iudbtv5o3+gLef6dIqzXlDoSh+PnT7y5BoTqjyLCBsvH0KOP+e8LKJiMy1lOx+xfjh4ruAC+kfK7dDuvTEKD1Dv4ZdibfyuIw4epUcAbTOhz/mjuWCgBloI/AG6ELyibyNrSHdb1UFx+Uv4DgjpWhoVdF4hVtYT9SSgfIbmoZT58eyWMb5YHpVev9aGGZg2wyVgNu06NkM3kX7yqROJzhmbfayW7Pps/dIpNfo6G7TjCS9NSxmPscVT36TQeG0PSioxLHKO7lj5ypF8fMm/QllY5WP8aFbnU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB13588.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(52116014)(7416014)(376014)(1800799024)(38350700014)(4143699003)(5023799004)(56012099006)(10067099003)(11063799006)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?iR7hl3UcVJBAPSm6pWDU2mKzDBjpZN7EZqbGWB9J84noNwZTQH7ONjZGyaz9?=
+ =?us-ascii?Q?BHqFApQGj03pF9SrdqKWJQtwqJG9v3vpfXdjipb4/Yp4IdundripQebFO+mC?=
+ =?us-ascii?Q?r1YVkCmOK/VzxIlz/PJurPLh2vag7LAgJOH7fGJaf/9QHOTccxIh6a7NkczM?=
+ =?us-ascii?Q?5gT/IuklF8/A9/ovQmifl5vjcq7c1YgOBbklAqP1MTqkTm7tOl705xGQ+6Hc?=
+ =?us-ascii?Q?EPBcRFKyTMfjEys/SDDa8QvPLw/liSBuHG42UPgnpOqZiqWh4F7D0nRG36Bq?=
+ =?us-ascii?Q?jyDTiDzdoPzw6TadEUgu3jiKLxcuD7tUem2KOhlk9B5gD4Smn/ntfKw9GKq2?=
+ =?us-ascii?Q?I3RBXZoQL7EmOLP7RswoFpxO9GT4vTeHEA+Ct0SATg6RtP9IZ2/5DVSvRvkc?=
+ =?us-ascii?Q?EGSYseuNwwr9j9tBMWq68cMCt8EXWQbUUzi6HINrxWNPJebckAA+tZbhfscr?=
+ =?us-ascii?Q?I1y8R1R1jPE9tCqZX1JeLC59l35tvsXQ/lxCKRofMOrW7k0by/HUAjZpoRNo?=
+ =?us-ascii?Q?IyPxvWA4nf35iRjhP26GeHEn+KlvYB90/j3qM0tJzrAgB/ogdgaoef1ZvaUO?=
+ =?us-ascii?Q?fpbA+0KPqFGZkm91fX6wdo4CsKB7UUD6tR0JwJmKg0LbE3BvD6JlUsL8ECN4?=
+ =?us-ascii?Q?xd1IQUEvEyTXds5RavtZbuGcWmhITAeaYwZay8JxfBK3N0Nx3b+uAOLdRtxS?=
+ =?us-ascii?Q?zQ5ajGRuz6vn82ndhgd+NWG8PpLXDgPq+/LCm/30pacfcMw6citnWvJTY7uL?=
+ =?us-ascii?Q?lJk3rhT7MJRekbY6NwtWm2XL0xdOnnl3xYVHl4JblUA6u02Pl+y8aFB/YLpl?=
+ =?us-ascii?Q?3xSTf3E5fYLRy6M8Gj4lBfOlG7QTSPaMHdV3HcHmGfR05TCVjYshGjYxgNcn?=
+ =?us-ascii?Q?2b2wciKxtpUEKzuZMsQCERRo1BZhvWVS0XL2wRfOK7CYgmXoZVT7K9/xc710?=
+ =?us-ascii?Q?B4RPjprMZoL5dOM5UcwRWhdXpNd8Xan74dA/IpyNpy+c/HQn89vCLyxwODM7?=
+ =?us-ascii?Q?1P3rZvxw9yzFGU+CYuJXyf1ovQdz6kmWErnckKDDCGZC6ikHCI+zHvEtlTmD?=
+ =?us-ascii?Q?AIGDVsg6hNmmkiRY1wohn0lvCRiEfwC4A/Zc55EsGgNlIBkJtizFWieQpmMR?=
+ =?us-ascii?Q?pWwwsiba37ElXIBWaunvONUJuXTs5s1nxZgLIO17j33n/+T1fSjmVL7eM+Me?=
+ =?us-ascii?Q?2/h4Px7G4QTS3SHBkHiEjxLNNZXoRTfpx/hyYexd+pGNuPXQHS2bsHO3s+3A?=
+ =?us-ascii?Q?Qm4e2ntRf/unaUXCfpm3do8hCBQgVTVnSN+cgGZHsgLf1+3vhJl/R6RpykIh?=
+ =?us-ascii?Q?h/cMTBr9x/ZZoGJ+mUsSHTfhAsyF+MSd9NFTrkdCj5Ckeflbg+j4w1BlIlC8?=
+ =?us-ascii?Q?3BdxCGTsNuiqy44sB6Q2DnDL+lDbcvKHx9f9mQ+8801fgrsjWDkjLU41NSX8?=
+ =?us-ascii?Q?PliKYbw8HD6cbmzOuCHqSsFyuwgSuqyPmgz6W7UwOfaRu7G5qnNzBQM4aOia?=
+ =?us-ascii?Q?+E3DbcuYuc76vekfjyz7OCD1I4uxVETLNHCS8rXC+dA7TLqqhM7X3bgStb+y?=
+ =?us-ascii?Q?pk1FnsY3aoWra/xeSUqRSd0kcCJsJP7/cRtbFbTdkg0IFiS8hBqgcw2EIZPN?=
+ =?us-ascii?Q?u1AO1sSrZnjojYl0FeOCL0G3m3df6nA8gjwnozDj9WbRrcfR4uBRGBa03LVz?=
+ =?us-ascii?Q?JG/Npj3j/l0SAQ1yPNsyO9eT13F6+ezYs81PZY/ZEDDSCMLVHVLMpe4rEXy0?=
+ =?us-ascii?Q?kUlxGdcGIULcfDVRn10zB8U/q7p0YAV1OuLbVjK2lMzPtBXZIzJi?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3adebf9b-c91f-4d66-7b97-08df09047c96
+X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 15:11:38.8952
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PUDoOya0Fs3XQoRISLxz77Uy8rqtP1Vg/Qed/krUc/ql3gq7fd2VVQWR5cx209czehDX3TTCFf+RTIbHQG9SF5Y1FXc+L7W7zPLUvcfITFsfWptOdw5XLqfeR55OkRj3
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY7PR01MB16836
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Wed, Sep 02, 2026 at 04:20:51PM +0200, Geert Uytterhoeven wrote:
+> Hi all,
+> 
+> On Wed, 2 Sept 2026 at 16:03, Tommaso Merciai
+> <tommaso.merciai.xr@bp.renesas.com> wrote:
+> > On Wed, Sep 02, 2026 at 08:37:06AM +0200, Krzysztof Kozlowski wrote:
+> > > On Fri, Aug 28, 2026 at 02:21:04PM +0200, Tommaso Merciai wrote:
+> > > > The RZ/G3E Soc has 2 LCD controller (LCDC), contain a Frame Compression
+> > > > Processor (FCPVD), a Video Signal Processor (VSPD), Video Signal
+> > > > Processor (VSPD), and Display Unit (DU).
+> > > >
+> > > >  - LCDC0 supports DSI and LVDS (single or dual-channel) outputs.
+> > > >  - LCDC1 supports DSI, LVDS (single-channel), and RGB outputs.
+> > > >
+> > > > Add new SoC-specific compatible string 'renesas,r9a09g047-du'.
+> > > >
+> > > > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> 
+> > > > --- a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+> > > > +++ b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+> > > > @@ -21,6 +21,7 @@ properties:
+> > > >            - renesas,r9a07g043u-du # RZ/G2UL
+> > > >            - renesas,r9a07g044-du # RZ/G2{L,LC}
+> > > >            - renesas,r9a08g046-du # RZ/G3L
+> > > > +          - renesas,r9a09g047-du # RZ/G3E
+> > > >            - renesas,r9a09g057-du # RZ/V2H(P)
+> > > >            - renesas,r9a09g077-du # RZ/T2H
+> > > >        - items:
+> > > > @@ -35,25 +36,51 @@ properties:
+> > > >            - const: renesas,r9a09g077-du # RZ/T2H fallback
+> > > >
+> > > >    reg:
+> > > > -    maxItems: 1
+> > > > +    minItems: 1
+> > > > +    maxItems: 2
+> > > > +
+> > > > +  reg-names:
+> > > > +    items:
+> > > > +      - const: du.0
+> > > > +      - const: du.1
+> > >
+> > > du is the name of the device, thus calling items "0" and "1" is pretty
+> > > pointless - indices already define that. Please drop the reg-names.
+> >
+> > Will drop this in v8.
+> >
+> > > >    interrupts:
+> > > > -    maxItems: 1
+> > > > +    minItems: 1
+> > > > +    maxItems: 2
+> > > > +
+> > > > +  interrupt-names:
+> > > > +    items:
+> > > > +      - const: du.0
+> > > > +      - const: du.1
+> > >
+> > > Same here
+> >
+> > Same, thanks.
+> >
+> > >
+> > > >
+> > > >    clocks:
+> > > > +    minItems: 3
+> > > >      items:
+> > > >        - description: Main clock
+> > > >        - description: Register access clock
+> > > >        - description: Video clock
+> > > > +      - description: Main clock for DU1
+> > > > +      - description: Register access clock for DU1
+> > > > +      - description: Video clock for DU1
+> > > >
+> > > >    clock-names:
+> > > > +    minItems: 3
+> > > >      items:
+> > > >        - const: aclk
+> > > >        - const: pclk
+> > > >        - const: vclk
+> > > > +      - const: aclk1
+> > > > +      - const: pclk1
+> > > > +      - const: vclk1
+> > > >
+> > > >    resets:
+> > > > -    maxItems: 1
+> > > > +    minItems: 1
+> > > > +    maxItems: 2
+> > > > +
+> > > > +  reset-names:
+> > > > +    items:
+> > > > +      - const: resetn
+> > > > +      - const: resetn1
+> > >
+> > > Drop reset-names
+> >
+> > For reset-names, I got the the following comment from Philipp in v7 [1].
+> >
+> > Dropping reset-names would force the driver back to an index-based
+> > lookup, which is what that comment explicitly asked me to avoid.
+> >
+> > [1] https://lore.kernel.org/all/8382e2b9fd07fb1132c26e228b3899336fc1fdd4.camel@pengutronix.de/
+> >
+> > Philipp, Krzysztof, could you agree on which way you'd prefer?
+> > I'll follow whatever you decide.
+> 
+> Until we get a variant with a third interrupt (or reset or reg),
+> which is not related to the number of channels...
 
-New issues:
-- [High] Hardware initialization failure: The interface selection bits 4:6 =
-are not cleared for SGMII mode, contradicting the commit message and leavin=
-g the MAC in an invalid state.
+Right, IMHO names keep the driver flexible enough for such a variant,
+indices don't.
 
-Pre-existing issues:
-- [High] Unhandled Error: pm_runtime_get_sync() return value is ignored, po=
-tentially causing hardware access without proper resume.
---
+Kind regards,
+Tommaso
 
-commit 5a7c3b38ba957e74b26623c8e3e94e4c77b594de
-Author: Coia Prant <coiaprant@gmail.com>
-
-net: stmmac: dwmac-rk: add SGMII support for RK3568
-
-This commit adds support for SGMII mode on the RK3568 SoC by providing the
-necessary glue logic and XPCS configuration. It introduces callbacks to set
-up the GMAC GRF register and handle PCS initialization, while also fixing
-clock enable ordering in the powerup sequence.
-
-Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TRM%=
-20Part1%20V1.1-20210301.pdf (Page 386)
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net=
-/ethernet/stmicro/stmmac/dwmac-rk.c
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-[ ... ]
-> @@ -851,18 +857,32 @@ static void rk3568_set_to_rgmii(struct rk_priv_data=
- *bsp_priv,
->  		     RK3568_GMAC_CLK_TX_DL_CFG(tx_delay));
-> =20
->  	regmap_write(bsp_priv->grf, con1,
-> +		     RK3568_GMAC_MODE_RMII_RGMII |
->  		     RK3568_GMAC_RXCLK_DLY_ENABLE |
->  		     RK3568_GMAC_TXCLK_DLY_ENABLE);
->  }
-> =20
-> +static void rk3568_set_to_sgmii(struct rk_priv_data *bsp_priv)
-> +{
-> +	u32 con1;
-> +
-> +	con1 =3D (bsp_priv->id =3D=3D 1) ? RK3568_GRF_GMAC1_CON1 :
-> +				     RK3568_GRF_GMAC0_CON1;
-> +
-> +	regmap_write(bsp_priv->grf, con1, RK3568_GMAC_MODE_SGMII_QSGMII);
-> +}
-
-[Severity: High]
-The commit message mentions "bit 7 set, interface selection bits 4:6 cleare=
-d",
-but this write only targets bit 7 using RK3568_GMAC_MODE_SGMII_QSGMII (which
-is GRF_BIT(7)). Does this leave the interface selection bits 4:6 in their
-previous state instead of clearing them? Could this cause the SGMII interfa=
-ce
-to fail to initialize properly?
-
-[ ... ]
-> @@ -1379,16 +1441,19 @@ static int rk_gmac_powerup(struct rk_priv_data *b=
-sp_priv)
->  	if (ret)
->  		return ret;
-> =20
-> +	ret =3D gmac_clk_enable(bsp_priv, true);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (bsp_priv->phy_iface =3D=3D PHY_INTERFACE_MODE_SGMII)
-> +		goto set_mode;
-
-[Severity: High]
-Because PHY_INTERFACE_MODE_SGMII takes this goto set_mode, it skips the
-generic GRF interface selection mask configuration right below it. Since
-rk3568_set_to_sgmii() also doesn't clear bits 4:6, is there anywhere that t=
-he
-clearing mask is actually applied for SGMII?
-
-> +
->  	ret =3D rk_get_phy_intf_sel(bsp_priv->phy_iface);
->  	if (ret < 0)
-> -		return ret;
-> +		goto clk_disable;
-> =20
->  	intf =3D ret;
-> =20
-[ ... ]
-> @@ -1447,15 +1509,20 @@ static int rk_gmac_powerup(struct rk_priv_data *b=
-sp_priv)
->  		if (bsp_priv->ops->set_to_rmii)
->  			bsp_priv->ops->set_to_rmii(bsp_priv);
->  		break;
-> +	case PHY_INTERFACE_MODE_SGMII:
-> +		dev_info(dev, "init for SGMII\n");
-> +		if (bsp_priv->ops->set_to_sgmii)
-> +			bsp_priv->ops->set_to_sgmii(bsp_priv);
-> +		break;
->  	default:
->  		dev_err(dev, "NO interface defined!\n");
-> +		ret =3D -EINVAL;
-> +		goto clk_disable;
->  	}
-> =20
->  	ret =3D rk_phy_powerup(bsp_priv);
-> -	if (ret) {
-> -		gmac_clk_enable(bsp_priv, false);
-> -		return ret;
-> -	}
-> +	if (ret)
-> +		goto clk_disable;
-> =20
->  	pm_runtime_get_sync(dev);
-> =20
-> @@ -1463,6 +1530,10 @@ static int rk_gmac_powerup(struct rk_priv_data *bs=
-p_priv)
->  		bsp_priv->ops->integrated_phy_powerup(bsp_priv);
-> =20
->  	return 0;
-
-[Severity: High]
-This is a pre-existing issue, but the return value of pm_runtime_get_sync()
-is ignored here. If the device power domain fails to resume, would the
-subsequent integrated_phy_powerup() hardware access trigger a synchronous
-external abort or cause silent data corruption?
-
-> +
-> +clk_disable:
-> +	gmac_clk_enable(bsp_priv, false);
-> +	return ret;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901150111.1410=
-37-1-coiaprant@gmail.com?part=3D8
+> 
+> Gr{oetje,eeting}s,
+> 
+>                         Geert
+> 
+> -- 
+> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> 
+> In personal conversations with technical people, I call myself a hacker. But
+> when I'm talking to journalists I just say "programmer" or something like that.
+>                                 -- Linus Torvalds
