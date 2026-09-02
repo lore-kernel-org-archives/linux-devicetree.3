@@ -1,39 +1,43 @@
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+Received: from mail-43102.protonmail.ch (mail-43102.protonmail.ch [185.70.43.102])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B28064AD7F3;
-	Wed,  2 Sep 2026 21:22:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F244C4A8FF6;
+	Wed,  2 Sep 2026 21:22:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788384155; cv=none; b=Lpmld4ccawI9AA6IEeVgOxaQHO/loAUdG2b2lMD5DD3kqzbGtD0Nr88kKehj+GrHSr1ui/Yz2NmYrSlsH+PEQyU6AjHglVto7yxLatenqJm+WNoVh/wNULRtvQb5o33yVjYuOT9HykqcXiUaNZCVwd/WHmQsFRr49GOkzEhP1QI=
+	t=1788384161; cv=none; b=CxGSZSI1YJQ80l3yrC9cfJC/dQSDchT82E5kPxsZXIaQ/hPzfJ84rG6UQcAcao63PVQ17DALVkxI/W0WzPW5mMr1+/mXQ3nIKcIwb3s9hyBYXJ+UGrIeoeYFpU1qov+1PplfznRQ5RQG6rw/H5DStSxLaeV8pfwNGoGigUM5oYw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788384155; c=relaxed/simple;
-	bh=k1lyWfaJP3xU+UHktqeOFB2UIyIAd/PoNQw+0PNA/Q0=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=H8BBZz5bF2DyrJeNJeSvlgERvO59rA6oyr/mt/wVoiqcXB13OMvvhpNmEJJAbRxmwPY3tMgL2pVxuGxHN0EsOuqImO6k2FGyHVEgF7lKqCs8026qeOI/aW430a5qhuzI5riBQ0WzMTN5wYvJF3Ryn8yQeEYsNHx5GNAWsyVfwzw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=XU4rtfUs; arc=none smtp.client-ip=185.70.43.22
+	s=arc-20240116; t=1788384161; c=relaxed/simple;
+	bh=3gj0kSLsPkp7d/bNS6rXLOSD9pvnNEbtOz7WcVsgHI8=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=U+qqguvsxbNZG9nu+zDiDTVDNEAzyTZB8ewox0bozjUYupR59F09l2EPX3p1w7/8hrl65hTr5GS1bb1kbvP/VPK7ChmetX4F1KK0twmK8IkATIXyaqJiVD2m6uiZuqaJBFGWTS6AWYz7j5rGxhvUW3vnNoRIfIQaVcG4Cg33IMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=J6LERhRX; arc=none smtp.client-ip=185.70.43.102
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="XU4rtfUs"
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="J6LERhRX"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=ohdz7yiisbhrpfbd5oe2n7vs5a.protonmail; t=1788384139; x=1788643339;
-	bh=1WN0P42Ga1UQ2w7ibBx/V/nw/ikQdfeG+Lf+Wqou5iU=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=XU4rtfUs+3WyvTJQefT2rJK2SpSvi9StMFXRiMXZxoCbhBzHaL4qzdDIX8ysIh+Ot
-	 qmaIeIaZgGtIgZpBnjGhXNWFAHz90NU1uMg22HZgug6lPAiIESxjx5fi6LJw7h6/r4
-	 7QcBR9WaaJhja7SG+MPhsyQxdOAjvnVT3OTtbyJPQVnXK3Td8kJ9wewymLziCHwyUl
-	 Ags8Rl2i+coIFJL+9Ghx7mf2N6cR71W0+0OM2rv10I+AaVL2cxFG2jwLDztt+qQxmn
-	 ep/JwKwkVRvlB17Ze1yPJIFXQfwM8StjvW+vs66LCnYYZobQYUGjUwyGNY3iJCQ0QL
-	 M/FkFwQrXCHaQ==
-Date: Wed, 02 Sep 2026 21:22:14 +0000
+	s=bttjsimnxnbpbgimf4fwcpgurq.protonmail; t=1788384142; x=1788643342;
+	bh=dS3+A9eI+tmeoJ5w1r4TVLIeNSpcjB+BfvEJnyPVnDw=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=J6LERhRXAhtAdBq025g77m/FcORrkbEZrIkkiRettxL+koUt2nbznZ/1nxENk3Duh
+	 9DAvo/1YMs0DOccL+hWx4wJWUnT7ljGWX0zrYM13r5MO/mHaZAOxiQFJ+PNMW21j2E
+	 wXJVj3VwnmLqXIGS9HwgmR8cWCJFHcU9pdmOVMz36kM1hpVUlm4mRWfL8dpWCaQo6q
+	 Os0QPk2EvatNXGtY8gIUO7LgUmf/oQ+yyAK+tZT3FBBumIaUA51gxnpouhE7vkThe3
+	 MfwYAPgWjo+dogqeCCAee1kbkZEFmYNOUid/bGgucGGLXqlsDrzJ/yNDUzqi2Zpvl7
+	 IP6Wpx4Fs8iPQ==
+Date: Wed, 02 Sep 2026 21:22:18 +0000
 To: David Heidelberg <david@ixit.cz>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
 From: Kristian Brox <isyourbrainfoss@proton.me>
 Cc: Krzysztof Kozlowski <krzk@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Luca Weiss <luca.weiss@fairphone.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, Kristian Brox <isyourbrainfoss@proton.me>
-Subject: [PATCH v4 0/3] nfc: st-nci: Fairphone 5 NFC bring-up (ST21NFCD)
-Message-ID: <20260902-fp5-st21nfcd-v4-v4-0-ded2f1c501be@proton.me>
+Subject: [PATCH v4 1/3] dt-bindings: net: nfc: add st,st21nfcd
+Message-ID: <20260902-fp5-st21nfcd-v4-v4-1-ded2f1c501be@proton.me>
+In-Reply-To: <20260902-fp5-st21nfcd-v4-v4-0-ded2f1c501be@proton.me>
+References: <20260902-fp5-st21nfcd-v4-v4-0-ded2f1c501be@proton.me>
 Feedback-ID: 203906395:user:proton
-X-Pm-Message-ID: c4c498e7a9dd957ae9757fb03f72e5088d442de4
+X-Pm-Message-ID: 60a34411ed117ddd54a64cbbc892ca3c69075bec
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -43,97 +47,105 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-This adds NFC on the Fairphone 5 (qcm6490). The board uses an ST21NFCD
-on I2C. That part speaks raw NCI; the current st-nci driver always
-wraps NDLC, so using st,st21nfcb-i2c leaves the adapter unusable.
+Add a compatible for the ST ST21NFCD NFC controller. Document optional
+SYS_CLK (clocks) and VPS_IO (vdd-io-supply).
 
-The series adds a st,st21nfcd compatible for the raw-NCI path and the
-Fairphone 5 DT node. Boards that already use st21nfcb / st21nfcc keep
-the NDLC path.
-
-Patches are against linux-nfc/for-next (Linux 7.3-rc1). Hardware test
-was on a Fairphone 5 running postmarketOS:
-
-- 7.1.2 sc7280, earlier raw-NCI modules: nfctool Powered: Yes;
-  initiator poll / neard: NTAG 215, NDEF URI read OK
-- 7.2.0-nfc-test+ (sc7280-mainline), this v4 st-nci as modules:
-  10x initiator poll finds Type 2 in 0.13-0.14 s, no
-  "unsupported ntf opcode 0xf02". Repeat poll with a Type 2 tag
-  in the field stays Powered: Yes. Empty-field poll SIGINT
-  (nfctool -p, no tag) also stays Powered: Yes.
-
-The ndlc: hexdumps are pr_debug. SIGINT during CORE_RESET (nfctool -0
-then Ctrl-C during -1) wedges stock nci core; that is not this series.
-
-ese-present and uicc-present follow the public schematic (NFC_SWP1/SWP2:
-SWP_SE to SIM1, SWP_UICC to SIM2). SE/HCE is not tested.
-
-CLK_REQ (GPIO 39) is omitted, as on Fairphone 6 NFC. VBAT and VDD_TX sit
-on VPH_PWR and are not modelled. VCC_UICC_IN (L4C) is not modelled;
-UICC SWP is untested.
+ST21NFCD is not I2C-only; the ST data brief lists I2C and SPI.
+Split the spi-max-frequency if/else: forbid it for
+st,st21nfcb-i2c and st,st21nfcc-i2c, require it for st,st21nfcb-spi,
+and leave it optional for st,st21nfcd. Add clocks and vdd-io-supply to
+the existing st,st21nfcb-i2c example instead of a second I2C example.
 
 Signed-off-by: Kristian Brox <isyourbrainfoss@proton.me>
 ---
-Link to v3:
-https://lore.kernel.org/oe-linux-nfc/20260820-fp5-st21nfcd-v3-v3-0-5ee0a7f4=
-4d04@proton.me/
+ .../devicetree/bindings/net/nfc/st,st-nci.yaml     | 49 +++++++++++++++---=
+----
+ 1 file changed, 35 insertions(+), 14 deletions(-)
 
-Changes in v4:
-- Driver: consume ST proprietary RF NTF 0xf02 (Luca)
-- Driver: set raw_nci before nci_register_device (Sashiko / David)
-- Driver: enable vdd-io and SYS_CLK before driving reset
-- Driver: keep named i2c/acpi id initializers; do not add trailing
-  commas on existing of_match entries (David)
-- Driver: reset pulse uses gpiod_is_active_low so new DT can be
-  GPIO_ACTIVE_LOW without breaking old nfcb DTS (Krzysztof)
-- Binding: ST21NFCD is not I2C-only (data brief lists SPI); do not
-  put st,st21nfcd in the I2C-only spi-max-frequency:false enum
-- Binding: SPI $ref only in the non-I2C else (not a global allOf item)
-- Binding: clocks/vdd-io-supply on the existing I2C example; drop the
-  extra example (Krzysztof)
-- DTS: reset-gpios GPIO_ACTIVE_LOW (Krzysztof). Physical GPIO 38 HIGH
-  is the run level. Konrad R-b not carried (polarity changed).
+diff --git a/Documentation/devicetree/bindings/net/nfc/st,st-nci.yaml b/Doc=
+umentation/devicetree/bindings/net/nfc/st,st-nci.yaml
+index 1dcbddbc5a74..8abafb3d8994 100644
+--- a/Documentation/devicetree/bindings/net/nfc/st,st-nci.yaml
++++ b/Documentation/devicetree/bindings/net/nfc/st,st-nci.yaml
+@@ -15,6 +15,7 @@ properties:
+       - st,st21nfcb-i2c
+       - st,st21nfcb-spi
+       - st,st21nfcc-i2c
++      - st,st21nfcd
+=20
+   reset-gpios:
+     description: Output GPIO pin used for resetting the controller
+@@ -36,26 +37,43 @@ properties:
+       Specifies that the uicc swp signal can be physically connected to th=
+e
+       controller
+=20
++  clocks:
++    maxItems: 1
++    description:
++      External reference clock connected to SYS_CLK.
++
++  vdd-io-supply:
++    description:
++      Digital I/O supply (VPS_IO).
++
+ required:
+   - compatible
+   - interrupts
+   - reg
+   - reset-gpios
+=20
+-if:
+-  properties:
+-    compatible:
+-      contains:
+-        enum:
+-          - st,st21nfcb-i2c
+-          - st,st21nfcc-i2c
+-then:
+-  properties:
+-    spi-max-frequency: false
+-else:
+-  $ref: /schemas/spi/spi-peripheral-props.yaml#
+-  required:
+-    - spi-max-frequency
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - st,st21nfcb-i2c
++              - st,st21nfcc-i2c
++    then:
++      properties:
++        spi-max-frequency: false
++    else:
++      $ref: /schemas/spi/spi-peripheral-props.yaml#
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: st,st21nfcb-spi
++    then:
++      required:
++        - spi-max-frequency
+=20
+ unevaluatedProperties: false
+=20
+@@ -76,6 +94,9 @@ examples:
+             interrupts =3D <2 IRQ_TYPE_LEVEL_HIGH>;
+             reset-gpios =3D <&gpio5 29 GPIO_ACTIVE_HIGH>;
+=20
++            clocks =3D <&clk>;
++            vdd-io-supply =3D <&vdd_io>;
++
+             ese-present;
+             uicc-present;
+         };
 
-Changes in v3:
-- Binding: new compatible is a different ST part (not a driver-sharing note=
-)
-- Binding: drop NDLC/raw-NCI description on compatible
-- Binding example uses interrupts-extended
-- DTS: one nfc_default pinctrl group, pins sorted, no output-high
-- Fresh series (not a reply to v1/v2)
-
-Changes in v2:
-- Compatible is st,st21nfcd (no -i2c suffix)
-- Sent without PGP/MIME
-- DTS: interrupts-extended and pinctrl for IRQ/reset
-- DTS: ese-present / uicc-present (schematic)
-- DTS: SYS_CLK from LN_BB_CLK2, VPS_IO from L18B
-- Binding: optional clocks and vdd-io-supply
-- Driver: optional clk / vdd-io enable
-
----
-Kristian Brox (3):
-      dt-bindings: net: nfc: add st,st21nfcd
-      nfc: st-nci: add raw NCI path for ST21NFCD
-      arm64: dts: qcom: qcm6490-fairphone-fp5: add ST21NFCD NFC
-
- .../devicetree/bindings/net/nfc/st,st-nci.yaml     | 49 +++++++++----
- arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 34 ++++++++-
- drivers/nfc/st-nci/core.c                          | 22 ++++++
- drivers/nfc/st-nci/i2c.c                           | 82 ++++++++++++++++++=
-++--
- drivers/nfc/st-nci/ndlc.c                          | 27 +++++--
- drivers/nfc/st-nci/ndlc.h                          |  5 +-
- drivers/nfc/st-nci/se.c                            |  3 +
- drivers/nfc/st-nci/spi.c                           |  2 +-
- drivers/nfc/st-nci/st-nci.h                        |  2 +
- 9 files changed, 197 insertions(+), 29 deletions(-)
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260902-fp5-st21nfcd-v4-1685be1d7c52
-
-Best regards,
--- =20
-Kristian Brox <isyourbrainfoss@proton.me>
+--=20
+2.55.0
 
 
