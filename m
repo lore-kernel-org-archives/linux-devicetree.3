@@ -1,160 +1,222 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E504A9D4C
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 17:46:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFA08372EEA
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 17:49:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788371190; cv=none; b=qVDcD8X9/Bx1fY/OfEil66SHEJYwWYfPq6lsToMytT5xSnGI9pHRUA1JqSvaDB/FIx4W4ik905CUgI6cyMisJgNUaNSI01IHwKix3rGWt1OBuL+jKKtnk245AadqlslHlq8wOAsDi9eEUaW7suk0T/vBtbBpAGAiVHe0ZkEaopQ=
+	t=1788371386; cv=none; b=KdyW3CQy5TDuMc+nAKtQby2mA5ih20tBcfga//Tl8uZ0CqSPeAtyHnD4r6KYb/6PlJRKQdeimYzLKpkj/Bh2R6n8X5wc9az8nmTF5jm/5Zxl7gGVFzkzr1k+d7BP3dGSppAy7u/Q703SyzKL9pk2r5iT3l2MnX6yb0Ali8GQ0DQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788371190; c=relaxed/simple;
-	bh=2dTLCwYGei8n0qvi92DKN1sv4BtycszLUivW5dnBzzg=;
+	s=arc-20240116; t=1788371386; c=relaxed/simple;
+	bh=y8RsXoLHm9rlScyTgdA0HTTR4bFPlY6R2YePixanJfY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=em1fKmRi5nFMDZRXIvZkzbAt9HOPhcif6N+Rnp/ZBEPimjXa5PDMvaBhaMgQauOqCnBYW5woVweFXMYRMHcwUoC11e4hs9zut7Wt2Gyt719z2kYCksa6VJPvtdRJ5OFsyDhnq7YIbGYR/psYGWoty6MYso3oKgcDFR9xyY3RNuo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TO1vROY8; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=t84ZCbmGJdApQnCF/ctaGwXBouBfTah/2eArhk/hRvdoEf9LDwgrKcbn/HbMh/2lJwMrvbpmQEdvPpq/fi5WP4I1kwH67RH+NuuVwxHbzWkQdhg1Z8GVUxMzVjS+/Bf09dpR0xGBsmOolIdGONp4buytOuS0Khcj0VQcTp679yw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d0qW5P3s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TO1vROY8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CF141F00A3A;
-	Wed,  2 Sep 2026 17:46:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d0qW5P3s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 286BC1F000E9;
+	Wed,  2 Sep 2026 17:49:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788371188;
-	bh=grDn57SJ/q6+9gsFE+82E4T+9hlfE2FH7Xbrm6N6Qn8=;
+	s=k20260515; t=1788371384;
+	bh=RzPw6yv06lXHy0tRDrMauCZ/qkxFcIpZyZpeixH6ecg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TO1vROY8yKUWdpH5pfMw70bDqyZr1R+v94dJR6kUHep+eBkHzn/1pyL+neXycnpwu
-	 yS+7ayMyDQMEFZdIvADdUnPcIJagHfgyIODy3R1jXEeqy3zUDT6InSKbf/5gfW92dB
-	 3E3Q9cf7popq6fib02o8i98TsIE1596+PJC5EN+sgjBSWROtGuEqlQUqu1OudFh3g7
-	 ebPQjqQSCrfP0gY1JFHOJnADp9ZFt7VcmikqD9KHMJLvUW8BRNKmXtYctDlXJeS7va
-	 gayjXi5Wy5kxEOP31CvWAZV+ay4++kH3iZ2u7vb4HLnHjlbpv+D+yBEgfgekTMU/vg
-	 LTnB7XVBRA8zQ==
+	b=d0qW5P3sWjtyvFj9OtTTGigI/Ih8lnmb0TotIULym8VPeVygklDQhMF9hHFyVt72b
+	 9s1qmwDlU4i4/7FDuve/j5Ju2boRRySgckoabmfhkUkggQPY2vMjDz3aKSH/+BrTj6
+	 rlNNnaNFWzHmNlLJiZYlzAZd2hrpg1PL+sjU9yxGT+4WAed0CD2xyc9xDjfp7OMufa
+	 VgJo48wHO5wz+zyh3G63EjJjBhcxMtcjpUY01z/Lg9jfi0Bv1ypCwnxI2yUlB/JmQM
+	 RkloEiM+QiZsnMq+LNZ5RPWNEFMX7s+BIuYJ0I/B+uSuFGg/9B0JwFOVuZ2X22isnz
+	 EGTu2gPgr2/6A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 08/13] dt-bindings: iio: adc: adi,ad4134: Document
- SPI connection mode
+Subject: Re: [PATCH v1 12/13] iio: adc: ad4134: Support high-speed data
+ capture
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <d9b759d29fa8ca12b6cf083e180b2556ca4533f0.1788368334.git.marcelo.schmitt@analog.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <53d79eed25795db5076d7c591f6dd8cf4feedfec.1788368334.git.marcelo.schmitt@analog.com>
 References: <cover.1788368334.git.marcelo.schmitt@analog.com>
- <d9b759d29fa8ca12b6cf083e180b2556ca4533f0.1788368334.git.marcelo.schmitt@analog.com>
+ <53d79eed25795db5076d7c591f6dd8cf4feedfec.1788368334.git.marcelo.schmitt@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 17:46:27 +0000
-Message-Id: <20260902174628.5CF141F00A3A@smtp.kernel.org>
+Date: Wed, 02 Sep 2026 17:49:43 +0000
+Message-Id: <20260902174944.286BC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [Critical] Unconditional buffer overflow in `ad4134_trigger_handler()` an=
-d silent data loss when the timestamp channel is enabled.
-- [High] The ad4134 driver ignores unsupported `adi,spi-mode` values and si=
-lently falls back to `no-cs` mode without throwing an error.
-- [Medium] Adding daisy-chain modes without explicitly allowing the '#daisy=
--chained-devices' property.
-- [Low] The `adi,spi-mode` property describes a default fallback in text bu=
-t lacks the YAML `default` keyword in the schema.
+- [Critical] Buffer overflow in `ad4134_trigger_handler` when iterating ove=
+r the scan mask length.
+- [High] NULL pointer dereference in `ad4134_offload_buffer_postenable` err=
+or path for AD4134_SPI_MODE_NO_CS.
+- [High] Incorrect SPI transfer length in 1-lane offload mode causes buffer=
+ format mismatch and data corruption.
+- [High] Hardware PWM resource leak on driver unbind due to missing disable=
+ action.
+- [Medium] Data race on `st->odr_hz` in `ad4134_read_raw` due to missing lo=
+ck.
 --
 
-commit 5c85e25862888f2e9a104a75c26404312b5feaf0
+commit d7cbe54fc38bde7020274d75b09e6803ffb16fca
 Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
 
-dt-bindings: iio: adc: adi,ad4134: Document SPI connection mode
+iio: adc: ad4134: Support high-speed data capture
 
-Document how AD4134 chips are connected to the host SPI controller
-according to different wiring configurations.
+This commit adds support for SPI transfer offloading to speed up data
+capture, enabling data acquisition at faster sample rates up to 1.496 MSPS.
 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml b/=
-Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-> index ea6d7e0264190..d843c02a394a3 100644
-> --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-> @@ -131,6 +131,28 @@ properties:
->      enum: [ free-running, gated ]
->      default: gated
-> =20
-> +  adi,spi-mode:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    enum: [ no-cs, 4-wire, one-channel-chain, two-channel-chain ]
-
-[Severity: Medium]
-Does this schema need to explicitly allow the '#daisy-chained-devices'
-property, or reference /schemas/spi/spi-peripheral-props.yaml?
-
-Standard devicetree descriptions for daisy-chained IIO devices require
-'#daisy-chained-devices' to communicate chain length.
-
-Without it, won't any devicetree using the newly added 'one-channel-chain'
-mode fail dt_binding_check validation?
-
-> +    description: |
-> +      This property indicates the SPI wiring configuration.
-> +
-> +      When this property is omitted, it is assumed that the device is us=
-ing
-> +      'no-cs' wiring.
-
-[Severity: Low]
-Is it possible to add the YAML 'default: no-cs' keyword to the schema
-definition?
-
-Since the text describes a default fallback, structurally representing it
-ensures tooling can infer the default configuration.
-
+> diff --git a/drivers/iio/adc/ad4134.c b/drivers/iio/adc/ad4134.c
+> index 8453b44ef368f..cf84d2b24417d 100644
+> --- a/drivers/iio/adc/ad4134.c
+> +++ b/drivers/iio/adc/ad4134.c
 [ ... ]
-
-I also noticed some regressions in the driver code related to these SPI mod=
-es.
-
-In drivers/iio/adc/ad4134.c:ad4134_probe():
-
-	ret =3D device_property_match_property_string(dev, "adi,spi-mode",
-						    ad4134_spi_modes,
-						    ARRAY_SIZE(ad4134_spi_modes));
-	/* Default to "no-cs" mode if adi,spi-mode is not specified */
-	if (ret =3D=3D -EINVAL)
-		st->spi_mode =3D AD4134_SPI_MODE_NO_CS;
+> @@ -454,6 +509,90 @@ static const struct regmap_config ad4134_regmap_conf=
+ig =3D {
+>  	.max_register =3D AD4134_CH_VREG(ARRAY_SIZE(ad4134_chan_set)),
+>  };
+> =20
+> +static int ad4134_update_conversion_rate(struct ad4134_state *st,
+> +					 unsigned int freq_Hz)
+> +{
+[ ... ]
+> +	ret =3D pwm_set_waveform_might_sleep(st->odr_pwm, &odr_wf, false);
 
 [Severity: High]
-Does this code silently ignore unsupported strings?
+This starts the ODR PWM hardware, but is there a corresponding cleanup
+action or devm callback registered to stop it on driver unbind? Does this
+leave the hardware toggling indefinitely if the driver is unbound or if an
+error occurs during probe?
 
-device_property_match_property_string() returns -EINVAL when the property
-exists but contains a string not in the array (such as the newly added
-"one-channel-chain" mode).
+> +	if (ret)
+> +		return ret;
+> +
+> +	st->offload_trigger_config =3D config;
+> +	st->odr_wf =3D odr_wf;
+> +	st->odr_hz =3D DIV_ROUND_UP_ULL(NSEC_PER_SEC, odr_wf.period_length_ns);
+> +
+> +	return 0;
+> +}
+[ ... ]
+> @@ -537,6 +676,42 @@ static int ad4134_read_raw(struct iio_dev *indio_dev,
+>  		*val2 =3D AD4134_CHAN_PRECISION_BITS - 1;
+> =20
+>  		return IIO_VAL_FRACTIONAL_LOG2;
+> +	case IIO_CHAN_INFO_SAMP_FREQ:
+> +		*val =3D st->odr_hz;
+> +		return IIO_VAL_INT;
 
-If the driver doesn't support the chain modes yet, will this incorrectly
-configure the SPI host and multiplexer for no-cs minimum I/O mode?
+[Severity: Medium]
+Is it safe to read st->odr_hz locklessly here? Concurrent writes via
+ad4134_write_raw() hold st->lock while modifying this value, which could
+lead to a data race if userspace concurrently reads and writes the
+sampling frequency sysfs attribute.
 
-Could this cause hardware protocol violations and garbage data reads during
-system initialization when a misconfigured or untrusted DT is provided?
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+[ ... ]
+> @@ -588,6 +763,176 @@ static const struct iio_info ad4134_info =3D {
+>  	.debugfs_reg_access =3D ad4134_debugfs_reg_access,
+>  };
+> =20
+> +static const struct iio_info ad4134_offload_info =3D {
+[ ... ]
+> +static void ad4134_prepare_offload_msg(struct iio_dev *indio_dev)
+> +{
+> +	struct ad4134_state *st =3D iio_priv(indio_dev);
+> +	unsigned int base_len =3D roundup_pow_of_two(BITS_TO_BYTES(AD4134_CHAN_=
+PRECISION_BITS));
+> +	unsigned int bpw =3D AD4134_CHAN_PRECISION_BITS;
+> +
+> +	st->xfers.cs_off =3D 1;
+> +	st->xfers.bits_per_word =3D bpw;
+> +	st->xfers.len =3D base_len * st->spi->num_rx_lanes;
 
+[Severity: High]
+Since ad4134_scan_masks statically requires all 4 channels to be present
+via GENMASK(3, 0), meaning 16 bytes per trigger are required, will this
+length calculation of just 4 bytes in 1-lane mode cause the DMA to push
+incomplete frames and corrupt the IIO buffer?
 
-In drivers/iio/adc/ad4134.c:ad4134_trigger_handler():
+> +	if (st->spi->num_rx_lanes > 1)
+> +		st->xfers.multi_lane_mode =3D SPI_MULTI_LANE_MODE_STRIPE;
+> +
+> +	st->xfers.offload_flags =3D SPI_OFFLOAD_XFER_RX_STREAM;
+> +
+> +	spi_message_init_with_transfers(&st->msg, &st->xfers, 1);
+> +}
+> +
+> +static int ad4134_offload_buffer_postenable(struct iio_dev *indio_dev)
+> +{
+[ ... ]
+> +	ret =3D spi_offload_trigger_enable(st->offload, st->offload_trigger,
+> +					 &st->offload_trigger_config);
+> +	if (ret)
+> +		goto out_unoptimize;
+> +
+> +	return 0;
+> +
+> +out_unoptimize:
+> +	spi_unoptimize_message(&st->msg);
+> +
+> +out_set_register_input:
+> +	ret2 =3D ad4134_set_register_access(st);
 
-	for (unsigned int ch =3D 0; ch < iio_get_masklength(indio_dev); ch++) {
-		ret =3D spi_write_then_read(st->spi, NULL, 0, &st->scan[ch],
-...
-	iio_push_to_buffers_with_ts(indio_dev, &st->scan, sizeof(st->scan),
-				    pf->timestamp);
+[Severity: High]
+If the SPI mode is AD4134_SPI_MODE_NO_CS, the mux control pointer
+st->mux_st[AD4134_DOUT0_INPUT] is never initialized. When jumping to
+out_set_register_input on an error path, will ad4134_set_register_access()
+blindly dereference the NULL mux state when calling
+mux_state_deselect(st->mux_st[AD4134_DOUT0_INPUT]), crashing the kernel?
+
+> +	if (ret2)
+> +		dev_err(&st->spi->dev, "reg input select error: %d\n", ret2);
+> +
+> +	return ret;
+> +}
+[ ... ]
+> @@ -747,12 +1089,30 @@ static int ad4134_probe(struct spi_device *spi)
+>  		indio_dev->setup_ops =3D &ad4134_buffer_setup_ops;
+>  	}
+> =20
+> -	ret =3D devm_iio_triggered_buffer_setup(dev, indio_dev,
+> -					      iio_pollfunc_store_time,
+> -					      ad4134_trigger_handler,
+> -					      NULL);
+> -	if (ret)
+> -		return ret;
+> +	st->offload =3D devm_spi_offload_get(dev, spi, &ad4134_offload_config);
+> +	ret =3D PTR_ERR_OR_ZERO(st->offload);
+> +	/* Fall back to low speed usage when no SPI offload is available. */
+> +	if (ret =3D=3D -ENODEV) {
+> +		indio_dev->info =3D &ad4134_info;
+> +		indio_dev->channels =3D ad4134_chan_set;
+> +		indio_dev->num_channels =3D ARRAY_SIZE(ad4134_chan_set);
+> +		ret =3D devm_iio_triggered_buffer_setup(dev, indio_dev,
+> +						      iio_pollfunc_store_time,
+> +						      ad4134_trigger_handler,
+> +						      NULL);
 
 [Severity: Critical]
-Does this loop overflow the st->scan array?
+When falling back to low speed usage, ad4134_chan_set configures 5 channels
+total (4 data channels plus IIO_CHAN_SOFT_TIMESTAMP). Inside
+ad4134_trigger_handler(), the code loops up to iio_get_masklength() which
+will be 5:
 
-Because ad4134_chan_set includes the soft timestamp channel,
-iio_get_masklength(indio_dev) returns 5. The loop will unconditionally iter=
-ate
-up to ch=3D4, performing an SPI read into &st->scan[4].
+for (unsigned int ch =3D 0; ch < iio_get_masklength(indio_dev); ch++) {
+        ret =3D spi_write_then_read(st->spi, NULL, 0, &st->scan[ch], ...);
 
-Since st->scan is only sized for 4 channels (u32 scan[AD4134_NUM_CHANNELS]),
-won't this result in out-of-bounds memory corruption on every hardware trig=
-ger?
+But st->scan is only sized for AD4134_NUM_CHANNELS (4 elements). Does this
+cause an out-of-bounds write for the 5th channel, corrupting memory?
 
-Furthermore, when the timestamp channel is enabled, IIO requires a 24-byte
-buffer (4x4 bytes + 8-byte timestamp). Because sizeof(st->scan) is 16 bytes,
-will iio_push_to_buffers_with_ts() detect the undersized buffer and silently
-drop all captured data?
+> +		if (ret)
+> +			return ret;
+> +	} else if (ret) {
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1788368334.gi=
-t.marcelo.schmitt@analog.com?part=3D8
+t.marcelo.schmitt@analog.com?part=3D12
