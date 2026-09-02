@@ -1,87 +1,61 @@
-Received: from d2-2-bhs5.logotherapy.ca (d2-2-bhs5.logotherapy.ca [15.235.45.126])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B157C378839;
-	Wed,  2 Sep 2026 20:49:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=15.235.45.126
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A0D338737E;
+	Wed,  2 Sep 2026 20:50:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788382174; cv=none; b=Lna6pdneVPWj2FsrZlQ0dZ+vsVyN2ds+J5mRuRVxnDEF8wUEdb+etJADMPHVTrKGLLWhp+mSXh7YS9lrlTsJu0xKYegDdP6ZajrMf8nu/b+V1a82P5BsWhDYoBwjJHoG0xH1RZQmLqbuUQuWmauvapDkk/rHbp+095tzfgSFbFQ=
+	t=1788382212; cv=none; b=sfGpOS5oaeVu4+Ga2yJWSyskIvEE5DQPLT9y8fjnMpMrBw4RW0rP4GCklJjH+J0KCXSaj3Dw6Y3uRphlWCcEze9TP1ERfNo2r8addzrgmEx36S1QRGndCucWl//Y1XQacmG4PCccwP09Brm44dEkDwpwPakiB5+4LZdgyKniwLU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788382174; c=relaxed/simple;
-	bh=l3faHyrs+3FI9khlUj47eBiqzUPIJOre83jcCbDW3pY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QE9/nqV89hgyP1r+jM32WY7/T7xC5VGGNpwAMTsn/UAvZ2jRGRgvjDOgDvh6EbHS7+cZDrg661gi4MsPmgAI/mKLOWZYkJZpV0Zs2+x2pTdGUllYPR7GZ+DNyjB0PFIW6N8AqO0lo7FXGahnu6F+y9RbM/AAB6Xdm8dm4y4SJZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=petermarshall.ca; spf=pass smtp.mailfrom=logotherapy.ca; dkim=pass (2048-bit key) header.d=petermarshall.ca header.i=@petermarshall.ca header.b=HlRHNgbG; arc=none smtp.client-ip=15.235.45.126
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=petermarshall.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=logotherapy.ca
+	s=arc-20240116; t=1788382212; c=relaxed/simple;
+	bh=ZOdsf65sLhrD1clpZ2NrZTAGuthpLE9qonvpvHPravY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=UJ6+7v3zbKkcXk7RJJFlQdlO5a8yF4JZ3wi3vQ1YXBldxbSxeV0SumKEvrgrVPjgpjtKf7fZ9o8crfCTiWQZ79HgnNmhQdyJ9qqbLemOwIHoZTuJdJ2R5PqSZrBR4PePk5OmmvLZxrCXDbf4xjysfQzcOqW/pm3NW1M+ujvZqsI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DVtbiabX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=petermarshall.ca header.i=@petermarshall.ca header.b="HlRHNgbG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=petermarshall.ca;
-	s=mail; t=1788381994;
-	bh=l3faHyrs+3FI9khlUj47eBiqzUPIJOre83jcCbDW3pY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=HlRHNgbGmIqJcdCxrtFmxwuNoc3Jft+E6aK14qGtDVzDB/fBu3at2HTwVdTwTlKJ/
-	 W6GnEu5flPwEdIvRJOh0Vg6Ww6qN5Qym/K5aUuYghqEEpeNCE1o1rN3Lrsg7fr39Nm
-	 4uLyjp/KVYd42F/jOswYrdDbbYy1y8Ve4rCBRRrS6n7lIXGuMe0+LzgcH+MHri7WOr
-	 eCNfXE0w4BESyn6sq9XZxb235EjNn5I2hj82puXjmztcFL+SPjXbDeiwmMY50T3e5a
-	 9Oe/KmtPe423200NM4LbEXD4bu/BdA4amoMyBVFy2y15VCr/jJYeVXZ9xnwvdUvEt5
-	 O+vmRv4S9RmrA==
-Received: by d2-2-bhs5.logotherapy.ca (Postfix) id B258E223F1;
-	Wed, 02 Sep 2026 20:46:33 +0000 (UTC)
-From: Peter Marshall <pm@petermarshall.ca>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>
-Cc: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	Peter Marshall <pm@petermarshall.ca>
-Subject: [PATCH 7/7] MAINTAINERS: Update ST VD55G camera driver entry
-Date: Wed,  2 Sep 2026 16:45:46 -0400
-Message-ID: <20260902204549.657228-8-pm@petermarshall.ca>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260902204549.657228-1-pm@petermarshall.ca>
-References: <20260902204549.657228-1-pm@petermarshall.ca>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DVtbiabX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C5C41F000E9;
+	Wed,  2 Sep 2026 20:50:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788382210;
+	bh=ZOdsf65sLhrD1clpZ2NrZTAGuthpLE9qonvpvHPravY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=DVtbiabXNbylfD2vMONRVKGMZJcbXh4ZJ4J12P4J3IroA5blJQjT9av8ipKzcJYRS
+	 D460E6SAUr/bVsCVHglTlY+gVceUC4+41kTPlXCQi41JXlba0xzhVZ10DtyuSMcEUB
+	 V2XEZ+yqnIRDmYwmkdxT2+rhGuf0rpS532XwbZaUG6q4+zWf4A+UUQbJbDiy/eNEtb
+	 XJHJUHhCOlrmLYr+bW3b4/Ed+jiqNhmA7D39qKFzA8ktnLT4kHeOfuCCFUbxyN719y
+	 rRLgVr/QauoOWTDkkjpJdIAQWplqJTkqy+IY9pwa3xyPLMdr+IF21dkW1CV/TQFqY6
+	 0jrp6dRoLUGtw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 7/9] pinctrl: mediatek: mt6397: Add MediaTek MT6392
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Luca Leonardo Scorcia" <l.scorcia@gmail.com>
+Cc: dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, mfd@lists.linux.dev, conor+dt@kernel.org, lee@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260902193351.185771-8-l.scorcia@gmail.com>
+References: <20260902193351.185771-1-l.scorcia@gmail.com>
+ <20260902193351.185771-8-l.scorcia@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 02 Sep 2026 20:50:09 +0000
+Message-Id: <20260902205010.1C5C41F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Point to the updated vd55g sources and documentation, and add myself as
-a maintainer.
+> Add support for the MT6392 pinctrl device, which is very similar to
+> MT6397 with a handful of different property values and its own pins
+> definition.
+>=20
+> Update the MT6397 driver to retrieve device data from the match table and
+> use it for driver init.
+>=20
+> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 
-Signed-off-by: Peter Marshall <pm@petermarshall.ca>
----
- MAINTAINERS | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 5114e6db7..b090e6318 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -25649,13 +25649,14 @@ F:	Documentation/devicetree/bindings/hwmon/st,tsc1641.yaml
- F:	Documentation/hwmon/tsc1641.rst
- F:	drivers/hwmon/tsc1641.c
- 
--ST VD55G1 DRIVER
-+ST VD55G DRIVER
- M:	Benjamin Mugnier <benjamin.mugnier@foss.st.com>
- M:	Sylvain Petinot <sylvain.petinot@foss.st.com>
-+M:	Peter Marshall <pm@petermarshall.ca>
- L:	linux-media@vger.kernel.org
- S:	Maintained
--F:	Documentation/devicetree/bindings/media/i2c/st,vd55g1.yaml
--F:	drivers/media/i2c/vd55g1.c
-+F:	Documentation/devicetree/bindings/media/i2c/st,vd55g.yaml
-+F:	drivers/media/i2c/vd55g.c
- 
- ST VD56G3 IMAGE SENSOR DRIVER
- M:	Benjamin Mugnier <benjamin.mugnier@foss.st.com>
--- 
-2.55.0
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902193351.1857=
+71-1-l.scorcia@gmail.com?part=3D7
 
