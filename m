@@ -1,212 +1,437 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013011.outbound.protection.outlook.com [40.107.159.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 976C23FE671;
-	Wed,  2 Sep 2026 21:05:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA564321F5E
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 21:05:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788383131; cv=fail; b=Eod3lpNIc5fttb9mxQudOvDJmHDzpV2FiwyQozCL/Kqz3eLwL2UBLDEA7Nn23vMcwPu7UNG3YNKyNubchRpAocq3bf77LMc9Cvh/Uxw7RzuWlhVxEBcpxnw5FhQxgDJSPxTHnGjX5rAbHthSYMvGMa9CR+Ri+o8v173Fdxk+fBc=
+	t=1788383157; cv=fail; b=s1Xp23r7F5W+hYaLnZ/l4gVhb+c7trMe8+6cF75gUpNAcEuqTTqEh9FA3XHfdvEvmWq5uRXKwb4C0EdMLCITfili/+6+4zuaE5cgSKrpG800V/y459x5ThXjUwR2l3i7zUGOwfo3nBpuNjEULuT64n1tpkpp9OxegFc40uSi5r4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788383131; c=relaxed/simple;
-	bh=d1YnqtSAj4VYlsVLjM2q75EEyNRXql36P7Vgq+BzAOM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=ckN/7irDMiYgHW8JQDffNf+AIlg1w7pTAkWgZlhqZc9afsdIa4Ys9wR7bZdUuOv1B3s2Hcuvi1gVp66U4QYm6f9hXotBYF9mofW233A4q5V1zoE9XF2DQk4e1eU5oPOaijm6fa9Zm1SVGUjyuy5M1te/Dsjotn3+e3ynWFKu/ms=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=mQF2PV7u; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=Pv6FZsb0; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	s=arc-20240116; t=1788383157; c=relaxed/simple;
+	bh=LtGBulYI2AUfDcTtaddaUJA5WPyEgD1N+Lpx3LSPenw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=YEJFsaibUWt87h73ZemGmo2EyW6iuUuz9fdNtZb1gST24fMu3ehI5ZJZqzlAFV+rraw2QBDz/ISiWcKTEOmb23ZU943fpPEsfrexslwPttcP+266CdgPlzfLmfcnxP9jSY5ykk1oZ2oIX6uRaV53LpfndMAkuUROxyHgW1L5/as=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=FnLk+/CC reason="signature verification failed"; arc=fail smtp.client-ip=40.107.159.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="mQF2PV7u";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="Pv6FZsb0"
-Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682KIJxN3395511;
-	Wed, 2 Sep 2026 16:05:18 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=L8DpQ2t3nook2Z5ayO9hkck3RTRStNyLrYG0I3zkh
-	rY=; b=mQF2PV7upyEY9XQuMQcPEcsGEQzadYztJxgjMTduymsQcMvfxqiEgaxML
-	IlEtFx2+KkrAwZQQ93xL45azEEkaVJTpGFWzqFcVEvdCekzzUSEuJQKGed2JQzKn
-	u7qtUr/oaxCTrpK7PcHURu3V4NESKFH/sWv4aZFHyXJ3/JdERbwGGuGjWAdgox5L
-	c4POekgL8/0l14ZsXE+AXlDPIQVrGH2FLdRokBM01bVaGPAj42M749Jq0nSPYB3S
-	dpakzl5KsPV2kP69uPduyFgc0dQCegmdPdvaaWYgA+pVKFkFqA7m/5LrfdeRUQrp
-	A2OTs1u0pBbdGgKWftnbfrSjFdqOg==
-Received: from ch4pr04cu002.outbound.protection.outlook.com (mail-northcentralusazon11013071.outbound.protection.outlook.com [40.107.201.71])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gen86jxyv-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 16:05:18 -0500 (CDT)
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="FnLk+/CC"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bVLdV8GrvsF9M+F1VP+a2v8xgYERf/VegV3CdDgqKZsQsWPYm6Lv42jHmav8Fjriid3n4LGT6d7kbCyLthNGCn/qRSmKlNUvX+kjVOUMh51lw6/1BzIbbsxjrpY0fyCjL/NFf7C7CbJ7heRns9MRmB9MiHoBLsMDKW76eO/z8TskrllgGlEaXOsfRWIl3lDbrFDaqGdK6z1Dx2ZRp+DWKO/9jlkzCHThnmcW4hCZSZozg7dNrKVKUGND/BE6QUV5gMO+7OHxcUtnijYm7+c8HZDB9t5NIYcq9u798daW+RMzXoqo7eT8sCoimUekS83OXeNWKVvNf0uD9MKUNJKFYA==
+ b=t95mtn/WpDJtJzn34ubFCn97u6Oiq1e0ZEIPNi3jwuUwnZX2MKDSDjd95ei328fkqV8Jojqb1/8QO0yDaa6A1CiBW81C0HPg9uFkVGDPiN1S1hAZctdPMHA7J8/4MIYfWfvl3vPhaH/0V7xY/C0HbfM0a9RmsmaE+i45y4YYtsiGMMixdXnSm+ljg2jJyHq/iqdHMBatt19HNEAoJ0JVq7UC6Uhx+j9ngD7OCeCYs4x/ydzi643y+48OFrYu0xg6sCg3w6uSuexaCuaPEYPVa6bOSRqt4RkXbKS0rRdi1VYGo23qjCH57W1jzIH9ievP9w78SnIDU0lZWPHyhYENPQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L8DpQ2t3nook2Z5ayO9hkck3RTRStNyLrYG0I3zkhrY=;
- b=BFyun7gnjiHKEMO3XRYZBFpc3M5iyPBW6Zrybg3xch4N7/BTuo78GuKb6LB+KYOGliTWTaW6hFnb8gzvA5yn/1u8BrK7lRziIjoCv+oqq3W2nsgf+Gwp1G2mgXMbJp0QfnL9CXrQTEYTy7ZCZ9VjxtwS/YkA5LPcbJCbyv4/K8Q42wXPB+5ncFIJtJtPnD96vFxSihjkBaQytbj/QAGaHyMQekfdSXnAqdmN00AOcfh3XK4uGANpyQ2YRlbDg2D/45SHEj13bJIvyShTefuu0+N3LlBgZnqrhmWwODxIj+FB6MCIC4iOsXZr1hiOUvKgEfK8uAxx12q5ru1gV/LYfg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ bh=BaSAMHbp7X3Jpc3bLLdyr6zwac+CTdZxnQjhUfs1teY=;
+ b=HN/KloOS+KmhTL+Zv0y0xHEX1O/OxSDTMWgvNwcHjy69q2Z0rmTH0ecKuW1H1Hei9MJU3VzUxI9HXDrUXUKPmr3O6D5dfte1MRKIRatPtLf0Ye2ly3JlGirS3250bBxg7uxsad2sbpL45T6ARKM9G2P5x1uZamFjeMkbOwaXCJPAiXkRLqanPx8qv9D2Cbbzu1l4pcUJgow3gKXgJMdLxnePmvDP1zVRJllpvHrzEukbZL+EnhqXa7rbD37lCO3ns66VZ/HEmBEdPkrCb6UqIteko/o9cHV1Kst9uKlxYWkI08yJcXYZrpSsjc4ZqQEhRRycyxFFbH3VnLRiWx4qiA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L8DpQ2t3nook2Z5ayO9hkck3RTRStNyLrYG0I3zkhrY=;
- b=Pv6FZsb0RBZ09Kbu1p0MqBk6QOUZ0oBVALE9Ccus75yklh8BmtUOHJY+FPbLYavbD5j0xvGODfgGwaovcFBb+cODmgyfuAsqxgVwkmwnarMMf2upuy/X9/vxtjjrZAFUYjZsuoDiiKIwpITH9oLQhBkebZ0ZPoOvP0WCXJX/c/0=
-Received: from CH0PR04CA0090.namprd04.prod.outlook.com (2603:10b6:610:74::35)
- by DS0PR10MB7456.namprd10.prod.outlook.com (2603:10b6:8:160::13) with
+ bh=BaSAMHbp7X3Jpc3bLLdyr6zwac+CTdZxnQjhUfs1teY=;
+ b=FnLk+/CCRp+xkFqyhtw6iS/EDexWI0jNMTBQMlLZxQe9YhjG8AXQaurGs7zgwcdRIQq6sLW7jgfUPR9GKXwB/Ks1Q1EubfAJXRnWAO9AjRlJnfq4pQ6TokUYdRQqZ0c5rFaLg5siid2u+ZprMJR9SbtLkiRCPDwn36BhzqEZYrkhE26orMs3M0RYAp50UNpFqDEfL2y8CO7TdYJ2CgALmpjJ6iku2gjJ3JY6m1nI/o5JNLfo8E0J1BG84VPX7CLBVM7lqruCUwkwy/0WPry0svB7OVYrfH5j8OgSp8wWcZ6Wn4JEJ2B/ctc7SGhqfkWizDDV1nYVpmkK37cfFHfGnQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AS8PR04MB8692.eurprd04.prod.outlook.com (2603:10a6:20b:42b::15) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Wed, 2 Sep
- 2026 21:05:11 +0000
-Received: from BL6PEPF0001AB73.namprd02.prod.outlook.com
- (2603:10b6:610:74:cafe::1e) by CH0PR04CA0090.outlook.office365.com
- (2603:10b6:610:74::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 2
- Sep 2026 21:05:11 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- BL6PEPF0001AB73.mail.protection.outlook.com (10.167.242.166) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 21:05:09 +0000
-Received: from DFLE204.ent.ti.com (10.64.6.62) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 2 Sep
- 2026 16:04:13 -0500
-Received: from DFLE206.ent.ti.com (10.64.6.64) by DFLE204.ent.ti.com
- (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 2 Sep
- 2026 16:04:13 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE206.ent.ti.com
- (10.64.6.64) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Wed, 2 Sep 2026 16:04:13 -0500
-Received: from [127.0.1.1] (uda0506412.dhcp.ti.com [128.247.81.196])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 682L4DL01301748;
-	Wed, 2 Sep 2026 16:04:13 -0500
-From: Kendall Willis <k-willis@ti.com>
-Date: Wed, 2 Sep 2026 16:04:11 -0500
-Subject: [PATCH v2 2/3] arm64: dts: ti: k3-am62a: use ti,am62-m_can
- compatible for m_can devices
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 21:05:43 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
+ 21:05:43 +0000
+Date: Wed, 2 Sep 2026 17:05:36 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: pankaj.gupta@oss.nxp.com, Frank.Li@kernel.org, conor+dt@kernel.org,
+	devicetree@vger.kernel.org, robh@kernel.org, imx@lists.linux.dev
+Subject: Re: [PATCH v46 5/7] firmware: imx: adds miscdev
+Message-ID: <apiPoIfD9QKqBWJF@lizhi-Precision-Tower-5810>
+References: <20260903-imx-se-if-v46-0-aefaab525034@nxp.com>
+ <20260903-imx-se-if-v46-5-aefaab525034@nxp.com>
+ <20260902163521.BB3231F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260902163521.BB3231F000E9@smtp.kernel.org>
+X-ClientProxiedBy: CY5PR16CA0008.namprd16.prod.outlook.com
+ (2603:10b6:930:10::14) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260902-smth-v2-2-b3678ca44c7b@ti.com>
-References: <20260902-smth-v2-0-b3678ca44c7b@ti.com>
-In-Reply-To: <20260902-smth-v2-0-b3678ca44c7b@ti.com>
-To: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
-        "Tero
- Kristo" <kristo@kernel.org>, Rob Herring <robh@kernel.org>,
-        "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-CC: <s-kochidanadu@ti.com>, <a-kaur@ti.com>, <s-tripathi1@ti.com>,
-        <vishalm@ti.com>, <k-willis@ti.com>,
-        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788383053; l=1382;
- i=k-willis@ti.com; s=20251230; h=from:subject:message-id;
- bh=d1YnqtSAj4VYlsVLjM2q75EEyNRXql36P7Vgq+BzAOM=;
- b=ANhukAkEGzJxlwzNaErh6kgdUNxcEEoykutB/kCTW2o+fTCZQ0D9QXQHpEVqk8iI0VIcOHluL
- hdCvh23bQ1qA3dU0XdsEDHzkHQNiFDjPKn2DUAHKr6gqi0+stbydZ5q
-X-Developer-Key: i=k-willis@ti.com; a=ed25519;
- pk=fQiPVFwmogfDAKdaAKq163RWSfgHZVE/MrsDzp0Xo1k=
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB73:EE_|DS0PR10MB7456:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5ba91193-2820-42d6-62bc-08df0935dfb0
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS8PR04MB8692:EE_
+X-MS-Office365-Filtering-Correlation-Id: b7e700c2-1638-417c-d879-08df0935f359
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|376014|23010399003|36860700016|10067099003|56012099006|18002099003|22082099003;
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|19092799006|13003099007|6133799003|3023799007|10067099003|4143699003|56012099006|11063799006|5023799004|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	hSzsjpRNL0JSk4FVjfVJc7T1usbnvp7NF1+voFpqa0aFb3zu+ffq4ZTuw+wpMLmhV4Aq0jXdH+hpBKgb+yo0bMpvYftRCnD86Jv3m7Go6gKpJ0+DF1RJeMYNrH0eCMQzgo75ViIYbJtGdKf08N030uFpPAx9m8qZWFbkYOvrQyMmcJNRQJQz2r8LXMgQAsqxm9yVpUqcGmvCf1qur8ZcO5IwZdQOPsCm43IcOwMBYQo8YhI1rWG698Fa2o6f0OjxNR0LQlqkczkTUKpk0rrxvgBSoJYAWs+Z30KiKAiUr2Lp76zThXtllaDlyJmRxaBDUKxB2mBVuJh/auSaFo/sD6//BIc3FpSLzabnfaoKQRcy4zVCGqTYNwu0StTMj0+fQVRNDCL4CbEeZGQAKSAfyo1ZNp4vIEhW9shUaNq/wKzRut0LQ0En9MEk0gvbWosz59rfjXsnhZCowYoj/rqI2GqIA/zUZfCniiLEjjmpGunCEUZT7fHXNN8ExmsMS2LS3mKw9NyyPdQTX1hctGTkmyLUtuhRNvE4SBihiCAyxTvPmBu4NBb/xZUKcwMKq0Fa3alxF9NPuqGf39o1VoBqDK3VhzlricSMQm0MrZ73l4FH+66gTJqXb/fVttJ34U1NIGgPuBi+hV98mKlzXyE5cluMrwnJzSrDY+vNjgRT5WEoSHVAMqc7NjuIdeyO39UQISnybpwPb1b4jFPEDQpPsw==
+	ubt6ZqM1X+e9k7rVd9Zlj0puU9PjyVKsb4I5RP/BK+D7+XMpWN6B5TODv8uMxtCDwKlvGCDasa6uGkafHgxNR6bjI99PehK56ymxxB6GO7x+Ajau2J1SkaOWp4zc3pU/0Jb/0Zm78p4oWQQgbUktWI9duNvyYATtR+0QXclGketI4vRcFWBapPv1yi2OFlJ/3WgfTRe/B8XD8yQvvQIDT0C7jCH/cy5kaVAoKLD9B/52xnV91Fq0ikHxIpF1cwnzBWTVmPra8zUV0CfspHeiCSdHHdAxa9Tv7kmx131/jZo5YxdYBBJlvFloMgzqElEkq4C3eU2aimTyQZarS5YRR5RMGkd76SL4QtJOz3KRJ2ce80RoKyu4uxg68/v/ME/fonIJGXJhHjRlJEDbPXpHCJDRkjsAjkQf+tpo1ukhho3DWAdtYPYirMcEQJXL6F2jYAZWoIlMkJxvyi14aotbttHbFpIjRUYkbR34vzTLQYuVXn5DXvyd/+eVRHish/lWSg2GiDj70dNAYcmWiZFcxtBiBznJfEBE+zfywN0h8QwguUsUq7TZn5AoMNoQF5kIhS5uVQeJ889i/qktrNC3TfmVr0BQz4EF79eIgN2PuzM=
 X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(23010399003)(36860700016)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(19092799006)(13003099007)(6133799003)(3023799007)(10067099003)(4143699003)(56012099006)(11063799006)(5023799004)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	eIY+KfCA5Ni82v8Uu1qPJV0g2+EXA+ZqA0b5qy1+oEhA5EGGciiahDa2TE5AtBpbeRr8HRh68oV8AcS4mQeik2h4LfVBTjIPwT0OEbwzA3ntd2ZPTbBRVq+0odWi0b0PBIg/naTqbWWEz7wKjFs4Njzq66P+9wxsQfvVZgicO+gJPNcuXb4X5k2aXhhdcD/9ei60BgBzkQo+jm1NAADZ98WShR14G6xe1si6q0t7SQ1XBhq5B3DZoyaWy72ueNViRR2hLl8/wd1ZV0o1CPlyp5sb/cy1LKbK06qnMTbyKWDngtL3Uz/EPpIZrX+FyaAkZjI4CPBcX1B+fjp8b1Acggg3IJU8eIKBkWKVsC6pQKje+eeYb1wBkEHJkbI0xJTuSssEfMTQpOSV2KZpyfkUDljC9EkAb0wligxdpGOmiQeDlMHU8L7rIGzEWdf8FzY8
-X-Exchange-RoutingPolicyChecked:
-	u8mRtiimmpmT9HsEzk5y4jgheQmyc6ZfPmNwJ8xbJzcfXMG9XK1X6ORTNdHWLbklN9cAKSsqJfXwvI5xi6zd/QvHW1tbU1cB1jAlvOfzBVMAnIgf9RpLg32ApRdbkprjwonWv1c4Z7y4tg7U+x6hCjZJ6umNnvV9SrFtq/YY2paRcpJdABBG1RMPEjw2iYvsxG5BjqI2GVLgWEsJjx8VG/LQ7vQqzDBQieVzdMcKb1+aD0nadYXwePTEpLnfyHVrPVYGRrymYpJelIjk0P7pQyw8ArBNlXg7rrAgiO/lwiRabBP0nOM3ldsdAVdMwRrRo6Nv7V9AwpLTeN9EMUyoZA==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 21:05:09.9515
+	=?iso-8859-1?Q?bkQzum0cQxvtMlwLwRYEtCNPh50jwWtu7XZYlTIx2xhCMa+2zSCocaXiDb?=
+ =?iso-8859-1?Q?DrpQHLh5/DQ14uYV+Fy/8NdCcD70Uui1HVoi65M4nA900wrSYISvrV90Vk?=
+ =?iso-8859-1?Q?lkDFPIO3NLq/ZDCPuYmMBX/2AMQYvRZP96cF9f3SRUDpZHXKsRukfF0NHi?=
+ =?iso-8859-1?Q?NG+EO7pzgiGfixd7bvypf4oIAtT649G5BYZCJ55IrXBe3nRIE1Ks73DI/F?=
+ =?iso-8859-1?Q?MrMTvRkJY8AmYgol4QEVkvK9p81C02hTbArCOjN8OrRulZqGO+pkisygbz?=
+ =?iso-8859-1?Q?3PtcIj8B7uEcPry5YyILeH6tpdet+K5zUxIjgN6QdR3SJFL6uLrmW54Yhs?=
+ =?iso-8859-1?Q?nTvvcYc89ZQLdXQM1UpTXTyHVb6/cJ5SZkFtTguUVz07WVfc2VB0Tr41U/?=
+ =?iso-8859-1?Q?kqHtRapubLFhwHqX/rYwtjYoODb5wUt+XpgSuqRG5cdC9cH43yggpEoifk?=
+ =?iso-8859-1?Q?lAJ+92QKxk5EllVDCZS3iP5b9vrfMxphCowbifEsaxrrG+8rxjLSH9ZapY?=
+ =?iso-8859-1?Q?kjZFJ9UHiOJBVGhNAS01+QmTNodtE5hlUyGKCk9be1P2Dy9c9jd8q+H81e?=
+ =?iso-8859-1?Q?9hTiZ2nsD+gmfjFBzMj1lF4MV+ss/35TZUpL8EnQv+FYqn2Ej1JUJrgq38?=
+ =?iso-8859-1?Q?lCr8cOeqD+QAjKWaUlfHDapRjB+mC9e4Bg/1FmEOMnhr5iLvcsvEafrc+S?=
+ =?iso-8859-1?Q?pMDQ8DwL1djQxWQ0DvdiyXrUTzi3C+t+gjP8QyuyBSWwOndXzcfCvZcU0+?=
+ =?iso-8859-1?Q?5Z+zptcbtD9lQnGqeybn9BgHvdQzFn9fm6fs4csW3igaafKqOYD+dZOESp?=
+ =?iso-8859-1?Q?9eEcx90ROeyNychYCwv46SIdXbbYIvS3BcgieAzNV9ceZDuiXuV9Lhqz1i?=
+ =?iso-8859-1?Q?23cGweOrHTQZyNIjNK1094BecLTXYX5kKK+0ESlX15G78Ngp3fCXi/hNjd?=
+ =?iso-8859-1?Q?159bjTICNFdLKh3BS19dn765saWCyxRPXgbpmJe7BYqmmEUApQuL3W+uvt?=
+ =?iso-8859-1?Q?4QF33RiiAwD8Y/8zdJuVhM1i3B6oUkN92bK4HF/OAUmtPjSOP79QloS0qZ?=
+ =?iso-8859-1?Q?hB6skHTPH6GDSIqCRFzn3lUhCVfT8Xev37aveVPx4rAuwnIiIQUnQI3wzo?=
+ =?iso-8859-1?Q?M1Vrk86MbXw2iXOe4dBLStAXYTqjEdqqnywr1/QyWAxRqe59A6qSefamyZ?=
+ =?iso-8859-1?Q?+GbbQ/wkchVfxiyk0KpUfglWefLRhOp7862DtveQ4trR1AeCi4pa6APPVp?=
+ =?iso-8859-1?Q?Tvgway5Fsb/v4TUPNeftn2HFwxDq/lr7sU1VD0P1mOOrwd8jBPDDvr2DET?=
+ =?iso-8859-1?Q?rOtjzBa8LgsntLCKEE59xbcQSjKEyjM2gd+HdGt5sAiW1hJqZYc1KWAolB?=
+ =?iso-8859-1?Q?Md5YKb3HEfQnpsq4VIvpc6NglXE7MDn2DiUsVCZ8GJOiCUgIix8e7H3+rA?=
+ =?iso-8859-1?Q?Z3DqQL6sUGisVNWoIE7NqyUQXIedTxQtGsEzlal+DynHXvf9HNvVa8dojy?=
+ =?iso-8859-1?Q?tO5TxswPqUVOYww74H5QB0MCZDTKsFfQkjjJFa6EfbPTzFZv9Sw/waiYDi?=
+ =?iso-8859-1?Q?hy+A1Em63cU5AhCpfQ3qNI1apxwuS/4isVBIu/UCFMA3Gg/NA3VzvgQr+n?=
+ =?iso-8859-1?Q?uJWUYCM0URFGHGJ/4ZFDfspiCfc/NIWod1Oo/IMU3fHzqda4RGN6go/dYK?=
+ =?iso-8859-1?Q?sLGhF1NqOU/mwYtxIUObtjQtcpiBBwIxrgHIof3JtBTA0h6FAQEo79Mzpv?=
+ =?iso-8859-1?Q?du5r0PeEY6F731qcrs5/5UVWTzUVCu3HwX1BbQzTtubbVdTrXI1kswo/ii?=
+ =?iso-8859-1?Q?ru0l7HKo2WGFHqh3kmUVs7DC1diRPPJdyGmzjRRmT4zUHkW6yN5s?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7e700c2-1638-417c-d879-08df0935f359
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 21:05:43.2978
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ba91193-2820-42d6-62bc-08df0935dfb0
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0001AB73.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR10MB7456
-X-Proofpoint-GUID: 6nlfpYKKp26okmFNGRgr7FntcdqkuwKo
-X-Proofpoint-ORIG-GUID: 6nlfpYKKp26okmFNGRgr7FntcdqkuwKo
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDE4NyBTYWx0ZWRfX9z+UDvTSCGhP
- XN4CcTzTmrnQJ7OqI0kcJ7bNMq+klFZCWshnyFEwMegt4u1BjGPvCTxOAzVnGXPepFtFMp64jH0
- oipy7iChPxKHGdt9/kDJr8sCSUAhSAI=
-X-Authority-Analysis: v=2.4 cv=HcMkiCE8 c=1 sm=1 tr=0 ts=6a988f8e cx=c_pps
- a=eHfeAi0ej4loD7KcX6Y+qw==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=fPAWb5peG099m5CrUpKH:22 a=sozttTNsAAAA:8 a=vNXGPyQEaeBM-v4pWicA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDE4NyBTYWx0ZWRfX5++1Ue6fJXzS
- OPmrVsg6mi/Rmk427WrRsgeiPMxmR0e/tGlFssV/u3tQAcZoBTTOxZ8ngAsE/cCJxiffV9SlZ9h
- ZFG0UMFfVTk2NIU/bPtLLjOgiPNKzJ8QWlD7h/r6XgUgJZ7gek1QEwtOhqWpHPpV3pzudkDo6Us
- 9w4NKh3jhRZ3wY+A+X7e3Lv8UMj3Oy0wm/sFNPkhp9YYF+dxktuxbVjBsofMvLIeONLSDDLUeXp
- oK6RJNNcvPm1DAeW+K7Zy5C+tH+fx+HrZCi6hEmW9GByAgC/JRVYcD7WwPBAA7okjvksCGuoGLk
- xIBpypuacP/mpUBM8+NwTWWLO6d8OYtmDhwCwlQLRnOwho9C/lMmkxpVjNKi9JrJqGwwaQZqr43
- VTYc9oBhoTM8CTXzgLGMoIDTJUQrdyOOEapYf2sPH7t7PqPpebUwLU5+hdjDuSWnhwoM+HbIXNq
- Fc2PJT4N63I/XFxonug==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_05,2026-09-02_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0 phishscore=0
- adultscore=0 impostorscore=0 bulkscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020187
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wjJRJjDS9V/1gEGtUFVvBtp1uPqqHiQ9aQ+BjTi94PoB/dIifF0EdGZdsbhFiytv0RI4Uqjhw1K7QXdrsommmGYkXZHmjqv2+vBcw9LIVFNzFuC41+KKS8ll59lRmw8f
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8692
 
-Prepend "ti,am62-m_can" to the m_can device compatible property since
-this compatible adds out-of-band wakeup functionality to the m_can devices.
-The m_can pins can be a wakeup source in the deepest low power states,
-despite being in the MCU domain which is OFF during deeper low power states
-since it has the out-of-band wakeup capability.
+On Wed, Sep 02, 2026 at 04:35:21PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 5 potential issue(s) to consider:
+> - [High] Kernel heap out-of-bounds read when processing firmware responses due to trusting the firmware-supplied `header.size` over the actual user-specified allocation size.
+> - [High] Concurrent `ELE_STORAGE_OPEN_REQ` commands bypass the command-receiver exclusivity check, allowing a process to intercept another's NVM traffic.
+> - [High] Use-after-free on `priv` object due to premature `cancel_work_sync()` before `mbox_free_channel()` allows `schedule_work()` to queue work on a freed object.
+> - [High] Syscall returning `-EINTR` after hardware operation is fully completed leads to lost response payloads, corrupted retries, and broken state synchronization.
+> - [Low] Mixing `goto`-based error handling with `scoped_guard()` declarations in `se_if_probe_cleanup`.
+> --
+>
+> commit afeff3ca68cac56d7230f74585096a1ade46c177
+> Author: Pankaj Gupta <pankaj.gupta@nxp.com>
+>
+> firmware: imx: adds miscdev
+>
+> This commit adds the character driver interface to the NXP secure-enclave,
+> allowing user-space applications to exchange messages with hardware IPs like
+> EdgeLock Enclave.
+>
+> Link: https://sashiko.dev/#/patchset/20260902-imx-se-if-v45-0-6e400879d8ec@nxp.com?part=5
+>
+> > diff --git a/drivers/firmware/imx/ele_common.c b/drivers/firmware/imx/ele_common.c
+> > index 10fb4f60b4293..1e7ee8100f846 100644
+> > --- a/drivers/firmware/imx/ele_common.c
+> > +++ b/drivers/firmware/imx/ele_common.c
+> [ ... ]
+> > @@ -377,9 +701,24 @@ void se_if_rx_callback(struct mbox_client *mbox_cl, void *msg)
+> >  		se_clbk_hdl = &priv->waiting_rsp_clbk_hdl;
+> >  		spin_lock_irqsave(&se_clbk_hdl->clbk_rx_lock, flags);
+> >  		if (!se_clbk_hdl->rx_msg) {
+> > -			/* Close circuit breaker on spinlock race */
+> > -			atomic_set(&priv->fw_busy, 0);
+> > +			/*
+> > +			 * Only schedule fw_busy_work when going_away is clear.
+> > +			 * se_if_probe_cleanup() sets going_away under
+> > +			 * clbk_rx_lock before calling cancel_work_sync(). If
+> > +			 * going_away is already set here, teardown has already
+> > +			 * run (or is running) cancel_work_sync(); scheduling
+> > +			 * the work again after that point would re-queue it
+> > +			 * against the freed priv object, causing a
+> > +			 * use-after-free when the work executes.
+> > +			 */
+> > +			if (atomic_read(&priv->fw_busy) &&
+> > +			    !atomic_read(&priv->going_away))
+> > +				schedule_fw_busy_work = true;
+> >  			spin_unlock_irqrestore(&se_clbk_hdl->clbk_rx_lock, flags);
+> > +
+> > +			if (schedule_fw_busy_work)
+> > +				schedule_work(&priv->fw_busy_work);
+>
+> [Severity: High]
+> Does this code risk a use-after-free on the priv object? The spinlock is
+> explicitly dropped before schedule_work() is called, which widens the race
+> window. If cancel_work_sync() runs concurrently in se_if_probe_cleanup()
+> while the lock is dropped here, it will return immediately since the work
+> hasn't been scheduled yet, allowing the object to be freed before this thread
+> calls schedule_work().
 
-Signed-off-by: Kendall Willis <k-willis@ti.com>
----
- arch/arm64/boot/dts/ti/k3-am62a-mcu.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+schedule_work() can be call at atomic context. move it and replace
+"schedule_fw_busy_work = true" may resolve this problem, because you set
+going_aways under spin_lock.
 
-diff --git a/arch/arm64/boot/dts/ti/k3-am62a-mcu.dtsi b/arch/arm64/boot/dts/ti/k3-am62a-mcu.dtsi
-index d22caa7c346b35dcb11163a5e73e17790ff751dd..7026c15ef8e3df47f27d22b3cb86c1985e374123 100644
---- a/arch/arm64/boot/dts/ti/k3-am62a-mcu.dtsi
-+++ b/arch/arm64/boot/dts/ti/k3-am62a-mcu.dtsi
-@@ -152,7 +152,7 @@ mcu_rti0: watchdog@4880000 {
- 	};
- 
- 	mcu_mcan0: can@4e08000 {
--		compatible = "bosch,m_can";
-+		compatible = "ti,am62-m_can", "bosch,m_can";
- 		reg = <0x00 0x4e08000 0x00 0x200>,
- 		      <0x00 0x4e00000 0x00 0x8000>;
- 		reg-names = "m_can", "message_ram";
-@@ -164,7 +164,7 @@ mcu_mcan0: can@4e08000 {
- 	};
- 
- 	mcu_mcan1: can@4e18000 {
--		compatible = "bosch,m_can";
-+		compatible = "ti,am62-m_can", "bosch,m_can";
- 		reg = <0x00 0x4e18000 0x00 0x200>,
- 		      <0x00 0x4e10000 0x00 0x8000>;
- 		reg-names = "m_can", "message_ram";
+>
+> > diff --git a/drivers/firmware/imx/ele_fw_api.c b/drivers/firmware/imx/ele_fw_api.c
+> > new file mode 100644
+> > index 0000000000000..72cecc5c8e258
+> > --- /dev/null
+> > +++ b/drivers/firmware/imx/ele_fw_api.c
+> [ ... ]
+> > +int ele_uapi_allowed_fw_cmd(struct se_if_device_ctx *dev_ctx, struct se_msg_hdr *header,
+> > +			    u32 tx_msg_sz, u32 rx_msg_sz)
+> > +{
+> [ ... ]
+> > +	case ELE_STORAGE_OPEN_REQ:
+> > +		/* Might be cleared as part of tear down. */
+> > +		if (dev_ctx->strg_hdl) {
+> > +			ret = -EEXIST;
+> > +			break;
+> > +		}
+> > +		/*
+> > +		 * Reject the storage-open request when another context is
+> > +		 * already registered as the command receiver. If we let the
+> > +		 * command through, FW would allocate a new storage handle and
+> > +		 * start sending NVM callbacks for it; those callbacks would be
+> > +		 * routed to the existing receiver (process A), not to the
+> > +		 * caller (process B). This would let process A observe and
+> > +		 * tamper with process B's NVM traffic. Reject early, before
+> > +		 * the command reaches FW, so no handle is allocated and the
+> > +		 * state stays consistent.
+> > +		 */
+> > +		scoped_guard(mutex, &priv->modify_lock)
+> > +			if (priv->cmd_receiver_clbk_hdl.dev_ctx &&
+> > +			    priv->cmd_receiver_clbk_hdl.dev_ctx != dev_ctx)
+> > +				ret = -EBUSY;
+> > +		if (rx_msg_sz < ELE_STORAGE_OPEN_RSP_SZ)
+> > +			ret = -EINVAL;
+> > +		break;
+>
+> [Severity: High]
+> Could concurrent ELE_STORAGE_OPEN_REQ commands bypass this exclusivity check?
+> The lock is dropped immediately after checking
+> priv->cmd_receiver_clbk_hdl.dev_ctx, which creates a race window before the
+> command receiver is actually registered. This might allow a secondary process
+> to intercept the NVM traffic of another.
+>
+> [ ... ]
+> > +void fw_api_specific_ops(struct se_if_device_ctx *dev_ctx, struct se_api_msg *rx_msg,
+> > +			 bool is_cmd_interrupted)
+> > +{
+> [ ... ]
+> > +	case ELE_STORAGE_OPEN_REQ: {
+> > +		int rc;
+> > +
+> > +		/*
+> > +		 * Record the storage handle before registering as command
+> > +		 * receiver. FW has already allocated the handle; if we assigned
+> > +		 * it only after a successful registration, a failing
+> > +		 * set_dev_ctx_as_command_receiver() (e.g. -EBUSY) would leave
+> > +		 * strg_hdl at 0 while the ioctl still returns success to
+> > +		 * userspace. The kernel would then never close the handle on
+> > +		 * teardown, leaking it in FW. Storing it first guarantees
+> > +		 * cleanup_dev_ctx() closes it on the next close(), regardless
+> > +		 * of whether registration succeeded.
+> > +		 */
+> > +		dev_ctx->strg_hdl = rx_msg->data[1];
+> > +
+> > +		if (is_cmd_interrupted) {
+> > +			if (se_close_storage(dev_ctx, dev_ctx->strg_hdl))
+> > +				dev_err(dev_ctx->priv->dev, "failed to close storage.\n");
+> > +			dev_ctx->strg_hdl = 0;
+> > +			break;
+> > +		}
+> > +
+> > +		rc = set_dev_ctx_as_command_receiver(dev_ctx);
+> > +		if (rc)
+> > +			dev_err(priv->dev,
+> > +				"Failed to register %s as CMD-Receiver: %d\n",
+> > +				dev_ctx->devname, rc);
+> > +		break;
+> > +	}
+>
+> [Severity: High]
+> If registration fails due to the race mentioned above (rc != 0), is it safe
+> to only log an error without closing the storage handle and without returning
+> the error to the user? The ioctl will successfully return the valid storage
+> handle to the second process.
 
--- 
-2.34.1
 
+suppose should return fail to user
+
+>
+> > diff --git a/drivers/firmware/imx/se_ctrl.c b/drivers/firmware/imx/se_ctrl.c
+> > index 0792e5152436b..baeb28929b2de 100644
+> > --- a/drivers/firmware/imx/se_ctrl.c
+> > +++ b/drivers/firmware/imx/se_ctrl.c
+> [ ... ]
+> > @@ -341,31 +719,144 @@ static void se_if_probe_cleanup(void *plat_dev)
+> >  	if (!priv)
+> >  		return;
+> [ ... ]
+> > +	while (true) {
+> > +		dev_ctx = NULL;
+> > +
+> > +		scoped_guard(mutex, &priv->modify_lock) {
+> > +			if (list_empty(&priv->dev_ctx_list))
+> > +				goto out_done;
+>
+> [Severity: Low]
+> Does mixing goto-based error handling with scoped_guard() macros violate the
+> subsystem's LIFO cleanup definition rules? This can cause confusing ownership
+> semantics and can lead to resource leaks or double frees.
+>
+> > +
+> > +			dev_ctx = list_first_entry(&priv->dev_ctx_list,
+> > +						   struct se_if_device_ctx, link);
+> > +
+> > +			/* pin this context so close() cannot free it under us */
+> > +			kref_get(&dev_ctx->refcount);
+> > +			dlink_dev_ctx(dev_ctx);
+> > +		}
+> > +
+> > +		/*
+> > +		 * Local cleanup outside the global lock avoids ABBA deadlock
+> > +		 * with paths that already take dev_ctx->fops_lock first.
+> > +		 */
+> > +		cleanup_dev_ctx(dev_ctx, false);
+> > +		kref_put(&dev_ctx->refcount, se_if_dev_ctx_release);
+> > +	}
+> > +out_done:
+> > +
+> > +	/*
+> > +	 * Cancel fw_busy_work before acquiring se_if_cmd_lock. The work
+> > +	 * handler, se_clear_fw_busy(), acquires dev_ctx->fops_lock. A
+> > +	 * concurrent close() may hold fops_lock and then attempt to acquire
+> > +	 * se_if_cmd_lock via se_close_storage(). Calling cancel_work_sync()
+> > +	 * while already holding se_if_cmd_lock would therefore deadlock all
+> > +	 * three threads. Canceling first, without any lock held, lets the
+> > +	 * work and the close() finish independently.
+> > +	 *
+> > +	 * going_away was set under clbk_rx_lock earlier in this function.
+> > +	 * Once set, se_if_rx_callback() will not call schedule_work() again,
+> > +	 * so the work cannot be re-queued after cancel_work_sync() returns.
+> > +	 */
+> > +	cancel_work_sync(&priv->fw_busy_work);
+> > +	/*
+> > +	 * Free the mailbox channels under se_if_cmd_lock. ele_msg_send_rcv()
+> > +	 * holds se_if_cmd_lock for the full duration of a synchronous
+> > +	 * transaction, including the mbox_send_message() call on priv->tx_chan.
+> > +	 * going_away was set above and complete_all() has already woken any
+> > +	 * in-flight waiter, so any transaction in progress will unwind to
+> > +	 * -ENODEV and release the lock quickly. Acquiring se_if_cmd_lock here
+> > +	 * guarantees no caller is still touching the channels when they are
+> > +	 * freed, and nulling the pointers under the lock prevents any sender
+> > +	 * that races past the going_away check from accessing a freed channel.
+> > +	 */
+> > +	scoped_guard(mutex, &priv->se_if_cmd_lock) {
+> > +		if (priv->rx_chan) {
+> > +			mbox_free_channel(priv->rx_chan);
+>
+> [Severity: High]
+> Could the premature cancel_work_sync() allow schedule_work() to queue work
+> on a freed object? Moving cancel_work_sync() after mbox_free_channel() would
+> guarantee no new work could be scheduled from the rx callback.
+
+suppose it can be fixed after move schedule_work into lock
+
+>
+> [ ... ]
+> > +static int se_ioctl_cmd_snd_rcv_rsp_handler(struct se_if_device_ctx *dev_ctx,
+> > +					    void __user *uarg)
+> > +{
+> [ ... ]
+> > +	err = ele_msg_send_rcv(dev_ctx, tx_msg, cmd_snd_rcv_rsp_info.tx_buf_sz,
+> > +			       rx_msg, cmd_snd_rcv_rsp_info.rx_buf_sz);
+> > +	if (err < 0) {
+> > +		/*
+> > +		 * -ERESTARTSYS here means the wait was interrupted by a signal
+> > +		 * after the command had already been handed to - and executed
+> > +		 * by - the firmware, with its response delivered into rx_msg
+> > +		 * (ele_msg_send_rcv() converts only a positive, i.e. successfully
+> > +		 * received, result to -ERESTARTSYS). If that response carried a
+> > +		 * freshly allocated session/storage handle, record it now via
+> > +		 * fw_api_specific_ops(): the handle is already live in firmware,
+> > +		 * so leaving it untracked would stop cleanup_dev_ctx() from ever
+> > +		 * closing it and leak the firmware resource. Validate the
+> > +		 * delivered response first, using its own declared length bounded
+> > +		 * by the caller's buffer, so a truncated or malformed reply is
+> > +		 * not acted upon.
+> > +		 */
+> > +		if (err == -ERESTARTSYS) {
+> > +			u32 rsp_sz = rx_msg->header.size << 2;
+> > +
+> > +			if (rsp_sz && rsp_sz <= cmd_snd_rcv_rsp_info.rx_buf_sz &&
+> > +			    !se_val_rsp_hdr_n_status(priv, rx_msg,
+> > +						     tx_msg->header.command, rsp_sz,
+> > +						     tx_msg->header.ver)) {
+> > +				se_dev_ctx_cpy_out_data(dev_ctx);
+> > +				fw_api_specific_ops(dev_ctx, rx_msg, true);
+> > +			}
+> > +			/*
+> > +			 * Returning -ERESTARTSYS would let the VFS transparently restart
+> > +			 * the ioctl, which would re-run the command with the just
+> > +			 * cleaned-up (zeroed) shared input buffers. Report -EINTR instead
+> > +			 * so the syscall is not auto-restarted; userspace enters its
+> > +			 * signal handler and can decide whether to reissue the command.
+> > +			 */
+> > +			err = -EINTR;
+> > +		}
+> > +
+> > +		se_ioctl_cmd_snd_rcv_cleanup(dev_ctx, uarg, &cmd_snd_rcv_rsp_info);
+> > +
+> > +		return err;
+> > +	}
+>
+> [Severity: High]
+> Does returning -EINTR here without copying the rx_msg payload back to
+> userspace cause data loss or corrupted retries? If the hardware operation
+> completed successfully but was interrupted by a signal, masking success with
+> an error forces userspace to discard a valid payload and potentially retry,
+> which can lead to cryptographic IV reuse or leaked handles.
+>
+> [ ... ]
+> > +	/*
+> > +	 * Validate using the size the firmware declared in the response header
+> > +	 * rather than cmd_snd_rcv_rsp_info.rx_buf_sz (the amount actually
+> > +	 * received, clamped to the caller's buffer). If the caller supplied a
+> > +	 * buffer smaller than the firmware's full response, rx_buf_sz reflects
+> > +	 * the truncated copy and se_val_rsp_hdr_n_status() would fail the size
+
+check size become meansless if firwmare can truncate it.
+
+Frank
+
+> > +	 * check, causing fw_api_specific_ops() to be skipped and any freshly
+> > +	 * allocated session/storage handle to go unrecorded. Using the
+> > +	 * firmware-declared size ensures a well-formed response is always
+> > +	 * recognised and its handle is tracked for cleanup.
+> > +	 *
+> > +	 * Any size discrepancy between the firmware response header and the
+> > +	 * userspace-supplied buffer is already logged by the mailbox receive
+> > +	 * callback before control returns here.
+> > +	 */
+> > +	rsp_status_err =
+> > +		se_val_rsp_hdr_n_status(priv, rx_msg, tx_msg->header.command,
+> > +					rx_msg->header.size << 2, tx_msg->header.ver);
+>
+> [Severity: High]
+> Does trusting the firmware-supplied header.size instead of the actual user
+> allocation size cause an out-of-bounds read? Since se_val_rsp_hdr_n_status()
+> reads from rx_msg->data[0] assuming the buffer size matches the firmware
+> size, a maliciously small user allocation could lead to out-of-bounds access
+> on the kernel heap.
+>
+> --
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260903-imx-se-if-v46-0-aefaab525034@nxp.com?part=5
