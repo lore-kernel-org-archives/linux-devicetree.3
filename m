@@ -1,70 +1,90 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01BCB47424A;
-	Wed,  2 Sep 2026 11:11:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3FEF37CD21;
+	Wed,  2 Sep 2026 11:14:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788347507; cv=none; b=Un3Kv9LQiwwnTbGWUigd+g7qw8RZI9PrKr2qz6L6jmSqdqkfsolwCrR1f4B5q/e8TPY2BU6nB7N5aeCTM6jt0inFjZo+DMuifsr0IzqkAkQZjyl0uHkjHMK0Eeu0dCCwdm7GuFx81ODMBRvqCiD95nyar4YkJ3aA/z/iyVw9nJY=
+	t=1788347684; cv=none; b=pfDn4ARsVSQPi46JAAbMBzYuUdYw8QIT727AsySJntbfhktvYPxK8IKRPLibtmuMrzJkcsru7Hw7h/d5wJ8pVPE+m14ZQWdyEBsr8QZmEWM5f86xOHSBzQOPkJF0Wq1Lnwiwfzn0f286ZE/fioPu/cfLttRR/xmIR8JZEd0PJAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788347507; c=relaxed/simple;
-	bh=7E8JJOBC0pSp1XL4NavfYbOLHqbLj6dqXOypQ9bgWtc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AnXF3eCmjJDxhWZV3nTL7wUMnklvFSH1e2IzQCczooakssVCO0A62Gos9S8WKSjmd9YfL8b4bTJiX/zpz7aWuzCn4pZ+uxNxkJuwjNEfFHEuzXhrymCPckgdXIqab9qWjLZyTyaTV4HSODY1k9NK8yJRomL/sUi/OCe0D7Jfgyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=vzuvRbPS; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1788347684; c=relaxed/simple;
+	bh=VBEFCFEa83XydlY9VZ4+nqJSxzDx0KiCn/hVrdubDYY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=P+qoT8q4yUZ5nWxd8YoYVTyTfZfNFjoNs5aBqy9KXObei4nU6B12DzrTZ1DLQp5bPQwSYopcdfJ7f8beo2DTHJJRAInWbaJNYSGp9k2MvdxDJ7E5COmWqZNJoxU5IfqXMJfcpmkHl4Yc+5Dve3tecr8hcGD33MJ508WDHl76ybs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JlWbZgoL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="vzuvRbPS"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=4iGP/Ny9qyvWjshmUHMb/d+fjjArqiKV1JI8S/MR9aE=; b=vzuvRbPSPVB7yq5nS3DhOwU7AD
-	gBLhpL5R5LnB0zpx6QRH3wXweGs/tI1/16Yl6g694tKHQhG6xBeeFbsjeTg+ZwRSzEliu1Wob+soq
-	w6PYTNrOtBDOq3Uqc92FKqIhaCzk2HLg/EdctgajR/RwozKPtBDDBgt8IuWTq5s3AQQnmto7xjfyN
-	uhuEQHNJtyg+mefUarInL3gKp+QE1gsu9Kc9MdeE/U4BPILnW0eRdE41Q2rRFnQhutd8nss+rgu1W
-	vDxTdti9nR3iN3HrDlxEMWEFxJ5HRsR3xhJuGbNrImv+n/29pMx5Wp/vFaovHvHzS9hWnnQQ82N44
-	9aOq03pw==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Cunhao Lu <1579567540@qq.com>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: arm: rockchip: Add LubanCat 5IO board
-Date: Wed,  2 Sep 2026 13:11:11 +0200
-Message-ID: <178834747219.2268650.13087919588318622991.b4-ty@sntech.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <tencent_E56643A62E2161842C400BD1D30FBB698B05@qq.com>
-References: <tencent_E56643A62E2161842C400BD1D30FBB698B05@qq.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JlWbZgoL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7775E1F000E9;
+	Wed,  2 Sep 2026 11:14:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788347680;
+	bh=MxPgfyh2bpLLUuDg3EFGgoku6ylf/BdNGFdILHHqu9U=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JlWbZgoLhTm7MMhYxrF8Jwy2T27mgBIBB1fyV+NVw5aD9CReIuF0rt6HX1wMaxAYY
+	 m3lUP+Hs9HmC443iz0q9aDjMZjaJrKGRFLpcDRivuROw1P9znEcvlcrs6JvKoT5Fbr
+	 bwlExjoqrs41zgCcFOMpSItffMVDWi9l8moAU5zOI3VOM6BfikOFSR6c3f+L5rKCKX
+	 W09TmIT1nZg7gXK8oUWefyPTHdh41mEWNa3gD+AVZMyeNYwpukaF0qBiadGDde165e
+	 WQoV2Z3eTueW7xbydAamTNESUJ4Dt0ziIDTAKVeHfPTyjh8FJ6AEUdKkWFbvnM4DE1
+	 Qzq5nDJcjP0ZQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v45 6/7] arm64: dts: imx8ulp: add secure enclave node
+Reply-To: sashiko-reviews@lists.linux.dev
+To: pankaj.gupta@oss.nxp.com
+Cc: conor+dt@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260902-imx-se-if-v45-6-6e400879d8ec@nxp.com>
+References: <20260902-imx-se-if-v45-0-6e400879d8ec@nxp.com>
+ <20260902-imx-se-if-v45-6-6e400879d8ec@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 02 Sep 2026 11:14:40 +0000
+Message-Id: <20260902111440.7775E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The commit message erroneously claims to add a label for 'sram@2=
+201f000', but the patch actually adds the label to 'sram@22010000'.
+--
 
-On Sun, 23 Aug 2026 23:46:53 +0800, Cunhao Lu wrote:
-> The EmbedFire LubanCat 5IO is a carrier board for the LubanCat 5 BTB
-> core board based on the Rockchip RK3588 SoC. Add devicetree binding
-> documentation for it.
-> 
-> 
+commit f6aa8515a434b2969a55227494277b2542fee770
+Author: Pankaj Gupta <pankaj.gupta@nxp.com>
 
-Applied, thanks!
+arm64: dts: imx8ulp: add secure enclave node
 
-[1/2] dt-bindings: arm: rockchip: Add LubanCat 5IO board
-      commit: db7e3af507ea357d69116c3b785c5ce3b17428c2
-[2/2] arm64: dts: rockchip: Add LubanCat 5IO board
-      commit: f7b576f3535665840709efc85a5e2ebe6abc331c
+This commit adds the EdgeLock Enclave (ELE) secure-enclave node to the
+i.MX8ULP SoC dtsi. It also aims to add a label to the SRAM node referenced
+by the enclave.
 
-Best regards,
--- 
-Heiko Stuebner <heiko@sntech.de>
+> Add the EdgeLock Enclave (ELE) secure-enclave node to the i.MX8ULP SoC
+> dtsi, together with a label for sram@2201f000 that the node references.
+
+[Severity: Medium]
+Is the commit message description accurate regarding the SRAM address?
+
+The text mentions adding a label for sram@2201f000, but the diff below
+shows the label is actually applied to sram@22010000 instead.
+
+Could this mismatch between the commit message and the device tree code
+cause confusion about which SRAM section is allocated to the secure enclave?
+
+> diff --git a/arch/arm64/boot/dts/freescale/imx8ulp.dtsi b/arch/arm64/boot=
+/dts/freescale/imx8ulp.dtsi
+> --- a/arch/arm64/boot/dts/freescale/imx8ulp.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx8ulp.dtsi
+[ ... ]
+> @@ -154,7 +154,7 @@ sosc: clock-sosc {
+>  		#clock-cells =3D <0>;
+>  	};
+> =20
+> -	sram@22010000 {
+> +	sram0: sram@22010000 {
+>  		compatible =3D "mmio-sram";
+>  		reg =3D <0x0 0x22010000 0x0 0x10000>;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902-imx-se-if-=
+v45-0-6e400879d8ec@nxp.com?part=3D6
