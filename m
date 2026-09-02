@@ -1,56 +1,56 @@
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com [209.85.221.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C24D471D1A
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 10:51:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85EA3471D13
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 10:51:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788346292; cv=none; b=VWnAsMUNOCe1gsKgYjyPQAloS2xW7Y+qY0euavvlNRBlmdFoTTh25yNLy9H7CS2ge9vL9gqy8BTqjOcDWgmMRTER1PqBMIJ+z4pbz4G/W1soZJxeyZZFYh8LkJ6zoa9m/WcouVZ/RaambskpmoN4D7gokj36Yi1fXErf2NHQjP4=
+	t=1788346292; cv=none; b=Km3rbtCKP8enr5Y3oldUXvow6/woIVCmsQT3F2E3kawIsFfIwHclgfjA8mTvB+a7Tt2eGTlt38vVMFYQ7iiAigLUrRQ2a5Y+h8P10QCi49KuPMemAY+b7lqsUdjUw1ANfS1bYd8O+MZukUj9QI0MFfttEn4OWTveGLO/VJcqt5c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788346292; c=relaxed/simple;
-	bh=nMu6uOIdcSiaN+JYugdLeZy5798bpsbb/pHYStuoqbU=;
+	bh=fI4ct/3pSqJy24dcpl8O0GRnGyvmcETu0BAstHM0k+s=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=BdTcz2gycj5BEoMh5+A2SCubzekVuOkJHjnKexSMc8D42Yan+rx5n6JDuw5J99rMHLtQmW2tZ5VuS4+zwpTwLen8uv53vhMUVdYNvEkK5RkkSi3LjneSy/1hGLit7yLT2rxfkFHCYE/aorbRAx+54ulsnb9b7ZlwqwFiK+jplgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=u3PXF4vQ; arc=none smtp.client-ip=209.85.208.69
+	 To:Cc:Content-Type; b=Ppk48Re/EAzaU6r35+QScB0RWBUgA1r76zzkY6lPsdGks7xceTJx2F1wmJAPZ06TJnxfRlozXEdtM7Ju+YAJIQNjx/hJ4LSKbh+JphZ5oVR6qNca5G+ThMsolEeiprnsuJWK24HbG3TW4iFElb4sYcBTz3LcVDRHKrCuCvUBZ1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ruJvCxVs; arc=none smtp.client-ip=209.85.221.69
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="u3PXF4vQ"
-Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6a125f5b317so1028984a12.1
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 03:51:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ruJvCxVs"
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-47f6d70223dso687933f8f.1
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 03:51:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788346274; x=1788951074; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1788346276; x=1788951076; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gODwxuTtOVKQ6CMnGDMT0l3+wYWk2p1Ok9ZsUXJwJCE=;
-        b=u3PXF4vQsvb9b6DDt1uaqig+t6k0iJ0rZtFkFFlH2UTJupC/ymMzaK/xSrL/FmcT2U
-         9ODi9WZk1WG4X9Jj4TF0vigTq6t0W1UMJ+iO3XibVmfxi9j3Q9s2gWWCug5u5JPX3sjI
-         8IZBH5AtoU3bnhtKn5NATG9NE1V29igdbUDAgOOk7tJug5lwPpUZgJTuo9z5WoaOuHs8
-         AVQBaf7aux7ECtZ5LCUXIGgsZ8NU/XxzqhUk9aBNSAk/jWH8CLCfDbIJVac9JZfd3wNd
-         JT+KQrJfXC1Wo+vCqkRup/sf9vLdhJdEuqInv5MkEr1Du+rbQ6V53WxFD88ZS7fCnkQh
-         yEEA==
+        bh=IlzRHwAUXMpKspjrSSJuu5KTpj2eywEkwws+9IOUBiI=;
+        b=ruJvCxVsxGsTKa3DR36ZuhNxvUeZupbt8wJDMaiJ6rkndeRHZzaamJIWlqweFwdyPY
+         uwLnuWEI+h+r7bhZm1/7odgOey6p9IW0Zp4MWTlIsBBeHGYKmu8qTrM4Xfv9iP7bV0Ev
+         q0WTOZjZgsmbYpjOa6HnpwN7z2LIhCdc2ibTUQkiQ4CCB2JcY/WClwIAJaOCdsCc4IxC
+         qZqBcFVAU5GIUoFntNgrwPVOyDzxSrNHCrmm+ry3Nn64qFGR3FpF2EiirMg0Qg3lXdWF
+         GjghRqqX9YMRO9HJfAGM2I1T4Cg7157/DomozoSOL22Ve4Fj9L0vKbiyeDDmoqsTrxR7
+         brmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788346274; x=1788951074;
+        d=1e100.net; s=20251104; t=1788346276; x=1788951076;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gODwxuTtOVKQ6CMnGDMT0l3+wYWk2p1Ok9ZsUXJwJCE=;
-        b=Hedsikx4Ph9+uWO4uw5MatSAh84xWuWscNFA3qf10MnJq3Z7POd9ajzqcURg8SV/NP
-         LTX54dYTmIJ52zdEuLLS5UraNLwVvQCEsoFyPqiiFf4JEZ9BOJGF+YyC1QrljRV03C/f
-         x07xAzJ8YTJwwr2Vx1SylrHT9Aq2zcVLW9zkU+GzjzKL/fc8I4gufIukm2xM2GrPclLu
-         ZuE2jZVRX5JkokNp6YGnZFXzB54L5w9FiX6g96zQLHlgcEyKgvfitde33WOdaQG0L3a2
-         YzOStd3K8B/9ug0e1UekLb/vmWIoVbpri0lEroPhT4RSnw0yoVyJahfLBF6BK+sb49Sk
-         LLjw==
-X-Forwarded-Encrypted: i=1; AKwUvBy3NcMFvIONNA7pIjcda/TqWb3PsxhJdJ6oUPdKkAuucbVoub69t7yZyUh+S2JYBoSfkVwyRPwj9+2b@vger.kernel.org
-X-Gm-Message-State: AFuF++ls1zDg0eotMXt2WzJYFZC4rC7N3N2LwNb1qQMkyqQUjUxxZ67S
-	Tjsd5atlL6Mbae4f9DnLR8CeX62Rwfdjb4D0w2EaK/crfPg7tmksIIT1IFpAquJqfD/9+1u5Cbq
-	rf0q0NkLZfABKUuupklPgaw==
-X-Received: from edy6-n2.prod.google.com ([2002:a05:6402:5346:20b0:6a6:8ab2:8708])
+        bh=IlzRHwAUXMpKspjrSSJuu5KTpj2eywEkwws+9IOUBiI=;
+        b=q+LEea7rl/bP9TY/bSnS7QPB7tr2OY2iOD7zLweQcZK39+8DYf2mHoyW4F0WQ2RhBk
+         viR0fCuF8aZgdVaL4GgoAH8W8b2/DQ7FELKI4U9yEJt5I+30j9PCYR8u8suc+tbJ+eKM
+         VLCpGvHhRty28FMSHRXw8ftw+TN3UjLi0DxigAbSyiOjZHHa3GT1H1kp7h1w7R67ix2x
+         Z5TfXaiLJNJJGyGeqqW9hvZEW0hU4igV/FV5vtO33L83b0A5/fLlyBxMcNHhS6FEwpXb
+         qciI37+RToxTWlI8lATeM6JdoQdUOin51j5rRIKlBHC5UjRwsHezDqxSU+d7tZS3QzGV
+         6wtg==
+X-Forwarded-Encrypted: i=1; AKwUvBxj222T5uF1uR5jR3Ox4C+vcE5tDhr+DaHOZvl95NHlwt7tDrbjqdgX/+awkqsShW09RI2kIsvz+bly@vger.kernel.org
+X-Gm-Message-State: AFuF++mt/fGPaGK3J9ydJhvBFY36qzlnSGxlUA8VyWFlHL0Dqqbcn5tn
+	U0inPS0+NFtWZPQSJMUCh4XThH0sFtJliV4343dQ086GuSsG9QDEWLVfjQhAEGz5R6qT0bUoX5J
+	Dk8Op+TYEwAWN510Kt388IQ==
+X-Received: from wrqr17.prod.google.com ([2002:a5d:4991:0:b0:482:abe4:58a8])
  (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6402:4284:b0:6a6:32f5:ff40 with SMTP id 4fb4d7f45d1cf-6a682af8134mr2906512a12.20.1788346274084;
- Wed, 02 Sep 2026 03:51:14 -0700 (PDT)
-Date: Wed,  2 Sep 2026 11:47:08 +0100
+ 2002:a5d:5f47:0:b0:482:fc30:a1b4 with SMTP id ffacd0b85a97d-48488e03952mr6019121f8f.5.1788346276079;
+ Wed, 02 Sep 2026 03:51:16 -0700 (PDT)
+Date: Wed,  2 Sep 2026 11:47:10 +0100
 In-Reply-To: <20260902104712.2399797-1-vdonnefort@google.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260902104712.2399797-1-vdonnefort@google.com>
 X-Mailer: git-send-email 2.55.0.970.g62bdec98f9-goog
-Message-ID: <20260902104712.2399797-7-vdonnefort@google.com>
-Subject: [PATCH v9 06/10] arm64: Implement can_set_direct_map_range()
+Message-ID: <20260902104712.2399797-9-vdonnefort@google.com>
+Subject: [PATCH v9 08/10] arm64: Add support for MEMBLOCK_LLMAP
 From: Vincent Donnefort <vdonnefort@google.com>
 To: catalin.marinas@arm.com, will@kernel.org, rppt@kernel.org, 
 	akpm@linux-foundation.org, sudeep.holla@kernel.org, jenswi@kernel.org, 
@@ -73,81 +73,68 @@ Cc: mark.rutland@arm.com, sumit.garg@kernel.org, ardb@kernel.org,
 	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-For systems where can_set_direct_map() is false, it is still possible
-that a subregion of the direct map can be modified if it is mapped at
-the last-level. Add an implementation for can_set_direct_map_range(). It
-falls back to a page table walk to verify the mapping level if
-can_set_direct_map() is false.
+With the MEMBLOCK_LLMAP flag, force a last-level mapping.
 
 Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 
-diff --git a/arch/arm64/include/asm/set_memory.h b/arch/arm64/include/asm/set_memory.h
-index 90f61b17275e..1a37f4ef130b 100644
---- a/arch/arm64/include/asm/set_memory.h
-+++ b/arch/arm64/include/asm/set_memory.h
-@@ -9,6 +9,9 @@
- bool can_set_direct_map(void);
- #define can_set_direct_map can_set_direct_map
+diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
+index 79d90226fd5d..c0fcc76914d1 100644
+--- a/arch/arm64/mm/mmu.c
++++ b/arch/arm64/mm/mmu.c
+@@ -1184,9 +1184,8 @@ static void __init map_mem(void)
+ 	phys_addr_t init_begin = __pa_symbol(__init_begin);
+ 	phys_addr_t init_end = __pa_symbol(__init_end);
+ 	phys_addr_t kernel_end = __pa_symbol(__bss_stop);
+-	phys_addr_t start, end;
+ 	int flags = NO_EXEC_MAPPINGS;
+-	u64 i;
++	struct memblock_region *r;
  
-+bool can_set_direct_map_range(struct page *page, unsigned long nr_pages);
-+#define can_set_direct_map_range can_set_direct_map_range
+ 	/*
+ 	 * Setting hierarchical PXNTable attributes on table entries covering
+@@ -1226,9 +1225,13 @@ static void __init map_mem(void)
+ 		       flags);
+ 
+ 	/* map all the memory banks */
+-	for_each_mem_range(i, &start, &end) {
++	for_each_mem_region(r) {
++		phys_addr_t start, end;
 +
- int set_memory_valid(unsigned long addr, int numpages, int enable);
- 
- int set_direct_map_invalid_noflush(struct page *page);
-diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
-index 58898ae53f5d..c59ef17eb0d0 100644
---- a/arch/arm64/mm/pageattr.c
-+++ b/arch/arm64/mm/pageattr.c
-@@ -103,6 +103,48 @@ bool can_set_direct_map(void)
- 		system_supports_bbml3();
++		if (memblock_is_nomap(r))
++			continue;
+ 		/*
+-		 * for_each_mem_range may return sub-page-aligned boundaries
++		 * for_each_mem_region may return sub-page-aligned boundaries
+ 		 * after memblock_mark_nomap() splits regions at byte precision.
+ 		 * __create_pgd_mapping_locked aligns phys down to PAGE_MASK,
+ 		 * which could accidentally map no-map memory on the boundary.
+@@ -1237,17 +1240,23 @@ static void __init map_mem(void)
+ 		 * regions. The cost is at most one page of unmapped gap at
+ 		 * each boundary.
+ 		 */
+-		start = PAGE_ALIGN(start);
+-		end = end & PAGE_MASK;
++		start = PAGE_ALIGN(r->base);
++		end = (r->base + r->size) & PAGE_MASK;
+ 		if (start >= end)
+ 			continue;
++
++		int rflags = flags;
++
++		if (memblock_is_llmap(r))
++			rflags |= NO_BLOCK_MAPPINGS | NO_CONT_MAPPINGS;
++
+ 		/*
+ 		 * The linear map must allow allocation tags reading/writing
+ 		 * if MTE is present. Otherwise, it has the same attributes as
+ 		 * PAGE_KERNEL.
+ 		 */
+ 		__map_memblock(start, end, pgprot_tagged(PAGE_KERNEL),
+-			       flags);
++			       rflags);
+ 	}
  }
  
-+bool can_set_direct_map_range(struct page *page, unsigned long nr_pages)
-+{
-+	unsigned long addr = (unsigned long)page_address(page);
-+	unsigned long end = addr + nr_pages * PAGE_SIZE;
-+
-+	if (can_set_direct_map())
-+		return true;
-+
-+	/*
-+	 * If !can_set_direct_map() then no one can split blocks and it is safe
-+	 * to walk the page-table lockless.
-+	 */
-+	while (addr < end) {
-+		pud_t *pudp, pud;
-+		pmd_t *pmdp, pmd;
-+		pgd_t *pgdp;
-+		p4d_t *p4dp;
-+
-+		pgdp = pgd_offset_k(addr);
-+		if (pgd_none(READ_ONCE(*pgdp)))
-+			return false;
-+
-+		p4dp = p4d_offset(pgdp, addr);
-+		if (p4d_none(READ_ONCE(*p4dp)))
-+			return false;
-+
-+		pudp = pud_offset(p4dp, addr);
-+		pud = READ_ONCE(*pudp);
-+		if (pud_none(pud) || pud_leaf(pud))
-+			return false;
-+
-+		pmdp = pmd_offset(pudp, addr);
-+		pmd = READ_ONCE(*pmdp);
-+		if (pmd_none(pmd) || pmd_leaf(pmd))
-+			return false;
-+
-+		addr = pmd_addr_end(addr, end);
-+	}
-+
-+	return true;
-+}
-+
- static int update_range_prot(unsigned long start, unsigned long size,
- 			     pgprot_t set_mask, pgprot_t clear_mask)
- {
 -- 
 2.55.0.970.g62bdec98f9-goog
 
