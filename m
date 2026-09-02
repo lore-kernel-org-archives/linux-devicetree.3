@@ -1,311 +1,140 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC9CD403B10;
-	Wed,  2 Sep 2026 08:56:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E45B40800D
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 09:01:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788339419; cv=none; b=mcmLo231ReIIaoMdxvHJAoLisLpwjVsp4fh+p+WizXaNaTi7cZeXzijlU/Rn42v1AuahN0yRSYGfBVbYENNyxdxAFdvTXIqs7VgD0ep/CQWhFnFLlOpwKbfQ8dGCIq8Sj4CihR5F5Uw2rloMcnF40NaZU8CdEX2R9wL3E3fxHOQ=
+	t=1788339681; cv=none; b=GU4Jxjeo9KPWFg7hivNuB3YXD6+kdEkDkbz7xqlu1yeCrqMqF2ql9bC3LA1TXyfFnW13BKNCb96HVbe3S2yjjdnvjHA92DU65D53RYbgIwXV68+PGgpizdbnYc+YEiLFwvkYU1ZMxy4b/4P2Bi1S0Y56NAZxJP7+lzdfEPvmwlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788339419; c=relaxed/simple;
-	bh=q86WmzqBmgx3LYDRKyK7e34u/MawNe85gmPf4WQUc78=;
+	s=arc-20240116; t=1788339681; c=relaxed/simple;
+	bh=Atq4pB3YGZ4lFAEE0+lnM2Mik4PShDbyqyPa7jARmoQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jt7+Bd/omVLsPJlBZLgNE5mrgqzP1jT46D0+/QkZ9vYHyD57sc0xtLS+8fnWgmmVWiTROxykX5cV7QE4SCb4VmwkSrCGCBWwB5JKy+iZwsdG+9NK0HWquyc63iZ9lXiBSnrCEjweslaHlss5PkPH0j6zJrKMggtqWG0NcVxvZjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=V3fhegKQ; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=LMqC7zz5P48qJpgxED7dlzp2e3lJwwKhVweHsgarJlPDeWpId3loBb9mx5zCVQeW+KLxuzHe63OfuRpHC5VEhpGFWeN5ECSR/hmHsOHrEO4nazT4MyhpNKsPivMSSX4TtpvmUKB+0ZdahdnU9QvJJ3JNar3GySCOF83WCYjLgHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=G0CDjcU0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EJ4AsGlU; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="V3fhegKQ"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="G0CDjcU0";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EJ4AsGlU"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6826VaAA1859347
+	for <devicetree@vger.kernel.org>; Wed, 2 Sep 2026 09:01:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=yQbyCK8hb1C0dq/eCYljQc9X
+	nj9duFCu694HFTDiHCc=; b=G0CDjcU0Z33uC/+1pPkUPpTkEdsh6cwkhIIBDNuG
+	m5bnV9QrSeZxZM7sO0qUxMrZ5mwBp3IlzLTyttKxaW3xa9aYCD3PmoNLEtziQPh3
+	BEgDf3lwo5HG8kNtSiT6VXudYGieSg8GURzkWnrPaJu7P9EI8AigTdUf/ViUDeG/
+	WZLdSBjlEg8rLS78DWPLsb4jPJAkkSlic5ld2IFdaVtH4WuvDNDj2v18DxwaGVfn
+	wMx8+/Xqj1HxCV/io9qcG32g9ZCkdV1mhWuwDnqcGqodXUTfLrTeA+64UItad1g0
+	lptcR9pbVPxbnoaYgnPyZnYnjNSLB6JAh+Kd2fmItWrPZw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ge8whhqb1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 09:01:19 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-930b571432fso145068085a.0
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 02:01:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202608; t=1788339407;
-	bh=b0Jl1OoKJeWyAmgBnIQYNZQaI1rY6FVGQBXJB1w9J3k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=V3fhegKQsqRe234pk6voD3CruROJxFGAJhcvAiHx32ICEva5jroBx6fCwxu6lRMfS
-	 uNHeS2E8FK9/I6ezF33h7sHqrbin4DWjiNEDTSXc5NHLf/2rg8/kKGNGX1xYxZSUc3
-	 fRXU7tyynYwTnV7rakK7E7vCZiRayNcYdcppUR6U9cCfH5T/UK1iE27gcsXcjBuh6e
-	 gPTwoLWMeSpCL3iQV6JCYWqvviay1YuCrGwtgWZR3IU5H0uRKtfGKu/c0PxmBjpMCn
-	 dRTfnEy+iEc1Xp5a1dF9JWl3oZoY5nQdgIgkT+Nnv2R3iiazVRJqOThd/J+BZ0plbT
-	 ZUEc3LFU2AOng==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4hZc6R6383z4wK2; Wed, 02 Sep 2026 18:56:47 +1000 (AEST)
-Date: Wed, 2 Sep 2026 17:06:03 +1000
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 02/15] libfdt: Don't assume the root node is available
- at offset 0
-Message-ID: <apfKx_u3v3GBfzOz@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
- <20260826083146.304291-3-herve.codina@bootlin.com>
- <apOhk-NQusFgV5Sx@gractus.seuss>
- <20260831140119.1f14b420@bootlin.com>
- <apaBuQ8kn2bOzYcI@gractus.seuss>
- <20260901141826.49b1a1b7@bootlin.com>
+        d=oss.qualcomm.com; s=google; t=1788339678; x=1788944478; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yQbyCK8hb1C0dq/eCYljQc9Xnj9duFCu694HFTDiHCc=;
+        b=EJ4AsGlUe9vZmEtfTTPB0daXdNVbiFGpGjyCdHatQHKs/kOGtgHDeeSun6G9o7+hXg
+         BB1uxUS+QufBP3clMfqeXCF4ZsyZRPP+msozEKcm+ewcETaSuEowdIn0TZUG3DD5cPxr
+         Zafxw8c1nqcBE0402AT7V3ir0NJQOylSgXWsvQb3cD3vGGFPzfukCcf6FtvLFMN+vvsl
+         QTGPA53ni0LhyxaJuGFW2xiLytKq3ucSU8dDf9WQZarC55/pOEndKBtyhh3VCZaVJary
+         KlRdXwplnizQ5plt156I+8X84LQxcnB0f4DtCOG/zbbTvbe/DcbZkBGO2cyurKT8CzB8
+         CGvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788339678; x=1788944478;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yQbyCK8hb1C0dq/eCYljQc9Xnj9duFCu694HFTDiHCc=;
+        b=kN6MOfTfnKsaOKudkEtdc1MVFCtR0qOSOMR7QqbIIUhJWzT3HjkPLDKmbk9y9k0Pu4
+         YFljkNIyCDYu5KsHV7mQ0hKHiARrAiF2EKHT8fPV2m93PgjMqxZnHEmwGpX1YXkA0nQ1
+         wqGUZUwaGuJIpten0tSP0O1ubeLQr6kfsS2z9JyeE/oHLewrREO2co2dGFQ+9KetoCYq
+         Ne0gtX+EwGgMir9QWWWX4DQBDsNhW1tPTu7Db4GrZMkVVnacNh3ol28x0ZTU83cWfT+A
+         c+ZjDF064hJxyWp0enlXE3cIhDV+eXPOeJImgyJiTLEL0xHglxrC5lB9Lob6peKXNnj+
+         bz2w==
+X-Forwarded-Encrypted: i=1; AHgh+RpDwJIqkbD8oqGHxZHuEZvQF8iejnW4RJ9rVzU6wr3eot4+2HIJIvk23/FtZA0gjQ0oLgNJuvo5YK72@vger.kernel.org
+X-Gm-Message-State: AFuF++m5k+c/R/AHTM6a0VAZjmNpAznuTdiv8Hr8ZdMMlURe1wNzZe5F
+	XuxrHtSfRJWmtTZq+aWMXe4rjHLcX6Z07mcou09I4Ep4R2+nPk6/cZFpFHyzbizkaDzErjYzrvk
+	EVrwBkzILCAMFgMlicE1sFOkFiLxZqol21XdUbr4QZAa6uGOUuagWFCo1TOovHQ5i
+X-Gm-Gg: AR+sD11XldTQ/MRgC2jSVAwkeZqZFxfLr+u4qK3egKlFBKiRvsxhO8vdTMjkxyFMi8y
+	uMEToQG8CofTk/+juz5lrEPVqhkEO5RRzXFCwi7DuZj6k6IrZd0B1iNmxDg3bPipJxNzb7rRTH9
+	vBjLmEJvcw1wr8NqwcsgyU3d0VI4U73fr1xTH29R3EH2a1kXTCfoHYymB76hTNxtJBCQv4LCL4b
+	/Pu1pzX6EWZFRa6K9jYC2LyqGz8S+6LAeuRefFlq4rJ0rH/KapBf9sBFmWILzjvNYSaQGUZ8WPP
+	K2JuZ0RfBpkldfoyUXplBNNsqp8KLoKg4h/W7lb4Dsy+rPcWPgwsfeboi926U81rWRCkn0bf5Xa
+	K02nRD7EGd6m3mw==
+X-Received: by 2002:a05:620a:6018:b0:939:4bee:f84b with SMTP id af79cd13be357-93965a10813mr141499385a.9.1788339678437;
+        Wed, 02 Sep 2026 02:01:18 -0700 (PDT)
+X-Received: by 2002:a05:620a:6018:b0:939:4bee:f84b with SMTP id af79cd13be357-93965a10813mr141490185a.9.1788339677868;
+        Wed, 02 Sep 2026 02:01:17 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.178])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce4a804sm155172055e9.15.2026.09.02.02.01.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 02:01:17 -0700 (PDT)
+Date: Wed, 2 Sep 2026 12:01:14 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Luca Weiss <luca.weiss@fairphone.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+        Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 2/4] regulator: qcom-rpmh: Add supply names for PM6350
+Message-ID: <yhbjhnmuwwqqbjlhpo4ppwtmehxnkiuqagzigf2nieqxqpiako@c4tfpqbizd2w>
+References: <20260901-fp4-regulator-supply-v1-0-68288ab70aee@fairphone.com>
+ <20260901-fp4-regulator-supply-v1-2-68288ab70aee@fairphone.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="OIjszocFmTCYBpEJ"
-Content-Disposition: inline
-In-Reply-To: <20260901141826.49b1a1b7@bootlin.com>
-
---OIjszocFmTCYBpEJ
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260901-fp4-regulator-supply-v1-2-68288ab70aee@fairphone.com>
+X-Authority-Analysis: v=2.4 cv=fLkJG5ae c=1 sm=1 tr=0 ts=6a97e5df cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=G5ilVN+faPP2Ze1SHB4iFQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=6H0WHjuAAAAA:8 a=EUspDBNiAAAA:8 a=siMggkYB9rnzUccrDQUA:9 a=CjuIK1q_8ugA:10
+ a=AYr37p2UDEkA:10 a=PEH46H7Ffwr30OY-TuGO:22 a=Soq9LBFxuPC4vsCAQt-j:22
+X-Proofpoint-ORIG-GUID: rJRblen5lbijanxkK8kt6DG0EYJBfZKC
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA3OCBTYWx0ZWRfX+agi6/NzpQ+c
+ eBg7tcJamIZbLIXCWHmCh+jiI6JC+d0DnJ22qwy0i6Rqf8WHRFTVboaTive1rWqGM6IQ5ug6ejj
+ LVRZwYUZ2gFALuDzjeG5S1Nl1lP7DJCosMp/KbzzsGyaAcjyFxH39zwxSSd/m/YekYuJYbaDBt0
+ D+D6WjiFiCuEOXerBzHRpXYfgrgR/9QZXZSaxIKX/e4jE7bxYMyrZsrZdB6vVdahER7OmA3TLAi
+ MrazXgCb8pgU1D92F+NSCxzFkN9bCghJ4dgpE8n7WGiF/kzNTC9BJIGySJAq78opGgloCDvS4t9
+ V7pnwgmPZVmJn8iKe5Qn+7DiW6i+AeCarph3UTyPRrfp5GbL9/Cz1BLI/FnY9GdsQg6uV9/YY2W
+ xvEfGnSpbsPMHubD/7Ypz4sdoqOgVJ3arwcwrFyU+RDw2t2lB3yp6riDpxf8zSb1j+Bgk/Aorbh
+ MfcqOsPmx3AKrr2xH9A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA3OCBTYWx0ZWRfX9b47mBspVOMv
+ M3K4skM/Ef9IFYTTD7yOcQmyWZ4EVuD3WPS8daTR4EkqOleeB0LFfxGas8rMf0o1i7dmjEpXW/6
+ hPympyS3N2UsxZb6T+RcSTtkgl1zJHk=
+X-Proofpoint-GUID: rJRblen5lbijanxkK8kt6DG0EYJBfZKC
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_01,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 impostorscore=0 clxscore=1015 priorityscore=1501
+ spamscore=0 phishscore=0 lowpriorityscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020078
 
-On Tue, Sep 01, 2026 at 02:18:26PM +0200, Herve Codina wrote:
-> Hi David,
->=20
-> On Tue, 1 Sep 2026 17:42:02 +1000
-> David Gibson <david@gibson.dropbear.id.au> wrote:
->=20
-> > On Mon, Aug 31, 2026 at 02:01:19PM +0200, Herve Codina wrote:
-> > > Hi David,
-> > >=20
-> > > On Sun, 30 Aug 2026 13:21:06 +1000
-> > > David Gibson <david@gibson.dropbear.id.au> wrote:
-> > >=20
-> > > ...
-> > >  =20
-> > > > > -int fdt_next_node(const void *fdt, int offset, int *depth)
-> > > > > +int fdt_root_offset(const void *fdt)
-> > > > >  {
-> > > > >  	int nextoffset =3D 0;
-> > > > > +	int offset;
-> > > > > +	uint32_t tag;
-> > > > > +
-> > > > > +	do {
-> > > > > +		offset =3D nextoffset;
-> > > > > +		tag =3D fdt_next_tag(fdt, offset, &nextoffset);
-> > > > > +		switch (tag) {
-> > > > > +		case FDT_END_NODE:
-> > > > > +		case FDT_PROP:
-> > > > > +			return -FDT_ERR_BADSTRUCTURE;
-> > > > > +
-> > > > > +		case FDT_BEGIN_NODE:
-> > > > > +			return offset;
-> > > > > +
-> > > > > +		default:
-> > > > > +			break;
-> > > > > +		}
-> > > > > +	} while (tag !=3D FDT_END);
-> > > > > +
-> > > > > +	return (nextoffset < 0) ? nextoffset : -FDT_ERR_NOTFOUND;   =20
-> > > >=20
-> > > > This should be BADSTRUCTURE rather than NOTFOUND: a dtb without a r=
-oot
-> > > > node is not validly constructed.  (This could matter quite a lot if
-> > > > this error gets propagated up a call chain - a NOTFOUND is usually
-> > > > non-fatal, but BADSTRUCTURE means there's basically nothing that can
-> > > > usefully be done with the dtb, which the caller needs to know as so=
-on
-> > > > as possible). =20
-> > >=20
-> > > Now yes, a dtb without a root node is an invalid dtb but soon with ad=
-don this
-> > > will be allowed [1]. =20
-> >=20
-> > Ah, ok.  I haven't looked at the addon stuff yet.  I do intend to, but
-> > it will certainly take a while (70+ patches!).
-> >=20
-> > So, I'm guessing here, but it still seems odd to me that an addon with
-> > no BEGIN_NODE tags at all could be useful.
->=20
-> No BEGIN_NODE doesn't mean and empty addon.
->=20
-> Addons can have only orphan nodes without any root node. Those orphan nod=
-es are
-> nodes existing in the base devicetree the addon is applied to. Addon need=
-s to
-> refer those existing node and this reference is the orphan node.
-> --- 8< ---
-> /addon/
->=20
-> &node_from_base_dtb { /* <--- Orphan node. Node defined in the base DT */
->    node_defined_in_addon { /* <--- Node added by the addon once applied */
->       ...
->    };
-> };
-> --- 8< ---
->=20
-> In the addon, those orphans are identified with BEGIN_NODE_REF [2] and ca=
-nnot be
-> considered as root nodes.
+On 26-09-01 10:58:57, Luca Weiss wrote:
+> The supply names for the PM6350 regulators were skipped during initial
+> bringup. Add them.
+> 
+> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 
-Ok.  So, in any case fdt_root_offset() would need modification to
-handle this: otherwise it will ignore the BEGIN_NODE_REF tag and
-continue on, possibly finding a BEGIN_NODE *within* one of the pieces
-and incorrectly reporting that as the root.
-
-> [2] addon series, patch 51/74
->     https://lore.kernel.org/all/20260826094950.1088288-52-herve.codina@bo=
-otlin.com/
->=20
-> >=20
-> > > addon dtbs will be clearly identified (the dt_flags header field has
-> > > FDT_FLAG_ADDON set for addon dtbs) and so what do you think if the er=
-ror code
-> > > returned depends on this flag.
-> > >=20
-> > > NOTFOUND in case of addon and BADSTRUCTURE otherwise. =20
-> >=20
-> > I'd need to look at the details of addons to figure out if this makes
-> > sense but I'm not opposed to the approach in principle.
-> >=20
-> > > If you are ok with that, I will update this current patch to return B=
-ADSTRUCTURE
-> > > in all case. Indeed, addon are not yet available. =20
-> >=20
-> > Right, regardless of where we go with addons eventually, I think it's
-> > preferable to return BADSTRUCTURE for now.  That can be changed once
-> > addons are actually implemented.
->=20
-> Exactly!
->=20
-> >=20
-> > >=20
-> > > [1] https://lore.kernel.org/all/20260826094950.1088288-54-herve.codin=
-a@bootlin.com/
-> > >  =20
-> ...
->=20
-> > > >=20
-> > > > Do you need this special casing? Won't the fact you've update
-> > > > fdt_next_node() to handle the offset 0 case be enough? =20
-> > >=20
-> > > The full loop is the following:
-> > > --- 8< ---
-> > > 	for (offset =3D root_offset, depth =3D 0;
-> > > 	     (offset >=3D 0) && (offset <=3D nodeoffset);
-> > > 	     offset =3D fdt_next_node(fdt, offset, &depth)) {
-> > > 		if (depth =3D=3D supernodedepth)
-> > > 			supernodeoffset =3D offset;
-> > >=20
-> > > 		if (offset =3D=3D nodeoffset) {
-> > > 			if (nodedepth)
-> > > 				*nodedepth =3D depth;
-> > >=20
-> > > 			if (supernodedepth > depth)
-> > > 				return -FDT_ERR_NOTFOUND;
-> > > 			else
-> > > 				return supernodeoffset;
-> > > 		}
-> > > 	}
-> > > --- 8< ---
-> > >=20
-> > > The test 'offset =3D=3D nodeoffset' is the problematic one. nodeoffset
-> > > is the parameter passed to the function.
-> > >=20
-> > > I have chosen to avoid offset 0 for the root node and I have updated =
-'nodeoffset'
-> > > previously if it is 0.
-> > >=20
-> > > Even if fdt_next_node() updates 'offset' if it is 0, 'nodeoffset' has=
- also to be
-> > > update if it is 0. Indeed, 'offset' will be updated from 0 to the rea=
-l root node
-> > > offset. In all case to have the test be correct, 'nodeoffset' should =
-be updated
-> > > to the real root node offset if it is 0. =20
-> >=20
-> > > Having fdt_next_node() updating 'offset' if it is 0 will not handle a=
-ll case.
-> > > When offsets comparison is done, both offsets should consider the rea=
-l offset of
-> > > the root node instead of the 0 value. =20
-> >=20
-> > Ah, right.  I missed the fact it was updating the nodeoffset
-> > parameter, rather than the working/starting offset.
-> >=20
-> > > Also the fdt_supernode_atdepth_offset() can be called with 'nodeoffse=
-t' set to the
-> > > real root node offset instead of 0. Indeed, fdt_root_offset() is avai=
-lable (and
-> > > needed). =20
-> >=20
-> > Theoretically we could avoid explicitly looking at the root offset for
-> > 'offset', by starting 'offset' negative and moving the fdt_next_node()
-> > to the start of the loop body instead of the end.  That would handle
-> > the nodeoffset =3D=3D root_offset case, not not the nodeoffset =3D=3D 0=
- case.
-> > Arguably we could disallow the later - finding the non-existent
-> > supernode of something we know at compile time to be the root node
-> > isn't very useful - if it only turned out to be the root node at
-> > runtime, I'd expect it to have come from another function, which
-> > should give us root_offset rather than 0.
-> >=20
-> > But.. it's certainly safer to keep it working whether passed 0 or the
-> > real root offset.  There are other ways we could do it, but I think
-> > they'd turn out equally inelegant.
-> >=20
-> > Ok, makes sense to me.
->=20
-> Ok, I will update fdt_check_node_offset_() to have it updating its offset
-> parameter to the real offset of the root node when its value is 0.
->=20
-> Based on this update, will see where it goes. I mean, impacts on callers,=
- if
-> it simplifies things or not, if the offset update needs also to be propag=
-ate
-> to caller's parameter or any other similar point that we can see during t=
-he
-> implementation.
->=20
-> Having something implemented and available in a patch will be the best to
-> compare changes and impacts related to fdt_check_node_offset_() update.
->=20
-> Here we have a version of handling offset 0 vs real root node without any
-> offset update done in fdt_check_node_offset_(). In the next iteration we =
-will
-> have the version with update done in fdt_check_node_offset_().
->=20
-> I think the golden rules to follow on this point is "keep it as simple as
-> possible".
-
-Agreed.  Feel free to repost just the NOP before root patches on their
-own.  At this time, frequent small series is easier for me to tackle
-than occasional large series.
-
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---OIjszocFmTCYBpEJ
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmqXyscACgkQzQJF27ox
-2Gf0GhAAmEt08BeeQE7bnr8xjaC2oJOhBjSuvOBx6BuboyE/WtlkIJi2eH7cHO1z
-AVpayjhkmKVe11KE6v5t9assJBMeWeOlrcLad6ebdtLkWCsIXMrkHQX+STu2Qv7i
-TmQD8mNXqDDWHJhpgl74VHsYcR6QSpp7gvBO/icvedMPoVnkCmyMDcJiAsEVar/D
-61SGlayXs4UpDWuvsqiVpXlAN+xWhXlaf+ynmDpeStNYrS69bpiXruom/JvX0yAC
-XLPHkBTsZfXYk0LsIOM9YwmHnw6iqSvJHeLnTaaYsYlTgVCS1/AYxYKzS4auST2u
-GNI850Xht/H3dMB88w1ttAtzmjBYsXALVfblUdcADg7blqotGWofvW4t4qim/iX6
-Nf54mO92rriacXlDarh0T9jJRtSFGCQFj5/hIzBw1eQZnuTH0Q3gQAnrVd/X90nk
-OlZzBMIUkFpCyEZUNOeNVeFLpnowJVwNIYxpSm5UkkT1cac7Frw+xn857yJMaGBd
-FkFo3VzbQof/yA3lI/F5jq35dJT43J8Hs47se5vlsKjP6i3IeXKVD1dkQEaNYEBe
-ZJx29+T8gprNLT/d95nzSrd6rEk5cau9yCLpVj2mL0bUiHW/B3f2+fg/WG9qmRoT
-JuLGgGd1kZXw6Q2YD/3BCCgP8ABgqlzXVzVbdeZUxeh9+1ASmVY=
-=Q6Ju
------END PGP SIGNATURE-----
-
---OIjszocFmTCYBpEJ--
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
