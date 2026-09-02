@@ -1,120 +1,105 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com [209.85.222.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB09647D44B;
-	Wed,  2 Sep 2026 12:03:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0CBA49483B
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 12:03:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788350615; cv=none; b=SvE8QQ/QUV2n1Fw8dFVub0zVKRu0tcu1FVoQVg4wPCR5ouZ8SLH+m8+2OfQqD0sd8C875zpQrvXKrnRGIcATOAuqgpex8tJXhmPFWeYTBNAXdqNk2D9y+Ujrh1GvNcXMuH1ELbdBButeAMTHWjMqfmTzWGuKwfS7Vr+csIzLAX4=
+	t=1788350645; cv=none; b=UJWYGwcvKELpN+2fAR8sYGxr4vtR+R2KUHP08+IpydOEAap8T2gahev9C0qBuKCgJgeP5ZJqtIGK5/Nl5cSSCSeP92ImukBPSocCK02JwdfcBbb9TC1x/0I5DpuYh9cZyuQpljSbWOstLJBgYJFN972phY2VM+6OtsP0cIXMaBc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788350615; c=relaxed/simple;
-	bh=+5jcyq3+d8Im4J2d8wIaIGW8c44g9l46CK05l5TEmDU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KeglbDenm02ayaoRERdHVH+4Q7Jtbx4RnIqu0PebOxB358NwZPdBM58cVNrrhhwZ7VP6yZjjaDaDDayVYGAfLqsflqJhabfe+Wl8ymW0h3Pln5umT4PBa4IhbKzLiuJjQ/r+fjZZThTNhleG4TzSyuOiLAh4+T9s7KQ3C3q8e10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=gyEFGtjE; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="gyEFGtjE"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3AE31107AF4;
-	Wed, 02 Sep 2026 14:02:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1788350584;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=yRDozR9CA5cf4MGXA2Vmt/BC/L2ZUVuUBfpnwpPiwyo=;
-	b=gyEFGtjERqBwEL/tao6ohapRRXoTPIu00k14Jc+WAiivcGlbvP/MvMnaPZnResbCMxpPgv
-	ScSzSFCilANDS7CGXlSCeajqbmQV1cEP3agJu1q7t1RWlatD9Hn7GvRo3buLPY2cUMAaZI
-	E0SWnkCi6XmwrbdGmbhI+PwDHSq4iSzq/g8WOx+2zR6lou9zZymVrjPB3l+bFECjLfCeer
-	xU94yNLvWYHsIk440NnxuX9PxYgjPRtQKPxzq4y9QyuwNfCeQM9I2d5vU7waFhzQ4MrMvb
-	1dyPvawnbFr6VouFfEIC8/fVIDAEmhIR4B6rG3csNkenYTKkYZIZvZt312R4rA==
-Message-ID: <88c63929-611e-44f8-b18a-360d173c8925@nabladev.com>
-Date: Wed, 2 Sep 2026 14:02:58 +0200
+	s=arc-20240116; t=1788350645; c=relaxed/simple;
+	bh=BGVT6NiiPBGrDzAWTCenC1f6pOP4TmMvoz1BBe+v1UE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZlCROF7qopshPc63/ajqcQpuvdcl1L7dvITRDkeE1yv3eNJQG0qlDl1d7VO//u/jHwWYsYYn5e/9rua1MhcONSbplGblv4EKlDBitdpcdP/PLwzn9vbni9yCpoLc9npI0VflEM/Kk+GU/2YSi1SNASWSu/uIVhyKlPlEnxgETn0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f51.google.com with SMTP id a1e0cc1a2514c-97e76cabd96so252980241.3
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 05:03:53 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788350629; x=1788955429;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=zZuEv2ob4j8Zh+WhkA/MTuPTTESwfEtjHWVWham0Lxc=;
+        b=aGGThvWiVBEnY1vCkZa7HlGoiVU/SFH8jmoAxAJJQm7Y9JLP5njxy51Z+qhBQAtQIJ
+         QNtt2LxiUrasUI2JpriGK2PvnJ0RLU5t9JmB63607TYrLeRV+H3Ldxw6zSUYoCIqvV0f
+         3f7IcciE0phrVUkcAT3wzc7QFJywEcP4eVAS9uSWnvlsFEVZSX3a2iCIuugH8MmtPcMt
+         Ksip5zhvcfEK2db+Z3irV593Re2xCAdxvFoV6Lrc2y0ZYJxD2kBJ8vkgbRVWqLL8UBA8
+         x1vorgPcNgC0YJYeY4y3aFXODo1UHEbKX1/cNz/EXJOKzEcJBpQ4erPexQSSfSvAqwF/
+         g32Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzm41j8UF5l/+Xmr24PJBIVUaZMtNeJbeCk8IiavR/NjR0iNCf+L0/cx4qF80t4YLX2HJQbphDFttU6@vger.kernel.org
+X-Gm-Message-State: AFuF++kRlkdWrR7vSAfC+oQsQrgE5vwus3838XtRWMYo1sn6J6JLTpZB
+	rHUCIHqIvItzaMG14AD/KqYqeeDRpCH+Dk2npvTLCp3hO+Df8wTMreNXlk3lNq9u
+X-Gm-Gg: AYBFou2IbYQoUdqonis6LSao9j/20kjPh3ET/7puNIVTza+u1RswCXA+1rVv1Chctz/
+	+yKE64rfIkYaVFcq+A1L5RNhboPuwCrfh66RT81G583geaU8Bc/lZfTbTYXToTev3wuVLa1D95/
+	5J29DIlBJ2AZgt/kDQOpLY+q4AeE/jjnpQaMbhxz91WHH2aFEuiU1Z0LTfgwfr2SVdVyLqLKc2y
+	kFsIQUuymeO61D642aj1+o8VvrQVFlqjIBftsCh+dQOSL3mXpW6EljveURVFVJJZ/j7deJZ5QC0
+	cNmIIiMFyC4fueSPkqLoiFwiLnfNka1vlacxU15PQIgw0v/ggx1M6b91TT0ep6RdW5gMOz8bRK1
+	9kwcgFNAgOs5BM7Vtz7/+TEgBa/6BmQW4jrMqyE0HcWUHSXrSRI2sOgWE6XX67heExabNC8/e1R
+	QjYceudDJRWNVM5m6Dp3hwh607NXnMVpLLJXZv8x9YBC2Xyy5jX0gydy/tqAM6lEZw8WTp6yTsh
+	0DHKt5TG3OU/wQc1W1eiGkjZwIfUkse1dE3
+X-Received: by 2002:a05:6102:6d2:b0:785:76cd:ce88 with SMTP id ada2fe7eead31-78a1f1576d3mr1255085137.3.1788350629099;
+        Wed, 02 Sep 2026 05:03:49 -0700 (PDT)
+Received: from mail-vs1-f44.google.com (mail-vs1-f44.google.com. [209.85.217.44])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-78a1a251ca6sm1941679137.4.2026.09.02.05.03.48
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 05:03:48 -0700 (PDT)
+Received: by mail-vs1-f44.google.com with SMTP id ada2fe7eead31-745497ac8fcso321922137.0
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 05:03:48 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz2qg/P8bBBwzcPP6/czoyqI5YeDgyfJ3zfbS8t4Hbr/S+XzOyKzeWtnRfwL4h0V57kATQez9w2XGad@vger.kernel.org
+X-Received: by 2002:a05:6102:14a5:b0:784:94dd:5389 with SMTP id
+ ada2fe7eead31-78a1f3954bfmr1187932137.13.1788350628203; Wed, 02 Sep 2026
+ 05:03:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [Linux-stm32] [PATCH v5 1/2] dt-bindings: arm: stm32: Document
- st, stm32mp23/25-syscfg subnodes and cells
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
- linux-arm-kernel@lists.infradead.org
-Cc: Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- devicetree@vger.kernel.org, kernel@dh-electronics.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>
-References: <20260831231359.136475-1-marex@nabladev.com>
- <43ea0c7e-44f2-4ec0-ae82-ee60203c8842@foss.st.com>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <43ea0c7e-44f2-4ec0-ae82-ee60203c8842@foss.st.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260902-rzg2-sr-boards-v4-0-4a456a422fee@solid-run.com>
+In-Reply-To: <20260902-rzg2-sr-boards-v4-0-4a456a422fee@solid-run.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 2 Sep 2026 14:03:37 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVZfH5rzN-xFvyfERt=j+c0aF7ZSbAn7XTM=R_u55+3MQ@mail.gmail.com>
+X-Gm-Features: AcwNN1W7aL6kq2Ib0xjLGz4RQRE9m6dme2IHxODeY3IaF54CXwsKAcwLlCow_cY
+Message-ID: <CAMuHMdVZfH5rzN-xFvyfERt=j+c0aF7ZSbAn7XTM=R_u55+3MQ@mail.gmail.com>
+Subject: Re: [PATCH v4 0/7] arm64: dts: renesas: Add various SolidRun RZ/G2
+ based boards
+To: Josua Mayer <josua@solid-run.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Benjamin Bara <benjamin.bara@skidata.com>, 
+	Linus Walleij <linusw@kernel.org>, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+	Jon Nettleton <jon@solid-run.com>, Mikhail Anikin <mikhail.anikin@solid-run.com>, 
+	Yazan Shhady <yazan.shhady@solid-run.com>, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-usb@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	Conor Dooley <conor.dooley@microchip.com>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/2/26 10:55 AM, Fabrice Gasnier wrote:
+Hi Joshua,
 
-Hello Fabrice,
+On Wed, 2 Sept 2026 at 13:50, Josua Mayer <josua@solid-run.com> wrote:
+> Add support for a variety of SolidRun RZ/G2 based SoMs and the
+> HummingBoard IIoT Evaluation board.
 
->> @@ -57,10 +68,17 @@ allOf:
->>     - if:
->>         properties:
->>           compatible:
->> -          const: st,stm32mp25-syscfg
->> +          contains:
->> +            enum:
->> +              - st,stm32mp23-syscfg
->> +              - st,stm32mp25-syscfg
->>       then:
->>         required:
->>           - "#clock-cells"
->> +        - "#address-cells"
->> +        - "#size-cells"
->> +        - phy@2400
->> +        - phy@2800
-> 
-> Hi Marek,
-> 
-> Is just saw the discussing on V4 with Conor. That's mainly a thought:
-> I'm not sure USB is required, e.g. mandatory for a product, even if not
-> so likely (I don't know if this could exist out there).
+Thanks for your series!
 
-I assume you have two use cases in mind:
-A) A wall-mount HMI device with only display/touchscreen (No USB plug)
-B) A RPi form evaluation kit with all kinds of plugs (Yes USB plug)
-?
+> Changes in v7:
 
-> Still, the nodes
-> could be tweaked (deleted) in a board, to reduce dtb size in such case.
-> I'd relax, e.g. let these 4 props as optional. Do you see any drawback ?
-> That can also be relaxed later, if the case is seen.
-DT is a hardware description. The PHY IP is not removed from the chip 
-silicon only because the USB signals are not used on that specific 
-product. Therefore, for device type:
+Oops, subject says v4?
+Fortunately b4 is not confused, and does The Right Thing(tm)...
 
-A) without USB plug - no action is necessary, the PHYs are already 
-disabled by default in SoC DTSI
-B) with USB plug - board DT sets status = "okay" on the PHYs and 
-controllers.
+Gr{oetje,eeting}s,
 
-As for reducing the DT size, removing DT nodes for hardware that is 
-present in the silicon negatively impacts the ability to apply DTOs 
-outside of the kernel build process, so I would argue against 
-preemptively removing any DT nodes from DTs to reduce size.
+                        Geert
 
-One exception is U-Boot, which adds additional generic bootph-* 
-properties to a subset of DT nodes which should be available early on, 
-and also contains a mechanism which reduces DT size for its U-Boot SPL 
-which operates in severely size constrained environment. However, this 
-is a special case, where removal of nodes from the DT is justified, 
-because in that case, it is certain that those nodes would not and could 
-not be used, and would only waste time.
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-On the contrary, the DTs that are used to boot Linux should be complete, 
-because the user might enable an IP in there by setting status = "okay" 
-after reaching U-Boot shell, and before booting Linux.
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
