@@ -1,277 +1,194 @@
-Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com [209.85.222.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE6326D4C3
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 08:06:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788336413; cv=pass; b=mERT3QarC7gxPApMu6G2T/POZlY1+PNYx8GBTnr1nEESRDe+dNNkoIophOtAVUv/MKH/hQ4Ou8YZ+Qk1upOQ4wDB2ZEFEH62tPMnEcIPuXLLegSiJy+UlAKMbkfqULjBE/GG0WIpWgLh59D/z+5WZ8zNX6hZQ5qHWvCRRQHXemM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788336413; c=relaxed/simple;
-	bh=hQga2uJk4te2JdiP7ZPrmbvnNE5x3B3S932BjonzqXg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cSMz/WP684z6yx8iPCpvQLQa1uFkrFKOb2o4kZxENLxyPCRjBw8cQqU0ESAcQW2MWJAEhEYA2PVGehuJwVejr0wLC9hmoZlqJoGGemib49Ixg9wZsSN0pwB60zWLvVlxQethmzjY720bFMhWjdoANk8dwlCUH5bfelkZk9G0ERk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i5Tl8QHC; arc=pass smtp.client-ip=209.85.222.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B72D5371D13
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 08:13:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788336829; cv=none; b=Q8oXpzQyQ8KJoCRwepQkXmvur9rW/WfrD+V8nLXMUsDehkvKeknWTPAH9zg/TkvUss15GuCDiGbfPs+M34XThEuRjCKrV/hWljPrwR2DoYjmZ6LL/5SRk576QqYAKiWkyafvswgl1ueUoXB2RHc1g5OaUNsRqdnGsd48PXJJzmg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788336829; c=relaxed/simple;
+	bh=wPTFUyYCIV3oBIBor1tcJV2n9e7M7X7a3fVGT7srQzs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ua8zuP48OhDzJRgVlq2nMoBY7xogPX6FxgNO3BFCEEJ8JQIKGtdroVrHhRATKYR3oHMLSNlkM4T37DTfihspnjesc6V6JBVTZ0n5xuZ2j3AcOMgL6a+sSDf7cMGq7+wYBl6dCCP7qIvjLk/OqdJHo0dDejvD5DBzjmGc/5zL9KI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pDgbxaRT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=M4q9GQNw; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i5Tl8QHC"
-Received: by mail-ua1-f41.google.com with SMTP id a1e0cc1a2514c-96723c7151eso218650241.2
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 01:06:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788336411; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bHCNrVypNLQzW8j5lCCAv4PuVMUUWkPxqIlh/suM8byDOsD6WTbRIgKyUbwY17+kBW
-         rwZ2gFHhwyaUsGryA033wwZmBsDK0HH/U86zxo+RU+lUPQWASL+Zcr0JXtpng0EntRVF
-         GOSt3ySxBfst1Xsa+WP8DV0tz9NeTwZpFldcmFcv8A/RgaeQ5dmpVypTsRaevo4/Plha
-         gBWDhM1FeR2ddarvTYaVb3RcCSeBHeAEYFrQhvNzLOdOLiKLT/bGF6g1/ciFqqWBDpe6
-         +z5KFZPEU7Qm/hrKfRoL1dt+5yQV2V5l0yfRX5fddtzH8RgupXi+olTRVrBXYqhPrs2V
-         AFOw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MeQzdGJUarKKj9Bhwy2Y263pX70GsqDeHRMWxk6xp5w=;
-        fh=SgUgNlVwcyKCK1U+gIm/anRTdlid47frypksKXHFg7Y=;
-        b=sJjVcmC+nCV00wPOOsuG8Sw3hNRvnqTkfZk9NcPJPeF6X1twjaL6DZm9+mBIQ/65C0
-         +rEgzECg3cuwxnnDVYQLIZg1uiD4tmB45F88WQsyhz4DW+IOcgCTrD+Hrw1rMcrvzYUY
-         xQaDMLA9hOquHzSdAi5rgTqMGKlenAkPm1Fijqy+jXhjsYFi3PE2NJCBwP5Vwt8nji6a
-         aLN1Gj/q90lo6OxBZAkOBHDAkSg5fzFZ4XnrEDPN54owr85GgjIpdDbiMGPqefMLgA3i
-         uhPWfM0wC62j/BGY52CsK8jsOjYzVxqUUkbFWaeY08bQt+TscLlLrAGyGKg/eIlEvn0O
-         LQAA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pDgbxaRT";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="M4q9GQNw"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6826VYGj143083
+	for <devicetree@vger.kernel.org>; Wed, 2 Sep 2026 08:13:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=JJj9tTcMGmf0OxkdzmALIC
+	bP7nDTsOBenYEkzB3H+2g=; b=pDgbxaRTw+6lZqEfjAslvFMagIyL86C74VNZnq
+	eVpogTFHN8wOLNUD693FaXKbqd8jGWWtzU9+LgdTEw+BEolWgThUscTEE8/BEbMf
+	i9ypOIjf3qsAzEOrecG0UVbReK/I1mxLNPYfIxAu02P/CybXSFoWJ1roXxc5Keh0
+	qX8rD6f/8a7qeNHu9hkj52XZOAVJ7ZXuTlQcTmpl9HXz9ittCIY+KsyIhASbLvQi
+	M/gn7qpoow+U7+aHEU/UsxRYbOlE5SIsy0zEt+bABlu75oi8i3d2PEj55VXxM/FR
+	tH2JWeZTcvAZbTvaYGRZ8Uy/lA+8MMEz1amRNgLZ+3lUQAHQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ge397awra-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 08:13:46 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-9390ca1a9abso144071385a.2
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 01:13:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788336411; x=1788941211; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MeQzdGJUarKKj9Bhwy2Y263pX70GsqDeHRMWxk6xp5w=;
-        b=i5Tl8QHCZf1pglXCX+tPA0PO8ONqYreDwvkjACK1VqF+mjvFWwUBOHuBSqzJNKBzvv
-         OTL7Y68vtNnUC7Qi/0JES8cMmNckaTZKiRuwPzaaJXcORHYmBSfGIfcCqcf0dqSTbRP+
-         QCaCGLehcL7tO9IoSxe1Yu8uwfy60YDStMnjUXM/u9mWgZT4mx68KjEqik/vexo6QYiu
-         OmLosRLDFgT9NC58xQQSX1f3W89mFl31OQppUs9KDP9Yb0MBMNUG/GtOEu1L1JYf4IH/
-         ddK7nmZxxsI2JNcyZZW6/12ECcdABksOBdQfampOD3el5V3w/V1+5pirDK0SDlgxJtad
-         rIAw==
+        d=oss.qualcomm.com; s=google; t=1788336826; x=1788941626; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=JJj9tTcMGmf0OxkdzmALICbP7nDTsOBenYEkzB3H+2g=;
+        b=M4q9GQNwaPBIjk7+P93Cjb32hziW9zmB3m3G2lPwN58KqvPHXgAn5LK3nTB4tcKhwW
+         +11ccbEY4IMRrSzqii4nPrHwRIHxElNe3D7hAiezWFnzMmyzhpPZvBzYeNEANmkL0IFt
+         VEWi6zptMDOQGPOuRwfa/Ife9mpofnb5W2AabovpsZx1pT8sbKiZIGwFiqh9eKRJ1kaV
+         7B4k1FgxI2CVkw6XkW8/q2S+RAeKfVtP0lVK64lizJhpTTI3E0TPxZ3wNq7Z5WsW/bn+
+         B1v3B9fFpOR3jDLZLA5IZ9VyDTimYovWEYwtbEfL7rjzdMYcLobzjEmtD8WKMjyFNKcu
+         DkNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788336411; x=1788941211;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MeQzdGJUarKKj9Bhwy2Y263pX70GsqDeHRMWxk6xp5w=;
-        b=NIi8VZ+mH57hFYN3JpT5VyHaM1HDPXfSg7mdFf2VDH2ZRxQyNvHSK1h6HJCKwwE+H0
-         s8amlG74qqzXs5RsI1gltLHItkTnEcg7LuG8CXlV+Le0e3hbW2zrCnLNFWINbQc3m1Gl
-         PTVdCzS2+vbOHRX9qa/OKRaEpGCjMqzDgd2/ny5B2pD8upWKsbGM1EhtBJyCB+8aVQ5h
-         91VPB84cK8Rn2YALHcAz+RtHFogo4TfVFskoNHQLWFOHGJ9jUACRFyQXmBznsFVmgmDR
-         JgSCeCqjMoptZEqtHkXDZ9nI1xwQiNqhmV6MA/CYauOZLCvVT6Xv/iI8kIzy+nUhiWZQ
-         p0/A==
-X-Forwarded-Encrypted: i=1; AKwUvBy/KQiAidUIg/6obpd0tsNfQDbah2PGTD+Huk3Pk+xeHq/OypE7dE2tnevaJWYDMA25UvcaHNj3xc2H@vger.kernel.org
-X-Gm-Message-State: AFuF++k8PJGXCZMs7e0s8MpNCQa7MJxQeKBbSegIWOEXuMDRLXcx7Tzj
-	IT2CmlQJLffDrLz+ro+knq+1WkliTRXqRc5jyjXsjrRARZDlM8ed9y5ayBikv/TzzpfCsLD9H5N
-	37576rm7ENRc7R2Mn8XHPoN8KQUdVLoc=
-X-Gm-Gg: AYBFou0a0GVg4ZnQf/RSVICcGH59ljxcbOJa9WWjQchDzV2zegSkn4Lch/Woq7nYCZL
-	szDWqxYwjircKMDuVYelJa/EX+LrXEB8s67KzAjV4CLnTcBWedxE4wg1EG6ofkL6o/IR6USxHCK
-	EjtLUyfRKqhPWmt01ItZ7W5/jYMHOGaEzelAeGfj1Sqz9y8qUmnQWJ5RN61WHP6l48LNJY2AnRw
-	0KVUm5a7Cylwv0uIUK7n8wVptTRlE/kMOopLW/CS7mxKdALKOKowW6xRC2v17IjrkaJ2tewjH1l
-	GyBzt8mT5VYeVpQm0mTXdLofUQVJhjsw1QQOC/qit6t/oZo=
-X-Received: by 2002:a05:6102:38c6:b0:785:3211:f5e4 with SMTP id
- ada2fe7eead31-78a1f1c3849mr1045866137.4.1788336410616; Wed, 02 Sep 2026
- 01:06:50 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788336826; x=1788941626;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=JJj9tTcMGmf0OxkdzmALICbP7nDTsOBenYEkzB3H+2g=;
+        b=BfQ/yMZ7QKUkbJMmqeAw2j0c5YMVDDSHfZ5UGawNACBTrGPz16e8iOZ8AlFUhLYFK4
+         +IsPAfZmFvH51YY8cOvr2q1RCgx263jbrxjTz8EEWzk8mRjFiC82N/5jpM0d4yK5oD4h
+         TrpiPFEGOATMXbB5L3LKURbSmDIXt5RK9fLfW1mGerbXcLyBu7kIDBoesAd6jG6F+NZs
+         zgDZKLIrQJGuiZ0TzuV4X3p+MwV2Fg8fuDPlIf9/KVRgyP9M5bg3d01//M3gy2WtX+Tj
+         g3UBi6ftEgBuy/zvQMP0vO/eGmKpg3CVIuLnWn/kXl8mxJtQLhPx50922c0KnxM272EP
+         Qc/g==
+X-Forwarded-Encrypted: i=1; AHgh+RpHFZm/AYEmn2HwNfybEGbY6XYG1S6Hiydx5I8s4Mc8rY4Bfk1xL/5hfIELXVAj3AFR0P/JJt7v91fl@vger.kernel.org
+X-Gm-Message-State: AFuF++mhCjpuKDLh5wKji/vgvTP1LTYfgk5jF01jTnqelmT793kmqAN8
+	xVSfLVC+FHnAvvqsEk4E6m3gXs3nQIFCuxgUhD7+QS4Ehfvk4Oeebs0f2H3fQTUOxq/mVmR44wl
+	myRJiD2y4HbKuFDSA7uACS8wy2caxabFOyMfcJTuH0pI+0Akkd3BY68uFR1dME+952A9tLmEG
+X-Gm-Gg: AR+sD12CD/qUU89k6mcVR7WveT397kMwli2yeeoPTeskY4zZw1iOpw3EElYAA8IETQ8
+	HypfmQEnos6BtL6u7y7n0+zfcrqm8MytK0Q9Cv+twkxjRk1PEHMA2zsZWRl+lx1QvW4qXDFi1DJ
+	uHXPlh/9iLnc0LRkLtsQ+8KgyDMH9wEMKDHCncIN9lgvfb6i0VGjloHMFP4ILQZCUbkwC4gVE8t
+	OkLEeMLYgnZF9b5BoJKkMH+9n3VYfqcIbdgulJyipvKIgJj/ZBty6OVA4jsxZS6H6Rv2HX4aoG+
+	0bRC3vBeNwTYWnUhM8jl5FbW2VRdw3brJIZ8ydb+ewMapp7yWjMizhvvq322n8e6GfjBrFFjJOk
+	5JpL2cCM=
+X-Received: by 2002:a05:620a:4415:b0:934:970a:beb2 with SMTP id af79cd13be357-93960f29cc1mr351065985a.26.1788336825566;
+        Wed, 02 Sep 2026 01:13:45 -0700 (PDT)
+X-Received: by 2002:a05:620a:4415:b0:934:970a:beb2 with SMTP id af79cd13be357-93960f29cc1mr351059985a.26.1788336825001;
+        Wed, 02 Sep 2026 01:13:45 -0700 (PDT)
+Received: from [127.0.1.1] ([86.121.170.178])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce10153sm139919745e9.4.2026.09.02.01.13.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 01:13:43 -0700 (PDT)
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Date: Wed, 02 Sep 2026 11:13:35 +0300
+Subject: [PATCH v2] arm64: dts: qcom: eliza-cqs-som: Enable Adreno A722 GPU
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260901-anacapa-devlop-phase-devicetree-v7-0-0bd71d2e0105@gmail.com>
- <20260901-anacapa-devlop-phase-devicetree-v7-1-0bd71d2e0105@gmail.com> <20260901123044.80C4D1F000E9@smtp.kernel.org>
-In-Reply-To: <20260901123044.80C4D1F000E9@smtp.kernel.org>
-From: Colin Huang <u8813345@gmail.com>
-Date: Wed, 2 Sep 2026 16:06:39 +0800
-X-Gm-Features: AcwNN1V45jvtUIUPmkklS3A0YD1HKbVBaiVqSEvsVzc8mt2Z165gyW50PQxffjs
-Message-ID: <CAPBH0A_OpB22HEa9=ZSUyWF4F6LUcvQNrak_4d=pYrRv03gyRg@mail.gmail.com>
-Subject: Re: [PATCH v7 01/11] ARM: dts: aspeed: anacapa: Add EVT1 devicetree
- and point wrapper to it
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260902-dts-qcom-eliza-evk-enable-gpu-v2-1-51b452a460a2@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAK7al2oC/42OQQ6CMBBFr0K6dggtCsGV9zAs2jJAFSh0oFEJd
+ 7fgBdz85CV/3vyVETqDxK7Ryhx6Q8YOAcQpYrqVQ4NgqsBMJCJLioRDNRNM2vaAnflIQP8EHKT
+ qEJpxgeySCs1TrlFyFhyjw9q8Dv+9/DEt6oF63qV7ozU0W/c+Bni+9/795TlwkLlOayVydcbiZ
+ oniaZFdOOnjEKzctu0LzblIf+MAAAA=
+X-Change-ID: 20260901-dts-qcom-eliza-evk-enable-gpu-6532c131cea1
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.16-dev-0e65f
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1335;
+ i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
+ bh=wPTFUyYCIV3oBIBor1tcJV2n9e7M7X7a3fVGT7srQzs=;
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBql9q2/PWtyCXb1KlnRAVneQFGC5q3a384bnwPT
+ N9X8YeDdTCJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCapfatgAKCRAbX0TJAJUV
+ Vp8ED/0XXmpS5ipirN2RpywJYeMP3gbOKlOIO/ARV9dlS184j7pTb5MgLSf+A1RGHHmWNm9BAC9
+ kYPza6B4R3vgFGgrAvi/iwLRrXA18DAb5vnoNJZ3h9MuvAEofV5eo2PVxQQrTGnkPsEnf6++wuv
+ N6enOgs/oul5AkW6hYGsHjffnhs5V5tW7TB9Iamty57Qyzr+5pTRkFYGyIFfDh9xfEgXXxywIDM
+ 5gjaSjLnaUczSni65rw5fDjLzyunhGAe43Yvflp2p06pNy+x2/A2royxxmMdk/u2JlF7Rae0ujL
+ jaR1W5FFzh4HyGBuHU0x+viwNcj6Io8jZ+Jn38S39rJ0KlbivK/rtIuqkW82oMw1G+9m2OV+dTT
+ zld2cjgu99eBfor1ZDWMT49cbfixQMrtfmIoZdhOpiyZ98nOAJPx6pDO46EgdWsmuIaFDu3tc+F
+ gYo6it2YWT3kw2G5vIZHB2u05v17pyghZVWNSwR6a7GDWSGPEj+7CchUvNe50wuI3RgZqX5Fqt3
+ r4zdUP1ZF8SCVbCF540s3YZlvJX6tA4j+Iwz/t8alVHNKtpO4wfUuKV8NqzhNzypN2vh4koltyl
+ 284cqKEL1gXwAaaUKFdgo8lfsBPU+yW23CV69o3m23j3u61M9J+AkGma1EmkxWW8DTeEH9+KqtQ
+ iFUKfjoOQ98SjWw==
+X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
+ fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA3MiBTYWx0ZWRfX54Up9uSoWFvs
+ HX6J/h0Mm34v9XeP3F268g+I8IhUNmYeZnH4L98KC5aV9vNeCfoDO08mUCwItXsSVlOL9Hrq3oi
+ NzOoMwuQbvLY+ahSPLixesd6LdxJXrp3EC2wkChH8aiTmCRSHbsHX2qno4SmGuVAH0gvOWQjuVr
+ aLywMjQkrn+ad3cVWZoyrjhHPopcT8LvgVD/PSJvHrJyhm5s1ciINfU5KpeJOos9GACLCT8VU56
+ +bJr5xTWLyyMxuZ0IQGbUcC91Ukvwk5bKg0aZ4yoHxfkU94MKDwuNB6ZVCAucJM6rz5oVN0OpPj
+ SO/06OAyYRVcOBR6zpMgHKDMTHfQSYMi8rtUQFbfPMOmGx9ubzSZVx/8oMF+rfbM1hlTWFbg7XR
+ 0tywDZchIU6GSOnGUGuuN14wdbQfgCopGx3ywKPhhWWF0hxIRgg9u8vHl7Wv6EvO6OOHnUhf3TR
+ SlGlHxbq5ZdkmDaeArA==
+X-Proofpoint-GUID: I8SrPhqYKB2TtgCUIY4__raaJas6fTAQ
+X-Proofpoint-ORIG-GUID: I8SrPhqYKB2TtgCUIY4__raaJas6fTAQ
+X-Authority-Analysis: v=2.4 cv=Re6gzVtv c=1 sm=1 tr=0 ts=6a97daba cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=G5ilVN+faPP2Ze1SHB4iFQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=BoG2368bKbZoxSBLJcsA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA3MiBTYWx0ZWRfX/PFZoMpAjBD0
+ 1tB4FdooPOpphqcJdhJytaRl7yxW9X9NbRO8IhkSaw7YjeM2ccmeVBxsjzhjW5jZDx8V00fYFSp
+ sHDOxhsu1Jn0nn16EyUp12dNUKlK+Fc=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_01,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 adultscore=0 impostorscore=0 malwarescore=0
+ suspectscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609020072
 
-<sashiko-bot@kernel.org> =E6=96=BC 2026=E5=B9=B49=E6=9C=881=E6=97=A5=E9=80=
-=B1=E4=BA=8C =E4=B8=8B=E5=8D=888:30=E5=AF=AB=E9=81=93=EF=BC=9A
->
-> Thank you for your contribution! Sashiko AI review found 3 potential issu=
-e(s) to consider:
->
-> New issues:
-> - [Critical] The board compatible string was silently changed from "faceb=
-ook,anacapa-bmc" to "facebook,anacapa", breaking dt-bindings and backward c=
-ompatibility.
-> - [Low] The /dts-v1/ directive is improperly placed inside a .dtsi includ=
-e file instead of the top-level .dts file.
->
-> Pre-existing issues:
-> - [High] Multiple consumer nodes request GPIO pins and interrupts from sg=
-piom0 that strictly exceed its defined maximum limit of 128.
-> --
->
-> commit aa5900d50b8d457379595fa4812e97d97a192959
-> Author: Colin Huang <u8813345@gmail.com>
-> Subject: ARM: dts: aspeed: anacapa: Add EVT1 devicetree and point wrapper=
- to it
->
-> This commit introduces an EVT1 development-phase devicetree for the
-> Facebook Anacapa BMC. It updates the top-level wrapper DTS to include
-> the EVT1 hardware revision file and pushes down several configurations.
->
-> > diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt1.=
-dtsi b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt1.dtsi
-> > new file mode 100644
-> > index 0000000000000..017700920cb1d
-> > --- /dev/null
-> > +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt1.dtsi
-> > @@ -0,0 +1,1128 @@
-> > +// SPDX-License-Identifier: GPL-2.0-or-later
-> > +
-> > +/dts-v1/;
-> > +#include "aspeed-g6.dtsi"
->
-> [Severity: Low]
-> Is it standard practice to place the /dts-v1/ directive inside a .dtsi
-> include file instead of the top-level .dts file?
-I will put "/dts-v1/" into aspeed-bmc-facebook-anacapa.dts
->
-> > +#include <dt-bindings/gpio/aspeed-gpio.h>
-> > +#include <dt-bindings/i2c/i2c.h>
-> > +
-> > +/ {
-> > +     compatible =3D "facebook,anacapa", "aspeed,ast2600";
->
-> [Severity: Critical]
-> Does changing the board compatible string from "facebook,anacapa-bmc" to
-> "facebook,anacapa" break dt-bindings and backward compatibility?
->
-I will fix it. thanks.
+Enable the Adreno 722 GPU on the Eliza CQS SoM board and provide the zap
+shader firmware path.
 
-> Userspace applications and bootloaders often rely on the exact string in
-> /proc/device-tree/compatible to identify the board. Could this modificati=
-on
-> cause them to fail unconditionally on boot?
->
-> [ ... ]
-> > +             i2c8mux0ch0: i2c@0 {
-> > +                     reg =3D <0>;
-> > +                     #address-cells =3D <1>;
-> > +                     #size-cells =3D <0>;
-> > +
-> > +                     adc@1f {
-> > +                             compatible =3D "ti,adc128d818";
-> > +                             reg =3D <0x1f>;
-> > +                             ti,mode =3D /bits/ 8 <1>;
-> > +                     };
-> > +
-> > +                     gpio@22 {
-> > +                             compatible =3D "nxp,pca9555";
-> > +                             reg =3D <0x22>;
-> > +                             #gpio-cells =3D <2>;
-> > +                             gpio-controller;
-> [ ... ]
-> > +                             interrupt-parent =3D <&sgpiom0>;
-> > +
-> > +                             interrupts =3D <174 IRQ_TYPE_LEVEL_LOW>;
-> > +                     };
->
-> [Severity: High]
-> This is a pre-existing issue, but does requesting IRQ line 174 from the
-> sgpiom0 controller exceed its defined maximum limit of 128?
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+---
+Changes in v2:
+- Rebased on next-20260901.
+- Picked up Konrad's R-b tag.
+- Reworded commit message as Konrad suggested.
+- Fixed the zap shader firmware filename.
+- Link to v1: https://patch.msgid.link/20260901-dts-qcom-eliza-evk-enable-gpu-v1-1-a7c3fb27b4e9@oss.qualcomm.com
+---
+ arch/arm64/boot/dts/qcom/eliza-cqs-som.dtsi | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-This's not an issue.
+diff --git a/arch/arm64/boot/dts/qcom/eliza-cqs-som.dtsi b/arch/arm64/boot/dts/qcom/eliza-cqs-som.dtsi
+index 5ef6c51618bf..918f5289ca45 100644
+--- a/arch/arm64/boot/dts/qcom/eliza-cqs-som.dtsi
++++ b/arch/arm64/boot/dts/qcom/eliza-cqs-som.dtsi
+@@ -374,6 +374,14 @@ &pm7550ba_eusb2_repeater {
+ 	vdd3-supply = <&vreg_l17b>;
+ };
+ 
++&gpu {
++	status = "okay";
++};
++
++&gpu_zap_shader {
++	firmware-name = "qcom/eliza/gen71700_zap.mbn";
++};
++
+ &remoteproc_adsp {
+ 	firmware-name = "qcom/eliza/adsp.mbn",
+ 			"qcom/eliza/adsp_dtb.mbn";
 
-For ASPEED SGPIO, ngpios in DT is the number of SGPIO pins, while the GPIO
-consumer index space is twice that size because each SGPIO pin is exposed a=
-s an
-input/output pair.
+---
+base-commit: 8b72f6626dc39b9e7e82b2721d4f7c3b86286012
+change-id: 20260901-dts-qcom-eliza-evk-enable-gpu-6532c131cea1
 
-Evidence in tree:
+Best regards,
+--  
+Abel Vesa <abel.vesa@oss.qualcomm.com>
 
-Binding explicitly states each SGPIO is represented as an input/output pair=
-:
-aspeed,sgpio.yaml:39
-Driver registers total GPIO lines as nr_gpios * 2:
-gpio-aspeed-sgpio.c:676
-
-
->
-> The gpiolib and IRQ domain could reject this out-of-bounds request, causi=
-ng
-> the driver to fail probing with -EINVAL.
->
-> [ ... ]
-> > +             i2c13mux0ch7: i2c@7 {
-> > +                     reg =3D <7>;
-> > +                     #address-cells =3D <1>;
-> > +                     #size-cells =3D <0>;
-> > +
-> > +                     nfc@28 {
-> > +                             compatible =3D "nxp,nxp-nci-i2c";
-> > +                             reg =3D <0x28>;
-> > +
-> > +                             enable-gpios =3D <&sgpiom0 241 GPIO_ACTIV=
-E_HIGH>;
-> > +                             interrupt-parent =3D <&sgpiom0>;
-> > +
-> > +                             interrupts =3D <156 IRQ_TYPE_LEVEL_HIGH>;
-> > +                     };
->
-> [Severity: High]
-> This is a pre-existing issue, but does requesting GPIO 241 and IRQ 156 fr=
-om
-> sgpiom0 completely overshoot the 128-pin cap?
->
-> Since the controller restricts its capacity, the out-of-bounds requests c=
-ould
-> lead to probe failures unconditionally during driver initialization.
->
-This's not an issue.
-
-For ASPEED SGPIO, ngpios in DT is the number of SGPIO pins, while the GPIO
-consumer index space is twice that size because each SGPIO pin is exposed a=
-s an
-input/output pair.
-
-Evidence in tree:
-
-Binding explicitly states each SGPIO is represented as an input/output pair=
-:
-aspeed,sgpio.yaml:39
-Driver registers total GPIO lines as nr_gpios * 2:
-gpio-aspeed-sgpio.c:676
-
-> [ ... ]
-> > +&sgpiom0 {
-> > +     bus-frequency =3D <2000000>;
-> [ ... ]
-> > +     ngpios =3D <128>;
-> > +
-> > +     status =3D "okay";
-> > +};
->
-> [ ... ]
-> > diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts b=
-/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
-> > index 1fddf3a5d1383..724f4d312de4d 100644
-> > --- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
-> > +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
-> > @@ -1,1079 +1,3 @@
-> >  // SPDX-License-Identifier: GPL-2.0-or-later
-> >
-> > -/dts-v1/;
-> > -#include "aspeed-g6.dtsi"
->
-> [Severity: Low]
-> Does stripping the /dts-v1/ directive from the top-level .dts file violat=
-e
-> style and architecture practices for Device Trees?
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901-anacapa-=
-devlop-phase-devicetree-v7-0-0bd71d2e0105@gmail.com?part=3D1
