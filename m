@@ -1,127 +1,168 @@
-Received: from mta0.migadu.com (out-132.mta0.migadu.com [91.218.175.132])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE824766A6
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 11:07:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B93747277C
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 11:09:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788347281; cv=none; b=sGHKFJdTMdzoTQdWHWnEMvFbSFzsSyQ1+39zp4VZIzk8V2VgXj8UKYsK55koVGF9LV7/cdNLuObuvF2hhmEY9CfgsO/Bcg2nq7NEh16fvSBjq22O3ac69XFSrXumKXZvqfGs/J3z3CHiG99P8gbV9e1r0P1mKI37UiJpStIAANE=
+	t=1788347364; cv=none; b=BZYUd24RY2BZhOj+oHl8T2yudvqKvmKlfOrS3uNz+cHLIuwfsIB0MgAZcTG3dDZQqFXwfIZMJ2DV1EoV+jn0EqU/rNGXcjTXlU7hdyuBydaEzG3aZicWIsieW4b5frgDiAwvGR6hYw4LNl/Gdr7xjmyY1Q8L7cNIOyZfI4A/xIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788347281; c=relaxed/simple;
-	bh=1HVX0QznIeEH3Yn+cjpqvVAEiGoY+5zL4TL1ple+vFo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pWgtGtCOXFtgWJfwIN6VpCL6S/wu4diVopSe/cMI3c1hUzuYn7kf8hntifQwQuEx1QILDNHe3UDWIeUrAdzJHrIGAU3rV2at6MiM8lNqLTsJsTFrSwMP/W/tMq45jlHvOLB1ctvdHTo/0U70vnADKau/kWrTGltVLilp5Z+U/D4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=lIDuz1Gp; arc=none smtp.client-ip=91.218.175.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788347364; c=relaxed/simple;
+	bh=OM9XpgSLD1cEcRNRnaH8dcP/FbXFMHG5T6yDaXj7tNU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=CTGqteiaHQkE1zwELivuavC8OPil3T5JrlenQduIupL+VF+OlhaQASB7NhSi4TNl/KJP41UEFnWEWlhB6o2MzpvZ4/DPb45H0mli7Df5vBaH/dZcQdmXYMCzX6PFOmO/dGzUv8PyNJz9ggJuopi6K+VH/x9W3ES/dvX6iql6nvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BzXyrNfp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="lIDuz1Gp"
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1HVX0QznIeEH3Yn+cjpqvVAEiGoY+5zL4TL1ple+vFo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788347277; v=1; x=1788952077;
- b=lIDuz1GpVB3Kunsc4lviuvbGbpug/5XYyhoWAuqLYXy4V7rS/HDJUQAzfi0mitj1mpRH499n
- jtB2PxcBTgfImlIPpnQMtZqZxW1erAGQQxrUpwgJm44BeQdzTG6foqP/c+UqmbKqz1PVDOyUZrF
- 7q4lgWw6hDJI4V7fzgnGsaPI=
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id b9341dd2beae2cd4;
-	Wed, 02 Sep 2026 11:07:56 +0000
-X-Mizu-Trace-ID: b9341dd2beae2cd4
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 2 Sep 2026 14:07:51 +0300
-From: Matti Vaittinen <matti.vaittinen@linux.dev>
-To: Matti Vaittinen <mazziesaccount@gmail.com>,
-	Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
-	Matti Vaittinen <matti.vaittinen@linux.dev>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Michael Walle <mwalle@kernel.org>, mfd@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-rtc@vger.kernel.org
-Subject: [PATCH v3 10/10] MAINTAINERS: Add ROHM BD73800 PMIC files
-Message-ID: <cfea698c783274d26858e85d4ca7068eba3d3ef9.1788346553.git.mazziesaccount@gmail.com>
-Reply-To: Matti Vaittinen <mazziesaccount@gmail.com>
-References: <cover.1788346553.git.mazziesaccount@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BzXyrNfp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E00211F000E9;
+	Wed,  2 Sep 2026 11:09:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788347360;
+	bh=9vqn3XAffMn6BhClpX7JtxO4WPb18LP9ycyftkVIKe0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=BzXyrNfpUMlbCbgYLUjJ7OVylVUM5I/jRXpice8dPKy2Wn283IQHyH98sdSVMHrWN
+	 879/ILZX3zzPhNrBtayi4uTW0aldZH3FqDq23iNZ2B7o6lcXvvPv4CixrGqBqaGZAO
+	 0DjC4TnT46C/mSDSTuJv8ZxJ/lpoQdY/1BZed3jgdi/eavjg4cS0/Jq/Cs9KS/qjrf
+	 FafAiIivuS6YmXcHGmkEggF8xyVenTpzy16Xd7pG5Rnk+QgHFC1imUTz2lmr1Uglqf
+	 RYBB9IvCMK3cChcU7RFCw5c75BUJql55eDHphmepKiWKAsmKtxqLx28JSi6C/7ieud
+	 WrRHwoby4Bq1w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 10/10] optee: Add support for arm,ffa-lend-pool
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vincent Donnefort" <vdonnefort@google.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260902104712.2399797-11-vdonnefort@google.com>
+References: <20260902104712.2399797-1-vdonnefort@google.com>
+ <20260902104712.2399797-11-vdonnefort@google.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 02 Sep 2026 11:09:19 +0000
+Message-Id: <20260902110919.E00211F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="0FeZEPMpasJlEgax"
-Content-Disposition: inline
-In-Reply-To: <cover.1788346553.git.mazziesaccount@gmail.com>
 
---0FeZEPMpasJlEgax
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Use-After-Free during driver removal when releasing the reserved m=
+emory / lend pool device.
+- [High] Memory leak and dangling pointer in global lists on probe error pa=
+ths.
+--
 
-=46rom: Matti Vaittinen <mazziesaccount@gmail.com>
+commit a9ed483b0a922615c4b6f53cf658491bee8ed6a1
+Author: Vincent Donnefort <vdonnefort@google.com>
 
-Add the undersigned as a maintainer for the ROHM BD73800 PMIC related
-files.
+optee: Add support for arm,ffa-lend-pool
 
-Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
+This commit hooks OP-TEE dynamically allocated protected memory pools to the
+"arm,ffa-lend-pool" driver. It also adds reserved memory device
+initialization and release for SMC transport platform devices.
 
----
-Revision history:
- v1 =3D> :
-  - No changes
----
- MAINTAINERS | 2 ++
- 1 file changed, 2 insertions(+)
+> diff --git a/drivers/tee/optee/ffa_abi.c b/drivers/tee/optee/ffa_abi.c
+> --- a/drivers/tee/optee/ffa_abi.c
+> +++ b/drivers/tee/optee/ffa_abi.c
+> @@ -979,6 +979,7 @@ static void optee_ffa_remove(struct ffa_device *ffa_d=
+ev)
+> =20
+>  	mutex_destroy(&optee->ffa.mutex);
+>  	rhashtable_free_and_destroy(&optee->ffa.global_ids, rh_free_fn, NULL);
+> +	ffa_lend_pool_detach(&optee->teedev->dev);
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3a19da74d00c..b0925fa212cc 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23821,6 +23821,7 @@ F:	drivers/clk/clk-bd718x7.c
- F:	drivers/gpio/gpio-bd71815.c
- F:	drivers/gpio/gpio-bd71828.c
- F:	drivers/gpio/gpio-bd72720.c
-+F:	drivers/gpio/gpio-bd73800.c
- F:	drivers/mfd/rohm-bd71828.c
- F:	drivers/mfd/rohm-bd718x7.c
- F:	drivers/mfd/rohm-bd9576.c
-@@ -23840,6 +23841,7 @@ F:	include/linux/mfd/rohm-bd71815.h
- F:	include/linux/mfd/rohm-bd71828.h
- F:	include/linux/mfd/rohm-bd718x7.h
- F:	include/linux/mfd/rohm-bd72720.h
-+F:	include/linux/mfd/rohm-bd73800.h
- F:	include/linux/mfd/rohm-bd957x.h
- F:	include/linux/mfd/rohm-bd96801.h
- F:	include/linux/mfd/rohm-bd96802.h
+[Severity: High]
+Can this cause a use-after-free when unbinding the driver?
+
+The call to optee_remove_common() slightly earlier in this function will
+unregister and eventually free optee->teedev. Does this subsequent call to
+ffa_lend_pool_detach() dereference the already-freed optee->teedev pointer?
+
+> =20
+>  	kfree(optee);
+>  }
+
+[ ... ]
+
+> @@ -1042,13 +1043,21 @@ static int optee_ffa_protmem_pool_init(struct opt=
+ee *optee, u32 sec_caps)
+>  	int rc =3D 0;
+> =20
+>  	if (sec_caps & OPTEE_FFA_SEC_CAP_PROTMEM) {
+> +		rc =3D ffa_lend_pool_attach(&optee->teedev->dev);
+
+[Severity: High]
+Does this introduce a resource leak and dangling pointer on the probe error
+paths?
+
+If optee_ffa_probe() fails after this pool is successfully attached, the
+error paths will unregister and free optee->teedev. However, it doesn't
+appear that the error paths call ffa_lend_pool_detach() to clean this up.
+
+Could this leave the freed device pointer tracked in the lend pool tracking,
+leading to a use-after-free later if list operations occur?
+
+> +		if (rc && rc !=3D -ENODEV)
+>  			return rc;
+> =20
+>  		pool =3D optee_protmem_alloc_dyn_pool(optee, id);
+> -		if (IS_ERR(pool))
+> +		if (IS_ERR(pool)) {
+> +			ffa_lend_pool_detach(&optee->teedev->dev);
+>  			return PTR_ERR(pool);
+> +		}
+
+[ ... ]
+
+> diff --git a/drivers/tee/optee/smc_abi.c b/drivers/tee/optee/smc_abi.c
+> --- a/drivers/tee/optee/smc_abi.c
+> +++ b/drivers/tee/optee/smc_abi.c
+> @@ -1528,6 +1529,8 @@ static void optee_smc_remove(struct platform_device=
+ *pdev)
+>  	if (optee->smc.memremaped_shm)
+>  		memunmap(optee->smc.memremaped_shm);
+> =20
+> +	of_reserved_mem_device_release(&optee->teedev->dev);
+
+[Severity: High]
+Does this also trigger a use-after-free during driver removal?
+
+Similar to optee_ffa_remove(), optee_smc_remove() calls
+optee_remove_common() before reaching this code, which frees optee->teedev.
+Is it safe to access optee->teedev->dev here after it has been freed?
+
+> +
+>  	kfree(optee);
+>  }
+
+[ ... ]
+
+> @@ -1712,16 +1715,22 @@ static int optee_protmem_pool_init(struct optee *=
+optee)
+>  	if (!protm && !dyn_protm)
+>  		return 0;
+> =20
+> +	of_reserved_mem_device_init_by_idx(&optee->teedev->dev,
+> +					   dev_of_node(optee->teedev->dev.parent), 0);
+
+[Severity: High]
+Is there a missing of_reserved_mem_device_release() on the optee_probe()
+error paths?
+
+If a failure occurs later in optee_probe() (for instance, if
+optee_enumerate_devices() fails), the error handling jumps to labels like
+err_disable_shm_cache and err_unreg_teedev. Those paths unregister and free
+optee->teedev, but do not release this reserved memory device.
+
+Could this leave the freed dev pointer tracked in the global
+of_rmem_assigned_device_list, risking memory corruption if another device
+requests memory later?
+
+>  	if (protm)
+>  		pool =3D static_protmem_pool_init(optee);
+>  	if (dyn_protm && IS_ERR(pool))
+>  		pool =3D optee_protmem_alloc_dyn_pool(optee, heap_id);
+
 --=20
-2.55.0
-
-
---0FeZEPMpasJlEgax
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCgAdFiEEIx+f8wZb28fLKEhTeFA3/03aocUFAmqYA4cACgkQeFA3/03a
-ocXk7wf/fv7aGQBmrQLxOgHBApSHfBrtnLYfNs/PJK1KrLJgU82PQ1eosOVB42Id
-DdKz+lGmOMWd7FZbbT5NUnH7dQu8WScXrn0016aNsYpN13dhaUwZMacOAYfrcuQr
-ySclGtVBxKaF9fq8TF5H5XNdI6xZJ4odC0Zyz4pt1aoRayOGqgJvexsg2K3ckI2T
-rId4F/LihCnHT0n3eaSHFWl24J+flFCz//gUr8uA14ufig0gi9y73zceg+V28Qj9
-QDkCe2kr5JRrMeGu0MpjZefGGP6dU9r2P5yzK9gs2vWZkbwGCO9u/09hLTGC6xgG
-wh88iMN5JnRl6ogCm1W1bzvHqtV8gg==
-=rFWO
------END PGP SIGNATURE-----
-
---0FeZEPMpasJlEgax--
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902104712.2399=
+797-1-vdonnefort@google.com?part=3D10
