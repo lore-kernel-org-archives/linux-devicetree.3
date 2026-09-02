@@ -1,152 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA93C3CB2DB;
-	Wed,  2 Sep 2026 07:03:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 604F73BB675
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 07:07:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788332626; cv=none; b=cxY2dYSRMK3t/Szde1C3Vx+CXXdq+jWSOgBAgCJHCcWlOOvOFRDSzREyDTUM3fxDjnpvlyLQCDaNY22NykeHG+1xixm9I+BzKm9NgWEtQMtKzbBbh+XpPhwzO+gLXtoPsJOg7BOOm44gEHkBJnGTJkkjPGxWxKP9are2j7/gqng=
+	t=1788332861; cv=none; b=mBbyOxzqb9zwGxg2afQunKdZ0sI+S8jE5321ozWrEfiLRVZaHxmjl30cs/6+Yx9BHGn+5ExEXy/kTRJAQCKXgmj3sTvLRcQ8Ljd2tD3UfltksoeT/wYDH+49b7wxfstgviFMbyAL5rjO1/udCaK/vxCyUfpdUJtBMCCd2+BOUFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788332626; c=relaxed/simple;
-	bh=N+onsIpN7i1t2Coa7S6kLlV/TfAA5dYVZFHJST7H/6M=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ASum2RSNvROjz+GIzzRAYSIMUfLjUs2gxEnPIOqupipq+Xd/63284ujy2ZLWrGrFLIHS8mLmQE13SymgKmJjSjFyuTABZ5k5kLJ0Ay4qHbIogaDN3Ul6/ckxGFgWobbfMXwK3xzGXLToMrGvLVddl+bgrB3K2BsEOQ/Jeyn/ecU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C5xrr/1y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788332861; c=relaxed/simple;
+	bh=FedWjQDFkhAuQzFzf4Nf1k2L0r5/SaGP2n+Z680dXvo=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=qPP8OajAeppkfLTHuBiiJnbRV7HJVLDyzlbOw5QuO0WHo6a251G17s0ltj1EY6mJ/R35Neezo+OLQSND+GCIywoEUfk7DQnY86cdyY2Zaamysd9PWOtpcrWmYkQCL75G3Ut+3njbxbD2sn06PRZ/6DbMafTtYsPaQ5PGMGAG7O8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Lzl98Kbp; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C5xrr/1y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84F771F00A3A;
-	Wed,  2 Sep 2026 07:03:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788332624;
-	bh=ECyP0docozOqo+POubZUdu/wkpSW+1NuQQaSDOlyVC4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=C5xrr/1ytXtYzOmQDkgsxEFgVBO+EWwU9xcwkIINV7+NLq1Xg47oKjjSGhS4JCym7
-	 omNmZdEE2Pbof35cuFbQrZhddQceCJsvO0oNx/gp1Y5L77sZYDPw3fVQ49Bo45cKrw
-	 ETGVENA7PG+B6Wh8jQtP1b7IpRdHECG4sYNQ1rDZ9lVHEU6RRQ4mTFfdFnfMOHu1jI
-	 TetpSEelH97jEo0fMMT0aj4DK4gu3bNL8b0IrydnTQeMvB2Ib8YOk0RYnA0+IjnfZT
-	 2ZDZbLpLQb3Odr8eOG0xr+8OynLbi2bAcENvtB1cIXAjVXLfsWn4Lu4l3kOGyoR/Xm
-	 BTb31PpUhObSQ==
-From: Yixun Lan <dlan@kernel.org>
-Date: Wed, 02 Sep 2026 07:03:15 +0000
-Subject: [PATCH 4/4] mmc: sdhci-of-k1: Add TX tuning parameter
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Lzl98Kbp"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-47f96c5b722so462517f8f.0
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 00:07:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1788332857; x=1788937657; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8Vfu72tBiiNU8XcM6XXnBVHaiA2eAANag0f1nJhi2+U=;
+        b=Lzl98KbpqgcNS592TLTSehZ2I5f2PNgBtpeXHG52yr4RiDTtGDw18M7/dzDZuGuOp+
+         eJ88Gwt2Ie5rpbm5wSC3DNj/OtvCN3m03gddAxBCyShumPqz4U0gjLZtUPE2E8R6xlBb
+         o9pP9OeAraM7y2kYO6//pdlYnt2NLKjiaE+SYbzMhV90vz9w4SOfRkOGhclvdu0naaNc
+         EC08+6C1bzBjwwguj26j3UdkngKZN1EEPjKKasII17PpYyZTjxvA6JXy9bytJbNgY1mj
+         0uuM2xdO4KeHVjs8STgUkm7p5aPpIsSDzILe6pj4PgzFq+aD+CUq2CLggCZDPZ45A9ls
+         XHOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788332857; x=1788937657;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8Vfu72tBiiNU8XcM6XXnBVHaiA2eAANag0f1nJhi2+U=;
+        b=QAZop0j0GBc413U6apY9FNNV2qXb0aqVjuJYltrpVq3CBCYAPwdCO9vMD7/r7qsSGj
+         Ky6Pl68mpwQAc0Vwmac03/D+Os+8xVoqs4vgExQK/eCrgeH05s+VJWjhCwNKP+77SK6I
+         a1Wsho2wCybX/KlQDBHZ17U8AsRf4OP1lA4OaZfZeFZDdytmOjTXCqi9D6GYoClYUutd
+         WDf1RTkYOga93gDT2NSp6ElKYISz1Bjqru9eE/WC/J+zF1rpeJGJKrMjNNqNDM7VKQmd
+         GMCxal6P+XnA/ve54Id1hFLHNuESDfGClwh6vWewHNsoEtTofDHJ7Yxd44v6u5TxOJsl
+         Z6Yg==
+X-Forwarded-Encrypted: i=1; AKwUvByQ0CXF9K4XCvpa7AhQDVSKgyolaa7PvmNNo0Uk0tbu6HEym4vMCvLaxUf4JB65hoEZX2rDURuWTUTD@vger.kernel.org
+X-Gm-Message-State: AFuF++ksMNU0s4SAOtgbEzVO7S1tcSSTSfi7BrFER53gDGinQ8g+RV2E
+	HCTaeCarAnnVPPp/8niPyY8l98xRvIRuxZe6olH9PMpwr1fw2SFSSB5z57z6nuCxJNa8QBrJzH3
+	9lbyMVS0=
+X-Gm-Gg: AYBFou2E+ZSlOg+sflvj+zY+ePk5RdJbtaNbKoPZ4Xw1ppTeaAKi7e+MDLNBWEHjpF8
+	VRfkIFn4KXdksC0/wA3AAaM6W4AaDOCtk+Nixr/u7MyhMlmbmx7QAtIfQY/UiLwWFMfLu6mNdRQ
+	0G65RSzlkfBDqnWjjHGy5UOLbiJR9F7xU7bkxjuC5m95dsQnilKl56btqkcAP+abNueAKNVjycX
+	i+8bLxSi4QchZbESqaPsrCQL7tJw80z8PCSwePYoR0sASWBseG4rsL2TPCa/ON8bCaV8OJCGt6a
+	8x7PvUocls0xwZaYm6p0+93kn6qTaCsu+bt43ZCX9Bu86HVNQjBbr3oisdYj7VcVi2NRIMwkQBC
+	UK8ZqgFPzvCBoP7RuD7RDuR2JXoh1xp88/bh/Ac0X5JKeccHKCLYCRE3p0J2f2jZeeKz2CyZpkA
+	QMxolWSMQKm9jZQq45+HybFm+/vROr02DXmoTccLwT1T6EOuynZHoTWAtQI1vuo1Cwzbpl2ccc+
+	+oli8Fqv6UGA6GzliECTRLxEL9YfkyhcdHxiGJ0BK8=
+X-Received: by 2002:a05:6000:4a11:b0:484:3f43:4914 with SMTP id ffacd0b85a97d-484914b7e15mr4452356f8f.20.1788332857515;
+        Wed, 02 Sep 2026 00:07:37 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:526b:98c6:2fb7:c242? ([2a01:e0a:106d:1080:526b:98c6:2fb7:c242])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e72df2sm4746752f8f.1.2026.09.02.00.07.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 00:07:37 -0700 (PDT)
+Message-ID: <60c230e4-d138-4522-afa5-07d579c8db5b@linaro.org>
+Date: Wed, 2 Sep 2026 09:07:35 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v16 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260901-x1e-csi2-phy-v16-0-dd863b929080@linaro.org>
+ <20260901-x1e-csi2-phy-v16-2-dd863b929080@linaro.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260901-x1e-csi2-phy-v16-2-dd863b929080@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-07-k3-sdhci-dts-v1-4-4e7909cf4233@kernel.org>
-References: <20260902-07-k3-sdhci-dts-v1-0-4e7909cf4233@kernel.org>
-In-Reply-To: <20260902-07-k3-sdhci-dts-v1-0-4e7909cf4233@kernel.org>
-To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>
-Cc: Long Wan <long.wan@linux.spacemit.com>, linux-mmc@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Yixun Lan <dlan@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2977; i=dlan@kernel.org;
- h=from:subject:message-id; bh=3uz4FJ0LT6upjBL2hQH3AOnAQaSXZgnr5H5kakl7pJA=;
- b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBql8pA1dlln4e0W6rHtxupS1J3C+SpP1K97YWff
- YcOa8a104yJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCapfKQBsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
- maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
- QACgkQMarqR1lNu+2Qyw/+P1hdoqOlwCmm3uJT+I5lCO8Bt/fEREJT4Rdm37SMw2fikHVs3ykU2
- zULPpfPbm2pKJak2kUVTGsakdZjEMPOuoZzU4p/ce7j4o0claO/JUp6pqOlTtqGI9qCjwKDhdTK
- rZjXl/aIEYXiBWr1wT48J4CoZz0gniWbbYihkNFk9Bd8iS2pQkUvqSXQK25uagF9kwmO13ZC/Kz
- 6M62CAq1bnw0lovsov7sKAz3eAH1ZXLgjnu6aqXmqgeWKnflBmv4nbnDVGlbd0WkSLjkgE8sp+t
- 25x763BDANXUPZP4JdcdSVjIIElVSTF1PMJldG57BXUc73NbMc2XvOIMittkgeUo7rFacwX/wd/
- OQbcoJxrUAHSnrYqjCf3+3BcsNVpqaGVCc6dozgNuMjdhsG6pVJ+wj1UNKvqlwj55yRkD4Jdk49
- BtRcAUt2Fzg1hbWPgRW/16n4iwHhx7oHAmR8ymQ34KxeoxHLWuK2ViQXpMIcQJR9eyyvaCz360O
- zEg+zeSpaSbjxIPi4DGnTiJmfuVHxv7aKy1RYj5kkUidd5exYF0r6sNPWuhVIZvzHabc6VcX35O
- fG485+YjnM4nvPWMQliHOLUEWarqeRU9A/qOLthC+KI1OuMUZOuAw0F5i6Q2MispEg1d3vzeshY
- OzJ2/6eAwKnc/Zimv4deW6kRitcPDM=
-X-Developer-Key: i=dlan@kernel.org; a=openpgp;
- fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
-From: Long Wan <long.wan@linux.spacemit.com>
+On 9/1/26 22:15, Bryan O'Donoghue wrote:
+> Add a new MIPI CSI2 driver in DPHY mode initially. The entire set of
+> existing CAMSS CSI PHY init sequences are imported in order to save time
+> and effort in later patches.
+> 
+> The following devices are supported in this drop:
+> "qcom,x1e80100-csi2-phy"
+> 
+> In-line with other PHY drivers the process node is included in the name.
+> Data-lane and clock lane positioning and polarity selection via newly
+> amended struct phy_configure_opts_mipi_dphy{} is supported.
+> 
+> The Qualcomm 3PH class of PHYs can do both DPHY and CPHY mode. For now only
+> DPHY is supported.
+> 
+> In porting some of the logic over from camss-csiphy*.c to here its also
+> possible to rationalise some of the code.
+> 
+> In particular use of regulator_bulk and clk_bulk as well as dropping the
+> seemingly useless and unused interrupt handler.
+> 
+> The PHY sequences and a lot of the logic that goes with them are well
+> proven in CAMSS and mature so the main thing to watch out for here is how
+> to get the right sequencing of regulators, clocks and register-writes.
+> 
+> The register init sequence table is imported verbatim from the existing
+> CAMSS csiphy driver. A follow-up series will rework the table to extract
+> the repetitive per-lane pattern into a loop.
+> 
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
+>   MAINTAINERS                                        |  10 +
+>   drivers/phy/qualcomm/Kconfig                       |  15 +
+>   drivers/phy/qualcomm/Makefile                      |   5 +
+>   drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c | 385 +++++++++++++++++
+>   drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c     | 462 +++++++++++++++++++++
+>   drivers/phy/qualcomm/phy-qcom-mipi-csi2.h          |  97 +++++
+>   6 files changed, 974 insertions(+)
+> 
+LGTM when bindings are reviewed
 
-Instead of setting the TX delay code via hardcoded parameter, configuring
-it via device tree property, which make it able to adapt according to
-board specific tuning requirement.
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Signed-off-by: Long Wan <long.wan@linux.spacemit.com>
-Signed-off-by: Yixun Lan <dlan@kernel.org>
----
- drivers/mmc/host/sdhci-of-k1.c | 25 +++++++++++++++++++++++--
- 1 file changed, 23 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/mmc/host/sdhci-of-k1.c b/drivers/mmc/host/sdhci-of-k1.c
-index e6ab40c9a555..6cab06332747 100644
---- a/drivers/mmc/host/sdhci-of-k1.c
-+++ b/drivers/mmc/host/sdhci-of-k1.c
-@@ -97,6 +97,7 @@ struct spacemit_sdhci_host {
- 	struct pinctrl *pinctrl;
- 	struct pinctrl_state *pinctrl_default;
- 	struct pinctrl_state *pinctrl_uhs;
-+	u8 tx_delaycode;
- };
- 
- /* All helper functions will update clr/set while preserve rest bits */
-@@ -263,6 +264,7 @@ static int spacemit_sdhci_execute_tuning(struct sdhci_host *host, u32 opcode)
- 	int max_pass_len = 0, max_pass_start = 0;
- 	struct mmc_host *mmc = host->mmc;
- 	struct mmc_ios ios = mmc->ios;
-+	struct spacemit_sdhci_host *sdhst = sdhci_pltfm_priv(sdhci_priv(host));
- 	u8 final_delay;
- 	int ret = 0;
- 	int i;
-@@ -279,11 +281,11 @@ static int spacemit_sdhci_execute_tuning(struct sdhci_host *host, u32 opcode)
- 
- 	if (mmc->caps2 & MMC_CAP2_NO_MMC) {
- 		spacemit_sdhci_set_tx_dline_reg(host, SPACEMIT_TX_TUNING_DLINE_REG);
--		spacemit_sdhci_set_tx_delay(host, SPACEMIT_TX_TUNING_DELAYCODE);
-+		spacemit_sdhci_set_tx_delay(host, sdhst->tx_delaycode);
- 		spacemit_sdhci_tx_tuning_prepare(host);
- 
- 		dev_dbg(mmc_dev(host->mmc), "TX tuning: dline_reg=%d, delaycode=%d\n",
--			SPACEMIT_TX_TUNING_DLINE_REG, SPACEMIT_TX_TUNING_DELAYCODE);
-+			SPACEMIT_TX_TUNING_DLINE_REG, sdhst->tx_delaycode);
- 	}
- 
- 	spacemit_sdhci_prepare_tuning(host);
-@@ -496,6 +498,23 @@ static inline void spacemit_sdhci_get_pins(struct device *dev,
- 		sdhst->pinctrl_default, sdhst->pinctrl_uhs);
- }
- 
-+static void spacemit_sdhci_get_tuning_params(struct device *dev,
-+					     struct sdhci_pltfm_host *pltfm_host)
-+{
-+	struct spacemit_sdhci_host *sdhst = sdhci_pltfm_priv(pltfm_host);
-+	u32 val;
-+
-+	sdhst->tx_delaycode = SPACEMIT_TX_TUNING_DELAYCODE;
-+
-+	/* Override from DT property */
-+	if (!device_property_read_u32(dev, "spacemit,tx-delay", &val)) {
-+		if (val <= U8_MAX)
-+			sdhst->tx_delaycode = val;
-+		else
-+			dev_warn(dev, "ignoring invalid tx delay: %u\n", val);
-+	}
-+}
-+
- static const struct sdhci_ops spacemit_sdhci_ops = {
- 	.get_max_clock		= spacemit_sdhci_clk_get_max_clock,
- 	.reset			= spacemit_sdhci_reset,
-@@ -571,6 +590,8 @@ static int spacemit_sdhci_probe(struct platform_device *pdev)
- 
- 	spacemit_sdhci_get_pins(dev, pltfm_host);
- 
-+	spacemit_sdhci_get_tuning_params(dev, pltfm_host);
-+
- 	host->mmc_host_ops.start_signal_voltage_switch = spacemit_sdhci_start_signal_voltage_switch;
- 
- 	ret = spacemit_sdhci_get_clocks(dev, pltfm_host);
-
--- 
-2.55.0
-
+Thanks,
+Neil
