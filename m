@@ -1,64 +1,189 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4648F3769EC;
-	Wed,  2 Sep 2026 08:31:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB9283EA96A;
+	Wed,  2 Sep 2026 08:34:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788337921; cv=none; b=RgiZBd7hBiDv4apwQLT5VURVh3G2cUtikJfzXpLdnYXsFst7QW+z/3qW70/NkzgicUtPqCSUVVDnw4+lHqUm3BdDoS7eWIaP6xgUxaUDXZyX7Syf7qFhnmg1Ws2BIk7aq9vbuKVMGMN30viOzZaqJ3Lu7STAkIdGnhAcK7120g8=
+	t=1788338065; cv=none; b=euz9ALrjGqMcidLwFNFCPJFhgaSuekFy67xGOP2oOpeSirJBl/8vT0CY9PJwLt+t5YZA3fNAWgfFhtF/j26nKmQJHcMtjQdeu5hG3IIbtOygsVNW/VIVpbmAFQNJodcaj5qHEKaIbtC/XVY/Hz1xgM7qggRyU4Xo2EDHLICdU3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788337921; c=relaxed/simple;
-	bh=Xx4b1O5+3PJca6oF04vzkrNOv2G9NhfLmnOqetgImUI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cjOGgMmLPoav4uUzHIg7BHovpLfjXzWmgV8sHvqtH7cA7T3evEq0h1I9ON2WWl937LvMETfvg0B8f3/iubrzJI0IW2dCglLEIe3E6lZmfd9GNARKDK4gmbAmnx0A6dWL0gsNYyjc/HSl1XioIee4mP48AqxcSSWL9WXrjfq8Dso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=laV5BRAu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788338065; c=relaxed/simple;
+	bh=2WkzidgcjnYJCDkNKBnP5TegDiC3HVXnM7QsW+hJHg8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ZNRQITn0erNJYeiqPj2VXSulQe8eNAQJBvi6fZ2Xx2L4ZOJ/1YyGbKsrlD9a1SCgrSngDKdiBBHPUISuFgoLMqplUXbHuI0UAcAo0DFR2k8MF0K1+IcVtjFlAwY5+yvYGPoBn2AWe4bylcX4m1NKFfjcabxhZ2Q1CGSD9yBq00k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=W/9uXJzj; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="laV5BRAu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 177DF1F000E9;
-	Wed,  2 Sep 2026 08:31:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788337919;
-	bh=T9ZeE0QirpKgRV9SeRBgkpSXIWcYubZd5IIxv6IS8j0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=laV5BRAu/DmrwvRGKyDQv+QGUMHyNrZ02642iUfk3zRlTSdvtuk5BfxAWneFTSoJm
-	 5+NSPxJZrYr1V+uqk/967KS+FxpbamxfiOcUFnd3VBjaHZ/jdkacoNs3UTGhURIM5O
-	 ugDduvlI5D7DB261AKAjDXqbSLSmm9feDToKJfr3KH2wsOr6k4atVNcKXWaM8F7pJz
-	 4TKRyAmcclZ5zi3GVdIjzwyPQO0HE6Yc6hLH+/eCj1iWt2FLqKwiPk73x7ARSRzh+2
-	 waXvuRs55afUvFbFV3Mi0lO9qD80pUhgmXnW6Rwif6dA4i6F3G+5ZYdRShC4ebo5Ic
-	 pZno37jntPdBg==
-Date: Wed, 2 Sep 2026 10:31:56 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Mattijs Korpershoek <mkorpershoek@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: phy: Add sa8255p high-speed USB PHY
-Message-ID: <20260902-artichoke-gopher-of-serenity-85d259@quoll>
-References: <20260831-phy-qcom-snps-femto-v2-8255-v2-0-dc6197ffde1b@kernel.org>
- <20260831-phy-qcom-snps-femto-v2-8255-v2-1-dc6197ffde1b@kernel.org>
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="W/9uXJzj"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=TaW7OlLvdAso7FjT/g6CTSjBBSyjti7MbS4f2Vr7Pqk=; b=W/9uXJzj1odwnp0zUC1vEjEupV
+	CnCwwoaOQTJaky9lGJsDJN9YP9juIwUeKTz8W/XXTUaYwIRFRpmc0fbNzKMb7+i/Bz2vJK5iItnMM
+	YTBFfTkkMBXUTwRu+WhOA2Ed5m7wdS87mj4N6mlJ3tDZd30kmapsfRtlWVFaO1+ps7ZDLz9buhJDL
+	oFD5+V49glrUWrGOd+zxoiGqhIRMiPU2OUPxE4oPv9/LYAC2ztb/F6H3JcCcMpwfIGm7mETYC0fji
+	ewBjIx84XrPhBC8I+uRy6qn3H16Gp925++e+6ZPuvZZ8f5RSWDiWBOoQkRS5cH1pSC4RdqV3ZCUhl
+	DKO0vaqA==;
+Received: from sslproxy06.your-server.de ([78.46.172.3])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <nora.schiffer@ew.tq-group.com>)
+	id 1x1fyx-000KR5-0J;
+	Wed, 02 Sep 2026 10:06:07 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy06.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <nora.schiffer@ew.tq-group.com>)
+	id 1x1fyw-0006It-1l;
+	Wed, 02 Sep 2026 10:06:06 +0200
+From: Nora Schiffer <nora.schiffer@ew.tq-group.com>
+To: Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux@ew.tq-group.com,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Nora Schiffer <nora.schiffer@ew.tq-group.com>
+Subject: [PATCH 1/2] ARM: dts: imx7-tqma7: correctly specify PMIC voltage constraints
+Date: Wed,  2 Sep 2026 10:05:37 +0200
+Message-ID: <9a916f24b610cc60e0efd13296f281e00b41391e.1788335665.git.nora.schiffer@ew.tq-group.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260831-phy-qcom-snps-femto-v2-8255-v2-1-dc6197ffde1b@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28111/Wed Sep  2 08:24:01 2026)
 
-On Mon, Aug 31, 2026 at 11:31:21AM +0200, Mattijs Korpershoek wrote:
-> SA8255p platform abstracts resources such as resets, clocks and
-> regulators in firmware. The SCMI firmware exposes multiple protocols to
-> control such resources which are identified by protocol_id.
-> 
-> For this USB phy, 2 SCMI protocols are exposed by the firmware:
-> * power domain management protocol (protocol_id=0x11)
-> * performance domain management protocol (protocol_id=0x13)
+regulator-(min|max)-microvolt refer to the supported voltages according
+to board design, not the possible range of the regulators themselves.
+Update the configuration for the TQMa7x's PMIC and also add a comment
+regarding the PMIC's VCC_SD switching feature.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Fixes: a80a1af6ec8a ("ARM: dts: tq imx7 common board support")
+Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
+---
+ arch/arm/boot/dts/nxp/imx/imx7-tqma7.dtsi | 40 +++++++++++++----------
+ 1 file changed, 23 insertions(+), 17 deletions(-)
 
-Best regards,
-Krzysztof
+diff --git a/arch/arm/boot/dts/nxp/imx/imx7-tqma7.dtsi b/arch/arm/boot/dts/nxp/imx/imx7-tqma7.dtsi
+index e1f740edfb763..7f49c80fef4c6 100644
+--- a/arch/arm/boot/dts/nxp/imx/imx7-tqma7.dtsi
++++ b/arch/arm/boot/dts/nxp/imx/imx7-tqma7.dtsi
+@@ -46,8 +46,8 @@ pfuze3000: pmic@8 {
+ 
+ 		regulators {
+ 			sw1a_reg: sw1a {
+-				regulator-min-microvolt = <700000>;
+-				regulator-max-microvolt = <3300000>;
++				regulator-min-microvolt = <1000000>;
++				regulator-max-microvolt = <1225000>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+ 				regulator-ramp-delay = <6250>;
+@@ -55,34 +55,33 @@ sw1a_reg: sw1a {
+ 
+ 			/* use sw1c_reg to align with pfuze100/pfuze200 */
+ 			sw1c_reg: sw1b {
+-				regulator-min-microvolt = <700000>;
+-				regulator-max-microvolt = <1475000>;
++				regulator-min-microvolt = <1000000>;
++				regulator-max-microvolt = <1000000>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+ 				regulator-ramp-delay = <6250>;
+ 			};
+ 
+ 			sw2_reg: sw2 {
+-				regulator-min-microvolt = <1500000>;
+-				regulator-max-microvolt = <1850000>;
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <1800000>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+ 			};
+ 
+ 			sw3a_reg: sw3 {
+-				regulator-min-microvolt = <900000>;
+-				regulator-max-microvolt = <1650000>;
++				regulator-min-microvolt = <1350000>;
++				regulator-max-microvolt = <1350000>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+ 			};
+ 
+ 			swbst_reg: swbst {
+-				regulator-min-microvolt = <5000000>;
+-				regulator-max-microvolt = <5150000>;
++				/* Not connected and left unconfigured */
+ 			};
+ 
+ 			snvs_reg: vsnvs {
+-				regulator-min-microvolt = <1000000>;
++				regulator-min-microvolt = <3000000>;
+ 				regulator-max-microvolt = <3000000>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+@@ -95,18 +94,25 @@ vref_reg: vrefddr {
+ 
+ 			vgen1_reg: vldo1 {
+ 				regulator-min-microvolt = <1800000>;
+-				regulator-max-microvolt = <3300000>;
++				regulator-max-microvolt = <1800000>;
+ 				regulator-always-on;
+ 			};
+ 
+ 			vgen2_reg: vldo2 {
+-				regulator-min-microvolt = <800000>;
+-				regulator-max-microvolt = <1550000>;
++				regulator-min-microvolt = <1500000>;
++				regulator-max-microvolt = <1500000>;
+ 				regulator-always-on;
+ 			};
+ 
+ 			vgen3_reg: vccsd {
+-				regulator-min-microvolt = <2850000>;
++				/*
++				 * Specified values refer to 3.3V operation; voltage for 1.8V
++				 * operation is derived from this.
++				 *
++				 * The base board should usually mux GPIO1_IO08 to SD1_VSELECT for
++				 * automatic switching of SD card IO voltage.
++				 */
++				regulator-min-microvolt = <3300000>;
+ 				regulator-max-microvolt = <3300000>;
+ 				regulator-always-on;
+ 			};
+@@ -118,13 +124,13 @@ vgen4_reg: v33 {
+ 			};
+ 
+ 			vgen5_reg: vldo3 {
+-				regulator-min-microvolt = <1800000>;
++				regulator-min-microvolt = <3300000>;
+ 				regulator-max-microvolt = <3300000>;
+ 				regulator-always-on;
+ 			};
+ 
+ 			vgen6_reg: vldo4 {
+-				regulator-min-microvolt = <1800000>;
++				regulator-min-microvolt = <3300000>;
+ 				regulator-max-microvolt = <3300000>;
+ 				regulator-always-on;
+ 			};
+-- 
+TQ-Systems GmbH | Mühlstraße 2, Gut Delling | 82229 Seefeld, Germany
+Amtsgericht München, HRB 105018
+Geschäftsführer: Detlef Schneider, Rüdiger Stahl, Stefan Schneider
+https://www.tq-group.com/
 
