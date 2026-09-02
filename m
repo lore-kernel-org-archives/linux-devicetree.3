@@ -1,56 +1,56 @@
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com [209.85.218.70])
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17649440657
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33BBC463B74
 	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 10:51:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788346281; cv=none; b=sd9oZovkjr0uSYvU/kNpLvlQevFtPysy58xOv5Ww1hqfdU+o99b7eSp8AI8D4z2DHPsXpDSwfSEVLFwuJx72TdQ8t8mxoL3zNGCApMVDr6x0aeMZ3rNkPjW487V3Xi+0qd4rwc92hqIA9WVLysMrfWdT0tSg6A2IjSkNbpIm4M4=
+	t=1788346282; cv=none; b=DkooAG8VJruTGgOLPUxPChQYpMaz0nXAHxFBvnDmz8YocdjsEx+zENKqMRymS6m807dHlBnB0lA9TG87QUA9sQuZ5QtLeXGviG9iq/tGx3nPKPKQHW+TAHMEZVpM5V12NclGfF2H1fjKz1qzu/N3Y1p2KAg+7UEaXGMCtQT9joQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788346281; c=relaxed/simple;
-	bh=NRJjfa1oBWJjVwi9irw8swmUSNokXjGSiq7EU4Eu/kY=;
+	s=arc-20240116; t=1788346282; c=relaxed/simple;
+	bh=Hjs9VwVCBCQIR9TgAq/HTqzG2ZG5eMRL2SHfgwqwO1k=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=dy75SHzG1W/iO2AAHlt4hN8G3qwDjsRqIzljzlREOXbesGjEwvN2REk0ab64biJsTbNl+xrR9mLQqUMl5mzRKu4QtiTjnl2ZavPk+bhuVSDRotW13ChUqjB1fdQr+GPlNKEBYBahKlkD+CSEj6PExqSrczQAD+2+9sYh03aw4OA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=cO7KfsSB; arc=none smtp.client-ip=209.85.218.70
+	 To:Cc:Content-Type; b=tfLDrXtqlCtkP5ZfnRxurJc616g89JEaMZPDWDqX9ddzjiqT1YRAXP66XwfL1bv/NYwfZSdif7HPhMC8fKHyENCiMX/RM1Rdx/wCpI6GRPuWVgYwoUhCQK165y2vIi/tcJzPPneP9BNS33puTYnpBUxGo3ZMtWVdiOCXdIMc8is=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kiMguIVT; arc=none smtp.client-ip=209.85.128.70
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="cO7KfsSB"
-Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-c217f249fa1so87663666b.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kiMguIVT"
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49b0d7a07acso9706715e9.3
         for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 03:51:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788346271; x=1788951071; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1788346272; x=1788951072; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=nz0QJrsFl6sXg/0SkB/zVAyOBBHBg8ebGgd7F8eNZsM=;
-        b=cO7KfsSBhWdHUdklyHVOD8n38JwBqFaDAP4bFvmqCT02FYqDHQbd21SZuC+fR9k4ke
-         ESqExeNF5vdjwoxAo/77kdmphTpAlvF6Jx5KnDU21W3ZWNJEtwwY3Z3lCQd4PAGznQbR
-         wsVcX3DqMPThOg5XJNaskHeBI5yYOueLDKtoDLVOi8IUgpdfGPYyVuZHVAAKfYC1TkYM
-         epye+3GTc9bFSNHkyvZC1qpGZa8IDHWrBTAkWavytV1TQdBGGnNypQlJ/nr3kQale66W
-         eoPv7tZc2qDD1NYn/Mn3elZsMffypFBjb44jLK8MPaBtwWNZvJKgrrbgeyy5ppO7H8OQ
-         Hu/g==
+        bh=E9YJxK+goKseFQhyyU1kBZycBjFaImkJiX1HLmgsMgs=;
+        b=kiMguIVT7KzOSC5cABj1WESBPpg0uMN4MhvNtNig7Fb9XE8B3ecCYb3o2QdVVPXKqG
+         ROlh2StWi+idCLz9/0WmoQX4ydjGS//oNMlM91JijcdjvK0FkqPTOKiI9JDwf68RxuUU
+         UhvVKyNiRnvDcIGAHgmF7rijYg8y0RwzvwUQT07P2383dCGQkyiMcTzXH0AnQubrAOpY
+         BBTpVRatJz9umvvihCsfGbtY2BMkZ+jnDxBb+lTPK2Fa1rjvhpHFF3l9+FJNj04a+BS2
+         3efI9ttI3cKWZsO3duUXbFIoUejmdck5Z4DUmNqtT+GTzkINisn4QZX90LMeUl3EV1xq
+         Ou0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788346271; x=1788951071;
+        d=1e100.net; s=20251104; t=1788346272; x=1788951072;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=nz0QJrsFl6sXg/0SkB/zVAyOBBHBg8ebGgd7F8eNZsM=;
-        b=I/TVP4FzFE0DqxSpXK1pBfBcA8xDl2PSOhLEXGFDwDM5jAxG5+XN9V8oWX0Wlf/qg0
-         tu305ZPP8abb3Fx8CK70gVKqOxtJlHN3G7z8DHw0gzBmKCZaJ8z72xBi8zxkJlxxOa98
-         A+0r3nF7ZWqHK4DRzpXnn3bvQnHn9mvTKTCsDG8+ESxjQ7xGVCoB/cvVw2yblaqLwZdL
-         qhlCMkaJq9YlX1lOFBB0Ok1yWCh/1A23ovD1TVGzP2zcYyXnEdViO8NXFt0BxDhYOz+Y
-         qibUFk5t2wQzgD+lrRFRTgK2enn7J2wZj5f53H2aYB21lBtYXeezi0U/MECAvSz1ZH+S
-         xbWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw5wrjBb2EF8/iaXC81CIWcJUWJGyD6OcauTYG9M2eHjwXUywz3LWu9hrLjUHoYCohdDEgtGbdCmnrG@vger.kernel.org
-X-Gm-Message-State: AFuF++m5TsuvF5GcfuTl3o7A/BWvKwuq9iuL9/sFSXKfcSkR79HIclbL
-	p0XwWeNZhehKGysZJeq97W0shytWCBXYxrH+1l9BE9j1stit5XGKGYdFZXCLNZ3iN65KNJc13QO
-	6CFRsRfAirduuveDzXZS/1A==
-X-Received: from ejcz24.prod.google.com ([2002:a17:906:2718:b0:c25:3006:b1a0])
+        bh=E9YJxK+goKseFQhyyU1kBZycBjFaImkJiX1HLmgsMgs=;
+        b=K/yyYjkgh8oSauRwmeeqdC6boLaqFDjfcTsxvMUoYvbZxQilRuUCw22zjeVf0jTgXd
+         h4pxkby3oveLKB11USUtqO0AbLBNmL+99/kNqiNMdONforsV9hxXGyWQhaHwKF2xn0Od
+         uzW961EyJiypDiTg89+hxUik7ZULlK9Ofx5s/6T5Fd/axIG7BeLAiePcmA4hJgIo82y1
+         JiAGieXxvbJgfntGMQ4EQq8uKkHa2/roEZvX45qRx7ufIPtdvZkNk3wL195Nn8xi1JEz
+         ciAabkVNKfMiOOYO2RrsyD0s5TUYnxqDeEL3VReSD+hlNr/7OULz/t3JkwkHFL/O93Uc
+         vt9A==
+X-Forwarded-Encrypted: i=1; AHgh+Rp/JbK0Pl1yoInnuIjJ/d2rLQCvSeTwXM9oqmTZ2CCzd4Pj1Ci81ktxQ3VCXwQiOQV2qIukCCaI1AtW@vger.kernel.org
+X-Gm-Message-State: AFuF++nvKCDfMs4fBs6RvQgfdLk78FuItIPXggxwYCCsWaAeyMaJWlrQ
+	JXORDb0N8ApHNRcLSr/ehtJU4ujT5vDQuDc4XrYFSzIS72kxnE1mODeF0RkzS91y7HBgjz443rt
+	DoXa7wAMKAxGXxzdBTlW5oA==
+X-Received: from wmik9.prod.google.com ([2002:a7b:c409:0:b0:49b:e83:a666])
  (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:907:807:b0:c15:f598:60c0 with SMTP id a640c23a62f3a-c25d544f52fmr257827266b.4.1788346270231;
- Wed, 02 Sep 2026 03:51:10 -0700 (PDT)
-Date: Wed,  2 Sep 2026 11:47:05 +0100
+ 2002:a05:600c:4e44:b0:49c:dcf8:5216 with SMTP id 5b1f17b1804b1-49ce57e7f55mr71897835e9.6.1788346271508;
+ Wed, 02 Sep 2026 03:51:11 -0700 (PDT)
+Date: Wed,  2 Sep 2026 11:47:06 +0100
 In-Reply-To: <20260902104712.2399797-1-vdonnefort@google.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260902104712.2399797-1-vdonnefort@google.com>
 X-Mailer: git-send-email 2.55.0.970.g62bdec98f9-goog
-Message-ID: <20260902104712.2399797-4-vdonnefort@google.com>
-Subject: [PATCH v9 03/10] set_memory.h: Introduce can_set_direct_map_range()
+Message-ID: <20260902104712.2399797-5-vdonnefort@google.com>
+Subject: [PATCH v9 04/10] set_memory.h: Introduce __set_direct_map*()
 From: Vincent Donnefort <vdonnefort@google.com>
 To: catalin.marinas@arm.com, will@kernel.org, rppt@kernel.org, 
 	akpm@linux-foundation.org, sudeep.holla@kernel.org, jenswi@kernel.org, 
@@ -73,40 +73,53 @@ Cc: mark.rutland@arm.com, sumit.garg@kernel.org, ardb@kernel.org,
 	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-While can_set_direct_map() tells whether the direct map can be modified
-globally, can_set_direct_map_range() checks if a specific range can be
-modified. e.g. if mapped at PTE-level.
+set_direct_map_*() implementations verify wheter the direct map can be
+effectively set. This verification can be costly. Add an "advanced" API
+__set_direct_map_*() where the direct map is modified without any check.
+The caller must have verified it is safe earlier with one of the
+can_set_direct_map() or can_set_direct_map_range() functions.
 
 Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 
 diff --git a/include/linux/set_memory.h b/include/linux/set_memory.h
-index 3030d9245f5a..88175c3fa751 100644
+index 88175c3fa751..5a1917a3fd52 100644
 --- a/include/linux/set_memory.h
 +++ b/include/linux/set_memory.h
-@@ -44,6 +44,12 @@ static inline bool kernel_page_present(struct page *page)
- {
- 	return true;
+@@ -34,6 +34,15 @@ static inline int set_direct_map_default_noflush(struct page *page)
+ 	return 0;
  }
-+
-+static inline bool can_set_direct_map_range(struct page *page,
-+					    unsigned long nr_pages)
+ 
++static inline int __set_direct_map_invalid_noflush(struct page *page)
 +{
-+	return false;
++	return 0;
 +}
- #else /* CONFIG_ARCH_HAS_SET_DIRECT_MAP */
- /*
-  * Some architectures, e.g. ARM64 can disable direct map modifications at
-@@ -56,6 +62,14 @@ static inline bool can_set_direct_map(void)
++static inline int __set_direct_map_default_noflush(struct page *page)
++{
++	return 0;
++}
++
+ static inline int set_direct_map_valid_noflush(struct page *page,
+ 					       unsigned nr, bool valid)
+ {
+@@ -70,6 +79,22 @@ static inline bool can_set_direct_map_range(struct page *page, unsigned long nr_
  }
- #define can_set_direct_map can_set_direct_map
+ #define can_set_direct_map_range can_set_direct_map_range
  #endif
 +
-+#ifndef can_set_direct_map_range
-+static inline bool can_set_direct_map_range(struct page *page, unsigned long nr_pages)
++#ifndef __set_direct_map_invalid_noflush
++static inline int __set_direct_map_invalid_noflush(struct page *page)
 +{
-+	return can_set_direct_map();
++	return set_direct_map_invalid_noflush(page);
 +}
-+#define can_set_direct_map_range can_set_direct_map_range
++#define __set_direct_map_invalid_noflush __set_direct_map_invalid_noflush
++#endif
++
++#ifndef __set_direct_map_default_noflush
++static inline int __set_direct_map_default_noflush(struct page *page)
++{
++	return set_direct_map_default_noflush(page);
++}
++#define __set_direct_map_default_noflush __set_direct_map_default_noflush
 +#endif
  #endif /* CONFIG_ARCH_HAS_SET_DIRECT_MAP */
  
