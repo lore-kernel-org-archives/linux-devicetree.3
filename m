@@ -1,187 +1,163 @@
-Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA593E92AC;
-	Wed,  2 Sep 2026 08:43:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.159
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23B5B3EC82A
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 08:44:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788338602; cv=none; b=Ml2HBahnt09z/m5Hs4aGEdJZ+EmCGIqU2d/QGkU9KHbbBG1URVvxU2828Mf09VFwrm7OJPIs/ybxjiqu0jC+jWywAwvErQgR0y1vb4IJIKee3iiusFRnvEAwj9tZ/w+nh9dsvgWVT0NMmEOQhe9Douh3pvjIMakSR8sTfOnTAFs=
+	t=1788338648; cv=none; b=g3RGl5lDo4jcDYaGdKXnRS89Mr4PjXslZ0K4x3sfj+Mzf4x0I8RGHq0DAY1+AjckNcRUY7AJt9G+fhxAI/ervJuICgnOqtPtl0Jyzq4OJUpEDcbNlx1jIn/NjH05RJ5bu0nAB9jGUD161Tnj8+U2yLUQGFuJPFHTNQMf4unV43g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788338602; c=relaxed/simple;
-	bh=fyo65rgi1I4XoYNMUJbJtRo49/ATU+C0glxBdqh4WeI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rcG2BSkDvVO784rZ+wAIHl7g9VgZc1vWWGFJfyIOXLCalQiUUPabZX6HplMk2u+iX+2uLlN/x6brZTNvKe4OKXtfqyF6YqO95KdaXzAv+Fzs7l7hkf50x+SQ4MJtatPnVOgTD0at9Jq29N++qB9Fhs7dRq4RWOqDqkzesmtBT2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=XptBUvUP; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=E1ubXtQs; arc=none smtp.client-ip=103.168.172.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	s=arc-20240116; t=1788338648; c=relaxed/simple;
+	bh=GstLgIHtvyFTm90ArYuPevwty0lzfMMUujZRrcj/Sfs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=V4zPHm52latMFt0jvHPspxhhEb+Ud3pidu7IFD4jR+WlLd0wbN//7GSn1BU/pB2JG4V6AuSykxE7U6HN/vaJZDUzGIYH0tjbo8gxdRP4b1E+baXBL5NevAQvCYQ+kenzhzDtej+OgtVGwFsBLCUyMc5jgegAkYlXwtn7xg4oD18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=h0JcRGmO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RqWu8kW4; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="XptBUvUP";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="E1ubXtQs"
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 7BB00140019D;
-	Wed,  2 Sep 2026 04:43:19 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-12.internal (MEProxy); Wed, 02 Sep 2026 04:43:19 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1788338599;
-	 x=1788424999; bh=w23wXmKVstOydYIXHqk7q3E1FXLx5/jPKALPPrzHhNE=; b=
-	XptBUvUPqbsW81DaMTJyCH2pe/TKX4RFl8XgCPCK0vyQfYSK8E4sF1J+JimHaKn/
-	aB98LNJQxC8lw/6wAA9/Fhu6MxEQFtcKLR8OkBpYsgmVUAcsByA3YLECXs8daK/G
-	DO/BTO3W9FWsDzl2orzQHtT4+Ahst0Oi257Ei281kNDSTVVmV0+59wRDp2+pdxZF
-	P9CPIe8FMReKPRC4NoX1qbs3QO4sgRAkpSj/m3MNXqbRA1+xV/hCdltQ7a1HjSas
-	Ko4q5o20wGtwfvHe9TpekKYf28SzE9VtzPVBytFKTk1dH2y4k8ILlb1z+iTUQ5u2
-	LA16D9pNycXpoX3wcmOW8g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788338599; x=
-	1788424999; bh=w23wXmKVstOydYIXHqk7q3E1FXLx5/jPKALPPrzHhNE=; b=E
-	1ubXtQsY/yILapAykumP8hjbhF4ta4eAtwuJDeNcldDhU6QwZtI3ja0rCjvRRklg
-	wMQW6EVRfLnx94bhAcrRnAnkuU8V3bDn1m/TlS44wAOqAbRZsPlBM++g5pDYXyES
-	MGuJD5Rnxp7685VnAm8CpSEYSW6juh6pe8/Ss2GmdoXvJcalknqnVvvld5YLTf2A
-	/vJU7MNk99oMYI6izutPE/1xkyHhYRzBUXLGnZWs6m9Z9/7PFtaoZnz+fn7kgUMI
-	pTGVHKRFUO+daXt4F4LGCMz+9fQamLeFbsPt5xwLeDsSFkwlsJUE+/3wNB8Q/Jwc
-	aN4zcKJCsrHItN/s7LYYw==
-X-ME-Sender: <xms:puGXahpTE3lPiD74vPR36WDJR3xbba7m3ayfgTIWliWYab5q7XGpfg>
-    <xme:puGXav-HXb9rtoRyNAdT-zSZ1FLtka-0yAI1Iajea_XUBknrS3LUvWJq123rBK5OZ
-    -8C3OVkD46vItkUopD7M4aYVl6HQ0BpYMlQpvNiVsQEe87jRXm13Wqd>
-X-ME-Received: <xmr:puGXav2jC7594WKpq9H4XKeTywV5YQRDMisuNZi1bdmXTPVbZNP30DVwZ_rKGKe3Jt02p1yp80tr71ywNsyDz0Fmrl1GMdE>
-X-ME-Proxy-Cause: dmFkZTGYV+Ldz7esYSoFXwSPlhFRnbZaD5qMVT7+OomT+XznTE+/fJaRljD+EMvmqL2YcZ
-    8TP1DE+xJ8yXZ9BeO5K71Wjl5RKPAgd7dtMPDMQDY1rBCNwTP5ukqWfg6olYQRG8HxS5Oz
-    m8KJkJWp+d2fjbdqHuRs9Q4w/aV5v+pCY0QbfATEZR0HTXgcA0wbem9a3PJ/12T7KzHa2J
-    BiamUDVYBV8B+y/KRIpvWEkTzgB2o1R7E/x+OMQ1T3+iVJ6KVG3zehdCWseapcvD6PxWVz
-    +ymzb3AM0IqXXBk9n4msnFRcF1vb2zWpjvJKWqgkdFGI73TOL9cMkuoGAnLRdMOSPBO8O7
-    vdBY+UT5DXeCX3Ueitvkci3HzQ+fCrLH0ceeInM3JWvzfn80iVX3lRx+sUWAzX7RukSfOj
-    RL0ln5OXxFOIplivo8L3pdB82m+7lccg6Cbme1qFjdnaXh2vrsILTt0scUqFEzlxYINTMc
-    EJBxrXYIR3Y5J5zzfTzcy59f5HYZdnkAZ/sZc4hQIfdbifsrvlSCWn36c/lG6CIwxJsDkM
-    mPj05wYvM9zS1bomUE3NdC5oeQKhBoJYK/e49zAFN7y5l210nc48N8s3shTU6IuqiGPdTe
-    yboaDVkHMeLcdgn00NMWgRb7MS1hIbcvl5PG2fty5PExdfiyCP60c5p9Nejw
-X-ME-Proxy: <xmx:puGXaqDfyjwycDlBOXmRxd8WiFrhxaE7NTXH9x-iU5E8w5SwtH-HHQ>
-    <xmx:puGXamCTrNH2B_rjmwufwBYlBAlvLTJfMGEOyA8C9qBgZ85kdFE4bw>
-    <xmx:puGXarPYCJJvJXU2ORxk6pYG7r3RX0kPtNuhOSIna76qGZBplCBzrQ>
-    <xmx:puGXagPJOCzS_rvJDovoErKeag-udyKhLnMg3ef029cUgmNHLKEpXw>
-    <xmx:p-GXalZkK4Wq_ysH09gz4YfjuIkvp_SCOP6hfr_QztRFpNHGJ4pd42GK>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 2 Sep 2026 04:43:18 -0400 (EDT)
-Date: Wed, 2 Sep 2026 10:43:16 +0200
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-To: Sergey Shtylyov <sergei.shtylyov@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"DavidS. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH net-next v2 10/10] net: ethernet: ravb: Add gPTP support
- for Gen4
-Message-ID: <20260902084316.GD1116206@ragnatech.se>
-References: <f140a168-0f92-4507-bf07-f5297ad92159@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="h0JcRGmO";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RqWu8kW4"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6826WiLV695766
+	for <devicetree@vger.kernel.org>; Wed, 2 Sep 2026 08:44:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	i4OzhxkrdUBOFLLFsotE5mVozTuaUx95en4vSNcnE/g=; b=h0JcRGmOW3yXBfJ3
+	Jwg/N1/SmEx2X+CMj+1kJeGOLtnZ0m3Hzy7ubZpgM3LSK5QO8HNKhvVDxFOTFL+n
+	cdKpYpumJFH8c12HE2yzjcbcsPSkXkpYoHbCx6wqEzWdGOad2n3eYt/By4kq8tsm
+	qXgWaWidssOkHkYai8YrCFKBDW3Lnrmj8tiwsYd5vzPPMq+xZuMBQUsNZtiGvdpa
+	mwVGB9FXu2w5aUUaxzAuIKl6Ssexe97sB8v3UzobuhuBSunsQ87miV0XuqtsCw7s
+	uSXJ0Se2Xbu5nXqkmc31W5BnQ793GX4bG38y+9NTNTkNPD0zie7MiSPiUNCfr8XH
+	TjG6ng==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4geb5618kd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 08:44:04 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51c9e97b626so1558141cf.1
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 01:44:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788338644; x=1788943444; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=i4OzhxkrdUBOFLLFsotE5mVozTuaUx95en4vSNcnE/g=;
+        b=RqWu8kW4mibLbWR2nI27m6CTBrK+YdZTF0Ros9FFWM8hZEa+bxqJuX2fvfy4iMiNM/
+         SJZm3Mv8aNvjZX8uYH8xp2d8DN64dx1SIRWNpdmDTeNdZM759+MjBv6E8dU75SANr4eT
+         9X7JlfefvFwr9l1W0rdLY+ncmoOETMFOF3CatAQ57pnI3IGXBjN9Su0/BpW2UVIvfgD5
+         KldE5+nMLS33CHf0iPWjvBEfOqio8QU7V+RjJyBKVq8DEBOqYCztV5qzWODN9r0EbzCE
+         TknEcrOOjTGT48EyxHMC0SiVvKuL26dLJOlOm36C2IzQY7pf7cS2XSCiOLe0o7xRm+3L
+         4y8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788338644; x=1788943444;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=i4OzhxkrdUBOFLLFsotE5mVozTuaUx95en4vSNcnE/g=;
+        b=fowQkWMmHunlTKA1VVGdalAF/JVN3qt6UB8o9fxryR1+dBD9HB7Jrqg61AVsfwhep1
+         TIqlhacHtH38TnLfLolQk+R5cCB5gIckWuRN9qPiPAFTetd7jCYXhCXGUGthogwQ0C3d
+         kkoi2AIjJdsx6Z7OuXmO+A3xnFL7uGZUMLo5cSuHd9OXnVYVjkSxO6lD3qH8z3yzgcdR
+         NOBOXyQHas65qlyEN0xi+1DV63iTOLr5GJkqVnu4Iqg3DW+cZtcFUI64bS8oQekjPDsS
+         TYu3690AVHbOEHM+oto90MvvIYzLCZCXxheCZhsZNTTIpGur49uxRGqM8cNTl8H8uZBy
+         rflw==
+X-Forwarded-Encrypted: i=1; AHgh+RrgYs2CuYoov00mMPm/6r+QE3RcMuLvgGFRTBNEbiUzR1OfmwyAoho9//vmQSrCaNhzhW1ARJlgJ7I/@vger.kernel.org
+X-Gm-Message-State: AFuF++n6ljJkka1cE4Rz/WqVbuCRZLFR6HUPNZ3bG2YN4PxX/jIDEih/
+	8Eiz0tvNlQHSvJtqU5iZf3zeRGhBMq5wB4y1Zm5O0cRIZWN11jMCmkSjT3HdciNLv6o1RDhr7NK
+	KyItVxpVsD0DBadmjgChP/q7ouy3E4KAXxGnw1cFEZTbPIHMrVWfbbsN2GL1Wsets
+X-Gm-Gg: AR+sD10zWAbxsgCpNSfC6hWvC6+JqZbVqranRxOQJrMhjTBO+CWYytXx2ZMeVSe1tYx
+	IEo3IbTRvyAu7MIj0d3jAYQrceuLxgjlyU2lo1CY1NeLcWMtY1XXgNzBEz6O+RfGOxGtdCkJeEL
+	dwrr6NWC2AmB09S+HyCm1TZuytb5Mi55guYygfjr8IQSaakEPDU17ggdCTo1MoKHk2ExJZ9NZaH
+	T4/ZB0iEvocsm6hH/eGunnRkx+WCyQ/O+HWwxX1Ba6lYhWz9TiTYtykZzrQwWfPSbR7A2SgeCWB
+	MWLOSOGdUpgs6+qsxraWzIC2GHBXAFQKJJ5Y/fPkVJerMjG13Z+l3I6BvrY22NUNXcAWt4z+iKF
+	S4CCMrFpIzySrGr1LRNlOZA==
+X-Received: by 2002:a05:622a:115:b0:52d:9a83:419d with SMTP id d75a77b69052e-53036992976mr22276371cf.0.1788338644093;
+        Wed, 02 Sep 2026 01:44:04 -0700 (PDT)
+X-Received: by 2002:a05:622a:115:b0:52d:9a83:419d with SMTP id d75a77b69052e-53036992976mr22276031cf.0.1788338643648;
+        Wed, 02 Sep 2026 01:44:03 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a67f895e14sm673780a12.3.2026.09.02.01.43.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 01:44:02 -0700 (PDT)
+Message-ID: <8c2eaba0-c1bd-4db0-bbc8-5ae3b3d9a13c@oss.qualcomm.com>
+Date: Wed, 2 Sep 2026 10:43:56 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <f140a168-0f92-4507-bf07-f5297ad92159@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] PCI: of: Avoid config reads for disabled bridge nodes
+To: Xilin Wu <sophon@radxa.com>, Bjorn Helgaas <bhelgaas@google.com>,
+        Andrzej Hajda <andrzej.hajda@intel.com>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Robert Foss <rfoss@kernel.org>,
+        Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+        Jonas Karlman <jonas@kwiboo.se>,
+        Jernej Skrabec <jernej.skrabec@gmail.com>,
+        Luca Ceresoli <luca.ceresoli@bootlin.com>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Bartosz Golaszewski
+ <brgl@kernel.org>,
+        Linus Walleij <linusw@kernel.org>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+        Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>
+References: <20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com>
+ <20260901-q8b-dts-v1-1-7de0b6a73d08@radxa.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260901-q8b-dts-v1-1-7de0b6a73d08@radxa.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA3NiBTYWx0ZWRfXyo6H3cXcnEYt
+ hwCbc7bQ73EstkU8AxR4YTTgfafdYHEdov4vGPvsULEBjn9AEhnwkB3tGXMKx0eah7u8gED4yv5
+ ZKamsPs+bTfsGqKDWA0Ob6xn9LufHE8jR77dUNpmgGPctG1i6ZmGUbe/J0KFasdHwmOs2TzVVnr
+ Zs5N/nP2SLhOlw3Rgmkuuf1YOBHJkE2z36LJod0TYtv+qrVuxq50JT9k5cIEALTWPop6w0A1tMb
+ uVYN0ZRxZ13fdVIfs0FJmJLDASFrUJfP6Kzj60KlW8P4/g+Xh1tTqsDQj04IkQsKJ1aCiGwgjvk
+ yVC3jT/ATRgPwGIYBhepPvhiGbyD1fKDuXtOsMR03WtWzJ+ynjbLsb7FhJhS/jCQHxH5cZf4Ix1
+ ieh1fc0UEUfKDhDd4qVFOAYA/CA0mzseT212Ac4GLRjoXp7epvIlNmY95OWVUM58MablfMpBjsA
+ pS3h714FAbXrBaWZmSA==
+X-Proofpoint-GUID: _vu6CjPIq9MnKpPJaBXSjtmDFrM_PeiK
+X-Authority-Analysis: v=2.4 cv=D8N37PRj c=1 sm=1 tr=0 ts=6a97e1d4 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=i7MDaAbus5dcvw8aKywA:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-ORIG-GUID: _vu6CjPIq9MnKpPJaBXSjtmDFrM_PeiK
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA3NiBTYWx0ZWRfX4aWt6ORgTj/v
+ e2GUOPx4wlBg7D23vwiouhlCxzbcfjU2Ejc8bz0RpavqD8907o/Qr5dq2fHyyjgoZLHxXVLqA48
+ gprn6E5olHT8dYmJ0wMFx60WgQ+mXjk=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_01,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 lowpriorityscore=0 spamscore=0 phishscore=0 adultscore=0
+ malwarescore=0 clxscore=1015 impostorscore=0 priorityscore=1501
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609020076
 
-Hi Sergey,
+On 9/1/26 10:47 AM, Xilin Wu wrote:
+> The TC9563 PCI power-control driver powers off external downstream ports
+> whose device tree nodes have status = "disabled".
+> 
+> On the Radxa Dragon Q8B, reading the Vendor ID from one of these
+> powered-off port functions during PCI enumeration raises an Arm SError
+> instead of returning an all-ones PCI error response. This prevents the
+> board from completing boot.
 
-Thanks for your feedback.
+I agree with the premise of the patch, but I'd like to understand why
+that happens - do you have any details?
 
-On 2026-08-15 22:12:03 +0300, Sergey Shtylyov wrote:
-> On 8/11/26 7:02 PM, Niklas Söderlund wrote:
-> 
-> > While driver advertises gPTP support on Gen4 platforms it is in fact
-> > completely broken. On R-Car Gen4 devices the RAVB module have no
-> > internal gPTP clock as generations before it. Instead it utilizes a
-> > system-wide gPTP clock.
-> > 
-> > This change utilizes the refactoring of the RAVB gPTP code to add
-> > support for a system-wide clock and stops the Gen4 devices trying to use
-> > the non-existing internal gPTP clock.
-> > 
-> > To remain backward compatible the ptp-timer property is optional.If not
-> > present, or not enabled, the RAVB driver will no longer advertise gPTP
-> > support to user-space.
-> > 
-> > Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-> > Reviewed-by: Sergey Shtylyov <sergei.shtylyov@gmail.com>
-> [...]
-> 
-> > diff --git a/drivers/net/ethernet/renesas/ravb.h b/drivers/net/ethernet/renesas/ravb.h
-> > index b4df5cab0e5c..4c8dc02022e2 100644
-> > --- a/drivers/net/ethernet/renesas/ravb.h
-> > +++ b/drivers/net/ethernet/renesas/ravb.h
-> > @@ -249,6 +249,8 @@ enum APSR_BIT {
-> >  	APSR_RDM	= 0x00002000,
-> >  	APSR_TDM	= 0x00004000,
-> >  	APSR_MIISELECT	= 0x01000000,	/* R-Car V4M only */
-> > +	APSR_GPTPTIMER_SOURCE = BIT(25), /* Gen4 */
-> > +	APSR_GPTPCLOCK	= BIT(29),	/* Gen4 */
-> 
->    Again, I don't quite like that you switched to using BIT() all of a sudden...
-
-Indeed, the while enum should really be converted to avoid LLM warnings.  
-But doing this in this already large and way overdue series feels a bit 
-too much. Once this is picked up I plan to convert them all to BIT macro 
-to make life easier for the future.
-
-> 
-> [...]> diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
-> > index 12877a8488ed..30170e92d3d7 100644
-> > --- a/drivers/net/ethernet/renesas/ravb_main.c
-> > +++ b/drivers/net/ethernet/renesas/ravb_main.c
-> > @@ -2752,6 +2752,59 @@ static const struct ravb_hw_info ravb_gen3_hw_info = {
-> >  	.magic_pkt = 1,
-> >  };
-> >  
-> > +static int ravb_gen4_ptp_probe(struct net_device *ndev)
-> > +{
-> > +	struct ravb_private *priv = netdev_priv(ndev);
-> > +
-> > +	priv->of_gptp =
-> > +		of_parse_phandle(priv->pdev->dev.of_node, "ptp-timer", 0);
-> 
->    You now have full 100 columns, no need to break that line... :-)
-
-Fixed in next version.
-
-> 
-> > +	if (!priv->of_gptp)
-> > +		return 0;
-> > +
-> > +	if (!of_device_is_available(priv->of_gptp)) {
-> > +		of_node_put(priv->of_gptp);
-> > +		priv->of_gptp = NULL;
-> > +		return 0;
-> 
->    This *return* seems superfluous...
-
-Thanks, fixed.
-
-> 
-> > +	}
-> > +
-> > +	return 0;
-> > +}[...]
-> 
-> MBR, Sergey
-> 
-
--- 
-Kind Regards,
-Niklas Söderlund
+Konrad
