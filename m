@@ -1,114 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70800476CF0;
-	Wed,  2 Sep 2026 13:35:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC2E649F101
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 13:35:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788356129; cv=none; b=SW/yD6ntg9vY+2ZKsv1mkEnPs/y9lzAziICmB44jMIOTwWHhvvmGtUcc74hjnEn+Dy5mXDVCMV12dIUfQ8r37IPJOzfIP6NWoW0lq1gI+CzNwYHijtfDpJi8m2EUJ7C3rwTDfvazf9RUBr7llYoj3OrVXTxMY+Y+qibnv8veeek=
+	t=1788356156; cv=none; b=mvF/EFXzkpUgte5Tqv5X22rZ5wCUhPSMGkg7Oh+ZBdWVR+6RsEp7Uf0U7wtEEQOoX48ueXV1l64l8z4NpptZx/Lg02x0vdanxYg8VgzXxunczDwgEOQ5BvRPwZo5rk7APax9QaDiXp6fG4dk6O8AcvQvcrbZ8UvixrL49ltv5zU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788356129; c=relaxed/simple;
-	bh=LasyqCyaY4KjfMpvNPz82L67wfUPTzmc4z+mDW0nqzo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=txV6N6Kp3Kz8h3T6YWLuAvJcXV0q195eHJyt6BVxfZBeOqbkFXFtj+13OrAwZOpbjR+0k8vNcz7hO8zJpXVfs/ECbx7MqPjqyXnrFb+W616jY/9ogC4zykwJY1RGx5EWs65cfXAYBc7B1Yxs8PpkCiELiWI2iYNgyariiPELqQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S1BZ39oa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788356156; c=relaxed/simple;
+	bh=E61i7Ax7yFGiuPSUojx1E/ilksXaS2b/h/ErozEiu2o=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KVAaj21c0O6R3R8U7wMVklyqlY+fVcw7GXFhydwyQ2yBqjIlkyFImr4I7+5CR5ULwdbIhPQAik2/K78KIaoiEP7sTkULvXXYSitdoqTEG7xLu7/piQlBvTTL7zbR3O3SyrFn8TD64F6oPHbgZTzMCGcqF212Znuqjtf3oNsnKQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F2yW1kz+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S1BZ39oa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E22DE1F000E9;
-	Wed,  2 Sep 2026 13:35:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F2yW1kz+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6CD91F00ADE
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 13:35:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788356126;
-	bh=BGuIznCv9PUDEBDkw/pQ/InrE0j7ZosksJqwh4KPsMM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=S1BZ39oaogdM2I1AE3RSZkU3cFwXZgVOlugezO1Bzyybx1qYZd7RQzSZ4yOqKCS6I
-	 p6XjGIlrJ6Gv18frbwe3Zxf9L9NV0zyAmUVuTxpI/zNfWslLzpZLYRHefMHSQ9PcRQ
-	 JzHngr/BtMslX+DllSH+uJ02N6oDNzybG3NCnUPnVexYo/2OjZ2x3UbZdxD0wtRJ5T
-	 NnZZQL1F+nMIG7899AbjTGCC+RvLcCvIYUCr4zJGW17E4EXRbi7wqhQObY52KBWlE+
-	 DGSMnDkpWeBfe+tTRwxQi/H3FCx4fdm2XBlFfLkn7JhLgVOHppHXHJRWQ/fBA91Wdy
-	 cuQJApxU3j3Bw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V3 2/3] dt-bindings: phy: ti,tcan104x-can: Document
- Microchip MCP2542
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Stefan Wahren" <wahrenst@gmx.net>
-Cc: "Oliver Hartkopp" <socketcan@hartkopp.net>, devicetree@vger.kernel.org, "Vincent
- Mailhol" <mailhol@kernel.org>, "Oleksij Rempel" <o.rempel@pengutronix.de>, conor+dt@kernel.org, linux-can@vger.kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, "Marc
- Kleine-Budde" <mkl@pengutronix.de>, vkoul@kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org, neil.armstrong@linaro.org, robh@kernel.org
-In-Reply-To: <20260902132801.22056-3-wahrenst@gmx.net>
-References: <20260902132801.22056-1-wahrenst@gmx.net>
- <20260902132801.22056-3-wahrenst@gmx.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 13:35:24 +0000
-Message-Id: <20260902133525.E22DE1F000E9@smtp.kernel.org>
+	s=k20260515; t=1788356154;
+	bh=E61i7Ax7yFGiuPSUojx1E/ilksXaS2b/h/ErozEiu2o=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=F2yW1kz+P1F7W9qHrJW/Z4SRgzkdkeyDlb5wir4UWChCBObUycWf8zcKxgLLwUpgJ
+	 oTFmTj4g/TsJesCNFAgsJJ6doQHP9WVCfgDKHnlO5XUPCSuio7qESbd+CXoApW+8F6
+	 cG9CQgfgK4ix0L3cAKTxqhfluFj67nBzpgRKmXi3vDCjwVjB2GnWqip7VxaQ+uF0oY
+	 Y+k9+0XXQBVIjPVYyHXp+opPWykXwBPQLpUjOdIY3fJNxveT2BIb4ReDg16c2hpki7
+	 I4EdsC1OD8QV4WKnOYcd9+QMd+aOWxgCcS88pK11hw5Xbn+UpjnpyLGVdphxj4WIx5
+	 8z70NxYoQsVxA==
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3a2015bbfceso16422831fa.1
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 06:35:54 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxVLUfnzVn/ImXWDcYCBHB3B9vhtJ+oZVWcNf4LEppzwt43GfQA7VY9hwpmwOrP/1HdW49yDvl+FbE1@vger.kernel.org
+X-Gm-Message-State: AFuF++mg3VIlzI+t1TARY++wYdBx0f1qIzAVii4RCxGl1d7upbkr8Lmp
+	UwXtO0e/MjuwCvGddr5tlvIPi/kxnQxpppZtdDLRdpVHxK4lcvcSBV/S1NdbK9Cy8l5VI2dEcus
+	zpdotkXf4M9/4BqSYbKUr8Wd/P6qXpCC8YzoXSjY2tQ==
+X-Received: by 2002:a2e:9a14:0:b0:3a1:6a25:1780 with SMTP id
+ 38308e7fff4ca-3a3555744damr5831041fa.9.1788356153360; Wed, 02 Sep 2026
+ 06:35:53 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 2 Sep 2026 06:35:51 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 2 Sep 2026 06:35:51 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260813140047.1006478-5-mukesh.savaliya@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260813140047.1006478-1-mukesh.savaliya@oss.qualcomm.com> <20260813140047.1006478-5-mukesh.savaliya@oss.qualcomm.com>
+Date: Wed, 2 Sep 2026 06:35:51 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Mdze0tkTOOqvS6GOe1Bg_AMD=yw7P+VKa3T=Y=P=XXLXA@mail.gmail.com>
+X-Gm-Features: AcwNN1W2S6Bmy9g4kadytdJBT7elcRN2iSHkGQ2tUZ88DU2ifo6wZz7UQUUDm14
+Message-ID: <CAMRc=Mdze0tkTOOqvS6GOe1Bg_AMD=yw7P+VKa3T=Y=P=XXLXA@mail.gmail.com>
+Subject: Re: [PATCH v9 4/4] i2c: qcom-geni: Support multi-owner controllers in
+ GPI mode
+To: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Cc: krzysztof.kozlowski@oss.qualcomm.com, bartosz.golaszewski@oss.qualcomm.com, 
+	bjorn.andersson@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com, 
+	brgl@kernel.org, viken.dadhaniya@oss.qualcomm.com, andi.shyti@kernel.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, 
+	Frank.Li@kernel.org, andersson@kernel.org, konradybcio@kernel.org, 
+	dmitry.baryshkov@oss.qualcomm.com, linmq006@gmail.com, 
+	zhengxingda@iscas.ac.cn, kees@kernel.org, agross@kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dmaengine@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The newly added `microchip,mcp2542` compatible string bypasses s=
-chema validation hardware constraints because its fallback conditional bloc=
-k uses a strict `enum` match rather than `contains`.
---
+On Thu, 13 Aug 2026 16:00:43 +0200, Mukesh Kumar Savaliya
+<mukesh.savaliya@oss.qualcomm.com> said:
+> Some platforms use a QUP-based I2C controller in a configuration where the
+> controller is shared with another system processor. In this setup the
+> operating system must not assume exclusive ownership of the controller or
+> its associated pins.
+>
+> Add support for enabling multi-owner operation when DeviceTree specifies
+> qcom,qup-multi-owner. When enabled, mark the underlying serial engine as
+> shared so the common GENI resource handling avoids selecting the "sleep"
+> pinctrl state, which could disrupt transfers initiated by the other
+> processor.
+>
+> For GPI mode transfers, indicate multi-owner mode to the GPI driver by
+> setting the multi_owner field in the initial dmaengine_slave_config call.
+> The GPI driver then autonomously inserts lock and unlock TREs around the
+> transfer sequence without any per-message guidance from the I2C driver.
+> This keeps the locking mechanism as an internal GPI implementation
+> detail; the I2C driver does not need to track transfer boundaries or
+> message positions for lock/unlock purposes.
+>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+> ---
 
-commit c5426cb50d1b23a21e92a69a5197ccb523f72e8b
-Author: Stefan Wahren <wahrenst@gmx.net>
+This looks good to me and much cleaner than what we're forced to do with
+BAM DMA.
 
-dt-bindings: phy: ti,tcan104x-can: Document Microchip MCP2542
-   =20
-The Microchip MCP2542 High-speed CAN transceiver with Sleep mode is a
-pin-compatible alternative for the TI TCAN1042.
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-> diff --git a/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml b=
-/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml
-> index 9f5c37ca6496a..3ed4ce2191201 100644
-> --- a/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml
-> +++ b/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml
-> @@ -18,6 +18,7 @@ properties:
->        - items:
->            - enum:
->                - microchip,ata6561
-> +              - microchip,mcp2542
+For the DMA patch, I'll grab my popcorn and listen to what Vinod and others
+have to say first as I may be biased. :)
 
-[Severity: Medium]
-Will this newly added compatible string bypass the hardware constraints enf=
-orced
-later in the schema?
-
-When a device tree defines compatible =3D "microchip,mcp2542", "ti,tcan1042=
-", the
-schema parses it as a string array. However, the allOf conditional block fu=
-rther
-down in the file checks for ti,tcan1042 using a strict scalar enum match:
-
-allOf:
-  - if:
-      properties:
-        compatible:
-          enum:
-            - nxp,tjr1443
-            - ti,tcan1042
-            - ti,tcan1043
-    then:
-
-Since the array fails the strict enum match, the then constraints are skipp=
-ed,
-which allows a microchip,mcp2542 device node with an invalid configuration =
-to
-silently pass dt_binding_check.
-
-Should the allOf block be updated to use contains instead of enum, or should
-microchip,mcp2542 be explicitly added to the enum list, to ensure these dev=
-ices
-are properly validated?
-
->                - ti,tcan1051
->            - const: ti,tcan1042
->        - items:
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902132801.2205=
-6-1-wahrenst@gmx.net?part=3D2
+Bartosz
