@@ -1,46 +1,46 @@
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C7B471D03;
-	Wed,  2 Sep 2026 11:11:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4B0547254D;
+	Wed,  2 Sep 2026 11:11:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788347501; cv=none; b=oei5LviMkrXJ4Et+4QFJnk49MsgOq/3welynnKqIU+ElHIp8zsbbcKQL07/OD+nGjB6S0k5s6VrW4i3uUzhetcbEjbWWbmoTGfmpUSxAQz+iijWg1rC36yXGv+2w2a3WBkFkO1xPmW1DquNbnIfoIh8zaQOcRUmYTwBzuXeo8I4=
+	t=1788347499; cv=none; b=btItS2+NpgtYA+36R+GMF5l5+yYBFe73H+zawmASE1SWCHs/V4mMC/804eu+hbSOw8j44mWPdkEdrXLE+4eBkxJWJYmuLMB2yl/VRQtbVWehpk0ZxX66bCN0mcOEkOnv0d+ZTr8sYzRqjaZILcaaev/t4SJbp8qcG0/Cz0Z/d8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788347501; c=relaxed/simple;
-	bh=c7evoIZo/KPwjVeJ014aOVrUFb8tc3bf+01LKAu8Q1Q=;
+	s=arc-20240116; t=1788347499; c=relaxed/simple;
+	bh=usGyaclsp8VZ986MnbyHDsbpr53kixm9xZ+rGv7IXfg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nu3zwbvO7GZqFIr4ihTQt7t2B8Q4tfoxSYTGfUNqebAli4xaSIEgwRUtdDotvHFR/lZ04DRv66XV+wRFdh/KwprUQ7LvtqcJONEgsipNBCn7jRGbEdFBbRoPTgv2uddogQd7/7zNRvUWmjYe8V5lIMskdMVUntIYSbmtsCzCPXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=GzHRdNdb; arc=none smtp.client-ip=185.11.138.130
+	 MIME-Version:Content-Type; b=e4+/Mom5B/5ymmXIeFPaAjNwZ98HdGugnUwWJEGi0ENCAnXff3D3kifTMo+hov/EdxkRbj4gzxL68z4BeixtqPYXc9LXI+Xo09sEcO1bnpos9Z7kQ7pvuNFA/8sH7E2Mq1ekKJHWvY0mYhOa8nDJsvyJQL/9tWn5DvTy9sNwGTo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=UahfmXeq; arc=none smtp.client-ip=185.11.138.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="GzHRdNdb"
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="UahfmXeq"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
 	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
 	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=jtq/Hbwh3y6+tZU+24Z00S/OaFKe/w6VjMyJdVY5XfE=; b=GzHRdNdbla3pQEwW2Se5SLxB7T
-	KQPQr3K7NviQhmFM7GkxzgEygrlhcXWj70lGyHyUs5kMA8neLseGhiPejDvTLl6zNU6654Bn3iln2
-	Cgi/ADt+xlPaZjfmQlLD8O83GPKq1NfIA2yR4BlO3IYfeOurDFBdV8NViundwSQIl2IPhu++mDCI3
-	1MgM3mhocUg4KltxLp8FMQA8UsS0oHsprz7GvW55l//j4jNCPgvMucDft+R7IXgy4zCwu/a0+e3lM
-	EHnPCdsfZdX7sBV2M9j2Ly+U4UWP322pMKBsmONinSN14Fg4mpkxgWutn7jbL9vwuRipvIgEfI6XR
-	rz3xlixA==;
+	bh=BkVfR4DpAx7oQ1YDNDR2x3wJhTHMtx0Qv6BFtq/GbY8=; b=UahfmXeqEIH5gpcc/9Hwhze4D0
+	BHqgFmDPXOOdhJIvYk8OWAaqJVORRSLn/Nx+C7qa8WqUZNOCRIGrwQyQbJUfu+wv1vHIw8fU1s4Tz
+	KuyafnQbnL/XelC5aEtHLBMKrZYHpme0dvrLwdCYej3b3shIBID76r567lz/XvucpoGgXm00yiGfQ
+	u09HSbasaBFtw03HqfFepcpKFHkACO+5YW3DAI7NsOV8O3lEjolhul2v5rW2pX0o4L2ePx9TdvH19
+	H7nly9ZxIdpspknOsctvzwsN/ayCFO1u3w1oBk6jnm8d4n9C3sR8ezptXLTWnGcJuW4/m38IBbhQG
+	cRybP2iw==;
 From: Heiko Stuebner <heiko@sntech.de>
-To: Rudi Heitbaum <rudi@heitbaum.com>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
 	devicetree@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: rockchip: rk3399pro-vmarc-som: add i2c2 scl timing
-Date: Wed,  2 Sep 2026 13:11:17 +0200
-Message-ID: <178834747218.2268650.11241416915608173120.b4-ty@sntech.de>
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Heiko Stuebner <heiko@sntech.de>
+Subject: Re: [PATCH] ARM: dts: rockchip: rk3229-xms6: Replace spaces indentation with tabs
+Date: Wed,  2 Sep 2026 13:11:15 +0200
+Message-ID: <178834747213.2268650.3079565102560072255.b4-ty@sntech.de>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <aou1Q5-hdF7kRVpe@0d3a7a881997>
-References: <aou1Q5-hdF7kRVpe@0d3a7a881997>
+In-Reply-To: <20260829194012.107758-2-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260829194012.107758-2-krzysztof.kozlowski@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,20 +51,17 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 24 Aug 2026 03:06:43 +0000, Rudi Heitbaum wrote:
-> The hym8563 on i2c2 does not ack:
+On Sat, 29 Aug 2026 21:40:13 +0200, Krzysztof Kozlowski wrote:
+> Replace excessive spaces for aligning indentation into tabs.  This will
+> be reported by dt-style-check ("[mixed-indent-chars] too many space
+> characters in indent (more than 7)").
 > 
->   rtc-hym8563 2-0051: could not init device, -6
 > 
-> It is also the ext_clock for sdio-pwrseq, so wifi does not come up
-> either.
-> 
-> [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: rockchip: rk3399pro-vmarc-som: add i2c2 scl timing
-      commit: 7c40dc4055b6868c5ee7c4e30fd483544a25a58c
+[1/1] ARM: dts: rockchip: rk3229-xms6: Replace spaces indentation with tabs
+      commit: 5c44a0abd4334e5be2d8d485dd73a387c6eabb04
 
 Best regards,
 -- 
