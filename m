@@ -1,405 +1,169 @@
-Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com [209.85.222.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013058.outbound.protection.outlook.com [40.107.159.58])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 496E8439320
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 19:36:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 677403A1A27;
+	Wed,  2 Sep 2026 19:40:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.58
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788377804; cv=pass; b=UAYz4mb6wR0yfyi1R/X6F0O7BMmccpJszbMl/DTELLEbpBx8SYOSXhVdkQc/8IpCjPXsakmtpAy39e9cZWGyJxRTdVCtQNZFkFWtN1mR0TkRi/wwNHUAfi1Kn/nYCh9pzuxElUQ8UKHPWsS6CIrZZaQ+O9NpTUBQj1uFyoJTf6k=
+	t=1788378026; cv=fail; b=rv+cNaXvlUhHEmHRemKDJGzKzHWKvp660zTNZw80rqi9RxrsKVb6pCjDlthZYVDhYOlQ0RGIlTsTai5sRrnKHztcb5gmKAHcylZLmpgp9o8omk6hGIZ5ur7pXQSOzIzATEFm8ZxhTUKhUqWAOzVUV57XttXXdGX0MVHzFv/moqs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788377804; c=relaxed/simple;
-	bh=+EtTP6H/FtO/OTJEnIc0R8Df83ApwUFjyl553EFOAtI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OIDiK0HgKPjB7yKqgAFbmkU4S5b2Njv7FVoArpR3mMhsHI6fDs5ffHkepnCRVkpvhINKVwUXcz+BcbsgRZtasvJcWrIb0asSpByUu2G+gyIDr1wRgOwD1lT+69oaKKb+n5UPw6sS5QONOACulzh7mP0lZJwbEw54s5Y32I70J24=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=keeHJa1/; arc=pass smtp.client-ip=209.85.222.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788378026; c=relaxed/simple;
+	bh=jD0FTFRibwQoSPaZLkuHPxn/2t/2q+MlOgfOLhPte6g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=IYNe50caEYgBHirsKuFW8uFmIl2ZzQTwKMa0ahYqF7iESrpIWZ9tKbhspRrjoMu7i+PhPQR8RXb8PUFsfWpiKz2S9PtTGV2olInado1eAKgx4S9aPzDUk/girIqCN6fVJk4XSuYt9umllIsu0G0V7FTH13dNzBQMEZ4sTg+eubg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=vLikekTD; arc=fail smtp.client-ip=40.107.159.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="keeHJa1/"
-Received: by mail-ua1-f52.google.com with SMTP id a1e0cc1a2514c-97ccbba8e86so416362241.3
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 12:36:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788377780; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HZMV8et5wQHbtFOMFNjaw2Ho1XvlFs8+vHNeNXFShJU94+bWIaH1fLSXWTMkLMUSCI
-         yK35EqValfaB21xCjCDqarWo6NCx66xw4WKbp4Jru+QdYUDxS3jTMy/D8PES3mx8NAd5
-         nHAdcfw8O28S/4EK74EchLgdhM8NOrD1i3gmCBsoDE4qD5FpqmA6av8ciymtwoYqgBl6
-         BQzbTY81sw0OwCCIU22zghMg+GC8psjN5VKDJsFWFAvBS/N8rbW9BJpijixiwtd2Gm+N
-         ML2MRTXFgLUGPHGcN7xoxI1ext6xospO8xRWczU/HwpZchfgzmkv/TwJHD9l8qq8NF70
-         ksFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=nUeJONOZOXQw27AH5OAmCGkZrUTbVh90RMUP44aKmJ4=;
-        fh=gBh16Zeq2lYpmj3hl6CFSwHYIt/t0KgsWrm3ervmQrw=;
-        b=soF41fTyHyIndlNAyMqAfpXEV0EFacNGUxeIqhOUJklG6IFNOlK/sDCuZLKIipL4VZ
-         YGvWRFcjtiTmRHItYRCcVuBKswDRmQjPfngEm3GdMNkU78kmauDLqHZdnl//MRcSIFpw
-         YvJEss+Dkm7NHCHPv7KuKVEyoNewjS6nfNEOzFuhkk3THnMCHG0mzaIP2GB0ksOryID6
-         ishNPUiUmfsaX8lgv9zku/MNYXkcLgZt56lLZYVSIwDUStTCzQaQLrsLO8JCCB+m7343
-         Ait4XMhK4Audi7DY/F5bKNEs1NSI1N8LJOq34SCRQGbDmVclCn/ctcdmVH/bGmVCgHsF
-         VbSw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788377780; x=1788982580; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nUeJONOZOXQw27AH5OAmCGkZrUTbVh90RMUP44aKmJ4=;
-        b=keeHJa1/AH5QXqdSGPK2T6jxVR9NjPzWjmENryV8Y+VckFxlv+SiGjfKOY944bjwXR
-         1+ILMN75hf3BDRapMRLDthRZgWtBrJWWlwrwSTGTrbVst38AAWZ9xU3GVC1Z3ZtqN+Uy
-         Zg/iP5nopyJpoxE5Yt2sgNWYO+RXwXDoG7OPfOrSEROiE62ojFeGEnWw1zM2z9zV1LMv
-         dmP22hACyPLTL49LhPDLSnrpIVg/+GRD7CJpyE/2ZpIefhnPbwnon9WyOavB2mC5Fqv0
-         9ilRWWqX1P1oNb5sOBRKaSZ+yf7yX0UsZqQ1gW/UevPPuGv0Sbgz9ofWGFuWwTarBUH1
-         eb6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788377780; x=1788982580;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nUeJONOZOXQw27AH5OAmCGkZrUTbVh90RMUP44aKmJ4=;
-        b=WrbfJ2naF24RE540BdAlQktrlGOaCHvzIjMQi8Yhfd8lYDz0rdnU0j9ZiaaDXWN92x
-         335HVGgz3AdxXf3W9oAz06fJr0cM44vohmPKPg0PghuAuSSI1XLN9Cq50xVn05Co/a7p
-         MFlcCEr8JcfYGZA2nGwA927G960/gLpL0RdUkKyxkT9tPrLJsRZvfhyhevWZ9LL0F8qA
-         BGEz/YLcs+ic30C5f08+xPv5I4Kz1UPVZcvTLcJDfSua8HB/DJ2iRVahWUNA1gHGedet
-         7clwHX/bBthbtYKapILDP+C0LtphdILrbiN+6lDfPQIASoHRffwenNeMlevPc2iGKYkb
-         0n8g==
-X-Forwarded-Encrypted: i=1; AKwUvBwXCANqeEvTHJTqbXiYL7FMkLRIKGo48DpOWqgv7ji9HjdLOivHMJ0f9CVTQCGDFAusAwuWF9037ALo@vger.kernel.org
-X-Gm-Message-State: AFuF++mklhKR0LiXI7fMegWBcx8DR/pAODKtIfuzemQBHocEWRyrfj+A
-	Ofl2QvcNn/5gdDEIQi1/1BgydRpi9aTzD0nk337pSkZ7cmzUnQbrRlk3se9VIP+lSWVQfjDutE4
-	7ZjOAT6hOavka/tjV+fhhIi0dY4Weo/Q=
-X-Gm-Gg: AYBFou1lZpAzPAPYDZ6Lf4JL4AUgUicu7lSA6nMlMgIZS2jBzpRlse6F7aUrfPQusuW
-	CqfnDyIquzFcKH3d624jSRoZ/c7eDItKXHxW2UmJXmcYF20NZIZeqhvVAB4JVJZSC79HXoKvTJ7
-	i88WQZsXP0pt5JpRp/bhZx9AbZDO+x8S17bevaPF86vqIcTw5Eu3sjSgm7rgoI+JUtzJU8Vqzog
-	jci7L6+xmvBH4sdLE/r5zyGT9RGCh1g3cRxfZz/V6pQtvanqrnGuygUyh5X9qIYKpdDPxyxJk2/
-	yFlQcyK0ljACWe3r6Gw98nc7xFnJSipEJTX0aSpCWXPJmw+12EbllTgVcAezZRQZ2Ekae2VT1jJ
-	s5yhFV45WjdHYdaqbj16NJm15tqGYeR0VnNkZLd3GMo3EUK79bqBG9Nt8mmaWkZTKxK16aiuJ8A
-	N2xeIXemKVrYi0KWAlyHLdTRoJ7uevLWkPnwhq4g==
-X-Received: by 2002:a67:e704:0:b0:778:5e58:ec46 with SMTP id
- ada2fe7eead31-78a1f1f0bb4mr2338551137.2.1788377779561; Wed, 02 Sep 2026
- 12:36:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="vLikekTD"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Z3bdkNJQl6RqMDp3xNWVd7lLbiIriXz54z36QpODr2FcKlAAWL5P+OMSegmdSDcgLtI1ihCo7SLZwuOoiUyl16/euH6/nPxNm0bpbTs109Annz52MGF9ybfoUwCKw2TlVfeDxR3HV6bvCXzpg3phwbtvoBsr3wGQXRwLI/bfBye39bJ/rzDf3rcKs0qMEVunWS1y/+0ilEw56ma7VWxJ9Ep9VxBPAMvDzJrodjaMWSuOUU2TzThpFAEDFiOvUjQirM1fVtf5Tc7xGW1MQVTusRIz9c4yiTj7kpwXz8e1Jzn7ddZh3BeAY54BFeZ0ibMbZK+UhE/nNRXA74Z/TRw3dQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=buYmzYWFN1cBgBCPk+jteGaGBvPGs8PAzjbMZu1dgD4=;
+ b=Yqr3rAilECIAacDD+7O/Hf0YTcmNRGrUJJ8vVgz/WMM24bIjUOXUQoUA7jByqYACzsOa0iHN6l3tOe4Fri5m0UvFxm5ZliZlVjiB3PEiW1xSMrTMXx/145BeW7gYH2ogPubYRmlb6xo98/lQ1KYDPKKxzP5y3NOeTn++oQGkSO/jYn++xYkd8A4wNu1ALx8zjZO/kkUoIYH4zFWSTrYJ9JwBmX0POqkl2d6zenvVhsGgaetUhlp0zbuDIbVMs2fhmpeKnU7DftlHzU6w9c0d1cbtXW7S7R6xOL0Ik+pscluJXYOdNPjDncgHfNPfo33IxaX2FBJj9ZyJVdIMD3UNjQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=buYmzYWFN1cBgBCPk+jteGaGBvPGs8PAzjbMZu1dgD4=;
+ b=vLikekTDlF2FSbA3sTxIwD2+8yir+hZXXQ/dvvb3BylpEMph9lb0zLrWf64f1+Wi/PCUBbzKriL8XRU74na4B9qaS7evqTw0Fn0Xt1IpyvmixCXpu2Pv2ePZ93/+KcVFUfiiVMzyBJ+D3pW2uJcoh5zKqIvpURHO/IiLluK9DaCCWGPrbky1xUR2WkFmICV8BEIN5qMmjcX4Xun3RjOhx0lcGRZbDuRzUJpYA4I8KTvR+WbZEYbE2cKSumeFwVIlJXi+kCscU8lY5AM7zbk4m+o+vBiB3a/1+c2sJDTGJpBwqkP4VGFbdyP41MdTvzdZqG7KOSLR2Cmt2tuqlCk6nw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM7PR04MB6950.eurprd04.prod.outlook.com (2603:10a6:20b:105::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 19:40:04 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
+ 19:40:04 +0000
+Date: Wed, 2 Sep 2026 15:39:55 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] ASoC: dt-bindings: imx-audmux: Replace tabs with
+ spaces
+Message-ID: <aph7i3bre7KF_KWf@lizhi-Precision-Tower-5810>
+References: <20260830084046.14679-2-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260830084046.14679-2-krzysztof.kozlowski@oss.qualcomm.com>
+X-ClientProxiedBy: CY5PR15CA0213.namprd15.prod.outlook.com
+ (2603:10b6:930:88::7) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260811-submit-ac200-mfd-v7-0-8b06f552a4d7@gmail.com>
- <20260811-submit-ac200-mfd-v7-2-8b06f552a4d7@gmail.com> <20260902143122.GA2082450@google.com>
-In-Reply-To: <20260902143122.GA2082450@google.com>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Wed, 2 Sep 2026 15:36:07 -0400
-X-Gm-Features: AcwNN1Xwt_WeKE5EYA94nRgCZXJ8kS7opgPLjZCch4rn9cxdGbvWKIuGY6VRBjY
-Message-ID: <CADvTj4oytrbZw9oKzRu=+tL1WZMyscfDvBMm2uK5hhNv8ZxTBw@mail.gmail.com>
-Subject: Re: [PATCH v7 2/2] mfd: ac200: Add X-Powers AC200 support
-To: Lee Jones <lee@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
-	"Jagielski, Jedrzej" <jedrzej.jagielski@intel.com>, Andre Przywara <andre.przywara@arm.com>, 
-	Chen-Yu Tsai <wens@kernel.org>, =?UTF-8?Q?Jernej_=C5=A0krabec?= <jernej.skrabec@gmail.com>, 
-	linux-sunxi@lists.linux.dev, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM7PR04MB6950:EE_
+X-MS-Office365-Filtering-Correlation-Id: 012c3374-93fb-45ce-38fe-08df0929fc21
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|19092799006|10067099003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	Y1BhBANUHpt22b8IOSr6YOVj2Tq51+eM8A1fCCW08FKp6ed0W5LXAyOhAPB1hJB3haNUtvm3Fpfa6rfDOWMifOBMaFX3hpA0JKxyfZZx0BnuIZ6lvpPgahlhAdwhtC6a25CV2MJj1HT8XLMDw3mn1I+/SFtm2YUkKNE8ZvmgJ/8tF6hyctxZH+A5KmUk+LjV94lAbxF1ATc59giJEfs6EBs4pqN/il4rXrXv5qloKNPdMbB94XZFqZXZdEdgRyJiGcQkuvTcYhJddtgia0ofZYjdKipFf0nSrlOQKx+tvy0M0UsZseqqprhtGdMj4OLR/MKk3tuaXx6gR0cXIEl9TQdimFC3q62iS6UJRIU532YM4+lDhetrXb88hITw79oc+2Fp9f+hRwNGLo2LVqcuoTeiV6xg9ejNfDLqNEso/aGKV0ToNagZz/WeI3TGyg2AaadhtuAT3LORuggFkxRqqTECNIlO5Mdb3pvReELz9KzrgxLPdMrMClpZscZ3qfVKrKT+8bZsobOD18tz6iPmn/RntTFaRXF0B35VZsEQXVy6TILBW6jPJ2IPOwojVGf1myPu2/a4H6K+JUCtRyLoNx3G3NjgXCu28vuRlaZYQ+tXqGdQrqbb9oZWB6OrZ78YtY1ttRSmdzFKrWPWfhKIHc2zHCar6LZoutFlZg5sDec=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(19092799006)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?1Z1r4X3/V4f38QiAl2HXC+wjNWhq/cfZBIv9YAyIHWWwgbaFg8r+psIBtMIz?=
+ =?us-ascii?Q?Mceo6GqMbdaUFf7I563aH2Wv0/h4rOD0NBJrZ9jZ/csI8Xmrxw0T14lBvSrl?=
+ =?us-ascii?Q?k36IVzNACmskjG685TiPo4twdumoSDG+W7P69lHz37rsz4fzOshEaHSLc2MA?=
+ =?us-ascii?Q?yrSeaxgd/JpgPG6KJUaNIJCnn/AiAN7KgHgaexR6dgbbToTcwillq2Dv7J9B?=
+ =?us-ascii?Q?qBhpbMzQxIk2FuNX+MawDOHUPc8vkJXQ2bKku67wvj9WMsGTdhWBNuRpuv6d?=
+ =?us-ascii?Q?8Clu8s62eXPU5sesnqSNZOvXKheSdir/McmaTM+HUUm+FVKKTmnpEwRuvcrR?=
+ =?us-ascii?Q?szdLe+v6qs2ZpDi3RcEl41Vxot+nbC8GYSBgYsocfkw4+awmlb0Fb8GjBGDk?=
+ =?us-ascii?Q?R0+yXhodck8O32GnVYArUBJl1f4A+8YC3lOZOPoB3FzdcOGctOhdWG4Cp7t3?=
+ =?us-ascii?Q?+MlxsmfALpGl4jGtbsqLUysurqCGFbRlPzN6yX1RcGGIAxhSz2ICSeGhiJob?=
+ =?us-ascii?Q?kO6GjYIgrbc3psPuTxd1BTbvbc4nIrYRS2Z03c3VTnF/A3f7FzIwfpX84NKX?=
+ =?us-ascii?Q?3FdeuUFMxtfWTUZawss+Hl/xpi3ilp1YDqPMBsNK7azHvIJn6f5eaRWs6EhF?=
+ =?us-ascii?Q?4Cg8c1hv+LRR7AbYTuWJYOsNDFEpWtOY7uLUIIJJp2KVb9B8h0H11kwtnd1u?=
+ =?us-ascii?Q?nuygUpioe+wVDT76ionWrwqYZveV/qwMksg9UBL9E7MFwr1SthCt+B4VKSdp?=
+ =?us-ascii?Q?2rwENwt0KqX7gPWpBWSoyHvNjjv2XWlFBiBzT/NAgrkpha3D/EuYKt0eEDgC?=
+ =?us-ascii?Q?Amj7IDk0N45wquru35pNDNw6jaxcJLLf+EE2C64a949EkkDk3AcdBnjeV83Y?=
+ =?us-ascii?Q?/TV89oUNFqaiYMClp7MHf8uE+nkxnCxPW0Bog3usNugDlJ7/di3wnerO5wL1?=
+ =?us-ascii?Q?3ni020HcMumFsMKsba0Na5UYL2ZPhSRDtNi3FDxYeorf0xYjTviIoT66tpMP?=
+ =?us-ascii?Q?U0SLCm8Kl7rPdvHicj/ElqfN1EBvkPm0Qp5hBxvxr0W7//XSNVTUUJZlReg3?=
+ =?us-ascii?Q?yU017Jne2a3IG1RqF2TMvK1MMFPydAMe48kkxP7SA6RTXEBKDCugF5wRuCEw?=
+ =?us-ascii?Q?+jLU7iZpRgB+cWmyAEuL7uhl3Kwn974sFyBEhUjkLcl6Axggqg4111B6JSQT?=
+ =?us-ascii?Q?38iQKr/P+BPLd34rOtsPsILy0VL5Vezdt58+gXKu9acdc6+hOxLPhlpjYznd?=
+ =?us-ascii?Q?czq3JgzkDZ35tYvC6C+UuB/YcSAW06WRHvzHPv83fHwZPWTeCOBhSEXWYilA?=
+ =?us-ascii?Q?xnU9DMM3/++gpK+WvEonhXWDyED4YR4HysW2FxwQFw0lQSx5T0/5TJ6nApO/?=
+ =?us-ascii?Q?o750paW3OveRBFqJbt0O7S+lNALjb0Mfo1AnPfgI9h03rCoMCp+RwG7FZQG5?=
+ =?us-ascii?Q?DzcgQwJDs9ccJLjsJHDbJFtPFbhg8RrqGT07HJ6+SsXPmUhH5xCt8kXVUKRZ?=
+ =?us-ascii?Q?I8Y7snMHc0FWJsT1eKWJlbIRszfdZEBg4mufkk1csfQveQYW2g/vjO3g413W?=
+ =?us-ascii?Q?++im37p2cGT8zwlyN12A1//fl8cBaueLPsQpbo35x1q9R0k7R6uunnPt6LtC?=
+ =?us-ascii?Q?OTquFNgzz9MexvEd2ccgrJZJuW0BJcMET7paSb4rpVTQQw1X8nq1RDc4JNWl?=
+ =?us-ascii?Q?mSuilHObm3lGpewH4kjBcZ+GxVCRAZc60ZPESJLMbWslKw9p3j7Eh3xJbot0?=
+ =?us-ascii?Q?uJTWq1H5yV5Y3uLR5UwZ1+5M679WV6+4r+ef0DLYm1SA1NAYOos5?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 012c3374-93fb-45ce-38fe-08df0929fc21
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 19:40:03.9906
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GofBZCohiKr5QNmmESPyhmUCOHb/FbtkQGx8FNpogX2xNV2BSAktRfENab0CHV0NJVUFEzlBSGajzbRIzmMcTvWTpeNDfQrSYqbpexI14uR12gkXiwiTcss746Jy8ZXq
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB6950
 
-On Wed, Sep 2, 2026 at 8:31=E2=80=AFAM Lee Jones <lee@kernel.org> wrote:
+On Sun, Aug 30, 2026 at 10:40:47AM +0200, Krzysztof Kozlowski wrote:
+> YAML files do not use tabs, even within the values in DTS.  No
+> functional change, although dt-style-check will warn about it
+> ("[tab-in-yaml] tab character not allowed in DTS example").
 >
-> On Tue, 11 Aug 2026, James Hilliard wrote:
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 >
-> > The X-Powers AC200 is a mixed-signal companion IC with a paged register
-> > map accessed over I2C.
-> >
-> > Enable the shared input clock and prevent its rate from changing. Match
-> > the vendor driver's 40 ms wait before the first register access,
-> > initialize the paged regmap, report the chip and package revision, and
-> > apply common reset.
-> >
-> > The Ethernet PHY link endpoint is independently enumerated on its MDIO
-> > bus rather than created as an MFD platform child. Keep the regmap attac=
-hed
-> > to the AC200 I2C device so a separately enumerated function can resolve
-> > that device, establish its required lifetime relationship and retrieve
-> > the regmap from the provider.
-> >
-> > Cache only the common page selector. Individual functions can reset
-> > independently and invalidate their other registers without regmap's
-> > knowledge, so leave all functional registers volatile.
-> >
-> > Reset the chip during managed teardown and system shutdown.
-> >
-> > Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> > ---
-> >  drivers/mfd/Kconfig  |  11 ++++
-> >  drivers/mfd/Makefile |   1 +
-> >  drivers/mfd/ac200.c  | 163 +++++++++++++++++++++++++++++++++++++++++++=
-++++++++
-> >  3 files changed, 175 insertions(+)
-> >
-> > diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
-> > index e4fd4572472f..cac3fff5aee9 100644
-> > --- a/drivers/mfd/Kconfig
-> > +++ b/drivers/mfd/Kconfig
-> > @@ -205,6 +205,17 @@ config MFD_AC100
-> >         This driver include only the core APIs. You have to select indi=
-vidual
-> >         components like codecs or RTC under the corresponding menus.
-> >
-> > +config MFD_AC200
-> > +     tristate "X-Powers AC200"
-> > +     depends on I2C
-> > +     depends on OF
-> > +     select REGMAP_I2C
-> > +     help
-> > +       Support for the X-Powers AC200 mixed-signal companion IC. The A=
-C200
-> > +       contains audio, video, RTC and Fast Ethernet PHY functions and =
-is
-> > +       co-packaged with some Allwinner H6 and H616 SoCs. This driver p=
-rovides
-> > +       the shared register access used by the individual function driv=
-ers.
-> > +
-> >  config MFD_AXP20X
-> >       tristate
-> >       select MFD_CORE
-> > diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
-> > index 72d3944b0ad8..f8101d2a9ce9 100644
-> > --- a/drivers/mfd/Makefile
-> > +++ b/drivers/mfd/Makefile
-> > @@ -150,6 +150,7 @@ obj-$(CONFIG_MFD_DA9052_SPI)      +=3D da9052-spi.o
-> >  obj-$(CONFIG_MFD_DA9052_I2C) +=3D da9052-i2c.o
-> >
-> >  obj-$(CONFIG_MFD_AC100)              +=3D ac100.o
-> > +obj-$(CONFIG_MFD_AC200)              +=3D ac200.o
-> >  obj-$(CONFIG_MFD_AXP20X)     +=3D axp20x.o
-> >  obj-$(CONFIG_MFD_AXP20X_I2C) +=3D axp20x-i2c.o
-> >  obj-$(CONFIG_MFD_AXP20X_RSB) +=3D axp20x-rsb.o
-> > diff --git a/drivers/mfd/ac200.c b/drivers/mfd/ac200.c
-> > new file mode 100644
-> > index 000000000000..0964e637afef
-> > --- /dev/null
-> > +++ b/drivers/mfd/ac200.c
-> > @@ -0,0 +1,163 @@
-> > +// SPDX-License-Identifier: GPL-2.0-only
-> > +/*
-> > + * MFD core driver for the X-Powers AC200
-> > + *
-> > + * Copyright (C) 2019 Jernej Skrabec <jernej.skrabec@gmail.com>
-> > + * Copyright (C) 2026 James Hilliard <james.hilliard1@gmail.com>
-> > + *
-> > + * Based on the AC100 driver:
-> > + * Copyright (C) 2016 Chen-Yu Tsai
->
-> Drop this.  Every driver tends to be based on something else.
+> ---
 
-Dropped in v8.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
 >
-> > + */
-> > +
-> > +#include <linux/bitfield.h>
-> > +#include <linux/clk.h>
-> > +#include <linux/delay.h>
-> > +#include <linux/i2c.h>
-> > +#include <linux/module.h>
-> > +#include <linux/regmap.h>
+> Changes in v2:
+> 1. Correct logic in commit msg spaces->tabs
+> ---
+>  Documentation/devicetree/bindings/sound/imx-audmux.yaml | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
 >
-> Why aren't you using the MFD API?
->
-> If you don't need it, then why is this in drivers/mfd?
-
-The EPHY remains enumerated on its primary MDIO bus, so it is not an MFD
-child. For non-EPHY use cases, the AC200 audio, video and RTC functions
-are intended to be added as MFD children.
-
-There are no such child drivers in this series, so I have not added
-unused MFD cells. Those can be introduced with their corresponding
-bindings and drivers.
-
->
-> > +#define AC200_SYS_VERSION_REG                        0x0000
-> > +#define AC200_SYS_VERSION_PACKAGE_MASK               GENMASK(15, 14)
-> > +#define AC200_SYS_VERSION_CHIP_MASK          GENMASK(11, 0)
-> > +
-> > +#define AC200_SYS_CONTROL_REG                        0x0002
-> > +#define AC200_SYS_CONTROL_CHIP_RESET_DEASSERT        BIT(0)
-> > +
-> > +/* Interface register accessible from every register page. */
-> > +#define AC200_TWI_REG_ADDR_H 0x00fe
-> > +#define AC200_MAX_REG                0xa1f2
-> > +
-> > +struct ac200 {
-> > +     struct regmap *regmap;
-> > +};
->
-> Why not just pass 'regmap' directly?
-
-Changed to store the regmap directly as the I2C driver data.
-
->
-> > +static const struct regmap_range_cfg ac200_range_cfg[] =3D {
-> > +     {
-> > +             .range_max =3D AC200_MAX_REG,
-> > +             .selector_reg =3D AC200_TWI_REG_ADDR_H,
-> > +             .selector_mask =3D 0xff,
-> > +             .window_len =3D 256,
-> > +     },
-> > +};
-> > +
-> > +/*
-> > + * Each AC200 sub-block can reset independently, invalidating its regi=
-ster
-> > + * contents without regmap's knowledge. Cache only the common page sel=
-ector;
-> > + * this avoids a selector read-modify-write for every access on the sa=
-me page
-> > + * without ever returning stale functional-register values.
-> > + */
-> > +static bool ac200_volatile_reg(struct device *dev, unsigned int reg)
-> > +{
-> > +     return reg !=3D AC200_TWI_REG_ADDR_H;
-> > +}
-> > +
-> > +static const struct regmap_config ac200_regmap_config =3D {
-> > +     .name =3D "ac200",
-> > +     .reg_bits =3D 8,
-> > +     .reg_stride =3D 2,
-> > +     .val_bits =3D 16,
-> > +     .ranges =3D ac200_range_cfg,
-> > +     .num_ranges =3D ARRAY_SIZE(ac200_range_cfg),
-> > +     .max_register =3D AC200_MAX_REG,
-> > +     .volatile_reg =3D ac200_volatile_reg,
-> > +     .cache_type =3D REGCACHE_MAPLE,
-> > +};
-> > +
-> > +static void ac200_disable(void *data)
-> > +{
-> > +     struct ac200 *ddata =3D data;
-> > +
-> > +     regmap_write(ddata->regmap, AC200_SYS_CONTROL_REG, 0);
-> > +}
->
-> You can't do this in .remove()?
-
-Changed to reset the chip from the I2C remove callback.
-
->
-> > +static int ac200_probe(struct i2c_client *client)
-> > +{
-> > +     struct device *dev =3D &client->dev;
-> > +     unsigned int version;
-> > +     struct ac200 *ddata;
-> > +     struct clk *clk;
-> > +     int ret;
-> > +
-> > +     ddata =3D devm_kzalloc(dev, sizeof(*ddata), GFP_KERNEL);
-> > +     if (!ddata)
-> > +             return -ENOMEM;
-> > +
-> > +     clk =3D devm_clk_get_enabled(dev, NULL);
-> > +     if (IS_ERR(clk))
-> > +             return dev_err_probe(dev, PTR_ERR(clk),
-> > +                                  "failed to enable input clock\n");
-> > +
-> > +     ret =3D devm_clk_rate_exclusive_get(dev, clk);
-> > +     if (ret)
-> > +             return dev_err_probe(dev, ret, "failed to lock clock rate=
-\n");
-> > +
-> > +     ddata->regmap =3D devm_regmap_init_i2c(client, &ac200_regmap_conf=
-ig);
-> > +     if (IS_ERR(ddata->regmap))
-> > +             return dev_err_probe(dev, PTR_ERR(ddata->regmap),
-> > +                                  "failed to initialize regmap\n");
-> > +
-> > +     i2c_set_clientdata(client, ddata);
-> > +
-> > +     /*
-> > +      * No minimum delay is documented. Match the vendor driver's 40 m=
-s delay
-> > +      * before its first AC200 register access after enabling the inpu=
-t clock.
-> > +      */
-> > +     msleep(40);
-> > +
-> > +     ret =3D regmap_read(ddata->regmap, AC200_SYS_VERSION_REG, &versio=
-n);
-> > +     if (ret)
-> > +             return dev_err_probe(dev, ret,
-> > +                                  "failed to read chip version\n");
-> > +
-> > +     dev_info(dev, "AC200 revision %#lx in package %lu\n",
-> > +              FIELD_GET(AC200_SYS_VERSION_CHIP_MASK, version),
-> > +              FIELD_GET(AC200_SYS_VERSION_PACKAGE_MASK, version));
->
-> We support all versions, so why print it out at all?
-
-Removed the revision read and log message.
-
-> > +     /* Reset the chip after dependent function drivers have unbound. =
-*/
-> > +     ret =3D devm_add_action_or_reset(dev, ac200_disable, ddata);
-> > +     if (ret)
-> > +             return ret;
-> > +
-> > +     ret =3D regmap_write(ddata->regmap, AC200_SYS_CONTROL_REG, 0);
-> > +     if (ret)
-> > +             return ret;
-> > +
-> > +     ret =3D regmap_write(ddata->regmap, AC200_SYS_CONTROL_REG,
-> > +                        AC200_SYS_CONTROL_CHIP_RESET_DEASSERT);
-> > +     if (ret)
-> > +             return ret;
->
-> Okay, now what?  What uses this regmap?
-
-The current consumer is the separately submitted AC200/AC300 PHY driver.
-It creates a managed device link to the AC200 I2C device and obtains the
-regmap with dev_get_regmap() for ancillary package-control access.
-
-v8:
-https://patch.msgid.link/20260902-submit-ac200-mfd-v8-0-2aa06720b8ac@gmail.=
-com
-
->
-> > +     return 0;
-> > +}
-> > +
-> > +static void ac200_shutdown(struct i2c_client *client)
-> > +{
-> > +     ac200_disable(i2c_get_clientdata(client));
-> > +}
-> > +
-> > +static const struct of_device_id ac200_of_match[] =3D {
-> > +     { .compatible =3D "x-powers,ac200" },
-> > +     { }
-> > +};
-> > +MODULE_DEVICE_TABLE(of, ac200_of_match);
-> > +
-> > +static const struct i2c_device_id ac200_i2c_ids[] =3D {
-> > +     { .name =3D "ac200" },
-> > +     { }
-> > +};
-> > +MODULE_DEVICE_TABLE(i2c, ac200_i2c_ids);
-> > +
-> > +static struct i2c_driver ac200_driver =3D {
-> > +     .driver =3D {
-> > +             .name =3D "ac200",
-> > +             .of_match_table =3D ac200_of_match,
-> > +     },
-> > +     .probe =3D ac200_probe,
-> > +     .shutdown =3D ac200_shutdown,
-> > +     .id_table =3D ac200_i2c_ids,
-> > +};
-> > +module_i2c_driver(ac200_driver);
-> > +
-> > +MODULE_AUTHOR("James Hilliard <james.hilliard1@gmail.com>");
-> > +MODULE_DESCRIPTION("X-Powers AC200 MFD core driver");
-> > +MODULE_LICENSE("GPL");
-> >
-> > --
-> > 2.53.0
-> >
->
+> diff --git a/Documentation/devicetree/bindings/sound/imx-audmux.yaml b/Documentation/devicetree/bindings/sound/imx-audmux.yaml
+> index dab45c310670..501af1add3c1 100644
+> --- a/Documentation/devicetree/bindings/sound/imx-audmux.yaml
+> +++ b/Documentation/devicetree/bindings/sound/imx-audmux.yaml
+> @@ -101,10 +101,10 @@ examples:
+>          mux-ssi1 {
+>              fsl,audmux-port = <0>;
+>              fsl,port-config = <
+> -                IMX_AUDMUX_V2_PTCR_SYN		0
+> -                IMX_AUDMUX_V2_PTCR_TFSEL(2)	0
+> -                IMX_AUDMUX_V2_PTCR_TCSEL(2)	0
+> -                IMX_AUDMUX_V2_PTCR_TFSDIR	0
+> +                IMX_AUDMUX_V2_PTCR_SYN      0
+> +                IMX_AUDMUX_V2_PTCR_TFSEL(2) 0
+> +                IMX_AUDMUX_V2_PTCR_TCSEL(2) 0
+> +                IMX_AUDMUX_V2_PTCR_TFSDIR   0
+>                  IMX_AUDMUX_V2_PTCR_TCLKDIR      IMX_AUDMUX_V2_PDCR_RXDSEL(2)
+>                >;
+>          };
 > --
-> Lee Jones
+> 2.53.0
+>
