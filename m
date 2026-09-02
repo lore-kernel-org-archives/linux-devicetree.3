@@ -1,73 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 257BA48F85D;
-	Wed,  2 Sep 2026 12:39:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C43A048C8CA
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 12:40:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788352765; cv=none; b=TaBB8VVYHDfThToz4JHlkPbhTZmsycfXfF2BMUJLV8itSTwTfxBOrSKU7qna7EEqCjQp9XL8OWo6suxvi2CYcRd9yNyQdSwJIZ7lADw+E+kgnTcqSy6egTHmnS0iYyCNo0z3BaKo+kQYPk3pnAbF/n+3Fap13/A7vKM8huSFx+o=
+	t=1788352809; cv=none; b=mlu1HHHyKVh6eH5Ww6S2kJtSNQ9Fg+F82E1TcNDlZ+khYsryTMrAHh1S+Nj+j+eqP6uW+CrBfT0RLJCWxeraF2dnsyuZ4qDqvj97a5Jvig4+3YDA1s8HdpYGXli13qKG+EvJT3HIDd1V0nc+J62Ro6xUG76bYzyxCZtzz1us2g8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788352765; c=relaxed/simple;
-	bh=oL2tX4NRzjE1ezunVxlzKkZhw/6J9KRjqAf6gG0Xzos=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uBBCLd4qt9S5RraJJ+wUF3G7rjOd0csXtyBtmd41lHoTC9ZVz9XaRdz86nWXbfbqh11RIXdR/0BxYhwGusR1Zs9tJ6Sp/dRIewtub1lqyQsouyhV85OG3w8QvBvJAMot5bMwjg7R2tSSGvieQgzzmtmZ2C6IlA4IKUnYDNyTHK8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lv3/1tqn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788352809; c=relaxed/simple;
+	bh=Klpe8gBA+2PNCx51bSzo/EuN3LxVCEYUTgBKdo6fIh8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=u6as6Pv7cIc+u00B2Ymw9ob1/4i3+rTPnL9HC3Se3KHtkg86JZI28CSURiSunEhSPkM3OWvwZ7HfWnbq5xjxFuKtuh9VwHSiYf7lauxzIkKN5k1bufYYlbT7HXTuN9bDvBnh9ezANwrNUTSLCevMKnTgZ8Dwa/P1+o7RPhRK6w0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MJz0oPUx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lv3/1tqn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 401C41F00A3A;
-	Wed,  2 Sep 2026 12:39:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MJz0oPUx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A3651F01560
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 12:40:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788352761;
-	bh=oL2tX4NRzjE1ezunVxlzKkZhw/6J9KRjqAf6gG0Xzos=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lv3/1tqnjcBVcHBmrfLCTd2+y0DvqbwqKx7yaanO9yt48Ak2Jo8Ch0dE6qAC0SMt4
-	 iSRcWX3pP8G/F8ie3gI/SICOKghu9smeb+OPh0BZiy/aRk4Z3DuspDmNC31ZeqoOfi
-	 BwTuYtH2xjmqA0VzBL8XUi2eKHnOQrYS4bo4U+9zCkaMKX4YF/X5OUIKXgNqUh5/JU
-	 vfUWd/al4drzE8eL70+3SJLw0RbcXdERU/CGI3Y8Al4YHUQX6fTs4OHl3v7Zze9HxO
-	 7f87C87/MugWB2d/1Qs5dyTXyaTP06a4Lhb2PJB50aAKe2mn8P53araVH6zjsWwC/A
-	 34+WYgUcS7IEA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 6/7] leds: pca995x: do not use full on LED mode
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Nora Schiffer" <nora.schiffer@ew.tq-group.com>
-Cc: robh@kernel.org, lee@kernel.org, conor+dt@kernel.org, linux-leds@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <bc5241a0728aa81050d987c26a4c02bdb05d6d20.1788350618.git.nora.schiffer@ew.tq-group.com>
-References: <6d3600f99c77c31166f0b6a5ccfb7f518b53c4c9.1788350618.git.nora.schiffer@ew.tq-group.com>
- <bc5241a0728aa81050d987c26a4c02bdb05d6d20.1788350618.git.nora.schiffer@ew.tq-group.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 12:39:20 +0000
-Message-Id: <20260902123921.401C41F00A3A@smtp.kernel.org>
+	s=k20260515; t=1788352807;
+	bh=Klpe8gBA+2PNCx51bSzo/EuN3LxVCEYUTgBKdo6fIh8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=MJz0oPUxfO3QSEwUNGtpXHy+HuBfTpqV/zHYyEX7j08CkMxlewomCO4Q3E2RbN1Wp
+	 wEULcFHD710w/brCMoAevkIUzaZQIzAmn2JqiJ8GUKI8XPwwXQ+ZYbeJGczKCa7Ssp
+	 AMyYuc4AKZ/PpLDJH4JzWPivCY5C9eE1wJNsE2AfDJ7BxB/zR0leoCMApSuFA0S8mI
+	 JA0AEhQm8gaAW7SvhWlN4/Z2yt0Xy13B2JtwzI1s8fAslrUUp9e/XIW1ZQtMSI2KZG
+	 Cgm1TMpNWaZgecR+SQvDHgVINgZYSPrR/A0EeQLFUDY9BjHmKGgxzVOVQvDhsq/KW1
+	 I13nLOmrw4TJw==
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b159850b16so944494e87.3
+        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 05:40:07 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw5c0BtYzbKowXz9l453ObdDFzrNE/YiXtAYNR05NhWyewdpSGKtbbCdaPEFMiDxc5wS5Vi7je+llUO@vger.kernel.org
+X-Gm-Message-State: AFuF++lSdVcuSRHeniEF9kVrK/gR1ISmtOimPl8E7+Niz1u6FhGtTr9e
+	/RvJkzpc6jHK2xr/yro8n5+AHUpt77kMibd7PIlbC6btnNaqLb0OspbKEh+nXTuFurqsiv7Bxim
+	CzGWHGFY6m5VnJepV3JbkUdPTw56+N8Y=
+X-Received: by 2002:a05:6512:1252:b0:5b4:ab2f:5bd5 with SMTP id
+ 2adb3069b0e04-5b608347bb7mr1568323e87.8.1788352806105; Wed, 02 Sep 2026
+ 05:40:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <cover.1788346553.git.mazziesaccount@gmail.com> <5eb294e68b8d5d2c1d3a12b14a55dd2a9c075a09.1788346553.git.mazziesaccount@gmail.com>
+In-Reply-To: <5eb294e68b8d5d2c1d3a12b14a55dd2a9c075a09.1788346553.git.mazziesaccount@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 2 Sep 2026 14:39:52 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkvELVwVD2B-OPF=mV8-F5xi7RZWJ7cvuyg2srnrJ2HLQ@mail.gmail.com>
+X-Gm-Features: AcwNN1XLITgbm1aOFoVQnd28TjU_0cWWW0RJDEA68aIrbre66YkBVpUmqod9dXc
+Message-ID: <CAD++jLkvELVwVD2B-OPF=mV8-F5xi7RZWJ7cvuyg2srnrJ2HLQ@mail.gmail.com>
+Subject: Re: [PATCH v3 09/10] gpio: bd73800: Support ROHM BD73800 PMIC GPIOs
+To: Matti Vaittinen <mazziesaccount@gmail.com>
+Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>, 
+	Matti Vaittinen <matti.vaittinen@linux.dev>, Lee Jones <lee@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Michael Walle <mwalle@kernel.org>, mfd@lists.linux.dev, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-rtc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The commit message description is not capitalized, violating subsys=
-tem guidelines.
---
+Hi Matti,
 
-commit 01d1bfa03d0ba73721521c5728d8d5c69f3ae3cc
-Author: Nora Schiffer <nora.schiffer@ew.tq-group.com>
+thanks for your patch!
 
-leds: pca995x: do not use full on LED mode
+On Wed, Sep 2, 2026 at 1:07=E2=80=AFPM Matti Vaittinen
+<matti.vaittinen@linux.dev> wrote:
 
-LEDs in full on mode are unaffected by group dimming. This commit avoids
-using full on mode so that group dimming is applied consistently, altering
-the brightness at maximum to use a 255/256 duty cycle.
+> From: Matti Vaittinen <mazziesaccount@gmail.com>
+>
+> The ROHM BD73800 PMIC has 4 pins (named GPIO1, CLKOUT, FAULT_B and
+> EXTEN_OUT) which might have been set to operate as a GPI or GPO when OTP
+> (One Time Programmable memory) is written at device manufacturing.
+> Support the GPI/GPO use-case via GPIO framework.
+>
+> The default OTP for these pins is to not use any of them as GPI or GPO.
+> (The GPIO1 defaults as an ADC input regardless the naming). Hence the
+> driver assumes none of these pins is a GPI/GPO unless explicitly pointed
+> as GPI or GPO via device tree.
+>
+> Furthermore, pin's direction can't be changed after OTP configuration is
+> done. Also the default drive type for a GPO (CMOS / Open Drain) is set
+> by the OTP configuration. The BD73800 has a set of undocumented test
+> registers which should allow changing the drive type. Access to the test
+> register area or the test registers aren't documented and so this driver
+> does not support configuring the drive type even though it might be
+> doable.
+>
+> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
 
-> leds: pca995x: do not use full on LED mode
+Pretty neat with gpio-regmap isn't it? :)
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-[Severity: Low]
-This isn't a bug, but does this subject line miss the capitalization requir=
-ed
-by the LED subsystem guidelines? The convention requires the description af=
-ter
-the subsystem prefix to be capitalized.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/6d3600f99c77c31166f=
-0b6a5ccfb7f518b53c4c9.1788350618.git.nora.schiffer@ew.tq-group.com?part=3D6
+Yours,
+Linus Walleij
