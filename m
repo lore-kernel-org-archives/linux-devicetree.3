@@ -1,304 +1,348 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B65614A3859
-	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 14:23:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEB7E4A3843
+	for <devicetree@vger.kernel.org>; Wed,  2 Sep 2026 14:24:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788359039; cv=none; b=fxd2HqTTyQCM2BdzXuNMtr+hVmM3MdZa/PIPp/2WHZTMfoBmJbca11XgWGf1hjqv5xymZsgzOr8f56LR2j56Ic4riPwiFz7vbryx5lPGhkAYT6mlh3RBHqx4sLzKZUbk8C0gzzUBd898+PK/1NzEisLFocun+0mD5WtY9poyAJo=
+	t=1788359071; cv=none; b=XTtCWL13mevAvWcwmwE8xJ/4d3se0rjF+8z2FWDOgwNV+TFatbwILeuDa7YugGSHhbGitknp9XKZ6MfccD/vvfsvTG7fs9GOZKL8BnmWfpdbow9KfTLp1Cwkxi7HiYkLck1/eE5eZo0oTZYoazr2hJ3s3/aSuWp7uyAIYM4+d2w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788359039; c=relaxed/simple;
-	bh=LcFQRYsbPcw7A5+op99U+3wZPEy3PpEg96bG+bJDZR0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lYQn+DpXHs95FRW3qqrvIt3ICi5XK4TIuemDtS25v11wrG2b7YTzlfMiDImshlpYKjS8JbR9AEtnlj8hag1Pf1YVb0bFKFpq1lg4k3sxJ7WpOJU9CYpkIlAlB6cmonbKvLpjMrvijJMa7HmZOX/Ce/22iBEJCP0NZ1cJnLAU/o4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YGnM6rjg; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788359071; c=relaxed/simple;
+	bh=g4y1dz6cy86SQQvkvMMRWFtslcd5Keg5vCQhDkhFffo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Egq3nkGgn6U3MQIlES/eRhnT3vwli8qy0tNih79Hch5SrN70sJ6HqQTkiKLYtyPL8oxS0s5lnjh/FeMowMgYZr9qNls1lOkvSnrcl5XTqzZ2vzoG6gJ3Rs2/Va1ztH2OHzAcK2jZjUAchND6aBjLr9xVBZlVIbsRKaH4XVb4w2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LsVMR1jN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YGnM6rjg"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48431648f33so1681280f8f.0
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 07:23:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788359036; x=1788963836; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=eCEhzIHv+gI4dxAX0R87oiyrbLJH9NF0MvQOqH+iMVM=;
-        b=YGnM6rjgGfUzjCCkCZ5VttIxr0JnAkfmo85SEj58Rv9dvcJZ7OgbxOxBDxEnGEElJE
-         LXCl4198M1q3gYhSKIh69N7dwmPh30TbqyH87/6XbWOkxlt8LuTYPqLlp3iTjdbH2g6C
-         uxUkaLL/5gqBsxBPYOdpS0oD0+c4ZNnmAX+Kck3lbEY4k5aI46xe1cHDdOQ2Jddtg0Bf
-         mLNwscfwaGN5h0LiOqVqgyrIz3gqgIUDHi+6WnC0ssD72FYlq/ERoVkG4Axjpu6OByUI
-         6LFY0Os5GOlIWhAloZQ7ehuI6RHVtFg4hmSx57ti4/gHjcVAI5ooglB91moTIKOIs1+S
-         y4gg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788359036; x=1788963836;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eCEhzIHv+gI4dxAX0R87oiyrbLJH9NF0MvQOqH+iMVM=;
-        b=A6TspVHWD7VKYaI/75TPLB7VRaGa0eQ2ll4E8wpOuCA+LkJvrVaHsMQgzpKeWBY97C
-         i0ktAvbDuN2sR94BQzUXwaqKFb+hEZFD+Aizuuqfl7lZ5qEC9wOtshbgjZ9dPP11TzKS
-         ZPlSgwBFdyWvymqAPiQh0Lys6DlYxuokWJA2PFcfQcr75ACNzvpYC8/W0PxFh/NvI76z
-         4+chS+E5/gZVuGg03BlSVav4b2Rrd2qxIuQemQv0ieoHga8o30q3cObOWQtaUxcdMR4x
-         +CV53xj7C4TPECYU/GqAMqgOY29LZcxXVgn5LErW9hofhX3KXcTunM5grRe2rNrEfniz
-         95ng==
-X-Forwarded-Encrypted: i=1; AKwUvByuhRJAu6bR3IaFTpSqPG/AhUQTgS7ODiHZB6iyFYULF8enFpEu9joUjxmkRosZxhG0OQy20YgegYDi@vger.kernel.org
-X-Gm-Message-State: AFuF++ne5bJi8T4N71rk6mjM4dgqUsLeZaZfSuu0KdBF5dwttb249nLW
-	tzGHz/j6NxqhJWqOWz0LpzhIL7kapRBjsOcWU23HxEeWlr0Z42JhjLJ1
-X-Gm-Gg: AYBFou1h4u3guxsxPqcrrNpDcTzRvbREFM8JQBB8ouRpFvsjL2oHd9GA7o/017V/n8L
-	UVzvBgzUUXprNklyIKO6dsORd9Pq4BA8rUu0eFfR0ERNqVR9kzF5k8JC8ZAFlvwWVJYzyhR6jJa
-	+fdeZTahCBdQlKaJ8NnFTheyIFbt+MDHLNOIrkiY6CtLy0dl16bj/XgeOmx1htWNRHpzAV68vPn
-	lz21vp/nRSWgRsCELCyO09229e05ore7cv2Obg5jIVKGJ64PVo1YxvORCuUrnmdWe9wa2eWWF40
-	NcgY+gGB4yZUnIbvO9hUi+sIHlPnn66uz+QzGtpEJbeZAR1jHUYcbVaXKs8IWqBagHlnJuxJnd+
-	V2EZozowVOgPbKoSJY5EhakrTYtyjy0nGPtJfQRkZX+LuxVpNfGEwYQRh6fz/NQFaeeBGwDkMd8
-	CCTPA4rwF5+MX+DloLiLdYV18Q8Me/OHDV8QEC2RiJFZ9Bj2oRzBH726fsjXhJ8BvJKgVwoJUlK
-	vpTJkdo/m6frXlvt81DXSgnCMd+Gg/V0cBT53dHAhUAHWaISCSfKYokVRrZfEY=
-X-Received: by 2002:a05:6000:4211:b0:482:fbb6:1b29 with SMTP id ffacd0b85a97d-485781faaeemr6553373f8f.10.1788359035442;
-        Wed, 02 Sep 2026 07:23:55 -0700 (PDT)
-Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e6f604sm6722961f8f.2.2026.09.02.07.23.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 07:23:54 -0700 (PDT)
-Date: Wed, 2 Sep 2026 16:23:53 +0200
-From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Francesco Dolcini <francesco@dolcini.it>, 
-	Kieran Bingham <kieran.bingham@ideasonboard.com>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Francesco Dolcini <francesco.dolcini@toradex.com>, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-Subject: Re: [PATCH 6/8] arm64: dts: freescale: imx8mm-verdin: Add Toradex
- OV5640 CSI Cameras
-Message-ID: <qkcwnshcm4o3q5vbdgb6i33wtm3wrri7ifsi5pnj342mqgfiaw@76vnlt3yro5v>
-References: <20260713-v1-verdin-imx8mm-dtbos-v1-6-4acd63db4504@toradex.com>
- <al5mDqeFE8QVbUd9@lizhi-Precision-Tower-5810>
- <3ak4ffamwvdrtgw3bivzvrbtkmyh7g3lvuk4xwvdiuzizi3iu3@uxqvyif7rvpx>
- <178471622928.2174993.5439033710284861967@ping.linuxembedded.co.uk>
- <20260722105914.GA72270@francesco-nb>
- <amDXGRT80HfyJwCt@SMW015318>
- <vrw2wmtywuokachenclid4dnrosaq2xqlzqtyqe75tsdt27yzx@ntztzwyxoadw>
- <amJrv2FDbdkbvMKQ@SMW015318>
- <sr26lfvwasgcosfzcf4ydtwxwjjutlio2yqpgxldatpzjo7e4y@77k7gefnjzvl>
- <amN9zxNjXM0bSp1w@SMW015318>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LsVMR1jN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 543CB1F000E9;
+	Wed,  2 Sep 2026 14:24:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788359069;
+	bh=i2+dIzpSFaCz+LgLzdaac9dB+sniaTlOkA964JKf8Vg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LsVMR1jNVMb7AG4AbVTOgVdTTTaH8wzah0/IZ8taxHPEMTEeqvTpILP80rm0euNgN
+	 MBdfXE7gYscRp8uKArnBcDQA3e7OFr+XdVPMoyfIjT/9/tuD2XLTzCreZOsZIzTDtn
+	 EkXAUcfrkaMBpy7B6nE+lLXqm04KxCjvjG97RqnhQ3G+TmtmzrFnulZEfj34k5mMx4
+	 nV4Jk78KCN72yr3NJfmaMp1rXUnUQcgb73dbOxohuh107HfYcXDokXDFWqU5FzjHZq
+	 V+3Vgsavtk8xmV0L9eQhZ0G3ZenpFnTIQdE5UIHpf/53Z/A0xy3DELkYUDlLu0C6as
+	 HTMAFWLexFhVA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/2] phy: stm32: Add support for ST STM32MP25
+ USB2-FEMTO PHY
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Marek Vasut" <marex@nabladev.com>
+Cc: olteanv@gmail.com, neil.armstrong@linaro.org, robh@kernel.org, vkoul@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-phy@lists.infradead.org
+In-Reply-To: <20260902141312.649406-2-marex@nabladev.com>
+References: <20260902141312.649406-1-marex@nabladev.com>
+ <20260902141312.649406-2-marex@nabladev.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 02 Sep 2026 14:24:28 +0000
+Message-Id: <20260902142429.543CB1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <amN9zxNjXM0bSp1w@SMW015318>
 
-On Fri, Jul 24, 2026 at 09:59:27AM -0500, Frank Li wrote:
-> On Fri, Jul 24, 2026 at 03:41:59PM +0200, Ernest Van Hoecke wrote:
-> > On Thu, Jul 23, 2026 at 02:30:07PM -0500, Frank Li wrote:
-> > > On Wed, Jul 22, 2026 at 06:15:50PM +0200, Ernest Van Hoecke wrote:
-> > > > On Wed, Jul 22, 2026 at 09:43:37AM -0500, Frank Li wrote:
-> > > > > On Wed, Jul 22, 2026 at 12:59:14PM +0200, Francesco Dolcini wrote:
-> > > > > > Hello Kieran,
-> > > > > >
-> > > > > > On Wed, Jul 22, 2026 at 11:30:29AM +0100, Kieran Bingham wrote:
-> > > > > > > Quoting Ernest Van Hoecke (2026-07-22 10:27:32)
-> > > > > > > > On Mon, Jul 20, 2026 at 02:16:46PM -0400, Frank Li wrote:
-> > > > > > > > > On Mon, Jul 13, 2026 at 05:06:27PM +0200, Ernest Van Hoecke wrote:
-> > > > > > > > > > From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> > > > > > > > > >
-> > > > > > > > > > Add device tree overlays for the Toradex OV5640 CSI Camera on Verdin CSI_1.
-> > > > > > > > > >
-> > > > > > > > > > The default overlay describes the current CSI Camera Set 5MP OV5640 with a
-> > > > > > > > > > 27 MHz on-board oscillator. Add a separate 24 MHz overlay for the legacy
-> > > > > > > > > > camera module.
-> > > > > > > > > >
-> > > > > > > > > > Link: https://developer.toradex.com/hardware/accessories/cameras/csi-camera-module-5mp-ov5640-arducam
-> > > > > > > > > > Link: https://www.toradex.com/accessories/csi-camera-ov5640
-> > > > > > > > > > Link: https://developer.toradex.com/hardware/legacy-products/other/csi-camera-module-5mp-ov5640/
-> > > > > > > > > > Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> > > > > > > > > > ---
-> > > > > > > > > >  arch/arm64/boot/dts/freescale/Makefile             |  6 ++
-> > > > > > > > > >  .../dts/freescale/imx8mm-verdin-ov5640-24mhz.dtso  | 17 +++++
-> > > > > > > > > >  .../boot/dts/freescale/imx8mm-verdin-ov5640.dtsi   | 78 ++++++++++++++++++++++
-> > > > > > > > > >  .../boot/dts/freescale/imx8mm-verdin-ov5640.dtso   | 18 +++++
-> > > > > > > > > >  4 files changed, 119 insertions(+)
-> > > > > > ...
-> > > > > > > I think with the Toradex ecosystem there would be some value in
-> > > > > > > supporting or helping with the ongoing dt-connectors or dt-addons topics
-> > > > > > > so that we can abstract the hardware which is being 'added'.
-> > > > > > >
-> > > > > > > I think it's important that we tackle the problem of combinatorial
-> > > > > > > explosions of overlays when we can add a component to multiple
-> > > > > > > platforms.
-> > > > > > >
-> > > > > > > For example, your OV5640 camera could be added to many different boards
-> > > > > > > - and each board could have many different cameras - in different ports.
-> > > > > > >
-> > > > > > > We should not be copy/pasting overlays for each combination, or we'll
-> > > > > > > have 'thousands' of identical overlays.
-> > > > > >
-> > > > > > I see your point, and I agree that it would be valuable to move this
-> > > > > > topic forward. I will raise it internally at Toradex and see how we can
-> > > > > > contribute.
-> > > > > >
-> > > > > > At the same time, quoting Marex (https://lore.kernel.org/all/dec2a7f6-80fd-4692-8936-969f8837a555@nabladev.com/):
-> > > > > >
-> > > > > >  | DT connectors have been discussed for the last 10 or so years and three
-> > > > > >  | is still no real progress.
-> > > > > >  |
-> > > > > >  | I would be happy to send a follow up patchset which would convert the
-> > > > > >  | DTOs to whatever connector implementation format lands in the future,
-> > > > > >  | but I am concerned that waiting for DT connectors will block this
-> > > > > >  | patchset from landing for a long time.
-> > > > > >
-> > > > >
-> > > > > I do quick check for ov5640, we can use partial connectors, which already
-> > > > > in kernel tree.
-> > > > >
-> > > > > use duplicate label like
-> > > > >
-> > > > > in mainboard
-> > > > > csi_io_i2c: &i2c3 {
-> > > > > 	...
-> > > > > }
-> > > > >
-> > > > > csi_io_regualotor_3v3: ....
-> > > > >
-> > > > >
-> > > > > csi_io: connector_csi {
-> > > > > 	compatible = "...";
-> > > > > 	gpio-map = <0 0 &gpio1 3 3>;
-> > > > > 	...
-> > > > > 	irq-map =<0 &gpio1 4 1>;
-> > > > > 	...
-> > > > > }
-> > > > >
-> > > > > in 5640 overlay
-> > > > >
-> > > > > &csi_io_i2c {
-> > > > > 	camera@xx {
-> > > > >
-> > > > > 		reset-gpios = <&csi_io 0 ACTIVE_HIGHT>;
-> > > > > 	}
-> > > > > }
-> > > > >
-> > > > > https://lore.kernel.org/imx/AM9PR04MB8353AC7DF91C5F73C34019E0E3F72@AM9PR04MB8353.eurprd04.prod.outlook.com/
-> > > > >
-> > > > > Only clock part have dependence. other parts. I am working mipi dsi for
-> > > > > display, almost work except panel show have some problem, which is not
-> > > > > related with connector.
-> > > > >
-> > > > > Frank
-> > > >
-> > > > This is very interesting and I agree with both you and Kieran that it
-> > > > would be great to abstract these connections away and kill the need for
-> > > > so many variations.
-> > > >
-> > > > Certainly I will read up on this and spread it internally as well.
-> > > >
-> > > > That said, since there are still unresolved dependencies, I am not
-> > > > convinced that we should already head this way with this series. It
-> > > > supports hardware that exists today in the currently standard and clean
-> > > > way.
-> > >
-> > > Your ov5640 have not such dependence. You can try connector firstly.
-> > >
-> > > display most like can go through connector, (I remember pwm already
-> > > supported, but not sure).
-> > >
-> > > others continue go through old method until dependence clear.
-> > >
-> > > Frank
-> > >
-> >
-> > The ov5640 still requires a clock nexus which is not merged yet.
-> >
-> > I have been playing around with it locally now and find the work here
-> > very interesting. Certainly this is also useful for Toradex and I would
-> > like to use it to reduce duplication.
-> >
-> > We will repeat this work for the Verdin iMX8MP. So I see real value in
-> > using these new mechanisms to map the GPIOs such that the Verdin ov5640
-> > overlay can be reused. However, this would also require a new binding
-> > for a "verdin_csi" device.
-> >
-> > Therefore, I could consider dropping the ov5640 overlays from this
-> > series and sending them as a follow up with the partial connectors
-> > support. But I don't want to block the series from getting merged for
-> > this non-trivial effort.
-> >
-> > If we go that way, I wonder where the verdin-ov5640 overlay should go?
-> > We also have Verdin modules with a TI SoC, with the OV5640 overlays
-> > already merged, that could be refactored. Those live in ti/, not
-> > freescale/. Do you have any input on how we should deal with that?
-> 
-> 1: need make both work by duplicate overlay source file, which under TI
-> and freescale.
-> 2: try to create common dir, and merge two file to one, which may need
-> involve both TI, freescale and Soc maintainer to discuss where to put.
-> the discussion start utill real case happen. This one may first real
-> user case.
-> 
-> >
-> > Personally I am still more in favour of merging now and refactoring with
-> > our next series for other SoMs, but I understand the desire to start on
-> > this now so there are more consumers of this new behaviour.
-> 
-> I suggest use this 8mm ov5640 as start, you can refact other later step by
-> step.
-> 
-> I can increase this part review priority.
-> 
-> Frank
-> 
+Thank you for your contribution! Sashiko AI review found 11 potential issue=
+(s) to consider:
+- [High] Lockless atomic counter allows concurrent callers to access uninit=
+ialized hardware.
+- [High] Missing decrement of `en_refcnt` on error paths permanently bricks=
+ hardware initialization.
+- [High] Inconsistent PM suspend/resume logic fails to power down hardware =
+if the clock provider is actively used.
+- [High] Logical conflict between Clock Framework and PHY set_mode over the=
+ CMN register bit causes state desynchronization.
+- [High] Incorrect parsing of `reg` property using `of_get_address()` poten=
+tially corrupts syscon register 0 on 64-bit platforms.
+- [Medium] Failure to assert reset in `stm32_usb2phy_disable` leaves clock =
+and regulator permanently enabled.
+- [Medium] Driver strictly fails probe if the ostensibly 'optional' vdd33 r=
+egulator is missing, breaking the `_optional` contract.
+- [Medium] Inconsistent masking in `stm32_usb2phy_set_mode` prevents cleari=
+ng `VBUSVLDEXTSEL` on transition to HOST mode.
+- [Medium] Blind dereferences of `dev->of_node` and `device_get_match_data(=
+)` will crash if bound manually.
+- [Low] Build failure due to passing a non-constant mask to `field_prep()`.
+- [Low] Commit message contradicts code regarding PHY2 set_mode support.
+--
 
-I've prototyped the GPIO nexus approach and confirmed that it works. It
-abstracts the sideband GPIO wiring, but the camera pipelines and port 
-election remain SoC- and port-specific.
+commit 291cd4f88294f76f9e6908ba105bb434b48f3830
+Author: Pankaj Dev <pankaj.dev@st.com>
 
-So I could implement all of this, probably with a binding too (unclear
-to me as of now if a compatible + binding is needed or if we can just
-leave the compatible property out). But it would only enable sharing one
-overlay between the Verdin iMX8MM and Verdin iMX8MP. As you noted, we
-could do something like:
+phy: stm32: Add support for ST STM32MP25 USB2-FEMTO PHY
 
-imx8mm-verdin.dtsi:
-	/* Verdin CSI_1 */
-	verdin_csi_capture: &csi {};
-	verdin_csi_rx: &mipi_csi {};
-	verdin_csi_i2c: &i2c3 {...};
-imx8mp-verdin.dtsi:
-	/* Verdin CSI_1 */
-	verdin_csi_capture: &isi_0 {};
-	verdin_csi_rx: &mipi_csi_0 {};
-	verdin_csi_i2c: &i2c3 {...};
+This commit adds a USB2 PHY driver for STM32MP25 USB2 controllers. It
+supports two slightly different PHYs on the SoC, each requiring a
+different compatible string. The driver handles initialization, clocks,
+resets, and regulators for these PHYs.
 
-Along with a nexus node to abstract the GPIOs used in both, and then
-have one shared camera overlay enable everything and define the camera.
+> V3: - Update copyright years
+>     - Register two sets of clock, one 480 MHz PLL and one CMN
+>     - Split PHY ops per PHY, since the PHY2 does not have set mode ops
 
-But on the Verdin iMX95 for example, the pipeline is more complicated so
-unless we find a way to set up more of the pipeline in the base DTSI, we
-would still need a separate overlay for it.
+[Severity: Low]
+This isn't a bug, but does PHY2 actually support set mode ops?
+The commit message indicates PHY2 does not have set mode ops, but they are
+assigned in the code for stm32_usb2phy2_data.
 
-On SMARC iMX95, for example, we would still require separate CSI0 and
-CSI1 overlays because they use different receivers, pixel formatters and
-ISI ports. And there is no mechanism to select CSI0 or CSI1 from an
-overlay, that would need the proposed generic connector concept, not
-just these nexus nodes.
+> diff --git a/drivers/phy/st/phy-stm32-usb2phy.c b/drivers/phy/st/phy-stm3=
+2-usb2phy.c
+> index 0000000000000..e173557a3cb59
+> --- /dev/null
+> +++ b/drivers/phy/st/phy-stm32-usb2phy.c
 
-My current thinking is that this is not worth implementing as we don't
-really gain much. However, it is clear that connectors would be hugely
-beneficial. I propose that we drop the idea for this camera overlay,
-unless you see a real maintenance benefit, but we work on the connector
-topic to hopefully get rid of this combinations explosion in the future.
+[ ... ]
 
-We are continuing to work on connector infrastructure where it provides
-a concrete abstraction, including the LVDS nexus work and the related
-GPIO/PWM fw_devlink fixes. [1]
+> +static int stm32_usb2phy_enable(struct stm32_usb2phy *phy_dev)
+> +{
+> +	const struct stm32mp2_usb2phy_hw_data *phy_data =3D phy_dev->hw_data;
+> +	unsigned int refsel;
+> +	unsigned long rate;
+> +	int ret;
+> +
+> +	/* Check if a phy is already init or clkpll in use */
+> +	if (atomic_inc_return(&phy_dev->en_refcnt) > 1)
+> +		return 0;
 
-[1] https://lore.kernel.org/all/juuc4af7ndbajcl7gzf4tg5qz2q2j5tt3rvql4jbauradujrre@gc5nbdhhixaf/
+[Severity: High]
+Does this lockless early return allow a concurrent caller to proceed with
+hardware access while initialization is still in flight?
 
-Kind regards,
-Ernest
+If the PHY and Clock frameworks concurrently invoke stm32_usb2phy_enable(),
+such as phy_init() from one driver and clk_prepare() from another, could
+thread A increment the counter to 1 and begin enabling regulators, while
+thread B increments to 2 and returns success immediately, using the
+uninitialized hardware?
+
+> +
+> +	rate =3D clk_get_rate(phy_dev->phyref);
+> +	if (rate =3D=3D 19200000)
+> +		refsel =3D 0;
+> +	else if (rate =3D=3D 20000000)
+> +		refsel =3D 1;
+> +	else if (rate =3D=3D 24000000)
+> +		refsel =3D 2;
+> +	else
+> +		return -EINVAL;
+
+[Severity: High]
+Is it possible this error path permanently bricks hardware initialization?
+
+By returning an error without decrementing the en_refcnt, the reference cou=
+nt
+becomes artificially elevated. Subsequent initialization attempts might byp=
+ass
+initialization entirely while the hardware remains broken.
+
+> +
+> +	ret =3D regmap_update_bits(phy_dev->regmap,
+> +				 phy_dev->cr_offset,
+> +				 phy_data->phyrefsel_mask,
+> +				 field_prep(phy_data->phyrefsel_mask, refsel));
+
+[Severity: Low]
+Will this cause a build failure?=20
+
+field_prep() strictly requires a compile-time constant mask, but
+phy_data->phyrefsel_mask is resolved at runtime via a pointer dereference.
+
+> +	if (ret)
+> +		return ret;
+
+[Severity: High]
+Could this error return leave the en_refcnt artificially elevated, preventi=
+ng
+subsequent initialization attempts from ever succeeding?
+
+> +
+> +	ret =3D regulator_enable(phy_dev->vdd33);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D clk_prepare_enable(phy_dev->phyref);
+> +	if (ret)
+> +		goto error_regdis;
+> +
+> +	ret =3D reset_control_deassert(phy_dev->rstc);
+> +	if (ret)
+> +		goto error_clkdis;
+> +
+> +	return 0;
+> +
+> +error_clkdis:
+> +	clk_disable_unprepare(phy_dev->phyref);
+> +error_regdis:
+> +	regulator_disable(phy_dev->vdd33);
+> +
+> +	return ret;
+
+[Severity: High]
+Does this final cleanup error path also leave the en_refcnt incremented?
+
+> +}
+> +
+> +static int stm32_usb2phy_disable(struct stm32_usb2phy *phy_dev)
+> +{
+> +	int ret;
+> +
+> +	/* Check if a phy is still init or clkpll in use */
+> +	if (atomic_dec_return(&phy_dev->en_refcnt) > 0)
+> +		return 0;
+
+[Severity: High]
+Does this lockless early return also allow teardown races?
+
+> +
+> +	ret =3D reset_control_assert(phy_dev->rstc);
+> +	if (ret)
+> +		return ret;
+
+[Severity: Medium]
+Will failing to assert the reset here leak the clock and regulator resource=
+s,
+leaving them permanently enabled?
+
+> +
+> +	clk_disable_unprepare(phy_dev->phyref);
+> +
+> +	return regulator_disable(phy_dev->vdd33);
+> +}
+> +
+> +static int stm32_usb2phy_set_mode(struct phy *phy, enum phy_mode mode, i=
+nt submode)
+> +{
+> +	struct stm32_usb2phy *phy_dev =3D phy_get_drvdata(phy);
+> +	u32 mask =3D SYSCFG_USB2PHY2CR_USB2PHY2CMN |
+> +		   SYSCFG_USB2PHY2CR_VBUSVALID |
+> +		   SYSCFG_USB2PHY2CR_VBUSVLDEXT;
+> +	u32 val =3D 0;
+> +	int ret;
+> +
+> +	if (mode =3D=3D PHY_MODE_USB_HOST) {
+> +		if (submode !=3D USB_ROLE_NONE)
+> +			val =3D SYSCFG_USB2PHY2CR_VBUSVALID;
+> +	} else if (mode =3D=3D PHY_MODE_USB_DEVICE) {
+> +		val =3D SYSCFG_USB2PHY2CR_USB2PHY2CMN |
+> +		      SYSCFG_USB2PHY2CR_VBUSVLDEXTSEL;
+
+[Severity: High]
+Is there a logical conflict over the SYSCFG_USB2PHY2CR_USB2PHY2CMN bit?
+
+The Clock Framework's internal state could become desynchronized if
+stm32_usb2phy_clkcmn_prepare() clears this bit, but stm32_usb2phy_set_mode()
+is concurrently called to switch to DEVICE mode and directly sets this exact
+same bit via regmap_update_bits().
+
+> +		if (submode !=3D USB_ROLE_NONE)
+> +			val |=3D SYSCFG_USB2PHY2CR_VBUSVLDEXT;
+> +		mask |=3D SYSCFG_USB2PHY2CR_VBUSVLDEXTSEL;
+
+[Severity: Medium]
+Does adding the VBUSVLDEXTSEL bit to the mask dynamically here instead of in
+the base mask prevent clearing it on subsequent transitions to HOST mode?
+
+If it is omitted from the mask during a transition to PHY_MODE_USB_HOST,
+regmap_update_bits() won't be able to clear it.
+
+> +	} else {
+> +		return -EINVAL;
+> +	}
+
+[ ... ]
+
+> +static int stm32_usb2phy_probe(struct platform_device *pdev)
+> +{
+> +	struct phy_provider *phy_provider;
+> +	struct device *dev =3D &pdev->dev;
+> +	struct stm32_usb2phy *phy_dev;
+> +	char *pllname, *cmnname;
+> +	const __be32 *offset;
+> +	struct phy *phy;
+> +	int ret;
+
+[ ... ]
+
+> +	phy_dev->phyref =3D devm_clk_get(dev, NULL);
+> +	if (IS_ERR(phy_dev->phyref))
+> +		return dev_err_probe(dev, PTR_ERR(phy_dev->phyref), "Failed to get phy=
+ref clk\n");
+> +
+> +	phy_dev->vdd33 =3D devm_regulator_get_optional(dev, "vdd33");
+> +	if (IS_ERR(phy_dev->vdd33))
+> +		return dev_err_probe(dev, PTR_ERR(phy_dev->vdd33), "Failed to get vdd3=
+v3 supply\n");
+
+[Severity: Medium]
+Since this propagates -ENODEV when the regulator is absent in the DT, does
+this strictly fail probe for platforms legitimately lacking the optional
+vdd33 regulator, breaking the _optional contract?
+
+> +
+> +	phy_dev->regmap =3D syscon_node_to_regmap(dev->of_node->parent);
+
+[Severity: Medium]
+Will this unconditionally dereference dev->of_node?=20
+
+If the device is instantiated manually, such as via sysfs bind without a
+backing Device Tree node, dev->of_node will be NULL, leading to a kernel
+panic.
+
+> +	if (IS_ERR(phy_dev->regmap))
+> +		return dev_err_probe(dev, PTR_ERR(phy_dev->regmap), "Failed to get reg=
+map\n");
+> +
+> +	offset =3D of_get_address(dev->of_node, 0, NULL, NULL);
+> +	if (!offset)
+> +		return dev_err_probe(dev, -EINVAL, "Failed to get regmap offset\n");
+> +
+> +	phy_dev->cr_offset =3D be32_to_cpu(*offset);
+
+[Severity: High]
+Does this logic incorrectly parse the reg property on 64-bit platforms?
+
+If the parent node uses 2 address cells, which is common on STM32MP25,
+*offset contains the high 32 bits of the address, which is typically 0.
+This could cause the driver to incorrectly extract 0 and overwrite syscon
+register 0 instead of the intended PHY control register.
+
+> +
+> +	phy_dev->hw_data =3D device_get_match_data(dev);
+> +
+> +	phy =3D devm_phy_create(dev, NULL, phy_dev->hw_data->phy_ops);
+
+[Severity: Medium]
+Could this unconditionally dereference phy_dev->hw_data if
+device_get_match_data(dev) returns NULL when the device is bound manually?
+
+> +	if (IS_ERR(phy))
+> +		return dev_err_probe(dev, PTR_ERR(phy), "Failed to create PHY\n");
+
+[ ... ]
+
+> +static int stm32_usb2phy_suspend(struct device *dev)
+> +{
+> +	struct stm32_usb2phy *phy_dev =3D dev_get_drvdata(dev);
+> +
+> +	if (phy_dev->is_init)
+> +		return stm32_usb2phy_disable(phy_dev);
+
+[Severity: High]
+Does this conditional logic incorrectly assume is_init and disable()
+correctly account for all framework consumers?
+
+If the hardware was enabled via the Clock API, en_refcnt is 1 but is_init
+is false, so suspend does nothing. If enabled via both, calling
+stm32_usb2phy_disable() merely decrements en_refcnt to 1 and returns early
+without powering off the hardware. Could this fail to shut down the hardware
+if the CCF clock is in use?
+
+> +
+> +	return 0;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902141312.6494=
+06-1-marex@nabladev.com?part=3D2
