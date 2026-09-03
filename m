@@ -1,156 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A1C0439331;
-	Thu,  3 Sep 2026 08:28:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E00D337187E
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 08:29:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788424107; cv=none; b=FR+v9sd+mAbZ5BTu8FvgrkQthXBoYP4txVUMuiN0ElBjpLqKlnXhVMexCLV1bPf60TYkFj5wn6EmdKvESRan3WAwZ1vt68D8NBcJpN809GTl6YA7YWRPilRcgYY4pN9iuLYz6otV+HVn1r0aMGZgxggYE/qnGTPJeu6H+0ti7T0=
+	t=1788424145; cv=none; b=WgBEszQTJNItrsRBC3LNkDrkbBOzs7+I8HPdhm05gcRbJCkGfloA/438Q/eaFcqxZV6VufbisVMIy+q0JXaWieVQF27rD+cPapO9Xf26U4y2EsJHsTfDHMAgRKXFTvmefGERgtVp2qc3njpYAA0vymOtPinMgQk26O8xZApyji4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788424107; c=relaxed/simple;
-	bh=gxyN0inF6LFVlALsQscUp0yPnDl9IKTwzmTnq1LtqMo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=L4WS30dq/Ac9sfIHawv3xnaxHYOAz/Ec/YQdfuO2oUXVKWW4a9Vv7p9xWheigMoqLCtwuxj/bxyN3tIzKwo73F1MsxnpKRB0daHSrjmbqpQFesCW3li/rDI7IRX/y4TxBk3xBdHm0KYl2Nz2Uw9LpNjnlJaRuIRmDcNaK9/OiuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l0MjF3X5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788424145; c=relaxed/simple;
+	bh=j/YkXCRb+DA7nNO9q31K7pBUxD0nnB4tRARb3P9panw=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=l9NYxxWs3Yc4YXjiL45WGPACNnb/pOdVtpRCDjUgSaS+Nn56iwPGoscVeuxcxJwxJR4yTephZDnukdpCiVQpuCEkCRqgRNOD5W/9DANppjVeEwlvvGRyp5k1I5tL2v4haaeRVi35GHP5uO0ef5j4TNsBZ1ehZF9V2lKM31T9q40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=mRFGQaQd; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l0MjF3X5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 215B51F00A3A;
-	Thu,  3 Sep 2026 08:28:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788424106;
-	bh=VC4wHaers98T5HZdg4G5azg+tGdn9DxjhYKU+8WULhY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=l0MjF3X5L4D1m8zAbHfArXBpv1109NHOaIS4TQ4jY51lfp4iPu2mAavFHyuqpgssC
-	 HiqtQmYIV3wCxf84hFemXmqQSRZxlXPKgbg8gcrztJto2v4rKVnswUbBzT81eM1OKI
-	 7L1/83jYYV/1FnTKuSCEBAbXwEX6G540Un6RgQcGgYRlhGD5qpnnBAUobSlfGgx8ht
-	 PPpntG6/ytCVKW/0pUUpAfWodDDabV+Ef9U48S7PzVVrmhU9pepoqa3xPgKs2Zf2ea
-	 b8tsniYwjJpSckyRmDpnstdCvOtWywz6Qslo4CBf4j0xwLjy93wcgy2c+RDQJ9jtVe
-	 6T9MEfxav1DNw==
-Message-ID: <d23d74a8-2695-487f-af3c-4c74e3d61ac4@kernel.org>
-Date: Thu, 3 Sep 2026 10:28:16 +0200
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="mRFGQaQd"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-4843e9c5960so2009878f8f.0
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 01:29:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1788424141; x=1789028941; darn=vger.kernel.org;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=G4vKdHGO8+zOlAPBdoXMqgNoiUhAKGdphTDuXcL4XSA=;
+        b=mRFGQaQde7qdWnv+c98cI5KLyy/7vLcC8qeD9geIQc+8meImGBg7E2P6M+RiM5FP8Y
+         znQoySRkWarZkGMDGV93PPL6m4iXWuy74nkscUMmRYaaTpY35QUwXa2vm+ovvm1fCnU3
+         k+0mLyNheymZn6BYr7bg1qZwpX5vFSy815omfyPycxGMyrhQ91pcVFIocR9NWZQdLE/a
+         1+zbTYsgEl6M60qQeXjBhd7eo8fQQmA2D5cOaBPEhAVFg1t1Pxov+pcwCChLqMLPkaA1
+         3LRKwntbu4qUyV5VOZeL1Tbh45EgGZN2d9zLp5qAeVbV8OfCZDy0w04WP9ktkTpc2wQZ
+         ohWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788424141; x=1789028941;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=G4vKdHGO8+zOlAPBdoXMqgNoiUhAKGdphTDuXcL4XSA=;
+        b=DsAQLn+CWGRYm32xXvGEChPazOMe6g5S9YDnyvavxeSkKJqUlVD1httukaCz62wa8B
+         aVAQ6v2oZqKvtBBa8Zjexf3pi0AtCnXDbfFM3cmsrr1hrVj4Q6z+WtSFbFlTpawtXSvj
+         tXht3AJqC/Uas1Y/1faDjJ3TM0GpR/s3e/wjL0uWDdrUagpx0/wHntlh/XdYi3ppPcEj
+         HBmzkkg1Zd2vYdBrm2kwTRNWh8iRTSRcZi9XpXr1US0OI5Njcds7Unpsj4m3/sBy2546
+         Ve09NpTpMUj0uHTcpl03imkrZUSEZl0aLuwB0afnuahj/ox5G7N8nTvXU7CDrDUnYhli
+         sChA==
+X-Forwarded-Encrypted: i=1; AKwUvBxZf2twE1L9KpTEfzJdr/2pSzaReNbb7CCYrDbr7s2n1dT4pbMASPefY+pGP1lCdTQcd0piGPmLV2R/@vger.kernel.org
+X-Gm-Message-State: AFuF++nppgGfuyx7r0ZlWTPrcavSCKegnN5BlD+nNaHgkxVQG9sbFKQl
+	sQiJmIJIglmkPVI/Knba4rM3jWTvCGIwff8j2rVemIp9IY7idpvFQL50mSVIft0Iqn0=
+X-Gm-Gg: AYBFou0VrZaOr6RwjA9ZI46NFXk4yMfFR1+t42F/ksJLtE7Sv9Ws25AyVSLoFPV+0Mg
+	LGHbRQ6vE0r4T90yRt3WWcGPhzB/N8sMHe8+q/E19S6PcVHIhFnGftE7Wyi/YQtr9KxgzjwpLYM
+	XP7l8hlsyrtDNvyl0FS4Wy8p/D7HK66/XF+lLXG5YEaoYO93iATAHrDV6xU0Z3iZZbsKEyJ4Eyb
+	CKm5EpnpjeWM4CU4vTd+AsGjNe22xs9eslfiM4+BWs9T1retHJ8uJMx8K0Y0iwkaNI7RHyjZqKk
+	UGwr+8D71GYOysGkaiTP+peGiZLNsArOO3yrwoLVY4cGIBy9OiY718OzDaiqKjThEkgrL+1Yi0O
+	V/P0kySDUnXqigEldfFWfU7i2pPF4t/OwRftT3C30BQgyvBtcQ7ovBWNUerEFBK9dCLMKkAxyIW
+	vQH8QBESTlBPTs3M9kY8zHpcZKt4zFhI6yH0LV1M7FsODHBcm0Wdu7OTFr
+X-Received: by 2002:a05:6000:186e:b0:47f:8b24:ef01 with SMTP id ffacd0b85a97d-48488deedd2mr18283862f8f.1.1788424140416;
+        Thu, 03 Sep 2026 01:29:00 -0700 (PDT)
+Received: from localhost ([2001:4090:a244:80d4:489b:7642:1b32:84d6])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448eea5b4sm12497978f8f.27.2026.09.03.01.28.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 01:28:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/9] dt-bindings: display: renesas,rzg2l-du: Document
- RZ/G3E SoC
-To: Philipp Zabel <p.zabel@pengutronix.de>,
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: tomm.merciai@gmail.com, linux-renesas-soc@vger.kernel.org,
- biju.das.jz@bp.renesas.com, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260828122113.1426778-1-tommaso.merciai.xr@bp.renesas.com>
- <20260828122113.1426778-2-tommaso.merciai.xr@bp.renesas.com>
- <20260902-heavenly-ambrosial-trogon-b7ab03@quoll>
- <apgsOubuGuvw_0rf@tom-desktop>
- <CAMuHMdU0y5Dg9tW7fAM3QQHKpAw_+vmjj7v-XeZmrushQgQFAA@mail.gmail.com>
- <apg8luaJ3eobK8sm@tom-desktop>
- <d50816260b8be29948c4cc04172b5c88ea3313a4.camel@pengutronix.de>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <d50816260b8be29948c4cc04172b5c88ea3313a4.camel@pengutronix.de>
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=a15e01d85f8a611c40ff4ae9385bc153f1f9fa83a0571b2a8a2491377b30;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Thu, 03 Sep 2026 10:28:51 +0200
+Message-Id: <DL5JFZPXGYZF.2JXFWOJHEMWAF@baylibre.com>
+Subject: Re: [PATCH v4 1/2] dt-bindings: can: m_can: add ti,am62-m_can
+ compatible
+From: "Markus Schneider-Pargmann" <msp@baylibre.com>
+To: "Kendall Willis" <k-willis@ti.com>, "Markus Schneider-Pargmann"
+ <msp@baylibre.com>, "Marc Kleine-Budde" <mkl@pengutronix.de>, "Vincent
+ Mailhol" <mailhol@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Chandrasekar Ramakrishnan" <rcsekar@samsung.com>
+Cc: <s-kochidanadu@ti.com>, <a-kaur@ti.com>, <s-tripathi1@ti.com>,
+ <vishalm@ti.com>, <linux-can@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+X-Mailer: aerc 0.21.0-146-gb5c16ebe1835
+References: <20260902-temp-v4-0-3896f7d16ce8@ti.com>
+ <20260902-temp-v4-1-3896f7d16ce8@ti.com>
+In-Reply-To: <20260902-temp-v4-1-3896f7d16ce8@ti.com>
+
+--a15e01d85f8a611c40ff4ae9385bc153f1f9fa83a0571b2a8a2491377b30
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 03/09/2026 10:17, Philipp Zabel wrote:
-> On Mi, 2026-09-02 at 17:11 +0200, Tommaso Merciai wrote:
->>>>>> +  reset-names:
->>>>>> +    items:
->>>>>> +      - const: resetn
->>>>>> +      - const: resetn1
->>>>>
->>>>> Drop reset-names
->>>>
->>>> For reset-names, I got the the following comment from Philipp in v7 [1].
->>>>
->>>> Dropping reset-names would force the driver back to an index-based
->>>> lookup, which is what that comment explicitly asked me to avoid.
->>>>
->>>> [1] https://lore.kernel.org/all/8382e2b9fd07fb1132c26e228b3899336fc1fdd4.camel@pengutronix.de/
->>>>
->>>> Philipp, Krzysztof, could you agree on which way you'd prefer?
->>>> I'll follow whatever you decide.
->>>
->>> Until we get a variant with a third interrupt (or reset or reg),
->>> which is not related to the number of channels...
->>
->> Right, IMHO names keep the driver flexible enough for such a variant,
->> indices don't.
-> 
-> I would like to get rid of the reset_control_get_by_index() API
-> altogether, if possible. Currently there are only users with index ==
-> 0, so this would be the first and so far only valid user. I'd prefer if
-> we could keep reset lookup aligned with clock lookup, with via clock-
-> names as well.
+Hi Kendall,
 
-...and clk uses indexing partially. clk_get() is the corresponding
-interface to get the index 0 and is widely used. I agree though there is
-no general get-by-index API. If reset won't provide such API, then fine
-for the names, but the order of entries is still fixed thus the names
-are NOT allowing to change the order.
+On Wed Sep 2, 2026 at 11:03 PM CEST, Kendall Willis wrote:
+> Add "ti,am62-m_can" to the list of compatible strings for the M_CAN
+> controller binding. This compatible identifies TI AM62 SoCs which
+> support out-of-band wakeup capability.
+>
+> Signed-off-by: Kendall Willis <k-willis@ti.com>
+> ---
+>  Documentation/devicetree/bindings/net/can/bosch,m_can.yaml | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/Documentation/devicetree/bindings/net/can/bosch,m_can.yaml b=
+/Documentation/devicetree/bindings/net/can/bosch,m_can.yaml
+> index 2c9d37975bedd652b3060ab11ba75c37565edaad..89e5a44453372c57506e9cf3a=
+009b55a70cc4446 100644
+> --- a/Documentation/devicetree/bindings/net/can/bosch,m_can.yaml
+> +++ b/Documentation/devicetree/bindings/net/can/bosch,m_can.yaml
+> @@ -16,7 +16,9 @@ allOf:
+> =20
+>  properties:
+>    compatible:
+> -    const: bosch,m_can
+> +    enum:
+> +      - bosch,m_can
+> +      - ti,am62-m_can
 
-> 
-> That being said, why are the two DU units represented as a single
-> device tree node at all? Aren't they two completely separate instances
-> of the same IP core?
+I think you should use oneOf here to allow the use of
 
+  compatible =3D "ti,am62-m_can", "bosch,m_can";
 
+Best
+Markus
 
-Best regards,
-Krzysztof
+--a15e01d85f8a611c40ff4ae9385bc153f1f9fa83a0571b2a8a2491377b30
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iKMEABYKAEsWIQSJYVVm/x+5xmOiprOFwVZpkBVKUwUCapkvwxsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDIRHG1zcEBiYXlsaWJyZS5jb20ACgkQhcFWaZAVSlMr
+dwD+KU6CuPk9zJ8NzOMyi92mXbApr4jbJz7igogpPtqaSJMBAOSyx5B9ln3sgQco
+EmRUOaRu3BgZAwDtaQM5wfBkUNEF
+=6Jsh
+-----END PGP SIGNATURE-----
+
+--a15e01d85f8a611c40ff4ae9385bc153f1f9fa83a0571b2a8a2491377b30--
