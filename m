@@ -1,236 +1,156 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011034.outbound.protection.outlook.com [52.101.52.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0B53E5EFA;
-	Thu,  3 Sep 2026 07:00:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788418824; cv=none; b=mYoXa3JPXzOcg4MerVSYKy4qRY9iPzOP6VtnFgjo7xVhx1UOWVLRqdeOOw2k2UmflG7XIrk1jHZnZMCLZm8tnleva5xHR1606dSre3n7NQWBhROXnXAnM52sjR3m1d9rlIOvDgCdfj6GH08zFpzprTSN0GE3yDMSo8LYZkmKs5c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788418824; c=relaxed/simple;
-	bh=QOYufKxH+f3YmteiwiPOwFOBIKX7A7dTy+IgOo6PyDI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CfzhRWS2G2m5hcDep71rcshvs7I5vqgufcNmqU68WDgwRtknv3zJOj0WIngldHCqSFaqMj8NMisC/TBBgf8r5ru7BS8wdS9YzEM7KZKlMIm4hF6wCxz4f+Wit8iYVK1vk35eBZrGJMP7Pxsk88JsWVFvFM/VRr8DqozkzJhFQx4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fMQAqH82; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B436A34D93B;
+	Thu,  3 Sep 2026 07:04:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.34
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788419087; cv=fail; b=T5cwmzYKFq0ZRvWZD7N6LOWUY5CVLGHeFQaOi8ndwzqGGAIYEjUsGhlWoYqo51XyOETQqKgB3qqY911jpXM+bYGNjJk0QybCuGOeVStck+JyxJT5to2+shPwSxNRVkncP/Mdk6rd9hCVGaW5ukOpH335bOFjIPJ2Xq+lXgKBjM8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788419087; c=relaxed/simple;
+	bh=B6wGewSjKX9PQb7Y3gxJKU8hG3GrVwJtWR0mzLAsdfs=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=TUa6aNpNolyGpCqNEG6H1N9QUB4s45K59EpOdiazRy6K5YyAmaVn9Zt11LZoXhTeYoeCfovzxaLWJKZN5TLpH507rjP9OK4qupi+GMsG2uMPR1SkCbgMOWHgz6dGGAb4gxVYSDcsQfP1w7vzLAeqfF3Q65un7T2AGx8DKpShtOI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=O2SHiW1K; arc=fail smtp.client-ip=52.101.52.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fMQAqH82"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788418823; x=1819954823;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=QOYufKxH+f3YmteiwiPOwFOBIKX7A7dTy+IgOo6PyDI=;
-  b=fMQAqH82Wyc3CCC5ab1dEYKRgiOSrdK9wnBY1YIYdRqb4lYImet92gjo
-   OcRwRmRYqB3zh4FpUVpDAs9XYtZ+JJBBSA/+RGsHELMWJAdfWZrjsLHpM
-   +fvah+G7oFtrB3/QudHVnSOHy61+c+FKEXCzBR/DxhDSDjpQtcpWgGwP4
-   tWzawJ0cI/qOF3eo0zJaQbOuZUojY/QlVvgSc+tjxwz7ywFx0B/QOhdLr
-   4i7d4J73HgBvS4++iOITAyWiZyRy8y5pMVT/70CQ3KHp7mbc2q0wt2nDy
-   xjNt34SIw1FU/kTZKJbPHHNCWT/FEVTvN1Nb8bblC1rcgwabiLTUUQqWI
-   g==;
-X-CSE-ConnectionGUID: twhwRkbYQlq1Y9ZfkCEJYQ==
-X-CSE-MsgGUID: NsUtAu5aTMaVvtZ9H9GqdQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="111663389"
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="111663389"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 00:00:22 -0700
-X-CSE-ConnectionGUID: GDejSu/6T5GxuGFpNnwcmw==
-X-CSE-MsgGUID: 8O6qrlUKSkeMsw66MPn5jg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="267874393"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.28])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 00:00:19 -0700
-Date: Thu, 3 Sep 2026 10:00:16 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Marcelo Schmitt <marcelo.schmitt@analog.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux@analog.com, jic23@kernel.org,
-	nuno.sa@analog.com, dlechner@baylibre.com, andy@kernel.org,
-	Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
-	marcelo.schmitt1@gmail.com
-Subject: Re: [PATCH v1 12/13] iio: adc: ad4134: Support high-speed data
- capture
-Message-ID: <apkbAMQ0J2_wJRTv@ashevche-desk.local>
-References: <cover.1788368334.git.marcelo.schmitt@analog.com>
- <53d79eed25795db5076d7c591f6dd8cf4feedfec.1788368334.git.marcelo.schmitt@analog.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="O2SHiW1K"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AaRCfQe9ZkAXkGoF40xKiGETuIlUW2ah43bV1hISLrFF2wR+WC5l8QlFggevNTxxr/xTYMg7KwTkpiXIyNWwKP0N84e78OBO4Yn2p5n8auRUbpJRncOuF0o+zQt3niwMZT+ov2AWuw+q4CUl4uZNrOCOdvJ4tVGtc/zmsDQskexrg9u+clf24JZ6ER/1vi3IvuXteSXuie5Q6Jw2oZrC3NDAONgBV2oYEfDD0fwlyIRyIiT5idOAWj/+cJcGfmm06FKEEEbs0UugY7sfSUbWn1dUwq1zF8Z2OPSiKkyX/PFFpvJxA+YB3NstJDHj0FaupzriPc1Y0Rmw5TY7UEexww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=B6wGewSjKX9PQb7Y3gxJKU8hG3GrVwJtWR0mzLAsdfs=;
+ b=HgpftqOAv+tw/Wjis4S1FfwrBfq4BIHMxK3JIGGOxioWm1fH8slrZ2222szpUEtVFpDNPKLdZgZJRdD5si5RU/mHaxi6Jz2/ce/c/BLlKi5frFNBnC1KqBxRF+EKp3RDRPvcVBPYTSzfmgX1NMF6QPlBHk2MNIC3kAXK47SEYDimXc4LAnSHc/kimDcHH5Cnga1LQy0YaUjt323fQzQkspIlIFA8c2qxoSNVSCU794LSxPMSys+LsKgxZiZNFj3435FRuEPwc6iQhsXdCyVPzcmZURiD/X4eGObrF7s2ka5wwtsRJlEUG4me90hNYn5oH4525m0L1dgs5mLQAvSmGg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=B6wGewSjKX9PQb7Y3gxJKU8hG3GrVwJtWR0mzLAsdfs=;
+ b=O2SHiW1K/aJ4OcDR3B6VVIsMiFiHjfOsphZVNyHxt1+jXsOyXiMog/a1pcfI2txTVIFdFc7XjFqHm1FPSCtqKZPg5RM05FHIFiAOY7bsTBWbipFXET5W1fmvGMOL1aDPiZfFY10niVIY4+LYXFOMU25CNsBuFcznxKha2XxwzzYBzsCVUakky3+K/B+T3OaZFbkxxkYT8fAdncYoqcNGKMqUhypQeYCN1PmmcjiNcNpW+vrA5ej15v1WvLVdaQ+uTpnibW6ozaQII0q1Ui+3dQzR5Xk8UPG+jK4zd0nSNxIK7dVX0r+pZmRPpAh30nnd7TeU8BqcXdJjsSVUVX8OeQ==
+Received: from DS0PR12MB7512.namprd12.prod.outlook.com (2603:10b6:8:13a::5) by
+ IA1PR12MB6284.namprd12.prod.outlook.com (2603:10b6:208:3e4::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Thu, 3 Sep
+ 2026 07:04:40 +0000
+Received: from DS0PR12MB7512.namprd12.prod.outlook.com
+ ([fe80::2b77:2cc3:d751:6b75]) by DS0PR12MB7512.namprd12.prod.outlook.com
+ ([fe80::2b77:2cc3:d751:6b75%5]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
+ 07:04:40 +0000
+From: Wayne Chang <waynec@nvidia.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+CC: "mathias.nyman@intel.com" <mathias.nyman@intel.com>, "vkoul@kernel.org"
+	<vkoul@kernel.org>, "neil.armstrong@linaro.org" <neil.armstrong@linaro.org>,
+	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+	"thierry.reding@gmail.com" <thierry.reding@gmail.com>, Jon Hunter
+	<jonathanh@nvidia.com>, "linux-usb@vger.kernel.org"
+	<linux-usb@vger.kernel.org>, "linux-tegra@vger.kernel.org"
+	<linux-tegra@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-phy@lists.infradead.org"
+	<linux-phy@lists.infradead.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>
+Subject: Re: [PATCH V2 1/8] dt-bindings: phy: tegra-xusb: Add support for
+ Tegra264
+Thread-Topic: [PATCH V2 1/8] dt-bindings: phy: tegra-xusb: Add support for
+ Tegra264
+Thread-Index: AQHdOXrTQx81fQnPiEOnFSCe78BW9La5gC0AgALx1oA=
+Date: Thu, 3 Sep 2026 07:04:40 +0000
+Message-ID: <108d90bc-7979-4d16-ae60-a2073da2b3fb@nvidia.com>
+References: <20260831185835.3732707-1-waynec@nvidia.com>
+ <20260831185835.3732707-2-waynec@nvidia.com>
+ <20260901-heavy-sweet-pillbug-366318@quoll>
+In-Reply-To: <20260901-heavy-sweet-pillbug-366318@quoll>
+Accept-Language: en-US, zh-TW
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Mozilla Thunderbird
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS0PR12MB7512:EE_|IA1PR12MB6284:EE_
+x-ms-office365-filtering-correlation-id: 47135bb4-b5c4-4fb4-38eb-08df09899fbf
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|7416014|1800799024|376014|23010399003|366016|38070700021|10067099003|11063799006|56012099006|4143699003|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ QA5EUBkY3OW9nfTr4RQ2YnbzOP/Eve3H1CqkgLBRGR+HTMPLk0H7y/mlhn90A24uGAFHHcKcGEVeNo2DpaobgL5SnHRmoz0Qss2JipFTtFWajetkGigdgU8fBiAWuFJX0GGooJl8kxP1MjCqOAbmxvjXc1gndqKRmVOj7bA6S4QADqs4rHbogvQ9gctmJDUQVWyEZdDKS0UaRshiFa7p92Vko8WeyUGwLXqzCebRIi0w4vA/zsWthVPlwx1xNTJXoDhtlTWf9yDIFU2idF72Rlx6JuG1wFVv14AgqKR30YUyiuSdmREtZnjtEi5cVOctw84WCs7RG1w+To4Zfwin2FdbowcWukpm+vUTmlbQVUlcRLUXrBsWUW6K1w8r1b8k5JfFdnmp81MtLKRizBO0DNj5cMyYtl6YzKrrDMgZU2K3TIJVbuJlvt0W6GI959er1qp1sWKdG9VaPIXkXIGOHuTX8+LLEX0jR1pZDud+R5GqA7tAajIxyqW9V4yAjUr6DvCXG1VvswJ+79K88TunDw0k3Lm+aBbDjrIFuUBVwFL2jZuuBE2InaTkywHYlOfzku5KHMA/JJTkPBnsafLjSXArtT5Jdhcrhz3od0sUO1L51xiN/uoAJOOoVjP/pzLjRPLGnsYv/PyrZxzE51NV9LB4xmULJvvOMYZq0o4hvRpU40cIoilplwQY8JToBvZ/mv1EerqcFJzU5a3OWdoU5dO+xObBMYJtJFwkYbRdEpk=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB7512.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(23010399003)(366016)(38070700021)(10067099003)(11063799006)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?RklQcWFSTTBSWStWK2s2MC9LZDFrdUVwa25kMXJGdGdRbE4yVDhQYmRjOXpv?=
+ =?utf-8?B?akJyTG9wa2ZQSm5XRzY1VkJpNno5ZExxWXN0MDVnSktoMWdZMmREMWh0b0pE?=
+ =?utf-8?B?YXlQTUh5bkY5Vkp3N3lVaXNqQ2dHV1gxUFEvL3RHKzBLR1BrN3VNL0g4cVJn?=
+ =?utf-8?B?eXgrZjFvSjhnZ3BtT3VEQXZ5Wk9zc3ZkaHF2ZTJqZEZRWTZkVyt5aE5lNEsz?=
+ =?utf-8?B?SUdvVnRMU1NnYWErSGRBa09TNG5aN2VZUEp1b3Uyd0d6N3p3Vlg0N3RxYUpQ?=
+ =?utf-8?B?VkRjQ052WEMrUC9QdkZ6MXNWeWdBMXM2K29IV1lkNm9GdjFiUXFDZksraC83?=
+ =?utf-8?B?dzZCQlhvK282M2F5QVUwWTFrT1dMYUlPMVBzVHhFRTJvSHBRN3BmN3RsMnU2?=
+ =?utf-8?B?SVY3WXhQaE5rTmJXaEg4Q0RibnhHMkh0cnZSNDQyNy9uWnpsKzhhYXg4NEcr?=
+ =?utf-8?B?VnVLbkVUcjJYRHdnVXBoVGNtVTAySU82L1lXRnZjU2tWM2JmRjZ3ZHpBd3VY?=
+ =?utf-8?B?djF3bFdnTlVhVU84bk5HYml5TnMvUzVvQ3crTHFzN05LS2FhUnFNeThmUkkr?=
+ =?utf-8?B?VW9IdVdjc04yKzBmdUpWQWNvcFFjNWUvVXgrcnJZRDJmcGZWWXZxZG5uTFIy?=
+ =?utf-8?B?bkl6K0FyWXdMdzluK2RoYUF0NGNwRkJWZzhOODhJSUFsdGNTdDhOVklaVTZC?=
+ =?utf-8?B?UHRwajNjYzRWS2lnWVI5aU5jUXJlODlxQXZJMk5EM0Zpb2RoRWgreVljcUVX?=
+ =?utf-8?B?Y0NZTWl4R3pHT2xMbFk3Mml3MzRoaUFnV3c0TEtjbElDSEdmQ2ZTSmM2d1FE?=
+ =?utf-8?B?N0xId3M5cS9HdDBpUmd2NUxzVlp3U3BqVG1ZMk1hUFF6a2YrNXpaNjhyTTZQ?=
+ =?utf-8?B?R05mbC9pU2xTUFZUTnJROU9qV1IxV1lVNXQ0Z0wyRlpscHJtY0NKMzVkL1RE?=
+ =?utf-8?B?VHk3R1QyaExhVEJ5eHFUd3NLUWJZQmJXL0hWdDJEYkpxOUxDL3F3WnhjU2po?=
+ =?utf-8?B?TS9XOTEvbnI5MjdsRDVjVFBqR3N4OEpHaUpCcFoyS25iRWswMmpodUZ2V3Fo?=
+ =?utf-8?B?QlJySjVtSVp3a1ZkNEJ6UU1wRUNrNzNsb0NqUVN2dDhudHFBb29Xa2ZJQVR3?=
+ =?utf-8?B?WUJINkJvRnFRcU10Z2lMMDMvVnY5Z3BFTlZZQ0JRRjEvRXYxN3RCZ2FMb0s2?=
+ =?utf-8?B?OVVQcmpDQXlpZ0ZkVmhTb0hHWjExbndSNTZWN1o3VDRvWUxUNis1SVg3dFU1?=
+ =?utf-8?B?ZXRwQlFTWWVKcTVwczZyRWVXR1pBai96amhhdU5oUmoySjlRenJRK3BaSWZK?=
+ =?utf-8?B?RDZ5S1RBV3ZRNjhiUjF6Z1E3R3l5UHJ5UWFjZDBQbFFXbHp5TFBwK1ZmalRH?=
+ =?utf-8?B?WkdPcEJaZlRLYnM5TGlRWHFuNUU2aDYvcTd4NjBqaVJUb3YzZUhtZVE1VW1P?=
+ =?utf-8?B?ZU1mNEk4VUk3Y1p2RjFIVE1Dc1J0NmZLVEZvMHZzZ3FFR01aQlgxQUVINzJ4?=
+ =?utf-8?B?ZmhOWW81d2o0UlU4TkpvS1prSE5GSG9sUDZCdEdSN1NaWVZaUWs1OWJCRC9S?=
+ =?utf-8?B?ODF5NjVLS05UV1ZveFhGZE04a1RVTFFXdThvV0pPaUEvZ0ZtQVBpcCtMdkJZ?=
+ =?utf-8?B?Q3lIM2IyWkxLTWU1ZEhocDQ5TE40ZTYrdm5pdDB5bmhHOURrU1NhV3RHSnI1?=
+ =?utf-8?B?emJ4SXFmRnRNR3paZmppeTJpU3ZvNTNid1ZKbEtKRDkxU2FKWWQrYXJxRjg1?=
+ =?utf-8?B?WU5OUkd0cFpQQ0NaVWNJeTNyQzZINGZ5WU9JVzh2TWEwbkNoVUhDdUZLR1d1?=
+ =?utf-8?B?MUN5aUVIcDJRUzM3N1hMR3pTajF3VlU1enpEYS9Pc1dJWWtZYWcvZ1p6ZHpL?=
+ =?utf-8?B?dm1aQWpHcUlvTlR1UEN2dWVKNWlXbUFidEdrUjNOWE5CR2RLVEJqMVN5QmpT?=
+ =?utf-8?B?TXh3bEVUQWN1U0RGYStoUkhuRXY1S2hTcm01QXcyeDVnUXNjdjBKV3dQYkxX?=
+ =?utf-8?B?d0NYVjhpdkhCMnpYb041bnUybnBHRXFHb2RDeGFFVzVuNnBiSWJWM3gyMFgy?=
+ =?utf-8?B?bUtENEZmblhkckZ4Z1FJR2xaZUxUZytqb2NjTWZtdmc3UnFSQlp1Vm9DZ010?=
+ =?utf-8?B?WnB1dENhd0JoM2VBamJTUkxSdjFyVkJLYzB0dUs2eVlhOW5QQkY0VUpWUnNv?=
+ =?utf-8?B?NFJsQ0dCS2p0RnFSUGFLdHc2NE5XM3FqU0l0cjdZR0JzaFRiSWQ0bUpIbW9T?=
+ =?utf-8?B?YjFncGNQaDg2SG13NVBrRjRobjZGZWVIaU92VmFHRmdldUdGUlFyL3NqN29a?=
+ =?utf-8?B?eEg4UWRlNk9STHVjYWJiZXVndDZsRHJ0dlpZcG9SelJqUGkvdnBjQT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <B1E1E3DF3A837E4FAF8C76EF0671C8C3@namprd12.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <53d79eed25795db5076d7c591f6dd8cf4feedfec.1788368334.git.marcelo.schmitt@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7512.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 47135bb4-b5c4-4fb4-38eb-08df09899fbf
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Sep 2026 07:04:40.5139
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: KcMQF7vdkn+wvbtEEXIZqBfYaCgT3YtS32EHHX/l4r4tavtsOdciKDMUka0IZKOh3qe4O7YA9Ee2bRTsdO0g2w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6284
 
-On Wed, Sep 02, 2026 at 02:25:26PM -0300, Marcelo Schmitt wrote:
-> Make use of SPI transfer offloading to speed up data capture, enabling data
-> acquisition at faster sample rates (up to 1.496 MSPS).
-
-...
-
-> +static int ad4134_update_conversion_rate(struct ad4134_state *st,
-> +					 unsigned int freq_Hz)
-> +{
-> +	struct spi_offload_trigger_config config = st->offload_trigger_config;
-> +	struct pwm_waveform odr_wf = { };
-> +	u64 offload_period_ns;
-> +	u64 offload_offset_ns;
-> +	u64 odr_high_time_ns;
-> +	unsigned int count;
-> +	u64 target = 10;
-
-Split assignment and move it closer to its first user.
-
-> +	int ret;
-> +
-> +	if (!in_range(freq_Hz, AD4134_MIN_ODR_FREQ_HZ, AD4134_MAX_ODR_FREQ_HZ))
-> +		return -ERANGE;
-> +
-> +	odr_wf.period_length_ns = DIV_ROUND_UP_ULL(NSEC_PER_SEC, freq_Hz);
-> +	/*
-> +	 * Set the PWM duty cycle to keep ODR high for at least minimum required
-> +	 * time. If the rounded PWM's value is less than the minimum required,
-> +	 * increase the target value by 10 and attempt to round the waveform
-> +	 * again, until the minimum (or try count limit) is reached.
-> +	 */
-> +	odr_high_time_ns = div64_ul(6ULL * NSEC_PER_SEC, st->sys_clk_hz);
-
-	target = 0;
-
-> +	count = 100;
-> +	do {
-
-		target += 10; /* Increment by PWM duty cycle period */
-
-> +		odr_wf.duty_length_ns = target;
-> +		ret = pwm_round_waveform_might_sleep(st->odr_pwm, &odr_wf);
-> +		if (ret)
-> +			return ret;
-
-> +		target += 10; /* Increment by PWM duty cycle period */
-
-In the above way I think it clarifies the initial setting to 10.
-
-Shouldn't be target named as target_ns? Can we use odr_wf.duty_length_ns
-directly?
-
-> +	} while (count-- && odr_wf.duty_length_ns < odr_high_time_ns);
-> +
-> +	/* Check the minimum ODR high time is met */
-> +	if (odr_wf.duty_length_ns < odr_high_time_ns)
-> +		return -EDOM;
-> +
-> +	if (odr_wf.period_length_ns < 2 * odr_high_time_ns)
-> +		return -EDOM;
-> +
-> +	/*
-> +	 * Configure SPI offload PWM trigger.
-> +	 * For gated DCLK, the minimum required time between ODR rising edge
-> +	 * and DCLK rising edge is the sum of ODR high time and ODR falling
-> +	 * edge to DCLK rising edge time. Delay the offload trigger for at least
-> +	 * that amount of time so the ADC sample data will be available when the
-> +	 * SPI transfer begin.
-> +	 *
-> +	 * Use the same period as ODR PWM to avoid timing issues.
-> +	 * Convert back from period to frequency for the SPI offload API.
-> +	 */
-> +	offload_period_ns = odr_wf.period_length_ns;
-> +	config.periodic.frequency_hz = DIV_ROUND_UP_ULL(HZ_PER_GHZ, offload_period_ns);
-> +	offload_offset_ns = odr_high_time_ns + AD4134_DCLK_RISING_OFFSET_NS;
-> +	count = 100;
-> +	do {
-> +		config.periodic.offset_ns = offload_offset_ns;
-> +		ret = spi_offload_trigger_validate(st->offload_trigger, &config);
-> +		if (ret)
-> +			return ret;
-> +
-> +		offload_offset_ns += 10;
-
-Does this need the similar comment as per above?
-
-> +	} while (count-- && config.periodic.offset_ns < odr_high_time_ns +
-> +							AD4134_DCLK_RISING_OFFSET_NS);
-> +
-> +	/* Check the minimum ODR to DCLK delay is met */
-> +	if (config.periodic.offset_ns < odr_high_time_ns + AD4134_DCLK_RISING_OFFSET_NS)
-> +		return -EDOM;
-> +
-> +	/* Check the PWM periods remain the same */
-> +	offload_period_ns = DIV_ROUND_UP_ULL(HZ_PER_GHZ, config.periodic.frequency_hz);
-> +	if (odr_wf.period_length_ns != offload_period_ns)
-> +		return -EDOM;
-> +
-> +	ret = pwm_set_waveform_might_sleep(st->odr_pwm, &odr_wf, false);
-> +	if (ret)
-> +		return ret;
-> +
-> +	st->offload_trigger_config = config;
-> +	st->odr_wf = odr_wf;
-> +	st->odr_hz = DIV_ROUND_UP_ULL(NSEC_PER_SEC, odr_wf.period_length_ns);
-> +
-> +	return 0;
-> +}
-
-...
-
-> +static int ad4134_offload_buffer_postenable(struct iio_dev *indio_dev)
-> +{
-> +	struct ad4134_state *st = iio_priv(indio_dev);
-> +	int ret, ret2;
-
-These ret2:s in the cases of _set_register_() can be named accordingly.
-
-> +	if (st->spi_mode == AD4134_SPI_MODE_4_WIRE) {
-> +		ret = ad4134_set_sample_access(st);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	ad4134_prepare_offload_msg(indio_dev);
-> +	st->msg.offload = st->offload;
-> +	ret = spi_optimize_message(st->spi, &st->msg);
-> +	if (ret)
-> +		goto out_set_register_input;
-> +
-> +	ret = spi_offload_trigger_enable(st->offload, st->offload_trigger,
-> +					 &st->offload_trigger_config);
-> +	if (ret)
-> +		goto out_unoptimize;
-> +
-> +	return 0;
-> +
-> +out_unoptimize:
-> +	spi_unoptimize_message(&st->msg);
-> +
-> +out_set_register_input:
-> +	ret2 = ad4134_set_register_access(st);
-> +	if (ret2)
-> +		dev_err(&st->spi->dev, "reg input select error: %d\n", ret2);
-> +
-> +	return ret;
-> +}
-
-...
-
-> +/* The chip converts and outputs all 4 channels on each sample request */
-> +static const unsigned long ad4134_scan_masks[] = {
-> +	GENMASK(3, 0),
-
-IIRC Jonathan wants to see this as BIT(x) | BIT(y) | ... to clarify that each
-bit is semantically independent.
-
-> +	0
-> +};
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+T24gOS8xLzI2IDE4OjA2LCBLcnp5c3p0b2YgS296bG93c2tpIHdyb3RlOg0KPiBFeHRlcm5hbCBl
+bWFpbDogVXNlIGNhdXRpb24gb3BlbmluZyBsaW5rcyBvciBhdHRhY2htZW50cw0KPg0KPg0KPiBP
+biBUdWUsIFNlcCAwMSwgMjAyNiBhdCAwMjo1ODoyOEFNICswODAwLCBXYXluZSBDaGFuZyB3cm90
+ZToNCj4+IEFkZCB0aGUgY29tcGF0aWJsZSBzdHJpbmcgZm9yIHRoZSBUZWdyYTI2NCBYVVNCIFBI
+WS4NCj4gU2FtZSBxdWVzdGlvbnMgYXMgdjEuIFlvdSB3aWxsIGdldCBleGFjdGx5IHRoZSBzYW1l
+IG9uZSBhdCB2MyBpZiBpdCBpcw0KPiBub3QgdW5hc3dlcmVkIGhlcmUuDQoNClRoYW5rcyBmb3Ig
+dGhlIHJldmlldy4gSSdsbCBhZGQgdGhlIHJhdGlvbmFsZSB0byB0aGUgY29tbWl0IG1lc3NhZ2Uu
+DQoNCnRoYW5rcywNCg0KV2F5bmUuDQoNCj4NCj4gQmVzdCByZWdhcmRzLA0KPiBLcnp5c3p0b2YN
+Cj4NCj4NCg0K
