@@ -1,51 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84E374A484E;
-	Thu,  3 Sep 2026 12:36:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D874485CCA;
+	Thu,  3 Sep 2026 12:39:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788438996; cv=none; b=Eev7e35TjOFR+zz3QQkfgKDji9XkNJFP3/XoFrqrINRiYq71SYhzzKyjCCAJSxpa8plAr5jdFR1p9agkbJA5wuiIzFgb5zvmlUMGg0BcnsiqflDqDYgCKAn/5WIyWd3V2jO7NLf+9JDud7PS9C4eTi6f4LuL32V2amj8YQeniZo=
+	t=1788439150; cv=none; b=rIgn+yItH38MxXg0JJ0R9FcXVmSQCpEM7oIL1zzcHTYUGB4bX3T9B11iOtK6Lo1WIfXjOk8fcWzDYV7jJWv2pWJyuvl4oPSizld24jCHdLP1TOZ8vCUMnSV+I1pcMmXRD4FARuAZnRrgF0VtM5U0bFJpedu3RIvgEFa9Ctac67I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788438996; c=relaxed/simple;
-	bh=5wyqrPyAIsPudg2hBxRTbF79wa8Xf+nafl6awjDjsOs=;
+	s=arc-20240116; t=1788439150; c=relaxed/simple;
+	bh=1bKZ7CyUodmmMnbiOXYVATCoCjTPuTDEONjy1Pg4HFo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t2KfG0roGfDnwqRkxH0yo1NkJpz8nuyglBBOPSSOLrMyDxX4oLzR3eMo7ZxHQTtmkGSgz3eMknJqMylfUtDAdYvq2Si4Uw5wRmpf/FCOYB73/X1ReAZzEa5sHGrv/5HP6X5ioqPU9z0OY1qreySfXfwZuYQozDtgr+62ZogGYYI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xje0YJg7; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=t0NpqQzzN4Mv1f0YoyBMWIInUgwrr4fRUpDauSmvzA6tr3cOf6BRDJYk1yOHiilHLDijbzcbKgadaldlLfhcup8kZurkB8pp9BD7EBFRSSCpvabQO0/9RNvagFJpryBHTX1xF3FdxZsxUl/B24m/wXBFqiy+eVYN7vPrxMCQ4a0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gd0fP+Fr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xje0YJg7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 435141F000E9;
-	Thu,  3 Sep 2026 12:36:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gd0fP+Fr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70EEA1F000E9;
+	Thu,  3 Sep 2026 12:39:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788438994;
-	bh=4w6jf87vafgM99bg9s6kWCWTFKCA2du6LEtWeZQAPcU=;
+	s=k20260515; t=1788439148;
+	bh=a88oaMPdFcI/yDDJp6S+ycZVQY3NXBbhhuZ7cepLWEA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Xje0YJg7/rQdGmYKvRqh8OHMnTgXxL9lxMK2WYusyrfjvyCj1P42mpgdm2wfxtqTb
-	 gF5oqbwataixl0q9rm01GE677vb2RjMTPMx1RLto7UJrhdmRSjsj9aIGy6iINWnvPf
-	 EsmOolg65pC/cvHw/btvFoxVERH1ZBJRV0MzqhohlEceM+vVB6Z8HnGGfZOfGA6K7d
-	 B6YOhzM/QaMbq8GCHHiWPXcDu87dXXF7F6wltT2R4XnYg0takIbWaSsyLat8Cujv/a
-	 s2eRk9Z1fS/3OQkNm/62rFmfEQGeLqKtEtbipr+gDQcjK4BWcp/Z5mVJrK8tPHwP1M
-	 tdEHNOR9RMlQA==
-Date: Thu, 3 Sep 2026 14:36:30 +0200
+	b=Gd0fP+FrBOuDWBABAR4QXGuGsaiDFdjsG7oo5klw7sjSz0ah3CcBVR0vQquw5oOnO
+	 TLF6g1KF4tF3LAS/VvmO9H0zjWiepY1Ga/5ihZkMoxJrMkSsfRzK8omzEcRRX8jICo
+	 ojR7HDtOcR8dVtM3sEXYaIWTXFJCP12/fTzoFfPiHNGYhSbESVlLL83ot0ax3MYXoA
+	 /mSdVhXNpUTSTOgJjusohKDl1zTffFzoXzJ+u2AAPvx5B+OaQJ4MhCprUDy22o0TLw
+	 Ne3tE0F2Ba7Iqc2TtlittI8MU+madugrNVIcv9+Ari7Wn9DaKhK7Fxnua6xz7kya0Q
+	 yPEVTS7/es/uw==
+Date: Thu, 3 Sep 2026 14:39:04 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Xilin Wu <sophon@radxa.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, 
-	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>
-Subject: Re: [PATCH 4/6] dt-bindings: arm: qcom: document Radxa Dragon Q8B
-Message-ID: <20260903-corgi-of-splendid-defense-9c8cae@quoll>
-References: <20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com>
- <20260901-q8b-dts-v1-4-7de0b6a73d08@radxa.com>
+To: Leng Honglin <lenghonglin@axera-tech.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Shi Zhicheng <shizhicheng@axera-tech.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Linus Walleij <linusw@kernel.org>, 
+	Drew Fustini <fustini@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev, hlleng233@gmail.com
+Subject: Re: [PATCH v2 1/6] dt-bindings: vendor-prefixes: add Axera
+Message-ID: <20260903-impossible-normal-termite-b7f9b8@quoll>
+References: <20260901-ax650-v1-v2-0-993bea305476@axera-tech.com>
+ <20260901-ax650-v1-v2-1-993bea305476@axera-tech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,20 +48,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260901-q8b-dts-v1-4-7de0b6a73d08@radxa.com>
+In-Reply-To: <20260901-ax650-v1-v2-1-993bea305476@axera-tech.com>
 
-On Tue, Sep 01, 2026 at 04:47:57PM +0800, Xilin Wu wrote:
-> The Radxa Dragon Q8B is a single-board computer based on the Qualcomm
-
-"Document the Radxa ....".
-
-> SC8280XP platform.
+On Tue, Sep 01, 2026 at 05:19:28PM +0800, Leng Honglin wrote:
+> Add the Axera Semiconductor vendor prefix for devicetree bindings.
 > 
-> Document its radxa,dragon-q8b compatible.
+> For more information, visit the official Axera Semiconductor website:
+> Chinese site: https://www.axera-tech.com/
+> English site: https://www.axera-tech.com/en
+> 
+> Signed-off-by: Leng Honglin <lenghonglin@axera-tech.com>
+> ---
+>  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> index 396044f368e7..1dbafe682724 100644
+> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> @@ -219,6 +219,8 @@ patternProperties:
+>      description: Shanghai Awinic Technology Co., Ltd.
+>    "^axentia,.*":
+>      description: Axentia Technologies AB
+> +  "^axera,.*":
 
-No need to repeat the diff contents.
-
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+So how did you implement own comment?
 
 Best regards,
 Krzysztof
