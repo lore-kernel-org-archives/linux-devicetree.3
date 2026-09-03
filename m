@@ -1,186 +1,153 @@
-Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D825A44A3F9
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 11:35:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF6144A3F9
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 11:35:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788435320; cv=none; b=iAUPILFWre6jRAajEyMXVMZFrSIKXlB4Z1h7oW757yLeqM/2DuyNKY5v9CCxTYIOl5ad3hZ9tXmALYJnzUwMQsA8EI343cPsx3xgHtn40OfbLl/ne105Pfa+w/qcrH2cS7J6b0XqhF71pY1EowA5Jjg9szqumGUSBwXTnNdCJE0=
+	t=1788435345; cv=none; b=Bsp6lfXnulQWlJUe7YfVBtO5GlDR7T1G9enZpcz/XlTOAJbYGWrnwygF0tjKZ8X5YUSHvpA6d2yjH/oy7fvDJD2toIGW7Ei+qCf8jzNUSo+GaIyZCvSvX67j3W9kEUOIl0eJEiUjQdDsyehlt1rRKHC7AQpBrhtJ0yP8/WfsKkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788435320; c=relaxed/simple;
-	bh=NGptUwcJ9YaoaaK1oVYiQFRPd89L8fb1l+TMWUzFkFA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MLptiqFdn6ggKauojzVnlAAgJ6RySMOFk3h1HkxBOnS/o8sjde4Vw/a+L5XqBkQW9l/hFzdUWlhmXnCcksk44WhoLzMZirGGpIG8zvxd+ELAQBJYcQzQhySGATwSvMBfHVSJo4uXXYhzcXDf8URzk/3OdffWGMZxjNF/SO9lm1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=XrgGrKZZ; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=eaRqq12m; arc=none smtp.client-ip=202.12.124.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	s=arc-20240116; t=1788435345; c=relaxed/simple;
+	bh=WNhBU4gBRi7n5E2RV+yY1aQmqX5dEeo2lb8vnV0Klcc=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=X+nFlujgmiNzFdd1T5CajdStZ7pZNjmtQVEAESne3vx1xLFuIf0tqNFlqViYkaudV9bFo0EczEsQi0Aq/9oP0NvG1JPv6RjgX1uMihqdZXzfErhASjC/Wj/RXfRusjsUQIY7lRN+VkutRZgazBlkP4021frpV37Xg4hW3UAO+Vg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ABRLaNEC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="XrgGrKZZ";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="eaRqq12m"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.stl.internal (Postfix) with ESMTP id 0D8E81D0005E;
-	Thu,  3 Sep 2026 07:35:06 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Thu, 03 Sep 2026 07:35:06 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1788435305;
-	 x=1788521705; bh=u0mblghGQtHLWAPFrP9rKAzs8qdKPqtFUAlB+mIj8kM=; b=
-	XrgGrKZZVwKqQwAMVPMSMcugZgBTkfooSz+vvsTB620GPQhiEocOlpUsfqjvosPE
-	QF9uGhkiIi+/RtBm6EBxAqlDtYRumxXpt1pnwafdacVFBI4RDfxerAEXXceos1ot
-	WEHEp+FPn6ULnuZw/zCXq7S34MgNXGUEsQ8b0YpWd5LCRTyw1g3ZeJsjG+SoHfP/
-	mNAuZ03jXVFFVsi8BuQzWss5E6E2cYoiiDM6WTsFqJVCIeB+stwiuN9M09Wovay0
-	9SN7r2KSY1rgrU/ax3VzB5jRzTQXHkmM16uW9yf+BiUjANA04i6dETIvPzLRCgTY
-	shclRQA9VLYr8YXXGrXfvA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788435305; x=
-	1788521705; bh=u0mblghGQtHLWAPFrP9rKAzs8qdKPqtFUAlB+mIj8kM=; b=e
-	aRqq12mkpWt42XeTzeOYdhUYLF50vZT/uHBmg51eeRtFG8/fcxxHVBEUslvf29s4
-	tDsWomQkaVMyyi/2DSW/lWGV7TM22Z88/bFwFSNECjYci4wKk3owZR4mrJCexj7H
-	bOcDuNbsMSAhSjVSYlQrKnQ0S45ho0qNLjXbDG6/7dRrghmSZaAL/+rEyZF58FK7
-	XTuU1wmUGEQfu7kcbyafNSZv8ZJSBPmLgYgyqr9qCYwG5/4vWLecgzwEfcHQcBLD
-	ilOCyhwJxYHwYibby+L9rj04Z3DQ0DAiElTzxoBMBo2clQ7sfbx8Dx/vJ/Huztix
-	JfY7Wjgpofrddf16gyUvQ==
-X-ME-Sender: <xms:aVuZapDhIbsQdHGBiDIg1Kdu2T6u6p4k2wqUq5SVYcDGfc2W6gNHBw>
-    <xme:aVuZapCUdXSTHABQvR3kxgRcbrGNjWpnG4kgqli-fh7kr0y7VDnlscQbeFn0b5ekX
-    N4bWuZ1stxZStHk61uz_wRICrkRr1bHALsDNTMH1Eh6_7Xl5CrFwg>
-X-ME-Received: <xmr:aVuZakpeX0NxnGlybTNuJPMmInkJChG_yICYhsulse6Zay5htAtIJioon5x-v_kjjze-ARNdIGAEUYbJNPkGwRI-kDxbGy0>
-X-ME-Proxy-Cause: dmFkZTEOt2dobKc6a+FPujfxNny6P/u2SzZlwD73nlUtle7hpaHDXyTL1A4EnxdKjszWZ3
-    M2xYjj+mXdi+pU7zlfFHj7L9ZPUj0w+XX+GrwBoPqLq7duCGJUcVWD/Alh7ue24rNCWajO
-    W11H7citPbhYh8T8JX6FICy+XksavtEMDB/p4B2YRjJPnVA81hAqO+Ri41gPWaXRoHm6Bg
-    9A5RjCc/Tjf+824CznFaarMB48DYNGktIbK6p7z+gQPWq8BZ4hbXfj23AdKGj6dCol4zv9
-    D0LpmM0PTiUfUiwm+0F7qqDZueOqAHKyaKmTPN91c9AoKQ4WBjZC9JYFpJH9UhGM9subkp
-    x0KvZRpbXkrn84wGtRAxp19PwcTbcyjUAamo7vc4GMB3o5oXpXi0W0TNTjHS+famSGRM/w
-    FzrHLgAwOCKQREngqjAk0YoPcXBAnnPl/Dn8xBQYqdkBB95YxKNCMTlIuFzIvWN8yyE8yn
-    w1Uz6+C3p+OEUmYBumrrOMZoK0PwscX0n/hy7pZ63hgo9Gx/EN3El9kEhkDcrxgnZFf0cJ
-    MKq9N7TxGii8cSGHwbZ4/D0CFvYShdISayIXvtbZzkuLmDc/cZspQ1p71/IDUYsHQXqamh
-    RemnGoCn8XM5cWDOVjYASvj/2YY5zQvdsojLY/s7hxpTxGS4avBwpcn4tXyA
-X-ME-Proxy: <xmx:aVuZajn7hXoNFh-4dm4cl26MExUaoN91skAvn12O4v0KU-fnDcodyg>
-    <xmx:aVuZakx1hucIIdz1VAXJsbCU5XEtwRbPfeV1hPOD8WqIMeedUKphFg>
-    <xmx:aVuZar96I2OqPK2RnEXmW8NGYfG4xMLtjExZN_nz3zSzadnSPhrmsQ>
-    <xmx:aVuZagI4OimgltvZW7l1CJfGMKrQCfFG50viHuhW7ouX71rWMTNwYg>
-    <xmx:aVuZanzFYvT2-x0rzQQPIP-k4tD9zFWkcMuGhJB7hJg8mJKfIg7tlGwG>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 3 Sep 2026 07:35:05 -0400 (EDT)
-Date: Thu, 3 Sep 2026 13:35:03 +0200
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com,
-	conor+dt@kernel.org, robh@kernel.org
-Subject: Re: [PATCH net-next v3 05/10] net: ethernet: ravb: Propagate error
- from ptp_clock_register()
-Message-ID: <20260903113503.GF1116206@ragnatech.se>
-References: <20260902084703.3228504-1-niklas.soderlund+renesas@ragnatech.se>
- <20260902084703.3228504-6-niklas.soderlund+renesas@ragnatech.se>
- <20260903084755.2791D1F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ABRLaNEC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6422E1F00A3E;
+	Thu,  3 Sep 2026 11:35:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788435321;
+	bh=GI67CPM8yi0ZXHmIKGRDTSpV4PxMt/Uk06vuw2OahkI=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=ABRLaNECT3Qm1p+HweJsh7JTyEkvA0pAx2LymlXG/pxKly1euIUNI9WrELKztpkHf
+	 r3Xoo3vNHY1oLdhR0zwBym9pFhI/hQ/oCbGVcTT57JB590tNfSgqzN7h9kmKCLmV3N
+	 jsdqEvs/RPquGkd1fbW8O/xBP3tAAp3nAi40LVkNo6nmbDPDxxWa42K2O/fhmFewg3
+	 hGPYaGOWQKHvoI4+APVs+GiYUsVJFWS8G4WRRNBmbuvFNQuH9jiejAeCAYoqhKs+Jd
+	 fDkgJSpNx1tVsIcKGhPbeGuYmOzvyrof3Y0QrcFrnn8uyyAxnBbht0Gx2Hhdf23Y0z
+	 qKWBLV53V8ZkQ==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id E4DBF1980047;
+	Thu,  3 Sep 2026 07:35:19 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Thu, 03 Sep 2026 07:35:19 -0400
+X-ME-Sender: <xms:dVuZaovR-c4KRU0bTmDyoCGKVMfDysb6kHC1eD5iZo1XHtRzHLg5MA>
+    <xme:dVuZagTuUyST6iT-SQLgc4S5CPheVwCXWPsq_mLPsKpOjysyPxS8RjXzOtmsnJIsE
+    R0PLVOL7-kSEieR9iijT3rSlPzPfP4Uw1qparPP_tnFvwZYqtGYWTHQ>
+X-ME-Proxy-Cause: dmFkZTE35Cj2o9w6o+pggtHOOqOz+sFl03EWpmd0tgzo6J4wCd8a6EDhiYd49BIPNtsWXQ
+    0iMYBwpT31vuwS1JR8RCBFTjzAOhlfyq3ma8jZDDtkEvhBXicIKS9OZnuxqiHsod5f97xV
+    J8FuqC6e1eFexwdHQ5OjGxcGDKBn7IryT10wtxIaC4dZKH5cEiidOl7qSUhty7IyZid1Fl
+    fJ0P/6Mj3V5MrBQ8WAroV/0glwDye2vhVcP3ViBaNekQHcc/o76j8jjKJ02MtH+5zbHJSw
+    +wpKAV5qAtjs+NgZNC3uSWYGjXjfwAGnlPYRQsAVCbM4H1PPFRNi5pfmReEaN61S6yq6m/
+    m2p+KCzk8ukGUj/kpko5dgEeh1qnctYJ9br2Pae92FQF+tYhovlKnfL2iqeYktjPnfAk/m
+    QjD5Bzno//eaVQPd+UzOzdmPZgjpenScHoY+Trtdb2FKlTvt0XEgWaQ5kDNUaGo1qGjiwo
+    nlswmSKj5eQT7TsC7UUKNsL+u8qbVBS/QO6Ds8ZwXRRCiIlcAfYe+la8gV/Tovgl2NjQOO
+    dweU/H5/dm2ZtkVoyH71W94LMdRNNDu5RgOWguqkAVYgC4NDPF2qmjcSI6JU9aBDfc5FPQ
+    nhqY/ZXhVMXQQ6ujvQfC/dRftD41+DoPW3t84Fqh1lJN4xRWiI6VMF5Jrbwg
+X-ME-Proxy: <xmx:d1uZalmMn24bZvw6ZcLzuvbcrJAKUgXdzzzS8Ud0C6nXYA5EVSPc0Q>
+    <xmx:d1uZariQuCSm2xXM69lE3G6vkzqSsl66MJ4aSRGJ0xZNmHI3CWwIlg>
+    <xmx:d1uZaiSh-nrRtvN90zTY6qN6k34XEQY-5mUsY52qudIhz0_2VpP38g>
+    <xmx:d1uZagiQ1esEatnM-Y_IcDnASzPxDyVKHWkMTHuTWVtpIJAbsM8j7g>
+    <xmx:d1uZauiiVEu2LLn_6b5rQDBKimEFB2v8DRx7K80_-fufnxKLOWw9oQim>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 12337F8007A; Thu,  3 Sep 2026 07:35:17 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260903084755.2791D1F00A3A@smtp.kernel.org>
+Date: Thu, 03 Sep 2026 13:34:56 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Sven Peter" <sven@kernel.org>, "Mark Rutland" <mark.rutland@arm.com>,
+ "Lorenzo Pieralisi" <lpieralisi@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>,
+ "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
+ "Catalin Marinas" <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>,
+ "Sudeep Holla" <sudeep.holla@kernel.org>, "Janne Grunau" <j@jannau.net>,
+ "Neal Gompa" <neal@gompa.dev>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-efi@vger.kernel.org,
+ asahi@lists.linux.dev
+Message-Id: <9c53cfd7-e193-4441-83ca-7710060225b7@app.fastmail.com>
+In-Reply-To: <20260708-efi-psci-v1-0-9efb3abf0e4c@kernel.org>
+References: <20260708-efi-psci-v1-0-9efb3abf0e4c@kernel.org>
+Subject: Re: [PATCH RFC 0/6] PSCI-via-EFI to support firmware and kernel sharing EL2
+ for Apple Silicon
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On 2026-09-03 08:47:54 +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [Critical] Calling `ptp_clock_index()` with a NULL pointer causes a deterministic kernel panic when querying ethtool timestamp info.
-> - [Critical] Failing to clear `priv->ptp.clock` in `ravb_ptp_stop()` leaves a dangling pointer, leading to a Use-After-Free during ethtool queries.
-> --
-> 
-> commit 8ab377468104948ff315e1ab381238bac1a1783e
-> Author: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-> 
-> net: ethernet: ravb: Propagate error from ptp_clock_register()
-> 
-> If the PTP clock registration failed the error is silently ignored.
-> Before reworking all callers of ravb_ptp_init() handle and propagate the
-> error so it can be used.
-> 
-> Link: https://sashiko.dev/#/patchset/20260610102432.3538432-2-niklas.soderlund+renesas@ragnatech.se?part=1
-> 
-> > diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
-> > index e44d065f77cc8..7c7b3ac81e5d6 100644
-> > --- a/drivers/net/ethernet/renesas/ravb_main.c
-> > +++ b/drivers/net/ethernet/renesas/ravb_main.c
-> > @@ -1785,7 +1785,7 @@ static int ravb_get_ts_info(struct net_device *ndev,
-> >  			(1 << HWTSTAMP_FILTER_NONE) |
-> >  			(1 << HWTSTAMP_FILTER_PTP_V2_L2_EVENT) |
-> >  			(1 << HWTSTAMP_FILTER_ALL);
-> > -		info->phc_index = READ_ONCE(priv->ptp.phc_index);
-> > +		info->phc_index = ptp_clock_index(priv->ptp.clock);
-> 
-> [Severity: Critical]
-> Can this code trigger a NULL pointer dereference if priv->ptp.clock is NULL?
-> 
-> If the interface is not brought up yet, or if PTP registration failed during
-> initialization, priv->ptp.clock will be NULL. When querying ethtool for
-> timestamping information, ravb_get_ts_info() invokes
-> ptp_clock_index(priv->ptp.clock).
-> 
-> Since ptp_clock_index() unconditionally dereferences the pointer, it seems
-> this could result in a crash.
+Hi Sven,
 
-Please check patch 9 in this series. The change is an effect of the LLM 
-driven fix merged a head of this series with tried to correct this issue 
-in a way to complicated way by using the READ_ONCE and caching the 
-value...
+On Wed, 8 Jul 2026, at 09:15, Sven Peter wrote:
+> Hi,
+>
+> Usually, idle and sleep state are implemented in firmware running in
+> e.g. EL3 with the kernel trapping into that from EL2. Unfortunately,
+> there's no EL3 on Apple Silicon machines and we'd rather not run the
+> kernel in EL1 since this would result in losing KVM support.
+>
+> While the shallower states could be implemented inside a custom cpuidle
+> driver (like we do downstream, see [1]) the deeper states result in a
+> complete loss of state and require bootstraping the cores again which is
+> quite involved. So instead we need some way to call back into our
+> open-source firmware to be able to handle that. This is even more
+> important for M4+ which don't even support the architectural wfi anymore
+> and always lose state when that instruction is executed.
+>
+> Luckily, EFI runtime services provide much of scaffolding we need,
+> namely a way to keep some code and data mapped and the ability to jump
+> into there from inside the kernel.
+>
+> This series adds a custom EFI table that points to a PSCI entry point
+> (plus some other stuff that has to be available before EFI runtime
+> services are set up) and adds support for this new conduit to the psci
+> code. We can't directly use the normal EFI runtime path because that one
+> takes a sleeping lock and we need to be able to call into PSCI from
+> atomic context during e.g. cpu bringup or during idle.
+> It also adds support for specifying the specific MAIR attributes for EFI
+> runtime mappings as defined in the latest UEFI spec since Apple Silicon
+> is rather allergic to using Device-nGnRnE vs. Device-nGnRE for its MMIO.
+>
+> This all results in a surprisingly small diffstat. I believe this
+> approach was originally suggested in some IRC discussion years ago,
+> possibly by Ard, but I can't find the old logs anymore.
+> Happy to add a Suggested-by tag though if anyone remembers.
+>
+> The firmware implementation I used for testing can be found at [2] and
+> the full kernel tree with this series applied at [3].
+>
+> Best,
+>
+> Sven
+>
+> [1] 
+> https://github.com/AsahiLinux/linux/blob/asahi/drivers/cpuidle/cpuidle-apple.c
+> [2] https://github.com/AsahiLinux/m1n1/tree/psci-via-efi
+> [3] 
+> https://git.kernel.org/pub/scm/linux/kernel/git/sven/linux.git/log/?h=efi-psci
+>
+> Signed-off-by: Sven Peter <sven@kernel.org>
+> ---
+> Sven Peter (6):
+>       dt-bindings: arm: psci: Add EFI conduit
+>       arm64/efi: Add and parse custom PSCI EFI configuration table
+>       efi: Add EFI_MEMORY_ISA_{MASK,VALID}
+>       arm64/efi: Honor EFI_MEMORY_ISA_MASK for Device-nGnRnE vs -nGnRE
+>       firmware/psci: Add EFI runtime conduit
+>       arm64: dts: apple: t8103: Add PSCI and CPU idle states
+>
 
-> 
-> >  	}
-> >  
-> >  	return 0;
-> 
-> [ ... ]
-> 
-> > diff --git a/drivers/net/ethernet/renesas/ravb_ptp.c b/drivers/net/ethernet/renesas/ravb_ptp.c
-> > index f70b616ac847c..19d039b9d24a5 100644
-> > --- a/drivers/net/ethernet/renesas/ravb_ptp.c
-> > +++ b/drivers/net/ethernet/renesas/ravb_ptp.c
-> [ ... ]
-> > @@ -369,14 +368,10 @@ static void ravb_ptp_sync_irqs(struct net_device *ndev)
-> >  void ravb_ptp_stop(struct net_device *ndev)
-> >  {
-> >  	struct ravb_private *priv = netdev_priv(ndev);
-> > -	struct ptp_clock *clock;
-> > -
-> > -	WRITE_ONCE(priv->ptp.phc_index, -1);
-> > -	clock = xchg(&priv->ptp.clock, NULL);
-> >  
-> >  	ravb_ptp_disable(ndev);
-> >  	ravb_ptp_sync_irqs(ndev);
-> >  
-> > -	if (clock)
-> > -		ptp_clock_unregister(clock);
-> > +	if (priv->ptp.clock)
-> > +		ptp_clock_unregister(priv->ptp.clock);
-> 
-> [Severity: Critical]
-> Does this leave priv->ptp.clock as a dangling pointer?
-> 
-> The original code used xchg() to set priv->ptp.clock to NULL before
-> unregistering it. With this change, when the interface is brought down,
-> ravb_ptp_stop() unregisters and frees the PTP clock but leaves the pointer
-> pointing to freed memory.
-> 
-> If an unprivileged user or system daemon queries ethtool while the interface
-> is down, ravb_get_ts_info() will pass this dangling pointer to
-> ptp_clock_index(), potentially causing a use-after-free read. Should
-> priv->ptp.clock be explicitly set to NULL here?
-> 
-> >  }
-> 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260902084703.3228504-1-niklas.soderlund+renesas@ragnatech.se?part=5
+I've picked up patches #3 and #4, which are useful in their own right.
 
--- 
-Kind Regards,
-Niklas Söderlund
+I'm not sure if the arm64 maintainers will want to consider this, but
+I think it's a reasonable compromise, as it puts the abstraction in
+the right place.
+
+I take it this will be contributed to u-boot if it gets accepted here?
+
+
+
