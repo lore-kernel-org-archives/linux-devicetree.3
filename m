@@ -1,185 +1,181 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 013D13B9DBB
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 21:41:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11049349B19
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 21:41:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788471679; cv=none; b=exTTPJoP8dFZkr1nEsv2241gY8NAzCi2Dk/FDtMymQ4HeIuCW+/jyT+P/bHC0H7wXMuDOPlfDZGEIqn2qyCo24np/XxLZkIODwK/cGvMYJ5VtdVksere8G89xEBYpp3WXev62/jm/qR80npeapkaGEXEF8FuvF77h6OrAaJu16E=
+	t=1788471680; cv=none; b=mr8E09rIrqgfn1URhj+HYPuRiyMJOYJy1zGYiFg3BoMpu4B7qA+S6Brm3ydYwqRl/y6Z+lLv7nxgH9i0DXNwcjd4oUM0pzYmEVGpSF3QPVoFcLs+lLn0fcLaj6+cjc1XVEEOE7WJg0wD9Ow9QOsOWqXvICWrdEJspPoviraiPN0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788471679; c=relaxed/simple;
-	bh=WmUMPnokgSeP6ZXZ8x8XN7Q7GQeW9k1cbT77lrRzGU8=;
+	s=arc-20240116; t=1788471680; c=relaxed/simple;
+	bh=l37I9wFRshnoIskZKE3FUQfzpACSTN8BiVP/mdO37tY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Mfvnkb+EucBUkckMPe81s5rve5gOiOaW+EBWdRiAYxyfxsWzG++yGJGy5xFpBYwnWEilBkYkzF9IolMFVSj9KZRS1QrtU0gskHL6NkmKUSZli6rXEO5UCRZymjzFgJqICvfNBJgzB20uLzCGjP3GPVk9gjdeO0rg/kXHXDinrtA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PCVJWzF7; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=AWXvnS4GahcnMtJ0y0LRfP/0WUh3/9vRSNT3ftEPzQi6Jql35VcMm5Dybg/vLNibMt8xTdXW96tNhc5B/ovzyjc+j4xnB0c/Pq0hd9foZsIB7KnJT910apt3ASXEnCjhDRPg5TsIwGPItJzh+SAsT22+EGQ2iKV1rLt99LcK+8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tx50TGE2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PCVJWzF7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97C3E1F00A3E;
-	Thu,  3 Sep 2026 21:41:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tx50TGE2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63FD21F00A3F;
+	Thu,  3 Sep 2026 21:41:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788471677;
-	bh=gSs0pNCaUFaLtDKNADKlHNAx11q8fTLJtWaOAhQzpx8=;
+	s=k20260515; t=1788471678;
+	bh=oQqDvqYfwToYGjtvcJo2aGs1ejr8bsc+mr+hGnziUCM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PCVJWzF7SfoY0dgPqRw3pAj2gJCgLa1WbYBbSKkJhTzEnqD4+B8gCHnQ8x+CmvHAJ
-	 /cNnp67dLV5EmZwW3dXUec0jktyl4/It4FHUmu2bLXV9Kr0lOZPBIWZOh9PByZESGP
-	 IwmM94nNvYGWKXeEK0jguVIQ26SH6suKdzlo2tdJZZj9KmZhmU3Lxli2N3WqJcg/SX
-	 rWj8yH8hnno6ucrUQNqnRBMuVLtMYwv7L2j6SIkScTjugv7aI4A+OC8BrIRe/3hl2H
-	 8WWZnGl/Qknti7RctGCXHfnbHGOBzCr6PI6xqPKQKx0FcOWAYMWFnG6RAzk55gk1TY
-	 bfUsEia7EDHEg==
+	b=Tx50TGE2KvxA6LfCbMiTN5DNERwk0faP3mOORgB8micI8wLYYoN321GIlaXNLeb8c
+	 I6xAndSbDnw62J8zZRG6JPPP1tHgX4ixqy1eF5F5f4q9wa8+9hE0n/U0iB7dsRJ3qq
+	 z9o2MYJ4nQUnc1Ccsh2ps0XcEXxHpH9oSmV92OIcXab6vxWeS95e8dm09N8m0Gs0Pt
+	 f4xV82yAQSyIRgEF7pE464mWKGWqFr46+BCOFqgx5EiUugiFAG01G77cTqEIQNj/yT
+	 VhK21FKre0YgB2ZheFlW1aaAOZPl4mhsLtM3I2NMAdzxszsBO4t0FZmk9BaMUvXCzI
+	 AIbE0i/nPpqag==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v8 06/15] dpll: sit9531x: implement input pin
- state on a DPLL
+Subject: Re: [PATCH net-next v8 08/15] dpll: sit9531x: add support to get
+ and set frequency on pins
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Ali Rouhi" <arouhi@sitime.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260902214030.20955-7-arouhi@sitime.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260902214030.20955-9-arouhi@sitime.com>
 References: <20260902214030.20955-1-arouhi@sitime.com>
- <20260902214030.20955-7-arouhi@sitime.com>
+ <20260902214030.20955-9-arouhi@sitime.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 03 Sep 2026 21:41:17 +0000
-Message-Id: <20260903214117.97C3E1F00A3E@smtp.kernel.org>
+Date: Thu, 03 Sep 2026 21:41:18 +0000
+Message-Id: <20260903214118.63FD21F00A3F@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] Missing hardware rollback in `sit9531x_dpll_input_pin_state_on_d=
-pll_set` leaves the physical receiver powered on if adding to the priority =
-table fails.
-- [Medium] Overwriting the last priority slot in `sit9531x_input_prio_add` =
-drops a unique source and leaks its hardware enable state.
+- [High] Committing a partially written output divider (DIVO) to active har=
+dware state on I2C error.
+- [Medium] Unprotected read of `freq` outside of multiop_lock in `sit9531x_=
+dpll_output_pin_frequency_get`.
+- [Medium] Truncation of computed output frequency to `u32` without bounds =
+checking.
 --
 
-commit 30ff5313804d1b26035265c46d0a4c6573cce4d4
+commit bdcd1ac4baf714d757ae6dd92091f8153272b818
 Author: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
 
-dpll: sit9531x: implement input pin state on a DPLL
-
-This commit implements pin state reporting and configuration for the DPLL.
-It sets or removes inputs from a priority table that the hardware uses for=
-=20
-reference selection, translating DPLL connected/disconnected states to=20
-table membership.
+    dpll: sit9531x: add support to get and set frequency on pins
+   =20
+    Both directions in one patch, since they share everything that matters.
+   =20
+    An input's frequency is what the board presents, so it is reported from
+    the firmware description rather than read back: the chip has no divider=
+ on
+    an input whose rate it merely qualifies.
 
 > diff --git a/drivers/dpll/sit9531x/core.c b/drivers/dpll/sit9531x/core.c
-> index 1394ea1077d9c..f42c41d8a42e4 100644
+> index e706f6942f654..721b2c451d599 100644
 > --- a/drivers/dpll/sit9531x/core.c
 > +++ b/drivers/dpll/sit9531x/core.c
 [ ... ]
-> +/*
-> + * sit9531x_input_prio_add - make an input eligible in a PLL's table
-> + * @input_idx:	input source in hardware encoding
-> + *
-> + * Ensures the source appears in the priority table so it can be picked
-> + * by automatic reference selection again after a disconnect.  If the
-> + * source is already listed the table is left untouched; otherwise it is
-> + * placed in the lowest-priority slot.  The original priority is not
-> + * restored -- use sit9531x_input_prio_set() to reassign it.
-> + *
-> + * Caller must hold sitdev->multiop_lock.
-> + */
-> +int sit9531x_input_prio_add(struct sit9531x_dev *sitdev, u8 pll_idx,
-> +			    u8 input_idx)
+> @@ -735,6 +769,414 @@ int sit9531x_input_prio_add(struct sit9531x_dev *si=
+tdev, u8 pll_idx,
+[ ... ]
+> +int sit9531x_output_freq_set(struct sit9531x_dev *sitdev, u8 out_idx,
+> +			     u8 pll_idx, u64 frequency)
 > +{
-> +	u8 srcs[SIT9531X_PRIO_MAX_SLOTS];
-> +	u8 slot;
-> +	int rc;
+[ ... ]
+> +	for (j =3D 0; j < 5; j++) {
+> +		rc =3D sit9531x_write_u8(sitdev,
+> +				       SIT9531X_REG(page, base_reg - j),
+> +				       divo_bytes[j]);
+> +		if (rc)
+> +			goto commit;
+> +	}
 > +
-> +	lockdep_assert_held(&sitdev->multiop_lock);
-> +
-> +	if (pll_idx >=3D SIT9531X_NUM_PLLS)
-> +		return -EINVAL;
-> +
-> +	rc =3D sit9531x_prio_table_read(sitdev, pll_idx, srcs);
+> +commit:
+> +	/*
+> +	 * Step 4: NVM update + loop lock.  Always run prg_commit() so the chip
+> +	 * leaves the PRG_CMD state with the output loops re-locked, even when a
+> +	 * write above failed; keep the first error to return.  It also carries
+> +	 * the required post-lock settling sleep.
+> +	 */
+> +	ret =3D sit9531x_prg_commit(sitdev);
+
+[Severity: High]
+Does this code commit a partially written hardware state to the active NVM?
+
+If any of the byte-by-byte writes to the 5-byte DIVO register fail, the goto
+commit path unconditionally calls sit9531x_prg_commit(). That helper issues
+a SIT9531X_UPDATE_NVM command, which transfers the corrupted shadow registe=
+rs
+into the active hardware state, making the output frequency unpredictable.
+
+Can this safely abort the update instead?
+
+> +	if (ret && !rc)
+> +		rc =3D ret;
 > +	if (rc)
 > +		return rc;
 > +
-> +	for (slot =3D 0; slot < SIT9531X_PRIO_MAX_SLOTS; slot++)
-> +		if (srcs[slot] =3D=3D input_idx)
-> +			return 0;
+> +	/*
+> +	 * Step 5: flush the PLL's output phase so the new DIVO starts
+> +	 * aligned instead of keeping the arbitrary phase the divider
+> +	 * happened to be at.
+> +	 */
+> +	rc =3D sit9531x_output_phase_flush(sitdev, pll_idx);
+> +	if (rc)
+> +		return rc;
 > +
-> +	srcs[SIT9531X_PRIO_MAX_SLOTS - 1] =3D input_idx;
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> +	sitdev->out[out_idx].freq =3D (u32)div64_u64(fvco, divo);
 
 [Severity: Medium]
-Does unconditionally overwriting the last slot in the priority table risk
-dropping a unique source?
+Could this assignment truncate the actual output frequency?
 
-If the source in slot SIT9531X_PRIO_MAX_SLOTS - 1 is unique and removed from
-the table here, does its ref->pll_mask become permanently out of sync with =
-the
-hardware, leaking its physical receiver?
+The function div64_u64(fvco, divo) returns a u64, but the result is cast to=
+ a
+u32 without any maximum frequency bounds checking. If an extremely high
+frequency is requested and divo is evaluated as small, the calculated result
+might exceed U32_MAX, resulting in an incorrectly truncated cached frequenc=
+y.
 
 > +
-> +	return sit9531x_prio_table_commit(sitdev, pll_idx, srcs);
+> +	return 0;
 > +}
-
+[ ... ]
 > diff --git a/drivers/dpll/sit9531x/dpll.c b/drivers/dpll/sit9531x/dpll.c
-> index 821370ddeab00..29088707a3e62 100644
+> index 67b9fbba9f2e8..a7510ca721b61 100644
 > --- a/drivers/dpll/sit9531x/dpll.c
 > +++ b/drivers/dpll/sit9531x/dpll.c
 [ ... ]
-> +/*
-> + * sit9531x_dpll_input_pin_state_on_dpll_set - set input pin DPLL state
-> + *
-> + * Enables or disables the physical input receiver via Page 0x02
-> + * force/state registers (sit9531x_input_disable/enable()) and updates
-> + * this DPLL's Page 1 priority table so the state is honoured by the
-> + * PLL's automatic reference selection, not just at the input buffer.
-> + * Selection role; see the pin-state contract above for the states.
-> + *
-> + * The priority table is per PLL, so it is always updated for this DPLL.
-> + * A single physical input feeds every DPLL, so the hardware receiver is
-> + * only cut off once the last DPLL has released it: ref->pll_mask tracks
-> + * which DPLLs currently claim the input, and the physical disable
-> + * happens on the transition to an empty mask.
-> + */
-> +static int
-> +sit9531x_dpll_input_pin_state_on_dpll_set(const struct dpll_pin *pin,
-> +					  void *pin_priv,
-> +					  const struct dpll_device *dpll,
-> +					  void *dpll_priv,
-> +					  enum dpll_pin_state state,
-> +					  struct netlink_ext_ack *extack)
-> +{
+> @@ -576,8 +600,79 @@ sit9531x_dpll_output_pin_direction_get(const struct =
+dpll_pin *pin,
 [ ... ]
-> +	case DPLL_PIN_STATE_SELECTABLE:
-> +		rc =3D sit9531x_input_enable(sitdev, dpin->id);
-> +		if (rc)
-> +			break;
-> +		rc =3D sit9531x_input_prio_add(sitdev, sitdpll->id, hw_src);
-> +		if (rc)
-> +			break;
-                        ^^^^^
+> +static int
+> +sit9531x_dpll_output_pin_frequency_get(const struct dpll_pin *pin,
+> +				       void *pin_priv,
+> +				       const struct dpll_device *dpll,
+> +				       void *dpll_priv, u64 *frequency,
+> +				       struct netlink_ext_ack *extack)
+> +{
+> +	struct sit9531x_dpll_pin *dpin =3D pin_priv;
+> +	struct sit9531x_dpll *sitdpll =3D dpll_priv;
+> +	struct sit9531x_dev *sitdev =3D sitdpll->dev;
+> +	int rc;
+> +
+> +	mutex_lock(&sitdev->multiop_lock);
+> +	rc =3D sit9531x_output_freq_get(sitdev, dpin->id, frequency);
+> +	mutex_unlock(&sitdev->multiop_lock);
+> +
+> +	if (rc)
+> +		*frequency =3D sit9531x_out_state_get(sitdev, dpin->id)->freq;
 
 [Severity: Medium]
-If sit9531x_input_prio_add() fails, should the physical receiver that was j=
-ust
-enabled by sit9531x_input_enable() be disabled again on the error path?
+Is it safe to perform this fallback read outside of the multiop_lock?
 
-Since ref->pll_mask is not updated before breaking out, could this leave the
-receiver powered on indefinitely?
+If sit9531x_output_freq_get() fails, the code drops the lock and reads the
+cached freq value. This read can race with concurrent writers updating the
+cache under the multiop_lock (e.g., sit9531x_output_freq_set()), potentially
+leading to load tearing on 32-bit architectures.
 
-> +		/*
-> +		 * Claim the input for this DPLL only once it is both enabled
-> +		 * and present in the priority table.  Setting the mask before
-> +		 * prio_add would leak the claim if prio_add failed, keeping the
-> +		 * shared input receiver powered even after every DPLL released
-> +		 * it.
-> +		 */
-> +		ref->pll_mask |=3D pll_bit;
-> +		break;
-> +	default:
-> +		rc =3D -EINVAL;
-> +		break;
-> +	}
 > +
-> +	mutex_unlock(&sitdev->multiop_lock);
+> +	return 0;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902214030.2095=
-5-1-arouhi@sitime.com?part=3D6
+5-1-arouhi@sitime.com?part=3D8
