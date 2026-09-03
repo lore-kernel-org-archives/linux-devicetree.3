@@ -1,81 +1,80 @@
-Received: from mail-vk1-f225.google.com (mail-vk1-f225.google.com [209.85.221.225])
+Received: from mail-qt1-f227.google.com (mail-qt1-f227.google.com [209.85.160.227])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D4C851121E
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 20:10:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32FE851123F
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 20:11:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788466228; cv=none; b=EF5wOvGfpPvCfwEMwcI7lclSFRK6GxOiJ2gRyRWey17QjVKKPXp19B4bVn59ltk0BdD6uvO9WgwbjNBYbelMDhjqIPNe/MRpLmv72cyPYTQlGF4So6GowZFfzkchGJCoV/7QGwD+NO/hUTkUdoZy/1yzMb/ZcbKS20QFYdlwQuI=
+	t=1788466323; cv=none; b=CfJueomlliHorKx+fW1v7DU4xtrc9ZKCQPgPgoo2Lp05nKyoaOefuM/K0xx30s8Lt52dqGyRel5KaBZA3Zim0Lv8Z75PFOrZNepI7w+/gfxsuufRbIfmNcZ7k5S2k4jMqWLRsCIjTM51gkpVztbM7V5YRqtKtPWizt5rdVyPHCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788466228; c=relaxed/simple;
-	bh=Rl1raqxGQ75u1+SZ4RF/ZLGm1dnMgsmV9A8zancVso4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hjR4Bwq3cjhuHAYItSCSlbMUQJF7HuMb789VPyKPkjB2V/IHoUhEWyVXkYAFtBIbQmevn4MvRR8pFwzebAbQuleL9M/qMtpwRX2WxsUHFCXdJux1wdrcXr/T3YENs/Bg9Bm9DHX/YrDW7ffRRggtIp7I7Xr5k+U4Nd4ZFz2PRDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=NHjR3ecJ; arc=none smtp.client-ip=209.85.221.225
+	s=arc-20240116; t=1788466323; c=relaxed/simple;
+	bh=2x3Fg80qrgO1JMvyRsoWryYQdJjCtQvS1HZl+tKOeMM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=smUzHxOlVvU7/PUVxAv0RLA+UQzhnsSPBka74PRJd+9RJK2PWLwlGBebsWdUKYINz9OjepLCFbPZTw44vYUDOCiozGxJLypr/Gw4vow3T6Rr4MPEBsGGK4HbKrVDkSVeRk42qsvrDRHQZu4ERhxEIgEly1VbBWLh+RAGculswpw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=IxBApYry; arc=none smtp.client-ip=209.85.160.227
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="NHjR3ecJ"
-Received: by mail-vk1-f225.google.com with SMTP id 71dfb90a1353d-5bf9466867cso136030e0c.2
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 13:10:15 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="IxBApYry"
+Received: by mail-qt1-f227.google.com with SMTP id d75a77b69052e-5303932c4f3so2198221cf.2
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 13:11:51 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788466211; x=1789071011;
+        d=1e100.net; s=20251104; t=1788466308; x=1789071108;
         h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=yM2SvBd8B0ZdcJRRaa1PvZZkDma2EirQ9rf6ZMaxoZw=;
-        b=QrbQ50EDmck9z31doAWIH28I0MuEroAGLI+10S+qTpmlrdf9A96ZR246r3bZkZZAI2
-         SfHHF5jauZMYHrCKBWxO0/J68if7OsCIY2rNUOCciI6yHg/gXGwbUSPQMB/2o8WQYJSP
-         mVBwrUM6V8I+hjsybZwf5kcEx/bdrFBXySO2as6TsTDfduL5ail1sqh31WJgyBttkS/z
-         1yV354wztXg/sRvtfj8vITTrIkmKX2/o1fnFtMviKPBTNdLGgBHqKL0dysAbZcsnI2Bg
-         S7tijdAm/cX9hphCBEF2GMZzoMQQfMr/9jmrNClh3PqH34N7Hr9xc2qR9RA5kcuVEt5k
-         +ryA==
-X-Forwarded-Encrypted: i=1; AKwUvBwf4fGyL/cXWkTr55sokFsbQU7HOOCCnoqFhcCwjtBzASpj70J8QLWuI0K33TT6hdQiMlPM8LdPIpLo@vger.kernel.org
-X-Gm-Message-State: AFuF++lkU6Ska3BfMCPCqX3a1wmfUNRY7micdtpwX3+0DnM09jEOcjVQ
-	k5vXEFnbnbuCVYbZ3rCcBzGMSb5FbxZzSVT95PvPMH5mJ/odPDPzU3Qht2eqBhXTQky+Xv869b5
-	VcGCWtbL+6+VZaDP0cXSeWn03jQoxM7pvLQnEJkvbaI+9LUPlFaBoPI5A0nHVVTx85N8zzza29E
-	3ZqpVu/Mv0qnfTiO6O2heVd1K/J5Yy2xB7y0IJ3rqPg5SzfYLyZcPG3uGH3fa6y2ISyqQHiKzXQ
-	BK7ABym+5/u7SPWhdUJ/A==
-X-Gm-Gg: AYBFou3UAc6LD7IFEn4dYbBKEFokop7zOZvRkVsTw15jyseI1iHTEXnA4ImcsdZKauE
-	ZglmSeiOLFaDQUzvy5AsEMGNzcVRNp9axyfBINGQQi/JbQI1ipi8cRbEfhGlvbQWHYfIHwvosEa
-	JoMD9QiepwqA5O6uKPKui7KQphDJ1uKdNKnHu8I7oKaI6ppDQg4M3q79DezGj77h88QC5wGx8qb
-	hKABhfFZKq9NaVyM8AhEL8ODKSPWSLFsoIOr4Q5ROG0p9a6ZAZyxLRrl+C0hrs1t9kw/ntcFdQj
-	2w1+cuUbt3w12FXg5EEBJoIYCJ82hQoj3bFUM+ScgoO5smLt9FGJaj/mzs1XwGA2vW8hXnTd33U
-	WtWNwTr8Vq+gffZO7N9x3vB3k/ooex2vxoT8p5NJyEIVycQoYFM12YPoLJNKWnWZ2p77/4E650e
-	vAiGJAPoqbYNfkwP/61mL8sPOHzPdDq8tIqV9kn11IR88=
-X-Received: by 2002:a05:6122:8b18:b0:5c5:732c:f4f5 with SMTP id 71dfb90a1353d-5c7ed4e4296mr378231e0c.8.1788466211439;
-        Thu, 03 Sep 2026 13:10:11 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
-        by smtp-relay.gmail.com with ESMTPS id 71dfb90a1353d-5c7ec232ce8sm259097e0c.5.2026.09.03.13.10.11
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=130lNonfXTPzQR8jeTPo2lF/JuVtb2EqoFtB3DFAlj4=;
+        b=Ry5yx6y47GvOEu2olyxSvchhbru83LdOJB4ba2dt314GFdNGuPFU8wbd494wKZQDCJ
+         lhZzyDSkd+QeaWmkxumlYix95n5BvUawHv4ZJpDBtn5OUuWchAsuF9XP4d4maSJpR3YP
+         12lGyxiy5jsHaYyagRgnL8rHtnzz/jey8tJamqLbs4IuVI0zpiSqCxmFu5Rhh18PW4B3
+         I9tVnZ97AY/t81fWypOxqlkTkYTbaKBU+qxD2WPT5/hyL9sstQZboGTYi1l65hBYxM7i
+         mmOwHxuKfOE/oYkh2EhVDXAE/lGa4kDhOk/RPm6YDHRQqIWhhAsNIqmNRrdUxstBhhol
+         qr/g==
+X-Forwarded-Encrypted: i=1; AKwUvBxy49JhcC3UuJH/Ko4OFivKE42AvdTNcHtIjg+xy7EFUf0Kr1VjhnVBceB73XIsEQrSSdcIBQaIId65@vger.kernel.org
+X-Gm-Message-State: AFuF++mUCAihZ6/9ullwjB/EHI34z5nkOYe/As5N2f399MUcpKZh0uMk
+	NR3CcTiLg7LmT9nxjRQutBpvaLLRw+swYOO1LAcxrh8E4MvC5Otw/UB0pzLz6MhOsD/KZdDk9N6
+	xWioWoEN3uqO0HVSb1PVJ+dchEQXVUdwI91FXDroLygUNilJhqOPGQwE50kfKTaqh2m5FJsiMfO
+	LJtniHrdLdDdMsd8cumZMt3iZUymFOuB8XStpUwU9JAYTpIscUGVoNTsWRANRIfVbTKGJmtQEag
+	LB7LWH08y1JXFZa7Vy3zQ==
+X-Gm-Gg: AYBFou2Vpdl3+vfreC3aXo/6Lshx4n2l2S6zBFOpD0fPwZAWncsBxRzwzrxgqMjOPta
+	+/EujLBI3RuLQlbQH9zuW6xX3XXewE2/BpIfzAahp4uqG/hajWg36dl+kNMpOdtLEeoT/3uTw6j
+	Q5tyZmvH5NDrJGxZ/ys114QTdtiG66jOWCrZ2tMXSMFbPstbzzkvS94iaQ5GwbFjmkBhufIgReV
+	WlxVLAPzpJIp87XwPnxMB0d+o8MtsT376aN72Ya5K3RXHhHzmcIPRy4twx++EdBl5foxDWVAJWG
+	RXVNtLb5tKnm/fD86pqTC/586J7KwQD2/ju6dkvJE0EkcBlVh14dmB2bhkrK4+SOdUj5zKtOgfE
+	OjAiNmYLwI1U/5sjqMi/bSuemICZKH8U5ddojBBHPakrz9J1zwGErK8TqaCfP33R4ljXWYyX/7j
+	Xx1l2Ln9wfXAasxUapX1Z6okAenuCTZlEQPE7Hb8Bx
+X-Received: by 2002:a05:622a:5809:b0:530:42e6:b18c with SMTP id d75a77b69052e-530549cbdf1mr15318141cf.42.1788466308029;
+        Thu, 03 Sep 2026 13:11:48 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
+        by smtp-relay.gmail.com with ESMTPS id 6a1803df08f44-91040721cfasm58256d6.13.2026.09.03.13.11.46
         for <devicetree@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 03 Sep 2026 13:10:11 -0700 (PDT)
+        Thu, 03 Sep 2026 13:11:48 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-9103f4ddce5so3146406d6.3
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 13:10:11 -0700 (PDT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-939281526e1so21490485a.0
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 13:11:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1788466211; x=1789071011; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1788466306; x=1789071106; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yM2SvBd8B0ZdcJRRaa1PvZZkDma2EirQ9rf6ZMaxoZw=;
-        b=NHjR3ecJY8DEnPeKhSDJh/xU4qOjVzcX/ZLtEjHyz7OffwRSERF9eOur0G6VqjqIzv
-         sfQIkvvuqislYmitdy9Nsn3gEQNnBFoRB/hjm4YerR3Vvj7z+THUtth4wzeFB2GWqAYF
-         zCU5Zb+BpkcozG4j00UEeyHdHQ+aKwEOZ7WV8=
-X-Forwarded-Encrypted: i=1; AKwUvByJAkEmlkdy03ZeZWchw+R0km5/ispDvCJcXIOb7VAnRbxt23/rtYXcNpyacGOegDVBa7rpW8QgrVyj@vger.kernel.org
-X-Received: by 2002:a05:6214:410:b0:910:3179:7342 with SMTP id 6a1803df08f44-9103eefd244mr19674156d6.5.1788466210674;
-        Thu, 03 Sep 2026 13:10:10 -0700 (PDT)
-X-Received: by 2002:a05:6214:410:b0:910:3179:7342 with SMTP id 6a1803df08f44-9103eefd244mr19673486d6.5.1788466209956;
-        Thu, 03 Sep 2026 13:10:09 -0700 (PDT)
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=130lNonfXTPzQR8jeTPo2lF/JuVtb2EqoFtB3DFAlj4=;
+        b=IxBApYrySYMAETAe4+Bm9eRkwGYZUDu5bngMYt2j2f0brZS3VcQ/g16THiJQwlEQdv
+         7+Qbdee0eqAL7VuQba7nbAFsOls2FZVkefB9JBe6VlTE/mYeNcKYfhvL9u/zHU00GfMv
+         zmbw2M75xkyD2sJbzp4q7F7yn6x/97rwicGrM=
+X-Forwarded-Encrypted: i=1; AKwUvBzykZjP4gwry6pZJnukUFi69/VEvpqT389xEHOJ8+nh+z5MRuQo1jRvf8xptqXIHg1Ek3D/hcngvXw6@vger.kernel.org
+X-Received: by 2002:a05:620a:4887:b0:939:6de9:208c with SMTP id af79cd13be357-93980586029mr97448285a.49.1788466306405;
+        Thu, 03 Sep 2026 13:11:46 -0700 (PDT)
+X-Received: by 2002:a05:620a:4887:b0:939:6de9:208c with SMTP id af79cd13be357-93980586029mr97442185a.49.1788466305792;
+        Thu, 03 Sep 2026 13:11:45 -0700 (PDT)
 Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-910406871b6sm2886536d6.32.2026.09.03.13.10.07
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397f9ee9fbsm51700885a.1.2026.09.03.13.11.42
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 13:10:09 -0700 (PDT)
-Message-ID: <754d7b80-c776-4c38-bc47-301a3e69fa7d@broadcom.com>
-Date: Thu, 3 Sep 2026 13:10:06 -0700
+        Thu, 03 Sep 2026 13:11:45 -0700 (PDT)
+Message-ID: <be3aac0c-3475-4f48-aaef-765aadcc6b75@broadcom.com>
+Date: Thu, 3 Sep 2026 13:11:41 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -83,18 +82,19 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm64: dts: broadcom: bcm2712: Add USB OTG port
+Subject: Re: [PATCH v7 0/3] Add RP1 PWM controller support
 To: Andrea della Porta <andrea.porta@suse.com>,
- Peter Robinson <pbrobinson@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ linux-pwm@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>,
  Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Stefan Wahren <wahrenst@gmx.net>,
- Phil Elwell <phil@raspberrypi.com>, devicetree@vger.kernel.org,
+ <bcm-kernel-feedback-list@broadcom.com>, devicetree@vger.kernel.org,
  linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Dave Stevenson <dave.stevenson@raspberrypi.com>
-References: <20260802145109.728793-1-pbrobinson@gmail.com>
- <20260802145109.728793-4-pbrobinson@gmail.com> <apl57BlWIkOWjWAu@apocalypse>
+ linux-kernel@vger.kernel.org, Naushir Patuck <naush@raspberrypi.com>,
+ Stanimir Varbanov <svarbanov@suse.de>, mbrugger@suse.com,
+ Sean Young <sean@mess.org>, Julian Braha <julianbraha@gmail.com>
+References: <cover.1784539788.git.andrea.porta@suse.com>
 Content-Language: en-US, fr-FR
 From: Florian Fainelli <florian.fainelli@broadcom.com>
 Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
@@ -129,78 +129,29 @@ Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
  MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
  7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
  95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <apl57BlWIkOWjWAu@apocalypse>
+In-Reply-To: <cover.1784539788.git.andrea.porta@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On 9/3/26 06:45, Andrea della Porta wrote:
-> Hi Peter,
+On 7/20/26 02:44, Andrea della Porta wrote:
+> This patchset adds support for the PWM controller found on the
+> Raspberry Pi RP1 southbridge. This is necessary to operate the
+> cooling fan connected to one of the PWM channels.
 > 
-> On 15:50 Sun 02 Aug     , Peter Robinson wrote:
->> The Raspberry Pi 5 has a USB2 OTG port wired up to the
->> Type-C that uses the same IP in earlier generations so
->> wire this up so it can be used.
->>
->> Signed-off-by: Peter Robinson <pbrobinson@gmail.com>
->> Cc: Florian Fainelli <florian.fainelli@broadcom.com>
->> Cc: Dave Stevenson <dave.stevenson@raspberrypi.com
->> ---
->>   .../dts/broadcom/bcm2712-rpi-5-b-base.dtsi    |  6 +++++
->>   arch/arm64/boot/dts/broadcom/bcm2712.dtsi     | 25 +++++++++++++++++++
->>   2 files changed, 31 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi
->> index d998bfae91acb..e5030da60f9e7 100644
->> --- a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi
->> +++ b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi
->> @@ -3,6 +3,7 @@
->>   
->>   #include <dt-bindings/gpio/gpio.h>
->>   #include <dt-bindings/input/input.h>
->> +#include <dt-bindings/power/raspberrypi-power.h>
->>   #include "bcm2712.dtsi"
->>   
->>   / {
->> @@ -239,6 +240,11 @@ bluetooth: bluetooth {
->>   	};
->>   };
->>   
->> +&usb {
->> +	power-domains = <&power RPI_POWER_DOMAIN_USB>;
->> +	status = "okay";
->> +};
->> +
->>   &hvs {
->>   	clocks = <&firmware_clocks 4>, <&firmware_clocks 16>;
->>   	clock-names = "core", "disp";
->> diff --git a/arch/arm64/boot/dts/broadcom/bcm2712.dtsi b/arch/arm64/boot/dts/broadcom/bcm2712.dtsi
->> index c73ed9e066662..f650a5cd8462d 100644
->> --- a/arch/arm64/boot/dts/broadcom/bcm2712.dtsi
->> +++ b/arch/arm64/boot/dts/broadcom/bcm2712.dtsi
->> @@ -55,6 +55,13 @@ clk_sw_baud: clk-sw-baud {
->>   			clock-frequency = <96000000>;
->>   			clock-output-names = "sw-baud";
->>   		};
->> +
->> +		clk_usb: clk-usb {
->> +			compatible = "fixed-clock";
->> +			#clock-cells = <0>;
->> +			clock-frequency = <480000000>;
->> +			clock-output-names = "otg";
->> +		};
->>   	};
->>   
->>   	cpus: cpus {
->> @@ -693,6 +700,19 @@ v3d: gpu@1002000000 {
->>   			interrupts = <GIC_SPI 250 IRQ_TYPE_LEVEL_HIGH>,
->>   				     <GIC_SPI 249 IRQ_TYPE_LEVEL_HIGH>;
->>   		};
->> +
->> +		usb: usb@100480000 {
+> The tachometer pin for the fan speed is managed by the firmware
+> running on the RP1's M-core. It uses the PHASE2 register
+> to report the RPM, which is then exported by this driver via
+> syscon registers. A subsequent patch will add a new device
+> and driver to read the RPM and export this value via hwmon.
+>   
+> Subsequent patches will also add the CPU thermal zone, which
+> acts as a consumer of the PWM device.
 > 
-> Please fill in the missing 0 in the unit number. Apart from that, LGTM.
+> Best regards,
+> Andrea
 
-Took care of that while applying, good catch!
+Uwe, how do we go about applying these patches? Do you want to take 
+patch #2 and I take patches #1 and #3 through the Broadcom ARM SoC tree(s)?
 -- 
 Florian
