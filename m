@@ -1,47 +1,23 @@
-Received: from ironport.ite.com.tw (hc210-202-87-179.vdslpro.static.apol.com.tw [210.202.87.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F221F411FB4;
-	Thu,  3 Sep 2026 10:16:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.202.87.179
+Received: from hqu.edu.cn (hqu.edu.cn [210.34.240.11])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 67684326927;
+	Thu,  3 Sep 2026 10:18:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.34.240.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788430595; cv=none; b=p8i8/4WMMcJ8c0MRPbgxDnfQhspaY+uHrmXw/LivHPqbYKhZfcKRFY/f9oBFFpfYkKFCSclouCnNaQ+U0aiKSnMiKQ7pnBuODo3XxAeIjGuN8kEjt9cVWUsrvWNsWzt7VijpMfuhoOt5+JbrsasPGA9B9wDKklCkKv3zUsIXuDQ=
+	t=1788430745; cv=none; b=nqlxYzJ9Dj+TJqlaIepVzTbeVu840CuY+7wLAkL+qMFa1JMewmG91wvv0jIFO5kMFdYvdbmkrGG/M5e5/owSGSoMHTbD9utjP3qmRKXinkFVfGuhVwdLvFGUAL48qstte0+VsUEPqeKqqE6xbO8pCuEFC3uBD5h+7zWVasDyyzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788430595; c=relaxed/simple;
-	bh=ldipukv9pusXhp9hjPoYFCaQL2MpzifOv0fcA7Ty/os=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=fk6N1w5FViUwBa6esb4Tw3ezK5LPvAIGYSb3OXXi8obo6vw/7h64mQ5zdWCP3Ej9pczhv7HCmmn+N3ow7TTPp9Ih8K9mg0umHK1D1P9qe6JBp5BDERQiIMaeLVacRg0zbKn/MIGryGl7+aPd0beeUiG+fe1R+u0JfBf2GSUAdVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=XFGn+v+2; arc=none smtp.client-ip=210.202.87.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="XFGn+v+2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=ite.com.tw; s=dkim;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:to:cc;
-  bh=76WSQpuQ/Dm4bFaRITCmBuN1RDkcqDthNRxUFzeBojA=;
-  b=XFGn+v+2g4nntFm0q/DEhAYCmfl4ZnD9BSeROhy9Hhn3XV6ORQN5vbei
-   +JqxHlvADT3aASEcf4cOdHbTxZf8OBeodNuHA/ACumCjmPk9k0z8jeGq4
-   cfYpgX74tq709u22Q1BnJh/xsaDKcmE3L68uzYgO7n0AgE0cDDdPB7hUK
-   TLYVhvYVQDzjuV6ZPdgzhSaymFfJ6KodE2e63MFr46A3DYBVGq2+fFAJv
-   S/XOzDuNrhL75M0l25A4PN9IsY2vNd290P85Mz4mITM0us1RSc4ohPAby
-   1CnYDJYlBjSpd4r6Hwq9to+Ljr+zjgc5TLtkTVvm6bBWooJLw3ngwk4fk
-   A==;
-X-CSE-ConnectionGUID: 0Vdxsr9sQzS3Zh9W1mtSig==
-X-CSE-MsgGUID: 8JRtMXdkRryh2McOQCveuw==
-Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
-  by ironport.ite.com.tw with ESMTP; 03 Sep 2026 18:15:07 +0800
-Received: from jiraproxy.ite.com.tw (jira.internal.ite.com.tw [192.168.35.200])
-	by mse.ite.com.tw with ESMTP id 683AF3hR042979;
-	Thu, 3 Sep 2026 18:15:03 +0800 (+08)
-	(envelope-from ite_pd@ite.com.tw)
-Received: from [127.0.1.1] (ITE01791W10.internal.ite.com.tw [192.168.37.107])
-	by jiraproxy.ite.com.tw (Postfix) with ESMTP id B180D2D58;
-	Thu,  3 Sep 2026 18:15:02 +0800 (CST)
-From: Amber Kao <ite_pd@ite.com.tw>
-Date: Thu, 03 Sep 2026 18:15:43 +0800
-Subject: [PATCH] dt-bindings: usb: Add ITE IT5271/IT5272/IT5273/IT5274
- support
+	s=arc-20240116; t=1788430745; c=relaxed/simple;
+	bh=LnzK8gFs/Iazf1bdID7yRRgNAasKpTbjzZbyQSH29AI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Q/qP2w8bw+T83rRzlLdgMac/7FZzW4HJQRSgooreyQl8tXNq0i5+Tcn2OgMKTd2OfbDp9aeBZn8h0EnD8UMsyL1ZJw0sW9f6bNLL8R3bcN8xvcXus3xxkv4ecPTc4M7b4biahtrjc6MW+bUIwdodBmzUKzlIqgapE4i3L3QE0Qg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stu.hqu.edu.cn; spf=pass smtp.mailfrom=stu.hqu.edu.cn; arc=none smtp.client-ip=210.34.240.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stu.hqu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.hqu.edu.cn
+Received: from [127.0.1.1] (unknown [27.42.228.181])
+	by cmweb (Coremail) with SMTP id C_Ai0gAXe9qFSZlqyEUHAA--.14896S4;
+	Thu, 03 Sep 2026 18:18:49 +0800 (CST)
+From: YuChia-Kan <raspberrykan@stu.hqu.edu.cn>
+Date: Thu, 03 Sep 2026 18:18:46 +0800
+Subject: [PATCH v3 2/2] arm64: dts: amlogic: add Xiaomi Mi Box 4 support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,254 +26,419 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-it5271-binding-v1-1-1abd2c8cea85@ite.com.tw>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ5AMBBA4avIrDXpDxWuIhbKtMaipEUk4u6K5
- bd474KIgTBCk10Q8KBIi08QeQbD1HuHjMZkkFxqXnPFaCtlJZghP5J3rFC9qrTlphYWUrQGtHR
- +w7b7HXcz47C9F7jvB3PNnsFyAAAA
-X-Change-ID: 20260903-it5271-binding-43a376f0b91f
-To: Amber Kao <amber.kao@ite.com.tw>, Jeson Yang <jeson.yang@ite.com.tw>,
-        Yaode Fang <Yaode.Fang@ite.com.tw>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Amber Kao <ite_pd@ite.com.tw>
-X-Mailer: b4 0.15.2
-X-MAIL:mse.ite.com.tw 683AF3hR042979
+Message-Id: <20260903-mibox4-dt-v3-2-1a8e395d923c@stu.hqu.edu.cn>
+References: <20260903-mibox4-dt-v3-0-1a8e395d923c@stu.hqu.edu.cn>
+In-Reply-To: <20260903-mibox4-dt-v3-0-1a8e395d923c@stu.hqu.edu.cn>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ YuChia-Kan <raspberrykan@stu.hqu.edu.cn>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8548;
+ i=raspberrykan@stu.hqu.edu.cn; h=from:subject:message-id;
+ bh=LnzK8gFs/Iazf1bdID7yRRgNAasKpTbjzZbyQSH29AI=;
+ b=owEBbQKS/ZANAwAKAZoNcluxItUHAcsmYgBqmUmGypy5D9yCWC93pMRJ4UjBpMwzSNiysRXPv
+ V9XlGYVs9uJAjMEAAEKAB0WIQTDd02egjFwFlgfDD2aDXJbsSLVBwUCaplJhgAKCRCaDXJbsSLV
+ B5W9D/4jPftTnYI7mJ0nKhjgQwDASUiM9mb+hUiQOr3K+kMrWdzNOPJB/XgdQTk9/kAemnWLgqK
+ sgDxsd6hXeRzyRbUg5nlFZ+Eqz/UL7b+gGpjcBCa3PWIVakqp/zBRSIXFcyDZ3NwXy+LmC5jZnb
+ THxsB+vvMMsC6VsZqvwqIrXmdHaaTREn2t8Jy4rTxxTDptztwkXCYREAjvZ6ykL1UiIgxk6EYcJ
+ iBta0G03ZEYKZRwPiA7idzGyoXBr68ORri+skhA/SQJLeFYJsZ9Y8Jf02xdttdByoLyu8KQa0c8
+ azhvq4IU6T4RuB8MzKZk/j7K0bI+WUVhbXnPmi3Y9ZEEkMK1zGZHyrl98jB8bsRm/IMLxQoAFMG
+ Q5xdH8WHffgkDTjRMUMmpxeppN9ffwIeTUaYSixXa5RzzetBikONiAH7V1qnSgFxQePxlyTr/i7
+ J26+cq84Aoa7Jts8pK2G0YYdKtExIhEvLly9ulG0bh4lj+L9N3xX1C9ahzS1XhHENazATHazh19
+ 1/opn8xuIGuoQieywYTd0JGWG/5A4WLElJwJIEcHba/lXZI447iN761F6xjuR5sK5Td1vt2TVQb
+ qgntU6QSz+wWg5htvF2eqlgoVTRrqL127oB0bTG7ZEM1BIou54xMifv4nejnloBb0rb5wR62sIC
+ Tf08b1egC3e8X0g==
+X-Developer-Key: i=raspberrykan@stu.hqu.edu.cn; a=openpgp;
+ fpr=C3774D9E82317016581F0C3D9A0D725BB122D507
+X-CM-TRANSID:C_Ai0gAXe9qFSZlqyEUHAA--.14896S4
+X-Coremail-Antispam: 1UD129KBjvJXoWxtw1DGr4DtF47Kry8uw1kAFb_yoW3tFWfpF
+	n7Crs5GFWfZryjk3y5Z3yIyFs5Gw1kCFZ7Cr1DWFWrCrWv9FyDK34xtr93ZFn5Wrs7Xw43
+	JrWDAry7tF1ag3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPKb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
+	8067AKxVWUXwA2048vs2IY020Ec7CjxVAFwI0_Gr0_Xr1l8cAvFVAK0II2c7xJM28CjxkF
+	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0cI8IcV
+	CY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIE
+	c7CjxVAFwI0_Gr1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzV
+	Aqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S
+	6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7Mx
+	kF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4U
+	MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67
+	AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0
+	cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z2
+	80aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU
+	0xZFpf9x07b2739UUUUU=
+X-CM-SenderInfo: ysvskiyqsqlko6vw3hxktxhvlgxou0/1tbiAQASBGqYO2MCOAALsM
 
-Add device tree binding documentation for the ITE IT527x series
-(IT5271, IT5272, IT5273, and IT5274) I2C-based USB Type-C Power
-Delivery (PD) controllers.
+Add initial device tree support for the Xiaomi Mi Box 4
+(MDZ-21-AA), based on the Amlogic S905L SoC.
 
-The series comprises four variants differing by port count and
-Power Range support:
-- IT5271: single-port, SPR (Standard Power Range)
-- IT5272: two-port, SPR
-- IT5273: single-port, EPR (Extended Power Range)
-- IT5274: two-port, EPR
+Enable the main on-board peripherals including eMMC, Wi-Fi,
+HDMI, CEC, USB, audio, power LED, GPU and video decoder.
 
-Signed-off-by: Amber Kao <ite_pd@ite.com.tw>
+Signed-off-by: YuChia-Kan <raspberrykan@stu.hqu.edu.cn>
 ---
-The driver for this device family is shared with ITE IT8851/IT8853,
-currently under review as a separate series:
-https://patchwork.kernel.org/project/linux-usb/patch/20260807-ucsi-itepd-v7-2-998ac11ed0ef@ite.com.tw/
+ arch/arm64/boot/dts/amlogic/Makefile               |   1 +
+ .../dts/amlogic/meson-gxlx-s905l-xiaomi-mibox4.dts | 333 +++++++++++++++++++++
+ 2 files changed, 334 insertions(+)
 
-This binding is submitted independently so it can be reviewed on
-its own; once the driver series lands, IT527x support will be
-wired into it there.
----
- .../devicetree/bindings/usb/ite,it5271.yaml        | 176 +++++++++++++++++++++
- MAINTAINERS                                        |   8 +
- 2 files changed, 184 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/usb/ite,it5271.yaml b/Documentation/devicetree/bindings/usb/ite,it5271.yaml
+diff --git a/arch/arm64/boot/dts/amlogic/Makefile b/arch/arm64/boot/dts/amlogic/Makefile
+index 57bc440fa55c..ad6ab4216083 100644
+--- a/arch/arm64/boot/dts/amlogic/Makefile
++++ b/arch/arm64/boot/dts/amlogic/Makefile
+@@ -72,6 +72,7 @@ dtb-$(CONFIG_ARCH_MESON) += meson-gxl-s905x-nexbox-a95x.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-gxl-s905x-p212.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-gxl-s905x-vero4k.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-gxlx-s905l-p271.dtb
++dtb-$(CONFIG_ARCH_MESON) += meson-gxlx-s905l-xiaomi-mibox4.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-gxm-gt1-ultimate.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-gxm-khadas-vim2.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-gxm-mecool-kiii-pro.dtb
+diff --git a/arch/arm64/boot/dts/amlogic/meson-gxlx-s905l-xiaomi-mibox4.dts b/arch/arm64/boot/dts/amlogic/meson-gxlx-s905l-xiaomi-mibox4.dts
 new file mode 100644
-index 000000000000..29cd7add9bde
+index 000000000000..3b293dc31086
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/usb/ite,it5271.yaml
-@@ -0,0 +1,176 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/usb/ite,it5271.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/arch/arm64/boot/dts/amlogic/meson-gxlx-s905l-xiaomi-mibox4.dts
+@@ -0,0 +1,333 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++// Copyright (c) 2026 YuChia-Kan <mail@raspberrykan.dev>
 +
-+title: ITE IT5271/IT5272/IT5273/IT5274 USB Type-C Power Delivery Controller
++/dts-v1/;
 +
-+maintainers:
-+  - Amber Kao <amber.kao@ite.com.tw>
++#include "meson-gxl-s905x.dtsi"
 +
-+description: |
-+  The ITE IT527x series are I2C-based USB Type-C Power Delivery (PD)
-+  controllers.
-+  All variants support DFP/UFP/DRP roles, USB PD 3.1, Fast Role Swap,
-+  USB4, and TBT3/TBT4 alternate modes.
++#include <dt-bindings/leds/common.h>
++#include <dt-bindings/sound/meson-aiu.h>
 +
-+  The series comprises four ordering part numbers built on identical
-+  silicon; port count and PD power range support are configured via
-+  firmware/OTP rather than differing in the register interface itself:
-+    - IT5271: single-port variant, SPR
-+    - IT5272: two-port variant, SPR
-+    - IT5273: single-port variant, EPR
-+    - IT5274: two-port variant, EPR
++/ {
++	compatible = "xiaomi,mibox4", "amlogic,s905l", "amlogic,meson-gxlx";
++	model = "Xiaomi Mi Box 4 (MDZ-21-AA)";
 +
-+properties:
-+  compatible:
-+    oneOf:
-+      - const: ite,it5271
-+      - items:
-+          - const: ite,it5272
-+          - const: ite,it5271
-+      - items:
-+          - const: ite,it5273
-+          - const: ite,it5271
-+      - items:
-+          - const: ite,it5274
-+          - const: ite,it5271
++	aliases {
++		serial0 = &uart_AO;
++		mmc0 = &sd_emmc_c;
++		mmc1 = &sd_emmc_a;
++		/delete-property/ mmc2;
++	};
 +
-+  reg:
-+    maxItems: 1
++	chosen {
++		stdout-path = "serial0:115200n8";
++	};
 +
-+  interrupts:
-+    maxItems: 1
++	av_mute: analog-audio-mute {
++		compatible = "simple-audio-amplifier";
++		sound-name-prefix = "AV";
++		enable-gpios = <&gpio GPIOH_5 GPIO_ACTIVE_HIGH>;
++	};
 +
-+  wakeup-source: true
++	memory@0 {
++		device_type = "memory";
++		reg = <0x0 0x0 0x0 0x80000000>;
++	};
 +
-+  '#address-cells':
-+    const: 1
++	hdmi_connector: hdmi-connector {
++		compatible = "hdmi-connector";
++		type = "a";
 +
-+  '#size-cells':
-+    const: 0
++		port {
++			hdmi_connector_in: endpoint {
++				remote-endpoint = <&hdmi_tx_tmds_out>;
++			};
++		};
++	};
 +
-+patternProperties:
-+  '^connector@[01]$':
-+    $ref: /schemas/connector/usb-connector.yaml#
-+    properties:
-+      reg:
-+        maxItems: 1
-+    required:
-+      - reg
-+    unevaluatedProperties: false
++	cvbs_connector: cvbs-connector {
++		compatible = "composite-video-connector";
 +
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
++		port {
++			cvbs_connector_in: endpoint {
++				remote-endpoint = <&cvbs_vdac_out>;
++			};
++		};
++	};
 +
-+anyOf:
-+  - required:
-+      - connector@0
-+  - required:
-+      - connector@1
++	hdmi_usb_5v: regulator-hdmi-usb-5v {
++		compatible = "regulator-fixed";
++		regulator-name = "HDMI_USB_5V";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		gpio = <&gpio_ao GPIOAO_4 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++		regulator-boot-on;
++		regulator-always-on;
++	};
 +
-+allOf:
-+  - if:
-+      not:
-+        properties:
-+          compatible:
-+            contains:
-+              enum:
-+                - ite,it5272
-+                - ite,it5274
-+    then:
-+      properties:
-+        connector@1: false
++	vddio_boot: regulator-vddio-boot {
++		compatible = "regulator-fixed";
++		regulator-name = "VDDIO_BOOT";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++	};
 +
-+unevaluatedProperties: false
++	vddao_3v3: regulator-vddao-3v3 {
++		compatible = "regulator-fixed";
++		regulator-name = "VDDAO_3V3";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++	};
 +
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
++	vddio_ao18: regulator-vddio-ao18 {
++		compatible = "regulator-fixed";
++		regulator-name = "VDDIO_AO18";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++	};
 +
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
++	vcc_3v3: regulator-vcc-3v3 {
++		compatible = "regulator-fixed";
++		regulator-name = "VCC_3V3";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++	};
 +
-+        /* IT5274: two-port, EPR variant */
-+        typec@26 {
-+            compatible = "ite,it5274", "ite,it5271";
-+            reg = <0x26>;
-+            interrupts-extended = <&tlmm 129 IRQ_TYPE_EDGE_FALLING>;
-+            wakeup-source;
++	emmc_pwrseq: emmc-pwrseq {
++		compatible = "mmc-pwrseq-emmc";
++		reset-gpios = <&gpio BOOT_9 GPIO_ACTIVE_LOW>;
++	};
 +
-+            #address-cells = <1>;
-+            #size-cells = <0>;
++	wifi32k: wifi32k {
++		compatible = "pwm-clock";
++		#clock-cells = <0>;
++		clock-frequency = <32768>;
++		pwms = <&pwm_ef 0 30518 0>;
++	};
 +
-+            connector@0 {
-+                compatible = "usb-c-connector";
-+                reg = <0>;
-+                label = "USB-C-0";
-+                power-role = "dual";
-+                data-role = "dual";
++	wifi_pwrseq: wifi-pwrseq {
++		compatible = "mmc-pwrseq-simple";
++		reset-gpios = <&gpio GPIOX_9 GPIO_ACTIVE_LOW>;
++		clocks = <&wifi32k>;
++		clock-names = "ext_clock";
++		post-power-on-delay-ms = <200>;
++	};
 +
-+                ports {
-+                    #address-cells = <1>;
-+                    #size-cells = <0>;
++	leds: leds {
++		compatible = "gpio-leds";
 +
-+                    port@0 {
-+                        reg = <0>;
-+                        endpoint {
-+                            remote-endpoint = <&eud_con>;
-+                        };
-+                    };
++		power_led: power-led {
++			color = <LED_COLOR_ID_WHITE>;
++			function = LED_FUNCTION_POWER;
++			gpios = <&gpio GPIOX_6 GPIO_ACTIVE_HIGH>;
++			default-state = "on";
++		};
++	};
 +
-+                    port@1 {
-+                        reg = <1>;
-+                        endpoint {
-+                            remote-endpoint = <&redriver_ss_out>;
-+                        };
-+                    };
++	sound {
++		compatible = "amlogic,gx-sound-card";
++		model = "Xiaomi-Mi-Box-4";
++		audio-aux-devs = <&av_mute>;
++		audio-widgets = "Line", "Lineout";
++		audio-routing = "AV INL", "ACODEC LOLN",
++				"AV INR", "ACODEC LORN",
++				"Lineout", "AV OUTL",
++				"Lineout", "AV OUTR";
 +
-+                    port@2 {
-+                        reg = <2>;
-+                        endpoint {
-+                            remote-endpoint = <&dp_phy_out>;
-+                        };
-+                    };
-+                };
-+            };
++		clocks = <&clkc CLKID_MPLL0>,
++			 <&clkc CLKID_MPLL1>,
++			 <&clkc CLKID_MPLL2>;
++		assigned-clocks = <&clkc CLKID_MPLL0>,
++				  <&clkc CLKID_MPLL1>,
++				  <&clkc CLKID_MPLL2>;
++		assigned-clock-rates = <294912000>, <270950400>, <393216000>;
 +
-+            connector@1 {
-+                compatible = "usb-c-connector";
-+                reg = <1>;
-+                label = "USB-C-1";
-+                power-role = "dual";
-+                data-role = "dual";
++		dai-link-0 {
++			sound-dai = <&aiu AIU_CPU CPU_I2S_FIFO>;
++		};
 +
-+                ports {
-+                    #address-cells = <1>;
-+                    #size-cells = <0>;
++		dai-link-1 {
++			sound-dai = <&aiu AIU_CPU CPU_I2S_ENCODER>;
++			dai-format = "i2s";
++			mclk-fs = <256>;
 +
-+                    port@0 {
-+                        reg = <0>;
-+                        endpoint {
-+                            remote-endpoint = <&usb1_hs_con>;
-+                        };
-+                    };
++			codec-0 {
++				sound-dai = <&aiu AIU_HDMI CTRL_I2S>;
++			};
 +
-+                    port@1 {
-+                        reg = <1>;
-+                        endpoint {
-+                            remote-endpoint = <&redriver1_ss_out>;
-+                        };
-+                    };
++			codec-1 {
++				sound-dai = <&aiu AIU_ACODEC CTRL_I2S>;
++			};
++		};
 +
-+                    port@2 {
-+                        reg = <2>;
-+                        endpoint {
-+                            remote-endpoint = <&dp_phy1_out>;
-+                        };
-+                    };
-+                };
-+            };
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 4dfc1fb14ef7..1a35242257fc 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -13940,6 +13940,14 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
- F:	Documentation/devicetree/bindings/display/bridge/ite,it66121.yaml
- F:	drivers/gpu/drm/bridge/ite-it66121.c
- 
-+ITE IT5271 TYPE-C PD CONTROLLER DRIVER
-+M:	Amber Kao <amber.kao@ite.com.tw>
-+M:	ITE PD TEAM <ite_pd@ite.com.tw>
-+R:	Yaode Fang <Yaode.Fang@ite.com.tw>
-+L:	linux-usb@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/usb/ite,it5271.yaml
++		dai-link-2 {
++			sound-dai = <&aiu AIU_HDMI CTRL_OUT>;
 +
- IVTV VIDEO4LINUX DRIVER
- M:	Andy Walls <awalls@md.metrocast.net>
- L:	linux-media@vger.kernel.org
++			codec-0 {
++				sound-dai = <&hdmi_tx>;
++			};
++		};
++
++		dai-link-3 {
++			sound-dai = <&aiu AIU_ACODEC CTRL_OUT>;
++
++			codec-0 {
++				sound-dai = <&acodec>;
++			};
++		};
++	};
++};
++
++&acodec {
++	AVDD-supply = <&vddio_ao18>;
++	status = "okay";
++};
++
++&aiu {
++	status = "okay";
++};
++
++&cec_AO {
++	status = "okay";
++	pinctrl-0 = <&ao_cec_pins>;
++	pinctrl-names = "default";
++	hdmi-phandle = <&hdmi_tx>;
++};
++
++&cvbs_vdac_port {
++	cvbs_vdac_out: endpoint {
++		remote-endpoint = <&cvbs_connector_in>;
++	};
++};
++
++/*
++ * The Mi Box 4 uses a custom efuse layout extracted from the
++ * original firmware.
++ */
++
++/delete-node/ &eth_mac;
++/delete-node/ &sn;
++/delete-node/ &bid;
++
++&efuse {
++	eth_mac: mac-address@0 {
++		reg = <0x00 0x06>;
++	};
++
++	bt_mac: mac-address@6 {
++		reg = <0x06 0x06>;
++	};
++
++	wifi_mac: mac-address@c {
++		reg = <0x0c 0x06>;
++	};
++
++	usid: serial-number@12 {
++		reg = <0x12 0x10>;
++	};
++};
++
++&ethmac {
++	status = "disabled";
++};
++
++&hdmi_tx {
++	status = "okay";
++	pinctrl-0 = <&hdmi_hpd_pins>, <&hdmi_i2c_pins>;
++	pinctrl-names = "default";
++	hdmi-supply = <&hdmi_usb_5v>;
++};
++
++&hdmi_tx_tmds_port {
++	hdmi_tx_tmds_out: endpoint {
++		remote-endpoint = <&hdmi_connector_in>;
++	};
++};
++
++&pwm_ef {
++	status = "okay";
++	pinctrl-0 = <&pwm_e_pins>;
++	pinctrl-names = "default";
++};
++
++&saradc {
++	compatible = "amlogic,meson-gxlx-saradc", "amlogic,meson-saradc";
++	status = "okay";
++	vref-supply = <&vddio_ao18>;
++};
++
++&sd_emmc_a {
++	status = "okay";
++	pinctrl-0 = <&sdio_pins>;
++	pinctrl-1 = <&sdio_clk_gate_pins>;
++	pinctrl-names = "default", "clk-gate";
++	#address-cells = <1>;
++	#size-cells = <0>;
++	bus-width = <4>;
++	cap-sd-highspeed;
++	cap-sdio-irq;
++	max-frequency = <50000000>;
++	non-removable;
++	no-mmc;
++	no-sd;
++	disable-wp;
++	keep-power-in-suspend;
++	sd-uhs-sdr12;
++	sd-uhs-sdr25;
++	sd-uhs-sdr50;
++	sd-uhs-sdr104;
++	mmc-pwrseq = <&wifi_pwrseq>;
++	vmmc-supply = <&vddao_3v3>;
++	vqmmc-supply = <&vddio_boot>;
++
++	rtl8723ds: wifi@1 {
++		reg = <1>;
++		nvmem-cells = <&wifi_mac>;
++		nvmem-cell-names = "mac-address";
++		interrupt-parent = <&gpio_intc>;
++		interrupts = <GPIOX_7 IRQ_TYPE_LEVEL_HIGH>;
++		interrupt-names = "host-wake";
++	};
++};
++
++&sd_emmc_b {
++	status = "disabled";
++};
++
++&sd_emmc_c {
++	status = "okay";
++	pinctrl-0 = <&emmc_pins>, <&emmc_ds_pins>;
++	pinctrl-1 = <&emmc_clk_gate_pins>;
++	pinctrl-names = "default", "clk-gate";
++	bus-width = <8>;
++	cap-mmc-highspeed;
++	max-frequency = <100000000>;
++	non-removable;
++	disable-wp;
++	mmc-ddr-1_8v;
++	mmc-hs200-1_8v;
++	mmc-hs400-1_8v;
++	mmc-pwrseq = <&emmc_pwrseq>;
++	vmmc-supply = <&vcc_3v3>;
++	vqmmc-supply = <&vddio_boot>;
++};
++
++&uart_AO {
++	status = "okay";
++	pinctrl-0 = <&uart_ao_a_pins>;
++	pinctrl-names = "default";
++};
++
++&usb {
++	status = "okay";
++	dr_mode = "host";
++};
++
++&usb2_phy0 {
++	phy-supply = <&hdmi_usb_5v>;
++};
++
++&vdec {
++	compatible = "amlogic,gxlx-vdec", "amlogic,gx-vdec";
++};
 
----
-base-commit: 786262be6048deab760f68c8acc2c85607165894
-change-id: 20260903-it5271-binding-43a376f0b91f
-
-Best regards,
---  
-Amber Kao <ite_pd@ite.com.tw>
+-- 
+2.53.0
 
