@@ -1,119 +1,108 @@
-Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C79374BB7FE;
-	Thu,  3 Sep 2026 14:42:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C81F94B512D
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 14:44:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788446556; cv=none; b=umhd91A5DO22Q4m2SoXpoplKgBTlX9GRrZa/20kKww64Kh5uxdUN1YBYDy8A3MIA8qAKhA5VBq+zVnLSJnCMpLunOM6bueQl4zX6ZoVMMDa2B+98QOvRsGldOo3k+PU1PrbDJzRncN8DsWGzO8XOZ1g0cB9EoqfSx9JyoyXIYsM=
+	t=1788446673; cv=none; b=PyD4heBqeSY8x0vslIRL6lZVTLeoBZVPHg1ApMwj6kBedktPa5vQrOiJ9xHRfPGzpqff9BibztVGsaaSlg32BpU4PckR1gD7Ivt0RLqRlC5ZXwlfXcFbnWO3nnDPFFlxbMEfzlZCB0vzsNFcVxvzEbA01IHb/A17ounxkNpC2lo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788446556; c=relaxed/simple;
-	bh=PwtfWAIumYD77h7PzOYYwW+zTFMzpuitgv/f5YxSGN8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DWRl2WisPWuarAHC+TJ+HXSQq20Y1dIY4DOjxgZO2UbR084QSU7ftwAK1XFfyva4WtR6xiNnTNmlNCfJDsTi10di/nFvJsvjMgyTWL77lASs7vw2I0V4vDq6XSUjeL3+tffCRkxWkArXE8/J10c2QaiNUwfINZcxcjjrCF1pRPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.207.19.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: esmtpsz19t1788446514tc68bbb6b
-X-QQ-Originating-IP: MeASNOdmrs56CZbnO7tzXMJwu+SSeXXkrojO4rHMzek=
-Received: from [127.0.0.1] ( [180.159.160.209])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 03 Sep 2026 22:41:50 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 15928767512073922891
-EX-QQ-RecipientCnt: 29
-Message-ID: <1437AFFE6B2A54BD+7fe7c715-a19c-4efa-bf66-50b5c04ffb19@radxa.com>
-Date: Thu, 3 Sep 2026 22:41:49 +0800
+	s=arc-20240116; t=1788446673; c=relaxed/simple;
+	bh=EgTf7s6p/OpuqItVOOUp/ztuxNWO+Z2wO2pMRh0VkAc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cymTtoiUp8yn4MHqBFT/nVIY2ImSgA2T+BgJLN18/QYxh707IFgXR3d+fA6EGCHWyLJCJZgG9jTFyamMtQSrTLUooiBlROAKZSsuNrhdlyCdwVwwdI6ZOwu4+Tq4YibocNQmATGyMlfSIgL269Tqewa3Pq2zr/slOF9snzMUoPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c1c52d920b8so336973966b.2
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 07:44:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788446670; x=1789051470;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=WCO6Njy+SVScNEjKtjF/KEIv67GhBtMhWY5Oh8v9s5s=;
+        b=dm1+VFvlFD78Ckd3R37RcX9ljwWY2g9IY19K3dsaIz8PRAT1WvRzwWjFtgs8FEEaOZ
+         ntr76PFrodMNmjF7i4GUFP9wWeFv9sWUUGbYjVSfLEVEfbEfaVbkZzxFXaXbzr1JlxmY
+         khgK4giDi9kngKhZ5CYm/qVfP4GXyy0OsYmZ+m08sgG6G1QNzdQAB1B+Da0Lvy6p8GE+
+         ZP0BJ1PpDuEz8AWPmFTIo2B6Rn/Z/pU+hAFa6jdyC4S7GP4qdAsLnseqKf922/HJL3b6
+         PSDb5WKSpVwi2/pf3Lz1sd4Fo56iX7i05uPuWnXx3Sij/0J1PmuMB9HQGwYpwgAoF743
+         f+jQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwGXMmxEUy1pjUGt02O+g5BIMTB5d0iVqdJF3dLdN+sj9pXOAQxXPMNEo8aQfkUWTTyZnZncNr9Na33@vger.kernel.org
+X-Gm-Message-State: AFuF++mohGzu/6WuO2Ji9wWh5q4doxAmJYId8g61W/KYSplLhcRjn7zq
+	zkzwrjxEKm6CIuJ7dOFjl7COCS0xbH56cgGQMlqeHlVkoI+xAaGM1YH+/fM+z7Geozw=
+X-Gm-Gg: AYBFou0HZwRuyfj0GfXeCskH1a213iV4SbsLoChGE+0uXSnpRHmEG8V68a8uY+FpigI
+	OriqRQiXQzipwqULHiNVyaG2LLrGf0K3ipYoUXnjFh2sWfZOBeg3tuhWShNXK1nE7i6v+fypiTr
+	//4jJNKjS9Jg3L8u4MyzJr0be9D5c3U8tV/+7kdlm0/uNeubRzRebBdBXw8+/HYfN+yk497TNMD
+	/xyEkbER3ut1htkfp1N+yBfFjLfqXsQALRbFIE+eVf0NEIwPy0/15E/ucEWn7JqgN7lQaldNuQV
+	aIMTioXX9bnYc5gVQPkyO3YvhYPpIQNNaiNJ6I60ej8fyIOjZWvgtBofk79AW3yfmAvlpBo7SST
+	R3HuplSIfvcnMsHQdL7IAcII5xNpIfs5GLbYlcQoKo+aEsyakbDZChR8OZBeYgoIhTQ35EzSJ78
+	TLzH7z7codpDPNQkBAxLUkzgDiScOqN6Bf3iBlF4mytY9TkVbp9mvcqtP6brPoffcA+BKmcpWwx
+	q729CfMRVqaTkqdQuNoZWzKVQ==
+X-Received: by 2002:a17:907:ea8d:b0:c1f:e9d9:64d4 with SMTP id a640c23a62f3a-c260479ddcemr68636366b.11.1788446669704;
+        Thu, 03 Sep 2026 07:44:29 -0700 (PDT)
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com. [209.85.208.47])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25f41a92d9sm113544066b.31.2026.09.03.07.44.29
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 07:44:29 -0700 (PDT)
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a20319d030so3662615a12.2
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 07:44:29 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz8wqmhNVV8Wl8LuDSrkiKWLuiSc2GBYGXwxvIq25+ED1tTvUGcerFxUdX+tqUD5N3GgGIVdrccO/q6@vger.kernel.org
+X-Received: by 2002:a05:6402:21d9:b0:6a6:54e7:2071 with SMTP id
+ 4fb4d7f45d1cf-6a7e5604c38mr260584a12.14.1788446231721; Thu, 03 Sep 2026
+ 07:37:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: sophon@radxa.com
-Subject: Re: [PATCH 1/6] PCI: of: Avoid config reads for disabled bridge nodes
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Bartosz Golaszewski
- <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
- Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>
-References: <20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com>
- <20260901-q8b-dts-v1-1-7de0b6a73d08@radxa.com>
- <8c2eaba0-c1bd-4db0-bbc8-5ae3b3d9a13c@oss.qualcomm.com>
- <B4EB99E5B76C9F40+e6fdbdd4-5c05-4b98-867c-29c7178a0d72@radxa.com>
- <a5d83aa4-7065-47c0-bbda-35063034b0d6@oss.qualcomm.com>
-Content-Language: en-US
-From: Xilin Wu <sophon@radxa.com>
-Organization: Radxa Computer (Shenzhen) Co., Ltd
-In-Reply-To: <a5d83aa4-7065-47c0-bbda-35063034b0d6@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: OGRTx1KypL8C0MPdYFDfRXngEb9R45x+ZcfuMshYmcbpQKQ5nsTICWn3
-	FqcUKqHK/yq1QllReLC7mUgRfB3RbW4r71lb+ASBsB2S1c6XepeP3m6m6AotobmrXQpDV94
-	JoB3CvKbkmUJV6pQhRyKCfokH2bx0JHAjsWFdGZzxT4gD+jSzTFlqY0lqc2oOTzYWUszkeZ
-	h38UwYsXoHjUAGHh7JekPTBGSFBRCH0r82zdNzN/xaV7YyAq3TPamq4sq+uM3MRKCjW05TV
-	7njzM7cmdI4bkPNTgVz1GohQL01iueNJ1Yqaj3m4U2vhQve/MLV186cSCxa9Is1/iET5a9r
-	Mmn95ITiBmoQHEP02gw/0U0yMmMRPcHfvlRLuNhNW1z+jycwT5hWi3x6InUbNVCGJ0tU/Bf
-	YIPpp5ozFU7dAgVKPgh8SsbQbr18OFLOhfgmzj4fXvMiGFsaUsdDLFuBLidkA5OXR3EA+Ba
-	zaMldZbiUP+wR9WSayxKNXwE4K0VjdOiiR5Hr0ZFHJLAs9ROI09V5jA0vIgPysbSaZXG/wT
-	g+Zo/Guthqzs4QZ2miFzDsxK0zCr1IxLb/wPyeUQjSqeQWSFNQ9EjRLDQs2lZCn8vgxI9pB
-	HA1pq1yd+uwoaf08n1A3KveOefJ7tvuY/6GCkKULCCkF8neiIObqRzpDK0IFiSLieYRbZLt
-	aRPqLIYf3cviF/hyVkOjrylUTXqkdsC3FE5SuI+4orNNGNZtYOBNzpLJ468E+SrtLYuSqcH
-	MWbd+LStx5Edk8bLxDgr9+7jFA9LnTKR4ZsLkqz7CBpGotfV0Heds5hRNnu1N2R1XM9yJUq
-	lD8crLgYdzGa34VDoSLTLrQFoqDU1UXKYv9QDo1TlB8k9oqlEjRPDiPyd0cktiU1iaWWDDl
-	DVMbYtt2y1RDUzonOLFz962qD5Jq4zVQ3anDDnr52ffbRugJOftyUm6Sl/1FxaNeZDa2NuL
-	AKzD6T7lbzeFmS9NQeXXQCwTYff/SSSM6AAntMA0sH18k6Fdvbxuzyxdw+Dhj675CzuG+0s
-	Jb+zog2ojVxMDC6Q3hDlS6yCwOfhAPYWV0u0+DaQ==
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-X-QQ-RECHKSPAM: 0
+References: <20260903133320.144245-1-biju.das.jz@bp.renesas.com> <20260903133320.144245-2-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260903133320.144245-2-biju.das.jz@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 3 Sep 2026 16:36:55 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdURMFo8WxiU5hWoPzJB=bqrAKaEqnss181hZo5MZPNFpQ@mail.gmail.com>
+X-Gm-Features: AcwNN1VFbOkMZQ7k7yG1mxbk8AnGCfE-NTGC3-0u8uK9b0jPXfAHrXpyOz__lhA
+Message-ID: <CAMuHMdURMFo8WxiU5hWoPzJB=bqrAKaEqnss181hZo5MZPNFpQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: PCI: renesas,r9a08g045s33-pcie:
+ Document RZ/G3L SoC
+To: Biju Das <biju.das.jz@bp.renesas.com>
+Cc: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, linux-pci@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	Chris Paterson <Chris.Paterson2@renesas.com>, Biju Das <biju.das@bp.renesas.com>, 
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/3/2026 10:40 PM, Konrad Dybcio wrote:
-> On 9/2/26 11:31 AM, Xilin Wu wrote:
->> On 9/2/2026 4:43 PM, Konrad Dybcio wrote:
->>> On 9/1/26 10:47 AM, Xilin Wu wrote:
->>>> The TC9563 PCI power-control driver powers off external downstream ports
->>>> whose device tree nodes have status = "disabled".
->>>>
->>>> On the Radxa Dragon Q8B, reading the Vendor ID from one of these
->>>> powered-off port functions during PCI enumeration raises an Arm SError
->>>> instead of returning an all-ones PCI error response. This prevents the
->>>> board from completing boot.
->>>
->>> I agree with the premise of the patch, but I'd like to understand why
->>> that happens - do you have any details?
->>
->> Unfortunately, I don't have further details. The downstream kernel also includes a similar workaround, so I suspect it's related to how the TC9563 chip is designed.
-> 
-> I'm curious in why the port is still advertised on the bus if
-> the i2c interface writes some magic bits to "disable" it on the IC
-> side.. but perhaps that's just how that IC behaves and we can't
-> do anything about it?
+On Thu, 3 Sept 2026 at 15:33, Biju Das <biju.das.jz@bp.renesas.com> wrote:
+> Extend the existing device tree bindings for Renesas RZ/G3S PCIe
+> controller to include support for the RZ/G3L (renesas,r9a08g046-pcie)
+> PCIe controller. The RZ/G3L PCIe controller is similar to RZ/G3S but has
+> some key differences:
+>      - Has 3 clocks compared to 2 on other SoCs.
+>      - Has a different set of reset signals
+>
+> Add device tree bindings for renesas,r9a08g046-pcie compatible IPs.
+>
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+> ---
+> v1->v2:
+>  * Dropped "or clock for L1 substate handling" from the description of pmu
+>    clock
+>  * Replaced enum->const for pmu clock
 
-Yeah I think so.
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-> 
-> Konrad
-> 
+Gr{oetje,eeting}s,
 
+                        Geert
 
 -- 
-Best regards,
-Xilin Wu <sophon@radxa.com>
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
