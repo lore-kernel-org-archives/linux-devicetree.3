@@ -1,327 +1,285 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 160594DBD9B
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 16:14:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46AE54D8DAB
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 16:17:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788452061; cv=none; b=MV84Ev1ZUnFI2O9IcDFJHENwhtMHOFU2X8SZiwrYmroXqSXOdIDaPZzlX91n9raFDI6x6D6cNnorWWBBVMVvF5lkno+ZyNrbEiopduwjPtwe2jDTWObZpTLfirxum240ge6CHdJDtopyEEqkHC5e9yVhJacRzYjESSP3QCNmf78=
+	t=1788452223; cv=none; b=u8cqE+V8XOvCat9TzE8VCHT1NmQHE+Xra3UUjmKfzTYAPuxgZxL8vykuxQJB/a1XB4GBRp9kRQceCI8jcv3CXU41DGXV53uhF6la/UG0gMw1xPhpgLYg7At5e1+1J+I+NzHbkiobSdOZ35WFXOPH32fYYfmKLU+vwmNe1Yq/9ig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788452061; c=relaxed/simple;
-	bh=k38En5qCUhYNr1uACRibR2JEcc/SheissVDFhxerkaI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nXGE1E7sS8vYLEuwCrbENAyc8cOpeICQgN99FZgfwXXw2fqSIao6pEZGG801Db+SOmIB2Q9aiRbPT4XO3gn2vHXHmsWi2A715KmZn2pdojMwGzMMWQuseDzTvhickQ2qQz5fvDvVhRd35vofNGqPToUN7GBd9JSeBK5D3py0gaE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UUFl24WK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788452223; c=relaxed/simple;
+	bh=oXOvVfQx48pkiCnSTyly0SxfeaW66Tond0/xVvTUv6g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mkLvts7OYWvjxqBM4uQ9m1AiPJHMGg5J0HW0rkNEKflqwBBKh6VoxT9JcEAE08iIYc1fQ5SPDjeMLKm2JlXeyITNakGjG+IQ1xoBhk6mq2yiuvhzo1jzLAJyssrdN5Hgxr3XZ1dX7S8982KZP8bED2lNj1Oajjm1HF3mlwVMODw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=AbYDgrBW; arc=none smtp.client-ip=209.85.208.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UUFl24WK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 780761F000E9;
-	Thu,  3 Sep 2026 16:14:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788452059;
-	bh=2F8H+I/xlism86VXCHGQl93DXW8f/bZ/1J2Nr0y3W3Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UUFl24WK1MN7O0w9jQhoplEKkLV19N2iNCFIDt+cgqNDeHs/ii5xLfXpUXXTw5ptd
-	 mOWz8gHk84j7Z5ueXGePNLl6xn6e0XareCUdWy1mOhuSqBb+or0GmUx+4YhEA0ngtg
-	 3KjMu6Pav91DQNbJijOEmn2v4P9cJ/0mv1qYZh8UVReeWTIFHGnB5ouBoGcGP5AeyM
-	 yCIcFcWuqBPQJ2z4WFzlcs8YdLP8JvLgHYdutSl6qF7Cv4pCHJjShg/gXLZlpxdDrM
-	 QeNhAWcqqypLlHlwDaQguf1ajPsqw885qp3pWyKu2eOnK5fLRupMKcRZZ3hab+gv3B
-	 BsNVoRTKq2Nkw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 7/7] usb: dwc3: qcom: Support firmware-managed
- resource states for power management
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Faisal Hassan" <faisal.hassan@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260903153827.3463313-8-faisal.hassan@oss.qualcomm.com>
-References: <20260903153827.3463313-1-faisal.hassan@oss.qualcomm.com>
- <20260903153827.3463313-8-faisal.hassan@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 03 Sep 2026 16:14:19 +0000
-Message-Id: <20260903161419.780761F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="AbYDgrBW"
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3a34f16714dso113011fa.3
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 09:17:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1788452219; x=1789057019; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=igQxfgp7/0QiUpGltOrm94v15geXiIvSoDekjF5iba4=;
+        b=AbYDgrBWhJveGv6k3LlstrFXNjqiRzZkJweE1wsitx6tq2GeCujkPNZTR6O020WpW9
+         z1NhDbuMYRCQnIAuKmt5VnOkrWMxKSU6D3jzNTt/X9mo2rtnHGW9XNOSY0JDu+me/ayO
+         KPDRXn0CbEXmm8HThkzDUaQ6ZIdTbEdTB7RIWrZc1oLK7P3CNgb342OCoX/OdPlTQWA/
+         PrKALKCrQ5QQ5xSJ1H1Lk0i5jkViW1rruXvl6NZCDQslMIVRM+vyA5+MCoLv4uzvCXWE
+         HWRkLtLjD4F9QkSdHgEkw2OnfaQNuU4TJWUJNObLAAbpVvttmBrLe9SCHlUyECJm69SP
+         sdTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788452219; x=1789057019;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=igQxfgp7/0QiUpGltOrm94v15geXiIvSoDekjF5iba4=;
+        b=TEGM9yR8L3sEcsoPpV/YJ/NnaIRblECLQjF7g978r1xFsDj94PnCMtiCWGJnb8cW5h
+         cPh9BEfE3NzMbGAxf+gw3DbXVfUlAtBc0AP61fCOQVJjQH6VEHhXJvLCwQGYu/t1P2C2
+         RWJUHxGFIC/4qPFGASM8DIpuAwCNy6e8axIBAyYTVg23deGy7YKOzD9atKFuWfrzdLVi
+         EAJQB/KzQae5ELlB5HuRPrZgiVvZEG8737uhTBLgiO2mOKorOMApfAfx5TlGJqVOyVEw
+         CFcOrOhH0xcUmYr2NueC3yugN0lwrRydLSdc0lUk8t3KwAYELyUO5T1wsdzysj2sZBgJ
+         0IdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwxLReEviFV7oYkJrbSzA1/bzRQQujRvqa4qKVROFzmV/aTArTS8V6ylpUDnX9eKtOFRL7xIVDG1oZg@vger.kernel.org
+X-Gm-Message-State: AFuF++m1JrmOfM+wnoV7nO682MExnwfoMIuNZuLH53gf6ppjcmf4zhNl
+	PyiYqoQeUP6ZsNa8t6U9XNCg7NT8mxj7MNo0Jvw1+a44Pcu9UvOm/YQiZO7VnzBAGww=
+X-Gm-Gg: AYBFou2GUwZj+ol7JNjU/+4CVcyp9IbEu6WoYdRwToKDPzn3gwWy2qFKoZXsNPpgDCI
+	kLX8DQbRfBXqlFs4Is3ZIbm0C9FuUkEDpfHPF4qtepZl8LOlUta085zJn0NIUhAF5uR5/01qhJM
+	qVueHuBdnH8lr5mtx6k6+roGWA/CfNZY+gRsECPUR3forG21wlaU9u3TBJBABUU15IJgYEnVASZ
+	NgCC/CVN4WffIYpgB6UrrTwdshJc/Zd5X/WsLFLQvf8qKfBk38e3Py/VZ2yB6bf0xsUBkJimVJB
+	TsqQtjCHMksx0DEfTOX9VWw3q7BtpvIWIjwnpIFBye9CTC/nl1E9OXyo2vJq4oO2QifLs3K4UDO
+	UV+IXr0hX0qbOuY6xVPPk3jGK4GoadpbQeJJmJWUyiUCPj+5vWL9uD4A0krB33ClZ4cDyrCbkQl
+	w4NVmY/bNS4oAY61WliAShoyusJEVOdp2ha6CLQWhLQ6xkF69QT/bbKiqH4YvEZkDMtjoUbCcP4
+	/+qArCG45pXsLlv/oF8XBKFDpRmwPeZGxprB9VQVyDO7VyaIOO5LwA=
+X-Received: by 2002:a2e:bcc3:0:b0:3a2:fc47:4c1f with SMTP id 38308e7fff4ca-3a34fcd002dmr15579741fa.1.1788452219071;
+        Thu, 03 Sep 2026 09:16:59 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b606b0ebedsm1499193e87.5.2026.09.03.09.16.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 09:16:58 -0700 (PDT)
+Message-ID: <65ef2024-4f5e-4df3-881c-50d5a72b655b@linaro.org>
+Date: Thu, 3 Sep 2026 19:16:57 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v16 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
+ schema
+Content-Language: ru-RU
+To: Bryan O'Donoghue <bod@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vinod Koul
+ <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260901-x1e-csi2-phy-v16-0-dd863b929080@linaro.org>
+ <20260901-x1e-csi2-phy-v16-1-dd863b929080@linaro.org>
+ <RXmjC1LUSR46nHPlGyexr-0HTUa9z8BZY8CabY4J7P4YM9_ntzOucrOnanQBTZlD1jH69cHJEmPb_Xw7dRuqKA==@protonmail.internalid>
+ <9b0ac659-999a-4caa-8578-f34a39a67e4f@linaro.org>
+ <faa755f7-e5cc-46c0-b838-8d015a481edb@kernel.org>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <faa755f7-e5cc-46c0-b838-8d015a481edb@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
+On 9/3/26 15:32, Bryan O'Donoghue wrote:
+> On 03/09/2026 12:53, Vladimir Zapolskiy wrote:
+>> On 9/1/26 23:15, Bryan O'Donoghue wrote:
+>>> Add a base schema for the MIPI CSI2 PHYs on Qualcomm SoCs. This PHY
+>>> supports both DPHY and CPHY operation. A special mode of DPHY operation -
+>>> called variously split-mode or combo-mode also allows for two sensors to be
+>>> connected to one PHY.
+>>>
+>>> The submitted binding here describes the DPHY modes of operation only. CPHY
+>>> is left to future work.
+>>
+>> Like I've said in v14 review, the statement above is incorrect, and it has
+>> to be changed, for whatever reason it hasn't happened so far.
+>>
+>>    From https://lore.kernel.org/all/1e1bc17a-4c7a-4c08-b0c8-2a2ff31fe870@linaro.org/
+> Well, I'm not trying to describe CPHY here so I'm not claiming it is
+> adequately described.
 
-New issues:
-- [High] System suspend fails to release the 'power' domain if the device i=
-s already runtime suspended, causing a power leak.
-- [High] Early return in dwc3_qcom_domains_put() on -EAGAIN leaks the 'powe=
-r' domain vote and corrupts PM state.
-- [High] Double pm_runtime_disable() in remove causes a permanent PM state =
-corruption.
-- [Medium] Probe error paths bypass the newly added reset_control_assert() =
-hardening.
-- [Medium] PM domain runtime usage count leak in the remove() error path.
+The CSIPHY IP supports C-PHY bus type, and it should be represented in
+the documentation.
 
-Pre-existing issues:
-- [High] Skipping dwc3_core_remove() on resume failure leaves child devices=
- active, causing a Use-After-Free.
-- [High] Hardware registers are accessed while the power domain is disabled=
-, causing a synchronous external abort.
---
+Right in this presented change 'bus-type' property value can be either D-PHY
+or C-PHY, so even if there is no intention to describe C-PHY, it's done.
 
-commit 322ab32f12f7861ac5e4f76813db99fd65efad09
-Author: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
+> I'll reword this.
+> 
+>>>>> C-PHY bus type is also well described by this version of the bindings.
+>>
+>>> Suggested-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+>>> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+>>> ---
+>>>     .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 222 +++++++++++++++++++++
+>>>     1 file changed, 222 insertions(+)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+>>> new file mode 100644
+>>> index 0000000000000..17de0701eb103
+>>> --- /dev/null
+>>> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+>>> @@ -0,0 +1,222 @@
+>>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+>>> +%YAML 1.2
+>>> +---
+>>> +$id: http://devicetree.org/schemas/phy/qcom,x1e80100-csi2-phy.yaml#
+>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>> +
+>>> +title: Qualcomm X1E80100 SoC CSI2 PHY
+>>> +
+>>> +maintainers:
+>>> +  - Bryan O'Donoghue <bod@kernel.org>
+>>> +
+>>> +description:
+>>> +  Qualcomm MIPI CSI2 C-PHY/D-PHY combination PHY. Connects MIPI CSI2 sensors
+>>> +  to Qualcomm's Camera CSI Decoder. The PHY supports both C-PHY and D-PHY
+>>> +  modes.
+>>> +
+>>> +properties:
+>>> +  compatible:
+>>> +    const: qcom,x1e80100-csi2-phy
+>>> +
+>>> +  reg:
+>>> +    maxItems: 1
+>>> +
+>>> +  clocks:
+>>> +    maxItems: 3
+>>> +
+>>> +  clock-names:
+>>> +    items:
+>>> +      - const: core
+>>> +      - const: timer
+>>> +      - const: ahb
+>>> +
+>>> +  interrupts:
+>>> +    maxItems: 1
+>>> +
+>>> +  operating-points-v2: true
+>>> +
+>>> +  opp-table:
+>>> +    type: object
+>>> +
+>>> +  power-domains:
+>>> +    items:
+>>> +      - description: Titan Top GDSC - Titan ISP Block, Global Distributed Switch Controller.
+>>> +      - description: MMCX voltage rail
+>>> +      - description: MXC or MXA voltage rail
+>>> +
+>>> +  power-domain-names:
+>>> +    items:
+>>> +      - const: top
+>>> +      - const: mmcx
+>>> +      - const: mx
+>>> +
+>>> +  vdda-0p9-supply:
+>>> +    description: Phandle to a 0.9V regulator supply to a PHY.
+>>> +
+>>> +  vdda-1p2-supply:
+>>> +    description: Phandle to 1.2V regulator supply to a PHY.
+>>> +
+>>> +  ports:
+>>> +    $ref: /schemas/graph.yaml#/properties/ports
+>>> +
+>>> +    properties:
+>>> +      port@0:
+>>> +        $ref: /schemas/graph.yaml#/$defs/port-base
+>>> +        description:
+>>> +          Sensor input. Always present. A single sensor is described by a
+>>> +          single endpoint with the clock lane at position 0 and one to four
+>>> +          data lanes.
+>>> +
+>>> +          DPHY split mode, where two independent sensors share the same PHY,
+>>> +          is described by two endpoints, each with its own clock lane position;
+>>> +          endpoint@0 with clock-lanes = <0> and one or two data-lanes and
+>>> +          endpoint@1 with clock-lanes = <3> and one data lane.
+>>> +
+>>> +        unevaluatedProperties: false
+>>> +
+>>> +        patternProperties:
+>>> +          "^endpoint(@[01])?$":
+>>> +            $ref: /schemas/media/video-interfaces.yaml#
+>>> +            unevaluatedProperties: false
+>>> +            properties:
+>>> +              bus-type:
+>>> +                enum:
+>>> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
+>>> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
+>>> +
+>>> +              clock-lanes:
+>>> +                maxItems: 1
+>>> +
+>>> +              data-lanes:
+>>> +                minItems: 1
+>>> +                maxItems: 4
+>>> +                items:
+>>> +                  minimum: 1
+>>> +                  maximum: 4
+>>> +                description:
+>>> +                  Data lane positions following this endpoint's clock
+>>> +                  lane. Positions are a per-port logical numbering, not
+>>> +                  package pad or ball positions.
+>>> +
+>>> +            required:
+>>> +              - bus-type
+>>
+>> A review comment given to v14 is still applicable, 'bus-type' property
+>> should be set as optional with D-PHY mode fallback.
+> 
+> I believe you said "could" be optional in v14 but, if you actually
+> _want_ it optional, I'll update this to reflect, np.
 
-usb: dwc3: qcom: Support firmware-managed resource states for power managem=
-ent
+Sure, thank you.
 
-This commit adds support for firmware-managed resource handling in the
-Qualcomm DWC3 USB controller driver via SCMI-backed power domains ("power"
-and "bus"). It coordinates runtime and system suspend state through domain
-voting and attempts to harden the driver's probe error-unwind and remove
-paths.
+>>
+>>> +              - data-lanes
+>>> +              - clock-lanes
+>>
+>> Here 'clock-lanes' is a truly optional proiperty since its value is
+>> immutable in each endpoint, it should be removed from the list of
+>> required properties.
+> 
+> Hmm.
+> 
+> I want to make sure clock-lanes is defined and set to the correct value.
 
-> diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
-> index e58a9ca23b009..7139eadbfb1e3 100644
-> --- a/drivers/usb/dwc3/dwc3-qcom.c
-> +++ b/drivers/usb/dwc3/dwc3-qcom.c
+It's not needed, the mutable properties make sense, the immutable ones
+can be removed without any loss. The correctness of the propertly value
+is checked by the driver in runtime.
 
-[ ... ]
+> For example clock-lanes = <2> for split mode is wrong.
 
-> +static int dwc3_qcom_domains_put(struct dwc3_qcom *qcom, bool bus_only)
-> +{
-> +	struct device *power_dev =3D qcom->pd_list->pd_devs[0];
-> +	struct device *bus_dev =3D qcom->pd_list->pd_devs[1];
-> +	int ret;
-> +
-> +	ret =3D pm_runtime_put_sync(bus_dev);
-> +	if (ret < 0) {
-> +		dev_err(qcom->dev, "failed to disable bus domain: %d\n", ret);
-> +		return ret;
-> +	}
+If there is a wrong value of 'clock-lanes' property given, the driver will
+complain, because it knows the proper value.
 
-[Severity: High]
-When pm_runtime_put_sync() is called for the bus domain, could it return
--EAGAIN if the device is kept active by another thread? If it does, this
-early return treats it as a failure, skipping the power domain put and
-propagating the error back to the PM core. The PM core aborts the suspend
-and marks the device as active, but the bus domain usage counter was
-already decremented. If the bus physically suspends later, does this lead
-to accessing unclocked hardware and causing a synchronous external abort?
+And if there is no 'clock-lanes' property given, the driver knows the proper
+value and it reuses it rightfully.
 
-[ ... ]
+So, there is nothing got missed, if 'clock-lanes' becomes an optional
+property, as I request. A comment in the documentation can be left though.
 
-> @@ -386,11 +521,23 @@ static int dwc3_qcom_suspend(struct dwc3_qcom *qcom=
-, pm_message_t msg)
->  		if (!(val & PWR_EVNT_LPM_IN_L2_MASK))
->  			dev_err(qcom->dev, "port-%d HS-PHY not in L2\n", i + 1);
->  	}
-> -	clk_bulk_disable_unprepare(qcom->num_clocks, qcom->clks);
-> =20
-> -	ret =3D dwc3_qcom_interconnect_disable(qcom);
-> -	if (ret)
-> -		dev_warn(qcom->dev, "failed to disable interconnect: %d\n", ret);
-> +	if (!qcom->fw_managed) {
-> +		clk_bulk_disable_unprepare(qcom->num_clocks, qcom->clks);
-> +
-> +		ret =3D dwc3_qcom_interconnect_disable(qcom);
-> +		if (ret)
-> +			dev_warn(qcom->dev, "failed to disable interconnect: %d\n", ret);
-> +	} else {
-> +		/*
-> +		 * Runtime suspend only needs to drop the bus domain; power
-> +		 * stays voted on so register accesses remain possible for
-> +		 * whatever briefly resumes it. System suspend drops both.
-> +		 */
-> +		ret =3D dwc3_qcom_domains_put(qcom, PMSG_IS_AUTO(msg));
-> +		if (ret)
-> +			return ret;
-> +	}
-> =20
->  	/*
->  	 * The role is stable during suspend as role switching is done from a
-> @@ -450,13 +597,25 @@ static int dwc3_qcom_suspend(struct dwc3_qcom *qcom=
-, pm_message_t msg)
->  	if (dwc3_qcom_is_host(qcom) && wakeup) {
->  		for (i =3D 0; i < qcom->num_ports; i++)
->  			qcom->ports[i].usb2_speed =3D dwc3_qcom_read_usb2_speed(qcom, i);
->  		dwc3_qcom_enable_interrupts(qcom);
->  	}
+>>
+>> Also 'clock-lanes' are not expected to be found in C-PHY bus type case.
+> 
+> Right so to both verify the property and not require it from CPHY I will
+> make it required only for DPHY.
 
-[Severity: High]
-This is a pre-existing issue, but by the time we reach this point during
-system suspend, dwc3_qcom_domains_put() has already disabled both the bus
-and power domains. If the device is a wakeup source, this code accesses
-hardware registers by calling dwc3_qcom_read_usb2_speed() and
-dwc3_qcom_enable_interrupts(). Because the power domain (GDSC) is off,
-will accessing these registers cause a hardware exception or bus fault?
+By making 'clock-lanes' optional both bus type cases will be well described.
 
-[ ... ]
+For clarity, the property is not required for D-PHY bus type mode also,
+please make it optional in the next version, thank you.
 
->  static int dwc3_qcom_resume(struct dwc3_qcom *qcom, pm_message_t msg)
->  {
->  	int ret;
->  	int i;
->  	bool wakeup;
-> =20
->  	if (!qcom->is_suspended)
->  		return 0;
-
-[Severity: High]
-If the device is already runtime suspended, qcom->is_suspended is true and
-this returns early during system suspend. However, during runtime suspend,
-only the bus domain vote is dropped and the power domain vote is kept. By
-returning early here, does system suspend fail to release the power domain,
-causing a permanent power leak of the PM domain usage counter?
-
-[ ... ]
-
->  	/*
->  	 * For runtime resume, always assume wakeup was enabled.
->  	 * For system resume, check device wakeup capability.
->  	 */
->  	if (PMSG_IS_AUTO(msg))
->  		wakeup =3D true;
->  	else
->  		wakeup =3D device_may_wakeup(qcom->dev);
-> =20
->  	if (dwc3_qcom_is_host(qcom) && wakeup)
->  		dwc3_qcom_disable_interrupts(qcom);
-
-[Severity: High]
-This is a pre-existing issue, but this code accesses hardware registers
-by calling dwc3_qcom_disable_interrupts() before the power and bus domains
-are enabled by dwc3_qcom_domains_get() below. Does accessing these registers
-while the power domain is disabled cause a synchronous external abort?
-
-> -	ret =3D clk_bulk_prepare_enable(qcom->num_clocks, qcom->clks);
-> -	if (ret < 0)
-> -		goto enable_irq;
-> +	if (!qcom->fw_managed) {
-> +		ret =3D clk_bulk_prepare_enable(qcom->num_clocks, qcom->clks);
-> +		if (ret < 0)
-> +			goto enable_irq;
-> =20
-> -	ret =3D dwc3_qcom_interconnect_enable(qcom);
-> -	if (ret)
-> -		dev_warn(qcom->dev, "failed to enable interconnect: %d\n", ret);
-> +		ret =3D dwc3_qcom_interconnect_enable(qcom);
-> +		if (ret)
-> +			dev_warn(qcom->dev, "failed to enable interconnect: %d\n", ret);
-> +	} else {
-> +		/*
-> +		 * Runtime resume only needs to re-vote bus (power was left
-> +		 * on across runtime suspend). System resume votes both.
-> +		 */
-> +		ret =3D dwc3_qcom_domains_get(qcom, PMSG_IS_AUTO(msg));
-
-[Severity: High]
-If the device was runtime suspended prior to system suspend,
-dwc3_qcom_suspend() returned early and skipped dropping the power domain
-vote. During system resume, dwc3_qcom_resume() does not return early, and
-this unconditionally calls dwc3_qcom_domains_get() for both domains. Doesn't
-this increment the power domain usage counter a second time, leading to a
-permanent resource leak where the power domain never turns off?
-
-[ ... ]
-
-> @@ -741,9 +905,31 @@ static int dwc3_qcom_probe(struct platform_device *p=
-dev)
->  		goto err_remove_swnode;
->  	}
-> =20
-> -	ret =3D clk_bulk_prepare_enable(qcom->num_clocks, qcom->clks);
-> -	if (ret < 0)
-> -		goto err_remove_swnode;
-> +	if (!qcom->fw_managed) {
-> +		ret =3D clk_bulk_prepare_enable(qcom->num_clocks, qcom->clks);
-> +		if (ret < 0)
-> +			goto err_remove_swnode;
-
-[Severity: Medium]
-If early probe functions like clk_bulk_prepare_enable() fail, this jumps
-directly to err_remove_swnode. Since err_remove_swnode is located after
-the newly added reset_control_assert() block, doesn't this bypass the
-intended hardware cleanup and leave the hardware controller out of reset?
-
-[ ... ]
-
-> @@ -829,15 +1034,63 @@ static void dwc3_qcom_remove(struct platform_devic=
-e *pdev)
->  {
->  	struct dwc3 *dwc =3D platform_get_drvdata(pdev);
->  	struct dwc3_qcom *qcom =3D to_dwc3_qcom(dwc);
-> +	bool pm_resumed =3D false;
-> +	bool domains_suspended =3D true;
-> +	int ret;
-> =20
-> -	if (pm_runtime_resume_and_get(qcom->dev) < 0)
-> -		return;
-> +	ret =3D pm_runtime_resume_and_get(qcom->dev);
-> +	if (ret < 0)
-> +		dev_warn(qcom->dev, "Failed to resume. Perform critical cleanups only.=
-\n");
-> +	else
-> +		pm_resumed =3D true;
-> =20
-> -	dwc3_core_remove(&qcom->dwc);
-> -	clk_bulk_disable_unprepare(qcom->num_clocks, qcom->clks);
-> -	dwc3_qcom_interconnect_exit(qcom);
-> +	/*
-> +	 * Disable runtime PM to prevent any automatic PM operations during rem=
-oval.
-> +	 * This prevents race conditions where interrupt handlers or other subs=
-ystems
-> +	 * might trigger runtime PM operations while the device is being torn d=
-own.
-> +	 */
-> +	pm_runtime_disable(qcom->dev);
-
-[Severity: High]
-This adds an initial pm_runtime_disable() on the shared device. However,
-when dwc3_core_remove() is called immediately after, the core unconditional=
-ly
-calls pm_runtime_disable() on the exact same device. Doesn't this double
-disable increment the disable_depth twice, permanently corrupting the PM
-state and preventing the device from ever runtime suspending or resuming
-again after a driver unbind/rebind cycle?
-
-> +	if (pm_resumed) {
-> +		/* Only perform operations that require device to be active */
-> +		dwc3_core_remove(&qcom->dwc);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but if pm_runtime_resume_and_get=
-()
-fails, pm_resumed evaluates to false and dwc3_core_remove() is skipped.
-Because the qcom structure is devres-managed, the memory backing it (includ=
-ing
-the dwc3 struct) is unconditionally freed upon return. Does skipping core
-removal leave the USB gadget, xHCI platform device, and notifiers active,
-causing a use-after-free when these subsystems attempt to access the freed
-memory?
-
-> +		if (!qcom->fw_managed) {
-> +			dwc3_qcom_interconnect_exit(qcom);
-> +			clk_bulk_disable_unprepare(qcom->num_clocks, qcom->clks);
-> +		} else {
-> +			ret =3D dwc3_qcom_domains_put(qcom, false /* bus_only */);
-
-[Severity: Medium]
-If the device fails to resume, pm_resumed is false and this skips calling
-dwc3_qcom_domains_put(). However, a few lines down, dwc3_qcom_domain_detach=
-()
-is called unconditionally. Does this destroy the virtual domain devices whi=
-le
-the underlying genpd provider still holds an active PM vote from probe,
-stranding the domain in the powered-on state indefinitely?
-
-> +			if (ret) {
-> +				dev_err(qcom->dev, "Failed to disable power domains during remove: %=
-d\n",
-> +					ret);
-> +				domains_suspended =3D false;
-> +			}
-> +		}
-> +	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903153827.3463=
-313-1-faisal.hassan@oss.qualcomm.com?part=3D7
+-- 
+Best wishes,
+Vladimir
