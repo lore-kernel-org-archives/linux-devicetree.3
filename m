@@ -1,149 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0CFD4AF9DE;
-	Thu,  3 Sep 2026 13:25:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69A8838E5FF;
+	Thu,  3 Sep 2026 13:26:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788441945; cv=none; b=mOuMj9krbzI8+HaJdOdt7YhJDNsCoDvWpxG3rYJ6AX41BoXLjhhoeGwBB0jfPJyokQpoyIodfWJabyTdoDGicKkfT2+JSP3dkxEyrhZYbuikC339igiq86fr2258E8LTtU/YPFWp3oZ4UotFgM6LBTnkW9Z3aGdn+k+D2Lnx84c=
+	t=1788442033; cv=none; b=bdYodjQTOvdUrVsluoiCn5pDVQ7I2LKl/tnoZQpU0HvFdVCmoq/AJzs3NsiEIfDLWYhu6X/yBre8hJJvUYqD2dXRTNZCG/NEyBHaunORc4YzwZ53+/B34OV9GIbTx4aBl0ugqpZvQebpCfbPl2FjFCK6onq6dbvIdbyM9x8yh4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788441945; c=relaxed/simple;
-	bh=fI1v58DiUDTvYzcFsqOyVQnztgwmpPxTGP5ugtuKTVY=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=sPR/lwecBddDzKVQHeHJgVofE4YQ27j8X4sq6jnaj3llbPl1FaHxFM/0aH02oOMQ2i82lW6bSxsTSgXVDnVaL+2PEE1GLUZiHf7SCuyhCMX5p9cE25HFEr9cwJtsV3HwSgST6oAloik5Vh1Svc0bK1EUMXOVtzZLE0Asuv+C7BI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iAScSK95; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788442033; c=relaxed/simple;
+	bh=kONAT1sWOqq2RkVXK2/3P7bl1cJC2j6xiUdKnuWxokE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gmcq1nZKbvxg3+/hFPlVPuN8wG9m0Zu03u8bvj9HSIaspa6G4uvXIZdx27MwPSwQ3zCrDx3hRPXiOABAU9yxeGb98cpq86c0ROBrZQqkKiqxDoDlnYjyuXRBRKN8y9wK667V5Qg9YdrEW5qwuZD1bStiWCYIPFdiLrayvOddA3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=JKj2t0Y+; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iAScSK95"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BF701F00AC4;
-	Thu,  3 Sep 2026 13:25:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788441930;
-	bh=1azHr/pFB85CwC7zH3lRMPgTlUgrQQX8vJrLWV7gSGU=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=iAScSK95bfJe+nKYfXcOiKnM4KisHtUhGA+EturTjomDTIr4BnzSTRK8OrKh7rQZa
-	 +qNnkB8/KnXPk4a3UpOfEzbTV2lL+LVfGkoB9D/avwcXIBmI5bnKSgB/Tocb/4q4NX
-	 /EwvjO5Dzmi4vA4kfKHkv3atdg4JsxQWSvxLImqzRVBBGV1s2myp8FGlKc5OPkxEjr
-	 qoe2V+4QHK10sVjGdfXb7Tnjaufa31M28N6/Cn1CGBDbrlsvb/UxwSso2CQ1Ljvksg
-	 JP6u7ziLCN86hAb3w98fdqocurNPVLmnjDZQjrViTpksRD2PIeGWWzt1rx1Ow+wmL+
-	 HI9Oad3TBBO0g==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id A95751980054;
-	Thu,  3 Sep 2026 09:25:27 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Thu, 03 Sep 2026 09:25:27 -0400
-X-ME-Sender: <xms:RHWZavYfB9IcqusGjjKg9YIjxTlGMDDVrZvksuer_zpwFsHeyaTzMQ>
-    <xme:RHWZapNzFnoX2Q_vFyeWpTgHR63mSfzpYfEI8YU1p1B9UyyqCtKPM3A_2ClDO_hGf
-    l15SZ62eBgDJHQ5GzSqmVtvmhiNm3uToZuJfS4eUM-it5ZAXI3MEmNE>
-X-ME-Proxy-Cause: dmFkZTEBFahIaOgOchPvaJwkXi7OrDv/Fnn0kYaKRFOEQRaWDfkT+vLtdbOL8paoS8OOHH
-    K5JclVIP75Um7tw21sHpu+ivQkbbHsI9NinbZp2VtxElur3ErbPWsd6GhM5viQMbvfjg+A
-    0XA5KuxNYyJUpb3RQMWjV9dfEbe7zol+JOpzrfHexm/Zy8IMysnQ3g8NCXY3aBUMyTlH8Q
-    2hHgvvWDRqoe1QAV1OHtiEtJreU+h+Ei6lPFEuruNeGyrouHtVol380KIeytBS08KTdbcG
-    eTRvwCZXSYmlUrz/ZhWxvNyCaPPXouWq5siTiP7ZtiK9NrhcKLq+g7VGX9CXhLRQAZgdrN
-    SksStJUoSUqOHF01TnOJeBjyug63zIvag1oGTCTXpZNrIu+sDDXZhKpj/XMg6QrHLfqcNk
-    1dzRN0rwUXSm4CQXQ8xbwhs6hbwM2Y5OZ61HUEaP8ZZqbE++tDYWO0U/ws3fN4vf9L/0IG
-    DGM502U78C15At/aU9FhO5tDI7eQW+2hAJjkZWxty2R6i/ODgDtgee0PsW8SnNTcm1QHzg
-    hurkRkTMCkNKqNC3n0hsHopDmQI5V7LDIFVxRWYvQ1KMrdvmRS/NsVFFL3RkYnzFXKYlAd
-    0cIV1/ixTMoY05S07kcAgmRv81f+iTKXId23IsEE53rjXVTmjxECGtRCd7MA
-X-ME-Proxy: <xmx:R3WZanwLas00yLMNlYOuic2WR4zFwZzmBuwtPUx2G-dtfVTJJ9bCYg>
-    <xmx:R3WZap8kbv0kRlsByFuEDBcQwUm-SQy43hkfLRp6CceCgdmauGLPDQ>
-    <xmx:R3WZan8kII6MPPoPwX_T-ZQT1cRBfC528oFpLUqi9lbpvMmk5RqqBQ>
-    <xmx:R3WZasc_tsgnbDREW1sS2PsNW3bpJqfMruw51VLAwCTvKgCAngPrkg>
-    <xmx:R3WZajsR-dqZDeJSqnSl5cvXn04GCZ9y20d62gSDhBDPvnzwNO3qvdBg>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id AC653F8007A; Thu,  3 Sep 2026 09:25:24 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="JKj2t0Y+"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id BF74A4E414DB;
+	Thu,  3 Sep 2026 13:26:54 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 90479602B8;
+	Thu,  3 Sep 2026 13:26:54 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6640F11C7A01D;
+	Thu,  3 Sep 2026 15:26:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788442009; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=3fAcnP0xk5VImcOaCSVWFZKTfYi9ijAKHbQ0RnE0Z/o=;
+	b=JKj2t0Y+rLrVa8hQMDhuH5A6WBTEQV6WzzOGXWIeogW+5MKBSxcpl8sWzNWdSv7/W9f2HK
+	4I+SU7mG9L9YKyuvA6y6/pxdZIXS8zn2heIMRWxk6vvY8SpJmn87rErHdYd8D7l58dgwfP
+	5T6SijJWWnXY5DnJsTeBBQerxHA02r9RM6d3kf5c/1wZ3RZ+UJhPXUwndX/gVaLhE//h4W
+	k54jz75fPkwaOOVmxURByo6bOA0N4Wvmf/Yu7GpifzrQTy1Uw9IAI0c6BJIYY7l7WayU16
+	IAXNpL1IEkZL9mKA3Ar9n3UF7Q6F/d0zU6bDcBO6+N2BUe46lzZr34kMWD7AlA==
+Message-ID: <0746f828-a424-4001-8054-1e52ed07139b@bootlin.com>
+Date: Thu, 3 Sep 2026 15:26:46 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 03 Sep 2026 15:25:04 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Will Deacon" <will@kernel.org>, "Mark Rutland" <mark.rutland@arm.com>
-Cc: "Sven Peter" <sven@kernel.org>,
- "Lorenzo Pieralisi" <lpieralisi@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>,
- "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
- "Catalin Marinas" <catalin.marinas@arm.com>,
- "Sudeep Holla" <sudeep.holla@kernel.org>, "Janne Grunau" <j@jannau.net>,
- "Neal Gompa" <neal@gompa.dev>, linux-arm-kernel@lists.infradead.org,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] ASoC: dt-bindings: realtek,rt5677: Add clock property
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Animesh Agarwal <animeshagarwal28@gmail.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, linux-sound@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-efi@vger.kernel.org, asahi@lists.linux.dev
-Message-Id: <eb75b82a-8910-4198-b89a-5c8b487c0fd5@app.fastmail.com>
-In-Reply-To: <aplk2hHRB7Yw9FWW@willie-the-truck>
-References: <20260708-efi-psci-v1-0-9efb3abf0e4c@kernel.org>
- <9c53cfd7-e193-4441-83ca-7710060225b7@app.fastmail.com>
- <apldL6Ml91GW-tE9@J2N7QTR9R3.cambridge.arm.com>
- <aplk2hHRB7Yw9FWW@willie-the-truck>
-Subject: Re: [PATCH RFC 0/6] PSCI-via-EFI to support firmware and kernel sharing EL2
- for Apple Silicon
-Content-Type: text/plain
+ linux-tegra@vger.kernel.org
+References: <20260903-rt5677-mclk-v1-0-b71a5a3533f9@bootlin.com>
+ <20260903-rt5677-mclk-v1-1-b71a5a3533f9@bootlin.com>
+ <aplEfd33wSz59iLS@sirena.org.uk>
+Content-Language: en-US
+From: Diogo Ivo <diogo.ivo@bootlin.com>
+In-Reply-To: <aplEfd33wSz59iLS@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, 3 Sep 2026, at 14:15, Will Deacon wrote:
-> On Thu, Sep 03, 2026 at 12:42:39PM +0100, Mark Rutland wrote:
->> On Thu, Sep 03, 2026 at 01:34:56PM +0200, Ard Biesheuvel wrote:
->> > On Wed, 8 Jul 2026, at 09:15, Sven Peter wrote:
->> > > This series adds a custom EFI table that points to a PSCI entry point
->> > > (plus some other stuff that has to be available before EFI runtime
->> > > services are set up) and adds support for this new conduit to the psci
->> > > code. We can't directly use the normal EFI runtime path because that one
->> > > takes a sleeping lock and we need to be able to call into PSCI from
->> > > atomic context during e.g. cpu bringup or during idle.
->> > > It also adds support for specifying the specific MAIR attributes for EFI
->> > > runtime mappings as defined in the latest UEFI spec since Apple Silicon
->> > > is rather allergic to using Device-nGnRnE vs. Device-nGnRE for its MMIO.
->> 
->> > >       dt-bindings: arm: psci: Add EFI conduit
->> > >       arm64/efi: Add and parse custom PSCI EFI configuration table
->> > >       efi: Add EFI_MEMORY_ISA_{MASK,VALID}
->> > >       arm64/efi: Honor EFI_MEMORY_ISA_MASK for Device-nGnRnE vs -nGnRE
->> > >       firmware/psci: Add EFI runtime conduit
->> > >       arm64: dts: apple: t8103: Add PSCI and CPU idle states
->> > >
->> > 
->> > I've picked up patches #3 and #4, which are useful in their own right.
->> > 
->> > I'm not sure if the arm64 maintainers will want to consider this, but
->> > I think it's a reasonable compromise, as it puts the abstraction in
->> > the right place.
->> 
->> Sorry for the late reply; I've been away almost all of August and I'm
->> slowly catching up on things.
->> 
->> As with last time this was proposed (in abstract), I am not happy about
->> bodging an EFI conduit into PSCI, given that the manner in which state
->> is managed is completely different from SMCCC.
->> 
->> If we need a mechanism for doing hotplug and/or idle without HVC/SMC,
->> that's one thing we can consider. I don't think we should pretend that
->> it is PSCI.
->
-> What do you have in mind for an alternative mechanism? I understand your
-> objection to this proposal, but at least it keeps the interface fairly
-> high-level and avoids opening the flood gates for a bunch of SoC-specific
-> idle routines. Are you thinking of extensions to the PSCI spec or
-> something else?
->
+Hi Mark,
 
-I can't speak for Mark, of course, but I could imagine EFI being used as a
-conduit to provide a callable set of interfaces (with a rigorously defined
-set of constraints such as the ones in this patch, i.e., reentrancy, no FP
-or SIMD, not relying on ISA features that the OS needs to know about and
-enable, etc).
+On 9/3/26 11:57 AM, Mark Brown wrote:
+> On Thu, Sep 03, 2026 at 12:11:00AM +0200, Diogo Ivo wrote:
+>> Add a clock property as the RT5677 codec can be fed an
+>> external clock signal.
+> 
+>> +  clocks:
+>> +    items:
+>> +      - description: phandle and clock specifier for codec MCLK.
+>> +
+>> +  clock-names:
+>> +    items:
+>> +      - const: mclk
+> 
+> The driver code has a reference to MCLK1 which implies multiple MCLKs,
+> unfortunately no pinout seems to be available and other references in
+> the driver are just to MCLK so it could be cut'n'paste.
 
-There is prior art here in ACPI PRM, which does something similar, and this
-also relies on EFI runtime services.
+Thanks for raising this point, I had missed it completely. In fact,
+looking at rt5677.h there are two places where MCLK2 is mentioned:
 
-You'd still need to implement the CPU ops and a cpuidle driver afaict (no
-expert here), but at least those would be coded against an interface that
-the kernel itself specified, and can be made as generic as we choose to.
+#define RT5677_MCLK_SRC_SFT                     10
+#define RT5677_MCLK1_SRC                        (0x0 << 10)
+#define RT5677_MCLK2_SRC                        (0x1 << 10)
 
-Not saying this is all great, but it might be a worthwhile compromise to
-consider.
+and
 
+#define RT5677_PLL2_PR_SRC_SFT                  15
+#define RT5677_PLL2_PR_SRC_MCLK1                (0x0 << 15)
+#define RT5677_PLL2_PR_SRC_MCLK2                (0x1 << 15)
 
+so to me it _looks_ like there are indeed two MCLK inputs, both of which
+can drive the MCLK clock and can also be the input of PLL2. However, as
+you mentioned I also wasn't able to find the pinout/datasheet and I have
+no way of testing this. I think the safest bet here is that I send a v2
+where I rename "mclk" to "mclk1" that we know for a fact exists, and
+then later on if someone with access to the actual datasheet comes along
+and confirms the existence of "mclk2" we can add it to the binding.
 
+Let me know what you think!
+
+Best regards,
+Diogo
