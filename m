@@ -1,109 +1,88 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F7B363C6C;
-	Thu,  3 Sep 2026 08:48:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8522439320
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 08:49:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788425326; cv=none; b=PEEW2mbZTgE1cjYy3IqE9pyC+KHU1oUAxSawx52UJ/6zkM3cL88OvjY+7YDZ77+aDx/VdTtM29MAgWoGXjUegPefH3GwRsOsE9N5tqiO8XWbaIxPb3gJ2T4zWrvA1NR7FeMRE5P1aVeUgGBZQ8gtNvxQZYp0sEABuS42DwvP4nc=
+	t=1788425376; cv=none; b=kXJpXpmI+JfY0UKOsXcyifueglVr44Z+zWCkvsAnaNrB5slnlCJSBfAlgTKT2pEJBrmcNmYSW0TBJ8K/OVY84VrfRKssE1Of4ZNIEYYRPqEsnErwrPrn+szF4mEOubtDjhGLmUvqT94IWDOevfcGylsCsTX/TgOzK13E/Vi37sM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788425326; c=relaxed/simple;
-	bh=bGYS6XisPwqR1nzJyBe36wiU9YiCp0NSqM0L5rNIMnQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ZXGJfHnYqVE4NnUMA5aeo79aqsLyEA7UX+wHhD7+idZ2FIpd1Nji0i0sVqNI3ZVLklZcE3zvjf4Fs+L8VI9dLI3IWIASD36O1yV+y+vJIuf5+vptP8YxSvTX2jhJDVAgPAIk2R3h+CgcsRZoEN/8IP0/+S8QH5D+zQzK4cs4SVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F7WYEdPn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788425376; c=relaxed/simple;
+	bh=+bRt6BNeoujLa8yrSiSmK3JrnrT/EWUmOd6eI9HCwVQ=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=t4LGqFRDjYF2ksIyDEdJIFi2MMcOVAO88OrPY9R7OYq9yc8fb+x6luyXH1Uz29mxI6orlQtA4N+dnz0CuMha7zrXoY8nhqqvoujdpPMUs+rS8rOqXoKUvxKVhPhZz6Dlh0weD8sQDKFUAoDnLP3exH4w40NgJ8eE88h8w33uhho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LTcKeeHg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F7WYEdPn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1CC11F000E9;
-	Thu,  3 Sep 2026 08:48:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LTcKeeHg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E6581F00ADE
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 08:49:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788425325;
-	bh=TWUTWJGyjUPVUGSmM7t7GB4z9LsTvPBtCuTBokjO+5Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=F7WYEdPnY14+ekaDLiDPg/+7YwPmx2tMWX7aQsYd4NInSfKrhd1QpzzSboJfF3GVI
-	 oGjxqngl/EsdI6J9H0Tv03lwmVwnNjIXjr723+Wcc1+97BdXcs5AjHUZCWUEcR2XB8
-	 IILW/rNOpxh8wU9LQvgAK7ueSTj/cYip9KRDbxKkV4Vam9vU6Y4vYLQa7bRJ9/RFOh
-	 iFYpezVfuXTtumUl4GKzXmoa46uTD5A0mdrr8El40leQuT55uv51ARm35SV2liuNnv
-	 HeC0InxsBrFn6aAmR4DU73dQfBHo0PuTgBc8SKwhW4PGPBrKcLukcfualofpHzzEg3
-	 J6cSnyESI+6wg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] hwmon: add Axiado AX3000 and AX3005 PWM fan
- controller driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Petar Stepanovic" <pstepanovic@axiado.com>
-Cc: devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260903-axiado-ax3000-pwm-fan-v2-2-ef43df46163e@axiado.com>
-References: <20260903-axiado-ax3000-pwm-fan-v2-0-ef43df46163e@axiado.com>
- <20260903-axiado-ax3000-pwm-fan-v2-2-ef43df46163e@axiado.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 03 Sep 2026 08:48:44 +0000
-Message-Id: <20260903084844.D1CC11F000E9@smtp.kernel.org>
+	s=k20260515; t=1788425372;
+	bh=+bRt6BNeoujLa8yrSiSmK3JrnrT/EWUmOd6eI9HCwVQ=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=LTcKeeHgzks6ZWYb6Mt9WBbgBz0GQ2/dALRKI9WYPeRGk6lOmjglZDxkPmdBq9O8/
+	 TYH7wI3pNawrQgtQFAcQMBoCoNdcc/a9/YaYKXfqnxU3jZaMVTMU6stCZAWO7fq4wO
+	 H8eontsp1KNlOMp1QTKjFOXKZn1ViDmVcALfYTrHVxhpZCksIlQxQG0DsdVmBvYHcw
+	 VBOnC6O6hS94fbM7PRWdHt3k4iyBeodNbhE5xMZ+vGbmwz3J7FsUb3B+L8B/5Aw6wr
+	 IsuodEkku2bnSrv6TeAULjpxZfEpPIZXUaQcXZP05vNCQcKJ1rWcXWWIPQTKEtOG7+
+	 XJzp6pV1xt8SA==
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-39da69c5ba3so14619371fa.1
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 01:49:32 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzNe+/NCeFiXqPz8JQaqgFUuhLIBz5BT6ivUvH0kRL4vY3LTlS2zh83A4DFneGowa2F9hYxeTTR+L3c@vger.kernel.org
+X-Gm-Message-State: AFuF++kVZsDjMYjkS9IEctaclUXxh1FaaAxmqTtkQNivcoP6YvSCpLeE
+	xxNaq6GOZ0xaNP89NTtzLxpk65no0SEAvqm3pPd2PhRI9waUjoUiHw7PVMxGdH+G8rUWr5AKoEB
+	Cwg3WMoNHN34yfehfLVVQJx/2iQm/TWYKKn3sLrzFow==
+X-Received: by 2002:a05:651c:146f:b0:3a2:feaf:6f9b with SMTP id
+ 38308e7fff4ca-3a34fcca0a7mr22424361fa.7.1788425371236; Thu, 03 Sep 2026
+ 01:49:31 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 3 Sep 2026 01:49:29 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 3 Sep 2026 01:49:29 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260903-pci-tc9563-aux-v2-4-34c625b542c1@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260903-pci-tc9563-aux-v2-0-34c625b542c1@oss.qualcomm.com> <20260903-pci-tc9563-aux-v2-4-34c625b542c1@oss.qualcomm.com>
+Date: Thu, 3 Sep 2026 01:49:29 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MfmkZSvKDCNrDTiXaaihfG0fUbjH3c7Um2hvrG2o4FbkA@mail.gmail.com>
+X-Gm-Features: AcwNN1W7TZ3lTOrRxg51FDkbXOy--JN56l9BA0M_nLUauZ-LpMpb3HTvYJexQ_E
+Message-ID: <CAMRc=MfmkZSvKDCNrDTiXaaihfG0fUbjH3c7Um2hvrG2o4FbkA@mail.gmail.com>
+Subject: Re: [PATCH v2 4/5] PCI/pwrctrl: tc9563: switch per-port reset to GPIO
+ descriptor API
+To: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+Cc: Alex Elder <elder@riscstar.com>, Daniel Thompson <daniel@riscstar.com>, linux-pci@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Michael Walle <mwalle@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The interrupt handler incorrectly returns IRQ_HANDLED for unhandle=
-d device interrupts, potentially causing an IRQ storm.
---
+On Thu, 3 Sep 2026 09:53:00 +0200, Lorenzo Bianconi
+<lorenzo.bianconi@oss.qualcomm.com> said:
+> Remove the local TC9563_GPIO_MASK and TC9563_GPIO_DEASSERT_BITS
+> definitions, which are no longer used after switching to the GPIO
+> descriptor API.
+>
+> Replace the direct regmap-based per-port reset logic in
+> assert_deassert_reset() with gpiod_direction_output() calls, falling
+> back to the legacy regmap approach only when no reset-gpios DT
+> property is present for a given port.
+>
+> Add the reset GPIO pointer to struct tc9563_pwrctrl_cfg and introduce
+> tc9563_pwrctrl_parse_reset_line() to look up reset-gpios from each
+> PCI downstream port child node. The lookup is done lazily at the
+> beginning of power_on(), returning -EPROBE_DEFER until the GPIO chip
+> is registered.
+>
+> Signed-off-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
 
-commit ac0edffb2c72d464c05c340c5df147fdcf10b0f4
-Author: Petar Stepanovic <pstepanovic@axiado.com>
-
-hwmon: add Axiado AX3000 and AX3005 PWM fan controller driver
-
-This commit adds support for the PWM fan controller found on the Axiado AX3=
-000
-and AX3005 SoCs. It measures fan speed via a hardware tachometer interrupt =
-and
-controls the fan via an external PWM signal.
-
-> diff --git a/drivers/hwmon/axiado-pwm-fan.c b/drivers/hwmon/axiado-pwm-fa=
-n.c
-> new file mode 100644
-> index 0000000000000..ac153afded47a
-> --- /dev/null
-> +++ b/drivers/hwmon/axiado-pwm-fan.c
-[ ... ]
-> +static irqreturn_t axiado_tach_irq_handler(int irq, void *dev)
-> +{
-> +	struct axiado_pwm_fan_ctx *ctx =3D dev;
-> +	u32 status;
-> +
-> +	status =3D ioread32(ctx->tach_base + AX_TACH_INT_STATUS_REG);
-> +
-> +	if (!status)
-> +		return IRQ_NONE;
-
-[Severity: High]
-Will this handler cause an IRQ storm if the hardware asserts an interrupt=20
-where the status is non-zero but AX_TACH_INT_PENDING is not set?
-
-Since the condition only checks if status is zero, an unexpected bit could=
-=20
-bypass the IRQ_NONE return path. The handler would then proceed to clear on=
-ly=20
-the AX_TACH_INT_PENDING bit and return IRQ_HANDLED, leaving the actual=20
-hardware interrupt active and bypassing the kernel's spurious IRQ protectio=
-n.
-
-Should this explicitly check if the AX_TACH_INT_PENDING bit is set before=20
-processing the interrupt?
-
-> +
-> +	scoped_guard(spinlock_irqsave, &ctx->tach_lock) {
-> +		ctx->tach.count =3D ioread32(ctx->tach_base + AX_TACH_COUNT_REG);
-> +	}
-> +
-> +	iowrite32(AX_TACH_INT_PENDING, ctx->tach_base + AX_TACH_INT_STATUS_REG);
-> +
-> +	return IRQ_HANDLED;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903-axiado-ax3=
-000-pwm-fan-v2-0-ef43df46163e@axiado.com?part=3D2
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
