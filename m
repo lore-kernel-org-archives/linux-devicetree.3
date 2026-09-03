@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EBFA42EEC9
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 08:47:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC4D9389107
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 08:47:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788425281; cv=none; b=cbJCR1gwDjvRwXKl9n6co8WLD60lmbHFS4IcdZfTvJl8lJOb/ElDf8XN9/SEnDKRZ2GXphC9Y1Ggkmx+7NiRv+bT/7IY3d/YdxWqdBg9u0VeyY9Usp65Ajb4cAnfL96P/zlN3yX2rRJPRudWRnK+AXYQcU0PqPAisbSkWb6V4+I=
+	t=1788425281; cv=none; b=qeTGLnpP84qpBmQCdBu+DHqnJyfwfONymeW3QHNIGc9rMp4X9JulGQ/1FGiVXZqBuxmEJttQnh+alSENd5vtbEluCBJ6sn2V15hGMoxeV7ONIrVQFqkjK2aTujKRM9W4nZLWod9YV7XffLq3W2FUps2/fGg5LJhcToz2Bz7f3WM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788425281; c=relaxed/simple;
-	bh=O1Tr7fT65VJR9JYcxYt8gPNXZPyyfmy2U0dsurAE/LM=;
+	bh=UiAkNbstzmfBMw5To+3MYznTvZEt55pnYRHCLeLfzHo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Q288Z/NDG21bcjkyYYrySRvC+sUAIzO3TekiNwFdhi2W3bzwutUIJI7IMTUgS2YiFpOR8Vdzgm7LPh+KlWo2n6qNzEu/D3oQ6gtPZdgPrNlnGU3d2tRe2pVPP460/xP2+2zNt/JLDIPE+fHHukH7wcs3zF9OW7XHDsoMOfukaS0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iUBMvJzT; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=u1i+kifdyjy8eDf3LgtnNsT1JC+IQl0eXSBeF3t+kfAwQLnCv1knHEo4gz0d0ILkXYWzMiXr35WepVQ0Y3HyI2bOZEfXlfh7Z+nfzFE2QOwRAOEIwRu1igmbj0kbgcXbeON72NrC9n+F6VDHWx09x0ld+tcYMr0ncZAOz7NkgnY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MQVDV8j4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iUBMvJzT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A0B11F00A3A;
-	Thu,  3 Sep 2026 08:47:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MQVDV8j4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C721F1F00A3D;
+	Thu,  3 Sep 2026 08:47:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788425278;
-	bh=jV23whpzG3vnRYpGn+yZIKopdRsg7pZSWzdevWKVVFk=;
+	s=k20260515; t=1788425277;
+	bh=36Am/Wy+EqbS9EN0at23Or+gaNITDeBu5EEpd7KHGwo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iUBMvJzTgGFZP6gmpyx7hsh6Bmuduy6X81P//5AitU0dIPee7UUmgsqRVpXD+VipL
-	 O59j+f2iSddXhrAyUxd+AQgzH+siaLfjp2sCLX/1LxbaVtGLuEQ+cRnPivHmhS5xYm
-	 Sg8glQadezyt0zCtu6Y0O6++Dhu7XYn0SrYr6h019UppfcAhJK+6S6SUQfnH815QbO
-	 vHZarnxdpI9Gs7vFqYToHYs3tDHpc8fPZb6U8bn/Og4vu93KlJcWy7m6jivo919hhY
-	 MQhTfE5pGDcBKkcMKeIm82rozTBjtWE2plFeMPtDmrDmz0jAbIFWgCFWLWsNLexcjI
-	 75WetREtg20VQ==
+	b=MQVDV8j4nkrFGezRg2sySYQVyUjhDGZiVQCxk4vKMCL0k9VDB09DH7p8RYPsRdLNq
+	 qLDH9oVU0AEeHnt1ChMNhTBiP9+7EbFEGREYxO2pCvKlcT0ZQPjSpj5KRl3ICMfejc
+	 tQiog/9X3tIuAcxqwdHFKD5bXLLyf/VHSLbEUJfPjX/gN2dWOjI6y/AH6fiPVm+s7X
+	 y/L373QHIZLklRwfjX/amjCwjGjkfK2G3yY8lZaN1OPT8OsxjvCgnoIitP5h7GTmT5
+	 RH4miXrUvpvNBHR+DVzlLAvV3hyexaTe9Nvv2zbSODiaJA5nRXqk6AiKomNbXtximf
+	 RR/vLUHdJTjCw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v3 06/10] net: ethernet: ravb: Replace gPTP
- flags with callbacks
+Subject: Re: [PATCH net-next v3 07/10] net: ethernet: ravb: Add callback for
+ gPTP probe
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?TmlrbGFzIFPDtmRlcmx1bmQ=?= <niklas.soderlund+renesas@ragnatech.se>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org
-In-Reply-To: <20260902084703.3228504-7-niklas.soderlund+renesas@ragnatech.se>
+Cc: wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260902084703.3228504-8-niklas.soderlund+renesas@ragnatech.se>
 References: <20260902084703.3228504-1-niklas.soderlund+renesas@ragnatech.se>
- <20260902084703.3228504-7-niklas.soderlund+renesas@ragnatech.se>
+ <20260902084703.3228504-8-niklas.soderlund+renesas@ragnatech.se>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 03 Sep 2026 08:47:58 +0000
-Message-Id: <20260903084758.6A0B11F00A3A@smtp.kernel.org>
+Date: Thu, 03 Sep 2026 08:47:56 +0000
+Message-Id: <20260903084756.C721F1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,95 +48,96 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
-New issues:
-- [Medium] ravb_dmac_init leaves the hardware in CCC_OPC_OPERATION mode if =
-dmac_start fails.
-
 Pre-existing issues:
-- [High] Calling ethtool -T when the interface is down will trigger a NULL =
-pointer dereference or a Use-After-Free in ravb_get_ts_info().
+- [Critical] Dangling pointer in `priv->ptp.clock` leads to double free and=
+ use-after-free on error recovery paths.
+- [High] Early shared IRQ registration in `ravb_probe` leads to Use-After-F=
+ree and NULL pointer dereferences.
 --
 
-commit eb974310ac24dea7fe34514d8fd0eeeea0662742
+commit 252e91f926cfc67c49e9dd06194245579401d492
 Author: Niklas S=C3=B6derlund <niklas.soderlund+renesas@ragnatech.se>
 
-net: ethernet: ravb: Replace gPTP flags with callbacks
+net: ethernet: ravb: Add callback for gPTP probe
 
-Prepare for adding Gen4 support which will add a third and new way to
-interact with the gPTP clock by replacing the flags for Gen2 behavior
-(info->gptp) and Gen3 behavior (info->ccc_gac) with callbacks.
+This commit introduces a gPTP probe callback to accommodate different
+generations of the RAVB IP and removes the gptp_ref_clk flag. It also
+moves GTI computation into the callbacks to prepare for Gen4 support
+where the clock is external.
 
 > diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ether=
 net/renesas/ravb_main.c
-> index 7c7b3ac81e5d6..5d5b9c0e2f450 100644
 > --- a/drivers/net/ethernet/renesas/ravb_main.c
 > +++ b/drivers/net/ethernet/renesas/ravb_main.c
-> @@ -712,8 +712,8 @@ static int ravb_dmac_init(struct net_device *ndev)
->  		return error;
-> =20
->  	/* Initialise PTP Clock driver */
-> -	if (info->gptp)
-> -		ravb_ptp_init(ndev);
-> +	if (info->ptp && info->ptp->dmac_start)
-> +		return info->ptp->dmac_start(ndev);
-
-[Severity: Medium]
-If dmac_start() (e.g. PTP initialization) fails during operations like sett=
-ing
-ring parameters or recovering from a TX timeout, ravb_dmac_init() returns t=
-he
-error immediately.
-
-Does this leave the hardware in CCC_OPC_OPERATION mode without rolling back
-the hardware state to CCC_OPC_CONFIG?
-
-Could this leave the device in an inconsistent state where the DMA is runni=
-ng
-but the EMAC is disabled and driver queues are detached, causing a local
-DoS until the interface is manually restarted?
-
-> =20
->  	return 0;
->  }
-
 [ ... ]
-
-> @@ -1774,7 +1774,7 @@ static int ravb_get_ts_info(struct net_device *ndev,
->  	struct ravb_private *priv =3D netdev_priv(ndev);
->  	const struct ravb_hw_info *hw_info =3D priv->info;
+> @@ -2976,12 +2995,10 @@ static int ravb_probe(struct platform_device *pde=
+v)
+>  		goto out_reset_assert;
+>  	}
 > =20
-> -	if (hw_info->gptp || hw_info->ccc_gac) {
-> +	if (hw_info->ptp) {
+> -	if (info->gptp_ref_clk) {
+> -		priv->gptp_clk =3D devm_clk_get(&pdev->dev, "gptp");
+> -		if (IS_ERR(priv->gptp_clk)) {
+> -			error =3D PTR_ERR(priv->gptp_clk);
+> +	if (info->ptp && info->ptp->probe) {
+> +		error =3D info->ptp->probe(ndev);
+> +		if (error)
+>  			goto out_reset_assert;
 
 [Severity: High]
-This is a pre-existing issue, but calling ethtool -T when the interface is
-down can trigger a NULL pointer dereference or a Use-After-Free here in
-ravb_get_ts_info().
+This is a pre-existing issue, but does adding this new failure point expand
+a hazard window with the shared interrupt handler?
 
-If a local unprivileged user queries timestamping info via SIOCETHTOOL while
-the interface is administratively down, ravb_get_ts_info() eventually passes
-priv->ptp.clock to ptp_clock_index(), which unconditionally dereferences it:
+In ravb_probe(), devm_request_irq() is called to register a shared IRQ
+before priv->addr is mapped. If a premature IRQ is delivered, could it force
+a panic by accessing an unmapped register?
 
-ravb_get_ts_info()
-    info->phc_index =3D ptp_clock_index(priv->ptp.clock);
+Additionally, if info->ptp->probe() fails here, the error path jumps to
+out_reset_assert and eventually out_free_netdev:
 
-If the device is probed but not yet opened, priv->ptp.clock is NULL,
-resulting in a NULL pointer dereference.
+out_free_netdev:
+    free_netdev(ndev);
+    return error;
 
-Furthermore, when the device is closed, ravb_ptp_stop() unregisters the
-clock but does not clear the pointer:
+Could this leave a live devm-managed IRQ handler targeting freed memory if
+the IRQ fires before the devm cleanup removes the handler?
 
-ravb_ptp_stop()
+
+[Severity: Critical]
+This is a pre-existing issue, but is there a risk of a double free in the
+error recovery paths related to the ptp clock?
+
+When ravb_tx_timeout_work() initiates a reset, it can fail to re-initialize
+the DMA. If it takes the error path without neutralizing the clock pointer:
+
+ravb_tx_timeout_work() {
+    ...
+    error =3D ravb_dmac_init(ndev);
+    if (error) {
+        ...
+        goto out_unlock;
+    }
+}
+
+The error path leaves the device up, and a secondary teardown in
+ravb_ptp_stop() (such as during ravb_close) will attempt to unregister the
+clock again:
+
+ravb_ptp_stop() {
+    ...
     if (priv->ptp.clock)
         ptp_clock_unregister(priv->ptp.clock);
+}
 
-Calling ethtool -T in this state triggers a Use-After-Free. Could this
-pointer be cleared on stop, and checked before use in ravb_get_ts_info()?
+Since the pointer is freed during the initial timeout recovery but not
+set to NULL, could this result in a use-after-free and double free when
+ravb_close() is subsequently executed?
 
->  		info->so_timestamping =3D
->  			SOF_TIMESTAMPING_TX_SOFTWARE |
->  			SOF_TIMESTAMPING_TX_HARDWARE |
+> -		}
+>  	}
+> =20
+>  	priv->refclk =3D devm_clk_get_optional(&pdev->dev, "refclk");
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902084703.3228=
-504-1-niklas.soderlund+renesas@ragnatech.se?part=3D6
+504-1-niklas.soderlund+renesas@ragnatech.se?part=3D7
