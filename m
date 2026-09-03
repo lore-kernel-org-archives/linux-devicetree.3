@@ -1,248 +1,186 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7170A4A0EEC
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 21:27:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA6083AA4EB;
+	Thu,  3 Sep 2026 21:30:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788470844; cv=none; b=fkLrVuz+RBqEASI8Q8T4gXevPKy6/n5XLuLWEU0CgzaCgZPxTACUnwztkkeamnDAOtB4WQxl8lV9Y+IJQWWYdvfW6e80bQw92CcuZV1zsmupHGKIAcwoOS3C0RlqfP3TfWefC0gRfqh0MHuK5E4b60hsLqY7R3/Z5WqlSzPjX+U=
+	t=1788471051; cv=none; b=fzG2RJcnvWf0gobRlqIpTqHzLNDDIrq8P8DSGbzeV48JNJ1LjeylY0lJnlFDnIT4+2Dj3kIzVlO8Gz1UATI1Saxojf0A3dGb6khwAlSzZYrHtiLUHr0T5fj3F3M2mRIXb/yjyVGXwDUjwBTST93cXDxF4A5GpmoUU8DGJ2Zhb6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788470844; c=relaxed/simple;
-	bh=kUkSXTZLhLA2QWHEHsiyArlR9F8Ruokyio5y/z/pclc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z+fn/0nsd4w6lGTHslCrfiPpQq1koEfhfUumx2JhldtCZAzgSKOR4hCZ0pUfbSR6IGmTYnlF/nx7Lc9NFgfANafL5EI2UgjfBr0RSXnj6vO64T39poQj48YdMSgvHkWFYuBUuwxes3qfG6ytfmBtQYHbRiuXo6unAuAVCkF6jq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r8k9aHZE; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788471051; c=relaxed/simple;
+	bh=ZZtxQNVj4tl0N/GQjslPoOPYR67df+21ghPTlgKU4oA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uav7pCp4H1zJMghQJpE4Zrk/aZ30+Sprf5IN92LtkeLIuY3AZ8ibDYzZcOtjg3UrXctNv/DpOJat6b8iCAgOk92JT/Dgwui4sF30L05d1mykes4YRaoeDXOskz6UgwPQZ/XrW+pmaYAjzWxrOBMo/KDVepBFsh65LWdv6i5lW9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=pfMuFqCR; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=MLcZq/Bd; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r8k9aHZE"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49b9320423cso4249875e9.0
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 14:27:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788470841; x=1789075641; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VgBBSDAaq2t4nQ7NDocNrv3fCojXwrkA3tUs1O0KWmQ=;
-        b=r8k9aHZEPxt/BJxjHQBTlPX3GiLt/Tb+i6ePgmeygA1Nqa1FSXt5SFirnmuvqOMCoW
-         sisXep6Et2+cbeu8Az/FKRGlxGRz1Os9aoomCf1v+Y3NQa2btUyb6hRSL8Lq+NWJDWln
-         ho4xU+I22GaAJntlwBM2swLPC0WVWxnoc6NoRtnhy7/3Vcrdo3vej2VeMbAh2/iMSnX6
-         v0lwqq2OXujgIWX/9vafgjOrrHISRSAAae37VI6vcKEAQhp/YOxu3tWa9EmU3n3T5zvu
-         9Ucha0/4gQSVXOjSbxT2JxVBRBkoMwlk/yfaJTaihB43Y+h6CDyPDNYEqrXBo73o0izp
-         PA1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788470841; x=1789075641;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=VgBBSDAaq2t4nQ7NDocNrv3fCojXwrkA3tUs1O0KWmQ=;
-        b=Sp0rIa0yIiowyIy79kKXucGjakKh3RvIFv9ubVcomxOhNa4U6WSlyKtC0jhSgq0PwP
-         fHcAhsxlbt5DFtbVtW3qakHHq1cdHAKT22bdMpoT6APMfHHGpa0YUMWOYKBuFCwhrw0g
-         peVQk/h1Nkm0clG/Gv5qaJIq9Quo1ISQAGXpkpV5ujH9DHLIX5IBSkE6GckDoQlB8cb6
-         O/qAMPnbGp59UVpMYGVTeNU5+r90XkorX9/mh59oOBWBjccB5cUOS8tQgBUpIkgfoKgH
-         r92xNvsofdNeW24gGDeU1fDrRl15CJag2XW4Pu4Np9e/6lAtJtGv5imBmPh6S4rzjzBc
-         Jhyg==
-X-Forwarded-Encrypted: i=1; AKwUvBxZkEFZpPJf1qGqbPjdeGbzpLYt7/9CXNLFWbKlgMzc+NUt5QPidvp/zbE+Q33aEE84ybTyELav0Tq4@vger.kernel.org
-X-Gm-Message-State: AFuF++lu3abFUTFcVFIS91o9u5FlP2UihDOLIz83CGXHS7MaF/HWVDtB
-	GrgU60gagQZFdNrCZZw7VTTuNYZWlPVwS9a0ZwGUE0MPMqr7CosZNmVi
-X-Gm-Gg: AYBFou3f8v1ZYihvENKlH/zQAG7L5aA3pyyAybATpjtMQCXNwnLula2ocRHGnExjsvk
-	MTH5T94UmqxuAv3wWZGN/7z0akg9QRv1m5Pn1BJflSjpYyCePFxUumIAPp0Ul1Ok6JhJRplTI1d
-	NV+kaWgM/uajyAzjKrw1kC/esw9w77UsTUU1lyi39jYGvtkM9B/jV6NZrd6vpBNMWoxAZIMId10
-	yl1dlm1FP4+a3+78ajSq6Dl4v9hv8Jt/KiLanzsH7rCexYi3b8BxhaFo3GXmEldtVhikr6w6l6h
-	RHcv6u7q2L25wQ2yPZX3tNQXIot+3DHDuiWNcKcs2Lb9Vcp3dplNTWa3bgImEIOuqdAZanPVQau
-	Mhfo5olff7n+FKXnOJD0D0qmzbX3ykB0xRSjvWZl2o9if35TvQX7CBclc/bCl1T2qnf/ieCaUCf
-	XYVb2FNIFwh5svHyd5NDUpQo3ww4RLS+hfZT26K6bM+oR4LjOWo32Tm+N6AqNY
-X-Received: by 2002:a05:600c:4f4b:b0:499:83f1:398 with SMTP id 5b1f17b1804b1-49cf823f53emr13629615e9.9.1788470840333;
-        Thu, 03 Sep 2026 14:27:20 -0700 (PDT)
-Received: from antoniarch ([78.212.5.159])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee60d9c6sm103139705e9.11.2026.09.03.14.27.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 14:27:19 -0700 (PDT)
-Date: Thu, 3 Sep 2026 23:25:37 +0200
-From: Antoni Pokusinski <apokusinski01@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-rtc@vger.kernel.org, robh@kernel.org, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, conor+dt@kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v5 7/9] rtc: abx80x: replace read-modify-write pattern
- with regmap helpers
-Message-ID: <apnk5g2XZqVqeLRZ@antoniarch>
-References: <20260811194034.28937-1-apokusinski01@gmail.com>
- <20260811194034.28937-8-apokusinski01@gmail.com>
- <20260811195654.8590A1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="pfMuFqCR";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="MLcZq/Bd"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hbXnw1V1xzMlGj;
+	Thu, 03 Sep 2026 23:30:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788471044;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=LFAs0ptpwlphm32MxyaDcUmBXKWrJhAcDg58F+8Ug0Y=;
+	b=pfMuFqCRBRxwUPZCLh9Tm710lpeBQ47eSuT9bBFTWxtGZfE+sjmCNOINaCPGdjttG8qpxa
+	eEWMwp2DEwo2+GJ0+eAl5Sp5ico07Cz7b+SRec4RrksMhQPv6R+n95HAg+ut+3pFUao+77
+	SmgSCMdOPFCn1LzaC8AZMqbzAfrRhV4tkXes9jj3COFBz9E9hHT/ZupmVablD0n1xavFYC
+	eNQGkOZCthtD4aNroaB+1n4J0xnY/WZBRTW8K5NlErINwYayHhM/Zmtw37kdmL561xuGU8
+	Cas77TVEekjoljXXXSxCtlMrl2SxXlqKu2nRjAdrC6/LYTHE27LnmHTMTd/pKg==
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788471042;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=LFAs0ptpwlphm32MxyaDcUmBXKWrJhAcDg58F+8Ug0Y=;
+	b=MLcZq/BdOpGkzfiw+s/wB7/y78fW7rwI2z3zXGUiEHXM8x2spWdjJQLCIzIltCj4+nOz1u
+	G9ISgxi81SIXSrq/HqQ2MibfFoOf49Ajv9diJcKRKVWF3+KFABNyKM3h4H7FLAOnSmMGI+
+	DO9oPfxIlir29coN+16hJpmSHnff+C8egYDyjb4F0KxMLaItco0PldMbQ6DVd9rCRcE0y8
+	S2JXaKyZH8zhup1q80DlqYuuQqD4nlu0ykK1M/w4SpnKKdv3QCT0/8emZ1byuEkneBhCXG
+	fhutULyYLNb2sr3OirxpADl9jdpwJhH55dC1ffZ+2h57AFOpnZOYIDeLvGeycQ==
+To: linux-usb@vger.kernel.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH v7 1/2] dt-bindings: usb: dwc3: Document Renesas R-Car Gen5 DWC3 xHCI USB controller
+Date: Thu,  3 Sep 2026 23:30:12 +0200
+Message-ID: <20260903213031.314473-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260811195654.8590A1F000E9@smtp.kernel.org>
+X-MBO-RS-META: drxtybm4ou571wqymr3ps6own1xoxix6
+X-MBO-RS-ID: dd3476d4b890582c824
 
-On Tue, Aug 11, 2026 at 07:56:53PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> 
-> New issues:
-> - [High] The patch replaces read-modify-write sequences with `regmap_write_bits()` after writing the hardware configuration key, breaking the write-protection unlock sequence.
-> 
-> Pre-existing issues:
-> - [High] The probe function attempts to clear interrupt enable bits (`ABX8XX_OSC_ACIE` and `ABX8XX_OSC_OFIE`) in the protected Oscillator Control Register (`ABX8XX_REG_OSC`) without first writing the required configuration key (`ABX8XX_CFG_KEY_OSC`).
-> --
-> 
-> --- Patch [7]: [PATCH v5 7/9] rtc: abx80x: replace read-modify-write pattern with regmap helpers ---
-> commit 6808e36654fbc0a72e9b540a05e0f2557530aa65
-> Author: Antoni Pokusinski <apokusinski01@gmail.com>
-> 
-> rtc: abx80x: replace read-modify-write pattern with regmap helpers
-> 
-> This commit replaces read-modify-write sequences with regmap_update_bits()
-> and regmap_write_bits() to simplify register updates.
-> 
-> > diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
-> > index 5d41882f3c704..ab88af43b4fa0 100644
-> > --- a/drivers/rtc/rtc-abx80x.c
-> > +++ b/drivers/rtc/rtc-abx80x.c
-> 
-> [ ... ]
-> 
-> > @@ -403,13 +389,15 @@ static int abx80x_rtc_set_autocalibration(struct device *dev,
-> >  		flags |= (ABX8XX_OSC_ACAL_1024 | ABX8XX_OSC_ACAL_512);
-> >  	}
-> >  
-> > +	guard(mutex)(&priv->lock);
-> > +
-> >  	/* Unlock write access to Oscillator Control Register */
-> >  	if (abx80x_write_config_key(dev, ABX8XX_CFG_KEY_OSC) < 0)
-> >  		return -EIO;
-> >  
-> > -	retval = regmap_write(priv->regmap, ABX8XX_REG_OSC, flags);
-> > -
-> > -	return retval;
-> > +	return regmap_write_bits(priv->regmap, ABX8XX_REG_OSC,
-> > +				 ABX8XX_OSC_ACAL_1024 | ABX8XX_OSC_ACAL_512,
-> > +				 flags);
-> >  }
-> 
-> [Severity: High]
-> Does this change break the configuration key unlock sequence?
-> 
-> The configuration key unlock only allows a single I2C write operation. Because
-> regmap_write_bits() internally performs a read-modify-write sequence, it
-> initiates an I2C read transaction before the actual write. Will this inserted
-> read consume the unlock key and cause the subsequent data write to be silently
-> rejected by the hardware?
-> 
-> The original code explicitly read the register before unlocking it to avoid
-> this sequence.
-> 
-> [ ... ]
-> 
-No it won't because reads do not cause configuration key reset.
-> > @@ -486,24 +473,14 @@ static ssize_t oscillator_store(struct device *dev,
-> >  
-> >  	guard(mutex)(&priv->lock);
-> >  
-> > -	retval = regmap_read(priv->regmap, ABX8XX_REG_OSC, &flags);
-> > -	if (retval < 0)
-> > -		return retval;
-> > -
-> > -	if (rc_mode == 0)
-> > -		flags &= ~(ABX8XX_OSC_OSEL);
-> > -	else
-> > -		flags |= (ABX8XX_OSC_OSEL);
-> > -
-> >  	/* Unlock write access on Oscillator Control register */
-> >  	if (abx80x_write_config_key(dev->parent, ABX8XX_CFG_KEY_OSC) < 0)
-> >  		return -EIO;
-> >  
-> > -	retval = regmap_write(priv->regmap, ABX8XX_REG_OSC, flags);
-> > -	if (retval < 0) {
-> > +	retval = regmap_write_bits(priv->regmap, ABX8XX_REG_OSC, ABX8XX_OSC_OSEL,
-> > +				   rc_mode == 0 ? 0 : (ABX8XX_OSC_OSEL));
-> > +	if (retval < 0)
-> >  		dev_err(dev, "Failed to write Oscillator Control register\n");
-> > -		return retval;
-> > -	}
-> >  
-> >  	return retval ? retval : count;
-> >  }
-> 
-> [Severity: High]
-> Will this regmap_write_bits() call also fail for the same reason? 
-> 
-> Since it follows abx80x_write_config_key(), the implicit read operation will
-> likely consume the unlock key before the write occurs.
-> 
-> [ ... ]
-> 
-No, same reason as above
-> > @@ -946,8 +890,14 @@ static int abx80x_probe(struct i2c_client *client)
-> >  		if (abx80x_write_config_key(&client->dev, ABX8XX_CFG_KEY_MISC) < 0)
-> >  			return -EIO;
-> >  
-> > -		err = regmap_write(regmap, ABX8XX_REG_OUT_CTRL,
-> > -				   data | ABX8XX_OUT_CTRL_EXDS);
-> > +		/*
-> > +		 * Avoid extra power leakage. The RV1805 uses smaller
-> > +		 * 10pin package and the EXTI input is not present.
-> > +		 * Disable it to avoid leakage.
-> > +		 */
-> > +		err = regmap_write_bits(regmap, ABX8XX_REG_OUT_CTRL,
-> > +					ABX8XX_OUT_CTRL_EXDS,
-> > +					ABX8XX_OUT_CTRL_EXDS);
-> >  		if (err < 0) {
-> >  			dev_err(&client->dev,
-> >  				"Unable to write output control register\n");
-> 
-> [Severity: High]
-> Similar to the above, does the implicit read inside regmap_write_bits()
-> consume the configuration key unlock for the MISC register before the actual
-> write happens?
-> 
-> [ ... ]
-> 
-No, same reason as above
-> > -	err = regmap_read(regmap, ABX8XX_REG_OSC, &data);
-> > +	err = regmap_update_bits(regmap, ABX8XX_REG_IRQ,
-> > +				 ABX8XX_IRQ_EX1E | ABX8XX_IRQ_EX2E |
-> > +				 ABX8XX_IRQ_TIE | ABX8XX_IRQ_BLIE, 0);
-> >  	if (err < 0) {
-> > -		dev_err(&client->dev, "Unable to read Oscillator Control register\n");
-> > +		dev_err(&client->dev, "Unable to update irq register\n");
-> >  		return -EIO;
-> >  	}
-> >  
-> > -	err = regmap_write(regmap, ABX8XX_REG_OSC,
-> > -			   data & ~(ABX8XX_OSC_ACIE |
-> > -				    ABX8XX_OSC_OFIE));
-> > +	err = regmap_update_bits(regmap, ABX8XX_REG_OSC,
-> > +				 ABX8XX_OSC_ACIE | ABX8XX_OSC_OFIE, 0);
-> >  	if (err < 0) {
-> > -		dev_err(&client->dev, "Unable to write Oscillator Control register\n");
-> > +		dev_err(&client->dev, "Unable to update Oscillator Control register\n");
-> >  		return -EIO;
-> >  	}
-> 
-> [Severity: High]
-> This is a pre-existing issue, but does this register update require unlocking
-> first?
-> 
-> It appears the probe function attempts to clear the interrupt enable bits in the
-> Oscillator Control Register without first writing the required configuration key
-> (ABX8XX_CFG_KEY_OSC).
-> 
-> If the configuration key is not written first, will the hardware silently ignore
-> this write, leaving interrupts enabled if they were previously set by the
-> bootloader?
->
-Yes, will be fixed in v6
-> If an unhandled interrupt (like Autocalibration or Oscillator Failure) fires,
-> could it cause an interrupt storm? The IRQ handler abx80x_handle_irq() only
-> checks for AF and WDT flags. Since the IRQ is requested with IRQF_SHARED, an
-> unhandled interrupt might result in the kernel disabling the shared IRQ line
-> and breaking unrelated devices.
-> 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260811194034.28937-1-apokusinski01@gmail.com?part=7
+The Renesas R-Car Gen5 SoC contains multiple instances of DWC3 USB
+controller with glue logic wrapper around them. Document the glue
+logic and DWC3 controller.
+
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+Cc: linux-usb@vger.kernel.org
+---
+V2: Rework to use flat bindings for generic plat driver
+V3: - Support one or two PHYs to correctly describe the hardware
+    - Make maximum-speed optional
+V4: - Use ref: snps,dwc3-common.yaml and drop generic dr_mode/maximum-speed/phys/phy-names
+    - Switch to unevaluatedProperties: false
+V5: - Limit maximum PHY count to 2
+V6: No change
+V7: No change
+---
+ .../bindings/usb/renesas,rcar-gen5-dwc3.yaml  | 76 +++++++++++++++++++
+ 1 file changed, 76 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/usb/renesas,rcar-gen5-dwc3.yaml
+
+diff --git a/Documentation/devicetree/bindings/usb/renesas,rcar-gen5-dwc3.yaml b/Documentation/devicetree/bindings/usb/renesas,rcar-gen5-dwc3.yaml
+new file mode 100644
+index 0000000000000..c8a770d7e0241
+--- /dev/null
++++ b/Documentation/devicetree/bindings/usb/renesas,rcar-gen5-dwc3.yaml
+@@ -0,0 +1,76 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/usb/renesas,rcar-gen5-dwc3.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Renesas R-Car Gen5 DWC3 xHCI USB controller
++
++maintainers:
++  - Marek Vasut <marek.vasut+renesas@mailbox.org>
++
++allOf:
++  - $ref: snps,dwc3-common.yaml#
++
++properties:
++  compatible:
++    items:
++      - const: renesas,r8a78000-dwc3
++      - const: renesas,rcar-gen5-dwc3
++
++  reg:
++    maxItems: 2
++
++  reg-names:
++    items:
++      - const: dwc3
++      - const: glue
++
++  clocks:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  phys:
++    minItems: 1
++    maxItems: 2
++
++  phy-names:
++    minItems: 1
++    maxItems: 2
++
++  power-domains:
++    maxItems: 1
++
++  resets:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - clocks
++  - interrupts
++  - phys
++  - phy-names
++  - power-domains
++  - resets
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    usb@c8800000 {
++        compatible = "renesas,r8a78000-dwc3", "renesas,rcar-gen5-dwc3";
++        reg = <0xc8800000 0x100000>, <0xc9c54000 0x2000>;
++        reg-names = "dwc3", "glue";
++        clocks = <&scmi_clk 336>;
++        interrupts = <GIC_SPI 795 IRQ_TYPE_LEVEL_HIGH>;
++        phys = <&usb30_phy>, <&mp_phy 2>;
++        phy-names = "usb2-phy", "usb3-phy";
++        power-domains = <&scmi_devpd 16>;
++        resets = <&scmi_reset 336>;
++    };
+-- 
+2.53.0
+
