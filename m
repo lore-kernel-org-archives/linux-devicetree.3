@@ -1,171 +1,215 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A63174582E8;
-	Thu,  3 Sep 2026 08:54:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0620F470457;
+	Thu,  3 Sep 2026 08:55:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788425687; cv=none; b=Uk9yzdrl0dW8Mqu/n7+qYjE9vQ3DHDvgHhsb4owMxyo/l8xaqJmu5tytJQDAak5kTSDzw1KZpAE4gaJv0wQQUKDtVGoJ2XguNMaTN5r3jZNSSuYdbRGoGEvzTW+BQ2QXiVKyFQ6VfHwJNMc5u3W5qDXefR+Ls9JCfCdTJd/06m8=
+	t=1788425708; cv=none; b=V8KLWQcB/+uaB0lMxxT3DJze2TurPPWQr4iQ8I/O1lsdi7HZU7SBSPHJQ6VpinUJHe23E8TV6hszoPhJialy1wtF0q+CK9n7ROJa1Eske9FrTCh8JfZAJy1X0W9N8P9kXjlP+sBdBAd+i6sE/tYAqnKxEmlmEywo12qlzOBu3so=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788425687; c=relaxed/simple;
-	bh=OVRy/6e49xlc6eddTN/FmuENFYbQY/8opQlBkHAtzVw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nIJrP5cELZrEzyEP6kViz8zYrWqe33vwkTdo0fP2bDt2DOlBQMFa8cFD27UmIV8jikidz1kDlxBvWON+Y2JHwyIWx8oK5W3tyVN3RqiVw4Hc1rhddny1409olbCGST4cH/5dzHxsYeSqfQXtHW1Slwhnel13UL/Ux4NzibEfFpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KTprtdcM; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KTprtdcM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B69BD1F000E9;
-	Thu,  3 Sep 2026 08:54:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788425682;
-	bh=4Y6l5YlEpGwlqbTGDyz1WTlFxzg/AACMsnvqaxrx2zI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KTprtdcMXhRi26hZtSdXz/75tF+gMMrg2uRb1B5mvJ5CiNeoCtgFDm5C5/PODvL+n
-	 GXxlWeYlRoSyDO88p1v+isnav188lx5lsrGIwRSsqgbFzL9svsOSAqgSOOewcJFXeL
-	 cvGqNlddtSqqJVtEAcruojEdpVpxMR4w0ccm7CuLt5e3m3efLtPeUD3T+GF6wOSkI6
-	 2j3pN3znkYdVbKJ1iiFNTD/+K7FZhj2rVA6IKCm1Vv032Um5/M4gALCtV13k8FLSYP
-	 S0wmYm6RiZT43ToTPhNyszQf30wGXoyWAYxQHljePGAghZKhgB0HMByTbJxN09a/nK
-	 0yEk6Dp/urWcA==
-Date: Thu, 3 Sep 2026 09:54:36 +0100
-From: Lee Jones <lee@kernel.org>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
-	"Jagielski, Jedrzej" <jedrzej.jagielski@intel.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej =?utf-8?Q?=C5=A0krabec?= <jernej.skrabec@gmail.com>,
-	linux-sunxi@lists.linux.dev, mfd@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 2/2] mfd: ac200: Add X-Powers AC200 support
-Message-ID: <20260903085436.GG2133376@google.com>
-References: <20260811-submit-ac200-mfd-v7-0-8b06f552a4d7@gmail.com>
- <20260811-submit-ac200-mfd-v7-2-8b06f552a4d7@gmail.com>
- <20260902143122.GA2082450@google.com>
- <CADvTj4oytrbZw9oKzRu=+tL1WZMyscfDvBMm2uK5hhNv8ZxTBw@mail.gmail.com>
+	s=arc-20240116; t=1788425708; c=relaxed/simple;
+	bh=wLtS0JL6ggyhewZvRL5WF+lOsyPJjm9EeqxYWvK6TXs=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Mzer7XAoFjVRh6eay6rpJa2nrdPiufGTtIJSwCV6PiEZZMJKVuiw1iqJ6tLbtABRFN2diqSzMn9eDm/HHF16gXTWPVk9mGHdKkGbn43kG8nei/d3jAeUlfKwDkNevGqunWfMHXEWxiRp7OUgHx5K9RDQpcc0dLvIEgTNBdENHiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C7BAF2058C4;
+	Thu, 03 Sep 2026 10:55:01 +0200 (CEST)
+Message-ID: <f3e365f5440cbd005df45410a89032dcf685258e.camel@pengutronix.de>
+Subject: Re: [PATCH v3 06/12] reset: Extract
+ __reset_control_get_from_provider()
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Geert Uytterhoeven <geert+renesas@glider.be>, Rob Herring
+ <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Stephen Boyd	 <sboyd@kernel.org>, Brian Masney
+ <bmasney+clk@redhat.com>, Jerome Brunet	 <jbrunet+clk@baylibre.com>, Sudeep
+ Holla <sudeep.holla@kernel.org>, Cristian Marussi
+ <cristian.marussi@arm.com>, Saravana Kannan <saravanak@kernel.org>, Ulf
+ Hansson	 <ulfh@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>, Marek
+ Vasut	 <marek.vasut+renesas@mailbox.org>, Bartosz Golaszewski	
+ <bartosz.golaszewski@oss.qualcomm.com>, Konrad Dybcio	
+ <konrad.dybcio@oss.qualcomm.com>, Kevin Hilman <khilman@baylibre.com>,
+ Vinod Koul <vkoul@kernel.org>, Wolfram Sang
+ <wsa+renesas@sang-engineering.com>, Kuninori Morimoto	
+ <kuninori.morimoto.gx@renesas.com>, =?ISO-8859-1?Q?Cl=E9ment?= Le Goffic	
+ <clegoffic@baylibre.com>
+Cc: devicetree@vger.kernel.org, arm-scmi@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Thu, 03 Sep 2026 10:55:01 +0200
+In-Reply-To: <2824c50f77aa287a3555533e4b9760109aae1741.1788338320.git.geert+renesas@glider.be>
+References: <cover.1788338320.git.geert+renesas@glider.be>
+	 <2824c50f77aa287a3555533e4b9760109aae1741.1788338320.git.geert+renesas@glider.be>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CADvTj4oytrbZw9oKzRu=+tL1WZMyscfDvBMm2uK5hhNv8ZxTBw@mail.gmail.com>
 
-On Wed, 02 Sep 2026, James Hilliard wrote:
+On Mi, 2026-09-02 at 13:29 +0200, Geert Uytterhoeven wrote:
+> Extract the code to create a reset_control structure from a given
+> provider into its own function, so it can be reused later.
+>=20
+> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> ---
+> v3:
+>   - New.
+> ---
+>  drivers/reset/core.c | 92 ++++++++++++++++++++++++--------------------
+>  1 file changed, 50 insertions(+), 42 deletions(-)
+>=20
+> diff --git a/drivers/reset/core.c b/drivers/reset/core.c
+> index 38e189d04d09b270..8af7cd2e8a5029df 100644
+> --- a/drivers/reset/core.c
+> +++ b/drivers/reset/core.c
+> @@ -1135,6 +1135,54 @@ __reset_find_rcdev(const struct fwnode_reference_a=
+rgs *args, bool gpio_fallback)
+>  	return NULL;
+>  }
+> =20
+> +static struct reset_control *
+> +__reset_control_get_from_provider(const struct fwnode_reference_args *ar=
+gs,
+> +				  struct fwnode_handle *consumer, int index,
+> +				  bool gpio_fallback,
+> +				  enum reset_control_flags flags)
+> +{
+> +	struct reset_control *rstc =3D ERR_PTR(-EINVAL);
+> +	struct reset_controller_dev *rcdev;
+> +	int rstc_id =3D -EINVAL;
+> +
+> +	guard(mutex)(&reset_list_mutex);
+> +
+> +	rcdev =3D __reset_find_rcdev(args, gpio_fallback);
+> +	if (!rcdev)
+> +		return ERR_PTR(-EPROBE_DEFER);
+> +
+> +	if (WARN_ON(args->nargs !=3D rcdev->fwnode_reset_n_cells))
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	if (rcdev->of_xlate && is_of_node(consumer)) {
+> +		struct device_node *np =3D to_of_node(consumer);
+> +		struct of_phandle_args of_args;
+> +		int ret;
+> +
+> +		ret =3D of_parse_phandle_with_args(np,
+> +					 gpio_fallback ? "reset-gpios" : "resets",
+> +					 gpio_fallback ? "#gpio-cells" : "#reset-cells",
+> +					 gpio_fallback ? 0 : index,
+> +					 &of_args);
+> +		if (ret)
+> +			return ERR_PTR(ret);
+> +
+> +		rstc_id =3D rcdev->of_xlate(rcdev, &of_args);
+> +		of_node_put(of_args.np);
+> +	} else if (rcdev->fwnode_xlate) {
+> +		rstc_id =3D rcdev->fwnode_xlate(rcdev, args);
+> +	}
+> +	if (rstc_id < 0)
+> +		return ERR_PTR(rstc_id);
+> +
+> +	flags &=3D ~RESET_CONTROL_FLAGS_BIT_OPTIONAL;
 
-> On Wed, Sep 2, 2026 at 8:31 AM Lee Jones <lee@kernel.org> wrote:
-> >
-> > On Tue, 11 Aug 2026, James Hilliard wrote:
-> >
-> > > The X-Powers AC200 is a mixed-signal companion IC with a paged register
-> > > map accessed over I2C.
-> > >
-> > > Enable the shared input clock and prevent its rate from changing. Match
-> > > the vendor driver's 40 ms wait before the first register access,
-> > > initialize the paged regmap, report the chip and package revision, and
-> > > apply common reset.
-> > >
-> > > The Ethernet PHY link endpoint is independently enumerated on its MDIO
-> > > bus rather than created as an MFD platform child. Keep the regmap attached
-> > > to the AC200 I2C device so a separately enumerated function can resolve
-> > > that device, establish its required lifetime relationship and retrieve
-> > > the regmap from the provider.
-> > >
-> > > Cache only the common page selector. Individual functions can reset
-> > > independently and invalidate their other registers without regmap's
-> > > knowledge, so leave all functional registers volatile.
-> > >
-> > > Reset the chip during managed teardown and system shutdown.
-> > >
-> > > Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> > > ---
-> > >  drivers/mfd/Kconfig  |  11 ++++
-> > >  drivers/mfd/Makefile |   1 +
-> > >  drivers/mfd/ac200.c  | 163 +++++++++++++++++++++++++++++++++++++++++++++++++++
-> > >  3 files changed, 175 insertions(+)
-> > >
-> > > diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
-> > > index e4fd4572472f..cac3fff5aee9 100644
-> > > --- a/drivers/mfd/Kconfig
-> > > +++ b/drivers/mfd/Kconfig
-> > > @@ -205,6 +205,17 @@ config MFD_AC100
-> > >         This driver include only the core APIs. You have to select individual
-> > >         components like codecs or RTC under the corresponding menus.
-> > >
-> > > +config MFD_AC200
-> > > +     tristate "X-Powers AC200"
-> > > +     depends on I2C
-> > > +     depends on OF
-> > > +     select REGMAP_I2C
-> > > +     help
-> > > +       Support for the X-Powers AC200 mixed-signal companion IC. The AC200
-> > > +       contains audio, video, RTC and Fast Ethernet PHY functions and is
-> > > +       co-packaged with some Allwinner H6 and H616 SoCs. This driver provides
-> > > +       the shared register access used by the individual function drivers.
-> > > +
-> > >  config MFD_AXP20X
-> > >       tristate
-> > >       select MFD_CORE
-> > > diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
-> > > index 72d3944b0ad8..f8101d2a9ce9 100644
-> > > --- a/drivers/mfd/Makefile
-> > > +++ b/drivers/mfd/Makefile
-> > > @@ -150,6 +150,7 @@ obj-$(CONFIG_MFD_DA9052_SPI)      += da9052-spi.o
-> > >  obj-$(CONFIG_MFD_DA9052_I2C) += da9052-i2c.o
-> > >
-> > >  obj-$(CONFIG_MFD_AC100)              += ac100.o
-> > > +obj-$(CONFIG_MFD_AC200)              += ac200.o
-> > >  obj-$(CONFIG_MFD_AXP20X)     += axp20x.o
-> > >  obj-$(CONFIG_MFD_AXP20X_I2C) += axp20x-i2c.o
-> > >  obj-$(CONFIG_MFD_AXP20X_RSB) += axp20x-rsb.o
-> > > diff --git a/drivers/mfd/ac200.c b/drivers/mfd/ac200.c
-> > > new file mode 100644
-> > > index 000000000000..0964e637afef
-> > > --- /dev/null
-> > > +++ b/drivers/mfd/ac200.c
-> > > @@ -0,0 +1,163 @@
-> > > +// SPDX-License-Identifier: GPL-2.0-only
-> > > +/*
-> > > + * MFD core driver for the X-Powers AC200
-> > > + *
-> > > + * Copyright (C) 2019 Jernej Skrabec <jernej.skrabec@gmail.com>
-> > > + * Copyright (C) 2026 James Hilliard <james.hilliard1@gmail.com>
-> > > + *
-> > > + * Based on the AC100 driver:
-> > > + * Copyright (C) 2016 Chen-Yu Tsai
-> >
-> > Drop this.  Every driver tends to be based on something else.
-> 
-> Dropped in v8.
-> 
-> >
-> > > + */
-> > > +
-> > > +#include <linux/bitfield.h>
-> > > +#include <linux/clk.h>
-> > > +#include <linux/delay.h>
-> > > +#include <linux/i2c.h>
-> > > +#include <linux/module.h>
-> > > +#include <linux/regmap.h>
-> >
-> > Why aren't you using the MFD API?
-> >
-> > If you don't need it, then why is this in drivers/mfd?
-> 
-> The EPHY remains enumerated on its primary MDIO bus, so it is not an MFD
-> child. For non-EPHY use cases, the AC200 audio, video and RTC functions
-> are intended to be added as MFD children.
-> 
-> There are no such child drivers in this series, so I have not added
-> unused MFD cells. Those can be introduced with their corresponding
-> bindings and drivers.
+This should stay in __fwnode_reset_control_get().
 
-The rule is that you must provide at least 2 MFD children before this
-constitute as an MFD.  Please provide them in the same series.
+> +
+> +	scoped_guard(mutex, &rcdev->lock)
+> +		rstc =3D __reset_control_get_internal(rcdev, rstc_id, flags);
+> +
+> +	return rstc;
 
--- 
-Lee Jones
+Just return __reset_control_get_internal(...) directly, the rstc local
+variable is not needed.
+
+> +}
+> +
+>  struct reset_control *
+>  __fwnode_reset_control_get(struct fwnode_handle *fwnode, const char *id,=
+ int index,
+>  			   enum reset_control_flags flags)
+> @@ -1142,10 +1190,7 @@ __fwnode_reset_control_get(struct fwnode_handle *f=
+wnode, const char *id, int ind
+>  	bool optional =3D flags & RESET_CONTROL_FLAGS_BIT_OPTIONAL;
+>  	bool gpio_fallback =3D false;
+>  	struct reset_control *rstc =3D ERR_PTR(-EINVAL);
+> -	struct reset_controller_dev *rcdev;
+>  	struct fwnode_reference_args args;
+> -	struct of_phandle_args of_args;
+> -	int rstc_id =3D -EINVAL;
+>  	int ret;
+> =20
+>  	if (!fwnode)
+> @@ -1185,46 +1230,9 @@ __fwnode_reset_control_get(struct fwnode_handle *f=
+wnode, const char *id, int ind
+>  		}
+>  	}
+> =20
+> -	guard(mutex)(&reset_list_mutex);
+> -
+> -	rcdev =3D __reset_find_rcdev(&args, gpio_fallback);
+> -	if (!rcdev) {
+> -		rstc =3D ERR_PTR(-EPROBE_DEFER);
+> -		goto out_put;
+> -	}
+> -
+> -	if (WARN_ON(args.nargs !=3D rcdev->fwnode_reset_n_cells)) {
+> -		rstc =3D ERR_PTR(-EINVAL);
+> -		goto out_put;
+> -	}
+> -
+> -	if (rcdev->of_xlate && is_of_node(fwnode)) {
+> -		ret =3D of_parse_phandle_with_args(to_of_node(fwnode),
+> -					 gpio_fallback ? "reset-gpios" : "resets",
+> -					 gpio_fallback ? "#gpio-cells" : "#reset-cells",
+> -					 gpio_fallback ? 0 : index,
+
+Hmm, I think this gpio_fallback disambiguation is not needed. In the
+gpio_fallback case (lookup via "reset-gpios") we should always get a
+reset_gpio rcdev with fwnode_xlate, not of_xlate.
+Not an issue for this refactor, though.
+
+> -					 &of_args);
+> -		if (ret) {
+> -			rstc =3D ERR_PTR(ret);
+> -			goto out_put;
+> -		}
+> -
+> -		rstc_id =3D rcdev->of_xlate(rcdev, &of_args);
+> -		of_node_put(of_args.np);
+> -	} else if (rcdev->fwnode_xlate) {
+> -		rstc_id =3D rcdev->fwnode_xlate(rcdev, &args);
+> -	}
+> -	if (rstc_id < 0) {
+> -		rstc =3D ERR_PTR(rstc_id);
+> -		goto out_put;
+> -	}
+> -
+> -	flags &=3D ~RESET_CONTROL_FLAGS_BIT_OPTIONAL;
+
+Keep this here.
+
+> -
+> -	scoped_guard(mutex, &rcdev->lock)
+> -		rstc =3D __reset_control_get_internal(rcdev, rstc_id, flags);
+> +	rstc =3D __reset_control_get_from_provider(&args, fwnode, index,
+> +						 gpio_fallback, flags);
+> =20
+> -out_put:
+>  	fwnode_handle_put(args.fwnode);
+> =20
+>  	return rstc;
+
+With that,
+
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+
+regards
+Philipp
